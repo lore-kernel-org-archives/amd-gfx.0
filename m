@@ -4,65 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A4BDCF8857
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Oct 2024 19:53:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A974BCF885A
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Oct 2024 20:29:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B930710EAA9;
-	Fri,  4 Oct 2024 19:53:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3CCBA10E03F;
+	Fri,  4 Oct 2024 20:29:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="a4mKnW4g";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="F6Xgkt6y";
 	dkim-atps=neutral
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com
- [209.85.210.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A0F9210EAA9
- for <amd-gfx@lists.freedesktop.org>; Fri,  4 Oct 2024 19:53:03 +0000 (UTC)
-Received: by mail-pf1-f179.google.com with SMTP id
- d2e1a72fcca58-71def8af0d9so77077b3a.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 04 Oct 2024 12:53:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1728071583; x=1728676383; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=S7vPqvpx+eBi8bZ9NtJb2GQhjKtmbpl9m/jhT7/ZnNo=;
- b=a4mKnW4gqGa7llAZG1EVk9qZpJ+miDFaZ6m/0GpmS+VeVY76VG6mcHsZgwTAMDpipF
- lYCsjLtDpxZs1TBy5e0fKODUgyDf/8GD3NF2v5NXtMMDUwbXyiOaU8bHFoHP9TYlDsJZ
- Uh2J7BJsGJE2MKkAIFuwvXlRxLzzbanzJnEqzqD7mFpwerR/SMsWo6hz9m5p6brxzsmz
- 7YV6xU0v9HQSuThPYi4mM0q9P8PidsqJXkLogg/BqbqCSFv3WMiJe8JIaqJ9h0aKC9ct
- 4mu36zb3wnivaldNoM2KkZuijiJQKbdy7Bh/4JHfu4c+5fEa5j9uVuVXiBuGTs6suZQw
- 8CwQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1728071583; x=1728676383;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=S7vPqvpx+eBi8bZ9NtJb2GQhjKtmbpl9m/jhT7/ZnNo=;
- b=eKkRbwIwnz0rkrDWGduskCqD1Yw1cD4caS8+e6RhToaEzUyLPxBO1qZ52Ib6EsGWWL
- WU623gtkXmTxMzbbuF8w3TkrlFS5OqoWDrad4gUv5V/6raH24nv6XQljGTOgbL6AuXQ5
- zFj51PxcnLNsKT+oDigXHFguKIc4P4HqRtltFu+NduOBAdZ1ioUpbgOqn62cNb9jKCFi
- IijuwKkHjIU4xCUQ2coDTpABZmKAVCHcggcm8XFpiiejOmwK9A2hCYyxjYnYQ4c2rNlG
- s4bgp19ooBTp27xAT0TJyLba5fnEvRR62rltTt90FXNGw2qwMxSa5J6zVJ7fWm5onwR6
- DcVg==
-X-Gm-Message-State: AOJu0Yzu/e3cVTzUIaDcvhH3KDtIDluUsQj8++h7vaSHIYBJc7xdwygk
- xABcZyWHOKG5rA7jGxTHQ70uDHMgQwhEhRX36zPJeeEzF7Un9Y9T+RcaScWFUX7BU1J08kXn/2V
- Gf9Gj0rjIIFh2WNRBzvlumE9wB+0=
-X-Google-Smtp-Source: AGHT+IEMRRmHqzxQkvZRfYQGiwQu98xS9OvJMNUAKCMTqwpBUPqx3V4ZAsMG9hYABwSBhfyxlYWYI25hi5zNKqG3A5k=
-X-Received: by 2002:a05:6a20:840b:b0:1cf:2be2:6525 with SMTP id
- adf61e73a8af0-1d6dfae9309mr2793652637.11.1728071582836; Fri, 04 Oct 2024
- 12:53:02 -0700 (PDT)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2040.outbound.protection.outlook.com [40.107.94.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B761310E03F
+ for <amd-gfx@lists.freedesktop.org>; Fri,  4 Oct 2024 20:29:04 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gdXBlYWqD7QnxA54POzjRhaNR+yoQ6GB6ZP8Tkuj1QRU17Qej2yJ0rP2OAlJ9/1H0aLWNnjDns5jCTo0kL552zM8UfTjH2odpcpMqzBAs0nX/Mqh2x+lDwAs38j/1BgoH71j0cPVml1VgYyWmg4olbH3cSPFaRduXtsnFMEZsMSpEvLTRxMkMe27WI1XBLa4xXhzz2idsIcOno20kXbBmbdYP3lP82TtglUJ+GwV8mjCy0AGgIB57S1Q94R945iH/hnl28BhDAgu8nNIaMmoN+aFoi2k/TncOWyn3UDLTZw5AuuI93R/XN0JBnT1BKJ+QgDZUPYnsFnqgQWZja48Jg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Jk0XpQxcL+yBXVZpEau+uwh3O3s8bpgYQko2vyYTh3w=;
+ b=KdclJ99vpsCR8YsKt9Ti2MCoqOjQuQSOXPGyP763A8coK2JZPkizonBFvDecQN7sv/nGdNkTmEVPMJC5rQDE70ANyzz40U5bbmnsFYoZX9gDf9b8YOp9kWF/mz146lgbgmgj835p7hQlgYOlxoTSJXfaSZSP45dHztmC9UuKOFB6jg7/i10eDpl6bA2cCD/aDNcfh2JyBi5NSUPDVEYyVtblCEC+FUKDiOqlx7nSUKZrsHqQFXApcm19xWzEgO1NGZF0+7Rd6VrXnCignpQ37qvBjjkPcztoPW3J2jUM8AFzDI+lIY9kzpxhCDD1iU7Hxmmt8DHOWBap7UxxyuNlqA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Jk0XpQxcL+yBXVZpEau+uwh3O3s8bpgYQko2vyYTh3w=;
+ b=F6Xgkt6y6b+SRlXplnBcRxgdn6CX47+/GZ6g6tePHJu0BostzD8WgIuo4tdZjWAxhMQZijzCuh/yksiKAg4w3gRLlSr4DsvmKa48ZcNMkrIge41BWeUahRqvXZNnYFnUdc5101EXGe/cgYLB4KH0++N+aHU6UDmwct9IeTt+FnU=
+Received: from BYAPR08CA0062.namprd08.prod.outlook.com (2603:10b6:a03:117::39)
+ by IA1PR12MB6601.namprd12.prod.outlook.com (2603:10b6:208:3a3::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8026.15; Fri, 4 Oct
+ 2024 20:28:57 +0000
+Received: from SJ1PEPF000023D7.namprd21.prod.outlook.com
+ (2603:10b6:a03:117:cafe::42) by BYAPR08CA0062.outlook.office365.com
+ (2603:10b6:a03:117::39) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8026.19 via Frontend
+ Transport; Fri, 4 Oct 2024 20:28:56 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SJ1PEPF000023D7.mail.protection.outlook.com (10.167.244.72) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8069.0 via Frontend Transport; Fri, 4 Oct 2024 20:28:56 +0000
+Received: from Philip-Dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 4 Oct
+ 2024 15:28:55 -0500
+From: Philip Yang <Philip.Yang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Felix.Kuehling@amd.com>, Philip Yang <Philip.Yang@amd.com>
+Subject: [PATCH] drm/amdkfd: Accounting pdd vram_usage for svm
+Date: Fri, 4 Oct 2024 16:28:07 -0400
+Message-ID: <20241004202808.30740-1-Philip.Yang@amd.com>
+X-Mailer: git-send-email 2.43.2
 MIME-Version: 1.0
-References: <20241004184444.435356-1-boyuan.zhang@amd.com>
- <20241004184444.435356-12-boyuan.zhang@amd.com>
-In-Reply-To: <20241004184444.435356-12-boyuan.zhang@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 4 Oct 2024 15:52:51 -0400
-Message-ID: <CADnq5_M7_JEaymMEs4V-k5oi404VWtZEdC9gJAdwNHVYfOCSbw@mail.gmail.com>
-Subject: Re: [PATCH 11/18] drm/amdgpu: power vcn 2_5 by instance
-To: boyuan.zhang@amd.com
-Cc: amd-gfx@lists.freedesktop.org, leo.liu@amd.com, christian.koenig@amd.com, 
- alexander.deucher@amd.com, sunil.khatri@amd.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000023D7:EE_|IA1PR12MB6601:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6870b999-fa9f-4548-8598-08dce4b32bee
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|376014|36860700013|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?ZmGQL9CWd3ICuIx4fFvdYb+1yy+mnWw14e75W+LOPqfuoLMIfpJiFDGTBJuQ?=
+ =?us-ascii?Q?qAO4pncOnLa9xruFFxacCjNfbjJKxKT2cBVIyD3zTntqfs1BfKmiSKjnRjVg?=
+ =?us-ascii?Q?9AJRGzIfThraxOOFd/NO/A+JRmStBb4/x07qFFMX50gFx3RziymYFy0IFeec?=
+ =?us-ascii?Q?YinSVZMAob9MnQxQthfIq6iWRRjpzGqNd/NRXYLzpOjTWSm0P1AURK4jWDqq?=
+ =?us-ascii?Q?5DF6hOWixDWIrWXzf1pcevhgTFQ738jSf/fzk7nImeXG47BJnUrYUJc8z26M?=
+ =?us-ascii?Q?T4R5Hb7P2rjbwEdsVhGUZabISoAOWzQDxlhVJ+xE1qPBoMDsNz+oD55Ua39F?=
+ =?us-ascii?Q?0GArGvfYkYJsj4iCUsUvhUwAX/lZ7a2AF5vFVLkvU9TnwVvj4PWkQerZ/yF9?=
+ =?us-ascii?Q?5QSKln84/LkbyWyn8L2Ye27M5g89LHxfV8CFFknaLQg7KuHaenDL7iLZx7Oj?=
+ =?us-ascii?Q?YBm1n27mR2rwFsYFbiI/lOfjhzjfcCqnGMcKohYpPJnGYSdtSBlagZGHbD8O?=
+ =?us-ascii?Q?72nZJBezZyFPHQ5XpSGzaiQNeVc08JMj9JoJj+xn/FoZKAzHpbpbmLkPRcjk?=
+ =?us-ascii?Q?q1+XP0y3cZJkPuNKpcr7s/jUiV+h1AFmXim0+EDSsAY3fgtr0ZgLLR3EwOiv?=
+ =?us-ascii?Q?fedKlK7ud2Ur1xEFeiofmu2jMtA9pN4oh8GVcGJov5+7S6pNyiT1rEMKE40J?=
+ =?us-ascii?Q?BTtKAmmYA5cKmTdkXGSaYP9wR62eOB10SO83RmUrgyMu5lc56P4bvXT+4ZCK?=
+ =?us-ascii?Q?0ujV5ow7BXVzlSJsqR6wFChNkqTR5b/Ed5Ho22dyNirwW8k2mHc+wvqVmaFr?=
+ =?us-ascii?Q?9aJiwmIJRbZL76QkjqY6HYy7LfRRxOtAHrKWSFnF6gm8tJNClnwaJkN2ZML5?=
+ =?us-ascii?Q?gm/OcpaUdat9mc97kWNw2rE6SDb79Y68jIknruZyHZklDNzY7PAmOxPS2vIc?=
+ =?us-ascii?Q?Xv1iGRnTUzrcsnTGu8L0lIYyZjOQf/qprb5H6HswUcL6CeIqjdMaysRom3Uz?=
+ =?us-ascii?Q?QkVXHcE7tM+ke+D+0sdMLj71em5fItv4fLNLViT91bIfggP0Ys2N9Z48/351?=
+ =?us-ascii?Q?dVxJKr50pTNf5+vGqe+ELO9b8askCblyG98y5XeWbOOhKOW6LpSqMlBQfqSZ?=
+ =?us-ascii?Q?Vla0DoT2UfKlR10+PsWz9jx1PMMKxf41k9mpwp7x03at8JdWqNdpc0qzPcat?=
+ =?us-ascii?Q?h7zn4O3nqfTM75E6p/gDGqml4WseoxaaX9Cf+vD8N0hmNxRisHN3C5Wsyr44?=
+ =?us-ascii?Q?Mn9gU0NE/IwjuT5UKhGEpjKaBthGZVM8Fr1t2ym3z3RYT+dLItzPB6B3yfAM?=
+ =?us-ascii?Q?lICH9WNSKoq0Bm1Abg4deXlfQGRxH3OSiZsdpdGE9Ym6/Q=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(376014)(36860700013)(1800799024); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Oct 2024 20:28:56.5692 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6870b999-fa9f-4548-8598-08dce4b32bee
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000023D7.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6601
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,841 +127,141 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Oct 4, 2024 at 2:53=E2=80=AFPM <boyuan.zhang@amd.com> wrote:
->
-> From: Boyuan Zhang <boyuan.zhang@amd.com>
->
-> For vcn 2_5, add ip_block for each vcn instance during discovery stage.
->
-> And only powering on/off one of the vcn instance using the
-> instance value stored in ip_block, instead of powering on/off all
-> vcn instances. Modify the existing functions to use the instance value
-> in ip_block, and remove the original for loop for all vcn instances.
->
-> v2: rename "i"/"j" to "inst" for instance value.
->
-> Signed-off-by: Boyuan Zhang <boyuan.zhang@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c |   4 +-
->  drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c         | 565 +++++++++---------
->  2 files changed, 280 insertions(+), 289 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/=
-drm/amd/amdgpu/amdgpu_discovery.c
-> index 9f9a1867da72..de1053cc2a2b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> @@ -2278,6 +2278,7 @@ static int amdgpu_discovery_set_sdma_ip_blocks(stru=
-ct amdgpu_device *adev)
->
->  static int amdgpu_discovery_set_mm_ip_blocks(struct amdgpu_device *adev)
->  {
-> +       int i;
+Per process device data pdd->vram_usage is used by rocm-smi to report
+VRAM usage, this is currently missing the svm_bo usage accounting, so
+"rocm-smi --showpids" per process report is incorrect.
 
-new line between stack and code.
+Add pdd->vram_usage accounting for svm_bo and change type to atomic64_t
+because it is updated outside process mutex now.
 
->         if (amdgpu_ip_version(adev, VCE_HWIP, 0)) {
->                 switch (amdgpu_ip_version(adev, UVD_HWIP, 0)) {
->                 case IP_VERSION(7, 0, 0):
-> @@ -2321,7 +2322,8 @@ static int amdgpu_discovery_set_mm_ip_blocks(struct=
- amdgpu_device *adev)
->                 case IP_VERSION(2, 0, 3):
->                         break;
->                 case IP_VERSION(2, 5, 0):
-> -                       amdgpu_device_ip_block_add(adev, &vcn_v2_5_ip_blo=
-ck);
-> +                       for (i =3D 0; i < adev->vcn.num_vcn_inst; ++i)
-> +                               amdgpu_device_ip_block_add(adev, &vcn_v2_=
-5_ip_block);
->                         amdgpu_device_ip_block_add(adev, &jpeg_v2_5_ip_bl=
-ock);
->                         break;
->                 case IP_VERSION(2, 6, 0):
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c b/drivers/gpu/drm/amd/=
-amdgpu/vcn_v2_5.c
-> index d00df51bc400..1f8738ae360a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-> @@ -158,35 +158,34 @@ static int vcn_v2_5_early_init(struct amdgpu_ip_blo=
-ck *ip_block)
->  static int vcn_v2_5_sw_init(struct amdgpu_ip_block *ip_block)
->  {
->         struct amdgpu_ring *ring;
-> -       int i, j, r;
-> +       int i, r;
->         uint32_t reg_count =3D ARRAY_SIZE(vcn_reg_list_2_5);
->         uint32_t *ptr;
->         struct amdgpu_device *adev =3D ip_block->adev;
-> +       int inst =3D ip_block->instance;
->
-> -       for (j =3D 0; j < adev->vcn.num_vcn_inst; j++) {
-> -               if (adev->vcn.harvest_config & (1 << j))
-> -                       continue;
-> -               /* VCN DEC TRAP */
-> -               r =3D amdgpu_irq_add_id(adev, amdgpu_ih_clientid_vcns[j],
-> -                               VCN_2_0__SRCID__UVD_SYSTEM_MESSAGE_INTERR=
-UPT, &adev->vcn.inst[j].irq);
-> -               if (r)
-> -                       return r;
-> -
-> -               /* VCN ENC TRAP */
-> -               for (i =3D 0; i < adev->vcn.num_enc_rings; ++i) {
-> -                       r =3D amdgpu_irq_add_id(adev, amdgpu_ih_clientid_=
-vcns[j],
-> -                               i + VCN_2_0__SRCID__UVD_ENC_GENERAL_PURPO=
-SE, &adev->vcn.inst[j].irq);
-> -                       if (r)
-> -                               return r;
-> -               }
-> +       if (adev->vcn.harvest_config & (1 << inst))
-> +               goto sw_init;
-> +       /* VCN DEC TRAP */
-> +       r =3D amdgpu_irq_add_id(adev, amdgpu_ih_clientid_vcns[inst],
-> +                       VCN_2_0__SRCID__UVD_SYSTEM_MESSAGE_INTERRUPT, &ad=
-ev->vcn.inst[inst].irq);
-> +       if (r)
-> +               return r;
->
-> -               /* VCN POISON TRAP */
-> -               r =3D amdgpu_irq_add_id(adev, amdgpu_ih_clientid_vcns[j],
-> -                       VCN_2_6__SRCID_UVD_POISON, &adev->vcn.inst[j].ras=
-_poison_irq);
-> +       /* VCN ENC TRAP */
-> +       for (i =3D 0; i < adev->vcn.num_enc_rings; ++i) {
-> +               r =3D amdgpu_irq_add_id(adev, amdgpu_ih_clientid_vcns[ins=
-t],
-> +                       i + VCN_2_0__SRCID__UVD_ENC_GENERAL_PURPOSE, &ade=
-v->vcn.inst[inst].irq);
->                 if (r)
->                         return r;
->         }
->
-> +       /* VCN POISON TRAP */
-> +       r =3D amdgpu_irq_add_id(adev, amdgpu_ih_clientid_vcns[inst],
-> +               VCN_2_6__SRCID_UVD_POISON, &adev->vcn.inst[inst].ras_pois=
-on_irq);
-> +       if (r)
-> +               return r;
-> +sw_init:
->         r =3D amdgpu_vcn_sw_init(adev);
+Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c |  6 +++---
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h    |  2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c |  4 ++--
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c     | 22 ++++++++++++++++++++++
+ 4 files changed, 28 insertions(+), 6 deletions(-)
 
-I think the amdgpu_vcn_* helpers will need to be updated to handle
-instances as well.  Otherwise we'll end up leaking a bunch of memory
-when these gets called for each instance.  While you are at it, we
-should move all of the per instance state from struct amdgpu_vcn to
-struct amdgpu_vcn_inst.
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index a1f191a5984b..065d87841459 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -1148,7 +1148,7 @@ static int kfd_ioctl_alloc_memory_of_gpu(struct file *filep,
+ 
+ 		if (flags & KFD_IOC_ALLOC_MEM_FLAGS_AQL_QUEUE_MEM)
+ 			size >>= 1;
+-		WRITE_ONCE(pdd->vram_usage, pdd->vram_usage + PAGE_ALIGN(size));
++		atomic64_add(PAGE_ALIGN(size), &pdd->vram_usage);
+ 	}
+ 
+ 	mutex_unlock(&p->mutex);
+@@ -1219,7 +1219,7 @@ static int kfd_ioctl_free_memory_of_gpu(struct file *filep,
+ 		kfd_process_device_remove_obj_handle(
+ 			pdd, GET_IDR_HANDLE(args->handle));
+ 
+-	WRITE_ONCE(pdd->vram_usage, pdd->vram_usage - size);
++	atomic64_sub(size, &pdd->vram_usage);
+ 
+ err_unlock:
+ err_pdd:
+@@ -2347,7 +2347,7 @@ static int criu_restore_memory_of_gpu(struct kfd_process_device *pdd,
+ 	} else if (bo_bucket->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_VRAM) {
+ 		bo_bucket->restored_offset = offset;
+ 		/* Update the VRAM usage count */
+-		WRITE_ONCE(pdd->vram_usage, pdd->vram_usage + bo_bucket->size);
++		atomic64_add(bo_bucket->size, &pdd->vram_usage);
+ 	}
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index 6a5bf88cc232..9e5ca0b93b2a 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -775,7 +775,7 @@ struct kfd_process_device {
+ 	enum kfd_pdd_bound bound;
+ 
+ 	/* VRAM usage */
+-	uint64_t vram_usage;
++	atomic64_t vram_usage;
+ 	struct attribute attr_vram;
+ 	char vram_filename[MAX_SYSFS_FILENAME_LEN];
+ 
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index 7909dfd158be..4810521736a9 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -332,7 +332,7 @@ static ssize_t kfd_procfs_show(struct kobject *kobj, struct attribute *attr,
+ 	} else if (strncmp(attr->name, "vram_", 5) == 0) {
+ 		struct kfd_process_device *pdd = container_of(attr, struct kfd_process_device,
+ 							      attr_vram);
+-		return snprintf(buffer, PAGE_SIZE, "%llu\n", READ_ONCE(pdd->vram_usage));
++		return snprintf(buffer, PAGE_SIZE, "%llu\n", atomic64_read(&pdd->vram_usage));
+ 	} else if (strncmp(attr->name, "sdma_", 5) == 0) {
+ 		struct kfd_process_device *pdd = container_of(attr, struct kfd_process_device,
+ 							      attr_sdma);
+@@ -1625,7 +1625,7 @@ struct kfd_process_device *kfd_create_process_device_data(struct kfd_node *dev,
+ 	pdd->bound = PDD_UNBOUND;
+ 	pdd->already_dequeued = false;
+ 	pdd->runtime_inuse = false;
+-	pdd->vram_usage = 0;
++	atomic64_set(&pdd->vram_usage, 0);
+ 	pdd->sdma_past_activity_counter = 0;
+ 	pdd->user_gpu_id = dev->id;
+ 	atomic64_set(&pdd->evict_duration_counter, 0);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index 857ec6f23bba..61891ea6b1ac 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -379,6 +379,7 @@ static bool svm_bo_ref_unless_zero(struct svm_range_bo *svm_bo)
+ static void svm_range_bo_release(struct kref *kref)
+ {
+ 	struct svm_range_bo *svm_bo;
++	struct mm_struct *mm = NULL;
+ 
+ 	svm_bo = container_of(kref, struct svm_range_bo, kref);
+ 	pr_debug("svm_bo 0x%p\n", svm_bo);
+@@ -405,6 +406,22 @@ static void svm_range_bo_release(struct kref *kref)
+ 		spin_lock(&svm_bo->list_lock);
+ 	}
+ 	spin_unlock(&svm_bo->list_lock);
++
++	if (mmget_not_zero(svm_bo->eviction_fence->mm)) {
++		struct kfd_process_device *pdd;
++		struct kfd_process *p;
++
++		mm = svm_bo->eviction_fence->mm;
++		p = kfd_lookup_process_by_mm(mm);
++		if (p) {
++			pdd = kfd_get_process_device_data(svm_bo->node, p);
++			if (pdd)
++				atomic64_sub(amdgpu_bo_size(svm_bo->bo), &pdd->vram_usage);
++			kfd_unref_process(p);
++		}
++		mmput(mm);
++	}
++
+ 	if (!dma_fence_is_signaled(&svm_bo->eviction_fence->base))
+ 		/* We're not in the eviction worker. Signal the fence. */
+ 		dma_fence_signal(&svm_bo->eviction_fence->base);
+@@ -532,6 +549,7 @@ int
+ svm_range_vram_node_new(struct kfd_node *node, struct svm_range *prange,
+ 			bool clear)
+ {
++	struct kfd_process_device *pdd;
+ 	struct amdgpu_bo_param bp;
+ 	struct svm_range_bo *svm_bo;
+ 	struct amdgpu_bo_user *ubo;
+@@ -623,6 +641,10 @@ svm_range_vram_node_new(struct kfd_node *node, struct svm_range *prange,
+ 	list_add(&prange->svm_bo_list, &svm_bo->range_list);
+ 	spin_unlock(&svm_bo->list_lock);
+ 
++	pdd = svm_range_get_pdd_by_node(prange, node);
++	if (pdd)
++		atomic64_add(amdgpu_bo_size(bo), &pdd->vram_usage);
++
+ 	return 0;
+ 
+ reserve_bo_failed:
+-- 
+2.43.2
 
-Alex
-
->         if (r)
->                 return r;
-> @@ -197,76 +196,74 @@ static int vcn_v2_5_sw_init(struct amdgpu_ip_block =
-*ip_block)
->         if (r)
->                 return r;
->
-> -       for (j =3D 0; j < adev->vcn.num_vcn_inst; j++) {
-> -               volatile struct amdgpu_fw_shared *fw_shared;
-> +       volatile struct amdgpu_fw_shared *fw_shared;
->
-> -               if (adev->vcn.harvest_config & (1 << j))
-> -                       continue;
-> -               adev->vcn.internal.context_id =3D mmUVD_CONTEXT_ID_INTERN=
-AL_OFFSET;
-> -               adev->vcn.internal.ib_vmid =3D mmUVD_LMI_RBC_IB_VMID_INTE=
-RNAL_OFFSET;
-> -               adev->vcn.internal.ib_bar_low =3D mmUVD_LMI_RBC_IB_64BIT_=
-BAR_LOW_INTERNAL_OFFSET;
-> -               adev->vcn.internal.ib_bar_high =3D mmUVD_LMI_RBC_IB_64BIT=
-_BAR_HIGH_INTERNAL_OFFSET;
-> -               adev->vcn.internal.ib_size =3D mmUVD_RBC_IB_SIZE_INTERNAL=
-_OFFSET;
-> -               adev->vcn.internal.gp_scratch8 =3D mmUVD_GP_SCRATCH8_INTE=
-RNAL_OFFSET;
-> -
-> -               adev->vcn.internal.scratch9 =3D mmUVD_SCRATCH9_INTERNAL_O=
-FFSET;
-> -               adev->vcn.inst[j].external.scratch9 =3D SOC15_REG_OFFSET(=
-VCN, j, mmUVD_SCRATCH9);
-> -               adev->vcn.internal.data0 =3D mmUVD_GPCOM_VCPU_DATA0_INTER=
-NAL_OFFSET;
-> -               adev->vcn.inst[j].external.data0 =3D SOC15_REG_OFFSET(VCN=
-, j, mmUVD_GPCOM_VCPU_DATA0);
-> -               adev->vcn.internal.data1 =3D mmUVD_GPCOM_VCPU_DATA1_INTER=
-NAL_OFFSET;
-> -               adev->vcn.inst[j].external.data1 =3D SOC15_REG_OFFSET(VCN=
-, j, mmUVD_GPCOM_VCPU_DATA1);
-> -               adev->vcn.internal.cmd =3D mmUVD_GPCOM_VCPU_CMD_INTERNAL_=
-OFFSET;
-> -               adev->vcn.inst[j].external.cmd =3D SOC15_REG_OFFSET(VCN, =
-j, mmUVD_GPCOM_VCPU_CMD);
-> -               adev->vcn.internal.nop =3D mmUVD_NO_OP_INTERNAL_OFFSET;
-> -               adev->vcn.inst[j].external.nop =3D SOC15_REG_OFFSET(VCN, =
-j, mmUVD_NO_OP);
-> -
-> -               ring =3D &adev->vcn.inst[j].ring_dec;
-> +       if (adev->vcn.harvest_config & (1 << inst))
-> +               goto done;
-> +       adev->vcn.internal.context_id =3D mmUVD_CONTEXT_ID_INTERNAL_OFFSE=
-T;
-> +       adev->vcn.internal.ib_vmid =3D mmUVD_LMI_RBC_IB_VMID_INTERNAL_OFF=
-SET;
-> +       adev->vcn.internal.ib_bar_low =3D mmUVD_LMI_RBC_IB_64BIT_BAR_LOW_=
-INTERNAL_OFFSET;
-> +       adev->vcn.internal.ib_bar_high =3D mmUVD_LMI_RBC_IB_64BIT_BAR_HIG=
-H_INTERNAL_OFFSET;
-> +       adev->vcn.internal.ib_size =3D mmUVD_RBC_IB_SIZE_INTERNAL_OFFSET;
-> +       adev->vcn.internal.gp_scratch8 =3D mmUVD_GP_SCRATCH8_INTERNAL_OFF=
-SET;
-> +
-> +       adev->vcn.internal.scratch9 =3D mmUVD_SCRATCH9_INTERNAL_OFFSET;
-> +       adev->vcn.inst[inst].external.scratch9 =3D SOC15_REG_OFFSET(VCN, =
-inst, mmUVD_SCRATCH9);
-> +       adev->vcn.internal.data0 =3D mmUVD_GPCOM_VCPU_DATA0_INTERNAL_OFFS=
-ET;
-> +       adev->vcn.inst[inst].external.data0 =3D SOC15_REG_OFFSET(VCN, ins=
-t, mmUVD_GPCOM_VCPU_DATA0);
-> +       adev->vcn.internal.data1 =3D mmUVD_GPCOM_VCPU_DATA1_INTERNAL_OFFS=
-ET;
-> +       adev->vcn.inst[inst].external.data1 =3D SOC15_REG_OFFSET(VCN, ins=
-t, mmUVD_GPCOM_VCPU_DATA1);
-> +       adev->vcn.internal.cmd =3D mmUVD_GPCOM_VCPU_CMD_INTERNAL_OFFSET;
-> +       adev->vcn.inst[inst].external.cmd =3D SOC15_REG_OFFSET(VCN, inst,=
- mmUVD_GPCOM_VCPU_CMD);
-> +       adev->vcn.internal.nop =3D mmUVD_NO_OP_INTERNAL_OFFSET;
-> +       adev->vcn.inst[inst].external.nop =3D SOC15_REG_OFFSET(VCN, inst,=
- mmUVD_NO_OP);
-> +
-> +       ring =3D &adev->vcn.inst[inst].ring_dec;
-> +       ring->use_doorbell =3D true;
-> +
-> +       ring->doorbell_index =3D (adev->doorbell_index.vcn.vcn_ring0_1 <<=
- 1) +
-> +                       (amdgpu_sriov_vf(adev) ? 2*inst : 8*inst);
-> +
-> +       if (amdgpu_ip_version(adev, UVD_HWIP, 0) =3D=3D IP_VERSION(2, 5, =
-0))
-> +               ring->vm_hub =3D AMDGPU_MMHUB1(0);
-> +       else
-> +               ring->vm_hub =3D AMDGPU_MMHUB0(0);
-> +
-> +       sprintf(ring->name, "vcn_dec_%d", inst);
-> +       r =3D amdgpu_ring_init(adev, ring, 512, &adev->vcn.inst[inst].irq=
-,
-> +                                0, AMDGPU_RING_PRIO_DEFAULT, NULL);
-> +       if (r)
-> +               return r;
-> +
-> +       for (i =3D 0; i < adev->vcn.num_enc_rings; ++i) {
-> +               enum amdgpu_ring_priority_level hw_prio =3D amdgpu_vcn_ge=
-t_enc_ring_prio(i);
-> +
-> +               ring =3D &adev->vcn.inst[inst].ring_enc[i];
->                 ring->use_doorbell =3D true;
->
->                 ring->doorbell_index =3D (adev->doorbell_index.vcn.vcn_ri=
-ng0_1 << 1) +
-> -                               (amdgpu_sriov_vf(adev) ? 2*j : 8*j);
-> +                               (amdgpu_sriov_vf(adev) ? (1 + i + 2*inst)=
- : (2 + i + 8*inst));
->
-> -               if (amdgpu_ip_version(adev, UVD_HWIP, 0) =3D=3D IP_VERSIO=
-N(2, 5, 0))
-> +               if (amdgpu_ip_version(adev, UVD_HWIP, 0) =3D=3D
-> +                       IP_VERSION(2, 5, 0))
->                         ring->vm_hub =3D AMDGPU_MMHUB1(0);
->                 else
->                         ring->vm_hub =3D AMDGPU_MMHUB0(0);
->
-> -               sprintf(ring->name, "vcn_dec_%d", j);
-> -               r =3D amdgpu_ring_init(adev, ring, 512, &adev->vcn.inst[j=
-].irq,
-> -                                    0, AMDGPU_RING_PRIO_DEFAULT, NULL);
-> +               sprintf(ring->name, "vcn_enc_%d.%d", inst, i);
-> +               r =3D amdgpu_ring_init(adev, ring, 512,
-> +                                        &adev->vcn.inst[inst].irq, 0,
-> +                                        hw_prio, NULL);
->                 if (r)
->                         return r;
-> -
-> -               for (i =3D 0; i < adev->vcn.num_enc_rings; ++i) {
-> -                       enum amdgpu_ring_priority_level hw_prio =3D amdgp=
-u_vcn_get_enc_ring_prio(i);
-> -
-> -                       ring =3D &adev->vcn.inst[j].ring_enc[i];
-> -                       ring->use_doorbell =3D true;
-> -
-> -                       ring->doorbell_index =3D (adev->doorbell_index.vc=
-n.vcn_ring0_1 << 1) +
-> -                                       (amdgpu_sriov_vf(adev) ? (1 + i +=
- 2*j) : (2 + i + 8*j));
-> -
-> -                       if (amdgpu_ip_version(adev, UVD_HWIP, 0) =3D=3D
-> -                           IP_VERSION(2, 5, 0))
-> -                               ring->vm_hub =3D AMDGPU_MMHUB1(0);
-> -                       else
-> -                               ring->vm_hub =3D AMDGPU_MMHUB0(0);
-> -
-> -                       sprintf(ring->name, "vcn_enc_%d.%d", j, i);
-> -                       r =3D amdgpu_ring_init(adev, ring, 512,
-> -                                            &adev->vcn.inst[j].irq, 0,
-> -                                            hw_prio, NULL);
-> -                       if (r)
-> -                               return r;
-> -               }
-> -
-> -               fw_shared =3D adev->vcn.inst[j].fw_shared.cpu_addr;
-> -               fw_shared->present_flag_0 =3D cpu_to_le32(AMDGPU_VCN_MULT=
-I_QUEUE_FLAG);
-> -
-> -               if (amdgpu_vcnfw_log)
-> -                       amdgpu_vcn_fwlog_init(&adev->vcn.inst[i]);
->         }
->
-> +       fw_shared =3D adev->vcn.inst[inst].fw_shared.cpu_addr;
-> +       fw_shared->present_flag_0 =3D cpu_to_le32(AMDGPU_VCN_MULTI_QUEUE_=
-FLAG);
-> +
-> +       if (amdgpu_vcnfw_log)
-> +               amdgpu_vcn_fwlog_init(&adev->vcn.inst[i]);
-> +done:
->         if (amdgpu_sriov_vf(adev)) {
->                 r =3D amdgpu_virt_alloc_mm_table(adev);
->                 if (r)
-> @@ -1005,197 +1002,192 @@ static int vcn_v2_5_start_dpg_mode(struct amdgp=
-u_device *adev, int inst_idx, boo
->         return 0;
->  }
->
-> -static int vcn_v2_5_start(struct amdgpu_device *adev)
-> +static int vcn_v2_5_start(struct amdgpu_device *adev, unsigned int inst)
->  {
->         struct amdgpu_ring *ring;
->         uint32_t rb_bufsz, tmp;
-> -       int i, j, k, r;
-> +       int j, k, r;
->
-> -       for (i =3D 0; i < adev->vcn.num_vcn_inst; ++i) {
-> -               if (adev->pm.dpm_enabled)
-> -                       amdgpu_dpm_enable_vcn(adev, true, i);
-> -       }
-> -
-> -       for (i =3D 0; i < adev->vcn.num_vcn_inst; ++i) {
-> -               if (adev->vcn.harvest_config & (1 << i))
-> -                       continue;
-> -               if (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG) {
-> -                       r =3D vcn_v2_5_start_dpg_mode(adev, i, adev->vcn.=
-indirect_sram);
-> -                       continue;
-> -               }
-> +       if (adev->pm.dpm_enabled)
-> +               amdgpu_dpm_enable_vcn(adev, true, inst);
->
-> -               /* disable register anti-hang mechanism */
-> -               WREG32_P(SOC15_REG_OFFSET(VCN, i, mmUVD_POWER_STATUS), 0,
-> -                       ~UVD_POWER_STATUS__UVD_POWER_STATUS_MASK);
-> +       if (adev->vcn.harvest_config & (1 << inst))
-> +               return 0;
->
-> -               /* set uvd status busy */
-> -               tmp =3D RREG32_SOC15(VCN, i, mmUVD_STATUS) | UVD_STATUS__=
-UVD_BUSY;
-> -               WREG32_SOC15(VCN, i, mmUVD_STATUS, tmp);
-> +       if (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG) {
-> +               r =3D vcn_v2_5_start_dpg_mode(adev, inst, adev->vcn.indir=
-ect_sram);
-> +               return r;
->         }
->
-> +       /* disable register anti-hang mechanism */
-> +       WREG32_P(SOC15_REG_OFFSET(VCN, inst, mmUVD_POWER_STATUS), 0,
-> +               ~UVD_POWER_STATUS__UVD_POWER_STATUS_MASK);
-> +
-> +       /* set uvd status busy */
-> +       tmp =3D RREG32_SOC15(VCN, inst, mmUVD_STATUS) | UVD_STATUS__UVD_B=
-USY;
-> +       WREG32_SOC15(VCN, inst, mmUVD_STATUS, tmp);
-> +
->         if (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG)
->                 return 0;
->
->         /*SW clock gating */
->         vcn_v2_5_disable_clock_gating(adev);
->
-> -       for (i =3D 0; i < adev->vcn.num_vcn_inst; ++i) {
-> -               if (adev->vcn.harvest_config & (1 << i))
-> -                       continue;
-> -               /* enable VCPU clock */
-> -               WREG32_P(SOC15_REG_OFFSET(VCN, i, mmUVD_VCPU_CNTL),
-> -                       UVD_VCPU_CNTL__CLK_EN_MASK, ~UVD_VCPU_CNTL__CLK_E=
-N_MASK);
-> -
-> -               /* disable master interrupt */
-> -               WREG32_P(SOC15_REG_OFFSET(VCN, i, mmUVD_MASTINT_EN), 0,
-> -                       ~UVD_MASTINT_EN__VCPU_EN_MASK);
-> -
-> -               /* setup mmUVD_LMI_CTRL */
-> -               tmp =3D RREG32_SOC15(VCN, i, mmUVD_LMI_CTRL);
-> -               tmp &=3D ~0xff;
-> -               WREG32_SOC15(VCN, i, mmUVD_LMI_CTRL, tmp | 0x8|
-> -                       UVD_LMI_CTRL__WRITE_CLEAN_TIMER_EN_MASK |
-> -                       UVD_LMI_CTRL__MASK_MC_URGENT_MASK |
-> -                       UVD_LMI_CTRL__DATA_COHERENCY_EN_MASK |
-> -                       UVD_LMI_CTRL__VCPU_DATA_COHERENCY_EN_MASK);
-> -
-> -               /* setup mmUVD_MPC_CNTL */
-> -               tmp =3D RREG32_SOC15(VCN, i, mmUVD_MPC_CNTL);
-> -               tmp &=3D ~UVD_MPC_CNTL__REPLACEMENT_MODE_MASK;
-> -               tmp |=3D 0x2 << UVD_MPC_CNTL__REPLACEMENT_MODE__SHIFT;
-> -               WREG32_SOC15(VCN, i, mmUVD_MPC_CNTL, tmp);
-> -
-> -               /* setup UVD_MPC_SET_MUXA0 */
-> -               WREG32_SOC15(VCN, i, mmUVD_MPC_SET_MUXA0,
-> -                       ((0x1 << UVD_MPC_SET_MUXA0__VARA_1__SHIFT) |
-> -                       (0x2 << UVD_MPC_SET_MUXA0__VARA_2__SHIFT) |
-> -                       (0x3 << UVD_MPC_SET_MUXA0__VARA_3__SHIFT) |
-> -                       (0x4 << UVD_MPC_SET_MUXA0__VARA_4__SHIFT)));
-> -
-> -               /* setup UVD_MPC_SET_MUXB0 */
-> -               WREG32_SOC15(VCN, i, mmUVD_MPC_SET_MUXB0,
-> -                       ((0x1 << UVD_MPC_SET_MUXB0__VARB_1__SHIFT) |
-> -                       (0x2 << UVD_MPC_SET_MUXB0__VARB_2__SHIFT) |
-> -                       (0x3 << UVD_MPC_SET_MUXB0__VARB_3__SHIFT) |
-> -                       (0x4 << UVD_MPC_SET_MUXB0__VARB_4__SHIFT)));
-> -
-> -               /* setup mmUVD_MPC_SET_MUX */
-> -               WREG32_SOC15(VCN, i, mmUVD_MPC_SET_MUX,
-> -                       ((0x0 << UVD_MPC_SET_MUX__SET_0__SHIFT) |
-> -                       (0x1 << UVD_MPC_SET_MUX__SET_1__SHIFT) |
-> -                       (0x2 << UVD_MPC_SET_MUX__SET_2__SHIFT)));
-> -       }
-> +       if (adev->vcn.harvest_config & (1 << inst))
-> +               return 0;
-> +
-> +       /* enable VCPU clock */
-> +       WREG32_P(SOC15_REG_OFFSET(VCN, inst, mmUVD_VCPU_CNTL),
-> +               UVD_VCPU_CNTL__CLK_EN_MASK, ~UVD_VCPU_CNTL__CLK_EN_MASK);
-> +
-> +       /* disable master interrupt */
-> +       WREG32_P(SOC15_REG_OFFSET(VCN, inst, mmUVD_MASTINT_EN), 0,
-> +               ~UVD_MASTINT_EN__VCPU_EN_MASK);
-> +
-> +       /* setup mmUVD_LMI_CTRL */
-> +       tmp =3D RREG32_SOC15(VCN, inst, mmUVD_LMI_CTRL);
-> +       tmp &=3D ~0xff;
-> +       WREG32_SOC15(VCN, inst, mmUVD_LMI_CTRL, tmp | 0x8|
-> +               UVD_LMI_CTRL__WRITE_CLEAN_TIMER_EN_MASK |
-> +               UVD_LMI_CTRL__MASK_MC_URGENT_MASK |
-> +               UVD_LMI_CTRL__DATA_COHERENCY_EN_MASK |
-> +               UVD_LMI_CTRL__VCPU_DATA_COHERENCY_EN_MASK);
-> +
-> +       /* setup mmUVD_MPC_CNTL */
-> +       tmp =3D RREG32_SOC15(VCN, inst, mmUVD_MPC_CNTL);
-> +       tmp &=3D ~UVD_MPC_CNTL__REPLACEMENT_MODE_MASK;
-> +       tmp |=3D 0x2 << UVD_MPC_CNTL__REPLACEMENT_MODE__SHIFT;
-> +       WREG32_SOC15(VCN, inst, mmUVD_MPC_CNTL, tmp);
-> +
-> +       /* setup UVD_MPC_SET_MUXA0 */
-> +       WREG32_SOC15(VCN, inst, mmUVD_MPC_SET_MUXA0,
-> +               ((0x1 << UVD_MPC_SET_MUXA0__VARA_1__SHIFT) |
-> +               (0x2 << UVD_MPC_SET_MUXA0__VARA_2__SHIFT) |
-> +               (0x3 << UVD_MPC_SET_MUXA0__VARA_3__SHIFT) |
-> +               (0x4 << UVD_MPC_SET_MUXA0__VARA_4__SHIFT)));
-> +
-> +       /* setup UVD_MPC_SET_MUXB0 */
-> +       WREG32_SOC15(VCN, inst, mmUVD_MPC_SET_MUXB0,
-> +               ((0x1 << UVD_MPC_SET_MUXB0__VARB_1__SHIFT) |
-> +               (0x2 << UVD_MPC_SET_MUXB0__VARB_2__SHIFT) |
-> +               (0x3 << UVD_MPC_SET_MUXB0__VARB_3__SHIFT) |
-> +               (0x4 << UVD_MPC_SET_MUXB0__VARB_4__SHIFT)));
-> +
-> +       /* setup mmUVD_MPC_SET_MUX */
-> +       WREG32_SOC15(VCN, inst, mmUVD_MPC_SET_MUX,
-> +               ((0x0 << UVD_MPC_SET_MUX__SET_0__SHIFT) |
-> +               (0x1 << UVD_MPC_SET_MUX__SET_1__SHIFT) |
-> +               (0x2 << UVD_MPC_SET_MUX__SET_2__SHIFT)));
->
->         vcn_v2_5_mc_resume(adev);
->
-> -       for (i =3D 0; i < adev->vcn.num_vcn_inst; ++i) {
-> -               volatile struct amdgpu_fw_shared *fw_shared =3D adev->vcn=
-.inst[i].fw_shared.cpu_addr;
-> -               if (adev->vcn.harvest_config & (1 << i))
-> -                       continue;
-> -               /* VCN global tiling registers */
-> -               WREG32_SOC15(VCN, i, mmUVD_GFX8_ADDR_CONFIG,
-> -                       adev->gfx.config.gb_addr_config);
-> -               WREG32_SOC15(VCN, i, mmUVD_GFX8_ADDR_CONFIG,
-> -                       adev->gfx.config.gb_addr_config);
-> +       volatile struct amdgpu_fw_shared *fw_shared =3D adev->vcn.inst[in=
-st].fw_shared.cpu_addr;
-> +       if (adev->vcn.harvest_config & (1 << inst))
-> +               return 0;
-> +
-> +       /* VCN global tiling registers */
-> +       WREG32_SOC15(VCN, inst, mmUVD_GFX8_ADDR_CONFIG,
-> +               adev->gfx.config.gb_addr_config);
-> +       WREG32_SOC15(VCN, inst, mmUVD_GFX8_ADDR_CONFIG,
-> +               adev->gfx.config.gb_addr_config);
->
-> -               /* enable LMI MC and UMC channels */
-> -               WREG32_P(SOC15_REG_OFFSET(VCN, i, mmUVD_LMI_CTRL2), 0,
-> -                       ~UVD_LMI_CTRL2__STALL_ARB_UMC_MASK);
-> +       /* enable LMI MC and UMC channels */
-> +       WREG32_P(SOC15_REG_OFFSET(VCN, inst, mmUVD_LMI_CTRL2), 0,
-> +               ~UVD_LMI_CTRL2__STALL_ARB_UMC_MASK);
->
-> -               /* unblock VCPU register access */
-> -               WREG32_P(SOC15_REG_OFFSET(VCN, i, mmUVD_RB_ARB_CTRL), 0,
-> -                       ~UVD_RB_ARB_CTRL__VCPU_DIS_MASK);
-> +       /* unblock VCPU register access */
-> +       WREG32_P(SOC15_REG_OFFSET(VCN, inst, mmUVD_RB_ARB_CTRL), 0,
-> +               ~UVD_RB_ARB_CTRL__VCPU_DIS_MASK);
->
-> -               WREG32_P(SOC15_REG_OFFSET(VCN, i, mmUVD_VCPU_CNTL), 0,
-> -                       ~UVD_VCPU_CNTL__BLK_RST_MASK);
-> +       WREG32_P(SOC15_REG_OFFSET(VCN, inst, mmUVD_VCPU_CNTL), 0,
-> +               ~UVD_VCPU_CNTL__BLK_RST_MASK);
->
-> -               for (k =3D 0; k < 10; ++k) {
-> -                       uint32_t status;
-> -
-> -                       for (j =3D 0; j < 100; ++j) {
-> -                               status =3D RREG32_SOC15(VCN, i, mmUVD_STA=
-TUS);
-> -                               if (status & 2)
-> -                                       break;
-> -                               if (amdgpu_emu_mode =3D=3D 1)
-> -                                       msleep(500);
-> -                               else
-> -                                       mdelay(10);
-> -                       }
-> -                       r =3D 0;
-> +       for (k =3D 0; k < 10; ++k) {
-> +               uint32_t status;
-> +
-> +               for (j =3D 0; j < 100; ++j) {
-> +                       status =3D RREG32_SOC15(VCN, inst, mmUVD_STATUS);
->                         if (status & 2)
->                                 break;
-> +                       if (amdgpu_emu_mode =3D=3D 1)
-> +                               msleep(500);
-> +                       else
-> +                               mdelay(10);
-> +               }
-> +               r =3D 0;
-> +               if (status & 2)
-> +                       break;
->
-> -                       DRM_ERROR("VCN decode not responding, trying to r=
-eset the VCPU!!!\n");
-> -                       WREG32_P(SOC15_REG_OFFSET(VCN, i, mmUVD_VCPU_CNTL=
-),
-> -                               UVD_VCPU_CNTL__BLK_RST_MASK,
-> -                               ~UVD_VCPU_CNTL__BLK_RST_MASK);
-> -                       mdelay(10);
-> -                       WREG32_P(SOC15_REG_OFFSET(VCN, i, mmUVD_VCPU_CNTL=
-), 0,
-> -                               ~UVD_VCPU_CNTL__BLK_RST_MASK);
-> +               DRM_ERROR("VCN decode not responding, trying to reset the=
- VCPU!!!\n");
-> +               WREG32_P(SOC15_REG_OFFSET(VCN, inst, mmUVD_VCPU_CNTL),
-> +                       UVD_VCPU_CNTL__BLK_RST_MASK,
-> +                       ~UVD_VCPU_CNTL__BLK_RST_MASK);
-> +               mdelay(10);
-> +               WREG32_P(SOC15_REG_OFFSET(VCN, inst, mmUVD_VCPU_CNTL), 0,
-> +                       ~UVD_VCPU_CNTL__BLK_RST_MASK);
->
-> -                       mdelay(10);
-> -                       r =3D -1;
-> -               }
-> +               mdelay(10);
-> +               r =3D -1;
-> +       }
->
-> -               if (r) {
-> -                       DRM_ERROR("VCN decode not responding, giving up!!=
-!\n");
-> -                       return r;
-> -               }
-> +       if (r) {
-> +               DRM_ERROR("VCN decode not responding, giving up!!!\n");
-> +               return r;
-> +       }
->
-> -               /* enable master interrupt */
-> -               WREG32_P(SOC15_REG_OFFSET(VCN, i, mmUVD_MASTINT_EN),
-> -                       UVD_MASTINT_EN__VCPU_EN_MASK,
-> -                       ~UVD_MASTINT_EN__VCPU_EN_MASK);
-> +       /* enable master interrupt */
-> +       WREG32_P(SOC15_REG_OFFSET(VCN, inst, mmUVD_MASTINT_EN),
-> +               UVD_MASTINT_EN__VCPU_EN_MASK,
-> +               ~UVD_MASTINT_EN__VCPU_EN_MASK);
->
-> -               /* clear the busy bit of VCN_STATUS */
-> -               WREG32_P(SOC15_REG_OFFSET(VCN, i, mmUVD_STATUS), 0,
-> -                       ~(2 << UVD_STATUS__VCPU_REPORT__SHIFT));
-> +       /* clear the busy bit of VCN_STATUS */
-> +       WREG32_P(SOC15_REG_OFFSET(VCN, inst, mmUVD_STATUS), 0,
-> +               ~(2 << UVD_STATUS__VCPU_REPORT__SHIFT));
->
-> -               WREG32_SOC15(VCN, i, mmUVD_LMI_RBC_RB_VMID, 0);
-> +       WREG32_SOC15(VCN, inst, mmUVD_LMI_RBC_RB_VMID, 0);
->
-> -               ring =3D &adev->vcn.inst[i].ring_dec;
-> -               /* force RBC into idle state */
-> -               rb_bufsz =3D order_base_2(ring->ring_size);
-> -               tmp =3D REG_SET_FIELD(0, UVD_RBC_RB_CNTL, RB_BUFSZ, rb_bu=
-fsz);
-> -               tmp =3D REG_SET_FIELD(tmp, UVD_RBC_RB_CNTL, RB_BLKSZ, 1);
-> -               tmp =3D REG_SET_FIELD(tmp, UVD_RBC_RB_CNTL, RB_NO_FETCH, =
-1);
-> -               tmp =3D REG_SET_FIELD(tmp, UVD_RBC_RB_CNTL, RB_NO_UPDATE,=
- 1);
-> -               tmp =3D REG_SET_FIELD(tmp, UVD_RBC_RB_CNTL, RB_RPTR_WR_EN=
-, 1);
-> -               WREG32_SOC15(VCN, i, mmUVD_RBC_RB_CNTL, tmp);
-> +       ring =3D &adev->vcn.inst[inst].ring_dec;
-> +       /* force RBC into idle state */
-> +       rb_bufsz =3D order_base_2(ring->ring_size);
-> +       tmp =3D REG_SET_FIELD(0, UVD_RBC_RB_CNTL, RB_BUFSZ, rb_bufsz);
-> +       tmp =3D REG_SET_FIELD(tmp, UVD_RBC_RB_CNTL, RB_BLKSZ, 1);
-> +       tmp =3D REG_SET_FIELD(tmp, UVD_RBC_RB_CNTL, RB_NO_FETCH, 1);
-> +       tmp =3D REG_SET_FIELD(tmp, UVD_RBC_RB_CNTL, RB_NO_UPDATE, 1);
-> +       tmp =3D REG_SET_FIELD(tmp, UVD_RBC_RB_CNTL, RB_RPTR_WR_EN, 1);
-> +       WREG32_SOC15(VCN, inst, mmUVD_RBC_RB_CNTL, tmp);
->
-> -               fw_shared->multi_queue.decode_queue_mode |=3D FW_QUEUE_RI=
-NG_RESET;
-> -               /* program the RB_BASE for ring buffer */
-> -               WREG32_SOC15(VCN, i, mmUVD_LMI_RBC_RB_64BIT_BAR_LOW,
-> -                       lower_32_bits(ring->gpu_addr));
-> -               WREG32_SOC15(VCN, i, mmUVD_LMI_RBC_RB_64BIT_BAR_HIGH,
-> -                       upper_32_bits(ring->gpu_addr));
-> +       fw_shared->multi_queue.decode_queue_mode |=3D FW_QUEUE_RING_RESET=
-;
-> +       /* program the RB_BASE for ring buffer */
-> +       WREG32_SOC15(VCN, inst, mmUVD_LMI_RBC_RB_64BIT_BAR_LOW,
-> +               lower_32_bits(ring->gpu_addr));
-> +       WREG32_SOC15(VCN, inst, mmUVD_LMI_RBC_RB_64BIT_BAR_HIGH,
-> +               upper_32_bits(ring->gpu_addr));
->
-> -               /* Initialize the ring buffer's read and write pointers *=
-/
-> -               WREG32_SOC15(VCN, i, mmUVD_RBC_RB_RPTR, 0);
-> +       /* Initialize the ring buffer's read and write pointers */
-> +       WREG32_SOC15(VCN, inst, mmUVD_RBC_RB_RPTR, 0);
->
-> -               ring->wptr =3D RREG32_SOC15(VCN, i, mmUVD_RBC_RB_RPTR);
-> -               WREG32_SOC15(VCN, i, mmUVD_RBC_RB_WPTR,
-> -                               lower_32_bits(ring->wptr));
-> -               fw_shared->multi_queue.decode_queue_mode &=3D ~FW_QUEUE_R=
-ING_RESET;
-> +       ring->wptr =3D RREG32_SOC15(VCN, inst, mmUVD_RBC_RB_RPTR);
-> +       WREG32_SOC15(VCN, inst, mmUVD_RBC_RB_WPTR,
-> +                       lower_32_bits(ring->wptr));
-> +       fw_shared->multi_queue.decode_queue_mode &=3D ~FW_QUEUE_RING_RESE=
-T;
->
-> -               fw_shared->multi_queue.encode_generalpurpose_queue_mode |=
-=3D FW_QUEUE_RING_RESET;
-> -               ring =3D &adev->vcn.inst[i].ring_enc[0];
-> -               WREG32_SOC15(VCN, i, mmUVD_RB_RPTR, lower_32_bits(ring->w=
-ptr));
-> -               WREG32_SOC15(VCN, i, mmUVD_RB_WPTR, lower_32_bits(ring->w=
-ptr));
-> -               WREG32_SOC15(VCN, i, mmUVD_RB_BASE_LO, ring->gpu_addr);
-> -               WREG32_SOC15(VCN, i, mmUVD_RB_BASE_HI, upper_32_bits(ring=
-->gpu_addr));
-> -               WREG32_SOC15(VCN, i, mmUVD_RB_SIZE, ring->ring_size / 4);
-> -               fw_shared->multi_queue.encode_generalpurpose_queue_mode &=
-=3D ~FW_QUEUE_RING_RESET;
-> -
-> -               fw_shared->multi_queue.encode_lowlatency_queue_mode |=3D =
-FW_QUEUE_RING_RESET;
-> -               ring =3D &adev->vcn.inst[i].ring_enc[1];
-> -               WREG32_SOC15(VCN, i, mmUVD_RB_RPTR2, lower_32_bits(ring->=
-wptr));
-> -               WREG32_SOC15(VCN, i, mmUVD_RB_WPTR2, lower_32_bits(ring->=
-wptr));
-> -               WREG32_SOC15(VCN, i, mmUVD_RB_BASE_LO2, ring->gpu_addr);
-> -               WREG32_SOC15(VCN, i, mmUVD_RB_BASE_HI2, upper_32_bits(rin=
-g->gpu_addr));
-> -               WREG32_SOC15(VCN, i, mmUVD_RB_SIZE2, ring->ring_size / 4)=
-;
-> -               fw_shared->multi_queue.encode_lowlatency_queue_mode &=3D =
-~FW_QUEUE_RING_RESET;
-> -       }
-> +       fw_shared->multi_queue.encode_generalpurpose_queue_mode |=3D FW_Q=
-UEUE_RING_RESET;
-> +       ring =3D &adev->vcn.inst[inst].ring_enc[0];
-> +       WREG32_SOC15(VCN, inst, mmUVD_RB_RPTR, lower_32_bits(ring->wptr))=
-;
-> +       WREG32_SOC15(VCN, inst, mmUVD_RB_WPTR, lower_32_bits(ring->wptr))=
-;
-> +       WREG32_SOC15(VCN, inst, mmUVD_RB_BASE_LO, ring->gpu_addr);
-> +       WREG32_SOC15(VCN, inst, mmUVD_RB_BASE_HI, upper_32_bits(ring->gpu=
-_addr));
-> +       WREG32_SOC15(VCN, inst, mmUVD_RB_SIZE, ring->ring_size / 4);
-> +       fw_shared->multi_queue.encode_generalpurpose_queue_mode &=3D ~FW_=
-QUEUE_RING_RESET;
-> +
-> +       fw_shared->multi_queue.encode_lowlatency_queue_mode |=3D FW_QUEUE=
-_RING_RESET;
-> +       ring =3D &adev->vcn.inst[inst].ring_enc[1];
-> +       WREG32_SOC15(VCN, inst, mmUVD_RB_RPTR2, lower_32_bits(ring->wptr)=
-);
-> +       WREG32_SOC15(VCN, inst, mmUVD_RB_WPTR2, lower_32_bits(ring->wptr)=
-);
-> +       WREG32_SOC15(VCN, inst, mmUVD_RB_BASE_LO2, ring->gpu_addr);
-> +       WREG32_SOC15(VCN, inst, mmUVD_RB_BASE_HI2, upper_32_bits(ring->gp=
-u_addr));
-> +       WREG32_SOC15(VCN, inst, mmUVD_RB_SIZE2, ring->ring_size / 4);
-> +       fw_shared->multi_queue.encode_lowlatency_queue_mode &=3D ~FW_QUEU=
-E_RING_RESET;
->
->         return 0;
->  }
-> @@ -1424,72 +1416,69 @@ static int vcn_v2_5_stop_dpg_mode(struct amdgpu_d=
-evice *adev, int inst_idx)
->         return 0;
->  }
->
-> -static int vcn_v2_5_stop(struct amdgpu_device *adev)
-> +static int vcn_v2_5_stop(struct amdgpu_device *adev, unsigned int inst)
->  {
->         uint32_t tmp;
-> -       int i, r =3D 0;
-> +       int r =3D 0;
->
-> -       for (i =3D 0; i < adev->vcn.num_vcn_inst; ++i) {
-> -               if (adev->vcn.harvest_config & (1 << i))
-> -                       continue;
-> -               if (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG) {
-> -                       r =3D vcn_v2_5_stop_dpg_mode(adev, i);
-> -                       continue;
-> -               }
-> +       if (adev->vcn.harvest_config & (1 << inst))
-> +               goto done;
->
-> -               /* wait for vcn idle */
-> -               r =3D SOC15_WAIT_ON_RREG(VCN, i, mmUVD_STATUS, UVD_STATUS=
-__IDLE, 0x7);
-> -               if (r)
-> -                       return r;
-> +       if (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG) {
-> +               r =3D vcn_v2_5_stop_dpg_mode(adev, inst);
-> +               goto done;
-> +       }
->
-> -               tmp =3D UVD_LMI_STATUS__VCPU_LMI_WRITE_CLEAN_MASK |
-> -                       UVD_LMI_STATUS__READ_CLEAN_MASK |
-> -                       UVD_LMI_STATUS__WRITE_CLEAN_MASK |
-> -                       UVD_LMI_STATUS__WRITE_CLEAN_RAW_MASK;
-> -               r =3D SOC15_WAIT_ON_RREG(VCN, i, mmUVD_LMI_STATUS, tmp, t=
-mp);
-> -               if (r)
-> -                       return r;
-> +       /* wait for vcn idle */
-> +       r =3D SOC15_WAIT_ON_RREG(VCN, inst, mmUVD_STATUS, UVD_STATUS__IDL=
-E, 0x7);
-> +       if (r)
-> +               return r;
->
-> -               /* block LMI UMC channel */
-> -               tmp =3D RREG32_SOC15(VCN, i, mmUVD_LMI_CTRL2);
-> -               tmp |=3D UVD_LMI_CTRL2__STALL_ARB_UMC_MASK;
-> -               WREG32_SOC15(VCN, i, mmUVD_LMI_CTRL2, tmp);
-> +       tmp =3D UVD_LMI_STATUS__VCPU_LMI_WRITE_CLEAN_MASK |
-> +               UVD_LMI_STATUS__READ_CLEAN_MASK |
-> +               UVD_LMI_STATUS__WRITE_CLEAN_MASK |
-> +               UVD_LMI_STATUS__WRITE_CLEAN_RAW_MASK;
-> +       r =3D SOC15_WAIT_ON_RREG(VCN, inst, mmUVD_LMI_STATUS, tmp, tmp);
-> +       if (r)
-> +               return r;
->
-> -               tmp =3D UVD_LMI_STATUS__UMC_READ_CLEAN_RAW_MASK|
-> -                       UVD_LMI_STATUS__UMC_WRITE_CLEAN_RAW_MASK;
-> -               r =3D SOC15_WAIT_ON_RREG(VCN, i, mmUVD_LMI_STATUS, tmp, t=
-mp);
-> -               if (r)
-> -                       return r;
-> +       /* block LMI UMC channel */
-> +       tmp =3D RREG32_SOC15(VCN, inst, mmUVD_LMI_CTRL2);
-> +       tmp |=3D UVD_LMI_CTRL2__STALL_ARB_UMC_MASK;
-> +       WREG32_SOC15(VCN, inst, mmUVD_LMI_CTRL2, tmp);
->
-> -               /* block VCPU register access */
-> -               WREG32_P(SOC15_REG_OFFSET(VCN, i, mmUVD_RB_ARB_CTRL),
-> -                       UVD_RB_ARB_CTRL__VCPU_DIS_MASK,
-> -                       ~UVD_RB_ARB_CTRL__VCPU_DIS_MASK);
-> +       tmp =3D UVD_LMI_STATUS__UMC_READ_CLEAN_RAW_MASK|
-> +               UVD_LMI_STATUS__UMC_WRITE_CLEAN_RAW_MASK;
-> +       r =3D SOC15_WAIT_ON_RREG(VCN, inst, mmUVD_LMI_STATUS, tmp, tmp);
-> +       if (r)
-> +               return r;
->
-> -               /* reset VCPU */
-> -               WREG32_P(SOC15_REG_OFFSET(VCN, i, mmUVD_VCPU_CNTL),
-> -                       UVD_VCPU_CNTL__BLK_RST_MASK,
-> -                       ~UVD_VCPU_CNTL__BLK_RST_MASK);
-> +       /* block VCPU register access */
-> +       WREG32_P(SOC15_REG_OFFSET(VCN, inst, mmUVD_RB_ARB_CTRL),
-> +               UVD_RB_ARB_CTRL__VCPU_DIS_MASK,
-> +               ~UVD_RB_ARB_CTRL__VCPU_DIS_MASK);
->
-> -               /* disable VCPU clock */
-> -               WREG32_P(SOC15_REG_OFFSET(VCN, i, mmUVD_VCPU_CNTL), 0,
-> -                       ~(UVD_VCPU_CNTL__CLK_EN_MASK));
-> +       /* reset VCPU */
-> +       WREG32_P(SOC15_REG_OFFSET(VCN, inst, mmUVD_VCPU_CNTL),
-> +               UVD_VCPU_CNTL__BLK_RST_MASK,
-> +               ~UVD_VCPU_CNTL__BLK_RST_MASK);
->
-> -               /* clear status */
-> -               WREG32_SOC15(VCN, i, mmUVD_STATUS, 0);
-> +       /* disable VCPU clock */
-> +       WREG32_P(SOC15_REG_OFFSET(VCN, inst, mmUVD_VCPU_CNTL), 0,
-> +               ~(UVD_VCPU_CNTL__CLK_EN_MASK));
->
-> -               vcn_v2_5_enable_clock_gating(adev);
-> +       /* clear status */
-> +       WREG32_SOC15(VCN, inst, mmUVD_STATUS, 0);
->
-> -               /* enable register anti-hang mechanism */
-> -               WREG32_P(SOC15_REG_OFFSET(VCN, i, mmUVD_POWER_STATUS),
-> -                       UVD_POWER_STATUS__UVD_POWER_STATUS_MASK,
-> -                       ~UVD_POWER_STATUS__UVD_POWER_STATUS_MASK);
-> -       }
-> +       vcn_v2_5_enable_clock_gating(adev);
->
-> -       for (i =3D 0; i < adev->vcn.num_vcn_inst; ++i) {
-> -               if (adev->pm.dpm_enabled)
-> -                       amdgpu_dpm_enable_vcn(adev, false, i);
-> -       }
-> +       /* enable register anti-hang mechanism */
-> +       WREG32_P(SOC15_REG_OFFSET(VCN, inst, mmUVD_POWER_STATUS),
-> +               UVD_POWER_STATUS__UVD_POWER_STATUS_MASK,
-> +               ~UVD_POWER_STATUS__UVD_POWER_STATUS_MASK);
-> +done:
-> +       if (adev->pm.dpm_enabled)
-> +               amdgpu_dpm_enable_vcn(adev, false, inst);
->
->         return 0;
->  }
-> @@ -1838,9 +1827,9 @@ static int vcn_v2_5_set_powergating_state(struct am=
-dgpu_ip_block *ip_block,
->                 return 0;
->
->         if (state =3D=3D AMD_PG_STATE_GATE)
-> -               ret =3D vcn_v2_5_stop(adev);
-> +               ret =3D vcn_v2_5_stop(adev, inst);
->         else
-> -               ret =3D vcn_v2_5_start(adev);
-> +               ret =3D vcn_v2_5_start(adev, inst);
->
->         if (!ret)
->                 adev->vcn.cur_state[inst] =3D state;
-> --
-> 2.34.1
->
