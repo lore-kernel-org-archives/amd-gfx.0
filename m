@@ -4,46 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 889BACFA774
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Oct 2024 11:43:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A0FCCFA777
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Oct 2024 12:56:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7FB310E9E4;
-	Fri,  4 Oct 2024 11:43:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF4C210E2A8;
+	Fri,  4 Oct 2024 12:56:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="XbgUmWNW";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="aHtdko+N";
 	dkim-atps=neutral
-Received: from relay2-d.mail.gandi.net (relay2-d.mail.gandi.net
- [217.70.183.194])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC56410E9D0;
- Fri,  4 Oct 2024 11:43:32 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 69A8E40002;
- Fri,  4 Oct 2024 11:43:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1728042211;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=IFd++HRTwyxcJDhWil0PVxY+hT5Tc0F5JJCFAR4sl+o=;
- b=XbgUmWNW/K6PwXjt0FWa8CBzc0cHGCPy9meG5SdypR9dMIgoo4iKyClDenvY8uDPXtiRzU
- e3TgFKARSoU/VXw17eEdszwzEaajh30tFGQmpPiFd1I1/qtZhF/tNAUa2U55axIukOWQ0H
- E0aqaXKc3WRZXAMGCKIjunHjJebTtx42zQ3UcJxPsF7hru8pErw78DiENMJZR+yVk0T/aM
- oIFqswQvEI9yvvE357Gq/UGfnLjUVNCpX9epnfpgIrnCvMYPq4xpwc0ed0M0MlOj1wvK/G
- 3k9S4t4PWdNMDnOJjU82kGX1NDrQkdvSZWtmqaXh9HZys/j8fnYC6cMgmf5ZPg==
-Date: Fri, 4 Oct 2024 13:43:30 +0200
-From: Louis Chauvet <louis.chauvet@bootlin.com>
-To: Harry Wentland <harry.wentland@amd.com>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- wayland-devel@lists.freedesktop.org
-Subject: Re: [PATCH v6 15/44] drm/vkms: Add kunit tests for linear and sRGB
- LUTs
-Message-ID: <Zv_U4iN2Dofjk5s-@louis-chauvet-laptop>
-References: <20241003200129.1732122-1-harry.wentland@amd.com>
- <20241003200129.1732122-16-harry.wentland@amd.com>
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED38710E2A8
+ for <amd-gfx@lists.freedesktop.org>; Fri,  4 Oct 2024 12:56:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=e2K6IzgHmrcOW8o3PamM8gJG1kvUnTuf6XNzrhMhK2c=; b=aHtdko+N6UVnJG/gV9qbBoDZvz
+ p//vpHTIhyRgU3w4WiKAwXvOjRpe+qLwMFstFhKBfoVp6bLDuEni+6gnm49g7qRHNG9POGxWY/oRk
+ rkATgj8Y8ebGPFZjD5G8gq68tI72BdZo48ABBqphOs1ZUEvnpUf7LTJfMP16+q+rgFb/Zh+yHn0Du
+ o+huDbrxzPLNoSAlA8Bwjc1xAHXQkRKl674H7FQzegcMSXtSWKoQjgfQRcA/iG8ItAn4E0yeWgpM5
+ SOauEpUaqEyuwkNrqh+6XfWvX7wkGROHARtZUzpnd8sEk29vKN/CVX6LMcFtPp0WBfH9OavnmGZ3n
+ JXQpJH0g==;
+Received: from [189.6.17.125] (helo=[192.168.0.55])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1swhrQ-004q7J-DK; Fri, 04 Oct 2024 14:56:44 +0200
+Message-ID: <cee2e5fb-793a-4f4e-8314-a0d875ba2dde@igalia.com>
+Date: Fri, 4 Oct 2024 09:56:35 -0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20241003200129.1732122-16-harry.wentland@amd.com>
-X-GND-Sasl: louis.chauvet@bootlin.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 13/26] drm/amd/display: Clear update flags after update
+ has been applied
+To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Hamza Mahfooz <hamza.mahfooz@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>,
+ Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>,
+ Fangzhi Zuo <jerry.zuo@amd.com>, Zaeem Mohamed <zaeem.mohamed@amd.com>,
+ Solomon Chiu <solomon.chiu@amd.com>, Daniel Wheeler
+ <daniel.wheeler@amd.com>, Josip Pavic <Josip.Pavic@amd.com>,
+ Aric Cyr <aric.cyr@amd.com>
+References: <20241003233509.210919-1-Rodrigo.Siqueira@amd.com>
+ <20241003233509.210919-14-Rodrigo.Siqueira@amd.com>
+Content-Language: en-US
+From: Melissa Wen <mwen@igalia.com>
+In-Reply-To: <20241003233509.210919-14-Rodrigo.Siqueira@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,166 +68,135 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 03/10/24 - 16:00, Harry Wentland wrote:
 
-checkpatch: commit description - Add an appropriate one
 
-> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+
+On 03/10/2024 20:33, Rodrigo Siqueira wrote:
+> From: Josip Pavic <Josip.Pavic@amd.com>
+>
+> [Why]
+> Since the surface/stream update flags aren't cleared after applying
+> updates, those same updates may be applied again in a future call to
+> update surfaces/streams for surfaces/streams that aren't actually part
+> of that update (i.e. applying an update for one surface/stream can
+> trigger unintended programming on a different surface/stream).
+>
+> For example, when an update results in a call to
+> program_front_end_for_ctx, that function may call program_pipe on all
+> pipes. If there are surface update flags that were never cleared on the
+> surface some pipe is attached to, then the same update will be
+> programmed again.
+>
+> [How]
+> Clear the surface and stream update flags after applying the updates.
+Hi,
+
+Just to let you know: this patch fixes artifacts when transitioning from 
+2 to 3 planes with dynamic pipe split policy on DCN301, as reported here:
+
+https://gitlab.freedesktop.org/drm/amd/-/issues/3441
+
+The problem was first seen in kernel 6.5, when multiple features were 
+enabled (plane color mgmt and zpos properties) and minimal transition 
+state was reworked.
+
+Should it be sent to stable too?
+
+Thanks,
+
+Melissa
+>
+> Reviewed-by: Aric Cyr <aric.cyr@amd.com>
+> Signed-off-by: Josip Pavic <Josip.Pavic@amd.com>
+> Signed-off-by: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
 > ---
->  drivers/gpu/drm/vkms/tests/vkms_color_test.c | 38 +++++++++++++++++++-
->  drivers/gpu/drm/vkms/vkms_composer.c         | 15 ++------
->  drivers/gpu/drm/vkms/vkms_composer.h         | 13 +++++++
->  3 files changed, 53 insertions(+), 13 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/vkms/tests/vkms_color_test.c b/drivers/gpu/drm/vkms/tests/vkms_color_test.c
-> index efe139978860..c36e67c7909e 100644
-> --- a/drivers/gpu/drm/vkms/tests/vkms_color_test.c
-> +++ b/drivers/gpu/drm/vkms/tests/vkms_color_test.c
-> @@ -6,6 +6,7 @@
->  #include <drm/drm_mode.h>
->  #include "../vkms_drv.h"
->  #include "../vkms_composer.h"
-> +#include "../vkms_luts.h"
->  
->  #define TEST_LUT_SIZE 16
->  
-> @@ -36,7 +37,6 @@ const struct vkms_color_lut test_linear_lut = {
->  	.channel_value2index_ratio = 0xf000fll
->  };
->  
-> -
->  static void vkms_color_test_get_lut_index(struct kunit *test)
->  {
->  	int i;
-> @@ -45,6 +45,19 @@ static void vkms_color_test_get_lut_index(struct kunit *test)
->  
->  	for (i = 0; i < TEST_LUT_SIZE; i++)
->  		KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_lut_index(&test_linear_lut, test_linear_array[i].red)), i);
-> +
-> +	KUNIT_EXPECT_EQ(test, drm_fixp2int(get_lut_index(&srgb_eotf, 0x0)), 0x0);
-> +	KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_lut_index(&srgb_eotf, 0x0)), 0x0);
-> +	KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_lut_index(&srgb_eotf, 0x101)), 0x1);
-> +	KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_lut_index(&srgb_eotf, 0x202)), 0x2);
-> +
-> +	KUNIT_EXPECT_EQ(test, drm_fixp2int(get_lut_index(&srgb_inv_eotf, 0x0)), 0x0);
-> +	KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_lut_index(&srgb_inv_eotf, 0x0)), 0x0);
-> +	KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_lut_index(&srgb_inv_eotf, 0x101)), 0x1);
-> +	KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_lut_index(&srgb_inv_eotf, 0x202)), 0x2);
-> +
-> +	KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_lut_index(&srgb_eotf, 0xfefe)), 0xfe);
-> +	KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_lut_index(&srgb_eotf, 0xffff)), 0xff);
->  }
->  
->  static void vkms_color_test_lerp(struct kunit *test)
-> @@ -153,9 +166,32 @@ static void vkms_color_test_lerp(struct kunit *test)
->  	KUNIT_EXPECT_EQ(test, lerp_u16(0x0, 0x1, 0x80000000), 0x1);
->  }
->  
-> +static void vkms_color_test_linear(struct kunit *test)
+>   drivers/gpu/drm/amd/display/dc/core/dc.c | 45 ++++++++++++++++++------
+>   1 file changed, 34 insertions(+), 11 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+> index 981d9a327daf..7b239cbfbb4a 100644
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+> @@ -5129,11 +5129,26 @@ static bool update_planes_and_stream_v3(struct dc *dc,
+>   	return true;
+>   }
+>   
+> +static void clear_update_flags(struct dc_surface_update *srf_updates,
+> +	int surface_count, struct dc_stream_state *stream)
 > +{
-> +	for (int i = 0; i < LUT_SIZE; i++) {
-> +		int linear = apply_lut_to_channel_value(&linear_eotf, i * 0x101, LUT_RED);
-
-checkpatch: Missing a blank line after declarations
-
-> +		KUNIT_EXPECT_EQ(test, DIV_ROUND_CLOSEST(linear, 0x101), i);
-> +	}
+> +	int i;
+> +
+> +	if (stream)
+> +		stream->update_flags.raw = 0;
+> +
+> +	for (i = 0; i < surface_count; i++)
+> +		if (srf_updates[i].surface)
+> +			srf_updates[i].surface->update_flags.raw = 0;
 > +}
 > +
-> +static void vkms_color_srgb_inv_srgb(struct kunit *test)
-> +{
-> +	u16 srgb, final;
+>   bool dc_update_planes_and_stream(struct dc *dc,
+>   		struct dc_surface_update *srf_updates, int surface_count,
+>   		struct dc_stream_state *stream,
+>   		struct dc_stream_update *stream_update)
+>   {
+> +	bool ret = false;
 > +
-> +	for (int i = 0; i < LUT_SIZE; i++) {
-> +		srgb = apply_lut_to_channel_value(&srgb_eotf, i * 0x101, LUT_RED);
-> +		final = apply_lut_to_channel_value(&srgb_inv_eotf, srgb, LUT_RED);
+>   	dc_exit_ips_for_hw_access(dc);
+>   	/*
+>   	 * update planes and stream version 3 separates FULL and FAST updates
+> @@ -5150,10 +5165,16 @@ bool dc_update_planes_and_stream(struct dc *dc,
+>   	 * features as they are now transparent to the new sequence.
+>   	 */
+>   	if (dc->ctx->dce_version >= DCN_VERSION_4_01)
+> -		return update_planes_and_stream_v3(dc, srf_updates,
+> +		ret = update_planes_and_stream_v3(dc, srf_updates,
+>   				surface_count, stream, stream_update);
+> -	return update_planes_and_stream_v2(dc, srf_updates,
+> +	else
+> +		ret = update_planes_and_stream_v2(dc, srf_updates,
+>   			surface_count, stream, stream_update);
 > +
-> +		KUNIT_EXPECT_GE(test, final / 0x101, i-1);
-> +		KUNIT_EXPECT_LE(test, final / 0x101, i+1);
-
-checkpatch: spaces preferred around that '-/+' (ctx:VxV)
-
-> +	}
-> +}
+> +	if (ret)
+> +		clear_update_flags(srf_updates, surface_count, stream);
 > +
->  static struct kunit_case vkms_color_test_cases[] = {
->  	KUNIT_CASE(vkms_color_test_get_lut_index),
->  	KUNIT_CASE(vkms_color_test_lerp),
-> +	KUNIT_CASE(vkms_color_test_linear),
-> +	KUNIT_CASE(vkms_color_srgb_inv_srgb),
->  	{}
->  };
->  
-> diff --git a/drivers/gpu/drm/vkms/vkms_composer.c b/drivers/gpu/drm/vkms/vkms_composer.c
-> index a35466e68237..b4aaad2bf45f 100644
-> --- a/drivers/gpu/drm/vkms/vkms_composer.c
-> +++ b/drivers/gpu/drm/vkms/vkms_composer.c
-> @@ -113,18 +113,7 @@ VISIBLE_IF_KUNIT s64 get_lut_index(const struct vkms_color_lut *lut, u16 channel
->  }
->  EXPORT_SYMBOL_IF_KUNIT(get_lut_index);
->  
-> -/*
-> - * This enum is related to the positions of the variables inside
-> - * `struct drm_color_lut`, so the order of both needs to be the same.
-> - */
-> -enum lut_channel {
-> -	LUT_RED = 0,
-> -	LUT_GREEN,
-> -	LUT_BLUE,
-> -	LUT_RESERVED
-> -};
-> -
-> -static u16 apply_lut_to_channel_value(const struct vkms_color_lut *lut, u16 channel_value,
-> +VISIBLE_IF_KUNIT u16 apply_lut_to_channel_value(const struct vkms_color_lut *lut, u16 channel_value,
->  				      enum lut_channel channel)
-
-checkpatch: Alignment should match open parenthesis
-
->  {
->  	s64 lut_index = get_lut_index(lut, channel_value);
-> @@ -150,6 +139,8 @@ static u16 apply_lut_to_channel_value(const struct vkms_color_lut *lut, u16 chan
->  	return lerp_u16(floor_channel_value, ceil_channel_value,
->  			lut_index & DRM_FIXED_DECIMAL_MASK);
->  }
-> +EXPORT_SYMBOL_IF_KUNIT(apply_lut_to_channel_value);
+> +	return ret;
+>   }
+>   
+>   void dc_commit_updates_for_stream(struct dc *dc,
+> @@ -5163,6 +5184,8 @@ void dc_commit_updates_for_stream(struct dc *dc,
+>   		struct dc_stream_update *stream_update,
+>   		struct dc_state *state)
+>   {
+> +	bool ret = false;
 > +
->  
->  static void apply_lut(const struct vkms_crtc_state *crtc_state, struct line_buffer *output_buffer)
->  {
-> diff --git a/drivers/gpu/drm/vkms/vkms_composer.h b/drivers/gpu/drm/vkms/vkms_composer.h
-> index 9316a053e7d7..67ae09913460 100644
-> --- a/drivers/gpu/drm/vkms/vkms_composer.h
-> +++ b/drivers/gpu/drm/vkms/vkms_composer.h
-> @@ -5,9 +5,22 @@
->  
->  #include <kunit/visibility.h>
->  
-> +/*
-> + * This enum is related to the positions of the variables inside
-> + * `struct drm_color_lut`, so the order of both needs to be the same.
-> + */
-> +enum lut_channel {
-> +	LUT_RED = 0,
-> +	LUT_GREEN,
-> +	LUT_BLUE,
-> +	LUT_RESERVED
-> +};
+>   	dc_exit_ips_for_hw_access(dc);
+>   	/* TODO: Since change commit sequence can have a huge impact,
+>   	 * we decided to only enable it for DCN3x. However, as soon as
+> @@ -5170,17 +5193,17 @@ void dc_commit_updates_for_stream(struct dc *dc,
+>   	 * the new sequence for all ASICs.
+>   	 */
+>   	if (dc->ctx->dce_version >= DCN_VERSION_4_01) {
+> -		update_planes_and_stream_v3(dc, srf_updates, surface_count,
+> +		ret = update_planes_and_stream_v3(dc, srf_updates, surface_count,
+>   				stream, stream_update);
+> -		return;
+> -	}
+> -	if (dc->ctx->dce_version >= DCN_VERSION_3_2) {
+> -		update_planes_and_stream_v2(dc, srf_updates, surface_count,
+> +	} else if (dc->ctx->dce_version >= DCN_VERSION_3_2) {
+> +		ret = update_planes_and_stream_v2(dc, srf_updates, surface_count,
+>   				stream, stream_update);
+> -		return;
+> -	}
+> -	update_planes_and_stream_v1(dc, srf_updates, surface_count, stream,
+> -			stream_update, state);
+> +	} else
+> +		ret = update_planes_and_stream_v1(dc, srf_updates, surface_count, stream,
+> +				stream_update, state);
 > +
+> +	if (ret)
+> +		clear_update_flags(srf_updates, surface_count, stream);
+>   }
+>   
+>   uint8_t dc_get_current_stream_count(struct dc *dc)
 
-Can you declare this enum here in your previous patch, so you don't have 
-to move it here?
-
-With or without this and the checkpatch warning fixed:
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
-
->  #if IS_ENABLED(CONFIG_KUNIT)
->  u16 lerp_u16(u16 a, u16 b, s64 t);
->  s64 get_lut_index(const struct vkms_color_lut *lut, u16 channel_value);
-> +u16 apply_lut_to_channel_value(const struct vkms_color_lut *lut, u16 channel_value,
-> +			       enum lut_channel channel);
->  #endif
->  
->  #endif /* _VKMS_COMPOSER_H_ */
-> -- 
-> 2.46.2
-> 
