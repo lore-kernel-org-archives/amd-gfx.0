@@ -4,69 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8481CFA775
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Oct 2024 14:15:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CA22CFA775
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Oct 2024 14:17:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B50110EA18;
-	Fri,  4 Oct 2024 14:15:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E202410EA19;
+	Fri,  4 Oct 2024 14:17:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CpGGMI+3";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MOH9dB/h";
 	dkim-atps=neutral
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
- [209.85.214.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D7F3810EA18
- for <amd-gfx@lists.freedesktop.org>; Fri,  4 Oct 2024 14:15:55 +0000 (UTC)
-Received: by mail-pl1-f176.google.com with SMTP id
- d9443c01a7336-20b582aaf08so906925ad.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 04 Oct 2024 07:15:55 -0700 (PDT)
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com
+ [209.85.215.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 327BF10EA19
+ for <amd-gfx@lists.freedesktop.org>; Fri,  4 Oct 2024 14:17:13 +0000 (UTC)
+Received: by mail-pg1-f171.google.com with SMTP id
+ 41be03b00d2f7-7e9b2d75d92so344897a12.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 04 Oct 2024 07:17:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1728051355; x=1728656155; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1728051432; x=1728656232; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=kOCuourpoGxjm5B8AWYrWNltnKQ6Qz2CZAcPjQq7ZYI=;
- b=CpGGMI+36KTuSkF4QM853IP6CnQRhV9o9O/IfGyjeKIZlyuY4ZGuC4XkDSp+fThWTE
- pd0qHcZN5cnOKGpeA29SAeY9mh7BG/B1V0VwH+B8Sx3BVPZXq8wg7U8mgX/e/n2Q/3ZK
- SJFlujmG8lqxfH7SIe7vdA62TNFZrY1SU4Qk8jnCJDH2eHH2Rz5VqZw859Wd4BmvkXzC
- GfmJ8MX0hspy3+wAThJy/nV5kI2+sm6pO4k5ERMAKkJLq3wknG6Tx2AysvdvWwtOMXIF
- XQqjS4yQ+zswlz+4i+wwT3le5WNG8bNjNN+QQ4U7edkHVWLBrL8g5jbC98Kqa3LETB6S
- 4XrQ==
+ bh=7Uf60QwOetKSD0ge2s/Y1RvA/FXgNjrNtt2pbjJQmWo=;
+ b=MOH9dB/hdzKowMAqoTVGUswq3PEQhNobha2bmqZEfMJUGOTxjzp+ud6DCUqrGMKRHG
+ tqGT7Pyp+s58wFzmi5yrD4k16VZqUCf+8f6zpkrMdM+W1obxnpvgwUSQfJ35kWLsDKWy
+ sDUhOVufznpat1Lnnx6TgoWbZAbe0k0V0hsuiuoYEENkWRd42j2rJdnEAacMG0VwB6Uf
+ 03KK5oVzMuoafkmj87911ZrqeudgAf6QdgtzSK1DapWCcqUukJRwOp4qwBS99L+cduAN
+ 9ktrJIrTcLHBr28fqKRSGCO3AUHu/3Zsj0O68uxoExragQLophEvGOk9i8IE6BO4CnNL
+ oJsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1728051355; x=1728656155;
+ d=1e100.net; s=20230601; t=1728051432; x=1728656232;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=kOCuourpoGxjm5B8AWYrWNltnKQ6Qz2CZAcPjQq7ZYI=;
- b=OWg6+5RWyPzMHQI4BRDytvK8CtxU6Ch+++NH8QAZ13QQwY/GPsoa0Rq7uMbLzeQMx3
- M6tmjHib/2gnQSRME//aUMplrrVjhGjbUrPxdsqjVS6ZYsN6QI94CG1aIjkwg6QyRm37
- W+gDz6ci2kI+cI4aKpSvIjWx+99H3gAPjTTDLcWyhgl6DCZqW42fjabNMjPys4KuRqE9
- sEOxrshm9G2ro+WUTbUJ4+TgWLhLiwoKk8Y4YUUrBE+VidkHJ0YD/P53lJs8bYyaX8+J
- yyEV6M3bqNg7fOGM1cv90Ch6LNQnRjGKCC4ggJpGSc25OLufh5GCGJraQ/XspELZBb7y
- kYFQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU01I3tUMXs477+ZXAdYDCo8bEXBGJZti/bYnVs6/mpLW9Nj8hmsB+bdpF0JfE5d4/UFnhubf9i@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwFbBnT2lf5ynmcP6eptjjtykDRcxjhDmIJEDtGDUW/srJaF6yF
- BID2xkzxEOOeKpW9D/5cENhZ5IKtnqeMnDDCZy98lzFavy/mYe6RG5MgHi4dcm+JOrk/iCH5blv
- tDglhWELq5yJenBsmi+ldBagzo/k=
-X-Google-Smtp-Source: AGHT+IHRDWa6IqnSA2gXgHPitGNm1bmNiVoKsWUiIkpkgmkklg1AB4oNQkolg8JKkg/GnudFZ8zLbNf+9fPmpZUsBEI=
-X-Received: by 2002:a17:90a:e291:b0:2d3:b598:8daa with SMTP id
- 98e67ed59e1d1-2e1e631b1a8mr1453982a91.4.1728051355232; Fri, 04 Oct 2024
- 07:15:55 -0700 (PDT)
+ bh=7Uf60QwOetKSD0ge2s/Y1RvA/FXgNjrNtt2pbjJQmWo=;
+ b=Kn/v9TSwbfMesPuXkuBOYUNkwfnkpWIMBK4O5w49BaYEjH9dXS8AEeXTXcl16DFjo4
+ dslCclV1mxJXzOKPKU1iHEdW7jHcPktpcbh4/z6CDZTT8iVpJ5FmVNAtGiE/lYxQLoio
+ TaeiQSlS4pLa7MQRfSLiFpK4Kr8oVULwh/e16lMTCXFvGUmJBSpZPIrT4C3SH+wDic32
+ A6t1PWnKqFjlFItfT2w1pl+J50cfG8Xte0lhuhkx9RAOfYJrIqZucdBocPExCK5YSD1h
+ U2969UFotzUe1JcWokK/eYgcshFmR9Ro/m3R3jFuZSvgTIr3E4wxD4u3gNLm/nW4l1s7
+ zg2g==
+X-Gm-Message-State: AOJu0Ywgz4Gjx7fJTQhAwu5NLYKZqeOZLtpmbUgM7Y+WkkqL+lBCtxKW
+ oYwQUKJ/gPFIBUdC9Kyq2/XVldLV6Ze5HmE8XZQDtIigFdlF4fGaM2kahtZer6+J2vbCBwyIoLk
+ BPis9fEl9vQFT5ilZFiO9B7sPkTM/5g==
+X-Google-Smtp-Source: AGHT+IEmHCXSPB2IY2MWVsSpdbpe2Me0S1D9aCjhbMmjXbFvJHnQJnKzSLOP5S/US5HezJfAQ3cwoD3wekw1GrEAzAE=
+X-Received: by 2002:a17:90a:fa91:b0:2db:60b:697e with SMTP id
+ 98e67ed59e1d1-2e1e63c5747mr1357973a91.8.1728051432456; Fri, 04 Oct 2024
+ 07:17:12 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240924095145.2281-1-tursulin@igalia.com>
- <20240924095145.2281-3-tursulin@igalia.com>
- <6a7005b4-6af3-48e3-be65-353ffb5961f5@amd.com>
- <3e1ad979-a11e-43bd-8488-52712b58cec1@igalia.com>
-In-Reply-To: <3e1ad979-a11e-43bd-8488-52712b58cec1@igalia.com>
+References: <20241003140614.3976582-1-alexander.deucher@amd.com>
+In-Reply-To: <20241003140614.3976582-1-alexander.deucher@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 4 Oct 2024 10:15:43 -0400
-Message-ID: <CADnq5_MgTQxMwmoB2_XDFGqwma7=mqKhUPnhcRJ5YJrGk2wSFQ@mail.gmail.com>
-Subject: Re: [PATCH 3/3] drm/amdgpu: Remove the while loop from
- amdgpu_job_prepare_job
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Tvrtko Ursulin <tursulin@igalia.com>, amd-gfx@lists.freedesktop.org,
- kernel-dev@igalia.com, Alex Deucher <alexander.deucher@amd.com>
+Date: Fri, 4 Oct 2024 10:17:00 -0400
+Message-ID: <CADnq5_OKdHEXLzn4aTTBVWX0SZRHQq3E2yB_VZysA-ZYPPs_Rw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: partially revert powerplay `__counted_by`
+ changes
+To: Alex Deucher <alexander.deucher@amd.com>, 
+ "Limonciello, Mario" <Mario.Limonciello@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -83,69 +77,142 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+Ping?
 
-Alex
-
-On Fri, Oct 4, 2024 at 3:28=E2=80=AFAM Tvrtko Ursulin <tvrtko.ursulin@igali=
-a.com> wrote:
+On Thu, Oct 3, 2024 at 10:06=E2=80=AFAM Alex Deucher <alexander.deucher@amd=
+.com> wrote:
+>
+> Partially revert
+> commit 0ca9f757a0e2 ("drm/amd/pm: powerplay: Add `__counted_by` attribute=
+ for flexible arrays")
+>
+> The count attribute for these arrays does not get set until
+> after the arrays are allocated and populated leading to false
+> UBSAN warnings.
+>
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3662
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>  drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h | 26 ++++++++++----------
+>  1 file changed, 13 insertions(+), 13 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h b/drivers/gpu/d=
+rm/amd/pm/powerplay/inc/hwmgr.h
+> index 9118fcddbf11..227bf0e84a13 100644
+> --- a/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
+> +++ b/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
+> @@ -60,7 +60,7 @@ struct vi_dpm_level {
+>
+>  struct vi_dpm_table {
+>         uint32_t count;
+> -       struct vi_dpm_level dpm_level[] __counted_by(count);
+> +       struct vi_dpm_level dpm_level[];
+>  };
+>
+>  #define PCIE_PERF_REQ_REMOVE_REGISTRY   0
+> @@ -91,7 +91,7 @@ struct phm_set_power_state_input {
+>
+>  struct phm_clock_array {
+>         uint32_t count;
+> -       uint32_t values[] __counted_by(count);
+> +       uint32_t values[];
+>  };
+>
+>  struct phm_clock_voltage_dependency_record {
+> @@ -123,7 +123,7 @@ struct phm_acpclock_voltage_dependency_record {
+>
+>  struct phm_clock_voltage_dependency_table {
+>         uint32_t count;
+> -       struct phm_clock_voltage_dependency_record entries[] __counted_by=
+(count);
+> +       struct phm_clock_voltage_dependency_record entries[];
+>  };
+>
+>  struct phm_phase_shedding_limits_record {
+> @@ -140,7 +140,7 @@ struct phm_uvd_clock_voltage_dependency_record {
+>
+>  struct phm_uvd_clock_voltage_dependency_table {
+>         uint8_t count;
+> -       struct phm_uvd_clock_voltage_dependency_record entries[] __counte=
+d_by(count);
+> +       struct phm_uvd_clock_voltage_dependency_record entries[];
+>  };
+>
+>  struct phm_acp_clock_voltage_dependency_record {
+> @@ -150,7 +150,7 @@ struct phm_acp_clock_voltage_dependency_record {
+>
+>  struct phm_acp_clock_voltage_dependency_table {
+>         uint32_t count;
+> -       struct phm_acp_clock_voltage_dependency_record entries[] __counte=
+d_by(count);
+> +       struct phm_acp_clock_voltage_dependency_record entries[];
+>  };
+>
+>  struct phm_vce_clock_voltage_dependency_record {
+> @@ -161,32 +161,32 @@ struct phm_vce_clock_voltage_dependency_record {
+>
+>  struct phm_phase_shedding_limits_table {
+>         uint32_t count;
+> -       struct phm_phase_shedding_limits_record  entries[] __counted_by(c=
+ount);
+> +       struct phm_phase_shedding_limits_record  entries[];
+>  };
+>
+>  struct phm_vceclock_voltage_dependency_table {
+>         uint8_t count;
+> -       struct phm_vceclock_voltage_dependency_record entries[] __counted=
+_by(count);
+> +       struct phm_vceclock_voltage_dependency_record entries[];
+>  };
+>
+>  struct phm_uvdclock_voltage_dependency_table {
+>         uint8_t count;
+> -       struct phm_uvdclock_voltage_dependency_record entries[] __counted=
+_by(count);
+> +       struct phm_uvdclock_voltage_dependency_record entries[];
+>  };
+>
+>  struct phm_samuclock_voltage_dependency_table {
+>         uint8_t count;
+> -       struct phm_samuclock_voltage_dependency_record entries[] __counte=
+d_by(count);
+> +       struct phm_samuclock_voltage_dependency_record entries[];
+>  };
+>
+>  struct phm_acpclock_voltage_dependency_table {
+>         uint32_t count;
+> -       struct phm_acpclock_voltage_dependency_record entries[] __counted=
+_by(count);
+> +       struct phm_acpclock_voltage_dependency_record entries[];
+>  };
+>
+>  struct phm_vce_clock_voltage_dependency_table {
+>         uint8_t count;
+> -       struct phm_vce_clock_voltage_dependency_record entries[] __counte=
+d_by(count);
+> +       struct phm_vce_clock_voltage_dependency_record entries[];
+>  };
 >
 >
-> On 24/09/2024 13:06, Christian K=C3=B6nig wrote:
-> > Am 24.09.24 um 11:51 schrieb Tvrtko Ursulin:
-> >> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> >>
-> >> While loop makes it sound like amdgpu_vmid_grab() potentially needs to=
- be
-> >> called multiple times to produce a fence, while in reality all code pa=
-ths
-> >> either return an error, assign a valid job->vmid or assign a vmid whic=
-h
-> >> will be valid once the returned fence signals.
-> >>
-> >> Therefore we can remove the loop to make it clear the call does not ne=
-ed
-> >> to be repeated.
-> >>
-> >> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> >> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> >
-> > Oh yeah that's a leftover from when we still had the dependency handlin=
-g
-> > inside all this.
-> >
-> > Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com> for the wh=
-ole
-> > series.
+> @@ -393,7 +393,7 @@ union phm_cac_leakage_record {
 >
-> Thanks - CC Alex if you could merge the trivial series please?
+>  struct phm_cac_leakage_table {
+>         uint32_t count;
+> -       union phm_cac_leakage_record entries[] __counted_by(count);
+> +       union phm_cac_leakage_record entries[];
+>  };
 >
-> Regards,
+>  struct phm_samu_clock_voltage_dependency_record {
+> @@ -404,7 +404,7 @@ struct phm_samu_clock_voltage_dependency_record {
 >
-> Tvrtko
+>  struct phm_samu_clock_voltage_dependency_table {
+>         uint8_t count;
+> -       struct phm_samu_clock_voltage_dependency_record entries[] __count=
+ed_by(count);
+> +       struct phm_samu_clock_voltage_dependency_record entries[];
+>  };
 >
-> >> ---
-> >> I stared for a good while, going back and forth, and couldn't see that
-> >> the
-> >> while loop is needed. But maybe I missed something?
-> >> ---
-> >>   drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 2 +-
-> >>   1 file changed, 1 insertion(+), 1 deletion(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> >> b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> >> index d11cb0ad8c49..85f10b59d09c 100644
-> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> >> @@ -356,7 +356,7 @@ amdgpu_job_prepare_job(struct drm_sched_job
-> >> *sched_job,
-> >>       if (job->gang_submit)
-> >>           fence =3D amdgpu_device_switch_gang(ring->adev,
-> >> job->gang_submit);
-> >> -    while (!fence && job->vm && !job->vmid) {
-> >> +    if (!fence && job->vm && !job->vmid) {
-> >>           r =3D amdgpu_vmid_grab(job->vm, ring, job, &fence);
-> >>           if (r) {
-> >>               dev_err(ring->adev->dev, "Error getting VM ID (%d)\n", r=
-);
-> >
+>  struct phm_cac_tdp_table {
+> --
+> 2.46.2
+>
