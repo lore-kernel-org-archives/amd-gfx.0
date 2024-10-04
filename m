@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01A6CCF8840
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Oct 2024 18:28:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C45A3CF8856
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Oct 2024 18:29:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC90F10EA71;
-	Fri,  4 Oct 2024 18:28:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 51C3910E040;
+	Fri,  4 Oct 2024 18:29:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FgaybzOK";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZhzI47eo";
 	dkim-atps=neutral
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4294C10EA71;
- Fri,  4 Oct 2024 18:28:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 44EE610E040;
+ Fri,  4 Oct 2024 18:29:50 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 723EB5C54B2;
- Fri,  4 Oct 2024 18:28:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2786C4CEC6;
- Fri,  4 Oct 2024 18:28:30 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 72BA25C5D9E;
+ Fri,  4 Oct 2024 18:29:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00314C4CED0;
+ Fri,  4 Oct 2024 18:29:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1728066513;
- bh=C16IEkzhseK1MgeBXcb8tz19363Pmd4frgSZSpu14+Y=;
+ s=k20201202; t=1728066589;
+ bh=BSd8d6oLezafcvk6TobPvsi6Prt04X99T1Jr4pC/q+0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=FgaybzOK93BIVdcXnEj3N4j0Ohzf487O4w6tAqz7DqyImtKdyG8j3P3qL0wvp2pIN
- +HW63RHXLzg3V4meMZqFFdugvH4QC6hNwGUbmgPmtIrg6W4UqW3JcYuj7xYZByDNRv
- bwM7YVCWmyIkrxiNgggP0fkRxtuB+2nOXyJtxmx4h5JrJIEOoCmVWw8gEujxcoCLUZ
- LdArtE5nKWilCHaUjPAmnhksTX1uJPUZ9DvakCehWwCMuZjeKfXh5UEr3caEGzznJP
- DerU8o5xG8QQ7IhwoRVst88MsbiwCioIndmYX2VmnX2/WIj2F3jZPASpQ6oyMblL5A
- QrkSYw72yWV7g==
+ b=ZhzI47eo7oQaGto7/zorEzS2k/GgluLxcOgcWnlnl65F5bEjzBGl4KDN/qOG6wbma
+ oaSWrHWY3h24j0i/utDmpg9JManqiMGYUQ/RR9OVkj817yTb1c7Jnlo6j23qo69Wir
+ XTJJhaZlpyqZu6uO4TfhXL1vlX1UvU7ot4X2FDbL2ARlonOw0cfQsH7AynET5aATZV
+ 9mSYSSDx0/8OtAiWb8aT/C6Vk4AAzsop9CIhHRicmwGBBxrYF4AX40aDIMl/s1dca1
+ RlMafYX1Bbinf9kySV9cmK2c1Q2VJwGMfqWmcLeZF37N94czSwfP82QvAWkttBf5Gn
+ F+P2iq1AI7PeA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
@@ -38,21 +38,21 @@ Cc: Alex Hung <alex.hung@amd.com>, Rodrigo Siqueira <rodrigo.siqueira@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
  harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
  christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- daniel@ffwll.ch, alvin.lee2@amd.com, chiahsuan.chung@amd.com,
- wenjing.liu@amd.com, sungjoon.kim@amd.com, nicholas.kazlauskas@amd.com,
- dillon.varone@amd.com, aurabindo.pillai@amd.com, chiawen.huang@amd.com,
+ daniel@ffwll.ch, alvin.lee2@amd.com, wenjing.liu@amd.com,
+ sungjoon.kim@amd.com, nicholas.kazlauskas@amd.com, dillon.varone@amd.com,
+ aurabindo.pillai@amd.com, chiawen.huang@amd.com,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.1 40/42] drm/amd/display: Check null pointer before
+Subject: [PATCH AUTOSEL 5.15 30/31] drm/amd/display: Check null pointer before
  dereferencing se
-Date: Fri,  4 Oct 2024 14:26:51 -0400
-Message-ID: <20241004182718.3673735-40-sashal@kernel.org>
+Date: Fri,  4 Oct 2024 14:28:38 -0400
+Message-ID: <20241004182854.3674661-30-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20241004182718.3673735-1-sashal@kernel.org>
-References: <20241004182718.3673735-1-sashal@kernel.org>
+In-Reply-To: <20241004182854.3674661-1-sashal@kernel.org>
+References: <20241004182854.3674661-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.1.112
+X-stable-base: Linux 5.15.167
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,10 +89,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index d7bca680805d3..ce31a2f460932 100644
+index 12e4beca5e840..72b8065ae082b 100644
 --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
 +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -1659,7 +1659,7 @@ bool dc_validate_boot_timing(const struct dc *dc,
+@@ -1464,7 +1464,7 @@ bool dc_validate_seamless_boot_timing(const struct dc *dc,
  		if (crtc_timing->pix_clk_100hz != pix_clk_100hz)
  			return false;
  
