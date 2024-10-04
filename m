@@ -4,64 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B617CFB43F
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Oct 2024 13:06:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 989B3CFB445
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Oct 2024 13:06:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE2F010E37B;
-	Mon,  7 Oct 2024 13:06:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 09D5910E37E;
+	Mon,  7 Oct 2024 13:06:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="A6Kir43M";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kpPH/93h";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4DFC910E9CC;
- Fri,  4 Oct 2024 09:41:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1728034886; x=1759570886;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=6StNSwM35mQOJbtexHIyrpLz7dSJF2qUthmLq1Chdb8=;
- b=A6Kir43MMDb2Piw8v8siwqvk5bNW8HwB/BahA8AcYwXbOqtNL3Dow9sB
- T/BE91jtxH+qeyZbxrwoLP2NksnnyxQatqIGY5RhW1LFeAllKWUDLjg+2
- ZPabEKwIWtNwugBHc8gyrxrUvNLZ81ivdm1siKBrJDISW3yE6ybnoVVZ6
- adJJ9BsNyN66Fd1M39zuF3beFkKBYca9aLybul3nB4cqrqK3VnQXjN4K9
- fveG2vEkrtmoUnlpx2OxQR9gF8mwCBxY4sMJmXcRgedP/1zLnZbOgzlzo
- f22nk6AAo3L+V6jD0OvL9VbpmjUZFCO6hU8NErv/1Yfxx19n4xNTpUtXO w==;
-X-CSE-ConnectionGUID: 4cuYTv+NSwGQPUZ6Pqnouw==
-X-CSE-MsgGUID: zNlNgLAPTE6PDf7p8QMicA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11214"; a="37856232"
-X-IronPort-AV: E=Sophos;i="6.11,177,1725346800"; d="scan'208";a="37856232"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Oct 2024 02:41:26 -0700
-X-CSE-ConnectionGUID: F8yrWQk5SIKhs2vb8g2dhg==
-X-CSE-MsgGUID: +ax1NQV+TXqDlTFdovZukQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,177,1725346800"; d="scan'208";a="74331932"
-Received: from turnipsi.fi.intel.com (HELO kekkonen.fi.intel.com)
- ([10.237.72.44])
- by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Oct 2024 02:41:24 -0700
-Received: from punajuuri.localdomain (punajuuri.localdomain [192.168.240.130])
- by kekkonen.fi.intel.com (Postfix) with ESMTP id 6D8F711F727;
- Fri,  4 Oct 2024 12:41:22 +0300 (EEST)
-Received: from sailus by punajuuri.localdomain with local (Exim 4.96)
- (envelope-from <sakari.ailus@linux.intel.com>) id 1sweoC-000TXU-1P;
- Fri, 04 Oct 2024 12:41:12 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Subject: [PATCH 11/51] drm/radeon: Switch to __pm_runtime_put_autosuspend()
-Date: Fri,  4 Oct 2024 12:41:12 +0300
-Message-Id: <20241004094112.113538-1-sakari.ailus@linux.intel.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20241004094101.113349-1-sakari.ailus@linux.intel.com>
-References: <20241004094101.113349-1-sakari.ailus@linux.intel.com>
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
+ [209.85.214.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB53110E8F0;
+ Fri,  4 Oct 2024 08:16:36 +0000 (UTC)
+Received: by mail-pl1-f176.google.com with SMTP id
+ d9443c01a7336-20b1335e4e4so17952575ad.0; 
+ Fri, 04 Oct 2024 01:16:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1728029796; x=1728634596; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=EpHwQlBLt9aUuZVqI52DbACRCcwYewzEXJNWbf21nvo=;
+ b=kpPH/93hbHeOIBVxiPIdPSFfo9tyLjWchudR5Kpf8/DCWDsNoiJk6ZikAgS1RKB/18
+ JnOFYm/XWEQXRAguhiEdO1zxfJUi+H30T/mwFWQ7kQfkQsFcWdL+sT4uG1ZOe3o+z6y5
+ Dd4H1MagZLzxbSqnSfey6PxsUYPISwfrWQT33MGYQK9Yb2Z3RYOZ+iBI2VETjjZtJ4/f
+ hSkKU8nK72lBG78oPhSlPARkBiC1CO0dVEDt16dhB65Gn3ctFtXM5CF6WPbIls6i2id4
+ dA2CCGprsrnp3EuT+bEeUCAG+Dzws+hdYNEt8DNdJoIK0UHch7s/7MM2tzI1IEqg0yrx
+ QtJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1728029796; x=1728634596;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=EpHwQlBLt9aUuZVqI52DbACRCcwYewzEXJNWbf21nvo=;
+ b=UwrMZ1DdFufiM490nIISPOTGhG6mKcsw9J5I8FiqpOfErLuAHEPOADiBRU0eopYDoL
+ HzPVJxYQj+cZPia6DcaC09jkOo5P+t/GkPMLWRq53hQkos2QFv4TdjuOhl0ID38G+/9q
+ 03yXwQk44GBQakggC0bRX1kY6GHK+SC6v0aoJ3M55Za6IeoUfq7xOhru/B8FdsWJAF72
+ 3lJhinU981/2jc3Te5fhct+TfSH0jAbA3ETf8oy2/8L+WCdZkC74i6wBMhALX++3mN2t
+ 3d5PW12mO0I1BtOZG6bkP22J1+h3iKJUBINj0NXFAuwRFWiggKWCgxO8vkWpg+Q6bBat
+ 4arg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVdcNedMMoOVro3cc/Wh59ScFUmVT+VwTlEpXBAJb9vqTF+1qCllkQQlPtnOBM8Wv6HtftAgB890fk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx8qBvtWw5m/GubBUKUYfjjWmfAYu/zWil7bhE6JwKmcNPFSks+
+ NF/RZUm3B9i4rKKpWLk6Ql882Hm1IUH6JSg6f/wttMFzMhp3bwS6
+X-Google-Smtp-Source: AGHT+IESstItqCuBNL/elHzMasRvg1qmLhXnxawENnsB30tcavQLHFcDrefZED0ZlkxVd/XHEigKaA==
+X-Received: by 2002:a17:902:e551:b0:20b:4875:2c51 with SMTP id
+ d9443c01a7336-20bfe024d5cmr32004945ad.27.1728029796105; 
+ Fri, 04 Oct 2024 01:16:36 -0700 (PDT)
+Received: from advait-kdeneon.. ([2405:201:1e:f1d5:4e5:4fce:4f6a:9764])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-20beead49b4sm19832125ad.32.2024.10.04.01.16.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 04 Oct 2024 01:16:35 -0700 (PDT)
+From: Advait Dhamorikar <advaitdhamorikar@gmail.com>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, simona@ffwll.ch, leo.liu@amd.com,
+ sathishkumar.sundararaju@amd.com, saleemkhan.jamadar@amd.com,
+ Veerabadhran.Gopalakrishnan@amd.com, advaitdhamorikar@gmail.com,
+ sonny.jiang@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, skhan@linuxfoundation.org,
+ anupnewsmail@gmail.com
+Subject: [PATCH-next] Fix unintentional integer overflow
+Date: Fri,  4 Oct 2024 13:46:18 +0530
+Message-Id: <20241004081618.27599-1-advaitdhamorikar@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 07 Oct 2024 13:06:21 +0000
@@ -79,248 +85,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-pm_runtime_put_autosuspend() will soon be changed to include a call to
-pm_runtime_mark_last_busy(). This patch switches the current users to
-__pm_runtime_put_autosuspend() which will continue to have the
-functionality of old pm_runtime_put_autosuspend().
+Fix shift-count-overflow when creating mask.
+The expression's value may not be what the
+programmer intended, because the expression is
+evaluated using a narrower integer type.
 
-Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Fixes: f0b19b84d391 ("drm/amdgpu: add amdgpu_jpeg_sched_mask debugfs")
+Signed-off-by: Advait Dhamorikar <advaitdhamorikar@gmail.com>
 ---
- drivers/gpu/drm/radeon/radeon_acpi.c       |  2 +-
- drivers/gpu/drm/radeon/radeon_connectors.c | 20 ++++++++++----------
- drivers/gpu/drm/radeon/radeon_display.c    |  6 +++---
- drivers/gpu/drm/radeon/radeon_drv.c        |  4 ++--
- drivers/gpu/drm/radeon/radeon_fbdev.c      |  4 ++--
- drivers/gpu/drm/radeon/radeon_kms.c        | 10 +++++-----
- 6 files changed, 23 insertions(+), 23 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/radeon/radeon_acpi.c b/drivers/gpu/drm/radeon/radeon_acpi.c
-index 22ce61bdfc06..92721df2e43c 100644
---- a/drivers/gpu/drm/radeon/radeon_acpi.c
-+++ b/drivers/gpu/drm/radeon/radeon_acpi.c
-@@ -409,7 +409,7 @@ static int radeon_atif_handler(struct radeon_device *rdev,
- 			/* Just fire off a uevent and let userspace tell us what to do */
- 			drm_helper_hpd_irq_event(rdev_to_drm(rdev));
- 			pm_runtime_mark_last_busy(rdev_to_drm(rdev)->dev);
--			pm_runtime_put_autosuspend(rdev_to_drm(rdev)->dev);
-+			__pm_runtime_put_autosuspend(rdev_to_drm(rdev)->dev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
+index 95e2796919fc..7df402c45f40 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
+@@ -388,7 +388,7 @@ static int amdgpu_debugfs_jpeg_sched_mask_get(void *data, u64 *val)
+ 		for (j = 0; j < adev->jpeg.num_jpeg_rings; ++j) {
+ 			ring = &adev->jpeg.inst[i].ring_dec[j];
+ 			if (ring->sched.ready)
+-				mask |= 1 << ((i * adev->jpeg.num_jpeg_rings) + j);
++				mask |= (u64)1 << ((i * adev->jpeg.num_jpeg_rings) + j);
  		}
  	}
- 	/* TODO: check other events */
-diff --git a/drivers/gpu/drm/radeon/radeon_connectors.c b/drivers/gpu/drm/radeon/radeon_connectors.c
-index 528a8f3677c2..d6c58af369e5 100644
---- a/drivers/gpu/drm/radeon/radeon_connectors.c
-+++ b/drivers/gpu/drm/radeon/radeon_connectors.c
-@@ -848,7 +848,7 @@ radeon_lvds_detect(struct drm_connector *connector, bool force)
- 	if (!drm_kms_helper_is_poll_worker()) {
- 		r = pm_runtime_get_sync(connector->dev->dev);
- 		if (r < 0) {
--			pm_runtime_put_autosuspend(connector->dev->dev);
-+			__pm_runtime_put_autosuspend(connector->dev->dev);
- 			return connector_status_disconnected;
- 		}
- 	}
-@@ -877,7 +877,7 @@ radeon_lvds_detect(struct drm_connector *connector, bool force)
- 
- 	if (!drm_kms_helper_is_poll_worker()) {
- 		pm_runtime_mark_last_busy(connector->dev->dev);
--		pm_runtime_put_autosuspend(connector->dev->dev);
-+		__pm_runtime_put_autosuspend(connector->dev->dev);
- 	}
- 
- 	return ret;
-@@ -996,7 +996,7 @@ radeon_vga_detect(struct drm_connector *connector, bool force)
- 	if (!drm_kms_helper_is_poll_worker()) {
- 		r = pm_runtime_get_sync(connector->dev->dev);
- 		if (r < 0) {
--			pm_runtime_put_autosuspend(connector->dev->dev);
-+			__pm_runtime_put_autosuspend(connector->dev->dev);
- 			return connector_status_disconnected;
- 		}
- 	}
-@@ -1068,7 +1068,7 @@ radeon_vga_detect(struct drm_connector *connector, bool force)
- out:
- 	if (!drm_kms_helper_is_poll_worker()) {
- 		pm_runtime_mark_last_busy(connector->dev->dev);
--		pm_runtime_put_autosuspend(connector->dev->dev);
-+		__pm_runtime_put_autosuspend(connector->dev->dev);
- 	}
- 
- 	return ret;
-@@ -1138,7 +1138,7 @@ radeon_tv_detect(struct drm_connector *connector, bool force)
- 	if (!drm_kms_helper_is_poll_worker()) {
- 		r = pm_runtime_get_sync(connector->dev->dev);
- 		if (r < 0) {
--			pm_runtime_put_autosuspend(connector->dev->dev);
-+			__pm_runtime_put_autosuspend(connector->dev->dev);
- 			return connector_status_disconnected;
- 		}
- 	}
-@@ -1156,7 +1156,7 @@ radeon_tv_detect(struct drm_connector *connector, bool force)
- 
- 	if (!drm_kms_helper_is_poll_worker()) {
- 		pm_runtime_mark_last_busy(connector->dev->dev);
--		pm_runtime_put_autosuspend(connector->dev->dev);
-+		__pm_runtime_put_autosuspend(connector->dev->dev);
- 	}
- 
- 	return ret;
-@@ -1224,7 +1224,7 @@ radeon_dvi_detect(struct drm_connector *connector, bool force)
- 	if (!drm_kms_helper_is_poll_worker()) {
- 		r = pm_runtime_get_sync(connector->dev->dev);
- 		if (r < 0) {
--			pm_runtime_put_autosuspend(connector->dev->dev);
-+			__pm_runtime_put_autosuspend(connector->dev->dev);
- 			return connector_status_disconnected;
- 		}
- 	}
-@@ -1414,7 +1414,7 @@ radeon_dvi_detect(struct drm_connector *connector, bool force)
- exit:
- 	if (!drm_kms_helper_is_poll_worker()) {
- 		pm_runtime_mark_last_busy(connector->dev->dev);
--		pm_runtime_put_autosuspend(connector->dev->dev);
-+		__pm_runtime_put_autosuspend(connector->dev->dev);
- 	}
- 
- 	return ret;
-@@ -1643,7 +1643,7 @@ radeon_dp_detect(struct drm_connector *connector, bool force)
- 	if (!drm_kms_helper_is_poll_worker()) {
- 		r = pm_runtime_get_sync(connector->dev->dev);
- 		if (r < 0) {
--			pm_runtime_put_autosuspend(connector->dev->dev);
-+			__pm_runtime_put_autosuspend(connector->dev->dev);
- 			return connector_status_disconnected;
- 		}
- 	}
-@@ -1726,7 +1726,7 @@ radeon_dp_detect(struct drm_connector *connector, bool force)
- out:
- 	if (!drm_kms_helper_is_poll_worker()) {
- 		pm_runtime_mark_last_busy(connector->dev->dev);
--		pm_runtime_put_autosuspend(connector->dev->dev);
-+		__pm_runtime_put_autosuspend(connector->dev->dev);
- 	}
- 
- 	return ret;
-diff --git a/drivers/gpu/drm/radeon/radeon_display.c b/drivers/gpu/drm/radeon/radeon_display.c
-index 8f5f8abcb1b4..3fe641bad5bc 100644
---- a/drivers/gpu/drm/radeon/radeon_display.c
-+++ b/drivers/gpu/drm/radeon/radeon_display.c
-@@ -634,7 +634,7 @@ radeon_crtc_set_config(struct drm_mode_set *set,
- 
- 	ret = pm_runtime_get_sync(dev->dev);
- 	if (ret < 0) {
--		pm_runtime_put_autosuspend(dev->dev);
-+		__pm_runtime_put_autosuspend(dev->dev);
- 		return ret;
- 	}
- 
-@@ -656,12 +656,12 @@ radeon_crtc_set_config(struct drm_mode_set *set,
- 	/* if we have no active crtcs, then drop the power ref
- 	   we got before */
- 	if (!active && rdev->have_disp_power_ref) {
--		pm_runtime_put_autosuspend(dev->dev);
-+		__pm_runtime_put_autosuspend(dev->dev);
- 		rdev->have_disp_power_ref = false;
- 	}
- 
- 	/* drop the power reference we got coming in here */
--	pm_runtime_put_autosuspend(dev->dev);
-+	__pm_runtime_put_autosuspend(dev->dev);
- 	return ret;
- }
- 
-diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
-index 900b05d8aa5c..ad4431a60508 100644
---- a/drivers/gpu/drm/radeon/radeon_drv.c
-+++ b/drivers/gpu/drm/radeon/radeon_drv.c
-@@ -494,14 +494,14 @@ long radeon_drm_ioctl(struct file *filp,
- 	dev = file_priv->minor->dev;
- 	ret = pm_runtime_get_sync(dev->dev);
- 	if (ret < 0) {
--		pm_runtime_put_autosuspend(dev->dev);
-+		__pm_runtime_put_autosuspend(dev->dev);
- 		return ret;
- 	}
- 
- 	ret = drm_ioctl(filp, cmd, arg);
- 
- 	pm_runtime_mark_last_busy(dev->dev);
--	pm_runtime_put_autosuspend(dev->dev);
-+	__pm_runtime_put_autosuspend(dev->dev);
- 	return ret;
- }
- 
-diff --git a/drivers/gpu/drm/radeon/radeon_fbdev.c b/drivers/gpu/drm/radeon/radeon_fbdev.c
-index 0aa20c8df546..a302cd3dc8a3 100644
---- a/drivers/gpu/drm/radeon/radeon_fbdev.c
-+++ b/drivers/gpu/drm/radeon/radeon_fbdev.c
-@@ -156,7 +156,7 @@ static int radeon_fbdev_fb_open(struct fb_info *info, int user)
- 
- err_pm_runtime_mark_last_busy:
- 	pm_runtime_mark_last_busy(rdev_to_drm(rdev)->dev);
--	pm_runtime_put_autosuspend(rdev_to_drm(rdev)->dev);
-+	__pm_runtime_put_autosuspend(rdev_to_drm(rdev)->dev);
- 	return ret;
- }
- 
-@@ -166,7 +166,7 @@ static int radeon_fbdev_fb_release(struct fb_info *info, int user)
- 	struct radeon_device *rdev = fb_helper->dev->dev_private;
- 
- 	pm_runtime_mark_last_busy(rdev_to_drm(rdev)->dev);
--	pm_runtime_put_autosuspend(rdev_to_drm(rdev)->dev);
-+	__pm_runtime_put_autosuspend(rdev_to_drm(rdev)->dev);
- 
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/radeon/radeon_kms.c b/drivers/gpu/drm/radeon/radeon_kms.c
-index 645e33bf7947..265912c96232 100644
---- a/drivers/gpu/drm/radeon/radeon_kms.c
-+++ b/drivers/gpu/drm/radeon/radeon_kms.c
-@@ -171,7 +171,7 @@ int radeon_driver_load_kms(struct drm_device *dev, unsigned long flags)
- 		pm_runtime_set_active(dev->dev);
- 		pm_runtime_allow(dev->dev);
- 		pm_runtime_mark_last_busy(dev->dev);
--		pm_runtime_put_autosuspend(dev->dev);
-+		__pm_runtime_put_autosuspend(dev->dev);
- 	}
- 
- out:
-@@ -635,7 +635,7 @@ int radeon_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
- 
- 	r = pm_runtime_get_sync(dev->dev);
- 	if (r < 0) {
--		pm_runtime_put_autosuspend(dev->dev);
-+		__pm_runtime_put_autosuspend(dev->dev);
- 		return r;
- 	}
- 
-@@ -678,7 +678,7 @@ int radeon_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
- 	}
- 
- 	pm_runtime_mark_last_busy(dev->dev);
--	pm_runtime_put_autosuspend(dev->dev);
-+	__pm_runtime_put_autosuspend(dev->dev);
- 	return 0;
- 
- err_vm_fini:
-@@ -688,7 +688,7 @@ int radeon_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
- 
- err_suspend:
- 	pm_runtime_mark_last_busy(dev->dev);
--	pm_runtime_put_autosuspend(dev->dev);
-+	__pm_runtime_put_autosuspend(dev->dev);
- 	return r;
- }
- 
-@@ -738,7 +738,7 @@ void radeon_driver_postclose_kms(struct drm_device *dev,
- 		file_priv->driver_priv = NULL;
- 	}
- 	pm_runtime_mark_last_busy(dev->dev);
--	pm_runtime_put_autosuspend(dev->dev);
-+	__pm_runtime_put_autosuspend(dev->dev);
- }
- 
- /*
+ 	*val = mask;
 -- 
-2.39.5
+2.34.1
 
