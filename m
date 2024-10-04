@@ -4,65 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CA22CFA775
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Oct 2024 14:17:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C229BCF8840
+	for <amd-gfx@archiver.kernel.org>; Fri,  4 Oct 2024 14:30:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E202410EA19;
-	Fri,  4 Oct 2024 14:17:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B53810EA24;
+	Fri,  4 Oct 2024 14:30:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MOH9dB/h";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="B9SvLIIr";
 	dkim-atps=neutral
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com
- [209.85.215.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 327BF10EA19
- for <amd-gfx@lists.freedesktop.org>; Fri,  4 Oct 2024 14:17:13 +0000 (UTC)
-Received: by mail-pg1-f171.google.com with SMTP id
- 41be03b00d2f7-7e9b2d75d92so344897a12.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 04 Oct 2024 07:17:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1728051432; x=1728656232; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=7Uf60QwOetKSD0ge2s/Y1RvA/FXgNjrNtt2pbjJQmWo=;
- b=MOH9dB/hdzKowMAqoTVGUswq3PEQhNobha2bmqZEfMJUGOTxjzp+ud6DCUqrGMKRHG
- tqGT7Pyp+s58wFzmi5yrD4k16VZqUCf+8f6zpkrMdM+W1obxnpvgwUSQfJ35kWLsDKWy
- sDUhOVufznpat1Lnnx6TgoWbZAbe0k0V0hsuiuoYEENkWRd42j2rJdnEAacMG0VwB6Uf
- 03KK5oVzMuoafkmj87911ZrqeudgAf6QdgtzSK1DapWCcqUukJRwOp4qwBS99L+cduAN
- 9ktrJIrTcLHBr28fqKRSGCO3AUHu/3Zsj0O68uxoExragQLophEvGOk9i8IE6BO4CnNL
- oJsw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1728051432; x=1728656232;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=7Uf60QwOetKSD0ge2s/Y1RvA/FXgNjrNtt2pbjJQmWo=;
- b=Kn/v9TSwbfMesPuXkuBOYUNkwfnkpWIMBK4O5w49BaYEjH9dXS8AEeXTXcl16DFjo4
- dslCclV1mxJXzOKPKU1iHEdW7jHcPktpcbh4/z6CDZTT8iVpJ5FmVNAtGiE/lYxQLoio
- TaeiQSlS4pLa7MQRfSLiFpK4Kr8oVULwh/e16lMTCXFvGUmJBSpZPIrT4C3SH+wDic32
- A6t1PWnKqFjlFItfT2w1pl+J50cfG8Xte0lhuhkx9RAOfYJrIqZucdBocPExCK5YSD1h
- U2969UFotzUe1JcWokK/eYgcshFmR9Ro/m3R3jFuZSvgTIr3E4wxD4u3gNLm/nW4l1s7
- zg2g==
-X-Gm-Message-State: AOJu0Ywgz4Gjx7fJTQhAwu5NLYKZqeOZLtpmbUgM7Y+WkkqL+lBCtxKW
- oYwQUKJ/gPFIBUdC9Kyq2/XVldLV6Ze5HmE8XZQDtIigFdlF4fGaM2kahtZer6+J2vbCBwyIoLk
- BPis9fEl9vQFT5ilZFiO9B7sPkTM/5g==
-X-Google-Smtp-Source: AGHT+IEmHCXSPB2IY2MWVsSpdbpe2Me0S1D9aCjhbMmjXbFvJHnQJnKzSLOP5S/US5HezJfAQ3cwoD3wekw1GrEAzAE=
-X-Received: by 2002:a17:90a:fa91:b0:2db:60b:697e with SMTP id
- 98e67ed59e1d1-2e1e63c5747mr1357973a91.8.1728051432456; Fri, 04 Oct 2024
- 07:17:12 -0700 (PDT)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2066.outbound.protection.outlook.com [40.107.243.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 610A810EA1E
+ for <amd-gfx@lists.freedesktop.org>; Fri,  4 Oct 2024 14:30:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mUXnxFltQufZvk+yE/DChwAVxMWldvVMbzh8XMMF0V0R1Oy17PZRXH95IeYf+DgviRzqq3XSyzTqc9CLk3/MScyI3O/XokqGNb8hg0QErQxA6PickkNTmb4Pp3EjYPHCE4UxqAUvOa1UEB6zTaAztEesBRiK8DUAG15J+jVi0zQllM++I+R8msYKNvox/6qKUZZXzKlMTfN/1VGIcX3SztmdWVtnEmSCGxgpAYeVS5xeNGDxnzipvc/VoXsv6xqJiY7kTrLzJI78Tv6mkTO7NfrivUNvUisQNZkCYl+Dy6LVR6g6wIFtmkq7Ao/HDtUC3RwySIIlkQLFqnwUXu+nUw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MAbmXOVrOL0UQfwyOdN7RjZd/aOc9gxE5sD2z7vN0po=;
+ b=G4JQ8BabqOSZuaFnJAYwPBEVxLK04dgPW63SlopKypS/5+PLpyStoWBm/nDdGbUPzzWV4L0Ulx/+LFzlBrjOyZbF8LrS2QL0T+Fq3MWZAG55wJFiOjrM1tSZkR+UWvQmFItnB44+wkdFJnRp4u4t/nc18U5AlvcvgF9OjdhbsANtGb5OYLUzW6u2h4MluBr0a6j+bYiXrtTpWpExPtkm/O4SDltvry1jEYk9OR2b9ZjixxYmt48FaOHL1L9GnaDXcqYvQUZbNdebYr4Er31G8kRPQvGOZKJeRjjisHYJKM1fyraGgVWNF+Xm1AfLJ9fAlPuPhA1D0Q0ZTj9+OnUVgA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MAbmXOVrOL0UQfwyOdN7RjZd/aOc9gxE5sD2z7vN0po=;
+ b=B9SvLIIrO86JidoI/6AoNoj0N5PqGzsZtrG5hkcULZLBRjRD6zHtCitfi03YdN0NWy6vLo1PJ2o828zRTg99AYpqWYeqzQKiWgwqT/u9cnkB/DqOUTMlWR80rEpl1T/HOjg2w/mjWO7iNOo6Obj0Blb5R7TGY2VSiKQlgn6tmOw=
+Received: from BN9P220CA0012.NAMP220.PROD.OUTLOOK.COM (2603:10b6:408:13e::17)
+ by CY5PR12MB6621.namprd12.prod.outlook.com (2603:10b6:930:43::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8026.15; Fri, 4 Oct
+ 2024 14:30:29 +0000
+Received: from BL6PEPF0001AB4B.namprd04.prod.outlook.com
+ (2603:10b6:408:13e:cafe::67) by BN9P220CA0012.outlook.office365.com
+ (2603:10b6:408:13e::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8026.18 via Frontend
+ Transport; Fri, 4 Oct 2024 14:30:29 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL6PEPF0001AB4B.mail.protection.outlook.com (10.167.242.69) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8026.11 via Frontend Transport; Fri, 4 Oct 2024 14:30:28 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 4 Oct
+ 2024 09:30:28 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH] drm/amd/display: disable SG displays on cyan skillfish
+Date: Fri, 4 Oct 2024 10:30:10 -0400
+Message-ID: <20241004143010.444578-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.46.2
 MIME-Version: 1.0
-References: <20241003140614.3976582-1-alexander.deucher@amd.com>
-In-Reply-To: <20241003140614.3976582-1-alexander.deucher@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 4 Oct 2024 10:17:00 -0400
-Message-ID: <CADnq5_OKdHEXLzn4aTTBVWX0SZRHQq3E2yB_VZysA-ZYPPs_Rw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: partially revert powerplay `__counted_by`
- changes
-To: Alex Deucher <alexander.deucher@amd.com>, 
- "Limonciello, Mario" <Mario.Limonciello@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB4B:EE_|CY5PR12MB6621:EE_
+X-MS-Office365-Filtering-Correlation-Id: 100f5484-95fa-455b-6a31-08dce4811856
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|36860700013|376014|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?74H/nUPKVv9tUSxU9ERM3gm+Wdsq9SE2zsXM5BWvN1SVAlpKD1soSYDSWndk?=
+ =?us-ascii?Q?gfGmYFw9OkG+9d9DIKqJ9aSdbJkKMedyqNlGGxHipRYczVVfZ/ifKTUw21bP?=
+ =?us-ascii?Q?9oefzV9zoG5cFZQwWQs1X5+brY2D5kdnOS9K1gX1/CwPIsv6n/o+1NwXiZWm?=
+ =?us-ascii?Q?ivh1A60UAb/HLVs2cbExSUByUFD3hP6kTYyIKS9vbPGX1RPthGSJ8UhgfGEe?=
+ =?us-ascii?Q?Povd6gY2gJAL+Z97AV63q4fffb7oxELhtmd5rV/afvucgrpOVtqhAalCR4J+?=
+ =?us-ascii?Q?1H3G+zWT4LDJqKB+MNVPB9dA1yhNXefIkv1n+nK/do1eQr8IheJKsU0maaj6?=
+ =?us-ascii?Q?nvPF5evK9aC0NlsuDHB7FFIH/qWJTQgBLqSpnWwapuViTbQ6LUw+SAyD1veh?=
+ =?us-ascii?Q?n/p7ZfifLBcgeDfb/xQjHJ1KKbEQpngbvnb4Wqf4miRqkj51KGtOYSHzcOQQ?=
+ =?us-ascii?Q?DjPEVuxlamMgr5+W+YJhSY6N6HH6OKrD0biWId4q8GcthWrSKl08EuO6FhIP?=
+ =?us-ascii?Q?31a72Vq5PxYKurWWEhNShnOXana4ZCJc61ZJiA5/C330+pCabK94Xy1OlJhf?=
+ =?us-ascii?Q?A1gBpWnmYHyYTSUlOykI8oy3JMGouBSStfVZIZTKgRxqy07ysTHEKRznYJAn?=
+ =?us-ascii?Q?vllf3fNsE9Nvg7f+J2X6MoXvOUXufm1TaUe9BD4ay08810T9GGBsFDmREHLU?=
+ =?us-ascii?Q?cuIpNixXeQx3GYeZsuAMBM5toUvNrMvnaj07KnTyArfVnM0pjewQuhmR9fX5?=
+ =?us-ascii?Q?xpv32iZCtuMqa/LEQe7PvHlAcdxcS/b02JuwhtmHPqG+dxHA2bQukmkusIlU?=
+ =?us-ascii?Q?NUP9AxbiIB8aJ93qHHcFPeuH4lmehkixsRzrQTFdPMrD1as+tK1HZzEQ4YiN?=
+ =?us-ascii?Q?TdDY26ptQbu5BkV9w6Qfw4W6pyd2VrEWczfhY35JQ3DJzjE4skIbkWxgCxsB?=
+ =?us-ascii?Q?4JrwcUvgeaq+9aqObcyHfsUW/AybS65x8VUPtZ2UiTAVHySrltKN7SIF7Ktl?=
+ =?us-ascii?Q?aVh3mQzbRVWSxPG7+fRma20XYiHtKF8+iGsMRLvjxBkGiA2UpAWDgTUXEuaV?=
+ =?us-ascii?Q?iU0lpCKzv26T21TEjSwtfvSr45vYaJ6tjfxGBHzenWBdsIzHa22qlWVFiK6A?=
+ =?us-ascii?Q?PAl4Z6sC64SS+LqiPowmoQ4DOLrREvcX5MTDnctNdoQ33aduX2Ns25TkDWgs?=
+ =?us-ascii?Q?+B4xxFADD28Igc6bahRWeMzDssRja2/dpEZtka9R9Q98XX8AhUVry4G83aUZ?=
+ =?us-ascii?Q?3U/APo4dZN3UGmQ1UIEYw8ft8mNCpratVyvhSCv827adOGFkG9p8KbfHesPU?=
+ =?us-ascii?Q?XhCTty9snnOkwwnmr7WRuc2m?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(36860700013)(376014)(1800799024); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Oct 2024 14:30:28.9373 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 100f5484-95fa-455b-6a31-08dce4811856
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB4B.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6621
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,142 +127,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Ping?
+These parts were mainly for compute workloads, but they have
+a display that was available for the console.  These chips
+should support SG display, but I don't know that the support
+was ever validated on Linux so disable it by default. It can
+still be enabled by setting sg_display=1 for those that
+want to play with it.  These systems also generally had large
+carve outs so SG display was less of a factor.
 
-On Thu, Oct 3, 2024 at 10:06=E2=80=AFAM Alex Deucher <alexander.deucher@amd=
-.com> wrote:
->
-> Partially revert
-> commit 0ca9f757a0e2 ("drm/amd/pm: powerplay: Add `__counted_by` attribute=
- for flexible arrays")
->
-> The count attribute for these arrays does not get set until
-> after the arrays are allocated and populated leading to false
-> UBSAN warnings.
->
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3662
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->  drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h | 26 ++++++++++----------
->  1 file changed, 13 insertions(+), 13 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h b/drivers/gpu/d=
-rm/amd/pm/powerplay/inc/hwmgr.h
-> index 9118fcddbf11..227bf0e84a13 100644
-> --- a/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
-> +++ b/drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h
-> @@ -60,7 +60,7 @@ struct vi_dpm_level {
->
->  struct vi_dpm_table {
->         uint32_t count;
-> -       struct vi_dpm_level dpm_level[] __counted_by(count);
-> +       struct vi_dpm_level dpm_level[];
->  };
->
->  #define PCIE_PERF_REQ_REMOVE_REGISTRY   0
-> @@ -91,7 +91,7 @@ struct phm_set_power_state_input {
->
->  struct phm_clock_array {
->         uint32_t count;
-> -       uint32_t values[] __counted_by(count);
-> +       uint32_t values[];
->  };
->
->  struct phm_clock_voltage_dependency_record {
-> @@ -123,7 +123,7 @@ struct phm_acpclock_voltage_dependency_record {
->
->  struct phm_clock_voltage_dependency_table {
->         uint32_t count;
-> -       struct phm_clock_voltage_dependency_record entries[] __counted_by=
-(count);
-> +       struct phm_clock_voltage_dependency_record entries[];
->  };
->
->  struct phm_phase_shedding_limits_record {
-> @@ -140,7 +140,7 @@ struct phm_uvd_clock_voltage_dependency_record {
->
->  struct phm_uvd_clock_voltage_dependency_table {
->         uint8_t count;
-> -       struct phm_uvd_clock_voltage_dependency_record entries[] __counte=
-d_by(count);
-> +       struct phm_uvd_clock_voltage_dependency_record entries[];
->  };
->
->  struct phm_acp_clock_voltage_dependency_record {
-> @@ -150,7 +150,7 @@ struct phm_acp_clock_voltage_dependency_record {
->
->  struct phm_acp_clock_voltage_dependency_table {
->         uint32_t count;
-> -       struct phm_acp_clock_voltage_dependency_record entries[] __counte=
-d_by(count);
-> +       struct phm_acp_clock_voltage_dependency_record entries[];
->  };
->
->  struct phm_vce_clock_voltage_dependency_record {
-> @@ -161,32 +161,32 @@ struct phm_vce_clock_voltage_dependency_record {
->
->  struct phm_phase_shedding_limits_table {
->         uint32_t count;
-> -       struct phm_phase_shedding_limits_record  entries[] __counted_by(c=
-ount);
-> +       struct phm_phase_shedding_limits_record  entries[];
->  };
->
->  struct phm_vceclock_voltage_dependency_table {
->         uint8_t count;
-> -       struct phm_vceclock_voltage_dependency_record entries[] __counted=
-_by(count);
-> +       struct phm_vceclock_voltage_dependency_record entries[];
->  };
->
->  struct phm_uvdclock_voltage_dependency_table {
->         uint8_t count;
-> -       struct phm_uvdclock_voltage_dependency_record entries[] __counted=
-_by(count);
-> +       struct phm_uvdclock_voltage_dependency_record entries[];
->  };
->
->  struct phm_samuclock_voltage_dependency_table {
->         uint8_t count;
-> -       struct phm_samuclock_voltage_dependency_record entries[] __counte=
-d_by(count);
-> +       struct phm_samuclock_voltage_dependency_record entries[];
->  };
->
->  struct phm_acpclock_voltage_dependency_table {
->         uint32_t count;
-> -       struct phm_acpclock_voltage_dependency_record entries[] __counted=
-_by(count);
-> +       struct phm_acpclock_voltage_dependency_record entries[];
->  };
->
->  struct phm_vce_clock_voltage_dependency_table {
->         uint8_t count;
-> -       struct phm_vce_clock_voltage_dependency_record entries[] __counte=
-d_by(count);
-> +       struct phm_vce_clock_voltage_dependency_record entries[];
->  };
->
->
-> @@ -393,7 +393,7 @@ union phm_cac_leakage_record {
->
->  struct phm_cac_leakage_table {
->         uint32_t count;
-> -       union phm_cac_leakage_record entries[] __counted_by(count);
-> +       union phm_cac_leakage_record entries[];
->  };
->
->  struct phm_samu_clock_voltage_dependency_record {
-> @@ -404,7 +404,7 @@ struct phm_samu_clock_voltage_dependency_record {
->
->  struct phm_samu_clock_voltage_dependency_table {
->         uint8_t count;
-> -       struct phm_samu_clock_voltage_dependency_record entries[] __count=
-ed_by(count);
-> +       struct phm_samu_clock_voltage_dependency_record entries[];
->  };
->
->  struct phm_cac_tdp_table {
-> --
-> 2.46.2
->
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3356
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 7616d7a509b9..84fdfb4c8bd0 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -1886,7 +1886,11 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
+ 		else
+ 			init_data.flags.gpu_vm_support = (amdgpu_sg_display != 0);
+ 	} else {
+-		init_data.flags.gpu_vm_support = (amdgpu_sg_display != 0) && (adev->flags & AMD_IS_APU);
++		if (amdgpu_ip_version(adev, DCE_HWIP, 0) == IP_VERSION(2, 0, 3))
++			init_data.flags.gpu_vm_support = (amdgpu_sg_display == 1);
++		else
++			init_data.flags.gpu_vm_support =
++				(amdgpu_sg_display != 0) && (adev->flags & AMD_IS_APU);
+ 	}
+ 
+ 	adev->mode_info.gpu_vm_support = init_data.flags.gpu_vm_support;
+-- 
+2.46.2
+
