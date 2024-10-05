@@ -4,68 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2EFCFCF8857
-	for <amd-gfx@archiver.kernel.org>; Fri,  4 Oct 2024 20:52:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BDA5CF8868
+	for <amd-gfx@archiver.kernel.org>; Sat,  5 Oct 2024 01:34:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BDBB510EAB1;
-	Fri,  4 Oct 2024 20:52:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E618310E02E;
+	Sat,  5 Oct 2024 01:34:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dV7w+d52";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="RbMK47WD";
 	dkim-atps=neutral
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com
- [209.85.215.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 551E210EAB1
- for <amd-gfx@lists.freedesktop.org>; Fri,  4 Oct 2024 20:52:24 +0000 (UTC)
-Received: by mail-pg1-f180.google.com with SMTP id
- 41be03b00d2f7-7e9f0e91961so62971a12.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 04 Oct 2024 13:52:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1728075144; x=1728679944; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=EcGB3qPTIyAq2lyv3gVDHDXN+w1J2sfilEkLN6A+gPs=;
- b=dV7w+d52sy0HPCQ/uztvxqaF9W4+s7RIkoE9WKlmX7SL6jAImf8NAfcYXuc4c+hKj1
- FHYdrYu3ZQj5pukS7EKTJbeAwGCJbprTuYR8d7C1hRLFZrU6zsTZ8CsVv01tbISGgvvj
- slI+OcQeHUu8iqtRDxrMfUgj8cNMvNj30JoJBpyeEsIERtQYICmiFb9+lWVnjWnj1eV7
- 4ElOCl66dGQSS0T87PLHam2t9QoJaz6iUlksE+KYQYanmcc1LP5dblBVW9TgIIr2iDCm
- 7xT9eMKu7j/WZyvTaH+Ghig489rO7XlR0VeShDje0KSHuGRbvfvPuo+MEjntrFkLUKTN
- 4XNA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1728075144; x=1728679944;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=EcGB3qPTIyAq2lyv3gVDHDXN+w1J2sfilEkLN6A+gPs=;
- b=JYrQOecgtwRAvZHoe7pUZSBohIvauXSPcrpCiLSwtAIn9dBOXWZBtfy8EK1uDY2cmh
- vbqTYo4TTtv4y0m/G7ehDTF5GGdhZt/2atQIC0uw7PsveSYzYf+L15J41TaniNERf0J+
- 1L90BGoOEhlFoXL9x52QGfBev3evtro45KlPLJdpi1zu3s4MjexKauKg3oeeZnxZ+sZa
- QjVJdI0ozkFzf5iDEQU+lh9uWHFDk7p5CYI+Vq2O6gd7/dANi0Ka9vsZfo/lW5+xayWC
- WNLVQU4mOlePG5OrbxykKl7o7MpCaid42uWaGCHSs8ciw8jAo0Wlladv0xrLDvtuZmzR
- yGQw==
-X-Gm-Message-State: AOJu0Yzalji+HbZ0t8xtMjEIp/t3JE3sBJUWMeXk3xG0mptpKZ/vYcbO
- PPDsGnckgXI2b1koZZ07D1JS4duEfD0CTFogwAg0mzFe7GLyPDegmj+cl+8xrSPk6Yz65hTJyMG
- gmAtRapW8f2yUrUd/lp+KWSVCpNJ07w==
-X-Google-Smtp-Source: AGHT+IEyLbDaJotxu0JWabK3Z8khe4QKbWO5nRb0owghJNfcN0DktBUWWEuulBBkDzLF0tmx3UYSBoxyCnSADqsKdPg=
-X-Received: by 2002:a17:902:f54f:b0:20b:7a43:3693 with SMTP id
- d9443c01a7336-20bfde64ef8mr26491735ad.1.1728075143741; Fri, 04 Oct 2024
- 13:52:23 -0700 (PDT)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 62C7610E1BC;
+ Sat,  5 Oct 2024 01:34:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1728092092; x=1759628092;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=w6pcQTbhlGfWE5x6wUvif9Ojx1S6o87achHEvIFDUFY=;
+ b=RbMK47WDX9TER62UhUrZUXteBJWow/OQx16e/pZmmekKs7ZvU46VqQC1
+ Da//O9uOImdJh11/Gq8EeQ0CNodG3n2mTG2LU/b9iBiakqKP3IxZt7ivP
+ fWem5ip7HZuCi4fu8cWFkzBMA63E3XfGiw5OtnI0ieiVTFp9euqcJ1NqN
+ U+5b6emPPpB4mtEp0JbFEA6mcS3VBMmzvveZPtz15UhZNFKvzih2F55ay
+ pyjUAALk16Oqu1WRvg3791vxTTfbMbP88pxZ/TLm7SwXZ5CBq8ELIJJpD
+ lkzJXkLY7f8BaiyP0iNZkThRTuPlxCw8I43DTmeDZG4z6D98KRclI/zl/ w==;
+X-CSE-ConnectionGUID: hH6Nf42yT+exz37GwExmkQ==
+X-CSE-MsgGUID: dUwXHbkNSICGxS5WI5/SxQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11215"; a="27202467"
+X-IronPort-AV: E=Sophos;i="6.11,179,1725346800"; d="scan'208";a="27202467"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Oct 2024 18:34:52 -0700
+X-CSE-ConnectionGUID: 74QCdmyNS5WnKD0Tr1O8Dg==
+X-CSE-MsgGUID: 7/2YLGGiTsucy7yMMdTBeg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.11,179,1725346800"; d="scan'208";a="79704271"
+Received: from lkp-server01.sh.intel.com (HELO a48cf1aa22e8) ([10.239.97.150])
+ by orviesa003.jf.intel.com with ESMTP; 04 Oct 2024 18:34:49 -0700
+Received: from kbuild by a48cf1aa22e8 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1swth0-0002QG-2C;
+ Sat, 05 Oct 2024 01:34:46 +0000
+Date: Sat, 5 Oct 2024 09:34:09 +0800
+From: kernel test robot <lkp@intel.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>, simona@ffwll.ch,
+ airlied@gmail.com, javierm@redhat.com, jfalempe@redhat.com
+Cc: oe-kbuild-all@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Xinhui Pan <Xinhui.Pan@amd.com>
+Subject: Re: [PATCH v2 10/11] drm/client: Make client support optional
+Message-ID: <202410050927.Hgk0Kazl-lkp@intel.com>
+References: <20241002131306.288618-11-tzimmermann@suse.de>
 MIME-Version: 1.0
-References: <20241004203350.201294-1-hamza.mahfooz@amd.com>
- <CADnq5_M5ripf041=G2u+vkf-WS0_dFtLqtqwS16fOQTB3O6cBg@mail.gmail.com>
- <7efda303-f813-4da8-988c-110a90f49964@amd.com>
-In-Reply-To: <7efda303-f813-4da8-988c-110a90f49964@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 4 Oct 2024 16:52:12 -0400
-Message-ID: <CADnq5_O0WDiFYCZbkSov37gv-QhaORKbHpUYPguFimQXdRd01Q@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: fix hibernate entry for DCN35+
-To: Hamza Mahfooz <hamza.mahfooz@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>, 
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <rodrigo.siqueira@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>, Alex Hung <alex.hung@amd.com>, 
- Roman Li <roman.li@amd.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20241002131306.288618-11-tzimmermann@suse.de>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,63 +75,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Oct 4, 2024 at 4:49=E2=80=AFPM Hamza Mahfooz <hamza.mahfooz@amd.com=
-> wrote:
->
-> On 10/4/24 16:44, Alex Deucher wrote:
-> > On Fri, Oct 4, 2024 at 4:43=E2=80=AFPM Hamza Mahfooz <hamza.mahfooz@amd=
-.com> wrote:
-> >>
-> >> Since, two suspend-resume cycles are required to enter hibernate and,
-> >> since we only need to enable idle optimizations in the first cycle
-> >> (which is pretty much equivalent to s2idle). We can check in_s0ix, to
-> >> prevent the system from entering idle optimizations before it actually
-> >> enters hibernate (from display's perspective).
-> >>
-> >> Cc: stable@vger.kernel.org # 6.10+
-> >> Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
-> >> ---
-> >>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 7 ++++---
-> >>   1 file changed, 4 insertions(+), 3 deletions(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drive=
-rs/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> >> index 4651b884d8d9..546a168a2fbf 100644
-> >> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> >> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> >> @@ -2996,10 +2996,11 @@ static int dm_suspend(struct amdgpu_ip_block *=
-ip_block)
-> >>
-> >>          hpd_rx_irq_work_suspend(dm);
-> >>
-> >> -       if (adev->dm.dc->caps.ips_support)
-> >> -               dc_allow_idle_optimizations(adev->dm.dc, true);
-> >> -
-> >>          dc_set_power_state(dm->dc, DC_ACPI_CM_POWER_STATE_D3);
-> >> +
-> >> +       if (dm->dc->caps.ips_support && adev->in_s0ix)
-> >> +               dc_allow_idle_optimizations(dm->dc, true);
-> >> +
-> >
-> > Is the ordering change with respect to dc_set_power_state() intended?
->
-> Yup, it's safer to set idle opts after dc_set_power_state(), since it
-> involves a write to DMUB.
+Hi Thomas,
 
-Might want to mention that in the commit message.  With that:
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+kernel test robot noticed the following build errors:
 
->
-> >
-> > Alex
-> >
-> >>          dc_dmub_srv_set_power_state(dm->dc->ctx->dmub_srv, DC_ACPI_CM=
-_POWER_STATE_D3);
-> >>
-> >>          return 0;
-> >> --
-> >> 2.46.0
-> >>
-> --
-> Hamza
->
+[auto build test ERROR on next-20241002]
+[cannot apply to drm-xe/drm-xe-next drm/drm-next drm-exynos/exynos-drm-next drm-intel/for-linux-next drm-intel/for-linux-next-fixes drm-misc/drm-misc-next drm-tip/drm-tip linus/master v6.12-rc1 v6.11 v6.11-rc7 v6.12-rc1]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Thomas-Zimmermann/drm-i915-Select-DRM_CLIENT_SELECTION/20241002-211520
+base:   next-20241002
+patch link:    https://lore.kernel.org/r/20241002131306.288618-11-tzimmermann%40suse.de
+patch subject: [PATCH v2 10/11] drm/client: Make client support optional
+config: nios2-randconfig-r051-20241005 (https://download.01.org/0day-ci/archive/20241005/202410050927.Hgk0Kazl-lkp@intel.com/config)
+compiler: nios2-linux-gcc (GCC) 14.1.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20241005/202410050927.Hgk0Kazl-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202410050927.Hgk0Kazl-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   nios2-linux-ld: drivers/gpu/drm/drm_debugfs.o: in function `drm_debugfs_dev_register':
+>> drivers/gpu/drm/drm_debugfs.c:313:(.text+0x1240): undefined reference to `drm_client_debugfs_init'
+>> drivers/gpu/drm/drm_debugfs.c:313:(.text+0x1240): relocation truncated to fit: R_NIOS2_CALL26 against `drm_client_debugfs_init'
+
+Kconfig warnings: (for reference only)
+   WARNING: unmet direct dependencies detected for GET_FREE_REGION
+   Depends on [n]: SPARSEMEM [=n]
+   Selected by [y]:
+   - RESOURCE_KUNIT_TEST [=y] && RUNTIME_TESTING_MENU [=y] && KUNIT [=y]
+
+
+vim +313 drivers/gpu/drm/drm_debugfs.c
+
+0b30d57acafcaa Christian König  2023-08-29  306  
+0b30d57acafcaa Christian König  2023-08-29  307  void drm_debugfs_dev_register(struct drm_device *dev)
+0b30d57acafcaa Christian König  2023-08-29  308  {
+0b30d57acafcaa Christian König  2023-08-29  309  	drm_debugfs_add_files(dev, drm_debugfs_list, DRM_DEBUGFS_ENTRIES);
+0b30d57acafcaa Christian König  2023-08-29  310  
+0b30d57acafcaa Christian König  2023-08-29  311  	if (drm_core_check_feature(dev, DRIVER_MODESET)) {
+0b30d57acafcaa Christian König  2023-08-29  312  		drm_framebuffer_debugfs_init(dev);
+0b30d57acafcaa Christian König  2023-08-29 @313  		drm_client_debugfs_init(dev);
+0b30d57acafcaa Christian König  2023-08-29  314  	}
+d0b3c318e04cc6 Dmitry Baryshkov 2023-12-03  315  	if (drm_drv_uses_atomic_modeset(dev))
+0b30d57acafcaa Christian König  2023-08-29  316  		drm_atomic_debugfs_init(dev);
+0b30d57acafcaa Christian König  2023-08-29  317  }
+0b30d57acafcaa Christian König  2023-08-29  318  
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
