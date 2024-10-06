@@ -4,90 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77D01CFB446
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C36ECFB443
 	for <amd-gfx@archiver.kernel.org>; Mon,  7 Oct 2024 13:06:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A29AE10E379;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A8EFF10E37A;
 	Mon,  7 Oct 2024 13:06:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=xenosoft.de header.i=@xenosoft.de header.b="p3rOZDzg";
-	dkim=permerror (0-bit key) header.d=xenosoft.de header.i=@xenosoft.de header.b="cPrDotOU";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=xenosoft.de header.i=@xenosoft.de header.b="j7aqoASg";
+	dkim=permerror (0-bit key) header.d=xenosoft.de header.i=@xenosoft.de header.b="1KbY43gO";
 	dkim-atps=neutral
-X-Greylist: delayed 323 seconds by postgrey-1.36 at gabe;
- Fri, 04 Oct 2024 18:29:25 UTC
 Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de
- [85.215.255.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D2E5210EA7A
- for <amd-gfx@lists.freedesktop.org>; Fri,  4 Oct 2024 18:29:25 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1728066202; cv=none;
+ [85.215.255.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4AED110E191;
+ Sun,  6 Oct 2024 18:00:56 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1728237621; cv=none;
  d=strato.com; s=strato-dkim-0002;
- b=ryuDJkyoAigBE+RjYWjHOwz8Thcg/gbb5fWaZSHOKf3JBmDgDoTeXz3xVdKujnkzl8
- R+SWtAHPD1GziAmZIjOmP/jPWL+X84TE7IeB7kg4kNOzDLylwqwmOYD5SYD7SA6JDaTx
- yVPfjPHrhNZArjZpXx3lm0B8HZtXcG00gvxxVFG+AVqH8SC8iMyuOrjCZJqNPfu55/i+
- OId08i3wIHDYgsOy7AL3GEPgDwuzI52EbKO0c6j1pUCohNtxMmnYAUFeMZZ6Jo51jUz9
- YXvOdPy4SfziFFzJEtdxeDdT0X9JfgI8AOeTvuzMmfk9WZucU1OZ3S9Y8jH9cKucX9Rg
- N4KA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1728066202;
+ b=MC6hbzMXhp8wi2cS1kJob3lgXpX4Pm1hFNyHqrCbO/b6b9oiMjY4vRfMdZmR/JLk8u
+ lQDbmREMF6Qd737CHQwox4jqPRUP93RMcOB/0rseMlPrTOhkt5tv1vZNN+twCNZk5LRU
+ SrJ1DPIND1+PFaFalRiH5z2o25oxl+AptI6hGLxaWmJoJaEZCVIF0jBPRQRGX08cF21A
+ PApjN1t5Fkf1uUVnfvITbhqpVuUR5mAfgirSWPB9YyduZ0x0zilX6wmuVm+5PcTkN30o
+ WmC1NIWMud5bPFt9Y7l6odZQVVlhQxmSEHCH4faoOhoZ7iKDdthLLuD/JgILYGd6EuZ9
+ 5aow==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1728237621;
  s=strato-dkim-0002; d=strato.com;
  h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
  From:Subject:Sender;
- bh=fh5lK3S2+T6zI5umkiU5AYrf63ArwtBPlfiCR8hznDs=;
- b=cpYZO3RGAgzFip2LJ6xDfBHZMeM1zuDUDM2Vk6+Vb2B4rEOMjbOW07Z2xTsWTP8Xu6
- xYDEPYn7HVSpFjZ9MZ4hchhfzwY5GsSobHh0yDIqt5JFKU2+6G5hqsBjrAJaZfh32szy
- 5I2qjpmcDj9ctG0xSAdlq38N/f3HokxgmpbTKi/VElEe1cDrgKZ0qgNsCW55YdWrSCjp
- oyoWec6QE2TzN5xW/LIHmxhnVIVzuLLHReErjR+4wTFN/IWppD22UVhMnHhxFR8CNQ9U
- CZXB4kHCYShrXcUQ7sH/4pV0FI1imTATdKPy7kVh4pnsLCcKYz7gBHZYwZO5rGXM1Z0f
- H8Fw==
+ bh=K2RwIzmjGiZ8kKxyjV3s6L8LXLaqA8tOXHkQwcMkGlo=;
+ b=H0EpBjvpzIG7/IlddYEdVsARxr8LGGbpg0SevEEO/Inl9cgadnVlMboRqWV3PQJ/JN
+ f+zNhZfuM7cuIm6ETsxyv6hoOEEh5LpsyaqneoXdtkHiA8aUV+YMFjSdDRm7jgBvIg7k
+ lCl4a97mR0mQ9JbEm27ld+av6RqOdJrkCqeA2dZlRZ3rzD44ngIGeghkS0xInIELehIX
+ o1MLs4x2HfX4eO3QkRyC7TZpOMfAZRpd+PLu/axGvDUCG6HFINuPvLLeYyY3Yeh7d8kV
+ iDgYQSaJYtGuluiQk5AnaDysObAoezfvYqmQuy4+46zJ2kA5/O+9c3YKUgQ2mnZX7fJN
+ Y00A==
 ARC-Authentication-Results: i=1; strato.com;
     arc=none;
     dkim=none
 X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1728066202;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1728237621;
  s=strato-dkim-0002; d=xenosoft.de;
  h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
  From:Subject:Sender;
- bh=fh5lK3S2+T6zI5umkiU5AYrf63ArwtBPlfiCR8hznDs=;
- b=p3rOZDzgUeuNjjwRSaUcfaVPHXrMVMvdn2MkrRb+3WKWL1fkyB0L9WkitiF2tfEheo
- H7+NzvSZwpxiAG/vBhFIgL3FdGwIAPFRDPU3k+dsS6Sd4NilPuI3QzbopyoONEg9AygS
- koBB2JmRhdVygCTSE52rXEb72/Dvwg0HtzPMhgXchL+uymFEHBX+WsCtAxeeys39NgIb
- AZ5FcrzcYaZl1lMG1Yv4OxrLmCEqNSLooxCHkxHyXLgEqTPWbDYyi1dddhzGqDP6LIUr
- b9j6p7UJASIBdWdEBlgitL+lfgo9x9GNKtdYR6s+LNQfM20Dl42Xw94hzms4VMXuAkSw
- eOZA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1728066202;
+ bh=K2RwIzmjGiZ8kKxyjV3s6L8LXLaqA8tOXHkQwcMkGlo=;
+ b=j7aqoASgt5QN4pRdV9ldY8uA6sPb2QjXO/G5kENyv43E4i4PbyfLbS1BYUI/iOwean
+ W0KBVgo2B0c6VS6MKIJTdHJFF+XCK/kBpc4ahtM11aVtp0V8tC9AfT1I3PAYq58kDkdM
+ TE7AK7/Wmi2in+4h1CoWboCSCMvgaoKharb5BsL5ZeJhc993sZcTZotLakbAiBgZjAVg
+ d8DM48GN+2Oe2Oi/BNjtU+ngcLQEGAlZA8ze/vRch78IX5bIUa763V1O7QhZnkcBAFcf
+ 0shsvFJWu4TOuJD1Lp7q4wvU/apTsbuvUgR8WYfGx2nYyZeC+DTPOw3BYP2ln3HWwpky
+ t5Kw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1728237621;
  s=strato-dkim-0003; d=xenosoft.de;
  h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
  From:Subject:Sender;
- bh=fh5lK3S2+T6zI5umkiU5AYrf63ArwtBPlfiCR8hznDs=;
- b=cPrDotOUMGIqIkpyrdwgVL/OvKnf2X+2HfYKDSbbZooT2v6gIAQ66Qn8b3ArRjUC1w
- rCaUNpTGk9m9F74AYhAA==
-X-RZG-AUTH: ":L2QefEenb+UdBJSdRCXu93KJ1bmSGnhMdmOod1DhGN0rBVhd9dFr6KxrfO5Oh7V7X5jms33DCCl8yuj1GiXKxy2NgsIyNI7J6OEvKwI="
-Received: from [IPV6:2a01:599:80b:670e:7ae4:fdea:aa8b:6a58]
- by smtp.strato.de (RZmta 51.2.8 AUTH) with ESMTPSA id e0da1a094INKf8x
+ bh=K2RwIzmjGiZ8kKxyjV3s6L8LXLaqA8tOXHkQwcMkGlo=;
+ b=1KbY43gOh5lSxrJ+Ifn86dMESgeRyrvKX2nDNjn0iDJIjfq2sbBv1dt7hEbl08mv+b
+ o4GIRKoy81qeYxZcd8DQ==
+X-RZG-AUTH: ":L2QefEenb+UdBJSdRCXu93KJ1bmSGnhMdmOod1DhGN0rBVhd9dFr6KxrfO5Oh7V7X5iwsy7MCXy6PSqCrq1ZtS8x3p03w8T3myCd9iA="
+Received: from [IPV6:2a01:599:804:e810:d191:ddf7:881a:6810]
+ by smtp.strato.de (RZmta 51.2.8 AUTH) with ESMTPSA id e0da1a096I0Kh3g
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
  (Client did not present a certificate);
- Fri, 4 Oct 2024 20:23:20 +0200 (CEST)
-Message-ID: <b758c87b-1ab3-4ce0-bc97-ac8fe9387c1b@xenosoft.de>
-Date: Fri, 4 Oct 2024 20:24:21 +0200
+ Sun, 6 Oct 2024 20:00:20 +0200 (CEST)
+Message-ID: <4a224c38-35fe-42e3-8dee-ab6353cb7553@xenosoft.de>
+Date: Sun, 6 Oct 2024 20:01:21 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v2] drm/radeon: add late_register for connector - Please test
-To: Alex Deucher <alexdeucher@gmail.com>, Wu Hoi Pok <wuhoipok@gmail.com>
-Cc: Christophe Leroy <christophe.leroy@csgroup.eu>,
- Alex Deucher <alexander.deucher@amd.com>, Hans de Goede
- <hdegoede@redhat.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, Xinhui Pan <Xinhui.Pan@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Thomas Zimmermann <tzimmermann@suse.de>,
+Subject: [PATCH] drm/radeon: add late_register for connector
+To: Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Wu Hoi Pok <wuhoipok@gmail.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
  "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
  "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
  open list <linux-kernel@vger.kernel.org>,
  linuxppc-dev <linuxppc-dev@lists.ozlabs.org>, "R.T.Dickinson"
  <rtd2@xtra.co.nz>, mad skateman <madskateman@gmail.com>,
- hypexed@yahoo.com.au, Darren Stevens <darren@stevens-zone.net>
-References: <20241004010601.3387-1-wuhoipok@gmail.com>
- <CADnq5_Nt=8Lx6KOXHf0DHmqo2O7dYKDTfGCz-w_Hv+__=BqP9w@mail.gmail.com>
+ hypexed@yahoo.com.au, Christian Zigotzky <info@xenosoft.de>,
+ Darren Stevens <darren@stevens-zone.net>
+References: <20241003060650.18454-1-wuhoipok@gmail.com>
+ <d2704a2b-ceb2-4919-81d3-f6ff58a734fe@xenosoft.de>
+ <c868e394-b1ad-4f30-b27b-c779e3458c42@csgroup.eu>
 From: Christian Zigotzky <chzigotzky@xenosoft.de>
-In-Reply-To: <CADnq5_Nt=8Lx6KOXHf0DHmqo2O7dYKDTfGCz-w_Hv+__=BqP9w@mail.gmail.com>
+In-Reply-To: <c868e394-b1ad-4f30-b27b-c779e3458c42@csgroup.eu>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 07 Oct 2024 13:06:21 +0000
@@ -105,117 +104,168 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi All,
+On 06 October 2024 at 7:37pm, Christophe Leroy wrote:
+>
+> Le 06/10/2024 à 18:56, Christian Zigotzky a écrit :
+>> Hello Wu Hoi Pok,
+>>
+>> Thanks a lot for your patch. Unfortunately there is a new issue after 
+>> patching the RC1. Could you please fix the following issue?
+>>
+>> Thanks,
+>> Christian
+>>
+>> ---
+>>
+>> Linux fienix 6.12.0-rc1-2-powerpc64-smp #1 SMP Fri Oct  4 08:55:45 
+>> CEST 2024 ppc64 GNU/Linux
+>>
+>> [   29.167145] systemd[1]: Sent message type=signal sender=n/a 
+>> destination=n/a 
+>> path=/org/freedesktop/systemd1/unit/NetworkManager_2eservice 
+>> interface=org.freedesktop.DBus.Properties member=PropertiesChanged 
+>> cookie=103 reply_cookie=0 signature=sa{sv}as error-name=n/a 
+>> error-message=n/a
+>> [   29.542140] systemd-journald[1301]: Successfully sent stream file 
+>> descriptor to service manager.
+>> [   29.561863] BUG: Kernel NULL pointer dereference on read at 
+>> 0x00000000
+>> [   29.567156] Faulting instruction address: 0xc000000000c973c0
+>> [   29.571574] cpu 0x1: Vector: 300 (Data Access) at [c000000006f97640]
+>> [   29.576637]     pc: c000000000c973c0: .drm_gem_object_free+0x20/0x70
+>> [   29.581708]     lr: c000000000d28dd8: .radeon_bo_unref+0x58/0x90
+>> [   29.586428]     sp: c000000006f978e0
+>> [   29.588695]    msr: 9000000000009032
+>> [   29.590962]    dar: 0
+>> [   29.591925]  dsisr: 40000000
+>> [   29.593496]   current = 0xc0000000085b1f00
+>> [   29.596286]   paca    = 0xc00000003ffff680     irqmask: 0x03 
+>> irq_happened: 0x01
+>> [   29.602119]     pid   = 1524, comm = Xorg.wrap
+>> [   29.605257] Linux version 6.12.0-rc1-2-powerpc64-smp 
+>> (geeko@buildhost) (powerpc64-suse-linux-gcc (SUSE Linux) 7.5.0, GNU 
+>> ld (GNU Binutils; devel:gcc / SLE-15) 2.43.1.20240828-150300.536) #1 
+>> SMP Fri Oct  4 08:55:45 CEST 2024
+>> [   29.623892] enter ? for help
+>> [   29.625487] [c000000006f97960] c000000000d28dd8 
+>> .radeon_bo_unref+0x58/0x90
+>> [   29.631083] [c000000006f979e0] c000000000e287b0 
+>> .radeon_vm_fini+0x260/0x330
+>> [   29.636765] [c000000006f97aa0] c000000000d07c94 
+>> .radeon_driver_postclose_kms+0x1a4/0x1f0
+>> [   29.643579] [c000000006f97b30] c000000000c9374c 
+>> .drm_file_free+0x28c/0x300
+>> [   29.649174] [c000000006f97be0] c000000000c93900 
+>> .drm_release+0x90/0x170
+>> [   29.654508] [c000000006f97c70] c000000000304790 .__fput+0x120/0x3b0
+>> [   29.659495] [c000000006f97d10] c0000000002fe0fc 
+>> .__se_sys_close+0x4c/0xc0
+>> [   29.665004] [c000000006f97d90] c000000000025bac 
+>> .system_call_exception+0x22c/0x260
+>> [   29.671295] [c000000006f97e10] c00000000000b554 
+>> system_call_common+0xf4/0x258
+>> [   29.677164] --- Exception: c00 (System Call) at 00000000006b2b48
+>> [   29.681876] SP (fff4b3d0) is in userspace
+>> [   29.684577] 1:mon>  <no input ...>
+>> [   31.666727] Oops: Kernel access of bad area, sig: 11 [#1]
+>> [   31.670829] BE PAGE_SIZE=4K MMU=Hash SMP NR_CPUS=2 A-EON Amigaone 
+>> X1000
+>> [   31.676144] Modules linked in: snd_hda_codec_idt 
+>> snd_hda_codec_generic snd_hda_codec_hdmi snd_hda_intel 
+>> snd_intel_dspcfg snd_hda_codec snd_hda_core dm_mod
+>> [   31.688703] CPU: 1 UID: 0 PID: 1524 Comm: Xorg.wrap Not tainted 
+>> 6.12.0-rc1-2-powerpc64-smp #1
+>> [   31.695932] Hardware name: pasemi,nemo PA6T 0x900102 A-EON 
+>> Amigaone X1000
+>> [   31.701417] NIP:  c000000000c973c0 LR: c000000000d28dd8 CTR: 
+>> c000000000d07af0
+>> [   31.707250] REGS: c000000006f97640 TRAP: 0300   Not tainted 
+>> (6.12.0-rc1-2-powerpc64-smp)
+>> [   31.714128] MSR:  9000000000009032 <SF,HV,EE,ME,IR,DR,RI> CR: 
+>> 28002222  XER: 20000000
+>> [   31.720773] DAR: 0000000000000000 DSISR: 40000000 IRQMASK: 0
+>>                 GPR00: c000000000d28dd8 c000000006f978e0 
+>> c00000000207a800 c0000000085f5468
+>>                 GPR04: 0000000000000b9b 0000000000000b9a 
+>> 0000000179779000 c0000000086a4b00
+>>                 GPR08: 0000000000000000 0000000000000000 
+>> 0000000000000001 0000000000000000
+>>                 GPR12: 0000000048002202 c00000003ffff680 
+>> 0000000000000000 0000000000000000
+>>                 GPR16: 00000000006e3318 0000000000000001 
+>> 00000000006e289c 0000000000000063
+>>                 GPR20: 00000000c04064a0 00000000007f0088 
+>> 00000000fff4c734 00000000007d165c
+>>                 GPR24: 00000000007d1668 c000000024b6a220 
+>> c000000003588000 c000000024b6a200
+>>                 GPR28: c000000003b3cc00 c000000024b6a248 
+>> c000000002d48820 c0000000085f5468
+>> [   31.778903] NIP [c000000000c973c0] .drm_gem_object_free+0x20/0x70
+>> [   31.783701] LR [c000000000d28dd8] .radeon_bo_unref+0x58/0x90
+>> [   31.788062] Call Trace:
+>> [   31.789199] [c000000006f978e0] [c000000006f97990] 
+>> 0xc000000006f97990 (unreliable)
+>> [   31.795388] [c000000006f97960] [c000000000d28dd8] 
+>> .radeon_bo_unref+0x58/0x90
+>> [   31.801142] [c000000006f979e0] [c000000000e287b0] 
+>> .radeon_vm_fini+0x260/0x330
+>> [   31.806982] [c000000006f97aa0] [c000000000d07c94] 
+>> .radeon_driver_postclose_kms+0x1a4/0x1f0
+>> [   31.813954] [c000000006f97b30] [c000000000c9374c] 
+>> .drm_file_free+0x28c/0x300
+>> [   31.819707] [c000000006f97be0] [c000000000c93900] 
+>> .drm_release+0x90/0x170
+>> [   31.825197] [c000000006f97c70] [c000000000304790] .__fput+0x120/0x3b0
+>> [   31.830342] [c000000006f97d10] [c0000000002fe0fc] 
+>> .__se_sys_close+0x4c/0xc0
+>> [   31.836010] [c000000006f97d90] [c000000000025bac] 
+>> .system_call_exception+0x22c/0x260
+>> [   31.842460] [c000000006f97e10] [c00000000000b554] 
+>> system_call_common+0xf4/0x258
+>> [   31.848476] --- interrupt: c00 at 0x6b2b48
+>> [   31.851267] NIP:  00000000006b2b48 LR: 00000000006b2b20 CTR: 
+>> 0000000000000000
+>> [   31.857101] REGS: c000000006f97e80 TRAP: 0c00   Not tainted 
+>> (6.12.0-rc1-2-powerpc64-smp)
+>> [   31.863978] MSR:  100000000200f032 <HV,VEC,EE,PR,FP,ME,IR,DR,RI>  
+>> CR: 28002400  XER: 00000000
+>> [   31.871235] IRQMASK: 0
+>>                 GPR00: 0000000000000006 00000000fff4b3d0 
+>> 00000000f7b7f3a0 0000000000000003
+>>                 GPR04: 0000000000000000 0000000000000000 
+>> 0000000000000000 0000000000000000
+>>                 GPR08: 0000000000000000 0000000000000000 
+>> 0000000000000000 0000000000000000
+>>                 GPR12: 0000000000000000 00000000007efff4 
+>> 0000000000000000 0000000000000000
+>>                 GPR16: 00000000006e3318 0000000000000001 
+>> 00000000006e289c 0000000000000063
+>>                 GPR20: 00000000c04064a0 00000000007f0088 
+>> 00000000fff4c734 00000000007d165c
+>>                 GPR24: 00000000007d1668 00000000fff4b400 
+>> 0000000000000001 0000000000000001
+>>                 GPR28: 00000000fff4b46c 0000000000000000 
+>> 00000000007bfff4 0000000000000003
+>> [   31.926053] NIP [00000000006b2b48] 0x6b2b48
+>> [   31.928930] LR [00000000006b2b20] 0x6b2b20
+>> [   31.931720] --- interrupt: c00
+>> [   31.933466] Code: ebe1fff8 7c0803a6 4e800020 60000000 7c0802a6 
+>> fbe1fff8 7c7f1b78 f8010010 f821ff81 60000000 60000000 e93f0140 
+>> <e9290000> 7d2a0074 794ad182 0b0a0000
+>> [   31.946913] ---[ end trace 0000000000000000 ]---
+>>
+>>
+>
+> That's a NULL pointer dereference in drm_gem_object_free().
+>
+> Trying to read obj->funcs->free while obj->funcs is NULL.
+>
+> Christophe
 
-I compiled a new RC1 of kernel 6.12 with this patch today. Please test it.
+Hello Christophe,
 
-Downloads:
-
-- https://github.com/chzigotzky/kernels/releases/tag/v6.12.0-rc1-2
-- https://www.xenosoft.de/linux-image-6.12-rc1-2-X1000_X5000.tar.gz
+Thank you for the hint. Could you please create a patch? I would like to 
+apply it to the RC2 tomorrow.
 
 Thanks,
 Christian
-
-On 04 October 2024 at 4:00pm, Alex Deucher wrote:
-> On Thu, Oct 3, 2024 at 9:18 PM Wu Hoi Pok <wuhoipok@gmail.com> wrote:
->> The patch is to solve null dereference in 'aux.dev', which is
->> introduced in recent radeon rework. By having 'late_register',
->> the connector should be registered after 'drm_dev_register'
->> automatically, where in before it is the opposite.
->>
->> Fixes: 90985660ba48 ("drm/radeon: remove load callback from kms_driver")
->> Tested-by: Hans de Goede <hdegoede@redhat.com>
->> Suggested-by: Christophe Leroy <christophe.leroy@csgroup.eu>
->> Signed-off-by: Wu Hoi Pok <wuhoipok@gmail.com>
-> Applied.  Thanks!
->
-> Alex
->
->> ---
->>   drivers/gpu/drm/radeon/atombios_dp.c       |  9 ++-------
->>   drivers/gpu/drm/radeon/radeon_connectors.c | 17 +++++++++++++++++
->>   2 files changed, 19 insertions(+), 7 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/radeon/atombios_dp.c b/drivers/gpu/drm/radeon/atombios_dp.c
->> index fca8b08535a5..6328627b7c34 100644
->> --- a/drivers/gpu/drm/radeon/atombios_dp.c
->> +++ b/drivers/gpu/drm/radeon/atombios_dp.c
->> @@ -228,10 +228,8 @@ void radeon_dp_aux_init(struct radeon_connector *radeon_connector)
->>   {
->>          struct drm_device *dev = radeon_connector->base.dev;
->>          struct radeon_device *rdev = dev->dev_private;
->> -       int ret;
->>
->>          radeon_connector->ddc_bus->rec.hpd = radeon_connector->hpd.hpd;
->> -       radeon_connector->ddc_bus->aux.dev = radeon_connector->base.kdev;
->>          radeon_connector->ddc_bus->aux.drm_dev = radeon_connector->base.dev;
->>          if (ASIC_IS_DCE5(rdev)) {
->>                  if (radeon_auxch)
->> @@ -242,11 +240,8 @@ void radeon_dp_aux_init(struct radeon_connector *radeon_connector)
->>                  radeon_connector->ddc_bus->aux.transfer = radeon_dp_aux_transfer_atom;
->>          }
->>
->> -       ret = drm_dp_aux_register(&radeon_connector->ddc_bus->aux);
->> -       if (!ret)
->> -               radeon_connector->ddc_bus->has_aux = true;
->> -
->> -       WARN(ret, "drm_dp_aux_register() failed with error %d\n", ret);
->> +       drm_dp_aux_init(&radeon_connector->ddc_bus->aux);
->> +       radeon_connector->ddc_bus->has_aux = true;
->>   }
->>
->>   /***** general DP utility functions *****/
->> diff --git a/drivers/gpu/drm/radeon/radeon_connectors.c b/drivers/gpu/drm/radeon/radeon_connectors.c
->> index 528a8f3677c2..f9c73c55f04f 100644
->> --- a/drivers/gpu/drm/radeon/radeon_connectors.c
->> +++ b/drivers/gpu/drm/radeon/radeon_connectors.c
->> @@ -1786,6 +1786,20 @@ static enum drm_mode_status radeon_dp_mode_valid(struct drm_connector *connector
->>          return MODE_OK;
->>   }
->>
->> +static int
->> +radeon_connector_late_register(struct drm_connector *connector)
->> +{
->> +       struct radeon_connector *radeon_connector = to_radeon_connector(connector);
->> +       int r = 0;
->> +
->> +       if (radeon_connector->ddc_bus->has_aux) {
->> +               radeon_connector->ddc_bus->aux.dev = radeon_connector->base.kdev;
->> +               r = drm_dp_aux_register(&radeon_connector->ddc_bus->aux);
->> +       }
->> +
->> +       return r;
->> +}
->> +
->>   static const struct drm_connector_helper_funcs radeon_dp_connector_helper_funcs = {
->>          .get_modes = radeon_dp_get_modes,
->>          .mode_valid = radeon_dp_mode_valid,
->> @@ -1800,6 +1814,7 @@ static const struct drm_connector_funcs radeon_dp_connector_funcs = {
->>          .early_unregister = radeon_connector_unregister,
->>          .destroy = radeon_connector_destroy,
->>          .force = radeon_dvi_force,
->> +       .late_register = radeon_connector_late_register,
->>   };
->>
->>   static const struct drm_connector_funcs radeon_edp_connector_funcs = {
->> @@ -1810,6 +1825,7 @@ static const struct drm_connector_funcs radeon_edp_connector_funcs = {
->>          .early_unregister = radeon_connector_unregister,
->>          .destroy = radeon_connector_destroy,
->>          .force = radeon_dvi_force,
->> +       .late_register = radeon_connector_late_register,
->>   };
->>
->>   static const struct drm_connector_funcs radeon_lvds_bridge_connector_funcs = {
->> @@ -1820,6 +1836,7 @@ static const struct drm_connector_funcs radeon_lvds_bridge_connector_funcs = {
->>          .early_unregister = radeon_connector_unregister,
->>          .destroy = radeon_connector_destroy,
->>          .force = radeon_dvi_force,
->> +       .late_register = radeon_connector_late_register,
->>   };
->>
->>   void
->> --
->> 2.46.2
->>
-
