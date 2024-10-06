@@ -4,53 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D2E8CFB43F
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Oct 2024 13:06:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 779FCCFB441
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Oct 2024 13:06:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8CC4210E1DB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D66810E371;
 	Mon,  7 Oct 2024 13:06:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="budkHFTs";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Qh1Khbur";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D7D710E1FF
- for <amd-gfx@lists.freedesktop.org>; Mon,  7 Oct 2024 12:52:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=+RUYI1HEf8Ha88terNUO+7n8fK28cKzx8j4BQMHCWM4=; b=budkHFTsi7QDBLn/9m+X8QiM/S
- RiYfKCFzKvwtm8AzDA13mcdZWrMR2XRwRu++Fuhjm9Mlc+95VWAsup1BV0CetRr/UQjtl2vcCqqf1
- WRZNOLG0SEhzeQoKfVbq0FUdGndzUPfOyNeaq5pYA12SfpiVMlKi9ZbUdgCDvZEFP/1MReEnFHUb6
- +2VgfAgOEr+05YRKoO7s3j5M+/2Jw7TEvUzieO1fPq/8TdP9IfJEi82dXOTDTfuuv18LL/6a1l6w1
- Um8qIQUeY23uBlpO2fj/kE5iVPbou/N3tQWVWJuxtqfa+oDYY/XATvadBEw/uz89CGi5BCvE8awkN
- biJPbANg==;
-Received: from [90.241.98.187] (helo=[192.168.0.101])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1sxnEA-0068ZU-Ey; Mon, 07 Oct 2024 14:52:42 +0200
-Message-ID: <f8073d28-111e-4bd3-90ae-f0d4ae3ebfb0@igalia.com>
-Date: Mon, 7 Oct 2024 13:52:41 +0100
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
+ [209.85.221.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 788B410E00C;
+ Sun,  6 Oct 2024 11:28:01 +0000 (UTC)
+Received: by mail-wr1-f49.google.com with SMTP id
+ ffacd0b85a97d-37ccd81de57so2222225f8f.0; 
+ Sun, 06 Oct 2024 04:28:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1728214080; x=1728818880; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=6CAoqvvD4YI816IpY4nefTarN9VTzwy3A335UX1ixTk=;
+ b=Qh1Khbur6Q5fh4ZCiQrVpTUIiC3egJh4fojNGyhLuKIYceCD0zEoB0tG7DkOqxE5O8
+ 1QcwRXwJlPc21ez1WCTkjtlxht3P1D5wane59ORXCIx3Wq/4KZBsLlCiEyI0UIVC807A
+ 8+IVSYDt7Fb6xwb8ZSBcBvV4Cb5+ImIM8RSeXmDaysnxF9XeXGLBXrY8XaSfvC/nQSLt
+ eBFDEfea7W0PUtC9eis50hyqWzkhEMoJD1tpeHyZXiDAhCCA0ydCVBl3rmHmoUeaKUJl
+ HMGaYVxeRL0qiTJaFff3/fjl1OoRXKFrXOb6ZhWdj1s0nHBF79jEMnSCHn5n9y0b1bzM
+ 4NQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1728214080; x=1728818880;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=6CAoqvvD4YI816IpY4nefTarN9VTzwy3A335UX1ixTk=;
+ b=Tl/MkO+MiwHLz6Zu5I/ILbIeSLWhme6DPO2gVCpnnX2QqEe2cG2U0lY7q4K+zOgvef
+ SeMscfPf8C/A3YnqdfMQR0SyKuo8yoeLGjRsSu4VbuNW8xv5jKcMiy2BC2SXIibJgCro
+ mS8AvKt6kgbkqy6KUqaCuAdHhAh7eo424OR8SRL7QlMiQ2E8ZTQqF4A+iPgxaxHszmvH
+ CeDUROJqz3Y/4YdJv7WYGHBNZnUp+dZlIjmndgPC3NTJTf9C5ZzBhFKTGSJFea1yBQxB
+ XOpj04BfWxD1bdef/55pATVRL8uKfrFGjIdRgjEeFSsrxAHvRsiVwxvuM7gXUF3Z5fVy
+ +OPA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXF0OmnHGvKLvUfFTscaDcvwzkcOP1JDHnnBJaNGGJbhKUi6pAifVluPNyce96rFfUTYpHvycODyzE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwLE9K+Hv1geWGQ7hBQp8D4R4osJV/YzWy68LeqYo5ZXLDnl6SU
+ MeQAzD0WB/0VD9fyDsO7PINK88ZBI+ehK+gsqCNErQE4GBHF+y9+
+X-Google-Smtp-Source: AGHT+IHfGrwFLywFiuwm/772cVOvBnRAK9phO1/F0qEaYxADEqaxNjoKOHyenCeSyujUCwHaFQP2Pw==
+X-Received: by 2002:a05:6000:402a:b0:374:ba78:9013 with SMTP id
+ ffacd0b85a97d-37d0f6a1ae7mr5087591f8f.9.1728214079487; 
+ Sun, 06 Oct 2024 04:27:59 -0700 (PDT)
+Received: from void.void ([141.226.12.238]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-37d16972b2esm3464989f8f.105.2024.10.06.04.27.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 06 Oct 2024 04:27:59 -0700 (PDT)
+From: Andrew Kreimer <algonell@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org,
+ Andrew Kreimer <algonell@gmail.com>
+Subject: [PATCH] drm/amdgpu: fix typos
+Date: Sun,  6 Oct 2024 14:27:52 +0300
+Message-Id: <20241006112752.6594-1-algonell@gmail.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] drm/amdgpu: Remove the while loop from
- amdgpu_job_prepare_job
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Tvrtko Ursulin <tursulin@igalia.com>, amd-gfx@lists.freedesktop.org,
- kernel-dev@igalia.com, Alex Deucher <alexander.deucher@amd.com>
-References: <20240924095145.2281-1-tursulin@igalia.com>
- <20240924095145.2281-3-tursulin@igalia.com>
- <6a7005b4-6af3-48e3-be65-353ffb5961f5@amd.com>
- <3e1ad979-a11e-43bd-8488-52712b58cec1@igalia.com>
- <CADnq5_MgTQxMwmoB2_XDFGqwma7=mqKhUPnhcRJ5YJrGk2wSFQ@mail.gmail.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <CADnq5_MgTQxMwmoB2_XDFGqwma7=mqKhUPnhcRJ5YJrGk2wSFQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 07 Oct 2024 13:06:21 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -67,71 +83,123 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Fix typos in comments: "wether -> whether".
 
-On 04/10/2024 15:15, Alex Deucher wrote:
-> Applied.  Thanks!
+Signed-off-by: Andrew Kreimer <algonell@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 4 ++--
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 4 ++--
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c | 2 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c  | 4 ++--
+ drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c  | 2 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c  | 2 +-
+ 6 files changed, 9 insertions(+), 9 deletions(-)
 
-Thanks Alex!
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+index c544ea2aea6e..87247055a666 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+@@ -6374,7 +6374,7 @@ static int gfx_v10_0_cp_gfx_resume(struct amdgpu_device *adev)
+ 	WREG32_SOC15(GC, 0, mmCP_RB0_WPTR, lower_32_bits(ring->wptr));
+ 	WREG32_SOC15(GC, 0, mmCP_RB0_WPTR_HI, upper_32_bits(ring->wptr));
+ 
+-	/* set the wb address wether it's enabled or not */
++	/* set the wb address whether it's enabled or not */
+ 	rptr_addr = ring->rptr_gpu_addr;
+ 	WREG32_SOC15(GC, 0, mmCP_RB0_RPTR_ADDR, lower_32_bits(rptr_addr));
+ 	WREG32_SOC15(GC, 0, mmCP_RB0_RPTR_ADDR_HI, upper_32_bits(rptr_addr) &
+@@ -6412,7 +6412,7 @@ static int gfx_v10_0_cp_gfx_resume(struct amdgpu_device *adev)
+ 		ring->wptr = 0;
+ 		WREG32_SOC15(GC, 0, mmCP_RB1_WPTR, lower_32_bits(ring->wptr));
+ 		WREG32_SOC15(GC, 0, mmCP_RB1_WPTR_HI, upper_32_bits(ring->wptr));
+-		/* Set the wb address wether it's enabled or not */
++		/* Set the wb address whether it's enabled or not */
+ 		rptr_addr = ring->rptr_gpu_addr;
+ 		WREG32_SOC15(GC, 0, mmCP_RB1_RPTR_ADDR, lower_32_bits(rptr_addr));
+ 		WREG32_SOC15(GC, 0, mmCP_RB1_RPTR_ADDR_HI, upper_32_bits(rptr_addr) &
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+index a0f80cc993cf..cf741fc61300 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+@@ -3557,7 +3557,7 @@ static int gfx_v11_0_cp_gfx_resume(struct amdgpu_device *adev)
+ 	WREG32_SOC15(GC, 0, regCP_RB0_WPTR, lower_32_bits(ring->wptr));
+ 	WREG32_SOC15(GC, 0, regCP_RB0_WPTR_HI, upper_32_bits(ring->wptr));
+ 
+-	/* set the wb address wether it's enabled or not */
++	/* set the wb address whether it's enabled or not */
+ 	rptr_addr = ring->rptr_gpu_addr;
+ 	WREG32_SOC15(GC, 0, regCP_RB0_RPTR_ADDR, lower_32_bits(rptr_addr));
+ 	WREG32_SOC15(GC, 0, regCP_RB0_RPTR_ADDR_HI, upper_32_bits(rptr_addr) &
+@@ -3595,7 +3595,7 @@ static int gfx_v11_0_cp_gfx_resume(struct amdgpu_device *adev)
+ 		ring->wptr = 0;
+ 		WREG32_SOC15(GC, 0, regCP_RB1_WPTR, lower_32_bits(ring->wptr));
+ 		WREG32_SOC15(GC, 0, regCP_RB1_WPTR_HI, upper_32_bits(ring->wptr));
+-		/* Set the wb address wether it's enabled or not */
++		/* Set the wb address whether it's enabled or not */
+ 		rptr_addr = ring->rptr_gpu_addr;
+ 		WREG32_SOC15(GC, 0, regCP_RB1_RPTR_ADDR, lower_32_bits(rptr_addr));
+ 		WREG32_SOC15(GC, 0, regCP_RB1_RPTR_ADDR_HI, upper_32_bits(rptr_addr) &
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+index 63e1a2803503..b5281f45e1ea 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+@@ -2601,7 +2601,7 @@ static int gfx_v12_0_cp_gfx_resume(struct amdgpu_device *adev)
+ 	WREG32_SOC15(GC, 0, regCP_RB0_WPTR, lower_32_bits(ring->wptr));
+ 	WREG32_SOC15(GC, 0, regCP_RB0_WPTR_HI, upper_32_bits(ring->wptr));
+ 
+-	/* set the wb address wether it's enabled or not */
++	/* set the wb address whether it's enabled or not */
+ 	rptr_addr = ring->rptr_gpu_addr;
+ 	WREG32_SOC15(GC, 0, regCP_RB0_RPTR_ADDR, lower_32_bits(rptr_addr));
+ 	WREG32_SOC15(GC, 0, regCP_RB0_RPTR_ADDR_HI, upper_32_bits(rptr_addr) &
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+index 990e7de8da25..ee9ad38e12cd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+@@ -2559,7 +2559,7 @@ static int gfx_v7_0_cp_gfx_resume(struct amdgpu_device *adev)
+ 	ring->wptr = 0;
+ 	WREG32(mmCP_RB0_WPTR, lower_32_bits(ring->wptr));
+ 
+-	/* set the wb address wether it's enabled or not */
++	/* set the wb address whether it's enabled or not */
+ 	rptr_addr = ring->rptr_gpu_addr;
+ 	WREG32(mmCP_RB0_RPTR_ADDR, lower_32_bits(rptr_addr));
+ 	WREG32(mmCP_RB0_RPTR_ADDR_HI, upper_32_bits(rptr_addr) & 0xFF);
+@@ -2876,7 +2876,7 @@ static void gfx_v7_0_mqd_init(struct amdgpu_device *adev,
+ 	mqd->cp_hqd_pq_wptr_poll_addr_lo = wb_gpu_addr & 0xfffffffc;
+ 	mqd->cp_hqd_pq_wptr_poll_addr_hi = upper_32_bits(wb_gpu_addr) & 0xffff;
+ 
+-	/* set the wb address wether it's enabled or not */
++	/* set the wb address whether it's enabled or not */
+ 	wb_gpu_addr = ring->rptr_gpu_addr;
+ 	mqd->cp_hqd_pq_rptr_report_addr_lo = wb_gpu_addr & 0xfffffffc;
+ 	mqd->cp_hqd_pq_rptr_report_addr_hi =
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+index 6864219987e9..9d1672664c7d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+@@ -4260,7 +4260,7 @@ static int gfx_v8_0_cp_gfx_resume(struct amdgpu_device *adev)
+ 	ring->wptr = 0;
+ 	WREG32(mmCP_RB0_WPTR, lower_32_bits(ring->wptr));
+ 
+-	/* set the wb address wether it's enabled or not */
++	/* set the wb address whether it's enabled or not */
+ 	rptr_addr = ring->rptr_gpu_addr;
+ 	WREG32(mmCP_RB0_RPTR_ADDR, lower_32_bits(rptr_addr));
+ 	WREG32(mmCP_RB0_RPTR_ADDR_HI, upper_32_bits(rptr_addr) & 0xFF);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+index 99334afb7aae..979774cd2585 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+@@ -3357,7 +3357,7 @@ static int gfx_v9_0_cp_gfx_resume(struct amdgpu_device *adev)
+ 	WREG32_SOC15(GC, 0, mmCP_RB0_WPTR, lower_32_bits(ring->wptr));
+ 	WREG32_SOC15(GC, 0, mmCP_RB0_WPTR_HI, upper_32_bits(ring->wptr));
+ 
+-	/* set the wb address wether it's enabled or not */
++	/* set the wb address whether it's enabled or not */
+ 	rptr_addr = ring->rptr_gpu_addr;
+ 	WREG32_SOC15(GC, 0, mmCP_RB0_RPTR_ADDR, lower_32_bits(rptr_addr));
+ 	WREG32_SOC15(GC, 0, mmCP_RB0_RPTR_ADDR_HI, upper_32_bits(rptr_addr) & CP_RB_RPTR_ADDR_HI__RB_RPTR_ADDR_HI_MASK);
+-- 
+2.39.5
 
-Could you perhaps also merge 
-https://lore.kernel.org/amd-gfx/20240813135712.82611-1-tursulin@igalia.com/ 
-via your tree? If it still applies that is.
-
-Regards,
-
-Tvrtko
-
-> On Fri, Oct 4, 2024 at 3:28 AM Tvrtko Ursulin <tvrtko.ursulin@igalia.com> wrote:
->>
->>
->> On 24/09/2024 13:06, Christian König wrote:
->>> Am 24.09.24 um 11:51 schrieb Tvrtko Ursulin:
->>>> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->>>>
->>>> While loop makes it sound like amdgpu_vmid_grab() potentially needs to be
->>>> called multiple times to produce a fence, while in reality all code paths
->>>> either return an error, assign a valid job->vmid or assign a vmid which
->>>> will be valid once the returned fence signals.
->>>>
->>>> Therefore we can remove the loop to make it clear the call does not need
->>>> to be repeated.
->>>>
->>>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->>>> Cc: Christian König <christian.koenig@amd.com>
->>>
->>> Oh yeah that's a leftover from when we still had the dependency handling
->>> inside all this.
->>>
->>> Reviewed-by: Christian König <christian.koenig@amd.com> for the whole
->>> series.
->>
->> Thanks - CC Alex if you could merge the trivial series please?
->>
->> Regards,
->>
->> Tvrtko
->>
->>>> ---
->>>> I stared for a good while, going back and forth, and couldn't see that
->>>> the
->>>> while loop is needed. But maybe I missed something?
->>>> ---
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 2 +-
->>>>    1 file changed, 1 insertion(+), 1 deletion(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
->>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
->>>> index d11cb0ad8c49..85f10b59d09c 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
->>>> @@ -356,7 +356,7 @@ amdgpu_job_prepare_job(struct drm_sched_job
->>>> *sched_job,
->>>>        if (job->gang_submit)
->>>>            fence = amdgpu_device_switch_gang(ring->adev,
->>>> job->gang_submit);
->>>> -    while (!fence && job->vm && !job->vmid) {
->>>> +    if (!fence && job->vm && !job->vmid) {
->>>>            r = amdgpu_vmid_grab(job->vm, ring, job, &fence);
->>>>            if (r) {
->>>>                dev_err(ring->adev->dev, "Error getting VM ID (%d)\n", r);
->>>
