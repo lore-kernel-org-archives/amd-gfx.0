@@ -4,86 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF828CEF175
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Oct 2024 13:25:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD351CEF177
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Oct 2024 13:25:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8ACAA10E52A;
-	Tue,  8 Oct 2024 13:25:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4038510E52D;
+	Tue,  8 Oct 2024 13:25:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=xenosoft.de header.i=@xenosoft.de header.b="kcCnfr79";
-	dkim=permerror (0-bit key) header.d=xenosoft.de header.i=@xenosoft.de header.b="3WxekWpu";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="j6tvQ4dG";
 	dkim-atps=neutral
-X-Greylist: delayed 327 seconds by postgrey-1.36 at gabe;
- Tue, 08 Oct 2024 09:06:09 UTC
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de
- [81.169.146.166])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 70B5D10E4AD
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Oct 2024 09:06:09 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1728378006; cv=none;
- d=strato.com; s=strato-dkim-0002;
- b=DztBwYW8a6CY2YUeU5iZBbCNrZkrOU5Ay2Pa3JkoFHnMYddoRsCHT66KFMJeePINj0
- Fow5WV2HIATrNK8jNihJFQRUqPB3dfLIQoefPePDOYGD4IEB5u2tBCg3CIETpEExre77
- dfz97Zt8Fg+ORTsDvSHNzaxqCU8yCs43po4681JUSh2UTki/KmQgs1o3hUVS/XEqu7j/
- llp69mx/nOvdsQFtrAiulGILF1+pJWCbsQvtew1hCmiS3bglx2BTFes+yvTcZcEb/8pk
- sAy62YnuUzLIeRLdRII2nXzDgH7uZFZjt+9i1Uf38Z9a6+Qh87A2vckhv0PlGq4VBtUR
- aMmA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1728378006;
- s=strato-dkim-0002; d=strato.com;
- h=To:In-Reply-To:Cc:References:Message-Id:Date:Subject:From:Cc:Date:
- From:Subject:Sender;
- bh=9wqqzG2RPEsTE9k2iBNsULm+Lq+OmgIU10227/NZhvE=;
- b=Hm4ZukY/ui5E3MVd4l0ehUHY7gTEihE76RFfodRzDvoYFigHFT5HaeV7zRq73K2aMO
- RdcKOENbr+i2rc7D342NVKLZCDhWP7EL965RhqHN9ZFcGy04V0H4Ywmy057i26ICErkx
- pUFoGNEMQRf6zcpWjPiuujy5efo2vaFeKXEYNx1uhDZxJewrLUVJz5WUE1ElwqSqShix
- ZHp+V4R7MYHjU4Ur2ttOWKZhJqOk53DGOn5gwewuyydcPct2KjsKKjvajDAA9rgS9x6Q
- 6yDBQJs8AbSnTHSycZMMbjmvP4u5uU/KhwUnR++9C6r6rk9FC7guDBWZ9dyTwgVloNlR
- ovZA==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1728378006;
- s=strato-dkim-0002; d=xenosoft.de;
- h=To:In-Reply-To:Cc:References:Message-Id:Date:Subject:From:Cc:Date:
- From:Subject:Sender;
- bh=9wqqzG2RPEsTE9k2iBNsULm+Lq+OmgIU10227/NZhvE=;
- b=kcCnfr79yvlq7CbuZmcA5pVmElW+4h6m2hD6dKbYJ5VuR3bwWqPqUo3vuByRBz4EEl
- EnJSOUQkXjeUpWWu+957TS4H/TsM5uNK7X+CVlhvyLRmPcGRjzdakm0/tOiSumQp4QLV
- zGd1lGprgF4Jjs1FVmPyKO9dZXzjCh8mLPyyXqWiCy8nzAHHjWJeneYd+zA3U/52i0YA
- Oju87G3Vlg6co0ddbpPa+j1pHY6AawlGj7S758UGxKIQmthfvkdmvsk0bBK48ItvMPjz
- LbpeNWgHt0zDEOnVwbBwuiU4KJgc8siYJRP1qxD7D0XoLPX1csnSSj7EsJbTIc9pAoh3
- htOw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1728378006;
- s=strato-dkim-0003; d=xenosoft.de;
- h=To:In-Reply-To:Cc:References:Message-Id:Date:Subject:From:Cc:Date:
- From:Subject:Sender;
- bh=9wqqzG2RPEsTE9k2iBNsULm+Lq+OmgIU10227/NZhvE=;
- b=3WxekWpuLpyFa82daATALqrWNjbgavwg9K4gglfOyZP2sRDvJgOqzvUgCZsWYhD2o7
- nude6aKphr93fa9QPvAw==
-X-RZG-AUTH: ":L2QefEenb+UdBJSdRCXu93KJ1bmSGnhMdmOod1DhGN0rBVhd9dFr6KxrfO5Oh7V7X5qws3iRDHzG8p2xUg3XBlGjveN8KnjzWlgpUn4="
-Received: from smtpclient.apple by smtp.strato.de (RZmta 51.2.8 AUTH)
- with ESMTPSA id e0da1a098905mrX
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Tue, 8 Oct 2024 11:00:05 +0200 (CEST)
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-From: Christian Zigotzky <chzigotzky@xenosoft.de>
-Mime-Version: 1.0 (1.0)
-Subject: [PATCH] drm/radeon: always set GEM function pointer
-Date: Tue, 8 Oct 2024 10:59:54 +0200
-Message-Id: <EE14413A-3528-4646-A353-DB5131E56BA2@xenosoft.de>
-References: <CADnq5_PpmkbYppJWR6QLzm7J_iR4GpSOYYQbTR2Ni21t++R34w@mail.gmail.com>
-Cc: =?utf-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Hans de Goede <hdegoede@redhat.com>, Wu Hoi Pok <wuhoipok@gmail.com>,
- amd-gfx@lists.freedesktop.org, Alex Deucher <alexdeucher@gmail.com>,
- alexander.deucher@amd.com
-In-Reply-To: <CADnq5_PpmkbYppJWR6QLzm7J_iR4GpSOYYQbTR2Ni21t++R34w@mail.gmail.com>
-To: "R.T.Dickinson" <rtd@a-eon.com>, mad skateman <madskateman@gmail.com>,
- Darren Stevens <darren@stevens-zone.net>, hypexed@yahoo.com.au,
- linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
- Christian Zigotzky <info@xenosoft.de>
-X-Mailer: iPhone Mail (22A3354)
+Received: from mail-yb1-f176.google.com (mail-yb1-f176.google.com
+ [209.85.219.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF25610E1D1
+ for <amd-gfx@lists.freedesktop.org>; Mon,  7 Oct 2024 22:09:01 +0000 (UTC)
+Received: by mail-yb1-f176.google.com with SMTP id
+ 3f1490d57ef6-e28e6a1b11eso706185276.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 07 Oct 2024 15:09:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1728338941; x=1728943741; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=CqX9Y0dEmHgiIN61I3/zW08Bfod5n7pFQiGUVIMbBVk=;
+ b=j6tvQ4dG8bv6smRdlDU10tj+BLoyiPLeujlhaVVPZScayyTdnmovhvrnI1LmNP5zZS
+ vWsQVR7lzV+edQ8F9S6Zcs76YRvoxQJSOD2orzPtvyBKyndxFB+OvRqufs6/LXbj+sWg
+ +ZPITqPG2yJdLBlhzdbKGRlKkrPqgAFCd4rj1eUgBgPC9fk+7shosi8RchtwtBF8nMK9
+ sIzIYVmvmcO7A9RsmIFxULauGhq4yf192rLZwHVSH5hIWa3f8CdBONQ3ji5lkUx9mBw0
+ /o6oHXZfDCnXsoiESLsv56crqvaXiy5/EEyzeP3JGieKZc1hGshSHV29YVaFv6/MJsiQ
+ jsqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1728338941; x=1728943741;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=CqX9Y0dEmHgiIN61I3/zW08Bfod5n7pFQiGUVIMbBVk=;
+ b=So2K76UjsjblhWsY6zdWwlLHKSoI8bia7r7pf6MzYd1A/1ojkQwoTtngr6izLrdunn
+ byOaaDloV+uUBMxjKM8mu46OLyWarpCYaQPmND0rxkCYCM7fFM7K1q5Hq3vcUMOpNPBS
+ 0fwl7j39IzlSMoDAaOO365q3NFLlcAKkVFes7rLyiRr4seoGLHwd4UR24dAkJsQAVaz1
+ BODnpkABqlaUSGckCKkiRTL2xIzIWMSshCVJa6WCqPDQgh2XhLrHEK5jCa+atXfWOorY
+ ZgJ+DauC9eKvMFEbnwvJLTPuf6cqpqKdrVQZbhXtQ9XueIjuFL1yqFa8VKz63PGL2iNx
+ ZM/w==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVbiiS+1+7et+YXd38ecMAX5bWxCyGcNk00ZMSov52NX2U0nNcDsU3n3pUf1gb++VV27TpHRnCG@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyqcSTsOnNLZMyrTf8ns18yzMbkgSF8cPNiTB9ElceNe/HGpBDb
+ 06kKV2CBR5afYgjZij+jw/ggMLPUp0/FHLK/c2ktASHuvs37FAclcK7R8iGv0p5TaYGoCrXSzxf
+ R+TklRqYjnpy7ah1VXE4HoH+nw8x7gvHJVucP1g==
+X-Google-Smtp-Source: AGHT+IE2nJVabbXdwibt1H0pVBms5dYTsG8RkBKKAzfdsgMhYsZ8VyWIk7HanuWHiQPQxXFBk2ezA08qlljJFN0QQR4=
+X-Received: by 2002:a05:6902:848:b0:e28:edbd:765f with SMTP id
+ 3f1490d57ef6-e28edbd7f75mr206026276.2.1728338940867; Mon, 07 Oct 2024
+ 15:09:00 -0700 (PDT)
+MIME-Version: 1.0
+References: <20241004094101.113349-1-sakari.ailus@linux.intel.com>
+ <CAPDyKFp0N6UJhnHS164Tdf=xkWB0jzq65L9TdvYazeBQ-6WjeQ@mail.gmail.com>
+ <20241007184924.GH14766@pendragon.ideasonboard.com>
+In-Reply-To: <20241007184924.GH14766@pendragon.ideasonboard.com>
+From: Ulf Hansson <ulf.hansson@linaro.org>
+Date: Tue, 8 Oct 2024 00:08:24 +0200
+Message-ID: <CAPDyKFpQVnF7eQv3dup8k-3EijnMjuveCG9sZ=Rpey1Y6MBJEg@mail.gmail.com>
+Subject: Re: [PATCH 00/51] treewide: Switch to __pm_runtime_put_autosuspend()
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-bluetooth@vger.kernel.org, 
+ linux-clk@vger.kernel.org, linux-crypto@vger.kernel.org, 
+ dmaengine@vger.kernel.org, linux-gpio@vger.kernel.org, 
+ amd-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
+ linux-stm32@st-md-mailman.stormreply.com, 
+ linux-arm-kernel@lists.infradead.org, linux-i2c@vger.kernel.org, 
+ linux-i3c@lists.infradead.org, linux-iio@vger.kernel.org, 
+ linux-input@vger.kernel.org, patches@opensource.cirrus.com, 
+ iommu@lists.linux.dev, imx@lists.linux.dev, 
+ linux-mediatek@lists.infradead.org, linux-media@vger.kernel.org, 
+ linux-mmc@vger.kernel.org, linux-mtd@lists.infradead.org, 
+ netdev@vger.kernel.org, linux-wireless@vger.kernel.org, 
+ linux-pci@vger.kernel.org, linux-phy@lists.infradead.org, 
+ linux-pwm@vger.kernel.org, linux-remoteproc@vger.kernel.org, 
+ linux-sound@vger.kernel.org, linux-spi@vger.kernel.org, 
+ linux-staging@lists.linux.dev, linux-usb@vger.kernel.org, 
+ linux-serial@vger.kernel.org, greybus-dev@lists.linaro.org, 
+ asahi@lists.linux.dev, rafael@kernel.org, 
+ Andy Shevchenko <andy.shevchenko@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Tue, 08 Oct 2024 13:25:13 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -99,82 +98,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi All,
+On Mon, 7 Oct 2024 at 20:49, Laurent Pinchart
+<laurent.pinchart@ideasonboard.com> wrote:
+>
+> Hi Ulf,
+>
+> On Fri, Oct 04, 2024 at 04:38:36PM +0200, Ulf Hansson wrote:
+> > On Fri, 4 Oct 2024 at 11:41, Sakari Ailus <sakari.ailus@linux.intel.com> wrote:
+> > >
+> > > Hello everyone,
+> > >
+> > > This set will switch the users of pm_runtime_put_autosuspend() to
+> > > __pm_runtime_put_autosuspend() while the former will soon be re-purposed
+> > > to include a call to pm_runtime_mark_last_busy(). The two are almost
+> > > always used together, apart from bugs which are likely common. Going
+> > > forward, most new users should be using pm_runtime_put_autosuspend().
+> > >
+> > > Once this conversion is done and pm_runtime_put_autosuspend() re-purposed,
+> > > I'll post another set to merge the calls to __pm_runtime_put_autosuspend()
+> > > and pm_runtime_mark_last_busy().
+> >
+> > That sounds like it could cause a lot of churns.
+> >
+> > Why not add a new helper function that does the
+> > pm_runtime_put_autosuspend() and the pm_runtime_mark_last_busy()
+> > things? Then we can start moving users over to this new interface,
+> > rather than having this intermediate step?
+>
+> I think the API would be nicer if we used the shortest and simplest
+> function names for the most common use cases. Following
+> pm_runtime_put_autosuspend() with pm_runtime_mark_last_busy() is that
+> most common use case. That's why I like Sakari's approach of repurposing
+> pm_runtime_put_autosuspend(), and introducing
+> __pm_runtime_put_autosuspend() for the odd cases where
+> pm_runtime_mark_last_busy() shouldn't be called.
 
-I have released the RC2 of kernel 6.12 with Christian Koenig=E2=80=99s patch=
- for the X1000 and X5000.
+Okay, so the reason for this approach is because we couldn't find a
+short and descriptive name that could be used in favor of
+pm_runtime_put_autosuspend(). Let me throw some ideas at it and maybe
+you like it - or not. :-)
 
-Download and further information: https://github.com/chzigotzky/kernels/rele=
-ases/tag/v6.12.0-rc2
+I don't know what options you guys discussed, but to me the entire
+"autosuspend"-suffix isn't really that necessary in my opinion. There
+are more ways than calling pm_runtime_put_autosuspend() that triggers
+us to use the RPM_AUTO flag for rpm_suspend(). For example, just
+calling pm_runtime_put() has the similar effect.
 
-Please test the kernels because of the second Radeon DRM driver issue.
+Moreover, it's similar for pm_runtime_mark_last_busy(), it's called
+during rpm_resume() too, for example. So why bother about having
+"mark_last_busy" in the new name too.
 
-Thanks,
-Christian
+That said, my suggestion is simply "pm_runtime_put_suspend".
 
-> Am 07.10.2024 um 20:36 schrieb Alex Deucher <alexdeucher@gmail.com>:
->=20
-> =EF=BB=BFAdd a few people.
->=20
-> This should fix the radeon ttm gem conversion.
->=20
-> Alex
->=20
->=20
->=20
->> On Mon, Oct 7, 2024 at 2:33=E2=80=AFPM Christian K=C3=B6nig
->> <ckoenig.leichtzumerken@gmail.com> wrote:
->>=20
->> Make sure to always set the GEM function pointer even for in kernel
->> allocations. This fixes a NULL pointer deref caused by switching to GEM
->> references.
->>=20
->> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
->> Fixes: fd69ef05029f ("drm/radeon: use GEM references instead of TTMs")
->> ---
->> drivers/gpu/drm/radeon/radeon_gem.c    | 3 ---
->> drivers/gpu/drm/radeon/radeon_object.c | 1 +
->> 2 files changed, 1 insertion(+), 3 deletions(-)
->>=20
->> diff --git a/drivers/gpu/drm/radeon/radeon_gem.c b/drivers/gpu/drm/radeon=
-/radeon_gem.c
->> index 9735f4968b86..bf2d4b16dc2a 100644
->> --- a/drivers/gpu/drm/radeon/radeon_gem.c
->> +++ b/drivers/gpu/drm/radeon/radeon_gem.c
->> @@ -44,8 +44,6 @@ struct sg_table *radeon_gem_prime_get_sg_table(struct d=
-rm_gem_object *obj);
->> int radeon_gem_prime_pin(struct drm_gem_object *obj);
->> void radeon_gem_prime_unpin(struct drm_gem_object *obj);
->>=20
->> -const struct drm_gem_object_funcs radeon_gem_object_funcs;
->> -
->> static vm_fault_t radeon_gem_fault(struct vm_fault *vmf)
->> {
->>        struct ttm_buffer_object *bo =3D vmf->vma->vm_private_data;
->> @@ -132,7 +130,6 @@ int radeon_gem_object_create(struct radeon_device *rd=
-ev, unsigned long size,
->>                return r;
->>        }
->>        *obj =3D &robj->tbo.base;
->> -       (*obj)->funcs =3D &radeon_gem_object_funcs;
->>        robj->pid =3D task_pid_nr(current);
->>=20
->>        mutex_lock(&rdev->gem.mutex);
->> diff --git a/drivers/gpu/drm/radeon/radeon_object.c b/drivers/gpu/drm/rad=
-eon/radeon_object.c
->> index d0e4b43d155c..7672404fdb29 100644
->> --- a/drivers/gpu/drm/radeon/radeon_object.c
->> +++ b/drivers/gpu/drm/radeon/radeon_object.c
->> @@ -151,6 +151,7 @@ int radeon_bo_create(struct radeon_device *rdev,
->>        if (bo =3D=3D NULL)
->>                return -ENOMEM;
->>        drm_gem_private_object_init(rdev_to_drm(rdev), &bo->tbo.base, size=
-);
->> +       bo->tbo.base.funcs =3D &radeon_gem_object_funcs;
->>        bo->rdev =3D rdev;
->>        bo->surface_reg =3D -1;
->>        INIT_LIST_HEAD(&bo->list);
->> --
->> 2.34.1
->>=20
+If you don't like it, I will certainly not object to your current
+approach, even if I think it leads to unnecessary churns.
 
+[...]
+
+Kind regards
+Uffe
