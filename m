@@ -4,67 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B9A5CEF173
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Oct 2024 13:22:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D86E5CEF172
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Oct 2024 13:25:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DFA9410E525;
-	Tue,  8 Oct 2024 13:22:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7313610E00E;
+	Tue,  8 Oct 2024 13:25:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WyWx8rBt";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="bR6a3lN3";
 	dkim-atps=neutral
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com
- [209.85.215.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B5D8C10E525
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Oct 2024 13:22:25 +0000 (UTC)
-Received: by mail-pg1-f179.google.com with SMTP id
- 41be03b00d2f7-7c3d415f85eso664318a12.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 08 Oct 2024 06:22:25 -0700 (PDT)
+Received: from mail-yb1-f174.google.com (mail-yb1-f174.google.com
+ [209.85.219.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57D0910E10E
+ for <amd-gfx@lists.freedesktop.org>; Mon,  7 Oct 2024 22:35:27 +0000 (UTC)
+Received: by mail-yb1-f174.google.com with SMTP id
+ 3f1490d57ef6-e25cf3c7278so4378288276.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 07 Oct 2024 15:35:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1728393745; x=1728998545; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=YuOpg8tkvWoeClMNamH2mlGkYuGgAwuHdZS0sE5jCK0=;
- b=WyWx8rBt/lXkcEA+yY+qkLiEKzAee8NGkxvytz3+BCJUNc1lm6mm81I3DeiukpxXOu
- M1yiPmSknWL9pKS0Ont4DcQOMjJxsB4zu2LtIHvWvfERymSx1gIVYmcwdHA6r2BZp6rD
- cOTtYw8Xse566v+mO+BMZPk+eDmBoId+V/kTS9QTKm6C0T56hdp7x7U/yf5rtbCM5FOs
- 3JYB23oy2TRbqfbI9fLWU6sW79UW3Q6hnUSvhl8syuv2BeEKk2pcN5/LAmT9jjWyabX0
- stf9IX0HGw3mTlsWWDSbiQPta7NodSrUl2EDrT59ia1gyg7F9WXfoJkbJMAlh3bTlHkE
- fgGg==
+ d=linaro.org; s=google; t=1728340526; x=1728945326; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=gesjil9Y0RZgbcjmX5qHd/S97rHztDCcedkOm+1cl0k=;
+ b=bR6a3lN3VFGBRVAOySVLeUnmnHyyDB7bAXACy8FALFYKoASbXvmlSKRnoFefgJ/gFn
+ Wx5nfip133cNAxG8Fwr0S3P+8LXA+BQMdktBmxF7zLnuskQ29hGbPqpYSUXtXtQdz+m+
+ 4cd/zWniDYG3YmZtzA8j3h+81onMP8Rd0iFngWf0Dt9pjzUjXdBb8bAXGrxGIgNNcq/y
+ yT7Z+BDJtIJmFItqMyOQpggXaVB64UV+XfB59K3SFk1dX1qLl8/H3382RglrxI2iIEVx
+ ++nmZWXoSP220KP2TxTJtWxDNCrMpungr7u7PHIh0Jxszzey2QECDH7VCdhayepIkKPU
+ z05g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1728393745; x=1728998545;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=YuOpg8tkvWoeClMNamH2mlGkYuGgAwuHdZS0sE5jCK0=;
- b=a8eJD9zECz9/ENuRtDd2kIESdKUidd8NUk5BlIaPwwrm6pCYfwy1j8gPAeZ4p9iIxz
- RG7HrslLGCZ+4wxjxYhMp9ozHoZ4Z/KnnHBh165h4kq9arBxIouOLATf8zwz87V116Qp
- CVIa4hiNkUUaDnEEEhfVPARIdSwDbPKMocThkd1pDMNItZ+/8/ew48CwNrWpUI438FxS
- HNvLjQU45sbCP6NEQ5+soCZqZ50WPbeR1xVDyarSWnhdhRpCzgRLxvbgqDyQqaV92wKb
- E2/42zH/iH+6jaVr73Hml9nj45u8mDN7hJYdR1w6eAXCImeZhEHjx63hEgq/bMgIISks
- nubA==
+ d=1e100.net; s=20230601; t=1728340526; x=1728945326;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=gesjil9Y0RZgbcjmX5qHd/S97rHztDCcedkOm+1cl0k=;
+ b=O25s+8CvQlWhJaQnvao675jzvEC28eZ8pAA/bO3UuXdr7OeTMmK8PJTW5CbuPBGMkT
+ 0eY6F6V8QyNUhTcibY4hVwP4o1eePNClsqYsCgFsml8uC1nIh9C7Djr07H0GUED33XWu
+ eewjp2XLDAb4dDbs4kyoe+XGYUG5K2tY0wrSLTYlrXbool3ZRMdmuPD996dWoRFLNB4L
+ BICxCQ64WX6ZkmvRgVnpZxtET/jjGeXTwZeCdeMy0ndSIfQB6nwr3eqON3/MeskmHDwe
+ lDj/6YAwVKA4PSfJNwA4+xfoMVTt/+gbIpNbJZ1NEQNpNZUTdVImJwpeHf4+JKwV1uS7
+ Nqlg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWwDnUE4To7wSftRTYQnSalasni/NnSjr4CNPYRyfWFB4E1a7iMW/4Wap/ESgvphcfqUARW8qFT@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy4I58UTXnQ/iMI6i11jXoCRZodzBDyu/pTNMao3Q5fU3xf3ZUQ
- ZNT2kamGIOr8eEQ/hShmF+P8IVkfuUfWg8nF6h6WeteJurI68JrOYJJMk6eqqUcT5yTBn14bwA5
- KMhJrsWPcIGQZPlNHnGOO6wHLmHrCkYAF
-X-Google-Smtp-Source: AGHT+IF/lTFZKz1tnOFDynN1dT2Nkxa0rZJVKrdMo5q5nw2OfUIdwwlW87PoDP99rhVIGRrU2PVkMdb8Bx37En+6alg=
-X-Received: by 2002:a17:902:d50f:b0:206:b1fa:ccb9 with SMTP id
- d9443c01a7336-20bfe39ffcfmr94667895ad.6.1728393745000; Tue, 08 Oct 2024
- 06:22:25 -0700 (PDT)
+ AJvYcCXM92+zZExg2W63hXjufFQsix3Ur+LrUVvqZrzKfoTtg29FNflRDuEPKaWcSHrSDFrX0Abin5XT@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzUZafz6iKk34uh0wGRTHu32KQNgr6WXHPVSTscI+mysJSlp14/
+ kIoVBeuwgxkGTgaU8unEn41TTT76XXz+/ga3oBrUi7BBI/i4dRWcImIx1XEoq/alK4Q7oJ7Y82A
+ J4G4fSzBezKY4/nIBrA7u2p0NmZ6XVPSQSH6sbw==
+X-Google-Smtp-Source: AGHT+IGYLLRVc3CeXKReIUVnntYlZ+ULRb29gPUl3UTx4hoqAUGdx6q2aFDzdnacRWqcM/cOYseo4GoEdp7e3a8qLZE=
+X-Received: by 2002:a05:6902:2305:b0:e28:6ec7:4353 with SMTP id
+ 3f1490d57ef6-e2893964043mr10612649276.54.1728340526338; Mon, 07 Oct 2024
+ 15:35:26 -0700 (PDT)
 MIME-Version: 1.0
-References: <20241008035953.595701-1-sunil.khatri@amd.com>
-In-Reply-To: <20241008035953.595701-1-sunil.khatri@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 8 Oct 2024 09:22:13 -0400
-Message-ID: <CADnq5_NtxLADcJnjF8R9E-xu209Wso4sj00JJdytcXnPvLCTeA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: fix dm_suspend/resume arguments to ip_block
-To: Sunil Khatri <sunil.khatri@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- amd-gfx@lists.freedesktop.org
+References: <20241004094101.113349-1-sakari.ailus@linux.intel.com>
+ <CAPDyKFp0N6UJhnHS164Tdf=xkWB0jzq65L9TdvYazeBQ-6WjeQ@mail.gmail.com>
+ <20241007184924.GH14766@pendragon.ideasonboard.com>
+ <CAPDyKFpQVnF7eQv3dup8k-3EijnMjuveCG9sZ=Rpey1Y6MBJEg@mail.gmail.com>
+ <20241007222502.GG30699@pendragon.ideasonboard.com>
+In-Reply-To: <20241007222502.GG30699@pendragon.ideasonboard.com>
+From: Ulf Hansson <ulf.hansson@linaro.org>
+Date: Tue, 8 Oct 2024 00:34:49 +0200
+Message-ID: <CAPDyKFrGNwna6Y2pqSRaBbRYHKRaD2ayqQHLtoqLPOu9Et7qTg@mail.gmail.com>
+Subject: Re: [PATCH 00/51] treewide: Switch to __pm_runtime_put_autosuspend()
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-bluetooth@vger.kernel.org, 
+ linux-clk@vger.kernel.org, linux-crypto@vger.kernel.org, 
+ dmaengine@vger.kernel.org, linux-gpio@vger.kernel.org, 
+ amd-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
+ linux-stm32@st-md-mailman.stormreply.com, 
+ linux-arm-kernel@lists.infradead.org, linux-i2c@vger.kernel.org, 
+ linux-i3c@lists.infradead.org, linux-iio@vger.kernel.org, 
+ linux-input@vger.kernel.org, patches@opensource.cirrus.com, 
+ iommu@lists.linux.dev, imx@lists.linux.dev, 
+ linux-mediatek@lists.infradead.org, linux-media@vger.kernel.org, 
+ linux-mmc@vger.kernel.org, linux-mtd@lists.infradead.org, 
+ netdev@vger.kernel.org, linux-wireless@vger.kernel.org, 
+ linux-pci@vger.kernel.org, linux-phy@lists.infradead.org, 
+ linux-pwm@vger.kernel.org, linux-remoteproc@vger.kernel.org, 
+ linux-sound@vger.kernel.org, linux-spi@vger.kernel.org, 
+ linux-staging@lists.linux.dev, linux-usb@vger.kernel.org, 
+ linux-serial@vger.kernel.org, greybus-dev@lists.linaro.org, 
+ asahi@lists.linux.dev, rafael@kernel.org, 
+ Andy Shevchenko <andy.shevchenko@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Tue, 08 Oct 2024 13:25:13 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,62 +100,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Oct 8, 2024 at 12:00=E2=80=AFAM Sunil Khatri <sunil.khatri@amd.com>=
- wrote:
+On Tue, 8 Oct 2024 at 00:25, Laurent Pinchart
+<laurent.pinchart@ideasonboard.com> wrote:
 >
-> "build failure after merge of the amdgpu tree"
-> dm_suspend/dm_resume functions argument mismatch
-> not caught in validation as it was under config
-> CONFIG_DEBUG_KERNEL_DC which wasnt enabled by
-> default.
+> Hi Ulf,
 >
-> Change argument from adev to ip_block.
+> On Tue, Oct 08, 2024 at 12:08:24AM +0200, Ulf Hansson wrote:
+> > On Mon, 7 Oct 2024 at 20:49, Laurent Pinchart wrote:
+> > > On Fri, Oct 04, 2024 at 04:38:36PM +0200, Ulf Hansson wrote:
+> > > > On Fri, 4 Oct 2024 at 11:41, Sakari Ailus wrote:
+> > > > >
+> > > > > Hello everyone,
+> > > > >
+> > > > > This set will switch the users of pm_runtime_put_autosuspend() to
+> > > > > __pm_runtime_put_autosuspend() while the former will soon be re-purposed
+> > > > > to include a call to pm_runtime_mark_last_busy(). The two are almost
+> > > > > always used together, apart from bugs which are likely common. Going
+> > > > > forward, most new users should be using pm_runtime_put_autosuspend().
+> > > > >
+> > > > > Once this conversion is done and pm_runtime_put_autosuspend() re-purposed,
+> > > > > I'll post another set to merge the calls to __pm_runtime_put_autosuspend()
+> > > > > and pm_runtime_mark_last_busy().
+> > > >
+> > > > That sounds like it could cause a lot of churns.
+> > > >
+> > > > Why not add a new helper function that does the
+> > > > pm_runtime_put_autosuspend() and the pm_runtime_mark_last_busy()
+> > > > things? Then we can start moving users over to this new interface,
+> > > > rather than having this intermediate step?
+> > >
+> > > I think the API would be nicer if we used the shortest and simplest
+> > > function names for the most common use cases. Following
+> > > pm_runtime_put_autosuspend() with pm_runtime_mark_last_busy() is that
+> > > most common use case. That's why I like Sakari's approach of repurposing
+> > > pm_runtime_put_autosuspend(), and introducing
+> > > __pm_runtime_put_autosuspend() for the odd cases where
+> > > pm_runtime_mark_last_busy() shouldn't be called.
+> >
+> > Okay, so the reason for this approach is because we couldn't find a
+> > short and descriptive name that could be used in favor of
+> > pm_runtime_put_autosuspend(). Let me throw some ideas at it and maybe
+> > you like it - or not. :-)
 >
-> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+> I like the idea at least :-)
+>
+> > I don't know what options you guys discussed, but to me the entire
+> > "autosuspend"-suffix isn't really that necessary in my opinion. There
+> > are more ways than calling pm_runtime_put_autosuspend() that triggers
+> > us to use the RPM_AUTO flag for rpm_suspend(). For example, just
+> > calling pm_runtime_put() has the similar effect.
+>
+> To be honest, I'm lost there. pm_runtime_put() calls
+> __pm_runtime_idle(RPM_GET_PUT | RPM_ASYNC), while
+> pm_runtime_put_autosuspend() calls __pm_runtime_suspend(RPM_GET_PUT |
+> RPM_ASYNC | RPM_AUTO).
 
-Please add:
-Fixes: 982d7f9bfe4a ("drm/amdgpu: update the handle ptr in suspend")
-Fixes: 7feb4f3ad8be ("drm/amdgpu: update the handle ptr in resume")
-Reported-by: Stephen Rothwell <sfr@canb.auug.org.au>
+__pm_runtime_idle() ends up calling rpm_idle(), which may call
+rpm_suspend() - if it succeeds to idle the device. In that case, it
+tags on the RPM_AUTO flag in the call to rpm_suspend(). Quite similar
+to what is happening when calling pm_runtime_put_autosuspend().
 
+>
+> >
+> > Moreover, it's similar for pm_runtime_mark_last_busy(), it's called
+> > during rpm_resume() too, for example. So why bother about having
+> > "mark_last_busy" in the new name too.
+> >
+> > That said, my suggestion is simply "pm_runtime_put_suspend".
+>
+> Can we do even better, and make pm_runtime_put() to handle autosuspend
+> automatically when autosuspend is enabled ?
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+As stated above, this is already the case.
 
-
-> ---
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 9 +++++++--
->  1 file changed, 7 insertions(+), 2 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
-gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index e4511f2fb929..6d5b899941af 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -5201,15 +5201,20 @@ static ssize_t s3_debug_store(struct device *devi=
-ce,
->         int s3_state;
->         struct drm_device *drm_dev =3D dev_get_drvdata(device);
->         struct amdgpu_device *adev =3D drm_to_adev(drm_dev);
-> +       struct amdgpu_ip_block *ip_block;
-> +
-> +       ip_block =3D amdgpu_device_ip_get_ip_block(adev, AMD_IP_BLOCK_TYP=
-E_DCE);
-> +       if (!ip_block)
-> +               return -EINVAL;
+> > If you don't like it, I will certainly not object to your current
+> > approach, even if I think it leads to unnecessary churns.
+> >
+> > [...]
+> >
+> > Kind regards
+> > Uffe
 >
->         ret =3D kstrtoint(buf, 0, &s3_state);
->
->         if (ret =3D=3D 0) {
->                 if (s3_state) {
-> -                       dm_resume(adev);
-> +                       dm_resume(ip_block);
->                         drm_kms_helper_hotplug_event(adev_to_drm(adev));
->                 } else
-> -                       dm_suspend(adev);
-> +                       dm_suspend(ip_block);
->         }
->
->         return ret =3D=3D 0 ? count : 0;
 > --
-> 2.34.1
+> Regards,
 >
+> Laurent Pinchart
+
+Kind regards
+Uffe
