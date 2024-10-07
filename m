@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8362CFB452
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Oct 2024 18:32:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA12FCFB453
+	for <amd-gfx@archiver.kernel.org>; Mon,  7 Oct 2024 18:36:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D84E10E3F8;
-	Mon,  7 Oct 2024 18:32:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5306210E3FC;
+	Mon,  7 Oct 2024 18:36:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="M9wiFf4z";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZMAgiY5l";
 	dkim-atps=neutral
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com
- [209.85.208.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F2F0E10E3F8
- for <amd-gfx@lists.freedesktop.org>; Mon,  7 Oct 2024 18:32:44 +0000 (UTC)
-Received: by mail-ed1-f41.google.com with SMTP id
- 4fb4d7f45d1cf-5c87ab540b3so10300802a12.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 07 Oct 2024 11:32:44 -0700 (PDT)
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
+ [209.85.216.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A1C0810E3FC
+ for <amd-gfx@lists.freedesktop.org>; Mon,  7 Oct 2024 18:36:28 +0000 (UTC)
+Received: by mail-pj1-f48.google.com with SMTP id
+ 98e67ed59e1d1-2e13718283bso534328a91.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 07 Oct 2024 11:36:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1728325963; x=1728930763; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:to
- :from:from:to:cc:subject:date:message-id:reply-to;
- bh=oXYej9i5u10OFpOt/KewAGBtVQTLobTUQlInqYUyHWs=;
- b=M9wiFf4zcFmrk4INqswkG3V89hqQKkVIUPTtiaKiSjTLIQB4FoN6z5YNLDvomWcg8u
- P9roS44oqI5VtlC31Yum5uQioOLgTuTcwKFiA9foeVukImYYwGUoosU5EQqeZ2jcPs9o
- aXhck89BZQDYQJNKLKUO74HBJM5irLksfPaoBL9zVMu7vOnxFDZ5QHzbTmoFkLNZxLZY
- /2QTNcsjMDqnzvTmNih7lEiDADpM2ZlkwmPaa1g1nnDQhmfgfINEljvJ8g+dXyL+W1PP
- PnHHy7r7zwe3NszTeI/VTp2ru0Rw33y9k6uUAOu4nY8DYImCtAL9C/loKm6c94QpPQZP
- jtCQ==
+ d=gmail.com; s=20230601; t=1728326188; x=1728930988; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=u0JiDMq6H0sRSaZBjs2rCFR09kLuq8QVdnzMidouxuU=;
+ b=ZMAgiY5lLwPJWZvAiLrK1FTLwe4KovfXy8AlkiHZ+8QAL+MZaz/RpeVnQveZEtG3yP
+ 8PsmJkPXf3nojzGuD6k28/Mma96oSf9+wD3hE2EQzjASJdGAONx8Po6bjtr3GvEMg2K3
+ eRFJSEiWhu2E1IWLReIg4hTTwEOQ2l7nccHsB5tlBy6kyjNAb9riveHBrSCpbTMLsaMW
+ mrrY+P66aQUWMQy4u5SmdZ2qSg9887pmsxl+X+lrlyDi+zQQRqAbidqgOJmvoVmep5CQ
+ irxLxUSAdeFM2qKql977LWHrOmlx+SvQVkTWyazxX6IUYoHBpp/dCZ/LeImj0JuUjZAS
+ U9Lw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1728325963; x=1728930763;
- h=content-transfer-encoding:mime-version:message-id:date:subject:to
- :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=oXYej9i5u10OFpOt/KewAGBtVQTLobTUQlInqYUyHWs=;
- b=GXek3SuFotlvMNA5WSJQA65bHNThnk0Kx+SRtea7E6zFhWW4zhLPdI3Oke9mEjUG14
- Ef+wC03AfoOiRGqEXtP/HsGUy08r3WY+OHhbpwj5Od5Q+gJoT5+ZvBYFXXZcnOOkirOq
- 7zF6E23kVCaUJ5arAkRnIwDB88LkH19Vg8AcS0L8mfH83ccjkupnwyQLZlmA9cZvURtT
- PvmWrV7kWt5rYPz8WL3kltv3siVVyxL+JocWfsK7JvkaN25QOIGyA+7PZ64iDcuucvu5
- qW9EmF6l1qJjmz/2guoX+qhWLqwl+zef5e5Ph94Z8NK13TcEBW7o/kPcCuZJswruU5Aw
- VXhA==
-X-Gm-Message-State: AOJu0YwQbf38d2JHo3Yyig4dRWAXlOgCXE/LhRJ4iVG1Sow+2Om4W9sQ
- e4RALaO/6rJA6cFEl1CMvHUXPPPsLzkhO9TNmrgqsBljQab9pU53r7sr1/ve
-X-Google-Smtp-Source: AGHT+IGzhKxYnURUQLPVcD9TrH2e8GUSN1e5oGSxA9rNAs1p/sshXblm0mobb/839SaQ8jhcX9lzdQ==
-X-Received: by 2002:a05:6402:51d4:b0:5c8:97b9:58a6 with SMTP id
- 4fb4d7f45d1cf-5c905d03ab8mr602058a12.1.1728325963030; 
- Mon, 07 Oct 2024 11:32:43 -0700 (PDT)
-Received: from able.fritz.box ([2a00:e180:15db:a000:28fa:7b49:8acd:d9b1])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5c8e05bd4e7sm3459719a12.47.2024.10.07.11.32.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 07 Oct 2024 11:32:42 -0700 (PDT)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: amd-gfx@lists.freedesktop.org,
-	alexander.deucher@amd.com
-Subject: [PATCH] drm/radeon: always set GEM function pointer
-Date: Mon,  7 Oct 2024 20:32:41 +0200
-Message-Id: <20241007183241.1584-1-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.34.1
+ d=1e100.net; s=20230601; t=1728326188; x=1728930988;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=u0JiDMq6H0sRSaZBjs2rCFR09kLuq8QVdnzMidouxuU=;
+ b=diKwHOLzfUjlpck0yBodGODOaaANbDpgEMBYA96s72X8PLUd/F4ax/684POLTsSw0M
+ 7KThVIG60/0D/rRf5LtZBV/l0aHHciYlRbsaHtpyooatcdgk9mARMAfCreMJMOBS8fDp
+ 1kHnOiSyojc6oscI1ILZuiHhUT6l0SnhFMHhIt+injICG2gh3qQvrDjH8QJG2gnWOTnA
+ pBy09QYKYou0u173fe1nFahueBT76HWyZcDWOW0H7w7RHTr8PtyBo6BYfSWSSBevpugc
+ kussbPDsGfj/klLuPK9qY7ZGk4I+AN73Uw4woMk6xMVFMcu2fZ/rY3abEO6zuwKIxsK4
+ Iycw==
+X-Gm-Message-State: AOJu0Yz5tWncbH26w1aT+qzP+D3lbzCd52w1VAFFVl4aabQ2nCRjsH/c
+ CBWx2eroeoOVhDbBeVcfuNQC6O8OM8WEqatHyO4TAPRSY06Gv39hJSz+ReikVwZEKgDrVNn2Iww
+ wOmb7vyyFGbGdGopO1duNLNrHfGk=
+X-Google-Smtp-Source: AGHT+IFGCCvjowlF2a66l7ICNmwqNkO9EcOkE2rIDGjdJ1dtrh6oLvBakJyE2qaq+G+tEo94Dcaz35X/NMo/QRt9NlE=
+X-Received: by 2002:a17:90a:e291:b0:2d3:b598:8daa with SMTP id
+ 98e67ed59e1d1-2e1e631b1a8mr6459559a91.4.1728326188036; Mon, 07 Oct 2024
+ 11:36:28 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20241007183241.1584-1-christian.koenig@amd.com>
+In-Reply-To: <20241007183241.1584-1-christian.koenig@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 7 Oct 2024 14:36:16 -0400
+Message-ID: <CADnq5_PpmkbYppJWR6QLzm7J_iR4GpSOYYQbTR2Ni21t++R34w@mail.gmail.com>
+Subject: Re: [PATCH] drm/radeon: always set GEM function pointer
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>, 
+ Hans de Goede <hdegoede@redhat.com>,
+ Christian Zigotzky <chzigotzky@xenosoft.de>, 
+ Wu Hoi Pok <wuhoipok@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,50 +78,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Make sure to always set the GEM function pointer even for in kernel
-allocations. This fixes a NULL pointer deref caused by switching to GEM
-references.
+Add a few people.
 
-Signed-off-by: Christian König <christian.koenig@amd.com>
-Fixes: fd69ef05029f ("drm/radeon: use GEM references instead of TTMs")
----
- drivers/gpu/drm/radeon/radeon_gem.c    | 3 ---
- drivers/gpu/drm/radeon/radeon_object.c | 1 +
- 2 files changed, 1 insertion(+), 3 deletions(-)
+This should fix the radeon ttm gem conversion.
 
-diff --git a/drivers/gpu/drm/radeon/radeon_gem.c b/drivers/gpu/drm/radeon/radeon_gem.c
-index 9735f4968b86..bf2d4b16dc2a 100644
---- a/drivers/gpu/drm/radeon/radeon_gem.c
-+++ b/drivers/gpu/drm/radeon/radeon_gem.c
-@@ -44,8 +44,6 @@ struct sg_table *radeon_gem_prime_get_sg_table(struct drm_gem_object *obj);
- int radeon_gem_prime_pin(struct drm_gem_object *obj);
- void radeon_gem_prime_unpin(struct drm_gem_object *obj);
- 
--const struct drm_gem_object_funcs radeon_gem_object_funcs;
--
- static vm_fault_t radeon_gem_fault(struct vm_fault *vmf)
- {
- 	struct ttm_buffer_object *bo = vmf->vma->vm_private_data;
-@@ -132,7 +130,6 @@ int radeon_gem_object_create(struct radeon_device *rdev, unsigned long size,
- 		return r;
- 	}
- 	*obj = &robj->tbo.base;
--	(*obj)->funcs = &radeon_gem_object_funcs;
- 	robj->pid = task_pid_nr(current);
- 
- 	mutex_lock(&rdev->gem.mutex);
-diff --git a/drivers/gpu/drm/radeon/radeon_object.c b/drivers/gpu/drm/radeon/radeon_object.c
-index d0e4b43d155c..7672404fdb29 100644
---- a/drivers/gpu/drm/radeon/radeon_object.c
-+++ b/drivers/gpu/drm/radeon/radeon_object.c
-@@ -151,6 +151,7 @@ int radeon_bo_create(struct radeon_device *rdev,
- 	if (bo == NULL)
- 		return -ENOMEM;
- 	drm_gem_private_object_init(rdev_to_drm(rdev), &bo->tbo.base, size);
-+	bo->tbo.base.funcs = &radeon_gem_object_funcs;
- 	bo->rdev = rdev;
- 	bo->surface_reg = -1;
- 	INIT_LIST_HEAD(&bo->list);
--- 
-2.34.1
+Alex
 
+
+
+On Mon, Oct 7, 2024 at 2:33=E2=80=AFPM Christian K=C3=B6nig
+<ckoenig.leichtzumerken@gmail.com> wrote:
+>
+> Make sure to always set the GEM function pointer even for in kernel
+> allocations. This fixes a NULL pointer deref caused by switching to GEM
+> references.
+>
+> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Fixes: fd69ef05029f ("drm/radeon: use GEM references instead of TTMs")
+> ---
+>  drivers/gpu/drm/radeon/radeon_gem.c    | 3 ---
+>  drivers/gpu/drm/radeon/radeon_object.c | 1 +
+>  2 files changed, 1 insertion(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/radeon/radeon_gem.c b/drivers/gpu/drm/radeon=
+/radeon_gem.c
+> index 9735f4968b86..bf2d4b16dc2a 100644
+> --- a/drivers/gpu/drm/radeon/radeon_gem.c
+> +++ b/drivers/gpu/drm/radeon/radeon_gem.c
+> @@ -44,8 +44,6 @@ struct sg_table *radeon_gem_prime_get_sg_table(struct d=
+rm_gem_object *obj);
+>  int radeon_gem_prime_pin(struct drm_gem_object *obj);
+>  void radeon_gem_prime_unpin(struct drm_gem_object *obj);
+>
+> -const struct drm_gem_object_funcs radeon_gem_object_funcs;
+> -
+>  static vm_fault_t radeon_gem_fault(struct vm_fault *vmf)
+>  {
+>         struct ttm_buffer_object *bo =3D vmf->vma->vm_private_data;
+> @@ -132,7 +130,6 @@ int radeon_gem_object_create(struct radeon_device *rd=
+ev, unsigned long size,
+>                 return r;
+>         }
+>         *obj =3D &robj->tbo.base;
+> -       (*obj)->funcs =3D &radeon_gem_object_funcs;
+>         robj->pid =3D task_pid_nr(current);
+>
+>         mutex_lock(&rdev->gem.mutex);
+> diff --git a/drivers/gpu/drm/radeon/radeon_object.c b/drivers/gpu/drm/rad=
+eon/radeon_object.c
+> index d0e4b43d155c..7672404fdb29 100644
+> --- a/drivers/gpu/drm/radeon/radeon_object.c
+> +++ b/drivers/gpu/drm/radeon/radeon_object.c
+> @@ -151,6 +151,7 @@ int radeon_bo_create(struct radeon_device *rdev,
+>         if (bo =3D=3D NULL)
+>                 return -ENOMEM;
+>         drm_gem_private_object_init(rdev_to_drm(rdev), &bo->tbo.base, siz=
+e);
+> +       bo->tbo.base.funcs =3D &radeon_gem_object_funcs;
+>         bo->rdev =3D rdev;
+>         bo->surface_reg =3D -1;
+>         INIT_LIST_HEAD(&bo->list);
+> --
+> 2.34.1
+>
