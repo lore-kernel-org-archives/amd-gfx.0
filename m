@@ -4,19 +4,19 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 942F8CEF173
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Oct 2024 13:35:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 905D2CEF178
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Oct 2024 13:35:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 454EA10E148;
-	Tue,  8 Oct 2024 13:35:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E86110E536;
+	Tue,  8 Oct 2024 13:35:06 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A58A10E535
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3490010E534
  for <amd-gfx@lists.freedesktop.org>; Tue,  8 Oct 2024 13:35:02 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 498DYw1N710103; Tue, 8 Oct 2024 19:04:58 +0530
+ 498DYwio710118; Tue, 8 Oct 2024 19:04:58 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 498DYwTU710102;
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 498DYwNC710117;
  Tue, 8 Oct 2024 19:04:58 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
@@ -24,10 +24,12 @@ To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Marek=20Ol=C5=A1=C3=A1k?= <marek.olsak@amd.com>
 Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
  amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH v2 0/6] optimize insert nop operation on cpu side
-Date: Tue,  8 Oct 2024 19:04:50 +0530
-Message-Id: <20241008133456.710083-1-sunil.khatri@amd.com>
+Subject: [PATCH v2 3/6] drm/amdgpu: optimize fn gfx_v9_ring_insert_nop
+Date: Tue,  8 Oct 2024 19:04:53 +0530
+Message-Id: <20241008133456.710083-4-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20241008133456.710083-1-sunil.khatri@amd.com>
+References: <20241008133456.710083-1-sunil.khatri@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -44,24 +46,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-*** BLURB HERE ***
+Optimize gfx_v9_ring_insert_nop() to call
+optimized version of amdgpu_ring_insert_nop
+instead of calling amdgpu_ring_write for number
+of nop times.
 
-Sunil Khatri (6):
-  drm/amdgpu: optimize insert_nop using multi dwords
-  drm/amdgpu: optimize fn gfx_v9_4_3_ring_insert_nop
-  drm/amdgpu: optimize fn gfx_v9_ring_insert_nop
-  drm/amdgpu: optimize fn gfx_v10_ring_insert_nop
-  drm/amdgpu: optimize fn gfx_v11_ring_insert_nop
-  drm/amdgpu: optimize fn gfx_v12_ring_insert_nop
+Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 22 +++++++++++++++++++---
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c   |  5 +----
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c   |  5 +----
- drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c   |  5 +----
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c    |  5 +----
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c  |  5 +----
- 6 files changed, 24 insertions(+), 23 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+index 61666e0b8f15..be320d753507 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+@@ -7190,8 +7190,6 @@ static void gfx_v9_0_emit_wave_limit(struct amdgpu_ring *ring, bool enable)
+ 
+ static void gfx_v9_ring_insert_nop(struct amdgpu_ring *ring, uint32_t num_nop)
+ {
+-	int i;
+-
+ 	/* Header itself is a NOP packet */
+ 	if (num_nop == 1) {
+ 		amdgpu_ring_write(ring, ring->funcs->nop);
+@@ -7202,8 +7200,7 @@ static void gfx_v9_ring_insert_nop(struct amdgpu_ring *ring, uint32_t num_nop)
+ 	amdgpu_ring_write(ring, PACKET3(PACKET3_NOP, min(num_nop - 2, 0x3ffe)));
+ 
+ 	/* Header is at index 0, followed by num_nops - 1 NOP packet's */
+-	for (i = 1; i < num_nop; i++)
+-		amdgpu_ring_write(ring, ring->funcs->nop);
++	amdgpu_ring_insert_nop(ring, num_nop - 1);
+ }
+ 
+ static int gfx_v9_0_reset_kgq(struct amdgpu_ring *ring, unsigned int vmid)
 -- 
 2.34.1
 
