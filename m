@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 686AACF0431
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Oct 2024 21:16:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7889CF0434
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Oct 2024 21:16:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 07E0A10E5DC;
-	Tue,  8 Oct 2024 21:16:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 765DA10E5DB;
+	Tue,  8 Oct 2024 21:16:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="HOI60qkV";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="FN0xJzqK";
 	dkim-atps=neutral
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2074.outbound.protection.outlook.com [40.107.243.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5841A10E5D0
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Oct 2024 21:16:36 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2047.outbound.protection.outlook.com [40.107.223.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB46010E5DB
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Oct 2024 21:16:37 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Yn1LyM1bxExcnwPMmwdmPHsVHAhA4koMMHUgm93MBTMQXnQaWb7wyogJWphRnq/kp3qFzDPRzHVSLablLTG8HV4VIkDVvZEg/opNCnILrElUtaJVz4YX4NqTpGFuNSlLsrVjp6sqibOyAfrvPmVcmodJNC4dUUcJnt0WgoVtsssxNzGEe6BvFfFSbxv8D5LaxH4WpbqKMeXHZzgc/D5Cpo3Ds68tsHoGO56bRRmRQdPr1cs1J/npYJ6DdP36WB9gtyEgipZ2FzAXLEJRUhLpbbNMBWeJAGOcqyXFnUPyAWAQgGiaag9ePEuAEucjcJek4L9OzymGsOr9t/JOyuyZYQ==
+ b=nuQhTXeUqp+DqGRFD3/gafKCdne6GsEhUtgU+umrhzhWettSV2IFX2fPVm3N1x2OgDkK4SF9/Mej+f69/rBumrF+or7SzsywA/J5SAwTGUalf+zw3T+SItbd82g9HQfAjDmmSkZFg6QwzIDI6GaautazmRQCb8mFIeckND2iZPAZNa71gBGnyukjFtiki2BrMGqjUhkIPbxiFIshb8VmGE+U7hokd+XZ1OQbtZT8HUz5ITSjbIwPoBQ8e6ffe+jMxZ5B9nlHaHKGW6KIsBfuuYecCdZecZsxIbBZ5+3/A0RnthqyObC1SUVu3G9rEKSyhXcd64bfHEHFieUNUi3W9A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nWDN8h2Chn7QizLxGVR4E5uJFZUbDWt95xB/HlOoCDA=;
- b=MFhOgiOMvha0edPxJxkgVwobPFTR70cD0bWQiXHM6E5f7JJgAakUbRQRpQBkSbahIJ5ff9FPiHclK6z+vm3TGoxQ/weMzHahGEo0JWc89gYvy+ldtzevAtjUlGn47U5hxX1DhnrCfQWy3UHoo/excmuU8haxzEMyIBoh/iW0Xn+iPLfLzmlq4y6Vao9b1WygehlB5SnIsr8UZ/sZ+Xy7syZUAPLeYLzihjczUMhzF+h6GLR5sEiiMYyxBFcf7migEzkXYW573y4FmJKvowHW+7AgV5tVMQA0tixfxrFMZ2qtV3NtzNOnxzliOhbnOrFJXhXCc6/nGioFCVZFPe029w==
+ bh=mr2kBb4NZ98nwKNyfqdHwLKnX2Kze8OTBHQNYurJhp4=;
+ b=dgbcLYA3EzjlzGzeYwVbHc7WuL/N2+3hOX+p1Hc0KSvswnqDwC3QZuBrWZQBBlmoGqRsmWePGodWDs+bX5l7tDOeS4KjfN7HKMNFMqKEJQHs7eyaGHitP0Jiba4qhxEo7FvnW3ad2PI+ToD706723mJP1bmVfXOu8S0dlvkLSdVNVpgATAyB7ASW1Thf6F45I29/F9YlDBZkE2sjesDfaA2eEV5Yw03iCu9v43vHSx5HYz49VX2oxulcFrh2vSByvwo/CRfjU34nAxrw9aeqEVYBnzImdX4BWMj0H65RJolAtE1OjwxOYLB3FHDvwPAq6soCs0DrYtzCM3U5zhNg0g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nWDN8h2Chn7QizLxGVR4E5uJFZUbDWt95xB/HlOoCDA=;
- b=HOI60qkVh0ICvvFgCQVEVKKoe+jGTa4Nv60OJgrkE8r17Vdp9tjBo50INGYdkyGNZUww7+oI1xTL2PBHcw+XrLidBTCtsNsyIWy85ZLRY9Nsw825Jbd6TK7ngkgGwFLD89iT5eNhQF20pKG3EIZj70K8pSGftP1r2OqsBcFM95M=
-Received: from CH2PR05CA0023.namprd05.prod.outlook.com (2603:10b6:610::36) by
- SA1PR12MB8988.namprd12.prod.outlook.com (2603:10b6:806:38e::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8048.16; Tue, 8 Oct
- 2024 21:16:31 +0000
-Received: from DS2PEPF00003448.namprd04.prod.outlook.com
- (2603:10b6:610:0:cafe::f7) by CH2PR05CA0023.outlook.office365.com
- (2603:10b6:610::36) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8048.17 via Frontend
- Transport; Tue, 8 Oct 2024 21:16:31 +0000
+ bh=mr2kBb4NZ98nwKNyfqdHwLKnX2Kze8OTBHQNYurJhp4=;
+ b=FN0xJzqKIUoQ1hnB5sVXKjYTyxDbkCb/LNkHvI4gJ/3T6Xk44KeQzYT4Ep9Y4OMz0MZBr+gcTOHttuNz96OcpMw+7Y33NfcIaWN65QvYvbBrMpB146A9DupFQOWgwiT+lPaefF1sznr1adynnPqJ3HfLVqYKcstCBbPGmJyHLeM=
+Received: from CH0PR03CA0420.namprd03.prod.outlook.com (2603:10b6:610:11b::25)
+ by SJ2PR12MB8133.namprd12.prod.outlook.com (2603:10b6:a03:4af::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8026.22; Tue, 8 Oct
+ 2024 21:16:30 +0000
+Received: from DS2PEPF00003442.namprd04.prod.outlook.com
+ (2603:10b6:610:11b:cafe::aa) by CH0PR03CA0420.outlook.office365.com
+ (2603:10b6:610:11b::25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8026.23 via Frontend
+ Transport; Tue, 8 Oct 2024 21:16:30 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,7 +48,7 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS2PEPF00003448.mail.protection.outlook.com (10.167.17.75) with Microsoft
+ DS2PEPF00003442.mail.protection.outlook.com (10.167.17.69) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
  15.20.8048.13 via Frontend Transport; Tue, 8 Oct 2024 21:16:30 +0000
 Received: from atitest-Rembrandt.amd.com (10.180.168.240) by
@@ -60,9 +60,9 @@ To: <amd-gfx@lists.freedesktop.org>, <leo.liu@amd.com>,
  <christian.koenig@amd.com>, <alexander.deucher@amd.com>,
  <sunil.khatri@amd.com>
 CC: Boyuan Zhang <boyuan.zhang@amd.com>
-Subject: [PATCH 21/32] drm/amdgpu: sw_init for each vcn instance
-Date: Tue, 8 Oct 2024 17:15:42 -0400
-Message-ID: <20241008211553.36264-22-boyuan.zhang@amd.com>
+Subject: [PATCH 20/32] drm/amdgpu: early_init for each vcn instance
+Date: Tue, 8 Oct 2024 17:15:41 -0400
+Message-ID: <20241008211553.36264-21-boyuan.zhang@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20241008211553.36264-1-boyuan.zhang@amd.com>
 References: <20241008211553.36264-1-boyuan.zhang@amd.com>
@@ -74,50 +74,50 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF00003448:EE_|SA1PR12MB8988:EE_
-X-MS-Office365-Filtering-Correlation-Id: efaf4e1b-0617-4aa1-968d-08dce7de7af9
+X-MS-TrafficTypeDiagnostic: DS2PEPF00003442:EE_|SJ2PR12MB8133:EE_
+X-MS-Office365-Filtering-Correlation-Id: ce7f2b3c-66ae-40cd-8e02-08dce7de7a76
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|36860700013|82310400026|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?Fz3F8V7ULMJkF/aZRatTVtVORSEkjGvBanGLKrznXXN3gjASc48p1BXfXBT5?=
- =?us-ascii?Q?icD5jCwzr8al9LsT/8X71evd1HlyzUU5Fe1q54zDvoNwZSWyOndT2+aO8plO?=
- =?us-ascii?Q?NuLnk+4cXgc7IAssft4FoznGMRraGPlZTZq3lvUR/0BSUHV8Y79rQelVx5rz?=
- =?us-ascii?Q?LplhER1L3bNjX0qGIOKxiDota7/l/oICIIqIMjiW0vx+Qen3P4/cTpucjuTs?=
- =?us-ascii?Q?55boCjIlmeEdCjipyIYTaQPBsYwhUhIee7ESpTMzNIbSk8TwNUerabhv5Gep?=
- =?us-ascii?Q?QZDT6NubykGOmwYntPSfGP87OyrxDd0gwKKVirPI0n6eVGn6v1on2YCVeC0g?=
- =?us-ascii?Q?h/XRNhDJ3EgGpXlmnORoNfzd1iCQPM5kT/eBRHY0p8xv7WDFYXqkkyIiUHp9?=
- =?us-ascii?Q?tY8xLkYBO43FrjMoYL89f2O4FoZQXCQZFtVO0c13BQ6X3kjqt6+kZQlQGhlE?=
- =?us-ascii?Q?RTAFHTB4q6bPqFr/zv+dEyOhI0zLBqSoYUPoTF2sRIpQwn9Q8OFNy+3+GksI?=
- =?us-ascii?Q?wdPz6PMS8Dz0FwI0gCGls1WO2U2r4OMuvoiC46fO/QcSBbYEZNvPnkrhwxyV?=
- =?us-ascii?Q?wc2e8KQWGvcERI77Lsk/rbhPMTYKE/APjopR/+jQ1nCHlycQqwQP05c+xIqN?=
- =?us-ascii?Q?f+j2yUKxFhQmYT/DbsP9ui7t0g/LSplLh0vGdynG3w2EaCHAJ2bJehCZVKDn?=
- =?us-ascii?Q?bh9qIJSJf5qGeet8CXBAhBoOkDBTYAhqm2w5nIQRvX4yagyPRPLJuUHlDAnq?=
- =?us-ascii?Q?kFd3Jhxhn0jPq/rSSWZ1rDggNEEodp4CrBFmwZ9YnvQwL296dslN0jGTvrID?=
- =?us-ascii?Q?6Noa5nQybG8RZIcP7atWG9G8CbkEWmib14bve+b/i0wCHFneqBXy7b2RkJjN?=
- =?us-ascii?Q?3iuA/PXrGQkVkvOu1dmWYrPYDMLoSMgt4wqZLcBf4rQ1407S9CCNcEhvk+lr?=
- =?us-ascii?Q?5ycdRgvflSmD2J56TMADMg1N6895H9dshuX+LLC77mD1qV6gSgoei48lmikp?=
- =?us-ascii?Q?25pL+7q0ELjhMD+b2uxynBTcUq7McZqLkK9SyEeDSQ/6+iXHSOQ2EVmIiQ1s?=
- =?us-ascii?Q?OhXzHNEaqkXLecU7hwRtQKmKxzvhFr3DjubY1k4je/z1E0Du+Yl23madjmLS?=
- =?us-ascii?Q?2FMMSmGBL2xNVOTxI5/lRwoeC61BVbqLdvqret7GMKIhyhlOSIjc1NTeG+sW?=
- =?us-ascii?Q?ubU75OcGVOcexF4k0ETQhVne+/pY3Q4/oT2Xs05l5TNloGSwEYXSloaWmAhP?=
- =?us-ascii?Q?3QpBsT1x/owQo3YkZBRLgF1F5jzOjdexfGTSGqumRla067ys5WciI/i5TK01?=
- =?us-ascii?Q?w07U0fdJKBsvZqgL9gYWc4ulfxVZQpQReqgKNQ2plCjeBnihQv/jRsrD5Lw3?=
- =?us-ascii?Q?4AxdYHBZfCXeIhDqWA1Ixwkt2Otq?=
+ ARA:13230040|36860700013|1800799024|82310400026|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?Yo4izOm5bE7yGgTzFaJ0QLSJI7aENWsnrxi7e0KXaBf/f49mtDYla22SVSRq?=
+ =?us-ascii?Q?+FkbZhaNYexyPYcM2gBaNp1QJLS+tpd+Nj6+yGgGAYPJ1GtB9lCCZe2Q7Vvf?=
+ =?us-ascii?Q?XytHNwsqfruWwZCx7k/icD1DdDwzsoToU8NOr6sPvWJdszZG2qtoSkBv4Hyh?=
+ =?us-ascii?Q?pv4mOV+WHwPUPhLQaxJqTmxBWdWiYxZrpcq/z0ING7TFQA4zOobQeB2xl5Da?=
+ =?us-ascii?Q?v6tmHIcTmHupNCjDJek1W7Pujv9bJGcjldsh/8UA2NFMW0dS7o2xmkA2ZF4o?=
+ =?us-ascii?Q?dpyInbqEGsKGeI9eJ+1AFe++yk8qe3euawEy8CVMQgAjnqAEfG2/g3IoBF3I?=
+ =?us-ascii?Q?JpFm+WHJUOcWjlnRa+FHLT6Xmm5kFOZd4fqr0OoTrOu+nzwfJmJfUnlQjarp?=
+ =?us-ascii?Q?RuE/Yo87SZ9e95Z/dbi9xTAwtRraII1cb+YRVFRpT+cxZL4QSGJBABEKnJh7?=
+ =?us-ascii?Q?rPIMJ3EnnIlksPnIfBrkS9FxV0mNmxgv9C4NaYYLkgl50ZV4GtO+Hjxj1PLo?=
+ =?us-ascii?Q?n4V6AFjRv5kU797X7IEmVL/k7vsnLP+tt2diiDBYWC9Fl2HbUEO1W9lGU3ps?=
+ =?us-ascii?Q?WxsJyoOaWrz3CdVBCglDkkDwNY4JnIMKuhILXgwZPYqwoIv8fGnwRZQBEIJ5?=
+ =?us-ascii?Q?NqhKyN7G0CSaiOkTwipWwnIIvUh81C0t0qKm1kKy49kj6zhKkP5A8qcXXPPa?=
+ =?us-ascii?Q?L6q+s1A8MyHVSYix/LsIkzK46rw4W9HEMaoGq/RwqWv/yH0iRZtFZ1c2Wb+2?=
+ =?us-ascii?Q?iDSZR2HkymtgyrA0EQYZAdybLBvHCMFpdRy42Ut3mbZuDIKTcC2AiYuCiodR?=
+ =?us-ascii?Q?CEhB7xkPPGN3swcmmq4g4bZKTjhbFKf68ykKtJjVMksk0cuubWwzk2FOG/54?=
+ =?us-ascii?Q?Kt2L9O4emYbtOFShL8KKc5NiX5dWp/2V9OZKHnX0tZYhDYZrRDxZ9xaHHIVb?=
+ =?us-ascii?Q?En4S3dnMDFF2I+mGxMFv/YWckHJLUvLW88y5K40psY0bDUyVkZ27xdVa6T2G?=
+ =?us-ascii?Q?ZGWjeyfT2LYShrtdmSaMy6ufxLUuXInULaIDimZxetfkfmcXqhpb/x2JpcAH?=
+ =?us-ascii?Q?lRzSk06Fy0ArJUHM8Ppyrjkah9TDGbwou9Ktwk0hJcP8fA63MAT1LYey7TE9?=
+ =?us-ascii?Q?q8tvYscTg5mDvKwGuwcWJ8NX/B6juX+StVCjjsnHtgRID/bbl1zC6jib93en?=
+ =?us-ascii?Q?UavWjID//f3jDGvL3LEbTRXpL5MfuaKJ89z0qAPJ1tszGMzAdYxO9+a+3DU4?=
+ =?us-ascii?Q?xLOCsu81g4RLlzLVse/0mpFRp05KQih/Ill6MsMXqpV2IgfLVcYvt6crgHnv?=
+ =?us-ascii?Q?eP0YysXh6W7cZ+V5T0f3sxzsR0mHE5WO0dPv5woCydWaQB/y8rZdzYF7bUag?=
+ =?us-ascii?Q?S418oPI=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014); DIR:OUT;
+ SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2024 21:16:30.9669 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: efaf4e1b-0617-4aa1-968d-08dce7de7af9
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2024 21:16:30.1082 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ce7f2b3c-66ae-40cd-8e02-08dce7de7a76
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF00003448.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF00003442.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8988
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8133
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,344 +134,273 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Boyuan Zhang <boyuan.zhang@amd.com>
 
-Pass instance parameter to amdgpu_vcn_sw_init(), and perform
-sw init ONLY for the given vcn instance, instead of for all
+Pass instance parameter to amdgpu_vcn_early_init(), and perform
+early init ONLY for the given vcn instance, instead of for all
 vcn instances. Modify each vcn generation accordingly.
 
 Signed-off-by: Boyuan Zhang <boyuan.zhang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 83 ++++++++++++-------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 23 ++++++++++++-----------
  drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h |  2 +-
- drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c   |  5 +-
- drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c   |  5 +-
- drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c   |  6 +-
- drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c   |  7 ++-
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c   |  7 ++-
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c |  5 +-
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c |  7 ++-
- drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c |  7 ++-
- 10 files changed, 69 insertions(+), 65 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c   |  3 ++-
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c   |  3 ++-
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c   | 13 ++++++-------
+ drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c   |  3 ++-
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c   | 12 +++++-------
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c |  3 ++-
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c |  3 ++-
+ drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c |  3 ++-
+ 10 files changed, 36 insertions(+), 32 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-index e2986871f3a8..791b95867ac2 100644
+index e93d3ef2fdd1..e2986871f3a8 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-@@ -111,24 +111,23 @@ int amdgpu_vcn_early_init(struct amdgpu_device *adev, int inst)
+@@ -91,22 +91,23 @@ MODULE_FIRMWARE(FIRMWARE_VCN5_0_0);
+ 
+ static void amdgpu_vcn_idle_work_handler(struct work_struct *work);
+ 
+-int amdgpu_vcn_early_init(struct amdgpu_device *adev)
++int amdgpu_vcn_early_init(struct amdgpu_device *adev, int inst)
+ {
+ 	char ucode_prefix[25];
+-	int r, i;
++	int r;
+ 
+ 	amdgpu_ucode_ip_version_decode(adev, UVD_HWIP, ucode_prefix, sizeof(ucode_prefix));
+-	for (i = 0; i < adev->vcn.num_vcn_inst; i++) {
+-		if (i == 1 && amdgpu_ip_version(adev, UVD_HWIP, 0) ==  IP_VERSION(4, 0, 6))
+-			r = amdgpu_ucode_request(adev, &adev->vcn.inst[i].fw, "amdgpu/%s_%d.bin", ucode_prefix, i);
+-		else
+-			r = amdgpu_ucode_request(adev, &adev->vcn.inst[i].fw, "amdgpu/%s.bin", ucode_prefix);
+-		if (r) {
+-			amdgpu_ucode_release(&adev->vcn.inst[i].fw);
+-			return r;
+-		}
++
++	if (inst == 1 && amdgpu_ip_version(adev, UVD_HWIP, 0) ==  IP_VERSION(4, 0, 6))
++		r = amdgpu_ucode_request(adev, &adev->vcn.inst[inst].fw, "amdgpu/%s_%d.bin", ucode_prefix, inst);
++	else
++		r = amdgpu_ucode_request(adev, &adev->vcn.inst[inst].fw, "amdgpu/%s.bin", ucode_prefix);
++
++	if (r) {
++		amdgpu_ucode_release(&adev->vcn.inst[inst].fw);
++		return r;
+ 	}
++
  	return r;
  }
  
--int amdgpu_vcn_sw_init(struct amdgpu_device *adev)
-+int amdgpu_vcn_sw_init(struct amdgpu_device *adev, int inst)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
+index 38488194a1e7..acf4b88e2797 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
+@@ -483,7 +483,7 @@ enum vcn_ring_type {
+ 	VCN_UNIFIED_RING,
+ };
+ 
+-int amdgpu_vcn_early_init(struct amdgpu_device *adev);
++int amdgpu_vcn_early_init(struct amdgpu_device *adev, int inst);
+ int amdgpu_vcn_sw_init(struct amdgpu_device *adev);
+ int amdgpu_vcn_sw_fini(struct amdgpu_device *adev);
+ int amdgpu_vcn_suspend(struct amdgpu_device *adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+index f093d66df1a0..1a3907295e36 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+@@ -104,6 +104,7 @@ static void vcn_v1_0_ring_begin_use(struct amdgpu_ring *ring);
+ static int vcn_v1_0_early_init(struct amdgpu_ip_block *ip_block)
  {
- 	unsigned long bo_size;
- 	const struct common_firmware_header *hdr;
- 	unsigned char fw_check;
- 	unsigned int fw_shared_size, log_offset;
--	int i, r;
-+	int r;
-+
-+	adev->vcn.inst[inst].adev = adev;
-+	adev->vcn.inst[inst].work_inst = inst;
-+	INIT_DELAYED_WORK(&adev->vcn.inst[inst].idle_work, amdgpu_vcn_idle_work_handler);
+ 	struct amdgpu_device *adev = ip_block->adev;
++	int inst = ip_block->instance;
  
--	for (i = 0; i < adev->vcn.num_vcn_inst; i++) {
--		adev->vcn.inst[i].adev = adev;
--		adev->vcn.inst[i].work_inst = i;
--		INIT_DELAYED_WORK(&adev->vcn.inst[i].idle_work, amdgpu_vcn_idle_work_handler);
--	}
- 	mutex_init(&adev->vcn.vcn_pg_lock);
- 	mutex_init(&adev->vcn.vcn1_jpeg1_workaround);
- 	atomic_set(&adev->vcn.total_submission_cnt, 0);
--	for (i = 0; i < adev->vcn.num_vcn_inst; i++)
--		atomic_set(&adev->vcn.inst[i].dpg_enc_submission_cnt, 0);
-+
-+	atomic_set(&adev->vcn.inst[inst].dpg_enc_submission_cnt, 0);
+ 	adev->vcn.num_enc_rings = 2;
  
- 	if ((adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) &&
- 	    (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG))
-@@ -206,45 +205,43 @@ int amdgpu_vcn_sw_init(struct amdgpu_device *adev)
- 	if (amdgpu_vcnfw_log)
- 		bo_size += AMDGPU_VCNFW_LOG_SIZE;
+@@ -113,7 +114,7 @@ static int vcn_v1_0_early_init(struct amdgpu_ip_block *ip_block)
  
--	for (i = 0; i < adev->vcn.num_vcn_inst; i++) {
--		if (adev->vcn.harvest_config & (1 << i))
--			continue;
-+	if (adev->vcn.harvest_config & (1 << inst))
-+		return 0;
+ 	jpeg_v1_0_early_init(ip_block);
  
--		r = amdgpu_bo_create_kernel(adev, bo_size, PAGE_SIZE,
--					    AMDGPU_GEM_DOMAIN_VRAM |
--					    AMDGPU_GEM_DOMAIN_GTT,
--					    &adev->vcn.inst[i].vcpu_bo,
--					    &adev->vcn.inst[i].gpu_addr,
--					    &adev->vcn.inst[i].cpu_addr);
--		if (r) {
--			dev_err(adev->dev, "(%d) failed to allocate vcn bo\n", r);
--			return r;
+-	return amdgpu_vcn_early_init(adev);
++	return amdgpu_vcn_early_init(adev, inst);
+ }
+ 
+ /**
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
+index 15c498b2b0de..d14062e1dd31 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
+@@ -108,6 +108,7 @@ static int vcn_v2_0_start_sriov(struct amdgpu_device *adev);
+ static int vcn_v2_0_early_init(struct amdgpu_ip_block *ip_block)
+ {
+ 	struct amdgpu_device *adev = ip_block->adev;
++	int inst = ip_block->instance;
+ 
+ 	if (amdgpu_sriov_vf(adev))
+ 		adev->vcn.num_enc_rings = 1;
+@@ -118,7 +119,7 @@ static int vcn_v2_0_early_init(struct amdgpu_ip_block *ip_block)
+ 	vcn_v2_0_set_enc_ring_funcs(adev);
+ 	vcn_v2_0_set_irq_funcs(adev);
+ 
+-	return amdgpu_vcn_early_init(adev);
++	return amdgpu_vcn_early_init(adev, inst);
+ }
+ 
+ /**
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
+index 880dc4790a96..5d145adbe932 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
+@@ -118,6 +118,7 @@ static int amdgpu_ih_clientid_vcns[] = {
+ static int vcn_v2_5_early_init(struct amdgpu_ip_block *ip_block)
+ {
+ 	struct amdgpu_device *adev = ip_block->adev;
++	int inst = ip_block->instance;
+ 
+ 	if (amdgpu_sriov_vf(adev)) {
+ 		adev->vcn.num_vcn_inst = 2;
+@@ -125,13 +126,11 @@ static int vcn_v2_5_early_init(struct amdgpu_ip_block *ip_block)
+ 		adev->vcn.num_enc_rings = 1;
+ 	} else {
+ 		u32 harvest;
+-		int i;
+ 
+-		for (i = 0; i < adev->vcn.num_vcn_inst; i++) {
+-			harvest = RREG32_SOC15(VCN, i, mmCC_UVD_HARVESTING);
+-			if (harvest & CC_UVD_HARVESTING__UVD_DISABLE_MASK)
+-				adev->vcn.harvest_config |= 1 << i;
 -		}
-+	r = amdgpu_bo_create_kernel(adev, bo_size, PAGE_SIZE,
-+					AMDGPU_GEM_DOMAIN_VRAM |
-+					AMDGPU_GEM_DOMAIN_GTT,
-+					&adev->vcn.inst[inst].vcpu_bo,
-+					&adev->vcn.inst[inst].gpu_addr,
-+					&adev->vcn.inst[inst].cpu_addr);
-+	if (r) {
-+		dev_err(adev->dev, "(%d) failed to allocate vcn bo\n", r);
-+		return r;
-+	}
++		harvest = RREG32_SOC15(VCN, inst, mmCC_UVD_HARVESTING);
++		if (harvest & CC_UVD_HARVESTING__UVD_DISABLE_MASK)
++			adev->vcn.harvest_config |= 1 << inst;
++
+ 		if (adev->vcn.harvest_config == (AMDGPU_VCN_HARVEST_VCN0 |
+ 					AMDGPU_VCN_HARVEST_VCN1))
+ 			/* both instances are harvested, disable the block */
+@@ -145,7 +144,7 @@ static int vcn_v2_5_early_init(struct amdgpu_ip_block *ip_block)
+ 	vcn_v2_5_set_irq_funcs(adev);
+ 	vcn_v2_5_set_ras_funcs(adev);
  
--		adev->vcn.inst[i].fw_shared.cpu_addr = adev->vcn.inst[i].cpu_addr +
--				bo_size - fw_shared_size;
--		adev->vcn.inst[i].fw_shared.gpu_addr = adev->vcn.inst[i].gpu_addr +
--				bo_size - fw_shared_size;
-+	adev->vcn.inst[inst].fw_shared.cpu_addr = adev->vcn.inst[inst].cpu_addr +
-+			bo_size - fw_shared_size;
-+	adev->vcn.inst[inst].fw_shared.gpu_addr = adev->vcn.inst[inst].gpu_addr +
-+			bo_size - fw_shared_size;
+-	return amdgpu_vcn_early_init(adev);
++	return amdgpu_vcn_early_init(adev, inst);
+ }
  
--		adev->vcn.inst[i].fw_shared.mem_size = fw_shared_size;
-+	adev->vcn.inst[inst].fw_shared.mem_size = fw_shared_size;
+ /**
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+index 464394989dd6..464a502a7cd7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+@@ -124,6 +124,7 @@ static void vcn_v3_0_enc_ring_set_wptr(struct amdgpu_ring *ring);
+ static int vcn_v3_0_early_init(struct amdgpu_ip_block *ip_block)
+ {
+ 	struct amdgpu_device *adev = ip_block->adev;
++	int inst = ip_block->instance;
  
--		if (amdgpu_vcnfw_log) {
--			adev->vcn.inst[i].fw_shared.cpu_addr -= AMDGPU_VCNFW_LOG_SIZE;
--			adev->vcn.inst[i].fw_shared.gpu_addr -= AMDGPU_VCNFW_LOG_SIZE;
--			adev->vcn.inst[i].fw_shared.log_offset = log_offset;
--		}
-+	if (amdgpu_vcnfw_log) {
-+		adev->vcn.inst[inst].fw_shared.cpu_addr -= AMDGPU_VCNFW_LOG_SIZE;
-+		adev->vcn.inst[inst].fw_shared.gpu_addr -= AMDGPU_VCNFW_LOG_SIZE;
-+		adev->vcn.inst[inst].fw_shared.log_offset = log_offset;
-+	}
+ 	if (amdgpu_sriov_vf(adev)) {
+ 		adev->vcn.num_vcn_inst = VCN_INSTANCES_SIENNA_CICHLID;
+@@ -147,7 +148,7 @@ static int vcn_v3_0_early_init(struct amdgpu_ip_block *ip_block)
+ 	vcn_v3_0_set_enc_ring_funcs(adev);
+ 	vcn_v3_0_set_irq_funcs(adev);
  
--		if (adev->vcn.indirect_sram) {
--			r = amdgpu_bo_create_kernel(adev, 64 * 2 * 4, PAGE_SIZE,
--					AMDGPU_GEM_DOMAIN_VRAM |
--					AMDGPU_GEM_DOMAIN_GTT,
--					&adev->vcn.inst[i].dpg_sram_bo,
--					&adev->vcn.inst[i].dpg_sram_gpu_addr,
--					&adev->vcn.inst[i].dpg_sram_cpu_addr);
--			if (r) {
--				dev_err(adev->dev, "VCN %d (%d) failed to allocate DPG bo\n", i, r);
--				return r;
+-	return amdgpu_vcn_early_init(adev);
++	return amdgpu_vcn_early_init(adev, inst);
+ }
+ 
+ /**
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+index 2994328982ce..58fdc07d9641 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+@@ -114,15 +114,13 @@ static void vcn_v4_0_set_ras_funcs(struct amdgpu_device *adev);
+ static int vcn_v4_0_early_init(struct amdgpu_ip_block *ip_block)
+ {
+ 	struct amdgpu_device *adev = ip_block->adev;
+-	int i;
++	int inst = ip_block->instance;
+ 
+ 	if (amdgpu_sriov_vf(adev)) {
+ 		adev->vcn.harvest_config = VCN_HARVEST_MMSCH;
+-		for (i = 0; i < adev->vcn.num_vcn_inst; ++i) {
+-			if (amdgpu_vcn_is_disabled_vcn(adev, VCN_ENCODE_RING, i)) {
+-				adev->vcn.harvest_config |= 1 << i;
+-				dev_info(adev->dev, "VCN%d is disabled by hypervisor\n", i);
 -			}
-+	if (adev->vcn.indirect_sram) {
-+		r = amdgpu_bo_create_kernel(adev, 64 * 2 * 4, PAGE_SIZE,
-+				AMDGPU_GEM_DOMAIN_VRAM |
-+				AMDGPU_GEM_DOMAIN_GTT,
-+				&adev->vcn.inst[inst].dpg_sram_bo,
-+				&adev->vcn.inst[inst].dpg_sram_gpu_addr,
-+				&adev->vcn.inst[inst].dpg_sram_cpu_addr);
-+		if (r) {
-+			dev_err(adev->dev, "VCN %d (%d) failed to allocate DPG bo\n", inst, r);
-+			return r;
++		if (amdgpu_vcn_is_disabled_vcn(adev, VCN_ENCODE_RING, inst)) {
++			adev->vcn.harvest_config |= 1 << inst;
++			dev_info(adev->dev, "VCN%d is disabled by hypervisor\n", inst);
  		}
  	}
  
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-index acf4b88e2797..825b70a396cd 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-@@ -484,7 +484,7 @@ enum vcn_ring_type {
- };
+@@ -133,7 +131,7 @@ static int vcn_v4_0_early_init(struct amdgpu_ip_block *ip_block)
+ 	vcn_v4_0_set_irq_funcs(adev);
+ 	vcn_v4_0_set_ras_funcs(adev);
  
- int amdgpu_vcn_early_init(struct amdgpu_device *adev, int inst);
--int amdgpu_vcn_sw_init(struct amdgpu_device *adev);
-+int amdgpu_vcn_sw_init(struct amdgpu_device *adev, int inst);
- int amdgpu_vcn_sw_fini(struct amdgpu_device *adev);
- int amdgpu_vcn_suspend(struct amdgpu_device *adev);
- int amdgpu_vcn_resume(struct amdgpu_device *adev);
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-index 1a3907295e36..70d865724463 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-@@ -126,11 +126,12 @@ static int vcn_v1_0_early_init(struct amdgpu_ip_block *ip_block)
-  */
- static int vcn_v1_0_sw_init(struct amdgpu_ip_block *ip_block)
- {
-+	struct amdgpu_device *adev = ip_block->adev;
-+	int inst = ip_block->instance;
- 	struct amdgpu_ring *ring;
- 	int i, r;
- 	uint32_t reg_count = ARRAY_SIZE(vcn_reg_list_1_0);
- 	uint32_t *ptr;
--	struct amdgpu_device *adev = ip_block->adev;
+-	return amdgpu_vcn_early_init(adev);
++	return amdgpu_vcn_early_init(adev, inst);
+ }
  
- 	/* VCN DEC TRAP */
- 	r = amdgpu_irq_add_id(adev, SOC15_IH_CLIENTID_VCN,
-@@ -146,7 +147,7 @@ static int vcn_v1_0_sw_init(struct amdgpu_ip_block *ip_block)
- 			return r;
- 	}
- 
--	r = amdgpu_vcn_sw_init(adev);
-+	r = amdgpu_vcn_sw_init(adev, inst);
- 	if (r)
- 		return r;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-index d14062e1dd31..834311e13a4c 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-@@ -131,11 +131,12 @@ static int vcn_v2_0_early_init(struct amdgpu_ip_block *ip_block)
-  */
- static int vcn_v2_0_sw_init(struct amdgpu_ip_block *ip_block)
- {
-+	struct amdgpu_device *adev = ip_block->adev;
-+	int inst = ip_block->instance;
- 	struct amdgpu_ring *ring;
- 	int i, r;
- 	uint32_t reg_count = ARRAY_SIZE(vcn_reg_list_2_0);
- 	uint32_t *ptr;
--	struct amdgpu_device *adev = ip_block->adev;
- 	volatile struct amdgpu_fw_shared *fw_shared;
- 
- 	/* VCN DEC TRAP */
-@@ -154,7 +155,7 @@ static int vcn_v2_0_sw_init(struct amdgpu_ip_block *ip_block)
- 			return r;
- 	}
- 
--	r = amdgpu_vcn_sw_init(adev);
-+	r = amdgpu_vcn_sw_init(adev, inst);
- 	if (r)
- 		return r;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-index 5d145adbe932..f6d2e3e3bf32 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-@@ -156,12 +156,12 @@ static int vcn_v2_5_early_init(struct amdgpu_ip_block *ip_block)
-  */
- static int vcn_v2_5_sw_init(struct amdgpu_ip_block *ip_block)
- {
-+	struct amdgpu_device *adev = ip_block->adev;
-+	int inst = ip_block->instance;
- 	struct amdgpu_ring *ring;
- 	int i, r;
- 	uint32_t reg_count = ARRAY_SIZE(vcn_reg_list_2_5);
- 	uint32_t *ptr;
--	struct amdgpu_device *adev = ip_block->adev;
--	int inst = ip_block->instance;
- 
- 	if (adev->vcn.harvest_config & (1 << inst))
- 		goto sw_init;
-@@ -185,7 +185,7 @@ static int vcn_v2_5_sw_init(struct amdgpu_ip_block *ip_block)
- 	if (r)
- 		return r;
- sw_init:
--	r = amdgpu_vcn_sw_init(adev);
-+	r = amdgpu_vcn_sw_init(adev, inst);
- 	if (r)
- 		return r;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-index 464a502a7cd7..9b62296cc233 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-@@ -160,14 +160,15 @@ static int vcn_v3_0_early_init(struct amdgpu_ip_block *ip_block)
-  */
- static int vcn_v3_0_sw_init(struct amdgpu_ip_block *ip_block)
- {
-+	struct amdgpu_device *adev = ip_block->adev;
-+	int inst = ip_block->instance;
- 	struct amdgpu_ring *ring;
--	int inst = ip_block->instance, j, r;
- 	int vcn_doorbell_index = 0;
- 	uint32_t reg_count = ARRAY_SIZE(vcn_reg_list_3_0);
- 	uint32_t *ptr;
--	struct amdgpu_device *adev = ip_block->adev;
-+	int j, r;
- 
--	r = amdgpu_vcn_sw_init(adev);
-+	r = amdgpu_vcn_sw_init(adev, inst);
- 	if (r)
- 		return r;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-index 58fdc07d9641..79d5ef8f857c 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-@@ -168,14 +168,15 @@ static int vcn_v4_0_fw_shared_init(struct amdgpu_device *adev, int inst_idx)
-  */
- static int vcn_v4_0_sw_init(struct amdgpu_ip_block *ip_block)
- {
--	struct amdgpu_ring *ring;
- 	struct amdgpu_device *adev = ip_block->adev;
--	int inst = ip_block->instance, r;
-+	int inst = ip_block->instance;
-+	struct amdgpu_ring *ring;
-+	int r;
- 
- 	uint32_t reg_count = ARRAY_SIZE(vcn_reg_list_4_0);
- 	uint32_t *ptr;
- 
--	r = amdgpu_vcn_sw_init(adev);
-+	r = amdgpu_vcn_sw_init(adev, inst);
- 	if (r)
- 		return r;
- 
+ static int vcn_v4_0_fw_shared_init(struct amdgpu_device *adev, int inst_idx)
 diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-index 4641534bb768..0932e992d088 100644
+index 166e86fa7daf..4641534bb768 100644
 --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
 +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-@@ -127,12 +127,13 @@ static int vcn_v4_0_3_early_init(struct amdgpu_ip_block *ip_block)
- static int vcn_v4_0_3_sw_init(struct amdgpu_ip_block *ip_block)
+@@ -105,6 +105,7 @@ static void vcn_v4_0_3_enable_ras(struct amdgpu_device *adev,
+ static int vcn_v4_0_3_early_init(struct amdgpu_ip_block *ip_block)
  {
  	struct amdgpu_device *adev = ip_block->adev;
 +	int inst = ip_block->instance;
- 	struct amdgpu_ring *ring;
--	int inst = ip_block->instance, r, vcn_inst;
-+	int r, vcn_inst;
- 	uint32_t reg_count = ARRAY_SIZE(vcn_reg_list_4_0_3);
- 	uint32_t *ptr;
  
--	r = amdgpu_vcn_sw_init(adev);
-+	r = amdgpu_vcn_sw_init(adev, inst);
- 	if (r)
- 		return r;
+ 	/* re-use enc ring as unified ring */
+ 	adev->vcn.num_enc_rings = 1;
+@@ -113,7 +114,7 @@ static int vcn_v4_0_3_early_init(struct amdgpu_ip_block *ip_block)
+ 	vcn_v4_0_3_set_irq_funcs(adev);
+ 	vcn_v4_0_3_set_ras_funcs(adev);
  
+-	return amdgpu_vcn_early_init(adev);
++	return amdgpu_vcn_early_init(adev, inst);
+ }
+ 
+ /**
 diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
-index d5ef1b0bcf54..e551ba1d1e12 100644
+index 26de66ac0af3..d5ef1b0bcf54 100644
 --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
 +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
-@@ -131,13 +131,14 @@ static int vcn_v4_0_5_early_init(struct amdgpu_ip_block *ip_block)
-  */
- static int vcn_v4_0_5_sw_init(struct amdgpu_ip_block *ip_block)
+@@ -112,13 +112,14 @@ static void vcn_v4_0_5_unified_ring_set_wptr(struct amdgpu_ring *ring);
+ static int vcn_v4_0_5_early_init(struct amdgpu_ip_block *ip_block)
  {
--	struct amdgpu_ring *ring;
  	struct amdgpu_device *adev = ip_block->adev;
--	int inst = ip_block->instance, r;
 +	int inst = ip_block->instance;
-+	struct amdgpu_ring *ring;
- 	uint32_t reg_count = ARRAY_SIZE(vcn_reg_list_4_0_5);
- 	uint32_t *ptr;
-+	int r;
  
--	r = amdgpu_vcn_sw_init(adev);
-+	r = amdgpu_vcn_sw_init(adev, inst);
- 	if (r)
- 		return r;
+ 	/* re-use enc ring as unified ring */
+ 	adev->vcn.num_enc_rings = 1;
+ 	vcn_v4_0_5_set_unified_ring_funcs(adev);
+ 	vcn_v4_0_5_set_irq_funcs(adev);
  
+-	return amdgpu_vcn_early_init(adev);
++	return amdgpu_vcn_early_init(adev, inst);
+ }
+ 
+ /**
 diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
-index 88248fcfa138..dc15a74bb3d8 100644
+index 5987a8af22cc..88248fcfa138 100644
 --- a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
-@@ -115,13 +115,14 @@ static int vcn_v5_0_0_early_init(struct amdgpu_ip_block *ip_block)
-  */
- static int vcn_v5_0_0_sw_init(struct amdgpu_ip_block *ip_block)
+@@ -95,6 +95,7 @@ static void vcn_v5_0_0_unified_ring_set_wptr(struct amdgpu_ring *ring);
+ static int vcn_v5_0_0_early_init(struct amdgpu_ip_block *ip_block)
  {
--	struct amdgpu_ring *ring;
  	struct amdgpu_device *adev = ip_block->adev;
--	int inst = ip_block->instance, r;
 +	int inst = ip_block->instance;
-+	struct amdgpu_ring *ring;
- 	uint32_t reg_count = ARRAY_SIZE(vcn_reg_list_5_0);
- 	uint32_t *ptr;
-+	int r;
  
--	r = amdgpu_vcn_sw_init(adev);
-+	r = amdgpu_vcn_sw_init(adev, inst);
- 	if (r)
- 		return r;
+ 	/* re-use enc ring as unified ring */
+ 	adev->vcn.num_enc_rings = 1;
+@@ -102,7 +103,7 @@ static int vcn_v5_0_0_early_init(struct amdgpu_ip_block *ip_block)
+ 	vcn_v5_0_0_set_unified_ring_funcs(adev);
+ 	vcn_v5_0_0_set_irq_funcs(adev);
  
+-	return amdgpu_vcn_early_init(adev);
++	return amdgpu_vcn_early_init(adev, inst);
+ }
+ 
+ /**
 -- 
 2.34.1
 
