@@ -4,87 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D86E5CEF172
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE587CEF173
 	for <amd-gfx@archiver.kernel.org>; Tue,  8 Oct 2024 13:25:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7313610E00E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E56F88EFF;
 	Tue,  8 Oct 2024 13:25:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="bR6a3lN3";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IljllP2L";
 	dkim-atps=neutral
-Received: from mail-yb1-f174.google.com (mail-yb1-f174.google.com
- [209.85.219.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 57D0910E10E
- for <amd-gfx@lists.freedesktop.org>; Mon,  7 Oct 2024 22:35:27 +0000 (UTC)
-Received: by mail-yb1-f174.google.com with SMTP id
- 3f1490d57ef6-e25cf3c7278so4378288276.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 07 Oct 2024 15:35:27 -0700 (PDT)
+Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
+ [209.85.167.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9872310E02A;
+ Tue,  8 Oct 2024 03:38:23 +0000 (UTC)
+Received: by mail-lf1-f53.google.com with SMTP id
+ 2adb3069b0e04-53993c115cfso6524438e87.2; 
+ Mon, 07 Oct 2024 20:38:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1728340526; x=1728945326; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=gesjil9Y0RZgbcjmX5qHd/S97rHztDCcedkOm+1cl0k=;
- b=bR6a3lN3VFGBRVAOySVLeUnmnHyyDB7bAXACy8FALFYKoASbXvmlSKRnoFefgJ/gFn
- Wx5nfip133cNAxG8Fwr0S3P+8LXA+BQMdktBmxF7zLnuskQ29hGbPqpYSUXtXtQdz+m+
- 4cd/zWniDYG3YmZtzA8j3h+81onMP8Rd0iFngWf0Dt9pjzUjXdBb8bAXGrxGIgNNcq/y
- yT7Z+BDJtIJmFItqMyOQpggXaVB64UV+XfB59K3SFk1dX1qLl8/H3382RglrxI2iIEVx
- ++nmZWXoSP220KP2TxTJtWxDNCrMpungr7u7PHIh0Jxszzey2QECDH7VCdhayepIkKPU
- z05g==
+ d=gmail.com; s=20230601; t=1728358701; x=1728963501; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=pjQV5PG9znaGBrtaMHn3b/2H4No4n9NWv2MWFM/8u1s=;
+ b=IljllP2LhemnHFBwuyz4NOU6pAX56veUlufzXNCvGxS6jqltjJs1fLRVoO+ugG/A99
+ R8/qdEYyZWtcukJzHNpur24jzMchBLGWp/cp5UfDgXEjAi/h1FKcjQeHRRSLe7lbdjU1
+ vCFkUusVm8CrRo+YVmJbsBoc7TrkmtGg9ZjsGVF7cg/EJCUom+ElnCsTuknQxhyEMaRa
+ 0DJtmqDSTu/1y8+mDHIS/OQdzLIcXoqvUOSal+Y4YAbGZiVxvXKmnJVnIq9iQaPBBx0I
+ Fyf0X1E07QNDGUvejHz2JcA2yvivU9zwD47B+7kcqwZM/vrLXZzt2L1BR6Y8HhRH8mKJ
+ Kt6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1728340526; x=1728945326;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=gesjil9Y0RZgbcjmX5qHd/S97rHztDCcedkOm+1cl0k=;
- b=O25s+8CvQlWhJaQnvao675jzvEC28eZ8pAA/bO3UuXdr7OeTMmK8PJTW5CbuPBGMkT
- 0eY6F6V8QyNUhTcibY4hVwP4o1eePNClsqYsCgFsml8uC1nIh9C7Djr07H0GUED33XWu
- eewjp2XLDAb4dDbs4kyoe+XGYUG5K2tY0wrSLTYlrXbool3ZRMdmuPD996dWoRFLNB4L
- BICxCQ64WX6ZkmvRgVnpZxtET/jjGeXTwZeCdeMy0ndSIfQB6nwr3eqON3/MeskmHDwe
- lDj/6YAwVKA4PSfJNwA4+xfoMVTt/+gbIpNbJZ1NEQNpNZUTdVImJwpeHf4+JKwV1uS7
- Nqlg==
+ d=1e100.net; s=20230601; t=1728358701; x=1728963501;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=pjQV5PG9znaGBrtaMHn3b/2H4No4n9NWv2MWFM/8u1s=;
+ b=JGO+FtcDnCdK0t9hTqcb4dVVualK44RuB/SfpkYuMPYydrsw7ZW5+ItX3fsifdvhbK
+ jHBb3uw8r1KgWq51WY/5BTPbd0hRUJDvFeePiaCNSF8ns9+BKlH50hAjQabEaldXoYsr
+ 9sYFzJ+Ba+gbSfpxuG49MYyR/JjsRcMjGT+Qey2plNcrjKMtwW2q16gUHyE+iPldJi6C
+ weSUEEN1Ho+doDAf0BXkiEpmUem1KsxFp9vNq2Ods6zH/ORZw+8zEP0qL3CsCrOrqG3X
+ 19iYWu3dGH/43ou/yC7lYtQt2uZ5xRPE/0R5AE8Mb5/uNB+825np2NOmH/80+fMUZOsN
+ Nz0Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXM92+zZExg2W63hXjufFQsix3Ur+LrUVvqZrzKfoTtg29FNflRDuEPKaWcSHrSDFrX0Abin5XT@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzUZafz6iKk34uh0wGRTHu32KQNgr6WXHPVSTscI+mysJSlp14/
- kIoVBeuwgxkGTgaU8unEn41TTT76XXz+/ga3oBrUi7BBI/i4dRWcImIx1XEoq/alK4Q7oJ7Y82A
- J4G4fSzBezKY4/nIBrA7u2p0NmZ6XVPSQSH6sbw==
-X-Google-Smtp-Source: AGHT+IGYLLRVc3CeXKReIUVnntYlZ+ULRb29gPUl3UTx4hoqAUGdx6q2aFDzdnacRWqcM/cOYseo4GoEdp7e3a8qLZE=
-X-Received: by 2002:a05:6902:2305:b0:e28:6ec7:4353 with SMTP id
- 3f1490d57ef6-e2893964043mr10612649276.54.1728340526338; Mon, 07 Oct 2024
- 15:35:26 -0700 (PDT)
+ AJvYcCUY9MXmLFC9LsGXhot3BUCRP9lpj541mpDJM2hfxRENRCeBrszbO/Dg5cu931hlU4mjNSojpPx6@lists.freedesktop.org,
+ AJvYcCVRTv5txnngIqBOTOakjNqs9KdocvlK2L7rIwOKH+lAAdQsCZ1faLqog9OIbCaea0POG3cLCC6Y0Lfs@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx9IPeuUmmfKuBf+xmq8to7OR5ISKqZmVFpgDta4gR+sRS3C3cC
+ /dHeHaZTkuv9CK56X7MnM5BRKQ5amO8ABP44uY4t0xZrSclE+0NmNezaeO4rjSE1H9ZWEpgtyD1
+ 67QRRiK5p0jfggvfLTighFzGSs58=
+X-Google-Smtp-Source: AGHT+IFsZc1EpKPyldw9Pj60xnYfN/hd9IMOfZUali0NPVvTUoiF3RRl1v9EkanLhvx67ubudnp/8MkDuZJuHGTtcME=
+X-Received: by 2002:a05:6512:3b13:b0:536:550e:7804 with SMTP id
+ 2adb3069b0e04-539ab876df9mr7312477e87.18.1728358701155; Mon, 07 Oct 2024
+ 20:38:21 -0700 (PDT)
 MIME-Version: 1.0
-References: <20241004094101.113349-1-sakari.ailus@linux.intel.com>
- <CAPDyKFp0N6UJhnHS164Tdf=xkWB0jzq65L9TdvYazeBQ-6WjeQ@mail.gmail.com>
- <20241007184924.GH14766@pendragon.ideasonboard.com>
- <CAPDyKFpQVnF7eQv3dup8k-3EijnMjuveCG9sZ=Rpey1Y6MBJEg@mail.gmail.com>
- <20241007222502.GG30699@pendragon.ideasonboard.com>
-In-Reply-To: <20241007222502.GG30699@pendragon.ideasonboard.com>
-From: Ulf Hansson <ulf.hansson@linaro.org>
-Date: Tue, 8 Oct 2024 00:34:49 +0200
-Message-ID: <CAPDyKFrGNwna6Y2pqSRaBbRYHKRaD2ayqQHLtoqLPOu9Et7qTg@mail.gmail.com>
-Subject: Re: [PATCH 00/51] treewide: Switch to __pm_runtime_put_autosuspend()
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
- dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-bluetooth@vger.kernel.org, 
- linux-clk@vger.kernel.org, linux-crypto@vger.kernel.org, 
- dmaengine@vger.kernel.org, linux-gpio@vger.kernel.org, 
- amd-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
- linux-stm32@st-md-mailman.stormreply.com, 
- linux-arm-kernel@lists.infradead.org, linux-i2c@vger.kernel.org, 
- linux-i3c@lists.infradead.org, linux-iio@vger.kernel.org, 
- linux-input@vger.kernel.org, patches@opensource.cirrus.com, 
- iommu@lists.linux.dev, imx@lists.linux.dev, 
- linux-mediatek@lists.infradead.org, linux-media@vger.kernel.org, 
- linux-mmc@vger.kernel.org, linux-mtd@lists.infradead.org, 
- netdev@vger.kernel.org, linux-wireless@vger.kernel.org, 
- linux-pci@vger.kernel.org, linux-phy@lists.infradead.org, 
- linux-pwm@vger.kernel.org, linux-remoteproc@vger.kernel.org, 
- linux-sound@vger.kernel.org, linux-spi@vger.kernel.org, 
- linux-staging@lists.linux.dev, linux-usb@vger.kernel.org, 
- linux-serial@vger.kernel.org, greybus-dev@lists.linaro.org, 
- asahi@lists.linux.dev, rafael@kernel.org, 
- Andy Shevchenko <andy.shevchenko@gmail.com>
+References: <20241004081618.27599-1-advaitdhamorikar@gmail.com>
+ <00761132-75f3-41fd-b571-30b0cbe5565d@amd.com>
+ <CADnq5_OKww1YZ1R_OytEMLcNVwdq=-ckc2gqQ+WMyOv6AZ9kqg@mail.gmail.com>
+ <007679b9-b7b6-4385-9a2e-2be392cb5f58@amd.com>
+ <CAJ7bepLv3Z9RwuxoBS3SfkMjeBkN1LRTjLEjT8Lv4Jdu-CXb6Q@mail.gmail.com>
+ <82c60f1b-a52a-4bc7-a635-06198dba0e13@gmail.com>
+In-Reply-To: <82c60f1b-a52a-4bc7-a635-06198dba0e13@gmail.com>
+From: Advait Dhamorikar <advaitdhamorikar@gmail.com>
+Date: Tue, 8 Oct 2024 09:08:09 +0530
+Message-ID: <CAJ7bepJrm9tJJMSZXz0B_94y8817X4oFpwnrTmUHeagOFgVL7g@mail.gmail.com>
+Subject: Re: [PATCH-next] Fix unintentional integer overflow
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Cc: "Sundararaju, Sathishkumar" <sasundar@amd.com>,
+ Alex Deucher <alexdeucher@gmail.com>, alexander.deucher@amd.com, 
+ christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com, 
+ simona@ffwll.ch, leo.liu@amd.com, sathishkumar.sundararaju@amd.com, 
+ saleemkhan.jamadar@amd.com, Veerabadhran.Gopalakrishnan@amd.com, 
+ sonny.jiang@amd.com, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ skhan@linuxfoundation.org, anupnewsmail@gmail.com, 
+ "Lazar, Lijo" <lijo.lazar@amd.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Tue, 08 Oct 2024 13:25:13 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -100,92 +92,126 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 8 Oct 2024 at 00:25, Laurent Pinchart
-<laurent.pinchart@ideasonboard.com> wrote:
->
-> Hi Ulf,
->
-> On Tue, Oct 08, 2024 at 12:08:24AM +0200, Ulf Hansson wrote:
-> > On Mon, 7 Oct 2024 at 20:49, Laurent Pinchart wrote:
-> > > On Fri, Oct 04, 2024 at 04:38:36PM +0200, Ulf Hansson wrote:
-> > > > On Fri, 4 Oct 2024 at 11:41, Sakari Ailus wrote:
-> > > > >
-> > > > > Hello everyone,
-> > > > >
-> > > > > This set will switch the users of pm_runtime_put_autosuspend() to
-> > > > > __pm_runtime_put_autosuspend() while the former will soon be re-purposed
-> > > > > to include a call to pm_runtime_mark_last_busy(). The two are almost
-> > > > > always used together, apart from bugs which are likely common. Going
-> > > > > forward, most new users should be using pm_runtime_put_autosuspend().
-> > > > >
-> > > > > Once this conversion is done and pm_runtime_put_autosuspend() re-purposed,
-> > > > > I'll post another set to merge the calls to __pm_runtime_put_autosuspend()
-> > > > > and pm_runtime_mark_last_busy().
-> > > >
-> > > > That sounds like it could cause a lot of churns.
-> > > >
-> > > > Why not add a new helper function that does the
-> > > > pm_runtime_put_autosuspend() and the pm_runtime_mark_last_busy()
-> > > > things? Then we can start moving users over to this new interface,
-> > > > rather than having this intermediate step?
-> > >
-> > > I think the API would be nicer if we used the shortest and simplest
-> > > function names for the most common use cases. Following
-> > > pm_runtime_put_autosuspend() with pm_runtime_mark_last_busy() is that
-> > > most common use case. That's why I like Sakari's approach of repurposing
-> > > pm_runtime_put_autosuspend(), and introducing
-> > > __pm_runtime_put_autosuspend() for the odd cases where
-> > > pm_runtime_mark_last_busy() shouldn't be called.
-> >
-> > Okay, so the reason for this approach is because we couldn't find a
-> > short and descriptive name that could be used in favor of
-> > pm_runtime_put_autosuspend(). Let me throw some ideas at it and maybe
-> > you like it - or not. :-)
->
-> I like the idea at least :-)
->
-> > I don't know what options you guys discussed, but to me the entire
-> > "autosuspend"-suffix isn't really that necessary in my opinion. There
-> > are more ways than calling pm_runtime_put_autosuspend() that triggers
-> > us to use the RPM_AUTO flag for rpm_suspend(). For example, just
-> > calling pm_runtime_put() has the similar effect.
->
-> To be honest, I'm lost there. pm_runtime_put() calls
-> __pm_runtime_idle(RPM_GET_PUT | RPM_ASYNC), while
-> pm_runtime_put_autosuspend() calls __pm_runtime_suspend(RPM_GET_PUT |
-> RPM_ASYNC | RPM_AUTO).
+Hi Christian,
 
-__pm_runtime_idle() ends up calling rpm_idle(), which may call
-rpm_suspend() - if it succeeds to idle the device. In that case, it
-tags on the RPM_AUTO flag in the call to rpm_suspend(). Quite similar
-to what is happening when calling pm_runtime_put_autosuspend().
+I am not sure if I correctly understood what you meant,  just to clarify
 
->
-> >
-> > Moreover, it's similar for pm_runtime_mark_last_busy(), it's called
-> > during rpm_resume() too, for example. So why bother about having
-> > "mark_last_busy" in the new name too.
-> >
-> > That said, my suggestion is simply "pm_runtime_put_suspend".
->
-> Can we do even better, and make pm_runtime_put() to handle autosuspend
-> automatically when autosuspend is enabled ?
+When you say this
+>No, all of this are numerical problems where not taken into account the
+>size of the destination type.
 
-As stated above, this is already the case.
+>Saying that all of that are basically just style cleanups which doesn't
+>need to be back-ported in any way, so please drop the Fixes: tag.
 
+>And you should probably change the subject line to something like
+>"drm/amdgpu: cleanup shift coding style".
+
+Are you just talking about this message?
+>> There are a few instances where we can use 1U instead of int as
+>> harvest_config uses unsigned int
+>>(adev->jpeg.harvest_config & (1 << i)
+>> However I think they should be fixed in a separate patch?
+
+Or is it intended for the complete previous "Fix unintentional
+overflow" patch as well?
+And I should just send a v3 with the two changes?
+
+Thanks and regards,
+Advait
+
+On Mon, 7 Oct 2024 at 19:26, Christian K=C3=B6nig
+<ckoenig.leichtzumerken@gmail.com> wrote:
 >
-> > If you don't like it, I will certainly not object to your current
-> > approach, even if I think it leads to unnecessary churns.
+> Am 05.10.24 um 09:05 schrieb Advait Dhamorikar:
+> > Hi Sathish,
 > >
-> > [...]
+> >> Please collate the changes together with Lijo's suggestion as well,
+> >> "1ULL <<" instead of typecast, there are 3 occurrences of the error in
+> >> f0b19b84d391.
+> > I could only observe two instances of this error in f0b19b84d391 at:
+> > 'mask =3D (1 << (adev->jpeg.num_jpeg_inst * adev->jpeg.num_jpeg_rings))=
+ - 1;`
+> > and `mask |=3D 1 << ((i * adev->jpeg.num_jpeg_rings) + j);`
 > >
-> > Kind regards
-> > Uffe
+> > There are a few instances where we can use 1U instead of int as
+> > harvest_config uses unsigned int
+> > (adev->jpeg.harvest_config & (1 << i)
+> > However I think they should be fixed in a separate patch?
 >
-> --
+> No, all of this are numerical problems where not taken into account the
+> size of the destination type.
+>
+> Saying that all of that are basically just style cleanups which doesn't
+> need to be back-ported in any way, so please drop the Fixes: tag.
+>
+> And you should probably change the subject line to something like
+> "drm/amdgpu: cleanup shift coding style".
+>
 > Regards,
+> Christian.
 >
-> Laurent Pinchart
-
-Kind regards
-Uffe
+> >
+> > Thanks and regards,
+> > Advait
+> >
+> > On Sat, 5 Oct 2024 at 09:05, Sundararaju, Sathishkumar <sasundar@amd.co=
+m> wrote:
+> >>
+> >>
+> >> On 10/4/2024 11:30 PM, Alex Deucher wrote:
+> >>> On Fri, Oct 4, 2024 at 5:15=E2=80=AFAM Sundararaju, Sathishkumar
+> >>> <sasundar@amd.com> wrote:
+> >>>> All occurrences of this error fix should have been together in a sin=
+gle patch both in _get and _set callbacks corresponding to f0b19b84d391, pl=
+ease avoid separate patch for each occurrence.
+> >>>>
+> >>>> Sorry Alex, I missed to note this yesterday.
+> >>> I've dropped the patch.  Please pick it up once it's fixed up appropr=
+iately.
+> >> Thanks Alex.
+> >>
+> >> Hi Advait,
+> >> Please collate the changes together with Lijo's suggestion as well,
+> >> "1ULL <<" instead of typecast, there are 3 occurrences of the error in
+> >> f0b19b84d391.
+> >>
+> >> Regards,
+> >> Sathish
+> >>> Thanks,
+> >>>
+> >>> Alex
+> >>>
+> >>>> Regards,
+> >>>> Sathish
+> >>>>
+> >>>>
+> >>>> On 10/4/2024 1:46 PM, Advait Dhamorikar wrote:
+> >>>>
+> >>>> Fix shift-count-overflow when creating mask.
+> >>>> The expression's value may not be what the
+> >>>> programmer intended, because the expression is
+> >>>> evaluated using a narrower integer type.
+> >>>>
+> >>>> Fixes: f0b19b84d391 ("drm/amdgpu: add amdgpu_jpeg_sched_mask debugfs=
+")
+> >>>> Signed-off-by: Advait Dhamorikar <advaitdhamorikar@gmail.com>
+> >>>> ---
+> >>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c | 2 +-
+> >>>>    1 file changed, 1 insertion(+), 1 deletion(-)
+> >>>>
+> >>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c b/drivers/gpu/=
+drm/amd/amdgpu/amdgpu_jpeg.c
+> >>>> index 95e2796919fc..7df402c45f40 100644
+> >>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
+> >>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
+> >>>> @@ -388,7 +388,7 @@ static int amdgpu_debugfs_jpeg_sched_mask_get(vo=
+id *data, u64 *val)
+> >>>>     for (j =3D 0; j < adev->jpeg.num_jpeg_rings; ++j) {
+> >>>>     ring =3D &adev->jpeg.inst[i].ring_dec[j];
+> >>>>     if (ring->sched.ready)
+> >>>> - mask |=3D 1 << ((i * adev->jpeg.num_jpeg_rings) + j);
+> >>>> + mask |=3D (u64)1 << ((i * adev->jpeg.num_jpeg_rings) + j);
+> >>>>     }
+> >>>>     }
+> >>>>     *val =3D mask;
+>
