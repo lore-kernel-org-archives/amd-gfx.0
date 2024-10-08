@@ -4,145 +4,146 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38CD3CEFC3D
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Oct 2024 18:38:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F4200CEFC3D
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Oct 2024 18:44:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E20F710E588;
-	Tue,  8 Oct 2024 18:38:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A4DE810E5A0;
+	Tue,  8 Oct 2024 18:44:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Nzt2iH78";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="EVekd4yP";
 	dkim-atps=neutral
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on2062.outbound.protection.outlook.com [40.107.101.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFBDC10E588
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Oct 2024 18:38:37 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2076.outbound.protection.outlook.com [40.107.243.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A92110E113
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Oct 2024 18:44:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PS+m2O1Jon/5rZvYAVFa/tnNPb4Q4F/Ar8wIkG2+kQ1HxM2TMy4zAaF+jOTj2GP80/vjApO9fcjxSfSAy1uvg0vL2enQuIEEzXtdNInzAdrknLDn62XBSAXOHsKZPxuoYzrw0cNiIA2IT4XPA/ocxRhsbyh8dW9F0tTYZPCjzFP6yMaEQErbQQwqeflFRK1OMl93SW4I1ptUXxfLfmiz/E/Qd5HEkOjCuoED73SSTBlMDRUUC2eNwECuMhNvijfk/vu/ro/4dbfFAN6+Rn13BdXt2wK618jx5ktieiAOtgJa0hcBNhDR/N40+tAkz9lASWoPdz2IAu8Ms2lfzBUNeg==
+ b=bJKOo8ZZOTzHjbgsaJCMhiCMiOvLXXSwD+FDJv4b7eys9NjDTwKbwVMFAwv9njEicjRodbjdj6gtyTQIwjnk5ATb7SD6wke1FeErl7myfJLLJz4LjQqX2WpoFyhBE1qxDAmnmmc/Vb1AJvV8qUVboHvjhbEHzSdXioYD+KInXcnLyDO6DhFvTsKQvP1b69va9cXyjr0e+p41wR7DKAhOTaWh077QEaMY+QnxgFkTQPGCHHp+mfHwj5v6Z6+IQTLDNjHqSCi5f/o8EpdlWeoxnzvFCWa23r/oG+g5Ay3Qmrob3gOQMbG7RI4hBzEvcrZZtZwGf0+8VQqoOf5/HRKdcw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=i6GPchwpH2LRRBCZMcL7mFTqhZ3i+0Ex+urZSBxyf/E=;
- b=LgUly6yy54NHBLdNIygEPn/CLMxaU8PiJIUKFZdYMe0FumLoA0c8b6a2T0CgwcUYFreCL0TGXeNfoF0Dn0jOt9RIZu+85ayaBichPQai1A8kZYTmZ+UzMrKm2erxiKUc6eZjeNLLNXuxPKZT2NjnyINQZzb0zVCc80uIltoS22D4jYaQuRQ8dHGUSr7uXvV6uj7lukYle1mrX4dDjLzSVn+dfV9IzK6x87aOpQccKxDrDkM/Qor29VXWlUa7wudQnnYv7dID09oqjRRPgI840oUj5egQAriPQnO1Ep7fYX7qFQ7m4aVzWSDcmaGRYoOcBazJMDuSyEH32pQ1bhc4QQ==
+ bh=OcJ+X2Bal9gZHC9i+6Nqd8FY+ggOvf3VTi9un0jcUsc=;
+ b=DHEsCIJRDqaK2g0o7EE3//PnqvHUym4oghD3Co/MyKvyAe/Yvv7D1HWiPhFIHfNIQnwLoXz7ga7BKEXDpZOi0qKWj+4xPon23oC4vL8eZpqdvyDq2UcPe9cLKg3IL7xuKUCEhk88vHh/nEo4x51zd1JuLIgeasrrv+kMNrQvmDsN4B4ZiXwf1h1uG9L73HB23FwGo+/l4PKMjT4uz3c1oK17gU7d/bieWEcCNTXOcSNyO79XPnUrxWP9EQiISggkCJSWhW5FE1NfN/FmhvYJJYDUJka+SutW+TStOw0p82PzhvYvek75Zo67I9dwjdgSFfYPbdwaeBTzVNYyR00U8g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=i6GPchwpH2LRRBCZMcL7mFTqhZ3i+0Ex+urZSBxyf/E=;
- b=Nzt2iH78xbHtzdAicAUQudyhh6A/3p+5ohDvT3Yl3Rz7qvvAD7slCtTL2u2vuqqDDOI8T+dRBgu5R5d6QHogMXjIYeV472MdP6xD0NyGrixIBHpRjv7J1qDit4lJXUS2qZjgS3jyhorntMPlxhft1mW1suFjYzDzgT5L2ME2j+U=
+ bh=OcJ+X2Bal9gZHC9i+6Nqd8FY+ggOvf3VTi9un0jcUsc=;
+ b=EVekd4yPgEooSKeCTgEC3uS8JmHFJ5N77oM84vpJDzN2Rvv/6JhlTZ4MqIwS/rBY/ZYX7aVZUpufNVPyC2ZnjMOROMx2g+IzeFeockVdyaZPpQOZn37PV8EvY28yDkMUMXv2XBa3vnLzNFu9CZ0Rg6N/dp8pOcyVt69GwR3G4bM=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BL1PR12MB5753.namprd12.prod.outlook.com (2603:10b6:208:390::15)
- by CY5PR12MB6060.namprd12.prod.outlook.com (2603:10b6:930:2f::9) with
- Microsoft SMTP Server (version=TLS1_2,
+ by IA1PR12MB8555.namprd12.prod.outlook.com (2603:10b6:208:44f::14)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8026.23; Tue, 8 Oct
- 2024 18:38:33 +0000
+ 2024 18:43:57 +0000
 Received: from BL1PR12MB5753.namprd12.prod.outlook.com
  ([fe80::2b0e:7fc3:1d21:5d2e]) by BL1PR12MB5753.namprd12.prod.outlook.com
  ([fe80::2b0e:7fc3:1d21:5d2e%6]) with mapi id 15.20.8026.020; Tue, 8 Oct 2024
- 18:38:32 +0000
-Subject: Re: [PATCH 1/2] drm/amdgpu: drop volatile from ring buffer
+ 18:43:57 +0000
+Subject: Re: [PATCH 2/2] drm/amdgpu: stop masking the wptr all the time
 To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
  amd-gfx@lists.freedesktop.org, tursulin@igalia.com
 References: <20241008181134.1350-1-christian.koenig@amd.com>
+ <20241008181134.1350-2-christian.koenig@amd.com>
 From: "Khatri, Sunil" <sunil.khatri@amd.com>
-Message-ID: <888bff96-7417-0514-1d19-bac88c6b843f@amd.com>
-Date: Wed, 9 Oct 2024 00:08:26 +0530
+Message-ID: <ad51bbc1-4e5d-e5c0-60b7-35cedbd77d9a@amd.com>
+Date: Wed, 9 Oct 2024 00:13:52 +0530
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.4.0
-In-Reply-To: <20241008181134.1350-1-christian.koenig@amd.com>
+In-Reply-To: <20241008181134.1350-2-christian.koenig@amd.com>
 Content-Type: multipart/alternative;
- boundary="------------07C6498759F348733C6F1765"
+ boundary="------------F3540578C9E3029778108927"
 Content-Language: en-US
-X-ClientProxiedBy: PN2PR01CA0036.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:22::11) To BL1PR12MB5753.namprd12.prod.outlook.com
+X-ClientProxiedBy: PNYP287CA0047.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:c01:23e::24) To BL1PR12MB5753.namprd12.prod.outlook.com
  (2603:10b6:208:390::15)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5753:EE_|CY5PR12MB6060:EE_
-X-MS-Office365-Filtering-Correlation-Id: 19f632e2-24ac-4d61-c1d7-08dce7c86954
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5753:EE_|IA1PR12MB8555:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8c8dffcc-8ece-442b-9687-08dce7c92ab3
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?bmRvT3dDeGVjUHVGaUpYN2tVWGRDdGgvVnNmWEdzbjdLNUI4dDhPd2RoMW9R?=
- =?utf-8?B?M3kzVzQvako2SVR6bjczRzYxblU4UjlTTnlBaGtNdHVTRnBzaEhuNUVWdml3?=
- =?utf-8?B?c1d4Mm1KT2pSS1ZOUmhNNWhQRGtyYzROeXJ1K2xGdkR3eWVJSU5pWFE0OEtw?=
- =?utf-8?B?b1R2cUkzVTA0STJ6Smh0MVJuR216b2c3NXNrWjZZM1VaQ0JSb2xjUjNmeTNt?=
- =?utf-8?B?UkxrUW5mWFIzYXlTaEVSNm5UcWErWk96R05iNDJ5TDFjVkVWQWJiVFY0Q2VR?=
- =?utf-8?B?MnFLRUtRcGY2Tm05WHBoaDhVR0hIZENwTWNmeThpSUUySERvYVdpdVVjdVFP?=
- =?utf-8?B?cTRkajRpbXpHaXMySGNDR3I2UG9CQks3WEFUa29tcVdaMHplUVRPdTlPUXVh?=
- =?utf-8?B?REl3bjBkdEtuM1RtL0l4L05lWVNVSk9qa1c2c3FGUEllbGNmVGc5UjZ6SG1L?=
- =?utf-8?B?U21KYnBENElIbmREdlUwODVtcWNrTWhWYmdhTjAxL052VnY3dXRSVkZGNTJP?=
- =?utf-8?B?OFcwMUtJazY4b2xEQjZVYmcydlJsZUFDZlNKQlpYZlY0TFVKSEpNOE9uSExn?=
- =?utf-8?B?NnA2RDlISHB1SFVWWmcrakR5VFFvcWhwa2FnLzZ3OWlZMGhYZFBDZ3FCeDBT?=
- =?utf-8?B?K3VnL3lXUGhhdFoyYnQzMWZEUU14S0FuN1U2QmJTeEFnbXF5NUxjVnZ5Skxz?=
- =?utf-8?B?bTRzRmRUeW9rcXpCV2NYQ1JpTmZWZHpLang1aWhwdTduWWFjcjVrQ0FMNVZR?=
- =?utf-8?B?c0dsU2hTVHM4bUhsUVF3WmlmcFNrVWJDMGFsL3JFR3VKQldBTWlYR3lUWi81?=
- =?utf-8?B?Z2d5RmZHTjI3OVUrcmZ5NnpPeDdkSFRKb1VvSmdzN3FJM0p3M2ZJRXNHN0d6?=
- =?utf-8?B?SWw3anhablZVY253aGQrWG9SU2RzclB2dWJReDNZaGZNWVFaUXlMTGw5Umoy?=
- =?utf-8?B?K3JHMUJpVUdoak9EMWxhUmlzTmdQK3dwbzcvWUUwTjBTWFpudlRYUExCdkZ3?=
- =?utf-8?B?SWtOMHhveERxc09rWHpQN1gvZVlSYlpySTVjTW9Ybk5wZ3k0QzAwdXh5cEd5?=
- =?utf-8?B?SFJuOU9PQzZuMTlPTGlKR0JpSXJoMExqR1pZM29VMDJPUElvQ2wweXhBNU4y?=
- =?utf-8?B?VjIrZmZHY0tod2o0VXpxOW85MXNyTkg4L2tpQS9McjRmcDZqUkxoeUR6Z1Vp?=
- =?utf-8?B?dkcwcjAxMC80ZkZRbmpsODlXeXprcmQvL0MzVkE3ZmxCMFFrSjV6RUh5RWVn?=
- =?utf-8?B?engzSUpTVmR0TVJQemdmS1RVNGtzWVRKbVQ2UmlnamxIb3MyVExqaC9FMER0?=
- =?utf-8?B?di9JQkNraHJGUWh4d3dNN3FPS3ZpV1JlT0svNXAzN2c4eExRbHQzdFhkMGps?=
- =?utf-8?B?SXM0NjU2YXpORmtOdG9Ia2cveWQrUVFJL0ZRTmVmYXgwNHZhZjJlbDZjQ3ZS?=
- =?utf-8?B?V3UzQkxVS0lMMzI3em1JYm1BWUYzd0RKMWRKVkFUZndqNVJxdE1mU1B1dnpU?=
- =?utf-8?B?N2FDcEI0L0hsaGo3bmZMS1pWT3pseUJNUkNSemxQcm1YOVRLOHdMQXl5TFFS?=
- =?utf-8?B?eFVUUU51Qmpqa052enJrRXhxMnA4djJoUjdORmRKYkFrbGJVbEFsam9hb2hq?=
- =?utf-8?B?RVY4WXhqRHlNYXhQaWtwQTB6L0N4bSthSWJnbnl5MGFTbDZyZnhCeTB0azZI?=
- =?utf-8?B?TlJyS05FLy9CNVphRnhpdFpWeEE2L0ZyQUxTdVZoaUIzU2xqNFFjTnh3PT0=?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?cHh3R2NJUTd5c2d2cDZRdklzRHlDTCt6TTlGUEdSUERKZTBYRk81bTB1V0I2?=
+ =?utf-8?B?TUFuWFZLZmZiVlFCbk5sOXVLR09sM3Rzb3ZqMEJMdWRTVUJwaWtBZEs0ZTd3?=
+ =?utf-8?B?dWtISEY0SGl5QjdHaGN3eC9pa3NpbGw4V1B2ZGtkVnVUOC8weUFnRkhUMk5N?=
+ =?utf-8?B?bDJiQWl6aTV6WmNEYWZpQ3dxQjNLQjF5SGM0ZVBQQkJRcHJhZjhzcnBwUFNF?=
+ =?utf-8?B?M1FGZFVZWS9TODNqWVF5ank4aWdCSXgrcGV0MnlvWGZ4Z2l4cnB3TTk1ay9z?=
+ =?utf-8?B?d09yM1drZUtxZ3VtME9lWDZtS0s2bUlVTTNqUUNzcFBGZ0liVGpObHdQSGp5?=
+ =?utf-8?B?UHUzREZ2bVJ0b25KQmRKcUFCTXZPZjNnQjVzdHdhM3NoT3M3ZDdDc0RKdWNS?=
+ =?utf-8?B?cWw5ZmMxaUFvM3diRzVFSldrT3gxSk5WL2tjTk9CRFlNcGJUTG9kdVFHWUFy?=
+ =?utf-8?B?RGk0aW1JS3hWSWFHTkRyNVhiMzRVd2pRN2hFa1Q3UTRnb3UrQTNvcnVqd004?=
+ =?utf-8?B?MTBZMUZSYTN1QUZ2bktma2RqSk5KSUlRaHp5OHRZYmRraHlGN3kzeXJIM0pa?=
+ =?utf-8?B?L2Q0V0FFek5VNUJ1bGIxeG9vRFY0VFBmMjdwOG5hejZJdXphT1c4SGNhTDNt?=
+ =?utf-8?B?M256MGN1ODRlUUVyejYzZzVKTEZPMHl5eXFsNnNMMVY2YWMva3owNTB4ZlVY?=
+ =?utf-8?B?WUxwdW5xMW9NbHQvT0JlT2c4NUZDNld6OVFETisvemtmdFBUZk5DSk1MRnhk?=
+ =?utf-8?B?bzFHaWZPM0NHeTJnTnBoWVRJTGxHSjZxVVp4L3htUTNHYVBsc0lWZnM3OVVw?=
+ =?utf-8?B?MmgzMFVVNFJ5NWtaMWRmdlhuOGZYZDJybXROLytEWUdzejdPL0pia0pMUHFN?=
+ =?utf-8?B?YzhQNVBEZ0l4QjNTaUZPaTI1ZUdrSmlYY1BxZlRXNkp0TnFwVDdtNUJUN0hr?=
+ =?utf-8?B?T1hkL0tOVTg3YVlRclBKZUh5aTQxY3lzOTZBWjQ0L21lbjdhYlRmWnFoZ2xT?=
+ =?utf-8?B?T3VKT25DS1pjZmVjUDZ2WjRIYXlYS2JDNjkvT2NpRzFmSG43dU1OT1ZUZ3E2?=
+ =?utf-8?B?QnB6M2dCNzZoN2RTK3Q5NE5MMFpiU2h6T1Q1cDNUOHlxd0Y5THY3WThwNEMz?=
+ =?utf-8?B?OWoxdCtRYzlJdWMvRlM2RkxOTW80amJyT3BqZnpQb2haZUNldTZHOGI5bGpL?=
+ =?utf-8?B?aS9pbndyUlJ5RmlFM0ZvSjdtZ0huRlpyU2pGY2w2OFhkcXExdkFPbDBLdnBU?=
+ =?utf-8?B?N1phZ0dhZlJyS2o3aUtGOWRYakNFWFdwUzlqU2dQcmlkWmdZQnRoWkUyY0sx?=
+ =?utf-8?B?ZHBSbXViQU9JU0VqeUcwN2RCeFhPYWx2aUJvSjJJZVMyZWYwaFg3THVid3lJ?=
+ =?utf-8?B?WnpON3NETkxBeVBzWkJwdlQwZ1N6TG5UOWFSTXNGQ0JMbDdlMk9JR2xSVWU1?=
+ =?utf-8?B?UCtvYjFqelVsUWxYQ0U2cVpvVGYvQUxZWUxxQWdWU3lLWnJnOVRwdGFLbkI1?=
+ =?utf-8?B?UGwyaENEK2R4eFRlOHc0S0FHbmU2c0REMkg1NmdNemdVdEV0c2R4c1Z5OUNh?=
+ =?utf-8?B?WkhLa3VhNUpzVW1JUE1VdG5mL2s3SWt6OXV3RlRtdlRkTGl1bWI1b003YmRI?=
+ =?utf-8?B?cGJsUUJlVjYxZ3BJcnk0RkFlYXFqRUxzamNFNmxyb3g4VnRNbjRQM1l4V09l?=
+ =?utf-8?B?YnUxbFdBM1NuNEZIZXRyaGxDaHBTVWtPK3dtRXRJUkZZa2VtZTg5SjZRPT0=?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BL1PR12MB5753.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016); DIR:OUT; SFP:1101; 
+ SFS:(13230040)(366016)(376014)(1800799024); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OHArcFJ1bnFoeFB3Qk1IaVFueDcremRQeVlrVnBGOWYyWHlGS3BLb3BFT3pl?=
- =?utf-8?B?UkJFM3BBZTlTQUpScy9iemU3eUdqaEtmNUE1VXNGZ290ZjVOUHFoMHQzS3NL?=
- =?utf-8?B?ZGg5anJRZlQxVjlNRHFjK093K092andsc2FQK2pRU2ZHQmplVWJZNGNFcnY3?=
- =?utf-8?B?NE5Sc2VwVGZVMjVUUzF6elFKTGZvdmEzRldkTlVtSVlWS0tySVdqOVRLVW5D?=
- =?utf-8?B?TDhpWmthOGNKOG4xZGV3NlY5Vi9nd3dMNHFnSVh6czNKZXhUVjBVcEY4TjNQ?=
- =?utf-8?B?SzZ0YW1sRitmdnYzeDMxV0duZDNmRE94NTRYNHZyU3RzdGNNMGI4d3BMSldV?=
- =?utf-8?B?a2NUSURGblNGNERhRTY0dGVudFdmK0FJd01CcVdqQXBBeUkwWUhLZENJT0lv?=
- =?utf-8?B?SUMvZjhhUzE2b1dIQWxkTHdpU2pXQmtjZjVtcTd4eW81M3pTNGZWcCs5cEJN?=
- =?utf-8?B?WnFYRVVnZVBKbXFPdUNuTmdaYnNkUFNucnIrazV1b21DVmpmbjRoelk1ZEMr?=
- =?utf-8?B?U05jS1MyRXZEQnN3ZGdsVlo2WWU5WG1PS253ZjdKcU40SERNbmszMW9zZ2FL?=
- =?utf-8?B?WGNzVlJ2SWJCZkJmcnZMRnFXRE5URkVCRW1OUXVpOTViMVhMM1FrdWs4YTBV?=
- =?utf-8?B?bTlnUEN3S091ZGFDVFhsWWpUOEpKMG4rQ0M3R01vUTRSYTVDZEl0bnlmMTY5?=
- =?utf-8?B?Mm1tNHczSytXTWcvWnRqVGxGMElmcUZFYm9yVFlUVTNRUlF2RlRGVHoyMnFq?=
- =?utf-8?B?L3JNTW1INXl2cHNKd2Y2c2JIVXN6N3daQWdwZkdxNndneEZhSnJ2czhYMHo2?=
- =?utf-8?B?d1VQVjd3ZVd0Q1h2KzdoS2lydlV4c0dDMEp5dlBHbk9vbGRVM1VQaS9OYVp5?=
- =?utf-8?B?ZzE5bjFMNmlUZU9wSWpPUmlSc1o4LzBaZEtGZTRPQk9VNDgvNzF6dmNGM1Nw?=
- =?utf-8?B?aWNHdGFiL3M4MHJ0MUZ3ME5lRnA0YVU5ckV1U3JSWGU0b3hjK21OZzZBWDZl?=
- =?utf-8?B?MWYwNHhweERTTk1lRWJscXJzdVJBVjRkN21WTWh0cXRHMjhzSGtzb1B6U0Jr?=
- =?utf-8?B?SDgweXVBdmQ5b0dYRVpkaGovUE9iWUt6OE8zaElUUVE3WitnMk1SOXUvdTlL?=
- =?utf-8?B?Q01sVDRnbytvYkE0TTNEK3g1bDNnc3k5ZEF6dHQ5OGJtN2lnVE10YldzdlNM?=
- =?utf-8?B?STRvdGFFNXhPN1ZHazRPdGNHZ2J2dzlmUTd0VHZHbnVuVWJ6aVNxaUpIZjUz?=
- =?utf-8?B?YURPdmNqMXYvU3FPY2tOQWJjZEFEYVRORmtoazQ4aGViRmM0eDlCamtEV01N?=
- =?utf-8?B?Vy83a2hrUHlreUx6TlVnMjNjNncwM2MwUWlzSUc3WERKYndBNGdYSUk4bWc1?=
- =?utf-8?B?SlRUS1U5bU5zempFTVMrbWtJQldQb1lvbHJOOVpQdWE2V2tvdUpkckFQUGxH?=
- =?utf-8?B?dVlBa3lNbUtLM1prZ2FpakEvczRKZUkySzB0SVBtSWgxak93Y1JudkdRRktV?=
- =?utf-8?B?WXNMOTVnbUNLTXNHRHBNMkE4SVVNWmJteFBzVnFYdlA3MENrMmhKM3lnT0RG?=
- =?utf-8?B?eUdhTnVKTEl2TkRiWmF4YWFpZnVjbWhxM1dYckszYTNyV29vMGVMeHN4aTRT?=
- =?utf-8?B?Z0UzTkRXOXB3aXhhc29iUXl2Zi9jbzhoemdKaW1xRWVBanpzQXB6UHBZUjR1?=
- =?utf-8?B?MWgzU2dWdmhlbkoxbitzOVBPcWk2RFJTSUVpMzQremhld0ZMb0EvZ3dtUWFu?=
- =?utf-8?B?L0t5aFEzUWJuSUl3Tzl1R2h2aWMwRDI5bXZkT0tTamt4eVBRYXFkOUdqQXZZ?=
- =?utf-8?B?OTU4aEdYamJENkYrNG5aSm5QUmNkZGEwOWVHcTBJbDl0dVJyUE5XWnl5OFox?=
- =?utf-8?B?RTFJNlcyenA4WnJ1RndSOVdnRXhFTVN6SUI0eUFDUUtHeWZQWmc4RmZKUVNk?=
- =?utf-8?B?bVgwK0pQcnY0MjBReTdSdUZNZVNMems5c2d6ZFhQSDhJMDJvRC9xSU85enRL?=
- =?utf-8?B?c0tEemVXek5wdGdudTJxQnQvWEVRM2YvVEZyeVhoZitmbjM5aXdJeUxVUGgz?=
- =?utf-8?B?eU45dDB0QVo3N1R5azZ5djVGM1hnbzRqS2xsUjFTaWtCR2VUUmFkMjNMOHVn?=
- =?utf-8?Q?S6TH8/zMxLp0s18orjiipQw5E?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VHVlNlFETkQ2bm5oM2pBajd4Wm5tMUhmV0FCb2ZQQUtJbE83ajBYODlDWkFk?=
+ =?utf-8?B?VWs1UHNjY1hXTlhlMmp4Y0NkYW9tUU5vSmJrbUVSUUpPRlkvWVg3YXhvRnBn?=
+ =?utf-8?B?dnhvMVdLWksxWmxlampyUm5uWXVwUVpCVS8yUFZZaDlFVHBsQS9KcEZZSHJJ?=
+ =?utf-8?B?ak9SeU0vNzMvRDMxb1B6M2xZejVJRW9RazV0dTZoVkZ6UmgrbWpIS0tRV253?=
+ =?utf-8?B?dlF3OVVJd1hKZVRmMUluVGJUZlFuZGhrRjJMbFpYSHArQktHU3ovVk5yTjZY?=
+ =?utf-8?B?RGhOakg4cDVHVVpMRkFXNW5mNFljczhJY2lnWGpyM0ZtUmc0dG5tQzFVMlBO?=
+ =?utf-8?B?QjBSQUxoRElNSjl6YXh0alJaR1BaUXVPUTZ2NHFEZjBQTTI0SVZVOW9pdFpn?=
+ =?utf-8?B?K3VnZHBWcVl0YWlZajlFbUpzVEJNT0Q5MXgzV0I2VXJtV0RWTGdIb3ljU2Rt?=
+ =?utf-8?B?SzV3TTZDeVorRmRkQ0twak1IOVVvMkNkVkZKc3hKMXFsOGM1bWUxeitteVpI?=
+ =?utf-8?B?cVMzclVpVzFzSzVUOC9YNm8vSENxNkJMVDFSamgrMXVidVRKS2p5ZmJvUHZF?=
+ =?utf-8?B?U01XVjRmRWtJdysvaHlPQ2tvajdWUDl2MWR2WTVEbXYxREpOV0haTmN6WWNO?=
+ =?utf-8?B?eUVIWXFTNnhmMm5vZ3Znd0J1WEhhOGsyUVB1a1dPdFhMVEtueTgxQ0lzV0N6?=
+ =?utf-8?B?bGJKVG5aYlZHKzRNUi8rbG11dmVha0QzdE9xd2J1SEZNSG5rUzdBYXNmclJS?=
+ =?utf-8?B?b0tSL2lRK1pZU01MQUtHUS9CSFh5U1IwNVFtMGRJbTBFNGVteUk5VG1uck5B?=
+ =?utf-8?B?YWhEWHB3cXNHWmR6UVp3K0NucTZMVjdSTzByR2RNTW9NQ2FudnFCOTQ4Qmg0?=
+ =?utf-8?B?VEZLbzhSMkhNVG1tNyt5VU5oTnhkOGNUbm1uM2RvNmdQVjR2ZDdrRFozKzFq?=
+ =?utf-8?B?SHpVQ2hQTXJ4MVUyeHU5d0Rsd3lLWURJd0R0aFBuOGphdTFpUjY3b1FUdFBz?=
+ =?utf-8?B?K0wrbmJzMnJxUytESzFLSTRJdklSOGJGMmZkdFBUVDAyQ3ByMHJqNjg3dlo3?=
+ =?utf-8?B?NTYwVmppbXQ0bmRhNkppMzVhKzEyREZLQ1F2SzhRUDVzUzNmU3FOZzFaN1lh?=
+ =?utf-8?B?UnZ4ZFNRRnpLUVJEaFdJNVllaFRYM29jSFo0ZFBUNzhrR3U5UmtmekUwNDRQ?=
+ =?utf-8?B?bmF1ZlM3RVRPME1UMGovMmdyTW1aNU1xNWJhQXg5NysxakY4K3UvNTRERVZX?=
+ =?utf-8?B?NUVqbUpTUU56RXJqL3B5UmxYbU1Rb0pIVzdseEcyWDZ1ZzVDaUdQZkZzWWlL?=
+ =?utf-8?B?b3FGWDMrb25RNHZZNFlVUmgydmpJM1NGMjhqeExYYTY2UlN6NmNzUHNNcWVJ?=
+ =?utf-8?B?SWhZSWRUa05JTWY0WHFnTU1JNDFnTlduY2M4UjhoRW5kZ0p3Tm9XYytXOENp?=
+ =?utf-8?B?Y29ScXJCb0I2MXJlakJzZVBadHhWanhkTGdUZ3hTdGZJclVKems0bGZHb3ZK?=
+ =?utf-8?B?eThMU1dsRVh2bjJzQ1R0eEFzOEhwWDFwUUFCcTdBdFZlMGlKVCtsTm9MUFc1?=
+ =?utf-8?B?aEtrNjdiSnJlVGp1eXNpOUtETzQySGhrbG5ham1pRjhjMW5BRkRuOGsyclJW?=
+ =?utf-8?B?UW53YzBkWHdwaTBqQ2dtUjE3dGV3am1KcHkzQ3JXYk1IY1BxMm9kN0MxVGJj?=
+ =?utf-8?B?Vm1Pa2JqWGN5RWJZVTF1a2lhZ1lHTkZkS21tMC9PWVY0TTd2QWtrQ3puV0hP?=
+ =?utf-8?B?UTJVdTdjMGowd21DeUFZTWpOUUV0ZXlzUzhlai9tVGFObGZIWmFPUHhKSmRX?=
+ =?utf-8?B?cTRQVVRVL0MwaG5XVkFrZkVKK3V0TDh2VnRlY2ZBNkxadFBqTG9CN3RPQmZa?=
+ =?utf-8?B?aXpSS3FYNUZKc1NLSFNuSlFRZG9RUU9MQVhnTnRrUDhMenJEUi9YaDhFWTdY?=
+ =?utf-8?B?b0hwMThhTnRqUWZsMkdodjZ1b3BGWmhLUEdFc1hoVkxudWhIM0JPeXNNR21n?=
+ =?utf-8?B?U21UMkREM0IyTG9GU2FTNTdEWUpteUkrZjVtSnoycnJTeXY1S2grT29Cb3RB?=
+ =?utf-8?B?eG1ORzVBcXoxSXBkQ1dsMllXYVdOTzJiUy9EbE5FUXZKRDdpMmVwTllMUnNv?=
+ =?utf-8?Q?e1L8pMMrRT+kenrquotIeAW2h?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 19f632e2-24ac-4d61-c1d7-08dce7c86954
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8c8dffcc-8ece-442b-9687-08dce7c92ab3
 X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5753.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2024 18:38:32.9044 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2024 18:43:57.3184 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5F+9Af+3IHIdl+wBsVnv2k84ZxCDxtVyYsjjEcRExOhZj7kHw1ijy5MSzU5Pgv2rnukDglJjqgiLa8jPpTVe3w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6060
+X-MS-Exchange-CrossTenant-UserPrincipalName: jqfx3FEQI5Hcuk22KHsA4HDUiCUMOxBfLiiK5S5V0UikLZpfyBQSoDqMc1DjYIK6YC2S3sLuhz4YmmqKxxj25A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8555
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,103 +158,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------07C6498759F348733C6F1765
+--------------F3540578C9E3029778108927
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Reviewed-by: Sunil Khatri <sunil.khatri@amd.com>
 
 On 10/8/2024 11:41 PM, Christian König wrote:
-> Volatile only prevents the compiler from re-ordering reads and writes.
-> Since we always only modify the ring buffer from one CPU thread and have
-> an explicit barrier before signaling the HW this should have no effect at
-> all and just prevents compiler optimisations.
+> Stop masking the wptr and decrementing the count_dw while writing into
+> the ring buffer. We can do that all at once while pushing the changes to
+> the HW.
 >
 > Signed-off-by: Christian König <christian.koenig@amd.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 10 +++-------
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h | 11 ++++-------
->   2 files changed, 7 insertions(+), 14 deletions(-)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 11 +++++------
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |  4 ----
+>   2 files changed, 5 insertions(+), 10 deletions(-)
 >
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> index 910293664902..a6e28fe3f8d6 100644
+> index a6e28fe3f8d6..364466d6d3de 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> @@ -109,21 +109,17 @@ int amdgpu_ring_alloc(struct amdgpu_ring *ring, unsigned int ndw)
->   void amdgpu_ring_insert_nop(struct amdgpu_ring *ring, uint32_t count)
->   {
->   	uint32_t occupied, chunk1, chunk2;
-> -	uint32_t *dst;
+> @@ -90,12 +90,11 @@ int amdgpu_ring_alloc(struct amdgpu_ring *ring, unsigned int ndw)
+>   	if (WARN_ON_ONCE(ndw > ring->max_dw))
+>   		return -ENOMEM;
 >   
->   	occupied = ring->wptr & ring->buf_mask;
-> -	dst = &ring->ring[occupied];
->   	chunk1 = ring->buf_mask + 1 - occupied;
->   	chunk1 = (chunk1 >= count) ? count : chunk1;
->   	chunk2 = count - chunk1;
+> -	ring->count_dw = ndw;
+> -	ring->wptr_old = ring->wptr;
+> -
+>   	if (ring->funcs->begin_use)
+>   		ring->funcs->begin_use(ring);
 >   
->   	if (chunk1)
-> -		memset32(dst, ring->funcs->nop, chunk1);
-> +		memset32(&ring->ring[occupied], ring->funcs->nop, chunk1);
+> +	ring->count_dw = ndw;
+> +	ring->wptr_old = ring->wptr;
+Does moving these after begin_use makes any difference? Otherwise looks 
+good to me.
+
+Reviewed-by: Sunil Khatri <sunil.khatri@amd.com> 
+<mailto:sunil.khatri@amd.com>
+
+Regards
+Sunil Khatri
+
+
+>   	return 0;
+>   }
 >   
-> -	if (chunk2) {
-> -		dst = ring->ring;
-> -		memset32(dst, ring->funcs->nop, chunk2);
-> -	}
-> +	if (chunk2)
-> +		memset32(ring->ring, ring->funcs->nop, chunk2);
+> @@ -122,8 +121,6 @@ void amdgpu_ring_insert_nop(struct amdgpu_ring *ring, uint32_t count)
+>   		memset32(ring->ring, ring->funcs->nop, chunk2);
 >   
 >   	ring->wptr += count;
->   	ring->wptr &= ring->ptr_mask;
+> -	ring->wptr &= ring->ptr_mask;
+> -	ring->count_dw -= count;
+>   }
+>   
+>   /**
+> @@ -153,9 +150,11 @@ void amdgpu_ring_commit(struct amdgpu_ring *ring)
+>   {
+>   	uint32_t count;
+>   
+> -	if (ring->count_dw < 0)
+> +	if ((ring->wptr - ring->wptr_old) > ring->count_dw)
+>   		DRM_ERROR("amdgpu: writing more dwords to the ring than expected!\n");
+>   
+> +	ring->wptr &= ring->ptr_mask;
+> +
+>   	/* We pad to match fetch size */
+>   	count = ring->funcs->align_mask + 1 -
+>   		(ring->wptr & ring->funcs->align_mask);
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> index 574336d6714a..36fc9578c53c 100644
+> index 36fc9578c53c..439793206b89 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> @@ -246,7 +246,7 @@ struct amdgpu_ring {
->   	struct drm_gpu_scheduler	sched;
->   
->   	struct amdgpu_bo	*ring_obj;
-> -	volatile uint32_t	*ring;
-> +	uint32_t		*ring;
->   	unsigned		rptr_offs;
->   	u64			rptr_gpu_addr;
->   	volatile u32		*rptr_cpu_addr;
-> @@ -288,7 +288,7 @@ struct amdgpu_ring {
->   	u64			cond_exe_gpu_addr;
->   	volatile u32		*cond_exe_cpu_addr;
->   	unsigned int		set_q_mode_offs;
-> -	volatile u32		*set_q_mode_ptr;
-> +	u32			*set_q_mode_ptr;
->   	u64			set_q_mode_token;
->   	unsigned		vm_hub;
->   	unsigned		vm_inv_eng;
-> @@ -386,10 +386,8 @@ static inline void amdgpu_ring_write_multiple(struct amdgpu_ring *ring,
->   					      void *src, int count_dw)
+> @@ -378,8 +378,6 @@ static inline void amdgpu_ring_clear_ring(struct amdgpu_ring *ring)
+>   static inline void amdgpu_ring_write(struct amdgpu_ring *ring, uint32_t v)
 >   {
->   	unsigned occupied, chunk1, chunk2;
-> -	void *dst;
+>   	ring->ring[ring->wptr++ & ring->buf_mask] = v;
+> -	ring->wptr &= ring->ptr_mask;
+> -	ring->count_dw--;
+>   }
 >   
->   	occupied = ring->wptr & ring->buf_mask;
-> -	dst = (void *)&ring->ring[occupied];
->   	chunk1 = ring->buf_mask + 1 - occupied;
->   	chunk1 = (chunk1 >= count_dw) ? count_dw : chunk1;
->   	chunk2 = count_dw - chunk1;
-> @@ -397,12 +395,11 @@ static inline void amdgpu_ring_write_multiple(struct amdgpu_ring *ring,
->   	chunk2 <<= 2;
->   
->   	if (chunk1)
-> -		memcpy(dst, src, chunk1);
-> +		memcpy(&ring->ring[occupied], src, chunk1);
->   
->   	if (chunk2) {
->   		src += chunk1;
-> -		dst = (void *)ring->ring;
-> -		memcpy(dst, src, chunk2);
-> +		memcpy(ring->ring, src, chunk2);
+>   static inline void amdgpu_ring_write_multiple(struct amdgpu_ring *ring,
+> @@ -403,8 +401,6 @@ static inline void amdgpu_ring_write_multiple(struct amdgpu_ring *ring,
 >   	}
 >   
 >   	ring->wptr += count_dw;
+> -	ring->wptr &= ring->ptr_mask;
+> -	ring->count_dw -= count_dw;
+>   }
+>   
+>   /**
 
---------------07C6498759F348733C6F1765
+--------------F3540578C9E3029778108927
 Content-Type: text/html; charset=utf-8
 Content-Transfer-Encoding: 8bit
 
@@ -261,14 +256,42 @@ Content-Transfer-Encoding: 8bit
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   </head>
   <body text="#000000" bgcolor="#ffffff">
-    <p><span style="font-size:12.0pt;font-family:&quot;Aptos&quot;,sans-serif;
-mso-ascii-theme-font:minor-latin;mso-fareast-font-family:Aptos;mso-fareast-theme-font:
-minor-latin;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:&quot;Times
-        New Roman&quot;;
-mso-bidi-theme-font:minor-bidi;mso-ansi-language:EN-US;mso-fareast-language:
-        EN-US;mso-bidi-language:AR-SA">Reviewed-by: Sunil Khatri
-        <a class="moz-txt-link-rfc2396E" href="mailto:sunil.khatri@amd.com">&lt;sunil.khatri@amd.com&gt;</a><br>
-      </span><!--[if gte mso 9]><xml>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 10/8/2024 11:41 PM, Christian König
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:20241008181134.1350-2-christian.koenig@amd.com">
+      <pre class="moz-quote-pre" wrap="">Stop masking the wptr and decrementing the count_dw while writing into
+the ring buffer. We can do that all at once while pushing the changes to
+the HW.
+
+Signed-off-by: Christian König <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig@amd.com">&lt;christian.koenig@amd.com&gt;</a>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 11 +++++------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |  4 ----
+ 2 files changed, 5 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+index a6e28fe3f8d6..364466d6d3de 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+@@ -90,12 +90,11 @@ int amdgpu_ring_alloc(struct amdgpu_ring *ring, unsigned int ndw)
+ 	if (WARN_ON_ONCE(ndw &gt; ring-&gt;max_dw))
+ 		return -ENOMEM;
+ 
+-	ring-&gt;count_dw = ndw;
+-	ring-&gt;wptr_old = ring-&gt;wptr;
+-
+ 	if (ring-&gt;funcs-&gt;begin_use)
+ 		ring-&gt;funcs-&gt;begin_use(ring);
+ 
++	ring-&gt;count_dw = ndw;
++	ring-&gt;wptr_old = ring-&gt;wptr;</pre>
+    </blockquote>
+    Does moving these after begin_use makes any difference? Otherwise
+    looks good to me.<br>
+    <!--[if gte mso 9]><xml>
  <o:OfficeDocumentSettings>
   <o:AllowPNG/>
  </o:OfficeDocumentSettings>
@@ -298,7 +321,6 @@ mso-bidi-theme-font:minor-bidi;mso-ansi-language:EN-US;mso-fareast-language:
    <w:DontFlipMirrorIndents/>
    <w:OverrideTableStyleHps/>
   </w:Compatibility>
-  <w:DoNotOptimizeForBrowser/>
   <m:mathPr>
    <m:mathFont m:val="Cambria Math"/>
    <m:brkBin m:val="before"/>
@@ -904,111 +926,76 @@ mso-bidi-theme-font:minor-bidi;mso-ansi-language:EN-US;mso-fareast-language:
 	mso-padding-alt:0in 5.4pt 0in 5.4pt;
 	mso-para-margin:0in;
 	mso-pagination:widow-orphan;
-	font-size:12.0pt;
-	font-family:"Aptos",sans-serif;
-	mso-ascii-font-family:Aptos;
-	mso-ascii-theme-font:minor-latin;
-	mso-hansi-font-family:Aptos;
-	mso-hansi-theme-font:minor-latin;
-	mso-font-kerning:1.0pt;
-	mso-ligatures:standardcontextual;}
+	font-size:10.0pt;
+	font-family:"Times New Roman",serif;}
 </style>
-<![endif]--></p>
-    <div class="moz-cite-prefix">On 10/8/2024 11:41 PM, Christian König
-      wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:20241008181134.1350-1-christian.koenig@amd.com">
-      <pre class="moz-quote-pre" wrap="">Volatile only prevents the compiler from re-ordering reads and writes.
-Since we always only modify the ring buffer from one CPU thread and have
-an explicit barrier before signaling the HW this should have no effect at
-all and just prevents compiler optimisations.
-
-Signed-off-by: Christian König <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig@amd.com">&lt;christian.koenig@amd.com&gt;</a>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 10 +++-------
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h | 11 ++++-------
- 2 files changed, 7 insertions(+), 14 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-index 910293664902..a6e28fe3f8d6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-@@ -109,21 +109,17 @@ int amdgpu_ring_alloc(struct amdgpu_ring *ring, unsigned int ndw)
- void amdgpu_ring_insert_nop(struct amdgpu_ring *ring, uint32_t count)
- {
- 	uint32_t occupied, chunk1, chunk2;
--	uint32_t *dst;
+<![endif]-->
+    <p><span style="font-size:12.0pt;font-family:&quot;Aptos&quot;,sans-serif;
+mso-ascii-theme-font:minor-latin;mso-fareast-font-family:Aptos;mso-fareast-theme-font:
+minor-latin;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:Aptos;
+color:black;mso-ansi-language:EN-US;mso-fareast-language:EN-US;mso-bidi-language:
+        AR-SA">Reviewed-by: Sunil Khatri <a href="mailto:sunil.khatri@amd.com">&lt;sunil.khatri@amd.com&gt;</a><br>
+      </span></p>
+    <p>Regards<br>
+      Sunil Khatri<br>
+      <span style="font-size:12.0pt;font-family:&quot;Aptos&quot;,sans-serif;
+mso-ascii-theme-font:minor-latin;mso-fareast-font-family:Aptos;mso-fareast-theme-font:
+minor-latin;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:Aptos;
+color:black;mso-ansi-language:EN-US;mso-fareast-language:EN-US;mso-bidi-language:
+        AR-SA"></span></p>
+    <br>
+    <blockquote type="cite" cite="mid:20241008181134.1350-2-christian.koenig@amd.com">
+      <pre class="moz-quote-pre" wrap="">
+ 	return 0;
+ }
  
- 	occupied = ring-&gt;wptr &amp; ring-&gt;buf_mask;
--	dst = &amp;ring-&gt;ring[occupied];
- 	chunk1 = ring-&gt;buf_mask + 1 - occupied;
- 	chunk1 = (chunk1 &gt;= count) ? count : chunk1;
- 	chunk2 = count - chunk1;
- 
- 	if (chunk1)
--		memset32(dst, ring-&gt;funcs-&gt;nop, chunk1);
-+		memset32(&amp;ring-&gt;ring[occupied], ring-&gt;funcs-&gt;nop, chunk1);
- 
--	if (chunk2) {
--		dst = ring-&gt;ring;
--		memset32(dst, ring-&gt;funcs-&gt;nop, chunk2);
--	}
-+	if (chunk2)
-+		memset32(ring-&gt;ring, ring-&gt;funcs-&gt;nop, chunk2);
+@@ -122,8 +121,6 @@ void amdgpu_ring_insert_nop(struct amdgpu_ring *ring, uint32_t count)
+ 		memset32(ring-&gt;ring, ring-&gt;funcs-&gt;nop, chunk2);
  
  	ring-&gt;wptr += count;
- 	ring-&gt;wptr &amp;= ring-&gt;ptr_mask;
+-	ring-&gt;wptr &amp;= ring-&gt;ptr_mask;
+-	ring-&gt;count_dw -= count;
+ }
+ 
+ /**
+@@ -153,9 +150,11 @@ void amdgpu_ring_commit(struct amdgpu_ring *ring)
+ {
+ 	uint32_t count;
+ 
+-	if (ring-&gt;count_dw &lt; 0)
++	if ((ring-&gt;wptr - ring-&gt;wptr_old) &gt; ring-&gt;count_dw)
+ 		DRM_ERROR(&quot;amdgpu: writing more dwords to the ring than expected!\n&quot;);
+ 
++	ring-&gt;wptr &amp;= ring-&gt;ptr_mask;
++
+ 	/* We pad to match fetch size */
+ 	count = ring-&gt;funcs-&gt;align_mask + 1 -
+ 		(ring-&gt;wptr &amp; ring-&gt;funcs-&gt;align_mask);
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-index 574336d6714a..36fc9578c53c 100644
+index 36fc9578c53c..439793206b89 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-@@ -246,7 +246,7 @@ struct amdgpu_ring {
- 	struct drm_gpu_scheduler	sched;
- 
- 	struct amdgpu_bo	*ring_obj;
--	volatile uint32_t	*ring;
-+	uint32_t		*ring;
- 	unsigned		rptr_offs;
- 	u64			rptr_gpu_addr;
- 	volatile u32		*rptr_cpu_addr;
-@@ -288,7 +288,7 @@ struct amdgpu_ring {
- 	u64			cond_exe_gpu_addr;
- 	volatile u32		*cond_exe_cpu_addr;
- 	unsigned int		set_q_mode_offs;
--	volatile u32		*set_q_mode_ptr;
-+	u32			*set_q_mode_ptr;
- 	u64			set_q_mode_token;
- 	unsigned		vm_hub;
- 	unsigned		vm_inv_eng;
-@@ -386,10 +386,8 @@ static inline void amdgpu_ring_write_multiple(struct amdgpu_ring *ring,
- 					      void *src, int count_dw)
+@@ -378,8 +378,6 @@ static inline void amdgpu_ring_clear_ring(struct amdgpu_ring *ring)
+ static inline void amdgpu_ring_write(struct amdgpu_ring *ring, uint32_t v)
  {
- 	unsigned occupied, chunk1, chunk2;
--	void *dst;
+ 	ring-&gt;ring[ring-&gt;wptr++ &amp; ring-&gt;buf_mask] = v;
+-	ring-&gt;wptr &amp;= ring-&gt;ptr_mask;
+-	ring-&gt;count_dw--;
+ }
  
- 	occupied = ring-&gt;wptr &amp; ring-&gt;buf_mask;
--	dst = (void *)&amp;ring-&gt;ring[occupied];
- 	chunk1 = ring-&gt;buf_mask + 1 - occupied;
- 	chunk1 = (chunk1 &gt;= count_dw) ? count_dw : chunk1;
- 	chunk2 = count_dw - chunk1;
-@@ -397,12 +395,11 @@ static inline void amdgpu_ring_write_multiple(struct amdgpu_ring *ring,
- 	chunk2 &lt;&lt;= 2;
- 
- 	if (chunk1)
--		memcpy(dst, src, chunk1);
-+		memcpy(&amp;ring-&gt;ring[occupied], src, chunk1);
- 
- 	if (chunk2) {
- 		src += chunk1;
--		dst = (void *)ring-&gt;ring;
--		memcpy(dst, src, chunk2);
-+		memcpy(ring-&gt;ring, src, chunk2);
+ static inline void amdgpu_ring_write_multiple(struct amdgpu_ring *ring,
+@@ -403,8 +401,6 @@ static inline void amdgpu_ring_write_multiple(struct amdgpu_ring *ring,
  	}
  
  	ring-&gt;wptr += count_dw;
+-	ring-&gt;wptr &amp;= ring-&gt;ptr_mask;
+-	ring-&gt;count_dw -= count_dw;
+ }
+ 
+ /**
 </pre>
     </blockquote>
   </body>
 </html>
 
---------------07C6498759F348733C6F1765--
+--------------F3540578C9E3029778108927--
