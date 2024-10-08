@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 134D4CEF177
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Oct 2024 14:01:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EBDCCEF17A
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Oct 2024 14:29:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B95E410E51B;
-	Tue,  8 Oct 2024 14:01:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DD7E10E195;
+	Tue,  8 Oct 2024 14:28:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="v/IXcQPj";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="r2hbfSqa";
 	dkim-atps=neutral
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2087.outbound.protection.outlook.com [40.107.102.87])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0149510E51B
- for <amd-gfx@lists.freedesktop.org>; Tue,  8 Oct 2024 14:01:20 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2070.outbound.protection.outlook.com [40.107.220.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB0E410E0BA;
+ Tue,  8 Oct 2024 14:28:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YrZWVO0uCoMsYB6jW/fZPyJwmA7sUuExfPEJ7MT3GI5ASE0QQGdX7NNxbhtdsV82eyzcd0f4Fu0+jAkmhqNbY8xpHnZFEymNWv4XudHZcAvWBuffHT/PHfga1QKkxhLkYr3OpuBe41lr157WnPbERttFexFsQ5upznWPE/MFRV3Uc5l8S14p6ouKCnqSAkqPQttqLgVtb3N401EYsGv1qIWsox2fGaRHYPAisr11vjIJ+QKDZ/04dWfI/HzeakCj7+qfWE1qWGaAFjDRr6CRX66sVHDZB/PD4dlVX2wCSdhjrwWNGv42v9T7bdq3DWpFyA8y0bZYoGh5P8NlRaM8Jw==
+ b=gXWM26XRfOqmcPahJwXLpxTRxLFiynHdIpFwpp2PE2dzrGoEqR2uuWY96FSVW9wVgDPo6HVnp0etrW0/aKbQay9i69H5gF8cvg0ubc7K6FZqjzXfX3oJxzvv2srn3mQJZjJfKnGr4rWsg+khK8zeD510Ml5lG3ebVnwAAVVanXRttakJ0APuJ33r3NUuRdGaBh+VMxSZpJFdxbLMnKO0UScbyr99qpTc/TBeDw+54zfOjUCF7QWTv8dF2FYc1R3XflHqB+GfGZNLS8xOT3S6P7ljhZu6d4YFq6cmGqASe4oLM82R5Kp1GA9oXMVYoIv0z/PZ390/V4pORySu9TUE4w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/QRMgNtgiN2b+BX96WC304Ug6GP1S+d0oNfWhJCEnfo=;
- b=ODDMiUeK6G9yb4Q+gjpqR81zwikW5aWmkS4Qse8jTwIazvEsW84HLhcSjLsH6GP6fN+s5+HI2lGlu8dsS5PgFcNSJpisRGmlIpI2Fc7Tqd52irh7UZDuMwxE6vmLI2LFt/jAOGue9ZeaETwymBSXzEGoFDlLoISMH61npNx/8dajTmPUklqsiuk+rSg/FkZAEVjTcfJZWWvPyxXYMBsM54qTOvvIIbsI3xQFzQSG52Mn4FH5mUjl+pqdibFg/YkcWNeMGacxueyCxeM3sEWO2JLTQhzgTFDzoQfBZJ7LdnwR8AzBP2x47oWEI+Wifm0bNITSDCUapeKkVjVOVl7GiA==
+ bh=QJVhL3wNClS6L2lSq/oeffOo0E5qrhLc9EV0QvB1kOg=;
+ b=DPgLuVgE55eVK5ManIBVl4Lqr6Es5K7dzhXZajmKHjtSllUAp2lV89bxXXqWA13G2338Scwf1dMp8i8O7IgA+/aTGFL0r3ScxyA2CKh/zlGLzBmIPW5yo1/r0paTwvUoXZn+xbG0SxUzU2rQneUmgWRDbdqDgzcggxuyRjyyJ1qCbqAODryJAwXG0qHCsAb2aoGFO7YimwK/VfmF6aXhgkDOrP+04r42nweAlm1dHdsJdo5+eXHogoPhmbi0ioepgeat/ycf+5YRj8Q2XmrIAYYFoPLKhDLKavqS6VK1+ir1iWk/uFaS7UksybFsLs2OOaXjH18n59S2WN0zDOoHiQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/QRMgNtgiN2b+BX96WC304Ug6GP1S+d0oNfWhJCEnfo=;
- b=v/IXcQPj2aw4zLFvYPy9+5ubyyuIxvr6X8uEeAEWl7Y+3Pd4KJZi8Sw53URr7820t5otTOHgvZ2lhJfdiPf7/WybFF6xILpbebsD9LSwDqffQRv3+uvAg61VBFvGvP72l6nsw00MpQdSE4V5WX231TUBnvO95OE9i6jXqMr756s=
-Received: from BY3PR04CA0022.namprd04.prod.outlook.com (2603:10b6:a03:217::27)
- by DM4PR12MB7502.namprd12.prod.outlook.com (2603:10b6:8:112::8) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=QJVhL3wNClS6L2lSq/oeffOo0E5qrhLc9EV0QvB1kOg=;
+ b=r2hbfSqaqV2zyJvds28rqEBU/PgDU5Zb8Dds9hvAG8q0VvRCqMzbXduT9NGaaqIe6q7dluuwbU8RaOuBIuLdgc1EydF3YZaW1IztzWcDzFhTx21RBnD37GH7Yq3DtU2QINavM49yNAANQkyIMy7t4c91J8LT/C+NOlYxahecIyM=
+Received: from SJ0PR03CA0345.namprd03.prod.outlook.com (2603:10b6:a03:39c::20)
+ by PH7PR12MB8825.namprd12.prod.outlook.com (2603:10b6:510:26a::21)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8026.22; Tue, 8 Oct
- 2024 14:01:15 +0000
-Received: from CO1PEPF000042A7.namprd03.prod.outlook.com
- (2603:10b6:a03:217:cafe::e6) by BY3PR04CA0022.outlook.office365.com
- (2603:10b6:a03:217::27) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8026.23 via Frontend
- Transport; Tue, 8 Oct 2024 14:01:15 +0000
+ 2024 14:28:52 +0000
+Received: from CO1PEPF000044F5.namprd05.prod.outlook.com
+ (2603:10b6:a03:39c:cafe::51) by SJ0PR03CA0345.outlook.office365.com
+ (2603:10b6:a03:39c::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8048.17 via Frontend
+ Transport; Tue, 8 Oct 2024 14:28:51 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,73 +48,79 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1PEPF000042A7.mail.protection.outlook.com (10.167.243.36) with Microsoft
+ CO1PEPF000044F5.mail.protection.outlook.com (10.167.241.75) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8048.13 via Frontend Transport; Tue, 8 Oct 2024 14:01:14 +0000
-Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ 15.20.8048.13 via Frontend Transport; Tue, 8 Oct 2024 14:28:51 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 8 Oct
- 2024 09:01:09 -0500
-From: Lijo Lazar <lijo.lazar@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Hawking.Zhang@amd.com>, <Alexander.Deucher@amd.com>,
- <rajneesh.bhardwaj@amd.com>, <Ramesh.Errabolu@amd.com>, <Feifei.Xu@amd.com>
-Subject: [PATCH v2] drm/amdgpu: Add NPS switch support for GC 9.4.3
-Date: Tue, 8 Oct 2024 19:30:51 +0530
-Message-ID: <20241008140051.2998777-1-lijo.lazar@amd.com>
-X-Mailer: git-send-email 2.25.1
+ 2024 09:28:49 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <simona.vetter@ffwll.ch>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [pull] amdgpu, amdkfd, radeon drm-fixes-6.12
+Date: Tue, 8 Oct 2024 10:28:31 -0400
+Message-ID: <20241008142831.3739244-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.46.2
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000042A7:EE_|DM4PR12MB7502:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0548e844-f248-44a3-57e1-08dce7a1ac62
+X-MS-TrafficTypeDiagnostic: CO1PEPF000044F5:EE_|PH7PR12MB8825:EE_
+X-MS-Office365-Filtering-Correlation-Id: 84489e68-cf36-4c46-5730-08dce7a58807
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|82310400026|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?U6UUx2s8e/B+4E4rCrlku8f6/eP7kEig9R6NvExBHCCi/JhvJMoqlq9x4nOz?=
- =?us-ascii?Q?0S9E/UegFHb6pUOuJp4dQduDqeeCJiyezZmCWAeaxAnz+dURgbywociNNYqU?=
- =?us-ascii?Q?ol940a28gS3JJSPXeba84W4gpRyGLORbjcrwoA2lgKdNOHve/KQ2KqI2A8W3?=
- =?us-ascii?Q?nssfIdtZSaEwVt4LRUlobcTmT2wSRYBCaXoDDswiXVcWJxb9Xqs5vgRour/f?=
- =?us-ascii?Q?7ZS/W5x7JTra5LCbTeOLZAhOFX+MwsAp9SOGaChJ56AI+IhEuGu3+4oibnEF?=
- =?us-ascii?Q?fi9Xhqc46hpVDf8G4EiTFbd2AD2XbkDwQOGeTlkDN9oUYfZjhuw/cSEO+Wkz?=
- =?us-ascii?Q?5/py/L+b8DZolOd9c6AqS8OdoU1asbfsTXQGfZly+WrMgQllYLxoQcZXNLJw?=
- =?us-ascii?Q?YdFP8Rn4wCmBejCaTRiOBP09Idf4SYaY6Uy6RKkS/kcpVP5U6dIAag6SotK3?=
- =?us-ascii?Q?sNtqkFfHSeXJGK8WvHaLYGTOFau9+K0TdGmyLXLoDxjtXyF+BPXiW//P10W9?=
- =?us-ascii?Q?etVWiF98QRhuYDG+1YxFHw8rFyCwrfoRGccbfMqPY8t9FL4H4Gy19s40hFMa?=
- =?us-ascii?Q?NmecyNbWNF9Tq2co6v7lmjEyxGdpmMWn7MV2lJ+pXdq8w9DBrCTkR38pLt8K?=
- =?us-ascii?Q?2eu0lj5366k4HqBU0KabYDCcmxUi/nD5PO5nMUjXrvMsUaiO9yaaDtsuS9i3?=
- =?us-ascii?Q?Y9+O4NY2kPZ8ZIoc5KtjkELS4AVjG6LsB9nH0n+wQhKKhn8ZiN2xp6yZzhrZ?=
- =?us-ascii?Q?wFk3WyrehFIQBL0WiRwMUyjpgI3NTGbZjq0BHwjRfq94wsFFsD3F0a14teKn?=
- =?us-ascii?Q?iOuqDzE/Qh6OiB8DkCy8cjpCQqYEQQgFkGw2rH+ZPM29FM7KglsIjfNSbGYH?=
- =?us-ascii?Q?f6DeT3ecIVv7+3WyxhOZzvxuJltXo35987Iu/7G5ph7tWWYNECD6jqZ/ctyH?=
- =?us-ascii?Q?9mmBKzXcgn50Wk2A2FdTBHX+UmUD2IRwDeXmk6IHda3DPlQH9EoH2q6C01pY?=
- =?us-ascii?Q?U0AviBrOUI9wVCbjNv4abn5kwkvF2AYX3jWYMCIVKorK4zvHJilY9Ec3XrO9?=
- =?us-ascii?Q?6/bl0aeZryFYsCLLyt5Ei5b5o2/HwmHBVdpXLoI4R3kdsLPMG5cbXfMXBQLC?=
- =?us-ascii?Q?cTU4ZF/26w9bcx6y2edkkkz8+jGcZoOr4QxXdgopBHAxreCWMI1YByFGUWGB?=
- =?us-ascii?Q?n2Dvgeftqse+Ysd/8HyiUEuGz/JrSA26ENgFxsKEb31YtWXgQi66tMAM8GWN?=
- =?us-ascii?Q?wSAvcWilbI1QeyY8G8quXmC7WzTqdpB+A9ENzljimzsPKpspuCPn2J0Glysc?=
- =?us-ascii?Q?/AANgXkBbBSIsGGgLRFbUJhxyQ6csqo5Xrhk1oCSs/V6u06JONAFXi6igBvS?=
- =?us-ascii?Q?mp6+R7E=3D?=
+ ARA:13230040|82310400026|376014|36860700013|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?dEJreWlJSUV3MkJ3dTRJb0xPRDJabnBKQWpRKzduTllMMjlOY2lpUXdmK0o0?=
+ =?utf-8?B?Y05Wa3JoZ0V6a3pRRmVvK2l2UXp4cys1WmZjdGpUNUNPZkV6VkxyUGx2Sld2?=
+ =?utf-8?B?a2lwcW04c3kyY2FNdGRxMm50bHNYc2phdHExVzEwajhaRk4rOEdVbXU2dkY4?=
+ =?utf-8?B?Sko1VmtFcFJ2KzAzb3VkbER0Uk56bStsZXVVYWV2aFA5RUQ5K0ZJYUkzMTNL?=
+ =?utf-8?B?WVFLOUdhTVczQktCK2hjN1BrTjBUQVRWc1lEMmVQMDBPaGJGa3d6VDRJdExI?=
+ =?utf-8?B?WC9RZ0d0MmtWaWJWSjB6bHQ2eEpqcWZvUU1ncWxPM2pFVEs3aW5GdlRUTEds?=
+ =?utf-8?B?UEdVaUh3dm9RMU9RYnQweHVLbzlTMWQvVmpMT3k2K1h0VTRSZ2RsckQwdCt4?=
+ =?utf-8?B?ZjJFemx3Z0VjZnA2VExOVmRhakQvdTZFWVl1ZVd5aWdTM0QvY2RSUHNWNUVS?=
+ =?utf-8?B?SHRBcEIxajlBUmo2eE16b2hMNTE0VWJraFp3d3Jxa3NCTGtlczBBaTlVSnU5?=
+ =?utf-8?B?b1MyUVBFS2YvT3BKL25aWVQ3MjJkbU9NajREYVh6eFI0bi9vWGFMY2VlL21X?=
+ =?utf-8?B?N0pMd3E0SXRUWFBJRHpLdSthSDlRcFFQc2cxTmdxOWFDVkllWWtJTEdJaEhp?=
+ =?utf-8?B?VE5oVk9SVVN0bVNjMU1OMEVLRjRHdGNhcm1LR24yOFo0WVBzWFdYMkVlb3M1?=
+ =?utf-8?B?dWc5V2JoL0dTbnE1dm1qeDM5RmhEdGNzUFVjSmlyNm5KM255VjI1ODdvQ2k1?=
+ =?utf-8?B?cWpkRGJ0eDVQMytmUDRPbmtrV2dSdDJmb3V5UVNLd0JnUFl6eHQ2bFBmcjZ6?=
+ =?utf-8?B?NjlkdmduU1NxckNmNTVGUEZVd2RsWS9rZFhDbTBlU0VyZzBYY3M3R21ZWkVv?=
+ =?utf-8?B?ZkxvcWxPU3RWaWF4Wk5CMkJqekdzU0xFZk1DYTg0eDdta1pkb1l1Y1BjaUxJ?=
+ =?utf-8?B?VHdVcEtSbWd5OGVYT2p4R05YU0xOUU9UMExCMUFMREhtRVZYQ1dJc0ZFN1JW?=
+ =?utf-8?B?WElla0Viby9jTjNqNk1XVEJScVVxRGMwejJkM3NRak5ieDlJK1RJYjFJMUpR?=
+ =?utf-8?B?Ni9ZRkRhVWZqMFRVdkxDSTFTbTNkTTVQWFlvSkVVMTZBaENCYjZNVEdCbWxV?=
+ =?utf-8?B?bWNpVDRTWjgxWEF5ZEZJVVVkckd6ZDEyL2tWR01DeE00bGFTS21ad2lweWRB?=
+ =?utf-8?B?RjZFUHVIZDhnSmU2clRURjg4Z1dKZHZBYmNmemN2MTVIc01jVjJCdWdTYUla?=
+ =?utf-8?B?Ym55S1BTZ05reHpkeTBML0hLZFBKSFZZQmpJUHVibWVhNTVsYklOTVY4Rkty?=
+ =?utf-8?B?a0N5TXNIc1ppZ0FDdWFYZ0VsYTVTWjJjSStLVGRDcDRsSWttYzI3anovcEtB?=
+ =?utf-8?B?eWRnUjdlVFVERGxrVnNLTW1Palg1ZEJmaVhST0xFUmZSdDFSUGRBN0V1cVNV?=
+ =?utf-8?B?N1VrL3FtTEZ2SkNpVFJxOGpXSEJsU2RlZzBlRFd4MnQ3dTh2SWdhUW0wMStD?=
+ =?utf-8?B?dkJiWk94SkgrcjA0WUNtUDdqOVExVWgraUt2RjJyajZ0Q25tZVZKOWpiVllj?=
+ =?utf-8?B?M1VKVXJsTVF0SndweEVoelpic3I3Zld1eTYrcExiQ3lKaEQwQVBLZlpieFpJ?=
+ =?utf-8?B?TDQveHJmaDJXV01YM0ZNS3RJekg0cFlkVEVNbFFDMGVHT2d2ZlZ3Y1lPVjZi?=
+ =?utf-8?B?T1dnMWNnb3VYb3p1b2RhSEhjUzF1UGY3aGNzM0EzbGZyZERtTW9qd0RQM21C?=
+ =?utf-8?Q?u1iY0nX8PrFKCYb/WzLwXdJujFPJQbFVDiCK2+y?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(82310400026)(36860700013); DIR:OUT;
+ SFS:(13230040)(82310400026)(376014)(36860700013)(1800799024); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2024 14:01:14.5769 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0548e844-f248-44a3-57e1-08dce7a1ac62
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2024 14:28:51.5694 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 84489e68-cf36-4c46-5730-08dce7a58807
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000042A7.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000044F5.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7502
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8825
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,149 +135,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add dynamic NPS switch support for GC 9.4.3 variants. Only GC v9.4.3 and
-GC v9.4.4 currently support this. NPS switch is only supported if an SOC
-supports multiple NPS modes.
+Hi Dave, Simona,
 
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
-Signed-off-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
-Reviewed-by: Feifei Xu <Feifei.Xu@amd.com>
----
-v2: Add NULL check for is_nps_switch_supported callback implementation
+Fixes for 6.12.
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h |  1 +
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c    | 45 ++++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c   | 12 +++++++
- 3 files changed, 58 insertions(+)
+The following changes since commit 5b272bf7dcf969eb4f19ef994b6e60458ee6300f:
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h
-index f61d117b0caf..79c2f807b9fe 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h
-@@ -101,6 +101,7 @@ struct amdgpu_nbio_funcs {
- 	int (*get_compute_partition_mode)(struct amdgpu_device *adev);
- 	u32 (*get_memory_partition_mode)(struct amdgpu_device *adev,
- 					 u32 *supp_modes);
-+	bool (*is_nps_switch_requested)(struct amdgpu_device *adev);
- 	u64 (*get_pcie_replay_count)(struct amdgpu_device *adev);
- 	void (*set_reg_remap)(struct amdgpu_device *adev);
- };
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-index 94600e5c8ea3..bfbfbcc9b89b 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -1395,6 +1395,17 @@ gmc_v9_0_query_memory_partition(struct amdgpu_device *adev)
- 	return gmc_v9_0_get_memory_partition(adev, NULL);
- }
- 
-+static bool gmc_v9_0_need_reset_on_init(struct amdgpu_device *adev)
-+{
-+	if (adev->nbio.funcs && adev->nbio.funcs->is_nps_switch_requested &&
-+	    adev->nbio.funcs->is_nps_switch_requested(adev)) {
-+		adev->gmc.reset_flags |= AMDGPU_GMC_INIT_RESET_NPS;
-+		return true;
-+	}
-+
-+	return false;
-+}
-+
- static const struct amdgpu_gmc_funcs gmc_v9_0_gmc_funcs = {
- 	.flush_gpu_tlb = gmc_v9_0_flush_gpu_tlb,
- 	.flush_gpu_tlb_pasid = gmc_v9_0_flush_gpu_tlb_pasid,
-@@ -1406,6 +1417,8 @@ static const struct amdgpu_gmc_funcs gmc_v9_0_gmc_funcs = {
- 	.override_vm_pte_flags = gmc_v9_0_override_vm_pte_flags,
- 	.get_vbios_fb_size = gmc_v9_0_get_vbios_fb_size,
- 	.query_mem_partition_mode = &gmc_v9_0_query_memory_partition,
-+	.request_mem_partition_mode = &amdgpu_gmc_request_memory_partition,
-+	.need_reset_on_init = &gmc_v9_0_need_reset_on_init,
- };
- 
- static void gmc_v9_0_set_gmc_funcs(struct amdgpu_device *adev)
-@@ -1545,6 +1558,28 @@ static void gmc_v9_0_set_xgmi_ras_funcs(struct amdgpu_device *adev)
- 		adev->gmc.xgmi.ras = &xgmi_ras;
- }
- 
-+static void gmc_v9_0_init_nps_details(struct amdgpu_device *adev)
-+{
-+	adev->gmc.supported_nps_modes = 0;
-+
-+	if (amdgpu_sriov_vf(adev) || (adev->flags & AMD_IS_APU))
-+		return;
-+
-+	/*TODO: Check PSP version also which supports NPS switch. Otherwise keep
-+	 * supported modes as 0.
-+	 */
-+	switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
-+	case IP_VERSION(9, 4, 3):
-+	case IP_VERSION(9, 4, 4):
-+		adev->gmc.supported_nps_modes =
-+			BIT(AMDGPU_NPS1_PARTITION_MODE) |
-+			BIT(AMDGPU_NPS4_PARTITION_MODE);
-+		break;
-+	default:
-+		break;
-+	}
-+}
-+
- static int gmc_v9_0_early_init(struct amdgpu_ip_block *ip_block)
- {
- 	struct amdgpu_device *adev = ip_block->adev;
-@@ -2165,6 +2200,7 @@ static int gmc_v9_0_sw_init(struct amdgpu_ip_block *ip_block)
- 	if (r)
- 		return r;
- 
-+	gmc_v9_0_init_nps_details(adev);
- 	/*
- 	 * number of VMs
- 	 * VMID 0 is reserved for System
-@@ -2435,8 +2471,17 @@ static int gmc_v9_0_suspend(struct amdgpu_ip_block *ip_block)
- 
- static int gmc_v9_0_resume(struct amdgpu_ip_block *ip_block)
- {
-+	struct amdgpu_device *adev = ip_block->adev;
- 	int r;
- 
-+	/* If a reset is done for NPS mode switch, read the memory range
-+	 * information again.
-+	 */
-+	if (adev->gmc.reset_flags & AMDGPU_GMC_INIT_RESET_NPS) {
-+		gmc_v9_0_init_sw_mem_ranges(adev, adev->gmc.mem_partitions);
-+		adev->gmc.reset_flags &= ~AMDGPU_GMC_INIT_RESET_NPS;
-+	}
-+
- 	r = gmc_v9_0_hw_init(ip_block);
- 	if (r)
- 		return r;
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c b/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
-index d1bd79bbae53..8a0a63ac88d2 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
-@@ -401,6 +401,17 @@ static int nbio_v7_9_get_compute_partition_mode(struct amdgpu_device *adev)
- 	return px;
- }
- 
-+static bool nbio_v7_9_is_nps_switch_requested(struct amdgpu_device *adev)
-+{
-+	u32 tmp;
-+
-+	tmp = RREG32_SOC15(NBIO, 0, regBIF_BX_PF0_PARTITION_MEM_STATUS);
-+	tmp = REG_GET_FIELD(tmp, BIF_BX_PF0_PARTITION_MEM_STATUS,
-+			    CHANGE_STATUE);
-+
-+	/* 0x8 - NPS switch requested */
-+	return (tmp == 0x8);
-+}
- static u32 nbio_v7_9_get_memory_partition_mode(struct amdgpu_device *adev,
- 					       u32 *supp_modes)
- {
-@@ -508,6 +519,7 @@ const struct amdgpu_nbio_funcs nbio_v7_9_funcs = {
- 	.remap_hdp_registers = nbio_v7_9_remap_hdp_registers,
- 	.get_compute_partition_mode = nbio_v7_9_get_compute_partition_mode,
- 	.get_memory_partition_mode = nbio_v7_9_get_memory_partition_mode,
-+	.is_nps_switch_requested = nbio_v7_9_is_nps_switch_requested,
- 	.init_registers = nbio_v7_9_init_registers,
- 	.get_pcie_replay_count = nbio_v7_9_get_pcie_replay_count,
- 	.set_reg_remap = nbio_v7_9_set_reg_remap,
--- 
-2.25.1
+  Merge tag 'drm-xe-fixes-2024-10-03' of https://gitlab.freedesktop.org/drm/xe/kernel into drm-fixes (2024-10-04 11:00:39 +1000)
 
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-6.12-2024-10-08
+
+for you to fetch changes up to 32fda5650625065b8ae6dbd9967fb572d3835c35:
+
+  drm/radeon: always set GEM function pointer (2024-10-08 10:18:34 -0400)
+
+----------------------------------------------------------------
+amd-drm-fixes-6.12-2024-10-08:
+
+amdgpu:
+- Fix invalid UBSAN warnings
+- Fix artifacts in MPO transitions
+- Hibernation fix
+
+amdkfd:
+- Fix an eviction fence leak
+
+radeon:
+- Add late register for connectors
+- Always set GEM function pointers
+
+----------------------------------------------------------------
+Alex Deucher (1):
+      drm/amdgpu: partially revert powerplay `__counted_by` changes
+
+Christian König (1):
+      drm/radeon: always set GEM function pointer
+
+Hamza Mahfooz (1):
+      drm/amd/display: fix hibernate entry for DCN35+
+
+Josip Pavic (1):
+      drm/amd/display: Clear update flags after update has been applied
+
+Lang Yu (1):
+      drm/amdkfd: Fix an eviction fence leak
+
+Wu Hoi Pok (1):
+      drm/radeon: add late_register for connector
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |  4 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c          |  7 +++-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  7 ++--
+ drivers/gpu/drm/amd/display/dc/core/dc.c          | 45 +++++++++++++++++------
+ drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h      | 26 ++++++-------
+ drivers/gpu/drm/radeon/atombios_dp.c              |  9 +----
+ drivers/gpu/drm/radeon/radeon_connectors.c        | 17 +++++++++
+ drivers/gpu/drm/radeon/radeon_gem.c               |  3 --
+ drivers/gpu/drm/radeon/radeon_object.c            |  1 +
+ 9 files changed, 78 insertions(+), 41 deletions(-)
