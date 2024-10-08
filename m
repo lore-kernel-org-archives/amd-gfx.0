@@ -4,79 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE587CEF173
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Oct 2024 13:25:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F729CEF174
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Oct 2024 13:25:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E56F88EFF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 999E810E52C;
 	Tue,  8 Oct 2024 13:25:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IljllP2L";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="TAJ3AN6z";
 	dkim-atps=neutral
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
- [209.85.167.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9872310E02A;
- Tue,  8 Oct 2024 03:38:23 +0000 (UTC)
-Received: by mail-lf1-f53.google.com with SMTP id
- 2adb3069b0e04-53993c115cfso6524438e87.2; 
- Mon, 07 Oct 2024 20:38:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1728358701; x=1728963501; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=pjQV5PG9znaGBrtaMHn3b/2H4No4n9NWv2MWFM/8u1s=;
- b=IljllP2LhemnHFBwuyz4NOU6pAX56veUlufzXNCvGxS6jqltjJs1fLRVoO+ugG/A99
- R8/qdEYyZWtcukJzHNpur24jzMchBLGWp/cp5UfDgXEjAi/h1FKcjQeHRRSLe7lbdjU1
- vCFkUusVm8CrRo+YVmJbsBoc7TrkmtGg9ZjsGVF7cg/EJCUom+ElnCsTuknQxhyEMaRa
- 0DJtmqDSTu/1y8+mDHIS/OQdzLIcXoqvUOSal+Y4YAbGZiVxvXKmnJVnIq9iQaPBBx0I
- Fyf0X1E07QNDGUvejHz2JcA2yvivU9zwD47B+7kcqwZM/vrLXZzt2L1BR6Y8HhRH8mKJ
- Kt6A==
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9456410E1DD
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Oct 2024 11:21:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1728386497;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=UcSbnHbbfGHslEagghc2Oxwyxy36QouRWHaSbNT3wUQ=;
+ b=TAJ3AN6zcox+NDeIVtUEcb5jYOA9mhiNuBcVkFc4HSuti5c11lCUrO9ekRc/TFjop7j0Pk
+ ITXVy4reSZHi2wKKdJJBiWo7GJmBsuqRuoOW0OqrwqgDsC2istAJPTJg3irShgbB3eiKLa
+ kcecGW/Py6phvvC0pcmYSEqSRwtQKEA=
+Received: from mail-lj1-f197.google.com (mail-lj1-f197.google.com
+ [209.85.208.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-10-0W-ChxqMP9ykUeg0LUJdfQ-1; Tue, 08 Oct 2024 07:21:35 -0400
+X-MC-Unique: 0W-ChxqMP9ykUeg0LUJdfQ-1
+Received: by mail-lj1-f197.google.com with SMTP id
+ 38308e7fff4ca-2fae60b3ea9so45925131fa.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 08 Oct 2024 04:21:35 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1728358701; x=1728963501;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=pjQV5PG9znaGBrtaMHn3b/2H4No4n9NWv2MWFM/8u1s=;
- b=JGO+FtcDnCdK0t9hTqcb4dVVualK44RuB/SfpkYuMPYydrsw7ZW5+ItX3fsifdvhbK
- jHBb3uw8r1KgWq51WY/5BTPbd0hRUJDvFeePiaCNSF8ns9+BKlH50hAjQabEaldXoYsr
- 9sYFzJ+Ba+gbSfpxuG49MYyR/JjsRcMjGT+Qey2plNcrjKMtwW2q16gUHyE+iPldJi6C
- weSUEEN1Ho+doDAf0BXkiEpmUem1KsxFp9vNq2Ods6zH/ORZw+8zEP0qL3CsCrOrqG3X
- 19iYWu3dGH/43ou/yC7lYtQt2uZ5xRPE/0R5AE8Mb5/uNB+825np2NOmH/80+fMUZOsN
- Nz0Q==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUY9MXmLFC9LsGXhot3BUCRP9lpj541mpDJM2hfxRENRCeBrszbO/Dg5cu931hlU4mjNSojpPx6@lists.freedesktop.org,
- AJvYcCVRTv5txnngIqBOTOakjNqs9KdocvlK2L7rIwOKH+lAAdQsCZ1faLqog9OIbCaea0POG3cLCC6Y0Lfs@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx9IPeuUmmfKuBf+xmq8to7OR5ISKqZmVFpgDta4gR+sRS3C3cC
- /dHeHaZTkuv9CK56X7MnM5BRKQ5amO8ABP44uY4t0xZrSclE+0NmNezaeO4rjSE1H9ZWEpgtyD1
- 67QRRiK5p0jfggvfLTighFzGSs58=
-X-Google-Smtp-Source: AGHT+IFsZc1EpKPyldw9Pj60xnYfN/hd9IMOfZUali0NPVvTUoiF3RRl1v9EkanLhvx67ubudnp/8MkDuZJuHGTtcME=
-X-Received: by 2002:a05:6512:3b13:b0:536:550e:7804 with SMTP id
- 2adb3069b0e04-539ab876df9mr7312477e87.18.1728358701155; Mon, 07 Oct 2024
- 20:38:21 -0700 (PDT)
+ d=1e100.net; s=20230601; t=1728386494; x=1728991294;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=UcSbnHbbfGHslEagghc2Oxwyxy36QouRWHaSbNT3wUQ=;
+ b=EPARBmHezRxn7Vr8LilkWNZzIlULobmAKs4BS/oWHl+feQ/2zzY3RBBgO0J6WISaxx
+ bD87jKTLaGdSDq2hVwKDKIfMWi+tIB4byFe/H9bzDpUtMwa92L6E3mAQF9cg8GqeG8nj
+ BVTXW+SJAJb5WT3HPiUED92FTNB8MTGsQG6JaSIV++pa5FLkjMSPiP0sd6klvRm66Ke0
+ 5AJyqs6kKpDLxgXFJRUwC1uxWQFsPz0BdP+UVjSeX+3VMtBCjapd5Drx/omjcMiMwzUG
+ zzGrzlSIAjoBIO1JoLN2BwmUR9d54roDkdvr+IDDH+q3EBLg5suXE/4e8QTelfQ69SbM
+ zUkA==
+X-Gm-Message-State: AOJu0Yw+LuQfkVoddpvqclTbT+1UMMjsozF2qo10eY4H1ofhxG3/gnxA
+ Wcy0x0IV6GfeV09l8iYaLcRbSyxfIKGbBg5Gjp+eCVnmrSnQvV59GrUdMwsIYMt4Z3Mqx/YX8Uw
+ jt+LtbphxZraRqZehHIIGFh/E3zlkkxVbSG5ixEUeiMR9aC7grTLtsBqaBOlHk1c=
+X-Received: by 2002:a2e:b88a:0:b0:2f6:9787:5fc0 with SMTP id
+ 38308e7fff4ca-2faf3dac8d3mr66249381fa.40.1728386494370; 
+ Tue, 08 Oct 2024 04:21:34 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGn2Jp70nRLjgKoeAmV801MzedN7vDdq+hQbk9ltsQB4TOJl1+VpU+6sPFbkWBrgoF9jOUbfQ==
+X-Received: by 2002:a2e:b88a:0:b0:2f6:9787:5fc0 with SMTP id
+ 38308e7fff4ca-2faf3dac8d3mr66249211fa.40.1728386493852; 
+ Tue, 08 Oct 2024 04:21:33 -0700 (PDT)
+Received: from ?IPV6:2001:1c00:c32:7800:5bfa:a036:83f0:f9ec?
+ (2001-1c00-0c32-7800-5bfa-a036-83f0-f9ec.cable.dynamic.v6.ziggo.nl.
+ [2001:1c00:c32:7800:5bfa:a036:83f0:f9ec])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5c8e05c0dc1sm4221672a12.52.2024.10.08.04.21.32
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 08 Oct 2024 04:21:33 -0700 (PDT)
+Message-ID: <779e26f3-87e0-4c28-b535-f9276d9628ae@redhat.com>
+Date: Tue, 8 Oct 2024 13:21:32 +0200
 MIME-Version: 1.0
-References: <20241004081618.27599-1-advaitdhamorikar@gmail.com>
- <00761132-75f3-41fd-b571-30b0cbe5565d@amd.com>
- <CADnq5_OKww1YZ1R_OytEMLcNVwdq=-ckc2gqQ+WMyOv6AZ9kqg@mail.gmail.com>
- <007679b9-b7b6-4385-9a2e-2be392cb5f58@amd.com>
- <CAJ7bepLv3Z9RwuxoBS3SfkMjeBkN1LRTjLEjT8Lv4Jdu-CXb6Q@mail.gmail.com>
- <82c60f1b-a52a-4bc7-a635-06198dba0e13@gmail.com>
-In-Reply-To: <82c60f1b-a52a-4bc7-a635-06198dba0e13@gmail.com>
-From: Advait Dhamorikar <advaitdhamorikar@gmail.com>
-Date: Tue, 8 Oct 2024 09:08:09 +0530
-Message-ID: <CAJ7bepJrm9tJJMSZXz0B_94y8817X4oFpwnrTmUHeagOFgVL7g@mail.gmail.com>
-Subject: Re: [PATCH-next] Fix unintentional integer overflow
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Cc: "Sundararaju, Sathishkumar" <sasundar@amd.com>,
- Alex Deucher <alexdeucher@gmail.com>, alexander.deucher@amd.com, 
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com, 
- simona@ffwll.ch, leo.liu@amd.com, sathishkumar.sundararaju@amd.com, 
- saleemkhan.jamadar@amd.com, Veerabadhran.Gopalakrishnan@amd.com, 
- sonny.jiang@amd.com, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- skhan@linuxfoundation.org, anupnewsmail@gmail.com, 
- "Lazar, Lijo" <lijo.lazar@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/radeon: always set GEM function pointer
+To: Alex Deucher <alexdeucher@gmail.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Christian Zigotzky <chzigotzky@xenosoft.de>, Wu Hoi Pok <wuhoipok@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com
+References: <20241007183241.1584-1-christian.koenig@amd.com>
+ <CADnq5_PpmkbYppJWR6QLzm7J_iR4GpSOYYQbTR2Ni21t++R34w@mail.gmail.com>
+From: Hans de Goede <hdegoede@redhat.com>
+In-Reply-To: <CADnq5_PpmkbYppJWR6QLzm7J_iR4GpSOYYQbTR2Ni21t++R34w@mail.gmail.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US, nl
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 08 Oct 2024 13:25:13 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,126 +96,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Christian,
+Hi,
 
-I am not sure if I correctly understood what you meant,  just to clarify
+On 7-Oct-24 8:36 PM, Alex Deucher wrote:
+> Add a few people.
 
-When you say this
->No, all of this are numerical problems where not taken into account the
->size of the destination type.
+Thank you.
 
->Saying that all of that are basically just style cleanups which doesn't
->need to be back-ported in any way, so please drop the Fixes: tag.
-
->And you should probably change the subject line to something like
->"drm/amdgpu: cleanup shift coding style".
-
-Are you just talking about this message?
->> There are a few instances where we can use 1U instead of int as
->> harvest_config uses unsigned int
->>(adev->jpeg.harvest_config & (1 << i)
->> However I think they should be fixed in a separate patch?
-
-Or is it intended for the complete previous "Fix unintentional
-overflow" patch as well?
-And I should just send a v3 with the two changes?
-
-Thanks and regards,
-Advait
-
-On Mon, 7 Oct 2024 at 19:26, Christian K=C3=B6nig
-<ckoenig.leichtzumerken@gmail.com> wrote:
+> This should fix the radeon ttm gem conversion.
 >
-> Am 05.10.24 um 09:05 schrieb Advait Dhamorikar:
-> > Hi Sathish,
-> >
-> >> Please collate the changes together with Lijo's suggestion as well,
-> >> "1ULL <<" instead of typecast, there are 3 occurrences of the error in
-> >> f0b19b84d391.
-> > I could only observe two instances of this error in f0b19b84d391 at:
-> > 'mask =3D (1 << (adev->jpeg.num_jpeg_inst * adev->jpeg.num_jpeg_rings))=
- - 1;`
-> > and `mask |=3D 1 << ((i * adev->jpeg.num_jpeg_rings) + j);`
-> >
-> > There are a few instances where we can use 1U instead of int as
-> > harvest_config uses unsigned int
-> > (adev->jpeg.harvest_config & (1 << i)
-> > However I think they should be fixed in a separate patch?
->
-> No, all of this are numerical problems where not taken into account the
-> size of the destination type.
->
-> Saying that all of that are basically just style cleanups which doesn't
-> need to be back-ported in any way, so please drop the Fixes: tag.
->
-> And you should probably change the subject line to something like
-> "drm/amdgpu: cleanup shift coding style".
->
-> Regards,
-> Christian.
->
-> >
-> > Thanks and regards,
-> > Advait
-> >
-> > On Sat, 5 Oct 2024 at 09:05, Sundararaju, Sathishkumar <sasundar@amd.co=
-m> wrote:
-> >>
-> >>
-> >> On 10/4/2024 11:30 PM, Alex Deucher wrote:
-> >>> On Fri, Oct 4, 2024 at 5:15=E2=80=AFAM Sundararaju, Sathishkumar
-> >>> <sasundar@amd.com> wrote:
-> >>>> All occurrences of this error fix should have been together in a sin=
-gle patch both in _get and _set callbacks corresponding to f0b19b84d391, pl=
-ease avoid separate patch for each occurrence.
-> >>>>
-> >>>> Sorry Alex, I missed to note this yesterday.
-> >>> I've dropped the patch.  Please pick it up once it's fixed up appropr=
-iately.
-> >> Thanks Alex.
-> >>
-> >> Hi Advait,
-> >> Please collate the changes together with Lijo's suggestion as well,
-> >> "1ULL <<" instead of typecast, there are 3 occurrences of the error in
-> >> f0b19b84d391.
-> >>
-> >> Regards,
-> >> Sathish
-> >>> Thanks,
-> >>>
-> >>> Alex
-> >>>
-> >>>> Regards,
-> >>>> Sathish
-> >>>>
-> >>>>
-> >>>> On 10/4/2024 1:46 PM, Advait Dhamorikar wrote:
-> >>>>
-> >>>> Fix shift-count-overflow when creating mask.
-> >>>> The expression's value may not be what the
-> >>>> programmer intended, because the expression is
-> >>>> evaluated using a narrower integer type.
-> >>>>
-> >>>> Fixes: f0b19b84d391 ("drm/amdgpu: add amdgpu_jpeg_sched_mask debugfs=
-")
-> >>>> Signed-off-by: Advait Dhamorikar <advaitdhamorikar@gmail.com>
-> >>>> ---
-> >>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c | 2 +-
-> >>>>    1 file changed, 1 insertion(+), 1 deletion(-)
-> >>>>
-> >>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c b/drivers/gpu/=
-drm/amd/amdgpu/amdgpu_jpeg.c
-> >>>> index 95e2796919fc..7df402c45f40 100644
-> >>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
-> >>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
-> >>>> @@ -388,7 +388,7 @@ static int amdgpu_debugfs_jpeg_sched_mask_get(vo=
-id *data, u64 *val)
-> >>>>     for (j =3D 0; j < adev->jpeg.num_jpeg_rings; ++j) {
-> >>>>     ring =3D &adev->jpeg.inst[i].ring_dec[j];
-> >>>>     if (ring->sched.ready)
-> >>>> - mask |=3D 1 << ((i * adev->jpeg.num_jpeg_rings) + j);
-> >>>> + mask |=3D (u64)1 << ((i * adev->jpeg.num_jpeg_rings) + j);
-> >>>>     }
-> >>>>     }
-> >>>>     *val =3D mask;
->
+> On Mon, Oct 7, 2024 at 2:33 PM Christian König
+> <ckoenig.leichtzumerken@gmail.com> wrote:
+>>
+>> Make sure to always set the GEM function pointer even for in kernel
+>> allocations. This fixes a NULL pointer deref caused by switching to GEM
+>> references.
+>>
+>> Signed-off-by: Christian König <christian.koenig@amd.com>
+>> Fixes: fd69ef05029f ("drm/radeon: use GEM references instead of TTMs")
+
+I can confirm that this fixes gdm not showing with 6.12-rc1
+(after the "drm/radeon: add late_register for connector" fix):
+
+Tested-by: Hans de Goede <hdegoede@redhat.com>
+
+Regards,
+
+Hans
+
+
+
+>> ---
+>>  drivers/gpu/drm/radeon/radeon_gem.c    | 3 ---
+>>  drivers/gpu/drm/radeon/radeon_object.c | 1 +
+>>  2 files changed, 1 insertion(+), 3 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/radeon/radeon_gem.c b/drivers/gpu/drm/radeon/radeon_gem.c
+>> index 9735f4968b86..bf2d4b16dc2a 100644
+>> --- a/drivers/gpu/drm/radeon/radeon_gem.c
+>> +++ b/drivers/gpu/drm/radeon/radeon_gem.c
+>> @@ -44,8 +44,6 @@ struct sg_table *radeon_gem_prime_get_sg_table(struct drm_gem_object *obj);
+>>  int radeon_gem_prime_pin(struct drm_gem_object *obj);
+>>  void radeon_gem_prime_unpin(struct drm_gem_object *obj);
+>>
+>> -const struct drm_gem_object_funcs radeon_gem_object_funcs;
+>> -
+>>  static vm_fault_t radeon_gem_fault(struct vm_fault *vmf)
+>>  {
+>>         struct ttm_buffer_object *bo = vmf->vma->vm_private_data;
+>> @@ -132,7 +130,6 @@ int radeon_gem_object_create(struct radeon_device *rdev, unsigned long size,
+>>                 return r;
+>>         }
+>>         *obj = &robj->tbo.base;
+>> -       (*obj)->funcs = &radeon_gem_object_funcs;
+>>         robj->pid = task_pid_nr(current);
+>>
+>>         mutex_lock(&rdev->gem.mutex);
+>> diff --git a/drivers/gpu/drm/radeon/radeon_object.c b/drivers/gpu/drm/radeon/radeon_object.c
+>> index d0e4b43d155c..7672404fdb29 100644
+>> --- a/drivers/gpu/drm/radeon/radeon_object.c
+>> +++ b/drivers/gpu/drm/radeon/radeon_object.c
+>> @@ -151,6 +151,7 @@ int radeon_bo_create(struct radeon_device *rdev,
+>>         if (bo == NULL)
+>>                 return -ENOMEM;
+>>         drm_gem_private_object_init(rdev_to_drm(rdev), &bo->tbo.base, size);
+>> +       bo->tbo.base.funcs = &radeon_gem_object_funcs;
+>>         bo->rdev = rdev;
+>>         bo->surface_reg = -1;
+>>         INIT_LIST_HEAD(&bo->list);
+>> --
+>> 2.34.1
+>>
+> 
+
