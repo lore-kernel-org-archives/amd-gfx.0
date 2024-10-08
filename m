@@ -4,78 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F8DBCEDD94
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 715A7CEDD96
 	for <amd-gfx@archiver.kernel.org>; Wed,  9 Oct 2024 13:32:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5518F10E711;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C5DB310E716;
 	Wed,  9 Oct 2024 13:32:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mb+Ucf/u";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="UIKpg2Ub";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A0F010E5BD;
- Tue,  8 Oct 2024 20:55:23 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1226710E5E9;
+ Tue,  8 Oct 2024 21:42:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1728420923; x=1759956923;
+ t=1728423760; x=1759959760;
  h=from:to:cc:subject:date:message-id:references:
  in-reply-to:content-transfer-encoding:mime-version;
- bh=1+Uwh0cRkARIWOuVhj+wK2n/rxu4h5DnfnrxzWw2Xbo=;
- b=mb+Ucf/uvJwHgTVSbDHlyy3lwnV/Hry5kv4G1WXib2He3oRtSrPs18sK
- I38KBwoKDjojy/tVPpnijLlHvun/9FIyZEPUXHw/0rXvzdb3XGEdLYkpc
- ozxZbm7UAkFyv/zEfDrFJq865O446yUdaY6vW6O/cI67+RpJKsuvN7psV
- YtCOAhjRWMDQVMh5hi9zWE6HRuxlU8fl9eUs8Ie/FOITYmVjIu9y5zozM
- P6silpCap73nA4sQSTZMIPlLmjEVIWbAIGXhh2qF0lNP4BG3qmswS9E64
- uGlKfiZ0fyV57PwJzkcz0qGaSTvxv2wMc8/B5AspBPVxkCRs3vbPWC1Mh Q==;
-X-CSE-ConnectionGUID: 8QnQMEOLShKDnyHEE85Hcw==
-X-CSE-MsgGUID: tiOy+QFdScK+yJPpz1+v0w==
-X-IronPort-AV: E=McAfee;i="6700,10204,11219"; a="30540622"
-X-IronPort-AV: E=Sophos;i="6.11,188,1725346800"; d="scan'208";a="30540622"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Oct 2024 13:55:22 -0700
-X-CSE-ConnectionGUID: wDKOgLtqRXiufk3V+jppAw==
-X-CSE-MsgGUID: 7yPteYL8S1KSsLFZrOqGMA==
+ bh=BnspTtkB0oMfPFOukJEPxy6TH24tZ1f8jqx+MhDVjsE=;
+ b=UIKpg2UbFoY4dAIyao07JsSIdt+haneeCyXLiEGnMFMjz25txaw3rR1v
+ ddV1nU567usyvRFEwVmgC5eeh7H+XOF6s+CmxiFgda0KzTfvYBTAZ/RMc
+ rFQDkcrz4wXf5UtJXOtrZ7bykjD99TSzd1rhtP3rD5/ug42+oTdiEVxjv
+ EhktXtKgKKW+L2P0RoW+jUfV90GmV3CSg1QYJRbDZqKsdOGdGnysumwZ0
+ w2L0Rzzdyj2dyc0cySD1218aJ1Y81Ht6PNnojEA+FFlOTm+iBLZJ0kOeF
+ 1EGHdNEgjJTmPz+zirTR+4JyYQvXgS+HR4W7bLvV0cdAlqD1HBh/v/YoR w==;
+X-CSE-ConnectionGUID: MqNwCGxYRoqQpZ4SDQ5VNw==
+X-CSE-MsgGUID: 6iW+1aV9QM2ipiP8jK/6Xw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11219"; a="45141112"
+X-IronPort-AV: E=Sophos;i="6.11,188,1725346800"; d="scan'208";a="45141112"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Oct 2024 14:42:40 -0700
+X-CSE-ConnectionGUID: /qGEkzsMQ4ewQaQTc/kCWg==
+X-CSE-MsgGUID: ZR1wiqLSRYuaXbxSvPRU1w==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,188,1725346800"; d="scan'208";a="79961438"
-Received: from orsmsx601.amr.corp.intel.com ([10.22.229.14])
- by fmviesa003.fm.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
- 08 Oct 2024 13:55:21 -0700
-Received: from orsmsx612.amr.corp.intel.com (10.22.229.25) by
- ORSMSX601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
+X-IronPort-AV: E=Sophos;i="6.11,188,1725346800"; d="scan'208";a="113460368"
+Received: from orsmsx602.amr.corp.intel.com ([10.22.229.15])
+ by orviesa001.jf.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
+ 08 Oct 2024 14:42:40 -0700
+Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX602.amr.corp.intel.com (10.22.229.15) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Tue, 8 Oct 2024 13:55:21 -0700
-Received: from orsmsx602.amr.corp.intel.com (10.22.229.15) by
- ORSMSX612.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ 15.1.2507.39; Tue, 8 Oct 2024 14:42:39 -0700
+Received: from ORSEDG602.ED.cps.intel.com (10.7.248.7) by
+ orsmsx610.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Tue, 8 Oct 2024 13:55:20 -0700
-Received: from ORSEDG601.ED.cps.intel.com (10.7.248.6) by
- orsmsx602.amr.corp.intel.com (10.22.229.15) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39 via Frontend Transport; Tue, 8 Oct 2024 13:55:20 -0700
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com (104.47.57.177)
- by edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
+ 15.1.2507.39 via Frontend Transport; Tue, 8 Oct 2024 14:42:39 -0700
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com (104.47.55.174)
+ by edgegateway.intel.com (134.134.137.103) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.39; Tue, 8 Oct 2024 13:55:19 -0700
+ 15.1.2507.39; Tue, 8 Oct 2024 14:42:38 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eElkbvjbPKuPD6A3RKVyJQZbUt/tODjnnrr7frr8j27UOnxchJB5SNpFbbRruIW4K0lCiuGiZKB67wOHdKv7N1p/zBx939Fok3Y+KaUiVAos/xWWMz6NeoYVV/F1CLu6zO3u/MrF2Dgh1QRDVrksMw66oB94iunvTvbBjVlO3UxueKFfh5LeKJv9yvpb8mNGvrJjSQ9FbPbjzRGEg2Vg1WpMW9kpA/0fBi1l4Nr3m/+dAkInbmh0OMoZea+vIyKAuS6JEJ7H4UkORdhjBP3Do1jlagtIMl679/JecmEnkCBsDuhZ495K7AKenKN0E4QE01oKl31D+nWi8AoUjBlQaQ==
+ b=uk1LeoDqnT/oH9wnN783nQqWWGsXL3lA+UNj6RrPaktD94Btms8iazLR8PFR7pj18j+rGT1NJyITIhH8wgXMJ4JRDxfHhl3hB+OCg6v9dYKJqNsrnOF/OK8Wna7VqWlfY8WG44hO5bBGpALLxndKw0YEqLxc3mRPoVjDE3lwJLOv8qhQVu9FkSdNlGaJ2jur/5X/jVEsm/nziWrsPfWhRBMSFVmvPDb0lH0pEgR8rRT1DJ/Yyb9gQKk/NLLCfZO/N+KoPOz5WsLy/Bo79upYEQTXfkJlTStgYuQFJIMwXFUHpJPvbdWGgv1OBaLP/8HWCUpTH+JaQHPVOVY2oJHVFA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mrzpoi1XyhTJge7hV9iv0SsFoxNo3Ax4K1fPDyZb7ow=;
- b=I9BCNAJ/v/ko8y/GIK0ENtfRmkuZXNlqj33U1w51kXhInKj7w0RoYqFQ8z6t6IJnUViNbNXmaE8e27puLVwlmz/qzqVYJKGdsQ9ynRS5gN/Zpk0u6tNOxNZRaDTzHSmE0i6xhxEvA27QSTrmefLqBWcM0X41fG5GFkRWP4aSUcPhnVmC/ZSQW9rPbwTOkN57yaKbh1FdWXnsBdJgrUlVrwzomlVxIZDsWvux01bQVrXit1xJFMkTjyVGJAu0ZDY9C0lIbrxd3lEho7pcEjhbAq4Xx/qjxKxR2uy7as6ghTvP7PT1jahBM54rK2OZea6YptpLT6Mz9CDGh+BKncASSQ==
+ bh=fWFCXEMShd/KAp4BV4QOMJbtQaKS0FCHZF1Y6oZxb7A=;
+ b=vP2DdhcRbewj5Nk+eLP0TvRWnh53IZJe3WmlYJ1n6fstJf3JMJFKnblw8+mar02cfFc5l6YSl8GY4otKiaH4KxTqS+sMTLVnNo4Za5wZNcCuLr1Nb0emj8WsXCWqA2nFJZbv7dCDexfjJGxCJfN/Aj6NMdzaTnhlceA+BRVpWiP2hc9s+kNrgikWDhCIE1ThKnLWeREUwXjc8HDYT/FG1atQNTK9jkep8UqX2Kg6p6fjLuGLS9Cnl7nTgs/vytgOdZsH4OoyPvOfqDc6HJDu1r7PZoEoN076hV+SQc5BRWfkIe2BYRTL/BLhjBT4plyV+wWkOJYxWGWi6IaX8AfJ9g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
  dkim=pass header.d=intel.com; arc=none
 Received: from CH0PR11MB5444.namprd11.prod.outlook.com (2603:10b6:610:d3::13)
- by DM4PR11MB7278.namprd11.prod.outlook.com (2603:10b6:8:10a::5) with
- Microsoft SMTP Server (version=TLS1_2,
+ by MW4PR11MB6667.namprd11.prod.outlook.com (2603:10b6:303:1ea::22)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8026.24; Tue, 8 Oct
- 2024 20:55:11 +0000
+ 2024 21:42:35 +0000
 Received: from CH0PR11MB5444.namprd11.prod.outlook.com
  ([fe80::5f89:ba81:ff70:bace]) by CH0PR11MB5444.namprd11.prod.outlook.com
  ([fe80::5f89:ba81:ff70:bace%4]) with mapi id 15.20.8026.020; Tue, 8 Oct 2024
- 20:55:09 +0000
+ 21:42:35 +0000
 From: "Cavitt, Jonathan" <jonathan.cavitt@intel.com>
 To: Thomas Zimmermann <tzimmermann@suse.de>, "simona@ffwll.ch"
  <simona@ffwll.ch>, "airlied@gmail.com" <airlied@gmail.com>,
@@ -84,18 +80,16 @@ To: Thomas Zimmermann <tzimmermann@suse.de>, "simona@ffwll.ch"
 CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
  "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
  "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>, lkp
- <lkp@intel.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, "stable@vger.kernel.org"
- <stable@vger.kernel.org>, "Cavitt, Jonathan" <jonathan.cavitt@intel.com>
-Subject: RE: [PATCH v3 03/12] drm/fbdev-dma: Select FB_DEFERRED_IO
-Thread-Topic: [PATCH v3 03/12] drm/fbdev-dma: Select FB_DEFERRED_IO
-Thread-Index: AQHbGXqpmFMvkE0CokOI0NXBNPm7fbJ9R7DQ
-Date: Tue, 8 Oct 2024 20:55:09 +0000
-Message-ID: <CH0PR11MB54444DAC524694F45BC68F7DE57E2@CH0PR11MB5444.namprd11.prod.outlook.com>
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>, "Cavitt,
+ Jonathan" <jonathan.cavitt@intel.com>
+Subject: RE: [PATCH v3 12/12] drm/client: Add client-lib module
+Thread-Topic: [PATCH v3 12/12] drm/client: Add client-lib module
+Thread-Index: AQHbGXqp7p1miKa7GUiRVL/McbSgYrJ9VUCg
+Date: Tue, 8 Oct 2024 21:42:35 +0000
+Message-ID: <CH0PR11MB5444A6E3E98CEC438C3B5A8AE57E2@CH0PR11MB5444.namprd11.prod.outlook.com>
 References: <20241008120652.159190-1-tzimmermann@suse.de>
- <20241008120652.159190-4-tzimmermann@suse.de>
-In-Reply-To: <20241008120652.159190-4-tzimmermann@suse.de>
+ <20241008120652.159190-13-tzimmermann@suse.de>
+In-Reply-To: <20241008120652.159190-13-tzimmermann@suse.de>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
@@ -103,80 +97,77 @@ X-MS-TNEF-Correlator:
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=intel.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CH0PR11MB5444:EE_|DM4PR11MB7278:EE_
-x-ms-office365-filtering-correlation-id: 000efd4e-2ce2-469c-cc16-08dce7db7eec
+x-ms-traffictypediagnostic: CH0PR11MB5444:EE_|MW4PR11MB6667:EE_
+x-ms-office365-filtering-correlation-id: 05ecec38-d813-47c1-a844-08dce7e21f6e
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|7416014|376014|366016|1800799024|38070700018; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?INstQ7Ggfsq+SaCT8kw1u8wuOv9fa5AYIV0dxlSgCDKsQnMCePXgZFSO7zMk?=
- =?us-ascii?Q?WGU5Zb7BXVf+XJJ2M4Sx8zEg3mLNIqqfLP2qGz6gvlnh79S42r+h+G0RHsLK?=
- =?us-ascii?Q?rWCqRGy/er4IavNy8O8wzhaI1/wC3aJN/78EoOEyE+sUOHfqoJvNX2ntdVuc?=
- =?us-ascii?Q?glje5Hj1yBnPPoZOLjbstSMwe4bMI79lwCRQwEc9Deo6AJDjoiSRZ8iWxPJs?=
- =?us-ascii?Q?T5roRRR2SZTJblrmjNuohvopYXcvMVQrEPkSyhaF0zxU2jdCPPtNsnae5zeS?=
- =?us-ascii?Q?FqXTQ0Hv+uyzuSz8YaG0N/OdpwqbuUtBwi16sx9xhrS02c7joGeEMpkePApH?=
- =?us-ascii?Q?SnS+rPWiy5zPjLHtN2KuxhF8s6BKRLeKT4kpyDntu5COg2NFvv1tP1g3G1VR?=
- =?us-ascii?Q?5NY+fxMhNRLYhf3zS8POlH0pNCCjxvliJsuLsOwtfhzIlerA6KgL2honoNBV?=
- =?us-ascii?Q?7Na/xAr6wWZYXhHxZ1Wsimn0OedYejBTioYYLEicRUSgB8xizMfsFfAbZM8h?=
- =?us-ascii?Q?lDV8W3BFxLiSmM4am8RzGaTBTwOTgh+7VtffykUsGyWUuRY5bik8FVp9h3E0?=
- =?us-ascii?Q?RxwQ/ogUSbnr08/d3qV2jtOySjgjOFK9RGjZLWBSYCpuHpXCjI2YVIDhiWiN?=
- =?us-ascii?Q?gLN2HoNhVn1+evVNWYCPYL6h6FDK1c3HdW8MPKYtWlel7IODwjHpAn+Nhxql?=
- =?us-ascii?Q?8ZDtJtGmrs5lBQ5SLYY3XeGynhRBAFENE3nFb3sk0/bCEc06Ccyoi1/IwS8R?=
- =?us-ascii?Q?UqH7tkYs5jxe2xL64UK5w9pbObpDXcwR+44uLFmoeNhfbcp0IfSoQdO4JOhe?=
- =?us-ascii?Q?WR+K14RAw1TKzO+kifPLAIOiHDcznhCY1w6TYhWD6KxABFixOOf5aLrDqU4F?=
- =?us-ascii?Q?6EMcBU+Ps6bx0UqFni2RTwaghtjN5z1DEoX6d+FCxkYoaaX7PtMTnoRVB0Lr?=
- =?us-ascii?Q?Dbot09X6c/yodcbAFSKUTKcF9rsmu9mWrQqY5gA5fBui8BxRepojcLXIOhfm?=
- =?us-ascii?Q?Pbp9x+BpPSWinqzh7gRGJAuEg4mjjyMz91V1oDRVlr92ZprA/ixk3LcbjYPU?=
- =?us-ascii?Q?LM+YM22eOc1Rt2HdEN3otGA88zsh3IiF7q0P62n9mEh4IohlL4anmnJuM1th?=
- =?us-ascii?Q?XJNTEnuOfWKVrj/2vPB8a8v3h8AFmKWkfpY7zSFJhhClDtIxSQ+Ahh4CXEHC?=
- =?us-ascii?Q?qj0F1j0XmTaMwjVc7hdkz0BElN9GA0cVk8rZ8VstIfbaCnz2v8y8ZeKCARj6?=
- =?us-ascii?Q?EEMeyKnjVcUj0h/M25EOE1N6pNlYGK1FfWPPugxvlRkhY2AKCUVSUCk+K+gm?=
- =?us-ascii?Q?if0uPvktEjySXUf3DUcvfxyht1Q1Od5J8RoDXXA8+Jhvag=3D=3D?=
+x-microsoft-antispam: BCL:0; ARA:13230040|366016|376014|1800799024|38070700018;
+x-microsoft-antispam-message-info: =?us-ascii?Q?lz1+T6izaoEGRPcHUWC92m1M412WpzmMT7bC+4h4jYtYwo5RuRFnhwIK3BUT?=
+ =?us-ascii?Q?w+2PQocGiHBwuraiP80NhZMSKvZDnZ+rVvHmcvOD7mB/6CoHcVl0AMr6jqx+?=
+ =?us-ascii?Q?vU+cMp95HKho/eTJqI6/rsMEyOnkmJwbXenlw1ej1hYjT65KTjFBbYHiioHA?=
+ =?us-ascii?Q?BkJv48PBMkoa2DJ5XgyvqqKtpWVgNk9YsXqHXIDD/PJYyt/mQrhj0FEOTtJc?=
+ =?us-ascii?Q?cbb4YLBfczyu4YSf+P19l2v6u7fGT0qRWkuUZtvr8yeJhKlDjYeMmKyQc1mu?=
+ =?us-ascii?Q?PztyGiW/CsNA2UV6nCMwUQu89jRXD45zCTEzsYcVVH4dSiEr++nFCOOn5dJu?=
+ =?us-ascii?Q?FzTYCUQpbAqZgf6iyiCbvHNe2VXIDE81apkSJyfZ6KULLnlP351GHl3HvVv3?=
+ =?us-ascii?Q?DzSPCM56nmCWjaSLBXDoMYY2x7zQFmHn0ExPARClQ/T72NGX6H2cy7kcAo2w?=
+ =?us-ascii?Q?K7n8gGufHsWVdZNlbF8/Xtc2gy+Yy93SHTCkjAxSfH78aNVlrKb95vZF5bRX?=
+ =?us-ascii?Q?y7Ful2Ma2I4uH/GzOQ+Ij2VkN8qzqhq4Kb+QOXjRqW5DA//Ke/ThZvKEezKi?=
+ =?us-ascii?Q?nXpEekfFPKCv3+YqcjmZ9f9pID6zIl7LvlT+ScSAQUNQ5GweylA5l9wCuvzL?=
+ =?us-ascii?Q?djs3jtrkU+KnTTqgvptscSgPn/oMFb/5P93TTXDlXa6n9fpFvjMDtJyxFoCd?=
+ =?us-ascii?Q?ZOsX34RIbcTZ9L6dJnOim7j0JWuoVeQnzSqCSHhnPKaYO6l88ZqhwNmOUXlY?=
+ =?us-ascii?Q?egRqiBZTvfFDTw4YXQi6XiPe8BxXCSlXcmDBKsx0qtk+0iEfsf1vWeZv2/IH?=
+ =?us-ascii?Q?sS/7EbQUshxTFBiysEL6rv0PGS3aoyb9r+puAYzhn2It9KKjJ9PE4SipzWh5?=
+ =?us-ascii?Q?vCP1n4lILKBv/RWY7fIGiR3ufQ3yz9j5tSa8hxi9b6VdkqkCOKio9G+S0I1E?=
+ =?us-ascii?Q?vq6fOWR1bEJpGpb4sKOpgXD1KTRjvpXjGzZ4gpkdU1+4BgfiB+9sektjEEe9?=
+ =?us-ascii?Q?N1bmweet/JdxhF72oRZg9yoEsMwrNOXTFeIzMBvmoGQgWsgH1kvN9V7cZqjP?=
+ =?us-ascii?Q?NH4lInWIhKLsNJmna+byCgP3DcrydJDxGKFnGpa/aZtS/kqvboAHtQDyU04F?=
+ =?us-ascii?Q?cE9ZHDQhath4HMmouaZevksYfhLcjoYXcV5TeebOkonVeweHRpQxR86gEG8K?=
+ =?us-ascii?Q?FL7aVDzxzGb/c7pwBgu0cL0WrhkKXrZIrEBA2ej/aNpB0P7DsloWBSyQZ0iU?=
+ =?us-ascii?Q?Z0fK/5Qlxifb4LOwwQrwGO6yRGgoA6QAGipnhU1n25Wnn8xWmleTEg8JGqoF?=
+ =?us-ascii?Q?PyWT0OwHDfbrQZc9DwbcHirdDI9e6skvEbjYNuZ5rqs4kg=3D=3D?=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CH0PR11MB5444.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(366016)(1800799024)(38070700018); DIR:OUT;
- SFP:1101; 
+ SFS:(13230040)(366016)(376014)(1800799024)(38070700018); DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?kvEAS363Iq4c6wuRiu+WHWtJdnkhvLcFx8Yms5iJ+3lSyHktYMs1gnn7yL1e?=
- =?us-ascii?Q?yZL5Be9YxCiySJ0ibyE47k0Gbj+IH8s2yGLTYqZ3ZFsnmBFtywiBtsyg8/lz?=
- =?us-ascii?Q?zAjTcWxcml+nVpBiIg8JYHXfENaU35+vAeOFu8cbZBMAKL6uiTm0cr+T5CN8?=
- =?us-ascii?Q?mfCRLHaR4dOCMcyeNAVlNQkj4GJuX/mhYW5sBUz4MBkUgA0pd20KbVJxhTX3?=
- =?us-ascii?Q?Kd3tZUxJKi1cLYitKqSdgL6QlBgi0zXnuhN5LNHISU97+IjhozXIDyj0Vui0?=
- =?us-ascii?Q?Njaa3hoUh1ti01448oJCjTSu69hP39tg1QFwVz8pKWnSDpLqn6Joey1g6J1O?=
- =?us-ascii?Q?oAR6B18lJkpmKOIFeTp9yd6Z4CZ6EZjYVX9+EDlJaDpQmAUgbQl4SoAX7krG?=
- =?us-ascii?Q?dGpWv0yiDj48l9OU2mFzdYMTigHKV2wuYC/tRAxSlelCNkL9i2CT/R1QISwS?=
- =?us-ascii?Q?ulmAJckJhXX3I/gxuyDKe7hH5F0lTEEo/IeW3Tj66WR+nxTigjVrw7gCyvk3?=
- =?us-ascii?Q?imWeVRFH9d9T3gMTQFHP+FNcdV5d6CwX+J5/kNZXNkba3CvIl2zqNfBF4gpY?=
- =?us-ascii?Q?PcJDY/vam3FnS1L3TPOM8PhGoub/AJhQFDnMUL1Y0TcLoSDult12BYBjZrd8?=
- =?us-ascii?Q?QiquHPMO5vuDsRszUbC00oPOR9XkBsSDcB4OfsKDBJIutnZpKAQtbANFw6on?=
- =?us-ascii?Q?IetE+J3KaVf788yEnNqZbS54IW6uR+Ol97J7TG6BgFIHXXk99SsU0xhgzirg?=
- =?us-ascii?Q?PPhZ6oN+pSTsEH7V1TWG/vCtwGg0XAI1UJ2UOXOHboMQ0Wv+mZLCvyVjLqrq?=
- =?us-ascii?Q?oGbJEcPCrhraJ6XpZdv9KdI7sT43N9CceNuVeWcPrrW7np3DBxyrRuVXBi/s?=
- =?us-ascii?Q?i6X8mNdDNpCgNJncpOBFN4oZCpN230pMFZgE5CLD2lgcD+ko4hb1Id9T0qdF?=
- =?us-ascii?Q?ru6I9L6tot3eQvBn8Ru6CYxPCi9zTIZ6Bx4WWZoT5wgxmNGFlH6MwR7lxKdU?=
- =?us-ascii?Q?tLRhmlkuZOr5odCHatOdbeGTd3TnKIdnqqtyjKbbGHX1hZ5oUv+ywFEbK28N?=
- =?us-ascii?Q?/RgL2NLAj9whB+1M9mPbHfUX5SEEtGz0JnWoXd5qKFfx7v5HS0q2m7/HRNT6?=
- =?us-ascii?Q?ccQqOvRw99GiwLOzRzcra4CKYU9G81mTG+mC0cy3dk1atEZM53QpaB0L7neO?=
- =?us-ascii?Q?VuFydWZ9aMKPjMJ+P1A+4eELYxgXA3KHGVYOAGXnnPYW6tpSR9ixS1pxoQF/?=
- =?us-ascii?Q?MXqCiGCJxlhVp7Y40ub/G8VItqLi69p8oAj7FCrCuoOFJNGA0/TF/I7ZPpXN?=
- =?us-ascii?Q?PEjausawcZWpVusF1TkNjvAnfeg45QoAfOi1ic1q1l7gxOR9waiZQIWliqeh?=
- =?us-ascii?Q?n5qVp0p8U3DilYbAJgjt81PslFT/IoEskQbeGmzSmGhQatrUeN/4DKpnQxRy?=
- =?us-ascii?Q?LPbXYPMv+a1eYPzo40DouF25ySzzT/osjWAJuKrggojoJpeFgh5GLI3tqa+S?=
- =?us-ascii?Q?6Uq0G00k38VDONSJEDtrBjEhQIE2VTx8GjkJlIQoqleMWw/bOQqu7e9XOVBd?=
- =?us-ascii?Q?9EF+O+qPD/IqJlzUW7JAvyAexYr/U0toIexTB59Xe71YvcWcQm4zQ4MTBZIB?=
- =?us-ascii?Q?Dg=3D=3D?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?z76LcrbkzOPRLxB1H8GUXm5++W2kBVlrY1/lnvK85XboFhrB6SoXVSxq/E2p?=
+ =?us-ascii?Q?Uk4F3lX05LWDNY5B9xlpJOHqFTZhi4+t6t/koemz+9/UDfaCLBEmPzwNUQkb?=
+ =?us-ascii?Q?4hd9Zf21LTvUJsqcH7MAP5FYHtPfd1hXhpf3PGD7qt5lsKboFDg5guZ9hSfb?=
+ =?us-ascii?Q?w7WTcsZ/AcVtWqsOqubl8eOkoSP/IDrAu56b/HzeDCwpz21Xo8WfetglmZ5C?=
+ =?us-ascii?Q?Rj/9jYwpmP9gcfMken/jyp4SN+XdPNvlavuWT3RGeOOywYQ8L5u3UEi9w3Ib?=
+ =?us-ascii?Q?7SU5a7My84L9sx4kVbO6zGbv+KF+qTmQ8/wPwFOjl0UQWNdTkdE4/Tz4iSI5?=
+ =?us-ascii?Q?IsGlMHdAjjdftaVUHtjZzK0NPyTt7LKLpcBb3PujImoz6e3oH6hftKAQsR8T?=
+ =?us-ascii?Q?+p34FVfAZe9x5amjrfl2dPlhuJCHWFDffcNFlBmyQuOxVtUqCyJxBgk+f5WS?=
+ =?us-ascii?Q?6rA+kygrpglPKonLKOk/lUQxwKnvVUItb1HWj+E0ii9tEwpt9nq/6RmYWDKh?=
+ =?us-ascii?Q?yJsuyaCxEygq2Ekl3j4xwlkYmt25qwDTJyHHlYLyA9PVsQTIsUUSNNCiNbvl?=
+ =?us-ascii?Q?2iLfmHeHD+9KOvRi8cODOv83dN1wE3NhZ8QezHOuggTb8qTg18EA/TQtqb3p?=
+ =?us-ascii?Q?C9BQFksrj413z5v6ycUxe+Euu29uZL2cX/Lan6BZOkcE83kBtVgJDAEnhBDO?=
+ =?us-ascii?Q?c2XoRXC7KvC3LiK9O6q7QE1qnvL93Qd6p5MSHWZxJQkT8B1oznh4Ar2NpuaS?=
+ =?us-ascii?Q?s7TuKHhan+UKxDCNo3/i5CbeuITptTGMgw/SDB8cO/xEmg/LvWVuZw5neUZ1?=
+ =?us-ascii?Q?awHsKX6tIUBPL4kpNMjj/hJU9f3N97ZKYb6xc5Vc0RPSFj+BXGPzG8TU8njL?=
+ =?us-ascii?Q?92xlueyvFWuAIzNm1zNvY/X+oR7T/5DJhT3aT0oA5HNk6p1INKfAUTCp5LPo?=
+ =?us-ascii?Q?BvgOpIVTeiwwAvvKI8EJXDIdFpoj9WKoJUgJoN8AEWa+70TCJ/akqTAZG5+U?=
+ =?us-ascii?Q?Apwcg7TSXqBrgX8t+APxKlTiWMde+DmHN3CX2pjAigdgkCWaG/6tVek/L+x/?=
+ =?us-ascii?Q?Ks0ZJYLmaDBfcj8qHPmgxcUkS8Nls0GpspJY++pIeHiv6Vsomq0XGyxztZdb?=
+ =?us-ascii?Q?Q7RoYXGEWMMQtCId8UJmqdDgCsY+JYndeUUTiiagfSqnQn/jhO3kJVJ7JQjw?=
+ =?us-ascii?Q?SVxUIzoI8Eq2EbYFRfOmWlMp4Ba24ChDpA9CbSQKyRNBi+xEMN4X/ylD1Moh?=
+ =?us-ascii?Q?J9gODd0JZ/BFfUzK+eiAo7r0vTEtG29O/n+2I2CzGgzSKEKdJi6pqIM9WB4h?=
+ =?us-ascii?Q?r7/mZ/6N71ttOnaWz3WsQHZQo2itqoRaartWiqO7kzsKxP3EVVK3nWArAAjU?=
+ =?us-ascii?Q?m+HBlknNeb7Px6+4G7GukJ7F9aFFxrJw3Y0yI9kPj97+AhRVm8d5fJK2/Dex?=
+ =?us-ascii?Q?eEk3ZJRYvHdigkgtxhbkQuLZAAY5QIsVejDr3HpPAPqn3GXPUcE+C8oHVEdK?=
+ =?us-ascii?Q?4gLgilT71rhAaVAnzN04RBh65EpOtkv5fSrrGIarVTVC9raGaVa3594cLyx0?=
+ =?us-ascii?Q?JlTuuRhBNtt3vjd/zuv6TUvQfV378EBpaVnXg2C5?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: CH0PR11MB5444.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 000efd4e-2ce2-469c-cc16-08dce7db7eec
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Oct 2024 20:55:09.2641 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 05ecec38-d813-47c1-a844-08dce7e21f6e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Oct 2024 21:42:35.5506 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: vYfcp9X1eNwBXt3ySRcInaROJyRQlTomPSzC4rHcU/UqwmZ9zQuxsPwViF1+hEIzITBt/GQ5EM6MrFuzeaMsMOdM2x06U9QFVA4jTOACW+o=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR11MB7278
+X-MS-Exchange-CrossTenant-userprincipalname: GKM2TLvhTwbl6QIfanhAMkYBHyQ3nPpjzPz3N08wi1PanJung096Z3FdKBapEs6MoVX6XXdi45WHEfQxDyhuwJulMijIg4HJYY/bK9MdYtk=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR11MB6667
 X-OriginatorOrg: intel.com
 X-Mailman-Approved-At: Wed, 09 Oct 2024 13:32:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -196,50 +187,38 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 -----Original Message-----
 From: Intel-gfx <intel-gfx-bounces@lists.freedesktop.org> On Behalf Of Thom=
 as Zimmermann
-Sent: Tuesday, October 8, 2024 4:59 AM
+Sent: Tuesday, October 8, 2024 5:00 AM
 To: simona@ffwll.ch; airlied@gmail.com; javierm@redhat.com; jfalempe@redhat=
 .com
 Cc: dri-devel@lists.freedesktop.org; amd-gfx@lists.freedesktop.org; intel-g=
 fx@lists.freedesktop.org; intel-xe@lists.freedesktop.org; Thomas Zimmermann=
- <tzimmermann@suse.de>; lkp <lkp@intel.com>; Maarten Lankhorst <maarten.lan=
-khorst@linux.intel.com>; Maxime Ripard <mripard@kernel.org>; stable@vger.ke=
-rnel.org
-Subject: [PATCH v3 03/12] drm/fbdev-dma: Select FB_DEFERRED_IO
+ <tzimmermann@suse.de>
+Subject: [PATCH v3 12/12] drm/client: Add client-lib module
 >=20
-> Commit 808a40b69468 ("drm/fbdev-dma: Implement damage handling and
-> deferred I/O") added deferred I/O for fbdev-dma. Also select the
-> Kconfig symbol FB_DEFERRED_IO (via FB_DMAMEM_HELPERS_DEFERRED). Fixes
-> build errors about missing fbdefio, such as
+> Add drm_client_lib.ko to contain DRM's built-in client. Move the
+> existing client for fbdev emulation into the new module. Protect the
+> new module behind CONFIG_DRM_CLIENT_LIB.
 >=20
-> drivers/gpu/drm/drm_fbdev_dma.c:218:26: error: 'struct drm_fb_helper' has=
- no member named 'fbdefio'
->   218 |                 fb_helper->fbdefio.delay =3D HZ / 20;
->       |                          ^~
-> drivers/gpu/drm/drm_fbdev_dma.c:219:26: error: 'struct drm_fb_helper' has=
- no member named 'fbdefio'
->   219 |                 fb_helper->fbdefio.deferred_io =3D drm_fb_helper_=
-deferred_io;
->       |                          ^~
-> drivers/gpu/drm/drm_fbdev_dma.c:221:21: error: 'struct fb_info' has no me=
-mber named 'fbdefio'
->   221 |                 info->fbdefio =3D &fb_helper->fbdefio;
->       |                     ^~
-> drivers/gpu/drm/drm_fbdev_dma.c:221:43: error: 'struct drm_fb_helper' has=
- no member named 'fbdefio'
->   221 |                 info->fbdefio =3D &fb_helper->fbdefio;
->       |                                           ^~
+> The Kconfig rules separate the DRM drivers from the DRM clients. A
+> driver can opt into the default clients, but the user configures
+> each client individually. To do so, DRM drivers still select
+> DRM_CLIENT_SELECTION. The option is now a tristate that further
+> selects all dependencies of the enabled DRM clients. There's
+> a menu option for each client. Enabling at least one client also
+> selects DRM_CLIENT_SETUP, so that drivers call drm_client_setup().
+> New DRM clients should depend on DRM_CLIENT_SELECTION.
+>=20
+> There are existing kernel options in drm_fb_helper.o, so leave this
+> file in the KMS-helper module for now.
+>=20
+> v3:
+> - fix commit changelog
+> v2:
+> - keep client code in core
+> - protect lib with DRM_CLIENT_LIB
+> - remove duplicate line from Makefile (Jocelyn)
 >=20
 > Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes: https://lore.kernel.org/oe-kbuild-all/202410050241.Mox9QRjP-lkp@i=
-ntel.com/
-> Fixes: 808a40b69468 ("drm/fbdev-dma: Implement damage handling and deferr=
-ed I/O")
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: Javier Martinez Canillas <javierm@redhat.com>
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> Cc: <stable@vger.kernel.org> # v6.11+
 
 LGTM.
 
@@ -247,22 +226,146 @@ Reviewed-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
 -Jonathan Cavitt
 
 > ---
->  drivers/gpu/drm/Kconfig | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/gpu/drm/Kconfig                 | 26 ++++++++++++++++++++-----
+>  drivers/gpu/drm/Makefile                | 14 +++++++++----
+>  drivers/gpu/drm/drm_client_setup.c      |  3 +++
+>  drivers/gpu/drm/drm_kms_helper_common.c |  3 +++
+>  4 files changed, 37 insertions(+), 9 deletions(-)
 >=20
 > diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
-> index 1df4e627e3d3..db2e206a117c 100644
+> index ea1cc924528c..a9055c0b9a1a 100644
 > --- a/drivers/gpu/drm/Kconfig
 > +++ b/drivers/gpu/drm/Kconfig
-> @@ -338,7 +338,7 @@ config DRM_TTM_HELPER
->  config DRM_GEM_DMA_HELPER
->  	tristate
->  	depends on DRM
-> -	select FB_DMAMEM_HELPERS if DRM_FBDEV_EMULATION
-> +	select FB_DMAMEM_HELPERS_DEFERRED if DRM_FBDEV_EMULATION
->  	help
->  	  Choose this if you need the GEM DMA helper functions
+> @@ -9,8 +9,6 @@ menuconfig DRM
+>  	tristate "Direct Rendering Manager (XFree86 4.1.0 and higher DRI suppor=
+t)"
+>  	depends on (AGP || AGP=3Dn) && !EMULATED_CMPXCHG && HAS_DMA
+>  	select DRM_PANEL_ORIENTATION_QUIRKS
+> -	select DRM_KMS_HELPER if DRM_FBDEV_EMULATION
+> -	select FB_CORE if DRM_FBDEV_EMULATION
+>  	select HDMI
+>  	select I2C
+>  	select DMA_SHARED_BUFFER
+> @@ -218,10 +216,19 @@ config DRM_CLIENT
+>  	  option. Drivers that support the default clients should
+>  	  select DRM_CLIENT_SELECTION instead.
 > =20
+> +config DRM_CLIENT_LIB
+> +	tristate
+> +	depends on DRM
+> +	select DRM_KMS_HELPER if DRM_FBDEV_EMULATION
+> +	select FB_CORE if DRM_FBDEV_EMULATION
+> +	help
+> +	  This option enables the DRM client library and selects all
+> +	  modules and components according to the enabled clients.
+> +
+>  config DRM_CLIENT_SELECTION
+> -	bool
+> +	tristate
+>  	depends on DRM
+> -	select DRM_CLIENT_SETUP if DRM_FBDEV_EMULATION
+> +	select DRM_CLIENT_LIB if DRM_FBDEV_EMULATION
+>  	help
+>  	  Drivers that support in-kernel DRM clients have to select this
+>  	  option.
+> @@ -229,11 +236,18 @@ config DRM_CLIENT_SELECTION
+>  config DRM_CLIENT_SETUP
+>  	bool
+>  	depends on DRM_CLIENT_SELECTION
+> +	help
+> +	  Enables the DRM client selection. DRM drivers that support the
+> +	  default clients should select DRM_CLIENT_SELECTION instead.
+> +
+> +menu "Supported DRM clients"
+> +	depends on DRM_CLIENT_SELECTION
+> =20
+>  config DRM_FBDEV_EMULATION
+>  	bool "Enable legacy fbdev support for your modesetting driver"
+> -	depends on DRM
+> +	depends on DRM_CLIENT_SELECTION
+>  	select DRM_CLIENT
+> +	select DRM_CLIENT_SETUP
+>  	select FRAMEBUFFER_CONSOLE_DETECT_PRIMARY if FRAMEBUFFER_CONSOLE
+>  	default FB
+>  	help
+> @@ -272,6 +286,8 @@ config DRM_FBDEV_LEAK_PHYS_SMEM
+>  	  If in doubt, say "N" or spread the word to your closed source
+>  	  library vendor.
+> =20
+> +endmenu
+> +
+>  config DRM_LOAD_EDID_FIRMWARE
+>  	bool "Allow to specify an EDID data set instead of probing for it"
+>  	depends on DRM
+> diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
+> index c3e5d353588e..edfd2ebaf153 100644
+> --- a/drivers/gpu/drm/Makefile
+> +++ b/drivers/gpu/drm/Makefile
+> @@ -145,13 +145,19 @@ drm_kms_helper-y :=3D \
+>  	drm_probe_helper.o \
+>  	drm_self_refresh_helper.o \
+>  	drm_simple_kms_helper.o
+> -drm_kms_helper-$(CONFIG_DRM_CLIENT_SETUP) +=3D \
+> -	drm_client_setup.o
+>  drm_kms_helper-$(CONFIG_DRM_PANEL_BRIDGE) +=3D bridge/panel.o
+> -drm_kms_helper-$(CONFIG_DRM_FBDEV_EMULATION) +=3D \
+> +obj-$(CONFIG_DRM_KMS_HELPER) +=3D drm_kms_helper.o
+> +
+> +#
+> +# DRM clients
+> +#
+> +
+> +drm_client_lib-y :=3D \
+> +	drm_client_setup.o
+> +drm_client_lib-$(CONFIG_DRM_FBDEV_EMULATION) +=3D \
+>  	drm_fbdev_client.o \
+>  	drm_fb_helper.o
+> -obj-$(CONFIG_DRM_KMS_HELPER) +=3D drm_kms_helper.o
+> +obj-$(CONFIG_DRM_CLIENT_LIB) +=3D drm_client_lib.o
+> =20
+>  #
+>  # Drivers and the rest
+> diff --git a/drivers/gpu/drm/drm_client_setup.c b/drivers/gpu/drm/drm_cli=
+ent_setup.c
+> index 5969c4ffe31b..c14221ca5a0d 100644
+> --- a/drivers/gpu/drm/drm_client_setup.c
+> +++ b/drivers/gpu/drm/drm_client_setup.c
+> @@ -64,3 +64,6 @@ void drm_client_setup_with_color_mode(struct drm_device=
+ *dev, unsigned int color
+>  	drm_client_setup_with_fourcc(dev, fourcc);
+>  }
+>  EXPORT_SYMBOL(drm_client_setup_with_color_mode);
+> +
+> +MODULE_DESCRIPTION("In-kernel DRM clients");
+> +MODULE_LICENSE("GPL and additional rights");
+> diff --git a/drivers/gpu/drm/drm_kms_helper_common.c b/drivers/gpu/drm/dr=
+m_kms_helper_common.c
+> index cfdbc1ac88dc..ecff0b1414ac 100644
+> --- a/drivers/gpu/drm/drm_kms_helper_common.c
+> +++ b/drivers/gpu/drm/drm_kms_helper_common.c
+> @@ -31,11 +31,13 @@
+> =20
+>  #if defined(CONFIG_DRM_FBDEV_EMULATION)
+>  bool drm_fbdev_emulation =3D true;
+> +EXPORT_SYMBOL(drm_fbdev_emulation);
+>  module_param_named(fbdev_emulation, drm_fbdev_emulation, bool, 0600);
+>  MODULE_PARM_DESC(fbdev_emulation,
+>  		 "Enable legacy fbdev emulation [default=3Dtrue]");
+> =20
+>  int drm_fbdev_overalloc =3D CONFIG_DRM_FBDEV_OVERALLOC;
+> +EXPORT_SYMBOL(drm_fbdev_overalloc);
+>  module_param(drm_fbdev_overalloc, int, 0444);
+>  MODULE_PARM_DESC(drm_fbdev_overalloc,
+>  		 "Overallocation of the fbdev buffer (%) [default=3D"
+> @@ -55,6 +57,7 @@ MODULE_PARM_DESC(drm_fbdev_overalloc,
+>   * considered as a broken and legacy behaviour from a modern fbdev devic=
+e.
+>   */
+>  bool drm_leak_fbdev_smem;
+> +EXPORT_SYMBOL(drm_leak_fbdev_smem);
+>  #if IS_ENABLED(CONFIG_DRM_FBDEV_LEAK_PHYS_SMEM)
+>  module_param_unsafe(drm_leak_fbdev_smem, bool, 0600);
+>  MODULE_PARM_DESC(drm_leak_fbdev_smem,
 > --=20
 > 2.46.0
 >=20
