@@ -4,61 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A30A3CED248
-	for <amd-gfx@archiver.kernel.org>; Mon,  7 Oct 2024 22:25:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 090A9CED263
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Oct 2024 04:00:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 225EE10E34D;
-	Mon,  7 Oct 2024 22:25:12 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="Vt/jQpsJ";
-	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9244E10E009;
- Mon,  7 Oct 2024 22:25:10 +0000 (UTC)
-Received: from pendragon.ideasonboard.com (unknown [132.205.230.14])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 3BF2C2E0;
- Tue,  8 Oct 2024 00:23:32 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1728339812;
- bh=dP+7pB+yKyOf0NQhF4Ey5QlbknqrHAfw9DP+SkAi1ag=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Vt/jQpsJvHUxjmrGDOx6XdDb5/eYcmNOZ+fqGvfgmsCX/Gb8xh5L8MF7/XiaHHs5d
- yKwoK1M07KNVU8k6VzBH5mlVNl0fsdfcm8rX4+3gQCvlKP9vNnMhm8hVpFB58jMlbq
- 3JlQ6yo4ObX+z3BTaIVDayxCEaIiiFVwmh4Cxqis=
-Date: Tue, 8 Oct 2024 01:25:02 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Ulf Hansson <ulf.hansson@linaro.org>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-bluetooth@vger.kernel.org, linux-clk@vger.kernel.org,
- linux-crypto@vger.kernel.org, dmaengine@vger.kernel.org,
- linux-gpio@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-i2c@vger.kernel.org,
- linux-i3c@lists.infradead.org, linux-iio@vger.kernel.org,
- linux-input@vger.kernel.org, patches@opensource.cirrus.com,
- iommu@lists.linux.dev, imx@lists.linux.dev,
- linux-mediatek@lists.infradead.org, linux-media@vger.kernel.org,
- linux-mmc@vger.kernel.org, linux-mtd@lists.infradead.org,
- netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-pwm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-spi@vger.kernel.org,
- linux-staging@lists.linux.dev, linux-usb@vger.kernel.org,
- linux-serial@vger.kernel.org, greybus-dev@lists.linaro.org,
- asahi@lists.linux.dev, rafael@kernel.org,
- Andy Shevchenko <andy.shevchenko@gmail.com>
-Subject: Re: [PATCH 00/51] treewide: Switch to __pm_runtime_put_autosuspend()
-Message-ID: <20241007222502.GG30699@pendragon.ideasonboard.com>
-References: <20241004094101.113349-1-sakari.ailus@linux.intel.com>
- <CAPDyKFp0N6UJhnHS164Tdf=xkWB0jzq65L9TdvYazeBQ-6WjeQ@mail.gmail.com>
- <20241007184924.GH14766@pendragon.ideasonboard.com>
- <CAPDyKFpQVnF7eQv3dup8k-3EijnMjuveCG9sZ=Rpey1Y6MBJEg@mail.gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 88D8910E359;
+	Tue,  8 Oct 2024 04:00:01 +0000 (UTC)
+Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8674D10E359
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Oct 2024 04:00:00 +0000 (UTC)
+Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
+ 4983xt33595715; Tue, 8 Oct 2024 09:29:55 +0530
+Received: (from sunil@localhost)
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 4983xsOs595714;
+ Tue, 8 Oct 2024 09:29:54 +0530
+From: Sunil Khatri <sunil.khatri@amd.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
+Subject: [PATCH] drm/amdgpu: fix dm_suspend/resume arguments to ip_block
+Date: Tue,  8 Oct 2024 09:29:53 +0530
+Message-Id: <20241008035953.595701-1-sunil.khatri@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <CAPDyKFpQVnF7eQv3dup8k-3EijnMjuveCG9sZ=Rpey1Y6MBJEg@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,77 +42,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Ulf,
+"build failure after merge of the amdgpu tree"
+dm_suspend/dm_resume functions argument mismatch
+not caught in validation as it was under config
+CONFIG_DEBUG_KERNEL_DC which wasnt enabled by
+default.
 
-On Tue, Oct 08, 2024 at 12:08:24AM +0200, Ulf Hansson wrote:
-> On Mon, 7 Oct 2024 at 20:49, Laurent Pinchart wrote:
-> > On Fri, Oct 04, 2024 at 04:38:36PM +0200, Ulf Hansson wrote:
-> > > On Fri, 4 Oct 2024 at 11:41, Sakari Ailus wrote:
-> > > >
-> > > > Hello everyone,
-> > > >
-> > > > This set will switch the users of pm_runtime_put_autosuspend() to
-> > > > __pm_runtime_put_autosuspend() while the former will soon be re-purposed
-> > > > to include a call to pm_runtime_mark_last_busy(). The two are almost
-> > > > always used together, apart from bugs which are likely common. Going
-> > > > forward, most new users should be using pm_runtime_put_autosuspend().
-> > > >
-> > > > Once this conversion is done and pm_runtime_put_autosuspend() re-purposed,
-> > > > I'll post another set to merge the calls to __pm_runtime_put_autosuspend()
-> > > > and pm_runtime_mark_last_busy().
-> > >
-> > > That sounds like it could cause a lot of churns.
-> > >
-> > > Why not add a new helper function that does the
-> > > pm_runtime_put_autosuspend() and the pm_runtime_mark_last_busy()
-> > > things? Then we can start moving users over to this new interface,
-> > > rather than having this intermediate step?
-> >
-> > I think the API would be nicer if we used the shortest and simplest
-> > function names for the most common use cases. Following
-> > pm_runtime_put_autosuspend() with pm_runtime_mark_last_busy() is that
-> > most common use case. That's why I like Sakari's approach of repurposing
-> > pm_runtime_put_autosuspend(), and introducing
-> > __pm_runtime_put_autosuspend() for the odd cases where
-> > pm_runtime_mark_last_busy() shouldn't be called.
-> 
-> Okay, so the reason for this approach is because we couldn't find a
-> short and descriptive name that could be used in favor of
-> pm_runtime_put_autosuspend(). Let me throw some ideas at it and maybe
-> you like it - or not. :-)
+Change argument from adev to ip_block.
 
-I like the idea at least :-)
+Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-> I don't know what options you guys discussed, but to me the entire
-> "autosuspend"-suffix isn't really that necessary in my opinion. There
-> are more ways than calling pm_runtime_put_autosuspend() that triggers
-> us to use the RPM_AUTO flag for rpm_suspend(). For example, just
-> calling pm_runtime_put() has the similar effect.
-
-To be honest, I'm lost there. pm_runtime_put() calls
-__pm_runtime_idle(RPM_GET_PUT | RPM_ASYNC), while
-pm_runtime_put_autosuspend() calls __pm_runtime_suspend(RPM_GET_PUT |
-RPM_ASYNC | RPM_AUTO).
-
-> 
-> Moreover, it's similar for pm_runtime_mark_last_busy(), it's called
-> during rpm_resume() too, for example. So why bother about having
-> "mark_last_busy" in the new name too.
-> 
-> That said, my suggestion is simply "pm_runtime_put_suspend".
-
-Can we do even better, and make pm_runtime_put() to handle autosuspend
-automatically when autosuspend is enabled ?
-
-> If you don't like it, I will certainly not object to your current
-> approach, even if I think it leads to unnecessary churns.
-> 
-> [...]
-> 
-> Kind regards
-> Uffe
-
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index e4511f2fb929..6d5b899941af 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -5201,15 +5201,20 @@ static ssize_t s3_debug_store(struct device *device,
+ 	int s3_state;
+ 	struct drm_device *drm_dev = dev_get_drvdata(device);
+ 	struct amdgpu_device *adev = drm_to_adev(drm_dev);
++	struct amdgpu_ip_block *ip_block;
++
++	ip_block = amdgpu_device_ip_get_ip_block(adev, AMD_IP_BLOCK_TYPE_DCE);
++	if (!ip_block)
++		return -EINVAL;
+ 
+ 	ret = kstrtoint(buf, 0, &s3_state);
+ 
+ 	if (ret == 0) {
+ 		if (s3_state) {
+-			dm_resume(adev);
++			dm_resume(ip_block);
+ 			drm_kms_helper_hotplug_event(adev_to_drm(adev));
+ 		} else
+-			dm_suspend(adev);
++			dm_suspend(ip_block);
+ 	}
+ 
+ 	return ret == 0 ? count : 0;
 -- 
-Regards,
+2.34.1
 
-Laurent Pinchart
