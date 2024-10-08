@@ -4,97 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6345ECEDD9A
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81937CEDD9B
 	for <amd-gfx@archiver.kernel.org>; Wed,  9 Oct 2024 13:32:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C462510E701;
-	Wed,  9 Oct 2024 13:32:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1127410E70B;
+	Wed,  9 Oct 2024 13:32:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=squebb.ca header.i=@squebb.ca header.b="fV1hF5wX";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="WzvzS8IL";
+	dkim=pass (2048-bit key; unprotected) header.d=baylibre-com.20230601.gappssmtp.com header.i=@baylibre-com.20230601.gappssmtp.com header.b="NRYiLHUC";
 	dkim-atps=neutral
-X-Greylist: delayed 342 seconds by postgrey-1.36 at gabe;
- Tue, 08 Oct 2024 16:11:14 UTC
-Received: from fout-a5-smtp.messagingengine.com
- (fout-a5-smtp.messagingengine.com [103.168.172.148])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3EF5610E58E;
- Tue,  8 Oct 2024 16:11:14 +0000 (UTC)
-Received: from phl-compute-02.internal (phl-compute-02.phl.internal
- [10.202.2.42])
- by mailfout.phl.internal (Postfix) with ESMTP id A5B77138022C;
- Tue,  8 Oct 2024 12:05:31 -0400 (EDT)
-Received: from phl-imap-10 ([10.202.2.85])
- by phl-compute-02.internal (MEProxy); Tue, 08 Oct 2024 12:05:31 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squebb.ca; h=cc
- :cc:content-transfer-encoding:content-type:content-type:date
- :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to; s=fm3; t=1728403531;
- x=1728489931; bh=e3fTuelKeA36CjKjBwC52sshdoWr3rHup2IJ/WsNqqA=; b=
- fV1hF5wXW9stRq+9GJrKYLWrSNnwK74f2sOqIPI1Lx2GBRkq2A7239ZP9XoXmAMe
- Jl+/OW/xJwvS/uCrmZCs2Ptr5mmXTGvmGmvqr+uyNhNpEJqmoXBrvvHe9nl7xjVd
- IXliBqj8xc8NuUUxH/Ry+0av8tth5h1HshwhFHwSpruUwvScN83YMtrJ/4eKFanf
- BMVQ/y+ITxJp/XIFbghrNtNRNaL0i52aLTNcuQ/KSRNHfSEDAmdi9wTcWSwqWTS2
- dgjz1u16O6Chu0ciR8qn+gTPbR+G4vVbHWnL3XvdLsab90sJKRpzqPiT/NowCfeH
- BI/clch4/izUvrlNoaG7Dg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:content-type:date:date:feedback-id:feedback-id
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1728403531; x=
- 1728489931; bh=e3fTuelKeA36CjKjBwC52sshdoWr3rHup2IJ/WsNqqA=; b=W
- zvzS8ILEFv4l/ano0dKzb8MEZJHqq2OqJlf454A+i62WGPgrX3SMWwvlY9UZ63NP
- 8PELjlJmo34VnB4aYembOSIYJJmf4YCNSeeneidVeCDfq6HXNAJBGmvXPpLSfN+6
- zqNl5JZZ3S7W06NfQXoASmNeSypmBarh4nPeVPuziQK26zOcnD4dSzD1Pa+liHeQ
- 8D73O5rh618caoF0xCHKBVS46o9VG4RBd78nwR2skCO9GCRJMm1K95++WVXJmAvX
- rEENkmV2ZH11PbjAcFWOuWU+YTuq7amgejVShk1w0i9rZHlDqPVi/wYbrhUGyU1o
- E0ZJYO+nf5n+6tPf2OeOg==
-X-ME-Sender: <xms:S1gFZ8aRcdD3vMEjcjuBNodXkpnjvenfPJ56pEGW_WH6cf1fk0M65g>
- <xme:S1gFZ3YR0Scuxor576Q1dniRQ743clvAowUHXIFnxyAgygOBUyS-JWMTI_EsI15Uf
- czB5_Q0Pvu2QSgBhEE>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeftddrvdefuddgleejucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggvpdfu
- rfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnh
- htshculddquddttddmnecujfgurhepofggfffhvfevkfgjfhfutgfgsehtjeertdertddt
- necuhfhrohhmpedfofgrrhhkucfrvggrrhhsohhnfdcuoehmphgvrghrshhonhdqlhgvnh
- hovhhosehsqhhuvggssgdrtggrqeenucggtffrrghtthgvrhhnpefhuedvheetgeehtdeh
- tdevheduvdejjefggfeijedvgeekhfefleehkeehvdffheenucevlhhushhtvghrufhiii
- gvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmphgvrghrshhonhdqlhgvnhhovhho
- sehsqhhuvggssgdrtggrpdhnsggprhgtphhtthhopedutddpmhhouggvpehsmhhtphhouh
- htpdhrtghpthhtoheprghlvgigrdhhuhhnghesrghmugdrtghomhdprhgtphhtthhopegr
- lhgvgigrnhguvghrrdguvghutghhvghrsegrmhgurdgtohhmpdhrtghpthhtohephhgrrh
- hrhidrfigvnhhtlhgrnhgusegrmhgurdgtohhmpdhrtghpthhtohepmhgrrhhiohdrlhhi
- mhhonhgtihgvlhhlohesrghmugdrtghomhdprhgtphhtthhopehsuhhnphgvnhhgrdhlih
- esrghmugdrtghomhdprhgtphhtthhopehkvghrnhgvlhdquggvvhesihhgrghlihgrrdgt
- ohhmpdhrtghpthhtohepmhifvghnsehighgrlhhirgdrtghomhdprhgtphhtthhopehsuh
- hpvghrmhdusehkvghrnhgvlhdrohhrghdprhgtphhtthhopegrmhguqdhgfhigsehlihhs
- thhsrdhfrhgvvgguvghskhhtohhprdhorhhg
-X-ME-Proxy: <xmx:S1gFZ2_L3C0VCVtAhSMWdGf3TflgRmm7CwwAwX3AyK238DvnBwiAmQ>
- <xmx:S1gFZ2rE__ZkXp11GIWja-Fbm82iut1WksehQlL3jFTEfD9OPBIuQQ>
- <xmx:S1gFZ3qhWS8nG_W3HaoCOxeRAJlvbGBvdGQNDgKaRwOSYJaGrR_ffw>
- <xmx:S1gFZ0T5m9l5oarIoRlKJA05xdl-3AMWEn02kZ1wVpFrtNylz45xYw>
- <xmx:S1gFZ63TlpNsX93n3mLrBr3AJt5AEZStDeBw6f3nQ4rcLQMJISy7wJ3L>
-Feedback-ID: ibe194615:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
- id 3C54A3C0068; Tue,  8 Oct 2024 12:05:31 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com
+ [209.85.218.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B84810E5BA
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Oct 2024 20:38:06 +0000 (UTC)
+Received: by mail-ej1-f45.google.com with SMTP id
+ a640c23a62f3a-a9932aa108cso590533166b.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 08 Oct 2024 13:38:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1728419885; x=1729024685;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=jBKc56vBxPYaOUWcC+VFZKlnp8sdizUoPysD1KL2n2Y=;
+ b=NRYiLHUCQ7TImUks4fAatmLv/c5uDIiISlrDWnTFQR02uom9zRcW+Uyi630EwtrLOS
+ rpn+clus4PoEaoSKGREcBZOO2TeBK8i5QT71Yh24xUCMM4+QelwwhGX8uPf306b+WpN6
+ h3Ibpnr5FCh7DfMRkj0zKWnT4q92PmClirZcHgUJjwk2Y67XZ2JnngcsUIxzaQPEZFAk
+ lse2Gk04nm8/j/zP2JcnXCFg7oXyNfhHisd2bbh8Fo0IPEJ9uLkhBf3DWnCN4R5kk/va
+ AdIQfqmNlleVyM7MvWnO7ARvwiYVRvMi9vgLzbzWZbWEfUvXyryK0A7KH3BUim9hkKEm
+ 7zzA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1728419885; x=1729024685;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=jBKc56vBxPYaOUWcC+VFZKlnp8sdizUoPysD1KL2n2Y=;
+ b=OmPxFg4gTw+cFm0LJVpvXeOoar7VG1Ffa/ELZ2e81apX5lC0jo/rcrKyErkbCdVuc7
+ 51LDoR2Vu3ATd3CvKPS13OnPFCOfyg5fk5pAAIIFGKEbiLQDrU1LrUyyurkbBSgxhu2z
+ QF53NGt1l7L2bbOOzN6czUuYQQ6dTLcUo7ND4Nt82xaCoe5YYqamgAms3sU4da9C4lUm
+ KoN9S9CPiCk74kOsRtkq9Tr1OEN1B+tUWLXqGn+Fb5Aaq2fca+/9jfaT/8CM9HwE9yLK
+ vEZB7epJmsITF3CuXplHqzIFreMV60poMuH+7eeTThCg3VhrhSvwhQVCAaZhLHbhRnLM
+ iUZA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCURyaqzqXuxkOUHrO4oq4l7L4oqUEnGsox2DCGGbxwu/NqAP3tNtZkNz6yZkTAC8VBlVMY2pBwn@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywsh9X+yN+RmSzyY9XIk+V4QMFkklXXj1pbe5YG9i7SDGjTvv2Y
+ YJ1A1RcmB2wD1ovlOaikQ9h1XLZgWxfj6Lt9lhzFkEDwDfirjKmwp+G213K8AMyReyhIhmwV7y9
+ E
+X-Google-Smtp-Source: AGHT+IFQsuFQDnMORn6KRqls83kXMRALTmz1xji/Zv3nzyXsaV17OwyYMIY5gtZ7u9n9SjQRNHRlFg==
+X-Received: by 2002:a17:907:94d4:b0:a8d:250a:52b2 with SMTP id
+ a640c23a62f3a-a998d114bbemr3268366b.6.1728419884897; 
+ Tue, 08 Oct 2024 13:38:04 -0700 (PDT)
+Received: from localhost ([2a02:8071:b783:6940:c420:a9b6:c5e1:5b65])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-a996274deeesm196971266b.103.2024.10.08.13.38.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 08 Oct 2024 13:38:04 -0700 (PDT)
+Date: Tue, 8 Oct 2024 22:38:02 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Ulf Hansson <ulf.hansson@linaro.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, 
+ linux-bluetooth@vger.kernel.org, linux-clk@vger.kernel.org,
+ linux-crypto@vger.kernel.org, 
+ dmaengine@vger.kernel.org, linux-gpio@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, 
+ nouveau@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com, 
+ linux-arm-kernel@lists.infradead.org, linux-i2c@vger.kernel.org,
+ linux-i3c@lists.infradead.org, 
+ linux-iio@vger.kernel.org, linux-input@vger.kernel.org,
+ patches@opensource.cirrus.com, 
+ iommu@lists.linux.dev, imx@lists.linux.dev, linux-mediatek@lists.infradead.org,
+ linux-media@vger.kernel.org, linux-mmc@vger.kernel.org,
+ linux-mtd@lists.infradead.org, 
+ netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
+ linux-pci@vger.kernel.org, 
+ linux-phy@lists.infradead.org, linux-pwm@vger.kernel.org,
+ linux-remoteproc@vger.kernel.org, 
+ linux-sound@vger.kernel.org, linux-spi@vger.kernel.org,
+ linux-staging@lists.linux.dev, 
+ linux-usb@vger.kernel.org, linux-serial@vger.kernel.org,
+ greybus-dev@lists.linaro.org, asahi@lists.linux.dev, rafael@kernel.org,
+ Andy Shevchenko <andy.shevchenko@gmail.com>
+Subject: Re: [PATCH 00/51] treewide: Switch to __pm_runtime_put_autosuspend()
+Message-ID: <ttmnzgsdyng5vab63pvj7csrotbsmwnultjelvdotrvyg2snac@iv7afgect5f3>
+References: <20241004094101.113349-1-sakari.ailus@linux.intel.com>
+ <CAPDyKFp0N6UJhnHS164Tdf=xkWB0jzq65L9TdvYazeBQ-6WjeQ@mail.gmail.com>
+ <20241007184924.GH14766@pendragon.ideasonboard.com>
 MIME-Version: 1.0
-Date: Tue, 08 Oct 2024 12:05:10 -0400
-From: "Mark Pearson" <mpearson-lenovo@squebb.ca>
-To: "Mario Limonciello" <superm1@kernel.org>, "Alex Hung" <alex.hung@amd.com>, 
- "Alexander Deucher" <alexander.deucher@amd.com>,
- "Melissa Wen" <mwen@igalia.com>
-Cc: kernel-dev@igalia.com, "Limonciello, Mario" <mario.limonciello@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- harry.wentland@amd.com, sunpeng.li@amd.com
-Message-Id: <0a996d5e-37f9-423d-9f6a-f6b83fe5f870@app.fastmail.com>
-In-Reply-To: <20240927230600.2619844-6-superm1@kernel.org>
-References: <20240927230600.2619844-1-superm1@kernel.org>
- <20240927230600.2619844-6-superm1@kernel.org>
-Subject: Re: [PATCH v8 5/5] drm/amd/display: Fetch the EDID from _DDC if
- available for eDP
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="2ocqjla6tcmukjn3"
+Content-Disposition: inline
+In-Reply-To: <20241007184924.GH14766@pendragon.ideasonboard.com>
 X-Mailman-Approved-At: Wed, 09 Oct 2024 13:32:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -110,154 +109,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Sep 27, 2024, at 7:06 PM, Mario Limonciello wrote:
-> From: Mario Limonciello <mario.limonciello@amd.com>
->
-> Some manufacturers have intentionally put an EDID that differs from
-> the EDID on the internal panel on laptops.
->
-> Attempt to fetch this EDID if it exists and prefer it over the EDID
-> that is provided by the panel. If a user prefers to use the EDID from
-> the panel, offer a DC debugging parameter that would disable this.
->
-> Reviewed-by: Alex Hung <alex.hung@amd.com>
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-> ---
-> v3:
->  * Change message to INFO when using ACPI EDID
->  * rebase
-> ---
->  .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 65 ++++++++++++++++++-
->  drivers/gpu/drm/amd/include/amd_shared.h      |  5 ++
->  2 files changed, 67 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c 
-> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> index b8004ccdcc33..7534e1624e4f 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> @@ -23,6 +23,8 @@
->   *
->   */
-> 
-> +#include <acpi/video.h>
-> +
->  #include <linux/string.h>
->  #include <linux/acpi.h>
->  #include <linux/i2c.h>
-> @@ -887,6 +889,60 @@ bool dm_helpers_is_dp_sink_present(struct dc_link *link)
->  	return dp_sink_present;
->  }
-> 
-> +static int
-> +dm_helpers_probe_acpi_edid(void *data, u8 *buf, unsigned int block, 
-> size_t len)
-> +{
-> +	struct drm_connector *connector = data;
-> +	struct acpi_device *acpidev = ACPI_COMPANION(connector->dev->dev);
-> +	unsigned char start = block * EDID_LENGTH;
-> +	void *edid;
-> +	int r;
-> +
-> +	if (!acpidev)
-> +		return -ENODEV;
-> +
-> +	/* fetch the entire edid from BIOS */
-> +	r = acpi_video_get_edid(acpidev, ACPI_VIDEO_DISPLAY_LCD, -1, &edid);
-> +	if (r < 0) {
-> +		drm_dbg(connector->dev, "Failed to get EDID from ACPI: %d\n", r);
-> +		return r;
-> +	}
-> +	if (len > r || start > r || start + len > r) {
-> +		r = -EINVAL;
-> +		goto cleanup;
-> +	}
-> +
-> +	memcpy(buf, edid + start, len);
-> +	r = 0;
-> +
-> +cleanup:
-> +	kfree(edid);
-> +
-> +	return r;
-> +}
-> +
-> +static const struct drm_edid *
-> +dm_helpers_read_acpi_edid(struct amdgpu_dm_connector *aconnector)
-> +{
-> +	struct drm_connector *connector = &aconnector->base;
-> +
-> +	if (amdgpu_dc_debug_mask & DC_DISABLE_ACPI_EDID)
-> +		return NULL;
-> +
-> +	switch (connector->connector_type) {
-> +	case DRM_MODE_CONNECTOR_LVDS:
-> +	case DRM_MODE_CONNECTOR_eDP:
-> +		break;
-> +	default:
-> +		return NULL;
-> +	}
-> +
-> +	if (connector->force == DRM_FORCE_OFF)
-> +		return NULL;
-> +
-> +	return drm_edid_read_custom(connector, dm_helpers_probe_acpi_edid, 
-> connector);
-> +}
-> +
->  enum dc_edid_status dm_helpers_read_local_edid(
->  		struct dc_context *ctx,
->  		struct dc_link *link,
-> @@ -909,8 +965,11 @@ enum dc_edid_status dm_helpers_read_local_edid(
->  	 * do check sum and retry to make sure read correct edid.
->  	 */
->  	do {
-> -
-> -		drm_edid = drm_edid_read_ddc(connector, ddc);
-> +		drm_edid = dm_helpers_read_acpi_edid(aconnector);
-> +		if (drm_edid)
-> +			drm_info(connector->dev, "Using ACPI provided EDID for %s\n", 
-> connector->name);
-> +		else
-> +			drm_edid = drm_edid_read_ddc(connector, ddc);
->  		drm_edid_connector_update(connector, drm_edid);
-> 
->  		/* DP Compliance Test 4.2.2.6 */
-> @@ -1300,4 +1359,4 @@ bool dm_helpers_is_hdr_on(struct dc_context *ctx, 
-> struct dc_stream_state *stream
->  {
->  	// TODO
->  	return false;
-> -}
-> \ No newline at end of file
-> +}
-> diff --git a/drivers/gpu/drm/amd/include/amd_shared.h 
-> b/drivers/gpu/drm/amd/include/amd_shared.h
-> index 3f91926a50e9..1ec7c5e5249e 100644
-> --- a/drivers/gpu/drm/amd/include/amd_shared.h
-> +++ b/drivers/gpu/drm/amd/include/amd_shared.h
-> @@ -337,6 +337,11 @@ enum DC_DEBUG_MASK {
->  	 * @DC_FORCE_IPS_ENABLE: If set, force enable all IPS, all the time.
->  	 */
->  	DC_FORCE_IPS_ENABLE = 0x4000,
-> +	/**
-> +	 * @DC_DISABLE_ACPI_EDID: If set, don't attempt to fetch EDID for
-> +	 * eDP display from ACPI _DDC method.
-> +	 */
-> +	DC_DISABLE_ACPI_EDID = 0x8000,
->  };
-> 
->  enum amd_dpm_forced_level;
-> -- 
-> 2.43.0
 
-For the series, we tested at Lenovo and it fixed a couple of different issues we had seen and reported on different HW models.
- - issue with setting 1600 x 1200 on Z16 G2
- - issue with frequency setting being incorrect on T14 G4 AMD with OLED panels
-I didn't do the testing myself (I don't have the configurations on hand that reproduce the problem) but my colleagues did.
-Can I do a:
-Tested-by: Lenovo Linux team <mpearson-lenovo@squebb.ca>
-Or is there some other protocol for this?
+--2ocqjla6tcmukjn3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Thanks
-Mark
+Hello,
+
+On Mon, Oct 07, 2024 at 09:49:24PM +0300, Laurent Pinchart wrote:
+> On Fri, Oct 04, 2024 at 04:38:36PM +0200, Ulf Hansson wrote:
+> > On Fri, 4 Oct 2024 at 11:41, Sakari Ailus <sakari.ailus@linux.intel.com=
+> wrote:
+> > >
+> > > Hello everyone,
+> > >
+> > > This set will switch the users of pm_runtime_put_autosuspend() to
+> > > __pm_runtime_put_autosuspend() while the former will soon be re-purpo=
+sed
+> > > to include a call to pm_runtime_mark_last_busy(). The two are almost
+> > > always used together, apart from bugs which are likely common. Going
+> > > forward, most new users should be using pm_runtime_put_autosuspend().
+> > >
+> > > Once this conversion is done and pm_runtime_put_autosuspend() re-purp=
+osed,
+> > > I'll post another set to merge the calls to __pm_runtime_put_autosusp=
+end()
+> > > and pm_runtime_mark_last_busy().
+> >=20
+> > That sounds like it could cause a lot of churns.
+> >=20
+> > Why not add a new helper function that does the
+> > pm_runtime_put_autosuspend() and the pm_runtime_mark_last_busy()
+> > things? Then we can start moving users over to this new interface,
+> > rather than having this intermediate step?
+>=20
+> I think the API would be nicer if we used the shortest and simplest
+> function names for the most common use cases. Following
+> pm_runtime_put_autosuspend() with pm_runtime_mark_last_busy() is that
+> most common use case. That's why I like Sakari's approach of repurposing
+> pm_runtime_put_autosuspend(), and introducing
+> __pm_runtime_put_autosuspend() for the odd cases where
+> pm_runtime_mark_last_busy() shouldn't be called.
+
+That's ok for me. However this patch series isn't the optimal path to
+there because most drivers (i.e. those that already today do
+pm_runtime_mark_last_busy() in combination with
+pm_runtime_put_autosuspend()) have to be patched twice.
+
+The saner route is: Only convert the drivers with a sole
+pm_runtime_put_autosuspend() (i.e. without pm_runtime_mark_last_busy())
+to __pm_runtime_put_autosuspend(). Then add the mark_last_busy() bits to
+pm_runtime_put_autosuspend() and then drop the explicit calls to
+pm_runtime_mark_last_busy() before pm_runtime_put_autosuspend().
+
+(Note this doesn't take into account Rafael's position that
+pm_runtime_put() might be the saner option. My argument applies for that
+conversion analogously.)
+
+Best regards
+Uwe
+
+--2ocqjla6tcmukjn3
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmcFmCEACgkQj4D7WH0S
+/k6xnwf/QOZhbtT562rFFa3JIiBatDxTcqyEXoXClrP7jSyQFY/VFzq2S2jRHOFt
+wM6zQUX1bTUqDtC4HozJIbQDjLxd3qFgc5RoTRLV8VhRJbcq9cOo5Nf1h4KJ5Ip9
+nhpzoHwUHoEjEHj1f9UvEWfnFAVCSLFxgb14ZDHZyb2pQue3G5OYI2f2cJYT8YVB
+xQktDFp7rUu4xWDTzoIxNKvR1Ipy5fGxdf9R2/+IQhW64sWuDG2ZH6tAmfn6mEb8
+ecspbesJx+NMbZ06Zl7wqBvyj/DpQGgPaCnWUQ5cI0Of/kOzqxh4+65JK68CLLs0
+/Goin2zz55IZITGC5zHuAA07bW/c7Q==
+=7Wup
+-----END PGP SIGNATURE-----
+
+--2ocqjla6tcmukjn3--
