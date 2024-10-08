@@ -4,123 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EBDCCEF17A
-	for <amd-gfx@archiver.kernel.org>; Tue,  8 Oct 2024 14:29:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AD69CEFC21
+	for <amd-gfx@archiver.kernel.org>; Tue,  8 Oct 2024 15:05:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5DD7E10E195;
-	Tue,  8 Oct 2024 14:28:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E9CF10E576;
+	Tue,  8 Oct 2024 15:05:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="r2hbfSqa";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="hj4pt3Xy";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2070.outbound.protection.outlook.com [40.107.220.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB0E410E0BA;
- Tue,  8 Oct 2024 14:28:56 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gXWM26XRfOqmcPahJwXLpxTRxLFiynHdIpFwpp2PE2dzrGoEqR2uuWY96FSVW9wVgDPo6HVnp0etrW0/aKbQay9i69H5gF8cvg0ubc7K6FZqjzXfX3oJxzvv2srn3mQJZjJfKnGr4rWsg+khK8zeD510Ml5lG3ebVnwAAVVanXRttakJ0APuJ33r3NUuRdGaBh+VMxSZpJFdxbLMnKO0UScbyr99qpTc/TBeDw+54zfOjUCF7QWTv8dF2FYc1R3XflHqB+GfGZNLS8xOT3S6P7ljhZu6d4YFq6cmGqASe4oLM82R5Kp1GA9oXMVYoIv0z/PZ390/V4pORySu9TUE4w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QJVhL3wNClS6L2lSq/oeffOo0E5qrhLc9EV0QvB1kOg=;
- b=DPgLuVgE55eVK5ManIBVl4Lqr6Es5K7dzhXZajmKHjtSllUAp2lV89bxXXqWA13G2338Scwf1dMp8i8O7IgA+/aTGFL0r3ScxyA2CKh/zlGLzBmIPW5yo1/r0paTwvUoXZn+xbG0SxUzU2rQneUmgWRDbdqDgzcggxuyRjyyJ1qCbqAODryJAwXG0qHCsAb2aoGFO7YimwK/VfmF6aXhgkDOrP+04r42nweAlm1dHdsJdo5+eXHogoPhmbi0ioepgeat/ycf+5YRj8Q2XmrIAYYFoPLKhDLKavqS6VK1+ir1iWk/uFaS7UksybFsLs2OOaXjH18n59S2WN0zDOoHiQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QJVhL3wNClS6L2lSq/oeffOo0E5qrhLc9EV0QvB1kOg=;
- b=r2hbfSqaqV2zyJvds28rqEBU/PgDU5Zb8Dds9hvAG8q0VvRCqMzbXduT9NGaaqIe6q7dluuwbU8RaOuBIuLdgc1EydF3YZaW1IztzWcDzFhTx21RBnD37GH7Yq3DtU2QINavM49yNAANQkyIMy7t4c91J8LT/C+NOlYxahecIyM=
-Received: from SJ0PR03CA0345.namprd03.prod.outlook.com (2603:10b6:a03:39c::20)
- by PH7PR12MB8825.namprd12.prod.outlook.com (2603:10b6:510:26a::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8026.22; Tue, 8 Oct
- 2024 14:28:52 +0000
-Received: from CO1PEPF000044F5.namprd05.prod.outlook.com
- (2603:10b6:a03:39c:cafe::51) by SJ0PR03CA0345.outlook.office365.com
- (2603:10b6:a03:39c::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8048.17 via Frontend
- Transport; Tue, 8 Oct 2024 14:28:51 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1PEPF000044F5.mail.protection.outlook.com (10.167.241.75) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8048.13 via Frontend Transport; Tue, 8 Oct 2024 14:28:51 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 8 Oct
- 2024 09:28:49 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <airlied@gmail.com>, <simona.vetter@ffwll.ch>
-CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [pull] amdgpu, amdkfd, radeon drm-fixes-6.12
-Date: Tue, 8 Oct 2024 10:28:31 -0400
-Message-ID: <20241008142831.3739244-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.46.2
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D64610E578
+ for <amd-gfx@lists.freedesktop.org>; Tue,  8 Oct 2024 15:05:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
+ In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=NVkXoKmo5t+vruYeze4LW0Ty3CJu4alt92RISTkBBU4=; b=hj4pt3XynzLwRmxk3/puWYqIiQ
+ 89EmVKG0HSGKfa2LajpN/wCXfee8riMzsK+gZHnD04+758SkHkU9OKpgWADVNFk3yuH7PMAVx7z+F
+ Csr7TTOD20RlhPNy2cYqAao/vFl69BBQt0y1iqwAQRQ+xDsrjFCHI6WST65Jy382x+NTFjV3n3mLW
+ kfGLUACCA7zlzvRqn6kECxpNcacw/6URwU06nhgzZPe7gsP7hM9H7zHj9wLJskO99rYuWHLwd2qdE
+ cOcGV1CzFe/1cIxPdcbvMtWkgTF5u0NXN9KVi4a1pxBn8ddQ8oddnKhIH8QRNKHk2jc6kJdmAxUZK
+ alhteESw==;
+Received: from [90.241.98.187] (helo=localhost)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1syBmV-006bku-Pn; Tue, 08 Oct 2024 17:05:47 +0200
+From: Tvrtko Ursulin <tursulin@igalia.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Sunil Khatri <sunil.khatri@amd.com>
+Subject: [PATCH 2/4] drm/amdgpu: More more efficient ring padding
+Date: Tue,  8 Oct 2024 16:05:30 +0100
+Message-ID: <20241008150532.23661-3-tursulin@igalia.com>
+X-Mailer: git-send-email 2.46.0
+In-Reply-To: <20241008150532.23661-1-tursulin@igalia.com>
+References: <20241008150532.23661-1-tursulin@igalia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000044F5:EE_|PH7PR12MB8825:EE_
-X-MS-Office365-Filtering-Correlation-Id: 84489e68-cf36-4c46-5730-08dce7a58807
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|36860700013|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?dEJreWlJSUV3MkJ3dTRJb0xPRDJabnBKQWpRKzduTllMMjlOY2lpUXdmK0o0?=
- =?utf-8?B?Y05Wa3JoZ0V6a3pRRmVvK2l2UXp4cys1WmZjdGpUNUNPZkV6VkxyUGx2Sld2?=
- =?utf-8?B?a2lwcW04c3kyY2FNdGRxMm50bHNYc2phdHExVzEwajhaRk4rOEdVbXU2dkY4?=
- =?utf-8?B?Sko1VmtFcFJ2KzAzb3VkbER0Uk56bStsZXVVYWV2aFA5RUQ5K0ZJYUkzMTNL?=
- =?utf-8?B?WVFLOUdhTVczQktCK2hjN1BrTjBUQVRWc1lEMmVQMDBPaGJGa3d6VDRJdExI?=
- =?utf-8?B?WC9RZ0d0MmtWaWJWSjB6bHQ2eEpqcWZvUU1ncWxPM2pFVEs3aW5GdlRUTEds?=
- =?utf-8?B?UEdVaUh3dm9RMU9RYnQweHVLbzlTMWQvVmpMT3k2K1h0VTRSZ2RsckQwdCt4?=
- =?utf-8?B?ZjJFemx3Z0VjZnA2VExOVmRhakQvdTZFWVl1ZVd5aWdTM0QvY2RSUHNWNUVS?=
- =?utf-8?B?SHRBcEIxajlBUmo2eE16b2hMNTE0VWJraFp3d3Jxa3NCTGtlczBBaTlVSnU5?=
- =?utf-8?B?b1MyUVBFS2YvT3BKL25aWVQ3MjJkbU9NajREYVh6eFI0bi9vWGFMY2VlL21X?=
- =?utf-8?B?N0pMd3E0SXRUWFBJRHpLdSthSDlRcFFQc2cxTmdxOWFDVkllWWtJTEdJaEhp?=
- =?utf-8?B?VE5oVk9SVVN0bVNjMU1OMEVLRjRHdGNhcm1LR24yOFo0WVBzWFdYMkVlb3M1?=
- =?utf-8?B?dWc5V2JoL0dTbnE1dm1qeDM5RmhEdGNzUFVjSmlyNm5KM255VjI1ODdvQ2k1?=
- =?utf-8?B?cWpkRGJ0eDVQMytmUDRPbmtrV2dSdDJmb3V5UVNLd0JnUFl6eHQ2bFBmcjZ6?=
- =?utf-8?B?NjlkdmduU1NxckNmNTVGUEZVd2RsWS9rZFhDbTBlU0VyZzBYY3M3R21ZWkVv?=
- =?utf-8?B?ZkxvcWxPU3RWaWF4Wk5CMkJqekdzU0xFZk1DYTg0eDdta1pkb1l1Y1BjaUxJ?=
- =?utf-8?B?VHdVcEtSbWd5OGVYT2p4R05YU0xOUU9UMExCMUFMREhtRVZYQ1dJc0ZFN1JW?=
- =?utf-8?B?WElla0Viby9jTjNqNk1XVEJScVVxRGMwejJkM3NRak5ieDlJK1RJYjFJMUpR?=
- =?utf-8?B?Ni9ZRkRhVWZqMFRVdkxDSTFTbTNkTTVQWFlvSkVVMTZBaENCYjZNVEdCbWxV?=
- =?utf-8?B?bWNpVDRTWjgxWEF5ZEZJVVVkckd6ZDEyL2tWR01DeE00bGFTS21ad2lweWRB?=
- =?utf-8?B?RjZFUHVIZDhnSmU2clRURjg4Z1dKZHZBYmNmemN2MTVIc01jVjJCdWdTYUla?=
- =?utf-8?B?Ym55S1BTZ05reHpkeTBML0hLZFBKSFZZQmpJUHVibWVhNTVsYklOTVY4Rkty?=
- =?utf-8?B?a0N5TXNIc1ppZ0FDdWFYZ0VsYTVTWjJjSStLVGRDcDRsSWttYzI3anovcEtB?=
- =?utf-8?B?eWRnUjdlVFVERGxrVnNLTW1Palg1ZEJmaVhST0xFUmZSdDFSUGRBN0V1cVNV?=
- =?utf-8?B?N1VrL3FtTEZ2SkNpVFJxOGpXSEJsU2RlZzBlRFd4MnQ3dTh2SWdhUW0wMStD?=
- =?utf-8?B?dkJiWk94SkgrcjA0WUNtUDdqOVExVWgraUt2RjJyajZ0Q25tZVZKOWpiVllj?=
- =?utf-8?B?M1VKVXJsTVF0SndweEVoelpic3I3Zld1eTYrcExiQ3lKaEQwQVBLZlpieFpJ?=
- =?utf-8?B?TDQveHJmaDJXV01YM0ZNS3RJekg0cFlkVEVNbFFDMGVHT2d2ZlZ3Y1lPVjZi?=
- =?utf-8?B?T1dnMWNnb3VYb3p1b2RhSEhjUzF1UGY3aGNzM0EzbGZyZERtTW9qd0RQM21C?=
- =?utf-8?Q?u1iY0nX8PrFKCYb/WzLwXdJujFPJQbFVDiCK2+y?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(36860700013)(1800799024); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2024 14:28:51.5694 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 84489e68-cf36-4c46-5730-08dce7a58807
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000044F5.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8825
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,63 +60,293 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave, Simona,
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 
-Fixes for 6.12.
+Similarly as in the previous patch, we add a new amdgpu_ring_fill2x32()
+helper which can write out the nops more efficiently using memset64().
 
-The following changes since commit 5b272bf7dcf969eb4f19ef994b6e60458ee6300f:
+This should have a lesser effect than the previous patch, given how the
+affected rings have at most 64 dword alignment restriction, in contrast to
+many with 256 dwords back there. Nevertheless, it sounds plausible to
+utilise the identical approach and still achieve that little bit more
+efficiency.
 
-  Merge tag 'drm-xe-fixes-2024-10-03' of https://gitlab.freedesktop.org/drm/xe/kernel into drm-fixes (2024-10-04 11:00:39 +1000)
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: Christian König <ckoenig.leichtzumerken@gmail.com>
+Cc: Sunil Khatri <sunil.khatri@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h | 39 ++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c   |  8 ++---
+ drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c   |  8 ++---
+ drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c |  8 ++---
+ drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c    |  7 +----
+ drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c    |  7 +----
+ drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c    |  7 +----
+ drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c    |  7 +----
+ drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c    |  9 +++---
+ drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c    |  8 ++---
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c    |  7 ++---
+ 11 files changed, 58 insertions(+), 57 deletions(-)
 
-are available in the Git repository at:
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+index 36c4bae448e0..91ab32157210 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+@@ -442,6 +442,45 @@ static inline void amdgpu_ring_fill(struct amdgpu_ring *ring, u32 v,
+ 	ring->count_dw -= count_dw;
+ }
+ 
++static inline void amdgpu_ring_fill2x32(struct amdgpu_ring *ring,
++					u32 v1, u32 v2,
++					unsigned int count_qw)
++{
++	unsigned int occupied, chunk1, chunk2;
++	unsigned int count_dw = count_qw * 2;
++	u64 v;
++
++	if (unlikely(ring->count_dw < count_dw))
++		DRM_ERROR("amdgpu: writing more qwords to the ring than expected!\n");
++
++	occupied = ring->wptr & ring->buf_mask;
++	chunk1 = ring->buf_mask + 1 - occupied;
++	chunk1 = (chunk1 >= count_dw) ? count_dw : chunk1;
++	chunk2 = count_dw - chunk1;
++
++	if (WARN_ON_ONCE((chunk1 | chunk2) & 1))
++		return;
++
++	chunk1 >>= 1;
++	chunk2 >>= 1;
++
++#ifdef __BIG_ENDIAN
++	v = (u64)v1 << 32 | v2;
++#else
++	v = (u64)v2 << 32 | v1;
++#endif
++
++	if (chunk1)
++		memset64((u64 *)&ring->ring[occupied], v, chunk1);
++
++	if (chunk2)
++		memset64((u64 *)&ring->ring[0], v, chunk2);
++
++	ring->wptr += count_dw;
++	ring->wptr &= ring->ptr_mask;
++	ring->count_dw -= count_dw;
++}
++
+ /**
+  * amdgpu_ring_patch_cond_exec - patch dw count of conditional execute
+  * @ring: amdgpu_ring structure
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c
+index 6e0e88076224..eba118563acd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c
+@@ -418,14 +418,10 @@ static void jpeg_v1_0_decode_ring_emit_wreg(struct amdgpu_ring *ring,
+ 
+ static void jpeg_v1_0_decode_ring_nop(struct amdgpu_ring *ring, uint32_t count)
+ {
+-	int i;
+-
+ 	WARN_ON(ring->wptr % 2 || count % 2);
+ 
+-	for (i = 0; i < count / 2; i++) {
+-		amdgpu_ring_write(ring, PACKETJ(0, 0, 0, PACKETJ_TYPE6));
+-		amdgpu_ring_write(ring, 0);
+-	}
++	amdgpu_ring_fill2x32(ring, PACKETJ(0, 0, 0, PACKETJ_TYPE6), 0,
++			     count / 2);
+ }
+ 
+ static int jpeg_v1_0_set_interrupt_state(struct amdgpu_device *adev,
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
+index 41c0f8750dc1..3ae3dabb73a7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
+@@ -647,14 +647,10 @@ void jpeg_v2_0_dec_ring_emit_wreg(struct amdgpu_ring *ring, uint32_t reg, uint32
+ 
+ void jpeg_v2_0_dec_ring_nop(struct amdgpu_ring *ring, uint32_t count)
+ {
+-	int i;
+-
+ 	WARN_ON(ring->wptr % 2 || count % 2);
+ 
+-	for (i = 0; i < count / 2; i++) {
+-		amdgpu_ring_write(ring, PACKETJ(0, 0, 0, PACKETJ_TYPE6));
+-		amdgpu_ring_write(ring, 0);
+-	}
++	amdgpu_ring_fill2x32(ring, PACKETJ(0, 0, 0, PACKETJ_TYPE6), 0,
++			     count / 2);
+ }
+ 
+ static bool jpeg_v2_0_is_idle(void *handle)
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
+index 86958cb2c2ab..366d71aa54b5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
+@@ -897,14 +897,10 @@ void jpeg_v4_0_3_dec_ring_emit_wreg(struct amdgpu_ring *ring, uint32_t reg, uint
+ 
+ void jpeg_v4_0_3_dec_ring_nop(struct amdgpu_ring *ring, uint32_t count)
+ {
+-	int i;
+-
+ 	WARN_ON(ring->wptr % 2 || count % 2);
+ 
+-	for (i = 0; i < count / 2; i++) {
+-		amdgpu_ring_write(ring, PACKETJ(0, 0, 0, PACKETJ_TYPE6));
+-		amdgpu_ring_write(ring, 0);
+-	}
++	amdgpu_ring_fill2x32(ring, PACKETJ(0, 0, 0, PACKETJ_TYPE6), 0,
++			     count / 2);
+ }
+ 
+ static bool jpeg_v4_0_3_is_idle(void *handle)
+diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c b/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
+index 805d6662c88b..b8460389fbde 100644
+--- a/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c
+@@ -166,14 +166,9 @@ static int uvd_v3_1_ring_test_ring(struct amdgpu_ring *ring)
+ 
+ static void uvd_v3_1_ring_insert_nop(struct amdgpu_ring *ring, uint32_t count)
+ {
+-	int i;
+-
+ 	WARN_ON(ring->wptr % 2 || count % 2);
+ 
+-	for (i = 0; i < count / 2; i++) {
+-		amdgpu_ring_write(ring, PACKET0(mmUVD_NO_OP, 0));
+-		amdgpu_ring_write(ring, 0);
+-	}
++	amdgpu_ring_fill2x32(ring, PACKET0(mmUVD_NO_OP, 0), 0, count / 2);
+ }
+ 
+ static const struct amdgpu_ring_funcs uvd_v3_1_ring_funcs = {
+diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c b/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c
+index 3f19c606f4de..fa8b2a9f41b7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c
+@@ -554,14 +554,9 @@ static void uvd_v4_2_ring_emit_ib(struct amdgpu_ring *ring,
+ 
+ static void uvd_v4_2_ring_insert_nop(struct amdgpu_ring *ring, uint32_t count)
+ {
+-	int i;
+-
+ 	WARN_ON(ring->wptr % 2 || count % 2);
+ 
+-	for (i = 0; i < count / 2; i++) {
+-		amdgpu_ring_write(ring, PACKET0(mmUVD_NO_OP, 0));
+-		amdgpu_ring_write(ring, 0);
+-	}
++	amdgpu_ring_fill2x32(ring, PACKET0(mmUVD_NO_OP, 0), 0, count / 2);
+ }
+ 
+ /**
+diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c b/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
+index efd903c21d48..af97c6b5b479 100644
+--- a/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
+@@ -571,14 +571,9 @@ static void uvd_v5_0_ring_emit_ib(struct amdgpu_ring *ring,
+ 
+ static void uvd_v5_0_ring_insert_nop(struct amdgpu_ring *ring, uint32_t count)
+ {
+-	int i;
+-
+ 	WARN_ON(ring->wptr % 2 || count % 2);
+ 
+-	for (i = 0; i < count / 2; i++) {
+-		amdgpu_ring_write(ring, PACKET0(mmUVD_NO_OP, 0));
+-		amdgpu_ring_write(ring, 0);
+-	}
++	amdgpu_ring_fill2x32(ring, PACKET0(mmUVD_NO_OP, 0), 0, count / 2);
+ }
+ 
+ static bool uvd_v5_0_is_idle(void *handle)
+diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
+index 495de5068455..3551cdbe5393 100644
+--- a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
+@@ -1107,14 +1107,9 @@ static void uvd_v6_0_ring_emit_pipeline_sync(struct amdgpu_ring *ring)
+ 
+ static void uvd_v6_0_ring_insert_nop(struct amdgpu_ring *ring, uint32_t count)
+ {
+-	int i;
+-
+ 	WARN_ON(ring->wptr % 2 || count % 2);
+ 
+-	for (i = 0; i < count / 2; i++) {
+-		amdgpu_ring_write(ring, PACKET0(mmUVD_NO_OP, 0));
+-		amdgpu_ring_write(ring, 0);
+-	}
++	amdgpu_ring_fill2x32(ring, PACKET0(mmUVD_NO_OP, 0), 0, count / 2);
+ }
+ 
+ static void uvd_v6_0_enc_ring_emit_pipeline_sync(struct amdgpu_ring *ring)
+diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c b/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
+index 6068b784dc69..76e6f02e7de6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
+@@ -1417,14 +1417,13 @@ static void uvd_v7_0_ring_emit_vm_flush(struct amdgpu_ring *ring,
+ static void uvd_v7_0_ring_insert_nop(struct amdgpu_ring *ring, uint32_t count)
+ {
+ 	struct amdgpu_device *adev = ring->adev;
+-	int i;
+ 
+ 	WARN_ON(ring->wptr % 2 || count % 2);
+ 
+-	for (i = 0; i < count / 2; i++) {
+-		amdgpu_ring_write(ring, PACKET0(SOC15_REG_OFFSET(UVD, ring->me, mmUVD_NO_OP), 0));
+-		amdgpu_ring_write(ring, 0);
+-	}
++	amdgpu_ring_fill2x32(ring,
++			   PACKET0(SOC15_REG_OFFSET(UVD, ring->me, mmUVD_NO_OP), 0),
++			   0,
++			   count / 2);
+ }
+ 
+ static void uvd_v7_0_enc_ring_insert_end(struct amdgpu_ring *ring)
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+index ecdfbfefd66a..1d79ed275df3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+@@ -1790,14 +1790,12 @@ static int vcn_v1_0_process_interrupt(struct amdgpu_device *adev,
+ static void vcn_v1_0_dec_ring_insert_nop(struct amdgpu_ring *ring, uint32_t count)
+ {
+ 	struct amdgpu_device *adev = ring->adev;
+-	int i;
+ 
+ 	WARN_ON(ring->wptr % 2 || count % 2);
+ 
+-	for (i = 0; i < count / 2; i++) {
+-		amdgpu_ring_write(ring, PACKET0(SOC15_REG_OFFSET(UVD, 0, mmUVD_NO_OP), 0));
+-		amdgpu_ring_write(ring, 0);
+-	}
++	amdgpu_ring_fill2x32(ring,
++			   PACKET0(SOC15_REG_OFFSET(UVD, 0, mmUVD_NO_OP), 0), 0,
++			   count / 2);
+ }
+ 
+ static int vcn_v1_0_set_powergating_state(void *handle,
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
+index bfd067e2d2f1..9ff879b56c12 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
+@@ -1455,14 +1455,11 @@ void vcn_v2_0_dec_ring_insert_end(struct amdgpu_ring *ring)
+ void vcn_v2_0_dec_ring_insert_nop(struct amdgpu_ring *ring, uint32_t count)
+ {
+ 	struct amdgpu_device *adev = ring->adev;
+-	int i;
+ 
+ 	WARN_ON(ring->wptr % 2 || count % 2);
+ 
+-	for (i = 0; i < count / 2; i++) {
+-		amdgpu_ring_write(ring, PACKET0(adev->vcn.internal.nop, 0));
+-		amdgpu_ring_write(ring, 0);
+-	}
++	amdgpu_ring_fill2x32(ring, PACKET0(adev->vcn.internal.nop, 0), 0,
++			     count / 2);
+ }
+ 
+ /**
+-- 
+2.46.0
 
-  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-6.12-2024-10-08
-
-for you to fetch changes up to 32fda5650625065b8ae6dbd9967fb572d3835c35:
-
-  drm/radeon: always set GEM function pointer (2024-10-08 10:18:34 -0400)
-
-----------------------------------------------------------------
-amd-drm-fixes-6.12-2024-10-08:
-
-amdgpu:
-- Fix invalid UBSAN warnings
-- Fix artifacts in MPO transitions
-- Hibernation fix
-
-amdkfd:
-- Fix an eviction fence leak
-
-radeon:
-- Add late register for connectors
-- Always set GEM function pointers
-
-----------------------------------------------------------------
-Alex Deucher (1):
-      drm/amdgpu: partially revert powerplay `__counted_by` changes
-
-Christian König (1):
-      drm/radeon: always set GEM function pointer
-
-Hamza Mahfooz (1):
-      drm/amd/display: fix hibernate entry for DCN35+
-
-Josip Pavic (1):
-      drm/amd/display: Clear update flags after update has been applied
-
-Lang Yu (1):
-      drm/amdkfd: Fix an eviction fence leak
-
-Wu Hoi Pok (1):
-      drm/radeon: add late_register for connector
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |  4 +-
- drivers/gpu/drm/amd/amdkfd/kfd_process.c          |  7 +++-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  7 ++--
- drivers/gpu/drm/amd/display/dc/core/dc.c          | 45 +++++++++++++++++------
- drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h      | 26 ++++++-------
- drivers/gpu/drm/radeon/atombios_dp.c              |  9 +----
- drivers/gpu/drm/radeon/radeon_connectors.c        | 17 +++++++++
- drivers/gpu/drm/radeon/radeon_gem.c               |  3 --
- drivers/gpu/drm/radeon/radeon_object.c            |  1 +
- 9 files changed, 78 insertions(+), 41 deletions(-)
