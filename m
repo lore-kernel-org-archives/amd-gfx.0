@@ -4,158 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C2A4CED60E
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Oct 2024 06:11:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48802CED60C
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Oct 2024 06:14:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D1DA10E1FA;
-	Wed,  9 Oct 2024 06:11:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE74710E13E;
+	Wed,  9 Oct 2024 06:14:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="LIdlmzrp";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FT0n2i3l";
 	dkim-atps=neutral
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2066.outbound.protection.outlook.com [40.107.102.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E296510E1FA
- for <amd-gfx@lists.freedesktop.org>; Wed,  9 Oct 2024 06:11:01 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mxZ6Lyr974XNWM0mN4mgCLMavVn2RSHAtsZS6wrMy+/2CIgR2jZJgC0k+zExz0tEQJsJqXg6oA0PZlwojax5+EdnGcbu7UR9ziJLdkgVy+Hev1rX/KOtb8LWmot/j9oN7VvDO5+tkLWdzQ1exv4IU+DNOnNl9Bs6Fc41YuhodFZtmqvmDBnum336FYw/NVip4FDSWuPSQLS2LaNrK5ZBUTeiTgkvMuru/RLRaD7vCo4qW3UeJa8S2SqMvimOurbgf7BdsROBungjEw6QnDsErvMc3+9xXZZdNrU+Q819zqJ768Lu7+v4ukPOtwbfrnGprPPJXQAY80cmyAt7rhcjmA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VlAVppY2qTwJNvnUxSIY2gdiejL0NTc7hvRL5J0hcSA=;
- b=Di7rg8JiVo7JWiU0+apEUskHUrGnZNuLWaznTjMgIjxRbAFaq+9mAeUxZ6aikoioKyAzKGNi4hDyKoV9Og/6PufP97GFmksLasoLv9Vm8/6XbcX/PTcfx15n2rq3gfjIdccJ5GWZv1RvDIm0kX24+pJjDkbWabGkOi9p5tzr+Lyi3e1gxtFsU3zrP1I5zPtNQvED3uMsKdbSD1me3L2rpBDNJwM2J7VfFKx8Xp/REAT0LPXcieC6VR5E1BvyIFHE5eL28/tBQIlyI45HsD+8WFgn6KQsEsbPJfUgzCrnHPmvMojWDBcheAWI07JAxeYLsVkw6Z5fcFRVMk9GGCcVhA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VlAVppY2qTwJNvnUxSIY2gdiejL0NTc7hvRL5J0hcSA=;
- b=LIdlmzrpqATlB2M2m8Cg0njJpgkUrp82NEXTNzteI9r+UmEUYS0TBtuMQgTN+fmJvCVlaWITex6LDZEvFtuGODI6XQFSiJtSt6juyc+shXYWyMfYMKHlM03srFY/ySYum2vzCq3d0LmjanMO4DaMDhis0bKolIS5bV6wpK0M/Gc=
-Received: from PH8PR12MB6841.namprd12.prod.outlook.com (2603:10b6:510:1c8::21)
- by SA1PR12MB8600.namprd12.prod.outlook.com (2603:10b6:806:257::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8048.16; Wed, 9 Oct
- 2024 06:10:57 +0000
-Received: from PH8PR12MB6841.namprd12.prod.outlook.com
- ([fe80::8cad:63eb:fd59:940a]) by PH8PR12MB6841.namprd12.prod.outlook.com
- ([fe80::8cad:63eb:fd59:940a%5]) with mapi id 15.20.8048.013; Wed, 9 Oct 2024
- 06:10:57 +0000
-From: "Xiao, Jack" <Jack.Xiao@amd.com>
-To: "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>
-CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Zhang,
- Hawking" <Hawking.Zhang@amd.com>
-Subject: RE: [PATCH] drm/amd/amdgpu: Fix double unlock in amdgpu_mes_add_ring
-Thread-Topic: [PATCH] drm/amd/amdgpu: Fix double unlock in amdgpu_mes_add_ring
-Thread-Index: AQHbGYa7O1e6nurcWUSZb/RFVExVU7J98M3A
-Date: Wed, 9 Oct 2024 06:10:56 +0000
-Message-ID: <PH8PR12MB68417104F6AF830B7C9ABAD8EF7F2@PH8PR12MB6841.namprd12.prod.outlook.com>
-References: <20241008133337.88085-1-srinivasan.shanmugam@amd.com>
-In-Reply-To: <20241008133337.88085-1-srinivasan.shanmugam@amd.com>
-Accept-Language: en-001, zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=713c5714-a337-4a95-89c2-00b5fe8a9b4b;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution Only;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-10-09T06:10:23Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH8PR12MB6841:EE_|SA1PR12MB8600:EE_
-x-ms-office365-filtering-correlation-id: b0aa3769-97c4-4fa0-a3f4-08dce82923b5
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0; ARA:13230040|1800799024|366016|376014|38070700018;
-x-microsoft-antispam-message-info: =?utf-8?B?QmxmL2FiZXdLUGh1V2hkSWdSRVhjeUVFNFdVTjZtVkQvMjI2dXh0WWxlRTV1?=
- =?utf-8?B?bThMWE1VK0hqWGkzS1RKaDVVY1VJMlBKM0J4OE9rMVh3REQwODVEZEZwd0lv?=
- =?utf-8?B?NmQ3RGNobDMwcFJ0TmJ5QlJNYkZBYmFyL3lKeWtIeXJPTlNGei9oRjEva3FC?=
- =?utf-8?B?T3dSc2kzVmNJeS82YWJLaDdwak5iK05kZzM3K2xSR09YVDFrYjAvR1RiMEZv?=
- =?utf-8?B?QURhNitXa0JPczk5SDBqNmJrR0UvbWlvQ1B2MGVHRHV2K2hHUVNpRUpKanpz?=
- =?utf-8?B?cFVqYUxrVUZ4aGg0UGVJajN0elJzdnNpbEVkaWl0NG1kSTJnRk0vWDgxc0VY?=
- =?utf-8?B?L2tzcEUyM1FlUDdNczJqZTN4WFkxU0F4YjcveW5sa0RZa3dyQkdzTnp1L2Nw?=
- =?utf-8?B?UUJIdkF3WlEwV2R6c09yVDg2UUtUWTJHbzlITEZCVTFUbVZnajRneEE0clBU?=
- =?utf-8?B?SWpzemtKL0hFRFdRbFp3dGt4dWhjRk1BTmFEM0NVMy9zUnFRUWZRM0EwY01Z?=
- =?utf-8?B?blRBNXpiWUV0VERJOFR6WlpVTGxLYU9pUkd1aGpNZ0wrQThybTlGQkR5MWVq?=
- =?utf-8?B?QldCVy9oRmYyWUVBcDlKMmhacUhxMVE5bVpMQWpyUEFCd01uejl6Rlh6MkFB?=
- =?utf-8?B?dlRFcFpYREVtUVdMd291R0pFMnF4eThLUUE2enpJUUN4dkNLa0lhQS9YdXdh?=
- =?utf-8?B?V2V6MWxXSE9hWVRXVFF5SWpLSDdUUDIrU1hYVzFUb0hPUUtNczA1cEN2cytG?=
- =?utf-8?B?WUZIUDBTM0Z4c2NvaUZUSlhxMnFINVFzaDFGZzZKRUcrVGV4UkZwTjljbjUw?=
- =?utf-8?B?NnFJVS8wZ3E3bUZUb2w4VkRqVUtRdFZYT3orOXducllEdjhZUExEUmlNUkVX?=
- =?utf-8?B?dzZ5STN6bE9LaW5haUJpMWRtRFpwMjJxMUlEVHZpMFBkcVdUdU1Wb1BJcThy?=
- =?utf-8?B?UXd6TWNUaDIySWJERUxhSmJTVXlXdG1RZW9UeTVHelowUjFTaEVJc0FXN2th?=
- =?utf-8?B?YVhjWVA1NnNuUVZ5QlZzMVJFRkZ6UG11aDRuNzQ3aGJWM2drc1BPalZzOVBm?=
- =?utf-8?B?eHc2dWZySFVtbWlDdm92VjJEVVVWN05PRFhaSDdUOWdJQkE2bnh1ZkRsVTRY?=
- =?utf-8?B?a2p4RXlzeW8xK1NJWlVxVzV5aWRXeEpzaklKWGRVSmRva0ZjNmExOThyWjJm?=
- =?utf-8?B?c2Y2UmpFM2xhU3VWeVBEUy9RRFFEMDlsTURhVUVaKzdCQ1o1VVcrb3BBTXNS?=
- =?utf-8?B?QmJJMUdJNHhxL0JQemczU3hwRzJvN0xPRndheGU1T1Q5bVdEUno2TE9reDZl?=
- =?utf-8?B?NXdNd2Z5RzRrZ2l4UXpvajdzc2VyN21BRE1jZHR1dlJmMUc2N0ltZ2NpYWtF?=
- =?utf-8?B?YjZHK3U2VlNBR0o0RVRNaDRFRGY0MnhhTlNvbDdsMlU2UVVyeUpnZDhzSHFP?=
- =?utf-8?B?bnJ0QVVrTjUzOVg3dmlrSnpsdG0zSXBzdFNYVGk0N21yeWRRUEdPd2orSzVU?=
- =?utf-8?B?elFleHI4LzVvS1pONUR4OXdad2tQMlhIR0JrSXJxbzdDNkpOb3VCWUR6eFVY?=
- =?utf-8?B?dStEVVRGelk0Ym1FTkZnN2QwSG16L3NJTS9iVktUY0lsWTI4bll6TXFlU1or?=
- =?utf-8?B?ckxQMU15aEpoSE5HMlRRdjE2M1VaT2lBSmhuQVFWV0plTEpnQmZPZHQ4VmRP?=
- =?utf-8?B?QTRvZ1JrTUc1dnlkNFAvY1lZNlJhRzFpWkFlV0xkNUFrRGhFQTNUN2w5cWpv?=
- =?utf-8?B?dExZUnBRVGJ3VWh5MFU5ZUNXamZvdkJIcnM0VE5DTkJsWEJ3RS9TaElYSTJy?=
- =?utf-8?B?dytZd0c1bWUxTnNLdHg1dz09?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH8PR12MB6841.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(38070700018); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?ZnhsTGJWczRUeHErYVpPRWNHQXpZbDNCMHNIcEdNNXJUcG40U1A2T1Y1ZUhW?=
- =?utf-8?B?amNtSklRcVovOGNwc0RZUDRsOWdhM0p3azdVa1ZNeWJOVVdLWVVGcUl2S1pU?=
- =?utf-8?B?eEtrcFd5RTg1cmdybjdQTnVDMjlHUjlYWllJTjArTC80OU1kcnNza0NvZkxl?=
- =?utf-8?B?S2g0bWhkcGViaFkvaGlsWmROQWJnbWpOR05UdmpEejQwSWVCV2RWdHVLQmdM?=
- =?utf-8?B?d1VSVy9mOUFSOEpSZUQ0ejFlekM2QjJpaHNsYTVHb2w3WHRPY1dXZ1dINWg5?=
- =?utf-8?B?TVRqSEQ1blo0Nmh6ajVTcXhZK0lnL3JWM0ZoSDRlRFdaK0k1QkhGeXovV2Fk?=
- =?utf-8?B?dUFxZW5PVFQxUk1OdlQwWVc3NmhaWTE3eUdweFUySXVvSmpsOHhuSSsvRWJH?=
- =?utf-8?B?RUtlM0I3WUg2aGo5RUYzYUIvVzQ1dmQzb0dIb09UMlRQaGl6UEVnSVB3Mndr?=
- =?utf-8?B?Y3pNc2I3cGpZNkNjMXJWcVpxV0hGUnp5dWRvVEhId0RRSmpFZGxGTXVSMTVo?=
- =?utf-8?B?WkJweHpUNy9qNEJXYWNtK3NxR1JIQkxOSnN5Rk5kM3JDaGFIRENieURlNi9B?=
- =?utf-8?B?NWNuSTNhUWp1STRvbCs5T1dmRk9YcEtLVDhJME5CVmd4aVZzWWtocEZwMzVs?=
- =?utf-8?B?eTA0MHgzeUdvVk5FNXIybHBUaFd3d0p1THZMZzBEUS9rSWphNG1LL0l0U3Yx?=
- =?utf-8?B?YldVbE1GbnVpTU9IUGdVak9DeVhnMTVEVk9oejZPa0ZmYVlZcU1TK2FTQS95?=
- =?utf-8?B?SzMrU2c1N01vMmtkVlVTcmJYYlduVGZqcnFjVnU1b3lnSlRRNmVNcDVEd1du?=
- =?utf-8?B?N0ZMeWxoSDlMWm1MR0xtUVc0ZGpGN0dUaS9BdWxLQXlNL2Q2enQ1Q2NvU0RN?=
- =?utf-8?B?S2pyZ0xlZHEvMWJmVVFaT0hpUzJCV1ROVGZrdFJuZk1DK040eElEalYyZy8z?=
- =?utf-8?B?NW5xOEV6S211KzExdXBneENxK3h1Si9JU3Fka25WTzVHZWRDNm52cXVOVWZz?=
- =?utf-8?B?VWVyTDNlRnV3V1N3MEpLb0s1MWN3cUtWbFhSQ2VURkVIMjJDdzZ5SGlQOWpQ?=
- =?utf-8?B?SEM1aG1BL2c1bXJrbG5LWDBkcno5bDdLUTU1bjJHV2h1RURFWWZISlhxQ0hp?=
- =?utf-8?B?bFNlVlk0MmN5bUkrdWU2cStCNWVFcWQvSy9nektqbUFac21hKzlBT3NoZ2po?=
- =?utf-8?B?MGQ3dFgza0R4WXZubHpkcDMxOXZlNmlVK28zOFFlYmx2WFFWTzlsdlV1UUlL?=
- =?utf-8?B?UitKUzRmeThxYnE2blFja1I0T1JpQU5WUVRwTER0OE55R2lyVm9ZQjJaNnFh?=
- =?utf-8?B?WnVkUkJwZ2lXcTd6Nk9HdUYwR3psbTRKTFhRM05RN1BZdGk2a0FnSlhVQW0v?=
- =?utf-8?B?NkhlWldyVkdBNXZGQWdxRGY4T2F1NEswYjRSYzk1ZEg1UnZtTmdtM2hiK2Ri?=
- =?utf-8?B?c281YURRUVdraXhxMklvT0g1Y1J1K0FTczhZN01rNmxUMmd0Y1pWTVVwTlRQ?=
- =?utf-8?B?S3RiRkJlelZBa2N5VU5HMlRuQXJ5emd1bm1wQ2tpckhpUjBwVzF4OHptRmpy?=
- =?utf-8?B?VmNXZkJIbUs2cmZwOEt1Q3pTbEJZN3hVWS80YWF6amU1NFgzbTBNcHpMM2xS?=
- =?utf-8?B?TUxxN0pQcDJoaVlPdDNNQ3BzT28weEVEaXFSaXRQWkwzdGdlNDlmRTZYNm9U?=
- =?utf-8?B?Y2FOWG1kcXl1QkVHcHlVTzEvK3NPVFA2N2poNzZYQi9xMkJXNDd3cDRCNm05?=
- =?utf-8?B?RFUveDlDMS9QOVFVZFZ1ZFN5ZVFaRWJvMDBmcktUbEdjdUtpdW9vMkMyOWRj?=
- =?utf-8?B?OEsvSGZYZlhEMEJJNW9pVGNmNjA3NzNxWjY3NGEwMkF4TE9XemlSZHFFVGJv?=
- =?utf-8?B?M21tNko4Y2dUczhrZWhBR1daRDJiQjhHYzlvOWl0ay95K3h4bDZWWkMxcFdM?=
- =?utf-8?B?djZwK0VTTStzZlBKZ2YybVVjVlBCVWNOUUs1NW95MXNvTnI1ZVdLanQra2pO?=
- =?utf-8?B?NVVzRzVlbEpraGRONVUrR2Q3N083dXB4RXpJUE15L055VXR1WStpckdVYkx2?=
- =?utf-8?B?NHorbVZSaFNqejgwSEhwV2xsa29vaWVxY2VlZ0oxd1NlYy9UcmJKd1BqRmpU?=
- =?utf-8?Q?d4lw=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
+ [209.85.221.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0320E10E13E
+ for <amd-gfx@lists.freedesktop.org>; Wed,  9 Oct 2024 06:14:34 +0000 (UTC)
+Received: by mail-wr1-f53.google.com with SMTP id
+ ffacd0b85a97d-37d2ddb61c8so1381384f8f.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 08 Oct 2024 23:14:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1728454472; x=1729059272; darn=lists.freedesktop.org;
+ h=in-reply-to:from:content-language:references:to:subject:user-agent
+ :mime-version:date:message-id:from:to:cc:subject:date:message-id
+ :reply-to; bh=N1u1oYFeRe5F1V/QWRT8LrdDdvHuvLuzs21p8jDrfWs=;
+ b=FT0n2i3lYhNrXqdkRejF1twUcSlgbnknG4CkfXWGZ5yla+1N5AVDJ/Tqmtpstj3a+q
+ VGaX/oamkN9+kEqmnIN5OJY7Iy7zxwbtmFcLVY1vUgvwwI66GqFcNanXHsYtue3r70hv
+ w3j4yN0umPp734ntirjjZGAmcQH3KH5Nw9GJ7U1scdIH7RaH8F37ZsMKxWSlFS9+pcRj
+ MdnKeJ/ZV5q11HcvzVSPzwf8NwYrG71YpuQsFQ3IXlAN8l3lDBj8qph2fZ/EjUjlBAJB
+ c1SGXEcwzWZIslZUOttr77Txz5w9YVWFXfYBpdEBC1xsTf+wKQGFnKrMdzOU19nEoTRc
+ z5pA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1728454472; x=1729059272;
+ h=in-reply-to:from:content-language:references:to:subject:user-agent
+ :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=N1u1oYFeRe5F1V/QWRT8LrdDdvHuvLuzs21p8jDrfWs=;
+ b=B6YYpUcBuCu26iAmtuRkxdoguvDqRJX0XuX1qlqhDpLoj+Yf8fIRvMA3K6Aiby57kE
+ FQ6VAShydp5/MmWkUf7sPUutp5D+yWmFsFH0c57Y8IOk8VN0u/H5YW7ub3Auh/RnqMyj
+ IYZTdgZxNquLcCl85vcyQe5fc07pC8sE4VwrRphYYVUTWTsycI+ZGDsqlg3L8g/TwnHH
+ K8H1NrJ1Sn9jEjBdh+miA7qRkDIuN2Ik5Crf153+S7fn4ZpptizFMn21GGe+Ruaf3nRA
+ cpe7Td1uLINaeUuf0F0h/lHAVZSXe3Co5asLa2DhwW3YheTB8KXyk8CCp4pP/C5ONwJS
+ XPlg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWGTPbfa4P9zN1MU31YezBwDh3xLFuTbjVNm3i7WAvY3fC+f5Km58VIMkFdpS4yJrqY2mEvZZNO@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YycuT8KxppoEdMjik99H4ub04BPeQPuNfUBkVh9r1CiLEEtJQOP
+ Psbu/QWSAPNy1AX2THyh1P38BXmlnvWaAqQxqQKgmapClQWR8IC8
+X-Google-Smtp-Source: AGHT+IGBRSqVYd5MgfEn123coBa7BiHaYl8Yy8074kOxxe6ob/ET/iupDg2ijHZgErFkmL1E5J/3xA==
+X-Received: by 2002:a5d:4109:0:b0:37c:cfa4:d998 with SMTP id
+ ffacd0b85a97d-37d3ab0118amr982816f8f.49.1728454471955; 
+ Tue, 08 Oct 2024 23:14:31 -0700 (PDT)
+Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-37d32ea1d98sm2552338f8f.68.2024.10.08.23.14.30
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 08 Oct 2024 23:14:31 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------KQqKJCl3bqIQrXU6bfT9R1V0"
+Message-ID: <0d0a4506-3003-476d-ae29-fa58ac615f6f@gmail.com>
+Date: Wed, 9 Oct 2024 08:14:30 +0200
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6841.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b0aa3769-97c4-4fa0-a3f4-08dce82923b5
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Oct 2024 06:10:57.0155 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: inPqUhBlzrBH1VlZ4L7ujZd2dK1Tn7rlba8Eizkl3DNtTv0VYZvDNO8TJSJlj+7Y
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8600
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] drm/amdgpu: stop masking the wptr all the time
+To: "Khatri, Sunil" <sunil.khatri@amd.com>, amd-gfx@lists.freedesktop.org,
+ tursulin@igalia.com
+References: <20241008181134.1350-1-christian.koenig@amd.com>
+ <20241008181134.1350-2-christian.koenig@amd.com>
+ <ad51bbc1-4e5d-e5c0-60b7-35cedbd77d9a@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <ad51bbc1-4e5d-e5c0-60b7-35cedbd77d9a@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -170,137 +84,890 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEFNRCBJbnRlcm5hbCBEaXN0cmlidXRpb24gT25seV0N
-Cg0KUmV2aWV3ZWQtYnk6IEphY2sgWGlhbyA8SmFjay5YaWFvQGFtZC5jb20+DQoNClJlZ2FyZHMs
-DQpKYWNrDQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBTSEFOTVVHQU0sIFNS
-SU5JVkFTQU4gPFNSSU5JVkFTQU4uU0hBTk1VR0FNQGFtZC5jb20+DQpTZW50OiBUdWVzZGF5LCBP
-Y3RvYmVyIDgsIDIwMjQgOTozNCBQTQ0KVG86IEtvZW5pZywgQ2hyaXN0aWFuIDxDaHJpc3RpYW4u
-S29lbmlnQGFtZC5jb20+OyBEZXVjaGVyLCBBbGV4YW5kZXIgPEFsZXhhbmRlci5EZXVjaGVyQGFt
-ZC5jb20+DQpDYzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc7IFNIQU5NVUdBTSwgU1JJ
-TklWQVNBTiA8U1JJTklWQVNBTi5TSEFOTVVHQU1AYW1kLmNvbT47IFpoYW5nLCBIYXdraW5nIDxI
-YXdraW5nLlpoYW5nQGFtZC5jb20+OyBYaWFvLCBKYWNrIDxKYWNrLlhpYW9AYW1kLmNvbT4NClN1
-YmplY3Q6IFtQQVRDSF0gZHJtL2FtZC9hbWRncHU6IEZpeCBkb3VibGUgdW5sb2NrIGluIGFtZGdw
-dV9tZXNfYWRkX3JpbmcNCg0KVGhpcyBwYXRjaCBhZGRyZXNzZXMgYSBkb3VibGUgdW5sb2NrIGlz
-c3VlIGluIHRoZSBhbWRncHVfbWVzX2FkZF9yaW5nIGZ1bmN0aW9uLiBUaGUgbXV0ZXggd2FzIGJl
-aW5nIHVubG9ja2VkIHR3aWNlIHVuZGVyIGNlcnRhaW4gZXJyb3IgY29uZGl0aW9ucywgd2hpY2gg
-Y291bGQgbGVhZCB0byB1bmRlZmluZWQgYmVoYXZpb3IuDQoNClRoZSBmaXggZW5zdXJlcyB0aGF0
-IHRoZSBtdXRleCBpcyB1bmxvY2tlZCBvbmx5IG9uY2UgYmVmb3JlIGp1bXBpbmcgdG8gdGhlIGNs
-ZWFuX3VwX21lbW9yeSBsYWJlbC4gVGhlIHVubG9jayBvcGVyYXRpb24gaXMgbW92ZWQgdG8ganVz
-dCBiZWZvcmUgdGhlIGdvdG8gc3RhdGVtZW50IHdpdGhpbiB0aGUgY29uZGl0aW9uYWwgYmxvY2sg
-dGhhdCBjaGVja3MgdGhlIHJldHVybiB2YWx1ZSBvZiBhbWRncHVfcmluZ19pbml0LiBUaGlzIHBy
-ZXZlbnRzIHRoZSBzZWNvbmQgdW5sb2NrIGF0dGVtcHQgYWZ0ZXIgdGhlIGNsZWFuX3VwX21lbW9y
-eSBsYWJlbCwgd2hpY2ggaXMgbm8gbG9uZ2VyIG5lY2Vzc2FyeSBhcyB0aGUgbXV0ZXggaXMgYWxy
-ZWFkeSB1bmxvY2tlZCBieSB0aGlzIHBvaW50IGluIHRoZSBjb2RlIGZsb3cuDQoNClRoaXMgY2hh
-bmdlIHJlc29sdmVzIHRoZSBwb3RlbnRpYWwgZG91YmxlIHVubG9jayBhbmQgbWFpbnRhaW5zIHRo
-ZSBjb3JyZWN0IG11dGV4IGhhbmRsaW5nIHRocm91Z2hvdXQgdGhlIGZ1bmN0aW9uLg0KDQpGaXhl
-cyBiZWxvdzoNCkNvbW1pdCBkMGM0MjNiNjQ3NjUgKCJkcm0vYW1kZ3B1L21lczogdXNlIHJpbmcg
-Zm9yIGtlcm5lbCBxdWV1ZSBzdWJtaXNzaW9uIiksIGxlYWRzIHRvIHRoZSBmb2xsb3dpbmcgU21h
-dGNoIHN0YXRpYyBjaGVja2VyIHdhcm5pbmc6DQoNCiAgICAgICAgZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X21lcy5jOjEyNDAgYW1kZ3B1X21lc19hZGRfcmluZygpDQogICAgICAg
-IHdhcm46IGRvdWJsZSB1bmxvY2sgJyZhZGV2LT5tZXMubXV0ZXhfaGlkZGVuJyAob3JpZyBsaW5l
-IDEyMTMpDQoNCmRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9tZXMuYw0KICAgIDEx
-NDMgaW50IGFtZGdwdV9tZXNfYWRkX3Jpbmcoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIGlu
-dCBnYW5nX2lkLA0KICAgIDExNDQgICAgICAgICAgICAgICAgICAgICAgICAgaW50IHF1ZXVlX3R5
-cGUsIGludCBpZHgsDQogICAgMTE0NSAgICAgICAgICAgICAgICAgICAgICAgICBzdHJ1Y3QgYW1k
-Z3B1X21lc19jdHhfZGF0YSAqY3R4X2RhdGEsDQogICAgMTE0NiAgICAgICAgICAgICAgICAgICAg
-ICAgICBzdHJ1Y3QgYW1kZ3B1X3JpbmcgKipvdXQpDQogICAgMTE0NyB7DQogICAgMTE0OCAgICAg
-ICAgIHN0cnVjdCBhbWRncHVfcmluZyAqcmluZzsNCiAgICAxMTQ5ICAgICAgICAgc3RydWN0IGFt
-ZGdwdV9tZXNfZ2FuZyAqZ2FuZzsNCiAgICAxMTUwICAgICAgICAgc3RydWN0IGFtZGdwdV9tZXNf
-cXVldWVfcHJvcGVydGllcyBxcHJvcHMgPSB7MH07DQogICAgMTE1MSAgICAgICAgIGludCByLCBx
-dWV1ZV9pZCwgcGFzaWQ7DQogICAgMTE1Mg0KICAgIDExNTMgICAgICAgICAvKg0KICAgIDExNTQg
-ICAgICAgICAgKiBBdm9pZCB0YWtpbmcgYW55IG90aGVyIGxvY2tzIHVuZGVyIE1FUyBsb2NrIHRv
-IGF2b2lkIGNpcmN1bGFyDQogICAgMTE1NSAgICAgICAgICAqIGxvY2sgZGVwZW5kZW5jaWVzLg0K
-ICAgIDExNTYgICAgICAgICAgKi8NCiAgICAxMTU3ICAgICAgICAgYW1kZ3B1X21lc19sb2NrKCZh
-ZGV2LT5tZXMpOw0KICAgIDExNTggICAgICAgICBnYW5nID0gaWRyX2ZpbmQoJmFkZXYtPm1lcy5n
-YW5nX2lkX2lkciwgZ2FuZ19pZCk7DQogICAgMTE1OSAgICAgICAgIGlmICghZ2FuZykgew0KICAg
-IDExNjAgICAgICAgICAgICAgICAgIERSTV9FUlJPUigiZ2FuZyBpZCAlZCBkb2Vzbid0IGV4aXN0
-XG4iLCBnYW5nX2lkKTsNCiAgICAxMTYxICAgICAgICAgICAgICAgICBhbWRncHVfbWVzX3VubG9j
-aygmYWRldi0+bWVzKTsNCiAgICAxMTYyICAgICAgICAgICAgICAgICByZXR1cm4gLUVJTlZBTDsN
-CiAgICAxMTYzICAgICAgICAgfQ0KICAgIDExNjQgICAgICAgICBwYXNpZCA9IGdhbmctPnByb2Nl
-c3MtPnBhc2lkOw0KICAgIDExNjUNCiAgICAxMTY2ICAgICAgICAgcmluZyA9IGt6YWxsb2Moc2l6
-ZW9mKHN0cnVjdCBhbWRncHVfcmluZyksIEdGUF9LRVJORUwpOw0KICAgIDExNjcgICAgICAgICBp
-ZiAoIXJpbmcpIHsNCiAgICAxMTY4ICAgICAgICAgICAgICAgICBhbWRncHVfbWVzX3VubG9jaygm
-YWRldi0+bWVzKTsNCiAgICAxMTY5ICAgICAgICAgICAgICAgICByZXR1cm4gLUVOT01FTTsNCiAg
-ICAxMTcwICAgICAgICAgfQ0KICAgIDExNzENCiAgICAxMTcyICAgICAgICAgcmluZy0+cmluZ19v
-YmogPSBOVUxMOw0KICAgIDExNzMgICAgICAgICByaW5nLT51c2VfZG9vcmJlbGwgPSB0cnVlOw0K
-ICAgIDExNzQgICAgICAgICByaW5nLT5pc19tZXNfcXVldWUgPSB0cnVlOw0KICAgIDExNzUgICAg
-ICAgICByaW5nLT5tZXNfY3R4ID0gY3R4X2RhdGE7DQogICAgMTE3NiAgICAgICAgIHJpbmctPmlk
-eCA9IGlkeDsNCiAgICAxMTc3ICAgICAgICAgcmluZy0+bm9fc2NoZWR1bGVyID0gdHJ1ZTsNCiAg
-ICAxMTc4DQogICAgMTE3OSAgICAgICAgIGlmIChxdWV1ZV90eXBlID09IEFNREdQVV9SSU5HX1RZ
-UEVfQ09NUFVURSkgew0KICAgIDExODAgICAgICAgICAgICAgICAgIGludCBvZmZzZXQgPSBvZmZz
-ZXRvZihzdHJ1Y3QgYW1kZ3B1X21lc19jdHhfbWV0YV9kYXRhLA0KICAgIDExODEgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjb21wdXRlW3JpbmctPmlkeF0ubWVjX2hwZCk7
-DQogICAgMTE4MiAgICAgICAgICAgICAgICAgcmluZy0+ZW9wX2dwdV9hZGRyID0NCiAgICAxMTgz
-ICAgICAgICAgICAgICAgICAgICAgICAgIGFtZGdwdV9tZXNfY3R4X2dldF9vZmZzX2dwdV9hZGRy
-KHJpbmcsIG9mZnNldCk7DQogICAgMTE4NCAgICAgICAgIH0NCiAgICAxMTg1DQogICAgMTE4NiAg
-ICAgICAgIHN3aXRjaCAocXVldWVfdHlwZSkgew0KICAgIDExODcgICAgICAgICBjYXNlIEFNREdQ
-VV9SSU5HX1RZUEVfR0ZYOg0KICAgIDExODggICAgICAgICAgICAgICAgIHJpbmctPmZ1bmNzID0g
-YWRldi0+Z2Z4LmdmeF9yaW5nWzBdLmZ1bmNzOw0KICAgIDExODkgICAgICAgICAgICAgICAgIHJp
-bmctPm1lID0gYWRldi0+Z2Z4LmdmeF9yaW5nWzBdLm1lOw0KICAgIDExOTAgICAgICAgICAgICAg
-ICAgIHJpbmctPnBpcGUgPSBhZGV2LT5nZnguZ2Z4X3JpbmdbMF0ucGlwZTsNCiAgICAxMTkxICAg
-ICAgICAgICAgICAgICBicmVhazsNCiAgICAxMTkyICAgICAgICAgY2FzZSBBTURHUFVfUklOR19U
-WVBFX0NPTVBVVEU6DQogICAgMTE5MyAgICAgICAgICAgICAgICAgcmluZy0+ZnVuY3MgPSBhZGV2
-LT5nZnguY29tcHV0ZV9yaW5nWzBdLmZ1bmNzOw0KICAgIDExOTQgICAgICAgICAgICAgICAgIHJp
-bmctPm1lID0gYWRldi0+Z2Z4LmNvbXB1dGVfcmluZ1swXS5tZTsNCiAgICAxMTk1ICAgICAgICAg
-ICAgICAgICByaW5nLT5waXBlID0gYWRldi0+Z2Z4LmNvbXB1dGVfcmluZ1swXS5waXBlOw0KICAg
-IDExOTYgICAgICAgICAgICAgICAgIGJyZWFrOw0KICAgIDExOTcgICAgICAgICBjYXNlIEFNREdQ
-VV9SSU5HX1RZUEVfU0RNQToNCiAgICAxMTk4ICAgICAgICAgICAgICAgICByaW5nLT5mdW5jcyA9
-IGFkZXYtPnNkbWEuaW5zdGFuY2VbMF0ucmluZy5mdW5jczsNCiAgICAxMTk5ICAgICAgICAgICAg
-ICAgICBicmVhazsNCiAgICAxMjAwICAgICAgICAgZGVmYXVsdDoNCiAgICAxMjAxICAgICAgICAg
-ICAgICAgICBCVUcoKTsNCiAgICAxMjAyICAgICAgICAgfQ0KICAgIDEyMDMNCiAgICAxMjA0ICAg
-ICAgICAgciA9IGFtZGdwdV9yaW5nX2luaXQoYWRldiwgcmluZywgMTAyNCwgTlVMTCwgMCwNCiAg
-ICAxMjA1ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQU1ER1BVX1JJTkdfUFJJT19ERUZB
-VUxULCBOVUxMKTsNCiAgICAxMjA2ICAgICAgICAgaWYgKHIpDQogICAgMTIwNyAgICAgICAgICAg
-ICAgICAgZ290byBjbGVhbl91cF9tZW1vcnk7DQogICAgMTIwOA0KICAgIDEyMDkgICAgICAgICBh
-bWRncHVfbWVzX3JpbmdfdG9fcXVldWVfcHJvcHMoYWRldiwgcmluZywgJnFwcm9wcyk7DQogICAg
-MTIxMA0KICAgIDEyMTEgICAgICAgICBkbWFfZmVuY2Vfd2FpdChnYW5nLT5wcm9jZXNzLT52bS0+
-bGFzdF91cGRhdGUsIGZhbHNlKTsNCiAgICAxMjEyICAgICAgICAgZG1hX2ZlbmNlX3dhaXQoY3R4
-X2RhdGEtPm1ldGFfZGF0YV92YS0+bGFzdF9wdF91cGRhdGUsIGZhbHNlKTsNCiAgICAxMjEzICAg
-ICAgICAgYW1kZ3B1X21lc191bmxvY2soJmFkZXYtPm1lcyk7DQogICAgICAgICAgICAgICAgIF5e
-Xl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eDQoNCiAgICAxMjE0DQogICAgMTIxNSAgICAgICAg
-IHIgPSBhbWRncHVfbWVzX2FkZF9od19xdWV1ZShhZGV2LCBnYW5nX2lkLCAmcXByb3BzLCAmcXVl
-dWVfaWQpOw0KICAgIDEyMTYgICAgICAgICBpZiAocikNCiAgICAxMjE3ICAgICAgICAgICAgICAg
-ICBnb3RvIGNsZWFuX3VwX3Jpbmc7DQogICAgICAgICAgICAgICAgICAgICAgICAgXl5eXl5eXl5e
-Xl5eXl5eXl5eDQoNCiAgICAxMjE4DQogICAgMTIxOSAgICAgICAgIHJpbmctPmh3X3F1ZXVlX2lk
-ID0gcXVldWVfaWQ7DQogICAgMTIyMCAgICAgICAgIHJpbmctPmRvb3JiZWxsX2luZGV4ID0gcXBy
-b3BzLmRvb3JiZWxsX29mZjsNCiAgICAxMjIxDQogICAgMTIyMiAgICAgICAgIGlmIChxdWV1ZV90
-eXBlID09IEFNREdQVV9SSU5HX1RZUEVfR0ZYKQ0KICAgIDEyMjMgICAgICAgICAgICAgICAgIHNw
-cmludGYocmluZy0+bmFtZSwgImdmeF8lZC4lZC4lZCIsIHBhc2lkLCBnYW5nX2lkLCBxdWV1ZV9p
-ZCk7DQogICAgMTIyNCAgICAgICAgIGVsc2UgaWYgKHF1ZXVlX3R5cGUgPT0gQU1ER1BVX1JJTkdf
-VFlQRV9DT01QVVRFKQ0KICAgIDEyMjUgICAgICAgICAgICAgICAgIHNwcmludGYocmluZy0+bmFt
-ZSwgImNvbXB1dGVfJWQuJWQuJWQiLCBwYXNpZCwgZ2FuZ19pZCwNCiAgICAxMjI2ICAgICAgICAg
-ICAgICAgICAgICAgICAgIHF1ZXVlX2lkKTsNCiAgICAxMjI3ICAgICAgICAgZWxzZSBpZiAocXVl
-dWVfdHlwZSA9PSBBTURHUFVfUklOR19UWVBFX1NETUEpDQogICAgMTIyOCAgICAgICAgICAgICAg
-ICAgc3ByaW50ZihyaW5nLT5uYW1lLCAic2RtYV8lZC4lZC4lZCIsIHBhc2lkLCBnYW5nX2lkLA0K
-ICAgIDEyMjkgICAgICAgICAgICAgICAgICAgICAgICAgcXVldWVfaWQpOw0KICAgIDEyMzAgICAg
-ICAgICBlbHNlDQogICAgMTIzMSAgICAgICAgICAgICAgICAgQlVHKCk7DQogICAgMTIzMg0KICAg
-IDEyMzMgICAgICAgICAqb3V0ID0gcmluZzsNCiAgICAxMjM0ICAgICAgICAgcmV0dXJuIDA7DQog
-ICAgMTIzNQ0KICAgIDEyMzYgY2xlYW5fdXBfcmluZzoNCiAgICAxMjM3ICAgICAgICAgYW1kZ3B1
-X3JpbmdfZmluaShyaW5nKTsNCiAgICAxMjM4IGNsZWFuX3VwX21lbW9yeToNCiAgICAxMjM5ICAg
-ICAgICAga2ZyZWUocmluZyk7DQotLT4gMTI0MCAgICAgICAgIGFtZGdwdV9tZXNfdW5sb2NrKCZh
-ZGV2LT5tZXMpOw0KICAgICAgICAgICAgICAgICBeXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5eXl5e
-Xl4NCg0KICAgIDEyNDEgICAgICAgICByZXR1cm4gcjsNCiAgICAxMjQyIH0NCg0KRml4ZXM6IGQw
-YzQyM2I2NDc2NSAoImRybS9hbWRncHUvbWVzOiB1c2UgcmluZyBmb3Iga2VybmVsIHF1ZXVlIHN1
-Ym1pc3Npb24iKQ0KQ2M6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNv
-bT4NCkNjOiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+DQpDYzogSGF3
-a2luZyBaaGFuZyA8SGF3a2luZy5aaGFuZ0BhbWQuY29tPg0KU3VnZ2VzdGVkLWJ5OiBKYWNrIFhp
-YW8gPEphY2suWGlhb0BhbWQuY29tPiBSZXBvcnRlZCBieTogRGFuIENhcnBlbnRlciA8ZGFuLmNh
-cnBlbnRlckBsaW5hcm8ub3JnPg0KU2lnbmVkLW9mZi1ieTogU3Jpbml2YXNhbiBTaGFubXVnYW0g
-PHNyaW5pdmFzYW4uc2hhbm11Z2FtQGFtZC5jb20+DQotLS0NCiBkcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfbWVzLmMgfCA1ICsrKy0tDQogMSBmaWxlIGNoYW5nZWQsIDMgaW5zZXJ0
-aW9ucygrKSwgMiBkZWxldGlvbnMoLSkNCg0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV9tZXMuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9tZXMuYw0KaW5kZXggOTg0YmZmMjVjZmNhLi44M2QwZjczMWZiNjUgMTAwNjQ0DQotLS0gYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfbWVzLmMNCisrKyBiL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9tZXMuYw0KQEAgLTEyMDAsOCArMTIwMCwxMCBAQCBpbnQg
-YW1kZ3B1X21lc19hZGRfcmluZyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgaW50IGdhbmdf
-aWQsDQoNCiAgICAgICAgciA9IGFtZGdwdV9yaW5nX2luaXQoYWRldiwgcmluZywgMTAyNCwgTlVM
-TCwgMCwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQU1ER1BVX1JJTkdfUFJJT19ERUZB
-VUxULCBOVUxMKTsNCi0gICAgICAgaWYgKHIpDQorICAgICAgIGlmIChyKSB7DQorICAgICAgICAg
-ICAgICAgYW1kZ3B1X21lc191bmxvY2soJmFkZXYtPm1lcyk7DQogICAgICAgICAgICAgICAgZ290
-byBjbGVhbl91cF9tZW1vcnk7DQorICAgICAgIH0NCg0KICAgICAgICBhbWRncHVfbWVzX3Jpbmdf
-dG9fcXVldWVfcHJvcHMoYWRldiwgcmluZywgJnFwcm9wcyk7DQoNCkBAIC0xMjM0LDcgKzEyMzYs
-NiBAQCBpbnQgYW1kZ3B1X21lc19hZGRfcmluZyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwg
-aW50IGdhbmdfaWQsDQogICAgICAgIGFtZGdwdV9yaW5nX2ZpbmkocmluZyk7DQogY2xlYW5fdXBf
-bWVtb3J5Og0KICAgICAgICBrZnJlZShyaW5nKTsNCi0gICAgICAgYW1kZ3B1X21lc191bmxvY2so
-JmFkZXYtPm1lcyk7DQogICAgICAgIHJldHVybiByOw0KIH0NCg0KLS0NCjIuMzQuMQ0KDQo=
+This is a multi-part message in MIME format.
+--------------KQqKJCl3bqIQrXU6bfT9R1V0
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Am 08.10.24 um 20:43 schrieb Khatri, Sunil:
+>
+>
+> On 10/8/2024 11:41 PM, Christian König wrote:
+>> Stop masking the wptr and decrementing the count_dw while writing into
+>> the ring buffer. We can do that all at once while pushing the changes to
+>> the HW.
+>>
+>> Signed-off-by: Christian König<christian.koenig@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 11 +++++------
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |  4 ----
+>>   2 files changed, 5 insertions(+), 10 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+>> index a6e28fe3f8d6..364466d6d3de 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+>> @@ -90,12 +90,11 @@ int amdgpu_ring_alloc(struct amdgpu_ring *ring, unsigned int ndw)
+>>   	if (WARN_ON_ONCE(ndw > ring->max_dw))
+>>   		return -ENOMEM;
+>>   
+>> -	ring->count_dw = ndw;
+>> -	ring->wptr_old = ring->wptr;
+>> -
+>>   	if (ring->funcs->begin_use)
+>>   		ring->funcs->begin_use(ring);
+>>   
+>> +	ring->count_dw = ndw;
+>> +	ring->wptr_old = ring->wptr;
+> Does moving these after begin_use makes any difference? Otherwise 
+> looks good to me.
+
+Yes, it does. The VCN begin_use() callback modifies the wptr on resume.
+
+So we can only safe wptr_old after making the callback.
+
+> Reviewed-by: Sunil Khatri <sunil.khatri@amd.com> 
+> <mailto:sunil.khatri@amd.com>
+>
+
+Thanks,
+Christian.
+
+> Regards
+> Sunil Khatri
+>
+>
+>>   	return 0;
+>>   }
+>>   
+>> @@ -122,8 +121,6 @@ void amdgpu_ring_insert_nop(struct amdgpu_ring *ring, uint32_t count)
+>>   		memset32(ring->ring, ring->funcs->nop, chunk2);
+>>   
+>>   	ring->wptr += count;
+>> -	ring->wptr &= ring->ptr_mask;
+>> -	ring->count_dw -= count;
+>>   }
+>>   
+>>   /**
+>> @@ -153,9 +150,11 @@ void amdgpu_ring_commit(struct amdgpu_ring *ring)
+>>   {
+>>   	uint32_t count;
+>>   
+>> -	if (ring->count_dw < 0)
+>> +	if ((ring->wptr - ring->wptr_old) > ring->count_dw)
+>>   		DRM_ERROR("amdgpu: writing more dwords to the ring than expected!\n");
+>>   
+>> +	ring->wptr &= ring->ptr_mask;
+>> +
+>>   	/* We pad to match fetch size */
+>>   	count = ring->funcs->align_mask + 1 -
+>>   		(ring->wptr & ring->funcs->align_mask);
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+>> index 36fc9578c53c..439793206b89 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+>> @@ -378,8 +378,6 @@ static inline void amdgpu_ring_clear_ring(struct amdgpu_ring *ring)
+>>   static inline void amdgpu_ring_write(struct amdgpu_ring *ring, uint32_t v)
+>>   {
+>>   	ring->ring[ring->wptr++ & ring->buf_mask] = v;
+>> -	ring->wptr &= ring->ptr_mask;
+>> -	ring->count_dw--;
+>>   }
+>>   
+>>   static inline void amdgpu_ring_write_multiple(struct amdgpu_ring *ring,
+>> @@ -403,8 +401,6 @@ static inline void amdgpu_ring_write_multiple(struct amdgpu_ring *ring,
+>>   	}
+>>   
+>>   	ring->wptr += count_dw;
+>> -	ring->wptr &= ring->ptr_mask;
+>> -	ring->count_dw -= count_dw;
+>>   }
+>>   
+>>   /**
+
+--------------KQqKJCl3bqIQrXU6bfT9R1V0
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    Am 08.10.24 um 20:43 schrieb Khatri, Sunil:<br>
+    <blockquote type="cite"
+      cite="mid:ad51bbc1-4e5d-e5c0-60b7-35cedbd77d9a@amd.com">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <p><br>
+      </p>
+      <div class="moz-cite-prefix">On 10/8/2024 11:41 PM, Christian
+        König wrote:<br>
+      </div>
+      <blockquote type="cite"
+        cite="mid:20241008181134.1350-2-christian.koenig@amd.com">
+        <pre class="moz-quote-pre" wrap="">Stop masking the wptr and decrementing the count_dw while writing into
+the ring buffer. We can do that all at once while pushing the changes to
+the HW.
+
+Signed-off-by: Christian König <a class="moz-txt-link-rfc2396E"
+        href="mailto:christian.koenig@amd.com" moz-do-not-send="true">&lt;christian.koenig@amd.com&gt;</a>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 11 +++++------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |  4 ----
+ 2 files changed, 5 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+index a6e28fe3f8d6..364466d6d3de 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+@@ -90,12 +90,11 @@ int amdgpu_ring_alloc(struct amdgpu_ring *ring, unsigned int ndw)
+ 	if (WARN_ON_ONCE(ndw &gt; ring-&gt;max_dw))
+ 		return -ENOMEM;
+ 
+-	ring-&gt;count_dw = ndw;
+-	ring-&gt;wptr_old = ring-&gt;wptr;
+-
+ 	if (ring-&gt;funcs-&gt;begin_use)
+ 		ring-&gt;funcs-&gt;begin_use(ring);
+ 
++	ring-&gt;count_dw = ndw;
++	ring-&gt;wptr_old = ring-&gt;wptr;</pre>
+      </blockquote>
+      Does moving these after begin_use makes any difference? Otherwise
+      looks good to me.<br>
+    </blockquote>
+    <br>
+    Yes, it does. The VCN begin_use() callback modifies the wptr on
+    resume.<br>
+    <br>
+    So we can only safe wptr_old after making the callback.<br>
+    <br>
+    <blockquote type="cite"
+      cite="mid:ad51bbc1-4e5d-e5c0-60b7-35cedbd77d9a@amd.com">
+      <!--[if gte mso 9]><xml>
+ <o:OfficeDocumentSettings>
+  <o:AllowPNG/>
+ </o:OfficeDocumentSettings>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:View>Normal</w:View>
+  <w:Zoom>0</w:Zoom>
+  <w:TrackMoves/>
+  <w:TrackFormatting/>
+  <w:PunctuationKerning/>
+  <w:ValidateAgainstSchemas/>
+  <w:SaveIfXMLInvalid>false</w:SaveIfXMLInvalid>
+  <w:IgnoreMixedContent>false</w:IgnoreMixedContent>
+  <w:AlwaysShowPlaceholderText>false</w:AlwaysShowPlaceholderText>
+  <w:DoNotPromoteQF/>
+  <w:LidThemeOther>EN-US</w:LidThemeOther>
+  <w:LidThemeAsian>X-NONE</w:LidThemeAsian>
+  <w:LidThemeComplexScript>X-NONE</w:LidThemeComplexScript>
+  <w:Compatibility>
+   <w:BreakWrappedTables/>
+   <w:SnapToGridInCell/>
+   <w:WrapTextWithPunct/>
+   <w:UseAsianBreakRules/>
+   <w:DontGrowAutofit/>
+   <w:SplitPgBreakAndParaMark/>
+   <w:EnableOpenTypeKerning/>
+   <w:DontFlipMirrorIndents/>
+   <w:OverrideTableStyleHps/>
+  </w:Compatibility>
+  <m:mathPr>
+   <m:mathFont m:val="Cambria Math"/>
+   <m:brkBin m:val="before"/>
+   <m:brkBinSub m:val="&#45;-"/>
+   <m:smallFrac m:val="off"/>
+   <m:dispDef/>
+   <m:lMargin m:val="0"/>
+   <m:rMargin m:val="0"/>
+   <m:defJc m:val="centerGroup"/>
+   <m:wrapIndent m:val="1440"/>
+   <m:intLim m:val="subSup"/>
+   <m:naryLim m:val="undOvr"/>
+  </m:mathPr></w:WordDocument>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:LatentStyles DefLockedState="false" DefUnhideWhenUsed="false"
+  DefSemiHidden="false" DefQFormat="false" DefPriority="99"
+  LatentStyleCount="376">
+  <w:LsdException Locked="false" Priority="0" QFormat="true" Name="Normal"/>
+  <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 1"/>
+  <w:LsdException Locked="false" Priority="9" SemiHidden="true"
+   UnhideWhenUsed="true" QFormat="true" Name="heading 2"/>
+  <w:LsdException Locked="false" Priority="9" SemiHidden="true"
+   UnhideWhenUsed="true" QFormat="true" Name="heading 3"/>
+  <w:LsdException Locked="false" Priority="9" SemiHidden="true"
+   UnhideWhenUsed="true" QFormat="true" Name="heading 4"/>
+  <w:LsdException Locked="false" Priority="9" SemiHidden="true"
+   UnhideWhenUsed="true" QFormat="true" Name="heading 5"/>
+  <w:LsdException Locked="false" Priority="9" SemiHidden="true"
+   UnhideWhenUsed="true" QFormat="true" Name="heading 6"/>
+  <w:LsdException Locked="false" Priority="9" SemiHidden="true"
+   UnhideWhenUsed="true" QFormat="true" Name="heading 7"/>
+  <w:LsdException Locked="false" Priority="9" SemiHidden="true"
+   UnhideWhenUsed="true" QFormat="true" Name="heading 8"/>
+  <w:LsdException Locked="false" Priority="9" SemiHidden="true"
+   UnhideWhenUsed="true" QFormat="true" Name="heading 9"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="index 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="index 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="index 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="index 4"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="index 5"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="index 6"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="index 7"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="index 8"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="index 9"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" Name="toc 1"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" Name="toc 2"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" Name="toc 3"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" Name="toc 4"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" Name="toc 5"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" Name="toc 6"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" Name="toc 7"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" Name="toc 8"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" Name="toc 9"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Normal Indent"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="footnote text"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="annotation text"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="header"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="footer"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="index heading"/>
+  <w:LsdException Locked="false" Priority="35" SemiHidden="true"
+   UnhideWhenUsed="true" QFormat="true" Name="caption"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="table of figures"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="envelope address"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="envelope return"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="footnote reference"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="annotation reference"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="line number"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="page number"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="endnote reference"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="endnote text"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="table of authorities"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="macro"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="toa heading"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Bullet"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Number"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List 4"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List 5"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Bullet 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Bullet 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Bullet 4"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Bullet 5"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Number 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Number 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Number 4"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Number 5"/>
+  <w:LsdException Locked="false" Priority="10" QFormat="true" Name="Title"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Closing"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Signature"/>
+  <w:LsdException Locked="false" Priority="1" SemiHidden="true"
+   UnhideWhenUsed="true" Name="Default Paragraph Font"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Body Text"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Body Text Indent"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Continue"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Continue 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Continue 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Continue 4"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="List Continue 5"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Message Header"/>
+  <w:LsdException Locked="false" Priority="11" QFormat="true" Name="Subtitle"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Salutation"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Date"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Body Text First Indent"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Body Text First Indent 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Note Heading"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Body Text 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Body Text 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Body Text Indent 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Body Text Indent 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Block Text"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Hyperlink"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="FollowedHyperlink"/>
+  <w:LsdException Locked="false" Priority="22" QFormat="true" Name="Strong"/>
+  <w:LsdException Locked="false" Priority="20" QFormat="true" Name="Emphasis"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Document Map"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Plain Text"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="E-mail Signature"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Top of Form"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Bottom of Form"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Normal (Web)"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Acronym"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Address"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Cite"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Code"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Definition"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Keyboard"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Preformatted"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Sample"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Typewriter"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="HTML Variable"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Normal Table"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="annotation subject"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="No List"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Outline List 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Outline List 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Outline List 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Simple 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Simple 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Simple 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Classic 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Classic 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Classic 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Classic 4"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Colorful 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Colorful 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Colorful 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Columns 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Columns 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Columns 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Columns 4"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Columns 5"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Grid 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Grid 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Grid 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Grid 4"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Grid 5"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Grid 6"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Grid 7"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Grid 8"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table List 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table List 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table List 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table List 4"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table List 5"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table List 6"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table List 7"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table List 8"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table 3D effects 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table 3D effects 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table 3D effects 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Contemporary"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Elegant"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Professional"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Subtle 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Subtle 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Web 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Web 2"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Web 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Balloon Text"/>
+  <w:LsdException Locked="false" Priority="39" Name="Table Grid"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Table Theme"/>
+  <w:LsdException Locked="false" SemiHidden="true" Name="Placeholder Text"/>
+  <w:LsdException Locked="false" Priority="1" QFormat="true" Name="No Spacing"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 1"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 1"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 1"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 1"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 1"/>
+  <w:LsdException Locked="false" SemiHidden="true" Name="Revision"/>
+  <w:LsdException Locked="false" Priority="34" QFormat="true"
+   Name="List Paragraph"/>
+  <w:LsdException Locked="false" Priority="29" QFormat="true" Name="Quote"/>
+  <w:LsdException Locked="false" Priority="30" QFormat="true"
+   Name="Intense Quote"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 1"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 1"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 1"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 1"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 1"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 1"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 2"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 2"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 2"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 2"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 2"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 2"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 2"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 2"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 2"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 2"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 2"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 3"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 3"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 3"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 3"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 3"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 3"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 3"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 3"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 3"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 3"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 3"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 4"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 4"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 4"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 4"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 4"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 4"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 4"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 4"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 4"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 4"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 4"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 5"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 5"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 5"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 5"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 5"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 5"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 5"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 5"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 5"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 5"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 5"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 6"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 6"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 6"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 6"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 6"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 6"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 6"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 6"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 6"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 6"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 6"/>
+  <w:LsdException Locked="false" Priority="19" QFormat="true"
+   Name="Subtle Emphasis"/>
+  <w:LsdException Locked="false" Priority="21" QFormat="true"
+   Name="Intense Emphasis"/>
+  <w:LsdException Locked="false" Priority="31" QFormat="true"
+   Name="Subtle Reference"/>
+  <w:LsdException Locked="false" Priority="32" QFormat="true"
+   Name="Intense Reference"/>
+  <w:LsdException Locked="false" Priority="33" QFormat="true" Name="Book Title"/>
+  <w:LsdException Locked="false" Priority="37" SemiHidden="true"
+   UnhideWhenUsed="true" Name="Bibliography"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" QFormat="true" Name="TOC Heading"/>
+  <w:LsdException Locked="false" Priority="41" Name="Plain Table 1"/>
+  <w:LsdException Locked="false" Priority="42" Name="Plain Table 2"/>
+  <w:LsdException Locked="false" Priority="43" Name="Plain Table 3"/>
+  <w:LsdException Locked="false" Priority="44" Name="Plain Table 4"/>
+  <w:LsdException Locked="false" Priority="45" Name="Plain Table 5"/>
+  <w:LsdException Locked="false" Priority="40" Name="Grid Table Light"/>
+  <w:LsdException Locked="false" Priority="46" Name="Grid Table 1 Light"/>
+  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2"/>
+  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3"/>
+  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4"/>
+  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark"/>
+  <w:LsdException Locked="false" Priority="51" Name="Grid Table 6 Colorful"/>
+  <w:LsdException Locked="false" Priority="52" Name="Grid Table 7 Colorful"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="Grid Table 1 Light Accent 1"/>
+  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 1"/>
+  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 1"/>
+  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 1"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="Grid Table 6 Colorful Accent 1"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="Grid Table 7 Colorful Accent 1"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="Grid Table 1 Light Accent 2"/>
+  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 2"/>
+  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 2"/>
+  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 2"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="Grid Table 6 Colorful Accent 2"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="Grid Table 7 Colorful Accent 2"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="Grid Table 1 Light Accent 3"/>
+  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 3"/>
+  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 3"/>
+  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 3"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="Grid Table 6 Colorful Accent 3"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="Grid Table 7 Colorful Accent 3"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="Grid Table 1 Light Accent 4"/>
+  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 4"/>
+  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 4"/>
+  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 4"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="Grid Table 6 Colorful Accent 4"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="Grid Table 7 Colorful Accent 4"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="Grid Table 1 Light Accent 5"/>
+  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 5"/>
+  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 5"/>
+  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 5"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="Grid Table 6 Colorful Accent 5"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="Grid Table 7 Colorful Accent 5"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="Grid Table 1 Light Accent 6"/>
+  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 6"/>
+  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 6"/>
+  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 6"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="Grid Table 6 Colorful Accent 6"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="Grid Table 7 Colorful Accent 6"/>
+  <w:LsdException Locked="false" Priority="46" Name="List Table 1 Light"/>
+  <w:LsdException Locked="false" Priority="47" Name="List Table 2"/>
+  <w:LsdException Locked="false" Priority="48" Name="List Table 3"/>
+  <w:LsdException Locked="false" Priority="49" Name="List Table 4"/>
+  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark"/>
+  <w:LsdException Locked="false" Priority="51" Name="List Table 6 Colorful"/>
+  <w:LsdException Locked="false" Priority="52" Name="List Table 7 Colorful"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="List Table 1 Light Accent 1"/>
+  <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 1"/>
+  <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 1"/>
+  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 1"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="List Table 6 Colorful Accent 1"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="List Table 7 Colorful Accent 1"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="List Table 1 Light Accent 2"/>
+  <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 2"/>
+  <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 2"/>
+  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 2"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="List Table 6 Colorful Accent 2"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="List Table 7 Colorful Accent 2"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="List Table 1 Light Accent 3"/>
+  <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 3"/>
+  <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 3"/>
+  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 3"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="List Table 6 Colorful Accent 3"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="List Table 7 Colorful Accent 3"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="List Table 1 Light Accent 4"/>
+  <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 4"/>
+  <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 4"/>
+  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 4"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="List Table 6 Colorful Accent 4"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="List Table 7 Colorful Accent 4"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="List Table 1 Light Accent 5"/>
+  <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 5"/>
+  <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 5"/>
+  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 5"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="List Table 6 Colorful Accent 5"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="List Table 7 Colorful Accent 5"/>
+  <w:LsdException Locked="false" Priority="46"
+   Name="List Table 1 Light Accent 6"/>
+  <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 6"/>
+  <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 6"/>
+  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 6"/>
+  <w:LsdException Locked="false" Priority="51"
+   Name="List Table 6 Colorful Accent 6"/>
+  <w:LsdException Locked="false" Priority="52"
+   Name="List Table 7 Colorful Accent 6"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Mention"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Smart Hyperlink"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Hashtag"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Unresolved Mention"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   Name="Smart Link"/>
+ </w:LatentStyles>
+</xml><![endif]--><!--[if gte mso 10]>
+<style>
+ /* Style Definitions */
+ table.MsoNormalTable
+	{mso-style-name:"Table Normal";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-noshow:yes;
+	mso-style-priority:99;
+	mso-style-parent:"";
+	mso-padding-alt:0in 5.4pt 0in 5.4pt;
+	mso-para-margin:0in;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman",serif;}
+</style>
+<![endif]-->
+      <p><span
+style="font-size:12.0pt;font-family:&quot;Aptos&quot;,sans-serif;
+mso-ascii-theme-font:minor-latin;mso-fareast-font-family:Aptos;mso-fareast-theme-font:
+minor-latin;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:Aptos;
+color:black;mso-ansi-language:EN-US;mso-fareast-language:EN-US;mso-bidi-language:
+        AR-SA">Reviewed-by: Sunil Khatri <a
+            href="mailto:sunil.khatri@amd.com" moz-do-not-send="true">&lt;sunil.khatri@amd.com&gt;</a><br>
+        </span></p>
+    </blockquote>
+    <br>
+    Thanks,<br>
+    Christian.<br>
+    <br>
+    <blockquote type="cite"
+      cite="mid:ad51bbc1-4e5d-e5c0-60b7-35cedbd77d9a@amd.com">
+      <p><span
+style="font-size:12.0pt;font-family:&quot;Aptos&quot;,sans-serif;
+mso-ascii-theme-font:minor-latin;mso-fareast-font-family:Aptos;mso-fareast-theme-font:
+minor-latin;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:Aptos;
+color:black;mso-ansi-language:EN-US;mso-fareast-language:EN-US;mso-bidi-language:
+        AR-SA"> </span></p>
+      <p>Regards<br>
+        Sunil Khatri<br>
+        <span
+style="font-size:12.0pt;font-family:&quot;Aptos&quot;,sans-serif;
+mso-ascii-theme-font:minor-latin;mso-fareast-font-family:Aptos;mso-fareast-theme-font:
+minor-latin;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:Aptos;
+color:black;mso-ansi-language:EN-US;mso-fareast-language:EN-US;mso-bidi-language:
+        AR-SA"></span></p>
+      <br>
+      <blockquote type="cite"
+        cite="mid:20241008181134.1350-2-christian.koenig@amd.com">
+        <pre class="moz-quote-pre" wrap=""> 	return 0;
+ }
+ 
+@@ -122,8 +121,6 @@ void amdgpu_ring_insert_nop(struct amdgpu_ring *ring, uint32_t count)
+ 		memset32(ring-&gt;ring, ring-&gt;funcs-&gt;nop, chunk2);
+ 
+ 	ring-&gt;wptr += count;
+-	ring-&gt;wptr &amp;= ring-&gt;ptr_mask;
+-	ring-&gt;count_dw -= count;
+ }
+ 
+ /**
+@@ -153,9 +150,11 @@ void amdgpu_ring_commit(struct amdgpu_ring *ring)
+ {
+ 	uint32_t count;
+ 
+-	if (ring-&gt;count_dw &lt; 0)
++	if ((ring-&gt;wptr - ring-&gt;wptr_old) &gt; ring-&gt;count_dw)
+ 		DRM_ERROR("amdgpu: writing more dwords to the ring than expected!\n");
+ 
++	ring-&gt;wptr &amp;= ring-&gt;ptr_mask;
++
+ 	/* We pad to match fetch size */
+ 	count = ring-&gt;funcs-&gt;align_mask + 1 -
+ 		(ring-&gt;wptr &amp; ring-&gt;funcs-&gt;align_mask);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+index 36fc9578c53c..439793206b89 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+@@ -378,8 +378,6 @@ static inline void amdgpu_ring_clear_ring(struct amdgpu_ring *ring)
+ static inline void amdgpu_ring_write(struct amdgpu_ring *ring, uint32_t v)
+ {
+ 	ring-&gt;ring[ring-&gt;wptr++ &amp; ring-&gt;buf_mask] = v;
+-	ring-&gt;wptr &amp;= ring-&gt;ptr_mask;
+-	ring-&gt;count_dw--;
+ }
+ 
+ static inline void amdgpu_ring_write_multiple(struct amdgpu_ring *ring,
+@@ -403,8 +401,6 @@ static inline void amdgpu_ring_write_multiple(struct amdgpu_ring *ring,
+ 	}
+ 
+ 	ring-&gt;wptr += count_dw;
+-	ring-&gt;wptr &amp;= ring-&gt;ptr_mask;
+-	ring-&gt;count_dw -= count_dw;
+ }
+ 
+ /**
+</pre>
+      </blockquote>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------KQqKJCl3bqIQrXU6bfT9R1V0--
