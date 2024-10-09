@@ -4,84 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F59ECF11FA
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 711C0CF11F9
 	for <amd-gfx@archiver.kernel.org>; Thu, 10 Oct 2024 14:41:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C8DA610E945;
-	Thu, 10 Oct 2024 14:41:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 529FB10E929;
+	Thu, 10 Oct 2024 14:41:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=xenosoft.de header.i=@xenosoft.de header.b="VGAqGt9y";
-	dkim=permerror (0-bit key) header.d=xenosoft.de header.i=@xenosoft.de header.b="MEv8I47T";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="ONeJaLY0";
 	dkim-atps=neutral
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de
- [85.215.255.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A6D8210E911
- for <amd-gfx@lists.freedesktop.org>; Thu, 10 Oct 2024 13:57:57 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1728568640; cv=none;
- d=strato.com; s=strato-dkim-0002;
- b=UHykHgXBqzJ8Eua0HGkvi0oTgVsZB91QlXNy05j2zkjTuQvDST5mnOIRaUHr7/dfto
- itWkks27uu/7ickJNHd1p9f4TThRfwPoMefXol/zF/YuSrYobMT6yDc62ZXRS5ll8NyU
- siBR9CtowyOrFluVntFWAi6HhxmmwSJCu1a/jMxyAKfBHnR/YXJb3pJ0FG9DTP05RTyi
- agxUATX2nRuizqg/EghIEvePpt5mZZEBJYUPB77Q4k6dZGdzMxQm4C/LE+lA1PEaQs8v
- fvHgZaZUTV/Sijhj1Gn3B2oX4s1vN4oT25nD4VX1Ct1OLg964v5VagAH09Zk7uS+NeBc
- LXPg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1728568640;
- s=strato-dkim-0002; d=strato.com;
- h=To:In-Reply-To:Cc:References:Message-Id:Date:Subject:From:Cc:Date:
- From:Subject:Sender;
- bh=nTmyN/S6mYtoNSRaOImOVWIvqfwSir4wwvzhSOMIxxk=;
- b=VM/fm8IYN8mLGPgrX9gO7zBcq9OCEb3u/shhlEE1KGfnd9L6qjHfQa/kGqFRjnFkAi
- Mm8D1kisCuI5S3MOo+GiNHEwV5C2fXlIOO/XgCBBs+eAD93WDdrlsXPbCO7raQMK5qAX
- L2AfgLdAA/atqgaQoyZZh9IxMMUuieJch5ee+BPUlDzy9Eet3CB0+ucFr3odK2rQ0FHx
- CNR3lUHlr7r05QfhrprPIoeRwl4W6fqsCdiGupgF7IRjo5gV075DRMFwUmh6MTr66tfB
- xYrqUssDAhLMndVmr/jGAmAqcp4dB+nPwCUVaQrxoKB4uBkoZAl2Pt5Ruk6cAyhQU1V4
- /wiA==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1728568640;
- s=strato-dkim-0002; d=xenosoft.de;
- h=To:In-Reply-To:Cc:References:Message-Id:Date:Subject:From:Cc:Date:
- From:Subject:Sender;
- bh=nTmyN/S6mYtoNSRaOImOVWIvqfwSir4wwvzhSOMIxxk=;
- b=VGAqGt9yR2gG1vwBP5+rRa8GlTT34q0k8wabEgwe2kFovh3eZp/vnATpmIafYIf2St
- aAQskyv/T1Gcg2ccyboF7TtzidWK/1+AvoLDtktrs+OmKwS/MhyeEBIcMky11BSqaXBa
- foP16odqvzvDxmuMn1v3ePLv2HNaI1iTRY8ecIBXYpvw3GNPA/vYyAje4sOzcyq4GAO6
- xZawY4cBZs7zNxScUWbLEOrrYwCg3TeH6u+5UW0KZJYRe+MQVfBWp9vhhthPkwcARYIA
- TniIqkAzFOZF8KmIl4EzJnuBmnqPSUlzl0P4UhYAqkqZQc6Nw4tYX7czBnKH9wMehZFo
- GzOQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1728568640;
- s=strato-dkim-0003; d=xenosoft.de;
- h=To:In-Reply-To:Cc:References:Message-Id:Date:Subject:From:Cc:Date:
- From:Subject:Sender;
- bh=nTmyN/S6mYtoNSRaOImOVWIvqfwSir4wwvzhSOMIxxk=;
- b=MEv8I47TJyLa3v3C5pQjaNAahPf+Yj8yc+cWeFDyvgO3reII+pZoxqgbcXcDio8Hs1
- c3wBsyMoIddaUtk8gkBg==
-X-RZG-AUTH: ":L2QefEenb+UdBJSdRCXu93KJ1bmSGnhMdmOod1DhGN0rBVhd9dFr6KxrfO5Oh7V7X5i1s3PFXXvQIhef8w/WHZGY1bRFY7PZniOs3Ug="
-Received: from smtpclient.apple by smtp.strato.de (RZmta 51.2.8 AUTH)
- with ESMTPSA id e0da1a09ADvJvcw
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Thu, 10 Oct 2024 15:57:19 +0200 (CEST)
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-From: Christian Zigotzky <chzigotzky@xenosoft.de>
-Mime-Version: 1.0 (1.0)
-Subject: [PATCHES] drm/radeon issues
-Date: Thu, 10 Oct 2024 15:57:08 +0200
-Message-Id: <6C389917-EF59-444B-9C33-C3F9A9AD3921@xenosoft.de>
-References: <EE14413A-3528-4646-A353-DB5131E56BA2@xenosoft.de>
-Cc: =?utf-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Hans de Goede <hdegoede@redhat.com>, Wu Hoi Pok <wuhoipok@gmail.com>,
- amd-gfx@lists.freedesktop.org, Alex Deucher <alexdeucher@gmail.com>,
- alexander.deucher@amd.com
-In-Reply-To: <EE14413A-3528-4646-A353-DB5131E56BA2@xenosoft.de>
-To: "R.T.Dickinson" <rtd@a-eon.com>, mad skateman <madskateman@gmail.com>,
- Darren Stevens <darren@stevens-zone.net>, hypexed@yahoo.com.au,
- linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
- Christian Zigotzky <info@xenosoft.de>
-X-Mailer: iPhone Mail (22A3354)
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D279A10E731
+ for <amd-gfx@lists.freedesktop.org>; Wed,  9 Oct 2024 14:11:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=hvmnoVin3uwbp7DWP32ewZSv1d4i8HnsstPAvgbfLnU=; b=ONeJaLY0wINqD1Vp+xIc8Vs7xI
+ +BmbaZR8NArdREPA1nZXrNw5j0wMtEA+EYFV/UzDcA0Trl29WtTORhxP+mY1c7SN7E2a2GiII2LSn
+ vyT71ppjewAcxq1ov5VxPU1bhM0blfccuV5mrbxxtLtHv8bVss8yhoYpsOhNEwgBO2qICr3YUy52/
+ PilvW4Ry9nfOan9uYT+W6wX5mbK3zPebwobWb3h8kKG6s7nHEdTLogJTUTnqfSoIGt7sXEx1AHYSz
+ NnqYHtY2Lyyz7Z4yaIK5jMncfQLLDOngShYLeMN7clL7vzHik1W0YYUZUTmy/V0Gi53jqAcaX+Lis
+ 0OH/GBaw==;
+Received: from [90.241.98.187] (helo=[192.168.0.101])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1syXPh-006xxr-Tv; Wed, 09 Oct 2024 16:11:41 +0200
+Message-ID: <d131c822-8c9b-4952-a252-bd96d091f838@igalia.com>
+Date: Wed, 9 Oct 2024 15:11:41 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] drm/amdgpu: drop volatile from ring buffer
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, amd-gfx@lists.freedesktop.org,
+ tursulin@igalia.com, sunil.khatri@amd.com
+References: <20241008181134.1350-1-christian.koenig@amd.com>
+ <3d3de66f-01fd-4adb-83c6-140bfc570f1f@ursulin.net>
+ <61ffa4c6-ba96-4298-9578-209248bd8cae@gmail.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <61ffa4c6-ba96-4298-9578-209248bd8cae@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 10 Oct 2024 14:41:05 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -97,106 +63,116 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi All,
 
-There is another issue with the Radeon DRM driver but there is already a pat=
-ch available for this issue.
-
-Link: https://lists.freedesktop.org/archives/dri-devel/2024-October/473314.h=
-tml
-
-I compiled a new RC2 of kernel 6.12 with this patch for the X1000 and X5000 t=
-oday.
-
-Download: https://github.com/chzigotzky/kernels/releases/tag/v6.12.0-rc2-2
-
-We need 3 patches for the Radeon DRM driver currently.
-
-Please test it.
-
-Thanks,
-Christian
-
-
-> On 08 October 2024 at 11:00am, Christian Zigotzky <chzigotzky@xenosoft.de>=
- wrote:
->=20
-> =EF=BB=BFHi All,
->=20
-> I have released the RC2 of kernel 6.12 with Christian Koenig=E2=80=99s pat=
-ch for the X1000 and X5000.
->=20
-> Download and further information: https://github.com/chzigotzky/kernels/re=
-leases/tag/v6.12.0-rc2
->=20
-> Please test the kernels because of the second Radeon DRM driver issue.
->=20
-> Thanks,
-> Christian
->=20
->> Am 07.10.2024 um 20:36 schrieb Alex Deucher <alexdeucher@gmail.com>:
->>=20
->> =EF=BB=BFAdd a few people.
->>=20
->> This should fix the radeon ttm gem conversion.
->>=20
->> Alex
->>=20
->>=20
->>=20
->>> On Mon, Oct 7, 2024 at 2:33=E2=80=AFPM Christian K=C3=B6nig
->>> <ckoenig.leichtzumerken@gmail.com> wrote:
->>>=20
->>> Make sure to always set the GEM function pointer even for in kernel
->>> allocations. This fixes a NULL pointer deref caused by switching to GEM
->>> references.
->>>=20
->>> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
->>> Fixes: fd69ef05029f ("drm/radeon: use GEM references instead of TTMs")
+On 09/10/2024 13:07, Christian König wrote:
+> Am 09.10.24 um 09:41 schrieb Tvrtko Ursulin:
+>>
+>> On 08/10/2024 19:11, Christian König wrote:
+>>> Volatile only prevents the compiler from re-ordering reads and writes.
+>>> Since we always only modify the ring buffer from one CPU thread and have
+>>> an explicit barrier before signaling the HW this should have no 
+>>> effect at
+>>> all and just prevents compiler optimisations.
+>>>
+>>> Signed-off-by: Christian König <christian.koenig@amd.com>
 >>> ---
->>> drivers/gpu/drm/radeon/radeon_gem.c    | 3 ---
->>> drivers/gpu/drm/radeon/radeon_object.c | 1 +
->>> 2 files changed, 1 insertion(+), 3 deletions(-)
->>>=20
->>> diff --git a/drivers/gpu/drm/radeon/radeon_gem.c b/drivers/gpu/drm/radeo=
-n/radeon_gem.c
->>> index 9735f4968b86..bf2d4b16dc2a 100644
->>> --- a/drivers/gpu/drm/radeon/radeon_gem.c
->>> +++ b/drivers/gpu/drm/radeon/radeon_gem.c
->>> @@ -44,8 +44,6 @@ struct sg_table *radeon_gem_prime_get_sg_table(struct d=
-rm_gem_object *obj);
->>> int radeon_gem_prime_pin(struct drm_gem_object *obj);
->>> void radeon_gem_prime_unpin(struct drm_gem_object *obj);
->>>=20
->>> -const struct drm_gem_object_funcs radeon_gem_object_funcs;
->>> -
->>> static vm_fault_t radeon_gem_fault(struct vm_fault *vmf)
->>> {
->>>       struct ttm_buffer_object *bo =3D vmf->vma->vm_private_data;
->>> @@ -132,7 +130,6 @@ int radeon_gem_object_create(struct radeon_device *r=
-dev, unsigned long size,
->>>               return r;
->>>       }
->>>       *obj =3D &robj->tbo.base;
->>> -       (*obj)->funcs =3D &radeon_gem_object_funcs;
->>>       robj->pid =3D task_pid_nr(current);
->>>=20
->>>       mutex_lock(&rdev->gem.mutex);
->>> diff --git a/drivers/gpu/drm/radeon/radeon_object.c b/drivers/gpu/drm/ra=
-deon/radeon_object.c
->>> index d0e4b43d155c..7672404fdb29 100644
->>> --- a/drivers/gpu/drm/radeon/radeon_object.c
->>> +++ b/drivers/gpu/drm/radeon/radeon_object.c
->>> @@ -151,6 +151,7 @@ int radeon_bo_create(struct radeon_device *rdev,
->>>       if (bo =3D=3D NULL)
->>>               return -ENOMEM;
->>>       drm_gem_private_object_init(rdev_to_drm(rdev), &bo->tbo.base, size=
-);
->>> +       bo->tbo.base.funcs =3D &radeon_gem_object_funcs;
->>>       bo->rdev =3D rdev;
->>>       bo->surface_reg =3D -1;
->>>       INIT_LIST_HEAD(&bo->list);
->>> --
->>> 2.34.1
->>>=20
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 10 +++-------
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h | 11 ++++-------
+>>>   2 files changed, 7 insertions(+), 14 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c 
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+>>> index 910293664902..a6e28fe3f8d6 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+>>> @@ -109,21 +109,17 @@ int amdgpu_ring_alloc(struct amdgpu_ring *ring, 
+>>> unsigned int ndw)
+>>>   void amdgpu_ring_insert_nop(struct amdgpu_ring *ring, uint32_t count)
+>>>   {
+>>>       uint32_t occupied, chunk1, chunk2;
+>>> -    uint32_t *dst;
+>>>         occupied = ring->wptr & ring->buf_mask;
+>>> -    dst = &ring->ring[occupied];
+>>>       chunk1 = ring->buf_mask + 1 - occupied;
+>>>       chunk1 = (chunk1 >= count) ? count : chunk1;
+>>>       chunk2 = count - chunk1;
+>>>         if (chunk1)
+>>> -        memset32(dst, ring->funcs->nop, chunk1);
+>>> +        memset32(&ring->ring[occupied], ring->funcs->nop, chunk1);
+>>>   -    if (chunk2) {
+>>> -        dst = ring->ring;
+>>> -        memset32(dst, ring->funcs->nop, chunk2);
+>>> -    }
+>>> +    if (chunk2)
+>>> +        memset32(ring->ring, ring->funcs->nop, chunk2);
+>>>         ring->wptr += count;
+>>>       ring->wptr &= ring->ptr_mask;
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h 
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+>>> index 574336d6714a..36fc9578c53c 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+>>> @@ -246,7 +246,7 @@ struct amdgpu_ring {
+>>>       struct drm_gpu_scheduler    sched;
+>>>         struct amdgpu_bo    *ring_obj;
+>>> -    volatile uint32_t    *ring;
+>>> +    uint32_t        *ring;
+>>>       unsigned        rptr_offs;
+>>>       u64            rptr_gpu_addr;
+>>>       volatile u32        *rptr_cpu_addr;
+>>> @@ -288,7 +288,7 @@ struct amdgpu_ring {
+>>>       u64            cond_exe_gpu_addr;
+>>>       volatile u32        *cond_exe_cpu_addr;
+>>>       unsigned int        set_q_mode_offs;
+>>> -    volatile u32        *set_q_mode_ptr;
+>>> +    u32            *set_q_mode_ptr;
+>>>       u64            set_q_mode_token;
+>>>       unsigned        vm_hub;
+>>>       unsigned        vm_inv_eng;
+>>> @@ -386,10 +386,8 @@ static inline void 
+>>> amdgpu_ring_write_multiple(struct amdgpu_ring *ring,
+>>>                             void *src, int count_dw)
+>>>   {
+>>>       unsigned occupied, chunk1, chunk2;
+>>> -    void *dst;
+>>>         occupied = ring->wptr & ring->buf_mask;
+>>> -    dst = (void *)&ring->ring[occupied];
+>>>       chunk1 = ring->buf_mask + 1 - occupied;
+>>>       chunk1 = (chunk1 >= count_dw) ? count_dw : chunk1;
+>>>       chunk2 = count_dw - chunk1;
+>>> @@ -397,12 +395,11 @@ static inline void 
+>>> amdgpu_ring_write_multiple(struct amdgpu_ring *ring,
+>>>       chunk2 <<= 2;
+>>>         if (chunk1)
+>>> -        memcpy(dst, src, chunk1);
+>>> +        memcpy(&ring->ring[occupied], src, chunk1);
+>>>         if (chunk2) {
+>>>           src += chunk1;
+>>> -        dst = (void *)ring->ring;
+>>> -        memcpy(dst, src, chunk2);
+>>> +        memcpy(ring->ring, src, chunk2);
+>>>       }
+>>>         ring->wptr += count_dw;
+>>
+>> Dropping volatile and removal of local variables in 
+>> amdgpu_ring_insert_nop() and amdgpu_ring_write_multiple() look 
+>> unrelated to me. Best practice would be if you had split those two 
+>> changes. Or at least add to the commit message the usual "while at it" 
+>> blurb.
+> 
+> To me it looked like the main purpose of the local variable was to add 
+> the void* cast to avoid the compiler warning of removing the volatile 
+> when giving the parameter to memcpy().
+> 
+> Since that isn't needed any more I've got rid of the local variable as 
+> well.
 
+Agreed on that, but I would still add a paragraph in the commit message. 
+Can add while merging too, no need to respin. Something like:
+
+"With that removed we can also remove the local variable in two places 
+which relied on it to strip the volatile property."
+
+Regards,
+
+Tvrtko
