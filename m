@@ -4,70 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32FD8CED618
-	for <amd-gfx@archiver.kernel.org>; Wed,  9 Oct 2024 07:41:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F3AECED61D
+	for <amd-gfx@archiver.kernel.org>; Wed,  9 Oct 2024 07:45:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D761910E668;
-	Wed,  9 Oct 2024 07:41:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E0B0010E66D;
+	Wed,  9 Oct 2024 07:45:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin-net.20230601.gappssmtp.com header.i=@ursulin-net.20230601.gappssmtp.com header.b="BgPYdKyt";
+	dkim=pass (2048-bit key; unprotected) header.d=ursulin-net.20230601.gappssmtp.com header.i=@ursulin-net.20230601.gappssmtp.com header.b="N+V+HlfZ";
 	dkim-atps=neutral
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
- [209.85.128.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF80610E668
- for <amd-gfx@lists.freedesktop.org>; Wed,  9 Oct 2024 07:41:26 +0000 (UTC)
-Received: by mail-wm1-f45.google.com with SMTP id
- 5b1f17b1804b1-42e5e758093so57521105e9.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 09 Oct 2024 00:41:26 -0700 (PDT)
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
+ [209.85.221.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 02EE110E66D
+ for <amd-gfx@lists.freedesktop.org>; Wed,  9 Oct 2024 07:45:48 +0000 (UTC)
+Received: by mail-wr1-f45.google.com with SMTP id
+ ffacd0b85a97d-37d43a9bc03so76258f8f.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 09 Oct 2024 00:45:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin-net.20230601.gappssmtp.com; s=20230601; t=1728459685; x=1729064485;
+ d=ursulin-net.20230601.gappssmtp.com; s=20230601; t=1728459947; x=1729064747;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:to:subject:user-agent:mime-version:date:message-id:from
  :to:cc:subject:date:message-id:reply-to;
- bh=oj/NwM+qjHsFNNbOuM7wam7uLLA6VPnVQruA/XI1lrY=;
- b=BgPYdKytel0y1CQ54QmEcU2pc1YpC5HhbTX9Z9KtiuVjVs30wOzZkchLvdd7hMz4YC
- kdbu7OTYBVDBpQXaDMVVxLUpxeDmC33hqywv7QFzrAHo/JfF5JUFhhMccFSm9rHPXqBq
- L5QtQEyIgdT2NPaUg7Qksx8qCC2Mf6Z8Z1jyys3dKfbfeOO5XuMC9LWSXSafsE1bzbJr
- PPLXhzFjAIi2N5uVqC5OF45auMXaCmUT4i5dDzadcfyZVTFfA1s77vb1lQotDyPYy9nB
- Qx18ANtNL0sazwi1sqkYYgNojDpplRus6V8m3U9G831pmqjb2JzJROHA/3vO5h8mhv6L
- crqQ==
+ bh=Ex4SM2mp5XiUZxI9qk11vCABy4J7ln+jSgXeLbZUo4I=;
+ b=N+V+HlfZTpezrKTeH3d2pdmQFMfSIPPARm9SPCSkJa968I7koJA6ecr3ZwZPnei/+C
+ NIlRXWeGwA71nGIub94dxySlZslcLtTJ4DnrmH8oym0yeWHOW2YmJq2WsuBt9k/blzlX
+ B6nlNunCw1/hoIfOyoXlahxrn8E+lXsBczkQQYKwjnuqDuGQbrPDgBJyoIxmmype1V+G
+ MEwomgFbAVtlIfv9Z8YDDPwXyvs8OWLYHThIYiNv7txeVvID0i0dYXEg3h3z3OvizLZa
+ JrvOC/3rhvjswzPfcv08/a6KLfW5+mHrKw0Wq5gF2pDYlnm2kUNoMrUWJtDQPFJsOdny
+ OPZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1728459685; x=1729064485;
+ d=1e100.net; s=20230601; t=1728459947; x=1729064747;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:to:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=oj/NwM+qjHsFNNbOuM7wam7uLLA6VPnVQruA/XI1lrY=;
- b=RKRwe8S+ANo8WCkvBP7haqj+oAZRg/GrebgWyFHaoUy9RViKkxAvgljfHeOAU2E6Hl
- N9sEGf2OFfPE4h8Jt8grl2VwrkOSdoDTEaRCt0aTp3KeRS9O4+h+19m8uCDXEnqLtQIo
- Y+vyRsiFabV7XbsSbsVDgQMJlBFDWaCxlj3ucGy5ofinX5Cnfkr9a6zf120ul4H1KeyA
- J8G4h99A3HsM1Cqjejjx2NxjHfDWLQwC378Gaeva26/u0gHe3jgJUVtdGG4S/jfWEtTa
- lIh+MqvoqBJWS3z1kTKJm8tVNBQ7pI3W8aZ35EOdBmMzQ+dh0ZOQ5UzcroVv7+S549of
- K2fQ==
+ bh=Ex4SM2mp5XiUZxI9qk11vCABy4J7ln+jSgXeLbZUo4I=;
+ b=LKdMLzLbiFwVNvXqS+cOzuK1yzK/+lZ3i5eJtEFLt61Cyh4EzsOGLTszixX/3FvFSX
+ RXP8sEW1D92hS7NTmCVg4UdtH94HbEugA6OWBJg2V64u56rJ6yanzjvBw+zxgwpHnyIO
+ //8j8M7ddlynbX/lnmS3h5WuO4gt/MXAyl0bfTaqvjh9bJycXkqa7KaYpsNxN/mTKlx0
+ /l0cMDr/cOIcYqLJ4akVk41zzCCox8jslYz2TJVcu9zg4uzE6IfKHhFH5z4tVHnZMz8R
+ F/4XcSvgERR4L9CeyaQ6tnLdPOTT6Efa7l6q7WmQI4aMJYzCTTQpGkf9idt90DveFpm3
+ jcxg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWeY+CUC2OqLxw/xc1w9iVd7UBx7i6FKoDkExUdaspQCto5xGQnpi/NLLSiFlHJiqA4LEy0qD4u@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx33V7BzTIOHWIGQjyygNgmFHi56OAY3+Nel5kzAgFthwGKn8iQ
- Kboa9Z2Bg2pnkqYOROmpdCe7QNRo1l5bXDWt9b8V/SDCqOuH15SLyshwepPyxH4=
-X-Google-Smtp-Source: AGHT+IGq2lRs8ITFrjhKJsKNsbQzMxrn1GRkoQKUxybFqceOz9CtzqHvS38B9xFEXk36GmCScvYsMA==
-X-Received: by 2002:adf:a31e:0:b0:37c:d4e8:2c67 with SMTP id
- ffacd0b85a97d-37d3aa87330mr728111f8f.52.1728459684930; 
- Wed, 09 Oct 2024 00:41:24 -0700 (PDT)
+ AJvYcCWh1TNRLo3BcRKM+6e5OeWBYQScHhTMnhc0npLlC8XozmYxm2zH7pJJJxMrMpeiwygb6/sTLRJW@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyCjRheRGXYGU5c6kcxUHUigAbZTu6UJHxsQtCTzrnmBEABKwWp
+ tc9/jYnMBMfQG4cr/kk1YH/FC9xyC+nYnHA3g39q2wTE1jcYhJADQWllHNg317A=
+X-Google-Smtp-Source: AGHT+IHL8EykEH3PV1RUtjkINsmgaM9bMLUBVgaTUm+6/1utniyg7WqSge4QobKs7eL3zim09hInkQ==
+X-Received: by 2002:adf:f884:0:b0:37d:3973:cb8d with SMTP id
+ ffacd0b85a97d-37d3a9f84e2mr829787f8f.24.1728459947289; 
+ Wed, 09 Oct 2024 00:45:47 -0700 (PDT)
 Received: from [192.168.0.101] ([90.241.98.187])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-430d59b2b85sm11489405e9.34.2024.10.09.00.41.23
+ ffacd0b85a97d-37d16972cd2sm9691618f8f.107.2024.10.09.00.45.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 09 Oct 2024 00:41:24 -0700 (PDT)
-Message-ID: <3d3de66f-01fd-4adb-83c6-140bfc570f1f@ursulin.net>
-Date: Wed, 9 Oct 2024 08:41:23 +0100
+ Wed, 09 Oct 2024 00:45:46 -0700 (PDT)
+Message-ID: <5f5a792e-b578-44bd-958e-46e6be3bd873@ursulin.net>
+Date: Wed, 9 Oct 2024 08:45:46 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] drm/amdgpu: drop volatile from ring buffer
+Subject: Re: [PATCH 2/2] drm/amdgpu: stop masking the wptr all the time
 To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
  amd-gfx@lists.freedesktop.org, tursulin@igalia.com, sunil.khatri@amd.com
 References: <20241008181134.1350-1-christian.koenig@amd.com>
+ <20241008181134.1350-2-christian.koenig@amd.com>
 Content-Language: en-GB
 From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <20241008181134.1350-1-christian.koenig@amd.com>
+In-Reply-To: <20241008181134.1350-2-christian.koenig@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -86,100 +87,84 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 On 08/10/2024 19:11, Christian König wrote:
-> Volatile only prevents the compiler from re-ordering reads and writes.
-> Since we always only modify the ring buffer from one CPU thread and have
-> an explicit barrier before signaling the HW this should have no effect at
-> all and just prevents compiler optimisations.
+> Stop masking the wptr and decrementing the count_dw while writing into
+> the ring buffer. We can do that all at once while pushing the changes to
+> the HW.
 > 
 > Signed-off-by: Christian König <christian.koenig@amd.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 10 +++-------
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h | 11 ++++-------
->   2 files changed, 7 insertions(+), 14 deletions(-)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 11 +++++------
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |  4 ----
+>   2 files changed, 5 insertions(+), 10 deletions(-)
 > 
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> index 910293664902..a6e28fe3f8d6 100644
+> index a6e28fe3f8d6..364466d6d3de 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> @@ -109,21 +109,17 @@ int amdgpu_ring_alloc(struct amdgpu_ring *ring, unsigned int ndw)
->   void amdgpu_ring_insert_nop(struct amdgpu_ring *ring, uint32_t count)
->   {
->   	uint32_t occupied, chunk1, chunk2;
-> -	uint32_t *dst;
+> @@ -90,12 +90,11 @@ int amdgpu_ring_alloc(struct amdgpu_ring *ring, unsigned int ndw)
+>   	if (WARN_ON_ONCE(ndw > ring->max_dw))
+>   		return -ENOMEM;
 >   
->   	occupied = ring->wptr & ring->buf_mask;
-> -	dst = &ring->ring[occupied];
->   	chunk1 = ring->buf_mask + 1 - occupied;
->   	chunk1 = (chunk1 >= count) ? count : chunk1;
->   	chunk2 = count - chunk1;
+> -	ring->count_dw = ndw;
+> -	ring->wptr_old = ring->wptr;
+> -
+>   	if (ring->funcs->begin_use)
+>   		ring->funcs->begin_use(ring);
 >   
->   	if (chunk1)
-> -		memset32(dst, ring->funcs->nop, chunk1);
-> +		memset32(&ring->ring[occupied], ring->funcs->nop, chunk1);
+> +	ring->count_dw = ndw;
+> +	ring->wptr_old = ring->wptr;
+>   	return 0;
+>   }
 >   
-> -	if (chunk2) {
-> -		dst = ring->ring;
-> -		memset32(dst, ring->funcs->nop, chunk2);
-> -	}
-> +	if (chunk2)
-> +		memset32(ring->ring, ring->funcs->nop, chunk2);
+> @@ -122,8 +121,6 @@ void amdgpu_ring_insert_nop(struct amdgpu_ring *ring, uint32_t count)
+>   		memset32(ring->ring, ring->funcs->nop, chunk2);
 >   
 >   	ring->wptr += count;
->   	ring->wptr &= ring->ptr_mask;
+> -	ring->wptr &= ring->ptr_mask;
+> -	ring->count_dw -= count;
+>   }
+>   
+>   /**
+> @@ -153,9 +150,11 @@ void amdgpu_ring_commit(struct amdgpu_ring *ring)
+>   {
+>   	uint32_t count;
+>   
+> -	if (ring->count_dw < 0)
+> +	if ((ring->wptr - ring->wptr_old) > ring->count_dw)
+>   		DRM_ERROR("amdgpu: writing more dwords to the ring than expected!\n");
+>   
+> +	ring->wptr &= ring->ptr_mask;
+> +
+>   	/* We pad to match fetch size */
+>   	count = ring->funcs->align_mask + 1 -
+>   		(ring->wptr & ring->funcs->align_mask);
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> index 574336d6714a..36fc9578c53c 100644
+> index 36fc9578c53c..439793206b89 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> @@ -246,7 +246,7 @@ struct amdgpu_ring {
->   	struct drm_gpu_scheduler	sched;
->   
->   	struct amdgpu_bo	*ring_obj;
-> -	volatile uint32_t	*ring;
-> +	uint32_t		*ring;
->   	unsigned		rptr_offs;
->   	u64			rptr_gpu_addr;
->   	volatile u32		*rptr_cpu_addr;
-> @@ -288,7 +288,7 @@ struct amdgpu_ring {
->   	u64			cond_exe_gpu_addr;
->   	volatile u32		*cond_exe_cpu_addr;
->   	unsigned int		set_q_mode_offs;
-> -	volatile u32		*set_q_mode_ptr;
-> +	u32			*set_q_mode_ptr;
->   	u64			set_q_mode_token;
->   	unsigned		vm_hub;
->   	unsigned		vm_inv_eng;
-> @@ -386,10 +386,8 @@ static inline void amdgpu_ring_write_multiple(struct amdgpu_ring *ring,
->   					      void *src, int count_dw)
+> @@ -378,8 +378,6 @@ static inline void amdgpu_ring_clear_ring(struct amdgpu_ring *ring)
+>   static inline void amdgpu_ring_write(struct amdgpu_ring *ring, uint32_t v)
 >   {
->   	unsigned occupied, chunk1, chunk2;
-> -	void *dst;
->   
->   	occupied = ring->wptr & ring->buf_mask;
-> -	dst = (void *)&ring->ring[occupied];
->   	chunk1 = ring->buf_mask + 1 - occupied;
->   	chunk1 = (chunk1 >= count_dw) ? count_dw : chunk1;
->   	chunk2 = count_dw - chunk1;
-> @@ -397,12 +395,11 @@ static inline void amdgpu_ring_write_multiple(struct amdgpu_ring *ring,
->   	chunk2 <<= 2;
->   
->   	if (chunk1)
-> -		memcpy(dst, src, chunk1);
-> +		memcpy(&ring->ring[occupied], src, chunk1);
->   
->   	if (chunk2) {
->   		src += chunk1;
-> -		dst = (void *)ring->ring;
-> -		memcpy(dst, src, chunk2);
-> +		memcpy(ring->ring, src, chunk2);
->   	}
->   
->   	ring->wptr += count_dw;
+>   	ring->ring[ring->wptr++ & ring->buf_mask] = v;
+> -	ring->wptr &= ring->ptr_mask;
+> -	ring->count_dw--;
 
-Dropping volatile and removal of local variables in 
-amdgpu_ring_insert_nop() and amdgpu_ring_write_multiple() look unrelated 
-to me. Best practice would be if you had split those two changes. Or at 
-least add to the commit message the usual "while at it" blurb.
+The DRM_ERROR and its if condition two lines above the above hunk could 
+be removed too, no?
 
 Regards,
 
 Tvrtko
+
+>   }
+>   
+>   static inline void amdgpu_ring_write_multiple(struct amdgpu_ring *ring,
+> @@ -403,8 +401,6 @@ static inline void amdgpu_ring_write_multiple(struct amdgpu_ring *ring,
+>   	}
+>   
+>   	ring->wptr += count_dw;
+> -	ring->wptr &= ring->ptr_mask;
+> -	ring->count_dw -= count_dw;
+>   }
+>   
+>   /**
