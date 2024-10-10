@@ -4,85 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C08D7D1625F
-	for <amd-gfx@archiver.kernel.org>; Mon, 14 Oct 2024 12:50:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35B38D1625B
+	for <amd-gfx@archiver.kernel.org>; Mon, 14 Oct 2024 12:50:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA41810E25E;
-	Mon, 14 Oct 2024 12:50:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DAE2D10E291;
+	Mon, 14 Oct 2024 12:50:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=xenosoft.de header.i=@xenosoft.de header.b="Ac/Mr6jH";
-	dkim=permerror (0-bit key) header.d=xenosoft.de header.i=@xenosoft.de header.b="gq8bRrxB";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cQE1S9YH";
 	dkim-atps=neutral
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de
- [81.169.146.165])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6872F10EA2D
- for <amd-gfx@lists.freedesktop.org>; Fri, 11 Oct 2024 03:54:42 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1728618844; cv=none;
- d=strato.com; s=strato-dkim-0002;
- b=UiCljemeMgCdPUs2LOsRJrup3bkfI7rwwjcWMOrW+89zkzJ6VrGxNTOhRGCHzWPFce
- W70kopLomdhX5KRMPImd64yyC5ys5FpZ5R2t4rK0SSERe7VDFOPxukFPl7PnrMrLIXns
- vt4xMrvpncI0z7fSFmBlEgK3naie1DrZijIMmpQnbdnTkhu5joAKevYW5+xxRmAjaiXx
- xG+j7lwB8TskQheAUrM4/Dhidp/rtQP/XWzFkb0obpdHj2ne4E3FAZIo90Tt4rkv1wA9
- 8FduEJvtXVweASfT9RLQgbtIaWuLHRtba0y9OkXcIdqbvyoN8AKxmhDo/+7i1z9mrqW9
- kFHw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1728618844;
- s=strato-dkim-0002; d=strato.com;
- h=To:In-Reply-To:Cc:References:Message-Id:Date:Subject:From:Cc:Date:
- From:Subject:Sender;
- bh=Sw5kvAhQnV+uYxbzFDKschXQBdixLP9VwVOC5axrod8=;
- b=C3iaajA2e5kdq6A/v64H37z3SJeh+esfn8atx1FIxW0Q2cihgqKxtv3T0ryFYkwDFS
- 3gkNsycb12e/yvn8RW9bVDrKcl/MrvXVN1M+YdGkq3XhFumP8D/94cPmlgUtyHnh5tIo
- KaK7F505urv65G9Yy3z5p+w5Cvj+OxFn7LuGZahmZxzkLhKGQjpyWoSteJoVZPQFynXB
- fY0HX5oTQDsNfKbo7IGpBVfGM1h2yIAb4dBKXBIYI4rPCX3FlAsBIHbCV0bIUnpPmZ4s
- zkIt0iaCO6hNq0O8+GM2YZfOqY/0PiBGiYldjqmvxn3N9HaCQQj0gYcbWB56Uxr8ybuX
- EDvg==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1728618844;
- s=strato-dkim-0002; d=xenosoft.de;
- h=To:In-Reply-To:Cc:References:Message-Id:Date:Subject:From:Cc:Date:
- From:Subject:Sender;
- bh=Sw5kvAhQnV+uYxbzFDKschXQBdixLP9VwVOC5axrod8=;
- b=Ac/Mr6jH/SZwQXsnC26RqtCEQvjfa+EvFyOsBAQZFlSsbdFmG+LdcXBOGuJaz3qwAt
- WdowTPWtdQIBLTbjM5JcAJU2G2rDUBuH8t4l/O9FwlAMatoSiZYcgyHIqGO6nBqszf5n
- QMGQtZpadKg1L8Dv4trcpSF+9uonOTn5q4sGve1sv4nX7mtwl+xFolcWo0CJdyl+CrRL
- /2XlzmSzGHxnJyFR09YcjDrIV36h5cEb+UvNQGS1j+OZGJBmSFf39usHGCnd5oUWkGj2
- o2iM3TC7sm2Mx0dKVmJdFEZ9H168bCTIxlEu9sfmJ2OjAtBedLrHNf+V+Qh2E6vtXjae
- Wlew==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1728618844;
- s=strato-dkim-0003; d=xenosoft.de;
- h=To:In-Reply-To:Cc:References:Message-Id:Date:Subject:From:Cc:Date:
- From:Subject:Sender;
- bh=Sw5kvAhQnV+uYxbzFDKschXQBdixLP9VwVOC5axrod8=;
- b=gq8bRrxBanOYS2JJnQjyc23TjbXS02K3w8jBe+jzvZehVp7IB8zQEnnsShXQ5+l+XE
- jrfDIVPteDS0SLEeBSAw==
-X-RZG-AUTH: ":L2QefEenb+UdBJSdRCXu93KJ1bmSGnhMdmOod1DhGN0rBVhd9dFr6KxrfO5Oh7V7X5i8sy+VWyhJ8tyaNDmc6CleQOst1T66EaU95I4="
-Received: from smtpclient.apple by smtp.strato.de (RZmta 51.2.8 AUTH)
- with ESMTPSA id e0da1a09B3s3wbG
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Fri, 11 Oct 2024 05:54:03 +0200 (CEST)
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: quoted-printable
-From: Christian Zigotzky <chzigotzky@xenosoft.de>
-Mime-Version: 1.0 (1.0)
-Subject: [PATCHES] drm/radeon issues
-Date: Fri, 11 Oct 2024 05:53:52 +0200
-Message-Id: <14691DD3-987C-4CC7-AA58-D3BF952F6224@xenosoft.de>
-References: <b7abd0b6-ac96-48ca-8165-a3b408137007@quicinc.com>
-Cc: "R.T.Dickinson" <rtd@a-eon.com>, mad skateman <madskateman@gmail.com>,
- Darren Stevens <darren@stevens-zone.net>, hypexed@yahoo.com.au,
- linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
- Christian Zigotzky <info@xenosoft.de>,
- =?utf-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Hans de Goede <hdegoede@redhat.com>, Wu Hoi Pok <wuhoipok@gmail.com>,
- amd-gfx@lists.freedesktop.org, Alex Deucher <alexdeucher@gmail.com>,
- alexander.deucher@amd.com
-In-Reply-To: <b7abd0b6-ac96-48ca-8165-a3b408137007@quicinc.com>
-To: Jeff Johnson <quic_jjohnson@quicinc.com>
-X-Mailer: iPhone Mail (22A3354)
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com
+ [209.85.208.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 22DF610E972
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Oct 2024 15:59:19 +0000 (UTC)
+Received: by mail-ed1-f42.google.com with SMTP id
+ 4fb4d7f45d1cf-5c918c067a1so1248031a12.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Oct 2024 08:59:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1728575957; x=1729180757; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:subject:from:cc:to:content-language
+ :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=TwbGM2GBS24VwCv3G0yCYJQXN3/p1wbB4ScKP62AMAA=;
+ b=cQE1S9YHPFhCxCAKpcXsf6ip+mYS1lmPIrT5bywAI23mMk5jrmW71NpQZHRsZf8R7K
+ USfetphcX+TAyMPMFCi0ab2xlq9TQZPvgiQ4IvybBFEaJKU5F95hDY7z9I15egSLMXA5
+ Xj/+pGP7cWoTKFgvyO6l0yAXGo0xgCWigWHW56W7R3mtL0hrRLc0tZNL8HKj2Pjsfw0a
+ kfsP6po6WLgmDzQGim+IOAWozIj5w8mmzPJiIe+XlldwQLLJ8ikF7oIThQHpoLQIt+9U
+ KhfxoSyicyOdMz1Uy2DoIpO1zPxYW+zGJLKxxb38vBlgMnbWwjIgZTT/XqmLnDef6Uic
+ v9ow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1728575957; x=1729180757;
+ h=content-transfer-encoding:subject:from:cc:to:content-language
+ :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=TwbGM2GBS24VwCv3G0yCYJQXN3/p1wbB4ScKP62AMAA=;
+ b=U9YaFjdzvWhH8qcBXwtoGxaqeTnRT2yDsprvrIICHK191Z0PdQa27Km7/2amY4co0/
+ UtOijO/LY2TjoYTSGxduuSMhuuHT0gbCnocYPBfXJY5QDXYgvnENAsN71VqrNsWWdwpZ
+ TW3kV7sXwtfaslXOulHKm79FBc0OaVqmN7Wlg//9UUR2xt+WYihQf2bGiOUgqPnlMidq
+ Gza2c0494MeIhd0dhbpqQH1Ak1RDdgZNiGvll/VK77WQNmQ34x8sfZRnHVFjiy2Ngf0d
+ oSIItks9LBuBgfUi2oPP/o0URMauWqC+W2LaPi+hQVq4FjBm0w1iFyzuE9SushnqWixS
+ 9Q/A==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCW8ILwgEZDA7fTWvjgG50seT39Kp4qwGQ4vk1i1gBTR1L/rwWOrWjAZiiKTIsaQPAPQb9zTa6Ze@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxpk5Oy9+B0uHI2yCENjzI0AH4ZLpCTxpTO/3VJl1UBogx9qgnN
+ O61Zqm8Dp0wVFA8EHHDaMICloaaXz08b4cZVRfSttqJv5eeODdWd
+X-Google-Smtp-Source: AGHT+IElbzBU/j/0Stgy5/nLvDDKlh349Y4ohJfeszQYxvSNuC6NwtvuuGPvY9h7LABNl5BavOlG5A==
+X-Received: by 2002:a17:907:972a:b0:a99:537d:5d10 with SMTP id
+ a640c23a62f3a-a998cf3aee8mr538206466b.0.1728575957212; 
+ Thu, 10 Oct 2024 08:59:17 -0700 (PDT)
+Received: from [192.168.0.101]
+ (craw-09-b2-v4wan-169726-cust2117.vm24.cable.virginm.net. [92.238.24.70])
+ by smtp.googlemail.com with ESMTPSA id
+ a640c23a62f3a-a99a80dc6bfsm107133666b.162.2024.10.10.08.59.16
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 10 Oct 2024 08:59:16 -0700 (PDT)
+Message-ID: <ec6a9eff-89b0-4fd6-b3b3-5b234ee79f92@gmail.com>
+Date: Thu, 10 Oct 2024 16:59:15 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Qingqing Zhuo <Qingqing.Zhuo@amd.com>
+Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Roman Li <roman.li@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
+From: "Colin King (gmail)" <colin.i.king@gmail.com>
+Subject: re: drm/amd/display: Introduce DML2
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Mon, 14 Oct 2024 12:50:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -98,25 +87,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 11 October 2024 at 01:49am, Jeff Johnson <quic_jjohnson@quicinc.com> wrot=
-e:
+Hi,
 
-Can you provide links to all 3 patches?
+Static analysis on linux-next has found a potential issue in function 
+dml_rq_dlg_get_rq_reg in 
+drivers/gpu/drm/amd/display/dc/dml2/dml_display_rq_dlg_calc.c
 
-6.12-rc2 was back merged to my ath.git project, but then my laptop
-stopped booting correctly and I discovered a few Radeon KASAN reports.
-Based upon my search of lore I found:
+The issue is as follows:
 
-20241003060650.18454-1-wuhoipok@gmail.com
-[PATCH] drm/radeon: add late_register for connector
+         if (min_meta_chunk_bytes == 0)
+                 rq_regs->rq_regs_l.min_meta_chunk_size = 0;
+         else
+                 rq_regs->rq_regs_l.min_meta_chunk_size = 
+(dml_uint_t)(dml_log2((dml_float_t) min_meta_chunk_bytes) - 6 + 1);
 
-20241007183241.1584-1-christian.koenig@amd.com
-[PATCH] drm/radeon: always set GEM function pointer
+         if ( == 0)
+                 rq_regs->rq_regs_c.min_meta_chunk_size = 0;
+         else
+                 rq_regs->rq_regs_c.min_meta_chunk_size = 
+(dml_uint_t)(dml_log2((dml_float_t) p1_min_meta_chunk_bytes) - 6 + 1);
 
-But that is only 2 patches.
+it appears that the second if statement is checking for 
+min_meta_chunk_bytes == 0 and I think it should be in fact checking for 
+p1_min_meta_chunk_bytes == 0 instead. I don't have the hardware so I 
+can't test this hypothesis.
 
-- - -
+Regards,
 
-The third patch: https://github.com/chzigotzky/kernels/blob/main/patches/X10=
-00/radeon_encoders.patch=
-
+Colin
