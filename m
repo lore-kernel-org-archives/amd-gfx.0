@@ -4,141 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94B9CCF11FE
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Oct 2024 15:48:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9801CFC5E2
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Oct 2024 16:10:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B2D910E966;
-	Thu, 10 Oct 2024 15:48:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50B9510E021;
+	Thu, 10 Oct 2024 16:10:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0LRjJHPA";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="YFZ2bBZf";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2082.outbound.protection.outlook.com [40.107.92.82])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A9C010E966
- for <amd-gfx@lists.freedesktop.org>; Thu, 10 Oct 2024 15:48:43 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2054.outbound.protection.outlook.com [40.107.100.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 44C5D10E021
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Oct 2024 16:10:35 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yxWpz0FhTciWmf/0LUGFaGRp4dmW+wsimeVJn7IFBIcMEkJfdQlhtJxHUFIYtvlWK0y6rdATYrprGCzOMS6LYbW2kID0aTxlLYA1QFpnq8hSawx1iqFxZ0PGJsy7oY6G5PsXtkSpfey85W1pkV2Kim5MCPDQvTwkv2dGdaE81Sp1DWwcL1wGHxuxjpiOUd3OvfjYwc1CFc2TaY5ZOAzNoOA2yc0Wd5UaCMZEHk5kSNDGOAJ8W9a4J/NgJ361GJcvYoiZ7i1jzPMGklUIBAGce2yXzXFb+aV+jYoauPic+N2dCHS3Ya/tuXVD10I5r0rH7OiF9F3diOcg9TUMxDsnKg==
+ b=TzTzSmlvSZsD9OYMj9eG8l8b5kokT3H5VLiAPHav+f5K2Jbtu7y0GOWArESyWB1hJzYdctd1v/egkH1SCnXwU5Y7M09m0OxDVuwTKhysRZjci0ToB8FgRhu2bJ4AKKRKXFSgRyPPwBvHGvrc5vGD5VCn38gX8jWiK6cqoQiIrzo3K/UBAC7kWNsCQ6qLzSeJN0AXtdKF1A1WRfe+7mPSZB0W5ABzvMdiOfaHU3ysLlIlQK2hna4ygrPqo73di65VxsOluCJV/4botwIjqKAAPXx7Ql4hlmT35xDrTMpOggLgTLkpf6rJhrWt/Ye5S57golaXK2fH7qjjSdUYiKOtbg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eBpQ2cns7BsOj97pNyvw15h273OW+2vKC5H7h7w+mOE=;
- b=LIHb2KenOA66c8YtbG51X956U3PcirfGO0ItWG0vQf6ut7xw+WJAe5lNG/UVf4EreW4Ec5H998VpYdpPQWfr/k+DY78m7Pf7nDrWiuR9cQ2owBQ7wW61kwt24Zrxf7NyuLx79LkNFLGmekXRg3/rnFCk05mWno8WF0eOxhSstl+XDWxMTCm4AxLJps8fsRIo99+yL5moxtpIYcqK/Iyx7jyfTNOmWX8U/8ER7XovLGZeyHfUQj5Q7WfXdNfvfkLDyAtfe9LGtNkOQIDCY01c7krajpAtr1czvTw/wlbgsQFOukcf6JrGN2APzzqN02GFE65RP+Qvw6QpjphlLFLAWg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=xYZ+N3+9DW+KCCoUmMzGwdaG2c6DQKtIYWVBNyVSCl4=;
+ b=axax3Ncb7TT6ZMTvCO5Wcqkqz+rsmZoOGQ9ETXy3WDUVcvqpiMQlAIr4poKeCYI5oCmXMTWAFcNbcAegMZ0MD5GEnHpRVVNor2te2/zrNCp4fhFAPEW23hIwC4Qc9516tH93Vr4XyARnIA1rJ2TMyAa1o+vGgbvZR3uIh1t/VZnBdlRVTt09OZ7CK0Oq5hWwpTRMvwjwX/8lxfStdp/jyR4IR3YplFaW4GhExYinzTMtPuHsW8sS+kzUkxoA3jXow3ZtfVK7JwQK0J++KMzWTCIxsFIxO4SjNDvMG0VNSKMYj6H9T//K23L66Lfw75wNSYZEnEp/OBYn7B528ZlYRQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eBpQ2cns7BsOj97pNyvw15h273OW+2vKC5H7h7w+mOE=;
- b=0LRjJHPAtM5NCEXIXblTpGmGtq5x1PV143LBGKW+zAgkWgVPY4j1HWEAvK+F4Bl4pVifNdAAKP+/U18x6Ra97e+ejaXZFezQxhZ0cBkCO4UdM+skF6HP5IPo9C1BD0hAlJyQu2Obeoh+PCTamMok8OsxcfLgpDAOQeaBo0pW6hs=
-Received: from SA1PR12MB8599.namprd12.prod.outlook.com (2603:10b6:806:254::7)
- by BL4PR12MB9508.namprd12.prod.outlook.com (2603:10b6:208:58e::22)
+ bh=xYZ+N3+9DW+KCCoUmMzGwdaG2c6DQKtIYWVBNyVSCl4=;
+ b=YFZ2bBZfV9U5tMCKKOheyixEaCu6FazScdCfXE53jb7cbnlQiaNWNkrRhCtKbJVsn92Ve41lCDsIvwIayby1ks7iJXMVWMf8PkZ5oHQjDwL9QV8XRMyBkrnb26svd3gL77hN/ZhyKKJY2ObaCTxBDmH6BHca235oKQ6kgXZTuxw=
+Received: from PH7PR17CA0038.namprd17.prod.outlook.com (2603:10b6:510:323::17)
+ by CYYPR12MB8872.namprd12.prod.outlook.com (2603:10b6:930:c8::14)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8048.18; Thu, 10 Oct
- 2024 15:48:40 +0000
-Received: from SA1PR12MB8599.namprd12.prod.outlook.com
- ([fe80::25da:4b98:9743:616b]) by SA1PR12MB8599.namprd12.prod.outlook.com
- ([fe80::25da:4b98:9743:616b%3]) with mapi id 15.20.8048.013; Thu, 10 Oct 2024
- 15:48:40 +0000
-From: "Li, Yunxiang (Teddy)" <Yunxiang.Li@amd.com>
-To: "Joshi, Mukul" <Mukul.Joshi@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
- <Christian.Koenig@amd.com>, "Gui, Jack" <Jack.Gui@amd.com>
-Subject: RE: [PATCH 1/2] drm/amdkfd: cleanup device pointer dereference chains
-Thread-Topic: [PATCH 1/2] drm/amdkfd: cleanup device pointer dereference chains
-Thread-Index: AQHbGye1iHr2xrpFDkCXqVNgV2ImObKAIJyAgAAAq1A=
-Date: Thu, 10 Oct 2024 15:48:40 +0000
-Message-ID: <SA1PR12MB859984274CF97B7B1C31DD1EED782@SA1PR12MB8599.namprd12.prod.outlook.com>
-References: <20241010151831.10859-1-Yunxiang.Li@amd.com>
- <BL3PR12MB6425669037C5111A3F8D641BEE782@BL3PR12MB6425.namprd12.prod.outlook.com>
-In-Reply-To: <BL3PR12MB6425669037C5111A3F8D641BEE782@BL3PR12MB6425.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=39c41c37-e9e6-4675-b9c7-1eabbc20653d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution Only;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-10-10T15:33:51Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SA1PR12MB8599:EE_|BL4PR12MB9508:EE_
-x-ms-office365-filtering-correlation-id: 802a02ab-5e86-4f11-9b14-08dce9430301
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0; ARA:13230040|376014|1800799024|366016|38070700018;
-x-microsoft-antispam-message-info: =?us-ascii?Q?bebF584Ld2Z3z9eO3luSs6q/XVGNnnj9HavpHcp1RCO2h66OkFq8QARZiSrj?=
- =?us-ascii?Q?5xfo2E7GKcekfmojU6deVNvWEORWpC8NmDUgUp0Hhku8IPzENVNFkvWsoZda?=
- =?us-ascii?Q?ktuZcfdj8b8yc/RUkUV4bq3nkNuHxDBzZyCOPm5FsCcx+8PWYD2ybSh2bblA?=
- =?us-ascii?Q?Ua79yBCm8ev7DsBPNwT781W45NAxinrXx+Aef6AxNQWMH+4+CzVHNmOLAIi1?=
- =?us-ascii?Q?9o2ZsIkBKRzOgNQSqM7xNrHJaSRhZoNY982Aob8j520/vczDYTQxOBUdQeO9?=
- =?us-ascii?Q?mXOANluv2/Y0V3sgF9sRXWfc7344tHlxYBVt/prY8kzmuqNlS0ShXbjRlQBm?=
- =?us-ascii?Q?Gcnw42s8Li8oc7tNKQhpFhl5Uv6AqdNSO+gb4CBW11ZmPKPPebv/7yP3LR2R?=
- =?us-ascii?Q?8WGeZaGmyxXegPR8cpOMX1FutGsmrnTv0lHJSgcE8mtn762EBZtYG5qEJk6W?=
- =?us-ascii?Q?I6FcPyoB0RSAWQfs7C8q1NKWVj0y/z1AcQV8SmNfRkkeg15/YtgNuCKNID1I?=
- =?us-ascii?Q?QPamCoduSY23Cu+TdI75jFGAgtwHk6ximFxYlBXWjSo5LbJ0N7AqVKHjpuT+?=
- =?us-ascii?Q?s8ouIxdDGPvdLCdyo/ziraJkd+TyFpFKfJ8BLMlDQGr+2NC+tXGW38q32OF9?=
- =?us-ascii?Q?Ija4mAkd94o7MjsEa1Y4o1JHkSupj1YmJLv93fTfpuErjZ9TpY8SzHYE46C+?=
- =?us-ascii?Q?iRJX3G8jcThHJgsxWnIdhy00T8QYHXaq3o3QaaJ9NZqifK1ne0VUI63tRsU0?=
- =?us-ascii?Q?rBRlsyz4i6MqCseRs2P7V4ZGHJFC24PzaOaGnPMWw7TDZx81tNCl34Xc3pCA?=
- =?us-ascii?Q?6l+bcYoQLfGyhfbaTguw9hDxwkQYnZXOFhOpaMQXAjrzWM4wL5+O9giYWsB6?=
- =?us-ascii?Q?NUmKZq4ujUmE2LQiggwlkp0hXjqN1+A1Xyqhv4JBQ1qFXN0CagwEylca6ivs?=
- =?us-ascii?Q?548sKYS2FvtxM9qD0JBShPHjBseM1ql5Glx3qNYfQrVhzV+GBpXjBcRFDSAY?=
- =?us-ascii?Q?GSgmuKjVNrc9KHxsInzU7kZ59GjTzylwtY+4dZBKSlDuP0TOMiy69vSjCKLr?=
- =?us-ascii?Q?fKS4dJdpfRZ6ZA/u6gqSZFchG3gSQ4RUbELSQ9YYf2r/niIJ8YTZh37OyR/A?=
- =?us-ascii?Q?T/gabClj8pUsv2OYmQrwW53NnPSaKwsF6ZDJtf7LMDRV8HA1aqt/9nslwEMA?=
- =?us-ascii?Q?Ivxq94nyl8BHKvB6VKz9M5/ti9XFsFPFd7UdjW4DZB4kjy7Z8MIC6+GWQ/hq?=
- =?us-ascii?Q?sjvzhgMaAjn5gmnNmRmE2GAjrMKCGCF6n0WN5HdD8auJCvoIpSC0YDNYHydG?=
- =?us-ascii?Q?mk08K9dEad9KmWAuhL9BFE2kXflmvqgmhH1Isjehr/0bKw=3D=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA1PR12MB8599.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(38070700018); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?kiu1KPRcKZGfCnAdM8gxIVbpTyLyu8VkuWAb5UeTpu1QT4XSL7SH0BY7Pmyn?=
- =?us-ascii?Q?JHcR05jb37eivopVjPdsZZiVjkzf03HtVGxxqT3V3pX3sehdTwcDPOUMy2dx?=
- =?us-ascii?Q?RW4hx7U8XYBs566YBYLYcCxuaJ2yM3SWS0biHnw8pvrAKYrA0vwA4u7S4cAf?=
- =?us-ascii?Q?bLU6lGxR0tGpqHofC8hjeD/iDC7ekwPLWTywTfcFgZlgjLCVFg3azUCB5Ji5?=
- =?us-ascii?Q?BVRnlyHHY45B1QsuTCumG9SsXcqjD/5WHU9wKJTHGz5B8t6vc1rNFQg/toQp?=
- =?us-ascii?Q?AFwOn6Fz5A+/iIj0t9yFTfeJO5u17A09Y7B3uJjqyIztRtFG+aAUQW8pp6jm?=
- =?us-ascii?Q?JlCX1RoqlTiq3nnCalHmwsropHwdzAztUnLhoKX29occSJY1k1HSaGKcji01?=
- =?us-ascii?Q?pczl8trXI+OnnsE1P8pF6wFpGAJxEwTzJalW1PLBWQGUvmPREzDJjSLXOJ3r?=
- =?us-ascii?Q?zA4RXoB1YIKSLORYlbbJcX/F71s81qeBVZLmphlazKHmdXbjQ6uNz9uSwMn5?=
- =?us-ascii?Q?/O8Pnel7iniCEFvJs0KfrFbpnAYJjkKwlfDE3W1duhxG5j1POQQ2BH9uQhJM?=
- =?us-ascii?Q?lhXtFK2NgbAMHLaZR2ZPLsoznhbjmjhKq1pKKkzLh76gS6Zt1v2N0CZgcBYo?=
- =?us-ascii?Q?G9lenWYGrbF75Wh5JRsiPZuQdyT9KqUHSQ3OA5zGg/ytGueDshcf930/xnY1?=
- =?us-ascii?Q?sN/csd3WvJJb6QCi56tuaXiufzop3CGMqT7JG/c+jMg2F5AS5m0ecIhTwzG0?=
- =?us-ascii?Q?Y7lhl+4CUuBFTBGHjPEQZuv+6rULqj6dcUCZ5eNZSR4OHf201P+Dk/epM5Cl?=
- =?us-ascii?Q?5DngVKl3WqutwZyPBLT8MDsYth2L3auj3+dTd5ePUHVjBCxmB4FUm97KWkAP?=
- =?us-ascii?Q?IMNfK+r51wmuwtwG0LYFT3Jc2GMycDYkNAXgJwNLUAbWnpZf7Tk+BEldJLY0?=
- =?us-ascii?Q?y7GsRL7ORctKUhzbWcN62JIUqP0yWtbQj4gkNRO3aMrt1wbfU1m/JBDj8ByC?=
- =?us-ascii?Q?M0tNHx8FbVfekhr3J9nGQEd8HIhtAMDLLN0rQVB6TQw6tN1E7+QSzOxrQShF?=
- =?us-ascii?Q?wqLGR2uPHd3jkXO4pSFLA6IB0OIDkcXggXYmEFN8MM7uRvRkw64oaX6cR1b8?=
- =?us-ascii?Q?RQGD/nU/1N+kbvhrYdyQDj0YffnpGVmQTSyaB2pwbMcJ0DF9Ew812wW3Qhzl?=
- =?us-ascii?Q?XYL318r1eHF8cFOSo43pF2nVZ4cwD+dWmwexj1L6bwEvlW3NggWqWXZan2rn?=
- =?us-ascii?Q?IaxPR08F6izbkh9PmBoRRppSAbFAB2ii/07xUrHUVDZ+h8cnKPM5Anvp+85E?=
- =?us-ascii?Q?KdWlTsnToMSq+EyoxXfpqQBC7S05sGSwwZ8QSSsDye0+wPtg8G0ZR4nBpAKx?=
- =?us-ascii?Q?QwW5ni0sgLGPn1KngohH8d8gckg4olQCjIV29VwmIshtBU8DxLdob4jv1Z+I?=
- =?us-ascii?Q?QJwP1AeJW8S4SEISagggxswde8YALht+zKVttIdw/6oJ1qb4PcF3O6iGAPcx?=
- =?us-ascii?Q?ewbWSxnbMZtvVLBuzEpE1bhNVUJPPpTjrX+kti/ea6nKKMaFd8jX3++gx1gT?=
- =?us-ascii?Q?czKN6LppFx3P/wN2SAM=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ 2024 16:10:31 +0000
+Received: from CY4PEPF0000EE3D.namprd03.prod.outlook.com
+ (2603:10b6:510:323:cafe::19) by PH7PR17CA0038.outlook.office365.com
+ (2603:10b6:510:323::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8048.19 via Frontend
+ Transport; Thu, 10 Oct 2024 16:10:31 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CY4PEPF0000EE3D.mail.protection.outlook.com (10.167.242.15) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8048.13 via Frontend Transport; Thu, 10 Oct 2024 16:10:30 +0000
+Received: from shaoyunl-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 10 Oct
+ 2024 11:10:29 -0500
+From: shaoyunl <shaoyun.liu@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: shaoyunl <shaoyun.liu@amd.com>
+Subject: [PATCH] drm/amdgpu: Increase MES log buffer to dump mes scratch data
+Date: Thu, 10 Oct 2024 12:10:15 -0400
+Message-ID: <20241010161015.624089-1-shaoyun.liu@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3D:EE_|CYYPR12MB8872:EE_
+X-MS-Office365-Filtering-Correlation-Id: 31396e65-4ac0-4db4-083e-08dce946106c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|376014|1800799024|36860700013|43062017; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?r2DvBbPlqMxp4FtQ8uuaoufB7mdo+pObKh1MvuL2RfSjlwEBFjNKtdpy+mTI?=
+ =?us-ascii?Q?hFqMzk3jwKhiGZPjiET0/m/eDju6fq0kijwUSPDZNopGLQpU5p2Ni1kKFu/z?=
+ =?us-ascii?Q?LwylgvX33r+WmkdaFPHxn/y2Cl4/+C47V2D0O6UgF9j2rWD2PxZjM3t7OTQR?=
+ =?us-ascii?Q?dSTpMCAZszoCXhGutY4ncuFJTRLSMd6EhGXbNwwnaCmcifQRiiLv+g925Mtn?=
+ =?us-ascii?Q?p/d+u+Tu119ALD2lRRMk/UTiUQQUmXcwJ7w2q8b8/JasJgp2qEckTDhBBRMb?=
+ =?us-ascii?Q?+KqYnbPkq2FmwGMwcENmXjRjE2ZkC5+3zmVJ1u0uztrSlJfo7bTu1gKm0biS?=
+ =?us-ascii?Q?jg8olJPWBUZ5Ouc27j1LmLPoTUmuRCQer4UjaySUfkdIbpnvkyzVV5gC7a3g?=
+ =?us-ascii?Q?4Ov7S+u9B41mKjPMA/cDRZMkIryRJOETRIw680yV/ITR9fZB1jmnrBi/fPIt?=
+ =?us-ascii?Q?XGukwPMxCaikzf3Te1FWAfwmuxhmuL8NjsvICThmVr9V1W3WkalPKmn8mkQY?=
+ =?us-ascii?Q?YFLIL3KLRyTI8Hb60BFhxBJFdHrrJ2kwEa4LuUVKVyrL1rcm3vjiGy6pKrfh?=
+ =?us-ascii?Q?7CwJgbnkzVkxhqF5I1aHpglwteCIvmwSsZOstog3LQmLAvd1lkw7TcCBOvlH?=
+ =?us-ascii?Q?nFbAWZldfrtE2OxLQNPOIWlDT5fPE3N/tFNa2YfGCB7OgNC4eZGexoRTwJWs?=
+ =?us-ascii?Q?whnrdw/VI2urLJmyl7pjiy6jRX/6P0Srpd5SzcVu/mDSHVK8AI2RXtLkx8cO?=
+ =?us-ascii?Q?qLfb/Svvx7b2a5fqJj768oHw2qF1JXVHSY3XMPFjrxGZlh7C0cwfTR8NSl8P?=
+ =?us-ascii?Q?FQM/gAkOW3I1RD3kGSz3cVixaQ9odNZBjIN6u7Y1fxmigltIo3C3gAxUdxbL?=
+ =?us-ascii?Q?qtXJFYPVe+jzSN3bXuARY01cNVJhb+NW7EIlNOvDc7EvQLCXTC1jUQtvGlva?=
+ =?us-ascii?Q?RURQ/XT5oRSE4RYC+751hN3Ls/n12w5Rj9gVBnVFpAgvHDtZKckSGZAn3KIH?=
+ =?us-ascii?Q?ETuQ0JFjrP0d2GNVRZCjRGoQvHr03xPHTWgBZxkpFLycidbuiQ4wWhvwnW3v?=
+ =?us-ascii?Q?Wxbxhpz2d2zc/GSE/P5jT1+0g1kozdBmUghOUd2wDsurBI0Y4+jQtZq+uFqA?=
+ =?us-ascii?Q?hcqoY/Pq/P/X/w4An3X1s2oF8QG9/yaey9Bem7nXWJhoHUlSWp1oEFVlGTS4?=
+ =?us-ascii?Q?JB2aprEmMMR6FVgMPRZY4o08MSySs3rVvdA8LZc8FryqdqoeTE4w4L29gp7y?=
+ =?us-ascii?Q?GSmm2S/8HYKisqxWZkCENBLQGYtFnB/xyCvotBg82KiHJJZefI1RAq+J8PuL?=
+ =?us-ascii?Q?bwtIS7HFQOZpqoBpWAt1yBfFzlt56ugy6ri4b3d2ZNbPgdjkUivTDDOcHjNQ?=
+ =?us-ascii?Q?BizKiq86gtNd5DetpubPOnzRmNyYOWxpu0ZYlxWy+f65Zj/RKA=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(376014)(1800799024)(36860700013)(43062017);
+ DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SA1PR12MB8599.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 802a02ab-5e86-4f11-9b14-08dce9430301
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Oct 2024 15:48:40.1999 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: fUnolTBvh3iAVUoRw+S37crL48qGUudtmu0CPYCasqpDivW4u/b0+R90jr6GgNUKpn+jyoUrcH/q+XAf+kT5IQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL4PR12MB9508
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Oct 2024 16:10:30.5234 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 31396e65-4ac0-4db4-083e-08dce946106c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE3D.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8872
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,181 +128,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - AMD Internal Distribution Only]
+MES internal scratch data is useful for mes debug, it can only located
+in VRAM, change the allocation type and increase size for mes 11
 
-Oops, lemme fix that real quick...
+Signed-off-by: shaoyunl <shaoyun.liu@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h |  1 +
+ drivers/gpu/drm/amd/amdgpu/mes_v11_0.c  | 12 +++++++++++-
+ 3 files changed, 13 insertions(+), 2 deletions(-)
 
-> -----Original Message-----
-> From: Joshi, Mukul <Mukul.Joshi@amd.com>
-> Sent: Thursday, October 10, 2024 11:46
-> To: Li, Yunxiang (Teddy) <Yunxiang.Li@amd.com>; amd-gfx@lists.freedesktop=
-.org
-> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
-> <Christian.Koenig@amd.com>; Gui, Jack <Jack.Gui@amd.com>; Li, Yunxiang
-> (Teddy) <Yunxiang.Li@amd.com>
-> Subject: RE: [PATCH 1/2] drm/amdkfd: cleanup device pointer dereference c=
-hains
->
-> [AMD Official Use Only - AMD Internal Distribution Only]
->
-> > -----Original Message-----
-> > From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
-> > Yunxiang Li
-> > Sent: Thursday, October 10, 2024 11:19 AM
-> > To: amd-gfx@lists.freedesktop.org
-> > Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
-> > <Christian.Koenig@amd.com>; Gui, Jack <Jack.Gui@amd.com>; Li, Yunxiang
-> > (Teddy) <Yunxiang.Li@amd.com>
-> > Subject: [PATCH 1/2] drm/amdkfd: cleanup device pointer dereference
-> > chains
-> >
-> > Pull out some duplicated dereference chains into variables, and in
-> > some cases grab struct device pointer directly from amdgpu_device inste=
-ad of via
-> drm_device.
-> >
-> > Signed-off-by: Yunxiang Li <Yunxiang.Li@amd.com>
-> > ---
-> >  drivers/gpu/drm/amd/amdkfd/kfd_process.c | 32
-> > +++++++++++++-----------
-> >  1 file changed, 18 insertions(+), 14 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> > b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> > index d665ecdcd12fc..c334432e55b14 100644
-> > --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> > @@ -1051,6 +1051,7 @@ static void kfd_process_destroy_pdds(struct
-> > kfd_process *p)
-> >
-> >       for (i =3D 0; i < p->n_pdds; i++) {
-> >               struct kfd_process_device *pdd =3D p->pdds[i];
-> > +             struct amdgpu_device *adev =3D pdd->dev->adev;
-> >
-> >               pr_debug("Releasing pdd (topology id %d) for process
-> > (pasid 0x%x)\n",
-> >                               pdd->dev->id, p->pasid); @@ -1059,8
-> > +1060,8 @@ static void kfd_process_destroy_pdds(struct kfd_process *p)
-> >               kfd_process_device_destroy_ib_mem(pdd);
-> >
-> >               if (pdd->drm_file) {
-> > -                     amdgpu_amdkfd_gpuvm_release_process_vm(
-> > -                                     pdd->dev->adev, pdd->drm_priv);
-> > +                     amdgpu_amdkfd_gpuvm_release_process_vm(adev,
-> > +
-> > + pdd->drm_priv);
-> >                       fput(pdd->drm_file);
-> >               }
-> >
-> > @@ -1073,15 +1074,14 @@ static void kfd_process_destroy_pdds(struct
-> > kfd_process *p)
-> >               kfd_free_process_doorbells(pdd->dev->kfd, pdd);
-> >
-> >               if (pdd->dev->kfd->shared_resources.enable_mes)
-> > -                     amdgpu_amdkfd_free_gtt_mem(pdd->dev->adev,
-> > -                                                &pdd->proc_ctx_bo);
-> > +                     amdgpu_amdkfd_free_gtt_mem(adev,
-> > + &pdd->proc_ctx_bo);
-> >               /*
-> >                * before destroying pdd, make sure to report availabilit=
-y
-> >                * for auto suspend
-> >                */
-> >               if (pdd->runtime_inuse) {
-> > -                     pm_runtime_mark_last_busy(adev_to_drm(pdd->dev-
-> > >adev)->dev);
-> > -                     pm_runtime_put_autosuspend(adev_to_drm(pdd->dev-
-> > >adev)->dev);
-> > +                     pm_runtime_mark_last_busy(adev->dev);
-> > +                     pm_runtime_put_autosuspend(adev->dev);
-> >                       pdd->runtime_inuse =3D false;
-> >               }
-> >
-> > @@ -1606,6 +1606,8 @@ struct kfd_process_device
-> > *kfd_create_process_device_data(struct kfd_node *dev,
-> >                                                       struct
-> > kfd_process *p)  {
-> >       struct kfd_process_device *pdd =3D NULL;
-> > +     struct amdgpu_device *adev =3D dev->adev;
-> > +     struct device *bdev =3D adev->dev;
-> >       int retval =3D 0;
-> >
-> >       if (WARN_ON_ONCE(p->n_pdds >=3D MAX_GPU_INSTANCE)) @@ -
-> > 1631,14 +1633,17 @@ struct kfd_process_device
-> > *kfd_create_process_device_data(struct kfd_node *dev,
-> >       atomic64_set(&pdd->evict_duration_counter, 0);
-> >
-> >       if (dev->kfd->shared_resources.enable_mes) {
-> > -             retval =3D amdgpu_amdkfd_alloc_gtt_mem(dev->adev,
-> > +             retval =3D amdgpu_amdkfd_alloc_gtt_mem(adev,
-> >                                               AMDGPU_MES_PROC_CTX_SIZE,
-> >                                               &pdd->proc_ctx_bo,
-> >                                               &pdd->proc_ctx_gpu_addr,
-> >                                               &pdd->proc_ctx_cpu_ptr,
-> >                                               false);
-> > +             retval =3D amdgpu_amdkfd_alloc_gtt_mem(
-> > +                     adev, AMDGPU_MES_PROC_CTX_SIZE, &pdd-
-> > >proc_ctx_bo,
-> > +                     &pdd->proc_ctx_gpu_addr, &pdd->proc_ctx_cpu_ptr,
-> > + false);
->
-> Looks like you are duplicating the amdgpu_amdkfd_alloc_gtt_mem call here.
->
-> Regards,
-> Mukul
->
-> >               if (retval) {
-> > -                     dev_err(dev->adev->dev,
-> > +                     dev_err(bdev,
-> >                               "failed to allocate process context bo\n"=
-);
-> >                       goto err_free_pdd;
-> >               }
-> > @@ -1647,10 +1652,8 @@ struct kfd_process_device
-> > *kfd_create_process_device_data(struct kfd_node *dev,
-> >
-> >       p->pdds[p->n_pdds++] =3D pdd;
-> >       if (kfd_dbg_is_per_vmid_supported(pdd->dev))
-> > -             pdd->spi_dbg_override =3D pdd->dev->kfd2kgd->disable_debu=
-g_trap(
-> > -                                                     pdd->dev->adev,
-> > -                                                     false,
-> > -                                                     0);
-> > +             pdd->spi_dbg_override =3D
-> > +                     pdd->dev->kfd2kgd->disable_debug_trap(adev,
-> > + false, 0);
-> >
-> >       /* Init idr used for memory handle translation */
-> >       idr_init(&pdd->alloc_idr);
-> > @@ -1750,11 +1753,12 @@ struct kfd_process_device
-> > *kfd_bind_process_to_device(struct kfd_node *dev,
-> >                                                       struct
-> > kfd_process *p)  {
-> >       struct kfd_process_device *pdd;
-> > +     struct device *bdev =3D dev->adev->dev;
-> >       int err;
-> >
-> >       pdd =3D kfd_get_process_device_data(dev, p);
-> >       if (!pdd) {
-> > -             dev_err(dev->adev->dev, "Process device data doesn't exis=
-t\n");
-> > +             dev_err(bdev, "Process device data doesn't exist\n");
-> >               return ERR_PTR(-ENOMEM);
-> >       }
-> >
-> > @@ -1767,7 +1771,7 @@ struct kfd_process_device
-> > *kfd_bind_process_to_device(struct kfd_node *dev,
-> >        * pdd is destroyed.
-> >        */
-> >       if (!pdd->runtime_inuse) {
-> > -             err =3D pm_runtime_get_sync(adev_to_drm(dev->adev)->dev);
-> > +             err =3D pm_runtime_get_sync(bdev);
-> >               if (err < 0) {
-> >
-> > pm_runtime_put_autosuspend(adev_to_drm(dev->adev)-
-> > >dev);
-> >                       return ERR_PTR(err);
-> > --
-> > 2.34.1
->
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+index 83d0f731fb65..bf584e9bcce4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+@@ -104,7 +104,7 @@ static int amdgpu_mes_event_log_init(struct amdgpu_device *adev)
+ 		return 0;
+ 
+ 	r = amdgpu_bo_create_kernel(adev, adev->mes.event_log_size, PAGE_SIZE,
+-				    AMDGPU_GEM_DOMAIN_GTT,
++				    AMDGPU_GEM_DOMAIN_VRAM,
+ 				    &adev->mes.event_log_gpu_obj,
+ 				    &adev->mes.event_log_gpu_addr,
+ 				    &adev->mes.event_log_cpu_addr);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+index 45e3508f0f8e..79f13d7e5e16 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+@@ -40,6 +40,7 @@
+ #define AMDGPU_MES_VERSION_MASK		0x00000fff
+ #define AMDGPU_MES_API_VERSION_MASK	0x00fff000
+ #define AMDGPU_MES_FEAT_VERSION_MASK	0xff000000
++#define AMDGPU_MES_MSCRATCH_SIZE	0x8000
+ 
+ enum amdgpu_mes_priority_level {
+ 	AMDGPU_MES_PRIORITY_LEVEL_LOW       = 0,
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+index 03bf865fbdd4..aa2e9ef4ff12 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+@@ -913,6 +913,16 @@ static void mes_v11_0_enable(struct amdgpu_device *adev, bool enable)
+ 	uint32_t pipe, data = 0;
+ 
+ 	if (enable) {
++		if (amdgpu_mes_log_enable) {
++			WREG32_SOC15(GC, 0, regCP_MES_MSCRATCH_LO,
++				lower_32_bits(adev->mes.event_log_gpu_addr + AMDGPU_MES_LOG_BUFFER_SIZE));
++			WREG32_SOC15(GC, 0, regCP_MES_MSCRATCH_HI,
++				upper_32_bits(adev->mes.event_log_gpu_addr + AMDGPU_MES_LOG_BUFFER_SIZE));
++			dev_info(adev->dev, "Setup CP MES MSCRATCH address : 0x%x. 0x%x\n",
++				RREG32_SOC15(GC, 0, regCP_MES_MSCRATCH_HI),
++				RREG32_SOC15(GC, 0, regCP_MES_MSCRATCH_LO));
++		}
++
+ 		data = RREG32_SOC15(GC, 0, regCP_MES_CNTL);
+ 		data = REG_SET_FIELD(data, CP_MES_CNTL, MES_PIPE0_RESET, 1);
+ 		data = REG_SET_FIELD(data, CP_MES_CNTL,
+@@ -1375,7 +1385,7 @@ static int mes_v11_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 	adev->mes.kiq_hw_init = &mes_v11_0_kiq_hw_init;
+ 	adev->mes.kiq_hw_fini = &mes_v11_0_kiq_hw_fini;
+ 
+-	adev->mes.event_log_size = AMDGPU_MES_LOG_BUFFER_SIZE;
++	adev->mes.event_log_size = AMDGPU_MES_LOG_BUFFER_SIZE + AMDGPU_MES_MSCRATCH_SIZE;
+ 
+ 	r = amdgpu_mes_init(adev);
+ 	if (r)
+-- 
+2.34.1
 
