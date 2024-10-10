@@ -4,82 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96218D1625E
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 961F0D1625B
 	for <amd-gfx@archiver.kernel.org>; Mon, 14 Oct 2024 12:50:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 12C5D10E286;
-	Mon, 14 Oct 2024 12:50:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E54DA10E258;
+	Mon, 14 Oct 2024 12:50:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="jKaeuRf9";
+	dkim=pass (2048-bit key; unprotected) header.d=treblig.org header.i=@treblig.org header.b="ZlfqnJDz";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E40DB10E156
- for <amd-gfx@lists.freedesktop.org>; Thu, 10 Oct 2024 23:49:21 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 49AJjQdS000324;
- Thu, 10 Oct 2024 23:49:06 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- qhj9QjPhMY3N3l11uQGEoOZB1Qu4SEZj3Soa9AAkvms=; b=jKaeuRf9LdWpnvNB
- NFBShdRFQXyynqiREd0rHzQ+Q6Wny12zpyza530MXWdtAoxY51M5+cku/u6kEgUV
- ut5tMr7jRg4DQxjUTevIVJGn5JUV1xT4GVBESuGgYL834lne8tyipLTSqdxSiOy0
- WPqWjdYuqVMqSqhCoJu4s++8Qt7m4okT+aqPPJVL82OCIKU6UdHi10GtjIF7GAWv
- a4Hwsy+FFJPy9iht6wnOPEnHMWEQN+mNT+6VypYhz1Mhr3C+opjuaY4ktSH29pFb
- 1UO/yEbd+85bphzvvRJ8SPPLKOg0RM/NhErzZL2oGpcpE9h16+bIN6njo0RiokiJ
- ISb3iQ==
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 426nc2gdss-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 10 Oct 2024 23:49:05 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA02.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 49ANn42x026374
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 10 Oct 2024 23:49:04 GMT
-Received: from [10.81.24.74] (10.49.16.6) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Thu, 10 Oct
- 2024 16:49:04 -0700
-Message-ID: <b7abd0b6-ac96-48ca-8165-a3b408137007@quicinc.com>
-Date: Thu, 10 Oct 2024 16:49:03 -0700
+Received: from mx.treblig.org (mx.treblig.org [46.235.229.95])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA16710E9DB;
+ Thu, 10 Oct 2024 20:52:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=treblig.org
+ ; s=bytemarkmx;
+ h=MIME-Version:Message-ID:Date:Subject:From:Content-Type:From
+ :Subject; bh=apBr0YVBrYSBLoAiu9geWWGw2/zqj9BmdsgyRZdVTi0=; b=ZlfqnJDzOB8U/xKh
+ pjmGW2IHVwcoGbqAniaSgbCxzgWId7e6yPl9PkUjf3koHKgGHCrZG0lFeLhnsq8N0bJQSdHn4r6H6
+ 38b4LTpSccS+kXIxHTxx7jON/Furbm3MxKnDUegCI8aCE7VZqv1o1x6S2LqRyAyJrzq1sSY++YZvM
+ BUQsvy+b6VvzHjBcLM+GnDniVyGzb4qh4/asCg1Eyrob0MYcd6ca7lJSzmbmq+JVn6dtDBaFT2wyT
+ E7W8xkD+zf3eulYux5QiC8XFPvRyxalsg0ZdYqWgdQ7XgBQGgce2SrAiXZQ/KXLmeY953ljqHgTbI
+ sJYax3wpDVPrVYCe2A==;
+Received: from localhost ([127.0.0.1] helo=dalek.home.treblig.org)
+ by mx.treblig.org with esmtp (Exim 4.96)
+ (envelope-from <linux@treblig.org>) id 1sz08a-00AMmW-16;
+ Thu, 10 Oct 2024 20:51:56 +0000
+From: linux@treblig.org
+To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com
+Cc: airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ "Dr. David Alan Gilbert" <linux@treblig.org>
+Subject: [PATCH] drm/amd/display: Remove last parts of timing_trace
+Date: Thu, 10 Oct 2024 21:51:54 +0100
+Message-ID: <20241010205154.278023-1-linux@treblig.org>
+X-Mailer: git-send-email 2.47.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCHES] drm/radeon issues
-To: Christian Zigotzky <chzigotzky@xenosoft.de>, R.T.Dickinson
- <rtd@a-eon.com>, mad skateman <madskateman@gmail.com>, Darren Stevens
- <darren@stevens-zone.net>, <hypexed@yahoo.com.au>, linuxppc-dev
- <linuxppc-dev@lists.ozlabs.org>, Christian Zigotzky <info@xenosoft.de>
-CC: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>, Hans
- de Goede <hdegoede@redhat.com>, Wu Hoi Pok <wuhoipok@gmail.com>,
- <amd-gfx@lists.freedesktop.org>, Alex Deucher <alexdeucher@gmail.com>,
- <alexander.deucher@amd.com>
-References: <EE14413A-3528-4646-A353-DB5131E56BA2@xenosoft.de>
- <6C389917-EF59-444B-9C33-C3F9A9AD3921@xenosoft.de>
-From: Jeff Johnson <quic_jjohnson@quicinc.com>
-Content-Language: en-US
-In-Reply-To: <6C389917-EF59-444B-9C33-C3F9A9AD3921@xenosoft.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.49.16.6]
-X-ClientProxiedBy: nalasex01c.na.qualcomm.com (10.47.97.35) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: tdJz5yjJOWf3Dah3YuI-X5mA9T24VSNu
-X-Proofpoint-GUID: tdJz5yjJOWf3Dah3YuI-X5mA9T24VSNu
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 adultscore=0
- priorityscore=1501 bulkscore=0 mlxlogscore=999 lowpriorityscore=0
- malwarescore=0 clxscore=1011 suspectscore=0 impostorscore=0 mlxscore=0
- spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2409260000 definitions=main-2410100157
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 14 Oct 2024 12:50:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -95,30 +55,338 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 10/10/24 06:57, Christian Zigotzky wrote:
-> Hi All,
-> 
-> There is another issue with the Radeon DRM driver but there is already a patch available for this issue.
-> 
-> Link: https://lists.freedesktop.org/archives/dri-devel/2024-October/473314.html
-> 
-> I compiled a new RC2 of kernel 6.12 with this patch for the X1000 and X5000 today.
-> 
-> Download: https://github.com/chzigotzky/kernels/releases/tag/v6.12.0-rc2-2
-> 
-> We need 3 patches for the Radeon DRM driver currently.
+From: "Dr. David Alan Gilbert" <linux@treblig.org>
 
-Can you provide links to all 3 patches?
+Commit c2c2ce1e9623 ("drm/amd/display: Optimize passive update planes.")
+removed the last caller of context_timing_trace.
+Remove it.
 
-6.12-rc2 was back merged to my ath.git project, but then my laptop
-stopped booting correctly and I discovered a few Radeon KASAN reports.
-Based upon my search of lore I found:
+With that gone, no one is now looking at the 'timing_trace' flag, remove
+it and all the places that set it.
 
-20241003060650.18454-1-wuhoipok@gmail.com
-[PATCH] drm/radeon: add late_register for connector
+Signed-off-by: Dr. David Alan Gilbert <linux@treblig.org>
+---
+ .../gpu/drm/amd/display/dc/core/dc_debug.c    | 42 -------------------
+ drivers/gpu/drm/amd/display/dc/dc.h           |  1 -
+ .../dc/resource/dcn10/dcn10_resource.c        |  2 -
+ .../dc/resource/dcn20/dcn20_resource.c        |  1 -
+ .../dc/resource/dcn201/dcn201_resource.c      |  1 -
+ .../dc/resource/dcn21/dcn21_resource.c        |  1 -
+ .../dc/resource/dcn30/dcn30_resource.c        |  1 -
+ .../dc/resource/dcn301/dcn301_resource.c      |  1 -
+ .../dc/resource/dcn302/dcn302_resource.c      |  1 -
+ .../dc/resource/dcn303/dcn303_resource.c      |  1 -
+ .../dc/resource/dcn31/dcn31_resource.c        |  1 -
+ .../dc/resource/dcn314/dcn314_resource.c      |  1 -
+ .../dc/resource/dcn315/dcn315_resource.c      |  1 -
+ .../dc/resource/dcn316/dcn316_resource.c      |  1 -
+ .../dc/resource/dcn32/dcn32_resource.c        |  1 -
+ .../dc/resource/dcn321/dcn321_resource.c      |  1 -
+ .../dc/resource/dcn35/dcn35_resource.c        |  1 -
+ .../dc/resource/dcn351/dcn351_resource.c      |  1 -
+ .../dc/resource/dcn401/dcn401_resource.c      |  1 -
+ .../amd/display/include/logger_interface.h    |  4 --
+ 20 files changed, 65 deletions(-)
 
-20241007183241.1584-1-christian.koenig@amd.com
-[PATCH] drm/radeon: always set GEM function pointer
-
-But that is only 2 patches.
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_debug.c b/drivers/gpu/drm/amd/display/dc/core/dc_debug.c
+index 801cdbc8117d..0bb25c537243 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_debug.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_debug.c
+@@ -46,11 +46,6 @@
+ 			DC_LOG_IF_TRACE(__VA_ARGS__); \
+ } while (0)
+ 
+-#define TIMING_TRACE(...) do {\
+-	if (dc->debug.timing_trace) \
+-		DC_LOG_SYNC(__VA_ARGS__); \
+-} while (0)
+-
+ #define CLOCK_TRACE(...) do {\
+ 	if (dc->debug.clock_trace) \
+ 		DC_LOG_BANDWIDTH_CALCS(__VA_ARGS__); \
+@@ -306,43 +301,6 @@ void post_surface_trace(struct dc *dc)
+ 
+ }
+ 
+-void context_timing_trace(
+-		struct dc *dc,
+-		struct resource_context *res_ctx)
+-{
+-	int i;
+-	int h_pos[MAX_PIPES] = {0}, v_pos[MAX_PIPES] = {0};
+-	struct crtc_position position;
+-	unsigned int underlay_idx = dc->res_pool->underlay_pipe_index;
+-	DC_LOGGER_INIT(dc->ctx->logger);
+-
+-
+-	for (i = 0; i < dc->res_pool->pipe_count; i++) {
+-		struct pipe_ctx *pipe_ctx = &res_ctx->pipe_ctx[i];
+-		/* get_position() returns CRTC vertical/horizontal counter
+-		 * hence not applicable for underlay pipe
+-		 */
+-		if (pipe_ctx->stream == NULL || pipe_ctx->pipe_idx == underlay_idx)
+-			continue;
+-
+-		pipe_ctx->stream_res.tg->funcs->get_position(pipe_ctx->stream_res.tg, &position);
+-		h_pos[i] = position.horizontal_count;
+-		v_pos[i] = position.vertical_count;
+-	}
+-	for (i = 0; i < dc->res_pool->pipe_count; i++) {
+-		struct pipe_ctx *pipe_ctx = &res_ctx->pipe_ctx[i];
+-
+-		if (pipe_ctx->stream == NULL || pipe_ctx->pipe_idx == underlay_idx)
+-			continue;
+-
+-		TIMING_TRACE("OTG_%d   H_tot:%d  V_tot:%d   H_pos:%d  V_pos:%d\n",
+-				pipe_ctx->stream_res.tg->inst,
+-				pipe_ctx->stream->timing.h_total,
+-				pipe_ctx->stream->timing.v_total,
+-				h_pos[i], v_pos[i]);
+-	}
+-}
+-
+ void context_clock_trace(
+ 		struct dc *dc,
+ 		struct dc_state *context)
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index 3992ad73165b..eb00ee73a8f2 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -862,7 +862,6 @@ struct dc_debug_options {
+ 	bool sanity_checks;
+ 	bool max_disp_clk;
+ 	bool surface_trace;
+-	bool timing_trace;
+ 	bool clock_trace;
+ 	bool validation_trace;
+ 	bool bandwidth_calcs_trace;
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn10/dcn10_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn10/dcn10_resource.c
+index 563c5eec83ff..0098b3e72e85 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn10/dcn10_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn10/dcn10_resource.c
+@@ -533,7 +533,6 @@ static const struct dc_debug_options debug_defaults_drv = {
+ 		.sanity_checks = true,
+ 		.disable_dmcu = false,
+ 		.force_abm_enable = false,
+-		.timing_trace = false,
+ 		.clock_trace = true,
+ 
+ 		/* raven smu dones't allow 0 disp clk,
+@@ -563,7 +562,6 @@ static const struct dc_debug_options debug_defaults_drv = {
+ static const struct dc_debug_options debug_defaults_diags = {
+ 		.disable_dmcu = false,
+ 		.force_abm_enable = false,
+-		.timing_trace = true,
+ 		.clock_trace = true,
+ 		.disable_stutter = true,
+ 		.disable_pplib_clock_request = true,
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn20/dcn20_resource.c
+index eea2b3b307cd..46c38fd9288d 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn20/dcn20_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn20/dcn20_resource.c
+@@ -706,7 +706,6 @@ static const struct resource_caps res_cap_nv14 = {
+ static const struct dc_debug_options debug_defaults_drv = {
+ 		.disable_dmcu = false,
+ 		.force_abm_enable = false,
+-		.timing_trace = false,
+ 		.clock_trace = true,
+ 		.disable_pplib_clock_request = true,
+ 		.pipe_split_policy = MPC_SPLIT_AVOID_MULT_DISP,
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn201/dcn201_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn201/dcn201_resource.c
+index fc54483b9104..5b87dfea62e4 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn201/dcn201_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn201/dcn201_resource.c
+@@ -600,7 +600,6 @@ static const struct dc_plane_cap plane_cap = {
+ static const struct dc_debug_options debug_defaults_drv = {
+ 		.disable_dmcu = true,
+ 		.force_abm_enable = false,
+-		.timing_trace = false,
+ 		.clock_trace = true,
+ 		.disable_pplib_clock_request = true,
+ 		.pipe_split_policy = MPC_SPLIT_DYNAMIC,
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn21/dcn21_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn21/dcn21_resource.c
+index 347e6aaea582..135671d12c45 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn21/dcn21_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn21/dcn21_resource.c
+@@ -610,7 +610,6 @@ static const struct dc_plane_cap plane_cap = {
+ static const struct dc_debug_options debug_defaults_drv = {
+ 		.disable_dmcu = false,
+ 		.force_abm_enable = false,
+-		.timing_trace = false,
+ 		.clock_trace = true,
+ 		.disable_pplib_clock_request = true,
+ 		.min_disp_clk_khz = 100000,
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn30/dcn30_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn30/dcn30_resource.c
+index 5040a4c6ed18..28c4ad289e54 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn30/dcn30_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn30/dcn30_resource.c
+@@ -711,7 +711,6 @@ static const struct dc_plane_cap plane_cap = {
+ static const struct dc_debug_options debug_defaults_drv = {
+ 	.disable_dmcu = true, //No DMCU on DCN30
+ 	.force_abm_enable = false,
+-	.timing_trace = false,
+ 	.clock_trace = true,
+ 	.disable_pplib_clock_request = true,
+ 	.pipe_split_policy = MPC_SPLIT_DYNAMIC,
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn301/dcn301_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn301/dcn301_resource.c
+index 7d04739c3ba1..b82a0559531a 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn301/dcn301_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn301/dcn301_resource.c
+@@ -682,7 +682,6 @@ static const struct dc_plane_cap plane_cap = {
+ static const struct dc_debug_options debug_defaults_drv = {
+ 	.disable_dmcu = true,
+ 	.force_abm_enable = false,
+-	.timing_trace = false,
+ 	.clock_trace = true,
+ 	.disable_dpp_power_gate = false,
+ 	.disable_hubp_power_gate = false,
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn302/dcn302_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn302/dcn302_resource.c
+index 5791b5cc2875..f272665aa6a8 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn302/dcn302_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn302/dcn302_resource.c
+@@ -81,7 +81,6 @@
+ static const struct dc_debug_options debug_defaults_drv = {
+ 		.disable_dmcu = true,
+ 		.force_abm_enable = false,
+-		.timing_trace = false,
+ 		.clock_trace = true,
+ 		.disable_pplib_clock_request = true,
+ 		.pipe_split_policy = MPC_SPLIT_DYNAMIC,
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn303/dcn303_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn303/dcn303_resource.c
+index 63f0f882c861..ee9bc725a30e 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn303/dcn303_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn303/dcn303_resource.c
+@@ -82,7 +82,6 @@
+ static const struct dc_debug_options debug_defaults_drv = {
+ 		.disable_dmcu = true,
+ 		.force_abm_enable = false,
+-		.timing_trace = false,
+ 		.clock_trace = true,
+ 		.disable_pplib_clock_request = true,
+ 		.pipe_split_policy = MPC_SPLIT_AVOID,
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c
+index ac8cb20e2e3b..95213c7160c6 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c
+@@ -858,7 +858,6 @@ static const struct dc_plane_cap plane_cap = {
+ static const struct dc_debug_options debug_defaults_drv = {
+ 	.disable_dmcu = true,
+ 	.force_abm_enable = false,
+-	.timing_trace = false,
+ 	.clock_trace = true,
+ 	.disable_pplib_clock_request = false,
+ 	.pipe_split_policy = MPC_SPLIT_DYNAMIC,
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn314/dcn314_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn314/dcn314_resource.c
+index 169924d0a839..44c52fcfc87d 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn314/dcn314_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn314/dcn314_resource.c
+@@ -876,7 +876,6 @@ static const struct dc_debug_options debug_defaults_drv = {
+ 	.replay_skip_crtc_disabled = true,
+ 	.disable_dmcu = true,
+ 	.force_abm_enable = false,
+-	.timing_trace = false,
+ 	.clock_trace = true,
+ 	.disable_dpp_power_gate = false,
+ 	.disable_hubp_power_gate = false,
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn315/dcn315_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn315/dcn315_resource.c
+index 3f4b9dba4112..432af4fabdb2 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn315/dcn315_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn315/dcn315_resource.c
+@@ -858,7 +858,6 @@ static const struct dc_debug_options debug_defaults_drv = {
+ 	.disable_z10 = true, /*hw not support it*/
+ 	.disable_dmcu = true,
+ 	.force_abm_enable = false,
+-	.timing_trace = false,
+ 	.clock_trace = true,
+ 	.disable_pplib_clock_request = false,
+ 	.pipe_split_policy = MPC_SPLIT_DYNAMIC,
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn316/dcn316_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn316/dcn316_resource.c
+index 5fd52c5fcee4..295065b1f206 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn316/dcn316_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn316/dcn316_resource.c
+@@ -853,7 +853,6 @@ static const struct dc_debug_options debug_defaults_drv = {
+ 	.disable_z10 = true, /*hw not support it*/
+ 	.disable_dmcu = true,
+ 	.force_abm_enable = false,
+-	.timing_trace = false,
+ 	.clock_trace = true,
+ 	.disable_pplib_clock_request = false,
+ 	.pipe_split_policy = MPC_SPLIT_DYNAMIC,
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
+index a124ad9bd108..01cc6b76cd0e 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
+@@ -689,7 +689,6 @@ static const struct dc_plane_cap plane_cap = {
+ static const struct dc_debug_options debug_defaults_drv = {
+ 	.disable_dmcu = true,
+ 	.force_abm_enable = false,
+-	.timing_trace = false,
+ 	.clock_trace = true,
+ 	.disable_pplib_clock_request = false,
+ 	.pipe_split_policy = MPC_SPLIT_AVOID, // Due to CRB, no need to MPC split anymore
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c
+index 827a94f84f10..9da8e4579f91 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c
+@@ -686,7 +686,6 @@ static const struct dc_plane_cap plane_cap = {
+ static const struct dc_debug_options debug_defaults_drv = {
+ 	.disable_dmcu = true,
+ 	.force_abm_enable = false,
+-	.timing_trace = false,
+ 	.clock_trace = true,
+ 	.disable_pplib_clock_request = false,
+ 	.pipe_split_policy = MPC_SPLIT_AVOID,
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
+index 893a9d9ee870..5a275883c144 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
+@@ -712,7 +712,6 @@ static const struct dc_plane_cap plane_cap = {
+ static const struct dc_debug_options debug_defaults_drv = {
+ 	.disable_dmcu = true,
+ 	.force_abm_enable = false,
+-	.timing_trace = false,
+ 	.clock_trace = true,
+ 	.disable_pplib_clock_request = false,
+ 	.pipe_split_policy = MPC_SPLIT_AVOID,
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
+index 70abd32ce2ad..51070b09a831 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
+@@ -692,7 +692,6 @@ static const struct dc_plane_cap plane_cap = {
+ static const struct dc_debug_options debug_defaults_drv = {
+ 	.disable_dmcu = true,
+ 	.force_abm_enable = false,
+-	.timing_trace = false,
+ 	.clock_trace = true,
+ 	.disable_pplib_clock_request = false,
+ 	.pipe_split_policy = MPC_SPLIT_AVOID,
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
+index 9d56fbdcd06a..cfc1b77f5460 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
+@@ -685,7 +685,6 @@ static const struct dc_plane_cap plane_cap = {
+ static const struct dc_debug_options debug_defaults_drv = {
+ 	.disable_dmcu = true,
+ 	.force_abm_enable = false,
+-	.timing_trace = false,
+ 	.clock_trace = true,
+ 	.disable_pplib_clock_request = false,
+ 	.pipe_split_policy = MPC_SPLIT_AVOID,
+diff --git a/drivers/gpu/drm/amd/display/include/logger_interface.h b/drivers/gpu/drm/amd/display/include/logger_interface.h
+index 02c23b04d34b..058f882d5bdd 100644
+--- a/drivers/gpu/drm/amd/display/include/logger_interface.h
++++ b/drivers/gpu/drm/amd/display/include/logger_interface.h
+@@ -52,10 +52,6 @@ void update_surface_trace(
+ 
+ void post_surface_trace(struct dc *dc);
+ 
+-void context_timing_trace(
+-		struct dc *dc,
+-		struct resource_context *res_ctx);
+-
+ void context_clock_trace(
+ 		struct dc *dc,
+ 		struct dc_state *context);
+-- 
+2.47.0
 
