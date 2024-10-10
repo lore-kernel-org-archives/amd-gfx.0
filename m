@@ -4,53 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5BE9CF11F8
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Oct 2024 14:41:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F59ECF11FA
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Oct 2024 14:41:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7BB1910E943;
-	Thu, 10 Oct 2024 14:41:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8DA610E945;
+	Thu, 10 Oct 2024 14:41:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.b="PniWuR6S";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=xenosoft.de header.i=@xenosoft.de header.b="VGAqGt9y";
+	dkim=permerror (0-bit key) header.d=xenosoft.de header.i=@xenosoft.de header.b="MEv8I47T";
 	dkim-atps=neutral
-Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B419F10E869;
- Thu, 10 Oct 2024 05:43:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
- s=mail; t=1728538989;
- bh=4cmlHmL1RfckZ1r9HT1RJDkP96vjRSxI23jRpNUZygA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=PniWuR6SdZRQHy1ZUOfYp0Wm3YQXEpZTLwuQPFjUPCXWyEXVASoyZ9m+rvChIN/Ve
- bjqIS3xYlJabnMmNwdpZWR91C6JG9P5dkpjzL+cKnpeS+SDTeAzec/tVF2wiMrPUTJ
- 7wfyBiOMoUXTmBM5+z5Zm5+6XsFtz02UJjwF/518=
-Date: Thu, 10 Oct 2024 07:43:08 +0200
-From: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <linux@weissschuh.net>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>
-Cc: Mario Limonciello <mario.limonciello@amd.com>, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, 
- Dustin Howett <dustin@howett.net>, linux-doc@vger.kernel.org, 
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, 
- Matt Hartley <matt.hartley@gmail.com>, Kieran Levin <ktl@framework.net>, 
- Hans de Goede <hdegoede@redhat.com>, Jani Nikula <jani.nikula@linux.intel.com>,
- Xinhui Pan <Xinhui.Pan@amd.com>, Jonathan Corbet <corbet@lwn.net>
-Subject: Re: [PATCH v6 2/4] drm/amd/display: Add support for minimum
- backlight quirk
-Message-ID: <bf61e7f2-9324-495d-af68-4b38ec211eee@t-8ch.de>
-References: <20240824-amdgpu-min-backlight-quirk-v6-0-1ed776a17fb3@weissschuh.net>
- <20240824-amdgpu-min-backlight-quirk-v6-2-1ed776a17fb3@weissschuh.net>
- <1396eead-b584-4b36-b9b2-18ef783cfdbf@amd.com>
- <9dfc1548-7e11-44c3-ba7d-4e5ff7965a66@amd.com>
-MIME-Version: 1.0
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de
+ [85.215.255.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A6D8210E911
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Oct 2024 13:57:57 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1728568640; cv=none;
+ d=strato.com; s=strato-dkim-0002;
+ b=UHykHgXBqzJ8Eua0HGkvi0oTgVsZB91QlXNy05j2zkjTuQvDST5mnOIRaUHr7/dfto
+ itWkks27uu/7ickJNHd1p9f4TThRfwPoMefXol/zF/YuSrYobMT6yDc62ZXRS5ll8NyU
+ siBR9CtowyOrFluVntFWAi6HhxmmwSJCu1a/jMxyAKfBHnR/YXJb3pJ0FG9DTP05RTyi
+ agxUATX2nRuizqg/EghIEvePpt5mZZEBJYUPB77Q4k6dZGdzMxQm4C/LE+lA1PEaQs8v
+ fvHgZaZUTV/Sijhj1Gn3B2oX4s1vN4oT25nD4VX1Ct1OLg964v5VagAH09Zk7uS+NeBc
+ LXPg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1728568640;
+ s=strato-dkim-0002; d=strato.com;
+ h=To:In-Reply-To:Cc:References:Message-Id:Date:Subject:From:Cc:Date:
+ From:Subject:Sender;
+ bh=nTmyN/S6mYtoNSRaOImOVWIvqfwSir4wwvzhSOMIxxk=;
+ b=VM/fm8IYN8mLGPgrX9gO7zBcq9OCEb3u/shhlEE1KGfnd9L6qjHfQa/kGqFRjnFkAi
+ Mm8D1kisCuI5S3MOo+GiNHEwV5C2fXlIOO/XgCBBs+eAD93WDdrlsXPbCO7raQMK5qAX
+ L2AfgLdAA/atqgaQoyZZh9IxMMUuieJch5ee+BPUlDzy9Eet3CB0+ucFr3odK2rQ0FHx
+ CNR3lUHlr7r05QfhrprPIoeRwl4W6fqsCdiGupgF7IRjo5gV075DRMFwUmh6MTr66tfB
+ xYrqUssDAhLMndVmr/jGAmAqcp4dB+nPwCUVaQrxoKB4uBkoZAl2Pt5Ruk6cAyhQU1V4
+ /wiA==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1728568640;
+ s=strato-dkim-0002; d=xenosoft.de;
+ h=To:In-Reply-To:Cc:References:Message-Id:Date:Subject:From:Cc:Date:
+ From:Subject:Sender;
+ bh=nTmyN/S6mYtoNSRaOImOVWIvqfwSir4wwvzhSOMIxxk=;
+ b=VGAqGt9yR2gG1vwBP5+rRa8GlTT34q0k8wabEgwe2kFovh3eZp/vnATpmIafYIf2St
+ aAQskyv/T1Gcg2ccyboF7TtzidWK/1+AvoLDtktrs+OmKwS/MhyeEBIcMky11BSqaXBa
+ foP16odqvzvDxmuMn1v3ePLv2HNaI1iTRY8ecIBXYpvw3GNPA/vYyAje4sOzcyq4GAO6
+ xZawY4cBZs7zNxScUWbLEOrrYwCg3TeH6u+5UW0KZJYRe+MQVfBWp9vhhthPkwcARYIA
+ TniIqkAzFOZF8KmIl4EzJnuBmnqPSUlzl0P4UhYAqkqZQc6Nw4tYX7czBnKH9wMehZFo
+ GzOQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1728568640;
+ s=strato-dkim-0003; d=xenosoft.de;
+ h=To:In-Reply-To:Cc:References:Message-Id:Date:Subject:From:Cc:Date:
+ From:Subject:Sender;
+ bh=nTmyN/S6mYtoNSRaOImOVWIvqfwSir4wwvzhSOMIxxk=;
+ b=MEv8I47TJyLa3v3C5pQjaNAahPf+Yj8yc+cWeFDyvgO3reII+pZoxqgbcXcDio8Hs1
+ c3wBsyMoIddaUtk8gkBg==
+X-RZG-AUTH: ":L2QefEenb+UdBJSdRCXu93KJ1bmSGnhMdmOod1DhGN0rBVhd9dFr6KxrfO5Oh7V7X5i1s3PFXXvQIhef8w/WHZGY1bRFY7PZniOs3Ug="
+Received: from smtpclient.apple by smtp.strato.de (RZmta 51.2.8 AUTH)
+ with ESMTPSA id e0da1a09ADvJvcw
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Thu, 10 Oct 2024 15:57:19 +0200 (CEST)
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <9dfc1548-7e11-44c3-ba7d-4e5ff7965a66@amd.com>
+Content-Transfer-Encoding: quoted-printable
+From: Christian Zigotzky <chzigotzky@xenosoft.de>
+Mime-Version: 1.0 (1.0)
+Subject: [PATCHES] drm/radeon issues
+Date: Thu, 10 Oct 2024 15:57:08 +0200
+Message-Id: <6C389917-EF59-444B-9C33-C3F9A9AD3921@xenosoft.de>
+References: <EE14413A-3528-4646-A353-DB5131E56BA2@xenosoft.de>
+Cc: =?utf-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Hans de Goede <hdegoede@redhat.com>, Wu Hoi Pok <wuhoipok@gmail.com>,
+ amd-gfx@lists.freedesktop.org, Alex Deucher <alexdeucher@gmail.com>,
+ alexander.deucher@amd.com
+In-Reply-To: <EE14413A-3528-4646-A353-DB5131E56BA2@xenosoft.de>
+To: "R.T.Dickinson" <rtd@a-eon.com>, mad skateman <madskateman@gmail.com>,
+ Darren Stevens <darren@stevens-zone.net>, hypexed@yahoo.com.au,
+ linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
+ Christian Zigotzky <info@xenosoft.de>
+X-Mailer: iPhone Mail (22A3354)
 X-Mailman-Approved-At: Thu, 10 Oct 2024 14:41:05 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,35 +97,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2024-09-16 15:43:35-0400, Harry Wentland wrote:
-> On 2024-08-26 12:57, Mario Limonciello wrote:
-> > On 8/24/2024 13:33, Thomas Weißschuh wrote:
-> >> Not all platforms provide the full range of PWM backlight capabilities
-> >> supported by the hardware through ATIF.
-> >> Use the generic drm panel minimum backlight quirk infrastructure to
-> >> override the capabilities where necessary.
-> >>
-> >> Testing the backlight quirk together with the "panel_power_savings"
-> >> sysfs file has not shown any negative impact.
-> >> One quirk seems to be that 0% at panel_power_savings=0 seems to be
-> >> slightly darker than at panel_power_savings=4.
-> > 
-> > Thanks; This is the kind of thing I was worried about.
-> > 
-> > Harry, Leo,
-> > 
-> > Is that expected?  I wonder if we need to internally turn off panel
-> > power savings in display code when brightness falls a threshold (12
-> > IIRC was the real "minimum" advertised in the table?).
-> 
-> How much darker? Is it bothersome?
+Hi All,
 
-Was this questions for meant for me?
-To me personally it's absolutely not bothersome.
-I probably wouldn't have noticed it if not explicitly looking for it.
+There is another issue with the Radeon DRM driver but there is already a pat=
+ch available for this issue.
 
-> I wonder the FW and driver have different min backlight values now.
-> 
-> Leo, any thoughts?
+Link: https://lists.freedesktop.org/archives/dri-devel/2024-October/473314.h=
+tml
 
-Friendly ping.
+I compiled a new RC2 of kernel 6.12 with this patch for the X1000 and X5000 t=
+oday.
+
+Download: https://github.com/chzigotzky/kernels/releases/tag/v6.12.0-rc2-2
+
+We need 3 patches for the Radeon DRM driver currently.
+
+Please test it.
+
+Thanks,
+Christian
+
+
+> On 08 October 2024 at 11:00am, Christian Zigotzky <chzigotzky@xenosoft.de>=
+ wrote:
+>=20
+> =EF=BB=BFHi All,
+>=20
+> I have released the RC2 of kernel 6.12 with Christian Koenig=E2=80=99s pat=
+ch for the X1000 and X5000.
+>=20
+> Download and further information: https://github.com/chzigotzky/kernels/re=
+leases/tag/v6.12.0-rc2
+>=20
+> Please test the kernels because of the second Radeon DRM driver issue.
+>=20
+> Thanks,
+> Christian
+>=20
+>> Am 07.10.2024 um 20:36 schrieb Alex Deucher <alexdeucher@gmail.com>:
+>>=20
+>> =EF=BB=BFAdd a few people.
+>>=20
+>> This should fix the radeon ttm gem conversion.
+>>=20
+>> Alex
+>>=20
+>>=20
+>>=20
+>>> On Mon, Oct 7, 2024 at 2:33=E2=80=AFPM Christian K=C3=B6nig
+>>> <ckoenig.leichtzumerken@gmail.com> wrote:
+>>>=20
+>>> Make sure to always set the GEM function pointer even for in kernel
+>>> allocations. This fixes a NULL pointer deref caused by switching to GEM
+>>> references.
+>>>=20
+>>> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+>>> Fixes: fd69ef05029f ("drm/radeon: use GEM references instead of TTMs")
+>>> ---
+>>> drivers/gpu/drm/radeon/radeon_gem.c    | 3 ---
+>>> drivers/gpu/drm/radeon/radeon_object.c | 1 +
+>>> 2 files changed, 1 insertion(+), 3 deletions(-)
+>>>=20
+>>> diff --git a/drivers/gpu/drm/radeon/radeon_gem.c b/drivers/gpu/drm/radeo=
+n/radeon_gem.c
+>>> index 9735f4968b86..bf2d4b16dc2a 100644
+>>> --- a/drivers/gpu/drm/radeon/radeon_gem.c
+>>> +++ b/drivers/gpu/drm/radeon/radeon_gem.c
+>>> @@ -44,8 +44,6 @@ struct sg_table *radeon_gem_prime_get_sg_table(struct d=
+rm_gem_object *obj);
+>>> int radeon_gem_prime_pin(struct drm_gem_object *obj);
+>>> void radeon_gem_prime_unpin(struct drm_gem_object *obj);
+>>>=20
+>>> -const struct drm_gem_object_funcs radeon_gem_object_funcs;
+>>> -
+>>> static vm_fault_t radeon_gem_fault(struct vm_fault *vmf)
+>>> {
+>>>       struct ttm_buffer_object *bo =3D vmf->vma->vm_private_data;
+>>> @@ -132,7 +130,6 @@ int radeon_gem_object_create(struct radeon_device *r=
+dev, unsigned long size,
+>>>               return r;
+>>>       }
+>>>       *obj =3D &robj->tbo.base;
+>>> -       (*obj)->funcs =3D &radeon_gem_object_funcs;
+>>>       robj->pid =3D task_pid_nr(current);
+>>>=20
+>>>       mutex_lock(&rdev->gem.mutex);
+>>> diff --git a/drivers/gpu/drm/radeon/radeon_object.c b/drivers/gpu/drm/ra=
+deon/radeon_object.c
+>>> index d0e4b43d155c..7672404fdb29 100644
+>>> --- a/drivers/gpu/drm/radeon/radeon_object.c
+>>> +++ b/drivers/gpu/drm/radeon/radeon_object.c
+>>> @@ -151,6 +151,7 @@ int radeon_bo_create(struct radeon_device *rdev,
+>>>       if (bo =3D=3D NULL)
+>>>               return -ENOMEM;
+>>>       drm_gem_private_object_init(rdev_to_drm(rdev), &bo->tbo.base, size=
+);
+>>> +       bo->tbo.base.funcs =3D &radeon_gem_object_funcs;
+>>>       bo->rdev =3D rdev;
+>>>       bo->surface_reg =3D -1;
+>>>       INIT_LIST_HEAD(&bo->list);
+>>> --
+>>> 2.34.1
+>>>=20
+
