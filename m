@@ -4,51 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 711C0CF11F9
-	for <amd-gfx@archiver.kernel.org>; Thu, 10 Oct 2024 14:41:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59B46CF11FC
+	for <amd-gfx@archiver.kernel.org>; Thu, 10 Oct 2024 15:18:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 529FB10E929;
-	Thu, 10 Oct 2024 14:41:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D20E210E958;
+	Thu, 10 Oct 2024 15:18:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="ONeJaLY0";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ydoZepxP";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D279A10E731
- for <amd-gfx@lists.freedesktop.org>; Wed,  9 Oct 2024 14:11:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=hvmnoVin3uwbp7DWP32ewZSv1d4i8HnsstPAvgbfLnU=; b=ONeJaLY0wINqD1Vp+xIc8Vs7xI
- +BmbaZR8NArdREPA1nZXrNw5j0wMtEA+EYFV/UzDcA0Trl29WtTORhxP+mY1c7SN7E2a2GiII2LSn
- vyT71ppjewAcxq1ov5VxPU1bhM0blfccuV5mrbxxtLtHv8bVss8yhoYpsOhNEwgBO2qICr3YUy52/
- PilvW4Ry9nfOan9uYT+W6wX5mbK3zPebwobWb3h8kKG6s7nHEdTLogJTUTnqfSoIGt7sXEx1AHYSz
- NnqYHtY2Lyyz7Z4yaIK5jMncfQLLDOngShYLeMN7clL7vzHik1W0YYUZUTmy/V0Gi53jqAcaX+Lis
- 0OH/GBaw==;
-Received: from [90.241.98.187] (helo=[192.168.0.101])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1syXPh-006xxr-Tv; Wed, 09 Oct 2024 16:11:41 +0200
-Message-ID: <d131c822-8c9b-4952-a252-bd96d091f838@igalia.com>
-Date: Wed, 9 Oct 2024 15:11:41 +0100
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2047.outbound.protection.outlook.com [40.107.101.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E2D4E10E958
+ for <amd-gfx@lists.freedesktop.org>; Thu, 10 Oct 2024 15:18:51 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=imBxZBqhsr34UeF0bUBOh4Az824meLqaPo4R5lfYR4xjQIP8MiELfzb4BGp0en12isLt5los2hV5hvuD84e2lP/WFUHrlEUV1Km6e1bjFRyH6/w53CHJdOy6B5KQFMdkZgX5L0ND2c1xq+fg+1323hYn+C7uP50kttB0til8vNNN37/ObEmkF5Nb7l0kb5TCcr5a02TwsZC4N91k/W5elW2BD1OGptaUGeGPo92La1O6ive+lMCIIWCSGTWnFdbjJehORWzj3I3lln2XO6zupJ1jNxaAeVAklgqmUf1zraNSAbm3NSEJYBp+a2VnZwGhi801PpUa9XzXcciJOodsrg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pDumY++SK2JEbesWBkntmTLo1DV67NP/QI3RYR6l3S0=;
+ b=iw2Z3e59xVf6OyN8lvFUgOOeriFY0m3Pj77g5xNV6BR8qU+uiOmG3ek5hqbHU0HDaluVK4zalX4PqzO3ub1vzYlNpo7xK5mE/AUWkcOWDlP3zttqErFtMAYN/JT9qvmh/nD3bV3zmXD3FPS5RM2GWAM1TS6v/A7OU8fO5oOSqc8JuMg9tOP1lDylX6d14GT1GgmUNQwv0JgoJWfGRPWNsGHuvmJCr9ABIvdEKbmIlODQTSM5yuL9GGJk7sGOlXZuVuRIJcZY8kDAhk4WQqQgWEdIMyVPctNOyaRbnzMSiEUmo6/nCZXXTFzVtCnFjCRDRkQDGUKN5niaHTPOmenluQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pDumY++SK2JEbesWBkntmTLo1DV67NP/QI3RYR6l3S0=;
+ b=ydoZepxPE865TzOAhbhi/MAJH8orrfBn95WTS5gP5ON3OcxZG9lhpbb5iO8KvB0fUZN0OUw+Eu6oahtSQsPDA8HlkQXBAV74rddFWKB1ys/ocI/MyTlvvFcAammJH9pWwfdXdbB1qTw7jL0EYLOctPuH9uj0gry/cF8sJlSNs0c=
+Received: from SA9P223CA0007.NAMP223.PROD.OUTLOOK.COM (2603:10b6:806:26::12)
+ by DM6PR12MB4385.namprd12.prod.outlook.com (2603:10b6:5:2a6::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8048.16; Thu, 10 Oct
+ 2024 15:18:48 +0000
+Received: from SN1PEPF00026367.namprd02.prod.outlook.com
+ (2603:10b6:806:26:cafe::e9) by SA9P223CA0007.outlook.office365.com
+ (2603:10b6:806:26::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8048.18 via Frontend
+ Transport; Thu, 10 Oct 2024 15:18:48 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SN1PEPF00026367.mail.protection.outlook.com (10.167.241.132) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8048.13 via Frontend Transport; Thu, 10 Oct 2024 15:18:48 +0000
+Received: from MKM-L10-YUNXIA9.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 10 Oct
+ 2024 10:18:46 -0500
+From: Yunxiang Li <Yunxiang.Li@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Alexander.Deucher@amd.com>, <christian.koenig@amd.com>,
+ <jack.gui@amd.com>, Yunxiang Li <Yunxiang.Li@amd.com>
+Subject: [PATCH 2/2] drm/amdkfd: pause autosuspend when creating pdd
+Date: Thu, 10 Oct 2024 11:18:31 -0400
+Message-ID: <20241010151831.10859-2-Yunxiang.Li@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20241010151831.10859-1-Yunxiang.Li@amd.com>
+References: <20241010151831.10859-1-Yunxiang.Li@amd.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] drm/amdgpu: drop volatile from ring buffer
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, amd-gfx@lists.freedesktop.org,
- tursulin@igalia.com, sunil.khatri@amd.com
-References: <20241008181134.1350-1-christian.koenig@amd.com>
- <3d3de66f-01fd-4adb-83c6-140bfc570f1f@ursulin.net>
- <61ffa4c6-ba96-4298-9578-209248bd8cae@gmail.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <61ffa4c6-ba96-4298-9578-209248bd8cae@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 10 Oct 2024 14:41:05 +0000
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF00026367:EE_|DM6PR12MB4385:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2cc4f27c-8e4c-4f8b-ab4c-08dce93ed6dd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|36860700013|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?zsgXFdx4QMrmb69ftQW/r8d9+joD+DBvKN39xpOyVMdUSQJfSzecV73sNYM6?=
+ =?us-ascii?Q?G61UXsbbGkcge8XBvN1EzhaLMfKjwfCVIOFNbjfOp6XfKUpqBqR/o7aeOqu+?=
+ =?us-ascii?Q?FnlxVr72GZFjUny1bWMdtk6RSfQ6hOg7Wl50PXJoJRhGGhPygem/t9JNr0tR?=
+ =?us-ascii?Q?1NcuprHIUGEMwkpl1ClIezcmLGII/lGCDuON0VIimQKIuba2tR617pXuDGTS?=
+ =?us-ascii?Q?aglKDMbiKTakbzDh17wxAwo5jB0/C1AqN3o8SFclOsSVR6dN/F184Onok46z?=
+ =?us-ascii?Q?prt/8a1ChgOiawfp9O21jUXGh+IAx4q3YREWl34PKXGkoQbyNCYzb9iJSUVk?=
+ =?us-ascii?Q?Lc/zqMDhBh/DiZIBtK17RdTiRCVfG6QYTGyBv6u2vepul6jt7HFH56+DVpFi?=
+ =?us-ascii?Q?QOo6GchXpU3fw2p6iFPn2aQOC7wxErfJXnkx1Q3zVbxVu6HKhO2xbTEA62kP?=
+ =?us-ascii?Q?fDTkouUdOvzT2t3aNDkVAYgasBWIcWxP1v8u5VoCHplumpAjlboZhvyTQH+m?=
+ =?us-ascii?Q?KXOTxdubNntC73yCHngJbhFS4xXW5OqPCPd2uKdxvP8GWl8D3sDrL9z5MgMI?=
+ =?us-ascii?Q?Pb0m72dIMODOFnYF9XGn15uaXfs8s3KI849PhZmsYJ9Nzm1w0lFEDKaQhg9v?=
+ =?us-ascii?Q?uhFBkWUSOCLUprcngVPt5sdO1+k3FCHIQ77k5zFhoEY6OdXhwGfORDHG761j?=
+ =?us-ascii?Q?ppGNt/nimvJu0enDZzc/h4tzK5tdyRNuZDH+2/3wrp1tXPqc4vb2v4H2LXQi?=
+ =?us-ascii?Q?wKwloscIqTCavyur591g2EbOQ7I3qbC6vdOWQXFNziPISpP+l7nzozwmbCzn?=
+ =?us-ascii?Q?3X4+/9BXE1N8DcTh6fXlZDbWiE/Lqm2cXd+WkKVBE1wGLniFMKMK05IeG2LX?=
+ =?us-ascii?Q?jT59qkI4iP7HKgeiTqXFFTizLdZL6HJAS48S9cPTKCUXAvtlK3Hmi76zmgpF?=
+ =?us-ascii?Q?qy7VRytBfFYRuC7Sh+DSzO4l016f+O2pliVLSTChQWun4EQA23rwptDDgJME?=
+ =?us-ascii?Q?F3kVzGL1ssDiz4951lRPI5tSseeb8Rp7sQddgg6GuPlCWHuhsbqn3avyVV41?=
+ =?us-ascii?Q?cFFAKwg12VESqEEfJvud1pM0fzkLG+wwbaEbM0Db/5NX13YQkLVBrZGUGDgE?=
+ =?us-ascii?Q?M74B25AAPPP6cpy92eZVbKBShwvRpCFKkweACgwiKD7LrXGcuccn2lCPLooe?=
+ =?us-ascii?Q?PPC9aK4rHIwJMmY2vmevBV8GDnHqjSliMqi+8ChIQxdINxcmgltBJ7Gqcr5j?=
+ =?us-ascii?Q?c7pKHchCXsxFQMluXSRt+cWVuVmFIijpre8Mf8PH5arGePNtZmuJkm4E3SS8?=
+ =?us-ascii?Q?aQfxJbe9pyHiVhumJOfYyPm5hRJgW6L24FtBIoHRx4z22OQRHP5WpH4DLoX+?=
+ =?us-ascii?Q?KGMDpNN/fC2hI6WPtEkZdeir6Mso?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Oct 2024 15:18:48.1082 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2cc4f27c-8e4c-4f8b-ab4c-08dce93ed6dd
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF00026367.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4385
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,116 +131,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+When using MES creating a pdd will require talking to the GPU to setup
+the relevant context. The code here forgot to wake up the GPU in case it
+was in suspend, this causes KVM to EFAULT for passthrough GPU for
+example.
 
-On 09/10/2024 13:07, Christian König wrote:
-> Am 09.10.24 um 09:41 schrieb Tvrtko Ursulin:
->>
->> On 08/10/2024 19:11, Christian König wrote:
->>> Volatile only prevents the compiler from re-ordering reads and writes.
->>> Since we always only modify the ring buffer from one CPU thread and have
->>> an explicit barrier before signaling the HW this should have no 
->>> effect at
->>> all and just prevents compiler optimisations.
->>>
->>> Signed-off-by: Christian König <christian.koenig@amd.com>
->>> ---
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 10 +++-------
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h | 11 ++++-------
->>>   2 files changed, 7 insertions(+), 14 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c 
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
->>> index 910293664902..a6e28fe3f8d6 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
->>> @@ -109,21 +109,17 @@ int amdgpu_ring_alloc(struct amdgpu_ring *ring, 
->>> unsigned int ndw)
->>>   void amdgpu_ring_insert_nop(struct amdgpu_ring *ring, uint32_t count)
->>>   {
->>>       uint32_t occupied, chunk1, chunk2;
->>> -    uint32_t *dst;
->>>         occupied = ring->wptr & ring->buf_mask;
->>> -    dst = &ring->ring[occupied];
->>>       chunk1 = ring->buf_mask + 1 - occupied;
->>>       chunk1 = (chunk1 >= count) ? count : chunk1;
->>>       chunk2 = count - chunk1;
->>>         if (chunk1)
->>> -        memset32(dst, ring->funcs->nop, chunk1);
->>> +        memset32(&ring->ring[occupied], ring->funcs->nop, chunk1);
->>>   -    if (chunk2) {
->>> -        dst = ring->ring;
->>> -        memset32(dst, ring->funcs->nop, chunk2);
->>> -    }
->>> +    if (chunk2)
->>> +        memset32(ring->ring, ring->funcs->nop, chunk2);
->>>         ring->wptr += count;
->>>       ring->wptr &= ring->ptr_mask;
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h 
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
->>> index 574336d6714a..36fc9578c53c 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
->>> @@ -246,7 +246,7 @@ struct amdgpu_ring {
->>>       struct drm_gpu_scheduler    sched;
->>>         struct amdgpu_bo    *ring_obj;
->>> -    volatile uint32_t    *ring;
->>> +    uint32_t        *ring;
->>>       unsigned        rptr_offs;
->>>       u64            rptr_gpu_addr;
->>>       volatile u32        *rptr_cpu_addr;
->>> @@ -288,7 +288,7 @@ struct amdgpu_ring {
->>>       u64            cond_exe_gpu_addr;
->>>       volatile u32        *cond_exe_cpu_addr;
->>>       unsigned int        set_q_mode_offs;
->>> -    volatile u32        *set_q_mode_ptr;
->>> +    u32            *set_q_mode_ptr;
->>>       u64            set_q_mode_token;
->>>       unsigned        vm_hub;
->>>       unsigned        vm_inv_eng;
->>> @@ -386,10 +386,8 @@ static inline void 
->>> amdgpu_ring_write_multiple(struct amdgpu_ring *ring,
->>>                             void *src, int count_dw)
->>>   {
->>>       unsigned occupied, chunk1, chunk2;
->>> -    void *dst;
->>>         occupied = ring->wptr & ring->buf_mask;
->>> -    dst = (void *)&ring->ring[occupied];
->>>       chunk1 = ring->buf_mask + 1 - occupied;
->>>       chunk1 = (chunk1 >= count_dw) ? count_dw : chunk1;
->>>       chunk2 = count_dw - chunk1;
->>> @@ -397,12 +395,11 @@ static inline void 
->>> amdgpu_ring_write_multiple(struct amdgpu_ring *ring,
->>>       chunk2 <<= 2;
->>>         if (chunk1)
->>> -        memcpy(dst, src, chunk1);
->>> +        memcpy(&ring->ring[occupied], src, chunk1);
->>>         if (chunk2) {
->>>           src += chunk1;
->>> -        dst = (void *)ring->ring;
->>> -        memcpy(dst, src, chunk2);
->>> +        memcpy(ring->ring, src, chunk2);
->>>       }
->>>         ring->wptr += count_dw;
->>
->> Dropping volatile and removal of local variables in 
->> amdgpu_ring_insert_nop() and amdgpu_ring_write_multiple() look 
->> unrelated to me. Best practice would be if you had split those two 
->> changes. Or at least add to the commit message the usual "while at it" 
->> blurb.
-> 
-> To me it looked like the main purpose of the local variable was to add 
-> the void* cast to avoid the compiler warning of removing the volatile 
-> when giving the parameter to memcpy().
-> 
-> Since that isn't needed any more I've got rid of the local variable as 
-> well.
+Also, change the other place where we pause suspend to use the cleaner
+pm_runtime_resume_and_get helper.
 
-Agreed on that, but I would still add a paragraph in the commit message. 
-Can add while merging too, no need to respin. Something like:
+Fixes: cc009e613de6 ("drm/amdkfd: Add KFD support for soc21 v3")
+Signed-off-by: Yunxiang Li <Yunxiang.Li@amd.com>
+---
 
-"With that removed we can also remove the local variable in two places 
-which relied on it to strip the volatile property."
+It is unclear to me if kfd_process_destroy_pdds also have this problem,
+or is freeing gtt mem guaranteed to succeed even with the GPU in
+suspend.
 
-Regards,
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
 
-Tvrtko
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index c334432e55b14..618afec5caf8f 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -1633,6 +1633,11 @@ struct kfd_process_device *kfd_create_process_device_data(struct kfd_node *dev,
+ 	atomic64_set(&pdd->evict_duration_counter, 0);
+ 
+ 	if (dev->kfd->shared_resources.enable_mes) {
++		retval = pm_runtime_resume_and_get(bdev);
++		if (retval < 0) {
++			pr_err("failed to stop autosuspend\n");
++			goto err_free_pdd;
++		}
+ 		retval = amdgpu_amdkfd_alloc_gtt_mem(adev,
+ 						AMDGPU_MES_PROC_CTX_SIZE,
+ 						&pdd->proc_ctx_bo,
+@@ -1642,6 +1647,8 @@ struct kfd_process_device *kfd_create_process_device_data(struct kfd_node *dev,
+ 		retval = amdgpu_amdkfd_alloc_gtt_mem(
+ 			adev, AMDGPU_MES_PROC_CTX_SIZE, &pdd->proc_ctx_bo,
+ 			&pdd->proc_ctx_gpu_addr, &pdd->proc_ctx_cpu_ptr, false);
++		pm_runtime_mark_last_busy(bdev);
++		pm_runtime_put_autosuspend(bdev);
+ 		if (retval) {
+ 			dev_err(bdev,
+ 				"failed to allocate process context bo\n");
+@@ -1771,11 +1778,9 @@ struct kfd_process_device *kfd_bind_process_to_device(struct kfd_node *dev,
+ 	 * pdd is destroyed.
+ 	 */
+ 	if (!pdd->runtime_inuse) {
+-		err = pm_runtime_get_sync(bdev);
+-		if (err < 0) {
+-			pm_runtime_put_autosuspend(adev_to_drm(dev->adev)->dev);
++		err = pm_runtime_resume_and_get(bdev);
++		if (err < 0)
+ 			return ERR_PTR(err);
+-		}
+ 	}
+ 
+ 	/*
+-- 
+2.34.1
+
