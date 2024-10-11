@@ -4,146 +4,151 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 422C7D0D79F
-	for <amd-gfx@archiver.kernel.org>; Fri, 11 Oct 2024 14:42:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8AAD4D0D7AB
+	for <amd-gfx@archiver.kernel.org>; Fri, 11 Oct 2024 14:53:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD35F10EAF9;
-	Fri, 11 Oct 2024 14:42:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A2A310EB10;
+	Fri, 11 Oct 2024 14:53:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="AvSCvjQ3";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2xbjPeem";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2043.outbound.protection.outlook.com [40.107.220.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9BFAD10EAF9
- for <amd-gfx@lists.freedesktop.org>; Fri, 11 Oct 2024 14:42:21 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2054.outbound.protection.outlook.com [40.107.237.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE0E310EB08
+ for <amd-gfx@lists.freedesktop.org>; Fri, 11 Oct 2024 14:53:47 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qNKJVgPoh/FJ40oqKnsyLVabV+JOTPDV+2y50hnskPQFleN+fU0D/MOJoQBcDH+76ob94CcWLpmQ3CQujpCHVnw3crJmlTF7MGLQBELxbHbxzx5CYZm6N2qCwZyhd6RpYZMDiCYoh88JZEmTnFFopLY0+tYpeDjE7VPkgA8Eo4d5+cQEJVg8K5+cGsK/zhJqX4qYhaMRGqJXmWXBA9kt3q1m2JfrevrWywfhR3s17Z4xQk6JLhBaU4Ju90hNDPGoNyNZC+El0khcdoFTIoq9v8l213q6GTOmgFU+VSmMZf4EU1IKEhH324+KgAuZO0fmreSZvpAs1uZtNDwdIglgRg==
+ b=uRR+27y15K49Gk73E6dun0WsBCvsjviFZi2qNFwuuWs94mQ1xDZixR+Ot4vGvlN3KQZHJPQAMBNtYEcIm5M6U+hyK2A0l97vzKXFyBxVdz2mJRkcpPns52itpW9icPLkFk75kBnRLT0pkkGFDnKA2qju2TaKECwcKiyWmq6cTVROC4RwtDPuQLxZBvItqBVwaKb0mpRyI+RhmTEZDsxg/xRxpbw8UKN6r/SQj7nKy3KMsiDw2DU5na+uuibUZNwlSjBDlFC9jS58dI3zqc7RB40/1ZZDhrCK5BPU8F3p/Y7MxllCjiVA1Au5AEpZ6DgMj7ubKo6tg7yl5oLSxTQtFg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xlrzau2JgzLndVGsSDI1NLRItrk17YLoVfvlCv0AlaQ=;
- b=x1IVZqluySMfrzfXxHfgt9Z1ZDLi7AaUsxDtPSfhwcvEzlKMkRH3QZxZj15QnUTgqH10G5xJsmBV0oPGstHmU/qs5U5EvB1UFs1+d8DqrIWSQpDqq+opQLJRJ0sk+vJcF3xY47Sq3ygIMWpxUAb3zsBeO0O2cD/ZTit4CaTHJps91QGiQ3T20FM9WrOGN7n072TTkae5Li4VXrG3EU/r4Y1gnMMtUpaWQiVGMgBZ0gUWCTLv4DejEhwaW00HjKY6FC1I2iQv+6UXKX819y16VEpFleEqaKJDMGN573rgfTzqFPjjHJNdrWctoixmEGKTJlO1Yw+5bcrqo2dK/wQrFQ==
+ bh=55msggCxzHz9eVlthWXHErpCPaPPwg15ItagKiyWi+8=;
+ b=Sn8Y77ZXZvW+gv6IuWYjdT+dhV3Lz1Srideu30tAobEaUxoAOmVPz5wwtDicvjchC3sQ6OhhatHxQH1uix/qnUKBxT1kO9nDZ8TWGo1YeM9qzBiJhOu37RHTwOSgRwAJbAiJ+S5XYX2EiyHK4JInLRgFXNsHKARx86VYaZ60P0xEzBkET4DuGJu0kqjwEnBA8LcyaUbrM2hEGG62xf0GMd8M0/3cNJoaEyVGkZ3oeFGpKM9cT5ckZ9LEeYMk4B3qDFrGKrjdTWTdzXI0DVm8i0ij5U8CKiWIV2/BT8t5AVB89A5FlIclP5ZGpj3KDM8gBxWTh7XdfUfUF0Ov+Rws2A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xlrzau2JgzLndVGsSDI1NLRItrk17YLoVfvlCv0AlaQ=;
- b=AvSCvjQ3/WOn9PI5Bozo/qzxOevTCzQWgU7XnsN3EcL6hvnWh7shqlxvbByXqOHoXeAZfxrz86fbpBwrXpYxqlDijVo+0I1hm4ctuzUubRjw4rGHJtXCdeGrCptNWq9UZvC7KZCrbgDZj4DWQ2fQJjZoz2FRXCrXOuPeS2qiVCM=
+ bh=55msggCxzHz9eVlthWXHErpCPaPPwg15ItagKiyWi+8=;
+ b=2xbjPeemgzbm4M4CHnMAsT8czBI6axOV7486EihBjllUTjc2AXBg0xUXPJvNqVMJBi17w9k4weZfk9uYPt/FaWNHE5GzuGwiTnI/p/CV5SByGQcpqzFdwYprCxpaeUFBJDptsddcb6Dg0ffYWAQ3NsUjJ1Zbw8ZLUq4CQQyCE2g=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by MN2PR12MB4255.namprd12.prod.outlook.com (2603:10b6:208:198::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8048.18; Fri, 11 Oct
- 2024 14:42:19 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::9269:317f:e85:cf81]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::9269:317f:e85:cf81%2]) with mapi id 15.20.8048.018; Fri, 11 Oct 2024
- 14:42:18 +0000
-Message-ID: <e0f652ce-80d9-4420-8e49-6a029567140f@amd.com>
-Date: Fri, 11 Oct 2024 10:42:15 -0400
+Received: from DM4PR12MB6566.namprd12.prod.outlook.com (2603:10b6:8:8d::16) by
+ SJ1PR12MB6314.namprd12.prod.outlook.com (2603:10b6:a03:457::9) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.8048.16; Fri, 11 Oct 2024 14:53:44 +0000
+Received: from DM4PR12MB6566.namprd12.prod.outlook.com
+ ([fe80::31b:5d31:8ba6:abd7]) by DM4PR12MB6566.namprd12.prod.outlook.com
+ ([fe80::31b:5d31:8ba6:abd7%6]) with mapi id 15.20.8048.017; Fri, 11 Oct 2024
+ 14:53:44 +0000
+Message-ID: <f3c4b83d-0fd0-48cd-956a-2e766953fa03@amd.com>
+Date: Fri, 11 Oct 2024 09:53:42 -0500
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdkfd: Accounting pdd vram_usage for svm
-To: Philip Yang <yangp@amd.com>, Philip Yang <Philip.Yang@amd.com>,
- amd-gfx@lists.freedesktop.org
-References: <20241004202808.30740-1-Philip.Yang@amd.com>
- <d2aac83f-4a2c-4f90-9c0c-eb471e1c5933@amd.com>
- <5f6f5e6f-3c1b-30ff-cab8-231544a63976@amd.com>
-Content-Language: en-US
-From: Felix Kuehling <felix.kuehling@amd.com>
-In-Reply-To: <5f6f5e6f-3c1b-30ff-cab8-231544a63976@amd.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH] drm/amdkfd: change kfd process kref count at creation
+Content-Language: en-CA
+To: Felix Kuehling <felix.kuehling@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: philip.yang@amd.com
+References: <20241009180855.14859-1-xiaogang.chen@amd.com>
+ <56b95963-f617-4578-a660-37eb471edd68@amd.com>
+ <98dfd8f4-3c24-466c-8ede-d3fcb341912b@amd.com>
+ <3005a471-e835-4d0e-a0e1-e40c5d761cbd@amd.com>
+ <92839ce8-4fe0-4099-8592-f461bd9d119b@amd.com>
+ <0e685c63-ca07-4147-9051-bac211f52661@amd.com>
+ <381a4701-1b3d-4bf9-a361-329fd090ba44@amd.com>
+ <9445ae2f-9bd2-4bbf-9fbd-789a75a4e9e5@amd.com>
+From: "Chen, Xiaogang" <xiaogang.chen@amd.com>
+In-Reply-To: <9445ae2f-9bd2-4bbf-9fbd-789a75a4e9e5@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQBPR0101CA0208.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:67::31) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+X-ClientProxiedBy: SA0PR11CA0014.namprd11.prod.outlook.com
+ (2603:10b6:806:d3::19) To DM4PR12MB6566.namprd12.prod.outlook.com
+ (2603:10b6:8:8d::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|MN2PR12MB4255:EE_
-X-MS-Office365-Filtering-Correlation-Id: 942eb779-274d-44a2-1398-08dcea02e7e1
+X-MS-TrafficTypeDiagnostic: DM4PR12MB6566:EE_|SJ1PR12MB6314:EE_
+X-MS-Office365-Filtering-Correlation-Id: 20067b96-2c7e-4da9-b0e0-08dcea04809d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?cFZEbU1CZ3dCMS9IQmdsNk92REluSkpBYThnM2FUcEdWQ09LQzNRY2JpYzA4?=
- =?utf-8?B?b0greGtuYVRiTy8rUXovSUt2Nlh3eWVWTjFqM2huUnN6Wlk3OGg1ZWZnT1Rh?=
- =?utf-8?B?NHpWZFRvQ2orUjdMWi9jaDhTOGNUTU9seEZFbU1nMTRVdUxKa1Q2RnFYcHFL?=
- =?utf-8?B?WmdqU0NtanpKdUJ2c0pwMFc2eE1JVk1jaXF1MGRQcW5UVktrNFdkOHI2amcz?=
- =?utf-8?B?ZkpXNWFWS3JtczRNR0FCTUl1RS9kR2pvaTNtTmpMbVlKcGtVVTl2dzVxdVB2?=
- =?utf-8?B?Qms4YkZXbkV0cTYyRjdNTVNnOUZNd0RrS0NhaFJneG9udEFUNkJ6SWV3b0RP?=
- =?utf-8?B?U0ozY0N0MGl2ZXltTGhGMVJzVGlFSElDWHRCQVdwNDlEbDdEV084U1JFTCtn?=
- =?utf-8?B?SnhwcDZRWWRvTXJ2VHY5NUhRRGJROWxBVFpHbmozS2RYS1dBVWJZbEJNZHBI?=
- =?utf-8?B?NFhpNkRHQXp2Wm5pYUEwdEZRQWoyd2lUd1NieTBYVGt4M2VEYnpPTHAwRllB?=
- =?utf-8?B?empZTXZTYkNiVVY3SllkZExDZ2JiRHYrOUVDTEd5ZzgrbGZpdmFocGJNN3FP?=
- =?utf-8?B?K1M2VFlEdlI5cUdIbEMyQURMOE0vUE9FLys0WUphWGtTMTRHMUs4U3ZPVXh0?=
- =?utf-8?B?T0doVTlCREVuS2Q5U3ErY04zZnJTWGwremhZcEhLc0dyVHNvM0s0MmVHY25V?=
- =?utf-8?B?VWo0MFh4c09EVXpzaWMwUVI2NUwwdUR0THNrbEFEL1NTdlpaRGhxdkE5eVJq?=
- =?utf-8?B?WGVJSTYxZG9wL1NSYWREOGJKWW5TZ1BKbnBNTHZsU3htMHZyUEhzc1BoTDRS?=
- =?utf-8?B?b0IzNnhMU0E2aFRnazE2enU4VkhvYWlzaUI1STJ5N0c2dXlhTzVEUWllc2I5?=
- =?utf-8?B?dHJQVWlwRkhRTlpMdS9zc0d5eG1jdDBmVXpxVHF5RWNOSC9XeHNGbXovNnJW?=
- =?utf-8?B?WkdFZEFWTFl1TDBBUm5JOFFzeUt0TEFYTVdPL2phcSswS283cFR2Nmk3a2hO?=
- =?utf-8?B?ME56VWVHZkVkazl4RlBTVENDNitsdmpnTnBJWHZYR3JhbU1rNUlqQk9FeGVr?=
- =?utf-8?B?OHBEeFcyK1Jma0FTdmVvOFVkNFBmYTRIcGNCY3p3bGJMM1pBRzVwS0RzVTFE?=
- =?utf-8?B?V1c3aHF0YnNFRzJBOFlmRjM3MEZkQnBXMlBKeW5NVkVMeWE0cndQMzZ6UXQ3?=
- =?utf-8?B?T3p6U0ZWbWpHRG9jWUppWjF5MG5mVjlNRUNhdUI1V1pyNXRpcjkrS0lDaG95?=
- =?utf-8?B?ZFNSWTBBODYycU4xOU9ScTQvemNBbHVrOHdhT085dzNHcXErMnB5RGIrcHpy?=
- =?utf-8?B?azFGMDhkaFgvc0U1L1JDbjZBQVRRREtiSWtDNGpCbmJtaDZGUEQyQzVKQ0N3?=
- =?utf-8?B?dys3OTlsRFFYakNSaWI3b1BQcHpVQmVGWlQ5UmFMa3JSWXhzVC9Lb2JxbHBm?=
- =?utf-8?B?TVZVamZuSXl5MUZ4T2w4RFUvSkVodkw1WFNoNVhZOGhCV2FXOVhvSXZ0eUw3?=
- =?utf-8?B?SmdXVmJhSVdwLzRSMXdYN2ZmcDBlSjQ2WVBLY1MrWCtvUXlrZlBLZjl0Yzlj?=
- =?utf-8?B?WXlRSlEwWWd3MDZwTjlQY2lKMGJNME1XdHpSR2phbUtxcytSMlZoYzB5QlFy?=
- =?utf-8?B?WUhxQXY2T2R2SzgrbE9DNVpQdWpMTnNrQnlaemp5L1hFTENkMG11ZlNHTkJy?=
- =?utf-8?B?RWluMWtQNGZXSk5WSytINEpPa0pKcHFUcGZ5bGtDR2hJVG9ZTm5KUWxRPT0=?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?UktqQzdFU0tLellSZGtBRFRGb0RTR0xTMk9uSEdRd3BSTDNFNGRKZFhEVWJI?=
+ =?utf-8?B?aFQzK2NyUFExVElnclg0ZGpzVU4xY2FwWm8wOE1YS0lTRURaOHp1bzRvRGpt?=
+ =?utf-8?B?ODBYYjUwZUFEY0FOanRiUHh6QjNuaEhVYVNsVkphRFV5T3JYeTFyVTVTMWw5?=
+ =?utf-8?B?S3R3a0QvVFAwVExPZEJoOGdvY05WTmdBSStBUXU3MHhnQzFGNEZTdVM5d2l1?=
+ =?utf-8?B?QkZjUGNLdDhxVitiU2lyZGNzOG0yUlVnQTlVeGFid0ZoaUc1ZFQ1MWdYYmFi?=
+ =?utf-8?B?WlRTRjRTS053K084Mmt5N1hnS2FWazFjRUkzOE9hV1Z5NzZEQUJuSnZYS0c3?=
+ =?utf-8?B?Vnd2akpEYzY1MWhjbW9kR0xEVGRoMW5GakpwLytDOHZtZXlPMXpVY1EvNG03?=
+ =?utf-8?B?N3d0dTdvY3NhZ29ON1c4dFMyNWthbk9KN2oyZ1BmUVc2NWJqWWNSM2lEL3Rt?=
+ =?utf-8?B?eFZBdU04RVFBMVY2UVFhSTBvTm9OdjBaT1dGWm9pN2l6enV0NmRtVWc4bmcv?=
+ =?utf-8?B?NnBDVFpEZmhuSU5FanFWc0NRN0VEYkFCdHJ2TGZ0VFpYdEhNU0x2RXVhMnlB?=
+ =?utf-8?B?Y0tmM2R0M2JlNitOeU10YzdnZmxxcjNLQTl4dThHYnduZkdWNnArVmJUaHVR?=
+ =?utf-8?B?RXU0TjNVN0FoTjJtcVhEWFNQaDA2V05ZOHBwbm9PWFAyeFg3ZU9wNnIwa1pQ?=
+ =?utf-8?B?QXJJZVhaQ2JlUGQweGFYV2Y0MmtuOG1tSUVCazdFNVJqL1dlaDhjVklQMGJI?=
+ =?utf-8?B?Wm9HMnp4OVlpTmxmd2hYOVY1Ly9BTmIvajQycUt5SUtjYXF1cDExM1hyL3Fk?=
+ =?utf-8?B?TmxXRkQxbWhEdWIrK3NycDlhQ3V0SE40UzJ0SmZia0k4a1MxSmlEQ2lkeHcy?=
+ =?utf-8?B?RGJ1Y0xMWG80bFdsS0IvUVo5RDVMMU13YkFGRkV6OG52bUYzek5UTnJHQWYz?=
+ =?utf-8?B?ZjBYY25pVWU3YnpqSG9KMEtvcHZYN3pYM29CcmxUd1AxOFByOHhySW1VMWdz?=
+ =?utf-8?B?RWNWS3NjMmZhbUVudnpoOHNoOGhIYWtob2pMQmYyMkNXY1pkQXJ3SzEyV1BU?=
+ =?utf-8?B?MjhOalVhZFdtTkV0MnBSeTlmeDdnWVAvRTBsVkg0Tzg4YjFKaVNpQ2NDeVlM?=
+ =?utf-8?B?d285OWFScVVGSVRoY0NOQTRpaGd1QjhUZzFKR1lrd0NqdWpXVFFSa245aVov?=
+ =?utf-8?B?c25Sb1RsRFZvc0lreHlpUHdxMnovcnNhTlcvNXhqYTdoZlh6bkJ0MzBnQnU2?=
+ =?utf-8?B?MEJuMkpYTTRUa01ZZXNOSSt2eFZ3TlBGSE1mb1ZwSVhzemxMbFI3Q0oveXJv?=
+ =?utf-8?B?bWtTOVgvbXNXbUdlNXJ4U1BFbSttdGRPUkxBRkIwa1JldFVZRnZ1eW4rZ1Rr?=
+ =?utf-8?B?UElSa2J4b2RDdnl0SGYxVWg1OTZQMkpYRVRsQzB3dEtvcG93VFlDSWpyemRn?=
+ =?utf-8?B?bmcrcUpwbkZReExESTl6L0NmWmk3R2NaWmZGNDMvWmV6M0RuQndoekRrUU0y?=
+ =?utf-8?B?MSs0OGVPbTlRVDJncmUyMHFSejV2NTgrT2FHcVhsK2FQSnd1U2xad2pDRURT?=
+ =?utf-8?B?ZHNtcVdzODRFY04xSGlvSzhKNWxrZU5wV3hscGV5VEJ5Vmw2RW9DVjRaSVZz?=
+ =?utf-8?B?bEdJNStZZ09vbWRCWlNXUytiUFkwUHJNL1gzS05TRVZaanlKbWNLVEJJSUlZ?=
+ =?utf-8?B?SW51MkVlbmFPdm1sQ05Xd0J6SU9MRjNvZWJ1S3pnZ0YwUWh3bUFiUkh3PT0=?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB6566.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VDFJWlc2RlVlLzVxaXJqaDFoYXU4U0d1anJsbFpjMUt1Qk12MlVoSGFPbThW?=
- =?utf-8?B?YVhGS0lIdWVPbTlPTjhiT0VRSkVpcWZFME5hcFozS0dyTlJEU3BVUWcwTmxu?=
- =?utf-8?B?UDMwY3pYcTZsRUlvd0NzNGg5eFlhalNDL3Rmd1pDYTByL25IQTFHRG5VMGk0?=
- =?utf-8?B?ejYvZHZ2YzlvRGg3bFZ5cC9hSDZpR2hLcHRmc25ZRHM0a1RMTGVCOTlmTUpX?=
- =?utf-8?B?elFKbnliOTUwTEVTY2xaczR2Z0dCY3RYb1lvS0RiWnMwc3NBVDd3RnA1ZGpB?=
- =?utf-8?B?SDdTOUVNRC9CdzFGSVhMeDFXaDN4K1ZxaTFCL0QvOE9GUDRSQXFLQ21wSUNJ?=
- =?utf-8?B?QU9kaEdjWS9mVmo3aUtoS3kvL2xpWnd6dTNLUUNNM1orc0hFdkdmUHNsOHB0?=
- =?utf-8?B?Q1pWUFdZTXp3cm9za2tBTGlGUnNUM3ZwQkhPenhZd3laTmgrYmhMcmlKVGFq?=
- =?utf-8?B?cGtkdDNqKzVtRU1NYUpWVXp6UzVIckdidmpMQmk1LzNsTFhiQ2h3bnpLMnZz?=
- =?utf-8?B?Y0ltaHNZeWdRTWs3ajBDd1JlVlg3dGt2a3dMUk53R3dVOUFNNXdESW5zTHlw?=
- =?utf-8?B?SlM1YTFMT1BQdDNwQ0JGU1lVR3J6V1lUWmhKdW9FMk85WDdlMm92M2JLVExw?=
- =?utf-8?B?bHJBM2ZDYnNsTTdHbHZjUk1QQUZWc1BwR2tWeTZranFybE9WZ0ZKTXdwVkJK?=
- =?utf-8?B?ZUlIRkhJbEF0NkxJVjd1azkrZXBTMW1jWXlENjc5UVlBU2E3OUhYcXcrZEZm?=
- =?utf-8?B?K3gyOXh0NmpMU2RCcFNEckxDSWdQcGorTXo0OVJpdUJqUWgzTWdvR1F4cGZu?=
- =?utf-8?B?VWFCRFlyV2djc1YzWlp5RW9NRVpoRi9keEE0L0llTm5tUHFqbDlWdVZNMzBV?=
- =?utf-8?B?eUllSlhTYzhpODdxMzVsSzlBRHpGRjJrYlA4Y3l0WWg5SEYvbEdmK25mVDQw?=
- =?utf-8?B?V1FNaWxLVHN3Z25kdU5sZk5mUFZmK3VTcFVLVXlBS2ZqM1JOMXphQ0x6VkIw?=
- =?utf-8?B?amFMUm82ZWdMVXk4RE9BVWp0azRCQUFvelU3a1VNaFppQmo3RVVYTVdjZnhD?=
- =?utf-8?B?NSt0ZkFRekNPRDZFZ1YreHlOWHhDS1JhRXFhN1RIM2NsdzQ2TGo4Z2tTeHhn?=
- =?utf-8?B?OCtuR0hGN3BiaEJCZHl3MHlMU2NMMzlmc0dUYklrZTJjMEJOZnhVRWYrVmQ0?=
- =?utf-8?B?d080N3gyRTdESGk5d2lZY3lBY1o0ZFVtTDNkcUFyb29nUUU4RXZVRTRYNU9o?=
- =?utf-8?B?TjdLZXlDdVkzNjJnUm1RZmJxSHU0MzUwU0hXclJvdG05VGFNNUF1dHRrdW8z?=
- =?utf-8?B?dDJHci9QbmQ2c1B0dXh6dnZpbzlIZE12YUsvZjJjcXcybFFQTkRGVUZMbE91?=
- =?utf-8?B?Y2F4REpnQ004dHZmZEQ2RGFoKzM4NlN0VGkrTzhiZFRlRit3cVh2NlBieVZ4?=
- =?utf-8?B?Y1lOazQ3Y1hyKzdkU1laNXhnS292SzhHZ0JlSS9Ka2UxRDdmd3owWXU2ZjRa?=
- =?utf-8?B?Wmd1SjF3bzRnUi9xdVAwK0dzTDdDYW1NdkVtemdpaS85Rmk2cmg4bTFxMUxG?=
- =?utf-8?B?a04rak9DblJaRGk5azBWK1B4ZjNaMHhSaUszMkZnUTIzMU94NHNtQXNXV21M?=
- =?utf-8?B?cXFkTGdFbVd5TVY5aWY5b2QvVjdOZFp6ZHR0eHRHSk1ZcHEzSTlBSmZ5YVVM?=
- =?utf-8?B?OE1Qd053M0pBSWRka29qOFJmRkRYWmFBZ0w0MkoxS0RQUCtXM280SjQ4aW9r?=
- =?utf-8?B?UVQ1aWY3WDM3azQ4aUpJYTVFRkdGTU1vcUlWMWs3TklUSXhCOWx2d1ExUXR3?=
- =?utf-8?B?K21BNFFPRzVHMUYvTkZWdVhXaDE1dnZrTi92YkNVVmhpRTZXYnFGUzM2bGRq?=
- =?utf-8?B?VjFDdVVXcUdrTjZ1TUlPZG1LekZ2R0dKaFk0ZDI0UFhKak5pMzI4ajkrRVg4?=
- =?utf-8?B?bVlaRjltUENxYzNjaTQwNkFvdFlDL1E4dmhQWWdIY1dhWTZvZWhhTjE3b2ta?=
- =?utf-8?B?NE80STR2bkJYWnpxTlArVHlmcEsxYS9lYTNNZzR1ektXemZ6MW9qZ3YrN0Iz?=
- =?utf-8?B?ZHFJSm4xNjh4ajhuS2RPVDVqdG53ZDVzNVA5Zjc3OElFTnRoU0RVbSt0WWli?=
- =?utf-8?Q?fZ/CVkgf4qYR7qwEcx3M6HxzG?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UzFqK2FSQThEWFhZaElsamZjcHdKK213ODVlL1FybnZsaHNiRmppaXVWaHZN?=
+ =?utf-8?B?ekVhUXExckJBcU5TY1BpK2JKZkt2d2tmQVhtUzVLR1lodlhvbG1yUkQzSTVS?=
+ =?utf-8?B?MjFHNnhmTzY1c1Y2Umsyb1FCT1M5cmdmajZ4R2VjdDVGaks1ZlZmNmFVWkoy?=
+ =?utf-8?B?WHZCbk1pVS9lUlNDd3FGSU5BTlhncGhzTGJKcHJqYWdhYnJrUTZsZ2c3ZG9T?=
+ =?utf-8?B?N1pNUVcwOU9nM0l2L2Y0bjZ4R29HOVdtZFM2SlV0cjBhNlZubWRZSWtHcUs5?=
+ =?utf-8?B?cGxTOU13K1JPamJ6QUdYS2lZTmNrbkQzSjVJMmw0d09RTnlMZjFUbGhER0RV?=
+ =?utf-8?B?U3NhVURZeVhNRStJUUR6RmdiKy9rRHcrTUwvMC9lUHRYMmlQNEJ1SURaYnFY?=
+ =?utf-8?B?anpSajF5dGxrSWhLZHhPZlFZNHMyemxSdTZYbDNWM082dll0MEF0YXdMWjBt?=
+ =?utf-8?B?UFNFZnQ1QUY5WmFWMVljNjdnMTEwVjl5aXIrd250TkdsRjZqbmI2bFRGOThZ?=
+ =?utf-8?B?SlZ3d0NvRE5ESmVSU25tUndMQysyVkwzM2RSSUpvNy9vVG5NRHhPQTNUbmpk?=
+ =?utf-8?B?aU13M1RtRFZBNTJQWXhKUnVGS3ZrTmVNMk1tTko2endUM3dscTVRSjRwSldk?=
+ =?utf-8?B?amhBWWQ2ZzRXK3lINHhWZ0hsTy9iNjU3ZjFqNzlQY1orSUs5YXhkc3RqQm5D?=
+ =?utf-8?B?OTlKYVZubXhxd1o1bDBINVVZVndDT1VBYWY4WHRGT1JQRXNyZllHcURaTjdQ?=
+ =?utf-8?B?L0crOUQ2bUgzSG94Tk9KMXVpL2JIbU8wdVFMSHR2Nzg2L0hKRHlUaFpVNEw0?=
+ =?utf-8?B?SERRdk5jMlVJT1NVS3p5WGczRFJIYjNKU2JXOHdPeXhHaUFTdmVhcGNicGRx?=
+ =?utf-8?B?NHJQc204ZmVWQ2o4aEZuTS9kU3BQUGhyMHFZNHJVQVRWUS8zRFBwTk5sTmFD?=
+ =?utf-8?B?M2crTnd2RUVpTlFVVWpNUGJKOUJaTEIrcG1JUXp3djVoUXZ2WlZVRXArZ3Ix?=
+ =?utf-8?B?K2hnTmpqbExDOTZZaDVlTmRXWnVEUkczaE1uTVdEdFlTaWhkenRyOEVjb0Qv?=
+ =?utf-8?B?ZDk5blAxRS9CYzJWbUV0NHp3Q2d4R1hJV0w5ZkhFSk1PYVcwZlNFVkxSaUt0?=
+ =?utf-8?B?cFkyZHh0akNQcXhxR1licjhhR0FjNWVPSmN2L3NWa0J2UnJ5VWhzWDNVSjVB?=
+ =?utf-8?B?ejdYRTcyVTRNZVBHNmsrRzhOVjRETXUzbEdrdFJoMHMwbkozNlUrMmtsbTBL?=
+ =?utf-8?B?NElrWFdaVitDb0Q3Y24xMmt0M2xuTGFsbkFCSWt1Tjk4ZFo5R3A0QkROYmUw?=
+ =?utf-8?B?MzRFdHhsMDlLM3lwQSs3cUFXbUVuU05jYXhDNFB2TmNPVlZXeEtvNGJIaXds?=
+ =?utf-8?B?enlEZ1FTclVGcEkzQlo3emJiYXZCdjlmOW9JVnltL1c2SnphTnRQQ0k2c0VM?=
+ =?utf-8?B?VHIvSXFBb2dUeEdLWVRFK2RtdU5PRDZlYVNJcXFiUVptU3d1bzFwdWJBanNH?=
+ =?utf-8?B?VnJIMlo2MWU2QVpHZjJZc0RoTVFveSttUWpEWlY3RXBIdWoxaExESm40SWlw?=
+ =?utf-8?B?eXR6QSs1L2k3TUxuQkpwQ2xiQnZRb2cxdHNBa2FJMXh3YlNPUWRDOWUrYUpQ?=
+ =?utf-8?B?eTJHMWVMZmtLRTF2ZS9jODRsSTBkc2JjeFNKOFhOTkp4em9uYzB1NndzQ1dY?=
+ =?utf-8?B?MWVYR2t0TGZHVWpBbGNCdXUyc0NadXB1N0svdTRDUUhhVlN2NzFuYlg0UEd4?=
+ =?utf-8?B?T1BhQWc5b2dhZGIzVTlBUVR5V3VHOW5GVU5pME5kTzFFWFdBWURHYXY3QXBR?=
+ =?utf-8?B?U0E5OXFqTmpzTStiVGF4QkZQcXg1RXVtS3FRNWgxdThUQjd5cFpSVG5qUHdy?=
+ =?utf-8?B?QnYyZGtudnAxUDA5ZFZNWCsxTnVzV2dXampKYXdDdGdBV0tCZktIVU1rSE9W?=
+ =?utf-8?B?L01lb1ZsaVZYTmRsWmxySDdCd2VGUXBMb0ZScWhaNTJyeUpkSW9HMlZxcmlO?=
+ =?utf-8?B?MS94QXpVOGJ4NlpONFMzZ2NmU0hKb010WUVZMHhlbEg4WjREN05UVXNVWDFI?=
+ =?utf-8?B?L1FHc3JCQ0hqcWo5eTVyem45V25jOGdLM1FQN1VkRjJzR3RIdUgrQTVzTCtK?=
+ =?utf-8?Q?g+3s=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 942eb779-274d-44a2-1398-08dcea02e7e1
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 20067b96-2c7e-4da9-b0e0-08dcea04809d
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6566.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Oct 2024 14:42:18.2007 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Oct 2024 14:53:43.9757 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +6pRL+Z4/8XVbPVh8hhlYZFq2mWzLkwEo6FNZpeLGyGs5/8w/tumIANSSGsfZ9XGxtB0H/fEiPv+enYpGZKGXA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4255
+X-MS-Exchange-CrossTenant-UserPrincipalName: n2M4bKrz88YeHFVOsBTfS6QGLkbxzQDsRMz3ZO0j48TRihEKg0qjt1Z60J58CUpf
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6314
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,165 +164,206 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-
-On 2024-10-11 9:23, Philip Yang wrote:
-> 
-> On 2024-10-09 17:20, Felix Kuehling wrote:
+On 10/10/2024 3:37 PM, Felix Kuehling wrote:
+> On 2024-10-10 16:19, Chen, Xiaogang wrote:
 >>
->> On 2024-10-04 16:28, Philip Yang wrote:
->>> Per process device data pdd->vram_usage is used by rocm-smi to report
->>> VRAM usage, this is currently missing the svm_bo usage accounting, so
->>> "rocm-smi --showpids" per process report is incorrect.
+>> On 10/10/2024 2:01 PM, Felix Kuehling wrote:
 >>>
->>> Add pdd->vram_usage accounting for svm_bo and change type to atomic64_t
->>> because it is updated outside process mutex now.
+>>> On 2024-10-09 18:16, Chen, Xiaogang wrote:
+>>>>
+>>>> On 10/9/2024 4:45 PM, Felix Kuehling wrote:
+>>>>>
+>>>>> On 2024-10-09 17:02, Chen, Xiaogang wrote:
+>>>>>>
+>>>>>> On 10/9/2024 3:38 PM, Felix Kuehling wrote:
+>>>>>>> On 2024-10-09 14:08, Xiaogang.Chen wrote:
+>>>>>>>> From: Xiaogang Chen <xiaogang.chen@amd.com>
+>>>>>>>>
+>>>>>>>> kfd process kref count(process->ref) is initialized to 1 by 
+>>>>>>>> kref_init. After
+>>>>>>>> it is created not need to increaes its kref. Instad add kfd 
+>>>>>>>> process kref at kfd
+>>>>>>>> process mmu notifier allocation since we decrease the ref at 
+>>>>>>>> free_notifier of
+>>>>>>>> mmu_notifier_ops, so pair them.
+>>>>>>>
+>>>>>>> That's not correct. kfd_create_process returns a struct 
+>>>>>>> kfd_process * reference. That gets stored by the caller in 
+>>>>>>> filep->private_data. That requires incrementing the reference 
+>>>>>>> count. You can have multiple references to the same struct 
+>>>>>>> kfd_process if user mode opens /dev/kfd multiple times. The 
+>>>>>>> reference is released in kfd_release. Your change breaks that 
+>>>>>>> use case.
+>>>>>>>
+>>>>>> ok, if user mode open and close /dev/kfd multiple times(current 
+>>>>>> Thunk only allows user process open the kfd node once)  the 
+>>>>>> change will break this use case.
+>>>>>>> The reference released in kfd_process_free_notifier is only one 
+>>>>>>> per process and it's the reference created by kref_init.
+>>>>>>
+>>>>>> I think we can increase kref if find_process return true(the user 
+>>>>>> process already created kfd process). If find_process return 
+>>>>>> false do not increase kref since kref_init has been set to 1.
+>>>>>>
+>>>>>> Or change find_process(thread, false) to find_process(thread, 
+>>>>>> true) that will increase kref if it finds kfd process has been 
+>>>>>> created.
+>>>>>>
+>>>>>> The idea is to pair kref update between alloc_notifier and 
+>>>>>> free_notifier of mmu_notifier_ops for same process(mm). That 
+>>>>>> would seem natural.
+>>>>>
+>>>>> What's the problem you're trying to solve? Is it just a cosmetic 
+>>>>> issue? The MMU notifier is registered in create_process (not 
+>>>>> kfd_create_process). If you add a kref_get in 
+>>>>> kfd_process_alloc_notifier you need to kfd_unref_process somewhere 
+>>>>> in create_process. I don't think it's worth the trouble and only 
+>>>>> risks introducing more reference counting bugs.
+>>>>
+>>>> It is for making code cleaner or natural to read. mmu_notifier_get 
+>>>> is the last call at create_process. If mmu_notifier_get fail the 
+>>>> process is freed: kfree(process). If create_process success 
+>>>> kfd_create_process return that process anyway(after create_process 
+>>>> kfd_create_process creates sys entries that not affect return 
+>>>> created kfd process). The finally result is same that kref is 2: 
+>>>> one for kfd process creation, one for mmu notifier allocation.
 >>>
->>> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
->>> ---
->>>   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c |  6 +++---
->>>   drivers/gpu/drm/amd/amdkfd/kfd_priv.h    |  2 +-
->>>   drivers/gpu/drm/amd/amdkfd/kfd_process.c |  4 ++--
->>>   drivers/gpu/drm/amd/amdkfd/kfd_svm.c     | 22 ++++++++++++++++++++++
->>>   4 files changed, 28 insertions(+), 6 deletions(-)
+>>> Currently, when you call kfd_create_process for the first time, it 
+>>> returns with kref=2. One reference for the MMU notifier, and one for 
+>>> file->private_data.
 >>>
->>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
->>> index a1f191a5984b..065d87841459 100644
->>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
->>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
->>> @@ -1148,7 +1148,7 @@ static int kfd_ioctl_alloc_memory_of_gpu(struct file *filep,
->>>             if (flags & KFD_IOC_ALLOC_MEM_FLAGS_AQL_QUEUE_MEM)
->>>               size >>= 1;
->>> -        WRITE_ONCE(pdd->vram_usage, pdd->vram_usage + PAGE_ALIGN(size));
->>> +        atomic64_add(PAGE_ALIGN(size), &pdd->vram_usage);
->>>       }
->>>         mutex_unlock(&p->mutex);
->>> @@ -1219,7 +1219,7 @@ static int kfd_ioctl_free_memory_of_gpu(struct file *filep,
->>>           kfd_process_device_remove_obj_handle(
->>>               pdd, GET_IDR_HANDLE(args->handle));
->>>   -    WRITE_ONCE(pdd->vram_usage, pdd->vram_usage - size);
->>> +    atomic64_sub(size, &pdd->vram_usage);
->>>     err_unlock:
->>>   err_pdd:
->>> @@ -2347,7 +2347,7 @@ static int criu_restore_memory_of_gpu(struct kfd_process_device *pdd,
->>>       } else if (bo_bucket->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_VRAM) {
->>>           bo_bucket->restored_offset = offset;
->>>           /* Update the VRAM usage count */
->>> -        WRITE_ONCE(pdd->vram_usage, pdd->vram_usage + bo_bucket->size);
->>> +        atomic64_add(bo_bucket->size, &pdd->vram_usage);
->>>       }
->>>       return 0;
->>>   }
->>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->>> index 6a5bf88cc232..9e5ca0b93b2a 100644
->>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->>> @@ -775,7 +775,7 @@ struct kfd_process_device {
->>>       enum kfd_pdd_bound bound;
->>>         /* VRAM usage */
->>> -    uint64_t vram_usage;
->>> +    atomic64_t vram_usage;
->>>       struct attribute attr_vram;
->>>       char vram_filename[MAX_SYSFS_FILENAME_LEN];
->>>   diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
->>> index 7909dfd158be..4810521736a9 100644
->>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
->>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
->>> @@ -332,7 +332,7 @@ static ssize_t kfd_procfs_show(struct kobject *kobj, struct attribute *attr,
->>>       } else if (strncmp(attr->name, "vram_", 5) == 0) {
->>>           struct kfd_process_device *pdd = container_of(attr, struct kfd_process_device,
->>>                                     attr_vram);
->>> -        return snprintf(buffer, PAGE_SIZE, "%llu\n", READ_ONCE(pdd->vram_usage));
->>> +        return snprintf(buffer, PAGE_SIZE, "%llu\n", atomic64_read(&pdd->vram_usage));
->>>       } else if (strncmp(attr->name, "sdma_", 5) == 0) {
->>>           struct kfd_process_device *pdd = container_of(attr, struct kfd_process_device,
->>>                                     attr_sdma);
->>> @@ -1625,7 +1625,7 @@ struct kfd_process_device *kfd_create_process_device_data(struct kfd_node *dev,
->>>       pdd->bound = PDD_UNBOUND;
->>>       pdd->already_dequeued = false;
->>>       pdd->runtime_inuse = false;
->>> -    pdd->vram_usage = 0;
->>> +    atomic64_set(&pdd->vram_usage, 0);
->>>       pdd->sdma_past_activity_counter = 0;
->>>       pdd->user_gpu_id = dev->id;
->>>       atomic64_set(&pdd->evict_duration_counter, 0);
->>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
->>> index 857ec6f23bba..61891ea6b1ac 100644
->>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
->>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
->>> @@ -379,6 +379,7 @@ static bool svm_bo_ref_unless_zero(struct svm_range_bo *svm_bo)
->>>   static void svm_range_bo_release(struct kref *kref)
->>>   {
->>>       struct svm_range_bo *svm_bo;
->>> +    struct mm_struct *mm = NULL;
->>>         svm_bo = container_of(kref, struct svm_range_bo, kref);
->>>       pr_debug("svm_bo 0x%p\n", svm_bo);
->>> @@ -405,6 +406,22 @@ static void svm_range_bo_release(struct kref *kref)
->>>           spin_lock(&svm_bo->list_lock);
->>>       }
->>>       spin_unlock(&svm_bo->list_lock);
->>> +
->>> +    if (mmget_not_zero(svm_bo->eviction_fence->mm)) {
->>> +        struct kfd_process_device *pdd;
->>> +        struct kfd_process *p;
+>>> Subsequent invocations of kfd_create_process when the process 
+>>> already exists should increment the kref by one to track the 
+>>> additional reference put into the new file->private_data.
+>> one ways is changing find_process(thread, false) to 
+>> find_process(thread, true) at kfd_create_process. When kfd process 
+>> already exist find_process will call kref_get(&p->ref);
+>>>
+>>>
+>>> If you can come up with a patch that preserves this logic _and makes 
+>>> the code simpler and more readable_, I will consider approving it. 
+>>> Also keep in mind that your patch would need to be ported to the 
+>>> DKMS branch, where there are two different code paths to support 
+>>> older kernels that don't have mmu_notifier_get/put.
+>>>
+>> At DKMS branch alloc_notifier and free_notifer either exist together 
+>> or both not exist. So when HAVE_MMU_NOTIFIER_PUT is defined(new 
+>> kernel) it is ok.
 >>
->> Move struct mm_struct *mm here as well. It's only needed in this block and should not be used outside.
-> yes, mm is only used here. If changing svm_bo->node to svm_bo->pdd, the entire block will be dropped. 
+>> #ifdef HAVE_MMU_NOTIFIER_PUT
+>>         .alloc_notifier = kfd_process_alloc_notifier,
+>>         .free_notifier = kfd_process_free_notifier,
+>> #endif
 >>
+>> but when HAVE_MMU_NOTIFIER_PUT is not defined we need change 
+>> kfd_process_destroy_delayed since since it call kfd_unref_process(p);
 >>
->>> +
->>> +        mm = svm_bo->eviction_fence->mm;
->>> +        p = kfd_lookup_process_by_mm(mm);
->>> +        if (p) {
->>> +            pdd = kfd_get_process_device_data(svm_bo->node, p);
->>> +            if (pdd)
->>> +                atomic64_sub(amdgpu_bo_size(svm_bo->bo), &pdd->vram_usage);
->>> +            kfd_unref_process(p);
->>> +        }
->>> +        mmput(mm);
->>> +    }
->>> +
->>>       if (!dma_fence_is_signaled(&svm_bo->eviction_fence->base))
->>>           /* We're not in the eviction worker. Signal the fence. */
->>>           dma_fence_signal(&svm_bo->eviction_fence->base);
->>> @@ -532,6 +549,7 @@ int
->>>   svm_range_vram_node_new(struct kfd_node *node, struct svm_range *prange,
->>>               bool clear)
->>>   {
->>> +    struct kfd_process_device *pdd;
->>>       struct amdgpu_bo_param bp;
->>>       struct svm_range_bo *svm_bo;
->>>       struct amdgpu_bo_user *ubo;
->>> @@ -623,6 +641,10 @@ svm_range_vram_node_new(struct kfd_node *node, struct svm_range *prange,
->>>       list_add(&prange->svm_bo_list, &svm_bo->range_list);
->>>       spin_unlock(&svm_bo->list_lock);
->>>   +    pdd = svm_range_get_pdd_by_node(prange, node);
->>> +    if (pdd)
->>> +        atomic64_add(amdgpu_bo_size(bo), &pdd->vram_usage);
->>> +
+>> static void kfd_process_destroy_delayed(struct rcu_head *rcu)
+>> {
+>>         struct kfd_process *p = container_of(rcu, struc 
+>> mmu_notifier_registert kfd_process, rcu);
 >>
->> Would it make sense to save the pdd pointer in the svm_bo struct? The effort to look up the mm, process and pdd in svm_range_bo_release seems quite high.
-> Thanks for the good idea.
+>>         kfd_unref_process(p);
+>> }
 >>
->> You could replace svm_bo->node with svm_bo->pdd. Then you can still get the node with svm_bo->pdd->dev without growing the size of the structure. This assumes that the svm_bo cannot outlive the pdd.
-> 
-> yes, svm_range_list_fini is called before calling kfd_process_destroy_pdds after process exit, so svm_bo->pdd will always be valid. I will send new patch series.
+>> That means if port this patch to dkms branch when 
+>> HAVE_MMU_NOTIFIER_PUT is not defined(old kernel) we do not need call 
+>> kfd_process_destroy_delayed or remove mmu_notifier_call_srcu(&p->rcu, 
+>> &kfd_process_destroy_delayed)  at 
+>> kfd_process_notifier_release_internal. I think that make thing 
+>> simpler for old kernel.
+>
+> No, we still need to destroy the kref that belongs to the process when 
+> the mm_struct is destroyed. We can't do that in 
+> kfd_process_notifier_release_internal because it leads to LOCKDEP 
+> issues. So we still need kfd_process_destroy_delayed.
 
-I think that's OK. kfd_process_destroy_pdds happens in the cleanup worker that runs after the mm_struct is gone. So all the page references should be gone.
+For old kernel we use mmu_notifier_register that does not update kfd 
+process kref. It register process->mmu_notifier to mmu. The release 
+function of process->mmu_notifier got called when mm structure got 
+destroyed.
 
-But there could be issues if a page was shared with another process that holds on to page reference that still point to pdds of processes that don't exist any more.
+The new kernel uses get/put flow. At kfd process creation we use 
+mmu_notifier_get that calls alloc_notifier. So this patch increases kfd 
+process kref at alloc_notifier since mmu refers kfd process and we 
+already decrease the kref at free_notifier.
 
-Regards,
-  Felix
+For old kernel, when port this patch to dkms branch we either do not 
+decrease kfd process kref during mm destruction since we did not 
+increase kfd process kref during creation, or  manually increase this 
+kref after  mmu_notifier_register, then keep kfd_process_destroy_delayed.
 
-> 
+Regards
+
+Xiaogang
+
+>
 > Regards,
-> 
-> Philip
-> 
+>   Felix
+>
+>
 >>
->> Regards,
->>   Felix
+>> So it needs additional handling for old kernel on dkms branch. I do 
+>> not know who port patch to dkms branch, or I should change that on 
+>> dkms branch.
+>>
+>> Regards
+>>
+>> Xiaogang
 >>
 >>
->>>       return 0;
->>>     reserve_bo_failed:
+>>> Regards,
+>>>   Felix
+>>>
+>>>
+>>>>
+>>>> Regards
+>>>>
+>>>> Xiaogang
+>>>>
+>>>>> Regards,
+>>>>>   Felix
+>>>>>
+>>>>>
+>>>>>>
+>>>>>> Regards
+>>>>>>
+>>>>>> Xiaogang
+>>>>>>
+>>>>>>
+>>>>>>>
+>>>>>>> Regards,
+>>>>>>>   Felix
+>>>>>>>
+>>>>>>>
+>>>>>>>>
+>>>>>>>> Signed-off-by: Xiaogang Chen <Xiaogang.Chen@amd.com>
+>>>>>>>> ---
+>>>>>>>>   drivers/gpu/drm/amd/amdkfd/kfd_process.c | 8 +++++---
+>>>>>>>>   1 file changed, 5 insertions(+), 3 deletions(-)
+>>>>>>>>
+>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c 
+>>>>>>>> b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+>>>>>>>> index d07acf1b2f93..7c5471d7d743 100644
+>>>>>>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+>>>>>>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+>>>>>>>> @@ -899,8 +899,6 @@ struct kfd_process 
+>>>>>>>> *kfd_create_process(struct task_struct *thread)
+>>>>>>>> init_waitqueue_head(&process->wait_irq_drain);
+>>>>>>>>       }
+>>>>>>>>   out:
+>>>>>>>> -    if (!IS_ERR(process))
+>>>>>>>> -        kref_get(&process->ref);
+>>>>>>>>       mutex_unlock(&kfd_processes_mutex);
+>>>>>>>>       mmput(thread->mm);
+>>>>>>>>   @@ -1191,7 +1189,11 @@ static struct mmu_notifier 
+>>>>>>>> *kfd_process_alloc_notifier(struct mm_struct *mm)
+>>>>>>>>         srcu_read_unlock(&kfd_processes_srcu, idx);
+>>>>>>>>   -    return p ? &p->mmu_notifier : ERR_PTR(-ESRCH);
+>>>>>>>> +    if (p) {
+>>>>>>>> +        kref_get(&p->ref);
+>>>>>>>> +        return &p->mmu_notifier;
+>>>>>>>> +    }
+>>>>>>>> +    return ERR_PTR(-ESRCH);
+>>>>>>>>   }
+>>>>>>>>     static void kfd_process_free_notifier(struct mmu_notifier *mn)
