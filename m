@@ -4,60 +4,145 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AE2ECF2564
-	for <amd-gfx@archiver.kernel.org>; Sat, 12 Oct 2024 11:36:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DCA5CF2572
+	for <amd-gfx@archiver.kernel.org>; Sat, 12 Oct 2024 17:30:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A2E3A10E323;
-	Sat, 12 Oct 2024 11:36:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4614F10E0BC;
+	Sat, 12 Oct 2024 17:30:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="A4e4W9l3";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="kjTfGyt6";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B6AF10E323;
- Sat, 12 Oct 2024 11:36:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1728732964; x=1760268964;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=4vQXp2epcQb8vcQV7IRCgEesIWmN1jPTBLzSzkv3ae4=;
- b=A4e4W9l3I55ZPEjoNoX/cXkx4lCpo9dWr8hcY8/rhDztBPqca2dua1LF
- Y73xQnvfl/tigqmFaakM0nc0o26NAOaLCWUgZzDpbN3QJIufVZLn3417g
- haOjFMsTaATDfKVuXpcc8X7cUVegDluUMvsgtSSA+MKapgID/BB8lAAMg
- 5zD0bMhfoET7sQ48PC8Z2ykhwR43LqLbRX2LGgvvLZUwiCRrY7cdyd7yl
- mANmII8gGDWYeCYirO+t73/iCVwq2ElTOrShAoB4R2uBJ5vspMG8I0E2L
- o/6fF6rW8q5yH9DcG/+iipYOG2fa9Z+g8lO7gtRd/XqSk/56iS24GOc+F w==;
-X-CSE-ConnectionGUID: Vxlwz5WpQw6wI93iN4gxVQ==
-X-CSE-MsgGUID: 6UXGTAY3R2an7NZ3Q4rdZg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11222"; a="28263771"
-X-IronPort-AV: E=Sophos;i="6.11,198,1725346800"; d="scan'208";a="28263771"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Oct 2024 04:36:04 -0700
-X-CSE-ConnectionGUID: VF2dQSviQnCTJfGpvqVBUQ==
-X-CSE-MsgGUID: UNxMs61SSa+EXsC1/dccQg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,198,1725346800"; d="scan'208";a="114600220"
-Received: from lkp-server01.sh.intel.com (HELO a48cf1aa22e8) ([10.239.97.150])
- by orviesa001.jf.intel.com with ESMTP; 12 Oct 2024 04:36:02 -0700
-Received: from kbuild by a48cf1aa22e8 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1szaPf-000DJp-2b;
- Sat, 12 Oct 2024 11:35:59 +0000
-Date: Sat, 12 Oct 2024 19:35:44 +0800
-From: kernel test robot <lkp@intel.com>
-To: jesse.zhang@amd.com, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Cc: oe-kbuild-all@lists.linux.dev, Alexander.Deucher@amd.com,
- Christian Koenig <christian.koenig@amd.com>,
- "Jesse.zhang@amd.com" <jesse.zhang@amd.com>
-Subject: Re: [PATCH 1/2] drm/sched: adding a new scheduling policy
-Message-ID: <202410121939.cZrBIAkO-lkp@intel.com>
-References: <20241011062136.1019695-1-jesse.zhang@amd.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2056.outbound.protection.outlook.com [40.107.223.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 116C710E0BC
+ for <amd-gfx@lists.freedesktop.org>; Sat, 12 Oct 2024 17:30:44 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nTZqR+IiPLwtBYfBOSkqGdKbI122BguJIaqKcDRKiQDbdQoKVIrbKA7csRrR8QmgARLcTYKQLemvtXi5WijFgpe2OjsuxAnkbOiUDqN8leF/AQcnMmM14pCTOOmQPpNhbExDyIo5TVAk+tjzfc2imRcGEYqiXwJzv4C/MykvPjRHYRfKfqgLgfY3QUEZf/VpCr0E0E9okKDA4AYjvlhf8HW3Ha5GGTsynfSMnoJbiU3cH5YMWzfE7PGbyWkhF/gh7w2OulmIMuTPskGsmlh0OU6C5osFgHwU0CqsbuUSOJLQF6FdC2kKPr0xbWXqloliD1MlmweX3VRjIT0rBCeWDA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2zfswohsdxxHtGyUzO+NAgMYRyz6kU5MZpUkgdireYU=;
+ b=eoyTpsXNFVjAbKZ7bsIwh+Aoh00lqKAjYpTNalyUBw33VqXrlPt8PWsTqi2n6KPYFkyHhxoUu8+h3Pd3ZlM42v5AXB+NPv2+d5vc0Fo8iPwsFAz9WqZXOKT3RSWL4+9PHf1D1NACWszXADH/rJMBtthX1ntsle/zmDISJv90wKiku6GFxtPlRuYz5GtQK9E6e+nIDkMyr/5hAFF+3V242p0nIb8G0N57/B9l2Gzs/Uhr/R0Rw8BbUi+Oo8RJEBFmPWZaB0LF6qkbPY/TnxJRdRSBwQMGZhHYGS7sFVC5M0EqyLLuoiZY2dsBBIG+NoeBeiAjuc7U9iOHDSkKy8JLow==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2zfswohsdxxHtGyUzO+NAgMYRyz6kU5MZpUkgdireYU=;
+ b=kjTfGyt6r7AihaB9/EtfsQvNG7cXa6ZoIkAzG+JiEA0ACbEpwA1rXnYKgn1XHg5gqaaVi5xOLT9Z9I9PeP0s/6QbIZj5f1CliADaKbxTn/piJ2LEdfCD924SiioxStviCvzkA55ADskxOhebmYZKCJM8eBmV+6MdvcRpx2E6lQ4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB6566.namprd12.prod.outlook.com (2603:10b6:8:8d::16) by
+ SJ2PR12MB7797.namprd12.prod.outlook.com (2603:10b6:a03:4c5::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8048.22; Sat, 12 Oct
+ 2024 17:30:41 +0000
+Received: from DM4PR12MB6566.namprd12.prod.outlook.com
+ ([fe80::31b:5d31:8ba6:abd7]) by DM4PR12MB6566.namprd12.prod.outlook.com
+ ([fe80::31b:5d31:8ba6:abd7%6]) with mapi id 15.20.8048.020; Sat, 12 Oct 2024
+ 17:30:41 +0000
+Message-ID: <15671ab9-264c-4a4e-bb28-8c4da30271b9@amd.com>
+Date: Sat, 12 Oct 2024 12:30:39 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/amdkfd: change kfd process kref count at creation
+Content-Language: en-CA
+To: Zhu Lingshan <lingshan.zhu@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: felix.kuehling@amd.com, philip.yang@amd.com
+References: <20241011144155.120290-1-xiaogang.chen@amd.com>
+ <c7d42fc6-6164-4080-a90a-b53bd7cd796f@amd.com>
+From: "Chen, Xiaogang" <xiaogang.chen@amd.com>
+In-Reply-To: <c7d42fc6-6164-4080-a90a-b53bd7cd796f@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20241011062136.1019695-1-jesse.zhang@amd.com>
+X-ClientProxiedBy: SN6PR16CA0066.namprd16.prod.outlook.com
+ (2603:10b6:805:ca::43) To DM4PR12MB6566.namprd12.prod.outlook.com
+ (2603:10b6:8:8d::16)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB6566:EE_|SJ2PR12MB7797:EE_
+X-MS-Office365-Filtering-Correlation-Id: b436f0d6-47cf-438f-1901-08dceae3981f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?ZFdnZ3gvM01RYUlqRkY1UnJrL2xiUGp3Q0ZaeXN3TDZubUR0QzdxTkI4bDdi?=
+ =?utf-8?B?eUl6Q0M0eVBOeWRST2dTTW1kTk9HUWlvSmdVbHFTYjUwdzAya3laWlJzc2xr?=
+ =?utf-8?B?T3pjaWNzSVMxa3l2b0VyMStPMno3cWVpV2dady9rZURYNEI1Tkp1ayszTWd5?=
+ =?utf-8?B?elBTbk5uTmhoNDl3WHZOWDFPTkVOSHk2b2VTNmFUc2hvdWJGdUJKT0ZsLzJ0?=
+ =?utf-8?B?MFZmakpIcG5hSW4yT3JHMEZFU09Ob3BibWpCTlRtY21jK1RtWmh5N254UFFW?=
+ =?utf-8?B?NUl6U3NRN0Eya1BmUy95N01vS1h5NHVqSFhoZnMrbzJGWXNjdEttVHozck9k?=
+ =?utf-8?B?WVY2ZHFmTjFMMzZ2SmhSWkhqS1FROE5FYW81ZTJsTkhJaVBTZ1JJRDdaeW85?=
+ =?utf-8?B?VTlGcHY3SXNrZ2JkbEdQQThROHhWWGlBdFVod2dHczNEcVlYZnViaVJIU2Jh?=
+ =?utf-8?B?UlJXZXE3dXdhWHFrdEFZdnpwQy9PU1BHUmtEK2pLaE01RllDKzRhNmdpUmR1?=
+ =?utf-8?B?RHp0S3JIemxqOTA0MU82MHd3QXp5VmpDeTA2MTlpemFwZlBPWUVpVU5iWkcv?=
+ =?utf-8?B?NHZ1VDJjcnkzU1REcmlzbWlBTm9oOUxieVd3Y0RKWW5uRTludXpIYnljc2w1?=
+ =?utf-8?B?QnZnRnEyOTJLcmhmcGw5S0xaeTFycDhiQTMxeFJGR0M5TzN4STBRK01BR0tI?=
+ =?utf-8?B?SnhobUFPenl5UFVUSFNhL1Bwc2VwSFcxdDhkTVpleDVBUWtSOXhMQWJpbXdU?=
+ =?utf-8?B?bEtNWVlzbTZkQ0JFdVh1Y0xFS2RUbTN1eUpWbkFoOVRGVURkSTFMMzF5elhH?=
+ =?utf-8?B?OXp0N1FNczBVRjgydnZNN2hmc1lWRm84eW42eHVkZ3BLdXNydFN3VTkzbXBh?=
+ =?utf-8?B?Qy9JdEJiSzFXT1YxQzRFYitCbFAwOW54TEY1UDFRL2pKc3FGQjZUcVVVRy9C?=
+ =?utf-8?B?V1JOQnFsWlpOM0F2dWVDSzAvNWsvcnoyalNnQng0dFgxdG9QU0I1TDB2WUp3?=
+ =?utf-8?B?VlBnVWhQb1NCYzFrWmtIcy9CeFpyNXlBL0tuWkdOM1BYQnFXQjROV3psNGRy?=
+ =?utf-8?B?OU1lK2VZWnFiOEdGMzBuQVRLVVk1QUdHYmNUZWJicExpMHR3RnlocjFYVks2?=
+ =?utf-8?B?a0hHUitZVGtVdE1xOUJUeVlUeWJuSVFkL29GR0x3b082eFgvbDc3L2xManBh?=
+ =?utf-8?B?MEVyNVVZRDJxQmlDQTBsVlhKbnNNendQVXpuOHJ5TkhOOFFWSDhwT0hlYWUr?=
+ =?utf-8?B?NDROdTYxWG1URExTU0pYbWM3YmVkL0N0TEVDNzcreEw3d0doenlJSklqZEFi?=
+ =?utf-8?B?TFkwWUZhSUZjRnZvOENNUHY0YXZYajJSaHZtdDBiRStoSUdHd0Q2MXlFbHg0?=
+ =?utf-8?B?MHRIRnhCYzJYcjhpSmo0cXdwZjgwTEQ2U3RkZHJVckJIeC9wSVJadHhrQjJY?=
+ =?utf-8?B?eVhRRjhhZDZ0cmcvVGlUbjVGNDVoMTN3VS9CRmUwUzVGdmJEWkNUYXVYUXY1?=
+ =?utf-8?B?QjJaQlNVYXE0amh1enFmZXlkdGNuOHE4aUJOcVBIMGY1TGlQd2h1Tkgwb3h5?=
+ =?utf-8?B?K2sxcnNrL1F3bzBPdHF0ZktBZitTbGxHYnB5cEMwVFhJZ2szVXBrYnhHL0NK?=
+ =?utf-8?B?QWw0dGVVa3ludDZNNFZEd0hGWm9VUjF3c2pzYlVxUDhlUW1pbVhqZkpmQi8z?=
+ =?utf-8?B?clM4NlBYWEVxS0NhcllpbmlUc1N2UGJBWTRFb1JjTGNWWXlmM21tQ2F3PT0=?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB6566.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bnJBdWFSU3BPY3VTM3A2RWlWdnEyYmtWbWdCaVhySUpkelQ5ZDRMbzd0WXc0?=
+ =?utf-8?B?SmNZemZDUE9MdU1TQW5hYnZjK3d2NjA3Z0hIQldsRUdzQmZ6MEkrWmtMQnpB?=
+ =?utf-8?B?WDgvTzd1MjByZSsxK2xpMHBrUVM0N1lqUGdiV3lSTmtFd2VUVE1qREl0cTVS?=
+ =?utf-8?B?enF5Z2VMbHFrY2xVaHF5ZnoxcFFWbENaVUVRdUQvSTdNdkNtNmVwWi9haGlq?=
+ =?utf-8?B?TW84MVZJd3YwQWpoYUZyR3Y4TlBnK3doRW82bTBaNFVoYlBaMEdjT2p4VjFR?=
+ =?utf-8?B?cWltK0hGQXlUb2xKaFJvajVieDhKT05iVmZxdlZEYnUxSUlIRG8rU2VEbE5C?=
+ =?utf-8?B?a1F4aVdQVXh0VUE3ek1BNlBUVEpIcXpxbDhhTG9kVm1EdUNMSnh1SUlxSDJE?=
+ =?utf-8?B?ZjlRVUNhNmdTVXN6Nk9ZdUh2ZTNqQ3hOcFBmdXFzVzJzWllGc01zS1pSbG9P?=
+ =?utf-8?B?S0lIc0xKeTdRcWp2N3J4V0RRcFNXWHRzYmV3anM4QmpTY1ZTZHZ4ZExhbmJH?=
+ =?utf-8?B?dWd4MTI5UkhESzhtTHVRQjhsQ3JsRnh0MEZqL2FEQTRlckRDRGZZQVRjNk0z?=
+ =?utf-8?B?SXZsT0ZaaWMrSWZ2L0w1Vlh2NTZoQ2Y5ejhZai9aNFYyMlA3RENXMTNaMm1L?=
+ =?utf-8?B?WEp3YWExN2dLWDRJQzBNYVdUeUpQQ25jVERKNmEwQ3Z0aDlzZXhSREdMUm1z?=
+ =?utf-8?B?b3h5bzkxamRaU3pJOHhjMnk4TzBOZVFiT3ZKMmxyREsxWGphN0xTMVhHQmMw?=
+ =?utf-8?B?TmcwRDNPV0dKUHZ5SzFpdjcwNFg0VjVqcHRGYndVTVhWZ1h1T2hJelpad0pC?=
+ =?utf-8?B?WUhHRWVoVkhhQWxFRjdJd0xDbENEYk1zS2U1Y0FtTS9IQ3c0UCtubzF4Mk5J?=
+ =?utf-8?B?dzNWUjI2Tmk1QzVPbDVoY0xNcEVpcHVGU1pnRmd6TWdMWm1sSy9BTW00MjI0?=
+ =?utf-8?B?Mmp5Nkhvc3JWbEVPV2FocTI1SmxvdnVPYVBYQS9CL3VXQlVJM1preVY1b2Vw?=
+ =?utf-8?B?MW4rYlRrV2hBcDZTZExTZCtZU010MmhmczZxMklkYlc1dnBLaFQ4Y0huaVk0?=
+ =?utf-8?B?L1lFRlMzblg2T1ZvcC9QT0U5aUp3cUROYldJTlJ6RnlxNk1DSCttQjJRZ0Fw?=
+ =?utf-8?B?T1UvQ1FGU2pPL3pCdFJHTllBQkNxc2FJZ1lDbi9BVkx6Zjd6RGRIdnB2aGNT?=
+ =?utf-8?B?MWVENDFZL0wwZ1d1WE5TUG1keEowU0pRWVdCWktVU3RuTkRlMm1QdklwdHdG?=
+ =?utf-8?B?UTU5RzB1VnpXNHh6c0lYa01GckUxZlJjbmR0Zkl6MHY2QnY0bnliSE01bmdC?=
+ =?utf-8?B?Y05VK0NpOWNIek9oUmdzSXFoeU10bHNWWHBObnVta21meCt4OTQ2TC9YU01B?=
+ =?utf-8?B?Q2Z2SXVtSUZYZWRkcjlrTzgrVlI1bmlQOHBIRW5KQVVLTVJkSUFHOWMxdVJG?=
+ =?utf-8?B?eXRyeVJhWFl2Yk5GR1VIUWdsUWVtNDJrS2NlZzN6YWRlQVlhWEVmZFNacWhU?=
+ =?utf-8?B?Uk5HdFdRN3lTSGVzUFJJOGtrdVpRK21FWVhHS3dmYjJQZnRtT1pDWlFtL21Q?=
+ =?utf-8?B?YklwY1BiY05KQjR3N2dYUjhSYTR1eURJV2ovdVQ0NDN5L25zRHluVktHTHpD?=
+ =?utf-8?B?VkhQNHcrZlFjVzM1RTY3QVQ1T0NTbjJwMVpWUGorQW9ySkluZ3F4ZVYzN09K?=
+ =?utf-8?B?bUJOSWJSL0N6UXk4ZDg3V1JNTW9EVHZPa0Ezb3hqWnZnWFhBUHBlb2lDL0VV?=
+ =?utf-8?B?U0tkVDlWTFRVNzdlWTliYWVRbVNjK2MzdU9UQS8yRHoyMGdRTGFnWlNaNm9J?=
+ =?utf-8?B?UStnNHFzMTlneDhwRWVWMTcya1Q0Y1Zkb0JFUzV3Smp2TjNld1NscUxjV0RZ?=
+ =?utf-8?B?UW5QUEowN3ZCNDcrWHY5V3Vvak9nL1EvQ1BPY1JwbElNMFFCQmVzYk5uQU5u?=
+ =?utf-8?B?MkdGc25IN0tPb014SlYxVy9xZ0ZRSlNiR2FUUzlOSTlNVjZWK2ptY1lPbGFn?=
+ =?utf-8?B?UEE5ZVFjV09OQWRWNS9oZXE2bkxwS3N5UHNBbTRwM09DYWVOcGd5M1lxdEJB?=
+ =?utf-8?B?ck5MRDI5M0FHMVVpcXZSTEFITldGa2pxUUVqZTc1L3h0aG1hMitoUTMwSXF0?=
+ =?utf-8?Q?oPJ8=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b436f0d6-47cf-438f-1901-08dceae3981f
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6566.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2024 17:30:41.1775 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7tM8YbkNCTasuCVZmBaiqD6Db/6Z8D7hKFfSEgyEWol5dp37JElkDZv8lBe/329I
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7797
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,94 +157,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
 
-kernel test robot noticed the following build errors:
+On 10/11/2024 9:56 PM, Zhu Lingshan wrote:
+> On 10/11/2024 10:41 PM, Xiaogang.Chen wrote:
+>> From: Xiaogang Chen <xiaogang.chen@amd.com>
+>>
+>> kfd process kref count(process->ref) is initialized to 1 by kref_init. After
+>> it is created not need to increaes its kref. Instad add kfd process kref at kfd
+>> process mmu notifier allocation since we decrease the ref at free_notifier of
+>> mmu_notifier_ops, so pair them.
+>>
+>> When user process opens kfd node multiple times the kfd process kref is
+>> increased each time to balance kfd node close operation.
+>>
+>> Signed-off-by: Xiaogang Chen <Xiaogang.Chen@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdkfd/kfd_process.c | 15 ++++++++++-----
+>>   1 file changed, 10 insertions(+), 5 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+>> index d07acf1b2f93..78bf918abf92 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+>> @@ -850,8 +850,10 @@ struct kfd_process *kfd_create_process(struct task_struct *thread)
+>>   		goto out;
+>>   	}
+>>   
+>> -	/* A prior open of /dev/kfd could have already created the process. */
+>> -	process = find_process(thread, false);
+>> +	/* A prior open of /dev/kfd could have already created the process.
+>> +	 * find_process will increase process kref in this case
+>> +	 */
+>> +	process = find_process(thread, true);
+>>   	if (process) {
+>>   		pr_debug("Process already found\n");
+>>   	} else {
+>> @@ -899,8 +901,6 @@ struct kfd_process *kfd_create_process(struct task_struct *thread)
+>>   		init_waitqueue_head(&process->wait_irq_drain);
+>>   	}
+>>   out:
+>> -	if (!IS_ERR(process))
+>> -		kref_get(&process->ref);
+>>   	mutex_unlock(&kfd_processes_mutex);
+>>   	mmput(thread->mm);
+>>   
+>> @@ -1191,7 +1191,12 @@ static struct mmu_notifier *kfd_process_alloc_notifier(struct mm_struct *mm)
+>>   
+>>   	srcu_read_unlock(&kfd_processes_srcu, idx);
+>>   
+>> -	return p ? &p->mmu_notifier : ERR_PTR(-ESRCH);
+>> +	if (p) {
+>> +		kref_get(&p->ref);
+>> +		return &p->mmu_notifier;
+>> +	}
+>> +
+>> +	return ERR_PTR(-ESRCH);
+> this cb should only allocate the notifier (here it returns an existing notifier ),
+> so I am not sure this is a better place to increase the kref, it seems coupling
+> two low correlated routines.
+>
+> kref is decreased in the free notifier, but not mean it has to be increased in alloc notifier.
 
-[auto build test ERROR on drm-exynos/exynos-drm-next]
-[also build test ERROR on drm-intel/for-linux-next drm-intel/for-linux-next-fixes drm-misc/drm-misc-next drm-tip/drm-tip linus/master v6.12-rc2 next-20241011]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Who referring kfd process should also un-referrer it after finish. Any 
+client should not do un-refer if it did not refer. That keeps balance in 
+clean way.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/jesse-zhang-amd-com/drm-amdgpu-add-the-ring-id-schedule-module-parameter-for-amdgpu/20241011-142247
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/daeinki/drm-exynos.git exynos-drm-next
-patch link:    https://lore.kernel.org/r/20241011062136.1019695-1-jesse.zhang%40amd.com
-patch subject: [PATCH 1/2] drm/sched: adding a new scheduling policy
-config: i386-randconfig-141-20241012 (https://download.01.org/0day-ci/archive/20241012/202410121939.cZrBIAkO-lkp@intel.com/config)
-compiler: gcc-12 (Debian 12.2.0-14) 12.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20241012/202410121939.cZrBIAkO-lkp@intel.com/reproduce)
+The current way is usingÂ  mmu's free notifier to unref kfref that was 
+added by kfd process creation. Ex: if not use mmu notifier there would 
+be extra kref that prevent release kfd process.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202410121939.cZrBIAkO-lkp@intel.com/
+The final kref is same. The patch just makes the balance in a logical way.
 
-All errors (new ones prefixed by >>):
+Regards
 
-   drivers/gpu/drm/xe/xe_sched_job.c: In function 'xe_sched_job_arm':
->> drivers/gpu/drm/xe/xe_sched_job.c:284:9: error: too few arguments to function 'drm_sched_job_arm'
-     284 |         drm_sched_job_arm(&job->drm);
-         |         ^~~~~~~~~~~~~~~~~
-   In file included from drivers/gpu/drm/xe/xe_sched_job_types.h:11,
-                    from drivers/gpu/drm/xe/xe_sched_job.h:9,
-                    from drivers/gpu/drm/xe/xe_sched_job.c:6:
-   include/drm/gpu_scheduler.h:556:6: note: declared here
-     556 | void drm_sched_job_arm(struct drm_sched_job *job, int ring);
-         |      ^~~~~~~~~~~~~~~~~
+Xiaogang
 
-
-vim +/drm_sched_job_arm +284 drivers/gpu/drm/xe/xe_sched_job.c
-
-dd08ebf6c3525a Matthew Brost             2023-03-30  239  
-dd08ebf6c3525a Matthew Brost             2023-03-30  240  void xe_sched_job_arm(struct xe_sched_job *job)
-dd08ebf6c3525a Matthew Brost             2023-03-30  241  {
-4fc4899e86f7af Thomas Hellström          2024-03-27  242  	struct xe_exec_queue *q = job->q;
-0ac7a2c745e8a4 Thomas Hellström          2024-05-27  243  	struct dma_fence *fence, *prev;
-4fc4899e86f7af Thomas Hellström          2024-03-27  244  	struct xe_vm *vm = q->vm;
-0ac7a2c745e8a4 Thomas Hellström          2024-05-27  245  	u64 seqno = 0;
-0ac7a2c745e8a4 Thomas Hellström          2024-05-27  246  	int i;
-0ac7a2c745e8a4 Thomas Hellström          2024-05-27  247  
-0ac7a2c745e8a4 Thomas Hellström          2024-05-27  248  	/* Migration and kernel engines have their own locking */
-0ac7a2c745e8a4 Thomas Hellström          2024-05-27  249  	if (IS_ENABLED(CONFIG_LOCKDEP) &&
-0ac7a2c745e8a4 Thomas Hellström          2024-05-27  250  	    !(q->flags & (EXEC_QUEUE_FLAG_KERNEL | EXEC_QUEUE_FLAG_VM))) {
-0ac7a2c745e8a4 Thomas Hellström          2024-05-27  251  		lockdep_assert_held(&q->vm->lock);
-0ac7a2c745e8a4 Thomas Hellström          2024-05-27  252  		if (!xe_vm_in_lr_mode(q->vm))
-0ac7a2c745e8a4 Thomas Hellström          2024-05-27  253  			xe_vm_assert_held(q->vm);
-0ac7a2c745e8a4 Thomas Hellström          2024-05-27  254  	}
-4fc4899e86f7af Thomas Hellström          2024-03-27  255  
-4fc4899e86f7af Thomas Hellström          2024-03-27  256  	if (vm && !xe_sched_job_is_migration(q) && !xe_vm_in_lr_mode(vm) &&
-4fc4899e86f7af Thomas Hellström          2024-03-27  257  	    (vm->batch_invalidate_tlb || vm->tlb_flush_seqno != q->tlb_flush_seqno)) {
-4fc4899e86f7af Thomas Hellström          2024-03-27  258  		xe_vm_assert_held(vm);
-4fc4899e86f7af Thomas Hellström          2024-03-27  259  		q->tlb_flush_seqno = vm->tlb_flush_seqno;
-4fc4899e86f7af Thomas Hellström          2024-03-27  260  		job->ring_ops_flush_tlb = true;
-4fc4899e86f7af Thomas Hellström          2024-03-27  261  	}
-4fc4899e86f7af Thomas Hellström          2024-03-27  262  
-0ac7a2c745e8a4 Thomas Hellström          2024-05-27  263  	/* Arm the pre-allocated fences */
-0ac7a2c745e8a4 Thomas Hellström          2024-05-27  264  	for (i = 0; i < q->width; prev = fence, ++i) {
-0ac7a2c745e8a4 Thomas Hellström          2024-05-27  265  		struct dma_fence_chain *chain;
-0ac7a2c745e8a4 Thomas Hellström          2024-05-27  266  
-0ac7a2c745e8a4 Thomas Hellström          2024-05-27  267  		fence = job->ptrs[i].lrc_fence;
-264eecdba211bb Niranjana Vishwanathapura 2024-05-29  268  		xe_lrc_init_seqno_fence(q->lrc[i], fence);
-0ac7a2c745e8a4 Thomas Hellström          2024-05-27  269  		job->ptrs[i].lrc_fence = NULL;
-0ac7a2c745e8a4 Thomas Hellström          2024-05-27  270  		if (!i) {
-0ac7a2c745e8a4 Thomas Hellström          2024-05-27  271  			job->lrc_seqno = fence->seqno;
-0ac7a2c745e8a4 Thomas Hellström          2024-05-27  272  			continue;
-0ac7a2c745e8a4 Thomas Hellström          2024-05-27  273  		} else {
-0ac7a2c745e8a4 Thomas Hellström          2024-05-27  274  			xe_assert(gt_to_xe(q->gt), job->lrc_seqno == fence->seqno);
-0ac7a2c745e8a4 Thomas Hellström          2024-05-27  275  		}
-0ac7a2c745e8a4 Thomas Hellström          2024-05-27  276  
-0ac7a2c745e8a4 Thomas Hellström          2024-05-27  277  		chain = job->ptrs[i - 1].chain_fence;
-0ac7a2c745e8a4 Thomas Hellström          2024-05-27  278  		dma_fence_chain_init(chain, prev, fence, seqno++);
-0ac7a2c745e8a4 Thomas Hellström          2024-05-27  279  		job->ptrs[i - 1].chain_fence = NULL;
-0ac7a2c745e8a4 Thomas Hellström          2024-05-27  280  		fence = &chain->base;
-0ac7a2c745e8a4 Thomas Hellström          2024-05-27  281  	}
-0ac7a2c745e8a4 Thomas Hellström          2024-05-27  282  
-0ac7a2c745e8a4 Thomas Hellström          2024-05-27  283  	job->fence = fence;
-dd08ebf6c3525a Matthew Brost             2023-03-30 @284  	drm_sched_job_arm(&job->drm);
-dd08ebf6c3525a Matthew Brost             2023-03-30  285  }
-dd08ebf6c3525a Matthew Brost             2023-03-30  286  
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+>
+> Thanks
+> Lingshan
+>
+>>   
+>>   static void kfd_process_free_notifier(struct mmu_notifier *mn)
