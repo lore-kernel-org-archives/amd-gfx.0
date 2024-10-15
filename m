@@ -4,85 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 803E4CFC273
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Oct 2024 08:08:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 382E2CFC274
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Oct 2024 08:08:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0778410E530;
-	Tue, 15 Oct 2024 08:08:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E052B10E52F;
+	Tue, 15 Oct 2024 08:08:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=xenosoft.de header.i=@xenosoft.de header.b="JjribVjJ";
-	dkim=permerror (0-bit key) header.d=xenosoft.de header.i=@xenosoft.de header.b="UxzzAx7P";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=xenosoft.de header.i=@xenosoft.de header.b="iSO2W6VF";
+	dkim=permerror (0-bit key) header.d=xenosoft.de header.i=@xenosoft.de header.b="ZQsNhQxD";
 	dkim-atps=neutral
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de
- [81.169.146.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C630010E2A5
- for <amd-gfx@lists.freedesktop.org>; Mon, 14 Oct 2024 13:12:08 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1728911489; cv=none;
+Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de
+ [85.215.255.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 20F7210E296
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Oct 2024 03:56:22 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1728964576; cv=none;
  d=strato.com; s=strato-dkim-0002;
- b=sC21/wmfDMp305L9jQP14kr9E+u8s5PIhCfiYWFAQ16Ub9pPVASHT4BJXytfgjEPlb
- CsP781U+1p8gKAvZNfr02nxwT35YW8lwmz57LUVl3jsm/Uc9+8admTuGNrconVYisWIC
- 7IxWuWZcOhqnykD/ZIGwUYqxjMVYIqQRsQZRV3dZMp48qknq6SKwpCfdUiy/knRVx1KP
- fRQov2omUOnr3KQU5waYafXNZIYQ6jABRmGZXBQ3VuDmLsxLNojCml6T7UxDfWiyAC9i
- UCxVcME0XpDTDtycEXJh/Sff7l3U6NYcyclfH/8WAHEqFEmfqAfoJ4OwRtzske0Ho7fx
- BNNQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1728911489;
+ b=S7OIMgRlV4Xrj3QADGuxnIDb8HtFVUbFmdB/VIOcNrVRiSXwgDhytFtulj9m/xsAso
+ BAimUAvmje81PgA4Yk+CiyYZejz1rv4SZyQOnkb9K3b9L2tDwex7CLnY2cGtKTGbSGyN
+ XzwlyCaOtaJWPdLHx+PkHVhONnn3I9+eZFS55iEylZHiqynAxW3JmZ7yVk/iwYZvtwk4
+ 1o0U4337eTDUUgOka90P+nlPP4IvT1RODN1jPZc0ac+iANaNUa7j+4Mrb951hy8HtjaP
+ BlmbMOBrppVBqyrfYMGjg+ITWiHSd7VzNiu7EIVMgQFR+m/e29CYEFQOeEcO26xvy+J9
+ DfUQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1728964576;
  s=strato-dkim-0002; d=strato.com;
- h=To:In-Reply-To:Cc:References:Message-Id:Date:Subject:From:Cc:Date:
+ h=In-Reply-To:References:Cc:To:From:Subject:Date:Message-ID:Cc:Date:
  From:Subject:Sender;
- bh=x1Qjpspgumz3VePVNJKzrHQe41GIS6QOcZEIs3MBhOg=;
- b=CIlOUKwxWf8NUbeuG+u9jlEB4YbJnVtjJLx2Fawt2BWyma9VHeCWtcYkSniCAbmOQl
- xbBtRac3iquzcGF/xY//J593HYr4ObfIlZqYJLowazPt20NEd69VKTB+qQkp2KdKK26x
- PLkyVUpY60rVlMshx0fzljpas5zAcVozhyUr44M3yQfCoqArZn5DWCzYtO87i3UN9x7i
- YO+4BRapx+CaYJa/41Zuq5JE4bkQpUU/MbAMftOIYEAaEaIek5nR8pvKP+OMn+ykjtND
- GV72ZxAPrQ+RIaNaQwHxNVvzTZ9uD8tHvAFAF1jXxSmx97wK7OxGYSFNQCYNRv93g+QG
- QCig==
+ bh=xSYQ6qR2YyPxkEpPkVlGgPT6KdWxjUxQdAsacrNmW3s=;
+ b=RYSxsU6Ws0WBXPfKCtrJ3wXIXkgEAaqe4yimAtI5mFBqwOizOejuNsopR2p0Kh06dA
+ f03uqM8NBYXZenIV8OxK7Nzx9fphI3UYa8zatilpF21TinrmC6ki8j1BggXbgQY39NkT
+ W0DXxzDgVRh+z/vkO+p4RmLNmWUEsGKFBAYZOomIw3BaBibCO7XERr3zOpzLi0t0F2mG
+ 9Q2PXzcFK5kuh8o79iCLFpbGY+z0eCCIXp8i0dTVZWwRW0EP2Yhx/8mXeZYykkH9hC7M
+ hfL3rMmY7lfIxpmZtczF56ME2kgkvGXg7m5cGF5DQBwNl17kgqDEOuUaXXUCqGyEY9om
+ +8og==
 ARC-Authentication-Results: i=1; strato.com;
     arc=none;
     dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1728911489;
+X-RZG-CLASS-ID: mo02
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1728964576;
  s=strato-dkim-0002; d=xenosoft.de;
- h=To:In-Reply-To:Cc:References:Message-Id:Date:Subject:From:Cc:Date:
+ h=In-Reply-To:References:Cc:To:From:Subject:Date:Message-ID:Cc:Date:
  From:Subject:Sender;
- bh=x1Qjpspgumz3VePVNJKzrHQe41GIS6QOcZEIs3MBhOg=;
- b=JjribVjJR5Rshr3DNwzGE1nSepomeSCC4k/xuvB1o5hLRpJRJGlPEUzCz47O2keqOy
- jQqckjgKxQvF9d2srVmLg4EOBaj+SdVvqsA+csr0JYiV+o42HeDjJdKC5YmJRWEGtRFr
- /hPd/GgQas3K4QZ7mD+LuY5WVbvR3QMIgTOpTG+xaovhSJfxn3R+71rLqBDmwPW9Byrw
- +SmKvPF5ZHEPjEam7toNtcCLuzviKhLzq8igbu700V1EMu5bNspqBub+suTVmnQD+QXW
- RXi+05nObrAa3qW9BVpPgMfDbU7BSWqcfbO+kyutTdQnPPFRjOwVRLKRjZpMyazBpNJS
- vhQA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1728911489;
+ bh=xSYQ6qR2YyPxkEpPkVlGgPT6KdWxjUxQdAsacrNmW3s=;
+ b=iSO2W6VF/s/oTpKAYTUeEasemUzmR9ZDOvAuiXmgT24fawC5uHTAM4R68LFmuxrGSV
+ GA+RbLdr68DT5WPqdb3F9vm+O34fMnSC5jppeDMLp2umU0bhNn5aL63Q2DjbblGmclUS
+ rPCukvy0Ak442VYYQPr8J+dBf0sGdhv//Y6z+DmuPfls8VeyiKFMMmzMvJGsFCT+u1fo
+ c56I0R84ICE2IfpP1wX9896ZRW8T/6ZwrpYgFzM+FQZL4dXpCZpY9C+giBgsd3Ti0fVI
+ UM+xsC17rtnjRT+5KYQfdphnCN4wSm83oz5mrrIEnys4cNmgjVTIj19YhXb0ox8EYZ1v
+ rweQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1728964576;
  s=strato-dkim-0003; d=xenosoft.de;
- h=To:In-Reply-To:Cc:References:Message-Id:Date:Subject:From:Cc:Date:
+ h=In-Reply-To:References:Cc:To:From:Subject:Date:Message-ID:Cc:Date:
  From:Subject:Sender;
- bh=x1Qjpspgumz3VePVNJKzrHQe41GIS6QOcZEIs3MBhOg=;
- b=UxzzAx7Psbzzt3T9ENpW2YG/P/ebdoOtnjLk0Ih2wnZsq6pAhJRfSn+y9uBSEU7Pno
- njiO68YE3IviSnVQ7qCw==
-X-RZG-AUTH: ":L2QefEenb+UdBJSdRCXu93KJ1bmSGnhMdmOod1DhGN0rBVhd9dFr6KxrfO5Oh7V7Vpmys3mVCXrTP7vRMbGZpP32uUiO4WGM3yoRXUc="
-Received: from smtpclient.apple by smtp.strato.de (RZmta 51.2.8 AUTH)
- with ESMTPSA id e0da1a09EDBS3rK
+ bh=xSYQ6qR2YyPxkEpPkVlGgPT6KdWxjUxQdAsacrNmW3s=;
+ b=ZQsNhQxDyQiOr7k3pN6/jusi3ECKbo1AGT5Wd1p6UI5ZyqVkQO5+hYO9h+f3PXc46r
+ ShJLL/1V+qCbBbRQ+oCw==
+X-RZG-AUTH: ":L2QefEenb+UdBJSdRCXu93KJ1bmSGnhMdmOod1DhGN0rBVhd9dFr6KxrfO5Oh7V7Vpiws33FXnUI/9PuhTYBjMOp1+IsL3lZfXddq5k="
+Received: from [IPV6:2a01:599:104:61f9:6491:b2b5:9c5d:4894]
+ by smtp.strato.de (RZmta 51.2.11 AUTH)
+ with ESMTPSA id ea02d409F3uE0Yy
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
  (Client did not present a certificate);
- Mon, 14 Oct 2024 15:11:28 +0200 (CEST)
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: quoted-printable
-From: Christian Zigotzky <chzigotzky@xenosoft.de>
-Mime-Version: 1.0 (1.0)
+ Tue, 15 Oct 2024 05:56:14 +0200 (CEST)
+Message-ID: <1115cce7-cfdc-4c5b-b017-69cd32425650@xenosoft.de>
+Date: Tue, 15 Oct 2024 05:57:18 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
 Subject: [PATCHES] drm/radeon issues
-Date: Mon, 14 Oct 2024 15:11:16 +0200
-Message-Id: <87F47F04-EBAC-48D6-AD0A-4BBE39DF43CE@xenosoft.de>
-References: <CADnq5_PUi_2+kDYX8R_eanNF4iYN79MdXJ_PLcQbZKi6e4S8tg@mail.gmail.com>
-Cc: Jeff Johnson <quic_jjohnson@quicinc.com>,
- "R.T.Dickinson" <rtd@a-eon.com>, mad skateman <madskateman@gmail.com>,
+From: Christian Zigotzky <chzigotzky@xenosoft.de>
+To: Alex Deucher <alexdeucher@gmail.com>, ville.syrjala@linux.intel.com
+Cc: Jeff Johnson <quic_jjohnson@quicinc.com>, "R.T.Dickinson"
+ <rtd@a-eon.com>, mad skateman <madskateman@gmail.com>,
  Darren Stevens <darren@stevens-zone.net>, hypexed@yahoo.com.au,
  linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
  Christian Zigotzky <info@xenosoft.de>,
- =?utf-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
  Hans de Goede <hdegoede@redhat.com>, Wu Hoi Pok <wuhoipok@gmail.com>,
  amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com
-In-Reply-To: <CADnq5_PUi_2+kDYX8R_eanNF4iYN79MdXJ_PLcQbZKi6e4S8tg@mail.gmail.com>
-To: Alex Deucher <alexdeucher@gmail.com>
-X-Mailer: iPhone Mail (22A3370)
+References: <CADnq5_PUi_2+kDYX8R_eanNF4iYN79MdXJ_PLcQbZKi6e4S8tg@mail.gmail.com>
+ <87F47F04-EBAC-48D6-AD0A-4BBE39DF43CE@xenosoft.de>
+In-Reply-To: <87F47F04-EBAC-48D6-AD0A-4BBE39DF43CE@xenosoft.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Tue, 15 Oct 2024 08:08:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -98,12 +100,18 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 14 October 2024 at 3:00pm, Alex Deucher <alexdeucher@gmail.com> wrote:
+On 14 October 2024 at 3:11pm, Christian Zigotzky wrote:
 
-Can whoever wrote this send it out as a proper patch?
+ >> On 14 October 2024 at 3:00pm, Alex Deucher <alexdeucher@gmail.com> 
+wrote:
+ >>
+ >> Can whoever wrote this send it out as a proper patch?
+ >>
+ >> Alex
+ >>
 
-Alex
 
-Patch source: https://lists.freedesktop.org/archives/dri-devel/2024-October/=
-473314.html=
+ > Patch source: 
+https://lists.freedesktop.org/archives/dri-devel/2024-October/473314.html
 
++ ville.syrjala
