@@ -4,148 +4,153 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A11EACFC27F
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Oct 2024 09:59:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67FFED2169C
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Oct 2024 13:14:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 40A2D10E0C2;
-	Tue, 15 Oct 2024 09:59:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1AE9F10E055;
+	Tue, 15 Oct 2024 13:14:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="LxPCxJDW";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Gyva3R4C";
 	dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2085.outbound.protection.outlook.com [40.107.244.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 621A610E0C2
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Oct 2024 09:59:54 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2079.outbound.protection.outlook.com [40.107.237.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3429610E2CD
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Oct 2024 13:14:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bE7pARHueAD4c4n/oXdpOoQogtAq71HlFZUZzxI+/H1e8m6PrlU5Fk+5u40ROErqhY+zdhGKmYdqvWOZMHW7SI4ZFBP0jlPClDlSEijEX5oAS5AjAyXlk3owFkvbfOQZB03H8PqZT0qWkilEF7H7A/hKRm2tqSVL584glG1rltoEqrzVusvowlrjr25Dr2K72Y01v1QytohfKcwqISmCQgLt6XGhejL/ym3O1IUUGZylPMMeTArjUA/hMBITOFaXk8aNYeB25vun8zj33L5/8Stm1dAI7qsUCw1boA2tcdsQLn1BagRiCmx9VmM+wiWf07Fl0TiyOMOydygdUKCh7A==
+ b=FJnpOmXvxN9KBL0lM7JXzmZXB7JqA0zvM3YNMCucGtYHJA8UeSONuLZ5rDmK+VRIsGJoXafEaJX3cg4iQ457jGWIE57FxVo2GYE0yzpovayVkpBlkIJ4zviB7PXX34q9xAedZ+nzKq+CB+Gc7Yq84Rf4Rq9dP5ev8DUB15hNr+nxq7GQXw+l2NXTQ4RxKLU08zfQ0qFT8fTnVXMAaEbrFV9h5bWCMYva9GIap0F2Xo5z6kZGxkCMXLRJzIpSHG3wCAu+9ealMlYKHIJG0nR10xoAHDCBd/eMNyq9JrF7fkZvjQT2OLbfuCrA8gPmdLwEcdOrGJYkOLQpON9kDgtxAQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=H0XeYx3eoTbu5XzOa/tEH3m7E9qPdt3kLIo5Lxx78Ks=;
- b=wJwQ4bsS6DOz3v8I92qkw5ibvQLp0oAp6swb7BJRKEjAIg2M6nurEoFtnkIGT6VQboK0FRmcZ2GlajNdmNVXFwoxjBcOFgv+HCdpcjO/9J9gRml+/nBge8XL7J6ZO60gBD79JAkxQRafwkyJY8s6oNhweXVjEjX3KBhCwAmioPb7cX/OASaebQDIuQtRfHK3EGju38jRbvKqhhttvNohsRdQ67l48Kpp9scWVWjC+clsuVdM3CUb+uz8prJ7qSLAH3IKN2uwEQ86yr93t3fCYqj5+F5EA68lbilgPPxSgyRJ4+yJlIAWCM/UkDbyA2/IRFlUimdTXYZGqcFRA/Zikw==
+ bh=3lYOnmj2a04rflfxwy2hOZmax+GcNGLyoevOHhv6EnA=;
+ b=idiNq2egVkRgbMvhKNspU3uXoEo9VB6JXw5qUPqgHBT7dUr6MBhfdg4Yey9nnLA87jLV6ihCxP7VKOMV6Tv6swt5N9DF99v4bBLqjYDTpSEmJ4pyRPioQRSE8WsRlxzosm5rm41LPFMEFkWukTFGoMdmMxXqafAAlrpjCsCkHZiuhAXFAkURGAMsK3DQNl5LEr8EMB2bPM0B6F4IjPoRmjdRw5RPvXOWpPnYHw8oOEsATw3s+JvoLn/Ab03BEeQi44hUOUoBhTk/jA46fuEldOa+hxglB+yUhrAEY2DriERK6IWmkD8q5vjZW1yEQZaIitmqu8fjm/W+v6aS8XGnOA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=H0XeYx3eoTbu5XzOa/tEH3m7E9qPdt3kLIo5Lxx78Ks=;
- b=LxPCxJDWYHQLBo5p43pjJZMG1LxqgitjOQbEBQ3ye282dCoEJXNB/RVeSp51eHGKXJYMKGMIGFH1Lef1HwEb/nbdFRFp3Jh+xp0SYrwtlWg1J6EwsHkL8PldLk82UOnSr66aBixSL1myb4TeepPHIfiV3nvcuhFxlvVbfrVTCE8=
+ bh=3lYOnmj2a04rflfxwy2hOZmax+GcNGLyoevOHhv6EnA=;
+ b=Gyva3R4CDkWAcSXoDCxh/pTXMCgGrhJaOQKd17cMttB7ez26RfTQX5SdCV/J5AyAYcqcvmLhx+CDns6TBxi3r7KyWh4tNWUi8yFZ76Msfxf9K8ChmNIgkLKTCWhgLbQ790ABcCbSswnlCPnDDrmFBDgmsTD2YguXYjr74ynuhFM=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MW4PR12MB5667.namprd12.prod.outlook.com (2603:10b6:303:18a::10)
- by BL3PR12MB6644.namprd12.prod.outlook.com (2603:10b6:208:3b1::14)
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
+ by PH7PR12MB8825.namprd12.prod.outlook.com (2603:10b6:510:26a::21)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8048.24; Tue, 15 Oct
- 2024 09:59:50 +0000
-Received: from MW4PR12MB5667.namprd12.prod.outlook.com
- ([fe80::6216:e70a:9c8b:7abb]) by MW4PR12MB5667.namprd12.prod.outlook.com
- ([fe80::6216:e70a:9c8b:7abb%7]) with mapi id 15.20.8048.020; Tue, 15 Oct 2024
- 09:59:50 +0000
-Content-Type: multipart/alternative;
- boundary="------------ZlG4LORQoPp90nBqCNOzGz7N"
-Message-ID: <0a06cc8c-b496-45ae-856f-67cd538a2153@amd.com>
-Date: Tue, 15 Oct 2024 11:59:44 +0200
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8048.26; Tue, 15 Oct
+ 2024 13:14:52 +0000
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::37ee:a763:6d04:81ca]) by MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::37ee:a763:6d04:81ca%6]) with mapi id 15.20.8048.020; Tue, 15 Oct 2024
+ 13:14:52 +0000
+Message-ID: <1284976c-8fc9-4eab-b01e-a8a12790541d@amd.com>
+Date: Tue, 15 Oct 2024 08:14:49 -0500
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: enable userqueue support for GFX12
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Cc: "Somalapuram, Amaranath" <Amaranath.Somalapuram@amd.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>,
- "Yadav, Arvind" <Arvind.Yadav@amd.com>
-References: <20241010180806.834-1-shashank.sharma@amd.com>
- <BL1PR12MB5144EC6671DD09A36B0BFD0CF7442@BL1PR12MB5144.namprd12.prod.outlook.com>
+Subject: Re: [PATCH 01/10] drm/amd/display: temp w/a for dGPU to enter idle
+ optimizations
+To: Wayne Lin <Wayne.Lin@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <rodrigo.siqueira@amd.com>,
+ Hamza Mahfooz <hamza.mahfooz@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>,
+ Tom Chung <chiahsuan.chung@amd.com>, Fangzhi Zuo <jerry.zuo@amd.com>,
+ Zaeem Mohamed <zaeem.mohamed@amd.com>, Solomon Chiu <solomon.chiu@amd.com>,
+ Daniel Wheeler <daniel.wheeler@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org
+References: <20241015081713.3042665-1-Wayne.Lin@amd.com>
+ <20241015081713.3042665-2-Wayne.Lin@amd.com>
 Content-Language: en-US
-From: "Sharma, Shashank" <shashank.sharma@amd.com>
-In-Reply-To: <BL1PR12MB5144EC6671DD09A36B0BFD0CF7442@BL1PR12MB5144.namprd12.prod.outlook.com>
-X-ClientProxiedBy: FR0P281CA0263.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:b5::6) To MW4PR12MB5667.namprd12.prod.outlook.com
- (2603:10b6:303:18a::10)
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <20241015081713.3042665-2-Wayne.Lin@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SN7PR04CA0079.namprd04.prod.outlook.com
+ (2603:10b6:806:121::24) To MN0PR12MB6101.namprd12.prod.outlook.com
+ (2603:10b6:208:3cb::10)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB5667:EE_|BL3PR12MB6644:EE_
-X-MS-Office365-Filtering-Correlation-Id: f4896e8f-40d6-4241-43e4-08dced001b94
+X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|PH7PR12MB8825:EE_
+X-MS-Office365-Filtering-Correlation-Id: a2b36eae-0669-4b8a-36bb-08dced1b5ac8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?WDFYMDV1eXJKcXo1bWRCMUp5b3ltVEt5aEIzYW5aeHdZc0g1YWthYXNxb0h3?=
- =?utf-8?B?THRPVE1CSVU1Mzg5Q0t1d0VZMFVEMGhFM2xzWFVNb0FhOWRPdkMyay9rb2tr?=
- =?utf-8?B?MkZmcDRhd0FOaE9SbkNEYUZCRExaNlVCQVpMSWJ0QzNkeFhWMFE4QWRnaVR4?=
- =?utf-8?B?OVc3WG9lSnJBR3oraTZrTy9ybE1wajBnbXNPN1U3ZGpac0JraDc5Rk9SR2tj?=
- =?utf-8?B?Tm8rM0FKcmZ2RGg3VituRjZYV016M1IyV3YwVHNqT3pGRlViMzgvckNCYnd4?=
- =?utf-8?B?L0xLM241YnI4TFU3VlNob0psb0d5VUpWazBNQTlDNEF0VDMwMzdtbDA3K2p4?=
- =?utf-8?B?Z1c0YnRRYkRMaSsxR3l0MGZxNFY1NGRLREtMQWNlcFcwV1pKQnhuR3N1bkRZ?=
- =?utf-8?B?ZVp3TDdmdVhvclUzM1F4T0cvNTNJSnl5ZXRRcmhlVzRoZEVpWWhLOWl2a3ZT?=
- =?utf-8?B?MTU4ZnRsMk5NM2RQUTlrbnkvL0RlMUNMQjVIdXlrY3BvSmhWeVJVSUNDV1Aw?=
- =?utf-8?B?YzF3MzNSYU5hNTV3K2t3NTJ3WUlqWWY3N0E0L1ZjeGZtMWptYlJWR0cwZDVw?=
- =?utf-8?B?VlZCQ1g4ZWM0VHpTUVI0dENVMU03R0VXVHNYVFhzb3JOdHJzZGFocU1POE5H?=
- =?utf-8?B?YUdLTmdhWkJOTGhxc2c1VW5BVkdCYmw4WDFaZml0eFdHRkw4TVQ0eEx6eXh3?=
- =?utf-8?B?QlhQT3RjbVNCckRIbUQvK2JaTmNsaFBjSm9PZFJzbUU3eFUwKzlFNm80cXZR?=
- =?utf-8?B?R3ZOMmJVYWN3NjI0TlQ1N21ySlBJR3NQSU9JUEI2THd3VkhqN2ZXcXVLZzlI?=
- =?utf-8?B?Q0Z5cTVzMTBKSWlrbjk0a01vTVZJcUNnRy82bmVkVFVkejRpSm1ndnNhUUZN?=
- =?utf-8?B?NnNsWXBGSGluU3dNaWwrU3dxdnZMSWVISUVlS2YwNDczbTBmQzRqMHAvYWND?=
- =?utf-8?B?RklJSU16Y0RNNlRyK1BNdVo5ZGpqOUdSdDVCMGt4NHZxME9kMnIzdkdvRXgr?=
- =?utf-8?B?QXZrNXdYVzk5M1dRVkpxRzFJNUs1STRMZi9zTVkrYzQrcUZoM0UwQ1BOSEV6?=
- =?utf-8?B?RWRYSll6TlZlcllPcXgzSWtpYU9tSERqYzFyV3ZmVUFqb2NLZ2Y3eFRyVnZP?=
- =?utf-8?B?WWs0dk9HdHpBNzVzU2p2cUxwZ0pES2NkN0hWZ2liK2p0T1ZkeCs0QVZOTS9r?=
- =?utf-8?B?ekhiSHJGS1pKK3Z3a0dCaVNxbEd6MHpYN1FlSmFsVEZOV0JHc1dTazRIYzRS?=
- =?utf-8?B?TU43dEx0dEYrMVR2RTlUWkQ1Tk9adDh0UEhFUldseVJoMEN6VUdjcVlhNlVp?=
- =?utf-8?B?UE5zZW9CT2hkSVZyOXRkV3dyMnFGY2xEWkRuS0lhbnZoWCtVVHVnam5mRVdv?=
- =?utf-8?B?TmJmeXFvZ0hmdUpXMmo3ZWRUNTFXMjJQbUNXQ09XRUVYejhzeEJHVFNEeU90?=
- =?utf-8?B?Mk9Cc1pEOHFRQndGUVVDQXprVHRVYUNYMXUvOUpCYUxLaXNoaUpOc2Y3Slhv?=
- =?utf-8?B?VWVqc1gxOWEvQTBaRCtSMktPd203Zlk2NkxRMmFUSVg1RzJoRVNKTWV4SHZy?=
- =?utf-8?B?dFpxWEpRc2RMSzJmc0oxMENwMkZaNUZ3MTAwVllvOEsrSmNmUHQ2U1Z1Y0Rq?=
- =?utf-8?B?dVlVU0lEc01iWUZhd1FLVGl2RmlpQXcyOUNwTGRwYWxBODRPMmdOUzBiekJu?=
- =?utf-8?B?MVFyY2puUys4LzVBYUhETVdGY3NyQXRpL20wcVp2WkduazVVSVFJc2V3PT0=?=
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?NzdJdktwajIzazRuU2lIcjB5SFNJRkphY1ZvOHpjc2VuUC9ET2p4SG5SRCsz?=
+ =?utf-8?B?eXZZVXdFSkRqWVBmUUFJbkNLcTBnQnI1dk50R29UNDBkcDJqL1VsejhYdWJk?=
+ =?utf-8?B?eGN3Zk1jcnlURjVCNE5OeWhWU3lZVStaV3Nja2dEUEFMTldjSm5TZHFrN0tQ?=
+ =?utf-8?B?dVdVTFdCNndORnpzRU8vMEhJWGdKa0VvWHV3bmxRYUtWYkwvL2NJRkhqdTI5?=
+ =?utf-8?B?bkZYNVdLRTRjRGRnd2x2TkN1RlN3L1dYajJTcWdPOXNiLzA3YzVjaVRPcjNC?=
+ =?utf-8?B?d1V6TCtWZW8wRURwWjN2RUdJSUhPZGkxSHpLeTFPcW1ZZXlTRzI5MTdnallo?=
+ =?utf-8?B?RnJmakpOd0VFeUNnV2s1V284S3A4TFdwSkNDUERBTmdKYUlackN4L1lmSDNs?=
+ =?utf-8?B?RXMzTEJ2SjZOZ0loKzlRWDZFSkNDMFRNN3lPSHN6TzBvRnh6anE4bGdXOXdT?=
+ =?utf-8?B?ZHIwQzhvTjdOSUh5L3NrNHNoZTBZZWV2Z1F4Y09hSmNXLzUrV0JVRlZ4SVhn?=
+ =?utf-8?B?QkM5TWZmOWFodXVkUmtPeUhZeEhWZFZWY2EvRTZWTWZpWkY1NjZZbXlYdmd3?=
+ =?utf-8?B?MmNaRm4zaTd6ZHhSMVpOQWdQcDlwV283T0lFTHRVaHp5b1g4Sm40aUNtVnBT?=
+ =?utf-8?B?YmcydHhhT05GMDNhdCtKWnBuMnh6SnF2ckxFWnJMSGtrK1hOZkRRSTFlK3kv?=
+ =?utf-8?B?dzZSemEwYVV6VG5seVFKS1lja2ltUzd4UXl0Q0lDVW5WekREL2dDRUJNc2RZ?=
+ =?utf-8?B?N3Rwb29xejBsa3ZHVktLRkNhd3JORFN0YThKYkp0ZE5iL2tPeFJVNUtINXhq?=
+ =?utf-8?B?by9JWjVHU2Zab0JGcXl1MUdjMmhBV1RLY055dm9HQXc1TWc1UHJaV0ZlbGZX?=
+ =?utf-8?B?QmhoVTZJeXVXTlI2SUdQY1c2ZWZ3ZGZBekhNc2lyRU5TTzluKzV5VmJxWjJl?=
+ =?utf-8?B?eUNyZ1Y3N0RtVjFTckxWUGY1UHNRR1pSSHc5allEZC9vRnJHcDAxd1dycmc2?=
+ =?utf-8?B?Z1FEK2R3dnkxZWhTcGg5eGRsY1dPUEE2djE0MGZQUHFLeWFDUmk0dkFDU1pq?=
+ =?utf-8?B?VjZlRmlPOE9pelVUc2hFOXdEOFplYnVmQUFUTDBCbWJXbUxCbmJxVUhZUVUy?=
+ =?utf-8?B?TEJYTXZBb0FnQVZNV09SUHRPYTFCd2xIc1VkUCszZHNiaFBic3MvZzkrU0cv?=
+ =?utf-8?B?UE5vQ1hxVGVpemN1YzRzUEJzbmlXcklRYzhRSlpnU0E5TDNSV1k3Y0RSNmR6?=
+ =?utf-8?B?Mzl6K1JkM3JwV1MvM2s1RkkvTXVqYWhscXhzcTRLSUM5eUNJcU9aQU02NFVM?=
+ =?utf-8?B?U3JHOVdWdVNFaGVxSWZWRCtVMUxCV3NZbzB6aFZkNDA3dDlNbjBsQkFhNHFr?=
+ =?utf-8?B?S2hZVjlmUlJoZ3F5MFEyUEE4VXhUVWtVZDNjaXlsVkZ5VTBXeWQxYzc1ZzRL?=
+ =?utf-8?B?bjVLM2RITGtuQ1RtSlhwRDB5ZXRIMHVzdGlVa3pKdjZzNWd5dHJPdDdCS2JJ?=
+ =?utf-8?B?M2Z4NXc1cVFMcnBqOGxOTWlRQ1EyQkNVd2dFbkxmREVmMU1kNW1hQ0JHMXBa?=
+ =?utf-8?B?aitJbXROaCtIQ2FnWWJSUHdnS0NJNUZqbmVOaDVod3YrTU5lUkk2NVVTNmZx?=
+ =?utf-8?B?dXE0eFJWNlZ1MUo0UDlkTlVyMnBHZXprdlpqSEs4eGtuVjlLcHltVU5VQ3Zz?=
+ =?utf-8?B?YlJOUHBvUHRSSGZobnVpVER3aUgxMENCSlJpWE1TNXlaaVdaUlUrK3lBPT0=?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB5667.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aGF1ZEtjMnhxaHpGTUQ5dzZlSjZ2aXJmUDU5SEF1WEtPMWkvTGMvalk5UndY?=
- =?utf-8?B?ZmNCeVdtbnFFaTZJY25zNXZJbnJFWmhYVWxiVXdrbnZ4YkxuckQzWEtyVEVr?=
- =?utf-8?B?V2NnM2V1UVlHYjNrZEUvQUZsb0tqNmdXUngzTFpvckNHeC9wMktMWXRPWnUy?=
- =?utf-8?B?TFlPdHhwV2tsa053NTkveXZIS05xOUt5VTZCUUNaWTlYbVI3VDVqc1VzTHBy?=
- =?utf-8?B?MUFNRHRzOWlxclgwUmdtMzJmNkVEUElLUXdYUU5SWXRMV3MxblBFeVh2dzgy?=
- =?utf-8?B?Tkc1SHN4TkhORUhaYlV5K0NqQjY4SnJhZUhlc2lCS2RxMWY4aDZYRlZUN05l?=
- =?utf-8?B?RUgyNkR1TkJLdzZ0VjFBVTR2c3o2QlNWczdCanVZTGM3ZHRObTBib0NYMzZD?=
- =?utf-8?B?VUI2bXNiOVBrNTh1RmlYYk1INzlUdHVQN1IrUTMxV0doRXRFSUJ0cDc1VVhk?=
- =?utf-8?B?NnpXOUZ4M2d6NXZwdmNnWG81b3crWXB5U0RCTHNJVDgwR1lka2dRU1hZVXNC?=
- =?utf-8?B?S0pkdnpHQ0RkSmdIa3RpeVljNU54eWJpSE9FbHZreUlpYlU5YytTaW9CMk1V?=
- =?utf-8?B?L3NlcmxIZURMbTlHdDdFckRabWh0VXdLY1lRN0luNElzblhQV3BTak9qNytJ?=
- =?utf-8?B?aU5SMnVTS1JVMGRhVjVlZG9jMUwrbHRaUGZBNEk0bmhEdHdCa2hudVFzN0xM?=
- =?utf-8?B?bnZpM0FPdWFJRzZEME9VellHTFdTK0tTalcyYUU4YUxpNVVaaStXY3NrYkNo?=
- =?utf-8?B?bzBQY0xuMmZoSDA1Q1diUjdTU2RqMHlkNGVHenVDUkZVbUFTdjhWZGo5d09F?=
- =?utf-8?B?cnVVQ2EyVk9EU1JmVGx5Tit2WUFpQU5MWUpuVDFiRFhRdkxRMTU1RXp2d3dw?=
- =?utf-8?B?U3dUamUxc1BHRis1NEFBODJlTktVUmh6dXErb1BheU90T0Q5aDh0Yk1pdy9k?=
- =?utf-8?B?azNLNVlFWklTOE5sWXlUa29IWThVSlFjZ0tIeFEzWkx5dmJqcllyK3hUY0dP?=
- =?utf-8?B?Y21nc1RkbTJoajJsTWdLZ2UxbVZIdFpMaHdFTkgyTUdyNjRtdkFFeU9kc3or?=
- =?utf-8?B?SG4vTDRvV3dZQVk2MjdrcXJtNCtPUWNua2tJTnc4WXEwb2lEMmV5YXVNS0RL?=
- =?utf-8?B?b056M1dpNGV0UFEzOS9WRkNKU0ZQbU5BZmJRdlQ4T0VRV1l3blhKR2taVnow?=
- =?utf-8?B?MGcyK2JTdzFaTUs1aVRkK0taUzIvWkU0b3Qwbng0aG5MVERZU3VWTjNneEN4?=
- =?utf-8?B?MkFBNDkzM0JNUmxheVc5WXE1T1hLek8zRUpkYncvaDh0blFIQ3Jva1lWdkh2?=
- =?utf-8?B?d1krd3I0Uy80RVVoelpxamNiS1doamFKKytNZmNVR2UxMDhjVVJUTjdVZWhp?=
- =?utf-8?B?N2p4dUQ2N05BRnp2QnNuN3o0RWkvT0o5R0Rla0R5aHhhU2h6aE80WlZTWjJu?=
- =?utf-8?B?VDlpTTlSSlA4TDJUWUxFbENHUHhJa0FkUDVNNXVzREI2NE93UGhad1Q0bzVs?=
- =?utf-8?B?SURMN3phMXljYlJZaytEbmFzbTRJOFlpYzh3U1FRYjNsUTVaNW9XakRQZ2hB?=
- =?utf-8?B?UXFLbnBucjJnZTF6MGt1UmprakFRWitqL0ErQ2oyM1RIaXVTV1d3dnowTC9M?=
- =?utf-8?B?QUExMWV5SlRON1hNL3FKTlJSNUhQSVFjNUZIKzIwQURKOTVKOFA4NXJVak1x?=
- =?utf-8?B?UmE1dVNlOGZDWUk1S1BKaUc4djVBZ1QxdUdzSTZGWXhCeXJsVzZKZzNMbGNi?=
- =?utf-8?B?c1VybXJqOGFlSWlobk1BSzNDZ09HdkpldC80SlJLL09lQlVSc0dUWnY5ekxt?=
- =?utf-8?B?dlFsMlNjb0NkSDl5RGE5aEZpY2tIblhHSVNKd0h1cUY5TExFK1kwVHQyVGlK?=
- =?utf-8?B?dDZrQ2xFQytoZmJzUkxXQ0hPNmxScHlWSm80UjduS0hLaVc4NFlhV0ZZUDhu?=
- =?utf-8?B?dC9JSHErNm03UWVjeVlzNXQycjVuYWcrNnF4SmpWUlJTbGtOb0JRY2xsTUNE?=
- =?utf-8?B?UUZHVExSQmJaU1ZFT21TWk1NTkpmTWNJVXRYUWtYeW9NTnJua2ZVc2VpZUNr?=
- =?utf-8?B?U2RlZU9GaXhFMXYyMzQvSlE5SUdnOVFrak54dVJKR28yeHlLVjU5aTZqVG42?=
- =?utf-8?Q?cnTvULMz3OZs9iAMguA474fiN?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RnNhODFub1M4QitsNysrWkpGTll1VmxPc1N6OHMwY2VQSmh5dXMzMm9WOEo2?=
+ =?utf-8?B?TlFSaXBDMjBzblhKYlhPV2ZwRlJiUXFIdmdmVFhTUng0eFl3N3RVVFYzeEZW?=
+ =?utf-8?B?ZUprc2syNDNKa25KSy9tS1Z4SDNsdDlUVzJIcHE1eW1oK2pLU2NsTmtZOW9Z?=
+ =?utf-8?B?K2dWZlpuTHNSaU1WL3dzV1NEVVBuWVMxdXN2WDVyNG00TXhOMzRBb21KZVBl?=
+ =?utf-8?B?OEVWeUo5U1RFTyt5MjBIU3VPQ2dMUXg0Z2VqbDc1dFY1ZnB0cGltVHRXdjNx?=
+ =?utf-8?B?M0hLcThNWWw0Q1gyWXVwaW5XQXZkRFE4ZVZFOFh4bHZzOVhqWWo0dG1tNFhh?=
+ =?utf-8?B?SmlyY0NDZTljMGM4UmlBbS83ejZVR3NWTnFDVm5DRmJhMU1lY3RmbUNaQmFn?=
+ =?utf-8?B?bFpWdnFXVXJQZHRsSVA4UGVsam5nTmhkc01ZK1c5WUJFQ3M2ckRkR2JTR09m?=
+ =?utf-8?B?WjZkMzlXZmphYkNHay9hT3oxa3lVUldTT2tOOUpPOEFWQllVZTNFSjl2ejV4?=
+ =?utf-8?B?ZnNrR1JlR1R5c3d2K3hXQXNVQ204akFOVlVtTDNwNmZ5NTFHVmFUdDQ2UWEv?=
+ =?utf-8?B?d0wraUF4K2ZCYUd5eDBOaC9Vd2x5VEVMdkhMK2xhejdqcnlhb1d0a1B0dzUy?=
+ =?utf-8?B?K0Q5QW1CcEU5RXdFSCttbWZ3ZUR1VFRJbG54aGVNR1lpSHpiUExEbFBCQ2ZK?=
+ =?utf-8?B?R2NRVlZubEtWYTBzL1l3d1JENVg5Zmk2MHAxL240SDlLQzRvYzRScUxLd0Ny?=
+ =?utf-8?B?QlN3d3ExaDRSek0zYVQxRS84bDI1SFF1M2orYjJUN2dPbW03ZzJJRGlsR2t5?=
+ =?utf-8?B?VDd6MGI0TmY5NG82K1hYamZ1YVNrOEVsSmJBdjFTNXFzZ3N5L2xmeEVUaldp?=
+ =?utf-8?B?K3pZcnJpOHhlWDZwWXl1WVBSZXRNZGtnMWhsSEN5YnlBcEZDWFFLQVdDbnlo?=
+ =?utf-8?B?UGo0Tk94KzcxUlJzeVpRZXFuZWxYMmJMRnEvTXA2RzByclpoaERUdTdhQlpB?=
+ =?utf-8?B?VlZndVJsZVNhMHBlaWxYUDVITUhQaGpXVG04Tk1KZFhCQWZDb3ZDUmVLUjFG?=
+ =?utf-8?B?Ni9rN2dNcW1RRk5oMWhLczl1cHA1N3ZVM3ZYQTdsTTZML2NvL1RCeUlwVmRE?=
+ =?utf-8?B?TnFWSndFL1puQ2ZBNk1VVUpSbS9JK3V4L2F5RTRpUnRMYUNwY3p4czZkeFdn?=
+ =?utf-8?B?ejl6aWtFbktTdVhZTHR5cVIwVTgvblNia1BCdGh1TndhOXRJU0ZBb0ptQnYz?=
+ =?utf-8?B?bkNrRmROSjRNemlMOVZ0aWtaQThTSVFGeUpDN1JhZUhkQ1RIZ0pvR3FoRkVu?=
+ =?utf-8?B?MDBqM1grUXJQdW9hUDlhckxsMnhubGEvMThjaWZjUUViQ251Vm8yL25waWVp?=
+ =?utf-8?B?VWRISEtGcDdJUTkwbnBFUUJsVDMvZks3cFN4ZzZVcTg3b1hHSEZUNFVGSTZP?=
+ =?utf-8?B?ZVJ6cW5NUVc5WEg4U0tkTWIrQ1ZSMzhsdzdxWU55cjF6bDBqek5PQXdoM1N3?=
+ =?utf-8?B?QTh2YnNSRlBBUDRBbSsvNmJIbHJHRElmNTkvM2VhRi90YTNqSGxMVXNCNEtU?=
+ =?utf-8?B?UnI3aWNKem4vQTRhZkc5SEVHcWRxckFYRkJQOHZrUlg0TktSd1MvQnpOYXVH?=
+ =?utf-8?B?dzR0SldqbnNQU01HdXIybXF3T0hxMVplZkcvaTZHeFQxVTJnSmppTDhiSi9D?=
+ =?utf-8?B?U3oza3QxZndGMGU3YURWS2hydGl4Tk1vREFDSkd3N0lITXFHSzRMdGJkUXVR?=
+ =?utf-8?B?YTkvaytKQ21NSnZyamFHbjcrMktpa0hEb0MxcXNsam1NRERQcUo2d05XeDVW?=
+ =?utf-8?B?VGtWZ29OcC9FR2xXcWdML2VXT0h0alUyeHJRUXJkRXhrYldJMDh5V0hNNjJq?=
+ =?utf-8?B?RC9PUHNNeUZWVUtzbFVraTI1aHd1T0NndXRRUVZHS3VpS3VLbTBOek1TMCs4?=
+ =?utf-8?B?eWt0SXJ3ZWVHb2w3bi9yOVVzVXdVUjRWOWt3azJweUpEdnAvb0VEQTRBeS91?=
+ =?utf-8?B?czBsNGdab1JvaXZvY2s2cUFCaWFSSUxyU0Y4TXN1SVhyczIwMGh3Q3lzK1BD?=
+ =?utf-8?B?Qzl6TUNFeFpscDI1cjJjbjlzRENrSGJlY2RoMjI4ck1tRnlDdDAvY0F4c2tX?=
+ =?utf-8?Q?b5EW24KDKWQ69qBWrJDoLbjhs?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f4896e8f-40d6-4241-43e4-08dced001b94
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB5667.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a2b36eae-0669-4b8a-36bb-08dced1b5ac8
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2024 09:59:50.0930 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2024 13:14:52.4678 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9GCeh/a9xGCkopXLaEpaXROR0xOctOZKNYv/sRKapLE1dWA1dqcCjkqg9yTXMI3RWEnK/u37GeHTYCB6vDVnnA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6644
+X-MS-Exchange-CrossTenant-UserPrincipalName: m+MbVDp89umwWnpqr/7g4P7JCDGqkq23XQZjbkAcqU8wb4r/NaoHkJs7BKLi4JkynsPtidZvo1aN+vh4r8vzhg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8825
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,258 +165,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------ZlG4LORQoPp90nBqCNOzGz7N
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+On 10/15/2024 03:17, Wayne Lin wrote:
+> From: Aurabindo Pillai <aurabindo.pillai@amd.com>
+> 
+> [Why&How]
+> vblank immediate disable currently does not work for all asics. On
+> DCN401, the vblank interrupts never stop coming, and hence we never
+> get a chance to trigger idle optimizations.
+> 
+> Add a workaround to enable immediate disable only on APUs for now. This
+> adds a 2-frame delay for triggering idle optimization, which is a
+> negligible overhead.
+> 
+> Fixes: db11e20a1144 ("drm/amd/display: use a more lax vblank enable policy for older ASICs")
+> Fixes: 6dfb3a42a914 ("drm/amd/display: use a more lax vblank enable policy for DCN35+")
+> 
+> Cc: Mario Limonciello <mario.limonciello@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+> Reviewed-by: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
+> Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+> Signed-off-by: Wayne Lin <wayne.lin@amd.com>
+> ---
+>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index a4882b16ace2..6ea54eb5d68d 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -8379,7 +8379,8 @@ static void manage_dm_interrupts(struct amdgpu_device *adev,
+>   		if (amdgpu_ip_version(adev, DCE_HWIP, 0) <
+>   		    IP_VERSION(3, 5, 0) ||
+>   		    acrtc_state->stream->link->psr_settings.psr_version <
+> -		    DC_PSR_VERSION_UNSUPPORTED) {
+> +		    DC_PSR_VERSION_UNSUPPORTED ||
+> +		    !(adev->flags & AMD_IS_APU)) {
+>   			timing = &acrtc_state->stream->timing;
+>   
+>   			/* at least 2 frames */
 
-Hello Alex,
+Considering the regression raised [1] is on an APU too I wonder if this 
+is really the best workaround to approach to this issue.
 
-On 14/10/2024 22:29, Deucher, Alexander wrote:
-> [AMD Official Use Only - AMD Internal Distribution Only]
->
->> -----Original Message-----
->> From: Sharma, Shashank<Shashank.Sharma@amd.com>
->> Sent: Thursday, October 10, 2024 2:08 PM
->> To:amd-gfx@lists.freedesktop.org
->> Cc: Somalapuram, Amaranath<Amaranath.Somalapuram@amd.com>; Deucher,
->> Alexander<Alexander.Deucher@amd.com>; Koenig, Christian
->> <Christian.Koenig@amd.com>; Yadav, Arvind<Arvind.Yadav@amd.com>; Sharma,
->> Shashank<Shashank.Sharma@amd.com>
->> Subject: [PATCH] drm/amdgpu: enable userqueue support for GFX12
->>
->> From: Somalapuram Amaranath<Amaranath.Somalapuram@amd.com>
->>
->> This patch enables Usermode queue support across GFX, Compute and SDMA IPs
->> on GFX12/SDMA7. It typically reuses Navi3X userqueue IP functions to create and
->> destroy MQDs.
-> I would like to make this more explicit.  In mes_v11_0_userqueue.c, I would suggest splitting out any non-gfx11 specific code into some new helpers in mes_userqueue.c.  E.g.,
->
-> mes_v11_0_map_gtt_bo_to_gart() -> mes_userq_map_gtt_bo_to_gart()
-> mes_v11_0_create_wptr_mapping() -> mes_userq_create_wptr_mapping()
-> mes_v11_0_userq_map() -> mes_userq_map()
-> mes_v11_0_userq_unmap() -> mes_userq_unmap()
-> mes_v11_0_userq_mqd_destroy() -> mes_userq_mqd_destroy()
-
-Initial patch sets had all these functions named similar to 'mes_userq_* 
-' only, but later you recommended that we should have mention of _v11_0 
-to indicate the IP specific stuff, as there might be IP specific way of 
-mapping/unmapping/creating and destroying the queues. So with this 
-comment we might be going back to the same version.
-
-As of now, v12 UQ was tested using the the same methods as V11 UQs, and 
-found it functional. We might need more information before taking this 
-step.
-
-- Shashank
-
->
-> However, mes_v11_userq_create_ctx_space() uses the v11 mqd structures which may not match the v12 structures.  We should add a v12 implementation for any functions that use the v12 structures.
-> Alex
->
->> Cc: Alex Deucher<alexander.deucher@amd.com>
->> Cc: Christian Koenig<christian.koenig@amd.com>
->> Cc: Arvind Yadav<arvind.yadav@amd.com>
->> Signed-off-by: Somalapuram Amaranath<Amaranath.Somalapuram@amd.com>
->> Signed-off-by: Shashank Sharma<shashank.sharma@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c | 5 +++++
->> drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c | 6 ++++++
->>   2 files changed, 11 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
->> b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
->> index 9fec28d8a5fc..d511996c374d 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
->> @@ -46,6 +46,7 @@
->>   #include "gfx_v12_0.h"
->>   #include "nbif_v6_3_1.h"
->>   #include "mes_v12_0.h"
->> +#include "mes_v11_0_userqueue.h"
->>
->>   #define GFX12_NUM_GFX_RINGS  1
->>   #define GFX12_MEC_HPD_SIZE   2048
->> @@ -1335,6 +1336,10 @@ static int gfx_v12_0_sw_init(struct amdgpu_ip_block
->> *ip_block)
->>                adev->gfx.mec.num_mec = 2;
->>                adev->gfx.mec.num_pipe_per_mec = 2;
->>                adev->gfx.mec.num_queue_per_pipe = 4;
->> +#ifdef CONFIG_DRM_AMDGPU_NAVI3X_USERQ
->> +             adev->userq_funcs[AMDGPU_HW_IP_GFX] =
->> &userq_mes_v11_0_funcs;
->> +             adev->userq_funcs[AMDGPU_HW_IP_COMPUTE] =
->> &userq_mes_v11_0_funcs;
->> +#endif
->>                break;
->>        default:
->>                adev->gfx.me.num_me = 1;
->> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
->> b/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
->> index 24f24974ac1d..badcf38bb8b6 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
->> @@ -42,6 +42,7 @@
->>   #include "sdma_common.h"
->>   #include "sdma_v7_0.h"
->>   #include "v12_structs.h"
->> +#include "mes_v11_0_userqueue.h"
->>
->>   MODULE_FIRMWARE("amdgpu/sdma_7_0_0.bin");
->>   MODULE_FIRMWARE("amdgpu/sdma_7_0_1.bin");
->> @@ -1317,6 +1318,11 @@ static int sdma_v7_0_sw_init(struct amdgpu_ip_block
->> *ip_block)
->>        else
->>                DRM_ERROR("Failed to allocated memory for SDMA IP Dump\n");
->>
->> +#ifdef CONFIG_DRM_AMDGPU_NAVI3X_USERQ
->> +     adev->userq_funcs[AMDGPU_HW_IP_DMA] = &userq_mes_v11_0_funcs;
->> #endif
->> +
->> +
->>        return r;
->>   }
->>
->> --
->> 2.46.2
---------------ZlG4LORQoPp90nBqCNOzGz7N
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p>Hello Alex, <br>
-    </p>
-    <div class="moz-cite-prefix">On 14/10/2024 22:29, Deucher, Alexander
-      wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:BL1PR12MB5144EC6671DD09A36B0BFD0CF7442@BL1PR12MB5144.namprd12.prod.outlook.com">
-      <pre class="moz-quote-pre" wrap="">[AMD Official Use Only - AMD Internal Distribution Only]
-
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">-----Original Message-----
-From: Sharma, Shashank <a class="moz-txt-link-rfc2396E" href="mailto:Shashank.Sharma@amd.com">&lt;Shashank.Sharma@amd.com&gt;</a>
-Sent: Thursday, October 10, 2024 2:08 PM
-To: <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>
-Cc: Somalapuram, Amaranath <a class="moz-txt-link-rfc2396E" href="mailto:Amaranath.Somalapuram@amd.com">&lt;Amaranath.Somalapuram@amd.com&gt;</a>; Deucher,
-Alexander <a class="moz-txt-link-rfc2396E" href="mailto:Alexander.Deucher@amd.com">&lt;Alexander.Deucher@amd.com&gt;</a>; Koenig, Christian
-<a class="moz-txt-link-rfc2396E" href="mailto:Christian.Koenig@amd.com">&lt;Christian.Koenig@amd.com&gt;</a>; Yadav, Arvind <a class="moz-txt-link-rfc2396E" href="mailto:Arvind.Yadav@amd.com">&lt;Arvind.Yadav@amd.com&gt;</a>; Sharma,
-Shashank <a class="moz-txt-link-rfc2396E" href="mailto:Shashank.Sharma@amd.com">&lt;Shashank.Sharma@amd.com&gt;</a>
-Subject: [PATCH] drm/amdgpu: enable userqueue support for GFX12
-
-From: Somalapuram Amaranath <a class="moz-txt-link-rfc2396E" href="mailto:Amaranath.Somalapuram@amd.com">&lt;Amaranath.Somalapuram@amd.com&gt;</a>
-
-This patch enables Usermode queue support across GFX, Compute and SDMA IPs
-on GFX12/SDMA7. It typically reuses Navi3X userqueue IP functions to create and
-destroy MQDs.
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-I would like to make this more explicit.  In mes_v11_0_userqueue.c, I would suggest splitting out any non-gfx11 specific code into some new helpers in mes_userqueue.c.  E.g.,
-
-mes_v11_0_map_gtt_bo_to_gart() -&gt; mes_userq_map_gtt_bo_to_gart()
-mes_v11_0_create_wptr_mapping() -&gt; mes_userq_create_wptr_mapping()
-mes_v11_0_userq_map() -&gt; mes_userq_map()
-mes_v11_0_userq_unmap() -&gt; mes_userq_unmap()
-mes_v11_0_userq_mqd_destroy() -&gt; mes_userq_mqd_destroy()</pre>
-    </blockquote>
-    <p>Initial patch sets had all these functions named similar to '<span style="white-space: pre-wrap">mes_userq_</span>* ' only, but later
-      you recommended that we should have mention of _v11_0 to indicate
-      the IP specific stuff, as there might be IP specific way of
-      mapping/unmapping/creating and destroying the queues. So with this
-      comment we might be going back to the same version.&nbsp;</p>
-    <p>As of now, v12 UQ was tested using the the same methods as V11
-      UQs, and found it functional. We might need more information
-      before taking this step. <br>
-    </p>
-    <p>- Shashank<br>
-    </p>
-    <blockquote type="cite" cite="mid:BL1PR12MB5144EC6671DD09A36B0BFD0CF7442@BL1PR12MB5144.namprd12.prod.outlook.com">
-      <pre class="moz-quote-pre" wrap="">
-
-However, mes_v11_userq_create_ctx_space() uses the v11 mqd structures which may not match the v12 structures.  We should add a v12 implementation for any functions that use the v12 structures.
-</pre>
-    </blockquote>
-    <blockquote type="cite" cite="mid:BL1PR12MB5144EC6671DD09A36B0BFD0CF7442@BL1PR12MB5144.namprd12.prod.outlook.com">
-      <pre class="moz-quote-pre" wrap="">
-Alex
-
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">
-Cc: Alex Deucher <a class="moz-txt-link-rfc2396E" href="mailto:alexander.deucher@amd.com">&lt;alexander.deucher@amd.com&gt;</a>
-Cc: Christian Koenig <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig@amd.com">&lt;christian.koenig@amd.com&gt;</a>
-Cc: Arvind Yadav <a class="moz-txt-link-rfc2396E" href="mailto:arvind.yadav@amd.com">&lt;arvind.yadav@amd.com&gt;</a>
-Signed-off-by: Somalapuram Amaranath <a class="moz-txt-link-rfc2396E" href="mailto:Amaranath.Somalapuram@amd.com">&lt;Amaranath.Somalapuram@amd.com&gt;</a>
-Signed-off-by: Shashank Sharma <a class="moz-txt-link-rfc2396E" href="mailto:shashank.sharma@amd.com">&lt;shashank.sharma@amd.com&gt;</a>
----
- drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c | 5 +++++
-drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c | 6 ++++++
- 2 files changed, 11 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-index 9fec28d8a5fc..d511996c374d 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-@@ -46,6 +46,7 @@
- #include &quot;gfx_v12_0.h&quot;
- #include &quot;nbif_v6_3_1.h&quot;
- #include &quot;mes_v12_0.h&quot;
-+#include &quot;mes_v11_0_userqueue.h&quot;
-
- #define GFX12_NUM_GFX_RINGS  1
- #define GFX12_MEC_HPD_SIZE   2048
-@@ -1335,6 +1336,10 @@ static int gfx_v12_0_sw_init(struct amdgpu_ip_block
-*ip_block)
-              adev-&gt;gfx.mec.num_mec = 2;
-              adev-&gt;gfx.mec.num_pipe_per_mec = 2;
-              adev-&gt;gfx.mec.num_queue_per_pipe = 4;
-+#ifdef CONFIG_DRM_AMDGPU_NAVI3X_USERQ
-+             adev-&gt;userq_funcs[AMDGPU_HW_IP_GFX] =
-&amp;userq_mes_v11_0_funcs;
-+             adev-&gt;userq_funcs[AMDGPU_HW_IP_COMPUTE] =
-&amp;userq_mes_v11_0_funcs;
-+#endif
-              break;
-      default:
-              adev-&gt;gfx.me.num_me = 1;
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
-b/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
-index 24f24974ac1d..badcf38bb8b6 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
-@@ -42,6 +42,7 @@
- #include &quot;sdma_common.h&quot;
- #include &quot;sdma_v7_0.h&quot;
- #include &quot;v12_structs.h&quot;
-+#include &quot;mes_v11_0_userqueue.h&quot;
-
- MODULE_FIRMWARE(&quot;amdgpu/sdma_7_0_0.bin&quot;);
- MODULE_FIRMWARE(&quot;amdgpu/sdma_7_0_1.bin&quot;);
-@@ -1317,6 +1318,11 @@ static int sdma_v7_0_sw_init(struct amdgpu_ip_block
-*ip_block)
-      else
-              DRM_ERROR(&quot;Failed to allocated memory for SDMA IP Dump\n&quot;);
-
-+#ifdef CONFIG_DRM_AMDGPU_NAVI3X_USERQ
-+     adev-&gt;userq_funcs[AMDGPU_HW_IP_DMA] = &amp;userq_mes_v11_0_funcs;
-#endif
-+
-+
-      return r;
- }
-
---
-2.46.2
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-</pre>
-    </blockquote>
-  </body>
-</html>
-
---------------ZlG4LORQoPp90nBqCNOzGz7N--
+https://lore.kernel.org/amd-gfx/9b80e957-f20a-4bd7-a40b-2b5f1decf5a4@johnrowley.me/
