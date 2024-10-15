@@ -4,87 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 382E2CFC274
-	for <amd-gfx@archiver.kernel.org>; Tue, 15 Oct 2024 08:08:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 282BCCFC276
+	for <amd-gfx@archiver.kernel.org>; Tue, 15 Oct 2024 08:08:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E052B10E52F;
-	Tue, 15 Oct 2024 08:08:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C55110E531;
+	Tue, 15 Oct 2024 08:08:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=xenosoft.de header.i=@xenosoft.de header.b="iSO2W6VF";
-	dkim=permerror (0-bit key) header.d=xenosoft.de header.i=@xenosoft.de header.b="ZQsNhQxD";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dYzx+t5/";
 	dkim-atps=neutral
-Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de
- [85.215.255.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 20F7210E296
- for <amd-gfx@lists.freedesktop.org>; Tue, 15 Oct 2024 03:56:22 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1728964576; cv=none;
- d=strato.com; s=strato-dkim-0002;
- b=S7OIMgRlV4Xrj3QADGuxnIDb8HtFVUbFmdB/VIOcNrVRiSXwgDhytFtulj9m/xsAso
- BAimUAvmje81PgA4Yk+CiyYZejz1rv4SZyQOnkb9K3b9L2tDwex7CLnY2cGtKTGbSGyN
- XzwlyCaOtaJWPdLHx+PkHVhONnn3I9+eZFS55iEylZHiqynAxW3JmZ7yVk/iwYZvtwk4
- 1o0U4337eTDUUgOka90P+nlPP4IvT1RODN1jPZc0ac+iANaNUa7j+4Mrb951hy8HtjaP
- BlmbMOBrppVBqyrfYMGjg+ITWiHSd7VzNiu7EIVMgQFR+m/e29CYEFQOeEcO26xvy+J9
- DfUQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1728964576;
- s=strato-dkim-0002; d=strato.com;
- h=In-Reply-To:References:Cc:To:From:Subject:Date:Message-ID:Cc:Date:
- From:Subject:Sender;
- bh=xSYQ6qR2YyPxkEpPkVlGgPT6KdWxjUxQdAsacrNmW3s=;
- b=RYSxsU6Ws0WBXPfKCtrJ3wXIXkgEAaqe4yimAtI5mFBqwOizOejuNsopR2p0Kh06dA
- f03uqM8NBYXZenIV8OxK7Nzx9fphI3UYa8zatilpF21TinrmC6ki8j1BggXbgQY39NkT
- W0DXxzDgVRh+z/vkO+p4RmLNmWUEsGKFBAYZOomIw3BaBibCO7XERr3zOpzLi0t0F2mG
- 9Q2PXzcFK5kuh8o79iCLFpbGY+z0eCCIXp8i0dTVZWwRW0EP2Yhx/8mXeZYykkH9hC7M
- hfL3rMmY7lfIxpmZtczF56ME2kgkvGXg7m5cGF5DQBwNl17kgqDEOuUaXXUCqGyEY9om
- +8og==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo02
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1728964576;
- s=strato-dkim-0002; d=xenosoft.de;
- h=In-Reply-To:References:Cc:To:From:Subject:Date:Message-ID:Cc:Date:
- From:Subject:Sender;
- bh=xSYQ6qR2YyPxkEpPkVlGgPT6KdWxjUxQdAsacrNmW3s=;
- b=iSO2W6VF/s/oTpKAYTUeEasemUzmR9ZDOvAuiXmgT24fawC5uHTAM4R68LFmuxrGSV
- GA+RbLdr68DT5WPqdb3F9vm+O34fMnSC5jppeDMLp2umU0bhNn5aL63Q2DjbblGmclUS
- rPCukvy0Ak442VYYQPr8J+dBf0sGdhv//Y6z+DmuPfls8VeyiKFMMmzMvJGsFCT+u1fo
- c56I0R84ICE2IfpP1wX9896ZRW8T/6ZwrpYgFzM+FQZL4dXpCZpY9C+giBgsd3Ti0fVI
- UM+xsC17rtnjRT+5KYQfdphnCN4wSm83oz5mrrIEnys4cNmgjVTIj19YhXb0ox8EYZ1v
- rweQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1728964576;
- s=strato-dkim-0003; d=xenosoft.de;
- h=In-Reply-To:References:Cc:To:From:Subject:Date:Message-ID:Cc:Date:
- From:Subject:Sender;
- bh=xSYQ6qR2YyPxkEpPkVlGgPT6KdWxjUxQdAsacrNmW3s=;
- b=ZQsNhQxDyQiOr7k3pN6/jusi3ECKbo1AGT5Wd1p6UI5ZyqVkQO5+hYO9h+f3PXc46r
- ShJLL/1V+qCbBbRQ+oCw==
-X-RZG-AUTH: ":L2QefEenb+UdBJSdRCXu93KJ1bmSGnhMdmOod1DhGN0rBVhd9dFr6KxrfO5Oh7V7Vpiws33FXnUI/9PuhTYBjMOp1+IsL3lZfXddq5k="
-Received: from [IPV6:2a01:599:104:61f9:6491:b2b5:9c5d:4894]
- by smtp.strato.de (RZmta 51.2.11 AUTH)
- with ESMTPSA id ea02d409F3uE0Yy
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Tue, 15 Oct 2024 05:56:14 +0200 (CEST)
-Message-ID: <1115cce7-cfdc-4c5b-b017-69cd32425650@xenosoft.de>
-Date: Tue, 15 Oct 2024 05:57:18 +0200
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
+ [209.85.221.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E0BA110E143
+ for <amd-gfx@lists.freedesktop.org>; Tue, 15 Oct 2024 00:30:18 +0000 (UTC)
+Received: by mail-wr1-f52.google.com with SMTP id
+ ffacd0b85a97d-37d3ecad390so3742671f8f.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 14 Oct 2024 17:30:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1728952217; x=1729557017; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=WqzwA+or3NqGNBho9kDhIYHCDYygL6ZXy4nRRa0QQ3k=;
+ b=dYzx+t5/Y+sUATSHLp1S74rTrY0vM4IhlxOsL5Pgpm/xTN2MU/VQ6Yo45/8YgAJQI+
+ C8IwmnGDCZ24d3R3FmSXwmy6a5lu6VrnX5sXpHWczKpL9sCEARr8FnszACPAGZ6f03ZQ
+ etEJgmSjgDha6Yd1/PnZKgq0zI0jHsPp3P4ma+kT6vhv31LB9Qe8nhqhiDMuT3fwxv2d
+ HrCwiwRfPbiyVcxwpC8YQta7cagU+VtUhyJDsPZJYG3CDcPe/YwHRXGbL4h/Wivg7/A9
+ ImXhW6h7memwXHVAf4ip0AgFfXmH4duUjXrNHNPwVwRnWQDHjyXmDZBcVnActklXxZnY
+ CIlg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1728952217; x=1729557017;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=WqzwA+or3NqGNBho9kDhIYHCDYygL6ZXy4nRRa0QQ3k=;
+ b=T3vVI0XwjHevsADZIRcG5adWvRASMxj8FM3QCmwrcbc3HYbBqPKJB4RfgMSZi8243y
+ ATh/P8jo+PZOex1/36CS1sx80TUkSrxxA+xQRvuWUpYaBnqfJwpQqpE3VEAisaxFw14Y
+ R9ku6ybvONwEkHj4Qu9wOuXZTFsXAquHp4gRorbpQB1sLGW2kzloLj4FjGQGQXOdFtju
+ 6YxJvnMLNZA0ftVx0LRwdst5b+1XvfWE2cQ49RxHxuFgWOR928g7kfjBAYdMxxUyVc7K
+ Cmqy6nP4y8pwxBoTUGeyTqukkUUiVBmUz1s5k3qbzqGIfV12u2nPVb5SUTKGtOOAZMis
+ EkkA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXsrVzE8G2kA0AilPbM9SLWm+ogKf2CC9g1J6ykqAv37DJL0n4c9kwYlvyF4vAfI6H0EBx7DYxP@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxiQeyUAQzFCY/KgBCo7mg+qJ1aUcUFF6Uk7Ztx+TDiSBHLFZ1/
+ YqDcvrsD6dFQBNPFlC/JH4JGpt4gtpFu2vvw+zor6W3mfwQI5YNzznjOHSQTRtzhmLhry6A4Kbg
+ ms8SJPxJmd/0WWSqKPovRiYYrTnI=
+X-Google-Smtp-Source: AGHT+IFPAxDn9Ocl0LS03WxYc8aEQzGGOLCCAjLOCm3WRw4+Fkxt+cvbLLevHQD36JPExtOkdy+JI3CIpchS01moSbw=
+X-Received: by 2002:a5d:504e:0:b0:37c:ce3c:e15d with SMTP id
+ ffacd0b85a97d-37d551d9cb7mr9596165f8f.14.1728952217042; Mon, 14 Oct 2024
+ 17:30:17 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: [PATCHES] drm/radeon issues
-From: Christian Zigotzky <chzigotzky@xenosoft.de>
-To: Alex Deucher <alexdeucher@gmail.com>, ville.syrjala@linux.intel.com
-Cc: Jeff Johnson <quic_jjohnson@quicinc.com>, "R.T.Dickinson"
- <rtd@a-eon.com>, mad skateman <madskateman@gmail.com>,
- Darren Stevens <darren@stevens-zone.net>, hypexed@yahoo.com.au,
- linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
- Christian Zigotzky <info@xenosoft.de>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Hans de Goede <hdegoede@redhat.com>, Wu Hoi Pok <wuhoipok@gmail.com>,
- amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com
-References: <CADnq5_PUi_2+kDYX8R_eanNF4iYN79MdXJ_PLcQbZKi6e4S8tg@mail.gmail.com>
- <87F47F04-EBAC-48D6-AD0A-4BBE39DF43CE@xenosoft.de>
-In-Reply-To: <87F47F04-EBAC-48D6-AD0A-4BBE39DF43CE@xenosoft.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20240205211233.2601-1-mario.limonciello@amd.com>
+ <20241013213103.55357-1-stuart.a.hayhurst@gmail.com>
+ <MN0PR12MB6101BA1509A6D9B6338EC8E9E2442@MN0PR12MB6101.namprd12.prod.outlook.com>
+In-Reply-To: <MN0PR12MB6101BA1509A6D9B6338EC8E9E2442@MN0PR12MB6101.namprd12.prod.outlook.com>
+From: Stuart <stuart.a.hayhurst@gmail.com>
+Date: Tue, 15 Oct 2024 01:30:05 +0100
+Message-ID: <CALTg27nH4FfnRi8js8hqh1_C-As-Ouw1Q5FGKm-9Bm8p9c8r+Q@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Disable PSR-SU on Parade 08-01 TCON too
+To: "Limonciello, Mario" <Mario.Limonciello@amd.com>
+Cc: "Mahfooz, Hamza" <Hamza.Mahfooz@amd.com>, "Rossi,
+ Marc" <Marc.Rossi@amd.com>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
+ "stable@vger.kernel.org" <stable@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Tue, 15 Oct 2024 08:08:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -100,18 +81,9 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 14 October 2024 at 3:11pm, Christian Zigotzky wrote:
+> Is this on a mainline 6.11.y or 6.12-rc3 kernel?  Can you please open up a new issue with all the details?  You can ping it back here.
 
- >> On 14 October 2024 at 3:00pm, Alex Deucher <alexdeucher@gmail.com> 
-wrote:
- >>
- >> Can whoever wrote this send it out as a proper patch?
- >>
- >> Alex
- >>
+Currently a Debian 6.11.2 kernel, but I did reproduce it with a
+mainline 6.10 and earlier versions in the past.
 
-
- > Patch source: 
-https://lists.freedesktop.org/archives/dri-devel/2024-October/473314.html
-
-+ ville.syrjala
+Issue link: https://gitlab.freedesktop.org/drm/amd/-/issues/3688
