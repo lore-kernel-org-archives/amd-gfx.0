@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4E19D206AB
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 205F2D206A4
 	for <amd-gfx@archiver.kernel.org>; Wed, 16 Oct 2024 07:23:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6531110E69A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A85910E699;
 	Wed, 16 Oct 2024 07:23:14 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 357B610E693
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 26D8710E68F
  for <amd-gfx@lists.freedesktop.org>; Wed, 16 Oct 2024 07:23:10 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 49G7N1qr1399778; Wed, 16 Oct 2024 12:53:01 +0530
+ 49G7N0Mn1399758; Wed, 16 Oct 2024 12:53:00 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 49G7N1pI1399777;
- Wed, 16 Oct 2024 12:53:01 +0530
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 49G7N0Hu1399757;
+ Wed, 16 Oct 2024 12:53:00 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH v3 10/16] drm/amdgpu: clean the dummy suspend functions
-Date: Wed, 16 Oct 2024 12:52:52 +0530
-Message-Id: <20241016072258.1399698-11-sunil.khatri@amd.com>
+Subject: [PATCH v3 06/16] drm/amdgpu: validate suspend before function call
+Date: Wed, 16 Oct 2024 12:52:48 +0530
+Message-Id: <20241016072258.1399698-7-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20241016072258.1399698-1-sunil.khatri@amd.com>
 References: <20241016072258.1399698-1-sunil.khatri@amd.com>
@@ -44,103 +44,163 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Remove the dummy suspend functions for all
-ip blocks.
+Before making a function call to suspend, validate
+the function pointer like we do in sw_init.
 
 Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c  | 6 ------
- drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c | 3 ++-
- drivers/gpu/drm/amd/amdgpu/cik.c         | 6 ------
- drivers/gpu/drm/amd/amdgpu/si.c          | 6 ------
- 4 files changed, 2 insertions(+), 19 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/aldebaran.c      | 15 ++++++------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  | 26 ++++++++++++---------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c   | 12 ++++++----
+ drivers/gpu/drm/amd/amdgpu/sienna_cichlid.c | 15 ++++++------
+ drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.c   | 15 ++++++------
+ 5 files changed, 46 insertions(+), 37 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c
-index 1383fd1644d6..4d82e8fec0f5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c
-@@ -66,11 +66,6 @@ static int isp_hw_fini(struct amdgpu_ip_block *ip_block)
- 	return -ENODEV;
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/aldebaran.c b/drivers/gpu/drm/amd/amdgpu/aldebaran.c
+index c1ff24335a0c..e55d680d95ce 100644
+--- a/drivers/gpu/drm/amd/amdgpu/aldebaran.c
++++ b/drivers/gpu/drm/amd/amdgpu/aldebaran.c
+@@ -85,13 +85,14 @@ static int aldebaran_mode2_suspend_ip(struct amdgpu_device *adev)
+ 			      AMD_IP_BLOCK_TYPE_SDMA))
+ 			continue;
  
--static int isp_suspend(struct amdgpu_ip_block *ip_block)
--{
--	return 0;
--}
+-		r = adev->ip_blocks[i].version->funcs->suspend(&adev->ip_blocks[i]);
 -
- static int isp_load_fw_by_psp(struct amdgpu_device *adev)
- {
- 	const struct common_firmware_header *hdr;
-@@ -161,7 +156,6 @@ static const struct amd_ip_funcs isp_ip_funcs = {
- 	.late_init = NULL,
- 	.hw_init = isp_hw_init,
- 	.hw_fini = isp_hw_fini,
--	.suspend = isp_suspend,
- 	.is_idle = isp_is_idle,
- 	.wait_for_idle = isp_wait_for_idle,
- 	.soft_reset = isp_soft_reset,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-index fd31e2e9feb9..ed8015313827 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-@@ -613,7 +613,8 @@ static int amdgpu_vkms_suspend(struct amdgpu_ip_block *ip_block)
- 	r = drm_mode_config_helper_suspend(adev_to_drm(adev));
- 	if (r)
- 		return r;
--	return amdgpu_vkms_hw_fini(ip_block);
-+
-+	return 0;
- }
+-		if (r) {
+-			dev_err(adev->dev,
+-				"suspend of IP block <%s> failed %d\n",
+-				adev->ip_blocks[i].version->funcs->name, r);
+-			return r;
++		if (adev->ip_blocks[i].version->funcs->suspend) {
++			r = adev->ip_blocks[i].version->funcs->suspend(&adev->ip_blocks[i]);
++			if (r) {
++				dev_err(adev->dev,
++					"suspend of IP block <%s> failed %d\n",
++					adev->ip_blocks[i].version->funcs->name, r);
++				return r;
++			}
+ 		}
  
- static int amdgpu_vkms_resume(struct amdgpu_ip_block *ip_block)
-diff --git a/drivers/gpu/drm/amd/amdgpu/cik.c b/drivers/gpu/drm/amd/amdgpu/cik.c
-index f3f6b32d4e2a..c8fb592f13df 100644
---- a/drivers/gpu/drm/amd/amdgpu/cik.c
-+++ b/drivers/gpu/drm/amd/amdgpu/cik.c
-@@ -2143,11 +2143,6 @@ static int cik_common_hw_fini(struct amdgpu_ip_block *ip_block)
- 	return 0;
- }
+ 		adev->ip_blocks[i].status.hw = false;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 340141a74c12..51607ac8adb9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -3471,12 +3471,14 @@ static int amdgpu_device_ip_suspend_phase1(struct amdgpu_device *adev)
+ 			continue;
  
--static int cik_common_suspend(struct amdgpu_ip_block *ip_block)
--{
--	return cik_common_hw_fini(ip_block);
--}
+ 		/* XXX handle errors */
+-		r = adev->ip_blocks[i].version->funcs->suspend(&adev->ip_blocks[i]);
+-		/* XXX handle errors */
+-		if (r) {
+-			DRM_ERROR("suspend of IP block <%s> failed %d\n",
+-				  adev->ip_blocks[i].version->funcs->name, r);
+-			return r;
++		if (adev->ip_blocks[i].version->funcs->suspend) {
++			r = adev->ip_blocks[i].version->funcs->suspend(&adev->ip_blocks[i]);
++			/* XXX handle errors */
++			if (r) {
++				DRM_ERROR("suspend of IP block <%s> failed %d\n",
++					adev->ip_blocks[i].version->funcs->name, r);
++				return r;
++			}
+ 		}
+ 
+ 		adev->ip_blocks[i].status.hw = false;
+@@ -3553,11 +3555,13 @@ static int amdgpu_device_ip_suspend_phase2(struct amdgpu_device *adev)
+ 			continue;
+ 
+ 		/* XXX handle errors */
+-		r = adev->ip_blocks[i].version->funcs->suspend(&adev->ip_blocks[i]);
+-		/* XXX handle errors */
+-		if (r) {
+-			DRM_ERROR("suspend of IP block <%s> failed %d\n",
+-				  adev->ip_blocks[i].version->funcs->name, r);
++		if (adev->ip_blocks[i].version->funcs->suspend) {
++			r = adev->ip_blocks[i].version->funcs->suspend(&adev->ip_blocks[i]);
++			/* XXX handle errors */
++			if (r) {
++				DRM_ERROR("suspend of IP block <%s> failed %d\n",
++					adev->ip_blocks[i].version->funcs->name, r);
++			}
+ 		}
+ 		adev->ip_blocks[i].status.hw = false;
+ 		/* handle putting the SMC in the appropriate state */
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
+index 3e2724590dbf..6bc75aa1c3b1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
+@@ -40,11 +40,13 @@ static int amdgpu_reset_xgmi_reset_on_init_suspend(struct amdgpu_device *adev)
+ 			continue;
+ 
+ 		/* XXX handle errors */
+-		r = adev->ip_blocks[i].version->funcs->suspend(&adev->ip_blocks[i]);
+-		/* XXX handle errors */
+-		if (r) {
+-			dev_err(adev->dev, "suspend of IP block <%s> failed %d",
+-				adev->ip_blocks[i].version->funcs->name, r);
++		if (adev->ip_blocks[i].version->funcs->suspend) {
++			r = adev->ip_blocks[i].version->funcs->suspend(&adev->ip_blocks[i]);
++			/* XXX handle errors */
++			if (r) {
++				dev_err(adev->dev, "suspend of IP block <%s> failed %d",
++					adev->ip_blocks[i].version->funcs->name, r);
++			}
+ 		}
+ 		adev->ip_blocks[i].status.hw = false;
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/sienna_cichlid.c b/drivers/gpu/drm/amd/amdgpu/sienna_cichlid.c
+index 475b7df3a908..10dece12509f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sienna_cichlid.c
++++ b/drivers/gpu/drm/amd/amdgpu/sienna_cichlid.c
+@@ -81,13 +81,14 @@ static int sienna_cichlid_mode2_suspend_ip(struct amdgpu_device *adev)
+ 			      AMD_IP_BLOCK_TYPE_SDMA))
+ 			continue;
+ 
+-		r = adev->ip_blocks[i].version->funcs->suspend(&adev->ip_blocks[i]);
 -
- static int cik_common_resume(struct amdgpu_ip_block *ip_block)
- {
- 	return cik_common_hw_init(ip_block);
-@@ -2187,7 +2182,6 @@ static const struct amd_ip_funcs cik_common_ip_funcs = {
- 	.late_init = NULL,
- 	.hw_init = cik_common_hw_init,
- 	.hw_fini = cik_common_hw_fini,
--	.suspend = cik_common_suspend,
- 	.resume = cik_common_resume,
- 	.is_idle = cik_common_is_idle,
- 	.wait_for_idle = cik_common_wait_for_idle,
-diff --git a/drivers/gpu/drm/amd/amdgpu/si.c b/drivers/gpu/drm/amd/amdgpu/si.c
-index f0817d5fbea8..66ccb76eb72a 100644
---- a/drivers/gpu/drm/amd/amdgpu/si.c
-+++ b/drivers/gpu/drm/amd/amdgpu/si.c
-@@ -2639,11 +2639,6 @@ static int si_common_hw_fini(struct amdgpu_ip_block *ip_block)
- 	return 0;
- }
+-		if (r) {
+-			dev_err(adev->dev,
+-				"suspend of IP block <%s> failed %d\n",
+-				adev->ip_blocks[i].version->funcs->name, r);
+-			return r;
++		if (adev->ip_blocks[i].version->funcs->suspend) {
++			r = adev->ip_blocks[i].version->funcs->suspend(&adev->ip_blocks[i]);
++			if (r) {
++				dev_err(adev->dev,
++					"suspend of IP block <%s> failed %d\n",
++					adev->ip_blocks[i].version->funcs->name, r);
++				return r;
++			}
+ 		}
+ 		adev->ip_blocks[i].status.hw = false;
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.c b/drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.c
+index 5ea9090b5040..ab049f0b4d39 100644
+--- a/drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.c
++++ b/drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.c
+@@ -80,13 +80,14 @@ static int smu_v13_0_10_mode2_suspend_ip(struct amdgpu_device *adev)
+ 			      AMD_IP_BLOCK_TYPE_MES))
+ 			continue;
  
--static int si_common_suspend(struct amdgpu_ip_block *ip_block)
--{
--	return si_common_hw_fini(ip_block);
--}
+-		r = adev->ip_blocks[i].version->funcs->suspend(&adev->ip_blocks[i]);
 -
- static int si_common_resume(struct amdgpu_ip_block *ip_block)
- {
- 	return si_common_hw_init(ip_block);
-@@ -2682,7 +2677,6 @@ static const struct amd_ip_funcs si_common_ip_funcs = {
- 	.late_init = NULL,
- 	.hw_init = si_common_hw_init,
- 	.hw_fini = si_common_hw_fini,
--	.suspend = si_common_suspend,
- 	.resume = si_common_resume,
- 	.is_idle = si_common_is_idle,
- 	.wait_for_idle = si_common_wait_for_idle,
+-		if (r) {
+-			dev_err(adev->dev,
+-				"suspend of IP block <%s> failed %d\n",
+-				adev->ip_blocks[i].version->funcs->name, r);
+-			return r;
++		if (adev->ip_blocks[i].version->funcs->suspend) {
++			r = adev->ip_blocks[i].version->funcs->suspend(&adev->ip_blocks[i]);
++			if (r) {
++				dev_err(adev->dev,
++					"suspend of IP block <%s> failed %d\n",
++					adev->ip_blocks[i].version->funcs->name, r);
++				return r;
++			}
+ 		}
+ 		adev->ip_blocks[i].status.hw = false;
+ 	}
 -- 
 2.34.1
 
