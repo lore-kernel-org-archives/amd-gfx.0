@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DDE1D206A7
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Oct 2024 07:23:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5295CD206A4
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Oct 2024 07:23:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3702410E696;
-	Wed, 16 Oct 2024 07:23:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2EC4F10E5E1;
+	Wed, 16 Oct 2024 07:23:14 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 266EF10E5F6
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Oct 2024 07:23:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C1F110E698
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Oct 2024 07:23:11 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 49G7N0Q61399753; Wed, 16 Oct 2024 12:53:00 +0530
+ 49G7N1ub1399803; Wed, 16 Oct 2024 12:53:01 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 49G7N0fM1399752;
- Wed, 16 Oct 2024 12:53:00 +0530
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 49G7N17O1399802;
+ Wed, 16 Oct 2024 12:53:01 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH v3 05/16] drm/amdgpu: validate hw_fini before function call
-Date: Wed, 16 Oct 2024 12:52:47 +0530
-Message-Id: <20241016072258.1399698-6-sunil.khatri@amd.com>
+Subject: [PATCH v3 15/16] drm/amdgpu: validate get_clockgating_state before use
+Date: Wed, 16 Oct 2024 12:52:57 +0530
+Message-Id: <20241016072258.1399698-16-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20241016072258.1399698-1-sunil.khatri@amd.com>
 References: <20241016072258.1399698-1-sunil.khatri@amd.com>
@@ -44,58 +44,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Before making a function call to hw_fini, validate
-the function pointer like we do in sw_init.
+Validate the function pointer for get_clockgating_state
+before making a function call.
 
 Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 26 +++++++++++++---------
- 1 file changed, 15 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/nv.c    | 9 ++++++---
+ drivers/gpu/drm/amd/amdgpu/soc21.c | 6 ++++--
+ drivers/gpu/drm/amd/amdgpu/soc24.c | 6 ++++--
+ 3 files changed, 14 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index cf84b50f2355..340141a74c12 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -3287,11 +3287,14 @@ static void amdgpu_device_smu_fini_early(struct amdgpu_device *adev)
- 		if (!adev->ip_blocks[i].status.hw)
- 			continue;
- 		if (adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_SMC) {
--			r = adev->ip_blocks[i].version->funcs->hw_fini(&adev->ip_blocks[i]);
--			/* XXX handle errors */
--			if (r) {
--				DRM_DEBUG("hw_fini of IP block <%s> failed %d\n",
--					  adev->ip_blocks[i].version->funcs->name, r);
-+			if (adev->ip_blocks[i].version->funcs->hw_fini) {
-+				r = adev->ip_blocks[i].version->funcs->hw_fini(
-+					&adev->ip_blocks[i]);
-+				/* XXX handle errors */
-+				if (r) {
-+					DRM_DEBUG("hw_fini of IP block <%s> failed %d\n",
-+						adev->ip_blocks[i].version->funcs->name, r);
-+				}
- 			}
- 			adev->ip_blocks[i].status.hw = false;
- 			break;
-@@ -3325,12 +3328,13 @@ static int amdgpu_device_ip_fini_early(struct amdgpu_device *adev)
- 	for (i = adev->num_ip_blocks - 1; i >= 0; i--) {
- 		if (!adev->ip_blocks[i].status.hw)
- 			continue;
--
--		r = adev->ip_blocks[i].version->funcs->hw_fini(&adev->ip_blocks[i]);
--		/* XXX handle errors */
--		if (r) {
--			DRM_DEBUG("hw_fini of IP block <%s> failed %d\n",
--				  adev->ip_blocks[i].version->funcs->name, r);
-+		if (adev->ip_blocks[i].version->funcs->hw_fini) {
-+			r = adev->ip_blocks[i].version->funcs->hw_fini(&adev->ip_blocks[i]);
-+			/* XXX handle errors */
-+			if (r) {
-+				DRM_DEBUG("hw_fini of IP block <%s> failed %d\n",
-+					  adev->ip_blocks[i].version->funcs->name, r);
-+			}
- 		}
+diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
+index 6b72169be8f8..40c720b32c59 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nv.c
++++ b/drivers/gpu/drm/amd/amdgpu/nv.c
+@@ -1084,11 +1084,14 @@ static void nv_common_get_clockgating_state(void *handle, u64 *flags)
+ 	if (amdgpu_sriov_vf(adev))
+ 		*flags = 0;
  
- 		adev->ip_blocks[i].status.hw = false;
+-	adev->nbio.funcs->get_clockgating_state(adev, flags);
++	if (adev->nbio.funcs && adev->nbio.funcs->get_clockgating_state)
++		adev->nbio.funcs->get_clockgating_state(adev, flags);
+ 
+-	adev->hdp.funcs->get_clock_gating_state(adev, flags);
++	if (adev->hdp.funcs && adev->hdp.funcs->get_clock_gating_state)
++		adev->hdp.funcs->get_clock_gating_state(adev, flags);
+ 
+-	adev->smuio.funcs->get_clock_gating_state(adev, flags);
++	if (adev->smuio.funcs && adev->smuio.funcs->get_clock_gating_state)
++		adev->smuio.funcs->get_clock_gating_state(adev, flags);
+ }
+ 
+ static const struct amd_ip_funcs nv_common_ip_funcs = {
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
+index 1c07ebdc0d1f..196286be35b4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc21.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
+@@ -975,9 +975,11 @@ static void soc21_common_get_clockgating_state(void *handle, u64 *flags)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 
+-	adev->nbio.funcs->get_clockgating_state(adev, flags);
++	if (adev->nbio.funcs && adev->nbio.funcs->get_clockgating_state)
++		adev->nbio.funcs->get_clockgating_state(adev, flags);
+ 
+-	adev->hdp.funcs->get_clock_gating_state(adev, flags);
++	if (adev->hdp.funcs && adev->hdp.funcs->get_clock_gating_state)
++		adev->hdp.funcs->get_clock_gating_state(adev, flags);
+ }
+ 
+ static const struct amd_ip_funcs soc21_common_ip_funcs = {
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc24.c b/drivers/gpu/drm/amd/amdgpu/soc24.c
+index 3af10ef4b793..f4278a0fa8f7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc24.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc24.c
+@@ -564,9 +564,11 @@ static void soc24_common_get_clockgating_state(void *handle, u64 *flags)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 
+-	adev->nbio.funcs->get_clockgating_state(adev, flags);
++	if (adev->nbio.funcs && adev->nbio.funcs->get_clockgating_state)
++		adev->nbio.funcs->get_clockgating_state(adev, flags);
+ 
+-	adev->hdp.funcs->get_clock_gating_state(adev, flags);
++	if (adev->hdp.funcs && adev->hdp.funcs->get_clock_gating_state)
++		adev->hdp.funcs->get_clock_gating_state(adev, flags);
+ 
+ 	return;
+ }
 -- 
 2.34.1
 
