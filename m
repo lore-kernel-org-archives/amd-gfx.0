@@ -4,28 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 112A0D206A5
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9938CD206A6
 	for <amd-gfx@archiver.kernel.org>; Wed, 16 Oct 2024 07:23:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3973210E697;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3AD6B10E698;
 	Wed, 16 Oct 2024 07:23:14 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8781710E68F
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Oct 2024 07:23:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 50B7D10E697
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Oct 2024 07:23:11 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 49G7N0s51399728; Wed, 16 Oct 2024 12:53:00 +0530
+ 49G7N0Z81399748; Wed, 16 Oct 2024 12:53:00 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 49G7N0rB1399727;
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 49G7N0NV1399747;
  Wed, 16 Oct 2024 12:53:00 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH v3 00/16] clean unused functions of amd_ip_funcs
-Date: Wed, 16 Oct 2024 12:52:42 +0530
-Message-Id: <20241016072258.1399698-1-sunil.khatri@amd.com>
+Subject: [PATCH v3 04/16] drm/amdgpu: clean the dummy sw_fini functions
+Date: Wed, 16 Oct 2024 12:52:46 +0530
+Message-Id: <20241016072258.1399698-5-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20241016072258.1399698-1-sunil.khatri@amd.com>
+References: <20241016072258.1399698-1-sunil.khatri@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -42,109 +44,189 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-v3: Added 2 new patches to clean get_clocking_state and hw_init
-    validation.
+Remove the dummy sw_fini functions for all
+ip blocks.
 
-Sunil Khatri (16):
-  drm/amdgpu: validate sw_init before function call
-  drm/amdgpu: clean the dummy sw_init functions
-  drm/amdgpu: validate sw_fini before function call
-  drm/amdgpu: clean the dummy sw_fini functions
-  drm/amdgpu: validate hw_fini before function call
-  drm/amdgpu: validate suspend before function call
-  drm/amdgpu: validate resume before function call
-  drm/amdgpu: validate wait_for_idle before function call
-  drm/amdgpu: clean the dummy resume functions
-  drm/amdgpu: clean the dummy suspend functions
-  drm/amdgpu: clean the dummy hw_fini functions
-  drm/amdgpu: clean the dummy wait_for_idle functions
-  drm/amdgpu: clean the dummy soft_reset functions
-  drm/amdgpu: clean unused functions of amd_ip_funcs
-  drm/amdgpu: validate get_clockgating_state before use
-  drm/amdgpu: validate hw_init function pointers
+Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c | 6 ------
+ drivers/gpu/drm/amd/amdgpu/cik.c        | 6 ------
+ drivers/gpu/drm/amd/amdgpu/nv.c         | 6 ------
+ drivers/gpu/drm/amd/amdgpu/si.c         | 7 -------
+ drivers/gpu/drm/amd/amdgpu/soc21.c      | 6 ------
+ drivers/gpu/drm/amd/amdgpu/soc24.c      | 6 ------
+ drivers/gpu/drm/amd/amdgpu/vi.c         | 6 ------
+ 7 files changed, 43 deletions(-)
 
- drivers/gpu/drm/amd/amdgpu/aldebaran.c        |  38 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c       |  16 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 213 +++++++------
- drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c       |  35 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c       |   5 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c     |  12 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c  |   2 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c      |  25 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c       |   2 -
- drivers/gpu/drm/amd/amdgpu/cik.c              |  33 +-
- drivers/gpu/drm/amd/amdgpu/cik_ih.c           |   3 -
- drivers/gpu/drm/amd/amdgpu/cik_sdma.c         |   3 -
- drivers/gpu/drm/amd/amdgpu/cz_ih.c            |   3 -
- drivers/gpu/drm/amd/amdgpu/dce_v10_0.c        |   9 -
- drivers/gpu/drm/amd/amdgpu/dce_v11_0.c        |   9 -
- drivers/gpu/drm/amd/amdgpu/dce_v6_0.c         |   9 -
- drivers/gpu/drm/amd/amdgpu/dce_v8_0.c         |   9 -
- drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c         |   9 -
- drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c         |   2 -
- drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c         |   2 -
- drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c        |   6 -
- drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c        |   6 -
- drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c        |   6 -
- drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c         |   2 -
- drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c         |   2 -
- drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c         |   2 -
- drivers/gpu/drm/amd/amdgpu/iceland_ih.c       |   3 -
- drivers/gpu/drm/amd/amdgpu/ih_v6_0.c          |   3 -
- drivers/gpu/drm/amd/amdgpu/ih_v6_1.c          |   3 -
- drivers/gpu/drm/amd/amdgpu/ih_v7_0.c          |   3 -
- drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c        |   7 -
- drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c        |  14 -
- drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c        |   7 -
- drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c        |   7 -
- drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c      |   7 -
- drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c      |   7 -
- drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c      |   7 -
- drivers/gpu/drm/amd/amdgpu/mes_v11_0.c        |   2 -
- drivers/gpu/drm/amd/amdgpu/mes_v12_0.c        |  11 +-
- drivers/gpu/drm/amd/amdgpu/navi10_ih.c        |   3 -
- drivers/gpu/drm/amd/amdgpu/nv.c               |  29 +-
- drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c        |   3 -
- drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c        |   3 -
- drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c        |   1 -
- drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c        |   1 -
- drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c        |   1 -
- drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c        |   1 -
- drivers/gpu/drm/amd/amdgpu/si.c               |  40 ---
- drivers/gpu/drm/amd/amdgpu/si_dma.c           |   3 -
- drivers/gpu/drm/amd/amdgpu/si_ih.c            |   3 -
- drivers/gpu/drm/amd/amdgpu/sienna_cichlid.c   |  43 +--
- drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.c     |  29 +-
- drivers/gpu/drm/amd/amdgpu/soc15.c            |  14 -
- drivers/gpu/drm/amd/amdgpu/soc21.c            |  26 +-
- drivers/gpu/drm/amd/amdgpu/soc24.c            |  24 +-
- drivers/gpu/drm/amd/amdgpu/tonga_ih.c         |   3 -
- drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c         |   3 -
- drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c         |   3 -
- drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c         |   3 -
- drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c         |   3 -
- drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c         | 284 ------------------
- drivers/gpu/drm/amd/amdgpu/vce_v2_0.c         |   3 -
- drivers/gpu/drm/amd/amdgpu/vce_v3_0.c         |   3 -
- drivers/gpu/drm/amd/amdgpu/vce_v4_0.c         | 275 -----------------
- drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c         |   1 -
- drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c         |   5 -
- drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c         |  10 -
- drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c         |   5 -
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c         |   5 -
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c       |   5 -
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c       |   5 -
- drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c       |   5 -
- drivers/gpu/drm/amd/amdgpu/vega10_ih.c        |   1 -
- drivers/gpu/drm/amd/amdgpu/vega20_ih.c        |   1 -
- drivers/gpu/drm/amd/amdgpu/vi.c               |  20 --
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   2 -
- drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c    |  15 -
- drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c    |   8 -
- .../gpu/drm/amd/pm/powerplay/amd_powerplay.c  |  14 -
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     |   4 -
- 80 files changed, 215 insertions(+), 1239 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c
+index c75bc32ca7ef..9b98b40ac4db 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c
+@@ -33,11 +33,6 @@
+ #include "isp_v4_1_0.h"
+ #include "isp_v4_1_1.h"
+ 
+-static int isp_sw_fini(struct amdgpu_ip_block *ip_block)
+-{
+-	return 0;
+-}
+-
+ /**
+  * isp_hw_init - start and test isp block
+  *
+@@ -169,7 +164,6 @@ static const struct amd_ip_funcs isp_ip_funcs = {
+ 	.name = "isp_ip",
+ 	.early_init = isp_early_init,
+ 	.late_init = NULL,
+-	.sw_fini = isp_sw_fini,
+ 	.hw_init = isp_hw_init,
+ 	.hw_fini = isp_hw_fini,
+ 	.suspend = isp_suspend,
+diff --git a/drivers/gpu/drm/amd/amdgpu/cik.c b/drivers/gpu/drm/amd/amdgpu/cik.c
+index a374d1bb24ab..f3f6b32d4e2a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/cik.c
++++ b/drivers/gpu/drm/amd/amdgpu/cik.c
+@@ -2124,11 +2124,6 @@ static int cik_common_early_init(struct amdgpu_ip_block *ip_block)
+ 	return 0;
+ }
+ 
+-static int cik_common_sw_fini(struct amdgpu_ip_block *ip_block)
+-{
+-	return 0;
+-}
+-
+ static int cik_common_hw_init(struct amdgpu_ip_block *ip_block)
+ {
+ 	struct amdgpu_device *adev = ip_block->adev;
+@@ -2190,7 +2185,6 @@ static const struct amd_ip_funcs cik_common_ip_funcs = {
+ 	.name = "cik_common",
+ 	.early_init = cik_common_early_init,
+ 	.late_init = NULL,
+-	.sw_fini = cik_common_sw_fini,
+ 	.hw_init = cik_common_hw_init,
+ 	.hw_fini = cik_common_hw_fini,
+ 	.suspend = cik_common_suspend,
+diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
+index 4e8f9af1e2be..95c6461aab6f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nv.c
++++ b/drivers/gpu/drm/amd/amdgpu/nv.c
+@@ -983,11 +983,6 @@ static int nv_common_sw_init(struct amdgpu_ip_block *ip_block)
+ 	return 0;
+ }
+ 
+-static int nv_common_sw_fini(struct amdgpu_ip_block *ip_block)
+-{
+-	return 0;
+-}
+-
+ static int nv_common_hw_init(struct amdgpu_ip_block *ip_block)
+ {
+ 	struct amdgpu_device *adev = ip_block->adev;
+@@ -1111,7 +1106,6 @@ static const struct amd_ip_funcs nv_common_ip_funcs = {
+ 	.early_init = nv_common_early_init,
+ 	.late_init = nv_common_late_init,
+ 	.sw_init = nv_common_sw_init,
+-	.sw_fini = nv_common_sw_fini,
+ 	.hw_init = nv_common_hw_init,
+ 	.hw_fini = nv_common_hw_fini,
+ 	.suspend = nv_common_suspend,
+diff --git a/drivers/gpu/drm/amd/amdgpu/si.c b/drivers/gpu/drm/amd/amdgpu/si.c
+index 3714c6d77f30..f0817d5fbea8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/si.c
++++ b/drivers/gpu/drm/amd/amdgpu/si.c
+@@ -2148,12 +2148,6 @@ static int si_common_early_init(struct amdgpu_ip_block *ip_block)
+ 	return 0;
+ }
+ 
+-static int si_common_sw_fini(struct amdgpu_ip_block *ip_block)
+-{
+-	return 0;
+-}
+-
+-
+ static void si_init_golden_registers(struct amdgpu_device *adev)
+ {
+ 	switch (adev->asic_type) {
+@@ -2686,7 +2680,6 @@ static const struct amd_ip_funcs si_common_ip_funcs = {
+ 	.name = "si_common",
+ 	.early_init = si_common_early_init,
+ 	.late_init = NULL,
+-	.sw_fini = si_common_sw_fini,
+ 	.hw_init = si_common_hw_init,
+ 	.hw_fini = si_common_hw_fini,
+ 	.suspend = si_common_suspend,
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
+index c4b950e75133..cdcc5c09a6b3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc21.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
+@@ -842,11 +842,6 @@ static int soc21_common_sw_init(struct amdgpu_ip_block *ip_block)
+ 	return 0;
+ }
+ 
+-static int soc21_common_sw_fini(struct amdgpu_ip_block *ip_block)
+-{
+-	return 0;
+-}
+-
+ static int soc21_common_hw_init(struct amdgpu_ip_block *ip_block)
+ {
+ 	struct amdgpu_device *adev = ip_block->adev;
+@@ -1000,7 +995,6 @@ static const struct amd_ip_funcs soc21_common_ip_funcs = {
+ 	.early_init = soc21_common_early_init,
+ 	.late_init = soc21_common_late_init,
+ 	.sw_init = soc21_common_sw_init,
+-	.sw_fini = soc21_common_sw_fini,
+ 	.hw_init = soc21_common_hw_init,
+ 	.hw_fini = soc21_common_hw_fini,
+ 	.suspend = soc21_common_suspend,
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc24.c b/drivers/gpu/drm/amd/amdgpu/soc24.c
+index b20dc81dc257..34ed064a6a64 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc24.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc24.c
+@@ -465,11 +465,6 @@ static int soc24_common_sw_init(struct amdgpu_ip_block *ip_block)
+ 	return 0;
+ }
+ 
+-static int soc24_common_sw_fini(struct amdgpu_ip_block *ip_block)
+-{
+-	return 0;
+-}
+-
+ static int soc24_common_hw_init(struct amdgpu_ip_block *ip_block)
+ {
+ 	struct amdgpu_device *adev = ip_block->adev;
+@@ -591,7 +586,6 @@ static const struct amd_ip_funcs soc24_common_ip_funcs = {
+ 	.early_init = soc24_common_early_init,
+ 	.late_init = soc24_common_late_init,
+ 	.sw_init = soc24_common_sw_init,
+-	.sw_fini = soc24_common_sw_fini,
+ 	.hw_init = soc24_common_hw_init,
+ 	.hw_fini = soc24_common_hw_fini,
+ 	.suspend = soc24_common_suspend,
+diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu/vi.c
+index 4996049dc199..7a19b4f5b09f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vi.c
++++ b/drivers/gpu/drm/amd/amdgpu/vi.c
+@@ -1699,11 +1699,6 @@ static int vi_common_sw_init(struct amdgpu_ip_block *ip_block)
+ 	return 0;
+ }
+ 
+-static int vi_common_sw_fini(struct amdgpu_ip_block *ip_block)
+-{
+-	return 0;
+-}
+-
+ static int vi_common_hw_init(struct amdgpu_ip_block *ip_block)
+ {
+ 	struct amdgpu_device *adev = ip_block->adev;
+@@ -2043,7 +2038,6 @@ static const struct amd_ip_funcs vi_common_ip_funcs = {
+ 	.early_init = vi_common_early_init,
+ 	.late_init = vi_common_late_init,
+ 	.sw_init = vi_common_sw_init,
+-	.sw_fini = vi_common_sw_fini,
+ 	.hw_init = vi_common_hw_init,
+ 	.hw_fini = vi_common_hw_fini,
+ 	.suspend = vi_common_suspend,
 -- 
 2.34.1
 
