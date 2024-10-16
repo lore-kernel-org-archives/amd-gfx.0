@@ -4,156 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62B63D1AD50
-	for <amd-gfx@archiver.kernel.org>; Wed, 16 Oct 2024 12:37:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D22BED1AD55
+	for <amd-gfx@archiver.kernel.org>; Wed, 16 Oct 2024 13:13:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13FF910E5FC;
-	Wed, 16 Oct 2024 12:37:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8606310E6EF;
+	Wed, 16 Oct 2024 13:13:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ajBFOBB+";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="fYqvBgYe";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2074.outbound.protection.outlook.com [40.107.236.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4FA4710E5FC
- for <amd-gfx@lists.freedesktop.org>; Wed, 16 Oct 2024 12:37:51 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on2077.outbound.protection.outlook.com [40.107.96.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFE5510E6EF
+ for <amd-gfx@lists.freedesktop.org>; Wed, 16 Oct 2024 13:13:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cFZBQXxdFj4K2uczUzZ9wZhQ2WSx/NPRnQ1O+T22st+QeHZjwAjlXZ9BUOnrhakDjIWrobeiPAdm6qkNLyL8fCkKqmbeI2nbqcuK9gKwrAHjpomn+2J//OA+SH4hpRIhJCkWlrmDdLHdxjfnkXvCi71GJOpwuqaJyFgtj0elBTxESlF+gu0FDTlr9LiON+wGTwyScskGl/V9s6vmjtyrIr1qmMc0Dwpp0sD9YQ0lW87fBIU7YyRxmywVD/dK9iAOEaxs3gqkedqvlhLIjuCf6q3LSkFnq54ad5SILYwWn/87/XHX4rT+s+aj0C7iD692DyXj0wUXOGAurBzpA9/NBA==
+ b=aD1BH8/o7LNbDTlnEN3CRcKhFS6Z+BCseRuM2ZoWrNAER5B/elMgmqp2POck5yAs1jduP3KQ2tdSA5LdbwNx4MQAX1z3WB2xRgTq2+5xbE141Q7qpHxgtIjtvYuSNRRGxgMyqXQkw2CEpVADWjkGN87voXBjsfJtfZVawhQKEdT5EQ4Z43f9uXXBDLQrYQ3UqIrLP12lg3Xjb2/yMHB2s3bIiIjtsVdpKGBDJQOX0R3dKKWDkKcRtblGcjUhF7liuZ/1jrSQ1dc9LnWKQ8irlSfkWxIdJ/5kDk/5e5EccW/HBsLHUsKjzeu58O05aBcfg7rj36j53bK6giMiPAI38A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ifijvj/YC1ghwVk4GgYkMhJy0XcvnbLglYtLOZDVXjo=;
- b=wkiMpuO9jE9mkxjqbapfpQXFP0M9/9ix1fglNY5NcWnZt3ZGn1nNmVrbMycpyNnh1ipS21TEkZPyl5Dh8Zheaw0FczQ0Wa+XA7PfidK5G/x5XvQzX78n+W0LoMEj0oLP+yyw/oe85o60WV2O139+2PHZZJaQiBKoGGLX/e14XTKb0f7djSRPt4Q1Y2zqhTmRSVavt9mFygFK9sHMOqie3ZZ2G8bQkW6LQQPqOt7Fc5O03bpGD5yEOVJ/FsXnH6QNcoMr4hNRo2I03Mvz4ChHqUnwHN7NpEsVCYIEt/4XZMgr18ob57JX62ti6pefs46NjhSE1lTB6cYtjhwPZ71EUg==
+ bh=Ymt9IPHZz3zFX7cM8BQpMPMOgPg3aOC53jV9OyWCakk=;
+ b=vwM5QBunduiQmjx7PEuwdid3GMX/mkPsskqusUvWDM5k4nX6y8sQ864BdxuZIEEoVjjYwkhkLFwvegZLmP9sya1/l3VgKU7LvcOdqMZy2gQC+DxoZ5+WJUUkDVl3j2eK8WyP5Kf0BtekRa9U75CDUOYKqoNk9xlQgR+Z0AvGEZwtAV9+d4ch1zuByqWWBtxNGfZlu6sNryPsKjFQWg5mEEnTPiZSYqKwf6010xittqZNqnQiBhBOBxm8CJ3MtHdvEdscJwWggy7OqYySG3w5d1D125zRgXUrpVf9xrVNyAmP2Z0691KGDH9OG4NgvoNoxZBFITBtXsV7hvtKQnewJg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ifijvj/YC1ghwVk4GgYkMhJy0XcvnbLglYtLOZDVXjo=;
- b=ajBFOBB+9XAb5Wy1tOWYzc/jmF7m9J0y5zF+HnPGB8t2iy4wVnhZCK86zLlzHYTBOy+wMVDpkqOHPJGEXDjmSuFeq8fFx1vxyx7WcSUvP/2RLNsPmVbSlJk5JuxAVoN7u/czLd1UvA+vYDiQIapYs9S/D1qn2kLwbPtmkZdb/JA=
-Received: from PH7PR12MB5997.namprd12.prod.outlook.com (2603:10b6:510:1d9::21)
- by LV3PR12MB9141.namprd12.prod.outlook.com (2603:10b6:408:1a7::17)
+ bh=Ymt9IPHZz3zFX7cM8BQpMPMOgPg3aOC53jV9OyWCakk=;
+ b=fYqvBgYefSv4X/+qOd+dHIiwUylUSycGHPlCIBqk4HThByTYazpmhTO/ny7/Ab7nbb2S/jR3zYWjmcMrAOO5M6Gfv2PdNzqlVFQXMoYx4iD3AWB1YLsveBXgnXZqJtaRv1QG3Zlbi2mQzOk/IUyzVzD8wpxd8mZnYQGhbnJaoLY=
+Received: from CH0PR12MB5284.namprd12.prod.outlook.com (2603:10b6:610:d7::13)
+ by IA1PR12MB8310.namprd12.prod.outlook.com (2603:10b6:208:3ff::19)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8069.18; Wed, 16 Oct
- 2024 12:37:47 +0000
-Received: from PH7PR12MB5997.namprd12.prod.outlook.com
- ([fe80::c5da:9b53:9d77:c708]) by PH7PR12MB5997.namprd12.prod.outlook.com
- ([fe80::c5da:9b53:9d77:c708%5]) with mapi id 15.20.8048.020; Wed, 16 Oct 2024
- 12:37:47 +0000
-From: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
-To: "Feng, Kenneth" <Kenneth.Feng@amd.com>, "amd-gfx@lists.freedesktop.org"
+ 2024 13:13:11 +0000
+Received: from CH0PR12MB5284.namprd12.prod.outlook.com
+ ([fe80::8060:1b11:e9f3:3a51]) by CH0PR12MB5284.namprd12.prod.outlook.com
+ ([fe80::8060:1b11:e9f3:3a51%4]) with mapi id 15.20.8069.016; Wed, 16 Oct 2024
+ 13:13:11 +0000
+From: "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>
+To: "Limonciello, Mario" <Mario.Limonciello@amd.com>, "Lin, Wayne"
+ <Wayne.Lin@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
-CC: "Feng, Kenneth" <Kenneth.Feng@amd.com>
-Subject: RE: [PATCH] drm/amd/pm: update deep sleep status on smu v14.0.2/3
-Thread-Topic: [PATCH] drm/amd/pm: update deep sleep status on smu v14.0.2/3
-Thread-Index: AQHbH5u7T/ZH5XCbuE6OFkxZIni5ObKJTrKQ
-Date: Wed, 16 Oct 2024 12:37:46 +0000
-Message-ID: <PH7PR12MB59978FA51CE8CF4FE824B9DA82462@PH7PR12MB5997.namprd12.prod.outlook.com>
-References: <20241016071919.2138181-1-kenneth.feng@amd.com>
-In-Reply-To: <20241016071919.2138181-1-kenneth.feng@amd.com>
-Accept-Language: en-US, zh-CN
+CC: "Wentland, Harry" <Harry.Wentland@amd.com>, "Li, Sun peng (Leo)"
+ <Sunpeng.Li@amd.com>, "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>,
+ "Mahfooz, Hamza" <Hamza.Mahfooz@amd.com>, "Li, Roman" <Roman.Li@amd.com>,
+ "Chung, ChiaHsuan (Tom)" <ChiaHsuan.Chung@amd.com>, "Zuo, Jerry"
+ <Jerry.Zuo@amd.com>, "Mohamed, Zaeem" <Zaeem.Mohamed@amd.com>, "Chiu,
+ Solomon" <Solomon.Chiu@amd.com>, "Wheeler, Daniel" <Daniel.Wheeler@amd.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>, "stable@vger.kernel.org"
+ <stable@vger.kernel.org>
+Subject: Re: [PATCH 01/10] drm/amd/display: temp w/a for dGPU to enter idle
+ optimizations
+Thread-Topic: [PATCH 01/10] drm/amd/display: temp w/a for dGPU to enter idle
+ optimizations
+Thread-Index: AQHbHtq8UvpVNuapOEq1RlJW0GJpfbKHyreAgAGQv44=
+Date: Wed, 16 Oct 2024 13:13:11 +0000
+Message-ID: <CH0PR12MB528426EDBC0B3AC7245202578B462@CH0PR12MB5284.namprd12.prod.outlook.com>
+References: <20241015081713.3042665-1-Wayne.Lin@amd.com>
+ <20241015081713.3042665-2-Wayne.Lin@amd.com>
+ <1284976c-8fc9-4eab-b01e-a8a12790541d@amd.com>
+In-Reply-To: <1284976c-8fc9-4eab-b01e-a8a12790541d@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=05235d79-50f8-4a4a-9ca6-5d3f42278dc3;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution Only;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-10-16T12:28:50Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2024-10-16T13:13:10.912Z;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
+ Source; MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=0;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged; 
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH7PR12MB5997:EE_|LV3PR12MB9141:EE_
-x-ms-office365-filtering-correlation-id: 77ece9d8-0633-46da-5019-08dceddf56d2
+x-ms-traffictypediagnostic: CH0PR12MB5284:EE_|IA1PR12MB8310:EE_
+x-ms-office365-filtering-correlation-id: 9ada062e-b21b-4484-b4d2-08dcede4491c
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0; ARA:13230040|376014|1800799024|366016|38070700018;
-x-microsoft-antispam-message-info: =?utf-8?B?dDAvV3NJSTFmaldrWWRBbGNEcmUvWEpCTU1hbjdsbjlCYnU0VnZhSnM2L1cr?=
- =?utf-8?B?dlkxdFFOeEI3MHRnUXBVV0dxUFNGNXE1UDl3V3Z3alRNL3N3TDFaOWp2NFl0?=
- =?utf-8?B?enZvSVJsZlczUWxxU3VSU2llWDJDVnNJMDBVRTF2eHdOWnpLSUtvaUJoSkVR?=
- =?utf-8?B?K0JZN1dlVEhEM2tpTXBwOU5zbHpzZHRSN3E4SlN0WTE2QzU4M3lrY0NUdGlO?=
- =?utf-8?B?a2MzU3c0aG12enQ2Tjkrc1FGeTJPc1hjSUtsWTVkMnhmaC9KVldpdmlDd245?=
- =?utf-8?B?VTMrVEhqKzQ4dzhaUzhsRW5QQ3ZHMlp4N2F2TTBMcDVoUFlqb2lhaTRWNXo5?=
- =?utf-8?B?QXNmQW53aEVjL1pnc3NEZmVlRUkyK2R2L2s0eWk0WVZNWXhxd2RMTDI5QUxh?=
- =?utf-8?B?dFhqMnNpc2gxRlQ2WVl6VGJzS0ZtTGh0QmRpWi9Jbk8wc0w4VUpDay9HS21z?=
- =?utf-8?B?OHVxU2Q5NUJmM3h4QjZoaU5TdlNlSHhjcjZwd2d3YnpRb0ttZHpmSU9WRldt?=
- =?utf-8?B?U0NnY1pOZmVGZEhJNU5ZaEliZ1dzOXVVK1ZFMGs3OVBQUTRpWlIzKzFoZ0dq?=
- =?utf-8?B?c1VzWWF6dEwxcTEyc1IzL3YyenFPdjhIanlpTFR0bHZ2MDNRTmZkS0xFVzE2?=
- =?utf-8?B?cTVxZHFmN2M1bjFRdXBNc0FnT2luZzNaMTRFcW8xU3IzS0Jad0U2UlpnMzF0?=
- =?utf-8?B?Vk42cWplZmtML2ZiYlpaSXNpMlhGZkVjRnJzWXdTZFBqQzlpdldoV25mN2Uv?=
- =?utf-8?B?aFpmdWlvaEN3T3BRRzFqQjAyM3ljc01qVmFoeXlzOXJzWjJoSG9hRlZheGE5?=
- =?utf-8?B?eGdsSTdXajRXU0k2MVZpcU43dnljSHc1bXdub0gveWswcTh0UkNEditKbEx0?=
- =?utf-8?B?OGVtWFNDcDRrT1hKWVhnV1hSV2xHeU14MW9BNDNiZ3RJamhGb3hjL3Fhb2ZX?=
- =?utf-8?B?STQ5RWtpVmJodUxZd3pmNVh0NUpuWCtXeUdqKzNiQkVoWC8yL0tpVjVieFdp?=
- =?utf-8?B?OTd3T0dmd05WYUVMd0VHVkZRajZ3Q2tFQzZFL2hCdEZqSDBwakQ1TEZEYTlp?=
- =?utf-8?B?SHpKMmNMUUlXYWoyOUNhcDVoNVpmNEhxT0VoZWlIaVAzTmd1a0NjL2ZsTkMz?=
- =?utf-8?B?dXN4SG45aEpVMkRqUDlMOWhUSFBmUHdDa21mKzJwY2ZSS0E5Qko4dkU5Z29n?=
- =?utf-8?B?RzVJNXIrVkNxdC9GNnp6MWFncFdWWFFsN2FJd1hzYWNaZHd1NE9Db2xTaHBq?=
- =?utf-8?B?ZGtIQUlpdTVqaEs3MjRXdCtEanNrZkNuS2JlRGNZQ2JHZHFsSEhEbGpzUHdQ?=
- =?utf-8?B?Y3pRM3VXTkNpeHFPeDFoNlowWGxmOFc0Ym12bWZUeW9LdkcrdFlBSkdYVTBN?=
- =?utf-8?B?UzhIK2cwZWlEbGdXR3lVYm4rVVlLTndZSzd2VXNPV1MrOE1vMUFWek5HekpP?=
- =?utf-8?B?U3A0aDU5V3hiNThySS95bzE3K2hpb3lENGRGNUd6aTNBcTd4VmswbWYzOEFp?=
- =?utf-8?B?SHhITmpYc25oeGthYWF5QUhDOXpVd1Y2SmNYdzhwcjVzNXJlNGRpSUNNOUtD?=
- =?utf-8?B?bEZycFpNcFo5VEJFR1lpMGg1eFBFZHZZWG1wWldja1VweWVCbWNBSWZWd1U4?=
- =?utf-8?B?WVB3NG5ZT3NGVS9WM3FTZ05tVWxQRWgvdElEUURzTGlqaVhFUUJ0UU15T2ly?=
- =?utf-8?B?RU9vVFhlWk9vWHM0a2dhSjR6UVRyNlpGc1pGWnI4dEN1TmF0M2ljbk5YNFQ3?=
- =?utf-8?B?WkVNUTdHNXlHZ3NHM0RmQU5aaHRHVVVwRFRlN0hRaDdzaVlMeXRKL0c5aFkv?=
- =?utf-8?B?QnF6b21EQmhaSEYyLzJSUT09?=
+x-microsoft-antispam: BCL:0; ARA:13230040|1800799024|366016|376014|38070700018;
+x-microsoft-antispam-message-info: =?us-ascii?Q?qyMhTRP/WhEoZ0EllZpmBOkfQUDOHpDhczR3cImK5Y1AyWL399itBkOKM25B?=
+ =?us-ascii?Q?Dw91HGojEuwIIoaDwvYraEYAX6hOdByT6bKI0DaB0kvGKrYGHGYEglls81+g?=
+ =?us-ascii?Q?UBNRfOe0PzrzqqsZF7K961x4nOez9fGpz37VP28SdlwrAyWF/7z8mktBUg+e?=
+ =?us-ascii?Q?izomh57u0uMsuAsPwwZll1GRDbkYP6upgdSnq93w+rKrDpyPdKriBZhDtUkF?=
+ =?us-ascii?Q?wO4bUFIIj/wqNcH9ul+OJH9w9lNZ7FC3p1HxQjbu0IFN85Qf2j0B1oiVIqmF?=
+ =?us-ascii?Q?W0rduh2EZXS9HwqLp6GxzjUnFB1sxE0Eb3eTirRMV9fhLX5BfonHJRYhiN74?=
+ =?us-ascii?Q?s62sS0I5LUgCBbFsn2XnP+1wOnWccMkyiFH3ZsiEUky6uO9nS/1wt1+xFHVu?=
+ =?us-ascii?Q?ZwLrH7sd/6tfFyxAJoVVnWpvNyfCEnZfs3z/M8YDQToXiVwfHQtJBT9TGeAQ?=
+ =?us-ascii?Q?8zvVdBicnue0S3+vqLLbdBFxFOlCQA2O6la4Pj2qmWVoOxC8u98EIi11juZS?=
+ =?us-ascii?Q?tu5/BTFkUQZ1YXBajpG9Qt7czsKK+7L8VOXK7vkmupcC6O+KJ841BiPohFaC?=
+ =?us-ascii?Q?5fvszsX4m+st0njyclQvusBMUutGtIArnWdT2IRfC76CKn3UDT0tMn6woELB?=
+ =?us-ascii?Q?cb3ZJDyUIo025QFZD5Qf204S/3n2cbWdEhZXQr7vMTlT9xMPX3wQV6MJ7UNu?=
+ =?us-ascii?Q?aleUYywCm4dSOUjjb2P2m0khbuisZYg6T6Aw/AMzM1n1Q5S4GWmUHT6yI+g9?=
+ =?us-ascii?Q?KoCi71RTyaTM1KRRZ8QScsq8B5Gp+hRzNikRNTFlFOUjMM5V1BGOXRNgMUCU?=
+ =?us-ascii?Q?uLwuTNKiCnUOH0c/qG4OnMbctqSFrCYWWtEGWZka1Zsmq619JHYIt3Cj2IW7?=
+ =?us-ascii?Q?LLdu5xMcMAntN26H/n8QTYEcZqQ0VFcxcKRK7moXf9SfAPJfmZ2p7aOT3VCh?=
+ =?us-ascii?Q?aOFnXHNd9qESBFO8Xdaj3b1nYcauX17Msf6ZH+ttbsSpoEv2XgnKlKgF/QgM?=
+ =?us-ascii?Q?FxHvyQ/Xcn2yfAhLUey8gPztrZhPpGbLxu3cEAEuFpqRfk7wgGkBDU8GrGgl?=
+ =?us-ascii?Q?SifOFRMHZ+SoKHhRk3btGZOaocVr9v9bHC6PYEIkhVOUkAFEiO+8EUaE3WDA?=
+ =?us-ascii?Q?TvBPA/Pr0LHkjkkOjtQ+lR2+wPuWIxQFLObMEQCOAgqjfTKWFqsdcTdHDII2?=
+ =?us-ascii?Q?S9as7d4sdcn8PJ/F7pISAmYhZNL/fYp0FSyqALWASWuz2juTWWxnhK03CgSZ?=
+ =?us-ascii?Q?2tBzY7JbiEXasdh1TaWg92fqW3O4VXqB9zZufGFywQt0PwMegvGrMSn700a7?=
+ =?us-ascii?Q?OhmOOvxcgW5sSRMtOO4fwJMuD7VHSxalJOr+RfaqgCcogQ=3D=3D?=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5997.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(38070700018); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:CH0PR12MB5284.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(38070700018); DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?aVJjMTIrRTNEd3FBbjI0QjlHR3RYZzZwb2trUVBhMXJueFcrNlgxSG14QWxo?=
- =?utf-8?B?MS9ienR3b3BjZjJ1UGFXMXhmZ2k4dWZDVWZrbEM3V3l1V1ZKV1BmOStLWjJz?=
- =?utf-8?B?RGl3YTdPczd1SjFncEtad2hxVUtkWjFwdDVhTCs2UGRMbG5lY0JtT0hxN0RK?=
- =?utf-8?B?ay9pY0Uxc1EvSVlFZVllV2x5OHhjMjNnU2ZIZ0Q4OUJVSFd5OEVjc2swSTR3?=
- =?utf-8?B?R04wK09oSnRFNkE4citrN0UrSHNkSTFwb0M4N3FlRmRnOENWdjZqQnlLUkl0?=
- =?utf-8?B?WW1OOHZTVHRZVGI2RVB1VDlVMWt5VVhpN01RSlJ5aWVQUjd6RklDUmt5dzZw?=
- =?utf-8?B?ZThsZnZXbmlUM0dRWU9ydWJBMDU5MWhvYWlYQWhxRC8wR1kvdFZjZHM4ZEEx?=
- =?utf-8?B?eExGdjkzK3ZVRUZKeUpWQUU1ZmtKdEFvR0tKc01VNG4yYVE0YkpOalRjQVo3?=
- =?utf-8?B?SzdTa0hsZFdzZHl6OGdJUFVVUitzY0RQWGdmcnZWT01iWHlxSWxnOUVmMVJS?=
- =?utf-8?B?QUo2TE5rcHl5amdxWWVsZXVuLzVNU0VRVUQxRk9FMStxY3lTei9OYXk3by9r?=
- =?utf-8?B?NVFwU3h6aHdqY0N4NGRuWkhDZFpBaXFwZWRxRlVLc29iN2JIZzZ0WVlDU2gy?=
- =?utf-8?B?dW5GZUUyZ29GZVVSemxJYlFtbGlnNm5qdDFCd280NlE1UHVVY2tod09pdjh1?=
- =?utf-8?B?RTBLcHlwend4YWFEQ1BPb1Q4Vnp1YnhLRlltYUlaYm9qWGY0WnNGbmtZb1Fu?=
- =?utf-8?B?T2FQQ2tSdkRUTjJVQkFTYUcwOVJTWTdJc0tvOHlsTjk4VzlwdmQzTk5hWmR3?=
- =?utf-8?B?b3VQa0hZbzZ0TFVCd1RvYzc2U05LdGorVkladUZQRllZcG1ZY21uOTk4T04y?=
- =?utf-8?B?NmdXNHlURnFwaGNVYkw3bFhPUVdEU0xleVE3M1RZelNON09ORWNCZGRyNTRG?=
- =?utf-8?B?R3lGWGNqa2ppT3VXOVpMeVFIVHpCZGR1T0preFRqcnI4a0ZZSTd0SitmdFJw?=
- =?utf-8?B?c3FqOHNjR0VOVVBiTitmeWFPOWU4YllTaUJVN3JMYjBVYjFYS1B3RkpoV21X?=
- =?utf-8?B?aWk5bWF5bythRFpkS2ZLckNBL3NDSXhtWTlDeHRlL1VwWHM0eTVyRUxtV2tO?=
- =?utf-8?B?Z2luK2pYUmRrTGJqd1JhWHpFVHgzdVRVdmdOQWF1WjdHbURabERZanZ6UVFU?=
- =?utf-8?B?ZVhmcmVsZjd5TXVzWVN1ZndOMlZsZDVERnBVbDhrelRpdkRqRHFmd2RRaGov?=
- =?utf-8?B?VWxFN05MQ1pzTFI0REFXUmFyQzZscTF4ZkZTbVM1Q3ZHd1NBL05hN2VXd095?=
- =?utf-8?B?RHFWVmIyeXRERFFQWC9kTlBubFlOK2hnWjRCdncybldNdFV5UFgrUmJtY25U?=
- =?utf-8?B?eUpqTEk2NGNQdjFreC8wZXVwQ2tqYjlrcmZUa0EvZlRjdDkwRXFnVlJva25p?=
- =?utf-8?B?dGd1TzZJKzZ5L2tBRW9jMDdkVUU2K2Z2Vmg5Nkt4OHh0Y2VDcE5Ta0pPMnZ2?=
- =?utf-8?B?ZTV4WFNRdy9QMDN2WVpzZkt5T085ZVpoTzZCM05pelpOOWQzalk1czZoUm52?=
- =?utf-8?B?ZmhGZnkvWFRvcTNmbDFGWEU2WDJ3Y0RpVVkySEUrQ0pBRE5CNzRpMC9xZDVX?=
- =?utf-8?B?WUF3SU1FdkhTeFpPUmg4MzlPK0c4QjlOempzWWNlbDIyN3UvejBRL3ZnMTJv?=
- =?utf-8?B?SUhINWpwTGt4M3UzNzNRbG9VK2EwMmw0Y0JIOTM3bm45Y0VOTDV1Y1o1QTJy?=
- =?utf-8?B?V1hyK0MxWXcxdmplcm9lc01kcHZud3locHdIZ1M1clhUYThUMm1kemhkaVh4?=
- =?utf-8?B?SWlCa2ZxMTFiNU9TS0J0NHpFNzNvOGYyN01sWUJnN2gzUVhOVUd0VTJ4VVZC?=
- =?utf-8?B?S2JDWmRodXhmS1grZ3hJYzBmeEk3OENoY2VxNEgrYmtNOEFYNEVPQ1Z2WGJl?=
- =?utf-8?B?UnJ0aWdyUGIvS1ZhSG5LWG11V0RjOUJvK29nZUM0U0kvUkY0OG53bnVoRjhE?=
- =?utf-8?B?QUlRTkcvbVZOc29vcmRzVHh5eWIvYUZkTGVVTm1WWVdlVkE1V2hJQ0NOclRp?=
- =?utf-8?B?eDlVODFWazAycTgrd3U5Tk0rMmk2V3NlVkZoRDJ4T0xadE9vckxhb0pIRVpu?=
- =?utf-8?Q?9dh0=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?jeiN9nMORA7PHWXzLGNI+JY6jG95hwEj3IL3120Kav6wV9BlxwsVb8/vd++c?=
+ =?us-ascii?Q?Du1WThxqqbS4jSfcb2zGmBCXXq5Dwqw9XyxDeAluHEjbtPd8roWLTOespYm9?=
+ =?us-ascii?Q?8IvqyYCoe6dUrM2ORB5qG4gyeANQDC9HkOGGRXZ/eNjjmlJkSYu9/3Z4vZoE?=
+ =?us-ascii?Q?q424MuZ/xyBm5ZLXujmLIEm1JqKBphb2wVyVrtvytqRoAZpZY2UAfOVykhZo?=
+ =?us-ascii?Q?gqfd2NB3EmEulNVL9s7Z/vbfMxMRKcsXUnCACZve9JwuKM3BOW/hXSC/TjgN?=
+ =?us-ascii?Q?gOtcyX/6RPVUbPqm2mM2PYTpkH/JmjsJZHAWLqMFp/xs85M43ZlV9z6CBpeC?=
+ =?us-ascii?Q?q3jGryl4GgFbj6E9HNTq6pkPYwTR8Xfkhy4oLU6/+cnH4uxm0G0XWrCQ8Yt+?=
+ =?us-ascii?Q?3cR3DrOH8IrcmVh5O9jGw86le8PlZaTvuqss0RYk547mL2uZJ5mPPL8jkcGj?=
+ =?us-ascii?Q?VFRuPN4uUiv0AB7XEOYd+mwS44Xjfg/q8ACR+nQce3/REseXuGG/5bPDr8fW?=
+ =?us-ascii?Q?KBWiqn9ZRiyM1TtJl2kYwHAwEtShUSlPWddYNtsak585akLrPexKTBUHeePz?=
+ =?us-ascii?Q?jgul9Jssg/j/f9MxJK4GzVmFk3tYwwToXKpvS3L7ir242EX6682HgEdkPQk6?=
+ =?us-ascii?Q?KnWtH4TO6jZxXVTvm8Xncnatvf7k2gSpAIya7nE7+b6b2TJ8bh6/IT7GjoF9?=
+ =?us-ascii?Q?9ALP9zqA41DRf0pqpBDclydNsgMebxi8pZTlTONOXK5wDeVWebX5S7+5INvG?=
+ =?us-ascii?Q?GMC4tHBmhw6xBTGSOS7aH32yx1aqvMwLxW/V7DHapr2xJzzzyLXFfCzaLSM6?=
+ =?us-ascii?Q?i1NikrKPzqUw4hHCXRIo8qV6HOjeF3MP9FqPqKb41a7DGfAetqoRVWaAzOaA?=
+ =?us-ascii?Q?aN7sAd2nQFaWGHrU9nx0NSfVQWeJbpgntDZACDl9IEEVRxl5MTIIQhoN4btP?=
+ =?us-ascii?Q?4uE/R90xFI9oUFrEpsLG2nUg7vhLVBd2VUBu35cnOqDR0O8LNRzgaGlYs1Ke?=
+ =?us-ascii?Q?cMEsxkoeVloUV4lzCXajKhxAybXyc/trod6HOBeRh+sRjUrQFcfUUcdOWB1a?=
+ =?us-ascii?Q?FH9H9d8CawOd/Z8oP/9Nu8xYuRSQIeVC09WdaZ8cixwhAO23r+kLfhrR7mcm?=
+ =?us-ascii?Q?g1cHoMYwS2BZ495fulOXyrDKHziynx1p30NP+gci3C3AqlEb0Quuvav0RiLJ?=
+ =?us-ascii?Q?w89fBacOgR0JK0CwvotY3uDn3Cf8alZx0RvRdr1jJd6fkCxVyM83lpLkdg0v?=
+ =?us-ascii?Q?HA7vZDtwl7+9dhVb7rh34Uan3qd8gJe2N+t58xnKiFMD+N0XYHbBuFnQaRO4?=
+ =?us-ascii?Q?sgmeLGy2kO7cyptLXBCXWhTG4xgIZCc4pyQrQr8SiLLPaP/Wyffz8O4gEKCQ?=
+ =?us-ascii?Q?iOMA3Lanb47vWPlxHEio51+XMEGjntdCiH0sgOtVRXOVP0S91C7PLpN5AHS0?=
+ =?us-ascii?Q?LUY0wSQc59WQDCdSYtbYqmhNKhtPoLzoQs6dYDcAaISu/t7lZWAwnV1CD54Q?=
+ =?us-ascii?Q?D0ARRPGzQ2gJet5evSIHuq+kWToOYzaQdLqN8sVjM37fYvVKSwGuTUuko0+J?=
+ =?us-ascii?Q?7rDLJ8BR/zM1qzB2V1w=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_CH0PR12MB528426EDBC0B3AC7245202578B462CH0PR12MB5284namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5997.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 77ece9d8-0633-46da-5019-08dceddf56d2
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Oct 2024 12:37:46.9764 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5284.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9ada062e-b21b-4484-b4d2-08dcede4491c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Oct 2024 13:13:11.4108 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: MKXNRoVQD0YE85rdjd5hAGHlzDNeT2Ak8cFY5KWhL81uRjjrHh65aVCuxyH9CtEx
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9141
+X-MS-Exchange-CrossTenant-userprincipalname: tLKYgYSN5ENL45ZcirrGfQDUMXvLPI6qa13rucvNPx84n2RL0vyCHx0ATEFJRF1E8ODPOzSP6LjmmG4Z0Fj6iw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8310
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -168,45 +161,248 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEFNRCBJbnRlcm5hbCBEaXN0cmlidXRpb24gT25seV0N
-Cg0KLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCkZyb206IEtlbm5ldGggRmVuZyA8a2VubmV0
-aC5mZW5nQGFtZC5jb20+DQpTZW50OiBXZWRuZXNkYXksIE9jdG9iZXIgMTYsIDIwMjQgMzoxOSBQ
-TQ0KVG86IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQpDYzogV2FuZywgWWFuZyhLZXZp
-bikgPEtldmluWWFuZy5XYW5nQGFtZC5jb20+OyBGZW5nLCBLZW5uZXRoIDxLZW5uZXRoLkZlbmdA
-YW1kLmNvbT4NClN1YmplY3Q6IFtQQVRDSF0gZHJtL2FtZC9wbTogdXBkYXRlIGRlZXAgc2xlZXAg
-c3RhdHVzIG9uIHNtdSB2MTQuMC4yLzMNCg0KZGlzYWJsZSBkZWVwIHNsZWVwIGR1cmluZyB0aGUg
-Y29tcHV0ZSB3b3JrbG9hZCBmb3IgdGhlIHBvdGVudGlhbCBwZXJmb3JtYW5jZSBsb3NzIG9uIHNt
-dSB2MTQuMC4yLzMNCg0KU2lnbmVkLW9mZi1ieTogS2VubmV0aCBGZW5nIDxrZW5uZXRoLmZlbmdA
-YW1kLmNvbT4NCi0tLQ0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG0vc3dzbXUvc211MTQvc211X3Yx
-NF8wXzJfcHB0LmMgfCA3ICsrKysrKy0NCiAxIGZpbGUgY2hhbmdlZCwgNiBpbnNlcnRpb25zKCsp
-LCAxIGRlbGV0aW9uKC0pDQoNCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3BtL3N3
-c211L3NtdTE0L3NtdV92MTRfMF8yX3BwdC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wbS9zd3Nt
-dS9zbXUxNC9zbXVfdjE0XzBfMl9wcHQuYw0KaW5kZXggMjdmNGUwY2U0NDdkLi5lY2RkMTFhODcz
-MTEgMTAwNjQ0DQotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3BtL3N3c211L3NtdTE0L3NtdV92
-MTRfMF8yX3BwdC5jDQorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3BtL3N3c211L3NtdTE0L3Nt
-dV92MTRfMF8yX3BwdC5jDQpAQCAtMTc4NCw3ICsxNzg0LDcgQEAgc3RhdGljIGludCBzbXVfdjE0
-XzBfMl9zZXRfcG93ZXJfcHJvZmlsZV9tb2RlKHN0cnVjdCBzbXVfY29udGV4dCAqc211LA0KICAg
-ICAgICBEcG1BY3Rpdml0eU1vbml0b3JDb2VmZkludF90ICphY3Rpdml0eV9tb25pdG9yID0NCiAg
-ICAgICAgICAgICAgICAmKGFjdGl2aXR5X21vbml0b3JfZXh0ZXJuYWwuRHBtQWN0aXZpdHlNb25p
-dG9yQ29lZmZJbnQpOw0KICAgICAgICBpbnQgd29ya2xvYWRfdHlwZSwgcmV0ID0gMDsNCi0NCisg
-ICAgICAgdWludDMyX3QgdGVtcF9wcm9maWxlX21vZGUgPSBzbXUtPnBvd2VyX3Byb2ZpbGVfbW9k
-ZTsNCiAgICAgICAgc211LT5wb3dlcl9wcm9maWxlX21vZGUgPSBpbnB1dFtzaXplXTsNCg0KICAg
-ICAgICBpZiAoc211LT5wb3dlcl9wcm9maWxlX21vZGUgPj0gUFBfU01DX1BPV0VSX1BST0ZJTEVf
-Q09VTlQpIHsgQEAgLTE4NDIsNiArMTg0MiwxMSBAQCBzdGF0aWMgaW50IHNtdV92MTRfMF8yX3Nl
-dF9wb3dlcl9wcm9maWxlX21vZGUoc3RydWN0IHNtdV9jb250ZXh0ICpzbXUsDQogICAgICAgICAg
-ICAgICAgfQ0KICAgICAgICB9DQoNCisgICAgICAgaWYgKHNtdS0+cG93ZXJfcHJvZmlsZV9tb2Rl
-ID09IFBQX1NNQ19QT1dFUl9QUk9GSUxFX0NPTVBVVEUpDQorICAgICAgICAgICAgICAgc211X3Yx
-NF8wX2RlZXBfc2xlZXBfY29udHJvbChzbXUsIGZhbHNlKTsNCisgICAgICAgZWxzZSBpZiAodGVt
-cF9wcm9maWxlX21vZGUgPT0gUFBfU01DX1BPV0VSX1BST0ZJTEVfQ09NUFVURSkNCisgICAgICAg
-ICAgICAgICBzbXVfdjE0XzBfZGVlcF9zbGVlcF9jb250cm9sKHNtdSwgdHJ1ZSk7DQpbS2V2aW5d
-Og0K77u/DQpUaGlzIGNvZGUgbG9naWMgZG9lc24ndCBzZWVtIGVhc3kgdG8gdW5kZXJzdGFuZCwg
-SWYgSSB1bmRlcnN0YW5kIGNvcnJlY3RseSwgY2FuIEkgbW9kaWZ5IGl0IHRvIHRoZSBmb2xsb3dp
-bmcgd3JpdGluZyBzdHlsZToNCu+7vw0KSWYgKG5ldyBwcm9maWxlICE9IGN1cnJlbnQgcHJvZmls
-ZSkgew0KICAgICAgICAgICAgc211X3YxNF8wX2RlZXBfc2xlZXBfY29udHJvbChzbXUsIG5ldyBw
-cm9maWxlID09IGNvbXB1dGUgcHJvZmlsZSA/IGZhbHNlIDogdHJ1ZSk7DQogICAgICAgICAgICBz
-bXUtPnBvd2VyX3Byb2ZpbGVfbW9kZSA9IG5ldyBwcm9maWxlLg0KfQ0K77u/DQpCZXN0IFJlZ2Fy
-ZHMsDQpLZXZpbg0KICAgICAgICAvKiBjb252IFBQX1NNQ19QT1dFUl9QUk9GSUxFKiB0byBXT1JL
-TE9BRF9QUExJQl8qX0JJVCAqLw0KICAgICAgICB3b3JrbG9hZF90eXBlID0gc211X2Ntbl90b19h
-c2ljX3NwZWNpZmljX2luZGV4KHNtdSwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICBDTU4yQVNJQ19NQVBQSU5HX1dPUktMT0FELA0KLS0NCjIu
-MzQuMQ0KDQo=
+--_000_CH0PR12MB528426EDBC0B3AC7245202578B462CH0PR12MB5284namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+[Public]
+
+
+Hi Mario,
+
+Hamza is working on the reported issue and appears to be due to a different=
+ root cause. Hence, we're expecting that the fix for that issue is likely g=
+oing to be different, with what we know so far. While that issue is being d=
+ebugged, this patch will allow us to have better idle power consumption on =
+dGPUs
+
+
+--
+
+Regards,
+Jay
+________________________________
+From: Limonciello, Mario <Mario.Limonciello@amd.com>
+Sent: Tuesday, October 15, 2024 9:14 AM
+To: Lin, Wayne <Wayne.Lin@amd.com>; amd-gfx@lists.freedesktop.org <amd-gfx@=
+lists.freedesktop.org>
+Cc: Wentland, Harry <Harry.Wentland@amd.com>; Li, Sun peng (Leo) <Sunpeng.L=
+i@amd.com>; Siqueira, Rodrigo <Rodrigo.Siqueira@amd.com>; Mahfooz, Hamza <H=
+amza.Mahfooz@amd.com>; Pillai, Aurabindo <Aurabindo.Pillai@amd.com>; Li, Ro=
+man <Roman.Li@amd.com>; Chung, ChiaHsuan (Tom) <ChiaHsuan.Chung@amd.com>; Z=
+uo, Jerry <Jerry.Zuo@amd.com>; Mohamed, Zaeem <Zaeem.Mohamed@amd.com>; Chiu=
+, Solomon <Solomon.Chiu@amd.com>; Wheeler, Daniel <Daniel.Wheeler@amd.com>;=
+ Deucher, Alexander <Alexander.Deucher@amd.com>; stable@vger.kernel.org <st=
+able@vger.kernel.org>
+Subject: Re: [PATCH 01/10] drm/amd/display: temp w/a for dGPU to enter idle=
+ optimizations
+
+On 10/15/2024 03:17, Wayne Lin wrote:
+> From: Aurabindo Pillai <aurabindo.pillai@amd.com>
+>
+> [Why&How]
+> vblank immediate disable currently does not work for all asics. On
+> DCN401, the vblank interrupts never stop coming, and hence we never
+> get a chance to trigger idle optimizations.
+>
+> Add a workaround to enable immediate disable only on APUs for now. This
+> adds a 2-frame delay for triggering idle optimization, which is a
+> negligible overhead.
+>
+> Fixes: db11e20a1144 ("drm/amd/display: use a more lax vblank enable polic=
+y for older ASICs")
+> Fixes: 6dfb3a42a914 ("drm/amd/display: use a more lax vblank enable polic=
+y for DCN35+")
+>
+> Cc: Mario Limonciello <mario.limonciello@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+> Reviewed-by: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
+> Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+> Signed-off-by: Wayne Lin <wayne.lin@amd.com>
+> ---
+>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
+gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index a4882b16ace2..6ea54eb5d68d 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -8379,7 +8379,8 @@ static void manage_dm_interrupts(struct amdgpu_devi=
+ce *adev,
+>                if (amdgpu_ip_version(adev, DCE_HWIP, 0) <
+>                    IP_VERSION(3, 5, 0) ||
+>                    acrtc_state->stream->link->psr_settings.psr_version <
+> -                 DC_PSR_VERSION_UNSUPPORTED) {
+> +                 DC_PSR_VERSION_UNSUPPORTED ||
+> +                 !(adev->flags & AMD_IS_APU)) {
+>                        timing =3D &acrtc_state->stream->timing;
+>
+>                        /* at least 2 frames */
+
+Considering the regression raised [1] is on an APU too I wonder if this
+is really the best workaround to approach to this issue.
+
+https://lore.kernel.org/amd-gfx/9b80e957-f20a-4bd7-a40b-2b5f1decf5a4@johnro=
+wley.me/
+
+--_000_CH0PR12MB528426EDBC0B3AC7245202578B462CH0PR12MB5284namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Calibri;font-size:10pt;color:#008000;margin:5pt;fon=
+t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
+[Public]<br>
+</p>
+<br>
+<div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+<br>
+</div>
+<div id=3D"Signature" class=3D"elementToProof" style=3D"color: inherit;"><s=
+pan style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, C=
+alibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">Hi Ma=
+rio,</span></div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+Hamza is working on the reported issue and appears to be due to a different=
+ root cause. Hence, we're expecting that the fix for that issue is likely g=
+oing to be different, with what we know so far. While that issue is being d=
+ebugged, this patch will allow us
+ to have better idle power consumption on dGPUs<br>
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-family: Calibri, Arial, Helveti=
+ca, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+--</div>
+<div class=3D"elementToProof" style=3D"font-family: Calibri, Arial, Helveti=
+ca, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-family: Calibri, Arial, Helveti=
+ca, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Regards,</div>
+<div class=3D"elementToProof" style=3D"font-family: Calibri, Arial, Helveti=
+ca, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Jay<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Limonciello, Mario &l=
+t;Mario.Limonciello@amd.com&gt;<br>
+<b>Sent:</b> Tuesday, October 15, 2024 9:14 AM<br>
+<b>To:</b> Lin, Wayne &lt;Wayne.Lin@amd.com&gt;; amd-gfx@lists.freedesktop.=
+org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
+<b>Cc:</b> Wentland, Harry &lt;Harry.Wentland@amd.com&gt;; Li, Sun peng (Le=
+o) &lt;Sunpeng.Li@amd.com&gt;; Siqueira, Rodrigo &lt;Rodrigo.Siqueira@amd.c=
+om&gt;; Mahfooz, Hamza &lt;Hamza.Mahfooz@amd.com&gt;; Pillai, Aurabindo &lt=
+;Aurabindo.Pillai@amd.com&gt;; Li, Roman &lt;Roman.Li@amd.com&gt;; Chung,
+ ChiaHsuan (Tom) &lt;ChiaHsuan.Chung@amd.com&gt;; Zuo, Jerry &lt;Jerry.Zuo@=
+amd.com&gt;; Mohamed, Zaeem &lt;Zaeem.Mohamed@amd.com&gt;; Chiu, Solomon &l=
+t;Solomon.Chiu@amd.com&gt;; Wheeler, Daniel &lt;Daniel.Wheeler@amd.com&gt;;=
+ Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; stable@vger.kernel.o=
+rg
+ &lt;stable@vger.kernel.org&gt;<br>
+<b>Subject:</b> Re: [PATCH 01/10] drm/amd/display: temp w/a for dGPU to ent=
+er idle optimizations</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">On 10/15/2024 03:17, Wayne Lin wrote:<br>
+&gt; From: Aurabindo Pillai &lt;aurabindo.pillai@amd.com&gt;<br>
+&gt; <br>
+&gt; [Why&amp;How]<br>
+&gt; vblank immediate disable currently does not work for all asics. On<br>
+&gt; DCN401, the vblank interrupts never stop coming, and hence we never<br=
+>
+&gt; get a chance to trigger idle optimizations.<br>
+&gt; <br>
+&gt; Add a workaround to enable immediate disable only on APUs for now. Thi=
+s<br>
+&gt; adds a 2-frame delay for triggering idle optimization, which is a<br>
+&gt; negligible overhead.<br>
+&gt; <br>
+&gt; Fixes: db11e20a1144 (&quot;drm/amd/display: use a more lax vblank enab=
+le policy for older ASICs&quot;)<br>
+&gt; Fixes: 6dfb3a42a914 (&quot;drm/amd/display: use a more lax vblank enab=
+le policy for DCN35+&quot;)<br>
+&gt; <br>
+&gt; Cc: Mario Limonciello &lt;mario.limonciello@amd.com&gt;<br>
+&gt; Cc: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
+&gt; Cc: stable@vger.kernel.org<br>
+&gt; Reviewed-by: Harry Wentland &lt;harry.wentland@amd.com&gt;<br>
+&gt; Reviewed-by: Rodrigo Siqueira &lt;rodrigo.siqueira@amd.com&gt;<br>
+&gt; Signed-off-by: Aurabindo Pillai &lt;aurabindo.pillai@amd.com&gt;<br>
+&gt; Signed-off-by: Wayne Lin &lt;wayne.lin@amd.com&gt;<br>
+&gt; ---<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 ++-<=
+br>
+&gt;&nbsp;&nbsp; 1 file changed, 2 insertions(+), 1 deletion(-)<br>
+&gt; <br>
+&gt; diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drive=
+rs/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
+&gt; index a4882b16ace2..6ea54eb5d68d 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
+&gt; @@ -8379,7 +8379,8 @@ static void manage_dm_interrupts(struct amdgpu_d=
+evice *adev,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (amdgpu_ip_version(adev, DCE_HWIP, 0) &lt;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IP_VERSION(3, 5, 0) ||<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; acrtc_state-&gt;stream-&gt;link=
+-&gt;psr_settings.psr_version &lt;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; DC_PSR_VERSION_UNSUPPORTED) {<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; DC_PSR_VERSION_UNSUPPORTED ||<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; !(adev-&gt;flags &amp; AMD_IS_APU)) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; timing =
+=3D &amp;acrtc_state-&gt;stream-&gt;timing;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* at l=
+east 2 frames */<br>
+<br>
+Considering the regression raised [1] is on an APU too I wonder if this <br=
+>
+is really the best workaround to approach to this issue.<br>
+<br>
+<a href=3D"https://lore.kernel.org/amd-gfx/9b80e957-f20a-4bd7-a40b-2b5f1dec=
+f5a4@johnrowley.me/">https://lore.kernel.org/amd-gfx/9b80e957-f20a-4bd7-a40=
+b-2b5f1decf5a4@johnrowley.me/</a><br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_CH0PR12MB528426EDBC0B3AC7245202578B462CH0PR12MB5284namp_--
