@@ -4,150 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 071A5D37487
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Oct 2024 12:46:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14F21D37485
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Oct 2024 12:47:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A97F110E329;
-	Thu, 17 Oct 2024 12:46:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ACA4510E801;
+	Thu, 17 Oct 2024 12:47:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="AEfjVD6p";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HUjPn2A3";
 	dkim-atps=neutral
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2086.outbound.protection.outlook.com [40.107.96.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0DF0D10E329
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Oct 2024 12:46:10 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FErRonmZJlY3gjBs0eftKDEu0LV9yHos99f7xuzy/nc/aoDGtqPhEeUh8khXOeANpO3wZnqyoATZmNikzvfH/XbDeob5DtR7NeQwkA80f5aUGvyCLRoSAEnNgIA2hXTwIV6KCd9+4QOM0alDLYUOovv0VXT6LtvLcjs/GIefrtw1BUK3zOvj3CLKWHeR80i19tmOOVE+7LWZbvBY108n9jmASCvpJ5ENveumAvh3aIvO7o3KncIKH1CFHUwJXDco84/lWJT68SxBOOVt3RHLgiHAePoVaKQbuZiwYaEFeM9CGueUHk68ZrDy+Qi/EU7A99+Z8rxaDCx7jXSgx+F7CA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=j8BfBKitlylM9hr+GmQqWs5rGdy9mtNQXIknO1j9v4s=;
- b=Q3Cic08EU1JSoLuqVRwl550rcPnL+l7ueOetQVrs1dNwBcdB1yzz0IfWClqFG4Y5YGDdXIUEtQ9YaqsplrPQp6JUAo3PmG9ZILl8bNP4Y2FisOlYZIaAYRJQwNLnwRlaczHvbumtkVbpjqqoXEYAdNOIX7VM5x6hNDrwICnekvec8EXt4gLhDN8yVGJwxzeEJvPEa/R6cZSfCXKg7l1CTSwpQ2VtoXZRFl2F0XKi7x8Qc7xOR/qK/5d3aay3PFNKz66BjQs4zFkkbZYa+R83i2ND79rLRef49+67dyFr94NX+2cgTnNJpvVS/vCeCZUMIwMKJXcFEqtL+fCmq7xJag==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=j8BfBKitlylM9hr+GmQqWs5rGdy9mtNQXIknO1j9v4s=;
- b=AEfjVD6pRgvtPRJl5399zmeqf8DoecQp9FHaOyt6aCeFnLdssiMFyPOCkdlQHRL1VnZosuN84xRaViZPm9huQ5mw0NRFhrIIX+rg8GiLo3Ymh/e0PvoXd5kSo/ptcJFdjJXFiuCkYXXcUioZUi7JBknKBeykwVf6IKkj3HwQkR0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BL1PR12MB5753.namprd12.prod.outlook.com (2603:10b6:208:390::15)
- by CY8PR12MB8316.namprd12.prod.outlook.com (2603:10b6:930:7a::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8069.19; Thu, 17 Oct
- 2024 12:46:06 +0000
-Received: from BL1PR12MB5753.namprd12.prod.outlook.com
- ([fe80::2b0e:7fc3:1d21:5d2e]) by BL1PR12MB5753.namprd12.prod.outlook.com
- ([fe80::2b0e:7fc3:1d21:5d2e%4]) with mapi id 15.20.8069.016; Thu, 17 Oct 2024
- 12:46:06 +0000
-Subject: Re: [PATCH v4 07/15] drm/amdgpu: validate resume before function call
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-References: <20241017100615.1492144-1-sunil.khatri@amd.com>
- <20241017100615.1492144-8-sunil.khatri@amd.com>
- <bd5cebef-9423-4cd2-a965-208735bca523@gmail.com>
-From: "Khatri, Sunil" <sunil.khatri@amd.com>
-Message-ID: <f45a4aff-c772-3344-5b16-1aa147b9ca09@amd.com>
-Date: Thu, 17 Oct 2024 18:16:00 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.0
-In-Reply-To: <bd5cebef-9423-4cd2-a965-208735bca523@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-ClientProxiedBy: PN2PR01CA0134.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:6::19) To BL1PR12MB5753.namprd12.prod.outlook.com
- (2603:10b6:208:390::15)
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
+ [209.85.221.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 337DA10E801
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Oct 2024 12:47:12 +0000 (UTC)
+Received: by mail-wr1-f52.google.com with SMTP id
+ ffacd0b85a97d-37d47b38336so656300f8f.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Oct 2024 05:47:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1729169230; x=1729774030; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=3MEEJaKuNIgnvDcAPafjyKZsVq8n4arGU3HjUnfNGvM=;
+ b=HUjPn2A3QGq4rGCvlNfvJMob/6PCfjTHrsMPidPi7YMhT22GXvlXLvhJSLd1+QKzzP
+ RVfldQqr810KArXJRDb6oijke0JiDrGXyApglxLIGYN44ACjRCucuSHtcaqT6oABY46C
+ kmPBZdgGtcUmF18/k9o2EJeo2JV994VSPwybo2wEcB7zLy2WCFQi5DlE+upSODiiwXe6
+ kf6i//KmcLbfFUCoH3MDUahHnrduOKaFJgFTvAfLkLKwQI9VYYwQhEk4Eh2dTmRm1D2J
+ Yxq809PtKwUtTc9JOlJX2kocJCh6+RZSGfjkUUhBjbVI/Lrf+TxF6TbiSdATY22iy07z
+ fhOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1729169230; x=1729774030;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=3MEEJaKuNIgnvDcAPafjyKZsVq8n4arGU3HjUnfNGvM=;
+ b=UZhgI1Y9kiH9ZWTwRMZMUWtVmxr1RbTzMAfV09OaHgpUdWGaq+G2HG8uCYQurPcHKP
+ l1/tKC+JFRP0EIZgQg1XW8B7mkNxM4bS1pG/q4pBbV8VnXTAqZmsb+ThFyQ9JrXj751X
+ yXTaXa1NIY8LSo9a1eYb1jmp9+scRyy0L2S1JuIe7YdWWhRpODkNnOINSgm8MFEYyvRi
+ eDteRgJu/WkKnZuPG/dWWhZILN+ZYA5oORb6NoCRs6YxETpdYM/ERdIv8XL/uXsRZD4M
+ sIGtpt7QzF9lBJxdbpohWYldkR0gGWZRyw5f4ny/deYUKJ/2AhXs1VBkyCAm7eZjSeO3
+ CfCQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWzOrxmVTtv/TPeG63m1m4VFZSVc1mevHnvuJcRosdDwcLoaNxoDYct4HF2sEtYEaAfmjzfXfYh@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxvbSLOT8jMkwmneS04m9FBUC1NbdMBcYPgjaXrXW2+3sGcIBU0
+ p6s3fPulOfpl6GXXXr9hL6W5HOK+WhgDPonfRuegBeEsbDP4f6LxwNZOfg==
+X-Google-Smtp-Source: AGHT+IGqPyQRLSCNG1pcRPi6H13hyUTBaUmZppxwJ+/28OSKUZdvlZKa0SaNMEto9ujsSMsJ7cD7XQ==
+X-Received: by 2002:adf:f0d1:0:b0:37d:50e1:b3e1 with SMTP id
+ ffacd0b85a97d-37d86bba588mr4510643f8f.16.1729169230067; 
+ Thu, 17 Oct 2024 05:47:10 -0700 (PDT)
+Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-37d7fc45d63sm7198286f8f.117.2024.10.17.05.47.08
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 17 Oct 2024 05:47:09 -0700 (PDT)
+Message-ID: <08f91452-096c-467a-8940-943548897f25@gmail.com>
+Date: Thu, 17 Oct 2024 14:47:07 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5753:EE_|CY8PR12MB8316:EE_
-X-MS-Office365-Filtering-Correlation-Id: 90c49567-8ec8-4513-dc67-08dceea9ab05
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?U05EdnFPdE5aKzJScm1oN0ZxNXQzSS9HTHFQWENIYWI5N3h1ajVkcGZoSkM5?=
- =?utf-8?B?U21vaVpQUmVXSnVYNVY3a0l6OWdwcGtKTDZwTFoxYjA5Z2xpcnozeDJ4eVhV?=
- =?utf-8?B?TC9mNGJ2dUtlVzVqTThPNWZ5bTdYSE1YTGNsTEtKMnRkd1dxUzducms3MnFs?=
- =?utf-8?B?WDY3STNxdmxDTXRiWmQ3VkNFd2hIOEgzT2p5bWEyQll4dzJrZUtNV01DL28r?=
- =?utf-8?B?VnZMRzUzcUo5eFZsNWIxYi9oNE10OC9SLzNUZVdVdTZsYUNqc2lCZmRmUDBi?=
- =?utf-8?B?NGFaa3hDM3A4M1E2ZC9MU29vUi9xTWZRUDRxTUhvYmk0OTgySE1nRkxxTWR0?=
- =?utf-8?B?a2NsVE0wdnpYbjlWQ1BzeHhWQ2U4eTErb3FsL1FKRjQyV2VTMEZkZ1VCYlBi?=
- =?utf-8?B?bEFZWFNZN1h6Wk9od2JwblRhVm41Z0RQRlhISVZRTGZMTDVBdFFQRm02OVBV?=
- =?utf-8?B?bzVSSHFrQlhlaWZRVHpTQktzTmwyMDhwZ1dEUWszczNpSFYxcmpzMVJJVlFZ?=
- =?utf-8?B?OFhMUXlEYmF2Z21VbWdwaUwySEh6N0ZDWTBFUXhsRzJMQ293OTNZbklMZ3c2?=
- =?utf-8?B?cnFLaHE0c1h5MGRxaE9ZY2d4Rk9qT2hrRkxGS3JLY3FlMVNWLzlmbFM2MExV?=
- =?utf-8?B?cm4zemF5a0VvejlHTmF1YUthNE4yZkxtWnl1QmJUQm5kRzFKdlBVSnVod2VJ?=
- =?utf-8?B?UExXRlRPTkg3RGM0cUVKQmp5ZzdNWWlnL1dkL0E4TjN0emVjUlFnRSsxWUx2?=
- =?utf-8?B?QTAveHphOVc0ZlFCUENldURYUVBxNUlhLzdSUm9sc3dwOXNMcGsyUXRIeHBJ?=
- =?utf-8?B?eURCOGtHd0N0ek1WeXJFYkdNNUFDWUIxcURtdWZxSGRySi9WWFZmamFkMkpL?=
- =?utf-8?B?Z1B5V1B5TFNCZk5aU0M1cnJJOVZuQWRuYThWMDRadEt4ZzlBRHhEOGswUVVE?=
- =?utf-8?B?Z3d2VHNZMWJ4d3p1elRTSDYwSW9sSjgvbzA3RW5JakovMXltaWVZbkROUnB4?=
- =?utf-8?B?bGRtSEU3SEtBN3ozRlMySVdickhqL0JkWVBsZGFKR0Rva01tbnZmenlMdVlS?=
- =?utf-8?B?VDB0MktGcGI0M2hrOEE3QmhhSlg4SFZXRGQvN0lnS3k1YjQ4M2czR0NONW1G?=
- =?utf-8?B?YytWQmdqOWwxSkVpSnNkZmtPcU1ISUtFWWI4ZVRvZ092c1k0UWRsWktnUVRt?=
- =?utf-8?B?RGRDL0hlTzNhcFo5VG5tWHBJVFhFUEQ2Ky9OVXh1NEFZOGk3UE9vbzVjUDU0?=
- =?utf-8?B?QUd2bnFnL0NnYkdTbFpJdkFOV1dmdjVkR1hUMW00SXNvekcydTRVaGlMSUhM?=
- =?utf-8?B?dUFZRHRQT2pkVTJPWjhjb0t2azBYZE11RkJtSmo5Y0N1SzA0L1UyOXJFSkxz?=
- =?utf-8?B?QjJUYXZFQWNyNXNCdzhEd3BwbkF0L1ZNZzdJOVRrd1NrSndSOXZyT293MTFU?=
- =?utf-8?B?dEIzLzBzZlRnNkM3ZkYyK3JxeVJRVUl0SFhGbTdIN1UzRDZnWlNyL1Z2dTlr?=
- =?utf-8?B?NWNFeitwZnhncGFsRDR4NXRERm81b1NvZy95elRES2dCTHV4QkNzL1lhd3Rp?=
- =?utf-8?B?NmtMeS9rSDVOZEc4OUZtcmd4aU5rUVZEVjRNSWZTOGZtbGRrRmZrVUJUWkMx?=
- =?utf-8?B?ZTJaNFA2OEYvVnpoZy9XSi80a2dlVWg2clFOVDJxbmZmbUZIR2ZheWpkdkd4?=
- =?utf-8?B?Q2pmQW1wZE5BY0VYb1ZmOVVqV2hCdHpFUXBuQjZHZzJ5K3VQb0JPYzFuZE4x?=
- =?utf-8?Q?E7mOgy8JdyhueZotTSgZTOMuhKRFDdU9KgvukRB?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5753.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZkRqaEI5MmlTdzBGQzd2alNkMVJWVUhXUkhDYXhhbmVZTXljQlBVcDJYdVJK?=
- =?utf-8?B?TldRY0dGUklBYWtYVTdVVS9sTzM5a0xWOUlYNnIyQk9la1F5cXVWK3MrV3Rx?=
- =?utf-8?B?SHFKTFI4aDVEV3NFTUFmdzVmTjlkNWFudktXRE91UTZNTm41dXdqRlhFTHN2?=
- =?utf-8?B?d1FJQm1KSUFuTDZKczhSZkFGUEtqZHNoZ0MyaHlOZXNvTFBHd0Y2UmcrY241?=
- =?utf-8?B?bHNCTzdDSzhobTdHSis5bXYzV0NiYzN2QkdTRlp3MncvNnRCczBpcTNzY21h?=
- =?utf-8?B?eFJwV0x2VlRDazlsUWQ3QlpiR0YzbmRST2ttQkhYQmVFSWlBUzVCWlpoOWc0?=
- =?utf-8?B?YzY5elNQYm9XZVk1S2sxS0E0dHFXczZDcVJHTXdhVzA2THFCU1k5Mi9tTUM4?=
- =?utf-8?B?M3o4bEZ6V3BReUQ3azJLZ3ovV1Q4M2IwdUFWZjhubkJVQzNpUWRwanJRUHgy?=
- =?utf-8?B?Sm9mWUFZYlBiNWVUd3NOZjlXSkswU3gzV0NhN0FETlBsSzhWMkV4dHJldXB5?=
- =?utf-8?B?RlFRdDJnU21yMEs1TXNxeWJHUFpQYkR2RXBoYjhSdGE3R0ZaSXZCc1pqK2pw?=
- =?utf-8?B?Qy9GRUViL1ZtR2JpTFVOQXBGN2FKWjVGZVliZ1hMeDdwRHZBL0gyRDB4ZURC?=
- =?utf-8?B?QWZJOTBqNTZpenBhQTVuTm5wVUFDSG50cVZwb3ZwZVdtbitDME9vWEhPSnc2?=
- =?utf-8?B?c21vNFlOL3ZHbkpjM01FRjlqZ0VRdWdDeU5iSDc1anM2WXNqbGo0SmxBNEs5?=
- =?utf-8?B?Z0ZiUzRlbzdTeExXdWJMcS9TengxNkFLTVVWcW4wR0lDa3ZyWDhpYWE2TEVI?=
- =?utf-8?B?aTFTdU9sbzgwaEwrSkxiTVlyZmJKS29jcXVXZGJCMnRvRElhSmQ4SEtSMExF?=
- =?utf-8?B?RzRRQnVqVlh6UkFRUDNZbHhCVDhFTTNQWTA4YzhqcDVvbGhwTHdxbkcwZE5Q?=
- =?utf-8?B?c0RLcm0xZWhlV1VxajRpVlBjbVd6clI2TzBMNVpDcWNoVkdHZkhaQ0Q0YUZx?=
- =?utf-8?B?dDJ1MVBtVUpMUWRtR3liNmMrVHpkWFJDMWRzdkJ0eWhpT2FRNUlDYzZBRVVP?=
- =?utf-8?B?OUxXUFNnVTVlYXVFR1NjYWxoaCtFaU9IRlFEMDVKc1ptMDRFQ1p5a25CZzJI?=
- =?utf-8?B?d1ZmZnRxVHBsa2lPZnR1QkRlRzVGdWVseFc3QzB2QXExeG82b0taNmRvWTdk?=
- =?utf-8?B?czl0L1FTWjRtVElBVVNUQ3Mwa1pkV0kyZWNDUVlDMFE3akpxaUs5c08xamJM?=
- =?utf-8?B?cnB4VnI0eXF3OEVzTlNjN3pJZWFPbVN2aHlxWm9pWnZSZWtFdVR0eVZnQ0xp?=
- =?utf-8?B?VTcxY3Y4VVR0R25IOUsvcnFGWVJDRHhBS3ZodllKazV0d1puNXQyRUpvZXU0?=
- =?utf-8?B?eWEzRm16UDVWd2ZmNlZOa0ZHOXlVVS9Oa0xCZmI2UDNiOWNVazlyQ0hVTDEz?=
- =?utf-8?B?b3FMRVhveWdlTXJVR1pBMlE4SDUzSFBMaGU1eEt1STdLbktrV3VVVExTRDlV?=
- =?utf-8?B?L25tanZJTzF5WnUwa1Y0SURqQ05HblhOUGV1WlRmZGNvZjZobkJVZlRYRGJT?=
- =?utf-8?B?blQrNG5mc04wY1BoWVZSR1E4SUlPUWtLZjdVb29kZlgzaDRDVjltUkhuQkdG?=
- =?utf-8?B?Wkh2OHJnWmIrTVFlOU9mNERVTDZmanJoSTl2V3c3c0VJYXQ2UWM1WUZjYUM0?=
- =?utf-8?B?UVlBK1F6NUtlTjA2V25XKzNrK2QvTWZqa21NWWdJY25DakVvOWpXZlowUllp?=
- =?utf-8?B?cjZOSXVYN01oUWNQZUx6R00vclJONzJqNHJNamo2eUI1WkU0SmNEZERkbm9W?=
- =?utf-8?B?TXF5Z3lsZzBadzNmQTByRlFDYW4rZUQ2VVRzQWdWdE1FU2hQRXVrcDZyZ3N1?=
- =?utf-8?B?eExCeVJUTUlaVVE3aFlFTzA2MUE0TEc4MUNzWDg2K25XKzNFL2NnNEg1cEFn?=
- =?utf-8?B?cXRRWVhzT2NqN2pwWmJDU3RKWlgwZmYwQTJ6cndDb2NRMGZhbWppbW1xWmx5?=
- =?utf-8?B?UEJ5RE1Nd3hqTnBmWUZ4aFBCeEpoUXN3UUN4M0NiS28yMGVPYVo0bG05cTZh?=
- =?utf-8?B?K2ZEWmNZTmpCMWtxN0RKdEF3NjVxeGlyaVdxZHNLRGtOWHY1VFJScnNWcVQ4?=
- =?utf-8?Q?euQL4PwPxVQ7Q5FaZe5fsa5c1?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 90c49567-8ec8-4513-dc67-08dceea9ab05
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5753.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Oct 2024 12:46:06.6848 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LEnaFS3eFlOEw3erTYIOHNLD6MCwyD6S5LvTTWc862CfAEFMhw4Y4n00RRkKIn5ayUTvxnkP4tdCpDcKKDNnRA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8316
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 03/09] drm/amdgpu: Add wait IOCTL timeline syncobj
+ support
+To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ amd-gfx@lists.freedesktop.org, christian.koenig@amd.com
+Cc: alexander.deucher@amd.com
+References: <20241015074309.2484264-1-Arunpravin.PaneerSelvam@amd.com>
+ <20241015074309.2484264-3-Arunpravin.PaneerSelvam@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20241015074309.2484264-3-Arunpravin.PaneerSelvam@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,244 +86,243 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Am 15.10.24 um 09:43 schrieb Arunpravin Paneer Selvam:
+> Add user fence wait IOCTL timeline syncobj support.
+>
+> v2:(Christian)
+>    - handle dma_fence_wait() return value.
+>    - shorten the variable name syncobj_timeline_points a bit.
+>    - move num_points up to avoid padding issues.
+>
+> v3:(Christian)
+>    - Handle timeline drm_syncobj_find_fence() call error
+>      handling
+>    - Use dma_fence_unwrap_for_each() in timeline fence as
+>      there could be more than one fence.
+>
+> v4:(Christian)
+>    - Drop the first num_fences since fence is always included in
+>      the dma_fence_unwrap_for_each() iteration, when fence != f
+>      then fence is most likely just a container.
+>
+> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+> ---
+>   .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   | 91 +++++++++++++++++--
+>   include/uapi/drm/amdgpu_drm.h                 | 16 +++-
+>   2 files changed, 99 insertions(+), 8 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+> index 8f9d2427d380..1a9565b61266 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+> @@ -24,6 +24,7 @@
+>   
+>   #include <linux/kref.h>
+>   #include <linux/slab.h>
+> +#include <linux/dma-fence-unwrap.h>
+>   
+>   #include <drm/drm_exec.h>
+>   #include <drm/drm_syncobj.h>
+> @@ -474,11 +475,11 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
+>   int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
+>   			    struct drm_file *filp)
+>   {
+> +	u32 *syncobj_handles, *timeline_points, *timeline_handles, *bo_handles;
+> +	u32 num_syncobj, num_bo_handles, num_points;
+>   	struct drm_amdgpu_userq_fence_info *fence_info = NULL;
+>   	struct drm_amdgpu_userq_wait *wait_info = data;
+> -	u32 *syncobj_handles, *bo_handles;
+>   	struct dma_fence **fences = NULL;
+> -	u32 num_syncobj, num_bo_handles;
+>   	struct drm_gem_object **gobj;
+>   	struct drm_exec exec;
+>   	int r, i, entry, cnt;
+> @@ -498,11 +499,26 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
+>   		goto free_bo_handles;
+>   	}
+>   
+> +	num_points = wait_info->num_points;
+> +	timeline_handles = memdup_user(u64_to_user_ptr(wait_info->syncobj_timeline_handles),
+> +				       sizeof(u32) * num_points);
+> +	if (IS_ERR(timeline_handles)) {
+> +		r = PTR_ERR(timeline_handles);
+> +		goto free_syncobj_handles;
+> +	}
+> +
+> +	timeline_points = memdup_user(u64_to_user_ptr(wait_info->syncobj_timeline_points),
+> +				      sizeof(u32) * num_points);
+> +	if (IS_ERR(timeline_points)) {
+> +		r = PTR_ERR(timeline_points);
+> +		goto free_timeline_handles;
+> +	}
+> +
+>   	/* Array of GEM object handles */
+>   	gobj = kmalloc_array(num_bo_handles, sizeof(*gobj), GFP_KERNEL);
+>   	if (!gobj) {
+>   		r = -ENOMEM;
+> -		goto free_syncobj_handles;
+> +		goto free_timeline_points;
+>   	}
+>   
+>   	for (entry = 0; entry < num_bo_handles; entry++) {
+> @@ -524,12 +540,34 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
+>   	}
+>   
+>   	if (!wait_info->num_fences) {
+> +		if (num_points) {
 
-On 10/17/2024 5:25 PM, Christian König wrote:
-> Same comment as patch #5, please add an amdgpu_ip_block_resume() 
-> function.
-Sure
->
-> Regards,
-> Christian.
->
-> Am 17.10.24 um 12:06 schrieb Sunil Khatri:
->> Before making a function call to resume, validate
->> the function pointer like we do in sw_init.
->>
->> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/aldebaran.c      | 23 ++++++----
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  | 47 ++++++++++++---------
->>   drivers/gpu/drm/amd/amdgpu/sienna_cichlid.c | 28 ++++++------
->>   drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.c   | 14 +++---
->>   4 files changed, 66 insertions(+), 46 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/aldebaran.c 
->> b/drivers/gpu/drm/amd/amdgpu/aldebaran.c
->> index e55d680d95ce..4dd9af51210d 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/aldebaran.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/aldebaran.c
->> @@ -247,9 +247,11 @@ static int aldebaran_mode2_restore_ip(struct 
->> amdgpu_device *adev)
->>           dev_err(adev->dev, "Failed to get BIF handle\n");
->>           return -EINVAL;
->>       }
->> -    r = cmn_block->version->funcs->resume(cmn_block);
->> -    if (r)
->> -        return r;
->> +    if (cmn_block->version->funcs->resume) {
->> +        r = cmn_block->version->funcs->resume(cmn_block);
->> +        if (r)
->> +            return r;
->> +    }
->>         /* Reinit GFXHUB */
->>       adev->gfxhub.funcs->init(adev);
->> @@ -283,12 +285,15 @@ static int aldebaran_mode2_restore_ip(struct 
->> amdgpu_device *adev)
->>                 adev->ip_blocks[i].version->type ==
->>                     AMD_IP_BLOCK_TYPE_SDMA))
->>               continue;
->> -        r = 
->> adev->ip_blocks[i].version->funcs->resume(&adev->ip_blocks[i]);
->> -        if (r) {
->> -            dev_err(adev->dev,
->> -                "resume of IP block <%s> failed %d\n",
->> - adev->ip_blocks[i].version->funcs->name, r);
->> -            return r;
->> +
->> +        if (adev->ip_blocks[i].version->funcs->resume) {
->> +            r = 
->> adev->ip_blocks[i].version->funcs->resume(&adev->ip_blocks[i]);
->> +            if (r) {
->> +                dev_err(adev->dev,
->> +                    "resume of IP block <%s> failed %d\n",
->> + adev->ip_blocks[i].version->funcs->name, r);
->> +                return r;
->> +            }
->>           }
->>             adev->ip_blocks[i].status.hw = true;
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> index fda89aeb4d1b..aa7314c14db8 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> @@ -2744,11 +2744,15 @@ static int amdgpu_device_fw_loading(struct 
->> amdgpu_device *adev)
->>                   break;
->>                 if (amdgpu_in_reset(adev) || adev->in_suspend) {
->> -                r = 
->> adev->ip_blocks[i].version->funcs->resume(&adev->ip_blocks[i]);
->> -                if (r) {
->> -                    DRM_ERROR("resume of IP block <%s> failed %d\n",
->> - adev->ip_blocks[i].version->funcs->name, r);
->> -                    return r;
->> +                if (adev->ip_blocks[i].version->funcs->resume) {
->> +                    r = adev->ip_blocks[i].version->funcs->resume(
->> +                        &adev->ip_blocks[i]);
->> +                    if (r) {
->> +                        DRM_ERROR("resume of IP block <%s> failed 
->> %d\n",
->> + adev->ip_blocks[i].version->funcs
->> +                            ->name, r);
->> +                        return r;
->> +                    }
->>                   }
->>               } else {
->>                   r = 
->> adev->ip_blocks[i].version->funcs->hw_init(&adev->ip_blocks[i]);
->> @@ -3683,10 +3687,12 @@ static int 
->> amdgpu_device_ip_reinit_late_sriov(struct amdgpu_device *adev)
->>                   block->status.hw)
->>                   continue;
->>   -            if (block->version->type == AMD_IP_BLOCK_TYPE_SMC)
->> -                r = block->version->funcs->resume(&adev->ip_blocks[i]);
->> -            else
->> +            if (block->version->type == AMD_IP_BLOCK_TYPE_SMC) {
->> +                if (adev->ip_blocks[i].version->funcs->resume)
->> +                    r = 
->> block->version->funcs->resume(&adev->ip_blocks[i]);
->> +            } else {
->>                   r = 
->> block->version->funcs->hw_init(&adev->ip_blocks[i]);
->> +            }
->>                 DRM_INFO("RE-INIT-late: %s %s\n", 
->> block->version->funcs->name, r?"failed":"succeeded");
->>               if (r)
->> @@ -3721,12 +3727,13 @@ static int 
->> amdgpu_device_ip_resume_phase1(struct amdgpu_device *adev)
->>               adev->ip_blocks[i].version->type == 
->> AMD_IP_BLOCK_TYPE_GMC ||
->>               adev->ip_blocks[i].version->type == 
->> AMD_IP_BLOCK_TYPE_IH ||
->>               (adev->ip_blocks[i].version->type == 
->> AMD_IP_BLOCK_TYPE_PSP && amdgpu_sriov_vf(adev))) {
->> -
->> -            r = 
->> adev->ip_blocks[i].version->funcs->resume(&adev->ip_blocks[i]);
->> -            if (r) {
->> -                DRM_ERROR("resume of IP block <%s> failed %d\n",
->> - adev->ip_blocks[i].version->funcs->name, r);
->> -                return r;
->> +            if (adev->ip_blocks[i].version->funcs->resume) {
->> +                r = 
->> adev->ip_blocks[i].version->funcs->resume(&adev->ip_blocks[i]);
->> +                if (r) {
->> +                    DRM_ERROR("resume of IP block <%s> failed %d\n",
->> + adev->ip_blocks[i].version->funcs->name, r);
->> +                    return r;
->> +                }
->>               }
->>               adev->ip_blocks[i].status.hw = true;
->>           }
->> @@ -3760,11 +3767,13 @@ static int 
->> amdgpu_device_ip_resume_phase2(struct amdgpu_device *adev)
->>               adev->ip_blocks[i].version->type == 
->> AMD_IP_BLOCK_TYPE_IH ||
->>               adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_PSP)
->>               continue;
->> -        r = 
->> adev->ip_blocks[i].version->funcs->resume(&adev->ip_blocks[i]);
->> -        if (r) {
->> -            DRM_ERROR("resume of IP block <%s> failed %d\n",
->> - adev->ip_blocks[i].version->funcs->name, r);
->> -            return r;
->> +        if (adev->ip_blocks[i].version->funcs->resume) {
->> +            r = 
->> adev->ip_blocks[i].version->funcs->resume(&adev->ip_blocks[i]);
->> +            if (r) {
->> +                DRM_ERROR("resume of IP block <%s> failed %d\n",
->> + adev->ip_blocks[i].version->funcs->name, r);
->> +                return r;
->> +            }
->>           }
->>           adev->ip_blocks[i].status.hw = true;
->>       }
->> diff --git a/drivers/gpu/drm/amd/amdgpu/sienna_cichlid.c 
->> b/drivers/gpu/drm/amd/amdgpu/sienna_cichlid.c
->> index 10dece12509f..082a69babe62 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/sienna_cichlid.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/sienna_cichlid.c
->> @@ -176,12 +176,14 @@ static int 
->> sienna_cichlid_mode2_restore_ip(struct amdgpu_device *adev)
->>         for (i = 0; i < adev->num_ip_blocks; i++) {
->>           if (adev->ip_blocks[i].version->type == 
->> AMD_IP_BLOCK_TYPE_IH) {
->> -            r = 
->> adev->ip_blocks[i].version->funcs->resume(&adev->ip_blocks[i]);
->> -            if (r) {
->> -                dev_err(adev->dev,
->> -                    "resume of IP block <%s> failed %d\n",
->> - adev->ip_blocks[i].version->funcs->name, r);
->> -                return r;
->> +            if (adev->ip_blocks[i].version->funcs->resume) {
->> +                r = 
->> adev->ip_blocks[i].version->funcs->resume(&adev->ip_blocks[i]);
->> +                if (r) {
->> +                    dev_err(adev->dev,
->> +                        "resume of IP block <%s> failed %d\n",
->> + adev->ip_blocks[i].version->funcs->name, r);
->> +                    return r;
->> +                }
->>               }
->>                 adev->ip_blocks[i].status.hw = true;
->> @@ -194,12 +196,14 @@ static int 
->> sienna_cichlid_mode2_restore_ip(struct amdgpu_device *adev)
->>                 adev->ip_blocks[i].version->type ==
->>                     AMD_IP_BLOCK_TYPE_SDMA))
->>               continue;
->> -        r = 
->> adev->ip_blocks[i].version->funcs->resume(&adev->ip_blocks[i]);
->> -        if (r) {
->> -            dev_err(adev->dev,
->> -                "resume of IP block <%s> failed %d\n",
->> - adev->ip_blocks[i].version->funcs->name, r);
->> -            return r;
->> +        if (adev->ip_blocks[i].version->funcs->resume) {
->> +            r = 
->> adev->ip_blocks[i].version->funcs->resume(&adev->ip_blocks[i]);
->> +            if (r) {
->> +                dev_err(adev->dev,
->> +                    "resume of IP block <%s> failed %d\n",
->> + adev->ip_blocks[i].version->funcs->name, r);
->> +                return r;
->> +            }
->>           }
->>             adev->ip_blocks[i].status.hw = true;
->> diff --git a/drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.c 
->> b/drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.c
->> index ab049f0b4d39..2e041424ef9f 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.c
->> @@ -187,12 +187,14 @@ static int smu_v13_0_10_mode2_restore_ip(struct 
->> amdgpu_device *adev)
->>                 adev->ip_blocks[i].version->type ==
->>                     AMD_IP_BLOCK_TYPE_SDMA))
->>               continue;
->> -        r = 
->> adev->ip_blocks[i].version->funcs->resume(&adev->ip_blocks[i]);
->> -        if (r) {
->> -            dev_err(adev->dev,
->> -                "resume of IP block <%s> failed %d\n",
->> - adev->ip_blocks[i].version->funcs->name, r);
->> -            return r;
->> +        if (adev->ip_blocks[i].version->funcs->resume) {
->> +            r = 
->> adev->ip_blocks[i].version->funcs->resume(&adev->ip_blocks[i]);
->> +            if (r) {
->> +                dev_err(adev->dev,
->> +                    "resume of IP block <%s> failed %d\n",
->> + adev->ip_blocks[i].version->funcs->name, r);
->> +                return r;
->> +            }
->>           }
->>             adev->ip_blocks[i].status.hw = true;
->
+You can drop this extra if. The for loop below is just a nop when 
+num_points is zero.
+
+> +			struct dma_fence_unwrap iter;
+> +			struct dma_fence *fence;
+> +			struct dma_fence *f;
+> +
+> +			for (i = 0; i < num_points; i++) {
+> +				r = drm_syncobj_find_fence(filp, timeline_handles[i],
+> +							   timeline_points[i],
+> +							   DRM_SYNCOBJ_WAIT_FLAGS_WAIT_FOR_SUBMIT,
+> +							   &fence);
+> +				if (r)
+> +					goto exec_fini;
+> +
+> +				dma_fence_unwrap_for_each(f, &iter, fence)
+> +					num_fences++;
+> +
+> +				dma_fence_put(fence);
+> +			}
+> +		}
+> +
+>   		/* Count syncobj's fence */
+>   		for (i = 0; i < num_syncobj; i++) {
+>   			struct dma_fence *fence;
+>   
+>   			r = drm_syncobj_find_fence(filp, syncobj_handles[i],
+> -						   0, 0, &fence);
+> +						   0,
+> +						   DRM_SYNCOBJ_WAIT_FLAGS_WAIT_FOR_SUBMIT,
+> +						   &fence);
+>   			if (r)
+>   				goto exec_fini;
+>   
+> @@ -588,12 +626,41 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
+>   			}
+>   		}
+>   
+> +		if (num_points) {
+
+Same here.
+
+Apart from those two nit picks the patch is Reviewed-by: Christian König 
+<christian.koenig@amd.com>
+
+Regards,
+Christian.
+
+> +			struct dma_fence_unwrap iter;
+> +			struct dma_fence *fence;
+> +			struct dma_fence *f;
+> +
+> +			for (i = 0; i < num_points; i++) {
+> +				r = drm_syncobj_find_fence(filp, timeline_handles[i],
+> +							   timeline_points[i],
+> +							   DRM_SYNCOBJ_WAIT_FLAGS_WAIT_FOR_SUBMIT,
+> +							   &fence);
+> +				if (r)
+> +					goto free_fences;
+> +
+> +				dma_fence_unwrap_for_each(f, &iter, fence) {
+> +					if (WARN_ON_ONCE(num_fences >= wait_info->num_fences)) {
+> +						r = -EINVAL;
+> +						goto free_fences;
+> +					}
+> +
+> +					dma_fence_get(f);
+> +					fences[num_fences++] = f;
+> +				}
+> +
+> +				dma_fence_put(fence);
+> +			}
+> +		}
+> +
+>   		/* Retrieve syncobj's fence */
+>   		for (i = 0; i < num_syncobj; i++) {
+>   			struct dma_fence *fence;
+>   
+>   			r = drm_syncobj_find_fence(filp, syncobj_handles[i],
+> -						   0, 0, &fence);
+> +						   0,
+> +						   DRM_SYNCOBJ_WAIT_FLAGS_WAIT_FOR_SUBMIT,
+> +						   &fence);
+>   			if (r)
+>   				goto free_fences;
+>   
+> @@ -616,9 +683,13 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
+>   				 * Just waiting on other driver fences should
+>   				 * be good for now
+>   				 */
+> -				dma_fence_wait(fences[i], false);
+> -				dma_fence_put(fences[i]);
+> +				r = dma_fence_wait(fences[i], true);
+> +				if (r) {
+> +					dma_fence_put(fences[i]);
+> +					goto free_fences;
+> +				}
+>   
+> +				dma_fence_put(fences[i]);
+>   				continue;
+>   			}
+>   
+> @@ -664,6 +735,8 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
+>   		drm_gem_object_put(gobj[i]);
+>   	kfree(gobj);
+>   
+> +	kfree(timeline_points);
+> +	kfree(timeline_handles);
+>   	kfree(syncobj_handles);
+>   	kfree(bo_handles);
+>   
+> @@ -681,6 +754,10 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
+>   	while (entry-- > 0)
+>   		drm_gem_object_put(gobj[entry]);
+>   	kfree(gobj);
+> +free_timeline_points:
+> +	kfree(timeline_points);
+> +free_timeline_handles:
+> +	kfree(timeline_handles);
+>   free_syncobj_handles:
+>   	kfree(syncobj_handles);
+>   free_bo_handles:
+> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+> index af42798e901d..3b24e0cb1b51 100644
+> --- a/include/uapi/drm/amdgpu_drm.h
+> +++ b/include/uapi/drm/amdgpu_drm.h
+> @@ -521,12 +521,26 @@ struct drm_amdgpu_userq_wait {
+>   	 * matching fence wait info pair in @userq_fence_info.
+>   	 */
+>   	__u32	bo_wait_flags;
+> -	__u32	pad;
+> +	/**
+> +	 * @num_points: A count that represents the number of timeline syncobj handles in
+> +	 * syncobj_handles_array.
+> +	 */
+> +	__u32	num_points;
+>   	/**
+>   	 * @syncobj_handles_array: An array of syncobj handles defined to get the
+>   	 * fence wait information of every syncobj handles in the array.
+>   	 */
+>   	__u64	syncobj_handles_array;
+> +	/**
+> +	 * @syncobj_timeline_handles: An array of timeline syncobj handles defined to get the
+> +	 * fence wait information of every timeline syncobj handles in the array.
+> +	 */
+> +	__u64   syncobj_timeline_handles;
+> +	/**
+> +	 * @syncobj_timeline_points: An array of timeline syncobj points defined to get the
+> +	 * fence wait points of every timeline syncobj handles in the syncobj_handles_array.
+> +	 */
+> +	__u64	syncobj_timeline_points;
+>   	/**
+>   	 * @bo_handles_array: An array of GEM BO handles defined to fetch the fence
+>   	 * wait information of every BO handles in the array.
+
