@@ -4,30 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6C6ED21277
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Oct 2024 10:06:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AAECD21273
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Oct 2024 10:06:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C20E910E7D6;
-	Thu, 17 Oct 2024 10:06:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C120410E7E0;
+	Thu, 17 Oct 2024 10:06:33 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3771810E7D2
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Oct 2024 10:06:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 916DC10E7D3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Oct 2024 10:06:24 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 49HA6IG51492233; Thu, 17 Oct 2024 15:36:18 +0530
+ 49HA6HwW1492173; Thu, 17 Oct 2024 15:36:17 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 49HA6I2c1492232;
- Thu, 17 Oct 2024 15:36:18 +0530
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 49HA6HHe1492172;
+ Thu, 17 Oct 2024 15:36:17 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH v4 12/15] drm/amdgpu: clean the dummy wait_for_idle functions
-Date: Thu, 17 Oct 2024 15:36:12 +0530
-Message-Id: <20241017100615.1492144-13-sunil.khatri@amd.com>
+Subject: [PATCH v4 00/15] validate/clean the functions of ip funcs
+Date: Thu, 17 Oct 2024 15:36:00 +0530
+Message-Id: <20241017100615.1492144-1-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20241017100615.1492144-1-sunil.khatri@amd.com>
-References: <20241017100615.1492144-1-sunil.khatri@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -44,406 +42,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Remove the dummy wait_for_idle functions for all
-ip blocks.
+v4: hw_init/hw_fini functions are mandatory and raise error message if
+    these functions are not defined.
 
-Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c          | 6 ------
- drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c          | 5 -----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c         | 6 ------
- drivers/gpu/drm/amd/amdgpu/cik.c                 | 6 +-----
- drivers/gpu/drm/amd/amdgpu/dce_v10_0.c           | 6 ------
- drivers/gpu/drm/amd/amdgpu/dce_v11_0.c           | 6 ------
- drivers/gpu/drm/amd/amdgpu/dce_v6_0.c            | 6 ------
- drivers/gpu/drm/amd/amdgpu/dce_v8_0.c            | 6 ------
- drivers/gpu/drm/amd/amdgpu/nv.c                  | 6 ------
- drivers/gpu/drm/amd/amdgpu/si.c                  | 6 ------
- drivers/gpu/drm/amd/amdgpu/soc15.c               | 6 ------
- drivers/gpu/drm/amd/amdgpu/soc21.c               | 6 ------
- drivers/gpu/drm/amd/amdgpu/soc24.c               | 6 ------
- drivers/gpu/drm/amd/amdgpu/vi.c                  | 6 ------
- drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c       | 7 -------
- drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c | 6 ------
- 16 files changed, 1 insertion(+), 95 deletions(-)
+v3: Added 2 new patches to clean get_clocking_state and hw_init
+    validation.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
-index 8e0725198dae..1a9b7e8947d8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
-@@ -584,11 +584,6 @@ static bool acp_is_idle(void *handle)
- 	return true;
- }
- 
--static int acp_wait_for_idle(struct amdgpu_ip_block *ip_block)
--{
--	return 0;
--}
--
- static int acp_soft_reset(struct amdgpu_ip_block *ip_block)
- {
- 	return 0;
-@@ -622,7 +617,6 @@ static const struct amd_ip_funcs acp_ip_funcs = {
- 	.suspend = acp_suspend,
- 	.resume = acp_resume,
- 	.is_idle = acp_is_idle,
--	.wait_for_idle = acp_wait_for_idle,
- 	.soft_reset = acp_soft_reset,
- 	.set_clockgating_state = acp_set_clockgating_state,
- 	.set_powergating_state = acp_set_powergating_state,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c
-index 4d82e8fec0f5..f220f3819ba6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c
-@@ -128,11 +128,6 @@ static bool isp_is_idle(void *handle)
- 	return true;
- }
- 
--static int isp_wait_for_idle(struct amdgpu_ip_block *ip_block)
--{
--	return 0;
--}
--
- static int isp_soft_reset(struct amdgpu_ip_block *ip_block)
- {
- 	return 0;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-index e3a399bfab61..e9585fdb53e3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-@@ -627,11 +627,6 @@ static bool amdgpu_vkms_is_idle(void *handle)
- 	return true;
- }
- 
--static int amdgpu_vkms_wait_for_idle(struct amdgpu_ip_block *ip_block)
--{
--	return 0;
--}
--
- static int amdgpu_vkms_soft_reset(struct amdgpu_ip_block *ip_block)
- {
- 	return 0;
-@@ -659,7 +654,6 @@ static const struct amd_ip_funcs amdgpu_vkms_ip_funcs = {
- 	.suspend = amdgpu_vkms_suspend,
- 	.resume = amdgpu_vkms_resume,
- 	.is_idle = amdgpu_vkms_is_idle,
--	.wait_for_idle = amdgpu_vkms_wait_for_idle,
- 	.soft_reset = amdgpu_vkms_soft_reset,
- 	.set_clockgating_state = amdgpu_vkms_set_clockgating_state,
- 	.set_powergating_state = amdgpu_vkms_set_powergating_state,
-diff --git a/drivers/gpu/drm/amd/amdgpu/cik.c b/drivers/gpu/drm/amd/amdgpu/cik.c
-index 9cb25d0d1051..d7a843280059 100644
---- a/drivers/gpu/drm/amd/amdgpu/cik.c
-+++ b/drivers/gpu/drm/amd/amdgpu/cik.c
-@@ -2148,10 +2148,7 @@ static bool cik_common_is_idle(void *handle)
- 	return true;
- }
- 
--static int cik_common_wait_for_idle(struct amdgpu_ip_block *ip_block)
--{
--	return 0;
--}
-+
- 
- static int cik_common_soft_reset(struct amdgpu_ip_block *ip_block)
- {
-@@ -2178,7 +2175,6 @@ static const struct amd_ip_funcs cik_common_ip_funcs = {
- 	.hw_init = cik_common_hw_init,
- 	.resume = cik_common_resume,
- 	.is_idle = cik_common_is_idle,
--	.wait_for_idle = cik_common_wait_for_idle,
- 	.soft_reset = cik_common_soft_reset,
- 	.set_clockgating_state = cik_common_set_clockgating_state,
- 	.set_powergating_state = cik_common_set_powergating_state,
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-index 2d0a24a343f7..a5985663a867 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-@@ -2948,11 +2948,6 @@ static bool dce_v10_0_is_idle(void *handle)
- 	return true;
- }
- 
--static int dce_v10_0_wait_for_idle(struct amdgpu_ip_block *ip_block)
--{
--	return 0;
--}
--
- static bool dce_v10_0_check_soft_reset(struct amdgpu_ip_block *ip_block)
- {
- 	struct amdgpu_device *adev = ip_block->adev;
-@@ -3330,7 +3325,6 @@ static const struct amd_ip_funcs dce_v10_0_ip_funcs = {
- 	.suspend = dce_v10_0_suspend,
- 	.resume = dce_v10_0_resume,
- 	.is_idle = dce_v10_0_is_idle,
--	.wait_for_idle = dce_v10_0_wait_for_idle,
- 	.check_soft_reset = dce_v10_0_check_soft_reset,
- 	.soft_reset = dce_v10_0_soft_reset,
- 	.set_clockgating_state = dce_v10_0_set_clockgating_state,
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-index 386ece7bc389..5c907a1a4778 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-@@ -3086,11 +3086,6 @@ static bool dce_v11_0_is_idle(void *handle)
- 	return true;
- }
- 
--static int dce_v11_0_wait_for_idle(struct amdgpu_ip_block *ip_block)
--{
--	return 0;
--}
--
- static int dce_v11_0_soft_reset(struct amdgpu_ip_block *ip_block)
- {
- 	u32 srbm_soft_reset = 0, tmp;
-@@ -3462,7 +3457,6 @@ static const struct amd_ip_funcs dce_v11_0_ip_funcs = {
- 	.suspend = dce_v11_0_suspend,
- 	.resume = dce_v11_0_resume,
- 	.is_idle = dce_v11_0_is_idle,
--	.wait_for_idle = dce_v11_0_wait_for_idle,
- 	.soft_reset = dce_v11_0_soft_reset,
- 	.set_clockgating_state = dce_v11_0_set_clockgating_state,
- 	.set_powergating_state = dce_v11_0_set_powergating_state,
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-index cd3e0118988d..a53e4fac89dc 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-@@ -2843,11 +2843,6 @@ static bool dce_v6_0_is_idle(void *handle)
- 	return true;
- }
- 
--static int dce_v6_0_wait_for_idle(struct amdgpu_ip_block *ip_block)
--{
--	return 0;
--}
--
- static int dce_v6_0_soft_reset(struct amdgpu_ip_block *ip_block)
- {
- 	DRM_INFO("xxxx: dce_v6_0_soft_reset --- no impl!!\n");
-@@ -3152,7 +3147,6 @@ static const struct amd_ip_funcs dce_v6_0_ip_funcs = {
- 	.suspend = dce_v6_0_suspend,
- 	.resume = dce_v6_0_resume,
- 	.is_idle = dce_v6_0_is_idle,
--	.wait_for_idle = dce_v6_0_wait_for_idle,
- 	.soft_reset = dce_v6_0_soft_reset,
- 	.set_clockgating_state = dce_v6_0_set_clockgating_state,
- 	.set_powergating_state = dce_v6_0_set_powergating_state,
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-index 295bc1d47095..9278e0d8d00c 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-@@ -2866,11 +2866,6 @@ static bool dce_v8_0_is_idle(void *handle)
- 	return true;
- }
- 
--static int dce_v8_0_wait_for_idle(struct amdgpu_ip_block *ip_block)
--{
--	return 0;
--}
--
- static int dce_v8_0_soft_reset(struct amdgpu_ip_block *ip_block)
- {
- 	u32 srbm_soft_reset = 0, tmp;
-@@ -3240,7 +3235,6 @@ static const struct amd_ip_funcs dce_v8_0_ip_funcs = {
- 	.suspend = dce_v8_0_suspend,
- 	.resume = dce_v8_0_resume,
- 	.is_idle = dce_v8_0_is_idle,
--	.wait_for_idle = dce_v8_0_wait_for_idle,
- 	.soft_reset = dce_v8_0_soft_reset,
- 	.set_clockgating_state = dce_v8_0_set_clockgating_state,
- 	.set_powergating_state = dce_v8_0_set_powergating_state,
-diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
-index 95c6461aab6f..38f5a2cbc3fe 100644
---- a/drivers/gpu/drm/amd/amdgpu/nv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-@@ -1039,11 +1039,6 @@ static bool nv_common_is_idle(void *handle)
- 	return true;
- }
- 
--static int nv_common_wait_for_idle(struct amdgpu_ip_block *ip_block)
--{
--	return 0;
--}
--
- static int nv_common_soft_reset(struct amdgpu_ip_block *ip_block)
- {
- 	return 0;
-@@ -1111,7 +1106,6 @@ static const struct amd_ip_funcs nv_common_ip_funcs = {
- 	.suspend = nv_common_suspend,
- 	.resume = nv_common_resume,
- 	.is_idle = nv_common_is_idle,
--	.wait_for_idle = nv_common_wait_for_idle,
- 	.soft_reset = nv_common_soft_reset,
- 	.set_clockgating_state = nv_common_set_clockgating_state,
- 	.set_powergating_state = nv_common_set_powergating_state,
-diff --git a/drivers/gpu/drm/amd/amdgpu/si.c b/drivers/gpu/drm/amd/amdgpu/si.c
-index e1b3bef6992a..cac01f77f4d4 100644
---- a/drivers/gpu/drm/amd/amdgpu/si.c
-+++ b/drivers/gpu/drm/amd/amdgpu/si.c
-@@ -2644,11 +2644,6 @@ static bool si_common_is_idle(void *handle)
- 	return true;
- }
- 
--static int si_common_wait_for_idle(struct amdgpu_ip_block *ip_block)
--{
--	return 0;
--}
--
- static int si_common_soft_reset(struct amdgpu_ip_block *ip_block)
- {
- 	return 0;
-@@ -2673,7 +2668,6 @@ static const struct amd_ip_funcs si_common_ip_funcs = {
- 	.hw_init = si_common_hw_init,
- 	.resume = si_common_resume,
- 	.is_idle = si_common_is_idle,
--	.wait_for_idle = si_common_wait_for_idle,
- 	.soft_reset = si_common_soft_reset,
- 	.set_clockgating_state = si_common_set_clockgating_state,
- 	.set_powergating_state = si_common_set_powergating_state,
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
-index dd1c1aacdd8e..d974c0b5a909 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-@@ -1341,11 +1341,6 @@ static bool soc15_common_is_idle(void *handle)
- 	return true;
- }
- 
--static int soc15_common_wait_for_idle(struct amdgpu_ip_block *ip_block)
--{
--	return 0;
--}
--
- static int soc15_common_soft_reset(struct amdgpu_ip_block *ip_block)
- {
- 	return 0;
-@@ -1501,7 +1496,6 @@ static const struct amd_ip_funcs soc15_common_ip_funcs = {
- 	.suspend = soc15_common_suspend,
- 	.resume = soc15_common_resume,
- 	.is_idle = soc15_common_is_idle,
--	.wait_for_idle = soc15_common_wait_for_idle,
- 	.soft_reset = soc15_common_soft_reset,
- 	.set_clockgating_state = soc15_common_set_clockgating_state,
- 	.set_powergating_state = soc15_common_set_powergating_state,
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
-index cdcc5c09a6b3..78550a965579 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc21.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
-@@ -927,11 +927,6 @@ static bool soc21_common_is_idle(void *handle)
- 	return true;
- }
- 
--static int soc21_common_wait_for_idle(struct amdgpu_ip_block *ip_block)
--{
--	return 0;
--}
--
- static int soc21_common_soft_reset(struct amdgpu_ip_block *ip_block)
- {
- 	return 0;
-@@ -1000,7 +995,6 @@ static const struct amd_ip_funcs soc21_common_ip_funcs = {
- 	.suspend = soc21_common_suspend,
- 	.resume = soc21_common_resume,
- 	.is_idle = soc21_common_is_idle,
--	.wait_for_idle = soc21_common_wait_for_idle,
- 	.soft_reset = soc21_common_soft_reset,
- 	.set_clockgating_state = soc21_common_set_clockgating_state,
- 	.set_powergating_state = soc21_common_set_powergating_state,
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc24.c b/drivers/gpu/drm/amd/amdgpu/soc24.c
-index 34ed064a6a64..216a45556cf4 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc24.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc24.c
-@@ -522,11 +522,6 @@ static bool soc24_common_is_idle(void *handle)
- 	return true;
- }
- 
--static int soc24_common_wait_for_idle(struct amdgpu_ip_block *ip_block)
--{
--	return 0;
--}
--
- static int soc24_common_soft_reset(struct amdgpu_ip_block *ip_block)
- {
- 	return 0;
-@@ -591,7 +586,6 @@ static const struct amd_ip_funcs soc24_common_ip_funcs = {
- 	.suspend = soc24_common_suspend,
- 	.resume = soc24_common_resume,
- 	.is_idle = soc24_common_is_idle,
--	.wait_for_idle = soc24_common_wait_for_idle,
- 	.soft_reset = soc24_common_soft_reset,
- 	.set_clockgating_state = soc24_common_set_clockgating_state,
- 	.set_powergating_state = soc24_common_set_powergating_state,
-diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu/vi.c
-index 7a19b4f5b09f..a40c789dc3c4 100644
---- a/drivers/gpu/drm/amd/amdgpu/vi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vi.c
-@@ -1741,11 +1741,6 @@ static bool vi_common_is_idle(void *handle)
- 	return true;
- }
- 
--static int vi_common_wait_for_idle(struct amdgpu_ip_block *ip_block)
--{
--	return 0;
--}
--
- static int vi_common_soft_reset(struct amdgpu_ip_block *ip_block)
- {
- 	return 0;
-@@ -2043,7 +2038,6 @@ static const struct amd_ip_funcs vi_common_ip_funcs = {
- 	.suspend = vi_common_suspend,
- 	.resume = vi_common_resume,
- 	.is_idle = vi_common_is_idle,
--	.wait_for_idle = vi_common_wait_for_idle,
- 	.soft_reset = vi_common_soft_reset,
- 	.set_clockgating_state = vi_common_set_clockgating_state,
- 	.set_powergating_state = vi_common_set_powergating_state,
-diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
-index 2cd6cb991f29..fbea169460f2 100644
---- a/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
-+++ b/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
-@@ -3099,12 +3099,6 @@ static bool kv_dpm_is_idle(void *handle)
- 	return true;
- }
- 
--static int kv_dpm_wait_for_idle(struct amdgpu_ip_block *ip_block)
--{
--	return 0;
--}
--
--
- static int kv_dpm_soft_reset(struct amdgpu_ip_block *ip_block)
- {
- 	return 0;
-@@ -3313,7 +3307,6 @@ static const struct amd_ip_funcs kv_dpm_ip_funcs = {
- 	.suspend = kv_dpm_suspend,
- 	.resume = kv_dpm_resume,
- 	.is_idle = kv_dpm_is_idle,
--	.wait_for_idle = kv_dpm_wait_for_idle,
- 	.soft_reset = kv_dpm_soft_reset,
- 	.set_clockgating_state = kv_dpm_set_clockgating_state,
- 	.set_powergating_state = kv_dpm_set_powergating_state,
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-index f193c77cc141..7eacf4dd1b60 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-@@ -244,11 +244,6 @@ static bool pp_is_idle(void *handle)
- 	return false;
- }
- 
--static int pp_wait_for_idle(struct amdgpu_ip_block *ip_block)
--{
--	return 0;
--}
--
- static int pp_sw_reset(struct amdgpu_ip_block *ip_block)
- {
- 	return 0;
-@@ -295,7 +290,6 @@ static const struct amd_ip_funcs pp_ip_funcs = {
- 	.suspend = pp_suspend,
- 	.resume = pp_resume,
- 	.is_idle = pp_is_idle,
--	.wait_for_idle = pp_wait_for_idle,
- 	.soft_reset = pp_sw_reset,
- 	.set_clockgating_state = pp_set_clockgating_state,
- 	.set_powergating_state = pp_set_powergating_state,
+Sunil Khatri (15):
+  drm/amdgpu: validate sw_init before function call
+  drm/amdgpu: clean the dummy sw_init functions
+  drm/amdgpu: validate sw_fini before function call
+  drm/amdgpu: clean the dummy sw_fini functions
+  drm/amdgpu: validate hw_fini before function call
+  drm/amdgpu: validate suspend before function call
+  drm/amdgpu: validate resume before function call
+  drm/amdgpu: validate wait_for_idle before function call
+  drm/amdgpu: clean the dummy resume functions
+  drm/amdgpu: clean the dummy suspend functions
+  drm/amdgpu: clean the dummy hw_fini functions
+  drm/amdgpu: clean the dummy wait_for_idle functions
+  drm/amdgpu: clean the dummy soft_reset functions
+  drm/amdgpu: clean unused functions of amd_ip_funcs
+  drm/amdgpu: validate get_clockgating_state before use
+
+ drivers/gpu/drm/amd/amdgpu/aldebaran.c        |  38 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c       |  16 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 138 +++++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c       |  35 ---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c       |   5 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c     |  12 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c  |   2 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c      |  25 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c       |   2 -
+ drivers/gpu/drm/amd/amdgpu/cik.c              |  33 +-
+ drivers/gpu/drm/amd/amdgpu/cik_ih.c           |   3 -
+ drivers/gpu/drm/amd/amdgpu/cik_sdma.c         |   3 -
+ drivers/gpu/drm/amd/amdgpu/cz_ih.c            |   3 -
+ drivers/gpu/drm/amd/amdgpu/dce_v10_0.c        |   9 -
+ drivers/gpu/drm/amd/amdgpu/dce_v11_0.c        |   9 -
+ drivers/gpu/drm/amd/amdgpu/dce_v6_0.c         |   9 -
+ drivers/gpu/drm/amd/amdgpu/dce_v8_0.c         |   9 -
+ drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c         |   9 -
+ drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c         |   2 -
+ drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c         |   2 -
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c        |   6 -
+ drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c        |   6 -
+ drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c        |   6 -
+ drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c         |   2 -
+ drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c         |   2 -
+ drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c         |   2 -
+ drivers/gpu/drm/amd/amdgpu/iceland_ih.c       |   3 -
+ drivers/gpu/drm/amd/amdgpu/ih_v6_0.c          |   3 -
+ drivers/gpu/drm/amd/amdgpu/ih_v6_1.c          |   3 -
+ drivers/gpu/drm/amd/amdgpu/ih_v7_0.c          |   3 -
+ drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c        |   7 -
+ drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c        |  14 -
+ drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c        |   7 -
+ drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c        |   7 -
+ drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c      |   7 -
+ drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c      |   7 -
+ drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c      |   7 -
+ drivers/gpu/drm/amd/amdgpu/mes_v11_0.c        |   2 -
+ drivers/gpu/drm/amd/amdgpu/mes_v12_0.c        |  11 +-
+ drivers/gpu/drm/amd/amdgpu/navi10_ih.c        |   3 -
+ drivers/gpu/drm/amd/amdgpu/nv.c               |  29 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c        |   3 -
+ drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c        |   3 -
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c        |   1 -
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c        |   1 -
+ drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c        |   1 -
+ drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c        |   1 -
+ drivers/gpu/drm/amd/amdgpu/si.c               |  40 ---
+ drivers/gpu/drm/amd/amdgpu/si_dma.c           |   3 -
+ drivers/gpu/drm/amd/amdgpu/si_ih.c            |   3 -
+ drivers/gpu/drm/amd/amdgpu/sienna_cichlid.c   |  43 +--
+ drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.c     |  29 +-
+ drivers/gpu/drm/amd/amdgpu/soc15.c            |  14 -
+ drivers/gpu/drm/amd/amdgpu/soc21.c            |  26 +-
+ drivers/gpu/drm/amd/amdgpu/soc24.c            |  24 +-
+ drivers/gpu/drm/amd/amdgpu/tonga_ih.c         |   3 -
+ drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c         |   3 -
+ drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c         |   3 -
+ drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c         |   3 -
+ drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c         |   3 -
+ drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c         | 284 ------------------
+ drivers/gpu/drm/amd/amdgpu/vce_v2_0.c         |   3 -
+ drivers/gpu/drm/amd/amdgpu/vce_v3_0.c         |   3 -
+ drivers/gpu/drm/amd/amdgpu/vce_v4_0.c         | 275 -----------------
+ drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c         |   1 -
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c         |   5 -
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c         |  10 -
+ drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c         |   5 -
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c         |   5 -
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c       |   5 -
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c       |   5 -
+ drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c       |   5 -
+ drivers/gpu/drm/amd/amdgpu/vega10_ih.c        |   1 -
+ drivers/gpu/drm/amd/amdgpu/vega20_ih.c        |   1 -
+ drivers/gpu/drm/amd/amdgpu/vi.c               |  20 --
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   2 -
+ drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c    |  15 -
+ drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c    |   8 -
+ .../gpu/drm/amd/pm/powerplay/amd_powerplay.c  |  14 -
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     |   4 -
+ 80 files changed, 171 insertions(+), 1208 deletions(-)
+
 -- 
 2.34.1
 
