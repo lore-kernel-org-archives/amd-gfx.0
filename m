@@ -4,151 +4,154 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15362D37487
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Oct 2024 13:15:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C52ACD37487
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Oct 2024 13:16:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B5C0410E19F;
-	Thu, 17 Oct 2024 13:15:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7188810E32E;
+	Thu, 17 Oct 2024 13:16:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2XVrJCwP";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="UuFwJjXv";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2052.outbound.protection.outlook.com [40.107.236.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4167810E19F
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Oct 2024 13:15:51 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2059.outbound.protection.outlook.com [40.107.243.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E07BE10E32E
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Oct 2024 13:16:46 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nrEjseiO+ag4iqE+Eg41y69nqiHiSiWujoBHBe/cnFbPtPtvW9peIttAEyKGvIe2mQlBXuE4zTtcJHy1+Z6fZe+5CUFvKEneZvw1+oNrq2MxKSygEDycdjVhSxN1TxKEKzz7OSt3RuQIVsUzyerZ/Eq4WdjeJIYW47Lpb3lMdJjC2m4XD63lcAE47HHbEZuahGudgEG7t6p8MbAtwzm70032RCT9C/RQ2NxWPTnoqvlXx+31+llFw3WmGtqVu0SGjNRfGsHUbsttOYRL6bUoZb7BgjHdOV/Jp8vmYFSOUSIFaOIa1g913AhNd2B7qozhWXcHeyBECZk+yZ0FfALhpw==
+ b=OJde60wXrWeWBssbc/8gjd5MKqtlAmfDc9HU0XtglfmQLNXwiWN1Y25/wBx9KnoSeXgicY11+PVcSRvu4rvMMynEEBp9JjyYqGoaRvLbJ4cuviiJh3APYdU0i3TQOtGk2q10iliEfHgC7yekc9hpVqXTQQnfDM6zBRJ3GRm4U6Crv0CyCno++tqklS152DLpvLwF05bS1MvHxvuDp839s25p+8fLJBRwEVY1s0qB4LuhmtTkXBopASn4Myf2nldcJ9WdrgcDIiGtAUilorS9XES+509y+66fl3X5BN8cuilMiD63uMm+M2pXOkiycUGkoHaBSY0zsMlsjiVNIyRoAg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fGDKSfsvX4Do31Si+IWlJTpi5eu318VmkxLa8FSGPSk=;
- b=a8OWbECBUFoJVMX4oOKMsoFKNU84iXWSnuoW2YlQrBsVIw8MU3M9YHJAQEqYwHtXgl/Fr3WfF/uEx92nabfD2GnZ7fyCW7t6wen55yA5uba2y9IUI4w2yY275K7ujZ3BpMzTb0i1M5e8D1kMX/y6hlm0NlnZCxDZ3gxOQ7DZJEHUYnBlNHVq0HBOzgcgOV+hgmaZ4HpDwN+icSL3D6+fflV1s1FYQOF142IzNyXSXhC8RQ6EMK5Ujl3wKcZsB1eGiDbVCkBDjsJLsS9J8RLvlzePIFH328llmO6Wm/2DvARZtRM4XxRcot6UxGGVgKPmnwVc8+MFNVdJ8VviMQx5+A==
+ bh=ThjUy+u4yICHpEwUxA2qgWBbG67qrzcMJZygEbSRpQ0=;
+ b=m0sct5KnN+RQqtQ9pcu2SD5k0OVOB5aPGx5lejESkL4siU+qAx5wzYC77vgKau5PDCrFByGX4pa+K43JAKDThdPk0q1qz/TDN6IzjkACteg0m2M++UOGACfe3H9qtmhszYhklCSClTQWews8glg/tb2kdfQoL5ZxmK2JaUzZUy+tazyOOMySoFhLbgZVcIPOFFVqKLYkyIU6XFQgmdKfmTdANbRwQfkPhSO+xgC7OJrRgBjQoLBkhlt1v8PLwNi1xo+DpfqzCUAM/wwMdBPjHv3eA9A736y3FQrciXXacZtSYRmj9YeI8ZGTNstT7ctR9PVuvJClcgFAcwr1mND8sw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fGDKSfsvX4Do31Si+IWlJTpi5eu318VmkxLa8FSGPSk=;
- b=2XVrJCwPzThVgsj/90KwpIX4dy53PdtkB8yla5wcw2XPpA782Vv6fn7T1bGs8VnMIs3QoVqPbRBZqHh2h6FOYPQV+JAGBMbxXNyisyiHeWlT5bOvBiL0jqcdNZgEeBgUc0evZ1fu5vQOHCa7I8GPhB1nB6L7e2/GPgFIr3gWOZ0=
+ bh=ThjUy+u4yICHpEwUxA2qgWBbG67qrzcMJZygEbSRpQ0=;
+ b=UuFwJjXvJooohNZTy/PALBMjqycAvWp37JCJr5YulCYkx1H+OWY+rM2koXnqTXkKcHdh71v+tT3RQHGkBXt/81+1f8zOhYeD2bEi7f6G/S74tahniwZ3kVZ0OXWLVcvIFQiABcLdY+7++zMYMT6YqYJqsa4sISBBIy2B/a0guKs=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SJ1PR12MB6339.namprd12.prod.outlook.com (2603:10b6:a03:454::10)
- with Microsoft SMTP Server (version=TLS1_2,
+Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
+ PH8PR12MB7109.namprd12.prod.outlook.com (2603:10b6:510:22f::16) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8069.17; Thu, 17 Oct
- 2024 13:15:43 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%2]) with mapi id 15.20.8069.020; Thu, 17 Oct 2024
- 13:15:43 +0000
-Content-Type: multipart/alternative;
- boundary="------------ON8xIjR09K1Mcj5A0VCzfEdB"
-Message-ID: <29963d81-41d4-4b80-804c-8792a286e892@amd.com>
-Date: Thu, 17 Oct 2024 15:15:34 +0200
+ 2024 13:16:43 +0000
+Received: from DS0PR12MB7804.namprd12.prod.outlook.com
+ ([fe80::8327:d71a:ce21:a290]) by DS0PR12MB7804.namprd12.prod.outlook.com
+ ([fe80::8327:d71a:ce21:a290%5]) with mapi id 15.20.8048.020; Thu, 17 Oct 2024
+ 13:16:43 +0000
+Message-ID: <3f175af5-ab8f-40f0-ae1b-4d3f7ad04e17@amd.com>
+Date: Thu, 17 Oct 2024 18:46:35 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 15/15] drm/amdgpu: validate get_clockgating_state
- before use
-To: "Khatri, Sunil" <sunil.khatri@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-References: <20241017100615.1492144-1-sunil.khatri@amd.com>
- <20241017100615.1492144-16-sunil.khatri@amd.com>
- <1f534179-6ffe-446c-ba20-6b5ab4da8db3@gmail.com>
- <58fef7b7-79cc-48ae-c632-199c44ed1f0e@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: Save VCN shared memory with init reset
+To: "Liu, Leo" <Leo.Liu@amd.com>, "Koenig, Christian"
+ <Christian.Koenig@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: "Zhang, Hawking" <Hawking.Zhang@amd.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "Sundararaju, Sathishkumar" <Sathishkumar.Sundararaju@amd.com>,
+ "Jiang, Sonny" <Sonny.Jiang@amd.com>, "Zhou, Hao (Claire)" <Hao.Zhou@amd.com>
+References: <20241015062316.3050046-1-lijo.lazar@amd.com>
+ <7cd47976-10c9-41d1-9e48-8b47617b3d48@amd.com>
+ <DM8PR12MB53993F24544631CE138C41EFE5462@DM8PR12MB5399.namprd12.prod.outlook.com>
+ <8ede8dfc-1718-416e-96c5-e6033c5bfb87@amd.com>
+ <CO6PR12MB5394D8B004517BD13D463C6BE5472@CO6PR12MB5394.namprd12.prod.outlook.com>
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <58fef7b7-79cc-48ae-c632-199c44ed1f0e@amd.com>
-X-ClientProxiedBy: FR0P281CA0067.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:49::21) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <CO6PR12MB5394D8B004517BD13D463C6BE5472@CO6PR12MB5394.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN2PEPF000001AD.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c04::9) To DS0PR12MB7804.namprd12.prod.outlook.com
+ (2603:10b6:8:142::5)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ1PR12MB6339:EE_
-X-MS-Office365-Filtering-Correlation-Id: a96f6a41-580c-42f7-b43f-08dceeadce26
+X-MS-TrafficTypeDiagnostic: DS0PR12MB7804:EE_|PH8PR12MB7109:EE_
+X-MS-Office365-Filtering-Correlation-Id: d7579b9f-0528-4878-eacf-08dceeadf1a7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024|8096899003;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?L1VPNVA1OGVFRlpvL2Q0NUZ3UkpWSGsvK0ZQQmRHdU1zRStyUzNWeURLZHkx?=
- =?utf-8?B?Y3hvRTk1Y1JnOG81TkZuVXpZNTh1bzZXNHJUeGRUYXhQb1hoR2NWZU0xdWll?=
- =?utf-8?B?cEJTR0pnSm1RU09YQTBWTGlnS3kxRFhISmp4cFNwdmdqYlN6eHNHV2tOTDZu?=
- =?utf-8?B?Nk5pbmFLM0ltYzVKQlF0RzlyOEw3b01mSWdpSWxvZ25KSDUzN3J5MTJxS2pq?=
- =?utf-8?B?OHRhOXdNUWlQY3hkNSttOVpVSjY1SC9HOC9pRFFieGl1QXVmU1FRc1VoYlZw?=
- =?utf-8?B?MkQ0MWR4VlplY05kVjBuc1M5Y2xpRUZkYTErdjQzTlBxcXBnalMraklEa1BC?=
- =?utf-8?B?VDdxMktmMndJSHpoeFBScDFVRDlRSHZrbU9GMDMybWxCY1ppTS9rTlJJUXJQ?=
- =?utf-8?B?S2VOWjlrSXpGc0tsTjdlU051WFRXYms0ejQ4cVhxWDB1MlR0aVBwUG1Hck5l?=
- =?utf-8?B?dDlHdHhLUm1CVmZZYTFKWFFkYUJZZzR0TkRJUi95bHlzVjZqVjdtVHpxcXhP?=
- =?utf-8?B?clkrMG9MM0hxZnB3UmFuWFhPdTljR29QNU5VdURvZmJCVENNQnFWN2NSeHdO?=
- =?utf-8?B?YTZvb1lLazV5a3UrNXFPVzlGWTNMWitBaWVnUmttVGYrWVpyaVlrRUFMaGpO?=
- =?utf-8?B?djUyU2xlS0tTeGFQTnZaZ2todG02L1NyWXV2RlVTMW51N2hnNGtTWHFNTytZ?=
- =?utf-8?B?VXVqSFgyU2xvWnJRdlB0SHFwa3dXSytGZTZxdDVCU1ArOHZnOUhBRVJjT2Zk?=
- =?utf-8?B?T1hCWFRsSC9PektWZTRCRHU2bVdxb1RHUjZKWFBIeUdlbEd1NDFHcDcvbHow?=
- =?utf-8?B?VXV6M1I3aHBadGlWOHJmeXphRzdzWjJGYTZHbTgrRmh3UzEwbUhISVlVcHpD?=
- =?utf-8?B?dzhwZVIvb1EvZllubmpYTnVac29PK1gyTFI2TDlxZDAvM0RGbFE3KzRoL3lW?=
- =?utf-8?B?YytFR0ZLSlphVlFEUVZvdWxETVJSSWlHTTdsT2dYUStCcDRJWnE2d1lBeGEz?=
- =?utf-8?B?Z29QZTFqblczQ2N2d3VYRlFBZXdYazRuMkxvUzR2NVFxUUJRUTRzR3JqbXpI?=
- =?utf-8?B?V2JocWVKL0IrejUyajNpdE5JWG14TzQwbFMxYmd5bU9WakxFMVNiR0kycVc1?=
- =?utf-8?B?Q2h2UnNyTDY2QjZLWVc4KzZuUW15VFpMMXZnYmNTelg4SC81cFF3Z1lwODVE?=
- =?utf-8?B?ZTFqSlEybEJDcUN6MWY5NjVNVzNxZEZKUkVyaGJ0SnV5bzFnSGh3R1hhUXFv?=
- =?utf-8?B?clB5SEY0Q1hRQXU4ZktBNDFnSjI3bU82YnA3WlRSSDZoNjNEWWM3M251UXZn?=
- =?utf-8?B?ancvRDJUSExJVUVjOVllbit5ZXlJU3V4ZFRPS2V4QVc1cmFxUitzZzFZNU1Y?=
- =?utf-8?B?VVkxM1dZaS8yNnVjSGZsa2ZuZzhQTFh3eDEzUitvTHYwNkRXOGlRb2lBcXN1?=
- =?utf-8?B?bjNqZzlnSGJLaWFteGU0QTVwSnh0S0dMRVVqRk1BZGI4WWl2NEUyLzR0c1Bl?=
- =?utf-8?B?enBqaGNxUC9aYjBQekRPREk3WHozcWJyQU9mSnJnZWJxdjhYMTBmOVRpWFlH?=
- =?utf-8?B?MS96bFNWUkduZGNBRldXTUFzVHFFRWg5Z2ZUOW1FenIzaDN4T1Awb0FscFk5?=
- =?utf-8?B?QnN0YzUwaTVVOS9zcStXam5qdGRXTTY0QnFROXdLTFlmK0tWZUVHRWY0V20z?=
- =?utf-8?B?L2hFcnRrTjlPWXdSQlJSWjFCWXpEMzNLUXdUOGg5UituMjBKR3c5ZmpRbTU5?=
- =?utf-8?Q?gJXK4DFJ9iJC0otbJJRp8xUDuFmgxT2ezU0vY3a?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?MG5BMmIyMi9WT2hQRFk2VE10WlJEbkdvTTFKelJYVkhmVFhtZUwxSTloMjBt?=
+ =?utf-8?B?QU5CeEJQNDgrU21Pa3pIbkZnYmJNTXBFMVM5dXhjSW42QmFpdy9nQVJtVHlG?=
+ =?utf-8?B?M1FwdW5rM3dVN1V0SEhDaExNc2FWbncwbk9lQW5BZnlQODFNeXA1ZEp6b0p0?=
+ =?utf-8?B?QWJVS01jeGZIOFRiMitWVW9nMUpndWpOc0NabVYrRHBNakhNMm9Bd25CS3pi?=
+ =?utf-8?B?V3VqL29xUC9tcjZLYWh2dEwvZUVtWDZYQmtXT29aUXRKTVdkSkVkWUExZ2VH?=
+ =?utf-8?B?WE9kVzhWb25TemdmUS83Mi9KQWlBVFhDOWxYQ1pqVkVNU1ZJMXdOOHlVS2V4?=
+ =?utf-8?B?NS92cjdlWXpLakdtK2JvemEzdnR1WHdQTWJxdkNma2lSMnZucjhmb3djWkNP?=
+ =?utf-8?B?ZTQrZzdqNXgwRVd1QzVHSXR0WkpJNXVJT3IyNGJDVGtpTEhEV0k4NEhoTWhs?=
+ =?utf-8?B?elBDNnM1Qyt6WGxkYXhrUDlOYW56Rkt2MEdNK2tVd3JDeThOYm56RTg5VGZC?=
+ =?utf-8?B?a1BZeUdhRjBUajZSY1N3UGlod1VmdHdmNlY5aHh6RHNDYlpxcFQybDE2ak9y?=
+ =?utf-8?B?a0ZaZldXMitORFlXQW01QmtBTFpYZGtpY2pQMGtvWkdDSGlSOGgraWoxS3lo?=
+ =?utf-8?B?VGdUNUJUaFJPbHpaamNxSGJ3SzhqaU5uVngzcXFMRC9YVTdSV1V5ZEFNZnRl?=
+ =?utf-8?B?UUl0N0tpNlZFRU43WE84NUVLcG5SRC9BTWFTdVZPUjd4S29oMUUyMmpERU9F?=
+ =?utf-8?B?ZEpOTE5EODdKd0p6cm1QQTFPWFM3OG1LbUdEdmgza3BEWE1pL0c2QXVQeC9a?=
+ =?utf-8?B?UzBFcDBacWxJNC8vbGdjNCswOVYyTHEydDlNWnp4OG1pTHdIbnpzUzVwYUtm?=
+ =?utf-8?B?MHRrd3Zkem1jSWdqUzRGbmlyWXR5Wm56bzRJUFJ5RXRaZHhqVjJaenRQRkNj?=
+ =?utf-8?B?UGphenhZUDF6WnRnbXN4OENpcmMzOGZXYTFNREVxZFpsdFJFRDVSeFpYS0tL?=
+ =?utf-8?B?UVlUS21PMnhCZUxTRjlQQUlkVVN6YjMwbUNsb1RLcDNMK3ptVzkyeTJjZVcz?=
+ =?utf-8?B?UkdLbVY0QnFSWkczRkRRdW9SeWxlZis3KzJOM0piN3BiZU1oT0lMOTFlT08w?=
+ =?utf-8?B?WEVPU2pUR3dhMG5lRm5hakNGZEsrS1cvNFlUeS9GNmFPZmw0WG13OC9iL1ky?=
+ =?utf-8?B?M1lpMmplTnlWUDlzMmdGeGVDOFNCMm81NUdTWTh4eGx4SHY5cUlXbGFHSitF?=
+ =?utf-8?B?dWNqRHN6cCtEUGk2NXJJN0JReFdVVVhnanNGS3plb0xwYUMvZUd3eU01NFc1?=
+ =?utf-8?B?N1cweVhwTE14K0x6RFRaKzRvemtTaEl5OUhwaHBRRkxwVVU5R0ZRMU40MHln?=
+ =?utf-8?B?dmFscjJCVk9wb1h3VFlNdVpXeitUcFo3K0xObDVaWlduRzZhdWVOZDd1bVZv?=
+ =?utf-8?B?R3M2UHArZEdWUW1DT3pNV0tHbmRSSXNFUzFQL1I1bXZ3alh3SUZ6VU41WDMy?=
+ =?utf-8?B?VktWSTI4Yy96dFNZZ1d3bFRsK2YxdERBcXZEeGxGbU5oN2ZoTTM4K3VMK25s?=
+ =?utf-8?B?c0V2Q1JoaDI4WGdJN1lSajQvemFRRVBwZ0JrT1gwK2JMTnRhL3NvZHhubC9a?=
+ =?utf-8?B?RFZuNkFtR2NLMC9DS093bDVpR1JaTFNJOVZreC9Ic0NvNTlJSWZ5Y21nYWw5?=
+ =?utf-8?B?MFJ5OWxkZW1KZUJ4M2xyR2gxQWY4NlkxSkhVcmJHOGZJTDBYamdGaWpjMUxo?=
+ =?utf-8?Q?/5FOAatiHQrE0vM7374CaRkbSyJN2kTs1RIpMF8?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(8096899003); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WFBVSS9sZENzQ3RBeHpkSkVXYnArcVBIcTRNaDJQdGVnK2o1VmtzNStFeDg1?=
- =?utf-8?B?RjZNWWJUZ25mbDZnbWR1T0xnK2VxbWhEYWVqWkRmZ0NJaUs2eXNmOXZRdndt?=
- =?utf-8?B?YTZ3UHYyUFRDK2hGR3hmdXlFaDBMb1k5MW0xZjYybkZGT2RZY3JQek54VnFq?=
- =?utf-8?B?UEJTVmNDaG5LMjlyVlBGbStVQXdFRHBKbE45ZE5MT0hIdE8zdnRyRVMzTGZq?=
- =?utf-8?B?QnhyUjMvVTJqUlNoUFZEdDdnT2JmVjZHYUV1NzFxL3hmb0lYeDVLL05qODhY?=
- =?utf-8?B?RTBlc0QwRGt3bkVEUmJ0RXBpNlptSS9IOGdhOU1OVDd0NkhVaVo0MWV6N0dl?=
- =?utf-8?B?ZlBNeC9JWnlkVTZITEJTQmNQNGdxL0t0VFAxQWlFcWJUUzFhV09wVEd0TG1u?=
- =?utf-8?B?aHRudFdDeUhtMmhFbGpXdk5YL3hKbStURU11WlBjczlQUVYwK21jd3YzMTVT?=
- =?utf-8?B?cjAvNDRvOWlNR2VPeWllQkFXam9CdTJOMk5UY0VxVDRUOEk2d1NndGpNcGRF?=
- =?utf-8?B?VjBDS2t3RnVURllyZ1QrLzM3MGpsTFo4aEpKcHRBd2hsTHdGZ1ZQTjdyeU15?=
- =?utf-8?B?dm12azVHQnBTMUVYbE0rSUlLMW9XWmlwRXBlNlRnY2pCTFlVWG5VQXo4TTZZ?=
- =?utf-8?B?TjJrUjh5L29MY0ZZdmNqTW8vZjlBTzFzWmpSVnBaMU05QlgrMDJIWUVBNVBJ?=
- =?utf-8?B?eWhERGtOYldwOGFlckRscUJlVTgrUUxKeElWbVA0OVhnVWZWaEZNdkZma3FU?=
- =?utf-8?B?a3FIa2lLa3o1LzhuQTN2TThFaC82dkJqdXNPYlluM1ZjMldRMTlCdHFNUkNG?=
- =?utf-8?B?NXBYZnYzakdFU0EyMEF4SSt1b0tHdkJCN1ZrVlJzb2hxRjM0NXNxUGYzT2Nr?=
- =?utf-8?B?UnloTWc3OEh0NEpFc1B2ay9TNkE1Qnh2cDdLY2h4aHgxbVEvaFFZRmZVMHdM?=
- =?utf-8?B?cmVBNzA3KzEwcEFoeE03NVFrODVtenZvNGRqWXFvVlhVMks2cE5lU3l5UHpP?=
- =?utf-8?B?Yjd5dmUwK3VWUWtNaHVxdlBPRjZpV1FXUUdPT1NmT2srN3hoaElFNmtOZENZ?=
- =?utf-8?B?dm5XUVc2QU91TWRBYVlTQWdQamZxZ1Y4N2p1Z3M4SFhJMFQrVzExMDN4bEE2?=
- =?utf-8?B?VlIzOXo4Ym1mUWNIVjJFVWNRSFl4bGtBSC8rT2xUME15dGZ5VVZiTFJqU3pM?=
- =?utf-8?B?SzBhOHdGZ1VERDRrazNOWFRwK1VDbDVnc1VHSXRNTlhFU04wVGh6WnpqbVpn?=
- =?utf-8?B?TUF5ajNzbklaSEE5eHZQVUJXQmVaTFhBRXlQMGpkUFAvaHozVGFnYms2djhn?=
- =?utf-8?B?TERxRmx3aXl3bDFnZ1hQZlBPN3VGSW1Zb09IZ01qRjl0YjZibnZvWDF5WklE?=
- =?utf-8?B?bFVENTQrblUza01EU1JsZVBYZWdvZmVUd0NqMUlIMnRKazF6NlhqeDdiVUpF?=
- =?utf-8?B?UWM0T0o5UjhrMko3NXhLTkZVMFRLczJtblQ1MnFyY2xXVWRzWnc3UUpabDNN?=
- =?utf-8?B?R2xJYjNyMGpOdWc2Tjg1NEp2c05UT1NlMXlKa0tJd1RpR3ZoRDByM1E0dkJB?=
- =?utf-8?B?YzhlNGxVTHdmT0QveStUaFE0Mktja0VtRk9XRmthY2x6MzBCY2hFVGJZeXBh?=
- =?utf-8?B?aHBzNHNadGFxdWxReXdhcmpRN2lVV3pITDNvY1hlMFhEMlZZZ2t2ZDNzNUZv?=
- =?utf-8?B?b2ZXdTRNdG5QWUxSU1lGaUxpZFFwR3IvM0lMVmtob1pzZ0tKTVFVUUZObGxH?=
- =?utf-8?B?T24rYzgrNG9EbzJYd2ZsMG9wdzF5L2tUYVhkUVVPRU1QQlRMN1ZvRzc1UUVP?=
- =?utf-8?B?UTJuZ3RkS3FSRG45d2w1bFZ4ZzhPR1RocmI0cGFzMUtHUTR3MTlSUFc0MUJi?=
- =?utf-8?B?UDkrRERWZk5reitoZDEwVmkwcWpQdlgwalA0NWlwZ0JtTEU0ZkxkVUhGQlhv?=
- =?utf-8?B?a0RZMER4Q2FvZnI4bHl2MlpuaUlLR0VoSmJoZ0dyS1B5TlRtTDhVSDNtNmR1?=
- =?utf-8?B?YmxCeVNxa01UQUlvcjRIL2g3UnZwb0M4QVZLL01VZnUrTyt6MzRtQU11Q0dz?=
- =?utf-8?B?UFFZdnBJcnl2aFZGK3JVeUdDMkdKUHpzZGg0OElOZHhFSWZBbVM2U3NHQzZV?=
- =?utf-8?Q?vuGI=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QkhPNm50M2diVFkveW1IVWJ6RGNxRkYwQTNzTzluL3NQYUo0MTNDZ1I4Q0Ju?=
+ =?utf-8?B?bzVpTk43VDdzK1VSUWlZKzhZaUNCbm54Y1REL0VFKzQyZlNFcDA4WmpPLzNL?=
+ =?utf-8?B?cG93WjJ2RUdTQSt1YzZJZFhOVkpIRkxmSW5QSmlJUTdlaWg2WmlpdDU5aGxG?=
+ =?utf-8?B?N284R1BWZHh4T2pvQ0YrcXZ4emFuNVhKalZ1dm1VT0dzcjNPeEcvNU85bnJD?=
+ =?utf-8?B?K1RxbS9yU3BCbWhtRmNCWVFodTdXa0tMb1lpamVrbnpMN3dTR0dmKzQwL3RH?=
+ =?utf-8?B?VFpkYUhwY2Z4aDZBNmtldmJ6cDhpVit2TUgyZHlUdXE3cit4WG9uNzFjcUd0?=
+ =?utf-8?B?OUZvYm9lTjQ0TlpLZ3dxWXNFV0RjdTMwTzZZbVR5YTZkNXZ1VU5PNURzV0xT?=
+ =?utf-8?B?ZW9JTXQzZ29XVjFhNTJxM0cyeW0vanVXT0owRXVMY1VPYzJBcUlqL3kvTmVl?=
+ =?utf-8?B?VkxLU2lzTms2dGhwSEVKR09OMFUxOFRlSVBvQkM0YUJES1ZqZXZrUUJkZ0NJ?=
+ =?utf-8?B?a0NpRjFLMmN2MzUwTHU1TkhlZkM1dzNwRW1hTVR3QndCRWRxRERLZmhINXVw?=
+ =?utf-8?B?dVZzSTBacXR3K3dWd2RQd2N3N0t1YWxFaDJEUHFyRVo1N2R4blJjc2g1MDJM?=
+ =?utf-8?B?M0ZleFpNQTNKME1BYkhGQ0czTVY2L2VCVnJaOXBEbmFteFlvQmZsbHFWUHpU?=
+ =?utf-8?B?S1k2ZFVobW5kSXNaWjFHOWxJWmZaWTNKc1JtT0VEYVZXd08wVnZkSXYvSlFK?=
+ =?utf-8?B?K0dSMlRUV0ZwSFBSNkkxK3ZWZ21BL29tZEJ4YVNSdG9XV1UrdnI4QnMvcGQ5?=
+ =?utf-8?B?TEloazByNFBESGIrNDZGZlJSQVY1MjdTUVEwbGVvdnMyQjhDUmNGSXFWSVhF?=
+ =?utf-8?B?MlR0d3VLVVRhc2ZuMUFFQnFQZTRTZGJZWU91RS9RemhLbjlvUnJXL25NK0tF?=
+ =?utf-8?B?WmVHWWdWUUk3U0V0SlNQN1Fwd2I3ZDlwTlY3S3dUZ0tKRU5pNzNqY0VUbGpJ?=
+ =?utf-8?B?cmlJaUppb2FsWm5IQTUwNmREeXFBL1ZKNFlzVnQzMUhGVHJtbkVJY0Q2Uzhp?=
+ =?utf-8?B?T0U0cFhvdFhoNEQ3dmNNQUhpaWo0SjV4Z2wrdHNLVzFOVXh0N1ZEOEJ2ZlJO?=
+ =?utf-8?B?V2MxdUFvWTlUemtIWnN6Vk9rc040cFZ6NGRpZDlHd3c5RmRxOUdZbUtPR0RD?=
+ =?utf-8?B?eG9SVERpQStiR003QkdqQjVsaDBiVFZLZmJXVWlFclFPRWlFNGszeGFNVVQv?=
+ =?utf-8?B?d0FxMFNGZ29peWphT253NkFYZ21FdXJQV21jK29kYTV6cWtZbVNpUC9hVkxG?=
+ =?utf-8?B?T0JpWnMyVlBXMk9Hbk1ESi9zVWJadW43QXhKTUZBdkgzR2FXc2EwMnlDZUFt?=
+ =?utf-8?B?MlR3VHFrU0RSV1padFY2S0dxRGFLa3lmNElDZkZ4QWh6VEtFY2h1bUJjaWVh?=
+ =?utf-8?B?MTMxUG9nS2tpWUY3RUJ6aDZqK00rdVRWQWlCUzdHd2YvYVBiNnFQMldkUFRn?=
+ =?utf-8?B?YXFRSktiTjZ2MnZVaVJMRUhmTHIrei8yREhXd3R5RXNXS1FRRU9WZGFUTnhN?=
+ =?utf-8?B?N3J3MHY4SkZBZmRUN3JZeUYxRWJzQi9jTWZ0N2VjYjdLTmdqa0RYUUpaQU1y?=
+ =?utf-8?B?enYwWEtBUGY4Rldab3NpYkUxSy9oeEx4MDF0Zi9yenJUeDlOTUxndXNDYk9Y?=
+ =?utf-8?B?aUNhWGxXbXk1MTArWFl0WjY2QnE1QjduQXA5NFNqdVZyZnczYzJkQzV1ZFc5?=
+ =?utf-8?B?U0gxenZwd2NGTU0vOXlBWjlTbGNKaWNnZ3ZFVFl4VmNLYk1mZHoxeWFBTWxr?=
+ =?utf-8?B?dFdGcDVqWnY4N3lnZ1FJbzNoREsycUgzeS9RZmdKUnpCTVpPZXpzaUJ3L3h2?=
+ =?utf-8?B?STd3MnlSbDdOWmN2ejROR1NGTXhtVVVUTHkyRzJDTE04K0ZvZjZHTFRjSlN5?=
+ =?utf-8?B?c1RXSzNqcitTbUFLVWJtKzRlVUZRM3MvZkdNWGg2Ym03eDlzZjViL0xmQWRt?=
+ =?utf-8?B?UllGTitkL3RuSDBIcm9mU3lBYU5DaUt0QzVaeXV0MkdocnhLYmZYc0hFSHNw?=
+ =?utf-8?B?VGFZU2lBeFI5L3ZoV1NycWQ5ZGlPQWdpdXVQNVU3MmxaWmtLSWU5Sm1aR3ZU?=
+ =?utf-8?Q?xDcF4qP7qmfH/+SG4eLa3wj7C?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a96f6a41-580c-42f7-b43f-08dceeadce26
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d7579b9f-0528-4878-eacf-08dceeadf1a7
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7804.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Oct 2024 13:15:43.7753 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Oct 2024 13:16:43.4314 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +hsKp76acnmrpkOsOK/JnSJREa2Eqt9A1gz19U+7nR4Qe+Nw9bBOnnooUssN8n/z
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6339
+X-MS-Exchange-CrossTenant-UserPrincipalName: vPZBk730tPAsH/kV5YApGM36v5k+LSSuzKZkTw/ct/ftFD8w4SIzJqNBeQzUaJoU
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7109
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -163,239 +166,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------ON8xIjR09K1Mcj5A0VCzfEdB
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
-Am 17.10.24 um 14:55 schrieb Khatri, Sunil:
->
-> On 10/17/2024 5:50 PM, Christian König wrote:
->
->> Am 17.10.24 um 12:06 schrieb Sunil Khatri:
->>> Validate the function pointer for get_clockgating_state
->>> before making a function call.
+
+On 10/17/2024 6:37 PM, Liu, Leo wrote:
+> [AMD Official Use Only - AMD Internal Distribution Only]
+> 
+>> -----Original Message-----
+>> From: Lazar, Lijo <Lijo.Lazar@amd.com>
+>> Sent: October 16, 2024 11:18 PM
+>> To: Liu, Leo <Leo.Liu@amd.com>; Koenig, Christian
+>> <Christian.Koenig@amd.com>; amd-gfx@lists.freedesktop.org
+>> Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander
+>> <Alexander.Deucher@amd.com>; Sundararaju, Sathishkumar
+>> <Sathishkumar.Sundararaju@amd.com>; Jiang, Sonny
+>> <Sonny.Jiang@amd.com>; Zhou, Hao (Claire) <Hao.Zhou@amd.com>
+>> Subject: Re: [PATCH] drm/amdgpu: Save VCN shared memory with init reset
 >>
->> Oh, I'm not sure if that is necessary or not. The NBIO, HDP and SMUIO 
->> functions are not IP specific.
 >>
-> For many socs this check is added and only missing in the 
-> files/functions mentioned below. SOC where these functions are called 
-> are nv_common, soc15_common, soc21_common, soc24_common
-> eg: SOC15 already have these changes and its safe to add for other 
-> socs that i mentioned above.
-
-You mean that the checks are in almost all places, but here they are 
-missing? Mhm, that's strange.
-
-Let me investigate that further,
-Christian.
-
-> soc15_common_get_clockgating_state Regards Sunil
->> Christian.
 >>
+>> On 10/16/2024 9:37 PM, Liu, Leo wrote:
+>>> [AMD Official Use Only - AMD Internal Distribution Only]
 >>>
->>> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
->>> ---
->>>   drivers/gpu/drm/amd/amdgpu/nv.c    | 9 ++++++---
->>>   drivers/gpu/drm/amd/amdgpu/soc21.c | 6 ++++--
->>>   drivers/gpu/drm/amd/amdgpu/soc24.c | 6 ++++--
->>>   3 files changed, 14 insertions(+), 7 deletions(-)
+>>>> -----Original Message-----
+>>>> From: Koenig, Christian <Christian.Koenig@amd.com>
+>>>> Sent: October 16, 2024 9:16 AM
+>>>> To: Lazar, Lijo <Lijo.Lazar@amd.com>; amd-gfx@lists.freedesktop.org;
+>>>> Liu, Leo <Leo.Liu@amd.com>
+>>>> Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander
+>>>> <Alexander.Deucher@amd.com>; Sundararaju, Sathishkumar
+>>>> <Sathishkumar.Sundararaju@amd.com>; Jiang, Sonny
+>>>> <Sonny.Jiang@amd.com>; Zhou, Hao (Claire) <Hao.Zhou@amd.com>
+>>>> Subject: Re: [PATCH] drm/amdgpu: Save VCN shared memory with init
+>>>> reset
+>>>>
+>>>> Am 15.10.24 um 08:23 schrieb Lijo Lazar:
+>>>>> VCN shared memory is in framebuffer and there are some flags
+>>>>> initialized during sw_init. Ideally, such programming should be
+>>>>> during
+>>>> hw_init.
+>>>>
+>>>> IIRC that was intentionally not done during hw_init for some reason.
+>>>> @Leo do you remember why?
+>>>>
 >>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c 
->>> b/drivers/gpu/drm/amd/amdgpu/nv.c
->>> index 6b72169be8f8..40c720b32c59 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/nv.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
->>> @@ -1084,11 +1084,14 @@ static void 
->>> nv_common_get_clockgating_state(void *handle, u64 *flags)
->>>       if (amdgpu_sriov_vf(adev))
->>>           *flags = 0;
->>>   -    adev->nbio.funcs->get_clockgating_state(adev, flags);
->>> +    if (adev->nbio.funcs && adev->nbio.funcs->get_clockgating_state)
->>> +        adev->nbio.funcs->get_clockgating_state(adev, flags);
->>>   -    adev->hdp.funcs->get_clock_gating_state(adev, flags);
->>> +    if (adev->hdp.funcs && adev->hdp.funcs->get_clock_gating_state)
->>> +        adev->hdp.funcs->get_clock_gating_state(adev, flags);
->>>   -    adev->smuio.funcs->get_clock_gating_state(adev, flags);
->>> +    if (adev->smuio.funcs && 
->>> adev->smuio.funcs->get_clock_gating_state)
->>> +        adev->smuio.funcs->get_clock_gating_state(adev, flags);
->>>   }
->>>     static const struct amd_ip_funcs nv_common_ip_funcs = {
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c 
->>> b/drivers/gpu/drm/amd/amdgpu/soc21.c
->>> index 1c07ebdc0d1f..196286be35b4 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/soc21.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
->>> @@ -975,9 +975,11 @@ static void 
->>> soc21_common_get_clockgating_state(void *handle, u64 *flags)
->>>   {
->>>       struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->>>   -    adev->nbio.funcs->get_clockgating_state(adev, flags);
->>> +    if (adev->nbio.funcs && adev->nbio.funcs->get_clockgating_state)
->>> +        adev->nbio.funcs->get_clockgating_state(adev, flags);
->>>   -    adev->hdp.funcs->get_clock_gating_state(adev, flags);
->>> +    if (adev->hdp.funcs && adev->hdp.funcs->get_clock_gating_state)
->>> +        adev->hdp.funcs->get_clock_gating_state(adev, flags);
->>>   }
->>>     static const struct amd_ip_funcs soc21_common_ip_funcs = {
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/soc24.c 
->>> b/drivers/gpu/drm/amd/amdgpu/soc24.c
->>> index 3af10ef4b793..f4278a0fa8f7 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/soc24.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/soc24.c
->>> @@ -564,9 +564,11 @@ static void 
->>> soc24_common_get_clockgating_state(void *handle, u64 *flags)
->>>   {
->>>       struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->>>   -    adev->nbio.funcs->get_clockgating_state(adev, flags);
->>> +    if (adev->nbio.funcs && adev->nbio.funcs->get_clockgating_state)
->>> +        adev->nbio.funcs->get_clockgating_state(adev, flags);
->>>   -    adev->hdp.funcs->get_clock_gating_state(adev, flags);
->>> +    if (adev->hdp.funcs && adev->hdp.funcs->get_clock_gating_state)
->>> +        adev->hdp.funcs->get_clock_gating_state(adev, flags);
->>>         return;
->>>   }
+>>> We need to keep some of the status from share memory(driver and FW),
+>> since some of them are changed by FW, that is why the init cannot be in the
+>> hw_init stage with suspend/resume case.
+>>>
 >>
+>> For vcn_v4_0_3, the flags that are initialized in sw_init are these
+>>
+>>                 fw_shared->present_flag_0 =
+>> cpu_to_le32(AMDGPU_FW_SHARED_FLAG_0_UNIFIED_QUEUE);
+>>                 fw_shared->sq.is_enabled = true;
+>>
+>>                 if (amdgpu_vcnfw_log)
+>>                         amdgpu_vcn_fwlog_init(&adev->vcn.inst[i]);
+>>
+>> Is the flags initialized during sw_init required for FW during its initialization
+>> stage? If not, it would be better to move this to hw_init.
+>>
+>> Some part also get modified during vcn_v4_0_3_start (which is after hw_init
+>> during runtime) -
+>>
+>>                 fw_shared->sq.queue_mode &=
+>>                         cpu_to_le32(~(FW_QUEUE_RING_RESET |
+>> FW_QUEUE_DPG_HOLD_OFF));
+>>
+>>
+>> One reason probably is hw_init is also called during resume which restores
+>> the saved bo during suspend. So this may be to avoid the double work.
+>>
+>> Anyway, is the patch okay to go?
+>>
+> You need to fix the function name as I commented from last email.
+> 
 
---------------ON8xIjR09K1Mcj5A0VCzfEdB
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Any suggestions - amdgpu_vcn_save_vcpu_buffer/bo?
 
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    Am 17.10.24 um 14:55 schrieb Khatri, Sunil:<br>
-    <blockquote type="cite" cite="mid:58fef7b7-79cc-48ae-c632-199c44ed1f0e@amd.com">
-      
-      <p>On 10/17/2024 5:50 PM, Christian König wrote: </p>
-      <blockquote type="cite" cite="mid:1f534179-6ffe-446c-ba20-6b5ab4da8db3@gmail.com">Am
-        17.10.24 um 12:06 schrieb Sunil Khatri: <br>
-        <blockquote type="cite">Validate the function pointer for
-          get_clockgating_state <br>
-          before making a function call. <br>
-        </blockquote>
-        <br>
-        Oh, I'm not sure if that is necessary or not. The NBIO, HDP and
-        SMUIO functions are not IP specific. <br>
-        <br>
-      </blockquote>
-      For many socs this check is added and only missing in the
-      files/functions mentioned below. SOC where these functions are
-      called are nv_common, soc15_common, soc21_common, soc24_common<br>
-      eg: SOC15 already have these changes and its safe to add for other
-      socs that i mentioned above.<br>
-    </blockquote>
-    <br>
-    You mean that the checks are in almost all places, but here they are
-    missing? Mhm, that's strange.<br>
-    <br>
-    Let me investigate that further,<br>
-    Christian.<br>
-    <br>
-    <blockquote type="cite" cite="mid:58fef7b7-79cc-48ae-c632-199c44ed1f0e@amd.com">
-      <div style="color: #cccccc;background-color: #1f1f1f;font-family: Consolas, 'Courier New', monospace;font-weight: normal;font-size: 14px;line-height: 19px;white-space: pre;"><div><span style="color: #dcdcaa;">soc15_common_get_clockgating_state
+Thanks,
+Lijo
 
-Regards
-Sunil 
-</span></div></div>
-      <blockquote type="cite" cite="mid:1f534179-6ffe-446c-ba20-6b5ab4da8db3@gmail.com">Christian.
-        <br>
-        <br>
-        <blockquote type="cite"> <br>
-          Signed-off-by: Sunil Khatri <a class="moz-txt-link-rfc2396E" href="mailto:sunil.khatri@amd.com" moz-do-not-send="true">&lt;sunil.khatri@amd.com&gt;</a>
-          <br>
-          --- <br>
-          &nbsp; drivers/gpu/drm/amd/amdgpu/nv.c&nbsp;&nbsp;&nbsp; | 9 ++++++--- <br>
-          &nbsp; drivers/gpu/drm/amd/amdgpu/soc21.c | 6 ++++-- <br>
-          &nbsp; drivers/gpu/drm/amd/amdgpu/soc24.c | 6 ++++-- <br>
-          &nbsp; 3 files changed, 14 insertions(+), 7 deletions(-) <br>
-          <br>
-          diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c
-          b/drivers/gpu/drm/amd/amdgpu/nv.c <br>
-          index 6b72169be8f8..40c720b32c59 100644 <br>
-          --- a/drivers/gpu/drm/amd/amdgpu/nv.c <br>
-          +++ b/drivers/gpu/drm/amd/amdgpu/nv.c <br>
-          @@ -1084,11 +1084,14 @@ static void
-          nv_common_get_clockgating_state(void *handle, u64 *flags) <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev)) <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *flags = 0; <br>
-          &nbsp; -&nbsp;&nbsp;&nbsp; adev-&gt;nbio.funcs-&gt;get_clockgating_state(adev,
-          flags); <br>
-          +&nbsp;&nbsp;&nbsp; if (adev-&gt;nbio.funcs &amp;&amp;
-          adev-&gt;nbio.funcs-&gt;get_clockgating_state) <br>
-          +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;nbio.funcs-&gt;get_clockgating_state(adev,
-          flags); <br>
-          &nbsp; -&nbsp;&nbsp;&nbsp; adev-&gt;hdp.funcs-&gt;get_clock_gating_state(adev,
-          flags); <br>
-          +&nbsp;&nbsp;&nbsp; if (adev-&gt;hdp.funcs &amp;&amp;
-          adev-&gt;hdp.funcs-&gt;get_clock_gating_state) <br>
-          +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;hdp.funcs-&gt;get_clock_gating_state(adev,
-          flags); <br>
-          &nbsp; -&nbsp;&nbsp;&nbsp; adev-&gt;smuio.funcs-&gt;get_clock_gating_state(adev,
-          flags); <br>
-          +&nbsp;&nbsp;&nbsp; if (adev-&gt;smuio.funcs &amp;&amp;
-          adev-&gt;smuio.funcs-&gt;get_clock_gating_state) <br>
-          +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;smuio.funcs-&gt;get_clock_gating_state(adev,
-          flags); <br>
-          &nbsp; } <br>
-          &nbsp; &nbsp; static const struct amd_ip_funcs nv_common_ip_funcs = { <br>
-          diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c
-          b/drivers/gpu/drm/amd/amdgpu/soc21.c <br>
-          index 1c07ebdc0d1f..196286be35b4 100644 <br>
-          --- a/drivers/gpu/drm/amd/amdgpu/soc21.c <br>
-          +++ b/drivers/gpu/drm/amd/amdgpu/soc21.c <br>
-          @@ -975,9 +975,11 @@ static void
-          soc21_common_get_clockgating_state(void *handle, u64 *flags) <br>
-          &nbsp; { <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev = (struct amdgpu_device
-          *)handle; <br>
-          &nbsp; -&nbsp;&nbsp;&nbsp; adev-&gt;nbio.funcs-&gt;get_clockgating_state(adev,
-          flags); <br>
-          +&nbsp;&nbsp;&nbsp; if (adev-&gt;nbio.funcs &amp;&amp;
-          adev-&gt;nbio.funcs-&gt;get_clockgating_state) <br>
-          +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;nbio.funcs-&gt;get_clockgating_state(adev,
-          flags); <br>
-          &nbsp; -&nbsp;&nbsp;&nbsp; adev-&gt;hdp.funcs-&gt;get_clock_gating_state(adev,
-          flags); <br>
-          +&nbsp;&nbsp;&nbsp; if (adev-&gt;hdp.funcs &amp;&amp;
-          adev-&gt;hdp.funcs-&gt;get_clock_gating_state) <br>
-          +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;hdp.funcs-&gt;get_clock_gating_state(adev,
-          flags); <br>
-          &nbsp; } <br>
-          &nbsp; &nbsp; static const struct amd_ip_funcs soc21_common_ip_funcs = {
-          <br>
-          diff --git a/drivers/gpu/drm/amd/amdgpu/soc24.c
-          b/drivers/gpu/drm/amd/amdgpu/soc24.c <br>
-          index 3af10ef4b793..f4278a0fa8f7 100644 <br>
-          --- a/drivers/gpu/drm/amd/amdgpu/soc24.c <br>
-          +++ b/drivers/gpu/drm/amd/amdgpu/soc24.c <br>
-          @@ -564,9 +564,11 @@ static void
-          soc24_common_get_clockgating_state(void *handle, u64 *flags) <br>
-          &nbsp; { <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev = (struct amdgpu_device
-          *)handle; <br>
-          &nbsp; -&nbsp;&nbsp;&nbsp; adev-&gt;nbio.funcs-&gt;get_clockgating_state(adev,
-          flags); <br>
-          +&nbsp;&nbsp;&nbsp; if (adev-&gt;nbio.funcs &amp;&amp;
-          adev-&gt;nbio.funcs-&gt;get_clockgating_state) <br>
-          +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;nbio.funcs-&gt;get_clockgating_state(adev,
-          flags); <br>
-          &nbsp; -&nbsp;&nbsp;&nbsp; adev-&gt;hdp.funcs-&gt;get_clock_gating_state(adev,
-          flags); <br>
-          +&nbsp;&nbsp;&nbsp; if (adev-&gt;hdp.funcs &amp;&amp;
-          adev-&gt;hdp.funcs-&gt;get_clock_gating_state) <br>
-          +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;hdp.funcs-&gt;get_clock_gating_state(adev,
-          flags); <br>
-          &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return; <br>
-          &nbsp; } <br>
-        </blockquote>
-        <br>
-      </blockquote>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------ON8xIjR09K1Mcj5A0VCzfEdB--
+> Regards,
+> Leo
+> 
+> 
+>> Thanks,
+>> Lijo
+>>
+>>>  +int amdgpu_vcn_suspend(struct amdgpu_device *adev) {
+>>>  > +    bool in_ras_intr = amdgpu_ras_intr_triggered();
+>>>  > +
+>>>  > +    cancel_delayed_work_sync(&adev->vcn.idle_work);
+>>>  > +
+>>>  > +    /* err_event_athub will corrupt VCPU buffer, so we need to
+>>>  > +     * restore fw data and clear buffer in amdgpu_vcn_resume() */
+>>>  > +    if (in_ras_intr)
+>>>  > +            return 0;
+>>>  > +
+>>>  > +    return amdgpu_vcn_save_fw_shared_region(adev);
+>>> The saved bo here is not only for fw shared memory, also for FW runtime
+>> stack/heap as well.
+>>>> Regards,
+>>> Leo
+>>>
+>>>  > +}
+>>>  > +
