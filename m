@@ -4,154 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C52ACD37487
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Oct 2024 13:16:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28B38D37485
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Oct 2024 13:21:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7188810E32E;
-	Thu, 17 Oct 2024 13:16:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C120C10E81B;
+	Thu, 17 Oct 2024 13:21:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="UuFwJjXv";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZEHTey2J";
 	dkim-atps=neutral
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2059.outbound.protection.outlook.com [40.107.243.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E07BE10E32E
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Oct 2024 13:16:46 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2061.outbound.protection.outlook.com [40.107.237.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC02010E81B
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Oct 2024 13:21:20 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OJde60wXrWeWBssbc/8gjd5MKqtlAmfDc9HU0XtglfmQLNXwiWN1Y25/wBx9KnoSeXgicY11+PVcSRvu4rvMMynEEBp9JjyYqGoaRvLbJ4cuviiJh3APYdU0i3TQOtGk2q10iliEfHgC7yekc9hpVqXTQQnfDM6zBRJ3GRm4U6Crv0CyCno++tqklS152DLpvLwF05bS1MvHxvuDp839s25p+8fLJBRwEVY1s0qB4LuhmtTkXBopASn4Myf2nldcJ9WdrgcDIiGtAUilorS9XES+509y+66fl3X5BN8cuilMiD63uMm+M2pXOkiycUGkoHaBSY0zsMlsjiVNIyRoAg==
+ b=QAOy5F5d2U/x0a8hpVcnLNum1WSJ/7ka19by8x1vATSKYcrak4iomsLtqnYCxgnpSeZAMVDu2wiM/1FMcJq3MkfF/BU9qLTrg8+TGdPoZS+Ifk8aclbufz3rJEARpUeKrsyu7lrmKZZGk/t28Ka+SWEdaNZfluIOJPToSN2Vkrug2832LikqSW4pOoWud3QEXmVeDH8iEr2t9fZkesjAaW26JXjSt0ZoqBbpdO8k7jbqg3/3PJZEgs70yAkxGA2qzzMezoaEqH5U6VbglJnoY9Cojl33Yp+bfwMg981AC2YL8pU1UKvhd49W1JE+sRMYWKs26APwlIqXtJ38zMEzZQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ThjUy+u4yICHpEwUxA2qgWBbG67qrzcMJZygEbSRpQ0=;
- b=m0sct5KnN+RQqtQ9pcu2SD5k0OVOB5aPGx5lejESkL4siU+qAx5wzYC77vgKau5PDCrFByGX4pa+K43JAKDThdPk0q1qz/TDN6IzjkACteg0m2M++UOGACfe3H9qtmhszYhklCSClTQWews8glg/tb2kdfQoL5ZxmK2JaUzZUy+tazyOOMySoFhLbgZVcIPOFFVqKLYkyIU6XFQgmdKfmTdANbRwQfkPhSO+xgC7OJrRgBjQoLBkhlt1v8PLwNi1xo+DpfqzCUAM/wwMdBPjHv3eA9A736y3FQrciXXacZtSYRmj9YeI8ZGTNstT7ctR9PVuvJClcgFAcwr1mND8sw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=NfkeNL7GbYJ5aEwCmc9E1/I9nHCFftxU9QThTxOjXDA=;
+ b=psz/ZJmeKCr89W5XTo2zH3yhrjiBuUi3hcTupyKQ67g5uI7DK0VRuNjG+d2KtIgsI6HORGxut+doG43EyEK4qoWgyel7WkOCqFcG1sX8dKv+YDTm957KScKTKmVDiYEpIxWLPRJaX0nIr2uVqHyocAR5n6J6hhzeZZH5JpcwHtvdEWhBuJ/csNnP8s22Ui8j22/RaHcqV+EHEiIEzGjztDNVcc1c3pA/fQ0GgGvRaJipA+pX8F6pGe7gRaOHJpCutzyCkrvqRTFXtPOjBrXrTnC2xWmNFcEIu7oKiSFMsMSwAqKM88l6vLxFqA5GvEtt2ZYC1pJ8BDB6uDnUB1D7nw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ThjUy+u4yICHpEwUxA2qgWBbG67qrzcMJZygEbSRpQ0=;
- b=UuFwJjXvJooohNZTy/PALBMjqycAvWp37JCJr5YulCYkx1H+OWY+rM2koXnqTXkKcHdh71v+tT3RQHGkBXt/81+1f8zOhYeD2bEi7f6G/S74tahniwZ3kVZ0OXWLVcvIFQiABcLdY+7++zMYMT6YqYJqsa4sISBBIy2B/a0guKs=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
- PH8PR12MB7109.namprd12.prod.outlook.com (2603:10b6:510:22f::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8069.17; Thu, 17 Oct
- 2024 13:16:43 +0000
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::8327:d71a:ce21:a290]) by DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::8327:d71a:ce21:a290%5]) with mapi id 15.20.8048.020; Thu, 17 Oct 2024
- 13:16:43 +0000
-Message-ID: <3f175af5-ab8f-40f0-ae1b-4d3f7ad04e17@amd.com>
-Date: Thu, 17 Oct 2024 18:46:35 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: Save VCN shared memory with init reset
-To: "Liu, Leo" <Leo.Liu@amd.com>, "Koenig, Christian"
- <Christian.Koenig@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Cc: "Zhang, Hawking" <Hawking.Zhang@amd.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Sundararaju, Sathishkumar" <Sathishkumar.Sundararaju@amd.com>,
- "Jiang, Sonny" <Sonny.Jiang@amd.com>, "Zhou, Hao (Claire)" <Hao.Zhou@amd.com>
-References: <20241015062316.3050046-1-lijo.lazar@amd.com>
- <7cd47976-10c9-41d1-9e48-8b47617b3d48@amd.com>
- <DM8PR12MB53993F24544631CE138C41EFE5462@DM8PR12MB5399.namprd12.prod.outlook.com>
- <8ede8dfc-1718-416e-96c5-e6033c5bfb87@amd.com>
- <CO6PR12MB5394D8B004517BD13D463C6BE5472@CO6PR12MB5394.namprd12.prod.outlook.com>
-Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <CO6PR12MB5394D8B004517BD13D463C6BE5472@CO6PR12MB5394.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN2PEPF000001AD.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c04::9) To DS0PR12MB7804.namprd12.prod.outlook.com
- (2603:10b6:8:142::5)
+ bh=NfkeNL7GbYJ5aEwCmc9E1/I9nHCFftxU9QThTxOjXDA=;
+ b=ZEHTey2JIQlg6K8eCv8LZNs18wpAgAs71cIb47Kg3KGE47wI5g+jFnH7OBgOiwmLsPqN/0xFL5SEUeVTS5A6nfI5pjQURLgxn4zwH92DpmDf6IG7g3l9ETRnnU/9sHFZdntVbDe4LE3WsCZkSZ+i71K6EZgHxmCzQZ5u8ZPZ20o=
+Received: from BN9PR03CA0177.namprd03.prod.outlook.com (2603:10b6:408:f4::32)
+ by SA1PR12MB6726.namprd12.prod.outlook.com (2603:10b6:806:255::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8069.21; Thu, 17 Oct
+ 2024 13:21:17 +0000
+Received: from BN2PEPF000044A7.namprd04.prod.outlook.com
+ (2603:10b6:408:f4:cafe::3b) by BN9PR03CA0177.outlook.office365.com
+ (2603:10b6:408:f4::32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8069.18 via Frontend
+ Transport; Thu, 17 Oct 2024 13:21:16 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN2PEPF000044A7.mail.protection.outlook.com (10.167.243.101) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8069.17 via Frontend Transport; Thu, 17 Oct 2024 13:21:16 +0000
+Received: from smtp.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 17 Oct
+ 2024 08:21:15 -0500
+From: <boyuan.zhang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <leo.liu@amd.com>,
+ <christian.koenig@amd.com>, <alexander.deucher@amd.com>
+CC: Boyuan Zhang <boyuan.zhang@amd.com>
+Subject: [PATCH 00/32] Separating vcn power management by instance
+Date: Thu, 17 Oct 2024 09:20:21 -0400
+Message-ID: <20241017132053.53214-1-boyuan.zhang@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB7804:EE_|PH8PR12MB7109:EE_
-X-MS-Office365-Filtering-Correlation-Id: d7579b9f-0528-4878-eacf-08dceeadf1a7
+X-MS-TrafficTypeDiagnostic: BN2PEPF000044A7:EE_|SA1PR12MB6726:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3547ce46-564c-40ea-bf3f-08dceeae949f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?MG5BMmIyMi9WT2hQRFk2VE10WlJEbkdvTTFKelJYVkhmVFhtZUwxSTloMjBt?=
- =?utf-8?B?QU5CeEJQNDgrU21Pa3pIbkZnYmJNTXBFMVM5dXhjSW42QmFpdy9nQVJtVHlG?=
- =?utf-8?B?M1FwdW5rM3dVN1V0SEhDaExNc2FWbncwbk9lQW5BZnlQODFNeXA1ZEp6b0p0?=
- =?utf-8?B?QWJVS01jeGZIOFRiMitWVW9nMUpndWpOc0NabVYrRHBNakhNMm9Bd25CS3pi?=
- =?utf-8?B?V3VqL29xUC9tcjZLYWh2dEwvZUVtWDZYQmtXT29aUXRKTVdkSkVkWUExZ2VH?=
- =?utf-8?B?WE9kVzhWb25TemdmUS83Mi9KQWlBVFhDOWxYQ1pqVkVNU1ZJMXdOOHlVS2V4?=
- =?utf-8?B?NS92cjdlWXpLakdtK2JvemEzdnR1WHdQTWJxdkNma2lSMnZucjhmb3djWkNP?=
- =?utf-8?B?ZTQrZzdqNXgwRVd1QzVHSXR0WkpJNXVJT3IyNGJDVGtpTEhEV0k4NEhoTWhs?=
- =?utf-8?B?elBDNnM1Qyt6WGxkYXhrUDlOYW56Rkt2MEdNK2tVd3JDeThOYm56RTg5VGZC?=
- =?utf-8?B?a1BZeUdhRjBUajZSY1N3UGlod1VmdHdmNlY5aHh6RHNDYlpxcFQybDE2ak9y?=
- =?utf-8?B?a0ZaZldXMitORFlXQW01QmtBTFpYZGtpY2pQMGtvWkdDSGlSOGgraWoxS3lo?=
- =?utf-8?B?VGdUNUJUaFJPbHpaamNxSGJ3SzhqaU5uVngzcXFMRC9YVTdSV1V5ZEFNZnRl?=
- =?utf-8?B?UUl0N0tpNlZFRU43WE84NUVLcG5SRC9BTWFTdVZPUjd4S29oMUUyMmpERU9F?=
- =?utf-8?B?ZEpOTE5EODdKd0p6cm1QQTFPWFM3OG1LbUdEdmgza3BEWE1pL0c2QXVQeC9a?=
- =?utf-8?B?UzBFcDBacWxJNC8vbGdjNCswOVYyTHEydDlNWnp4OG1pTHdIbnpzUzVwYUtm?=
- =?utf-8?B?MHRrd3Zkem1jSWdqUzRGbmlyWXR5Wm56bzRJUFJ5RXRaZHhqVjJaenRQRkNj?=
- =?utf-8?B?UGphenhZUDF6WnRnbXN4OENpcmMzOGZXYTFNREVxZFpsdFJFRDVSeFpYS0tL?=
- =?utf-8?B?UVlUS21PMnhCZUxTRjlQQUlkVVN6YjMwbUNsb1RLcDNMK3ptVzkyeTJjZVcz?=
- =?utf-8?B?UkdLbVY0QnFSWkczRkRRdW9SeWxlZis3KzJOM0piN3BiZU1oT0lMOTFlT08w?=
- =?utf-8?B?WEVPU2pUR3dhMG5lRm5hakNGZEsrS1cvNFlUeS9GNmFPZmw0WG13OC9iL1ky?=
- =?utf-8?B?M1lpMmplTnlWUDlzMmdGeGVDOFNCMm81NUdTWTh4eGx4SHY5cUlXbGFHSitF?=
- =?utf-8?B?dWNqRHN6cCtEUGk2NXJJN0JReFdVVVhnanNGS3plb0xwYUMvZUd3eU01NFc1?=
- =?utf-8?B?N1cweVhwTE14K0x6RFRaKzRvemtTaEl5OUhwaHBRRkxwVVU5R0ZRMU40MHln?=
- =?utf-8?B?dmFscjJCVk9wb1h3VFlNdVpXeitUcFo3K0xObDVaWlduRzZhdWVOZDd1bVZv?=
- =?utf-8?B?R3M2UHArZEdWUW1DT3pNV0tHbmRSSXNFUzFQL1I1bXZ3alh3SUZ6VU41WDMy?=
- =?utf-8?B?VktWSTI4Yy96dFNZZ1d3bFRsK2YxdERBcXZEeGxGbU5oN2ZoTTM4K3VMK25s?=
- =?utf-8?B?c0V2Q1JoaDI4WGdJN1lSajQvemFRRVBwZ0JrT1gwK2JMTnRhL3NvZHhubC9a?=
- =?utf-8?B?RFZuNkFtR2NLMC9DS093bDVpR1JaTFNJOVZreC9Ic0NvNTlJSWZ5Y21nYWw5?=
- =?utf-8?B?MFJ5OWxkZW1KZUJ4M2xyR2gxQWY4NlkxSkhVcmJHOGZJTDBYamdGaWpjMUxo?=
- =?utf-8?Q?/5FOAatiHQrE0vM7374CaRkbSyJN2kTs1RIpMF8?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QkhPNm50M2diVFkveW1IVWJ6RGNxRkYwQTNzTzluL3NQYUo0MTNDZ1I4Q0Ju?=
- =?utf-8?B?bzVpTk43VDdzK1VSUWlZKzhZaUNCbm54Y1REL0VFKzQyZlNFcDA4WmpPLzNL?=
- =?utf-8?B?cG93WjJ2RUdTQSt1YzZJZFhOVkpIRkxmSW5QSmlJUTdlaWg2WmlpdDU5aGxG?=
- =?utf-8?B?N284R1BWZHh4T2pvQ0YrcXZ4emFuNVhKalZ1dm1VT0dzcjNPeEcvNU85bnJD?=
- =?utf-8?B?K1RxbS9yU3BCbWhtRmNCWVFodTdXa0tMb1lpamVrbnpMN3dTR0dmKzQwL3RH?=
- =?utf-8?B?VFpkYUhwY2Z4aDZBNmtldmJ6cDhpVit2TUgyZHlUdXE3cit4WG9uNzFjcUd0?=
- =?utf-8?B?OUZvYm9lTjQ0TlpLZ3dxWXNFV0RjdTMwTzZZbVR5YTZkNXZ1VU5PNURzV0xT?=
- =?utf-8?B?ZW9JTXQzZ29XVjFhNTJxM0cyeW0vanVXT0owRXVMY1VPYzJBcUlqL3kvTmVl?=
- =?utf-8?B?VkxLU2lzTms2dGhwSEVKR09OMFUxOFRlSVBvQkM0YUJES1ZqZXZrUUJkZ0NJ?=
- =?utf-8?B?a0NpRjFLMmN2MzUwTHU1TkhlZkM1dzNwRW1hTVR3QndCRWRxRERLZmhINXVw?=
- =?utf-8?B?dVZzSTBacXR3K3dWd2RQd2N3N0t1YWxFaDJEUHFyRVo1N2R4blJjc2g1MDJM?=
- =?utf-8?B?M0ZleFpNQTNKME1BYkhGQ0czTVY2L2VCVnJaOXBEbmFteFlvQmZsbHFWUHpU?=
- =?utf-8?B?S1k2ZFVobW5kSXNaWjFHOWxJWmZaWTNKc1JtT0VEYVZXd08wVnZkSXYvSlFK?=
- =?utf-8?B?K0dSMlRUV0ZwSFBSNkkxK3ZWZ21BL29tZEJ4YVNSdG9XV1UrdnI4QnMvcGQ5?=
- =?utf-8?B?TEloazByNFBESGIrNDZGZlJSQVY1MjdTUVEwbGVvdnMyQjhDUmNGSXFWSVhF?=
- =?utf-8?B?MlR0d3VLVVRhc2ZuMUFFQnFQZTRTZGJZWU91RS9RemhLbjlvUnJXL25NK0tF?=
- =?utf-8?B?WmVHWWdWUUk3U0V0SlNQN1Fwd2I3ZDlwTlY3S3dUZ0tKRU5pNzNqY0VUbGpJ?=
- =?utf-8?B?cmlJaUppb2FsWm5IQTUwNmREeXFBL1ZKNFlzVnQzMUhGVHJtbkVJY0Q2Uzhp?=
- =?utf-8?B?T0U0cFhvdFhoNEQ3dmNNQUhpaWo0SjV4Z2wrdHNLVzFOVXh0N1ZEOEJ2ZlJO?=
- =?utf-8?B?V2MxdUFvWTlUemtIWnN6Vk9rc040cFZ6NGRpZDlHd3c5RmRxOUdZbUtPR0RD?=
- =?utf-8?B?eG9SVERpQStiR003QkdqQjVsaDBiVFZLZmJXVWlFclFPRWlFNGszeGFNVVQv?=
- =?utf-8?B?d0FxMFNGZ29peWphT253NkFYZ21FdXJQV21jK29kYTV6cWtZbVNpUC9hVkxG?=
- =?utf-8?B?T0JpWnMyVlBXMk9Hbk1ESi9zVWJadW43QXhKTUZBdkgzR2FXc2EwMnlDZUFt?=
- =?utf-8?B?MlR3VHFrU0RSV1padFY2S0dxRGFLa3lmNElDZkZ4QWh6VEtFY2h1bUJjaWVh?=
- =?utf-8?B?MTMxUG9nS2tpWUY3RUJ6aDZqK00rdVRWQWlCUzdHd2YvYVBiNnFQMldkUFRn?=
- =?utf-8?B?YXFRSktiTjZ2MnZVaVJMRUhmTHIrei8yREhXd3R5RXNXS1FRRU9WZGFUTnhN?=
- =?utf-8?B?N3J3MHY4SkZBZmRUN3JZeUYxRWJzQi9jTWZ0N2VjYjdLTmdqa0RYUUpaQU1y?=
- =?utf-8?B?enYwWEtBUGY4Rldab3NpYkUxSy9oeEx4MDF0Zi9yenJUeDlOTUxndXNDYk9Y?=
- =?utf-8?B?aUNhWGxXbXk1MTArWFl0WjY2QnE1QjduQXA5NFNqdVZyZnczYzJkQzV1ZFc5?=
- =?utf-8?B?U0gxenZwd2NGTU0vOXlBWjlTbGNKaWNnZ3ZFVFl4VmNLYk1mZHoxeWFBTWxr?=
- =?utf-8?B?dFdGcDVqWnY4N3lnZ1FJbzNoREsycUgzeS9RZmdKUnpCTVpPZXpzaUJ3L3h2?=
- =?utf-8?B?STd3MnlSbDdOWmN2ejROR1NGTXhtVVVUTHkyRzJDTE04K0ZvZjZHTFRjSlN5?=
- =?utf-8?B?c1RXSzNqcitTbUFLVWJtKzRlVUZRM3MvZkdNWGg2Ym03eDlzZjViL0xmQWRt?=
- =?utf-8?B?UllGTitkL3RuSDBIcm9mU3lBYU5DaUt0QzVaeXV0MkdocnhLYmZYc0hFSHNw?=
- =?utf-8?B?VGFZU2lBeFI5L3ZoV1NycWQ5ZGlPQWdpdXVQNVU3MmxaWmtLSWU5Sm1aR3ZU?=
- =?utf-8?Q?xDcF4qP7qmfH/+SG4eLa3wj7C?=
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|36860700013|1800799024|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?UzZxZFViQzcybm1oNGFGeWp3TjljVmRXR3hlanhYZDNyWTlPNkorQU41VDM3?=
+ =?utf-8?B?K3IwVzRHa1dpMTJ0MTd1WFFnc0dpUTMyT2U1NXR2Z2Q4OGRzb1R3RHp6Rksx?=
+ =?utf-8?B?azRPc0NTMldlY2xwYzVvSm9lRlF6c09LMFo3YmJmTURTUktteXdRd28weHlm?=
+ =?utf-8?B?WVdobEpRSzQ4dWVvRklPdTUwVFhZZVQ0MEM4QkN0UFJ2R2tJYUpOMU9td3Bi?=
+ =?utf-8?B?ZEdHSEVYSTZ3VDF2Qld6emVWcHlQUFd1MFh0MDNvL1dhY1BCd1g4SWVOaTU4?=
+ =?utf-8?B?V3JES21UREhJbEYwaklaa3N5N0hKREZEaVE5ay9LZGxFaVRXOVF0a0poMUVx?=
+ =?utf-8?B?TGtoU0JDczFRS0kvaTl1ZEVvSnVrUnhxS3pLTk1obEFpeitFZU5NTkJKMU40?=
+ =?utf-8?B?anBrbCtjSFBUNnNFejRlUUpIM0lUck14WFBRRWVTQVhYdWtlL2FSVjkxRU9p?=
+ =?utf-8?B?QVNGS2RxdFNTL1B1ZjdSMUorQXhtZE1pWTJycFNZZ0ZiN3UvQ2pET2dpT3hD?=
+ =?utf-8?B?T2toVWRqMFl3cmdTK1V2LzBCcVNEZSsrSTljOGxrNEI1R0w5NHVXaTlVTHJE?=
+ =?utf-8?B?VVMyanp2Rkc2N0JrVzJnODV0NTZPaTIzMTNxRVNES2dSYlpOVVBpWkdxMHN6?=
+ =?utf-8?B?MHJQOWxaNjZSZDU3WERjcnVVbGpXb280YUNSdllWblhuZ3NGZUsyS3V6VzFl?=
+ =?utf-8?B?UVVXVGdRL2RRcUdkdWdaL1E1aHB6bkJTYlcrZFM4OTUxdUlSb2xNMERoK0p4?=
+ =?utf-8?B?dFlQSW5ocDBZQ0lXcVZBT3J2VCsxdGpveUgyR2RDMy9FcnFqZ2lIRHNkMFpp?=
+ =?utf-8?B?ZVVvbEJmaG94SUN6RTJVWjkyd1JQeXhOeWkwc2YvMzRUeXkvd05NaS9PUWNK?=
+ =?utf-8?B?eUNEeE41M3ZBdG93SDg2ZTNXRHE5NUlDOGN6SjQxZHRuVTRDUjdzUFI5WTYx?=
+ =?utf-8?B?bUZ4N28zSGV4M3JPRWVKTmRDVHQ5T1RQUnBLZFo0MWpuRUFuMytkUDdVa2U5?=
+ =?utf-8?B?S3hSakJ3cTM0SVFxbDNBa3M3ZlZZbnFmcnlrRkN0NFU4Q1ltQzBrUUVtOHoz?=
+ =?utf-8?B?ZE03eHFSY0VwVnhhQm1mMmJYZHRYMTREVDFCYTFoaHNRdm1BdWVKQ3RDaGk1?=
+ =?utf-8?B?L1lsN1dKMXJZTVNGL1lSRUlKN0lrSkJQQ2svREYrYng5UUFwL0Jic3JxY2x1?=
+ =?utf-8?B?UHNGTlVQQWFKTS85UUlFQ083WjN1d0dHK1JGcFFqQ1FnVEYwWGpXSGNnSGQx?=
+ =?utf-8?B?R09Ba3hZcStMMTVzQXFEdnEzRE1uTDV5Yi9xcU5BS0p2dXR5RE9QYnFUdDVh?=
+ =?utf-8?B?K1l6TnBBYTB4eWxJQjlmR21QamJaV2o5Sk8yV3E5SVU5SlltK0hVZEk0cHda?=
+ =?utf-8?B?TWRSWEpiWUpHNmVUNnpmY29tNVExT2FWcXcrWmNWV3VJVUNCaE8vYlpBNUFp?=
+ =?utf-8?B?R1l0MW9xRTRLV3I4bGppalR3aXh2STh0ei93NXoyemlzREJaWWhGaUF3aXNu?=
+ =?utf-8?B?UmRqVkFyeUE3cnZGQUNKczhpblRyZTQxQVJrRWJheTlCR0tDYSt3NHQ5dVgy?=
+ =?utf-8?B?ZWVNcWJyZE9MK3J5REVFRm96YnhpT1NTTWZ5d1VWWVQ3c0pjcDRZTisrWUw2?=
+ =?utf-8?B?emE4NGY2bFZMTzNCUzA1UVV3MGlTdmZ3WjZWQVYxTUZybGd6THJ1Wk5NRkg4?=
+ =?utf-8?B?T3d5WURObVkycUtMYWY5QXB6YnF1Q255d2RzNkxLQVRSbHpqTVU0eFNaVWZM?=
+ =?utf-8?B?YkRiYnVURHpyMUtrTjkzaHkvMjVjZkJYTm5SMkVvQmNGWmU5cW9sSmUrOFhG?=
+ =?utf-8?B?MkRVVVdsNlJOVzlkWUQxbENCTjFVOXdmRjU0YUhQeU14L3Z0YnNJRElrMEpM?=
+ =?utf-8?B?b0tBOEdNMmVuT0lhR3ZFQXRkZGtmSmhTUGdlQWRoVnk0Ync9PQ==?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(36860700013)(1800799024)(82310400026); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d7579b9f-0528-4878-eacf-08dceeadf1a7
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7804.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Oct 2024 13:16:43.4314 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Oct 2024 13:21:16.4203 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3547ce46-564c-40ea-bf3f-08dceeae949f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vPZBk730tPAsH/kV5YApGM36v5k+LSSuzKZkTw/ct/ftFD8w4SIzJqNBeQzUaJoU
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7109
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000044A7.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6726
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -166,109 +137,212 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+From: Boyuan Zhang <boyuan.zhang@amd.com>
+
+Previously, all vcn instance will be powered on/off at the same time
+even only one of the instance requests power status change. This patch set
+enables vcn to ONLY power on/off the instance that requires power status
+change. Other vcn instances will remain the original power status.
+
+v4:
+code polishing and minor fixes.
+
+v3:
+move all of the per instance variables from struct amdgpu_vcn to
+struct amdgpu_vcn_inst. (patch 10 - 11)
+
+update amdgpu_device_ip_set_powergating_state() to take the instance as a
+new parameter, remove the duplicated function in v2. (patch 19)
+
+update all amdgpu_vcn_* helpers to handle vcn instance. All functions
+are now only handle the given vcn instance. (patch 20 - 26)
+
+update all vcn ip callback functions to handle vcn instance. All functions
+are now only handle the given vcn instance. (patch 27 - 32)
 
 
-On 10/17/2024 6:37 PM, Liu, Leo wrote:
-> [AMD Official Use Only - AMD Internal Distribution Only]
-> 
->> -----Original Message-----
->> From: Lazar, Lijo <Lijo.Lazar@amd.com>
->> Sent: October 16, 2024 11:18 PM
->> To: Liu, Leo <Leo.Liu@amd.com>; Koenig, Christian
->> <Christian.Koenig@amd.com>; amd-gfx@lists.freedesktop.org
->> Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander
->> <Alexander.Deucher@amd.com>; Sundararaju, Sathishkumar
->> <Sathishkumar.Sundararaju@amd.com>; Jiang, Sonny
->> <Sonny.Jiang@amd.com>; Zhou, Hao (Claire) <Hao.Zhou@amd.com>
->> Subject: Re: [PATCH] drm/amdgpu: Save VCN shared memory with init reset
->>
->>
->>
->> On 10/16/2024 9:37 PM, Liu, Leo wrote:
->>> [AMD Official Use Only - AMD Internal Distribution Only]
->>>
->>>> -----Original Message-----
->>>> From: Koenig, Christian <Christian.Koenig@amd.com>
->>>> Sent: October 16, 2024 9:16 AM
->>>> To: Lazar, Lijo <Lijo.Lazar@amd.com>; amd-gfx@lists.freedesktop.org;
->>>> Liu, Leo <Leo.Liu@amd.com>
->>>> Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander
->>>> <Alexander.Deucher@amd.com>; Sundararaju, Sathishkumar
->>>> <Sathishkumar.Sundararaju@amd.com>; Jiang, Sonny
->>>> <Sonny.Jiang@amd.com>; Zhou, Hao (Claire) <Hao.Zhou@amd.com>
->>>> Subject: Re: [PATCH] drm/amdgpu: Save VCN shared memory with init
->>>> reset
->>>>
->>>> Am 15.10.24 um 08:23 schrieb Lijo Lazar:
->>>>> VCN shared memory is in framebuffer and there are some flags
->>>>> initialized during sw_init. Ideally, such programming should be
->>>>> during
->>>> hw_init.
->>>>
->>>> IIRC that was intentionally not done during hw_init for some reason.
->>>> @Leo do you remember why?
->>>>
->>>
->>> We need to keep some of the status from share memory(driver and FW),
->> since some of them are changed by FW, that is why the init cannot be in the
->> hw_init stage with suspend/resume case.
->>>
->>
->> For vcn_v4_0_3, the flags that are initialized in sw_init are these
->>
->>                 fw_shared->present_flag_0 =
->> cpu_to_le32(AMDGPU_FW_SHARED_FLAG_0_UNIFIED_QUEUE);
->>                 fw_shared->sq.is_enabled = true;
->>
->>                 if (amdgpu_vcnfw_log)
->>                         amdgpu_vcn_fwlog_init(&adev->vcn.inst[i]);
->>
->> Is the flags initialized during sw_init required for FW during its initialization
->> stage? If not, it would be better to move this to hw_init.
->>
->> Some part also get modified during vcn_v4_0_3_start (which is after hw_init
->> during runtime) -
->>
->>                 fw_shared->sq.queue_mode &=
->>                         cpu_to_le32(~(FW_QUEUE_RING_RESET |
->> FW_QUEUE_DPG_HOLD_OFF));
->>
->>
->> One reason probably is hw_init is also called during resume which restores
->> the saved bo during suspend. So this may be to avoid the double work.
->>
->> Anyway, is the patch okay to go?
->>
-> You need to fix the function name as I commented from last email.
-> 
+v2:
+complete re-work for all PM changes as suggested-by Christian König and
+Alex Deucher. Adding instance to all existing functions, instead of create
+new functions. Remove all duplicated PM functions in previous patch set.
+Use a new logic to track instance for ip_block with same type as
+suggested by Alex. Also, fix wrong ip block index and remove redundant logic
+suggested by Christian. Finally rebase all patches based on Sunil's ip block
+changes.
 
-Any suggestions - amdgpu_vcn_save_vcpu_buffer/bo?
+Patch 1-6 are SMU changes to only power ON/OFF given VCN instance.
 
-Thanks,
-Lijo
+Patch 7-8 pass ip_block instead of adev pointer for set_powergating_state,
+set_clockgating_state, and is_idle
 
-> Regards,
-> Leo
-> 
-> 
->> Thanks,
->> Lijo
->>
->>>  +int amdgpu_vcn_suspend(struct amdgpu_device *adev) {
->>>  > +    bool in_ras_intr = amdgpu_ras_intr_triggered();
->>>  > +
->>>  > +    cancel_delayed_work_sync(&adev->vcn.idle_work);
->>>  > +
->>>  > +    /* err_event_athub will corrupt VCPU buffer, so we need to
->>>  > +     * restore fw data and clear buffer in amdgpu_vcn_resume() */
->>>  > +    if (in_ras_intr)
->>>  > +            return 0;
->>>  > +
->>>  > +    return amdgpu_vcn_save_fw_shared_region(adev);
->>> The saved bo here is not only for fw shared memory, also for FW runtime
->> stack/heap as well.
->>>> Regards,
->>> Leo
->>>
->>>  > +}
->>>  > +
+Patch 9 is to track VCN instance in VCN ip_block.
+
+Patch 10 move all of the per instance variables from struct amdgpu_vcn to
+struct amdgpu_vcn_inst.
+
+Patch 11  VCN change to separate gating status for each VCN instance.
+
+Patch 12-17 are to handle ip callback functions separately for each
+VCN instance, so that only the given instance will be powered on/off.
+
+Patch 18 is VCN change to handle idle work separately for each VCN instance.
+
+Patch 19 is to set powergating state by VCN instance in amdgpu_vcn.
+
+Patch 20-26 update all amdgpu_vcn_* helpers to handle vcn instance. All functions
+are now only handle the given vcn instance.
+
+Patch 27-32 update all vcn ip callback functions to handle vcn instance. All functions
+are now only handle the given vcn instance.
+
+Boyuan Zhang (32):
+  drm/amd/pm: add inst to dpm_set_vcn_enable
+  drm/amd/pm: power up or down vcn by instance
+  drm/amd/pm: add inst to smu_dpm_set_vcn_enable
+  drm/amd/pm: add inst to set_powergating_by_smu
+  drm/amd/pm: add inst to dpm_set_powergating_by_smu
+  add inst to amdgpu_dpm_enable_vcn
+  drm/amdgpu: pass ip_block in set_powergating_state
+  drm/amdgpu: pass ip_block in set_clockgating_state
+  drm/amdgpu: track instances of the same IP block
+  drm/amdgpu: move per inst variables to amdgpu_vcn_inst
+  drm/amdgpu/vcn: separate gating state by instance
+  drm/amdgpu: power vcn 2_5 by instance
+  drm/amdgpu: power vcn 3_0 by instance
+  drm/amdgpu: power vcn 4_0 by instance
+  drm/amdgpu: power vcn 4_0_3 by instance
+  drm/amdgpu: power vcn 4_0_5 by instance
+  drm/amdgpu: power vcn 5_0_0 by instance
+  drm/amdgpu/vcn: separate idle work by instance
+  drm/amdgpu: set powergating state by vcn instance
+  drm/amdgpu: early_init for each vcn instance
+  drm/amdgpu: sw_init for each vcn instance
+  drm/amdgpu: sw_fini for each vcn instance
+  drm/amdgpu: hw_init for each vcn instance
+  drm/amdgpu: suspend for each vcn instance
+  drm/amdgpu: resume for each vcn instance
+  drm/amdgpu: setup_ucode for each vcn instance
+  drm/amdgpu: set funcs for each vcn instance
+  drm/amdgpu: print_ip_state for each vcn instance
+  drm/amdgpu: dump_ip_state for each vcn instance
+  drm/amdgpu: wait_for_idle for each vcn instance
+  drm/amdgpu: is_idle for each vcn instance
+  drm/amdgpu: set_powergating for each vcn instance
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h           |    4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c       |   22 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c    |    5 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |   41 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c |   24 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c       |    4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c       |    6 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c      |    4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c       |    4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c       |    4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c       |    4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c       |  338 +++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h       |   24 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c      |    6 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c       |   14 +-
+ drivers/gpu/drm/amd/amdgpu/cik.c              |    6 +-
+ drivers/gpu/drm/amd/amdgpu/cik_ih.c           |    8 +-
+ drivers/gpu/drm/amd/amdgpu/cik_sdma.c         |   10 +-
+ drivers/gpu/drm/amd/amdgpu/cz_ih.c            |    8 +-
+ drivers/gpu/drm/amd/amdgpu/dce_v10_0.c        |    6 +-
+ drivers/gpu/drm/amd/amdgpu/dce_v11_0.c        |    6 +-
+ drivers/gpu/drm/amd/amdgpu/dce_v6_0.c         |    6 +-
+ drivers/gpu/drm/amd/amdgpu/dce_v8_0.c         |    6 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c        |   16 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c        |   12 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c        |   12 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c         |   14 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c         |   12 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c         |   16 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c         |   14 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c       |   12 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c        |    8 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c        |    8 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c        |    8 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c         |   10 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c         |   10 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c         |   10 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c         |    8 +-
+ drivers/gpu/drm/amd/amdgpu/iceland_ih.c       |    8 +-
+ drivers/gpu/drm/amd/amdgpu/ih_v6_0.c          |   10 +-
+ drivers/gpu/drm/amd/amdgpu/ih_v6_1.c          |   10 +-
+ drivers/gpu/drm/amd/amdgpu/ih_v7_0.c          |   10 +-
+ drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c        |    2 +-
+ drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c        |   20 +-
+ drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c        |   20 +-
+ drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c        |   20 +-
+ drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c        |   20 +-
+ drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c      |   18 +-
+ drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c      |   20 +-
+ drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c      |   20 +-
+ drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c       |    2 +-
+ drivers/gpu/drm/amd/amdgpu/navi10_ih.c        |    8 +-
+ drivers/gpu/drm/amd/amdgpu/nv.c               |    8 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c        |    8 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c        |   10 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c        |   16 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c      |   14 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c        |   10 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c        |   10 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c        |    8 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c        |    8 +-
+ drivers/gpu/drm/amd/amdgpu/si.c               |    6 +-
+ drivers/gpu/drm/amd/amdgpu/si_dma.c           |   14 +-
+ drivers/gpu/drm/amd/amdgpu/si_ih.c            |   10 +-
+ drivers/gpu/drm/amd/amdgpu/soc15.c            |    8 +-
+ drivers/gpu/drm/amd/amdgpu/soc21.c            |   10 +-
+ drivers/gpu/drm/amd/amdgpu/soc24.c            |   10 +-
+ drivers/gpu/drm/amd/amdgpu/tonga_ih.c         |    8 +-
+ drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c         |   10 +-
+ drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c         |   14 +-
+ drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c         |   23 +-
+ drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c         |   25 +-
+ drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c         |    4 +-
+ drivers/gpu/drm/amd/amdgpu/vce_v2_0.c         |   16 +-
+ drivers/gpu/drm/amd/amdgpu/vce_v3_0.c         |   20 +-
+ drivers/gpu/drm/amd/amdgpu/vce_v4_0.c         |   12 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c         |  140 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c         |  124 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c         | 1154 ++++++++---------
+ drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c         |  909 +++++++------
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c         |  801 ++++++------
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c       |  727 +++++------
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c       |  782 ++++++-----
+ drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c       |  690 +++++-----
+ drivers/gpu/drm/amd/amdgpu/vega10_ih.c        |    8 +-
+ drivers/gpu/drm/amd/amdgpu/vega20_ih.c        |    8 +-
+ drivers/gpu/drm/amd/amdgpu/vi.c               |    8 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |    6 +-
+ drivers/gpu/drm/amd/include/amd_shared.h      |    6 +-
+ .../gpu/drm/amd/include/kgd_pp_interface.h    |    4 +-
+ drivers/gpu/drm/amd/pm/amdgpu_dpm.c           |   55 +-
+ drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h       |    3 +-
+ drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c    |   18 +-
+ drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c    |    6 +-
+ .../gpu/drm/amd/pm/powerplay/amd_powerplay.c  |   10 +-
+ .../drm/amd/pm/powerplay/hwmgr/smu10_hwmgr.c  |    6 +-
+ .../powerplay/hwmgr/smu7_clockpowergating.c   |   12 +-
+ .../drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c   |   12 +-
+ .../drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c |    6 +-
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     |   65 +-
+ drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |    4 +-
+ drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h  |    3 +-
+ drivers/gpu/drm/amd/pm/swsmu/inc/smu_v14_0.h  |    3 +-
+ .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c |    4 +-
+ .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   |    4 +-
+ .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   |   24 +-
+ .../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c  |    4 +-
+ .../gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c   |    4 +-
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c    |   19 +-
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.c  |    4 +-
+ .../drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c  |    4 +-
+ .../gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c    |   38 +-
+ 112 files changed, 3442 insertions(+), 3433 deletions(-)
+
+-- 
+2.34.1
+
