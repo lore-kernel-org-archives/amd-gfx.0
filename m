@@ -4,129 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98477D2F7E9
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Oct 2024 03:43:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B66C7D2F7E5
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Oct 2024 05:27:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46D2B10E794;
-	Thu, 17 Oct 2024 03:43:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6CAC510E199;
+	Thu, 17 Oct 2024 05:27:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0GFzGnWK";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="SZZaAo5l";
 	dkim-atps=neutral
 Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2086.outbound.protection.outlook.com [40.107.236.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F07510E2DF
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Oct 2024 03:43:55 +0000 (UTC)
+ (mail-bn8nam11on2069.outbound.protection.outlook.com [40.107.236.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE8D710E199
+ for <amd-gfx@lists.freedesktop.org>; Thu, 17 Oct 2024 05:27:00 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=N9cuylVsLy1uFuIHC9gfOCFwv2tVTM+KhZFiDTmF3fOE8NJ7l5WMbnmVC4E597Vr5YWD/mzy60U+Bt8RVtEoI64omjMFF9zjxB8DorzVcpQWDsGgkPKMAwFE6ky9a5syvMlDaCj4YlN/SlGaQv0TNdVbfTjHMJmkg7E619XY2ras/m8kAltPVRX0oF2M2Mq3vKlLdNBUJIV6VZzuyZn6uI9HybavFIY4JbnszHFM20hezYs75fMCaTZrdyUwgPDJ8qmBf2mBGQB02EdqJK6kVNZOdGoEE9kVxbunTMumAC0i1epUDx++kh5LmhE2/GEXLZUe0rOxZmZXk4AyKNEjhg==
+ b=J3EKW+fR53ke85B3XBNlOgrkYzdw+ccWYKk5a9vtcHCXgjKGO52tnCB0kvUa6xWIxSPsc6kje/xnx0Gesm4aqosJ3qFBjKM37pdqYgneKUIMsxQX9pc1U4fdLxfKvtilSedQSThxA42QMRE0PtpTlNU1JDpvVl0qrBsnvNZLGyXkcV4MQ0gesrjFdHw5wbm5C6xE2pzKEtY4D+opoVW31tbcGWqyXiMBFysSPv7kv73uM45Lyqy1aDkTDhFrlfRAn6sfu/z/46tpJnoCz3FgTviY2OL/MJRaWiM/74ad48Bq8E2O406qgjYNsscSjFfNS+j9XamE14MRj8znVy4Mzw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MSiU36H4B6JcKC2nsi0ktZAETzBM7D/YDCzFPp7BSso=;
- b=EtKBIuGzZ7kVMxCdrP131L1WCs5XcsRCtqbvwHrIsDt7PBwV82Wcuao+/MkS9Y4FgfouKnxq5qKSpTxw7/nDqXq74inkNSWpV42ydq9mweQmA6aIGFiIp0/Ef1H4bSoc+u3a6xBqLz9+M+uStEMX58bXT0wDjBxiJ52Rm6Hk13LUm6STpza1/NxoTclgTQmtO2LiKq/NFASGAF5oWmQxWIqLJt4DTF4c73dMh/vvDBc06oR5SrKjSRCTkz37bVpRqLm5Vn0tYmQHBiRiGI2AD83XWqqDExisrTLMEBi1+V8no1kbP59lZAtPFzO7kZoz4uqeWM7IfsG3Y8a076yt5Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=0FP5Wl6WQ+ryeYudz7SbydgtF9FdEWJNj3ugaX5cBnM=;
+ b=dlostTtemqL0iIQUH4kZiwUc4PopnXCK8mgr2tgLtpcQIFaYC93UZBLc1nWYBdrHmQkPDFUa+bWjvXDwCoaCibYF9D3arhoBeVlqwQDYTFcOc1Z0X2NpiMk73tbGq6SYFJci2zFwIVwe+uDvv7b88EYktl8Rx+ID3bE2NlqfY4B5CHXVDlr6KhDpkPuAibxrEZhtSWzpy0Um3FNf6N0LSgzDFH+4d2s4jNCiv/E75qkrnxD65+qv2j5Al8YzPnC8umfgMxS6+wgJWtUywHCMnqnSttUVyIHGtnSuzh/qRLwPnYAhMktJmTL9ZSjmYBem4XP03GtYySRIKO9r02WB/Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MSiU36H4B6JcKC2nsi0ktZAETzBM7D/YDCzFPp7BSso=;
- b=0GFzGnWKW37mL/6izUHHUVOP/to/ze6svdimXWjc1VSOxMWApHCUPUBUVQkMCnvw0Wqf6JXs1onjQXDo4UrBXUiesSz+N6kPKY78xWXkJhuHj/VVdZsIYlUe2X5BoPscdxL1ITY6FZX3swoTSK3g/XOitsIUu6ymOVdSLMpMLaQ=
-Received: from BN9PR03CA0451.namprd03.prod.outlook.com (2603:10b6:408:139::6)
- by DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.8069.17; Thu, 17 Oct 2024 03:43:48 +0000
-Received: from BN3PEPF0000B371.namprd21.prod.outlook.com
- (2603:10b6:408:139:cafe::c7) by BN9PR03CA0451.outlook.office365.com
- (2603:10b6:408:139::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8069.18 via Frontend
- Transport; Thu, 17 Oct 2024 03:43:48 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN3PEPF0000B371.mail.protection.outlook.com (10.167.243.168) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8093.1 via Frontend Transport; Thu, 17 Oct 2024 03:43:48 +0000
-Received: from smtp.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 16 Oct
- 2024 22:43:45 -0500
-From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Aurabindo Pillai <aurabindo.pillai@amd.com>, Hamza Mahfooz
- <hamza.mahfooz@amd.com>, Harry Wentland <harry.wentland@amd.com>, "Mario
- Limonciello" <mario.limonciello@amd.com>, Christian Konig
- <christian.koenig@amd.com>, Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 2/2] Documentation/gpu/amdgpu: Add programming model for DCN
-Date: Wed, 16 Oct 2024 21:34:27 -0600
-Message-ID: <20241017034244.223993-3-Rodrigo.Siqueira@amd.com>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20241017034244.223993-1-Rodrigo.Siqueira@amd.com>
-References: <20241017034244.223993-1-Rodrigo.Siqueira@amd.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+ bh=0FP5Wl6WQ+ryeYudz7SbydgtF9FdEWJNj3ugaX5cBnM=;
+ b=SZZaAo5lyQitPyRvICdLIUwfUKKLVeXgER3uvRiVxwvhn5+V20eyHb0a/bwTOynJTIlO/HDk11sVPL9wE5qKWpcNI8or5C4SSyT59Hx2R5I8ePqyDEUkTcYrqmiCYRi3FF/cdyBbB3fhKdgh29gWMLIT5LCilp9fZhWVSV89ao4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH8PR12MB7301.namprd12.prod.outlook.com (2603:10b6:510:222::12)
+ by SN7PR12MB7323.namprd12.prod.outlook.com (2603:10b6:806:29a::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8069.18; Thu, 17 Oct
+ 2024 05:26:57 +0000
+Received: from PH8PR12MB7301.namprd12.prod.outlook.com
+ ([fe80::a929:e8eb:ef22:6350]) by PH8PR12MB7301.namprd12.prod.outlook.com
+ ([fe80::a929:e8eb:ef22:6350%6]) with mapi id 15.20.8048.020; Thu, 17 Oct 2024
+ 05:26:57 +0000
+Message-ID: <15fc37dd-c775-4fb7-9e37-b41167c31829@amd.com>
+Date: Thu, 17 Oct 2024 10:56:49 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 09/09] drm/amdgpu: Add separate array of read and write
+ for BO handles
+To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, christian.koenig@amd.com,
+ alexander.deucher@amd.com, =?UTF-8?B?TWFyZWsgT2zFocOhaw==?=
+ <marek.olsak@amd.com>
+References: <20241015074309.2484264-1-Arunpravin.PaneerSelvam@amd.com>
+ <20241015074309.2484264-9-Arunpravin.PaneerSelvam@amd.com>
+ <CAAxE2A7UawQE4UtCzj-SGpmT4iLsxQ_cZuBsrPTe+uq6B8=p+g@mail.gmail.com>
+Content-Language: en-US
+From: "Paneer Selvam, Arunpravin" <arunpravin.paneerselvam@amd.com>
+In-Reply-To: <CAAxE2A7UawQE4UtCzj-SGpmT4iLsxQ_cZuBsrPTe+uq6B8=p+g@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: PN2PR01CA0176.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:26::31) To PH8PR12MB7301.namprd12.prod.outlook.com
+ (2603:10b6:510:222::12)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B371:EE_|DM3PR12MB9416:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6d082dd1-90b7-4e1b-5040-08dcee5de8a4
+X-MS-TrafficTypeDiagnostic: PH8PR12MB7301:EE_|SN7PR12MB7323:EE_
+X-MS-Office365-Filtering-Correlation-Id: 30c0d311-36d3-4dea-93ca-08dcee6c515b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|36860700013|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?Z1o5REU1MDJmSUxrZ1NiNzQ0NCtJNnhRdkptS1lWeGpiNFE1VUJLK2plY1lu?=
- =?utf-8?B?Z0RUMFI4dEdKanlvOVdqTjJqRUdTQUMrWHE4SjRmdzVxZU04RUU5Z1FrWUx6?=
- =?utf-8?B?dU9QcTQ5dXB4S2dRNklzS1gvQlBpSkh3UkRCVDF3Y09sZEVIcFd6K0MxQjZD?=
- =?utf-8?B?c3NXRVI5WHhMa2RvU00rcXBFOVdoL3dnY2x2R0w2YnV4QXR0MDVyU25EMWJa?=
- =?utf-8?B?b1puSHJleC9XTU5VeUZBRWNwYUFyek5Mc2NDSTRGWm5WQ2g2Z2ZLbnJ0Q2ND?=
- =?utf-8?B?dE5aVkU5V0hTMXVwR1pmYWxJYUEwbTg2bHNIN1lsVHRaQVc3Z1lVckw3eElL?=
- =?utf-8?B?NmJoWVI3VTBWWVZSTkhHOGZEMG1uTjFKakRUTXhHdkFQY0F1U1ZoSkxja2Vq?=
- =?utf-8?B?VnVMVkk2dU91OTlPSWtWNFN3VEdORWViazBuMld2dmtxWUU2N3poUXN0c3o4?=
- =?utf-8?B?UHNydXdGYy9veDdpS1VyK3hwbkhYMCtkK2k5QnYrVkdTWFArUEgzbDZxdzhI?=
- =?utf-8?B?RnBwWWpJajd2ZmVGNHNIcVlzMXV0M0pJU2xrRlR3SXVrRUFydVlub0N0UzFh?=
- =?utf-8?B?dmxkMlh3ckdWS2dHdVZtTmpjZFJSTnNQaUNObG95YlgwUnhubEpHVTUvZWxY?=
- =?utf-8?B?TFpsRmthamYyemdvRHgrc01GbUJGU3h2cTk1a1NNc2RXRnJTbjN4anNjS1RT?=
- =?utf-8?B?dTBJYkJBdG1nbnhnQ2NrdWVOQ0w4dkNDY1VYKzV4UFRUQlJnYkFKVnpZZXM0?=
- =?utf-8?B?UFBGYjBqY0ZKZ2ZRbUYwNks4RWhsNGxvekpHd0M3YXQra0J4eDhjeWgrTksr?=
- =?utf-8?B?Q21qTTlUNXQvSTNpc3VPWXdVL0RPUU1xa3FQVW1ieitjY0ZUQ0RaZlBzUFow?=
- =?utf-8?B?T1ZIYWthVlA3bjJ5ZCszZDFpMkUxR0Z4Z2tON1FWM21oVUNrYjFLbVoyblRq?=
- =?utf-8?B?V1FHOEd4OXphUG9LVFppZGxYNU5VMCt5YjUrS1Vad2RXQXpudFRhd2FRam5N?=
- =?utf-8?B?RDUzTERYNXNNaXpCM3NqMERaa3hxdmwvVzJVcDBmZERNeXFzUmlJYzB2cnNq?=
- =?utf-8?B?NEZVdExkcVRGdlY3M3lFOXRxaVJPKzJoV3h2Q2c2R3NtV09TZ0JiQTc5SVd1?=
- =?utf-8?B?TVY4NWIyNk1ZcVMwRlhQSzNVQnl2VVlXdEdHd1hEYXF0Ylp2THNwNEllUUJT?=
- =?utf-8?B?Y2k1NFZYSlRxWHUrWE9vNmRsVG9DRjBzZkk2SjFlQWowaXAxNTN6Znc4Z2Yy?=
- =?utf-8?B?ckZwUW5CVnFGZGtxcXJaMGVTK1BkWWJpT1pNVkhXVHIrbkdnTG9SWU1Ub0Vu?=
- =?utf-8?B?TzdiTHdPbGxtZFFTdkU4UDFOTGNTRngwMmdxRGdpbmVXbGptbk9uQWN4cXp0?=
- =?utf-8?B?QXRQTTZaSWNmRmF4bHVUaEFBUUQ1OXdEb0c0Z1JiM28vM2hKTXUzSUV5bEta?=
- =?utf-8?B?dlg2c25iWG9QTlpSWWduUCtqeGkwQVpCV1pIOFgzOG4rUkdKdE9BSVp6cC93?=
- =?utf-8?B?djRTSlh3czZya2tpU2Y3Qkl6SmhYZnd1RUlQQVlnN2w5NllodUJnQzZJZzN2?=
- =?utf-8?B?VW8xRjN3Y2RRWGRvems2WGQ3VHRzcXp0VXR3THFwYXZmVTZNV25yWCszMWFD?=
- =?utf-8?B?SDZtNFpFMnlwYlNrMGJXMnR0TnNDa0xad3lMVVBDQWNKSHhpdzNuckU1NEhH?=
- =?utf-8?B?cUdEMlBiYWJUNHUwa3BWNmpXbmhIYmgzZnRTNHZpQURLMnRDSnRDdFlKRE04?=
- =?utf-8?B?dVhRK2l1SGErelltai9JbXZKbGlMZ0hmSktnSGUyWmNRc0tQQk5SNk5JK1hy?=
- =?utf-8?Q?V6RLA7wvrNyyvue3o+oMh6ut447hdqvEIEcFc=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026); DIR:OUT;
- SFP:1101; 
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?V2dybmVxRDUzeHQvR0hJV3o2bmVlWnZsQThyLzczWHN6U3RLMjh3elhUb1hn?=
+ =?utf-8?B?YWNXZWlwc1lWakFKVThkaXpUTFY1bEY2cTRuNWxDS01VTFpvSFR0WVVkOHVD?=
+ =?utf-8?B?UmdFSHJNNlBXLzAyNnVXTGRLK0FKZlRNRG0yNXlOWVhLMHgvWS81VXluVWdv?=
+ =?utf-8?B?YUNXVnBJb04zYjNoOS9LQ2huNGJCTHZ5Zmx2K0llV0RUeno5TWo1VjZlQVdr?=
+ =?utf-8?B?eW1lMm5lU0x0TE9SY1J5R3BwTjhOa3U4dEgzMW1CaXNKaEVkRVdjcGxINk55?=
+ =?utf-8?B?elBjV0hWajZUUmRoa3BweVZIZUd3YnJLSkhUNUxlMldsRlZLZVV4UVZrNnJQ?=
+ =?utf-8?B?YzlwWklWYS91WnR6SWxTcFl3YTBhZGFNemljc3EvcFo2cmhPb2c2YTlCVWlu?=
+ =?utf-8?B?OCt4WTczTUhid0c3d2sxbjdsM0lZV0U3bDN3N2VMZGJ3NExKaDg4bjB6Y0kr?=
+ =?utf-8?B?cDFDQTdCU0FxMDJYeHdCdjBKSWd2dkRna1dBbXNTS2EwWFNmdXpJcFFEWm9F?=
+ =?utf-8?B?TFV0VVA4a3RqRytsTTc3MW5xMFFXQW5rYWJ6QU9nZGVSVDVqeUtxbDh1cEx4?=
+ =?utf-8?B?MTh1U2N5WWhaZThIR09nZEhwSXVLOTJ4ZmljbkQvTlpiVXk0ZkV6c2tpTGFF?=
+ =?utf-8?B?QThKd1RxSG9MRVpjYmxwN0FJeGlZeEd3TkRobVRuaitVQVNaOUMwNU1RZmEy?=
+ =?utf-8?B?SnlMS1ZPYWhOV0xKbjBjZ3FUQmtZSVMwTkpWaUhtc2RZQU9wN3NjRVZkZUhW?=
+ =?utf-8?B?RnIzSXE3OExzUWQxNFVWVTRUYUNGdmg4NmxRczZpSGZOdlZad25oQnZ1c3RU?=
+ =?utf-8?B?MTNUOXBMNmsyVDkrS0NVOE04c29uWVo1emUvdUJ3NGVPOWRkOHhHYUFmZEto?=
+ =?utf-8?B?d001QW5WVWpnUHFTb2loMXVqWDdxMmFnTjQvUlkzYkZyMkVLRXNQaEptZEdP?=
+ =?utf-8?B?WDlkZG1pSTExMU9ybGppUElYdS9EMlpIcGJqUVhZT2FMTENQK2RUWmJPK2Zl?=
+ =?utf-8?B?VG11OXo0djVyeWhPR3kwdkF0OVBIZVRyMS9ncHBlaHkxb2I4MlFxM3BsU2w1?=
+ =?utf-8?B?RTJFcnFyejRKZGdMM05aS0o4RkZMSGJQNUJsMElaQmZhNGhPbXNSV0JhMElh?=
+ =?utf-8?B?NXdlY3JwOUgxL2ttZ2Y5RC92b2tuREJHdjZEbE5WYiszS1Jzb3B6Q0UrUnV5?=
+ =?utf-8?B?UmpuVXhXdHVYSWloTXlucHBRNE5vVXFQYUt0V0ZxbkhHeDYrNE9YWFdPeWZy?=
+ =?utf-8?B?cWhCUHd2NFFhSWc0Q2t1MVBaeUNDVjFKSll5dG4xL0djT3Bidkl6QkxiT1Bv?=
+ =?utf-8?B?b1pzT1VEUHdyYVZTZE5jWXFxQXV4R0dqQytZZ1oyMlJLQ3dLWHpUMWhyWi9w?=
+ =?utf-8?B?ei9DczhkUnRlbjdleWdEdnkyZWd5UVUvSkF3MWorc3JrQjN6NmlGWktVMkhQ?=
+ =?utf-8?B?SDRSV25sTjNudS9KQUt4c1hCNjZPSVE1d3hLVWxBWmlaalY0OElDdGtIOFZB?=
+ =?utf-8?B?ZUk4dWQ2blFHUkt3bmNoQmQ2a0hubzljcS9MRHhmNWdpSDZPb1ZJYlBrb2pL?=
+ =?utf-8?B?blY4eHREcUNicnhIU1RRamRLYU01ZmlsdGdtOGNBVThlYmdQa1R2b3FMdGQ2?=
+ =?utf-8?B?aVEwMDNIMlNlSzlJUlcrNFBzUVVxRUIzb1krMnJiWWZncjJyQ1VuOGVLQXN0?=
+ =?utf-8?B?NGRsM25oY0l3eXZ3bTBnMmxtaFlqNTA3WlRUNFU4RGJJd3daN1NNT1JXbllC?=
+ =?utf-8?Q?smyRcV3QoIOcSeTkfJqStXtwF+uwFHsLbEtxKtH?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH8PR12MB7301.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?V2lzUHAyYWltVmpKMmt3UzN0eDF0Y3F5UXB6ajhQa0grUWNSdjkvY3dZMkkv?=
+ =?utf-8?B?UDVOSXpTZE1mVmpRemxkWHB0Nmp0RE9lclM4SVgzSjJtWEhlbUJKbzFrcWVy?=
+ =?utf-8?B?ZWVMalFIOWVqc09mZXJ3Vm41S0ZxVGcvV2tkTFEwVFZRWDZoZXFqVEhjais5?=
+ =?utf-8?B?SW1POUZLc0o4Y2xBRjlka2xpb2dJei9tVk5QbVBOZ2owVmhkVzQyQ0pBSHRz?=
+ =?utf-8?B?ckc3Y0FpQThmSEVUZzloc1UvUE82WUJxaWlKWElMYjN6aTMwZUYxcU1xU0Rt?=
+ =?utf-8?B?Y1owblA5bjhTOEVyQ1B3cG91ZmtmZmF2c0FsaWxkMUFKajN0dTlYbkY3UGhY?=
+ =?utf-8?B?UWRyS1FFMisrMlJweFY1VWQ5RG1CdEtHNXUwUXlaMzhOOUJEdEszY21CYzBr?=
+ =?utf-8?B?cW96NVR6Mm42QUNuUDlCb0tLQWtqODVOSWhaQnh1bXNIS1lZekFuSDl3cVNk?=
+ =?utf-8?B?b2FlWldrR3Y3NUllSXB1ZkNUWTQyRFlKNk1ocXl1blN3eU1IZHBGYXRVUDBt?=
+ =?utf-8?B?WDlQN3NibkprOW1RUTF2ME55RVZmbm4rTEovZE45MWdndm9lbWJWQnZPR1hM?=
+ =?utf-8?B?M1pvNWEzOFRMaWFMM3FvQ0VlOXRwRE41U1NBL1hLMDE1a2N6Ulk5SVordmZl?=
+ =?utf-8?B?V3c2c2QrT3ZXSVNvY3VUK3F4MXl0WWdQa0pxU0hUbXp1SVppMkYvZVBqY0Ez?=
+ =?utf-8?B?MmtKTU41cGR6emdRazhnTW9vQldMRENrSWo5K2tBSW1jZVo2TE5UcmZlVUhP?=
+ =?utf-8?B?aEdHUnNMdlJadCt6OHEwUTRNNE9JamFjMFB1SjRRNXZ3ZFNFRFlGRUEza2Mr?=
+ =?utf-8?B?K0hDekZWU0RoendYQlBWdlVQMlBwUmpGTnFOcW5kUkVNd1VpaXNtNlJwT0Nq?=
+ =?utf-8?B?SG16bHlYOEZ3bWRMVHV0cSt1V2FON3NONEkxWk5idFA0MEw0aEVMSFJRdnlp?=
+ =?utf-8?B?cFJRbVdIdFlGWWhic21Yc3RBQnNTYXlDM0pKTkxpNFk4R0JWNGhReVNpbitq?=
+ =?utf-8?B?SXc0WTd1eUdaMnNGSjVjVUlvQlJ1eTNxZnlhWUN3anFhL2JRTkUzZWpWVG1V?=
+ =?utf-8?B?d1dkNHp3RDJZRFc2VHNRRFlGV0kxQmQ2TmZlb1gvcXBjVCs1c2FWTVFLNTBZ?=
+ =?utf-8?B?Rzl4c1FiZUJBbzlQeE9LZWd1Y2N2ekJWK2ZuWHZ3Y0lDVnNSb1hrSUdmcXFw?=
+ =?utf-8?B?aHlrTG9xWlZGTkk0YzJHWnROR0U0M3k5UmVhaWYyczRQOW0wL0RkRTdaWFI5?=
+ =?utf-8?B?MVl4UzYxRzN3L3YwYzJHbUgvM1pqRUEyMlUzcVhLd2dLWkFUd3ZyRGZXcWxR?=
+ =?utf-8?B?ampSVHgyb0dESXBta0hzdmEwU09oeWNoeHZtUzNGckhCQ2FqT0FiRWlqbHB5?=
+ =?utf-8?B?NFV1L1g0UUxxYmt4U3g0RWVQL2FTdkV5TzdsTHp3dmdpcXgrVWFNK1l0aEpH?=
+ =?utf-8?B?eCtXRnRRZGN6Uk41WG1lYURKWDUwUnhYczdvRDRsTi9QZnZ6OUgyTlNUNmd6?=
+ =?utf-8?B?YVVzVVIvb1JXeCtiaDRPbnhuRFI5a3Vqdjk3SEJMVnFhZTJWZUY0QUM4UmRM?=
+ =?utf-8?B?TlQ0OVhneFd4K2hYVnpnZ3Bjcy9vaEZWWllXS3VWR1ZEM2dkZDdYemlTTlNR?=
+ =?utf-8?B?eVF4NzNLamExaWltMEdlbEs5VzkwZ05RNzQ3Q2VlN0R6K0lSTkpha2I1TjlH?=
+ =?utf-8?B?S0YrcjBvMzZPZlZUbzg0QWlwczJWZzNNRE9QbVFCbElkU3pmUkw3MUVQdXdx?=
+ =?utf-8?B?YVlkMlNlQnpDVDBTcXBWRDFSOUZEMElWVFRLVkdYUWltR0tkb092eXQ3VnNM?=
+ =?utf-8?B?RlYwSFhIQUV5aEhER0k4Z3paM0xuT0FIMXRhdXA1L0M5S0pLeVJwS3hnQnRt?=
+ =?utf-8?B?dVpiSzdvVlg4blVmR2VpK0Rna3RrZ0pWRHJNK0tWb3h0b1VTR2NtUG9QMVcz?=
+ =?utf-8?B?QmY0c0h1MzBSemFTcHRSOENLeWtEaHJTT3FYVzIvcXRNaGtVUW94b1J5ejc1?=
+ =?utf-8?B?N1d4SjVpN0ZFZkJLRDAzSFFyaVNsMm1jdHUwR1VmcHZSYjIraDgzZGIyM3pw?=
+ =?utf-8?B?RDA2YWFQZWlKQ0JOOHMxNHdqZ3Q5WHRtS01rZFYyTmhqRnREbmMwblZtQklF?=
+ =?utf-8?Q?mwsl8aGoRS7lunuB7USq2rDHR?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Oct 2024 03:43:48.1438 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6d082dd1-90b7-4e1b-5040-08dcee5de8a4
+X-MS-Exchange-CrossTenant-Network-Message-Id: 30c0d311-36d3-4dea-93ca-08dcee6c515b
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7301.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Oct 2024 05:26:57.2293 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B371.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9416
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6Vp3p8/vyZDUIANPyWaRC/LSJDqCh++9hXiR2I+75srtqs6hqynJ6LgmQmSoiCUhdE70CymROlzrdTIycZ0TpQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7323
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,1706 +162,502 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-One of the challenges to contributing to the display code is the
-complexity of the DC component. This commit adds a documentation page
-that discusses the programming model used by DCN and an overview of how
-the display code is organized.
 
-Cc: Leo Li <sunpeng.li@amd.com>
-Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Cc: Hamza Mahfooz <hamza.mahfooz@amd.com>
-Cc: Harry Wentland <harry.wentland@amd.com>
-Cc: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Christian Konig <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
----
- .../gpu/amdgpu/display/dc-arch-overview.svg   | 731 +++++++++++++++++
- .../gpu/amdgpu/display/dc-components.svg      | 732 ++++++++++++++++++
- .../gpu/amdgpu/display/dcn-blocks.rst         |   2 +
- .../gpu/amdgpu/display/dcn-overview.rst       |   2 +
- Documentation/gpu/amdgpu/display/index.rst    |   1 +
- .../amdgpu/display/programming-model-dcn.rst  | 162 ++++
- 6 files changed, 1630 insertions(+)
- create mode 100644 Documentation/gpu/amdgpu/display/dc-arch-overview.svg
- create mode 100644 Documentation/gpu/amdgpu/display/dc-components.svg
- create mode 100644 Documentation/gpu/amdgpu/display/programming-model-dcn.rst
 
-diff --git a/Documentation/gpu/amdgpu/display/dc-arch-overview.svg b/Documentation/gpu/amdgpu/display/dc-arch-overview.svg
-new file mode 100644
-index 000000000000..23394931cf26
---- /dev/null
-+++ b/Documentation/gpu/amdgpu/display/dc-arch-overview.svg
-@@ -0,0 +1,731 @@
-+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-+<!-- Created with Inkscape (http://www.inkscape.org/) -->
-+
-+<svg
-+   width="1204.058"
-+   height="510.57321"
-+   viewBox="0 0 318.57366 135.08917"
-+   version="1.1"
-+   id="svg8"
-+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
-+   sodipodi:docname="dc-arch-overview.svg"
-+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-+   xmlns="http://www.w3.org/2000/svg"
-+   xmlns:svg="http://www.w3.org/2000/svg"
-+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-+   xmlns:cc="http://creativecommons.org/ns#"
-+   xmlns:dc="http://purl.org/dc/elements/1.1/">
-+  <defs
-+     id="defs2">
-+    <marker
-+       inkscape:stockid="Arrow2Mend"
-+       orient="auto"
-+       refY="0"
-+       refX="0"
-+       id="marker8858"
-+       style="overflow:visible"
-+       inkscape:isstock="true">
-+      <path
-+         id="path8616"
-+         style="fill:#aa00d4;fill-opacity:1;fill-rule:evenodd;stroke:#aa00d4;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
-+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
-+         transform="scale(-0.6)"
-+         inkscape:connector-curvature="0" />
-+    </marker>
-+    <marker
-+       inkscape:stockid="Arrow2Send"
-+       orient="auto"
-+       refY="0"
-+       refX="0"
-+       id="Arrow2Send"
-+       style="overflow:visible"
-+       inkscape:isstock="true">
-+      <path
-+         id="path8622"
-+         style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
-+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
-+         transform="matrix(-0.3,0,0,-0.3,0.69,0)"
-+         inkscape:connector-curvature="0" />
-+    </marker>
-+    <marker
-+       inkscape:stockid="Arrow1Lend"
-+       orient="auto"
-+       refY="0"
-+       refX="0"
-+       id="Arrow1Lend"
-+       style="overflow:visible"
-+       inkscape:isstock="true">
-+      <path
-+         id="path8592"
-+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
-+         style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:1pt;stroke-opacity:1"
-+         transform="matrix(-0.8,0,0,-0.8,-10,0)"
-+         inkscape:connector-curvature="0" />
-+    </marker>
-+    <marker
-+       inkscape:stockid="Arrow2Lend"
-+       orient="auto"
-+       refY="0"
-+       refX="0"
-+       id="Arrow2Lend"
-+       style="overflow:visible"
-+       inkscape:isstock="true">
-+      <path
-+         id="path8610"
-+         style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
-+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
-+         transform="matrix(-1.1,0,0,-1.1,-1.1,0)"
-+         inkscape:connector-curvature="0" />
-+    </marker>
-+    <marker
-+       inkscape:stockid="Arrow2Mend"
-+       orient="auto"
-+       refY="0"
-+       refX="0"
-+       id="Arrow2Mend"
-+       style="overflow:visible"
-+       inkscape:isstock="true">
-+      <path
-+         id="path1200"
-+         style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
-+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
-+         transform="scale(-0.6)"
-+         inkscape:connector-curvature="0" />
-+    </marker>
-+    <marker
-+       inkscape:stockid="Arrow2Mend"
-+       orient="auto"
-+       refY="0"
-+       refX="0"
-+       id="Arrow2Mend-8"
-+       style="overflow:visible"
-+       inkscape:isstock="true">
-+      <path
-+         inkscape:connector-curvature="0"
-+         id="path1200-9"
-+         style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
-+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
-+         transform="scale(-0.6)" />
-+    </marker>
-+    <marker
-+       inkscape:stockid="Arrow2Mend"
-+       orient="auto"
-+       refY="0"
-+       refX="0"
-+       id="Arrow2Mend-8-3"
-+       style="overflow:visible"
-+       inkscape:isstock="true">
-+      <path
-+         inkscape:connector-curvature="0"
-+         id="path1200-9-6"
-+         style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
-+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
-+         transform="scale(-0.6)" />
-+    </marker>
-+    <marker
-+       inkscape:stockid="Arrow2Mend"
-+       orient="auto"
-+       refY="0"
-+       refX="0"
-+       id="Arrow2Mend-8-3-2"
-+       style="overflow:visible"
-+       inkscape:isstock="true">
-+      <path
-+         inkscape:connector-curvature="0"
-+         id="path1200-9-6-9"
-+         style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
-+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
-+         transform="scale(-0.6)" />
-+    </marker>
-+    <marker
-+       inkscape:stockid="Arrow2Mend"
-+       orient="auto"
-+       refY="0"
-+       refX="0"
-+       id="Arrow2Mend-8-3-2-1"
-+       style="overflow:visible"
-+       inkscape:isstock="true">
-+      <path
-+         inkscape:connector-curvature="0"
-+         id="path1200-9-6-9-9"
-+         style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
-+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
-+         transform="scale(-0.6)" />
-+    </marker>
-+    <marker
-+       inkscape:stockid="Arrow2Mend"
-+       orient="auto"
-+       refY="0"
-+       refX="0"
-+       id="Arrow2Mend-8-3-2-7"
-+       style="overflow:visible"
-+       inkscape:isstock="true">
-+      <path
-+         inkscape:connector-curvature="0"
-+         id="path1200-9-6-9-8"
-+         style="fill:#008000;fill-opacity:1;fill-rule:evenodd;stroke:#008000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
-+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
-+         transform="scale(-0.6)" />
-+    </marker>
-+    <marker
-+       inkscape:stockid="Arrow2Mend"
-+       orient="auto"
-+       refY="0"
-+       refX="0"
-+       id="Arrow2Mend-8-3-4"
-+       style="overflow:visible"
-+       inkscape:isstock="true">
-+      <path
-+         inkscape:connector-curvature="0"
-+         id="path1200-9-6-5"
-+         style="fill:#008000;fill-opacity:1;fill-rule:evenodd;stroke:#008000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
-+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
-+         transform="scale(-0.6)" />
-+    </marker>
-+    <marker
-+       inkscape:stockid="Arrow2Mend"
-+       orient="auto"
-+       refY="0"
-+       refX="0"
-+       id="Arrow2Mend-8-0"
-+       style="overflow:visible"
-+       inkscape:isstock="true">
-+      <path
-+         inkscape:connector-curvature="0"
-+         id="path1200-9-3"
-+         style="fill:#008000;fill-opacity:1;fill-rule:evenodd;stroke:#008000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
-+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
-+         transform="scale(-0.6)" />
-+    </marker>
-+    <marker
-+       inkscape:stockid="Arrow2Mend"
-+       orient="auto"
-+       refY="0"
-+       refX="0"
-+       id="Arrow2Mend-6"
-+       style="overflow:visible"
-+       inkscape:isstock="true">
-+      <path
-+         inkscape:connector-curvature="0"
-+         id="path1200-1"
-+         style="fill:#008000;fill-opacity:1;fill-rule:evenodd;stroke:#008000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
-+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
-+         transform="scale(-0.6)" />
-+    </marker>
-+    <marker
-+       inkscape:stockid="Arrow2Mend"
-+       orient="auto"
-+       refY="0"
-+       refX="0"
-+       id="Arrow2Mend-8-3-2-6"
-+       style="overflow:visible"
-+       inkscape:isstock="true">
-+      <path
-+         inkscape:connector-curvature="0"
-+         id="path1200-9-6-9-1"
-+         style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
-+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
-+         transform="scale(-0.6)" />
-+    </marker>
-+    <marker
-+       inkscape:stockid="Arrow2Mend"
-+       orient="auto"
-+       refY="0"
-+       refX="0"
-+       id="Arrow2Mend-8-0-7"
-+       style="overflow:visible"
-+       inkscape:isstock="true">
-+      <path
-+         inkscape:connector-curvature="0"
-+         id="path1200-9-3-4"
-+         style="fill:#008000;fill-opacity:1;fill-rule:evenodd;stroke:#008000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
-+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
-+         transform="scale(-0.6)" />
-+    </marker>
-+    <marker
-+       inkscape:stockid="Arrow2Mend"
-+       orient="auto"
-+       refY="0"
-+       refX="0"
-+       id="Arrow2Mend-6-3"
-+       style="overflow:visible"
-+       inkscape:isstock="true">
-+      <path
-+         inkscape:connector-curvature="0"
-+         id="path1200-1-0"
-+         style="fill:#008000;fill-opacity:1;fill-rule:evenodd;stroke:#008000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
-+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
-+         transform="scale(-0.6)" />
-+    </marker>
-+    <marker
-+       inkscape:stockid="Arrow2Mend"
-+       orient="auto"
-+       refY="0"
-+       refX="0"
-+       id="Arrow2Mend-8-3-2-8"
-+       style="overflow:visible"
-+       inkscape:isstock="true">
-+      <path
-+         inkscape:connector-curvature="0"
-+         id="path1200-9-6-9-6"
-+         style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
-+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
-+         transform="scale(-0.6)" />
-+    </marker>
-+    <marker
-+       inkscape:stockid="Arrow2Mend"
-+       orient="auto"
-+       refY="0"
-+       refX="0"
-+       id="Arrow2Mend-3"
-+       style="overflow:visible"
-+       inkscape:isstock="true">
-+      <path
-+         id="path1200-6"
-+         style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
-+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
-+         transform="scale(-0.6)"
-+         inkscape:connector-curvature="0" />
-+    </marker>
-+    <marker
-+       inkscape:stockid="Arrow2Mend"
-+       orient="auto"
-+       refY="0"
-+       refX="0"
-+       id="marker8858-3"
-+       style="overflow:visible"
-+       inkscape:isstock="true">
-+      <path
-+         id="path8616-5"
-+         style="fill:#00ffcc;fill-opacity:1;fill-rule:evenodd;stroke:#00ffcc;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
-+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
-+         transform="scale(-0.6)"
-+         inkscape:connector-curvature="0" />
-+    </marker>
-+    <marker
-+       inkscape:stockid="Arrow2Mend"
-+       orient="auto"
-+       refY="0"
-+       refX="0"
-+       id="Arrow2Mend-8-3-3"
-+       style="overflow:visible"
-+       inkscape:isstock="true">
-+      <path
-+         inkscape:connector-curvature="0"
-+         id="path1200-9-6-56"
-+         style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
-+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
-+         transform="scale(-0.6)" />
-+    </marker>
-+    <marker
-+       inkscape:stockid="Arrow2Mend"
-+       orient="auto"
-+       refY="0"
-+       refX="0"
-+       id="Arrow2Mend-8-0-2"
-+       style="overflow:visible"
-+       inkscape:isstock="true">
-+      <path
-+         inkscape:connector-curvature="0"
-+         id="path1200-9-3-9"
-+         style="fill:#008000;fill-opacity:1;fill-rule:evenodd;stroke:#008000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
-+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
-+         transform="scale(-0.6)" />
-+    </marker>
-+  </defs>
-+  <sodipodi:namedview
-+     id="base"
-+     pagecolor="#ffffff"
-+     bordercolor="#666666"
-+     borderopacity="1.0"
-+     inkscape:pageopacity="0.0"
-+     inkscape:pageshadow="2"
-+     inkscape:zoom="1.4"
-+     inkscape:cx="812.5"
-+     inkscape:cy="315"
-+     inkscape:document-units="mm"
-+     inkscape:current-layer="layer1"
-+     showgrid="false"
-+     inkscape:window-width="3840"
-+     inkscape:window-height="2083"
-+     inkscape:window-x="0"
-+     inkscape:window-y="0"
-+     inkscape:window-maximized="1"
-+     showguides="false"
-+     fit-margin-top="0"
-+     fit-margin-left="0"
-+     fit-margin-right="0"
-+     fit-margin-bottom="0"
-+     units="px"
-+     inkscape:snap-global="false"
-+     inkscape:showpageshadow="2"
-+     inkscape:pagecheckerboard="0"
-+     inkscape:deskcolor="#d1d1d1" />
-+  <metadata
-+     id="metadata5">
-+    <rdf:RDF>
-+      <cc:Work
-+         rdf:about="">
-+        <dc:format>image/svg+xml</dc:format>
-+        <dc:type
-+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-+      </cc:Work>
-+    </rdf:RDF>
-+  </metadata>
-+  <g
-+     inkscape:label="Layer 1"
-+     inkscape:groupmode="layer"
-+     id="layer1"
-+     transform="translate(399.57097,11.171866)">
-+    <text
-+       xml:space="preserve"
-+       style="font-style:normal;font-weight:normal;font-size:6.54816px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.163704"
-+       x="-297.75696"
-+       y="109.44505"
-+       id="text1063" />
-+    <path
-+       style="fill:#008000;stroke:#008000;stroke-width:0.463298;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.463298, 0.926596;stroke-dashoffset:0;stroke-opacity:1"
-+       d="m -120.41395,84.001461 h -9.04766"
-+       id="path1171-0-7"
-+       inkscape:connector-curvature="0" />
-+    <path
-+       style="fill:none;stroke:#ff0000;stroke-width:0.982225;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.982225, 1.96445;stroke-dashoffset:0;stroke-opacity:1"
-+       d="m -129.96274,90.649221 h 8.66407"
-+       id="path1171-7-1-3-8"
-+       inkscape:connector-curvature="0" />
-+    <path
-+       style="fill:none;stroke:#3771c8;stroke-width:0.745037;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-+       d="m -121.33167,97.283841 h -7.91265"
-+       id="path7149-3-7-8"
-+       inkscape:connector-curvature="0" />
-+    <text
-+       xml:space="preserve"
-+       style="font-style:normal;font-weight:normal;font-size:6.54816px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.163704"
-+       x="-115.55721"
-+       y="85.330681"
-+       id="text12079"><tspan
-+         sodipodi:role="line"
-+         id="tspan12077"
-+         x="-115.55721"
-+         y="85.330681"
-+         style="font-size:4.80199px;stroke-width:0.163704">Board/Platform</tspan></text>
-+    <text
-+       xml:space="preserve"
-+       style="font-style:normal;font-weight:normal;font-size:6.54816px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.163704"
-+       x="-115.75885"
-+       y="92.435066"
-+       id="text12079-3"><tspan
-+         sodipodi:role="line"
-+         id="tspan12077-1"
-+         x="-115.75885"
-+         y="92.435066"
-+         style="font-size:4.80199px;stroke-width:0.163704">SoC</tspan></text>
-+    <text
-+       xml:space="preserve"
-+       style="font-style:normal;font-weight:normal;font-size:6.54816px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.163704"
-+       x="-115.6041"
-+       y="98.608604"
-+       id="text12079-3-4"><tspan
-+         sodipodi:role="line"
-+         id="tspan12077-1-9"
-+         x="-115.6041"
-+         y="98.608604"
-+         style="font-size:4.80199px;stroke-width:0.163704">Component</tspan></text>
-+    <text
-+       xml:space="preserve"
-+       style="font-style:normal;font-weight:normal;font-size:3.175px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-+       x="-368.54205"
-+       y="92.633011"
-+       id="text1010-5"><tspan
-+         sodipodi:role="line"
-+         x="-368.54205"
-+         y="92.633011"
-+         style="font-size:6.35px;text-align:center;text-anchor:middle;stroke-width:0.264583"
-+         id="tspan1057">DRAM</tspan></text>
-+    <g
-+       id="g730"
-+       transform="translate(6.9386906,-2.5203356)">
-+      <text
-+         id="text838-5-2-6-2"
-+         y="32.372173"
-+         x="-372.97867"
-+         style="font-style:normal;font-weight:normal;font-size:6.54814px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.163704"
-+         xml:space="preserve"><tspan
-+           id="tspan936-1-2-3"
-+           style="text-align:center;text-anchor:middle;stroke-width:0.163704"
-+           y="32.372173"
-+           x="-372.97867"
-+           sodipodi:role="line">dc_plane</tspan></text>
-+      <rect
-+         ry="6.9139691e-07"
-+         y="18.717371"
-+         x="-390.50565"
-+         height="23.904575"
-+         width="35.080177"
-+         id="rect834-5-2-6-75"
-+         style="fill:none;stroke:#000000;stroke-width:0.561714;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none" />
-+    </g>
-+    <g
-+       id="g738"
-+       transform="translate(6.9386906,31.346346)">
-+      <text
-+         id="text734"
-+         y="32.372173"
-+         x="-372.97867"
-+         style="font-style:normal;font-weight:normal;font-size:6.54814px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.163704"
-+         xml:space="preserve"><tspan
-+           id="tspan732"
-+           style="text-align:center;text-anchor:middle;stroke-width:0.163704"
-+           y="32.372173"
-+           x="-372.97867"
-+           sodipodi:role="line">dc_plane</tspan></text>
-+      <rect
-+         ry="6.9139691e-07"
-+         y="18.717371"
-+         x="-390.50565"
-+         height="23.904575"
-+         width="35.080177"
-+         id="rect736"
-+         style="fill:none;stroke:#000000;stroke-width:0.561714;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none" />
-+    </g>
-+    <rect
-+       ry="2.1256196e-06"
-+       y="8.5983658"
-+       x="-389.18051"
-+       height="73.491852"
-+       width="46.307304"
-+       id="rect744"
-+       style="fill:none;stroke:#3771c8;stroke-width:1.13159;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none" />
-+    <g
-+       id="g757"
-+       transform="translate(-19.949528,-8.6078171)">
-+      <text
-+         id="text600"
-+         y="56.289795"
-+         x="-256.91336"
-+         style="font-style:normal;font-weight:normal;font-size:6.54814px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.163704"
-+         xml:space="preserve"><tspan
-+           id="tspan598"
-+           style="text-align:center;text-anchor:middle;stroke-width:0.163704"
-+           y="56.289795"
-+           x="-256.91336"
-+           sodipodi:role="line">DC</tspan></text>
-+      <rect
-+         ry="1.7458606e-06"
-+         y="23.771139"
-+         x="-289.21854"
-+         height="60.361938"
-+         width="65.042557"
-+         id="rect602"
-+         style="fill:none;stroke:#000000;stroke-width:1.21541;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none" />
-+    </g>
-+    <rect
-+       ry="2.3633565e-06"
-+       y="4.4885707"
-+       x="-316.43292"
-+       height="81.711441"
-+       width="79.57225"
-+       id="rect787"
-+       style="fill:none;stroke:#3771c8;stroke-width:1.5641;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none" />
-+    <g
-+       id="g765"
-+       transform="translate(6.5577393,-7.020317)">
-+      <text
-+         id="text608"
-+         y="31.942825"
-+         x="-189.71797"
-+         style="font-style:normal;font-weight:normal;font-size:6.54814px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.163704"
-+         xml:space="preserve"><tspan
-+           id="tspan606"
-+           style="text-align:center;text-anchor:middle;stroke-width:0.163704"
-+           y="31.942825"
-+           x="-189.71797"
-+           sodipodi:role="line">dc_link</tspan></text>
-+      <rect
-+         ry="6.8036792e-07"
-+         y="18.197111"
-+         x="-211.99069"
-+         height="23.523254"
-+         width="44.846642"
-+         id="rect610"
-+         style="fill:none;stroke:#000000;stroke-width:0.630025;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none" />
-+    </g>
-+    <rect
-+       ry="1.0582555e-06"
-+       y="4.3160448"
-+       x="-210.69141"
-+       height="36.588463"
-+       width="55.543594"
-+       id="rect794"
-+       style="fill:none;stroke:#3771c8;stroke-width:0.874443;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none" />
-+    <g
-+       id="g781"
-+       transform="translate(6.5577393,37.542802)">
-+      <text
-+         id="text777"
-+         y="31.942825"
-+         x="-189.71797"
-+         style="font-style:normal;font-weight:normal;font-size:6.54814px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.163704"
-+         xml:space="preserve"><tspan
-+           id="tspan775"
-+           style="text-align:center;text-anchor:middle;stroke-width:0.163704"
-+           y="31.942825"
-+           x="-189.71797"
-+           sodipodi:role="line">dc_link</tspan></text>
-+      <rect
-+         ry="6.8036792e-07"
-+         y="18.197111"
-+         x="-211.99069"
-+         height="23.523254"
-+         width="44.846642"
-+         id="rect779"
-+         style="fill:none;stroke:#000000;stroke-width:0.630025;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none" />
-+    </g>
-+    <rect
-+       ry="1.0582555e-06"
-+       y="50.466679"
-+       x="-210.69141"
-+       height="36.588463"
-+       width="55.543594"
-+       id="rect796"
-+       style="fill:none;stroke:#3771c8;stroke-width:0.874443;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none" />
-+    <g
-+       id="g2151"
-+       transform="translate(2.1659807,-25.895798)">
-+      <rect
-+         ry="9.2671934e-07"
-+         y="29.395185"
-+         x="-132.25786"
-+         height="32.040688"
-+         width="44.742229"
-+         id="rect618"
-+         style="fill:none;stroke:#3771c8;stroke-width:0.734435;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none" />
-+      <g
-+         id="g838"
-+         transform="translate(1.9073486e-6,0.26687336)">
-+        <text
-+           id="text616"
-+           y="47.132744"
-+           x="-110.03735"
-+           style="font-style:normal;font-weight:normal;font-size:6.54814px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.163704"
-+           xml:space="preserve"><tspan
-+             id="tspan614"
-+             style="text-align:center;text-anchor:middle;stroke-width:0.163704"
-+             y="47.132744"
-+             x="-110.03735"
-+             sodipodi:role="line">dc_link</tspan></text>
-+        <rect
-+           ry="5.7260945e-07"
-+           y="35.249866"
-+           x="-126.21788"
-+           height="19.797579"
-+           width="32.66227"
-+           id="rect833"
-+           style="fill:none;stroke:#000000;stroke-width:0.493257;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none" />
-+      </g>
-+    </g>
-+    <rect
-+       ry="3.6076738e-06"
-+       y="-9.4559708"
-+       x="-397.85507"
-+       height="124.73286"
-+       width="250.94243"
-+       id="rect1307"
-+       style="fill:none;stroke:#008000;stroke-width:3.43179;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:6.86358, 3.43179;stroke-dashoffset:0" />
-+    <rect
-+       ry="2.9172609e-06"
-+       y="-4.5401988"
-+       x="-393.52301"
-+       height="100.8623"
-+       width="174.14117"
-+       id="rect1990"
-+       style="fill:none;stroke:#ff0000;stroke-width:2.57074;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:2.57074, 5.14148;stroke-dashoffset:0" />
-+    <path
-+       style="fill:none;stroke:#aa00d4;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
-+       d="m -317.69814,47.452094 h -23.80954"
-+       id="path2142" />
-+    <path
-+       style="fill:none;stroke:#aa00d4;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
-+       d="m -130.71642,19.101665 h -23.80954"
-+       id="path2144" />
-+    <g
-+       aria-label="}"
-+       transform="rotate(180,-59.876965,-0.22738225)"
-+       style="font-style:normal;font-weight:normal;font-size:3.175px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#aa00d4;fill-opacity:1;stroke:none;stroke-width:0.264583"
-+       id="text1003-5">
-+      <path
-+         d="m 92.00239,-21.748413 h 0.86816 c 0,0 15.81267,-0.177767 16.15994,-0.5333 0.35553,-0.355534 1.10026,-1.124479 1.10026,-2.306836 v -20.048953 c 0,-1.289844 0.18603,-2.228288 0.5581,-2.815332 0.37207,-0.587044 0.45004,-0.992187 1.36781,-1.215429 -0.91777,-0.206706 -0.99574,-0.603581 -1.36781,-1.190625 -0.37207,-0.587045 -0.5581,-1.529623 -0.5581,-2.827735 v -19.913761 c 0,-1.174088 -0.74473,-1.938899 -1.10026,-2.294433 -0.34727,-0.363802 -15.00239,-0.545703 -16.15994,-0.545703 h -0.86816 v -1.773536 h 0.78134 c 2.05879,0 17.33403,0.305924 18.02029,0.917774 0.69453,0.60358 1.0418,1.81901 1.0418,3.646289 v 19.814542 c 0,1.231966 0.22324,2.087728 0.66973,2.567285 0.44648,0.471289 1.25677,0.706934 2.43086,0.706934 h 0.76894 v 1.773535 h -0.76894 c -1.17409,0 -1.98438,0.239778 -2.43086,0.719336 -0.44649,0.479557 -0.66973,1.343587 -0.66973,2.59209 v 19.937331 c 0,1.827279 -0.34727,3.046842 -1.0418,3.658691 -0.68626,0.611849 -15.9615,0.917774 -18.02029,0.917774 h -0.78134 z"
-+         style="font-size:25.4px;fill:#aa00d4;stroke-width:0.264583"
-+         id="path1005-3"
-+         inkscape:connector-curvature="0"
-+         sodipodi:nodetypes="cccsscccsscsccscsscsccscsscscc" />
-+    </g>
-+    <text
-+       xml:space="preserve"
-+       style="font-style:normal;font-weight:normal;font-size:3.175px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-+       x="-275.85803"
-+       y="92.633011"
-+       id="text2157"><tspan
-+         sodipodi:role="line"
-+         x="-275.85803"
-+         y="92.633011"
-+         style="font-size:6.35px;text-align:center;text-anchor:middle;stroke-width:0.264583"
-+         id="tspan2155">DCN</tspan></text>
-+    <text
-+       xml:space="preserve"
-+       style="font-style:normal;font-weight:normal;font-size:3.175px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-+       x="-279.29822"
-+       y="110.19857"
-+       id="text3141"><tspan
-+         sodipodi:role="line"
-+         x="-279.29822"
-+         y="110.19857"
-+         style="font-weight:bold;font-size:6.35px;text-align:center;text-anchor:middle;stroke-width:0.264583"
-+         id="tspan3139">SoC</tspan></text>
-+    <text
-+       xml:space="preserve"
-+       style="font-style:normal;font-weight:normal;font-size:3.175px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-+       x="-275.85803"
-+       y="123.8538"
-+       id="text3375"><tspan
-+         sodipodi:role="line"
-+         x="-275.85803"
-+         y="123.8538"
-+         style="font-size:6.35px;text-align:center;text-anchor:middle;stroke-width:0.264583"
-+         id="tspan3373">Board/Platform</tspan></text>
-+    <text
-+       xml:space="preserve"
-+       style="font-style:normal;font-weight:normal;font-size:3.175px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-+       x="-107.57491"
-+       y="42.939579"
-+       id="text3379"><tspan
-+         sodipodi:role="line"
-+         x="-107.57491"
-+         y="42.939579"
-+         style="font-size:6.35px;text-align:center;text-anchor:middle;stroke-width:0.264583"
-+         id="tspan3377">Display</tspan></text>
-+    <text
-+       xml:space="preserve"
-+       style="font-style:normal;font-weight:normal;font-size:3.175px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-+       x="-182.71582"
-+       y="46.643749"
-+       id="text3383"><tspan
-+         sodipodi:role="line"
-+         x="-182.71582"
-+         y="46.643749"
-+         style="font-size:6.35px;text-align:center;text-anchor:middle;stroke-width:0.264583"
-+         id="tspan3381">Connector</tspan></text>
-+    <text
-+       xml:space="preserve"
-+       style="font-style:normal;font-weight:normal;font-size:3.175px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-+       x="-182.71582"
-+       y="93.210457"
-+       id="text3387"><tspan
-+         sodipodi:role="line"
-+         x="-182.71582"
-+         y="93.210457"
-+         style="font-size:6.35px;text-align:center;text-anchor:middle;stroke-width:0.264583"
-+         id="tspan3385">Connector</tspan></text>
-+  </g>
-+</svg>
-diff --git a/Documentation/gpu/amdgpu/display/dc-components.svg b/Documentation/gpu/amdgpu/display/dc-components.svg
-new file mode 100644
-index 000000000000..f84bb2a57c05
---- /dev/null
-+++ b/Documentation/gpu/amdgpu/display/dc-components.svg
-@@ -0,0 +1,732 @@
-+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-+<!-- Created with Inkscape (http://www.inkscape.org/) -->
-+
-+<svg
-+   width="533.42053"
-+   height="631.18573"
-+   viewBox="0 0 141.13418 167.00122"
-+   version="1.1"
-+   id="svg8"
-+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
-+   sodipodi:docname="dc-components.svg"
-+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-+   xmlns="http://www.w3.org/2000/svg"
-+   xmlns:svg="http://www.w3.org/2000/svg"
-+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-+   xmlns:cc="http://creativecommons.org/ns#"
-+   xmlns:dc="http://purl.org/dc/elements/1.1/">
-+  <defs
-+     id="defs2">
-+    <marker
-+       inkscape:stockid="Arrow2Mend"
-+       orient="auto"
-+       refY="0"
-+       refX="0"
-+       id="marker8858"
-+       style="overflow:visible"
-+       inkscape:isstock="true">
-+      <path
-+         id="path8616"
-+         style="fill:#aa00d4;fill-opacity:1;fill-rule:evenodd;stroke:#aa00d4;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
-+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
-+         transform="scale(-0.6)"
-+         inkscape:connector-curvature="0" />
-+    </marker>
-+    <marker
-+       inkscape:stockid="Arrow2Send"
-+       orient="auto"
-+       refY="0"
-+       refX="0"
-+       id="Arrow2Send"
-+       style="overflow:visible"
-+       inkscape:isstock="true">
-+      <path
-+         id="path8622"
-+         style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
-+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
-+         transform="matrix(-0.3,0,0,-0.3,0.69,0)"
-+         inkscape:connector-curvature="0" />
-+    </marker>
-+    <marker
-+       inkscape:stockid="Arrow1Lend"
-+       orient="auto"
-+       refY="0"
-+       refX="0"
-+       id="Arrow1Lend"
-+       style="overflow:visible"
-+       inkscape:isstock="true">
-+      <path
-+         id="path8592"
-+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
-+         style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:1pt;stroke-opacity:1"
-+         transform="matrix(-0.8,0,0,-0.8,-10,0)"
-+         inkscape:connector-curvature="0" />
-+    </marker>
-+    <marker
-+       inkscape:stockid="Arrow2Lend"
-+       orient="auto"
-+       refY="0"
-+       refX="0"
-+       id="Arrow2Lend"
-+       style="overflow:visible"
-+       inkscape:isstock="true">
-+      <path
-+         id="path8610"
-+         style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
-+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
-+         transform="matrix(-1.1,0,0,-1.1,-1.1,0)"
-+         inkscape:connector-curvature="0" />
-+    </marker>
-+    <marker
-+       inkscape:stockid="Arrow2Mend"
-+       orient="auto"
-+       refY="0"
-+       refX="0"
-+       id="Arrow2Mend"
-+       style="overflow:visible"
-+       inkscape:isstock="true">
-+      <path
-+         id="path1200"
-+         style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
-+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
-+         transform="scale(-0.6)"
-+         inkscape:connector-curvature="0" />
-+    </marker>
-+    <marker
-+       inkscape:stockid="Arrow2Mend"
-+       orient="auto"
-+       refY="0"
-+       refX="0"
-+       id="Arrow2Mend-8"
-+       style="overflow:visible"
-+       inkscape:isstock="true">
-+      <path
-+         inkscape:connector-curvature="0"
-+         id="path1200-9"
-+         style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
-+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
-+         transform="scale(-0.6)" />
-+    </marker>
-+    <marker
-+       inkscape:stockid="Arrow2Mend"
-+       orient="auto"
-+       refY="0"
-+       refX="0"
-+       id="Arrow2Mend-8-3"
-+       style="overflow:visible"
-+       inkscape:isstock="true">
-+      <path
-+         inkscape:connector-curvature="0"
-+         id="path1200-9-6"
-+         style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
-+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
-+         transform="scale(-0.6)" />
-+    </marker>
-+    <marker
-+       inkscape:stockid="Arrow2Mend"
-+       orient="auto"
-+       refY="0"
-+       refX="0"
-+       id="Arrow2Mend-8-3-2"
-+       style="overflow:visible"
-+       inkscape:isstock="true">
-+      <path
-+         inkscape:connector-curvature="0"
-+         id="path1200-9-6-9"
-+         style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
-+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
-+         transform="scale(-0.6)" />
-+    </marker>
-+    <marker
-+       inkscape:stockid="Arrow2Mend"
-+       orient="auto"
-+       refY="0"
-+       refX="0"
-+       id="Arrow2Mend-8-3-2-1"
-+       style="overflow:visible"
-+       inkscape:isstock="true">
-+      <path
-+         inkscape:connector-curvature="0"
-+         id="path1200-9-6-9-9"
-+         style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
-+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
-+         transform="scale(-0.6)" />
-+    </marker>
-+    <marker
-+       inkscape:stockid="Arrow2Mend"
-+       orient="auto"
-+       refY="0"
-+       refX="0"
-+       id="Arrow2Mend-8-3-2-7"
-+       style="overflow:visible"
-+       inkscape:isstock="true">
-+      <path
-+         inkscape:connector-curvature="0"
-+         id="path1200-9-6-9-8"
-+         style="fill:#008000;fill-opacity:1;fill-rule:evenodd;stroke:#008000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
-+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
-+         transform="scale(-0.6)" />
-+    </marker>
-+    <marker
-+       inkscape:stockid="Arrow2Mend"
-+       orient="auto"
-+       refY="0"
-+       refX="0"
-+       id="Arrow2Mend-8-3-4"
-+       style="overflow:visible"
-+       inkscape:isstock="true">
-+      <path
-+         inkscape:connector-curvature="0"
-+         id="path1200-9-6-5"
-+         style="fill:#008000;fill-opacity:1;fill-rule:evenodd;stroke:#008000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
-+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
-+         transform="scale(-0.6)" />
-+    </marker>
-+    <marker
-+       inkscape:stockid="Arrow2Mend"
-+       orient="auto"
-+       refY="0"
-+       refX="0"
-+       id="Arrow2Mend-8-0"
-+       style="overflow:visible"
-+       inkscape:isstock="true">
-+      <path
-+         inkscape:connector-curvature="0"
-+         id="path1200-9-3"
-+         style="fill:#008000;fill-opacity:1;fill-rule:evenodd;stroke:#008000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
-+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
-+         transform="scale(-0.6)" />
-+    </marker>
-+    <marker
-+       inkscape:stockid="Arrow2Mend"
-+       orient="auto"
-+       refY="0"
-+       refX="0"
-+       id="Arrow2Mend-6"
-+       style="overflow:visible"
-+       inkscape:isstock="true">
-+      <path
-+         inkscape:connector-curvature="0"
-+         id="path1200-1"
-+         style="fill:#008000;fill-opacity:1;fill-rule:evenodd;stroke:#008000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
-+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
-+         transform="scale(-0.6)" />
-+    </marker>
-+    <marker
-+       inkscape:stockid="Arrow2Mend"
-+       orient="auto"
-+       refY="0"
-+       refX="0"
-+       id="Arrow2Mend-8-3-2-6"
-+       style="overflow:visible"
-+       inkscape:isstock="true">
-+      <path
-+         inkscape:connector-curvature="0"
-+         id="path1200-9-6-9-1"
-+         style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
-+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
-+         transform="scale(-0.6)" />
-+    </marker>
-+    <marker
-+       inkscape:stockid="Arrow2Mend"
-+       orient="auto"
-+       refY="0"
-+       refX="0"
-+       id="Arrow2Mend-8-0-7"
-+       style="overflow:visible"
-+       inkscape:isstock="true">
-+      <path
-+         inkscape:connector-curvature="0"
-+         id="path1200-9-3-4"
-+         style="fill:#008000;fill-opacity:1;fill-rule:evenodd;stroke:#008000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
-+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
-+         transform="scale(-0.6)" />
-+    </marker>
-+    <marker
-+       inkscape:stockid="Arrow2Mend"
-+       orient="auto"
-+       refY="0"
-+       refX="0"
-+       id="Arrow2Mend-6-3"
-+       style="overflow:visible"
-+       inkscape:isstock="true">
-+      <path
-+         inkscape:connector-curvature="0"
-+         id="path1200-1-0"
-+         style="fill:#008000;fill-opacity:1;fill-rule:evenodd;stroke:#008000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
-+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
-+         transform="scale(-0.6)" />
-+    </marker>
-+    <marker
-+       inkscape:stockid="Arrow2Mend"
-+       orient="auto"
-+       refY="0"
-+       refX="0"
-+       id="Arrow2Mend-8-3-2-8"
-+       style="overflow:visible"
-+       inkscape:isstock="true">
-+      <path
-+         inkscape:connector-curvature="0"
-+         id="path1200-9-6-9-6"
-+         style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
-+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
-+         transform="scale(-0.6)" />
-+    </marker>
-+    <marker
-+       inkscape:stockid="Arrow2Mend"
-+       orient="auto"
-+       refY="0"
-+       refX="0"
-+       id="Arrow2Mend-3"
-+       style="overflow:visible"
-+       inkscape:isstock="true">
-+      <path
-+         id="path1200-6"
-+         style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
-+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
-+         transform="scale(-0.6)"
-+         inkscape:connector-curvature="0" />
-+    </marker>
-+    <marker
-+       inkscape:stockid="Arrow2Mend"
-+       orient="auto"
-+       refY="0"
-+       refX="0"
-+       id="marker8858-3"
-+       style="overflow:visible"
-+       inkscape:isstock="true">
-+      <path
-+         id="path8616-5"
-+         style="fill:#00ffcc;fill-opacity:1;fill-rule:evenodd;stroke:#00ffcc;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
-+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
-+         transform="scale(-0.6)"
-+         inkscape:connector-curvature="0" />
-+    </marker>
-+    <marker
-+       inkscape:stockid="Arrow2Mend"
-+       orient="auto"
-+       refY="0"
-+       refX="0"
-+       id="Arrow2Mend-8-3-3"
-+       style="overflow:visible"
-+       inkscape:isstock="true">
-+      <path
-+         inkscape:connector-curvature="0"
-+         id="path1200-9-6-56"
-+         style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
-+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
-+         transform="scale(-0.6)" />
-+    </marker>
-+    <marker
-+       inkscape:stockid="Arrow2Mend"
-+       orient="auto"
-+       refY="0"
-+       refX="0"
-+       id="Arrow2Mend-8-0-2"
-+       style="overflow:visible"
-+       inkscape:isstock="true">
-+      <path
-+         inkscape:connector-curvature="0"
-+         id="path1200-9-3-9"
-+         style="fill:#008000;fill-opacity:1;fill-rule:evenodd;stroke:#008000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
-+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
-+         transform="scale(-0.6)" />
-+    </marker>
-+  </defs>
-+  <sodipodi:namedview
-+     id="base"
-+     pagecolor="#ffffff"
-+     bordercolor="#666666"
-+     borderopacity="1.0"
-+     inkscape:pageopacity="0.0"
-+     inkscape:pageshadow="2"
-+     inkscape:zoom="1.4"
-+     inkscape:cx="482.85714"
-+     inkscape:cy="470"
-+     inkscape:document-units="mm"
-+     inkscape:current-layer="layer1"
-+     showgrid="false"
-+     inkscape:window-width="3840"
-+     inkscape:window-height="2083"
-+     inkscape:window-x="0"
-+     inkscape:window-y="0"
-+     inkscape:window-maximized="1"
-+     showguides="false"
-+     fit-margin-top="0"
-+     fit-margin-left="0"
-+     fit-margin-right="0"
-+     fit-margin-bottom="0"
-+     units="px"
-+     inkscape:snap-global="false"
-+     inkscape:showpageshadow="2"
-+     inkscape:pagecheckerboard="0"
-+     inkscape:deskcolor="#d1d1d1" />
-+  <metadata
-+     id="metadata5">
-+    <rdf:RDF>
-+      <cc:Work
-+         rdf:about="">
-+        <dc:format>image/svg+xml</dc:format>
-+        <dc:type
-+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-+      </cc:Work>
-+    </rdf:RDF>
-+  </metadata>
-+  <g
-+     inkscape:label="Layer 1"
-+     inkscape:groupmode="layer"
-+     id="layer1"
-+     transform="translate(384.1992,26.608359)">
-+    <text
-+       xml:space="preserve"
-+       style="font-style:normal;font-weight:normal;font-size:4.0511px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.101278"
-+       x="-330.72058"
-+       y="57.56284"
-+       id="text1063" />
-+    <rect
-+       ry="4.7572436e-07"
-+       y="-26.142614"
-+       x="-383.73346"
-+       height="16.447845"
-+       width="140.2027"
-+       id="rect744"
-+       style="fill:none;stroke:#3771c8;stroke-width:0.93149;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none" />
-+    <rect
-+       ry="1.0800992e-06"
-+       y="-5.1415901"
-+       x="-383.27942"
-+       height="37.343693"
-+       width="40.239418"
-+       id="rect602"
-+       style="fill:none;stroke:#000000;stroke-width:0.751929;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none" />
-+    <text
-+       xml:space="preserve"
-+       style="font-style:normal;font-weight:normal;font-size:10.476px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.163688"
-+       x="-363.2121"
-+       y="17.270189"
-+       id="text3379"><tspan
-+         sodipodi:role="line"
-+         x="-363.2121"
-+         y="17.270189"
-+         style="font-size:10.476px;text-align:center;text-anchor:middle;stroke-width:0.163688"
-+         id="tspan3377">Core</tspan></text>
-+    <rect
-+       ry="1.0800992e-06"
-+       y="-5.1415901"
-+       x="-331.06259"
-+       height="37.343693"
-+       width="40.239418"
-+       id="rect526"
-+       style="fill:none;stroke:#000000;stroke-width:0.751929;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none" />
-+    <rect
-+       ry="4.4701343e-07"
-+       y="-5.2654457"
-+       x="-286.88507"
-+       height="15.455184"
-+       width="43.167706"
-+       id="rect528"
-+       style="fill:none;stroke:#000000;stroke-width:0.501024;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none" />
-+    <rect
-+       ry="4.4701343e-07"
-+       y="15.68337"
-+       x="-286.88507"
-+       height="15.455184"
-+       width="43.167706"
-+       id="rect530"
-+       style="fill:none;stroke:#000000;stroke-width:0.501024;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none" />
-+    <rect
-+       ry="4.4701343e-07"
-+       y="36.959518"
-+       x="-286.88507"
-+       height="15.455184"
-+       width="43.167706"
-+       id="rect532"
-+       style="fill:none;stroke:#000000;stroke-width:0.501024;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none" />
-+    <rect
-+       ry="1.6213723e-06"
-+       y="60.089264"
-+       x="-286.65378"
-+       height="56.057846"
-+       width="42.705132"
-+       id="rect534"
-+       style="fill:none;stroke:#000000;stroke-width:0.949072;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none" />
-+    <rect
-+       ry="4.4031123e-07"
-+       y="37.077362"
-+       x="-382.96875"
-+       height="15.223459"
-+       width="92.225845"
-+       id="rect536"
-+       style="fill:none;stroke:#000000;stroke-width:0.726817;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none" />
-+    <rect
-+       ry="4.4031123e-07"
-+       y="59.989784"
-+       x="-382.96875"
-+       height="15.223459"
-+       width="92.225845"
-+       id="rect538"
-+       style="fill:none;stroke:#000000;stroke-width:0.726817;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none" />
-+    <rect
-+       ry="4.4031123e-07"
-+       y="80.283493"
-+       x="-382.96875"
-+       height="15.223459"
-+       width="92.225845"
-+       id="rect540"
-+       style="fill:none;stroke:#000000;stroke-width:0.726817;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none" />
-+    <rect
-+       ry="4.3543034e-07"
-+       y="124.89404"
-+       x="-382.88803"
-+       height="15.054706"
-+       width="139.2859"
-+       id="rect554"
-+       style="fill:none;stroke:#000000;stroke-width:0.888245;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none" />
-+    <text
-+       xml:space="preserve"
-+       style="font-style:normal;font-weight:normal;font-size:8.73001px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.163688"
-+       x="-311.29712"
-+       y="-16.144287"
-+       id="text660"><tspan
-+         sodipodi:role="line"
-+         x="-311.29712"
-+         y="-16.144287"
-+         style="font-size:8.73001px;text-align:center;text-anchor:middle;stroke-width:0.163688"
-+         id="tspan658">Display Core API (dc/dc.h)</tspan></text>
-+    <text
-+       xml:space="preserve"
-+       style="font-style:normal;font-weight:normal;font-size:10.476px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.163688"
-+       x="-311.40384"
-+       y="17.511137"
-+       id="text664"><tspan
-+         sodipodi:role="line"
-+         x="-311.40384"
-+         y="17.511137"
-+         style="font-size:10.476px;text-align:center;text-anchor:middle;stroke-width:0.163688"
-+         id="tspan662">Link</tspan></text>
-+    <text
-+       xml:space="preserve"
-+       style="font-style:normal;font-weight:normal;font-size:4.36501px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.163688"
-+       x="-336.97806"
-+       y="43.095863"
-+       id="text668"><tspan
-+         sodipodi:role="line"
-+         x="-336.97806"
-+         y="43.095863"
-+         style="font-size:4.36501px;text-align:center;text-anchor:middle;stroke-width:0.163688"
-+         id="tspan666">Hardware Sequencer API</tspan><tspan
-+         sodipodi:role="line"
-+         x="-336.97806"
-+         y="48.552124"
-+         style="font-size:4.36501px;text-align:center;text-anchor:middle;stroke-width:0.163688"
-+         id="tspan670">(dc/inc/hw_sequence.h)</tspan></text>
-+    <text
-+       xml:space="preserve"
-+       style="font-style:normal;font-weight:normal;font-size:4.36501px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.163688"
-+       x="-337.03479"
-+       y="68.73642"
-+       id="text750"><tspan
-+         sodipodi:role="line"
-+         x="-337.03479"
-+         y="68.73642"
-+         style="font-size:4.36501px;text-align:center;text-anchor:middle;stroke-width:0.163688"
-+         id="tspan748">Hardware Sequencer</tspan></text>
-+    <text
-+       xml:space="preserve"
-+       style="font-style:normal;font-weight:normal;font-size:4.36501px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.163688"
-+       x="-336.98022"
-+       y="89.209091"
-+       id="text756"><tspan
-+         sodipodi:role="line"
-+         x="-336.98022"
-+         y="89.209091"
-+         style="font-size:4.36501px;text-align:center;text-anchor:middle;stroke-width:0.163688"
-+         id="tspan754">Block Level API (dc/inc/hw)</tspan></text>
-+    <g
-+       id="g1543"
-+       transform="matrix(0.61866289,0,0,0.61866289,-146.50941,-10.146755)">
-+      <rect
-+         ry="7.3007396e-07"
-+         y="180.25436"
-+         x="-382.5336"
-+         height="25.241808"
-+         width="29.376135"
-+         id="rect542"
-+         style="fill:none;stroke:#000000;stroke-width:0.528201;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none" />
-+      <text
-+         xml:space="preserve"
-+         style="font-style:normal;font-weight:normal;font-size:7.05556px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-+         x="-367.99722"
-+         y="195.3941"
-+         id="text838"><tspan
-+           sodipodi:role="line"
-+           x="-367.99722"
-+           y="195.3941"
-+           style="font-size:7.05556px;text-align:center;text-anchor:middle;stroke-width:0.264583"
-+           id="tspan836">DCHUB</tspan></text>
-+    </g>
-+    <a
-+       id="a1538"
-+       transform="matrix(0.61866289,0,0,0.61866289,-154.037,-10.146755)">
-+      <rect
-+         ry="7.3027257e-07"
-+         y="180.25093"
-+         x="-339.82092"
-+         height="25.248676"
-+         width="28.609333"
-+         id="rect546"
-+         style="fill:none;stroke:#000000;stroke-width:0.521332;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none" />
-+      <text
-+         xml:space="preserve"
-+         style="font-style:normal;font-weight:normal;font-size:7.05556px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-+         x="-325.67853"
-+         y="195.35883"
-+         id="text842"><tspan
-+           sodipodi:role="line"
-+           x="-325.67853"
-+           y="195.35883"
-+           style="font-size:7.05556px;text-align:center;text-anchor:middle;stroke-width:0.264583"
-+           id="tspan840">HUBP</tspan></text>
-+    </a>
-+    <g
-+       id="g1533"
-+       transform="matrix(0.61866289,0,0,0.61866289,-154.69251,-10.146755)">
-+      <rect
-+         ry="7.3027257e-07"
-+         y="180.25093"
-+         x="-308.59961"
-+         height="25.248676"
-+         width="28.609333"
-+         id="rect844"
-+         style="fill:none;stroke:#000000;stroke-width:0.521332;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none" />
-+      <text
-+         xml:space="preserve"
-+         style="font-style:normal;font-weight:normal;font-size:7.05556px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-+         x="-294.45721"
-+         y="195.3941"
-+         id="text848"><tspan
-+           sodipodi:role="line"
-+           x="-294.45721"
-+           y="195.3941"
-+           style="font-size:7.05556px;text-align:center;text-anchor:middle;stroke-width:0.264583"
-+           id="tspan846">DPP</tspan></text>
-+    </g>
-+    <g
-+       id="g1528"
-+       transform="matrix(0.61866289,0,0,0.61866289,-155.67539,-10.146755)">
-+      <rect
-+         ry="7.3027257e-07"
-+         y="180.25093"
-+         x="-276.84912"
-+         height="25.248676"
-+         width="28.609333"
-+         id="rect850"
-+         style="fill:none;stroke:#000000;stroke-width:0.521332;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none" />
-+      <text
-+         xml:space="preserve"
-+         style="font-style:normal;font-weight:normal;font-size:7.05556px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-+         x="-262.77728"
-+         y="195.3941"
-+         id="text854"><tspan
-+           sodipodi:role="line"
-+           x="-262.77728"
-+           y="195.3941"
-+           style="font-size:7.05556px;text-align:center;text-anchor:middle;stroke-width:0.264583"
-+           id="tspan852">MPC</tspan></text>
-+    </g>
-+    <g
-+       id="g1523"
-+       transform="matrix(0.61866289,0,0,0.61866289,-157.64019,-10.146755)">
-+      <rect
-+         ry="7.3027257e-07"
-+         y="180.25093"
-+         x="-243.51147"
-+         height="25.248676"
-+         width="28.609333"
-+         id="rect856"
-+         style="fill:none;stroke:#000000;stroke-width:0.521332;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none" />
-+      <text
-+         xml:space="preserve"
-+         style="font-style:normal;font-weight:normal;font-size:7.05556px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-+         x="-229.2068"
-+         y="193.25275"
-+         id="text860"><tspan
-+           sodipodi:role="line"
-+           x="-229.2068"
-+           y="193.25275"
-+           style="font-size:7.05556px;text-align:center;text-anchor:middle;stroke-width:0.264583"
-+           id="tspan858">...</tspan></text>
-+    </g>
-+    <text
-+       xml:space="preserve"
-+       style="font-style:normal;font-weight:normal;font-size:4.36501px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.163688"
-+       x="-313.35858"
-+       y="133.55629"
-+       id="text951"><tspan
-+         sodipodi:role="line"
-+         x="-313.35858"
-+         y="133.55629"
-+         style="font-size:4.36501px;text-align:center;text-anchor:middle;stroke-width:0.163688"
-+         id="tspan949">Hardware Registers</tspan></text>
-+    <text
-+       xml:space="preserve"
-+       style="font-style:normal;font-weight:normal;font-size:4.36501px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.163688"
-+       x="-265.39505"
-+       y="86.926537"
-+       id="text1044"><tspan
-+         sodipodi:role="line"
-+         x="-265.39505"
-+         y="86.926537"
-+         style="font-size:4.36501px;text-align:center;text-anchor:middle;stroke-width:0.163688"
-+         id="tspan1042">DMUB</tspan><tspan
-+         sodipodi:role="line"
-+         x="-265.39505"
-+         y="92.382797"
-+         style="font-size:4.36501px;text-align:center;text-anchor:middle;stroke-width:0.163688"
-+         id="tspan1046">Block</tspan></text>
-+    <text
-+       xml:space="preserve"
-+       style="font-style:normal;font-weight:normal;font-size:4.36501px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.163688"
-+       x="-265.42343"
-+       y="43.272846"
-+       id="text1052"><tspan
-+         sodipodi:role="line"
-+         x="-265.42343"
-+         y="43.272846"
-+         style="font-size:4.36501px;text-align:center;text-anchor:middle;stroke-width:0.163688"
-+         id="tspan1048">DMUB Hardware API</tspan><tspan
-+         sodipodi:role="line"
-+         x="-265.42343"
-+         y="48.729107"
-+         style="font-size:4.36501px;text-align:center;text-anchor:middle;stroke-width:0.163688"
-+         id="tspan1050">(dmub/dmub_srv.h)</tspan></text>
-+    <text
-+       xml:space="preserve"
-+       style="font-style:normal;font-weight:normal;font-size:4.36501px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.163688"
-+       x="-265.40161"
-+       y="24.997644"
-+       id="text1058"><tspan
-+         sodipodi:role="line"
-+         x="-265.40161"
-+         y="24.997644"
-+         style="font-size:4.36501px;text-align:center;text-anchor:middle;stroke-width:0.163688"
-+         id="tspan1056">DMUB Service</tspan></text>
-+    <text
-+       xml:space="preserve"
-+       style="font-style:normal;font-weight:normal;font-size:4.36501px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.163688"
-+       x="-265.30121"
-+       y="0.99768418"
-+       id="text1064"><tspan
-+         sodipodi:role="line"
-+         x="-265.30121"
-+         y="0.99768418"
-+         style="font-size:4.36501px;text-align:center;text-anchor:middle;stroke-width:0.163688"
-+         id="tspan1062">DMUB Service API</tspan><tspan
-+         sodipodi:role="line"
-+         x="-265.30121"
-+         y="6.4539466"
-+         style="font-size:4.36501px;text-align:center;text-anchor:middle;stroke-width:0.163688"
-+         id="tspan1066">(dc/dc_dmub_srv.h)</tspan></text>
-+  </g>
-+</svg>
-diff --git a/Documentation/gpu/amdgpu/display/dcn-blocks.rst b/Documentation/gpu/amdgpu/display/dcn-blocks.rst
-index 5e34366f6dbe..756957128dad 100644
---- a/Documentation/gpu/amdgpu/display/dcn-blocks.rst
-+++ b/Documentation/gpu/amdgpu/display/dcn-blocks.rst
-@@ -1,3 +1,5 @@
-+.. _dcn_blocks:
-+
- ==========
- DCN Blocks
- ==========
-diff --git a/Documentation/gpu/amdgpu/display/dcn-overview.rst b/Documentation/gpu/amdgpu/display/dcn-overview.rst
-index 9fea6500448b..eb54a6802e04 100644
---- a/Documentation/gpu/amdgpu/display/dcn-overview.rst
-+++ b/Documentation/gpu/amdgpu/display/dcn-overview.rst
-@@ -1,3 +1,5 @@
-+.. _dcn_overview:
-+
- =======================
- Display Core Next (DCN)
- =======================
-diff --git a/Documentation/gpu/amdgpu/display/index.rst b/Documentation/gpu/amdgpu/display/index.rst
-index f0c342e00a39..bd2d797c123e 100644
---- a/Documentation/gpu/amdgpu/display/index.rst
-+++ b/Documentation/gpu/amdgpu/display/index.rst
-@@ -90,6 +90,7 @@ table of content:
-    display-manager.rst
-    dcn-overview.rst
-    dcn-blocks.rst
-+   programming-model-dcn.rst
-    mpo-overview.rst
-    dc-debug.rst
-    display-contributing.rst
-diff --git a/Documentation/gpu/amdgpu/display/programming-model-dcn.rst b/Documentation/gpu/amdgpu/display/programming-model-dcn.rst
-new file mode 100644
-index 000000000000..c1b48d49fb0b
---- /dev/null
-+++ b/Documentation/gpu/amdgpu/display/programming-model-dcn.rst
-@@ -0,0 +1,162 @@
-+====================
-+DC Programming Model
-+====================
-+
-+In the :ref:`Display Core Next (DCN) <dcn_overview>` and :ref:`DCN Block
-+<dcn_blocks>` pages, you learned about the hardware components and how they
-+interact with each other. On this page, the focus is shifted to the display
-+code architecture. Hence, it is reasonable to remind the reader that the code
-+in DC is shared with other OSes; for this reason, DC provides a set of
-+abstractions and operations to connect different APIs with the hardware
-+configuration. See DC as a service available for a Display Manager (amdgpu_dm)
-+to access and configure DCN/DCE hardware (DCE is also part of DC, but for
-+simplicity's sake, this documentation only examines DCN).
-+
-+.. note::
-+   For this page, we will use the term GPU to refers to dGPU and APU.
-+
-+Overview
-+========
-+
-+From the display hardware perspective, it is plausible to expect that if a
-+problem is well-defined, it will probably be implemented at the hardware level.
-+On the other hand, when there are multiple ways of achieving something without
-+a very well-defined scope, the solution is usually implemented as a policy at
-+the DC level. In other words, some policies are defined in the DC core
-+(resource management, power optimization, image quality, etc.), and the others
-+implemented in hardware are enabled via DC configuration.
-+
-+In terms of hardware management, DCN has multiple instances of the same block
-+(e.g., HUBP, DPP, MPC, etc), and during the driver execution, it might be
-+necessary to use some of these instances. The core has policies in place for
-+handling those instances. Regarding resource management, the DC objective is
-+quite simple: minimize the hardware shuffle when the driver performs some
-+actions. When the state changes from A to B, the transition is considered
-+easier to maneuver if the hardware resource is still used for the same set of
-+driver objects. Usually, adding and removing a resource to a `pipe_ctx` (more
-+details below) is not a problem; however, moving a resource from one `pipe_ctx`
-+to another should be avoided.
-+
-+Another area of influence for DC is power optimization, which has a myriad of
-+arrangement possibilities. In some way, just displaying an image via DCN should
-+be relatively straightforward; however, showing it with the best power
-+footprint is more desirable, but it has many associated challenges.
-+Unfortunately, there is no straight-forward analytic way to determine if a
-+configuration is the best one for the context due to the enormous variety of
-+variables related to this problem (e.g., many different DCN/DCE hardware
-+versions, different displays configurations, etc.) for this reason DC
-+implements a dedicated library for trying some configuration and verify if it
-+is possible to support it or not. This type of policy is extremely complex to
-+create and maintain, and amdgpu driver relies on Display Mode Library (DML) to
-+generate the best decisions.
-+
-+In summary, DC must deal with the complexity of handling multiple scenarios and
-+determine policies to manage them. All of the above information is conveyed to
-+give the reader some idea about the complexity of driving a display from the
-+driver's perspective. This page hopes to allow the reader to better navigate
-+over the amdgpu display code.
-+
-+Display Driver Architecture Overview
-+====================================
-+
-+The diagram below provides an overview of the display driver architecture;
-+notice it illustrates the software layers adopted by DC:
-+
-+.. kernel-figure:: dc-components.svg
-+
-+The first layer of the diagram is the high-level DC API represented by the
-+`dc.h` file; below it are two big blocks represented by Core and Link. Next is
-+the hardware configuration block; the main file describing it is
-+the`hw_sequencer.h`, where the implementation of the callbacks can be found in
-+the hardware sequencer folder. Almost at the end, you can see the block level
-+API (`dc/inc/hw`), which represents each DCN low-level block, such as HUBP,
-+DPP, MPC, OPTC, etc. Notice on the left side of the diagram that we have a
-+different set of layers representing the interaction with the DMUB
-+microcontroller.
-+
-+Basic Objects
-+-------------
-+
-+The below diagram outlines the basic display objects. In particular, pay
-+attention to the names in the boxes since they represent a data structure in
-+the driver:
-+
-+.. kernel-figure:: dc-arch-overview.svg
-+
-+Let's start with the central block in the image, `dc`. The `dc` struct is
-+initialized per GPU; for example, one GPU has one `dc` instance, two GPUs have
-+two `dc` instances, and so forth. In other words we have one 'dc' per 'amdgpu'
-+instance. In some ways, this object behaves like the `Singleton` pattern.
-+
-+After the `dc` block in the diagram, you can see the `dc_link` component, which
-+is a low-level abstraction for the connector. One interesting aspect of the
-+image is that connectors are not part of the DCN block; they are defined by the
-+platform/board and not by the SoC. The `dc_link` struct is the high-level data
-+container with information such as connected sinks, connection status, signal
-+types, etc. After `dc_link`, there is the `dc_sink`, which is the object that
-+represents the connected display.
-+
-+.. note::
-+   For historical reasons, we used the name `dc_link`, which gives the
-+   wrong impression that this abstraction only deals with physical connections
-+   that the developer can easily manipulate. However, this also covers
-+   conections like eDP or cases where the output is connected to other devices.
-+
-+There are two structs that are not represented in the diagram since they were
-+elaborated in the DCN overview page  (check the DCN block diagram :ref:`Display
-+Core Next (DCN) <dcn_overview>`); still, it is worth bringing back for this
-+overview which is `dc_stream` and `dc_state`. The `dc_stream` stores many
-+properties associated with the data transmission, but most importantly, it
-+represents the data flow from the connector to the display. Next we have
-+`dc_state`, which represents the logic state within the hardware at the moment;
-+`dc_state` is composed of `dc_stream` and `dc_plane`. The `dc_stream` is the DC
-+version of `drm_crtc` and represents the post-blending pipeline.
-+
-+Speaking of the `dc_plane` data structure (first part of the diagram), you can
-+think about it as an abstraction similar to `drm_plane` that represents the
-+pre-blending portion of the pipeline. This image was probably processed by GFX
-+and is ready to be composited under a `dc_stream`. Normally, the driver may
-+have one or more `dc_plane` connected to the same `dc_stream`, which defines a
-+composition at the DC level.
-+
-+Basic Operations
-+----------------
-+
-+Now that we have covered the basic objects, it is time to examine some of the
-+basic hardware/software operations. Let's start with the `dc_create()`
-+function, which directly works with the `dc` data struct; this function behaves
-+like a constructor responsible for the basic software initialization and
-+preparing for enabling other parts of the API. It is important to highlight
-+that this operation does not touch any hardware configuration; it is only a
-+software initialization.
-+
-+Next, we have the `dc_hardware_init()`, which also relies on the `dc` data
-+struct. Its main function is to put the hardware in a valid state. It is worth
-+highlighting that the hardware might initialize in an unknown state, and it is
-+a requirement to put it in a valid state; this function has multiple callbacks
-+for the hardware-specific initialization, whereas `dc_hardware_init` does the
-+hardware initialization and is the first point where we touch hardware.
-+
-+The `dc_get_link_at_index` is an operation that depends on the `dc_link` data
-+structure. This function retrieves and enumerates all the `dc_links` available
-+on the device; this is required since this information is not part of the SoC
-+definition but depends on the board configuration. As soon as the `dc_link` is
-+initialized, it is useful to figure out if any of them are already connected to
-+the display by using the `dc_link_detect()` function. After the driver figures
-+out if any display is connected to the device, the challenging phase starts:
-+configuring the monitor to show something. Nonetheless, dealing with the ideal
-+configuration is not a DC task since this is the Display Manager (`amdgpu_dm`)
-+responsibility which in turn is responsible for dealing with the atomic
-+commits. The only interface DC provides to the configuration phase is the
-+function `dc_validate_with_context` that receives the configuration information
-+and, based on that, validates whether the hardware can support it or not. It is
-+important to add that even if the display supports some specific configuration,
-+it does not mean the DCN hardware can support it.
-+
-+After the DM and DC agree upon the configuration, the stream configuration
-+phase starts. This task activates one or more `dc_stream` at this phase, and in
-+the best-case scenario, you might be able to turn the display on with a black
-+screen (it does not show anything yet since it does not have any plane
-+associated with it). The final step would be to call the
-+`dc_update_planes_and_stream,` which will add or remove planes.
-+
--- 
-2.45.2
+On 10/16/2024 3:26 AM, Marek Olšák wrote:
+> On Tue, Oct 15, 2024 at 3:58 AM Arunpravin Paneer Selvam
+> <Arunpravin.PaneerSelvam@amd.com> wrote:
+>> Drop AMDGPU_USERQ_BO_WRITE as this should not be a global option
+>> of the IOCTL, It should be option per buffer. Hence adding separate
+>> array for read and write BO handles.
+>>
+>> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+>> Acked-by: Christian König <christian.koenig@amd.com>
+>> Suggested-by: Marek Olšák <marek.olsak@amd.com>
+>> Suggested-by: Christian König <christian.koenig@amd.com>
+>> ---
+>>   .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   | 238 +++++++++++++-----
+>>   include/uapi/drm/amdgpu_drm.h                 |  48 ++--
+>>   2 files changed, 206 insertions(+), 80 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+>> index 279dece6f6d7..96091a3e9372 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+>> @@ -386,12 +386,14 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
+>>          struct amdgpu_fpriv *fpriv = filp->driver_priv;
+>>          struct amdgpu_userq_mgr *userq_mgr = &fpriv->userq_mgr;
+>>          struct drm_amdgpu_userq_signal *args = data;
+>> +       struct drm_gem_object **gobj_write = NULL;
+>> +       struct drm_gem_object **gobj_read = NULL;
+>>          struct amdgpu_usermode_queue *queue;
+>> -       struct drm_gem_object **gobj = NULL;
+>>          struct drm_syncobj **syncobj = NULL;
+>> +       u32 *bo_handles_write, num_write_bo_handles;
+>>          u32 *syncobj_handles, num_syncobj_handles;
+>> -       u32 *bo_handles, num_bo_handles;
+>> -       int r, i, entry, boentry;
+>> +       u32 *bo_handles_read, num_read_bo_handles;
+>> +       int r, i, entry, rentry, wentry;
+>>          struct dma_fence *fence;
+>>          struct drm_exec exec;
+>>          u64 wptr;
+>> @@ -417,32 +419,59 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
+>>                  }
+>>          }
+>>
+>> -       num_bo_handles = args->num_bo_handles;
+>> -       bo_handles = memdup_user(u64_to_user_ptr(args->bo_handles_array),
+>> -                                sizeof(u32) * num_bo_handles);
+>> -       if (IS_ERR(bo_handles))
+>> +       num_read_bo_handles = args->num_read_bo_handles;
+>> +       bo_handles_read = memdup_user(u64_to_user_ptr(args->bo_handles_read_array),
+>> +                                     sizeof(u32) * num_read_bo_handles);
+>> +       if (IS_ERR(bo_handles_read))
+>>                  goto free_syncobj;
+>>
+>> -       /* Array of pointers to the GEM objects */
+>> -       gobj = kmalloc_array(num_bo_handles, sizeof(*gobj), GFP_KERNEL);
+>> -       if (!gobj) {
+>> +       /* Array of pointers to the GEM read objects */
+>> +       gobj_read = kmalloc_array(num_read_bo_handles, sizeof(*gobj_read), GFP_KERNEL);
+>> +       if (!gobj_read) {
+>>                  r = -ENOMEM;
+>> -               goto free_bo_handles;
+>> +               goto free_bo_handles_read;
+>>          }
+>>
+>> -       for (boentry = 0; boentry < num_bo_handles; boentry++) {
+>> -               gobj[boentry] = drm_gem_object_lookup(filp, bo_handles[boentry]);
+>> -               if (!gobj[boentry]) {
+>> +       for (rentry = 0; rentry < num_read_bo_handles; rentry++) {
+>> +               gobj_read[rentry] = drm_gem_object_lookup(filp, bo_handles_read[rentry]);
+>> +               if (!gobj_read[rentry]) {
+>>                          r = -ENOENT;
+>> -                       goto put_gobj;
+>> +                       goto put_gobj_read;
+>>                  }
+>>          }
+>>
+>> -       drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT, num_bo_handles);
+>> +       num_write_bo_handles = args->num_write_bo_handles;
+>> +       bo_handles_write = memdup_user(u64_to_user_ptr(args->bo_handles_write_array),
+>> +                                      sizeof(u32) * num_write_bo_handles);
+>> +       if (IS_ERR(bo_handles_write))
+>> +               goto put_gobj_read;
+>> +
+>> +       /* Array of pointers to the GEM write objects */
+>> +       gobj_write = kmalloc_array(num_write_bo_handles, sizeof(*gobj_write), GFP_KERNEL);
+>> +       if (!gobj_write) {
+>> +               r = -ENOMEM;
+>> +               goto free_bo_handles_write;
+>> +       }
+>> +
+>> +       for (wentry = 0; wentry < num_write_bo_handles; wentry++) {
+>> +               gobj_write[wentry] = drm_gem_object_lookup(filp, bo_handles_write[wentry]);
+>> +               if (!gobj_write[wentry]) {
+>> +                       r = -ENOENT;
+>> +                       goto put_gobj_write;
+>> +               }
+>> +       }
+>> +
+>> +       drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT,
+>> +                     (num_read_bo_handles + num_write_bo_handles));
+>>
+>>          /* Lock all BOs with retry handling */
+>>          drm_exec_until_all_locked(&exec) {
+>> -               r = drm_exec_prepare_array(&exec, gobj, num_bo_handles, 1);
+>> +               r = drm_exec_prepare_array(&exec, gobj_read, num_read_bo_handles, 1);
+>> +               drm_exec_retry_on_contention(&exec);
+>> +               if (r)
+>> +                       goto exec_fini;
+>> +
+>> +               r = drm_exec_prepare_array(&exec, gobj_write, num_write_bo_handles, 1);
+>>                  drm_exec_retry_on_contention(&exec);
+>>                  if (r)
+>>                          goto exec_fini;
+>> @@ -468,13 +497,20 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
+>>          dma_fence_put(queue->last_fence);
+>>          queue->last_fence = dma_fence_get(fence);
+>>
+>> -       for (i = 0; i < num_bo_handles; i++) {
+>> -               if (!gobj || !gobj[i]->resv)
+>> +       for (i = 0; i < num_read_bo_handles; i++) {
+>> +               if (!gobj_read || !gobj_read[i]->resv)
+>>                          continue;
+>>
+>> -               dma_resv_add_fence(gobj[i]->resv, fence,
+>> -                                  dma_resv_usage_rw(args->bo_flags &
+>> -                                  AMDGPU_USERQ_BO_WRITE));
+>> +               dma_resv_add_fence(gobj_read[i]->resv, fence,
+>> +                                  DMA_RESV_USAGE_READ);
+>> +       }
+>> +
+>> +       for (i = 0; i < num_write_bo_handles; i++) {
+>> +               if (!gobj_write || !gobj_write[i]->resv)
+>> +                       continue;
+>> +
+>> +               dma_resv_add_fence(gobj_read[i]->resv, fence,
+>> +                                  DMA_RESV_USAGE_WRITE);
+>>          }
+>>
+>>          /* Add the created fence to syncobj/BO's */
+>> @@ -486,12 +522,18 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
+>>
+>>   exec_fini:
+>>          drm_exec_fini(&exec);
+>> -put_gobj:
+>> -       while (boentry-- > 0)
+>> -               drm_gem_object_put(gobj[boentry]);
+>> -       kfree(gobj);
+>> -free_bo_handles:
+>> -       kfree(bo_handles);
+>> +put_gobj_write:
+>> +       while (wentry-- > 0)
+>> +               drm_gem_object_put(gobj_write[wentry]);
+>> +       kfree(gobj_write);
+>> +free_bo_handles_write:
+>> +       kfree(bo_handles_write);
+>> +put_gobj_read:
+>> +       while (rentry-- > 0)
+>> +               drm_gem_object_put(gobj_read[rentry]);
+>> +       kfree(gobj_read);
+>> +free_bo_handles_read:
+>> +       kfree(bo_handles_read);
+>>   free_syncobj:
+>>          while (entry-- > 0)
+>>                  if (syncobj[entry])
+>> @@ -506,28 +548,35 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
+>>   int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
+>>                              struct drm_file *filp)
+>>   {
+>> -       u32 *syncobj_handles, *timeline_points, *timeline_handles, *bo_handles;
+>> -       u32 num_syncobj, num_bo_handles, num_points;
+>> +       u32 *syncobj_handles, *timeline_points, *timeline_handles, *bo_handles_read, *bo_handles_write;
+>> +       u32 num_syncobj, num_read_bo_handles, num_write_bo_handles, num_points;
+>>          struct drm_amdgpu_userq_fence_info *fence_info = NULL;
+>>          struct drm_amdgpu_userq_wait *wait_info = data;
+>> +       struct drm_gem_object **gobj_write;
+>> +       struct drm_gem_object **gobj_read;
+>>          struct dma_fence **fences = NULL;
+>> -       struct drm_gem_object **gobj;
+>> +       int r, i, rentry, wentry, cnt;
+>>          struct drm_exec exec;
+>> -       int r, i, entry, cnt;
+>>          u64 num_fences = 0;
+>>
+>> -       num_bo_handles = wait_info->num_bo_handles;
+>> -       bo_handles = memdup_user(u64_to_user_ptr(wait_info->bo_handles_array),
+>> -                                sizeof(u32) * num_bo_handles);
+>> -       if (IS_ERR(bo_handles))
+>> -               return PTR_ERR(bo_handles);
+>> +       num_read_bo_handles = wait_info->num_read_bo_handles;
+>> +       bo_handles_read = memdup_user(u64_to_user_ptr(wait_info->bo_handles_read_array),
+>> +                                     sizeof(u32) * num_read_bo_handles);
+>> +       if (IS_ERR(bo_handles_read))
+>> +               return PTR_ERR(bo_handles_read);
+>> +
+>> +       num_write_bo_handles = wait_info->num_write_bo_handles;
+>> +       bo_handles_write = memdup_user(u64_to_user_ptr(wait_info->bo_handles_write_array),
+>> +                                      sizeof(u32) * num_write_bo_handles);
+>> +       if (IS_ERR(bo_handles_write))
+>> +               goto free_bo_handles_read;
+>>
+>>          num_syncobj = wait_info->num_syncobj_handles;
+>>          syncobj_handles = memdup_user(u64_to_user_ptr(wait_info->syncobj_handles_array),
+>>                                        sizeof(u32) * num_syncobj);
+>>          if (IS_ERR(syncobj_handles)) {
+>>                  r = PTR_ERR(syncobj_handles);
+>> -               goto free_bo_handles;
+>> +               goto free_bo_handles_write;
+>>          }
+>>
+>>          num_points = wait_info->num_points;
+>> @@ -545,29 +594,51 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
+>>                  goto free_timeline_handles;
+>>          }
+>>
+>> -       gobj = kmalloc_array(num_bo_handles, sizeof(*gobj), GFP_KERNEL);
+>> -       if (!gobj) {
+>> +       gobj_read = kmalloc_array(num_read_bo_handles, sizeof(*gobj_read), GFP_KERNEL);
+>> +       if (!gobj_read) {
+>>                  r = -ENOMEM;
+>>                  goto free_timeline_points;
+>>          }
+>>
+>> -       for (entry = 0; entry < num_bo_handles; entry++) {
+>> -               gobj[entry] = drm_gem_object_lookup(filp, bo_handles[entry]);
+>> -               if (!gobj[entry]) {
+>> +       for (rentry = 0; rentry < num_read_bo_handles; rentry++) {
+>> +               gobj_read[rentry] = drm_gem_object_lookup(filp, bo_handles_read[rentry]);
+>> +               if (!gobj_read[rentry]) {
+>> +                       r = -ENOENT;
+>> +                       goto put_gobj_read;
+>> +               }
+>> +       }
+>> +
+>> +       gobj_write = kmalloc_array(num_write_bo_handles, sizeof(*gobj_write), GFP_KERNEL);
+>> +       if (!gobj_write) {
+>> +               r = -ENOMEM;
+>> +               goto put_gobj_read;
+>> +       }
+>> +
+>> +       for (wentry = 0; wentry < num_write_bo_handles; wentry++) {
+>> +               gobj_write[wentry] = drm_gem_object_lookup(filp, bo_handles_write[wentry]);
+>> +               if (!gobj_write[wentry]) {
+>>                          r = -ENOENT;
+>> -                       goto put_gobj;
+>> +                       goto put_gobj_write;
+>>                  }
+>>          }
+>>
+>> -       drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT, num_bo_handles);
+>> +       drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT,
+>> +                     (num_read_bo_handles + num_write_bo_handles));
+>>
+>>          /* Lock all BOs with retry handling */
+>>          drm_exec_until_all_locked(&exec) {
+>> -               r = drm_exec_prepare_array(&exec, gobj, num_bo_handles, 0);
+>> +               r = drm_exec_prepare_array(&exec, gobj_read, num_read_bo_handles, 0);
+>> +               drm_exec_retry_on_contention(&exec);
+>> +               if (r) {
+>> +                       drm_exec_fini(&exec);
+>> +                       goto put_gobj_write;
+>> +               }
+>> +
+>> +               r = drm_exec_prepare_array(&exec, gobj_write, num_write_bo_handles, 0);
+>>                  drm_exec_retry_on_contention(&exec);
+>>                  if (r) {
+>>                          drm_exec_fini(&exec);
+>> -                       goto put_gobj;
+>> +                       goto put_gobj_write;
+>>                  }
+>>          }
+>>
+>> @@ -608,13 +679,21 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
+>>                  }
+>>
+>>                  /* Count GEM objects fence */
+>> -               for (i = 0; i < num_bo_handles; i++) {
+>> +               for (i = 0; i < num_read_bo_handles; i++) {
+>>                          struct dma_resv_iter resv_cursor;
+>>                          struct dma_fence *fence;
+>>
+>> -                       dma_resv_for_each_fence(&resv_cursor, gobj[i]->resv,
+>> -                                               dma_resv_usage_rw(wait_info->bo_wait_flags &
+>> -                                               AMDGPU_USERQ_BO_WRITE), fence)
+>> +                       dma_resv_for_each_fence(&resv_cursor, gobj_read[i]->resv,
+>> +                                               DMA_RESV_USAGE_READ, fence)
+>> +                               num_fences++;
+>> +               }
+>> +
+>> +               for (i = 0; i < num_write_bo_handles; i++) {
+>> +                       struct dma_resv_iter resv_cursor;
+>> +                       struct dma_fence *fence;
+>> +
+>> +                       dma_resv_for_each_fence(&resv_cursor, gobj_write[i]->resv,
+>> +                                               DMA_RESV_USAGE_WRITE, fence)
+>>                                  num_fences++;
+>>                  }
+>>
+>> @@ -640,14 +719,30 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
+>>                          goto free_fence_info;
+>>                  }
+>>
+>> -               /* Retrieve GEM objects fence */
+>> -               for (i = 0; i < num_bo_handles; i++) {
+>> +               /* Retrieve GEM read objects fence */
+>> +               for (i = 0; i < num_read_bo_handles; i++) {
+>>                          struct dma_resv_iter resv_cursor;
+>>                          struct dma_fence *fence;
+>>
+>> -                       dma_resv_for_each_fence(&resv_cursor, gobj[i]->resv,
+>> -                                               dma_resv_usage_rw(wait_info->bo_wait_flags &
+>> -                                               AMDGPU_USERQ_BO_WRITE), fence) {
+>> +                       dma_resv_for_each_fence(&resv_cursor, gobj_read[i]->resv,
+>> +                                               DMA_RESV_USAGE_READ, fence) {
+>> +                               if (WARN_ON_ONCE(num_fences >= wait_info->num_fences)) {
+>> +                                       r = -EINVAL;
+>> +                                       goto free_fences;
+>> +                               }
+>> +
+>> +                               fences[num_fences++] = fence;
+>> +                               dma_fence_get(fence);
+>> +                       }
+>> +               }
+>> +
+>> +               /* Retrieve GEM write objects fence */
+>> +               for (i = 0; i < num_write_bo_handles; i++) {
+>> +                       struct dma_resv_iter resv_cursor;
+>> +                       struct dma_fence *fence;
+>> +
+>> +                       dma_resv_for_each_fence(&resv_cursor, gobj_write[i]->resv,
+>> +                                               DMA_RESV_USAGE_WRITE, fence) {
+>>                                  if (WARN_ON_ONCE(num_fences >= wait_info->num_fences)) {
+>>                                          r = -EINVAL;
+>>                                          goto free_fences;
+>> @@ -763,14 +858,19 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
+>>          }
+>>
+>>          drm_exec_fini(&exec);
+>> -       for (i = 0; i < num_bo_handles; i++)
+>> -               drm_gem_object_put(gobj[i]);
+>> -       kfree(gobj);
+>> +       for (i = 0; i < num_read_bo_handles; i++)
+>> +               drm_gem_object_put(gobj_read[i]);
+>> +       kfree(gobj_read);
+>> +
+>> +       for (i = 0; i < num_write_bo_handles; i++)
+>> +               drm_gem_object_put(gobj_write[i]);
+>> +       kfree(gobj_write);
+>>
+>>          kfree(timeline_points);
+>>          kfree(timeline_handles);
+>>          kfree(syncobj_handles);
+>> -       kfree(bo_handles);
+>> +       kfree(bo_handles_write);
+>> +       kfree(bo_handles_read);
+>>
+>>          return 0;
+>>
+>> @@ -782,18 +882,24 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
+>>          kfree(fence_info);
+>>   exec_fini:
+>>          drm_exec_fini(&exec);
+>> -put_gobj:
+>> -       while (entry-- > 0)
+>> -               drm_gem_object_put(gobj[entry]);
+>> -       kfree(gobj);
+>> +put_gobj_write:
+>> +       while (wentry-- > 0)
+>> +               drm_gem_object_put(gobj_write[wentry]);
+>> +       kfree(gobj_write);
+>> +put_gobj_read:
+>> +       while (rentry-- > 0)
+>> +               drm_gem_object_put(gobj_read[rentry]);
+>> +       kfree(gobj_read);
+>>   free_timeline_points:
+>>          kfree(timeline_points);
+>>   free_timeline_handles:
+>>          kfree(timeline_handles);
+>>   free_syncobj_handles:
+>>          kfree(syncobj_handles);
+>> -free_bo_handles:
+>> -       kfree(bo_handles);
+>> +free_bo_handles_write:
+>> +       kfree(bo_handles_write);
+>> +free_bo_handles_read:
+>> +       kfree(bo_handles_read);
+>>
+>>          return r;
+>>   }
+>> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+>> index eeb345ddbf57..8d21e765094b 100644
+>> --- a/include/uapi/drm/amdgpu_drm.h
+>> +++ b/include/uapi/drm/amdgpu_drm.h
+>> @@ -443,9 +443,6 @@ struct drm_amdgpu_userq_mqd_compute_gfx_v11 {
+>>          __u64   eop_va;
+>>   };
+>>
+>> -/* dma_resv usage flag */
+>> -#define AMDGPU_USERQ_BO_WRITE  1
+>> -
+>>   /* userq signal/wait ioctl */
+>>   struct drm_amdgpu_userq_signal {
+>>          /**
+>> @@ -475,20 +472,32 @@ struct drm_amdgpu_userq_signal {
+>>           */
+>>          __u64   syncobj_point;
+>>          /**
+>> -        * @bo_handles_array: An array of GEM BO handles used by the userq fence creation
+>> -        * IOCTL to install the created dma_fence object which can be utilized by
+>> +        * @bo_handles_read_array: An array of GEM read BO handles used by the userq fence
+>> +        * creation IOCTL to install the created dma_fence object which can be utilized by
+>> +        * userspace to synchronize the BO usage between user processes.
+> This should just say: The list of BO handles that the submitted user
+> queue job is using for read only. This will update BO fences in the
+> kernel.
+>
+> Internal kernel details shouldn't be here. This file should only
+> document the observed behavior, not the implementation. This applies
+> to all comments in this file.
+>
+> Similar for the BO handles write array.
+sure, will modify it in the next version.
+
+Thanks,
+Arun.
+>
+> Marek
+>
+>> +        */
+>> +       __u64   bo_handles_read_array;
+>> +       /**
+>> +        * @bo_handles_write_array: An array of GEM write BO handles used by the userq fence
+>> +        * creation IOCTL to install the created dma_fence object which can be utilized by
+>>           * userspace to synchronize the BO usage between user processes.
+>>           */
+>> -       __u64   bo_handles_array;
+>> +       __u64   bo_handles_write_array;
+>> +       /**
+>> +        * @num_read_bo_handles: A count that represents the number of GEM read BO handles in
+>> +        * @bo_handles_read_array.
+>> +        */
+>> +       __u32   num_read_bo_handles;
+>>          /**
+>> -        * @num_bo_handles: A count that represents the number of GEM BO handles in
+>> -        * @bo_handles_array.
+>> +        * @num_write_bo_handles: A count that represents the number of GEM write BO handles in
+>> +        * @bo_handles_write_array.
+>>           */
+>> -       __u32   num_bo_handles;
+>> +       __u32   num_write_bo_handles;
+>>          /**
+>>           * @bo_flags: flags to indicate BOs synchronize for READ or WRITE
+>>           */
+>>          __u32   bo_flags;
+>> +       __u32   pad;
+>>   };
+>>
+>>   struct drm_amdgpu_userq_fence_info {
+>> @@ -542,20 +551,31 @@ struct drm_amdgpu_userq_wait {
+>>           */
+>>          __u64   syncobj_timeline_points;
+>>          /**
+>> -        * @bo_handles_array: An array of GEM BO handles defined to fetch the fence
+>> +        * @bo_handles_read_array: An array of GEM read BO handles defined to fetch the fence
+>>           * wait information of every BO handles in the array.
+>>           */
+>> -       __u64   bo_handles_array;
+>> +       __u64   bo_handles_read_array;
+>> +       /**
+>> +        * @bo_handles_write_array: An array of GEM write BO handles defined to fetch the fence
+>> +        * wait information of every BO handles in the array.
+>> +        */
+>> +       __u64   bo_handles_write_array;
+>>          /**
+>>           * @num_syncobj_handles: A count that represents the number of syncobj handles in
+>>           * @syncobj_handles_array.
+>>           */
+>>          __u32   num_syncobj_handles;
+>>          /**
+>> -        * @num_bo_handles: A count that represents the number of GEM BO handles in
+>> -        * @bo_handles_array.
+>> +        * @num_read_bo_handles: A count that represents the number of GEM BO handles in
+>> +        * @bo_handles_read_array.
+>> +        */
+>> +       __u32   num_read_bo_handles;
+>> +       /**
+>> +        * @num_write_bo_handles: A count that represents the number of GEM BO handles in
+>> +        * @bo_handles_write_array.
+>>           */
+>> -       __u32   num_bo_handles;
+>> +       __u32   num_write_bo_handles;
+>> +       __u32   pad;
+>>          /**
+>>           * @userq_fence_info: An array of fence information (va and value) pair of each
+>>           * objects stored in @syncobj_handles_array and @bo_handles_array.
+>> --
+>> 2.34.1
+>>
 
