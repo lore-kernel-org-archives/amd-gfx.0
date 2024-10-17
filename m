@@ -4,148 +4,162 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 597A0D2F7FA
-	for <amd-gfx@archiver.kernel.org>; Thu, 17 Oct 2024 07:56:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5BB8D1AD45
+	for <amd-gfx@archiver.kernel.org>; Thu, 17 Oct 2024 07:59:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D990910E301;
-	Thu, 17 Oct 2024 07:56:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 772AA10E7B9;
+	Thu, 17 Oct 2024 07:59:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="VRa0kZbI";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="g8n8aYnM";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2051.outbound.protection.outlook.com [40.107.237.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E317710E301
- for <amd-gfx@lists.freedesktop.org>; Thu, 17 Oct 2024 07:56:57 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on2089.outbound.protection.outlook.com [40.107.96.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C5CD010E7B4;
+ Thu, 17 Oct 2024 07:59:31 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZgOMb3XwnBsC2DMp2z4g1hn2AeP7Mils/41itvJd8+heGLIU+TcgbaVQWvoCUPet+CRmo4ii7w/p31NbVLeKU2Lyc6+2tTr/xcyTMYwuvVDxJTPbkhU4UAo6xUD9PBUgcV5HDzhj9nimddJ1VQ/ws0F9Dbwnq7F2AbmM6YeQ2Zx1J5t7th1UPq2ezxv2y2Z435w3s8/YFPCZtqFoR/wBuWXV+CW7811zGgkwNoSP+Q7A14BCpG19ySVxkWxV8euHcsXy1MpQtBqKkLD9kI2M1avT1efgwC5gRrI4wnjPmpevSHFmP9ykL/bxm50ACJy0EKPGmn7SdnsCnuo9zqZkCw==
+ b=n93WxdVp93NeYoCE1dQuzzUZxkeejg7+3+7Cm0GqColzVS0YRkgqe1RVnSiJ9KxWRYVcbfCEm2f9eiWW4ox7x2n27Az6/N14cEcyKypnLWTmKD/PSUpa0ydaCYekvy6EDNhXMsaUGGTotL3OAP+Y8AtUIfHexdONa/0Hxd8lDgUca1Ewx/Xkl6bbyWYRV5YdKvzLhdtTM0ctoExebgFjKgeCmLFCYnf83SlIkoke2LNshK+u4rkoC/eB2mPoCVMcV89UJ3DSdsXvh7JkgYk3lAA7ddxrsoVUyB2cxU0ui+23DEdio6idlNG4+2IWfolHhF57oUhXHrDyH8wFhLZ9ug==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AnXVhgP50vF6K4Hlv0sMdKuiTG/dU98uhXYHuZmY8kY=;
- b=KEuWrSVPpNc1uLbONlfUCET14Dk6ugVyhrZB6b94hgN4LhBDPK7fPiZXoA9VeZGkgFo5MtW++H2NAa+XqmneVqinMz9KQYLHp0gFckC6VE1QJs9f5cYsPSCRbSDEzDkQywhEEo/9MKlBgIkP1BDjAt56SbKSkFZ05YicIyaGFAPqUmo/l86G1a8BJ8ZZRBpx1lKUt32hxrT6djMqai6+xlD0XwPOoWycTLNA0wFYtFax8dblR8g7hJw+2kRcV8R5ovytJKQxCOLsHso8pJO/NQXKd8R56l/hFuuGHJ34uBNibnW6GnjTTvGK2j4MKU7cwR/vYlQ3osh+p1DC827ung==
+ bh=wtciJvTw6sXJJ0DPXoLPNdRorlLls+O+sOCaFYjnCRU=;
+ b=ork8m5lZ4kF6v1ghAYSL/9mx8C0N6mY1xGS0+3ynJWDVHSDok3VTbSyX+gqN7qdkfzo7gGrFCOF/uXmoL7oESIlcrcIPB36pCYJ3LznoopDwg5HfoBUNPamqi4wyoPPpAODgPb5jm210kFM1Mk/rumAwYNKqbGQS3qr6nykfPf68nxJlGYZaTig7jl46I1PJXnFROGyQGtT5T5cJKeu5xlaPjWHqnNx2wNJErOCK2UNMzTUDw5X1b3+i5uKAzXpFDvstkIE88KTi/3tzSeTdi8kF8eO4hUNck0cDFVXhgQCgfCWNDVwICaif/z/35/0lmd7h50wuE2AEoIcYodlWWw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AnXVhgP50vF6K4Hlv0sMdKuiTG/dU98uhXYHuZmY8kY=;
- b=VRa0kZbIbeJNDnz1Iv73M/OaQD79rdySz2FCI4XyHqgCJ6a7VotSY5ZM5O39MPWqH+LxclUn3FLNriWxsdowS8REjOuaTIdtcZg45JM/6/LkyhAodXdciHHxZhQDikO0cLcdmu3kZRTOeknINwBiMhDb9HwE6HGui9m3pvlv2wE=
+ bh=wtciJvTw6sXJJ0DPXoLPNdRorlLls+O+sOCaFYjnCRU=;
+ b=g8n8aYnMV5ONeUQMhV7XRhJ2meYOH2ECXnxGndomeSGtIzcoBfonOPfxUTEaKr3ibQa7ybZFiMjXDsXj7btMlMotq1XLqCNawb8vJNYDcit8mCtA0QItibOcSN+QDraLLL9NCPfzDbJbNLJHn5GlFrIsjikkhwvcspp7z3zRJ+I=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
- CYYPR12MB8750.namprd12.prod.outlook.com (2603:10b6:930:be::18) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.8048.19; Thu, 17 Oct 2024 07:56:51 +0000
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::8327:d71a:ce21:a290]) by DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::8327:d71a:ce21:a290%5]) with mapi id 15.20.8048.020; Thu, 17 Oct 2024
- 07:56:51 +0000
-Message-ID: <dad2b821-aee5-4a5d-baef-4af7fc5ee8c0@amd.com>
-Date: Thu, 17 Oct 2024 13:26:44 +0530
+Received: from SJ0PR12MB5673.namprd12.prod.outlook.com (2603:10b6:a03:42b::13)
+ by MN0PR12MB6152.namprd12.prod.outlook.com (2603:10b6:208:3c4::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8069.18; Thu, 17 Oct
+ 2024 07:59:27 +0000
+Received: from SJ0PR12MB5673.namprd12.prod.outlook.com
+ ([fe80::ec7a:dd71:9d6c:3062]) by SJ0PR12MB5673.namprd12.prod.outlook.com
+ ([fe80::ec7a:dd71:9d6c:3062%6]) with mapi id 15.20.8048.020; Thu, 17 Oct 2024
+ 07:59:27 +0000
+Message-ID: <9b720b21-6195-408c-88bf-a092e0e7555c@amd.com>
+Date: Thu, 17 Oct 2024 09:59:10 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/pm: update deep sleep status on smu v14.0.2/3
-To: "Feng, Kenneth" <Kenneth.Feng@amd.com>,
- "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20241016071919.2138181-1-kenneth.feng@amd.com>
- <PH7PR12MB59978FA51CE8CF4FE824B9DA82462@PH7PR12MB5997.namprd12.prod.outlook.com>
- <DM4PR12MB5165E79EEDD00A4F1DFE25478E462@DM4PR12MB5165.namprd12.prod.outlook.com>
+Subject: Re: [PATCH v7 1/5] drm: Introduce device wedged event
+To: Raag Jadav <raag.jadav@intel.com>, airlied@gmail.com, simona@ffwll.ch,
+ lucas.demarchi@intel.com, thomas.hellstrom@linux.intel.com,
+ rodrigo.vivi@intel.com, jani.nikula@linux.intel.com,
+ andriy.shevchenko@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ tursulin@ursulin.net, lina@asahilina.net
+Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, himal.prasad.ghimiray@intel.com,
+ francois.dugast@intel.com, aravind.iddamsetty@linux.intel.com,
+ anshuman.gupta@intel.com, andi.shyti@linux.intel.com,
+ matthew.d.roper@intel.com, boris.brezillon@collabora.com,
+ adrian.larumbe@collabora.com, kernel@collabora.com, maraeo@gmail.com,
+ friedrich.vock@gmx.de, michel@daenzer.net, joshua@froggi.es,
+ alexander.deucher@amd.com, andrealmeid@igalia.com,
+ amd-gfx@lists.freedesktop.org
+References: <20240930073845.347326-1-raag.jadav@intel.com>
+ <20240930073845.347326-2-raag.jadav@intel.com>
+ <ZxB6yKRrgvCoRK7y@black.fi.intel.com>
 Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <DM4PR12MB5165E79EEDD00A4F1DFE25478E462@DM4PR12MB5165.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN3PR01CA0035.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:97::14) To DS0PR12MB7804.namprd12.prod.outlook.com
- (2603:10b6:8:142::5)
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <ZxB6yKRrgvCoRK7y@black.fi.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR3P281CA0133.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:94::20) To SJ0PR12MB5673.namprd12.prod.outlook.com
+ (2603:10b6:a03:42b::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB7804:EE_|CYYPR12MB8750:EE_
-X-MS-Office365-Filtering-Correlation-Id: f05120d3-5cb1-41c5-7876-08dcee814277
+X-MS-TrafficTypeDiagnostic: SJ0PR12MB5673:EE_|MN0PR12MB6152:EE_
+X-MS-Office365-Filtering-Correlation-Id: e74ca235-90ea-440f-8823-08dcee819f28
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?Qk8zVExYWVVucHpNZmUzcUNqUG9weXlGdkRMbUU4aVVKTG8zZkZjV2RYNnFj?=
- =?utf-8?B?Szk1SkViSkR0VlI5ZUNtUDFlM0ZPUlJtWWVEUnF3blVxbldncjBva1RYUVpT?=
- =?utf-8?B?RXRNUFBmdEVPRWtPV1ZiUlViT3g1bWJXZldhWmJsemRQNE1nY0ZiOGYxVHl2?=
- =?utf-8?B?WUV6Y0ZvcE9ZM1FKVEJoR01jT0VOamhuK3UrRnVBNlFwbm9neFJ2RUt3ZjFp?=
- =?utf-8?B?WTdMVXdGMGlOOHpDVEdVaHg1bUZLREcxamIwa1N3bGdCWExETHZYRWF1UnF2?=
- =?utf-8?B?REx4N1M2bVl2eXdEZkdJRzZJN1Y1Wmoxc0tnaHdyZERTdmJYcDFNZ1h6LzdD?=
- =?utf-8?B?SjdTaUMvVkltK09IdTlGdzZKNmt4alRzRVoyVjluV2FwTE8xdnpJSDFNNkF6?=
- =?utf-8?B?Q3I2aWFESHBQUDU0T3htKzQzVEl5NTd1RXBXWHVvbjhhdnpKZnVpM09rSUhh?=
- =?utf-8?B?eWQvT2dEUlhGdmFMQ2hOSUhUUFltSjRZM2RNTktKbUwrN1hjRzg4ZkdPdXFs?=
- =?utf-8?B?MzRlclhUWHR6STROamlYekhXZmFIZWlFMkI0WDhzNjI2TUNnMStSNmRhZ3Iz?=
- =?utf-8?B?QmpXVVdISEdjaTNCVGg2VFp0QkpIR09XYkZsVXhZUG5nZHlBVXAycHFFY2Jn?=
- =?utf-8?B?ci9HNVord1lLcENOb1RNekJIV0t4N1c4NTRHVnl6Mm1sOFovbm1sNWRweVFu?=
- =?utf-8?B?OVlWUDQzaG1IZGVoMllHb25ESmZHdnFYQ0EyS09ySTVHbHAxYzVzWE9JVTVk?=
- =?utf-8?B?SllOZUl6RzVRRUhmWG8wMXlSNFhXUDB3ZjhKaE1lOEdab3FQWFVHd25pYXFh?=
- =?utf-8?B?STJ6UHYxUGVhWW9DdFUvNVNieVVTaWxUQlpmM2Zjc0VFQVUvZmZENnBoSWFk?=
- =?utf-8?B?eUl5NzkxamgzWUFyZDcramxaRlkwd0RlV1ZmRnM3Um1TRm1JTmFXL1dialZw?=
- =?utf-8?B?YzBEOVR3TU5ueGp6VjdwV3FxV1JFa0xFYXRSc29OQ2FyejV4anFzdVdZSURh?=
- =?utf-8?B?aFV0bUwwcW9iTHFSMEIyN2RoTXg0UVZyV01VWGtrV25Rc2ErVXVwU0FvdjZm?=
- =?utf-8?B?MGJwU1YxNytxU0VHRGJER0xPajJlTGduTTRFY2NqWUtudEhGVVpramhNdVJ5?=
- =?utf-8?B?Q3NYdDc1OWxXclowSURVb1RBT1ZSK1ovb3djajFYNkpDVXBmVEJyaUwzclM2?=
- =?utf-8?B?OXg4MWJXN2xVdWZaUTBDYnl3UmZWK3hLVHg5TTR1ZjBjOWJIWXU5MU9zNllQ?=
- =?utf-8?B?ckZ3SkJhblhwaFNpdS9VNzI3N1RxZ3IxbE91NVRqR0JZQ1BTQUwwYldDN1FJ?=
- =?utf-8?B?M0Fac2t3QTdvT2NrSVIzLzdJTk9KRUQzNnlrS05aWllaUFBQT3lrbTJEaTlj?=
- =?utf-8?B?UmtNRmdvSXZzNFVvMXdkT1ZBS0ZhLzZPU1VYVWNSUFMvUlE2TWxCWEd6NWI0?=
- =?utf-8?B?SGRTT1hmOGdpZEs4MXV1aFlCTVJJSDhGMU9XdmYxTHlCTlR1VzJPdVVWSFRn?=
- =?utf-8?B?NzlxOS9ib3lER25XazhWZUxBVTJkajByUTBSd0JPZDVQbHJ2TzYwY2FWODZ5?=
- =?utf-8?B?WlV2MytFcE1TdHdOWVZaZmdvbDhTeHpsSmJhaU85ajVaeGFOQlFnM3dlNWkz?=
- =?utf-8?B?SGxKYzhxcnVGdGZaNGEzcUVoaVV4cFA1VHlJdnloQjBWUHNON01nOUlhK2tm?=
- =?utf-8?B?MHRhSEdnalM0clhvUDcxOTB4UFVMV0owbG82Q1Q2N1RNRUNvdEFjLzN3SEla?=
- =?utf-8?Q?EbbLW1plO9w6iRxZCosQkW9+M81+ke+up4iXTZa?=
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|7416014|366016|921020; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?MHI5VEJOSTcxQ2drenNDU1pIQjh2UmcybzljR2xoQzQ4cDJTUnh3MkQwWlNk?=
+ =?utf-8?B?b0Y5ejlqTmF2WHdPQTlHRnQ4RWIrcEJYV1BXb0hkRWZzQ3dVaFNPeDdab0VZ?=
+ =?utf-8?B?ZElKMDRmVGxiR05rUzJVZGJzQlBDT3Z0T0hsdUVZLzVIcVEvdTJuTE8zdmUr?=
+ =?utf-8?B?Q3N4VWJpWHZrRGI5cXFhcFdxNzFCdUYxeDE1UDg4RCtMYUJsb0NlRTU5Nm0r?=
+ =?utf-8?B?dVhCTFFhSkVvdXNjSXN3Tml1aEdqa0xFc0t4clFEbzF4bmFhZ1RXejhuenhQ?=
+ =?utf-8?B?QWFNUStCd2VlbWVPSmxRS0UyOHFIYy9aVlg5MndxdjVybFdWSXRtS1VpSGhR?=
+ =?utf-8?B?VGlnb3FmVXptWjBZL3dPWFRTbXBpYjBweDZ3c3A0aC9XQ0RSSDJvUHdqSHk3?=
+ =?utf-8?B?SjJEYXIxRXh6YWtsQ01mL21wQ1JzRE4ycXpQUWcyQmNlNlBYazlCZFdEa001?=
+ =?utf-8?B?bUVDY2RpamhsbmttL3gxZFYxbFkyODVJdlpwYVpsdVRuUFNUVXNvYy9Nb3RW?=
+ =?utf-8?B?ZGg1d2lTcGhxSWZUWTRvamc2QUNuMmVNUUhHZ0x1YnNFZE93ckFxVXhvamR2?=
+ =?utf-8?B?dW40aEFPMVJYT2RNUmFLQkQwVDBvSS9MZlphOVhBNVVxS3B5Z0I4UzhibUU4?=
+ =?utf-8?B?M1lqS3QwdFIxU3RMM25yUjRLdFBzUEd4clE3cVpRdk1UaHk4Q1JNbzdWWGNh?=
+ =?utf-8?B?M29OYVpOeG16L0tBbWVSRWV3YlpReStWTUFpWkExNUkvdE14L1NTRWhyRHhX?=
+ =?utf-8?B?dHl2UURTbkw2ZlVIeUZQd2JpaGNaOUtnZ2J2Mm1UTFZQNVlLOWVMSmNVRlBH?=
+ =?utf-8?B?VE5CUGRPVmhlSTFDaHJvYmpaRkdHams1d01CSit0SkhBMmJVNk5OTE02SVhW?=
+ =?utf-8?B?ZUJ4eFovWW9lOURtek5sbk44cVNlRmlZc285elVFWS9haThKRTFkbGxqbENp?=
+ =?utf-8?B?RGkxbUZDN0Q4ZVdLcnRoVVdpS040THVQenZVemp0dnFSK0ZockZsRWliZ0M0?=
+ =?utf-8?B?UzRjQmpCMzRpWjNISUpuV3ZEZXZWeU9HRHBsdVM1MEFpU3VnaWpiK003Yzd5?=
+ =?utf-8?B?aFJIOTVsVkp5d2lTT1FqVWVvK1JtS2NUak1BdEw2cGFTRDd1MXlXWWl6NlZj?=
+ =?utf-8?B?eWdya0IzdG9wc0Y5NXp4RGFmeDlmaThzd0kyUzg4bEFEUmRqV1Q0QTBlSStI?=
+ =?utf-8?B?cGpackYvY1B0SWtpNndmblhqdjByOXBObGU0MHRqSjZlZHZ3L2ZOODh3U01M?=
+ =?utf-8?B?VGpGZUFVSFhpdDFhdmRLM25EcXlpcGlhMFJlT0hWWmFuckMzaEZRTTFlQitv?=
+ =?utf-8?B?T1h5WjdoK2htZ2hEcFg0cFhMa2JGTnBKdUxuS0NjL3Z6OWh1S3BMY2VlbWU0?=
+ =?utf-8?B?Y2FqemZJMWZjZ2dmWWUvZkZtMGorb2pHMXJFNmlGU0E4ZGdCSml2QlBSQlMr?=
+ =?utf-8?B?MWZHQ1lEQ1d5SzhlVjE1OG9XemhiTUVtNklOS01VYVdhUHRZdU5TYmwvZE5L?=
+ =?utf-8?B?U05Edzhwdkl5bzVWZ1hEU3E5RDMvLzNzQVUxUE55eGY1RHZ5eHloVE9JQlpu?=
+ =?utf-8?B?ZVJNR1VwcXh6bml4OWtmYTJPd0s4K0tUbXhJQjJWeTRxSUFuM3N6eVJSSDhs?=
+ =?utf-8?B?YURVd0dZMTluRnJQS1NWOHpFeUE3SzBUZnlJWXdvbEhGMmJTK0NEaUxJaUpp?=
+ =?utf-8?B?YmNvTm9jQlB4VXZoa3R3N2dyRGNITFp6c1h2WEcrMG1nTkQzNkp4TEdXYTM1?=
+ =?utf-8?B?NTFLTERuUmsvOXNLNkkxNlpKOXp2aW5IYlZQT294eXJxekFCZytxMjVSYVFF?=
+ =?utf-8?B?bGhDbWZGOUZoKzc1NjFlQUFxSWF6VUZnV0R5V1R0L1paMDFZbzZvTFZmeWgr?=
+ =?utf-8?Q?Co1HYhD8qf4Mz?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:SJ0PR12MB5673.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(7416014)(366016)(921020); DIR:OUT; SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eVRyeUs3K2s3M3lNUU5XYWhYQ2NXMWY4RHB1OWhrc1V6dGwrYlVaYzdYV081?=
- =?utf-8?B?WnNqRkl2aWJQMHE2NmlBbzJWVWZYMytQbjFvTUhGUVBVUnd5UXN6NjE1VnBt?=
- =?utf-8?B?T2dnZlhKOWdvcjRrYi9ldEFhalZyeFhRbk8yRGxxUlJydTJIZVdkUDNVOSto?=
- =?utf-8?B?M29BZjJXaWZ5V2RvL081eWNrYVF3LzBzNHVJanc5Q1AvcU5uaVIrM3ZMM1R6?=
- =?utf-8?B?N0UyTTh1eXJWNElPZW1ldThIV0xIcTRwWU1QVVJqTVdRcjFONm1QM0IwWE9q?=
- =?utf-8?B?bXJJVCtkSVIyQ0dDeHJMZjhMam9oMkJJMXlBYVdUdTh1SE9CUUZuZmVOR29Z?=
- =?utf-8?B?VCtwenVvSWc0VnhRZmc4M2Y5d0I5Y3dIaFRvM1RWRnBqOURYRmpNYm5KSktz?=
- =?utf-8?B?RGJiTWlJUCtlRUNRRlBYZUZjWTc5YytHbTVWR01maUFSd0cxS1ZLcE1XT0lP?=
- =?utf-8?B?Ukpvbk9oTkR3TmMrQjRJMElUdGFST1N5ZVEvSEdtU3E0SExOWlNVd3AyYmpo?=
- =?utf-8?B?Q0JleStRQVVhUXRJUEdaTVh0TkFTa056VmR6bjNwbVZJYXFBWW9vaEsrTlNN?=
- =?utf-8?B?akJnL2g4VitkdVdCVjRENHpLMVZBdkxUdnczOFVPUjZ0R2tvcVJvQ2dWOXd5?=
- =?utf-8?B?THIxeXEvWTdlVURjQTk0SUNLdFZ5REkvYkYvQXhQcGdMaG5UM1dKVTNUUW1P?=
- =?utf-8?B?cFNsejNJQnBSNkpKbTB5Z0hHdnJGaHd5dEJtQ1dUTmN5NWw1bTFBem0xZmh1?=
- =?utf-8?B?K1MzNGhsZXlNelhiWEpDV2FCWlFaTnJVdzQ0bFk2bkdFREpCLy9QeHhIS1Zz?=
- =?utf-8?B?TzdsanI5WnV6Ukp4NHp1b2lXMnNBaGFlTm9ETmxveEM4dXZrdFhjc3BTYkxa?=
- =?utf-8?B?S1YyZGd4QUQ3Znd6SUZ4bVRQbTJ0RmJ4SUFJS09JNllqU3gxYkgxb2FRT243?=
- =?utf-8?B?MVhuUFZiV0VreFlMMlFUQ0VzYXVDZ2Iya05odlRKdzFRNU9US2s4eVQ4cDhV?=
- =?utf-8?B?VVIyTWczb2ZXTTlIaWE4SStCQ1FpT2VoVThIZGNsc3VTVlltWU1ZeXRqeDlL?=
- =?utf-8?B?eWJMNFBZS3J2ZUZNRzMzRTdmRVFka3I2eURWZ3FhcWZGWkVkK1hRdk9Td1hl?=
- =?utf-8?B?WUZnZ0x0SmtNTVFNRjRVT3A2WDJLaUFJYnUwNFhVK3ZHanQxa2tXdU1KMHhQ?=
- =?utf-8?B?Z1dVN0FRbDgyV01Yb3dKUHVLdkdNai9xSHZtUUdVa0UyTzg4VjZ5dU1RbytJ?=
- =?utf-8?B?czc0NXQ2WHBWY1VCNG9zRkp3dnhiaSszVDQxbmxNc2ErcWxLWldmUWE0VFdB?=
- =?utf-8?B?ZTBnRzZvQjJ3SlkyNWNidXgzbW5CajA4MnBFODEwTDgxbWxvRmhkTmlXQVQw?=
- =?utf-8?B?Sk1DRFhYaWJQK2xtbnBpQ0dzN1VFc2g5aDV5WklTV2VQUUNLdnNwaUhyTEIr?=
- =?utf-8?B?NGVncVdwRS90SUJjTzl0Ulo4VjRGOVFJV1NCQ1pjRDJudUxjUi9JbC92UHJx?=
- =?utf-8?B?TnFBNW1JRVJ4cm9ZM0lSS3ZZbkhFOWhzb0M1Mm15dDhJMk5zNGd2WndGQnJv?=
- =?utf-8?B?WUFCNVc0WXd0R25WN1RGYXlkS0FPTmwvbjg3Z25IR0lpSWQzVFVSc1V3WmJX?=
- =?utf-8?B?SVgzMWVlU2gzb2FGaUt1NHF4R1hmSUtCWk01cWlYbjJPd1hwYWU3dG8vajNu?=
- =?utf-8?B?SXFINCtCQVhWVklYVG9leHhRSEVpc2g1MGl4OXI1SWliNG9zbWphV3lFc3hH?=
- =?utf-8?B?cEJVTDMybkw1bFJkZTVsY3BBdE8wYkxKdnFFY21zMWtxd0h5ZFpmS3FBM1Bl?=
- =?utf-8?B?MWJRZS8wTEtOTHErZlN3K01jSi80aXNDT2RHcVd5ZEZ3VWhWd1U5NUVhVzJo?=
- =?utf-8?B?Q2MvUGkrQkhGNDdSOU1LSkQzbUN5K010SnZCUG1Ua1Z1Y2E1a21Wd3NFTmZV?=
- =?utf-8?B?UGR6ZWRDdmZyVjJHeXFOMjJHbkx2VlFPZXg1eTRLZnhEeUY0NWlvSG1JV2tU?=
- =?utf-8?B?R09EUnlYeURmZWhadGppcWtLVVBDZTZocFRHbG5nekdaQ1o0dnFHMjQzZ1FO?=
- =?utf-8?B?amNUNmp2U2ZsM25VYXNnRkprQ1ZvVWxrM09pWTBiRE9BOGN5S1V1K0puV0l5?=
- =?utf-8?Q?te9HjgVI1ynvVlS+wC1v0cI7c?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MjJVdmFsdExBUHBaQjV5MElxLzlDQjlmV2FCdzE2SEp4THdGeDR2RU9Rb2ZF?=
+ =?utf-8?B?eGpGNG9PQkdOOVE1b1VyeVZERVJoRUg4NTB3d3BWcEl1aEFtaHRGNkM4SHpp?=
+ =?utf-8?B?bkk3S0t2S3Y0NkE2WjF0UHlVTWp5V2NCcEpnY0Z5S2ZTVFhxSnMvNkpVLytI?=
+ =?utf-8?B?ZlBGRkNOdkQ5TEdTbXl5TXhncUIyUmEyd1Z2aXhFdXEyL2hzaE9LcG9sNWxM?=
+ =?utf-8?B?M0NKSndsRk4wOU9FRnUzSzFyYUVRUE51RkNJc3MwTUEwbWt5bHI4YlVNUUJR?=
+ =?utf-8?B?THlnUkI0WTgwbnBRQlVxMzBZS0oyQ2RRbUFsSFpsM0J0Q01ndHRpL3ptQ2VH?=
+ =?utf-8?B?N3RzR3J6TU1LanQ0U3pwVTNTTWlBVkpMVDRwaDdubVJ3T0NFL01HbVhGTHNN?=
+ =?utf-8?B?b09lR2hwT2NVQmJVNmJ2OVA2OGlhaDFmc1ZCdy9qVUhScWxycFV3MHNxZXVC?=
+ =?utf-8?B?d1ZaU2tiVStZQmZkRTVUQUdRK1RjemlSMnBITU5vMVBobXhWTjdmajZNaisr?=
+ =?utf-8?B?VDlPS2R3Q2p6SHI5TDNwcGhsWHM5Nm9vbE1kMmhCR0E5UFBvOFh6ckk3R0pE?=
+ =?utf-8?B?MUV4YjRTVkVMTkJyaEp5ZHpiaHVWVmlyaGljUENWQUlHNGtGbmFGQ2x5V1Jz?=
+ =?utf-8?B?SUpjNTVKK1lMRWhIV3VmVFJIdlVlclJwM09TSkltR3h5ZURWWGdCeTZxSHFF?=
+ =?utf-8?B?WWxHMGxaYk5HSyt3N2NLaE03NVg4REhyRytsdWUrcXM4ei9JNFN2aE9LOXYv?=
+ =?utf-8?B?LzZOOVAzTW5NbXIrZGI5TmY4MWFGRUVNanlLMzYxZ2NxSDBUQURwVU5pT2VV?=
+ =?utf-8?B?VGNjSVNEMGhCSEdDTUdFSHIvendkTmd6REtUVGlwNGtxR1dyM05wYm5pWStF?=
+ =?utf-8?B?WlhyZnFhbHdrSlRxZzFwNFY1Q05BQXh3V1hKUitaWiswZGgrSFY1Q1hNN0VN?=
+ =?utf-8?B?Ujk5cGViazAyU3RxZGxpYjRERWxhOWEvMENkeStXcFZNYlZLTHZnR0JpTlVN?=
+ =?utf-8?B?SjVFWjJUOWI2WCtxdUYwSDV0OEM5MjBzQm1pc1lzWVJNeGtkeUc0QmlqQXZC?=
+ =?utf-8?B?aWZhMm1CU2Z1TmNLcWpRcFBTM2lBQXJKNzR6WWxnVnNmVjU5L3BqbkhDZHZn?=
+ =?utf-8?B?WCtwYWx3Yk82a1Zva0hvbzh3ODJEUXVTOHYvTmhHU0JNdkRXenhIdXpmMzNL?=
+ =?utf-8?B?eHJYVGk2M281ejlHZTNML3RnZkFZbTA5WGtJTmZabmRuczlhREpLNThheG9o?=
+ =?utf-8?B?VkRDWTB3emRQbjhPN2l2ZUt0eVlsYXlQSnBQUW5xa1VPT3R5RWs5azkzcDhw?=
+ =?utf-8?B?bmRWTzE3TlB3bEpzK2ZRaUx3LzlKRU4xeU54L1hiZ3lXUDlZV3l0YitvR2hG?=
+ =?utf-8?B?UFAyM0RWOXo2RktJQzNBcVhRUTJRbnBIV0JnVmR0ckcvNUxWWWJDdTBTNGdr?=
+ =?utf-8?B?T1o5SjZ4U2tXQ1dBOUNUN3BsaGFPREVTZVMrMzZDd2Q0K1FFbFlUenlIRlRk?=
+ =?utf-8?B?anRSSEI1QXovbVhiRVFiRnhUNHBSOWtjTTM5QjVYV1grQ29WZEJqdStQWGNZ?=
+ =?utf-8?B?VGhjNDAvR3FKQnN3K1VxQmdKV0VwZkVvQ2VGN1dUSTdsaEpnZ0tyelhsTXRP?=
+ =?utf-8?B?QURXUy92WnZaVzRSWEtzVDdSMlRpRnJrZHNEZnlaekNMdWxKNDAxY0p4WThn?=
+ =?utf-8?B?WkdEODd2SVloYmpmQmRnM0ZPRFlycnhtcXBoZmxzc1ozNnh4ZGljU3FoVTJJ?=
+ =?utf-8?B?NWV3aWMzdUMrQUliYWlHbWhUUnJ4SHRVenVQd08xRG55NzJXa2ovZHQ3bGNH?=
+ =?utf-8?B?WkJSUU5XNFJCeTN3aG9JWXBtVXpxeSt5NHd5a1VMMGljNkc3dThPT0Q4d2FQ?=
+ =?utf-8?B?ZzM3SFlaMkNtQXpRT0RPU2lnbWNrZGdCcHhVOEhWc0ZhVmx5cWdXTUJ4VlhF?=
+ =?utf-8?B?WW1sTWk1b3Fodk5qaVQzczlpUUUzK2VMQ0k3allObkFjaEw2KzRMZkdMMzFU?=
+ =?utf-8?B?VFluaG1VN2sxMTFHVGtHZXo1dnhlVW84OHFaRGs5MUVFWms2YjBzeUluT0cw?=
+ =?utf-8?B?NUZjZXIvVzBLL3pIL1Q3THV0N2FQUlVQaW5iNlBQeVo2YTM1UDFORWxYNzJK?=
+ =?utf-8?Q?Nj9EKcshwHaTw/FHG0b6GXwcm?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f05120d3-5cb1-41c5-7876-08dcee814277
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7804.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e74ca235-90ea-440f-8823-08dcee819f28
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB5673.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Oct 2024 07:56:51.4427 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Oct 2024 07:59:27.0784 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gyl/A8RX6JHwRSKYIZG6hFrVtQ4xsvUe5luJATms0HCc9UuhNyyNg+n2iZhdZk+L
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8750
+X-MS-Exchange-CrossTenant-UserPrincipalName: yxrVT5AUqhiICCDh7Y65ruMDU3JvaxPfuGb2Ya9jyofVOfNd4hVkj45tvmx0D1ie
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6152
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,89 +174,250 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Am 17.10.24 um 04:47 schrieb Raag Jadav:
+> On Mon, Sep 30, 2024 at 01:08:41PM +0530, Raag Jadav wrote:
+>> Introduce device wedged event, which will notify userspace of wedged
+>> (hanged/unusable) state of the DRM device through a uevent. This is
+>> useful especially in cases where the device is no longer operating as
+>> expected even after a hardware reset and has become unrecoverable from
+>> driver context.
 
+Well introduce is probably the wrong wording since i915 already has that 
+and amdgpu looked into it but never upstreamed the support.
 
-On 10/17/2024 5:16 AM, Feng, Kenneth wrote:
-> [AMD Official Use Only - AMD Internal Distribution Only]
-> 
-> [AMD Official Use Only - AMD Internal Distribution Only]
-> 
-> The logic is that when entering the compute workload, enable deep sleep.
-> When exiting the compute workload, disable deep sleep.
-> It's not required to do the deep sleep setting in other workload type.
-> Thanks.
-> 
+I would rather say standardize.
 
-This patch looks good. Please name temp_profile_mode as current_profile
-for clarity and may be comment about smu->power_profile_mode as the
-new/target mode.
+>>
+>> Purpose of this implementation is to provide drivers a generic way to
+>> recover with the help of userspace intervention. Different drivers may
+>> have different ideas of a "wedged device" depending on their hardware
+>> implementation, and hence the vendor agnostic nature of the event.
+>> It is up to the drivers to decide when they see the need for recovery
+>> and how they want to recover from the available methods.
+>>
+>> Current implementation defines three recovery methods, out of which,
+>> drivers can choose to support any one or multiple of them. Preferred
+>> recovery method will be sent in the uevent environment as WEDGED=<method>.
+>> Userspace consumers (sysadmin) can define udev rules to parse this event
+>> and take respective action to recover the device.
+>>
+>>      =============== ==================================
+>>      Recovery method Consumer expectations
+>>      =============== ==================================
+>>      rebind          unbind + rebind driver
+>>      bus-reset       unbind + reset bus device + rebind
+>>      reboot          reboot system
+>>      =============== ==================================
 
-With those -
-	Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+Well that sounds like userspace would need to be involved in recovery.
 
-Thanks,
-Lijo
+That in turn is a complete no-go since we at least need to signal all 
+dma_fences to unblock the kernel. In other words things like bus reset 
+needs to happen inside the kernel and *not* in userspace.
 
+What we can do is to signal to userspace: Hey a bus reset of device X 
+happened, maybe restart container, daemon, whatever service which was 
+using this device.
 
-> 
-> -----Original Message-----
-> From: Wang, Yang(Kevin) <KevinYang.Wang@amd.com>
-> Sent: Wednesday, October 16, 2024 8:38 PM
-> To: Feng, Kenneth <Kenneth.Feng@amd.com>; amd-gfx@lists.freedesktop.org
-> Cc: Feng, Kenneth <Kenneth.Feng@amd.com>
-> Subject: RE: [PATCH] drm/amd/pm: update deep sleep status on smu v14.0.2/3
-> 
-> [AMD Official Use Only - AMD Internal Distribution Only]
-> 
-> -----Original Message-----
-> From: Kenneth Feng <kenneth.feng@amd.com>
-> Sent: Wednesday, October 16, 2024 3:19 PM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Wang, Yang(Kevin) <KevinYang.Wang@amd.com>; Feng, Kenneth <Kenneth.Feng@amd.com>
-> Subject: [PATCH] drm/amd/pm: update deep sleep status on smu v14.0.2/3
-> 
-> disable deep sleep during the compute workload for the potential performance loss on smu v14.0.2/3
-> 
-> Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
-> ---
->  drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-> index 27f4e0ce447d..ecdd11a87311 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-> @@ -1784,7 +1784,7 @@ static int smu_v14_0_2_set_power_profile_mode(struct smu_context *smu,
->         DpmActivityMonitorCoeffInt_t *activity_monitor =
->                 &(activity_monitor_external.DpmActivityMonitorCoeffInt);
->         int workload_type, ret = 0;
-> -
-> +       uint32_t temp_profile_mode = smu->power_profile_mode;
->         smu->power_profile_mode = input[size];
-> 
->         if (smu->power_profile_mode >= PP_SMC_POWER_PROFILE_COUNT) { @@ -1842,6 +1842,11 @@ static int smu_v14_0_2_set_power_profile_mode(struct smu_context *smu,
->                 }
->         }
-> 
-> +       if (smu->power_profile_mode == PP_SMC_POWER_PROFILE_COMPUTE)
-> +               smu_v14_0_deep_sleep_control(smu, false);
-> +       else if (temp_profile_mode == PP_SMC_POWER_PROFILE_COMPUTE)
-> +               smu_v14_0_deep_sleep_control(smu, true);
-> [Kevin]:
-> ﻿
-> This code logic doesn't seem easy to understand, If I understand correctly, can I modify it to the following writing style:
-> ﻿
-> If (new profile != current profile) {
->             smu_v14_0_deep_sleep_control(smu, new profile == compute profile ? false : true);
->             smu->power_profile_mode = new profile.
-> }
-> ﻿
-> Best Regards,
-> Kevin
->         /* conv PP_SMC_POWER_PROFILE* to WORKLOAD_PPLIB_*_BIT */
->         workload_type = smu_cmn_to_asic_specific_index(smu,
->                                                        CMN2ASIC_MAPPING_WORKLOAD,
-> --
-> 2.34.1
-> 
-> 
+Regards,
+Christian.
+
+>>
+>> v4: s/drm_dev_wedged/drm_dev_wedged_event
+>>      Use drm_info() (Jani)
+>>      Kernel doc adjustment (Aravind)
+>> v5: Send recovery method with uevent (Lina)
+>> v6: Access wedge_recovery_opts[] using helper function (Jani)
+>>      Use snprintf() (Jani)
+>> v7: Convert recovery helpers into regular functions (Andy, Jani)
+>>      Aesthetic adjustments (Andy)
+>>      Handle invalid method cases
+>>
+>> Signed-off-by: Raag Jadav <raag.jadav@intel.com>
+>> ---
+> Cc'ing amd, collabora and others as I found semi-related work at
+>
+> https://lore.kernel.org/dri-devel/20230627132323.115440-1-andrealmeid@igalia.com/
+> https://lore.kernel.org/amd-gfx/20240725150055.1991893-1-alexander.deucher@amd.com/
+> https://lore.kernel.org/dri-devel/20241011225906.3789965-3-adrian.larumbe@collabora.com/
+> https://lore.kernel.org/amd-gfx/CAAxE2A5v_RkZ9ex4=7jiBSKVb22_1FAj0AANBcmKtETt5c3gVA@mail.gmail.com/
+>
+>
+> Please share feedback about usefulness and adoption of this.
+> Improvements are welcome.
+>
+> Raag
+>
+>>   drivers/gpu/drm/drm_drv.c | 77 +++++++++++++++++++++++++++++++++++++++
+>>   include/drm/drm_device.h  | 23 ++++++++++++
+>>   include/drm/drm_drv.h     |  3 ++
+>>   3 files changed, 103 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
+>> index ac30b0ec9d93..cfe9600da2ee 100644
+>> --- a/drivers/gpu/drm/drm_drv.c
+>> +++ b/drivers/gpu/drm/drm_drv.c
+>> @@ -26,6 +26,8 @@
+>>    * DEALINGS IN THE SOFTWARE.
+>>    */
+>>   
+>> +#include <linux/array_size.h>
+>> +#include <linux/build_bug.h>
+>>   #include <linux/debugfs.h>
+>>   #include <linux/fs.h>
+>>   #include <linux/module.h>
+>> @@ -33,6 +35,7 @@
+>>   #include <linux/mount.h>
+>>   #include <linux/pseudo_fs.h>
+>>   #include <linux/slab.h>
+>> +#include <linux/sprintf.h>
+>>   #include <linux/srcu.h>
+>>   #include <linux/xarray.h>
+>>   
+>> @@ -70,6 +73,42 @@ static struct dentry *drm_debugfs_root;
+>>   
+>>   DEFINE_STATIC_SRCU(drm_unplug_srcu);
+>>   
+>> +/*
+>> + * Available recovery methods for wedged device. To be sent along with device
+>> + * wedged uevent.
+>> + */
+>> +static const char *const drm_wedge_recovery_opts[] = {
+>> +	[DRM_WEDGE_RECOVERY_REBIND] = "rebind",
+>> +	[DRM_WEDGE_RECOVERY_BUS_RESET] = "bus-reset",
+>> +	[DRM_WEDGE_RECOVERY_REBOOT] = "reboot",
+>> +};
+>> +
+>> +static bool drm_wedge_recovery_is_valid(enum drm_wedge_recovery method)
+>> +{
+>> +	static_assert(ARRAY_SIZE(drm_wedge_recovery_opts) == DRM_WEDGE_RECOVERY_MAX);
+>> +
+>> +	return method >= DRM_WEDGE_RECOVERY_REBIND && method < DRM_WEDGE_RECOVERY_MAX;
+>> +}
+>> +
+>> +/**
+>> + * drm_wedge_recovery_name - provide wedge recovery name
+>> + * @method: method to be used for recovery
+>> + *
+>> + * This validates wedge recovery @method against the available ones in
+>> + * drm_wedge_recovery_opts[] and provides respective recovery name in string
+>> + * format if found valid.
+>> + *
+>> + * Returns: pointer to const recovery string on success, NULL otherwise.
+>> + */
+>> +const char *drm_wedge_recovery_name(enum drm_wedge_recovery method)
+>> +{
+>> +	if (drm_wedge_recovery_is_valid(method))
+>> +		return drm_wedge_recovery_opts[method];
+>> +
+>> +	return NULL;
+>> +}
+>> +EXPORT_SYMBOL(drm_wedge_recovery_name);
+>> +
+>>   /*
+>>    * DRM Minors
+>>    * A DRM device can provide several char-dev interfaces on the DRM-Major. Each
+>> @@ -497,6 +536,44 @@ void drm_dev_unplug(struct drm_device *dev)
+>>   }
+>>   EXPORT_SYMBOL(drm_dev_unplug);
+>>   
+>> +/**
+>> + * drm_dev_wedged_event - generate a device wedged uevent
+>> + * @dev: DRM device
+>> + * @method: method to be used for recovery
+>> + *
+>> + * This generates a device wedged uevent for the DRM device specified by @dev.
+>> + * Recovery @method from drm_wedge_recovery_opts[] (if supprted by the device)
+>> + * is sent in the uevent environment as WEDGED=<method>, on the basis of which,
+>> + * userspace may take respective action to recover the device.
+>> + *
+>> + * Returns: 0 on success, or negative error code otherwise.
+>> + */
+>> +int drm_dev_wedged_event(struct drm_device *dev, enum drm_wedge_recovery method)
+>> +{
+>> +	/* Event string length up to 16+ characters with available methods */
+>> +	char event_string[32] = {};
+>> +	char *envp[] = { event_string, NULL };
+>> +	const char *recovery;
+>> +
+>> +	recovery = drm_wedge_recovery_name(method);
+>> +	if (!recovery) {
+>> +		drm_err(dev, "device wedged, invalid recovery method %d\n", method);
+>> +		return -EINVAL;
+>> +	}
+>> +
+>> +	if (!test_bit(method, &dev->wedge_recovery)) {
+>> +		drm_err(dev, "device wedged, %s based recovery not supported\n",
+>> +			drm_wedge_recovery_name(method));
+>> +		return -EOPNOTSUPP;
+>> +	}
+>> +
+>> +	snprintf(event_string, sizeof(event_string), "WEDGED=%s", recovery);
+>> +
+>> +	drm_info(dev, "device wedged, generating uevent for %s based recovery\n", recovery);
+>> +	return kobject_uevent_env(&dev->primary->kdev->kobj, KOBJ_CHANGE, envp);
+>> +}
+>> +EXPORT_SYMBOL(drm_dev_wedged_event);
+>> +
+>>   /*
+>>    * DRM internal mount
+>>    * We want to be able to allocate our own "struct address_space" to control
+>> diff --git a/include/drm/drm_device.h b/include/drm/drm_device.h
+>> index c91f87b5242d..fed6f20e52fb 100644
+>> --- a/include/drm/drm_device.h
+>> +++ b/include/drm/drm_device.h
+>> @@ -40,6 +40,26 @@ enum switch_power_state {
+>>   	DRM_SWITCH_POWER_DYNAMIC_OFF = 3,
+>>   };
+>>   
+>> +/**
+>> + * enum drm_wedge_recovery - Recovery method for wedged device in order of
+>> + * severity. To be set as bit fields in drm_device.wedge_recovery variable.
+>> + * Drivers can choose to support any one or multiple of them depending on
+>> + * their needs.
+>> + */
+>> +enum drm_wedge_recovery {
+>> +	/** @DRM_WEDGE_RECOVERY_REBIND: unbind + rebind driver */
+>> +	DRM_WEDGE_RECOVERY_REBIND,
+>> +
+>> +	/** @DRM_WEDGE_RECOVERY_BUS_RESET: unbind + reset bus device + rebind */
+>> +	DRM_WEDGE_RECOVERY_BUS_RESET,
+>> +
+>> +	/** @DRM_WEDGE_RECOVERY_REBOOT: reboot system */
+>> +	DRM_WEDGE_RECOVERY_REBOOT,
+>> +
+>> +	/** @DRM_WEDGE_RECOVERY_MAX: for bounds checking, do not use */
+>> +	DRM_WEDGE_RECOVERY_MAX
+>> +};
+>> +
+>>   /**
+>>    * struct drm_device - DRM device structure
+>>    *
+>> @@ -317,6 +337,9 @@ struct drm_device {
+>>   	 * Root directory for debugfs files.
+>>   	 */
+>>   	struct dentry *debugfs_root;
+>> +
+>> +	/** @wedge_recovery: Supported recovery methods for wedged device */
+>> +	unsigned long wedge_recovery;
+>>   };
+>>   
+>>   #endif
+>> diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
+>> index 02ea4e3248fd..d8dbc77010b0 100644
+>> --- a/include/drm/drm_drv.h
+>> +++ b/include/drm/drm_drv.h
+>> @@ -462,6 +462,9 @@ bool drm_dev_enter(struct drm_device *dev, int *idx);
+>>   void drm_dev_exit(int idx);
+>>   void drm_dev_unplug(struct drm_device *dev);
+>>   
+>> +const char *drm_wedge_recovery_name(enum drm_wedge_recovery method);
+>> +int drm_dev_wedged_event(struct drm_device *dev, enum drm_wedge_recovery method);
+>> +
+>>   /**
+>>    * drm_dev_is_unplugged - is a DRM device unplugged
+>>    * @dev: DRM device
+>> -- 
+>> 2.34.1
+>>
+
