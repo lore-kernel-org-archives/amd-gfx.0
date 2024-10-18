@@ -4,116 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29BCBD3F28A
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Oct 2024 20:21:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50212D3F28A
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Oct 2024 20:23:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD25510E1BA;
-	Fri, 18 Oct 2024 20:21:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E356310E387;
+	Fri, 18 Oct 2024 20:23:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="umC58xdC";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="LZ9dPzOo";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2048.outbound.protection.outlook.com [40.107.92.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F10910E387
- for <amd-gfx@lists.freedesktop.org>; Fri, 18 Oct 2024 20:21:42 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2080.outbound.protection.outlook.com [40.107.100.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B50C110E387;
+ Fri, 18 Oct 2024 20:23:47 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iyFyh4/j2DK2jN+kWnHoYVrlYXsfycuYLh4W/KXTNRjd7nWq8MO9ZljKcBhJRA2cef+LHwIt72SaChg+9NnDosfUq3mgNF7LAPCLGUCQJ8CgABnTjU2B/LTWScqa3mwOm0KxKPjHs8YgcNCMarwuVv5LuuIwot7egKp9izVZxNBAUhQhsC0QbHPr2HUIHFgji1i+buEVgcYsBL00QZJA3Hpgd1cCJfAJUgXvB1nSIgCrEKMo6f3kJtEXrQokrgbEeKbsu8fcRp4AIAUJ/TqHW+ywzY+siSTTUcPBQJPFnk5F+fCHh4UGWkKUbZU9mkQLFhbzUqVw5pWVWVjz4Blkbw==
+ b=p9a1x/1TidZZVSd3xwHY4RGplmwnqMpZwQoxzrCsC8LQF9huBq2mT6y6+aXPU/9rFOLsXT2vbFhZr7D5f+rWkipPxUsRVQ1rkveV6Q1KOJRcyui86AGsAzNtgnAhY9QPEYaC+396iNmzEowl5ugC+onqRhrOG0UQFNsr+JZdLJ5/cl9IXGX77fpb0uZmKcLOLz93MmFOZgSa2fAkKh0rG8rzpHhl3Jn6Kefr/d4mK6ovKlcOBIZO2bSElOu814XDO8nzGYOWxU4xTZdDkR2Hm3UPSXvasVMiaoIDtuzbfLcoqsXCaZ9Kiv6QLHJNzgyT5bqFNBxOj/5awqeURLlQLQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tPSUdNt+tGZ1t4WhRlm7+Z/NZE23V7Ua0vjf/d2tsR8=;
- b=nxfybYpXidsSh/BNbrpyShd1oPvC5gD8S9ZPWMcq3o00Zw92aCITivvLLsftmmdgA6mtE5HienUFlev3rxsYooD/aOnXuqNFrk4DyuVVDW2EAd9TYBzPmzzBoVrwZCULD72bySakABsw6R9JThHY3xluHrUeHyEIWeeluwA3nVf3NU1fQDPucdvuZxFjfN7zzYj/6h+JYasluI/fBJW3e8sBpAOvAPnjE4niAA0XgQ3jsTeaeh4WgSP7YFOFxcm99h0ACfVUOcHWjKzXLCF/ACmFqzBOtRxjQcv8yahAPXILx47opq329E/V4cQ08fHO5Q5ywqn2FNyeKzi4hYnOXw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=LrMcM7/Pd9ugsG0kur0a1smZ0skUCfuFVZ/idlnoZdM=;
+ b=LbSB51LThxoEoj9u+CuJ4PyMjkAms3WETcLmR7mMUg9Nar7lFfSx2MZKbHRnAH87sfOGPSE+QEhLaD071wT1DdAQaJRvmoLNu/xBJXydfzhfyrU66el9WnaP3W9saUS+qtUDVDQcS6xo4U0FuKywV1hF08jh79yuEdKzenrQNx9Dq0owyCmK93XxESf2NhzXjgMLvUxQbFA3ZfaIYmnZGHkroDVwBoovfIL6mJ0/hn8igM/7g0UUOnZCwwMQ02/9AVL7C1WT3gzCGQww8YVh3kYNYgTS7Jp0WYWHiU6qNzx1s1SSm+XSULO4NOF3hsBp7Mk81YKKhZTZim8EJZ7GpA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tPSUdNt+tGZ1t4WhRlm7+Z/NZE23V7Ua0vjf/d2tsR8=;
- b=umC58xdCTkQ/0qoBI+/xjDUxTjlzH4hWvilcRP4st4hUnu7Nr71NkLDlYLw168SI57C7KQIZ5bT9YN57uB0zk2g8cjiNPEjmADpiRmdg0JeWQJ80PawFUAbm7XukBABKpzmUhGwDH0AIryXFx3Okposk6MMrB6b391Wf3CV//vk=
-Received: from BN9PR03CA0137.namprd03.prod.outlook.com (2603:10b6:408:fe::22)
- by PH7PR12MB9126.namprd12.prod.outlook.com (2603:10b6:510:2f0::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8069.20; Fri, 18 Oct
- 2024 20:21:39 +0000
-Received: from BN2PEPF00004FC0.namprd04.prod.outlook.com
- (2603:10b6:408:fe:cafe::53) by BN9PR03CA0137.outlook.office365.com
- (2603:10b6:408:fe::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8069.18 via Frontend
- Transport; Fri, 18 Oct 2024 20:21:38 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN2PEPF00004FC0.mail.protection.outlook.com (10.167.243.186) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8069.17 via Frontend Transport; Fri, 18 Oct 2024 20:21:38 +0000
-Received: from krussell.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 18 Oct
- 2024 15:21:37 -0500
-From: Kent Russell <kent.russell@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <felix.kuehling@amd.com>, Kent Russell <kent.russell@amd.com>
-Subject: [PATCH] amdgpu: Don't print L2 status if there's nothing to print
-Date: Fri, 18 Oct 2024 16:21:28 -0400
-Message-ID: <20241018202128.97719-1-kent.russell@amd.com>
-X-Mailer: git-send-email 2.43.0
+ bh=LrMcM7/Pd9ugsG0kur0a1smZ0skUCfuFVZ/idlnoZdM=;
+ b=LZ9dPzOoS6q8py3WvzFpP61Nmy6hY//XLt3T1D2ohGZvyJI4riBwBjRI7s6DUE+UAv5re/mKaBH+iClS3zMwBTK95SFV+ErZEzaxi8HR97MvemL5j1kWsgGpSxoNC3Y9E6zSyyhpinmUBrYySNTQ1jOLpe3yPPwTO8BmElt7MYA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
+ by IA0PR12MB8349.namprd12.prod.outlook.com (2603:10b6:208:407::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8069.19; Fri, 18 Oct
+ 2024 20:23:44 +0000
+Received: from DM4PR12MB8476.namprd12.prod.outlook.com
+ ([fe80::2ed6:28e6:241e:7fc1]) by DM4PR12MB8476.namprd12.prod.outlook.com
+ ([fe80::2ed6:28e6:241e:7fc1%3]) with mapi id 15.20.8069.020; Fri, 18 Oct 2024
+ 20:23:44 +0000
+Message-ID: <b02828e1-cf14-4968-9739-7961b910315b@amd.com>
+Date: Fri, 18 Oct 2024 14:23:41 -0600
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 42/44] drm/colorop: Add 3D LUT supports to color
+ pipeline
+To: Simon Ser <contact@emersion.fr>, Harry Wentland <harry.wentland@amd.com>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ wayland-devel@lists.freedesktop.org
+References: <20241003200129.1732122-1-harry.wentland@amd.com>
+ <20241003200129.1732122-43-harry.wentland@amd.com>
+ <W3Axn6bFNOkhZFPsRFRYAbmZno5mB1cyoecUKsIjsKIK5PRuT5cqddb9rHDFqg5fTCU5m9wT13G4Bt1GNR4DVpSHrAFXVX1FR83pedIfzBs=@emersion.fr>
+Content-Language: en-US
+From: Alex Hung <alex.hung@amd.com>
+In-Reply-To: <W3Axn6bFNOkhZFPsRFRYAbmZno5mB1cyoecUKsIjsKIK5PRuT5cqddb9rHDFqg5fTCU5m9wT13G4Bt1GNR4DVpSHrAFXVX1FR83pedIfzBs=@emersion.fr>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQBPR01CA0073.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:3::9) To DM4PR12MB8476.namprd12.prod.outlook.com
+ (2603:10b6:8:17e::15)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF00004FC0:EE_|PH7PR12MB9126:EE_
-X-MS-Office365-Filtering-Correlation-Id: e54cbd01-c81d-4d62-3f79-08dcefb27876
+X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|IA0PR12MB8349:EE_
+X-MS-Office365-Filtering-Correlation-Id: d8baeb2a-580d-4db6-0bf5-08dcefb2c391
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|36860700013|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?Qn2LY9qHMKj5BXmsvLGdtd6eglFm/cSRH8zHwQorkNOBf7wno+YyhnmdmSR2?=
- =?us-ascii?Q?iFkB6Sd8AUXf23GqCScXuK3DtqCsUFfnbctMhBtStvXjxzD1kPKLnOvr0+v1?=
- =?us-ascii?Q?ftyQCyeAG8z0YTkJgtxX2IkL7j1PC01yu8eAHnH9AHKOwEbagcyF/JTx3/Q2?=
- =?us-ascii?Q?eEC2DZL/tpL245AqXu46iuZsjPI8x+v+cpZot5gac3LkfqMDGRyZmnblN7Ks?=
- =?us-ascii?Q?rlCDIiRvl+iYdVnGMG29KcZDq6k8/JpcN+GHZ9FCa0N8nCE1CqF3JqxW11c3?=
- =?us-ascii?Q?TtTZACy5M5apMop57OaJbPPPkynjUcXRb2eH9CeGi3ub0Tw0jRaljqkrqvNY?=
- =?us-ascii?Q?JtK08KKggb5CBOiJEfuvHwBasHD8TfK+/EHkCEfThkAknFi3uje8H+ijD0I7?=
- =?us-ascii?Q?ThV3KLdnl5QpYSTFoT8J5UbPj4+70zA1K3q+fORN0wr7DXhb9gXFiZz12hBl?=
- =?us-ascii?Q?HQHC4Vt8cR4noWnnFC9YmKpc5VwJqa3Rz5IAJ7DivoK3t3c6UP8Q/vv2jzsR?=
- =?us-ascii?Q?JjSG7ycg9aEEDbNM8fzZKIt7A2iUIb4tECelri6WK1GlDIFErCxFRMUIfyy3?=
- =?us-ascii?Q?+x1NAUkmoAwhYbCem9gYH505YZkv6gmNESASxP4jSKfhIPg/wFk+aLu2EH9e?=
- =?us-ascii?Q?pyvd0oMQbb3P0pU0yEf5Qf+p23+PymehhjrMthSLHRiIRcVe5kCo0ND29KkR?=
- =?us-ascii?Q?dAoz28SeV5WIeX0cTGJO/0Ad75r0bLhjzH3YNp79CiMc4apAXe2b7RMy3qVR?=
- =?us-ascii?Q?8zki6tY05a9EwN/rKRl06Tl1EA+tIWPWQk/HM7kTpK5NYO0sJBNL3uzPoL0+?=
- =?us-ascii?Q?QuokKsUfX+SnV6Jo7hRRqSuwX/M8kFUbX1g83ijWMNDXnZBBai+lRWqLjhLy?=
- =?us-ascii?Q?zvje5g1TGr4qv8XAlKJ0uszvi8u7zc5nTZGeusx9JbiYQqBIcju7yUf9ZsXl?=
- =?us-ascii?Q?jf87mINAZ3icGJ2aedjExBmGBvt6v4HUPajH5bzESQC/tEzcxMFacaIoE2Sh?=
- =?us-ascii?Q?ARrEFpmwrq1g2hNPPjNz1ey9KUJ61W0wgI/qY9RfThxeDyntPXAkOXBzX/O+?=
- =?us-ascii?Q?yeFeEY2WHMmuAKvHfW41pj4QSKvEtJIBVLkAcl3el6WMo4/G3RalsRlRX9Ji?=
- =?us-ascii?Q?bM0Jnk9Mm3WHHwYAIzBSeXsQT3Tl+c2wCvy0p6RSY0l2ytXhTiK5PzTGjvs8?=
- =?us-ascii?Q?+sKBjRtteLhsvcGf0UmZUlLQU/kjDLrIa2nEDFbpg2TSkCPvVw1WV0yVOL3I?=
- =?us-ascii?Q?GLdws+t0j3Er5kH5a3ZZt3ISXPMVlZ0XDOkEsc9xSOTcBPLPjgn/8pOfQwQX?=
- =?us-ascii?Q?mrfAzh+Uo1RwoeGuCL7LuJ8ZyMIl41GvbYgYW3XffqzITOD7aAW1lIGsKgU0?=
- =?us-ascii?Q?nJw7bPqMISgYGXir8eVdg6ItwWlV07N8GS0f1SIm6oEzaStpYQ=3D=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(36860700013)(82310400026); DIR:OUT;
- SFP:1101; 
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?b09nZ2NPNUlyM3M3dHlJN3h1VnVGMUZxcXJTWmtyelRxUnorZmU5akFzbU9z?=
+ =?utf-8?B?YWVjalEreTBOeWc5L0JEVmtiNEFWUytmZFVvT0JiN1EycFVEMG5mTzFITTEy?=
+ =?utf-8?B?QjBmNlVwbHFubWZodFN4TFVqNjR1OU0wZGJuaEVudnp0SGxlWG5CSlRJaGx2?=
+ =?utf-8?B?YUJKamxKclFWRmFZNGcvaXRmbWdwVm5zaUpJZ1lOam5qZzVwekROK1lnYVVI?=
+ =?utf-8?B?OXFyWmxyTHpKN3BYWG5mVmNUNFIzWGgrdE9Wb1F6UytNV21SS0pXVE9QNENR?=
+ =?utf-8?B?WkR1QUd4amU3QWloVFJmdldsVG1jeHZxbm80Y05vK3dqaXJuc2JqaDEwUFlx?=
+ =?utf-8?B?WnJaOE9TNG9PTDdFK2dBcGh2MGdVeWhsdDg5eXdhZGVEWDIzdXV4ekgxLzM5?=
+ =?utf-8?B?UW9KWklVVGJKaFNIUWxoeUJqZWp6d1EzK2JXeG1teCtoL3BpTTA1aVJhSDVi?=
+ =?utf-8?B?RDBZSzNERmZYVFFQM1dLN3hLd0ZPR0FUNzZJcTRvS25PVFg2aEw5RjBqVXl6?=
+ =?utf-8?B?aDNhSDRoTmNLTkJQSUpEd3YxbzdCNk5ZdEE2dDJTOEljWm84QVI1RmlVYUZm?=
+ =?utf-8?B?ZkFhNGJEbFBucVY4RmlLVzdCTHVEY0gzR3MvVVdUNG1tMVd2N1pjRzIwYjRo?=
+ =?utf-8?B?dVJxMnIzNHJQVDNma2hzTFp6N01ZVC85bGQyRHp2V0prUzVBYVQvbXNVK3pC?=
+ =?utf-8?B?NDJqejQxVmVSdVZ4aDJEZmxjVW9CTTA0WjVDVEpjQThSNkdjVHlsZ1oyc2lh?=
+ =?utf-8?B?STBnZmlQclNtc2VVc3haS2RUblpKc1REeG9iTktWc2ZGQmVPazIvb3FnZzcv?=
+ =?utf-8?B?YVVsWTJWeVduYVFRSGpzTnZScXR3elYvY1g1VjJqZ24vdFZrSUVTU0h2MHRt?=
+ =?utf-8?B?SEdhaW40bVVXbEMvSjgweUhpakV5NktodDA3NEVveUFiUUEzZCt1UzJMUzBx?=
+ =?utf-8?B?Qm8vTjJISzMzOS9MZjlTbTZDZnhzTlNvU0FyOWJPTzRyYmEzUndkVkFrYTNQ?=
+ =?utf-8?B?QTVYMkwrZzhleG9TWWRoNVlSVmdtVXRNT0pOTFg2aE93OGpUYW5Gbm5jYkd0?=
+ =?utf-8?B?LzJ6WDlMSExHd0NpNC9salF0WitWeEttUkw0bTRIMmFVNkp4cTBjcGsvT1p5?=
+ =?utf-8?B?QjFOemp0aWJvOS9Ka1psTjNSZW9UL3ZNYUlzM3g4RVVqM0t5S3dUM3JlRUNL?=
+ =?utf-8?B?V2luVjI2WFdNd2NLSTRNeWRIU3RpY2dadG5jaE9pUFVLbEtsSktMTGFIaWw1?=
+ =?utf-8?B?azlQNXkvaFVTUUd5VXhxWjF4cENTQVhXK0laUjk0QkYvalFqRytIWGhqOCtG?=
+ =?utf-8?B?dGF6VmMxMit6elE0QjRtUXNmU210SFh4NXVCeVhvaHRYSFRqcUsyTXpicjN0?=
+ =?utf-8?B?amNsenNZL2lBNGY3bDBtRTlKMUhJa3lCTmRJc0FlcmJubHI4LysvcEd6cGRi?=
+ =?utf-8?B?S1NTMitaUlQ2N0xVZnpaYlE1ZG54alpHRkdITmJKNzlJeHhkS3NaYmc5a2NQ?=
+ =?utf-8?B?MUFRS0NMSU1ZUmg0enUyVEhLWGVPOGdKeVFsOEVuV1d2eGd2V3JIcll2NTh4?=
+ =?utf-8?B?WUd4b1RUVnpScXFBbkM5WmJpTWV1TElyYlY5azBvbUpqM0ErYzNoeWVyRFNX?=
+ =?utf-8?B?bFhxcEpOeHUybzFkNDRXZEJvZVRoYkxGeGtJVGxvQWtNUm8rTDJkY0VPWFcz?=
+ =?utf-8?B?MHI5SXN5WVhqQzEyYXBvNHNhSXQ0YnNkeWdBRlBBUG8xUmwrSWpETmZRdTh4?=
+ =?utf-8?Q?619gz8pznohshXcc8ovOwYU/JyrFxw51yMy5ee1?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bUpiZnpoWm10MWFVenVkbzlKaUFVNnA4U2haK2Z3VkcrMU9RbmJqNUMwbDZn?=
+ =?utf-8?B?a2hxK3hKUEt5T04rMHQ3b0toK3lDYndxMGw3OWwxSTNpZU83ZjJrbHQxdFJN?=
+ =?utf-8?B?RENob0I5NUdKak4vendJSWZyQ1ZmdWFibWdpK3pobjJQRVpYMnhjeGsrdjRu?=
+ =?utf-8?B?TVkyQmFlOXRSVmFjSzhqbXJlNjF3NGRMbVhyUjJaMFgyTXdxTmo4T3B6bEtk?=
+ =?utf-8?B?UkNodWt0bXdubGUrOHh6K1I3azBNWXhzZXZJdERPWU1La3JFNUV5a214Zkg5?=
+ =?utf-8?B?aVlJekxvdGtUeUdZcnZWdk5QUmFkRFovVVh4Njc4VDh0ejY3UERqR2xWSzQ3?=
+ =?utf-8?B?VXR1dWhXUFF3SnR5SlVoMXVjWkszbGhCckRCVUROeGxpeVlsQndWdjBYcjNl?=
+ =?utf-8?B?eFpuWUNkTUFMYk9nMVdFVjlucDFSQUhCUHFXS1B5MjdZYmxCYWlNMDBoK3ZL?=
+ =?utf-8?B?eVJyWWhGNnJIbHNYaW5QcktzM3c1WHRncTJDNFNBUlk5QVZEbkw1UjdGT0xq?=
+ =?utf-8?B?cktQS2NjQWZDK3FwS1hBKzcwamp0TWtZUVVhc3N4Q0xKVlArclVlR010Qksv?=
+ =?utf-8?B?WEVRU0VidkFjUTdLbFhXUXJWOWNPTGs2QzZkYXFqNFBBZDRIbmhKR0pnRTZi?=
+ =?utf-8?B?YTZwM3hEQzMvVkpLZHA0K2M0SlpZelR6OFg0eEJob3ZuRWVuREVZRmlVMG1r?=
+ =?utf-8?B?VGVGeVpVRVZ1ZWJsSTAvVCtMcGdQYnhjZXBoWXR2eHNpelVFYjJGbEVEOWk5?=
+ =?utf-8?B?eHU0QTRXbkl6bHl5S2krdDlnd3pGNWxSbjN1YjZmcklmbmREcHpQSlExM2dC?=
+ =?utf-8?B?eUladDBNMnh4WkFoRGFodU1aTDhIbm1GT3VDdUQ5anB6WDMyOThxSFEyVFJB?=
+ =?utf-8?B?ZVhzNkN2WHFBTDgxRmhKZWx3U2E4cnl2dDA5ZjRRamZDMUJ6eHFwT3RCOTVP?=
+ =?utf-8?B?emF3bmxDbHVKYVhjei9YWmF6ZTdzbm0yNGhlZWRWK3QxdmcyRHFrK29xQm1P?=
+ =?utf-8?B?VlRWOUowdHpWSm1Oa043TzhMRHkyWUxJNXN3aTJ2QmFZMU0ySEtxb2s0S3lZ?=
+ =?utf-8?B?SHBYZlVycll1dTIzRG9xZ2lnbXdJRnN6NnZEbm1sYWxsNmw0UlVtN2x3Z1dG?=
+ =?utf-8?B?Y1g5QnVTbThXSk5xNUFxM0M5ZVRsakwwSEpwMWZ2eTQxbDA2N1NYUG96a0JB?=
+ =?utf-8?B?ajlhKzkyZjFSZVRFc2NXM3FsUWlaYkhPekpVNkpYVGJDUGRPSTBZTi9zOFFC?=
+ =?utf-8?B?MUNGaFE3Y2RrUEZURDN3N21sdVZBNUNUdUxWSG4wd2Z5Q0Q3bEpCTjVrRVR2?=
+ =?utf-8?B?RFVZemxFNGhEZ3RvbFRQZEJBWjl1ekxDdHZjaUp1T0YxcmpqY2NWWEtCcnBV?=
+ =?utf-8?B?dDJYOTkzSGZiQlhoZnVMTWlGLzdCNWlqMmlqaHIxS2VQeWhrc1A2clpGSndR?=
+ =?utf-8?B?T0g4TFU3aDJJQ294N3NpYXAwems5Q3kvcTk1NnFvWHFKdVh2UTVwMUgzZ28z?=
+ =?utf-8?B?bCtVeHFkVlNXUVNVS0ZHblVubFhIdU4xZEN6SzJsQlZ2MG4rSVo5TjNvSXAy?=
+ =?utf-8?B?cEp0SFdGV1hHVlNjTk9BRUFjcXUyQTJoU2Z1UWZKdm9ML2dPeUdvclczRFRL?=
+ =?utf-8?B?b0pPN1kvSHZxUEFJdlFkN1RvalRJV05YaTJIdnF5cEF4MDVabDVuS2F2azZw?=
+ =?utf-8?B?NzdtS2lXd0pwV0tZVW52SUp4ZmZKNFBDWFI0TFRaTDNVNDljSzFCb3g5eS8y?=
+ =?utf-8?B?NktPcEliaVlNdFluczV0aWRvamhFSUFXb2JuMG1aNVpIcllxQTB0SVAvczg4?=
+ =?utf-8?B?c1FlZyt4aTJnd3Yzdm1xMmJMcHFhMEQxeDZWbTNJYXlwQTk1cGxjWEJaS0lW?=
+ =?utf-8?B?enFKNFJaNzVJNm5OMkJJMjI4UlJrbWdpQVZ0cGxuTGV4VkZwWlA2dEJvOThM?=
+ =?utf-8?B?V1U2ZWh3SUkwN1VyY3dBcFhZdjVJcTVQcnVxNWh0aXBLV3FkM2FYTmlTVE10?=
+ =?utf-8?B?M1hCMlYvQS9WYVpzZVZrWmVSbDZ0dUFxM3M3UEYzSi9PNXY5bG84d0E3QllO?=
+ =?utf-8?B?RXBENnhUbFRDQjdTMENjbHdDM2VDdVZ4U3dkRFdqcDZWWlVnZ091YmpPSXJL?=
+ =?utf-8?Q?67y0ulCK3RhvZ8hqWo1iK+oBr?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Oct 2024 20:21:38.3375 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e54cbd01-c81d-4d62-3f79-08dcefb27876
+X-MS-Exchange-CrossTenant-Network-Message-Id: d8baeb2a-580d-4db6-0bf5-08dcefb2c391
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Oct 2024 20:23:44.5726 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF00004FC0.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB9126
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: o31xUBuozA2wzNgXabQT9ilzhgw/pfuoJRRlBxKc4sKjJ8/BibVEhRBPu/Hom1j/jlcjHWIK0VxV5VB/uI2gxQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8349
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,85 +161,174 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-If a 2nd fault comes in before the 1st is handled, the 1st fault will
-clear out the FAULT STATUS registers before the 2nd fault is handled.
-Thus we get a lot of zeroes. If status=0, just skip the L2 fault status
-information, to avoid confusion of why some VM fault status prints in
-dmesg are all zeroes.
 
-Signed-off-by: Kent Russell <kent.russell@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c | 5 ++++-
- drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c | 5 ++++-
- drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c | 5 ++++-
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c  | 6 ++++++
- 4 files changed, 18 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-index 5cf2002fcba8..5fe7a1c74ff1 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-@@ -175,7 +175,10 @@ static int gmc_v10_0_process_interrupt(struct amdgpu_device *adev,
- 			addr, entry->client_id,
- 			soc15_ih_clientid_name[entry->client_id]);
- 
--	if (!amdgpu_sriov_vf(adev))
-+	/* Only print L2 fault status if the status register could be read and
-+	 * contains useful information
-+	 */
-+	if (status != 0)
- 		hub->vmhub_funcs->print_l2_protection_fault_status(adev,
- 								   status);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-index 4df4d73038f8..25a3dee27d81 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
-@@ -144,7 +144,10 @@ static int gmc_v11_0_process_interrupt(struct amdgpu_device *adev,
- 		dev_err(adev->dev, "  in page starting at address 0x%016llx from client %d\n",
- 				addr, entry->client_id);
- 
--		if (!amdgpu_sriov_vf(adev))
-+		/* Only print L2 fault status if the status register could be read and
-+		 * contains useful information
-+		 */
-+		if (status != 0)
- 			hub->vmhub_funcs->print_l2_protection_fault_status(adev, status);
- 	}
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-index e33f9e9058cc..3dee7474c06d 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-@@ -137,7 +137,10 @@ static int gmc_v12_0_process_interrupt(struct amdgpu_device *adev,
- 		dev_err(adev->dev, "  in page starting at address 0x%016llx from client %d\n",
- 				addr, entry->client_id);
- 
--		if (!amdgpu_sriov_vf(adev))
-+		/* Only print L2 fault status if the status register could be read and
-+		 * contains useful information
-+		 */
-+		if (status != 0)
- 			hub->vmhub_funcs->print_l2_protection_fault_status(adev, status);
- 	}
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-index 010db0e58650..f43ded8a0aab 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -672,6 +672,12 @@ static int gmc_v9_0_process_interrupt(struct amdgpu_device *adev,
- 	    (amdgpu_ip_version(adev, GC_HWIP, 0) >= IP_VERSION(9, 4, 2)))
- 		return 0;
- 
-+	/* Only print L2 fault status if the status register could be read and
-+	 * contains useful information
-+	 */
-+	if (!status)
-+		return 0;
-+
- 	if (!amdgpu_sriov_vf(adev))
- 		WREG32_P(hub->vm_l2_pro_fault_cntl, 1, ~1);
- 
--- 
-2.43.0
+On 10/13/24 09:58, Simon Ser wrote:
+> On Thursday, October 3rd, 2024 at 22:01, Harry Wentland <harry.wentland@amd.com> wrote:
+> 
+>> From: Alex Hung <alex.hung@amd.com>
+>>
+>> It is to be used to enable HDR by allowing userpace to create and pass
+>> 3D LUTs to kernel and hardware.
+>>
+>> 1. new drm_colorop_type: DRM_COLOROP_3D_LUT.
+>> 2. 3D LUT modes define hardware capabilities to userspace applications.
+>> 3. mode index points to current 3D LUT mode in lut_3d_modes.
+> 
+> Do we really need all of this complexity here?
+> 
+> User-space needs to copy over its 3D LUT to the KMS blob. Kernel needs to
+> copy from the KMS blob when programming hardware. Why do we need a list of
+> different modes with negotiation?
+> 
+> I've heard that some of this complexity has been introduced to add in the
+> future BO-backed LUTs. That would be a nice addition, but it's not here
+> right now, so how can we design for that case when we haven't actually tried
+> implementing it and made sure it actually works in practice?
+> 
+> It would be easy to introduce "modes" (or something different) when the
+> BO-based 3D LUT uAPI is introduced. There are many ways to handle backwards
+> compatibility: new properties can have their defaults set to the previously
+> fixed format/swizzle/etc, a new colorop can be introduced if there are
+> too many conflicts, and worst case new functionality can be gated behind a
+> DRM cap (although I don't think we'd need to resort to this here).
+> 
+> I'd recommend just having one fixed supported format, like we have for
+> 1D LUTs. We can have a read-only props for the size and the color depth,
+> as well as a read-write prop for the data blob.
+> 
+
+That's a good point. I will simplify DRM_COLOROP_3D_LUT implementation 
+and remove 3D LUT mode. It can be used for future BO-based 3D LUT if 
+necessary
+
+In summary:
+
+The attributes to be kept now: lut_size, interpolation and color_depth. 
+The rests can be fixed and documented for userspace.
+
+>> diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
+>> index 5ef87cb5b242..290c2e32f692 100644
+>> --- a/include/uapi/drm/drm_mode.h
+>> +++ b/include/uapi/drm/drm_mode.h
+>> @@ -913,6 +913,90 @@ enum drm_colorop_type {
+>>   	 * property.
+>>   	 */
+>>   	DRM_COLOROP_MULTIPLIER,
+>> +	/**
+>> +	 * @DRM_COLOROP_3D_LUT:
+>> +	 *
+>> +	 * A 3D LUT of &drm_color_lut entries,
+>> +	 * packed into a blob via the DATA property. The driver's expected
+>> +	 * LUT size is advertised via the SIZE property.
+>> +	 */
+>> +	DRM_COLOROP_3D_LUT,
+> 
+> User-space docs are missing many details I believe.
+> 
+>> +};
+>> +
+>> +/**
+>> + * enum drm_colorop_lut3d_interpolation_type - type of 3DLUT interpolation
+>> + *
+>> + */
+>> +enum drm_colorop_lut3d_interpolation_type {
+>> +	/**
+>> +	 * @DRM_COLOROP_LUT3D_INTERPOLATION_TETRAHEDRAL:
+>> +	 *
+>> +	 * Tetrahedral 3DLUT interpolation
+>> +	 */
+>> +	DRM_COLOROP_LUT3D_INTERPOLATION_TETRAHEDRAL,
+>> +};
+>> +
+>> +/**
+>> + * enum drm_colorop_lut3d_traversal_order - traversal order of the 3D LUT
+>> + *
+>> + * This enum describes the order of traversal of 3DLUT elements.
+>> + */
+>> +enum drm_colorop_lut3d_traversal_order {
+>> +	/**
+>> +	 * @DRM_COLOROP_LUT3D_TRAVERSAL_RGB:
+>> +	 *
+>> +	 * the LUT elements are traversed like so:
+>> +	 *   for R in range 0..n
+>> +	 *     for G in range 0..n
+>> +	 *       for B in range 0..n
+>> +	 *         color = lut3d[R][G][B]
+>> +	 */
+>> +	DRM_COLOROP_LUT3D_TRAVERSAL_RGB,
+>> +	/**
+>> +	 * @DRM_COLOROP_LUT3D_TRAVERSAL_BGR:
+>> +	 *
+>> +	 * the LUT elements are traversed like so:
+>> +	 *   for R in range 0..n
+>> +	 *     for G in range 0..n
+>> +	 *       for B in range 0..n
+>> +	 *         color = lut3d[B][G][R]
+>> +	 */
+>> +	DRM_COLOROP_LUT3D_TRAVERSAL_BGR,
+>> +};
+>> +
+>> +/**
+>> + * struct drm_mode_3dlut_mode - 3D LUT mode
+>> + *
+>> + * The mode describes the supported and selected format of a 3DLUT.
+>> + */
+>> +struct drm_mode_3dlut_mode {
+>> +	/**
+>> +	 * @lut_size: 3D LUT size - can be 9, 17 or 33
+>> +	 */
+>> +	__u16 lut_size;
+> 
+> Are "9, 17 or 33" just example values? Or does the kernel actually guarantee
+> that the advertised size can never be something else? It doesn't seem like
+> there is a check, and enforcing it would hinder extensibility (adding new
+> values would be a breaking uAPI change).
+> 
+>> +	/**
+>> +	 * @lut_stride: dimensions of 3D LUT. Must be larger than lut_size
+>> +	 */
+>> +	__u16 lut_stride[3];
+> 
+> It sounds a bit weird to have the driver dictate the stride which must be used.
+> Usually user-space picks and sends the stride to the driver.
+> 
+>> +	/**
+>> +	 * @interpolation: interpolation algorithm for 3D LUT. See drm_colorop_lut3d_interpolation_type
+>> +	 */
+>> +	__u16 interpolation;
+>> +	/**
+>> +	 * @color_depth: color depth - can be 8, 10 or 12
+>> +	 */
+>> +	__u16 color_depth;
+> 
+> Ditto: reading these docs, user-space might not handle any other value.
+> 
+> It would be nice to better explain what this means exactly. Are the output
+> color values truncated at this depth? Or are the LUT values truncated? Or
+> something else?
+> 
+>> +	/**
+>> +	 * @color_format: color format specified by fourcc values
+>> +	 * ex. DRM_FORMAT_XRGB16161616 - color in order of RGB, each is 16bit.
+>> +	 */
+>> +	__u32 color_format;
+> 
+> Do we really need to support many different formats?
+> 
+> User-space needs to perform a copy to the KMS blob anyways, so can easily
+> convert to an arbitrary format while at it.
+> 
+> Is there a use-case that I'm missing?
+> 
+>> +	/**
+>> +	 * @traversal_order:
+>> +	 *
+>> +	 * Traversal order when parsing/writing the 3D LUT. See enum drm_colorop_lut3d_traversal_order
+>> +	 */
+>> +	 __u16 traversal_order;
+> 
+> DRM formats usually have variants for all of the supported/desirable swizzles.
+> For instance we have DRM_FORMAT_XRGB16161616F and DRM_FORMAT_XBGR16161616F.
+> Can't see why we couldn't add more if we need to.
 
