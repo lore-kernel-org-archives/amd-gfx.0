@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB281D3C53F
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Oct 2024 02:31:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CDBAD3C542
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Oct 2024 02:31:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 584EE10E34C;
-	Fri, 18 Oct 2024 02:31:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C394610E34D;
+	Fri, 18 Oct 2024 02:31:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="cCvOheGA";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="lIwM53lR";
 	dkim-atps=neutral
 Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2079.outbound.protection.outlook.com [40.107.92.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BDFEA10E34C
- for <amd-gfx@lists.freedesktop.org>; Fri, 18 Oct 2024 02:31:02 +0000 (UTC)
+ (mail-bn7nam10on2062.outbound.protection.outlook.com [40.107.92.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3051710E34D
+ for <amd-gfx@lists.freedesktop.org>; Fri, 18 Oct 2024 02:31:13 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NuQlRSlsneIpQ6BR4T1re74/HtmMsP1S7T3LG1BVQzK0OE6LDHz2yg7G92Hu8g+CzF3I5JjmHjU5iblJ6A7QJ2zeHBPdFSMlk2GX6LBaXvv9RjMM3AJEbMc1dmgHrZZ7CTsV/4IZDcAsJl3c+YvjfS5s1j/FfN1yZ280W5Voxhb8IMteEDos4CZzC03P/gTpD4by4fN+9UMry6TAoia2A5GJDSVq5kvorXiN4imau5J9IM13OQwrnjuhBEgbnTuz5FMPdYiIQ7/ZZRAsEMKXZfa2dCEIL5dF5DYvFhtRwMPprkcWztph57zaRoOG1Gte5wYczs7RvoJpoa3JTxaxtw==
+ b=PoXfqt7oPobnHdRiWUbR4VZwxfceCD4IASrR/lyAdbFkPteKFAFEf74EBnk+PsFfjzpPSIUxZodkCJHSE6GhEVz1lTABuOKeETK8EmYNIPhw3wOzGynCoOl94TIQZLNTw+7m7kCIFZKXJswEgPDb2tD5JGUh8oGUHHBrPFIdvmctlXkV20mio6ADmDWg7KRJQD9m2KSWgKXwAWY/c8YHu9wxGc7eL5GdLp6qWu5bVF8VDGdNjLaKCEfY+0k83f+ijjAghTgri5MTOlx20h9FLbrs6V6Z74Y7f4J9bD6Ynprd9iO0nfonWpS+IqQsjD30rk/Z2eCrKxynWsk3ycwsFw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=m7lI0KcK7BI7xVknODCJPigEDx1NELUB6WadJCgmd4g=;
- b=EGkYu7mUSqqgEPwgTZg74ajZekJXVLpxUJ4r9jFKy7RFdSOdXcz5a8XdD5IrNhXYbUTA2wJpBIgOQyry0xiQ8dS0LEITsqgA8o7lTJZo1zTXu3vs7x88thQHa2ChlCoeP8E+40IIgdzJHcXpPCZZ5/fSHxMkj58QiIePmJIIbNbiH86z14K5jxZ0fqVEUnkLSbdvJxIpIIuycUjsqrs6RBUEc96lIV370N5neW0yt1EHnPutD4YRlt+QuW9vbhUksjTQyhZPw87P2EidvvWhzj2sKYQFNTzyB0GeO/UYG9X8DoaJYLf5Hspt2TKP/FoP93bZ9lWYkpV5a2RRNqchAg==
+ bh=WYG07dYHoxQOHMpJ9GgiP/qTjO7l6ctRBi/Hm+PfotE=;
+ b=PUDMBF1goRrINt75/rnsABHBjqYmsxjqxnVH4feiLkUr5QABYq0UUxApt4vT5kqeioHpO/uHcYDkS8f2LT4dDYQEXonaYyirTBp+69SinrGxUbaW+8d+sptQNxWOXRac3vYod4bYidGVDe523l479GVj9hJ1Q29+TTgr+c8V8gp2L8eplWg7Sj8FCs+yPh/DaVb5jSfnlpUNnm89IZd7A62/OvRaEF/KBpNcmXUZK63Ojr63lsjR03RNvHvz7NZLoGu11aO1oFN8bh815GfnbVOWHxxhqfaFeUx50y10RYzgNb1TXEiWBhDrYKRCimg8ao1KMH4tJb+2ZVG7JCqdDw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=m7lI0KcK7BI7xVknODCJPigEDx1NELUB6WadJCgmd4g=;
- b=cCvOheGAoAA3S7Suc72ZN9tAb9etV9X+aC1qhRtMjhrWnpeLGWW4TvMepK3ix5MqiexVueIrwd7603rj9Zne4Xz9BIKm5rgsOjqN/+BCA+54X1+hAvm9YrVTShtk82ph7tfdjEgFzrBZSTcwaEwnbstN+QwXxLSqT5RuZeB3Q+4=
-Received: from CH0PR08CA0018.namprd08.prod.outlook.com (2603:10b6:610:33::23)
- by PH0PR12MB8824.namprd12.prod.outlook.com (2603:10b6:510:26f::10)
+ bh=WYG07dYHoxQOHMpJ9GgiP/qTjO7l6ctRBi/Hm+PfotE=;
+ b=lIwM53lR/Z2ZixAXRoOx2kD5qpR34G0CbzAAMv+mVaiDNbUakBiczwTlmnOrq2H2uaihDSc/1qF0aL7IRnXqk3/dVilU2V7sHe8puLB7eWPaPx95HMDBDp3r/+5hy/PsDj9i+zQId5NYTohxPCkm6qleDBUyNhE5oB4uRY/7kjg=
+Received: from CH2PR17CA0001.namprd17.prod.outlook.com (2603:10b6:610:53::11)
+ by MN0PR12MB6127.namprd12.prod.outlook.com (2603:10b6:208:3c5::11)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8048.26; Fri, 18 Oct
- 2024 02:30:58 +0000
-Received: from CH1PEPF0000AD7F.namprd04.prod.outlook.com
- (2603:10b6:610:33:cafe::41) by CH0PR08CA0018.outlook.office365.com
- (2603:10b6:610:33::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8069.18 via Frontend
- Transport; Fri, 18 Oct 2024 02:30:57 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8069.19; Fri, 18 Oct
+ 2024 02:31:08 +0000
+Received: from CH1PEPF0000AD7D.namprd04.prod.outlook.com
+ (2603:10b6:610:53:cafe::1) by CH2PR17CA0001.outlook.office365.com
+ (2603:10b6:610:53::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8069.19 via Frontend
+ Transport; Fri, 18 Oct 2024 02:31:08 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,25 +48,26 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CH1PEPF0000AD7F.mail.protection.outlook.com (10.167.244.88) with Microsoft
+ CH1PEPF0000AD7D.mail.protection.outlook.com (10.167.244.86) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8069.17 via Frontend Transport; Fri, 18 Oct 2024 02:30:57 +0000
+ 15.20.8069.17 via Frontend Transport; Fri, 18 Oct 2024 02:31:08 +0000
 Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 17 Oct
- 2024 21:30:56 -0500
+ 2024 21:30:58 -0500
 Received: from JesseDEV.guestwireless.amd.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39
- via Frontend Transport; Thu, 17 Oct 2024 21:30:55 -0500
+ via Frontend Transport; Thu, 17 Oct 2024 21:30:57 -0500
 From: "Jesse.zhang@amd.com" <jesse.zhang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
  "Jesse.zhang@amd.com" <jesse.zhang@amd.com>
-Subject: [PATCH 1/2] drm/amdgpu: add amdgpu_gfx_sched_mask and
- amdgpu_compute_sched_mask debugfs
-Date: Fri, 18 Oct 2024 10:30:53 +0800
-Message-ID: <20241018023054.1601248-1-jesse.zhang@amd.com>
+Subject: [PATCH 2/2] drm/amdgpu: add amdgpu_sdma_sched_mask debugfs
+Date: Fri, 18 Oct 2024 10:30:54 +0800
+Message-ID: <20241018023054.1601248-2-jesse.zhang@amd.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20241018023054.1601248-1-jesse.zhang@amd.com>
+References: <20241018023054.1601248-1-jesse.zhang@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -74,50 +75,50 @@ Received-SPF: None (SATLEXMB03.amd.com: jesse.zhang@amd.com does not designate
  permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD7F:EE_|PH0PR12MB8824:EE_
-X-MS-Office365-Filtering-Correlation-Id: d36110fe-d8ad-4e44-9fa0-08dcef1ce5e8
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD7D:EE_|MN0PR12MB6127:EE_
+X-MS-Office365-Filtering-Correlation-Id: 18cdd730-6969-4edf-10ed-08dcef1cec8d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|82310400026|376014|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?ZrrsdZ7DovTi4qnBupxWegbP8okDTo/g8qeqhBMiWDmADS1McXj49DDCrLdp?=
- =?us-ascii?Q?l4qACFqpjL7X58N7TPrBUCRAK6t+S0VkUzfbksYt2aR1uEOvM0VvtEkfE6jV?=
- =?us-ascii?Q?Rpjord4REAeB+EA/f7AV5kbi1A2dSGYG5WL1FpfRF8mOlqsPzlrgdS2WojHX?=
- =?us-ascii?Q?Tk46TYVcF95yfknu6Mum/LLE8gUY91zLW7jdCasAFmw9mnHhYOpG+oDvGDVO?=
- =?us-ascii?Q?1E2FkH7Z4L+F42g2hIbHjDsmClngVKJiUO7AXV4MKzhr8durL71hm4sgMx7s?=
- =?us-ascii?Q?Gh3y6adXI+nfx3xn91B7zkE6r6VvnhQVCpTPElZrJuPWGbm6fSOyHMJ51ItR?=
- =?us-ascii?Q?fRJg3zQjQVxcdK4whpyM4n1LFJ6F8+WnVXaHsx732whjlAqe2LxkQDU6kE2L?=
- =?us-ascii?Q?9l/MbMyAsAWlr+Y169CQ5ZnzulBvBsry5gmsrHTQJa1VuF4VFmei8qMS+RPz?=
- =?us-ascii?Q?AYXnjCojiflooydxxP21jHVs5SgcN7YGQGnz91342ee8D+3ME76Hvnm9t0qu?=
- =?us-ascii?Q?IyyNdUiYvJPGI2ACfqaJURUiRfeXeY4gHBm9Kd3yNYEoqz5BcWm+hMCXHL6+?=
- =?us-ascii?Q?g+xmsIJmBLmC4/j4C6CRYfkru1wVuzJMnMPMHA97Mu2qItKsaZMwUUDu993B?=
- =?us-ascii?Q?Ygh0Mg5VEOG47cqSB70ACfPEf9wbEDNB6N0wHezY/hGdfiZVEH8vuHu+gO1V?=
- =?us-ascii?Q?zP+liZ/2P2r1eQCFYshxpZFdiQUeMDGmVV9F8r4wv6elqA6PNwdAQRWv508g?=
- =?us-ascii?Q?DO4zN/otOjKiaJlM2a+8pzTnfKFNPY7DUf4FZq9bqq+b+4rBkTUZQPZFzRVL?=
- =?us-ascii?Q?BrDd61M4K9XXoVsCpscdR+bjSQ1rhpgwncm9NO+3i7bgl3Kdf0xBzYKZsUOI?=
- =?us-ascii?Q?8YtJc0blbVsQbNxOZGIe0DNE/oImqeljLXxSH5QtljDSWY2v3MmUxgCn6TIJ?=
- =?us-ascii?Q?KdNKQmPdZfXthXPCRV2lHXO035wtWByCNHRPkmf4mhtaBbpTPR2JH3UBu9ol?=
- =?us-ascii?Q?s1tQc3csTMSm+5lJxQnh3Ut1wn5EuZSNNuHZ1mwZRMAhdgh7+EeKaF97Qmvu?=
- =?us-ascii?Q?/AqjjnWDCZkcJP6CHqXW3U6tlL5e3S6xBC2Ow/NGiLUerHnA2IUyvT97w/+A?=
- =?us-ascii?Q?G5T286eQbswZgy9iktSpH74KoECnHhfAmkRlwWOHazzM2Rt2BQ9zZBnlYswt?=
- =?us-ascii?Q?VRAqHdYi35wazkkehuAuSSY9s2audyL4ZvfqNr+w/3r4k824jRSX12ApuO3c?=
- =?us-ascii?Q?jWQ9rbbVsU1yS7oPGeRN7dphObWZ3rErUTpNPkE+q6/y2bds/ysyHkheO+lj?=
- =?us-ascii?Q?Z6gbJ0Kx21FAG9vUcbYYFuC9g3yDgN3PGGjclH76iNaK8U0JpJm2QGYwY4wO?=
- =?us-ascii?Q?SzBDKsB2izhHsXAwC3PqxafSlubJyO/8J3k0P10hWoZskj5yMA=3D=3D?=
+ ARA:13230040|82310400026|1800799024|36860700013|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?LjJW0UGcM7xDRZfMgr8gHwuhrbnMvVSsmyQpyE8MleRMt1xj8JVj3J1v9DOb?=
+ =?us-ascii?Q?ay5ll9cAHRBTbCpVjLwYudRKhlYADUq+fEt+mIoveUZnsiBGEWLiUX//Sf9z?=
+ =?us-ascii?Q?MK266ZRi8fztBPSqrSlE1q0p7tev0FZkv1qOxOyPSlZE56P22t4gshVAIopu?=
+ =?us-ascii?Q?Vm3e3sepS6duRURsZUXQ3VkEG/mYcVX4RdJW6tj9FyCd/Dcn3vUEgDGvzS+I?=
+ =?us-ascii?Q?wju8/fQIVeJv3O8ba2Bj5WsCackIngu7BRJHZyP/YPMG0jeVNcIGE+EEiESZ?=
+ =?us-ascii?Q?B/7Clw9zBc3NzM+MdcD1cBlQg4v8jVYyy5+qvmGKbpn5vnLuU5K9Unp82/Gj?=
+ =?us-ascii?Q?d+DUHpH7QJW5hQDdjbsu20pcwyRJ+T1mkbBbgHPO0txt17f2OgMlkXdsAhbW?=
+ =?us-ascii?Q?HbLOP2ubqXLf/GvwwHx/5leZeXO5FVX/NEdQYy3QQSUhzkouXZwqClQ7tmHI?=
+ =?us-ascii?Q?i5aCT3/h0HwuAjCg+JoWEy13UuKIsM2HMxHMJ0xLjQOZ9kBsWtre6HBrJW/u?=
+ =?us-ascii?Q?CToeP0RdeCt2UxdnMpYLqkfuuuFZmSqqLs9MCFVRMh69PPdxYoi5nwoy5jig?=
+ =?us-ascii?Q?nphUnvVAJwZAqsUZET8q5vPVbueAUkJNwZQAaj7kqZeAfHGDg1maVSDQc8pZ?=
+ =?us-ascii?Q?DCVEwjTj9gBUoaCQA2bj6RuJvctYLwLIOLdncheEND+8oQbkTGm6QyBbiyl4?=
+ =?us-ascii?Q?o6PGY924eFHeF/z4bNN29mN02riHVCFfYwGVBqfiEjGb4MizRixSsonrHOmH?=
+ =?us-ascii?Q?MxU/N46LrBHWm9QodgLJFG4DkgsC6XDGaAhWFI2qE6Cu/MTzO1iKoOdqcr3r?=
+ =?us-ascii?Q?t4ZH3/Lx/y1wFuj1h0kmyrJyxh1cB2F83abO8c50dH7NBIHpzlvjUC4FRz9c?=
+ =?us-ascii?Q?wjJqGLFa3aESKPWAJ9LoXrvgrT6qwda1P8oAP62i3VFm+01xK9/EGU/zEeGu?=
+ =?us-ascii?Q?N8Y9VivZWPBfvXITQWpEFYXrOhN9JMfCVMtGiaNfNLngYwXRhBNA5lSFEeXS?=
+ =?us-ascii?Q?ie1lmAOgmXiGIUuXfxbgOpEKA2BR6PN8brUqr5qFtyZ8AfZzau66CgjjjkZ0?=
+ =?us-ascii?Q?oTkixBxzrxEn8S/SuL5yzbxku4lvJZYZOkkYsnqNddbZ6z79N0sMcU8NRdaZ?=
+ =?us-ascii?Q?JQF3xfCbDLH82WIlVuvjVItgCzKwGhq+B1Ynk2DGrBb+bLbKqCh3Dfv70xNh?=
+ =?us-ascii?Q?quui6wrmcOBdhit9Rlz9raWwLZVtUCrnJLR012vzgepBCZitv91WhrD1vpy3?=
+ =?us-ascii?Q?3f+XN94IP9SBb4ICyMlu1cywZ4dSrTT1o2kY26UFo0+1IQ5HGpttX+ERoktk?=
+ =?us-ascii?Q?1fo1p58QEKTzVuGqWSs0Z0mOObN5qQicz43o9wQqXIC+HdnYrInV7ZYbEO89?=
+ =?us-ascii?Q?/wWb3BBF+4hmLnyOEGbAN/bP1UiyMVOgSm5LRXyJinE+ZL0lTQ=3D=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(82310400026)(376014)(1800799024); DIR:OUT;
+ SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Oct 2024 02:30:57.4336 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d36110fe-d8ad-4e44-9fa0-08dcef1ce5e8
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Oct 2024 02:31:08.5777 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 18cdd730-6969-4edf-10ed-08dcef1cec8d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000AD7F.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000AD7D.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8824
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6127
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,46 +133,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-compute/gfx may have multiple rings on some hardware.
-In some cases, userspace wants to run jobs on a specific ring for validation purposes.
+Userspace wants to run jobs on a specific sdma ring for verification purposes.
 This debugfs entry helps to disable or enable submitting jobs to a specific ring.
-This entry is populated only if there are at least two or more cores in the gfx/compute ip.
+This entry is populated only if there are at least two or more cores in the sdma ip.
 
 Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
 Suggested-by:Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |   2 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c     | 142 ++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h     |   2 +
- 3 files changed, 146 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c    | 71 +++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h    |  2 +-
+ 3 files changed, 73 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-index 37d8657f0776..6e3f657cab9c 100644
+index 6e3f657cab9c..c446bfccea59 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-@@ -2096,6 +2096,8 @@ int amdgpu_debugfs_init(struct amdgpu_device *adev)
- 		amdgpu_debugfs_umsch_fwlog_init(adev, &adev->umsch_mm);
- 
+@@ -2098,6 +2098,7 @@ int amdgpu_debugfs_init(struct amdgpu_device *adev)
  	amdgpu_debugfs_jpeg_sched_mask_init(adev);
-+	amdgpu_debugfs_gfx_sched_mask_init(adev);
-+	amdgpu_debugfs_compute_sched_mask_init(adev);
+ 	amdgpu_debugfs_gfx_sched_mask_init(adev);
+ 	amdgpu_debugfs_compute_sched_mask_init(adev);
++	amdgpu_debugfs_sdma_sched_mask_init(adev);
  
  	amdgpu_ras_debugfs_create_all(adev);
  	amdgpu_rap_debugfs_init(adev);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-index b6acbe923b6b..29997c9f68b6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-@@ -1868,3 +1868,145 @@ void amdgpu_gfx_enforce_isolation_ring_end_use(struct amdgpu_ring *ring)
- 	}
- 	mutex_unlock(&adev->enforce_isolation_mutex);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+index 183a976ba29d..cacb12a4fa9e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+@@ -343,3 +343,74 @@ int amdgpu_sdma_ras_sw_init(struct amdgpu_device *adev)
+ 
+ 	return 0;
  }
 +
 +/*
-+ * debugfs for to enable/disable gfx job submission to specific core.
++ * debugfs for to enable/disable sdma job submission to specific core.
 + */
 +#if defined(CONFIG_DEBUG_FS)
-+static int amdgpu_debugfs_gfx_sched_mask_set(void *data, u64 val)
++static int amdgpu_debugfs_sdma_sched_mask_set(void *data, u64 val)
 +{
 +	struct amdgpu_device *adev = (struct amdgpu_device *)data;
 +	u32 i;
@@ -181,12 +180,12 @@ index b6acbe923b6b..29997c9f68b6 100644
 +	if (!adev)
 +		return -ENODEV;
 +
-+	mask = (1 << adev->gfx.num_gfx_rings) - 1;
++	mask = (1 << adev->sdma.num_instances) - 1;
 +	if ((val & mask) == 0)
 +		return -EINVAL;
 +
-+	for (i = 0; i < adev->gfx.num_gfx_rings; ++i) {
-+		ring = &adev->gfx.gfx_ring[i];
++	for (i = 0; i < adev->sdma.num_instances; ++i) {
++		ring = &adev->sdma.instance[i].ring;
 +		if (val & (1 << i))
 +			ring->sched.ready = true;
 +		else
@@ -197,7 +196,7 @@ index b6acbe923b6b..29997c9f68b6 100644
 +	return 0;
 +}
 +
-+static int amdgpu_debugfs_gfx_sched_mask_get(void *data, u64 *val)
++static int amdgpu_debugfs_sdma_sched_mask_get(void *data, u64 *val)
 +{
 +	struct amdgpu_device *adev = (struct amdgpu_device *)data;
 +	u32 i;
@@ -206,8 +205,8 @@ index b6acbe923b6b..29997c9f68b6 100644
 +
 +	if (!adev)
 +		return -ENODEV;
-+	for (i = 0; i < adev->gfx.num_gfx_rings; ++i) {
-+		ring = &adev->gfx.gfx_ring[i];
++	for (i = 0; i < adev->sdma.num_instances; ++i) {
++		ring = &adev->sdma.instance[i].ring;
 +		if (ring->sched.ready)
 +			mask |= 1 << i;
 +	}
@@ -216,111 +215,38 @@ index b6acbe923b6b..29997c9f68b6 100644
 +	return 0;
 +}
 +
-+DEFINE_DEBUGFS_ATTRIBUTE(amdgpu_debugfs_gfx_sched_mask_fops,
-+			 amdgpu_debugfs_gfx_sched_mask_get,
-+			 amdgpu_debugfs_gfx_sched_mask_set, "%llx\n");
++DEFINE_DEBUGFS_ATTRIBUTE(amdgpu_debugfs_sdma_sched_mask_fops,
++			 amdgpu_debugfs_sdma_sched_mask_get,
++			 amdgpu_debugfs_sdma_sched_mask_set, "%llx\n");
 +
 +#endif
 +
-+void amdgpu_debugfs_gfx_sched_mask_init(struct amdgpu_device *adev)
++void amdgpu_debugfs_sdma_sched_mask_init(struct amdgpu_device *adev)
 +{
 +#if defined(CONFIG_DEBUG_FS)
 +	struct drm_minor *minor = adev_to_drm(adev)->primary;
 +	struct dentry *root = minor->debugfs_root;
 +	char name[32];
 +
-+	if (!(adev->gfx.num_gfx_rings > 1))
++	if (!(adev->sdma.num_instances > 1))
 +		return;
-+	sprintf(name, "amdgpu_gfx_sched_mask");
++	sprintf(name, "amdgpu_sdma_sched_mask");
 +	debugfs_create_file(name, 0600, root, adev,
-+			    &amdgpu_debugfs_gfx_sched_mask_fops);
++			    &amdgpu_debugfs_sdma_sched_mask_fops);
 +#endif
 +}
 +
-+/*
-+ * debugfs for to enable/disable compute job submission to specific core.
-+ */
-+#if defined(CONFIG_DEBUG_FS)
-+static int amdgpu_debugfs_compute_sched_mask_set(void *data, u64 val)
-+{
-+	struct amdgpu_device *adev = (struct amdgpu_device *)data;
-+	u32 i;
-+	u64 mask = 0;
-+	struct amdgpu_ring *ring;
-+
-+	if (!adev)
-+		return -ENODEV;
-+
-+	mask = (1 << adev->gfx.num_compute_rings) - 1;
-+	if ((val & mask) == 0)
-+		return -EINVAL;
-+
-+	for (i = 0; i < adev->gfx.num_compute_rings; ++i) {
-+		ring = &adev->gfx.compute_ring[i];
-+		if (val & (1 << i))
-+			ring->sched.ready = true;
-+		else
-+			ring->sched.ready = false;
-+	}
-+
-+	/* publish sched.ready flag update effective immediately across smp */
-+	smp_rmb();
-+	return 0;
-+}
-+
-+static int amdgpu_debugfs_compute_sched_mask_get(void *data, u64 *val)
-+{
-+	struct amdgpu_device *adev = (struct amdgpu_device *)data;
-+	u32 i;
-+	u64 mask = 0;
-+	struct amdgpu_ring *ring;
-+
-+	if (!adev)
-+		return -ENODEV;
-+	for (i = 0; i < adev->gfx.num_compute_rings; ++i) {
-+		ring = &adev->gfx.compute_ring[i];
-+		if (ring->sched.ready)
-+			mask |= 1 << i;
-+	}
-+
-+	*val = mask;
-+	return 0;
-+}
-+
-+DEFINE_DEBUGFS_ATTRIBUTE(amdgpu_debugfs_compute_sched_mask_fops,
-+			 amdgpu_debugfs_compute_sched_mask_get,
-+			 amdgpu_debugfs_compute_sched_mask_set, "%llx\n");
-+
-+#endif
-+
-+void amdgpu_debugfs_compute_sched_mask_init(struct amdgpu_device *adev)
-+{
-+#if defined(CONFIG_DEBUG_FS)
-+	struct drm_minor *minor = adev_to_drm(adev)->primary;
-+	struct dentry *root = minor->debugfs_root;
-+	char name[32];
-+
-+	if (!(adev->gfx.num_compute_rings > 1))
-+		return;
-+	sprintf(name, "amdgpu_compute_sched_mask");
-+	debugfs_create_file(name, 0600, root, adev,
-+			    &amdgpu_debugfs_compute_sched_mask_fops);
-+#endif
-+}
-+
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-index f710178a21bc..9275c02c94c6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-@@ -582,6 +582,8 @@ void amdgpu_gfx_sysfs_isolation_shader_fini(struct amdgpu_device *adev);
- void amdgpu_gfx_enforce_isolation_handler(struct work_struct *work);
- void amdgpu_gfx_enforce_isolation_ring_begin_use(struct amdgpu_ring *ring);
- void amdgpu_gfx_enforce_isolation_ring_end_use(struct amdgpu_ring *ring);
-+void amdgpu_debugfs_gfx_sched_mask_init(struct amdgpu_device *adev);
-+void amdgpu_debugfs_compute_sched_mask_init(struct amdgpu_device *adev);
- 
- static inline const char *amdgpu_gfx_compute_mode_desc(int mode)
- {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
+index 087ce0f6fa07..a37fcd9bb981 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
+@@ -175,5 +175,5 @@ int amdgpu_sdma_init_microcode(struct amdgpu_device *adev, u32 instance,
+ void amdgpu_sdma_destroy_inst_ctx(struct amdgpu_device *adev,
+         bool duplicate);
+ int amdgpu_sdma_ras_sw_init(struct amdgpu_device *adev);
+-
++void amdgpu_debugfs_sdma_sched_mask_init(struct amdgpu_device *adev);
+ #endif
 -- 
 2.25.1
 
