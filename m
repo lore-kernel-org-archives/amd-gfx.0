@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8184AD3C90B
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D55D4D3C914
 	for <amd-gfx@archiver.kernel.org>; Sat, 19 Oct 2024 13:05:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A0A0710E298;
-	Sat, 19 Oct 2024 13:05:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 56DA410E29A;
+	Sat, 19 Oct 2024 13:05:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mHoq06sj";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="awpFi9E/";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 031D310E084;
- Fri, 18 Oct 2024 12:46:29 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 41DF510E939;
+ Fri, 18 Oct 2024 14:09:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1729255590; x=1760791590;
+ t=1729260580; x=1760796580;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:content-transfer-encoding:in-reply-to;
- bh=4Vl7QAqoHmPO1FKzXLGkpJuzOb1E6R705GR2DJYGtMY=;
- b=mHoq06sj0O1364/La36n61LPPj/PivUALCMyRif2+Xlmb1O//YxByvWS
- 1felh0E/OewyxjoMiv7IW+nxKzQwPKAJux6S1iU6pOx/XEeeRfO17pTRs
- ghi8QC+409FQq+y5cg4oL97MESBZLU0+AW2mx2EM3mi2KTu3PHOvZwPA3
- A2/e/dLWvDeF8bkV20Ypr8updQZwGSj7SUvxPkpDWOTaBbWDCFNJfIkFk
- 97JxrwcbRZMGJ1xoEFmYplVIm0lRRnflva9hY4dV8aPlV4eQRwLsUie/F
- ZjAcd3IMzPtICqUSZ7P1zyvA8fcR1fFe1o5lwmXYRW0flHlVRkEX2yDkh g==;
-X-CSE-ConnectionGUID: FCND1UG4R66aKEZXlwfTBA==
-X-CSE-MsgGUID: as7x/x9vTk61jq/EmgsV9Q==
-X-IronPort-AV: E=McAfee;i="6700,10204,11222"; a="28942633"
-X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="28942633"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Oct 2024 05:46:29 -0700
-X-CSE-ConnectionGUID: dvIp3lWnTWK6Y5ImBxC1GA==
-X-CSE-MsgGUID: LnNpM252TDGdpzMhHSWKgA==
+ bh=YH6p04yWfXy+x6eRVU5zann2hTNt933EiknJufhu5dI=;
+ b=awpFi9E/SFYA7/dIRzIyNgrRGk8q4KLfDD+EE+ymcx4XFovI58DW8CFf
+ iy3tjJMb/QmfEASMIM678JkzZNT4U9L6MsPsIqMFJcyNFLwHsDPdIkjV8
+ Ir4CEG8FblZ5qfEX8l5mu77w9mPNHkyEoPqHIVMRb2xfaGshaQ+tWwwLB
+ oo+OdvoBNefNwEBN36cf1rViAjU4S2RDEqDreE9cbUVY0iISEFRPslEiE
+ 5iYUSY7okZ5CcsRUoptJAfvRNQ6qbGgay0fUKsYFuYQkH0ltjFndO1iXr
+ XwSM1yq+GnTmHtnSoI01xUz+zS75j7LMNTdgCrjtPMiCno+SE9pVAbFaO A==;
+X-CSE-ConnectionGUID: OHtsZLdSTPWMXo0r27cdVg==
+X-CSE-MsgGUID: Mbfs3vGsQnGdQo4H+a/78g==
+X-IronPort-AV: E=McAfee;i="6700,10204,11222"; a="39335508"
+X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="39335508"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Oct 2024 07:09:37 -0700
+X-CSE-ConnectionGUID: eMI5WRbxSxSKvlomQ96cHw==
+X-CSE-MsgGUID: Rnq2IQ8/QguPuO40AjEyEg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="83684011"
+X-IronPort-AV: E=Sophos;i="6.11,213,1725346800"; d="scan'208";a="83459366"
 Received: from black.fi.intel.com ([10.237.72.28])
- by orviesa003.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Oct 2024 05:46:22 -0700
-Date: Fri, 18 Oct 2024 15:46:19 +0300
+ by fmviesa005.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Oct 2024 07:09:30 -0700
+Date: Fri, 18 Oct 2024 17:09:27 +0300
 From: Raag Jadav <raag.jadav@intel.com>
 To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
 Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>, airlied@gmail.com,
@@ -59,18 +59,20 @@ Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>, airlied@gmail.com,
  joshua@froggi.es, alexander.deucher@amd.com, andrealmeid@igalia.com,
  amd-gfx@lists.freedesktop.org
 Subject: Re: [PATCH v7 1/5] drm: Introduce device wedged event
-Message-ID: <ZxJYm6epuuConWdz@black.fi.intel.com>
+Message-ID: <ZxJsF89DXAGvFRr5@black.fi.intel.com>
 References: <20240930073845.347326-1-raag.jadav@intel.com>
  <20240930073845.347326-2-raag.jadav@intel.com>
  <ZxB6yKRrgvCoRK7y@black.fi.intel.com>
  <9b720b21-6195-408c-88bf-a092e0e7555c@amd.com>
  <ZxE-x6osh_jFHl5X@intel.com>
  <5a89757f-7000-4ccc-8762-1befe1fae258@amd.com>
+ <ZxJYm6epuuConWdz@black.fi.intel.com>
+ <da5d8d7d-cbf3-403d-89f9-465cd730ef0a@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <5a89757f-7000-4ccc-8762-1befe1fae258@amd.com>
+In-Reply-To: <da5d8d7d-cbf3-403d-89f9-465cd730ef0a@amd.com>
 X-Mailman-Approved-At: Sat, 19 Oct 2024 13:05:06 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -86,80 +88,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Oct 18, 2024 at 12:58:09PM +0200, Christian König wrote:
-> Am 17.10.24 um 18:43 schrieb Rodrigo Vivi:
-> > On Thu, Oct 17, 2024 at 09:59:10AM +0200, Christian König wrote:
-> > > > > Purpose of this implementation is to provide drivers a generic way to
-> > > > > recover with the help of userspace intervention. Different drivers may
-> > > > > have different ideas of a "wedged device" depending on their hardware
-> > > > > implementation, and hence the vendor agnostic nature of the event.
-> > > > > It is up to the drivers to decide when they see the need for recovery
-> > > > > and how they want to recover from the available methods.
-> > > > > 
-> > > > > Current implementation defines three recovery methods, out of which,
-> > > > > drivers can choose to support any one or multiple of them. Preferred
-> > > > > recovery method will be sent in the uevent environment as WEDGED=<method>.
-> > > > > Userspace consumers (sysadmin) can define udev rules to parse this event
-> > > > > and take respective action to recover the device.
-> > > > > 
-> > > > >       =============== ==================================
-> > > > >       Recovery method Consumer expectations
-> > > > >       =============== ==================================
-> > > > >       rebind          unbind + rebind driver
-> > > > >       bus-reset       unbind + reset bus device + rebind
-> > > > >       reboot          reboot system
-> > > > >       =============== ==================================
-> > > Well that sounds like userspace would need to be involved in recovery.
-> > > 
-> > > That in turn is a complete no-go since we at least need to signal all
-> > > dma_fences to unblock the kernel. In other words things like bus reset needs
-> > > to happen inside the kernel and *not* in userspace.
-> > > 
-> > > What we can do is to signal to userspace: Hey a bus reset of device X
-> > > happened, maybe restart container, daemon, whatever service which was using
-> > > this device.
-> > Well, when we declare device 'wedged' it is because we don't want to take
-> > any drastic measures inside the kernel and want to leave it in a protected
-> > and unusable state. In a way that users wouldn't lose display for instance,
-> > or at least the device is in a debugable state.
+On Fri, Oct 18, 2024 at 02:54:38PM +0200, Christian König wrote:
+> Am 18.10.24 um 14:46 schrieb Raag Jadav:
+> > > As far as I can see this makes the enum how to recover the device
+> > > superfluous because you will most likely always need a bus reset to get out
+> > > of this again.
+> > That depends on the kind of fault the device has encountered and the bus it is
+> > sitting on. There could be buses that don't support reset.
 > 
-> Uff, that needs to be very very well documented or otherwise the whole
-> approach is an absolutely clear NAK from my side as DMA-buf maintainer.
+> That is even more an argument to not expose this in the uevent.
 > 
-> > 
-> > Then, the instructions here is to tell what could possibly be attempted
-> > from userspace to get the device to an usable state.
-> > 
-> > The 'wedge' mode (the one emiting this uevent) needs to be responsible
-> > for signaling all the fences and everything needed for a clean unbind
-> > and whatever next step might be indicated to userspace.
-> > 
-> > That should already be part of any wedged mode, regardless the uevent
-> > to inform the userspace here.
-> 
-> You need to approach that from a different side. With the current patch set
-> you are ignoring documented mandatory driver behavior as far as I can see.
-> 
-> So first of all describe in the documentation what the wedged mode is and
-> what requirements a driver has to fulfill to enter it:
-> https://docs.kernel.org/gpu/drm-uapi.html#device-reset
->
-> Especially document that all system memory accesses of the device needs to
-> be blocked by (for example) disabling DMA accesses in the PCI config space.
-> 
-> When it is guaranteed that the device can't access any system memory any
-> more the device driver should signal all pending fences of this device.
-> 
-> And only after all of that is done the driver  can send an uevent to inform
-> userspace that it can debug the hanged state.
+> Getting the device working again is strongly device dependent and can't be
+> handled in a generic way.
 
-Sure, will do.
+My understanding is that the proposed methods can be handled in a generic way
+and are useful for the devices that do support it. This way the userspace can
+atleast have a hint about recovery.
 
-> As far as I can see this makes the enum how to recover the device
-> superfluous because you will most likely always need a bus reset to get out
-> of this again.
-
-That depends on the kind of fault the device has encountered and the bus it is
-sitting on. There could be buses that don't support reset.
+For others we can have something like WEDGED=none (as proposed by Michal and
+Lucas in other threads) and let admin/user decide how to deal with it.
 
 Raag
