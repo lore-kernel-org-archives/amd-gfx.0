@@ -4,147 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE09BD3001B
-	for <amd-gfx@archiver.kernel.org>; Fri, 18 Oct 2024 16:17:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B3C4D374BF
+	for <amd-gfx@archiver.kernel.org>; Fri, 18 Oct 2024 16:48:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72E6C10E35E;
-	Fri, 18 Oct 2024 16:17:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04EDA10E380;
+	Fri, 18 Oct 2024 16:48:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="MRNZ21jz";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PIbBLgUr";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2085.outbound.protection.outlook.com [40.107.223.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A61510E35E
- for <amd-gfx@lists.freedesktop.org>; Fri, 18 Oct 2024 16:17:15 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Hmmn0s3eRYj7cpEmOxxYnKYKnj9cqbtV8jybpGRj3iIecGfK/LkzoQCeTHM6yRPwjUWMg60uXlJsqutGnQheCKPdwjTBhglECrfZEFCVt6VeM8LmCBhp0wXWvR5zyITtmOVhwYq223FV8t1Hm9LABDPWsgP3rcV6jWU50CjC8aQwS0v1ZhJZ88R1i4Ui5gEjRe5flJtvBdVIVSuZMESk5Cu7wnX3KXQ28qPm7XGYGKelU0PRNDKKjeJjbEER1mkUOIVD0yYKra5UdX8xbTr6O3ohY23NzQbUtM3NYNjJh9EX9rQ6K4OMIbft2PkVRSo71jig+y1z5YOw9RGN3b272A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pi9hy4buVne7xhbyxIh4Tru6lSC569HFzL/L3r5sBjY=;
- b=QyIQUY/KsVD9VCa6Axlesb0j9UGdoej5dDHwgWqzeL6eQpT6k4kwqn6dp2ZAAZ/vb4oX7BahaLb3xOj2jQ5z17TsreMTyH+WePgJzIJY5aF/It+2FonXXr0Ah0dCz96Vu/HAGwE0EcOR/uD5nozp1QiM5Jj60QXCDSM5I/CHPo8lwFlWsnx+sVswwk8EMEE8QZ79s7suHNx0erV+xj7ys/V+7Gf/OPUR3MZCGmqTedVbQdTWNIX+p2copAjm7iqTi54A3zydHidxBCudqAg1lJUIcy58A5P++2NzfISV8vRkCa8gg8Wy+lZlPH2N1cFWwTpzVvNEAilso1w0Jd4o6A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pi9hy4buVne7xhbyxIh4Tru6lSC569HFzL/L3r5sBjY=;
- b=MRNZ21jzftOL18xQhxyhxtCxapA5dafKKWP1/LgnFNnMBQBN5W0/DiQf91k1yqi5HK0a9H3k9lpq6Ld3oypzIMZBz52ion/2wWExn15w3RGbfrRvPVyfDzNQeY0JjpQW4oIWlt0YgdeFF6WVVzETYQCS3WRkPDrVuMwKfGbR/bk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5149.namprd12.prod.outlook.com (2603:10b6:5:390::14)
- by CY8PR12MB8065.namprd12.prod.outlook.com (2603:10b6:930:73::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8069.20; Fri, 18 Oct
- 2024 16:17:06 +0000
-Received: from DM4PR12MB5149.namprd12.prod.outlook.com
- ([fe80::36fa:deca:aaeb:75da]) by DM4PR12MB5149.namprd12.prod.outlook.com
- ([fe80::36fa:deca:aaeb:75da%4]) with mapi id 15.20.8069.020; Fri, 18 Oct 2024
- 16:17:06 +0000
-Message-ID: <8c9763a6-ecfa-d314-4bb3-094c949199f0@amd.com>
-Date: Fri, 18 Oct 2024 12:17:04 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH] drm/amd/amdkfd: add/remove kfd queues on start/stop KFD
- scheduling
-Content-Language: en-US
-To: Shaoyun Liu <shaoyun.liu@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Felix Kuehling <felix.kuehling@amd.com>
-References: <20241018151005.743103-1-shaoyun.liu@amd.com>
-From: Philip Yang <yangp@amd.com>
-In-Reply-To: <20241018151005.743103-1-shaoyun.liu@amd.com>
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQBPR0101CA0196.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:67::8) To DM4PR12MB5149.namprd12.prod.outlook.com
- (2603:10b6:5:390::14)
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
+ [209.85.216.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0353710E380;
+ Fri, 18 Oct 2024 16:48:11 +0000 (UTC)
+Received: by mail-pj1-f46.google.com with SMTP id
+ 98e67ed59e1d1-2e2b93d2da6so262308a91.0; 
+ Fri, 18 Oct 2024 09:48:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1729270090; x=1729874890; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=+KdFMyZilgxNgos2aKAfdGC1JRwrBCcFoee7Jhfl6wo=;
+ b=PIbBLgUrFU9cdAorCcuWIVvzTSLP7PVjWwqZ6Sm27U5H+CZxL9qVWfbvnBLJfXvEPl
+ Ykk4W3nMWWLXQRsY8VJlFxX0Rg61iZGvq6hTqQYLTGliyoR/IIw/gmu3OSIU19McgFFj
+ 8EfOPeONBJgtxn/52eKjFlpKqSZufbIv5q+YH43VVofibhQQ6UIUJ0lj1uGd6V2bG8NU
+ wb3MxCcm6YlRsax39ECHCphbeYqT0PxU9LAcJsCu4GZgq2ZoRZFnzZShPSf/FbQKP5bJ
+ PVVWYpjwZlQegEEAu25Y3Yvjf8tu7V+vOcRE3/kIryo9p9jE2apq3YQp0bxtSIsHwl5/
+ sK/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1729270090; x=1729874890;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=+KdFMyZilgxNgos2aKAfdGC1JRwrBCcFoee7Jhfl6wo=;
+ b=OF/EloH/D8GMWfL8jY073m9lp/U96lslMRqw62dAOk4qszQkDvLRaKgHbIM9H0ecDt
+ JTbRD6+BxWP3xwmg4+Rqo5iaXkZsadXtVWpzM6d3SdA0xGwRrguwNZxa8FNfVGsE173x
+ DenSzFrgwreCqxTg/fJCOJZHcHgRLIYF1xg+1zUhhMN9YWA7g0f7i0TylDC/f6LPfUbq
+ vZdCEty9N7P7JQAuN8vR7+OvV+z5VYfhna2r07n74OSP2ILrPQXlZjSXETwrjmk0nzKG
+ AoH4HMWqh5Nwg56aY3eA/4/dmrXiLjG01kCC1vhvBd/PuAzBOX2l1iXBcwpeDNLgVk7C
+ Xabg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU/NmRBycqGTpdbEK34Ja3YtQ1c9KrUXE3emDkKFCuVIDSav4o/GIEcxr1T9JfPgxD6NSPmo+zK@lists.freedesktop.org,
+ AJvYcCVhilONHzw1eIqgceY5GoMrb8oD3gJmGQJCFB+3/eTqcFXYm6fwINgXoGFhQv1Q0r0ISszX4NEras5c@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxq+aE5CbJWQEgvZLuOQ80EonJqAuo4MDi6/szQCDLyPb3bL1No
+ ay7boNYW1S5rFrugIXZLJmwTfLVdNTHMVsOS/GSbcVMWahLjqsuiUL2tIoG5oQpMK5lBHLT5T+L
+ 0HrtlNVQcV127hd52kaN1YrvU5O0=
+X-Google-Smtp-Source: AGHT+IEHHpQqFYmBn0xV51TfI+SJmAuytoxVOYISR+ezP4xC8C3OEqfFW8De5N7maRo4MXgcOq1zix+V+Pc+gPWkCFg=
+X-Received: by 2002:a17:90a:f189:b0:2e2:a70a:f107 with SMTP id
+ 98e67ed59e1d1-2e5615d618emr1697930a91.1.1729270090387; Fri, 18 Oct 2024
+ 09:48:10 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5149:EE_|CY8PR12MB8065:EE_
-X-MS-Office365-Filtering-Correlation-Id: fc5514b1-ec6f-4c4d-2115-08dcef904f0d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016|8096899003;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?d3pxQnAwaXFEekRwL3JHQklEWEpKTUc0OGUxQi9Jb2ZVcmZhMTBUUmxzb2pR?=
- =?utf-8?B?dEpDZ2kxeVloWGpqbVlLSXdIckVheHlQTWV5SDAxNy9EYlBod09BdzU2bDBV?=
- =?utf-8?B?QTBGUUVRRzZqaEVLcHpqMVo5ejE1cjhkeFdyK3MrMWNDQW44MGdqY2dGd3NM?=
- =?utf-8?B?SHgvRU5IWGhiZE9BcVRZd2JxYlkvdDlTbDdSQ0ZhbDZuRlBLcStKRkNBV3ha?=
- =?utf-8?B?WTI5WmIwTkFuOXpYSzQxMHllSmtrMS9XeDZORVU0VzJmWFdYT1l4WDZwK3Vr?=
- =?utf-8?B?cTBNNmdpYndzaG8yYXAxTnVUSUkxVzZOWm9lRUJHYkc3QWVTR0tLZm1saG9P?=
- =?utf-8?B?akhPTW1tSmVwUlJUcjd2Y0UvYWF1d2F4VnZHMDNTMGhMTkdDNlNTdGRaMlZG?=
- =?utf-8?B?MXZDcVJPK3lORUFUN2p6MXE4ZnJHLzJNNitObncvVm1HLzJLSWc4eC8rbjQz?=
- =?utf-8?B?NCtZWEJDT1pPYmhNbkcxQkZZMVVObnI4UDd4YkdUTlFaMWJLTi8zaUxIRjlF?=
- =?utf-8?B?RGRzbG1tU2NvNnhlT29wRE5obFZWWmFEN1JzdDJYMlZDKzBzOTNza1VHNGF2?=
- =?utf-8?B?d2hWWVF0K0lGcTZwQVhIMzBuS1dOSDR6ZTNxejN0ZXJLNXNCMEVPNTFuVVI4?=
- =?utf-8?B?SjJjcjFuR2NPanJpVlZzeElQYWd6Q3RwempjZ0hoazcwUU00ZjRCbnFPZjFV?=
- =?utf-8?B?Mm1VeldOaXYxS2UwRmtNWXNuQXQxZldQVTE4SFhxRWVsOC9XN3dJN0wwVG1j?=
- =?utf-8?B?VHF2NUE5Vld1eldCMmtZbStwUkgxNnRpUk9jY0lDd0NsakVTcm95L09VTlJo?=
- =?utf-8?B?MS9QbWpMNmNVRWlWejZwNUowNVE2cWtBMUV2TW9UTEVsMitFMHBkQjZxOEJn?=
- =?utf-8?B?Mmo4SHFZZW16cmVMVURGRi9uN0tER2ZQTENQMmY0TmI0TDRxbXpLaUlNYmU0?=
- =?utf-8?B?NW9BZEhwcGxmSFBuckQ5VXZ1cmRybjAvNVdGMTVsTW94ZUpVOUJHV3IwSjZV?=
- =?utf-8?B?b3ZDYmNuZ1Q5dmVIeXowNkRIUEw1WHdiTzlYNEwvY3FxRmJCL1E0Q0lOWlYr?=
- =?utf-8?B?RWNZZXE3OE02ZmVPdUxmWnRCcjUxZ2dsSW1LU25FTmczN1M3WVhuc2xSa3Na?=
- =?utf-8?B?OWQ3cnFIamJ0V3YvSjhaT2VVVVphZXgxVVpFL1pOR1l3VHZreHlVbmx0WE43?=
- =?utf-8?B?ZWQzbmZScGZKQVJ0cW9GMEprcy9kdEY3cDlSVHV2VTZNUGgvUkptZjB3RUho?=
- =?utf-8?B?VU1uTkxUVHc0NVZjNVJqRUZENEFVZW5nS0NMRjVvVWdYN25zSGNiYVJ3Wmxh?=
- =?utf-8?B?aUZuYlFaY1pLc0R4RmY4WlZHYTU3Sm9TZ0IxdWhjZGpOdml5NEc0OFo2U1VQ?=
- =?utf-8?B?Q3J4bGJUTUduVTFEL20xYkE4Qml0dWh0clBIbEZxeFFvK0ExTHNHZkVlcW1Z?=
- =?utf-8?B?THJxOGlPa0w1UDM2QmpPTmlPL29YNHMvV1dONlkxWjMrL2cyVDJ0c3BOeUN6?=
- =?utf-8?B?c2N5dXFNMHduaytmUlJTek41bi9FMDNicENYZVRDcFYvOFRpVmJzUEh6VVNh?=
- =?utf-8?B?dStsN2llc0poQVcwanFSUktpZmx0LzNoblpWbUZEOFNsTnlwMFVKamFGcGpj?=
- =?utf-8?B?MitRNGQ5d0ZMYkdMcHgyZjZQcnQrVVBEZ0IvNS9GK0ZaWm04aVdwUnFFczd1?=
- =?utf-8?B?c0hzelVKMGtIVnlNM0J4RUZ0SHBmSHBlajZ3NS9uUUs2Q2tsTmFYL0RMRE53?=
- =?utf-8?Q?GQQR1rmK0rH0zrQlFE=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5149.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(8096899003); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aW9yYzVOY0h3Zzg4OENDTzNwT1ZWQXhFUkpxUlFueUVvWEVMb1pBM3UrVEJa?=
- =?utf-8?B?TEU3dS9hUDZiYzVrVk5vV1BnNUpML2FRWTRyalo2TDhUMFNRVW96bENSQWlE?=
- =?utf-8?B?U0pPZGlmaTV3LzZ1TWFabDRyUlBGMmxXQm0yWnJJTjJ3M2N2Y3ZDZmdoOCto?=
- =?utf-8?B?b2p5dnUxUXkwVVRHeXBFQjljNDlQWFlhelZJQUhKb2tKaHA3dGR1TWw1WEll?=
- =?utf-8?B?bWpzODF5cVNZRytSaUZURzNQeWhYMVRuSllGSVVHeUh3cjVpbEJsMGRyTXI4?=
- =?utf-8?B?c1dkcVozWjYwTXloeE9JVXFIc1VMbHdzNHl1NjAxcThvQkNqQkFQcDIxQ0JR?=
- =?utf-8?B?cXE0eTdOZTk2M2lkZExGU1lOWklNVlo5SlArQThjcEVUeXFCOEQ4UmxWN1Np?=
- =?utf-8?B?WFBhMmV2cGorblAzNG9Icmd1TkQvTEk2VU8zbWxaMUJWMFZFb0ZLZk41MHRn?=
- =?utf-8?B?cUcybE1ZbXZQK0tTSzhYajV1L3B5VXRPb3NjSXhtb05yRjA4QjVpMjIwTWNW?=
- =?utf-8?B?bFEwQmJHR0dLU1I3VFNGRm5GNXBHemZRemlmbFJlcUxMMm45OXJ4YkhKQXk4?=
- =?utf-8?B?SkVUQVk1MXJLTEpZYnVnd0ZONlpZQXdWbzZ2U2VlOTFRVEZORmg3Vm8vdVdB?=
- =?utf-8?B?cXFnTTI5MmRGTjl3WUM4STBXTEkwVm9XcnFxWllzWE5xbVM1d0d5a3p0Mlpt?=
- =?utf-8?B?RDRyV29DbnNPWHN0c3lHRlNDSklPTUt1K0dJOFlqK3Nkb2Q0ZWpaK0tjTWVP?=
- =?utf-8?B?WnRlR1A3ZnpQbWZiOWVOTzBnUmkxTHBIQkZGWGlFSVNIeU8vQktodjk1d0E3?=
- =?utf-8?B?WGpjcHVYZWZ0cDdlTzZDd1JjOFJUb2tibXQwSjJFTlpYOWY4ek9rZm5INUFP?=
- =?utf-8?B?Z0N6NlZzK090eFRxU3ZSUSs2MWRVN3RQdGhNTE4zUXltWDFkSG90OU9wanJM?=
- =?utf-8?B?M1hiYVAySVFJM202UmlQU2FGQS9KN0tsVDUzdk5iaFplamYwN0NubENDdjZW?=
- =?utf-8?B?WmRZQ1JucTR3U09ENE00V3VzdldzazNTNjdyRXVxdnNnZTFWQW9WeDliS2FH?=
- =?utf-8?B?aDFwbit0L1JUMUVhaDBRejFQbHBpMTdRbXZhek9UOEhuY2hiUlZmRW1iZTNu?=
- =?utf-8?B?b2preXBPSDIwTFBQazVmejZBVFh0c2o0ejhKMEt5Q0lQbmE5dDY5L0JZK2tt?=
- =?utf-8?B?aXY0Y1l5M1lON1NrYUs4Nkp1R1AzMDdKU2dTQ2lmejkzWnMwUTdNbFY5VzlS?=
- =?utf-8?B?QkhRQ0FuYUxvNHUwTkZaN2ZsTGlCM3VJY3NoTkN3VjA1V2JqSmQ5V2JIUEs3?=
- =?utf-8?B?RFZJUitaYTJhekc3MzN0TDhWRGxycDk3Zzc3YndqNWFTbnlLTytqWlo0RzhO?=
- =?utf-8?B?aGR4aVNualYzL3p1UWFEd2ZIY3RiS01QOTBGS1FNVkdXaGFZTk4rRkQ1NjJU?=
- =?utf-8?B?bE91NHVrcXU5VE4yQ3dRdytudjVIYnM3NWd1bEpRelhUbDQxcm4zZHlWYzE1?=
- =?utf-8?B?dzd1c0lhV0RFc1hJdjJNQjVLRmc1YU1PRlBHb0VlZzlTT2pOcjR2RFJuVFl2?=
- =?utf-8?B?SVRFUTE4aUEyaXNFZjRhcWJiVGtad1NkSHZlY2ZBVEdTZHJKYjgvY1VQWnlN?=
- =?utf-8?B?THFraHM0S09jRE1Sd2t3dGtyNVRiY0tCVHdXa0xyRE5wRkVnVTdrU0Y2YzlI?=
- =?utf-8?B?T205Zjh0b1ZIV3FxcFk2Y0ZMeTBKSTNZcE1iQjJJclhCTEdHYUdYZXAySEZo?=
- =?utf-8?B?N0wyWFlkcFlWWWxtVDAyUStqMEtHRzVRNWt4RjQ2NndvNGFqUUYveFhtUkNN?=
- =?utf-8?B?WGdUQm12dm5mc3hCUERNRjg3a0pldzIzeXB0aVBwcFJpYUdEdkdWOGpFYmhF?=
- =?utf-8?B?aFptWTVUaHZpckFmS2ZWREk3cWJWMjZIQUI3WXdsdXoza1MveTFNT3lkUWNU?=
- =?utf-8?B?Z1ZrNnM5T29oS1loY0diS05UVktKWDZvZnRKdXhITjdQZ3N6eEwzVjVHbHdz?=
- =?utf-8?B?ZFBVd0gxa0lGd28vRVlURlVWdHl0NGplWVVUdlc5TU5SM21BTHRwVnI5TXRh?=
- =?utf-8?B?UGNtU0xPNUtMdlhrVU9nRm1ORmhsWFY1dy9FbTNtV0ZERmFYdUN0UitMdVpR?=
- =?utf-8?Q?cgQwr6a8jnVK/nOw/SefFWgIX?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fc5514b1-ec6f-4c4d-2115-08dcef904f0d
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5149.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Oct 2024 16:17:06.2187 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: VF0jiilaN39jSvIbjUjFazQOtD4tDLMP1GY+Q+PParL8xc6C0Up0IGE34iRmWA5O
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8065
+References: <20240824-amdgpu-min-backlight-quirk-v6-0-1ed776a17fb3@weissschuh.net>
+ <cfec358a-ff42-49c3-a174-149bee7a461c@t-8ch.de>
+ <5b1c8688-8154-436e-ba8f-f5a9087d2c85@amd.com>
+In-Reply-To: <5b1c8688-8154-436e-ba8f-f5a9087d2c85@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 18 Oct 2024 12:47:57 -0400
+Message-ID: <CADnq5_N9HxF749HviiM-cAcrrEUHJMohzdar4t5RTy_kNNK+Vg@mail.gmail.com>
+Subject: Re: [PATCH v6 0/4] drm: Minimum backlight overrides and
+ implementation for amdgpu
+To: Harry Wentland <harry.wentland@amd.com>
+Cc: =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>, 
+ Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, 
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Matt Hartley <matt.hartley@gmail.com>, 
+ Kieran Levin <ktl@framework.net>, Hans de Goede <hdegoede@redhat.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, Xinhui Pan <Xinhui.Pan@amd.com>, 
+ Jonathan Corbet <corbet@lwn.net>, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Dustin Howett <dustin@howett.net>, linux-doc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,122 +95,108 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-<html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p>It is safe to access dqm-&gt;sched status inside dqm_lock, no
-      race with gpu reset.</p>
-    <p>Reviewed-by: Philip Yang <a class="moz-txt-link-rfc2396E" href="mailto:Philip.Yang@amd.com">&lt;Philip.Yang@amd.com&gt;</a><br>
-    </p>
-    <div class="moz-cite-prefix">On 2024-10-18 11:10, Shaoyun Liu wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:20241018151005.743103-1-shaoyun.liu@amd.com">
-      <pre class="moz-quote-pre" wrap="">From: shaoyunl <a class="moz-txt-link-rfc2396E" href="mailto:shaoyun.liu@amd.com">&lt;shaoyun.liu@amd.com&gt;</a>
+On Wed, Oct 16, 2024 at 1:47=E2=80=AFPM Harry Wentland <harry.wentland@amd.=
+com> wrote:
+>
+>
+>
+> On 2024-09-16 14:23, Thomas Wei=C3=9Fschuh wrote:
+> > Hi Harry, Leo and other amdgpu maintainers,
+> >
+> > On 2024-08-24 20:33:53+0000, Thomas Wei=C3=9Fschuh wrote:
+> >> The value of "min_input_signal" returned from ATIF on a Framework AMD =
+13
+> >> is "12". This leads to a fairly bright minimum display backlight.
+> >>
+> >> Introduce a quirk to override "min_input_signal" to "0" which leads to=
+ a
+> >> much lower minimum brightness, which is still readable even in dayligh=
+t.
+> >
+> > could you take another look at the series?
+> > The issues around panel power are not specific to the low pwm values,
+> > so shouldn't have an impact on this series.
+> > (And are nearly imperceptible anyways)
+> >
+>
+> I think these patches are good.
+>
+> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 
-Add back kfd queues in start scheduling that originally been
-removed on stop scheduling.
+Can you pick these up?
 
-Signed-off-by: Shaoyun Liu <a class="moz-txt-link-rfc2396E" href="mailto:shaoyun.liu@amd.com">&lt;shaoyun.liu@amd.com&gt;</a>
-Reviewed-by: Felix Kuehling <a class="moz-txt-link-rfc2396E" href="mailto:felix.kuehling@amd.com">&lt;felix.kuehling@amd.com&gt;</a>
----
- .../drm/amd/amdkfd/kfd_device_queue_manager.c | 40 +++++++++++++++++--
- 1 file changed, 37 insertions(+), 3 deletions(-)
+Thanks,
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index b2b16a812e73..edfb9f98555f 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -202,6 +202,8 @@ static int add_queue_mes(struct device_queue_manager *dqm, struct queue *q,
- 	int r, queue_type;
- 	uint64_t wptr_addr_off;
- 
-+	if (!dqm-&gt;sched_running || dqm-&gt;sched_halt)
-+		return 0;
- 	if (!down_read_trylock(&amp;adev-&gt;reset_domain-&gt;sem))
- 		return -EIO;
- 
-@@ -270,6 +272,8 @@ static int remove_queue_mes(struct device_queue_manager *dqm, struct queue *q,
- 	int r;
- 	struct mes_remove_queue_input queue_input;
- 
-+	if (!dqm-&gt;sched_running || dqm-&gt;sched_halt)
-+		return 0;
- 	if (!down_read_trylock(&amp;adev-&gt;reset_domain-&gt;sem))
- 		return -EIO;
- 
-@@ -292,7 +296,7 @@ static int remove_queue_mes(struct device_queue_manager *dqm, struct queue *q,
- 	return r;
- }
- 
--static int remove_all_queues_mes(struct device_queue_manager *dqm)
-+static int remove_all_kfd_queues_mes(struct device_queue_manager *dqm)
- {
- 	struct device_process_node *cur;
- 	struct device *dev = dqm-&gt;dev-&gt;adev-&gt;dev;
-@@ -319,6 +323,33 @@ static int remove_all_queues_mes(struct device_queue_manager *dqm)
- 	return retval;
- }
- 
-+static int add_all_kfd_queues_mes(struct device_queue_manager *dqm)
-+{
-+	struct device_process_node *cur;
-+	struct device *dev = dqm-&gt;dev-&gt;adev-&gt;dev;
-+	struct qcm_process_device *qpd;
-+	struct queue *q;
-+	int retval = 0;
-+
-+	list_for_each_entry(cur, &amp;dqm-&gt;queues, list) {
-+		qpd = cur-&gt;qpd;
-+		list_for_each_entry(q, &amp;qpd-&gt;queues_list, list) {
-+			if (!q-&gt;properties.is_active)
-+				continue;
-+			retval = add_queue_mes(dqm, q, qpd);
-+			if (retval) {
-+				dev_err(dev, &quot;%s: Failed to add queue %d for dev %d&quot;,
-+					__func__,
-+					q-&gt;properties.queue_id,
-+					dqm-&gt;dev-&gt;id);
-+				return retval;
-+			}
-+		}
-+	}
-+
-+	return retval;
-+}
-+
- static int suspend_all_queues_mes(struct device_queue_manager *dqm)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)dqm-&gt;dev-&gt;adev;
-@@ -1742,7 +1773,7 @@ static int halt_cpsch(struct device_queue_manager *dqm)
- 						 KFD_UNMAP_QUEUES_FILTER_ALL_QUEUES, 0,
- 				USE_DEFAULT_GRACE_PERIOD, false);
- 		else
--			ret = remove_all_queues_mes(dqm);
-+			ret = remove_all_kfd_queues_mes(dqm);
- 	}
- 	dqm-&gt;sched_halt = true;
- 	dqm_unlock(dqm);
-@@ -1768,6 +1799,9 @@ static int unhalt_cpsch(struct device_queue_manager *dqm)
- 		ret = execute_queues_cpsch(dqm,
- 					   KFD_UNMAP_QUEUES_FILTER_DYNAMIC_QUEUES,
- 			0, USE_DEFAULT_GRACE_PERIOD);
-+	else
-+		ret = add_all_kfd_queues_mes(dqm);
-+
- 	dqm_unlock(dqm);
- 
- 	return ret;
-@@ -1867,7 +1901,7 @@ static int stop_cpsch(struct device_queue_manager *dqm)
- 	if (!dqm-&gt;dev-&gt;kfd-&gt;shared_resources.enable_mes)
- 		unmap_queues_cpsch(dqm, KFD_UNMAP_QUEUES_FILTER_ALL_QUEUES, 0, USE_DEFAULT_GRACE_PERIOD, false);
- 	else
--		remove_all_queues_mes(dqm);
-+		remove_all_kfd_queues_mes(dqm);
- 
- 	dqm-&gt;sched_running = false;
- 
-</pre>
-    </blockquote>
-  </body>
-</html>
+Alex
+
+>
+> Harry
+>
+> >> One solution would be a fixed firmware version, which was announced bu=
+t
+> >> has no timeline.
+> >>
+> >> ---
+> >> Changes in v6:
+> >> - Clean up cover letter and commit messages
+> >> - Add my S-o-b to patch from Dustin
+> >> - Mention testing in combination with "panel_power_savings"
+> >> - Link to v5: https://lore.kernel.org/r/20240818-amdgpu-min-backlight-=
+quirk-v5-0-b6c0ead0c73d@weissschuh.net
+> >>
+> >> Changes in v5:
+> >> - Forward-declare struct drm_edid
+> >> - Reorder patches, quirk entries are last
+> >> - Add patch from Dustin for additional quirk entries
+> >> - Link to v4: https://lore.kernel.org/r/20240812-amdgpu-min-backlight-=
+quirk-v4-0-56a63ff897b7@weissschuh.net
+> >>
+> >> Changes in v4:
+> >> - Switch back to v2 implementation
+> >> - Add MODULE_DESCRIPTION()
+> >> - Simplify quirk infrastructure to only handle min backlight quirks.
+> >>   It can be extended if necessary.
+> >> - Expand documentation.
+> >> - Link to v3: https://lore.kernel.org/r/20240731-amdgpu-min-backlight-=
+quirk-v3-0-46d40bb21a62@weissschuh.net
+> >>
+> >> Changes in v3:
+> >> - Switch to cmdline override parameter
+> >> - Link to v2: https://lore.kernel.org/r/20240623-amdgpu-min-backlight-=
+quirk-v2-0-cecf7f49da9b@weissschuh.net
+> >>
+> >> Changes in v2:
+> >> - Introduce proper drm backlight quirk infrastructure
+> >> - Quirk by EDID and DMI instead of only DMI
+> >> - Limit quirk to only single Framework 13 matte panel
+> >> - Link to v1: https://lore.kernel.org/r/20240610-amdgpu-min-backlight-=
+quirk-v1-1-8459895a5b2a@weissschuh.net
+> >>
+> >> ---
+> >> Dustin L. Howett (1):
+> >>       drm: panel-backlight-quirks: Add Framework 13 glossy and 2.8k pa=
+nels
+> >>
+> >> Thomas Wei=C3=9Fschuh (3):
+> >>       drm: Add panel backlight quirks
+> >>       drm/amd/display: Add support for minimum backlight quirk
+> >>       drm: panel-backlight-quirks: Add Framework 13 matte panel
+> >>
+> >>  Documentation/gpu/drm-kms-helpers.rst             |  3 +
+> >>  drivers/gpu/drm/Kconfig                           |  4 +
+> >>  drivers/gpu/drm/Makefile                          |  1 +
+> >>  drivers/gpu/drm/amd/amdgpu/Kconfig                |  1 +
+> >>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 10 +++
+> >>  drivers/gpu/drm/drm_panel_backlight_quirks.c      | 94 ++++++++++++++=
++++++++++
+> >>  include/drm/drm_utils.h                           |  4 +
+> >>  7 files changed, 117 insertions(+)
+> >> ---
+> >> base-commit: d2bafcf224f3911b183113b2fcb536c9e90684a3
+> >> change-id: 20240610-amdgpu-min-backlight-quirk-8402fd8e736a
+> >>
+> >> Best regards,
+> >> --
+> >> Thomas Wei=C3=9Fschuh <linux@weissschuh.net>
+> >>
+>
