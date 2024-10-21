@@ -4,147 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D14BCD0E6D9
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Oct 2024 09:55:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B495D0E6DB
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Oct 2024 10:08:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6638310E473;
-	Mon, 21 Oct 2024 09:55:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C18DA10E2D3;
+	Mon, 21 Oct 2024 10:08:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Hsj9Etys";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="fxtKRrxY";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2086.outbound.protection.outlook.com [40.107.236.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 72B2810E2D3
- for <amd-gfx@lists.freedesktop.org>; Mon, 21 Oct 2024 09:55:10 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on2048.outbound.protection.outlook.com [40.107.102.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB2EB10E2D3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 21 Oct 2024 10:08:18 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BpYGZq/M7hzrQwcjn18duiJEuBMq/q5EFbR8tFNL9f5Zkdusz/ib6EmgSWFPhCH0g6wwHh10vrXLvYc/+pAScbLVkEn6NCD6FVWAlt/2bPyA8aBgK5vWmC9ozbiWwKYRloM1Hz9wJMdfN/TONzf0wgobbQPHQt8YS/bimO9djnRgBIuh85VRrvHCIfMw0J9KGGIecxbcZ6vlFM7rdaIlvsaftnK4h3+xTByp8egdXye5VZmg3Mp6J0oYVAynHHwCgAg5He+f29c6dIk0cZEB9/bI2J9vGswQQkbqTvUmHZm7c/frteNF2A29nIvx2vRSs2NbEZJwUbbOvPQmYWbVEQ==
+ b=UUXjB0SBUCeEtYFa5ZPHN7Hi2PvlY6BT3HQZVgsIl1gX2jiO3OSop3rSiDPBeCYxzg1YSUqf4VGzj1m8a5ioZCcIkKQOpgiryMwMMjQ0fhbGvkJM6vc6yUB97XPFJ4cuosRtuKxvZ9JEfA4u1dk8h8v3PPj+WQhwTRiVHKWgjrGjtJSohVB1f/v/c0+2PQ8czcaFQyRMwtVZcAwzrFg/f/ev05IkGUkp+9gUxFChQXCNQAVsh/+CKZsaYz+IMaG+GwKVhcOmnJz5iREEHXlfahAVI8DcF6amcbYUUKkgY7ecAlydHJ8TVCWJd11FjtgibF1qXPfyPdFgeo86BPtDLw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7M4/B50Fv8DnRKSmutdzgx8pqXYacRouu/WzRW2ESHg=;
- b=ynZFdTivNOw9ZZL/+18TjR8YAVNe6Bu56j/Ipx/JsGV5cQD8aMQl8nhwh5VqAHdpSAbLkt0HOEUpFWgmJWwfiJL0vNX/Ktbokhoq4hySp6XVpiDAsnzFGX+r/ZaaO4/ZE2Qzd2A32CmYH7eYhKCA8B1e/fvBVfLRp21OoDIcPLfgUV8okobL6W70vv2HknLSC1Tf7mY1H6vcLx+KBgb7AlC7aR/joUXpv3/3D7ZPkOjahNIJaphUQHC16dF5/SRnVYKaXttl0JsHgfTYtyiNDdFXFbhmBmUgmlV87tRspazbWPAhRj7XTQQ8xMrA8MHXLkvwYm3WYRTk5naMfPbygA==
+ bh=wWARFTQi8nin3uqVYZJiwZL+QkeNZdgjX+YxeI2uKlM=;
+ b=kmvuddRQbW2TDJRnk4/PRRXpSmxyExtb2HFx1U1ZpldMccSvlf7DLhi3GUBlVa0Ufl5CopnVtDpAlAoTLw7Lw4pYgHi3TXH1oMTw3ggwK2b/1ImiHfKXgVmWhnOoyjbzEhwBVb6A6iQB9YzxJSnmqSouwVqLVniIEBvqmD+oS7ms+z0fi5s26BaJPn0b2kd+g0cABS4hR3Qi9gmtqHCxhMHVQglrEIsVssv1l1DD+Yy3QHicjAbvUSUmXWSzWXKy/jtjDp/ZOLWP354+1WeNWOY7YSfLcNyrEYCOx2FzhM4iYAfdbe2QwvCY+QgWbN9sTjpQy6iI1iT0+F/wcOWlaw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7M4/B50Fv8DnRKSmutdzgx8pqXYacRouu/WzRW2ESHg=;
- b=Hsj9EtysiPTW5mK9TbiEwOTUf4RBjVEXvDyy3CiBXXDNF1vjq69es54t7X+4TTEIFSaPI92RCugrLAnHzD5oafSlgCJCBaR28oX9vFS50n3UlHoaiwz6MqT5sx033m/0sTS2XNlmBo1KtE4vGeyGPDF31yGxeBHSt6exWDfJsBE=
+ bh=wWARFTQi8nin3uqVYZJiwZL+QkeNZdgjX+YxeI2uKlM=;
+ b=fxtKRrxYeGGpXCR1m6t22TgElSoxUC87FswcV/BfUmExnpfHbQ7I+iU708NUOAldMOOsRBqgsDQyJjLNaFoB28saKBzSaAUmGS/dh5fAT9M6MKHY7yAh6jhYfF+Hps5QF/iVsfREJ3kqdDDdA/GpNHXEjUNupIltMLZBk3LQ2B4=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH8PR12MB7301.namprd12.prod.outlook.com (2603:10b6:510:222::12)
- by MN2PR12MB4159.namprd12.prod.outlook.com (2603:10b6:208:1da::17)
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by MW4PR12MB7336.namprd12.prod.outlook.com (2603:10b6:303:21a::9)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8069.29; Mon, 21 Oct
- 2024 09:55:04 +0000
-Received: from PH8PR12MB7301.namprd12.prod.outlook.com
- ([fe80::a929:e8eb:ef22:6350]) by PH8PR12MB7301.namprd12.prod.outlook.com
- ([fe80::a929:e8eb:ef22:6350%7]) with mapi id 15.20.8069.027; Mon, 21 Oct 2024
- 09:55:04 +0000
-Message-ID: <9934a196-f36e-47f6-a39a-4760503591bf@amd.com>
-Date: Mon, 21 Oct 2024 15:24:57 +0530
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8069.28; Mon, 21 Oct
+ 2024 10:08:14 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5%2]) with mapi id 15.20.8069.027; Mon, 21 Oct 2024
+ 10:08:14 +0000
+Content-Type: multipart/alternative;
+ boundary="------------sDIQKIJ4m7lsJ3fzzIdAEv1z"
+Message-ID: <62916d2c-5a94-4f07-b6c6-12582948483d@amd.com>
+Date: Mon, 21 Oct 2024 12:08:09 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: Add gpu_addr support to seq64 allocation
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- amd-gfx@lists.freedesktop.org, christian.koenig@amd.com
-Cc: alexander.deucher@amd.com
-References: <20241018132629.190295-1-Arunpravin.PaneerSelvam@amd.com>
- <c7f38b09-133f-444b-897b-ab628c6ba51a@gmail.com>
+Subject: Re: [PATCH] drm/amd/amdgpu: change the flush gpu tlb mode to sync
+ mode.
+To: "Li, Chong(Alan)" <Chong.Li@amd.com>, "Raina, Yera" <Yera.Raina@amd.com>
+Cc: "cao, lin" <lin.cao@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <20241021055644.158966-1-chongli2@amd.com>
+ <7cf21ef7-c43a-4ab8-b439-c845f0b429fa@amd.com>
+ <DS7PR12MB57688ACFA41BEA8FD636ECB89B432@DS7PR12MB5768.namprd12.prod.outlook.com>
 Content-Language: en-US
-From: "Paneer Selvam, Arunpravin" <arunpravin.paneerselvam@amd.com>
-In-Reply-To: <c7f38b09-133f-444b-897b-ab628c6ba51a@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN3PR01CA0173.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:de::17) To PH8PR12MB7301.namprd12.prod.outlook.com
- (2603:10b6:510:222::12)
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <DS7PR12MB57688ACFA41BEA8FD636ECB89B432@DS7PR12MB5768.namprd12.prod.outlook.com>
+X-ClientProxiedBy: FR3P281CA0028.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1c::19) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB7301:EE_|MN2PR12MB4159:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7b948b6c-ad8b-49cb-b736-08dcf1b66f78
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MW4PR12MB7336:EE_
+X-MS-Office365-Filtering-Correlation-Id: 852aef3b-69ff-4235-3a80-08dcf1b846e5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?eUgyQVVGbmxKZmtQTWhtTWJuZW9EazFkcnVZNzlydDZjelg1ME1xTC9kK0Fm?=
- =?utf-8?B?QTlsR3htMzQ5VHFwcUd4dHBQTThpelVselQ0TjBIK1Q1Ymt1UkRxUjNLRHgx?=
- =?utf-8?B?TXdCUUM2SUN3bWd1TTY1NmlvcGVJUXRXY3ptWG9OaXlaN2Jqc0JOMTBhQ0NS?=
- =?utf-8?B?d3A0RXdVWWQxRUd3UEIvbjMxWUc1bkJ4L0VmUkI3NTFCZ2FpZXcyU2ZpOVlq?=
- =?utf-8?B?NzF2TVhWNld2NHIreXphbHZvSk9neDlSREhDak5RUExWTHFkaVNDWjJXZFRa?=
- =?utf-8?B?Q3o1K2tUMDlRZWVGTmw5VDZRUlZRTWJXZFZkU3dOY1UzRDlnN09FcFYzYUlB?=
- =?utf-8?B?R1BMa2RGQ2pBV2E2S05KQ0FrVmtWNEtRWEgrcytNRlQwMUQyTk5xNDdJdHc5?=
- =?utf-8?B?VkxrV3FobVNkanAwQlN5aERZQXNIejNYTlJUeDR6aTlsQlN4V1hGN2VkcUZk?=
- =?utf-8?B?TDRkdmI5YlBaNzM4YlExVllYa0VmMFBGakFnODU2NElRTUVUejRYM2ZsTk93?=
- =?utf-8?B?NzFYd3liL2F4WGd0Vk8vVlBDMG9TRys1QWhyRUtXblZkUk41cjN0YUc3aU9t?=
- =?utf-8?B?dGlyTG5MeFVDc09EOHNRRUtyYTRoUkkxQUFGNW1UVjY4OStINjgzbE5DdzVn?=
- =?utf-8?B?WVltcUd0RmJhbzR5a25uN0FURjE0ME5WM0lqd0dXZG82NmlNdnhRSGwxZFBO?=
- =?utf-8?B?em5aZGsvRDNpRlZ4ODNpSWhOWDkySU5jV1I2dVhXWUl5RmM5YzZQanpnSWw0?=
- =?utf-8?B?TXN1RXd5djRybUh2VGY0VnRESEhVK2JlQmk2S2xmbFd2S3BlWDRVbWN4UTBo?=
- =?utf-8?B?Uk0xQXl5RlZSb1lwTGs5WDliNHBZUXR6b01yNXgwM3JZd1dZVmFWYTRTOWtJ?=
- =?utf-8?B?V2JIZjdxRnRYMGlQTnlib1pjYjV3UHpHNXduZlg5M0doWEtMMU1wWms2cEt3?=
- =?utf-8?B?Y24yWDN0WmxZVkp0cXU1ZzJ1Mzh3b3ZRVkZHc0lOMVhmM0VVb1FDVTFGaksr?=
- =?utf-8?B?c1A2cXlDMDdRYkZGS0ZMdVAzaDBBcU00bGZ4TWhPT2VYYzhFMHI2cDVzeURN?=
- =?utf-8?B?Slh4ZlV5Sy9MZFJXNmN5ZDVZc3hmUVBXbDBRaFJIR0YveTJrVTZTK21DdGlO?=
- =?utf-8?B?QVZpbWNudmpTc3NpR1U5WWJJd1RGcTQvUlZGZVg1V2NFUlU4WGxTYTE0YXJz?=
- =?utf-8?B?WUdJVzR0bEJxS2d2UUxHZHI5T2NxT0o5MHJtTGZIU2ozd2dmVFlGVmlVKzZT?=
- =?utf-8?B?VkJtVHBoNFVoNnZ5Z09GU2hlZ2taVWJUU1pkeHB6MURKdkdHVEY0UlM2MTJN?=
- =?utf-8?B?Rm9GelhDTGNLc1E3a1dQQkRsd082Q2U5SlVIOFRyOVFBQnhWZ09zb3pSQ1U1?=
- =?utf-8?B?MUk3d2lWWHVFNUpTbElwTXJrNnJJbGo0dkcvU2RqS0hzVGdqWGIrY1VhRGZL?=
- =?utf-8?B?ejByY0EwNWFXNHJRZ2N4TmxZWk4vNUtzZVF4YlZuaWQ3N0FEcVJWbm5ubmh4?=
- =?utf-8?B?Z1g4Vk5yNGxlRVE1ZS9GMlpCUjEyZ0treHIwOHBlMXhyK2VveTBHVHovYkxX?=
- =?utf-8?B?bWFIOXdUc3hGb2lUQjNYb0hOWFM2SUhPVlhsN2V1aUhUR3U2ZlpRZ3F5Umkr?=
- =?utf-8?B?SkUybzV6eWt5UGY1TTFrT29PdG1uaS9KbmJPbDlFOFpwNWdzYUQ0YWh0VU1L?=
- =?utf-8?B?VU5MRjBTWkdlTzQyck5nMnJzdHpud2ZHTkYrTFZMeVlKdzNaZnZYeFNoY2Vy?=
- =?utf-8?Q?gGoiENNcsf9NO+bZgSPPyPXim2dsLpSJ7BwJLzs?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024|8096899003;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?N2h2WUc0SE5sMDdQdEkvWkE1SzcyK0lVcWRSWWtwNUFMRWg1YllHQ2NaMUhk?=
+ =?utf-8?B?R2FNWmRCRmFibGx0NXc3aHB4TmRlUmMvVUNrREU3SnBBUmFtY1N1cDhqaUZ2?=
+ =?utf-8?B?QVo2S1JKRHY1Vmt6dE9qNTN6OUdPa0NmMTJyZnNzZ1dVVVVENXJIeDVraHdr?=
+ =?utf-8?B?bmo2T0tRaEN2enJib0JMY1VsYThPM2R6R2RxamJpT0VWbWU4cUFLOFBETUwy?=
+ =?utf-8?B?Y2o3ZlpxUENaUVN0VGRzeldQR3dOUXg2a2svckpFeGx3Tmp4STNnSlNsc2E5?=
+ =?utf-8?B?U0kwWU91cFpFWUJxdE1aT09hYkRIM2w4bFdpVkFiNW9IREJWVlVzbVErYXFl?=
+ =?utf-8?B?VThDWUwyeVlmT0RPdW5McCtNRzlBNGVWdXFmK3lWSEQvSzJkYmdjb1RkOGtC?=
+ =?utf-8?B?VUVUb3RGWDNsbThIcC9tK2FuQ1hPUjJ5RE4rdG4rRjk4UWg1VC9vL21YR0cx?=
+ =?utf-8?B?cVU4ZFl6djAyVnVmenp3MFFEaE53cG83MkRUVFk1UFpDS2UrWDlDTFBMb1lC?=
+ =?utf-8?B?TWJ6YW9rc2tMdExMMkxtUEZ4cDZIVFBNL1dDRzZHSnp4bmR1Y3hyekw5Uk9u?=
+ =?utf-8?B?QUVySW5SdUpqVi9mVEFlV29HSHJSNG5melJSbWdxTExQWHJBeFplSTExeEJW?=
+ =?utf-8?B?Mkxibmo4S2k2bEJrMC9BZlJqeDdMeVc2NG15KzNXdGNnblVRTlFqVUJ5OUNi?=
+ =?utf-8?B?RUlpanUwVzlQMVVVeEFKZ2gwYU1VM3c2WHhBM3dDc3RUcjQzWkg2RnJsb2ZV?=
+ =?utf-8?B?eWJnUG52L1pWZ2kyeVBFWmhYTjVYd0tJOVIxOTlibndwRlQxYVZEc0hmVGJa?=
+ =?utf-8?B?NEw2UG5YbVh4YTBhTytOUmdBNGdWQlhJbk54N0ZrdnAzTk1tWGJiYlV1NFBZ?=
+ =?utf-8?B?M1lVNGhGZjcyVmtsNGRSb1loVGJUOU5obkJ1WnlCOU5uVGpqeTZGbTJHM0FI?=
+ =?utf-8?B?UGlDL0ZjVGRGZ05GWDJySnhjNU5PUG0vWlVLYTg5WGo5aDV3UmIrQk44a0t1?=
+ =?utf-8?B?bkZHVXoyL0xiaUFnWkQyOVQwN2lFUkMvV21qL1NwYVhpOEdlQjBxQzZlQU5w?=
+ =?utf-8?B?dUtLZlVuMVp2a3dOTm4vSXVFVHp0R05wZ0p2cTNCOGhaSWE3MWU2Y0F2amha?=
+ =?utf-8?B?enJjMWN0R3dMK2wwbVdGb0lDc2E4SXNWdjBycXZoUjRHOTFOWWt5WlU5eVF4?=
+ =?utf-8?B?Tm1Xc3JZL215Z2tRUDZXKzNIa0svWWdzT0RzVlhCWW12aFZ4NlA1aEt4UjVX?=
+ =?utf-8?B?OFBHOWxrekpIRU9CWU1pUEkyTkd2eDNyZlhsZFpDcWRldlIyd1U0Q29INUR0?=
+ =?utf-8?B?QU5NdzVWVExIczFXYXdpRmlxaTlLcE5qcTRpL08zNk1Pcm42RHpVakc3QkJa?=
+ =?utf-8?B?TUVsOVNIa2QydTgyQWlac2x2UnVyOENWZ1Zza0E2YmlocDNJTWJ6MTVRR1NF?=
+ =?utf-8?B?bkpHcDVLMm9Rc3FGT2VmdEhTT0RRMGNlSFZrbXRXZ0RMVExPSUYxc3ZVWm5T?=
+ =?utf-8?B?RTJYeEVZdjhTWFZmclgxTjdEWTNGNWZYcXlEa2ZTSldNcDJ6aXR0WVlsc1ps?=
+ =?utf-8?B?bWpZNEJhakdZTHdubjIxWkY2bGtXNDJyTTdHNENETWp0ZFRHRHByVWp0YkR4?=
+ =?utf-8?B?b3lGOFc4NWY4SWcyTGpBKy95dUFhb1hLVXhEcGlsQ0VzdGNNNEhVVk55TXNm?=
+ =?utf-8?B?QkhZRFFOMnlhb0k1WEJkQ1VSRVJJOWpCdHkrR3QrZGJsRjYzZDgrcnB0c3c3?=
+ =?utf-8?Q?2AousZ+qdSUHF4ORYQT5WRzCaj+s4AUnzzVZnjm?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH8PR12MB7301.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(8096899003); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WG9Lc1ZwYXkzVHQ1MWg1bUNHTVB4V1RvVThuSEpTamxoREtaZEpITTUzYnJD?=
- =?utf-8?B?U2VIcnQzbWtUdnVNWUdKWkcyQndkajFyQUh5Z3hLSmVSeHAxUnJYRW9OZkhm?=
- =?utf-8?B?TFBTS3JFL3JET2ZQdFdHVjdHS2NrQk9NU1A2NEk3V2dwOWdLVWxzM3pxb0Rz?=
- =?utf-8?B?dVFpMWVDZXB6UnE3UURWNjI5MFhPMWdXQzFMR0ZBQVE0SW96VFEwT2VqUklD?=
- =?utf-8?B?REljL1BxajJDUXdGSHdXQXpzV2JCSGJVUGV3QmF4cFFqbktWT3lqeXJzNXJ0?=
- =?utf-8?B?WnVWVjJXRGhpSVZkajk1SjdGMDRiVkdldStuU01IOTdOWCt2b3hMbE5ndU11?=
- =?utf-8?B?Z3owSUFTMFBpZy9FclpSWDdZc3VvankyRFRlSnR1cUlmUnkyWnJTVlE0WXBJ?=
- =?utf-8?B?MVduR3lGRlYwaGZpWnZ4Ni9DVDRPWGMxckhoY2wzdnBBSWNtQzZScEZHbDZW?=
- =?utf-8?B?M2o4eDNVWU5hT3pueG9TRE5aKzZUNWRLcHVHRkdjdStSejhKVFNLaGpFRWw5?=
- =?utf-8?B?L0pCNzhCejAwbW4wNTRORm1VQ3RJd09TNjRLWmNITGZOeUxkOTZWZDlXekx6?=
- =?utf-8?B?anpsbGdWRnBSM1JRSUo5ODRubENvMlVNOEF2Y2Q5WCtaNmUxRXptbTc0cnFU?=
- =?utf-8?B?MDk3OFhwSHkzQWxHVTJ3dEZWWDkwK0g1bi9PbGhzYkxtWG5RMk1nSWZSL3lB?=
- =?utf-8?B?LzBiL3hxTFhDckpseDJZWFRoYTdncWxGUWZnZVVjWHFFQ3Vyb3F1cUI0cHoy?=
- =?utf-8?B?dkc2MTRqNWdwQUhYQjFFRW5HK2lmM3VFSGVsTGVMUThJc0hvTFZEMEZuWVFo?=
- =?utf-8?B?NTAxY3M1RHBSMUF3WUxyTUNlMkY1MWc0aWxCK0RVVk5OcGh3N0RMdFdreitm?=
- =?utf-8?B?dHAxZXo2VGdVT0I0bkhIL3RUaTRnaDc3ZWRITy9pbHZ6cVdwQzRQTURiTEEx?=
- =?utf-8?B?Z1VVTUdEUjQ5a1BXNzRkcWJtMzZqVDE3VUlDRFR2eVR0NnBBbFozS3J4c3F4?=
- =?utf-8?B?cXpYRDlhWTdkNEg0WldPMEMrNW1JRUdpZDk4azdJVXJ4SE5CWC9Vd0hGYzd5?=
- =?utf-8?B?M1BmeUU0UE8xVFVyZTVRVHV4VldyR1owMC83N1Y1QTdFTHpUbks2VXl5bmFi?=
- =?utf-8?B?R0RtMzVyWHlmVmdSRUY1N2xXamxyRmYzdDkyQkFwLzJuSjJyS2ZKSW4rbkRl?=
- =?utf-8?B?MWtRaVVEaGZCL3VUeVN2WDQzZEV0bEtYZExhQkVXTEhxSUlWcDkxQmE4VzhO?=
- =?utf-8?B?aVFrN0JhLzI4UDhaMWwrOE5OOGV5V0JuZlZ5S0tTc0pqZzg5T0Y3LzFUYkRD?=
- =?utf-8?B?TkVmZ29qUkxCcEFsWjVIbnpJb3dwUkgrZDdoTEt1TXlKeTlQM0NrMEQ5UWNw?=
- =?utf-8?B?WXpTMTdMdzdVbjA3OEFoRnRYaXAzR1hzbnJzalZHTzVKZU4zckM0bHhXQUp4?=
- =?utf-8?B?bVBRVkVMQnA4TmZSK1RKOE94aXJlcEg5dk1KNWIxZDJSMlM1Q212VkVNbnBq?=
- =?utf-8?B?Z2hsNEhVU1dTeCtiYzNnMm9rQzFBckh3VTB2MnIrQ3g1YUxlNC9CWWJZY3NW?=
- =?utf-8?B?Z3dCdCsrYTlQY2xVSXV3ZTZZR1ZkbkFuUWtCL2lib3lSblRPR3d6ekhtc3JQ?=
- =?utf-8?B?eGhWQWJ2N213S2xGaG14NmM0V1lBVTE2MHhMMFpkbGQxMWpnUWd5Z29QRmRG?=
- =?utf-8?B?aDZQRnJLNmNhZHZTaG0xRVVlRDVaRlB1NWlJb05pWHFwakNoRzB0bVoxMjB3?=
- =?utf-8?B?N3pnUHFrbWcrNGhScnlvNi9rY1lDSVpkdmc4aEdKYllobjBEbGIvT2c3Wm00?=
- =?utf-8?B?aVQ4V21yNDRVZjlZNHB0WW1RNlltMW1JYTR6bWpCZWovV0lFMmZ6SW93RHBO?=
- =?utf-8?B?K0w3aEpXSEJEVjZnV1hVaEZnc3RZNHEwcHBRWlFDUW42TW50b0g5cjdzbkxq?=
- =?utf-8?B?WTRPTlZsWVhTQmtmMmRGUGMzYklHV051TFRNbkN5dVp1WUdQT00wMmVqMXNI?=
- =?utf-8?B?c2Z1OWR1N3JXUHBwVTlRdWtMMmMvdHpVSTYvWEQwcUxVNytBeS8vdmRDd0xl?=
- =?utf-8?B?YzR0R3VIOXhGclA0VkdzNUp6TWtSREFIVTg3QSs4WXJWU2FCMmVwUGtSN0JK?=
- =?utf-8?Q?k+3u2iJ64IAl5SYiD0pD2Sj+M?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?T0ppVXRkd244MUM5dU5jSVpYTkNtOXE5VG9TQ0lOMXVMaE0vWUJHeERaVUtO?=
+ =?utf-8?B?d0FDbTVNSFQzMlR6ZGlQMXdvZlhHaHB1UFIxMlQ3WXNROS9VVCtDNXZwOXJZ?=
+ =?utf-8?B?bHRHb0ZVKytHZDYydkVJNlpqenJlZWg1NERCV1Ztcnk5TkZnN3UrbnJuVitv?=
+ =?utf-8?B?OWc2THdDejJ3UkZmQjRFSnBYQnhsaS9LMjBJRHJTM3FGMWljM3c5ZmRYMEhU?=
+ =?utf-8?B?a3JmOVdoVUVKdTVjL3F6dFBLOVJybVRldlpGcDZ4TTl4R09oNElhT3d0WGlO?=
+ =?utf-8?B?Y0dqU25OZnllc3hpbTFGM0J6REx6aTYrbTBIUCtSM0tnelVTdzVRMnhHME5T?=
+ =?utf-8?B?VEF6Q3phRllKSmE2TXFlUEd1aFhxaU43bS9wSm55cEJneVZFZWt1Ny9vQStw?=
+ =?utf-8?B?eTdwbmdhUDBFUm05QU4rOEFsNzlieWVCL1BBTHkzekZSTktZU1Y5Z3VZUUJz?=
+ =?utf-8?B?K0VkcytsMnlqZXd1YWdUWGJNNWJ3ZXppTDNHQ0NIVTVpZEs4VzlZRU9wUHNt?=
+ =?utf-8?B?N3IzS0pnajdTQXZQekZ3bXIwVzlESVBiZ0VxcElkd2kyOEhQY01kMkhUb2xr?=
+ =?utf-8?B?dm9iSmVpY3djV0hsREhxNWJQZDJrYUx5Z2FvVXJzbW5ubEljVzYvUmI1aDRi?=
+ =?utf-8?B?Y1p0b1g1dFVGZC8vMExYMSsyTHkyWGR3b1FmUWs4ZmJKNm5YTGtZQS9ZSkw4?=
+ =?utf-8?B?U0ZNcFZjU0QxcnhLNTNyMFh1MnplelMvU05PQUpiUWY3RitOWUZxL0VpelRK?=
+ =?utf-8?B?TTN6OE04WDI2UXlHa0VPNWovc1pEZEFrUlVyd2tpejRUNWg3MWhxSUk0SVJl?=
+ =?utf-8?B?cnBRQ1Q2Ujhmc2dPZHNsZDJkanlYQmMzMmlPZWtjMUV5S3hYZWZveUpsbFpo?=
+ =?utf-8?B?SENMMXdwWlZsSnRSbjYzaTJod0IrNC9KczFUdWtMUnhYZVhYUHRYeXgzODZK?=
+ =?utf-8?B?MThwZ2laMHdyVUhvNnVMNU5oQ3NORk9GRVNYYmZjK2RmU3NOaGxnU0JoV00z?=
+ =?utf-8?B?amRMRURSRGhqYU1uSE5BbkNSTXdkQlZCalhPbnpBMUNwNTlyRC96VHQrUlBs?=
+ =?utf-8?B?Y2RUSkh3NzhUZ3VLRkZtd3ZZUWVGUGxiRXYyeFNLWjNqU0dxVkQ5cEtwSHJt?=
+ =?utf-8?B?Zm9oZDJuMlk1K2daRkROMXBXRkZxeXY4Slp4MG43QVlZQjRNME9oeXRGeVB3?=
+ =?utf-8?B?bFZXbGROWEh3VFNrWWFZK3J4NEMvQ0FEejJXNXlZbWV2THBWNEVRTXBjak9p?=
+ =?utf-8?B?T2VubjdlWVdwRUFmdnp2dzNiTnpBa3ZsVGovd0RKYWtpS1BGMWNvamswaThG?=
+ =?utf-8?B?Vmgyd0dqUmZpUlhwYlhYTkZwTUNMN2V0b3V1OXNRWUZnaHl3M2g1RWU3eFZL?=
+ =?utf-8?B?L2ZENXZqc2hBQzMzRllPNGRVWGhaeEd5MUs5NnVuT204TFBUaWRYZ2E3bmlj?=
+ =?utf-8?B?RHdaVjFuMmVleEhMVHhkTUJKRGVvVFZQTmcvRXcwQ2NFa3U1Nm1TSVF6Qkc3?=
+ =?utf-8?B?YWN0d21jQk5vTnpxSWVQN0NNdzM0RGFYN3BxVGFNTzI1UUptT1drOG1MS3pJ?=
+ =?utf-8?B?Qmh1ZWxRempFOEQ3NzAxd043dVhaL0s4dWM5ck9jN1pzSkdUMitudG01Nm9w?=
+ =?utf-8?B?VjdSbW02c0p3eXhnOU9oK0ljOUttMnYzMWVoYkIwbjY5c285RWN5SXM1K28v?=
+ =?utf-8?B?aWxncVFyVThiOXZmUElDT1pSb0VBeXRMTWZ1M2JjZUFuaFFaUjRFVGZiOXdI?=
+ =?utf-8?B?S0hEVjBBbkJIaWZpdGFNWnJBNmM3aW8yTkNaczJ4eFc0RTFuTmJGVW9uOUYr?=
+ =?utf-8?B?T25DN3FzUlRiWHd3TVFjSDRhYnBKSGVnWnlueU40SjBRaDRLbTE1VWZZdVQy?=
+ =?utf-8?B?VDB5em5PdUhTU0MvYXE5N1FwSW5pZ0NLV3pML3lWdGJHbzdmakRjUnROTm5a?=
+ =?utf-8?B?bzQrc2o5YVFQcXdxdTJKMmVkOVdtYjBHcG55SHJQWUU2Y0tJR0pjSnlvQnRS?=
+ =?utf-8?B?SVVrNG85TG04aHBQMERKMFExV3RVV0wxSERxUHdncTMwQStmUytnaGZsemo1?=
+ =?utf-8?B?bjBuUHlzWWZDd1lKb2F4ak5KNFJYSlJOcnhCSEl0UEdiclBZdVhqclRRTE9U?=
+ =?utf-8?Q?/y6Vbc8vhg7BLyTwU1GuUebTj?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7b948b6c-ad8b-49cb-b736-08dcf1b66f78
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7301.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 852aef3b-69ff-4235-3a80-08dcf1b846e5
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2024 09:55:03.9624 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2024 10:08:14.6731 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: iNBLOI/KBrpIbInraUpXciRcKVFwkDtzmvbsD200trowgvUn4iQ56TQMznOVgiIOLwZEk64xczCOfCeJqqxg1Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4159
+X-MS-Exchange-CrossTenant-UserPrincipalName: XReRvTEB+zbKRdMFer2mjaN85wtk4vvaWkMDy1eJXfltMPpmcFmqmJxMtxN0k3jp
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7336
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,92 +161,298 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Christian,
+--------------sDIQKIJ4m7lsJ3fzzIdAEv1z
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-I couldn't find other users except userq fence driver which are not yet 
-pushed into amd-staging-drm-next.
-Should we wait and push along with userq fence patches or we can push 
-this one separately.
+Hi Chong,
 
-Thanks,
-Arun.
+Andjelkovic just shared a bunch of traces from rocm on teams with me 
+which I analyzed.
 
-On 10/18/2024 7:09 PM, Christian König wrote:
-> Am 18.10.24 um 15:26 schrieb Arunpravin Paneer Selvam:
->> Add gpu address support to seq64 alloc function.
+When you know what you look for it's actually pretty obvious what's 
+going on. Just look at the timestamp of the fault and compare that with 
+the timestamp of the operation mapping something at the given address.
+
+When mapping an address happens only after accessing an address then 
+there is clearly something wrong in the code which coordinates this and 
+that is the ROCm stress test tool in this case.
+
+Regards,
+Christian.
+
+Am 21.10.24 um 11:02 schrieb Li, Chong(Alan):
 >
-> Looks good to me, but when adding interfaces you should probably have 
-> the user of this in the same patch set.
+> [AMD Official Use Only - AMD Internal Distribution Only]
+>
+>
+> Hi, Christian, Raina, Yera.
+>
+> If this issue in rocm, I need assign my ticket SWDEV-459983 
+> <https://ontrack-internal.amd.com/browse/SWDEV-459983> to rocm team.
+>
+> Is there anything to share with the rocm pm?
+>
+> Such as the Email or chat history or the ticket you talk with Andjelkovic.
+>
+> Thanks,
+>
+> Chong.
+>
+> *From:*Koenig, Christian <Christian.Koenig@amd.com>
+> *Sent:* Monday, October 21, 2024 4:00 PM
+> *To:* Li, Chong(Alan) <Chong.Li@amd.com>; amd-gfx@lists.freedesktop.org
+> *Cc:* cao, lin <lin.cao@amd.com>
+> *Subject:* Re: [PATCH] drm/amd/amdgpu: change the flush gpu tlb mode 
+> to sync mode.
+>
+> Am 21.10.24 um 07:56 schrieb Chong Li:
+>
+>     change the gpu tlb flush mode to sync mode to
+>
+>     solve the issue in the rocm stress test.
+>
+>
+> And again complete NAK to this.
+>
+> I've already proven together with Andjelkovic that the problem is that 
+> the rocm stress test is broken.
+>
+> The test tries to access memory before it is probably mapped and that 
+> is provable by looking into the tracelogs.
 >
 > Regards,
 > Christian.
 >
->>
->> Signed-off-by: Arunpravin Paneer Selvam 
->> <Arunpravin.PaneerSelvam@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c | 10 ++++++++--
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.h |  3 ++-
->>   2 files changed, 10 insertions(+), 3 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c
->> index e22cb2b5cd92..0defad71044c 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c
->> @@ -163,7 +163,8 @@ void amdgpu_seq64_unmap(struct amdgpu_device 
->> *adev, struct amdgpu_fpriv *fpriv)
->>    * Returns:
->>    * 0 on success or a negative error code on failure
->>    */
->> -int amdgpu_seq64_alloc(struct amdgpu_device *adev, u64 *va, u64 
->> **cpu_addr)
->> +int amdgpu_seq64_alloc(struct amdgpu_device *adev, u64 *va,
->> +               u64 *gpu_addr, u64 **cpu_addr)
->>   {
->>       unsigned long bit_pos;
->>   @@ -172,7 +173,12 @@ int amdgpu_seq64_alloc(struct amdgpu_device 
->> *adev, u64 *va, u64 **cpu_addr)
->>           return -ENOSPC;
->>         __set_bit(bit_pos, adev->seq64.used);
->> +
->>       *va = bit_pos * sizeof(u64) + amdgpu_seq64_get_va_base(adev);
->> +
->> +    if (gpu_addr)
->> +        *gpu_addr = bit_pos * sizeof(u64) + adev->seq64.gpu_addr;
->> +
->>       *cpu_addr = bit_pos + adev->seq64.cpu_base_addr;
->>         return 0;
->> @@ -233,7 +239,7 @@ int amdgpu_seq64_init(struct amdgpu_device *adev)
->>        */
->>       r = amdgpu_bo_create_kernel(adev, AMDGPU_VA_RESERVED_SEQ64_SIZE,
->>                       PAGE_SIZE, AMDGPU_GEM_DOMAIN_GTT,
->> -                    &adev->seq64.sbo, NULL,
->> +                    &adev->seq64.sbo, &adev->seq64.gpu_addr,
->>                       (void **)&adev->seq64.cpu_base_addr);
->>       if (r) {
->>           dev_warn(adev->dev, "(%d) create seq64 failed\n", r);
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.h 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.h
->> index 4203b2ab318d..26a249aaaee1 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.h
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.h
->> @@ -32,13 +32,14 @@
->>   struct amdgpu_seq64 {
->>       struct amdgpu_bo *sbo;
->>       u32 num_sem;
->> +    u64 gpu_addr;
->>       u64 *cpu_base_addr;
->>       DECLARE_BITMAP(used, AMDGPU_MAX_SEQ64_SLOTS);
->>   };
->>     void amdgpu_seq64_fini(struct amdgpu_device *adev);
->>   int amdgpu_seq64_init(struct amdgpu_device *adev);
->> -int amdgpu_seq64_alloc(struct amdgpu_device *adev, u64 *gpu_addr, 
->> u64 **cpu_addr);
->> +int amdgpu_seq64_alloc(struct amdgpu_device *adev, u64 *va, u64 
->> *gpu_addr, u64 **cpu_addr);
->>   void amdgpu_seq64_free(struct amdgpu_device *adev, u64 gpu_addr);
->>   int amdgpu_seq64_map(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->>                struct amdgpu_bo_va **bo_va);
+>
+>     Signed-off-by: Chong Li<chongli2@amd.com>  <mailto:chongli2@amd.com>
+>
+>     ---
+>
+>       drivers/gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c | 4 ++--
+>
+>       1 file changed, 2 insertions(+), 2 deletions(-)
+>
+>     diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c
+>
+>     index 51cddfa3f1e8..4d9ff7b31618 100644
+>
+>     --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c
+>
+>     +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c
+>
+>     @@ -98,7 +98,6 @@ void amdgpu_vm_tlb_fence_create(struct amdgpu_device *adev, struct amdgpu_vm *vm
+>
+>        f->adev = adev;
+>
+>        f->dependency = *fence;
+>
+>        f->pasid = vm->pasid;
+>
+>     - INIT_WORK(&f->work, amdgpu_tlb_fence_work);
+>
+>        spin_lock_init(&f->lock);
+>
+>       
+>
+>        dma_fence_init(&f->base, &amdgpu_tlb_fence_ops, &f->lock,
+>
+>     @@ -106,7 +105,8 @@ void amdgpu_vm_tlb_fence_create(struct amdgpu_device *adev, struct amdgpu_vm *vm
+>
+>       
+>
+>        /* TODO: We probably need a separate wq here */
+>
+>        dma_fence_get(&f->base);
+>
+>     - schedule_work(&f->work);
+>
+>       
+>
+>        *fence = &f->base;
+>
+>     +
+>
+>     + amdgpu_tlb_fence_work(&f->work);
+>
+>       }
 >
 
+--------------sDIQKIJ4m7lsJ3fzzIdAEv1z
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    Hi Chong,<br>
+    <br>
+    Andjelkovic just shared a bunch of traces from rocm on teams with me
+    which I analyzed.<br>
+    <br>
+    When you know what you look for it's actually pretty obvious what's
+    going on. Just look at the timestamp of the fault and compare that
+    with the timestamp of the operation mapping something at the given
+    address.<br>
+    <br>
+    When mapping an address happens only after accessing an address then
+    there is clearly something wrong in the code which coordinates this
+    and that is the ROCm stress test tool in this case.<br>
+    <br>
+    Regards,<br>
+    Christian.<br>
+    <br>
+    <div class="moz-cite-prefix">Am 21.10.24 um 11:02 schrieb Li,
+      Chong(Alan):<br>
+    </div>
+    <blockquote type="cite" cite="mid:DS7PR12MB57688ACFA41BEA8FD636ECB89B432@DS7PR12MB5768.namprd12.prod.outlook.com">
+      
+      <meta name="Generator" content="Microsoft Word 15 (filtered medium)">
+      <style>@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}@font-face
+	{font-family:Aptos;}@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}@font-face
+	{font-family:"\@SimSun";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}@font-face
+	{font-family:Consolas;
+	panose-1:2 11 6 9 2 2 4 3 2 4;}p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	font-size:12.0pt;
+	font-family:"Aptos",sans-serif;}a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}pre
+	{mso-style-priority:99;
+	mso-style-link:"HTML Preformatted Char";
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:10.0pt;
+	font-family:"Courier New";}span.HTMLPreformattedChar
+	{mso-style-name:"HTML Preformatted Char";
+	mso-style-priority:99;
+	mso-style-link:"HTML Preformatted";
+	font-family:Consolas;}span.ui-provider
+	{mso-style-name:ui-provider;}span.EmailStyle21
+	{mso-style-type:personal-reply;
+	font-family:"Arial",sans-serif;
+	color:windowtext;}.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;
+	mso-ligatures:none;}div.WordSection1
+	{page:WordSection1;}ol
+	{margin-bottom:0in;}ul
+	{margin-bottom:0in;}</style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext="edit" spidmax="1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext="edit">
+<o:idmap v:ext="edit" data="1" />
+</o:shapelayout></xml><![endif]-->
+      <p style="font-family:Calibri;font-size:10pt;color:#0000FF;margin:5pt;font-style:normal;font-weight:normal;text-decoration:none;" align="Left">
+        [AMD Official Use Only - AMD Internal Distribution Only]<br>
+      </p>
+      <br>
+      <div>
+        <div class="WordSection1">
+          <p class="MsoNormal"><span style="font-size:11.0pt;font-family:&quot;Arial&quot;,sans-serif">Hi,
+              Christian,&nbsp;
+            </span>&nbsp;&nbsp;&nbsp;<span style="font-size:11.0pt;font-family:&quot;Arial&quot;,sans-serif">Raina,
+              Yera.<o:p></o:p></span></p>
+          <p class="MsoNormal"><span style="font-size:11.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
+          <p class="MsoNormal"><span style="font-size:11.0pt;font-family:&quot;Arial&quot;,sans-serif">If
+              this issue in rocm, I need assign my ticket
+              <a href="https://ontrack-internal.amd.com/browse/SWDEV-459983" moz-do-not-send="true">SWDEV-459983</a> to rocm team.<o:p></o:p></span></p>
+          <p class="MsoNormal"><span style="font-size:11.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
+          <p class="MsoNormal"><span style="font-size:11.0pt;font-family:&quot;Arial&quot;,sans-serif">Is
+              there anything to share with the rocm pm?<o:p></o:p></span></p>
+          <p class="MsoNormal"><span style="font-size:11.0pt;font-family:&quot;Arial&quot;,sans-serif">Such
+              as the Email or chat history or the ticket you talk with
+            </span><span class="ui-provider">Andjelkovic.</span><span style="font-size:11.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></span></p>
+          <p class="MsoNormal"><span style="font-size:11.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
+          <p class="MsoNormal"><span style="font-size:11.0pt;font-family:&quot;Arial&quot;,sans-serif">Thanks,<o:p></o:p></span></p>
+          <p class="MsoNormal"><span style="font-size:11.0pt;font-family:&quot;Arial&quot;,sans-serif">Chong.<o:p></o:p></span></p>
+          <p class="MsoNormal"><span style="font-size:11.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
+          <div>
+            <div style="border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in 0in 0in">
+              <p class="MsoNormal"><b><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif">From:</span></b><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif">
+                  Koenig, Christian <a class="moz-txt-link-rfc2396E" href="mailto:Christian.Koenig@amd.com">&lt;Christian.Koenig@amd.com&gt;</a>
+                  <br>
+                  <b>Sent:</b> Monday, October 21, 2024 4:00 PM<br>
+                  <b>To:</b> Li, Chong(Alan) <a class="moz-txt-link-rfc2396E" href="mailto:Chong.Li@amd.com">&lt;Chong.Li@amd.com&gt;</a>;
+                  <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a><br>
+                  <b>Cc:</b> cao, lin <a class="moz-txt-link-rfc2396E" href="mailto:lin.cao@amd.com">&lt;lin.cao@amd.com&gt;</a><br>
+                  <b>Subject:</b> Re: [PATCH] drm/amd/amdgpu: change the
+                  flush gpu tlb mode to sync mode.<o:p></o:p></span></p>
+            </div>
+          </div>
+          <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
+          <p class="MsoNormal">Am 21.10.24 um 07:56 schrieb Chong Li:<br>
+            <br>
+            <o:p></o:p></p>
+          <blockquote style="margin-top:5.0pt;margin-bottom:5.0pt">
+            <pre>change the gpu tlb flush mode to sync mode to<o:p></o:p></pre>
+            <pre>solve the issue in the rocm stress test.<o:p></o:p></pre>
+          </blockquote>
+          <p class="MsoNormal"><br>
+            And again complete NAK to this.<br>
+            <br>
+            I've already proven together with <span class="ui-provider">Andjelkovic
+              that the problem is that the rocm stress test is broken.</span><br>
+            <br>
+            <span class="ui-provider">The test tries to access memory
+              before it is probably mapped and that is provable by
+              looking into the tracelogs.</span><br>
+            <br>
+            <span class="ui-provider">Regards,</span><br>
+            <span class="ui-provider">Christian. </span><br>
+            <br>
+            <br>
+            <o:p></o:p></p>
+          <blockquote style="margin-top:5.0pt;margin-bottom:5.0pt">
+            <pre><o:p>&nbsp;</o:p></pre>
+            <pre><o:p>&nbsp;</o:p></pre>
+            <pre>Signed-off-by: Chong Li <a href="mailto:chongli2@amd.com" moz-do-not-send="true">&lt;chongli2@amd.com&gt;</a><o:p></o:p></pre>
+            <pre>---<o:p></o:p></pre>
+            <pre> drivers/gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c | 4 ++--<o:p></o:p></pre>
+            <pre> 1 file changed, 2 insertions(+), 2 deletions(-)<o:p></o:p></pre>
+            <pre><o:p>&nbsp;</o:p></pre>
+            <pre>diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c<o:p></o:p></pre>
+            <pre>index 51cddfa3f1e8..4d9ff7b31618 100644<o:p></o:p></pre>
+            <pre>--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c<o:p></o:p></pre>
+            <pre>+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c<o:p></o:p></pre>
+            <pre>@@ -98,7 +98,6 @@ void amdgpu_vm_tlb_fence_create(struct amdgpu_device *adev, struct amdgpu_vm *vm<o:p></o:p></pre>
+            <pre>  f-&gt;adev = adev;<o:p></o:p></pre>
+            <pre>  f-&gt;dependency = *fence;<o:p></o:p></pre>
+            <pre>  f-&gt;pasid = vm-&gt;pasid;<o:p></o:p></pre>
+            <pre>- INIT_WORK(&amp;f-&gt;work, amdgpu_tlb_fence_work);<o:p></o:p></pre>
+            <pre>  spin_lock_init(&amp;f-&gt;lock);<o:p></o:p></pre>
+            <pre> <o:p></o:p></pre>
+            <pre>&nbsp; dma_fence_init(&amp;f-&gt;base, &amp;amdgpu_tlb_fence_ops, &amp;f-&gt;lock,<o:p></o:p></pre>
+            <pre>@@ -106,7 +105,8 @@ void amdgpu_vm_tlb_fence_create(struct amdgpu_device *adev, struct amdgpu_vm *vm<o:p></o:p></pre>
+            <pre> <o:p></o:p></pre>
+            <pre>&nbsp; /* TODO: We probably need a separate wq here */<o:p></o:p></pre>
+            <pre>  dma_fence_get(&amp;f-&gt;base);<o:p></o:p></pre>
+            <pre>- schedule_work(&amp;f-&gt;work);<o:p></o:p></pre>
+            <pre> <o:p></o:p></pre>
+            <pre>&nbsp; *fence = &amp;f-&gt;base;<o:p></o:p></pre>
+            <pre>+<o:p></o:p></pre>
+            <pre>+ amdgpu_tlb_fence_work(&amp;f-&gt;work);<o:p></o:p></pre>
+            <pre> }<o:p></o:p></pre>
+          </blockquote>
+          <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
+        </div>
+      </div>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------sDIQKIJ4m7lsJ3fzzIdAEv1z--
