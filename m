@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7ACCFD15D8F
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C440BD15D8C
 	for <amd-gfx@archiver.kernel.org>; Mon, 21 Oct 2024 13:06:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E413D10E4F2;
-	Mon, 21 Oct 2024 13:06:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 199FD10E4F4;
+	Mon, 21 Oct 2024 13:06:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="znAi2JaR";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="iMwC6MSs";
 	dkim-atps=neutral
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5495810E428
- for <amd-gfx@lists.freedesktop.org>; Mon, 21 Oct 2024 07:33:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 53C8610E428
+ for <amd-gfx@lists.freedesktop.org>; Mon, 21 Oct 2024 07:34:04 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 383B75C54AD;
- Mon, 21 Oct 2024 07:33:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3017C4CEC3;
- Mon, 21 Oct 2024 07:33:23 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 486E75C54AD;
+ Mon, 21 Oct 2024 07:33:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E26FC4CEC3;
+ Mon, 21 Oct 2024 07:34:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1729496004;
- bh=rTi0ClV3Jdvwk0fn4DZF+vGIxnIcmEmB6CyxMm0o0sI=;
+ s=korg; t=1729496043;
+ bh=41QneYxBKtiba1v10mfb+3gntteSNZotaOPVLP75vZI=;
  h=Subject:To:Cc:From:Date:From;
- b=znAi2JaRAw5CoANKAREOiW320EdmA7OjAzqY5ZkcU6GYzMHwyfLZhy1p8k//cG1QT
- cW/s7KOXID1VwKEZW02tjCRIVmVHoNFvZt3qbjUYs+Rmndt747uhge/ZLcebFUN2SR
- o2VzzjnDZ8kfAohpHeTN/WHAoY4ZJr56UDfmCTUY=
+ b=iMwC6MSsg/pa0aT+3fi+Nu7Jb88CJErXmOKLN2zm797KJYV9slS2nmPrtZYLSpoll
+ 0bTonhEdhDSVW0S37y4PXcCQ6SV35NPhyX+I9dNXQl+XbPtsASMjdw6bhRoruBa4lE
+ UbPIRFZqxXeUPEvoczT34eiqest7FuY5ZVqArmZo=
 Subject: Patch "drm/radeon: Fix encoder->possible_clones" has been added to
- the 5.10-stable tree
+ the 5.15-stable tree
 To: alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
  erhard_f@mailbox.org, gregkh@linuxfoundation.org,
  ville.syrjala@linux.intel.com
 Cc: <stable-commits@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 21 Oct 2024 09:33:18 +0200
-Message-ID: <2024102118-spotter-exile-a6fb@gregkh>
+Date: Mon, 21 Oct 2024 09:33:35 +0200
+Message-ID: <2024102135-elude-discuss-e248@gregkh>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -61,12 +61,12 @@ This is a note to let you know that I've just added the patch titled
 
     drm/radeon: Fix encoder->possible_clones
 
-to the 5.10-stable tree which can be found at:
+to the 5.15-stable tree which can be found at:
     http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
 The filename of the patch is:
      drm-radeon-fix-encoder-possible_clones.patch
-and it can be found in the queue-5.10 subdirectory.
+and it can be found in the queue-5.15 subdirectory.
 
 If you, or anyone else, feels it should not be added to the stable tree,
 please let <stable@vger.kernel.org> know about it.
@@ -113,7 +113,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
 --- a/drivers/gpu/drm/radeon/radeon_encoders.c
 +++ b/drivers/gpu/drm/radeon/radeon_encoders.c
-@@ -47,7 +47,7 @@ static uint32_t radeon_encoder_clones(st
+@@ -41,7 +41,7 @@ static uint32_t radeon_encoder_clones(st
  	struct radeon_device *rdev = dev->dev_private;
  	struct radeon_encoder *radeon_encoder = to_radeon_encoder(encoder);
  	struct drm_encoder *clone_encoder;
@@ -126,4 +126,4 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
 Patches currently in stable-queue which might be from ville.syrjala@linux.intel.com are
 
-queue-5.10/drm-radeon-fix-encoder-possible_clones.patch
+queue-5.15/drm-radeon-fix-encoder-possible_clones.patch
