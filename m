@@ -4,151 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1474AD15DBD
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Oct 2024 16:47:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D549D15DBE
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Oct 2024 16:50:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD2A810E561;
-	Mon, 21 Oct 2024 16:47:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B68E410E565;
+	Mon, 21 Oct 2024 16:50:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="t7DOn4Nt";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="GANA/zwE";
 	dkim-atps=neutral
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2042.outbound.protection.outlook.com [40.107.243.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B743910E561
- for <amd-gfx@lists.freedesktop.org>; Mon, 21 Oct 2024 16:47:10 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2061.outbound.protection.outlook.com [40.107.244.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A9B6410E566
+ for <amd-gfx@lists.freedesktop.org>; Mon, 21 Oct 2024 16:50:51 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JEHXNvW7+dz+zw5NPhab/JUhmm82/WSQCNUdSFW9jnKdlLQ5bapYBdgcsq5R4gmQgq7gs+18/2GsSkntaCNil4O3BzxeyepZpqhmhpcjb6TXCPfE2BqBC2rOhg3S37CFN25DS72bcMzNGuBXQiKd49wFLMLLpfLG+9l0S+owExbKVLzYnT5otTPhtPznw2lUNHpizCzY8+9qimmQbEhG8ja87rLRDn+54IMPuEiks+f+lgUotlgo1v3FhmLQrG+j17SLTs0njpPVw7c+lSfdwgirhCY39kT2OeKr3NCIumbQuv93BzDg3/NMMjV5TSLkj4HFdNX3U2fUrLwOXcd+kA==
+ b=ymIdbCgQs/8EHpS1T+H3PqFFzNwvtGywtVHmDfvNPPRAPUpCRJR30guSpctkY1tp7K8kxA4riumVDuDzbQ8TUsPZlB8/mJIVRp0VVtYhMM0kPlCVQ6xqOvsyX3xIOL0MjI0/CW5Lu/xsImHiSl8RBfgCyCBIzoY1RunlbxGcKmZDKaLVGeRQ0+5AcJ9lO9W+MNPkBzVO5oO3pB6w4jSO4TVyx/JdFvjk25cppFkyA2xa/5A0eW7hTt8t7BetgUD3IPHla5ZGGEPJLA/V97KTzsrXBCvHYALkSTwC+4tMBoaL3XKcBetGCubtQoRi5MDCgx2d9Zw3rAmGv7LiE1xo0A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IPefEDV5/ua+eOEi6JbLKoSpzGxAb0KS/QYi+1nefwI=;
- b=GOr/psjR9HzFrkvavCulY5XmylWyRN2v+FJaa55ugUcm+MAbu6x4aVcl1bijUwM1NIZkErd94FadAjyy7SHFTHAvVSZR7dR9u591jPeF5AiAuP3ldJQEC4swncYO5z+2QyfUX1otwRWEJlyO9ked+M5fQM3BujKJi8pOEiY6DMexgGR0xvXq5Vw6iIu7DIkGyS+19xfo8qPj57e3/CJxb60Vy6oH7lZh4Sk05CqClG6h/htwdwAixnh5k8bg7IOxXI5oBQtrUdRiFamwinrjYrbhFFTfwCmv9Z7zreBkK68yyiq8r7vR/sSjF/YUJOaIs778y5agsCZaAhRLfxbwqQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=RwYOxSG6GyEZbOkJc0XIe4B5NtFqzuEW4mZseMIkceA=;
+ b=n58/yXRPqd9Yr4xW0k1CNcYKUkg1Ry3wW6wRH0wAXJm0qk9w43nY2dKR99ZehfrGKajSXuXTbSkqymMhowV/PT32RuimRd6XqJJVhPiYW8nQopj9PB8jSZm7OGOjs2btMw5fRtUBD/S6hWHS8XtaK7Yu1oVSObyiHXNRUxT+2Px+nAUKa21UhDNyNnQp//qj5gN0NKkORvLn2a65joo9JgXrlVxyH8SRlImkro9C+pPilL8Dnmt4HxDwCxvluo6bk2615umsQBmJ/RbRz3EVGQ1Hv+FpblhSTeM1PAc1KD+9X/Kx+RUEL6WdliYdu5aNi55GwGUr5oYIc7qec+HNlQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IPefEDV5/ua+eOEi6JbLKoSpzGxAb0KS/QYi+1nefwI=;
- b=t7DOn4Nt4iV9uHOmACZcgDqMyAjhlN1nYjtu7rgqd0BR40eICwVxk2EOvIR99KeH7ToweCTgBmBG5dAn5DaLvn0sB+JyzOZblKlG2x/f52DWVRuFt0a6r3lLcAtDt11J4NRh3qBoarrsFljkatmmNcOB8SjAqmKHHtKZrrSnFeA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from LV2PR12MB5776.namprd12.prod.outlook.com (2603:10b6:408:178::10)
- by IA0PR12MB8905.namprd12.prod.outlook.com (2603:10b6:208:484::6)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=RwYOxSG6GyEZbOkJc0XIe4B5NtFqzuEW4mZseMIkceA=;
+ b=GANA/zwE6KSrD7axtNcgfC8wpY6epk8iR5lbCCh8z5PtCEy0zCEXG0MfLdVQih0nqoSi6tFvzkvhcYR36IDYgjwvhTgCd36omeCj91mRj9SawiU+ltX37p4C0Oy5svpTLeEiG8T+08mW6By7oD9Lms2ohbvzvyqcUqupKGqoQ8g=
+Received: from BL6PEPF0001641A.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:22e:400:0:1004:0:6) by MW4PR12MB7263.namprd12.prod.outlook.com
+ (2603:10b6:303:226::7) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8069.28; Mon, 21 Oct
- 2024 16:47:05 +0000
-Received: from LV2PR12MB5776.namprd12.prod.outlook.com
- ([fe80::6628:31a5:4bbe:ffec]) by LV2PR12MB5776.namprd12.prod.outlook.com
- ([fe80::6628:31a5:4bbe:ffec%5]) with mapi id 15.20.8069.024; Mon, 21 Oct 2024
- 16:47:05 +0000
-Subject: Re: [PATCH v6 00/12] validate/clean the functions of ip funcs
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>, "Liu, Leo"
- <Leo.Liu@amd.com>, "Lazar, Lijo" <Lijo.Lazar@amd.com>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20241018132327.1638247-1-sunil.khatri@amd.com>
- <6339ba5b-70f3-47b6-8989-5fbff8edec14@amd.com>
- <42b66e1d-0efd-8d60-2dfe-39a7405bc7dd@amd.com>
- <BL1PR12MB51448ECF0CACC1CABA45FB80F7432@BL1PR12MB5144.namprd12.prod.outlook.com>
-From: "Khatri, Sunil" <sunil.khatri@amd.com>
-Message-ID: <e925694d-64b6-cc32-9026-18da0c361f96@amd.com>
-Date: Mon, 21 Oct 2024 22:16:59 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.4.0
-In-Reply-To: <BL1PR12MB51448ECF0CACC1CABA45FB80F7432@BL1PR12MB5144.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-ClientProxiedBy: PNYP287CA0030.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c01:23d::35) To LV2PR12MB5776.namprd12.prod.outlook.com
- (2603:10b6:408:178::10)
+ 2024 16:50:47 +0000
+Received: from BL6PEPF0001AB59.namprd02.prod.outlook.com
+ (2a01:111:f403:f903::3) by BL6PEPF0001641A.outlook.office365.com
+ (2603:1036:903:4::a) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8069.29 via Frontend
+ Transport; Mon, 21 Oct 2024 16:50:47 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL6PEPF0001AB59.mail.protection.outlook.com (10.167.241.11) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8093.14 via Frontend Transport; Mon, 21 Oct 2024 16:50:47 +0000
+Received: from 10.22.74.174.in-addr.arpa (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39; Mon, 21 Oct 2024 11:50:45 -0500
+From: David Rosca <david.rosca@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: David Rosca <david.rosca@amd.com>, Leo Liu <leo.liu@amd.com>
+Subject: [PATCH] drm/amdgpu: Fix video caps for H264 and HEVC encode maximum
+ size
+Date: Mon, 21 Oct 2024 18:49:24 +0200
+Message-ID: <20241021164923.19073-1-david.rosca@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV2PR12MB5776:EE_|IA0PR12MB8905:EE_
-X-MS-Office365-Filtering-Correlation-Id: bfc878cd-d06a-498e-effc-08dcf1effe95
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB59:EE_|MW4PR12MB7263:EE_
+X-MS-Office365-Filtering-Correlation-Id: b64c075c-365e-432d-61c1-08dcf1f0830b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?QmltQWRaTUprcUNVaUs5S1JQUkZmUkdMdDZYenpJcXpPYjJFWjN4Vi90Y2pj?=
- =?utf-8?B?dHZxRmhBeGFVbW1zQVdxOG5GMWl2cFcrNkdmRmo2c096MkZyalhrcUNHOEFv?=
- =?utf-8?B?ODlQVVBINXpiekF0NjhmRkhGbFNCbEo4TnRHMENJdG41MEUwK2lYbWRRU0lR?=
- =?utf-8?B?d0Q1QXhCeVR6WnozMnd6aUpmUHE0bFZkTGJHWnFTVHBLOWxpN3FKekRIQzg3?=
- =?utf-8?B?MkxDeG5WVXV1dHBwaGlONFZSVUNwK1ZXQ0lKQnZNSkdVVTZmR2NTa0J1d2pS?=
- =?utf-8?B?NmV2eEE0dTZENXFpUFNwdmhHWm54VGdtekxSTTlSSkVLS2FzSTN3MEZTeEZE?=
- =?utf-8?B?S1lDVkJ0Y1QvbVRkanlEVDRQaHJETjRTYnRSMFRraEFTanZDR0w3V1VjY1Ju?=
- =?utf-8?B?eHo2eUpld0t5WVQyLzhqOGpPTjFhL0xFcGc2b254anhRWVF2OHFreVROK1h5?=
- =?utf-8?B?WGJjVndDVjdEREdlVDU4UkFsbWphMUN3TDlzaEMvMWg3bFUyQ0F2b2VYZE5Z?=
- =?utf-8?B?a2hmbWZPUitzbGNndUgyTERWaXR1L2s5SE1GMFI5dFJ0bWJ4dEpoWStyc0Vs?=
- =?utf-8?B?M1FBUHlDU2FmMEhycldqc2gwUWZWQkM0RU1uWVFhby9zVTBnYTdZOHYzcEdZ?=
- =?utf-8?B?ZjNGYS9ic0tLVXJHNitQREZiYkhBMHlucDQrMUw5dVpiM1NLR2pPc2dVSjha?=
- =?utf-8?B?V3hVemQ5RmJ6NHcxeVRkd1hsQWF3RVJ5SjRhU2E2blVOY2gvc25vN3VCVjIw?=
- =?utf-8?B?Z1pnZkJNY01CWWZqbVk4a2YvbUpiV3VuQUdmN3BhbkV1TWJpcUJFYVNwZTFY?=
- =?utf-8?B?bzB4cHd4Qkt2dzVTWEJYaUNMd1U4QTNHTnd4U2Q2cnBnQzVtNks5ZGdGdExt?=
- =?utf-8?B?OWJSdjlyVUNCQXdOZFRPMWhUbVFyNFFMc2lyUGNIT2I5Wjgwc3J5Sms1ZTJG?=
- =?utf-8?B?NVZ6VmwzM0ZKMmZLYWVRVzBhbkVyTVRraW51MHVMbW9VNHJ4cmNnZEozazdX?=
- =?utf-8?B?K1ZHWUFSdXZ1U05QOGExdXoveXlYa0ppeDBGRExpclIwMzVNZGNvbmZVdmFM?=
- =?utf-8?B?N2JDOFJ6L0hBWEdsbG5SUG9UMWI1VUd3bEllVGxZaVkxZndCYkg3djMvSlNZ?=
- =?utf-8?B?M3NEcG9IYnYxbmFjS3BBWHZiRXp2dEdhakVSQTZOSTNnWC9sYVFOMU5aeVpt?=
- =?utf-8?B?Z0F5c2R6b2NMOWtSaVhqZkwzcEtiWEhPZjRFbmk1aVRuTEd5VW11b0xtb29t?=
- =?utf-8?B?NmVIYlltbUhScWxSM09SU0RnSC82cVNrcjFNWVZQWHlGVWt5ZS9jU1JCU1I2?=
- =?utf-8?B?VUJUOHRaWEI0VFVwZUZsd0tBSXJqVWluNkFYWnBRaWpMYVRmc2hrZlY1Qksw?=
- =?utf-8?B?cW4xeS9Mc09KMHh3WlNVc3RSRkR6cFdtcngzaE1GcEFhc0cvREdsb1JIT0hs?=
- =?utf-8?B?R0x2VERuTUVlcW96Wm9QTVdwQ2ZIZ3NHSWhFMWZ0WEhFeE1DY0FuYjFFSExj?=
- =?utf-8?B?QW1RVElKSCtaVlo0Tkg2RGFieitaZW1jWGlwQjhuVnNXcThGa3NzaXRsTEpE?=
- =?utf-8?B?dnR2dG1ubVovSWNDdmNIWHNPbWZDSS9wMisxN2FqZmJ1cENUUDFPRUpXVEpw?=
- =?utf-8?B?N0FwRm5VLzZVVjFaNE5FUklmaUxhemp1RkF4dkJ4S2VZbFBUVFJEdnNyTmVW?=
- =?utf-8?B?TU91elJLQWRpNzJ1OThrMXBTc2IxNlJLN0l6RTdRK0tTdExlYlFVbXgyYzQ1?=
- =?utf-8?Q?HByJLrLBsrH+bYMo1POUXkgBZywB2WkVwgTvIMP?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LV2PR12MB5776.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NjMzdHV4Z3dDVFhwL0dMbzB5cUhZS25sOFgwVUNjdldhLyt2REJwUjUrM09G?=
- =?utf-8?B?aWZGQ2pXMGV0cTZlL0ptWDM0RmxaU2l4b2pndlZvazZoQzdta0FON1JpT2lR?=
- =?utf-8?B?Wld2UURWL3d3RVJNemtrcGxkelZOWEtrNStnbnhjRjZRaTA1Tk9pZHA0dFhX?=
- =?utf-8?B?cWFOS1E0d3hFYlYxaFhvUE4wMTFnMzRHdzJvSm1qTVpXdzdrdGlSRmN3R2Vy?=
- =?utf-8?B?MDQvSEI2dkFIRlpybklaejB0bUVDdG9Wczc1Snk3YmpUZlJ1eExWNTdMczdz?=
- =?utf-8?B?OUJzV2JTSUxsckxPcG1DV3FlNVZmZk9UTGlFRGZZQ2hkTG9seC9kTzNkcGpq?=
- =?utf-8?B?SUZwQ0w4ZUxuZ0NwTFE2OFZrbzlyOEc3UWh3U1pxTERNTmJ2eHRveldsTitR?=
- =?utf-8?B?QVU5Wm1zdFpIcW41UUtPRjRyM0E2cGR5Sk5teGI2MHBNbFFwdCtvUzNEZzBv?=
- =?utf-8?B?QzEzckNiVS81QSs4RXJDU3VHK1NYeWZyVnF0UnRBdnN5NERkQWJwb21aWmxq?=
- =?utf-8?B?ZXhRWGdabnJqN0JtY2JsclB3VjM4Tzd4S3dVOFh0Rjd0ejR6MjJaWUxobFRV?=
- =?utf-8?B?TFBiUzhGVG9DbDE0eko4QkI4SjBraDN6NHRkSUVmejJSaFVuOHdQMkZaY3Ja?=
- =?utf-8?B?c04yd3k5WnpySnRybGpnRk1Jb21kRVJmN0Ztd0tFMktsY2FMTmR0ZERTM2FI?=
- =?utf-8?B?dTRhVXRCK0ZMSldmektKNU9xTzJtMDVTdTJnN3B3U2sxK3pDNHh4QytueWE5?=
- =?utf-8?B?OXA3MEhnMlZzWU5CTnQ5T2YxWlg3THV2TFJXVVBTSm55dHdWLzFERGI5UzIw?=
- =?utf-8?B?cWFMT3JTUTVuMTdZa08rbkFabnR2SHJoaEpyT1huRHBkenhERXcwTzRGZW1K?=
- =?utf-8?B?UjJYSGVuNlE5TlFlS3BSakZiRDA0dXF1aUpKb2NCR1Z2eUhNMEVrSGZza1Rt?=
- =?utf-8?B?Zk1PWmdpWkpTTGVudVBNNW0xcGRpRXhLM3pTamhOM3BJbUhGZ0xjbE8xUU9X?=
- =?utf-8?B?MXo5OXA4aVFrSHdBTDJLT1V1dlVqU3BSUzNFUEo5d3RueVJBUndIZjhkTVYv?=
- =?utf-8?B?SnRhQy9kT09LUnpTcExCWWV3OUM4UkYrWjFlK1RxdnhxQXRKMTFsN0NYUUpk?=
- =?utf-8?B?ZGpxdkNILzNYWDNPWnFzeFBTVUt1NEtmVGF3MUF3Vjk3ekpjRkxab204THhN?=
- =?utf-8?B?ekgzdmc2SHpsdStaUk9XczFmYVZXbjdIRUptUDEwK0dUTXlxeXA4YW9qTjFI?=
- =?utf-8?B?UnYwbjcwTlMxbHVaalg3bzJBM1pxRk5WcDJrWURoVXkvYmQ1Y3Nkam5RSWtk?=
- =?utf-8?B?SGQxMTJ3YlZybUtyamFjUWhTd3JVZTlzTHM5TVFLVlBiVnl5YzNwL3ppOFBJ?=
- =?utf-8?B?NkVXQ3ZaSGtDZHQ5WGErenJadm1nU0xWYVc3RUM0QWdmWXU0RndNa1dndzlB?=
- =?utf-8?B?VmNSdWV6WWtXRmUwc2JLOXUyUEhBME52RnY1UDY4NUlqMG8zSmxEM3Q1UjlL?=
- =?utf-8?B?dWRUQkZ4ejNOMFg0WWJJR2kxY1FsRlZUb1pZMnB4cjVONzFUVmtTK1VHVWpn?=
- =?utf-8?B?RllCMTNIODdnaUVUK0N3YWszbU9QeHA0ZVZhMmdkcjJCYmFsUWtHY2h4aVpI?=
- =?utf-8?B?Zk55Q3gvQXhseWVnQ1JqZllvZjZKSW1EWjRrMzJTOWd5TmRoT2ZXTTBreTlv?=
- =?utf-8?B?MUlUMmFtTFExWDJ3L2ZpT0JKaFNiaWFpUk9OVnJEUktXUW12ajNmVjA4K21p?=
- =?utf-8?B?eUhUc3hpeWQzYXdlQmpINUhLRGoxem9CNXlzZnJTQXhHZm9pOWg5U0o5S0t5?=
- =?utf-8?B?ZTNJL2c2MVo4ZkhucGQ5VWJ2dDk3aWxSdlpDNUtCYjdQUFNCcmowM2xCenk2?=
- =?utf-8?B?bTR3Zkl3d25KQlR0MXNjVW5BRlpxTm83azhHR2NRRTBERFVmTnhlblFwZ3Ni?=
- =?utf-8?B?bXBKREttRTdZU2JBakk3aEo1cGVRQlRuOTlGeU9mb1lBWm4xcm5lazY2ZUNP?=
- =?utf-8?B?c0RJdzB0RmtNM3QvYXRQY2VtZ01DbGhjNWR0bE9EVkhGUkJ2VlNoVEszM3VU?=
- =?utf-8?B?amZjYW1ZYWQ0U3hjNWRGZno5TDJuU3c2L0FIYm5ISkJKR3o4dTA3VWRpNDN5?=
- =?utf-8?Q?LknsYwA6naP3C7g3Js8rc/ICZ?=
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|36860700013|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?8J2e/HwWZJ3v0WFgOzvw+8Lye9zbqHXGQ6+Kp4sd2uHTQkhkbLvFPP2CJsXP?=
+ =?us-ascii?Q?vxUf5DLf5PeQKB6uHF2jcs+2R8KNssFEyLz91qvClUJ9NXbWGpXaNJZPiOev?=
+ =?us-ascii?Q?5BcTBUPyBqIX4Gg7IPkMYnrekTLe0P5ZtCmLMIj930hyB+AbTiXrnfoSMYSG?=
+ =?us-ascii?Q?z483+nZNHv9l94/IFmnhv+wl+lr03aY7ZylYbSP2SIpIwqFzTEezX0tiVKD+?=
+ =?us-ascii?Q?bklOOBMdTh0HCHPmYCPWonMj/AUv18RiSyPS8xNleZJcWRQkyodCICGpzuTh?=
+ =?us-ascii?Q?pQOFqYPlQ57nt5VYwn3fewQC+EtoONUV/bQEoYyyMC4c6oFOWnqNUKHT8QT6?=
+ =?us-ascii?Q?XCzsknfPBbuf6SNQKiQzWiAAVtgj+x2VAdyctniglSWsd9QkJ++8EiH6G4Tm?=
+ =?us-ascii?Q?JDj2IZm1tKHdTyYTMvwjiT0TCGUivG+71sPbQP7MOqV41bwO2FlBPUJO6zWD?=
+ =?us-ascii?Q?xDLdbebYX6inu1k1ZxVFq2P+O/uWZY0wvLQgSZsloDv+7nPs+NjdkkHpc5PP?=
+ =?us-ascii?Q?Fg1lkIm3YvoUePSBOCSzFDr4FDOj2EJJz9LetW4TfhR/dF+1RCMoLpscxnKA?=
+ =?us-ascii?Q?WJu6MbIn09OmawYc3h+dxbLc3iHMFKdsBV7LGHipQPlyiqV1pCJRwH2knFat?=
+ =?us-ascii?Q?IwKDjagdryU/DaTAJg2ke4SOx8ScBjkky9AIfSHry2ZUjNa66/3rY2zR9he3?=
+ =?us-ascii?Q?cyV3ynrCNVvcDz176E2qf/yFZCUAFgjlpUPQj6zpAMKnHVJZQE4EZfkPayCV?=
+ =?us-ascii?Q?AibflEomCOfURvq6I9nWjKZ3A1s0YgjoFFXsbEijwymAGMp7EiH54sAEuzQq?=
+ =?us-ascii?Q?IVRoUVXHywpuiGDbUwuBXcBCw+JlTJ1hZsuB7VFO12Owk//Knf1BP4NnYJqE?=
+ =?us-ascii?Q?CgL2rB6X63QFL7/HExEYMAOSxiXbLcI7coaNlfMS5PVhDrC2G37Uc/KRmtc/?=
+ =?us-ascii?Q?58yRP6yRjgRZHetvi3xMAvMYPXJdXsh/JHZvKG3bQivvVn5Wy8Jd0xlb1D0k?=
+ =?us-ascii?Q?/fzF/0DCyr3XMmgbAQz+HstHAZ3GNk5lb9/SUmnR2sBIhlMJR+JaVvcm9mRy?=
+ =?us-ascii?Q?hoO2v6VerY/V88Idq2KThjm3SzJh7tdJbk1XOXWNBZiwiZ+sACqS36gkvG81?=
+ =?us-ascii?Q?nLk0UazydCewxDhF58m2HR+ALsoCJS/EryTuiDveOOap530kYt5M4rmwJ9mq?=
+ =?us-ascii?Q?/GZ/5Cb+wzMtqtj/L7+Mwe7DenaHMZgv09fF7NcGMX2pvni3NtKP2cgKO333?=
+ =?us-ascii?Q?XSL3SWQICjJCdG7zIJFk8TMGp+V1Vr7EW/ivKmZ2Aus/sIESBFc8VGNN4OQ7?=
+ =?us-ascii?Q?GGE+vicKJpoRzT1D1tYgnr1DfeGbZc7ajxO7UpGFOyks1gT7ATh+mQwGEWQx?=
+ =?us-ascii?Q?Oo0JAwJAljDjCe/i7souIV4o+BVj/UeHyygxUI8RIW5x+ol0vg=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bfc878cd-d06a-498e-effc-08dcf1effe95
-X-MS-Exchange-CrossTenant-AuthSource: LV2PR12MB5776.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2024 16:47:05.3996 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2024 16:50:47.2150 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b64c075c-365e-432d-61c1-08dcf1f0830b
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0+7J3r3h39KJBqxKJNimG5TEwMhHmhBqxd/jJ5bdXAMTKjYAf6NrzkNdJnxfVqogldbDVd06FQHH/0iBXu1hrg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8905
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB59.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7263
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -163,156 +129,148 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+H264 supports 4096x4096 starting from Polaris.
+HEVC also supports 4096x4096, with VCN 3 and newer 8192x4352
+is supported.
 
-On 10/21/2024 10:11 PM, Deucher, Alexander wrote:
-> [AMD Official Use Only - AMD Internal Distribution Only]
->
->> -----Original Message-----
->> From: Khatri, Sunil <Sunil.Khatri@amd.com>
->> Sent: Friday, October 18, 2024 10:07 AM
->> To: Koenig, Christian <Christian.Koenig@amd.com>; Deucher, Alexander
->> <Alexander.Deucher@amd.com>; Liu, Leo <Leo.Liu@amd.com>; Lazar, Lijo
->> <Lijo.Lazar@amd.com>
->> Cc: amd-gfx@lists.freedesktop.org
->> Subject: Re: [PATCH v6 00/12] validate/clean the functions of ip funcs
->>
->>
->> On 10/18/2024 7:08 PM, Christian König wrote:
->>> Patches #2, #3 and #12 are Acked-by: Christian König
->>> <christian.koenig@amd.com>
->>>
->>> The rest are Reviewed-by: Christian König <christian.koenig@amd.com>
->>>
->>> Maybe give others till Monday to take a look as well, could be that
->>> Alex, Lijo or somebody else point out that we are ignoring the suspend
->>> return code during XGMI hive reset for a good reason.
->>>
->>> If nobody objects by Monday feel free to commit the whole series.
->>>
->> Sure Christian, Thanks for review. Will wait till Monday evening and if no objections i
->> will commit.
-> The return codes from hw_fini and suspend were ignored because we want to make sure all of the IPs are put into a quiescent state.  If one of them has a problem, we don't want to skip the rest.  Whether or not we should just swallow the errors or save then and then return a error after everything is suspended is open to debate.
+Signed-off-by: David Rosca <david.rosca@amd.com>
+Reviewed-by: Leo Liu <leo.liu@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/nv.c    | 12 ++++++------
+ drivers/gpu/drm/amd/amdgpu/soc15.c |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/soc21.c | 12 ++++++------
+ drivers/gpu/drm/amd/amdgpu/soc24.c |  2 +-
+ drivers/gpu/drm/amd/amdgpu/vi.c    |  8 ++++----
+ 5 files changed, 19 insertions(+), 19 deletions(-)
 
-As discussed with you Alex. We have reverted it back to the original 
-behavior. So it will quies as expected if any ip fails and continue to 
-progress for other IPs.
+diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
+index 4e8f9af1e2be..d07210d97ed6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nv.c
++++ b/drivers/gpu/drm/amd/amdgpu/nv.c
+@@ -67,8 +67,8 @@ static const struct amd_ip_funcs nv_common_ip_funcs;
+ 
+ /* Navi */
+ static const struct amdgpu_video_codec_info nv_video_codecs_encode_array[] = {
+-	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 2304, 0)},
+-	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 4096, 2304, 0)},
++	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 4096, 0)},
++	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 4096, 4096, 0)},
+ };
+ 
+ static const struct amdgpu_video_codecs nv_video_codecs_encode = {
+@@ -94,8 +94,8 @@ static const struct amdgpu_video_codecs nv_video_codecs_decode = {
+ 
+ /* Sienna Cichlid */
+ static const struct amdgpu_video_codec_info sc_video_codecs_encode_array[] = {
+-	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 2160, 0)},
+-	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 7680, 4352, 0)},
++	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 4096, 0)},
++	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 8192, 4352, 0)},
+ };
+ 
+ static const struct amdgpu_video_codecs sc_video_codecs_encode = {
+@@ -136,8 +136,8 @@ static const struct amdgpu_video_codecs sc_video_codecs_decode_vcn1 = {
+ 
+ /* SRIOV Sienna Cichlid, not const since data is controlled by host */
+ static struct amdgpu_video_codec_info sriov_sc_video_codecs_encode_array[] = {
+-	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 2160, 0)},
+-	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 7680, 4352, 0)},
++	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 4096, 0)},
++	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 8192, 4352, 0)},
+ };
+ 
+ static struct amdgpu_video_codec_info sriov_sc_video_codecs_decode_array_vcn0[] = {
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
+index dd1c1aacdd8e..143a8f77e348 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc15.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
+@@ -90,8 +90,8 @@ static const struct amd_ip_funcs soc15_common_ip_funcs;
+ /* Vega, Raven, Arcturus */
+ static const struct amdgpu_video_codec_info vega_video_codecs_encode_array[] =
+ {
+-	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 2304, 0)},
+-	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 4096, 2304, 0)},
++	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 4096, 0)},
++	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 4096, 4096, 0)},
+ };
+ 
+ static const struct amdgpu_video_codecs vega_video_codecs_encode =
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
+index c4b950e75133..4c2d88045ac2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc21.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
+@@ -49,13 +49,13 @@ static const struct amd_ip_funcs soc21_common_ip_funcs;
+ 
+ /* SOC21 */
+ static const struct amdgpu_video_codec_info vcn_4_0_0_video_codecs_encode_array_vcn0[] = {
+-	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 2304, 0)},
++	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 4096, 0)},
+ 	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 8192, 4352, 0)},
+ 	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_AV1, 8192, 4352, 0)},
+ };
+ 
+ static const struct amdgpu_video_codec_info vcn_4_0_0_video_codecs_encode_array_vcn1[] = {
+-	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 2304, 0)},
++	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 4096, 0)},
+ 	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 8192, 4352, 0)},
+ };
+ 
+@@ -96,14 +96,14 @@ static const struct amdgpu_video_codecs vcn_4_0_0_video_codecs_decode_vcn1 = {
+ 
+ /* SRIOV SOC21, not const since data is controlled by host */
+ static struct amdgpu_video_codec_info sriov_vcn_4_0_0_video_codecs_encode_array_vcn0[] = {
+-	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 2304, 0)},
+-	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 4096, 2304, 0)},
++	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 4096, 0)},
++	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 8192, 4352, 0)},
+ 	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_AV1, 8192, 4352, 0)},
+ };
+ 
+ static struct amdgpu_video_codec_info sriov_vcn_4_0_0_video_codecs_encode_array_vcn1[] = {
+-	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 2304, 0)},
+-	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 4096, 2304, 0)},
++	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 4096, 0)},
++	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 8192, 4352, 0)},
+ };
+ 
+ static struct amdgpu_video_codecs sriov_vcn_4_0_0_video_codecs_encode_vcn0 = {
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc24.c b/drivers/gpu/drm/amd/amdgpu/soc24.c
+index b20dc81dc257..6f4371276fbb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc24.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc24.c
+@@ -48,7 +48,7 @@
+ static const struct amd_ip_funcs soc24_common_ip_funcs;
+ 
+ static const struct amdgpu_video_codec_info vcn_5_0_0_video_codecs_encode_array_vcn0[] = {
+-	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 2304, 0)},
++	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 4096, 0)},
+ 	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 8192, 4352, 0)},
+ 	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_AV1, 8192, 4352, 0)},
+ };
+diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu/vi.c
+index 4996049dc199..3832c89953d2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vi.c
++++ b/drivers/gpu/drm/amd/amdgpu/vi.c
+@@ -136,15 +136,15 @@ static const struct amdgpu_video_codec_info polaris_video_codecs_encode_array[]
+ 	{
+ 		.codec_type = AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC,
+ 		.max_width = 4096,
+-		.max_height = 2304,
+-		.max_pixels_per_frame = 4096 * 2304,
++		.max_height = 4096,
++		.max_pixels_per_frame = 4096 * 4096,
+ 		.max_level = 0,
+ 	},
+ 	{
+ 		.codec_type = AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC,
+ 		.max_width = 4096,
+-		.max_height = 2304,
+-		.max_pixels_per_frame = 4096 * 2304,
++		.max_height = 4096,
++		.max_pixels_per_frame = 4096 * 4096,
+ 		.max_level = 0,
+ 	},
+ };
+-- 
+2.47.0
 
-Regards
-Sunil Khatri
-
-> Alex
->
->>> Thanks,
->>> Christian.
->>>
->>> Am 18.10.24 um 15:23 schrieb Sunil Khatri:
->>>> v6: Fixed the missing return statement on suspend and update the code
->>>>       with V5 comments.
->>>>
->>>> v5: Fixed review comments. Dropped hw_fini patch and need to look
->>>>       further why such functions exists. hw_init/hw_fini are mandatory
->>>>       functions and we should have a valid definition.
->>>>
->>>> v4: hw_init/hw_fini functions are mandatory and raise error message
->>>> if
->>>>       these functions are not defined.
->>>>
->>>> v3: Added 2 new patches to clean get_clocking_state and hw_init
->>>>       validation.
->>>>
->>>> Sunil Khatri (12):
->>>>     drm/amdgpu: validate hw_fini before function call
->>>>     drm/amdgpu: return error if phase2 suspend fails
->>>>     drm/amdgpu: return error on suspend failure
->>>>     drm/amdgpu: validate suspend before function call
->>>>     drm/amdgpu: validate resume before function call
->>>>     drm/amdgpu: validate wait_for_idle before function call
->>>>     drm/amdgpu: clean the dummy resume functions
->>>>     drm/amdgpu: clean the dummy suspend functions
->>>>     drm/amdgpu: clean the dummy wait_for_idle functions
->>>>     drm/amdgpu: clean the dummy soft_reset functions
->>>>     drm/amdgpu: Clean the functions pointer set as NULL
->>>>     drm/amdgpu: clean unused functions of uvd/vcn/vce
->>>>
->>>>    drivers/gpu/drm/amd/amdgpu/aldebaran.c        |  24 +-
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu.h           |   3 +
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c       |  16 -
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 150 ++++++----
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c       |  25 --
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c       |   5 -
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c     |  10 +-
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c  |   2 -
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c      |  19 +-
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c       |   2 -
->>>>    drivers/gpu/drm/amd/amdgpu/cik.c              |  15 +-
->>>>    drivers/gpu/drm/amd/amdgpu/cik_ih.c           |   3 -
->>>>    drivers/gpu/drm/amd/amdgpu/cik_sdma.c         |   3 -
->>>>    drivers/gpu/drm/amd/amdgpu/cz_ih.c            |   3 -
->>>>    drivers/gpu/drm/amd/amdgpu/dce_v10_0.c        |   9 -
->>>>    drivers/gpu/drm/amd/amdgpu/dce_v11_0.c        |   9 -
->>>>    drivers/gpu/drm/amd/amdgpu/dce_v6_0.c         |   9 -
->>>>    drivers/gpu/drm/amd/amdgpu/dce_v8_0.c         |   9 -
->>>>    drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c         |   9 -
->>>>    drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c         |   2 -
->>>>    drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c         |   2 -
->>>>    drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c        |   6 -
->>>>    drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c        |   6 -
->>>>    drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c        |   6 -
->>>>    drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c         |   2 -
->>>>    drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c         |   2 -
->>>>    drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c         |   2 -
->>>>    drivers/gpu/drm/amd/amdgpu/iceland_ih.c       |   3 -
->>>>    drivers/gpu/drm/amd/amdgpu/ih_v6_0.c          |   3 -
->>>>    drivers/gpu/drm/amd/amdgpu/ih_v6_1.c          |   3 -
->>>>    drivers/gpu/drm/amd/amdgpu/ih_v7_0.c          |   3 -
->>>>    drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c        |   7 -
->>>>    drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c        |  14 -
->>>>    drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c        |   7 -
->>>>    drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c        |   7 -
->>>>    drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c      |   7 -
->>>>    drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c      |   7 -
->>>>    drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c      |   7 -
->>>>    drivers/gpu/drm/amd/amdgpu/mes_v11_0.c        |   2 -
->>>>    drivers/gpu/drm/amd/amdgpu/navi10_ih.c        |   3 -
->>>>    drivers/gpu/drm/amd/amdgpu/nv.c               |  14 -
->>>>    drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c        |   3 -
->>>>    drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c        |   3 -
->>>>    drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c        |   1 -
->>>>    drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c        |   1 -
->>>>    drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c        |   1 -
->>>>    drivers/gpu/drm/amd/amdgpu/si.c               |  21 --
->>>>    drivers/gpu/drm/amd/amdgpu/si_dma.c           |   3 -
->>>>    drivers/gpu/drm/amd/amdgpu/si_ih.c            |   3 -
->>>>    drivers/gpu/drm/amd/amdgpu/sienna_cichlid.c   |  30 +-
->>>>    drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.c     |  20 +-
->>>>    drivers/gpu/drm/amd/amdgpu/soc15.c            |  14 -
->>>>    drivers/gpu/drm/amd/amdgpu/soc21.c            |  14 -
->>>>    drivers/gpu/drm/amd/amdgpu/soc24.c            |  12 -
->>>>    drivers/gpu/drm/amd/amdgpu/tonga_ih.c         |   3 -
->>>>    drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c         |   3 -
->>>>    drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c         |   3 -
->>>>    drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c         |   3 -
->>>>    drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c         |   3 -
->>>>    drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c         | 275
->>>> ------------------
->>>>    drivers/gpu/drm/amd/amdgpu/vce_v2_0.c         |   3 -
->>>>    drivers/gpu/drm/amd/amdgpu/vce_v3_0.c         |   3 -
->>>>    drivers/gpu/drm/amd/amdgpu/vce_v4_0.c         | 274
->>>> -----------------
->>>>    drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c         |   5 -
->>>>    drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c         |   5 -
->>>>    drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c         |  10 -
->>>>    drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c         |   5 -
->>>>    drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c         |   5 -
->>>>    drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c       |   5 -
->>>>    drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c       |   5 -
->>>>    drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c       |   5 -
->>>>    drivers/gpu/drm/amd/amdgpu/vega10_ih.c        |   1 -
->>>>    drivers/gpu/drm/amd/amdgpu/vega20_ih.c        |   1 -
->>>>    drivers/gpu/drm/amd/amdgpu/vi.c               |  14 -
->>>>    .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   2 -
->>>>    drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c    |  15 -
->>>>    drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c    |   8 -
->>>>    .../gpu/drm/amd/pm/powerplay/amd_powerplay.c  |  14 -
->>>>    78 files changed, 114 insertions(+), 1122 deletions(-)
->>>>
