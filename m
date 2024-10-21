@@ -4,43 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60307D15D8A
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Oct 2024 13:06:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 818C8D15D8E
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Oct 2024 13:06:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A8EFD10E4E6;
-	Mon, 21 Oct 2024 13:06:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FB4910E4EE;
+	Mon, 21 Oct 2024 13:06:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="bnZ7Hhtn";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ov1AxE6u";
 	dkim-atps=neutral
 Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 28AF810E28C
- for <amd-gfx@lists.freedesktop.org>; Mon, 21 Oct 2024 07:40:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 31ABA10E47F
+ for <amd-gfx@lists.freedesktop.org>; Mon, 21 Oct 2024 10:48:45 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 112CEA41B78;
- Mon, 21 Oct 2024 07:40:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7124DC4CECD;
- Mon, 21 Oct 2024 07:40:19 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id 2D290A4264F;
+ Mon, 21 Oct 2024 10:48:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E5FEC4CEC3;
+ Mon, 21 Oct 2024 10:48:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1729496419;
- bh=CJQrgMXjpFqG3Dz4HglpuPJeCHAQngWHt/KgpJyN+9w=;
- h=Subject:To:Cc:From:Date:From;
- b=bnZ7HhtndvLMjNKLiBDagZVOADWXJYvdefrUu8ZC5sfH6qh9rjkh/8+RkqznuMId7
- dN0p/BThEKOdGODZ3ftg77fvPoi1CYS9LfPpJVFAIGZezGFVH2Zo4z+bO77sGsAqNJ
- 1zLNU3G7NmQlma65KirSn7XfLrubDaaIK3kgsVnI=
-Subject: Patch "drm/radeon: Fix encoder->possible_clones" has been added to
- the 6.1-stable tree
-To: alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
- erhard_f@mailbox.org, gregkh@linuxfoundation.org,
- ville.syrjala@linux.intel.com
-Cc: <stable-commits@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Mon, 21 Oct 2024 09:40:11 +0200
-Message-ID: <2024102111-duffel-vacancy-11a3@gregkh>
+ s=korg; t=1729507723;
+ bh=Du4MeX8vmMiEOp/0/Mf3OlLIHgREek65J/2Qyq7KVwA=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=ov1AxE6uJiHxIQpORLel90A/AX4cxsM1WFXeN1heKfDFBJJaW+SQ2TFpVCNXfR3b0
+ 0pTPUFCeHto8mutpMinka1wIop663AWaojLVSlWhD9qBkiwZorzmiRZ9YTMS/pAcSv
+ 0uVOqzEgUxTwl46F6Sw0bT+kz7GsqD4+j4J1QouU=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ Erhard Furtner <erhard_f@mailbox.org>,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
+Subject: [PATCH 5.15 49/82] drm/radeon: Fix encoder->possible_clones
+Date: Mon, 21 Oct 2024 12:25:30 +0200
+Message-ID: <20241021102249.178621227@linuxfoundation.org>
+X-Mailer: git-send-email 2.47.0
+In-Reply-To: <20241021102247.209765070@linuxfoundation.org>
+References: <20241021102247.209765070@linuxfoundation.org>
+User-Agent: quilt/0.67
+X-stable: review
+X-Patchwork-Hint: ignore
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-stable: commit
-X-Patchwork-Hint: ignore 
 X-Mailman-Approved-At: Mon, 21 Oct 2024 13:06:33 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -56,29 +60,9 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+5.15-stable review patch.  If anyone has any objections, please let me know.
 
-This is a note to let you know that I've just added the patch titled
-
-    drm/radeon: Fix encoder->possible_clones
-
-to the 6.1-stable tree which can be found at:
-    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
-
-The filename of the patch is:
-     drm-radeon-fix-encoder-possible_clones.patch
-and it can be found in the queue-6.1 subdirectory.
-
-If you, or anyone else, feels it should not be added to the stable tree,
-please let <stable@vger.kernel.org> know about it.
-
-
-From 28127dba64d8ae1a0b737b973d6d029908599611 Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
-Date: Mon, 14 Oct 2024 19:09:36 +0300
-Subject: drm/radeon: Fix encoder->possible_clones
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+------------------
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
@@ -113,7 +97,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
 --- a/drivers/gpu/drm/radeon/radeon_encoders.c
 +++ b/drivers/gpu/drm/radeon/radeon_encoders.c
-@@ -43,7 +43,7 @@ static uint32_t radeon_encoder_clones(st
+@@ -41,7 +41,7 @@ static uint32_t radeon_encoder_clones(st
  	struct radeon_device *rdev = dev->dev_private;
  	struct radeon_encoder *radeon_encoder = to_radeon_encoder(encoder);
  	struct drm_encoder *clone_encoder;
@@ -124,6 +108,3 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  	/* DIG routing gets problematic */
 
 
-Patches currently in stable-queue which might be from ville.syrjala@linux.intel.com are
-
-queue-6.1/drm-radeon-fix-encoder-possible_clones.patch
