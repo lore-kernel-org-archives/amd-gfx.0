@@ -4,117 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D549D15DBE
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Oct 2024 16:50:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65498D3E196
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Oct 2024 17:35:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B68E410E565;
-	Mon, 21 Oct 2024 16:50:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F39B110E571;
+	Mon, 21 Oct 2024 17:35:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="GANA/zwE";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="py1FKkSP";
 	dkim-atps=neutral
 Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2061.outbound.protection.outlook.com [40.107.244.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A9B6410E566
- for <amd-gfx@lists.freedesktop.org>; Mon, 21 Oct 2024 16:50:51 +0000 (UTC)
+ (mail-mw2nam12on2049.outbound.protection.outlook.com [40.107.244.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EBC6610E571
+ for <amd-gfx@lists.freedesktop.org>; Mon, 21 Oct 2024 17:35:20 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ymIdbCgQs/8EHpS1T+H3PqFFzNwvtGywtVHmDfvNPPRAPUpCRJR30guSpctkY1tp7K8kxA4riumVDuDzbQ8TUsPZlB8/mJIVRp0VVtYhMM0kPlCVQ6xqOvsyX3xIOL0MjI0/CW5Lu/xsImHiSl8RBfgCyCBIzoY1RunlbxGcKmZDKaLVGeRQ0+5AcJ9lO9W+MNPkBzVO5oO3pB6w4jSO4TVyx/JdFvjk25cppFkyA2xa/5A0eW7hTt8t7BetgUD3IPHla5ZGGEPJLA/V97KTzsrXBCvHYALkSTwC+4tMBoaL3XKcBetGCubtQoRi5MDCgx2d9Zw3rAmGv7LiE1xo0A==
+ b=DE6ZxyR66jVbmr8RMb23B4y2mDBku9QBwGa+eOX9oQybrwd/hZ2qLSDvscMZQH7y3JpjQWHMtHsaEJBYYiMJxvTaI1Dl4sGmNx6OEQ1d6URawFvFB5pdvJri4CepK4vDnWhsYt1b8sSC6miM9CXKUtdGrqvyQjvQWzdwZqOmC2jR+VzlotixAnt4CJ2vPWkdzdIvr5rUzY7q8SD6MzybjmAXKlNsufusQt2U49hJAoYZ/8Xg81Ell1Go33XD0trI1oAg+osfD5FTpP+SILOsNp54NSt2zqYkAY+T2x8WOzQ8CgWapSlVMr8JTDa/ZYzzLxCxsX01x2SgliMEhBVXEg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RwYOxSG6GyEZbOkJc0XIe4B5NtFqzuEW4mZseMIkceA=;
- b=n58/yXRPqd9Yr4xW0k1CNcYKUkg1Ry3wW6wRH0wAXJm0qk9w43nY2dKR99ZehfrGKajSXuXTbSkqymMhowV/PT32RuimRd6XqJJVhPiYW8nQopj9PB8jSZm7OGOjs2btMw5fRtUBD/S6hWHS8XtaK7Yu1oVSObyiHXNRUxT+2Px+nAUKa21UhDNyNnQp//qj5gN0NKkORvLn2a65joo9JgXrlVxyH8SRlImkro9C+pPilL8Dnmt4HxDwCxvluo6bk2615umsQBmJ/RbRz3EVGQ1Hv+FpblhSTeM1PAc1KD+9X/Kx+RUEL6WdliYdu5aNi55GwGUr5oYIc7qec+HNlQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=j6JaKy78Zu6CcbM11q7awM7ETNTwWcjji9fu0PH5EA0=;
+ b=vyn+NYz/6IaS1ted3q2pRP6WZuKIlhN7nfuegZuS8t+E8oCxPayy6IE0K6ILi7sXXsHcjD7jdLzXGsY/KJwf5Atw637o6qTAkAfnz+l/3IZR59297vT8/EU1WhfJR2kPwJSuFefZXrKgGNAgWwzMQZniL1YFzhN5VyLE7rETH5Dynkl/A6C5zha4Grt5iIeX8lyb1+fQejf9Y2faWy5kMh10ETav5p6B8hq11gyQll75mL/DCy/Vwa1y61qPPzE71dc4bZCQC2k8FVHEFeyIwf0nToz4A0R1bEOKv5kewh+gWJnGT7O1uLzsBjzv0nP6VxZIdYT4Vjd+H4CCsEeYoQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RwYOxSG6GyEZbOkJc0XIe4B5NtFqzuEW4mZseMIkceA=;
- b=GANA/zwE6KSrD7axtNcgfC8wpY6epk8iR5lbCCh8z5PtCEy0zCEXG0MfLdVQih0nqoSi6tFvzkvhcYR36IDYgjwvhTgCd36omeCj91mRj9SawiU+ltX37p4C0Oy5svpTLeEiG8T+08mW6By7oD9Lms2ohbvzvyqcUqupKGqoQ8g=
-Received: from BL6PEPF0001641A.NAMP222.PROD.OUTLOOK.COM
- (2603:10b6:22e:400:0:1004:0:6) by MW4PR12MB7263.namprd12.prod.outlook.com
- (2603:10b6:303:226::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8069.28; Mon, 21 Oct
- 2024 16:50:47 +0000
-Received: from BL6PEPF0001AB59.namprd02.prod.outlook.com
- (2a01:111:f403:f903::3) by BL6PEPF0001641A.outlook.office365.com
- (2603:1036:903:4::a) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8069.29 via Frontend
- Transport; Mon, 21 Oct 2024 16:50:47 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL6PEPF0001AB59.mail.protection.outlook.com (10.167.241.11) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8093.14 via Frontend Transport; Mon, 21 Oct 2024 16:50:47 +0000
-Received: from 10.22.74.174.in-addr.arpa (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Mon, 21 Oct 2024 11:50:45 -0500
-From: David Rosca <david.rosca@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: David Rosca <david.rosca@amd.com>, Leo Liu <leo.liu@amd.com>
-Subject: [PATCH] drm/amdgpu: Fix video caps for H264 and HEVC encode maximum
- size
-Date: Mon, 21 Oct 2024 18:49:24 +0200
-Message-ID: <20241021164923.19073-1-david.rosca@amd.com>
-X-Mailer: git-send-email 2.34.1
+ bh=j6JaKy78Zu6CcbM11q7awM7ETNTwWcjji9fu0PH5EA0=;
+ b=py1FKkSP2EueopffNpGCIf1Tl6/R2d7/rqnaasEJyOim+SQgDRQF7WNLPFm9qvBOSmPEGr4XvRGwWe6+6VNPN7XwkgNl45FoFDhCedgENN1eUMJTng8sv3pc/SeJXDZ/WzLcUzxjeV6mqTNaFII4vwAHu6/LwFc/2E91O0B9WTg=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CY8PR12MB7099.namprd12.prod.outlook.com (2603:10b6:930:61::17)
+ by PH8PR12MB7446.namprd12.prod.outlook.com (2603:10b6:510:216::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8069.27; Mon, 21 Oct
+ 2024 17:35:15 +0000
+Received: from CY8PR12MB7099.namprd12.prod.outlook.com
+ ([fe80::314f:877c:8b6f:52d6]) by CY8PR12MB7099.namprd12.prod.outlook.com
+ ([fe80::314f:877c:8b6f:52d6%6]) with mapi id 15.20.8069.027; Mon, 21 Oct 2024
+ 17:35:15 +0000
+Message-ID: <4a4be2d3-da50-4b60-abe6-2be01867aa5d@amd.com>
+Date: Mon, 21 Oct 2024 13:35:11 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdkfd: sever xgmi io link if host driver has disable
+ sharing
+To: "Kim, Jonathan" <Jonathan.Kim@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: "Kuehling, Felix" <Felix.Kuehling@amd.com>,
+ "Yao, Yiqing(James)" <YiQing.Yao@amd.com>
+References: <20241016155833.956478-1-jonathan.kim@amd.com>
+ <CY8PR12MB7435752CDBFDEF81C128F44D85462@CY8PR12MB7435.namprd12.prod.outlook.com>
+Content-Language: en-US
+From: Harish Kasiviswanathan <harish.kasiviswanathan@amd.com>
+In-Reply-To: <CY8PR12MB7435752CDBFDEF81C128F44D85462@CY8PR12MB7435.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQBPR01CA0131.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:1::31) To CY8PR12MB7099.namprd12.prod.outlook.com
+ (2603:10b6:930:61::17)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB59:EE_|MW4PR12MB7263:EE_
-X-MS-Office365-Filtering-Correlation-Id: b64c075c-365e-432d-61c1-08dcf1f0830b
+X-MS-TrafficTypeDiagnostic: CY8PR12MB7099:EE_|PH8PR12MB7446:EE_
+X-MS-Office365-Filtering-Correlation-Id: c314b084-b46c-4186-07c4-08dcf1f6b930
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|36860700013|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?8J2e/HwWZJ3v0WFgOzvw+8Lye9zbqHXGQ6+Kp4sd2uHTQkhkbLvFPP2CJsXP?=
- =?us-ascii?Q?vxUf5DLf5PeQKB6uHF2jcs+2R8KNssFEyLz91qvClUJ9NXbWGpXaNJZPiOev?=
- =?us-ascii?Q?5BcTBUPyBqIX4Gg7IPkMYnrekTLe0P5ZtCmLMIj930hyB+AbTiXrnfoSMYSG?=
- =?us-ascii?Q?z483+nZNHv9l94/IFmnhv+wl+lr03aY7ZylYbSP2SIpIwqFzTEezX0tiVKD+?=
- =?us-ascii?Q?bklOOBMdTh0HCHPmYCPWonMj/AUv18RiSyPS8xNleZJcWRQkyodCICGpzuTh?=
- =?us-ascii?Q?pQOFqYPlQ57nt5VYwn3fewQC+EtoONUV/bQEoYyyMC4c6oFOWnqNUKHT8QT6?=
- =?us-ascii?Q?XCzsknfPBbuf6SNQKiQzWiAAVtgj+x2VAdyctniglSWsd9QkJ++8EiH6G4Tm?=
- =?us-ascii?Q?JDj2IZm1tKHdTyYTMvwjiT0TCGUivG+71sPbQP7MOqV41bwO2FlBPUJO6zWD?=
- =?us-ascii?Q?xDLdbebYX6inu1k1ZxVFq2P+O/uWZY0wvLQgSZsloDv+7nPs+NjdkkHpc5PP?=
- =?us-ascii?Q?Fg1lkIm3YvoUePSBOCSzFDr4FDOj2EJJz9LetW4TfhR/dF+1RCMoLpscxnKA?=
- =?us-ascii?Q?WJu6MbIn09OmawYc3h+dxbLc3iHMFKdsBV7LGHipQPlyiqV1pCJRwH2knFat?=
- =?us-ascii?Q?IwKDjagdryU/DaTAJg2ke4SOx8ScBjkky9AIfSHry2ZUjNa66/3rY2zR9he3?=
- =?us-ascii?Q?cyV3ynrCNVvcDz176E2qf/yFZCUAFgjlpUPQj6zpAMKnHVJZQE4EZfkPayCV?=
- =?us-ascii?Q?AibflEomCOfURvq6I9nWjKZ3A1s0YgjoFFXsbEijwymAGMp7EiH54sAEuzQq?=
- =?us-ascii?Q?IVRoUVXHywpuiGDbUwuBXcBCw+JlTJ1hZsuB7VFO12Owk//Knf1BP4NnYJqE?=
- =?us-ascii?Q?CgL2rB6X63QFL7/HExEYMAOSxiXbLcI7coaNlfMS5PVhDrC2G37Uc/KRmtc/?=
- =?us-ascii?Q?58yRP6yRjgRZHetvi3xMAvMYPXJdXsh/JHZvKG3bQivvVn5Wy8Jd0xlb1D0k?=
- =?us-ascii?Q?/fzF/0DCyr3XMmgbAQz+HstHAZ3GNk5lb9/SUmnR2sBIhlMJR+JaVvcm9mRy?=
- =?us-ascii?Q?hoO2v6VerY/V88Idq2KThjm3SzJh7tdJbk1XOXWNBZiwiZ+sACqS36gkvG81?=
- =?us-ascii?Q?nLk0UazydCewxDhF58m2HR+ALsoCJS/EryTuiDveOOap530kYt5M4rmwJ9mq?=
- =?us-ascii?Q?/GZ/5Cb+wzMtqtj/L7+Mwe7DenaHMZgv09fF7NcGMX2pvni3NtKP2cgKO333?=
- =?us-ascii?Q?XSL3SWQICjJCdG7zIJFk8TMGp+V1Vr7EW/ivKmZ2Aus/sIESBFc8VGNN4OQ7?=
- =?us-ascii?Q?GGE+vicKJpoRzT1D1tYgnr1DfeGbZc7ajxO7UpGFOyks1gT7ATh+mQwGEWQx?=
- =?us-ascii?Q?Oo0JAwJAljDjCe/i7souIV4o+BVj/UeHyygxUI8RIW5x+ol0vg=3D=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026); DIR:OUT;
- SFP:1101; 
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?NE9wbCtKY0taNFpONEgrUWNnaTNYanpOYTBUdUpPRDRrZHBjbmV1QzhhUGgw?=
+ =?utf-8?B?T2NaYUlsbVNFYVVJWnFBamxrQTJEWTJxTS9vU0UwSXhrU096Sk9seG0zaE5E?=
+ =?utf-8?B?YUxLOUp4amdiZ3Mwb2VNc2pkaUk5K243eHliR1BhaWtEVUlhd1poY3FERDBs?=
+ =?utf-8?B?MFdVd0h5UWNJaTlPcUlCclNBUms3YmlOZ2dYTWdObHdsbVpLazFtZFdtbEQ3?=
+ =?utf-8?B?WDE3ZHRhMTNycGoweEllWUNEQkFWc3VjejZlaEZSelRjQ0ZYOTJEWUdSbGMv?=
+ =?utf-8?B?aFM4aGh2RTBPTE1aK3Y2bHB3elNpenF5ZTNLUEo2TEp4Rm84eTgwOUNkb01L?=
+ =?utf-8?B?Z29QVVFBakQrTWpHUTJjRzFLZUNTNHlnenAzb3hTK3p2ajkwT3N5WHpDWmNN?=
+ =?utf-8?B?K1RkY0RmNDNlRG9DaE8yblRzTnorRTluZ2NNWHFpUWZIalY3Q0ZDTElrVEk4?=
+ =?utf-8?B?aG1McWNZZXNQLzRUQzlFUGpHK3ZVV3BLVjZjeFlmOS9sT2pzTk5VaGgxeU45?=
+ =?utf-8?B?MlN6azRpWStEbmFYNHZCWWFmcm15NTZkdDNyZS8xMnlqWHJjUllvRndjYlN6?=
+ =?utf-8?B?VllXSlIxdG1VUGljRGdReER0VGgzejFPNVZkTkdtL1FpZFJPVHRsUGV1Q2U1?=
+ =?utf-8?B?dDBKc1VOS3o0RStzN0RXNEY5TUZrd1BEYmY5ekJBdzFIc3BFaXZ5VmNBU1hF?=
+ =?utf-8?B?b1BQM285VmJHaVlrQ01wZWQ2cnNwTEw2RHhBNU80M3hUT1g1RTlOWjUwOXhz?=
+ =?utf-8?B?ZlVMU0Zudng4S3R6ZitDV1ZHOFVldkdtOU9mZVJqZlh0bUttWGZpZEE5QUxY?=
+ =?utf-8?B?bjBFN0pVZ0E1bkN6eEdRamFvdWdFVDY1enp1N2tRWWx2YlZUK3ByTEpIcTl5?=
+ =?utf-8?B?OUFYZ05hUnVnSjNxRHV1cUJGT1Fya0kvS1VaVklSa1lod3RBT205NXlkbjBt?=
+ =?utf-8?B?RmtCdzRScFRjelFnUTNTaVNBK0lMZjRyU3hGTXNEU2lPYlJiZi8xMkpXUE9z?=
+ =?utf-8?B?ZklGQ3hoWlNXczAzTG4zRjZWZE9yRmxla3NBNnRsNi9XSDNNUVFObjBxZzJi?=
+ =?utf-8?B?ZXBYZzN4MGE0TFZRSXlNMS9OS3dZQ0dRdlk0SjliRG8wbTZvVjZ3TjZlSVVM?=
+ =?utf-8?B?cGtQUnVJVXcybzZEdHV4Q2VUWVd5OEJxYjA2VDRBVytJOWw5aVROQndYMmRo?=
+ =?utf-8?B?MWdGZ0hQaThxK040a0JlbjB4RnVuVHprazd4ZE9HQm9IT1J1UkdrdDRmY05I?=
+ =?utf-8?B?SHVNeW51QW5JdW1HT1lTcGo1QXJpZTFFRXNIL1lHMnBNL242U2JCQUVBK1dq?=
+ =?utf-8?B?Nm4xMG5RVWtkZGQ3VEFUSlMrcmZ0b1pFWmRxbTdpa1crdkxpK2lNSGxrbkJ6?=
+ =?utf-8?B?cytuaHFwWnFqWkVnSUNFcGxObXRETnZxanNjVldUWkhHV3dTeDJRaFRpZ3Vq?=
+ =?utf-8?B?bmt5WE5LL0gvdzlWdGR3YmVwcmZRQ0o3dHJuYVgzVG5Udm4rVWNNblpQSnRI?=
+ =?utf-8?B?WEZPRUQ5c1lKcXJWL2djTWUwVkJGRnRPdWxyTTFGUm5TRlRNLzlDVmlxTExW?=
+ =?utf-8?B?azFuUGhjcTdYR01HbTkyMWF6SmVhS3RERzMwRC96aXJ4cCsxMVczVDZmUGVa?=
+ =?utf-8?B?bjhRMlFUSGVOeWRVMy9qa1JuS1ZBVnB0UncwWWF4VGE0aXc5c21ibkFvOHpQ?=
+ =?utf-8?B?NFhYUVdqWkVaVlF3bWRJeHQ3elVpTzJ2Z1F2cGNwVFhjN21DSVhkaHlRR2I2?=
+ =?utf-8?Q?rKzdPS4SqgL2pVOglHFuldb/6SB1m33bOdS1SUS?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY8PR12MB7099.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eit1bFAxMkZtN2ZheU1sWGdkNFdJWERidE1vdlJYTEoxVUp0enAyYXExcmMw?=
+ =?utf-8?B?ZEFZUEVCU1RZL293V0NNM0Ztc3BYYm9yL04xRGFqL1ZNUjhHMTR4cXc2VDh3?=
+ =?utf-8?B?LzlOUlI0NnNidkFqekx6RXg2VHJxT3lWZnNWbktNVklJd3hMK2FsNDF2bDFr?=
+ =?utf-8?B?d3VDWmNVYXk3U0NaVkVBVy90clBZWm5UVWY4cm16WEl4cTNVanAxTHZGWVIr?=
+ =?utf-8?B?UXU5VUQ0WXFQS0xxbEcxVWh4ei9aQmwzZTB1cHJYajk2OTBMcmM0TytZYzdJ?=
+ =?utf-8?B?UjEyUUZNOGtsSkcvYjFRaEd1b3FkY3IyZ1kzY3lBcGR0bmhxb1BETHk2Q3Nm?=
+ =?utf-8?B?MVdkRFM4Sk9mNlk1aU8xK1NSVStRVXBtQ2g3RUdQMWlYalo1QVpkUlJDTXhJ?=
+ =?utf-8?B?VFdMOUFuZUROWHptTnE3Ylc0ZVFhMXZKOVF4RjNGdUt1ZjgybjlhY2x6SkZn?=
+ =?utf-8?B?bUR5dWhKbWlTcDZuQ3NmcTluTEFrcENWVityYitaVlUrTDM4K0F1VFh3Skp1?=
+ =?utf-8?B?eWNWYjVDWk03NWM5SW5HeG9FT1FCd3lVSFFndmMzUTQ0OVlwKzhjUHBqdFdF?=
+ =?utf-8?B?Y3NTb2NrS3JMWk9pcWtqZmhnNHY2U1RqTUtYU3JrR3BKZUpzeDFCQnVCOXFR?=
+ =?utf-8?B?OFdrclJHRWhvTXlxZ2JQS2s5R0RrcVFTWnRFdG0vbWlHUzcyVnhPNTh0NnFl?=
+ =?utf-8?B?MUh5N3VCTk9PSHQ2Qnd6S1J2UzdheGN4dFlIQ2FGT1FIL1JhWUw2MlVvdkFL?=
+ =?utf-8?B?L3JIQzYzWWVDTUdXQzNFSjRvalhIZGFyaURINlU3eS9yN2g3Zyt4YkhaYzRx?=
+ =?utf-8?B?Y3VCbDd5UlgxaWhkRUJBTyt6b1J4V1lyRnVEbDB4VmJVbGJCK3dQeHQ0OWNH?=
+ =?utf-8?B?bTg2Q0ZrcmxLb3hlcDhtS2FnNGNuWWZDRUxCRjZqN1JMTHF0UTNQR05pck5i?=
+ =?utf-8?B?cGNMWTVPcGdUck1scGlGRUVJcEdkUlh3cTl0V1o5ZFpwcUdkSjNWMFFNKzVO?=
+ =?utf-8?B?Vy82VW9NeE14bzhPN2x6NU1rR2k5RnJmUFpKcU42cEM0bzdqWkVwRWhLbmRS?=
+ =?utf-8?B?OTlORUhaNEl5cEhvRjhnNUR3V3FoRFhNR2RPSUxNRzBwUFhrZERjWFJkVUI5?=
+ =?utf-8?B?c1dXcnVyS0VIWXNqWitVYTNNbFFqMVppWkNGM0ZRVVhMS1l6OXlmSHJMYkFG?=
+ =?utf-8?B?Mk9OQzAvaXdmSGdqVzV3aGFLNk0xM3Nsems5N2VGdG9PdXBFR09PMjdlM1B5?=
+ =?utf-8?B?UG91WE8yeiszaXlmKzhJelc0Z01uNkczaHhGQ0J3TS9qVkJOKzFCYjVBaVVW?=
+ =?utf-8?B?WlV3T0ZmVkYxK0MxSENNaXFwU3Y4dlg1WVdyRzdOTFdVMU1UcVpOMWIrbHFP?=
+ =?utf-8?B?cURrL2YwaTByK3BTYVVqYklNclZvWWVjUHQwK25TdHZBeUd3WUpHTzZvNzVO?=
+ =?utf-8?B?MDI0UWNHVCtJcmpOZEZlbWtTai9sL3Jybm1hUEJtMGFIZ2ZrUkM4V3VFanVr?=
+ =?utf-8?B?cFA0dkp5bzErRmhyd3ZQeTZTKzE2aS9WWUV0UTZsbEJrZzQ5YmZaVkxXSkY0?=
+ =?utf-8?B?Y2tJYWFVL2xOSjYveXl5ZHRsdVVZSEM4WTA5VUJFRkFvVVFJeExzUDViQjEy?=
+ =?utf-8?B?Ris3RWtDT2ZKcnV5V21HbFJMakR0ME5vRTlzaVdxNzV4Q2hUNVhUaFYvQjNl?=
+ =?utf-8?B?UngrRFQvZmZnaTI3S0lUT21Qd3hzbllOQm1ZdlBrU3E5bGFKVGNtL0djYVhL?=
+ =?utf-8?B?TVA1eTV2cmYwM0U0b05qcnVDd3g1SUh5ZmdWMmp6bVNDRzRsS0U5NFBsVGxH?=
+ =?utf-8?B?bDdqeC9uSnozRGNvMkVaMGJaUFR3Y3lNWlZIT2dDSW8yOVFUbDhxUitiVHdj?=
+ =?utf-8?B?eWgxVXc3T29IOEhycVBmRW4wenRWTitlbWNVaVpVWkR2eC9KL2l2UU54d3RT?=
+ =?utf-8?B?UFRpWG96ckk2V1pZNW5uUTFBMFljY01ubmhSRytRbytXZ091OGdYd2xTNDN2?=
+ =?utf-8?B?VUdtNlNuMmhVaWlBUEMrVC9wWXpIdGhIUXNibndTakcrcWw3NVZnOEtoNUVL?=
+ =?utf-8?B?L2RldDF2R1ZSN0hLTHd3MlcwTWpNQXBXbFJnblJHZVczNldESUdFakUxb2lT?=
+ =?utf-8?Q?gF9XGEB1RmHgGhK0Sj3642bU1?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2024 16:50:47.2150 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b64c075c-365e-432d-61c1-08dcf1f0830b
+X-MS-Exchange-CrossTenant-Network-Message-Id: c314b084-b46c-4186-07c4-08dcf1f6b930
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7099.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2024 17:35:15.3038 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB59.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7263
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: VN186tQic8NkTLq74aJsDMlkHRZ/6C3dPfBwgNw264XldqcG19QBx2QWtG53O27FxA9J1mSAtWwUZEfaTluc4g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7446
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,148 +161,107 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-H264 supports 4096x4096 starting from Polaris.
-HEVC also supports 4096x4096, with VCN 3 and newer 8192x4352
-is supported.
+Reviewed-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
 
-Signed-off-by: David Rosca <david.rosca@amd.com>
-Reviewed-by: Leo Liu <leo.liu@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/nv.c    | 12 ++++++------
- drivers/gpu/drm/amd/amdgpu/soc15.c |  4 ++--
- drivers/gpu/drm/amd/amdgpu/soc21.c | 12 ++++++------
- drivers/gpu/drm/amd/amdgpu/soc24.c |  2 +-
- drivers/gpu/drm/amd/amdgpu/vi.c    |  8 ++++----
- 5 files changed, 19 insertions(+), 19 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
-index 4e8f9af1e2be..d07210d97ed6 100644
---- a/drivers/gpu/drm/amd/amdgpu/nv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-@@ -67,8 +67,8 @@ static const struct amd_ip_funcs nv_common_ip_funcs;
- 
- /* Navi */
- static const struct amdgpu_video_codec_info nv_video_codecs_encode_array[] = {
--	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 2304, 0)},
--	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 4096, 2304, 0)},
-+	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 4096, 0)},
-+	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 4096, 4096, 0)},
- };
- 
- static const struct amdgpu_video_codecs nv_video_codecs_encode = {
-@@ -94,8 +94,8 @@ static const struct amdgpu_video_codecs nv_video_codecs_decode = {
- 
- /* Sienna Cichlid */
- static const struct amdgpu_video_codec_info sc_video_codecs_encode_array[] = {
--	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 2160, 0)},
--	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 7680, 4352, 0)},
-+	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 4096, 0)},
-+	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 8192, 4352, 0)},
- };
- 
- static const struct amdgpu_video_codecs sc_video_codecs_encode = {
-@@ -136,8 +136,8 @@ static const struct amdgpu_video_codecs sc_video_codecs_decode_vcn1 = {
- 
- /* SRIOV Sienna Cichlid, not const since data is controlled by host */
- static struct amdgpu_video_codec_info sriov_sc_video_codecs_encode_array[] = {
--	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 2160, 0)},
--	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 7680, 4352, 0)},
-+	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 4096, 0)},
-+	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 8192, 4352, 0)},
- };
- 
- static struct amdgpu_video_codec_info sriov_sc_video_codecs_decode_array_vcn0[] = {
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
-index dd1c1aacdd8e..143a8f77e348 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-@@ -90,8 +90,8 @@ static const struct amd_ip_funcs soc15_common_ip_funcs;
- /* Vega, Raven, Arcturus */
- static const struct amdgpu_video_codec_info vega_video_codecs_encode_array[] =
- {
--	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 2304, 0)},
--	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 4096, 2304, 0)},
-+	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 4096, 0)},
-+	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 4096, 4096, 0)},
- };
- 
- static const struct amdgpu_video_codecs vega_video_codecs_encode =
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
-index c4b950e75133..4c2d88045ac2 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc21.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
-@@ -49,13 +49,13 @@ static const struct amd_ip_funcs soc21_common_ip_funcs;
- 
- /* SOC21 */
- static const struct amdgpu_video_codec_info vcn_4_0_0_video_codecs_encode_array_vcn0[] = {
--	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 2304, 0)},
-+	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 4096, 0)},
- 	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 8192, 4352, 0)},
- 	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_AV1, 8192, 4352, 0)},
- };
- 
- static const struct amdgpu_video_codec_info vcn_4_0_0_video_codecs_encode_array_vcn1[] = {
--	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 2304, 0)},
-+	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 4096, 0)},
- 	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 8192, 4352, 0)},
- };
- 
-@@ -96,14 +96,14 @@ static const struct amdgpu_video_codecs vcn_4_0_0_video_codecs_decode_vcn1 = {
- 
- /* SRIOV SOC21, not const since data is controlled by host */
- static struct amdgpu_video_codec_info sriov_vcn_4_0_0_video_codecs_encode_array_vcn0[] = {
--	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 2304, 0)},
--	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 4096, 2304, 0)},
-+	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 4096, 0)},
-+	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 8192, 4352, 0)},
- 	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_AV1, 8192, 4352, 0)},
- };
- 
- static struct amdgpu_video_codec_info sriov_vcn_4_0_0_video_codecs_encode_array_vcn1[] = {
--	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 2304, 0)},
--	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 4096, 2304, 0)},
-+	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 4096, 0)},
-+	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 8192, 4352, 0)},
- };
- 
- static struct amdgpu_video_codecs sriov_vcn_4_0_0_video_codecs_encode_vcn0 = {
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc24.c b/drivers/gpu/drm/amd/amdgpu/soc24.c
-index b20dc81dc257..6f4371276fbb 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc24.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc24.c
-@@ -48,7 +48,7 @@
- static const struct amd_ip_funcs soc24_common_ip_funcs;
- 
- static const struct amdgpu_video_codec_info vcn_5_0_0_video_codecs_encode_array_vcn0[] = {
--	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 2304, 0)},
-+	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC, 4096, 4096, 0)},
- 	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC, 8192, 4352, 0)},
- 	{codec_info_build(AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_AV1, 8192, 4352, 0)},
- };
-diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu/vi.c
-index 4996049dc199..3832c89953d2 100644
---- a/drivers/gpu/drm/amd/amdgpu/vi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vi.c
-@@ -136,15 +136,15 @@ static const struct amdgpu_video_codec_info polaris_video_codecs_encode_array[]
- 	{
- 		.codec_type = AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC,
- 		.max_width = 4096,
--		.max_height = 2304,
--		.max_pixels_per_frame = 4096 * 2304,
-+		.max_height = 4096,
-+		.max_pixels_per_frame = 4096 * 4096,
- 		.max_level = 0,
- 	},
- 	{
- 		.codec_type = AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC,
- 		.max_width = 4096,
--		.max_height = 2304,
--		.max_pixels_per_frame = 4096 * 2304,
-+		.max_height = 4096,
-+		.max_pixels_per_frame = 4096 * 4096,
- 		.max_level = 0,
- 	},
- };
--- 
-2.47.0
-
+On 2024-10-16 15:08, Kim, Jonathan wrote:
+> [Public]
+> 
+> Messed up James' email in Tested-by tag.  CC'ing James.
+> 
+>> -----Original Message-----
+>> From: Kim, Jonathan <Jonathan.Kim@amd.com>
+>> Sent: Wednesday, October 16, 2024 11:59 AM
+>> To: amd-gfx@lists.freedesktop.org
+>> Cc: Kasiviswanathan, Harish <Harish.Kasiviswanathan@amd.com>; Kuehling, Felix
+>> <Felix.Kuehling@amd.com>; Kim, Jonathan <Jonathan.Kim@amd.com>; Kim,
+>> Jonathan <Jonathan.Kim@amd.com>; James Yao <yiqing@yao.amd.com>
+>> Subject: [PATCH] drm/amdkfd: sever xgmi io link if host driver has disable sharing
+>>
+>> From: Jonathan Kim <Jonathan.Kim@amd.com>
+>>
+>> Host drivers can create partial hives per guest by disabling xgmi sharing
+>> between certain peers in the main hive.
+>> Typically, these partial hives are fully connected per guest session.
+>> In the event that the host makes a mistake by adding a non-shared node
+>> to a guest session, have the KFD reflect sharing disabled by severing
+>> the IO link.
+>>
+>> Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
+>> Tested-by: James Yao <yiqing@yao.amd.com>
+>> ---
+>>  drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c | 17 +++++++++++++++++
+>>  drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h |  2 ++
+>>  drivers/gpu/drm/amd/amdkfd/kfd_crat.c    |  3 +++
+>>  3 files changed, 22 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+>> index fcdbcff57632..1d50f327eb08 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+>> @@ -801,6 +801,23 @@ int amdgpu_xgmi_get_num_links(struct amdgpu_device
+>> *adev,
+>>       return  -EINVAL;
+>>  }
+>>
+>> +bool amdgpu_xgmi_get_is_sharing_enabled(struct amdgpu_device *adev,
+>> +                                     struct amdgpu_device *peer_adev)
+>> +{
+>> +     struct psp_xgmi_topology_info *top = &adev->psp.xgmi_context.top_info;
+>> +     int i;
+>> +
+>> +     /* Sharing should always be enabled for non-SRIOV. */
+>> +     if (!amdgpu_sriov_vf(adev))
+>> +             return true;
+>> +
+>> +     for (i = 0 ; i < top->num_nodes; ++i)
+>> +             if (top->nodes[i].node_id == peer_adev->gmc.xgmi.node_id)
+>> +                     return !!top->nodes[i].is_sharing_enabled;
+>> +
+>> +     return false;
+>> +}
+>> +
+>>  /*
+>>   * Devices that support extended data require the entire hive to initialize with
+>>   * the shared memory buffer flag set.
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
+>> index 41d5f97fc77a..8cc7ab38db7c 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
+>> @@ -66,6 +66,8 @@ int amdgpu_xgmi_get_hops_count(struct amdgpu_device
+>> *adev,
+>>               struct amdgpu_device *peer_adev);
+>>  int amdgpu_xgmi_get_num_links(struct amdgpu_device *adev,
+>>               struct amdgpu_device *peer_adev);
+>> +bool amdgpu_xgmi_get_is_sharing_enabled(struct amdgpu_device *adev,
+>> +                                     struct amdgpu_device *peer_adev);
+>>  uint64_t amdgpu_xgmi_get_relative_phy_addr(struct amdgpu_device *adev,
+>>                                          uint64_t addr);
+>>  static inline bool amdgpu_xgmi_same_hive(struct amdgpu_device *adev,
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+>> b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+>> index 48caecf7e72e..723f1220e1cc 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+>> @@ -28,6 +28,7 @@
+>>  #include "kfd_topology.h"
+>>  #include "amdgpu.h"
+>>  #include "amdgpu_amdkfd.h"
+>> +#include "amdgpu_xgmi.h"
+>>
+>>  /* GPU Processor ID base for dGPUs for which VCRAT needs to be created.
+>>   * GPU processor ID are expressed with Bit[31]=1.
+>> @@ -2329,6 +2330,8 @@ static int kfd_create_vcrat_image_gpu(void *pcrat_image,
+>>                               continue;
+>>                       if (peer_dev->gpu->kfd->hive_id != kdev->kfd->hive_id)
+>>                               continue;
+>> +                     if (!amdgpu_xgmi_get_is_sharing_enabled(kdev->adev,
+>> peer_dev->gpu->adev))
+>> +                             continue;
+>>                       sub_type_hdr = (typeof(sub_type_hdr))(
+>>                               (char *)sub_type_hdr +
+>>                               sizeof(struct crat_subtype_iolink));
+>> --
+>> 2.34.1
+> 
