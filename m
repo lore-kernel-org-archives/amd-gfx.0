@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A19ED15D90
-	for <amd-gfx@archiver.kernel.org>; Mon, 21 Oct 2024 13:06:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2B4FD15D8D
+	for <amd-gfx@archiver.kernel.org>; Mon, 21 Oct 2024 13:06:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 428F610E4EF;
-	Mon, 21 Oct 2024 13:06:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB79D10E4E8;
+	Mon, 21 Oct 2024 13:06:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="dfiuLgjI";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="GPYk39T3";
 	dkim-atps=neutral
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F410510E2D8
- for <amd-gfx@lists.freedesktop.org>; Mon, 21 Oct 2024 10:37:09 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B43C10E472
+ for <amd-gfx@lists.freedesktop.org>; Mon, 21 Oct 2024 10:42:45 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id EF2F8A42645;
- Mon, 21 Oct 2024 10:36:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AAA8C4CEC3;
- Mon, 21 Oct 2024 10:37:08 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 3DFB45C5CA0;
+ Mon, 21 Oct 2024 10:42:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78721C4CEC3;
+ Mon, 21 Oct 2024 10:42:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1729507028;
- bh=gWFRp2eW84fpBnFgl3iI5sQ8IZE9d2zHk5FS5xXOAWY=;
+ s=korg; t=1729507363;
+ bh=yYnA+WxlFloSw268iNjOYYl2s+GBYeMyv1qMg07hD58=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=dfiuLgjI5UgItBBXtAkZfOlUaoEUEaLyr5AN6hbkLIxhtZBL/p3xYS3EHrm/buGv7
- HlxsqDUttFHjwn1HBdIEigAjZaMpR6vuMEXRWxAuOuxzIaXzySBaxVAy0zK0ro3qbo
- KaLzDYGPSLyqyWK3ND4vO+Gi3xFehkh+mZChBJ34=
+ b=GPYk39T3AwHtUoVj/CYJHKL2OeOsSajeqTG5zOvXpa3YRWpoNAAOSkkUCigNKga4E
+ DouZtTpUdhTpEgXBn5vDDUvYLhUYW9KBrcj4WrwqQhK0NglzRggrI7LIfKC0JR/dq8
+ aKMJggap/MaShAgMYqveqfpxciP7k+SJ99WKIquQ=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
  Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
  Erhard Furtner <erhard_f@mailbox.org>,
  =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
-Subject: [PATCH 6.6 066/124] drm/radeon: Fix encoder->possible_clones
-Date: Mon, 21 Oct 2024 12:24:30 +0200
-Message-ID: <20241021102259.287482641@linuxfoundation.org>
+Subject: [PATCH 6.1 51/91] drm/radeon: Fix encoder->possible_clones
+Date: Mon, 21 Oct 2024 12:25:05 +0200
+Message-ID: <20241021102251.811649488@linuxfoundation.org>
 X-Mailer: git-send-email 2.47.0
-In-Reply-To: <20241021102256.706334758@linuxfoundation.org>
-References: <20241021102256.706334758@linuxfoundation.org>
+In-Reply-To: <20241021102249.791942892@linuxfoundation.org>
+References: <20241021102249.791942892@linuxfoundation.org>
 User-Agent: quilt/0.67
 X-stable: review
 X-Patchwork-Hint: ignore
@@ -60,7 +60,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-6.6-stable review patch.  If anyone has any objections, please let me know.
+6.1-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
@@ -97,7 +97,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
 --- a/drivers/gpu/drm/radeon/radeon_encoders.c
 +++ b/drivers/gpu/drm/radeon/radeon_encoders.c
-@@ -42,7 +42,7 @@ static uint32_t radeon_encoder_clones(st
+@@ -43,7 +43,7 @@ static uint32_t radeon_encoder_clones(st
  	struct radeon_device *rdev = dev->dev_private;
  	struct radeon_encoder *radeon_encoder = to_radeon_encoder(encoder);
  	struct drm_encoder *clone_encoder;
