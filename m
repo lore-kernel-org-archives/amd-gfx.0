@@ -4,146 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DC81D2C550
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Oct 2024 13:25:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BC87D2C552
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Oct 2024 13:38:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFA2E10E1FB;
-	Tue, 22 Oct 2024 13:25:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E4A7989EAC;
+	Tue, 22 Oct 2024 13:38:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="eLqoZuGq";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kGSX1weV";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2066.outbound.protection.outlook.com [40.107.236.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA04E10E1FB
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Oct 2024 13:25:37 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TTcqIFJFgvNdyKb5E7dgnLu4eiI7ngqnti+fNW/NNB/AhNKMlmNCK3FzY7xih7foSiREUOoBNa+J2PsGGut2SCmqV7J0zzEUE6iDeRyFFUIE3sb/zzN8usxDTSmvpkqlCJuokakI/B/xh57kAld2PDW11nXUqJ6TxoovjDDODU8ue0jiQA5TtAOIaXDvZcVVH+6mUSebY6t9+QNRtbhla+E7hJ/g/bYwLTx7u2KdQQy8aa5/RWUsbWW/a1zRtC+hx4KYWSisX/fxI0a0udjFdCuzVa4xGxHU+zsy5joA5NZzbJVvmqCEqfqsnF4JWnRIp/UVN9ea4X9FDuh8b3KWmQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hLKGP7zIlg528ADN6uRkc3BAvo7NOg11tb4VRNaelb8=;
- b=NnFwQQCN6WG/Y/r2DlcipDgPV7X/fLZWSlKu2ox1COCljTUVKtpm8k/0Z0NKKmcAKyKEtbN/3aaL+sgZecrQ0OAYikQVjMF66dkFPhMxZEciBn14MRhUCnEcMr45eHLPZgFZuoS/pV3/jR6V5b3iLMu62tLAkpfOEvygpG/qb3D0AkZ8dIB7aN+kP7lOsNn/ugf9qENgM7dSDcyIEZzOdbzhDa3Z15msapIH3RxNjj2L3yZaVO/7y5csBHAEf/wVhsnnVlF+nE6jcNMHZN3ojl/SVkew0k5EqfYheqpC86Qa0HrS1w+WBsbKf6TQfQlTI8PJQ3CmSq5dxVZuoMh6VQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hLKGP7zIlg528ADN6uRkc3BAvo7NOg11tb4VRNaelb8=;
- b=eLqoZuGq/Mfi6WSKP+dvPZwTDFH8TF3QWpgA4LEnj8sTtS1lt/4IxA1HZu6s42A2RK2JHs9z/pRBHnZN2GwLhbCNWRl1uvkqXrFvEy/9UClXGV3fMAX1BF4fufBuljxYMFH2ksm5Adc2he3PdpWpAVkryC2Z3XUKuok9xgEgqi4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
- PH7PR12MB9102.namprd12.prod.outlook.com (2603:10b6:510:2f8::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8069.28; Tue, 22 Oct
- 2024 13:25:31 +0000
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::8327:d71a:ce21:a290]) by DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::8327:d71a:ce21:a290%5]) with mapi id 15.20.8069.027; Tue, 22 Oct 2024
- 13:25:31 +0000
-Message-ID: <a9d81328-3de5-4b12-9d9d-6ea3353e4bdb@amd.com>
-Date: Tue, 22 Oct 2024 18:55:22 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/amdgpu: Fix the logic for NPS request failure
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: Hawking.Zhang@amd.com, Alexander.Deucher@amd.com,
- rajneesh.bhardwaj@amd.com, Ramesh.Errabolu@amd.com
-References: <20241018063533.3082692-1-lijo.lazar@amd.com>
-Content-Language: en-US
-In-Reply-To: <20241018063533.3082692-1-lijo.lazar@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN3PR01CA0055.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:99::10) To DS0PR12MB7804.namprd12.prod.outlook.com
- (2603:10b6:8:142::5)
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
+ [209.85.216.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 09F8510E19F
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Oct 2024 13:38:52 +0000 (UTC)
+Received: by mail-pj1-f51.google.com with SMTP id
+ 98e67ed59e1d1-2e2d83f15f3so757822a91.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Oct 2024 06:38:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1729604331; x=1730209131; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=D/6IAhCJfAQRIL8dZqGY70vY8Nad0yZmbMdXhOnuwjM=;
+ b=kGSX1weVt3LSzKltLOXVh2iswOVOQojm8NGuvuUL+iHri9mNmDcyjwgQlXPNxdzRjy
+ HZeD5Y9PC4d6RO82MRVXT3FzWwTxYmAnvNRGXFsXRtU9daW/vgkPsEi2ovFp/FD2Cf5p
+ WAJlOtD6RhFS3fXN5f+6waViJnVQUFWcnAEXPIS4X4IsffvaM5t8WTxvg6Mx1dVD046B
+ jTzh3czQ8VCZNQn0wU/V4M0ezgRJUIBGLBlBETs6FMNwb70K9C++pKf1h2ITKMVrSNMN
+ T9WKWCsPoMjFxlpgVE1mCD3zh7W9MhNDVOCq3NhoUHWf4x59sweil165UBYALVBwirrk
+ XxRg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1729604331; x=1730209131;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=D/6IAhCJfAQRIL8dZqGY70vY8Nad0yZmbMdXhOnuwjM=;
+ b=TIKi0i3pLJUzcsGVfyhea0XYBRXqvs7T6jdWDIdVHz4wvJL/LNOE9Ebql0BTQ3fdQU
+ SQFAK4p55WXej2m6m9zcqcYQdJexpRdv4IpLNepNyEpTVLRwiYGCEHsKaS9Asl4C+JI9
+ pTojHXscU8FgFWL1Exz7SvXHb50wtSvhd3HSLpTNCOR83u13dIOek+t0dlG/hmGe2X5T
+ VzbtSJGUL6l+TO1KDrCmcvBApyOQkmu97E60IJ02uFLc4yEJFFWwpidMVTn5ttwmjpca
+ A4aCo6eyH1JPjwS+AOYaXpTRsGNpFDgdG/F+fu3gaJoXxDsYBsY8jrRI1fZFKRnghPbq
+ YuFg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCULfDMp3PENwhpYtZtHInkgCRDVi8xtHfzsb+y4xhBg8+t9N3dsErgwEhJSoi0wo12b1tmOlawc@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyXjKYFUy5h4hJG5nSDuLthZdDb7iSP901I97w26kkG0UZf8Elx
+ nIpz3avmhAywSfGXVJciQ0C9S4kOxUwJnf8WrmGbTNUj554J3EitPuyJCdW8TMCZBW7YUsva+7J
+ hJ8ZQ/ohWvI16rsSfJZSBsVikm2k=
+X-Google-Smtp-Source: AGHT+IHbwfhnlnFQq7H1hPiCZQzh0Hm5sPjnprh9DI2Fi8FwTfLJi3dTfmKMyaa2T5p3o6UJPEiQLHQHDATluqbLSQI=
+X-Received: by 2002:a17:90b:a0f:b0:2e2:d1c0:758a with SMTP id
+ 98e67ed59e1d1-2e561a276admr7397473a91.8.1729604331518; Tue, 22 Oct 2024
+ 06:38:51 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB7804:EE_|PH7PR12MB9102:EE_
-X-MS-Office365-Filtering-Correlation-Id: a8f30119-dfef-4f5e-6957-08dcf29d00a2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?L051NnFZdHhOV1ZFaTAza1hyRHprZ1RXY0ZOTkVvY3JzZ0p4TDBLenFQWGlI?=
- =?utf-8?B?amY2QkphMkZsUHMvVnFnL1RPRU45ZUdPRmpqcjNJLzhBWWhGUHFOT01TK3lq?=
- =?utf-8?B?VVVhNytKbEVHSSt3K0s2Z2RtL2xib3NWV1ErRmlMa3kwbU1leDRUaG01MVAr?=
- =?utf-8?B?OVVNNlRNMkNiNGpCQ2xHSjFramdtejluRmlubldJS3RqZERocWpXTUVZY285?=
- =?utf-8?B?amRmLzl0NzhzU1QxemZPWDh3U2hKWlJnamdnWW9NZlZBclBqS1ZWVElXbmdR?=
- =?utf-8?B?TGh2U1BkS1NqZ3h0dit6ZG0wOXRJQTlJOHYwMVpWRmdvd2xpN0RSQm1uZHB1?=
- =?utf-8?B?RHM1ZW9vZGpoU3JOaU5WdjloN0QyOG5ybERmRzdUeUZpNHp6R1FzZDRZNDdr?=
- =?utf-8?B?YnJrSFF4UWlGZGM2RjRkTDgzcnBEUmhmd1o5a245UlRxNVNNYlFIWWhRK3Jn?=
- =?utf-8?B?bjV2MmxpMWNqOEFrWEIwcFhwYmpvTkVPa0x5VE1FNm5uVStVWlYvYWlZSDhB?=
- =?utf-8?B?bW9hWkRCQ2pXYUxLeFdYMW93QU5Qb2x0dlNxaERUckJDR0poaXU5YmcwSjRG?=
- =?utf-8?B?dlBDYmRqUjVPTlNjeXAwVy9TRXlqT3ZoV2RCZThONER0aXltNElMSXFiVWpF?=
- =?utf-8?B?UzVoS08xc2ZxNVhReUVRNmNJY2lLcVg2ZnFGMmF1RHZtQUtPWWszQmg1aWNy?=
- =?utf-8?B?OU03dXBpWWlFeTdkZy8wVndiV20wUFdzWmJQK1J6L1RrK3ZHaVpaNTRRckpX?=
- =?utf-8?B?UnpFT2VncFhqS3ZCVHp4WE5oQVdhQlZyYWRYVWZVTmhWMkk2aS8wcUw0NDQ2?=
- =?utf-8?B?UU1oREJkNnYzblNTWko2VkJOOU45UVFocm9xRzlFU1ZTeDhyeC9vTTNGa3Rq?=
- =?utf-8?B?YVdoSmRkNXR4cXA4TlFPdUpCcG9QWHVqbTZJM0UwUHJGNzBFc1dZVWsyTlFU?=
- =?utf-8?B?ZUY1NzFkSE9aaElPc21SNC9mY3kyckdyOEw2bm1aNDVyamVvZzJEWkkzMW5E?=
- =?utf-8?B?NWg0KzlXWk5nZGNJbkx0QlpVaXFuaVNvTEFSNFlMK0FJV0RDRldYczNwUmNP?=
- =?utf-8?B?T3NNbDdRU2x3Y21DOWJWNi8wVEFZcjhSTnVDTGdweWxFbGRMWE1ydHZLQzBH?=
- =?utf-8?B?K3Y1Qm85eFV2VkhGdGlFU0tSTHZkV29KOGJXbWhWSTlsQ0FhZHhxbGhMOUtj?=
- =?utf-8?B?TVlHdEZVaU5vZkc2dEdwZ0RXMC9penlodlNwWTdCUWloU29PVW91SnRMU3dh?=
- =?utf-8?B?Ty8weFZTQWp6Sm8wZG9DcENzazhOVEpaaWpna2ZQRVkrcUxCU3M5SDZXejF0?=
- =?utf-8?B?RVBaVWhGMGlKalM0YjdRMG9CSldUVXpHMzhtL0oyVVFJMm9pZzkxMXd4SlBH?=
- =?utf-8?B?Q1BHSUYxd3l4ejlNRzhEMS82bkNjNXVBMHpseHJVV0Z5WnhIUmY3MGZ3YW84?=
- =?utf-8?B?b0ZPdmQ5QnJYZVZFQnI3VjhBaEJHa21PY1dnSkhFZ1lBMUw0R25sSUlFaVYz?=
- =?utf-8?B?VWREMWMzMzR0WkYyN1BacTdlejZsNVZEM1luN0NRaC94Z2VGOXJJeWVVMUdt?=
- =?utf-8?B?MFJDd0haaU1BTlYrMUYwb2gvUmp6ZnRHVVN6OEJnZVFUYmdwSE1GR1pwZ3Mv?=
- =?utf-8?B?Q0VYOVozcjRTR2ZWbEtURE9TN2pjZUtyWkNBSzdYamh0VFJaN1FqdHhyODda?=
- =?utf-8?B?bnhYSzBpVVB4N2N2bFhGZk54Znc0UlRPU282UytKRlhnU2FTcFNoWmZvQXFT?=
- =?utf-8?Q?m32L0hETfsoU19qNWI516+jZmDPn/kCpvhR5yD0?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dm1lN0NnKzhvdkhRaFJtRG9tQTViL2JzbjF3TzN2SkFhL1RncFRCc1duWmtn?=
- =?utf-8?B?K214Ly9Wbzh2YjBoMlRmY2xjTHhwalhaejd5b1NBWUswQTIxMlp2YWNlZEV1?=
- =?utf-8?B?VFJxS0dSZWQ2aDl0eEhUOFRJRG0yUUxzd3duYW4rR2pLd2lYWVJ2eHk4a2xz?=
- =?utf-8?B?QW1kMGRrNVAwb2VkTGpIM1AxZHFrTFA2SlRZZzdIbTl6RkxnL2MrTnVqUHM4?=
- =?utf-8?B?SzFzTWhKOHJuWndaZTRnbTlmejY5b3lYdVY3UVlEdHpENklRajQ0ejZ0Tkd1?=
- =?utf-8?B?WmR0WXoxNGo2SWFQUjZQM3dLMWNpYTdPQmRVWXJ0cWI4UTE2dmhwZXJ4Sm9M?=
- =?utf-8?B?U3lTYVJha0ZzTnZla3ZnZ0xRYXRia3VsOUxqVzlQTHppall5enJPZk02bzRz?=
- =?utf-8?B?WjdmWDJlMzVjdkRVZjhYWFJCeXVCMUtjSndmOTBHUzVSQ0Q2UzdYTXkrZ0ZV?=
- =?utf-8?B?RkY4d3NWUXBxNGVLa2ZsZExsVlBDMzVGNUwzSDVwQkJaNVlTWmxUVk5qYUp2?=
- =?utf-8?B?UkVUNU9TVTM0NTRBUEVWanhoRlFCb0NqeFMwUGM4QnVxZEVIbzhKWnpOUDNH?=
- =?utf-8?B?ajZBbHd3aHlqeC9lYitSWUpLcjNqeXYzYlJWY0t5Z1owQklRbkRNR2w1Zzl5?=
- =?utf-8?B?eHp6K0x3TDJBSWh4clNBWjA4N3ZleXF1bmFZUlVTS3Y5dFRZb3ZObkJJYktl?=
- =?utf-8?B?cmluSC9UWTk2WnBLOXFGckVPWG1pN0xScy9DVjVQOEhwNFBoM0ZmUjhRYzhW?=
- =?utf-8?B?bVFBVnVSb28yYzRFNW1OY2FwcCtLcFBtUnF0SjZ2b284TGU2YkJkelJsZ1Z6?=
- =?utf-8?B?Nzc0R1hDdlhLSlgrSkFKNTVDWVp3YUVBZEE4N0I0cVBmQWszL0pVTDVhY2FE?=
- =?utf-8?B?ZXhKSTRvYzBWWEhqcjF4MEdHcnhBT055enFRTXM4RXlwTzdKek5RMnJjMDE1?=
- =?utf-8?B?bnNIdURqWkJsOGFweTFSazFTSEU5c0ViY2kxczUxRUE0UEhMYUgyYW9zY1c3?=
- =?utf-8?B?K1B2TldFVzFjMCsvRHViMTlQTUNYNnVIaGdoVkF6cnhqajRIQXFUVFdwZng0?=
- =?utf-8?B?RGU1QmdrM3pycUNqbmQvalZKc0lWaVlQdVZUb1FieFdMVUdnVkpSTjlhaSt1?=
- =?utf-8?B?WEp3UkVBRXpDbWJOQXZseGQ3WVMrUE8yOTJublZiNjg1MDZmNnFaK2JIQUd6?=
- =?utf-8?B?QUNDckpLeE80cFFYQS9BQ0NuN0J1SmEvYVE2WjlxN2YvQVhMYWNNV1VHSG54?=
- =?utf-8?B?Q21DdFN3MUxDelYxbkpTeE5qOHVwWDVva0V2RGp2N2k5ODJVd0VQNWgxeDVh?=
- =?utf-8?B?L1RlQ1JGcXdSYkZ3czlNSDhhM1o2aVFnMkJuNjk5ckZvQjcxUnpHNHhIUnAr?=
- =?utf-8?B?ZHpBVGRGNnRQSWNaMUd4YTU4aVMxcm41Y0VBblgzVlVvNGJZWklNWElUQVZZ?=
- =?utf-8?B?ZDZRTzEyTTZWdnV1eXVlcVJNTjBkclFBK2hHTDZIYXVxYnNmaXVJQ29OV1pp?=
- =?utf-8?B?dmZUakR6amJWY2xyWlJhNENxVThWcHgrSkRYcmVFR1JWNVlQYVkvU2xhMDd5?=
- =?utf-8?B?REY4NHJLeEp0aFRwMExpeW9zUjE3WWF2eTZVc3ZZbUt5NXkveHE1SnBNeThG?=
- =?utf-8?B?U2JSQWVTVVB3dUlVeG9yZm5DMFh4cWJyaTR5NWZTK2ZHMkpOR2RidUFRS3RV?=
- =?utf-8?B?RkNNcHkwSkxjeUxUK2NnczdBK0l0V2ZTMmhVN1M0dGhWS3dIYzZoMlpSR3Rp?=
- =?utf-8?B?dm5CczhGcXZNQXZZRVQ1QkxDZ1lvYnhKL0VEQlpGSnhrYm85ek1CVTFxVEIw?=
- =?utf-8?B?ZHZJNDBlb0F4U0VjWlJyZ3A2Y1d2bTRFNTB6THNHbXRBbk02V2RzZGU0NHFP?=
- =?utf-8?B?YnByR2x0ZDVhbW55R0xXdnI4dE9KUnF4RnN0OXNGMnUvL1VDMnM5MmNMMkt5?=
- =?utf-8?B?bzBIRTZrbFQrQ3JzMTVDeThHQ29BTUpvQXZUVy8wZGhrTi9DSnRVNnBXL0ps?=
- =?utf-8?B?VnlPQ2Uza0FERHFFRm8zcG1CZkNLSzV0dm0zZmNrcm1GWFM0azdOaS8rdi8r?=
- =?utf-8?B?ZythcW1sZi9kVVVjTGx1ZmdxU1p0Yk1aZGhDRTFMZ3h3eEpDTExoTEFMNUR6?=
- =?utf-8?Q?EpsaHZWQH8tM3QDI7XzVxyZ5F?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a8f30119-dfef-4f5e-6957-08dcf29d00a2
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7804.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2024 13:25:31.8313 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: x+Ili8Y3zckTDRhGhHCv5zdI+QwRaS7AFE8x9sDMNwziFvR+atInwuH5vGt2OGzx
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB9102
+References: <20241018192027.622300-1-alexander.deucher@amd.com>
+ <BL1PR12MB514479BC04F9CE88390562A9F7432@BL1PR12MB5144.namprd12.prod.outlook.com>
+ <DM4PR12MB516537577F16430D69C219BA8E4C2@DM4PR12MB5165.namprd12.prod.outlook.com>
+In-Reply-To: <DM4PR12MB516537577F16430D69C219BA8E4C2@DM4PR12MB5165.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 22 Oct 2024 09:38:39 -0400
+Message-ID: <CADnq5_PJCOsM5+iCCdBf7iw=wwTLpjbEgBXcjsTXTH9MQi3GrQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: handle default profile on GC 9.4.1
+To: "Feng, Kenneth" <Kenneth.Feng@amd.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Content-Type: multipart/alternative; boundary="000000000000c84200062510e3a1"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -158,68 +78,300 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-<ping>
+--000000000000c84200062510e3a1
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/18/2024 12:05 PM, Lijo Lazar wrote:
-> On a hive, NPS request is placed by the first one for all devices in the
-> hive. If the request fails, mark the mode as UNKNOWN so that subsequent
-> devices on unload don't request it. Also, fix the mutex double lock
-> issue in error condition, should have been mutex_unlock.
-> 
-> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
-> Reviewed-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
-> 
-> Fixes: 44d5206ec07c ("drm/amdgpu: Place NPS mode request on unload")
+Please double check the COMPUTE profile set by KFD as well.
+
+Thanks,
+
+Alex
+
+On Mon, Oct 21, 2024 at 9:18=E2=80=AFPM Feng, Kenneth <Kenneth.Feng@amd.com=
+> wrote:
+
+> [AMD Official Use Only - AMD Internal Distribution Only]
+>
+> Hi Alex,
+>
+> I have found another problem with the current code based on the default
+> workload setting to 3D fullscreen.
+>
+> For example, the default workload is set to 3D fullscreen first, but in
+> boot, it=E2=80=99s not applied yet.
+>
+> Then a vcn ring test comes in, sets the workload mask to vcn workload + 3=
+D
+> fullscreen. After the setting,
+>
+> Actually the workload mask is updated to vcn workload only. Then after th=
+e
+> vcn ring test, the workload doesn=E2=80=99t go
+>
+> to 3D fullscreen workload. It goes to bootup
+> workload(PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT).
+>
+> Let me try to fix it by today and get back to you.
+>
+> For this patch itself, it=E2=80=99s ok.
+>
+> Reviewed-by: Kenneth Feng kenneth.feng@amd.com
+>
+>
+>
+>
+>
+>
+>
+> *From:* amd-gfx <amd-gfx-bounces@lists.freedesktop.org> *On Behalf Of *De=
+ucher,
+> Alexander
+> *Sent:* Tuesday, October 22, 2024 4:35 AM
+> *To:* amd-gfx@lists.freedesktop.org
+> *Subject:* Re: [PATCH] drm/amdgpu: handle default profile on GC 9.4.1
+>
+>
+>
+> [AMD Official Use Only - AMD Internal Distribution Only]
+>
+>
+>
+> *Caution:* This message originated from an External Source. Use proper
+> caution when opening attachments, clicking links, or responding.
+>
+>
+>
+> [AMD Official Use Only - AMD Internal Distribution Only]
+>
+>
+>
+> Ping?
+> ------------------------------
+>
+> *From:* Deucher, Alexander <Alexander.Deucher@amd.com>
+> *Sent:* Friday, October 18, 2024 3:20 PM
+> *To:* amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+> *Cc:* Deucher, Alexander <Alexander.Deucher@amd.com>
+> *Subject:* [PATCH] drm/amdgpu: handle default profile on GC 9.4.1
+>
+>
+>
+> It does not support fullscreen 3D.
+>
+> Fixes: 336568de918e ("drm/amdgpu/swsmu: default to fullscreen 3D profile
+> for dGPUs")
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > ---
-> v2: Add a debug log for debug purpose (Rajneesh)
-> 
->  drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c | 28 ++++++++++++++----------
->  1 file changed, 16 insertions(+), 12 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-> index fcdbcff57632..3ef5066ca529 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-> @@ -1586,26 +1586,30 @@ int amdgpu_xgmi_request_nps_change(struct amdgpu_device *adev,
->  	 * devices don't request anymore.
->  	 */
->  	mutex_lock(&hive->hive_lock);
-> +	if (atomic_read(&hive->requested_nps_mode) ==
-> +	    UNKNOWN_MEMORY_PARTITION_MODE) {
-> +		dev_dbg(adev->dev, "Unexpected entry for hive NPS change");
-> +		mutex_unlock(&hive->hive_lock);
-> +		return 0;
-> +	}
->  	list_for_each_entry(tmp_adev, &hive->device_list, gmc.xgmi.head) {
->  		r = adev->gmc.gmc_funcs->request_mem_partition_mode(
->  			tmp_adev, req_nps_mode);
->  		if (r)
-> -			goto err;
-> +			break;
-> +	}
-> +	if (r) {
-> +		/* Request back current mode if one of the requests failed */
-> +		cur_nps_mode =
-> +			adev->gmc.gmc_funcs->query_mem_partition_mode(tmp_adev);
-> +		list_for_each_entry_continue_reverse(
-> +			tmp_adev, &hive->device_list, gmc.xgmi.head)
-> +			adev->gmc.gmc_funcs->request_mem_partition_mode(
-> +				tmp_adev, cur_nps_mode);
->  	}
->  	/* Set to UNKNOWN so that other devices don't request anymore */
->  	atomic_set(&hive->requested_nps_mode, UNKNOWN_MEMORY_PARTITION_MODE);
-> -
->  	mutex_unlock(&hive->hive_lock);
->  
-> -	return 0;
-> -err:
-> -	/* Request back current mode if one of the requests failed */
-> -	cur_nps_mode = adev->gmc.gmc_funcs->query_mem_partition_mode(tmp_adev);
-> -	list_for_each_entry_continue_reverse(tmp_adev, &hive->device_list,
-> -					     gmc.xgmi.head)
-> -		adev->gmc.gmc_funcs->request_mem_partition_mode(tmp_adev,
-> -								cur_nps_mode);
-> -	mutex_lock(&hive->hive_lock);
-> -
->  	return r;
->  }
+>  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> index accc96a03bd9..4b816c7e94fe 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> @@ -1267,7 +1267,8 @@ static int smu_sw_init(struct amdgpu_ip_block
+> *ip_block)
+>          smu->workload_prority[PP_SMC_POWER_PROFILE_COMPUTE] =3D 5;
+>          smu->workload_prority[PP_SMC_POWER_PROFILE_CUSTOM] =3D 6;
+>
+> -       if (smu->is_apu)
+> +       if (smu->is_apu ||
+> +           (amdgpu_ip_version(adev, GC_HWIP, 0) =3D=3D IP_VERSION(9, 4, =
+1)))
+>                  smu->workload_mask =3D 1 <<
+> smu->workload_prority[PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT];
+>          else
+>                  smu->workload_mask =3D 1 <<
+> smu->workload_prority[PP_SMC_POWER_PROFILE_FULLSCREEN3D];
+> --
+> 2.46.2
+>
+
+--000000000000c84200062510e3a1
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Please double check the COMPUTE profile set by KFD as=
+ well.</div><div><br></div><div>Thanks,<br></div><div><br></div><div>Alex<b=
+r></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr=
+">On Mon, Oct 21, 2024 at 9:18=E2=80=AFPM Feng, Kenneth &lt;<a href=3D"mail=
+to:Kenneth.Feng@amd.com">Kenneth.Feng@amd.com</a>&gt; wrote:<br></div><bloc=
+kquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:=
+1px solid rgb(204,204,204);padding-left:1ex"><div class=3D"msg7546077300968=
+544512">
+
+
+
+
+
+<div lang=3D"EN-US" style=3D"overflow-wrap: break-word;">
+<p style=3D"font-family:Calibri;font-size:10pt;color:rgb(0,0,255);margin:5p=
+t;font-style:normal;font-weight:normal;text-decoration:none" align=3D"Left"=
+>
+[AMD Official Use Only - AMD Internal Distribution Only]<br>
+</p>
+<br>
+<div>
+<div class=3D"m_7546077300968544512WordSection1">
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt;font-family:&quot;Aria=
+l&quot;,sans-serif">Hi Alex,<u></u><u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt;font-family:&quot;Aria=
+l&quot;,sans-serif">I have found another problem with the current code base=
+d on the default workload setting to 3D fullscreen.<u></u><u></u></span></p=
+>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt;font-family:&quot;Aria=
+l&quot;,sans-serif">For example, the default workload is set to 3D fullscre=
+en first, but in boot, it=E2=80=99s not applied yet.<u></u><u></u></span></=
+p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt;font-family:&quot;Aria=
+l&quot;,sans-serif">Then a vcn ring test comes in, sets the workload mask t=
+o vcn workload + 3D fullscreen. After the setting,<u></u><u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt;font-family:&quot;Aria=
+l&quot;,sans-serif">Actually the workload mask is updated to vcn workload o=
+nly. Then after the vcn ring test, the workload doesn=E2=80=99t go<u></u><u=
+></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt;font-family:&quot;Aria=
+l&quot;,sans-serif">to 3D fullscreen workload. It goes to bootup workload(P=
+P_SMC_POWER_PROFILE_BOOTUP_DEFAULT).<u></u><u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt;font-family:&quot;Aria=
+l&quot;,sans-serif">Let me try to fix it by today and get back to you.<u></=
+u><u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt;font-family:&quot;Aria=
+l&quot;,sans-serif">For this patch itself, it=E2=80=99s ok.<u></u><u></u></=
+span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt;font-family:&quot;Aria=
+l&quot;,sans-serif">Reviewed-by: Kenneth Feng
+<a href=3D"mailto:kenneth.feng@amd.com" target=3D"_blank">kenneth.feng@amd.=
+com</a><u></u><u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt;font-family:&quot;Aria=
+l&quot;,sans-serif"><u></u>=C2=A0<u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt;font-family:&quot;Aria=
+l&quot;,sans-serif"><u></u>=C2=A0<u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt;font-family:&quot;Aria=
+l&quot;,sans-serif"><u></u>=C2=A0<u></u></span></p>
+<div>
+<div style=3D"border-width:1pt medium medium;border-style:solid none none;b=
+order-color:rgb(225,225,225) currentcolor currentcolor;padding:3pt 0in 0in"=
+>
+<p class=3D"MsoNormal"><b><span style=3D"font-size:11pt;font-family:&quot;C=
+alibri&quot;,sans-serif">From:</span></b><span style=3D"font-size:11pt;font=
+-family:&quot;Calibri&quot;,sans-serif"> amd-gfx &lt;<a href=3D"mailto:amd-=
+gfx-bounces@lists.freedesktop.org" target=3D"_blank">amd-gfx-bounces@lists.=
+freedesktop.org</a>&gt;
+<b>On Behalf Of </b>Deucher, Alexander<br>
+<b>Sent:</b> Tuesday, October 22, 2024 4:35 AM<br>
+<b>To:</b> <a href=3D"mailto:amd-gfx@lists.freedesktop.org" target=3D"_blan=
+k">amd-gfx@lists.freedesktop.org</a><br>
+<b>Subject:</b> Re: [PATCH] drm/amdgpu: handle default profile on GC 9.4.1<=
+u></u><u></u></span></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<p style=3D"margin:5pt"><span style=3D"font-size:10pt;font-family:&quot;Cal=
+ibri&quot;,sans-serif;color:blue">[AMD Official Use Only - AMD Internal Dis=
+tribution Only]<u></u><u></u></span></p>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<div>
+<table border=3D"0" cellspacing=3D"0" cellpadding=3D"0" align=3D"left" widt=
+h=3D"100%" style=3D"width:100%">
+<tbody>
+<tr>
+<td style=3D"background:rgb(255,185,0);padding:5pt 2pt"></td>
+<td width=3D"100%" style=3D"width:100%;background:rgb(255,248,229);padding:=
+5pt 4pt 5pt 12pt">
+<div>
+<p class=3D"MsoNormal">
+<b><span style=3D"color:rgb(34,34,34)">Caution:</span></b><span style=3D"co=
+lor:rgb(34,34,34)"> This message originated from an External Source. Use pr=
+oper caution when opening attachments, clicking links, or responding.
+<u></u><u></u></span></p>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<div>
+<p style=3D"margin:5pt"><span style=3D"font-size:10pt;font-family:&quot;Cal=
+ibri&quot;,sans-serif;color:blue">[AMD Official Use Only - AMD Internal Dis=
+tribution Only]<u></u><u></u></span></p>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"color:black">Ping?<u></u><u></u></spa=
+n></p>
+</div>
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"2" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"m_7546077300968544512divRplyFwdMsg">
+<p class=3D"MsoNormal"><b><span style=3D"font-size:11pt;font-family:&quot;C=
+alibri&quot;,sans-serif;color:black">From:</span></b><span style=3D"font-si=
+ze:11pt;font-family:&quot;Calibri&quot;,sans-serif;color:black"> Deucher, A=
+lexander &lt;<a href=3D"mailto:Alexander.Deucher@amd.com" target=3D"_blank"=
+>Alexander.Deucher@amd.com</a>&gt;<br>
+<b>Sent:</b> Friday, October 18, 2024 3:20 PM<br>
+<b>To:</b> <a href=3D"mailto:amd-gfx@lists.freedesktop.org" target=3D"_blan=
+k">amd-gfx@lists.freedesktop.org</a> &lt;<a href=3D"mailto:amd-gfx@lists.fr=
+eedesktop.org" target=3D"_blank">amd-gfx@lists.freedesktop.org</a>&gt;<br>
+<b>Cc:</b> Deucher, Alexander &lt;<a href=3D"mailto:Alexander.Deucher@amd.c=
+om" target=3D"_blank">Alexander.Deucher@amd.com</a>&gt;<br>
+<b>Subject:</b> [PATCH] drm/amdgpu: handle default profile on GC 9.4.1</spa=
+n> <u></u>
+<u></u></p>
+<div>
+<p class=3D"MsoNormal">=C2=A0<u></u><u></u></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12pt"><span style=3D"font-siz=
+e:11pt">It does not support fullscreen 3D.<br>
+<br>
+Fixes: 336568de918e (&quot;drm/amdgpu/swsmu: default to fullscreen 3D profi=
+le for dGPUs&quot;)<br>
+Signed-off-by: Alex Deucher &lt;<a href=3D"mailto:alexander.deucher@amd.com=
+" target=3D"_blank">alexander.deucher@amd.com</a>&gt;<br>
+---<br>
+=C2=A0drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 3 ++-<br>
+=C2=A01 file changed, 2 insertions(+), 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/am=
+d/pm/swsmu/amdgpu_smu.c<br>
+index accc96a03bd9..4b816c7e94fe 100644<br>
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c<br>
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c<br>
+@@ -1267,7 +1267,8 @@ static int smu_sw_init(struct amdgpu_ip_block *ip_blo=
+ck)<br>
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 smu-&gt;workload_prority[P=
+P_SMC_POWER_PROFILE_COMPUTE] =3D 5;<br>
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 smu-&gt;workload_prority[P=
+P_SMC_POWER_PROFILE_CUSTOM] =3D 6;<br>
+=C2=A0<br>
+-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (smu-&gt;is_apu)<br>
++=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (smu-&gt;is_apu ||<br>
++=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (amdgpu_ip_ve=
+rsion(adev, GC_HWIP, 0) =3D=3D IP_VERSION(9, 4, 1)))<br>
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 smu-&gt;workload_mask =3D 1 &lt;&lt; smu-&gt;workload=
+_prority[PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT];<br>
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 else<br>
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 smu-&gt;workload_mask =3D 1 &lt;&lt; smu-&gt;workload=
+_prority[PP_SMC_POWER_PROFILE_FULLSCREEN3D];<br>
+-- <br>
+2.46.2<u></u><u></u></span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div></blockquote></div></div>
+
+--000000000000c84200062510e3a1--
