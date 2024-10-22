@@ -4,66 +4,151 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BC87D2C552
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Oct 2024 13:38:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98C66D2C552
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Oct 2024 13:46:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4A7989EAC;
-	Tue, 22 Oct 2024 13:38:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4CF4D10E19F;
+	Tue, 22 Oct 2024 13:46:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kGSX1weV";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4LUEQpiz";
 	dkim-atps=neutral
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
- [209.85.216.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09F8510E19F
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Oct 2024 13:38:52 +0000 (UTC)
-Received: by mail-pj1-f51.google.com with SMTP id
- 98e67ed59e1d1-2e2d83f15f3so757822a91.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Oct 2024 06:38:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1729604331; x=1730209131; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=D/6IAhCJfAQRIL8dZqGY70vY8Nad0yZmbMdXhOnuwjM=;
- b=kGSX1weVt3LSzKltLOXVh2iswOVOQojm8NGuvuUL+iHri9mNmDcyjwgQlXPNxdzRjy
- HZeD5Y9PC4d6RO82MRVXT3FzWwTxYmAnvNRGXFsXRtU9daW/vgkPsEi2ovFp/FD2Cf5p
- WAJlOtD6RhFS3fXN5f+6waViJnVQUFWcnAEXPIS4X4IsffvaM5t8WTxvg6Mx1dVD046B
- jTzh3czQ8VCZNQn0wU/V4M0ezgRJUIBGLBlBETs6FMNwb70K9C++pKf1h2ITKMVrSNMN
- T9WKWCsPoMjFxlpgVE1mCD3zh7W9MhNDVOCq3NhoUHWf4x59sweil165UBYALVBwirrk
- XxRg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1729604331; x=1730209131;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=D/6IAhCJfAQRIL8dZqGY70vY8Nad0yZmbMdXhOnuwjM=;
- b=TIKi0i3pLJUzcsGVfyhea0XYBRXqvs7T6jdWDIdVHz4wvJL/LNOE9Ebql0BTQ3fdQU
- SQFAK4p55WXej2m6m9zcqcYQdJexpRdv4IpLNepNyEpTVLRwiYGCEHsKaS9Asl4C+JI9
- pTojHXscU8FgFWL1Exz7SvXHb50wtSvhd3HSLpTNCOR83u13dIOek+t0dlG/hmGe2X5T
- VzbtSJGUL6l+TO1KDrCmcvBApyOQkmu97E60IJ02uFLc4yEJFFWwpidMVTn5ttwmjpca
- A4aCo6eyH1JPjwS+AOYaXpTRsGNpFDgdG/F+fu3gaJoXxDsYBsY8jrRI1fZFKRnghPbq
- YuFg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCULfDMp3PENwhpYtZtHInkgCRDVi8xtHfzsb+y4xhBg8+t9N3dsErgwEhJSoi0wo12b1tmOlawc@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyXjKYFUy5h4hJG5nSDuLthZdDb7iSP901I97w26kkG0UZf8Elx
- nIpz3avmhAywSfGXVJciQ0C9S4kOxUwJnf8WrmGbTNUj554J3EitPuyJCdW8TMCZBW7YUsva+7J
- hJ8ZQ/ohWvI16rsSfJZSBsVikm2k=
-X-Google-Smtp-Source: AGHT+IHbwfhnlnFQq7H1hPiCZQzh0Hm5sPjnprh9DI2Fi8FwTfLJi3dTfmKMyaa2T5p3o6UJPEiQLHQHDATluqbLSQI=
-X-Received: by 2002:a17:90b:a0f:b0:2e2:d1c0:758a with SMTP id
- 98e67ed59e1d1-2e561a276admr7397473a91.8.1729604331518; Tue, 22 Oct 2024
- 06:38:51 -0700 (PDT)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2064.outbound.protection.outlook.com [40.107.243.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3FEA010E19F
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Oct 2024 13:46:11 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DWLCFgExWnEoFxCru5gJCJD2DCB8SLGEUSk0VeiF/mTWL79/Mukv++WOiQAC27Y9OAY8LAqj+yEze+cruu05QaAe9+S+1v3FA4cAURWtnNyWRVml5gaVZRSRwVob91AmNYksxT4YLRIYKDLrW6SfuJ7KPnZxEot8HVW6draZ3DEXmzJI8HP/9FCDs56eVTZe+GZBr2YQu7t7dYSIERdJhkCs28cA0W38ULrRAeoQL9hmIKZ7pn0fZObEcXJ0ktyuvp6qqcOWybVsUblpt/QSCGrchrVhzPZmKSP/WnQ+1OsXZl6NlFews6rNnRBcuHTgNtwIYEyaDnsz9xu8TaaNeg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Po6OdeW/U5t7lbYnO/yyj0y44r75ETG3ZpX589qKKiA=;
+ b=aQFTmVS4H+5HPC4V2yM95Efx5meF5Oq6puFlllsnntjK1aOSu8BBM3dyEoLj0x3Nnd8+TJda23mS4GhdJRjE4b3UU06zDz5DtEN0RL0hFwhodFgsj8ZtzRbl82H2zNaBrGqp2DWVbZv8Tbf6It0/cxBRfhoPKoEStXwFAfD/mK9MmgdZhlBGeYXysnmwN/4d1c/U+p1nmdZVIF02QT8gVyUazUVG8oy43yLVx69LBH1CBuMDjwG5USWhUYEV5CbfSA/WbndUhMnVoAUtpBz8GaEiW6kSrcf25F+bD43PtKO+BGPhE+Tx1AyalBaXkDHyLJ8Zq1wjud7Jumaojewp9g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Po6OdeW/U5t7lbYnO/yyj0y44r75ETG3ZpX589qKKiA=;
+ b=4LUEQpizIM0wD8cWpcdwUY0w5D+gJ95qP+fsSR2k2bZjRFdDEtC9dieo/xUSdThIf92cX0YttqIHXJ1E1SOpaEMBCugeaunCseYuMnzsoMe1lLGj6IFPxaqxOGPybV4p9665aRFxUl5UmgB5l+W8OLltraKxqoE8r6uAY20VZYQ=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB5149.namprd12.prod.outlook.com (2603:10b6:5:390::14)
+ by DM4PR12MB7502.namprd12.prod.outlook.com (2603:10b6:8:112::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8093.16; Tue, 22 Oct
+ 2024 13:46:08 +0000
+Received: from DM4PR12MB5149.namprd12.prod.outlook.com
+ ([fe80::36fa:deca:aaeb:75da]) by DM4PR12MB5149.namprd12.prod.outlook.com
+ ([fe80::36fa:deca:aaeb:75da%4]) with mapi id 15.20.8093.014; Tue, 22 Oct 2024
+ 13:46:07 +0000
+Message-ID: <2aef96f8-21ca-70cc-9e4d-fbf13a4a6379@amd.com>
+Date: Tue, 22 Oct 2024 09:46:05 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH] drm/amdkfd: fix the hang caused by the write reorder to
+ fence_addr
+Content-Language: en-US
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Felix Kuehling <felix.kuehling@amd.com>, Victor Zhao <Victor.Zhao@amd.com>,
+ amd-gfx@lists.freedesktop.org, =?UTF-8?Q?Christian_K=c3=b6nig?=
+ <christian.koenig@amd.com>
+References: <20241017083457.183631-1-Victor.Zhao@amd.com>
+ <1a80e1fe-ef51-4ed4-a851-21d3c9da6c7f@amd.com>
+ <1f252468-10d0-00a6-3e43-52a3672733a1@amd.com>
+ <efb4b082-d518-46b6-adda-776458772e1c@gmail.com>
+From: Philip Yang <yangp@amd.com>
+In-Reply-To: <efb4b082-d518-46b6-adda-776458772e1c@gmail.com>
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YQXPR0101CA0047.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c00:14::24) To DM4PR12MB5149.namprd12.prod.outlook.com
+ (2603:10b6:5:390::14)
 MIME-Version: 1.0
-References: <20241018192027.622300-1-alexander.deucher@amd.com>
- <BL1PR12MB514479BC04F9CE88390562A9F7432@BL1PR12MB5144.namprd12.prod.outlook.com>
- <DM4PR12MB516537577F16430D69C219BA8E4C2@DM4PR12MB5165.namprd12.prod.outlook.com>
-In-Reply-To: <DM4PR12MB516537577F16430D69C219BA8E4C2@DM4PR12MB5165.namprd12.prod.outlook.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 22 Oct 2024 09:38:39 -0400
-Message-ID: <CADnq5_PJCOsM5+iCCdBf7iw=wwTLpjbEgBXcjsTXTH9MQi3GrQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: handle default profile on GC 9.4.1
-To: "Feng, Kenneth" <Kenneth.Feng@amd.com>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Content-Type: multipart/alternative; boundary="000000000000c84200062510e3a1"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5149:EE_|DM4PR12MB7502:EE_
+X-MS-Office365-Filtering-Correlation-Id: 917a536c-ad8f-4217-0d24-08dcf29fe17e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016|8096899003;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?L2RpaWVYN0NBbmNSdk9NdGZtM0tDV3M0ZVVlcWNVdUMzdk1KdU1YV0dUSENk?=
+ =?utf-8?B?T05DejlyeldtdHNGV2N0SkpBOGlXb3BjVGlGTnYxc3BGVHFlYi9yMnd0MmRB?=
+ =?utf-8?B?S2dXbk1KaFQ3UFBKM2JEUmF1bndZZGgwdDQreVMva3R5YkhJL0V1TlBSejBy?=
+ =?utf-8?B?eDRZQllzOGYvb20zczhvd0o3dkV3R09vcm9QQzJJblM3YVh6L1Zpc0xtQWhJ?=
+ =?utf-8?B?UmtRcHRaT25zbkFLeFVKRnRWVzc3MjJxZ3FqcWlOTEh2Z1JiYlBYRzFsbTFr?=
+ =?utf-8?B?Vk4vaXJQcUU1bzBxTW10K2d4aDgwTHFmMHFicGtsdWRxUkNrcTY3enk3KzV0?=
+ =?utf-8?B?Zjh5Z3R6RFFIeUtZcWgybnRFWHJib1YyemJVN3hOd0U4ZDl3UGRDd29YNHcz?=
+ =?utf-8?B?MnFBYVZxQm9DRzJZVVo1bGovbURzSC84UFpzODNrTENGWEZIYXBtMmlQZERm?=
+ =?utf-8?B?YVBZVVZPNlRid00zSTJNcHFUbTJUek0xTXpyY0hXa1VZTFQ1Q0h3KzROYkpE?=
+ =?utf-8?B?ODUyaUpHekVnajlkQU4xdzVaem1oMHlkd2xCY0VuZHJKL0lUMnJ3eTY2OTlR?=
+ =?utf-8?B?aG40T2E2TGNySkY1Vk84Zkxyc1QwaGxXdFhUVHJwZStVb2xQQlZLajJsVFVQ?=
+ =?utf-8?B?eGtFb2VHdGhGV01WVEhOYkdsUS9DeWk1NlRCUHVKSTZpOC9OUWdZSnV3UDd4?=
+ =?utf-8?B?ZGhNNVpaenlOd2tuenNha1hieHU0NyswVnNZV1BCWG50ejRrR0Z4aTliR2xC?=
+ =?utf-8?B?Y0pMNWVCKzVBWGFPQ0lhbWc0Y1hRS1VzNktKUnpyelZrWmordEdNQjk1NTQ4?=
+ =?utf-8?B?UkM4NjlOOUx0VkxPZHFwRTVDQnVHckRydXR3TTNnYVF5eFlZdDBUQzVteWZs?=
+ =?utf-8?B?TW9HNHIzU2RlakxyeVU3NE1OOVk4M3p1M1dXRENjMmFmVkxCMUozSmpOYmJW?=
+ =?utf-8?B?UkcrNjJZSCsreUtONHFDdHlwUnF0Q2NGM2tWb09rWEcwUlpFUlV4K0RGUExD?=
+ =?utf-8?B?ckUxeWdSUW5oUnI0TUtXbkdNbE40bnRjT3d5N0Izdyt4NUZxZkZWbjh6dGJ0?=
+ =?utf-8?B?QWU4dk91VFU5RHM5MzVCTlp4MTRTOW8zMEh6LzZSdy9RN1pVQlRqLzJhbzFO?=
+ =?utf-8?B?QmJQbHRLcGRvNFAwTmxTUGZ2UkJmR0UwUHM0akx4NlRpWHFVcXhQRWlkSVEx?=
+ =?utf-8?B?Z1hNdWxLSmVWb2VXYUVWbW1uWWhyQ2RyM1Z2VGN5YXlnV1N3UlJsbWVEWnVN?=
+ =?utf-8?B?dGtZZ28yZUZEUlRPY0xRUWduR21iOEFDN2pkTnh6L2RpeXprZFc1NDVsWEY2?=
+ =?utf-8?B?TW9vMlBqU04xUFluMFpZQy82aG9aYW9ZYUlUci9HM1c1S0dhTDBGMi9KeGJa?=
+ =?utf-8?B?dGNTZVI0cThFWGk5TktpSUdVZUtkM3VwNGNxQ2Q1dXdXcThLVG9ra1doOEdP?=
+ =?utf-8?B?T0IvbHNRUFoxOG9YdkxxZ0VSZnBnVnZBcXp4cEczZXo4by9CNXlBVTBSaTlX?=
+ =?utf-8?B?c1k0K1B2ckhSMzFYUjJpNm5LN25QQWQ4VDFuUTlYaEZDamhVTnBYOVBBWVlM?=
+ =?utf-8?B?SThwQjRCODk0MHB4ekQ3QU1icVdZcjN0elgwYlZFTnpVSXMraXdCNWRUSEJi?=
+ =?utf-8?B?OERSTmFwUnNoQmpiN3RtOFpnOUlDcHBoODhzMWord2VFTlcralRxSTQwWUEv?=
+ =?utf-8?B?cDV0eDgwcU4zSmppUWFMOWNJVjZIK3hQT01Ya3hQVjhoZHA4STIwV0JRPT0=?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5149.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(8096899003); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ckNzN25Ha2ZGUmJMdVF2WHZRTjg2bHNJeDljVmR4WXNhNklQUFo1V1FVSkwr?=
+ =?utf-8?B?bHRjcDk3Vm1xL0pLSWdRVkdsNFJ2RXB4eHNEeDdKTFRYbnJOSDRyTmpGaklm?=
+ =?utf-8?B?QWlTMStMY1UycU9KNFhLaFdMMC9uTHh2ZFoydEs4akt5T1FrL25vZlE1UU1V?=
+ =?utf-8?B?cFVEdjg4SmRnOFVkaVUvMDdXaEU5ZkZYUmFoUUVxd2xJdkdnWi9EMm9Qa2lr?=
+ =?utf-8?B?ZnQ2SlE1OW1IS2VYZW9mdmRIRTJlR0tqaUlXL0xoeTk3S2kvSkpqekx6b3l1?=
+ =?utf-8?B?NzU3bmRoaEtDc1R4QlZUWXZHYmtlb05GeUpuUEZPVmVrNWo3QmFaVm5ob01G?=
+ =?utf-8?B?K2tXVTdDVnExajBhcFhhakdLK29rWVFvK1pDdFRPY0VodzZ0RUZ2Y2xIR0Vv?=
+ =?utf-8?B?ZXZnNnRXcXpmeFFqRXl0OHlmOGthd09kK3dqWjJpOVR2UGVyVy9QZlBuY09Y?=
+ =?utf-8?B?NkpZMVhPZ284S2wzM09ORTJZclE4SU9WUVMra2lOb1pJOWo0VGFpSUtkcjc3?=
+ =?utf-8?B?Wm55bitOQ2F2OXZFZGhtcEJUT3RGMUpEME8yTDBSK3cyenA2dlAyVUh2NVNy?=
+ =?utf-8?B?YXJ6OTlKUFc5eGtvc2Z4MFI2L0lIYitKamxNVHJ4Z09BSnE5VHF2TE5SbDJZ?=
+ =?utf-8?B?TW0vYys4TnoyTkExV1BiaTFDUFFaTlgyL3d2citHTGhGbWR4OENtQStDeUUx?=
+ =?utf-8?B?U3hnN2JBbUljeDg2SXk2UUExeXBNT1FDRkZ2UEJQWnRVckNVSlB6dzZhcWRw?=
+ =?utf-8?B?QkU0NmJyU0lOSit5ZVcweFRqZTVweEdzYTJ0MzRTZTh3Mk8vYjFubXBHM1pM?=
+ =?utf-8?B?NnIyNTIwWnNaRG55R2N5N0JWOHBHSi9ER2o3aUFPS1c5MSsyQzhFb3pJT1Yy?=
+ =?utf-8?B?QTYvQ1hXTmxPUHE2SGNlcTVrNVozZlpWRjhQNlNaZGptS29ENHlFZkJQVklI?=
+ =?utf-8?B?VnBEVXNOakJjUmpjTHlNSzBPVDVUVkcwU2JqOFYrUWNUTDlpeG1rUFVwa2F1?=
+ =?utf-8?B?cExETzlzL3ZCU2N1QWpGUGpsK0htUm5nRTZQUzJxWnJGTTdOMWFQSm13enF4?=
+ =?utf-8?B?MUZxbmhHd1h6cmdFLzRwbEJZdFlFVGIwY01aaStuM0kyeXZhc0UxY2sza3pL?=
+ =?utf-8?B?WmJ2bHBuY0ZxSXZDTDFGaUhiNmVJRGc1QnArTURFblJaZkx4OWw5RHkxR3VL?=
+ =?utf-8?B?bEtvdUswZzRpU0hvMEtkMnFXUkcrdVd0QmxSbmduVkJwVTVUN21pdm03b1pZ?=
+ =?utf-8?B?dEpRc2tTUGNsdFZLUSt4bzhjZDcvdGdjemNyY3NYc2NydzlBdjVwTDlMTE9R?=
+ =?utf-8?B?Mk4vQjRnZmsySlJaWng2L3lMNVVVTkx5TzVZbm8vQWVBQTJib1N6czNZRHFD?=
+ =?utf-8?B?b0tIbi9nclh3Z0t3aTV5dzVGM3VtUmNpMjZpMXNDT2JJeVZ0RUtHQ21SVENt?=
+ =?utf-8?B?R1BtdVpjWVZ4Z2ZqLzNKZEQ5QU1HVmdCS3lKZGtIdDlnb3pXUjc1cnZqdnBy?=
+ =?utf-8?B?T00rNTFXdWx5NnJ2WXE4U3ZWWjZMVWFUTGtxdkdiL0FzTHB6YmZJY1NsdE1M?=
+ =?utf-8?B?Qm5OdTErdmRlZWYxVjlTK0pWRkdRZ1kydlJVQktiRmkzbzNGb2RnN0xCdHZC?=
+ =?utf-8?B?MzQya0xqUzIxeStFQnBjaVJPcmtvMzJKYk5ZWkpCdkEyRHFySC9vY0xMbysz?=
+ =?utf-8?B?R2lJMElhTkN5U2ZwQURkMkdRSzNUVXNlRjB2NjV5ZzVnQkZRK0dBaXBwTnBR?=
+ =?utf-8?B?d3RyZzk0L2VCYTlTTVBzUVYxMjVKV2NVNExRb3lqMHZRL05yRGlLcUJSeUlU?=
+ =?utf-8?B?SXNRaUhBdGEvZ0dZWGRlQ2lWYmV5ckZUNVEydS9YYWtyOXkxMGhEd2svdmZS?=
+ =?utf-8?B?amRjZEN3TDJ4MW5kSG15WHBWMnliQzRSZGNUMlhJTHFFN0c1K0dZVFNZa2lh?=
+ =?utf-8?B?Q0I5eklSTUlIZmJrVTBUdFdWS1M3UnFmZzlocmNTaFVJcFZWWG9oYnRzbHJp?=
+ =?utf-8?B?NVkyZWZJTnhMcnBoandBSWdmRVUxeE1QWC96YXV2eHJkVk55dDZ1SnlSNmFZ?=
+ =?utf-8?B?eTQ4cVp5Z2VvV0ZDYUM2K1dxN0hnMHRtNEh4TWRybkgrbHVCS0RGUE9BRzE0?=
+ =?utf-8?Q?/K1w=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 917a536c-ad8f-4217-0d24-08dcf29fe17e
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5149.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2024 13:46:07.8864 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: FN+iHv5ikXx4OTPC2xxcAIM+0aP3w45Ihp56R3nhY3Zmpu5MfCyUYz1DQ8sIKGJ3
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7502
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,300 +163,162 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---000000000000c84200062510e3a1
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Please double check the COMPUTE profile set by KFD as well.
-
-Thanks,
-
-Alex
-
-On Mon, Oct 21, 2024 at 9:18=E2=80=AFPM Feng, Kenneth <Kenneth.Feng@amd.com=
-> wrote:
-
-> [AMD Official Use Only - AMD Internal Distribution Only]
->
-> Hi Alex,
->
-> I have found another problem with the current code based on the default
-> workload setting to 3D fullscreen.
->
-> For example, the default workload is set to 3D fullscreen first, but in
-> boot, it=E2=80=99s not applied yet.
->
-> Then a vcn ring test comes in, sets the workload mask to vcn workload + 3=
-D
-> fullscreen. After the setting,
->
-> Actually the workload mask is updated to vcn workload only. Then after th=
-e
-> vcn ring test, the workload doesn=E2=80=99t go
->
-> to 3D fullscreen workload. It goes to bootup
-> workload(PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT).
->
-> Let me try to fix it by today and get back to you.
->
-> For this patch itself, it=E2=80=99s ok.
->
-> Reviewed-by: Kenneth Feng kenneth.feng@amd.com
->
->
->
->
->
->
->
-> *From:* amd-gfx <amd-gfx-bounces@lists.freedesktop.org> *On Behalf Of *De=
-ucher,
-> Alexander
-> *Sent:* Tuesday, October 22, 2024 4:35 AM
-> *To:* amd-gfx@lists.freedesktop.org
-> *Subject:* Re: [PATCH] drm/amdgpu: handle default profile on GC 9.4.1
->
->
->
-> [AMD Official Use Only - AMD Internal Distribution Only]
->
->
->
-> *Caution:* This message originated from an External Source. Use proper
-> caution when opening attachments, clicking links, or responding.
->
->
->
-> [AMD Official Use Only - AMD Internal Distribution Only]
->
->
->
-> Ping?
-> ------------------------------
->
-> *From:* Deucher, Alexander <Alexander.Deucher@amd.com>
-> *Sent:* Friday, October 18, 2024 3:20 PM
-> *To:* amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-> *Cc:* Deucher, Alexander <Alexander.Deucher@amd.com>
-> *Subject:* [PATCH] drm/amdgpu: handle default profile on GC 9.4.1
->
->
->
-> It does not support fullscreen 3D.
->
-> Fixes: 336568de918e ("drm/amdgpu/swsmu: default to fullscreen 3D profile
-> for dGPUs")
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> index accc96a03bd9..4b816c7e94fe 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> @@ -1267,7 +1267,8 @@ static int smu_sw_init(struct amdgpu_ip_block
-> *ip_block)
->          smu->workload_prority[PP_SMC_POWER_PROFILE_COMPUTE] =3D 5;
->          smu->workload_prority[PP_SMC_POWER_PROFILE_CUSTOM] =3D 6;
->
-> -       if (smu->is_apu)
-> +       if (smu->is_apu ||
-> +           (amdgpu_ip_version(adev, GC_HWIP, 0) =3D=3D IP_VERSION(9, 4, =
-1)))
->                  smu->workload_mask =3D 1 <<
-> smu->workload_prority[PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT];
->          else
->                  smu->workload_mask =3D 1 <<
-> smu->workload_prority[PP_SMC_POWER_PROFILE_FULLSCREEN3D];
-> --
-> 2.46.2
->
-
---000000000000c84200062510e3a1
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>Please double check the COMPUTE profile set by KFD as=
- well.</div><div><br></div><div>Thanks,<br></div><div><br></div><div>Alex<b=
-r></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr=
-">On Mon, Oct 21, 2024 at 9:18=E2=80=AFPM Feng, Kenneth &lt;<a href=3D"mail=
-to:Kenneth.Feng@amd.com">Kenneth.Feng@amd.com</a>&gt; wrote:<br></div><bloc=
-kquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:=
-1px solid rgb(204,204,204);padding-left:1ex"><div class=3D"msg7546077300968=
-544512">
-
-
-
-
-
-<div lang=3D"EN-US" style=3D"overflow-wrap: break-word;">
-<p style=3D"font-family:Calibri;font-size:10pt;color:rgb(0,0,255);margin:5p=
-t;font-style:normal;font-weight:normal;text-decoration:none" align=3D"Left"=
->
-[AMD Official Use Only - AMD Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div class=3D"m_7546077300968544512WordSection1">
-<p class=3D"MsoNormal"><span style=3D"font-size:11pt;font-family:&quot;Aria=
-l&quot;,sans-serif">Hi Alex,<u></u><u></u></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11pt;font-family:&quot;Aria=
-l&quot;,sans-serif">I have found another problem with the current code base=
-d on the default workload setting to 3D fullscreen.<u></u><u></u></span></p=
->
-<p class=3D"MsoNormal"><span style=3D"font-size:11pt;font-family:&quot;Aria=
-l&quot;,sans-serif">For example, the default workload is set to 3D fullscre=
-en first, but in boot, it=E2=80=99s not applied yet.<u></u><u></u></span></=
-p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11pt;font-family:&quot;Aria=
-l&quot;,sans-serif">Then a vcn ring test comes in, sets the workload mask t=
-o vcn workload + 3D fullscreen. After the setting,<u></u><u></u></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11pt;font-family:&quot;Aria=
-l&quot;,sans-serif">Actually the workload mask is updated to vcn workload o=
-nly. Then after the vcn ring test, the workload doesn=E2=80=99t go<u></u><u=
-></u></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11pt;font-family:&quot;Aria=
-l&quot;,sans-serif">to 3D fullscreen workload. It goes to bootup workload(P=
-P_SMC_POWER_PROFILE_BOOTUP_DEFAULT).<u></u><u></u></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11pt;font-family:&quot;Aria=
-l&quot;,sans-serif">Let me try to fix it by today and get back to you.<u></=
-u><u></u></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11pt;font-family:&quot;Aria=
-l&quot;,sans-serif">For this patch itself, it=E2=80=99s ok.<u></u><u></u></=
-span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11pt;font-family:&quot;Aria=
-l&quot;,sans-serif">Reviewed-by: Kenneth Feng
-<a href=3D"mailto:kenneth.feng@amd.com" target=3D"_blank">kenneth.feng@amd.=
-com</a><u></u><u></u></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11pt;font-family:&quot;Aria=
-l&quot;,sans-serif"><u></u>=C2=A0<u></u></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11pt;font-family:&quot;Aria=
-l&quot;,sans-serif"><u></u>=C2=A0<u></u></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11pt;font-family:&quot;Aria=
-l&quot;,sans-serif"><u></u>=C2=A0<u></u></span></p>
-<div>
-<div style=3D"border-width:1pt medium medium;border-style:solid none none;b=
-order-color:rgb(225,225,225) currentcolor currentcolor;padding:3pt 0in 0in"=
->
-<p class=3D"MsoNormal"><b><span style=3D"font-size:11pt;font-family:&quot;C=
-alibri&quot;,sans-serif">From:</span></b><span style=3D"font-size:11pt;font=
--family:&quot;Calibri&quot;,sans-serif"> amd-gfx &lt;<a href=3D"mailto:amd-=
-gfx-bounces@lists.freedesktop.org" target=3D"_blank">amd-gfx-bounces@lists.=
-freedesktop.org</a>&gt;
-<b>On Behalf Of </b>Deucher, Alexander<br>
-<b>Sent:</b> Tuesday, October 22, 2024 4:35 AM<br>
-<b>To:</b> <a href=3D"mailto:amd-gfx@lists.freedesktop.org" target=3D"_blan=
-k">amd-gfx@lists.freedesktop.org</a><br>
-<b>Subject:</b> Re: [PATCH] drm/amdgpu: handle default profile on GC 9.4.1<=
-u></u><u></u></span></p>
-</div>
-</div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<p style=3D"margin:5pt"><span style=3D"font-size:10pt;font-family:&quot;Cal=
-ibri&quot;,sans-serif;color:blue">[AMD Official Use Only - AMD Internal Dis=
-tribution Only]<u></u><u></u></span></p>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<div>
-<table border=3D"0" cellspacing=3D"0" cellpadding=3D"0" align=3D"left" widt=
-h=3D"100%" style=3D"width:100%">
-<tbody>
-<tr>
-<td style=3D"background:rgb(255,185,0);padding:5pt 2pt"></td>
-<td width=3D"100%" style=3D"width:100%;background:rgb(255,248,229);padding:=
-5pt 4pt 5pt 12pt">
-<div>
-<p class=3D"MsoNormal">
-<b><span style=3D"color:rgb(34,34,34)">Caution:</span></b><span style=3D"co=
-lor:rgb(34,34,34)"> This message originated from an External Source. Use pr=
-oper caution when opening attachments, clicking links, or responding.
-<u></u><u></u></span></p>
-</div>
-</td>
-</tr>
-</tbody>
-</table>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<div>
-<p style=3D"margin:5pt"><span style=3D"font-size:10pt;font-family:&quot;Cal=
-ibri&quot;,sans-serif;color:blue">[AMD Official Use Only - AMD Internal Dis=
-tribution Only]<u></u><u></u></span></p>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"color:black">Ping?<u></u><u></u></spa=
-n></p>
-</div>
-<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
-<hr size=3D"2" width=3D"98%" align=3D"center">
-</div>
-<div id=3D"m_7546077300968544512divRplyFwdMsg">
-<p class=3D"MsoNormal"><b><span style=3D"font-size:11pt;font-family:&quot;C=
-alibri&quot;,sans-serif;color:black">From:</span></b><span style=3D"font-si=
-ze:11pt;font-family:&quot;Calibri&quot;,sans-serif;color:black"> Deucher, A=
-lexander &lt;<a href=3D"mailto:Alexander.Deucher@amd.com" target=3D"_blank"=
->Alexander.Deucher@amd.com</a>&gt;<br>
-<b>Sent:</b> Friday, October 18, 2024 3:20 PM<br>
-<b>To:</b> <a href=3D"mailto:amd-gfx@lists.freedesktop.org" target=3D"_blan=
-k">amd-gfx@lists.freedesktop.org</a> &lt;<a href=3D"mailto:amd-gfx@lists.fr=
-eedesktop.org" target=3D"_blank">amd-gfx@lists.freedesktop.org</a>&gt;<br>
-<b>Cc:</b> Deucher, Alexander &lt;<a href=3D"mailto:Alexander.Deucher@amd.c=
-om" target=3D"_blank">Alexander.Deucher@amd.com</a>&gt;<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: handle default profile on GC 9.4.1</spa=
-n> <u></u>
-<u></u></p>
-<div>
-<p class=3D"MsoNormal">=C2=A0<u></u><u></u></p>
-</div>
-</div>
-<div>
-<div>
-<p class=3D"MsoNormal" style=3D"margin-bottom:12pt"><span style=3D"font-siz=
-e:11pt">It does not support fullscreen 3D.<br>
-<br>
-Fixes: 336568de918e (&quot;drm/amdgpu/swsmu: default to fullscreen 3D profi=
-le for dGPUs&quot;)<br>
-Signed-off-by: Alex Deucher &lt;<a href=3D"mailto:alexander.deucher@amd.com=
-" target=3D"_blank">alexander.deucher@amd.com</a>&gt;<br>
----<br>
-=C2=A0drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 3 ++-<br>
-=C2=A01 file changed, 2 insertions(+), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/am=
-d/pm/swsmu/amdgpu_smu.c<br>
-index accc96a03bd9..4b816c7e94fe 100644<br>
---- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c<br>
-+++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c<br>
-@@ -1267,7 +1267,8 @@ static int smu_sw_init(struct amdgpu_ip_block *ip_blo=
-ck)<br>
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 smu-&gt;workload_prority[P=
-P_SMC_POWER_PROFILE_COMPUTE] =3D 5;<br>
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 smu-&gt;workload_prority[P=
-P_SMC_POWER_PROFILE_CUSTOM] =3D 6;<br>
-=C2=A0<br>
--=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (smu-&gt;is_apu)<br>
-+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (smu-&gt;is_apu ||<br>
-+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (amdgpu_ip_ve=
-rsion(adev, GC_HWIP, 0) =3D=3D IP_VERSION(9, 4, 1)))<br>
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 smu-&gt;workload_mask =3D 1 &lt;&lt; smu-&gt;workload=
-_prority[PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT];<br>
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 else<br>
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 smu-&gt;workload_mask =3D 1 &lt;&lt; smu-&gt;workload=
-_prority[PP_SMC_POWER_PROFILE_FULLSCREEN3D];<br>
--- <br>
-2.46.2<u></u><u></u></span></p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-
-</div></blockquote></div></div>
-
---000000000000c84200062510e3a1--
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 2024-10-21 04:12, Christian König
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:efb4b082-d518-46b6-adda-776458772e1c@gmail.com">Am
+      18.10.24 um 23:59 schrieb Philip Yang:
+      <br>
+      <blockquote type="cite">On 2024-10-18 14:28, Felix Kuehling wrote:
+        <br>
+        <blockquote type="cite">
+          <br>
+          On 2024-10-17 04:34, Victor Zhao wrote:
+          <br>
+          <blockquote type="cite">make sure KFD_FENCE_INIT write to
+            fence_addr before pm_send_query_status
+            <br>
+            called, to avoid qcm fence timeout caused by incorrect
+            ordering.
+            <br>
+            <br>
+            Signed-off-by: Victor Zhao <a class="moz-txt-link-rfc2396E" href="mailto:Victor.Zhao@amd.com">&lt;Victor.Zhao@amd.com&gt;</a>
+            <br>
+            ---
+            <br>
+            &nbsp; drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 1
+            +
+            <br>
+            &nbsp; drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h | 2
+            +-
+            <br>
+            &nbsp; 2 files changed, 2 insertions(+), 1 deletion(-)
+            <br>
+            <br>
+            diff --git
+            a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+            b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+            <br>
+            index b2b16a812e73..d9264a353775 100644
+            <br>
+            --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+            <br>
+            +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+            <br>
+            @@ -2254,6 +2254,7 @@ static int unmap_queues_cpsch(struct
+            device_queue_manager *dqm,
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto out;
+            <br>
+            &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *dqm-&gt;fence_addr = KFD_FENCE_INIT;
+            <br>
+            +&nbsp;&nbsp;&nbsp; mb();
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pm_send_query_status(&amp;dqm-&gt;packet_mgr,
+            dqm-&gt;fence_gpu_addr,
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; KFD_FENCE_COMPLETED);
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* should be timed out */
+            <br>
+            diff --git
+            a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
+            b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
+            <br>
+            index 09ab36f8e8c6..bddb169bb301 100644
+            <br>
+            --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
+            <br>
+            +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
+            <br>
+            @@ -260,7 +260,7 @@ struct device_queue_manager {
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint16_t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vmid_pasid[VMID_NUM];
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pipelines_addr;
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fence_gpu_addr;
+            <br>
+            -&nbsp;&nbsp;&nbsp; uint64_t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *fence_addr;
+            <br>
+            +&nbsp;&nbsp;&nbsp; volatile uint64_t&nbsp;&nbsp;&nbsp; *fence_addr;
+            <br>
+          </blockquote>
+          <br>
+          [+Christian]
+          <br>
+          <br>
+          Is the volatile keyword really needed here? I just saw other
+          patches removing volatile in some places because it's not
+          sufficient, and not needed if you use memory barriers
+          correctly.
+          <br>
+        </blockquote>
+        <br>
+        After reading kernel memory barrier document and below link, I
+        think we need both volatile type and memory barrier, to
+        guarantee F/W get the updated fence value. This fixes an CP hang
+        issue on SRIOV.
+        <br>
+        <br>
+<a class="moz-txt-link-freetext" href="https://stackoverflow.com/questions/75750110/volatile-vs-memory-barriers#:~:text=volatile%20will%20make%20sure%20that,not%20reorder%20writes%20or%20reads">https://stackoverflow.com/questions/75750110/volatile-vs-memory-barriers#:~:text=volatile%20will%20make%20sure%20that,not%20reorder%20writes%20or%20reads</a>.
+        <br>
+        <br>
+      </blockquote>
+      <br>
+      No, that isn't correct. Using volatile is considered harmful and
+      almost never correct, see here
+      <a class="moz-txt-link-freetext" href="https://docs.kernel.org/process/volatile-considered-harmful.html">https://docs.kernel.org/process/volatile-considered-harmful.html</a>
+      <br>
+      <br>
+      Placing appropriate memory barriers must be sufficient or
+      otherwise there is a rather bad platform or compiler bug lurking
+      around.
+      <br>
+    </blockquote>
+    <p>Yes, Victor confirmed that memory barrier fixes the issue, will
+      send new patch to remove the volatile type.</p>
+    <p>Regards,</p>
+    <p>Philip<br>
+    </p>
+    <blockquote type="cite" cite="mid:efb4b082-d518-46b6-adda-776458772e1c@gmail.com">
+      <br>
+      Regards,
+      <br>
+      Christian.
+      <br>
+      <br>
+      <blockquote type="cite">Regards,
+        <br>
+        <br>
+        Philip
+        <br>
+        <br>
+        <blockquote type="cite">
+          <br>
+          Regards,
+          <br>
+          &nbsp; Felix
+          <br>
+          <br>
+          <br>
+          <blockquote type="cite">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_mem_obj&nbsp;&nbsp;&nbsp;
+            *fence_mem;
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; active_runlist;
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sched_policy;
+            <br>
+          </blockquote>
+        </blockquote>
+      </blockquote>
+      <br>
+    </blockquote>
+  </body>
+</html>
