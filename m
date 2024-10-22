@@ -4,147 +4,147 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97209D1CDB8
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Oct 2024 08:40:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22DBCD1CDB8
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Oct 2024 08:57:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C01910E61E;
-	Tue, 22 Oct 2024 08:40:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C230C10E621;
+	Tue, 22 Oct 2024 08:57:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="tZYwvfsH";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="NBc77T7r";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2065.outbound.protection.outlook.com [40.107.92.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1979E10E61E
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Oct 2024 08:40:41 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2047.outbound.protection.outlook.com [40.107.94.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D18010E621
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Oct 2024 08:57:16 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NSjO2mAlCvVNUv/FqBPapYcur61Yvsm2V2VKXbyW7WBDoFaIhykmcaTgLwHLIASLDZOc2eWqjc8ulXHg+jox5YNANOqvQz29Y9iQOQOWW0GvIfOo1F1GfMQmptgAHazEttAYJN5qTxhrmJLV9fpRPE/1+J/aj7IILB4yTV1bNH8cLinzOmYGtMA63UMUY0c2XB/TKsZdxQabHhCFWzFyvnaaqbVS/3ItXG6+gRhcpqPql6ebjLjk9SirBLfMRjEz5F2r2Vp9efAMQV6R5DVC+FgGT3QW8qrvVddf1YH2dK8RxuARGpD7IyD7mpipe+E/x3obiv4hTBHBnBZBKTfC5g==
+ b=E14GGpewHbqwWKkNoPlzKxlVS7SgSPp4UB1B0oBDtGkZSfAnT8w25hemYtS7e5BGUOU8IN+UCM9qXkakmM1ixQstSFJkyio34bvRKTVZKRaBvpRb1s/PkYKHsSeVeHPh4e2AYSDqi1N799Ino0UhG2YxA8w3Gw3AQQh8L4CDXl/caI9ZjIwY8d4GL5nDSAjr39yeLRGQNEy9j852Vf78l7VwQdvibHcv6GdvXYdkEEkr2ZE3JP4qmbjkez2L7S3M5Lfjlk/UxaVl1lffFwNkiB8Z29fBAlSp4SJoJsHSmzW6nhgcFew++9gE6HpSmtFy/zHG22xX1DYfIB8dwAfU8g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=W+0lR0bzqc2JKn/XsSMA6kUZmZRWE+NojlAjus585n0=;
- b=vW1JO/xNh9D8d9ADPPTAVenZ5N4hN92TvfmGLFFPJJAM9HkX7c/M91rFyHn2PqR3IKMmGp1/2k59HGbjdAFRd6uuvR9T5u66nJqtbUolZoJF+ra+6EtyfUOTOxTTgjrozKgUmakBsYzMSs2PWFT/e4Mu1/wM2Vt9LjSbvuqP4UtEZmVEjHqwL3H56EHEqN5FTqwqPZUam5XV02XN7T+PRM6QUMbZEet/xWhFFvb9/Bv8Qrhy6boWoEVz548ANIBQYVjxSva4is4UgWg4lyjjjM2gIt4CrO6tkuixiZOzLGpJPVUblj4SN3HuXJhINKVjqWKZorVrF9zrLV/1KXdjsg==
+ bh=LUFpjlVnoaGHeoZ2MUzUOfAIQJo2dj0iHrZWB4Tn/cw=;
+ b=Z+sRX/kvSPdBFXuAca119VrPmRN7AuSMS91Uv8txf3AHYxMJH8kB5Wt2EWoH4ldVNIH01o4fGT+5hURAj0SX/oA64EbPJn8UGFXaDv/rLpaabCXVmG+xd6UMbL+7xwRtAgpo9vqJMttn1fWa3+lD+ZWTx2A4lrf6OkIL3Oi/1Hd0Rqrr41Sv/bUy8wdEQQoyyc2GLx7uC+DUbKF1fZsPP1uXViwEhwPG0e9AIwyoyRfxNe8cJMAtwKpWtmrdycttUiWHomOROODaKliuMmxR+DoS57L1Msq1A97SO4ZKSjqsOA6/5f7BjP7lBQUmqVtUBOpb7lPKEfIkDePGh0DxwA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=W+0lR0bzqc2JKn/XsSMA6kUZmZRWE+NojlAjus585n0=;
- b=tZYwvfsHshPyw/34GF0DUyarUZrrnTxXoeTnb6AxshsmwbNKeqzlKrkD17Nv5cZ8zJ/1SWKvfu/lqZFhsTTqfY0LzEQLQ4RRUk/IAzO4CU2asYy3sFuOeBp5J87Ky1HE1WBCq6bmkDewSIdTYrhcNiu3CpGM6tz76XPFiDa09ZQ=
+ bh=LUFpjlVnoaGHeoZ2MUzUOfAIQJo2dj0iHrZWB4Tn/cw=;
+ b=NBc77T7r94yMX83myVqALlJDQh7XWHWprSwt1roqVUsXiBmG7aBCLNMe76jggtLmu5Gt3zd4BKpoiXdv0G55QsomYsbMQ6fs4D+U/HRdof5Sm6qIsLaYVHhwY55ctgl2w3/Ht2fvjb570Mtu0eXOh3LyMJrkIjIDMznaG2XKTJw=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BL1PR12MB5753.namprd12.prod.outlook.com (2603:10b6:208:390::15)
- by IA0PR12MB8930.namprd12.prod.outlook.com (2603:10b6:208:481::22)
+ by PH8PR12MB6820.namprd12.prod.outlook.com (2603:10b6:510:1cb::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8026.22; Tue, 22 Oct
- 2024 08:40:34 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8069.26; Tue, 22 Oct
+ 2024 08:57:08 +0000
 Received: from BL1PR12MB5753.namprd12.prod.outlook.com
  ([fe80::2b0e:7fc3:1d21:5d2e]) by BL1PR12MB5753.namprd12.prod.outlook.com
  ([fe80::2b0e:7fc3:1d21:5d2e%4]) with mapi id 15.20.8069.027; Tue, 22 Oct 2024
- 08:40:34 +0000
-Subject: Re: [PATCH 28/32] drm/amdgpu: print_ip_state for each vcn instance
+ 08:57:07 +0000
+Subject: Re: [PATCH 29/32] drm/amdgpu: dump_ip_state for each vcn instance
 To: boyuan.zhang@amd.com, amd-gfx@lists.freedesktop.org, leo.liu@amd.com,
  christian.koenig@amd.com, alexander.deucher@amd.com
 References: <20241017132053.53214-1-boyuan.zhang@amd.com>
- <20241017132053.53214-29-boyuan.zhang@amd.com>
+ <20241017132053.53214-30-boyuan.zhang@amd.com>
 From: "Khatri, Sunil" <sunil.khatri@amd.com>
-Message-ID: <385a987f-856f-0c80-705e-dd074c30d7f7@amd.com>
-Date: Tue, 22 Oct 2024 14:10:27 +0530
+Message-ID: <13fb4b4c-7a32-a336-8e37-8d95c72552b7@amd.com>
+Date: Tue, 22 Oct 2024 14:26:58 +0530
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.4.0
-In-Reply-To: <20241017132053.53214-29-boyuan.zhang@amd.com>
+In-Reply-To: <20241017132053.53214-30-boyuan.zhang@amd.com>
 Content-Type: multipart/alternative;
- boundary="------------9F412ECD5155DF5304927C42"
+ boundary="------------4C5F84CC0B20AE4739C06595"
 Content-Language: en-US
-X-ClientProxiedBy: PN0PR01CA0049.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:49::6) To BL1PR12MB5753.namprd12.prod.outlook.com
+X-ClientProxiedBy: PN2PR01CA0220.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:ea::18) To BL1PR12MB5753.namprd12.prod.outlook.com
  (2603:10b6:208:390::15)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5753:EE_|IA0PR12MB8930:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2505f6ee-50fa-4e50-52e1-08dcf27531aa
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5753:EE_|PH8PR12MB6820:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8d87a4c5-2ea8-4cb4-92f1-08dcf27781c9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016|8096899003;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?WWlkNEpYbHM1eTV0SlhvaENqUk9SZGNTSzhiUmlNMjZZUU5yVzNQOTE1VHBC?=
- =?utf-8?B?Y1NhUnlwc2x3VDUvRHFGMDVKRVpVNmQybmp6Rm40R1BrZk9nUmRqMmpZYkZ5?=
- =?utf-8?B?SlVXUXJyQ014em1MYkhlVFJPQmprMGFmVkR2ME4xclRRbUtNd1o0bGhrSVp0?=
- =?utf-8?B?S09JY2l3czlUZGNwS2dIcmxvaWRxVjVkUFllQlRJSlVWNjQ2ZEVuOWlCYlBD?=
- =?utf-8?B?K1d2UzlmR0tmQXFnVXlRQnpXZWxkbnF4MGNHZm55cEZJL3lxalJWUWtQV1dI?=
- =?utf-8?B?M2FNZEVuekdON2dqVmxKbjVydzBNTVMwZzBvMkRSdXBDbXlpNm0zSmdveHdx?=
- =?utf-8?B?RldvdkdIVVBKNzZIL05yU05Vek9ZbmkxS3l3dk5POGcraXdkZWJNNXBCS09H?=
- =?utf-8?B?S3hZNjBFVE54QlRIZzFiSnlHcVBVMnV2R3FUUEJpYmNwRjBzWWw1YkcrWDNi?=
- =?utf-8?B?V1YxVlBXQU1USjNnRmJWZjNETlAxOTY2YzZyZ3p0cithZ2d3T3hxU3Baa3Vy?=
- =?utf-8?B?bzNZblVWbmIybGs1QXNSVlV5OWUwelJZeXBvL080OUhndjJUS3dpMTJQY3pz?=
- =?utf-8?B?L0paWFRxd2xDWTJ6enk0NkJXS1ZEdnJmUGtycWw1SmF5dVpxV0RpdHBnV21E?=
- =?utf-8?B?RVlnVXpGOVRDZEE3T0dYODBsYm8vZTZsaGt1OFFobWdXek9CUkJtYVBDQ0Qx?=
- =?utf-8?B?bUhCZWF0aFRNYklVTkpLOGdzcGpxTEs3bGN0SWQ3QXdSQTVBOWI3aEZTbVFr?=
- =?utf-8?B?dVROZUg5U0MwYUVwemNRRmhZcXhwYUZvUjhOM1BRQ0NiUm5md0h2ZVRnL3Ir?=
- =?utf-8?B?YUlKc1Q3bTNNRDNwenoxYnRmSktKcFhwKytEa1ltNVVGWXRRdnVWeUx0RGlB?=
- =?utf-8?B?WmJwUEpJK3dZczJmVm0xZlJudzh6ZzlxRXRLUUN3NloyN09TT1F5blljRjhq?=
- =?utf-8?B?bGhlVFhqOHB3VThRYU9ySUxCRTZDSUFOWmVpVVBoa0N5R3VWMzZOdFpkMmFP?=
- =?utf-8?B?MnNzelFHZDJhcWl6dlJxdnBTemhZUEF5aldqTjVZMkJtV1ZyalA4dlRhdzI2?=
- =?utf-8?B?cEtqRnRzblIySVI1d280eE9DdGk5LzFiRi8zdWZNYlZsNGVpa0RXd3RDQWYr?=
- =?utf-8?B?QWI0RW53aWwvNjFIWGp0WlRhaW1CRHdmZmlmRDMrSTBRV0xMaStPSlY0RjJX?=
- =?utf-8?B?cTU2cVphNVZNcm42UXdNQlpXSVErUVJweER5dTMvaEJYVzlHNVFJNG9Gdkdh?=
- =?utf-8?B?YnFKKzhCNHBBMnVGcFpyS3RDd1dpZjNEQWJPMDdHRTUyUG1RbUpuSDIrOCtO?=
- =?utf-8?B?RkhIRXZXY2QwdnRURndhQmJveFdJZG0yZUs2TmR2ejVHNWlzZ3FSc1ErQzZ0?=
- =?utf-8?B?dmNmN2xyTHFpR2FrMjMrM3hDRGJvSDFQVFQ5K0RIY3V2RUZzRWh1Y1RrZHpw?=
- =?utf-8?B?MmJKR1ZQbEhJSm1BdlIvc2V6R0NDNnFMcUd6VDEzWjJtU3IvU002d29TYUJa?=
- =?utf-8?B?NVlBRU5IaWVwczNMd0Y0RENFWUo2T0UwN2RxV2ZGYnVPTWpkQXNaTis4cXQ4?=
- =?utf-8?B?RjdwUGI0dm9qbHdXRmU4NUdqb0N6ZVM3aWRHK1N1WFlSVjVITHl5MUYvNWRa?=
- =?utf-8?B?M1NUNElVNG9OOWNybkZmd3duMmFKWHdIcHp0NTFrRFI4blljSDAxVjJCRzVQ?=
- =?utf-8?B?bng0eUZ1QjJzVFk2VE5zL3ptdUxhNGlrRXAyeW8rY3d5c0g3YVI2K0E5cGFw?=
- =?utf-8?Q?yMDwX7dbYSTnJC3nT4=3D?=
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?TXQ3OEZ5VUtVT2FoZEFQYW5qaGMrK0o4SHRSMnpETmxtMmNpQ3VOMXRWenZU?=
+ =?utf-8?B?ektQdTBsamlaQlp3VHdKbjk2RWI5Sis5S0Zpd1lwM3dCMkhsU1VVMk90RWpN?=
+ =?utf-8?B?Z1poSFRVa296Zmc0cVVqWlZhVVJkV09hb0R4YXgwaFRvUzNCZ09paW13Mmt1?=
+ =?utf-8?B?TGRJVEFjVzlGcTYyK2tRZWM5R2h0SlNzWVd4MFg2Z2ZPSzRYWHJYdWhpL0NF?=
+ =?utf-8?B?ODd4UmhjL2JhYkxLQnBIMFJlMkkzVkJFanE2K0ZGZWVWUG43R0dpWHdkbzRH?=
+ =?utf-8?B?UU5LUm9QQ0JHclB3MzR5SURDcVByMjU4MGZXMXdkTXQxbmxXZjZmaU81TTEr?=
+ =?utf-8?B?Ly9BcnhMbEp0Ty9oVGxqOEJjRy9qME41Vml6cDBUS1BxRXdDcmE4N0IvbEZH?=
+ =?utf-8?B?YW9TeXpVNmp3eHFMN0NsY25kVFRVZXFNNzRrZkZ3Q1owTXUrQ2NlL0dWSU1r?=
+ =?utf-8?B?dEFxNzNxYVNQcUJmcWNCK1pxcEJza1RXK0R5VFl2cE1qSnF6a01xcm8xbFdx?=
+ =?utf-8?B?c1pLcDZmRWZlWDBLdFREM3RBR3pGU1EwRTN1WHJOMk0zZUFqNUF6eWJlSXB1?=
+ =?utf-8?B?OWFjdzJ0Y3VyT2FMNFJSSy9qWXZsNDVBRHdWTXFuVm5BNjhHWjRBd1l4QThZ?=
+ =?utf-8?B?M1hHbzZCd1pKa0JmQi9oUUMraHJZRGRqcVZXMmFrWEg2dFR3SnpGZlB2cllN?=
+ =?utf-8?B?Qy9rRkMzOWVQTDJjb05TbXNsOUJCYlBjNFVhUjc3OGpCY2ZmTHRaYUMvTXlJ?=
+ =?utf-8?B?NE5RRTQ0SjVSWXRTakhHcEE1bXl5QzYxaUl5RmtvalZhcHVYek5IMnUxL2Nt?=
+ =?utf-8?B?eCtzNkhOTHFVNEN5aGtGODZpTHZwRVgrVFYxSDUzekpLLzVGYm1iWmJsRmhl?=
+ =?utf-8?B?aU5RQ1FGY2VNWUkxNllXdnNuQUoxRzcwQk0ya0UwVy94eER5V291NElNNFFB?=
+ =?utf-8?B?SzlEd0tmbGlzWnMzUzRuS2laOW5zN1JyaGViUko4b2FZZVB5Y1l5d1hzV1JI?=
+ =?utf-8?B?L1liMFV1czVtcW9TUldLWlRlTTlDRE5HbXJhN1FTTEhYam5KRCtzRGdrRzNp?=
+ =?utf-8?B?Y2lqUDQwQk40M2x6b0JjSEFZcXFtVHBxWE1BM1J6TmthazhUendza3FTeTh5?=
+ =?utf-8?B?c1FrSVI4eVlPTWJBSzlXbDFzY2o0dk9OODhQcnNVb0dSbnpBcE5zdTNPQ1Nz?=
+ =?utf-8?B?R29hTU9leFNNVXNyMFJkcXFPcyt5VjNuTDg3b05NN2RPZ3R1TG9YcDJGUm9l?=
+ =?utf-8?B?OGlRMGJ4SmdDYld4d0RMdnphUUtlYy9TSng4UnVJSkhaVWlzN05LM2Z0OG95?=
+ =?utf-8?B?TXB3NGdTMmMzZm5QZW53VCtQNzY3YjlzMklxL01GbUJrQUJVajNSclhnZ2Vl?=
+ =?utf-8?B?Uk9zbnJtWXdSMHNvUzJZS2ZYVEF5R0dnQkZmWXBrYmZ0WGZLQWJiN3hRcmNF?=
+ =?utf-8?B?aW5hSEp1cC9FdkJZZFNDcDdod0s4dG1tcVJhV0c4SUZHSElzQ1BKZEFVckp4?=
+ =?utf-8?B?aVFrVEprVi84Mk5UcVh2ZzFSMG1KOG9DWEZ4Z1ZNdnlGVElJNnl1d0pjUTlK?=
+ =?utf-8?B?Ym5KR3NuenI5R1BQRnFlU3l6aTJMMnZaSkt1TXExVmY0Q1hLbHRYOStNUy8w?=
+ =?utf-8?B?MlBscGwzbVU5N1k1MlNBYzRnSFFPaWZydDlOaXpsbEo0by9iZnc5SytXZ0Ew?=
+ =?utf-8?B?VDVWZ2Y0RTJ1b3JnRlNkY0o4cGZ4T2tqVXZpKzVaR3orcW1KMjRpZ2x0SG9T?=
+ =?utf-8?Q?7Jdh19wg1ElVqn5BbM=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BL1PR12MB5753.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(1800799024)(376014)(366016)(8096899003); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TmkwMHFHTlF4c2krOFh5L1BWc1ZnQ2E3SWRZejB2WlVmSXFhTXBQdHVITlho?=
- =?utf-8?B?MjcwK3ppc3pWbjBldXdWWGhpUUVFOEhBa3RMR2dzQTNEcjhMNk51U09HT1JH?=
- =?utf-8?B?TldlNldEdGI1aC9SSk1RVFRpYU1vWWNRcUI2ZFI0NzJNL1pGMWpOMjh2enc1?=
- =?utf-8?B?MC9wSkRmV0Q2eXZuazFlbm1sNGczaVpjalM1OGtuc2RLMDQ1TEwzaGVZT0Zj?=
- =?utf-8?B?MnZpODdKTy9HNW1qbDB2dThmM2JqaHNOdmkwZ3BVenAzQUc0MXdWdVNXbDY4?=
- =?utf-8?B?VHhvbjQ4amtTUzIzL21mMnRxTUVrcXlLTzZNYTFjY0pNa2o3NmRqNjlZVDdl?=
- =?utf-8?B?THZqQnJrVWR0K3kxSmZVd1RrZFZseklHZkw3L1RodVk2TldCSmJTU2FVRndX?=
- =?utf-8?B?TjdrODRtOTRUVlNNYXNmWTJCNWJSbHd2elYrcmJkWkxsK2M2aGFMOXE1NkVh?=
- =?utf-8?B?cFcwZFlJbmpDWFE1bmloSlQ1OENSYzhZYS8yV3VqS08vaUwyZndmVDBQNWhD?=
- =?utf-8?B?aUc1WlYrbmE2WFJhSk1Ba3VWcVpsV1JXZkJldHBVOGU3RnF6QjZTRkM3V1Zq?=
- =?utf-8?B?OVRPYlg5RE9VWmZqNDhaMTFVNWtYYkdmcVpUZHRqOUZhck92MVRxeGVYZFZB?=
- =?utf-8?B?V2tiTXpjMXRJTWZ1OGxRQUczcHJWZFdNN2RzTDZjQmxpdnNmUlNWYmw5Rkpo?=
- =?utf-8?B?d21wZmFLYWdYOUdmbXFxaGx3WlB0emJtSnVFQUh5bS80SWVMQnlvZENjMmdN?=
- =?utf-8?B?TW00MEt0eUVqcTVVSWZQTVNralU5RGljdVZVYTR3QzNSbUtsb1RvOTAvM3VT?=
- =?utf-8?B?RVpUL2JlN2RwWEdLTlcvc3UyOVpYQTExSXBzN3B1K0ZNNzdCaThWcjlyUllF?=
- =?utf-8?B?SWh5cEFKMGJKRnhzaHZRZWN2aDErSkRMNXFZa2htZG1qQm9SQVZnWWVSSTZp?=
- =?utf-8?B?aEhTamkrUnZDcW5XMW9JWjZibmVsa0dYZ29EM3VsVS8zNGE0anhTY05hVXJF?=
- =?utf-8?B?bUoyUjh6MWVhSzdqN3lmOVZTTXBsK1ZzSHkrRG4rdVhFN2MrZUVQUWczQjE1?=
- =?utf-8?B?WU9FQS84QXVtRW9uc0c0WGlkRStGdWdwOWYzWUxHYTFPY092WUFzeGRoWjhV?=
- =?utf-8?B?SEtSU0hzalpPd0VHT3FORFlVOExORVh1YzJUazhSYWJRQW8zaGorejJsVm5W?=
- =?utf-8?B?QVhJYmRDWWFid2xWdFJjSmxZb2UxaU1VTHh6d1QwQ3FHMUQ0U2RNbFVnbENK?=
- =?utf-8?B?dE9kWnRSYjNxc2laYnhhbjV3NEgvRzVTaisrMmN1VGVWTnVYZlMvZ1M5bkFO?=
- =?utf-8?B?YVhxZ3hkMGoySlpHRDV5UVNyNEY0bTdNMTlsZGxEN0xTOW01VzlrdTNPcjFv?=
- =?utf-8?B?THU0NGtZNVB1MDlUblVOaUdKYlA1cFZDYkF6bEs2Nml4QnlzUHc4RExSbVNl?=
- =?utf-8?B?N0t5ZDhkekZIcHhIUFYyM2RtVVo1TkxQRmJmaVp6N3hjVGo4QTdKNlVNQSt1?=
- =?utf-8?B?THVHMmdpeE9jQ2x0MXp0NWNJZUVFNUtsNm5KdVFUcUhrUTVhZzRuMDhWcnJz?=
- =?utf-8?B?aGhtOWFyNHI0NFY2dEx1NEdTSlRKYUIyd2dnblltRDhVMmlzaCtZYU1wb2tV?=
- =?utf-8?B?UCtVRko4ek9obGIxclBmcHBaVXhoTW9XdjVLS0xmOWxtODlsbjh6YjdkMjBK?=
- =?utf-8?B?UGVPenNYYVIvaGlsdHRMWW4wR3FWbVQ3UWVPejVsZGdpNjdnSFNDNWgxMGQz?=
- =?utf-8?B?Mm5hVXBPWTVQK1BmRDlNVWFHZDVtNW5EekRjUktFL3hDcG1DZ1g3cW50QzJW?=
- =?utf-8?B?ZE1DVVkwcGFVVnd1TkdSZ25aR25mMHV2ZUJ5MmJQdkUxSy82eFE2aXc1WU1k?=
- =?utf-8?B?bStOcXJKSC9DTXFKRWEzY3kwa3V5TlpoUCt3NzBQOU4wOFR2cWd2b0VIVS9J?=
- =?utf-8?B?T3N3MkxmQ1FCTmZqTmM0TDl3bkhhMWNTU3dveTkvRW5PMEtoRVhBTFlKWVdp?=
- =?utf-8?B?YWZkcDdsUnNjemNFSDE0eVR4OFdsWHlJaXI0RVFXVnREMklYU1ZKVStvdDhW?=
- =?utf-8?B?cWV1bkpScjFqNUI4QTZPS0c2b1YvaDF2V0JmS2VaaThHb2F3OGJnMnMyUTll?=
- =?utf-8?Q?qfof37VUvzC7TgWWDOXrq7yBx?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dU40ODhVSzhWWHVaRDYzR0NnSkRUbnV5TmliVWVaU1pXMmpuK2Z3MXNFVncr?=
+ =?utf-8?B?LzJSNS9Bc3k1bnlYWkduKzNUa0pjc3VCcG4vNEtVSi9zWFNYQ0FFRXo2MW9y?=
+ =?utf-8?B?NmFhbTExeWhEeVMyYTZOaElPaGxwSzFGbGJ5a3dwQXgrNDM1U3RMOG9NSzNu?=
+ =?utf-8?B?TFNsaWNoOEFmY0taVlNESTdsZlkxQ2YvSnp4QkFiQ3EveXV0cEp4ekNqVjRm?=
+ =?utf-8?B?NzZiaThpZEJBMGFCSFJaZDI3TFBtcERLczUzelA4ei85akhjYzl3am5qWHNB?=
+ =?utf-8?B?R3BoTEVUK3d6UXBQMXlrNTd2aDdYVTZrak1qQi85NjZwekdzM3psc3h0ckor?=
+ =?utf-8?B?VERSL1lTRFZzL2Y3RkxacXBDOGw0MDh5Q2NOVmQ5aVZJOTh5Uy9uTzBzN1dE?=
+ =?utf-8?B?YWxuTE84SmxvclBTTUFMYU9MclVsbEFwcGExTVNJVmhrUERrQkxqSFpvVFVU?=
+ =?utf-8?B?dUR5ZCtWVGhxdHlDQ3ZpdkhMK0RNZVd0NnhIWkdQcGFBSCt2bklmaUtYNkVT?=
+ =?utf-8?B?OUZETWZ0QmNwUTVwbGhNTU1qYjZVamJDWlhTMFRmTDJIakxWQVBSZkp0aHBa?=
+ =?utf-8?B?eU0ySEl5V2MrUkI1SDJ4eXk1d1I1WEgxZktUNDY4dVdabGtJR294NFAwNm9u?=
+ =?utf-8?B?T3JMQmUxUmNMWHlWb0lLUlVsUVV6aVVLWDBzc1AvUWxCTjFqUU9QTzU3OHRt?=
+ =?utf-8?B?alZPY0JnZHd1cHhicFVZcXJTZms0OFU1QXk2Tlg4M3JFODBJVFVBcTd1WDcr?=
+ =?utf-8?B?TzVuZ0NZV09peUVkME83am5uejVxVE01cWRwTGMwaVJkNkRUdUdVK3dvZDZW?=
+ =?utf-8?B?OUNSeGM0RVN1S2M0aGhUZVZFNFBwUWJuQVBXTFRuTE9sMSt4MkRBQzNDM0d3?=
+ =?utf-8?B?cUova05mRHZZYVpGK054bzYwL1VaSGVIcmV6V2Y0UGE1WWRaTkdXY2E0ZFNV?=
+ =?utf-8?B?bi91ZVNzZDAydmVUSnNaNkMwME9pWUt5SnJsT3JvdDQ3aW5CcWFSanRBQVhT?=
+ =?utf-8?B?cU5ZMFlnOXVoT1N0c3NNTzV5YVBDL2FjaVg1UXNvK0tqWUhrUzZOMkxkOXI5?=
+ =?utf-8?B?UDJDTFBtak9KbnFUaDlLQVIwcTJnQURvTm1hMTAzQXhzZGxlcllyZFdXUDdl?=
+ =?utf-8?B?QWFkMDkvL1pZRlNIR2NkTHV2Z3ZEY0VqTmgvZGdrU0FNRW00WVNHaUNkd2ll?=
+ =?utf-8?B?elRtOXZ0RjRiUHRPUS9WNzREUUQvKzBIY0VYZmpMYmNYdVBhVkJIblowSlM3?=
+ =?utf-8?B?WTJsMSt4YnN3bHV0c01kdmRQampMSUFjTVJHeXJnVjMxWEo5VmlqUmo1cG1N?=
+ =?utf-8?B?SkphdGl2Z1JvdGpkaUJnNnJnNE9hT3ZFMWxqdGJwM3NoTnhUeDNTZnZTdnhN?=
+ =?utf-8?B?TFk5MWZ6N2RCSVIwK3Nxck9lY3lzL0JQU2p5RXJBa2hCRjNsSkxmRGRLL00w?=
+ =?utf-8?B?WlhwRithNUlDN2RsaGxCN0tHOFNGVWdRMEFxYkZpbitOa001djNNaTZwem9N?=
+ =?utf-8?B?aFIzMnRRNUFzVkZ0QkpkWi9TNXA2ZVNKdTlTTXdzWUFzQ0prVkRsWCt2aVl5?=
+ =?utf-8?B?NWticmdYdkcyMFhwdGIyMDA4cittSFc3MTU2K25kT0pqSWpZaXpadEtUTVBn?=
+ =?utf-8?B?MFNoZEJiUUlxOTBSWjcwbmFucjZPem5GU2RiN3JjQ2FnaHVERTRnb2R4djM1?=
+ =?utf-8?B?L3dGSlFOOHpCbEszSlUweFNaSnFIWXI5Nkk4MnpSU1VjR1lBYk90NVVRU0ZW?=
+ =?utf-8?B?Z3lTZTdVTlZXOUpTQitZbmxscFRtMERZTFlrSjRXOEh6aUR5SHBDMEhvM09B?=
+ =?utf-8?B?ZlNMa2RucTE2SDUra0x1UllicEpOemVNZ3JhM2ZnS0FaZ1BEazFuZzlFMFY0?=
+ =?utf-8?B?TWY1U3lRcTMybVJJM0ZUenAxbDNxeSthdE9qdUxNVjE4cUprLzVjYmUvOGxI?=
+ =?utf-8?B?Y2Uzd0xiMk5OUUVZZ01mVTkvdE9LME40Y0hXaVowd3phanJwSG0vTVdNL2Yw?=
+ =?utf-8?B?bFRVUGdmSHpLN21hWVV5MXQ2ZjZtSzhERVB3eEF3Yk9hZk43WnRBb0xqYitC?=
+ =?utf-8?B?bVpvazFhMkZzc1JqZnlaSExDRGdDU1gweUVGVjdmdjZ2bkQrUFh0d0QyUnJr?=
+ =?utf-8?Q?5go1WDAeiHqUsOtK9zJJTDrEl?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2505f6ee-50fa-4e50-52e1-08dcf27531aa
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8d87a4c5-2ea8-4cb4-92f1-08dcf27781c9
 X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5753.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2024 08:40:34.3692 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2024 08:57:07.5212 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: QyyWsXmjvTvmMukRF2+LH1ABHCOtwhc/B110QHSUP+IB0QWPMeqKH5+ESANRfPJpoBLk1MlxB65UGkI79CGZyw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8930
+X-MS-Exchange-CrossTenant-UserPrincipalName: nrUGQIQZ2e3eG6+CsQ9JO0R4S6gLhxTAzkiVkpU29Wgab2iedgT1htFt/YqZt72ICg63uobHyglTr8bGgzfHfA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6820
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,9 +159,9 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------9F412ECD5155DF5304927C42
+--------------4C5F84CC0B20AE4739C06595
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 Reviewed-by: Sunil Khatri <sunil.khatri@amd.com 
 <mailto:christian.koenig@amd.com>>
@@ -169,1551 +169,867 @@ Reviewed-by: Sunil Khatri <sunil.khatri@amd.com
 On 10/17/2024 6:50 PM, boyuan.zhang@amd.com wrote:
 > From: Boyuan Zhang <boyuan.zhang@amd.com>
 >
-> Perform print_ip_state only for the instance of the current vcn IP block,
+> Perform dump_ip_state only for the instance of the current vcn IP block,
 > instead of perform it for all vcn instances.
 >
 > Signed-off-by: Boyuan Zhang <boyuan.zhang@amd.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c   | 33 ++++++++++++-------------
->   drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c   | 33 ++++++++++++-------------
->   drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c   | 33 ++++++++++++-------------
->   drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c   | 33 ++++++++++++-------------
->   drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c   | 33 ++++++++++++-------------
->   drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c | 33 ++++++++++++-------------
->   drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c | 33 ++++++++++++-------------
->   drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c | 33 ++++++++++++-------------
->   8 files changed, 128 insertions(+), 136 deletions(-)
+>   drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c   | 27 +++++++++----------
+>   drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c   | 27 +++++++++----------
+>   drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c   | 27 +++++++++----------
+>   drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c   | 27 +++++++++----------
+>   drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c   | 31 +++++++++++-----------
+>   drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c | 35 ++++++++++++-------------
+>   drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c | 31 +++++++++++-----------
+>   drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c | 27 +++++++++----------
+>   8 files changed, 112 insertions(+), 120 deletions(-)
 >
 > diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-> index ab06c4173b66..9255bcfc6c3d 100644
+> index 9255bcfc6c3d..27e0f206c9dd 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-> @@ -1933,7 +1933,8 @@ void vcn_v1_0_ring_end_use(struct amdgpu_ring *ring)
->   static void vcn_v1_0_print_ip_state(struct amdgpu_ip_block *ip_block, struct drm_printer *p)
+> @@ -1964,7 +1964,8 @@ static void vcn_v1_0_print_ip_state(struct amdgpu_ip_block *ip_block, struct drm
+>   static void vcn_v1_0_dump_ip_state(struct amdgpu_ip_block *ip_block)
 >   {
 >   	struct amdgpu_device *adev = ip_block->adev;
 > -	int i, j;
 > +	int inst = ip_block->instance;
 > +	int j;
+>   	bool is_powered;
+>   	uint32_t inst_off;
 >   	uint32_t reg_count = ARRAY_SIZE(vcn_reg_list_1_0);
->   	uint32_t inst_off, is_powered;
->   
-> @@ -1941,24 +1942,22 @@ static void vcn_v1_0_print_ip_state(struct amdgpu_ip_block *ip_block, struct drm
+> @@ -1972,21 +1973,19 @@ static void vcn_v1_0_dump_ip_state(struct amdgpu_ip_block *ip_block)
+>   	if (!adev->vcn.ip_dump)
 >   		return;
 >   
->   	drm_printf(p, "num_instances:%d\n", adev->vcn.num_vcn_inst);
 > -	for (i = 0; i < adev->vcn.num_vcn_inst; i++) {
-> -		if (adev->vcn.harvest_config & (1 << i)) {
-> -			drm_printf(p, "\nHarvested Instance:VCN%d Skipping dump\n", i);
+> -		if (adev->vcn.harvest_config & (1 << i))
 > -			continue;
-> -		}
-> +	if (adev->vcn.harvest_config & (1 << inst)) {
-> +		drm_printf(p, "\nHarvested Instance:VCN%d Skipping dump\n", inst);
+> +	if (adev->vcn.harvest_config & (1 << inst))
 > +		return;
-> +	}
 >   
 > -		inst_off = i * reg_count;
+> -		/* mmUVD_POWER_STATUS is always readable and is first element of the array */
+> -		adev->vcn.ip_dump[inst_off] = RREG32_SOC15(VCN, i, mmUVD_POWER_STATUS);
 > -		is_powered = (adev->vcn.ip_dump[inst_off] &
 > -				UVD_POWER_STATUS__UVD_POWER_STATUS_MASK) != 1;
 > +	inst_off = inst * reg_count;
+> +	/* mmUVD_POWER_STATUS is always readable and is first element of the array */
+> +	adev->vcn.ip_dump[inst_off] = RREG32_SOC15(VCN, inst, mmUVD_POWER_STATUS);
 > +	is_powered = (adev->vcn.ip_dump[inst_off] &
 > +			UVD_POWER_STATUS__UVD_POWER_STATUS_MASK) != 1;
 >   
-> -		if (is_powered) {
-> -			drm_printf(p, "\nActive Instance:VCN%d\n", i);
-> -			for (j = 0; j < reg_count; j++)
-> -				drm_printf(p, "%-50s \t 0x%08x\n", vcn_reg_list_1_0[j].reg_name,
-> -					   adev->vcn.ip_dump[inst_off + j]);
-> -		} else {
-> -			drm_printf(p, "\nInactive Instance:VCN%d\n", i);
-> -		}
-> +	if (is_powered) {
-> +		drm_printf(p, "\nActive Instance:VCN%d\n", inst);
-> +		for (j = 0; j < reg_count; j++)
-> +			drm_printf(p, "%-50s \t 0x%08x\n", vcn_reg_list_1_0[j].reg_name,
-> +				   adev->vcn.ip_dump[inst_off + j]);
-> +	} else {
-> +		drm_printf(p, "\nInactive Instance:VCN%d\n", inst);
->   	}
+> -		if (is_powered)
+> -			for (j = 1; j < reg_count; j++)
+> -				adev->vcn.ip_dump[inst_off + j] =
+> -					RREG32(SOC15_REG_ENTRY_OFFSET_INST(vcn_reg_list_1_0[j], i));
+> -	}
+> +	if (is_powered)
+> +		for (j = 1; j < reg_count; j++)
+> +			adev->vcn.ip_dump[inst_off + j] =
+> +				RREG32(SOC15_REG_ENTRY_OFFSET_INST(vcn_reg_list_1_0[j], inst));
 >   }
 >   
+>   static const struct amd_ip_funcs vcn_v1_0_ip_funcs = {
 > diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-> index 59c6458c99af..94f000ed4895 100644
+> index 94f000ed4895..665b749c5ac0 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-> @@ -2041,7 +2041,8 @@ static int vcn_v2_0_start_sriov(struct amdgpu_device *adev)
->   static void vcn_v2_0_print_ip_state(struct amdgpu_ip_block *ip_block, struct drm_printer *p)
+> @@ -2072,7 +2072,8 @@ static void vcn_v2_0_print_ip_state(struct amdgpu_ip_block *ip_block, struct drm
+>   static void vcn_v2_0_dump_ip_state(struct amdgpu_ip_block *ip_block)
 >   {
 >   	struct amdgpu_device *adev = ip_block->adev;
 > -	int i, j;
 > +	int inst = ip_block->instance;
 > +	int j;
+>   	bool is_powered;
+>   	uint32_t inst_off;
 >   	uint32_t reg_count = ARRAY_SIZE(vcn_reg_list_2_0);
->   	uint32_t inst_off, is_powered;
->   
-> @@ -2049,24 +2050,22 @@ static void vcn_v2_0_print_ip_state(struct amdgpu_ip_block *ip_block, struct drm
+> @@ -2080,21 +2081,19 @@ static void vcn_v2_0_dump_ip_state(struct amdgpu_ip_block *ip_block)
+>   	if (!adev->vcn.ip_dump)
 >   		return;
 >   
->   	drm_printf(p, "num_instances:%d\n", adev->vcn.num_vcn_inst);
 > -	for (i = 0; i < adev->vcn.num_vcn_inst; i++) {
-> -		if (adev->vcn.harvest_config & (1 << i)) {
-> -			drm_printf(p, "\nHarvested Instance:VCN%d Skipping dump\n", i);
+> -		if (adev->vcn.harvest_config & (1 << i))
 > -			continue;
-> -		}
-> +	if (adev->vcn.harvest_config & (1 << inst)) {
-> +		drm_printf(p, "\nHarvested Instance:VCN%d Skipping dump\n", inst);
+> +	if (adev->vcn.harvest_config & (1 << inst))
 > +		return;
-> +	}
 >   
 > -		inst_off = i * reg_count;
+> -		/* mmUVD_POWER_STATUS is always readable and is first element of the array */
+> -		adev->vcn.ip_dump[inst_off] = RREG32_SOC15(VCN, i, mmUVD_POWER_STATUS);
 > -		is_powered = (adev->vcn.ip_dump[inst_off] &
 > -				UVD_POWER_STATUS__UVD_POWER_STATUS_MASK) != 1;
 > +	inst_off = inst * reg_count;
+> +	/* mmUVD_POWER_STATUS is always readable and is first element of the array */
+> +	adev->vcn.ip_dump[inst_off] = RREG32_SOC15(VCN, inst, mmUVD_POWER_STATUS);
 > +	is_powered = (adev->vcn.ip_dump[inst_off] &
 > +			UVD_POWER_STATUS__UVD_POWER_STATUS_MASK) != 1;
 >   
-> -		if (is_powered) {
-> -			drm_printf(p, "\nActive Instance:VCN%d\n", i);
-> -			for (j = 0; j < reg_count; j++)
-> -				drm_printf(p, "%-50s \t 0x%08x\n", vcn_reg_list_2_0[j].reg_name,
-> -					   adev->vcn.ip_dump[inst_off + j]);
-> -		} else {
-> -			drm_printf(p, "\nInactive Instance:VCN%d\n", i);
-> -		}
-> +	if (is_powered) {
-> +		drm_printf(p, "\nActive Instance:VCN%d\n", inst);
-> +		for (j = 0; j < reg_count; j++)
-> +			drm_printf(p, "%-50s \t 0x%08x\n", vcn_reg_list_2_0[j].reg_name,
-> +				   adev->vcn.ip_dump[inst_off + j]);
-> +	} else {
-> +		drm_printf(p, "\nInactive Instance:VCN%d\n", inst);
->   	}
+> -		if (is_powered)
+> -			for (j = 1; j < reg_count; j++)
+> -				adev->vcn.ip_dump[inst_off + j] =
+> -					RREG32(SOC15_REG_ENTRY_OFFSET_INST(vcn_reg_list_2_0[j], i));
+> -	}
+> +	if (is_powered)
+> +		for (j = 1; j < reg_count; j++)
+> +			adev->vcn.ip_dump[inst_off + j] =
+> +				RREG32(SOC15_REG_ENTRY_OFFSET_INST(vcn_reg_list_2_0[j], inst));
 >   }
 >   
+>   static const struct amd_ip_funcs vcn_v2_0_ip_funcs = {
 > diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-> index b0d14330722b..7c9a0169215e 100644
+> index 7c9a0169215e..5332b2903ce1 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-> @@ -1915,7 +1915,8 @@ static void vcn_v2_5_set_irq_funcs(struct amdgpu_device *adev, int inst)
->   static void vcn_v2_5_print_ip_state(struct amdgpu_ip_block *ip_block, struct drm_printer *p)
+> @@ -1946,7 +1946,8 @@ static void vcn_v2_5_print_ip_state(struct amdgpu_ip_block *ip_block, struct drm
+>   static void vcn_v2_5_dump_ip_state(struct amdgpu_ip_block *ip_block)
 >   {
 >   	struct amdgpu_device *adev = ip_block->adev;
 > -	int i, j;
 > +	int inst = ip_block->instance;
 > +	int j;
+>   	bool is_powered;
+>   	uint32_t inst_off;
 >   	uint32_t reg_count = ARRAY_SIZE(vcn_reg_list_2_5);
->   	uint32_t inst_off, is_powered;
->   
-> @@ -1923,24 +1924,22 @@ static void vcn_v2_5_print_ip_state(struct amdgpu_ip_block *ip_block, struct drm
+> @@ -1954,21 +1955,19 @@ static void vcn_v2_5_dump_ip_state(struct amdgpu_ip_block *ip_block)
+>   	if (!adev->vcn.ip_dump)
 >   		return;
 >   
->   	drm_printf(p, "num_instances:%d\n", adev->vcn.num_vcn_inst);
 > -	for (i = 0; i < adev->vcn.num_vcn_inst; i++) {
-> -		if (adev->vcn.harvest_config & (1 << i)) {
-> -			drm_printf(p, "\nHarvested Instance:VCN%d Skipping dump\n", i);
+> -		if (adev->vcn.harvest_config & (1 << i))
 > -			continue;
-> -		}
-> +	if (adev->vcn.harvest_config & (1 << inst)) {
-> +		drm_printf(p, "\nHarvested Instance:VCN%d Skipping dump\n", inst);
+Since this for loop is removed which dump for each instances,clear my 
+understanding here, there are multiple ip_blocks for vcn now and 
+ip_block->instance is 0, 1, 2, 3 etc representing one instance ?
+Assuming the use case of 2 instances so first time when 
+vcn_v2_5_dump_ip_state is called it will comes with ip_block->instance = 
+0 and then 1 and 2 in sequence as we are dumping that information in 
+loop and storing in coredump in that sequence only.
+> +	if (adev->vcn.harvest_config & (1 << inst))
 > +		return;
-> +	}
 >   
 > -		inst_off = i * reg_count;
+> -		/* mmUVD_POWER_STATUS is always readable and is first element of the array */
+> -		adev->vcn.ip_dump[inst_off] = RREG32_SOC15(VCN, i, mmUVD_POWER_STATUS);
 > -		is_powered = (adev->vcn.ip_dump[inst_off] &
 > -				UVD_POWER_STATUS__UVD_POWER_STATUS_MASK) != 1;
 > +	inst_off = inst * reg_count;
+> +	/* mmUVD_POWER_STATUS is always readable and is first element of the array */
+> +	adev->vcn.ip_dump[inst_off] = RREG32_SOC15(VCN, inst, mmUVD_POWER_STATUS);
 > +	is_powered = (adev->vcn.ip_dump[inst_off] &
 > +			UVD_POWER_STATUS__UVD_POWER_STATUS_MASK) != 1;
 >   
-> -		if (is_powered) {
-> -			drm_printf(p, "\nActive Instance:VCN%d\n", i);
-> -			for (j = 0; j < reg_count; j++)
-> -				drm_printf(p, "%-50s \t 0x%08x\n", vcn_reg_list_2_5[j].reg_name,
-> -					   adev->vcn.ip_dump[inst_off + j]);
-> -		} else {
-> -			drm_printf(p, "\nInactive Instance:VCN%d\n", i);
-> -		}
-> +	if (is_powered) {
-> +		drm_printf(p, "\nActive Instance:VCN%d\n", inst);
-> +		for (j = 0; j < reg_count; j++)
-> +			drm_printf(p, "%-50s \t 0x%08x\n", vcn_reg_list_2_5[j].reg_name,
-> +				   adev->vcn.ip_dump[inst_off + j]);
-> +	} else {
-> +		drm_printf(p, "\nInactive Instance:VCN%d\n", inst);
->   	}
+> -		if (is_powered)
+> -			for (j = 1; j < reg_count; j++)
+> -				adev->vcn.ip_dump[inst_off + j] =
+> -					RREG32(SOC15_REG_ENTRY_OFFSET_INST(vcn_reg_list_2_5[j], i));
+> -	}
+> +	if (is_powered)
+> +		for (j = 1; j < reg_count; j++)
+> +			adev->vcn.ip_dump[inst_off + j] =
+> +				RREG32(SOC15_REG_ENTRY_OFFSET_INST(vcn_reg_list_2_5[j], inst));
+> 	Storage we have linear to accomodate each vcn instance. So we need to make sure that when dump is called for instance sequentially we are adding values in vcn.ip_dump in same order so print should give right value else there could be a mismatch based on existing logic. Please try to cause a dump and hack around the code so is_powered is bypassed and we dump the values for each instance thats the only way to see if its working fine.
+By looking at the code it seems it should work but there are some vcn 
+variable which i am not so sure in new design.  Also patch for dump 
+should come first and then print to reverse the order of 28 and 29 patch.
+But testing is needed to make sure its working fine.
+Regards
+Sunil khatri
 >   }
 >   
+>   static const struct amd_ip_funcs vcn_v2_5_ip_funcs = {
 > diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-> index 9a9acec4c4ce..061c958700d8 100644
+> index 061c958700d8..40a3d29d4e71 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-> @@ -2237,7 +2237,8 @@ static void vcn_v3_0_set_irq_funcs(struct amdgpu_device *adev, int inst)
->   static void vcn_v3_0_print_ip_state(struct amdgpu_ip_block *ip_block, struct drm_printer *p)
+> @@ -2269,7 +2269,8 @@ static void vcn_v3_0_print_ip_state(struct amdgpu_ip_block *ip_block, struct drm
+>   static void vcn_v3_0_dump_ip_state(struct amdgpu_ip_block *ip_block)
 >   {
 >   	struct amdgpu_device *adev = ip_block->adev;
 > -	int i, j;
 > +	int inst = ip_block->instance;
 > +	int j;
->   	uint32_t reg_count = ARRAY_SIZE(vcn_reg_list_3_0);
->   	uint32_t inst_off;
 >   	bool is_powered;
-> @@ -2246,24 +2247,22 @@ static void vcn_v3_0_print_ip_state(struct amdgpu_ip_block *ip_block, struct drm
+>   	uint32_t inst_off;
+>   	uint32_t reg_count = ARRAY_SIZE(vcn_reg_list_3_0);
+> @@ -2277,21 +2278,19 @@ static void vcn_v3_0_dump_ip_state(struct amdgpu_ip_block *ip_block)
+>   	if (!adev->vcn.ip_dump)
 >   		return;
 >   
->   	drm_printf(p, "num_instances:%d\n", adev->vcn.num_vcn_inst);
 > -	for (i = 0; i < adev->vcn.num_vcn_inst; i++) {
-> -		if (adev->vcn.harvest_config & (1 << i)) {
-> -			drm_printf(p, "\nHarvested Instance:VCN%d Skipping dump\n", i);
+> -		if (adev->vcn.harvest_config & (1 << i))
 > -			continue;
-> -		}
-> +	if (adev->vcn.harvest_config & (1 << inst)) {
-> +		drm_printf(p, "\nHarvested Instance:VCN%d Skipping dump\n", inst);
+> +	if (adev->vcn.harvest_config & (1 << inst))
 > +		return;
-> +	}
 >   
 > -		inst_off = i * reg_count;
+> -		/* mmUVD_POWER_STATUS is always readable and is first element of the array */
+> -		adev->vcn.ip_dump[inst_off] = RREG32_SOC15(VCN, i, mmUVD_POWER_STATUS);
 > -		is_powered = (adev->vcn.ip_dump[inst_off] &
 > -			      UVD_POWER_STATUS__UVD_POWER_STATUS_MASK) != 1;
 > +	inst_off = inst * reg_count;
+> +	/* mmUVD_POWER_STATUS is always readable and is first element of the array */
+> +	adev->vcn.ip_dump[inst_off] = RREG32_SOC15(VCN, inst, mmUVD_POWER_STATUS);
 > +	is_powered = (adev->vcn.ip_dump[inst_off] &
 > +			  UVD_POWER_STATUS__UVD_POWER_STATUS_MASK) != 1;
 >   
-> -		if (is_powered) {
-> -			drm_printf(p, "\nActive Instance:VCN%d\n", i);
-> -			for (j = 0; j < reg_count; j++)
-> -				drm_printf(p, "%-50s \t 0x%08x\n", vcn_reg_list_3_0[j].reg_name,
-> -					   adev->vcn.ip_dump[inst_off + j]);
-> -		} else {
-> -			drm_printf(p, "\nInactive Instance:VCN%d\n", i);
-> -		}
-> +	if (is_powered) {
-> +		drm_printf(p, "\nActive Instance:VCN%d\n", inst);
-> +		for (j = 0; j < reg_count; j++)
-> +			drm_printf(p, "%-50s \t 0x%08x\n", vcn_reg_list_3_0[j].reg_name,
-> +				   adev->vcn.ip_dump[inst_off + j]);
-> +	} else {
-> +		drm_printf(p, "\nInactive Instance:VCN%d\n", inst);
->   	}
+> -		if (is_powered)
+> -			for (j = 1; j < reg_count; j++)
+> -				adev->vcn.ip_dump[inst_off + j] =
+> -					RREG32(SOC15_REG_ENTRY_OFFSET_INST(vcn_reg_list_3_0[j], i));
+> -	}
+> +	if (is_powered)
+> +		for (j = 1; j < reg_count; j++)
+> +			adev->vcn.ip_dump[inst_off + j] =
+> +				RREG32(SOC15_REG_ENTRY_OFFSET_INST(vcn_reg_list_3_0[j], inst));
 >   }
 >   
+>   static const struct amd_ip_funcs vcn_v3_0_ip_funcs = {
 > diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-> index ff256fb4d054..fdf346bf3e34 100644
+> index fdf346bf3e34..3b2f4f1e0939 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-> @@ -2146,7 +2146,8 @@ static void vcn_v4_0_set_irq_funcs(struct amdgpu_device *adev, int inst)
->   static void vcn_v4_0_print_ip_state(struct amdgpu_ip_block *ip_block, struct drm_printer *p)
+> @@ -2177,7 +2177,8 @@ static void vcn_v4_0_print_ip_state(struct amdgpu_ip_block *ip_block, struct drm
+>   static void vcn_v4_0_dump_ip_state(struct amdgpu_ip_block *ip_block)
 >   {
 >   	struct amdgpu_device *adev = ip_block->adev;
 > -	int i, j;
 > +	int inst = ip_block->instance;
 > +	int j;
+>   	bool is_powered;
+>   	uint32_t inst_off;
 >   	uint32_t reg_count = ARRAY_SIZE(vcn_reg_list_4_0);
->   	uint32_t inst_off, is_powered;
->   
-> @@ -2154,24 +2155,22 @@ static void vcn_v4_0_print_ip_state(struct amdgpu_ip_block *ip_block, struct drm
+> @@ -2185,22 +2186,20 @@ static void vcn_v4_0_dump_ip_state(struct amdgpu_ip_block *ip_block)
+>   	if (!adev->vcn.ip_dump)
 >   		return;
 >   
->   	drm_printf(p, "num_instances:%d\n", adev->vcn.num_vcn_inst);
 > -	for (i = 0; i < adev->vcn.num_vcn_inst; i++) {
-> -		if (adev->vcn.harvest_config & (1 << i)) {
-> -			drm_printf(p, "\nHarvested Instance:VCN%d Skipping dump\n", i);
+> -		if (adev->vcn.harvest_config & (1 << i))
 > -			continue;
-> -		}
-> +	if (adev->vcn.harvest_config & (1 << inst)) {
-> +		drm_printf(p, "\nHarvested Instance:VCN%d Skipping dump\n", inst);
+> +	if (adev->vcn.harvest_config & (1 << inst))
 > +		return;
-> +	}
 >   
 > -		inst_off = i * reg_count;
+> -		/* mmUVD_POWER_STATUS is always readable and is first element of the array */
+> -		adev->vcn.ip_dump[inst_off] = RREG32_SOC15(VCN, i, regUVD_POWER_STATUS);
 > -		is_powered = (adev->vcn.ip_dump[inst_off] &
 > -				UVD_POWER_STATUS__UVD_POWER_STATUS_MASK) != 1;
+> -
+> -		if (is_powered)
+> -			for (j = 1; j < reg_count; j++)
+> -				adev->vcn.ip_dump[inst_off + j] =
+> -					RREG32(SOC15_REG_ENTRY_OFFSET_INST(vcn_reg_list_4_0[j],
+> -									   i));
+> -	}
 > +	inst_off = inst * reg_count;
+> +	/* mmUVD_POWER_STATUS is always readable and is first element of the array */
+> +	adev->vcn.ip_dump[inst_off] = RREG32_SOC15(VCN, inst, regUVD_POWER_STATUS);
 > +	is_powered = (adev->vcn.ip_dump[inst_off] &
 > +			UVD_POWER_STATUS__UVD_POWER_STATUS_MASK) != 1;
->   
-> -		if (is_powered) {
-> -			drm_printf(p, "\nActive Instance:VCN%d\n", i);
-> -			for (j = 0; j < reg_count; j++)
-> -				drm_printf(p, "%-50s \t 0x%08x\n", vcn_reg_list_4_0[j].reg_name,
-> -					   adev->vcn.ip_dump[inst_off + j]);
-> -		} else {
-> -			drm_printf(p, "\nInactive Instance:VCN%d\n", i);
-> -		}
-> +	if (is_powered) {
-> +		drm_printf(p, "\nActive Instance:VCN%d\n", inst);
-> +		for (j = 0; j < reg_count; j++)
-> +			drm_printf(p, "%-50s \t 0x%08x\n", vcn_reg_list_4_0[j].reg_name,
-> +				   adev->vcn.ip_dump[inst_off + j]);
-> +	} else {
-> +		drm_printf(p, "\nInactive Instance:VCN%d\n", inst);
->   	}
+> +
+> +	if (is_powered)
+> +		for (j = 1; j < reg_count; j++)
+> +			adev->vcn.ip_dump[inst_off + j] =
+> +				RREG32(SOC15_REG_ENTRY_OFFSET_INST(vcn_reg_list_4_0[j],
+> +								   inst));
 >   }
 >   
+>   static const struct amd_ip_funcs vcn_v4_0_ip_funcs = {
 > diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-> index 544c96e082b9..daaf2fb6b3e5 100644
+> index daaf2fb6b3e5..be03d31cb206 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-> @@ -1726,7 +1726,8 @@ static void vcn_v4_0_3_set_irq_funcs(struct amdgpu_device *adev, int inst)
->   static void vcn_v4_0_3_print_ip_state(struct amdgpu_ip_block *ip_block, struct drm_printer *p)
+> @@ -1757,7 +1757,8 @@ static void vcn_v4_0_3_print_ip_state(struct amdgpu_ip_block *ip_block, struct d
+>   static void vcn_v4_0_3_dump_ip_state(struct amdgpu_ip_block *ip_block)
 >   {
 >   	struct amdgpu_device *adev = ip_block->adev;
 > -	int i, j;
 > +	int inst = ip_block->instance;
 > +	int j;
+>   	bool is_powered;
+>   	uint32_t inst_off, inst_id;
 >   	uint32_t reg_count = ARRAY_SIZE(vcn_reg_list_4_0_3);
->   	uint32_t inst_off, is_powered;
->   
-> @@ -1734,24 +1735,22 @@ static void vcn_v4_0_3_print_ip_state(struct amdgpu_ip_block *ip_block, struct d
+> @@ -1765,23 +1766,21 @@ static void vcn_v4_0_3_dump_ip_state(struct amdgpu_ip_block *ip_block)
+>   	if (!adev->vcn.ip_dump)
 >   		return;
 >   
->   	drm_printf(p, "num_instances:%d\n", adev->vcn.num_vcn_inst);
 > -	for (i = 0; i < adev->vcn.num_vcn_inst; i++) {
-> -		if (adev->vcn.harvest_config & (1 << i)) {
-> -			drm_printf(p, "\nHarvested Instance:VCN%d Skipping dump\n", i);
+> -		if (adev->vcn.harvest_config & (1 << i))
 > -			continue;
-> -		}
-> +	if (adev->vcn.harvest_config & (1 << inst)) {
-> +		drm_printf(p, "\nHarvested Instance:VCN%d Skipping dump\n", inst);
-> +		return;
-> +	}
->   
+> -
+> -		inst_id = GET_INST(VCN, i);
 > -		inst_off = i * reg_count;
+> -		/* mmUVD_POWER_STATUS is always readable and is first element of the array */
+> -		adev->vcn.ip_dump[inst_off] = RREG32_SOC15(VCN, inst_id, regUVD_POWER_STATUS);
 > -		is_powered = (adev->vcn.ip_dump[inst_off] &
 > -				UVD_POWER_STATUS__UVD_POWER_STATUS_MASK) != 1;
+> -
+> -		if (is_powered)
+> -			for (j = 1; j < reg_count; j++)
+> -				adev->vcn.ip_dump[inst_off + j] =
+> -					RREG32(SOC15_REG_ENTRY_OFFSET_INST(vcn_reg_list_4_0_3[j],
+> -									   inst_id));
+> -	}
+> +	if (adev->vcn.harvest_config & (1 << inst))
+> +		return;
+> +
+> +	inst_id = GET_INST(VCN, inst);
 > +	inst_off = inst * reg_count;
+> +	/* mmUVD_POWER_STATUS is always readable and is first element of the array */
+> +	adev->vcn.ip_dump[inst_off] = RREG32_SOC15(VCN, inst_id, regUVD_POWER_STATUS);
 > +	is_powered = (adev->vcn.ip_dump[inst_off] &
 > +			UVD_POWER_STATUS__UVD_POWER_STATUS_MASK) != 1;
->   
-> -		if (is_powered) {
-> -			drm_printf(p, "\nActive Instance:VCN%d\n", i);
-> -			for (j = 0; j < reg_count; j++)
-> -				drm_printf(p, "%-50s \t 0x%08x\n", vcn_reg_list_4_0_3[j].reg_name,
-> -					   adev->vcn.ip_dump[inst_off + j]);
-> -		} else {
-> -			drm_printf(p, "\nInactive Instance:VCN%d\n", i);
-> -		}
-> +	if (is_powered) {
-> +		drm_printf(p, "\nActive Instance:VCN%d\n", inst);
-> +		for (j = 0; j < reg_count; j++)
-> +			drm_printf(p, "%-50s \t 0x%08x\n", vcn_reg_list_4_0_3[j].reg_name,
-> +				   adev->vcn.ip_dump[inst_off + j]);
-> +	} else {
-> +		drm_printf(p, "\nInactive Instance:VCN%d\n", inst);
->   	}
+> +
+> +	if (is_powered)
+> +		for (j = 1; j < reg_count; j++)
+> +			adev->vcn.ip_dump[inst_off + j] =
+> +				RREG32(SOC15_REG_ENTRY_OFFSET_INST(vcn_reg_list_4_0_3[j],
+> +								   inst_id));
 >   }
 >   
+>   static const struct amd_ip_funcs vcn_v4_0_3_ip_funcs = {
 > diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
-> index 880353f75296..ff8db22b9614 100644
+> index ff8db22b9614..43b1f3d06157 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
-> @@ -1607,7 +1607,8 @@ static void vcn_v4_0_5_set_irq_funcs(struct amdgpu_device *adev, int inst)
->   static void vcn_v4_0_5_print_ip_state(struct amdgpu_ip_block *ip_block, struct drm_printer *p)
+> @@ -1638,7 +1638,8 @@ static void vcn_v4_0_5_print_ip_state(struct amdgpu_ip_block *ip_block, struct d
+>   static void vcn_v4_0_5_dump_ip_state(struct amdgpu_ip_block *ip_block)
 >   {
 >   	struct amdgpu_device *adev = ip_block->adev;
 > -	int i, j;
 > +	int inst = ip_block->instance;
 > +	int j;
+>   	bool is_powered;
+>   	uint32_t inst_off;
 >   	uint32_t reg_count = ARRAY_SIZE(vcn_reg_list_4_0_5);
->   	uint32_t inst_off, is_powered;
->   
-> @@ -1615,24 +1616,22 @@ static void vcn_v4_0_5_print_ip_state(struct amdgpu_ip_block *ip_block, struct d
+> @@ -1646,22 +1647,20 @@ static void vcn_v4_0_5_dump_ip_state(struct amdgpu_ip_block *ip_block)
+>   	if (!adev->vcn.ip_dump)
 >   		return;
 >   
->   	drm_printf(p, "num_instances:%d\n", adev->vcn.num_vcn_inst);
 > -	for (i = 0; i < adev->vcn.num_vcn_inst; i++) {
-> -		if (adev->vcn.harvest_config & (1 << i)) {
-> -			drm_printf(p, "\nHarvested Instance:VCN%d Skipping dump\n", i);
+> -		if (adev->vcn.harvest_config & (1 << i))
 > -			continue;
-> -		}
-> +	if (adev->vcn.harvest_config & (1 << inst)) {
-> +		drm_printf(p, "\nHarvested Instance:VCN%d Skipping dump\n", inst);
+> +	if (adev->vcn.harvest_config & (1 << inst))
 > +		return;
-> +	}
 >   
 > -		inst_off = i * reg_count;
+> -		/* mmUVD_POWER_STATUS is always readable and is first element of the array */
+> -		adev->vcn.ip_dump[inst_off] = RREG32_SOC15(VCN, i, regUVD_POWER_STATUS);
 > -		is_powered = (adev->vcn.ip_dump[inst_off] &
 > -				UVD_POWER_STATUS__UVD_POWER_STATUS_MASK) != 1;
+> -
+> -		if (is_powered)
+> -			for (j = 1; j < reg_count; j++)
+> -				adev->vcn.ip_dump[inst_off + j] =
+> -					RREG32(SOC15_REG_ENTRY_OFFSET_INST(vcn_reg_list_4_0_5[j],
+> -									   i));
+> -	}
 > +	inst_off = inst * reg_count;
+> +	/* mmUVD_POWER_STATUS is always readable and is first element of the array */
+> +	adev->vcn.ip_dump[inst_off] = RREG32_SOC15(VCN, inst, regUVD_POWER_STATUS);
 > +	is_powered = (adev->vcn.ip_dump[inst_off] &
 > +			UVD_POWER_STATUS__UVD_POWER_STATUS_MASK) != 1;
->   
-> -		if (is_powered) {
-> -			drm_printf(p, "\nActive Instance:VCN%d\n", i);
-> -			for (j = 0; j < reg_count; j++)
-> -				drm_printf(p, "%-50s \t 0x%08x\n", vcn_reg_list_4_0_5[j].reg_name,
-> -					   adev->vcn.ip_dump[inst_off + j]);
-> -		} else {
-> -			drm_printf(p, "\nInactive Instance:VCN%d\n", i);
-> -		}
-> +	if (is_powered) {
-> +		drm_printf(p, "\nActive Instance:VCN%d\n", inst);
-> +		for (j = 0; j < reg_count; j++)
-> +			drm_printf(p, "%-50s \t 0x%08x\n", vcn_reg_list_4_0_5[j].reg_name,
-> +				   adev->vcn.ip_dump[inst_off + j]);
-> +	} else {
-> +		drm_printf(p, "\nInactive Instance:VCN%d\n", inst);
->   	}
+> +
+> +	if (is_powered)
+> +		for (j = 1; j < reg_count; j++)
+> +			adev->vcn.ip_dump[inst_off + j] =
+> +				RREG32(SOC15_REG_ENTRY_OFFSET_INST(vcn_reg_list_4_0_5[j],
+> +								   inst));
 >   }
 >   
+>   static const struct amd_ip_funcs vcn_v4_0_5_ip_funcs = {
 > diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
-> index a4d1b9a086b2..c83a5c09f410 100644
+> index c83a5c09f410..65554c4e86cd 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
-> @@ -1334,7 +1334,8 @@ static void vcn_v5_0_0_set_irq_funcs(struct amdgpu_device *adev, int inst)
->   static void vcn_v5_0_print_ip_state(struct amdgpu_ip_block *ip_block, struct drm_printer *p)
+> @@ -1365,7 +1365,8 @@ static void vcn_v5_0_print_ip_state(struct amdgpu_ip_block *ip_block, struct drm
+>   static void vcn_v5_0_dump_ip_state(struct amdgpu_ip_block *ip_block)
 >   {
 >   	struct amdgpu_device *adev = ip_block->adev;
 > -	int i, j;
 > +	int inst = ip_block->instance;
 > +	int j;
+>   	bool is_powered;
+>   	uint32_t inst_off;
 >   	uint32_t reg_count = ARRAY_SIZE(vcn_reg_list_5_0);
->   	uint32_t inst_off, is_powered;
->   
-> @@ -1342,24 +1343,22 @@ static void vcn_v5_0_print_ip_state(struct amdgpu_ip_block *ip_block, struct drm
+> @@ -1373,21 +1374,19 @@ static void vcn_v5_0_dump_ip_state(struct amdgpu_ip_block *ip_block)
+>   	if (!adev->vcn.ip_dump)
 >   		return;
 >   
->   	drm_printf(p, "num_instances:%d\n", adev->vcn.num_vcn_inst);
 > -	for (i = 0; i < adev->vcn.num_vcn_inst; i++) {
-> -		if (adev->vcn.harvest_config & (1 << i)) {
-> -			drm_printf(p, "\nHarvested Instance:VCN%d Skipping dump\n", i);
+> -		if (adev->vcn.harvest_config & (1 << i))
 > -			continue;
-> -		}
-> +	if (adev->vcn.harvest_config & (1 << inst)) {
-> +		drm_printf(p, "\nHarvested Instance:VCN%d Skipping dump\n", inst);
+> +	if (adev->vcn.harvest_config & (1 << inst))
 > +		return;
-> +	}
 >   
 > -		inst_off = i * reg_count;
+> -		/* mmUVD_POWER_STATUS is always readable and is first element of the array */
+> -		adev->vcn.ip_dump[inst_off] = RREG32_SOC15(VCN, i, regUVD_POWER_STATUS);
 > -		is_powered = (adev->vcn.ip_dump[inst_off] &
 > -				UVD_POWER_STATUS__UVD_POWER_STATUS_MASK) != 1;
 > +	inst_off = inst * reg_count;
+> +	/* mmUVD_POWER_STATUS is always readable and is first element of the array */
+> +	adev->vcn.ip_dump[inst_off] = RREG32_SOC15(VCN, inst, regUVD_POWER_STATUS);
 > +	is_powered = (adev->vcn.ip_dump[inst_off] &
 > +			UVD_POWER_STATUS__UVD_POWER_STATUS_MASK) != 1;
 >   
-> -		if (is_powered) {
-> -			drm_printf(p, "\nActive Instance:VCN%d\n", i);
-> -			for (j = 0; j < reg_count; j++)
-> -				drm_printf(p, "%-50s \t 0x%08x\n", vcn_reg_list_5_0[j].reg_name,
-> -					   adev->vcn.ip_dump[inst_off + j]);
-> -		} else {
-> -			drm_printf(p, "\nInactive Instance:VCN%d\n", i);
-> -		}
-> +	if (is_powered) {
-> +		drm_printf(p, "\nActive Instance:VCN%d\n", inst);
-> +		for (j = 0; j < reg_count; j++)
-> +			drm_printf(p, "%-50s \t 0x%08x\n", vcn_reg_list_5_0[j].reg_name,
-> +				   adev->vcn.ip_dump[inst_off + j]);
-> +	} else {
-> +		drm_printf(p, "\nInactive Instance:VCN%d\n", inst);
->   	}
+> -		if (is_powered)
+> -			for (j = 1; j < reg_count; j++)
+> -				adev->vcn.ip_dump[inst_off + j] =
+> -					RREG32(SOC15_REG_ENTRY_OFFSET_INST(vcn_reg_list_5_0[j], i));
+> -	}
+> +	if (is_powered)
+> +		for (j = 1; j < reg_count; j++)
+> +			adev->vcn.ip_dump[inst_off + j] =
+> +				RREG32(SOC15_REG_ENTRY_OFFSET_INST(vcn_reg_list_5_0[j], inst));
 >   }
 >   
+>   static const struct amd_ip_funcs vcn_v5_0_0_ip_funcs = {
 
---------------9F412ECD5155DF5304927C42
+--------------4C5F84CC0B20AE4739C06595
 Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 <html><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   </head>
   <body text="#000000" bgcolor="#ffffff">
-    <p>
-    </p>
-    <p class="MsoPlainText">Reviewed-by: Sunil Khatri &lt;<a href="mailto:christian.koenig@amd.com">sunil.khatri@amd.com</a>&gt;</p>
-    <p><!--[if gte mso 9]><xml>
- <o:OfficeDocumentSettings>
-  <o:AllowPNG/>
- </o:OfficeDocumentSettings>
-</xml><![endif]--><!--[if gte mso 9]><xml>
- <w:WordDocument>
-  <w:View>Normal</w:View>
-  <w:Zoom>0</w:Zoom>
-  <w:TrackMoves/>
-  <w:TrackFormatting/>
-  <w:PunctuationKerning/>
-  <w:ValidateAgainstSchemas/>
-  <w:SaveIfXMLInvalid>false</w:SaveIfXMLInvalid>
-  <w:IgnoreMixedContent>false</w:IgnoreMixedContent>
-  <w:AlwaysShowPlaceholderText>false</w:AlwaysShowPlaceholderText>
-  <w:DoNotPromoteQF/>
-  <w:LidThemeOther>EN-US</w:LidThemeOther>
-  <w:LidThemeAsian>X-NONE</w:LidThemeAsian>
-  <w:LidThemeComplexScript>X-NONE</w:LidThemeComplexScript>
-  <w:Compatibility>
-   <w:BreakWrappedTables/>
-   <w:SnapToGridInCell/>
-   <w:WrapTextWithPunct/>
-   <w:UseAsianBreakRules/>
-   <w:DontGrowAutofit/>
-   <w:SplitPgBreakAndParaMark/>
-   <w:EnableOpenTypeKerning/>
-   <w:DontFlipMirrorIndents/>
-   <w:OverrideTableStyleHps/>
-  </w:Compatibility>
-  <w:DoNotOptimizeForBrowser/>
-  <m:mathPr>
-   <m:mathFont m:val="Cambria Math"/>
-   <m:brkBin m:val="before"/>
-   <m:brkBinSub m:val="&#45;-"/>
-   <m:smallFrac m:val="off"/>
-   <m:dispDef/>
-   <m:lMargin m:val="0"/>
-   <m:rMargin m:val="0"/>
-   <m:defJc m:val="centerGroup"/>
-   <m:wrapIndent m:val="1440"/>
-   <m:intLim m:val="subSup"/>
-   <m:naryLim m:val="undOvr"/>
-  </m:mathPr></w:WordDocument>
-</xml><![endif]--><!--[if gte mso 9]><xml>
- <w:LatentStyles DefLockedState="false" DefUnhideWhenUsed="false"
-  DefSemiHidden="false" DefQFormat="false" DefPriority="99"
-  LatentStyleCount="376">
-  <w:LsdException Locked="false" Priority="0" QFormat="true" Name="Normal"/>
-  <w:LsdException Locked="false" Priority="9" QFormat="true" Name="heading 1"/>
-  <w:LsdException Locked="false" Priority="9" SemiHidden="true"
-   UnhideWhenUsed="true" QFormat="true" Name="heading 2"/>
-  <w:LsdException Locked="false" Priority="9" SemiHidden="true"
-   UnhideWhenUsed="true" QFormat="true" Name="heading 3"/>
-  <w:LsdException Locked="false" Priority="9" SemiHidden="true"
-   UnhideWhenUsed="true" QFormat="true" Name="heading 4"/>
-  <w:LsdException Locked="false" Priority="9" SemiHidden="true"
-   UnhideWhenUsed="true" QFormat="true" Name="heading 5"/>
-  <w:LsdException Locked="false" Priority="9" SemiHidden="true"
-   UnhideWhenUsed="true" QFormat="true" Name="heading 6"/>
-  <w:LsdException Locked="false" Priority="9" SemiHidden="true"
-   UnhideWhenUsed="true" QFormat="true" Name="heading 7"/>
-  <w:LsdException Locked="false" Priority="9" SemiHidden="true"
-   UnhideWhenUsed="true" QFormat="true" Name="heading 8"/>
-  <w:LsdException Locked="false" Priority="9" SemiHidden="true"
-   UnhideWhenUsed="true" QFormat="true" Name="heading 9"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="index 1"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="index 2"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="index 3"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="index 4"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="index 5"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="index 6"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="index 7"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="index 8"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="index 9"/>
-  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
-   UnhideWhenUsed="true" Name="toc 1"/>
-  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
-   UnhideWhenUsed="true" Name="toc 2"/>
-  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
-   UnhideWhenUsed="true" Name="toc 3"/>
-  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
-   UnhideWhenUsed="true" Name="toc 4"/>
-  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
-   UnhideWhenUsed="true" Name="toc 5"/>
-  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
-   UnhideWhenUsed="true" Name="toc 6"/>
-  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
-   UnhideWhenUsed="true" Name="toc 7"/>
-  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
-   UnhideWhenUsed="true" Name="toc 8"/>
-  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
-   UnhideWhenUsed="true" Name="toc 9"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Normal Indent"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="footnote text"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="annotation text"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="header"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="footer"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="index heading"/>
-  <w:LsdException Locked="false" Priority="35" SemiHidden="true"
-   UnhideWhenUsed="true" QFormat="true" Name="caption"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="table of figures"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="envelope address"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="envelope return"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="footnote reference"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="annotation reference"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="line number"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="page number"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="endnote reference"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="endnote text"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="table of authorities"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="macro"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="toa heading"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="List"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="List Bullet"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="List Number"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="List 2"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="List 3"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="List 4"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="List 5"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="List Bullet 2"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="List Bullet 3"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="List Bullet 4"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="List Bullet 5"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="List Number 2"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="List Number 3"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="List Number 4"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="List Number 5"/>
-  <w:LsdException Locked="false" Priority="10" QFormat="true" Name="Title"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Closing"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Signature"/>
-  <w:LsdException Locked="false" Priority="1" SemiHidden="true"
-   UnhideWhenUsed="true" Name="Default Paragraph Font"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Body Text"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Body Text Indent"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="List Continue"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="List Continue 2"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="List Continue 3"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="List Continue 4"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="List Continue 5"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Message Header"/>
-  <w:LsdException Locked="false" Priority="11" QFormat="true" Name="Subtitle"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Salutation"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Date"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Body Text First Indent"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Body Text First Indent 2"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Note Heading"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Body Text 2"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Body Text 3"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Body Text Indent 2"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Body Text Indent 3"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Block Text"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Hyperlink"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="FollowedHyperlink"/>
-  <w:LsdException Locked="false" Priority="22" QFormat="true" Name="Strong"/>
-  <w:LsdException Locked="false" Priority="20" QFormat="true" Name="Emphasis"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Document Map"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Plain Text"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="E-mail Signature"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="HTML Top of Form"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="HTML Bottom of Form"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Normal (Web)"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="HTML Acronym"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="HTML Address"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="HTML Cite"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="HTML Code"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="HTML Definition"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="HTML Keyboard"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="HTML Preformatted"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="HTML Sample"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="HTML Typewriter"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="HTML Variable"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Normal Table"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="annotation subject"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="No List"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Outline List 1"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Outline List 2"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Outline List 3"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Simple 1"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Simple 2"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Simple 3"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Classic 1"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Classic 2"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Classic 3"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Classic 4"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Colorful 1"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Colorful 2"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Colorful 3"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Columns 1"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Columns 2"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Columns 3"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Columns 4"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Columns 5"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Grid 1"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Grid 2"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Grid 3"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Grid 4"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Grid 5"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Grid 6"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Grid 7"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Grid 8"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table List 1"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table List 2"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table List 3"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table List 4"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table List 5"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table List 6"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table List 7"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table List 8"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table 3D effects 1"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table 3D effects 2"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table 3D effects 3"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Contemporary"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Elegant"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Professional"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Subtle 1"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Subtle 2"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Web 1"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Web 2"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Web 3"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Balloon Text"/>
-  <w:LsdException Locked="false" Priority="39" Name="Table Grid"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Table Theme"/>
-  <w:LsdException Locked="false" SemiHidden="true" Name="Placeholder Text"/>
-  <w:LsdException Locked="false" Priority="1" QFormat="true" Name="No Spacing"/>
-  <w:LsdException Locked="false" Priority="60" Name="Light Shading"/>
-  <w:LsdException Locked="false" Priority="61" Name="Light List"/>
-  <w:LsdException Locked="false" Priority="62" Name="Light Grid"/>
-  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1"/>
-  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2"/>
-  <w:LsdException Locked="false" Priority="65" Name="Medium List 1"/>
-  <w:LsdException Locked="false" Priority="66" Name="Medium List 2"/>
-  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1"/>
-  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2"/>
-  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3"/>
-  <w:LsdException Locked="false" Priority="70" Name="Dark List"/>
-  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading"/>
-  <w:LsdException Locked="false" Priority="72" Name="Colorful List"/>
-  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid"/>
-  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 1"/>
-  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 1"/>
-  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 1"/>
-  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 1"/>
-  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 1"/>
-  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 1"/>
-  <w:LsdException Locked="false" SemiHidden="true" Name="Revision"/>
-  <w:LsdException Locked="false" Priority="34" QFormat="true"
-   Name="List Paragraph"/>
-  <w:LsdException Locked="false" Priority="29" QFormat="true" Name="Quote"/>
-  <w:LsdException Locked="false" Priority="30" QFormat="true"
-   Name="Intense Quote"/>
-  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 1"/>
-  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 1"/>
-  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 1"/>
-  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 1"/>
-  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 1"/>
-  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 1"/>
-  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 1"/>
-  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 1"/>
-  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 2"/>
-  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 2"/>
-  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 2"/>
-  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 2"/>
-  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 2"/>
-  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 2"/>
-  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 2"/>
-  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 2"/>
-  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 2"/>
-  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 2"/>
-  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 2"/>
-  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 2"/>
-  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 2"/>
-  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 2"/>
-  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 3"/>
-  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 3"/>
-  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 3"/>
-  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 3"/>
-  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 3"/>
-  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 3"/>
-  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 3"/>
-  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 3"/>
-  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 3"/>
-  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 3"/>
-  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 3"/>
-  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 3"/>
-  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 3"/>
-  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 3"/>
-  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 4"/>
-  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 4"/>
-  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 4"/>
-  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 4"/>
-  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 4"/>
-  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 4"/>
-  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 4"/>
-  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 4"/>
-  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 4"/>
-  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 4"/>
-  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 4"/>
-  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 4"/>
-  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 4"/>
-  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 4"/>
-  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 5"/>
-  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 5"/>
-  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 5"/>
-  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 5"/>
-  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 5"/>
-  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 5"/>
-  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 5"/>
-  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 5"/>
-  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 5"/>
-  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 5"/>
-  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 5"/>
-  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 5"/>
-  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 5"/>
-  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 5"/>
-  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 6"/>
-  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 6"/>
-  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 6"/>
-  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 6"/>
-  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 6"/>
-  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 6"/>
-  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 6"/>
-  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 6"/>
-  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 6"/>
-  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 6"/>
-  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 6"/>
-  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 6"/>
-  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 6"/>
-  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 6"/>
-  <w:LsdException Locked="false" Priority="19" QFormat="true"
-   Name="Subtle Emphasis"/>
-  <w:LsdException Locked="false" Priority="21" QFormat="true"
-   Name="Intense Emphasis"/>
-  <w:LsdException Locked="false" Priority="31" QFormat="true"
-   Name="Subtle Reference"/>
-  <w:LsdException Locked="false" Priority="32" QFormat="true"
-   Name="Intense Reference"/>
-  <w:LsdException Locked="false" Priority="33" QFormat="true" Name="Book Title"/>
-  <w:LsdException Locked="false" Priority="37" SemiHidden="true"
-   UnhideWhenUsed="true" Name="Bibliography"/>
-  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
-   UnhideWhenUsed="true" QFormat="true" Name="TOC Heading"/>
-  <w:LsdException Locked="false" Priority="41" Name="Plain Table 1"/>
-  <w:LsdException Locked="false" Priority="42" Name="Plain Table 2"/>
-  <w:LsdException Locked="false" Priority="43" Name="Plain Table 3"/>
-  <w:LsdException Locked="false" Priority="44" Name="Plain Table 4"/>
-  <w:LsdException Locked="false" Priority="45" Name="Plain Table 5"/>
-  <w:LsdException Locked="false" Priority="40" Name="Grid Table Light"/>
-  <w:LsdException Locked="false" Priority="46" Name="Grid Table 1 Light"/>
-  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2"/>
-  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3"/>
-  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4"/>
-  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark"/>
-  <w:LsdException Locked="false" Priority="51" Name="Grid Table 6 Colorful"/>
-  <w:LsdException Locked="false" Priority="52" Name="Grid Table 7 Colorful"/>
-  <w:LsdException Locked="false" Priority="46"
-   Name="Grid Table 1 Light Accent 1"/>
-  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 1"/>
-  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 1"/>
-  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 1"/>
-  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 1"/>
-  <w:LsdException Locked="false" Priority="51"
-   Name="Grid Table 6 Colorful Accent 1"/>
-  <w:LsdException Locked="false" Priority="52"
-   Name="Grid Table 7 Colorful Accent 1"/>
-  <w:LsdException Locked="false" Priority="46"
-   Name="Grid Table 1 Light Accent 2"/>
-  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 2"/>
-  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 2"/>
-  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 2"/>
-  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 2"/>
-  <w:LsdException Locked="false" Priority="51"
-   Name="Grid Table 6 Colorful Accent 2"/>
-  <w:LsdException Locked="false" Priority="52"
-   Name="Grid Table 7 Colorful Accent 2"/>
-  <w:LsdException Locked="false" Priority="46"
-   Name="Grid Table 1 Light Accent 3"/>
-  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 3"/>
-  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 3"/>
-  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 3"/>
-  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 3"/>
-  <w:LsdException Locked="false" Priority="51"
-   Name="Grid Table 6 Colorful Accent 3"/>
-  <w:LsdException Locked="false" Priority="52"
-   Name="Grid Table 7 Colorful Accent 3"/>
-  <w:LsdException Locked="false" Priority="46"
-   Name="Grid Table 1 Light Accent 4"/>
-  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 4"/>
-  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 4"/>
-  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 4"/>
-  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 4"/>
-  <w:LsdException Locked="false" Priority="51"
-   Name="Grid Table 6 Colorful Accent 4"/>
-  <w:LsdException Locked="false" Priority="52"
-   Name="Grid Table 7 Colorful Accent 4"/>
-  <w:LsdException Locked="false" Priority="46"
-   Name="Grid Table 1 Light Accent 5"/>
-  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 5"/>
-  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 5"/>
-  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 5"/>
-  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 5"/>
-  <w:LsdException Locked="false" Priority="51"
-   Name="Grid Table 6 Colorful Accent 5"/>
-  <w:LsdException Locked="false" Priority="52"
-   Name="Grid Table 7 Colorful Accent 5"/>
-  <w:LsdException Locked="false" Priority="46"
-   Name="Grid Table 1 Light Accent 6"/>
-  <w:LsdException Locked="false" Priority="47" Name="Grid Table 2 Accent 6"/>
-  <w:LsdException Locked="false" Priority="48" Name="Grid Table 3 Accent 6"/>
-  <w:LsdException Locked="false" Priority="49" Name="Grid Table 4 Accent 6"/>
-  <w:LsdException Locked="false" Priority="50" Name="Grid Table 5 Dark Accent 6"/>
-  <w:LsdException Locked="false" Priority="51"
-   Name="Grid Table 6 Colorful Accent 6"/>
-  <w:LsdException Locked="false" Priority="52"
-   Name="Grid Table 7 Colorful Accent 6"/>
-  <w:LsdException Locked="false" Priority="46" Name="List Table 1 Light"/>
-  <w:LsdException Locked="false" Priority="47" Name="List Table 2"/>
-  <w:LsdException Locked="false" Priority="48" Name="List Table 3"/>
-  <w:LsdException Locked="false" Priority="49" Name="List Table 4"/>
-  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark"/>
-  <w:LsdException Locked="false" Priority="51" Name="List Table 6 Colorful"/>
-  <w:LsdException Locked="false" Priority="52" Name="List Table 7 Colorful"/>
-  <w:LsdException Locked="false" Priority="46"
-   Name="List Table 1 Light Accent 1"/>
-  <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 1"/>
-  <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 1"/>
-  <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 1"/>
-  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 1"/>
-  <w:LsdException Locked="false" Priority="51"
-   Name="List Table 6 Colorful Accent 1"/>
-  <w:LsdException Locked="false" Priority="52"
-   Name="List Table 7 Colorful Accent 1"/>
-  <w:LsdException Locked="false" Priority="46"
-   Name="List Table 1 Light Accent 2"/>
-  <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 2"/>
-  <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 2"/>
-  <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 2"/>
-  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 2"/>
-  <w:LsdException Locked="false" Priority="51"
-   Name="List Table 6 Colorful Accent 2"/>
-  <w:LsdException Locked="false" Priority="52"
-   Name="List Table 7 Colorful Accent 2"/>
-  <w:LsdException Locked="false" Priority="46"
-   Name="List Table 1 Light Accent 3"/>
-  <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 3"/>
-  <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 3"/>
-  <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 3"/>
-  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 3"/>
-  <w:LsdException Locked="false" Priority="51"
-   Name="List Table 6 Colorful Accent 3"/>
-  <w:LsdException Locked="false" Priority="52"
-   Name="List Table 7 Colorful Accent 3"/>
-  <w:LsdException Locked="false" Priority="46"
-   Name="List Table 1 Light Accent 4"/>
-  <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 4"/>
-  <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 4"/>
-  <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 4"/>
-  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 4"/>
-  <w:LsdException Locked="false" Priority="51"
-   Name="List Table 6 Colorful Accent 4"/>
-  <w:LsdException Locked="false" Priority="52"
-   Name="List Table 7 Colorful Accent 4"/>
-  <w:LsdException Locked="false" Priority="46"
-   Name="List Table 1 Light Accent 5"/>
-  <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 5"/>
-  <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 5"/>
-  <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 5"/>
-  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 5"/>
-  <w:LsdException Locked="false" Priority="51"
-   Name="List Table 6 Colorful Accent 5"/>
-  <w:LsdException Locked="false" Priority="52"
-   Name="List Table 7 Colorful Accent 5"/>
-  <w:LsdException Locked="false" Priority="46"
-   Name="List Table 1 Light Accent 6"/>
-  <w:LsdException Locked="false" Priority="47" Name="List Table 2 Accent 6"/>
-  <w:LsdException Locked="false" Priority="48" Name="List Table 3 Accent 6"/>
-  <w:LsdException Locked="false" Priority="49" Name="List Table 4 Accent 6"/>
-  <w:LsdException Locked="false" Priority="50" Name="List Table 5 Dark Accent 6"/>
-  <w:LsdException Locked="false" Priority="51"
-   Name="List Table 6 Colorful Accent 6"/>
-  <w:LsdException Locked="false" Priority="52"
-   Name="List Table 7 Colorful Accent 6"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Mention"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Smart Hyperlink"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Hashtag"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Unresolved Mention"/>
-  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
-   Name="Smart Link"/>
- </w:LatentStyles>
-</xml><![endif]--><!--[if gte mso 10]>
-<style>
- /* Style Definitions */
- table.MsoNormalTable
-	{mso-style-name:"Table Normal";
-	mso-tstyle-rowband-size:0;
-	mso-tstyle-colband-size:0;
-	mso-style-noshow:yes;
-	mso-style-priority:99;
-	mso-style-parent:"";
-	mso-padding-alt:0in 5.4pt 0in 5.4pt;
-	mso-para-margin:0in;
-	mso-pagination:widow-orphan;
-	font-size:12.0pt;
-	font-family:"Aptos",sans-serif;
-	mso-ascii-font-family:Aptos;
-	mso-ascii-theme-font:minor-latin;
-	mso-hansi-font-family:Aptos;
-	mso-hansi-theme-font:minor-latin;
-	mso-font-kerning:1.0pt;
-	mso-ligatures:standardcontextual;}
-</style>
-<![endif]--></p>
+    <p>Reviewed-by: Sunil Khatri &lt;<a href="mailto:christian.koenig@amd.com">sunil.khatri@amd.com</a>&gt;</p>
     <div class="moz-cite-prefix">On 10/17/2024 6:50 PM,
       <a class="moz-txt-link-abbreviated" href="mailto:boyuan.zhang@amd.com">boyuan.zhang@amd.com</a> wrote:<br>
     </div>
-    <blockquote type="cite" cite="mid:20241017132053.53214-29-boyuan.zhang@amd.com">
+    <blockquote type="cite" cite="mid:20241017132053.53214-30-boyuan.zhang@amd.com">
       <pre class="moz-quote-pre" wrap="">From: Boyuan Zhang <a class="moz-txt-link-rfc2396E" href="mailto:boyuan.zhang@amd.com">&lt;boyuan.zhang@amd.com&gt;</a>
 
-Perform print_ip_state only for the instance of the current vcn IP block,
+Perform dump_ip_state only for the instance of the current vcn IP block,
 instead of perform it for all vcn instances.
 
 Signed-off-by: Boyuan Zhang <a class="moz-txt-link-rfc2396E" href="mailto:boyuan.zhang@amd.com">&lt;boyuan.zhang@amd.com&gt;</a>
 ---
- drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c   | 33 ++++++++++++-------------
- drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c   | 33 ++++++++++++-------------
- drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c   | 33 ++++++++++++-------------
- drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c   | 33 ++++++++++++-------------
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c   | 33 ++++++++++++-------------
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c | 33 ++++++++++++-------------
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c | 33 ++++++++++++-------------
- drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c | 33 ++++++++++++-------------
- 8 files changed, 128 insertions(+), 136 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c   | 27 +++++++++----------
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c   | 27 +++++++++----------
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c   | 27 +++++++++----------
+ drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c   | 27 +++++++++----------
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c   | 31 +++++++++++-----------
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c | 35 ++++++++++++-------------
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c | 31 +++++++++++-----------
+ drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c | 27 +++++++++----------
+ 8 files changed, 112 insertions(+), 120 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-index ab06c4173b66..9255bcfc6c3d 100644
+index 9255bcfc6c3d..27e0f206c9dd 100644
 --- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-@@ -1933,7 +1933,8 @@ void vcn_v1_0_ring_end_use(struct amdgpu_ring *ring)
- static void vcn_v1_0_print_ip_state(struct amdgpu_ip_block *ip_block, struct drm_printer *p)
+@@ -1964,7 +1964,8 @@ static void vcn_v1_0_print_ip_state(struct amdgpu_ip_block *ip_block, struct drm
+ static void vcn_v1_0_dump_ip_state(struct amdgpu_ip_block *ip_block)
  {
  	struct amdgpu_device *adev = ip_block-&gt;adev;
 -	int i, j;
 +	int inst = ip_block-&gt;instance;
 +	int j;
+ 	bool is_powered;
+ 	uint32_t inst_off;
  	uint32_t reg_count = ARRAY_SIZE(vcn_reg_list_1_0);
- 	uint32_t inst_off, is_powered;
- 
-@@ -1941,24 +1942,22 @@ static void vcn_v1_0_print_ip_state(struct amdgpu_ip_block *ip_block, struct drm
+@@ -1972,21 +1973,19 @@ static void vcn_v1_0_dump_ip_state(struct amdgpu_ip_block *ip_block)
+ 	if (!adev-&gt;vcn.ip_dump)
  		return;
  
- 	drm_printf(p, &quot;num_instances:%d\n&quot;, adev-&gt;vcn.num_vcn_inst);
 -	for (i = 0; i &lt; adev-&gt;vcn.num_vcn_inst; i++) {
--		if (adev-&gt;vcn.harvest_config &amp; (1 &lt;&lt; i)) {
--			drm_printf(p, &quot;\nHarvested Instance:VCN%d Skipping dump\n&quot;, i);
+-		if (adev-&gt;vcn.harvest_config &amp; (1 &lt;&lt; i))
 -			continue;
--		}
-+	if (adev-&gt;vcn.harvest_config &amp; (1 &lt;&lt; inst)) {
-+		drm_printf(p, &quot;\nHarvested Instance:VCN%d Skipping dump\n&quot;, inst);
++	if (adev-&gt;vcn.harvest_config &amp; (1 &lt;&lt; inst))
 +		return;
-+	}
  
 -		inst_off = i * reg_count;
+-		/* mmUVD_POWER_STATUS is always readable and is first element of the array */
+-		adev-&gt;vcn.ip_dump[inst_off] = RREG32_SOC15(VCN, i, mmUVD_POWER_STATUS);
 -		is_powered = (adev-&gt;vcn.ip_dump[inst_off] &amp;
 -				UVD_POWER_STATUS__UVD_POWER_STATUS_MASK) != 1;
 +	inst_off = inst * reg_count;
++	/* mmUVD_POWER_STATUS is always readable and is first element of the array */
++	adev-&gt;vcn.ip_dump[inst_off] = RREG32_SOC15(VCN, inst, mmUVD_POWER_STATUS);
 +	is_powered = (adev-&gt;vcn.ip_dump[inst_off] &amp;
 +			UVD_POWER_STATUS__UVD_POWER_STATUS_MASK) != 1;
  
--		if (is_powered) {
--			drm_printf(p, &quot;\nActive Instance:VCN%d\n&quot;, i);
--			for (j = 0; j &lt; reg_count; j++)
--				drm_printf(p, &quot;%-50s \t 0x%08x\n&quot;, vcn_reg_list_1_0[j].reg_name,
--					   adev-&gt;vcn.ip_dump[inst_off + j]);
--		} else {
--			drm_printf(p, &quot;\nInactive Instance:VCN%d\n&quot;, i);
--		}
-+	if (is_powered) {
-+		drm_printf(p, &quot;\nActive Instance:VCN%d\n&quot;, inst);
-+		for (j = 0; j &lt; reg_count; j++)
-+			drm_printf(p, &quot;%-50s \t 0x%08x\n&quot;, vcn_reg_list_1_0[j].reg_name,
-+				   adev-&gt;vcn.ip_dump[inst_off + j]);
-+	} else {
-+		drm_printf(p, &quot;\nInactive Instance:VCN%d\n&quot;, inst);
- 	}
+-		if (is_powered)
+-			for (j = 1; j &lt; reg_count; j++)
+-				adev-&gt;vcn.ip_dump[inst_off + j] =
+-					RREG32(SOC15_REG_ENTRY_OFFSET_INST(vcn_reg_list_1_0[j], i));
+-	}
++	if (is_powered)
++		for (j = 1; j &lt; reg_count; j++)
++			adev-&gt;vcn.ip_dump[inst_off + j] =
++				RREG32(SOC15_REG_ENTRY_OFFSET_INST(vcn_reg_list_1_0[j], inst));
  }
  
+ static const struct amd_ip_funcs vcn_v1_0_ip_funcs = {
 diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-index 59c6458c99af..94f000ed4895 100644
+index 94f000ed4895..665b749c5ac0 100644
 --- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-@@ -2041,7 +2041,8 @@ static int vcn_v2_0_start_sriov(struct amdgpu_device *adev)
- static void vcn_v2_0_print_ip_state(struct amdgpu_ip_block *ip_block, struct drm_printer *p)
+@@ -2072,7 +2072,8 @@ static void vcn_v2_0_print_ip_state(struct amdgpu_ip_block *ip_block, struct drm
+ static void vcn_v2_0_dump_ip_state(struct amdgpu_ip_block *ip_block)
  {
  	struct amdgpu_device *adev = ip_block-&gt;adev;
 -	int i, j;
 +	int inst = ip_block-&gt;instance;
 +	int j;
+ 	bool is_powered;
+ 	uint32_t inst_off;
  	uint32_t reg_count = ARRAY_SIZE(vcn_reg_list_2_0);
- 	uint32_t inst_off, is_powered;
- 
-@@ -2049,24 +2050,22 @@ static void vcn_v2_0_print_ip_state(struct amdgpu_ip_block *ip_block, struct drm
+@@ -2080,21 +2081,19 @@ static void vcn_v2_0_dump_ip_state(struct amdgpu_ip_block *ip_block)
+ 	if (!adev-&gt;vcn.ip_dump)
  		return;
  
- 	drm_printf(p, &quot;num_instances:%d\n&quot;, adev-&gt;vcn.num_vcn_inst);
 -	for (i = 0; i &lt; adev-&gt;vcn.num_vcn_inst; i++) {
--		if (adev-&gt;vcn.harvest_config &amp; (1 &lt;&lt; i)) {
--			drm_printf(p, &quot;\nHarvested Instance:VCN%d Skipping dump\n&quot;, i);
+-		if (adev-&gt;vcn.harvest_config &amp; (1 &lt;&lt; i))
 -			continue;
--		}
-+	if (adev-&gt;vcn.harvest_config &amp; (1 &lt;&lt; inst)) {
-+		drm_printf(p, &quot;\nHarvested Instance:VCN%d Skipping dump\n&quot;, inst);
++	if (adev-&gt;vcn.harvest_config &amp; (1 &lt;&lt; inst))
 +		return;
-+	}
  
 -		inst_off = i * reg_count;
+-		/* mmUVD_POWER_STATUS is always readable and is first element of the array */
+-		adev-&gt;vcn.ip_dump[inst_off] = RREG32_SOC15(VCN, i, mmUVD_POWER_STATUS);
 -		is_powered = (adev-&gt;vcn.ip_dump[inst_off] &amp;
 -				UVD_POWER_STATUS__UVD_POWER_STATUS_MASK) != 1;
 +	inst_off = inst * reg_count;
++	/* mmUVD_POWER_STATUS is always readable and is first element of the array */
++	adev-&gt;vcn.ip_dump[inst_off] = RREG32_SOC15(VCN, inst, mmUVD_POWER_STATUS);
 +	is_powered = (adev-&gt;vcn.ip_dump[inst_off] &amp;
 +			UVD_POWER_STATUS__UVD_POWER_STATUS_MASK) != 1;
  
--		if (is_powered) {
--			drm_printf(p, &quot;\nActive Instance:VCN%d\n&quot;, i);
--			for (j = 0; j &lt; reg_count; j++)
--				drm_printf(p, &quot;%-50s \t 0x%08x\n&quot;, vcn_reg_list_2_0[j].reg_name,
--					   adev-&gt;vcn.ip_dump[inst_off + j]);
--		} else {
--			drm_printf(p, &quot;\nInactive Instance:VCN%d\n&quot;, i);
--		}
-+	if (is_powered) {
-+		drm_printf(p, &quot;\nActive Instance:VCN%d\n&quot;, inst);
-+		for (j = 0; j &lt; reg_count; j++)
-+			drm_printf(p, &quot;%-50s \t 0x%08x\n&quot;, vcn_reg_list_2_0[j].reg_name,
-+				   adev-&gt;vcn.ip_dump[inst_off + j]);
-+	} else {
-+		drm_printf(p, &quot;\nInactive Instance:VCN%d\n&quot;, inst);
- 	}
+-		if (is_powered)
+-			for (j = 1; j &lt; reg_count; j++)
+-				adev-&gt;vcn.ip_dump[inst_off + j] =
+-					RREG32(SOC15_REG_ENTRY_OFFSET_INST(vcn_reg_list_2_0[j], i));
+-	}
++	if (is_powered)
++		for (j = 1; j &lt; reg_count; j++)
++			adev-&gt;vcn.ip_dump[inst_off + j] =
++				RREG32(SOC15_REG_ENTRY_OFFSET_INST(vcn_reg_list_2_0[j], inst));
  }
  
+ static const struct amd_ip_funcs vcn_v2_0_ip_funcs = {
 diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-index b0d14330722b..7c9a0169215e 100644
+index 7c9a0169215e..5332b2903ce1 100644
 --- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
 +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-@@ -1915,7 +1915,8 @@ static void vcn_v2_5_set_irq_funcs(struct amdgpu_device *adev, int inst)
- static void vcn_v2_5_print_ip_state(struct amdgpu_ip_block *ip_block, struct drm_printer *p)
+@@ -1946,7 +1946,8 @@ static void vcn_v2_5_print_ip_state(struct amdgpu_ip_block *ip_block, struct drm
+ static void vcn_v2_5_dump_ip_state(struct amdgpu_ip_block *ip_block)
  {
  	struct amdgpu_device *adev = ip_block-&gt;adev;
 -	int i, j;
 +	int inst = ip_block-&gt;instance;
 +	int j;
+ 	bool is_powered;
+ 	uint32_t inst_off;
  	uint32_t reg_count = ARRAY_SIZE(vcn_reg_list_2_5);
- 	uint32_t inst_off, is_powered;
- 
-@@ -1923,24 +1924,22 @@ static void vcn_v2_5_print_ip_state(struct amdgpu_ip_block *ip_block, struct drm
+@@ -1954,21 +1955,19 @@ static void vcn_v2_5_dump_ip_state(struct amdgpu_ip_block *ip_block)
+ 	if (!adev-&gt;vcn.ip_dump)
  		return;
  
- 	drm_printf(p, &quot;num_instances:%d\n&quot;, adev-&gt;vcn.num_vcn_inst);
 -	for (i = 0; i &lt; adev-&gt;vcn.num_vcn_inst; i++) {
--		if (adev-&gt;vcn.harvest_config &amp; (1 &lt;&lt; i)) {
--			drm_printf(p, &quot;\nHarvested Instance:VCN%d Skipping dump\n&quot;, i);
--			continue;
--		}
-+	if (adev-&gt;vcn.harvest_config &amp; (1 &lt;&lt; inst)) {
-+		drm_printf(p, &quot;\nHarvested Instance:VCN%d Skipping dump\n&quot;, inst);
+-		if (adev-&gt;vcn.harvest_config &amp; (1 &lt;&lt; i))
+-			continue;</pre>
+    </blockquote>
+    Since this for loop is removed which dump for each instances,clear
+    my understanding here, there are multiple ip_blocks for vcn now and
+    ip_block-&gt;instance is 0, 1, 2, 3 etc representing one instance ?<br>
+    Assuming the use case of 2 instances so first time when
+    vcn_v2_5_dump_ip_state is called it will comes with
+    ip_block-&gt;instance = 0 and then 1 and 2 in sequence as we are
+    dumping that information in loop and storing in coredump in that
+    sequence only. <br>
+    <blockquote type="cite" cite="mid:20241017132053.53214-30-boyuan.zhang@amd.com">
+      <pre class="moz-quote-pre" wrap="">
++	if (adev-&gt;vcn.harvest_config &amp; (1 &lt;&lt; inst))
 +		return;
-+	}
  
 -		inst_off = i * reg_count;
+-		/* mmUVD_POWER_STATUS is always readable and is first element of the array */
+-		adev-&gt;vcn.ip_dump[inst_off] = RREG32_SOC15(VCN, i, mmUVD_POWER_STATUS);
 -		is_powered = (adev-&gt;vcn.ip_dump[inst_off] &amp;
 -				UVD_POWER_STATUS__UVD_POWER_STATUS_MASK) != 1;
 +	inst_off = inst * reg_count;
++	/* mmUVD_POWER_STATUS is always readable and is first element of the array */
++	adev-&gt;vcn.ip_dump[inst_off] = RREG32_SOC15(VCN, inst, mmUVD_POWER_STATUS);
 +	is_powered = (adev-&gt;vcn.ip_dump[inst_off] &amp;
 +			UVD_POWER_STATUS__UVD_POWER_STATUS_MASK) != 1;
  
--		if (is_powered) {
--			drm_printf(p, &quot;\nActive Instance:VCN%d\n&quot;, i);
--			for (j = 0; j &lt; reg_count; j++)
--				drm_printf(p, &quot;%-50s \t 0x%08x\n&quot;, vcn_reg_list_2_5[j].reg_name,
--					   adev-&gt;vcn.ip_dump[inst_off + j]);
--		} else {
--			drm_printf(p, &quot;\nInactive Instance:VCN%d\n&quot;, i);
--		}
-+	if (is_powered) {
-+		drm_printf(p, &quot;\nActive Instance:VCN%d\n&quot;, inst);
-+		for (j = 0; j &lt; reg_count; j++)
-+			drm_printf(p, &quot;%-50s \t 0x%08x\n&quot;, vcn_reg_list_2_5[j].reg_name,
-+				   adev-&gt;vcn.ip_dump[inst_off + j]);
-+	} else {
-+		drm_printf(p, &quot;\nInactive Instance:VCN%d\n&quot;, inst);
- 	}
+-		if (is_powered)
+-			for (j = 1; j &lt; reg_count; j++)
+-				adev-&gt;vcn.ip_dump[inst_off + j] =
+-					RREG32(SOC15_REG_ENTRY_OFFSET_INST(vcn_reg_list_2_5[j], i));
+-	}
++	if (is_powered)
++		for (j = 1; j &lt; reg_count; j++)
++			adev-&gt;vcn.ip_dump[inst_off + j] =
++				RREG32(SOC15_REG_ENTRY_OFFSET_INST(vcn_reg_list_2_5[j], inst));
+	Storage we have linear to accomodate each vcn instance. So we need to make sure that when dump is called for instance sequentially we are adding values in vcn.ip_dump in same order so print should give right value else there could be a mismatch based on existing logic. Please try to cause a dump and hack around the code so is_powered is bypassed and we dump the values for each instance thats the only way to see if its working fine.</pre>
+    </blockquote>
+    By looking at the code it seems it should work but there are some
+    vcn variable which i am not so sure in new design.&nbsp; Also patch for
+    dump should come first and then print to reverse the order of 28 and
+    29 patch.<br>
+    But testing is needed to make sure its working fine.<br>
+    Regards<br>
+    Sunil khatri<br>
+    <blockquote type="cite" cite="mid:20241017132053.53214-30-boyuan.zhang@amd.com">
+      <pre class="moz-quote-pre" wrap="">
  }
  
+ static const struct amd_ip_funcs vcn_v2_5_ip_funcs = {
 diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-index 9a9acec4c4ce..061c958700d8 100644
+index 061c958700d8..40a3d29d4e71 100644
 --- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-@@ -2237,7 +2237,8 @@ static void vcn_v3_0_set_irq_funcs(struct amdgpu_device *adev, int inst)
- static void vcn_v3_0_print_ip_state(struct amdgpu_ip_block *ip_block, struct drm_printer *p)
+@@ -2269,7 +2269,8 @@ static void vcn_v3_0_print_ip_state(struct amdgpu_ip_block *ip_block, struct drm
+ static void vcn_v3_0_dump_ip_state(struct amdgpu_ip_block *ip_block)
  {
  	struct amdgpu_device *adev = ip_block-&gt;adev;
 -	int i, j;
 +	int inst = ip_block-&gt;instance;
 +	int j;
- 	uint32_t reg_count = ARRAY_SIZE(vcn_reg_list_3_0);
- 	uint32_t inst_off;
  	bool is_powered;
-@@ -2246,24 +2247,22 @@ static void vcn_v3_0_print_ip_state(struct amdgpu_ip_block *ip_block, struct drm
+ 	uint32_t inst_off;
+ 	uint32_t reg_count = ARRAY_SIZE(vcn_reg_list_3_0);
+@@ -2277,21 +2278,19 @@ static void vcn_v3_0_dump_ip_state(struct amdgpu_ip_block *ip_block)
+ 	if (!adev-&gt;vcn.ip_dump)
  		return;
  
- 	drm_printf(p, &quot;num_instances:%d\n&quot;, adev-&gt;vcn.num_vcn_inst);
 -	for (i = 0; i &lt; adev-&gt;vcn.num_vcn_inst; i++) {
--		if (adev-&gt;vcn.harvest_config &amp; (1 &lt;&lt; i)) {
--			drm_printf(p, &quot;\nHarvested Instance:VCN%d Skipping dump\n&quot;, i);
+-		if (adev-&gt;vcn.harvest_config &amp; (1 &lt;&lt; i))
 -			continue;
--		}
-+	if (adev-&gt;vcn.harvest_config &amp; (1 &lt;&lt; inst)) {
-+		drm_printf(p, &quot;\nHarvested Instance:VCN%d Skipping dump\n&quot;, inst);
++	if (adev-&gt;vcn.harvest_config &amp; (1 &lt;&lt; inst))
 +		return;
-+	}
  
 -		inst_off = i * reg_count;
+-		/* mmUVD_POWER_STATUS is always readable and is first element of the array */
+-		adev-&gt;vcn.ip_dump[inst_off] = RREG32_SOC15(VCN, i, mmUVD_POWER_STATUS);
 -		is_powered = (adev-&gt;vcn.ip_dump[inst_off] &amp;
 -			      UVD_POWER_STATUS__UVD_POWER_STATUS_MASK) != 1;
 +	inst_off = inst * reg_count;
++	/* mmUVD_POWER_STATUS is always readable and is first element of the array */
++	adev-&gt;vcn.ip_dump[inst_off] = RREG32_SOC15(VCN, inst, mmUVD_POWER_STATUS);
 +	is_powered = (adev-&gt;vcn.ip_dump[inst_off] &amp;
 +			  UVD_POWER_STATUS__UVD_POWER_STATUS_MASK) != 1;
  
--		if (is_powered) {
--			drm_printf(p, &quot;\nActive Instance:VCN%d\n&quot;, i);
--			for (j = 0; j &lt; reg_count; j++)
--				drm_printf(p, &quot;%-50s \t 0x%08x\n&quot;, vcn_reg_list_3_0[j].reg_name,
--					   adev-&gt;vcn.ip_dump[inst_off + j]);
--		} else {
--			drm_printf(p, &quot;\nInactive Instance:VCN%d\n&quot;, i);
--		}
-+	if (is_powered) {
-+		drm_printf(p, &quot;\nActive Instance:VCN%d\n&quot;, inst);
-+		for (j = 0; j &lt; reg_count; j++)
-+			drm_printf(p, &quot;%-50s \t 0x%08x\n&quot;, vcn_reg_list_3_0[j].reg_name,
-+				   adev-&gt;vcn.ip_dump[inst_off + j]);
-+	} else {
-+		drm_printf(p, &quot;\nInactive Instance:VCN%d\n&quot;, inst);
- 	}
+-		if (is_powered)
+-			for (j = 1; j &lt; reg_count; j++)
+-				adev-&gt;vcn.ip_dump[inst_off + j] =
+-					RREG32(SOC15_REG_ENTRY_OFFSET_INST(vcn_reg_list_3_0[j], i));
+-	}
++	if (is_powered)
++		for (j = 1; j &lt; reg_count; j++)
++			adev-&gt;vcn.ip_dump[inst_off + j] =
++				RREG32(SOC15_REG_ENTRY_OFFSET_INST(vcn_reg_list_3_0[j], inst));
  }
  
+ static const struct amd_ip_funcs vcn_v3_0_ip_funcs = {
 diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-index ff256fb4d054..fdf346bf3e34 100644
+index fdf346bf3e34..3b2f4f1e0939 100644
 --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-@@ -2146,7 +2146,8 @@ static void vcn_v4_0_set_irq_funcs(struct amdgpu_device *adev, int inst)
- static void vcn_v4_0_print_ip_state(struct amdgpu_ip_block *ip_block, struct drm_printer *p)
+@@ -2177,7 +2177,8 @@ static void vcn_v4_0_print_ip_state(struct amdgpu_ip_block *ip_block, struct drm
+ static void vcn_v4_0_dump_ip_state(struct amdgpu_ip_block *ip_block)
  {
  	struct amdgpu_device *adev = ip_block-&gt;adev;
 -	int i, j;
 +	int inst = ip_block-&gt;instance;
 +	int j;
+ 	bool is_powered;
+ 	uint32_t inst_off;
  	uint32_t reg_count = ARRAY_SIZE(vcn_reg_list_4_0);
- 	uint32_t inst_off, is_powered;
- 
-@@ -2154,24 +2155,22 @@ static void vcn_v4_0_print_ip_state(struct amdgpu_ip_block *ip_block, struct drm
+@@ -2185,22 +2186,20 @@ static void vcn_v4_0_dump_ip_state(struct amdgpu_ip_block *ip_block)
+ 	if (!adev-&gt;vcn.ip_dump)
  		return;
  
- 	drm_printf(p, &quot;num_instances:%d\n&quot;, adev-&gt;vcn.num_vcn_inst);
 -	for (i = 0; i &lt; adev-&gt;vcn.num_vcn_inst; i++) {
--		if (adev-&gt;vcn.harvest_config &amp; (1 &lt;&lt; i)) {
--			drm_printf(p, &quot;\nHarvested Instance:VCN%d Skipping dump\n&quot;, i);
+-		if (adev-&gt;vcn.harvest_config &amp; (1 &lt;&lt; i))
 -			continue;
--		}
-+	if (adev-&gt;vcn.harvest_config &amp; (1 &lt;&lt; inst)) {
-+		drm_printf(p, &quot;\nHarvested Instance:VCN%d Skipping dump\n&quot;, inst);
++	if (adev-&gt;vcn.harvest_config &amp; (1 &lt;&lt; inst))
 +		return;
-+	}
  
 -		inst_off = i * reg_count;
+-		/* mmUVD_POWER_STATUS is always readable and is first element of the array */
+-		adev-&gt;vcn.ip_dump[inst_off] = RREG32_SOC15(VCN, i, regUVD_POWER_STATUS);
 -		is_powered = (adev-&gt;vcn.ip_dump[inst_off] &amp;
 -				UVD_POWER_STATUS__UVD_POWER_STATUS_MASK) != 1;
+-
+-		if (is_powered)
+-			for (j = 1; j &lt; reg_count; j++)
+-				adev-&gt;vcn.ip_dump[inst_off + j] =
+-					RREG32(SOC15_REG_ENTRY_OFFSET_INST(vcn_reg_list_4_0[j],
+-									   i));
+-	}
 +	inst_off = inst * reg_count;
++	/* mmUVD_POWER_STATUS is always readable and is first element of the array */
++	adev-&gt;vcn.ip_dump[inst_off] = RREG32_SOC15(VCN, inst, regUVD_POWER_STATUS);
 +	is_powered = (adev-&gt;vcn.ip_dump[inst_off] &amp;
 +			UVD_POWER_STATUS__UVD_POWER_STATUS_MASK) != 1;
- 
--		if (is_powered) {
--			drm_printf(p, &quot;\nActive Instance:VCN%d\n&quot;, i);
--			for (j = 0; j &lt; reg_count; j++)
--				drm_printf(p, &quot;%-50s \t 0x%08x\n&quot;, vcn_reg_list_4_0[j].reg_name,
--					   adev-&gt;vcn.ip_dump[inst_off + j]);
--		} else {
--			drm_printf(p, &quot;\nInactive Instance:VCN%d\n&quot;, i);
--		}
-+	if (is_powered) {
-+		drm_printf(p, &quot;\nActive Instance:VCN%d\n&quot;, inst);
-+		for (j = 0; j &lt; reg_count; j++)
-+			drm_printf(p, &quot;%-50s \t 0x%08x\n&quot;, vcn_reg_list_4_0[j].reg_name,
-+				   adev-&gt;vcn.ip_dump[inst_off + j]);
-+	} else {
-+		drm_printf(p, &quot;\nInactive Instance:VCN%d\n&quot;, inst);
- 	}
++
++	if (is_powered)
++		for (j = 1; j &lt; reg_count; j++)
++			adev-&gt;vcn.ip_dump[inst_off + j] =
++				RREG32(SOC15_REG_ENTRY_OFFSET_INST(vcn_reg_list_4_0[j],
++								   inst));
  }
  
+ static const struct amd_ip_funcs vcn_v4_0_ip_funcs = {
 diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-index 544c96e082b9..daaf2fb6b3e5 100644
+index daaf2fb6b3e5..be03d31cb206 100644
 --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
 +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-@@ -1726,7 +1726,8 @@ static void vcn_v4_0_3_set_irq_funcs(struct amdgpu_device *adev, int inst)
- static void vcn_v4_0_3_print_ip_state(struct amdgpu_ip_block *ip_block, struct drm_printer *p)
+@@ -1757,7 +1757,8 @@ static void vcn_v4_0_3_print_ip_state(struct amdgpu_ip_block *ip_block, struct d
+ static void vcn_v4_0_3_dump_ip_state(struct amdgpu_ip_block *ip_block)
  {
  	struct amdgpu_device *adev = ip_block-&gt;adev;
 -	int i, j;
 +	int inst = ip_block-&gt;instance;
 +	int j;
+ 	bool is_powered;
+ 	uint32_t inst_off, inst_id;
  	uint32_t reg_count = ARRAY_SIZE(vcn_reg_list_4_0_3);
- 	uint32_t inst_off, is_powered;
- 
-@@ -1734,24 +1735,22 @@ static void vcn_v4_0_3_print_ip_state(struct amdgpu_ip_block *ip_block, struct d
+@@ -1765,23 +1766,21 @@ static void vcn_v4_0_3_dump_ip_state(struct amdgpu_ip_block *ip_block)
+ 	if (!adev-&gt;vcn.ip_dump)
  		return;
  
- 	drm_printf(p, &quot;num_instances:%d\n&quot;, adev-&gt;vcn.num_vcn_inst);
 -	for (i = 0; i &lt; adev-&gt;vcn.num_vcn_inst; i++) {
--		if (adev-&gt;vcn.harvest_config &amp; (1 &lt;&lt; i)) {
--			drm_printf(p, &quot;\nHarvested Instance:VCN%d Skipping dump\n&quot;, i);
+-		if (adev-&gt;vcn.harvest_config &amp; (1 &lt;&lt; i))
 -			continue;
--		}
-+	if (adev-&gt;vcn.harvest_config &amp; (1 &lt;&lt; inst)) {
-+		drm_printf(p, &quot;\nHarvested Instance:VCN%d Skipping dump\n&quot;, inst);
-+		return;
-+	}
- 
+-
+-		inst_id = GET_INST(VCN, i);
 -		inst_off = i * reg_count;
+-		/* mmUVD_POWER_STATUS is always readable and is first element of the array */
+-		adev-&gt;vcn.ip_dump[inst_off] = RREG32_SOC15(VCN, inst_id, regUVD_POWER_STATUS);
 -		is_powered = (adev-&gt;vcn.ip_dump[inst_off] &amp;
 -				UVD_POWER_STATUS__UVD_POWER_STATUS_MASK) != 1;
+-
+-		if (is_powered)
+-			for (j = 1; j &lt; reg_count; j++)
+-				adev-&gt;vcn.ip_dump[inst_off + j] =
+-					RREG32(SOC15_REG_ENTRY_OFFSET_INST(vcn_reg_list_4_0_3[j],
+-									   inst_id));
+-	}
++	if (adev-&gt;vcn.harvest_config &amp; (1 &lt;&lt; inst))
++		return;
++
++	inst_id = GET_INST(VCN, inst);
 +	inst_off = inst * reg_count;
++	/* mmUVD_POWER_STATUS is always readable and is first element of the array */
++	adev-&gt;vcn.ip_dump[inst_off] = RREG32_SOC15(VCN, inst_id, regUVD_POWER_STATUS);
 +	is_powered = (adev-&gt;vcn.ip_dump[inst_off] &amp;
 +			UVD_POWER_STATUS__UVD_POWER_STATUS_MASK) != 1;
- 
--		if (is_powered) {
--			drm_printf(p, &quot;\nActive Instance:VCN%d\n&quot;, i);
--			for (j = 0; j &lt; reg_count; j++)
--				drm_printf(p, &quot;%-50s \t 0x%08x\n&quot;, vcn_reg_list_4_0_3[j].reg_name,
--					   adev-&gt;vcn.ip_dump[inst_off + j]);
--		} else {
--			drm_printf(p, &quot;\nInactive Instance:VCN%d\n&quot;, i);
--		}
-+	if (is_powered) {
-+		drm_printf(p, &quot;\nActive Instance:VCN%d\n&quot;, inst);
-+		for (j = 0; j &lt; reg_count; j++)
-+			drm_printf(p, &quot;%-50s \t 0x%08x\n&quot;, vcn_reg_list_4_0_3[j].reg_name,
-+				   adev-&gt;vcn.ip_dump[inst_off + j]);
-+	} else {
-+		drm_printf(p, &quot;\nInactive Instance:VCN%d\n&quot;, inst);
- 	}
++
++	if (is_powered)
++		for (j = 1; j &lt; reg_count; j++)
++			adev-&gt;vcn.ip_dump[inst_off + j] =
++				RREG32(SOC15_REG_ENTRY_OFFSET_INST(vcn_reg_list_4_0_3[j],
++								   inst_id));
  }
  
+ static const struct amd_ip_funcs vcn_v4_0_3_ip_funcs = {
 diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
-index 880353f75296..ff8db22b9614 100644
+index ff8db22b9614..43b1f3d06157 100644
 --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
 +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
-@@ -1607,7 +1607,8 @@ static void vcn_v4_0_5_set_irq_funcs(struct amdgpu_device *adev, int inst)
- static void vcn_v4_0_5_print_ip_state(struct amdgpu_ip_block *ip_block, struct drm_printer *p)
+@@ -1638,7 +1638,8 @@ static void vcn_v4_0_5_print_ip_state(struct amdgpu_ip_block *ip_block, struct d
+ static void vcn_v4_0_5_dump_ip_state(struct amdgpu_ip_block *ip_block)
  {
  	struct amdgpu_device *adev = ip_block-&gt;adev;
 -	int i, j;
 +	int inst = ip_block-&gt;instance;
 +	int j;
+ 	bool is_powered;
+ 	uint32_t inst_off;
  	uint32_t reg_count = ARRAY_SIZE(vcn_reg_list_4_0_5);
- 	uint32_t inst_off, is_powered;
- 
-@@ -1615,24 +1616,22 @@ static void vcn_v4_0_5_print_ip_state(struct amdgpu_ip_block *ip_block, struct d
+@@ -1646,22 +1647,20 @@ static void vcn_v4_0_5_dump_ip_state(struct amdgpu_ip_block *ip_block)
+ 	if (!adev-&gt;vcn.ip_dump)
  		return;
  
- 	drm_printf(p, &quot;num_instances:%d\n&quot;, adev-&gt;vcn.num_vcn_inst);
 -	for (i = 0; i &lt; adev-&gt;vcn.num_vcn_inst; i++) {
--		if (adev-&gt;vcn.harvest_config &amp; (1 &lt;&lt; i)) {
--			drm_printf(p, &quot;\nHarvested Instance:VCN%d Skipping dump\n&quot;, i);
+-		if (adev-&gt;vcn.harvest_config &amp; (1 &lt;&lt; i))
 -			continue;
--		}
-+	if (adev-&gt;vcn.harvest_config &amp; (1 &lt;&lt; inst)) {
-+		drm_printf(p, &quot;\nHarvested Instance:VCN%d Skipping dump\n&quot;, inst);
++	if (adev-&gt;vcn.harvest_config &amp; (1 &lt;&lt; inst))
 +		return;
-+	}
  
 -		inst_off = i * reg_count;
+-		/* mmUVD_POWER_STATUS is always readable and is first element of the array */
+-		adev-&gt;vcn.ip_dump[inst_off] = RREG32_SOC15(VCN, i, regUVD_POWER_STATUS);
 -		is_powered = (adev-&gt;vcn.ip_dump[inst_off] &amp;
 -				UVD_POWER_STATUS__UVD_POWER_STATUS_MASK) != 1;
+-
+-		if (is_powered)
+-			for (j = 1; j &lt; reg_count; j++)
+-				adev-&gt;vcn.ip_dump[inst_off + j] =
+-					RREG32(SOC15_REG_ENTRY_OFFSET_INST(vcn_reg_list_4_0_5[j],
+-									   i));
+-	}
 +	inst_off = inst * reg_count;
++	/* mmUVD_POWER_STATUS is always readable and is first element of the array */
++	adev-&gt;vcn.ip_dump[inst_off] = RREG32_SOC15(VCN, inst, regUVD_POWER_STATUS);
 +	is_powered = (adev-&gt;vcn.ip_dump[inst_off] &amp;
 +			UVD_POWER_STATUS__UVD_POWER_STATUS_MASK) != 1;
- 
--		if (is_powered) {
--			drm_printf(p, &quot;\nActive Instance:VCN%d\n&quot;, i);
--			for (j = 0; j &lt; reg_count; j++)
--				drm_printf(p, &quot;%-50s \t 0x%08x\n&quot;, vcn_reg_list_4_0_5[j].reg_name,
--					   adev-&gt;vcn.ip_dump[inst_off + j]);
--		} else {
--			drm_printf(p, &quot;\nInactive Instance:VCN%d\n&quot;, i);
--		}
-+	if (is_powered) {
-+		drm_printf(p, &quot;\nActive Instance:VCN%d\n&quot;, inst);
-+		for (j = 0; j &lt; reg_count; j++)
-+			drm_printf(p, &quot;%-50s \t 0x%08x\n&quot;, vcn_reg_list_4_0_5[j].reg_name,
-+				   adev-&gt;vcn.ip_dump[inst_off + j]);
-+	} else {
-+		drm_printf(p, &quot;\nInactive Instance:VCN%d\n&quot;, inst);
- 	}
++
++	if (is_powered)
++		for (j = 1; j &lt; reg_count; j++)
++			adev-&gt;vcn.ip_dump[inst_off + j] =
++				RREG32(SOC15_REG_ENTRY_OFFSET_INST(vcn_reg_list_4_0_5[j],
++								   inst));
  }
  
+ static const struct amd_ip_funcs vcn_v4_0_5_ip_funcs = {
 diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
-index a4d1b9a086b2..c83a5c09f410 100644
+index c83a5c09f410..65554c4e86cd 100644
 --- a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
-@@ -1334,7 +1334,8 @@ static void vcn_v5_0_0_set_irq_funcs(struct amdgpu_device *adev, int inst)
- static void vcn_v5_0_print_ip_state(struct amdgpu_ip_block *ip_block, struct drm_printer *p)
+@@ -1365,7 +1365,8 @@ static void vcn_v5_0_print_ip_state(struct amdgpu_ip_block *ip_block, struct drm
+ static void vcn_v5_0_dump_ip_state(struct amdgpu_ip_block *ip_block)
  {
  	struct amdgpu_device *adev = ip_block-&gt;adev;
 -	int i, j;
 +	int inst = ip_block-&gt;instance;
 +	int j;
+ 	bool is_powered;
+ 	uint32_t inst_off;
  	uint32_t reg_count = ARRAY_SIZE(vcn_reg_list_5_0);
- 	uint32_t inst_off, is_powered;
- 
-@@ -1342,24 +1343,22 @@ static void vcn_v5_0_print_ip_state(struct amdgpu_ip_block *ip_block, struct drm
+@@ -1373,21 +1374,19 @@ static void vcn_v5_0_dump_ip_state(struct amdgpu_ip_block *ip_block)
+ 	if (!adev-&gt;vcn.ip_dump)
  		return;
  
- 	drm_printf(p, &quot;num_instances:%d\n&quot;, adev-&gt;vcn.num_vcn_inst);
 -	for (i = 0; i &lt; adev-&gt;vcn.num_vcn_inst; i++) {
--		if (adev-&gt;vcn.harvest_config &amp; (1 &lt;&lt; i)) {
--			drm_printf(p, &quot;\nHarvested Instance:VCN%d Skipping dump\n&quot;, i);
+-		if (adev-&gt;vcn.harvest_config &amp; (1 &lt;&lt; i))
 -			continue;
--		}
-+	if (adev-&gt;vcn.harvest_config &amp; (1 &lt;&lt; inst)) {
-+		drm_printf(p, &quot;\nHarvested Instance:VCN%d Skipping dump\n&quot;, inst);
++	if (adev-&gt;vcn.harvest_config &amp; (1 &lt;&lt; inst))
 +		return;
-+	}
  
 -		inst_off = i * reg_count;
+-		/* mmUVD_POWER_STATUS is always readable and is first element of the array */
+-		adev-&gt;vcn.ip_dump[inst_off] = RREG32_SOC15(VCN, i, regUVD_POWER_STATUS);
 -		is_powered = (adev-&gt;vcn.ip_dump[inst_off] &amp;
 -				UVD_POWER_STATUS__UVD_POWER_STATUS_MASK) != 1;
 +	inst_off = inst * reg_count;
++	/* mmUVD_POWER_STATUS is always readable and is first element of the array */
++	adev-&gt;vcn.ip_dump[inst_off] = RREG32_SOC15(VCN, inst, regUVD_POWER_STATUS);
 +	is_powered = (adev-&gt;vcn.ip_dump[inst_off] &amp;
 +			UVD_POWER_STATUS__UVD_POWER_STATUS_MASK) != 1;
  
--		if (is_powered) {
--			drm_printf(p, &quot;\nActive Instance:VCN%d\n&quot;, i);
--			for (j = 0; j &lt; reg_count; j++)
--				drm_printf(p, &quot;%-50s \t 0x%08x\n&quot;, vcn_reg_list_5_0[j].reg_name,
--					   adev-&gt;vcn.ip_dump[inst_off + j]);
--		} else {
--			drm_printf(p, &quot;\nInactive Instance:VCN%d\n&quot;, i);
--		}
-+	if (is_powered) {
-+		drm_printf(p, &quot;\nActive Instance:VCN%d\n&quot;, inst);
-+		for (j = 0; j &lt; reg_count; j++)
-+			drm_printf(p, &quot;%-50s \t 0x%08x\n&quot;, vcn_reg_list_5_0[j].reg_name,
-+				   adev-&gt;vcn.ip_dump[inst_off + j]);
-+	} else {
-+		drm_printf(p, &quot;\nInactive Instance:VCN%d\n&quot;, inst);
- 	}
+-		if (is_powered)
+-			for (j = 1; j &lt; reg_count; j++)
+-				adev-&gt;vcn.ip_dump[inst_off + j] =
+-					RREG32(SOC15_REG_ENTRY_OFFSET_INST(vcn_reg_list_5_0[j], i));
+-	}
++	if (is_powered)
++		for (j = 1; j &lt; reg_count; j++)
++			adev-&gt;vcn.ip_dump[inst_off + j] =
++				RREG32(SOC15_REG_ENTRY_OFFSET_INST(vcn_reg_list_5_0[j], inst));
  }
  
+ static const struct amd_ip_funcs vcn_v5_0_0_ip_funcs = {
 </pre>
     </blockquote>
   </body>
 </html>
 
---------------9F412ECD5155DF5304927C42--
+--------------4C5F84CC0B20AE4739C06595--
