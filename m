@@ -4,71 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 705B1D2C55C
-	for <amd-gfx@archiver.kernel.org>; Tue, 22 Oct 2024 14:05:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7928D2C559
+	for <amd-gfx@archiver.kernel.org>; Tue, 22 Oct 2024 14:06:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B71610E690;
-	Tue, 22 Oct 2024 14:05:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9BBCC10E696;
+	Tue, 22 Oct 2024 14:06:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JUF61UmW";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="E9vrnB/2";
 	dkim-atps=neutral
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
- [209.85.128.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C81A110E690
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Oct 2024 14:05:15 +0000 (UTC)
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-4316f3d3c21so27221915e9.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 22 Oct 2024 07:05:15 -0700 (PDT)
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
+ [209.85.216.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C266410E696
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Oct 2024 14:06:37 +0000 (UTC)
+Received: by mail-pj1-f49.google.com with SMTP id
+ 98e67ed59e1d1-2e2a96b242cso760281a91.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 22 Oct 2024 07:06:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1729605914; x=1730210714; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=a2FgQNB8tls3g86RBrhh8xXjF23uw9iugosNPwVauhE=;
- b=JUF61UmWOFE9oORXHLNP1jP88Dpsgs5YUlQG7BF4OogNEwZoBgfQbMVKU2CeSsu4+Z
- 1XyQUoPwW8WroqQp2m2F+93489nfb18sbHxkQj6fzva6ziAbj9WQTA7wSlDP0ouyI154
- 7WKHU/wWsTz4LgyExhhono/8FOkOfIt7LbbhVMeoV9vTQw4q+tefakmrpQ6mOCyKhzx8
- V8uwduAw9Za3aM+E+b1W0v46byfjuqziDcSWdJPIi2KzdMbfTX6BMj/7mgcacu1drIth
- kP1elwIi2JzE5T5trrKIz15v4dkAewq5m1ZRsil0HOULdrP5B1D1TidZ5aS6OP+e8Low
- aHvA==
+ d=gmail.com; s=20230601; t=1729605997; x=1730210797; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=+extFXfwu2Y6kelMaX5gU9r/xV/bqxuKq/V3m9qWZ0g=;
+ b=E9vrnB/2mD9r3ecGtsJVjyRf3NLrDS0+x46gjILT4ua5nZ5sGKQHdWnD0s2ClBz/Im
+ Xfn+FK35uaccozx9f43QCDfc6/Y0k0IFFU7ItIoNzJ6jvr8Qh60UTJi67W/sIRD+IZV6
+ YMvQhG93QIr4oJHPdzncRkWhZoL4nCTDnKCZoGdlqwcrTsS8ej7qJi/ctfJ0yFggWQWR
+ 9l6vigGmibeggCmounYKxpkGL2v3JGPIC6cGnEtJZAK+Kv3aWcD8eQXPoF9Hlp0fMn8r
+ g54hxr/D4aBsRMLj2tV4mDzyZDdu14tRnf8nvhJECZRUxKaEGwa7LvvEekbZhb/r2bYT
+ L9+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1729605914; x=1730210714;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=a2FgQNB8tls3g86RBrhh8xXjF23uw9iugosNPwVauhE=;
- b=iZTMtly+QfgAHbpUctKQnpPWrNL8BrEhbmg2/yEthMD9xxgVpLydsLX0LtiX3uZSw5
- ihAdw9Pn/BVCmAHnUc7m1VJIpik214DmDVyvOt5P79ECXld7Dfb3E+FaIYmcu5zo5NeH
- UhKdCh0g2G30cpHGisZVDW54CGlMs+Kfbk25i8MZ3KeCtVAvItpU3IyDiOAJx+bEh9jF
- Z+BOTx+lFQZAB5hniQBnxsfK0MmW1lNOz9ThLiWOrc22BTk56iNsxLbuZX6BfR64Tzku
- mEwZ/s3bnw/dickE5tpFp3fB37qHjdkeEw0ecN56Rl/tlYP2byR/u7lkgaN+XVeS5Lnw
- tiqg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVQgDQ6s7PrpggIKRGhL4cMYAmVFq1vsO1j3dHNV1i/mbSHilBC59TKjfWANgGxAFdeqR65tDDk@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzo0xbXr0b98r0S2IyUD1s4bEYEQr+qqrN9K1rBR0r/jQ8Tyh4w
- zEYO+3WecC/yqmA1n+BuQyAv9ZE9wjIloSmfzQtKqOooRf6qVn61
-X-Google-Smtp-Source: AGHT+IH2edQ1+7sme+NuR3qf+ZCxvS3ZW/ZhUj1S3KTM9yiBzw+pCcub1Q/Qlg1EP8/FSsSpb7oxTQ==
-X-Received: by 2002:a05:600c:3ba2:b0:431:2b66:44f7 with SMTP id
- 5b1f17b1804b1-4317b915ce2mr29006675e9.31.1729605913546; 
- Tue, 22 Oct 2024 07:05:13 -0700 (PDT)
-Received: from [10.254.108.81] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4316f5cc4dfsm90072455e9.45.2024.10.22.07.05.12
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 22 Oct 2024 07:05:13 -0700 (PDT)
-Message-ID: <b5d78aae-efc0-4d81-b9bb-213ea598957e@gmail.com>
-Date: Tue, 22 Oct 2024 16:05:11 +0200
+ d=1e100.net; s=20230601; t=1729605997; x=1730210797;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=+extFXfwu2Y6kelMaX5gU9r/xV/bqxuKq/V3m9qWZ0g=;
+ b=L/CjHRBQTDO7ULNvZYoOwh5iFk6c910eU4PnVXvlVNpS7VhAcxgjXto0Z3HSe/RkC+
+ MhVky8r5Er1238+uvZutaiszt98hNjSgLKmGrCZp8qK9LLkavtPuhUgOzLw2h3FnIfoU
+ N3vWGttNnKXTNWOxGt8LetKw8aFMl9h4ty7QKGkzdCIvF7Zqs0S7EgzYVjs4/6XDdhow
+ XHPDCJ9cAGTje6ZuNuy0+hi2uOQqBJBoNhHpbbr///03cFqXH5K9giYv7lOFGd81clQG
+ Rqp9Vy1vUuqUz2dQFg+nvApQD4ni0+TZTpeUQb6c8Rg4B1yH5EvMpxpzWMPFQV7K5hC8
+ TDCw==
+X-Gm-Message-State: AOJu0Yy/LsYGBXhgxGGIxSABIbiN5mos1x+JOJP0Jv7HJKrVe7H2GfRn
+ YeCrD6Ce8JpLScxGcvw3Uzp8HijNPerdDhOJVmyg0ElHLPAZSTaTYBKBQvcboP8AD8ED01CzTUo
+ Tix4LbuNaGLE1XPHjxd6kasfaZdREFw==
+X-Google-Smtp-Source: AGHT+IEr4Vy/n376inc3r8M69IDuMIlXgXTU9jd60s3MLMQuziIx4utu7rdnxA9YK0y91+LdXC215un/E3I6J36LlcI=
+X-Received: by 2002:a17:90a:a418:b0:2e2:b20b:59de with SMTP id
+ 98e67ed59e1d1-2e5616e8789mr7509815a91.3.1729605997232; Tue, 22 Oct 2024
+ 07:06:37 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdkfd: remove extra use of volatile
-To: Victor Zhao <Victor.Zhao@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: philip.yang@amd.com
-References: <20241022135307.3566557-1-Victor.Zhao@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20241022135307.3566557-1-Victor.Zhao@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20241018063533.3082692-1-lijo.lazar@amd.com>
+In-Reply-To: <20241018063533.3082692-1-lijo.lazar@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 22 Oct 2024 10:06:25 -0400
+Message-ID: <CADnq5_PGD8Bgt=oAiGA4FQcHNCt3dhKu2-EhNwj6NU0h_+nxCQ@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amdgpu: Fix the logic for NPS request failure
+To: Lijo Lazar <lijo.lazar@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Hawking.Zhang@amd.com, 
+ Alexander.Deucher@amd.com, rajneesh.bhardwaj@amd.com, Ramesh.Errabolu@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,43 +76,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 22.10.24 um 15:53 schrieb Victor Zhao:
-> as the adding of mb() should be sufficient in function unmap_queues_cpsch,
-> remove the add of volatile type as recommended
+On Fri, Oct 18, 2024 at 2:35=E2=80=AFAM Lijo Lazar <lijo.lazar@amd.com> wro=
+te:
 >
-> Signed-off-by: Victor Zhao <Victor.Zhao@amd.com>
+> On a hive, NPS request is placed by the first one for all devices in the
+> hive. If the request fails, mark the mode as UNKNOWN so that subsequent
+> devices on unload don't request it. Also, fix the mutex double lock
+> issue in error condition, should have been mutex_unlock.
+>
+> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+> Reviewed-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
 
-Reviewed-by: Christian König <christian.koenig@amd.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
+>
+> Fixes: 44d5206ec07c ("drm/amdgpu: Place NPS mode request on unload")
 > ---
->   drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 2 +-
->   drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h | 2 +-
->   2 files changed, 2 insertions(+), 2 deletions(-)
+> v2: Add a debug log for debug purpose (Rajneesh)
 >
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> index 5a318376203c..38c19dc8311d 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> @@ -2048,7 +2048,7 @@ int amdkfd_fence_wait_timeout(struct device_queue_manager *dqm,
->   {
->   	unsigned long end_jiffies = msecs_to_jiffies(timeout_ms) + jiffies;
->   	struct device *dev = dqm->dev->adev->dev;
-> -	volatile uint64_t *fence_addr = dqm->fence_addr;
-> +	uint64_t *fence_addr = dqm->fence_addr;
->   
->   	while (*fence_addr != fence_value) {
->   		/* Fatal err detected, this response won't come */
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
-> index bddb169bb301..09ab36f8e8c6 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
-> @@ -260,7 +260,7 @@ struct device_queue_manager {
->   	uint16_t		vmid_pasid[VMID_NUM];
->   	uint64_t		pipelines_addr;
->   	uint64_t		fence_gpu_addr;
-> -	volatile uint64_t	*fence_addr;
-> +	uint64_t		*fence_addr;
->   	struct kfd_mem_obj	*fence_mem;
->   	bool			active_runlist;
->   	int			sched_policy;
-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c | 28 ++++++++++++++----------
+>  1 file changed, 16 insertions(+), 12 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_xgmi.c
+> index fcdbcff57632..3ef5066ca529 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+> @@ -1586,26 +1586,30 @@ int amdgpu_xgmi_request_nps_change(struct amdgpu_=
+device *adev,
+>          * devices don't request anymore.
+>          */
+>         mutex_lock(&hive->hive_lock);
+> +       if (atomic_read(&hive->requested_nps_mode) =3D=3D
+> +           UNKNOWN_MEMORY_PARTITION_MODE) {
+> +               dev_dbg(adev->dev, "Unexpected entry for hive NPS change"=
+);
+> +               mutex_unlock(&hive->hive_lock);
+> +               return 0;
+> +       }
+>         list_for_each_entry(tmp_adev, &hive->device_list, gmc.xgmi.head) =
+{
+>                 r =3D adev->gmc.gmc_funcs->request_mem_partition_mode(
+>                         tmp_adev, req_nps_mode);
+>                 if (r)
+> -                       goto err;
+> +                       break;
+> +       }
+> +       if (r) {
+> +               /* Request back current mode if one of the requests faile=
+d */
+> +               cur_nps_mode =3D
+> +                       adev->gmc.gmc_funcs->query_mem_partition_mode(tmp=
+_adev);
+> +               list_for_each_entry_continue_reverse(
+> +                       tmp_adev, &hive->device_list, gmc.xgmi.head)
+> +                       adev->gmc.gmc_funcs->request_mem_partition_mode(
+> +                               tmp_adev, cur_nps_mode);
+>         }
+>         /* Set to UNKNOWN so that other devices don't request anymore */
+>         atomic_set(&hive->requested_nps_mode, UNKNOWN_MEMORY_PARTITION_MO=
+DE);
+> -
+>         mutex_unlock(&hive->hive_lock);
+>
+> -       return 0;
+> -err:
+> -       /* Request back current mode if one of the requests failed */
+> -       cur_nps_mode =3D adev->gmc.gmc_funcs->query_mem_partition_mode(tm=
+p_adev);
+> -       list_for_each_entry_continue_reverse(tmp_adev, &hive->device_list=
+,
+> -                                            gmc.xgmi.head)
+> -               adev->gmc.gmc_funcs->request_mem_partition_mode(tmp_adev,
+> -                                                               cur_nps_m=
+ode);
+> -       mutex_lock(&hive->hive_lock);
+> -
+>         return r;
+>  }
+> --
+> 2.25.1
+>
