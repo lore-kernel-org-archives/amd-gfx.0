@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33A1ACDDE7B
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Oct 2024 12:12:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E904CF5386
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Oct 2024 12:56:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC79910E7B9;
-	Wed, 23 Oct 2024 12:12:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D876F10E7D2;
+	Wed, 23 Oct 2024 12:56:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="UTivm5Iv";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="LbO0IQMR";
 	dkim-atps=neutral
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2053.outbound.protection.outlook.com [40.107.96.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2908210E7B9;
- Wed, 23 Oct 2024 12:12:52 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2079.outbound.protection.outlook.com [40.107.236.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D00D10E7D1;
+ Wed, 23 Oct 2024 12:56:36 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=biMlUWx6pDx68Cz3w0G7Z29Jr8cA8gduluyU/NnLJCT9hIXo4o063hf1K4jdRorAwYSsqj++RrceuzO3JNlVeQ/G/uud23bO/7myJbw+4mrz3UcbQpEhLWqEAiYPHQH23wR+hM2OaOC0KKKt240LwJ59wPEY9LGaZRfzma2kP/lacPdQ0M+KSWTW0bQ/01rPx1Y776El9YrhZyW4mezDgg6FbpB9Ubj1BX+LYi5duMgp0mO+cVO6S6YLb08S/B0sF66E88kYv+ZwuTzVGc2T92ePHajVVC8mBgBeLuIgVd9QFfA14Z7+DLeYkooU7fmMdlTv3L9nQtzK9GwMcP+GRQ==
+ b=J9vncTZ/Gj8G4VxK9YPq0cYHwZvnQ5nFBRSsuOMBFPyz6p8Lm0ylHWzgQTiofTpKOxjLPQJFayP1TRWAnHzGn1d1e7bw6SSyRxLlptn6LKKdKCnnwJBe4GNbyELZM6xE9ohJjk0hExTb7Dcgvw0MknTTuCJ9lxi5EpB0jprgi2M+ZvI9VM2Id9Xjj/nAY6GZh0Zfyz+yft8u49h/+XU+6JrHt60bVZepkE838ysQ6pAr3gVJUYh4JvvXdN/qAvXLfj6F66WslCbi0Dd0TiVkFaSUAwF4IutY995Tw+xAteYBx1iPl/nIRE2Rnq25JC4qTIeEzPk4EeX3gE+d8EYwag==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xtgzQz0j8KVG5mWhbeIxVN+6UzIfhc7nu+uFwyveY9o=;
- b=tOjEweG8FkB10uIDxLkESUEsEWQbbKnGDIJfa/mF9RmdIJWqRym3c+Q9sZc+aP247FMVuyxbdeEoA/6n1+mQ9DV4AbaFIcUMWpQNLekq2/3+pZvqP/+qgnjPsInaRCip6uNdrHIZXDOz5NaURG05ZL19ryHyXRdxFjR3FRz4fkdb9Lfy2rFZZYOuqLYoJ9kQs4y6/wuhlrUyfWW/jeEzkw3qjoUAhrVtbRLkutNqzBYpxFL1UoMDkluVSn+mXsH7ouI1cvYcvXSCRgDoreM/7RGGp5HZyT9BVs19OMtIzQPn4fwP6/Nq7mD4jnJW84f4eNVcm/gvK+yvsB72ujuL7Q==
+ bh=8/aX1ZjHbg8vrtvRAArA/wt+5asXJBfgcrgZRfCaf88=;
+ b=A9qs1lzollozjPa/afAqgcSdb5YYfqg/RD7wiO2IDIkSk8KKVIbTGQACDKEIjoY+yeMX0ExWJB0nHbQC+wnkfkXb+LeAvcVPjFJEcoUGJ/LSFm6AGiVD7NzGDH2Jqq51BRre8uK6yjEzEM4Io+JZbNounou+xSS07Noti+m9iKxy2ZqhJLw18TnDkTAg/aqBBS/wY9aEzYgUhGJO8cwnfDPB/Bh8qPxVpT+kqiZAei0h3W4Fjw+0yHVaBnhXuLLQFHyDdp6dB5zuE9uGTQ2FZjuwDiBcY5MnBfSXf6kiQpjC7mg+GxEQBCdl+0Lbs4s9rEeixypq4G3KBcr+ASimvQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xtgzQz0j8KVG5mWhbeIxVN+6UzIfhc7nu+uFwyveY9o=;
- b=UTivm5IvKdGYQilFmphOcg9VPA8hv82h29dpWCYzd8kp6AZ7orYM/tWu3wYreWMY6yv+FXhDHp4VQWY5yoFa0ponb1SMgH/5b3TTYJ8X++Bsr2b3USqxy66TGZ4eU53bjPmXXRKMDa7rJC9zkfr+/4Hdy8Y2jIULZBJJmqfiK1E=
+ bh=8/aX1ZjHbg8vrtvRAArA/wt+5asXJBfgcrgZRfCaf88=;
+ b=LbO0IQMREyA/izE0W8ZrHWco3Wxw0DZNsnMFXe4EYdM8oED7Codf9EPePPTE5Tt4ZzEiUs6IcI7K6/OKrwGrFv6qt7WfNa4jB/YSfKyTdd/ShF3k2KdPS3BKvkyh9WZDdmDaBx/VjEt4jpUTb+9ocLhqC8ggida9Md/A5TDzf/s=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by MW4PR12MB6899.namprd12.prod.outlook.com (2603:10b6:303:208::20)
+ by IA1PR12MB7688.namprd12.prod.outlook.com (2603:10b6:208:420::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8069.29; Wed, 23 Oct
- 2024 12:12:49 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8069.27; Wed, 23 Oct
+ 2024 12:56:34 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::46fb:96f2:7667:7ca5%2]) with mapi id 15.20.8093.014; Wed, 23 Oct 2024
- 12:12:49 +0000
-Message-ID: <7503c3fd-deea-4eb9-9324-ab4f13f70332@amd.com>
-Date: Wed, 23 Oct 2024 14:12:39 +0200
+ 12:56:33 +0000
+Message-ID: <c80eb8ff-3965-4036-b763-20c4c2550e04@amd.com>
+Date: Wed, 23 Oct 2024 14:56:24 +0200
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v5 4/4] drm/amdgpu: track bo memory stats at runtime
 To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
@@ -58,101 +58,103 @@ References: <20241018133308.889-1-Yunxiang.Li@amd.com>
  <cd2b57c6-1947-4dbd-bae8-ecdb2b42de72@igalia.com>
  <47e4b79b-2c08-4ee8-b472-5482bc159856@amd.com>
  <6d324aca-76fd-420b-9bae-6c0984e659e1@igalia.com>
+ <7503c3fd-deea-4eb9-9324-ab4f13f70332@amd.com>
+ <2141a4f4-bcf4-4419-8756-fb5afd6c7f3a@igalia.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <6d324aca-76fd-420b-9bae-6c0984e659e1@igalia.com>
+In-Reply-To: <2141a4f4-bcf4-4419-8756-fb5afd6c7f3a@igalia.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SI2P153CA0018.APCP153.PROD.OUTLOOK.COM (2603:1096:4:140::9)
- To PH7PR12MB5685.namprd12.prod.outlook.com
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SI2PR01CA0020.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:192::6) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MW4PR12MB6899:EE_
-X-MS-Office365-Filtering-Correlation-Id: ca56bd58-20b4-43b9-551b-08dcf35c02d2
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|IA1PR12MB7688:EE_
+X-MS-Office365-Filtering-Correlation-Id: f8af45ea-5a60-47db-e2b4-08dcf3621f2e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?NUVzNGY5ZmFPczIrTXVsNXkybzVINGhPZWQ2TlVnWENWWUlUalhTd0dXU1JP?=
- =?utf-8?B?UzdEbVRHdmxGT0ZxWU1kdnYxc0Zqcjl3dWtqMGMyV1h0UEcrYys1ZnZKTjVM?=
- =?utf-8?B?WjJLaVBNVlYyMk9lWDk0S09pMUIxNVpIL1RRUU5talVueW1lSDNpQzJNdGNK?=
- =?utf-8?B?a2ptemZjYXQySjFVYUcrSlJ4SWR0SnVnZlhPTlg1dWdnRXJ4UW0yODhHN1E5?=
- =?utf-8?B?Z09RNnJKTVo5RTJ1RW9Ueld6NHo0b3ZBRndiOGhoaEExVDVUUytCUEJlRG1J?=
- =?utf-8?B?T29NWTQvenMvYnpsTkhWeTVhQ1dIQ2owYXk5OExsalRkcjhzdGIvcm1weDh0?=
- =?utf-8?B?YWU4UWtzUnByR1pUb003cFN3M0Vhb0dlMklEbzlJTlN5Z0tBWDNFTHo4dmJI?=
- =?utf-8?B?MjNKcFhhVkc2YklKWFJrTEtTbmw1VE13WUlJc3BmdE9wbHFmYzg3TkJLc0Zj?=
- =?utf-8?B?cjY4WlQzVm9GYTMyZHhNaFR3NE5naEczb3J5d0FPbXMyQ3BYVGhsaWRtVVJV?=
- =?utf-8?B?TEhNZ1JKOVBaSEVPVUJaV2l2TldIUU1iOFgrNWNPMTJ2ZEdiT2lFdlg1MFZG?=
- =?utf-8?B?SXI4V254WnFNMlNiV2RzaUNQdk42VVNXdU1xaEJwWDRQRlBZODg2SkJjV1ht?=
- =?utf-8?B?bWQ2cUo2bEhBdXBjMmNaZTh4NDVnYkpCakR5UWVtQXFuZEhFb3ZWL21aeEVP?=
- =?utf-8?B?YTJ0R2JWWS84QUxtK2hIOEYwb1lKWDdWOVR0THNtUmxveFMrNG1XaUJPMTVu?=
- =?utf-8?B?NUhGajBKdCtEcEtSa3IzV3VUOFFydjBydEpXbkplL2dublVHWnVsVnVocFVG?=
- =?utf-8?B?dERTZ2JDdGZhT3p3K3hmMG90d1ExTEtRWUd6Uzdlc09NMHBEMTU2THlTT3VT?=
- =?utf-8?B?aUFHTjJGM3hNMG5JWFhVRE5vVEsrTm5MdUc0ZEkvVFJ6Yk5KTVFEQUt4ZFhr?=
- =?utf-8?B?d2IyTW1GMUJxN2NnNmQzZHN3VDBvd3hMM2s5d051bEx4VXRhMS9ob3l0dWln?=
- =?utf-8?B?MGhCUldFTktyMmhSOTFicmVGTnlidnB0Z1BHbDAwZ2Q4cWoxSk1vQ2lUbHM4?=
- =?utf-8?B?a2tQd24rb1N6TTA4d0I4TmNtRUFqNE1vNzdkb2hNZURqWXQySWRNR3YrQzJa?=
- =?utf-8?B?anp1dmxBMU9qaVRyQzY5OTA4cWQrUC96MFdwVnlITnVXZHNGYlh2UUhvdVMy?=
- =?utf-8?B?R3Awajh4SHNKbzhGdTgxOGJZVWRucVh3Sk5XaHpQQ1F3VzByMFNXU0I5WE5w?=
- =?utf-8?B?ZXM2Z0xwS0NDNWd5YUhYbmNETUhtaFp3QjhnVEk2aEtHMHI0cWgwQ3JGYXYx?=
- =?utf-8?B?VFZaSHdwZE1TcjRVSVQvOTBjcjhhaGU5WVBOSXJndGZGZE1WSmdNYS94TFRJ?=
- =?utf-8?B?Rkl4M1R4U2lTMlhjelJ5ZHZrWFpqclludHZPNmw2SisxRzFzMkY4cXhxZkhy?=
- =?utf-8?B?N091bkpMRmhEYUFac0k0cDduMVgxNEE0SVJieU9Bbk12Y2dqNThVVlhjbS93?=
- =?utf-8?B?KzA5L0lJS2JXVVJxMllUOTd4ckRFbFdrbUJZQ0U4Sm9FWnYxRVNIK0QyeVRz?=
- =?utf-8?B?bHNRejQyVUFmSEFXcjFqZU14MU02TVlFVGFIZGRDNG9ScXg3bitqcE9CcXY1?=
- =?utf-8?B?eEFhZCsraytTY3RXaHpsakZnb0FIcGxIRXJqTUF0cXBlNEU5akJkZnl2b0tJ?=
- =?utf-8?B?SkhxNHB0VG5nTFAvNndDVlgwV1JGZVJXMDJneVIrWEREYWZXRmlMZTZSZVI2?=
- =?utf-8?Q?hoWPUZ8Xn0Xwdeu3YL5M/HDIx8RPM2AOn3rl9Vx?=
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?Zlc2cUlaVndKV1lZQmgweTdPczZDZzRmRnArajgwV0ZLKzFRd3g4RW1MeDA2?=
+ =?utf-8?B?ZFRqcDNueG4xVnZ1VGg2cnpZcmZaSU5SUVAxUWZDSS9vZzZQR1JLeUJRUWda?=
+ =?utf-8?B?d1FheE82c2VONmhVRkUxM2VqNU9aNFNlelJrUWpPUVRNbERhaFBDcDBZZ0RT?=
+ =?utf-8?B?cEdmWmJkYlFzY1piT0p6L09BUTJmSjQyYmQ4amVjb0N1T2pKU05WMW1BL3NG?=
+ =?utf-8?B?cHFaa2tkeVJXYUVkMklxclZsWU1Od2k0aFVCdTRnM3kxSm5GVFN0aXI2L20r?=
+ =?utf-8?B?SXF6U1VBUWJlUFJqWGRRY1dEQ3VsSFR5SjhDNGhyK2R1eDNMclFTNjY4eVo2?=
+ =?utf-8?B?OWtJR20zOXZQbXlwUDltS2ZDREdnMlNkc2szczBUaWhhcTU1b3ZzSngzYi8v?=
+ =?utf-8?B?c2ZXdTRPN0kwTkpNMEJLWXpqL2hjQVdiaHB6bWFaYUdYZXBtOHpsQlA1OWt2?=
+ =?utf-8?B?aUV6bDQvck5ZNWNXcXFEZERLU1MyUFZzVzZqWFI3NVZaaWtTT21aMDd1ZUlv?=
+ =?utf-8?B?SVFZSm9vSWUwajdLb0xaZTJlajNCeG5MQXVEMURjYi9LTWJSckhwSldGalpm?=
+ =?utf-8?B?Z2ZpOXRQcW5KQTBkcXRQRlRjcDMvNGNQVXJRYTcwTnp6WjloNXlPbW5NVXFW?=
+ =?utf-8?B?UC94anB5ZmtnQU1yNTkvZUJjSzVMZk1hcXc0UlV6WUUrYW5BUjZoUmpPb281?=
+ =?utf-8?B?V3dMMUYxYTNsNFFDSUhXWlpKbzhBc3hkNEpVdGFQQmQ1NmFpZUJvek9PTHNW?=
+ =?utf-8?B?QlhOc1NCRlNpbTNUdkhYa0ppTG9kMkV2VUVTek1aQnY1QjYxNndJYW1WREdp?=
+ =?utf-8?B?RnZqaDRubElqMXhwbmoxMEllNS9BYWlVK3prN1FxZWFISm9DSVZRUmxoT094?=
+ =?utf-8?B?ankyajF0Yk9Xb3VnMEpJU2pINEw3R3did0xDZTBuVVVJS21OWmhXTy9vRDBC?=
+ =?utf-8?B?TStIdnE2RitMNXo1OFZuMFAvQXJjT1BNSEhReHQ3a2FmQ0ZZYk5pMjNoWity?=
+ =?utf-8?B?RFlxQk8zRm5xbTk5VENGZWphQjI1UytIZ1ZUNzM1VUl4SFpjTnA3U2xRMlVB?=
+ =?utf-8?B?cEM4ME52WmZObXhMLzlpdTZYMUd6WlBxRWlVdnJqOTAxdTBwLzJWQm4xWnND?=
+ =?utf-8?B?MHJRbXJXWk56dGhCT0lYQS9iRVhleHFsTFpFOFJVRnRQaDFnSG5mdEowYzJh?=
+ =?utf-8?B?NktLVGRQVGZ6VWRFTzdWSy9kdWR4ZFRESzlpckJoU043Sjk5eUtpSG44T2d3?=
+ =?utf-8?B?TnRRenluYTAyRkJhem1DR2lodGRCNVorRnpyRVc0Z2dEeHU4amVOdmtNcXdJ?=
+ =?utf-8?B?aGl6WVBuRDFCbThYREwrRDc4dnB3ZGxHT09adldKWHgvYnUwTmh2ZERSM2wy?=
+ =?utf-8?B?a2N4UTJ3aEErQ2gzOTdpUThMMEhyL2RGcjNJZUpMY3kvWnhzWXhCbFBpa2t2?=
+ =?utf-8?B?cFp5SDhnNWUvWHViZGwzQS84c0hteGVHbnUrZ1pobEdPdnNaNUkrTTlhcEcx?=
+ =?utf-8?B?em5oUU1mQnRFMTErSXE2UXJXNGc4ZTJ3NVBXMS9UUHl6amhVdDdxNTVockww?=
+ =?utf-8?B?T1hLUFNUVDAwRkhHeW42TkNYOXU5WGY1eUZEYmhxVk4xd0lYV3B1QUpDSG15?=
+ =?utf-8?B?SVRXU21aNXVXcU9zN0xVdldLRXNoZk1YY0VBNEYyMGp1bkQreFRJRVV0a0o2?=
+ =?utf-8?B?dGVFMWVQRmRsVDVWWU5mcGh6aXNDNGR6MllGUDlhek5UWmtMZnhKYTBzUkV4?=
+ =?utf-8?Q?M5Ym763kijfmAx4F36RM0/DY0HsPBO3co86EVb3?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QzRQZE5GR1VmdTRmOXRkaUxhQWN4Ni85V1hXVW15NUE3VytFSVVKSWxSczNP?=
- =?utf-8?B?NWx5R21NaHhkcS83SExZZEMvdW1DS1ZkbXdXWkhybnVuZDJZVmVKM0M1MDR0?=
- =?utf-8?B?WGxZWVlubkdvcDJESHRvWklRZFdEOHQzVFNIZTlDNWk5TmZZNWJGU2xqblVE?=
- =?utf-8?B?c0NSKy9ielEzNWd4M1BJZnNQYzcwdE4xUElzMWpqSllZamtkWStBZUZFY0s4?=
- =?utf-8?B?Y0NkWTEwQXZablM3Z0p5OUpRQTdJTVdjTzhpdjFkckNreVB2YUpuQVFJRDhM?=
- =?utf-8?B?TzZhNnhIbm81aitnLzlhL3BuTWI5VXRLUlZsMU9nTHVLc1ZLSVdvam52NHYr?=
- =?utf-8?B?bHhYTEVWd2NTV1BhSTMzZ2wwV0N6V0FxY3NFeWhqY0x3T1Nnais2L0xUbUVX?=
- =?utf-8?B?ZVFrYXBSRlBRdmJlM3cyREMycW1nbmlHbVgwdlUrVEMzMkk3RUE5YjdHWVVh?=
- =?utf-8?B?TkZ4QXdGcWtTUFFzaGIyeURnbXI5cDNvQytUbElEVE9VWDZ2WTRwMmN6Sm1U?=
- =?utf-8?B?aXF5WkZrRi9UZi9VZ0t5aEJQZVlOaVlqVWFhQnBFTFd3NWRZaitqT3Rqc0ZJ?=
- =?utf-8?B?Zmx6L3RMcEpFTUhCalc5UTN0VkM0TXJRZFV4dzRlem9xMHpWZ3FhVlRJOXFp?=
- =?utf-8?B?QTlMR1llYjdzYncrZkVaeGpGeTJlZkkvTzRqZ3BkNmFQQTgwTTk5czA3RGhz?=
- =?utf-8?B?YkZwL29UcDRRLzl3aVVSYkpVQVpQRVhidDVlRENZM3kzazkxbGdIamRsdjAw?=
- =?utf-8?B?dnhWREY5QTZEMUo1dGdGaFBKeHdObm02V0JjZzZKNnFTRDlzYUIzcld6dm0x?=
- =?utf-8?B?dDZQWml2QnZWNFpvdFhGVlUzV2JOUW12VTRnK2VTaERjWkdvNElwTW5PYWg0?=
- =?utf-8?B?MkRGWkViUzhlN0JXTDZkYmYzcjZSUDlqVmw1TThNWjFQc2xGbFFHS0tTZTRx?=
- =?utf-8?B?d1pPaE5JbFZFQ2Yzc3FKQ0pVSzAySE5YbTlGSklMbGFGNXIwWG5EYndTMElI?=
- =?utf-8?B?YnBQb3FYNnhaMzdxelV2aVBia0t0K0daaW1YUjBJMlMyQWJSSkdoQWhxSkVS?=
- =?utf-8?B?NUloMnZ1MGxXRTB4MHNDS1FXWGR3MEV3K29ETk5LMGRkLy8yQkZEbjN6UEQv?=
- =?utf-8?B?ajlRRzBiR3R5WDBHMHRMZXR6Y3dLWTRMYUJ5KzdaS2Z6d1NwUG94MWZaWUdT?=
- =?utf-8?B?VnEwNmU1RFFWN1psRlVVN1N6b3pyUnovbXpPc2g2ZGhmL3JNa2hoWXpYN3RN?=
- =?utf-8?B?Mzh0c1FWdmFSZXE0d1pYNjIreXFtbGlQcHdOcEVtYkY0OEtiOXB4THI5SnFE?=
- =?utf-8?B?ZG9NL0tJUkwzeDdFUVRUckxNRnQ0VHFvQjhia0paZjFIOXZucDhESzhnSjYr?=
- =?utf-8?B?WU82V1pZS0VQMEZWVzZxbWs4V29lK2VNalhocHBhY2dScTVCdXUyd3FVTHEy?=
- =?utf-8?B?a0pzWDdlWHcwOEE2Z1hsQ25NQUNyaERmZTg1bFgrVXVyK2xkS0RQempwMXVq?=
- =?utf-8?B?QTZrdVRKdXZoc09hTU51UWhZbGNhdFVYSzJUSDdxZFhTM3VYWlN6SlN2OUp5?=
- =?utf-8?B?Nk5HTEZSK1NmZWpVU05LT1RvcnBaVGlvNlVTQ1VJY1hJTk54KzlDVTI5VjR3?=
- =?utf-8?B?R1V0bG1MM3pTU3hGNElIVXBMaXRPM3E3bmd0ZUx2dDFrVjNiNHlnbGs2YWdX?=
- =?utf-8?B?RFYxWTNRMFF0bUxqMlBYaXVwa2xWcjRBMExybCthbUI2NzBHd2ZPa1JvZEpS?=
- =?utf-8?B?SURzV3J4d2RQd3F5K1ZtYUxoaUdzRk1RK05HVUdwdHBVMHlTR05ETVBvV1Rw?=
- =?utf-8?B?OGlubzJpSjdFeldlL1o0N1B3MUNLck8vcTFoR1ZHY1JnM0JLZkJPNkFiZkxX?=
- =?utf-8?B?Q2prZkhQMVVEdlVaRlRJNWpyeVBjeHdDSzQxc1ZuVzI0Z2VCU25iZGNEWkQv?=
- =?utf-8?B?OVZrS3RjVXFtbkd0cmJrbGhHNUM0UFg3NnhGNVA3ZWlEaXVOT1hLNE1uSGh5?=
- =?utf-8?B?V2JvNiswUnhVVVJ4b3F5Q0tIVU85TkZEWXZtaUxBNHlGVE5DY2ZicE9QYUdu?=
- =?utf-8?B?TTgrc1UzajloK0I1c0dWb1diUytCeG8xZGRMVmJVWXQ0VkUrN2tRK282WWV4?=
- =?utf-8?Q?NTRaK34tXnHRL66jElfkcUYdk?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dGtNWVMrK3dRNE5vdzRheENwSXlVWk5hbE50c1o1Mk1OS1VkeGhKeUl4L3Vu?=
+ =?utf-8?B?cFRCOTdUUTJmVG9zNnhuV2RUblVSeHg4UDJLT3g2MmJVWFVFUDhhZGY3ajJF?=
+ =?utf-8?B?ZHVoUVVyMklkYUlLbjhDREN0UEJvTFVRdXhwMnAvUmdpVGZQOFNWaXdPb1Mr?=
+ =?utf-8?B?dzZyZlJwcWpkeUR0RzNIa0g5Yk1VVm8wQnpCZEFUYktndzA2VEZPdDRFdFh3?=
+ =?utf-8?B?NzJWTWZOczFmb0NER25sWTM5cUxSSHU4Vi83Y0Rjb05rdFB0cnVPeGU1UTc1?=
+ =?utf-8?B?N2xWZTBoQkdXa0E0c0xSU1UwY2VJRjRIeStmTlcwTTRHWnRmTEUzalpKVm1T?=
+ =?utf-8?B?LzVTNHhnbnpmdVlkc0tSQkVpQlNUdTJhOG5RS05PdU1Dd2d1VTRIcWE0dGEr?=
+ =?utf-8?B?MFB4T0tGUXhMSWdFSU9GZXhtclg2cHp3NEN3WnZvYk5FMVpzTEZudzkvTVI1?=
+ =?utf-8?B?Y0g0bGR3SE9tcEcxZ0NXeWw2SkdFZDA1Y09SRkdwWXlNWmNwNVdoRnJUTGhD?=
+ =?utf-8?B?c2FpeUMxM0dlUlFSS2FPNlA3U0s5bWtHRlZwZzR3NjVzbHdRbGVWUFJNZXFv?=
+ =?utf-8?B?TEVxN0R2eTlOTzExTWNzeDJ3dmp2ZWJ6cVd5RVFVcEVmSWhySmdKNTlaY1di?=
+ =?utf-8?B?bHp0M0F5Nlg1Y0hFaVl1Y1BrSmVJZ2IyelI4dWtYQk4zN3I0cUVna3AzSVJU?=
+ =?utf-8?B?OFExUE42OHVJREF1WkVxQUROTFc4bXR6ZFVTNktQM1pleFB5TkI4Vzkzdms2?=
+ =?utf-8?B?TE9aWVZ3ZmJ5SXYrbmlMNjZEenJwU0hzVXYxM3RlOStSeDlqZ3NGaDFncXFK?=
+ =?utf-8?B?SDJsQnVhNXRJM1Rhcm43VDcwKzByN3RVbkthSzRmUHcwVTJGN1ZvemtnV0Nv?=
+ =?utf-8?B?K0dtWDYvenphTldESnFTWkZjMUZqbzd6MGdaTTNpWlh5WmFMQ01hTC92ODBl?=
+ =?utf-8?B?ZkRvZyswSGNacWJnbTRMd20zNEZOdExZeHBpWWwrclM3WGlMK1RsYUUrMUpT?=
+ =?utf-8?B?RDIrSUN3eDRZVitnZE03bjArOFZjb3U0NjUzS2ZTdkIwTHNKbFAyZkJyT2cx?=
+ =?utf-8?B?TVBlakhGRnRzcjhCVFlxTndZWU03Vk9ySVZXZytONG0vYml4YmhjZlZsVlF1?=
+ =?utf-8?B?bHBKczNrbThkWWoya1IzdmVGZnN4UG93MnJRZkZWUVlSOWxXRXhUcWVTVFRp?=
+ =?utf-8?B?aVp4SE10Q2kvcVRMdmZFVzZTN1oxZVMvWnNWSm5DVmI0dmlTaHVCUWdXT3RN?=
+ =?utf-8?B?amM1d2V2bWxVdGdCZkRmakhoNFliem9UYm9RenpzTmxNZVNUeHpJRnFBL1k5?=
+ =?utf-8?B?elNrSlNJdkZSR2FDeXJXM3RiRkRFRXR1ekFjZGtxQWJzVWh5S1lHcVJoRTM2?=
+ =?utf-8?B?R2xHWmlMWXBIU2NpVk94c0NPNVFDUnpHRm1pRWl4S3crcGQ1b1VyL1I5Ukw4?=
+ =?utf-8?B?Ry85ODlFU3p1cGFLczJyY1ZuSVhGaE50T2p6VG50SUIzUGE1ZGZRSnlFZmJL?=
+ =?utf-8?B?YUdvdFBjMFBYTE9STENvdDhmQ21DNTk2MGJ4ZWVsemU5WUlaMjJDaWh4bDZs?=
+ =?utf-8?B?ajlWSjRtSEtkODBLUUlubnZIa29WVWZwOVdZOU5TOC9uOWN6NW9sVkJIcTVK?=
+ =?utf-8?B?TlZ5cFlSejhpaWJsWEpTNEllZE5USk0rVUlrRllkcDJMOGZuQyttZngxZFUx?=
+ =?utf-8?B?SmpLOFB5TE90WS91cGJYOHRhTzJ5MGpRWEJxK1JJRk1zVU0yRVFaeTVIcm1T?=
+ =?utf-8?B?M3JyN2MrVUxiamR1WmM4RTZBNDkzUTRLaFcwRzRlK2Z3bU9zRWpUWWZxbHZz?=
+ =?utf-8?B?ZUN5VDdwcXd1Q3ZhS3NUQjRsSW8yakNocGxRSFB4dW4vNXRFVVBIYlJ0d3Bh?=
+ =?utf-8?B?SDRmNUVBbENkSC9sQ0tEUVRmL0FLYXA5SjROMEFrRjBzUnV1ODl3VTgwQm5Q?=
+ =?utf-8?B?OGpjdzFaZXhzYVBRSFhRUDRzOFNDZ0xDeSs4S1hsTkczU3ZHRkkydzVyOGlV?=
+ =?utf-8?B?ZVkrUG0yY0d0Qmxwd1gybnh2S3h6TVd5bk5xbHljWG5Ca3dmRFdSaENhMFI0?=
+ =?utf-8?B?b3dvd2IzOEcydVB3am9lM1FINVpPV3NoOGE4VFovcWVVVXNYeXV2dGs3enhj?=
+ =?utf-8?Q?siumwdG/LHjl7eBrS+fzolKRZ?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ca56bd58-20b4-43b9-551b-08dcf35c02d2
+X-MS-Exchange-CrossTenant-Network-Message-Id: f8af45ea-5a60-47db-e2b4-08dcf3621f2e
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2024 12:12:49.2962 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2024 12:56:33.8513 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: F+mesCz6RasVzRD8FWxQwsDwV1ok3jstDHudkzUzQ+zlDJ9Qi3vt/rzqTVF8e7DW
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6899
+X-MS-Exchange-CrossTenant-UserPrincipalName: dgGwyCQ/za5aR8pWhJHm71kQY8B0h1Jjfl0cBZ0p3HI9qZt2Ji/vOBCXA9DQEUh0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7688
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -167,167 +169,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 23.10.24 um 13:37 schrieb Tvrtko Ursulin:
->
-> On 23/10/2024 10:14, Christian König wrote:
->> Am 23.10.24 um 09:38 schrieb Tvrtko Ursulin:
->>>
->>> On 22/10/2024 17:24, Christian König wrote:
->>>> Am 22.10.24 um 17:17 schrieb Li, Yunxiang (Teddy):
->>>>> [Public]
->>>>>
->>>>>>> +static uint32_t fold_memtype(uint32_t memtype) {
->>>>>> In general please add prefixes to even static functions, e.g. 
->>>>>> amdgpu_vm_ or
->>>>>> amdgpu_bo_.
->>>>>>
->>>>>>> +   /* Squash private placements into 'cpu' to keep the legacy 
->>>>>>> userspace view.
->>>>>> */
->>>>>>> +   switch (mem_type) {
->>>>>>> +   case TTM_PL_VRAM:
->>>>>>> +   case TTM_PL_TT:
->>>>>>> +           return memtype
->>>>>>> +   default:
->>>>>>> +           return TTM_PL_SYSTEM;
->>>>>>> +   }
->>>>>>> +}
->>>>>>> +
->>>>>>> +static uint32_t bo_get_memtype(struct amdgpu_bo *bo) {
->>>>>> That whole function belongs into amdgpu_bo.c
->>>>> Do you mean bo_get_memtype or fold_memtype? I debated whether 
->>>>> bo_get_memtype should go into amdgpu_vm.c or amdgpu_bo.c, and 
->>>>> since it's using fold_memtype and only useful for memory stats 
->>>>> because of folding the private placements I just left them here 
->>>>> together with the other mem stats code.
->>>>>
->>>>> I can move it to amdgpu_bo.c make it return the memtype verbatim 
->>>>> and just fold it when I do the accounting.
->>>>
->>>> I think that folding GDS, GWS and OA into system is also a bug. We 
->>>> should really not doing that.
->>>>
->>>> Just wanted to point out for this round that the code to query the 
->>>> current placement from a BO should probably go into amdgpu_bo.c and 
->>>> not amdgpu_vm.c
->>>>
->>>>>
->>>>>>> +   struct ttm_resource *res = bo->tbo.resource;
->>>>>>> +   const uint32_t domain_to_pl[] = {
->>>>>>> +           [ilog2(AMDGPU_GEM_DOMAIN_CPU)]      = TTM_PL_SYSTEM,
->>>>>>> +           [ilog2(AMDGPU_GEM_DOMAIN_GTT)]      = TTM_PL_TT,
->>>>>>> +           [ilog2(AMDGPU_GEM_DOMAIN_VRAM)]     = TTM_PL_VRAM,
->>>>>>> +           [ilog2(AMDGPU_GEM_DOMAIN_GDS)]      = AMDGPU_PL_GDS,
->>>>>>> +           [ilog2(AMDGPU_GEM_DOMAIN_GWS)]      = AMDGPU_PL_GWS,
->>>>>>> +           [ilog2(AMDGPU_GEM_DOMAIN_OA)]       = AMDGPU_PL_OA,
->>>>>>> +           [ilog2(AMDGPU_GEM_DOMAIN_DOORBELL)] =
->>>>>> AMDGPU_PL_DOORBELL,
->>>>>>> +   };
->>>>>>> +   uint32_t domain;
->>>>>>> +
->>>>>>> +   if (res)
->>>>>>> +           return fold_memtype(res->mem_type);
->>>>>>> +
->>>>>>> +   /*
->>>>>>> +    * If no backing store use one of the preferred domain for 
->>>>>>> basic
->>>>>>> +    * stats. We take the MSB since that should give a reasonable
->>>>>>> +    * view.
->>>>>>> +    */
->>>>>>> +   BUILD_BUG_ON(TTM_PL_VRAM < TTM_PL_TT || TTM_PL_VRAM <
->>>>>> TTM_PL_SYSTEM);
->>>>>>> +   domain = fls(bo->preferred_domains & AMDGPU_GEM_DOMAIN_MASK);
->>>>>>> +   if (drm_WARN_ON_ONCE(&adev->ddev,
->>>>>>> +                        domain == 0 || --domain >= 
->>>>>>> ARRAY_SIZE(domain_to_pl)))
->>>>>> It's perfectly legal to create a BO without a placement. That one 
->>>>>> just won't have a
->>>>>> backing store.
->>>>>>
->>>>> This is lifted from the previous change I'm rebasing onto. I think 
->>>>> what it’s trying to do is if the BO doesn't have a placement, use 
->>>>> the "biggest" (VRAM > TT > SYSTEM) preferred placement for the 
->>>>> purpose of accounting. Previously we just ignore BOs that doesn't 
->>>>> have a placement. I guess there's argument for going with either 
->>>>> approaches.
->>>>
->>>> I was not arguing, I'm simply pointing out a bug. It's perfectly 
->>>> valid for bo->preferred_domains to be 0.
->>>>
->>>> So the following WARN_ON() that no bit is set is incorrect.
->>>>
->>>>>
->>>>>>> +           return 0;
->>>>>>> +   return fold_memtype(domain_to_pl[domain])
->>>>>> That would need specular execution mitigation if I'm not 
->>>>>> completely mistaken.
->>>>>>
->>>>>> Better use a switch/case statement.
->>>>>>
->>>>> Do you mean change the array indexing to a switch statement?
->>>>
->>>> Yes.
->>>
->>> Did you mean array_index_nospec?
+Am 23.10.24 um 14:24 schrieb Tvrtko Ursulin:
+> [SNIP]
+>>> To fold or not the special placements (GWS, GDS & co) is also 
+>>> tangential. In my patch I just preserved the legacy behaviour so it 
+>>> can easily be tweaked on top.
 >>
->> Yes.
+>> Yeah, but again the original behavior is completely broken.
 >>
->>> Domain is not a direct userspace input and is calculated from the 
->>> mask which sanitized to allowed values prior to this call. So I 
->>> *think* switch is an overkill but don't mind it either. Just 
->>> commenting FWIW.
+>> GWS, GDS and OA are counted in blocks of HW units (multiplied by 
+>> PAGE_SIZE IIRC to avoid some GEM&TTM warnings).
 >>
->> I missed that the mask is applied.
->>
->> Thinking more about it I'm not sure if we should do this conversion 
->> in the first place. IIRC Tvrtko you once suggested a patch which 
->> switched a bunch of code to use the TTM placement instead of the UAPI 
->> flags.
+>> When you accumulate that anywhere in the memory stats then that is 
+>> just completely off.
 >
-> Maybe 8fb0efb10184 ("drm/amdgpu: Reduce mem_type to domain double 
-> indirection") is what are you thinking of?
+> Ooops. :) Are they backed by some memory though, be it system or VRAM?
 
-Yes, exactly that one.
+GDS is an internal 4 or 64KiB memory block which is only valid while 
+shaders are running. It is used to communicate stuff between different 
+shader stages and not even CPU accessible.
 
->
->> Going more into this direction I think when we want to look at the 
->> current placement we should probably also use the TTM PL enumeration 
->> directly.
->
-> It does this already. The placement flags are just to "invent" a TTM 
-> PL enum when bo->tbo.resource == NULL.
+GWS and OA are not even memory, those are just HW blocks which implement 
+a fixed function.
 
-Ah, good point! I though we would do the mapping the other way around.
-
-In this case that is even more something we should probably not do at all.
-
-When bo->tbo.resource is NULL then this BO isn't resident at all, so it 
-should not account to resident memory.
-
-> Again, based of the same enum. Not sure if you have something other in 
-> mind or you are happy with that?
-
-I think that for drm-total-* we should use the GEM flags and for 
-drm-resident-* we should use the TTM placement.
-
->
-> Then what Teddy does is IMO only tangential, he just changes when 
-> stats are collected and not this aspect.
-
-Yeah, right but we should probably fix it up in the right way while on it.
-
->
-> To fold or not the special placements (GWS, GDS & co) is also 
-> tangential. In my patch I just preserved the legacy behaviour so it 
-> can easily be tweaked on top.
-
-Yeah, but again the original behavior is completely broken.
-
-GWS, GDS and OA are counted in blocks of HW units (multiplied by 
-PAGE_SIZE IIRC to avoid some GEM&TTM warnings).
-
-When you accumulate that anywhere in the memory stats then that is just 
-completely off.
+IIRC most HW generation have 16 of each and when setting up the 
+application virtual address space you can specify how many will be used 
+by the application.
 
 Regards,
 Christian.
@@ -336,14 +203,4 @@ Christian.
 > Regards,
 >
 > Tvrtko
->
->>
->> Regards,
->> Christian.
->>
->>>
->>> Regards,
->>>
->>> Tvrtko
->>
 
