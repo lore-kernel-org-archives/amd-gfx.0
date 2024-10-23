@@ -4,43 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 149F9D2E014
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Oct 2024 04:54:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 776B8D2E010
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Oct 2024 04:54:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC69210E725;
-	Wed, 23 Oct 2024 04:54:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E98E10E727;
+	Wed, 23 Oct 2024 04:54:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="imrsozGF";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="VDDmtjSE";
 	dkim-atps=neutral
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2042.outbound.protection.outlook.com [40.107.102.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 259F910E725
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Oct 2024 04:54:40 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2061.outbound.protection.outlook.com [40.107.243.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCB2D10E727
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Oct 2024 04:54:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=D+5qECuZfQAQUxfblMmXViXHyilVMbiZWxLTb0T6Ameojx1eT5PYWFu7syH/DIn4lXnbvI620fibX2Wn9GIuXF2npBB7jbPO2mk+QeAUcVNPWbcC7EbX3UkEOZo7cUBwRnBM1Qdcw9+PTlBzvHJ/lCbjsen6wZuu8IJmQPy3EiRgU2pZ9emiHqKxaNbqDIfPHFpzzoFy+0sJOA9PAsYeStGvI4sDfDeUFgoeww2QoRQAEYrho0L2vPqrugKWEE+kzPwTJhrpGeGI2PZENuAzpEgVQ3K0jPrqBGZnoZYrBNKE+ajMbdU28pWESHtRRFsMaf6Hr0EADLT8bdgK9+Ebag==
+ b=lubsMaaYKn+gxOzYZiCzQun16ZFuTtJ9768PK7z36NzUgJwUxhjgi+WTN0LsQhDLepkKoEptyXTn8RxFc0VkzrrrcNm7slRdw9ZK5cjUVxgQad2Od7Ie/q5ngkOhvLYWtFkDtPO67/Ow/o07Zhzl7XgnuYm55+pjmHhwDP8Z9elvNLWZLpbGcCxUpiX/kCFrKVHjhn8pCUDI0m8eLYe2/iTieQiCQc7/3AuZVx23JEzRKgaRJTHhPBNr1bP0soWdTKTCoY0XqPSbxP2cfwMxi2uL+fzoEVVkRgV5uljvrL8BKeQITtjEq335mGuYIEfsuP45tF4O4FSrnd47/J9aWA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vltOw/Ki76DZtFVybNfT6ZyCATActkYjiHCjzhT8g/I=;
- b=l9VZ1f84FSg4TTBQWvdJIMDW0xrAjoO32wHeAHzZ+z7cUPMaifDhnqy69R3/vkm1HNSh64Wy9eW1eUjMR1sZaUrVkWrEIDP3Nh/mwmTgXlcexV/sdUbwshVGs10z5GAWA0HeoId8U2eISfgh5K9JRTuqg6b29CK0BfzwXcaQhyAsyc3QElHLsrZOHkf25XFgLKqaBngSx57fHfE9onI10bMcymiwyXIMgmKgv2WWSMLlR1NDQm6K9fVc137cK/MyJDpzV89zqOmai2I27t7CGHZjL7p5UwCdPF0h+I5GQf6Uz0gsy+TAflaaJhdE5f5CV6+aczDbAXhQysSvseTt8A==
+ bh=XDzumMgVuxAzjm65f52jzw7doOW3eBWEZ4NOV9JPUec=;
+ b=gaaDOeBWFYfa5UdhTQfySCCvo8v7bnnD71doPl5itNsuvNP2zQ3t/lBbjx3A/fVQxu5lECuCVtsVC8dofJ7wMzZyCH8ZkaE41BWdc+qE1WIqIZbZEC9uM1WmelMZnM7nDUyd//LmoZxiiL5hJ4WGQZ0lEEtXO0a1Gdq9hya4ZuFuk2WYvwaUk4D0muZ1eaHrwFhGQ7TQ0SeWu/i/Iy2Se2bysfyW+PCy9IzKmUwBuGVQ7Wh8bk0Og+BXXmEe72CilC57hIh8RtKcM0LWFcpVbIFj5BU3FEG2e0Fv3gHtjM75yuDGJirk3l8RSE4DwxEeAxE+K+5B1xyCX+BIdsOS4A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vltOw/Ki76DZtFVybNfT6ZyCATActkYjiHCjzhT8g/I=;
- b=imrsozGFEeTfUJDQy3QvcEQX9Xir6MBFmW/xShf5D4VML4Avx/piXgJzaxgER2svVCKHymf71mdP/spbkn5QEz6zaOmnzGlY3XWsC23n1asc6zf7bujL/A+Z7+J6b1VUf2syHiBefmCmBPiB5rSTSxKkiMxmu+hrneW716TgYCk=
-Received: from DS2PEPF0000455D.namprd21.prod.outlook.com
- (2603:10b6:f:fc00::515) by IA1PR12MB6041.namprd12.prod.outlook.com
- (2603:10b6:208:3d7::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8069.28; Wed, 23 Oct
- 2024 04:54:37 +0000
-Received: from CY4PEPF0000EDD3.namprd03.prod.outlook.com
- (2603:10b6:92f::1003:0:7) by DS2PEPF0000455D.outlook.office365.com
- (2603:10b6:f:fc00::515) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8069.3 via Frontend
- Transport; Wed, 23 Oct 2024 04:54:37 +0000
+ bh=XDzumMgVuxAzjm65f52jzw7doOW3eBWEZ4NOV9JPUec=;
+ b=VDDmtjSE95/AQhjVYPYA3GycuzxUaj7xystdxpq4zkMEWIy8uExDZgXT6hq5XoINVawK2jjcsFR79b/XGAy8Pg55vSp8XQG+ko0MYhebN3FU8wJNHoTD+oUszAU35OnTq/abcOVzgSVE3O0vVTOij3N82MWt45Tlyk9ck8U0d4s=
+Received: from DS7PR03CA0089.namprd03.prod.outlook.com (2603:10b6:5:3bb::34)
+ by DS7PR12MB6288.namprd12.prod.outlook.com (2603:10b6:8:93::7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.8093.17; Wed, 23 Oct 2024 04:54:54 +0000
+Received: from CY4PEPF0000EDD5.namprd03.prod.outlook.com
+ (2603:10b6:5:3bb:cafe::3e) by DS7PR03CA0089.outlook.office365.com
+ (2603:10b6:5:3bb::34) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8069.29 via Frontend
+ Transport; Wed, 23 Oct 2024 04:54:54 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,20 +47,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000EDD3.mail.protection.outlook.com (10.167.241.199) with Microsoft
+ CY4PEPF0000EDD5.mail.protection.outlook.com (10.167.241.201) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8093.14 via Frontend Transport; Wed, 23 Oct 2024 04:54:36 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
+ 15.20.8093.14 via Frontend Transport; Wed, 23 Oct 2024 04:54:54 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 22 Oct
- 2024 23:54:36 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ 2024 23:54:53 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 22 Oct
- 2024 23:54:36 -0500
+ 2024 23:54:40 -0500
 Received: from tom-r5.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Tue, 22 Oct 2024 23:54:32 -0500
+ Transport; Tue, 22 Oct 2024 23:54:36 -0500
 From: Tom Chung <chiahsuan.chung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -70,65 +69,62 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Li" <roman.li@amd.com>, Wayne Lin <wayne.lin@amd.com>, Tom Chung
  <chiahsuan.chung@amd.com>, Fangzhi Zuo <jerry.zuo@amd.com>, Zaeem Mohamed
  <zaeem.mohamed@amd.com>, Solomon Chiu <solomon.chiu@amd.com>, Daniel Wheeler
- <daniel.wheeler@amd.com>, Joshua Aberback <joshua.aberback@amd.com>, "Alvin
- Lee" <alvin.lee2@amd.com>
-Subject: [PATCH 11/16] drm/amd/display: Change MPC Tree visual confirm colours
-Date: Wed, 23 Oct 2024 12:53:31 +0800
-Message-ID: <20241023045336.1557443-12-chiahsuan.chung@amd.com>
+ <daniel.wheeler@amd.com>, Alvin Lee <alvin.lee2@amd.com>
+Subject: [PATCH 12/16] drm/amd/display: Fix idle optimizations entry log
+Date: Wed, 23 Oct 2024 12:53:32 +0800
+Message-ID: <20241023045336.1557443-13-chiahsuan.chung@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20241023045336.1557443-1-chiahsuan.chung@amd.com>
 References: <20241023045336.1557443-1-chiahsuan.chung@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-Received-SPF: None (SATLEXMB05.amd.com: chiahsuan.chung@amd.com does not
- designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD3:EE_|IA1PR12MB6041:EE_
-X-MS-Office365-Filtering-Correlation-Id: f48791f8-2069-4ca4-a990-08dcf31ecb9d
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD5:EE_|DS7PR12MB6288:EE_
+X-MS-Office365-Filtering-Correlation-Id: c6a24084-5e97-42d9-3a51-08dcf31ed60f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|36860700013|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?cMJeG+9Nrzyi32ooDaiplXPw1TvTjT+W/dh3OYiBqH6oJwIFHo4by/Hjm+5v?=
- =?us-ascii?Q?qN0OQeW+yo5qw7bqRnEVAHvpIfo7TGqI11HgRTK7lVIa6H6hYYvERUqtaYuA?=
- =?us-ascii?Q?Js2fyM6pvoVao5PYNQJYLPswk92Ofw3/Zt3C03leoIrR7IWLcSEjC0A1rRS2?=
- =?us-ascii?Q?lxTRc0aWeh5VnFR5j9m+0yjvRSFj8hNJyrtPEQ2GX8Lynwm18KX3DSbvXXOK?=
- =?us-ascii?Q?p4crqcsxaPM1P2ji6OYgMxC+1mePGytWlqHqxmK0xPgL6g/IJNP/G1YgDVvo?=
- =?us-ascii?Q?BEfEDKay6XJxZZWlD56qUdQWVNyrRWon0HWIFsF5swP/zG+1NOkYwqw85C0H?=
- =?us-ascii?Q?TbDLtA1wVeRi1rxLsqeZle52kkL6WaxHCJhQVF8i//VYUt6q8xD40MX1ClZ5?=
- =?us-ascii?Q?cytpIvosDCmjZ3NtSzXtPKR5azz3hxUmB+x3ggA93TpHdi41MN3hQRR5znm5?=
- =?us-ascii?Q?Mx+UA4VxA65QDvHEP3mQSwshhDRz8TvQhPjPOhQQ9IZC3VX8zCYgazC8Ks2K?=
- =?us-ascii?Q?WL49nW7afxRy6lR5X0e1hH5ZaRAxPNTqNXwSVLkwzQLL+dWH3BEJ9dUnMugN?=
- =?us-ascii?Q?Kw2o2O/vwOrCpr0YhNYkadALfWGh1F3LG+GWZiWobHKB9ASGX8PkAcnG5SU1?=
- =?us-ascii?Q?Hs1xGkmb1A34f14RRzWW6zGg8AZSoyXlvPMZBlI0S0PDKz33SHWxJrzfu8wq?=
- =?us-ascii?Q?/6buD4WVja6uVRHeR0gMre6fT3yyZKl7pTDr+SG6NHbIcaPCh16uNqRzSN1W?=
- =?us-ascii?Q?g4XVgTRUhsitASHV8Rl0S4PZFQezM2Lq7SvIcVxXfc/MB/l3QpEjG/PG3gEU?=
- =?us-ascii?Q?13VO6DyqeVBO5C467oWJe4EIYP7CIbQ5PtpAsHSauFyceylarR97+LAR6M/z?=
- =?us-ascii?Q?HnX9UReQJru5drWDoCG7ArC7QB43vass5zteoK+A6tZJDLeTqL6FHwBeCIzQ?=
- =?us-ascii?Q?ukt+//PZ1CwXUIHYwZAdGV0DPtKHCLiLybENiAkurZgWOYcsSP8OHxZfT6AY?=
- =?us-ascii?Q?GqGLR3KTI5niFLkk0wqdzQs2cjUOj5ipMKjbiJa3yfQcJd2um2SayFLYiZdS?=
- =?us-ascii?Q?5IOzkIM+GH5yTKWVKYeV0zoLo8BAwlP3maBfCnFpSaTechXj6y373+rZcuX9?=
- =?us-ascii?Q?5HqcjRLVdwcd/uAPOwhLHmryWpwEvrq2i3A92m1lTHV/UxbVuvQMeO0QHqWN?=
- =?us-ascii?Q?EL7EnVOCMBm+BOkt6AX0Z6tvb4hiEZ7Q+MxWOOcONLge/7ONtEcJwZ6JMd2J?=
- =?us-ascii?Q?7rV5Y7TX7V6u6wL0c2ZMKesGb6veZk7frttGYtPB9UqFN53mn0egMHfry+u4?=
- =?us-ascii?Q?3532P1bpI2qXZxCKeh3BvmaaSnG0u0uSyrbFrThsNUea3nEW3SL979bgpQX7?=
- =?us-ascii?Q?PTltmpGukqZ2Cre0jvb+C+9dXRugpvjihuX5AuIJS/S1NmROLg=3D=3D?=
+ ARA:13230040|82310400026|36860700013|376014|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?hiTlI0cuskuiH6t2JffB605Ut4mUZhHVOxmnQycORJpNeN/yx06KqtLbQSgp?=
+ =?us-ascii?Q?pGS8/e4PBsSNdQODh6mHJKyu6z2lWWRXWCKWt5wvzXD9WaDippF/CXT6vNKv?=
+ =?us-ascii?Q?YOVdZCq/fiq6WQdzPu4Dgt867K//wx/s7bg0icPX/dYikbFRNchasgd5KbYZ?=
+ =?us-ascii?Q?6l1iHSQMcT3n07tKqzqkm77UzEVa3Cu94TpfmhrLsCkDFdjqy9EaX0TaOo4E?=
+ =?us-ascii?Q?L/qqnFbpxqHiM8QGpe2zIS1qaqFrwaHZDhldE0hOaG6VLSLldRKfMlRouZkQ?=
+ =?us-ascii?Q?x0Xfb9U6dDJmugb6Hz8cEFiyG0Epibr0K1nAzI5fUOOx+xU8mwYNTsJL5rkr?=
+ =?us-ascii?Q?wrMO34LFx4ldsotYvdZn8TsC5O9EnY5SefCnrzj/CbrctW/lVz1KlXerRbbG?=
+ =?us-ascii?Q?TJsfPPS3ypol6tqovf0eneJfJd18DcFhE9/60kz9jkiet4PGk55nVET+lAKq?=
+ =?us-ascii?Q?SJJVuQnuZsVaiWVdwZPJ6cmhDX9HrCp0og8eyWchWR7huCCXPFU4A9nn/xWn?=
+ =?us-ascii?Q?lqa2h+BqqY3JDgP8/4qHjxUmxyRo0kEvWeUd620ZG0yik76xNzO8sPdc6IlQ?=
+ =?us-ascii?Q?Rrhpn4OEHeGphepYRg8pWONr3oG+h8TC3OMrAXZIWkN2PYKtNc6n77zLAQ48?=
+ =?us-ascii?Q?whRrHTRO7znxUjBoXrGM6nt+FyWkdIjm0q5Q7g+0gxsMeySYn13Fji1NRquK?=
+ =?us-ascii?Q?iJh25hsI/YLPCYDA9z2bJEYiN/pKF+ayY+oxoMfQugwDIolwY3H4krPIwToe?=
+ =?us-ascii?Q?+CL4mFijKpU0eERDrEMCmfhaQlfF6yD+qZlA1nlwHZamCbmrzQ1czIjHNtos?=
+ =?us-ascii?Q?0e9hipuk0zu7TkBW417Uh/IKVFDdyKlFjmY9A5dCc9G6IOUoUgcoKgv2JHpK?=
+ =?us-ascii?Q?Es/XHcjGVOIfi4Nq7CtasSx6Tds82BmIUoWBokarYXTPAwLXSwpl2YErtD5U?=
+ =?us-ascii?Q?WWCNRO4sN+ISZBvIBa0MAC48iH3q/L/ApmoSOocf16nbbXfkE4qnUVDQM9SZ?=
+ =?us-ascii?Q?QNfz2jHsfRda1Oo7Mfpq2x0l6zoqTjJXtmSnqeN3GrglOUvUYdK9WsjG69Fs?=
+ =?us-ascii?Q?q5kadHtS15szPRL0oYILYkaOm9FVuMOlNpvRDjoU3Q1Zu5SrretgmZ/V00BX?=
+ =?us-ascii?Q?AnjKqdTeFpfNcEpX+bYvGc83dBo9SexRY/enIb5stxRFPzHCA2igAOUDPsH/?=
+ =?us-ascii?Q?mwNGIleCo0n64HZGggoAPCm8h7XaSQmlz5CfVq5UejD+XayE184q4t8l/HKq?=
+ =?us-ascii?Q?ymASIl0e1YRtjp5U7sTWGuJji/I3K59ixzoaewZ1yQZ81UtfVVWyphomDpya?=
+ =?us-ascii?Q?/6CZenx+poYJRu57wnWnCTWLjJz5YyzEeL/6KobVi9+QKqhDYrWQXGUH3qRq?=
+ =?us-ascii?Q?K1cXf8Z2fqHiWlSwD6ouspTQmC4ngwojnx0w5FUPQF/M3zoLnA=3D=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014); DIR:OUT;
+ SFS:(13230040)(82310400026)(36860700013)(376014)(1800799024); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2024 04:54:36.8881 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f48791f8-2069-4ca4-a990-08dcf31ecb9d
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2024 04:54:54.3627 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c6a24084-5e97-42d9-3a51-08dcf31ed60f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EDD3.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EDD5.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6041
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6288
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,42 +139,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Joshua Aberback <joshua.aberback@amd.com>
+From: Aurabindo Pillai <aurabindo.pillai@amd.com>
 
-[Why]
-MPC background colours that use fractional components look different if
-MPC OGAM is in use vs in bypass mode. The current red and orange colours
-look very similar when OGAM is in bypass, so the colours need to change
-to be consistently very easy to tell apart.
+[Why & How]
+Whether we really enter idle optimizations are decided within DC.
+Printing into dmesg before calling the DC API gives an incorrect
+indication that we are entering idle optimization in cases where its
+disabled manually.
 
-[How]
-Use colours that only have 0 or MAX values in each component
+To fix this, remove the print in DM and add them in DC
 
 Reviewed-by: Alvin Lee <alvin.lee2@amd.com>
-Signed-off-by: Joshua Aberback <joshua.aberback@amd.com>
+Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
 Signed-off-by: Tom Chung <chiahsuan.chung@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c | 8 ++------
+ drivers/gpu/drm/amd/display/dc/core/dc.c               | 8 ++++++--
+ 2 files changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-index 2fdcf8d59b9f..0419ee7f22a5 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-@@ -312,11 +312,11 @@ void get_mpctree_visual_confirm_color(
- {
- 	const struct tg_color pipe_colors[6] = {
- 			{MAX_TG_COLOR_VALUE, 0, 0}, /* red */
--			{MAX_TG_COLOR_VALUE, MAX_TG_COLOR_VALUE / 4, 0}, /* orange */
- 			{MAX_TG_COLOR_VALUE, MAX_TG_COLOR_VALUE, 0}, /* yellow */
- 			{0, MAX_TG_COLOR_VALUE, 0}, /* green */
-+			{0, MAX_TG_COLOR_VALUE, MAX_TG_COLOR_VALUE}, /* cyan */
- 			{0, 0, MAX_TG_COLOR_VALUE}, /* blue */
--			{MAX_TG_COLOR_VALUE / 2, 0, MAX_TG_COLOR_VALUE / 2}, /* purple */
-+			{MAX_TG_COLOR_VALUE, 0, MAX_TG_COLOR_VALUE}, /* magenta */
- 	};
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+index 171099a3ea05..8b5bea799a24 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+@@ -252,10 +252,8 @@ static void amdgpu_dm_crtc_vblank_control_worker(struct work_struct *work)
+ 	else if (dm->active_vblank_irq_count)
+ 		dm->active_vblank_irq_count--;
  
- 	struct pipe_ctx *top_pipe = pipe_ctx;
+-	if (dm->active_vblank_irq_count > 0) {
+-		DRM_DEBUG_KMS("Allow idle optimizations (MALL): false\n");
++	if (dm->active_vblank_irq_count > 0)
+ 		dc_allow_idle_optimizations(dm->dc, false);
+-	}
+ 
+ 	/*
+ 	 * Control PSR based on vblank requirements from OS
+@@ -274,10 +272,8 @@ static void amdgpu_dm_crtc_vblank_control_worker(struct work_struct *work)
+ 			vblank_work->stream->link->replay_settings.replay_feature_enabled);
+ 	}
+ 
+-	if (dm->active_vblank_irq_count == 0) {
+-		DRM_DEBUG_KMS("Allow idle optimizations (MALL): true\n");
++	if (dm->active_vblank_irq_count == 0)
+ 		dc_allow_idle_optimizations(dm->dc, true);
+-	}
+ 
+ 	mutex_unlock(&dm->dc_lock);
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 5a12fc75f97f..8a52fef46785 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -5429,8 +5429,10 @@ bool dc_set_ips_disable(struct dc *dc, unsigned int disable_ips)
+ 
+ void dc_allow_idle_optimizations_internal(struct dc *dc, bool allow, char const *caller_name)
+ {
+-	if (dc->debug.disable_idle_power_optimizations)
++	if (dc->debug.disable_idle_power_optimizations) {
++		DC_LOG_DEBUG("%s: disabled\n", __func__);
+ 		return;
++	}
+ 
+ 	if (allow != dc->idle_optimizations_allowed)
+ 		DC_LOG_IPS("%s: allow_idle old=%d new=%d (caller=%s)\n", __func__,
+@@ -5447,8 +5449,10 @@ void dc_allow_idle_optimizations_internal(struct dc *dc, bool allow, char const
+ 		return;
+ 
+ 	if (dc->hwss.apply_idle_power_optimizations && dc->clk_mgr != NULL &&
+-	    dc->hwss.apply_idle_power_optimizations(dc, allow))
++	    dc->hwss.apply_idle_power_optimizations(dc, allow)) {
+ 		dc->idle_optimizations_allowed = allow;
++		DC_LOG_DEBUG("%s: %s\n", __func__, allow ? "enabled" : "disabled");
++	}
+ }
+ 
+ void dc_exit_ips_for_hw_access_internal(struct dc *dc, const char *caller_name)
 -- 
 2.34.1
 
