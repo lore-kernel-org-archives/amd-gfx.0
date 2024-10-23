@@ -4,120 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BAEFD2E008
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Oct 2024 02:47:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4288BD2E00A
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Oct 2024 02:47:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E029310E34A;
-	Wed, 23 Oct 2024 02:47:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8EF310E70D;
+	Wed, 23 Oct 2024 02:47:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="rUui06JK";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ghHG+ZkQ";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2069.outbound.protection.outlook.com [40.107.93.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6557F10E34A
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Oct 2024 02:47:20 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2042.outbound.protection.outlook.com [40.107.243.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2BA0210E70D
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Oct 2024 02:47:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Vg8+YgG+7+wCUaPM6CxPZVBkvA7ako576+5MOODNw0JaMNC2s/coPL5RJodw8UkQuPDrKFVpXRTYNynJeDCu0UyCo9CYD08wJSL7aGDwDGOtGnV5S+07scx3AWDoX1Gr7bFwB8etxmdr2WMl3jvF62/+JwTkmTv6gubz80vDrxLQwmv4w3rmfT04alw026uIXFhNVeTKEco98xM4JTppEbEb0mi0lAn9X07wCQk5hAIAzGXtNsuRir7e/iTWVx2zFsIxrjhR2n7DUWYmHLzfnCIP8ndvxtqE2ihS62jhFWQN38NY5nfaXbsVzzc/m6sX5lulmLpBqBRXNJM55alVcQ==
+ b=ufSUvgpMwbjtzRtFZck6T4k84VFusMm55qN4A3d6dEarThGqRfyo5k6qNJmX5OnzRKE2jngLzpUHaO3n3E1puMSi2X3u7glO9/qxbBVqjTm8ZkkUa5q6Nw/EOc1VuIMSJUWrK3AUnor1qlibN0+YluZ+HkTzeItpsjuEdt5FyrIuhfi8P3ZVtsddWJ9B38A2jBmqXnG7yun0YA3aBoJrDYbmcICCSXw45yAmUOmp1pkfMCASczZx/DYxEHWFZRY61RZHsLsvxcgitjfWgRs9iZsRxpp8HJ8F3dgIE+oU2GX0MVzZ/3CWzjA6E/YLHfXVK4SQLTC4rElu240rlR59sg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=11Ub6UhUOrwXgKQXBTYh88iuIdClKjC+UBDhmXBwlFs=;
- b=kdlbAKORlfavI6tdy35Zwy8/2YF0OyAEsiN/1Av8rZq4HJqKBH8eo3koYU+N2nB/xGv3WBkW9ewI5U4lvEy6x4y5eLZMPGUDiR48JL9NXEGK7Z16iY7zTmwY7OOhDnCYsrC2C6eiG27sEAVmyJNSY6S1trrFaiBSPHm+nVX+ISuIyHFd3KfpV/G9YezmFp7oq31Iy/CXfoYov+q6vNdkdJfFwRzIn1HuHvHJA9W10sKyz7R9Y6x955uup9s7xXW4pTYEPh47E7uNKByq5zvQ+1laqjvv2RD22hkLigr+2l1h7uuC8b1g4q2ug2AUTbEsHOWyI3SpKrss2Mm7FSH9sg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=temperror (sender ip
- is 165.204.84.17)
- smtp.rcpttodomain=lists.freedesktop.org
- smtp.mailfrom=amd.com; dmarc=temperror action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
+ bh=sHwktKSADJvM6jgIWw9igmfC9CC5XdeBCmb+Ivadjc8=;
+ b=Ko0Lsdk/xXPp+gRqRivkWGOzW4sofN9rRnQJByMJkWw5PFCIg1s8czp1J4hwTncpJfkjMQL2pqqaZSk+w3RUUDzp+KZ8qNyAJC82o9BiNYoT8eHMK9eKd1tV3slpb+2uSbBy4Uw1Nm5sKuj/sbi8hBSXPD7aSEwty1IseoyNLMVt5mvoQRT9p8+6wJmmOodbH76scfLLPRWI6P3sycGvj33Lh7M7nnobGlEGnr0tcUqmOQQBJlnL0/8AyWHRve4K1+z+Wo/hkMivQfNxhE3QkJHIwqre9HuPFHmp3M4H85ZaEvv1zQ5hFmK6y+vhvhhUaHGNMAZcYl6V2h4rib6rsQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=11Ub6UhUOrwXgKQXBTYh88iuIdClKjC+UBDhmXBwlFs=;
- b=rUui06JKwGdx/0DmZQQP2DCyeMl/JLMf+QunVbQA1HABZ9nV44gtHCk1T30huxgmVFTLl1m4n9aI8W2uZ7dr0Klxa3cTjPQjWbneoegSAw8Fx530Z72frEX90htKJzo1R02YdXWvvsI6eT7Rfex943j1w606H7P/l0+09aRkExc=
-Received: from SA1P222CA0158.NAMP222.PROD.OUTLOOK.COM (2603:10b6:806:3c3::18)
- by PH0PR12MB7009.namprd12.prod.outlook.com (2603:10b6:510:21c::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8069.29; Wed, 23 Oct
- 2024 02:47:14 +0000
-Received: from SA2PEPF00003AEA.namprd02.prod.outlook.com
- (2603:10b6:806:3c3:cafe::ff) by SA1P222CA0158.outlook.office365.com
- (2603:10b6:806:3c3::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8093.17 via Frontend
- Transport; Wed, 23 Oct 2024 02:47:14 +0000
-X-MS-Exchange-Authentication-Results: spf=temperror (sender IP is
- 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=temperror action=none header.from=amd.com;
-Received-SPF: TempError (protection.outlook.com: error in processing during
- lookup of amd.com: DNS Timeout)
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SA2PEPF00003AEA.mail.protection.outlook.com (10.167.248.10) with Microsoft
+ bh=sHwktKSADJvM6jgIWw9igmfC9CC5XdeBCmb+Ivadjc8=;
+ b=ghHG+ZkQKMH6dWxm+L1UTSusZ6DAjggQYAiEx2jmm6lBnizybWVfsX8CEBzpUL+FswCU6O2obz/6BvFSWTLwN326Pyj18kdDIMLHPa9qAoenJi4SYesvHq7pTGvOljjtRhwYsqKEovKniCcVqk2+jcb29DOC5Z8JXHvF+52xFns=
+Received: from BYAPR01CA0040.prod.exchangelabs.com (2603:10b6:a03:94::17) by
+ CH3PR12MB8212.namprd12.prod.outlook.com (2603:10b6:610:120::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8093.17; Wed, 23 Oct
+ 2024 02:47:17 +0000
+Received: from MWH0EPF000A6734.namprd04.prod.outlook.com
+ (2603:10b6:a03:94:cafe::79) by BYAPR01CA0040.outlook.office365.com
+ (2603:10b6:a03:94::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7982.34 via Frontend
+ Transport; Wed, 23 Oct 2024 02:47:24 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ MWH0EPF000A6734.mail.protection.outlook.com (10.167.249.26) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8093.14 via Frontend Transport; Wed, 23 Oct 2024 02:47:13 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.8093.14 via Frontend Transport; Wed, 23 Oct 2024 02:47:17 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 22 Oct
- 2024 21:44:51 -0500
+ 2024 21:47:12 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 22 Oct
+ 2024 21:46:46 -0500
 Received: from JesseDEV.guestwireless.amd.com (10.180.168.240) by
  SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39
- via Frontend Transport; Tue, 22 Oct 2024 21:44:40 -0500
+ via Frontend Transport; Tue, 22 Oct 2024 21:46:40 -0500
 From: "Jesse.zhang@amd.com" <jesse.zhang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
  "Jesse.zhang@amd.com" <jesse.zhang@amd.com>, Jesse Zhang
  <Jesse.Zhang@amd.com>
-Subject: [PATCH 4/5 V2] drm/amdgpu: Add sysfs interface for vpe reset mask
-Date: Wed, 23 Oct 2024 10:44:34 +0800
-Message-ID: <20241023024434.2578611-1-jesse.zhang@amd.com>
+Subject: [PATCH 5/5 V2] drm/amdgpu: Add sysfs interface for jpeg reset mask
+Date: Wed, 23 Oct 2024 10:46:39 +0800
+Message-ID: <20241023024639.2578878-1-jesse.zhang@amd.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-Received-SPF: None (SATLEXMB04.amd.com: jesse.zhang@amd.com does not designate
+Received-SPF: None (SATLEXMB05.amd.com: jesse.zhang@amd.com does not designate
  permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00003AEA:EE_|PH0PR12MB7009:EE_
-X-MS-Office365-Filtering-Correlation-Id: fa28c9a3-538a-48cb-46c1-08dcf30cffc2
+X-MS-TrafficTypeDiagnostic: MWH0EPF000A6734:EE_|CH3PR12MB8212:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2c801c3d-08c2-4f3c-c01d-08dcf30d01eb
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|36860700013|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?MTzL5I6DPhAo7rvnOPBnAk8V4qiOeq+E005e1yry7al9j5cPOCaGbwPVaCkC?=
- =?us-ascii?Q?CMl5+fJ1pdEppTRekeGhrMF8czY/6uX2bnugST2OEF63Ds1N9HLji82qapVn?=
- =?us-ascii?Q?55FxO/fV08jH2H4BbESRUWmVgzRy2oz4SndsXFvgLGc0owmx9djnEcSu6D/I?=
- =?us-ascii?Q?eCPQ5rJF2T8ImkKeB862qE5syDPp/EYV8eo6yIAAocIG8AmtaiZW8nSvjw2B?=
- =?us-ascii?Q?LJOIkGdmceBHSCaRrXVTkQpciv5oCI1dzH2wu9sEpv/mzXq6Mm4MqdXeIl2k?=
- =?us-ascii?Q?XyO/bwgXIEVavwcllinJnbAuj+japLgidoEvJhccKno/UVqe61t1ur7b/GjP?=
- =?us-ascii?Q?6AFyXWrMxxc3NWHAVMTkCLeWk9gzBFLtvZLH/43YtoZLbK552FOYp8UXgXgz?=
- =?us-ascii?Q?Z0LsJQdfkbAsysC/jaHj9YRZwvGm1JynnrBNo5v+vYhMlcJWwF/wSuvEFvD/?=
- =?us-ascii?Q?fkPmOavrPHGHRaY69tvewfrmaW1hXQZM6djkRCQ+ux8pFNXxjp67Sq+9+M7X?=
- =?us-ascii?Q?1umpAe6W42XpjXjBzohQm5Nen3Rv14A/RHqGEBOisev2oLKVIB0KylCa6rYZ?=
- =?us-ascii?Q?eAsMqZ1l1sh8nwZa43OAEBRQEAUgJQQ/OQRtfrTWw6uYM2Ry2domZx2m5Nzy?=
- =?us-ascii?Q?87RK1ZJxruFOtRUjLSx9IyZhLiMG6gEHCU1PdygDyL53F3L213qLi2sxU3Xa?=
- =?us-ascii?Q?FerYIT0elmlD+9lsnzqyZtKULH7iLeMnK2drAqP0h+TzsDudcACmJeizTVM1?=
- =?us-ascii?Q?U/kgxwgDoBllj+W3+S1/8PWXn2Vykz/pxfyGnvRdZAXC/kuhjDC5t1MD6o0k?=
- =?us-ascii?Q?5dvcn+g0NTHPqkNpsTU4hDXzNsMC3vCe0E47ILarO8C+825QPl4daahRnh3/?=
- =?us-ascii?Q?GgCF9aFBB28pi2Tp7nBHsJwWjs4j5xTr+tP+tEsNQXdgBkAzg2GGffEd01EF?=
- =?us-ascii?Q?yIwa2OW9WlOzbZSZOMEV1e6t5nqw+qoG7sKi6WL0+Sue9uehVZGhPhzOm9G5?=
- =?us-ascii?Q?slqEjEQn3NxETKQY2ZSWJdc7ICDuLqsORiNQAAPcF0amsek6UDE8LALEXtRN?=
- =?us-ascii?Q?LTq462H1lYPsWsJebBwH6WAUQmo3zdi1Y5ydb5HQ77LmsLkvSae/EBm+cNUm?=
- =?us-ascii?Q?iQZOfSo6EejCxW2GKbgWpwzcK/WkasH/D3LMa9bW4VQfT/61PGI4CJN3rlD4?=
- =?us-ascii?Q?1xrry+AnoMjivB20OQZ0HHT5xyDUZPiYXPrGC0jkCayOvjRismI30FT92uT+?=
- =?us-ascii?Q?A6zVOdYnvZhS4tvNjSR3RMyJY8f+2bqrOlfQxTn1pTzzdCYOMsli+KdND/5c?=
- =?us-ascii?Q?ULE1uQwlFDOwxeo6mb4WOZ9A5BE1cO84cfNnIkO+apWsYH2Jp6p4Qmzjh8Av?=
- =?us-ascii?Q?hwaL5b2oWR9E1mD87wdQwKoLRx9TkyuoaQAMggvi6lYMh50+8Q=3D=3D?=
+ ARA:13230040|1800799024|376014|36860700013|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?NM5NNMwoU+mR9xi2R9x/zxj28qRqLom7x0/gpmExb/O1rBzObrRkpa055dWM?=
+ =?us-ascii?Q?SByUs1GOMeuJPf3LaTDZX5/CnrorGJwvyTWcguIyTBZ//0bAT+2ZAThugJ0+?=
+ =?us-ascii?Q?a94QguGKJxz16oFw54bSXOqtsw4vuZIgcFOUdRPfbi0z1Js0KY/7ln3QTI2w?=
+ =?us-ascii?Q?1oNb4rpVsB2nkC0Yt4n4J/nCMileI9U/NJVF4Fkhl+g4mKN5208jid5W619z?=
+ =?us-ascii?Q?Pv1ya9VQhox+8nK9gu4lzCjxd2J9WBa1mZ9+OHuJ5jyKiKYcarf4Jyc5x3s5?=
+ =?us-ascii?Q?zoTDmmwlYw1DxTWVb5rJNDqMhmtSHodcoypAdDIvrj+lKtOE7c3MIKvHK83x?=
+ =?us-ascii?Q?ms75+e+Tk276VMqnuLGWoSKLBAS+7E9musf43rVK3q1qLoSD8cdxDaAYnQYk?=
+ =?us-ascii?Q?mTnJ7Os/1P4jIw7j/FUASydjQWPPMqB3Nu/7oJ3vgIRBabPOvQzuHqWvIQbD?=
+ =?us-ascii?Q?3Q/RJuj/MhNK0MbPz8OVIOCmJccd4wp8n+MkibUAVHSi78lMUHB+p3erCNln?=
+ =?us-ascii?Q?+r1JlZc0UWUubDgvKfWLs5sNOVSJ57+XV478PfTRlMf73Rv+yolnK+8sOeVC?=
+ =?us-ascii?Q?5GtbILkR49qzA3me5OTg4AVm/EoLb/Juo2K4o/T5YkG/NP0a2NVLrNB5Um/7?=
+ =?us-ascii?Q?hH7TPhqoDKsvkx+QBEQzeiiyyBCs6WJYKJtfwajxoDr3mQ2JHA9Yp2OxQI9u?=
+ =?us-ascii?Q?uV30thC3gaj8RypZyWeyMV40tM/y2dezEvX701I6KBeVVLUUolkcpgQTpZuy?=
+ =?us-ascii?Q?3NLhl4wMPgJIRcxaC7qjZy1C9ta2VVIGwM81ipKyh3qww+6yy0vAuCxBVhX5?=
+ =?us-ascii?Q?3Z37cBaKhNW7juZ1HVjMnW6uQt6Riq4OJxEZkYhKRbRpsqT2pIglmm/GsGR0?=
+ =?us-ascii?Q?q80NTBRARMBdclHIqoxAgf1kcD3ue+27mDGC5eEVA4M8deusywa6bsNlUKSG?=
+ =?us-ascii?Q?06ZUuZc2rTQRCbqnDj66bgrTNX4w7FtQCe+Me6n1fBDATrgPpK4fSD9/Yfwa?=
+ =?us-ascii?Q?lvFXGihqu1KE3t8P8HQMUy46Br4W4yTGomIXq6nNAI9OvVn7UW5rVsIj3Cjf?=
+ =?us-ascii?Q?mxhrf92KKDYUDkdBUN2nF6J5uQTIaGvH30QbkPwq28Sqsjf4eLyyMxjrq95G?=
+ =?us-ascii?Q?z/acWjGriMgsTgKPl73C+TqjclL9kwvGLNNPukRgcUxmUwijRFH0rIs2K25m?=
+ =?us-ascii?Q?a05UN7nsXq7cNhFjuhE6R3g2CUHDCYcBQAdun8LuOzl7JwC86lPx7EDglIP3?=
+ =?us-ascii?Q?xU4sfuYDgjJ9C6rtbdWLcfrvp11khdnscc3oxVNV6W+3KELuMVFkrx5xvltH?=
+ =?us-ascii?Q?7wqnVSNEWBcvCVDcYJxMpOpCWR1f8LGV+YyofDej8/XjAStr02kSBsqvJ/LH?=
+ =?us-ascii?Q?ITzaHZMbmmsdhngLrGhg4af99/sb3whSICVAkTCil30Vho85ZA=3D=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:ErrorRetry; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024); DIR:OUT;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2024 02:47:13.4909 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fa28c9a3-538a-48cb-46c1-08dcf30cffc2
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2024 02:47:17.0713 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2c801c3d-08c2-4f3c-c01d-08dcf30d01eb
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00003AEA.namprd02.prod.outlook.com
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000A6734.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7009
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8212
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,8 +136,8 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add the sysfs interface for vpe:
-    vpe_reset_mask
+Add the sysfs interface for jpeg:
+jpeg_reset_mask
 
 The interface is read-only and show the resets supported by the IP.
 For example, full adapter reset (mode1/mode2/BACO/etc),
@@ -144,45 +148,31 @@ V2: the sysfs node returns a text string instead of some flags (Christian)
 Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
 Suggested-by:Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c | 53 +++++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.h |  2 +
- 2 files changed, 55 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c | 48 ++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.h |  2 +
+ drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c   |  5 +++
+ drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c |  5 +++
+ drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c |  5 +++
+ drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c |  4 ++
+ 6 files changed, 69 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
-index 6d96e1f21e20..eae94fdb126e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
-@@ -377,6 +377,10 @@ static int vpe_sw_init(struct amdgpu_ip_block *ip_block)
- 	ret = vpe_init_microcode(vpe);
- 	if (ret)
- 		goto out;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
+index 95e2796919fc..eda71e9b1199 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
+@@ -415,3 +415,51 @@ void amdgpu_debugfs_jpeg_sched_mask_init(struct amdgpu_device *adev)
+ 			    &amdgpu_debugfs_jpeg_sched_mask_fops);
+ #endif
+ }
 +
-+	ret = amdgpu_vpe_sysfs_reset_mask_init(adev);
-+	if (ret)
-+		goto out;
- out:
- 	return ret;
- }
-@@ -389,6 +393,7 @@ static int vpe_sw_fini(struct amdgpu_ip_block *ip_block)
- 	release_firmware(vpe->fw);
- 	vpe->fw = NULL;
- 
-+	amdgpu_vpe_sysfs_reset_mask_fini(adev);
- 	vpe_ring_fini(vpe);
- 
- 	amdgpu_bo_free_kernel(&adev->vpe.cmdbuf_obj,
-@@ -865,6 +870,54 @@ static void vpe_ring_end_use(struct amdgpu_ring *ring)
- 	schedule_delayed_work(&adev->vpe.idle_work, VPE_IDLE_TIMEOUT);
- }
- 
-+static ssize_t amdgpu_get_vpe_reset_mask(struct device *dev,
++static ssize_t amdgpu_get_jpeg_reset_mask(struct device *dev,
 +						struct device_attribute *attr,
 +						char *buf)
 +{
 +	struct drm_device *ddev = dev_get_drvdata(dev);
 +	struct amdgpu_device *adev = drm_to_adev(ddev);
 +	ssize_t size = 0;
-+	struct amdgpu_ring *ring = &adev->vpe.ring;
++	struct amdgpu_ring *ring = adev->jpeg.inst[0].ring_dec;
 +
 +	if (!adev || !ring)
 +		return -ENODEV;
@@ -201,15 +191,15 @@ index 6d96e1f21e20..eae94fdb126e 100644
 +	return size;
 +}
 +
-+static DEVICE_ATTR(vpe_reset_mask, 0444,
-+		   amdgpu_get_vpe_reset_mask, NULL);
++static DEVICE_ATTR(jpeg_reset_mask, 0444,
++		   amdgpu_get_jpeg_reset_mask, NULL);
 +
-+int amdgpu_vpe_sysfs_reset_mask_init(struct amdgpu_device *adev)
++int amdgpu_jpeg_sysfs_reset_mask_init(struct amdgpu_device *adev)
 +{
 +	int r = 0;
 +
-+	if (adev->vpe.num_instances) {
-+		r = device_create_file(adev->dev, &dev_attr_vpe_reset_mask);
++	if (adev->jpeg.num_jpeg_inst) {
++		r = device_create_file(adev->dev, &dev_attr_jpeg_reset_mask);
 +		if (r)
 +			return r;
 +	}
@@ -217,28 +207,114 @@ index 6d96e1f21e20..eae94fdb126e 100644
 +	return r;
 +}
 +
-+void amdgpu_vpe_sysfs_reset_mask_fini(struct amdgpu_device *adev)
++void amdgpu_jpeg_sysfs_reset_mask_fini(struct amdgpu_device *adev)
 +{
-+	if (adev->vpe.num_instances)
-+		device_remove_file(adev->dev, &dev_attr_vpe_reset_mask);
++	if (adev->jpeg.num_jpeg_inst)
++		device_remove_file(adev->dev, &dev_attr_jpeg_reset_mask);
 +}
-+
- static const struct amdgpu_ring_funcs vpe_ring_funcs = {
- 	.type = AMDGPU_RING_TYPE_VPE,
- 	.align_mask = 0xf,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.h
-index 231d86d0953e..015ba7aaf0ca 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.h
-@@ -86,6 +86,8 @@ int amdgpu_vpe_init_microcode(struct amdgpu_vpe *vpe);
- int amdgpu_vpe_ring_init(struct amdgpu_vpe *vpe);
- int amdgpu_vpe_ring_fini(struct amdgpu_vpe *vpe);
- int amdgpu_vpe_configure_dpm(struct amdgpu_vpe *vpe);
-+void amdgpu_vpe_sysfs_reset_mask_fini(struct amdgpu_device *adev);
-+int amdgpu_vpe_sysfs_reset_mask_init(struct amdgpu_device *adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.h
+index 819dc7a0af99..f5e1c98a4764 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.h
+@@ -150,5 +150,7 @@ int amdgpu_jpeg_ras_sw_init(struct amdgpu_device *adev);
+ int amdgpu_jpeg_psp_update_sram(struct amdgpu_device *adev, int inst_idx,
+ 			       enum AMDGPU_UCODE_ID ucode_id);
+ void amdgpu_debugfs_jpeg_sched_mask_init(struct amdgpu_device *adev);
++int amdgpu_jpeg_sysfs_reset_mask_init(struct amdgpu_device *adev);
++void amdgpu_jpeg_sysfs_reset_mask_fini(struct amdgpu_device *adev);
  
- #define vpe_ring_init(vpe) ((vpe)->funcs->ring_init ? (vpe)->funcs->ring_init((vpe)) : 0)
- #define vpe_ring_start(vpe) ((vpe)->funcs->ring_start ? (vpe)->funcs->ring_start((vpe)) : 0)
+ #endif /*__AMDGPU_JPEG_H__*/
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c
+index 20e1fe89c463..c0b86a742a94 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c
+@@ -124,6 +124,10 @@ static int jpeg_v4_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 	if (r)
+ 		return r;
+ 
++	r = amdgpu_jpeg_sysfs_reset_mask_init(adev);
++	if (r)
++		return r;
++
+ 	return 0;
+ }
+ 
+@@ -143,6 +147,7 @@ static int jpeg_v4_0_sw_fini(struct amdgpu_ip_block *ip_block)
+ 	if (r)
+ 		return r;
+ 
++	amdgpu_jpeg_sysfs_reset_mask_fini(adev);
+ 	r = amdgpu_jpeg_sw_fini(adev);
+ 
+ 	return r;
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
+index 2a53537db135..2a25f7fffbd4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
+@@ -159,6 +159,10 @@ static int jpeg_v4_0_3_sw_init(struct amdgpu_ip_block *ip_block)
+ 		}
+ 	}
+ 
++	r = amdgpu_jpeg_sysfs_reset_mask_init(adev);
++	if (r)
++		return r;
++
+ 	return 0;
+ }
+ 
+@@ -178,6 +182,7 @@ static int jpeg_v4_0_3_sw_fini(struct amdgpu_ip_block *ip_block)
+ 	if (r)
+ 		return r;
+ 
++	amdgpu_jpeg_sysfs_reset_mask_fini(adev);
+ 	r = amdgpu_jpeg_sw_fini(adev);
+ 
+ 	return r;
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c
+index ef2d4237925b..0e06c477f6b4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c
+@@ -153,6 +153,10 @@ static int jpeg_v4_0_5_sw_init(struct amdgpu_ip_block *ip_block)
+ 		adev->jpeg.inst[i].external.jpeg_pitch[0] = SOC15_REG_OFFSET(JPEG, i, regUVD_JPEG_PITCH);
+ 	}
+ 
++	r = amdgpu_jpeg_sysfs_reset_mask_init(adev);
++	if (r)
++		return r;
++
+ 	return 0;
+ }
+ 
+@@ -172,6 +176,7 @@ static int jpeg_v4_0_5_sw_fini(struct amdgpu_ip_block *ip_block)
+ 	if (r)
+ 		return r;
+ 
++	amdgpu_jpeg_sysfs_reset_mask_fini(adev);
+ 	r = amdgpu_jpeg_sw_fini(adev);
+ 
+ 	return r;
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c
+index 7954a6fae464..9190572a9302 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c
+@@ -100,6 +100,9 @@ static int jpeg_v5_0_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 	adev->jpeg.internal.jpeg_pitch[0] = regUVD_JPEG_PITCH_INTERNAL_OFFSET;
+ 	adev->jpeg.inst->external.jpeg_pitch[0] = SOC15_REG_OFFSET(JPEG, 0, regUVD_JPEG_PITCH);
+ 
++	r = amdgpu_jpeg_sysfs_reset_mask_init(adev);
++	if (r)
++		return r;
+ 	return 0;
+ }
+ 
+@@ -119,6 +122,7 @@ static int jpeg_v5_0_0_sw_fini(struct amdgpu_ip_block *ip_block)
+ 	if (r)
+ 		return r;
+ 
++	amdgpu_jpeg_sysfs_reset_mask_fini(adev);
+ 	r = amdgpu_jpeg_sw_fini(adev);
+ 
+ 	return r;
 -- 
 2.25.1
 
