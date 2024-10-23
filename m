@@ -4,141 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9EE32D2E01E
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Oct 2024 08:09:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 431F6D2E027
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Oct 2024 08:53:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 571B410E786;
-	Wed, 23 Oct 2024 08:09:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2BAE210E79D;
+	Wed, 23 Oct 2024 08:53:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="R44hZp2u";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="PC8nPTZq";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2066.outbound.protection.outlook.com [40.107.223.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 98B7E10E786
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Oct 2024 08:09:28 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=i56Ysh1QDlJybeita6uXkTCDdQYJXt27Mokn2TCwvN1kvEkJF+OhVYS/W1KTq8KKum4WspqHUNyPovTTHsdMsbNK2W3tJ0KWeIDNjHZ0yrEYzNwqJA6IwabqKXzBD1tyFCdi0qq9nKD/9oCRmjThR0MOsU7uVAZFqY8SAp5s5W4zU4kor/VUBAuTHzUsNKcOdPcBqRXEQvRwXR922YWqMTNsDRkC8dqOgJN5YzyB+nRKWSFNzhZItoHd3OD3DEC+xcsdbHeOAtaCDnar/pC0O0UZn6MH6zsPSnwJtfYYicvL5rmi0ewJVrNj1s/jD8dhj6BojeMPj0F8oUxnV0dltw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XPEEXW6QW+ojGpcOJ4z+Lm9T9yL68yEKuPbEtZ56aj8=;
- b=hK5WXXyg8AVjE1DN/6QyqWy4D/lnniXB9mxc+JYyLxeUG/X0dd2V6LRcsg18rIchHPeJrxsF/SOZY4Scfm30HNrdYhV8PIMORKDs5Dfoh3C+87XA+eZHsjOzF3UwThpFC41L2Bfq6HXi336oUntPhS6B0TaQbFaGFbJtJAeILx9fllkpCiFYWGkwSzYc4RySb1ap7Yr+cr8EE96jX2/PR7HSMMc8WFB7moDbH4zXPZrDNhr478LLv/dihvrvo+Vb70aNAKt3RcsSEaTC1l0kt2FMGIodcvcjzTKBLHyc9reNp7+EgQXgK9UTtR2gCGRgWfbg3I7yyKG8OD240VpqxA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XPEEXW6QW+ojGpcOJ4z+Lm9T9yL68yEKuPbEtZ56aj8=;
- b=R44hZp2uasafaMvE6YnZJrbDSm9Ix8PD4Pwqgn5qiyGlVJnoMUAeMarMcAFnEn8v910qaMtCYuAYCxwiPnO6ItBgHDV12cU7P0e+STAc/PWzaJcRvkMO0DEgDya/DfsmwNkxE3oOw0FT8mD+pI8QtUtOsSYnQJ6/HcEeeRXDAEY=
-Received: from DS7PR12MB6005.namprd12.prod.outlook.com (2603:10b6:8:7c::17) by
- CH3PR12MB8212.namprd12.prod.outlook.com (2603:10b6:610:120::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8093.17; Wed, 23 Oct
- 2024 08:09:25 +0000
-Received: from DS7PR12MB6005.namprd12.prod.outlook.com
- ([fe80::4dc0:f34c:9e7e:ccb]) by DS7PR12MB6005.namprd12.prod.outlook.com
- ([fe80::4dc0:f34c:9e7e:ccb%4]) with mapi id 15.20.8093.018; Wed, 23 Oct 2024
- 08:09:25 +0000
-From: "Liang, Prike" <Prike.Liang@amd.com>
-To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Lazar, Lijo"
- <Lijo.Lazar@amd.com>
-Subject: RE: [PATCH v2 2/2] drm/amdgpu: clean up the suspend_complete
-Thread-Topic: [PATCH v2 2/2] drm/amdgpu: clean up the suspend_complete
-Thread-Index: AQHbHg2S9Q7S+WlsDEqU6j9plY5fkLKUCO1A
-Date: Wed, 23 Oct 2024 08:09:24 +0000
-Message-ID: <DS7PR12MB600573E09E971FDCDBD3EEEBFB4D2@DS7PR12MB6005.namprd12.prod.outlook.com>
-References: <20241014074902.1837757-1-Prike.Liang@amd.com>
- <20241014074902.1837757-2-Prike.Liang@amd.com>
-In-Reply-To: <20241014074902.1837757-2-Prike.Liang@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=f2a97aca-3a2d-42b7-b1ae-494fe0943011;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution Only;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-10-23T08:06:51Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS7PR12MB6005:EE_|CH3PR12MB8212:EE_
-x-ms-office365-filtering-correlation-id: 8db31f59-6772-41c0-6903-08dcf33a022b
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0; ARA:13230040|366016|1800799024|376014|38070700018;
-x-microsoft-antispam-message-info: =?us-ascii?Q?skh6s7DjBwyjztFlAVuPResc1GfyJSH4yYmZ/wBs02ALbAZfhGJ1uFARm7jI?=
- =?us-ascii?Q?X1VGIH8UW4oMClW+OIDKLezAwe4X6riCyEcwrADgjy5Mw4i73gJpgmQZ7Mi8?=
- =?us-ascii?Q?Ks/rPmxeq1Wa/RS6givOkrzmmnIGbTWhI74TxvblMtsJcutOSV+4Qhuv4AGO?=
- =?us-ascii?Q?oB9AXuxFPkdn/n1SFnOqYrzygxvwjXa+KSPNr1D7tnyhl642+UXvVb/l+5Gp?=
- =?us-ascii?Q?bo3scYdjRpxCVdy4BOQ8/bRie/GrxS7vySGCtlpmWWP06/qGszu/LPcjvxHn?=
- =?us-ascii?Q?++UsOsb3uGBzorUxwnae5HuZlufz75hNIgFmKy2UsPs1oFjPzIlx7yLF4FfK?=
- =?us-ascii?Q?qqC4RSYNHdX/akgNl7VTjwBmZB95X/5FNsszyrUxXmP03ejE6WkH78lM5/CP?=
- =?us-ascii?Q?a7kPIltvYNlVyP/BTLheXNgqUL2B26VVYbmRVhHvRQ6x91lAUVvm9NNUeaRt?=
- =?us-ascii?Q?jcdvVPsa/ZJoEBsZ/UkFLQ7Fs1tTABBc5zEO4RLyMr2q4WgnJJFE99RB9Ngq?=
- =?us-ascii?Q?81ERIopUDn+TWUBpIKtKHQsM4YMEk5EQRwiL93sQvuzMto7zdAlJ/ibCKq/w?=
- =?us-ascii?Q?hoyxDYJ2mfxPCAtqxMlJ+B4fyK4SihnupQ2V6D4CgUSqytAqpRPXJ6qkv0rl?=
- =?us-ascii?Q?laFOdRgjw9vDdCbRschOYrlQUJNgqLtY0CwVElEQt3elgdW61TcaQLvN+Inv?=
- =?us-ascii?Q?uDN9nmOeetcC9rvSVTgGCdLwXIGV4bcaH+FMuONF45fG9Rx4bv64Ho70xuPp?=
- =?us-ascii?Q?MHYX6PfEY/niEAC3T6TVwLt10Rcuab8eKD0MMWVQ83dAnfwvPduxN5YZ8pn8?=
- =?us-ascii?Q?W0BC+Ujj2ihV38EU2dV67NXn6vfGVl2adsLAXqpPBOE4LYX0XSpvDxHNzBGJ?=
- =?us-ascii?Q?YQWN8M/CBVflRHdFZlfR/equRU5U75QJTcSApjM+3of4px36efGeM0gFmrpV?=
- =?us-ascii?Q?bTAE8w4h2zw8HO+SEtJmVr/TX32kHa6fcdqt2LVuCckUaNywoc0kHp+pA2m/?=
- =?us-ascii?Q?wEUxcbK2WoGXWvqJw1i9Zr2yH8NaKybIRAwVei/yPsK0RmSPSmQS5Uosk2fw?=
- =?us-ascii?Q?BSHNvaVMtxq6OgRJg71VJP7pyNYMUJfIhOGUarN7mmWpzJrnBLfoQtCndD0Z?=
- =?us-ascii?Q?9mQR+4FIBmRp8BiOM0eN48wnRjVYqS5ychBJqkfuhgLTGcZv1btw3SOK6311?=
- =?us-ascii?Q?plHzZXlH6Wf5obrV9RIV+P8YEkegAUmq5Ko7aykYKSGmL/IpQ3j8tV4G4SbR?=
- =?us-ascii?Q?UsiL4Y91cMe7Ctg/339rNgJWSvpr/y2ksr+At9u3UV1pLN/qyCPnKHU1Jo3+?=
- =?us-ascii?Q?sgcEI+B8OrAhJskUV7BTzfgBu54UB2UgXqtF2It60aCw93KrmCO1sxrrEF/7?=
- =?us-ascii?Q?VeL2aRI=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS7PR12MB6005.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(38070700018); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?hvRwQVRFSpogqT40FmVyidUpqrC/mJQD3TveaUgugGEy0olsrmc130B9BH6+?=
- =?us-ascii?Q?LpMsLtTqFggokh3j5nlReekqoVC8sj/F24Q5xNWOSv3Lnv8RYV+ZVnglklKC?=
- =?us-ascii?Q?6Ux6q3cMWvMXBAS4obHUbSvFh1waHrq4QDcrzURwEnZKgy7wVZYvDrBP1QeN?=
- =?us-ascii?Q?8Gf7dlEdOOE2FeJD9O4JXCPs4GYjr4iBEtAVOQ0wHVPnhSTv8wJAWjkeD/iA?=
- =?us-ascii?Q?abGlKqjxV9wOChsKIa0iGr57Yxf8HBT64UpWO3hufXLZksICHX3jDscBpasr?=
- =?us-ascii?Q?PBr7XZkoBGzVxbjGF2P7ZPD6yb+atsqHv1kglGnSLbVMq6NfLtlWyKwDVUQT?=
- =?us-ascii?Q?3+DFb7f/N6aFt4xGRvhlK3ztl6Hau9a9v7XyjZG/NwXnWEbaYK0YhqkNwfZn?=
- =?us-ascii?Q?i0QuPFtwYIMIdQibtUWBQ4gSr/puYYWVCsYMiqqoVkdNUb1/jIq7uUahO0Gu?=
- =?us-ascii?Q?6bMaUthirlbZU3fVGpNCnXS7oHpqOUt2yFpO1j+5gesWXQ5c2fgOWoQ1Icc6?=
- =?us-ascii?Q?iMRE0fWKik8NtGfbEGCMzrGL8D4ChlQRVHxcicPNHFW9C0dQLlmLBM9pLh87?=
- =?us-ascii?Q?6urH/9vvn9zsCdeO6pcRt1Do5sQ1WkPBsTDAhg+h5+0SJYxud3BAcko29VMV?=
- =?us-ascii?Q?TZYhBYXjoPzedsgoytO8Jk/LZvHZT0e6BSJHiT9WkQvu7HEoZG7tvPtvYIah?=
- =?us-ascii?Q?BpeAOh6Dm0xqQ6g7TQsxGw0gtoM3wbfz/RtlJs7xfygX2jUUkRWJ5kwKJz7U?=
- =?us-ascii?Q?hyBuhrmNgENCQ+DzjHTYUEdS+jw2J/YLQ2t0rxfT6ZUzgOKMaiU3UGAs2+ky?=
- =?us-ascii?Q?bGnCjYsF0kopkBSktXKRs1b28GWR0+eIeayR1S65cLEYpqzLM/Jbjwub2Jwy?=
- =?us-ascii?Q?j88x1OWFaqmpvb246mzPDkUMzwNsWobF/FTvsLjuVN8YfFlSsWEF24lcqxpv?=
- =?us-ascii?Q?7v79HZPvrcPRYPdJChSBd71Py0VvIhztv6k1Mo1iU18RaiB3BICL2+/gmiJL?=
- =?us-ascii?Q?nqcst71oDZIFghtNurI9gr45jM7diOZcW8sczrPyciSfzpQogjTxDF03qIAj?=
- =?us-ascii?Q?a02jeabhAEdsdhU4iDRxtO7HfIUhZaTIoMbfK7cmMm0IG6yPZiyhOGzZFncL?=
- =?us-ascii?Q?Nsl/IYL6t24SaTrLlQzGOqGkBNxxxEhSljAilIcZnPI+OSI2GTBuRTvXgrdQ?=
- =?us-ascii?Q?igoY56hru3+pC9gghYjzHCC9p90qtJOYbfdB/lxRXNfHJCajpebL7TNZ1Z9x?=
- =?us-ascii?Q?kD72KgmyiB/sVNEAyIC87cspLexJakI+xKBx9FfJ3OhUtNPcXTAxAUTbeAyG?=
- =?us-ascii?Q?T4xeyhwpRoBWeyIah6IoHZPtuVLmsdkpxnJjn+4M/SgTpPGAsZ5ygAlL8xLT?=
- =?us-ascii?Q?tN/iaJWeePMDPFU4L1o89O/ahpHCDhf1NfOPKV42iwjUWUMO8SXSzmAcPAgA?=
- =?us-ascii?Q?S0DmpZwhifl/NUZ8cjB4IfXSRhgqNztLVy4mF6gaTt236EUnF7cQIBecio4h?=
- =?us-ascii?Q?+qZvXGRCN9T/EIUveoJ8xt7rsVfBggBDJ3NMP+ohXO755KZfBv3HmYWyCv0U?=
- =?us-ascii?Q?rNB8PXzErWV3JqCJuG0=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A6AC10E796
+ for <amd-gfx@lists.freedesktop.org>; Wed, 23 Oct 2024 08:53:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1729673581;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=ozMWCQ/Dg+iN+ZjZ0nwJppDwUchQ354tkp3R0a2EIWE=;
+ b=PC8nPTZqIbxpNng4PlSyBjWB5lnnU633EYWnCACRNT2HgD52mOFQwCZP0MRrxexzXBkOfg
+ H5xOHBNcv3jPVnBXO9bKhA6z6Y5hdO0lTgNRHiw1gFvIzGUAp8IkvdTL1BB1zFa5RKE5I4
+ ErrLcPFi246hAylIVe5Yb8on2AJwtI8=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-625-gPsboIxNPHO-K3slQa4CvA-1; Wed,
+ 23 Oct 2024 04:52:59 -0400
+X-MC-Unique: gPsboIxNPHO-K3slQa4CvA-1
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id D6F2419560BA; Wed, 23 Oct 2024 08:52:55 +0000 (UTC)
+Received: from hydra.redhat.com (unknown [10.39.193.145])
+ by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
+ id F130830001A5; Wed, 23 Oct 2024 08:52:48 +0000 (UTC)
+From: Jocelyn Falempe <jfalempe@redhat.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, Melissa Wen <mwen@igalia.com>,
+ Joshua Ashton <joshua@froggi.es>,
+ =?UTF-8?q?Marek=20Ol=C5=A1=C3=A1k?= <marek.olsak@amd.com>,
+ Jocelyn Falempe <jfalempe@redhat.com>, Tom Chung <chiahsuan.chung@amd.com>,
+ Roman Li <roman.li@amd.com>,
+ Bhuvana Chandra Pinninti <bhuvanachandra.pinninti@amd.com>,
+ Alvin Lee <alvin.lee2@amd.com>, Sung Joon Kim <sungkim@amd.com>,
+ Duncan Ma <duncan.ma@amd.com>, Hamza Mahfooz <hamza.mahfooz@amd.com>,
+ Lu Yao <yaolu@kylinos.cn>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v3] drm/amdgpu: Add dcn30 drm_panic support
+Date: Wed, 23 Oct 2024 10:47:54 +0200
+Message-ID: <20241023085227.1165451-1-jfalempe@redhat.com>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB6005.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8db31f59-6772-41c0-6903-08dcf33a022b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Oct 2024 08:09:24.9713 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: v5QTJu1m8qUwG8r5ECPkn0CmV81/CDbAxSZW6vtmNdsV25gNZhE/SpqORr3AIlhZ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8212
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,125 +78,313 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - AMD Internal Distribution Only]
+Add support for the drm_panic module, which displays a pretty user
+friendly message on the screen when a Linux kernel panic occurs.
 
-Ping on this series.
+It should work on all radeon using amdgpu_dm_plane.c, when the
+framebuffer is linear (like when in a VT). For tiled framebuffer, it
+will only work on radeon with dcn3x. It should be easy to add support
+for dcn20, but I can't test it.
+I've tested it on a Radeon W6400 pro, Radeon 7900XTX and
+Radeon RX 5700.
+Also it doesn't work yet on laptop's panel, maybe due to PSR.
 
-Thanks,
-Prike
+Signed-off-by: Jocelyn Falempe <jfalempe@redhat.com>
+---
 
-> -----Original Message-----
-> From: Liang, Prike <Prike.Liang@amd.com>
-> Sent: Monday, October 14, 2024 3:49 PM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Lazar, Lijo
-> <Lijo.Lazar@amd.com>; Liang, Prike <Prike.Liang@amd.com>
-> Subject: [PATCH v2 2/2] drm/amdgpu: clean up the suspend_complete
->
-> To check the status of S3 suspend completion, use the PM core
-> pm_suspend_global_flags bit(1) to detect S3 abort events. Therefore, clea=
-n up the
-> AMDGPU driver's private flag suspend_complete.
->
-> Signed-off-by: Prike Liang <Prike.Liang@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h     | 2 --
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 2 --
->  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c   | 4 ++--
->  drivers/gpu/drm/amd/amdgpu/soc15.c      | 7 ++-----
->  drivers/gpu/drm/amd/amdgpu/soc21.c      | 2 +-
->  5 files changed, 5 insertions(+), 12 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> index 48c9b9b06905..9b35763ae0a7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -1111,8 +1111,6 @@ struct amdgpu_device {
->       bool                            in_s3;
->       bool                            in_s4;
->       bool                            in_s0ix;
-> -     /* indicate amdgpu suspension status */
-> -     bool                            suspend_complete;
->
->       enum pp_mp1_state               mp1_state;
->       struct amdgpu_doorbell_index doorbell_index; diff --git
-> a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> index 680e44fdee6e..78972151b970 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -2501,7 +2501,6 @@ static int amdgpu_pmops_suspend(struct device *dev)
->       struct drm_device *drm_dev =3D dev_get_drvdata(dev);
->       struct amdgpu_device *adev =3D drm_to_adev(drm_dev);
->
-> -     adev->suspend_complete =3D false;
->       if (amdgpu_acpi_is_s0ix_active(adev))
->               adev->in_s0ix =3D true;
->       else if (amdgpu_acpi_is_s3_active(adev)) @@ -2516,7 +2515,6 @@ stat=
-ic
-> int amdgpu_pmops_suspend_noirq(struct device *dev)
->       struct drm_device *drm_dev =3D dev_get_drvdata(dev);
->       struct amdgpu_device *adev =3D drm_to_adev(drm_dev);
->
-> -     adev->suspend_complete =3D true;
->       if (amdgpu_acpi_should_gpu_reset(adev))
->               return amdgpu_asic_reset(adev);
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> index be320d753507..ba8e66744376 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> @@ -3276,8 +3276,8 @@ static int gfx_v9_0_cp_gfx_start(struct amdgpu_devi=
-ce
-> *adev)
->        * confirmed that the APU gfx10/gfx11 needn't such update.
->        */
->       if (adev->flags & AMD_IS_APU &&
-> -                     adev->in_s3 && !adev->suspend_complete) {
-> -             DRM_INFO(" Will skip the CSB packet resubmit\n");
-> +                     adev->in_s3 && !pm_resume_via_firmware()) {
-> +             DRM_INFO("Will skip the CSB packet resubmit\n");
->               return 0;
->       }
->       r =3D amdgpu_ring_alloc(ring, gfx_v9_0_get_csb_size(adev) + 4 + 3);=
- diff --git
-> a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
-> index 12ff6cf568dc..d9d11131a744 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-> @@ -584,13 +584,10 @@ static bool soc15_need_reset_on_resume(struct
-> amdgpu_device *adev)
->        *    performing pm core test.
->        */
->       if (adev->flags & AMD_IS_APU && adev->in_s3 &&
-> -                     !pm_resume_via_firmware()) {
-> -             adev->suspend_complete =3D false;
-> +                     !pm_resume_via_firmware())
->               return true;
-> -     } else {
-> -             adev->suspend_complete =3D true;
-> +     else
->               return false;
-> -     }
->  }
->
->  static int soc15_asic_reset(struct amdgpu_device *adev) diff --git
-> a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
-> index c4b950e75133..7a47a21ef00f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/soc21.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
-> @@ -904,7 +904,7 @@ static bool soc21_need_reset_on_resume(struct
-> amdgpu_device *adev)
->        * 2) S3 suspend got aborted and TOS is active.
->        */
->       if (!(adev->flags & AMD_IS_APU) && adev->in_s3 &&
-> -         !adev->suspend_complete) {
-> +         !pm_resume_via_firmware()) {
->               sol_reg1 =3D RREG32_SOC15(MP0, 0, regMP0_SMN_C2PMSG_81);
->               msleep(100);
->               sol_reg2 =3D RREG32_SOC15(MP0, 0, regMP0_SMN_C2PMSG_81);
-> --
-> 2.34.1
+v2:
+ - Disable tiling, and force page flip in the panic_flush() callback.
+ - Enable tiling support for dcn31.
+ - Force immediate page flip.
+
+v3:
+ * Add hubp_clear_tiling hook to dcn32 and dcn35
+
+ .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 136 +++++++++++++++++-
+ .../amd/display/dc/hubp/dcn30/dcn30_hubp.c    |  17 +++
+ .../amd/display/dc/hubp/dcn30/dcn30_hubp.h    |   2 +
+ .../amd/display/dc/hubp/dcn31/dcn31_hubp.c    |   1 +
+ .../amd/display/dc/hubp/dcn32/dcn32_hubp.c    |   3 +-
+ .../amd/display/dc/hubp/dcn35/dcn35_hubp.c    |   1 +
+ drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h  |   1 +
+ 7 files changed, 159 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+index 495e3cd70426d..60606b36f07bd 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+@@ -26,7 +26,9 @@
+ 
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_blend.h>
++#include "drm/drm_framebuffer.h"
+ #include <drm/drm_gem_atomic_helper.h>
++#include <drm/drm_panic.h>
+ #include <drm/drm_plane_helper.h>
+ #include <drm/drm_gem_framebuffer_helper.h>
+ #include <drm/drm_fourcc.h>
+@@ -36,6 +38,7 @@
+ #include "amdgpu_display.h"
+ #include "amdgpu_dm_trace.h"
+ #include "amdgpu_dm_plane.h"
++#include "bif/bif_4_1_d.h"
+ #include "gc/gc_11_0_0_offset.h"
+ #include "gc/gc_11_0_0_sh_mask.h"
+ 
+@@ -1421,6 +1424,124 @@ static void amdgpu_dm_plane_atomic_async_update(struct drm_plane *plane,
+ 	amdgpu_dm_plane_handle_cursor_update(plane, old_state);
+ }
+ 
++/* panic_bo is set in amdgpu_dm_plane_get_scanout_buffer() and only used in amdgpu_dm_set_pixel()
++ * they are called from the panic handler, and protected by the drm_panic spinlock.
++ */
++static struct amdgpu_bo *panic_abo;
++
++/* Use the indirect MMIO to write each pixel to the GPU VRAM,
++ * This is a simplified version of amdgpu_device_mm_access()
++ */
++static void amdgpu_dm_set_pixel(struct drm_scanout_buffer *sb,
++				unsigned int x,
++				unsigned int y,
++				u32 color)
++{
++	struct amdgpu_res_cursor cursor;
++	unsigned long offset;
++	struct amdgpu_bo *abo = panic_abo;
++	struct amdgpu_device *adev = amdgpu_ttm_adev(abo->tbo.bdev);
++	uint32_t tmp;
++
++	offset = x * 4 + y * sb->pitch[0];
++	amdgpu_res_first(abo->tbo.resource, offset, 4, &cursor);
++
++	tmp = cursor.start >> 31;
++	WREG32_NO_KIQ(mmMM_INDEX, ((uint32_t) cursor.start) | 0x80000000);
++	if (tmp != 0xffffffff)
++		WREG32_NO_KIQ(mmMM_INDEX_HI, tmp);
++	WREG32_NO_KIQ(mmMM_DATA, color);
++}
++
++static int amdgpu_dm_plane_get_scanout_buffer(struct drm_plane *plane,
++					      struct drm_scanout_buffer *sb)
++{
++	struct amdgpu_bo *abo;
++	struct drm_framebuffer *fb = plane->state->fb;
++
++	if (!fb)
++		return -EINVAL;
++
++	DRM_DEBUG_KMS("Framebuffer %dx%d %p4cc\n", fb->width, fb->height, &fb->format->format);
++
++	abo = gem_to_amdgpu_bo(fb->obj[0]);
++	if (!abo)
++		return -EINVAL;
++
++	sb->width = fb->width;
++	sb->height = fb->height;
++	/* Use the generic linear format, because tiling will be disabled in panic_flush() */
++	sb->format = drm_format_info(fb->format->format);
++	if (!sb->format)
++		return -EINVAL;
++
++	sb->pitch[0] = fb->pitches[0];
++
++	if (abo->flags & AMDGPU_GEM_CREATE_NO_CPU_ACCESS) {
++		if (abo->tbo.resource->mem_type != TTM_PL_VRAM) {
++			drm_warn(plane->dev, "amdgpu panic, framebuffer not in VRAM\n");
++			return -EINVAL;
++		}
++		/* Only handle 32bits format, to simplify mmio access */
++		if (fb->format->cpp[0] != 4) {
++			drm_warn(plane->dev, "amdgpu panic, pixel format is not 32bits\n");
++			return -EINVAL;
++		}
++		sb->set_pixel = amdgpu_dm_set_pixel;
++		panic_abo = abo;
++		return 0;
++	}
++	if (!abo->kmap.virtual &&
++	    ttm_bo_kmap(&abo->tbo, 0, PFN_UP(abo->tbo.base.size), &abo->kmap)) {
++		drm_warn(plane->dev, "amdgpu bo map failed, panic won't be displayed\n");
++		return -ENOMEM;
++	}
++	if (abo->kmap.bo_kmap_type & TTM_BO_MAP_IOMEM_MASK)
++		iosys_map_set_vaddr_iomem(&sb->map[0], abo->kmap.virtual);
++	else
++		iosys_map_set_vaddr(&sb->map[0], abo->kmap.virtual);
++
++	return 0;
++}
++
++static void amdgpu_dm_plane_panic_flush(struct drm_plane *plane)
++{
++	struct dm_plane_state *dm_plane_state = to_dm_plane_state(plane->state);
++	struct drm_framebuffer *fb = plane->state->fb;
++	struct dc_plane_state *dc_plane_state;
++	struct dc *dc;
++	int i;
++
++	if (!dm_plane_state || !dm_plane_state->dc_state)
++		return;
++
++	dc_plane_state = dm_plane_state->dc_state;
++	dc = dc_plane_state->ctx->dc;
++	if (!dc || !dc->current_state)
++		return;
++
++	for (i = 0; i < dc->res_pool->pipe_count; i++) {
++		struct pipe_ctx *pipe_ctx = &dc->current_state->res_ctx.pipe_ctx[i];
++		struct hubp *hubp;
++
++		if (!pipe_ctx)
++			continue;
++
++		hubp = pipe_ctx->plane_res.hubp;
++		if (!hubp)
++			continue;
++
++		/* if framebuffer is tiled, disable tiling */
++		if (fb->modifier && hubp->funcs->hubp_clear_tiling)
++			hubp->funcs->hubp_clear_tiling(hubp);
++
++		/* force page flip to see the new content of the framebuffer */
++		hubp->funcs->hubp_program_surface_flip_and_addr(hubp,
++								&dc_plane_state->address,
++								true);
++	}
++}
++
+ static const struct drm_plane_helper_funcs dm_plane_helper_funcs = {
+ 	.prepare_fb = amdgpu_dm_plane_helper_prepare_fb,
+ 	.cleanup_fb = amdgpu_dm_plane_helper_cleanup_fb,
+@@ -1429,6 +1550,16 @@ static const struct drm_plane_helper_funcs dm_plane_helper_funcs = {
+ 	.atomic_async_update = amdgpu_dm_plane_atomic_async_update
+ };
+ 
++static const struct drm_plane_helper_funcs dm_primary_plane_helper_funcs = {
++	.prepare_fb = amdgpu_dm_plane_helper_prepare_fb,
++	.cleanup_fb = amdgpu_dm_plane_helper_cleanup_fb,
++	.atomic_check = amdgpu_dm_plane_atomic_check,
++	.atomic_async_check = amdgpu_dm_plane_atomic_async_check,
++	.atomic_async_update = amdgpu_dm_plane_atomic_async_update,
++	.get_scanout_buffer = amdgpu_dm_plane_get_scanout_buffer,
++	.panic_flush = amdgpu_dm_plane_panic_flush,
++};
++
+ static void amdgpu_dm_plane_drm_plane_reset(struct drm_plane *plane)
+ {
+ 	struct dm_plane_state *amdgpu_state = NULL;
+@@ -1855,7 +1986,10 @@ int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
+ 	    plane->type != DRM_PLANE_TYPE_CURSOR)
+ 		drm_plane_enable_fb_damage_clips(plane);
+ 
+-	drm_plane_helper_add(plane, &dm_plane_helper_funcs);
++	if (plane->type == DRM_PLANE_TYPE_PRIMARY)
++		drm_plane_helper_add(plane, &dm_primary_plane_helper_funcs);
++	else
++		drm_plane_helper_add(plane, &dm_plane_helper_funcs);
+ 
+ #ifdef AMD_PRIVATE_COLOR
+ 	dm_atomic_plane_attach_color_mgmt_properties(dm, plane);
+diff --git a/drivers/gpu/drm/amd/display/dc/hubp/dcn30/dcn30_hubp.c b/drivers/gpu/drm/amd/display/dc/hubp/dcn30/dcn30_hubp.c
+index 60a64d2903527..3b16c3cda2c3e 100644
+--- a/drivers/gpu/drm/amd/display/dc/hubp/dcn30/dcn30_hubp.c
++++ b/drivers/gpu/drm/amd/display/dc/hubp/dcn30/dcn30_hubp.c
+@@ -334,6 +334,22 @@ void hubp3_program_tiling(
+ 
+ }
+ 
++void hubp3_clear_tiling(struct hubp *hubp)
++{
++	struct dcn20_hubp *hubp2 = TO_DCN20_HUBP(hubp);
++
++	REG_UPDATE(DCHUBP_REQ_SIZE_CONFIG, SWATH_HEIGHT, 0);
++	REG_UPDATE(DCSURF_TILING_CONFIG, SW_MODE, DC_SW_LINEAR);
++
++	REG_UPDATE_6(DCSURF_SURFACE_CONTROL,
++		PRIMARY_SURFACE_DCC_EN, 0,
++		PRIMARY_SURFACE_DCC_IND_BLK, 0,
++		PRIMARY_SURFACE_DCC_IND_BLK_C, 0,
++		SECONDARY_SURFACE_DCC_EN, 0,
++		SECONDARY_SURFACE_DCC_IND_BLK, 0,
++		SECONDARY_SURFACE_DCC_IND_BLK_C, 0);
++}
++
+ void hubp3_dcc_control(struct hubp *hubp, bool enable,
+ 		enum hubp_ind_block_size blk_size)
+ {
+@@ -512,6 +528,7 @@ static struct hubp_funcs dcn30_hubp_funcs = {
+ 	.hubp_in_blank = hubp1_in_blank,
+ 	.hubp_soft_reset = hubp1_soft_reset,
+ 	.hubp_set_flip_int = hubp1_set_flip_int,
++	.hubp_clear_tiling = hubp3_clear_tiling,
+ };
+ 
+ bool hubp3_construct(
+diff --git a/drivers/gpu/drm/amd/display/dc/hubp/dcn30/dcn30_hubp.h b/drivers/gpu/drm/amd/display/dc/hubp/dcn30/dcn30_hubp.h
+index b010531a7fe88..cfb01bf340a1a 100644
+--- a/drivers/gpu/drm/amd/display/dc/hubp/dcn30/dcn30_hubp.h
++++ b/drivers/gpu/drm/amd/display/dc/hubp/dcn30/dcn30_hubp.h
+@@ -297,6 +297,8 @@ void hubp3_read_state(struct hubp *hubp);
+ 
+ void hubp3_init(struct hubp *hubp);
+ 
++void hubp3_clear_tiling(struct hubp *hubp);
++
+ #endif /* __DC_HUBP_DCN30_H__ */
+ 
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/hubp/dcn31/dcn31_hubp.c b/drivers/gpu/drm/amd/display/dc/hubp/dcn31/dcn31_hubp.c
+index 8394e8c069199..46b804ed05fba 100644
+--- a/drivers/gpu/drm/amd/display/dc/hubp/dcn31/dcn31_hubp.c
++++ b/drivers/gpu/drm/amd/display/dc/hubp/dcn31/dcn31_hubp.c
+@@ -96,6 +96,7 @@ static struct hubp_funcs dcn31_hubp_funcs = {
+ 	.hubp_set_flip_int = hubp1_set_flip_int,
+ 	.hubp_in_blank = hubp1_in_blank,
+ 	.program_extended_blank = hubp31_program_extended_blank,
++	.hubp_clear_tiling = hubp3_clear_tiling,
+ };
+ 
+ bool hubp31_construct(
+diff --git a/drivers/gpu/drm/amd/display/dc/hubp/dcn32/dcn32_hubp.c b/drivers/gpu/drm/amd/display/dc/hubp/dcn32/dcn32_hubp.c
+index ca5b4b28a6644..8b5bd73b8094a 100644
+--- a/drivers/gpu/drm/amd/display/dc/hubp/dcn32/dcn32_hubp.c
++++ b/drivers/gpu/drm/amd/display/dc/hubp/dcn32/dcn32_hubp.c
+@@ -201,7 +201,8 @@ static struct hubp_funcs dcn32_hubp_funcs = {
+ 	.hubp_update_force_cursor_pstate_disallow = hubp32_update_force_cursor_pstate_disallow,
+ 	.phantom_hubp_post_enable = hubp32_phantom_hubp_post_enable,
+ 	.hubp_update_mall_sel = hubp32_update_mall_sel,
+-	.hubp_prepare_subvp_buffering = hubp32_prepare_subvp_buffering
++	.hubp_prepare_subvp_buffering = hubp32_prepare_subvp_buffering,
++	.hubp_clear_tiling = hubp3_clear_tiling,
+ };
+ 
+ bool hubp32_construct(
+diff --git a/drivers/gpu/drm/amd/display/dc/hubp/dcn35/dcn35_hubp.c b/drivers/gpu/drm/amd/display/dc/hubp/dcn35/dcn35_hubp.c
+index d1f05b82b3dd5..eb62042dfafc2 100644
+--- a/drivers/gpu/drm/amd/display/dc/hubp/dcn35/dcn35_hubp.c
++++ b/drivers/gpu/drm/amd/display/dc/hubp/dcn35/dcn35_hubp.c
+@@ -216,6 +216,7 @@ static struct hubp_funcs dcn35_hubp_funcs = {
+ 	.hubp_set_flip_int = hubp1_set_flip_int,
+ 	.hubp_in_blank = hubp1_in_blank,
+ 	.program_extended_blank = hubp31_program_extended_blank_value,
++	.hubp_clear_tiling = hubp3_clear_tiling,
+ };
+ 
+ bool hubp35_construct(
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h b/drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h
+index 16580d6242789..d0878fc0cc948 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h
+@@ -275,6 +275,7 @@ struct hubp_funcs {
+ 			enum hubp_3dlut_fl_crossbar_bit_slice bit_slice_cb_b,
+ 			enum hubp_3dlut_fl_crossbar_bit_slice bit_slice_cr_r);
+ 	int (*hubp_get_3dlut_fl_done)(struct hubp *hubp);
++	void (*hubp_clear_tiling)(struct hubp *hubp);
+ };
+ 
+ #endif
+
+base-commit: 91e21479c81dd4e9e22a78d7446f92f6b96a7284
+-- 
+2.47.0
 
