@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C7CBCF5396
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Oct 2024 14:31:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1D93CF5394
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Oct 2024 14:31:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D7E010E7ED;
-	Wed, 23 Oct 2024 14:31:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8773410E7F4;
+	Wed, 23 Oct 2024 14:31:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HpjxtX3R";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gYOfheQE";
 	dkim-atps=neutral
 Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB78810E7DC;
- Wed, 23 Oct 2024 14:30:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4718110E7F3;
+ Wed, 23 Oct 2024 14:31:49 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 8467BA44F33;
- Wed, 23 Oct 2024 14:30:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 003B6C4CEC6;
- Wed, 23 Oct 2024 14:30:55 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id 251A5A44F58;
+ Wed, 23 Oct 2024 14:31:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9375C4CECD;
+ Wed, 23 Oct 2024 14:31:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1729693857;
- bh=Nk8qCWQ307kmEpfsHVOuCm6C4sREZOR7OsOzfBSl3g4=;
+ s=k20201202; t=1729693908;
+ bh=OMBE3KBL5e4ENj1cJuFJt/+43Jy8xNIpcLf5cWGb9hI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=HpjxtX3Rx7+ZL1tOnAvamtWQQYSYJn1mIbzhYJWmythzBtIixUwMcNWv8tHkWa31M
- ISdDzXQtKagJeqhU7Yy47sh34+1a9yvmyDFewduCF9MTac/c/RH05t34DZLmNx///Z
- +5aiNrrLuvdhayU2u7CCTa3meqT4qLoKcGsPhTY318VVjaXxyLzDk5YQaPTpOk3zAL
- YqNJSIo+CW6nLcMsP28Gg4o5A1jIQH7t8lRId/3uE9MSlt1BiI+q+M7OOQgZWGaxwh
- QxhvwgiJk+R/gKPp+evOxdVbJwlETLbU68DdOPcFsOWabvZWV9LED8udTn4rqBSMSd
- mItrTH6lq48Bw==
+ b=gYOfheQElOSqK8n3XXpS7tKaM+71eed2jNf95XUWULTRj3zFiYGOX+5/zXSFSHL2+
+ cW1fD12ni3wmMxIKwXTYqVcr509o0PPjiMu8uZHNezLgGrPB/iaQLZBhulLG18+66I
+ EGWj3op6nFzqMOtemCtXhfT0ZJWRcxzCNhdhUapJ2nVlBXmvAsVwjx2ubnarLyMrfR
+ s6DqEwPI3WPakySEqQYFQjjWnHNLwAqP0KDMoCdl4Izjhu6O3xqUocv82uEnWOAtqI
+ GGX7K1rWsmtfW/pPXumAcsuO9BkUvG0r2ura6n/FMlZVt3PWJo4BM1KKXGEb4Kqiph
+ cexzGxIWxfh3g==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
@@ -38,17 +38,17 @@ Cc: Philip Yang <Philip.Yang@amd.com>, Felix Kuehling <felix.kuehling@amd.com>,
  Felix.Kuehling@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
  airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.11 25/30] drm/amdkfd: Accounting pdd vram_usage for
+Subject: [PATCH AUTOSEL 6.6 19/23] drm/amdkfd: Accounting pdd vram_usage for
  svm
-Date: Wed, 23 Oct 2024 10:29:50 -0400
-Message-ID: <20241023143012.2980728-25-sashal@kernel.org>
+Date: Wed, 23 Oct 2024 10:31:03 -0400
+Message-ID: <20241023143116.2981369-19-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20241023143012.2980728-1-sashal@kernel.org>
-References: <20241023143012.2980728-1-sashal@kernel.org>
+In-Reply-To: <20241023143116.2981369-1-sashal@kernel.org>
+References: <20241023143116.2981369-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.11.5
+X-stable-base: Linux 6.6.58
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,10 +89,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  4 files changed, 32 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 546b02f2241a6..5953bc5f31192 100644
+index 19d46be639429..8669677662d0c 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -1170,7 +1170,7 @@ static int kfd_ioctl_alloc_memory_of_gpu(struct file *filep,
+@@ -1164,7 +1164,7 @@ static int kfd_ioctl_alloc_memory_of_gpu(struct file *filep,
  
  		if (flags & KFD_IOC_ALLOC_MEM_FLAGS_AQL_QUEUE_MEM)
  			size >>= 1;
@@ -101,7 +101,7 @@ index 546b02f2241a6..5953bc5f31192 100644
  	}
  
  	mutex_unlock(&p->mutex);
-@@ -1241,7 +1241,7 @@ static int kfd_ioctl_free_memory_of_gpu(struct file *filep,
+@@ -1235,7 +1235,7 @@ static int kfd_ioctl_free_memory_of_gpu(struct file *filep,
  		kfd_process_device_remove_obj_handle(
  			pdd, GET_IDR_HANDLE(args->handle));
  
@@ -110,7 +110,7 @@ index 546b02f2241a6..5953bc5f31192 100644
  
  err_unlock:
  err_pdd:
-@@ -2346,7 +2346,7 @@ static int criu_restore_memory_of_gpu(struct kfd_process_device *pdd,
+@@ -2352,7 +2352,7 @@ static int criu_restore_memory_of_gpu(struct kfd_process_device *pdd,
  	} else if (bo_bucket->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_VRAM) {
  		bo_bucket->restored_offset = offset;
  		/* Update the VRAM usage count */
@@ -120,10 +120,10 @@ index 546b02f2241a6..5953bc5f31192 100644
  	return 0;
  }
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index 2b3ec92981e8f..f35741fade911 100644
+index 67204c3dfbb8f..27c9d5c43765a 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -766,7 +766,7 @@ struct kfd_process_device {
+@@ -765,7 +765,7 @@ struct kfd_process_device {
  	enum kfd_pdd_bound bound;
  
  	/* VRAM usage */
@@ -133,7 +133,7 @@ index 2b3ec92981e8f..f35741fade911 100644
  	char vram_filename[MAX_SYSFS_FILENAME_LEN];
  
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index e44892109f71b..8343b3e4de7b5 100644
+index 43f520b379670..6c90231e0aec2 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
 @@ -306,7 +306,7 @@ static ssize_t kfd_procfs_show(struct kobject *kobj, struct attribute *attr,
@@ -145,7 +145,7 @@ index e44892109f71b..8343b3e4de7b5 100644
  	} else if (strncmp(attr->name, "sdma_", 5) == 0) {
  		struct kfd_process_device *pdd = container_of(attr, struct kfd_process_device,
  							      attr_sdma);
-@@ -1599,7 +1599,7 @@ struct kfd_process_device *kfd_create_process_device_data(struct kfd_node *dev,
+@@ -1589,7 +1589,7 @@ struct kfd_process_device *kfd_create_process_device_data(struct kfd_node *dev,
  	pdd->bound = PDD_UNBOUND;
  	pdd->already_dequeued = false;
  	pdd->runtime_inuse = false;
@@ -155,10 +155,10 @@ index e44892109f71b..8343b3e4de7b5 100644
  	pdd->user_gpu_id = dev->id;
  	atomic64_set(&pdd->evict_duration_counter, 0);
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index bd9c2921e0dcc..7d00d89586a10 100644
+index ce76d45549984..6b7c6f45a80a8 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -404,6 +404,27 @@ static void svm_range_bo_release(struct kref *kref)
+@@ -391,6 +391,27 @@ static void svm_range_bo_release(struct kref *kref)
  		spin_lock(&svm_bo->list_lock);
  	}
  	spin_unlock(&svm_bo->list_lock);
@@ -186,7 +186,7 @@ index bd9c2921e0dcc..7d00d89586a10 100644
  	if (!dma_fence_is_signaled(&svm_bo->eviction_fence->base))
  		/* We're not in the eviction worker. Signal the fence. */
  		dma_fence_signal(&svm_bo->eviction_fence->base);
-@@ -531,6 +552,7 @@ int
+@@ -518,6 +539,7 @@ int
  svm_range_vram_node_new(struct kfd_node *node, struct svm_range *prange,
  			bool clear)
  {
@@ -194,7 +194,7 @@ index bd9c2921e0dcc..7d00d89586a10 100644
  	struct amdgpu_bo_param bp;
  	struct svm_range_bo *svm_bo;
  	struct amdgpu_bo_user *ubo;
-@@ -622,6 +644,10 @@ svm_range_vram_node_new(struct kfd_node *node, struct svm_range *prange,
+@@ -609,6 +631,10 @@ svm_range_vram_node_new(struct kfd_node *node, struct svm_range *prange,
  	list_add(&prange->svm_bo_list, &svm_bo->range_list);
  	spin_unlock(&svm_bo->list_lock);
  
