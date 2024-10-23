@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C098FCFA45E
-	for <amd-gfx@archiver.kernel.org>; Wed, 23 Oct 2024 17:41:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75428CFA45D
+	for <amd-gfx@archiver.kernel.org>; Wed, 23 Oct 2024 18:02:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D32110E0F2;
-	Wed, 23 Oct 2024 17:41:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F0F7810E850;
+	Wed, 23 Oct 2024 18:02:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="aurjHy11";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0CVrsVp3";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2040.outbound.protection.outlook.com [40.107.237.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 06B7010E795
- for <amd-gfx@lists.freedesktop.org>; Wed, 23 Oct 2024 17:41:19 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2077.outbound.protection.outlook.com [40.107.244.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7438F10E850;
+ Wed, 23 Oct 2024 18:02:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pPPjkt4NOKmkyLQjCqxYWb56rnORmn/b12WOMTz/y9yaIv+XhDZakNpksjOogKC8kfnjew09flCzjifwC3AhLFgJ3rfp4hiIOJPGP4PH7LiIdnh7MOFuTLN9Gu55N2o0FU6y9RwBFPqMmef/m30SMWLqlTI4OEMQ88JnahygCparWYUc+hiO6K0qH+OPfYo/Szfjx4jnbzfuF3RPbrDGlIDcb89r9ctRh8R2Yvft63xAtGLxzEzjw5mv0o9VNGtC1BXMMUYOQQlm1W2CCeAm4tq2FDQBXuiDVTbeoyxNTgLFmE/ng5D9bjNR86bZTV3sqy22GvzBk7ebG0j/Miv4kg==
+ b=fU2V4PI4TISBLZl78wiuc7EmvE6QMqF8YTkVvFUQ5nIwKTpN4c03uEwhIRT2XDRX+iqjlZzubSdqCeXgIUnGutrxx74W821H2Pm8um5YgSE9kjvQUplYEH7wBcoKwafi6wETfR6Ed5V+i6Y5wTbuxK1+reRCq7l85Dh1nG3bM9r8xEcdC4eOZPlXSXyuuxy0M4UorlniGe+nIkcbap3vvOlvqa7zXpsLZgc4eh2L7Wu9mRMPKqtHMbV5QRFbr6AsYNbmZR1rA6INmenjrqqUn/FOibbxTMkbJjZHT/EqrYvt+3/yaYCw3x8z5b9P4dIjaLtZ4v2AcFV5ZTKfEN1tTA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NXjNQae3zbW2on7o0hu/JlR0H0qGpfRpuP6GHOYLAfg=;
- b=SVGnkRZZGPW8KcHRDbu3NCeTxzvHpkYOy0Uz5B/yFWG39oP9MDcQyxoOL0irOrjrUPjPXRsP+vD9Gml9KfeyqeTeuNcYrpekpqNLvLgdwcrPs94iz2l0qZcyLIU1HAQz9/2lE7wRLuKz/NnydCwzarMMKZZ2mVBk55cGkXFKabG8UPtyPkeQ/UA2CcIYPKRHYNgmLn+o5ylBhAvePvBEIw1C11UgDgQOwqOCvNHdxWacePmXUk7NETf4y+xe0O13s7Ar0dOdrH30KybBTLnlUPahsoYMEGNt4av/DkkjvyLjp9f/I5QhB3c298Wun38nK+Wm8O9dB44WRjG9Plcg5A==
+ bh=9C9icd8EKBnaMjBLzWAvqsykVby+tbLNUyMM/uPOLEE=;
+ b=R7Iqga3ekNFImJRHtZZkX9TvdWQDcvsbmg5ov7z13r9IfAJcQ0iTEMY5ea9slBhmT+PNvo1baNp4+fBnFJxZhY+RMRgJnjXKjL3X+Fvx/C5lHBwFtFItHTZxuYd2BjpPg4SzcwNQhsyRwQopD+KZpFMCQ1XhGQV9qjxeNN1bgcwSTy0fKpZuvFHhzRn0SoQjRY1p4LJlRTQ3duBBHVbnu04Hw6IdbyOeBvh1feZXUOPQyvMLaHFAtRnUiGl83bk/HegHMzPETRkrP0Pj/DNuyHFbbw8nFfrAIHy1RpmRKQF3BYD993rsl5TDsY315VFs8tiMSMrOTkzxdJzlxs/jjw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NXjNQae3zbW2on7o0hu/JlR0H0qGpfRpuP6GHOYLAfg=;
- b=aurjHy11NkK6AYePjEmjuatUpbrKvG6PzNYo9ZChgLtpehhCDNmxjnt+bYmmXT8DAWs7jkawaL+IHu6CdeNHKvAZN7PMjZneqWzR1CAZNon8fkrITPewfqXWkkrPIP+NdKHl7VyoUstjbAlBdCCWD+IaqjyrdUwvw005RAElYyc=
-Received: from MN2PR19CA0062.namprd19.prod.outlook.com (2603:10b6:208:19b::39)
- by MN2PR12MB4094.namprd12.prod.outlook.com (2603:10b6:208:15f::23)
+ bh=9C9icd8EKBnaMjBLzWAvqsykVby+tbLNUyMM/uPOLEE=;
+ b=0CVrsVp30RSvSv1Bim20u6LbY7lZiTZmFddWk5ASvgnSRMird7UjS4Jr92Mme/yhLoavD1+3Q8TjNpF7ppAmDoTlgPCQWziVYviqYrb5e4kvCI9gYYOicCGz2VEPufJtZxAMTemPgXJrjy72HcWk2i6kdQb2vT06D9cx31cbGjk=
+Received: from SJ0PR03CA0191.namprd03.prod.outlook.com (2603:10b6:a03:2ef::16)
+ by CH3PR12MB8877.namprd12.prod.outlook.com (2603:10b6:610:170::22)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8093.18; Wed, 23 Oct
- 2024 17:41:13 +0000
-Received: from BN2PEPF000044A1.namprd02.prod.outlook.com
- (2603:10b6:208:19b:cafe::fa) by MN2PR19CA0062.outlook.office365.com
- (2603:10b6:208:19b::39) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8005.25 via Frontend
- Transport; Wed, 23 Oct 2024 17:41:13 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8048.18; Wed, 23 Oct
+ 2024 18:02:22 +0000
+Received: from SJ5PEPF0000020A.namprd05.prod.outlook.com
+ (2603:10b6:a03:2ef:cafe::dd) by SJ0PR03CA0191.outlook.office365.com
+ (2603:10b6:a03:2ef::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8069.29 via Frontend
+ Transport; Wed, 23 Oct 2024 18:02:22 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,20 +48,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN2PEPF000044A1.mail.protection.outlook.com (10.167.243.152) with Microsoft
+ SJ5PEPF0000020A.mail.protection.outlook.com (10.167.244.43) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8093.14 via Frontend Transport; Wed, 23 Oct 2024 17:41:12 +0000
-Received: from shaoyunl-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ 15.20.8093.14 via Frontend Transport; Wed, 23 Oct 2024 18:02:22 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 23 Oct
- 2024 12:41:12 -0500
-From: Shaoyun Liu <shaoyun.liu@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Shaoyun Liu <shaoyun.liu@amd.com>
-Subject: [PATCH] drm/amd/amdgpu: limit single process inside MES
-Date: Wed, 23 Oct 2024 13:40:59 -0400
-Message-ID: <20241023174059.1215976-1-shaoyun.liu@amd.com>
-X-Mailer: git-send-email 2.34.1
+ 2024 13:02:20 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <simona.vetter@ffwll.ch>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [pull] amdgpu drm-fixes-6.12
+Date: Wed, 23 Oct 2024 14:02:08 -0400
+Message-ID: <20241023180208.452636-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.46.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -70,50 +71,50 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000044A1:EE_|MN2PR12MB4094:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4abbc542-cc82-4ad5-c024-08dcf389e34f
+X-MS-TrafficTypeDiagnostic: SJ5PEPF0000020A:EE_|CH3PR12MB8877:EE_
+X-MS-Office365-Filtering-Correlation-Id: c3a5b97f-6155-48d9-d6c4-08dcf38cd7f3
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700013|1800799024|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?IqQqzKwQ3nqprJC16mGf2oqhGdCMSmk1jT8twZB1UuBj1ussRJVcS6Ei43cs?=
- =?us-ascii?Q?I/FpU7Fz3OF37pfiHSMLxWIqsby360/l+94wCBBBQjSWiac8J+SVWBTwzvKt?=
- =?us-ascii?Q?qoEfTmk0khErBg2J9pprugj5ntCXAzIqfaCH/dDCbnWVR55N4az6EYgJk+fC?=
- =?us-ascii?Q?W26yU8NULDRWhG03JQJQ1DFh1uoLCgMNep0/qVZQBOzQuLWiH/C+HbHMPlo6?=
- =?us-ascii?Q?kAW9ql/8mqnRUB25PjNdwaOTer4GYVLbHexbcTShk7BqpZg/+ZaJ7jrKq2FF?=
- =?us-ascii?Q?kEeHeYKs9MEZAn3XbKIe72qHn/8JKmq6oI/0LPcucFgzUveykUDhYbd9o1ji?=
- =?us-ascii?Q?8QkFgvSBu5TuIG+mFGGnXJyUwzsvuefUKrgvDDo1UDtBp0x0gGe3wnaUgeTB?=
- =?us-ascii?Q?cd0JEcwDucl1RC4Ypc6KV/yGL3UDevT4iDAeDJm4I0IZpObl9goooTfjb23n?=
- =?us-ascii?Q?bD3X8OQY5i6fwC+7753dzYnKTRk0I9aS0ylctXE0QlXaYU7EMiecN+jI+iL9?=
- =?us-ascii?Q?5rFtyb15oIijzCoynmBBKwQxhTnA6cRUdeTvol1sIO5/vpdOZDVavo05ukxL?=
- =?us-ascii?Q?jG2ZHXCO9urkwR2pwxwdZXt4Yo12/CTwDoqj0p6t5rZ2ftXXwPfFKIICpL9i?=
- =?us-ascii?Q?Nu6uDLxTkKGmEqcLm5z2rn/6mczr4rUF8sledmRxXESHe8FO+1hmow5KKEea?=
- =?us-ascii?Q?t/B1hOO5KtQ/VHPw0VdQbRz85HLkbsmdJZlojiDwGK6pskTPF8yWJRMqDtpn?=
- =?us-ascii?Q?kdegXngvVWVktd1DtITDUMEVSLyzlEDeBTmc1uLiugjzicdkzJzxgRIMmO6h?=
- =?us-ascii?Q?V6ect+XTzBbJ7urnQlOQGafR7QK4KAytBlGqTBnahwnvg9YgxzF++ehGfV15?=
- =?us-ascii?Q?5dSJqWYx/fzCkBL+t12fh2s5Y00L9iyuTPMRlwD2h6Bq3DY08ordBbwVvtPV?=
- =?us-ascii?Q?2a/6ds7/u5RCW8E7DU2Qj8f3I4sbLqzn1+6ZebklKk7fM0tKEqCqYohqeHzB?=
- =?us-ascii?Q?5Vlm+HMDYVszBwhUelYY7Dc1XSntSMn8KbCTmGXYfYWWW3R+t5vhPP116lrw?=
- =?us-ascii?Q?A8K9sW92iaVTiV16avPvrCvZJU3j6BKco1Y3xofU+nMnDLaS6/3kSr/hlEUj?=
- =?us-ascii?Q?IHj+pGJWdkiWKRCRF31NY8e11NTR0u4PPSSFw7/vwVP/Xm1dJ/kC4s+MpjB1?=
- =?us-ascii?Q?qzAwy965R72u2oXBQdjWWLzuk8wnKn/fyUSLbC6eWcqL+qOGXFNT6U4LSkXn?=
- =?us-ascii?Q?+i/sb+2n/BMtMGB+KiqxNvDVgnuwx7ycyEw+6SlHxsxHxgbnqG8EIGcG5y5M?=
- =?us-ascii?Q?GlrgR/Ik231xwMGUlG7l+iW3Cus8vRvLn7NBapaOBBYOcp/cQgZZTOJe5wOf?=
- =?us-ascii?Q?bHDrNdSB3r8Oyr2jkP/g35WXr5+9kxsfLbts5HsnpywByM5ZSQ=3D=3D?=
+ ARA:13230040|1800799024|36860700013|376014|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?cP5U0r17Yx36Ir8G5KMBwoIDJQ1uYrSVzGc6FXMkUsIAGoXBa0DQpIJlelDm?=
+ =?us-ascii?Q?B1xhMi5dDJUve9d16wr6ujdUyAAzMOvp8xTDihE2o8sQGNDwMLm65MoG+ZXM?=
+ =?us-ascii?Q?GAPAs0oj1u1EwarUaDcSTGmGuorCapJ88ArKX5/HZ9NwTOxLmsysY58SfBtY?=
+ =?us-ascii?Q?ckKQF5F1j0m11Y5m8nZrsqkNzsruZx18s56THO5vDfsIXdt/2Eb71wEyn752?=
+ =?us-ascii?Q?gWqvVEoiOyCOz+G3kuM1Gdbv1QSTq9mWc4cZ3d+okGArLWQ+o0nN8m+oky+5?=
+ =?us-ascii?Q?lkxhN5hXcgcBVrb4E7VFbZWE2GNzKmvQU7RLQHEOdvHCcJ+3vS/zBbq0LaLu?=
+ =?us-ascii?Q?jaiJjoMGApbhR+/AX7B5LF1Uz+bjYt2RKpo9nqHxqjUNNxO1uFqG7AD/fv8l?=
+ =?us-ascii?Q?l+oxBkmzbB1mLmIO499NmgdWbXWDEQCEwR3mDWMxYYEplaRirqgZUlyo1w4Y?=
+ =?us-ascii?Q?NvKwQR/k0oOYsry7XqICU0QCbIOJZRN4upFd2O535jdFvqRJeYcu9ebi+mRH?=
+ =?us-ascii?Q?QNadsPOyyG6D9NHl35DvaEHS+9AmFqmD98aB47n3XbdoqzBnKoAaWTmXvUF2?=
+ =?us-ascii?Q?lp/gkEW410VDuVvGvcyWKMHy7oUOzvpqnirqpSN4cT6syuT0+1ArXoOgPInT?=
+ =?us-ascii?Q?q7rBtWUZayigxLCzHQRy5sv5xoWdV0zxTjY71VESp4YCq+Ul6W9vlRigqd/2?=
+ =?us-ascii?Q?SDn6WH8nIV58H0vgpdI6eeNORuLke3jLu8a2g/Fs56NfGbRaV5l8mrawkujO?=
+ =?us-ascii?Q?sDIRSCusb0u2/Mzgcxi0XNRE7BuutT/dQNJI89KXSeJoqyxw21gnhK2V5eY+?=
+ =?us-ascii?Q?M/ETi3xG5LnWsD0X6FB5rh6cB3v2qAoeWg541j85RCvay6Nz5yRni+f6E0/5?=
+ =?us-ascii?Q?GhKxrDF30I5RG+LBMpAWeLhS+dMPdgDzbksw3I9FhIuooG1thFSAKyqAabmx?=
+ =?us-ascii?Q?fM7udsTOuEfD02qlfYwt75Gr/Lp/9QnxCSDvBab/zcDYsM3muIWckbiAuXHB?=
+ =?us-ascii?Q?WJDbSISoFO8PAD4+2eoaQz7pUldkStj+DNpFv1VSf+0FypJ2Vmne0Tfawtqq?=
+ =?us-ascii?Q?BTVBbEWy2J9Sehhf0P4ncZhEGJEAn6tVVr0PFJdYbzXYiwMIiHXuCxIAJhqo?=
+ =?us-ascii?Q?L5w5HK3m4xjyv+yul0i5iYFg/J5BJD5CQBwrIbYqoIchHEKTm/KfE4Mueg2s?=
+ =?us-ascii?Q?jbQpTBgjHroPIKki6Y+ozoWZf7yLaYgNMG0fasFXApVNnScyZ9LV3V6602Mn?=
+ =?us-ascii?Q?heyJCssQY9UJp9ibcD9Q+YnWeXha48wMnHrjdPdif6BZtPNqOM/rJoLVcHCj?=
+ =?us-ascii?Q?5znMJKw1q/eflCgenu5DWsWUGJ2MgykhxRVp71IAvGv+fqW3JAd3NG+aBz7k?=
+ =?us-ascii?Q?2A3mf5Q=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700013)(1800799024)(376014); DIR:OUT;
+ SFS:(13230040)(1800799024)(36860700013)(376014)(82310400026); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2024 17:41:12.8866 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4abbc542-cc82-4ad5-c024-08dcf389e34f
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Oct 2024 18:02:22.2414 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c3a5b97f-6155-48d9-d6c4-08dcf38cd7f3
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000044A1.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF0000020A.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4094
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8877
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,168 +129,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is for MES to limit only one process for the user queues
+Hi Dave, Simona,
 
-Signed-off-by: Shaoyun Liu <shaoyun.liu@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c |  2 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 24 ++++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h | 19 +++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/mes_v11_0.c  | 11 +++++++++++
- drivers/gpu/drm/amd/amdgpu/mes_v12_0.c  | 11 +++++++++++
- 5 files changed, 67 insertions(+)
+Fixes for 6.12.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-index e96984c53e72..72e38d621a29 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-@@ -1576,9 +1576,11 @@ static ssize_t amdgpu_gfx_set_enforce_isolation(struct device *dev,
- 		if (adev->enforce_isolation[i] && !partition_values[i]) {
- 			/* Going from enabled to disabled */
- 			amdgpu_vmid_free_reserved(adev, AMDGPU_GFXHUB(i));
-+			amdgpu_mes_set_enforce_isolation(adev, i, false);
- 		} else if (!adev->enforce_isolation[i] && partition_values[i]) {
- 			/* Going from disabled to enabled */
- 			amdgpu_vmid_alloc_reserved(adev, AMDGPU_GFXHUB(i));
-+			amdgpu_mes_set_enforce_isolation(adev, i, true);
- 		}
- 		adev->enforce_isolation[i] = partition_values[i];
- 	}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-index bf584e9bcce4..29b6a2baae4d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-@@ -1674,6 +1674,30 @@ bool amdgpu_mes_suspend_resume_all_supported(struct amdgpu_device *adev)
- 	return is_supported;
- }
- 
-+/* Fix me -- node_id is used to identify the correct MES instances in the future */
-+int amdgpu_mes_set_enforce_isolation(struct amdgpu_device *adev, uint32_t node_id, bool enable)
-+{
-+	struct mes_misc_op_input op_input = {0};
-+	int r;
-+
-+	op_input.op = MES_MISC_OP_CHANGE_CONFIG;
-+	op_input.change_config.option.limit_single_process = enable ? 1 : 0;
-+
-+	if (!adev->mes.funcs->misc_op) {
-+		DRM_ERROR("mes change config is not supported!\n");
-+		r = -EINVAL;
-+		goto error;
-+	}
-+
-+	r = adev->mes.funcs->misc_op(&adev->mes, &op_input);
-+	if (r)
-+		DRM_ERROR("failed to change_config.\n");
-+
-+error:
-+	return r;
-+
-+}
-+
- #if defined(CONFIG_DEBUG_FS)
- 
- static int amdgpu_debugfs_mes_event_log_show(struct seq_file *m, void *unused)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-index 79f13d7e5e16..91bff6443c05 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-@@ -311,6 +311,7 @@ enum mes_misc_opcode {
- 	MES_MISC_OP_WRM_REG_WAIT,
- 	MES_MISC_OP_WRM_REG_WR_WAIT,
- 	MES_MISC_OP_SET_SHADER_DEBUGGER,
-+	MES_MISC_OP_CHANGE_CONFIG,
- };
- 
- struct mes_misc_op_input {
-@@ -349,6 +350,21 @@ struct mes_misc_op_input {
- 			uint32_t tcp_watch_cntl[4];
- 			uint32_t trap_en;
- 		} set_shader_debugger;
-+
-+		struct {
-+			union {
-+				struct {
-+					uint32_t limit_single_process : 1;
-+					uint32_t enable_hws_logging_buffer : 1;
-+					uint32_t reserved : 30;
-+				};
-+				uint32_t all;
-+			} option;
-+			struct {
-+				uint32_t tdr_level;
-+				uint32_t tdr_delay;
-+			} tdr_config;
-+		} change_config;
- 	};
- };
- 
-@@ -519,4 +535,7 @@ static inline void amdgpu_mes_unlock(struct amdgpu_mes *mes)
- }
- 
- bool amdgpu_mes_suspend_resume_all_supported(struct amdgpu_device *adev);
-+
-+int amdgpu_mes_set_enforce_isolation(struct amdgpu_device *adev, uint32_t node_id, bool enable);
-+
- #endif /* __AMDGPU_MES_H__ */
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-index 57db0c006c8f..1d6de7bced48 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-@@ -644,6 +644,14 @@ static int mes_v11_0_misc_op(struct amdgpu_mes *mes,
- 				sizeof(misc_pkt.set_shader_debugger.tcp_watch_cntl));
- 		misc_pkt.set_shader_debugger.trap_en = input->set_shader_debugger.trap_en;
- 		break;
-+	case MES_MISC_OP_CHANGE_CONFIG:
-+		misc_pkt.opcode = MESAPI_MISC__CHANGE_CONFIG;
-+		misc_pkt.change_config.opcode =
-+				MESAPI_MISC__CHANGE_CONFIG_OPTION_LIMIT_SINGLE_PROCESS;
-+		misc_pkt.change_config.option.bits.limit_single_process =
-+				input->change_config.option.limit_single_process;
-+		break;
-+
- 	default:
- 		DRM_ERROR("unsupported misc op (%d) \n", input->op);
- 		return -EINVAL;
-@@ -719,6 +727,9 @@ static int mes_v11_0_set_hw_resources(struct amdgpu_mes *mes)
- 					mes->event_log_gpu_addr;
- 	}
- 
-+	if(enforce_isolation)
-+		mes_set_hw_res_pkt.limit_single_process =1;
-+
- 	return mes_v11_0_submit_pkt_and_poll_completion(mes,
- 			&mes_set_hw_res_pkt, sizeof(mes_set_hw_res_pkt),
- 			offsetof(union MESAPI_SET_HW_RESOURCES, api_status));
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-index 9d0e342a2f81..85eff9b777c2 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-@@ -531,6 +531,14 @@ static int mes_v12_0_misc_op(struct amdgpu_mes *mes,
- 				sizeof(misc_pkt.set_shader_debugger.tcp_watch_cntl));
- 		misc_pkt.set_shader_debugger.trap_en = input->set_shader_debugger.trap_en;
- 		break;
-+	case MES_MISC_OP_CHANGE_CONFIG:
-+		misc_pkt.opcode = MESAPI_MISC__CHANGE_CONFIG;
-+		misc_pkt.change_config.opcode =
-+				MESAPI_MISC__CHANGE_CONFIG_OPTION_LIMIT_SINGLE_PROCESS;
-+		misc_pkt.change_config.option.bits.limit_single_process =
-+				input->change_config.option.limit_single_process;
-+		break;
-+
- 	default:
- 		DRM_ERROR("unsupported misc op (%d) \n", input->op);
- 		return -EINVAL;
-@@ -633,6 +641,9 @@ static int mes_v12_0_set_hw_resources(struct amdgpu_mes *mes, int pipe)
- 		mes_set_hw_res_pkt.event_intr_history_gpu_mc_ptr = mes->event_log_gpu_addr + pipe * AMDGPU_MES_LOG_BUFFER_SIZE;
- 	}
- 
-+	if(enforce_isolation)
-+		mes_set_hw_res_pkt.limit_single_process =1;
-+
- 	return mes_v12_0_submit_pkt_and_poll_completion(mes, pipe,
- 			&mes_set_hw_res_pkt, sizeof(mes_set_hw_res_pkt),
- 			offsetof(union MESAPI_SET_HW_RESOURCES, api_status));
--- 
-2.34.1
+The following changes since commit 42f7652d3eb527d03665b09edac47f85fb600924:
 
+  Linux 6.12-rc4 (2024-10-20 15:19:38 -0700)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-6.12-2024-10-23
+
+for you to fetch changes up to 7c210ca5a2d72868e5a052fc533d5dcb7e070f89:
+
+  drm/amdgpu: handle default profile on on devices without fullscreen 3D (2024-10-22 18:21:51 -0400)
+
+----------------------------------------------------------------
+amd-drm-fixes-6.12-2024-10-23:
+
+amdgpu:
+- ACPI method handling fixes
+- SMU 14.x fixes
+- Display idle optimization fix
+- DP link layer compliance fix
+- SDMA 7.x fix
+- PSR-SU fix
+- SWSMU fix
+
+----------------------------------------------------------------
+Alex Deucher (1):
+      drm/amdgpu: handle default profile on on devices without fullscreen 3D
+
+Aurabindo Pillai (2):
+      drm/amd/display: temp w/a for dGPU to enter idle optimizations
+      drm/amd/display: temp w/a for DP Link Layer compliance
+
+Frank Min (1):
+      drm/amdgpu: fix random data corruption for sdma 7
+
+Kenneth Feng (3):
+      drm/amd/pm: update the driver-fw interface file for smu v14.0.2/3
+      drm/amd/pm: update overdrive function on smu v14.0.2/3
+      drm/amd/pm: update deep sleep status on smu v14.0.2/3
+
+Mario Limonciello (2):
+      drm/amd: Guard against bad data for ATIF ACPI method
+      drm/amd/display: Disable PSR-SU on Parade 08-01 TCON too
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c           |  15 ++-
+ drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c             |   9 +-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |   3 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c  |  13 ++
+ .../drm/amd/display/modules/power/power_helpers.c  |   2 +
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c          |  11 +-
+ .../pm/swsmu/inc/pmfw_if/smu14_driver_if_v14_0.h   | 132 +++++++++++++--------
+ drivers/gpu/drm/amd/pm/swsmu/inc/smu_v14_0.h       |   2 +-
+ .../gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c   |  66 ++++-------
+ 9 files changed, 156 insertions(+), 97 deletions(-)
