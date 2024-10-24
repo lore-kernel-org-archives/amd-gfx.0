@@ -4,24 +4,26 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1CE4D0C608
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Oct 2024 12:48:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A29BD0C606
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Oct 2024 12:48:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BCCA10EA9B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 88A9E10EAA1;
 	Fri, 25 Oct 2024 12:48:11 +0000 (UTC)
-Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com
- [45.249.212.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 153F610E950;
- Thu, 24 Oct 2024 13:41:52 +0000 (UTC)
+X-Greylist: delayed 1108 seconds by postgrey-1.36 at gabe;
+ Thu, 24 Oct 2024 13:41:26 UTC
+Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com
+ [45.249.212.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 53D2F10E94C;
+ Thu, 24 Oct 2024 13:41:26 +0000 (UTC)
 Received: from mail.maildlp.com (unknown [172.19.163.235])
- by dggsgout12.his.huawei.com (SkyGuard) with ESMTP id 4XZ6694nm6z4f3jdY;
- Thu, 24 Oct 2024 21:22:41 +0800 (CST)
+ by dggsgout11.his.huawei.com (SkyGuard) with ESMTP id 4XZ68j4wwhz4f3nbV;
+ Thu, 24 Oct 2024 21:24:53 +0800 (CST)
 Received: from mail02.huawei.com (unknown [10.116.40.128])
- by mail.maildlp.com (Postfix) with ESMTP id 23A641A0568;
- Thu, 24 Oct 2024 21:22:59 +0800 (CST)
+ by mail.maildlp.com (Postfix) with ESMTP id EF20F1A058E;
+ Thu, 24 Oct 2024 21:25:11 +0800 (CST)
 Received: from huaweicloud.com (unknown [10.175.104.67])
- by APP4 (Coremail) with SMTP id gCh0CgCHusYpShpn7tb6Ew--.444S8;
- Thu, 24 Oct 2024 21:22:58 +0800 (CST)
+ by APP4 (Coremail) with SMTP id gCh0CgD3LMmxShpnmfz6Ew--.42902S7;
+ Thu, 24 Oct 2024 21:25:11 +0800 (CST)
 From: Yu Kuai <yukuai1@huaweicloud.com>
 To: stable@vger.kernel.org, gregkh@linuxfoundation.org, harry.wentland@amd.com,
  sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, alexander.deucher@amd.com,
@@ -36,32 +38,33 @@ Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
  maple-tree@lists.infradead.org, linux-mm@kvack.org,
  yukuai1@huaweicloud.com, yi.zhang@huawei.com, yangerkun@huawei.com
-Subject: [PATCH 6.6 04/28] maple_tree: skip other tests when BENCH is enabled
-Date: Thu, 24 Oct 2024 21:19:45 +0800
-Message-Id: <20241024132009.2267260-5-yukuai1@huaweicloud.com>
+Subject: [PATCH 6.6 19/28] maple_tree: mtree_range_walk() clean up
+Date: Thu, 24 Oct 2024 21:22:16 +0800
+Message-Id: <20241024132225.2271667-4-yukuai1@huaweicloud.com>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20241024132009.2267260-1-yukuai1@huaweicloud.com>
+In-Reply-To: <20241024132225.2271667-1-yukuai1@huaweicloud.com>
 References: <20241024132009.2267260-1-yukuai1@huaweicloud.com>
+ <20241024132225.2271667-1-yukuai1@huaweicloud.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: gCh0CgCHusYpShpn7tb6Ew--.444S8
-X-Coremail-Antispam: 1UD129KBjvJXoW7WF4DCFykCF18uF13Cr43Awb_yoW8KF1Upw
- 4xCF1UtF1Iyr4xW3y8tay0gFySgFs5G3WUt3ZrCry7ur93Aw4Iq3ySyF1xZrsxWa4xua4f
- Cr1Yg3W7J3WDGaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUmq14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_JF0E3s1l82xGYI
- kIc2x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2
- z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F
- 4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq
- 3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7
- IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4U
- M4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628vn2
- kIc2xKxwCY1x0262kKe7AKxVWrXVW3AwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkE
- bVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67
- AF67kF1VAFwI0_Wrv_Gr1UMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1l
- IxAIcVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r
- 1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIY
- CTnIWIevJa73UjIFyTuYvjTRAR6zUUUUU
+X-CM-TRANSID: gCh0CgD3LMmxShpnmfz6Ew--.42902S7
+X-Coremail-Antispam: 1UD129KBjvJXoW7tFW5Kr47Zr1fKFyDCw1rZwb_yoW8KFWfpF
+ nxW345KF9xJF17Crs3Ka1kJrySg3ZxGrWUAa4UGryrZryaywnYg3ZYvryfua98K345A34Y
+ gF43Zw1xW3WIyFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUmY14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_JrWl82xGYIkIc2
+ x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
+ Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr1j6rxdM2
+ 8EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s0DM2AI
+ xVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20x
+ vE14v26r1Y6r17McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xv
+ r2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxan2IY04
+ v7MxkF7I0En4kS14v26rWY6Fy7MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j
+ 6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7
+ AF67AKxVWrXVW8Jr1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVW5JVW7JwCI42IY
+ 6xIIjxv20xvEc7CjxVAFwI0_Cr1j6rxdMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42
+ IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26F4UJVW0obIYCTnIWIev
+ Ja73UjIFyTuYvjTRXID7UUUUU
 X-CM-SenderInfo: 51xn3trlr6x35dzhxuhorxvhhfrp/
 X-Mailman-Approved-At: Fri, 25 Oct 2024 12:48:03 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -78,73 +81,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Peng Zhang <zhangpeng.00@bytedance.com>
+From: "Liam R. Howlett" <Liam.Howlett@oracle.com>
 
-commit f670fa1caadb4ea532a89012c5451e4c6789bfcc upstream.
+commit a3c63c8c5df6406e79490456a1fc41a287676070 upstream.
 
-Skip other tests when BENCH is enabled so that performance can be measured
-in user space.
+mtree_range_walk() needed to be updated to avoid checking if there was a
+pivot value.  On closer examination, the code could avoid setting min or
+max in certain scenarios.  The commit removes the extra check for
+pivot[offset] before setting max and only sets max when necessary.  It
+also only sets min if it is necessary by checking offset 0 prior to the
+loop (as it has always done).
 
-Link: https://lkml.kernel.org/r/20231027033845.90608-8-zhangpeng.00@bytedance.com
-Signed-off-by: Peng Zhang <zhangpeng.00@bytedance.com>
-Reviewed-by: Liam R. Howlett <Liam.Howlett@oracle.com>
-Cc: Christian Brauner <brauner@kernel.org>
-Cc: Jonathan Corbet <corbet@lwn.net>
-Cc: Mateusz Guzik <mjguzik@gmail.com>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: Matthew Wilcox <willy@infradead.org>
-Cc: Michael S. Tsirkin <mst@redhat.com>
-Cc: Mike Christie <michael.christie@oracle.com>
-Cc: Nicholas Piggin <npiggin@gmail.com>
-Cc: Peter Zijlstra <peterz@infradead.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
+The commit also drops a dead node check since the end of the node will
+return the array size when the last slot is occupied (by a potential reuse
+in a dead node).  The data will be discarded later if the node is marked
+dead.
+
+Benchmarking these changes results in an increase in performance of 5.45%
+using the BENCH_WALK in the maple tree test code.
+
+Link: https://lkml.kernel.org/r/20231101171629.3612299-13-Liam.Howlett@oracle.com
+Signed-off-by: Liam R. Howlett <Liam.Howlett@oracle.com>
+Cc: Peng Zhang <zhangpeng.00@bytedance.com>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Signed-off-by: Yu Kuai <yukuai3@huawei.com>
 ---
- lib/test_maple_tree.c            | 8 ++++----
- tools/testing/radix-tree/maple.c | 2 ++
- 2 files changed, 6 insertions(+), 4 deletions(-)
+ lib/maple_tree.c | 27 ++++++++++++---------------
+ 1 file changed, 12 insertions(+), 15 deletions(-)
 
-diff --git a/lib/test_maple_tree.c b/lib/test_maple_tree.c
-index 464eeb90d5ad..de470950714f 100644
---- a/lib/test_maple_tree.c
-+++ b/lib/test_maple_tree.c
-@@ -3585,10 +3585,6 @@ static int __init maple_tree_seed(void)
- 
- 	pr_info("\nTEST STARTING\n\n");
- 
--	mt_init_flags(&tree, MT_FLAGS_ALLOC_RANGE);
--	check_root_expand(&tree);
--	mtree_destroy(&tree);
+diff --git a/lib/maple_tree.c b/lib/maple_tree.c
+index ad8bf3413889..d90f4b7e7511 100644
+--- a/lib/maple_tree.c
++++ b/lib/maple_tree.c
+@@ -2806,32 +2806,29 @@ static inline void *mtree_range_walk(struct ma_state *mas)
+ 	min = mas->min;
+ 	max = mas->max;
+ 	do {
+-		offset = 0;
+ 		last = next;
+ 		node = mte_to_node(next);
+ 		type = mte_node_type(next);
+ 		pivots = ma_pivots(node, type);
+ 		end = ma_data_end(node, type, pivots, max);
+-		if (unlikely(ma_dead_node(node)))
+-			goto dead_node;
 -
- #if defined(BENCH_SLOT_STORE)
- #define BENCH
- 	mt_init_flags(&tree, MT_FLAGS_ALLOC_RANGE);
-@@ -3646,6 +3642,10 @@ static int __init maple_tree_seed(void)
- 	goto skip;
- #endif
+-		if (pivots[offset] >= mas->index) {
+-			prev_max = max;
+-			prev_min = min;
+-			max = pivots[offset];
++		prev_min = min;
++		prev_max = max;
++		if (pivots[0] >= mas->index) {
++			offset = 0;
++			max = pivots[0];
+ 			goto next;
+ 		}
  
-+	mt_init_flags(&tree, MT_FLAGS_ALLOC_RANGE);
-+	check_root_expand(&tree);
-+	mtree_destroy(&tree);
-+
- 	mt_init_flags(&tree, MT_FLAGS_ALLOC_RANGE);
- 	check_iteration(&tree);
- 	mtree_destroy(&tree);
-diff --git a/tools/testing/radix-tree/maple.c b/tools/testing/radix-tree/maple.c
-index 76a8990bb14e..576b825d6bb1 100644
---- a/tools/testing/radix-tree/maple.c
-+++ b/tools/testing/radix-tree/maple.c
-@@ -35938,7 +35938,9 @@ void farmer_tests(void)
+-		do {
++		offset = 1;
++		while (offset < end) {
++			if (pivots[offset] >= mas->index) {
++				max = pivots[offset];
++				break;
++			}
+ 			offset++;
+-		} while ((offset < end) && (pivots[offset] < mas->index));
++		}
  
- void maple_tree_tests(void)
- {
-+#if !defined(BENCH)
- 	farmer_tests();
-+#endif
- 	maple_tree_seed();
- 	maple_tree_harvest();
- }
+-		prev_min = min;
+ 		min = pivots[offset - 1] + 1;
+-		prev_max = max;
+-		if (likely(offset < end && pivots[offset]))
+-			max = pivots[offset];
+-
+ next:
+ 		slots = ma_slots(node, type);
+ 		next = mt_slot(mas->tree, slots, offset);
 -- 
 2.39.2
 
