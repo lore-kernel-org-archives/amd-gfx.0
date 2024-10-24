@@ -4,59 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1140ECE8E70
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Oct 2024 13:21:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C9C1CE8E70
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Oct 2024 13:31:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC8E510E939;
-	Thu, 24 Oct 2024 13:21:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CFDDC10E14A;
+	Thu, 24 Oct 2024 13:31:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KAlhKeJW";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VLvMtOmF";
 	dkim-atps=neutral
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com
- [209.85.215.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 183BF10E939
- for <amd-gfx@lists.freedesktop.org>; Thu, 24 Oct 2024 13:21:31 +0000 (UTC)
-Received: by mail-pg1-f169.google.com with SMTP id
- 41be03b00d2f7-7e9f377a3c9so83046a12.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 24 Oct 2024 06:21:31 -0700 (PDT)
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
+ [209.85.214.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 17E2910E14A
+ for <amd-gfx@lists.freedesktop.org>; Thu, 24 Oct 2024 13:31:20 +0000 (UTC)
+Received: by mail-pl1-f178.google.com with SMTP id
+ d9443c01a7336-20c78a10eb3so863575ad.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 24 Oct 2024 06:31:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1729776090; x=1730380890; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1729776679; x=1730381479; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=KuM7s1udF6HOW8oVW8jwz5QzK+h0m+0bVtWUlb4Fjd0=;
- b=KAlhKeJWsxfJI7asvss65rET2wRvGN2BBb/Hh+R4jfbxxMeIrF8FeAXpJHD7DXzEMg
- D7Up4kTToXluohluKncL22cVa3pYYKsc4cfTynXVsNwL4z4h36ZqfY0BB0T6SlYIe3IA
- 7SXWRz1b2EC34YLwni1t2Lkb9ainHAaPC07Fp0fYCNli9ksS6nSDmC76bARQ4y2J6pG+
- KWI9xzHGTqtPVtzyt1lBlJHzIKo6JtyUpQ4kuRx+wpeFooy92hsmnZHgR2PQd+c4JkjA
- ahk7KqZwdhXqQi2yrqFTN+LHMNVWqjdxHsWowTQ0kX3z3j1mRw1p2Y+3L/z+GLBb8p//
- 3skQ==
+ bh=i7uwCLQW68mlRDoQzdzm/dOFdXLqBm7ivLL2KdMbcM8=;
+ b=VLvMtOmFUumNe8Lvm47K1hxa8LdUTNdHFI96ry5d9IDB5q2W37nnYwmmWbEs2iliwj
+ K4iQsspbFRk0WJkkPKiQ1cTQIW3TkefKKYNB3BbmvMeQV/rHx0dXNmPDRP1XvDXBXuJ6
+ GS2MIYvxQSFCqoW2wMCnLRCbodM3C4RzQiztQ4lk2w6oR1xTCft5awFvSyImC/SZkAhu
+ 83L5Khd8vq01fLHXFzUrP5l52KAu+ofFrGRQtX+pIfa/4HUvhRlYo8KVSDHprOM5ZqlM
+ Lt92h1KRywKCieoCq0dJDMgSNouEzlRem7ZN+hvnXLQk4sbqLUSSWXML70s+V2WR+SwL
+ PLEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1729776090; x=1730380890;
+ d=1e100.net; s=20230601; t=1729776679; x=1730381479;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=KuM7s1udF6HOW8oVW8jwz5QzK+h0m+0bVtWUlb4Fjd0=;
- b=H26idIK/YC/2bb6skK82hNM14NKrQN3wjnlmx2/lH8NI29NUT1v9L+dOVTz1erK21F
- r78qXaTMTy3eFsvVBkEOfpPVlY3phxMmBF/QCpiih2K5pskKnomlva0K8vQYAzGMIiST
- dl/wREwCD1nw7lArW5S8uCO2aTckMvbfgO4pkI+ndcVW1BYJxYLuppBT3rkcal4i3MML
- Cb3Qr7feB7YwBvgn+HZM6X7JDdwYOLRcqxApm48JdYdRnqPNzjkS4/TVXskGagxLSKGS
- 8zN6Hl+3r54XcquQyN3j5rbUT3qnvRdA0RxRAaOzziS0SsH4d0xc6p6bWQdFfqX/oKsn
- YjDA==
-X-Gm-Message-State: AOJu0Yy/wQupAdaX7zCaBnNTaGvevvgj+JFP5nRxLX1leYuZkCmfdkjd
- s7w+/ZZuKjC2aoTcehWa/FCuCVtaysHP1aN31b8bTOcQLxR57IVYW4HA7CazWxhh1SM75KuNWbi
- xlGoLrF9M06196bGcAq5ZaSyq6nhB0w==
-X-Google-Smtp-Source: AGHT+IEHifEnWm+2izzJOFlQ68QvErgp0jZJ915yNX6RVAJDXLzzJkbIjLkY00Nzeg1PX+mbjzYJgMkmhFjSF4XLKXQ=
-X-Received: by 2002:a05:6a21:32a4:b0:1cf:4bd8:3a02 with SMTP id
- adf61e73a8af0-1d978ad651cmr3895264637.3.1729776090407; Thu, 24 Oct 2024
- 06:21:30 -0700 (PDT)
+ bh=i7uwCLQW68mlRDoQzdzm/dOFdXLqBm7ivLL2KdMbcM8=;
+ b=H37gZmjx+wJmQZYW4Asn+BZh166Z0vWEiQWqYt2p4BluyqzmIZfufTK2g8NuKe//Gm
+ bEFADUo2QnZRP0YfImMr9JloRyzqlaC+noTjl3fPUVOOTXfcVi8dDK78NN84u21LC2J4
+ OCARQlTtw+d3dedu03fevN9VVCVixIgSnrWc+qZtyOQsrJrKTBy4Pb7dlie3lfaAJnSO
+ ZDccu3UHhQirgi7acbRq5sIfcX9Q0nb9FaKl3hNL1wTK+tB8IZQXgBT9yVdgdPbWtBOg
+ jJHgcT4xw0AQrFZBLI6acOniJdN2rOIb/onleU4H2JK4X9V1XHUbLa6OWGFrI3EOtan0
+ XiyQ==
+X-Gm-Message-State: AOJu0YzXbeq0e7L4hTiPkkP3P4wm/Uyo8kS7Ig2hRKkFsOQkRg7D1GZW
+ pF+0irDRvjSOsHRZUcj/ih7JSEhnt8z0anmNA8b524AXvgEcRwSBHXiW2LSkrxX1IlYczMnvh2g
+ tNqvZZ27RGkprpyuVRoB9x2auWtElYA==
+X-Google-Smtp-Source: AGHT+IE433k72UGZx+K/HuKBmYpWObuhy/gnUqXCFeSCATrdEZvce0OI+IG4TlwKAZNg7MR8e2mdiu+qUD7YtAoBIoM=
+X-Received: by 2002:a17:903:234c:b0:20c:ee32:7595 with SMTP id
+ d9443c01a7336-20fa9dea298mr37033125ad.2.1729776679472; Thu, 24 Oct 2024
+ 06:31:19 -0700 (PDT)
 MIME-Version: 1.0
-References: <20241024004004.1216961-1-shaoyun.liu@amd.com>
-In-Reply-To: <20241024004004.1216961-1-shaoyun.liu@amd.com>
+References: <20241022021101.761054-1-shaoyun.liu@amd.com>
+In-Reply-To: <20241022021101.761054-1-shaoyun.liu@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 24 Oct 2024 09:21:17 -0400
-Message-ID: <CADnq5_MjhWC4FV_39ed+DfFeZREPZko9EzMi5NrwmSoy2j6=mA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/amdgpu: limit single process inside MES
+Date: Thu, 24 Oct 2024 09:31:07 -0400
+Message-ID: <CADnq5_O_24Aw_EioG-Wrwg8ciiMfxBgEjgqAnxHMsMuFi0tL_A@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd : Update MES API header file for v11 & v12
 To: Shaoyun Liu <shaoyun.liu@amd.com>
 Cc: amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
@@ -75,217 +75,162 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Oct 23, 2024 at 8:48=E2=80=AFPM Shaoyun Liu <shaoyun.liu@amd.com> w=
-rote:
+On Mon, Oct 21, 2024 at 10:11=E2=80=AFPM Shaoyun Liu <shaoyun.liu@amd.com> =
+wrote:
 >
-> This is for MES to limit only one process for the user queues
+> New features require the new fields defines
 >
 > Signed-off-by: Shaoyun Liu <shaoyun.liu@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c |  2 ++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 24 ++++++++++++++++++++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h | 19 +++++++++++++++++++
->  drivers/gpu/drm/amd/amdgpu/mes_v11_0.c  | 15 +++++++++++++++
->  drivers/gpu/drm/amd/amdgpu/mes_v12_0.c  | 11 +++++++++++
->  5 files changed, 71 insertions(+)
+>  drivers/gpu/drm/amd/include/mes_v11_api_def.h | 32 ++++++++++++++++-
+>  drivers/gpu/drm/amd/include/mes_v12_api_def.h | 34 ++++++++++++++++++-
+>  2 files changed, 64 insertions(+), 2 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_gfx.c
-> index e96984c53e72..72e38d621a29 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> @@ -1576,9 +1576,11 @@ static ssize_t amdgpu_gfx_set_enforce_isolation(st=
-ruct device *dev,
->                 if (adev->enforce_isolation[i] && !partition_values[i]) {
->                         /* Going from enabled to disabled */
->                         amdgpu_vmid_free_reserved(adev, AMDGPU_GFXHUB(i))=
+> diff --git a/drivers/gpu/drm/amd/include/mes_v11_api_def.h b/drivers/gpu/=
+drm/amd/include/mes_v11_api_def.h
+> index 21ceafce1f9b..663f368eb4f0 100644
+> --- a/drivers/gpu/drm/amd/include/mes_v11_api_def.h
+> +++ b/drivers/gpu/drm/amd/include/mes_v11_api_def.h
+> @@ -230,13 +230,23 @@ union MESAPI_SET_HW_RESOURCES {
+>                                 uint32_t disable_add_queue_wptr_mc_addr :=
+ 1;
+>                                 uint32_t enable_mes_event_int_logging : 1=
 ;
-> +                       amdgpu_mes_set_enforce_isolation(adev, i, false);
->                 } else if (!adev->enforce_isolation[i] && partition_value=
-s[i]) {
->                         /* Going from disabled to enabled */
->                         amdgpu_vmid_alloc_reserved(adev, AMDGPU_GFXHUB(i)=
-);
-> +                       amdgpu_mes_set_enforce_isolation(adev, i, true);
->                 }
->                 adev->enforce_isolation[i] =3D partition_values[i];
->         }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_mes.c
-> index bf584e9bcce4..dfc7d320fcbc 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> @@ -1674,6 +1674,30 @@ bool amdgpu_mes_suspend_resume_all_supported(struc=
-t amdgpu_device *adev)
->         return is_supported;
->  }
->
-> +/* Fix me -- node_id is used to identify the correct MES instances in th=
-e future */
-> +int amdgpu_mes_set_enforce_isolation(struct amdgpu_device *adev, uint32_=
-t node_id, bool enable)
-> +{
-> +       struct mes_misc_op_input op_input =3D {0};
-> +       int r;
-> +
-> +       op_input.op =3D MES_MISC_OP_CHANGE_CONFIG;
-> +       op_input.change_config.option.limit_single_process =3D enable ? 1=
- : 0;
-> +
-> +       if (!adev->mes.funcs->misc_op) {
-> +               dev_err(adev->dev,"mes change config is not supported!\n"=
-);
-> +               r =3D -EINVAL;
-> +               goto error;
-> +       }
-> +
-> +       r =3D adev->mes.funcs->misc_op(&adev->mes, &op_input);
-> +       if (r)
-> +               dev_err(adev->dev, "failed to change_config.\n");
-> +
-> +error:
-> +       return r;
-> +
-> +}
-> +
->  #if defined(CONFIG_DEBUG_FS)
->
->  static int amdgpu_debugfs_mes_event_log_show(struct seq_file *m, void *u=
-nused)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_mes.h
-> index 79f13d7e5e16..91bff6443c05 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-> @@ -311,6 +311,7 @@ enum mes_misc_opcode {
->         MES_MISC_OP_WRM_REG_WAIT,
->         MES_MISC_OP_WRM_REG_WR_WAIT,
->         MES_MISC_OP_SET_SHADER_DEBUGGER,
-> +       MES_MISC_OP_CHANGE_CONFIG,
->  };
->
->  struct mes_misc_op_input {
-> @@ -349,6 +350,21 @@ struct mes_misc_op_input {
->                         uint32_t tcp_watch_cntl[4];
->                         uint32_t trap_en;
->                 } set_shader_debugger;
-> +
-> +               struct {
-> +                       union {
-> +                               struct {
-> +                                       uint32_t limit_single_process : 1=
-;
-> +                                       uint32_t enable_hws_logging_buffe=
-r : 1;
-> +                                       uint32_t reserved : 30;
-> +                               };
-> +                               uint32_t all;
-> +                       } option;
-> +                       struct {
-> +                               uint32_t tdr_level;
-> +                               uint32_t tdr_delay;
-> +                       } tdr_config;
-> +               } change_config;
+>                                 uint32_t enable_reg_active_poll : 1;
+> -                               uint32_t reserved       : 21;
+> +                               uint32_t use_disable_queue_in_legacy_uq_p=
+reemption : 1;
+> +                               uint32_t send_write_data : 1;
+> +                               uint32_t os_tdr_timeout_override : 1;
+> +                               uint32_t use_rs64mem_for_proc_gang_ctx : =
+1;
+> +                               uint32_t use_add_queue_unmap_flag_addr : =
+1;
+> +                               uint32_t enable_mes_sch_stb_log : 1;
+> +                               uint32_t limit_single_process : 1;
+> +                               uint32_t is_strix_tmz_wa_enabled  :1;
+> +                               uint32_t reserved : 13;
+>                         };
+>                         uint32_t        uint32_t_all;
+>                 };
+>                 uint32_t        oversubscription_timer;
+>                 uint64_t        doorbell_info;
+>                 uint64_t        event_intr_history_gpu_mc_ptr;
+> +               uint64_t        timestamp;
+> +               uint32_t        os_tdr_timeout_in_sec;
+
+Will this change break backwards compatibility?  It changes the size
+of the packet.
+
+Alex
+
 >         };
+>
+>         uint32_t        max_dwords_in_api[API_FRAME_SIZE_IN_DWORDS];
+> @@ -563,6 +573,11 @@ enum MESAPI_MISC_OPCODE {
+>         MESAPI_MISC__READ_REG,
+>         MESAPI_MISC__WAIT_REG_MEM,
+>         MESAPI_MISC__SET_SHADER_DEBUGGER,
+> +       MESAPI_MISC__NOTIFY_WORK_ON_UNMAPPED_QUEUE,
+> +       MESAPI_MISC__NOTIFY_TO_UNMAP_PROCESSES,
+> +       MESAPI_MISC__CHANGE_CONFIG,
+> +       MESAPI_MISC__LAUNCH_CLEANER_SHADER,
+> +
+>         MESAPI_MISC__MAX,
 >  };
 >
-> @@ -519,4 +535,7 @@ static inline void amdgpu_mes_unlock(struct amdgpu_me=
-s *mes)
->  }
+> @@ -617,6 +632,20 @@ struct SET_SHADER_DEBUGGER {
+>         uint32_t trap_en;
+>  };
 >
->  bool amdgpu_mes_suspend_resume_all_supported(struct amdgpu_device *adev)=
-;
+> +struct CHANGE_CONFIG
+> +{
+> +    union
+> +    {
+> +        struct
+> +        {
+> +            uint32_t limit_single_process : 1;
+> +            uint32_t reserved : 31;
+> +        }bits;
+> +        uint32_t all;
+> +    }option;
+> +};
 > +
-> +int amdgpu_mes_set_enforce_isolation(struct amdgpu_device *adev, uint32_=
-t node_id, bool enable);
 > +
->  #endif /* __AMDGPU_MES_H__ */
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd=
-/amdgpu/mes_v11_0.c
-> index 57db0c006c8f..c621ba805433 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> @@ -644,6 +644,18 @@ static int mes_v11_0_misc_op(struct amdgpu_mes *mes,
->                                 sizeof(misc_pkt.set_shader_debugger.tcp_w=
-atch_cntl));
->                 misc_pkt.set_shader_debugger.trap_en =3D input->set_shade=
-r_debugger.trap_en;
->                 break;
-> +       case MES_MISC_OP_CHANGE_CONFIG:
-> +               if ((adev->mes.sched_version & AMDGPU_MES_VERSION_MASK) <=
- 0x63) {
-> +                       dev_err(adev->dev, "MES FW versoin must be larger=
- than 0x63 to support limit single process feature.\n");
-> +                       return -EINVAL;
-> +               }
-> +               misc_pkt.opcode =3D MESAPI_MISC__CHANGE_CONFIG;
-> +               misc_pkt.change_config.opcode =3D
-> +                               MESAPI_MISC__CHANGE_CONFIG_OPTION_LIMIT_S=
-INGLE_PROCESS;
-> +               misc_pkt.change_config.option.bits.limit_single_process =
-=3D
-> +                               input->change_config.option.limit_single_=
-process;
-> +               break;
-> +
->         default:
->                 DRM_ERROR("unsupported misc op (%d) \n", input->op);
->                 return -EINVAL;
-> @@ -719,6 +731,9 @@ static int mes_v11_0_set_hw_resources(struct amdgpu_m=
-es *mes)
->                                         mes->event_log_gpu_addr;
->         }
+>  union MESAPI__MISC {
+>         struct {
+>                 union MES_API_HEADER    header;
+> @@ -631,6 +660,7 @@ union MESAPI__MISC {
+>                         struct          WAIT_REG_MEM wait_reg_mem;
+>                         struct          SET_SHADER_DEBUGGER set_shader_de=
+bugger;
+>                         enum MES_AMD_PRIORITY_LEVEL queue_sch_level;
+> +                       struct          CHANGE_CONFIG change_config;
 >
-> +       if (enforce_isolation)
-> +               mes_set_hw_res_pkt.limit_single_process =3D1;
-
-Assuming that setting this on old firmware will not cause a problem?
-If so we need a firmware check here as well.  If not, the patch is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-
-> +
->         return mes_v11_0_submit_pkt_and_poll_completion(mes,
->                         &mes_set_hw_res_pkt, sizeof(mes_set_hw_res_pkt),
->                         offsetof(union MESAPI_SET_HW_RESOURCES, api_statu=
-s));
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c b/drivers/gpu/drm/amd=
-/amdgpu/mes_v12_0.c
-> index 9d0e342a2f81..26d1b82721ce 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-> @@ -531,6 +531,14 @@ static int mes_v12_0_misc_op(struct amdgpu_mes *mes,
->                                 sizeof(misc_pkt.set_shader_debugger.tcp_w=
-atch_cntl));
->                 misc_pkt.set_shader_debugger.trap_en =3D input->set_shade=
-r_debugger.trap_en;
->                 break;
-> +       case MES_MISC_OP_CHANGE_CONFIG:
-> +               misc_pkt.opcode =3D MESAPI_MISC__CHANGE_CONFIG;
-> +               misc_pkt.change_config.opcode =3D
-> +                               MESAPI_MISC__CHANGE_CONFIG_OPTION_LIMIT_S=
-INGLE_PROCESS;
-> +               misc_pkt.change_config.option.bits.limit_single_process =
-=3D
-> +                               input->change_config.option.limit_single_=
-process;
-> +               break;
-> +
->         default:
->                 DRM_ERROR("unsupported misc op (%d) \n", input->op);
->                 return -EINVAL;
-> @@ -633,6 +641,9 @@ static int mes_v12_0_set_hw_resources(struct amdgpu_m=
-es *mes, int pipe)
->                 mes_set_hw_res_pkt.event_intr_history_gpu_mc_ptr =3D mes-=
->event_log_gpu_addr + pipe * AMDGPU_MES_LOG_BUFFER_SIZE;
->         }
+>                         uint32_t        data[MISC_DATA_MAX_SIZE_IN_DWORDS=
+];
+>                 };
+> diff --git a/drivers/gpu/drm/amd/include/mes_v12_api_def.h b/drivers/gpu/=
+drm/amd/include/mes_v12_api_def.h
+> index 101e2fe962c6..62df832810ca 100644
+> --- a/drivers/gpu/drm/amd/include/mes_v12_api_def.h
+> +++ b/drivers/gpu/drm/amd/include/mes_v12_api_def.h
+> @@ -643,6 +643,10 @@ enum MESAPI_MISC_OPCODE {
+>         MESAPI_MISC__SET_SHADER_DEBUGGER,
+>         MESAPI_MISC__NOTIFY_WORK_ON_UNMAPPED_QUEUE,
+>         MESAPI_MISC__NOTIFY_TO_UNMAP_PROCESSES,
+> +       MESAPI_MISC__QUERY_HUNG_ENGINE_ID,
+> +       MESAPI_MISC__CHANGE_CONFIG,
+> +       MESAPI_MISC__LAUNCH_CLEANER_SHADER,
+> +       MESAPI_MISC__SETUP_MES_DBGEXT,
 >
-> +       if (enforce_isolation)
-> +               mes_set_hw_res_pkt.limit_single_process =3D1;
+>         MESAPI_MISC__MAX,
+>  };
+> @@ -713,6 +717,34 @@ struct SET_GANG_SUBMIT {
+>         uint32_t slave_gang_context_array_index;
+>  };
+>
+> +enum MESAPI_MISC__CHANGE_CONFIG_OPTION
+> +{
+> +       MESAPI_MISC__CHANGE_CONFIG_OPTION_LIMIT_SINGLE_PROCESS =3D 0,
+> +       MESAPI_MISC__CHANGE_CONFIG_OPTION_ENABLE_HWS_LOGGING_BUFFER =3D 1=
+,
+> +       MESAPI_MISC__CHANGE_CONFIG_OPTION_CHANGE_TDR_CONFIG    =3D 2,
 > +
->         return mes_v12_0_submit_pkt_and_poll_completion(mes, pipe,
->                         &mes_set_hw_res_pkt, sizeof(mes_set_hw_res_pkt),
->                         offsetof(union MESAPI_SET_HW_RESOURCES, api_statu=
-s));
+> +       MESAPI_MISC__CHANGE_CONFIG_OPTION_MAX =3D 0x1F
+> +};
+> +
+> +struct CHANGE_CONFIG
+> +{
+> +       enum MESAPI_MISC__CHANGE_CONFIG_OPTION opcode;
+> +       union {
+> +               struct  {
+> +                       uint32_t limit_single_process : 1;
+> +                       uint32_t enable_hws_logging_buffer : 1;
+> +                       uint32_t reserved : 30;
+> +               }bits;
+> +               uint32_t all;
+> +       } option;
+> +
+> +       struct {
+> +               uint32_t tdr_level;
+> +               uint32_t tdr_delay;
+> +       } tdr_config;
+> +};
+> +
+> +
+>  union MESAPI__MISC {
+>         struct {
+>                 union MES_API_HEADER    header;
+> @@ -726,7 +758,7 @@ union MESAPI__MISC {
+>                         struct WAIT_REG_MEM wait_reg_mem;
+>                         struct SET_SHADER_DEBUGGER set_shader_debugger;
+>                         enum MES_AMD_PRIORITY_LEVEL queue_sch_level;
+> -
+> +                       struct CHANGE_CONFIG change_config;
+>                         uint32_t data[MISC_DATA_MAX_SIZE_IN_DWORDS];
+>                 };
+>                 uint64_t                timestamp;
 > --
 > 2.34.1
 >
