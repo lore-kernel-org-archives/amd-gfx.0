@@ -4,61 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AEA2ED0BB6A
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Oct 2024 07:48:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAB98D0BB6E
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Oct 2024 08:22:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 176FD10E1A8;
-	Thu, 24 Oct 2024 07:48:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63D4C10E8CC;
+	Thu, 24 Oct 2024 08:22:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="YYFnAr4J";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="gM+n3fbu";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0CA6510E1A1;
- Wed, 23 Oct 2024 14:27:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=tLwZz3dM+fD3AkNaqH0UmCbJ45ssV7iY/xpbwObpiMA=; b=YYFnAr4JS660C2VvI/hd/dFCys
- nRH+OxAKADTGc6gWUuMhAf20TcQsSRv+TFV2O802MeIhz0Jcdqm0tBfZA7IRm3Z52SfYx/mI1Qgef
- 0E5zTfOIO3AwGiizqqYxTNodftLux86WFLDKJYF+W/RUeRPMO2YlTgQt34uLiuML4kyjFrCWlXcWY
- OY+8cqVEpOa8tE+zoIKQbXKNWlrOTIDy17rtVKLJxHL0uSse9c3nidv7THaHsCDSTu5N9tng3nihI
- MTZvZ1Fs8UbZAtL4ZWSxy+dvu+2Ih6sugNim9KawHV/IQnEg8sH736qi6r+0LROT9iXjXXrk4XC23
- U/9lZBFA==;
-Received: from [90.241.98.187] (helo=[192.168.0.101])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1t3cKI-00E4Ir-7M; Wed, 23 Oct 2024 16:27:06 +0200
-Message-ID: <385066fa-e4ee-4621-8714-70928e91259b@igalia.com>
-Date: Wed, 23 Oct 2024 15:27:05 +0100
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2080.outbound.protection.outlook.com [40.107.101.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 383C110E8CC
+ for <amd-gfx@lists.freedesktop.org>; Thu, 24 Oct 2024 08:22:16 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RJmhzNF3MC8ZVPLsKdqq2BTTviu5EW9M7LxLqpQAlQ+dSNOYuKYc6chj+/okCIY4OLraC6LgqKC8fQrvAIgCkl7yBuUZVuefKj/G6LN3VRY1NWQ1vCH+j7fMvusGTJGmvMJOO/C8UFgu0ZmbrceySZW9HE/C0MFzgxaJo26IyiBt3lDcDflXXoVGaHoZEW2f0tWOh3zlDtehr5pvs0qh6ab2abeShfPtDEqTA3dpTeo1LPhlUTwFRIbOpv5fD2Pwz/xx79GafqWT6IJ20gm3G5PsBzJH8xeHwvsYOyTxd0RrX699/CQ7rngkewcnDOjPYCLB28Hxp04iw+YfbmRx4A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Vfxx5gXbT0MD+9ZiFzNodgyW4Sep3M2kCBFLSjiWKUs=;
+ b=JfqBtb/zuv/U50LYnvWpx4kZI2gmh4coIvhhyiNhMr6QBDyD/A9Xg1P6LTuHOBPVRfxkUqED0e2bK9Fqz8dilPiVcxcU8YOiP2GgBq808BNVVDgtaJHPrDezma7S9rN8JmfyyL5C3Nn7AGj01Zawz85y4q9R8K3kq829kJPG5P4ODzQ7Fc8uIWGjq2mNGitwSKxlPMVOm3ztJDpQK+7iBcB64iZy0Gplow/2Xn7n6le+62uaw7qOR2QQTtSyFuK06ibY3M7bwGJXhGKKaa1WBWDVQ6BeDeGliRcaz/SjMIQoeRlanpFjlc+7kwfn3F41qU2IV43qk32cmrSInSEFwg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Vfxx5gXbT0MD+9ZiFzNodgyW4Sep3M2kCBFLSjiWKUs=;
+ b=gM+n3fbuwuEtznXeJNwQ8O1+qT7bhfOwZ+d7lPiemnkgMZPKcm8wgpfQISl9embMXXN0HYumWdeLQ8PlFaAzQ2RiFYifuXHhDrSnHutNmxYTOxRCeqjuuWZchwuq8Ai4n2/W7FBfVniNasRJv/nRRZjBo8oyXv5I/Dm+q3cA/Vo=
+Received: from SN1PR12CA0079.namprd12.prod.outlook.com (2603:10b6:802:21::14)
+ by DM4PR12MB5987.namprd12.prod.outlook.com (2603:10b6:8:6a::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8048.22; Thu, 24 Oct
+ 2024 08:22:13 +0000
+Received: from SN1PEPF0002BA51.namprd03.prod.outlook.com
+ (2603:10b6:802:21:cafe::af) by SN1PR12CA0079.outlook.office365.com
+ (2603:10b6:802:21::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8093.20 via Frontend
+ Transport; Thu, 24 Oct 2024 08:22:13 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SN1PEPF0002BA51.mail.protection.outlook.com (10.167.242.74) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8093.14 via Frontend Transport; Thu, 24 Oct 2024 08:22:12 +0000
+Received: from prike-code-pc.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 24 Oct
+ 2024 03:22:08 -0500
+From: Prike Liang <Prike.Liang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Alexander.Deucher@amd.com>, <Lijo.Lazar@amd.com>, Prike Liang
+ <Prike.Liang@amd.com>
+Subject: [PATCH v3 1/2] drm/amdgpu: correct the S3 abort check condition
+Date: Thu, 24 Oct 2024 16:21:58 +0800
+Message-ID: <20241024082159.45701-1-Prike.Liang@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 4/4] drm/amdgpu: track bo memory stats at runtime
-To: "Li, Yunxiang (Teddy)" <Yunxiang.Li@amd.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-References: <20241018133308.889-1-Yunxiang.Li@amd.com>
- <20241018133308.889-5-Yunxiang.Li@amd.com>
- <1057097f-02f4-4f0f-9ac5-37aa84570b47@amd.com>
- <SA1PR12MB8599E3DD01B4A45AD7CA71FAED4C2@SA1PR12MB8599.namprd12.prod.outlook.com>
- <53382fc0-0686-46af-9285-0cd6aec314ae@amd.com>
- <cd2b57c6-1947-4dbd-bae8-ecdb2b42de72@igalia.com>
- <47e4b79b-2c08-4ee8-b472-5482bc159856@amd.com>
- <6d324aca-76fd-420b-9bae-6c0984e659e1@igalia.com>
- <7503c3fd-deea-4eb9-9324-ab4f13f70332@amd.com>
- <2141a4f4-bcf4-4419-8756-fb5afd6c7f3a@igalia.com>
- <SA1PR12MB859920867E49C80E5059C97BED4D2@SA1PR12MB8599.namprd12.prod.outlook.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <SA1PR12MB859920867E49C80E5059C97BED4D2@SA1PR12MB8599.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 24 Oct 2024 07:48:40 +0000
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002BA51:EE_|DM4PR12MB5987:EE_
+X-MS-Office365-Filtering-Correlation-Id: e7ed5697-9858-47b2-a7a5-08dcf404f660
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|36860700013|82310400026|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?hGMnrcCmgN1WtQMzBgImF4usbpz5mFpMoyrCsiZajRFejphjobFK44u4oNfT?=
+ =?us-ascii?Q?m/UPFvrCyJFldn69I5/GCzxRGGrV/V5z1Ncw9fFsoDW3uQqTkPzgOmE8CutP?=
+ =?us-ascii?Q?fQ4paWs6uV8n0Y1Qohn6veuinMsvZQUcYk/T0a1XZ5h9VjS10vD36lwtghXx?=
+ =?us-ascii?Q?w0LfUYvS36qJWmj5nL1xN0NtVr2Q1lIc4BpROEZjxxVTD0Batv1eS/ufT1Jd?=
+ =?us-ascii?Q?iJRCGh6EwvfsMIBn5/JauR2o9l2hvE+ZATx/L2Li9JD9QSGJmQwrmgCXMh6F?=
+ =?us-ascii?Q?kMhN/Kj0j30s/cVtyx6PRA/0lbfNqioO497ByRWYYVKkxtv8CQvxOfByAWsg?=
+ =?us-ascii?Q?ydN9MBQHrhcroVLj8eVAyW66bS1SLAKcUACMx027koWqybaRTvRSrc7CPlBq?=
+ =?us-ascii?Q?7jQZZxN3Ed+CGy0jSaDRpZdA6ZNk1pejNlvPLvc5pGrmg5ZzdiG1oVq37l/1?=
+ =?us-ascii?Q?rjHlVOF2uLCikvUeCjdc7PPQH+SxjlGg/Cf+nUM3Aa6cV3hhPQw6qNGVDBem?=
+ =?us-ascii?Q?pF/uSHSIWFvK0vhcOIVPyKEqzMIwkyYEjinsXvaW5j5S5mZRlYYZwRJ+Rbu5?=
+ =?us-ascii?Q?s//pVKSobnx699/pHRNw1o9jJbmFIIPp5HlGq0CtoR54UBdt+R1pPkhtWgZD?=
+ =?us-ascii?Q?y60xGB6EdAmtWm3cm/m2MYY5Gaz4VMV9kXyWXIcKBM0frjZiS4uYO2zYxjm6?=
+ =?us-ascii?Q?RtFpJDofc1kLUZjbCw1sYqGoPWZxpPzyDDHGeo+BuXm4xve46LbUBXVfjOTq?=
+ =?us-ascii?Q?gns5lYstU30tSJenIEYtiu+OG01RXFoaCAPw7+1ZIQ8W5gBto/PX2ngaKo7c?=
+ =?us-ascii?Q?YNB5GYh2YkJ9KNi7jG32xzi5P4HdkS9lxAt/OwlUbM2+d+tczVAdt+kaS2UY?=
+ =?us-ascii?Q?/Qs2XjT9cOCSHGulwi7x41oLJYsgTccOIor9/UapMxw+3JicdZ34ZcgLDyJU?=
+ =?us-ascii?Q?wTMcNVaVRBV+RpyycFkoazbLMvtegQMrMQX+HNlvxhQp4g4ZUWNavqeksw2U?=
+ =?us-ascii?Q?rauM09NRKWDnt6VGrZj0tGqKIbpDH4YP6ndHdgarPhMiGtyWEvXgT/mTiIKi?=
+ =?us-ascii?Q?wxPKaJnTvpelh1TiZJ7/WfNShctkZmvd7AjwxBB9+vOcUIAj9Qb6SiMMMAvW?=
+ =?us-ascii?Q?FpAjgOVAEV1dnB/V6aywQHf+OHFVqvH2iQ1wlhTWRGRilJ7z1YmpJLzh87qO?=
+ =?us-ascii?Q?t7A4ud7ufQqxK2rwBcAF6Yy5188GR5atmyiw9BUVitNuO3qZFftfPgjIReg2?=
+ =?us-ascii?Q?SQ7ycrTIfeGEaixOe0fL1/xxfQxa1cPI0AYdseC2/JZgyhy+NCTBGFiO/MG6?=
+ =?us-ascii?Q?Pn1w5OYekvNutMIt7JVnN56lXHnbclC9DU0AwAp19J2Q9Fj361LOycpJZ27A?=
+ =?us-ascii?Q?+H/W8gboTzljzcP9m3z68nKls+7imSAzN2IJcO3iTCS3F8Apjg=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Oct 2024 08:22:12.9562 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e7ed5697-9858-47b2-a7a5-08dcf404f660
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002BA51.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5987
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,249 +129,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+In the normal S3 entry, the TOS cycle counter is not
+reset during BIOS execution the _S3 method, so it doesn't
+determine whether the _S3 method is executed exactly.
+Howerver, the PM core performs the S3 suspend will set the
+PM_SUSPEND_FLAG_FW_RESUME bit if all the devices suspend
+successfully. Therefore, drivers can check the
+pm_suspend_global_flags bit(1) to detect the S3 suspend
+abort event.
 
-On 23/10/2024 14:31, Li, Yunxiang (Teddy) wrote:
-> [AMD Official Use Only - AMD Internal Distribution Only]
-> 
->> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->> Sent: Wednesday, October 23, 2024 8:25
->> On 23/10/2024 13:12, Christian König wrote:
->>> Am 23.10.24 um 13:37 schrieb Tvrtko Ursulin:
->>>>
->>>> On 23/10/2024 10:14, Christian König wrote:
->>>>> Am 23.10.24 um 09:38 schrieb Tvrtko Ursulin:
->>>>>>
->>>>>> On 22/10/2024 17:24, Christian König wrote:
->>>>>>> Am 22.10.24 um 17:17 schrieb Li, Yunxiang (Teddy):
->>>>>>>> [Public]
->>>>>>>>
->>>>>>>>>> +static uint32_t fold_memtype(uint32_t memtype) {
->>>>>>>>> In general please add prefixes to even static functions, e.g.
->>>>>>>>> amdgpu_vm_ or
->>>>>>>>> amdgpu_bo_.
->>>>>>>>>
->>>>>>>>>> +   /* Squash private placements into 'cpu' to keep the legacy
->>>>>>>>>> userspace view.
->>>>>>>>> */
->>>>>>>>>> +   switch (mem_type) {
->>>>>>>>>> +   case TTM_PL_VRAM:
->>>>>>>>>> +   case TTM_PL_TT:
->>>>>>>>>> +           return memtype
->>>>>>>>>> +   default:
->>>>>>>>>> +           return TTM_PL_SYSTEM;
->>>>>>>>>> +   }
->>>>>>>>>> +}
->>>>>>>>>> +
->>>>>>>>>> +static uint32_t bo_get_memtype(struct amdgpu_bo *bo) {
->>>>>>>>> That whole function belongs into amdgpu_bo.c
->>>>>>>> Do you mean bo_get_memtype or fold_memtype? I debated whether
->>>>>>>> bo_get_memtype should go into amdgpu_vm.c or amdgpu_bo.c, and
->>>>>>>> since it's using fold_memtype and only useful for memory stats
->>>>>>>> because of folding the private placements I just left them here
->>>>>>>> together with the other mem stats code.
->>>>>>>>
->>>>>>>> I can move it to amdgpu_bo.c make it return the memtype verbatim
->>>>>>>> and just fold it when I do the accounting.
->>>>>>>
->>>>>>> I think that folding GDS, GWS and OA into system is also a bug. We
->>>>>>> should really not doing that.
->>>>>>>
->>>>>>> Just wanted to point out for this round that the code to query the
->>>>>>> current placement from a BO should probably go into amdgpu_bo.c
->>>>>>> and not amdgpu_vm.c
->>>>>>>
->>>>>>>>
->>>>>>>>>> +   struct ttm_resource *res = bo->tbo.resource;
->>>>>>>>>> +   const uint32_t domain_to_pl[] = {
->>>>>>>>>> +           [ilog2(AMDGPU_GEM_DOMAIN_CPU)]      =
->>>>>>>>>> +TTM_PL_SYSTEM,
->>>>>>>>>> +           [ilog2(AMDGPU_GEM_DOMAIN_GTT)]      = TTM_PL_TT,
->>>>>>>>>> +           [ilog2(AMDGPU_GEM_DOMAIN_VRAM)]     =
->> TTM_PL_VRAM,
->>>>>>>>>> +           [ilog2(AMDGPU_GEM_DOMAIN_GDS)]      =
->>>>>>>>>> +AMDGPU_PL_GDS,
->>>>>>>>>> +           [ilog2(AMDGPU_GEM_DOMAIN_GWS)]      =
->>>>>>>>>> +AMDGPU_PL_GWS,
->>>>>>>>>> +           [ilog2(AMDGPU_GEM_DOMAIN_OA)]       =
->> AMDGPU_PL_OA,
->>>>>>>>>> +           [ilog2(AMDGPU_GEM_DOMAIN_DOORBELL)] =
->>>>>>>>> AMDGPU_PL_DOORBELL,
->>>>>>>>>> +   };
->>>>>>>>>> +   uint32_t domain;
->>>>>>>>>> +
->>>>>>>>>> +   if (res)
->>>>>>>>>> +           return fold_memtype(res->mem_type);
->>>>>>>>>> +
->>>>>>>>>> +   /*
->>>>>>>>>> +    * If no backing store use one of the preferred domain for
->>>>>>>>>> basic
->>>>>>>>>> +    * stats. We take the MSB since that should give a
->>>>>>>>>> +reasonable
->>>>>>>>>> +    * view.
->>>>>>>>>> +    */
->>>>>>>>>> +   BUILD_BUG_ON(TTM_PL_VRAM < TTM_PL_TT ||
->> TTM_PL_VRAM <
->>>>>>>>> TTM_PL_SYSTEM);
->>>>>>>>>> +   domain = fls(bo->preferred_domains &
->>>>>>>>>> +AMDGPU_GEM_DOMAIN_MASK);
->>>>>>>>>> +   if (drm_WARN_ON_ONCE(&adev->ddev,
->>>>>>>>>> +                        domain == 0 || --domain >=
->>>>>>>>>> ARRAY_SIZE(domain_to_pl)))
->>>>>>>>> It's perfectly legal to create a BO without a placement. That
->>>>>>>>> one just won't have a backing store.
->>>>>>>>>
->>>>>>>> This is lifted from the previous change I'm rebasing onto. I
->>>>>>>> think what it’s trying to do is if the BO doesn't have a
->>>>>>>> placement, use the "biggest" (VRAM > TT > SYSTEM) preferred
->>>>>>>> placement for the purpose of accounting. Previously we just
->>>>>>>> ignore BOs that doesn't have a placement. I guess there's
->>>>>>>> argument for going with either approaches.
->>>>>>>
->>>>>>> I was not arguing, I'm simply pointing out a bug. It's perfectly
->>>>>>> valid for bo->preferred_domains to be 0.
->>>>>>>
->>>>>>> So the following WARN_ON() that no bit is set is incorrect.
->>>>>>>
->>>>>>>>
->>>>>>>>>> +           return 0;
->>>>>>>>>> +   return fold_memtype(domain_to_pl[domain])
->>>>>>>>> That would need specular execution mitigation if I'm not
->>>>>>>>> completely mistaken.
->>>>>>>>>
->>>>>>>>> Better use a switch/case statement.
->>>>>>>>>
->>>>>>>> Do you mean change the array indexing to a switch statement?
->>>>>>>
->>>>>>> Yes.
->>>>>>
->>>>>> Did you mean array_index_nospec?
->>>>>
->>>>> Yes.
->>>>>
->>>>>> Domain is not a direct userspace input and is calculated from the
->>>>>> mask which sanitized to allowed values prior to this call. So I
->>>>>> *think* switch is an overkill but don't mind it either. Just
->>>>>> commenting FWIW.
->>>>>
->>>>> I missed that the mask is applied.
->>>>>
->>>>> Thinking more about it I'm not sure if we should do this conversion
->>>>> in the first place. IIRC Tvrtko you once suggested a patch which
->>>>> switched a bunch of code to use the TTM placement instead of the
->>>>> UAPI flags.
->>>>
->>>> Maybe 8fb0efb10184 ("drm/amdgpu: Reduce mem_type to domain double
->>>> indirection") is what are you thinking of?
->>>
->>> Yes, exactly that one.
->>>
->>>>
->>>>> Going more into this direction I think when we want to look at the
->>>>> current placement we should probably also use the TTM PL enumeration
->>>>> directly.
->>>>
->>>> It does this already. The placement flags are just to "invent" a TTM
->>>> PL enum when bo->tbo.resource == NULL.
->>>
->>> Ah, good point! I though we would do the mapping the other way around.
->>>
->>> In this case that is even more something we should probably not do at all.
->>>
->>> When bo->tbo.resource is NULL then this BO isn't resident at all, so
->>> it should not account to resident memory.
->>
->> It doesn't, only for total. I should have pasted more context..:
->>
->>        struct ttm_resource *res = bo->tbo.resource; ...
->>           /* DRM stats common fields: */
->>
->>           stats[type].total += size;
->>           if (drm_gem_object_is_shared_for_memory_stats(obj))
->>                   stats[type].drm.shared += size;
->>           else
->>                   stats[type].drm.private += size;
->>
->>           if (res) {
->>                   stats[type].drm.resident += size
->>
->> So if no current placement it does not count towards drm-resident-, only
->> drm-total- (which is drm.private + drm.resident). Total and resident intend to be
->> analogue to for instance VIRT and RES in top(1), or VZS and RSS in ps(1).
->>
->>>> Again, based of the same enum. Not sure if you have something other
->>>> in mind or you are happy with that?
->>>
->>> I think that for drm-total-* we should use the GEM flags and for
->>> drm-resident-* we should use the TTM placement.
->>
->> Agreed! :)
->>
-> 
-> Oof I missed the distinction between resident and total as well. Just want to double confirm the drm-total- semantics.
-> 
-> Does drm-total- track the BOs that prefer the placement (derived from the preferred domain) and drm-resident- track the actual placement, or does drm-total- track drm-resident- plus BOs that don't have a placement but prefers here?
+Fixes: 4d58c599df75 ("drm/amdgpu: update suspend status
+for aborting from deeper suspend")
+Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/soc15.c | 23 +++++++++++++----------
+ 1 file changed, 13 insertions(+), 10 deletions(-)
 
-Preferred domain is only used as an aid when there is no backing store. 
-Putting that aside, it is supposed to be simple:
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
+index dd1c1aacdd8e..12ff6cf568dc 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc15.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
+@@ -578,16 +578,13 @@ soc15_asic_reset_method(struct amdgpu_device *adev)
+ 
+ static bool soc15_need_reset_on_resume(struct amdgpu_device *adev)
+ {
+-	u32 sol_reg;
+-
+-	sol_reg = RREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_81);
+-
+ 	/* Will reset for the following suspend abort cases.
+-	 * 1) Only reset limit on APU side, dGPU hasn't checked yet.
+-	 * 2) S3 suspend abort and TOS already launched.
++	 * 1) Only reset on APU side, dGPU hasn't checked yet.
++	 * 2) S3 suspend aborted in the normal S3 suspend or
++	 *    performing pm core test.
+ 	 */
+ 	if (adev->flags & AMD_IS_APU && adev->in_s3 &&
+-			sol_reg) {
++			!pm_resume_via_firmware()) {
+ 		adev->suspend_complete = false;
+ 		return true;
+ 	} else {
+@@ -603,11 +600,17 @@ static int soc15_asic_reset(struct amdgpu_device *adev)
+ 	 * successfully. So now, temporarily enable it for the
+ 	 * S3 suspend abort case.
+ 	 */
+-	if (((adev->apu_flags & AMD_APU_IS_RAVEN) ||
+-	    (adev->apu_flags & AMD_APU_IS_RAVEN2)) &&
+-		!soc15_need_reset_on_resume(adev))
++
++	if ((adev->apu_flags & AMD_APU_IS_PICASSO ||
++			!(adev->apu_flags & AMD_APU_IS_RAVEN)) &&
++			soc15_need_reset_on_resume(adev))
++		goto asic_reset;
++
++	if ((adev->apu_flags & AMD_APU_IS_RAVEN) ||
++			(adev->apu_flags & AMD_APU_IS_RAVEN2))
+ 		return 0;
+ 
++asic_reset:
+ 	switch (soc15_asic_reset_method(adev)) {
+ 	case AMD_RESET_METHOD_PCI:
+ 		dev_info(adev->dev, "PCI reset\n");
+-- 
+2.34.1
 
-Total - BO exists, whether or not it currently has a backing store.
-
-Resident - BO has a backing store.
-
-Active and purgeable are a sub-variant of resident.
-
-Again, preferred placement only comes into the picture (in the current 
-implementation) when there is not backing store. Because we must account 
-the total and looking at the preferred tells us to where.
-
-Yeah it may be that one second you have:
-
-total-vram: 4 KiB
-resident-vram: 0
-total-system: 0
-resident-system: 0
-
-And the second:
-
-total-vram: 0
-resident-vram: 0
-total-system: 4 KiB
-resident-system: 4 KiB
-
-All with a single 4k BO, which happened to instantiate its backing store 
-in it's 2nd preferred placement.
-
-But IMO it is better than not accounting it under total anywhere in the 
-first case.
-
-Have I managed to explain it good enough?
-
-Regards,
-
-Tvrtko
-
->>>>
->>>> Then what Teddy does is IMO only tangential, he just changes when
->>>> stats are collected and not this aspect.
->>>
->>> Yeah, right but we should probably fix it up in the right way while on it.
->>
->> Okay, we just need to align on is there a problem and how to fix it.
->>
->>>> To fold or not the special placements (GWS, GDS & co) is also
->>>> tangential. In my patch I just preserved the legacy behaviour so it
->>>> can easily be tweaked on top.
->>>
->>> Yeah, but again the original behavior is completely broken.
->>>
->>> GWS, GDS and OA are counted in blocks of HW units (multiplied by
->>> PAGE_SIZE IIRC to avoid some GEM&TTM warnings).
->>>
->>> When you accumulate that anywhere in the memory stats then that is
->>> just completely off.
->>
->> Ooops. :) Are they backed by some memory though, be it system or VRAM?
->>
->> Regards,
->>
->> Tvrtko
