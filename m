@@ -4,61 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4423D0C614
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Oct 2024 12:48:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C867D0C617
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Oct 2024 12:48:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9541710EAB1;
-	Fri, 25 Oct 2024 12:48:12 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="cWYF6YIO";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E55610EA36;
- Fri, 25 Oct 2024 08:49:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1729846154; x=1761382154;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=DXftr2DH4pg0fUGyeeyFU1Xg9RIPK7GA/zDAk6ZGVJ4=;
- b=cWYF6YIOF9LDeSf1gdcw/edk4gPh4TDxIeXrtVEsCgBBjZaZexky2liN
- o9IdokhDnWNoAiO4H/jy+v0aCHjkLqN6goZZc2jLWMPC3aQH9VLguQxUH
- XsR2uSF2HAa639siqBZnfD94UoFv5EJZnk4EENhroztP6Sl11uZhIpL9u
- qNX2sGcVnCwlBMfajgqRLGzSKk4zzIeXv0XoEZT2VXKSYMj0ssOXBpMT5
- sV8Cwf86U7mb0CYBUMRwIK/FGxhe+5tVEEvB8DRrGXjGzILQHOhUuZ7Js
- KktrEtrbGoyiFru3MpAvXT0DKArwDMUTAmTebaMzr0XVWdjlLQSlHNo8F w==;
-X-CSE-ConnectionGUID: HrseqB1dT+Cgy0mYYI+WCw==
-X-CSE-MsgGUID: e07BSqo0TduYmM0aB5Gg9Q==
-X-IronPort-AV: E=McAfee;i="6700,10204,11235"; a="32369517"
-X-IronPort-AV: E=Sophos;i="6.11,231,1725346800"; d="scan'208";a="32369517"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Oct 2024 01:49:13 -0700
-X-CSE-ConnectionGUID: tfJiozn1SSOxtuaPY06A/w==
-X-CSE-MsgGUID: R+Twa2AORoe0PTMAS7zhIQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,231,1725346800"; d="scan'208";a="80768578"
-Received: from jraag-nuc8i7beh.iind.intel.com ([10.145.169.79])
- by orviesa010.jf.intel.com with ESMTP; 25 Oct 2024 01:49:07 -0700
-From: Raag Jadav <raag.jadav@intel.com>
-To: airlied@gmail.com, simona@ffwll.ch, lucas.demarchi@intel.com,
- rodrigo.vivi@intel.com, jani.nikula@linux.intel.com,
- andriy.shevchenko@linux.intel.com, lina@asahilina.net,
- michal.wajdeczko@intel.com, christian.koenig@amd.com
-Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, himal.prasad.ghimiray@intel.com,
- aravind.iddamsetty@linux.intel.com, anshuman.gupta@intel.com,
- alexander.deucher@amd.com, andrealmeid@igalia.com,
- amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
- Raag Jadav <raag.jadav@intel.com>
-Subject: [PATCH v8 3/4] drm/xe: Use device wedged event
-Date: Fri, 25 Oct 2024 14:18:16 +0530
-Message-Id: <20241025084817.144621-4-raag.jadav@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20241025084817.144621-1-raag.jadav@intel.com>
-References: <20241025084817.144621-1-raag.jadav@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A96A410EABC;
+	Fri, 25 Oct 2024 12:48:13 +0000 (UTC)
+Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com
+ [45.249.212.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 55C0D10E94D;
+ Thu, 24 Oct 2024 13:41:26 +0000 (UTC)
+Received: from mail.maildlp.com (unknown [172.19.93.142])
+ by dggsgout11.his.huawei.com (SkyGuard) with ESMTP id 4XZ68h40MHz4f3nbV;
+ Thu, 24 Oct 2024 21:24:52 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.128])
+ by mail.maildlp.com (Postfix) with ESMTP id CEC931A018D;
+ Thu, 24 Oct 2024 21:25:10 +0800 (CST)
+Received: from huaweicloud.com (unknown [10.175.104.67])
+ by APP4 (Coremail) with SMTP id gCh0CgD3LMmxShpnmfz6Ew--.42902S6;
+ Thu, 24 Oct 2024 21:25:10 +0800 (CST)
+From: Yu Kuai <yukuai1@huaweicloud.com>
+To: stable@vger.kernel.org, gregkh@linuxfoundation.org, harry.wentland@amd.com,
+ sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
+ daniel@ffwll.ch, viro@zeniv.linux.org.uk, brauner@kernel.org,
+ Liam.Howlett@oracle.com, akpm@linux-foundation.org, hughd@google.com,
+ willy@infradead.org, sashal@kernel.org, srinivasan.shanmugam@amd.com,
+ chiahsuan.chung@amd.com, mingo@kernel.org, mgorman@techsingularity.net,
+ yukuai3@huawei.com, chengming.zhou@linux.dev, zhangpeng.00@bytedance.com,
+ chuck.lever@oracle.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ maple-tree@lists.infradead.org, linux-mm@kvack.org,
+ yukuai1@huaweicloud.com, yi.zhang@huawei.com, yangerkun@huawei.com
+Subject: [PATCH 6.6 18/28] maple_tree: don't find node end in
+ mtree_lookup_walk()
+Date: Thu, 24 Oct 2024 21:22:15 +0800
+Message-Id: <20241024132225.2271667-3-yukuai1@huaweicloud.com>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20241024132225.2271667-1-yukuai1@huaweicloud.com>
+References: <20241024132009.2267260-1-yukuai1@huaweicloud.com>
+ <20241024132225.2271667-1-yukuai1@huaweicloud.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: gCh0CgD3LMmxShpnmfz6Ew--.42902S6
+X-Coremail-Antispam: 1UD129KBjvJXoWxAry3tryUGF4kCw43Gw1DGFg_yoW5Cw4fp3
+ ZrGFy5tFyfAF4xWrWfKa18X34fXFs3Gr17t3yDGryrZFyUGw1Igr1rCryfurWagayxu3Wf
+ Aa1Yqw18W3Z7JFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUmY14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_Jryl82xGYIkIc2
+ x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
+ Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr1j6rxdM2
+ 8EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s0DM2AI
+ xVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20x
+ vE14v26r1Y6r17McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xv
+ r2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxan2IY04
+ v7MxkF7I0En4kS14v26rWY6Fy7MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j
+ 6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7
+ AF67AKxVWrXVW8Jr1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVW5JVW7JwCI42IY
+ 6xIIjxv20xvEc7CjxVAFwI0_Cr1j6rxdMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42
+ IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26F4UJVW0obIYCTnIWIev
+ Ja73UjIFyTuYvjTRGApnUUUUU
+X-CM-SenderInfo: 51xn3trlr6x35dzhxuhorxvhhfrp/
 X-Mailman-Approved-At: Fri, 25 Oct 2024 12:48:03 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -74,71 +80,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This was previously attempted as xe specific reset uevent but dropped
-in commit 77a0d4d1cea2 ("drm/xe/uapi: Remove reset uevent for now")
-as part of refactoring.
+From: "Liam R. Howlett" <Liam.Howlett@oracle.com>
 
-Now that we have device wedged event provided by DRM core, make use
-of it and support both driver rebind and bus-reset based recovery.
-With this in place userspace will be notified of wedged device, on
-the basis of which, userspace may take respective action to recover
-the device.
+commit 24662decdd44645e8f027d7912be962dd461d1aa upstream.
 
-$ udevadm monitor --property --kernel
-monitor will print the received events for:
-KERNEL - the kernel uevent
+Since the pivot being set is now reliable, the optimized loop no longer
+needs to find the node end.  The redundant check for a dead node can also
+be avoided as there is no danger of using the wrong pivot since the
+results will be thrown out in the case of a dead node by the later check.
 
-KERNEL[265.802982] change   /devices/pci0000:00/0000:00:01.0/0000:01:00.0/0000:02:01.0/0000:03:00.0/drm/card0 (drm)
-ACTION=change
-DEVPATH=/devices/pci0000:00/0000:00:01.0/0000:01:00.0/0000:02:01.0/0000:03:00.0/drm/card0
-SUBSYSTEM=drm
-WEDGED=rebind,bus-reset
-DEVNAME=/dev/dri/card0
-DEVTYPE=drm_minor
-SEQNUM=5208
-MAJOR=226
-MINOR=0
+This patch also adds a benchmark test for the function to the maple tree
+test framework.  The benchmark shows an average increase performance of
+5.98% over 3 runs with this commit.
 
-v2: Change authorship to Himal (Aravind)
-    Add uevent for all device wedged cases (Aravind)
-v3: Generic re-implementation in DRM subsystem (Lucas)
-v4: Change authorship to Raag (Aravind)
-
-Signed-off-by: Raag Jadav <raag.jadav@intel.com>
+Link: https://lkml.kernel.org/r/20231101171629.3612299-12-Liam.Howlett@oracle.com
+Signed-off-by: Liam R. Howlett <Liam.Howlett@oracle.com>
+Cc: Peng Zhang <zhangpeng.00@bytedance.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Signed-off-by: Yu Kuai <yukuai3@huawei.com>
 ---
- drivers/gpu/drm/xe/xe_device.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ lib/maple_tree.c      | 12 +++---------
+ lib/test_maple_tree.c | 21 +++++++++++++++++++++
+ 2 files changed, 24 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_device.c
-index 2da4affe4dfd..2477cf043397 100644
---- a/drivers/gpu/drm/xe/xe_device.c
-+++ b/drivers/gpu/drm/xe/xe_device.c
-@@ -999,11 +999,12 @@ static void xe_device_wedged_fini(struct drm_device *drm, void *arg)
-  * xe_device_declare_wedged - Declare device wedged
-  * @xe: xe device instance
-  *
-- * This is a final state that can only be cleared with a mudule
-+ * This is a final state that can only be cleared with a module
-  * re-probe (unbind + bind).
-  * In this state every IOCTL will be blocked so the GT cannot be used.
-  * In general it will be called upon any critical error such as gt reset
-- * failure or guc loading failure.
-+ * failure or guc loading failure. Userspace will be notified of this state
-+ * by a DRM uevent.
-  * If xe.wedged module parameter is set to 2, this function will be called
-  * on every single execution timeout (a.k.a. GPU hang) right after devcoredump
-  * snapshot capture. In this mode, GT reset won't be attempted so the state of
-@@ -1033,6 +1034,10 @@ void xe_device_declare_wedged(struct xe_device *xe)
- 			"IOCTLs and executions are blocked. Only a rebind may clear the failure\n"
- 			"Please file a _new_ bug report at https://gitlab.freedesktop.org/drm/xe/kernel/issues/new\n",
- 			dev_name(xe->drm.dev));
-+
-+		/* Notify userspace of wedged device */
-+		drm_dev_wedged_event(&xe->drm,
-+				     DRM_WEDGE_RECOVERY_REBIND | DRM_WEDGE_RECOVERY_BUS_RESET);
- 	}
+diff --git a/lib/maple_tree.c b/lib/maple_tree.c
+index 472aef7a3d5c..ad8bf3413889 100644
+--- a/lib/maple_tree.c
++++ b/lib/maple_tree.c
+@@ -3742,23 +3742,17 @@ static inline void *mtree_lookup_walk(struct ma_state *mas)
+ 	enum maple_type type;
+ 	void __rcu **slots;
+ 	unsigned char end;
+-	unsigned long max;
  
- 	for_each_gt(gt, xe, id)
+ 	next = mas->node;
+-	max = ULONG_MAX;
+ 	do {
+-		offset = 0;
+ 		node = mte_to_node(next);
+ 		type = mte_node_type(next);
+ 		pivots = ma_pivots(node, type);
+-		end = ma_data_end(node, type, pivots, max);
+-		if (unlikely(ma_dead_node(node)))
+-			goto dead_node;
++		end = mt_pivots[type];
++		offset = 0;
+ 		do {
+-			if (pivots[offset] >= mas->index) {
+-				max = pivots[offset];
++			if (pivots[offset] >= mas->index)
+ 				break;
+-			}
+ 		} while (++offset < end);
+ 
+ 		slots = ma_slots(node, type);
+diff --git a/lib/test_maple_tree.c b/lib/test_maple_tree.c
+index f9acc6ef0728..26991888da14 100644
+--- a/lib/test_maple_tree.c
++++ b/lib/test_maple_tree.c
+@@ -43,6 +43,7 @@ atomic_t maple_tree_tests_passed;
+ /* #define BENCH_NODE_STORE */
+ /* #define BENCH_AWALK */
+ /* #define BENCH_WALK */
++/* #define BENCH_LOAD */
+ /* #define BENCH_MT_FOR_EACH */
+ /* #define BENCH_FORK */
+ /* #define BENCH_MAS_FOR_EACH */
+@@ -1754,6 +1755,19 @@ static noinline void __init bench_walk(struct maple_tree *mt)
+ }
+ #endif
+ 
++#if defined(BENCH_LOAD)
++static noinline void __init bench_load(struct maple_tree *mt)
++{
++	int i, max = 2500, count = 550000000;
++
++	for (i = 0; i < max; i += 10)
++		mtree_store_range(mt, i, i + 5, xa_mk_value(i), GFP_KERNEL);
++
++	for (i = 0; i < count; i++)
++		mtree_load(mt, 1470);
++}
++#endif
++
+ #if defined(BENCH_MT_FOR_EACH)
+ static noinline void __init bench_mt_for_each(struct maple_tree *mt)
+ {
+@@ -3620,6 +3634,13 @@ static int __init maple_tree_seed(void)
+ 	mtree_destroy(&tree);
+ 	goto skip;
+ #endif
++#if defined(BENCH_LOAD)
++#define BENCH
++	mt_init_flags(&tree, MT_FLAGS_ALLOC_RANGE);
++	bench_load(&tree);
++	mtree_destroy(&tree);
++	goto skip;
++#endif
+ #if defined(BENCH_FORK)
+ #define BENCH
+ 	mt_init_flags(&tree, MT_FLAGS_ALLOC_RANGE);
 -- 
-2.34.1
+2.39.2
 
