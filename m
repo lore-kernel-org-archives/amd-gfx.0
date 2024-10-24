@@ -4,24 +4,24 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6AB9D0C61A
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Oct 2024 12:48:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B35AD0C60B
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Oct 2024 12:48:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0D6310EABD;
-	Fri, 25 Oct 2024 12:48:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C683C10EAB4;
+	Fri, 25 Oct 2024 12:48:12 +0000 (UTC)
 Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com
  [45.249.212.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD9F010E258;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E92A110E94D;
  Thu, 24 Oct 2024 13:41:51 +0000 (UTC)
-Received: from mail.maildlp.com (unknown [172.19.163.235])
- by dggsgout12.his.huawei.com (SkyGuard) with ESMTP id 4XZ68f3YxBz4f3jdn;
- Thu, 24 Oct 2024 21:24:50 +0800 (CST)
+Received: from mail.maildlp.com (unknown [172.19.163.216])
+ by dggsgout12.his.huawei.com (SkyGuard) with ESMTP id 4XZ68w6RZPz4f3jdV;
+ Thu, 24 Oct 2024 21:25:04 +0800 (CST)
 Received: from mail02.huawei.com (unknown [10.116.40.128])
- by mail.maildlp.com (Postfix) with ESMTP id EF0A71A058E;
- Thu, 24 Oct 2024 21:25:07 +0800 (CST)
+ by mail.maildlp.com (Postfix) with ESMTP id 5D3991A0194;
+ Thu, 24 Oct 2024 21:25:22 +0800 (CST)
 Received: from huaweicloud.com (unknown [10.175.104.67])
- by APP4 (Coremail) with SMTP id gCh0CgD3LMmxShpnmfz6Ew--.42902S4;
- Thu, 24 Oct 2024 21:25:07 +0800 (CST)
+ by APP4 (Coremail) with SMTP id gCh0CgD3LMmxShpnmfz6Ew--.42902S15;
+ Thu, 24 Oct 2024 21:25:21 +0800 (CST)
 From: Yu Kuai <yukuai1@huaweicloud.com>
 To: stable@vger.kernel.org, gregkh@linuxfoundation.org, harry.wentland@amd.com,
  sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, alexander.deucher@amd.com,
@@ -36,32 +36,33 @@ Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
  maple-tree@lists.infradead.org, linux-mm@kvack.org,
  yukuai1@huaweicloud.com, yi.zhang@huawei.com, yangerkun@huawei.com
-Subject: [PATCH 6.6 16/28] Revert "maple_tree: correct tree corruption on
- spanning store"
-Date: Thu, 24 Oct 2024 21:22:13 +0800
-Message-Id: <20241024132225.2271667-1-yukuai1@huaweicloud.com>
+Subject: [PATCH 6.6 27/28] libfs: fix infinite directory reads for offset dir
+Date: Thu, 24 Oct 2024 21:22:24 +0800
+Message-Id: <20241024132225.2271667-12-yukuai1@huaweicloud.com>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20241024132009.2267260-1-yukuai1@huaweicloud.com>
+In-Reply-To: <20241024132225.2271667-1-yukuai1@huaweicloud.com>
 References: <20241024132009.2267260-1-yukuai1@huaweicloud.com>
+ <20241024132225.2271667-1-yukuai1@huaweicloud.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: gCh0CgD3LMmxShpnmfz6Ew--.42902S4
-X-Coremail-Antispam: 1UD129KBjvJXoW7tF1fZF4UAw4fCFyfCFyfWFg_yoW8ury5pa
- yDCFW2yr1jyF18GFWvk3y0vas8J3WDtF4YvFW5KanYvFyDKr9IganYvw1IvFW5Z3yxCr1S
- yFWjvr4DG3ZayFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUU9F14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4U
- JVW0owA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
- Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
- I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
- 4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
- n2kIc2xKxwCY1x0262kKe7AKxVWrXVW3AwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
- kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
- 67AF67kF1VAFwI0_Wrv_Gr1UMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Xr0_Ar
- 1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4UJVW0owCI42IY6xAIw20EY4v20xvaj40_Jr0_
- JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVWxJr0_GcJvcS
- sGvfC2KfnxnUUI43ZEXa7sR_v38UUUUUU==
+X-CM-TRANSID: gCh0CgD3LMmxShpnmfz6Ew--.42902S15
+X-Coremail-Antispam: 1UD129KBjvJXoWxGF4DCw48XFykAF4fGryrtFb_yoWrKF1fpF
+ ZxG3Z3tr1fW34jgr4vvF1DZryF93Z3Kw4rX3s5Ww15try2qws8Kas2yr1Y9a48tr95Cr13
+ ZF45Ka43Xr4UCr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUmF14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_JF0E3s1l82xGYI
+ kIc2x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2
+ z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_GcCE3s
+ 1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s1l
+ e2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI
+ 8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwAC
+ jcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka0x
+ kIwI1lc7CjxVAaw2AFwI0_Wrv_ZF1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_
+ Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1V
+ AY17CE14v26rWY6r4UJwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26ryj6F1UMIIF
+ 0xvE2Ix0cI8IcVCY1x0267AKxVWxJr0_GcWlIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMI
+ IF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_GcCE3sUvcSsGvfC2
+ KfnxnUUI43ZEXa7sR_3ku7UUUUU==
 X-CM-SenderInfo: 51xn3trlr6x35dzhxuhorxvhhfrp/
 X-Mailman-Approved-At: Fri, 25 Oct 2024 12:48:03 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -78,65 +79,140 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Yu Kuai <yukuai3@huawei.com>
+From: yangerkun <yangerkun@huawei.com>
 
-This reverts commit 677f1df179cb68c12ddf7707ec325eb50e99c7d9.
+commit 64a7ce76fb901bf9f9c36cf5d681328fc0fd4b5a upstream.
 
-Above commit contain manual changes and will cause conflicts for
-following patches. The commit be backported from mainline later, without
-conflicts.
+After we switch tmpfs dir operations from simple_dir_operations to
+simple_offset_dir_operations, every rename happened will fill new dentry
+to dest dir's maple tree(&SHMEM_I(inode)->dir_offsets->mt) with a free
+key starting with octx->newx_offset, and then set newx_offset equals to
+free key + 1. This will lead to infinite readdir combine with rename
+happened at the same time, which fail generic/736 in xfstests(detail show
+as below).
 
+1. create 5000 files(1 2 3...) under one dir
+2. call readdir(man 3 readdir) once, and get one entry
+3. rename(entry, "TEMPFILE"), then rename("TEMPFILE", entry)
+4. loop 2~3, until readdir return nothing or we loop too many
+   times(tmpfs break test with the second condition)
+
+We choose the same logic what commit 9b378f6ad48cf ("btrfs: fix infinite
+directory reads") to fix it, record the last_index when we open dir, and
+do not emit the entry which index >= last_index. The file->private_data
+now used in offset dir can use directly to do this, and we also update
+the last_index when we llseek the dir file.
+
+Fixes: a2e459555c5f ("shmem: stable directory offsets")
+Signed-off-by: yangerkun <yangerkun@huawei.com>
+Link: https://lore.kernel.org/r/20240731043835.1828697-1-yangerkun@huawei.com
+Reviewed-by: Chuck Lever <chuck.lever@oracle.com>
+[brauner: only update last_index after seek when offset is zero like Jan suggested]
+Signed-off-by: Christian Brauner <brauner@kernel.org>
 Signed-off-by: Yu Kuai <yukuai3@huawei.com>
 ---
- lib/maple_tree.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ fs/libfs.c | 35 ++++++++++++++++++++++++-----------
+ 1 file changed, 24 insertions(+), 11 deletions(-)
 
-diff --git a/lib/maple_tree.c b/lib/maple_tree.c
-index f73e3772c883..291412b91047 100644
---- a/lib/maple_tree.c
-+++ b/lib/maple_tree.c
-@@ -2236,8 +2236,6 @@ static inline void mas_node_or_none(struct ma_state *mas,
- 
- /*
-  * mas_wr_node_walk() - Find the correct offset for the index in the @mas.
-- *                      If @mas->index cannot be found within the containing
-- *                      node, we traverse to the last entry in the node.
-  * @wr_mas: The maple write state
-  *
-  * Uses mas_slot_locked() and does not need to worry about dead nodes.
-@@ -3657,7 +3655,7 @@ static bool mas_wr_walk(struct ma_wr_state *wr_mas)
- 	return true;
+diff --git a/fs/libfs.c b/fs/libfs.c
+index 98731178a3c1..fd5d30c798de 100644
+--- a/fs/libfs.c
++++ b/fs/libfs.c
+@@ -405,6 +405,14 @@ void simple_offset_destroy(struct offset_ctx *octx)
+ 	mtree_destroy(&octx->mt);
  }
  
--static void mas_wr_walk_index(struct ma_wr_state *wr_mas)
-+static bool mas_wr_walk_index(struct ma_wr_state *wr_mas)
- {
- 	struct ma_state *mas = wr_mas->mas;
- 
-@@ -3666,9 +3664,11 @@ static void mas_wr_walk_index(struct ma_wr_state *wr_mas)
- 		wr_mas->content = mas_slot_locked(mas, wr_mas->slots,
- 						  mas->offset);
- 		if (ma_is_leaf(wr_mas->type))
--			return;
-+			return true;
- 		mas_wr_walk_traverse(wr_mas);
++static int offset_dir_open(struct inode *inode, struct file *file)
++{
++	struct offset_ctx *ctx = inode->i_op->get_offset_ctx(inode);
 +
++	file->private_data = (void *)ctx->next_offset;
++	return 0;
++}
++
+ /**
+  * offset_dir_llseek - Advance the read position of a directory descriptor
+  * @file: an open directory whose position is to be updated
+@@ -418,6 +426,9 @@ void simple_offset_destroy(struct offset_ctx *octx)
+  */
+ static loff_t offset_dir_llseek(struct file *file, loff_t offset, int whence)
+ {
++	struct inode *inode = file->f_inode;
++	struct offset_ctx *ctx = inode->i_op->get_offset_ctx(inode);
++
+ 	switch (whence) {
+ 	case SEEK_CUR:
+ 		offset += file->f_pos;
+@@ -431,7 +442,8 @@ static loff_t offset_dir_llseek(struct file *file, loff_t offset, int whence)
  	}
-+	return true;
+ 
+ 	/* In this case, ->private_data is protected by f_pos_lock */
+-	file->private_data = NULL;
++	if (!offset)
++		file->private_data = (void *)ctx->next_offset;
+ 	return vfs_setpos(file, offset, LONG_MAX);
  }
- /*
-  * mas_extend_spanning_null() - Extend a store of a %NULL to include surrounding %NULLs.
-@@ -3905,8 +3905,8 @@ static inline int mas_wr_spanning_store(struct ma_wr_state *wr_mas)
- 	memset(&b_node, 0, sizeof(struct maple_big_node));
- 	/* Copy l_mas and store the value in b_node. */
- 	mas_store_b_node(&l_wr_mas, &b_node, l_wr_mas.node_end);
--	/* Copy r_mas into b_node if there is anything to copy. */
--	if (r_mas.max > r_mas.last)
-+	/* Copy r_mas into b_node. */
-+	if (r_mas.offset <= r_wr_mas.node_end)
- 		mas_mab_cp(&r_mas, r_mas.offset, r_wr_mas.node_end,
- 			   &b_node, b_node.b_end + 1);
- 	else
+ 
+@@ -462,7 +474,7 @@ static bool offset_dir_emit(struct dir_context *ctx, struct dentry *dentry)
+ 			  inode->i_ino, fs_umode_to_dtype(inode->i_mode));
+ }
+ 
+-static void *offset_iterate_dir(struct inode *inode, struct dir_context *ctx)
++static void offset_iterate_dir(struct inode *inode, struct dir_context *ctx, long last_index)
+ {
+ 	struct offset_ctx *octx = inode->i_op->get_offset_ctx(inode);
+ 	struct dentry *dentry;
+@@ -470,17 +482,21 @@ static void *offset_iterate_dir(struct inode *inode, struct dir_context *ctx)
+ 	while (true) {
+ 		dentry = offset_find_next(octx, ctx->pos);
+ 		if (!dentry)
+-			return ERR_PTR(-ENOENT);
++			return;
++
++		if (dentry2offset(dentry) >= last_index) {
++			dput(dentry);
++			return;
++		}
+ 
+ 		if (!offset_dir_emit(ctx, dentry)) {
+ 			dput(dentry);
+-			break;
++			return;
+ 		}
+ 
+ 		ctx->pos = dentry2offset(dentry) + 1;
+ 		dput(dentry);
+ 	}
+-	return NULL;
+ }
+ 
+ /**
+@@ -507,22 +523,19 @@ static void *offset_iterate_dir(struct inode *inode, struct dir_context *ctx)
+ static int offset_readdir(struct file *file, struct dir_context *ctx)
+ {
+ 	struct dentry *dir = file->f_path.dentry;
++	long last_index = (long)file->private_data;
+ 
+ 	lockdep_assert_held(&d_inode(dir)->i_rwsem);
+ 
+ 	if (!dir_emit_dots(file, ctx))
+ 		return 0;
+ 
+-	/* In this case, ->private_data is protected by f_pos_lock */
+-	if (ctx->pos == DIR_OFFSET_MIN)
+-		file->private_data = NULL;
+-	else if (file->private_data == ERR_PTR(-ENOENT))
+-		return 0;
+-	file->private_data = offset_iterate_dir(d_inode(dir), ctx);
++	offset_iterate_dir(d_inode(dir), ctx, last_index);
+ 	return 0;
+ }
+ 
+ const struct file_operations simple_offset_dir_operations = {
++	.open		= offset_dir_open,
+ 	.llseek		= offset_dir_llseek,
+ 	.iterate_shared	= offset_readdir,
+ 	.read		= generic_read_dir,
 -- 
 2.39.2
 
