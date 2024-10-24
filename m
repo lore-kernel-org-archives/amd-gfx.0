@@ -4,24 +4,24 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF4FBD0C608
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Oct 2024 12:48:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7DEC6D0C607
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Oct 2024 12:48:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A8D3610EAA2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC17410EAAA;
 	Fri, 25 Oct 2024 12:48:11 +0000 (UTC)
 Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com
  [45.249.212.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E41F10E94C;
- Thu, 24 Oct 2024 13:41:28 +0000 (UTC)
-Received: from mail.maildlp.com (unknown [172.19.93.142])
- by dggsgout11.his.huawei.com (SkyGuard) with ESMTP id 4XZ68x2FM0z4f3nbJ;
- Thu, 24 Oct 2024 21:25:05 +0800 (CST)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A85E10E258;
+ Thu, 24 Oct 2024 13:41:38 +0000 (UTC)
+Received: from mail.maildlp.com (unknown [172.19.163.216])
+ by dggsgout11.his.huawei.com (SkyGuard) with ESMTP id 4XZ66N2wY2z4f3l8R;
+ Thu, 24 Oct 2024 21:22:52 +0800 (CST)
 Received: from mail02.huawei.com (unknown [10.116.40.128])
- by mail.maildlp.com (Postfix) with ESMTP id 929231A0359;
- Thu, 24 Oct 2024 21:25:23 +0800 (CST)
+ by mail.maildlp.com (Postfix) with ESMTP id C06A61A0194;
+ Thu, 24 Oct 2024 21:23:04 +0800 (CST)
 Received: from huaweicloud.com (unknown [10.175.104.67])
- by APP4 (Coremail) with SMTP id gCh0CgD3LMmxShpnmfz6Ew--.42902S16;
- Thu, 24 Oct 2024 21:25:23 +0800 (CST)
+ by APP4 (Coremail) with SMTP id gCh0CgCHusYpShpn7tb6Ew--.444S13;
+ Thu, 24 Oct 2024 21:23:04 +0800 (CST)
 From: Yu Kuai <yukuai1@huaweicloud.com>
 To: stable@vger.kernel.org, gregkh@linuxfoundation.org, harry.wentland@amd.com,
  sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, alexander.deucher@amd.com,
@@ -36,34 +36,33 @@ Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
  maple-tree@lists.infradead.org, linux-mm@kvack.org,
  yukuai1@huaweicloud.com, yi.zhang@huawei.com, yangerkun@huawei.com
-Subject: [PATCH 6.6 28/28] maple_tree: correct tree corruption on spanning
- store
-Date: Thu, 24 Oct 2024 21:22:25 +0800
-Message-Id: <20241024132225.2271667-13-yukuai1@huaweicloud.com>
+Subject: [PATCH 6.6 09/28] maple_tree: add end of node tracking to the maple
+ state
+Date: Thu, 24 Oct 2024 21:19:50 +0800
+Message-Id: <20241024132009.2267260-10-yukuai1@huaweicloud.com>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20241024132225.2271667-1-yukuai1@huaweicloud.com>
+In-Reply-To: <20241024132009.2267260-1-yukuai1@huaweicloud.com>
 References: <20241024132009.2267260-1-yukuai1@huaweicloud.com>
- <20241024132225.2271667-1-yukuai1@huaweicloud.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: gCh0CgD3LMmxShpnmfz6Ew--.42902S16
-X-Coremail-Antispam: 1UD129KBjvJXoWxKrWrXFWfXFWrKw1xuw4kZwb_yoWDGFW7pF
- W3Kry3Kr4Dta48CF4vka10vr90vrs3JrW7tas8Kw1FyrZ0gFyIqrnav3WFvFyDu3ykGr12
- vF4jvw1UCa98AFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUmY14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+X-CM-TRANSID: gCh0CgCHusYpShpn7tb6Ew--.444S13
+X-Coremail-Antispam: 1UD129KBjvJXoWxAFW8WFyDWFyDKFWrAF4fKrg_yoW5try8pa
+ 1kuryUKrW7tr1xKrZaka18Z348Zrn8Jr4Sq3sFkrnYvF9rt34Sqr1FyFy0vFs0v392vF43
+ AF4Y9r48Cws7J37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUmq14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
  rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_JF0E3s1l82xGYI
  kIc2x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2
- z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_GcCE3s
- 1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s1l
- e2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI
- 8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwAC
- jcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka0x
- kIwI1lc7CjxVAaw2AFwI0_Wrv_ZF1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_
- Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1V
- AY17CE14v26rWY6r4UJwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26ryj6F1UMIIF
- 0xvE2Ix0cI8IcVCY1x0267AKxVW0oVCq3wCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIx
- AIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW0oVCq3bIYCTnIWIev
- Ja73UjIFyTuYvjTRGg4SUUUUU
+ z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F
+ 4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq
+ 3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7
+ IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4U
+ M4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628vn2
+ kIc2xKxwCY1x0262kKe7AKxVWrXVW3AwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkE
+ bVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67
+ AF67kF1VAFwI0_Wrv_Gr1UMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Gr0_Xr1l
+ IxAIcVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r
+ 1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIY
+ CTnIWIevJa73UjIFyTuYvjTRAR6zUUUUU
 X-CM-SenderInfo: 51xn3trlr6x35dzhxuhorxvhhfrp/
 X-Mailman-Approved-At: Fri, 25 Oct 2024 12:48:03 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -80,247 +79,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+From: "Liam R. Howlett" <Liam.Howlett@oracle.com>
 
-commit bea07fd63192b61209d48cbb81ef474cc3ee4c62 upstream.
+commit 31c532a8af57513228c2b12d281104198ff412b8 upstream.
 
-Patch series "maple_tree: correct tree corruption on spanning store", v3.
+Analysis of the mas_for_each() iteration showed that there is a
+significant time spent finding the end of a node.  This time can be
+greatly reduced if the end of the node is cached in the maple state.  Care
+must be taken to update & invalidate as necessary.
 
-There has been a nasty yet subtle maple tree corruption bug that appears
-to have been in existence since the inception of the algorithm.
-
-This bug seems far more likely to happen since commit f8d112a4e657
-("mm/mmap: avoid zeroing vma tree in mmap_region()"), which is the point
-at which reports started to be submitted concerning this bug.
-
-We were made definitely aware of the bug thanks to the kind efforts of
-Bert Karwatzki who helped enormously in my being able to track this down
-and identify the cause of it.
-
-The bug arises when an attempt is made to perform a spanning store across
-two leaf nodes, where the right leaf node is the rightmost child of the
-shared parent, AND the store completely consumes the right-mode node.
-
-This results in mas_wr_spanning_store() mitakenly duplicating the new and
-existing entries at the maximum pivot within the range, and thus maple
-tree corruption.
-
-The fix patch corrects this by detecting this scenario and disallowing the
-mistaken duplicate copy.
-
-The fix patch commit message goes into great detail as to how this occurs.
-
-This series also includes a test which reliably reproduces the issue, and
-asserts that the fix works correctly.
-
-Bert has kindly tested the fix and confirmed it resolved his issues.  Also
-Mikhail Gavrilov kindly reported what appears to be precisely the same
-bug, which this fix should also resolve.
-
-This patch (of 2):
-
-There has been a subtle bug present in the maple tree implementation from
-its inception.
-
-This arises from how stores are performed - when a store occurs, it will
-overwrite overlapping ranges and adjust the tree as necessary to
-accommodate this.
-
-A range may always ultimately span two leaf nodes.  In this instance we
-walk the two leaf nodes, determine which elements are not overwritten to
-the left and to the right of the start and end of the ranges respectively
-and then rebalance the tree to contain these entries and the newly
-inserted one.
-
-This kind of store is dubbed a 'spanning store' and is implemented by
-mas_wr_spanning_store().
-
-In order to reach this stage, mas_store_gfp() invokes
-mas_wr_preallocate(), mas_wr_store_type() and mas_wr_walk() in turn to
-walk the tree and update the object (mas) to traverse to the location
-where the write should be performed, determining its store type.
-
-When a spanning store is required, this function returns false stopping at
-the parent node which contains the target range, and mas_wr_store_type()
-marks the mas->store_type as wr_spanning_store to denote this fact.
-
-When we go to perform the store in mas_wr_spanning_store(), we first
-determine the elements AFTER the END of the range we wish to store (that
-is, to the right of the entry to be inserted) - we do this by walking to
-the NEXT pivot in the tree (i.e.  r_mas.last + 1), starting at the node we
-have just determined contains the range over which we intend to write.
-
-We then turn our attention to the entries to the left of the entry we are
-inserting, whose state is represented by l_mas, and copy these into a 'big
-node', which is a special node which contains enough slots to contain two
-leaf node's worth of data.
-
-We then copy the entry we wish to store immediately after this - the copy
-and the insertion of the new entry is performed by mas_store_b_node().
-
-After this we copy the elements to the right of the end of the range which
-we are inserting, if we have not exceeded the length of the node (i.e.
-r_mas.offset <= r_mas.end).
-
-Herein lies the bug - under very specific circumstances, this logic can
-break and corrupt the maple tree.
-
-Consider the following tree:
-
-Height
-  0                             Root Node
-                                 /      \
-                 pivot = 0xffff /        \ pivot = ULONG_MAX
-                               /          \
-  1                       A [-----]       ...
-                             /   \
-             pivot = 0x4fff /     \ pivot = 0xffff
-                           /       \
-  2 (LEAVES)          B [-----]  [-----] C
-                                      ^--- Last pivot 0xffff.
-
-Now imagine we wish to store an entry in the range [0x4000, 0xffff] (note
-that all ranges expressed in maple tree code are inclusive):
-
-1. mas_store_gfp() descends the tree, finds node A at <=0xffff, then
-   determines that this is a spanning store across nodes B and C. The mas
-   state is set such that the current node from which we traverse further
-   is node A.
-
-2. In mas_wr_spanning_store() we try to find elements to the right of pivot
-   0xffff by searching for an index of 0x10000:
-
-    - mas_wr_walk_index() invokes mas_wr_walk_descend() and
-      mas_wr_node_walk() in turn.
-
-        - mas_wr_node_walk() loops over entries in node A until EITHER it
-          finds an entry whose pivot equals or exceeds 0x10000 OR it
-          reaches the final entry.
-
-        - Since no entry has a pivot equal to or exceeding 0x10000, pivot
-          0xffff is selected, leading to node C.
-
-    - mas_wr_walk_traverse() resets the mas state to traverse node C. We
-      loop around and invoke mas_wr_walk_descend() and mas_wr_node_walk()
-      in turn once again.
-
-         - Again, we reach the last entry in node C, which has a pivot of
-           0xffff.
-
-3. We then copy the elements to the left of 0x4000 in node B to the big
-   node via mas_store_b_node(), and insert the new [0x4000, 0xffff] entry
-   too.
-
-4. We determine whether we have any entries to copy from the right of the
-   end of the range via - and with r_mas set up at the entry at pivot
-   0xffff, r_mas.offset <= r_mas.end, and then we DUPLICATE the entry at
-   pivot 0xffff.
-
-5. BUG! The maple tree is corrupted with a duplicate entry.
-
-This requires a very specific set of circumstances - we must be spanning
-the last element in a leaf node, which is the last element in the parent
-node.
-
-spanning store across two leaf nodes with a range that ends at that shared
-pivot.
-
-A potential solution to this problem would simply be to reset the walk
-each time we traverse r_mas, however given the rarity of this situation it
-seems that would be rather inefficient.
-
-Instead, this patch detects if the right hand node is populated, i.e.  has
-anything we need to copy.
-
-We do so by only copying elements from the right of the entry being
-inserted when the maximum value present exceeds the last, rather than
-basing this on offset position.
-
-The patch also updates some comments and eliminates the unused bool return
-value in mas_wr_walk_index().
-
-The work performed in commit f8d112a4e657 ("mm/mmap: avoid zeroing vma
-tree in mmap_region()") seems to have made the probability of this event
-much more likely, which is the point at which reports started to be
-submitted concerning this bug.
-
-The motivation for this change arose from Bert Karwatzki's report of
-encountering mm instability after the release of kernel v6.12-rc1 which,
-after the use of CONFIG_DEBUG_VM_MAPLE_TREE and similar configuration
-options, was identified as maple tree corruption.
-
-After Bert very generously provided his time and ability to reproduce this
-event consistently, I was able to finally identify that the issue
-discussed in this commit message was occurring for him.
-
-Link: https://lkml.kernel.org/r/cover.1728314402.git.lorenzo.stoakes@oracle.com
-Link: https://lkml.kernel.org/r/48b349a2a0f7c76e18772712d0997a5e12ab0a3b.1728314403.git.lorenzo.stoakes@oracle.com
-Fixes: 54a611b60590 ("Maple Tree: add new data structure")
-Signed-off-by: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Reported-by: Bert Karwatzki <spasswolf@web.de>
-Closes: https://lore.kernel.org/all/20241001023402.3374-1-spasswolf@web.de/
-Tested-by: Bert Karwatzki <spasswolf@web.de>
-Reported-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Closes: https://lore.kernel.org/all/CABXGCsOPwuoNOqSMmAvWO2Fz4TEmPnjFj-b7iF+XFRu1h7-+Dg@mail.gmail.com/
-Acked-by: Vlastimil Babka <vbabka@suse.cz>
-Reviewed-by: Liam R. Howlett <Liam.Howlett@Oracle.com>
-Tested-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Reviewed-by: Wei Yang <richard.weiyang@gmail.com>
-Cc: Matthew Wilcox <willy@infradead.org>
-Cc: Sidhartha Kumar <sidhartha.kumar@oracle.com>
-Cc: <stable@vger.kernel.org>
+Link: https://lkml.kernel.org/r/20231101171629.3612299-5-Liam.Howlett@oracle.com
+Signed-off-by: Liam R. Howlett <Liam.Howlett@oracle.com>
+Cc: Peng Zhang <zhangpeng.00@bytedance.com>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Signed-off-by: Yu Kuai <yukuai3@huawei.com>
 ---
- lib/maple_tree.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ include/linux/maple_tree.h       | 1 +
+ lib/maple_tree.c                 | 7 +++++++
+ tools/testing/radix-tree/maple.c | 1 +
+ 3 files changed, 9 insertions(+)
 
+diff --git a/include/linux/maple_tree.h b/include/linux/maple_tree.h
+index b5d5992578c9..0b82efe0cf1e 100644
+--- a/include/linux/maple_tree.h
++++ b/include/linux/maple_tree.h
+@@ -393,6 +393,7 @@ struct ma_state {
+ 	unsigned char depth;		/* depth of tree descent during write */
+ 	unsigned char offset;
+ 	unsigned char mas_flags;
++	unsigned char end;		/* The end of the node */
+ };
+ 
+ struct ma_wr_state {
 diff --git a/lib/maple_tree.c b/lib/maple_tree.c
-index 5328e08723d7..c57b6fc4db2e 100644
+index e4d0df3980e0..d19fb14a9635 100644
 --- a/lib/maple_tree.c
 +++ b/lib/maple_tree.c
-@@ -2239,6 +2239,8 @@ static inline void mas_node_or_none(struct ma_state *mas,
+@@ -2843,6 +2843,7 @@ static inline void *mtree_range_walk(struct ma_state *mas)
+ 			goto dead_node;
+ 	} while (!ma_is_leaf(type));
  
- /*
-  * mas_wr_node_walk() - Find the correct offset for the index in the @mas.
-+ *                      If @mas->index cannot be found within the containing
-+ *                      node, we traverse to the last entry in the node.
-  * @wr_mas: The maple write state
-  *
-  * Uses mas_slot_locked() and does not need to worry about dead nodes.
-@@ -3655,7 +3657,7 @@ static bool mas_wr_walk(struct ma_wr_state *wr_mas)
++	mas->end = end;
+ 	mas->offset = offset;
+ 	mas->index = min;
+ 	mas->last = max;
+@@ -3509,6 +3510,7 @@ static noinline_for_kasan int mas_commit_b_node(struct ma_wr_state *wr_mas,
+ 	mas_replace_node(wr_mas->mas, old_enode);
+ reuse_node:
+ 	mas_update_gap(wr_mas->mas);
++	wr_mas->mas->end = b_end;
+ 	return 1;
+ }
+ 
+@@ -4010,6 +4012,7 @@ static inline bool mas_wr_node_store(struct ma_wr_state *wr_mas,
+ 	}
+ 	trace_ma_write(__func__, mas, 0, wr_mas->entry);
+ 	mas_update_gap(mas);
++	mas->end = new_end;
  	return true;
  }
  
--static bool mas_wr_walk_index(struct ma_wr_state *wr_mas)
-+static void mas_wr_walk_index(struct ma_wr_state *wr_mas)
- {
- 	struct ma_state *mas = wr_mas->mas;
+@@ -4190,6 +4193,7 @@ static inline bool mas_wr_append(struct ma_wr_state *wr_mas,
+ 	if (!wr_mas->content || !wr_mas->entry)
+ 		mas_update_gap(mas);
  
-@@ -3664,11 +3666,9 @@ static bool mas_wr_walk_index(struct ma_wr_state *wr_mas)
- 		wr_mas->content = mas_slot_locked(mas, wr_mas->slots,
- 						  mas->offset);
- 		if (ma_is_leaf(wr_mas->type))
--			return true;
-+			return;
- 		mas_wr_walk_traverse(wr_mas);
--
- 	}
--	return true;
++	mas->end = new_end;
+ 	trace_ma_write(__func__, mas, new_end, wr_mas->entry);
+ 	return  true;
  }
- /*
-  * mas_extend_spanning_null() - Extend a store of a %NULL to include surrounding %NULLs.
-@@ -3899,8 +3899,8 @@ static inline int mas_wr_spanning_store(struct ma_wr_state *wr_mas)
- 	memset(&b_node, 0, sizeof(struct maple_big_node));
- 	/* Copy l_mas and store the value in b_node. */
- 	mas_store_b_node(&l_wr_mas, &b_node, l_mas.end);
--	/* Copy r_mas into b_node. */
--	if (r_mas.offset <= r_mas.end)
-+	/* Copy r_mas into b_node if there is anything to copy. */
-+	if (r_mas.max > r_mas.last)
- 		mas_mab_cp(&r_mas, r_mas.offset, r_mas.end,
- 			   &b_node, b_node.b_end + 1);
- 	else
+@@ -4428,6 +4432,7 @@ static inline int mas_prev_node(struct ma_state *mas, unsigned long min)
+ 	if (unlikely(mte_dead_node(mas->node)))
+ 		return 1;
+ 
++	mas->end = mas->offset;
+ 	return 0;
+ 
+ no_entry:
+@@ -5074,6 +5079,7 @@ int mas_empty_area(struct ma_state *mas, unsigned long min,
+ 	if (mas->index < min)
+ 		mas->index = min;
+ 	mas->last = mas->index + size - 1;
++	mas->end = mas_data_end(mas);
+ 	return 0;
+ }
+ EXPORT_SYMBOL_GPL(mas_empty_area);
+@@ -5134,6 +5140,7 @@ int mas_empty_area_rev(struct ma_state *mas, unsigned long min,
+ 		mas->last = max;
+ 
+ 	mas->index = mas->last - size + 1;
++	mas->end = mas_data_end(mas);
+ 	return 0;
+ }
+ EXPORT_SYMBOL_GPL(mas_empty_area_rev);
+diff --git a/tools/testing/radix-tree/maple.c b/tools/testing/radix-tree/maple.c
+index 576b825d6bb1..27a3a31ba662 100644
+--- a/tools/testing/radix-tree/maple.c
++++ b/tools/testing/radix-tree/maple.c
+@@ -945,6 +945,7 @@ static inline bool mas_tree_walk(struct ma_state *mas, unsigned long *range_min,
+ 		goto retry;
+ 	}
+ 
++	mas->end = mas_data_end(mas);
+ 	return ret;
+ 
+ not_found:
 -- 
 2.39.2
 
