@@ -4,24 +4,24 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9074D0C611
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69A0ED0C608
 	for <amd-gfx@archiver.kernel.org>; Fri, 25 Oct 2024 12:48:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0162D10EAAC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD7F510EAB2;
 	Fri, 25 Oct 2024 12:48:12 +0000 (UTC)
-Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com
- [45.249.212.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0ACE210E258;
- Thu, 24 Oct 2024 13:41:50 +0000 (UTC)
-Received: from mail.maildlp.com (unknown [172.19.93.142])
- by dggsgout12.his.huawei.com (SkyGuard) with ESMTP id 4XZ66K42Wfz4f3jdS;
- Thu, 24 Oct 2024 21:22:49 +0800 (CST)
+Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com
+ [45.249.212.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 560A810E94E;
+ Thu, 24 Oct 2024 13:41:26 +0000 (UTC)
+Received: from mail.maildlp.com (unknown [172.19.163.216])
+ by dggsgout11.his.huawei.com (SkyGuard) with ESMTP id 4XZ68q3z31z4f3nbP;
+ Thu, 24 Oct 2024 21:24:59 +0800 (CST)
 Received: from mail02.huawei.com (unknown [10.116.40.128])
- by mail.maildlp.com (Postfix) with ESMTP id 0ACCB1A0359;
- Thu, 24 Oct 2024 21:23:07 +0800 (CST)
+ by mail.maildlp.com (Postfix) with ESMTP id CF2EE1A08DC;
+ Thu, 24 Oct 2024 21:25:17 +0800 (CST)
 Received: from huaweicloud.com (unknown [10.175.104.67])
- by APP4 (Coremail) with SMTP id gCh0CgCHusYpShpn7tb6Ew--.444S15;
- Thu, 24 Oct 2024 21:23:06 +0800 (CST)
+ by APP4 (Coremail) with SMTP id gCh0CgD3LMmxShpnmfz6Ew--.42902S12;
+ Thu, 24 Oct 2024 21:25:17 +0800 (CST)
 From: Yu Kuai <yukuai1@huaweicloud.com>
 To: stable@vger.kernel.org, gregkh@linuxfoundation.org, harry.wentland@amd.com,
  sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, alexander.deucher@amd.com,
@@ -36,32 +36,33 @@ Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
  maple-tree@lists.infradead.org, linux-mm@kvack.org,
  yukuai1@huaweicloud.com, yi.zhang@huawei.com, yangerkun@huawei.com
-Subject: [PATCH 6.6 11/28] maple_tree: use cached node end in mas_destroy()
-Date: Thu, 24 Oct 2024 21:19:52 +0800
-Message-Id: <20241024132009.2267260-12-yukuai1@huaweicloud.com>
+Subject: [PATCH 6.6 24/28] libfs: Add simple_offset_empty()
+Date: Thu, 24 Oct 2024 21:22:21 +0800
+Message-Id: <20241024132225.2271667-9-yukuai1@huaweicloud.com>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20241024132009.2267260-1-yukuai1@huaweicloud.com>
+In-Reply-To: <20241024132225.2271667-1-yukuai1@huaweicloud.com>
 References: <20241024132009.2267260-1-yukuai1@huaweicloud.com>
+ <20241024132225.2271667-1-yukuai1@huaweicloud.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: gCh0CgCHusYpShpn7tb6Ew--.444S15
-X-Coremail-Antispam: 1UD129KBjvdXoWrur1UJF1rZry3tw1Dtw4DCFg_yoWDWrb_C3
- W8Kr48uF4fJF4Iqa4FkFZ0qF1Yk34rJFsavw1xJFy5XF1jqrZ5t3s7WF4SkasIqayIya45
- CF9Iqrsay3WjqjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUIcSsGvfJTRUUUbvAFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k26cxKx2IYs7xG
- 6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI8067AKxVWUAVCq3wA2048vs2
- IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28E
- F7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVWxJr0_Gc
- Wl84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s1l
- e2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI
- 8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwAC
- jcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka0x
- kIwI1lc7CjxVAaw2AFwI0_Wrv_ZF1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_
- Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1V
- AY17CE14v26rWY6r4UJwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r4j6ryUMIIF
- 0xvE2Ix0cI8IcVCY1x0267AKxVW8Jr0_Cr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCw
- CI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsG
- vfC2KfnxnUUI43ZEXa7sREzuWJUUUUU==
+X-CM-TRANSID: gCh0CgD3LMmxShpnmfz6Ew--.42902S12
+X-Coremail-Antispam: 1UD129KBjvJXoWxWFWrKw4kCr1xKFykAF48Crg_yoW5tr15pF
+ 9xGFs5Kr4fX34xWrZ2vFsrZw1F9w1kWryUXFWfuw45Ary3twnFqFs2kr4Y9as5Arn3Cr43
+ XF45Kr1F9w4UJrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUmI14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_JF0E3s1l82xGYI
+ kIc2x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2
+ z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr1j6r
+ xdM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s0D
+ M2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjx
+ v20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1l
+ F7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxan2
+ IY04v7MxkF7I0En4kS14v26rWY6Fy7MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY
+ 6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17
+ CEb7AF67AKxVWrXVW8Jr1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVW5JVW7JwCI
+ 42IY6xIIjxv20xvEc7CjxVAFwI0_Cr1j6rxdMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCw
+ CI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26F4UJVW0obIYCTnI
+ WIevJa73UjIFyTuYvjTRGg4SUUUUU
 X-CM-SenderInfo: 51xn3trlr6x35dzhxuhorxvhhfrp/
 X-Mailman-Approved-At: Fri, 25 Oct 2024 12:48:03 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -78,35 +79,108 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: "Liam R. Howlett" <Liam.Howlett@oracle.com>
+From: Chuck Lever <chuck.lever@oracle.com>
 
-commit 1f41ef12abf8538b3d82cdae14c06aa171cb71ce upstream.
+commit ecba88a3b32d733d41e27973e25b2bc580f64281 upstream.
 
-The node end is set during the walk, so use the resulting end instead of
-re-fetching it.
+For simple filesystems that use directory offset mapping, rely
+strictly on the directory offset map to tell when a directory has
+no children.
 
-Link: https://lkml.kernel.org/r/20231101171629.3612299-7-Liam.Howlett@oracle.com
-Signed-off-by: Liam R. Howlett <Liam.Howlett@oracle.com>
-Cc: Peng Zhang <zhangpeng.00@bytedance.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+After this patch is applied, the emptiness test holds only the RCU
+read lock when the directory being tested has no children.
+
+In addition, this adds another layer of confirmation that
+simple_offset_add/remove() are working as expected.
+
+Reviewed-by: Jan Kara <jack@suse.cz>
+Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
+Link: https://lore.kernel.org/r/170820143463.6328.7872919188371286951.stgit@91.116.238.104.host.secureserver.net
+Signed-off-by: Christian Brauner <brauner@kernel.org>
 Signed-off-by: Yu Kuai <yukuai3@huawei.com>
 ---
- lib/maple_tree.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/libfs.c         | 32 ++++++++++++++++++++++++++++++++
+ include/linux/fs.h |  1 +
+ mm/shmem.c         |  4 ++--
+ 3 files changed, 35 insertions(+), 2 deletions(-)
 
-diff --git a/lib/maple_tree.c b/lib/maple_tree.c
-index e0dcc8412da0..3df7e3456205 100644
---- a/lib/maple_tree.c
-+++ b/lib/maple_tree.c
-@@ -5587,7 +5587,7 @@ void mas_destroy(struct ma_state *mas)
+diff --git a/fs/libfs.c b/fs/libfs.c
+index c3dc58e776f9..d7b901cb9af4 100644
+--- a/fs/libfs.c
++++ b/fs/libfs.c
+@@ -312,6 +312,38 @@ void simple_offset_remove(struct offset_ctx *octx, struct dentry *dentry)
+ 	offset_set(dentry, 0);
+ }
  
- 		mas_start(mas);
- 		mtree_range_walk(mas);
--		end = mas_data_end(mas) + 1;
-+		end = mas->end + 1;
- 		if (end < mt_min_slot_count(mas->node) - 1)
- 			mas_destroy_rebalance(mas, end);
++/**
++ * simple_offset_empty - Check if a dentry can be unlinked
++ * @dentry: dentry to be tested
++ *
++ * Returns 0 if @dentry is a non-empty directory; otherwise returns 1.
++ */
++int simple_offset_empty(struct dentry *dentry)
++{
++	struct inode *inode = d_inode(dentry);
++	struct offset_ctx *octx;
++	struct dentry *child;
++	unsigned long index;
++	int ret = 1;
++
++	if (!inode || !S_ISDIR(inode->i_mode))
++		return ret;
++
++	index = DIR_OFFSET_MIN;
++	octx = inode->i_op->get_offset_ctx(inode);
++	xa_for_each(&octx->xa, index, child) {
++		spin_lock(&child->d_lock);
++		if (simple_positive(child)) {
++			spin_unlock(&child->d_lock);
++			ret = 0;
++			break;
++		}
++		spin_unlock(&child->d_lock);
++	}
++
++	return ret;
++}
++
+ /**
+  * simple_offset_rename_exchange - exchange rename with directory offsets
+  * @old_dir: parent of dentry being moved
+diff --git a/include/linux/fs.h b/include/linux/fs.h
+index 6c3d86532e3f..5104405ce3e6 100644
+--- a/include/linux/fs.h
++++ b/include/linux/fs.h
+@@ -3197,6 +3197,7 @@ struct offset_ctx {
+ void simple_offset_init(struct offset_ctx *octx);
+ int simple_offset_add(struct offset_ctx *octx, struct dentry *dentry);
+ void simple_offset_remove(struct offset_ctx *octx, struct dentry *dentry);
++int simple_offset_empty(struct dentry *dentry);
+ int simple_offset_rename_exchange(struct inode *old_dir,
+ 				  struct dentry *old_dentry,
+ 				  struct inode *new_dir,
+diff --git a/mm/shmem.c b/mm/shmem.c
+index 3d721d5591dd..4cae2807806e 100644
+--- a/mm/shmem.c
++++ b/mm/shmem.c
+@@ -3371,7 +3371,7 @@ static int shmem_unlink(struct inode *dir, struct dentry *dentry)
  
+ static int shmem_rmdir(struct inode *dir, struct dentry *dentry)
+ {
+-	if (!simple_empty(dentry))
++	if (!simple_offset_empty(dentry))
+ 		return -ENOTEMPTY;
+ 
+ 	drop_nlink(d_inode(dentry));
+@@ -3428,7 +3428,7 @@ static int shmem_rename2(struct mnt_idmap *idmap,
+ 		return simple_offset_rename_exchange(old_dir, old_dentry,
+ 						     new_dir, new_dentry);
+ 
+-	if (!simple_empty(new_dentry))
++	if (!simple_offset_empty(new_dentry))
+ 		return -ENOTEMPTY;
+ 
+ 	if (flags & RENAME_WHITEOUT) {
 -- 
 2.39.2
 
