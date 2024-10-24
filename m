@@ -4,64 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91323CE8E70
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Oct 2024 13:37:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0664CE8E7A
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Oct 2024 14:04:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E01110E945;
-	Thu, 24 Oct 2024 13:37:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A0F8410E28A;
+	Thu, 24 Oct 2024 14:04:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mnhYJTiK";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="f33l9bTR";
 	dkim-atps=neutral
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
- [209.85.216.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2124010E945
- for <amd-gfx@lists.freedesktop.org>; Thu, 24 Oct 2024 13:37:36 +0000 (UTC)
-Received: by mail-pj1-f46.google.com with SMTP id
- 98e67ed59e1d1-2e2ab5bbc01so150096a91.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 24 Oct 2024 06:37:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1729777055; x=1730381855; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=f7dcSR1e0WWBFiuVcJvUm8Y4qOoJRQGjKbRTy7jVHx8=;
- b=mnhYJTiK6igRkpT38koCZJt1iqotPv2cKShzHgrUFx+m6uht6yFdKNAU0pbseokaYO
- TwQ38Od6ToAf8p+akj/YgXonvbNLCT2Et6s5nuq2lG/pOth6PqMQdwwuNr3AH7eogc4c
- eTUzhqC/CuaPJ8ucjgpiRqUqyFZB+asLm9cyGqgRht2jVujehFKwfFlQRPJpNDSl/HIu
- sx2bTbe+/QEaAwEislVAb3bj+SArGMB68LbcdRQK50d/gaq56kgBZ1PHc7tY+RMCxewM
- P1KAcjbtLt3yPGYn7neFP59uYo3R6CcmDa8fuiym4DW8iVmdqd5Q4l4IBq+VElbmZEWO
- nfBw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1729777055; x=1730381855;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=f7dcSR1e0WWBFiuVcJvUm8Y4qOoJRQGjKbRTy7jVHx8=;
- b=HrVxbk4liLtN09CsViT9e14w3bLDOdrd1VQzNPzndCyxJoPUnA90Ak2WS/Q6Yax+PH
- +yDThwBzdLJGfikV68AIEzlYZ3vo46GkFOjbOIC/X0gBKjTXaFXPQhoSjUJNLkqKYZd3
- s0W/OL+9rs8CqRhr/vNF1VdcaftTdB6io7rmiGNpcK6KRWOLA4ruw7275wFqyoA7zBER
- wiWkj407ElsWLsDzQeKzN2LhG+dRaBVhn6oZ5UDDuJguC3CfhvrKUDgmRyECCBNKj3nT
- a8M35t2pyYiV4lnbeqlOfI2EmNTeEQ4yxJVvIiuQRdSwNV8ad3F8bMSysiU32dm8Mba/
- rPCA==
-X-Gm-Message-State: AOJu0YxCuhTclukUVcR2oI4tAIHw213yPRlPuHXKemM8C1Mqr4tG3F0M
- PRU0TJVL9A6P1MpMBAxBZ9nUAqlSoh2ayrTYpjNF+1ASKsnLm1FWdDOZg9cArxQKsw6EINkQpE+
- CabSC6O25VQYZBm73c1dVcSEwy3Q=
-X-Google-Smtp-Source: AGHT+IG+mNTV/UDg+oATdXG8v8epwIIx9aW8RGU9fYgCnaTIH6+3E7mbtOwLBzZ5eYdL81juUSd7bRD4Dh7qfvdIGnw=
-X-Received: by 2002:a17:90a:c918:b0:2e1:f0ee:f41 with SMTP id
- 98e67ed59e1d1-2e76b5b7db1mr2787663a91.2.1729777055528; Thu, 24 Oct 2024
- 06:37:35 -0700 (PDT)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2077.outbound.protection.outlook.com [40.107.237.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 019A810E28A
+ for <amd-gfx@lists.freedesktop.org>; Thu, 24 Oct 2024 14:04:09 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZTOzMb+VOdsTUbf4dWPpZRiXfGVmN+PXmRO++fe9i/6wmwD2EZYAj7Bv1bVIdE0BoSToBIN2uwZgjisrSW2gYiOuWBy492iAky6HAZcum/7gQ7s7xyxFQEflb/U9iGnb/Sgik2INQ3Ht2PwS1y6yRtpWaVvVjPNB3SwRivX2PVecn60Un3cdU+PXghT46yexgLV2Fip8hLrp0IW4okP73ML+XQUUh7G6Fxtnqh/JcV4TmUUibd6jrNNv50d2rWTvTSVFnN1vDIbUUHtD/SgToWBCnCdL9FqF5N9+wNYp73tshBYY7gVKZ1krk0nyr6G21wQU/m5tok7UU9oYpVfQbw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fP7kkoZYcfumPGnmgY+iEDNiDGlkEvlRf1ml6ogbHZA=;
+ b=ZMiF5xQZZjN6x2yrJTSSwd7oGn3YdNeGTSsMc4giH/asreQVMXYSzKIRLz7DAl32X7jajfL1R0/J/n+njoV8eFHgM5Z94BiAjrjbe/DXSPMf0El07Y5z8Tm/ECyQbEyQzi4nWUTGnUNTNER70Sfm+TVthp7jpPWLIzEkh6bakAY+BCOyWr7vPb0JjiMOb9xsj5fHXJceMqHL1zgSe2Ph9VBsfyzjQ6qDd57CIk4HRFeS3yYU8WdTaDOEdJJRGVGkj6JmmZzj78nlcnJmZ12UcFta3lrFaqjTwt6mroxDat2AbyPXGgnuI1IsMcw4BI8FN7j/7l7X0HkigHIhlH9ODg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fP7kkoZYcfumPGnmgY+iEDNiDGlkEvlRf1ml6ogbHZA=;
+ b=f33l9bTRAHaSh+WPrVHD8N57ErFx/SHmHazD2wlTYMgWZHB3fqrttka4ORtgwHwU8uj9c1I7Pwewna/oc8q2zghb/qowEJW0HAPjAVIEBRRPQgHLFAup64gvsqjiyz2Aos2cpHR5dKeDT7OXPu9F7lsojY7VGLkrChsT3WXNywQ=
+Received: from CH2PR19CA0013.namprd19.prod.outlook.com (2603:10b6:610:4d::23)
+ by DS7PR12MB8230.namprd12.prod.outlook.com (2603:10b6:8:ed::5) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.8093.16; Thu, 24 Oct 2024 14:03:58 +0000
+Received: from CH1PEPF0000AD7A.namprd04.prod.outlook.com
+ (2603:10b6:610:4d:cafe::cd) by CH2PR19CA0013.outlook.office365.com
+ (2603:10b6:610:4d::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8093.17 via Frontend
+ Transport; Thu, 24 Oct 2024 14:03:58 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CH1PEPF0000AD7A.mail.protection.outlook.com (10.167.244.59) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8093.14 via Frontend Transport; Thu, 24 Oct 2024 14:03:58 +0000
+Received: from MUN-L-SHSHARMA.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 24 Oct
+ 2024 09:03:56 -0500
+From: Shashank Sharma <shashank.sharma@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Shashank Sharma <shashank.sharma@amd.com>, Alex Deucher
+ <alexander.deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>,
+ Arvind Yadav <arvind.yadav@amd.com>
+Subject: [PATCH v2] drm/amdgpu: add new AMDGPU_INFO subquery for fw objects
+Date: Thu, 24 Oct 2024 16:03:31 +0200
+Message-ID: <20241024140331.398-1-shashank.sharma@amd.com>
+X-Mailer: git-send-email 2.38.0.windows.1
 MIME-Version: 1.0
-References: <20241022021101.761054-1-shaoyun.liu@amd.com>
- <CADnq5_O_24Aw_EioG-Wrwg8ciiMfxBgEjgqAnxHMsMuFi0tL_A@mail.gmail.com>
-In-Reply-To: <CADnq5_O_24Aw_EioG-Wrwg8ciiMfxBgEjgqAnxHMsMuFi0tL_A@mail.gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 24 Oct 2024 09:37:24 -0400
-Message-ID: <CADnq5_OgrYF_xZdbqxFLGk2RO2j8F_GTQca66wT10Wkh=Uta1w@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd : Update MES API header file for v11 & v12
-To: Shaoyun Liu <shaoyun.liu@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD7A:EE_|DS7PR12MB8230:EE_
+X-MS-Office365-Filtering-Correlation-Id: a8f5d288-8ba2-424f-a46c-08dcf434b494
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|36860700013|1800799024|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?SaMwvK8SgURa6TDzT96pkKFnQXIdskMmuzlkNMnlG3VJHWgJCDF2B18vFCM0?=
+ =?us-ascii?Q?K+0LuK8xZHnPGObF5puCdyr4BKKWAMkwpIkIU2dowZGrPxAdTQzprLY8wx5X?=
+ =?us-ascii?Q?4GGHX6nHVjhh8F/26yaTtIoME+uz+jnIdrMTGM9OpS+MHyS+m16MhD1vUSmh?=
+ =?us-ascii?Q?2tMqEuwsNluNgPH8fMB5PWaRI8VLKapz4Q948PaFmAKb9pWnLhxgHtxGN7ZD?=
+ =?us-ascii?Q?8q6TRnGbT9Z+zjURvXv/KEM0PL5eFOeJcLsPC7eShYADDQHumMU6j3immWH4?=
+ =?us-ascii?Q?rO6NNz8bhQrF6ldEPFHoJZv92f9l4SI2kt9TXLtXaVBTrubIzZEDynop0UfK?=
+ =?us-ascii?Q?Wl1J8UOwthAzyYGnhrOiXvCVsrsJWGRHJDfw80TcsDXVSTj9abequFMwr75S?=
+ =?us-ascii?Q?2YirWtdJLStc3EGKRqNt0qkANxW65YWL3G9LmFC+6FcFqn3PuxNo+ebiIk6+?=
+ =?us-ascii?Q?3wa17TN//BRDNq41tWl7UILNxLRXhwtIBnihtH3Du0orihcwKHxSc+BrFx1z?=
+ =?us-ascii?Q?PYJsDEMjTPDaDr2MeyKLd/8hdwPIXE4K8kSP/lAFq6DLrpnviWLvZMi9ESoA?=
+ =?us-ascii?Q?bFffutEK7D+zSVf4RvL/aTxA4+p9CXyCOWjSgrHgkhKMpMl4KmsDL0GoTddu?=
+ =?us-ascii?Q?htCxYjS7cpUsYIUqs7cjn+fGnMAjokO57SEmh71YzecWOXE94i4BTltTUjAO?=
+ =?us-ascii?Q?og/SwjujQKB5zmnARnXs16NmI13sn1muZLjEcjQGmEOn+7+dq3Y81g9seQGH?=
+ =?us-ascii?Q?UvzF3WKXlXHIB0ilekdFfzCz3gbxVu3nZUCLlU7VUzP46Q4WJetd25but0vP?=
+ =?us-ascii?Q?CGeXu+PrcFvvdrVkxnmeX/sQAfWBikuAz2tXQGICHRzaGrUbis2lQXZoi1lM?=
+ =?us-ascii?Q?ZZt1lCiSjsJMEQs//yEQ6HEM+SUFpD3s0+CMlSEvzubg7EEqSr82CQ3s8di+?=
+ =?us-ascii?Q?zr/o5YUd65UcJc6TLZhp/zkXTKov/KLWg4k5EOWVhQpuW0Rfzg0yNh31X4hT?=
+ =?us-ascii?Q?Q2NQuQMp8AFgBtYJaIn9bhxac4qzSGjeZ+4KcQQNYSqFD4Yoo/GfVyl/OoWC?=
+ =?us-ascii?Q?QL6T3Jns3Avb1mdnauXKNV70ZB7JgqW1C7GQbbDiDNptmxRTfm9fA+c2hNOT?=
+ =?us-ascii?Q?wc+jIDsxKXi4pHMO3LF/3ezrrj6upYvNm1C3zDOrd6l2tw7tAgFSdcXR0xpd?=
+ =?us-ascii?Q?yRa92iXHjX0Sl59JtJwbofwSvmqwM+mEEvlTrU1LDCFkeIibajo4aSzh0IAW?=
+ =?us-ascii?Q?FRAVTAQc4LoAomjC0F/nIeaQRJzXq/R/P8fuSCMjSsGIqN9LctEMS7sR8yn8?=
+ =?us-ascii?Q?VhJm9NRS9RO6U7ktF3OqXlXAayhAA75XUEHq8o8EbEB2HXKrPgHfRsHO11yC?=
+ =?us-ascii?Q?l1Gtja4XNMGThLZ0oTPgSHoUJG3IMPQugQC1IAAp3iGDWdf0Vg=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(36860700013)(1800799024)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Oct 2024 14:03:58.4103 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a8f5d288-8ba2-424f-a46c-08dcf434b494
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000AD7A.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8230
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,172 +130,195 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Oct 24, 2024 at 9:31=E2=80=AFAM Alex Deucher <alexdeucher@gmail.com=
-> wrote:
->
-> On Mon, Oct 21, 2024 at 10:11=E2=80=AFPM Shaoyun Liu <shaoyun.liu@amd.com=
-> wrote:
-> >
-> > New features require the new fields defines
-> >
-> > Signed-off-by: Shaoyun Liu <shaoyun.liu@amd.com>
-> > ---
-> >  drivers/gpu/drm/amd/include/mes_v11_api_def.h | 32 ++++++++++++++++-
-> >  drivers/gpu/drm/amd/include/mes_v12_api_def.h | 34 ++++++++++++++++++-
-> >  2 files changed, 64 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/include/mes_v11_api_def.h b/drivers/gp=
-u/drm/amd/include/mes_v11_api_def.h
-> > index 21ceafce1f9b..663f368eb4f0 100644
-> > --- a/drivers/gpu/drm/amd/include/mes_v11_api_def.h
-> > +++ b/drivers/gpu/drm/amd/include/mes_v11_api_def.h
-> > @@ -230,13 +230,23 @@ union MESAPI_SET_HW_RESOURCES {
-> >                                 uint32_t disable_add_queue_wptr_mc_addr=
- : 1;
-> >                                 uint32_t enable_mes_event_int_logging :=
- 1;
-> >                                 uint32_t enable_reg_active_poll : 1;
-> > -                               uint32_t reserved       : 21;
-> > +                               uint32_t use_disable_queue_in_legacy_uq=
-_preemption : 1;
-> > +                               uint32_t send_write_data : 1;
-> > +                               uint32_t os_tdr_timeout_override : 1;
-> > +                               uint32_t use_rs64mem_for_proc_gang_ctx =
-: 1;
-> > +                               uint32_t use_add_queue_unmap_flag_addr =
-: 1;
-> > +                               uint32_t enable_mes_sch_stb_log : 1;
-> > +                               uint32_t limit_single_process : 1;
-> > +                               uint32_t is_strix_tmz_wa_enabled  :1;
-> > +                               uint32_t reserved : 13;
-> >                         };
-> >                         uint32_t        uint32_t_all;
-> >                 };
-> >                 uint32_t        oversubscription_timer;
-> >                 uint64_t        doorbell_info;
-> >                 uint64_t        event_intr_history_gpu_mc_ptr;
-> > +               uint64_t        timestamp;
-> > +               uint32_t        os_tdr_timeout_in_sec;
->
-> Will this change break backwards compatibility?  It changes the size
-> of the packet.
+Currently, the shadow FW space size and alignment information is
+protected under a flag (adev->gfx.cp_gfx_shadow) which gets set
+only in case of SRIOV setups.
+if (amdgpu_sriov_vf(adev))
+	adev->gfx.cp_gfx_shadow = true;
 
-Nevermind, the packets are always of size API_FRAME_SIZE_IN_DWORDS.
+But we need this information for GFX Userqueues, so that user can
+create these objects while creating userqueue. This patch series
+creates a method to get this information bypassing the dependency
+on this check.
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+This patch:
+ - adds a new subquery (AMDGPU_INFO_FW_OBJ_SZ) in
+   AMDGPU_INFO_IOCTL to get the size and alignment of shadow
+   and csa objects from the FW setup.
+ - adds a new input parameter flag to the gfx.funcs->get_gfx_shadow_info
+   fptr definition, so that it can accommodate the information without the
+   check (adev->gfx.cp_gfx_shadow) on request.
+ - updates the existing definition of amdgpu_gfx_get_gfx_shadow_info to
+   adjust with this new flag.
 
-Alex
+V2: Added Alex's suggestions and addressed review comments:
+    - make this query IP specific (GFX/SDMA etc)
+    - give a better title (AMDGPU_INFO_UQ_METADATA)
+    - restructured the code as per sample code shared by Alex
 
->
-> Alex
->
-> >         };
-> >
-> >         uint32_t        max_dwords_in_api[API_FRAME_SIZE_IN_DWORDS];
-> > @@ -563,6 +573,11 @@ enum MESAPI_MISC_OPCODE {
-> >         MESAPI_MISC__READ_REG,
-> >         MESAPI_MISC__WAIT_REG_MEM,
-> >         MESAPI_MISC__SET_SHADER_DEBUGGER,
-> > +       MESAPI_MISC__NOTIFY_WORK_ON_UNMAPPED_QUEUE,
-> > +       MESAPI_MISC__NOTIFY_TO_UNMAP_PROCESSES,
-> > +       MESAPI_MISC__CHANGE_CONFIG,
-> > +       MESAPI_MISC__LAUNCH_CLEANER_SHADER,
-> > +
-> >         MESAPI_MISC__MAX,
-> >  };
-> >
-> > @@ -617,6 +632,20 @@ struct SET_SHADER_DEBUGGER {
-> >         uint32_t trap_en;
-> >  };
-> >
-> > +struct CHANGE_CONFIG
-> > +{
-> > +    union
-> > +    {
-> > +        struct
-> > +        {
-> > +            uint32_t limit_single_process : 1;
-> > +            uint32_t reserved : 31;
-> > +        }bits;
-> > +        uint32_t all;
-> > +    }option;
-> > +};
-> > +
-> > +
-> >  union MESAPI__MISC {
-> >         struct {
-> >                 union MES_API_HEADER    header;
-> > @@ -631,6 +660,7 @@ union MESAPI__MISC {
-> >                         struct          WAIT_REG_MEM wait_reg_mem;
-> >                         struct          SET_SHADER_DEBUGGER set_shader_=
-debugger;
-> >                         enum MES_AMD_PRIORITY_LEVEL queue_sch_level;
-> > +                       struct          CHANGE_CONFIG change_config;
-> >
-> >                         uint32_t        data[MISC_DATA_MAX_SIZE_IN_DWOR=
-DS];
-> >                 };
-> > diff --git a/drivers/gpu/drm/amd/include/mes_v12_api_def.h b/drivers/gp=
-u/drm/amd/include/mes_v12_api_def.h
-> > index 101e2fe962c6..62df832810ca 100644
-> > --- a/drivers/gpu/drm/amd/include/mes_v12_api_def.h
-> > +++ b/drivers/gpu/drm/amd/include/mes_v12_api_def.h
-> > @@ -643,6 +643,10 @@ enum MESAPI_MISC_OPCODE {
-> >         MESAPI_MISC__SET_SHADER_DEBUGGER,
-> >         MESAPI_MISC__NOTIFY_WORK_ON_UNMAPPED_QUEUE,
-> >         MESAPI_MISC__NOTIFY_TO_UNMAP_PROCESSES,
-> > +       MESAPI_MISC__QUERY_HUNG_ENGINE_ID,
-> > +       MESAPI_MISC__CHANGE_CONFIG,
-> > +       MESAPI_MISC__LAUNCH_CLEANER_SHADER,
-> > +       MESAPI_MISC__SETUP_MES_DBGEXT,
-> >
-> >         MESAPI_MISC__MAX,
-> >  };
-> > @@ -713,6 +717,34 @@ struct SET_GANG_SUBMIT {
-> >         uint32_t slave_gang_context_array_index;
-> >  };
-> >
-> > +enum MESAPI_MISC__CHANGE_CONFIG_OPTION
-> > +{
-> > +       MESAPI_MISC__CHANGE_CONFIG_OPTION_LIMIT_SINGLE_PROCESS =3D 0,
-> > +       MESAPI_MISC__CHANGE_CONFIG_OPTION_ENABLE_HWS_LOGGING_BUFFER =3D=
- 1,
-> > +       MESAPI_MISC__CHANGE_CONFIG_OPTION_CHANGE_TDR_CONFIG    =3D 2,
-> > +
-> > +       MESAPI_MISC__CHANGE_CONFIG_OPTION_MAX =3D 0x1F
-> > +};
-> > +
-> > +struct CHANGE_CONFIG
-> > +{
-> > +       enum MESAPI_MISC__CHANGE_CONFIG_OPTION opcode;
-> > +       union {
-> > +               struct  {
-> > +                       uint32_t limit_single_process : 1;
-> > +                       uint32_t enable_hws_logging_buffer : 1;
-> > +                       uint32_t reserved : 30;
-> > +               }bits;
-> > +               uint32_t all;
-> > +       } option;
-> > +
-> > +       struct {
-> > +               uint32_t tdr_level;
-> > +               uint32_t tdr_delay;
-> > +       } tdr_config;
-> > +};
-> > +
-> > +
-> >  union MESAPI__MISC {
-> >         struct {
-> >                 union MES_API_HEADER    header;
-> > @@ -726,7 +758,7 @@ union MESAPI__MISC {
-> >                         struct WAIT_REG_MEM wait_reg_mem;
-> >                         struct SET_SHADER_DEBUGGER set_shader_debugger;
-> >                         enum MES_AMD_PRIORITY_LEVEL queue_sch_level;
-> > -
-> > +                       struct CHANGE_CONFIG change_config;
-> >                         uint32_t data[MISC_DATA_MAX_SIZE_IN_DWORDS];
-> >                 };
-> >                 uint64_t                timestamp;
-> > --
-> > 2.34.1
-> >
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Christian Koenig <christian.koenig@amd.com>
+Cc: Arvind Yadav <arvind.yadav@amd.com>
+Signed-off-by: Shashank Sharma <shashank.sharma@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |  5 +++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 30 +++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c  | 19 +++++++++++-----
+ include/uapi/drm/amdgpu_drm.h           | 24 ++++++++++++++++++++
+ 4 files changed, 70 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+index f710178a21bc..efea172c41b8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+@@ -302,7 +302,8 @@ struct amdgpu_gfx_funcs {
+ 	void (*init_spm_golden)(struct amdgpu_device *adev);
+ 	void (*update_perfmon_mgcg)(struct amdgpu_device *adev, bool enable);
+ 	int (*get_gfx_shadow_info)(struct amdgpu_device *adev,
+-				   struct amdgpu_gfx_shadow_info *shadow_info);
++				   struct amdgpu_gfx_shadow_info *shadow_info,
++				   bool skip_check);
+ 	enum amdgpu_gfx_partition
+ 			(*query_partition_mode)(struct amdgpu_device *adev);
+ 	int (*switch_partition_mode)(struct amdgpu_device *adev,
+@@ -491,7 +492,7 @@ struct amdgpu_gfx_ras_mem_id_entry {
+ #define amdgpu_gfx_select_se_sh(adev, se, sh, instance, xcc_id) ((adev)->gfx.funcs->select_se_sh((adev), (se), (sh), (instance), (xcc_id)))
+ #define amdgpu_gfx_select_me_pipe_q(adev, me, pipe, q, vmid, xcc_id) ((adev)->gfx.funcs->select_me_pipe_q((adev), (me), (pipe), (q), (vmid), (xcc_id)))
+ #define amdgpu_gfx_init_spm_golden(adev) (adev)->gfx.funcs->init_spm_golden((adev))
+-#define amdgpu_gfx_get_gfx_shadow_info(adev, si) ((adev)->gfx.funcs->get_gfx_shadow_info((adev), (si)))
++#define amdgpu_gfx_get_gfx_shadow_info(adev, si) ((adev)->gfx.funcs->get_gfx_shadow_info((adev), (si), false))
+ 
+ /**
+  * amdgpu_gfx_create_bitmask - create a bitmask
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+index b53c35992152..285149258882 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+@@ -371,6 +371,20 @@ static int amdgpu_firmware_info(struct drm_amdgpu_info_firmware *fw_info,
+ 	return 0;
+ }
+ 
++static int amdgpu_userq_metadata_info_gfx(struct amdgpu_device *adev,
++			     struct drm_amdgpu_info *info,
++			     struct drm_amdgpu_info_uq_metadata_gfx *meta)
++{
++	int ret = -EOPNOTSUPP;
++
++	if (adev->gfx.funcs->get_gfx_shadow_info) {
++		adev->gfx.funcs->get_gfx_shadow_info(adev, (struct amdgpu_gfx_shadow_info *)meta, true);
++		ret = 0;
++	}
++
++	return ret;
++}
++
+ static int amdgpu_hw_ip_info(struct amdgpu_device *adev,
+ 			     struct drm_amdgpu_info *info,
+ 			     struct drm_amdgpu_info_hw_ip *result)
+@@ -1282,6 +1296,22 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ 		return copy_to_user(out, &gpuvm_fault,
+ 				    min((size_t)size, sizeof(gpuvm_fault))) ? -EFAULT : 0;
+ 	}
++	case AMDGPU_INFO_UQ_METADATA: {
++		struct drm_amdgpu_info_uq_metadata meta_info = {};
++
++		switch (info->query_hw_ip.type) {
++		case AMDGPU_HW_IP_GFX:
++			ret = amdgpu_userq_metadata_info_gfx(adev, info, &meta_info.gfx);
++			if (ret)
++				return ret;
++
++			ret = copy_to_user(out, &meta_info,
++						min((size_t)size, sizeof(meta_info))) ? -EFAULT : 0;
++			return 0;
++		default:
++			return -ENOTSUPP;
++		}
++	}
+ 	default:
+ 		DRM_DEBUG_KMS("Invalid request %d\n", info->query);
+ 		return -EINVAL;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+index 1d5c873876f5..e5f5de8804b4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+@@ -1034,14 +1034,21 @@ static void gfx_v11_0_select_me_pipe_q(struct amdgpu_device *adev,
+ #define MQD_FWWORKAREA_SIZE       484
+ #define MQD_FWWORKAREA_ALIGNMENT  256
+ 
+-static int gfx_v11_0_get_gfx_shadow_info(struct amdgpu_device *adev,
++static void gfx_v11_0_get_gfx_shadow_info_nocheck(struct amdgpu_device *adev,
+ 					 struct amdgpu_gfx_shadow_info *shadow_info)
+ {
+-	if (adev->gfx.cp_gfx_shadow) {
+-		shadow_info->shadow_size = MQD_SHADOW_BASE_SIZE;
+-		shadow_info->shadow_alignment = MQD_SHADOW_BASE_ALIGNMENT;
+-		shadow_info->csa_size = MQD_FWWORKAREA_SIZE;
+-		shadow_info->csa_alignment = MQD_FWWORKAREA_ALIGNMENT;
++	shadow_info->shadow_size = MQD_SHADOW_BASE_SIZE;
++	shadow_info->shadow_alignment = MQD_SHADOW_BASE_ALIGNMENT;
++	shadow_info->csa_size = MQD_FWWORKAREA_SIZE;
++	shadow_info->csa_alignment = MQD_FWWORKAREA_ALIGNMENT;
++}
++
++static int gfx_v11_0_get_gfx_shadow_info(struct amdgpu_device *adev,
++					 struct amdgpu_gfx_shadow_info *shadow_info,
++					 bool skip_check)
++{
++	if (adev->gfx.cp_gfx_shadow || skip_check) {
++		gfx_v11_0_get_gfx_shadow_info_nocheck(adev, shadow_info);
+ 		return 0;
+ 	} else {
+ 		memset(shadow_info, 0, sizeof(struct amdgpu_gfx_shadow_info));
+diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+index d9bff1c3b326..eda9b4cfdff6 100644
+--- a/include/uapi/drm/amdgpu_drm.h
++++ b/include/uapi/drm/amdgpu_drm.h
+@@ -1052,6 +1052,8 @@ struct drm_amdgpu_cs_chunk_cp_gfx_shadow {
+ #define AMDGPU_INFO_MAX_IBS			0x22
+ /* query last page fault info */
+ #define AMDGPU_INFO_GPUVM_FAULT			0x23
++/* query FW object size and alignment */
++#define AMDGPU_INFO_UQ_METADATA			0x24
+ 
+ #define AMDGPU_INFO_MMR_SE_INDEX_SHIFT	0
+ #define AMDGPU_INFO_MMR_SE_INDEX_MASK	0xff
+@@ -1123,6 +1125,11 @@ struct drm_amdgpu_info {
+ 		struct {
+ 			__u32 type;
+ 		} video_cap;
++
++		struct {
++			/** AMDGPU_HW_IP_* */
++			__u32 type;
++		} uq_metadata;
+ 	};
+ };
+ 
+@@ -1391,6 +1398,23 @@ struct drm_amdgpu_info_gpuvm_fault {
+ 	__u32 vmhub;
+ };
+ 
++struct drm_amdgpu_info_uq_metadata_gfx {
++	/* shadow area size for gfx11 */
++	__u32 shadow_size;
++	/* shadow area base virtual alignment for gfx11 */
++	__u32 shadow_alignment;
++	/* context save area size for gfx11 */
++	__u32 csa_size;
++	/* context save area base virtual alignment for gfx11 */
++	__u32 csa_alignment;
++};
++
++struct drm_amdgpu_info_uq_metadata {
++	union {
++		struct drm_amdgpu_info_uq_metadata_gfx gfx;
++	};
++};
++
+ /*
+  * Supported GPU families
+  */
+-- 
+2.46.2
+
