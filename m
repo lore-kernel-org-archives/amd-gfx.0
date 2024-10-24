@@ -4,48 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A99E9D0BB7D
-	for <amd-gfx@archiver.kernel.org>; Thu, 24 Oct 2024 09:23:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 759E0CE8E68
+	for <amd-gfx@archiver.kernel.org>; Thu, 24 Oct 2024 12:11:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4EA1910E8FE;
-	Thu, 24 Oct 2024 09:23:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FCCC10E911;
+	Thu, 24 Oct 2024 12:11:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="bCFwF6Tj";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="q2rhcB1R";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B99C10E8DC
- for <amd-gfx@lists.freedesktop.org>; Thu, 24 Oct 2024 09:23:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
- In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=yoplMLVu4XXbmCmU4VRkjw8HLSNIiYLanVXHEOZYaAk=; b=bCFwF6Tj7S8bockhxTGUaI0gZg
- hwM8JLzi/3KaRhnh3SFgIYSUEQxPI+HeheaoVjmfVRSSmLMazLJGkatZwTtLlSJpFi+4HchVy6WmV
- Zb9lYcfyNzrdpjBIdSXuFRSjXypNmUqR9oz+4v2KMOdq5RL5JwcFZA+AUqgAB+9xFHjFv9OBhdr/J
- tFrKYRfmwgkTG6tLTQU0KsAzjZSJw74F4cPptvTfBV81Fx2fOYPDBI/eIuq9nIV+zOIyBbYj3GhQh
- tvzn/uagEUxThzIRY+zVBBJ1whTAIFpx+0FzoQjCUM7kMLIf1catHmdl+gLjnc77oP0LPP33uDMUf
- C0zfhwVg==;
-Received: from [90.241.98.187] (helo=localhost)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1t3u4K-00ERFM-9v; Thu, 24 Oct 2024 11:23:48 +0200
-From: Tvrtko Ursulin <tursulin@igalia.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Yunxiang Li <Yunxiang.Li@amd.com>, Alex Deucher <alexdeucher@gmail.com>
-Subject: [RFC 4/4] drm/amdgpu: Expose special on chip memory pools in fdinfo
-Date: Thu, 24 Oct 2024 10:23:41 +0100
-Message-ID: <20241024092342.98760-5-tursulin@igalia.com>
-X-Mailer: git-send-email 2.46.0
-In-Reply-To: <20241024092342.98760-1-tursulin@igalia.com>
-References: <20241024092342.98760-1-tursulin@igalia.com>
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2073.outbound.protection.outlook.com [40.107.92.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF27310E911
+ for <amd-gfx@lists.freedesktop.org>; Thu, 24 Oct 2024 12:11:07 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=iOR+YYrSp09ctR+oW7MRKyjz8BVrUzY/IC35mU9OMZCsKRNifybrfPq6MsBlxUVqOb7sc8JnoNBQabdfq9vLzi/qSwThxnrVuM8L6cEBfhWuTPuSCQMUE4CraEXqZin6ZXpXzS4OgOfGrEd1EBWlcZbRG/l/oVnX4C1iMRGE6O17HEpWk8bW846MFVT1wdC0Fx5EMo2lcdsaYfNE/PU/wKW187qZ/e/y2fMrhqkU7ptYcL6BKwKb5yUe7kjz5g8cCCNFnkVYWvMUfHXSxsXjzUx9+p6Z0TAKlOg2Wyt2KzNTuLc73KZVPBOFuH0tbBr1CYLa+YoBmF2hOaZvbyjt4g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=blY8fYa8yz1xtFI6TIBhRxoyhL7a/KSPsgzjmY6xokg=;
+ b=GIMA9ZJNjiqqdJ43urUmgXU9gmZ/5QwnykH0yeHO4mXWvd/3OMNza6zEYyAMr6GHZl+Ru/wkOw+ovj6bely41Ngmu7kBmoLylrXPUAomnVQXy7HqbTnBTXaxERWylVrXnCdEaevPt6UId3DOAkSFRnV/bt/3w50Zo6+WRhyJThQP/TTfTKpWEAFUC7G9HdX9tXbekLBi/fkBGTWaIS89sR2htV/9EPsr2eCya4wdJ/0hvpIy+ScFIlDHtLbRlVd/5EAAM+S1m4Hxc2EgqDZsXmlTwxt7omdVED57ANaGz3AEpo9ugVgOuRocft+h6xO5I+30y1e733a9P4+b0rtXDA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=blY8fYa8yz1xtFI6TIBhRxoyhL7a/KSPsgzjmY6xokg=;
+ b=q2rhcB1RVfxod/Pmv1y7fJr32if8B8zEPP0UnTh20Mz3MPY3gMqfB9F36LaHQZGxgIX8dOhQAequTdAYtnwpiGS6nHDzsTuxHNHGAfPoYf7ayYQBt6fTlUxKe9QOuFhAL6TxRTnLBpniAnDrgJAi4U7O8Ra4VX8K8GhYeLPpjzg=
+Received: from SN7PR04CA0073.namprd04.prod.outlook.com (2603:10b6:806:121::18)
+ by DM4PR12MB5987.namprd12.prod.outlook.com (2603:10b6:8:6a::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8048.22; Thu, 24 Oct
+ 2024 12:11:04 +0000
+Received: from SN1PEPF0002636A.namprd02.prod.outlook.com
+ (2603:10b6:806:121:cafe::a) by SN7PR04CA0073.outlook.office365.com
+ (2603:10b6:806:121::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8093.18 via Frontend
+ Transport; Thu, 24 Oct 2024 12:11:04 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SN1PEPF0002636A.mail.protection.outlook.com (10.167.241.135) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8093.14 via Frontend Transport; Thu, 24 Oct 2024 12:11:04 +0000
+Received: from amd-X570-AORUS-ELITE.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39; Thu, 24 Oct 2024 07:11:02 -0500
+From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <christian.koenig@amd.com>
+CC: <alexander.deucher@amd.com>, Arunpravin Paneer Selvam
+ <Arunpravin.PaneerSelvam@amd.com>
+Subject: [PATCH 1/2] drm/amdgpu: add userq specific kernel config for fence
+ ioctls
+Date: Thu, 24 Oct 2024 17:40:26 +0530
+Message-ID: <20241024121027.3397-1-Arunpravin.PaneerSelvam@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002636A:EE_|DM4PR12MB5987:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5249a5e1-c3c3-4a08-95ae-08dcf424eed8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|36860700013|82310400026|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?pcZyvQ5VcIUyWaK+jP4a0akr4AWPfdEFdcIoqnQQgPhHK0wTdoJBUo61NCo1?=
+ =?us-ascii?Q?54EcOFsJutKgTFoSBtUBU/NVqT3+4WVQbNKrnnHT1GqylfFtIyKYx57Ig+pb?=
+ =?us-ascii?Q?7y/4K4kxAVYSn/8sTgZa1BaL5pCYQ2ACwck/bMprw5kvGcO1ZIKzs5z1+khj?=
+ =?us-ascii?Q?pcVSzS2k3RDSYQl9Mma0hMtRHpEZkGdZPJow+eEUoXbVxKNqHbYGNUH9TsoN?=
+ =?us-ascii?Q?hTdYHia9ScAlSuWALkjjmgqrH9OdzWIpORLIH4MH4HTNigkE3+K5Kn41KvC8?=
+ =?us-ascii?Q?uMn90R2Ewl9CnM8OegAZQaAeR+7RtOCTLd5AZ/+0ldzHuXgjeVCPf8azS5Sw?=
+ =?us-ascii?Q?6hC5bFDvIjts9YX5FtedszswFVNI5//1BDNSUZah2jEHG3m4ttMN2uxPW2Zo?=
+ =?us-ascii?Q?inLZfFcC6XrKQS+ZrcTSfA6haXURmWA5kyswa5zyYLdg08K7dXLq9KDA57Qg?=
+ =?us-ascii?Q?bg4wmpeoWpkGCIfu7vtNPoT1qJgSMHbhtzxGweq2UDe/SQ4vhTqa1gRYU1jx?=
+ =?us-ascii?Q?fEfvSYTudttenQmj+uvVr0G6X4zCNfNfEOUWljWTtRfGygQeOGWz2TLoPS2i?=
+ =?us-ascii?Q?D9yAYHOVLBTO3uZOkKqrViQUW7Oqk2UAC0+pf5EtSUd7fRZQQrRti1r4BcVz?=
+ =?us-ascii?Q?6g0rsMqLCpE5TeEpGZgEQkOCkPRpGPT7gbKMsiDE8Q0naZQEzBESgHPRB0C9?=
+ =?us-ascii?Q?eb0RYTKwqIvfrr1pTrorKUGxSPbKmn/Yuh2fRFKCgdv0RVTQBDtfi676NJt3?=
+ =?us-ascii?Q?lk3Kbcnr/OQO4uOaHyNgUPbsUGBQwk79xoz5SjF1gkNBKAOHkcJoxyfiodLR?=
+ =?us-ascii?Q?Bcr3ZJ3nUOGDk5daWYF+7id1qfCEFuFF3/urIVwUrrEbfCnEUXrbxqXqicL9?=
+ =?us-ascii?Q?RPKmUeiBUSvB4uYUtPNyJ+gdcj5WATV4przAAO3yclQtRGMCSkYiueFONZ5V?=
+ =?us-ascii?Q?M6/N0yjee63JGLs+aKu1R2cfbcevjdlQP7R0sxca+kNBsE8pk6LwxC9i1JXn?=
+ =?us-ascii?Q?PUjKwuikXVCnfZZD7li/WTmn+VKZJ2DkQKlT+iHvvRSpqkNnYcrSD9IYjUoE?=
+ =?us-ascii?Q?e2hTJemIvq8Y0CtRiHh4U2iapSV1itMsbyAxvLcXagsUmTS0RjzPlSpEnLSe?=
+ =?us-ascii?Q?HMr5f/X+j+nF6z9V0Jf1xZZmpyQz0JySxg9sSsnlZVkqxC3/oL28rCMy/VvD?=
+ =?us-ascii?Q?Ne2qgNkId8nBC/yoSWYrmCbQ33n4pPF+45zTrp6KeFCUkebQyIeBiqdK9K91?=
+ =?us-ascii?Q?hYncOlQa/Phf9PBU/d3GAI68YSkokwXVXSamNTIlh3LkcLjAnxSopfueoCN5?=
+ =?us-ascii?Q?eRA1t4QoBNEoO1jKIwH5AA8Hlp1br9oc2ha7b01mx2/9GytBz1/AB99O4ve2?=
+ =?us-ascii?Q?VU4Z3e1h4OmkrBnmsb1p8tOqc87NtibTuQHfFhH9H4WUWT0ORg=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Oct 2024 12:11:04.2001 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5249a5e1-c3c3-4a08-95ae-08dcf424eed8
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002636A.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5987
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,59 +130,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Keep the user queue fence signal and wait IOCTLs in the
+kernel config CONFIG_DRM_AMDGPU_NAVI3X_USERQ.
 
-In the past these specialized on chip memory pools were reported as system
-memory (aka 'cpu') which was not correct and misleading. That has since
-been removed so lets make them visible as their own respective memory
-regions.
-
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Yunxiang Li <Yunxiang.Li@amd.com>
-Cc: Alex Deucher <alexdeucher@gmail.com>
+Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
 ---
-It is easy to do but is it worth it I leave to AMD experts to decide.
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c         |  4 ++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c | 16 ++++++++++++++++
+ 2 files changed, 20 insertions(+)
 
-I gave it a quick spin and have only seen all zeros when running a Steam
-game.
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
-index 7a9573958d87..df2cf5c33925 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
-@@ -66,6 +66,10 @@ void amdgpu_show_fdinfo(struct drm_printer *p, struct drm_file *file)
- 		[TTM_PL_VRAM] = "vram",
- 		[TTM_PL_TT] = "gtt",
- 		[TTM_PL_SYSTEM] = "cpu",
-+		[AMDGPU_PL_GDS] = "gds",
-+		[AMDGPU_PL_GWS] = "gws",
-+		[AMDGPU_PL_OA] = "oa",
-+		[AMDGPU_PL_DOORBELL] = "doorbell",
- 	};
- 	unsigned int hw_ip, i;
- 	int ret;
-@@ -87,12 +91,16 @@ void amdgpu_show_fdinfo(struct drm_printer *p, struct drm_file *file)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 70cb3b794a8a..04eb6611d19b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -2971,9 +2971,11 @@ static int __init amdgpu_init(void)
+ 	if (r)
+ 		goto error_sync;
  
- 	drm_printf(p, "pasid:\t%u\n", fpriv->vm.pasid);
++#ifdef CONFIG_DRM_AMDGPU_NAVI3X_USERQ
+ 	r = amdgpu_fence_slab_init();
+ 	if (r)
+ 		goto error_fence;
++#endif
  
--	for (i = 0; i < TTM_PL_PRIV; i++)
-+	for (i = 0; i < ARRAY_SIZE(pl_name); i++) {
-+		if (!pl_name[i])
-+			continue;
-+
- 		drm_print_memory_stats(p,
- 				       &stats[i].drm,
- 				       DRM_GEM_OBJECT_RESIDENT |
- 				       DRM_GEM_OBJECT_PURGEABLE,
- 				       pl_name[i]);
-+	}
+ 	r = amdgpu_userq_fence_slab_init();
+ 	if (r)
+@@ -3003,7 +3005,9 @@ static void __exit amdgpu_exit(void)
+ 	amdgpu_unregister_atpx_handler();
+ 	amdgpu_acpi_release();
+ 	amdgpu_sync_fini();
++#ifdef CONFIG_DRM_AMDGPU_NAVI3X_USERQ
+ 	amdgpu_fence_slab_fini();
++#endif
+ 	amdgpu_userq_fence_slab_fini();
+ 	mmu_notifier_synchronize();
+ 	amdgpu_xcp_drv_release();
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+index 279dece6f6d7..bec53776fe5f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+@@ -318,6 +318,7 @@ static const struct dma_fence_ops amdgpu_userq_fence_ops = {
+ 	.release = amdgpu_userq_fence_release,
+ };
  
- 	/* Legacy amdgpu keys, alias to drm-resident-memory-: */
- 	drm_printf(p, "drm-memory-vram:\t%llu KiB\n",
++#ifdef CONFIG_DRM_AMDGPU_NAVI3X_USERQ
+ /**
+  * amdgpu_userq_fence_read_wptr - Read the userq wptr value
+  *
+@@ -502,7 +503,15 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
+ 
+ 	return r;
+ }
++#else
++int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
++			      struct drm_file *filp)
++{
++	return 0;
++}
++#endif
+ 
++#ifdef CONFIG_DRM_AMDGPU_NAVI3X_USERQ
+ int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
+ 			    struct drm_file *filp)
+ {
+@@ -797,3 +806,10 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
+ 
+ 	return r;
+ }
++#else
++int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
++			    struct drm_file *filp)
++{
++	return 0;
++}
++#endif
 -- 
-2.46.0
+2.34.1
 
