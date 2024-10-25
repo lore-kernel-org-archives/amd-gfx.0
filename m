@@ -4,59 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20A7AD0C606
-	for <amd-gfx@archiver.kernel.org>; Fri, 25 Oct 2024 12:48:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15527D0C610
+	for <amd-gfx@archiver.kernel.org>; Fri, 25 Oct 2024 12:48:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA55610EAA5;
-	Fri, 25 Oct 2024 12:48:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8008110EAAF;
+	Fri, 25 Oct 2024 12:48:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="gDKxLQ2G";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="DoDW4kBT";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C7FA310E8CE;
- Thu, 24 Oct 2024 08:29:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=Ukhu1zEgudrLrY4FbTtrJ0nj4ZcHWLk3Hk7myyRZWso=; b=gDKxLQ2GzSkytVi8d7dxLZowcY
- eKvfDCnK2LvTFU8z1U4GQ0WRLi4OsUTlciXZIEWs+4wRfr3KbOhnEO0hSb6V/HSsSmNEhzPIRk5r7
- SVdIrRR+C4CrpPmnqW7F5AzjIheq/bfkpuHezw5Et8dzbp6y3dLaaHXZWTPZpzPNHfDF2YaaQnBl/
- EsMfHg0SdjaedfIrEUp81uxg3nJV5rh5yJPOiI6v1fVux5JjMZoJocSpNTk48HukrSwyiejkFN43W
- LjHmlTgZXNzRkr+VfP88JHmK30cOE74hlhteEIFdgdPLcbYlY0FKnHGcbS9WrOPGlr1oTUzmai907
- 6v45iEJg==;
-Received: from [90.241.98.187] (helo=[192.168.0.101])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1t3tDe-00EQ5y-09; Thu, 24 Oct 2024 10:29:22 +0200
-Message-ID: <50803e40-eaaf-4301-8459-e1b465b2d6f7@igalia.com>
-Date: Thu, 24 Oct 2024 09:29:21 +0100
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7145B10EA2F;
+ Fri, 25 Oct 2024 08:49:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1729846141; x=1761382141;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=aLjcWUY8SuEfKDR0WSvMQTy0mf+lzWHlH7axlY/MKng=;
+ b=DoDW4kBTaV5AggQm6iQhN6LlXTr65pJKxSH4TMQQ3pdIDvbZJL5tQDYF
+ 6seCCV9lHSS/MqbpJiZcvfBt5yCq7itMHYk7hHcd1+nZJmvtdSGHK9yc+
+ us91hccgF6uXUuT25g9w1hhgdNcHpT7NGo9imt/x6YVyGaFpzJsFjj7UF
+ bgs/bIPD9PWyHfoOXCESjctcMMZ3SPZW/zA5CPCtwiKVkEek73mu5xmGU
+ 51x7BZNopJwsBNsyu178mMdFGKYIsn+9DN8yyv9/I/wDPSGnY6KEWtnp0
+ 57HMfQ7B0KewGILPuLKTmgPElTPP6mwNTL6GMSuB6f/5Rh5b1aoAZVmw2 Q==;
+X-CSE-ConnectionGUID: NjTPf7rGRlipy9l8KXpoyQ==
+X-CSE-MsgGUID: HJ+XucT+RPu1rPam79kOkg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11235"; a="32369502"
+X-IronPort-AV: E=Sophos;i="6.11,231,1725346800"; d="scan'208";a="32369502"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Oct 2024 01:49:01 -0700
+X-CSE-ConnectionGUID: p4/LKv4XTMeTUgcqUGqbvA==
+X-CSE-MsgGUID: ymsx/TmERsCU3VOUTi3NEg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.11,231,1725346800"; d="scan'208";a="80768525"
+Received: from jraag-nuc8i7beh.iind.intel.com ([10.145.169.79])
+ by orviesa010.jf.intel.com with ESMTP; 25 Oct 2024 01:48:55 -0700
+From: Raag Jadav <raag.jadav@intel.com>
+To: airlied@gmail.com, simona@ffwll.ch, lucas.demarchi@intel.com,
+ rodrigo.vivi@intel.com, jani.nikula@linux.intel.com,
+ andriy.shevchenko@linux.intel.com, lina@asahilina.net,
+ michal.wajdeczko@intel.com, christian.koenig@amd.com
+Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, himal.prasad.ghimiray@intel.com,
+ aravind.iddamsetty@linux.intel.com, anshuman.gupta@intel.com,
+ alexander.deucher@amd.com, andrealmeid@igalia.com,
+ amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
+ Raag Jadav <raag.jadav@intel.com>
+Subject: [PATCH v8 1/4] drm: Introduce device wedged event
+Date: Fri, 25 Oct 2024 14:18:14 +0530
+Message-Id: <20241025084817.144621-2-raag.jadav@intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20241025084817.144621-1-raag.jadav@intel.com>
+References: <20241025084817.144621-1-raag.jadav@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 4/4] drm/amdgpu: track bo memory stats at runtime
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- "Li, Yunxiang (Teddy)" <Yunxiang.Li@amd.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-References: <20241018133308.889-1-Yunxiang.Li@amd.com>
- <20241018133308.889-5-Yunxiang.Li@amd.com>
- <1057097f-02f4-4f0f-9ac5-37aa84570b47@amd.com>
- <SA1PR12MB8599E3DD01B4A45AD7CA71FAED4C2@SA1PR12MB8599.namprd12.prod.outlook.com>
- <53382fc0-0686-46af-9285-0cd6aec314ae@amd.com>
- <cd2b57c6-1947-4dbd-bae8-ecdb2b42de72@igalia.com>
- <47e4b79b-2c08-4ee8-b472-5482bc159856@amd.com>
- <6d324aca-76fd-420b-9bae-6c0984e659e1@igalia.com>
- <7503c3fd-deea-4eb9-9324-ab4f13f70332@amd.com>
- <2141a4f4-bcf4-4419-8756-fb5afd6c7f3a@igalia.com>
- <c80eb8ff-3965-4036-b763-20c4c2550e04@amd.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <c80eb8ff-3965-4036-b763-20c4c2550e04@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 25 Oct 2024 12:48:03 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -73,48 +74,213 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Introduce device wedged event, which will notify userspace of wedged
+(hanged/unusable) state of the DRM device through a uevent. This is
+useful especially in cases where the device is no longer operating as
+expected even after a reset and has become unrecoverable from driver
+context. Purpose of this implementation is to provide drivers a generic
+way to recover with the help of userspace intervention without taking
+any drastic measures in the driver.
 
-On 23/10/2024 13:56, Christian König wrote:
-> Am 23.10.24 um 14:24 schrieb Tvrtko Ursulin:
->> [SNIP]
->>>> To fold or not the special placements (GWS, GDS & co) is also 
->>>> tangential. In my patch I just preserved the legacy behaviour so it 
->>>> can easily be tweaked on top.
->>>
->>> Yeah, but again the original behavior is completely broken.
->>>
->>> GWS, GDS and OA are counted in blocks of HW units (multiplied by 
->>> PAGE_SIZE IIRC to avoid some GEM&TTM warnings).
->>>
->>> When you accumulate that anywhere in the memory stats then that is 
->>> just completely off.
->>
->> Ooops. :) Are they backed by some memory though, be it system or VRAM?
-> 
-> GDS is an internal 4 or 64KiB memory block which is only valid while 
-> shaders are running. It is used to communicate stuff between different 
-> shader stages and not even CPU accessible.
-> 
-> GWS and OA are not even memory, those are just HW blocks which implement 
-> a fixed function.
-> 
-> IIRC most HW generation have 16 of each and when setting up the 
-> application virtual address space you can specify how many will be used 
-> by the application.
+A 'wedged' device is basically a dead device that needs attention.
+The uevent is the notification that is sent to userspace along with a
+hint about what could possibly be attempted to recover the device and
+bring it back to usable state. Different drivers may have different
+ideas of a 'wedged' device depending on their hardware implementation,
+and hence the vendor agnostic nature of the event. It is up to the
+drivers to decide when they see the need for recovery and how they
+want to recover from the available methods.
 
-I see, thank you! Though I could have bothered to look in the code or 
-even instrument at runtime too.
+Recovery
+--------
 
-I agree removing it from system is correct. If wanted and/or desirable 
-some or all could be exported as different memory regions even. DRM 
-fdinfo specs already allows that. Like:
+Current implementation defines two recovery methods, out of which,
+drivers can use any one, both or none. Method(s) of choice will be
+sent in the uevent environment as ``WEDGED=<method1>[,<method2>]``
+in order of less to more side-effects. If driver is unsure about
+recovery or method is unknown (like soft/hard reboot, firmware
+flashing, hardware replacement or any other procedure which can't
+be attempted on the fly), ``WEDGED=none`` will be sent instead.
 
-drm-total-vram: ...
-drm-total-gds: ...
-drm-total-oa: ...
+It is the responsibility of the driver to perform required cleanups
+(like disabling system memory access or signalling dma_fences) and
+prepare itself for the recovery before sending the event. Once the
+event is sent, driver should block all IOCTLs with an error code.
+This will signify the reason for wegeding which can be reported to
+the application if needed.
 
-Etc.
+Userspace consumers can parse this event and attempt recovery as per
+below expectations.
 
-Regards,
+    =============== ==================================
+    Recovery method Consumer expectations
+    =============== ==================================
+    rebind          unbind + rebind driver
+    bus-reset       unbind + reset bus device + rebind
+    none            admin/user policy
+    =============== ==================================
 
-Tvrtko
+Example for rebind
+~~~~~~~~~~~~~~~~~~
+
+Udev rule::
+
+    SUBSYSTEM=="drm", ENV{WEDGED}=="rebind", DEVPATH=="*/drm/card[0-9]",
+    RUN+="/path/to/rebind.sh $env{DEVPATH}"
+
+Recovery script::
+
+    #!/bin/sh
+
+    DEVPATH=$(readlink -f /sys/$1/device)
+    DEVICE=$(basename $DEVPATH)
+    DRIVER=$(readlink -f $DEVPATH/driver)
+
+    echo -n $DEVICE > $DRIVER/unbind
+    sleep 1
+    echo -n $DEVICE > $DRIVER/bind
+
+Although scripts are simple enough for basic recovery, admin/users
+can define customized policies around recovery action. For example if
+the driver supports multiple recovery methods, consumers can opt for
+the suitable one based on policy definition. Consumers can also take
+additional steps like gathering telemetry information (devcoredump,
+syslog), or have the device available for further debugging and data
+collection before performing the recovery. This is useful especially
+when the driver is unsure about recovery or method is unknown.
+
+v4: s/drm_dev_wedged/drm_dev_wedged_event
+    Use drm_info() (Jani)
+    Kernel doc adjustment (Aravind)
+v5: Send recovery method with uevent (Lina)
+v6: Access wedge_recovery_opts[] using helper function (Jani)
+    Use snprintf() (Jani)
+v7: Convert recovery helpers into regular functions (Andy, Jani)
+    Aesthetic adjustments (Andy)
+    Handle invalid method cases
+v8: Allow sending multiple methods with uevent (Lucas, Michal)
+    static_assert() globally (Andy)
+
+Signed-off-by: Raag Jadav <raag.jadav@intel.com>
+---
+ drivers/gpu/drm/drm_drv.c | 51 +++++++++++++++++++++++++++++++++++++++
+ include/drm/drm_device.h  |  7 ++++++
+ include/drm/drm_drv.h     |  1 +
+ 3 files changed, 59 insertions(+)
+
+diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
+index ac30b0ec9d93..ded6327fc242 100644
+--- a/drivers/gpu/drm/drm_drv.c
++++ b/drivers/gpu/drm/drm_drv.c
+@@ -26,6 +26,8 @@
+  * DEALINGS IN THE SOFTWARE.
+  */
+ 
++#include <linux/array_size.h>
++#include <linux/build_bug.h>
+ #include <linux/debugfs.h>
+ #include <linux/fs.h>
+ #include <linux/module.h>
+@@ -33,6 +35,7 @@
+ #include <linux/mount.h>
+ #include <linux/pseudo_fs.h>
+ #include <linux/slab.h>
++#include <linux/sprintf.h>
+ #include <linux/srcu.h>
+ #include <linux/xarray.h>
+ 
+@@ -70,6 +73,16 @@ static struct dentry *drm_debugfs_root;
+ 
+ DEFINE_STATIC_SRCU(drm_unplug_srcu);
+ 
++/*
++ * Available recovery methods for wedged device. To be sent along with device
++ * wedged uevent.
++ */
++static const char *const drm_wedge_recovery_opts[] = {
++	[ffs(DRM_WEDGE_RECOVERY_REBIND) - 1]	= "rebind",
++	[ffs(DRM_WEDGE_RECOVERY_BUS_RESET) - 1]	= "bus-reset",
++};
++static_assert(ARRAY_SIZE(drm_wedge_recovery_opts) == ffs(DRM_WEDGE_RECOVERY_BUS_RESET));
++
+ /*
+  * DRM Minors
+  * A DRM device can provide several char-dev interfaces on the DRM-Major. Each
+@@ -497,6 +510,44 @@ void drm_dev_unplug(struct drm_device *dev)
+ }
+ EXPORT_SYMBOL(drm_dev_unplug);
+ 
++/**
++ * drm_dev_wedged_event - generate a device wedged uevent
++ * @dev: DRM device
++ * @method: method(s) to be used for recovery
++ *
++ * This generates a device wedged uevent for the DRM device specified by @dev.
++ * Recovery @method from drm_wedge_recovery_opts[] is sent in the uevent
++ * environment as ``WEDGED=<method1>[,<method2>]`` in order of less to more
++ * side-effects. If caller is unsure about recovery or @method is unknown (0),
++ * ``WEDGED=none`` will be sent instead.
++ *
++ * Returns: 0 on success, negative error code otherwise.
++ */
++int drm_dev_wedged_event(struct drm_device *dev, unsigned long method)
++{
++	unsigned int len, opt, size = ARRAY_SIZE(drm_wedge_recovery_opts);
++	const char *recovery = NULL;
++	/* Event string length up to 24+ characters with available methods */
++	char event_string[32];
++	char *envp[] = { event_string, NULL };
++
++	len = scnprintf(event_string, sizeof(event_string), "%s", "WEDGED=");
++
++	for_each_set_bit(opt, &method, size) {
++		recovery = drm_wedge_recovery_opts[opt];
++		len += scnprintf(event_string + len, sizeof(event_string),
++				 opt == size - 1 ? "%s" : "%s,", recovery);
++	}
++
++	if (!recovery)
++		/* Caller is unsure about recovery, do the best we can at this point. */
++		scnprintf(event_string + len, sizeof(event_string), "%s", "none");
++
++	drm_info(dev, "device wedged, needs recovery\n");
++	return kobject_uevent_env(&dev->primary->kdev->kobj, KOBJ_CHANGE, envp);
++}
++EXPORT_SYMBOL(drm_dev_wedged_event);
++
+ /*
+  * DRM internal mount
+  * We want to be able to allocate our own "struct address_space" to control
+diff --git a/include/drm/drm_device.h b/include/drm/drm_device.h
+index c91f87b5242d..edf8b200891d 100644
+--- a/include/drm/drm_device.h
++++ b/include/drm/drm_device.h
+@@ -21,6 +21,13 @@ struct inode;
+ struct pci_dev;
+ struct pci_controller;
+ 
++/*
++ * Recovery methods for wedged device in order of less to more side-effects.
++ * To be used with drm_dev_wedged_event() as recovery @method. Callers can
++ * use any one, multiple (or'd) or none depending on their needs.
++ */
++#define DRM_WEDGE_RECOVERY_REBIND	BIT(0)	/* unbind + rebind driver */
++#define DRM_WEDGE_RECOVERY_BUS_RESET	BIT(1)	/* unbind + reset bus device + rebind */
+ 
+ /**
+  * enum switch_power_state - power state of drm device
+diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
+index 02ea4e3248fd..cc7bcb94ad6a 100644
+--- a/include/drm/drm_drv.h
++++ b/include/drm/drm_drv.h
+@@ -461,6 +461,7 @@ void drm_put_dev(struct drm_device *dev);
+ bool drm_dev_enter(struct drm_device *dev, int *idx);
+ void drm_dev_exit(int idx);
+ void drm_dev_unplug(struct drm_device *dev);
++int drm_dev_wedged_event(struct drm_device *dev, unsigned long method);
+ 
+ /**
+  * drm_dev_is_unplugged - is a DRM device unplugged
+-- 
+2.34.1
+
