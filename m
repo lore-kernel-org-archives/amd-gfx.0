@@ -4,65 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D2CCD0C616
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B68BCD0C607
 	for <amd-gfx@archiver.kernel.org>; Fri, 25 Oct 2024 12:48:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D9B2310EAB6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C708E10EAB5;
 	Fri, 25 Oct 2024 12:48:12 +0000 (UTC)
-Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com
- [45.249.212.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DBF1210E949;
- Thu, 24 Oct 2024 13:41:51 +0000 (UTC)
-Received: from mail.maildlp.com (unknown [172.19.163.235])
- by dggsgout12.his.huawei.com (SkyGuard) with ESMTP id 4XZ66F09Mcz4f3jdS;
- Thu, 24 Oct 2024 21:22:45 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.128])
- by mail.maildlp.com (Postfix) with ESMTP id 7AB0B1A0568;
- Thu, 24 Oct 2024 21:23:02 +0800 (CST)
-Received: from huaweicloud.com (unknown [10.175.104.67])
- by APP4 (Coremail) with SMTP id gCh0CgCHusYpShpn7tb6Ew--.444S11;
- Thu, 24 Oct 2024 21:23:02 +0800 (CST)
-From: Yu Kuai <yukuai1@huaweicloud.com>
-To: stable@vger.kernel.org, gregkh@linuxfoundation.org, harry.wentland@amd.com,
- sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- daniel@ffwll.ch, viro@zeniv.linux.org.uk, brauner@kernel.org,
- Liam.Howlett@oracle.com, akpm@linux-foundation.org, hughd@google.com,
- willy@infradead.org, sashal@kernel.org, srinivasan.shanmugam@amd.com,
- chiahsuan.chung@amd.com, mingo@kernel.org, mgorman@techsingularity.net,
- yukuai3@huawei.com, chengming.zhou@linux.dev, zhangpeng.00@bytedance.com,
- chuck.lever@oracle.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- maple-tree@lists.infradead.org, linux-mm@kvack.org,
- yukuai1@huaweicloud.com, yi.zhang@huawei.com, yangerkun@huawei.com
-Subject: [PATCH 6.6 07/28] maple_tree: make mas_erase() more robust
-Date: Thu, 24 Oct 2024 21:19:48 +0800
-Message-Id: <20241024132009.2267260-8-yukuai1@huaweicloud.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20241024132009.2267260-1-yukuai1@huaweicloud.com>
-References: <20241024132009.2267260-1-yukuai1@huaweicloud.com>
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="eqp39dA6";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6AD8010EA35;
+ Fri, 25 Oct 2024 08:49:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1729846147; x=1761382147;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=JwkocReqtyRt0zYjlyUPartVAUOebyiEt6E2ydkMjFU=;
+ b=eqp39dA65FqQRzeQxZFdS82bD2+NO/l869YFlV7P+GN/0blyrCSpiN8U
+ 0O+luLTWjt03gaBv7zJ6VJwJPSQSiJgfuAGc6MfH6lCj+kU0KkpKVHPD+
+ bHG7VfcUGdgoqqpeGwotJCh8gqcFcFWyINincbvjCcOw7W3vYiO2NVyRK
+ FmIYJGlOUuCvb21w3qq66af3KlLpgVqWcdgZoHYE3xYZvB4L5DoSiyAoy
+ f5c1vf8vT2y7RheYjUWrAQlkmWHzLe7fbU+HxAsKpYXpVqHkAlxD43DS5
+ LNTCw5zhHbdyqVxBn/4ov1cEXMO2nXGEFfn7An/7PqQH0Iinu4S2jajro w==;
+X-CSE-ConnectionGUID: W2dR/+GJT5qlkrBIIp/SNg==
+X-CSE-MsgGUID: sWOd3+GPTjiDAuMOJprw3w==
+X-IronPort-AV: E=McAfee;i="6700,10204,11235"; a="32369512"
+X-IronPort-AV: E=Sophos;i="6.11,231,1725346800"; d="scan'208";a="32369512"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Oct 2024 01:49:07 -0700
+X-CSE-ConnectionGUID: a/oWB9piQj+Ee923mMFE5A==
+X-CSE-MsgGUID: J4RLUBdBSmWCe8Oq2B0bBA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.11,231,1725346800"; d="scan'208";a="80768563"
+Received: from jraag-nuc8i7beh.iind.intel.com ([10.145.169.79])
+ by orviesa010.jf.intel.com with ESMTP; 25 Oct 2024 01:49:01 -0700
+From: Raag Jadav <raag.jadav@intel.com>
+To: airlied@gmail.com, simona@ffwll.ch, lucas.demarchi@intel.com,
+ rodrigo.vivi@intel.com, jani.nikula@linux.intel.com,
+ andriy.shevchenko@linux.intel.com, lina@asahilina.net,
+ michal.wajdeczko@intel.com, christian.koenig@amd.com
+Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, himal.prasad.ghimiray@intel.com,
+ aravind.iddamsetty@linux.intel.com, anshuman.gupta@intel.com,
+ alexander.deucher@amd.com, andrealmeid@igalia.com,
+ amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
+ Raag Jadav <raag.jadav@intel.com>
+Subject: [PATCH v8 2/4] drm/doc: Document device wedged event
+Date: Fri, 25 Oct 2024 14:18:15 +0530
+Message-Id: <20241025084817.144621-3-raag.jadav@intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20241025084817.144621-1-raag.jadav@intel.com>
+References: <20241025084817.144621-1-raag.jadav@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: gCh0CgCHusYpShpn7tb6Ew--.444S11
-X-Coremail-Antispam: 1UD129KBjvdXoWrtrW3Wr4UCw13GFW7Jr1UZFb_yoWkXrXEk3
- W8tF4kuFs7JF4Iqw1rKrWqqa1rCa4FqFnFvw1xJF13X3Z8tFZ5KFn2gF4SkFyaq3yxJFyU
- CF90qrs2v3WjqjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUIcSsGvfJTRUUUb98FF20E14v26rWj6s0DM7CY07I20VC2zVCF04k26cxKx2IYs7xG
- 6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI8067AKxVWUAVCq3wA2048vs2
- IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28E
- F7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVW8Jr0_Cr
- 1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s0D
- M2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjx
- v20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1l
- F7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxan2
- IY04v7MxkF7I0En4kS14v26rWY6Fy7MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY
- 6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17
- CEb7AF67AKxVWrXVW8Jr1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVW8JVW5JwCI
- 42IY6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF
- 4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBI
- daVFxhVjvjDU0xZFpf9x0pR4E__UUUUU=
-X-CM-SenderInfo: 51xn3trlr6x35dzhxuhorxvhhfrp/
 X-Mailman-Approved-At: Fri, 25 Oct 2024 12:48:03 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -78,36 +74,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: "Liam R. Howlett" <Liam.Howlett@oracle.com>
+Add documentation for device wedged event in a new 'Device wedging'
+chapter. The describes basic definitions and consumer expectations
+along with an example.
 
-commit f7a59018953910032231c0a019208c4b0a4a8bc3 upstream.
+v8: Improve documentation (Christian, Rodrigo)
 
-mas_erase() may not deal correctly with all maple states.  Make the
-function more robust by ensuring the state is in one of the two acceptable
-states.
-
-Link: https://lkml.kernel.org/r/20231101171629.3612299-3-Liam.Howlett@oracle.com
-Signed-off-by: Liam R. Howlett <Liam.Howlett@oracle.com>
-Cc: Peng Zhang <zhangpeng.00@bytedance.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Signed-off-by: Yu Kuai <yukuai3@huawei.com>
+Signed-off-by: Raag Jadav <raag.jadav@intel.com>
 ---
- lib/maple_tree.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ Documentation/gpu/drm-uapi.rst | 75 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 75 insertions(+)
 
-diff --git a/lib/maple_tree.c b/lib/maple_tree.c
-index 9de2e3dfdfcc..e4d0df3980e0 100644
---- a/lib/maple_tree.c
-+++ b/lib/maple_tree.c
-@@ -6184,7 +6184,7 @@ void *mas_erase(struct ma_state *mas)
- 	void *entry;
- 	MA_WR_STATE(wr_mas, mas, NULL);
+diff --git a/Documentation/gpu/drm-uapi.rst b/Documentation/gpu/drm-uapi.rst
+index 370d820be248..11a7446233b5 100644
+--- a/Documentation/gpu/drm-uapi.rst
++++ b/Documentation/gpu/drm-uapi.rst
+@@ -362,6 +362,81 @@ the first place. DRM devices should make use of devcoredump to store relevant
+ information about the reset, so this information can be added to user bug
+ reports.
  
--	if (mas_is_none(mas) || mas_is_paused(mas))
-+	if (!mas_is_active(mas) || !mas_is_start(mas))
- 		mas->node = MAS_START;
++Device wedging
++==============
++
++Drivers can optionally make use of device wedged event (implemented as
++drm_dev_wedged_event() in DRM subsystem) which notifies userspace of wedged
++(hanged/unusable) state of the DRM device through a uevent. This is useful
++especially in cases where the device is no longer operating as expected even
++after a reset and has become unrecoverable from driver context. Purpose of
++this implementation is to provide drivers a generic way to recover with the
++help of userspace intervention without taking any drastic measures in the
++driver.
++
++A 'wedged' device is basically a dead device that needs attention. The
++uevent is the notification that is sent to userspace along with a hint about
++what could possibly be attempted to recover the device and bring it back to
++usable state. Different drivers may have different ideas of a 'wedged' device
++depending on their hardware implementation, and hence the vendor agnostic
++nature of the event. It is up to the drivers to decide when they see the need
++for recovery and how they want to recover from the available methods.
++
++Recovery
++--------
++
++Current implementation defines two recovery methods, out of which, drivers
++can use any one, both or none. Method(s) of choice will be sent in the uevent
++environment as ``WEDGED=<method1>[,<method2>]`` in order of less to more side
++effects. If driver is unsure about recovery or method is unknown (like reboot,
++firmware flashing, hardware replacement or any other procedure which can't be
++attempted on the fly), ``WEDGED=none`` will be sent instead.
++
++It is the responsibility of the driver to perform required cleanups (like
++disabling system memory access or signalling dma_fences) and prepare itself
++for the recovery before sending the event. Once the event is sent, driver
++should block all IOCTLs with an error code. This will signify the reason for
++wegeding which can be reported to the application if needed.
++
++Userspace consumers can parse this event and attempt recovery as per below
++expectations.
++
++    =============== ==================================
++    Recovery method Consumer expectations
++    =============== ==================================
++    rebind          unbind + rebind driver
++    bus-reset       unbind + reset bus device + rebind
++    none            admin/user policy
++    =============== ==================================
++
++Example for rebind
++~~~~~~~~~~~~~~~~~~
++
++Udev rule::
++
++    SUBSYSTEM=="drm", ENV{WEDGED}=="rebind", DEVPATH=="*/drm/card[0-9]",
++    RUN+="/path/to/rebind.sh $env{DEVPATH}"
++
++Recovery script::
++
++    #!/bin/sh
++
++    DEVPATH=$(readlink -f /sys/$1/device)
++    DEVICE=$(basename $DEVPATH)
++    DRIVER=$(readlink -f $DEVPATH/driver)
++
++    echo -n $DEVICE > $DRIVER/unbind
++    sleep 1
++    echo -n $DEVICE > $DRIVER/bind
++
++Although scripts are simple enough for basic recovery, admin/users can define
++customized policies around recovery action. For example if the driver supports
++multiple recovery methods, consumers can opt for the suitable one based on
++policy definition. Consumers can also take additional steps like gathering
++telemetry information (devcoredump, syslog), or have the device available for
++further debugging and data collection before performing the recovery. This is
++useful especially when the driver is unsure about recovery or method is unknown.
++
+ .. _drm_driver_ioctl:
  
- 	/* Retry unnecessary when holding the write lock. */
+ IOCTL Support on Device Nodes
 -- 
-2.39.2
+2.34.1
 
