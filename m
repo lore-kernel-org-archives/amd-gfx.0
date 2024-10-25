@@ -4,65 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90B12D10BF6
-	for <amd-gfx@archiver.kernel.org>; Sat, 26 Oct 2024 10:11:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 119CCD10BFC
+	for <amd-gfx@archiver.kernel.org>; Sat, 26 Oct 2024 15:51:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4DCC610E05B;
-	Sat, 26 Oct 2024 10:11:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2AB4310E0AE;
+	Sat, 26 Oct 2024 15:51:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="j1ojOyBI";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="jbIYh9rs";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F154110E013;
- Sat, 26 Oct 2024 10:11:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1729937464; x=1761473464;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=8DU14E5D0lWg600MwJ4URtFuPIv26XFVrn6CO/yON44=;
- b=j1ojOyBITwISF5CKMOCbTbb/OK94pVkNC0daNy57wLHD455rxUFLMYkg
- N2kL40XrXIbuhQqyTmPz/Mu5OkucgMRo+f88TAx41RVuzqb/dNXPbXkdd
- 5XnBXQwMY0BsY/6Zy1pkTzBFK/a8Ngq2nefUrASudv0hxDn/uaqA8tFkA
- NGdHkNiGoyuNSAPshT42NLFVk00GxdR+5Pd1yzGQ5Nr/5MlfV32j07OuA
- e7Bzw7atoG+3mUxLf/qzC7a6r8+jxyZv0hOjXhT+sSiUJ1TDUVQv4snoA
- i4almzX0ywtN5MNX+v6LGHN9Ie81sEi4RTqbFP9sZvUIbDp+vsAsUpca8 A==;
-X-CSE-ConnectionGUID: JBzeYvh5QpKZi4Se8GRjkw==
-X-CSE-MsgGUID: Sugp1e8iQemPPH+MKAxccA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11222"; a="29464306"
-X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="29464306"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Oct 2024 03:11:02 -0700
-X-CSE-ConnectionGUID: w7o/M5n7SL2VFBwPyocUFw==
-X-CSE-MsgGUID: r+fgvL8nRhaZ3YSCRxyh4Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,234,1725346800"; d="scan'208";a="81113883"
-Received: from lkp-server01.sh.intel.com (HELO a48cf1aa22e8) ([10.239.97.150])
- by orviesa009.jf.intel.com with ESMTP; 26 Oct 2024 03:10:56 -0700
-Received: from kbuild by a48cf1aa22e8 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1t4dkz-000ZUo-3D;
- Sat, 26 Oct 2024 10:10:54 +0000
-Date: Sat, 26 Oct 2024 18:10:30 +0800
-From: kernel test robot <lkp@intel.com>
-To: Raag Jadav <raag.jadav@intel.com>, airlied@gmail.com, simona@ffwll.ch,
- lucas.demarchi@intel.com, rodrigo.vivi@intel.com,
- jani.nikula@linux.intel.com, andriy.shevchenko@linux.intel.com,
- lina@asahilina.net, michal.wajdeczko@intel.com, christian.koenig@amd.com
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, himal.prasad.ghimiray@intel.com,
- aravind.iddamsetty@linux.intel.com, anshuman.gupta@intel.com,
- alexander.deucher@amd.com, andrealmeid@igalia.com,
- amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
- Raag Jadav <raag.jadav@intel.com>
-Subject: Re: [PATCH v8 1/4] drm: Introduce device wedged event
-Message-ID: <202410261754.enck8cc6-lkp@intel.com>
-References: <20241025084817.144621-2-raag.jadav@intel.com>
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5791910EAFF
+ for <amd-gfx@lists.freedesktop.org>; Fri, 25 Oct 2024 14:40:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=+DycNMg+QnHPjRtLEoHAz9VQrFSxIWsCkAN1HMXt5II=; b=jbIYh9rsT1OBxKsFY3a2y57/Pm
+ htSxA2DjgljyA3QzRvT/NreANC+q7bg3lLQuUv2SHLoSVctvvWqId2aKsDaOABf0H1QvpWQSiLbm/
+ 4us7LNR1CUKqBt3ToxdEvWNXDAiftsRZwiOYZMWblFLWLWGVB8WtBdPNAm1fAnZG93Oyrsw7GEg2w
+ 0W8Dh0J/dvEZty20r3x/pLc45kF5o8ofXlze1k39IGZOAQ1pd49B31HaLkxvb44gCmuWRhkaohArm
+ 2n9g1fDfH/juWXNheGhgsfIFW7PyhDvbvl0AL6HUrnHAJkPtWfgbzTwC6+RXwrL03VHfxUugzWUH1
+ 4IB8XCUw==;
+Received: from [90.241.98.187] (helo=[192.168.0.101])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1t4LTt-00F413-RQ; Fri, 25 Oct 2024 16:40:01 +0200
+Message-ID: <7bb9d58b-0718-41ec-8043-95cb7be9ac43@igalia.com>
+Date: Fri, 25 Oct 2024 15:40:00 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20241025084817.144621-2-raag.jadav@intel.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/pm: Vangogh: Fix kernel memory out of bounds write
+To: Mario Limonciello <mario.limonciello@amd.com>,
+ Tvrtko Ursulin <tursulin@igalia.com>, amd-gfx@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Evan Quan <evan.quan@amd.com>,
+ Wenyou Yang <WenYou.Yang@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ stable@vger.kernel.org
+References: <20241025141526.18572-1-tursulin@igalia.com>
+ <9323eaf1-d5c1-4153-bd5e-1bc12a4b0bc8@amd.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <9323eaf1-d5c1-4153-bd5e-1bc12a4b0bc8@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Sat, 26 Oct 2024 15:51:52 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,92 +64,140 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Raag,
 
-kernel test robot noticed the following build errors:
+On 25/10/2024 15:23, Mario Limonciello wrote:
+> On 10/25/2024 09:15, Tvrtko Ursulin wrote:
+>> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>>
+>> KASAN reports that the GPU metrics table allocated in
+>> vangogh_tables_init() is not large enough for the memset done in
+>> smu_cmn_init_soft_gpu_metrics(). Condensed report follows:
+>>
+>> [   33.861314] BUG: KASAN: slab-out-of-bounds in 
+>> smu_cmn_init_soft_gpu_metrics+0x73/0x200 [amdgpu]
+>> [   33.861799] Write of size 168 at addr ffff888129f59500 by task 
+>> mangoapp/1067
+>> ...
+>> [   33.861808] CPU: 6 UID: 1000 PID: 1067 Comm: mangoapp Tainted: 
+>> G        W          6.12.0-rc4 #356 
+>> 1a56f59a8b5182eeaf67eb7cb8b13594dd23b544
+>> [   33.861816] Tainted: [W]=WARN
+>> [   33.861818] Hardware name: Valve Galileo/Galileo, BIOS F7G0107 
+>> 12/01/2023
+>> [   33.861822] Call Trace:
+>> [   33.861826]  <TASK>
+>> [   33.861829]  dump_stack_lvl+0x66/0x90
+>> [   33.861838]  print_report+0xce/0x620
+>> [   33.861853]  kasan_report+0xda/0x110
+>> [   33.862794]  kasan_check_range+0xfd/0x1a0
+>> [   33.862799]  __asan_memset+0x23/0x40
+>> [   33.862803]  smu_cmn_init_soft_gpu_metrics+0x73/0x200 [amdgpu 
+>> 13b1bc364ec578808f676eba412c20eaab792779]
+>> [   33.863306]  vangogh_get_gpu_metrics_v2_4+0x123/0xad0 [amdgpu 
+>> 13b1bc364ec578808f676eba412c20eaab792779]
+>> [   33.864257]  vangogh_common_get_gpu_metrics+0xb0c/0xbc0 [amdgpu 
+>> 13b1bc364ec578808f676eba412c20eaab792779]
+>> [   33.865682]  amdgpu_dpm_get_gpu_metrics+0xcc/0x110 [amdgpu 
+>> 13b1bc364ec578808f676eba412c20eaab792779]
+>> [   33.866160]  amdgpu_get_gpu_metrics+0x154/0x2d0 [amdgpu 
+>> 13b1bc364ec578808f676eba412c20eaab792779]
+>> [   33.867135]  dev_attr_show+0x43/0xc0
+>> [   33.867147]  sysfs_kf_seq_show+0x1f1/0x3b0
+>> [   33.867155]  seq_read_iter+0x3f8/0x1140
+>> [   33.867173]  vfs_read+0x76c/0xc50
+>> [   33.867198]  ksys_read+0xfb/0x1d0
+>> [   33.867214]  do_syscall_64+0x90/0x160
+>> ...
+>> [   33.867353] Allocated by task 378 on cpu 7 at 22.794876s:
+>> [   33.867358]  kasan_save_stack+0x33/0x50
+>> [   33.867364]  kasan_save_track+0x17/0x60
+>> [   33.867367]  __kasan_kmalloc+0x87/0x90
+>> [   33.867371]  vangogh_init_smc_tables+0x3f9/0x840 [amdgpu]
+>> [   33.867835]  smu_sw_init+0xa32/0x1850 [amdgpu]
+>> [   33.868299]  amdgpu_device_init+0x467b/0x8d90 [amdgpu]
+>> [   33.868733]  amdgpu_driver_load_kms+0x19/0xf0 [amdgpu]
+>> [   33.869167]  amdgpu_pci_probe+0x2d6/0xcd0 [amdgpu]
+>> [   33.869608]  local_pci_probe+0xda/0x180
+>> [   33.869614]  pci_device_probe+0x43f/0x6b0
+>>
+>> Empirically we can confirm that the former allocates 152 bytes for the
+>> table, while the latter memsets the 168 large block.
+>>
+>> This is somewhat alleviated by the fact that allocation goes into a 192
+>> SLAB bucket, but then for v3_0 metrics the table grows to 264 bytes which
+>> would definitely be a problem.
+>>
+>> Root cause appears that when GPU metrics tables for v2_4 parts were added
+>> it was not considered to enlarge the table to fit.
+>>
+>> The fix in this patch is rather "brute force" and perhaps later should be
+>> done in a smarter way, by extracting and consolidating the part 
+>> version to
+>> size logic to a common helper, instead of brute forcing the largest
+>> possible allocation. Nevertheless, for now this works and fixes the 
+>> out of
+>> bounds write.
+>>
+>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>> Fixes: 41cec40bc9ba ("drm/amd/pm: Vangogh: Add new gpu_metrics_v2_4 to 
+>> acquire gpu_metrics")
+>> Cc: Mario Limonciello <mario.limonciello@amd.com>
+>> Cc: Evan Quan <evan.quan@amd.com>
+>> Cc: Wenyou Yang <WenYou.Yang@amd.com>
+>> Cc: Alex Deucher <alexander.deucher@amd.com>
+>> Cc: <stable@vger.kernel.org> # v6.6+
+>> ---
+>>   drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c | 5 ++++-
+>>   1 file changed, 4 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c 
+>> b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+>> index 22737b11b1bf..36f4a4651918 100644
+>> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+>> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+>> @@ -242,7 +242,10 @@ static int vangogh_tables_init(struct smu_context 
+>> *smu)
+>>           goto err0_out;
+>>       smu_table->metrics_time = 0;
+>> -    smu_table->gpu_metrics_table_size = max(sizeof(struct 
+>> gpu_metrics_v2_3), sizeof(struct gpu_metrics_v2_2));
+>> +    smu_table->gpu_metrics_table_size = sizeof(struct gpu_metrics_v2_2);
+>> +    smu_table->gpu_metrics_table_size = 
+>> max(smu_table->gpu_metrics_table_size, sizeof(struct gpu_metrics_v2_3));
+>> +    smu_table->gpu_metrics_table_size = 
+>> max(smu_table->gpu_metrics_table_size, sizeof(struct gpu_metrics_v2_4));
+>> +    smu_table->gpu_metrics_table_size = 
+>> max(smu_table->gpu_metrics_table_size, sizeof(struct gpu_metrics_v3_0));
+> 
+> AFAICT Van Gogh only supports 2.2, 2.3 or 2.4.  I don't think there is a 
+> need to compare to 3.0 to solve this bug this way.
 
-[auto build test ERROR on drm-xe/drm-xe-next]
-[also build test ERROR on drm-intel/for-linux-next drm-intel/for-linux-next-fixes drm-tip/drm-tip linus/master v6.12-rc4 next-20241025]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Gotcha.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Raag-Jadav/drm-Introduce-device-wedged-event/20241025-165119
-base:   https://gitlab.freedesktop.org/drm/xe/kernel.git drm-xe-next
-patch link:    https://lore.kernel.org/r/20241025084817.144621-2-raag.jadav%40intel.com
-patch subject: [PATCH v8 1/4] drm: Introduce device wedged event
-config: arm-randconfig-002-20241026 (https://download.01.org/0day-ci/archive/20241026/202410261754.enck8cc6-lkp@intel.com/config)
-compiler: clang version 20.0.0git (https://github.com/llvm/llvm-project 5886454669c3c9026f7f27eab13509dd0241f2d6)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20241026/202410261754.enck8cc6-lkp@intel.com/reproduce)
+> But generally yeah moving the initialization to a helper that actually 
+> knows the size would be another way to solve this.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202410261754.enck8cc6-lkp@intel.com/
+Yeah I was looking at smu_cmn_init_soft_gpu_metrics() and how it has the 
+data of how large table needs to be for each frev+crev combo. But didn't 
+go as far as trying to figure out if frev+crev would be available at 
+table allocation time.
 
-All errors (new ones prefixed by >>):
+> Or looking at it how about moving all the conditional code in 
+> vangogh_common_get_gpu_metrics() into vangogh_tables_init() and then 
+> assigning a vfunc for vangogh_common_get_gpu_metrics() to call?
 
-   In file included from drivers/gpu/drm/drm_drv.c:36:
-   In file included from include/linux/pseudo_fs.h:4:
-   In file included from include/linux/fs_context.h:14:
-   In file included from include/linux/security.h:33:
-   In file included from include/linux/mm.h:2213:
-   include/linux/vmstat.h:518:36: warning: arithmetic between different enumeration types ('enum node_stat_item' and 'enum lru_list') [-Wenum-enum-conversion]
-     518 |         return node_stat_name(NR_LRU_BASE + lru) + 3; // skip "nr_"
-         |                               ~~~~~~~~~~~ ^ ~~~
->> drivers/gpu/drm/drm_drv.c:81:3: error: expression is not an integer constant expression
-      81 |         [ffs(DRM_WEDGE_RECOVERY_REBIND) - 1]    = "rebind",
-         |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/asm-generic/bitops/ffs.h:43:16: note: expanded from macro 'ffs'
-      43 | #define ffs(x) generic_ffs(x)
-         |                ^
-   drivers/gpu/drm/drm_drv.c:82:3: error: expression is not an integer constant expression
-      82 |         [ffs(DRM_WEDGE_RECOVERY_BUS_RESET) - 1] = "bus-reset",
-         |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/asm-generic/bitops/ffs.h:43:16: note: expanded from macro 'ffs'
-      43 | #define ffs(x) generic_ffs(x)
-         |                ^
->> drivers/gpu/drm/drm_drv.c:84:15: error: invalid application of 'sizeof' to an incomplete type 'const char *const[]'
-      84 | static_assert(ARRAY_SIZE(drm_wedge_recovery_opts) == ffs(DRM_WEDGE_RECOVERY_BUS_RESET));
-         | ~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/array_size.h:11:32: note: expanded from macro 'ARRAY_SIZE'
-      11 | #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]) + __must_be_array(arr))
-         |                                ^
-   include/linux/build_bug.h:77:50: note: expanded from macro 'static_assert'
-      77 | #define static_assert(expr, ...) __static_assert(expr, ##__VA_ARGS__, #expr)
-         |                                  ~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/build_bug.h:78:56: note: expanded from macro '__static_assert'
-      78 | #define __static_assert(expr, msg, ...) _Static_assert(expr, msg)
-         |                                                        ^~~~
-   drivers/gpu/drm/drm_drv.c:528:32: error: invalid application of 'sizeof' to an incomplete type 'const char *const[]'
-     528 |         unsigned int len, opt, size = ARRAY_SIZE(drm_wedge_recovery_opts);
-         |                                       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/array_size.h:11:32: note: expanded from macro 'ARRAY_SIZE'
-      11 | #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]) + __must_be_array(arr))
-         |                                ^~~~~
-   1 warning and 4 errors generated.
+I did not quite follow. Happy to work on it though and I can look into 
+it with fresh eyes but not next week, but the week after.
 
-Kconfig warnings: (for reference only)
-   WARNING: unmet direct dependencies detected for MODVERSIONS
-   Depends on [n]: MODULES [=y] && !COMPILE_TEST [=y]
-   Selected by [y]:
-   - RANDSTRUCT_FULL [=y] && (CC_HAS_RANDSTRUCT [=y] || GCC_PLUGINS [=n]) && MODULES [=y]
+Or in the meantime if you want me to respin this fix just with v3_0 line 
+removed I can do that today.
 
+Regards,
 
-vim +81 drivers/gpu/drm/drm_drv.c
+Tvrtko
 
-    75	
-    76	/*
-    77	 * Available recovery methods for wedged device. To be sent along with device
-    78	 * wedged uevent.
-    79	 */
-    80	static const char *const drm_wedge_recovery_opts[] = {
-  > 81		[ffs(DRM_WEDGE_RECOVERY_REBIND) - 1]	= "rebind",
-    82		[ffs(DRM_WEDGE_RECOVERY_BUS_RESET) - 1]	= "bus-reset",
-    83	};
-  > 84	static_assert(ARRAY_SIZE(drm_wedge_recovery_opts) == ffs(DRM_WEDGE_RECOVERY_BUS_RESET));
-    85	
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+>>       smu_table->gpu_metrics_table = 
+>> kzalloc(smu_table->gpu_metrics_table_size, GFP_KERNEL);
+>>       if (!smu_table->gpu_metrics_table)
+>>           goto err1_out;
+> 
