@@ -4,64 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 183AAD13597
-	for <amd-gfx@archiver.kernel.org>; Mon, 28 Oct 2024 08:50:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3890D13588
+	for <amd-gfx@archiver.kernel.org>; Mon, 28 Oct 2024 09:05:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 07D9110E1F8;
-	Mon, 28 Oct 2024 08:50:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF26A10E378;
+	Mon, 28 Oct 2024 09:05:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="KrRT3LNi";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=oriole.systems header.i=@oriole.systems header.b="FfcKPbvy";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA21810E0A8;
- Mon, 28 Oct 2024 08:50:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1730105413; x=1761641413;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=657hYw7J/Dxe9Ea7h7VmmvLW1VdPQO7SipI2N9ffzt8=;
- b=KrRT3LNiS8OoqcwS4S6tEZqDbpcS3QZ0VQZCkj/medfL094CfCq0g3G4
- svCBVvuPNem+oDa8/uIN6Tf9mBURgnnnZT0gPnXwLDGx2idp+o5b3w0RJ
- PknW/AYclFEXzcJp4g7j1daHEm4N85KfhFR+h+mj7OrbPZGi5dQ+zGEQY
- GBRcaP5j0me6BYvCtEsfRk6KPKW1qJJrjsIZnS6fMyCB8A+D8vJjwiCBN
- uOmiHks6gSVEI8ikPbOVF0SQe/wB3AKaT6Ks7pSLmZ+xI63dnumyegrt5
- EqMofRTn9UqjtW5OOqL74ENntfK6M47guU/n08J0SfmOyO5mvgheXHixg A==;
-X-CSE-ConnectionGUID: pSEq8OoBRw2eaJKGhqQKtQ==
-X-CSE-MsgGUID: qL1RQSZEQRCZp/0Lp1UpTw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11238"; a="29126990"
-X-IronPort-AV: E=Sophos;i="6.11,238,1725346800"; d="scan'208";a="29126990"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2024 01:50:12 -0700
-X-CSE-ConnectionGUID: +lvN+3RwSQWFs6MEyUaSDw==
-X-CSE-MsgGUID: oygOs0J6SVK/IB7Ahnltgw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,238,1725346800"; d="scan'208";a="81715545"
-Received: from fdefranc-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.246.21])
- by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2024 01:50:05 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Raag Jadav <raag.jadav@intel.com>, airlied@gmail.com, simona@ffwll.ch,
- lucas.demarchi@intel.com, rodrigo.vivi@intel.com,
- andriy.shevchenko@linux.intel.com, lina@asahilina.net,
- michal.wajdeczko@intel.com, christian.koenig@amd.com
-Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, himal.prasad.ghimiray@intel.com,
- aravind.iddamsetty@linux.intel.com, anshuman.gupta@intel.com,
- alexander.deucher@amd.com, andrealmeid@igalia.com,
- amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com, Raag Jadav
- <raag.jadav@intel.com>
-Subject: Re: [PATCH v8 1/4] drm: Introduce device wedged event
-In-Reply-To: <87r084r1lp.fsf@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20241025084817.144621-1-raag.jadav@intel.com>
- <20241025084817.144621-2-raag.jadav@intel.com> <87r084r1lp.fsf@intel.com>
-Date: Mon, 28 Oct 2024 10:50:02 +0200
-Message-ID: <87ttcwpq6d.fsf@intel.com>
+Received: from coleridge.oriole.systems (coleridge.oriole.systems
+ [89.238.76.34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A6A910E378
+ for <amd-gfx@lists.freedesktop.org>; Mon, 28 Oct 2024 09:05:22 +0000 (UTC)
+Date: Mon, 28 Oct 2024 10:05:19 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=oriole.systems;
+ s=canary-202303; t=1730106320;
+ bh=Gpg77EinHbeOgbpEgideC2qWTa61xKJ6N5zBOuUXwx0=;
+ h=Date:From:To:Subject:Message-ID:References:MIME-Version:
+ Content-Type:Content-Transfer-Encoding:In-Reply-To:From:Sender:
+ Reply-To:Subject:Date:Message-Id:To:Cc:Mime-Version:Content-Type:
+ Content-Transfer-Encoding:In-Reply-To:References;
+ b=FfcKPbvyo74xWxcUBd7Ta4U/5yOunuk3HIPPeUQNCYYDuyYZMVFpqRqTeKsb94wHr
+ sjNGCRy1NbEM0lHx5APiqgkxjVBJ0vqwFAa/BDRoNutEHSMkiY7qWs21xNAjyM0Y1k
+ UdE87Fx5YZA/rUhnuFuNIED1Jdd/A7cnLqkV+JkJGtAx0kFjmO/lMex2faE75uV9PD
+ 6fB1EQy/BgiNgR2dB0XGcnNSmZvCt5TevilrWx3e3RT6FoXh9oGceJfL4XpkQdED5K
+ NHrZ21ncGA6qNDoqowpukwzaz97lduZ7Ak0p9ztfQGOkit4L/6mXXc/uCPl9VZjhqj
+ f3sPnuSKskEtg==
+From: Wolfgang =?utf-8?Q?M=C3=BCller?= <wolf@oriole.systems>
+To: amd-gfx@lists.freedesktop.org
+Subject: Re: [RFC PATCH] drm/amd/pm: add zero RPM OD setting support for SMU13
+Message-ID: <u7ba2md2p5cq3csmzshtxwhutruns7pkovqsfspewsfdt6yrww@ur5azx3cekju>
+Mail-Followup-To: amd-gfx@lists.freedesktop.org
+References: <20241019143706.18779-1-wolf@oriole.systems>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20241019143706.18779-1-wolf@oriole.systems>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,31 +55,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 25 Oct 2024, Jani Nikula <jani.nikula@linux.intel.com> wrote:
-> On Fri, 25 Oct 2024, Raag Jadav <raag.jadav@intel.com> wrote:
->> @@ -70,6 +73,16 @@ static struct dentry *drm_debugfs_root;
->>  
->>  DEFINE_STATIC_SRCU(drm_unplug_srcu);
->>  
->> +/*
->> + * Available recovery methods for wedged device. To be sent along with device
->> + * wedged uevent.
->> + */
->> +static const char *const drm_wedge_recovery_opts[] = {
->> +	[ffs(DRM_WEDGE_RECOVERY_REBIND) - 1]	= "rebind",
->> +	[ffs(DRM_WEDGE_RECOVERY_BUS_RESET) - 1]	= "bus-reset",
->> +};
->> +static_assert(ARRAY_SIZE(drm_wedge_recovery_opts) == ffs(DRM_WEDGE_RECOVERY_BUS_RESET));
->
-> This might work in most cases, but you also might end up finding that
-> there's an arch and compiler combo out there that just won't be able to
-> figure out ffs() at compile time, and the array initialization fails.
+On 2024-10-19 16:37, Wolfgang Müller wrote:
+> Whilst we have support for setting fan curves there is no support for
+> disabling the zero RPM feature. Since the relevant bits are already
+> present in the OverDriveTable, hook them up to a sysctl setting so users
+> can influence this behaviour.
+> 
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3489
+> Signed-off-by: Wolfgang Müller <wolf@oriole.systems>
+> ---
+> I've been wanting this feature for a while so today I sat down and had a
+> look at how to best implement it. This is my first ever look at amdgpu
+> code, so I've marked it with RFC. I've based it on the implementation of
+> eedd5a343d22 (drm/amd/pm: add fan target temperature OD setting support
+> for SMU13, 2023-08-11) and also hooked resetting the knob with "r".
+> 
+> One thing I'm unsure about is using PP_OD_FEATURE_ZERO_FAN_BIT for
+> FeatureCtrlMask. I'm not sure this is the right thing to use there.
+> 
+> I successfully tested this on my own system with a 7900XTX; enabling and
+> disabling as well as resetting the knob to its default value work fine.
 
-And the kernel test robot hits exactly this.
+I'd love to see this feature in the driver, so would very much welcome
+some feedback on this topic.
 
-BR,
-Jani.
-
+Thanks!
 
 -- 
-Jani Nikula, Intel
+Wolf
