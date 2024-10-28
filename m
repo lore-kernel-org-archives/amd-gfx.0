@@ -4,60 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA525D3E2BA
-	for <amd-gfx@archiver.kernel.org>; Mon, 28 Oct 2024 19:45:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4B3ED3E2BC
+	for <amd-gfx@archiver.kernel.org>; Mon, 28 Oct 2024 19:45:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0BFC10E549;
-	Mon, 28 Oct 2024 19:45:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4808510E54D;
+	Mon, 28 Oct 2024 19:45:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hICOGxdQ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="enwCQOqf";
 	dkim-atps=neutral
 Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com
  [209.85.210.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9772010E54D
- for <amd-gfx@lists.freedesktop.org>; Mon, 28 Oct 2024 19:45:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5773410E54D
+ for <amd-gfx@lists.freedesktop.org>; Mon, 28 Oct 2024 19:45:51 +0000 (UTC)
 Received: by mail-pf1-f175.google.com with SMTP id
- d2e1a72fcca58-71e5a00d676so173433b3a.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 28 Oct 2024 12:45:00 -0700 (PDT)
+ d2e1a72fcca58-71e5a00d676so173525b3a.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 28 Oct 2024 12:45:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1730144700; x=1730749500; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1730144751; x=1730749551; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Z7QaxWC1GlRVsS83w9rhBzwV3nxEdLHDDfrSe5YIHAw=;
- b=hICOGxdQTS4l6DBQBkJAOT/ID25ZozUCWjOBhpoH8/G2h16PWbYAZTAHDV7LIBUb+J
- 1WJ5nfWTgd27+ZAJoXVtqqj6RVWAnkrpjcsVy7z2RZ59LTANUPR15KvasGaqCE+668pA
- wNZXsq728ITU+fQz2YGZ+NiG9HAODPCYKQU79ksdB4BXFm3YJmmvfRdCy114q5qfC/Pj
- 8z246FP9WxF9NaVtVPZYVsDCXQ6vBBT4HCT4z1VQAkne751L8gtooH3aAEzs+jzVKM41
- DqbmE/q9lMs+iLQxStxmUF5oe8Jly3TgB+GR8e1zZHo8bTyApWOwsII/IRKg3Jx5k+CB
- fxcA==
+ bh=wouVfqb+pWBTZwpjTg7ygSr5G1H8AgriDbLw8jYCMbc=;
+ b=enwCQOqfOkm+2SHsnGwOnIy/ipPZgT118gMDm6qoWuRvt4yFkcF5DsgPsfTNXNNQVf
+ 4olNABOtT+XO3qDLoHqz4TkTrU1hsw4kJqapm1bMrv5Ma9p9YU3o/V/2z5/QiZDiMiqm
+ 48MVsiCpVoNgYvO4TruOrfPjSOGyrDhoCmN3KstMDB+wkjAs2JHGCeK9TZjj0TMllV4A
+ hFi5FP4eSFLr8cyZQDqXSYkNcwBWgcjrPzDJhfhnxc5qVAoyakFPjUS0CXeAo+VSc7Hh
+ pEK79622WoTngnj4KG/kfbezQgi+qc9yJ8rvs5jFe+RlaXvKE/OjYJq8Y9JMxbCKNasR
+ Oa1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1730144700; x=1730749500;
+ d=1e100.net; s=20230601; t=1730144751; x=1730749551;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Z7QaxWC1GlRVsS83w9rhBzwV3nxEdLHDDfrSe5YIHAw=;
- b=cBToUiVilS5ja1oj9MOf5rQu60nkzrQJxBIEjsfHqiqAciLqBzxaxyEihMpSBw+Owh
- VILInzaM5H2bKFu14HbHkkc0Br93CKAf26np6QIRVMBlwaGAnG8ZGVA6InhsGcJGhG7y
- d0aXpZu0nsIMkICCOntPAGRCvkrC+MHt4ylBsXTT8z90AUYQrF88GmnOkGK+dVviPnI0
- 4aB3i+mqU+8UvZC8dH5M8KtcoraWgcW6JTM1eqLFjypfaFIQTymM94iRrbX9NEM86aQB
- LzkPf2A/iCAieZcbOEoF+fgU8tooIF8wjQ8YZCR54Un5hks5gccJpZsbK6msb4KMzNa1
- IaeA==
-X-Gm-Message-State: AOJu0Yz6SfAu+Hj2VIdcqvW/KOorCwP7MShav/q4Hir4VIjP/o3GOF42
- BKLPIEvVEaRsZ29aFUebVzw/QHc3wVadE5XK+Is+zPqm4miNZ9Rd3V5H6hF/mDmWnDjQwTJI7f2
- Pa7r6yYQRWaleYtG0qJ/R+LxLx/bdoy3p
-X-Google-Smtp-Source: AGHT+IEsSJIh9Tur+hU8RnJAzC2eOlbt19iiptXTXyMV/pra0vSJtVrdWFU+7/LNHIzMKiLB+Bj9aFjBkNgB7GQ/1jM=
-X-Received: by 2002:a05:6a00:2e26:b0:71e:66bb:d33b with SMTP id
- d2e1a72fcca58-72062f1e0a5mr5770116b3a.1.1730144700013; Mon, 28 Oct 2024
- 12:45:00 -0700 (PDT)
+ bh=wouVfqb+pWBTZwpjTg7ygSr5G1H8AgriDbLw8jYCMbc=;
+ b=V1Onl2hzGBkqV3YqYLV02EMYJQvjrRdyRpa+rX9K6nbdpjnsRPxgC2r5EZHlaIocf0
+ p85UJrXBsWVTkoZzJqIBfWHt1Uv5NPnXq7ryQAOusEk2t5waD3cYuQqFrOWeVV4FF61M
+ Dae7a4D1v5BlHgzCJ8FsDF5OhRfQLT0mmyWfGCTGrDu2wK6JK10eQK164FiTh/PduBX3
+ JMKzkDo+l/+CkKYhv2ouMb3zcZN4gflM0vQmqkJraxx6JAlZIKKjd0IdA64GXVvUMKnI
+ mgK9SiTWX68T0zoZbgLmqVECB2YPFn/zZ0B0uKX+MQ6qzbGN0SQESoJarpjXREtcGr/L
+ JMkQ==
+X-Gm-Message-State: AOJu0YzOGctJclzKb27vUr0r9pujFLCNkroykFUhUVCJEnMfGrBHDMuP
+ xV3SR+iYeioqHEg+L2Sah2Wr5ertGXgcHOcMijuOXdM33J4k87zPeLnriAsS0rzxaCTth1/3Tro
+ d8sa97R12End1e4qB/rms+nMfMe7Q2mR/
+X-Google-Smtp-Source: AGHT+IHvh2ohxhOzboEpMCtJQRIagoSdSwSLE3jngxg1hDACGIshfzZYfy2NO7LDDZk9Si1tHmIJudkEfP1A9UIaq90=
+X-Received: by 2002:a05:6a00:889:b0:71e:770d:2c00 with SMTP id
+ d2e1a72fcca58-72063020e78mr5729693b3a.4.1730144750670; Mon, 28 Oct 2024
+ 12:45:50 -0700 (PDT)
 MIME-Version: 1.0
 References: <20241025023545.465886-1-boyuan.zhang@amd.com>
- <20241025023545.465886-29-boyuan.zhang@amd.com>
-In-Reply-To: <20241025023545.465886-29-boyuan.zhang@amd.com>
+ <20241025023545.465886-30-boyuan.zhang@amd.com>
+In-Reply-To: <20241025023545.465886-30-boyuan.zhang@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 28 Oct 2024 15:44:48 -0400
-Message-ID: <CADnq5_M3KgNF_XfSO8FXtDf5ZrWM0=eGEhh-5qjM1_-F-3VVQQ@mail.gmail.com>
-Subject: Re: [PATCH 28/29] drm/amdgpu: wait_for_idle for each vcn instance
+Date: Mon, 28 Oct 2024 15:45:38 -0400
+Message-ID: <CADnq5_PJKniZ9kvu-C0M-WcpmsgJXBH6e_aSeGKz3k_VQpEOOg@mail.gmail.com>
+Subject: Re: [PATCH 29/29] drm/amdgpu: set_powergating for each vcn instance
 To: boyuan.zhang@amd.com
 Cc: amd-gfx@lists.freedesktop.org, leo.liu@amd.com, christian.koenig@amd.com, 
  alexander.deucher@amd.com, sunil.khatri@amd.com
@@ -77,71 +77,419 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Oct 24, 2024 at 10:36=E2=80=AFPM <boyuan.zhang@amd.com> wrote:
+On Fri, Oct 25, 2024 at 1:13=E2=80=AFAM <boyuan.zhang@amd.com> wrote:
 >
 > From: Boyuan Zhang <boyuan.zhang@amd.com>
 >
-> Perform wait_for_idle only for the instance of the current vcn IP block,
-> instead of perform it for all vcn instances.
->
-> v2: remove unneeded local variable initialization.
+> Perform set_powergating_state only for the instance of the current vcn
+> IP block, instead of perform it for all vcn instances.
 >
 > Signed-off-by: Boyuan Zhang <boyuan.zhang@amd.com>
+> Acked-by: Christian K=C3=B6nig <christian.koenig@amd.com>
 
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
 > ---
->  drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c   | 16 +++++++---------
->  drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c   | 15 ++++++---------
->  drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c   | 15 ++++++---------
->  drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c | 11 ++++-------
->  drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c | 15 ++++++---------
->  drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c | 15 ++++++---------
->  6 files changed, 35 insertions(+), 52 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c   | 313 ++++++++++++------------
+>  drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c   |  20 +-
+>  drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c   |  20 +-
+>  drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c |  19 +-
+>  drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c |  20 +-
+>  drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c |  20 +-
+>  6 files changed, 199 insertions(+), 213 deletions(-)
 >
 > diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c b/drivers/gpu/drm/amd/=
 amdgpu/vcn_v2_5.c
-> index 2e5888b905fb..34d94b09f04c 100644
+> index 34d94b09f04c..da3d55cc3ac1 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-> @@ -1777,16 +1777,14 @@ static bool vcn_v2_5_is_idle(void *handle)
->  static int vcn_v2_5_wait_for_idle(struct amdgpu_ip_block *ip_block)
+> @@ -612,114 +612,111 @@ static void vcn_v2_5_mc_resume_dpg_mode(struct am=
+dgpu_device *adev, int inst_idx
+>   *
+>   * Disable clock gating for VCN block
+>   */
+> -static void vcn_v2_5_disable_clock_gating(struct amdgpu_device *adev)
+> +static void vcn_v2_5_disable_clock_gating(struct amdgpu_device *adev, in=
+t inst)
 >  {
->         struct amdgpu_device *adev =3D ip_block->adev;
-> -       int i, ret =3D 0;
-> +       int inst =3D ip_block->instance;
-> +       int ret;
+>         uint32_t data;
+> -       int i;
 >
 > -       for (i =3D 0; i < adev->vcn.num_vcn_inst; ++i) {
 > -               if (adev->vcn.harvest_config & (1 << i))
 > -                       continue;
-> -               ret =3D SOC15_WAIT_ON_RREG(VCN, i, mmUVD_STATUS, UVD_STAT=
-US__IDLE,
-> -                       UVD_STATUS__IDLE);
-> -               if (ret)
-> -                       return ret;
+> -               /* UVD disable CGC */
+> -               data =3D RREG32_SOC15(VCN, i, mmUVD_CGC_CTRL);
+> -               if (adev->cg_flags & AMD_CG_SUPPORT_VCN_MGCG)
+> -                       data |=3D 1 << UVD_CGC_CTRL__DYN_CLOCK_MODE__SHIF=
+T;
+> -               else
+> -                       data &=3D ~UVD_CGC_CTRL__DYN_CLOCK_MODE_MASK;
+> -               data |=3D 1 << UVD_CGC_CTRL__CLK_GATE_DLY_TIMER__SHIFT;
+> -               data |=3D 4 << UVD_CGC_CTRL__CLK_OFF_DELAY__SHIFT;
+> -               WREG32_SOC15(VCN, i, mmUVD_CGC_CTRL, data);
+> -
+> -               data =3D RREG32_SOC15(VCN, i, mmUVD_CGC_GATE);
+> -               data &=3D ~(UVD_CGC_GATE__SYS_MASK
+> -                       | UVD_CGC_GATE__UDEC_MASK
+> -                       | UVD_CGC_GATE__MPEG2_MASK
+> -                       | UVD_CGC_GATE__REGS_MASK
+> -                       | UVD_CGC_GATE__RBC_MASK
+> -                       | UVD_CGC_GATE__LMI_MC_MASK
+> -                       | UVD_CGC_GATE__LMI_UMC_MASK
+> -                       | UVD_CGC_GATE__IDCT_MASK
+> -                       | UVD_CGC_GATE__MPRD_MASK
+> -                       | UVD_CGC_GATE__MPC_MASK
+> -                       | UVD_CGC_GATE__LBSI_MASK
+> -                       | UVD_CGC_GATE__LRBBM_MASK
+> -                       | UVD_CGC_GATE__UDEC_RE_MASK
+> -                       | UVD_CGC_GATE__UDEC_CM_MASK
+> -                       | UVD_CGC_GATE__UDEC_IT_MASK
+> -                       | UVD_CGC_GATE__UDEC_DB_MASK
+> -                       | UVD_CGC_GATE__UDEC_MP_MASK
+> -                       | UVD_CGC_GATE__WCB_MASK
+> -                       | UVD_CGC_GATE__VCPU_MASK
+> -                       | UVD_CGC_GATE__MMSCH_MASK);
+> -
+> -               WREG32_SOC15(VCN, i, mmUVD_CGC_GATE, data);
+> -
+> -               SOC15_WAIT_ON_RREG(VCN, i, mmUVD_CGC_GATE, 0,  0xFFFFFFFF=
+);
+> -
+> -               data =3D RREG32_SOC15(VCN, i, mmUVD_CGC_CTRL);
+> -               data &=3D ~(UVD_CGC_CTRL__UDEC_RE_MODE_MASK
+> -                       | UVD_CGC_CTRL__UDEC_CM_MODE_MASK
+> -                       | UVD_CGC_CTRL__UDEC_IT_MODE_MASK
+> -                       | UVD_CGC_CTRL__UDEC_DB_MODE_MASK
+> -                       | UVD_CGC_CTRL__UDEC_MP_MODE_MASK
+> -                       | UVD_CGC_CTRL__SYS_MODE_MASK
+> -                       | UVD_CGC_CTRL__UDEC_MODE_MASK
+> -                       | UVD_CGC_CTRL__MPEG2_MODE_MASK
+> -                       | UVD_CGC_CTRL__REGS_MODE_MASK
+> -                       | UVD_CGC_CTRL__RBC_MODE_MASK
+> -                       | UVD_CGC_CTRL__LMI_MC_MODE_MASK
+> -                       | UVD_CGC_CTRL__LMI_UMC_MODE_MASK
+> -                       | UVD_CGC_CTRL__IDCT_MODE_MASK
+> -                       | UVD_CGC_CTRL__MPRD_MODE_MASK
+> -                       | UVD_CGC_CTRL__MPC_MODE_MASK
+> -                       | UVD_CGC_CTRL__LBSI_MODE_MASK
+> -                       | UVD_CGC_CTRL__LRBBM_MODE_MASK
+> -                       | UVD_CGC_CTRL__WCB_MODE_MASK
+> -                       | UVD_CGC_CTRL__VCPU_MODE_MASK
+> -                       | UVD_CGC_CTRL__MMSCH_MODE_MASK);
+> -               WREG32_SOC15(VCN, i, mmUVD_CGC_CTRL, data);
+> -
+> -               /* turn on */
+> -               data =3D RREG32_SOC15(VCN, i, mmUVD_SUVD_CGC_GATE);
+> -               data |=3D (UVD_SUVD_CGC_GATE__SRE_MASK
+> -                       | UVD_SUVD_CGC_GATE__SIT_MASK
+> -                       | UVD_SUVD_CGC_GATE__SMP_MASK
+> -                       | UVD_SUVD_CGC_GATE__SCM_MASK
+> -                       | UVD_SUVD_CGC_GATE__SDB_MASK
+> -                       | UVD_SUVD_CGC_GATE__SRE_H264_MASK
+> -                       | UVD_SUVD_CGC_GATE__SRE_HEVC_MASK
+> -                       | UVD_SUVD_CGC_GATE__SIT_H264_MASK
+> -                       | UVD_SUVD_CGC_GATE__SIT_HEVC_MASK
+> -                       | UVD_SUVD_CGC_GATE__SCM_H264_MASK
+> -                       | UVD_SUVD_CGC_GATE__SCM_HEVC_MASK
+> -                       | UVD_SUVD_CGC_GATE__SDB_H264_MASK
+> -                       | UVD_SUVD_CGC_GATE__SDB_HEVC_MASK
+> -                       | UVD_SUVD_CGC_GATE__SCLR_MASK
+> -                       | UVD_SUVD_CGC_GATE__UVD_SC_MASK
+> -                       | UVD_SUVD_CGC_GATE__ENT_MASK
+> -                       | UVD_SUVD_CGC_GATE__SIT_HEVC_DEC_MASK
+> -                       | UVD_SUVD_CGC_GATE__SIT_HEVC_ENC_MASK
+> -                       | UVD_SUVD_CGC_GATE__SITE_MASK
+> -                       | UVD_SUVD_CGC_GATE__SRE_VP9_MASK
+> -                       | UVD_SUVD_CGC_GATE__SCM_VP9_MASK
+> -                       | UVD_SUVD_CGC_GATE__SIT_VP9_DEC_MASK
+> -                       | UVD_SUVD_CGC_GATE__SDB_VP9_MASK
+> -                       | UVD_SUVD_CGC_GATE__IME_HEVC_MASK);
+> -               WREG32_SOC15(VCN, i, mmUVD_SUVD_CGC_GATE, data);
+> -
+> -               data =3D RREG32_SOC15(VCN, i, mmUVD_SUVD_CGC_CTRL);
+> -               data &=3D ~(UVD_SUVD_CGC_CTRL__SRE_MODE_MASK
+> -                       | UVD_SUVD_CGC_CTRL__SIT_MODE_MASK
+> -                       | UVD_SUVD_CGC_CTRL__SMP_MODE_MASK
+> -                       | UVD_SUVD_CGC_CTRL__SCM_MODE_MASK
+> -                       | UVD_SUVD_CGC_CTRL__SDB_MODE_MASK
+> -                       | UVD_SUVD_CGC_CTRL__SCLR_MODE_MASK
+> -                       | UVD_SUVD_CGC_CTRL__UVD_SC_MODE_MASK
+> -                       | UVD_SUVD_CGC_CTRL__ENT_MODE_MASK
+> -                       | UVD_SUVD_CGC_CTRL__IME_MODE_MASK
+> -                       | UVD_SUVD_CGC_CTRL__SITE_MODE_MASK);
+> -               WREG32_SOC15(VCN, i, mmUVD_SUVD_CGC_CTRL, data);
 > -       }
 > +       if (adev->vcn.harvest_config & (1 << inst))
-> +               return 0;
+> +               return;
+> +       /* UVD disable CGC */
+> +       data =3D RREG32_SOC15(VCN, inst, mmUVD_CGC_CTRL);
+> +       if (adev->cg_flags & AMD_CG_SUPPORT_VCN_MGCG)
+> +               data |=3D 1 << UVD_CGC_CTRL__DYN_CLOCK_MODE__SHIFT;
+> +       else
+> +               data &=3D ~UVD_CGC_CTRL__DYN_CLOCK_MODE_MASK;
+> +       data |=3D 1 << UVD_CGC_CTRL__CLK_GATE_DLY_TIMER__SHIFT;
+> +       data |=3D 4 << UVD_CGC_CTRL__CLK_OFF_DELAY__SHIFT;
+> +       WREG32_SOC15(VCN, inst, mmUVD_CGC_CTRL, data);
 > +
-> +       ret =3D SOC15_WAIT_ON_RREG(VCN, inst, mmUVD_STATUS, UVD_STATUS__I=
-DLE,
-> +               UVD_STATUS__IDLE);
->
->         return ret;
+> +       data =3D RREG32_SOC15(VCN, inst, mmUVD_CGC_GATE);
+> +       data &=3D ~(UVD_CGC_GATE__SYS_MASK
+> +               | UVD_CGC_GATE__UDEC_MASK
+> +               | UVD_CGC_GATE__MPEG2_MASK
+> +               | UVD_CGC_GATE__REGS_MASK
+> +               | UVD_CGC_GATE__RBC_MASK
+> +               | UVD_CGC_GATE__LMI_MC_MASK
+> +               | UVD_CGC_GATE__LMI_UMC_MASK
+> +               | UVD_CGC_GATE__IDCT_MASK
+> +               | UVD_CGC_GATE__MPRD_MASK
+> +               | UVD_CGC_GATE__MPC_MASK
+> +               | UVD_CGC_GATE__LBSI_MASK
+> +               | UVD_CGC_GATE__LRBBM_MASK
+> +               | UVD_CGC_GATE__UDEC_RE_MASK
+> +               | UVD_CGC_GATE__UDEC_CM_MASK
+> +               | UVD_CGC_GATE__UDEC_IT_MASK
+> +               | UVD_CGC_GATE__UDEC_DB_MASK
+> +               | UVD_CGC_GATE__UDEC_MP_MASK
+> +               | UVD_CGC_GATE__WCB_MASK
+> +               | UVD_CGC_GATE__VCPU_MASK
+> +               | UVD_CGC_GATE__MMSCH_MASK);
+> +
+> +       WREG32_SOC15(VCN, inst, mmUVD_CGC_GATE, data);
+> +
+> +       SOC15_WAIT_ON_RREG(VCN, inst, mmUVD_CGC_GATE, 0,  0xFFFFFFFF);
+> +
+> +       data =3D RREG32_SOC15(VCN, inst, mmUVD_CGC_CTRL);
+> +       data &=3D ~(UVD_CGC_CTRL__UDEC_RE_MODE_MASK
+> +               | UVD_CGC_CTRL__UDEC_CM_MODE_MASK
+> +               | UVD_CGC_CTRL__UDEC_IT_MODE_MASK
+> +               | UVD_CGC_CTRL__UDEC_DB_MODE_MASK
+> +               | UVD_CGC_CTRL__UDEC_MP_MODE_MASK
+> +               | UVD_CGC_CTRL__SYS_MODE_MASK
+> +               | UVD_CGC_CTRL__UDEC_MODE_MASK
+> +               | UVD_CGC_CTRL__MPEG2_MODE_MASK
+> +               | UVD_CGC_CTRL__REGS_MODE_MASK
+> +               | UVD_CGC_CTRL__RBC_MODE_MASK
+> +               | UVD_CGC_CTRL__LMI_MC_MODE_MASK
+> +               | UVD_CGC_CTRL__LMI_UMC_MODE_MASK
+> +               | UVD_CGC_CTRL__IDCT_MODE_MASK
+> +               | UVD_CGC_CTRL__MPRD_MODE_MASK
+> +               | UVD_CGC_CTRL__MPC_MODE_MASK
+> +               | UVD_CGC_CTRL__LBSI_MODE_MASK
+> +               | UVD_CGC_CTRL__LRBBM_MODE_MASK
+> +               | UVD_CGC_CTRL__WCB_MODE_MASK
+> +               | UVD_CGC_CTRL__VCPU_MODE_MASK
+> +               | UVD_CGC_CTRL__MMSCH_MODE_MASK);
+> +       WREG32_SOC15(VCN, inst, mmUVD_CGC_CTRL, data);
+> +
+> +       /* turn on */
+> +       data =3D RREG32_SOC15(VCN, inst, mmUVD_SUVD_CGC_GATE);
+> +       data |=3D (UVD_SUVD_CGC_GATE__SRE_MASK
+> +               | UVD_SUVD_CGC_GATE__SIT_MASK
+> +               | UVD_SUVD_CGC_GATE__SMP_MASK
+> +               | UVD_SUVD_CGC_GATE__SCM_MASK
+> +               | UVD_SUVD_CGC_GATE__SDB_MASK
+> +               | UVD_SUVD_CGC_GATE__SRE_H264_MASK
+> +               | UVD_SUVD_CGC_GATE__SRE_HEVC_MASK
+> +               | UVD_SUVD_CGC_GATE__SIT_H264_MASK
+> +               | UVD_SUVD_CGC_GATE__SIT_HEVC_MASK
+> +               | UVD_SUVD_CGC_GATE__SCM_H264_MASK
+> +               | UVD_SUVD_CGC_GATE__SCM_HEVC_MASK
+> +               | UVD_SUVD_CGC_GATE__SDB_H264_MASK
+> +               | UVD_SUVD_CGC_GATE__SDB_HEVC_MASK
+> +               | UVD_SUVD_CGC_GATE__SCLR_MASK
+> +               | UVD_SUVD_CGC_GATE__UVD_SC_MASK
+> +               | UVD_SUVD_CGC_GATE__ENT_MASK
+> +               | UVD_SUVD_CGC_GATE__SIT_HEVC_DEC_MASK
+> +               | UVD_SUVD_CGC_GATE__SIT_HEVC_ENC_MASK
+> +               | UVD_SUVD_CGC_GATE__SITE_MASK
+> +               | UVD_SUVD_CGC_GATE__SRE_VP9_MASK
+> +               | UVD_SUVD_CGC_GATE__SCM_VP9_MASK
+> +               | UVD_SUVD_CGC_GATE__SIT_VP9_DEC_MASK
+> +               | UVD_SUVD_CGC_GATE__SDB_VP9_MASK
+> +               | UVD_SUVD_CGC_GATE__IME_HEVC_MASK);
+> +       WREG32_SOC15(VCN, inst, mmUVD_SUVD_CGC_GATE, data);
+> +
+> +       data =3D RREG32_SOC15(VCN, inst, mmUVD_SUVD_CGC_CTRL);
+> +       data &=3D ~(UVD_SUVD_CGC_CTRL__SRE_MODE_MASK
+> +               | UVD_SUVD_CGC_CTRL__SIT_MODE_MASK
+> +               | UVD_SUVD_CGC_CTRL__SMP_MODE_MASK
+> +               | UVD_SUVD_CGC_CTRL__SCM_MODE_MASK
+> +               | UVD_SUVD_CGC_CTRL__SDB_MODE_MASK
+> +               | UVD_SUVD_CGC_CTRL__SCLR_MODE_MASK
+> +               | UVD_SUVD_CGC_CTRL__UVD_SC_MODE_MASK
+> +               | UVD_SUVD_CGC_CTRL__ENT_MODE_MASK
+> +               | UVD_SUVD_CGC_CTRL__IME_MODE_MASK
+> +               | UVD_SUVD_CGC_CTRL__SITE_MODE_MASK);
+> +       WREG32_SOC15(VCN, inst, mmUVD_SUVD_CGC_CTRL, data);
 >  }
+>
+>  static void vcn_v2_5_clock_gating_dpg_mode(struct amdgpu_device *adev,
+> @@ -777,59 +774,56 @@ static void vcn_v2_5_clock_gating_dpg_mode(struct a=
+mdgpu_device *adev,
+>   *
+>   * Enable clock gating for VCN block
+>   */
+> -static void vcn_v2_5_enable_clock_gating(struct amdgpu_device *adev)
+> +static void vcn_v2_5_enable_clock_gating(struct amdgpu_device *adev, int=
+ inst)
+>  {
+>         uint32_t data =3D 0;
+> -       int i;
+>
+> -       for (i =3D 0; i < adev->vcn.num_vcn_inst; ++i) {
+> -               if (adev->vcn.harvest_config & (1 << i))
+> -                       continue;
+> -               /* enable UVD CGC */
+> -               data =3D RREG32_SOC15(VCN, i, mmUVD_CGC_CTRL);
+> -               if (adev->cg_flags & AMD_CG_SUPPORT_VCN_MGCG)
+> -                       data |=3D 1 << UVD_CGC_CTRL__DYN_CLOCK_MODE__SHIF=
+T;
+> -               else
+> -                       data |=3D 0 << UVD_CGC_CTRL__DYN_CLOCK_MODE__SHIF=
+T;
+> -               data |=3D 1 << UVD_CGC_CTRL__CLK_GATE_DLY_TIMER__SHIFT;
+> -               data |=3D 4 << UVD_CGC_CTRL__CLK_OFF_DELAY__SHIFT;
+> -               WREG32_SOC15(VCN, i, mmUVD_CGC_CTRL, data);
+> -
+> -               data =3D RREG32_SOC15(VCN, i, mmUVD_CGC_CTRL);
+> -               data |=3D (UVD_CGC_CTRL__UDEC_RE_MODE_MASK
+> -                       | UVD_CGC_CTRL__UDEC_CM_MODE_MASK
+> -                       | UVD_CGC_CTRL__UDEC_IT_MODE_MASK
+> -                       | UVD_CGC_CTRL__UDEC_DB_MODE_MASK
+> -                       | UVD_CGC_CTRL__UDEC_MP_MODE_MASK
+> -                       | UVD_CGC_CTRL__SYS_MODE_MASK
+> -                       | UVD_CGC_CTRL__UDEC_MODE_MASK
+> -                       | UVD_CGC_CTRL__MPEG2_MODE_MASK
+> -                       | UVD_CGC_CTRL__REGS_MODE_MASK
+> -                       | UVD_CGC_CTRL__RBC_MODE_MASK
+> -                       | UVD_CGC_CTRL__LMI_MC_MODE_MASK
+> -                       | UVD_CGC_CTRL__LMI_UMC_MODE_MASK
+> -                       | UVD_CGC_CTRL__IDCT_MODE_MASK
+> -                       | UVD_CGC_CTRL__MPRD_MODE_MASK
+> -                       | UVD_CGC_CTRL__MPC_MODE_MASK
+> -                       | UVD_CGC_CTRL__LBSI_MODE_MASK
+> -                       | UVD_CGC_CTRL__LRBBM_MODE_MASK
+> -                       | UVD_CGC_CTRL__WCB_MODE_MASK
+> -                       | UVD_CGC_CTRL__VCPU_MODE_MASK);
+> -               WREG32_SOC15(VCN, i, mmUVD_CGC_CTRL, data);
+> -
+> -               data =3D RREG32_SOC15(VCN, i, mmUVD_SUVD_CGC_CTRL);
+> -               data |=3D (UVD_SUVD_CGC_CTRL__SRE_MODE_MASK
+> -                       | UVD_SUVD_CGC_CTRL__SIT_MODE_MASK
+> -                       | UVD_SUVD_CGC_CTRL__SMP_MODE_MASK
+> -                       | UVD_SUVD_CGC_CTRL__SCM_MODE_MASK
+> -                       | UVD_SUVD_CGC_CTRL__SDB_MODE_MASK
+> -                       | UVD_SUVD_CGC_CTRL__SCLR_MODE_MASK
+> -                       | UVD_SUVD_CGC_CTRL__UVD_SC_MODE_MASK
+> -                       | UVD_SUVD_CGC_CTRL__ENT_MODE_MASK
+> -                       | UVD_SUVD_CGC_CTRL__IME_MODE_MASK
+> -                       | UVD_SUVD_CGC_CTRL__SITE_MODE_MASK);
+> -               WREG32_SOC15(VCN, i, mmUVD_SUVD_CGC_CTRL, data);
+> -       }
+> +       if (adev->vcn.harvest_config & (1 << inst))
+> +               return;
+> +       /* enable UVD CGC */
+> +       data =3D RREG32_SOC15(VCN, inst, mmUVD_CGC_CTRL);
+> +       if (adev->cg_flags & AMD_CG_SUPPORT_VCN_MGCG)
+> +               data |=3D 1 << UVD_CGC_CTRL__DYN_CLOCK_MODE__SHIFT;
+> +       else
+> +               data |=3D 0 << UVD_CGC_CTRL__DYN_CLOCK_MODE__SHIFT;
+> +       data |=3D 1 << UVD_CGC_CTRL__CLK_GATE_DLY_TIMER__SHIFT;
+> +       data |=3D 4 << UVD_CGC_CTRL__CLK_OFF_DELAY__SHIFT;
+> +       WREG32_SOC15(VCN, inst, mmUVD_CGC_CTRL, data);
+> +
+> +       data =3D RREG32_SOC15(VCN, inst, mmUVD_CGC_CTRL);
+> +       data |=3D (UVD_CGC_CTRL__UDEC_RE_MODE_MASK
+> +               | UVD_CGC_CTRL__UDEC_CM_MODE_MASK
+> +               | UVD_CGC_CTRL__UDEC_IT_MODE_MASK
+> +               | UVD_CGC_CTRL__UDEC_DB_MODE_MASK
+> +               | UVD_CGC_CTRL__UDEC_MP_MODE_MASK
+> +               | UVD_CGC_CTRL__SYS_MODE_MASK
+> +               | UVD_CGC_CTRL__UDEC_MODE_MASK
+> +               | UVD_CGC_CTRL__MPEG2_MODE_MASK
+> +               | UVD_CGC_CTRL__REGS_MODE_MASK
+> +               | UVD_CGC_CTRL__RBC_MODE_MASK
+> +               | UVD_CGC_CTRL__LMI_MC_MODE_MASK
+> +               | UVD_CGC_CTRL__LMI_UMC_MODE_MASK
+> +               | UVD_CGC_CTRL__IDCT_MODE_MASK
+> +               | UVD_CGC_CTRL__MPRD_MODE_MASK
+> +               | UVD_CGC_CTRL__MPC_MODE_MASK
+> +               | UVD_CGC_CTRL__LBSI_MODE_MASK
+> +               | UVD_CGC_CTRL__LRBBM_MODE_MASK
+> +               | UVD_CGC_CTRL__WCB_MODE_MASK
+> +               | UVD_CGC_CTRL__VCPU_MODE_MASK);
+> +       WREG32_SOC15(VCN, inst, mmUVD_CGC_CTRL, data);
+> +
+> +       data =3D RREG32_SOC15(VCN, inst, mmUVD_SUVD_CGC_CTRL);
+> +       data |=3D (UVD_SUVD_CGC_CTRL__SRE_MODE_MASK
+> +               | UVD_SUVD_CGC_CTRL__SIT_MODE_MASK
+> +               | UVD_SUVD_CGC_CTRL__SMP_MODE_MASK
+> +               | UVD_SUVD_CGC_CTRL__SCM_MODE_MASK
+> +               | UVD_SUVD_CGC_CTRL__SDB_MODE_MASK
+> +               | UVD_SUVD_CGC_CTRL__SCLR_MODE_MASK
+> +               | UVD_SUVD_CGC_CTRL__UVD_SC_MODE_MASK
+> +               | UVD_SUVD_CGC_CTRL__ENT_MODE_MASK
+> +               | UVD_SUVD_CGC_CTRL__IME_MODE_MASK
+> +               | UVD_SUVD_CGC_CTRL__SITE_MODE_MASK);
+> +       WREG32_SOC15(VCN, inst, mmUVD_SUVD_CGC_CTRL, data);
+>  }
+>
+>  static void vcn_v2_6_enable_ras(struct amdgpu_device *adev, int inst_idx=
+,
+> @@ -1032,7 +1026,7 @@ static int vcn_v2_5_start(struct amdgpu_device *ade=
+v, unsigned int inst)
+>                 return 0;
+>
+>         /*SW clock gating */
+> -       vcn_v2_5_disable_clock_gating(adev);
+> +       vcn_v2_5_disable_clock_gating(adev, inst);
+>
+>         if (adev->vcn.harvest_config & (1 << inst))
+>                 return 0;
+> @@ -1471,7 +1465,7 @@ static int vcn_v2_5_stop(struct amdgpu_device *adev=
+, unsigned int inst)
+>         /* clear status */
+>         WREG32_SOC15(VCN, inst, mmUVD_STATUS, 0);
+>
+> -       vcn_v2_5_enable_clock_gating(adev);
+> +       vcn_v2_5_enable_clock_gating(adev, inst);
+>
+>         /* enable register anti-hang mechanism */
+>         WREG32_P(SOC15_REG_OFFSET(VCN, inst, mmUVD_POWER_STATUS),
+> @@ -1794,6 +1788,7 @@ static int vcn_v2_5_set_clockgating_state(struct am=
+dgpu_ip_block *ip_block,
+>  {
+>         struct amdgpu_device *adev =3D ip_block->adev;
+>         bool enable =3D (state =3D=3D AMD_CG_STATE_GATE);
+> +       int inst =3D ip_block->instance;
+>
+>         if (amdgpu_sriov_vf(adev))
+>                 return 0;
+> @@ -1801,9 +1796,9 @@ static int vcn_v2_5_set_clockgating_state(struct am=
+dgpu_ip_block *ip_block,
+>         if (enable) {
+>                 if (!vcn_v2_5_is_idle(adev))
+>                         return -EBUSY;
+> -               vcn_v2_5_enable_clock_gating(adev);
+> +               vcn_v2_5_enable_clock_gating(adev, inst);
+>         } else {
+> -               vcn_v2_5_disable_clock_gating(adev);
+> +               vcn_v2_5_disable_clock_gating(adev, inst);
+>         }
+>
+>         return 0;
 > diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/=
 amdgpu/vcn_v3_0.c
-> index 0d1c1534db40..451858f86272 100644
+> index 451858f86272..b78c6da0a3cd 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-> @@ -2105,17 +2105,14 @@ static bool vcn_v3_0_is_idle(void *handle)
->  static int vcn_v3_0_wait_for_idle(struct amdgpu_ip_block *ip_block)
+> @@ -2122,19 +2122,17 @@ static int vcn_v3_0_set_clockgating_state(struct =
+amdgpu_ip_block *ip_block,
 >  {
 >         struct amdgpu_device *adev =3D ip_block->adev;
-> -       int i, ret =3D 0;
+>         bool enable =3D state =3D=3D AMD_CG_STATE_GATE;
+> -       int i;
 > +       int inst =3D ip_block->instance;
-> +       int ret;
 >
 > -       for (i =3D 0; i < adev->vcn.num_vcn_inst; ++i) {
 > -               if (adev->vcn.harvest_config & (1 << i))
@@ -149,30 +497,36 @@ amdgpu/vcn_v3_0.c
 > +       if (adev->vcn.harvest_config & (1 << inst))
 > +               return 0;
 >
-> -               ret =3D SOC15_WAIT_ON_RREG(VCN, i, mmUVD_STATUS, UVD_STAT=
-US__IDLE,
-> -                       UVD_STATUS__IDLE);
-> -               if (ret)
-> -                       return ret;
-> -       }
-> +       ret =3D SOC15_WAIT_ON_RREG(VCN, inst, mmUVD_STATUS, UVD_STATUS__I=
-DLE,
-> +               UVD_STATUS__IDLE);
+> -               if (enable) {
+> -                       if (RREG32_SOC15(VCN, i, mmUVD_STATUS) !=3D UVD_S=
+TATUS__IDLE)
+> -                               return -EBUSY;
+> -                       vcn_v3_0_enable_clock_gating(adev, i);
+> -               } else {
+> -                       vcn_v3_0_disable_clock_gating(adev, i);
+> -               }
+> +       if (enable) {
+> +               if (RREG32_SOC15(VCN, inst, mmUVD_STATUS) !=3D UVD_STATUS=
+__IDLE)
+> +                       return -EBUSY;
+> +               vcn_v3_0_enable_clock_gating(adev, inst);
+> +       } else {
+> +               vcn_v3_0_disable_clock_gating(adev, inst);
+>         }
 >
->         return ret;
->  }
+>         return 0;
 > diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/=
 amdgpu/vcn_v4_0.c
-> index e9a8e027d5f9..fa7cf10e8900 100644
+> index fa7cf10e8900..8aa30a4bddbf 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-> @@ -1968,17 +1968,14 @@ static bool vcn_v4_0_is_idle(void *handle)
->  static int vcn_v4_0_wait_for_idle(struct amdgpu_ip_block *ip_block)
+> @@ -1993,19 +1993,17 @@ static int vcn_v4_0_set_clockgating_state(struct =
+amdgpu_ip_block *ip_block,
 >  {
 >         struct amdgpu_device *adev =3D ip_block->adev;
-> -       int i, ret =3D 0;
+>         bool enable =3D state =3D=3D AMD_CG_STATE_GATE;
+> -       int i;
 > +       int inst =3D ip_block->instance;
-> +       int ret;
 >
 > -       for (i =3D 0; i < adev->vcn.num_vcn_inst; ++i) {
 > -               if (adev->vcn.harvest_config & (1 << i))
@@ -180,57 +534,71 @@ amdgpu/vcn_v4_0.c
 > +       if (adev->vcn.harvest_config & (1 << inst))
 > +               return 0;
 >
-> -               ret =3D SOC15_WAIT_ON_RREG(VCN, i, regUVD_STATUS, UVD_STA=
-TUS__IDLE,
-> -                       UVD_STATUS__IDLE);
-> -               if (ret)
-> -                       return ret;
-> -       }
-> +       ret =3D SOC15_WAIT_ON_RREG(VCN, inst, regUVD_STATUS, UVD_STATUS__=
-IDLE,
-> +               UVD_STATUS__IDLE);
+> -               if (enable) {
+> -                       if (RREG32_SOC15(VCN, i, regUVD_STATUS) !=3D UVD_=
+STATUS__IDLE)
+> -                               return -EBUSY;
+> -                       vcn_v4_0_enable_clock_gating(adev, i);
+> -               } else {
+> -                       vcn_v4_0_disable_clock_gating(adev, i);
+> -               }
+> +       if (enable) {
+> +               if (RREG32_SOC15(VCN, inst, regUVD_STATUS) !=3D UVD_STATU=
+S__IDLE)
+> +                       return -EBUSY;
+> +               vcn_v4_0_enable_clock_gating(adev, inst);
+> +       } else {
+> +               vcn_v4_0_disable_clock_gating(adev, inst);
+>         }
 >
->         return ret;
->  }
+>         return 0;
 > diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c b/drivers/gpu/drm/am=
 d/amdgpu/vcn_v4_0_3.c
-> index 716bc85141cb..d05dcadb3e81 100644
+> index d05dcadb3e81..64b738f929b7 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-> @@ -1566,14 +1566,11 @@ static bool vcn_v4_0_3_is_idle(void *handle)
->  static int vcn_v4_0_3_wait_for_idle(struct amdgpu_ip_block *ip_block)
+> @@ -1587,18 +1587,17 @@ static int vcn_v4_0_3_set_clockgating_state(struc=
+t amdgpu_ip_block *ip_block,
 >  {
 >         struct amdgpu_device *adev =3D ip_block->adev;
-> -       int i, ret =3D 0;
+>         bool enable =3D state =3D=3D AMD_CG_STATE_GATE;
+> -       int i;
 > +       int inst =3D ip_block->instance;
-> +       int ret;
 >
 > -       for (i =3D 0; i < adev->vcn.num_vcn_inst; ++i) {
-> -               ret =3D SOC15_WAIT_ON_RREG(VCN, GET_INST(VCN, i), regUVD_=
-STATUS,
-> -                                        UVD_STATUS__IDLE, UVD_STATUS__ID=
-LE);
-> -               if (ret)
-> -                       return ret;
-> -       }
-> +       ret =3D SOC15_WAIT_ON_RREG(VCN, GET_INST(VCN, inst), regUVD_STATU=
-S,
-> +                                UVD_STATUS__IDLE, UVD_STATUS__IDLE);
->
->         return ret;
+> -               if (enable) {
+> -                       if (RREG32_SOC15(VCN, GET_INST(VCN, i),
+> -                                        regUVD_STATUS) !=3D UVD_STATUS__=
+IDLE)
+> -                               return -EBUSY;
+> -                       vcn_v4_0_3_enable_clock_gating(adev, i);
+> -               } else {
+> -                       vcn_v4_0_3_disable_clock_gating(adev, i);
+> -               }
+> +       if (enable) {
+> +               if (RREG32_SOC15(VCN, GET_INST(VCN, inst),
+> +                                regUVD_STATUS) !=3D UVD_STATUS__IDLE)
+> +                       return -EBUSY;
+> +               vcn_v4_0_3_enable_clock_gating(adev, inst);
+> +       } else {
+> +               vcn_v4_0_3_disable_clock_gating(adev, inst);
+>         }
+> +
+>         return 0;
 >  }
+>
 > diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c b/drivers/gpu/drm/am=
 d/amdgpu/vcn_v4_0_5.c
-> index b74b2c0942c9..307c8e204456 100644
+> index 307c8e204456..c901255a05ee 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
-> @@ -1465,17 +1465,14 @@ static bool vcn_v4_0_5_is_idle(void *handle)
->  static int vcn_v4_0_5_wait_for_idle(struct amdgpu_ip_block *ip_block)
+> @@ -1490,19 +1490,17 @@ static int vcn_v4_0_5_set_clockgating_state(struc=
+t amdgpu_ip_block *ip_block,
 >  {
 >         struct amdgpu_device *adev =3D ip_block->adev;
-> -       int i, ret =3D 0;
+>         bool enable =3D (state =3D=3D AMD_CG_STATE_GATE) ? true : false;
+> -       int i;
 > +       int inst =3D ip_block->instance;
-> +       int ret;
 >
 > -       for (i =3D 0; i < adev->vcn.num_vcn_inst; ++i) {
 > -               if (adev->vcn.harvest_config & (1 << i))
@@ -238,30 +606,36 @@ d/amdgpu/vcn_v4_0_5.c
 > +       if (adev->vcn.harvest_config & (1 << inst))
 > +               return 0;
 >
-> -               ret =3D SOC15_WAIT_ON_RREG(VCN, i, regUVD_STATUS, UVD_STA=
-TUS__IDLE,
-> -                       UVD_STATUS__IDLE);
-> -               if (ret)
-> -                       return ret;
-> -       }
-> +       ret =3D SOC15_WAIT_ON_RREG(VCN, inst, regUVD_STATUS, UVD_STATUS__=
-IDLE,
-> +               UVD_STATUS__IDLE);
+> -               if (enable) {
+> -                       if (RREG32_SOC15(VCN, i, regUVD_STATUS) !=3D UVD_=
+STATUS__IDLE)
+> -                               return -EBUSY;
+> -                       vcn_v4_0_5_enable_clock_gating(adev, i);
+> -               } else {
+> -                       vcn_v4_0_5_disable_clock_gating(adev, i);
+> -               }
+> +       if (enable) {
+> +               if (RREG32_SOC15(VCN, inst, regUVD_STATUS) !=3D UVD_STATU=
+S__IDLE)
+> +                       return -EBUSY;
+> +               vcn_v4_0_5_enable_clock_gating(adev, inst);
+> +       } else {
+> +               vcn_v4_0_5_disable_clock_gating(adev, inst);
+>         }
 >
->         return ret;
->  }
+>         return 0;
 > diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c b/drivers/gpu/drm/am=
 d/amdgpu/vcn_v5_0_0.c
-> index 3fbc2aafcd29..50022bbb276e 100644
+> index 50022bbb276e..6973fee37c12 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
-> @@ -1192,17 +1192,14 @@ static bool vcn_v5_0_0_is_idle(void *handle)
->  static int vcn_v5_0_0_wait_for_idle(struct amdgpu_ip_block *ip_block)
+> @@ -1217,19 +1217,17 @@ static int vcn_v5_0_0_set_clockgating_state(struc=
+t amdgpu_ip_block *ip_block,
 >  {
 >         struct amdgpu_device *adev =3D ip_block->adev;
-> -       int i, ret =3D 0;
+>         bool enable =3D (state =3D=3D AMD_CG_STATE_GATE) ? true : false;
+> -       int i;
 > +       int inst =3D ip_block->instance;
-> +       int ret;
 >
 > -       for (i =3D 0; i < adev->vcn.num_vcn_inst; ++i) {
 > -               if (adev->vcn.harvest_config & (1 << i))
@@ -269,18 +643,24 @@ d/amdgpu/vcn_v5_0_0.c
 > +       if (adev->vcn.harvest_config & (1 << inst))
 > +               return 0;
 >
-> -               ret =3D SOC15_WAIT_ON_RREG(VCN, i, regUVD_STATUS, UVD_STA=
-TUS__IDLE,
-> -                       UVD_STATUS__IDLE);
-> -               if (ret)
-> -                       return ret;
-> -       }
-> +       ret =3D SOC15_WAIT_ON_RREG(VCN, inst, regUVD_STATUS, UVD_STATUS__=
-IDLE,
-> +               UVD_STATUS__IDLE);
+> -               if (enable) {
+> -                       if (RREG32_SOC15(VCN, i, regUVD_STATUS) !=3D UVD_=
+STATUS__IDLE)
+> -                               return -EBUSY;
+> -                       vcn_v5_0_0_enable_clock_gating(adev, i);
+> -               } else {
+> -                       vcn_v5_0_0_disable_clock_gating(adev, i);
+> -               }
+> +       if (enable) {
+> +               if (RREG32_SOC15(VCN, inst, regUVD_STATUS) !=3D UVD_STATU=
+S__IDLE)
+> +                       return -EBUSY;
+> +               vcn_v5_0_0_enable_clock_gating(adev, inst);
+> +       } else {
+> +               vcn_v5_0_0_disable_clock_gating(adev, inst);
+>         }
 >
->         return ret;
->  }
+>         return 0;
 > --
 > 2.34.1
 >
