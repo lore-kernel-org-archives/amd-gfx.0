@@ -4,64 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E20ACD5B146
-	for <amd-gfx@archiver.kernel.org>; Mon, 28 Oct 2024 20:28:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56759D5B154
+	for <amd-gfx@archiver.kernel.org>; Mon, 28 Oct 2024 20:43:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B35F10E17D;
-	Mon, 28 Oct 2024 20:28:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C611C10E577;
+	Mon, 28 Oct 2024 20:43:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kiwCZvdg";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3fsF2NsN";
 	dkim-atps=neutral
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com
- [209.85.210.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 881BF10E17D
- for <amd-gfx@lists.freedesktop.org>; Mon, 28 Oct 2024 20:28:21 +0000 (UTC)
-Received: by mail-pf1-f177.google.com with SMTP id
- d2e1a72fcca58-71e5a00d676so178155b3a.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 28 Oct 2024 13:28:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1730147301; x=1730752101; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=D4kkJr5PORcoNQBo89eUVl38DR3vXUvITPRMmClRNR0=;
- b=kiwCZvdgzJmgIr2kxNSpeCneLf4ssAY30mNYkW7kHB/SBBheN9dx02FSsIltUNcIkn
- V/pNj1+UkpkRABl/sXq52kg5cseqLmvWhGI+o/tcMXohX7PqLEWNvKjhtsuAVAiPrr+9
- EoYzA3d/JLd5DVyk7odczGRjF1Ywf1dKr6CMcPZEXOte0KForQvZ2RnW16Bd3iRgUH0p
- bKLf1cn7dZMyeSDCarOteU1UEYxYWV2WDELSqM+QRn2N/tOpRHnovag+WzfkjhG97Fd0
- oD5OhEZQJBwTQzfxYlc7pDfFZIuJIFJ4u0N2/OtmqVySoDRDDu605kuxXbVD5mbA7PqW
- 9Sxg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1730147301; x=1730752101;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=D4kkJr5PORcoNQBo89eUVl38DR3vXUvITPRMmClRNR0=;
- b=CZ2C3BFKxFPnWWr8ZaisQb62J+sQIu13nR+ZYI21trnSo9dJI4zHFXnzJo4dN7IgMj
- ec4gG55KWeBtWAqNbERK5NI4zIPcFtXFgMZ21q/1KaGjlYsXZGR+M8S3sVU0OvIGuk/N
- Iaey5IvJ1rolLnvsIJqyHfGmgDvi04GEk5z+Dp/zFsUc380S0KdM6jG428P1W1jj1xBM
- sgLFqZEM0LsEzVf3ulPZmjvz93mUVa1v3VF8svtx14qY+4qPDle0wLihR3Rw+W0sGbpN
- gsU/ikVlRgmUfTD2cmCslEbj7mBZ9WDcwnhPMczmvJqN1Jyv+S7jG11ntlIs+Tsofaww
- 41UA==
-X-Gm-Message-State: AOJu0YzYiB/fBM/gZV1MBawxclUPEUAoNE3QR3kK+HJSAaUU2aRwVKMD
- nRe/5iEfDbYyV2yjRz4d29aCthx187q5t3n+34LGLh72s1u8Waz1TXh1S2e2oC4LQS3frInLUnH
- sdK6VdCEEYVb4xNz3eS3aHlE7jDM=
-X-Google-Smtp-Source: AGHT+IE3n5UgyW0ijo0atMuDyDiP481EERBMInZNz4ZaeJ8TrRRlClgB3fGXktCu+9pmxKVmp8LT5ZDuHmOHpdtSBkQ=
-X-Received: by 2002:a05:6a00:cc7:b0:71e:596a:a392 with SMTP id
- d2e1a72fcca58-72062f1dfd8mr5736992b3a.2.1730147300781; Mon, 28 Oct 2024
- 13:28:20 -0700 (PDT)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2070.outbound.protection.outlook.com [40.107.220.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D53610E576
+ for <amd-gfx@lists.freedesktop.org>; Mon, 28 Oct 2024 20:43:36 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=duAmW2nRjG9K2HSGmSatrzbWHbzJmwSiY+tmKZeyqe+x8PEUgPERjoA7/CabIYqtScZ3a/EwBQEBWa2Jw65PmUC1EwTr2QkqtWLpKsV/rBw2aXVjwXMA3ryPlgeHZjUxG+6CdJOTSGgIqEc5y+np+j7zcfxVQyPn3Mj/yu24hDAfpaMy8WADzlZeuhgrPNUvXTfW+bo0gfQS9LLVfkdQ4/+P5Xz6pMLtPz2uzq2i6dIChWPv5K+d4jBO0tU/SwwxrDq0Hw2wyub/XpB/LGKAuDq6oWqSY66ACQWAKaOKWls0Qo5Mq0CNNk/CtTscm9FbQ1V+i8XH8Qu2EubDyBJzeg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=AI07xfJVBWSSQw2CYKjUyRgvlgc5lAYB9Vngkkefzp4=;
+ b=zQf555CxausKyYohxHRPMtoNGpUWbZDYdU9QETDUTHs21U4vMuMi9qzM/K3MmG38EFJAiiV6UEg+W4Dnuwnbf0p6Kc/gPpXoyG+afeF+um0DqQhvWR6yv1q+at53b6ws+L6a/ePcEhEozNCyzfJzDrVF8xblbYB56RYa5DPr0AGVAnAPnFkljYni54zuViHF/CemDFBeDhyGjT387dr5NXmAWAPlrbt3Bql4AHJCsQPPChdReAz9yk9UShn/ArVJopTWlkz4H1I53vkPVJsddbhzUbIcoPH5wPcBPopT4ovKUqfYT3HfgHn5uTZu9TqfoxrHNOgjbokeSMkMWsCtRQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=AI07xfJVBWSSQw2CYKjUyRgvlgc5lAYB9Vngkkefzp4=;
+ b=3fsF2NsNyLOQxRvF1xosx7WaUhOxoXRCwEKDNHWUV+CV4u2V2yKDzbn+nqB/sc4cbvVVvN5iWC7zmBTa7+EzMNijvrDDlt819k8DbZmjRKNACX0hQOyylk+aRRvcGE4WpBD2zoiXnyB5shF93BO4+NM8MwmGIpVioOCDMecQLPc=
+Received: from MW4PR04CA0216.namprd04.prod.outlook.com (2603:10b6:303:87::11)
+ by MW6PR12MB7088.namprd12.prod.outlook.com (2603:10b6:303:238::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8093.25; Mon, 28 Oct
+ 2024 20:43:26 +0000
+Received: from SJ5PEPF000001D5.namprd05.prod.outlook.com
+ (2603:10b6:303:87:cafe::ea) by MW4PR04CA0216.outlook.office365.com
+ (2603:10b6:303:87::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8093.23 via Frontend
+ Transport; Mon, 28 Oct 2024 20:43:26 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ SJ5PEPF000001D5.mail.protection.outlook.com (10.167.242.57) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8114.16 via Frontend Transport; Mon, 28 Oct 2024 20:43:25 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 28 Oct
+ 2024 15:43:24 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 28 Oct
+ 2024 15:43:23 -0500
+Received: from smtp.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Mon, 28 Oct 2024 15:43:23 -0500
+From: Xiaogang.Chen <xiaogang.chen@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <felix.kuehling@amd.com>, <philip.yang@amd.com>, Xiaogang Chen
+ <xiaogang.chen@amd.com>
+Subject: [PATCH v3] drm/amdkfd: change kfd process kref count at creation
+Date: Mon, 28 Oct 2024 15:43:01 -0500
+Message-ID: <20241028204301.46168-1-xiaogang.chen@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20241019143706.18779-1-wolf@oriole.systems>
-In-Reply-To: <20241019143706.18779-1-wolf@oriole.systems>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 28 Oct 2024 16:28:09 -0400
-Message-ID: <CADnq5_MvJET2hk0aeTbUTEvUb57-figFbfPfNvfsjsTuSY0ing@mail.gmail.com>
-Subject: Re: [RFC PATCH] drm/amd/pm: add zero RPM OD setting support for SMU13
-To: =?UTF-8?Q?Wolfgang_M=C3=BCller?= <wolf@oriole.systems>, 
- Kenneth Feng <kenneth.feng@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D5:EE_|MW6PR12MB7088:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7f1a1e1b-2baa-451e-d6fa-08dcf7912bf6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|1800799024|36860700013|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?qDUPbXKgbHwAbgSV83hZ33/KrNl45atUzcHZsmkAqiv5+Y9ogDgNwEk3+Vlk?=
+ =?us-ascii?Q?fUgBJSkRuqoYrLYz/BxQtyOrng9HrC7I6ZSJzo3zxsKLoCqj6KHW/IGOo9M+?=
+ =?us-ascii?Q?t5ERaldR2T3CiJkpU9AnBe8q/FvoaHQE9/ftLTtQqGb1LJAyFMf/Y5ETixoA?=
+ =?us-ascii?Q?WBsvokS/cjL96548eZ0VceQ3TgXRyDs38DKssmqb1DCDgHLXpo+8PbMoZAtY?=
+ =?us-ascii?Q?uZJa1WbIY3UzCmP0Izhv60fUfF8msRpd2NaDzGVqRp+MmVQbSQQZOWh6bBnA?=
+ =?us-ascii?Q?4cX27hGXGihjSBUiiKC/JHYudHIyAaHcOyRnxezX3UReJWqU3XT65HCe8UGs?=
+ =?us-ascii?Q?fhJr2bGsIoRrYKIP6bD4P4FvHZKVGg+DJVpV1zDYIn1pT6ny8Pza+n8sgLi0?=
+ =?us-ascii?Q?33CwmsmdrfBs0mpgxo5wsVPW4f07My0CEfpHlATz71s/PGwv1uj4IO9n0ErH?=
+ =?us-ascii?Q?LxLjn4BOXtHGJrEkcO47XjToshPFOUv2EM/ZlWt1MYjkj5PvvzoX+gtISBfU?=
+ =?us-ascii?Q?WXhMTxnt8dIr/UlsHcTpe19s97iHodbyN9+QDTUcX24NsQdleSoUZcpMrr+9?=
+ =?us-ascii?Q?jT6lAd8WfmAWw85RVqG43ULdPq6Ux5m66+xABbJSNSfJQnQvmz1eoX9xt2kg?=
+ =?us-ascii?Q?tPbdAlp4SO9EiQanNF8ZzIfxM6Ip0T++FI1e91n/ctWaOKXpeQTLBQYasEm/?=
+ =?us-ascii?Q?sx8U4LtOqeLqAlqwGXF9FOsGCizhpHdPZPhUQf45x1VDPM4k4hAPUFHhuaGI?=
+ =?us-ascii?Q?Iy1EWMg0Zuvalm67Kp5X2RntZaNp/z6erSbn1bCsuAngTe3HgdsF80p/E0OZ?=
+ =?us-ascii?Q?kxCb+93I1M83Y/SHVmBLrE1MNq4grJQuVBd+R56MdyDzc0UyciunvXiXinJm?=
+ =?us-ascii?Q?UieOHIDnryUg5JH6I8eP/hha6NgCoVWm7DLxec5z1N755tSr71EKyOU5YMTJ?=
+ =?us-ascii?Q?dm5lusHCPIFJpr2KEg+wVLHSShEJRHXqA4J/cXp/VMafbrCGGogrDGFOI/IS?=
+ =?us-ascii?Q?K0Prz2/n08GW1WGT52S5DLuD5Qnna5IxQ5gml8ItW/ORyIexTp+me0uDprS8?=
+ =?us-ascii?Q?CQqVTfG/ZNUgetdWsEaD/R0KH6H3v5NUzYKp3DP3u3QWWQZjBak8YnciVI7W?=
+ =?us-ascii?Q?2jd25qzH36Ult9segQVLMJWRn/VJ3YO8NUR5pWkBIbyC9VQPp9Uhnw0U6raZ?=
+ =?us-ascii?Q?2EPD6JrThKInDAQD4Tpg/l+Yx8bUD7dmYCytsoFIpyPNjkOJApG8Qf8MfxbX?=
+ =?us-ascii?Q?mDrk2d7DLK3+SqPZ5lk1y8VywKRjWqG0OdB0V8G92Gb5iraxJF944dyBUSir?=
+ =?us-ascii?Q?cfIAsCBNULeh/CDlzb7mMpyDZyWY95TzJkaFuZRLyEookTz8Nv6HSu5sCOrW?=
+ =?us-ascii?Q?0ZL+jzHukUL4ZzjcUzT5GvAAEl/D3ui4fReK/gSvwMh+h05fPA=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2024 20:43:25.6089 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7f1a1e1b-2baa-451e-d6fa-08dcf7912bf6
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001D5.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB7088
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,503 +133,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-+ Kenneth to help review
+From: Xiaogang Chen <xiaogang.chen@amd.com>
 
-On Sat, Oct 19, 2024 at 10:43=E2=80=AFAM Wolfgang M=C3=BCller <wolf@oriole.=
-systems> wrote:
->
-> Whilst we have support for setting fan curves there is no support for
-> disabling the zero RPM feature. Since the relevant bits are already
-> present in the OverDriveTable, hook them up to a sysctl setting so users
-> can influence this behaviour.
->
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3489
-> Signed-off-by: Wolfgang M=C3=BCller <wolf@oriole.systems>
-> ---
-> I've been wanting this feature for a while so today I sat down and had a
-> look at how to best implement it. This is my first ever look at amdgpu
-> code, so I've marked it with RFC. I've based it on the implementation of
-> eedd5a343d22 (drm/amd/pm: add fan target temperature OD setting support
-> for SMU13, 2023-08-11) and also hooked resetting the knob with "r".
->
-> One thing I'm unsure about is using PP_OD_FEATURE_ZERO_FAN_BIT for
-> FeatureCtrlMask. I'm not sure this is the right thing to use there.
->
-> I successfully tested this on my own system with a 7900XTX; enabling and
-> disabling as well as resetting the knob to its default value work fine.
->
-> Thanks!
->
->  Documentation/gpu/amdgpu/thermal.rst          |  6 ++
->  .../gpu/drm/amd/include/kgd_pp_interface.h    |  2 +
->  drivers/gpu/drm/amd/pm/amdgpu_pm.c            | 62 +++++++++++++++++++
->  drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h       |  2 +
->  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     |  2 +
->  drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h  |  1 +
->  .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  | 55 +++++++++++++++-
->  .../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c  | 55 +++++++++++++++-
->  8 files changed, 183 insertions(+), 2 deletions(-)
->
-> diff --git a/Documentation/gpu/amdgpu/thermal.rst b/Documentation/gpu/amd=
-gpu/thermal.rst
-> index 6d942b5c5..442b242f9 100644
-> --- a/Documentation/gpu/amdgpu/thermal.rst
-> +++ b/Documentation/gpu/amdgpu/thermal.rst
-> @@ -100,6 +100,12 @@ fan_minimum_pwm
->  .. kernel-doc:: drivers/gpu/drm/amd/pm/amdgpu_pm.c
->     :doc: fan_minimum_pwm
->
-> +fan_zero_rpm
-> +----------------------
-> +
-> +.. kernel-doc:: drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> +   :doc: fan_zero_rpm
-> +
->  GFXOFF
->  =3D=3D=3D=3D=3D=3D
->
-> diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu=
-/drm/amd/include/kgd_pp_interface.h
-> index 2fa71f682..c6343e813 100644
-> --- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-> +++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-> @@ -119,6 +119,7 @@ enum pp_clock_type {
->         OD_ACOUSTIC_TARGET,
->         OD_FAN_TARGET_TEMPERATURE,
->         OD_FAN_MINIMUM_PWM,
-> +       OD_FAN_ZERO_RPM,
->  };
->
->  enum amd_pp_sensors {
-> @@ -199,6 +200,7 @@ enum PP_OD_DPM_TABLE_COMMAND {
->         PP_OD_EDIT_ACOUSTIC_TARGET,
->         PP_OD_EDIT_FAN_TARGET_TEMPERATURE,
->         PP_OD_EDIT_FAN_MINIMUM_PWM,
-> +       PP_OD_EDIT_FAN_ZERO_RPM,
->  };
->
->  struct pp_states_info {
-> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/=
-amdgpu_pm.c
-> index ea9407733..52efc5ac6 100644
-> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> @@ -4109,6 +4109,60 @@ static umode_t fan_minimum_pwm_visible(struct amdg=
-pu_device *adev)
->         return umode;
->  }
->
-> +/**
-> + * DOC: fan_zero_rpm
-> + *
-> + * The amdgpu driver provides a sysfs API for checking and adjusting the
-> + * zero RPM feature.
-> + *
-> + * Reading back the file shows you the current setting and the permitted
-> + * ranges if changable.
-> + *
-> + * Writing an integer to the file, change the setting accordingly.
-> + *
-> + * When you have finished the editing, write "c" (commit) to the file to=
- commit
-> + * your changes.
-> + *
-> + * If you want to reset to the default value, write "r" (reset) to the f=
-ile to
-> + * reset them.
-> + */
-> +static ssize_t fan_zero_rpm_show(struct kobject *kobj,
-> +                                          struct kobj_attribute *attr,
-> +                                          char *buf)
-> +{
-> +       struct od_kobj *container =3D container_of(kobj, struct od_kobj, =
-kobj);
-> +       struct amdgpu_device *adev =3D (struct amdgpu_device *)container-=
->priv;
-> +
-> +       return (ssize_t)amdgpu_retrieve_od_settings(adev, OD_FAN_ZERO_RPM=
-, buf);
-> +}
-> +
-> +static ssize_t fan_zero_rpm_store(struct kobject *kobj,
-> +                                           struct kobj_attribute *attr,
-> +                                           const char *buf,
-> +                                           size_t count)
-> +{
-> +       struct od_kobj *container =3D container_of(kobj, struct od_kobj, =
-kobj);
-> +       struct amdgpu_device *adev =3D (struct amdgpu_device *)container-=
->priv;
-> +
-> +       return (ssize_t)amdgpu_distribute_custom_od_settings(adev,
-> +                                                            PP_OD_EDIT_F=
-AN_ZERO_RPM,
-> +                                                            buf,
-> +                                                            count);
-> +}
-> +
-> +static umode_t fan_zero_rpm_visible(struct amdgpu_device *adev)
-> +{
-> +       umode_t umode =3D 0000;
-> +
-> +       if (adev->pm.od_feature_mask & OD_OPS_SUPPORT_FAN_ZERO_RPM_RETRIE=
-VE)
-> +               umode |=3D S_IRUSR | S_IRGRP | S_IROTH;
-> +
-> +       if (adev->pm.od_feature_mask & OD_OPS_SUPPORT_FAN_ZERO_RPM_SET)
-> +               umode |=3D S_IWUSR;
-> +
-> +       return umode;
-> +}
-> +
->  static struct od_feature_set amdgpu_od_set =3D {
->         .containers =3D {
->                 [0] =3D {
-> @@ -4154,6 +4208,14 @@ static struct od_feature_set amdgpu_od_set =3D {
->                                                 .store =3D fan_minimum_pw=
-m_store,
->                                         },
->                                 },
-> +                               [5] =3D {
-> +                                       .name =3D "fan_zero_rpm",
-> +                                       .ops =3D {
-> +                                               .is_visible =3D fan_zero_=
-rpm_visible,
-> +                                               .show =3D fan_zero_rpm_sh=
-ow,
-> +                                               .store =3D fan_zero_rpm_s=
-tore,
-> +                                       },
-> +                               },
->                         },
->                 },
->         },
-> diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h b/drivers/gpu/drm/am=
-d/pm/inc/amdgpu_dpm.h
-> index f5bf41f21..be8de30ae 100644
-> --- a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-> +++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-> @@ -328,6 +328,8 @@ struct config_table_setting
->  #define OD_OPS_SUPPORT_FAN_TARGET_TEMPERATURE_SET              BIT(7)
->  #define OD_OPS_SUPPORT_FAN_MINIMUM_PWM_RETRIEVE                BIT(8)
->  #define OD_OPS_SUPPORT_FAN_MINIMUM_PWM_SET             BIT(9)
-> +#define OD_OPS_SUPPORT_FAN_ZERO_RPM_RETRIEVE           BIT(10)
-> +#define OD_OPS_SUPPORT_FAN_ZERO_RPM_SET                BIT(11)
->
->  struct amdgpu_pm {
->         struct mutex            mutex;
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/=
-amd/pm/swsmu/amdgpu_smu.c
-> index accc96a03..3c6b14f7b 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> @@ -2874,6 +2874,8 @@ static enum smu_clk_type smu_convert_to_smuclk(enum=
- pp_clock_type type)
->                 clk_type =3D SMU_OD_FAN_TARGET_TEMPERATURE; break;
->         case OD_FAN_MINIMUM_PWM:
->                 clk_type =3D SMU_OD_FAN_MINIMUM_PWM; break;
-> +       case OD_FAN_ZERO_RPM:
-> +               clk_type =3D SMU_OD_FAN_ZERO_RPM; break;
->         default:
->                 clk_type =3D SMU_CLK_COUNT; break;
->         }
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h b/drivers/gpu/d=
-rm/amd/pm/swsmu/inc/smu_types.h
-> index e71a721c1..4d0558470 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
-> @@ -313,6 +313,7 @@ enum smu_clk_type {
->         SMU_OD_ACOUSTIC_TARGET,
->         SMU_OD_FAN_TARGET_TEMPERATURE,
->         SMU_OD_FAN_MINIMUM_PWM,
-> +       SMU_OD_FAN_ZERO_RPM,
->         SMU_CLK_COUNT,
->  };
->
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drive=
-rs/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> index 3e2277abc..092fd4806 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> @@ -107,6 +107,7 @@
->  #define PP_OD_FEATURE_FAN_ACOUSTIC_TARGET              8
->  #define PP_OD_FEATURE_FAN_TARGET_TEMPERATURE           9
->  #define PP_OD_FEATURE_FAN_MINIMUM_PWM                  10
-> +#define PP_OD_FEATURE_FAN_ZERO_RPM                     11
->
->  #define LINK_SPEED_MAX                                 3
->
-> @@ -1130,6 +1131,10 @@ static void smu_v13_0_0_get_od_setting_limits(stru=
-ct smu_context *smu,
->                 od_min_setting =3D overdrive_lowerlimits->FanMinimumPwm;
->                 od_max_setting =3D overdrive_upperlimits->FanMinimumPwm;
->                 break;
-> +       case PP_OD_FEATURE_FAN_ZERO_RPM:
-> +               od_min_setting =3D overdrive_lowerlimits->FanZeroRpmEnabl=
-e;
-> +               od_max_setting =3D overdrive_upperlimits->FanZeroRpmEnabl=
-e;
-> +               break;
->         default:
->                 od_min_setting =3D od_max_setting =3D INT_MAX;
->                 break;
-> @@ -1450,6 +1455,24 @@ static int smu_v13_0_0_print_clk_levels(struct smu=
-_context *smu,
->                                       min_value, max_value);
->                 break;
->
-> +       case SMU_OD_FAN_ZERO_RPM:
-> +               if (!smu_v13_0_0_is_od_feature_supported(smu,
-> +                                                        PP_OD_FEATURE_ZE=
-RO_FAN_BIT))
-> +                       break;
-> +
-> +               size +=3D sysfs_emit_at(buf, size, "FAN_ZERO_RPM:\n");
-> +               size +=3D sysfs_emit_at(buf, size, "%d\n",
-> +                                       (int)od_table->OverDriveTable.Fan=
-ZeroRpmEnable);
-> +
-> +               size +=3D sysfs_emit_at(buf, size, "%s:\n", "OD_RANGE");
-> +               smu_v13_0_0_get_od_setting_limits(smu,
-> +                                                 PP_OD_FEATURE_FAN_ZERO_=
-RPM,
-> +                                                 &min_value,
-> +                                                 &max_value);
-> +               size +=3D sysfs_emit_at(buf, size, "ZERO_RPM: %u %u\n",
-> +                                     min_value, max_value);
-> +               break;
-> +
->         case SMU_OD_RANGE:
->                 if (!smu_v13_0_0_is_od_feature_supported(smu, PP_OD_FEATU=
-RE_GFXCLK_BIT) &&
->                     !smu_v13_0_0_is_od_feature_supported(smu, PP_OD_FEATU=
-RE_UCLK_BIT) &&
-> @@ -1547,6 +1570,11 @@ static int smu_v13_0_0_od_restore_table_single(str=
-uct smu_context *smu, long inp
->                 od_table->OverDriveTable.FanMode =3D FAN_MODE_AUTO;
->                 od_table->OverDriveTable.FeatureCtrlMask |=3D BIT(PP_OD_F=
-EATURE_FAN_CURVE_BIT);
->                 break;
-> +       case PP_OD_EDIT_FAN_ZERO_RPM:
-> +               od_table->OverDriveTable.FanZeroRpmEnable =3D
-> +                                       boot_overdrive_table->OverDriveTa=
-ble.FanZeroRpmEnable;
-> +               od_table->OverDriveTable.FeatureCtrlMask |=3D BIT(PP_OD_F=
-EATURE_ZERO_FAN_BIT);
-> +               break;
->         default:
->                 dev_info(adev->dev, "Invalid table index: %ld\n", input);
->                 return -EINVAL;
-> @@ -1840,6 +1868,27 @@ static int smu_v13_0_0_od_edit_dpm_table(struct sm=
-u_context *smu,
->                 od_table->OverDriveTable.FeatureCtrlMask |=3D BIT(PP_OD_F=
-EATURE_FAN_CURVE_BIT);
->                 break;
->
-> +       case PP_OD_EDIT_FAN_ZERO_RPM:
-> +               if (!smu_v13_0_0_is_od_feature_supported(smu, PP_OD_FEATU=
-RE_ZERO_FAN_BIT)) {
-> +                       dev_warn(adev->dev, "Zero RPM setting not support=
-ed!\n");
-> +                       return -ENOTSUPP;
-> +               }
-> +
-> +               smu_v13_0_0_get_od_setting_limits(smu,
-> +                                                 PP_OD_FEATURE_FAN_ZERO_=
-RPM,
-> +                                                 &minimum,
-> +                                                 &maximum);
-> +               if (input[0] < minimum ||
-> +                   input[0] > maximum) {
-> +                       dev_info(adev->dev, "zero RPM setting(%ld) must b=
-e within [%d, %d]!\n",
-> +                                input[0], minimum, maximum);
-> +                       return -EINVAL;
-> +               }
-> +
-> +               od_table->OverDriveTable.FanZeroRpmEnable =3D input[0];
-> +               od_table->OverDriveTable.FeatureCtrlMask |=3D BIT(PP_OD_F=
-EATURE_ZERO_FAN_BIT);
-> +               break;
-> +
->         case PP_OD_RESTORE_DEFAULT_TABLE:
->                 if (size =3D=3D 1) {
->                         ret =3D smu_v13_0_0_od_restore_table_single(smu, =
-input[0]);
-> @@ -2110,7 +2159,9 @@ static void smu_v13_0_0_set_supported_od_feature_ma=
-sk(struct smu_context *smu)
->                                             OD_OPS_SUPPORT_FAN_TARGET_TEM=
-PERATURE_RETRIEVE |
->                                             OD_OPS_SUPPORT_FAN_TARGET_TEM=
-PERATURE_SET |
->                                             OD_OPS_SUPPORT_FAN_MINIMUM_PW=
-M_RETRIEVE |
-> -                                           OD_OPS_SUPPORT_FAN_MINIMUM_PW=
-M_SET;
-> +                                           OD_OPS_SUPPORT_FAN_MINIMUM_PW=
-M_SET |
-> +                                           OD_OPS_SUPPORT_FAN_ZERO_RPM_R=
-ETRIEVE|
-> +                                           OD_OPS_SUPPORT_FAN_ZERO_RPM_S=
-ET;
->  }
->
->  static int smu_v13_0_0_set_default_od_settings(struct smu_context *smu)
-> @@ -2176,6 +2227,8 @@ static int smu_v13_0_0_set_default_od_settings(stru=
-ct smu_context *smu)
->                         user_od_table_bak.OverDriveTable.FanTargetTempera=
-ture;
->                 user_od_table->OverDriveTable.FanMinimumPwm =3D
->                         user_od_table_bak.OverDriveTable.FanMinimumPwm;
-> +               user_od_table->OverDriveTable.FanZeroRpmEnable =3D
-> +                       user_od_table_bak.OverDriveTable.FanZeroRpmEnable=
-;
->         }
->
->         smu_v13_0_0_set_supported_od_feature_mask(smu);
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drive=
-rs/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-> index 23f133884..735ed3d4f 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-> @@ -83,6 +83,7 @@
->  #define PP_OD_FEATURE_FAN_ACOUSTIC_TARGET              8
->  #define PP_OD_FEATURE_FAN_TARGET_TEMPERATURE           9
->  #define PP_OD_FEATURE_FAN_MINIMUM_PWM                  10
-> +#define PP_OD_FEATURE_FAN_ZERO_RPM                     11
->
->  #define LINK_SPEED_MAX                                 3
->
-> @@ -1119,6 +1120,10 @@ static void smu_v13_0_7_get_od_setting_limits(stru=
-ct smu_context *smu,
->                 od_min_setting =3D overdrive_lowerlimits->FanMinimumPwm;
->                 od_max_setting =3D overdrive_upperlimits->FanMinimumPwm;
->                 break;
-> +       case PP_OD_FEATURE_FAN_ZERO_RPM:
-> +               od_min_setting =3D overdrive_lowerlimits->FanZeroRpmEnabl=
-e;
-> +               od_max_setting =3D overdrive_upperlimits->FanZeroRpmEnabl=
-e;
-> +               break;
->         default:
->                 od_min_setting =3D od_max_setting =3D INT_MAX;
->                 break;
-> @@ -1439,6 +1444,24 @@ static int smu_v13_0_7_print_clk_levels(struct smu=
-_context *smu,
->                                       min_value, max_value);
->                 break;
->
-> +       case SMU_OD_FAN_ZERO_RPM:
-> +               if (!smu_v13_0_7_is_od_feature_supported(smu,
-> +                                                        PP_OD_FEATURE_ZE=
-RO_FAN_BIT))
-> +                       break;
-> +
-> +               size +=3D sysfs_emit_at(buf, size, "FAN_ZERO_RPM:\n");
-> +               size +=3D sysfs_emit_at(buf, size, "%d\n",
-> +                                       (int)od_table->OverDriveTable.Fan=
-ZeroRpmEnable);
-> +
-> +               size +=3D sysfs_emit_at(buf, size, "%s:\n", "OD_RANGE");
-> +               smu_v13_0_7_get_od_setting_limits(smu,
-> +                                                 PP_OD_FEATURE_FAN_ZERO_=
-RPM,
-> +                                                 &min_value,
-> +                                                 &max_value);
-> +               size +=3D sysfs_emit_at(buf, size, "ZERO_RPM: %u %u\n",
-> +                                     min_value, max_value);
-> +               break;
-> +
->         case SMU_OD_RANGE:
->                 if (!smu_v13_0_7_is_od_feature_supported(smu, PP_OD_FEATU=
-RE_GFXCLK_BIT) &&
->                     !smu_v13_0_7_is_od_feature_supported(smu, PP_OD_FEATU=
-RE_UCLK_BIT) &&
-> @@ -1535,6 +1558,11 @@ static int smu_v13_0_7_od_restore_table_single(str=
-uct smu_context *smu, long inp
->                 od_table->OverDriveTable.FanMode =3D FAN_MODE_AUTO;
->                 od_table->OverDriveTable.FeatureCtrlMask |=3D BIT(PP_OD_F=
-EATURE_FAN_CURVE_BIT);
->                 break;
-> +       case PP_OD_EDIT_FAN_ZERO_RPM:
-> +               od_table->OverDriveTable.FanZeroRpmEnable =3D
-> +                                       boot_overdrive_table->OverDriveTa=
-ble.FanZeroRpmEnable;
-> +               od_table->OverDriveTable.FeatureCtrlMask |=3D BIT(PP_OD_F=
-EATURE_ZERO_FAN_BIT);
-> +               break;
->         default:
->                 dev_info(adev->dev, "Invalid table index: %ld\n", input);
->                 return -EINVAL;
-> @@ -1828,6 +1856,27 @@ static int smu_v13_0_7_od_edit_dpm_table(struct sm=
-u_context *smu,
->                 od_table->OverDriveTable.FeatureCtrlMask |=3D BIT(PP_OD_F=
-EATURE_FAN_CURVE_BIT);
->                 break;
->
-> +       case PP_OD_EDIT_FAN_ZERO_RPM:
-> +               if (!smu_v13_0_7_is_od_feature_supported(smu, PP_OD_FEATU=
-RE_ZERO_FAN_BIT)) {
-> +                       dev_warn(adev->dev, "Zero RPM setting not support=
-ed!\n");
-> +                       return -ENOTSUPP;
-> +               }
-> +
-> +               smu_v13_0_7_get_od_setting_limits(smu,
-> +                                                 PP_OD_FEATURE_FAN_ZERO_=
-RPM,
-> +                                                 &minimum,
-> +                                                 &maximum);
-> +               if (input[0] < minimum ||
-> +                   input[0] > maximum) {
-> +                       dev_info(adev->dev, "zero RPM setting(%ld) must b=
-e within [%d, %d]!\n",
-> +                                input[0], minimum, maximum);
-> +                       return -EINVAL;
-> +               }
-> +
-> +               od_table->OverDriveTable.FanZeroRpmEnable =3D input[0];
-> +               od_table->OverDriveTable.FeatureCtrlMask |=3D BIT(PP_OD_F=
-EATURE_ZERO_FAN_BIT);
-> +               break;
-> +
->         case PP_OD_RESTORE_DEFAULT_TABLE:
->                 if (size =3D=3D 1) {
->                         ret =3D smu_v13_0_7_od_restore_table_single(smu, =
-input[0]);
-> @@ -2094,7 +2143,9 @@ static void smu_v13_0_7_set_supported_od_feature_ma=
-sk(struct smu_context *smu)
->                                             OD_OPS_SUPPORT_FAN_TARGET_TEM=
-PERATURE_RETRIEVE |
->                                             OD_OPS_SUPPORT_FAN_TARGET_TEM=
-PERATURE_SET |
->                                             OD_OPS_SUPPORT_FAN_MINIMUM_PW=
-M_RETRIEVE |
-> -                                           OD_OPS_SUPPORT_FAN_MINIMUM_PW=
-M_SET;
-> +                                           OD_OPS_SUPPORT_FAN_MINIMUM_PW=
-M_SET |
-> +                                           OD_OPS_SUPPORT_FAN_ZERO_RPM_R=
-ETRIEVE|
-> +                                           OD_OPS_SUPPORT_FAN_ZERO_RPM_S=
-ET;
->  }
->
->  static int smu_v13_0_7_set_default_od_settings(struct smu_context *smu)
-> @@ -2160,6 +2211,8 @@ static int smu_v13_0_7_set_default_od_settings(stru=
-ct smu_context *smu)
->                         user_od_table_bak.OverDriveTable.FanTargetTempera=
-ture;
->                 user_od_table->OverDriveTable.FanMinimumPwm =3D
->                         user_od_table_bak.OverDriveTable.FanMinimumPwm;
-> +               user_od_table->OverDriveTable.FanZeroRpmEnable =3D
-> +                       user_od_table_bak.OverDriveTable.FanZeroRpmEnable=
-;
->         }
->
->         smu_v13_0_7_set_supported_od_feature_mask(smu);
->
-> base-commit: 3631f572ee38bed4c3d0a9003570c63eaa9fd4e3
-> --
-> 2.47.0
->
+kfd process kref count(process->ref) is initialized to 1 by kref_init. After
+it is created not need to increase its kref. Instad add kfd process kref at kfd
+process mmu notifier allocation since we already decrease the kref at
+free_notifier of mmu_notifier_ops, so pair them.
+
+When user process opens kfd node multiple times the kfd process kref is
+increased each time to balance with kfd node close operation.
+
+Signed-off-by: Xiaogang Chen Xiaogang.Chen@amd.com
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c | 14 ++++++--------
+ 1 file changed, 6 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index d07acf1b2f93..d871d5320297 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -850,8 +850,10 @@ struct kfd_process *kfd_create_process(struct task_struct *thread)
+ 		goto out;
+ 	}
+ 
+-	/* A prior open of /dev/kfd could have already created the process. */
+-	process = find_process(thread, false);
++	/* A prior open of /dev/kfd could have already created the process.
++	 * find_process will increase process kref in this case
++	 */
++	process = find_process(thread, true);
+ 	if (process) {
+ 		pr_debug("Process already found\n");
+ 	} else {
+@@ -899,8 +901,6 @@ struct kfd_process *kfd_create_process(struct task_struct *thread)
+ 		init_waitqueue_head(&process->wait_irq_drain);
+ 	}
+ out:
+-	if (!IS_ERR(process))
+-		kref_get(&process->ref);
+ 	mutex_unlock(&kfd_processes_mutex);
+ 	mmput(thread->mm);
+ 
+@@ -1186,10 +1186,8 @@ static void kfd_process_ref_release(struct kref *ref)
+ 
+ static struct mmu_notifier *kfd_process_alloc_notifier(struct mm_struct *mm)
+ {
+-	int idx = srcu_read_lock(&kfd_processes_srcu);
+-	struct kfd_process *p = find_process_by_mm(mm);
+-
+-	srcu_read_unlock(&kfd_processes_srcu, idx);
++	/* This increments p->ref counter if kfd process p exists */
++	struct kfd_process *p = kfd_lookup_process_by_mm(mm);
+ 
+ 	return p ? &p->mmu_notifier : ERR_PTR(-ESRCH);
+ }
+-- 
+2.25.1
+
