@@ -4,163 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E304AD33990
-	for <amd-gfx@archiver.kernel.org>; Mon, 28 Oct 2024 15:31:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 929C4D33997
+	for <amd-gfx@archiver.kernel.org>; Mon, 28 Oct 2024 15:31:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 78F1210E1F3;
-	Mon, 28 Oct 2024 15:31:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C36C10E4F3;
+	Mon, 28 Oct 2024 15:31:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="DQ2RRguw";
+	dkim=pass (2048-bit key; unprotected) header.d=yahoo.com.ar header.i=@yahoo.com.ar header.b="Z+Zxwbm6";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2045.outbound.protection.outlook.com [40.107.220.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB88710E1F3
- for <amd-gfx@lists.freedesktop.org>; Mon, 28 Oct 2024 15:30:59 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=l4JS15CZYibF2ndsFLzhHrlVyTGmk+JIjuhNMFV4D/ZOExsYmB7Thb4GqcrT6JD4NavGddANQPzsVSR0Xddk9zB+qwPs9c2/je28aM4KHrVAJrLjRdrE3iP1XABjkPK0E28gF1odgA2REYM83DERw/zpCi43/ZouWseLgm2GNfbFew1AiLPiqstyqcihaaQmR98tvGffE4Z1v46piX7oHAS0vJeBqNhfq/2OS8j79TULWlFjW3JWTzL7kTJiy0la1wejbPJ5F3m6YaUJnSUwlbTkkrNmqU1SCsTe4PfNbfGzGZt25qtIZFkdgl4IqBoil9FhNI4cPvmfYO1SC15vcA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6polejlAo//XV99ZEYEOY2sWF1jcOujsQR8xNxAGYYc=;
- b=JNeS/7ItD11K8xGny8QPISUovZADy39er9OtUXUPckSmFMGeB2TfHj2dWy8VRwv5TzX6d6cchTYQUruimfxg0+/3Ztzd5qMiZWamvFeFhztJGWrcseCSWne+ieazBSX9YSVS7MQGkGfb4WzudXwu/Yi1NTgC2Ca3vUk3TwwMvo9LqbpGOOp3K8XD06/JwXYRpEOR9ZaxhGMNsA5/ba2wzoXI+B6rwBEINNjFTzXVo+6XeD7PV65XhpdxXaWVtsoL47CWTq1wh4crHLsLud+gnQtWEOcQqmQ962Ncb6EXfAmKsSKqDHpSuytAlkyqO6bJ8R4f3KsSmCqICXem7uLDxA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6polejlAo//XV99ZEYEOY2sWF1jcOujsQR8xNxAGYYc=;
- b=DQ2RRguw2NHR24peCI5WoX1DAM9iVoAJjEJfN7IJ9u0ZVyUWGRVyMa8M+gJR1A05QtIYiPccbrInX2NVKIo/7j9e5O+1E1PQVkxd+05h17T5AxsmYDfXhcugaK8OcMpmGQheYVZYAuoUxFM54tUpj5Bmww3115tNVPxbZOi6S6Q=
-Received: from BL3PR12MB6425.namprd12.prod.outlook.com (2603:10b6:208:3b4::7)
- by SA1PR12MB8842.namprd12.prod.outlook.com (2603:10b6:806:378::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8048.20; Mon, 28 Oct
- 2024 15:30:54 +0000
-Received: from BL3PR12MB6425.namprd12.prod.outlook.com
- ([fe80::8989:59a5:1a4a:60b8]) by BL3PR12MB6425.namprd12.prod.outlook.com
- ([fe80::8989:59a5:1a4a:60b8%7]) with mapi id 15.20.8093.018; Mon, 28 Oct 2024
- 15:30:54 +0000
-From: "Joshi, Mukul" <Mukul.Joshi@amd.com>
-To: "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>
-CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "Kasiviswanathan, Harish" <Harish.Kasiviswanathan@amd.com>, "Kuehling, Felix"
- <Felix.Kuehling@amd.com>
-Subject: RE: [PATCH v4] drm/amdkfd: Use dynamic allocation for CU occupancy
- array in 'kfd_get_cu_occupancy()'
-Thread-Topic: [PATCH v4] drm/amdkfd: Use dynamic allocation for CU occupancy
- array in 'kfd_get_cu_occupancy()'
-Thread-Index: AQHbJoe7vwNZo3FiN0Ws2Llzhu8+KrKcSnGAgAAFE9A=
-Date: Mon, 28 Oct 2024 15:30:54 +0000
-Message-ID: <BL3PR12MB64255123295AD6A96A2AFA46EE4A2@BL3PR12MB6425.namprd12.prod.outlook.com>
-References: <20241004034505.3759692-1-srinivasan.shanmugam@amd.com>
- <20241025024328.3657725-1-srinivasan.shanmugam@amd.com>
- <ac3a4e54-3b67-4dd2-8f78-47cd663ed729@amd.com>
-In-Reply-To: <ac3a4e54-3b67-4dd2-8f78-47cd663ed729@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=8da7885d-6924-4d27-b424-55b6d80d540e;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution Only;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-10-28T15:30:16Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BL3PR12MB6425:EE_|SA1PR12MB8842:EE_
-x-ms-office365-filtering-correlation-id: 587d9034-aa26-4f45-d62f-08dcf765830e
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0; ARA:13230040|366016|376014|1800799024|38070700018;
-x-microsoft-antispam-message-info: =?utf-8?B?WEpRRzBkbFhNVzRsZzlNRzdmWTcwdEhqU3FmWFQwSFBWaEFCYy93ZHF6NndO?=
- =?utf-8?B?QkVvS1FON0JCNVEvczBSZ2prdzhMdHZ1TzIvVGNYUHZGc20zU3hGM2duMlBH?=
- =?utf-8?B?cENjNjlDUFpDcEcwb09tYW9rR1JaZUgwZGNEb0t4dmszbDkwNlk2dlF2RGVF?=
- =?utf-8?B?amNKbW5aWTBBSXV6ZVdsZW45S0FFYnBYbEprYjJJeDNSc2kvaktpcnhYZWNK?=
- =?utf-8?B?aGtLUmZ0enplWm9aVnUySXJmL0dkZGRha3RXU29USjhDKzloTFh5Q0l4SG90?=
- =?utf-8?B?U3ZJMEd5cHdERG81NGtGc2NSZkxHcHZqcUYrR1ArQ3lraXhkYmluekkvZ3Fh?=
- =?utf-8?B?c0xad244WVNIMTR1MXpVeDJyblF3UDltbW5GeXBxZjkvd1lDaG5zeW84ODFn?=
- =?utf-8?B?R1NzTk9tSzZRZ1AxRVQyUDVJZXlwT0haODlKejZlYlJjUURLdzA1Q1IxS3Vx?=
- =?utf-8?B?OHdVTHpVMUJqWlAzMFBmaGNhMWUwRGtDZStjVGNndHJpYXkrVFZ1SnY5cDBB?=
- =?utf-8?B?c1hHWVZ3SmR5N284RE0wR1drL2ZjVEtIaU9UWGFGTHA4R1BHSDI4TWF3YXM1?=
- =?utf-8?B?SmdZcGhkaE0vWnpJdmZBQVNSTUFiLytIV2RiR0ZDdkNxM3hUUktZeGlaRWdk?=
- =?utf-8?B?Q0NwRVVEaEVPZDBtbklmSEFId3FNd2FVMWNabENMU0pNNVFqWG5Ecno0UWNt?=
- =?utf-8?B?eDg1ZDBDZGN1LzFLZUM4R2pTNW9oTUhSejJLQjF6YmtvbkRzN2M1VnhGSDZ0?=
- =?utf-8?B?ZGdPeUdNWmY5UjFYc3hhZ1VZa2FFZ0lBRUNZeGVkWjg4V1lWUWd1YlN1blFB?=
- =?utf-8?B?bFdnZWIwcU5yZDZrNUF1Uk84NlVUNEt5M01DR3B3eVI5UFBkalZEMlo0RzN6?=
- =?utf-8?B?akt6dVA0OHZUZmlmNmNsL21VOFVEbkp3NWVBUHYraVdva0c4RlYxVUVZNDQ1?=
- =?utf-8?B?TTJhVi82UHl4K3VqeU5kQ3hMRU9CN0ZrQWlVUTRxVDZsRU5LMnFZSnhlT2ty?=
- =?utf-8?B?YU1TNFN5TmNhbXRYUlQrU3hNSzFKMzd4OURVenZuQTh6bDV0R25ka3NaNnM5?=
- =?utf-8?B?bkNEb1RnVkZMcmR1L0o1Q3p6RE9UcWpHVGNtenNVeXpLMmVNeXpaWFJvTkdk?=
- =?utf-8?B?NXZNTlFwUmFGblhENmZra1llOUwwdXVNVE5MVnZTZGVWWmRCbWl1d1l1bDNs?=
- =?utf-8?B?MTZtUWJlK2JoL2k2UmNSblVjclNOdTlXc3lDU000RTArVUc4aUhJUHhPNXJz?=
- =?utf-8?B?NzJQK0MveE9RQ3dpVytYS1JkY2JZVUV3czZHbTkzQmR0Zlo2RWRMbmhFdTVn?=
- =?utf-8?B?bXBQTUZobDZwaFJkYktKUDg0bUdIRTlwWkVYMU9TRExJc1dzS0pUQ2EvcVdX?=
- =?utf-8?B?MkxrUTQ1Vm1PS3BZQys4ZThOcmpxNm9pcWlEcHg1dXkwVFl3aDdGS0ZIRGRz?=
- =?utf-8?B?cUFaV1NrS2orUmZhMDNuUVNlK3lWZ0lJZHBRK05CVVlWZStlNDh1V2VxbzBu?=
- =?utf-8?B?cDdGcHpwUmt3WXpjU1NFQ1RUOG84YllVeGVUbnRlemZqZWQ5SEtoT3BqSUxm?=
- =?utf-8?B?Qm5ldmRNNHBsN21yRXhCU1RSSDQvTU5wV1B0YTVLL1F4VmYwVDUyM2RyajV1?=
- =?utf-8?B?ZWNuMFU2R1JDUGsxMm1oVjF4VCtHWHJzRlowRGdDS0UrODYwdi9abkZhSk1E?=
- =?utf-8?B?VzdmSkQ0RkJ1eDNGL09HcUE0RUNmMUVvZHNLNnJOUnRlRnViYVNIT2tPUDQx?=
- =?utf-8?B?aUVjalFKN3M0L3JmRm5NYVBWWDlLYitiMUVDOFNqdk5MbzRXSDJPbmhrZDdT?=
- =?utf-8?Q?CN3hMVzJ1rPdAWwQtn6ZXB1ne8sqrIcDshPJY=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL3PR12MB6425.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(38070700018); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?ZkR2Vi92U0l6OVI1bWhxVzh5WEo0SU9wTXpLQ0tyS2t4U0gzakI3RzZmVmhS?=
- =?utf-8?B?WnpCL3NzWll4R1RFM3VRZkhEcVNNNnRnWFJJVkhneEFNR25RdmM1WURmem41?=
- =?utf-8?B?UXNrNzBYWjd3V0VrQ0pCRjVXSUFqUXhYNHZObnEyYmZBUlR4bm9zSFdLWWFG?=
- =?utf-8?B?cURTeHNQT3MxYSthWVkwSGdOd0dwdzFvU2pDTEx6SmdkMitkQUtEVEFwRnBP?=
- =?utf-8?B?UXVMY3FPYmFXUFFZVmVmNlVzV0ZJeVZJb3pWeXYzTXFwVjhVQVFaZUFKb09s?=
- =?utf-8?B?TGE4cERLUGFHZVFnMlV1Y05TbGdtLytjdDN0Rld4RUhVRTdITDd4VktoZm0z?=
- =?utf-8?B?c3Z4UEx3dUR4V1FKVENZKzBCTHRqa1VaOG1EUmZ5ZzF5bUowZjMzdy92TGNq?=
- =?utf-8?B?YTBBcmQrcDN2YlZIT3BWOWJDY1hkbG50ZTNqekhTbmhPM1FhVE9aZVp4VzNF?=
- =?utf-8?B?U2JValhYbDNlR2M1Tm9CSld2U0xMOHpndHVHejg4ancwY3F3WmpKSnBrS0Qx?=
- =?utf-8?B?T3kxeHE1NVdhNVlrNkNBUnFEdXZ3SHNZRjJGMXorRFdOZjNBbUFMdXM5L1B0?=
- =?utf-8?B?dWU2clRMbk5Nd2RyeWhNL0VtRGNiaW9CMzlSeHpJTUxDSitScHZhOG5Mc0FR?=
- =?utf-8?B?M1ZoaGlhVXA2S3pGN1JjRUVBbWZFYzhqcmFSdzA2c2FWY1l0V09FQzhDdGt1?=
- =?utf-8?B?bEN5K2gvM3JNYXpOOVhkeWlVeVRVeVNBYmVJd21WamNrZldOeU55RkdPMUJG?=
- =?utf-8?B?cStGamY2YkNRdE9CV241eldHSGp4WDNaa1lZMjNtd0xNT1lOb2xiT3NsSFNj?=
- =?utf-8?B?aGhJQ29OT2Y2V0p0UGhHcWJXMTFsM0NPSDhqY2FEZ3ZZYUxPd0h6bFhaWVZq?=
- =?utf-8?B?R0dnYXpTei9pTFh2M3pzVzY4K2JxaDZobi93NDhNZ1ZoY2tmZ2phWCtNQUsv?=
- =?utf-8?B?NjVzdTVlVXlQQjV1bHlrR0QwSEdZWEgwYWN1VlVjdTRONjl2S2dtdmlBQW4r?=
- =?utf-8?B?cGJLUXJHNGJNWHRIY21mWjlUQmY1VVR3NnRNTUhNcXVrd1liQzd3ck5BV2c0?=
- =?utf-8?B?UjhGOEwybldvK0g0VGJZUFhhSk9aazBsYlJXa3JveHhWZkFRWEwyRlpYam43?=
- =?utf-8?B?RzJISXl3R3hyTXp2QXJoUFQ4QVpxVDhVUTNoa0djRXNOZ1RCandvZTRCdGMz?=
- =?utf-8?B?UWJkUnh3eFdrenpoejU4dzc5cXAvM045Q2RiL1Z5MnhENUNqUlU5bkFuVmxV?=
- =?utf-8?B?b2lGeG1QME5lNEFQNVVodG1tWGFoYjd5WHE2aUxUOS9ZOHRXYklCblMzOWJz?=
- =?utf-8?B?L3ZjYTV3d3d5RUdyNEV0aFhUcUxyMTJ6WlBiYVVnNlBGQ0lBbUI4VjludHFm?=
- =?utf-8?B?ejdkN0NqQVNmUTVvVXg5WWcrNlh2eUZLd0g2V0xJWHplKzdpWHNuV2UxWHBm?=
- =?utf-8?B?VlRoT1dteCtxdUZxQ0htbWpSVkh5aVN3TGFCY0REUk5nVmFFbVJyb2g4S212?=
- =?utf-8?B?eStsUGNLSElYMnZOaitRUEVuYStGbms5SlFjdzlxam1GYm1pOFB2bXZtOENs?=
- =?utf-8?B?bXBWd3c4QXVRbGw3c0FCQXIxMUs3eWo1dFVsNlJudnB2RWFJY2VIdHVjWUNs?=
- =?utf-8?B?czEzQ0dScEUrd3UrMHU5Tzc5b1lPWVpsQmRMcUlqVXkwdjB6ZExqSkZCWWRX?=
- =?utf-8?B?SnN3T3RPU0F1YVdiWU9JTkFzRXgzdmh1YmNFMzd3RHNMYUNId3lYR0I5WjJ3?=
- =?utf-8?B?QnplVjdXdFhmK1g1ZythcFNKR3oyeVdJT2JFNDZWUld6Y3FLMzRGdEk1ay91?=
- =?utf-8?B?ajRyaFUzczF0R0FGRjJVdGNBZHhhQzZ2V2R6NWpoRUQ5THdYYkk4cktKQ3Vl?=
- =?utf-8?B?TWlYZk9ZcmNNdkVIZ2U0b1RxWi9CaERKZ0NFci9Pc3JJUldlUE9GaE9PWTJ3?=
- =?utf-8?B?enByNWlTWndpdW5QWlF5Zk1XYU5zekVxT3czbEtoeE1oWjdLNndkTlpoajgr?=
- =?utf-8?B?UHVsNllWVDhLeUZkS1l2a3RBRHRGUEpBWGhsUjl0UGNkay9ONzUycm1HejEr?=
- =?utf-8?B?YjRZdElxSm1VdmRlaUc3Ykp6MVNSRG9CamJHRlNLTHF3SzNLQmZFa2xNejg4?=
- =?utf-8?Q?5gQ0=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Received: from sonic306-20.consmr.mail.gq1.yahoo.com
+ (sonic306-20.consmr.mail.gq1.yahoo.com [98.137.68.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6222D10E4F3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 28 Oct 2024 15:31:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com.ar; s=s2048;
+ t=1730129484; bh=BDssXq3CXAb1zCUeE5ZbDJfbdfbuFaFbFl2uVheaJfg=;
+ h=Date:From:To:In-Reply-To:References:Subject:From:Subject:Reply-To;
+ b=Z+Zxwbm61awHjnzwuIc/F5WONWYMnk1cuxntGKztse5RmUHHANmAhqyJ1I9z96wpTTJZ3yr6TrbvPiwmYo6P0W/SAMDJ7nZ0mb1nsDCvsU22VHg6dLoj1jO/UrCyzed/cYQoz5qWQVTJJo7y/3oLDlKDFuP96x3yAOiZ6h5WpIMemEv+z43jAGzjO3ILoYbwXiOP6BAqtwubAFMfDhnWdA6MYarFITnc9BExvpE2xAdLkYQyWzz4pNXNAUP5hu5A5VyoGN0nJcivLt5qvvXazdest7pLuYZyxSmZzdjImbQeev6wViC7BekrWhhuLjHbCTe0op7909aGr4Z2adJ5hA==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
+ t=1730129484; bh=al5MIdGiZ+/0mcw880OGDNUgv+zng/qWtiapidW0w6l=;
+ h=X-Sonic-MF:Date:From:To:Subject:From:Subject;
+ b=oNBU2NMU7tbwJ3xMPo/PJp4p52AoOw0gwWKgxc0w8moc8FotbpltkSYstITkU4NWYP8It+uvaMRsp8ILBPxdNigQSEImIMegy+wmd3W0z36rKjEQGJGmucTFwMVJLIi1NTqeZRUHed+3Cr3/7aeTELA4s5TtEIXMLobnCYa+NwLFx/XBnlk13oHSyTOQWWkJiP3QiRJXNCkoIGPXK0d9IfN6YZ3nnEKETn4KhK3OjwMrQcV+fqV1ypEf0eTIlD5hFyuiN4qtopXqg05Wyj9FwkXfvR6uRFcJQFUTJ7KyQfn8UtPZMXgO7uRGywUmzEDpueLDN870pRiulsMcVXOBQQ==
+X-YMail-OSG: _v..a.8VM1kjQlb42ryrUEgqKYyQg5HaCyG9vtTI3DU.jRpF5_hSQ3nUJWsvPca
+ PG6AJg6vM600kdXq.ejbBkXHU0T5b50dXqZWe8z2AZ2MDxquhJ0gs8CF0aHSpg_nff8lr_Kxh63u
+ cFAIj4fYt6VRoOoio1bo5U5CXUNdV0WCG8.nmrgJS9JlRnqEXvTVr8lbnpuK3rXyzDTBV8tDkmf7
+ FZt7J6KHoF6g9DpCtLxhYOXivXiHlrzq5HGT99FnmUDXQvZXH31bMdRCiWaN7Ao81gAFiLcSFbNJ
+ ebzcCM1s9ngkm3T7H8FSd23Z.XNa_FI26OhYGuS9w94Pas_HIJbve08wAJunDtNpuA5O_Q7pc_EE
+ ymqKaHZmN.DUjUQRDtS6yuJwuGGoudPiztjiNalxw1tuJ0LF5Te2m35E2of_dPuMNGAzsmtOrgGh
+ Akeh65JWNxQP8YysVMSUUH_Va4DpSIaQ.7AsldeemLhGaZf.FTjk68PO_Hiqtl8GZbqfqYPf3zvF
+ k._0SFKNLVVdSl_GG9lyAM_DSh0oEvaKwShvjvbYYtqyHnALstHeuWu3ITLJeQvDTOIfDU8F19Lg
+ 0QB0H9Plb1JqFB98D091LcabXKiJJWuArIq2Oh6Q_jyR1_Eue88X8ydv1GPh2W4dfmNDmyQHFZxU
+ QVYyqzN6LF6J5kM0SQAqsJxcLgxyEgHcDvLgBJHQmCiEz2vig8MsxSrvIdwg.PTSEJa35oA7h0.4
+ IWXO.q6fchiBW7wuBbtF8gj9_O0KUMwqfXmMTG9kaTFGnzxDZT7BhzUVwK3HtaXXaJltYHyUNpQG
+ WBYt5vzdGfE48Eu5g5rk29FOBDBOfeyrKDWIVUTbphMGaY2BO7vIsZ1RVuRSHNRUhiv5qrdYX2eG
+ hk0fpcd2SwJgOYRuEfxboFMtokd5isQq8rARV7Ap13ABRc4sY4NsHat0XoedtFrCyQqlGP4O6zC0
+ oCYIH4JO0AWMwwZ7GF3mS_aV9umgZk36DYJsy5x1IZcALwNKCjNuM8hQAainnFEaBi5A7BMiJ4hP
+ f4_UL0POTL5COS_faGzwTyaWoym7ZxAPTEkb20f1jv_OnK7nNCTYkWIrfgeaKrGNoQ0la.Qyop4c
+ qae6ChNNVdXWSTpgsLUPHaMW2p0xJLhVmD2jBGvSR6QbYCvf5qVcfVV7PrZNnoTala.pza5FlMWp
+ 10eeXex3j_HLGgq07aFtuwG.0fqzGtQ_tNVyapZjpEt0D8pEV2TGREwiBPxbXzwBh7e.m5P3vgV7
+ sdiBZKHm.LCGUuXd2bvlXLSL_fo90D7KHdiefq_cE4Nw480rwFpyvpRQlCUlgRhBeoxU9gX9aDdC
+ dwn6EsgEaNNtEE.9tY0Qq2Ub_vIgh3Zl5Wg30toGW44qZ.CICMJni8oCtgnQYrWEtYUjMjmbo81a
+ NqPDD12CgIGiwGRrEfr177jwkNSz3FUzXC.Mo7Ce_z0cAyIiqH3pCvBlQfB4ab4Mn8LOiiEW0.zN
+ FfVVR0oLdLLerNmtDwTJgcJClXlgGUhVXoZiXOOf9tpHz8gsjspVROcGVeIg34q8PNZ0EWqM_L7v
+ 6QS1ftr9kh7Y94kd.g8DsRu4roCsSPeFTOAMu7p3BLj8V9f2aZAsFBNyjXObdUwguBknPLyDEkRR
+ WoOQpPchrCgcZ8GP6N_lk2E0ZGh68cMR.SD.bg7Dhiee6dMSrtiff.8tmEgs7ulpJ99tZMV88W2n
+ 8ZGmqGkjlqmqv8SpwyeHsPLhvRtqSlG1FNwWFV1KPrx9p3s1kdDdq4.D2OYoz_cx7TeXE84tGJV9
+ 0yDteSX_2Ymspp.MbrOMIwyZCl3QDJG5zHbjr7.NHbZupxwbgVYC0yzLeWK7rq22QpgXwjBgmdl_
+ oVO0RT7MInqvw3Sp.zM4yO0oWDKG2QE.fPQRnU4IVeD.mRdg045F93qBxMvh.gWxigFZ9Rh1Zm3j
+ sX5TxNkUzve.5tbH7aLeUWkAg6H8PBSOw7LX13BuGO23tN_g6o7rRwaCI3yEQaMcAVz8gnspHAnI
+ j13w7LA5nRcVV4.xqAVKMarza7RqRw0F8.D3cd0gKAydrOMOyj_9ePhlggCMfClBPDDSGFl3i71a
+ ef8f1IeASgNnj_l54kFZjmZGFH.ZaWm1WbsdAEUrtsZZnNQHP.SsTOxYHTggnEgc8yBDGsvS7UM7
+ 7IMVZFmJvArTxSTs7ZiqsfrrodW3mxQATBvpqPo4XjBcwAYZZQ2wdW4lUdQ8ZNNFfanhG0n8VY_R
+ .tkzu1OP6JjZnUVHJV4knc2o5_SB6y8jF.iDgMuhdF5JE56L5zwWPVE340ZTWRO6w
+X-Sonic-MF: <dark_sylinc@yahoo.com.ar>
+X-Sonic-ID: b9433176-44ef-4efe-af8c-803f584cdac4
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic306.consmr.mail.gq1.yahoo.com with HTTP; Mon, 28 Oct 2024 15:31:24 +0000
+Date: Mon, 28 Oct 2024 15:31:22 +0000 (UTC)
+From: "Matias N. Goldberg" <dark_sylinc@yahoo.com.ar>
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
+ "harry.wentland@amd.com" <harry.wentland@amd.com>, 
+ "xaver.hugl@kde.org" <xaver.hugl@kde.org>
+Message-ID: <219040937.2163984.1730129482593@mail.yahoo.com>
+In-Reply-To: <1193254694.2164272.1730128713802@mail.yahoo.com>
+References: <49676545.2155587.1730128258922.ref@mail.yahoo.com>
+ <49676545.2155587.1730128258922@mail.yahoo.com>
+ <1193254694.2164272.1730128713802@mail.yahoo.com>
+Subject: Re:  [PATCH] drm/amdgpu add "pixel_encoding"
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL3PR12MB6425.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 587d9034-aa26-4f45-d62f-08dcf765830e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Oct 2024 15:30:54.2024 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Q2eIRZ7zaZaJSYSatkc3L/HGoxMHhTPosQKR2qhhn5TD0BM0u+LoBc1qwfuL+vljs7AfIK7WFyByubd13b62gQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8842
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: WebService/1.1.22849 YMailNorrin
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -175,72 +88,734 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEFNRCBJbnRlcm5hbCBEaXN0cmlidXRpb24gT25seV0N
-Cg0KUmV2aWV3ZWQtYnk6IE11a3VsIEpvc2hpIDxtdWt1bC5qb3NoaUBhbWQuY29tPg0KDQoNCj4g
-LS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogU0hBTk1VR0FNLCBTUklOSVZBU0FO
-IDxTUklOSVZBU0FOLlNIQU5NVUdBTUBhbWQuY29tPg0KPiBTZW50OiBNb25kYXksIE9jdG9iZXIg
-MjgsIDIwMjQgMTE6MTIgQU0NCj4gVG86IEtvZW5pZywgQ2hyaXN0aWFuIDxDaHJpc3RpYW4uS29l
-bmlnQGFtZC5jb20+OyBEZXVjaGVyLCBBbGV4YW5kZXINCj4gPEFsZXhhbmRlci5EZXVjaGVyQGFt
-ZC5jb20+OyBKb3NoaSwgTXVrdWwgPE11a3VsLkpvc2hpQGFtZC5jb20+DQo+IENjOiBhbWQtZ2Z4
-QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsgS2FzaXZpc3dhbmF0aGFuLCBIYXJpc2gNCj4gPEhhcmlz
-aC5LYXNpdmlzd2FuYXRoYW5AYW1kLmNvbT47IEt1ZWhsaW5nLCBGZWxpeCA8RmVsaXguS3VlaGxp
-bmdAYW1kLmNvbT4NCj4gU3ViamVjdDogUmU6IFtQQVRDSCB2NF0gZHJtL2FtZGtmZDogVXNlIGR5
-bmFtaWMgYWxsb2NhdGlvbiBmb3IgQ1Ugb2NjdXBhbmN5DQo+IGFycmF5IGluICdrZmRfZ2V0X2N1
-X29jY3VwYW5jeSgpJw0KPg0KPiBQaW5nPw0KPg0KPiBPbiAxMC8yNS8yMDI0IDg6MTMgQU0sIFNy
-aW5pdmFzYW4gU2hhbm11Z2FtIHdyb3RlOg0KPiA+IFRoZSBga2ZkX2dldF9jdV9vY2N1cGFuY3lg
-IGZ1bmN0aW9uIHByZXZpb3VzbHkgZGVjbGFyZWQgYSBsYXJnZQ0KPiA+IGBjdV9vY2N1cGFuY3lg
-IGFycmF5IGFzIGEgbG9jYWwgdmFyaWFibGUsIHdoaWNoIGNvdWxkIGxlYWQgdG8gc3RhY2sNCj4g
-PiBvdmVyZmxvd3MgZHVlIHRvIGV4Y2Vzc2l2ZSBzdGFjayB1c2FnZS4gVGhpcyBjb21taXQgcmVw
-bGFjZXMgdGhlDQo+ID4gc3RhdGljIGFycmF5IGFsbG9jYXRpb24gd2l0aCBkeW5hbWljIG1lbW9y
-eSBhbGxvY2F0aW9uIHVzaW5nDQo+ID4gYGtjYWxsb2NgLCB0aGVyZWJ5IHJlZHVjaW5nIHRoZSBz
-dGFjayBzaXplLg0KPiA+DQo+ID4gVGhpcyBjaGFuZ2UgYXZvaWRzIHRoZSByaXNrIG9mIHN0YWNr
-IG92ZXJmbG93cyBpbiBrZXJuZWwgc3BhY2UsICBpbg0KPiA+IHNjZW5hcmlvcyB3aGVyZSBgQU1E
-R1BVX01BWF9RVUVVRVNgIGlzIGxhcmdlLiBUaGUgIGFsbG9jYXRlZCBtZW1vcnkgaXMNCj4gPiBm
-cmVlZCB1c2luZyBga2ZyZWVgIGJlZm9yZSB0aGUgZnVuY3Rpb24gcmV0dXJucyAgdG8gcHJldmVu
-dCBtZW1vcnkNCj4gPiBsZWFrcy4NCj4gPg0KPiA+IEZpeGVzIHRoZSBiZWxvdyB3aXRoIGdjYyBX
-PTE6DQo+ID4gZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvLi4vYW1ka2ZkL2tmZF9wcm9jZXNz
-LmM6IEluIGZ1bmN0aW9uDQo+IOKAmGtmZF9nZXRfY3Vfb2NjdXBhbmN54oCZOg0KPiA+IGRyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1Ly4uL2FtZGtmZC9rZmRfcHJvY2Vzcy5jOjMyMjoxOiB3YXJu
-aW5nOiB0aGUgZnJhbWUNCj4gc2l6ZSBvZiAxMDU2IGJ5dGVzIGlzIGxhcmdlciB0aGFuIDEwMjQg
-Ynl0ZXMgWy1XZnJhbWUtbGFyZ2VyLXRoYW49XQ0KPiA+ICAgIDMyMiB8IH0NCj4gPiAgICAgICAg
-fCBeDQo+ID4NCj4gPiBGaXhlczogNmZjOTEyNjZiNzk4ICgiZHJtL2FtZGtmZDogVXBkYXRlIGxv
-Z2ljIGZvciBDVSBvY2N1cGFuY3kNCj4gPiBjYWxjdWxhdGlvbnMiKQ0KPiA+IENjOiBIYXJpc2gg
-S2FzaXZpc3dhbmF0aGFuIDxIYXJpc2guS2FzaXZpc3dhbmF0aGFuQGFtZC5jb20+DQo+ID4gQ2M6
-IEZlbGl4IEt1ZWhsaW5nIDxmZWxpeC5rdWVobGluZ0BhbWQuY29tPg0KPiA+IENjOiBDaHJpc3Rp
-YW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+DQo+ID4gQ2M6IEFsZXggRGV1Y2hl
-ciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4NCj4gPiBTaWduZWQtb2ZmLWJ5OiBTcmluaXZh
-c2FuIFNoYW5tdWdhbSA8c3Jpbml2YXNhbi5zaGFubXVnYW1AYW1kLmNvbT4NCj4gPiBTdWdnZXN0
-ZWQtYnk6IE11a3VsIEpvc2hpIDxtdWt1bC5qb3NoaUBhbWQuY29tPg0KPiA+IC0tLQ0KPiA+IHY0
-Og0KPiA+ICAgLSBBbGxvY2F0aW9uIGlzIG1vdmVkIGp1c3QgYmVmb3JlIGl0J3MgbmVlZGVkIChN
-dWt1bCkNCj4gPg0KPiA+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3Byb2Nlc3Mu
-YyB8IDkgKysrKysrLS0tDQo+ID4gICAxIGZpbGUgY2hhbmdlZCwgNiBpbnNlcnRpb25zKCspLCAz
-IGRlbGV0aW9ucygtKQ0KPiA+DQo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1ka2ZkL2tmZF9wcm9jZXNzLmMNCj4gPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tm
-ZF9wcm9jZXNzLmMNCj4gPiBpbmRleCBkNGFhODQzYWFjZmQuLjZiYWI2ZmM2YTM1ZCAxMDA2NDQN
-Cj4gPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJvY2Vzcy5jDQo+ID4g
-KysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3Byb2Nlc3MuYw0KPiA+IEBAIC0y
-NzEsMTEgKzI3MSw5IEBAIHN0YXRpYyBpbnQga2ZkX2dldF9jdV9vY2N1cGFuY3koc3RydWN0IGF0
-dHJpYnV0ZSAqYXR0ciwNCj4gY2hhciAqYnVmZmVyKQ0KPiA+ICAgICBzdHJ1Y3Qga2ZkX3Byb2Nl
-c3MgKnByb2MgPSBOVUxMOw0KPiA+ICAgICBzdHJ1Y3Qga2ZkX3Byb2Nlc3NfZGV2aWNlICpwZGQg
-PSBOVUxMOw0KPiA+ICAgICBpbnQgaTsNCj4gPiAtICAgc3RydWN0IGtmZF9jdV9vY2N1cGFuY3kg
-Y3Vfb2NjdXBhbmN5W0FNREdQVV9NQVhfUVVFVUVTXTsNCj4gPiArICAgc3RydWN0IGtmZF9jdV9v
-Y2N1cGFuY3kgKmN1X29jY3VwYW5jeTsNCj4gPiAgICAgdTMyIHF1ZXVlX2Zvcm1hdDsNCj4gPg0K
-PiA+IC0gICBtZW1zZXQoY3Vfb2NjdXBhbmN5LCAweDAsIHNpemVvZihjdV9vY2N1cGFuY3kpKTsN
-Cj4gPiAtDQo+ID4gICAgIHBkZCA9IGNvbnRhaW5lcl9vZihhdHRyLCBzdHJ1Y3Qga2ZkX3Byb2Nl
-c3NfZGV2aWNlLCBhdHRyX2N1X29jY3VwYW5jeSk7DQo+ID4gICAgIGRldiA9IHBkZC0+ZGV2Ow0K
-PiA+ICAgICBpZiAoZGV2LT5rZmQya2dkLT5nZXRfY3Vfb2NjdXBhbmN5ID09IE5VTEwpIEBAIC0y
-OTMsNiArMjkxLDEwIEBADQo+ID4gc3RhdGljIGludCBrZmRfZ2V0X2N1X29jY3VwYW5jeShzdHJ1
-Y3QgYXR0cmlidXRlICphdHRyLCBjaGFyICpidWZmZXIpDQo+ID4gICAgIHdhdmVfY250ID0gMDsN
-Cj4gPiAgICAgbWF4X3dhdmVzX3Blcl9jdSA9IDA7DQo+ID4NCj4gPiArICAgY3Vfb2NjdXBhbmN5
-ID0ga2NhbGxvYyhBTURHUFVfTUFYX1FVRVVFUywNCj4gc2l6ZW9mKCpjdV9vY2N1cGFuY3kpLCBH
-RlBfS0VSTkVMKTsNCj4gPiArICAgaWYgKCFjdV9vY2N1cGFuY3kpDQo+ID4gKyAgICAgICAgICAg
-cmV0dXJuIC1FTk9NRU07DQo+ID4gKw0KPiA+ICAgICAvKg0KPiA+ICAgICAgKiBGb3IgR0ZYIDku
-NC4zLCBmZXRjaCB0aGUgQ1Ugb2NjdXBhbmN5IGZyb20gdGhlIGZpcnN0IFhDQyBpbiB0aGUgcGFy
-dGl0aW9uLg0KPiA+ICAgICAgKiBGb3IgQVFMIHF1ZXVlcywgYmVjYXVzZSBvZiBjb29wZXJhdGl2
-ZSBkaXNwYXRjaCB3ZSBtdWx0aXBseSB0aGUNCj4gPiB3YXZlIGNvdW50IEBAIC0zMTgsNiArMzIw
-LDcgQEAgc3RhdGljIGludCBrZmRfZ2V0X2N1X29jY3VwYW5jeShzdHJ1Y3QNCj4gPiBhdHRyaWJ1
-dGUgKmF0dHIsIGNoYXIgKmJ1ZmZlcikNCj4gPg0KPiA+ICAgICAvKiBUcmFuc2xhdGUgd2F2ZSBj
-b3VudCB0byBudW1iZXIgb2YgY29tcHV0ZSB1bml0cyAqLw0KPiA+ICAgICBjdV9jbnQgPSAod2F2
-ZV9jbnQgKyAobWF4X3dhdmVzX3Blcl9jdSAtIDEpKSAvIG1heF93YXZlc19wZXJfY3U7DQo+ID4g
-KyAgIGtmcmVlKGN1X29jY3VwYW5jeSk7DQo+ID4gICAgIHJldHVybiBzbnByaW50ZihidWZmZXIs
-IFBBR0VfU0laRSwgIiVkXG4iLCBjdV9jbnQpOw0KPiA+ICAgfQ0KPiA+DQo=
+I just realized there is another (probably much better) possibility, which =
+is to go the DXGI_FORMAT route:
+
+Offer an enum with all possibilities e.g offer:
+
+- BT2020_YCC_AUTO
+- BT2020_YCC_LIMITED
+- BT2020_YCC_FULL
+- BT2020_RGB_LIMITED
+- BT2020_RGB_FULL
+- etc.
+
+The list would grow huge. This offloads the problem to the UI, to be handle=
+d from user space:
+
+UI could offer a list with the 100 or so options, and have a search editbox=
+ to filter the wanted ones (e.g. user types "2020 RGB" and only the 2 last =
+options I listed above are shown).
+
+The UI could ask the user "Pixel Encoding" and "Full vs Limited" to make it=
+ user friendly (since that's what 99% of users want), and have an advance o=
+ption to pick the exact color space.
+
+This means that Intel's option "RGB Broadcast" and amdgpu's "Colorspace" wo=
+uld be deprecated in favor of a new option that sets all 3 settings (color =
+encoding + space + limited/full) at the same time.
+
+
+Cheers
+Matias
+
+
+El lunes, 28 de octubre de 2024, 12:18:33 p.=C2=A0m. ART, Matias N. Goldber=
+g <dark_sylinc@yahoo.com.ar> escribi=C3=B3:=20
+
+
+
+
+
+SENDING AGAIN because it was sent with HTML formatting, which screwed up th=
+e email.
+
+
+Hi!
+
+This is my first patch ever to DRM/amdgpu (technically I didn't write the p=
+atch, I just kept rebasing it over 4 years, and did lots of testing).
+
+I'm following the advise from:
+https://gitlab.freedesktop.org/drm/amd/-/issues/476#note_2628536
+
+Why this patch? Because it fix a practical problem with certain monitors th=
+at auto-select ycbcr444 when they should be set to "rgb" (this issue also h=
+appens on Windows) when plugging an HDMI monitor to a DisplayPort via passi=
+ve adapter.
+
+
+IMPORTANT remarks about the public API:
+
+1. This API adds "pixel encoding" which has options "auto" (Default), "rgb"=
+, "ycbcr444", and "ycbcr420"
+
+2. Intel has "RGB Broadcast". Its options are "Full" and "Limited 16:235". =
+There is a lot of overlap here. On Windows AMD Control Panel offers the opt=
+ion "Pixel Encoding" and its options are:
+=C2=A0- RGB (full)
+=C2=A0- RGB (limited)
+=C2=A0- ycbcr444
+=C2=A0- ycbcr420
+=C2=A0- ycbcr422
+
+Which means that it may be worth reserving more keywords for this patch.
+I don't know why ycbcr444/ycbcr420 do not offer full/limited variants on Wi=
+ndows, but I suspect it's because the driver can automatically tell whether=
+ to use Full vs Limited for ycbcr=C2=A0variants..
+
+3. amdgpu already has "Colorspace" option. However this is a different (alt=
+hough related) option. But there is quite the overlap:
+
+- Full/Limited options are sometimes included as part of the colorspace, su=
+ch is the case of COLOR_SPACE_2020_RGB_FULLRANGE vs COLOR_SPACE_2020_RGB_LI=
+MITEDRANGE, but there is no "LIMITED"/"FULL" variants for COLOR_SPACE_2020_=
+YCBCR. Yet there are for YCBCR601 and YCBCR709. This may be a spec thing (I=
+ don=E2=80=99t know).
+
+- AFAIK amdgpu=E2=80=99s Limited/Full variants are not controllable from th=
+e public user-space API.
+
+- Certain options in "Colorspace" only makes sense in specific pixel encodi=
+ng. For example the option "opRGB" currently glitches when amdgpu is using =
+ycbcr=C2=A0encoding (you can tell the monitor is interpreting the RGB signa=
+l as YUV, thus white becomes purple and black becomes green).
+
+- The kernel has DRM_MODE_COLORIMETRY_BT2020_RGB and DRM_MODE_COLORIMETRY_B=
+T2020_YCC. AMDGPU kernel currently forces COLOR_SPACE_2020_RGB_FULLRANGE or=
+ COLOR_SPACE_2020_YCBCR based on the current pixel encoding (e.g. if using =
+RGB encodings and colorspace =3D=3D DRM_MODE_COLORIMETRY_BT2020_YCC, it wil=
+l be changed for COLOR_SPACE_2020_RGB_FULLRANGE with currently no choice fo=
+r Limited range).
+- amdgpu seems to be able to automatically distinguish between Full and Lim=
+ited for ycbcr=C2=A0 formats via the presence of flags.Y_ONLY bit. There is=
+ no such auto-detection for RGB.
+
+
+The way I see it, there are 3 configurations that can be arranged together:
+
+- Pixel Encoding (RGB vs ycbcr444 vs ycbcr420).
+- Colorspace (YCBCR709 vs BT.2020 etc).
+- Full vs Limited.
+
+However not all options are compatible with everything.
+
+I suspect doing the same as what AMD does on Windows (offer RGB/Full + RGB/=
+Limited + all the ycbcr variants for "pixel encoding") is the best choice (=
+and leave the "Colorspace" option as is, for very advanced manipulation).
+
+4. Xaver Hugl expressed his concerns with the current patch that having an =
+option called "auto" with no way of querying what is the current auto-selec=
+ted encoding is sub-optimal.
+
+
+Cheers
+Matias
+
+
+
+From 6806baac51f1ac2028c49bcab216c19f26a7e92b Mon Sep 17 00:00:00 2001
+From: "Matias N. Goldberg" <dark_sylinc@yahoo.com.ar>
+Date: Sun, 6 Oct 2024 21:04:11 -0300
+Subject: [PATCH] [amdgpu] Add "pixel_encoding" to switch between RGB & YUV
+=C2=A0color modes
+
+Usage:
+xrandr --output DisplayPort-1 --set "pixel encoding" rgb
+
+Supported options are: "auto" (Default), "rgb", "ycbcr444", and
+"ycbcr420"
+
+This patch allows users to switch between pixel encodings, which is
+specially important when auto gets it wrong (probably because of
+monitor's manufacturer mistake) and needs user intervention.
+
+Original patch by Yassine Imounachen
+Rebased by Matias N. Goldberg <dark_sylinc@yahoo.com.ar>
+
+Full discussion:
+https://gitlab.freedesktop.org/drm/amd/-/issues/476#note_2628536
+---
+=C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_display.c=C2=A0 =C2=A0|=C2=A0 35 ++=
++
+=C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_display.h=C2=A0 =C2=A0|=C2=A0 =C2=
+=A03 +
+=C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h=C2=A0 =C2=A0 =C2=A0 |=C2=A0 =
+=C2=A02 +
+=C2=A0.../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 215 +++++++++++++++++=
+-
+=C2=A0.../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |=C2=A0 =C2=A01 +
+=C2=A0drivers/gpu/drm/amd/display/dc/core/dc.c=C2=A0 =C2=A0 =C2=A0 |=C2=A0 =
+=C2=A08 +
+=C2=A0drivers/gpu/drm/amd/display/dc/dc_stream.h=C2=A0 =C2=A0 |=C2=A0 =C2=
+=A02 +
+=C2=A0drivers/gpu/drm/drm_modes.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 29 +++
+=C2=A0include/drm/drm_connector.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 =C2=A07 +
+=C2=A09 files changed, 290 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_display.c
+index b119d27271c1..9d201f368b6e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+@@ -1362,6 +1362,33 @@ static const struct drm_prop_enum_list amdgpu_dither=
+_enum_list[] =3D {
+=C2=A0 { AMDGPU_FMT_DITHER_ENABLE, "on" },
+=C2=A0};
+=C2=A0
++static const struct drm_prop_enum_list amdgpu_user_pixenc_list[] =3D {
++ { 0, "auto" },
++ { DRM_COLOR_FORMAT_RGB444, "rgb" },
++ { DRM_COLOR_FORMAT_YCBCR444, "ycbcr444" },
++ { DRM_COLOR_FORMAT_YCBCR420, "ycbcr420" },
++};
++
++bool amdgpu_user_pixenc_from_name(
++ unsigned int *user_pixenc,
++ const char *pixenc_name)
++{
++ bool found =3D false;
++
++ if (pixenc_name && (*pixenc_name !=3D '\0')) {
++ const int sz =3D ARRAY_SIZE(amdgpu_user_pixenc_list);
++ int i;
++
++ for (i =3D 0; !found && i < sz; ++i) {
++ if (strcmp(pixenc_name, amdgpu_user_pixenc_list[i].name) =3D=3D 0) {
++ *user_pixenc =3D amdgpu_user_pixenc_list[i].type;
++ found =3D true;
++ }
++ }
++ }
++ return found;
++}
++
+=C2=A0int amdgpu_display_modeset_create_props(struct amdgpu_device *adev)
+=C2=A0{
+=C2=A0 int sz;
+@@ -1408,6 +1435,14 @@ int amdgpu_display_modeset_create_props(struct amdgp=
+u_device *adev)
+=C2=A0=C2=A0=C2=A0"dither",
+=C2=A0=C2=A0=C2=A0amdgpu_dither_enum_list, sz);
+=C2=A0
++ sz =3D ARRAY_SIZE(amdgpu_user_pixenc_list);
++ adev->mode_info.pixel_encoding_property =3D
++ drm_property_create_enum(adev_to_drm(adev), 0,
++ "pixel encoding",
++ amdgpu_user_pixenc_list, sz);
++ if (!adev->mode_info.pixel_encoding_property)
++ return -ENOMEM;
++
+=C2=A0 return 0;
+=C2=A0}
+=C2=A0
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_display.h
+index 9d19940f73c8..ee1ad49fa123 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h
+@@ -49,4 +49,7 @@ amdgpu_lookup_format_info(u32 format, uint64_t modifier);
+=C2=A0int amdgpu_display_suspend_helper(struct amdgpu_device *adev);
+=C2=A0int amdgpu_display_resume_helper(struct amdgpu_device *adev);
+=C2=A0
++bool amdgpu_user_pixenc_from_name(unsigned int *user_pixenc,
++ =C2=A0 const char *pixenc_name);
++
+=C2=A0#endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_mode.h
+index 5e3faefc5510..b984e66a5d75 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
+@@ -326,6 +326,8 @@ struct amdgpu_mode_info {
+=C2=A0 struct drm_property *audio_property;
+=C2=A0 /* FMT dithering */
+=C2=A0 struct drm_property *dither_property;
++ /* User HDMI pixel encoding override */
++ struct drm_property *pixel_encoding_property;
+=C2=A0 /* hardcoded DFP edid from BIOS */
+=C2=A0 const struct drm_edid *bios_hardcoded_edid;
+=C2=A0
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
+u/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index bbfc47f6595f..2c03e0733178 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -6069,6 +6069,115 @@ static bool adjust_colour_depth_from_display_info(
+=C2=A0 return false;
+=C2=A0}
+=C2=A0
++/* convert an pixel encoding property value to a dc_pixel_encoding */
++static bool drm_prop_to_dc_pixel_encoding(
++ enum dc_pixel_encoding *dc_pixenc,
++ unsigned int propval)
++{
++ bool ret =3D false;
++
++ switch (propval) {
++ case 0:
++ *dc_pixenc =3D PIXEL_ENCODING_UNDEFINED;
++ ret =3D true;
++ break;
++ case DRM_COLOR_FORMAT_RGB444:
++ *dc_pixenc =3D PIXEL_ENCODING_RGB;
++ ret =3D true;
++ break;
++ case DRM_COLOR_FORMAT_YCBCR444:
++ *dc_pixenc =3D PIXEL_ENCODING_YCBCR444;
++ ret =3D true;
++ break;
++ case DRM_COLOR_FORMAT_YCBCR420:
++ *dc_pixenc =3D PIXEL_ENCODING_YCBCR420;
++ ret =3D true;
++ break;
++ default:
++ break;
++ }
++ return ret;
++}
++
++/* convert an dc_pixel_encoding to a pixel encoding property value */
++static unsigned int dc_pixel_encoding_to_drm_prop(
++ enum dc_pixel_encoding pixel_encoding)
++{
++ unsigned int propval =3D 0;
++
++ switch (pixel_encoding) {
++ case PIXEL_ENCODING_RGB:
++ propval =3D DRM_COLOR_FORMAT_RGB444;
++ break;
++ case PIXEL_ENCODING_YCBCR444:
++ propval =3D DRM_COLOR_FORMAT_YCBCR444;
++ break;
++ case PIXEL_ENCODING_YCBCR420:
++ propval =3D DRM_COLOR_FORMAT_YCBCR420;
++ break;
++ default:
++ break;
++ }
++ return propval;
++}
++
++/*
++ * Tries to read 'pixel_encoding' from the pixel_encoding DRM property on
++ * 'state'. Returns true if a supported, acceptable, non-undefined value i=
+s
++ * found; false otherwise. Only modifies 'pixel_encoding' if returning tru=
+e.
++ */
++bool get_connector_state_pixel_encoding(
++ enum dc_pixel_encoding *pixel_encoding,
++ const struct drm_connector_state *state,
++ const struct drm_display_info *info,
++ const struct drm_display_mode *mode_in)
++{
++ bool ret =3D false;
++ struct dm_connector_state *dm_state;
++
++ dm_state =3D to_dm_connector_state(state);
++ if (!dm_state)
++ return false;
++
++ /* check encoding is supported */
++ switch (dm_state->pixel_encoding) {
++ case PIXEL_ENCODING_RGB:
++ ret =3D (info->color_formats & DRM_COLOR_FORMAT_RGB444);
++ break;
++ case PIXEL_ENCODING_YCBCR444:
++ ret =3D (info->color_formats & DRM_COLOR_FORMAT_YCBCR444);
++ break;
++ case PIXEL_ENCODING_YCBCR420:
++ ret =3D drm_mode_is_420(info, mode_in);
++ break;
++ default:
++ break;
++ }
++
++ if (ret)
++ *pixel_encoding =3D dm_state->pixel_encoding;
++
++ return ret;
++}
++
++/*
++ * Writes 'pixel_encoding' to the pixel_encoding DRM property on 'state', =
+if
++ * the enum value is valid and supported; otherwise writes
++ * PIXEL_ENCODING_UNDEFINED which corresponds to the "auto" property state=
+.
++ */
++void set_connector_state_pixel_encoding(
++ const struct drm_connector_state *state,
++ enum dc_pixel_encoding pixel_encoding)
++{
++ struct dm_connector_state *dm_state;
++
++ dm_state =3D to_dm_connector_state(state);
++ if (!dm_state)
++ return;
++
++ dm_state->pixel_encoding =3D pixel_encoding;
++}
++
+=C2=A0static void fill_stream_properties_from_drm_display_mode(
+=C2=A0 struct dc_stream_state *stream,
+=C2=A0 const struct drm_display_mode *mode_in,
+@@ -6093,19 +6202,23 @@ static void fill_stream_properties_from_drm_display=
+_mode(
+=C2=A0 timing_out->h_border_right =3D 0;
+=C2=A0 timing_out->v_border_top =3D 0;
+=C2=A0 timing_out->v_border_bottom =3D 0;
+- /* TODO: un-hardcode */
+- if (drm_mode_is_420_only(info, mode_in)
++
++ if (!get_connector_state_pixel_encoding(&timing_out->pixel_encoding,
++ connector_state, info, mode_in)) {
++ /* auto-select a pixel encoding */
++ if (drm_mode_is_420_only(info, mode_in)
+=C2=A0 && stream->signal =3D=3D SIGNAL_TYPE_HDMI_TYPE_A)
+- timing_out->pixel_encoding =3D PIXEL_ENCODING_YCBCR420;
+- else if (drm_mode_is_420_also(info, mode_in)
++ timing_out->pixel_encoding =3D PIXEL_ENCODING_YCBCR420;
++ else if (drm_mode_is_420_also(info, mode_in)
+=C2=A0 && aconnector
+=C2=A0 && aconnector->force_yuv420_output)
+- timing_out->pixel_encoding =3D PIXEL_ENCODING_YCBCR420;
+- else if ((connector->display_info.color_formats & DRM_COLOR_FORMAT_YCBCR4=
+44)
+- && stream->signal =3D=3D SIGNAL_TYPE_HDMI_TYPE_A)
+- timing_out->pixel_encoding =3D PIXEL_ENCODING_YCBCR444;
+- else
+- timing_out->pixel_encoding =3D PIXEL_ENCODING_RGB;
++ timing_out->pixel_encoding =3D PIXEL_ENCODING_YCBCR420;
++ else if ((connector->display_info.color_formats & DRM_COLOR_FORMAT_YCBCR4=
+44)
++ && stream->signal =3D=3D SIGNAL_TYPE_HDMI_TYPE_A)
++ timing_out->pixel_encoding =3D PIXEL_ENCODING_YCBCR444;
++ else
++ timing_out->pixel_encoding =3D PIXEL_ENCODING_RGB;
++ }
+=C2=A0
+=C2=A0 timing_out->timing_3d_format =3D TIMING_3D_FORMAT_NONE;
+=C2=A0 timing_out->display_color_depth =3D convert_color_depth_from_display=
+_info(
+@@ -6169,6 +6282,9 @@ static void fill_stream_properties_from_drm_display_m=
+ode(
+=C2=A0 }
+=C2=A0 }
+=C2=A0
++ /* write back final choice of pixel encoding */
++ set_connector_state_pixel_encoding(connector_state, timing_out->pixel_enc=
+oding);
++
+=C2=A0 stream->output_color_space =3D get_output_color_space(timing_out, co=
+nnector_state);
+=C2=A0 stream->content_type =3D get_output_content_type(connector_state);
+=C2=A0}
+@@ -6875,6 +6991,9 @@ int amdgpu_dm_connector_atomic_set_property(struct dr=
+m_connector *connector,
+=C2=A0 } else if (property =3D=3D adev->mode_info.underscan_property) {
+=C2=A0 dm_new_state->underscan_enable =3D val;
+=C2=A0 ret =3D 0;
++ } else if (property =3D=3D adev->mode_info.pixel_encoding_property) {
++ if (drm_prop_to_dc_pixel_encoding(&dm_new_state->pixel_encoding, val))
++ ret =3D 0;
+=C2=A0 }
+=C2=A0
+=C2=A0 return ret;
+@@ -6917,6 +7036,9 @@ int amdgpu_dm_connector_atomic_get_property(struct dr=
+m_connector *connector,
+=C2=A0 } else if (property =3D=3D adev->mode_info.underscan_property) {
+=C2=A0 *val =3D dm_state->underscan_enable;
+=C2=A0 ret =3D 0;
++ } else if (property =3D=3D adev->mode_info.pixel_encoding_property) {
++ *val =3D dc_pixel_encoding_to_drm_prop(dm_state->pixel_encoding);
++ ret =3D 0;
+=C2=A0 }
+=C2=A0
+=C2=A0 return ret;
+@@ -7088,6 +7210,20 @@ void amdgpu_dm_connector_funcs_reset(struct drm_conn=
+ector *connector)
+=C2=A0 state->abm_level =3D amdgpu_dm_abm_level;
+=C2=A0 }
+=C2=A0
++ switch (connector->cmdline_mode.pixel_encoding) {
++ case DRM_COLOR_FORMAT_RGB444:
++ state->pixel_encoding =3D PIXEL_ENCODING_RGB;
++ break;
++ case DRM_COLOR_FORMAT_YCBCR444:
++ state->pixel_encoding =3D PIXEL_ENCODING_YCBCR444;
++ break;
++ case DRM_COLOR_FORMAT_YCBCR420:
++ state->pixel_encoding =3D PIXEL_ENCODING_YCBCR420;
++ break;
++ default:
++ break;
++ }
++
+=C2=A0 __drm_atomic_helper_connector_reset(connector, &state->base);
+=C2=A0 }
+=C2=A0}
+@@ -7114,6 +7250,7 @@ amdgpu_dm_connector_atomic_duplicate_state(struct drm=
+_connector *connector)
+=C2=A0 new_state->underscan_vborder =3D state->underscan_vborder;
+=C2=A0 new_state->vcpi_slots =3D state->vcpi_slots;
+=C2=A0 new_state->pbn =3D state->pbn;
++ new_state->pixel_encoding =3D state->pixel_encoding;
+=C2=A0 return &new_state->base;
+=C2=A0}
+=C2=A0
+@@ -8175,6 +8312,12 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_d=
+isplay_manager *dm,
+=C2=A0
+=C2=A0 if (adev->dm.hdcp_workqueue)
+=C2=A0 drm_connector_attach_content_protection_property(&aconnector->base, =
+true);
++
++ if (adev->mode_info.pixel_encoding_property) {
++ drm_object_attach_property(&aconnector->base.base,
++ adev->mode_info.pixel_encoding_property, 0);
++ DRM_DEBUG_DRIVER("amdgpu: attached pixel encoding drm property");
++ }
+=C2=A0 }
+=C2=A0}
+=C2=A0
+@@ -9377,6 +9520,38 @@ static void amdgpu_dm_commit_audio(struct drm_device=
+ *dev,
+=C2=A0 }
+=C2=A0}
+=C2=A0
++static void update_stream_for_pixel_encoding(
++ struct dc_stream_update *stream_update,
++ struct drm_connector *connector,
++ struct dm_crtc_state *dm_old_crtc_state,
++ struct dm_crtc_state *dm_new_crtc_state,
++ struct dm_connector_state *dm_new_con_state)
++{
++ struct amdgpu_dm_connector *aconnector =3D
++ to_amdgpu_dm_connector(connector);
++ struct dc_stream_state *new_stream =3D NULL;
++
++ if (aconnector)
++ new_stream =3D create_validate_stream_for_sink(
++ aconnector,
++ &dm_new_crtc_state->base.mode,
++ dm_new_con_state,
++ dm_old_crtc_state->stream);
++ if (new_stream) {
++ dm_new_crtc_state->stream->timing =3D
++ new_stream->timing;
++ stream_update->timing_for_pixel_encoding =3D
++ &dm_new_crtc_state->stream->timing;
++
++ dm_new_crtc_state->stream->output_color_space =3D
++ new_stream->output_color_space;
++ stream_update->output_color_space =3D
++ &dm_new_crtc_state->stream->output_color_space;
++
++ dc_stream_release(new_stream);
++ }
++}
++
+=C2=A0/*
+=C2=A0 * amdgpu_dm_crtc_copy_transient_flags - copy mirrored flags from DRM=
+ to DC
+=C2=A0 * @crtc_state: the DRM CRTC state
+@@ -9850,7 +10025,7 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_=
+atomic_state *state)
+=C2=A0 struct dc_stream_update stream_update;
+=C2=A0 struct dc_info_packet hdr_packet;
+=C2=A0 struct dc_stream_status *status =3D NULL;
+- bool abm_changed, hdr_changed, scaling_changed;
++ bool abm_changed, hdr_changed, scaling_changed, pixenc_changed;
+=C2=A0
+=C2=A0 memset(&stream_update, 0, sizeof(stream_update));
+=C2=A0
+@@ -9875,7 +10050,10 @@ static void amdgpu_dm_atomic_commit_tail(struct drm=
+_atomic_state *state)
+=C2=A0 hdr_changed =3D
+=C2=A0 !drm_connector_atomic_hdr_metadata_equal(old_con_state, new_con_stat=
+e);
+=C2=A0
+- if (!scaling_changed && !abm_changed && !hdr_changed)
++ pixenc_changed =3D dm_new_con_state->pixel_encoding !=3D
++=C2=A0=C2=A0dm_old_con_state->pixel_encoding;
++
++ if (!scaling_changed && !abm_changed && !hdr_changed && !pixenc_changed)
+=C2=A0 continue;
+=C2=A0
+=C2=A0 stream_update.stream =3D dm_new_crtc_state->stream;
+@@ -9898,6 +10076,13 @@ static void amdgpu_dm_atomic_commit_tail(struct drm=
+_atomic_state *state)
+=C2=A0 stream_update.hdr_static_metadata =3D &hdr_packet;
+=C2=A0 }
+=C2=A0
++ if (pixenc_changed) {
++ update_stream_for_pixel_encoding(&stream_update,
++ connector,
++ dm_old_crtc_state, dm_new_crtc_state,
++ dm_new_con_state);
++ }
++
+=C2=A0 status =3D dc_stream_get_status(dm_new_crtc_state->stream);
+=C2=A0
+=C2=A0 if (WARN_ON(!status))
+@@ -11403,6 +11588,12 @@ static int amdgpu_dm_atomic_check(struct drm_devic=
+e *dev,
+=C2=A0 if (dm_old_con_state->abm_level !=3D dm_new_con_state->abm_level ||
+=C2=A0 =C2=A0 =C2=A0 dm_old_con_state->scaling !=3D dm_new_con_state->scali=
+ng)
+=C2=A0 new_crtc_state->connectors_changed =3D true;
++
++ if (dm_old_con_state->pixel_encoding !=3D
++ =C2=A0 =C2=A0 dm_new_con_state->pixel_encoding) {
++ new_crtc_state->connectors_changed =3D true;
++ new_crtc_state->mode_changed =3D true;
++ }
+=C2=A0 }
+=C2=A0
+=C2=A0 if (dc_resource_is_dsc_encoding_supported(dc)) {
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gp=
+u/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+index 25e95775c45c..132944272c18 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+@@ -918,6 +918,7 @@ struct dm_connector_state {
+=C2=A0 uint8_t abm_level;
+=C2=A0 int vcpi_slots;
+=C2=A0 uint64_t pbn;
++ enum dc_pixel_encoding pixel_encoding;
+=C2=A0};
+=C2=A0
+=C2=A0#define to_dm_connector_state(x)\
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd=
+/display/dc/core/dc.c
+index 5a12fc75f97f..4ac004536707 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -2765,6 +2765,11 @@ static enum surface_update_type check_update_surface=
+s_for_stream(
+=C2=A0 if (stream_update->output_csc_transform || stream_update->output_col=
+or_space)
+=C2=A0 su_flags->bits.out_csc =3D 1;
+=C2=A0
++ if (stream_update->timing_for_pixel_encoding) {
++ su_flags->bits.pixel_encoding =3D 1;
++ elevate_update_type(&overall_type, UPDATE_TYPE_FULL);
++ }
++
+=C2=A0 /* Output transfer function changes do not require bandwidth recalcu=
+lation,
+=C2=A0=C2=A0=C2=A0* so don't trigger a full update
+=C2=A0=C2=A0=C2=A0*/
+@@ -3112,6 +3117,8 @@ static void copy_stream_update_to_stream(struct dc *d=
+c,
+=C2=A0 stream->scaler_sharpener_update =3D *update->scaler_sharpener_update=
+;
+=C2=A0 if (update->sharpening_required)
+=C2=A0 stream->sharpening_required =3D *update->sharpening_required;
++ if (update->timing_for_pixel_encoding)
++ stream->timing =3D *update->timing_for_pixel_encoding;
+=C2=A0}
+=C2=A0
+=C2=A0static void backup_planes_and_stream_state(
+@@ -3361,6 +3368,7 @@ static void commit_planes_do_stream_update(struct dc =
+*dc,
+=C2=A0 stream_update->vsc_infopacket ||
+=C2=A0 stream_update->vsp_infopacket ||
+=C2=A0 stream_update->hfvsif_infopacket ||
++ stream_update->timing_for_pixel_encoding ||
+=C2=A0 stream_update->adaptive_sync_infopacket ||
+=C2=A0 stream_update->vtem_infopacket) {
+=C2=A0 resource_build_info_frame(pipe_ctx);
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_stream.h b/drivers/gpu/drm/a=
+md/display/dc/dc_stream.h
+index 413970588a26..de7f02f330d8 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_stream.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_stream.h
+@@ -144,6 +144,7 @@ union stream_update_flags {
+=C2=A0 uint32_t fams_changed : 1;
+=C2=A0 uint32_t scaler_sharpener : 1;
+=C2=A0 uint32_t sharpening_required : 1;
++ uint32_t pixel_encoding:1;
+=C2=A0 } bits;
+=C2=A0
+=C2=A0 uint32_t raw;
+@@ -350,6 +351,7 @@ struct dc_stream_update {
+=C2=A0 struct dc_mst_stream_bw_update *mst_bw_update;
+=C2=A0 struct dc_transfer_func *func_shaper;
+=C2=A0 struct dc_3dlut *lut3d_func;
++ struct dc_crtc_timing *timing_for_pixel_encoding;
+=C2=A0
+=C2=A0 struct test_pattern *pending_test_pattern;
+=C2=A0 struct dc_crtc_timing_adjust *crtc_timing_adjust;
+diff --git a/drivers/gpu/drm/drm_modes.c b/drivers/gpu/drm/drm_modes.c
+index 1a0890083aee..b5ce8f93b672 100644
+--- a/drivers/gpu/drm/drm_modes.c
++++ b/drivers/gpu/drm/drm_modes.c
+@@ -2161,6 +2161,32 @@ static int drm_mode_parse_tv_mode(const char *delim,
+=C2=A0 return 0;
+=C2=A0}
+=C2=A0
++static int drm_mode_parse_pixel_encoding(const char *delim,
++=C2=A0=C2=A0struct drm_cmdline_mode *mode)
++{
++ const char *value;
++
++ if (*delim !=3D '=3D')
++ return -EINVAL;
++
++ value =3D delim + 1;
++ delim =3D strchr(value, ',');
++ if (!delim)
++ delim =3D value + strlen(value);
++
++ if (!strncmp(value, "auto", delim - value))
++ mode->pixel_encoding =3D 0;
++ else if (!strncmp(value, "rgb", delim - value))
++ mode->pixel_encoding =3D DRM_COLOR_FORMAT_RGB444;
++ else if (!strncmp(value, "ycbcr444", delim - value))
++ mode->pixel_encoding =3D DRM_COLOR_FORMAT_YCBCR444;
++ else if (!strncmp(value, "ycbcr420", delim - value))
++ mode->pixel_encoding =3D DRM_COLOR_FORMAT_YCBCR420;
++ else
++ return -EINVAL;
++
++ return 0;
++}
+=C2=A0static int drm_mode_parse_cmdline_options(const char *str,
+=C2=A0 =C2=A0 bool freestanding,
+=C2=A0 =C2=A0 const struct drm_connector *connector,
+@@ -2233,6 +2259,9 @@ static int drm_mode_parse_cmdline_options(const char =
+*str,
+=C2=A0 } else if (!strncmp(option, "tv_mode", delim - option)) {
+=C2=A0 if (drm_mode_parse_tv_mode(delim, mode))
+=C2=A0 return -EINVAL;
++ } else if (!strncmp(option, "pixel_encoding", delim - option)) {
++ if (drm_mode_parse_pixel_encoding(delim, mode))
++ return -EINVAL;
+=C2=A0 } else {
+=C2=A0 return -EINVAL;
+=C2=A0 }
+diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+index c754651044d4..89c0f42873df 100644
+--- a/include/drm/drm_connector.h
++++ b/include/drm/drm_connector.h
+@@ -1666,6 +1666,13 @@ struct drm_cmdline_mode {
+=C2=A0=C2=A0=C2=A0* Did the mode have a preferred TV mode?
+=C2=A0=C2=A0=C2=A0*/
+=C2=A0 bool tv_mode_specified;
++
++ /**
++=C2=A0=C2=A0* @pixel_encoding:
++=C2=A0=C2=A0*
++=C2=A0=C2=A0* Initial pixel encoding.
++=C2=A0=C2=A0*/
++ unsigned int pixel_encoding;
+=C2=A0};
+=C2=A0
+=C2=A0/*
+--=C2=A0
+2.43.0
