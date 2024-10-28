@@ -4,69 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D79FD10BFD
-	for <amd-gfx@archiver.kernel.org>; Sat, 26 Oct 2024 15:51:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CC71D13588
+	for <amd-gfx@archiver.kernel.org>; Mon, 28 Oct 2024 03:15:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FB7710E415;
-	Sat, 26 Oct 2024 15:51:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96E7A10E049;
+	Mon, 28 Oct 2024 03:15:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="DUS86jvD";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="P/LEVZzU";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B1B010EB17;
- Fri, 25 Oct 2024 14:46:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1729867567; x=1761403567;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=DWrbCb8jkLSPg12nVfEIzA0zjXePOAd2owE8P9KBnUs=;
- b=DUS86jvDMPoMWSX0LgdURBixvt0yHynN0iuBiC5OtDyvadTzgBEJaXzj
- JI5KgpiQFYQ0G7dKU0WHZsA6DmJDDFgkVThdtLkiDcjO0dA9DrcSycqJk
- Q/fY4Vb3CvyBI/Z4jcSwoluwq8gszWb9apYqipdjraSJ/w+4b5POsy8ge
- fHUXs3tkEFhbRUrAYDxCVzdmx2CyegawWUiXj1rmFpsrmyCRg82DyA2b7
- nL7czMu6l9eKDdFZcS4LxqCxRPMAG90ISPvHa6Pg3dsJREQVvlaVMbCD+
- eaWtON6MiiIH0pQ4KIYGRVxepvcXlOtwbYqLfKDFGoLqLNhTMN7rimu1t w==;
-X-CSE-ConnectionGUID: mqzxU+7zTlmtc1kNW9UR6A==
-X-CSE-MsgGUID: lRlGxbFrQ8GbzFKD/Ntghw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11222"; a="29670647"
-X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="29670647"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Oct 2024 07:46:06 -0700
-X-CSE-ConnectionGUID: 7bnmPxxVSPKlCoeAPho3jQ==
-X-CSE-MsgGUID: VALqTUHsRWaZefUSBC0uMg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,232,1725346800"; d="scan'208";a="80579330"
-Received: from smile.fi.intel.com ([10.237.72.154])
- by fmviesa007.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Oct 2024 07:46:02 -0700
-Received: from andy by smile.fi.intel.com with local (Exim 4.98)
- (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1t4LZf-00000006wh8-1JgX; Fri, 25 Oct 2024 17:45:59 +0300
-Date: Fri, 25 Oct 2024 17:45:59 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Raag Jadav <raag.jadav@intel.com>, airlied@gmail.com, simona@ffwll.ch,
- lucas.demarchi@intel.com, rodrigo.vivi@intel.com,
- lina@asahilina.net, michal.wajdeczko@intel.com,
- christian.koenig@amd.com, intel-xe@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- himal.prasad.ghimiray@intel.com, aravind.iddamsetty@linux.intel.com,
- anshuman.gupta@intel.com, alexander.deucher@amd.com,
- andrealmeid@igalia.com, amd-gfx@lists.freedesktop.org,
- kernel-dev@igalia.com
-Subject: Re: [PATCH v8 1/4] drm: Introduce device wedged event
-Message-ID: <ZxuvJ1Hhv4nt9oSH@smile.fi.intel.com>
-References: <20241025084817.144621-1-raag.jadav@intel.com>
- <20241025084817.144621-2-raag.jadav@intel.com>
- <87r084r1lp.fsf@intel.com>
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2074.outbound.protection.outlook.com [40.107.237.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2099F10E049
+ for <amd-gfx@lists.freedesktop.org>; Mon, 28 Oct 2024 03:15:13 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=i0/dQQmUgnvxnOFDkYv8eQfhaYlsRbi5qI/32t8A5rqjFBxJgi8L9AQcD1vxXnYjWLKxABulCUerN16K5YUnGftw8P7TNRcZzHGXgXs5j2xGEZw3Be7EDGhsI03v9MfYHUennWHW7ctbT/RGCNKTiUqRvaceoVqQW66qv7bYaUSzmbODCe89pzYrIJjgWAWRnyXWHGXxX0RDQVyGyE9jK98e5UiYKxgux7Sttlgr5xwQ5B89B95BWf2bTlbcPfgN2YTVHBF2QdLJ/uNsa9xMI7b/BaVHwNbOF+t+Ly6lQmB2bBw22aeR4wYYUV5ZToGzLMad3zbpoJi/5CSLacqNQA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ezGibhqowO5FNlBXZ+5Ox4B1FjVhDkLG96ndme2y6zU=;
+ b=Cv6GueC0OWnt+mw7O14g5BB2/J0JUflOnMibOLpe1IegRFiiZqBDRwwX/rOy/f0VE8TZOwB8g2vI9Nct3cfOQtHQOYc77fSALYlBi/bqTfXXVGaET9kS4nI4Nr1UjpY94Otyy0pmcTp1lKjXI26eV1QGada5W2dlLv/fbdXqCWLr7mBPiMnvikitZooFc3iuRPvxUYXjWS2hJEYr5s21AvCCFpkZFh4jEc0+qvOilsGGZF6VbtbJtIX9Q00IzXtax8hC/6X6pdsB2+j7U2KPHT+/dPg5uAUEUiU8yy55ko0t9axS3gxlRR6H+1fe6jpzh9W9XJHydWfDArPsajwWHg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ezGibhqowO5FNlBXZ+5Ox4B1FjVhDkLG96ndme2y6zU=;
+ b=P/LEVZzUq7A7nxRdb0BLN80Tyh8I545ayZZFys1UCI79ydvCib3Ad/S2+Rodb97CullpY09V9dXoxVYXfmcxhOXFtoQ55U6lR/Bdv0IcRTqndVxaDQ3hATGeBjH15golzU5h8FqUBxUhtfVsQxRc4XWwpx+Ru9pRr1f8i02YbKk=
+Received: from BN1PR13CA0005.namprd13.prod.outlook.com (2603:10b6:408:e2::10)
+ by SJ1PR12MB6313.namprd12.prod.outlook.com (2603:10b6:a03:458::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8093.25; Mon, 28 Oct
+ 2024 03:15:09 +0000
+Received: from BN1PEPF0000468E.namprd05.prod.outlook.com
+ (2603:10b6:408:e2:cafe::33) by BN1PR13CA0005.outlook.office365.com
+ (2603:10b6:408:e2::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.8 via Frontend
+ Transport; Mon, 28 Oct 2024 03:15:08 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN1PEPF0000468E.mail.protection.outlook.com (10.167.243.139) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8093.14 via Frontend Transport; Mon, 28 Oct 2024 03:15:08 +0000
+Received: from lm-srdc-pc1.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Sun, 27 Oct
+ 2024 22:15:06 -0500
+From: Le Ma <le.ma@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <hawking.zhang@amd.com>, <lijo.lazar@amd.com>,
+ <alexander.deucher@amd.com>, Le Ma <le.ma@amd.com>
+Subject: [PATCH 1/1] drm/amdgpu: add generic func to check if ta fw is
+ applicable
+Date: Mon, 28 Oct 2024 11:14:53 +0800
+Message-ID: <20241028031453.1120413-1-le.ma@amd.com>
+X-Mailer: git-send-email 2.43.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87r084r1lp.fsf@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-X-Mailman-Approved-At: Sat, 26 Oct 2024 15:51:52 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF0000468E:EE_|SJ1PR12MB6313:EE_
+X-MS-Office365-Filtering-Correlation-Id: 72999c60-048b-4a78-3f90-08dcf6feba53
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|36860700013|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?kgwf09BfWhtMloSpMSvBWIqhy9CfU/DcocIsf72NXe+bbQxdPPCsdecFK6rW?=
+ =?us-ascii?Q?ZuLthgc0Eq9yDYBQ1b4nb9RNbfo0cvj214YwgERO8MeXKpFHtaR3+uX6Q1rw?=
+ =?us-ascii?Q?Tj5o2La8WvjiOyTXRt7o6WaP1S/nLh1lCgkmDREbeWCfcFl234fSN1J2CfVC?=
+ =?us-ascii?Q?doqWsPwnxEgEvQu2h1ZsEZQcAX7ycsmRudVas0rMmMEvRU9MtNBKL9i+PjXE?=
+ =?us-ascii?Q?TXdJXr3U38gLMF0Pc15y8srqcc+dOWVOHykZmZ6xSWrR1QkLc0dLLOiwqmZn?=
+ =?us-ascii?Q?AseDUlNUsVPrfAraw1t8dtd3xYul5uieoTTlh4LQBCEb0j2UH8QVKV7S3NvG?=
+ =?us-ascii?Q?kK2JVfQ2zANMdovWgKQSqW1qH6BQthXpSQUqc2toPL2qxx8CZBRdAJ4cX4nj?=
+ =?us-ascii?Q?WwDnf8Az7619Kn9hUWOBM58Ywdz7aZbDt+sIa5GJIdXnh4NKaVQvgJXzx/Ak?=
+ =?us-ascii?Q?PNSTgTVvOZ17iaVdWT4ORHt37nz09/GDvUlZI/2OnveQSk4celEI3geQ41CP?=
+ =?us-ascii?Q?M15zPONRjlBocvgTEHpdNHn52ct4sbqIenAF/iBXoGyqwCHjq4UCO/943b68?=
+ =?us-ascii?Q?oYc/+5/RahsLpb+FRl9wn2/04P0Nl0gTj9BSql4/q6Sve8mSG72cjqtxoSKj?=
+ =?us-ascii?Q?KvkauN8HY1AKnkBgafnGcsOpXTIoSmxvHcvlwUETIFLEbBSFghxAdphZ39+i?=
+ =?us-ascii?Q?BBZg0ml3QgquX11EhN/+b8vt5n9Jw424AaBQL7xwCHf0IndSeK2zp+itZRwr?=
+ =?us-ascii?Q?/5BO+BgSw9sf/T33aLAq3YLg7R89A26rIs+vxZ5SwCeAHq4mUDhGcqM4uKdz?=
+ =?us-ascii?Q?JFEBlLJZmeKpm8vb0QVe++PfGba1l3AOAuw8DfxoxrOjy+269VWX5FHViLzn?=
+ =?us-ascii?Q?Urau8gruS5O/drTWZpeaUD+2YGlUihdpfMrUwsTyeDoKmsoPa9hzBIdvHYx9?=
+ =?us-ascii?Q?Wx0x1eLZYmFvkEhe+pRbEg0BdCDkieSBFOt5QDvqxD130RUSLYnvbeyAhJ/m?=
+ =?us-ascii?Q?J/19aXw26Z/aN4B6+Mt+WnBFPSLU5+8szrH7cmoDTgxdp+BLP/EgC/NUNq9N?=
+ =?us-ascii?Q?TKk9fuEMQkQ7d/Hqhz3R7fUwbWngIK6vqrL2k25AIvFSnQBnZtZ3fOZPfiqW?=
+ =?us-ascii?Q?yZBCebAA6tyrPDhuZ+AWEN6qsuKbO7BpHNUouigxGizaR2WLfxZcmdAJ7jl2?=
+ =?us-ascii?Q?NkGNDut177uyBb3PxuuZ3RvqafdwhnHdGe4Ny4xDmxHa5uyADSANcLqDzHbW?=
+ =?us-ascii?Q?8BOb6+x1/GHn2cyoxasNPSSmWVKuKo7oC4WJv2jyohhjIHwjO3NNYE+lTpsm?=
+ =?us-ascii?Q?bZ3mRWrIeRZJAw017C6ifESN/Rpb9f7cXm76Qo+0BE7gdIqcgP0I91nqNYWO?=
+ =?us-ascii?Q?gUAHAv0RXxnslB1hGDFZfhsSqeEhdLhqt6TKkYCLvtJ4EvtjUA=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2024 03:15:08.7130 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 72999c60-048b-4a78-3f90-08dcf6feba53
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF0000468E.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6313
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,41 +130,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Oct 25, 2024 at 12:08:50PM +0300, Jani Nikula wrote:
-> On Fri, 25 Oct 2024, Raag Jadav <raag.jadav@intel.com> wrote:
+Separated xgmi ta is required for specific APU, and driver needs
+parse the ta binary properly with aux xgmi ta packed.
 
-...
+v2: make the check function more generic (Lijo)
 
-> > +/*
-> > + * Available recovery methods for wedged device. To be sent along with device
-> > + * wedged uevent.
-> > + */
-> > +static const char *const drm_wedge_recovery_opts[] = {
-> > +	[ffs(DRM_WEDGE_RECOVERY_REBIND) - 1]	= "rebind",
-> > +	[ffs(DRM_WEDGE_RECOVERY_BUS_RESET) - 1]	= "bus-reset",
-> > +};
-> > +static_assert(ARRAY_SIZE(drm_wedge_recovery_opts) == ffs(DRM_WEDGE_RECOVERY_BUS_RESET));
-> 
-> This might work in most cases, but you also might end up finding that
-> there's an arch and compiler combo out there that just won't be able to
-> figure out ffs() at compile time, and the array initialization fails.
+Signed-off-by: Le Ma <le.ma@amd.com>
+Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c   | 33 +++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h |  1 +
+ 2 files changed, 34 insertions(+)
 
-We have ilog2() macro for such cases, but it is rather fls() and not ffs(),
-and I have no idea why ffs() even being used here, especially in the index
-part of the array assignments. It's unreadable.
-
-> If that happens, you'd have to either convert back to an enum (and call
-> the wedge event function with BIT(DRM_WEDGE_RECOVERY_REBIND) etc.), or
-> make this a array of structs mapping the macro values to strings and
-> loop over it.
-> 
-> Also, the main point of the static assert was to ensure the array is
-> updated when a new recovery option is added, and there's no out of
-> bounds access. That no longer holds, and the static assert is pretty
-> much useless. You still have to manually find and update this.
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index abd5e980c9c7..92cf412a4c2b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -3563,6 +3563,35 @@ int psp_init_sos_microcode(struct psp_context *psp, const char *chip_name)
+ 	return err;
+ }
+ 
++static bool is_ta_fw_applicable(struct psp_context *psp,
++			     const struct psp_fw_bin_desc *desc)
++{
++	struct amdgpu_device *adev = psp->adev;
++	uint32_t fw_version;
++
++	switch (desc->fw_type) {
++	case TA_FW_TYPE_PSP_XGMI:
++	case TA_FW_TYPE_PSP_XGMI_AUX:
++		/* for now, AUX TA only exists on 13.0.6 ta bin,
++		 * from v20.00.0x.14 */
++		if (amdgpu_ip_version(adev, MP0_HWIP, 0) ==
++		    IP_VERSION(13, 0, 6)) {
++			fw_version = le32_to_cpu(desc->fw_version);
++
++			if (adev->flags & AMD_IS_APU &&
++			    (fw_version & 0xff) >= 0x14)
++				return desc->fw_type == TA_FW_TYPE_PSP_XGMI_AUX;
++			else
++				return desc->fw_type == TA_FW_TYPE_PSP_XGMI;
++		}
++		break;
++	default:
++		break;
++	}
++
++	return true;
++}
++
+ static int parse_ta_bin_descriptor(struct psp_context *psp,
+ 				   const struct psp_fw_bin_desc *desc,
+ 				   const struct ta_firmware_header_v2_0 *ta_hdr)
+@@ -3572,6 +3601,9 @@ static int parse_ta_bin_descriptor(struct psp_context *psp,
+ 	if (!psp || !desc || !ta_hdr)
+ 		return -EINVAL;
+ 
++	if (!is_ta_fw_applicable(psp, desc))
++		return 0;
++
+ 	ucode_start_addr  = (uint8_t *)ta_hdr +
+ 			    le32_to_cpu(desc->offset_bytes) +
+ 			    le32_to_cpu(ta_hdr->header.ucode_array_offset_bytes);
+@@ -3584,6 +3616,7 @@ static int parse_ta_bin_descriptor(struct psp_context *psp,
+ 		psp->asd_context.bin_desc.start_addr        = ucode_start_addr;
+ 		break;
+ 	case TA_FW_TYPE_PSP_XGMI:
++	case TA_FW_TYPE_PSP_XGMI_AUX:
+ 		psp->xgmi_context.context.bin_desc.fw_version       = le32_to_cpu(desc->fw_version);
+ 		psp->xgmi_context.context.bin_desc.size_bytes       = le32_to_cpu(desc->size_bytes);
+ 		psp->xgmi_context.context.bin_desc.start_addr       = ucode_start_addr;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h
+index 4e23419b92d4..4150ec0aa10d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h
+@@ -163,6 +163,7 @@ enum ta_fw_type {
+ 	TA_FW_TYPE_PSP_DTM,
+ 	TA_FW_TYPE_PSP_RAP,
+ 	TA_FW_TYPE_PSP_SECUREDISPLAY,
++	TA_FW_TYPE_PSP_XGMI_AUX,
+ 	TA_FW_TYPE_MAX_INDEX,
+ };
+ 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.43.2
 
