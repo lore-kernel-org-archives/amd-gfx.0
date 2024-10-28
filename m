@@ -4,60 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55FBBD33992
-	for <amd-gfx@archiver.kernel.org>; Mon, 28 Oct 2024 14:41:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD32DD33990
+	for <amd-gfx@archiver.kernel.org>; Mon, 28 Oct 2024 14:43:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F0C1A10E4C8;
-	Mon, 28 Oct 2024 14:41:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D9CC10E4CD;
+	Mon, 28 Oct 2024 14:43:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Uz3hcqmk";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="K+b60hZ/";
 	dkim-atps=neutral
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com
- [209.85.210.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 53DB210E4C8
- for <amd-gfx@lists.freedesktop.org>; Mon, 28 Oct 2024 14:41:53 +0000 (UTC)
-Received: by mail-pf1-f181.google.com with SMTP id
- d2e1a72fcca58-71e702c0ac2so274426b3a.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 28 Oct 2024 07:41:53 -0700 (PDT)
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com
+ [209.85.210.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3E5510E4CD
+ for <amd-gfx@lists.freedesktop.org>; Mon, 28 Oct 2024 14:43:02 +0000 (UTC)
+Received: by mail-pf1-f179.google.com with SMTP id
+ d2e1a72fcca58-71e4c2e36d5so123745b3a.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 28 Oct 2024 07:43:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1730126513; x=1730731313; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1730126582; x=1730731382; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=la2exHew+hvO0IJ9e81iOlO6I5GJ9Cfsj+BaSXTZCp0=;
- b=Uz3hcqmk0AynEKvCyXPYKyF2q++pmXqG1W9/lLgauBc3zE6VVMxlhSfVkACVQZtQNo
- nwW0jtqniDf8/xfU2SgLl4E+V5OyczyHBCM5S2RB7mTSw3Q2KmmZrUBTkOBM8SJLhpH9
- VvAkMhm3K79nL2CmCP2IMoAkprHyzshSUFbu0pq+wbfRQNqUBLB9eoN005/Uu/bvxiT4
- xm0vofikbQsGlrLyVqccKhysfQbcmK+u29O7fG4jBtxlDKIGlAIiRqywl1WH8iZq2+CS
- N8lwM0ZJw/9mXT86YC88SvoodpCqO0t9KJC8C4cv2I+lVmHIDwlniV+P04B4A7ldINnu
- fVYw==
+ bh=LpCi3DYH7I5RRlI5UCETI3eZm6LyO3QQBw2bC1QCznE=;
+ b=K+b60hZ/IU73SkCyMHqOTPYBSZy74QkbCZutpPqwfDjF36dWUhhvmc3xYz6TDEJJU6
+ dk3QCsw4ZE72II5AfSULyuzPq4jQM9dfb6fnphIinQ0NmMnB4t2qvKgdyuTj7i4yjuwl
+ K8nYWmUnXys8RX43A4G+dDJBhmjZCRQGWLzp/OCKFDlpkn29n8kL/T8jLUCkoNbMQnMP
+ icqyRfI8Mu35UmWvANF5MxrZQ7WEipy+I68xqefmuKFmIrekJtlic8HG3sfM+220sHq4
+ C3ajp6RUvQTYgOGKUn+GLSYENY8RFt7/Sc5wlVJWZ2y1A14qjxSs0muUpDp6FKO4Z2Gb
+ kKMw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1730126513; x=1730731313;
+ d=1e100.net; s=20230601; t=1730126582; x=1730731382;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=la2exHew+hvO0IJ9e81iOlO6I5GJ9Cfsj+BaSXTZCp0=;
- b=SqpH9b88OFE4J19KjZP02rQe3nUGmkcoHQmtC3M6hdaa1LK5k/zWQ3didSGMX6uU4M
- cIyEj53/XUTs+3N7b8/TX43H+DBKHVpyirXsACOuXeYxfAW56JMBh8Qxli7wjzN5Fctw
- 67KlkQTlFRqiBaSQkjwzHqmTOZoAMj72xKlxmGvaCwq1/uHueeFmqG42EpDysLRCNWgt
- N6RLuHOqh1MY9AUhvoV+rOgaC2PhNJW6YM0jDVPSw5f5YrapsqCmESdMqVAZYSlce3r8
- eZyCku2hG+2IUdldl8TF2uTleiazTwAvvTApdW/gQSq8oO1V4/mtXlWvZ6+awHf0NaZA
- wMEA==
-X-Gm-Message-State: AOJu0Yy3zJz8i8d+0PTfpTjcEzq0JPwX5wZ4/VJhoPMF2Yt0+of87DxY
- NbL6KznKiCUMjt/ItmViVuuPTD1xPuZm8Kmjb1phKBkDnmL/79JP/cJmEJSjPfEGXCJL4DxKZlk
- rNk3LoXodRLDooHH7OSo5qcPMBTtL+g==
-X-Google-Smtp-Source: AGHT+IFVvVYYO4bzeUQQ6YeNY6QzFp1DUBSyhauLCuNhRIKtvvqRRbYeFbi4lzAjJk3CtbisJ/4JWkLnBb9NKRpZHrU=
-X-Received: by 2002:a05:6a00:998:b0:71e:5033:c6 with SMTP id
- d2e1a72fcca58-7206303212amr5265185b3a.5.1730126512674; Mon, 28 Oct 2024
- 07:41:52 -0700 (PDT)
+ bh=LpCi3DYH7I5RRlI5UCETI3eZm6LyO3QQBw2bC1QCznE=;
+ b=EGKp5o82KYszRqnsdFQPhcy3HQ+RZ853/NhKEcqSiaIn/8cXteYjS/+MuArI3399iJ
+ /MaTwV07GuT00yOCJhoBqoW6wv88t8ZfgCLGFmMitlBCr6eSvCxXrmQLe905bzmjLjjG
+ 3BnsQTX6C/ir8VPPca6i1GoF53hE5p295oEW1zsrV4K3N5Q0jlE/u9uUeY9HAmcoS5+a
+ Td/LPrOWXNYUidGU2VRnZqkt5BV/ddi7wkGJaCYpHwYvFlV8gClbZECDo+rwE+vP7s2F
+ +ATxnIS8alr8JqUdh5TuSlqWb/q8dg3qbmPzZg3yVYY4O+NUA4lMLIQs4PIE4v1HRBB8
+ +cXQ==
+X-Gm-Message-State: AOJu0YzU/3VHgtUJZ9VS8aiWiFHkN/aQgfqyUceuME4z4GrKMAPMV24e
+ EV/SkfbwF0akfwDL9UHQQjF7BEqaWDwhEXIiywZRHfUu04wB2vNeJ7EvNnm99BCOyUMMDX4fgYe
+ 8NsVXh4tlQ15GHR2021dachkSLtNqpQ==
+X-Google-Smtp-Source: AGHT+IGzGAHievt/oNtm5O97AQ9MYIGzyrXvaND6R5/Z10todZnMZKtiy7r+KTEBfO6MRCmzL/zxei7ULj9aDs0hnrg=
+X-Received: by 2002:a05:6a00:218f:b0:71e:5580:f461 with SMTP id
+ d2e1a72fcca58-72062a67d17mr5179077b3a.0.1730126582338; Mon, 28 Oct 2024
+ 07:43:02 -0700 (PDT)
 MIME-Version: 1.0
-References: <20241015181541.2457526-1-alexander.deucher@amd.com>
- <CADnq5_NHmJpZLbbrEsN75gkLOctFtS6nyNBHfgM-0=EpdyKFcA@mail.gmail.com>
-In-Reply-To: <CADnq5_NHmJpZLbbrEsN75gkLOctFtS6nyNBHfgM-0=EpdyKFcA@mail.gmail.com>
+References: <20241023210342.685808-1-alexander.deucher@amd.com>
+In-Reply-To: <20241023210342.685808-1-alexander.deucher@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 28 Oct 2024 10:41:40 -0400
-Message-ID: <CADnq5_MAExjgh8xYzfjSPxFUYV-17Tukh6DgH41ba9t6Pe8EoA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: add ring reset messages
+Date: Mon, 28 Oct 2024 10:42:50 -0400
+Message-ID: <CADnq5_M3ar8qGBFVF5p7YUbVsjZvzCdkDcJ-GM7J+T15vfJOhQ@mail.gmail.com>
+Subject: Re: [PATCH 1/3] drm/amdgpu: Adjust debugfs register access permissions
 To: Alex Deucher <alexander.deucher@amd.com>
 Cc: amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
@@ -76,52 +75,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Ping?
+Ping on this series?
 
-On Fri, Oct 18, 2024 at 11:47=E2=80=AFAM Alex Deucher <alexdeucher@gmail.co=
-m> wrote:
+Alex
+
+On Wed, Oct 23, 2024 at 5:04=E2=80=AFPM Alex Deucher <alexander.deucher@amd=
+.com> wrote:
 >
-> Ping?
+> Regular users shouldn't have read access.
 >
-> On Tue, Oct 15, 2024 at 2:28=E2=80=AFPM Alex Deucher <alexander.deucher@a=
-md.com> wrote:
-> >
-> > Add messages to make it clear when a per ring reset
-> > happens.  This is helpful for debugging and aligns with
-> > other reset methods.
-> >
-> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 3 +++
-> >  1 file changed, 3 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_job.c
-> > index 102742f1faa2..2d60552a13ac 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> > @@ -137,6 +137,7 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(=
-struct drm_sched_job *s_job)
-> >         /* attempt a per ring reset */
-> >         if (amdgpu_gpu_recovery &&
-> >             ring->funcs->reset) {
-> > +               dev_err(adev->dev, "Starting %s ring reset\n", s_job->s=
-ched->name);
-> >                 /* stop the scheduler, but don't mess with the
-> >                  * bad job yet because if ring reset fails
-> >                  * we'll fall back to full GPU reset.
-> > @@ -150,8 +151,10 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout=
-(struct drm_sched_job *s_job)
-> >                         amdgpu_fence_driver_force_completion(ring);
-> >                         if (amdgpu_ring_sched_ready(ring))
-> >                                 drm_sched_start(&ring->sched);
-> > +                       dev_err(adev->dev, "Ring reset success\n");
-> >                         goto exit;
-> >                 }
-> > +               dev_err(adev->dev, "Ring reset failure\n");
-> >         }
-> >
-> >         if (amdgpu_device_should_recover_gpu(ring->adev)) {
-> > --
-> > 2.46.2
-> >
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_debugfs.c
+> index 6e6092916d4e..e44a44405266 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> @@ -1654,7 +1654,7 @@ int amdgpu_debugfs_regs_init(struct amdgpu_device *=
+adev)
+>
+>         for (i =3D 0; i < ARRAY_SIZE(debugfs_regs); i++) {
+>                 ent =3D debugfs_create_file(debugfs_regs_names[i],
+> -                                         S_IFREG | 0444, root,
+> +                                         S_IFREG | 0400, root,
+>                                           adev, debugfs_regs[i]);
+>                 if (!i && !IS_ERR_OR_NULL(ent))
+>                         i_size_write(ent->d_inode, adev->rmmio_size);
+> --
+> 2.46.2
+>
