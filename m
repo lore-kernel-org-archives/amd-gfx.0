@@ -4,60 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 375A8D3E2BC
-	for <amd-gfx@archiver.kernel.org>; Mon, 28 Oct 2024 19:43:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5637D3E2BA
+	for <amd-gfx@archiver.kernel.org>; Mon, 28 Oct 2024 19:43:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 500E710E53F;
-	Mon, 28 Oct 2024 19:43:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 511E310E541;
+	Mon, 28 Oct 2024 19:43:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="loGMPNnl";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TV/PzHUW";
 	dkim-atps=neutral
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com
- [209.85.210.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 57F7C10E53F
- for <amd-gfx@lists.freedesktop.org>; Mon, 28 Oct 2024 19:43:03 +0000 (UTC)
-Received: by mail-pf1-f181.google.com with SMTP id
- d2e1a72fcca58-71e4eb91228so327961b3a.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 28 Oct 2024 12:43:03 -0700 (PDT)
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com
+ [209.85.215.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE53D10E541
+ for <amd-gfx@lists.freedesktop.org>; Mon, 28 Oct 2024 19:43:42 +0000 (UTC)
+Received: by mail-pg1-f181.google.com with SMTP id
+ 41be03b00d2f7-7ea535890e0so527991a12.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 28 Oct 2024 12:43:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1730144583; x=1730749383; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1730144622; x=1730749422; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=W9B2eQxTpuEKGl0PAWsJqClqX9CksyCGAsH4ysZnUpA=;
- b=loGMPNnlCr5ym0PjEDqe8uvZ/lGpRnpxn8RIvNavfQlcBvbWaBnhvIBciaD6W32Asi
- DEfoQD7qJcGCft+yx1/BIP9evfC/aFT77MvPBGqxPMmnvMyjqdIor97Hsjih3zxXBBmm
- EVT9LQuNMdZ0B0XiuW7+V+iGtPk2Wwoul8vu6fENFggL2SRp0EnmFW5faJgdDUne46Kg
- UIc65rct2Tfc5M+N9rMI1xY5MJphj+TDOQVO+s6qDhKu7eBXnfxJjqjwGcOKCcLSUPdr
- TwXybCmJFTheVMFyc0oJQRBZ4LAH8QcfE9Hln0FWNryE7CLNcQ8ADQvN4Xjvp7YNixx6
- WAcw==
+ bh=HWNvsJ+p26yHOxZZ8pyxpSePq39gJkGD7XFa6quwGTQ=;
+ b=TV/PzHUW6T9uDsKdDcPPOLuspbV06VS/fvx4WVzd7lWRBR60qqZjllPUVLekonvCjJ
+ CtPtCLYsXxrzjDWmdDXC6Ib3cOBybKGTVMZfo2QAOPaF61ZJiYDU14hjb7wqhRTNYnuQ
+ sazWydCkIdu7ngZFFLe5feCNSfzRBS+r/i1u3+Ri1lc7rEo9RpMOSli/Nhfl9Bjk7GAF
+ m1RBDSrL+90VXBMB5QIBcjmJD+pOQ1odsp3cbcGUpdi1N98q8GPO2fsgJCndwt3tctzQ
+ PhLJU+6LiPFv0vur/7WPhxFll2tGuuSUT3FZe7s34j7+uPUS47KSvcqbynHeCP2MdiAV
+ ZULA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1730144583; x=1730749383;
+ d=1e100.net; s=20230601; t=1730144622; x=1730749422;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=W9B2eQxTpuEKGl0PAWsJqClqX9CksyCGAsH4ysZnUpA=;
- b=h+DnrDXdTp2M3mjTwRDAQqFCKdacYxNIg7fkwDpx0ZmNxB+O+BukITw76SkIdIDSMV
- 66H5Q7XS8lVl9oD99rRIrGz0EIrtYLrcZNbRi0/q8jiW7KH45BdE75E3hnm1WfUUKD5T
- 7RG35bZlDolTZAyo9KEvg0PIjDqmPhmOnG54L4E17PcP5hV+DmQaNAKuEXTeOBUkp+N6
- /fsChNqfI/1pLYBQS3fjgTaS7dxSuS6ulmZ8cEBB2crCQwTZOfKksI9OdOe+xRbFRtVs
- Pe8+1T78LeITLex0MqOlk79HySyGywW3zJg23DUpx5YSXTH0H/RI3uUmkmb4I6H53WrV
- 86qA==
-X-Gm-Message-State: AOJu0YwbTZkcRFC26hwYrwoq0/5HLaFsn1pRwJSruE61zLybqqr9eXLB
- OcR6DZPpBM6avI0YbC1PtaauQHfErBQwXqT7d6nZ3O/+p2B46fQt77ypE1CaZR6Nu1SaOcQtTA2
- DBkH37I/KEnSwdXHO1dYf7chZ8FpcwX2I
-X-Google-Smtp-Source: AGHT+IEzrgbq0z94sM2CfU+Du7VbxGRGLzuXuvxsdtHb9eMmIkXg+J3Wz3E5wtNK6ePNr1lO+AMnAG25cBCMWTURBxo=
-X-Received: by 2002:a05:6a00:9aa:b0:71e:66bb:d34a with SMTP id
- d2e1a72fcca58-72062ebaeddmr5460794b3a.2.1730144582737; Mon, 28 Oct 2024
- 12:43:02 -0700 (PDT)
+ bh=HWNvsJ+p26yHOxZZ8pyxpSePq39gJkGD7XFa6quwGTQ=;
+ b=CwwHprUz3L1EjjstN4jcBG7D9ZW7F9Mw3D2X5q012tSE3CuAt5qp0eYYPKzn6c17k7
+ IkeuwFP3iyZeThZx8q+L2ic60bC4z1dQuKqpkTkd8CUh6p6DLXHJXrKT2Nu2W7ZsTVJf
+ hnps4TfQ24O02NL8VEBmXoLjWy9rtadHoG1vuXn544vT+P2x6aZxOnInQuVPhJl4SNFK
+ PteeRelVfVX1g3Le7NNawLR36SKBDxGisOJnBxMjSV9EAeqVLfALpP+AqHf5AYf7p5qi
+ DdtMHGCdXfyEaO6mzF+pFSeUTcdX7N2lwilGPs2mVnU/mTI/eAUFRHbudNDUpW7FNs/q
+ gk7w==
+X-Gm-Message-State: AOJu0Yx6qAEI09qiy2nl3OvsrXu6Omgu5oRSkWxZIo21l/M4HkGrgX5p
+ qMHLq3D5k73+dX++WqXHLM3Ld8VYin3nnC70UeFvV3Q/MGOyptWejujXp/VCJG7rYxI+clN5iBZ
+ D/2J8fNOY64Fdm0D2y2fjWcFmZIE=
+X-Google-Smtp-Source: AGHT+IEH6dW24Ye5/FJd4kkG4JGaZgkR4WrqCBvK22a6avqoKqHqtZY/mQU82Dg31fH3p/FfwcVR6QoaEg1mogJ2uQs=
+X-Received: by 2002:a05:6a20:a10f:b0:1cf:4bd8:3a09 with SMTP id
+ adf61e73a8af0-1d9a83da97bmr6860481637.6.1730144622297; Mon, 28 Oct 2024
+ 12:43:42 -0700 (PDT)
 MIME-Version: 1.0
 References: <20241025023545.465886-1-boyuan.zhang@amd.com>
- <20241025023545.465886-26-boyuan.zhang@amd.com>
-In-Reply-To: <20241025023545.465886-26-boyuan.zhang@amd.com>
+ <20241025023545.465886-27-boyuan.zhang@amd.com>
+In-Reply-To: <20241025023545.465886-27-boyuan.zhang@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 28 Oct 2024 15:42:51 -0400
-Message-ID: <CADnq5_MDPeLgwr_SzUgEoXKSA40C2FedJPpy+jH09Y_FRvci3w@mail.gmail.com>
-Subject: Re: [PATCH 25/29] drm/amdgpu: resume for each vcn instance
+Date: Mon, 28 Oct 2024 15:43:30 -0400
+Message-ID: <CADnq5_OhJzPbG9UD__KbdR6FdaSP5sMSGZ-7XJCiSiif8juuMA@mail.gmail.com>
+Subject: Re: [PATCH 26/29] drm/amdgpu: setup_ucode for each vcn instance
 To: boyuan.zhang@amd.com
 Cc: amd-gfx@lists.freedesktop.org, leo.liu@amd.com, christian.koenig@amd.com, 
  alexander.deucher@amd.com, sunil.khatri@amd.com
@@ -77,12 +77,12 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Oct 24, 2024 at 10:48=E2=80=AFPM <boyuan.zhang@amd.com> wrote:
+On Thu, Oct 24, 2024 at 10:36=E2=80=AFPM <boyuan.zhang@amd.com> wrote:
 >
 > From: Boyuan Zhang <boyuan.zhang@amd.com>
 >
-> Pass instance parameter to amdgpu_vcn_resume(), and perform
-> resume ONLY for the given vcn instance, instead of for all
+> Pass instance parameter to amdgpu_vcn_setup_ucode(), and perform
+> setup ucode ONLY for the given vcn instance, instead of for all
 > vcn instances. Modify each vcn generation accordingly.
 >
 > Signed-off-by: Boyuan Zhang <boyuan.zhang@amd.com>
@@ -90,333 +90,219 @@ On Thu, Oct 24, 2024 at 10:48=E2=80=AFPM <boyuan.zhang@amd.com> wrote:
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 60 ++++++++++++-------------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 37 ++++++++++++-------------
 >  drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h |  2 +-
->  drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c   |  4 +-
->  drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c   |  4 +-
->  drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c   |  4 +-
->  drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c   |  4 +-
->  drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c   |  4 +-
->  drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c |  4 +-
->  drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c |  4 +-
->  drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c |  4 +-
->  10 files changed, 47 insertions(+), 47 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c   |  2 +-
+>  drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c   |  2 +-
+>  drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c   |  2 +-
+>  drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c   |  2 +-
+>  drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c   |  2 +-
+>  drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c |  2 +-
+>  drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c |  2 +-
+>  drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c |  2 +-
+>  10 files changed, 26 insertions(+), 29 deletions(-)
 >
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/am=
 d/amdgpu/amdgpu_vcn.c
-> index 50047c636904..c4e1283aa9a4 100644
+> index c4e1283aa9a4..29f6a2b76919 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> @@ -335,47 +335,47 @@ int amdgpu_vcn_suspend(struct amdgpu_device *adev, =
-int inst)
->         return amdgpu_vcn_save_vcpu_bo(adev, inst);
+> @@ -1049,34 +1049,31 @@ enum amdgpu_ring_priority_level amdgpu_vcn_get_en=
+c_ring_prio(int ring)
+>         }
 >  }
 >
-> -int amdgpu_vcn_resume(struct amdgpu_device *adev)
-> +int amdgpu_vcn_resume(struct amdgpu_device *adev, int inst)
+> -void amdgpu_vcn_setup_ucode(struct amdgpu_device *adev)
+> +void amdgpu_vcn_setup_ucode(struct amdgpu_device *adev, int inst)
 >  {
->         unsigned int size;
->         void *ptr;
-> -       int i, idx;
-> +       int idx;
-> +
-> +       if (adev->vcn.harvest_config & (1 << inst))
-> +               return 0;
+> -       int i;
+>         unsigned int idx;
 >
-> -       for (i =3D 0; i < adev->vcn.num_vcn_inst; ++i) {
-> -               if (adev->vcn.harvest_config & (1 << i))
-> -                       continue;
-> -               if (adev->vcn.inst[i].vcpu_bo =3D=3D NULL)
-> -                       return -EINVAL;
-> +       if (adev->vcn.inst[inst].vcpu_bo =3D=3D NULL)
-> +               return -EINVAL;
-> +
-> +       size =3D amdgpu_bo_size(adev->vcn.inst[inst].vcpu_bo);
-> +       ptr =3D adev->vcn.inst[inst].cpu_addr;
+>         if (adev->firmware.load_type =3D=3D AMDGPU_FW_LOAD_PSP) {
+>                 const struct common_firmware_header *hdr;
 >
-> -               size =3D amdgpu_bo_size(adev->vcn.inst[i].vcpu_bo);
-> -               ptr =3D adev->vcn.inst[i].cpu_addr;
-> +       if (adev->vcn.inst[inst].saved_bo !=3D NULL) {
-> +               if (drm_dev_enter(adev_to_drm(adev), &idx)) {
-> +                       memcpy_toio(ptr, adev->vcn.inst[inst].saved_bo, s=
-ize);
-> +                       drm_dev_exit(idx);
-> +               }
-> +               kvfree(adev->vcn.inst[inst].saved_bo);
-> +               adev->vcn.inst[inst].saved_bo =3D NULL;
-> +       } else {
-> +               const struct common_firmware_header *hdr;
-> +               unsigned int offset;
+> -               for (i =3D 0; i < adev->vcn.num_vcn_inst; i++) {
+> -                       if (adev->vcn.harvest_config & (1 << i))
+> -                               continue;
+> +               if (adev->vcn.harvest_config & (1 << inst))
+> +                       return;
 >
-> -               if (adev->vcn.inst[i].saved_bo !=3D NULL) {
-> +               hdr =3D (const struct common_firmware_header *)adev->vcn.=
-inst[inst].fw->data;
-> +               if (adev->firmware.load_type !=3D AMDGPU_FW_LOAD_PSP) {
-> +                       offset =3D le32_to_cpu(hdr->ucode_array_offset_by=
-tes);
->                         if (drm_dev_enter(adev_to_drm(adev), &idx)) {
-> -                               memcpy_toio(ptr, adev->vcn.inst[i].saved_=
-bo, size);
-> +                               memcpy_toio(adev->vcn.inst[inst].cpu_addr=
-,
-> +                                               adev->vcn.inst[inst].fw->=
-data + offset,
-> +                                               le32_to_cpu(hdr->ucode_si=
-ze_bytes));
->                                 drm_dev_exit(idx);
->                         }
-> -                       kvfree(adev->vcn.inst[i].saved_bo);
-> -                       adev->vcn.inst[i].saved_bo =3D NULL;
-> -               } else {
-> -                       const struct common_firmware_header *hdr;
-> -                       unsigned int offset;
-> -
 > -                       hdr =3D (const struct common_firmware_header *)ad=
 ev->vcn.inst[i].fw->data;
-> -                       if (adev->firmware.load_type !=3D AMDGPU_FW_LOAD_=
-PSP) {
-> -                               offset =3D le32_to_cpu(hdr->ucode_array_o=
-ffset_bytes);
-> -                               if (drm_dev_enter(adev_to_drm(adev), &idx=
-)) {
-> -                                       memcpy_toio(adev->vcn.inst[i].cpu=
-_addr,
-> -                                                   adev->vcn.inst[i].fw-=
->data + offset,
-> -                                                   le32_to_cpu(hdr->ucod=
-e_size_bytes));
-> -                                       drm_dev_exit(idx);
-> -                               }
-> -                               size -=3D le32_to_cpu(hdr->ucode_size_byt=
-es);
-> -                               ptr +=3D le32_to_cpu(hdr->ucode_size_byte=
-s);
+> -                       /* currently only support 2 FW instances */
+> -                       if (i >=3D 2) {
+> -                               dev_info(adev->dev, "More then 2 VCN FW i=
+nstances!\n");
+> -                               break;
 > -                       }
-> -                       memset_io(ptr, 0, size);
-> +                       size -=3D le32_to_cpu(hdr->ucode_size_bytes);
-> +                       ptr +=3D le32_to_cpu(hdr->ucode_size_bytes);
+> -                       idx =3D AMDGPU_UCODE_ID_VCN + i;
+> -                       adev->firmware.ucode[idx].ucode_id =3D idx;
+> -                       adev->firmware.ucode[idx].fw =3D adev->vcn.inst[i=
+].fw;
+> -                       adev->firmware.fw_size +=3D
+> -                               ALIGN(le32_to_cpu(hdr->ucode_size_bytes),=
+ PAGE_SIZE);
+> -
+> -                       if (amdgpu_ip_version(adev, UVD_HWIP, 0) =3D=3D
+> -                           IP_VERSION(4, 0, 3))
+> -                               break;
+> +               hdr =3D (const struct common_firmware_header *)adev->vcn.=
+inst[inst].fw->data;
+> +               /* currently only support 2 FW instances */
+> +               if (inst >=3D 2) {
+> +                       dev_info(adev->dev, "More then 2 VCN FW instances=
+!\n");
+> +                       return;
 >                 }
-> +               memset_io(ptr, 0, size);
->         }
+> +               idx =3D AMDGPU_UCODE_ID_VCN + inst;
+> +               adev->firmware.ucode[idx].ucode_id =3D idx;
+> +               adev->firmware.ucode[idx].fw =3D adev->vcn.inst[inst].fw;
+> +               adev->firmware.fw_size +=3D
+> +                       ALIGN(le32_to_cpu(hdr->ucode_size_bytes), PAGE_SI=
+ZE);
 > +
->         return 0;
+> +               if (amdgpu_ip_version(adev, UVD_HWIP, 0) =3D=3D
+> +                       IP_VERSION(4, 0, 3))
+> +                       return;
+>         }
 >  }
 >
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h b/drivers/gpu/drm/am=
 d/amdgpu/amdgpu_vcn.h
-> index be681bcab184..75cfdb770672 100644
+> index 75cfdb770672..6cd094ee8218 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-> @@ -487,7 +487,7 @@ int amdgpu_vcn_early_init(struct amdgpu_device *adev,=
- int inst);
->  int amdgpu_vcn_sw_init(struct amdgpu_device *adev, int inst);
->  int amdgpu_vcn_sw_fini(struct amdgpu_device *adev, int inst);
->  int amdgpu_vcn_suspend(struct amdgpu_device *adev, int inst);
-> -int amdgpu_vcn_resume(struct amdgpu_device *adev);
-> +int amdgpu_vcn_resume(struct amdgpu_device *adev, int inst);
->  void amdgpu_vcn_ring_begin_use(struct amdgpu_ring *ring);
->  void amdgpu_vcn_ring_end_use(struct amdgpu_ring *ring);
+> @@ -505,7 +505,7 @@ int amdgpu_vcn_enc_ring_test_ib(struct amdgpu_ring *r=
+ing, long timeout);
 >
+>  enum amdgpu_ring_priority_level amdgpu_vcn_get_enc_ring_prio(int ring);
+>
+> -void amdgpu_vcn_setup_ucode(struct amdgpu_device *adev);
+> +void amdgpu_vcn_setup_ucode(struct amdgpu_device *adev, int inst);
+>
+>  void amdgpu_vcn_fwlog_init(struct amdgpu_vcn_inst *vcn);
+>  void amdgpu_debugfs_vcn_fwlog_init(struct amdgpu_device *adev,
 > diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/=
 amdgpu/vcn_v1_0.c
-> index a3845e7747b0..77f9f34eaca8 100644
+> index 77f9f34eaca8..7638ddeccec7 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-> @@ -156,7 +156,7 @@ static int vcn_v1_0_sw_init(struct amdgpu_ip_block *i=
+> @@ -154,7 +154,7 @@ static int vcn_v1_0_sw_init(struct amdgpu_ip_block *i=
 p_block)
+>         /* Override the work func */
+>         adev->vcn.inst[0].idle_work.work.func =3D vcn_v1_0_idle_work_hand=
+ler;
 >
->         amdgpu_vcn_setup_ucode(adev);
+> -       amdgpu_vcn_setup_ucode(adev);
+> +       amdgpu_vcn_setup_ucode(adev, inst);
 >
-> -       r =3D amdgpu_vcn_resume(adev);
-> +       r =3D amdgpu_vcn_resume(adev, inst);
+>         r =3D amdgpu_vcn_resume(adev, inst);
 >         if (r)
->                 return r;
->
-> @@ -331,7 +331,7 @@ static int vcn_v1_0_resume(struct amdgpu_ip_block *ip=
-_block)
->  {
->         int r;
->
-> -       r =3D amdgpu_vcn_resume(ip_block->adev);
-> +       r =3D amdgpu_vcn_resume(ip_block->adev, ip_block->instance);
->         if (r)
->                 return r;
->
 > diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c b/drivers/gpu/drm/amd/=
 amdgpu/vcn_v2_0.c
-> index 8e943d1fae17..87293bb777d4 100644
+> index 87293bb777d4..a327c3bf84f2 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-> @@ -161,7 +161,7 @@ static int vcn_v2_0_sw_init(struct amdgpu_ip_block *i=
+> @@ -159,7 +159,7 @@ static int vcn_v2_0_sw_init(struct amdgpu_ip_block *i=
 p_block)
->
->         amdgpu_vcn_setup_ucode(adev);
->
-> -       r =3D amdgpu_vcn_resume(adev);
-> +       r =3D amdgpu_vcn_resume(adev, inst);
 >         if (r)
 >                 return r;
 >
-> @@ -359,7 +359,7 @@ static int vcn_v2_0_resume(struct amdgpu_ip_block *ip=
-_block)
->  {
->         int r;
+> -       amdgpu_vcn_setup_ucode(adev);
+> +       amdgpu_vcn_setup_ucode(adev, inst);
 >
-> -       r =3D amdgpu_vcn_resume(ip_block->adev);
-> +       r =3D amdgpu_vcn_resume(ip_block->adev, ip_block->instance);
+>         r =3D amdgpu_vcn_resume(adev, inst);
 >         if (r)
->                 return r;
->
 > diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c b/drivers/gpu/drm/amd/=
 amdgpu/vcn_v2_5.c
-> index 9ca07e56b052..62266db72531 100644
+> index 62266db72531..0d84cb4279e3 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-> @@ -191,7 +191,7 @@ static int vcn_v2_5_sw_init(struct amdgpu_ip_block *i=
+> @@ -189,7 +189,7 @@ static int vcn_v2_5_sw_init(struct amdgpu_ip_block *i=
 p_block)
->
->         amdgpu_vcn_setup_ucode(adev);
->
-> -       r =3D amdgpu_vcn_resume(adev);
-> +       r =3D amdgpu_vcn_resume(adev, inst);
 >         if (r)
 >                 return r;
 >
-> @@ -436,7 +436,7 @@ static int vcn_v2_5_resume(struct amdgpu_ip_block *ip=
-_block)
->  {
->         int r;
+> -       amdgpu_vcn_setup_ucode(adev);
+> +       amdgpu_vcn_setup_ucode(adev, inst);
 >
-> -       r =3D amdgpu_vcn_resume(ip_block->adev);
-> +       r =3D amdgpu_vcn_resume(ip_block->adev, ip_block->instance);
+>         r =3D amdgpu_vcn_resume(adev, inst);
 >         if (r)
->                 return r;
->
 > diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/=
 amdgpu/vcn_v3_0.c
-> index a25d2b9784be..d29c49d061d7 100644
+> index d29c49d061d7..03fc50b3aa05 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-> @@ -174,7 +174,7 @@ static int vcn_v3_0_sw_init(struct amdgpu_ip_block *i=
+> @@ -172,7 +172,7 @@ static int vcn_v3_0_sw_init(struct amdgpu_ip_block *i=
 p_block)
->
->         amdgpu_vcn_setup_ucode(adev);
->
-> -       r =3D amdgpu_vcn_resume(adev);
-> +       r =3D amdgpu_vcn_resume(adev, inst);
 >         if (r)
 >                 return r;
 >
-> @@ -468,7 +468,7 @@ static int vcn_v3_0_resume(struct amdgpu_ip_block *ip=
-_block)
->  {
->         int r;
+> -       amdgpu_vcn_setup_ucode(adev);
+> +       amdgpu_vcn_setup_ucode(adev, inst);
 >
-> -       r =3D amdgpu_vcn_resume(ip_block->adev);
-> +       r =3D amdgpu_vcn_resume(ip_block->adev, ip_block->instance);
+>         r =3D amdgpu_vcn_resume(adev, inst);
 >         if (r)
->                 return r;
->
 > diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/=
 amdgpu/vcn_v4_0.c
-> index fcf7b23cca90..509dc6b5f43b 100644
+> index 509dc6b5f43b..c52ed8166d9d 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-> @@ -182,7 +182,7 @@ static int vcn_v4_0_sw_init(struct amdgpu_ip_block *i=
+> @@ -180,7 +180,7 @@ static int vcn_v4_0_sw_init(struct amdgpu_ip_block *i=
 p_block)
->
->         amdgpu_vcn_setup_ucode(adev);
->
-> -       r =3D amdgpu_vcn_resume(adev);
-> +       r =3D amdgpu_vcn_resume(adev, inst);
 >         if (r)
 >                 return r;
 >
-> @@ -396,7 +396,7 @@ static int vcn_v4_0_resume(struct amdgpu_ip_block *ip=
-_block)
->  {
->         int r;
+> -       amdgpu_vcn_setup_ucode(adev);
+> +       amdgpu_vcn_setup_ucode(adev, inst);
 >
-> -       r =3D amdgpu_vcn_resume(ip_block->adev);
-> +       r =3D amdgpu_vcn_resume(ip_block->adev, ip_block->instance);
+>         r =3D amdgpu_vcn_resume(adev, inst);
 >         if (r)
->                 return r;
->
 > diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c b/drivers/gpu/drm/am=
 d/amdgpu/vcn_v4_0_3.c
-> index ece9b1df2743..070cf516f365 100644
+> index 070cf516f365..2468a5e409c1 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-> @@ -139,7 +139,7 @@ static int vcn_v4_0_3_sw_init(struct amdgpu_ip_block =
+> @@ -137,7 +137,7 @@ static int vcn_v4_0_3_sw_init(struct amdgpu_ip_block =
 *ip_block)
->
->         amdgpu_vcn_setup_ucode(adev);
->
-> -       r =3D amdgpu_vcn_resume(adev);
-> +       r =3D amdgpu_vcn_resume(adev, inst);
 >         if (r)
 >                 return r;
 >
-> @@ -355,7 +355,7 @@ static int vcn_v4_0_3_resume(struct amdgpu_ip_block *=
-ip_block)
->  {
->         int r;
+> -       amdgpu_vcn_setup_ucode(adev);
+> +       amdgpu_vcn_setup_ucode(adev, inst);
 >
-> -       r =3D amdgpu_vcn_resume(ip_block->adev);
-> +       r =3D amdgpu_vcn_resume(ip_block->adev, ip_block->instance);
+>         r =3D amdgpu_vcn_resume(adev, inst);
 >         if (r)
->                 return r;
->
 > diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c b/drivers/gpu/drm/am=
 d/amdgpu/vcn_v4_0_5.c
-> index f1ec632a9eb8..ad9e67d9134d 100644
+> index ad9e67d9134d..f43604d7fb1a 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
-> @@ -144,7 +144,7 @@ static int vcn_v4_0_5_sw_init(struct amdgpu_ip_block =
+> @@ -142,7 +142,7 @@ static int vcn_v4_0_5_sw_init(struct amdgpu_ip_block =
 *ip_block)
->
->         amdgpu_vcn_setup_ucode(adev);
->
-> -       r =3D amdgpu_vcn_resume(adev);
-> +       r =3D amdgpu_vcn_resume(adev, inst);
 >         if (r)
 >                 return r;
 >
-> @@ -347,7 +347,7 @@ static int vcn_v4_0_5_resume(struct amdgpu_ip_block *=
-ip_block)
->  {
->         int r;
+> -       amdgpu_vcn_setup_ucode(adev);
+> +       amdgpu_vcn_setup_ucode(adev, inst);
 >
-> -       r =3D amdgpu_vcn_resume(ip_block->adev);
-> +       r =3D amdgpu_vcn_resume(ip_block->adev, ip_block->instance);
+>         r =3D amdgpu_vcn_resume(adev, inst);
 >         if (r)
->                 return r;
->
 > diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c b/drivers/gpu/drm/am=
 d/amdgpu/vcn_v5_0_0.c
-> index fdfb3084d54e..9999c8094920 100644
+> index 9999c8094920..d61428c75c88 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
-> @@ -128,7 +128,7 @@ static int vcn_v5_0_0_sw_init(struct amdgpu_ip_block =
+> @@ -126,7 +126,7 @@ static int vcn_v5_0_0_sw_init(struct amdgpu_ip_block =
 *ip_block)
->
->         amdgpu_vcn_setup_ucode(adev);
->
-> -       r =3D amdgpu_vcn_resume(adev);
-> +       r =3D amdgpu_vcn_resume(adev, inst);
 >         if (r)
 >                 return r;
 >
-> @@ -311,7 +311,7 @@ static int vcn_v5_0_0_resume(struct amdgpu_ip_block *=
-ip_block)
->  {
->         int r;
+> -       amdgpu_vcn_setup_ucode(adev);
+> +       amdgpu_vcn_setup_ucode(adev, inst);
 >
-> -       r =3D amdgpu_vcn_resume(ip_block->adev);
-> +       r =3D amdgpu_vcn_resume(ip_block->adev, ip_block->instance);
+>         r =3D amdgpu_vcn_resume(adev, inst);
 >         if (r)
->                 return r;
->
 > --
 > 2.34.1
 >
