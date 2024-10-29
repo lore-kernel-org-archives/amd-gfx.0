@@ -4,88 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1961D3A670
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Oct 2024 17:03:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84D71D3A676
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Oct 2024 17:03:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B81B10E69E;
-	Tue, 29 Oct 2024 17:03:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E81210E6A9;
+	Tue, 29 Oct 2024 17:03:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="QS0t9JAU";
+	dkim=pass (1024-bit key; unprotected) header.d=ispras.ru header.i=@ispras.ru header.b="qYcv+KYz";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B60810E284;
- Tue, 29 Oct 2024 14:48:22 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 49T91Ow1025858;
- Tue, 29 Oct 2024 14:47:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- +wv4O0Y5GVDH3vUrfYUR55hgvLmKzOGrUOAzL5LkrYY=; b=QS0t9JAUBHqWH02u
- dNtVrgHN86w5CLnNDffItzpLyqgQwNrWLXukh7717iCujg+qac7U0LQNgx8UjmfO
- pNppyLoV0BiCWiWYeQfbQSkEueNjqhpwe3ymQ/5JtmI+7D7lNEAuLZkjWYt7Bad3
- FIWANrEtgFCEbNhs18Z88h7B0VJOTTZcagFhIXvQ7W0zo2pKEUeoAojfMPClCC3w
- ++dX6DXZS2K0/yun7AKEtrTTvl9CbZw4Czd+v0b3ypA1OiaF5hQ72P40HQv1u1dm
- mFSANVwhc7kKC3bU9wQWN7RlliJHoMkvZAvlxYf4h1W0oqtV7QsYssccuvYBrg1q
- QDJmNA==
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 42gsq8gr78-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 29 Oct 2024 14:47:56 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 49TEltNx020912
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 29 Oct 2024 14:47:55 GMT
-Received: from [10.226.59.182] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Tue, 29 Oct
- 2024 07:47:54 -0700
-Message-ID: <5dd216a0-0c99-6dd5-f06d-60c7c6da1b31@quicinc.com>
-Date: Tue, 29 Oct 2024 08:47:54 -0600
+Received: from mail.ispras.ru (mail.ispras.ru [83.149.199.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDA5410E652;
+ Tue, 29 Oct 2024 13:32:06 +0000 (UTC)
+Received: from fpc.intra.ispras.ru (unknown [10.10.165.10])
+ by mail.ispras.ru (Postfix) with ESMTPSA id 65B6F40AC4FC;
+ Tue, 29 Oct 2024 13:32:04 +0000 (UTC)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.ispras.ru 65B6F40AC4FC
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ispras.ru;
+ s=default; t=1730208724;
+ bh=CY9WpoB1ebMA/1wZn75hZzNlIToBl0ATXQ6g1HGBfV4=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=qYcv+KYzIcnp9KmvvsZoD3pjgBb8IXPILX2ZHTC28ZQIXspvwCHxjVFAKXs1+SQ0c
+ RKAiILnJmK3fOtbz2a3+dTYjF0GndeEk8kOSiZ5/aWDs8Wm0HmEvN89e+cj1zULCDt
+ UzTZ2CkomfK4bQ4LMTuMeh/BKCKwmr6679HHLSeQ=
+From: Fedor Pchelkin <pchelkin@ispras.ru>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org,
+ Alex Deucher <alexander.deucher@amd.com>
+Cc: Fedor Pchelkin <pchelkin@ispras.ru>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Fangzhi Zuo <Jerry.Zuo@amd.com>,
+ Wayne Lin <wayne.lin@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ lvc-project@linuxtesting.org, Alexey Khoroshilov <khoroshilov@ispras.ru>,
+ Jonathan Gray <jsg@jsg.id.au>
+Subject: [PATCH 6.1 1/1] Revert "drm/amd/display: Skip Recompute DSC Params if
+ no Stream on Link"
+Date: Tue, 29 Oct 2024 16:31:41 +0300
+Message-Id: <20241029133141.45335-2-pchelkin@ispras.ru>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20241029133141.45335-1-pchelkin@ispras.ru>
+References: <20241029133141.45335-1-pchelkin@ispras.ru>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.0
-Subject: Re: [PATCH v2 3/3] drm: remove driver date from struct drm_driver and
- all drivers
-Content-Language: en-US
-To: Jani Nikula <jani.nikula@intel.com>, <dri-devel@lists.freedesktop.org>,
- <intel-gfx@lists.freedesktop.org>
-CC: Javier Martinez Canillas <javierm@redhat.com>, Alex Deucher
- <alexander.deucher@amd.com>, Simon Ser <contact@emersion.fr>, David Airlie
- <airlied@gmail.com>, Hamza Mahfooz <hamza.mahfooz@amd.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, Simona Vetter
- <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>,
- =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- <amd-gfx@lists.freedesktop.org>, <linux-arm-kernel@lists.infradead.org>,
- <nouveau@lists.freedesktop.org>, <xen-devel@lists.xenproject.org>
-References: <20241028185141.3756176-1-jani.nikula@intel.com>
- <20241028185141.3756176-3-jani.nikula@intel.com>
-From: Jeffrey Hugo <quic_jhugo@quicinc.com>
-In-Reply-To: <20241028185141.3756176-3-jani.nikula@intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: 1zozjE_Cu_2BsSxN4CNnC4fCdn0_-mvH
-X-Proofpoint-ORIG-GUID: 1zozjE_Cu_2BsSxN4CNnC4fCdn0_-mvH
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 bulkscore=0
- adultscore=0 mlxscore=0 priorityscore=1501 mlxlogscore=982 impostorscore=0
- lowpriorityscore=0 malwarescore=0 clxscore=1011 spamscore=0 suspectscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2409260000
- definitions=main-2410290113
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 29 Oct 2024 17:03:44 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -101,21 +65,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 10/28/2024 12:51 PM, Jani Nikula wrote:
-> We stopped using the driver initialized date in commit 7fb8af6798e8
-> ("drm: deprecate driver date") and (eventually) started returning "0"
-> for drm_version ioctl instead.
-> 
-> Finish the job, and remove the unused date member from struct
-> drm_driver, its initialization from drivers, along with the common
-> DRIVER_DATE macros.
-> 
-> v2: Also update drivers/accel (kernel test robot)
-> 
-> Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
-> Acked-by: Alex Deucher <alexander.deucher@amd.com>
-> Acked-by: Simon Ser <contact@emersion.fr>
-> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+This reverts commit 7c887efda1201110211fed8921a92a713e0b6bcd.
 
-For QAIC -
-Acked-by: Jeffrey Hugo <quic_jhugo@quicinc.com>
+It is a duplicate of the change made in 6.1.105 by commit 282f0a482ee6
+("drm/amd/display: Skip Recompute DSC Params if no Stream on Link").
+
+This is a consequence of two "similar" upstream commits existence, one of
+which has been cherry-picked.
+
+Reported-by: Alexey Khoroshilov <khoroshilov@ispras.ru>
+Signed-off-by: Fedor Pchelkin <pchelkin@ispras.ru>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c | 3 ---
+ 1 file changed, 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+index 1acef5f3838f..855cd71f636f 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+@@ -1255,9 +1255,6 @@ static bool is_dsc_need_re_compute(
+ 		}
+ 	}
+ 
+-	if (new_stream_on_link_num == 0)
+-		return false;
+-
+ 	if (new_stream_on_link_num == 0)
+ 		return false;
+ 
+-- 
+2.39.5
+
