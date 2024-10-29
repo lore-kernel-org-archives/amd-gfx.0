@@ -4,67 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27C06D7497F
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59F89D7497D
 	for <amd-gfx@archiver.kernel.org>; Wed, 30 Oct 2024 08:42:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE6AA10E3F5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB0CE10E75F;
 	Wed, 30 Oct 2024 08:42:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=mandelbit.com header.i=@mandelbit.com header.b="Yn7q5Kvm";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CX1mQXLO";
 	dkim-atps=neutral
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EAF0610E3C6
- for <amd-gfx@lists.freedesktop.org>; Tue, 29 Oct 2024 23:32:27 +0000 (UTC)
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-4315f24a6bbso57213455e9.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 29 Oct 2024 16:32:27 -0700 (PDT)
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com
+ [209.85.214.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3004910E6AB;
+ Tue, 29 Oct 2024 17:05:35 +0000 (UTC)
+Received: by mail-pl1-f171.google.com with SMTP id
+ d9443c01a7336-20c8719fb63so3657505ad.1; 
+ Tue, 29 Oct 2024 10:05:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mandelbit.com; s=google; t=1730244746; x=1730849546;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=lStBLLzkZ4IOiXePrysaFTO8S5eHIYxzOD5lofFbrsc=;
- b=Yn7q5KvmN9aRhV1EsHajHk7HFH05X08+y+aGVzH+CxBJJckezPVHCe5aCujTDLE3iE
- fvY7j6pEyxaW8r1cSKYuSjObc0DclnNoYu9ifoszxm4gsz548cAyUAfkd+sT6s/k4UjG
- 0FU0bODmzaxhTDFEkpxl+z7nEWxBbAFgwxnRaEwb2uhxZgCIf7qt045KAyZrglRTWihI
- d33xEhRcFaufsSWLeBukcEgV/LUGP839sTGFoqqJGEuuyf7GY01+IpCPDPozIqK7zG76
- JU14lCaX397wiH6qVTt/sKI5pepDaBK6PiKjDRBVCKAWPXGLkAmmzlEQJ/F15AtlkLF1
- TgQg==
+ d=gmail.com; s=20230601; t=1730221535; x=1730826335; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=ri7MEvCu1YimVlmWq4RcIi4fsfAsB9YQsSyk/h/+zFk=;
+ b=CX1mQXLOAlBgIj/RQkFyyD44+DcpXeAQ5kOmWQqIWvt4LvaN9JopM4CFsOOuX664qJ
+ uZ3FJLTk0+gEcsLOUvRdlvJ4pvHB28JOdKPYdXn8HKOvrvDsEPfzvsFkTYeLD10vCLto
+ sUmOGnyfzSD2/wy68XZq4/ggnIk96gNEILC1d6y8NF5aNBBIJ5jwaX8IErGR2YqZYcJY
+ LOyCvmIIucXySROcTuI1XKvT+IvAyQIQGwc+hsBp4zRHZY331uWhrBirih7kenmly9Mq
+ 6fF4AXDS5PJuYDiOcXVRQrs7i0N44OtuyG5HxYgSxs3A5rk7FTABRFjLXoQ1RqkL/2yD
+ gKzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1730244746; x=1730849546;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=lStBLLzkZ4IOiXePrysaFTO8S5eHIYxzOD5lofFbrsc=;
- b=RTmId8gr9rE8m1zAIeetCBcr86S5EWjz8eCeRg9fRPw5WlkWrsd/5ck6VnA8MimLI+
- QjYwTxkHL7eIDSDYRAhG0E8c8nM1TR8N0jCLFJGEztFAxvRmBLBv1J7DeJWIvKu/Vv3o
- D9NN5owfOLXwDphCF6oir+DyiCeOQJRP6qVOV8w9R2qIjXV/sytuNlfelXgFw3nyTz/n
- 8YXJf6KJkfO9t9MXi0t9NkHDVJ1M37QNa7bzHNxz7+SS+tRg9IxlyTiqIG3d/HEPosVM
- FLn3kyoRIFW0B64TcBaE5/kpiwDppdVQOkh/55Wj/Ih+p0uZ8AAVi8PVvE1uF4OfVA59
- xQgA==
-X-Gm-Message-State: AOJu0Yyq7vMJ6jzvB61DFu3+BkK/nudC8xdQK0BKTOWsxAZCov9Gtnf5
- OZ8Th5a9Pmoj+PFzGTO1nDQihcFOT9ylw20a4LynKLrBjno6eBoNsHsd1setAE0=
-X-Google-Smtp-Source: AGHT+IFN08GgIIYQERPKFyJ+37fpuAaUFrLVX8d6AuuDSZctnK3MH0jcrfXMRdO8stPaqw7wQC8yUA==
-X-Received: by 2002:a05:600c:3b9c:b0:42f:7c9e:1f96 with SMTP id
- 5b1f17b1804b1-4319ac6fc1cmr134931455e9.1.1730244746154; 
- Tue, 29 Oct 2024 16:32:26 -0700 (PDT)
-Received: from serenity.mandelbit.com ([2001:67c:2fbc:1:c559:9886:6c0b:569f])
+ d=1e100.net; s=20230601; t=1730221535; x=1730826335;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=ri7MEvCu1YimVlmWq4RcIi4fsfAsB9YQsSyk/h/+zFk=;
+ b=Kh7G6Ev6N6p5v3BCHkvScMtcncBN3AvVMoU2/e8q6BPAwKBTRDPPrkeyda6Inrm0U/
+ MPmaYRAkznBTNjGBlRGaDJgPAEBSOs35lfTdeqm+elJk4T0MMvkXwSf9JH4LA6QiRngm
+ vxycGFwSxa9uB0TJAFg1BB/Z4Cx6gP1wre1dn4XvrrYcPcD1Jh8nXFbsEGzeSEnuKRUg
+ UtryUDfUZhKCM3J6pyrQM8locYTMj343Pkgzpp0kGHxkG6ampC8Q8fS+TvzpNDiTBKZg
+ QU1JMITIRZ1WpGfqLQvmeygSJwO++x6JlpoQilVOyL/+bPifoTXjHYMMJXwWq00TGE4L
+ yq/g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWC+ZDmvMfkEoWgGCbrzTZSkfdiLQcQbZYMVdGtH1g0sR1uvIddvAyUgaoalu4SZ0oH0ROCLjTq@lists.freedesktop.org,
+ AJvYcCXt6yNlf3g1+O0FfrpqKKzVmbHE0zNbp3gYEAb4zZzAmkr6CbS1EkuY/evYvQEaqWxW4bLsT9Pkk0UB@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyHKEYb9uju/2pFiHHsWV3N4stT8RiT1ZOSWuH4da3gh86qYI9F
+ 37EEupCmH7U5+klocSfRztePHMLAOhvXnB0oK5pWNsCxKe8NeSNc
+X-Google-Smtp-Source: AGHT+IHT5/roU/4mSk/m+oKx+/csSBDyCP+jJiFd98PSY13Rg95wM5KFEENyo902h9hqdsGmjTpOqQ==
+X-Received: by 2002:a17:902:e5ce:b0:20c:da9a:d59e with SMTP id
+ d9443c01a7336-210c6c6f398mr70539565ad.9.1730221534582; 
+ Tue, 29 Oct 2024 10:05:34 -0700 (PDT)
+Received: from ?IPV6:2402:e280:214c:86:e12b:a9a3:6d06:6d0a?
+ ([2402:e280:214c:86:e12b:a9a3:6d06:6d0a])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-431bd97d77dsm3515305e9.22.2024.10.29.16.32.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 29 Oct 2024 16:32:25 -0700 (PDT)
-From: Antonio Quartulli <antonio@mandelbit.com>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- mario.limonciello@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Antonio Quartulli <antonio@mandelbit.com>
-Subject: [PATCH] amdgpu: prevent NULL pointer dereference if ATIF is not
- supported
-Date: Wed, 30 Oct 2024 00:32:32 +0100
-Message-ID: <20241029233232.27692-1-antonio@mandelbit.com>
-X-Mailer: git-send-email 2.45.2
+ d9443c01a7336-210f6a461b2sm1908925ad.169.2024.10.29.10.05.28
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 29 Oct 2024 10:05:34 -0700 (PDT)
+Message-ID: <3d38112f-9235-4643-ae2c-ffb9fae7a5d2@gmail.com>
+Date: Tue, 29 Oct 2024 22:35:25 +0530
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH linux-next] drm/amdgpu: use string choice helpers
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, simona@ffwll.ch, tao.zhou1@amd.com,
+ kevinyang.wang@amd.com, Hawking.Zhang@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, luben.tuikov@amd.com,
+ kernel test robot <lkp@intel.com>, Julia Lawall <julia.lawall@inria.fr>
+References: <20241027140537.503264-1-prosunofficial@gmail.com>
+ <CADnq5_M4QwRfROybHrQfNuiXNhHH7VFAUVZMWkriwZs7K4KLUQ@mail.gmail.com>
+Content-Language: en-US
+From: R Sundar <prosunofficial@gmail.com>
+In-Reply-To: <CADnq5_M4QwRfROybHrQfNuiXNhHH7VFAUVZMWkriwZs7K4KLUQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 30 Oct 2024 08:42:29 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -81,41 +92,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-acpi_evaluate_object() may return AE_NOT_FOUND (failure), which
-would result in dereferencing buffer.pointer (obj) while being NULL.
+On 29/10/24 19:11, Alex Deucher wrote:
+> On Sun, Oct 27, 2024 at 10:18 AM R Sundar <prosunofficial@gmail.com> wrote:
+>>
+>> Use string choice helpers for better readability.
+> 
+> I personally find this less readable, but if this is the preferred
+> method going forward, I'm fine to take the patch.
+> 
+> Alex
+> 
 
-Bail out also when status is AE_NOT_FOUND with a proper error message.
+Hi,
 
-This fixes 1 FORWARD_NULL issue reported by Coverity
-Report: CID 1600951:  Null pointer dereferences  (FORWARD_NULL)
+Thanks for the comments.
 
-Signed-off-by: Antonio Quartulli <antonio@mandelbit.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+I came across this comments in string_choices.h files, where 
+str_read_write() helpers are present.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-index cce85389427f..f10c3261a4ab 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-@@ -172,10 +172,13 @@ static union acpi_object *amdgpu_atif_call(struct amdgpu_atif *atif,
- 				      &buffer);
- 	obj = (union acpi_object *)buffer.pointer;
- 
--	/* Fail if calling the method fails and ATIF is supported */
--	if (ACPI_FAILURE(status) && status != AE_NOT_FOUND) {
--		DRM_DEBUG_DRIVER("failed to evaluate ATIF got %s\n",
--				 acpi_format_exception(status));
-+	/* Fail if calling the method fails */
-+	if (ACPI_FAILURE(status)) {
-+		if (status != AE_NOT_FOUND)
-+			DRM_DEBUG_DRIVER("failed to evaluate ATIF got %s\n",
-+					 acpi_format_exception(status));
-+		else
-+			DRM_DEBUG_DRIVER("ATIF not supported\n");
- 		kfree(obj);
- 		return NULL;
- 	}
--- 
-2.45.2
+Using these helpers offers the following benefits: 
+
+  1) Reducing the hardcoding of strings, which makes the code more 
+elegant through these simple literal-meaning helpers. 
+
+  2) Unifying the output, which prevents the same string from being 
+printed in various forms, such as enable/disable, enabled/disabled, 
+en/dis.
+  3) Deduping by the linker, which results in a smaller binary file.
+
+Kindly, I'm leaving the decision to maintainers.
+
+Thanks,
+Sundar
+
+>>
+>> Reported-by: kernel test robot <lkp@intel.com>
+>> Reported-by: Julia Lawall <julia.lawall@inria.fr>
+>> Closes: https://lore.kernel.org/r/202410161814.I6p2Nnux-lkp@intel.com/
+>> Signed-off-by: R Sundar <prosunofficial@gmail.com>
+>> ---
+>>
+>> reported in linux repository.
+>>
+>> tree:  https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+>>
+>> cocci warnings: (new ones prefixed by >>)
+>>>> drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c:145:8-12: opportunity for str_read_write(read)
+>>
+>> vim +145 drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
+>>
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
+>> index 35fee3e8cde2..8cd69836dd99 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
+>> @@ -200,7 +200,7 @@ static int amdgpu_eeprom_xfer(struct i2c_adapter *i2c_adap, u32 eeprom_addr,
+>>                  dev_err_ratelimited(&i2c_adap->dev,
+>>                                      "maddr:0x%04X size:0x%02X:quirk max_%s_len must be > %d",
+>>                                      eeprom_addr, buf_size,
+>> -                                   read ? "read" : "write", EEPROM_OFFSET_SIZE);
+>> +                                   str_read_write(read), EEPROM_OFFSET_SIZE);
+>>                  return -EINVAL;
+>>          }
+>>
+>> --
+>> 2.34.1
+>>
 
