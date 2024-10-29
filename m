@@ -4,79 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59F89D7497D
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B285AD2AB2C
 	for <amd-gfx@archiver.kernel.org>; Wed, 30 Oct 2024 08:42:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB0CE10E75F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E24E210E760;
 	Wed, 30 Oct 2024 08:42:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CX1mQXLO";
+	dkim=pass (2048-bit key; secure) header.d=web.de header.i=markus.elfring@web.de header.b="aXimRinc";
 	dkim-atps=neutral
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com
- [209.85.214.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3004910E6AB;
- Tue, 29 Oct 2024 17:05:35 +0000 (UTC)
-Received: by mail-pl1-f171.google.com with SMTP id
- d9443c01a7336-20c8719fb63so3657505ad.1; 
- Tue, 29 Oct 2024 10:05:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1730221535; x=1730826335; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=ri7MEvCu1YimVlmWq4RcIi4fsfAsB9YQsSyk/h/+zFk=;
- b=CX1mQXLOAlBgIj/RQkFyyD44+DcpXeAQ5kOmWQqIWvt4LvaN9JopM4CFsOOuX664qJ
- uZ3FJLTk0+gEcsLOUvRdlvJ4pvHB28JOdKPYdXn8HKOvrvDsEPfzvsFkTYeLD10vCLto
- sUmOGnyfzSD2/wy68XZq4/ggnIk96gNEILC1d6y8NF5aNBBIJ5jwaX8IErGR2YqZYcJY
- LOyCvmIIucXySROcTuI1XKvT+IvAyQIQGwc+hsBp4zRHZY331uWhrBirih7kenmly9Mq
- 6fF4AXDS5PJuYDiOcXVRQrs7i0N44OtuyG5HxYgSxs3A5rk7FTABRFjLXoQ1RqkL/2yD
- gKzA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1730221535; x=1730826335;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=ri7MEvCu1YimVlmWq4RcIi4fsfAsB9YQsSyk/h/+zFk=;
- b=Kh7G6Ev6N6p5v3BCHkvScMtcncBN3AvVMoU2/e8q6BPAwKBTRDPPrkeyda6Inrm0U/
- MPmaYRAkznBTNjGBlRGaDJgPAEBSOs35lfTdeqm+elJk4T0MMvkXwSf9JH4LA6QiRngm
- vxycGFwSxa9uB0TJAFg1BB/Z4Cx6gP1wre1dn4XvrrYcPcD1Jh8nXFbsEGzeSEnuKRUg
- UtryUDfUZhKCM3J6pyrQM8locYTMj343Pkgzpp0kGHxkG6ampC8Q8fS+TvzpNDiTBKZg
- QU1JMITIRZ1WpGfqLQvmeygSJwO++x6JlpoQilVOyL/+bPifoTXjHYMMJXwWq00TGE4L
- yq/g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWC+ZDmvMfkEoWgGCbrzTZSkfdiLQcQbZYMVdGtH1g0sR1uvIddvAyUgaoalu4SZ0oH0ROCLjTq@lists.freedesktop.org,
- AJvYcCXt6yNlf3g1+O0FfrpqKKzVmbHE0zNbp3gYEAb4zZzAmkr6CbS1EkuY/evYvQEaqWxW4bLsT9Pkk0UB@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyHKEYb9uju/2pFiHHsWV3N4stT8RiT1ZOSWuH4da3gh86qYI9F
- 37EEupCmH7U5+klocSfRztePHMLAOhvXnB0oK5pWNsCxKe8NeSNc
-X-Google-Smtp-Source: AGHT+IHT5/roU/4mSk/m+oKx+/csSBDyCP+jJiFd98PSY13Rg95wM5KFEENyo902h9hqdsGmjTpOqQ==
-X-Received: by 2002:a17:902:e5ce:b0:20c:da9a:d59e with SMTP id
- d9443c01a7336-210c6c6f398mr70539565ad.9.1730221534582; 
- Tue, 29 Oct 2024 10:05:34 -0700 (PDT)
-Received: from ?IPV6:2402:e280:214c:86:e12b:a9a3:6d06:6d0a?
- ([2402:e280:214c:86:e12b:a9a3:6d06:6d0a])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-210f6a461b2sm1908925ad.169.2024.10.29.10.05.28
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 29 Oct 2024 10:05:34 -0700 (PDT)
-Message-ID: <3d38112f-9235-4643-ae2c-ffb9fae7a5d2@gmail.com>
-Date: Tue, 29 Oct 2024 22:35:25 +0530
+X-Greylist: delayed 323 seconds by postgrey-1.36 at gabe;
+ Tue, 29 Oct 2024 19:49:22 UTC
+Received: from mout.web.de (mout.web.de [212.227.15.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 321ED10E6F1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 29 Oct 2024 19:49:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+ s=s29768273; t=1730231360; x=1730836160; i=markus.elfring@web.de;
+ bh=KVa6sUoEsISVLJqp9YsSnJ2+WbranhY7bY8+FHwY44g=;
+ h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
+ Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+ cc:content-transfer-encoding:content-type:date:from:message-id:
+ mime-version:reply-to:subject:to;
+ b=aXimRincFyn0PlgowV7FNHByhEhkYIXLOUdGYARKCj90/EwuDo1QfYsfTZK032WL
+ DD9LHTe57bjutJdEMBWa6ANusXGrxS7hAO0Mujn9HTOt18Dk3fP+VQszNaGHlXh0R
+ 7uIrNhJeuOcui2tL1QRFuNhlfJKIffWP8kF+s1+6ZJrd3qN1w9/6ZcTOe0dDSgSYd
+ hHRUzbkIdkLrAdqhtUalH9I76QleZj19iMN19fuuiLTtm+kjwkCVpjSQJUiaFVIVA
+ kx6ZtRKpSz7O2H2PNMtNqUdhM6C/BTldt2RKWKf8fIaMIeAOB67OSJl09btIOZ/Ia
+ l2lJbYmkR+k+uzh9GQ==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from [192.168.178.21] ([94.31.89.95]) by smtp.web.de (mrweb005
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1MNORC-1tUf2q1qyA-00QntE; Tue, 29
+ Oct 2024 20:43:42 +0100
+Message-ID: <58a77f5d-74a1-4ea2-942e-a352f30f66bd@web.de>
+Date: Tue, 29 Oct 2024 20:43:28 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH linux-next] drm/amdgpu: use string choice helpers
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, simona@ffwll.ch, tao.zhou1@amd.com,
- kevinyang.wang@amd.com, Hawking.Zhang@amd.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, luben.tuikov@amd.com,
- kernel test robot <lkp@intel.com>, Julia Lawall <julia.lawall@inria.fr>
-References: <20241027140537.503264-1-prosunofficial@gmail.com>
- <CADnq5_M4QwRfROybHrQfNuiXNhHH7VFAUVZMWkriwZs7K4KLUQ@mail.gmail.com>
-Content-Language: en-US
-From: R Sundar <prosunofficial@gmail.com>
-In-Reply-To: <CADnq5_M4QwRfROybHrQfNuiXNhHH7VFAUVZMWkriwZs7K4KLUQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+To: Li Huafei <lihuafei1@huawei.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Christophe Jaillet <christophe.jaillet@wanadoo.fr>,
+ David Airlie <airlied@gmail.com>, Lijo Lazar <lijo.lazar@amd.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: LKML <linux-kernel@vger.kernel.org>, Hawking Zhang
+ <Hawking.Zhang@amd.com>, Le Ma <le.ma@amd.com>, Likun Gao
+ <Likun.Gao@amd.com>, Ma Jun <Jun.Ma2@amd.com>,
+ Pratap Nirujogi <Pratap.Nirujogi@amd.com>, Tim Huang <Tim.Huang@amd.com>,
+ Victor Lu <victorchengchi.lu@amd.com>, Xinhui Pan <Xinhui.Pan@amd.com>,
+ Yifan Zhang <yifan1.zhang@amd.com>
+References: <20241029202758.2764535-1-lihuafei1@huawei.com>
+Subject: Re: [PATCH v3] drm/amdgpu: Fix the memory allocation issue in
+ amdgpu_discovery_get_nps_info()
+Content-Language: en-GB
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <20241029202758.2764535-1-lihuafei1@huawei.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:1eb1mV/sniekV3cSxKRVEOdxvIGkwE3QOfs5C6TbZLC6LbNAORa
+ npSbXL1ta54UfT/tJNlaAU7eceDkl2BOSVQszkTX0QzOpY299Uejg0csBbz9Q9oarjvZILm
+ rg/OpEwzNhIyXbR4DJtJcYZ/2Pk+RT06aTl8wbqtFMpq2q+bEN8ic49EbISdHBrrzwB83L0
+ 1ftm2HB80Bxp2+nVLxT2g==
+UI-OutboundReport: notjunk:1;M01:P0:VBWmokV05Og=;7saiEzx3dBT5lo9PdehhJBMSDfo
+ KkXuROz4Y80mL5YMSFi4lqorDsZ9W0A+NWYkU5GbQYvD7YzhY1YzonLtAi3p5rAbaTIW9PP14
+ pSqwiXSCQmE3lWzxkl5bgqSTU8OUGqyZ/MXTyaQJpnTxaQlW5nqEQB6ZZDN++3Nev++od1AyM
+ 1FQMD1EAkwETFC71ImMjY7dqYOpP3MQiCLFKttOeXrJX2BUtEwm7h3UFXfKdmUs/Amu5ujOq3
+ Q+ETQd8jU9aWwFDl1bFOTQNhw8qF+mU4Sqn0PdmXpctm8M6C/30tyTMcdyTg/4EmPBtwlcbMV
+ oRBVpl7ibvf8rSlMYPmNODOXwlYXaTUleDFNlbxLD+mgEm2qCiYWrYFe21uB4hlytHXPBIjLt
+ mTipHVnbZNPEeJwMzDcg069378pFWIWADH6D7WanpYHmi1XdRnUg4CyXIAZsxOOya8JW+NyQ8
+ D2O/y6iSjWXxG/4tAGCGPLYQdrWgi+jXhhSJWQzCJbEidCf7lsSVYTGDHpNeh/6lf/qgvGJp+
+ 9FYmgI/mHAeq9LKSgBqbpEKYCOV1KzddZpoQUReBECTMsTYdgcR96RnmOc1++MM2I7SwPyocM
+ WbV9z7scmApGDa7JAqC32bSLmOZGaCLUuIdxrq2uShMIPEuXPp4cToqL4UkS9c7Qd10ccJ1YR
+ hoosGl/DVvqTwN9m3MUNjJlDzCVvNZAUrmQ1j0vGMBJBivz0+XItZjXJtUK6UFOHR5banmYA2
+ VTgbygXqvNnWS4n2wx+/5nAxcHAfSE7DjfQy6bcsKdbiCuJB9al7OqDvev9oop5dwsFdJFG+V
+ 5EPbJ42idniKqT53xTh7ecSw==
 X-Mailman-Approved-At: Wed, 30 Oct 2024 08:42:29 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,72 +90,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 29/10/24 19:11, Alex Deucher wrote:
-> On Sun, Oct 27, 2024 at 10:18 AM R Sundar <prosunofficial@gmail.com> wrote:
->>
->> Use string choice helpers for better readability.
-> 
-> I personally find this less readable, but if this is the preferred
-> method going forward, I'm fine to take the patch.
-> 
-> Alex
-> 
+=E2=80=A6
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> @@ -1757,11 +1757,13 @@ int amdgpu_discovery_get_nps_info(struct amdgpu_=
+device *adev,
+>
+>  	switch (le16_to_cpu(nps_info->v1.header.version_major)) {
+>  	case 1:
+> +		mem_ranges =3D kvcalloc(nps_info->v1.count,
+> +				      sizeof(struct amdgpu_gmc_memrange),
+> +				      GFP_KERNEL);
+=E2=80=A6
 
-Hi,
+Can the specification =E2=80=9Csizeof(*mem_ranges)=E2=80=9D be more approp=
+riate here?
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Do=
+cumentation/process/coding-style.rst?h=3Dv6.12-rc5#n941
 
-Thanks for the comments.
-
-I came across this comments in string_choices.h files, where 
-str_read_write() helpers are present.
-
-Using these helpers offers the following benefits: 
-
-  1) Reducing the hardcoding of strings, which makes the code more 
-elegant through these simple literal-meaning helpers. 
-
-  2) Unifying the output, which prevents the same string from being 
-printed in various forms, such as enable/disable, enabled/disabled, 
-en/dis.
-  3) Deduping by the linker, which results in a smaller binary file.
-
-Kindly, I'm leaving the decision to maintainers.
-
-Thanks,
-Sundar
-
->>
->> Reported-by: kernel test robot <lkp@intel.com>
->> Reported-by: Julia Lawall <julia.lawall@inria.fr>
->> Closes: https://lore.kernel.org/r/202410161814.I6p2Nnux-lkp@intel.com/
->> Signed-off-by: R Sundar <prosunofficial@gmail.com>
->> ---
->>
->> reported in linux repository.
->>
->> tree:  https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
->>
->> cocci warnings: (new ones prefixed by >>)
->>>> drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c:145:8-12: opportunity for str_read_write(read)
->>
->> vim +145 drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
->>
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
->> index 35fee3e8cde2..8cd69836dd99 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eeprom.c
->> @@ -200,7 +200,7 @@ static int amdgpu_eeprom_xfer(struct i2c_adapter *i2c_adap, u32 eeprom_addr,
->>                  dev_err_ratelimited(&i2c_adap->dev,
->>                                      "maddr:0x%04X size:0x%02X:quirk max_%s_len must be > %d",
->>                                      eeprom_addr, buf_size,
->> -                                   read ? "read" : "write", EEPROM_OFFSET_SIZE);
->> +                                   str_read_write(read), EEPROM_OFFSET_SIZE);
->>                  return -EINVAL;
->>          }
->>
->> --
->> 2.34.1
->>
-
+Regards,
+Markus
