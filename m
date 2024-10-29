@@ -4,72 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B013D5B84B
-	for <amd-gfx@archiver.kernel.org>; Tue, 29 Oct 2024 14:15:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1CEB2D5B86D
+	for <amd-gfx@archiver.kernel.org>; Tue, 29 Oct 2024 14:18:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BB7010E289;
-	Tue, 29 Oct 2024 14:15:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ABF3F10E675;
+	Tue, 29 Oct 2024 14:18:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cQAD/8px";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YC0UfI4V";
 	dkim-atps=neutral
 Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com
  [209.85.210.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF54C10E674;
- Tue, 29 Oct 2024 14:15:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1EBB110E675
+ for <amd-gfx@lists.freedesktop.org>; Tue, 29 Oct 2024 14:18:42 +0000 (UTC)
 Received: by mail-pf1-f177.google.com with SMTP id
- d2e1a72fcca58-7202e1a0209so419180b3a.0; 
- Tue, 29 Oct 2024 07:15:17 -0700 (PDT)
+ d2e1a72fcca58-71e4c2e36d5so204686b3a.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 29 Oct 2024 07:18:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1730211317; x=1730816117; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1730211521; x=1730816321; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=NdL/6Wwq2YpW7hbsrIeRhPDCaUR6Mp8BoblxniOFhuU=;
- b=cQAD/8px6BGhmQes1Tnuu90OoYaZ3sGmJXKXOpclUOgoJyWwZPNHwSgKnvk5YaGssP
- ei0wH+E/henfvxGaLh7Cj35AmOvMuO3j9OboNgrd4oK8X28x9iS2gyP4jZ8BvtHrXv+J
- 8Bm6Dj6eJjFCS46bP+SuImtHiibKMGT+H1+ejE5wxil+0E1l4inWwIMkgLGOQkb38yZ5
- x9HKs+VMSZFh1EIujl/e9G6LP3gpwd0ySPD8vOlt2XYY3llnMu97c7EDFik2cXX2aKea
- YFg0p6+R9DEYeePv6v1izRa3B/53dgdVkAhJJkc8SPC67QErBi/4URVkonXscjXUhAEv
- FW6w==
+ bh=BYEFvuFALsjnWSlNNeisw7ilQv3imeEN+ME4YbTbNY0=;
+ b=YC0UfI4VYRFxBlu8By2+sw9SLK5Ux2X6+7R1CFqIxBD6ZPkhO9odr5UY3YY2liSL/i
+ 5RgdHK9kek/7cG0mB3f6y9dNnc6Vd5gdWzOQo9d2Dg8NBeQIuvkgMR26lWD4RUFR0zdS
+ y6a/9MW/s5ZE/vbvWFJWGapQbA9Ua+LCYKna6u+7sMRa+nT8GfCybpx3YHwQ16DFKmzA
+ HeKkCuH+nihs2UBPKGfWE3IBH+1/LyO+NWaJUbRJzEDbPbRTnFtlNhviqhh7+Rkql88Q
+ eUOVXIA3hS3V/8+Xg/NZ7oTTa+bcpxQfFd8Lz6Z5nIomwZlqjRvpYxMUKvQZi3efSk+N
+ 2v7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1730211317; x=1730816117;
+ d=1e100.net; s=20230601; t=1730211521; x=1730816321;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=NdL/6Wwq2YpW7hbsrIeRhPDCaUR6Mp8BoblxniOFhuU=;
- b=BXzjH1hxGTSudGJ3xrpvSTyLNvFkybtBj5/rz+c+DYSd5JWZyK3gocSkmRpGazGfei
- koe5UQPtFZ5tlJvABfk3e+8lSFfgNw1qmS6xFFqy1XSga2qRy+CxD7yb80heSUT5Le/E
- gmE62poj72AgDzwxoCmYT96/xPI7iRHIU82tdb2DxMkTL29MP7ecJ11Y0jxr4BHRz+A8
- ZdCEtCkFiSngZReOp/NFVh/v04QNFZs+wlwYDEx1TkN4ljg5z4p4PsEhTJ/HCvZjmKbA
- Jv/vMiyMwBFcK2aoAacvN9n2WSgu2njZRmLQpfSaw34wM85NO+vE+1H+sDuddvWv1XjZ
- qMnw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX/TYrFm0KouD0NLoWbBQqig8IMr76f2cOmQi8mQQtYZj78ai5EZxh0ynm3Kuyxi+tLsweE+0bZIPE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywxinnvf14EnwMmGVkDLyfAa6BdS2gwJ5b7LNKTDJxtsvse6G0p
- 8kPNaxfdqFyFcZMzO0RImtFy/bYWz2d2GJVU2axwWUmfrHJM5MaPkkvcfzo7p+kUd6e/gPxEuMB
- RNoOOYALL/0cekFsBSKBjN33G5As=
-X-Google-Smtp-Source: AGHT+IFzdFJaOn83o4sBTV1nq6LWM0MJiM8jeipFNOiCNquBEfssxrZm3m7uFcGUxPyBeY1B89EsW3Kqja/pZ4iXRz0=
-X-Received: by 2002:a05:6a20:72a2:b0:1d8:f77c:c4f4 with SMTP id
- adf61e73a8af0-1d9a851450dmr8191571637.10.1730211316969; Tue, 29 Oct 2024
- 07:15:16 -0700 (PDT)
+ bh=BYEFvuFALsjnWSlNNeisw7ilQv3imeEN+ME4YbTbNY0=;
+ b=dE1SMAh5ca5u8M6VGIJxM4EvcsY0WmD27xmHBO55/JrZADK1mVAZ1UqggwqjXlWseN
+ Gqu4pM0y+0JYihV2n4IafTiRuESpPpmGwpSzNR7unh4SGNUBlIyDEiGA0c+P51Y8CA8x
+ qFGO8vrPltF1KIoRVOxvfLX1Gzmzei50pRs1122Ao7iimRKV65cFjdf2wus09aqRnLAn
+ 5T72h+IJhD9D40L/L1OeDGodn8KUaf7rWp8ycmpjlb78Wwitif+QZViHpjJLZJKAGHWJ
+ jumwxeZxStgY3kMewf6lELt00zc6z/h1v1Gb7mCMv1XIGagp+Hb4m47NR7aFAABO2K8K
+ vGWw==
+X-Gm-Message-State: AOJu0YzzO1/iAVAhJxeZbIyuP9fAutAJuUh1MipaZdRWNZMAKzqPvjNp
+ J+NlWzY9H8Lim7FdQ1/8SkNKl37oQIBYw2ZzxknKcjCNp4h+O2cveu/o9uuCGsk1YHhuBAXRuVu
+ OIcf+iV2Q+BHhK7+FFTvV36i8uQUIYg==
+X-Google-Smtp-Source: AGHT+IF47exhSArHsExNupgX77jH1cXs63emCN0mhifVwV/OyaM5AccKkm0H8NTo6jtVGapqYn4GajQanRBJzqbYsA8=
+X-Received: by 2002:a05:6a00:2d25:b0:71e:658f:c43d with SMTP id
+ d2e1a72fcca58-72062ed3c37mr7244664b3a.2.1730211520059; Tue, 29 Oct 2024
+ 07:18:40 -0700 (PDT)
 MIME-Version: 1.0
-References: <20241025060244.535406-1-Qiang.Yu@amd.com>
-In-Reply-To: <20241025060244.535406-1-Qiang.Yu@amd.com>
+References: <43965fdb4f4a7c4223885c8e417bdc69@aosc.io>
+In-Reply-To: <43965fdb4f4a7c4223885c8e417bdc69@aosc.io>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 29 Oct 2024 10:15:05 -0400
-Message-ID: <CADnq5_MkQDNjFykm8zL3_yy5PBi6saoN+ianwNZxs_+0w9jiAg@mail.gmail.com>
-Subject: Re: [PATCH] drm/fourcc: add AMD_FMT_MOD_TILE_GFX9_4K_D_X
-To: Qiang Yu <Qiang.Yu@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>,
- =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <marek.olsak@amd.com>, 
- Qiang Yu <yuq825@gmail.com>
+Date: Tue, 29 Oct 2024 10:18:27 -0400
+Message-ID: <CADnq5_NNBe38-yiQGCcdxOSDksN18cr3R9JWzYiZZn5_Z1SJfA@mail.gmail.com>
+Subject: Re: [PATCH] drm: amdgpu: fix comment about amdgpu.abmlevel defaults
+To: jeffbai@aosc.io
+Cc: amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -86,40 +75,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Oct 25, 2024 at 2:03=E2=80=AFAM Qiang Yu <Qiang.Yu@amd.com> wrote:
->
-> From: Qiang Yu <qiang.yu@amd.com>
->
-> This is used when radeonsi export small texture's modifier
-> to user with eglExportDMABUFImageQueryMESA().
->
-> mesa changes is available here:
-> https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/31658
->
-> Signed-off-by: Qiang Yu <qiang.yu@amd.com>
-
-I assume you will push this directly to amd-staging-drm-next?
+Applied.  Thanks!
 
 Alex
 
-> ---
->  include/uapi/drm/drm_fourcc.h | 1 +
->  1 file changed, 1 insertion(+)
+On Thu, Oct 24, 2024 at 9:07=E2=80=AFAM <jeffbai@aosc.io> wrote:
 >
-> diff --git a/include/uapi/drm/drm_fourcc.h b/include/uapi/drm/drm_fourcc.=
-h
-> index 78abd819fd62..70f3b00b0681 100644
-> --- a/include/uapi/drm/drm_fourcc.h
-> +++ b/include/uapi/drm/drm_fourcc.h
-> @@ -1516,6 +1516,7 @@ drm_fourcc_canonicalize_nvidia_format_mod(__u64 mod=
-ifier)
->   * 64K_D_2D on GFX12 is identical to 64K_D on GFX11.
->   */
->  #define AMD_FMT_MOD_TILE_GFX9_64K_D 10
-> +#define AMD_FMT_MOD_TILE_GFX9_4K_D_X 22
->  #define AMD_FMT_MOD_TILE_GFX9_64K_S_X 25
->  #define AMD_FMT_MOD_TILE_GFX9_64K_D_X 26
->  #define AMD_FMT_MOD_TILE_GFX9_64K_R_X 27
+> Since 040fdcde288a2830edc31dd507963d6aadf990d2 ("drm/amdgpu: respect the
+> abmlevel module parameter value if it is set"), the default value for
+> amdgpu.abmlevel was set to -1, or auto. However, the comment explaining
+> the default value was not updated to reflect the change (-1, or auto;
+> not
+> -1, or disabled).
+>
+> Clarify that the default value (-1) means auto.
+>
+> Fixes: 040fdcde288a2830edc31dd507963d6aadf990d2 ("drm/amdgpu: respect
+> the abmlevel module parameter value if it is set")
+> Reported-by: Ruikai Liu <rickliu2000@outlook.com>
+> Signed-off-by: Mingcong Bai <jeffbai@aosc.io>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index 81d9877c8735..b248d7096abc 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -892,7 +892,7 @@ module_param_named(visualconfirm,
+> amdgpu_dc_visual_confirm, uint, 0444);
+>    * the ABM algorithm, with 1 being the least reduction and 4 being the
+> most
+>    * reduction.
+>    *
+> - * Defaults to -1, or disabled. Userspace can only override this level
+> after
+> + * Defaults to -1, or auto. Userspace can only override this level
+> after
+>    * boot if it's set to auto.
+>    */
+>   int amdgpu_dm_abm_level =3D -1;
 > --
-> 2.43.0
+> 2.47.0
 >
