@@ -4,60 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7E5CD767C1
-	for <amd-gfx@archiver.kernel.org>; Thu, 31 Oct 2024 13:48:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB7EAD767C4
+	for <amd-gfx@archiver.kernel.org>; Thu, 31 Oct 2024 13:48:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F082710E89C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EAF3F10E89B;
 	Thu, 31 Oct 2024 13:48:00 +0000 (UTC)
-X-Greylist: delayed 301 seconds by postgrey-1.36 at gabe;
- Thu, 31 Oct 2024 03:07:43 UTC
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD2C810E149;
- Thu, 31 Oct 2024 03:07:43 +0000 (UTC)
-X-UUID: 930b79bc973411efa216b1d71e6e1362-20241031
-X-CTIC-Tags: HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME,
- HR_CTE_8B
- HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
- HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM, HR_SJ_PHRASE
- HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT, HR_TO_NO_NAME
- IP_TRUSTED, SRC_TRUSTED, DN_TRUSTED, SA_TRUSTED, SA_EXISTED
- SN_TRUSTED, SN_EXISTED, SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS
- CIE_BAD, CIE_GOOD, CIE_GOOD_SPF, GTI_FG_BS, GTI_RG_INFO
- GTI_C_BU, AMN_T1, AMN_GOOD, AMN_C_TI, AMN_C_BU ABX_MISS_RDNS
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.38, REQID:1156ef05-7704-4831-a6e7-3835a6f6075c, IP:5,
- U
- RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:-5,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
- N:release,TS:-5
-X-CID-INFO: VERSION:1.1.38, REQID:1156ef05-7704-4831-a6e7-3835a6f6075c, IP:5,
- URL
- :0,TC:0,Content:-5,EDM:0,RT:0,SF:-5,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
- release,TS:-5
-X-CID-META: VersionHash:82c5f88, CLOUDID:f37f4de97c5af6867ce5ba883aee855b,
- BulkI
- D:241031110235TPRFPUH8,BulkQuantity:0,Recheck:0,SF:841|25|17|19|45|66|102,
- TC:nil,Content:0,EDM:-3,IP:-2,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:ni
- l,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0
-X-CID-BVR: 0,NGT
-X-CID-BAS: 0,NGT,0,_
-X-CID-FACTOR: TF_CID_SPAM_FSI,TF_CID_SPAM_SNR,TF_CID_SPAM_FAS,TF_CID_SPAM_FSD
-X-UUID: 930b79bc973411efa216b1d71e6e1362-20241031
-X-User: yaolu@kylinos.cn
-Received: from localhost.localdomain [(111.48.58.10)] by mailgw.kylinos.cn
- (envelope-from <yaolu@kylinos.cn>) (Generic MTA)
- with ESMTP id 262588545; Thu, 31 Oct 2024 11:02:33 +0800
-From: Lu Yao <yaolu@kylinos.cn>
-To: alexander.deucher@amd.com,
-	christian.koenig@amd.com,
-	Xinhui.Pan@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Lu Yao <yaolu@kylinos.cn>
-Subject: [PATCH] drm/radeon/ni: Fix memory leak and missing error handling in
- ni_init_microcode()
-Date: Thu, 31 Oct 2024 11:02:28 +0800
-Message-Id: <20241031030228.46563-1-yaolu@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=mandelbit.com header.i=@mandelbit.com header.b="R7+6/lBX";
+	dkim-atps=neutral
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
+ [209.85.128.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B0FB10E805
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Oct 2024 21:06:22 +0000 (UTC)
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-431548bd1b4so2111265e9.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Oct 2024 14:06:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=mandelbit.com; s=google; t=1730322381; x=1730927181;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=WX13tTCFxcXE+Bigy7FSQVXRGX8nHmGzv+k+UrLYlGM=;
+ b=R7+6/lBXgtyv7s188WaG3uIv6OJi2c32H2xFcBmhUJv+pNGSwxnQV/0nrGj8IHWFZd
+ 0qzuKp2coAlb691X0VCxhOYXJ5iSKAmQtqAe+vsm8FLAanopJTnn/5xno3opAq/cBYD4
+ EFu06SXEGvXs08yEr7NV0CKIFi+STG+0u/t7rFSc4U32e3HqPDcqt4nO8JWtf/fgT/Vk
+ eXxNLzpwDrm2TYE5oTyoWKLnYe7l1kHEI8Jp3TQtjXgwWikZjSzJ54KkTrrUCLdi/kmY
+ iLDtVNMYgmHZGreF1dr9J5g/MWoNSrX3r2XjmRuoVwkWEQfqoc2ClUnU68PDtdbNn0EF
+ dhfQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1730322381; x=1730927181;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=WX13tTCFxcXE+Bigy7FSQVXRGX8nHmGzv+k+UrLYlGM=;
+ b=SCKy+pKvvQd1FeVoNcgsP9HrXM+popEI+lD3xmmhw3ieUKK4mC0GVDPV/XPyddhz2W
+ RMZhSV2MBuXldmbg28cThYXd4tEjblQ2uXWIILDnGT3eTX4J+Rpye3YHsvXSPORgSBoh
+ xzkcGy/DFnflXouX5Aki8w/vZi2HOIJqH8PMZBJMefx8buvCCzJkgUv8uNo5WjVpjTqY
+ m4JmA9OYieSLQ++asXxTtiYEwSSoWRlMswjVtcSDRQiRRsHd255HsabsHZZu8y2yABzC
+ 7h76olQhlcCHg6ix7KQcoXqy7boigM1yPdV6Nq47pOe7QGbusqkl3jAL9KSRUn/qJTSC
+ mcEA==
+X-Gm-Message-State: AOJu0YzzSnD64CcCE5brpqrITMpdogSBG2f9nAjO/BFg7i5fu+bR69ZD
+ 3XMC4L32ciRFfKoBSzNj+JS86u/DObLcusgIyyBiBnG+2CvDrivayg+lczmu2+Y=
+X-Google-Smtp-Source: AGHT+IEmRLg8vDwm8bvvWC4LzQD/IrqRTvL1uEFXrn1aTaS1CETYsodSWhWZCzXSPY48jWLGbb4qnQ==
+X-Received: by 2002:a05:600c:1d22:b0:42f:7ed4:4c25 with SMTP id
+ 5b1f17b1804b1-4319acb1739mr151563065e9.14.1730322380555; 
+ Wed, 30 Oct 2024 14:06:20 -0700 (PDT)
+Received: from ?IPV6:2001:67c:2fbc:1:3ca3:4955:91d7:e8e1?
+ ([2001:67c:2fbc:1:3ca3:4955:91d7:e8e1])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-431bd9ca704sm32285475e9.41.2024.10.30.14.06.19
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 30 Oct 2024 14:06:20 -0700 (PDT)
+Message-ID: <77ba52f4-dcdc-4fdd-97b7-0163e54e8836@mandelbit.com>
+Date: Wed, 30 Oct 2024 22:06:36 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] amdgpu: prevent NULL pointer dereference if ATIF is not
+ supported
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
+ christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20241029233232.27692-1-antonio@mandelbit.com>
+ <08add1ec-ceae-4f74-83b0-72d0df510950@amd.com>
+Content-Language: en-US
+From: Antonio Quartulli <antonio@mandelbit.com>
+Autocrypt: addr=antonio@mandelbit.com; keydata=
+ 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
+Organization: Mandelbit SRL
+In-Reply-To: <08add1ec-ceae-4f74-83b0-72d0df510950@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 31 Oct 2024 13:47:58 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -74,63 +129,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-'smc_fw' is not released when its size is not as expected, causing memory
-leak. And when other firmware sizes do not meet expectations, 'err' is
-assigned but does not jump to 'out'.
+Hi Mario,
 
-Signed-off-by: Lu Yao <yaolu@kylinos.cn>
----
- drivers/gpu/drm/radeon/ni.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+On 30/10/2024 02:41, Mario Limonciello wrote:
+> On 10/29/2024 18:32, Antonio Quartulli wrote:
+>> acpi_evaluate_object() may return AE_NOT_FOUND (failure), which
+>> would result in dereferencing buffer.pointer (obj) while being NULL.
+>>
+>> Bail out also when status is AE_NOT_FOUND with a proper error message.
+>>
+>> This fixes 1 FORWARD_NULL issue reported by Coverity
+>> Report: CID 1600951:  Null pointer dereferences  (FORWARD_NULL)
+>>
+>> Signed-off-by: Antonio Quartulli <antonio@mandelbit.com>
+> 
+> I'm not really sure how realistic this failure is.  Can you share the 
+> full call trace that Coverity identified?
 
-diff --git a/drivers/gpu/drm/radeon/ni.c b/drivers/gpu/drm/radeon/ni.c
-index 3890911fe693..11f7a05a5261 100644
---- a/drivers/gpu/drm/radeon/ni.c
-+++ b/drivers/gpu/drm/radeon/ni.c
-@@ -765,6 +765,7 @@ int ni_init_microcode(struct radeon_device *rdev)
- 		pr_err("ni_cp: Bogus length %zu in firmware \"%s\"\n",
- 		       rdev->me_fw->size, fw_name);
- 		err = -EINVAL;
-+		goto out;
- 	}
- 
- 	snprintf(fw_name, sizeof(fw_name), "radeon/%s_rlc.bin", rlc_chip_name);
-@@ -775,6 +776,7 @@ int ni_init_microcode(struct radeon_device *rdev)
- 		pr_err("ni_rlc: Bogus length %zu in firmware \"%s\"\n",
- 		       rdev->rlc_fw->size, fw_name);
- 		err = -EINVAL;
-+		goto out;
- 	}
- 
- 	/* no MC ucode on TN */
-@@ -787,6 +789,7 @@ int ni_init_microcode(struct radeon_device *rdev)
- 			pr_err("ni_mc: Bogus length %zu in firmware \"%s\"\n",
- 			       rdev->mc_fw->size, fw_name);
- 			err = -EINVAL;
-+			goto out;
- 		}
- 	}
- 
-@@ -795,9 +798,7 @@ int ni_init_microcode(struct radeon_device *rdev)
- 		err = request_firmware(&rdev->smc_fw, fw_name, rdev->dev);
- 		if (err) {
- 			pr_err("smc: error loading firmware \"%s\"\n", fw_name);
--			release_firmware(rdev->smc_fw);
--			rdev->smc_fw = NULL;
--			err = 0;
-+			err = -EINVAL;
- 		} else if (rdev->smc_fw->size != smc_req_size) {
- 			pr_err("ni_mc: Bogus length %zu in firmware \"%s\"\n",
- 			       rdev->smc_fw->size, fw_name);
-@@ -818,6 +819,8 @@ int ni_init_microcode(struct radeon_device *rdev)
- 		rdev->rlc_fw = NULL;
- 		release_firmware(rdev->mc_fw);
- 		rdev->mc_fw = NULL;
-+		release_firmware(rdev->smc_fw);
-+		rdev->smc_fw = NULL;
- 	}
- 	return err;
- }
+I just checked Coverity Scan and it only says:
+
+	5. Condition status, taking true branch.
+	6. Condition status != 5U /* (acpi_status)(5 | 0) */, taking false branch.
+
+The above points are related to:
+
+	if (ACPI_FAILURE(status) && status != AE_NOT_FOUND)
+
+It doesn't show how acpi_evaluate_object() is expected to return 
+AE_NOT_FOUND.
+
+This said, if you think this case is unrealistic, why do you check for 
+"status != AE_NOT_FOUND" at all?
+
+At this point maybe it would make more sense to simply drop this check 
+and always bail out with the current error message.
+
+Basically a patch with the following only:
+
+-       /* Fail if calling the method fails and ATIF is supported */
+-       if (ACPI_FAILURE(status) && status != AE_NOT_FOUND) {
++       /* Fail if calling the method fails */
++       if (ACPI_FAILURE(status)) {
+
+This way we don't make a fuzz for a possibly unrealistic case, while 
+still protecting against bugs and null-dereferences.
+
+
+Regards,
+
+> 
+> amdgpu_atif_pci_probe_handle() will check whether the handle is 
+> available in the first place.  We'll never this this far if that failed.
+> 
+> Because of that I don't follow how this could return AE_NOT_FOUND.
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 11 +++++++----
+>>   1 file changed, 7 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/ 
+>> drm/amd/amdgpu/amdgpu_acpi.c
+>> index cce85389427f..f10c3261a4ab 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+>> @@ -172,10 +172,13 @@ static union acpi_object 
+>> *amdgpu_atif_call(struct amdgpu_atif *atif,
+>>                         &buffer);
+>>       obj = (union acpi_object *)buffer.pointer;
+>> -    /* Fail if calling the method fails and ATIF is supported */
+>> -    if (ACPI_FAILURE(status) && status != AE_NOT_FOUND) {
+>> -        DRM_DEBUG_DRIVER("failed to evaluate ATIF got %s\n",
+>> -                 acpi_format_exception(status));
+>> +    /* Fail if calling the method fails */
+>> +    if (ACPI_FAILURE(status)) {
+>> +        if (status != AE_NOT_FOUND)
+>> +            DRM_DEBUG_DRIVER("failed to evaluate ATIF got %s\n",
+>> +                     acpi_format_exception(status));
+>> +        else
+>> +            DRM_DEBUG_DRIVER("ATIF not supported\n");
+>>           kfree(obj);
+>>           return NULL;
+>>       }
+> 
+
 -- 
-2.25.1
+Antonio Quartulli
+
+CEO and Co-Founder
+Mandelbit Srl
+https://www.mandelbit.com
 
