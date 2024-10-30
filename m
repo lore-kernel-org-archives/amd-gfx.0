@@ -4,145 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F9E1D5CC87
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Oct 2024 10:29:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8EB32D5CCAF
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Oct 2024 14:29:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE22010E776;
-	Wed, 30 Oct 2024 10:29:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2883A10E7A6;
+	Wed, 30 Oct 2024 14:29:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="bxjCcWHG";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="IR9m5IjU";
 	dkim-atps=neutral
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2077.outbound.protection.outlook.com [40.107.243.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2533B10E776
- for <amd-gfx@lists.freedesktop.org>; Wed, 30 Oct 2024 10:29:39 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2064.outbound.protection.outlook.com [40.107.220.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB96A10E7A6
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Oct 2024 14:29:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PvZi9nu0aYw1Y7M/8P1XzhO0uISbO71Xr0c/up2MYym6nrHnlk0YPV3Vz9nCdeYwZi1MVpO9yGZRgI55Zs1jLPsEWpuUve8umCxz5zYRrmbrAphN0N6rxQYBRcZ3ACRDs577PshNkQOtga8hv93exNkPhghauCjRcLkq96cPeFHyL213fG17b2xmajvwyj8vNkPQ3dB89eqoeTVk3NX9WwJLb0KrGTrTFBKPUdKidWyBWVqdJJ7TX3soYPswqsIqxfVZAiKOTdvKsXAjhwALALple8Xdl122CDhocgVVs2qdxJKijMj52iIqXO7Dh1Hd6ZTZ9yR5wmbmYQDnPewJeg==
+ b=qx1ZZJ0C8D8U7zeSQBWz07n+15MuF4zRa7tfHlLrg0IQ2eW67/290HQRV7zbJBuFhS0vOPH0kmp06H7lSKacjFdlCH06pcVP87RVG3h9TbYXu41RKvy8eEUGSKq3bfhPp3UQgvjQbGO+yJXsxp3vixcANoEJey8ksMmjRpaVbkmCZiAGFiko3Vn14+7yiXTLmv9k75KwXRpnfN+dxwU3CM9aodcqlzFgv9CFkjQVrF+GZyEhsIBNaAGLSfTj66h+vufAckJ0vqcqhHOHg9YyqHglVaX3a0oG0UqgLcl0yky2uv6/5VZmmiVPxJINJ7TywDoZhfGPhqM7mwHodRIMOw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=u8Kgs8xC4mc2ChEGMU5LCvqwyr+wrlkcmhzzy3Xods0=;
- b=FanOaMdTTQhlbsdMFpIM1GE7XcXDc336XkfSpJ4Rs0DGZYq5RO1xwCVs0KnKjdC3bbbqO9GJR3s/0ObXyXpzOBU1hyy9jZhQk3u3CY0qgpHTEFXixD9GgD0XNIvqNirvS6e5pCnGHJrS9HFS8UCsofUwBUYB2bvrp7vwFcqtDPkDK86pjBY4uoZcfYF98qqYFzYnH56JV9DVPYF11SpWFrObbqDdRLMbTmM0LTznRZAGuhwcx5vRueMNYODJymo+EFbyjvD91qCQEgxMno5/aRjG5/uc8q9TFRk1H1gDyOgNFsgWhn/U4SLWpfPPaVY9uK7EN/jlWR2ZfLlrEfVXMQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=qL1AdlEGlhUbvDiHTN47MPyw6A3D6q+xMmcQQ6JQ4PM=;
+ b=ViQvJvTL322KSC59VGJ+EK4AKdeWEh3kSbg/lemeWYP3o1+Zr6ZZeodru/WQOQkB4IcCb4GLJFiLWuJk2HgPc3zz2uIaiRLsxGysjCYL4mO0ldpt8m7yuvrp6Mcad+u55rRe8xqXB1aPuPUsnZmuxo56OHp3AN25iSgQegwLcu0fanM9YlPT9OU43HgR/Ll/5BN/5F5A0HvZedKNhxyVgrPYhx10hVRNVhJRuebCYVXx7mKX7kiH8/ue5GuGnOZ0JveQhLEnEWMYs7ghZb4OceULyyqq8EEYO3AgcXCoCTjKo+aD/Hj/4l35S4ajxascDylgdras3NCaoYT4yo589g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=u8Kgs8xC4mc2ChEGMU5LCvqwyr+wrlkcmhzzy3Xods0=;
- b=bxjCcWHGHGh/u6JiEHBzAJVZl/0zqv7sZgb7mcCmlffLfFlBOTcgBRJo6UY02cLJqoGDMkVd3oIWj+m/f63kgKU+iUUGc4KSAzpkp9hHtB3vfHZZjj2odNeqmLRmXxgZefzPbEDnEhylKQcEx3A+2gPAkSSSOLWOr6ehn5A18n4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
- DS0PR12MB8788.namprd12.prod.outlook.com (2603:10b6:8:14f::11) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.8093.25; Wed, 30 Oct 2024 10:29:34 +0000
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::8327:d71a:ce21:a290]) by DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::8327:d71a:ce21:a290%5]) with mapi id 15.20.8093.023; Wed, 30 Oct 2024
- 10:29:33 +0000
-Message-ID: <1f376d38-34ec-49ef-8391-d547613f60de@amd.com>
-Date: Wed, 30 Oct 2024 15:59:26 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] drm/amd/pm: correct the workload setting
-To: Kenneth Feng <kenneth.feng@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Alexander.Deucher@amd.com
-References: <20241030094340.49639-1-kenneth.feng@amd.com>
-Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20241030094340.49639-1-kenneth.feng@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SG2PR01CA0170.apcprd01.prod.exchangelabs.com
- (2603:1096:4:28::26) To DS0PR12MB7804.namprd12.prod.outlook.com
- (2603:10b6:8:142::5)
+ bh=qL1AdlEGlhUbvDiHTN47MPyw6A3D6q+xMmcQQ6JQ4PM=;
+ b=IR9m5IjUQaqX0kOTUaCjUwDjrBOiKnEROUSZkJBVAFJ7/7CKaE2awxlEwGnB7JRNVkQ+NpakROV9TZBdM03mkr7Gc/5Q/qSamrhD+So1xBd2vnx1g+qGWNL2a2N0MxlYHuJLyQvXtREO7EBvpUlFnJIT0GCxz/e0CGTDXuVPB7g=
+Received: from CH0PR03CA0291.namprd03.prod.outlook.com (2603:10b6:610:e6::26)
+ by MN0PR12MB6343.namprd12.prod.outlook.com (2603:10b6:208:3c0::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8093.32; Wed, 30 Oct
+ 2024 14:29:40 +0000
+Received: from CH1PEPF0000AD7C.namprd04.prod.outlook.com
+ (2603:10b6:610:e6:cafe::d6) by CH0PR03CA0291.outlook.office365.com
+ (2603:10b6:610:e6::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.20 via Frontend
+ Transport; Wed, 30 Oct 2024 14:29:40 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CH1PEPF0000AD7C.mail.protection.outlook.com (10.167.244.84) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8114.16 via Frontend Transport; Wed, 30 Oct 2024 14:29:40 +0000
+Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39; Wed, 30 Oct 2024 09:29:37 -0500
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
+ Deucher" <alexander.deucher@amd.com>
+CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
+ <srinivasan.shanmugam@amd.com>
+Subject: [PATCH] drm/amdgpu/gfx9: Add cleaner shader for GFX11.0.3
+Date: Wed, 30 Oct 2024 19:59:20 +0530
+Message-ID: <20241030142920.1525517-1-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB7804:EE_|DS0PR12MB8788:EE_
-X-MS-Office365-Filtering-Correlation-Id: f764e4df-8022-4d5d-0abe-08dcf8cdbebf
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD7C:EE_|MN0PR12MB6343:EE_
+X-MS-Office365-Filtering-Correlation-Id: a8992e4a-aa2f-411f-32c2-08dcf8ef4a1d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?MXczZVRhN2FzaW5kbTB5SmhQWnprNHh5VEtnN0ZEcE0yckpMZW5UbWk3MVd0?=
- =?utf-8?B?YkVyYkdQL25IVUJKa0NTMjBwVkErVGpXOTA0cXRIN0J0TVUxU2RUZkt4WWxF?=
- =?utf-8?B?RDQ2UXJBamt2SGZPOEFsdWs0Q2M5OXFKRTk3TFdjNVc4Q29ZMWl6bmhlUUlu?=
- =?utf-8?B?dklXRkxGOHVGRHZXRHRhcStjelIzc0k4VE9XN3czdlBrNjUvYUlZKy9kdU04?=
- =?utf-8?B?REZxNkhlUENpNnpWeENpNi9MWnpPcGd5MXc3MVJwT2dZSlNNRWxJK2d6eHRv?=
- =?utf-8?B?M2txSG5kemRHbUtoOG9CYm5QaW4vWDNPbHptdTVVMWtOdjF3THRjSWJSc0t5?=
- =?utf-8?B?NkZXOEx0bml3Z0JVc0tsUW1zNEN5dTVRN2N6WE5jQkVCNUZRbzNOWEFLcy9R?=
- =?utf-8?B?Y1A4dWIycENJVzZNNEY5WHVaeFVQOEttRWM3OWVrdmhqNG5yK255SjZjWFJK?=
- =?utf-8?B?WU9iZDVvK1dSbysvMnk1a2s3YTQvSmN4Sm5icjRhL2ZiUmNhand0VmczekhL?=
- =?utf-8?B?L2NndENsZSs3WFRWQVlRcGFwOE03Ly9KYTJOTHpCbUE5RVBqaFpBZWUrVmRH?=
- =?utf-8?B?STFCN0x6dkJycUprRHZMdFVFQjV0L0hON1E2aUMyaEUveHZ1N28vUTFTUmlQ?=
- =?utf-8?B?Q2pCczFtc25NTFJKejg3aXptb1VBQnhxeE9panVleVBMdmJ4WW5UZ0ZLbzk1?=
- =?utf-8?B?TDMxK1N6T01iSG0yMi9vMXovTk5IN0VkYnkrbHRPS0tHKzFvMXZPYlNoUndI?=
- =?utf-8?B?bTVvOUtVUllkajd0Tk16RCtpVEFDd1ZKbmxWNW1tZk90U2Q2Wkp1TkFNaEpi?=
- =?utf-8?B?MHBXekJLdE5uTzhXdnVicGE3bkFpVXpxVzN3ZHkrVXhDTlpWSGZDcFZFRGVF?=
- =?utf-8?B?aVFUV0FkZ01DbEJsSTFOa1dsMERZbkxZbmsxWDE5dHhCODNQalJMMG8yMmZy?=
- =?utf-8?B?VEdIODJETkpiNG5GREdRMElmWU56UUxneDNRc0Vka25KaWU0Rk8wOTJrOU1W?=
- =?utf-8?B?QlRsNDllRDhsTCs2VFZhTVpUNllCYjhobWRUdWpDM3NsMXByQ2JrTFRnWURn?=
- =?utf-8?B?ZjJEMC9oM3dZR2xNZk01ZTlRNXhteG9JTzE4MFVZRHNhZ0tVRExUcENXK1JD?=
- =?utf-8?B?b3hUU09ZOHpUUzdqZ3JPUkU4SFByS0QvSWtpTVJGY1pZTXUwbDJQL3BhUVA3?=
- =?utf-8?B?NFVkdW1JdEJER0xBZHdVNXdaZzdtSFhqeTNPY0tmYklsQk95cTg5Q3F0R0pu?=
- =?utf-8?B?U3hEUWhVNzBFYTRXSlRYcndmT0FNQWwyb1NaZHc5V0NUWlZWZ3dvTEUwTGNE?=
- =?utf-8?B?cGFPUVNWWGJlZ3kxUFdCMTBoUkxkYkh0V3d3NXFGVnkzcDRYN21YbjVmS3Fu?=
- =?utf-8?B?TFFmOTZLKzdpUVc4USswV3RraGRZT0pTdFNNRVJjRnJBMjBSSUNaZkV4RW5L?=
- =?utf-8?B?cVBBTlpPaWc3aUwxMGR2b2RPa2xjdS9mYWFGamlsRUdOeG85K1FUVzFxRTEv?=
- =?utf-8?B?MjduWkhBdjE4QlBYNW5hbjVrUGFNZDJnbHoxVmZ3eFl1bEQwejhkaXRVdFB5?=
- =?utf-8?B?K0wyckh1Q28zN0FRYlUvTkR2SUw2M1JLdXdldUIwYWVBTmZSUGNKbHI5Rnhp?=
- =?utf-8?B?UkpNUXJkYWRTdDJVdTJsOWpxa3dmZ2owdDJ5ayt4enRUdEc5aFF5cFBNbnpE?=
- =?utf-8?B?cnlMbWQrYmZ3dktIZHk2V2grbEwyTkt4clNpU3prNWFyREp1L0Q1N1B1Wncv?=
- =?utf-8?Q?NjOV9+SGJZ9L4OF2OaMzamI+ndz6CdjTFGiGMg4?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Zk44dUdUakN4V3Q0UWhMVmM1Vk9vSlNqMVVkLzUrbUgyMk1CME9CL2ZYbEJk?=
- =?utf-8?B?S3UwZnI4RGttOXc0OU9hcDJNWCt2YUNtL3AyeGRCRmNHeU9Nay9OaUFQOUox?=
- =?utf-8?B?TjBkQjVyMzhicDlBRFpHU3VlcW53T2l4dXBoNGlCdEsvZmRQV2tuaGFSUTU3?=
- =?utf-8?B?NkxFOUVzMmo5MGZqUTg2ZHRCUW1saDJDTlFaWWQ4Tnk5bHc5T3VqY21TZXNC?=
- =?utf-8?B?VHVDVTJGMnVVdURSbnJHaFZ3cmREU2I5K3c0QnFyYlFuMTh5cVdRL0IrbGo4?=
- =?utf-8?B?NXgyS1FFQXN4NU1NRXFLY0h0dFExeEJNVGdkQjBFSU5LTi9hQ3JvelFjQ0NJ?=
- =?utf-8?B?SFhLeDVTU0hIOHNKczRTdGZBdHZnQ3I4U2xLaE0vcWF6cXZPUGd4Sy9yWWZj?=
- =?utf-8?B?dWFGSEt0WWt1Wmd2YTl0bnVLZ3gzVXZiUHJpRUtCamNETytub2xmNWJJQzVv?=
- =?utf-8?B?U0hTL2pQeXkzd1FzcTN1N3VuVlU3V0Zkdk1adWV4VmFHdk9IeXg1dmo5OVZ1?=
- =?utf-8?B?VzF4dGRsTmh1K29CR1FQbWs1b05BZTNmQVkzSFR5YzhrS25PbUpsNC9ZQkNR?=
- =?utf-8?B?MkZqVzFRaWl2OHVpT0ZCcFc2YVBrdXdnZXhoL2FqQlJhRFp2VlRKaVBhbXVS?=
- =?utf-8?B?b29SQkd0Z0g3b0IxdjFyeEw2UXRxWkE4cXVxOWZ5N1JoenhtcktrV2RGandO?=
- =?utf-8?B?eG1qd084aGRQZDdHeEljM1FjS2I5VDZMcjRmbmdxQzU5UW1jY2VIbmJ0Y0F5?=
- =?utf-8?B?L3JudTd1WVkzNXRyMUxxcTBYeml0WlNGdTBTNXlXZGUzOFpkMk96UjBUcnJ0?=
- =?utf-8?B?d2w5b2l4TnRidFErRDQ5a1hJUVZob0ZaUS9OSXF0bzgrMWs4azB5ZnROOFhq?=
- =?utf-8?B?TER0N3FkL2thWHEzdWVDdnJqNmhtYlhOMytqWlhaTzhQMzNaTnIyU0lwdVc3?=
- =?utf-8?B?dncrWW5WMUkyVHRObmp5VTFYYk5UUlN5cGE2UG9YWDJCQUd2VS9aVkE5Vkxs?=
- =?utf-8?B?Q0J2WFllOHVjcmx3RE9GeG51eGlrczA2NkJ6OWlaUmltNUdkdEJDZkdIaDAy?=
- =?utf-8?B?TUMvL3FaUnE0TEZvaE1ONmR4K0lpUnBWdnFBV0pvbE9FckV1QUVUVEZoRmI0?=
- =?utf-8?B?STUxRWR6SHVGL1VObVlJUmtqTjBraStrTTMwYzk5djUzTVhNdi9Kbm9pckds?=
- =?utf-8?B?SEgyY01HWGJUbmdCNThLL1N2ZFpMTENBZXdhSy9LNnVKckRwL0VQRGZQUUlB?=
- =?utf-8?B?Y0VuQzZ6MXVFR0QyVnFVS2VxQmdXTmVlTXY0dUwyeVI2VXZ5YUg4aUNwV3d1?=
- =?utf-8?B?dTNobEUxYnhtSGdmQ1NHZmMzRjc0Und6em9lNGQ5MXRqWlJqa2NzOVBWNmpB?=
- =?utf-8?B?YmlWbjZrY0RaVnVxZmFoT1p2S3kxS2hSSXcwSG1tc1BFUENRckRmaEhXUUpL?=
- =?utf-8?B?a0RYNXhWdENhVnArblpOT0hwYUpnTnM1T0VqeWYzdEFFekR2UFo4MDlBWXNa?=
- =?utf-8?B?K1lBaG1yWUVmSGxjazkyZXFWbkNpak9kdDNWajJzT1VKelZMZjBza3RkYjNC?=
- =?utf-8?B?TW1xZGR4bkZPT0xZY3V1cGRuL1hrVW9IcGVMUWhIeEcrL2JocnhST3hHcmVW?=
- =?utf-8?B?NXVyK3pkWXk1UlR0SGQxdERKZjBTMk9QWkFEbnNkRTExazdSd29sRC80UmdQ?=
- =?utf-8?B?RVVKUXhpc0JSVWF0THdlRFE0T0xaSnlsampBK05paCtXbWFySU9uOHl5Y1VG?=
- =?utf-8?B?TEp3VGlWaXBrTUlSNTRHUUhsSkJkVHgvc3RCZFduU3hxaDhZWUFHWHhmK3l0?=
- =?utf-8?B?R01FZTJBck9lTVk3MWNJNWhDZHFveE5ESUErUjUvT3Z6c25NOTRJNTdQK214?=
- =?utf-8?B?K3Y5U1pJSlJNNTdpZkdpTHNpVmY5bG5wQ1BGMEV3N1g1QVZHak01eGs5elNM?=
- =?utf-8?B?bVVlcGZWU2FjWDc2d0ZxSU1nYkRLNmdURytyU1NyZ2t1eElTR3p6YjRVMWFk?=
- =?utf-8?B?YmJLWndKZ214TzZWenphK3FyRzRtZitnUC8rcnhLeVFkRUFjbkxpRGlrU3ZF?=
- =?utf-8?B?QWdGOGIrdDlqNkN2d0tNSHZIV0hyQXRTZGpEQ1BLUVpDdVdMb1g2Um53OExk?=
- =?utf-8?Q?Wz9Ljtwd4lwykTkLacMiTSO5C?=
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|36860700013|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?dkpFcDhrdlZFcUVLRUdDWW44UGRmb2ZqMldyUXJDOWF6WFd2NlJFYXBRdzIw?=
+ =?utf-8?B?MWVRUThNWnlhdTFwd2E4MFc1NlRuK2NYRGRQZW5Ec3FscEgrSzhZSlBIOFkv?=
+ =?utf-8?B?T01NeHhqZWlaOXU2ZjVrWG9CWENEUHgzRkd2TkVXMGhmSGFrVTQwUjNYRGVt?=
+ =?utf-8?B?VjhZQUpkQUtoOXRXT0dWME81Szg0ajJEZlkxUGJldWVqN0N5R1cxT0s1WVN6?=
+ =?utf-8?B?cHU0NlNTSStFNVFSSDZ0TGNkRTZIRmsyU3cvcUxvd1JGRlZ0U2VLR214SmtH?=
+ =?utf-8?B?cGNrQ3NrSldMa0wzZlNoRkJsd3ZtcFlVanZmRVVCYmNuRlZzTGQ5Y3pkNk1W?=
+ =?utf-8?B?cG9HVENnOEZqQSs5a0t6YzVsckVlYWVLU0ZGR0dsVEZGUzdXa1BmK1NJZHdh?=
+ =?utf-8?B?RXRydFovZFZONWVrcUdsb3QvU1NZaEJ4K20rV2N0VFlVOFBnWTVsSm1LK3Rq?=
+ =?utf-8?B?Sm02YjdIdlVLV2owY3VzaXVTU2N1UkliRVlnbGY1bHdIOXpabXVBbUJVMVRw?=
+ =?utf-8?B?NG9VQzdrWkZ3cnFSY2RhUkhqSVBPVjJCUFF1ZW9rR0RXQTlLVDdmekdYUG9U?=
+ =?utf-8?B?dEdnVFpGalFLZkkxRHRsKy9kV1NwcDJQalUvU3poc2FtSTQ3MnZCUmdScDZW?=
+ =?utf-8?B?OG1Da1Z4TzB2Z0ljOEZQd1RYdmxQRE1hRlpBR1hycUhudFBrblIwWERNZll2?=
+ =?utf-8?B?bCtsdFhsdURSWEdqbFJ2MUs1S2laM0MzSENUMHI4Nm8yTmx5RmdTN0ZkZHBT?=
+ =?utf-8?B?TXlzYmFOaGU1bldFSS9DbEVhWVJ1bzk5Y2kwdkJQNHlPcGk2M3JBVXo3WVZH?=
+ =?utf-8?B?RGxuSFY2V09mNm1FUElrQlBoV295WjhXWE1QYmxDYTV0Mndvdy8xZmhzOXhV?=
+ =?utf-8?B?aklSM1dBSDU5VnJhSXRxaEhNRmJkT0ZraTVudFFTbE8rZVlFV2hkU0xVV1Rx?=
+ =?utf-8?B?WVAvS2dzVkRYM213dC9hUVV0bEYycjJYb0hsVzVhcEd3bm9pN2VsNzlMaTdk?=
+ =?utf-8?B?MTQrRHZBNENKdkgzZWVFRFh5QkhXSGF2eDRDbGFROFpxM3Y0UVFhcmN0ZEhV?=
+ =?utf-8?B?V1A3R0E1VmpFN2k3L25taDZvdlpPK1VQRW1BcE5WR3drTWNpbnZoYjBhR0Z0?=
+ =?utf-8?B?UzR3dmF6bWkxOHBhYWZTNmptTmd0a2llUGJCSlZmZ2F6aWIyRzJSckJScXhQ?=
+ =?utf-8?B?dTQyRW9FSmtXVlVmM1NHZXl4aFdwSzBrY21BV2lENHRGYW9LaDIrUUdPSks2?=
+ =?utf-8?B?eWgyNWZUSjM2cmt0QklhcGU3aVUvVVlLaVJpUUVGTXZTOTdhZGI5YkpxSzlm?=
+ =?utf-8?B?UzNZV0t0RjV1VlpMZ1JWMmRBTi9MUHpXTWlhQ2ltMlBhU0VGckZ4TEdRZmtj?=
+ =?utf-8?B?M09aT3FJQ083KzRoeUJTY1JoQWRXUmJ4WUEvWURoOW54QTFIUEFVUTMydUFL?=
+ =?utf-8?B?Q0UxdFJNOGxDZ3psWlQ5anpHNWtDdWhtQ2RETWhMTUs2WTVIQW84eENjWHMw?=
+ =?utf-8?B?S1lmWkp1cCtpSW56SFFWZ1lzMlRXVVhRTWdhZVQ5YXFVd05RNjdaczh3VkJH?=
+ =?utf-8?B?WW8wSzNscTBBSVVhTGFQOTU3TFIzbFYrUnhoaHA1QTZhRWlmRHhwcnJpcHZO?=
+ =?utf-8?B?TEJQekZCYlMvMDBNckVTMHJxaDQ2N3VRQVQ3ZmxuRFI0NWJmeHhwVks4TjlW?=
+ =?utf-8?B?R0tHbGVpTk1xZkh1eTUyemZTOUVtUWs4Rk1rUmI5cmIxRFk5aS9IbVB6VWNh?=
+ =?utf-8?B?MHo3cDlXa2dPM1FENWh4dXc1Y2kvaUEzbDRsOThyMGVvbWsvdDF1Q3pkLzhM?=
+ =?utf-8?B?YTZyVE9sZkZrc1NlcDVFRlBPb2R2NUxSTEFEdTFhNmQ2QkJnUllzNnFBd28z?=
+ =?utf-8?B?Z1dxcXRqclN3anpjWDVZa1pDeStRd0NYS2Q0VzFjeVgveVE9PQ==?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f764e4df-8022-4d5d-0abe-08dcf8cdbebf
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7804.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2024 10:29:33.4249 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2024 14:29:40.3442 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a8992e4a-aa2f-411f-32c2-08dcf8ef4a1d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: v3ZjWzKd0UJcZFXSCzZoBdr7w+WLcRzTzIXEjoy4ZZCTQbbKqz4duq/hHQIY/VaR
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8788
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000AD7C.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6343
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,466 +138,279 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+This commit adds the cleaner shader microcode for GFX11.0.3 GPUs. The
+cleaner shader is a piece of GPU code that is used to clear or
+initialize certain GPU resources, such as Local Data Share (LDS), Vector
+General Purpose Registers (VGPRs), and Scalar General Purpose Registers
+(SGPRs).
 
+Clearing these resources is important for ensuring data isolation
+between different workloads running on the GPU. Without the cleaner
+shader, residual data from a previous workload could potentially be
+accessed by a subsequent workload, leading to data leaks and incorrect
+computation results.
 
-On 10/30/2024 3:13 PM, Kenneth Feng wrote:
-> Correct the workload setting in order not to mix the setting
-> with the end user. Update the workload mask accordingly.
-> 
-> v2: changes as below:
-> 1. the end user can not erase the workload from driver except default workload.
-> 2. always shows the real highest priority workoad to the end user.
-> 3. the real workload mask is combined with driver workload mask and end user workload mask.
-> 
-> v3: apply this to the other ASICs as well.
-> v4: simplify the code
-> 
-> Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
-> ---
->  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 39 ++++++++++++-------
->  drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |  4 +-
->  .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c |  8 ++--
->  .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   | 10 ++++-
->  .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 10 ++++-
->  .../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c  |  7 +++-
->  .../gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c   |  7 +++-
->  .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  | 23 ++++++++---
->  .../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c  | 12 ++++--
->  .../drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c  | 15 ++++---
->  10 files changed, 97 insertions(+), 38 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> index 8d4aee4e2287..57cbc41f8457 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> @@ -1261,26 +1261,30 @@ static int smu_sw_init(struct amdgpu_ip_block *ip_block)
->  	smu->watermarks_bitmap = 0;
->  	smu->power_profile_mode = PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT;
->  	smu->default_power_profile_mode = PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT;
-> +	smu->user_dpm_profile.user_workload_mask = 0;
->  
->  	atomic_set(&smu->smu_power.power_gate.vcn_gated, 1);
->  	atomic_set(&smu->smu_power.power_gate.jpeg_gated, 1);
->  	atomic_set(&smu->smu_power.power_gate.vpe_gated, 1);
->  	atomic_set(&smu->smu_power.power_gate.umsch_mm_gated, 1);
->  
-> -	smu->workload_prority[PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT] = 0;
-> -	smu->workload_prority[PP_SMC_POWER_PROFILE_FULLSCREEN3D] = 1;
-> -	smu->workload_prority[PP_SMC_POWER_PROFILE_POWERSAVING] = 2;
-> -	smu->workload_prority[PP_SMC_POWER_PROFILE_VIDEO] = 3;
-> -	smu->workload_prority[PP_SMC_POWER_PROFILE_VR] = 4;
-> -	smu->workload_prority[PP_SMC_POWER_PROFILE_COMPUTE] = 5;
-> -	smu->workload_prority[PP_SMC_POWER_PROFILE_CUSTOM] = 6;
-> +	smu->workload_priority[PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT] = 0;
-> +	smu->workload_priority[PP_SMC_POWER_PROFILE_FULLSCREEN3D] = 1;
-> +	smu->workload_priority[PP_SMC_POWER_PROFILE_POWERSAVING] = 2;
-> +	smu->workload_priority[PP_SMC_POWER_PROFILE_VIDEO] = 3;
-> +	smu->workload_priority[PP_SMC_POWER_PROFILE_VR] = 4;
-> +	smu->workload_priority[PP_SMC_POWER_PROFILE_COMPUTE] = 5;
-> +	smu->workload_priority[PP_SMC_POWER_PROFILE_CUSTOM] = 6;
->  
->  	if (smu->is_apu ||
-> -	    !smu_is_workload_profile_available(smu, PP_SMC_POWER_PROFILE_FULLSCREEN3D))
-> -		smu->workload_mask = 1 << smu->workload_prority[PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT];
-> -	else
-> -		smu->workload_mask = 1 << smu->workload_prority[PP_SMC_POWER_PROFILE_FULLSCREEN3D];
-> +	    !smu_is_workload_profile_available(smu, PP_SMC_POWER_PROFILE_FULLSCREEN3D)) {
-> +		smu->workload_mask = 1 << smu->workload_priority[PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT];
+The cleaner shader microcode is represented as an array of 32-bit words
+(`gfx_11_0_3_cleaner_shader_hex`). This array is the binary
+representation of the cleaner shader code, which is written in a
+low-level GPU instruction set.
 
-For adding clarity to code, the operation needs to be reversed. Instead
-of smu->workload_mask, assign smu->driver_workload_mask here.
+When the cleaner shader feature is enabled, the AMDGPU driver loads this
+array into a specific location in the GPU memory. The GPU then reads
+this memory location to fetch and execute the cleaner shader
+instructions.
 
-> +	} else {
-> +		smu->workload_mask = 1 << smu->workload_priority[PP_SMC_POWER_PROFILE_FULLSCREEN3D];
+The cleaner shader is executed automatically by the GPU at the end of
+each workload, before the next workload starts. This ensures that all
+GPU resources are in a clean state before the start of each workload.
 
-Same as above, assign smu->driver_workload_mask here.
+This addition is part of the cleaner shader feature implementation. The
+cleaner shader feature helps resource utilization by cleaning up GPU
+resources after they are used. It also enhances security and reliability
+by preventing data leaks between workloads.
 
-> +		smu->default_power_profile_mode = PP_SMC_POWER_PROFILE_FULLSCREEN3D;
-> +	}
->  
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c        |  18 +++
+ .../amd/amdgpu/gfx_v11_0_3_cleaner_shader.asm | 118 ++++++++++++++++++
+ .../drm/amd/amdgpu/gfx_v11_0_cleaner_shader.h |  56 +++++++++
+ 3 files changed, 192 insertions(+)
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/gfx_v11_0_3_cleaner_shader.asm
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/gfx_v11_0_cleaner_shader.h
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+index 5aff8f72de9c..ce05b7161e9c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+@@ -46,6 +46,7 @@
+ #include "clearstate_gfx11.h"
+ #include "v11_structs.h"
+ #include "gfx_v11_0.h"
++#include "gfx_v11_0_cleaner_shader.h"
+ #include "gfx_v11_0_3.h"
+ #include "nbio_v4_3.h"
+ #include "mes_v11_0.h"
+@@ -1545,6 +1546,7 @@ static int gfx_v11_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 	int i, j, k, r, ring_id = 0;
+ 	int xcc_id = 0;
+ 	struct amdgpu_device *adev = ip_block->adev;
++	u32 mes_ver = adev->mes.sched_version & AMDGPU_MES_VERSION_MASK;
+ 
+ 	switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
+ 	case IP_VERSION(11, 0, 0):
+@@ -1588,8 +1590,24 @@ static int gfx_v11_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 	}
+ 
+ 	switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
++	case IP_VERSION(11, 0, 3):
++		adev->gfx.cleaner_shader_ptr = gfx_11_0_3_cleaner_shader_hex;
++		adev->gfx.cleaner_shader_size = sizeof(gfx_11_0_3_cleaner_shader_hex);
++		if (adev->gfx.mec_fw_version >= 2450 &&
++		    adev->gfx.me_fw_version  >= 2280 &&
++		    adev->gfx.pfp_fw_version >= 2370 &&
++		    mes_ver >= 99) {
++			adev->gfx.enable_cleaner_shader = true;
++			r = amdgpu_gfx_cleaner_shader_sw_init(adev, adev->gfx.cleaner_shader_size);
++			if (r) {
++				adev->gfx.enable_cleaner_shader = false;
++				dev_err(adev->dev, "Failed to initialize cleaner shader\n");
++			}
++		}
++		break;
+ 	default:
+ 		adev->gfx.enable_cleaner_shader = false;
++		break;
+ 	}
+ 
+ 	/* Enable CG flag in one VF mode for enabling RLC safe mode enter/exit */
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0_3_cleaner_shader.asm b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0_3_cleaner_shader.asm
+new file mode 100644
+index 000000000000..3c0c63a07d97
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0_3_cleaner_shader.asm
+@@ -0,0 +1,118 @@
++/* SPDX-License-Identifier: MIT */
++/*
++ * Copyright 2024 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ */
++
++// This shader is to clean LDS, SGPRs and VGPRs. It is  first 64 Dwords or 256 bytes of 192 Dwords cleaner shader.
++//To turn this shader program on for complitaion change this to main and lower shader main to main_1
++
++// Navi3 : Clear SGPRs, VGPRs and LDS
++//   Launch 32 waves per CU (16 per SIMD) as a workgroup (threadgroup) to fill every wave slot
++//   Waves are "wave32" and have 64 VGPRs each, which uses all 1024 VGPRs per SIMD
++//   Waves are launched in "CU" mode, and the workgroup shares 64KB of LDS (half of the WGP's LDS)
++//      It takes 2 workgroups to use all of LDS: one on each CU of the WGP
++//   Each wave clears SGPRs 0 - 107
++//   Each wave clears VGPRs 0 - 63
++//   The first wave of the workgroup clears its 64KB of LDS
++//   The shader starts with "S_BARRIER" to ensure SPI has launched all waves of the workgroup
++//       before any wave in the workgroup could end.  Without this, it is possible not all SGPRs get cleared.
++
++shader main
++  asic(NAVI31)
++  type(CS)
++  wave_size(32)
++// Note: original source code from Brian (SQ team)
++
++// Takes about 2500 clocks to run.
++//   (theorhetical fastest = 1024clks vgpr + 640lds = 1660 clks)
++//
++  S_BARRIER
++
++  //
++  // CLEAR VGPRs
++  //
++  s_mov_b32     m0, 0x00000058  // Loop 96/8=12 times  (loop unrolled for performance)
++
++label_0005:
++  v_movreld_b32     v0, 0
++  v_movreld_b32     v1, 0
++  v_movreld_b32     v2, 0
++  v_movreld_b32     v3, 0
++  v_movreld_b32     v4, 0
++  v_movreld_b32     v5, 0
++  v_movreld_b32     v6, 0
++  v_movreld_b32     v7, 0
++  s_sub_u32     m0, m0, 8
++  s_cbranch_scc0  label_0005
++  //
++  //
++
++  s_mov_b32     s2, 0x80000000                      // Bit31 is first_wave
++  s_and_b32     s2, s2, s0                          // sgpr0 has tg_size (first_wave) term as in ucode only COMPUTE_PGM_RSRC2.tg_size_en is set
++  s_cbranch_scc0  label_0023                        // Clean LDS if its first wave of ThreadGroup/WorkGroup
++  // CLEAR LDS
++  //
++  s_mov_b32 exec_lo, 0xffffffff
++  s_mov_b32 exec_hi, 0xffffffff
++  v_mbcnt_lo_u32_b32  v1, exec_hi, 0          // Set V1 to thread-ID (0..63)
++  v_mbcnt_hi_u32_b32  v1, exec_lo, v1        // Set V1 to thread-ID (0..63)
++  v_mul_u32_u24  v1, 0x00000008, v1          // * 8, so each thread is a double-dword address (8byte)
++  s_mov_b32     s2, 0x00000003f                    // 64 loop iterations
++  s_mov_b32     m0, 0xffffffff
++  // Clear all of LDS space
++  // Each FirstWave of WorkGroup clears 64kbyte block
++
++label_001F:
++  ds_write2_b64  v1, v[2:3], v[2:3] offset1:32
++  ds_write2_b64  v1, v[4:5], v[4:5] offset0:64 offset1:96
++  v_add_co_u32     v1, vcc, 0x00000400, v1
++  s_sub_u32     s2, s2, 1
++  s_cbranch_scc0  label_001F
++  //
++  // CLEAR SGPRs
++  //
++label_0023:
++  s_mov_b32     m0, 0x00000068  // Loop 108/4=27 times  (loop unrolled for performance)
++label_sgpr_loop:
++  s_movreld_b32     s0, 0
++  s_movreld_b32     s1, 0
++  s_movreld_b32     s2, 0
++  s_movreld_b32     s3, 0
++  s_sub_u32         m0, m0, 4
++  s_cbranch_scc0  label_sgpr_loop
++
++  //clear vcc
++  s_mov_b64 vcc, 0          //clear vcc
++  s_mov_b32 flat_scratch_lo, 0   //clear  flat scratch lo SGPR
++  s_mov_b32 flat_scratch_hi, 0   //clear  flat scratch hi SGPR
++  s_mov_b64 ttmp0, 0        //Clear ttmp0 and ttmp1
++  s_mov_b64 ttmp2, 0        //Clear ttmp2 and ttmp3
++  s_mov_b64 ttmp4, 0        //Clear ttmp4 and ttmp5
++  s_mov_b64 ttmp6, 0        //Clear ttmp6 and ttmp7
++  s_mov_b64 ttmp8, 0        //Clear ttmp8 and ttmp9
++  s_mov_b64 ttmp10, 0       //Clear ttmp10 and ttmp11
++  s_mov_b64 ttmp12, 0       //Clear ttmp12 and ttmp13
++  s_mov_b64 ttmp14, 0       //Clear ttmp14 and ttmp15
++
++ s_endpgm
++
++end
++
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0_cleaner_shader.h b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0_cleaner_shader.h
+new file mode 100644
+index 000000000000..3218cc04f543
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0_cleaner_shader.h
+@@ -0,0 +1,56 @@
++/* SPDX-License-Identifier: MIT */
++/*
++ * Copyright 2024 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ */
++
++/* Define the cleaner shader gfx_11_0_3 */
++static const u32 gfx_11_0_3_cleaner_shader_hex[] = {
++	0xb0804006, 0xbe8200ff,
++	0x00000058, 0xbefd0080,
++	0x7e008480, 0x7e028480,
++	0x7e048480, 0x7e068480,
++	0x7e088480, 0x7e0a8480,
++	0x7e0c8480, 0x7e0e8480,
++	0xbefd0002, 0x80828802,
++	0xbfa1fff5, 0xbe8200ff,
++	0x80000000, 0x8b020002,
++	0xbfa10012, 0xbefe00c1,
++	0xbeff00c1, 0xd71f0001,
++	0x0001007f, 0xd7200001,
++	0x0002027e, 0x16020288,
++	0xbe8200bf, 0xbefd00c1,
++	0xd9382000, 0x00020201,
++	0xd9386040, 0x00040401,
++	0xd7006a01, 0x000202ff,
++	0x00000400, 0x80828102,
++	0xbfa1fff7, 0xbefd00ff,
++	0x00000068, 0xbe804280,
++	0xbe814280, 0xbe824280,
++	0xbe834280, 0x80fd847d,
++	0xbfa1fffa, 0xbeea0180,
++	0xbeec0180, 0xbeee0180,
++	0xbef00180, 0xbef20180,
++	0xbef40180, 0xbef60180,
++	0xbef80180, 0xbefa0180,
++	0xbfb00000, 0xbf9f0000,
++	0xbf9f0000, 0xbf9f0000,
++	0xbf9f0000, 0xbf9f0000,
++};
+-- 
+2.34.1
 
-
-> +	smu->driver_workload_mask = smu->workload_mask;
-
-Expecting the assignment here like
-	smu->workload_mask = smu->driver_workload_mask |
-smu->user_dpm_profile.user_workload_mask // at this point user workload
-mask will be 0.
-
-If this varialbe needs to be kept, preferrably, this is done just before
-sending final message to FW.
-
->  	smu->workload_setting[0] = PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT;
->  	smu->workload_setting[1] = PP_SMC_POWER_PROFILE_FULLSCREEN3D;
->  	smu->workload_setting[2] = PP_SMC_POWER_PROFILE_POWERSAVING;
-> @@ -2354,12 +2358,14 @@ static int smu_switch_power_profile(void *handle,
->  		return -EINVAL;
->  
->  	if (!en) {
-> -		smu->workload_mask &= ~(1 << smu->workload_prority[type]);
-> +		smu->workload_mask &= ~(1 << smu->workload_priority[type]);
-> +		smu->driver_workload_mask &= ~(1 << smu->workload_priority[type]);
-
-Same comment as above. Assign only driver mask here and in else part.
-Outside if..else, assign smu->driver_workload_mask.
-
-smu->workload_mask = smu->driver_workload_mask |
-smu->user_dpm_profile.user_workload_mask.
-
-Basically, whenever workload mask is applied, it takes driver and user
-mask as inputs. This makes sure that any user specified values are not
-lost when driver prefers a different mode. We could let the FW decide
-the final workload priority.
-
->  		index = fls(smu->workload_mask);
->  		index = index > 0 && index <= WORKLOAD_POLICY_MAX ? index - 1 : 0;
->  		workload[0] = smu->workload_setting[index];
->  	} else {
-> -		smu->workload_mask |= (1 << smu->workload_prority[type]);
-> +		smu->workload_mask |= (1 << smu->workload_priority[type]);
-> +		smu->driver_workload_mask |= (1 << smu->workload_priority[type]);
->  		index = fls(smu->workload_mask);
->  		index = index <= WORKLOAD_POLICY_MAX ? index - 1 : 0;
->  		workload[0] = smu->workload_setting[index];
-> @@ -3054,12 +3060,17 @@ static int smu_set_power_profile_mode(void *handle,
->  				      uint32_t param_size)
->  {
->  	struct smu_context *smu = handle;
-> +	int ret;
->  
->  	if (!smu->pm_enabled || !smu->adev->pm.dpm_enabled ||
->  	    !smu->ppt_funcs->set_power_profile_mode)
->  		return -EOPNOTSUPP;
->  
-> -	return smu_bump_power_profile_mode(smu, param, param_size);
-> +	smu->user_dpm_profile.user_workload_mask = (1 << smu->workload_priority[param[param_size]]);
-
-Not sure if a check is required here about the current
-user_workload_mask and newly passed parameter. If required, please add
-that here.
-
-> +	smu->workload_mask = smu->user_dpm_profile.user_workload_mask | smu->driver_workload_mask;
-
-This is the expected code for every profile mode change which represents
-the final mask. The bitwise mask operations are done only on the
-respective masks.
-
-> +	ret = smu_bump_power_profile_mode(smu, param, param_size);
-> +
-> +	return ret;
->  }
->  
->  static int smu_get_fan_control_mode(void *handle, u32 *fan_mode)
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-> index 8bb32b3f0d9c..4ffed49ebb4b 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-> @@ -240,6 +240,7 @@ struct smu_user_dpm_profile {
->  	/* user clock state information */
->  	uint32_t clk_mask[SMU_CLK_COUNT];
->  	uint32_t clk_dependency;
-> +	uint32_t user_workload_mask;
->  };
->  
->  #define SMU_TABLE_INIT(tables, table_id, s, a, d)	\
-> @@ -557,7 +558,8 @@ struct smu_context {
->  	bool disable_uclk_switch;
->  
->  	uint32_t workload_mask;
-> -	uint32_t workload_prority[WORKLOAD_POLICY_MAX];
-> +	uint32_t driver_workload_mask;
-> +	uint32_t workload_priority[WORKLOAD_POLICY_MAX];
->  	uint32_t workload_setting[WORKLOAD_POLICY_MAX];
->  	uint32_t power_profile_mode;
->  	uint32_t default_power_profile_mode;
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-> index 5ad09323a29d..f1e271e4f470 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-> @@ -1449,13 +1449,13 @@ static int arcturus_set_power_profile_mode(struct smu_context *smu,
->  	int workload_type = 0;
->  	uint32_t profile_mode = input[size];
->  	int ret = 0;
-> +	uint32_t index;
->  
->  	if (profile_mode > PP_SMC_POWER_PROFILE_CUSTOM) {
->  		dev_err(smu->adev->dev, "Invalid power profile mode %d\n", profile_mode);
->  		return -EINVAL;
->  	}
->  
-> -
->  	if ((profile_mode == PP_SMC_POWER_PROFILE_CUSTOM) &&
->  	     (smu->smc_fw_version >= 0x360d00)) {
->  		if (size != 10)
-> @@ -1523,14 +1523,16 @@ static int arcturus_set_power_profile_mode(struct smu_context *smu,
->  
->  	ret = smu_cmn_send_smc_msg_with_param(smu,
->  					  SMU_MSG_SetWorkloadMask,
-> -					  1 << workload_type,
-> +					  smu->workload_mask,
->  					  NULL);
->  	if (ret) {
->  		dev_err(smu->adev->dev, "Fail to set workload type %d\n", workload_type);
->  		return ret;
->  	}
->  
-> -	smu->power_profile_mode = profile_mode;
-> +	index = fls(smu->workload_mask);
-> +	index = index > 0 && index <= WORKLOAD_POLICY_MAX ? index - 1 : 0;
-> +	smu->power_profile_mode = smu->workload_setting[index];
-
-The above piece of code can be moved to something like
-smu_cmn_assign/calculate_power_profile() and called from all IP funcs.
-
-Thanks,
-Lijo
-
->  
->  	return 0;
->  }
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> index 9fa305ba6422..df158d789ced 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> @@ -2008,6 +2008,7 @@ static int navi10_set_power_profile_mode(struct smu_context *smu, long *input, u
->  {
->  	DpmActivityMonitorCoeffInt_t activity_monitor;
->  	int workload_type, ret = 0;
-> +	uint32_t index;
->  
->  	smu->power_profile_mode = input[size];
->  
-> @@ -2081,11 +2082,18 @@ static int navi10_set_power_profile_mode(struct smu_context *smu, long *input, u
->  						       smu->power_profile_mode);
->  	if (workload_type < 0)
->  		return -EINVAL;
-> +
->  	ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_SetWorkloadMask,
-> -				    1 << workload_type, NULL);
-> +				    smu->workload_mask, NULL);
->  	if (ret)
->  		dev_err(smu->adev->dev, "[%s] Failed to set work load mask!", __func__);
->  
-> +	if (!ret) {
-> +		index = fls(smu->workload_mask);
-> +		index = index > 0 && index <= WORKLOAD_POLICY_MAX ? index - 1 : 0;
-> +		smu->power_profile_mode = smu->workload_setting[index];
-> +	}
-> +
->  	return ret;
->  }
->  
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> index 77e58eb46328..7263e53eafe1 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> @@ -1713,6 +1713,7 @@ static int sienna_cichlid_set_power_profile_mode(struct smu_context *smu, long *
->  	DpmActivityMonitorCoeffInt_t *activity_monitor =
->  		&(activity_monitor_external.DpmActivityMonitorCoeffInt);
->  	int workload_type, ret = 0;
-> +	uint32_t index;
->  
->  	smu->power_profile_mode = input[size];
->  
-> @@ -1786,11 +1787,18 @@ static int sienna_cichlid_set_power_profile_mode(struct smu_context *smu, long *
->  						       smu->power_profile_mode);
->  	if (workload_type < 0)
->  		return -EINVAL;
-> +
->  	ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_SetWorkloadMask,
-> -				    1 << workload_type, NULL);
-> +				    smu->workload_mask, NULL);
->  	if (ret)
->  		dev_err(smu->adev->dev, "[%s] Failed to set work load mask!", __func__);
->  
-> +	if (!ret) {
-> +		index = fls(smu->workload_mask);
-> +		index = index > 0 && index <= WORKLOAD_POLICY_MAX ? index - 1 : 0;
-> +		smu->power_profile_mode = smu->workload_setting[index];
-> +	}
-> +
->  	return ret;
->  }
->  
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-> index 6c43724c01dd..fa7b45208777 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-> @@ -1058,6 +1058,7 @@ static int vangogh_set_power_profile_mode(struct smu_context *smu, long *input,
->  {
->  	int workload_type, ret;
->  	uint32_t profile_mode = input[size];
-> +	uint32_t index;
->  
->  	if (profile_mode >= PP_SMC_POWER_PROFILE_COUNT) {
->  		dev_err(smu->adev->dev, "Invalid power profile mode %d\n", profile_mode);
-> @@ -1079,7 +1080,7 @@ static int vangogh_set_power_profile_mode(struct smu_context *smu, long *input,
->  	}
->  
->  	ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_ActiveProcessNotify,
-> -				    1 << workload_type,
-> +				    smu->workload_mask,
->  				    NULL);
->  	if (ret) {
->  		dev_err_once(smu->adev->dev, "Fail to set workload type %d\n",
-> @@ -1087,7 +1088,9 @@ static int vangogh_set_power_profile_mode(struct smu_context *smu, long *input,
->  		return ret;
->  	}
->  
-> -	smu->power_profile_mode = profile_mode;
-> +	index = fls(smu->workload_mask);
-> +	index = index > 0 && index <= WORKLOAD_POLICY_MAX ? index - 1 : 0;
-> +	smu->power_profile_mode = smu->workload_setting[index];
->  
->  	return 0;
->  }
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-> index 0b210b1f2628..4aa3bf005850 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-> @@ -866,6 +866,7 @@ static int renoir_set_power_profile_mode(struct smu_context *smu, long *input, u
->  {
->  	int workload_type, ret;
->  	uint32_t profile_mode = input[size];
-> +	uint32_t index;
->  
->  	if (profile_mode > PP_SMC_POWER_PROFILE_CUSTOM) {
->  		dev_err(smu->adev->dev, "Invalid power profile mode %d\n", profile_mode);
-> @@ -890,14 +891,16 @@ static int renoir_set_power_profile_mode(struct smu_context *smu, long *input, u
->  	}
->  
->  	ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_ActiveProcessNotify,
-> -				    1 << workload_type,
-> +				    smu->workload_mask,
->  				    NULL);
->  	if (ret) {
->  		dev_err_once(smu->adev->dev, "Fail to set workload type %d\n", workload_type);
->  		return ret;
->  	}
->  
-> -	smu->power_profile_mode = profile_mode;
-> +	index = fls(smu->workload_mask);
-> +	index = index > 0 && index <= WORKLOAD_POLICY_MAX ? index - 1 : 0;
-> +	smu->power_profile_mode = smu->workload_setting[index];
->  
->  	return 0;
->  }
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> index 8d25cc1f218f..1023b39ac995 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> @@ -2473,7 +2473,8 @@ static int smu_v13_0_0_set_power_profile_mode(struct smu_context *smu,
->  	DpmActivityMonitorCoeffInt_t *activity_monitor =
->  		&(activity_monitor_external.DpmActivityMonitorCoeffInt);
->  	int workload_type, ret = 0;
-> -	u32 workload_mask, selected_workload_mask;
-> +	u32 workload_mask;
-> +	uint32_t index;
->  
->  	smu->power_profile_mode = input[size];
->  
-> @@ -2540,7 +2541,7 @@ static int smu_v13_0_0_set_power_profile_mode(struct smu_context *smu,
->  	if (workload_type < 0)
->  		return -EINVAL;
->  
-> -	selected_workload_mask = workload_mask = 1 << workload_type;
-> +	workload_mask = 1 << workload_type;
->  
->  	/* Add optimizations for SMU13.0.0/10.  Reuse the power saving profile */
->  	if ((amdgpu_ip_version(smu->adev, MP1_HWIP, 0) == IP_VERSION(13, 0, 0) &&
-> @@ -2555,12 +2556,24 @@ static int smu_v13_0_0_set_power_profile_mode(struct smu_context *smu,
->  			workload_mask |= 1 << workload_type;
->  	}
->  
-> +	smu->workload_mask |= workload_mask;
->  	ret = smu_cmn_send_smc_msg_with_param(smu,
->  					       SMU_MSG_SetWorkloadMask,
-> -					       workload_mask,
-> +					       smu->workload_mask,
->  					       NULL);
-> -	if (!ret)
-> -		smu->workload_mask = selected_workload_mask;
-> +	if (!ret) {
-> +		index = fls(smu->workload_mask);
-> +		index = index > 0 && index <= WORKLOAD_POLICY_MAX ? index - 1 : 0;
-> +		smu->power_profile_mode = smu->workload_setting[index];
-> +		if (smu->power_profile_mode == PP_SMC_POWER_PROFILE_POWERSAVING) {
-> +			workload_type = smu_cmn_to_asic_specific_index(smu,
-> +							       CMN2ASIC_MAPPING_WORKLOAD,
-> +							       PP_SMC_POWER_PROFILE_FULLSCREEN3D);
-> +			smu->power_profile_mode = smu->workload_mask & (1 << workload_type)
-> +										? PP_SMC_POWER_PROFILE_FULLSCREEN3D
-> +										: PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT;
-> +		}
-> +	}
->  
->  	return ret;
->  }
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-> index 23f13388455f..056c45453a36 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-> @@ -2429,6 +2429,7 @@ static int smu_v13_0_7_set_power_profile_mode(struct smu_context *smu, long *inp
->  	DpmActivityMonitorCoeffInt_t *activity_monitor =
->  		&(activity_monitor_external.DpmActivityMonitorCoeffInt);
->  	int workload_type, ret = 0;
-> +	uint32_t index;
->  
->  	smu->power_profile_mode = input[size];
->  
-> @@ -2487,13 +2488,18 @@ static int smu_v13_0_7_set_power_profile_mode(struct smu_context *smu, long *inp
->  						       smu->power_profile_mode);
->  	if (workload_type < 0)
->  		return -EINVAL;
-> +
->  	ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_SetWorkloadMask,
-> -				    1 << workload_type, NULL);
-> +				    smu->workload_mask, NULL);
->  
->  	if (ret)
->  		dev_err(smu->adev->dev, "[%s] Failed to set work load mask!", __func__);
-> -	else
-> -		smu->workload_mask = (1 << workload_type);
-> +
-> +	if (!ret) {
-> +		index = fls(smu->workload_mask);
-> +		index = index > 0 && index <= WORKLOAD_POLICY_MAX ? index - 1 : 0;
-> +		smu->power_profile_mode = smu->workload_setting[index];
-> +	}
->  
->  	return ret;
->  }
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-> index cefe10b95d8e..f139c338e822 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-> @@ -1787,6 +1787,7 @@ static int smu_v14_0_2_set_power_profile_mode(struct smu_context *smu,
->  	DpmActivityMonitorCoeffInt_t *activity_monitor =
->  		&(activity_monitor_external.DpmActivityMonitorCoeffInt);
->  	int workload_type, ret = 0;
-> +	uint32_t index;
->  	uint32_t current_profile_mode = smu->power_profile_mode;
->  	smu->power_profile_mode = input[size];
->  
-> @@ -1857,12 +1858,14 @@ static int smu_v14_0_2_set_power_profile_mode(struct smu_context *smu,
->  	if (workload_type < 0)
->  		return -EINVAL;
->  
-> -	ret = smu_cmn_send_smc_msg_with_param(smu,
-> -					       SMU_MSG_SetWorkloadMask,
-> -					       1 << workload_type,
-> -					       NULL);
-> -	if (!ret)
-> -		smu->workload_mask = 1 << workload_type;
-> +	ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_SetWorkloadMask,
-> +										  smu->workload_mask, NULL);
-> +
-> +	if (!ret) {
-> +		index = fls(smu->workload_mask);
-> +		index = index > 0 && index <= WORKLOAD_POLICY_MAX ? index - 1 : 0;
-> +		smu->power_profile_mode = smu->workload_setting[index];
-> +	}
->  
->  	return ret;
->  }
