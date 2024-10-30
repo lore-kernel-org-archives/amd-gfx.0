@@ -4,62 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF863D6B6A4
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Oct 2024 16:02:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D24E2D6B6D1
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Oct 2024 20:11:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6AE1C10E008;
-	Wed, 30 Oct 2024 16:02:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6987C10E7F9;
+	Wed, 30 Oct 2024 20:11:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WeI3+Zov";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GklhMRW0";
 	dkim-atps=neutral
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com
- [209.85.216.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D961610E008
- for <amd-gfx@lists.freedesktop.org>; Wed, 30 Oct 2024 16:02:48 +0000 (UTC)
-Received: by mail-pj1-f52.google.com with SMTP id
- 98e67ed59e1d1-2e2ab5bbc01so1018760a91.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 30 Oct 2024 09:02:48 -0700 (PDT)
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com
+ [209.85.215.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 343A810E7F9
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Oct 2024 20:11:22 +0000 (UTC)
+Received: by mail-pg1-f178.google.com with SMTP id
+ 41be03b00d2f7-7ee36621734so38151a12.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Oct 2024 13:11:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1730304168; x=1730908968; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1730319081; x=1730923881; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=st64M0ww1jJnVt2gyGGl1zWq7VTaquIXox5yoQVTQ6Q=;
- b=WeI3+Zov5tsgQTSTfxOIVtV4E8V2T3UpI78tWiwjB5aTg8YQQQnGY+EWDQSJEbg/IY
- YEh07wRG0e36vqnDN7vSX154Ke4c/v4wpJxs9L/O6swWmfqyi3ERmEIGFl2nzO9IJYDc
- S6B8gXBFgjploorvlPLnncDzAnekT6/wxLMH2FTZRTSn7nuuR061ZcigKU/RCNa+HvJO
- 0iK2BH381J/aqj4UwleK2qgQKOQgqUKvF5wzsI4JA+8snXuMPElsWcewZdr8rAzrJG+H
- UeOPDD+uoYVA4UepqPCR4IHnpwVGDRS6oqjIfWEEUcDJp0pKCHYPnY6KmTMLzG00bhNo
- 1LTQ==
+ bh=Bj0b5WkO3/3y0cEjgaM8LVufAxr7V5ZvKvdXjUHMIC0=;
+ b=GklhMRW0vvCRkzu40YJzBaTwgAKS7Lz0j6HAVtplj56+ZYLvXN8Z/2LIqf3QhXnWlb
+ eUfJdjUXCNWOuQor40Zm7Hp1Roci2QVOcYhT9SlXDpZTYtX6H8tuJs3KImmFLqxB21el
+ ZnNSlcGyj0QexydEIoxOxjE1lpXjUeN+qPYj/0DmJuaXBdfVDcSu9UkaOgApAJLtFtbK
+ XO44Dvf+CU4UW+Zik2bUC3OA/Q4o+AB8D4Dx1HltpNOZp8sRjnQdpLKUIShBtefoSQzj
+ s3oTB9UM3Vw4Pc9MpKNSzSTTKOgB/+c3PtLs81gGwFWkgcBLc/eH1EWK8DvWxk9lrf1Z
+ DT/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1730304168; x=1730908968;
+ d=1e100.net; s=20230601; t=1730319081; x=1730923881;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=st64M0ww1jJnVt2gyGGl1zWq7VTaquIXox5yoQVTQ6Q=;
- b=wgVK96avNgVYJqTkWJjrvFyfj5DE+oPhyxPEZTQX5mM6xpeXtFSJH0aUL3llEAPgLN
- TZSVQx2SNymxRpKXtFar51Na7tik7fDtEUrVRUr7KYqL4OgvhD3BV/AegVk83+IyRGmB
- S+R9J9fYMk4hlzecruexnRq36gR68TcsdStvrhNCYoojuLN/BZzo4NzyXsOu9msCXgqc
- srvtEEuVDSWPMnGHraY0iuGMjTszry2F1fv6zT0tqoaOaNValYgtLa+IbJpRuzg1HDa5
- U9bcE9leZQ5WkEXQYpmI09m3obhy4YBiwGOyLcNTRvtHQu7xjkBKt3o8MirOAeTYlyvl
- +V2w==
-X-Gm-Message-State: AOJu0YxG0WKIfCwz8njUlcxlVZXju4FOngpTZin9ekDBAM8udF6KbmtV
- FjeaeTb1SbJhpHtkis5kG/wxlwqzKIX5hySiTVYTxQJOmN3+tsTvVtnc8kC4wtI1HCuBppja43j
- rWr+hKpmWeH7QXFdEnDK39FHYmiL75w==
-X-Google-Smtp-Source: AGHT+IFMRbtrraN7iLB8NaFJWYlhLGCrP2EnxbgSClBTmw/S8M7CXr6AboGtjsTHyPXqPeXr5S2y9NZgi5wWrekq/oE=
-X-Received: by 2002:a17:90a:5185:b0:2e2:d562:6b42 with SMTP id
- 98e67ed59e1d1-2e8f106d66bmr8100480a91.3.1730304168017; Wed, 30 Oct 2024
- 09:02:48 -0700 (PDT)
+ bh=Bj0b5WkO3/3y0cEjgaM8LVufAxr7V5ZvKvdXjUHMIC0=;
+ b=EYFzBWi9E5TIC4LjIDiTCliA0kfENLvXUoKM4TLGyknsNxLH31npXJuwmYxRIbam+r
+ 3UQCH2OsQTm2rmxZr4tQZpn92iEFkWSVx2SDtsN0lgHFFgt1QkLx/sB9sRkIhWUWLL4W
+ 7UdTf8m0Umvet8YQryKNLeMRSZwE3rpgDhFbtJcH8EXkIoeBqUGicIu/U8v4xMX1hVtA
+ jxUrUZExHH4nAzVho5HrYp7Ko23UCh9ShB3JNIQdr1b+ccNBPxjtDPzCGHmMhkEo82nw
+ gQgkKFyl880Mc6A44GrVjNiCU8wi14UtTLDtvZVqwGcu4EWQRD/BiMXpnCXKtb02855t
+ eU4A==
+X-Gm-Message-State: AOJu0YySPHbVDvMfh3IbJkD8oq7UYziuJL410Mx+WAwkNaMFsltAbvq2
+ bR2/svmf+klk4YRvgTj5MLctnmlh+3lFosgZ7C9ttvVhIEJptvELyye2cIDMkXZgTTJf9umXiF8
+ jKNWEjmT7mc/FNkwZ6bDb+ocFWls=
+X-Google-Smtp-Source: AGHT+IG9rUCgHYBH9gOQGyhF30eTbtwFUh6Ooui7/DoYYg4hOaIkCYKOl2vERAOExQpPOV+ZBPjlwWsoc1RaVSY02yQ=
+X-Received: by 2002:a05:6a00:2392:b0:71e:7bcc:a0de with SMTP id
+ d2e1a72fcca58-72063028f5cmr9726475b3a.3.1730319081437; Wed, 30 Oct 2024
+ 13:11:21 -0700 (PDT)
 MIME-Version: 1.0
-References: <20241023210342.685808-1-alexander.deucher@amd.com>
- <CADnq5_M3ar8qGBFVF5p7YUbVsjZvzCdkDcJ-GM7J+T15vfJOhQ@mail.gmail.com>
-In-Reply-To: <CADnq5_M3ar8qGBFVF5p7YUbVsjZvzCdkDcJ-GM7J+T15vfJOhQ@mail.gmail.com>
+References: <20241030041832.3179034-1-lijo.lazar@amd.com>
+In-Reply-To: <20241030041832.3179034-1-lijo.lazar@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 30 Oct 2024 12:02:35 -0400
-Message-ID: <CADnq5_OAwioJzxgonFEPNCHSWNOvmCowh=_OCQ-jcowP-Bcomw@mail.gmail.com>
-Subject: Re: [PATCH 1/3] drm/amdgpu: Adjust debugfs register access permissions
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
+Date: Wed, 30 Oct 2024 16:11:09 -0400
+Message-ID: <CADnq5_P6gczLZo0KQ_U_2GqiWMMXRQohUEG7Oh7CAg1f_-aySQ@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amdgpu: Group gfx sysfs functions
+To: Lijo Lazar <lijo.lazar@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Hawking.Zhang@amd.com, 
+ Alexander.Deucher@amd.com, Christian.Koenig@amd.com, 
+ srinivasan.shanmugam@amd.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -76,42 +77,278 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Ping on this series?
+On Wed, Oct 30, 2024 at 12:19=E2=80=AFAM Lijo Lazar <lijo.lazar@amd.com> wr=
+ote:
+>
+> Make amdgpu_gfx_sysfs_init/fini functions as common entry points for all
+> gfx related sysfs nodes.
+>
+> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+> ---
+> v2: Check cleaner shader capability only for creation of run_cleaner_shad=
+er
+> attribute.
+>
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 36 ++++++++++++++++++++-----
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |  2 --
+>  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c  |  5 ++--
+>  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c  |  4 +--
+>  drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c  |  4 +--
+>  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c   |  4 +--
+>  drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c |  5 ----
+>  7 files changed, 39 insertions(+), 21 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_gfx.c
+> index e96984c53e72..9ede3fbba54d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> @@ -1602,7 +1602,7 @@ static DEVICE_ATTR(current_compute_partition, 0644,
+>  static DEVICE_ATTR(available_compute_partition, 0444,
+>                    amdgpu_gfx_get_available_compute_partition, NULL);
+>
+> -int amdgpu_gfx_sysfs_init(struct amdgpu_device *adev)
+> +static int amdgpu_gfx_sysfs_xcp_init(struct amdgpu_device *adev)
+>  {
+>         struct amdgpu_xcp_mgr *xcp_mgr =3D adev->xcp_mgr;
+>         bool xcp_switch_supported;
+> @@ -1629,7 +1629,7 @@ int amdgpu_gfx_sysfs_init(struct amdgpu_device *ade=
+v)
+>         return r;
+>  }
+>
+> -void amdgpu_gfx_sysfs_fini(struct amdgpu_device *adev)
+> +static void amdgpu_gfx_sysfs_xcp_fini(struct amdgpu_device *adev)
+>  {
+>         struct amdgpu_xcp_mgr *xcp_mgr =3D adev->xcp_mgr;
+>         bool xcp_switch_supported;
+> @@ -1646,14 +1646,13 @@ void amdgpu_gfx_sysfs_fini(struct amdgpu_device *=
+adev)
+>                                    &dev_attr_available_compute_partition)=
+;
+>  }
+>
+> -int amdgpu_gfx_sysfs_isolation_shader_init(struct amdgpu_device *adev)
+> +static int amdgpu_gfx_sysfs_isolation_shader_init(struct amdgpu_device *=
+adev)
+>  {
+>         int r;
+>
+>         r =3D device_create_file(adev->dev, &dev_attr_enforce_isolation);
+> -       if (r)
+> +       if (r || !adev->gfx.enable_cleaner_shader)
+>                 return r;
+> -
 
-Alex
+Would be easier to read as:
 
-On Mon, Oct 28, 2024 at 10:42=E2=80=AFAM Alex Deucher <alexdeucher@gmail.co=
-m> wrote:
+if (adev->gfx.enable_cleaner_shader) {
+    r =3D device_create_file(adev->dev, &dev_attr_run_cleaner_shader);
+    if (r)
+        return r;
+}
+
+>         r =3D device_create_file(adev->dev, &dev_attr_run_cleaner_shader)=
+;
+>         if (r)
+>                 return r;
+> @@ -1661,12 +1660,37 @@ int amdgpu_gfx_sysfs_isolation_shader_init(struct=
+ amdgpu_device *adev)
+>         return 0;
+>  }
 >
-> Ping on this series?
+> -void amdgpu_gfx_sysfs_isolation_shader_fini(struct amdgpu_device *adev)
+> +static void amdgpu_gfx_sysfs_isolation_shader_fini(struct amdgpu_device =
+*adev)
+>  {
+>         device_remove_file(adev->dev, &dev_attr_enforce_isolation);
+> +       if (!adev->gfx.enable_cleaner_shader)
+> +               return;
+
+similarly here:
+
+if (adev->gfx.enable_cleaner_shader)
+    device_remove_file(adev->dev, &dev_attr_run_cleaner_shader);
+
+With that changed, patch is:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+
+>         device_remove_file(adev->dev, &dev_attr_run_cleaner_shader);
+>  }
 >
-> Alex
+> +int amdgpu_gfx_sysfs_init(struct amdgpu_device *adev)
+> +{
+> +       int r;
+> +
+> +       r =3D amdgpu_gfx_sysfs_xcp_init(adev);
+> +       if (r) {
+> +               dev_err(adev->dev, "failed to create xcp sysfs files");
+> +               return r;
+> +       }
+> +
+> +       r =3D amdgpu_gfx_sysfs_isolation_shader_init(adev);
+> +       if (r)
+> +               dev_err(adev->dev, "failed to create isolation sysfs file=
+s");
+> +
+> +       return r;
+> +}
+> +
+> +void amdgpu_gfx_sysfs_fini(struct amdgpu_device *adev)
+> +{
+> +       amdgpu_gfx_sysfs_xcp_fini(adev);
+> +       amdgpu_gfx_sysfs_isolation_shader_fini(adev);
+> +}
+> +
+>  int amdgpu_gfx_cleaner_shader_sw_init(struct amdgpu_device *adev,
+>                                       unsigned int cleaner_shader_size)
+>  {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_gfx.h
+> index f710178a21bc..b8a2f60688dc 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> @@ -577,8 +577,6 @@ void amdgpu_gfx_cleaner_shader_sw_fini(struct amdgpu_=
+device *adev);
+>  void amdgpu_gfx_cleaner_shader_init(struct amdgpu_device *adev,
+>                                     unsigned int cleaner_shader_size,
+>                                     const void *cleaner_shader_ptr);
+> -int amdgpu_gfx_sysfs_isolation_shader_init(struct amdgpu_device *adev);
+> -void amdgpu_gfx_sysfs_isolation_shader_fini(struct amdgpu_device *adev);
+>  void amdgpu_gfx_enforce_isolation_handler(struct work_struct *work);
+>  void amdgpu_gfx_enforce_isolation_ring_begin_use(struct amdgpu_ring *rin=
+g);
+>  void amdgpu_gfx_enforce_isolation_ring_end_use(struct amdgpu_ring *ring)=
+;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd=
+/amdgpu/gfx_v10_0.c
+> index 9da95b25e158..d1a18ca584dd 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> @@ -4853,9 +4853,10 @@ static int gfx_v10_0_sw_init(struct amdgpu_ip_bloc=
+k *ip_block)
 >
-> On Wed, Oct 23, 2024 at 5:04=E2=80=AFPM Alex Deucher <alexander.deucher@a=
-md.com> wrote:
-> >
-> > Regular users shouldn't have read access.
-> >
-> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/=
-drm/amd/amdgpu/amdgpu_debugfs.c
-> > index 6e6092916d4e..e44a44405266 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> > @@ -1654,7 +1654,7 @@ int amdgpu_debugfs_regs_init(struct amdgpu_device=
- *adev)
-> >
-> >         for (i =3D 0; i < ARRAY_SIZE(debugfs_regs); i++) {
-> >                 ent =3D debugfs_create_file(debugfs_regs_names[i],
-> > -                                         S_IFREG | 0444, root,
-> > +                                         S_IFREG | 0400, root,
-> >                                           adev, debugfs_regs[i]);
-> >                 if (!i && !IS_ERR_OR_NULL(ent))
-> >                         i_size_write(ent->d_inode, adev->rmmio_size);
-> > --
-> > 2.46.2
-> >
+>         gfx_v10_0_alloc_ip_dump(adev);
+>
+> -       r =3D amdgpu_gfx_sysfs_isolation_shader_init(adev);
+> +       r =3D amdgpu_gfx_sysfs_init(adev);
+>         if (r)
+>                 return r;
+> +
+>         return 0;
+>  }
+>
+> @@ -4907,7 +4908,7 @@ static int gfx_v10_0_sw_fini(struct amdgpu_ip_block=
+ *ip_block)
+>                 gfx_v10_0_rlc_backdoor_autoload_buffer_fini(adev);
+>
+>         gfx_v10_0_free_microcode(adev);
+> -       amdgpu_gfx_sysfs_isolation_shader_fini(adev);
+> +       amdgpu_gfx_sysfs_fini(adev);
+>
+>         kfree(adev->gfx.ip_dump_core);
+>         kfree(adev->gfx.ip_dump_compute_queues);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd=
+/amdgpu/gfx_v11_0.c
+> index 5aff8f72de9c..22811b624532 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> @@ -1717,7 +1717,7 @@ static int gfx_v11_0_sw_init(struct amdgpu_ip_block=
+ *ip_block)
+>
+>         gfx_v11_0_alloc_ip_dump(adev);
+>
+> -       r =3D amdgpu_gfx_sysfs_isolation_shader_init(adev);
+> +       r =3D amdgpu_gfx_sysfs_init(adev);
+>         if (r)
+>                 return r;
+>
+> @@ -1782,7 +1782,7 @@ static int gfx_v11_0_sw_fini(struct amdgpu_ip_block=
+ *ip_block)
+>
+>         gfx_v11_0_free_microcode(adev);
+>
+> -       amdgpu_gfx_sysfs_isolation_shader_fini(adev);
+> +       amdgpu_gfx_sysfs_fini(adev);
+>
+>         kfree(adev->gfx.ip_dump_core);
+>         kfree(adev->gfx.ip_dump_compute_queues);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd=
+/amdgpu/gfx_v12_0.c
+> index 9fec28d8a5fc..1b99f90cd193 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> @@ -1466,7 +1466,7 @@ static int gfx_v12_0_sw_init(struct amdgpu_ip_block=
+ *ip_block)
+>
+>         gfx_v12_0_alloc_ip_dump(adev);
+>
+> -       r =3D amdgpu_gfx_sysfs_isolation_shader_init(adev);
+> +       r =3D amdgpu_gfx_sysfs_init(adev);
+>         if (r)
+>                 return r;
+>
+> @@ -1529,7 +1529,7 @@ static int gfx_v12_0_sw_fini(struct amdgpu_ip_block=
+ *ip_block)
+>
+>         gfx_v12_0_free_microcode(adev);
+>
+> -       amdgpu_gfx_sysfs_isolation_shader_fini(adev);
+> +       amdgpu_gfx_sysfs_fini(adev);
+>
+>         kfree(adev->gfx.ip_dump_core);
+>         kfree(adev->gfx.ip_dump_compute_queues);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/=
+amdgpu/gfx_v9_0.c
+> index e9248a855ba7..a880dce16ae2 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> @@ -2402,7 +2402,7 @@ static int gfx_v9_0_sw_init(struct amdgpu_ip_block =
+*ip_block)
+>
+>         gfx_v9_0_alloc_ip_dump(adev);
+>
+> -       r =3D amdgpu_gfx_sysfs_isolation_shader_init(adev);
+> +       r =3D amdgpu_gfx_sysfs_init(adev);
+>         if (r)
+>                 return r;
+>
+> @@ -2443,7 +2443,7 @@ static int gfx_v9_0_sw_fini(struct amdgpu_ip_block =
+*ip_block)
+>         }
+>         gfx_v9_0_free_microcode(adev);
+>
+> -       amdgpu_gfx_sysfs_isolation_shader_fini(adev);
+> +       amdgpu_gfx_sysfs_fini(adev);
+>
+>         kfree(adev->gfx.ip_dump_core);
+>         kfree(adev->gfx.ip_dump_compute_queues);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/am=
+d/amdgpu/gfx_v9_4_3.c
+> index 016290f00592..983088805c3a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+> @@ -1171,10 +1171,6 @@ static int gfx_v9_4_3_sw_init(struct amdgpu_ip_blo=
+ck *ip_block)
+>
+>         gfx_v9_4_3_alloc_ip_dump(adev);
+>
+> -       r =3D amdgpu_gfx_sysfs_isolation_shader_init(adev);
+> -       if (r)
+> -               return r;
+> -
+>         return 0;
+>  }
+>
+> @@ -1199,7 +1195,6 @@ static int gfx_v9_4_3_sw_fini(struct amdgpu_ip_bloc=
+k *ip_block)
+>         amdgpu_bo_unref(&adev->gfx.rlc.clear_state_obj);
+>         gfx_v9_4_3_free_microcode(adev);
+>         amdgpu_gfx_sysfs_fini(adev);
+> -       amdgpu_gfx_sysfs_isolation_shader_fini(adev);
+>
+>         kfree(adev->gfx.ip_dump_core);
+>         kfree(adev->gfx.ip_dump_compute_queues);
+> --
+> 2.25.1
+>
