@@ -4,64 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4F65D5CCB5
-	for <amd-gfx@archiver.kernel.org>; Wed, 30 Oct 2024 14:58:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A55EAD5CCB8
+	for <amd-gfx@archiver.kernel.org>; Wed, 30 Oct 2024 15:10:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C20C10E7B9;
-	Wed, 30 Oct 2024 14:58:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4630E10E2B8;
+	Wed, 30 Oct 2024 15:10:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VmQYB4Lu";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="B84O2+2l";
 	dkim-atps=neutral
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
- [209.85.216.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B03C10E3F3
- for <amd-gfx@lists.freedesktop.org>; Wed, 30 Oct 2024 14:58:08 +0000 (UTC)
-Received: by mail-pj1-f43.google.com with SMTP id
- 98e67ed59e1d1-2e5b1aaad96so1072185a91.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 30 Oct 2024 07:58:08 -0700 (PDT)
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com
+ [209.85.216.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A063710E2B8
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Oct 2024 15:10:10 +0000 (UTC)
+Received: by mail-pj1-f50.google.com with SMTP id
+ 98e67ed59e1d1-2e56750bb13so816220a91.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 30 Oct 2024 08:10:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1730300288; x=1730905088; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1730301010; x=1730905810; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=UL6LoGlt4ujwPKWB1qA/RAIgdLe7SuoovhFz3Cb6n2Y=;
- b=VmQYB4LubEEJroZ8GYq4jDJrtLejyM448PS53lERmVPMK0MEoVGO9R8RKIhbgJCnYm
- qgIw55ggYXB23eCgJ1nDxGhYWsTDfBxWxRbiYzRgpslI8rgmlzmSy3wuk5SEN8GyWm+d
- JX/A9dJ0VCD7iKo9gXMrgpVEiyFE7beYM6Dq/VpDSxAfrAkfOjeBFc95Y9mLaXYbpG7W
- B5iy5iaB8SJMTUzeGYG7jxhqHKH1rVNGeHYYHoXuKRJl7K9FNaxerT7s8JSe3wz/tuf6
- Mh7YI1iA3dmKcstJnZvirtzCUDhwp//Je25lv6f9TVOQow1JmYv8GGCwJ4hkwIRzLZwn
- PKtw==
+ bh=fv8WilLyYrf59zJ6y520wRp+gJ+bITyLPS+2dTGCO0g=;
+ b=B84O2+2lgHSIrK8J/lKm0O05r/a7l/jqrI+lOJskZcm8rIOJpogwHCxqwIowlyU1aG
+ LLIMEkLI/Kjexs0UGBjWKLPldTC7gxNuWpeMhl6licF/ZgO+xmqHrLRceAyiEv8mmn2N
+ 4VZHyClBDnZP8eP9BO6cGFyfVjZ5GGNxfoAZzvaaBtga+f7d/hiuTnIbIOk5bxd5t7RH
+ yZZzIgDROk06HxUCV0YCFEkiYsula8kbOSsyoOakzN0NJLl4V2ND+3mVDvYHLD4FXqLx
+ sY4KkgT7wmlrb0mgRsc96eSLe9+MrvLG/njochpYcjtRwyKn6UXoTBgmhB+3a1YwaPTu
+ RYig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1730300288; x=1730905088;
+ d=1e100.net; s=20230601; t=1730301010; x=1730905810;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=UL6LoGlt4ujwPKWB1qA/RAIgdLe7SuoovhFz3Cb6n2Y=;
- b=et2HmkWx78X9eamkcTfFURfWi7BfD0nhEXf4FV3zVYeAqwbgK8l76kGGtQ8T5/DptI
- 5p9kaWa9T3a7qKVY155CSIjCLHEKm4l3tKLwHBM70kFs53isDBeEbO28ZeDS1VrQ7f4w
- 5DlAIZteUzx2k7/oFfC3s249Gv1UFZ7Ce4VY+67S2WS0GejcosB1TmSBMWNiP8ckq7Dg
- CPRNVOiXL3wYxldGKz24RrRjVrVfkS3obW12Ym4RAndwhdN8j0mm3mXCLPS0vS7V9fFS
- qfcdNMtrm7rr1H/OdLcI1+hw/DEAsEn4ffP3ffurmX99O/QH238pO5NTVyvsiUv8cKsk
- jqgA==
+ bh=fv8WilLyYrf59zJ6y520wRp+gJ+bITyLPS+2dTGCO0g=;
+ b=dwWauQpMaiJ52dsUnWjrZ6rXvny/WOmXQAgw75IFvmjFcwa6izyaicA//KJQxgNB+h
+ eG0ORj8uwE7mXXxkMq2WvyKnVEV7ysM0jNcUaiTz7kaXdtViV/78RVv9joWxK30lTpgy
+ aajIzZ/lHBZvbkPglhV+cPhc+lsIn1+p6pf7UeOkbVy28xkKHUuqHZ5x/xyTWuIiRmv5
+ zk83TIXgllE/1u8bgBTCaRiA3R10MITuXdx6cmnPjdWZXWTK9GEVIi3my/B5N1fijWZl
+ q8UVrNWbwV4mevKFLz9m870g6p6j5Gt88Lonv3COvQrPQJ3rh6nokGhhSbVDq8f4BcpM
+ tmgQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW8VweSzfRREIxPGeit/VjcJZtrDV2XRW/1eMR+pdSyYPpLkHCxee/6mPN3jgqT7+GfAnNMBCdJ@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxhO7wqZJjyO8JZT6ZluhEHdcl+Zqclec+tdk9WAMhOK9Co/dpR
- XIMp/MGmZ4xnZ8zkqnYob1DivIkit7fximwcFSsfkmN9g1a2SU+Qid709Ze8//IWG9x0MHSQGns
- QBQdnNYVt8cxc3584EmL08l9e1SSV/g==
-X-Google-Smtp-Source: AGHT+IHAgKlMNLPwv8Pr80RXSR+9vQN4hmfl0CPd0UI6SRIC+ef2et4bKSKUZKknXp3DEWgvV3HkfkA0Ef1BDAG8Z2Q=
-X-Received: by 2002:a17:90b:1a8e:b0:2e0:9d55:3784 with SMTP id
- 98e67ed59e1d1-2e8f0d4d329mr7617469a91.0.1730300287732; Wed, 30 Oct 2024
- 07:58:07 -0700 (PDT)
+ AJvYcCWY19uZPafHcZgIBX27oH9pfQzKmFnYL7mBAXlHkgykH9byOA4UJ1fuvXmcNP5NN7XWz7V5aozs@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyd7LhjklWE+zH8/8SQYF3sOc4QxrJuU1/4+dssB/1M6zkuHuwQ
+ rM0PPBe9WaqDSgxsdTVkDkL8VYf6XRFN7kha7sCcam2knOwOuDXkL+lRgJ8Vwwma2Dfq1X/arIT
+ SXbgUdXZdM2RasW7PDlViPFK/wCI=
+X-Google-Smtp-Source: AGHT+IGnWL90Fymwj/Ce/OqkCaQPXKPMOVLJ7WAQAR9blKa6u3VqKeIrBirMPV18SxQHxhpJyWj3tI6FtSUyd1Lpinw=
+X-Received: by 2002:a17:90b:1d85:b0:2e2:a60f:289e with SMTP id
+ 98e67ed59e1d1-2e8f0d5d8ddmr7345958a91.0.1730301010078; Wed, 30 Oct 2024
+ 08:10:10 -0700 (PDT)
 MIME-Version: 1.0
-References: <20241030142920.1525517-1-srinivasan.shanmugam@amd.com>
-In-Reply-To: <20241030142920.1525517-1-srinivasan.shanmugam@amd.com>
+References: <20241019143706.18779-1-wolf@oriole.systems>
+ <20241029111753.5132-1-wolf@oriole.systems>
+ <20241029111753.5132-3-wolf@oriole.systems>
+ <DM4PR12MB516570C59A4F85DE7EC8C5398E542@DM4PR12MB5165.namprd12.prod.outlook.com>
+In-Reply-To: <DM4PR12MB516570C59A4F85DE7EC8C5398E542@DM4PR12MB5165.namprd12.prod.outlook.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 30 Oct 2024 10:57:55 -0400
-Message-ID: <CADnq5_O+VWfD2AUmrtw=MgX6CMcJQ3sa2eTFL9Mtn8Vr3RAT1A@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/gfx9: Add cleaner shader for GFX11.0.3
-To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+Date: Wed, 30 Oct 2024 11:09:58 -0400
+Message-ID: <CADnq5_PKF4u2dsi9UUfOK9vhf1ZRt=1s56DqzsMLQkqbsQ6KZA@mail.gmail.com>
+Subject: Re: [PATCH v2 2/2] drm/amd/pm: add zero RPM stop temperature OD
+ setting support for SMU13
+To: "Feng, Kenneth" <Kenneth.Feng@amd.com>
+Cc: =?UTF-8?Q?Wolfgang_M=C3=BCller?= <wolf@oriole.systems>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -78,335 +82,514 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Oct 30, 2024 at 10:29=E2=80=AFAM Srinivasan Shanmugam
-<srinivasan.shanmugam@amd.com> wrote:
->
-> This commit adds the cleaner shader microcode for GFX11.0.3 GPUs. The
-> cleaner shader is a piece of GPU code that is used to clear or
-> initialize certain GPU resources, such as Local Data Share (LDS), Vector
-> General Purpose Registers (VGPRs), and Scalar General Purpose Registers
-> (SGPRs).
->
-> Clearing these resources is important for ensuring data isolation
-> between different workloads running on the GPU. Without the cleaner
-> shader, residual data from a previous workload could potentially be
-> accessed by a subsequent workload, leading to data leaks and incorrect
-> computation results.
->
-> The cleaner shader microcode is represented as an array of 32-bit words
-> (`gfx_11_0_3_cleaner_shader_hex`). This array is the binary
-> representation of the cleaner shader code, which is written in a
-> low-level GPU instruction set.
->
-> When the cleaner shader feature is enabled, the AMDGPU driver loads this
-> array into a specific location in the GPU memory. The GPU then reads
-> this memory location to fetch and execute the cleaner shader
-> instructions.
->
-> The cleaner shader is executed automatically by the GPU at the end of
-> each workload, before the next workload starts. This ensures that all
-> GPU resources are in a clean state before the start of each workload.
->
-> This addition is part of the cleaner shader feature implementation. The
-> cleaner shader feature helps resource utilization by cleaning up GPU
-> resources after they are used. It also enhances security and reliability
-> by preventing data leaks between workloads.
->
-> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Applied.  Thanks!
 
-Subject references gfx9, should say gfx11.  With that fixed, plus the
-other things I discussed with you, the patch is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Alex
 
-
+On Tue, Oct 29, 2024 at 9:02=E2=80=AFPM Feng, Kenneth <Kenneth.Feng@amd.com=
+> wrote:
+>
+> [AMD Official Use Only - AMD Internal Distribution Only]
+>
+> Series is Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
+>
+>
+> -----Original Message-----
+> From: Wolfgang M=C3=BCller <wolf@oriole.systems>
+> Sent: Tuesday, October 29, 2024 7:18 PM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Feng, Kenneth <Kenneth.Feng@amd.com>
+> Subject: [PATCH v2 2/2] drm/amd/pm: add zero RPM stop temperature OD sett=
+ing support for SMU13
+>
+> Caution: This message originated from an External Source. Use proper caut=
+ion when opening attachments, clicking links, or responding.
+>
+>
+> Together with the feature to enable or disable zero RPM in the last commi=
+t, it also makes sense to expose the OD setting determining under which tem=
+perature the fan should stop if zero RPM is enabled.
+>
+> Signed-off-by: Wolfgang M=C3=BCller <wolf@oriole.systems>
 > ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c        |  18 +++
->  .../amd/amdgpu/gfx_v11_0_3_cleaner_shader.asm | 118 ++++++++++++++++++
->  .../drm/amd/amdgpu/gfx_v11_0_cleaner_shader.h |  56 +++++++++
->  3 files changed, 192 insertions(+)
->  create mode 100644 drivers/gpu/drm/amd/amdgpu/gfx_v11_0_3_cleaner_shader=
-.asm
->  create mode 100644 drivers/gpu/drm/amd/amdgpu/gfx_v11_0_cleaner_shader.h
+>  Documentation/gpu/amdgpu/thermal.rst          |  6 ++
+>  .../gpu/drm/amd/include/kgd_pp_interface.h    |  2 +
+>  drivers/gpu/drm/amd/pm/amdgpu_pm.c            | 65 +++++++++++++++++++
+>  drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h       |  2 +
+>  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     |  2 +
+>  drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h  |  1 +  .../drm/amd/pm/sws=
+mu/smu13/smu_v13_0_0_ppt.c  | 55 +++++++++++++++-  .../drm/amd/pm/swsmu/smu=
+13/smu_v13_0_7_ppt.c  | 55 +++++++++++++++-
+>  8 files changed, 186 insertions(+), 2 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd=
-/amdgpu/gfx_v11_0.c
-> index 5aff8f72de9c..ce05b7161e9c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> @@ -46,6 +46,7 @@
->  #include "clearstate_gfx11.h"
->  #include "v11_structs.h"
->  #include "gfx_v11_0.h"
-> +#include "gfx_v11_0_cleaner_shader.h"
->  #include "gfx_v11_0_3.h"
->  #include "nbio_v4_3.h"
->  #include "mes_v11_0.h"
-> @@ -1545,6 +1546,7 @@ static int gfx_v11_0_sw_init(struct amdgpu_ip_block=
- *ip_block)
->         int i, j, k, r, ring_id =3D 0;
->         int xcc_id =3D 0;
->         struct amdgpu_device *adev =3D ip_block->adev;
-> +       u32 mes_ver =3D adev->mes.sched_version & AMDGPU_MES_VERSION_MASK=
-;
+> diff --git a/Documentation/gpu/amdgpu/thermal.rst b/Documentation/gpu/amd=
+gpu/thermal.rst
+> index ec6c1f1d5..1768a106a 100644
+> --- a/Documentation/gpu/amdgpu/thermal.rst
+> +++ b/Documentation/gpu/amdgpu/thermal.rst
+> @@ -106,6 +106,12 @@ fan_zero_rpm_enable  .. kernel-doc:: drivers/gpu/drm=
+/amd/pm/amdgpu_pm.c
+>     :doc: fan_zero_rpm_enable
 >
->         switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
->         case IP_VERSION(11, 0, 0):
-> @@ -1588,8 +1590,24 @@ static int gfx_v11_0_sw_init(struct amdgpu_ip_bloc=
-k *ip_block)
+> +fan_zero_rpm_stop_temperature
+> +-----------------------------
+> +
+> +.. kernel-doc:: drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> +   :doc: fan_zero_rpm_stop_temperature
+> +
+>  GFXOFF
+>  =3D=3D=3D=3D=3D=3D
+>
+> diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu=
+/drm/amd/include/kgd_pp_interface.h
+> index 80e4b5a7d..bb27c0d2a 100644
+> --- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+> +++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+> @@ -120,6 +120,7 @@ enum pp_clock_type {
+>         OD_FAN_TARGET_TEMPERATURE,
+>         OD_FAN_MINIMUM_PWM,
+>         OD_FAN_ZERO_RPM_ENABLE,
+> +       OD_FAN_ZERO_RPM_STOP_TEMP,
+>  };
+>
+>  enum amd_pp_sensors {
+> @@ -201,6 +202,7 @@ enum PP_OD_DPM_TABLE_COMMAND {
+>         PP_OD_EDIT_FAN_TARGET_TEMPERATURE,
+>         PP_OD_EDIT_FAN_MINIMUM_PWM,
+>         PP_OD_EDIT_FAN_ZERO_RPM_ENABLE,
+> +       PP_OD_EDIT_FAN_ZERO_RPM_STOP_TEMP,
+>  };
+>
+>  struct pp_states_info {
+> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/=
+amdgpu_pm.c
+> index cb96f1f8c..136e81938 100644
+> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+> @@ -4163,6 +4163,63 @@ static umode_t fan_zero_rpm_enable_visible(struct =
+amdgpu_device *adev)
+>         return umode;
+>  }
+>
+> +/**
+> + * DOC: fan_zero_rpm_stop_temperature
+> + *
+> + * The amdgpu driver provides a sysfs API for checking and adjusting
+> +the
+> + * zero RPM stop temperature feature.
+> + *
+> + * Reading back the file shows you the current setting and the
+> +permitted
+> + * ranges if changable.
+> + *
+> + * Writing an integer to the file, change the setting accordingly.
+> + *
+> + * When you have finished the editing, write "c" (commit) to the file
+> +to commit
+> + * your changes.
+> + *
+> + * If you want to reset to the default value, write "r" (reset) to the
+> +file to
+> + * reset them.
+> + *
+> + * This setting works only if the Zero RPM setting is enabled. It
+> +adjusts the
+> + * temperature below which the fan can stop.
+> + */
+> +static ssize_t fan_zero_rpm_stop_temp_show(struct kobject *kobj,
+> +                                          struct kobj_attribute *attr,
+> +                                          char *buf) {
+> +       struct od_kobj *container =3D container_of(kobj, struct od_kobj, =
+kobj);
+> +       struct amdgpu_device *adev =3D (struct amdgpu_device
+> +*)container->priv;
+> +
+> +       return (ssize_t)amdgpu_retrieve_od_settings(adev,
+> +OD_FAN_ZERO_RPM_STOP_TEMP, buf); }
+> +
+> +static ssize_t fan_zero_rpm_stop_temp_store(struct kobject *kobj,
+> +                                           struct kobj_attribute *attr,
+> +                                           const char *buf,
+> +                                           size_t count) {
+> +       struct od_kobj *container =3D container_of(kobj, struct od_kobj, =
+kobj);
+> +       struct amdgpu_device *adev =3D (struct amdgpu_device
+> +*)container->priv;
+> +
+> +       return (ssize_t)amdgpu_distribute_custom_od_settings(adev,
+> +                                                            PP_OD_EDIT_F=
+AN_ZERO_RPM_STOP_TEMP,
+> +                                                            buf,
+> +                                                            count); }
+> +
+> +static umode_t fan_zero_rpm_stop_temp_visible(struct amdgpu_device
+> +*adev) {
+> +       umode_t umode =3D 0000;
+> +
+> +       if (adev->pm.od_feature_mask & OD_OPS_SUPPORT_FAN_ZERO_RPM_STOP_T=
+EMP_RETRIEVE)
+> +               umode |=3D S_IRUSR | S_IRGRP | S_IROTH;
+> +
+> +       if (adev->pm.od_feature_mask & OD_OPS_SUPPORT_FAN_ZERO_RPM_STOP_T=
+EMP_SET)
+> +               umode |=3D S_IWUSR;
+> +
+> +       return umode;
+> +}
+> +
+>  static struct od_feature_set amdgpu_od_set =3D {
+>         .containers =3D {
+>                 [0] =3D {
+> @@ -4216,6 +4273,14 @@ static struct od_feature_set amdgpu_od_set =3D {
+>                                                 .store =3D fan_zero_rpm_e=
+nable_store,
+>                                         },
+>                                 },
+> +                               [6] =3D {
+> +                                       .name =3D "fan_zero_rpm_stop_temp=
+erature",
+> +                                       .ops =3D {
+> +                                               .is_visible =3D fan_zero_=
+rpm_stop_temp_visible,
+> +                                               .show =3D fan_zero_rpm_st=
+op_temp_show,
+> +                                               .store =3D fan_zero_rpm_s=
+top_temp_store,
+> +                                       },
+> +                               },
+>                         },
+>                 },
+>         },
+> diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h b/drivers/gpu/drm/am=
+d/pm/inc/amdgpu_dpm.h
+> index b5daa12c0..363af8990 100644
+> --- a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+> +++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
+> @@ -330,6 +330,8 @@ struct config_table_setting
+>  #define OD_OPS_SUPPORT_FAN_MINIMUM_PWM_SET             BIT(9)
+>  #define OD_OPS_SUPPORT_FAN_ZERO_RPM_ENABLE_RETRIEVE    BIT(10)
+>  #define OD_OPS_SUPPORT_FAN_ZERO_RPM_ENABLE_SET         BIT(11)
+> +#define OD_OPS_SUPPORT_FAN_ZERO_RPM_STOP_TEMP_RETRIEVE BIT(12)
+> +#define OD_OPS_SUPPORT_FAN_ZERO_RPM_STOP_TEMP_SET      BIT(13)
+>
+>  struct amdgpu_pm {
+>         struct mutex            mutex;
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/=
+amd/pm/swsmu/amdgpu_smu.c
+> index 8d3f3e735..8148933cc 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> @@ -2876,6 +2876,8 @@ static enum smu_clk_type smu_convert_to_smuclk(enum=
+ pp_clock_type type)
+>                 clk_type =3D SMU_OD_FAN_MINIMUM_PWM; break;
+>         case OD_FAN_ZERO_RPM_ENABLE:
+>                 clk_type =3D SMU_OD_FAN_ZERO_RPM_ENABLE; break;
+> +       case OD_FAN_ZERO_RPM_STOP_TEMP:
+> +               clk_type =3D SMU_OD_FAN_ZERO_RPM_STOP_TEMP; break;
+>         default:
+>                 clk_type =3D SMU_CLK_COUNT; break;
 >         }
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h b/drivers/gpu/d=
+rm/amd/pm/swsmu/inc/smu_types.h
+> index e0abb449a..a299dc4a8 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
+> @@ -314,6 +314,7 @@ enum smu_clk_type {
+>         SMU_OD_FAN_TARGET_TEMPERATURE,
+>         SMU_OD_FAN_MINIMUM_PWM,
+>         SMU_OD_FAN_ZERO_RPM_ENABLE,
+> +       SMU_OD_FAN_ZERO_RPM_STOP_TEMP,
+>         SMU_CLK_COUNT,
+>  };
 >
->         switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
-> +       case IP_VERSION(11, 0, 3):
-> +               adev->gfx.cleaner_shader_ptr =3D gfx_11_0_3_cleaner_shade=
-r_hex;
-> +               adev->gfx.cleaner_shader_size =3D sizeof(gfx_11_0_3_clean=
-er_shader_hex);
-> +               if (adev->gfx.mec_fw_version >=3D 2450 &&
-> +                   adev->gfx.me_fw_version  >=3D 2280 &&
-> +                   adev->gfx.pfp_fw_version >=3D 2370 &&
-> +                   mes_ver >=3D 99) {
-> +                       adev->gfx.enable_cleaner_shader =3D true;
-> +                       r =3D amdgpu_gfx_cleaner_shader_sw_init(adev, ade=
-v->gfx.cleaner_shader_size);
-> +                       if (r) {
-> +                               adev->gfx.enable_cleaner_shader =3D false=
-;
-> +                               dev_err(adev->dev, "Failed to initialize =
-cleaner shader\n");
-> +                       }
-> +               }
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drive=
+rs/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+> index 0d9a4638e..93cc82fe2 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+> @@ -108,6 +108,7 @@
+>  #define PP_OD_FEATURE_FAN_TARGET_TEMPERATURE           9
+>  #define PP_OD_FEATURE_FAN_MINIMUM_PWM                  10
+>  #define PP_OD_FEATURE_FAN_ZERO_RPM_ENABLE              11
+> +#define PP_OD_FEATURE_FAN_ZERO_RPM_STOP_TEMP           12
+>
+>  #define LINK_SPEED_MAX                                 3
+>
+> @@ -1135,6 +1136,10 @@ static void smu_v13_0_0_get_od_setting_limits(stru=
+ct smu_context *smu,
+>                 od_min_setting =3D overdrive_lowerlimits->FanZeroRpmEnabl=
+e;
+>                 od_max_setting =3D overdrive_upperlimits->FanZeroRpmEnabl=
+e;
+>                 break;
+> +       case PP_OD_FEATURE_FAN_ZERO_RPM_STOP_TEMP:
+> +               od_min_setting =3D overdrive_lowerlimits->FanZeroRpmStopT=
+emp;
+> +               od_max_setting =3D overdrive_upperlimits->FanZeroRpmStopT=
+emp;
 > +               break;
 >         default:
->                 adev->gfx.enable_cleaner_shader =3D false;
+>                 od_min_setting =3D od_max_setting =3D INT_MAX;
+>                 break;
+> @@ -1473,6 +1478,24 @@ static int smu_v13_0_0_print_clk_levels(struct smu=
+_context *smu,
+>                                       min_value, max_value);
+>                 break;
+>
+> +       case SMU_OD_FAN_ZERO_RPM_STOP_TEMP:
+> +               if (!smu_v13_0_0_is_od_feature_supported(smu,
+> +                                                        PP_OD_FEATURE_ZE=
+RO_FAN_BIT))
+> +                       break;
+> +
+> +               size +=3D sysfs_emit_at(buf, size, "FAN_ZERO_RPM_STOP_TEM=
+PERATURE:\n");
+> +               size +=3D sysfs_emit_at(buf, size, "%d\n",
+> +
+> + (int)od_table->OverDriveTable.FanZeroRpmStopTemp);
+> +
+> +               size +=3D sysfs_emit_at(buf, size, "%s:\n", "OD_RANGE");
+> +               smu_v13_0_0_get_od_setting_limits(smu,
+> +                                                 PP_OD_FEATURE_FAN_ZERO_=
+RPM_STOP_TEMP,
+> +                                                 &min_value,
+> +                                                 &max_value);
+> +               size +=3D sysfs_emit_at(buf, size, "ZERO_RPM_STOP_TEMPERA=
+TURE: %u %u\n",
+> +                                     min_value, max_value);
 > +               break;
+> +
+>         case SMU_OD_RANGE:
+>                 if (!smu_v13_0_0_is_od_feature_supported(smu, PP_OD_FEATU=
+RE_GFXCLK_BIT) &&
+>                     !smu_v13_0_0_is_od_feature_supported(smu, PP_OD_FEATU=
+RE_UCLK_BIT) && @@ -1575,6 +1598,11 @@ static int smu_v13_0_0_od_restore_ta=
+ble_single(struct smu_context *smu, long inp
+>                                         boot_overdrive_table->OverDriveTa=
+ble.FanZeroRpmEnable;
+>                 od_table->OverDriveTable.FeatureCtrlMask |=3D BIT(PP_OD_F=
+EATURE_ZERO_FAN_BIT);
+>                 break;
+> +       case PP_OD_EDIT_FAN_ZERO_RPM_STOP_TEMP:
+> +               od_table->OverDriveTable.FanZeroRpmStopTemp =3D
+> +                                       boot_overdrive_table->OverDriveTa=
+ble.FanZeroRpmStopTemp;
+> +               od_table->OverDriveTable.FeatureCtrlMask |=3D BIT(PP_OD_F=
+EATURE_ZERO_FAN_BIT);
+> +               break;
+>         default:
+>                 dev_info(adev->dev, "Invalid table index: %ld\n", input);
+>                 return -EINVAL;
+> @@ -1889,6 +1917,27 @@ static int smu_v13_0_0_od_edit_dpm_table(struct sm=
+u_context *smu,
+>                 od_table->OverDriveTable.FeatureCtrlMask |=3D BIT(PP_OD_F=
+EATURE_ZERO_FAN_BIT);
+>                 break;
+>
+> +       case PP_OD_EDIT_FAN_ZERO_RPM_STOP_TEMP:
+> +               if (!smu_v13_0_0_is_od_feature_supported(smu, PP_OD_FEATU=
+RE_ZERO_FAN_BIT)) {
+> +                       dev_warn(adev->dev, "Zero RPM setting not support=
+ed!\n");
+> +                       return -ENOTSUPP;
+> +               }
+> +
+> +               smu_v13_0_0_get_od_setting_limits(smu,
+> +                                                 PP_OD_FEATURE_FAN_ZERO_=
+RPM_STOP_TEMP,
+> +                                                 &minimum,
+> +                                                 &maximum);
+> +               if (input[0] < minimum ||
+> +                   input[0] > maximum) {
+> +                       dev_info(adev->dev, "zero RPM stop temperature se=
+tting(%ld) must be within [%d, %d]!\n",
+> +                                input[0], minimum, maximum);
+> +                       return -EINVAL;
+> +               }
+> +
+> +               od_table->OverDriveTable.FanZeroRpmStopTemp =3D input[0];
+> +               od_table->OverDriveTable.FeatureCtrlMask |=3D BIT(PP_OD_F=
+EATURE_ZERO_FAN_BIT);
+> +               break;
+> +
+>         case PP_OD_RESTORE_DEFAULT_TABLE:
+>                 if (size =3D=3D 1) {
+>                         ret =3D smu_v13_0_0_od_restore_table_single(smu, =
+input[0]); @@ -2161,7 +2210,9 @@ static void smu_v13_0_0_set_supported_od_f=
+eature_mask(struct smu_context *smu)
+>                                             OD_OPS_SUPPORT_FAN_MINIMUM_PW=
+M_RETRIEVE |
+>                                             OD_OPS_SUPPORT_FAN_MINIMUM_PW=
+M_SET |
+>                                             OD_OPS_SUPPORT_FAN_ZERO_RPM_E=
+NABLE_RETRIEVE |
+> -                                           OD_OPS_SUPPORT_FAN_ZERO_RPM_E=
+NABLE_SET;
+> +                                           OD_OPS_SUPPORT_FAN_ZERO_RPM_E=
+NABLE_SET |
+> +                                           OD_OPS_SUPPORT_FAN_ZERO_RPM_S=
+TOP_TEMP_RETRIEVE |
+> +
+> + OD_OPS_SUPPORT_FAN_ZERO_RPM_STOP_TEMP_SET;
+>  }
+>
+>  static int smu_v13_0_0_set_default_od_settings(struct smu_context *smu) =
+@@ -2229,6 +2280,8 @@ static int smu_v13_0_0_set_default_od_settings(struct=
+ smu_context *smu)
+>                         user_od_table_bak.OverDriveTable.FanMinimumPwm;
+>                 user_od_table->OverDriveTable.FanZeroRpmEnable =3D
+>                         user_od_table_bak.OverDriveTable.FanZeroRpmEnable=
+;
+> +               user_od_table->OverDriveTable.FanZeroRpmStopTemp =3D
+> +
+> + user_od_table_bak.OverDriveTable.FanZeroRpmStopTemp;
 >         }
 >
->         /* Enable CG flag in one VF mode for enabling RLC safe mode enter=
-/exit */
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0_3_cleaner_shader.asm b/=
-drivers/gpu/drm/amd/amdgpu/gfx_v11_0_3_cleaner_shader.asm
-> new file mode 100644
-> index 000000000000..3c0c63a07d97
-> --- /dev/null
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0_3_cleaner_shader.asm
-> @@ -0,0 +1,118 @@
-> +/* SPDX-License-Identifier: MIT */
-> +/*
-> + * Copyright 2024 Advanced Micro Devices, Inc.
-> + *
-> + * Permission is hereby granted, free of charge, to any person obtaining=
- a
-> + * copy of this software and associated documentation files (the "Softwa=
-re"),
-> + * to deal in the Software without restriction, including without limita=
-tion
-> + * the rights to use, copy, modify, merge, publish, distribute, sublicen=
-se,
-> + * and/or sell copies of the Software, and to permit persons to whom the
-> + * Software is furnished to do so, subject to the following conditions:
-> + *
-> + * The above copyright notice and this permission notice shall be includ=
-ed in
-> + * all copies or substantial portions of the Software.
-> + *
-> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRE=
-SS OR
-> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILI=
-TY,
-> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SH=
-ALL
-> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES=
- OR
-> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-> + * OTHER DEALINGS IN THE SOFTWARE.
-> + */
+>         smu_v13_0_0_set_supported_od_feature_mask(smu);
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drive=
+rs/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> index 6b61655f9..0b3c53324 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+> @@ -84,6 +84,7 @@
+>  #define PP_OD_FEATURE_FAN_TARGET_TEMPERATURE           9
+>  #define PP_OD_FEATURE_FAN_MINIMUM_PWM                  10
+>  #define PP_OD_FEATURE_FAN_ZERO_RPM_ENABLE              11
+> +#define PP_OD_FEATURE_FAN_ZERO_RPM_STOP_TEMP           12
+>
+>  #define LINK_SPEED_MAX                                 3
+>
+> @@ -1124,6 +1125,10 @@ static void smu_v13_0_7_get_od_setting_limits(stru=
+ct smu_context *smu,
+>                 od_min_setting =3D overdrive_lowerlimits->FanZeroRpmEnabl=
+e;
+>                 od_max_setting =3D overdrive_upperlimits->FanZeroRpmEnabl=
+e;
+>                 break;
+> +       case PP_OD_FEATURE_FAN_ZERO_RPM_STOP_TEMP:
+> +               od_min_setting =3D overdrive_lowerlimits->FanZeroRpmStopT=
+emp;
+> +               od_max_setting =3D overdrive_upperlimits->FanZeroRpmStopT=
+emp;
+> +               break;
+>         default:
+>                 od_min_setting =3D od_max_setting =3D INT_MAX;
+>                 break;
+> @@ -1462,6 +1467,24 @@ static int smu_v13_0_7_print_clk_levels(struct smu=
+_context *smu,
+>                                       min_value, max_value);
+>                 break;
+>
+> +       case SMU_OD_FAN_ZERO_RPM_STOP_TEMP:
+> +               if (!smu_v13_0_7_is_od_feature_supported(smu,
+> +                                                        PP_OD_FEATURE_ZE=
+RO_FAN_BIT))
+> +                       break;
 > +
-> +// This shader is to clean LDS, SGPRs and VGPRs. It is  first 64 Dwords =
-or 256 bytes of 192 Dwords cleaner shader.
-> +//To turn this shader program on for complitaion change this to main and=
- lower shader main to main_1
+> +               size +=3D sysfs_emit_at(buf, size, "FAN_ZERO_RPM_STOP_TEM=
+PERATURE:\n");
+> +               size +=3D sysfs_emit_at(buf, size, "%d\n",
 > +
-> +// Navi3 : Clear SGPRs, VGPRs and LDS
-> +//   Launch 32 waves per CU (16 per SIMD) as a workgroup (threadgroup) t=
-o fill every wave slot
-> +//   Waves are "wave32" and have 64 VGPRs each, which uses all 1024 VGPR=
-s per SIMD
-> +//   Waves are launched in "CU" mode, and the workgroup shares 64KB of L=
-DS (half of the WGP's LDS)
-> +//      It takes 2 workgroups to use all of LDS: one on each CU of the W=
-GP
-> +//   Each wave clears SGPRs 0 - 107
-> +//   Each wave clears VGPRs 0 - 63
-> +//   The first wave of the workgroup clears its 64KB of LDS
-> +//   The shader starts with "S_BARRIER" to ensure SPI has launched all w=
-aves of the workgroup
-> +//       before any wave in the workgroup could end.  Without this, it i=
-s possible not all SGPRs get cleared.
+> + (int)od_table->OverDriveTable.FanZeroRpmStopTemp);
 > +
-> +shader main
-> +  asic(NAVI31)
-> +  type(CS)
-> +  wave_size(32)
-> +// Note: original source code from Brian (SQ team)
+> +               size +=3D sysfs_emit_at(buf, size, "%s:\n", "OD_RANGE");
+> +               smu_v13_0_7_get_od_setting_limits(smu,
+> +                                                 PP_OD_FEATURE_FAN_ZERO_=
+RPM_STOP_TEMP,
+> +                                                 &min_value,
+> +                                                 &max_value);
+> +               size +=3D sysfs_emit_at(buf, size, "ZERO_RPM_STOP_TEMPERA=
+TURE: %u %u\n",
+> +                                     min_value, max_value);
+> +               break;
 > +
-> +// Takes about 2500 clocks to run.
-> +//   (theorhetical fastest =3D 1024clks vgpr + 640lds =3D 1660 clks)
-> +//
-> +  S_BARRIER
+>         case SMU_OD_RANGE:
+>                 if (!smu_v13_0_7_is_od_feature_supported(smu, PP_OD_FEATU=
+RE_GFXCLK_BIT) &&
+>                     !smu_v13_0_7_is_od_feature_supported(smu, PP_OD_FEATU=
+RE_UCLK_BIT) && @@ -1563,6 +1586,11 @@ static int smu_v13_0_7_od_restore_ta=
+ble_single(struct smu_context *smu, long inp
+>                                         boot_overdrive_table->OverDriveTa=
+ble.FanZeroRpmEnable;
+>                 od_table->OverDriveTable.FeatureCtrlMask |=3D BIT(PP_OD_F=
+EATURE_ZERO_FAN_BIT);
+>                 break;
+> +       case PP_OD_EDIT_FAN_ZERO_RPM_STOP_TEMP:
+> +               od_table->OverDriveTable.FanZeroRpmStopTemp =3D
+> +                                       boot_overdrive_table->OverDriveTa=
+ble.FanZeroRpmStopTemp;
+> +               od_table->OverDriveTable.FeatureCtrlMask |=3D BIT(PP_OD_F=
+EATURE_ZERO_FAN_BIT);
+> +               break;
+>         default:
+>                 dev_info(adev->dev, "Invalid table index: %ld\n", input);
+>                 return -EINVAL;
+> @@ -1877,6 +1905,27 @@ static int smu_v13_0_7_od_edit_dpm_table(struct sm=
+u_context *smu,
+>                 od_table->OverDriveTable.FeatureCtrlMask |=3D BIT(PP_OD_F=
+EATURE_ZERO_FAN_BIT);
+>                 break;
+>
+> +       case PP_OD_EDIT_FAN_ZERO_RPM_STOP_TEMP:
+> +               if (!smu_v13_0_7_is_od_feature_supported(smu, PP_OD_FEATU=
+RE_ZERO_FAN_BIT)) {
+> +                       dev_warn(adev->dev, "Zero RPM setting not support=
+ed!\n");
+> +                       return -ENOTSUPP;
+> +               }
 > +
-> +  //
-> +  // CLEAR VGPRs
-> +  //
-> +  s_mov_b32     m0, 0x00000058  // Loop 96/8=3D12 times  (loop unrolled =
-for performance)
+> +               smu_v13_0_7_get_od_setting_limits(smu,
+> +                                                 PP_OD_FEATURE_FAN_ZERO_=
+RPM_STOP_TEMP,
+> +                                                 &minimum,
+> +                                                 &maximum);
+> +               if (input[0] < minimum ||
+> +                   input[0] > maximum) {
+> +                       dev_info(adev->dev, "zero RPM stop temperature se=
+tting(%ld) must be within [%d, %d]!\n",
+> +                                input[0], minimum, maximum);
+> +                       return -EINVAL;
+> +               }
 > +
-> +label_0005:
-> +  v_movreld_b32     v0, 0
-> +  v_movreld_b32     v1, 0
-> +  v_movreld_b32     v2, 0
-> +  v_movreld_b32     v3, 0
-> +  v_movreld_b32     v4, 0
-> +  v_movreld_b32     v5, 0
-> +  v_movreld_b32     v6, 0
-> +  v_movreld_b32     v7, 0
-> +  s_sub_u32     m0, m0, 8
-> +  s_cbranch_scc0  label_0005
-> +  //
-> +  //
+> +               od_table->OverDriveTable.FanZeroRpmStopTemp =3D input[0];
+> +               od_table->OverDriveTable.FeatureCtrlMask |=3D BIT(PP_OD_F=
+EATURE_ZERO_FAN_BIT);
+> +               break;
 > +
-> +  s_mov_b32     s2, 0x80000000                      // Bit31 is first_wa=
-ve
-> +  s_and_b32     s2, s2, s0                          // sgpr0 has tg_size=
- (first_wave) term as in ucode only COMPUTE_PGM_RSRC2.tg_size_en is set
-> +  s_cbranch_scc0  label_0023                        // Clean LDS if its =
-first wave of ThreadGroup/WorkGroup
-> +  // CLEAR LDS
-> +  //
-> +  s_mov_b32 exec_lo, 0xffffffff
-> +  s_mov_b32 exec_hi, 0xffffffff
-> +  v_mbcnt_lo_u32_b32  v1, exec_hi, 0          // Set V1 to thread-ID (0.=
-.63)
-> +  v_mbcnt_hi_u32_b32  v1, exec_lo, v1        // Set V1 to thread-ID (0..=
-63)
-> +  v_mul_u32_u24  v1, 0x00000008, v1          // * 8, so each thread is a=
- double-dword address (8byte)
-> +  s_mov_b32     s2, 0x00000003f                    // 64 loop iterations
-> +  s_mov_b32     m0, 0xffffffff
-> +  // Clear all of LDS space
-> +  // Each FirstWave of WorkGroup clears 64kbyte block
+>         case PP_OD_RESTORE_DEFAULT_TABLE:
+>                 if (size =3D=3D 1) {
+>                         ret =3D smu_v13_0_7_od_restore_table_single(smu, =
+input[0]); @@ -2145,7 +2194,9 @@ static void smu_v13_0_7_set_supported_od_f=
+eature_mask(struct smu_context *smu)
+>                                             OD_OPS_SUPPORT_FAN_MINIMUM_PW=
+M_RETRIEVE |
+>                                             OD_OPS_SUPPORT_FAN_MINIMUM_PW=
+M_SET |
+>                                             OD_OPS_SUPPORT_FAN_ZERO_RPM_E=
+NABLE_RETRIEVE |
+> -                                           OD_OPS_SUPPORT_FAN_ZERO_RPM_E=
+NABLE_SET;
+> +                                           OD_OPS_SUPPORT_FAN_ZERO_RPM_E=
+NABLE_SET |
+> +                                           OD_OPS_SUPPORT_FAN_ZERO_RPM_S=
+TOP_TEMP_RETRIEVE |
 > +
-> +label_001F:
-> +  ds_write2_b64  v1, v[2:3], v[2:3] offset1:32
-> +  ds_write2_b64  v1, v[4:5], v[4:5] offset0:64 offset1:96
-> +  v_add_co_u32     v1, vcc, 0x00000400, v1
-> +  s_sub_u32     s2, s2, 1
-> +  s_cbranch_scc0  label_001F
-> +  //
-> +  // CLEAR SGPRs
-> +  //
-> +label_0023:
-> +  s_mov_b32     m0, 0x00000068  // Loop 108/4=3D27 times  (loop unrolled=
- for performance)
-> +label_sgpr_loop:
-> +  s_movreld_b32     s0, 0
-> +  s_movreld_b32     s1, 0
-> +  s_movreld_b32     s2, 0
-> +  s_movreld_b32     s3, 0
-> +  s_sub_u32         m0, m0, 4
-> +  s_cbranch_scc0  label_sgpr_loop
+> + OD_OPS_SUPPORT_FAN_ZERO_RPM_STOP_TEMP_SET;
+>  }
+>
+>  static int smu_v13_0_7_set_default_od_settings(struct smu_context *smu) =
+@@ -2213,6 +2264,8 @@ static int smu_v13_0_7_set_default_od_settings(struct=
+ smu_context *smu)
+>                         user_od_table_bak.OverDriveTable.FanMinimumPwm;
+>                 user_od_table->OverDriveTable.FanZeroRpmEnable =3D
+>                         user_od_table_bak.OverDriveTable.FanZeroRpmEnable=
+;
+> +               user_od_table->OverDriveTable.FanZeroRpmStopTemp =3D
 > +
-> +  //clear vcc
-> +  s_mov_b64 vcc, 0          //clear vcc
-> +  s_mov_b32 flat_scratch_lo, 0   //clear  flat scratch lo SGPR
-> +  s_mov_b32 flat_scratch_hi, 0   //clear  flat scratch hi SGPR
-> +  s_mov_b64 ttmp0, 0        //Clear ttmp0 and ttmp1
-> +  s_mov_b64 ttmp2, 0        //Clear ttmp2 and ttmp3
-> +  s_mov_b64 ttmp4, 0        //Clear ttmp4 and ttmp5
-> +  s_mov_b64 ttmp6, 0        //Clear ttmp6 and ttmp7
-> +  s_mov_b64 ttmp8, 0        //Clear ttmp8 and ttmp9
-> +  s_mov_b64 ttmp10, 0       //Clear ttmp10 and ttmp11
-> +  s_mov_b64 ttmp12, 0       //Clear ttmp12 and ttmp13
-> +  s_mov_b64 ttmp14, 0       //Clear ttmp14 and ttmp15
-> +
-> + s_endpgm
-> +
-> +end
-> +
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0_cleaner_shader.h b/driv=
-ers/gpu/drm/amd/amdgpu/gfx_v11_0_cleaner_shader.h
-> new file mode 100644
-> index 000000000000..3218cc04f543
-> --- /dev/null
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0_cleaner_shader.h
-> @@ -0,0 +1,56 @@
-> +/* SPDX-License-Identifier: MIT */
-> +/*
-> + * Copyright 2024 Advanced Micro Devices, Inc.
-> + *
-> + * Permission is hereby granted, free of charge, to any person obtaining=
- a
-> + * copy of this software and associated documentation files (the "Softwa=
-re"),
-> + * to deal in the Software without restriction, including without limita=
-tion
-> + * the rights to use, copy, modify, merge, publish, distribute, sublicen=
-se,
-> + * and/or sell copies of the Software, and to permit persons to whom the
-> + * Software is furnished to do so, subject to the following conditions:
-> + *
-> + * The above copyright notice and this permission notice shall be includ=
-ed in
-> + * all copies or substantial portions of the Software.
-> + *
-> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRE=
-SS OR
-> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILI=
-TY,
-> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SH=
-ALL
-> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES=
- OR
-> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-> + * OTHER DEALINGS IN THE SOFTWARE.
-> + */
-> +
-> +/* Define the cleaner shader gfx_11_0_3 */
-> +static const u32 gfx_11_0_3_cleaner_shader_hex[] =3D {
-> +       0xb0804006, 0xbe8200ff,
-> +       0x00000058, 0xbefd0080,
-> +       0x7e008480, 0x7e028480,
-> +       0x7e048480, 0x7e068480,
-> +       0x7e088480, 0x7e0a8480,
-> +       0x7e0c8480, 0x7e0e8480,
-> +       0xbefd0002, 0x80828802,
-> +       0xbfa1fff5, 0xbe8200ff,
-> +       0x80000000, 0x8b020002,
-> +       0xbfa10012, 0xbefe00c1,
-> +       0xbeff00c1, 0xd71f0001,
-> +       0x0001007f, 0xd7200001,
-> +       0x0002027e, 0x16020288,
-> +       0xbe8200bf, 0xbefd00c1,
-> +       0xd9382000, 0x00020201,
-> +       0xd9386040, 0x00040401,
-> +       0xd7006a01, 0x000202ff,
-> +       0x00000400, 0x80828102,
-> +       0xbfa1fff7, 0xbefd00ff,
-> +       0x00000068, 0xbe804280,
-> +       0xbe814280, 0xbe824280,
-> +       0xbe834280, 0x80fd847d,
-> +       0xbfa1fffa, 0xbeea0180,
-> +       0xbeec0180, 0xbeee0180,
-> +       0xbef00180, 0xbef20180,
-> +       0xbef40180, 0xbef60180,
-> +       0xbef80180, 0xbefa0180,
-> +       0xbfb00000, 0xbf9f0000,
-> +       0xbf9f0000, 0xbf9f0000,
-> +       0xbf9f0000, 0xbf9f0000,
-> +};
+> + user_od_table_bak.OverDriveTable.FanZeroRpmStopTemp;
+>         }
+>
+>         smu_v13_0_7_set_supported_od_feature_mask(smu);
 > --
-> 2.34.1
+> 2.47.0
 >
