@@ -4,65 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD273E674B7
-	for <amd-gfx@archiver.kernel.org>; Fri,  1 Nov 2024 08:22:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A9B4E674B8
+	for <amd-gfx@archiver.kernel.org>; Fri,  1 Nov 2024 08:22:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 140E610E2E5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D38EC10E955;
 	Fri,  1 Nov 2024 08:22:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="TYA1py48";
+	dkim=pass (2048-bit key; unprotected) header.d=mandelbit.com header.i=@mandelbit.com header.b="Muy8WJb0";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E98710E0DA;
- Fri,  1 Nov 2024 04:26:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1730435191; x=1761971191;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=A3wKe3vZsb4UAI0dOJDEu+i/OkVbVgIBrvRNSN14jCI=;
- b=TYA1py48BD3m0eTq4KrGuEG/xE6Pha/g7oqSDd6prYT/9qZrVnirssET
- pbyXzRQoclRNl5N3/s0lVhJyUbhUWn+AgAxwY1M1kWT9RGcE6sAIqnUNh
- mPfRlI/dFac+umfdo+Cd4GEAgbiss5tCDJxkHlzqVHb/VzpU09YuDZFgO
- cXO0kmjTndMNEoaXusKZF4FqI/em5m5itx5v6/Hiiap/yt15Dv3QKQRB6
- SarOPP3lxtU46+Zv8wrZoHSCqi2QM3F5Ikjk8DqzMKcO+PB2/oDvSV6M/
- RMmm4lB7f4pV/lre6pd2zPRXCYMIzfcd17LNlB8wl1WQ6Fs1wPhE6Abv4 w==;
-X-CSE-ConnectionGUID: ibCYHqehRTCGz+tB3QtvSQ==
-X-CSE-MsgGUID: Vyk5YYWkRfiE/W2niP2GCQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11242"; a="29629818"
-X-IronPort-AV: E=Sophos;i="6.11,248,1725346800"; d="scan'208";a="29629818"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Oct 2024 21:26:30 -0700
-X-CSE-ConnectionGUID: 3T8d51nERz6fewvjDUjdcQ==
-X-CSE-MsgGUID: 7SZ5WX47SVWwWLifO++rDQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,248,1725346800"; d="scan'208";a="87667835"
-Received: from black.fi.intel.com ([10.237.72.28])
- by orviesa005.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Oct 2024 21:26:25 -0700
-Date: Fri, 1 Nov 2024 06:26:21 +0200
-From: Raag Jadav <raag.jadav@intel.com>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Cc: airlied@gmail.com, simona@ffwll.ch, lucas.demarchi@intel.com,
- rodrigo.vivi@intel.com, jani.nikula@linux.intel.com,
- andriy.shevchenko@linux.intel.com, lina@asahilina.net,
- michal.wajdeczko@intel.com, intel-xe@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- himal.prasad.ghimiray@intel.com, aravind.iddamsetty@linux.intel.com,
- anshuman.gupta@intel.com, alexander.deucher@amd.com,
- andrealmeid@igalia.com, amd-gfx@lists.freedesktop.org,
- kernel-dev@igalia.com
-Subject: Re: [PATCH v8 2/4] drm/doc: Document device wedged event
-Message-ID: <ZyRYbSm2ki7yUTTz@black.fi.intel.com>
-References: <20241025084817.144621-1-raag.jadav@intel.com>
- <20241025084817.144621-3-raag.jadav@intel.com>
- <69b81f6d-203b-451e-935b-085216dfebd1@amd.com>
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 60C4710E929
+ for <amd-gfx@lists.freedesktop.org>; Thu, 31 Oct 2024 20:50:19 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-43167ff0f91so12192175e9.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 31 Oct 2024 13:50:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=mandelbit.com; s=google; t=1730407817; x=1731012617;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=bw5E/KRCdHkbAWHdLK4V3a1ff0D3uJNNEH7nWj1aLMU=;
+ b=Muy8WJb0fHTV3RCoQtSSWvIXiQqF9fvZmv/hmAZ2UBM4GK0moO9hpizHYh5/BVhDgp
+ d4XAPS4uZhm8STnaJ3fneVO3lkabWuHOEWP9tFHo0KDkoNWSH/CZooNp4EwNvfOz79Z3
+ je/RpHW2Ct8cmrYxR2tIHYJDrqzi6amI9wguBnSQ9Q3U9U5tcgH9FXx0ZXBzgaKBTMUv
+ J/kRqC2rmTHrWLblFXrbOyKNdIWKee1JOEbO3dCkCX+dRFitf1vb4qNZCt9zugxev1RB
+ ckuF4IXo7cSbah7UIofnPiicYhz1RWlBaPyF9p4dtt9r5MaT2PlhItKD47S7Sad34Ygg
+ iu3g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1730407817; x=1731012617;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=bw5E/KRCdHkbAWHdLK4V3a1ff0D3uJNNEH7nWj1aLMU=;
+ b=XdhvtWlRHieB/wNfq0xTfKev5VXutggSIidCLLZXsqBLUvMF5c0JWhYbjpMPDVpzBO
+ Y5PftmS65EbDEtiU7NtByCDzgBsGR4bjU/YvT63lSNBnxiNvhMsT9q4EPBPV1Pl4mOVG
+ yQN9Ff7DmyeHGQVt4XZXBfxc3br/Xn24+gmv0UsfBcxhnFz5r22YzIbBSYAulNaMbyQH
+ wXRoc115Ws7XROa1vgC9hrBkiYMe1CEVMdW5gaTn1oJuXQEiedeOwqRRnte24jaH/2hp
+ TCmB6UIMQgQYm361NJ7YAfQUd+vXOs2B/LdoNRBIj5tJEDz9VyntPXnvrOb5YJ+d/EQd
+ 9bDg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXUc02FfT77Mg3Ua0FsU8Bqz4f5+FadS5AvLbSxBpwnLvmbG5xh8CeIyuGeb3KoJyXEodaxfA9F@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy6X6igf2ywi2W4lgYsgQWPrqs6rYHItOFMkyXdBoD9/3JKTXEO
+ U+oLJYilXeTpiR/2ZMuMlupLKLhonX3y2VIpWkek2Kf4jmk0zce/xvYsOJoM5WE=
+X-Google-Smtp-Source: AGHT+IFJf4Ul+62BnxQ2eJNGCbrmvPuv0OuD2YyiaLm8VqwUGEtl+XHwm3TI3xThkWHpVZs762iwJw==
+X-Received: by 2002:a05:600c:1396:b0:430:582f:3a9d with SMTP id
+ 5b1f17b1804b1-4327b80d1a9mr45198245e9.26.1730407817378; 
+ Thu, 31 Oct 2024 13:50:17 -0700 (PDT)
+Received: from ?IPV6:2001:67c:2fbc:1:56a2:399b:490:2ad?
+ ([2001:67c:2fbc:1:56a2:399b:490:2ad])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4327d5ac387sm39945825e9.1.2024.10.31.13.50.16
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 31 Oct 2024 13:50:16 -0700 (PDT)
+Message-ID: <34c84c6a-9b0d-4d04-9ce3-edf1bb850b2c@mandelbit.com>
+Date: Thu, 31 Oct 2024 21:50:34 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] amdgpu: prevent NULL pointer dereference if ATIF is
+ not supported
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Xinhui.Pan@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20241031152848.4716-1-antonio@mandelbit.com>
+ <00e9b1f0-7bc1-418c-8e67-e8f1893be665@amd.com>
+Content-Language: en-US
+From: Antonio Quartulli <antonio@mandelbit.com>
+Autocrypt: addr=antonio@mandelbit.com; keydata=
+ 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
+Organization: Mandelbit SRL
+In-Reply-To: <00e9b1f0-7bc1-418c-8e67-e8f1893be665@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <69b81f6d-203b-451e-935b-085216dfebd1@amd.com>
 X-Mailman-Approved-At: Fri, 01 Nov 2024 08:22:15 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -78,148 +131,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Oct 29, 2024 at 10:51:34AM +0100, Christian K�nig wrote:
-> Am 25.10.24 um 10:48 schrieb Raag Jadav:
-> > Add documentation for device wedged event in a new 'Device wedging'
-> > chapter. The describes basic definitions and consumer expectations
-> > along with an example.
-> > 
-> > v8: Improve documentation (Christian, Rodrigo)
-> > 
-> > Signed-off-by: Raag Jadav <raag.jadav@intel.com>
-> > ---
-> >   Documentation/gpu/drm-uapi.rst | 75 ++++++++++++++++++++++++++++++++++
-> >   1 file changed, 75 insertions(+)
-> > 
-> > diff --git a/Documentation/gpu/drm-uapi.rst b/Documentation/gpu/drm-uapi.rst
-> > index 370d820be248..11a7446233b5 100644
-> > --- a/Documentation/gpu/drm-uapi.rst
-> > +++ b/Documentation/gpu/drm-uapi.rst
-> > @@ -362,6 +362,81 @@ the first place. DRM devices should make use of devcoredump to store relevant
-> >   information about the reset, so this information can be added to user bug
-> >   reports.
-> > +Device wedging
-> > +==============
-> > +
-> > +Drivers can optionally make use of device wedged event (implemented as
-> > +drm_dev_wedged_event() in DRM subsystem) which notifies userspace of wedged
-> > +(hanged/unusable) state of the DRM device through a uevent. This is useful
-> > +especially in cases where the device is no longer operating as expected even
-> > +after a reset and has become unrecoverable from driver context. Purpose of
-> > +this implementation is to provide drivers a generic way to recover with the
-> > +help of userspace intervention without taking any drastic measures in the
-> > +driver.
-> > +
-> > +A 'wedged' device is basically a dead device that needs attention. The
-> > +uevent is the notification that is sent to userspace along with a hint about
-> > +what could possibly be attempted to recover the device and bring it back to
-> > +usable state. Different drivers may have different ideas of a 'wedged' device
-> > +depending on their hardware implementation, and hence the vendor agnostic
-> > +nature of the event. It is up to the drivers to decide when they see the need
-> > +for recovery and how they want to recover from the available methods.
-> > +
-> > +Recovery
-> > +--------
-> > +
-> > +Current implementation defines two recovery methods, out of which, drivers
-> > +can use any one, both or none. Method(s) of choice will be sent in the uevent
-> > +environment as ``WEDGED=<method1>[,<method2>]`` in order of less to more side
-> > +effects. If driver is unsure about recovery or method is unknown (like reboot,
-> > +firmware flashing, hardware replacement or any other procedure which can't be
-> > +attempted on the fly), ``WEDGED=none`` will be sent instead.
-> > +
-> > +It is the responsibility of the driver to perform required cleanups (like
-> > +disabling system memory access or signalling dma_fences) and prepare itself
-> > +for the recovery before sending the event.
+On 31/10/2024 20:37, Mario Limonciello wrote:
+> On 10/31/2024 10:28, Antonio Quartulli wrote:
+>> acpi_evaluate_object() may return AE_NOT_FOUND (failure), which
+>> would result in dereferencing buffer.pointer (obj) while being NULL.
+>>
+>> Although this case may be unrealistic for the current code, it is
+>> still better to protect against possible bugs.
+>>
+>> Bail out also when status is AE_NOT_FOUND.
+>>
+>> This fixes 1 FORWARD_NULL issue reported by Coverity
+>> Report: CID 1600951:  Null pointer dereferences  (FORWARD_NULL)
+>>
+>> Signed-off-by: Antonio Quartulli <antonio@mandelbit.com>
 > 
-> That needs to be more like a warning and should have a bit more text. Maybe
-> even a separate section.
+> Can you please dig up the right Fixes: tag?
+
+Fixes: c9b7c809b89f ("drm/amd: Guard against bad data for ATIF ACPI method")
+
+Your commit :)
+
+Should I send v3 with the Fixes tag in it?
+
+Interestingly, this pattern of checking for AE_NOT_FOUND is shared by 
+other functions, however, they don't try to dereference the pointer to 
+the buffer before the return statement (which caused the Coverity report).
+It's the caller that checks if the return value is NULL or not.
+
+For this function it was the same, until you added this extra check on 
+obj->type, without checking if obj was NULL or not.
+
+If we want to keep the original pattern and continue checking for 
+AE_NOT_FOUND, we could rather do:
+
+-       if (obj->type != ACPI_TYPE_BUFFER) {
++       if (obj && obj->type != ACPI_TYPE_BUFFER) {
+
+But this feel more like "bike shed color picking" than anything else :)
+Anyway, up to you Mario, I am open to change the patch again if the 
+latter pattern is more preferable.
+
+Regards,
+
 > 
-> Something like this maybe:
+> Besides that, LGTM.
 > 
-> Prerequisites
-> ------------------
+> Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
 > 
-> Drivers needs to make sure that the device won't harm the system as a
-> whole by keeping it in a wedged state. Necessary actions must include
-> disabling DMA to system memory as well as communication channels
-> with other devices.
-> Further drivers must ensure that all dma_fences are signaled and other
-> state the core kernel might depend on are cleaned up.
-> All ongoing waiting for hardware state changes must be aborted and
-> new accesses to the hardware sufficiently blocked....
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 4 ++--
+>>   1 file changed, 2 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/ 
+>> drm/amd/amdgpu/amdgpu_acpi.c
+>> index cce85389427f..b8d4e07d2043 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+>> @@ -172,8 +172,8 @@ static union acpi_object *amdgpu_atif_call(struct 
+>> amdgpu_atif *atif,
+>>                         &buffer);
+>>       obj = (union acpi_object *)buffer.pointer;
+>> -    /* Fail if calling the method fails and ATIF is supported */
+>> -    if (ACPI_FAILURE(status) && status != AE_NOT_FOUND) {
+>> +    /* Fail if calling the method fails */
+>> +    if (ACPI_FAILURE(status)) {
+>>           DRM_DEBUG_DRIVER("failed to evaluate ATIF got %s\n",
+>>                    acpi_format_exception(status));
+>>           kfree(obj);
 > 
-> 
-> I'm not a native speaker of English, so feel free to re-phrase that. But the
 
-Neither am I, but will try my best.
+-- 
+Antonio Quartulli
 
-> general approach should be like don't do this before you have made sure a, b
-> and c.
+CEO and Co-Founder
+Mandelbit Srl
+https://www.mandelbit.com
 
-Sure, thanks.
-
-> >   Once the event is sent, driver
-> > +should block all IOCTLs with an error code.
-> 
-> Better define which error code that should be. I think -ENODEV similar to a
-> hotplug case would be appropriate.
-
-Why not leave it to the drivers to decide depending on the type of failure?
-
-> >   This will signify the reason for
-> > +wegeding which can be reported to the application if needed.
-> > +
-> > +Userspace consumers can parse this event and attempt recovery as per below
-> > +expectations.
-> > +
-> > +    =============== ==================================
-> > +    Recovery method Consumer expectations
-> > +    =============== ==================================
-> > +    rebind          unbind + rebind driver
-> > +    bus-reset       unbind + reset bus device + rebind
-> > +    none            admin/user policy
-> > +    =============== ==================================
-> > +
-> > +Example for rebind
-> > +~~~~~~~~~~~~~~~~~~
-> > +
-> > +Udev rule::
-> > +
-> > +    SUBSYSTEM=="drm", ENV{WEDGED}=="rebind", DEVPATH=="*/drm/card[0-9]",
-> > +    RUN+="/path/to/rebind.sh $env{DEVPATH}"
-> > +
-> > +Recovery script::
-> > +
-> > +    #!/bin/sh
-> > +
-> > +    DEVPATH=$(readlink -f /sys/$1/device)
-> > +    DEVICE=$(basename $DEVPATH)
-> > +    DRIVER=$(readlink -f $DEVPATH/driver)
-> > +
-> > +    echo -n $DEVICE > $DRIVER/unbind
-> > +    sleep 1
-> > +    echo -n $DEVICE > $DRIVER/bind
-> > +
-> > +Although scripts are simple enough for basic recovery, admin/users can define
-> > +customized policies around recovery action. For example if the driver supports
-> > +multiple recovery methods, consumers can opt for the suitable one based on
-> > +policy definition. Consumers can also take additional steps like gathering
-> > +telemetry information (devcoredump, syslog)
-> 
-> I'm really wondering if we shouldn't standardize successful resets with this
-> event as well?
-> 
-> E.g. like there was an issue with device X, please collect the devcoredump.
-
-This seems to fit into WEDGED=none case, although with this we'd probably
-need to redefine what 'wedged' means.
-
-> And then as a second step have the WEDGED property to indicate:
-> a) reset successful, no actions needed.
-> b) detach and rebind from the bus
-> c) bus-reset
-> d) impossible to recover but system as a whole can continue to work.
-> e) it's on fire! Run sync and shut down power immediately.
-
-Raag
