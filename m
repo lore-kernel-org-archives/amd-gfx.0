@@ -4,119 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1130FD767E3
-	for <amd-gfx@archiver.kernel.org>; Thu, 31 Oct 2024 16:36:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FF1CD767F4
+	for <amd-gfx@archiver.kernel.org>; Thu, 31 Oct 2024 18:04:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B490310E8EC;
-	Thu, 31 Oct 2024 16:36:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4038B10E8FB;
+	Thu, 31 Oct 2024 18:04:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=mandelbit.com header.i=@mandelbit.com header.b="DuRetwFq";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="eivMrG1p";
 	dkim-atps=neutral
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com
- [209.85.218.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5455C10E18E
- for <amd-gfx@lists.freedesktop.org>; Thu, 31 Oct 2024 15:19:32 +0000 (UTC)
-Received: by mail-ej1-f49.google.com with SMTP id
- a640c23a62f3a-a9a0f198d38so156044866b.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 31 Oct 2024 08:19:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mandelbit.com; s=google; t=1730387970; x=1730992770;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:organization:autocrypt:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=mgnaPObgXLgN2E455qoQLSZ5ElbBWRdbERqFbsOvC+w=;
- b=DuRetwFqlshcnkOhlt75yNZtIBUOo+iyT9LmajxPwJdovTwCsG5X2t4+HZCdf6yYdo
- gzjW40J8AwUtaslXBQvBnJ4Z2grqJ8UcPLo9qxPXhi7nqmHbiUur7cEoWO/pP0fquBQx
- xAtLhA741RvduzHusRiSW3NiFRXY5L0nSOPMdX58GNmyDLaefPo2i5OvvPm7OKqEQDmf
- 374cHDP7DIma4Sql7po1q/Y7anZCHzqsGW0EsYXt8wEXoTfTSOaAJd5xXIgfMdq9+4iu
- lt+ZW/2FtDdGmJzLkSK+v8PQQOVQ8tuDjDiENDkc98fG37416sWV7IFJQdgos8qqg1zh
- kLAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1730387970; x=1730992770;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=mgnaPObgXLgN2E455qoQLSZ5ElbBWRdbERqFbsOvC+w=;
- b=L/UPT3RB31Skt7QKBhpu1beJWvz0XPv6E2CN+OLwQz9LothdRylFJb7YOlqGcH+6uQ
- hHy8M1b+Yc0kGxpM23GtcNERGmdHlDrgv2nlwu6pnfBFn3YYdIZrJneLMRAHVuoita7t
- tFyFXOsv3RHtRTL6s9MVn7hWiNfEoyQJZVFvqIyl234nSUb1uC98BmqOQWOBZF6c8zAY
- Bs2bPLzpN6MZDciEBasdJFguThFNyXOixBHnL87kNu/ggiNTGKbmqD3ZHHlcyGZ+9CuP
- aPJyqnE7YUPCeZfF0MPumYGRI39SD8KLOOxepwkQFHaXJql4zHxbhRC0qdh7Yv1ecqw9
- z1ew==
-X-Gm-Message-State: AOJu0Yx7iL4mWfl7gnjU/HVCryxqmKzto1xAJcyVR5F3AeUyAcTfliRu
- 5FRvj8GjVzc3iwPHtz8McTvUIWZlVR9W42FipVbQHu3Dc/olEv85vFXpH37E/s4=
-X-Google-Smtp-Source: AGHT+IHs+fdh+lYjpaz8dVqUw3i8RZiu7IxDzmoOQCXutx6iwQcVpq2BQ1F0dVebD2XjaTAtfX7E2w==
-X-Received: by 2002:a17:907:724e:b0:a9a:11f5:8cd9 with SMTP id
- a640c23a62f3a-a9e657fd8d3mr34024766b.56.1730387970446; 
- Thu, 31 Oct 2024 08:19:30 -0700 (PDT)
-Received: from ?IPV6:2001:67c:2fbc:1:634e:2582:d0aa:ee79?
- ([2001:67c:2fbc:1:634e:2582:d0aa:ee79])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-a9e564942bdsm80136966b.15.2024.10.31.08.19.29
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 31 Oct 2024 08:19:30 -0700 (PDT)
-Message-ID: <f7c08e09-1259-46dc-8493-ab41a058013d@mandelbit.com>
-Date: Thu, 31 Oct 2024 16:19:46 +0100
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2081.outbound.protection.outlook.com [40.107.237.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7BA1510E8FC
+ for <amd-gfx@lists.freedesktop.org>; Thu, 31 Oct 2024 18:04:49 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=D6snh1etc/EB2XBO2Ub+wZeOVqAnHkmnqpoop+8E5LmWM51ovCcqPCMlDuCmM/tPgWRbgGPqbJDcXLcJWqLp/cWryocrGDGMUTAJYZ1XLP6pTkKLw7NrqjxHhc7GuEKaiw3wdlbf7IAHoXCFtky3760xS0oAm/+YylYmmgokdnOzEyWGWNQJkTxM9IkkZjtNjlBNfyGWqwJPeQXLqCZWAKxX4pTw/HrNQD+35khwtsvIPeLDNIBB5ZNxaOH6U5WQSZctZFdoHdNWOZ+UkONuHiMirDuFT7uRtIxuwwNrYCvg0lpcGmmD7ZyP4kjOXHv4FzHyqLnOHlrpxiLZwrZ3Zg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CBK6ITz7CC338utvZqChmlQTi3dwf/vx+OMLMSiIoYM=;
+ b=gLdZbB8CKAeIIDf0WmLIV026adCRIAwjET+SvBfok1BMQ82qVdLJOkbCzeWNAIr+RHjsY87uSeY/eR+kINyuP0bmYMzUrWLOD0XxbgFRiutcc76ptJZ2FKDJ/r/2KG2mV4WSoX/bZeM8hYREvVGgkZUkH0rcNyqQc8ehkCIfUjXBZ4C0oITxJTfftSHxx3heyq+z0kdpGjBXS0TnVu50avvBU/QPJvOUgJwrjesNVQ8HZnyHXupi54d52zv74XrH7Iy+bxo5AcLRWhjFp20PBG77cp453TIPdxmoSJcO8yUQFwGYxm2ZIPSkwC/ZEmUEt1vsUTE0hzbTY0Bie28wlA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CBK6ITz7CC338utvZqChmlQTi3dwf/vx+OMLMSiIoYM=;
+ b=eivMrG1pExByi8KCpaik64WRotz08YzxBc5syZ8FmyQXSKydCl3EfTlGVN1mhnUZGjS/IjnUZYeSXkXRmmwV5bfHmwOEuHPr7M8sK6ogjPPBsYF5njpbvPbyXa8+PQJX5bMG5SsFB6ZfleS6B/oD81EgEWNrhqo+BbIaXswfYsg=
+Received: from MW4PR03CA0175.namprd03.prod.outlook.com (2603:10b6:303:8d::30)
+ by BY5PR12MB4260.namprd12.prod.outlook.com (2603:10b6:a03:206::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.20; Thu, 31 Oct
+ 2024 18:04:46 +0000
+Received: from SJ1PEPF0000231C.namprd03.prod.outlook.com
+ (2603:10b6:303:8d:cafe::eb) by MW4PR03CA0175.outlook.office365.com
+ (2603:10b6:303:8d::30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8093.26 via Frontend
+ Transport; Thu, 31 Oct 2024 18:04:46 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SJ1PEPF0000231C.mail.protection.outlook.com (10.167.242.233) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8114.16 via Frontend Transport; Thu, 31 Oct 2024 18:04:45 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 31 Oct
+ 2024 13:04:44 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <yaolu@kylinos.cn>, <jfalempe@redhat.com>, Alex Deucher
+ <alexander.deucher@amd.com>
+Subject: [PATCH V2 0/4] Add panic support for all DCE/DCN
+Date: Thu, 31 Oct 2024 14:04:26 -0400
+Message-ID: <20241031180430.3993389-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.47.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] amdgpu: prevent NULL pointer dereference if ATIF is not
- supported
-To: Mario Limonciello <mario.limonciello@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com,
- christian.koenig@amd.com, Xinhui.Pan@amd.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20241029233232.27692-1-antonio@mandelbit.com>
- <08add1ec-ceae-4f74-83b0-72d0df510950@amd.com>
- <77ba52f4-dcdc-4fdd-97b7-0163e54e8836@mandelbit.com>
- <32298ecd-7b7c-4e19-8481-f35249d6e076@amd.com>
-Content-Language: en-US
-From: Antonio Quartulli <antonio@mandelbit.com>
-Autocrypt: addr=antonio@mandelbit.com; keydata=
- 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
-Organization: Mandelbit SRL
-In-Reply-To: <32298ecd-7b7c-4e19-8481-f35249d6e076@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 31 Oct 2024 16:36:25 +0000
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF0000231C:EE_|BY5PR12MB4260:EE_
+X-MS-Office365-Filtering-Correlation-Id: ac5a61ae-02a6-49d1-3865-08dcf9d680cf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|82310400026|36860700013|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?b9aLUAHlO60U40F7k6c9sL307LgNZ7XVJXEPFnlTxpcNTOm6/UmLhKqtILF9?=
+ =?us-ascii?Q?BXm/tGSLRhqiMMvJw53pfYckTf/d/msSMX54w6iVdPvXDorh+yzylMENfYFZ?=
+ =?us-ascii?Q?ylWJeSKFgh6HIhFr/4IjADzEeCOS8rmWoXh1LbErdX6w5NfW8ZRsCKOjqvUW?=
+ =?us-ascii?Q?wRy28yeN2QuaFcnXMfvKLoV/XgUbz6BGX2l9MMQHPX5lG1Qk4O5ThWditiAF?=
+ =?us-ascii?Q?8Lbx0hFhGr25tjAHDgVFxh7hhKgNP0Z1GBOYCTcg8kbGXAGyAJOXi6jukkQ2?=
+ =?us-ascii?Q?Jv8Wt40TsomTTpMKPPZbIrjvEORt5nVyc6ezJxA0eEZdBufFy+F3onU6nhQo?=
+ =?us-ascii?Q?ZfSmrR1MZ2lKq6+A92BDM7hF6KuQ8tJAri7kCKPn9sChxIy1neR+T2GUoCWU?=
+ =?us-ascii?Q?nEU1/aTO5L69DskIIsLGmFaxfunejgX16UBkqSdHJJTgGeZVZlGmvqnM5RH2?=
+ =?us-ascii?Q?1NwUAQ7/sVyFs//2CczpEogO6BoHPSe4aoQKWqjXHWXEFJs63jgsOGMrGiCb?=
+ =?us-ascii?Q?6D1mJRnfgvY25k8NnnIchkc+IvzeCn7AypWsoec5g5kGnpSqLudADgBYQ4i6?=
+ =?us-ascii?Q?KgoH8yZIO7uy8oomoK3cGL5+s/nW2WohN2t38LCco+R1VOHJh88OgmHhMOwX?=
+ =?us-ascii?Q?M2OjxLAII7W819CL6qUI/7oN/oL4O+qT6HOvhLRIwp0ULYUiX3Vfu5e2KUGf?=
+ =?us-ascii?Q?5JRMJaB0BE2m/GsVLHt4YUpV3MRimapDSuzcowjyxIOGQqLRziEDxUpaJdO7?=
+ =?us-ascii?Q?7Ztgz9Z/DX7/CFJHP6Wx0elb7Y2KC4kEzYfSYjGzfJXXw7wykt5MfDFgnt+d?=
+ =?us-ascii?Q?o5AgNe/jVIAKUOa0GjjYFjhbHE5+u+vbTPZep57xrxI8qmCVIjhQ/XsKSBcQ?=
+ =?us-ascii?Q?m3xObr5u81dK+zZszU9i6TlxUE4czdjs2GrwIj9X4Lc6XddIVvO4qhNJGpfT?=
+ =?us-ascii?Q?naqc1Ipsz0pc+RL3UYMhpeePWPMHTTFgqonJQqoelQx6oCS0qKO41RpaZEci?=
+ =?us-ascii?Q?oKtK2mCYxA/bQtTsDQpBYWOZ8ugFWMMordbGtyQULN86BTa3UJnItoXKveju?=
+ =?us-ascii?Q?bNp29wmLX04qveQfIusAWt8DfhX2aZPmP7ha/8ExKO56vRPsESw+c6SDcNbH?=
+ =?us-ascii?Q?iXLtXGaxQWr/xp8vw13Nt69KyPP9ztEx/UgnMnf8xAq+FoeILu3uTmM1YkoH?=
+ =?us-ascii?Q?MRb/ANASW1Wpl+JfV6R3y2/Ce7DBiw0VE9P+z5mqwUyCRC3u5wDl6eUGgrc0?=
+ =?us-ascii?Q?d3BP9Kjxols1ywQR/k/XRxX6Lpn6mXub1+/hhhQiqXhLcSgNQE3jH38fmTkG?=
+ =?us-ascii?Q?gdRmbW4zBfp2sC3/4qfZfRuxvK9tyKWrsOvslcX0KstcrPb8ts+QPvzsom3N?=
+ =?us-ascii?Q?4iVkuGLq7WTI8AmmxB5SGdtQrOrAGAvK8l6RpJ5A9UOfkPyXvA=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Oct 2024 18:04:45.7586 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ac5a61ae-02a6-49d1-3865-08dcf9d680cf
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF0000231C.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4260
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,106 +129,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 31/10/2024 15:41, Mario Limonciello wrote:
-> On 10/30/2024 16:06, Antonio Quartulli wrote:
->> Hi Mario,
->>
->> On 30/10/2024 02:41, Mario Limonciello wrote:
->>> On 10/29/2024 18:32, Antonio Quartulli wrote:
->>>> acpi_evaluate_object() may return AE_NOT_FOUND (failure), which
->>>> would result in dereferencing buffer.pointer (obj) while being NULL.
->>>>
->>>> Bail out also when status is AE_NOT_FOUND with a proper error message.
->>>>
->>>> This fixes 1 FORWARD_NULL issue reported by Coverity
->>>> Report: CID 1600951:  Null pointer dereferences  (FORWARD_NULL)
->>>>
->>>> Signed-off-by: Antonio Quartulli <antonio@mandelbit.com>
->>>
->>> I'm not really sure how realistic this failure is.  Can you share the 
->>> full call trace that Coverity identified?
->>
->> I just checked Coverity Scan and it only says:
->>
->>      5. Condition status, taking true branch.
->>      6. Condition status != 5U /* (acpi_status)(5 | 0) */, taking 
->> false branch.
->>
->> The above points are related to:
->>
->>      if (ACPI_FAILURE(status) && status != AE_NOT_FOUND)
->>
->> It doesn't show how acpi_evaluate_object() is expected to return 
->> AE_NOT_FOUND.
->>
->> This said, if you think this case is unrealistic, why do you check for 
->> "status != AE_NOT_FOUND" at all?
->>
->> At this point maybe it would make more sense to simply drop this check 
->> and always bail out with the current error message.
->>
->> Basically a patch with the following only:
->>
->> -       /* Fail if calling the method fails and ATIF is supported */
->> -       if (ACPI_FAILURE(status) && status != AE_NOT_FOUND) {
->> +       /* Fail if calling the method fails */
->> +       if (ACPI_FAILURE(status)) {
->>
->> This way we don't make a fuzz for a possibly unrealistic case, while 
->> still protecting against bugs and null-dereferences.
-> 
-> Yeah I think that's a good idea.  Can you respin it as a v2?
+This builds on the patches from Lu and Jocelyn to fill in
+panic support for all DCE/DCN variants and code pathes.
 
-Will do!
-Thanks for your feedback, Mario.
+v2: refactor to provide cleaner history and share more
+code to provide a more consistent experience across
+DC and non-DC.
 
-Regards,
+Alex Deucher (3):
+  drm/amd/display: add clear_tiling hubp callbacks
+  drm/amd/display: add clear_tiling mi callbacks
+  drm/amd/display: add non-DC drm_panic support
 
-> 
->>
->>
->> Regards,
->>
->>>
->>> amdgpu_atif_pci_probe_handle() will check whether the handle is 
->>> available in the first place.  We'll never this this far if that failed.
->>>
->>> Because of that I don't follow how this could return AE_NOT_FOUND.
->>>> ---
->>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 11 +++++++----
->>>>   1 file changed, 7 insertions(+), 4 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/ 
->>>> drm/amd/amdgpu/amdgpu_acpi.c
->>>> index cce85389427f..f10c3261a4ab 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
->>>> @@ -172,10 +172,13 @@ static union acpi_object 
->>>> *amdgpu_atif_call(struct amdgpu_atif *atif,
->>>>                         &buffer);
->>>>       obj = (union acpi_object *)buffer.pointer;
->>>> -    /* Fail if calling the method fails and ATIF is supported */
->>>> -    if (ACPI_FAILURE(status) && status != AE_NOT_FOUND) {
->>>> -        DRM_DEBUG_DRIVER("failed to evaluate ATIF got %s\n",
->>>> -                 acpi_format_exception(status));
->>>> +    /* Fail if calling the method fails */
->>>> +    if (ACPI_FAILURE(status)) {
->>>> +        if (status != AE_NOT_FOUND)
->>>> +            DRM_DEBUG_DRIVER("failed to evaluate ATIF got %s\n",
->>>> +                     acpi_format_exception(status));
->>>> +        else
->>>> +            DRM_DEBUG_DRIVER("ATIF not supported\n");
->>>>           kfree(obj);
->>>>           return NULL;
->>>>       }
->>>
->>
-> 
+Jocelyn Falempe (1):
+  drm/amd/display: add DC drm_panic support
+
+ drivers/gpu/drm/amd/amdgpu/dce_v10_0.c        |  27 +++++
+ drivers/gpu/drm/amd/amdgpu/dce_v11_0.c        |  27 +++++
+ drivers/gpu/drm/amd/amdgpu/dce_v6_0.c         |  27 +++++
+ drivers/gpu/drm/amd/amdgpu/dce_v8_0.c         |  26 +++++
+ .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 103 +++++++++++++++++-
+ .../drm/amd/display/dc/dce/dce_mem_input.c    |  34 +++++-
+ .../amd/display/dc/hubp/dcn10/dcn10_hubp.c    |  15 +++
+ .../amd/display/dc/hubp/dcn10/dcn10_hubp.h    |   2 +
+ .../amd/display/dc/hubp/dcn20/dcn20_hubp.c    |  15 +++
+ .../amd/display/dc/hubp/dcn20/dcn20_hubp.h    |   2 +
+ .../amd/display/dc/hubp/dcn201/dcn201_hubp.c  |   1 +
+ .../amd/display/dc/hubp/dcn21/dcn21_hubp.c    |   1 +
+ .../amd/display/dc/hubp/dcn30/dcn30_hubp.c    |  17 +++
+ .../amd/display/dc/hubp/dcn30/dcn30_hubp.h    |   2 +
+ .../amd/display/dc/hubp/dcn31/dcn31_hubp.c    |   1 +
+ .../amd/display/dc/hubp/dcn32/dcn32_hubp.c    |   3 +-
+ .../amd/display/dc/hubp/dcn35/dcn35_hubp.c    |   1 +
+ .../amd/display/dc/hubp/dcn401/dcn401_hubp.c  |  15 ++-
+ .../amd/display/dc/hubp/dcn401/dcn401_hubp.h  |   2 +
+ drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h  |   1 +
+ .../gpu/drm/amd/display/dc/inc/hw/mem_input.h |   2 +
+ 21 files changed, 316 insertions(+), 8 deletions(-)
 
 -- 
-Antonio Quartulli
-
-CEO and Co-Founder
-Mandelbit Srl
-https://www.mandelbit.com
+2.47.0
 
