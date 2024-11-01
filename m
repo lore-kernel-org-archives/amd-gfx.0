@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24515E6B27C
-	for <amd-gfx@archiver.kernel.org>; Fri,  1 Nov 2024 13:50:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FFE5E6B27E
+	for <amd-gfx@archiver.kernel.org>; Fri,  1 Nov 2024 13:50:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC82510E9CB;
-	Fri,  1 Nov 2024 13:50:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0CF7110E9CD;
+	Fri,  1 Nov 2024 13:50:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="XiVv8q0/";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="da61h52c";
 	dkim-atps=neutral
 Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2087.outbound.protection.outlook.com [40.107.243.87])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 25C9710E9CA
- for <amd-gfx@lists.freedesktop.org>; Fri,  1 Nov 2024 13:50:18 +0000 (UTC)
+ (mail-dm6nam12on2079.outbound.protection.outlook.com [40.107.243.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 741FA10E9CB
+ for <amd-gfx@lists.freedesktop.org>; Fri,  1 Nov 2024 13:50:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rV/gMUfVS5nRHYlcHIuOqMujasShQS7EpclTZawUx/i4nOm4sTdHvzTrSZI42KyhZFNcZbj2HOAiVbDYnUWZ3tUUb01hy6jSzRYLaJVY41oulIMXE//MjOrsZCI11oE2jxyQH1usCqFcU8wJz66SVvgzI5pZvycbgxYBDHnnbP4wEOsPbXzoqpk0saVhUj9GKqZGnTeXv+z3OUCPMgFtlywN6eleX3FJRvVBcxfgbv69LujlwWNYlpVGHo/cAoPMQYVmQaVJvUFWXMwbRHGJ9Yuyt6SLjdoTGztdo0D7EQD/POEjbqCnXadDXO/sdWj1dYt/EIHD7qfOR/8rcMf/2w==
+ b=oAt1sMrtGL74HgFDpkklESpK6A/PbrMHSUbY2NnWG0eza770z/9Fs4TUimjx+vJPPe/uddP4ivAIB80F5RQGX0vUT0xPEsQ2lpecxHCvVHZRx40WVT9caj+sUGVq2ccdxq+6UoCb6jYoflQ5Fo/jGqOSC56LpGXtBMh0qv3qYDkRvvQLeef/WqU4tAhhV+cOoAoiqme3pWNoQQm6YIQwf+wtkGAqhIG+P2DEZw/PjylBEO8C5tuEgHh2k4I0+TkGjzUCn5euFUMBD5IuP8lD8sLSAAhcSiDzDnEyJz0WUU6Uep8yND5Ok0lFqEb9FSJowwuw3cc0iRU1LcBSJw4wKg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=a4tae/wenp3LoAQaA6DM9AVMY5kd2DwitmtUzxmWXRo=;
- b=F53eI9uAC/Z8uvvFY8dUMbDE/2oFLcYdwYfQPfH08aMhMQSBsSL89BkTP1IIcxwvFrsA9VR3PG2AzTFZLkA9nnEDQJrmp3gmNe+HIgzw0L2Zen+61Ce8eASx0gHdxEqYQ0F1Zoy18WUgnHTG595OlG9LavGfTyIrqkmOophqJMCwtZygrBeKhIcazejMIUlcy/TE3zxs1fOqq8jw1+ljb+GeM6XKE/XfsSCP+AbapDIT7uHVUrG5oG6XcvY+Bt86PevirZivO26ENUinjYJjDlf5B8vuQA/HX7fmSJHeEhP/IfZ60YCYCwu/d37rpTyyfJ/FbGkm/VYjOG6pAQMBew==
+ bh=DlAgyIlnusZpAZidwMEY4gkn9SPw4SCLfv7EwUVxX9Q=;
+ b=gvz7tudSQYOvd2Xiw0xgYjsSdEVBYPTv/JRJkhpWxd3/8GGD8pgvBaDDmSeXDzAqf45Pq5pvZvVkE8vlkN9RNCok6B8Ylqk2BB+g/QpmTg41Dq9jeG7XjR0WpNCFy3jeMr2S5f0uRHelO1ew1wwTXVnHpQXM4+vBceZlBRBhoflWJSlTH0+zfhkMBWB90j1F92Q+1ut9I8g24HCzFtovD2Lgioq/2RL2bmwBPjRV8nfUx2wr5lhcIq33KWMPzYLq9COdaEkZHien+Pic1cV7f0q3oJkp55DW2+pu2ZeDPQq5AWuMMenNKBuB2KPaxsmZ2CX24EVj/1o9bW7BMwydVg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=a4tae/wenp3LoAQaA6DM9AVMY5kd2DwitmtUzxmWXRo=;
- b=XiVv8q0/1Rwpaj6FhH7z3LnqTu+e8tD0CJ6OwCAWqAKCBkJlz/m3xdGjIqy0gQBKF0qWMSbhHxei5uic1G53VYnB6GnH8yU+Q/h3ErxfA68BZ4Gq6kfsyLz6p1cQz3sYcJFIXXA8IhtZ+75K+oaVsjyLtMO+a/0Ex8ZnDxij4Vc=
-Received: from BN0PR02CA0006.namprd02.prod.outlook.com (2603:10b6:408:e4::11)
- by MN2PR12MB4269.namprd12.prod.outlook.com (2603:10b6:208:1d4::7)
+ bh=DlAgyIlnusZpAZidwMEY4gkn9SPw4SCLfv7EwUVxX9Q=;
+ b=da61h52cufCkQica+6XuRsfKfWz2LLLObLrAoppLbQKuNxnV8cvf3L5nMJqUBXbVS2mYfso0lZTzjxtF0eIvzo3aVKRajGFWyJB0wCMUEDi74BwfIhK9jn3Fl3gBwDT9jHjfBPZ6ZTUHbgeTcCBtzVpiutcPnp7DTL45h/2A/0M=
+Received: from BN0PR02CA0019.namprd02.prod.outlook.com (2603:10b6:408:e4::24)
+ by SN7PR12MB7298.namprd12.prod.outlook.com (2603:10b6:806:2ae::19)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.26; Fri, 1 Nov
- 2024 13:50:08 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.22; Fri, 1 Nov
+ 2024 13:50:16 +0000
 Received: from BN1PEPF0000468A.namprd05.prod.outlook.com
- (2603:10b6:408:e4:cafe::5f) by BN0PR02CA0006.outlook.office365.com
- (2603:10b6:408:e4::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.23 via Frontend
- Transport; Fri, 1 Nov 2024 13:50:08 +0000
+ (2603:10b6:408:e4:cafe::d9) by BN0PR02CA0019.outlook.office365.com
+ (2603:10b6:408:e4::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.25 via Frontend
+ Transport; Fri, 1 Nov 2024 13:50:16 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,11 +50,11 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BN1PEPF0000468A.mail.protection.outlook.com (10.167.243.135) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8114.16 via Frontend Transport; Fri, 1 Nov 2024 13:50:08 +0000
+ 15.20.8114.16 via Frontend Transport; Fri, 1 Nov 2024 13:50:16 +0000
 Received: from mkmmarleung05.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 1 Nov
- 2024 08:50:06 -0500
+ 2024 08:50:13 -0500
 From: Zaeem Mohamed <zaeem.mohamed@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -65,10 +65,9 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  <zaeem.mohamed@amd.com>, Solomon Chiu <solomon.chiu@amd.com>, Daniel Wheeler
  <daniel.wheeler@amd.com>, Ausef Yousof <Ausef.Yousof@amd.com>, Charlene Liu
  <charlene.liu@amd.com>
-Subject: [PATCH 03/17] Revert "drm/amd/display: Block UHBR Based On USB-C PD
- Cable ID"
-Date: Fri, 1 Nov 2024 09:49:26 -0400
-Message-ID: <20241101134940.1426653-4-zaeem.mohamed@amd.com>
+Subject: [PATCH 09/17] drm/amd/display: Remove hw w/a toggle if on DP2/HPO
+Date: Fri, 1 Nov 2024 09:49:32 -0400
+Message-ID: <20241101134940.1426653-10-zaeem.mohamed@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20241101134940.1426653-1-zaeem.mohamed@amd.com>
 References: <20241101134940.1426653-1-zaeem.mohamed@amd.com>
@@ -80,50 +79,50 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF0000468A:EE_|MN2PR12MB4269:EE_
-X-MS-Office365-Filtering-Correlation-Id: 855422d5-74f0-4d31-4f09-08dcfa7c192b
+X-MS-TrafficTypeDiagnostic: BN1PEPF0000468A:EE_|SN7PR12MB7298:EE_
+X-MS-Office365-Filtering-Correlation-Id: f185f1fc-1df6-40ce-1a4f-08dcfa7c1dc5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|30052699003|36860700013|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?+t76CtKRfHWakpNlcsKt8hDW17jkwNhalwi4ZZnhkAF69i4wXoUG7fELygDc?=
- =?us-ascii?Q?SDNqU+XJFTuMyRwVawP0S6DzpNqL6WlcWMlvYt/wRRC1+/8JCAnhki1f6f40?=
- =?us-ascii?Q?eQXqOSyYeZJfPVoK50pFnFt3foEcTPICZfnDG4FIvdvZxxqMluekmTRonGRg?=
- =?us-ascii?Q?aQUb7sHs/UHWQO4Mo2oQdqUs4SnIxUXnrNCfMCRQGvQjrjY+crT0anuke1h+?=
- =?us-ascii?Q?+r3JWXUfIppkCYImDp0ny+Bqpr/8X9YN+G7XDZG0W0AxZsf46XtGM230qC13?=
- =?us-ascii?Q?gs6X0UJcVpXoqQiXtuu31FKb4cEkzw0xAI2VWS2Jnlh1TcNV+Hu2KZX02XW8?=
- =?us-ascii?Q?G8ShkjlnV1xGzOm5iFPQOKKP+UpSUq/FOu7X7DqKVIz3Hr+RZvPamwKTcCoO?=
- =?us-ascii?Q?F0ccqMiL71vhjVST+RMtmew8Hn3IAxzthq7dVh1rxhBC0yALU3DgGEWToNsE?=
- =?us-ascii?Q?URrEv46odohyd89/GR31sxt/hs/LGlonWTU2DBK/knBZr4S62+XyGQ7L1/xz?=
- =?us-ascii?Q?QyTkWeAHjEB2ao1/KSIhILUj1fx6Kud7QBPaZQ3/COjRToGqSbegPK8gJk9W?=
- =?us-ascii?Q?/0QmWZ84K5LPJL/X/sKL9MupaNjpTmPr/GXzvqSkHEHVl/KE8aOb+aZuMByf?=
- =?us-ascii?Q?AW8vaCIU98xr8MEBglpK4FUo5eGohopK/rl75Ffn8TcdWkpCE8mJemehL2kr?=
- =?us-ascii?Q?9gXEnfPsHqkk6iVRgJ1MDhtjaOOVbMfmbo5Evh6Ww0zpjtd1pa4jJDqnCYlH?=
- =?us-ascii?Q?p08T4UPAW+dDnlNDN7/4zl9CUGr/l2gb0orsFJb4jlLjOqIM2C74WClq/d8i?=
- =?us-ascii?Q?Mna1vUV3R+1Ir2tNsrp7C6Gh01Xlx7m/wUiabP1UQyZ9dvmR5lEMFoX3hDZy?=
- =?us-ascii?Q?Mc5av4WWcBt5IcYxdwleSoCUxNgL++Ua8VLmcOHzs4UfYPbImswRmWZjEOzW?=
- =?us-ascii?Q?DuqtKgeaI0wHXoXWv+Kjt00YRrJ7+wfuc4QLpCLCk1zcPBztmbWS9KYUqPo3?=
- =?us-ascii?Q?opL6OI8JlhDWI0gApe+kFUX+cgsyp2je0oCAeK+Wi9Smu6y89Y5Yc6RQgb6x?=
- =?us-ascii?Q?HIQDrnh14K5Kd6IBMdseFtIDWYfbQtA8e4/a78dTqfYKeLME0yX71SqBuj1t?=
- =?us-ascii?Q?va9sgBjSyLupzDpz1JI0ei+8Pcb7jv21XqfK3v6lxJMPaUcqxjW2zlifG4Rb?=
- =?us-ascii?Q?8NyyJ6olEI/IID94qndWgTq5igwPrVWtryuUQZIRLxLx3Sjxt4YuBxZquhoV?=
- =?us-ascii?Q?YXi38H99xAUBt5+858aCqePSvnuCp8zpyELeDJkT3814mhBiICwjYYPe236x?=
- =?us-ascii?Q?7KpAom4X8eKJ1lw/KofuSn04ilDMPyPp+xgsifaPvObBAdAv5/afkGgNN0dL?=
- =?us-ascii?Q?HKqsmyJZNNaYlxGKasLiJm8YkBRDNUxeoYLEf0l0Rf0U3ljb7g=3D=3D?=
+ ARA:13230040|376014|1800799024|82310400026|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?61Se5R0PFBG9ZlqPlbYp0cOHB08fmlxsXGbV2530Ug1H1VVeTLAqQCSqSq4h?=
+ =?us-ascii?Q?3yZxwZU1GzOH2vZtnVaDpLNieaOWd915D4I+nTqPbJiZrDaReJ1nunWniCx3?=
+ =?us-ascii?Q?TeZ6oNX/7tAM/iudhAxhC8gyBXyJVCmiLX714aunanaC5rngVJKg9NdxAfXc?=
+ =?us-ascii?Q?U7nJht/0lXIXBjBF6i1T5oyxAvFNGr6VOsxaVvdKVFBof442uiGsy1jvIcpd?=
+ =?us-ascii?Q?lr1xBS6i187VKtqgqcf20/6bEbDYYxSLvlPOq6rZj7ThhBDvU9L+0Kd25fXN?=
+ =?us-ascii?Q?o9dFXnlAlERxSVgMins9OICEEokmjuKYZ0HFDk0kIaRYvWcCSQObgXprZ6Lq?=
+ =?us-ascii?Q?HrYs+Z4igdJwhj56yDvgFuLzm2tzH9jx54JtyhDHY0fcjPyLb1FjC0B+VFoi?=
+ =?us-ascii?Q?voK8B2Nxhif3Es+6cXmSF7eaXzEp+WHGFqFzCSBsJ4f9jnMYGjef3o0mPia4?=
+ =?us-ascii?Q?ktlAl5FUaNIR4eFh8+B/U+oD8EL0ZVnuuLOXdfmAbE1xE/zBrnXgRQE0/q2w?=
+ =?us-ascii?Q?V6I1x6Yo/VgDPcAFf4KgIoT2tV/ekNmemmZHylG1Wx37+wKGQRlFs0IFXiTR?=
+ =?us-ascii?Q?ZTTF8tr0v+tppEL5zz4qPLPJgvZTLuq87wsV/V9CveYIf3ugE028xrWYcVrb?=
+ =?us-ascii?Q?9oepDTz6CBd3oipAOisIfo6hnltXRrv1X4gFqFikhYb60lbJIHbPTPONxSQJ?=
+ =?us-ascii?Q?xok+ER10fTQNIMPrb1Yyh0Pedtndy/vFbp/xBEKkLMJNMfB9vv6oJPdCr4S3?=
+ =?us-ascii?Q?U+DMcKgncdekdlQhWgVYZFkqn9O9Rb4FiWS/fDOhPboXo/5udza9fT/zkM4Y?=
+ =?us-ascii?Q?iGt4uJNOshycXygubAa7NDVWDgvf+QXl23v3fn00YPJBNHKdNe3B0lqrFACt?=
+ =?us-ascii?Q?w+vlIxqj6wFNxUHrCWiWDajPG0QG9soSABwPDfRXoET9dqDVbBdOczsfauLw?=
+ =?us-ascii?Q?qTc7Jndg6ETTRjwvlG/nK/ComDKcC2jYTXgNcObaojsUet+HM5uX1yc8JPMu?=
+ =?us-ascii?Q?Og8zLiCY7xcDsXPGavsOnapYTdbrfpeKGVwl/mnU8whw4wncVPxb5LNVR/H5?=
+ =?us-ascii?Q?oYSDXCmru+hIuwnziz1oJQwGEjNgyiHIEY8X2n94VFhiifEMq/ZAkKGwk6me?=
+ =?us-ascii?Q?eD8n4gsCdTfZvaVEN+xs5Nvj0kypLpmRiYlP/krBn0cZ+tvC0KjZa9jMxq2K?=
+ =?us-ascii?Q?OgGhi9YjD0ItMpNRFMtfAmUNPstdwBtYh4Ycdc3mJ38H3vVMJuEyaYk4Wj1N?=
+ =?us-ascii?Q?MrU0bUgQWbY+jv0AFiqr+ul8RP9leZ5gA3OiITo9TLe86j3Cwazp6ooqwUJX?=
+ =?us-ascii?Q?zWgFV7pA1rdXcx0VH+k6nqSPgbwZz/YymZEhm0TGnDl/8gqwcypMSVzCchFh?=
+ =?us-ascii?Q?T2z+RrFRtk0VyKEnsyjfqcSdZhkwleEufcw16y7TODIk27rhDA=3D=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(30052699003)(36860700013)(82310400026);
- DIR:OUT; SFP:1101; 
+ SFS:(13230040)(376014)(1800799024)(82310400026)(36860700013); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Nov 2024 13:50:08.4300 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 855422d5-74f0-4d31-4f09-08dcfa7c192b
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Nov 2024 13:50:16.1488 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f185f1fc-1df6-40ce-1a4f-08dcfa7c1dc5
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF0000468A.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4269
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7298
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,73 +139,46 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Ausef Yousof <Ausef.Yousof@amd.com>
 
-This reverts commit f767e41a6f6b70cd222edd24549c1fa753c550fc.
-
-[why & how]
-The offending commit caused a lighting issue for Samsung Odyssey G9
-monitors when connecting via USB-C. The commit was intended to block certain UHBR rates.
+[why&how]
+Applying a hw w/a only relevant to DIG FIFO causing corruption
+using HPO, do not apply the w/a if on DP2/HPO
 
 Reviewed-by: Charlene Liu <charlene.liu@amd.com>
 Signed-off-by: Ausef Yousof <Ausef.Yousof@amd.com>
 Signed-off-by: Zaeem Mohamed <zaeem.mohamed@amd.com>
 ---
- .../dc/link/protocols/link_dp_capability.c    | 22 +++++--------------
- 1 file changed, 6 insertions(+), 16 deletions(-)
+ .../drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c  | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-index 93b81918216d..72ef0c3a7ebd 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-@@ -1417,8 +1417,7 @@ static bool get_usbc_cable_id(struct dc_link *link, union dp_cable_id *cable_id)
- 
- 	if (!link->ctx->dmub_srv ||
- 			link->ep_type != DISPLAY_ENDPOINT_PHY ||
--			link->link_enc->features.flags.bits.DP_IS_USB_C == 0 ||
--			link->link_enc->features.flags.bits.IS_DP2_CAPABLE == 0)
-+			link->link_enc->features.flags.bits.DP_IS_USB_C == 0)
- 		return false;
- 
- 	memset(&cmd, 0, sizeof(cmd));
-@@ -1431,9 +1430,7 @@ static bool get_usbc_cable_id(struct dc_link *link, union dp_cable_id *cable_id)
- 		cable_id->raw = cmd.cable_id.data.output_raw;
- 		DC_LOG_DC("usbc_cable_id = %d.\n", cable_id->raw);
- 	}
--
--	ASSERT(cmd.cable_id.header.ret_status);
--	return true;
-+	return cmd.cable_id.header.ret_status == 1;
- }
- 
- static void retrieve_cable_id(struct dc_link *link)
-@@ -2130,8 +2127,6 @@ struct dc_link_settings dp_get_max_link_cap(struct dc_link *link)
- 	/* get max link encoder capability */
- 	if (link_enc)
- 		link_enc->funcs->get_max_link_cap(link_enc, &max_link_cap);
--	else
--		return max_link_cap;
- 
- 	/* Lower link settings based on sink's link cap */
- 	if (link->reported_link_cap.lane_count < max_link_cap.lane_count)
-@@ -2165,15 +2160,10 @@ struct dc_link_settings dp_get_max_link_cap(struct dc_link *link)
- 	 */
- 	cable_max_link_rate = get_cable_max_link_rate(link);
- 
--	if (!link->dc->debug.ignore_cable_id) {
--		if (cable_max_link_rate != LINK_RATE_UNKNOWN)
--			// cable max link rate known
--			max_link_cap.link_rate = MIN(max_link_cap.link_rate, cable_max_link_rate);
--		else if (link_enc->funcs->is_in_alt_mode && link_enc->funcs->is_in_alt_mode(link_enc))
--			// cable max link rate ambiguous, DP alt mode, limit to HBR3
--			max_link_cap.link_rate = MIN(max_link_cap.link_rate, LINK_RATE_HIGH3);
--		//else {}
--			// cable max link rate ambiguous, DP, do nothing
-+	if (!link->dc->debug.ignore_cable_id &&
-+			cable_max_link_rate != LINK_RATE_UNKNOWN) {
-+		if (cable_max_link_rate < max_link_cap.link_rate)
-+			max_link_cap.link_rate = cable_max_link_rate;
- 
- 		if (!link->dpcd_caps.cable_id.bits.UHBR13_5_CAPABILITY &&
- 				link->dpcd_caps.cable_id.bits.CABLE_TYPE >= 2)
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
+index 1d4fe0de0f67..07b49b4030f9 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
+@@ -133,6 +133,8 @@ static void dcn35_disable_otg_wa(struct clk_mgr *clk_mgr_base, struct dc_state *
+ 	for (i = 0; i < dc->res_pool->pipe_count; ++i) {
+ 		struct pipe_ctx *old_pipe = &dc->current_state->res_ctx.pipe_ctx[i];
+ 		struct pipe_ctx *new_pipe = &context->res_ctx.pipe_ctx[i];
++		struct clk_mgr_internal *clk_mgr_internal = TO_CLK_MGR_INTERNAL(clk_mgr_base);
++		struct dccg *dccg = clk_mgr_internal->dccg;
+ 		struct pipe_ctx *pipe = safe_to_lower
+ 			? &context->res_ctx.pipe_ctx[i]
+ 			: &dc->current_state->res_ctx.pipe_ctx[i];
+@@ -149,8 +151,13 @@ static void dcn35_disable_otg_wa(struct clk_mgr *clk_mgr_base, struct dc_state *
+ 		new_pipe->stream_res.stream_enc &&
+ 		new_pipe->stream_res.stream_enc->funcs->is_fifo_enabled &&
+ 		new_pipe->stream_res.stream_enc->funcs->is_fifo_enabled(new_pipe->stream_res.stream_enc);
+-		if (pipe->stream && (pipe->stream->dpms_off || dc_is_virtual_signal(pipe->stream->signal) ||
+-			!pipe->stream->link_enc) && !stream_changed_otg_dig_on) {
++		bool has_active_hpo = dccg->ctx->dc->link_srv->dp_is_128b_132b_signal(old_pipe) && dccg->ctx->dc->link_srv->dp_is_128b_132b_signal(new_pipe);
++
++		if (!has_active_hpo && !dccg->ctx->dc->link_srv->dp_is_128b_132b_signal(pipe) &&
++					(pipe->stream && (pipe->stream->dpms_off || dc_is_virtual_signal(pipe->stream->signal) ||
++					!pipe->stream->link_enc) && !stream_changed_otg_dig_on)) {
++
++
+ 			/* This w/a should not trigger when we have a dig active */
+ 			if (disable) {
+ 				if (pipe->stream_res.tg && pipe->stream_res.tg->funcs->immediate_disable_crtc)
 -- 
 2.34.1
 
