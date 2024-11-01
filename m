@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 121CCE6B278
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8BA4E6B27D
 	for <amd-gfx@archiver.kernel.org>; Fri,  1 Nov 2024 13:50:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B89F310E9C3;
-	Fri,  1 Nov 2024 13:50:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6112C10E9CE;
+	Fri,  1 Nov 2024 13:50:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="l6L18iHB";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="nVfWTz8F";
 	dkim-atps=neutral
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2055.outbound.protection.outlook.com [40.107.94.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 35BC110E9CE
- for <amd-gfx@lists.freedesktop.org>; Fri,  1 Nov 2024 13:50:21 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2070.outbound.protection.outlook.com [40.107.223.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 39CDF10E9C3
+ for <amd-gfx@lists.freedesktop.org>; Fri,  1 Nov 2024 13:50:22 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=usCv4rm4OZZyU8qyQMuZPYGO82qb0GH5OJUypJ8gCZIYfGYsgBZIgLk7W+/e+aBeTGdrpsNmgsHqsBTs0KRy5sTlCEcn0TgH0wheEYNQG2muBlOU9SLu64rqqUQqMVW3CB4TouAjEPo5RJQWv3pQYTyGpGCS7nGloWKBfZ6DoWiuSu4QqkGjuKci1qkifvP/ihmBmEbLs5+gjkBBVM8Algt1S0lvAHYCTrWq2VkWSynBCCkdE7ap/AN2SptsxsanN/UIRY6aOilc4OqAzMSB9lXcXdpgybiVwERDiZhDF/8nqOuJCYKpRnfHk5DI9+Wuu5wCJH1oRka4ToBvxvG9jw==
+ b=loCJS0Be0vvfZLTtMONJPBZHH275jl56J9PfixeVf1ldzEtzPHfrAafXkjLSgFYFHumpQphluldDKqt6KUQk8lYcAO8NhwDBr60tUEDYH59IvctNpHFtwvcjKrx580uT8vwVcOUCokN41sWxPvvGGUX7PEPgc1Cwkwvhx3eVcPDBi2ZVzmGLtGLkEWGdqnlDAZHXh9YI8Ku8KLefvmS7R2mEFac0a0/TYNOEr9VZXos4rsMMpW0GhO6lZx7E0umox/ZzuAi/wRtOxlNK1TNWLWU/5DxciYq2QY3+Yh058/yIEf+dl5W64QIR5YYKeD5G9v5w/jBhI6Dd/W19rg5Zag==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+WcK1a7sMBYTTjRzjfcw6WG8oOglunwkGey07Ruh9HQ=;
- b=g++bQ7vStHjZL+FYInJgcc4aYwteqTRd8af8CcaIAblXf6Kt+bzzWFdO7y1I65LHNxZhL9WTJXFUHtMOQQMkF6OHiHcxj7o7XTZXvMELU0qxH7UGFYYc9ciJJTVmkh50cL+F6+XC5DmVcN/xzaDzuYr9CVQWYcLTNqBR59gPxDcN/QAWJnEKLSDKGadtr/AHtPgZ56SiCfIFsR1cfVMd57fdmx5zfCP1HNFA5oyOC6vW6zj8Ay8A5gKCQz027c2Afbuf750F0sei/lS1MEzjDy5nqRnzf0rQ3exIeWlTxFjxPvqJlLxqlVNaLQELnl3og8kmbSuch7HJBYGFhteBEQ==
+ bh=csz/T4HZIbtc8tbx1q3seIBd5M993t6vAxzmtU8AceY=;
+ b=CaTJ86eUlLUL82Qcgk1BR26bbOioVDWBx662E9GgHeEZTY0bjxuf9oKFaOVgV07m6+70IvpjMOG4O30sEBBJ9PQKuNTNkPX3P/pyNlZeWWnZy+fz3b3Iu2yYKzIfC760j8n3eyGIr4/tgq+9qQf597kYu55P7olNahMwnTerzYg4P/KXhXQS3FZPxETHwrh47IdDVttDAaHnmhl+am2QNmUkoU75gl2ojWedMGHqfecpEq9V800rP6B4VUS9xaz3elaRQMkHQ6i/GS+58/2GbhKvtpmoF47R7bw9qeIZZkv/iq5wk/jRhrpuSeBiPq+alt2F+pE0Hj0aOB+1kBVwig==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+WcK1a7sMBYTTjRzjfcw6WG8oOglunwkGey07Ruh9HQ=;
- b=l6L18iHBrh3T/BnnYpZyzVEY/AqvqHKoRppPUuVSik/1cV0nzpkwX7l8B7d5LvAqDZ7wEJt4j9BTDjq18LaFanWfrxNxmHI5G2hBfPUIkgBUCD8StcVxWAO9VvapZLBFpw8dGfvFvq1Yxv/GzUZz93/OLU4pmr7B736VlH7tjqA=
-Received: from BN0PR04CA0203.namprd04.prod.outlook.com (2603:10b6:408:e9::28)
- by MN2PR12MB4239.namprd12.prod.outlook.com (2603:10b6:208:1d2::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.20; Fri, 1 Nov
- 2024 13:50:19 +0000
-Received: from BN1PEPF0000468B.namprd05.prod.outlook.com
- (2603:10b6:408:e9:cafe::33) by BN0PR04CA0203.outlook.office365.com
- (2603:10b6:408:e9::28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.26 via Frontend
- Transport; Fri, 1 Nov 2024 13:50:19 +0000
+ bh=csz/T4HZIbtc8tbx1q3seIBd5M993t6vAxzmtU8AceY=;
+ b=nVfWTz8Fnrwz/V8aS7grhMLAuN8o5YdSGez/bTMXFsc+1vg2RJymgRTeKaw+LUAj6LwSXmcRZvS5MwjoHqniSnoK/xLV+PtL1e5xJEznds4at0wzhGiokruUbODyTzZJbX1hpI/Ar+73f6BhtjjKJZRVRs67Sa1Bx3rYrcDbFOQ=
+Received: from BN0PR02CA0004.namprd02.prod.outlook.com (2603:10b6:408:e4::9)
+ by PH0PR12MB7840.namprd12.prod.outlook.com (2603:10b6:510:28a::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.18; Fri, 1 Nov
+ 2024 13:50:17 +0000
+Received: from BN1PEPF0000468A.namprd05.prod.outlook.com
+ (2603:10b6:408:e4:cafe::84) by BN0PR02CA0004.outlook.office365.com
+ (2603:10b6:408:e4::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.23 via Frontend
+ Transport; Fri, 1 Nov 2024 13:50:16 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,13 +48,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN1PEPF0000468B.mail.protection.outlook.com (10.167.243.136) with Microsoft
+ BN1PEPF0000468A.mail.protection.outlook.com (10.167.243.135) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8114.16 via Frontend Transport; Fri, 1 Nov 2024 13:50:18 +0000
+ 15.20.8114.16 via Frontend Transport; Fri, 1 Nov 2024 13:50:16 +0000
 Received: from mkmmarleung05.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 1 Nov
- 2024 08:50:16 -0500
+ 2024 08:50:15 -0500
 From: Zaeem Mohamed <zaeem.mohamed@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -63,11 +63,12 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Li" <roman.li@amd.com>, Wayne Lin <wayne.lin@amd.com>, Tom Chung
  <chiahsuan.chung@amd.com>, Fangzhi Zuo <jerry.zuo@amd.com>, Zaeem Mohamed
  <zaeem.mohamed@amd.com>, Solomon Chiu <solomon.chiu@amd.com>, Daniel Wheeler
- <daniel.wheeler@amd.com>, Dillon Varone <dillon.varone@amd.com>
-Subject: [PATCH 11/17] drm/amd/display: parse umc_info or vram_info based on
- ASIC
-Date: Fri, 1 Nov 2024 09:49:34 -0400
-Message-ID: <20241101134940.1426653-12-zaeem.mohamed@amd.com>
+ <daniel.wheeler@amd.com>, Ausef Yousof <Ausef.Yousof@amd.com>, Charlene Liu
+ <charlene.liu@amd.com>
+Subject: [PATCH 10/17] drm/amd/display: Remove otg w/a toggling on HPO
+ interfaces
+Date: Fri, 1 Nov 2024 09:49:33 -0400
+Message-ID: <20241101134940.1426653-11-zaeem.mohamed@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20241101134940.1426653-1-zaeem.mohamed@amd.com>
 References: <20241101134940.1426653-1-zaeem.mohamed@amd.com>
@@ -79,50 +80,50 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF0000468B:EE_|MN2PR12MB4239:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0004a07b-02db-476c-e8e4-08dcfa7c1f60
+X-MS-TrafficTypeDiagnostic: BN1PEPF0000468A:EE_|PH0PR12MB7840:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4ffbd40c-26a0-401a-c690-08dcfa7c1e32
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|36860700013|82310400026|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?v5jWPmFmdXrMMixAXclXrxH7VqYyrn+48Y5o/IC+FE3ZqoV6ew1HNB557+tt?=
- =?us-ascii?Q?NKyemsujN1t4df2nIan13Is2cnNSNPzLwxKlrCt0mVYim+rekUCLD0XAzN7Q?=
- =?us-ascii?Q?fkfm50aP4hEyhuC13xrdToDr/B504QIeVsMsM/L46PuQJ9uotNIbSRHQClxh?=
- =?us-ascii?Q?pGeAJ7FWfHPi71Z06spiex/Ily8bF7DDYXC8b0W54A/ULVo1d2HgmIuj/ZXk?=
- =?us-ascii?Q?G3ZDVD+CV6lwRiqhmtBrHe5kb7tCsFRlLEmULW4ECV4OQW9WSYWEWdidcw7E?=
- =?us-ascii?Q?wdVC2UG8c48xxWDVvpE2Tfh1D5OJjlMzP84WtXOk6OXt+E+IYKQ3nSpF5D+t?=
- =?us-ascii?Q?ArhAwzQ1tPWJILP257q7zTr6JzMAD4lV8hzaLevM9DKOxeDwRgXvHPmn3cmP?=
- =?us-ascii?Q?F+Dci692diEiWstV69xwy5193xtmMTjTqrlR/IolNUgo+hPds2bGlaQjQdQf?=
- =?us-ascii?Q?txhc42dh4SrS7QvpI4d14EKOBuju8pmN1R0LdfJwFJq+1dyARsjEtcybMLGu?=
- =?us-ascii?Q?98+rVreoqIq6wRJC4EzdNrwXoGyTtcWGQw2Y2KZfiL4WAdba2dbgFoLio12J?=
- =?us-ascii?Q?NQJcyeI2xo1EVpA2VkCd5zuETDPwdS9oQ3ExGQRv6YpqWE6Ad35aZzi/Xc+n?=
- =?us-ascii?Q?xNOK+Bq82AGX+aHc79xDSZhl6hOkMjwrXrY2zY5WLjWFogddPpz7Zw2bKeb8?=
- =?us-ascii?Q?zfPTXUwj+JpCUO2ujvf6d/JjOX8GcnL1EMYxQTyzREKOaf8EFGVtnsLc2v5s?=
- =?us-ascii?Q?JiVj8WYi4cuUFTh33jbKZih5v7QlmxcF1RaCRgKhXBQrMb+OkBLtaO3tz5zi?=
- =?us-ascii?Q?Nns62zVXPWRH06aoNrCJQGBnVw+2q1k0vaofIVNlxjy155sTeitTcrrWjT70?=
- =?us-ascii?Q?DtBggao9pfTHE6QGjJA9HR6nzxE1U2IHkMNr3ayGWl8rEr5hvwTLubrzcqUX?=
- =?us-ascii?Q?t4oNwwOtdYCHnD30POOtNQCBE7K94W0GafL82NHqLIpHSldTrZIgaEk7JxeF?=
- =?us-ascii?Q?z6K4BnoQF1HWP1iKpzuUYY/zcgtxYMYbcBu7p2/wAD1z3u3u8eOgKQDDhfDw?=
- =?us-ascii?Q?KVpRoOMpbKZV996d408nEbAWaNRr8soGW52+Mz4MTSc4e3teg6dqPY8jlwam?=
- =?us-ascii?Q?A85rf2sbxXCpvHAsHES/wPnZ6CXz0CHcCyAOVQXJNFZw26IKatDc0/bzT/WD?=
- =?us-ascii?Q?udbVB0P/vcLlqQ28nCrxsmr0XQuDs8TTYtJHbRfgGq//vw+22UnAkVvDD48m?=
- =?us-ascii?Q?x6msrzRxTgi8vMolq8UV7O5QWFYSEWbLj8glAvRXhb+e/i36cmodRXMz6Jhp?=
- =?us-ascii?Q?qblrJBp4HMuLKleAGpj18KDJlP/85w5zuyqbwYCq7IkQhXymB6MNcYcPb5rS?=
- =?us-ascii?Q?9bJKiQM=3D?=
+ ARA:13230040|376014|36860700013|82310400026|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?uogcxW3Y2JnfnNe4nYNfACA2Cke8cbw6x44w6SxKmVCgDrD/7uliQuPzhX4b?=
+ =?us-ascii?Q?Tu/1bLLnmRrKtjCj6uHUI4UszHYDqhnqaFNsHKXKmSzFBVQlNOMo8WBkZdL0?=
+ =?us-ascii?Q?hAKq+j3RF+/V2Oyna+n3CVJpiGXCyW8ZtmOankGRCQCIGDms5yu+A8DpkpIn?=
+ =?us-ascii?Q?ykaqa0GkQEf4x2mMJoCbk7Z1Du2IUkPsIRn2SY/UXw1WPITV31BO1n23FFdn?=
+ =?us-ascii?Q?BP4GGedYlKSO/t+bB2lT9gRLFOrXx4psT0AoroJsp1CsBQi9C+GShfk55DB1?=
+ =?us-ascii?Q?BXoQHttxEAyMIApeHgu/2PNZDPYxxfG20iKH8w93OU9jZ35Amugwv39rPv8Z?=
+ =?us-ascii?Q?/WiUd/kiCbK8o4sdwtaYrBXAFVsyF8lOLm4aBk/zIoQwk8/SzlGyv+Awx12X?=
+ =?us-ascii?Q?eb+zly1I9kJUb7B+xiT3zRF8uD7SY+uLhA7dAk3JI/PWGudSYkZnBorFOfy2?=
+ =?us-ascii?Q?xESMYlmKRlVg6J7U8nsNgwwd5U8G4x+W96JT/j9R6JDguhUt9VgREQJBJ1v7?=
+ =?us-ascii?Q?c/kzdOHuVE4XW3ki2oTJgB8TiQiQ7mvXeIxVNuT86RAtYBB7/srbsEpi2PUV?=
+ =?us-ascii?Q?jG50TGjk0XuFevjitrz6uy7Nc+URDKV0AYqfgEq/KOndSJmS6rLiNDWiF8Tj?=
+ =?us-ascii?Q?OZuL/68R3eJyXU4LXA2u0DojiHj+unxn9YXouLxjmYV6keI5oXmeR0zu2h8k?=
+ =?us-ascii?Q?CUZv/iFDQDpcF53fgO9dkN9iqkl13+7ARGPgr59GNi0eVRCg8PKdOWExy4BA?=
+ =?us-ascii?Q?0VFrhi0E+M5QxJdwrllHs7Z5FalA9mc5pCG/uEC47v0OHgQ++nvE2/fKDquH?=
+ =?us-ascii?Q?wobM5V3BBO5claAARyMUSj2Df//eGWWQ30jWS+S2kqrhczWdhPvPVhV16MHU?=
+ =?us-ascii?Q?0EQML1OkyoIAbYBE6NMzf5bBcgXk+Krb8luE+AOuT2kFScgKXNqqeeLCyT0i?=
+ =?us-ascii?Q?qmtWWtLWzs9xpxc74ythQ5RfflzRqeX/XwpdK97LjEbCneiaUHlhNC3mm4TO?=
+ =?us-ascii?Q?FIX/Xp7+ELQ1RGCZg4H5JchNhRy0ZN7pDU8ON1tMd4+dyF01hBD86BqH8PpQ?=
+ =?us-ascii?Q?pTmYPfz0q8owFr42nShxR6WvaoIzjFX9XmhMOjD69qAhweIoj7jSrF40mmE1?=
+ =?us-ascii?Q?Xbgvnf3c5+qhkDdVcZSacjTeHrIxFAZDqEXn+lRMmnRRt0BGvy7JBNUsApMU?=
+ =?us-ascii?Q?rJhs03VLlXk2JFUSDKiQVSmUQXcSWMbVt0qvKZjTqy8mFJtmxqdwfK2OK1D3?=
+ =?us-ascii?Q?zVW9GNWGGQkP3cDSuzM1TNavTBVvPfZHgK6AEMaw2HmtCrT9aEWwMdSwwleh?=
+ =?us-ascii?Q?tq2INAPx3/S9XIJtqObwqrA0maVPdzLc1Obe6X7kvE2FtN9hEbo/bvcxRftP?=
+ =?us-ascii?Q?VLbb4v2ItsmmeMEFJ7OxpmqLW34xu7D48Ml8uwDXPlgYWSQd7g=3D=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014); DIR:OUT;
+ SFS:(13230040)(376014)(36860700013)(82310400026)(1800799024); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Nov 2024 13:50:18.8476 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0004a07b-02db-476c-e8e4-08dcfa7c1f60
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Nov 2024 13:50:16.8519 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4ffbd40c-26a0-401a-c690-08dcfa7c1e32
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF0000468B.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF0000468A.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4239
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7840
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,37 +138,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Aurabindo Pillai <aurabindo.pillai@amd.com>
+From: Ausef Yousof <Ausef.Yousof@amd.com>
 
-An upstream bug report suggests that there are production dGPUs that are
-older than DCN401 but still have a umc_info in VBIOS tables with the
-same version as expected for a DCN401 product. Hence, reading this
-tables should be guarded with a version check.
+[why&how]
+Adjust otg w/a disable condition to include HPO explicitly rather than
+assuming it is implicitly used through DP2.
 
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3678
-
-Reviewed-by: Dillon Varone <dillon.varone@amd.com>
-Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Reviewed-by: Charlene Liu <charlene.liu@amd.com>
+Signed-off-by: Ausef Yousof <Ausef.Yousof@amd.com>
 Signed-off-by: Zaeem Mohamed <zaeem.mohamed@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ .../drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c   | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
-index 0d8498ab9b23..be8fbb04ad98 100644
---- a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
-+++ b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
-@@ -3127,7 +3127,9 @@ static enum bp_result bios_parser_get_vram_info(
- 	struct atom_data_revision revision;
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
+index 07b49b4030f9..b77333817f18 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
+@@ -151,7 +151,15 @@ static void dcn35_disable_otg_wa(struct clk_mgr *clk_mgr_base, struct dc_state *
+ 		new_pipe->stream_res.stream_enc &&
+ 		new_pipe->stream_res.stream_enc->funcs->is_fifo_enabled &&
+ 		new_pipe->stream_res.stream_enc->funcs->is_fifo_enabled(new_pipe->stream_res.stream_enc);
+-		bool has_active_hpo = dccg->ctx->dc->link_srv->dp_is_128b_132b_signal(old_pipe) && dccg->ctx->dc->link_srv->dp_is_128b_132b_signal(new_pipe);
++
++		bool has_active_hpo = false;
++
++		if (old_pipe->stream && new_pipe->stream && old_pipe->stream == new_pipe->stream) {
++			has_active_hpo =  dccg->ctx->dc->link_srv->dp_is_128b_132b_signal(old_pipe) &&
++			dccg->ctx->dc->link_srv->dp_is_128b_132b_signal(new_pipe);
++
++		 }
++
  
- 	// vram info moved to umc_info for DCN4x
--	if (info && DATA_TABLES(umc_info)) {
-+	if (dcb->ctx->dce_version >= DCN_VERSION_4_01 &&
-+		dcb->ctx->dce_version < DCN_VERSION_MAX &&
-+		info && DATA_TABLES(umc_info)) {
- 		header = GET_IMAGE(struct atom_common_table_header,
- 					DATA_TABLES(umc_info));
- 
+ 		if (!has_active_hpo && !dccg->ctx->dc->link_srv->dp_is_128b_132b_signal(pipe) &&
+ 					(pipe->stream && (pipe->stream->dpms_off || dc_is_virtual_signal(pipe->stream->signal) ||
 -- 
 2.34.1
 
