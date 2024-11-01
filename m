@@ -4,152 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD973E6F069
-	for <amd-gfx@archiver.kernel.org>; Fri,  1 Nov 2024 15:43:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFEEAE6F06D
+	for <amd-gfx@archiver.kernel.org>; Fri,  1 Nov 2024 16:22:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5743010E2F0;
-	Fri,  1 Nov 2024 15:43:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B1C010E036;
+	Fri,  1 Nov 2024 16:22:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="pTZZ9whN";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="fZHq+tz3";
 	dkim-atps=neutral
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2071.outbound.protection.outlook.com [40.107.243.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7BC1D10E2F0
- for <amd-gfx@lists.freedesktop.org>; Fri,  1 Nov 2024 15:43:34 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2080.outbound.protection.outlook.com [40.107.101.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 253C210E036;
+ Fri,  1 Nov 2024 16:22:16 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lkoUabSCSPVTFPcPIi3LxlNl/BzkTBBocx6Qtd97L4h496ebyywOgCqOZh8MAen4xiggA5d1T+PuXg/L7+erCfnIIRFL1IDqyPPSUU2LMx7dOLBmUfJO2y1FU3OMyPyys/57ggB850yGpFlIEsAjMeQDcjnNmPoBsGpo3ZzCLOeaNMfUWkJm/4lWUyadDGPFBmLK09pPfU27w3ja7zBZsU7xE3zhQEbWALm1/BPc9HtbwdVfepblKw4LYcwRAsy9zWkmOQUrpDHkZbHuK2b5eIUKyASfF8ES8Vcd4bZR1ErHn953HwdLVGOmrLM/j8J5bmj/mR1dNaPSC7q6VNJFTg==
+ b=vqLaHFtD3iTSbGZeXFRTHi41oozX47XowXL2KHZNmx0J1o5wabJD6vuU2oTnNs5PEB9G9Qc3DS0YkRzdshQFwlvvPs8yUrKbvT1n21/l9MUj/+q0CGmPBCsrU6SkBC0YoL4Dd3L4T0TQdRFYaZbfPimYqXr/8CrYW9LcyfKqGrJVTKJ4QyLTKq4lFnW/qB/AFe05EhzSmll3iI5rKIbI0VehQZP7rrnxx3kI+6Yh846TFiCDfRLMjGlDdtktHdQYooDuuqZzbX4692s8G/f88JQZTeTa2WJGXJxtaugRoL2cd98Z/kmcwFQX/37RrLfVF5joRUUq72k+P5QS2zzCWA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TEXOqeTXgyQYIzBjP/sRQsk4qfFiLGhtScsaFqKNmeQ=;
- b=Hoi25PZcVvN17ebOfe31vntLp6Gh5e2jESMHEuRSRnN8tWvb6o4nALM3ZtnArNSmuDYKG3yUy+zd2Z9LwawQ6SeuZH1Bj+gjmS0wdutcPOlv+0BwimbZGUoJqo31zwSUDvXAt9ERPGpldOWYAPYnh6Zj5livj+UdrjkZ4M7is9fLflGaJgyxlAfuk6St5BoS5A4Z89rgs0oXm7Dp2MXrJSfWyppgBiHkj/Px5ikB3spcgUHyzPK5sviA0Eg5Hv8lg/4sfVIeqanLaYws6bxTi8z6WQzOlccREERx9jlZQg06SAfh4BtJjkoJU+LZhG8W8qQpZZLbkpUe7Ok4sxxYyw==
+ bh=6uAjelOB4VOxy+rlR6xS9XziakUJvp2uotBbcWKDXtg=;
+ b=tdKxL8KSgANomUoq/01IsJcO94KjgcE50XXt9X+PcCGVmQqmdDJskWLO/OsJ1qHHZVcqZGffMspjyd4l91K+6orodX75bm+vTtwzOhCkcmznqo4gTYhanTc65cH2ehv9+kVOKNsUK62g2YyRVJ9/wWR/90jOeQLoSwRTcwili7S4WdTSD18cQ0ZgfncIQ/JC6ddHCDW7jNVfhPIc/NTfgYyr6iBTYXBF2pncf+zivxSUylePlJadkZl8kbk32Jtq+w6R3LXnGKNTUZpzIiuN44bpJtDinuYJ0D5SWyLXR/hpcO5oLEsgDgMiOL4SOoKWeO9Mk8e6y1TAOq+VR5d49w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TEXOqeTXgyQYIzBjP/sRQsk4qfFiLGhtScsaFqKNmeQ=;
- b=pTZZ9whNeuLb61CzbmJum/tFXNKiyW0Di95GqooO2W7HmTeZwA+KmK1YHq5AYfNA1NK/DNgMhGl4CsEpu39uP8dktv5MxysN/Ql4ZX/Dtcu83gJ1yMUXg5ZACPzIZfbQDGStqBgOwl+GHrNumok85MovDMNLSYRaA+P3x/kLOXE=
+ bh=6uAjelOB4VOxy+rlR6xS9XziakUJvp2uotBbcWKDXtg=;
+ b=fZHq+tz3Gw43b/c/DM8lTbhrOcD4GAxg2ikCJQaT/l711T1QB1eazlJ5W0gixDn2CfTejlueBqnBMo+0x2XyiiR8Td34b6EotkhVJk5jYwKkh3Yi2OMv0iafwjqMyBoHVROoM7MOSw43afSgnq8Qg0ZvYpRvCvk+T3Xsrbj6SWw=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
- by LV8PR12MB9418.namprd12.prod.outlook.com (2603:10b6:408:202::15)
+ by MN2PR12MB4343.namprd12.prod.outlook.com (2603:10b6:208:26f::9)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.26; Fri, 1 Nov
- 2024 15:43:30 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.20; Fri, 1 Nov
+ 2024 16:22:13 +0000
 Received: from MN0PR12MB6101.namprd12.prod.outlook.com
  ([fe80::37ee:a763:6d04:81ca]) by MN0PR12MB6101.namprd12.prod.outlook.com
  ([fe80::37ee:a763:6d04:81ca%4]) with mapi id 15.20.8114.015; Fri, 1 Nov 2024
- 15:43:29 +0000
-Message-ID: <4b624213-1187-4c1e-a37f-644cf3ca1703@amd.com>
-Date: Fri, 1 Nov 2024 10:43:27 -0500
+ 16:22:13 +0000
+Message-ID: <af5edb6c-3075-420e-b52f-05844c728180@amd.com>
+Date: Fri, 1 Nov 2024 11:22:11 -0500
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 07/17] drm/amd/display: Fix brightness level not retained
- over reboot
-To: Zaeem Mohamed <zaeem.mohamed@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <rodrigo.siqueira@amd.com>,
- Hamza Mahfooz <hamza.mahfooz@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>,
- Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>,
- Fangzhi Zuo <jerry.zuo@amd.com>, Solomon Chiu <solomon.chiu@amd.com>,
- Daniel Wheeler <daniel.wheeler@amd.com>, mark.herbert42@gmail.com
-References: <20241101134940.1426653-1-zaeem.mohamed@amd.com>
- <20241101134940.1426653-8-zaeem.mohamed@amd.com>
+Subject: Re: [PATCH v2] amdgpu: prevent NULL pointer dereference if ATIF is
+ not supported
+To: Antonio Quartulli <antonio@mandelbit.com>
+Cc: Xinhui.Pan@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20241031152848.4716-1-antonio@mandelbit.com>
+ <00e9b1f0-7bc1-418c-8e67-e8f1893be665@amd.com>
+ <34c84c6a-9b0d-4d04-9ce3-edf1bb850b2c@mandelbit.com>
 Content-Language: en-US
 From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <20241101134940.1426653-8-zaeem.mohamed@amd.com>
+In-Reply-To: <34c84c6a-9b0d-4d04-9ce3-edf1bb850b2c@mandelbit.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SA9PR13CA0019.namprd13.prod.outlook.com
- (2603:10b6:806:21::24) To MN0PR12MB6101.namprd12.prod.outlook.com
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SN4PR0501CA0036.namprd05.prod.outlook.com
+ (2603:10b6:803:40::49) To MN0PR12MB6101.namprd12.prod.outlook.com
  (2603:10b6:208:3cb::10)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|LV8PR12MB9418:EE_
-X-MS-Office365-Filtering-Correlation-Id: 49a6eae3-a964-42c9-2566-08dcfa8beef2
+X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|MN2PR12MB4343:EE_
+X-MS-Office365-Filtering-Correlation-Id: e2a85ae4-6038-4f3f-3bd7-08dcfa9157a4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?TU1hRjQzK2N3MGFkeUprK0lGQlVQeC9MVStvZ2FOaGgzM1dUVG9FZGR5SFd0?=
- =?utf-8?B?T1hFdUVXenBrb29xOXRRWGlYdDVDTHhlYUtKQVp2L0tJdDBEaGdOSHE4U0ZX?=
- =?utf-8?B?bnlwMERaUC9aT21OYmo1Wkc1SmEydS9GU1A2U3grZDJzcHhpM2RXemRuMURC?=
- =?utf-8?B?d2tlY0JVcHdhdXV5SzRQRUx2dVFsTWlqeGp5NytJUU4xL3VzUk1KSFc3bnRh?=
- =?utf-8?B?UGRidzlRczYzZTRaZ3JIdVNiTWI4UkRFaFMyVUZMSHhLN2lHWk1DY0lCRXZw?=
- =?utf-8?B?R2FZQm9nZG1XTFlHalZuWDhrMjdETEgrUlE3bERxaGhybkdPbkxxa0hZSXZq?=
- =?utf-8?B?aU1uSk4rdVlkQVRaMnpucEN5MmpidzA4VnBKcHpjc21EcTNjNHhPODY0SjVP?=
- =?utf-8?B?SWZ2Q1NPOXpDck5VVDY0Tk9BN094UWw5Ny9EQ1VoRTZlQVVuRmMwWnNzV3JY?=
- =?utf-8?B?Mk9BZ0R0RkpicVhvWlJlS2NERG9jbVN3ZjEzOTlCM0VqSERJdWxWcHpFUC9m?=
- =?utf-8?B?V1poY1RNOTRycDkwcDkrNXJ6STFmVTJEcm8yQjlVcEJZQUZrTzVKQTBBMEkr?=
- =?utf-8?B?VHYxbjRNcml0dDBoTzNDei9TY2tDbFcrd2FETGR4dldpTkdaMFZxL2xyM0dO?=
- =?utf-8?B?OStybjV4Q2c4U2IwRHJCblZlbnhoVHg4RVFOWlVZNkNvdXozbHRoczZhMk9X?=
- =?utf-8?B?a2NQOUZicGRVVXhKcXVMQkwyNG93NExhRENrbTZQSDdKd3ovZDBZbUZLQWZI?=
- =?utf-8?B?c0g1WEdNYkJqdzJHZFlJYzFGYlhyTGNWQzB5OVRhY2gvaUt4NUdvMGtSL2tX?=
- =?utf-8?B?NnpXd3J4L3BtSS9YM3Y3WTdjRVBtalNNdFhFVzlFUDhkUTFjYllQbDAxSk15?=
- =?utf-8?B?UDhZS0VUTWF1UUc1VlB1ZG9wa2RxL3VrdEY2d20vTnQ5SERvVVc4ekFEOUpQ?=
- =?utf-8?B?T1huLytYdEd6UmRDK1RhQjJUZUxZbGVPcjZ2OUxVaE9peDhJOFVxYlJqeGpm?=
- =?utf-8?B?N09haVltUGRSTVdlMkxuS1J1dlJqa3U0cWM5c0hpb2VTQnZxNEFIQUI3Tk5L?=
- =?utf-8?B?YlBrN1NGaTBvNEp1OXNZeDBLblF5cDdQQ0MwQzlRTVllT2o0YXBkRWNIOGt1?=
- =?utf-8?B?QjdKZmwyMGl2cFN5TXB4dHAzcjFvUTl4YTZFUXJvL0tXck9ielRFSFkxVmJZ?=
- =?utf-8?B?aXp6SzFJQWcxQnIzbG1adkNrM05tcndlMXFGNS9qMFZxbTd5aHhMR0w1VXQw?=
- =?utf-8?B?STdRcHY1anc2UXNnRXgvWVRuKzdockFzbmJTYXF5cExkSkFzZkxmM0hlTG9h?=
- =?utf-8?B?bTJTSUxNYVdVY0w3Z0dBalN4Z0cxRkFJeTE2Q3BXM1J0VVVXaEp5VGtWL1pj?=
- =?utf-8?B?T0JxTmJ2KzZxSEpMU0xyZHpqcGhGZ0YrV3ZkMGYvMFhFVjJMSDhaSmYwb0c5?=
- =?utf-8?B?U24zWk1EbS92b2ZCRUVYTFZDZjVDdGNhdzdLN3ZYeFB5YjBKcGJIcG5QcUxs?=
- =?utf-8?B?aTdrMEFTTkZQblNjUitnY2s1dEZlSGw1UnBYM0dJODB6OUlqSllYb2I1bkxv?=
- =?utf-8?B?QXliczNCanB4UzVtUFFhSWxOdmNtSVhZeitVWkNzczNsQ0ZoTlBnTzc0cjQ4?=
- =?utf-8?B?WHBtbWlleHdVYnNxams5RC9lRGxMV2w3WHM3M25TVU5FMFVra2lEcDYxZXpU?=
- =?utf-8?Q?/tcJLWbxwjKnQhK0+Hlc?=
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?L0R3ME1Jc0VYZ3BXMloxcFVRVms0c1dFamVkSXB3VGFWc291WEZoeG02YzV0?=
+ =?utf-8?B?Y3JScy9zdXZjZlZFa25ROUdKVTBnSlZJZHhNM0FlSUZVMUtRU1ZLalg5WUx4?=
+ =?utf-8?B?RzM3YWhzRld2R0l4ZkZqbitIdlpIZnp5U25UMGFzZnI5cW5Bb2RMRmhzK1Fq?=
+ =?utf-8?B?M0swQTZMQmZTQnJlVkl2L0xxd3B0Zm9pR2x1akxmVGd2YW8yWE5YaTd6UmVL?=
+ =?utf-8?B?Qzg3aUNLSHRPcTFvdUJxZGszdVQyOFYrcmlDS0s5OW03OThKaklDc2FNR1Br?=
+ =?utf-8?B?c3VUSlFVdzN3T0Z4aHhPQ3VIU1ZLc1Rmc0I2eXUxMDB1OHFTM1JVR3gyZGtR?=
+ =?utf-8?B?c1VvbENndnByaGJyVWlURmhEU1R3eTVDYkY1RmhwelN5cTAwZGkwaWFQMllw?=
+ =?utf-8?B?QkdFbjJXOExoQnFCV0ZPd2ViZzRDL3E0Zjg5bk9JYTk3REw0cmxId2RvYmts?=
+ =?utf-8?B?OFdkWFRRSkNST3BEbVhOWm01MkJzTmpZSlRoZnZUQjhwWWJFakxJNEI3M3lw?=
+ =?utf-8?B?T0VERCtrZkxJeHJvV1gzeS8wUDIySWRYNTRVVDZYNGZ2d3RpUnRnUVV0QmQ1?=
+ =?utf-8?B?T3lxOCtrQndoN0ZDck1TZnVHSDVsTzAvOHBXNmtTUUwzeUdNUjlpYzNNOFlI?=
+ =?utf-8?B?VGhPNC9ibDc5bXpnaWN1bnpvV0QwQnJ4b2UrdU4zWmJwMGxNM3AwekNNZHpU?=
+ =?utf-8?B?emZydnJNaVJibm5MenpMKytNbTYyTlJ6SkNkT043N3RMcmtBTHg0dU5FUUdG?=
+ =?utf-8?B?R2FNQldZbExIaWlGWG5UVG5LN3p3aCtYcy96RFduaWQ2R1hlek1rUXQyQ1V5?=
+ =?utf-8?B?Rzk5eWVPL0xkdVRnK0ZyOGIxcTFkaTJtN1pUL0x2T0hSc3gyZFZQU2owMFhj?=
+ =?utf-8?B?VmlVbllIeHFPUWd2SzBvcEI3YlFUaWt1T25XeUxoNHhzM0RxOHNpUzdyaDVB?=
+ =?utf-8?B?aWdxdDRMRVdMbWMxQTdDSVJrR0RWSEZPU2YzNVR0M2E0QWhkWDNZdzQvWkMw?=
+ =?utf-8?B?eThraWxmcjEwRGxTNG1IS0lNYWkwQjBmT2pKdVEzY3phc0pCVGNVUjI0NStR?=
+ =?utf-8?B?WkZTYVdhd05wdCs0NnluUjVNYk1IOGh4NFFBbU5SQ2cyL1VWdC9IUG02YXcw?=
+ =?utf-8?B?UnQ1SXFaQml1SEI1cmNOVEtRY2czeXNqVGdNeVRSR2hGY3pvcXF1TGtmRDRy?=
+ =?utf-8?B?aUZUWVg5RkRzd1pESkhFcmZBMEdUVlY4b0dXM1UzN2xCU2xJL0RaZmNrQStT?=
+ =?utf-8?B?WmNGTmt0Q0M1RXVURWNpY1Z0alVmUFJYWU0veTZ2M3doUFQ2T0Y2NEcvTkNr?=
+ =?utf-8?B?TmF4TDltcGhqR0lHeVY3cXdKZVRtOXh4eEd4b2x3MjZTUlJIcGQ2T1BVTkZz?=
+ =?utf-8?B?aHowTWh6UVFZMFU4M1g2NlZmWTI5UGZHQTdrb2x4eWFlSG1ha0x0YkRIQWhw?=
+ =?utf-8?B?RzhoMnM4Wm9lMW1ocEtBZnBwaDJiOWRndnh1UkFCNXQ2QkFEK1hiTEdqZS9R?=
+ =?utf-8?B?QWM4akJ1dk9YRjhvcHJqK3JqeUtaTTN6Vmxpd01QTDNqeGFEL3JoOGNOT0s5?=
+ =?utf-8?B?M0taU05wcS9QQ1p2WEdLOEtyVFA3L0xjZmJHckxGK3FXMGJlTjhLOFV5alc4?=
+ =?utf-8?B?ajNELzZjL1NDVFQ3Njl0bmpqV3ZDRlFjQTRtUUVNZUY4ejVZTC85VUI4bEYw?=
+ =?utf-8?B?emhsVnQ3K3BaSjUrajZRcUpiUVFCb0MrVDRPZHFwcFI5WklnRUdNUUdQWVNo?=
+ =?utf-8?Q?1uYgnPkzaWtx8SeX8o=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(1800799024)(366016)(376014); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZU1LZnFvYU9oWmlOUXcvMFZNU2NNODgvaGVnTXdJaWxuN2MvWFhEdWxQM3Rv?=
- =?utf-8?B?OWJ3VEpuWHc5blZLOVFGQk8rOWtBRjE1QmFYckdNUnY3U1BFTHkyYnBrdUNY?=
- =?utf-8?B?TTYyOTlTMWFRL0cyMTliekZncDE3aDV2a2puM2F6eDRGMkNxQktYOWk2VlFu?=
- =?utf-8?B?azBjZ1pEQVVqaTVxN0ZTbjFTQUxLQU04RE8rdVlwd2pRNXdTSERtYnByOUM1?=
- =?utf-8?B?djJyUUY5WlVVaTMvYjF3YTY1M0t2amhEcHBqbUdHTDFpVFcreDBOcC9aSUMr?=
- =?utf-8?B?WjQ2K3Bra0NaMGloeFRrb1FnQnNJTUc2aUREVlVpVlEwa0NJTHM5NHBBZ28y?=
- =?utf-8?B?bndjTjFSSzRpMksyaW9nMloxL296enFEYnRGOGRucjZMaXFXL3JpaEhpdG5G?=
- =?utf-8?B?Vjg5ZVZYNjg0SUxlY2loRlZqRHJZTE5uaklvMjJucWo3aWR0U1hIL0xJY2lh?=
- =?utf-8?B?Mkc3OEFIcmxaZHZPVEJTYllUVW9QcjRZak5RUGxyUGo1M2VWUFVQWFhyWE5E?=
- =?utf-8?B?Vkd0dGc1VnJiNUJGblV3WVJ3c1VLNkRjRHZzbGY1Zm1iUE1vTjBmTXh1YjY2?=
- =?utf-8?B?U1FIRlptTVc0c3MvQXNYVU1tNWEzeERIWWlvRWVBZU8wZmMvN3A5Zjc0dVB5?=
- =?utf-8?B?YXFFay9lYWV0aXI5dzBnQnA4VTJQY25wRFBuQnNhWHMyVWRGSGFoYnI4Qy91?=
- =?utf-8?B?alNCdTc1TVpIUCtCenk1OEVPbVlaRkt4MGRLeXhVejc5YUl3Q3VFVlNPcWds?=
- =?utf-8?B?Wm1LdG9WTmZBR0Z2YkptRE4rZ3hEa3dWTndpSERycldXNUxLYlZodXRCOU9N?=
- =?utf-8?B?OTBsV25nODZ4NEw1emltT0lCaXZZQ3VBYkN0ZHNvaXpsc2NDNUVzd0R3ZURG?=
- =?utf-8?B?WTdQQXJuMmVQTkZTL2RDM2puMklrNk9nTXl0Q1g1NWMvN3hjQk5SV2RDYjhE?=
- =?utf-8?B?YUU2R2FqVFM4ZUMyQTVNSlRzdGFPZCs4ZEJZUUhDaGYzeHd5QldEQVZaN2lV?=
- =?utf-8?B?VHhzWmJ6MXM3VzltNkZLSkptcjVjWHlrM3I3Lys5bHg2UWxoenRrdU16NTMy?=
- =?utf-8?B?N1FwdVVXSDlKMHNkTlZQN09IbGsyUURPZTJmZWFvRysrNnpFTWtGRE1FckZt?=
- =?utf-8?B?Szc2NlJZcDlVT1NnR0Vlb1hZbnczUE9jRXNKWU9IRFVzTk1zLzJlTmlSVEJB?=
- =?utf-8?B?MUZaeWxqU2h6N2pSVnJnVXpiSGtaUW1YVExXaFNOUXJiVHp2U0JqL21UUWF3?=
- =?utf-8?B?NXlwN2IzdUZWS0RyRmpOdklIUnJvQnpHZXRGZWdlN0dVMEh2bElvZWpVOGxX?=
- =?utf-8?B?dGxzQmdSUmhXSC82NHE1MDk4M2JuZzNTcld0NXpBeWRITm0yVTJMUUNVbEZm?=
- =?utf-8?B?QWZscldUNEVWUG9TYTBaeTcyTG5jSlVnQ1BJM3RJbDlHNnJsaW1mRTJ2Vjcz?=
- =?utf-8?B?L0dZZG5mVmhWaTJiRUs4RXA2enNqUWZITXZvNnljM1B3MlB5bHp6Y1Z1NFAx?=
- =?utf-8?B?Y3pYY1JGeXBaV2JPWURYUjhGbVF5KzVCcEJ3QkIrSDhIUW15YVlsdUtjMUlT?=
- =?utf-8?B?S2NrVzlsVTh3QmJQWDBFdU5iTE9TeHdNZEZOeGdIenR2S04rWFZmUTRUMm1q?=
- =?utf-8?B?VkgrRGFGWVVZaFN2cmZ1eXN6RnBOWk92WEIyWkNVelpvbjY2eEQ1SzRQUS85?=
- =?utf-8?B?VzJLd0ZJZFFSamJ0eVVxdkIzVGZQSDVKajV5cVNDT0pDU2F5SmJSaThwQ0V3?=
- =?utf-8?B?bW9FUUtlcTk1bVE3c0FmWkVSaTVXQ2JRYnZ0SUMyWHNvdjhVeUdiQ0JvUm1z?=
- =?utf-8?B?YWplTUpPSmdhV0VTMzRKUnd6aVFsMkFJYnNUWGJSa2hrYzUyWTNUQ2pnN0Zj?=
- =?utf-8?B?RkkwU2UwMno2ZnpZWC9KSENMNXR6d1RmVG0xbGY4K2s1M3p0NVp2RHY1N1cw?=
- =?utf-8?B?bitJeUpnOTdJL0dKM1p1MCtZSDh1UmJ1MHVFUVA3WWVkM3k1R0Z6YWRHUVpw?=
- =?utf-8?B?dnZMRGMrNkpCWjlsazNzbzMyNEprMlFCUTZqMG1Fb2Q2Y01VVzN1U0w5N3pY?=
- =?utf-8?B?ZGFxMUx5K0FoWTlhZDliWHJMb2dCR1V1ekJmc20rbytRVjFLVjlQRUdwdHBO?=
- =?utf-8?Q?Kd8lLvUm5wzWk4cFEFq1jLMKT?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SDlKSjJRNm1oL3V2eEo0aElkQk1yOFBUaFdrOFB4U0IyWnVMNlByUnphaFJT?=
+ =?utf-8?B?Y1FGdnlrT0FlK3pTU3ZCaEtzajRQMTRxQnp2V3ZodVVlNUlOaWV2SHBCMHJL?=
+ =?utf-8?B?L2d1dE5VeXJrQ1Y2R25MNUN3bVMvZGh6WWRZZ3haWkgvekVIOWo1ck0xdHBH?=
+ =?utf-8?B?NlRPUWowenRkd2xvK0R3dkdMeU9veU8ySFhYdDZxbllRQ3VuRktYU0FKMUZE?=
+ =?utf-8?B?bmI1NytKaUdNbnNhQXp1MEFUVmV2TjdHaWh6R2ZubmtSdVljNGR4VzNKeGxz?=
+ =?utf-8?B?cXlLOGRPeW5vTlhSelFtWlhxWFB2ZVVQcHI3a0FvRHF3c3B2RW5oK25jL0Vt?=
+ =?utf-8?B?TEhzV0lmc2ZPRk1pclhjbTViVUhUMlk0MEkzRUc4SlI5ODErNk1HTW5kNVB4?=
+ =?utf-8?B?NVBkSE1FMU9qMk9rU1JtN2xlQUJYVUw5ZFZCMXQxVU1uUXBDemhxNlBzN0pJ?=
+ =?utf-8?B?bzZLOHNiRE5ua2lIV1Q1clc1cHdRa3UwaXk1NHJBM0VMNW1CeFY1SEhSUVV4?=
+ =?utf-8?B?bWd1KytlQ0xrcGlEeWg2aXFwaytYQm1vQ0Q0QUxqVDRsQ1ducnJCN1lYZkRs?=
+ =?utf-8?B?dy93YzZMOVBNTTQzNjBRT1NiZVdta3VQNGwzM0lOeXhheHl6V0NoelIyZzJl?=
+ =?utf-8?B?a2dkSTNXUE12eXlSZ09WRDFSUFJGOGdFNDl1NkRtT3NZRU5ianpSNFpyNjl3?=
+ =?utf-8?B?UHNSUFIrcWp2WVdPelJNc3ZtOWlCS0c2Rkk1ZDRHWGxBU21wdHMwZmdYcVNE?=
+ =?utf-8?B?ZVRnMWgydUVqZThBM29ET0NSUnNweGhIM2tUWTBIdy9LVk1CS0Z2cTQxWEVB?=
+ =?utf-8?B?Y2thelZJTXNQa28rRm1Bc3Q5VnM5eml0cXF2ZnF2NmU5UWErN3A5WStyWEww?=
+ =?utf-8?B?UlJXWDJPbnYyUlZNNnVuTnpzbTN0K040enkvU1RMZE9LUHR5bFpERUcvdGJo?=
+ =?utf-8?B?MFlJTHVaQm1CZW1waXVmenF3YUFIWmJWRDcySXdCc00zTllHZFRRa2pwb0xt?=
+ =?utf-8?B?S2Z5aTNBdkpzK253ZEg0MG45TEgxRjdabTd3R2NHVHhqNWEzNU1SOTcwdHk2?=
+ =?utf-8?B?U0t6eG9YNkdSNlpsams2MGN0Ny9sU3dUbGhoRDhmUkxSUHl3eFZ4SlNINUlu?=
+ =?utf-8?B?bmk4TTF1NDZJb25HMFFHL3JxdHRMNk5wcXJDTDJ6MGFIR2ZhZkJzTUlCSjJ1?=
+ =?utf-8?B?czVzZ05tamlNNEdXbm11bGtiYTBIOS9nQUxqaTJlTjc1QlVmcGF0bkxpVVUz?=
+ =?utf-8?B?bHRkZ2lJcDBwSTFkMHpWKzhidm1lbnJLV0VqSTJEQWcyRGxveGNsdUdPU3hx?=
+ =?utf-8?B?ZVdmUXhaUjBFcTF3czdDdENhTnZsQWpxODBUUmNUWWZqYmRJcUxjYXNqU0Nn?=
+ =?utf-8?B?dmxhZWRvNjl5SVU1dGE3L21kRzY2Tm9pQ3Z1NEw0VkQ3Q2JVYzhUVkNRODBs?=
+ =?utf-8?B?TU5Dc1F5djlUQTJsNXVDOThPQ0JmUWc4NzMwNDZIMitDZGxqQjVnZ3JUcE9a?=
+ =?utf-8?B?YzRMQXhUTWJNUk5aZFZYcWozNGN1MldFVElVUUZtS09YbGFRTmp0aGZ3czdN?=
+ =?utf-8?B?bFBTeVdqQnlMajNyT1hMcytpZ2w3ZUZUVlQwWVcxQU1jcUtwcWljd1JFb2ly?=
+ =?utf-8?B?VHpVTEdENUFYZWYvNXhyZWxFWG45MGEyUFkxa0JHYkk3cDVYNzdNRDg2Sm1E?=
+ =?utf-8?B?akZGSXFlTkxRWjNxY3hOUGlsS1lwRTIvYVNxYWVML09tTFFtR0Ixa3llbWF3?=
+ =?utf-8?B?dlRYM2kzaVo1N1ltOUhSbzVkdDVpQ2ZBaWJ1VkY0M2hkZnc0VWtWQzhxSnlG?=
+ =?utf-8?B?cHRPTzFldkRPYnc3UWNqei9kR083TFBSVWNPRGxzNm51S1VMR1JZNWI0NlhF?=
+ =?utf-8?B?YVZrM0JWcW9kMm83MmVWZE5EV1NyczdhWGJMYzdxL2REbmpneGlKSldoUlNi?=
+ =?utf-8?B?SWZCR1poSnF5bVRrZ3JnaUtDMW1TK1ZKYkpPL25MNHVHWkF4UVUzekduaUlm?=
+ =?utf-8?B?L29UN1k3K25GL3lZSHU2Yk5wcitCQVg5dUV2TnZES0dQY3Bxa0F0VnVPZmsx?=
+ =?utf-8?B?SnlEM3h5YTk0NlFUby9JRVhzZzJqclhiZHBuUm5Sd1M2dTZscUlDQjFKRE9W?=
+ =?utf-8?Q?kMwdgWzLdjXw3l8jg4AHq4QIB?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 49a6eae3-a964-42c9-2566-08dcfa8beef2
+X-MS-Exchange-CrossTenant-Network-Message-Id: e2a85ae4-6038-4f3f-3bd7-08dcfa9157a4
 X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Nov 2024 15:43:29.8356 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Nov 2024 16:22:12.9307 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: en7TIHnXOPd4SUWE1h5gqELlsm8l+iAv5uJwP5t8IdUAjYccBYogblpwG4bGsohTHyt/ZADPdI2lvc4YL63PFg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9418
+X-MS-Exchange-CrossTenant-UserPrincipalName: vBLEU8Q5NhU1hyfpo1FNtTTdTtVyeXAU/2DuAKcOYEpdr1ugb7NLWpu2dgba9/x0BOowxJfNGpOut3H+HWyGeA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4343
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -164,72 +162,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 11/1/2024 08:49, Zaeem Mohamed wrote:
-> From: Tom Chung <chiahsuan.chung@amd.com>
+On 10/31/2024 15:50, Antonio Quartulli wrote:
+> On 31/10/2024 20:37, Mario Limonciello wrote:
+>> On 10/31/2024 10:28, Antonio Quartulli wrote:
+>>> acpi_evaluate_object() may return AE_NOT_FOUND (failure), which
+>>> would result in dereferencing buffer.pointer (obj) while being NULL.
+>>>
+>>> Although this case may be unrealistic for the current code, it is
+>>> still better to protect against possible bugs.
+>>>
+>>> Bail out also when status is AE_NOT_FOUND.
+>>>
+>>> This fixes 1 FORWARD_NULL issue reported by Coverity
+>>> Report: CID 1600951:  Null pointer dereferences  (FORWARD_NULL)
+>>>
+>>> Signed-off-by: Antonio Quartulli <antonio@mandelbit.com>
+>>
+>> Can you please dig up the right Fixes: tag?
 > 
-> [Why]
-> During boot up and resume the DC layer will reset the panel
-> brightness to fix a flicker issue.
+> Fixes: c9b7c809b89f ("drm/amd: Guard against bad data for ATIF ACPI 
+> method")
 > 
-> It will cause the dm->actual_brightness is not the current panel
-> brightness level. (the dm->brightness is the correct panel level)
+> Your commit :)
 > 
-> [How]
-> Set the backlight level after do the set mode.
-> 
-> Reviewed-by: Sun peng Li <sunpeng.li@amd.com>
-> Signed-off-by: Tom Chung <chiahsuan.chung@amd.com>
-> Signed-off-by: Zaeem Mohamed <zaeem.mohamed@amd.com>
+> Should I send v3 with the Fixes tag in it?
 
-Some more tags, please explicitly add these while merging.
+Don't worry about it, I'll pick it up while we commit it.
 
-Cc: stable@vger.kernel.org
-Fixes: d9e865826c20 ("drm/amd/display: Simplify brightness initialization")
-Reported-by: Mark Herbert <mark.herbert42@gmail.com>
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3655
+Thanks!
 
-> ---
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 15 +++++++++++++++
->   1 file changed, 15 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index bbfc47f6595f..2599a99509de 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -9411,6 +9411,7 @@ static void amdgpu_dm_commit_streams(struct drm_atomic_state *state,
->   	bool mode_set_reset_required = false;
->   	u32 i;
->   	struct dc_commit_streams_params params = {dc_state->streams, dc_state->stream_count};
-> +	bool set_backlight_level = false;
->   
->   	/* Disable writeback */
->   	for_each_old_connector_in_state(state, connector, old_con_state, i) {
-> @@ -9530,6 +9531,7 @@ static void amdgpu_dm_commit_streams(struct drm_atomic_state *state,
->   			acrtc->hw_mode = new_crtc_state->mode;
->   			crtc->hwmode = new_crtc_state->mode;
->   			mode_set_reset_required = true;
-> +			set_backlight_level = true;
->   		} else if (modereset_required(new_crtc_state)) {
->   			drm_dbg_atomic(dev,
->   				       "Atomic commit: RESET. crtc id %d:[%p]\n",
-> @@ -9581,6 +9583,19 @@ static void amdgpu_dm_commit_streams(struct drm_atomic_state *state,
->   				acrtc->otg_inst = status->primary_otg_inst;
->   		}
->   	}
-> +
-> +	/* During boot up and resume the DC layer will reset the panel brightness
-> +	 * to fix a flicker issue.
-> +	 * It will cause the dm->actual_brightness is not the current panel brightness
-> +	 * level. (the dm->brightness is the correct panel level)
-> +	 * So we set the backlight level with dm->brightness value after set mode
-> +	 */
-> +	if (set_backlight_level) {
-> +		for (i = 0; i < dm->num_of_edps; i++) {
-> +			if (dm->backlight_dev[i])
-> +				amdgpu_dm_backlight_set_level(dm, i, dm->brightness[i]);
-> +		}
-> +	}
->   }
->   
->   static void dm_set_writeback(struct amdgpu_display_manager *dm,
+> Interestingly, this pattern of checking for AE_NOT_FOUND is shared by 
+> other functions, however, they don't try to dereference the pointer to 
+> the buffer before the return statement (which caused the Coverity report).
+> It's the caller that checks if the return value is NULL or not.
+> 
+> For this function it was the same, until you added this extra check on 
+> obj->type, without checking if obj was NULL or not.
+> 
+> If we want to keep the original pattern and continue checking for 
+> AE_NOT_FOUND, we could rather do:
+> 
+> -       if (obj->type != ACPI_TYPE_BUFFER) {
+> +       if (obj && obj->type != ACPI_TYPE_BUFFER) {
+> 
+> But this feel more like "bike shed color picking" than anything else :)
+> Anyway, up to you Mario, I am open to change the patch again if the 
+> latter pattern is more preferable.
+> 
+> Regards,
+> 
+>>
+>> Besides that, LGTM.
+>>
+>> Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
+>>
+>>> ---
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 4 ++--
+>>>   1 file changed, 2 insertions(+), 2 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/ 
+>>> drm/amd/amdgpu/amdgpu_acpi.c
+>>> index cce85389427f..b8d4e07d2043 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+>>> @@ -172,8 +172,8 @@ static union acpi_object *amdgpu_atif_call(struct 
+>>> amdgpu_atif *atif,
+>>>                         &buffer);
+>>>       obj = (union acpi_object *)buffer.pointer;
+>>> -    /* Fail if calling the method fails and ATIF is supported */
+>>> -    if (ACPI_FAILURE(status) && status != AE_NOT_FOUND) {
+>>> +    /* Fail if calling the method fails */
+>>> +    if (ACPI_FAILURE(status)) {
+>>>           DRM_DEBUG_DRIVER("failed to evaluate ATIF got %s\n",
+>>>                    acpi_format_exception(status));
+>>>           kfree(obj);
+>>
+> 
 
