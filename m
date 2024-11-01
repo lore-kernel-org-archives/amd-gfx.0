@@ -4,119 +4,141 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A9B4E674B8
-	for <amd-gfx@archiver.kernel.org>; Fri,  1 Nov 2024 08:22:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C760E6B240
+	for <amd-gfx@archiver.kernel.org>; Fri,  1 Nov 2024 10:14:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D38EC10E955;
-	Fri,  1 Nov 2024 08:22:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B810B10E973;
+	Fri,  1 Nov 2024 10:14:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=mandelbit.com header.i=@mandelbit.com header.b="Muy8WJb0";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Ok2MEX6D";
 	dkim-atps=neutral
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 60C4710E929
- for <amd-gfx@lists.freedesktop.org>; Thu, 31 Oct 2024 20:50:19 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-43167ff0f91so12192175e9.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 31 Oct 2024 13:50:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mandelbit.com; s=google; t=1730407817; x=1731012617;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:organization:autocrypt:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=bw5E/KRCdHkbAWHdLK4V3a1ff0D3uJNNEH7nWj1aLMU=;
- b=Muy8WJb0fHTV3RCoQtSSWvIXiQqF9fvZmv/hmAZ2UBM4GK0moO9hpizHYh5/BVhDgp
- d4XAPS4uZhm8STnaJ3fneVO3lkabWuHOEWP9tFHo0KDkoNWSH/CZooNp4EwNvfOz79Z3
- je/RpHW2Ct8cmrYxR2tIHYJDrqzi6amI9wguBnSQ9Q3U9U5tcgH9FXx0ZXBzgaKBTMUv
- J/kRqC2rmTHrWLblFXrbOyKNdIWKee1JOEbO3dCkCX+dRFitf1vb4qNZCt9zugxev1RB
- ckuF4IXo7cSbah7UIofnPiicYhz1RWlBaPyF9p4dtt9r5MaT2PlhItKD47S7Sad34Ygg
- iu3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1730407817; x=1731012617;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=bw5E/KRCdHkbAWHdLK4V3a1ff0D3uJNNEH7nWj1aLMU=;
- b=XdhvtWlRHieB/wNfq0xTfKev5VXutggSIidCLLZXsqBLUvMF5c0JWhYbjpMPDVpzBO
- Y5PftmS65EbDEtiU7NtByCDzgBsGR4bjU/YvT63lSNBnxiNvhMsT9q4EPBPV1Pl4mOVG
- yQN9Ff7DmyeHGQVt4XZXBfxc3br/Xn24+gmv0UsfBcxhnFz5r22YzIbBSYAulNaMbyQH
- wXRoc115Ws7XROa1vgC9hrBkiYMe1CEVMdW5gaTn1oJuXQEiedeOwqRRnte24jaH/2hp
- TCmB6UIMQgQYm361NJ7YAfQUd+vXOs2B/LdoNRBIj5tJEDz9VyntPXnvrOb5YJ+d/EQd
- 9bDg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXUc02FfT77Mg3Ua0FsU8Bqz4f5+FadS5AvLbSxBpwnLvmbG5xh8CeIyuGeb3KoJyXEodaxfA9F@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy6X6igf2ywi2W4lgYsgQWPrqs6rYHItOFMkyXdBoD9/3JKTXEO
- U+oLJYilXeTpiR/2ZMuMlupLKLhonX3y2VIpWkek2Kf4jmk0zce/xvYsOJoM5WE=
-X-Google-Smtp-Source: AGHT+IFJf4Ul+62BnxQ2eJNGCbrmvPuv0OuD2YyiaLm8VqwUGEtl+XHwm3TI3xThkWHpVZs762iwJw==
-X-Received: by 2002:a05:600c:1396:b0:430:582f:3a9d with SMTP id
- 5b1f17b1804b1-4327b80d1a9mr45198245e9.26.1730407817378; 
- Thu, 31 Oct 2024 13:50:17 -0700 (PDT)
-Received: from ?IPV6:2001:67c:2fbc:1:56a2:399b:490:2ad?
- ([2001:67c:2fbc:1:56a2:399b:490:2ad])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4327d5ac387sm39945825e9.1.2024.10.31.13.50.16
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 31 Oct 2024 13:50:16 -0700 (PDT)
-Message-ID: <34c84c6a-9b0d-4d04-9ce3-edf1bb850b2c@mandelbit.com>
-Date: Thu, 31 Oct 2024 21:50:34 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] amdgpu: prevent NULL pointer dereference if ATIF is
- not supported
-To: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Xinhui.Pan@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20241031152848.4716-1-antonio@mandelbit.com>
- <00e9b1f0-7bc1-418c-8e67-e8f1893be665@amd.com>
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2064.outbound.protection.outlook.com [40.107.220.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A64AE10E27E
+ for <amd-gfx@lists.freedesktop.org>; Fri,  1 Nov 2024 10:14:41 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=oAITyj3Ku3DjMO/2J5Po0xx4h67wsoKLfkRLWsi4cjI4ChtP4vudxiKTCmYwzr5R7MEHVTPiobNeyTzO57WJZkf1BpdCj4OIQLJv6DEsyjqbOV3YpfXQLoSCWcvRZtzmf+MsXZQLlGYuWnVdPTVaLq0hOJvPeaJkhNKzRflx+WPu736weTlx5AroPkuB0CFX1CN8qVCMJ1jMn91Hirdfn7k/bHIDekNH48Qt60f0VcL7X6wnYZ+KO5zsRILPhWlZaYQ8Lg9rEeIHHgRGZh/TW1gU1KDYN3o1GdUhZnBS8xlJ3Fhd6hRsv/IhpLhqzBhXcIsRWzey/6ZQwXLSFA2xYQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=V2Ohag9d0TIKYJa53kfr83Ent4oT05QvXZpxuka6Fig=;
+ b=wg9Tmqugbl3MeC6OnGaX3lL49amCnhiUAdIF4lmypL5uQ6s5fOzeyf7UGxjNI8t6aKEndO1UrKHpfTynX5bOTK52dkmaBtAgzq+2HH0vGL1oDnimkNR2r9PknBw9B/p0I8w/+d2xK1wI8s2lnPcoxWgMBDZuKuWgLK6fRwdgTRdeVqyE0hjZoWga4BWNXQD2pVpqHsbcYeKVEv7DW8LWHh30brQRpBaymZ8nZcpPSva9tTHJDLR3CSXjzv88CH31qkwSaIQoMvEIpQdQoXVuk+9x1TMCXJ9cIi+FSkzsKoaKS4P46YpDpOgc4dNKhmZWAVp2dxAlp0fgXQviN7wjxQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=V2Ohag9d0TIKYJa53kfr83Ent4oT05QvXZpxuka6Fig=;
+ b=Ok2MEX6DWg4ExN+Xc2UFlx24A2CSAUXZyDEiYAITJ0YQnQatxpJdCrxOvOK7oPQ40MpsMjt3dzRGzHS9Y6ixJc5U1iA5N8s4O93Ve29hnrJ3TlOnGWnN8uNy5YXLS1aebt6YrBXkRx0qo7/zQIOigpDwhOpmfd6XCr/aNqTOAgc=
+Received: from DS7PR12MB6071.namprd12.prod.outlook.com (2603:10b6:8:9d::11) by
+ MW4PR12MB6706.namprd12.prod.outlook.com (2603:10b6:303:1e2::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.28; Fri, 1 Nov
+ 2024 10:14:39 +0000
+Received: from DS7PR12MB6071.namprd12.prod.outlook.com
+ ([fe80::be26:4c33:76bc:e1b]) by DS7PR12MB6071.namprd12.prod.outlook.com
+ ([fe80::be26:4c33:76bc:e1b%3]) with mapi id 15.20.8114.015; Fri, 1 Nov 2024
+ 10:14:39 +0000
+From: "Kamal, Asad" <Asad.Kamal@amd.com>
+To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: Add compatible NPS mode info
+Thread-Topic: [PATCH] drm/amdgpu: Add compatible NPS mode info
+Thread-Index: AQHbKqYpWKBfP2ufI0Ka8cn3ilwxBLKiOFvQ
+Date: Fri, 1 Nov 2024 10:14:39 +0000
+Message-ID: <DS7PR12MB607198FC8ACEED7EE90CF7B48E562@DS7PR12MB6071.namprd12.prod.outlook.com>
+References: <20241030082937.3185224-1-lijo.lazar@amd.com>
+In-Reply-To: <20241030082937.3185224-1-lijo.lazar@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: Antonio Quartulli <antonio@mandelbit.com>
-Autocrypt: addr=antonio@mandelbit.com; keydata=
- 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
-Organization: Mandelbit SRL
-In-Reply-To: <00e9b1f0-7bc1-418c-8e67-e8f1893be665@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 01 Nov 2024 08:22:15 +0000
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=cb4448e6-1fe9-432b-b048-8cc225621523;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution Only;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-11-01T10:14:25Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DS7PR12MB6071:EE_|MW4PR12MB6706:EE_
+x-ms-office365-filtering-correlation-id: 0482fa33-cc33-48fd-7087-08dcfa5dfec6
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0; ARA:13230040|366016|376014|1800799024|38070700018;
+x-microsoft-antispam-message-info: =?us-ascii?Q?G4ZJxauLQdQsDsybvud7RnCJYNkwM6DeQDoaeZ8l/EYHE0jSCN2/Ph5HZpqr?=
+ =?us-ascii?Q?5NApn94DMVHJ5QdxxHJOSmh8FCUB2hnI030p6E262WYPAFL7fpTBALidqZ2O?=
+ =?us-ascii?Q?5h3mFzrj6/uAYnI/x22Jx/MCKJ75pZ5oBFPou6K0SkspmXPWRPm+X04E/ytd?=
+ =?us-ascii?Q?mIxOa52HNIWLSvx+FYlARRd6sPPYGPunwMlfQnUprzAFCNqPjQ9nwkUA91kp?=
+ =?us-ascii?Q?8EZVFcP+IBUMf+yXnITOIHFR9EzbSS9qDpJsegIUF+fCs//yChvlYhCDtSr/?=
+ =?us-ascii?Q?wg9HRf3zob5yIZHpKmdKk8iz8+ToGTuCyCTShAe8JCkJEwMmEGYS+Y+aN6Qb?=
+ =?us-ascii?Q?dlpTGiU19OCzvvr1A/17GYkOA10RFEaMoch8RwfKt9hHDATywcqLqE8Xdixf?=
+ =?us-ascii?Q?1asihID8Lfn5F57KsSX56YNLPenYd6UVy594QxhFnIq6odhjEAMqJoAQsQpd?=
+ =?us-ascii?Q?XcQct86zp95pXfs7N8IuA2ipQ/XEgCxetl5hu3JBTs1ReXCT1QbE8CgZW/Op?=
+ =?us-ascii?Q?V8u21D8QC473+OtoJbl+qygqh6sZcKsVOi7oSFWxXka+lM7BWnL9fTpVtIPX?=
+ =?us-ascii?Q?3SwtaBhic5GjiAdxXich6l5zaqpAmQD9xOMSa3NMO/PwJvmU8DogZRscNk0K?=
+ =?us-ascii?Q?rbMdQAskgpZcNvzoZL5ukyej0C43EWXoSq2b/5WytsRiknrA1934IRgIYP12?=
+ =?us-ascii?Q?r1lxPMSz3QwAltPIjQ0F6uUj3IkRxHOppSP2VD//zV5O6Yq2m/AHF96DokEM?=
+ =?us-ascii?Q?xikQi1IVvaaQyq9Pxcw8jLcXpDetiP9HbMiCjfF+47zToROf4Oy9rju4YtTE?=
+ =?us-ascii?Q?Kj6lJoA6WZwFqd74hZquYZDoGrpZ3KBDQeQa5oWxWdK4tDxuKfa46PjDLVLa?=
+ =?us-ascii?Q?KW7eSLyfaEECbBd5B8r/nixYWgR8zrSP8tuQ5HyKLVC1fieUEEUdPvNezKHX?=
+ =?us-ascii?Q?ssH057E2xeWuhjve7TqgwA+vvelpELo/Idk/u3Y+wHIiVgH9Ud4IHrYZriUs?=
+ =?us-ascii?Q?Qp10XZuOxAiKm8A+HBpI2anst2JPnZ0Ib5HQTd5qket50KPylU5cDejbA61r?=
+ =?us-ascii?Q?8qrzN/Kn+b2yMKBf3kmZRyMoWV8W7dM8gKSfiHM8JabxDWBSgBalTsbcI5Hh?=
+ =?us-ascii?Q?g64RGZ2JtOavASpaZuicxkYjG92GxJ2EDDDSwxWbCbOpUpsG3OGWoY9o8PMo?=
+ =?us-ascii?Q?JSM8kCZrjqnOkYwPeKSWpTnB0ZVMZ/UUGUHmJ9i160+hQVNDeGido0FgAjIn?=
+ =?us-ascii?Q?dxBkxkvu1iIFewe0ua4ySwvhj8WVJIbqbLW3hCZnJ8OtMAAgqtOopfhm42HH?=
+ =?us-ascii?Q?BWQrKuvo/4VFGPyzM1/eHJvC1Z0vCEQ7QWuCzB6u3Z1nLDCkg0zIc58z0SNk?=
+ =?us-ascii?Q?hsOqnyU=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS7PR12MB6071.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(38070700018); DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?KdFIk0R706uSnE4E53G5oXm/w0TjZjvx+roQmhS3DPIueQXbt/aBGR0y1/r9?=
+ =?us-ascii?Q?86pVE2kn7BiBhwAj3NtqgBomFQx3648vG8Xr5Y24TJo4N3fM0YNY3wFE5ZrW?=
+ =?us-ascii?Q?5GxHvG/6r9vLQbQq2BC0wOUVBQykFH5OQ1IzyzyRERDEPCLBlqAMNrPYSRjQ?=
+ =?us-ascii?Q?Y5JD4zJ4S6psO+xDE1bHDDnjjsFynRo1KbRw4YHMAlB9nMK5RQ4mAyb6z9NB?=
+ =?us-ascii?Q?XH5Rsbpv2w/At5HZjRCOvW0rVygIc8YlpF0ym1CmZpCfBjQjK8rbNdXwVIZi?=
+ =?us-ascii?Q?a8zNG4C9FC4DjjVvJKm0rQAixG9gn2XF5AEjsbGVNJLwMb3GI/wqRBsnj6PL?=
+ =?us-ascii?Q?DX6NtM/Ab88DRpyPtIr08ZANB822U8HnCrN6Qkx5BxNHOSpQ0ZJ8EJRiDiWp?=
+ =?us-ascii?Q?X2pBgVtEgNazCOdR5M64n9ZpXWseoO3FRf6LEW69FRheUfUBJYowjGBxjjmd?=
+ =?us-ascii?Q?ns8LP3uRH36lwcs7fGBt5YbfxxkA+RFuTERp0F7Lj8hSbWr+8TP1/LxQPX/u?=
+ =?us-ascii?Q?JkAa+0OfqXIPuNvwC8HeNNa9Bv5XPhyZeqmI+3/feL3dV/XHSdDd3eA66tIY?=
+ =?us-ascii?Q?6tsl3x6W82HbSTSpTy3IcdGMlRqd58h6PKiieZL9iQ+a3g6nR+sFi8NGx6dw?=
+ =?us-ascii?Q?rnaUD3hT5/8n/wwwKZXaXZ7SL6H6vBY1oJYF7APTjvKZYz2dSojk1loOCAvM?=
+ =?us-ascii?Q?h8OORZ/J6VLDcWXBy6rqk8sG65+aQZHTs5vV+yo3Tm48OUjdW59wNCKP5Fut?=
+ =?us-ascii?Q?jEQcs33juw/02qgJ6x5G+FLsj8CN75E+2Rt/PZIWuo0N/PZXCxY5j4pfxLrY?=
+ =?us-ascii?Q?d0tuAjhXVomE73tOnSXPuPioRzm8UNjCWw6I0zS6HMh1qRCH+C3lvm/xFu3Q?=
+ =?us-ascii?Q?RYombaYELT6PwNxrx7QleqG3GOG+rwqdz4q/IHIX4EOWswmwaPhdh5toh6XN?=
+ =?us-ascii?Q?vx1aFZ3fsfgxEH/79oECGFf5XXrOevajQhzQ4q2haGjd33TG9smhYalQ1V7r?=
+ =?us-ascii?Q?XTl1CrKtWTVhGINJaFC1Cn8z0JzuZroiU0nc3liBOrpeGbq+DXCI1T4z/97o?=
+ =?us-ascii?Q?wAbvFS4+9+GTh+6tvLk6u8Sxm6YVNR/4j0k7Av6IeQENp0bruNBDfietcniY?=
+ =?us-ascii?Q?AzzJZyPmDYNc7K8PhVdjA5Zp4RcWnmybWTxNEMGELdY0JRdVNOTFxjndWdeR?=
+ =?us-ascii?Q?fLpNDClXuOZgsmwUZciX2wQsNY5G7FgVHsEW5ly2xjInjVUWhTts0rMmiaDO?=
+ =?us-ascii?Q?D80bPV8kEZOJzGB/cszntL9wA7JAb0t66ubtQuXc+0uewjR6MWbK5SzisPLW?=
+ =?us-ascii?Q?uqcevP5hoFJdqEt1bOFcrEb8rt3ETkHBT30GAl1jRpGmi6Q6i31Mm+osToeD?=
+ =?us-ascii?Q?aZYRKrnhfOcO0pnV052K8ffPIZ3XLNpHHCaoM70sfo/+L7hXJMX2YZz4zicy?=
+ =?us-ascii?Q?f+FTxNXgiMGcFxGj0AeoLma2p1cRTa9V0H5rKQ5hmzKGhdsa2clnShllcX7S?=
+ =?us-ascii?Q?ckUS+AO8TQl+xnqHEYnlEnEC6z9Ikqy0PgSXw9zyo8Uy7/bkZrAKplvcfSUh?=
+ =?us-ascii?Q?YpsYfmSuIMnIpliukQc=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB6071.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0482fa33-cc33-48fd-7087-08dcfa5dfec6
+X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Nov 2024 10:14:39.2549 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Up/B9wxxpIQ9kftbaf1VoDBiCZtEfMQ1G2T3l8ZtQUtdWUmHf76PJ2XrqqnlxZl+6qCTIteXiYVE/oIbMxhUDw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6706
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,80 +153,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 31/10/2024 20:37, Mario Limonciello wrote:
-> On 10/31/2024 10:28, Antonio Quartulli wrote:
->> acpi_evaluate_object() may return AE_NOT_FOUND (failure), which
->> would result in dereferencing buffer.pointer (obj) while being NULL.
->>
->> Although this case may be unrealistic for the current code, it is
->> still better to protect against possible bugs.
->>
->> Bail out also when status is AE_NOT_FOUND.
->>
->> This fixes 1 FORWARD_NULL issue reported by Coverity
->> Report: CID 1600951:  Null pointer dereferences  (FORWARD_NULL)
->>
->> Signed-off-by: Antonio Quartulli <antonio@mandelbit.com>
-> 
-> Can you please dig up the right Fixes: tag?
+[AMD Official Use Only - AMD Internal Distribution Only]
 
-Fixes: c9b7c809b89f ("drm/amd: Guard against bad data for ATIF ACPI method")
+Reviewed-by: Asad Kamal <asad.kamal@amd.com>
 
-Your commit :)
+Thanks & Regards
+Asad
 
-Should I send v3 with the Fixes tag in it?
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Lijo Laz=
+ar
+Sent: Wednesday, October 30, 2024 2:00 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander <Alexander.D=
+eucher@amd.com>; Kamal, Asad <Asad.Kamal@amd.com>
+Subject: [PATCH] drm/amdgpu: Add compatible NPS mode info
 
-Interestingly, this pattern of checking for AE_NOT_FOUND is shared by 
-other functions, however, they don't try to dereference the pointer to 
-the buffer before the return statement (which caused the Coverity report).
-It's the caller that checks if the return value is NULL or not.
+Populate the compatible NPS modes also for providing partition configuratio=
+n details through sysfs.
 
-For this function it was the same, until you added this extra check on 
-obj->type, without checking if obj was NULL or not.
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h    |  1 +
+ drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c | 11 +++++++++++
+ 2 files changed, 12 insertions(+)
 
-If we want to keep the original pattern and continue checking for 
-AE_NOT_FOUND, we could rather do:
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_xcp.h
+index 7ac89d78a5bf..b63f53242c57 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h
+@@ -77,6 +77,7 @@ struct amdgpu_xcp_cfg {
+        u8 num_res;
+        struct amdgpu_xcp_mgr *xcp_mgr;
+        struct kobject kobj;
++       u16 compatible_nps_modes;
+ };
 
--       if (obj->type != ACPI_TYPE_BUFFER) {
-+       if (obj && obj->type != ACPI_TYPE_BUFFER) {
+ struct amdgpu_xcp_ip_funcs {
+diff --git a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c b/drivers/gpu/drm/a=
+md/amdgpu/aqua_vanjaram.c
+index 890976b7ce77..fccccea0d2d0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
++++ b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
+@@ -455,6 +455,7 @@ static int aqua_vanjaram_get_xcp_res_info(struct amdgpu=
+_xcp_mgr *xcp_mgr,
+        int max_res[AMDGPU_XCP_RES_MAX] =3D {};
+        bool res_lt_xcp;
+        int num_xcp, i;
++       u16 nps_modes;
 
-But this feel more like "bike shed color picking" than anything else :)
-Anyway, up to you Mario, I am open to change the patch again if the 
-latter pattern is more preferable.
+        if (!(xcp_mgr->supp_xcp_modes & BIT(mode)))
+                return -EINVAL;
+@@ -467,23 +468,33 @@ static int aqua_vanjaram_get_xcp_res_info(struct amdg=
+pu_xcp_mgr *xcp_mgr,
+        switch (mode) {
+        case AMDGPU_SPX_PARTITION_MODE:
+                num_xcp =3D 1;
++               nps_modes =3D BIT(AMDGPU_NPS1_PARTITION_MODE);
+                break;
+        case AMDGPU_DPX_PARTITION_MODE:
+                num_xcp =3D 2;
++               nps_modes =3D BIT(AMDGPU_NPS1_PARTITION_MODE);
+                break;
+        case AMDGPU_TPX_PARTITION_MODE:
+                num_xcp =3D 3;
++               nps_modes =3D BIT(AMDGPU_NPS1_PARTITION_MODE) |
++                           BIT(AMDGPU_NPS4_PARTITION_MODE);
+                break;
+        case AMDGPU_QPX_PARTITION_MODE:
+                num_xcp =3D 4;
++               nps_modes =3D BIT(AMDGPU_NPS1_PARTITION_MODE) |
++                           BIT(AMDGPU_NPS4_PARTITION_MODE);
+                break;
+        case AMDGPU_CPX_PARTITION_MODE:
+                num_xcp =3D NUM_XCC(adev->gfx.xcc_mask);
++               nps_modes =3D BIT(AMDGPU_NPS1_PARTITION_MODE) |
++                           BIT(AMDGPU_NPS4_PARTITION_MODE);
+                break;
+        default:
+                return -EINVAL;
+        }
 
-Regards,
++       xcp_cfg->compatible_nps_modes =3D
++               (adev->gmc.supported_nps_modes & nps_modes);
+        xcp_cfg->num_res =3D ARRAY_SIZE(max_res);
 
-> 
-> Besides that, LGTM.
-> 
-> Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
-> 
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 4 ++--
->>   1 file changed, 2 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/ 
->> drm/amd/amdgpu/amdgpu_acpi.c
->> index cce85389427f..b8d4e07d2043 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
->> @@ -172,8 +172,8 @@ static union acpi_object *amdgpu_atif_call(struct 
->> amdgpu_atif *atif,
->>                         &buffer);
->>       obj = (union acpi_object *)buffer.pointer;
->> -    /* Fail if calling the method fails and ATIF is supported */
->> -    if (ACPI_FAILURE(status) && status != AE_NOT_FOUND) {
->> +    /* Fail if calling the method fails */
->> +    if (ACPI_FAILURE(status)) {
->>           DRM_DEBUG_DRIVER("failed to evaluate ATIF got %s\n",
->>                    acpi_format_exception(status));
->>           kfree(obj);
-> 
-
--- 
-Antonio Quartulli
-
-CEO and Co-Founder
-Mandelbit Srl
-https://www.mandelbit.com
+        for (i =3D 0; i < xcp_cfg->num_res; i++) {
+--
+2.25.1
 
