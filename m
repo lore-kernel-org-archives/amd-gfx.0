@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33DC6E6B27C
-	for <amd-gfx@archiver.kernel.org>; Fri,  1 Nov 2024 13:50:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31428E6B278
+	for <amd-gfx@archiver.kernel.org>; Fri,  1 Nov 2024 13:50:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D6C4510E9C7;
-	Fri,  1 Nov 2024 13:50:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCD6310E9C6;
+	Fri,  1 Nov 2024 13:50:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ASC8Y5lD";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="XYPZ6nEZ";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2086.outbound.protection.outlook.com [40.107.223.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A473010E9C6
- for <amd-gfx@lists.freedesktop.org>; Fri,  1 Nov 2024 13:50:14 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2084.outbound.protection.outlook.com [40.107.220.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6362710E9C6
+ for <amd-gfx@lists.freedesktop.org>; Fri,  1 Nov 2024 13:50:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dEXiN+jJTZLz/ftPhyRsuys57O/GHDR/nlJ0upk0lFaPhwVDESvkWTIoysEfjy6zse0Be3V2y98eY/jSaBBHTf2u1Hnqu854AJCDbkdzGoyVvW0iuWR8yPtn/k643dK0S8wazY2C/rc2ZZXbM7N4o9qo9JktDzK1CbnWERS5aMBvkDPsIqJJIhmKptRqOZDo51Rw8DOUxeukHrk+bUl2NTjkLdiZ69xUbcfmwB2SjwWBBbj5tD05ShJ0mjx89mpv0KAJMmnWuqG3iM7wua3bKGJ7WbaoXUtSHLSfx/eQkOdVGx1FhfOgiP3MSubUS/JVuRQkgmgv/DBNSeC4a4GfsQ==
+ b=eeNoEzZgqq8g1wB7Kzaz3pliCEgZ4fyPyjSoH48WwEzScxTeWWUMx0l8idzk4JWhEjQLhMPPcFZDCT4pRjZy3o8+8InU3Y4KU9NeeiZwE4GYhx+xtFJ0XjZibdFXBbGyT6HDahrmjdNMNGtFBFbBW269puw00QXfKE2q/efW2xpOmTqT6F/qFy9L5LgYwP7ZmA6x9vor9YqsWfmBKGiWfclz9hN+9dSKRZaG47FbbCd2CsJ76iNG3WKhTt15UtezBUBqR1FMNL7Tpt2U0W1yw0hzFhKiU8vN682pLj/IjsdoWf6xUjISggS/Y8DIgNcxu6u7NnNq3ASi+Z09e1nwJA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6euFr2uJsp2jL2wiezmI5V+dmmQFk/hJiR7vbfIecw8=;
- b=EeS40+q7Ms1woZZL/7XRs+xZ91g5NW53Umazy06b6PNZ1xWTQidYP891e+CfBeV4rlw+2XDcA6G694vD6qVi2CMtfvpyxTIADSL60tTod9nlyF3T+8eGsyeSTYuA1vBW/NKv1FKNK8D4fe1sMLiduPAGrvEr81R0Na9sAcOxYhbMe9AsndlKSXPMKw/zZUfJ5d0LuuN15v/aoSBa/nGnup+m3cCbEipFzo1gaZW2dRrIss69L+KNk0Bj8I6orLWlNGlbr0Nvq0mt79KE/auG/ZJvnBB4aTjETyRH2MVuW+dpeck+DGeaC/ntWHakdjpDA3woYoTxzr+xrsB/Im+UEg==
+ bh=G+ZC6nq4JkyBUwtfNfpciv9InWnq//jHxdMzfnsgkmg=;
+ b=WIX6LAhqlLF103l/P3RLYC55TboA6Ky35wUjbW7pX9O/UMagmPpb4BZKddD9zPl31fsj+u2cUVH8b3ROxRQplS1k/dE4Zhq+b8O2FAzHD1upBQWJOKFnWiBaEMw4Gxs/GRJQFtjoeDX8mqldQm4uI4HIOVMO89k6lVgCPtutTa1iL6VeT2CXu+XQo05dJwE5486Ba9Xr+X4wPCmej4bufrySgUPYJAur6A08Jcf/We57dMfyRgyMw2mtXy6Wsr2oYhP9od/1+zFWYlHSBHzrMvVGHkTbUrYx5Ff306BjAXmoS/S3560XT/zvi8cKlWk46GE4ZWoExSfx2B/54U9dfA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6euFr2uJsp2jL2wiezmI5V+dmmQFk/hJiR7vbfIecw8=;
- b=ASC8Y5lDU2uxjHlk4v6aOKAXMHfI22A1jWZ32zPG/7eI1v6ncZImesFJVRJhWrPU+iPbNEJjL+QxaSXWQVdSmeMOl0+2LVnzzPfwLQvXSFxaydikfvjbAse9EwbWA46FlBGXXieDJz6A4vOr6CYEIdL9fsbRdZEmQzH4rIfT/7I=
-Received: from BN0PR02CA0011.namprd02.prod.outlook.com (2603:10b6:408:e4::16)
- by IA1PR12MB6410.namprd12.prod.outlook.com (2603:10b6:208:38a::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8093.32; Fri, 1 Nov
- 2024 13:50:10 +0000
+ bh=G+ZC6nq4JkyBUwtfNfpciv9InWnq//jHxdMzfnsgkmg=;
+ b=XYPZ6nEZL6VMFkba9k28XuZw0eUICnLAlS+2HmZ2DsmPxMp98KDO0oIbgdPwijXSaBN3Y+kIcL8atujSnuoqlGG0Oxca4PKQagR4X9JnMYTrZ7LxtOlWEDixcqmeBYfl+B3WK8DqeI3Dp0i3rb3P3dCRw2uVqZFHVd9YnDeFXr8=
+Received: from BN0PR02CA0004.namprd02.prod.outlook.com (2603:10b6:408:e4::9)
+ by PH0PR12MB7840.namprd12.prod.outlook.com (2603:10b6:510:28a::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.18; Fri, 1 Nov
+ 2024 13:50:12 +0000
 Received: from BN1PEPF0000468A.namprd05.prod.outlook.com
- (2603:10b6:408:e4:cafe::23) by BN0PR02CA0011.outlook.office365.com
- (2603:10b6:408:e4::16) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:408:e4:cafe::65) by BN0PR02CA0004.outlook.office365.com
+ (2603:10b6:408:e4::9) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.23 via Frontend
- Transport; Fri, 1 Nov 2024 13:50:10 +0000
+ Transport; Fri, 1 Nov 2024 13:50:11 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,11 +50,11 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BN1PEPF0000468A.mail.protection.outlook.com (10.167.243.135) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8114.16 via Frontend Transport; Fri, 1 Nov 2024 13:50:10 +0000
+ 15.20.8114.16 via Frontend Transport; Fri, 1 Nov 2024 13:50:11 +0000
 Received: from mkmmarleung05.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 1 Nov
- 2024 08:50:08 -0500
+ 2024 08:50:09 -0500
 From: Zaeem Mohamed <zaeem.mohamed@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -63,12 +63,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Li" <roman.li@amd.com>, Wayne Lin <wayne.lin@amd.com>, Tom Chung
  <chiahsuan.chung@amd.com>, Fangzhi Zuo <jerry.zuo@amd.com>, Zaeem Mohamed
  <zaeem.mohamed@amd.com>, Solomon Chiu <solomon.chiu@amd.com>, Daniel Wheeler
- <daniel.wheeler@amd.com>, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Ovidiu Bunea <ovidiu.bunea@amd.com>, Charlene Liu <charlene.liu@amd.com>
-Subject: [PATCH 05/17] drm/amd/display: Remove inaccessible registers from DMU
- diagnostics
-Date: Fri, 1 Nov 2024 09:49:28 -0400
-Message-ID: <20241101134940.1426653-6-zaeem.mohamed@amd.com>
+ <daniel.wheeler@amd.com>, Samson Tam <Samson.Tam@amd.com>, Alvin Lee
+ <alvin.lee2@amd.com>
+Subject: [PATCH 06/17] drm/amd/display: fix asserts in SPL during bootup
+Date: Fri, 1 Nov 2024 09:49:29 -0400
+Message-ID: <20241101134940.1426653-7-zaeem.mohamed@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20241101134940.1426653-1-zaeem.mohamed@amd.com>
 References: <20241101134940.1426653-1-zaeem.mohamed@amd.com>
@@ -80,50 +79,50 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF0000468A:EE_|IA1PR12MB6410:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7b8b4fcb-edb9-4abe-6ae8-08dcfa7c1a2a
+X-MS-TrafficTypeDiagnostic: BN1PEPF0000468A:EE_|PH0PR12MB7840:EE_
+X-MS-Office365-Filtering-Correlation-Id: db098693-1464-4e41-73e6-08dcfa7c1b16
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|376014|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?EbckptKUncdhvm39pM/L7O9DEhcNJHPBYslZdbxq8q9YnrsRRqSv9znEVlJq?=
- =?us-ascii?Q?10wMGONaEjDg2gGMRl5k2p5/AQp/3iTddDtRXpg0//P3FrzoXAMlG5pzn6e5?=
- =?us-ascii?Q?zsv/xnACQT7o9kUetZ9AOaEO3Zq01cyaUsN2nQHSvrgpo03pLiAsPD/f4zU6?=
- =?us-ascii?Q?9byCpRJP7ZvoLyhNXo+upx1FqSRxB16s6V5qWI2YlpFH/kuIeQeYolMUBqWQ?=
- =?us-ascii?Q?WupDYqvvF6nGa+DW5KOWtQHE4bAX2z8tAnEbCFmQrXgmq7RHhyP9nK6DWBsw?=
- =?us-ascii?Q?pmf8Z8VElTLFi4XbZOMTwN9lBUvx8Zo+H5fLVsk7XoT9LbCUna5+I8T1+AF7?=
- =?us-ascii?Q?4AMqMWaF5NwmKFPdAQQGV8Dk465T8wETJvyE/31utmQRASATgDJeji+KEPuM?=
- =?us-ascii?Q?k6fYELziyDZKyfyuyyIiOeeG4zoQa8YV5p76MA4D5fSQUGdeVNJcIgiICebP?=
- =?us-ascii?Q?Atl1NT0xhjT09dEi4QYtWaUya5YO+qOBAXwuWivZM1lQkHAvtEL8EIJ229UG?=
- =?us-ascii?Q?D5Cq9XN04QNrq0pFo7IaV2Mh7IGdDryUQ8sz7+KnUa4IDEeLR+XbB7uZUO+4?=
- =?us-ascii?Q?JC5miOq7gyBXbucReTW5+aO2dZhFnYOKlXW4agp+u01/DUzGp6PYh9Q5ZyAr?=
- =?us-ascii?Q?iEsFOOOJvhJTfnAQayI5W/lxQoghdofKzCyURrtyHJpCqZaIIoXNgLU1svIF?=
- =?us-ascii?Q?9f2cYEsHO78mtPToaeaOmNRYKxlHTj7/vHyfG4DlwLwFjaNYEaOwUBsEyhzG?=
- =?us-ascii?Q?J3D/JmStsENqW0rC+qsULVZFOIZ4iuEwHYL2bMPFCFRGsuehdyNTv7tu49Dn?=
- =?us-ascii?Q?JIzh65WkI9WEclZYdZ+IFBFO1uBHz4w38d5PhLHvRPVbNjJMY267PgdEQ8j5?=
- =?us-ascii?Q?3EgigbjCwoFzF+26YsvWR8kKfPXwio8cH38FKQC+R0d48sLABXLWUeGNOGxl?=
- =?us-ascii?Q?lc2eoeusSlWEgvcD4ZpD77KkUlqhpMeIiKy+4gfl3FofTUxfSJYAipd4zCqV?=
- =?us-ascii?Q?MgW94y+SELcz73CA34Fewc0IYvqNbr4c41dQkVh1gKwjb3zIs/bxhM4/Y22b?=
- =?us-ascii?Q?ZrmoBtpwPepmwSQAgyo8bYMumwK1K/kMDVOiAG/InYveZ5sxncv7L3Y5tdED?=
- =?us-ascii?Q?UNebenVCHwEqrHhRluDEVvrGCQ5BNqXc+SQYXIV1RpxclDRTbxqjoV94SD01?=
- =?us-ascii?Q?CaG7ee/PGCakimniuLHGFdaILvjCHhrGPsk7LGnPKMk7KMcjOjosSvg8xkLT?=
- =?us-ascii?Q?v6zjPqbc58OmK/SMSC2XOr8i7JOdi3uBkH3UA/kf+tPSfhz12pwUzmhcNQDx?=
- =?us-ascii?Q?IEpQAew2n1S/31ACcOK0h9Sx9vp5Ylh9paMayZKcqQMlRJ1PYFaAKt9yRR7v?=
- =?us-ascii?Q?L5+hRz0fCsyJ8MU4ymHlVtRaxGM614EOeGjg27dgg3kVDbNARw=3D=3D?=
+ ARA:13230040|376014|36860700013|82310400026|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?jXzzib7s0YETdrAXJoXDUfE0aO0BLvpOsajEAkJQpP+6r8I9ek2a1bAE61MR?=
+ =?us-ascii?Q?ZFsnlqKRn5FuWDf3JPaeQzMfigh7fHq4du15uPLZOzSmac346abQ6mUKs+Yn?=
+ =?us-ascii?Q?3FdA4nS1r0UlpkEqyEBflrDEfz3B8EN2mlodF01GdzufPJoyZvcOGZdvoHub?=
+ =?us-ascii?Q?QT0m8VpRiyX2wApl9twxLBB3Wk9FrCMsByP/HWrozYwNqOBqY9DUAYy+0ekp?=
+ =?us-ascii?Q?qKAyj/spES9hsVzJYrdtTs0DppKbY29PLT3aytp2B26Yy3ogfkG5Oa44yaSY?=
+ =?us-ascii?Q?gqrevBWmkXQNgh+VaLA6yZoUrVFzfK+/cVVYYYr1NhgZFAgKc6FzXa1izk4A?=
+ =?us-ascii?Q?KOx9DLJm9xEV3ShoCb89lYw5JsLf5uqyGs5FOohO8x3IFjmLRM3Lw3k8iT/A?=
+ =?us-ascii?Q?ObzEB26wZZw4pBHyBB5PF+kIrLrQzZ82aqoNXjDwYm8/WuOrXqZKX/p3QYhN?=
+ =?us-ascii?Q?P05O0Hsv7dgxy9jIVMUYciE/OvDNpOs+sgRbuJGf3xGiLwHW2p8qtVXYusv9?=
+ =?us-ascii?Q?PIPr6/MuACHtNnvT2FoM/IT4ArbXhPFI/wQRMMYfm5AUQFYa/uBn7A2XxSb5?=
+ =?us-ascii?Q?Ht+e5rgqgICKO2aARyzkTRhL0U//cV4MSPEj+gpEhmwxmvgrLmDNkoQ7Fdrp?=
+ =?us-ascii?Q?BvTHAigUYJ0nru8YfvfAuprHLcJBTchzYTSwds7rz72q0nrYX+H3r5FmC+2H?=
+ =?us-ascii?Q?iwkHgJ/x55v6UhV+rxeRy8teZkiovE7nxfQLtqe5jNuwQyzjfepxCLe7/aB7?=
+ =?us-ascii?Q?XyZIFTlQNA/SevZwfO+PxShFChxG/NpFmVClOQt8yUuDVYucVc57xNe3mIwl?=
+ =?us-ascii?Q?DFcCj8uVC5W/SJcEbaG2QUOdeLBi/MY6u8Elt7/SQ/qfhOJIpwOi3iqC6JGM?=
+ =?us-ascii?Q?pNImQvsSKS8w24fsFyl0wNQYVH7FMum2XsowmWX7R1yzEXUZr6Qz5UEKe4UA?=
+ =?us-ascii?Q?ah76njfIcI1NpwhDtkt8xmB2S8ezJ/Efk6o7MXQ8L7C95Jy03elj8zPXhe6C?=
+ =?us-ascii?Q?PQxN/FbUxU2DA2z6VyuGpGfyfnHl9WqsgjOkCcL+qyN6lWeh98eKGObe2MnS?=
+ =?us-ascii?Q?NKDuPIT7pziQeYNG1mNkjR8QNlWsl/q62tuwI/vc9IKvXJGtEZTt1ACEAMfD?=
+ =?us-ascii?Q?ZIQWKJrX+wwTTdU+CggXp9E2xFvWxSjm9JsGPRdju5w09I4wUUAHFsQwlBMC?=
+ =?us-ascii?Q?Lbg6TYb5wPV3Xftm1hJ4YhH6VjUs6ZDCc7OHWo/+AVd60HFuty3q+kZHRgKT?=
+ =?us-ascii?Q?XWKjPZ2pHbHWEd30pHHBP29AY5rLMd5NgQm1egWltL9QPuLUUPTXslHgpRM8?=
+ =?us-ascii?Q?9xWTGnnvpMIFc1pyhy6wojS+9C2ptVnSYQVWA/Y+IPYYgD6ZDNxRditg0MRv?=
+ =?us-ascii?Q?XVULvnRbfn2/H09PlU+sXrm/Z/MGWDwiqiqUuHag4nJQFqOsGw=3D=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(376014)(36860700013); DIR:OUT;
+ SFS:(13230040)(376014)(36860700013)(82310400026)(1800799024); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Nov 2024 13:50:10.0862 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7b8b4fcb-edb9-4abe-6ae8-08dcfa7c1a2a
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Nov 2024 13:50:11.6331 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: db098693-1464-4e41-73e6-08dcfa7c1b16
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF0000468A.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6410
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7840
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,45 +137,138 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+From: Samson Tam <Samson.Tam@amd.com>
 
 [Why]
-SEC_CNTL isn't readable by x86 and can block Z8 entry if read.
+During mode validation, there maybe modes that fail
+ max_downscale_src_width check and scaling_quality
+ taps are 0.  This will cause an assert to trigger
+ in spl_set_filters_data() because taps are 0.
 
 [How]
-Remove the read.
+Move taps calculation for non-adaptive scaling mode
+ to separate function and call it
+ if max_downscale_src_width fails.  This will
+ populate taps if scaling_quality taps are 0.
 
-Reviewed-by: Ovidiu Bunea <ovidiu.bunea@amd.com>
-Reviewed-by: Charlene Liu <charlene.liu@amd.com>
-Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Reviewed-by: Alvin Lee <alvin.lee2@amd.com>
+Signed-off-by: Samson Tam <Samson.Tam@amd.com>
 Signed-off-by: Zaeem Mohamed <zaeem.mohamed@amd.com>
 ---
- drivers/gpu/drm/amd/display/dmub/src/dmub_dcn35.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+ drivers/gpu/drm/amd/display/dc/spl/dc_spl.c | 86 ++++++++++++---------
+ 1 file changed, 48 insertions(+), 38 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn35.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn35.c
-index 3be315f1a443..e5e77bd3c31e 100644
---- a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn35.c
-+++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn35.c
-@@ -464,7 +464,7 @@ uint32_t dmub_dcn35_get_current_time(struct dmub_srv *dmub)
+diff --git a/drivers/gpu/drm/amd/display/dc/spl/dc_spl.c b/drivers/gpu/drm/amd/display/dc/spl/dc_spl.c
+index 133906e73a65..9095da7b842b 100644
+--- a/drivers/gpu/drm/amd/display/dc/spl/dc_spl.c
++++ b/drivers/gpu/drm/amd/display/dc/spl/dc_spl.c
+@@ -868,6 +868,50 @@ static bool spl_get_isharp_en(struct spl_in *spl_in,
+ 	return enable_isharp;
+ }
  
- void dmub_dcn35_get_diagnostic_data(struct dmub_srv *dmub, struct dmub_diagnostic_data *diag_data)
- {
--	uint32_t is_dmub_enabled, is_soft_reset, is_sec_reset;
-+	uint32_t is_dmub_enabled, is_soft_reset;
- 	uint32_t is_traceport_enabled, is_cw6_enabled;
- 
- 	if (!dmub || !diag_data)
-@@ -514,9 +514,6 @@ void dmub_dcn35_get_diagnostic_data(struct dmub_srv *dmub, struct dmub_diagnosti
- 	REG_GET(DMCUB_CNTL2, DMCUB_SOFT_RESET, &is_soft_reset);
- 	diag_data->is_dmcub_soft_reset = is_soft_reset;
- 
--	REG_GET(DMCUB_SEC_CNTL, DMCUB_SEC_RESET_STATUS, &is_sec_reset);
--	diag_data->is_dmcub_secure_reset = is_sec_reset;
--
- 	REG_GET(DMCUB_CNTL, DMCUB_TRACEPORT_EN, &is_traceport_enabled);
- 	diag_data->is_traceport_en  = is_traceport_enabled;
- 
++/* Calculate number of tap with adaptive scaling off */
++static void spl_get_taps_non_adaptive_scaler(
++	  struct spl_scratch *spl_scratch, const struct spl_taps *in_taps)
++{
++	if (in_taps->h_taps == 0) {
++		if (spl_fixpt_ceil(spl_scratch->scl_data.ratios.horz) > 1)
++			spl_scratch->scl_data.taps.h_taps = spl_min(2 * spl_fixpt_ceil(
++				spl_scratch->scl_data.ratios.horz), 8);
++		else
++			spl_scratch->scl_data.taps.h_taps = 4;
++	} else
++		spl_scratch->scl_data.taps.h_taps = in_taps->h_taps;
++
++	if (in_taps->v_taps == 0) {
++		if (spl_fixpt_ceil(spl_scratch->scl_data.ratios.vert) > 1)
++			spl_scratch->scl_data.taps.v_taps = spl_min(spl_fixpt_ceil(spl_fixpt_mul_int(
++				spl_scratch->scl_data.ratios.vert, 2)), 8);
++		else
++			spl_scratch->scl_data.taps.v_taps = 4;
++	} else
++		spl_scratch->scl_data.taps.v_taps = in_taps->v_taps;
++
++	if (in_taps->v_taps_c == 0) {
++		if (spl_fixpt_ceil(spl_scratch->scl_data.ratios.vert_c) > 1)
++			spl_scratch->scl_data.taps.v_taps_c = spl_min(spl_fixpt_ceil(spl_fixpt_mul_int(
++				spl_scratch->scl_data.ratios.vert_c, 2)), 8);
++		else
++			spl_scratch->scl_data.taps.v_taps_c = 4;
++	} else
++		spl_scratch->scl_data.taps.v_taps_c = in_taps->v_taps_c;
++
++	if (in_taps->h_taps_c == 0) {
++		if (spl_fixpt_ceil(spl_scratch->scl_data.ratios.horz_c) > 1)
++			spl_scratch->scl_data.taps.h_taps_c = spl_min(2 * spl_fixpt_ceil(
++				spl_scratch->scl_data.ratios.horz_c), 8);
++		else
++			spl_scratch->scl_data.taps.h_taps_c = 4;
++	} else if ((in_taps->h_taps_c % 2) != 0 && in_taps->h_taps_c != 1)
++		/* Only 1 and even h_taps_c are supported by hw */
++		spl_scratch->scl_data.taps.h_taps_c = in_taps->h_taps_c - 1;
++	else
++		spl_scratch->scl_data.taps.h_taps_c = in_taps->h_taps_c;
++}
++
+ /* Calculate optimal number of taps */
+ static bool spl_get_optimal_number_of_taps(
+ 	  int max_downscale_src_width, struct spl_in *spl_in, struct spl_scratch *spl_scratch,
+@@ -883,7 +927,7 @@ static bool spl_get_optimal_number_of_taps(
+ 	if (spl_scratch->scl_data.viewport.width > spl_scratch->scl_data.h_active &&
+ 		max_downscale_src_width != 0 &&
+ 		spl_scratch->scl_data.viewport.width > max_downscale_src_width) {
+-		memcpy(&spl_scratch->scl_data.taps, in_taps, sizeof(struct spl_taps));
++		spl_get_taps_non_adaptive_scaler(spl_scratch, in_taps);
+ 		*enable_easf_v = false;
+ 		*enable_easf_h = false;
+ 		*enable_isharp = false;
+@@ -910,43 +954,9 @@ static bool spl_get_optimal_number_of_taps(
+ 	 * From programming guide: taps = min{ ceil(2*H_RATIO,1), 8} for downscaling
+ 	 * taps = 4 for upscaling
+ 	 */
+-	if (skip_easf) {
+-		if (in_taps->h_taps == 0) {
+-			if (spl_fixpt_ceil(spl_scratch->scl_data.ratios.horz) > 1)
+-				spl_scratch->scl_data.taps.h_taps = spl_min(2 * spl_fixpt_ceil(
+-					spl_scratch->scl_data.ratios.horz), 8);
+-			else
+-				spl_scratch->scl_data.taps.h_taps = 4;
+-		} else
+-			spl_scratch->scl_data.taps.h_taps = in_taps->h_taps;
+-		if (in_taps->v_taps == 0) {
+-			if (spl_fixpt_ceil(spl_scratch->scl_data.ratios.vert) > 1)
+-				spl_scratch->scl_data.taps.v_taps = spl_min(spl_fixpt_ceil(spl_fixpt_mul_int(
+-					spl_scratch->scl_data.ratios.vert, 2)), 8);
+-			else
+-				spl_scratch->scl_data.taps.v_taps = 4;
+-		} else
+-			spl_scratch->scl_data.taps.v_taps = in_taps->v_taps;
+-		if (in_taps->v_taps_c == 0) {
+-			if (spl_fixpt_ceil(spl_scratch->scl_data.ratios.vert_c) > 1)
+-				spl_scratch->scl_data.taps.v_taps_c = spl_min(spl_fixpt_ceil(spl_fixpt_mul_int(
+-					spl_scratch->scl_data.ratios.vert_c, 2)), 8);
+-			else
+-				spl_scratch->scl_data.taps.v_taps_c = 4;
+-		} else
+-			spl_scratch->scl_data.taps.v_taps_c = in_taps->v_taps_c;
+-		if (in_taps->h_taps_c == 0) {
+-			if (spl_fixpt_ceil(spl_scratch->scl_data.ratios.horz_c) > 1)
+-				spl_scratch->scl_data.taps.h_taps_c = spl_min(2 * spl_fixpt_ceil(
+-					spl_scratch->scl_data.ratios.horz_c), 8);
+-			else
+-				spl_scratch->scl_data.taps.h_taps_c = 4;
+-		} else if ((in_taps->h_taps_c % 2) != 0 && in_taps->h_taps_c != 1)
+-			/* Only 1 and even h_taps_c are supported by hw */
+-			spl_scratch->scl_data.taps.h_taps_c = in_taps->h_taps_c - 1;
+-		else
+-			spl_scratch->scl_data.taps.h_taps_c = in_taps->h_taps_c;
+-	} else {
++	if (skip_easf)
++		spl_get_taps_non_adaptive_scaler(spl_scratch, in_taps);
++	else {
+ 		if (spl_is_yuv420(spl_in->basic_in.format)) {
+ 			spl_scratch->scl_data.taps.h_taps = 6;
+ 			spl_scratch->scl_data.taps.v_taps = 6;
 -- 
 2.34.1
 
