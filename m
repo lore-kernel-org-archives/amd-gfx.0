@@ -4,45 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88C55D111BF
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Nov 2024 09:05:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE797E6B27E
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Nov 2024 09:05:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC88210E39A;
-	Mon,  4 Nov 2024 09:05:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B5E7210E3A9;
+	Mon,  4 Nov 2024 09:05:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=treblig.org header.i=@treblig.org header.b="BGaLrfY0";
+	dkim=pass (1024-bit key; unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.b="H75YdV+k";
 	dkim-atps=neutral
-Received: from mx.treblig.org (mx.treblig.org [46.235.229.95])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 56A2710E354;
- Mon,  4 Nov 2024 02:39:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=treblig.org
- ; s=bytemarkmx;
- h=MIME-Version:Message-ID:Date:Subject:From:Content-Type:From
- :Subject; bh=3jtBSxLBpq7pRA5g9b4AJqrlzG/lidgNqYnYB9WczNc=; b=BGaLrfY06h7wTiz7
- S1sFE5t2SRndpYJ3pYJCFM8Dz3xeWA87qFAoycSfTvCGMHwzngyOnBc1vePv8WKTaLQNnTeP4muv3
- QkWizytk5e9R9/zcOs9hlphdkVfHBNfD4tjQ5nQZ3DfqQfE5OUZ3a4Vy1wS7VWW2T1wH47azzPnpr
- b7GmcIDYYPljQ1c+EMXfgst4g9TVh+moBJQYgn+Pzc78j2lhfmR8/gP/pyazVwvp1TwYAvJgveTNv
- uAJp4YndHHRcAjt/2Rm128rV1Cfw6XNeqhE8Ai/71FZOIfYiIWHAH6jzROjlbgdXEjw8BAkYWcBwo
- nz+5h73AIGO1zEfMYw==;
-Received: from localhost ([127.0.0.1] helo=dalek.home.treblig.org)
- by mx.treblig.org with esmtp (Exim 4.96)
- (envelope-from <linux@treblig.org>) id 1t7mzx-00FECw-2F;
- Mon, 04 Nov 2024 02:39:21 +0000
-From: linux@treblig.org
-To: alexander.deucher@amd.com, harry.wentland@amd.com, sunpeng.li@amd.com,
- Rodrigo.Siqueira@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- chaitanya.dhere@amd.com, jun.lei@amd.com
-Cc: airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- "Dr. David Alan Gilbert" <linux@treblig.org>
-Subject: [PATCH 4/5] drm/amd/display: Remove unused mmhubbub_warmup field
-Date: Mon,  4 Nov 2024 02:38:51 +0000
-Message-ID: <20241104023852.492497-5-linux@treblig.org>
-X-Mailer: git-send-email 2.47.0
-In-Reply-To: <20241104023852.492497-1-linux@treblig.org>
-References: <20241104023852.492497-1-linux@treblig.org>
+Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E071710E277;
+ Sun,  3 Nov 2024 17:04:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
+ s=mail; t=1730653482;
+ bh=zDhPVchfMys7HnsVtwZsrXjRXhl5fZsRZ1XGARPtegE=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=H75YdV+k9aKMbCg3vYqkrITc/NSui5xg9ZVSt864cTzcQxw90svfufktDmLA8a2lW
+ /dbglWlZm61tUtLow1Q3tyjkRdeCmG3i5aMEWTFNazRPqYODgYZJAsPEMnIPlThVwG
+ y4spMmomoO7OqL8jTcXa0IsoXpoF9GwL6a0t8T0c=
+From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+Date: Sun, 03 Nov 2024 17:03:33 +0000
+Subject: [PATCH v2 04/10] nvmem: core: calculate bin_attribute size through
+ bin_size()
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Message-Id: <20241103-sysfs-const-bin_attr-v2-4-71110628844c@weissschuh.net>
+References: <20241103-sysfs-const-bin_attr-v2-0-71110628844c@weissschuh.net>
+In-Reply-To: <20241103-sysfs-const-bin_attr-v2-0-71110628844c@weissschuh.net>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Bjorn Helgaas <bhelgaas@google.com>, 
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, 
+ Davidlohr Bueso <dave@stgolabs.net>, 
+ Jonathan Cameron <jonathan.cameron@huawei.com>, 
+ Dave Jiang <dave.jiang@intel.com>, 
+ Alison Schofield <alison.schofield@intel.com>, 
+ Vishal Verma <vishal.l.verma@intel.com>, Ira Weiny <ira.weiny@intel.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+ Tudor Ambarus <tudor.ambarus@linaro.org>, 
+ Pratyush Yadav <pratyush@kernel.org>, Michael Walle <mwalle@kernel.org>, 
+ Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
+ Naveen Krishna Chatradhi <naveenkrishna.chatradhi@amd.com>, 
+ Carlos Bilbao <carlos.bilbao.osdev@gmail.com>, 
+ Hans de Goede <hdegoede@redhat.com>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ "David E. Box" <david.e.box@linux.intel.com>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ "Martin K. Petersen" <martin.petersen@oracle.com>, 
+ Richard Henderson <richard.henderson@linaro.org>, 
+ Matt Turner <mattst88@gmail.com>, Frederic Barrat <fbarrat@linux.ibm.com>, 
+ Andrew Donnellan <ajd@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Logan Gunthorpe <logang@deltatee.com>, 
+ "K. Y. Srinivasan" <kys@microsoft.com>, 
+ Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
+ Dexuan Cui <decui@microsoft.com>
+Cc: Dan Williams <dan.j.williams@intel.com>, linux-kernel@vger.kernel.org, 
+ linux-pci@vger.kernel.org, linux-cxl@vger.kernel.org, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-rdma@vger.kernel.org, linux-mtd@lists.infradead.org, 
+ platform-driver-x86@vger.kernel.org, linux-scsi@vger.kernel.org, 
+ linux-usb@vger.kernel.org, linux-alpha@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, linux-hyperv@vger.kernel.org, 
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1730653468; l=1407;
+ i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
+ bh=zDhPVchfMys7HnsVtwZsrXjRXhl5fZsRZ1XGARPtegE=;
+ b=LIJoZnee0F8KxWypgifoxx5C03UWzUsfKRD3mTuXEg8GZQDzU4bKngbG7gE6mho+vvHyDPpYb
+ T0csHWK0CZAA7NKHFKir+h35XqhjNK7+x/o8Rk9YXpQi/8Q7SU3s9Ua
+X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
+ pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
 X-Mailman-Approved-At: Mon, 04 Nov 2024 09:05:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -58,140 +96,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: "Dr. David Alan Gilbert" <linux@treblig.org>
+Stop abusing the is_bin_visible() callback to calculate the attribute
+size. Instead use the new, dedicated bin_size() one.
 
-mmhubbub_warmup is a field that was only read by the just removed
-dc_stream_warmup_writeback() function.
-
-Remove the field and it's initialisers.
-
-It was only ever initialised to a single function value
-(dcn30_mmhubbub_warmup) which is called explicitly elsewhere.
-
-Signed-off-by: Dr. David Alan Gilbert <linux@treblig.org>
+Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
 ---
- drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_init.c   | 1 -
- drivers/gpu/drm/amd/display/dc/hwss/dcn301/dcn301_init.c | 1 -
- drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_init.c   | 1 -
- drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_init.c | 1 -
- drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_init.c   | 1 -
- drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_init.c   | 1 -
- drivers/gpu/drm/amd/display/dc/hwss/dcn351/dcn351_init.c | 1 -
- drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_init.c | 1 -
- drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h       | 4 ----
- 9 files changed, 12 deletions(-)
+ drivers/nvmem/core.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_init.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_init.c
-index 2a8dc40d2847..41c30478439a 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_init.c
-@@ -86,7 +86,6 @@ static const struct hw_sequencer_funcs dcn30_funcs = {
- 	.enable_writeback = dcn30_enable_writeback,
- 	.disable_writeback = dcn30_disable_writeback,
- 	.update_writeback = dcn30_update_writeback,
--	.mmhubbub_warmup = dcn30_mmhubbub_warmup,
- 	.dmdata_status_done = dcn20_dmdata_status_done,
- 	.program_dmdata_engine = dcn30_program_dmdata_engine,
- 	.set_dmdata_attributes = dcn20_set_dmdata_attributes,
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn301/dcn301_init.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn301/dcn301_init.c
-index 93e49d87a67c..99870fbbb424 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn301/dcn301_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn301/dcn301_init.c
-@@ -86,7 +86,6 @@ static const struct hw_sequencer_funcs dcn301_funcs = {
- 	.enable_writeback = dcn30_enable_writeback,
- 	.disable_writeback = dcn30_disable_writeback,
- 	.update_writeback = dcn30_update_writeback,
--	.mmhubbub_warmup = dcn30_mmhubbub_warmup,
- 	.dmdata_status_done = dcn20_dmdata_status_done,
- 	.program_dmdata_engine = dcn30_program_dmdata_engine,
- 	.set_dmdata_attributes = dcn20_set_dmdata_attributes,
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_init.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_init.c
-index 56f3c70d4b55..fb2ffb637931 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_init.c
-@@ -89,7 +89,6 @@ static const struct hw_sequencer_funcs dcn31_funcs = {
- 	.enable_writeback = dcn30_enable_writeback,
- 	.disable_writeback = dcn30_disable_writeback,
- 	.update_writeback = dcn30_update_writeback,
--	.mmhubbub_warmup = dcn30_mmhubbub_warmup,
- 	.dmdata_status_done = dcn20_dmdata_status_done,
- 	.program_dmdata_engine = dcn30_program_dmdata_engine,
- 	.set_dmdata_attributes = dcn20_set_dmdata_attributes,
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_init.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_init.c
-index 68e6de6b5758..21ef03a76229 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_init.c
-@@ -91,7 +91,6 @@ static const struct hw_sequencer_funcs dcn314_funcs = {
- 	.enable_writeback = dcn30_enable_writeback,
- 	.disable_writeback = dcn30_disable_writeback,
- 	.update_writeback = dcn30_update_writeback,
--	.mmhubbub_warmup = dcn30_mmhubbub_warmup,
- 	.dmdata_status_done = dcn20_dmdata_status_done,
- 	.program_dmdata_engine = dcn30_program_dmdata_engine,
- 	.set_dmdata_attributes = dcn20_set_dmdata_attributes,
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_init.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_init.c
-index 3422b564ae98..bcaaf98cade7 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_init.c
-@@ -87,7 +87,6 @@ static const struct hw_sequencer_funcs dcn32_funcs = {
- 	.enable_writeback = dcn30_enable_writeback,
- 	.disable_writeback = dcn30_disable_writeback,
- 	.update_writeback = dcn30_update_writeback,
--	.mmhubbub_warmup = dcn30_mmhubbub_warmup,
- 	.dmdata_status_done = dcn20_dmdata_status_done,
- 	.program_dmdata_engine = dcn30_program_dmdata_engine,
- 	.set_dmdata_attributes = dcn20_set_dmdata_attributes,
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_init.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_init.c
-index 2bbf1fef94fd..ab20c47e6d6e 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_init.c
-@@ -92,7 +92,6 @@ static const struct hw_sequencer_funcs dcn35_funcs = {
- 	.enable_writeback = dcn30_enable_writeback,
- 	.disable_writeback = dcn30_disable_writeback,
- 	.update_writeback = dcn30_update_writeback,
--	.mmhubbub_warmup = dcn30_mmhubbub_warmup,
- 	.dmdata_status_done = dcn20_dmdata_status_done,
- 	.program_dmdata_engine = dcn30_program_dmdata_engine,
- 	.set_dmdata_attributes = dcn20_set_dmdata_attributes,
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn351/dcn351_init.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn351/dcn351_init.c
-index d00822e8daa5..ba7ff8f97d49 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn351/dcn351_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn351/dcn351_init.c
-@@ -91,7 +91,6 @@ static const struct hw_sequencer_funcs dcn351_funcs = {
- 	.enable_writeback = dcn30_enable_writeback,
- 	.disable_writeback = dcn30_disable_writeback,
- 	.update_writeback = dcn30_update_writeback,
--	.mmhubbub_warmup = dcn30_mmhubbub_warmup,
- 	.dmdata_status_done = dcn20_dmdata_status_done,
- 	.program_dmdata_engine = dcn30_program_dmdata_engine,
- 	.set_dmdata_attributes = dcn20_set_dmdata_attributes,
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_init.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_init.c
-index a2ca07235c83..d6dabcb8f4fe 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_init.c
-@@ -66,7 +66,6 @@ static const struct hw_sequencer_funcs dcn401_funcs = {
- 	.enable_writeback = dcn30_enable_writeback,
- 	.disable_writeback = dcn30_disable_writeback,
- 	.update_writeback = dcn30_update_writeback,
--	.mmhubbub_warmup = dcn30_mmhubbub_warmup,
- 	.dmdata_status_done = dcn20_dmdata_status_done,
- 	.program_dmdata_engine = dcn30_program_dmdata_engine,
- 	.set_dmdata_attributes = dcn20_set_dmdata_attributes,
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
-index ac9205625623..5d1a83769136 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
-@@ -331,10 +331,6 @@ struct hw_sequencer_funcs {
- 	void (*disable_writeback)(struct dc *dc,
- 			unsigned int dwb_pipe_inst);
+diff --git a/drivers/nvmem/core.c b/drivers/nvmem/core.c
+index 33ffa2aa4c1152398ec66b8dd7b30384c5346a6e..63370c76394ee9b8d514da074779617cef67c311 100644
+--- a/drivers/nvmem/core.c
++++ b/drivers/nvmem/core.c
+@@ -303,11 +303,19 @@ static umode_t nvmem_bin_attr_is_visible(struct kobject *kobj,
+ 	struct device *dev = kobj_to_dev(kobj);
+ 	struct nvmem_device *nvmem = to_nvmem_device(dev);
  
--	bool (*mmhubbub_warmup)(struct dc *dc,
--			unsigned int num_dwb,
--			struct dc_writeback_info *wb_info);
+-	attr->size = nvmem->size;
 -
- 	/* Clock Related */
- 	enum dc_status (*set_clock)(struct dc *dc,
- 			enum dc_clock_type clock_type,
+ 	return nvmem_bin_attr_get_umode(nvmem);
+ }
+ 
++static size_t nvmem_bin_attr_size(struct kobject *kobj,
++				  const struct bin_attribute *attr,
++				  int i)
++{
++	struct device *dev = kobj_to_dev(kobj);
++	struct nvmem_device *nvmem = to_nvmem_device(dev);
++
++	return nvmem->size;
++}
++
+ static umode_t nvmem_attr_is_visible(struct kobject *kobj,
+ 				     struct attribute *attr, int i)
+ {
+@@ -383,6 +391,7 @@ static const struct attribute_group nvmem_bin_group = {
+ 	.bin_attrs	= nvmem_bin_attributes,
+ 	.attrs		= nvmem_attrs,
+ 	.is_bin_visible = nvmem_bin_attr_is_visible,
++	.bin_size	= nvmem_bin_attr_size,
+ 	.is_visible	= nvmem_attr_is_visible,
+ };
+ 
+
 -- 
 2.47.0
 
