@@ -4,97 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56583E6F07E
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Nov 2024 09:05:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16ABECFB422
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Nov 2024 09:05:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C2D5810E3AA;
-	Mon,  4 Nov 2024 09:05:03 +0000 (UTC)
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
- [209.85.214.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E307610E0AA;
- Sun,  3 Nov 2024 20:02:05 +0000 (UTC)
-Received: by mail-pl1-f181.google.com with SMTP id
- d9443c01a7336-20cdbe608b3so34483735ad.1; 
- Sun, 03 Nov 2024 12:02:05 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1730664125; x=1731268925;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=VjfQvqCHHfDeXG4GMQuNHaE4bkPmkI1XqjnN8lstP2Q=;
- b=B9ksgQUWMm4edPb2eWP6UTUv+MzvLGDVmUC3e8+x6/2O0PaExYdslBKyp2XfAyLDwK
- d2tPQv1UX5lcoDIFkidplm6HegmiK4sWmWjxGiZq5N2UzqofKQDiUBQWHzEMu0d13QuC
- tBEAW8zrf+/Garr8IAgE4kW2pRqGATzRohQ+JFR3iCnbB+bnv02TFC87M5fCs+I0+PjI
- Swx+iYdaBEh06JBGLULHkp+NwcubvvEPk40yOecsjBumkRtq9YzUDvD3Txd0T+NpjzhS
- kjmKsvBZksbyTFlkkidKhJJRrxrH3Krq8FxWklLDaqVbZiAbKmvxZazWADI8St38TXxQ
- 2cFA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWyBAoB8U3GdDAVPzw9ejiBsgEdqbwunAjftlAleHuQuN7n1NivlAsBOPTBs9wcx/YC0GCGFuo7@lists.freedesktop.org,
- AJvYcCXqLhaR3s/2h/fBh1wfOBcgjzYbbIeiCmWs5BtU5GjxAZUpOtFo4c2Ip1tswX1TgEeoUxP4d4tZce6O@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyNUAqSSNb/F+IPxzIVzGiBfZwSBpp+bngzeShQobURFajlMWJC
- EBWKRTPEW/g1XO3YajkGQjUDFMzoZBxKtm5d9LtxXuCKvI2r2nxD
-X-Google-Smtp-Source: AGHT+IHAS+v1ffLBb+GI+ZNM4/mlV92TQI2AYHoaDbWsFSd1zPZgooqCqKQWbVDQVnW3KjMuxbyzsA==
-X-Received: by 2002:a17:902:ce91:b0:20b:6624:70b2 with SMTP id
- d9443c01a7336-210f75154e9mr256357005ad.19.1730664125219; 
- Sun, 03 Nov 2024 12:02:05 -0800 (PST)
-Received: from localhost (fpd11144dd.ap.nuro.jp. [209.17.68.221])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-21105707059sm49877745ad.81.2024.11.03.12.02.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 03 Nov 2024 12:02:04 -0800 (PST)
-Date: Mon, 4 Nov 2024 05:02:03 +0900
-From: Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kw@linux.com>
-To: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <linux@weissschuh.net>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Davidlohr Bueso <dave@stgolabs.net>,
- Jonathan Cameron <jonathan.cameron@huawei.com>,
- Dave Jiang <dave.jiang@intel.com>,
- Alison Schofield <alison.schofield@intel.com>,
- Vishal Verma <vishal.l.verma@intel.com>, Ira Weiny <ira.weiny@intel.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
- Tudor Ambarus <tudor.ambarus@linaro.org>,
- Pratyush Yadav <pratyush@kernel.org>, Michael Walle <mwalle@kernel.org>,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
- Naveen Krishna Chatradhi <naveenkrishna.chatradhi@amd.com>,
- Carlos Bilbao <carlos.bilbao.osdev@gmail.com>,
- Hans de Goede <hdegoede@redhat.com>,
- Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
- "David E. Box" <david.e.box@linux.intel.com>,
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- Richard Henderson <richard.henderson@linaro.org>,
- Matt Turner <mattst88@gmail.com>, Frederic Barrat <fbarrat@linux.ibm.com>,
- Andrew Donnellan <ajd@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
- Logan Gunthorpe <logang@deltatee.com>,
- "K. Y. Srinivasan" <kys@microsoft.com>,
- Haiyang Zhang <haiyangz@microsoft.com>,
- Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
- Dan Williams <dan.j.williams@intel.com>,
- linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
- linux-cxl@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org,
- linux-mtd@lists.infradead.org, platform-driver-x86@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-alpha@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- linux-hyperv@vger.kernel.org
-Subject: Re: [PATCH v2 00/10] sysfs: constify struct bin_attribute (Part 1)
-Message-ID: <20241103200203.GA183945@rocinante>
-References: <20241103-sysfs-const-bin_attr-v2-0-71110628844c@weissschuh.net>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E61410E3AD;
+	Mon,  4 Nov 2024 09:05:05 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.b="jCGf7P5s";
+	dkim-atps=neutral
+Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D7FFF10E25E;
+ Sun,  3 Nov 2024 17:04:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
+ s=mail; t=1730653474;
+ bh=iCkq/n0ScNs19XGEBHP6SQ4H+TMRU4fkw8iLrhzrW/Q=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=jCGf7P5s53Ta360TJbHbjEX0UBWW3nHAglDu578tyRJB0eZgE5NN8zYQ0kFtr1Svt
+ pCp484/NqdkNGcCiZ9riHzuo/LXlzlPqaqdK9SPb5smzV52zn2yNPWdP3DIa10iyOa
+ KeTiE8N08tCGK9uD6gJjB4S2MSPfd5jAPy1fJsj8=
+From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+Date: Sun, 03 Nov 2024 17:03:30 +0000
+Subject: [PATCH v2 01/10] sysfs: explicitly pass size to
+ sysfs_add_bin_file_mode_ns()
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Message-Id: <20241103-sysfs-const-bin_attr-v2-1-71110628844c@weissschuh.net>
+References: <20241103-sysfs-const-bin_attr-v2-0-71110628844c@weissschuh.net>
 In-Reply-To: <20241103-sysfs-const-bin_attr-v2-0-71110628844c@weissschuh.net>
-X-Mailman-Approved-At: Mon, 04 Nov 2024 09:05:01 +0000
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Bjorn Helgaas <bhelgaas@google.com>, 
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, 
+ Davidlohr Bueso <dave@stgolabs.net>, 
+ Jonathan Cameron <jonathan.cameron@huawei.com>, 
+ Dave Jiang <dave.jiang@intel.com>, 
+ Alison Schofield <alison.schofield@intel.com>, 
+ Vishal Verma <vishal.l.verma@intel.com>, Ira Weiny <ira.weiny@intel.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+ Tudor Ambarus <tudor.ambarus@linaro.org>, 
+ Pratyush Yadav <pratyush@kernel.org>, Michael Walle <mwalle@kernel.org>, 
+ Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
+ Naveen Krishna Chatradhi <naveenkrishna.chatradhi@amd.com>, 
+ Carlos Bilbao <carlos.bilbao.osdev@gmail.com>, 
+ Hans de Goede <hdegoede@redhat.com>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ "David E. Box" <david.e.box@linux.intel.com>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ "Martin K. Petersen" <martin.petersen@oracle.com>, 
+ Richard Henderson <richard.henderson@linaro.org>, 
+ Matt Turner <mattst88@gmail.com>, Frederic Barrat <fbarrat@linux.ibm.com>, 
+ Andrew Donnellan <ajd@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Logan Gunthorpe <logang@deltatee.com>, 
+ "K. Y. Srinivasan" <kys@microsoft.com>, 
+ Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
+ Dexuan Cui <decui@microsoft.com>
+Cc: Dan Williams <dan.j.williams@intel.com>, linux-kernel@vger.kernel.org, 
+ linux-pci@vger.kernel.org, linux-cxl@vger.kernel.org, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-rdma@vger.kernel.org, linux-mtd@lists.infradead.org, 
+ platform-driver-x86@vger.kernel.org, linux-scsi@vger.kernel.org, 
+ linux-usb@vger.kernel.org, linux-alpha@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, linux-hyperv@vger.kernel.org, 
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1730653468; l=3118;
+ i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
+ bh=iCkq/n0ScNs19XGEBHP6SQ4H+TMRU4fkw8iLrhzrW/Q=;
+ b=sZzl6wOvr0Sxq3DUY1GJqR+qhFx4JBDN7tgJGJz8989wTSFCjglU0coA3+lhHK8A4oBqQa8cP
+ HbptlDNYnPABVHa2o+5ifoWR29tK6teGa/60gJsy0hPwKXqLXrvxd4C
+X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
+ pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
+X-Mailman-Approved-At: Mon, 04 Nov 2024 09:05:02 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,44 +96,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello,
+Upcoming changes to the sysfs core require the size of the created file
+to be overridable by the caller.
+Add a parameter to enable this.
+For now keep using attr->size in all cases.
 
-> struct bin_attribute contains a bunch of pointer members, which when
-> overwritten by accident or malice can lead to system instability and
-> security problems.
-> Moving the definitions of struct bin_attribute to read-only memory
-> makes these modifications impossible.
-> The same change has been performed for many other structures in the
-> past. (struct class, struct ctl_table...)
-> 
-> For the structure definitions throughout the core to be moved to
-> read-only memory the following steps are necessary.
-> 
-> 1) Change all callbacks invoked from the sysfs core to only pass const
->    pointers
-> 2) Adapt the sysfs core to only work in terms of const pointers
-> 3) Adapt the sysfs core APIs to allow const pointers
-> 4) Change all structure definitions through the core to const
-> 
-> This series provides the foundation for step 1) above.
-> It converts some callbacks in a single step to const and provides a
-> foundation for those callbacks where a single step is not possible.
-> 
-> Patches 1-5 change the bin_attribute callbacks of 'struct
-> attribute_group'. The remaining ones touch 'struct bin_attribute' itself.
-> 
-> The techniques employed by this series can later be reused for the
-> same change for other sysfs attributes.
-> 
-> This series is intended to be merged through the driver core tree.
+Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
+---
+ fs/sysfs/file.c  | 8 ++++----
+ fs/sysfs/group.c | 3 ++-
+ fs/sysfs/sysfs.h | 2 +-
+ 3 files changed, 7 insertions(+), 6 deletions(-)
 
-This is very nice.  Thank you!
+diff --git a/fs/sysfs/file.c b/fs/sysfs/file.c
+index d1995e2d6c943a644ff9f34cf2488864d57daf81..6d39696b43069010b0ad0bdaadcf9002cb70c92c 100644
+--- a/fs/sysfs/file.c
++++ b/fs/sysfs/file.c
+@@ -315,7 +315,7 @@ int sysfs_add_file_mode_ns(struct kernfs_node *parent,
+ }
+ 
+ int sysfs_add_bin_file_mode_ns(struct kernfs_node *parent,
+-		const struct bin_attribute *battr, umode_t mode,
++		const struct bin_attribute *battr, umode_t mode, size_t size,
+ 		kuid_t uid, kgid_t gid, const void *ns)
+ {
+ 	const struct attribute *attr = &battr->attr;
+@@ -340,7 +340,7 @@ int sysfs_add_bin_file_mode_ns(struct kernfs_node *parent,
+ #endif
+ 
+ 	kn = __kernfs_create_file(parent, attr->name, mode & 0777, uid, gid,
+-				  battr->size, ops, (void *)attr, ns, key);
++				  size, ops, (void *)attr, ns, key);
+ 	if (IS_ERR(kn)) {
+ 		if (PTR_ERR(kn) == -EEXIST)
+ 			sysfs_warn_dup(parent, attr->name);
+@@ -580,8 +580,8 @@ int sysfs_create_bin_file(struct kobject *kobj,
+ 		return -EINVAL;
+ 
+ 	kobject_get_ownership(kobj, &uid, &gid);
+-	return sysfs_add_bin_file_mode_ns(kobj->sd, attr, attr->attr.mode, uid,
+-					   gid, NULL);
++	return sysfs_add_bin_file_mode_ns(kobj->sd, attr, attr->attr.mode,
++					  attr->size, uid, gid, NULL);
+ }
+ EXPORT_SYMBOL_GPL(sysfs_create_bin_file);
+ 
+diff --git a/fs/sysfs/group.c b/fs/sysfs/group.c
+index d22ad67a0f3291f4702f494939528d5d13c31fae..45b2e92941da1f49dcc71af3781317c61480c956 100644
+--- a/fs/sysfs/group.c
++++ b/fs/sysfs/group.c
+@@ -87,6 +87,7 @@ static int create_files(struct kernfs_node *parent, struct kobject *kobj,
+ 	if (grp->bin_attrs) {
+ 		for (i = 0, bin_attr = grp->bin_attrs; *bin_attr; i++, bin_attr++) {
+ 			umode_t mode = (*bin_attr)->attr.mode;
++			size_t size = (*bin_attr)->size;
+ 
+ 			if (update)
+ 				kernfs_remove_by_name(parent,
+@@ -104,7 +105,7 @@ static int create_files(struct kernfs_node *parent, struct kobject *kobj,
+ 
+ 			mode &= SYSFS_PREALLOC | 0664;
+ 			error = sysfs_add_bin_file_mode_ns(parent, *bin_attr,
+-							   mode, uid, gid,
++							   mode, size, uid, gid,
+ 							   NULL);
+ 			if (error)
+ 				break;
+diff --git a/fs/sysfs/sysfs.h b/fs/sysfs/sysfs.h
+index 3f28c9af57562f61a00a47935579f0939cbfd4dc..8e012f25e1c06e802c3138cc2715b46c1f67fa48 100644
+--- a/fs/sysfs/sysfs.h
++++ b/fs/sysfs/sysfs.h
+@@ -31,7 +31,7 @@ int sysfs_add_file_mode_ns(struct kernfs_node *parent,
+ 		const struct attribute *attr, umode_t amode, kuid_t uid,
+ 		kgid_t gid, const void *ns);
+ int sysfs_add_bin_file_mode_ns(struct kernfs_node *parent,
+-		const struct bin_attribute *battr, umode_t mode,
++		const struct bin_attribute *battr, umode_t mode, size_t size,
+ 		kuid_t uid, kgid_t gid, const void *ns);
+ 
+ /*
 
-For PCI changes:
-  Acked-by: Krzysztof Wilczyński <kw@linux.com>
+-- 
+2.47.0
 
-This reminded me of an old discussions with Greg and Bjorn about how to set
-size correctly for our ROM and BAR sysfs objects.  Nice to see a very nice
-approach here, indeed.
-
-	Krzysztof
