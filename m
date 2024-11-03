@@ -4,36 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACE62D10C0D
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Nov 2024 09:05:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7AD09E677F9
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Nov 2024 09:05:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 14BBD10E3A4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0DB4410E3A3;
 	Mon,  4 Nov 2024 09:05:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.b="LVkLlDoy";
+	dkim=pass (1024-bit key; unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.b="V5VfZeBh";
 	dkim-atps=neutral
 Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E523010E271;
- Sun,  3 Nov 2024 17:04:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C08410E276;
+ Sun,  3 Nov 2024 17:04:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
- s=mail; t=1730653478;
- bh=vLmXHFQrVeANwVFZr7GPEQiJDwV80UwagiHdL+WieYg=;
- h=From:Subject:Date:To:Cc:From;
- b=LVkLlDoyAjxSEKNfss+XSXyWYJJQzcZv2JQqsJCbi9rUIOTJ4RL7OxwixFQenCjjd
- rlVUh9qqiGz1yV+aWCGMfosXXIgbUe7lyF1Ond/E8etyVdz8oI4rmOCryfvOvF9wdn
- hyWkvUc8pYcWGzPC5QJ3hJWaxe+zEoDAAboNa6yg=
+ s=mail; t=1730653481;
+ bh=8oN+tVBMjVju8UGiuvmEhTX5MjVK0/eJhQB1Q2KrGWg=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=V5VfZeBhkpEc+BJr7U99hw+VXSO0/H281e2i3OYqzSsy0SGGDBKgbIYwAQQopjk5p
+ I7JCsIntvCcuTbL2t6kOL8I3VTTsft0tPJFg0d7SRbJHJj1BfvHU9DrPRIY2+deo0n
+ 668eR2kfbt5yn/SgMliSXeyVZwt9yiewus2l4ruQ=
 From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-Subject: [PATCH v2 00/10] sysfs: constify struct bin_attribute (Part 1)
-Date: Sun, 03 Nov 2024 17:03:29 +0000
-Message-Id: <20241103-sysfs-const-bin_attr-v2-0-71110628844c@weissschuh.net>
+Date: Sun, 03 Nov 2024 17:03:35 +0000
+Subject: [PATCH v2 06/10] sysfs: treewide: constify attribute callback of
+ bin_attribute::mmap()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAOGsJ2cC/22NQQ6CMBBFr2JmbU1bQasr72GIKTC1synaKSgh3
- N2KJm5cvp/89yZgjIQMx9UEEQdi6kIGvV5B4224oqA2M2ipCyW1ETyyY9F0gZOoKVxsSlFYKc1
- hVxjVyhry9RbR0XPRnqsPR7z32Z5+oydOXRyX9KDe67eyVf8rgxJSaG2UdXbvZFmeHkjM3Pjeb
- wImqOZ5fgH1E5+t0gAAAA==
-X-Change-ID: 20241028-sysfs-const-bin_attr-a00896481d0b
+Message-Id: <20241103-sysfs-const-bin_attr-v2-6-71110628844c@weissschuh.net>
+References: <20241103-sysfs-const-bin_attr-v2-0-71110628844c@weissschuh.net>
+In-Reply-To: <20241103-sysfs-const-bin_attr-v2-0-71110628844c@weissschuh.net>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
  "Rafael J. Wysocki" <rafael@kernel.org>, 
  Bjorn Helgaas <bhelgaas@google.com>, 
@@ -76,14 +74,14 @@ Cc: Dan Williams <dan.j.williams@intel.com>, linux-kernel@vger.kernel.org,
  linuxppc-dev@lists.ozlabs.org, linux-hyperv@vger.kernel.org, 
  =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1730653468; l=3861;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1730653468; l=7091;
  i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
- bh=vLmXHFQrVeANwVFZr7GPEQiJDwV80UwagiHdL+WieYg=;
- b=Bvbt1J2LqQ69JnMU1VrxxAk0oh5wwQXMdeGiNk0LKpzFZww+HQ7ZSL0xtSH7vjejf+nvXyav9
- 7mYQXMoReN6DBjpqywBjK9Kq5FxOhy2hVOb+j2ENGg6yuLHGvmQRl99
+ bh=8oN+tVBMjVju8UGiuvmEhTX5MjVK0/eJhQB1Q2KrGWg=;
+ b=R3n6q+Dv0Ia776qfgM6mO9COiJ/hbKbbIydIDRQ3XaMKG9aRvi7HhpKHS1X+wwbHJsRL7kye+
+ ekmDB9xxV8TBGzZeTtNVftVmS4rbHM4mxGMeptcYkAQpdQnmMEfZR2L
 X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
  pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
-X-Mailman-Approved-At: Mon, 04 Nov 2024 09:05:02 +0000
+X-Mailman-Approved-At: Mon, 04 Nov 2024 09:05:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,87 +96,168 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-struct bin_attribute contains a bunch of pointer members, which when
-overwritten by accident or malice can lead to system instability and
-security problems.
-Moving the definitions of struct bin_attribute to read-only memory
-makes these modifications impossible.
-The same change has been performed for many other structures in the
-past. (struct class, struct ctl_table...)
+The mmap() callbacks should not modify the struct
+bin_attribute passed as argument.
+Enforce this by marking the argument as const.
 
-For the structure definitions throughout the core to be moved to
-read-only memory the following steps are necessary.
-
-1) Change all callbacks invoked from the sysfs core to only pass const
-   pointers
-2) Adapt the sysfs core to only work in terms of const pointers
-3) Adapt the sysfs core APIs to allow const pointers
-4) Change all structure definitions through the core to const
-
-This series provides the foundation for step 1) above.
-It converts some callbacks in a single step to const and provides a
-foundation for those callbacks where a single step is not possible.
-
-Patches 1-5 change the bin_attribute callbacks of 'struct
-attribute_group'. The remaining ones touch 'struct bin_attribute' itself.
-
-The techniques employed by this series can later be reused for the
-same change for other sysfs attributes.
-
-This series is intended to be merged through the driver core tree.
+As there are not many callback implementers perform this change
+throughout the tree at once.
 
 Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
 ---
-Changes in v2:
-- Drop RFC state
-- Refuse registration of attributes with both read/read_new or
-  write/write_new
-- Remove don't drop llseek() callback, as it is actually used.
-  Instead also migrate it to "const".
-- _Generic machinery: Simplify and make more robust against misuse
-- Link to v1: https://lore.kernel.org/r/20241031-sysfs-const-bin_attr-v1-0-2281afa7f055@weissschuh.net
+ arch/alpha/kernel/pci-sysfs.c          |  6 +++---
+ drivers/misc/ocxl/sysfs.c              |  2 +-
+ drivers/pci/p2pdma.c                   |  2 +-
+ drivers/pci/pci-sysfs.c                | 10 +++++-----
+ drivers/platform/x86/intel/pmt/class.c |  2 +-
+ drivers/uio/uio_hv_generic.c           |  2 +-
+ include/linux/sysfs.h                  |  2 +-
+ 7 files changed, 13 insertions(+), 13 deletions(-)
 
----
-Thomas Weißschuh (10):
-      sysfs: explicitly pass size to sysfs_add_bin_file_mode_ns()
-      sysfs: introduce callback attribute_group::bin_size
-      PCI/sysfs: Calculate bin_attribute size through bin_size()
-      nvmem: core: calculate bin_attribute size through bin_size()
-      sysfs: treewide: constify attribute callback of bin_is_visible()
-      sysfs: treewide: constify attribute callback of bin_attribute::mmap()
-      sysfs: treewide: constify attribute callback of bin_attribute::llseek()
-      sysfs: implement all BIN_ATTR_* macros in terms of __BIN_ATTR()
-      sysfs: bin_attribute: add const read/write callback variants
-      driver core: Constify attribute arguments of binary attributes
+diff --git a/arch/alpha/kernel/pci-sysfs.c b/arch/alpha/kernel/pci-sysfs.c
+index 5808a66e2a81f7eba9a245fd6a343406a1ade87d..3048758304b57afa01ddeb6558c39bdb48c9a3f6 100644
+--- a/arch/alpha/kernel/pci-sysfs.c
++++ b/arch/alpha/kernel/pci-sysfs.c
+@@ -64,7 +64,7 @@ static int __pci_mmap_fits(struct pci_dev *pdev, int num,
+  * Return: %0 on success, negative error code otherwise
+  */
+ static int pci_mmap_resource(struct kobject *kobj,
+-			     struct bin_attribute *attr,
++			     const struct bin_attribute *attr,
+ 			     struct vm_area_struct *vma, int sparse)
+ {
+ 	struct pci_dev *pdev = to_pci_dev(kobj_to_dev(kobj));
+@@ -93,14 +93,14 @@ static int pci_mmap_resource(struct kobject *kobj,
+ }
+ 
+ static int pci_mmap_resource_sparse(struct file *filp, struct kobject *kobj,
+-				    struct bin_attribute *attr,
++				    const struct bin_attribute *attr,
+ 				    struct vm_area_struct *vma)
+ {
+ 	return pci_mmap_resource(kobj, attr, vma, 1);
+ }
+ 
+ static int pci_mmap_resource_dense(struct file *filp, struct kobject *kobj,
+-				   struct bin_attribute *attr,
++				   const struct bin_attribute *attr,
+ 				   struct vm_area_struct *vma)
+ {
+ 	return pci_mmap_resource(kobj, attr, vma, 0);
+diff --git a/drivers/misc/ocxl/sysfs.c b/drivers/misc/ocxl/sysfs.c
+index 405180d47d9bff0aaa7a736bb3fecfbe318db961..07520d6e6dc55702696b8656440914c379e6e27a 100644
+--- a/drivers/misc/ocxl/sysfs.c
++++ b/drivers/misc/ocxl/sysfs.c
+@@ -125,7 +125,7 @@ static const struct vm_operations_struct global_mmio_vmops = {
+ };
+ 
+ static int global_mmio_mmap(struct file *filp, struct kobject *kobj,
+-			struct bin_attribute *bin_attr,
++			const struct bin_attribute *bin_attr,
+ 			struct vm_area_struct *vma)
+ {
+ 	struct ocxl_afu *afu = to_afu(kobj_to_dev(kobj));
+diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
+index 4f47a13cb500ff5339cde426b6ccb020fcd74ae7..7abd4f546d3c071f31e622d881f5c5ac3e4de55e 100644
+--- a/drivers/pci/p2pdma.c
++++ b/drivers/pci/p2pdma.c
+@@ -90,7 +90,7 @@ static ssize_t published_show(struct device *dev, struct device_attribute *attr,
+ static DEVICE_ATTR_RO(published);
+ 
+ static int p2pmem_alloc_mmap(struct file *filp, struct kobject *kobj,
+-		struct bin_attribute *attr, struct vm_area_struct *vma)
++		const struct bin_attribute *attr, struct vm_area_struct *vma)
+ {
+ 	struct pci_dev *pdev = to_pci_dev(kobj_to_dev(kobj));
+ 	size_t len = vma->vm_end - vma->vm_start;
+diff --git a/drivers/pci/pci-sysfs.c b/drivers/pci/pci-sysfs.c
+index 13912940ed2bb66c0086e5bea9a3cb6417ac14dd..0ad3427228b12aa95325c6fc00e9686740559238 100644
+--- a/drivers/pci/pci-sysfs.c
++++ b/drivers/pci/pci-sysfs.c
+@@ -910,7 +910,7 @@ static ssize_t pci_write_legacy_io(struct file *filp, struct kobject *kobj,
+  * memory space.
+  */
+ static int pci_mmap_legacy_mem(struct file *filp, struct kobject *kobj,
+-			       struct bin_attribute *attr,
++			       const struct bin_attribute *attr,
+ 			       struct vm_area_struct *vma)
+ {
+ 	struct pci_bus *bus = to_pci_bus(kobj_to_dev(kobj));
+@@ -930,7 +930,7 @@ static int pci_mmap_legacy_mem(struct file *filp, struct kobject *kobj,
+  * memory space. Returns -ENOSYS if the operation isn't supported
+  */
+ static int pci_mmap_legacy_io(struct file *filp, struct kobject *kobj,
+-			      struct bin_attribute *attr,
++			      const struct bin_attribute *attr,
+ 			      struct vm_area_struct *vma)
+ {
+ 	struct pci_bus *bus = to_pci_bus(kobj_to_dev(kobj));
+@@ -1034,7 +1034,7 @@ void pci_remove_legacy_files(struct pci_bus *b)
+  *
+  * Use the regular PCI mapping routines to map a PCI resource into userspace.
+  */
+-static int pci_mmap_resource(struct kobject *kobj, struct bin_attribute *attr,
++static int pci_mmap_resource(struct kobject *kobj, const struct bin_attribute *attr,
+ 			     struct vm_area_struct *vma, int write_combine)
+ {
+ 	struct pci_dev *pdev = to_pci_dev(kobj_to_dev(kobj));
+@@ -1059,14 +1059,14 @@ static int pci_mmap_resource(struct kobject *kobj, struct bin_attribute *attr,
+ }
+ 
+ static int pci_mmap_resource_uc(struct file *filp, struct kobject *kobj,
+-				struct bin_attribute *attr,
++				const struct bin_attribute *attr,
+ 				struct vm_area_struct *vma)
+ {
+ 	return pci_mmap_resource(kobj, attr, vma, 0);
+ }
+ 
+ static int pci_mmap_resource_wc(struct file *filp, struct kobject *kobj,
+-				struct bin_attribute *attr,
++				const struct bin_attribute *attr,
+ 				struct vm_area_struct *vma)
+ {
+ 	return pci_mmap_resource(kobj, attr, vma, 1);
+diff --git a/drivers/platform/x86/intel/pmt/class.c b/drivers/platform/x86/intel/pmt/class.c
+index c04bb7f97a4db13268fc5697887951cf8f0f5a25..f9afa23e754b8b68bd59b72d6a72d26503a21f31 100644
+--- a/drivers/platform/x86/intel/pmt/class.c
++++ b/drivers/platform/x86/intel/pmt/class.c
+@@ -103,7 +103,7 @@ intel_pmt_read(struct file *filp, struct kobject *kobj,
+ 
+ static int
+ intel_pmt_mmap(struct file *filp, struct kobject *kobj,
+-		struct bin_attribute *attr, struct vm_area_struct *vma)
++		const struct bin_attribute *attr, struct vm_area_struct *vma)
+ {
+ 	struct intel_pmt_entry *entry = container_of(attr,
+ 						     struct intel_pmt_entry,
+diff --git a/drivers/uio/uio_hv_generic.c b/drivers/uio/uio_hv_generic.c
+index 8704095994118c2660f345c504b5ea466d053efb..3976360d0096d6681faf88815cc6277fb76a1d9f 100644
+--- a/drivers/uio/uio_hv_generic.c
++++ b/drivers/uio/uio_hv_generic.c
+@@ -135,7 +135,7 @@ static void hv_uio_rescind(struct vmbus_channel *channel)
+  * The ring buffer is allocated as contiguous memory by vmbus_open
+  */
+ static int hv_uio_ring_mmap(struct file *filp, struct kobject *kobj,
+-			    struct bin_attribute *attr,
++			    const struct bin_attribute *attr,
+ 			    struct vm_area_struct *vma)
+ {
+ 	struct vmbus_channel *channel
+diff --git a/include/linux/sysfs.h b/include/linux/sysfs.h
+index d1b22d56198b55ee39fe4c4fc994f5b753641992..9fcdc8cd3118f359742bfd8b708d5c3eff511042 100644
+--- a/include/linux/sysfs.h
++++ b/include/linux/sysfs.h
+@@ -309,7 +309,7 @@ struct bin_attribute {
+ 			 char *, loff_t, size_t);
+ 	loff_t (*llseek)(struct file *, struct kobject *, struct bin_attribute *,
+ 			 loff_t, int);
+-	int (*mmap)(struct file *, struct kobject *, struct bin_attribute *attr,
++	int (*mmap)(struct file *, struct kobject *, const struct bin_attribute *attr,
+ 		    struct vm_area_struct *vma);
+ };
+ 
 
- arch/alpha/kernel/pci-sysfs.c           |  6 +--
- drivers/base/node.c                     |  4 +-
- drivers/base/topology.c                 |  4 +-
- drivers/cxl/port.c                      |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c |  2 +-
- drivers/infiniband/hw/qib/qib_sysfs.c   |  2 +-
- drivers/misc/ocxl/sysfs.c               |  2 +-
- drivers/mtd/spi-nor/sysfs.c             |  2 +-
- drivers/nvmem/core.c                    | 16 ++++--
- drivers/pci/p2pdma.c                    |  2 +-
- drivers/pci/pci-sysfs.c                 | 42 ++++++++-------
- drivers/pci/vpd.c                       |  2 +-
- drivers/platform/x86/amd/hsmp.c         |  2 +-
- drivers/platform/x86/intel/pmt/class.c  |  2 +-
- drivers/platform/x86/intel/sdsi.c       |  2 +-
- drivers/scsi/scsi_sysfs.c               |  2 +-
- drivers/uio/uio_hv_generic.c            |  2 +-
- drivers/usb/core/sysfs.c                |  2 +-
- fs/sysfs/file.c                         | 30 +++++++----
- fs/sysfs/group.c                        |  5 +-
- fs/sysfs/sysfs.h                        |  2 +-
- include/linux/sysfs.h                   | 94 ++++++++++++++++++++-------------
- 22 files changed, 138 insertions(+), 91 deletions(-)
----
-base-commit: 3e5e6c9900c3d71895e8bdeacfb579462e98eba1
-change-id: 20241028-sysfs-const-bin_attr-a00896481d0b
-
-Best regards,
 -- 
-Thomas Weißschuh <linux@weissschuh.net>
+2.47.0
 
