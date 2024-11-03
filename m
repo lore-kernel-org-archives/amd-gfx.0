@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16ABECFB422
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67BECE6F09E
 	for <amd-gfx@archiver.kernel.org>; Mon,  4 Nov 2024 09:05:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E61410E3AD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E2BC410E3B0;
 	Mon,  4 Nov 2024 09:05:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.b="jCGf7P5s";
+	dkim=pass (1024-bit key; unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.b="NgM/ElQm";
 	dkim-atps=neutral
 Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D7FFF10E25E;
- Sun,  3 Nov 2024 17:04:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BCDE610E276;
+ Sun,  3 Nov 2024 17:04:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
- s=mail; t=1730653474;
- bh=iCkq/n0ScNs19XGEBHP6SQ4H+TMRU4fkw8iLrhzrW/Q=;
+ s=mail; t=1730653481;
+ bh=Knwg+Z2CkMm4IK1d+HsEFrKnqSyqDlXFkrBwo+TwWXc=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=jCGf7P5s53Ta360TJbHbjEX0UBWW3nHAglDu578tyRJB0eZgE5NN8zYQ0kFtr1Svt
- pCp484/NqdkNGcCiZ9riHzuo/LXlzlPqaqdK9SPb5smzV52zn2yNPWdP3DIa10iyOa
- KeTiE8N08tCGK9uD6gJjB4S2MSPfd5jAPy1fJsj8=
+ b=NgM/ElQmvf59/YWbjDqRbVuMEl0pDjY+ObTO6d8h7LUcSEHYmSbo42n8NiaNsD+YV
+ W/SF6kIvUGW+OWHAuixbbmiWBTAsGaJ1bUJJ75TWxvkGrAhk2IGeTOWoy2uiVdU/7n
+ BT8O0X22pGVKUUwyGIBh7YJIs16haYaygPErOxWs=
 From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-Date: Sun, 03 Nov 2024 17:03:30 +0000
-Subject: [PATCH v2 01/10] sysfs: explicitly pass size to
- sysfs_add_bin_file_mode_ns()
+Date: Sun, 03 Nov 2024 17:03:36 +0000
+Subject: [PATCH v2 07/10] sysfs: treewide: constify attribute callback of
+ bin_attribute::llseek()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20241103-sysfs-const-bin_attr-v2-1-71110628844c@weissschuh.net>
+Message-Id: <20241103-sysfs-const-bin_attr-v2-7-71110628844c@weissschuh.net>
 References: <20241103-sysfs-const-bin_attr-v2-0-71110628844c@weissschuh.net>
 In-Reply-To: <20241103-sysfs-const-bin_attr-v2-0-71110628844c@weissschuh.net>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
@@ -74,14 +74,14 @@ Cc: Dan Williams <dan.j.williams@intel.com>, linux-kernel@vger.kernel.org,
  linuxppc-dev@lists.ozlabs.org, linux-hyperv@vger.kernel.org, 
  =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1730653468; l=3118;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1730653468; l=1737;
  i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
- bh=iCkq/n0ScNs19XGEBHP6SQ4H+TMRU4fkw8iLrhzrW/Q=;
- b=sZzl6wOvr0Sxq3DUY1GJqR+qhFx4JBDN7tgJGJz8989wTSFCjglU0coA3+lhHK8A4oBqQa8cP
- HbptlDNYnPABVHa2o+5ifoWR29tK6teGa/60gJsy0hPwKXqLXrvxd4C
+ bh=Knwg+Z2CkMm4IK1d+HsEFrKnqSyqDlXFkrBwo+TwWXc=;
+ b=7BBy1cB2402AMdsGbWDhocbKrbJW2MgG/pXJPZgbbTP5a7oCuUuoE2vbVvQiK5iVSTaOOfRv6
+ UmT00qXCNvtDaYwwoMp7tKP4VGZJJQhLqLk6CjFCbnS/F84qc7ejcEm
 X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
  pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
-X-Mailman-Approved-At: Mon, 04 Nov 2024 09:05:02 +0000
+X-Mailman-Approved-At: Mon, 04 Nov 2024 09:05:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,85 +96,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Upcoming changes to the sysfs core require the size of the created file
-to be overridable by the caller.
-Add a parameter to enable this.
-For now keep using attr->size in all cases.
+The llseek() callbacks should not modify the struct
+bin_attribute passed as argument.
+Enforce this by marking the argument as const.
+
+As there are not many callback implementers perform this change
+throughout the tree at once.
 
 Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
 ---
- fs/sysfs/file.c  | 8 ++++----
- fs/sysfs/group.c | 3 ++-
- fs/sysfs/sysfs.h | 2 +-
- 3 files changed, 7 insertions(+), 6 deletions(-)
+ drivers/pci/pci-sysfs.c | 2 +-
+ include/linux/sysfs.h   | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/fs/sysfs/file.c b/fs/sysfs/file.c
-index d1995e2d6c943a644ff9f34cf2488864d57daf81..6d39696b43069010b0ad0bdaadcf9002cb70c92c 100644
---- a/fs/sysfs/file.c
-+++ b/fs/sysfs/file.c
-@@ -315,7 +315,7 @@ int sysfs_add_file_mode_ns(struct kernfs_node *parent,
- }
- 
- int sysfs_add_bin_file_mode_ns(struct kernfs_node *parent,
--		const struct bin_attribute *battr, umode_t mode,
-+		const struct bin_attribute *battr, umode_t mode, size_t size,
- 		kuid_t uid, kgid_t gid, const void *ns)
+diff --git a/drivers/pci/pci-sysfs.c b/drivers/pci/pci-sysfs.c
+index 0ad3427228b12aa95325c6fc00e9686740559238..49bee70f7d375bca056476acd6528d19ead2c419 100644
+--- a/drivers/pci/pci-sysfs.c
++++ b/drivers/pci/pci-sysfs.c
+@@ -841,7 +841,7 @@ static const struct attribute_group pci_dev_config_attr_group = {
+ static __maybe_unused loff_t
+ pci_llseek_resource(struct file *filep,
+ 		    struct kobject *kobj __always_unused,
+-		    struct bin_attribute *attr,
++		    const struct bin_attribute *attr,
+ 		    loff_t offset, int whence)
  {
- 	const struct attribute *attr = &battr->attr;
-@@ -340,7 +340,7 @@ int sysfs_add_bin_file_mode_ns(struct kernfs_node *parent,
- #endif
- 
- 	kn = __kernfs_create_file(parent, attr->name, mode & 0777, uid, gid,
--				  battr->size, ops, (void *)attr, ns, key);
-+				  size, ops, (void *)attr, ns, key);
- 	if (IS_ERR(kn)) {
- 		if (PTR_ERR(kn) == -EEXIST)
- 			sysfs_warn_dup(parent, attr->name);
-@@ -580,8 +580,8 @@ int sysfs_create_bin_file(struct kobject *kobj,
- 		return -EINVAL;
- 
- 	kobject_get_ownership(kobj, &uid, &gid);
--	return sysfs_add_bin_file_mode_ns(kobj->sd, attr, attr->attr.mode, uid,
--					   gid, NULL);
-+	return sysfs_add_bin_file_mode_ns(kobj->sd, attr, attr->attr.mode,
-+					  attr->size, uid, gid, NULL);
- }
- EXPORT_SYMBOL_GPL(sysfs_create_bin_file);
- 
-diff --git a/fs/sysfs/group.c b/fs/sysfs/group.c
-index d22ad67a0f3291f4702f494939528d5d13c31fae..45b2e92941da1f49dcc71af3781317c61480c956 100644
---- a/fs/sysfs/group.c
-+++ b/fs/sysfs/group.c
-@@ -87,6 +87,7 @@ static int create_files(struct kernfs_node *parent, struct kobject *kobj,
- 	if (grp->bin_attrs) {
- 		for (i = 0, bin_attr = grp->bin_attrs; *bin_attr; i++, bin_attr++) {
- 			umode_t mode = (*bin_attr)->attr.mode;
-+			size_t size = (*bin_attr)->size;
- 
- 			if (update)
- 				kernfs_remove_by_name(parent,
-@@ -104,7 +105,7 @@ static int create_files(struct kernfs_node *parent, struct kobject *kobj,
- 
- 			mode &= SYSFS_PREALLOC | 0664;
- 			error = sysfs_add_bin_file_mode_ns(parent, *bin_attr,
--							   mode, uid, gid,
-+							   mode, size, uid, gid,
- 							   NULL);
- 			if (error)
- 				break;
-diff --git a/fs/sysfs/sysfs.h b/fs/sysfs/sysfs.h
-index 3f28c9af57562f61a00a47935579f0939cbfd4dc..8e012f25e1c06e802c3138cc2715b46c1f67fa48 100644
---- a/fs/sysfs/sysfs.h
-+++ b/fs/sysfs/sysfs.h
-@@ -31,7 +31,7 @@ int sysfs_add_file_mode_ns(struct kernfs_node *parent,
- 		const struct attribute *attr, umode_t amode, kuid_t uid,
- 		kgid_t gid, const void *ns);
- int sysfs_add_bin_file_mode_ns(struct kernfs_node *parent,
--		const struct bin_attribute *battr, umode_t mode,
-+		const struct bin_attribute *battr, umode_t mode, size_t size,
- 		kuid_t uid, kgid_t gid, const void *ns);
- 
- /*
+ 	return fixed_size_llseek(filep, offset, whence, attr->size);
+diff --git a/include/linux/sysfs.h b/include/linux/sysfs.h
+index 9fcdc8cd3118f359742bfd8b708d5c3eff511042..cb2a5e277c2384f2e8add8fbf2907e8a819576ec 100644
+--- a/include/linux/sysfs.h
++++ b/include/linux/sysfs.h
+@@ -307,7 +307,7 @@ struct bin_attribute {
+ 			char *, loff_t, size_t);
+ 	ssize_t (*write)(struct file *, struct kobject *, struct bin_attribute *,
+ 			 char *, loff_t, size_t);
+-	loff_t (*llseek)(struct file *, struct kobject *, struct bin_attribute *,
++	loff_t (*llseek)(struct file *, struct kobject *, const struct bin_attribute *,
+ 			 loff_t, int);
+ 	int (*mmap)(struct file *, struct kobject *, const struct bin_attribute *attr,
+ 		    struct vm_area_struct *vma);
 
 -- 
 2.47.0
