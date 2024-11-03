@@ -4,32 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7AD09E677F9
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Nov 2024 09:05:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26699CFB422
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Nov 2024 09:05:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0DB4410E3A3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 21EAC10E3A6;
 	Mon,  4 Nov 2024 09:05:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.b="V5VfZeBh";
+	dkim=pass (1024-bit key; unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.b="jnQwjCqu";
 	dkim-atps=neutral
 Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C08410E276;
- Sun,  3 Nov 2024 17:04:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 09B4310E271;
+ Sun,  3 Nov 2024 17:04:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
- s=mail; t=1730653481;
- bh=8oN+tVBMjVju8UGiuvmEhTX5MjVK0/eJhQB1Q2KrGWg=;
+ s=mail; t=1730653475;
+ bh=vzqsMVfnVQ7g+xXQgYvHKh8WFOGMi08tymfd1lvAle8=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=V5VfZeBhkpEc+BJr7U99hw+VXSO0/H281e2i3OYqzSsy0SGGDBKgbIYwAQQopjk5p
- I7JCsIntvCcuTbL2t6kOL8I3VTTsft0tPJFg0d7SRbJHJj1BfvHU9DrPRIY2+deo0n
- 668eR2kfbt5yn/SgMliSXeyVZwt9yiewus2l4ruQ=
+ b=jnQwjCquAR0qBDmeS/BwDJVhGZ6sUlQQGbmFuOa4A9M2739yz7dkzMP816T+fVMTN
+ habdRX2zL4MWpQPB/EZc2fhWd6l5iWr1VitiXAmds7L0pbHnrrKO6nxJP5pGMDdPpU
+ 9SGYolS2xrGzTPAPqNh3lGCxTyletOjJlUB8aEf0=
 From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-Date: Sun, 03 Nov 2024 17:03:35 +0000
-Subject: [PATCH v2 06/10] sysfs: treewide: constify attribute callback of
- bin_attribute::mmap()
+Date: Sun, 03 Nov 2024 17:03:31 +0000
+Subject: [PATCH v2 02/10] sysfs: introduce callback attribute_group::bin_size
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20241103-sysfs-const-bin_attr-v2-6-71110628844c@weissschuh.net>
+Message-Id: <20241103-sysfs-const-bin_attr-v2-2-71110628844c@weissschuh.net>
 References: <20241103-sysfs-const-bin_attr-v2-0-71110628844c@weissschuh.net>
 In-Reply-To: <20241103-sysfs-const-bin_attr-v2-0-71110628844c@weissschuh.net>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
@@ -74,14 +73,14 @@ Cc: Dan Williams <dan.j.williams@intel.com>, linux-kernel@vger.kernel.org,
  linuxppc-dev@lists.ozlabs.org, linux-hyperv@vger.kernel.org, 
  =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1730653468; l=7091;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1730653468; l=2296;
  i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
- bh=8oN+tVBMjVju8UGiuvmEhTX5MjVK0/eJhQB1Q2KrGWg=;
- b=R3n6q+Dv0Ia776qfgM6mO9COiJ/hbKbbIydIDRQ3XaMKG9aRvi7HhpKHS1X+wwbHJsRL7kye+
- ekmDB9xxV8TBGzZeTtNVftVmS4rbHM4mxGMeptcYkAQpdQnmMEfZR2L
+ bh=vzqsMVfnVQ7g+xXQgYvHKh8WFOGMi08tymfd1lvAle8=;
+ b=+c8c3AK6YNFtR/f5MlFDxfac5E4AdcTfe/LYH8cKiLv+aN2C4MrR8vpsa2SsTXy5NHtfEpdBh
+ t4Y6vgc31e8BINAGXwLU2VEDayYxRmKzGs5LRvtEfi4Ux875Z1qlOu8
 X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
  pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
-X-Mailman-Approved-At: Mon, 04 Nov 2024 09:05:01 +0000
+X-Mailman-Approved-At: Mon, 04 Nov 2024 09:05:02 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,167 +95,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The mmap() callbacks should not modify the struct
-bin_attribute passed as argument.
-Enforce this by marking the argument as const.
+Several drivers need to dynamically calculate the size of an binary
+attribute. Currently this is done by assigning attr->size from the
+is_bin_visible() callback.
 
-As there are not many callback implementers perform this change
-throughout the tree at once.
+This has drawbacks:
+* It is not documented.
+* A single attribute can be instantiated multiple times, overwriting the
+  shared size field.
+* It prevents the structure to be moved to read-only memory.
+
+Introduce a new dedicated callback to calculate the size of the
+attribute.
 
 Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
 ---
- arch/alpha/kernel/pci-sysfs.c          |  6 +++---
- drivers/misc/ocxl/sysfs.c              |  2 +-
- drivers/pci/p2pdma.c                   |  2 +-
- drivers/pci/pci-sysfs.c                | 10 +++++-----
- drivers/platform/x86/intel/pmt/class.c |  2 +-
- drivers/uio/uio_hv_generic.c           |  2 +-
- include/linux/sysfs.h                  |  2 +-
- 7 files changed, 13 insertions(+), 13 deletions(-)
+ fs/sysfs/group.c      | 2 ++
+ include/linux/sysfs.h | 8 ++++++++
+ 2 files changed, 10 insertions(+)
 
-diff --git a/arch/alpha/kernel/pci-sysfs.c b/arch/alpha/kernel/pci-sysfs.c
-index 5808a66e2a81f7eba9a245fd6a343406a1ade87d..3048758304b57afa01ddeb6558c39bdb48c9a3f6 100644
---- a/arch/alpha/kernel/pci-sysfs.c
-+++ b/arch/alpha/kernel/pci-sysfs.c
-@@ -64,7 +64,7 @@ static int __pci_mmap_fits(struct pci_dev *pdev, int num,
-  * Return: %0 on success, negative error code otherwise
-  */
- static int pci_mmap_resource(struct kobject *kobj,
--			     struct bin_attribute *attr,
-+			     const struct bin_attribute *attr,
- 			     struct vm_area_struct *vma, int sparse)
- {
- 	struct pci_dev *pdev = to_pci_dev(kobj_to_dev(kobj));
-@@ -93,14 +93,14 @@ static int pci_mmap_resource(struct kobject *kobj,
- }
+diff --git a/fs/sysfs/group.c b/fs/sysfs/group.c
+index 45b2e92941da1f49dcc71af3781317c61480c956..8b01a7eda5fb3239e138372417d01967c7a3f122 100644
+--- a/fs/sysfs/group.c
++++ b/fs/sysfs/group.c
+@@ -98,6 +98,8 @@ static int create_files(struct kernfs_node *parent, struct kobject *kobj,
+ 				if (!mode)
+ 					continue;
+ 			}
++			if (grp->bin_size)
++				size = grp->bin_size(kobj, *bin_attr, i);
  
- static int pci_mmap_resource_sparse(struct file *filp, struct kobject *kobj,
--				    struct bin_attribute *attr,
-+				    const struct bin_attribute *attr,
- 				    struct vm_area_struct *vma)
- {
- 	return pci_mmap_resource(kobj, attr, vma, 1);
- }
- 
- static int pci_mmap_resource_dense(struct file *filp, struct kobject *kobj,
--				   struct bin_attribute *attr,
-+				   const struct bin_attribute *attr,
- 				   struct vm_area_struct *vma)
- {
- 	return pci_mmap_resource(kobj, attr, vma, 0);
-diff --git a/drivers/misc/ocxl/sysfs.c b/drivers/misc/ocxl/sysfs.c
-index 405180d47d9bff0aaa7a736bb3fecfbe318db961..07520d6e6dc55702696b8656440914c379e6e27a 100644
---- a/drivers/misc/ocxl/sysfs.c
-+++ b/drivers/misc/ocxl/sysfs.c
-@@ -125,7 +125,7 @@ static const struct vm_operations_struct global_mmio_vmops = {
- };
- 
- static int global_mmio_mmap(struct file *filp, struct kobject *kobj,
--			struct bin_attribute *bin_attr,
-+			const struct bin_attribute *bin_attr,
- 			struct vm_area_struct *vma)
- {
- 	struct ocxl_afu *afu = to_afu(kobj_to_dev(kobj));
-diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
-index 4f47a13cb500ff5339cde426b6ccb020fcd74ae7..7abd4f546d3c071f31e622d881f5c5ac3e4de55e 100644
---- a/drivers/pci/p2pdma.c
-+++ b/drivers/pci/p2pdma.c
-@@ -90,7 +90,7 @@ static ssize_t published_show(struct device *dev, struct device_attribute *attr,
- static DEVICE_ATTR_RO(published);
- 
- static int p2pmem_alloc_mmap(struct file *filp, struct kobject *kobj,
--		struct bin_attribute *attr, struct vm_area_struct *vma)
-+		const struct bin_attribute *attr, struct vm_area_struct *vma)
- {
- 	struct pci_dev *pdev = to_pci_dev(kobj_to_dev(kobj));
- 	size_t len = vma->vm_end - vma->vm_start;
-diff --git a/drivers/pci/pci-sysfs.c b/drivers/pci/pci-sysfs.c
-index 13912940ed2bb66c0086e5bea9a3cb6417ac14dd..0ad3427228b12aa95325c6fc00e9686740559238 100644
---- a/drivers/pci/pci-sysfs.c
-+++ b/drivers/pci/pci-sysfs.c
-@@ -910,7 +910,7 @@ static ssize_t pci_write_legacy_io(struct file *filp, struct kobject *kobj,
-  * memory space.
-  */
- static int pci_mmap_legacy_mem(struct file *filp, struct kobject *kobj,
--			       struct bin_attribute *attr,
-+			       const struct bin_attribute *attr,
- 			       struct vm_area_struct *vma)
- {
- 	struct pci_bus *bus = to_pci_bus(kobj_to_dev(kobj));
-@@ -930,7 +930,7 @@ static int pci_mmap_legacy_mem(struct file *filp, struct kobject *kobj,
-  * memory space. Returns -ENOSYS if the operation isn't supported
-  */
- static int pci_mmap_legacy_io(struct file *filp, struct kobject *kobj,
--			      struct bin_attribute *attr,
-+			      const struct bin_attribute *attr,
- 			      struct vm_area_struct *vma)
- {
- 	struct pci_bus *bus = to_pci_bus(kobj_to_dev(kobj));
-@@ -1034,7 +1034,7 @@ void pci_remove_legacy_files(struct pci_bus *b)
-  *
-  * Use the regular PCI mapping routines to map a PCI resource into userspace.
-  */
--static int pci_mmap_resource(struct kobject *kobj, struct bin_attribute *attr,
-+static int pci_mmap_resource(struct kobject *kobj, const struct bin_attribute *attr,
- 			     struct vm_area_struct *vma, int write_combine)
- {
- 	struct pci_dev *pdev = to_pci_dev(kobj_to_dev(kobj));
-@@ -1059,14 +1059,14 @@ static int pci_mmap_resource(struct kobject *kobj, struct bin_attribute *attr,
- }
- 
- static int pci_mmap_resource_uc(struct file *filp, struct kobject *kobj,
--				struct bin_attribute *attr,
-+				const struct bin_attribute *attr,
- 				struct vm_area_struct *vma)
- {
- 	return pci_mmap_resource(kobj, attr, vma, 0);
- }
- 
- static int pci_mmap_resource_wc(struct file *filp, struct kobject *kobj,
--				struct bin_attribute *attr,
-+				const struct bin_attribute *attr,
- 				struct vm_area_struct *vma)
- {
- 	return pci_mmap_resource(kobj, attr, vma, 1);
-diff --git a/drivers/platform/x86/intel/pmt/class.c b/drivers/platform/x86/intel/pmt/class.c
-index c04bb7f97a4db13268fc5697887951cf8f0f5a25..f9afa23e754b8b68bd59b72d6a72d26503a21f31 100644
---- a/drivers/platform/x86/intel/pmt/class.c
-+++ b/drivers/platform/x86/intel/pmt/class.c
-@@ -103,7 +103,7 @@ intel_pmt_read(struct file *filp, struct kobject *kobj,
- 
- static int
- intel_pmt_mmap(struct file *filp, struct kobject *kobj,
--		struct bin_attribute *attr, struct vm_area_struct *vma)
-+		const struct bin_attribute *attr, struct vm_area_struct *vma)
- {
- 	struct intel_pmt_entry *entry = container_of(attr,
- 						     struct intel_pmt_entry,
-diff --git a/drivers/uio/uio_hv_generic.c b/drivers/uio/uio_hv_generic.c
-index 8704095994118c2660f345c504b5ea466d053efb..3976360d0096d6681faf88815cc6277fb76a1d9f 100644
---- a/drivers/uio/uio_hv_generic.c
-+++ b/drivers/uio/uio_hv_generic.c
-@@ -135,7 +135,7 @@ static void hv_uio_rescind(struct vmbus_channel *channel)
-  * The ring buffer is allocated as contiguous memory by vmbus_open
-  */
- static int hv_uio_ring_mmap(struct file *filp, struct kobject *kobj,
--			    struct bin_attribute *attr,
-+			    const struct bin_attribute *attr,
- 			    struct vm_area_struct *vma)
- {
- 	struct vmbus_channel *channel
+ 			WARN(mode & ~(SYSFS_PREALLOC | 0664),
+ 			     "Attribute %s: Invalid permissions 0%o\n",
 diff --git a/include/linux/sysfs.h b/include/linux/sysfs.h
-index d1b22d56198b55ee39fe4c4fc994f5b753641992..9fcdc8cd3118f359742bfd8b708d5c3eff511042 100644
+index c4e64dc112063f7cb89bf66059d0338716089e87..4746cccb95898b24df6f53de9421ea7649b5568f 100644
 --- a/include/linux/sysfs.h
 +++ b/include/linux/sysfs.h
-@@ -309,7 +309,7 @@ struct bin_attribute {
- 			 char *, loff_t, size_t);
- 	loff_t (*llseek)(struct file *, struct kobject *, struct bin_attribute *,
- 			 loff_t, int);
--	int (*mmap)(struct file *, struct kobject *, struct bin_attribute *attr,
-+	int (*mmap)(struct file *, struct kobject *, const struct bin_attribute *attr,
- 		    struct vm_area_struct *vma);
+@@ -87,6 +87,11 @@ do {							\
+  *		SYSFS_GROUP_VISIBLE() when assigning this callback to
+  *		specify separate _group_visible() and _attr_visible()
+  *		handlers.
++ * @bin_size:
++ *		Optional: Function to return the size of a binary attribute
++ *		of the group. Will be called repeatedly for each binary
++ *		attribute in the group. Overwrites the size field embedded
++ *		inside the attribute itself.
+  * @attrs:	Pointer to NULL terminated list of attributes.
+  * @bin_attrs:	Pointer to NULL terminated list of binary attributes.
+  *		Either attrs or bin_attrs or both must be provided.
+@@ -97,6 +102,9 @@ struct attribute_group {
+ 					      struct attribute *, int);
+ 	umode_t			(*is_bin_visible)(struct kobject *,
+ 						  struct bin_attribute *, int);
++	size_t			(*bin_size)(struct kobject *,
++					    const struct bin_attribute *,
++					    int);
+ 	struct attribute	**attrs;
+ 	struct bin_attribute	**bin_attrs;
  };
- 
 
 -- 
 2.47.0
