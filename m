@@ -4,83 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C40BD10C0D
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Nov 2024 09:05:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABCE6E677F9
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Nov 2024 09:05:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 78C6410E3A8;
-	Mon,  4 Nov 2024 09:05:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1DE8010E3AB;
+	Mon,  4 Nov 2024 09:05:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.b="FKhFlW+f";
+	dkim=pass (2048-bit key; unprotected) header.d=treblig.org header.i=@treblig.org header.b="R21pVjKJ";
 	dkim-atps=neutral
-Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8630710E284;
- Sun,  3 Nov 2024 17:04:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
- s=mail; t=1730653481;
- bh=i1lGRcvBSYaAkRCU3PsefBTXEi2eEGtd/RNZhauMerg=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=FKhFlW+fXVU9iiG5WHWrfxqIg2MK5RN4rmEJ6qMm9w3609SWSEqzIiyskpf0F3SE/
- 5Hue+UAKF4NoE2Q53mkBkJ7j/9iT4JRSPm/DM+o1r+XqpuQf548H1TiWzMDARBYT4p
- NmQ6pgjd99tSp5B6B0CVtWY1Wv6AMrStXbMf+hV8=
-From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-Date: Sun, 03 Nov 2024 17:03:39 +0000
-Subject: [PATCH v2 10/10] driver core: Constify attribute arguments of
- binary attributes
+Received: from mx.treblig.org (mx.treblig.org [46.235.229.95])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C567610E34F;
+ Mon,  4 Nov 2024 02:39:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=treblig.org
+ ; s=bytemarkmx;
+ h=MIME-Version:Message-ID:Date:Subject:From:Content-Type:From
+ :Subject; bh=X0uvyntT+nixWmfkfZaO+hewYcnx9FvDWP3oy6zAFw4=; b=R21pVjKJOa7pixZo
+ 6613J5exPmGrj/99v9eG6NRSLHGhXQSqpF7k+l7qCPy91ovUNztBlJX+rP9SrlRQjm2/h0eQbfuLS
+ p46BVD7C0c9dIfHh9uBsz82TwWyVaLKVT29eljKH9d4SerQRO/JGKbgoMjM+4IkUqPclMmXo3nIPL
+ VRHz5hy8OvdwohEpJioc2kj+cAkp/Eh3YN4T5V0B0xznWE5YQ7pf9n51qhHurPE//H8CMwDBctApN
+ QZ+elVKat44BV4KuTHOn7io/8F6ydTXko5IyXWfoVbTEIvJqVoNgULNEy18LG+gu1USp/khM3gJ5C
+ 8r+jSvYUWNt0YTuV1Q==;
+Received: from localhost ([127.0.0.1] helo=dalek.home.treblig.org)
+ by mx.treblig.org with esmtp (Exim 4.96)
+ (envelope-from <linux@treblig.org>) id 1t7mzl-00FECw-14;
+ Mon, 04 Nov 2024 02:39:09 +0000
+From: linux@treblig.org
+To: alexander.deucher@amd.com, harry.wentland@amd.com, sunpeng.li@amd.com,
+ Rodrigo.Siqueira@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ chaitanya.dhere@amd.com, jun.lei@amd.com
+Cc: airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ "Dr. David Alan Gilbert" <linux@treblig.org>
+Subject: [PATCH 1/5] drm/amd/display: Remove unused
+ enable_surface_flip_reporting
+Date: Mon,  4 Nov 2024 02:38:48 +0000
+Message-ID: <20241104023852.492497-2-linux@treblig.org>
+X-Mailer: git-send-email 2.47.0
+In-Reply-To: <20241104023852.492497-1-linux@treblig.org>
+References: <20241104023852.492497-1-linux@treblig.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20241103-sysfs-const-bin_attr-v2-10-71110628844c@weissschuh.net>
-References: <20241103-sysfs-const-bin_attr-v2-0-71110628844c@weissschuh.net>
-In-Reply-To: <20241103-sysfs-const-bin_attr-v2-0-71110628844c@weissschuh.net>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Bjorn Helgaas <bhelgaas@google.com>, 
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, 
- Davidlohr Bueso <dave@stgolabs.net>, 
- Jonathan Cameron <jonathan.cameron@huawei.com>, 
- Dave Jiang <dave.jiang@intel.com>, 
- Alison Schofield <alison.schofield@intel.com>, 
- Vishal Verma <vishal.l.verma@intel.com>, Ira Weiny <ira.weiny@intel.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Tudor Ambarus <tudor.ambarus@linaro.org>, 
- Pratyush Yadav <pratyush@kernel.org>, Michael Walle <mwalle@kernel.org>, 
- Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
- Naveen Krishna Chatradhi <naveenkrishna.chatradhi@amd.com>, 
- Carlos Bilbao <carlos.bilbao.osdev@gmail.com>, 
- Hans de Goede <hdegoede@redhat.com>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- "David E. Box" <david.e.box@linux.intel.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <martin.petersen@oracle.com>, 
- Richard Henderson <richard.henderson@linaro.org>, 
- Matt Turner <mattst88@gmail.com>, Frederic Barrat <fbarrat@linux.ibm.com>, 
- Andrew Donnellan <ajd@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>, 
- Logan Gunthorpe <logang@deltatee.com>, 
- "K. Y. Srinivasan" <kys@microsoft.com>, 
- Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
- Dexuan Cui <decui@microsoft.com>
-Cc: Dan Williams <dan.j.williams@intel.com>, linux-kernel@vger.kernel.org, 
- linux-pci@vger.kernel.org, linux-cxl@vger.kernel.org, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-rdma@vger.kernel.org, linux-mtd@lists.infradead.org, 
- platform-driver-x86@vger.kernel.org, linux-scsi@vger.kernel.org, 
- linux-usb@vger.kernel.org, linux-alpha@vger.kernel.org, 
- linuxppc-dev@lists.ozlabs.org, linux-hyperv@vger.kernel.org, 
- =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1730653468; l=2330;
- i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
- bh=i1lGRcvBSYaAkRCU3PsefBTXEi2eEGtd/RNZhauMerg=;
- b=wjQlo57jq0Wj7AlLBOYWjC3NLTcXdQ4S/vHvyo3etlKonEvBK3xDMeXVEI2nFeo1fRBiMSJWq
- 8Dy1FhYi+4pDACqaxOlIcEPw5eL4UaDS9rJJgllbu0x7Wp3mt9dGtys
-X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
- pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
 X-Mailman-Approved-At: Mon, 04 Nov 2024 09:05:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -96,60 +59,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-As preparation for the constification of struct bin_attribute,
-constify the arguments of the read and write callbacks.
+From: "Dr. David Alan Gilbert" <linux@treblig.org>
 
-Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
+enable_surface_flip_reporting() has been unused since it was added by
+commit 4562236b3bc0 ("drm/amd/dc: Add dc display driver (v2)")
+
+Remove it.
+
+Signed-off-by: Dr. David Alan Gilbert <linux@treblig.org>
 ---
- drivers/base/node.c     | 4 ++--
- drivers/base/topology.c | 4 ++--
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc_surface.c | 7 -------
+ drivers/gpu/drm/amd/display/dc/inc/core_types.h  | 3 ---
+ 2 files changed, 10 deletions(-)
 
-diff --git a/drivers/base/node.c b/drivers/base/node.c
-index eb72580288e62727e5b2198a6451cf9c2533225a..3e761633ac75826bedb5dd30b879f7cc1af95ec3 100644
---- a/drivers/base/node.c
-+++ b/drivers/base/node.c
-@@ -27,7 +27,7 @@ static const struct bus_type node_subsys = {
- };
- 
- static inline ssize_t cpumap_read(struct file *file, struct kobject *kobj,
--				  struct bin_attribute *attr, char *buf,
-+				  const struct bin_attribute *attr, char *buf,
- 				  loff_t off, size_t count)
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_surface.c b/drivers/gpu/drm/amd/display/dc/core/dc_surface.c
+index ccbb15f1638c..3299684f9a4e 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_surface.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_surface.c
+@@ -83,13 +83,6 @@ uint8_t  dc_plane_get_pipe_mask(struct dc_state *dc_state, const struct dc_plane
+ /*******************************************************************************
+  * Public functions
+  ******************************************************************************/
+-void enable_surface_flip_reporting(struct dc_plane_state *plane_state,
+-		uint32_t controller_id)
+-{
+-	plane_state->irq_source = controller_id + DC_IRQ_SOURCE_PFLIP1 - 1;
+-	/*register_flip_interrupt(surface);*/
+-}
+-
+ struct dc_plane_state *dc_create_plane_state(const struct dc *dc)
  {
- 	struct device *dev = kobj_to_dev(kobj);
-@@ -48,7 +48,7 @@ static inline ssize_t cpumap_read(struct file *file, struct kobject *kobj,
- static BIN_ATTR_RO(cpumap, CPUMAP_FILE_MAX_BYTES);
+ 	struct dc_plane_state *plane_state = kvzalloc(sizeof(*plane_state),
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/core_types.h b/drivers/gpu/drm/amd/display/dc/inc/core_types.h
+index bfb8b8502d20..f241316aff82 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/core_types.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/core_types.h
+@@ -45,9 +45,6 @@
+ #define MAX_SVP_PHANTOM_STREAMS 2
+ #define MAX_SVP_PHANTOM_PLANES 2
  
- static inline ssize_t cpulist_read(struct file *file, struct kobject *kobj,
--				   struct bin_attribute *attr, char *buf,
-+				   const struct bin_attribute *attr, char *buf,
- 				   loff_t off, size_t count)
- {
- 	struct device *dev = kobj_to_dev(kobj);
-diff --git a/drivers/base/topology.c b/drivers/base/topology.c
-index 89f98be5c5b9915b2974e184bf89c4c25c183095..1090751d7f458ce8d2a50e82d65b8ce31e938f15 100644
---- a/drivers/base/topology.c
-+++ b/drivers/base/topology.c
-@@ -23,7 +23,7 @@ static ssize_t name##_show(struct device *dev,				\
- 
- #define define_siblings_read_func(name, mask)					\
- static ssize_t name##_read(struct file *file, struct kobject *kobj,		\
--			   struct bin_attribute *attr, char *buf,		\
-+			   const struct bin_attribute *attr, char *buf,		\
- 			   loff_t off, size_t count)				\
- {										\
- 	struct device *dev = kobj_to_dev(kobj);                                 \
-@@ -33,7 +33,7 @@ static ssize_t name##_read(struct file *file, struct kobject *kobj,		\
- }										\
- 										\
- static ssize_t name##_list_read(struct file *file, struct kobject *kobj,	\
--				struct bin_attribute *attr, char *buf,		\
-+				const struct bin_attribute *attr, char *buf,	\
- 				loff_t off, size_t count)			\
- {										\
- 	struct device *dev = kobj_to_dev(kobj);					\
-
+-void enable_surface_flip_reporting(struct dc_plane_state *plane_state,
+-		uint32_t controller_id);
+-
+ #include "grph_object_id.h"
+ #include "link_encoder.h"
+ #include "stream_encoder.h"
 -- 
 2.47.0
 
