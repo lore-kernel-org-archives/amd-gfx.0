@@ -4,96 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F4EED132CF
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Nov 2024 14:07:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1322D132D7
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Nov 2024 14:48:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E96310E445;
-	Mon,  4 Nov 2024 14:07:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C41910E453;
+	Mon,  4 Nov 2024 14:48:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Jif+i2k/";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HcoxTybU";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4CA4410E099;
- Mon,  4 Nov 2024 13:25:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1730726735; x=1762262735;
- h=from:date:to:cc:subject:in-reply-to:message-id:
- references:mime-version;
- bh=oPBklUbvKL8bSKRIlaEBq6Ena9N6JHRIUOBA6mqrZ6c=;
- b=Jif+i2k/l9lbswCm6DKlyr3T5DdWf21LvQyqiVoCWMYVQAZUHvXvWGBr
- wyodBuh/2xpWgJBYb9CEV30q1MgwNw2kiRxwNbxrVHyEsxq7a576SXaoi
- B1Ww6EvXpsbRZUiFFpsL77K3Lt5oCL01ajyHt48RHYYW+TMFUZM75lUWm
- XvWNcX50LfYY/QxyrxUX8VFmWNXgRE3HdanipBgYqJQ6S5x2BOHsN0L+X
- a5UVhZaP5Mis+la5vsifXtpwxZGAky7XsGVjO8oq4+bNJ8/OK7NJysbiu
- E/Gr6KSZnAmgPNE1CZNwnPuAIgQiLGLGbn25WOsUulFStxqW0vJ3gweCC w==;
-X-CSE-ConnectionGUID: HpohJav/TLGVXmbYR6AL5Q==
-X-CSE-MsgGUID: b6PPmcFDR2+anR3ZZM+lSg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11222"; a="30275401"
-X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="30275401"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Nov 2024 05:25:33 -0800
-X-CSE-ConnectionGUID: v9JmlMoUQFaNhWF7H45gGQ==
-X-CSE-MsgGUID: 4K1oV5FuTuelLKT3nBONXg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,257,1725346800"; d="scan'208";a="83542204"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.245.33])
- by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Nov 2024 05:25:17 -0800
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Mon, 4 Nov 2024 15:25:13 +0200 (EET)
-To: =?ISO-8859-15?Q?Thomas_Wei=DFschuh?= <linux@weissschuh.net>
-cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Bjorn Helgaas <bhelgaas@google.com>, 
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, 
- Davidlohr Bueso <dave@stgolabs.net>, 
- Jonathan Cameron <jonathan.cameron@huawei.com>, 
- Dave Jiang <dave.jiang@intel.com>, 
- Alison Schofield <alison.schofield@intel.com>, 
- Vishal Verma <vishal.l.verma@intel.com>, Ira Weiny <ira.weiny@intel.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?ISO-8859-15?Q?Christian_K=F6nig?= <christian.koenig@amd.com>, 
- Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Tudor Ambarus <tudor.ambarus@linaro.org>, 
- Pratyush Yadav <pratyush@kernel.org>, Michael Walle <mwalle@kernel.org>, 
- Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
- Naveen Krishna Chatradhi <naveenkrishna.chatradhi@amd.com>, 
- Carlos Bilbao <carlos.bilbao.osdev@gmail.com>, 
- Hans de Goede <hdegoede@redhat.com>, 
- =?ISO-8859-15?Q?Ilpo_J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- "David E. Box" <david.e.box@linux.intel.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <martin.petersen@oracle.com>, 
- Richard Henderson <richard.henderson@linaro.org>, 
- Matt Turner <mattst88@gmail.com>, Frederic Barrat <fbarrat@linux.ibm.com>, 
- Andrew Donnellan <ajd@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>, 
- Logan Gunthorpe <logang@deltatee.com>, 
- "K. Y. Srinivasan" <kys@microsoft.com>, 
- Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
- Dexuan Cui <decui@microsoft.com>, Dan Williams <dan.j.williams@intel.com>, 
- LKML <linux-kernel@vger.kernel.org>, linux-pci@vger.kernel.org, 
- linux-cxl@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, 
- linux-mtd@lists.infradead.org, platform-driver-x86@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-alpha@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
- linux-hyperv@vger.kernel.org
-Subject: Re: [PATCH v2 05/10] sysfs: treewide: constify attribute callback
- of bin_is_visible()
-In-Reply-To: <20241103-sysfs-const-bin_attr-v2-5-71110628844c@weissschuh.net>
-Message-ID: <65f4dc4e-3b48-2baa-a13b-3cc34dd51ce1@linux.intel.com>
-References: <20241103-sysfs-const-bin_attr-v2-0-71110628844c@weissschuh.net>
- <20241103-sysfs-const-bin_attr-v2-5-71110628844c@weissschuh.net>
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
+ [209.85.214.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 04A9D10E44B
+ for <amd-gfx@lists.freedesktop.org>; Mon,  4 Nov 2024 14:48:50 +0000 (UTC)
+Received: by mail-pl1-f172.google.com with SMTP id
+ d9443c01a7336-20b533c6865so5147775ad.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 04 Nov 2024 06:48:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1730731729; x=1731336529; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=onfQeZqxr03TO7ojzu78tUavMfNz7YEwqQzZsVSVnoA=;
+ b=HcoxTybUgc2bf11sabKQj89p2Y2mKdiI89KmLMO+fjr2byarIXSNwwKGQfkoe9SDfu
+ vjhQtj1HQN+6Kisv4frJRIxuhhCwkY8Xz6xgTcJ75PJGBkrsUB8eG6/cimYtBKd0r1Iu
+ bdPB+OkShgRvAWqIM7p7xKjCkL1Z5nCScXfqdCg4gtqaSQ4/Evr9Mw6GDZ38A1skztzT
+ fhaNoXnouGLDyMXMLMZ8KJz8vyNaIOVjEfucmOqIkjPfK8VloYhbK0aKObWBbU9GvPHW
+ HFuTrlVWRu1355RNhkSyKj8hPXQ4MBSpb7l2tSLnsf8fHnabFBFKxOWCkOMyNzChMhTX
+ knSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1730731729; x=1731336529;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=onfQeZqxr03TO7ojzu78tUavMfNz7YEwqQzZsVSVnoA=;
+ b=hC05MdFlHUFS7bZRr+OHpEylBHBvEYefcDRUENFqn0n6TWI+XO10PGDSKlVP3HiIu3
+ l+dDBQKDYPsHon4LMpuEKjQ93edHueyNoukTjuO89XWl1jIuOACkMQrynuic9oY9JsK2
+ nK/2p8eRoNDXFgUg3AGj9PyUHKvXONyXdudObxFzQfQKGKpcDIwZEMIFSu+GI25WXdn0
+ tCl7fU7rphrqP0d5Wik1+A8PAa3kU1uNSqOWkhYeGq0wYRu9VbvdC/gZpfTQIaeV0+Ek
+ hBHUB0Kyg4FxHQuaNQi/brsOhdhhPRNMBY4a41mT4LxEAwMMpiO2JBHIM9IcqfZmsWJW
+ gPEA==
+X-Gm-Message-State: AOJu0Yw8ACGWG0uE0tOmXTSUoyUgtlOD+J3q/DbcLWYsJnfLd30gpZqW
+ mnujtu+SncJktaAU++LPe5YBplwbme/mmSspJOMNzyChhMlCoJ59OIAjAhHmC4Qx0JRMW1U4PTW
+ G9aTNCy9uG7kjjA1ia9klZP2lIfU=
+X-Google-Smtp-Source: AGHT+IFu6b8eSCNn24gFm0crtpFV81KwlJKG51wCuuB3zgPVDZoUKTb8lPyaJ2nXLDT85UfPk9e0V/Fh5Mm7mFHAgX8=
+X-Received: by 2002:a17:902:d488:b0:20c:e169:eb6a with SMTP id
+ d9443c01a7336-210c6c9bf08mr187603745ad.10.1730731729325; Mon, 04 Nov 2024
+ 06:48:49 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323328-559502379-1730726713=:989"
-X-Mailman-Approved-At: Mon, 04 Nov 2024 14:07:17 +0000
+References: <20241031094929.55323-1-christian.koenig@amd.com>
+In-Reply-To: <20241031094929.55323-1-christian.koenig@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 4 Nov 2024 09:48:37 -0500
+Message-ID: <CADnq5_Pqz1z8KashAP1BfhF1cdpCJznqWyur=yX-d9H2VW6Zgg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: fix check in gmc_v9_0_get_vm_pte()
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, felix.kuehling@amd.com, 
+ rajneesh.bhardwaj@amd.com, Pierre-eric.Pelloux-prayer@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,79 +76,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+On Thu, Oct 31, 2024 at 5:49=E2=80=AFAM Christian K=C3=B6nig
+<ckoenig.leichtzumerken@gmail.com> wrote:
+>
+> The coherency flags can only be determined when the BO is locked and that
+> in turn is only guaranteed when the mapping is validated.
+>
+> Fix the check, move the resource check into the function and add an asser=
+t
+> that the BO is locked.
+>
+> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Fixes: d1a372af1c3d ("drm/amdgpu: Set MTYPE in PTE based on BO flags")
 
---8323328-559502379-1730726713=:989
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: QUOTED-PRINTABLE
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-On Sun, 3 Nov 2024, Thomas Wei=C3=9Fschuh wrote:
-
-> The is_bin_visible() callbacks should not modify the struct
-> bin_attribute passed as argument.
-> Enforce this by marking the argument as const.
->=20
-> As there are not many callback implementers perform this change
-> throughout the tree at once.
->=20
-> Signed-off-by: Thomas Wei=C3=9Fschuh <linux@weissschuh.net>
 > ---
->  drivers/cxl/port.c                      |  2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c |  2 +-
->  drivers/infiniband/hw/qib/qib_sysfs.c   |  2 +-
->  drivers/mtd/spi-nor/sysfs.c             |  2 +-
->  drivers/nvmem/core.c                    |  3 ++-
->  drivers/pci/pci-sysfs.c                 |  2 +-
->  drivers/pci/vpd.c                       |  2 +-
->  drivers/platform/x86/amd/hsmp.c         |  2 +-
->  drivers/platform/x86/intel/sdsi.c       |  2 +-
->  drivers/scsi/scsi_sysfs.c               |  2 +-
->  drivers/usb/core/sysfs.c                |  2 +-
->  include/linux/sysfs.h                   | 30 +++++++++++++++------------=
----
->  12 files changed, 27 insertions(+), 26 deletions(-)
-
-> diff --git a/drivers/platform/x86/amd/hsmp.c b/drivers/platform/x86/amd/h=
-smp.c
-> index 8fcf38eed7f00ee01aade6e3e55e20402458d5aa..8f00850c139fa8d419bc1c140=
-c1832bf84b2c3bd 100644
-> --- a/drivers/platform/x86/amd/hsmp.c
-> +++ b/drivers/platform/x86/amd/hsmp.c
-> @@ -620,7 +620,7 @@ static int hsmp_get_tbl_dram_base(u16 sock_ind)
+>  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 13 ++++++++-----
+>  1 file changed, 8 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/=
+amdgpu/gmc_v9_0.c
+> index f43ded8a0aab..50c5da3020cb 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> @@ -1130,8 +1130,10 @@ static void gmc_v9_0_get_coherence_flags(struct am=
+dgpu_device *adev,
+>                                          uint64_t *flags)
+>  {
+>         struct amdgpu_device *bo_adev =3D amdgpu_ttm_adev(bo->tbo.bdev);
+> -       bool is_vram =3D bo->tbo.resource->mem_type =3D=3D TTM_PL_VRAM;
+> -       bool coherent =3D bo->flags & (AMDGPU_GEM_CREATE_COHERENT | AMDGP=
+U_GEM_CREATE_EXT_COHERENT);
+> +       bool is_vram =3D bo->tbo.resource &&
+> +               bo->tbo.resource->mem_type =3D=3D TTM_PL_VRAM;
+> +       bool coherent =3D bo->flags & (AMDGPU_GEM_CREATE_COHERENT |
+> +                                    AMDGPU_GEM_CREATE_EXT_COHERENT);
+>         bool ext_coherent =3D bo->flags & AMDGPU_GEM_CREATE_EXT_COHERENT;
+>         bool uncached =3D bo->flags & AMDGPU_GEM_CREATE_UNCACHED;
+>         struct amdgpu_vm *vm =3D mapping->bo_va->base.vm;
+> @@ -1139,6 +1141,8 @@ static void gmc_v9_0_get_coherence_flags(struct amd=
+gpu_device *adev,
+>         bool snoop =3D false;
+>         bool is_local;
+>
+> +       dma_resv_assert_held(bo->tbo.base.resv);
+> +
+>         switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
+>         case IP_VERSION(9, 4, 1):
+>         case IP_VERSION(9, 4, 2):
+> @@ -1257,9 +1261,8 @@ static void gmc_v9_0_get_vm_pte(struct amdgpu_devic=
+e *adev,
+>                 *flags &=3D ~AMDGPU_PTE_VALID;
+>         }
+>
+> -       if (bo && bo->tbo.resource)
+> -               gmc_v9_0_get_coherence_flags(adev, mapping->bo_va->base.b=
+o,
+> -                                            mapping, flags);
+> +       if ((*flags & AMDGPU_PTE_VALID) && bo)
+> +               gmc_v9_0_get_coherence_flags(adev, bo, mapping, flags);
 >  }
-> =20
->  static umode_t hsmp_is_sock_attr_visible(struct kobject *kobj,
-> -=09=09=09=09=09 struct bin_attribute *battr, int id)
-> +=09=09=09=09=09 const struct bin_attribute *battr, int id)
-
-Hi Thomas,
-
-This driver is reworked in pdx86/for-next.
-
---=20
- i.
-
-
->  {
->  =09if (plat_dev.proto_ver =3D=3D HSMP_PROTO_VER6)
->  =09=09return battr->attr.mode;
-> diff --git a/drivers/platform/x86/intel/sdsi.c b/drivers/platform/x86/int=
-el/sdsi.c
-> index 9d137621f0e6e7a23be0e0bbc6175c51c403169f..33f33b1070fdc949c1373251c=
-3bca4234d9da119 100644
-> --- a/drivers/platform/x86/intel/sdsi.c
-> +++ b/drivers/platform/x86/intel/sdsi.c
-> @@ -541,7 +541,7 @@ static struct bin_attribute *sdsi_bin_attrs[] =3D {
->  };
-> =20
->  static umode_t
-> -sdsi_battr_is_visible(struct kobject *kobj, struct bin_attribute *attr, =
-int n)
-> +sdsi_battr_is_visible(struct kobject *kobj, const struct bin_attribute *=
-attr, int n)
->  {
->  =09struct device *dev =3D kobj_to_dev(kobj);
->  =09struct sdsi_priv *priv =3D dev_get_drvdata(dev);
-
---8323328-559502379-1730726713=:989--
+>
+>  static void gmc_v9_0_override_vm_pte_flags(struct amdgpu_device *adev,
+> --
+> 2.34.1
+>
