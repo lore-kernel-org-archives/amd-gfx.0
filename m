@@ -4,44 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E673D132A5
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Nov 2024 09:05:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 023B7D132A6
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Nov 2024 09:05:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4295110E3B8;
-	Mon,  4 Nov 2024 09:05:08 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=treblig.org header.i=@treblig.org header.b="HzXpKMIS";
-	dkim-atps=neutral
-Received: from mx.treblig.org (mx.treblig.org [46.235.229.95])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6FAD110E351;
- Mon,  4 Nov 2024 02:39:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=treblig.org
- ; s=bytemarkmx;
- h=MIME-Version:Message-ID:Date:Subject:From:Content-Type:From
- :Subject; bh=iC0KoFsoUwEupIq9bReRkUd3v81AvDNZ/2McalaaoAQ=; b=HzXpKMISgp+8Ux5K
- NCAFaXSozpOHcc/QJq0z2Cknk9Wiy3eyNXoQAAvgCxxAMc7voKAUeb2ZDupWN7Ef+dqx3hN5k80E7
- REvMBymtQM5CLK0RMXNs1rSVmvr+NF9qgo6ow78vbhA5sPei41zsnhXrANxCzEsAIw6lg5c+OT6YG
- jkQMTQyO+/yfAOcxgL0wXpRUtR7ZPlN+bXRi9M6KLKrtaSHv2UsbKqAqT/yE5mkQZwbNmab3DmaYT
- MgrmZngTiOVCkernUwHFbyuS5wSE+aIyXXlS/OKgl08s8aFq045Xu29VOb16QIZO9dvIvBjO9bM/h
- 21TtEFr5ZOkQRC9ouQ==;
-Received: from localhost ([127.0.0.1] helo=dalek.home.treblig.org)
- by mx.treblig.org with esmtp (Exim 4.96)
- (envelope-from <linux@treblig.org>) id 1t7mzp-00FECw-0A;
- Mon, 04 Nov 2024 02:39:13 +0000
-From: linux@treblig.org
-To: alexander.deucher@amd.com, harry.wentland@amd.com, sunpeng.li@amd.com,
- Rodrigo.Siqueira@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- chaitanya.dhere@amd.com, jun.lei@amd.com
-Cc: airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- "Dr. David Alan Gilbert" <linux@treblig.org>
-Subject: [PATCH 2/5] drm/amd/display: Remove unused
- dwb3_set_host_read_rate_control
-Date: Mon,  4 Nov 2024 02:38:49 +0000
-Message-ID: <20241104023852.492497-3-linux@treblig.org>
-X-Mailer: git-send-email 2.47.0
-In-Reply-To: <20241104023852.492497-1-linux@treblig.org>
-References: <20241104023852.492497-1-linux@treblig.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB8D910E3B5;
+	Mon,  4 Nov 2024 09:05:07 +0000 (UTC)
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A4F4410E06A
+ for <amd-gfx@lists.freedesktop.org>; Mon,  4 Nov 2024 01:21:37 +0000 (UTC)
+X-UUID: 1efe68629a4b11efa216b1d71e6e1362-20241104
+X-CID-O-RULE: Release_Ham
+X-CID-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.38, REQID:71e3df18-611f-4318-98da-1cf5882465ea, IP:5,
+ U
+ RL:0,TC:0,Content:0,EDM:0,RT:0,SF:-6,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+ :release,TS:-1
+X-CID-INFO: VERSION:1.1.38, REQID:71e3df18-611f-4318-98da-1cf5882465ea, IP:5,
+ URL
+ :0,TC:0,Content:0,EDM:0,RT:0,SF:-6,FILE:0,BULK:0,RULE:Release_Ham,ACTION:r
+ elease,TS:-1
+X-CID-META: VersionHash:82c5f88, CLOUDID:2565d0f338c499430975168a6f8a1b63,
+ BulkI
+ D:2411040918031A9FK27B,BulkQuantity:1,Recheck:0,SF:64|66|17|44|101|841|25|
+ 100|19|102,TC:nil,Content:0,EDM:-3,IP:-2,URL:0,File:nil,RT:nil,Bulk:40,QS:
+ nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0
+X-CID-BVR: 0,NGT
+X-CID-BAS: 0,NGT,0,_
+X-CID-FACTOR: TF_CID_SPAM_FAS,TF_CID_SPAM_FSD,TF_CID_SPAM_FSI,TF_CID_SPAM_SNR
+X-UUID: 1efe68629a4b11efa216b1d71e6e1362-20241104
+X-User: yaolu@kylinos.cn
+Received: from localhost.localdomain [(111.48.58.10)] by mailgw.kylinos.cn
+ (envelope-from <yaolu@kylinos.cn>) (Generic MTA)
+ with ESMTP id 1787099959; Mon, 04 Nov 2024 09:21:30 +0800
+From: Lu Yao <yaolu@kylinos.cn>
+To: alexander.deucher@amd.com
+Cc: jfalempe@redhat.com,
+	amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH 4/4] drm/amd/display: add non-DC drm_panic support
+Date: Mon,  4 Nov 2024 09:21:27 +0800
+Message-Id: <20241104012127.21561-1-yaolu@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20241031180430.3993389-5-alexander.deucher@amd.com>
+References: <20241031180430.3993389-5-alexander.deucher@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 04 Nov 2024 09:05:01 +0000
@@ -59,52 +63,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: "Dr. David Alan Gilbert" <linux@treblig.org>
-
-dwb3_set_host_read_rate_control() has been unused since it was added by
-commit 8993dee0de2a ("drm/amd/display: Add DCN3 DWB")
-
-Remove it.
-
-Signed-off-by: Dr. David Alan Gilbert <linux@treblig.org>
----
- .../gpu/drm/amd/display/dc/dwb/dcn30/dcn30_dwb.c    | 13 -------------
- .../gpu/drm/amd/display/dc/dwb/dcn30/dcn30_dwb.h    |  1 -
- 2 files changed, 14 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dwb/dcn30/dcn30_dwb.c b/drivers/gpu/drm/amd/display/dc/dwb/dcn30/dcn30_dwb.c
-index fae98cf52020..bc058f682438 100644
---- a/drivers/gpu/drm/amd/display/dc/dwb/dcn30/dcn30_dwb.c
-+++ b/drivers/gpu/drm/amd/display/dc/dwb/dcn30/dcn30_dwb.c
-@@ -270,16 +270,3 @@ void dcn30_dwbc_construct(struct dcn30_dwbc *dwbc30,
- 	dwbc30->dwbc_shift = dwbc_shift;
- 	dwbc30->dwbc_mask = dwbc_mask;
- }
--
--void dwb3_set_host_read_rate_control(struct dwbc *dwbc, bool host_read_delay)
--{
--	struct dcn30_dwbc *dwbc30 = TO_DCN30_DWBC(dwbc);
--
--	/*
--	 * Set maximum delay of host read access to DWBSCL LUT or OGAM LUT if there are no
--	 * idle cycles in HW pipeline (in number of clock cycles times 4)
--	 */
--	REG_UPDATE(DWB_HOST_READ_CONTROL, DWB_HOST_READ_RATE_CONTROL, host_read_delay);
--
--	DC_LOG_DWB("%s dwb3_rate_control at inst = %d", __func__, dwbc->inst);
--}
-diff --git a/drivers/gpu/drm/amd/display/dc/dwb/dcn30/dcn30_dwb.h b/drivers/gpu/drm/amd/display/dc/dwb/dcn30/dcn30_dwb.h
-index 0f3f7c5fbaec..7f053f49ec6a 100644
---- a/drivers/gpu/drm/amd/display/dc/dwb/dcn30/dcn30_dwb.h
-+++ b/drivers/gpu/drm/amd/display/dc/dwb/dcn30/dcn30_dwb.h
-@@ -914,7 +914,6 @@ bool dwb3_ogam_set_input_transfer_func(
- 	struct dwbc *dwbc,
- 	const struct dc_transfer_func *in_transfer_func_dwb_ogam);
- 
--void dwb3_set_host_read_rate_control(struct dwbc *dwbc, bool host_read_delay);
- #endif
- 
- 
--- 
-2.47.0
-
+on 2024/11/1 02:04, Alex Deucher wrote:
+> Add support for the drm_panic module, which displays a pretty user
+> friendly message on the screen when a Linux kernel panic occurs.
+>
+> Adapt Lu Yao's code to use common helpers derived from
+> Jocelyn's patch.  This extends the non-DC code to enable
+> access to non-CPU accessible VRAM and adds support for
+> other DCE versions.
+>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Lu Yao <yaolu@kylinos.cn>
+> Cc: Jocelyn Falempe <jfalempe@redhat.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/dce_v10_0.c | 27 ++++++++++++++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/dce_v11_0.c | 27 ++++++++++++++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c  | 27 ++++++++++++++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/dce_v8_0.c  | 26 +++++++++++++++++++++++++
+>  4 files changed, 107 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+> index 5098c50d54c8..a26f2381504b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+> @@ -2687,6 +2687,32 @@ static const struct drm_crtc_helper_funcs dce_v10_0_crtc_helper_funcs = {
+>  	.get_scanout_position = amdgpu_crtc_get_scanout_position,
+>  };
+>  
+> +static void dce_v10_0_panic_flush(struct drm_plane *plane)
+> +{
+> +	struct drm_framebuffer *fb;
+> +	struct amdgpu_crtc *amdgpu_crtc;
+> +	struct amdgpu_device *adev;
+> +	uint32_t fb_format;
+> +
+> +	if (!plane->fb)
+> +		return;
+> +
+> +	fb = plane->fb;
+> +	amdgpu_crtc = to_amdgpu_crtc(plane->crtc);
+> +	adev = drm_to_adev(fb->dev);
+> +
+> +	/* Disable DC tiling */
+> +	fb_format = RREG32(mmGRPH_CONTROL + amdgpu_crtc->crtc_offset);
+> +	fb_format &= ~GRPH_CONTROL__GRPH_ARRAY_MODE_MASK;
+> +	WREG32(mmGRPH_CONTROL + amdgpu_crtc->crtc_offset, fb_format);
+> +
+> +}
+> +
+For non-DC ip, 'mmGRPH_CONTROL' and 'GRPH_CONTROL__GRPH_ARRAY_MODE_MASK' val are same, so whether the panic_flush function can also be made same?
+>
+> +static const struct drm_plane_helper_funcs dce_v10_0_drm_primary_plane_helper_funcs = {
+> +	.get_scanout_buffer = amdgpu_display_get_scanout_buffer,
+The definition of 'amdgpu_display_get_scanout_buffer' seems to be missing. 
