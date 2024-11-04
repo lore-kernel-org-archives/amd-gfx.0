@@ -4,62 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1322D132D7
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Nov 2024 14:48:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BAA7D132DC
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Nov 2024 15:08:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C41910E453;
-	Mon,  4 Nov 2024 14:48:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2188110E45A;
+	Mon,  4 Nov 2024 15:08:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HcoxTybU";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="P7aMCVzz";
 	dkim-atps=neutral
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
- [209.85.214.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 04A9D10E44B
- for <amd-gfx@lists.freedesktop.org>; Mon,  4 Nov 2024 14:48:50 +0000 (UTC)
-Received: by mail-pl1-f172.google.com with SMTP id
- d9443c01a7336-20b533c6865so5147775ad.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 04 Nov 2024 06:48:50 -0800 (PST)
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
+ [209.85.216.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F1C4910E45A
+ for <amd-gfx@lists.freedesktop.org>; Mon,  4 Nov 2024 15:08:49 +0000 (UTC)
+Received: by mail-pj1-f48.google.com with SMTP id
+ 98e67ed59e1d1-2e2e31aacbbso443222a91.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 04 Nov 2024 07:08:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1730731729; x=1731336529; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1730732929; x=1731337729; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=onfQeZqxr03TO7ojzu78tUavMfNz7YEwqQzZsVSVnoA=;
- b=HcoxTybUgc2bf11sabKQj89p2Y2mKdiI89KmLMO+fjr2byarIXSNwwKGQfkoe9SDfu
- vjhQtj1HQN+6Kisv4frJRIxuhhCwkY8Xz6xgTcJ75PJGBkrsUB8eG6/cimYtBKd0r1Iu
- bdPB+OkShgRvAWqIM7p7xKjCkL1Z5nCScXfqdCg4gtqaSQ4/Evr9Mw6GDZ38A1skztzT
- fhaNoXnouGLDyMXMLMZ8KJz8vyNaIOVjEfucmOqIkjPfK8VloYhbK0aKObWBbU9GvPHW
- HFuTrlVWRu1355RNhkSyKj8hPXQ4MBSpb7l2tSLnsf8fHnabFBFKxOWCkOMyNzChMhTX
- knSw==
+ bh=yIjFhPfYlWuVkk0g+SyHD++KtsGpwzmWQq31owW8pTQ=;
+ b=P7aMCVzzzrj29R309EYfxbsOPeQ8dqO6qCVayH5a0mOJfV+Z/K5bwEcggC4FqymGJN
+ c5BE7pWsWgcziPpqC4BLciftuNBW6wRhHZVfoTWuFQQcWK5teuooDVbX2oEOjYUoNPwH
+ qOtOdTCIsYmaWWlXzlX3X5NOwU7Qovlcckm+fQpAWra1qCnuiRysfxEAk6BzjiziyfzL
+ ZHe7k9fK0AO3PgyH2C0BuMy/mLQook29fwD7i5IjhnGrjoPitMkoUM0w6lOdApHbRroa
+ CE1tdsjbn1KYvs462EMwyRFPqYRTHzlDbmoQ9BvLGStPeNyypqgGLjTnZZNVCB0SI3nj
+ iEKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1730731729; x=1731336529;
+ d=1e100.net; s=20230601; t=1730732929; x=1731337729;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=onfQeZqxr03TO7ojzu78tUavMfNz7YEwqQzZsVSVnoA=;
- b=hC05MdFlHUFS7bZRr+OHpEylBHBvEYefcDRUENFqn0n6TWI+XO10PGDSKlVP3HiIu3
- l+dDBQKDYPsHon4LMpuEKjQ93edHueyNoukTjuO89XWl1jIuOACkMQrynuic9oY9JsK2
- nK/2p8eRoNDXFgUg3AGj9PyUHKvXONyXdudObxFzQfQKGKpcDIwZEMIFSu+GI25WXdn0
- tCl7fU7rphrqP0d5Wik1+A8PAa3kU1uNSqOWkhYeGq0wYRu9VbvdC/gZpfTQIaeV0+Ek
- hBHUB0Kyg4FxHQuaNQi/brsOhdhhPRNMBY4a41mT4LxEAwMMpiO2JBHIM9IcqfZmsWJW
- gPEA==
-X-Gm-Message-State: AOJu0Yw8ACGWG0uE0tOmXTSUoyUgtlOD+J3q/DbcLWYsJnfLd30gpZqW
- mnujtu+SncJktaAU++LPe5YBplwbme/mmSspJOMNzyChhMlCoJ59OIAjAhHmC4Qx0JRMW1U4PTW
- G9aTNCy9uG7kjjA1ia9klZP2lIfU=
-X-Google-Smtp-Source: AGHT+IFu6b8eSCNn24gFm0crtpFV81KwlJKG51wCuuB3zgPVDZoUKTb8lPyaJ2nXLDT85UfPk9e0V/Fh5Mm7mFHAgX8=
-X-Received: by 2002:a17:902:d488:b0:20c:e169:eb6a with SMTP id
- d9443c01a7336-210c6c9bf08mr187603745ad.10.1730731729325; Mon, 04 Nov 2024
- 06:48:49 -0800 (PST)
+ bh=yIjFhPfYlWuVkk0g+SyHD++KtsGpwzmWQq31owW8pTQ=;
+ b=N1OR6M1MylLOsBdFip2AF2V43kLlCthZj848aLA2ec+zLWkyJQ1/KjUJkr9//7ZA2v
+ KjLbys8Ce+pVFBhRtfhawPhzjcvBZrpB76CZBtcIOlRy30JkRtb9T1H4fRvHS27+vads
+ PaiKRU8dcHT88xdNSqF7XdQcPVbwBqXKOiaa4m1qzrnvZxi8fWo/iENXjfL3+qIK3aiW
+ zQnIixGmu6xcSNfm4/rK2DKXWDx+RDeY4gIQrqPBkEAcYh6t7KZHCsvMNhvLbcwc1Te/
+ od7Aa7i4D5ZaUwDpeL3ZVa1bmE5LsPfJiCIla4m+Pb6Rsq00kAaj0eh9UIxvpympTXnM
+ 9WNg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUu4LNpXOLMTqKGcc4lHBQ5hLTNJhPJcTAjgB19RhqYVZHVFsW45SrNbhUjh04iLVHLs3K5kYNJ@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxtvGXkYsIpSg1NVNjmzl16c2BNgYP6sJUmxNSKusAHp8tnMRer
+ mjDuXxk/2XcvrnOpvJyX+Wzq4ZysR5rfBay192X9JkelYrcak1ymP3bJouYW4usf2LCJwKljG/Z
+ hnZnUGTlSG7Va+oZe1TwYsuoDAMk=
+X-Google-Smtp-Source: AGHT+IG/7wrAw/jBYD22pBYnzYCFPYyDtxwi8kBQ8q9cRpV7i8c8YC3UXWIYgU/Q3wTGyabtcuKYHJoBV3XOdKvgapA=
+X-Received: by 2002:a17:90b:4a90:b0:2e2:a70a:f107 with SMTP id
+ 98e67ed59e1d1-2e8f0f4f79cmr16112665a91.1.1730732929354; Mon, 04 Nov 2024
+ 07:08:49 -0800 (PST)
 MIME-Version: 1.0
-References: <20241031094929.55323-1-christian.koenig@amd.com>
-In-Reply-To: <20241031094929.55323-1-christian.koenig@amd.com>
+References: <20241031180430.3993389-5-alexander.deucher@amd.com>
+ <20241104012127.21561-1-yaolu@kylinos.cn>
+In-Reply-To: <20241104012127.21561-1-yaolu@kylinos.cn>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 4 Nov 2024 09:48:37 -0500
-Message-ID: <CADnq5_Pqz1z8KashAP1BfhF1cdpCJznqWyur=yX-d9H2VW6Zgg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: fix check in gmc_v9_0_get_vm_pte()
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, felix.kuehling@amd.com, 
- rajneesh.bhardwaj@amd.com, Pierre-eric.Pelloux-prayer@amd.com
+Date: Mon, 4 Nov 2024 10:08:37 -0500
+Message-ID: <CADnq5_M4rS5C_6329ZE2cyFWLMkVE+qj5VLDEqmNWZVsJZK0Xg@mail.gmail.com>
+Subject: Re: [PATCH 4/4] drm/amd/display: add non-DC drm_panic support
+To: Lu Yao <yaolu@kylinos.cn>
+Cc: alexander.deucher@amd.com, jfalempe@redhat.com, 
+ amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -76,69 +79,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Oct 31, 2024 at 5:49=E2=80=AFAM Christian K=C3=B6nig
-<ckoenig.leichtzumerken@gmail.com> wrote:
+On Mon, Nov 4, 2024 at 4:05=E2=80=AFAM Lu Yao <yaolu@kylinos.cn> wrote:
 >
-> The coherency flags can only be determined when the BO is locked and that
-> in turn is only guaranteed when the mapping is validated.
->
-> Fix the check, move the resource check into the function and add an asser=
-t
-> that the BO is locked.
->
-> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Fixes: d1a372af1c3d ("drm/amdgpu: Set MTYPE in PTE based on BO flags")
+> on 2024/11/1 02:04, Alex Deucher wrote:
+> > Add support for the drm_panic module, which displays a pretty user
+> > friendly message on the screen when a Linux kernel panic occurs.
+> >
+> > Adapt Lu Yao's code to use common helpers derived from
+> > Jocelyn's patch.  This extends the non-DC code to enable
+> > access to non-CPU accessible VRAM and adds support for
+> > other DCE versions.
+> >
+> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > Cc: Lu Yao <yaolu@kylinos.cn>
+> > Cc: Jocelyn Falempe <jfalempe@redhat.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/dce_v10_0.c | 27 ++++++++++++++++++++++++++
+> >  drivers/gpu/drm/amd/amdgpu/dce_v11_0.c | 27 ++++++++++++++++++++++++++
+> >  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c  | 27 ++++++++++++++++++++++++++
+> >  drivers/gpu/drm/amd/amdgpu/dce_v8_0.c  | 26 +++++++++++++++++++++++++
+> >  4 files changed, 107 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/a=
+md/amdgpu/dce_v10_0.c
+> > index 5098c50d54c8..a26f2381504b 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+> > @@ -2687,6 +2687,32 @@ static const struct drm_crtc_helper_funcs dce_v1=
+0_0_crtc_helper_funcs =3D {
+> >       .get_scanout_position =3D amdgpu_crtc_get_scanout_position,
+> >  };
+> >
+> > +static void dce_v10_0_panic_flush(struct drm_plane *plane)
+> > +{
+> > +     struct drm_framebuffer *fb;
+> > +     struct amdgpu_crtc *amdgpu_crtc;
+> > +     struct amdgpu_device *adev;
+> > +     uint32_t fb_format;
+> > +
+> > +     if (!plane->fb)
+> > +             return;
+> > +
+> > +     fb =3D plane->fb;
+> > +     amdgpu_crtc =3D to_amdgpu_crtc(plane->crtc);
+> > +     adev =3D drm_to_adev(fb->dev);
+> > +
+> > +     /* Disable DC tiling */
+> > +     fb_format =3D RREG32(mmGRPH_CONTROL + amdgpu_crtc->crtc_offset);
+> > +     fb_format &=3D ~GRPH_CONTROL__GRPH_ARRAY_MODE_MASK;
+> > +     WREG32(mmGRPH_CONTROL + amdgpu_crtc->crtc_offset, fb_format);
+> > +
+> > +}
+> > +
+> For non-DC ip, 'mmGRPH_CONTROL' and 'GRPH_CONTROL__GRPH_ARRAY_MODE_MASK' =
+val are same, so whether the panic_flush function can also be made same?
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+It could, but I didn't want to imply that this should be used for all
+IPs because the tiling controls are different on newer GPUs.
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 13 ++++++++-----
->  1 file changed, 8 insertions(+), 5 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/=
-amdgpu/gmc_v9_0.c
-> index f43ded8a0aab..50c5da3020cb 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> @@ -1130,8 +1130,10 @@ static void gmc_v9_0_get_coherence_flags(struct am=
-dgpu_device *adev,
->                                          uint64_t *flags)
->  {
->         struct amdgpu_device *bo_adev =3D amdgpu_ttm_adev(bo->tbo.bdev);
-> -       bool is_vram =3D bo->tbo.resource->mem_type =3D=3D TTM_PL_VRAM;
-> -       bool coherent =3D bo->flags & (AMDGPU_GEM_CREATE_COHERENT | AMDGP=
-U_GEM_CREATE_EXT_COHERENT);
-> +       bool is_vram =3D bo->tbo.resource &&
-> +               bo->tbo.resource->mem_type =3D=3D TTM_PL_VRAM;
-> +       bool coherent =3D bo->flags & (AMDGPU_GEM_CREATE_COHERENT |
-> +                                    AMDGPU_GEM_CREATE_EXT_COHERENT);
->         bool ext_coherent =3D bo->flags & AMDGPU_GEM_CREATE_EXT_COHERENT;
->         bool uncached =3D bo->flags & AMDGPU_GEM_CREATE_UNCACHED;
->         struct amdgpu_vm *vm =3D mapping->bo_va->base.vm;
-> @@ -1139,6 +1141,8 @@ static void gmc_v9_0_get_coherence_flags(struct amd=
-gpu_device *adev,
->         bool snoop =3D false;
->         bool is_local;
->
-> +       dma_resv_assert_held(bo->tbo.base.resv);
-> +
->         switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
->         case IP_VERSION(9, 4, 1):
->         case IP_VERSION(9, 4, 2):
-> @@ -1257,9 +1261,8 @@ static void gmc_v9_0_get_vm_pte(struct amdgpu_devic=
-e *adev,
->                 *flags &=3D ~AMDGPU_PTE_VALID;
->         }
->
-> -       if (bo && bo->tbo.resource)
-> -               gmc_v9_0_get_coherence_flags(adev, mapping->bo_va->base.b=
-o,
-> -                                            mapping, flags);
-> +       if ((*flags & AMDGPU_PTE_VALID) && bo)
-> +               gmc_v9_0_get_coherence_flags(adev, bo, mapping, flags);
->  }
->
->  static void gmc_v9_0_override_vm_pte_flags(struct amdgpu_device *adev,
-> --
-> 2.34.1
->
+> >
+> > +static const struct drm_plane_helper_funcs dce_v10_0_drm_primary_plane=
+_helper_funcs =3D {
+> > +     .get_scanout_buffer =3D amdgpu_display_get_scanout_buffer,
+> The definition of 'amdgpu_display_get_scanout_buffer' seems to be missing=
+.
+
+It was added in patch 1.
+
+Alex
