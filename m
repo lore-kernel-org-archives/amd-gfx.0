@@ -4,65 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BAA7D132DC
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 Nov 2024 15:08:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFF08D132DE
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 Nov 2024 15:12:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2188110E45A;
-	Mon,  4 Nov 2024 15:08:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8091410E034;
+	Mon,  4 Nov 2024 15:12:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="P7aMCVzz";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Jr16vx1x";
 	dkim-atps=neutral
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
- [209.85.216.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1C4910E45A
- for <amd-gfx@lists.freedesktop.org>; Mon,  4 Nov 2024 15:08:49 +0000 (UTC)
-Received: by mail-pj1-f48.google.com with SMTP id
- 98e67ed59e1d1-2e2e31aacbbso443222a91.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 04 Nov 2024 07:08:49 -0800 (PST)
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com
+ [209.85.216.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6276110E034;
+ Mon,  4 Nov 2024 15:12:36 +0000 (UTC)
+Received: by mail-pj1-f54.google.com with SMTP id
+ 98e67ed59e1d1-2e2ee0a47fdso755639a91.2; 
+ Mon, 04 Nov 2024 07:12:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1730732929; x=1731337729; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1730733156; x=1731337956; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=yIjFhPfYlWuVkk0g+SyHD++KtsGpwzmWQq31owW8pTQ=;
- b=P7aMCVzzzrj29R309EYfxbsOPeQ8dqO6qCVayH5a0mOJfV+Z/K5bwEcggC4FqymGJN
- c5BE7pWsWgcziPpqC4BLciftuNBW6wRhHZVfoTWuFQQcWK5teuooDVbX2oEOjYUoNPwH
- qOtOdTCIsYmaWWlXzlX3X5NOwU7Qovlcckm+fQpAWra1qCnuiRysfxEAk6BzjiziyfzL
- ZHe7k9fK0AO3PgyH2C0BuMy/mLQook29fwD7i5IjhnGrjoPitMkoUM0w6lOdApHbRroa
- CE1tdsjbn1KYvs462EMwyRFPqYRTHzlDbmoQ9BvLGStPeNyypqgGLjTnZZNVCB0SI3nj
- iEKw==
+ bh=KviHfL3GhPgk1194ewkZ7Elw3O84xMVSBocbCkmPTLs=;
+ b=Jr16vx1x6MQ+gwtnq0S3iv3NkvhrEIn42kPcK8JUsjMBB+6reYe8IEWCV6YdiPT1H7
+ JWapc9JdcnRXcWO6eD3u/SMV4O09811dZNXqAR91Krn4mKNu+ZT0Z7hPyOivTqQLAPyZ
+ kUWDQVy95dTKE4hnJQtVvVxQjFmLhvNYoLiUGZ+QflTFgugzi3PosgtlSPt5appUhQyw
+ IyFPAl8gwQ9gHD3nKjZ2xI216iu6FZuIe5GjN1PRiwZl7G040yiQveo7MLSvhNaqtXGb
+ h5XJ+uISbzBmZ0th68+1W+DxTrGRwYJgTA9qGyKya7p/2PTcyl4rPYCDEPsSUjZDHR9e
+ VtOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1730732929; x=1731337729;
+ d=1e100.net; s=20230601; t=1730733156; x=1731337956;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=yIjFhPfYlWuVkk0g+SyHD++KtsGpwzmWQq31owW8pTQ=;
- b=N1OR6M1MylLOsBdFip2AF2V43kLlCthZj848aLA2ec+zLWkyJQ1/KjUJkr9//7ZA2v
- KjLbys8Ce+pVFBhRtfhawPhzjcvBZrpB76CZBtcIOlRy30JkRtb9T1H4fRvHS27+vads
- PaiKRU8dcHT88xdNSqF7XdQcPVbwBqXKOiaa4m1qzrnvZxi8fWo/iENXjfL3+qIK3aiW
- zQnIixGmu6xcSNfm4/rK2DKXWDx+RDeY4gIQrqPBkEAcYh6t7KZHCsvMNhvLbcwc1Te/
- od7Aa7i4D5ZaUwDpeL3ZVa1bmE5LsPfJiCIla4m+Pb6Rsq00kAaj0eh9UIxvpympTXnM
- 9WNg==
+ bh=KviHfL3GhPgk1194ewkZ7Elw3O84xMVSBocbCkmPTLs=;
+ b=FTX3KtE9rCE1zHUeGmc+K2DdtH7T9hnGIyn+0NPDpZQz6O6uVg5o40XKpFWr8ujISO
+ DTHUvKAgRhxrIAVaGmCD+2Vm/UEwhZRIDu0HGvTwiKwYtHcYmA5UbeiSpGC7LNk+1XZO
+ T/6xtB8sY8BRC9I4ekMIIWjl4iCqhSBBqYFcT0yVq3IkiJVR6ifm0D0M7/WwC8ssHrgS
+ nnrPO7attyE/Gse8bGjEV57SJU8FaKSiAHmCsH1CW8DjXO12Jr2VHQqj1gfNWzizvwOc
+ BXEXgTKv9RkHoVj3pcMVOdbvDsi5p4eqC43NXOaJIgvPTJ9Mu43jQKU3sgUAQ5Lv+mS6
+ R1HA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUu4LNpXOLMTqKGcc4lHBQ5hLTNJhPJcTAjgB19RhqYVZHVFsW45SrNbhUjh04iLVHLs3K5kYNJ@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxtvGXkYsIpSg1NVNjmzl16c2BNgYP6sJUmxNSKusAHp8tnMRer
- mjDuXxk/2XcvrnOpvJyX+Wzq4ZysR5rfBay192X9JkelYrcak1ymP3bJouYW4usf2LCJwKljG/Z
- hnZnUGTlSG7Va+oZe1TwYsuoDAMk=
-X-Google-Smtp-Source: AGHT+IG/7wrAw/jBYD22pBYnzYCFPYyDtxwi8kBQ8q9cRpV7i8c8YC3UXWIYgU/Q3wTGyabtcuKYHJoBV3XOdKvgapA=
-X-Received: by 2002:a17:90b:4a90:b0:2e2:a70a:f107 with SMTP id
- 98e67ed59e1d1-2e8f0f4f79cmr16112665a91.1.1730732929354; Mon, 04 Nov 2024
- 07:08:49 -0800 (PST)
+ AJvYcCW6d6YqSv233pvHxyPbqz2b1T+BnBpj82bSuyk6sklOl/OlSecXVCiLVv41T7gzv+jEQoUQmh27OyeE@lists.freedesktop.org,
+ AJvYcCWcEqahR4u3I/dtsUKUMD1njQND9y/oL3HI3wbOJKSaCZQ8HCA5spWAzzOQfi3XSBPA+h9fqD1l@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyAOF0+fHxMjjoi2TXnKx9yBomnNjggRzh1tEhx4GpWCd+Q6MLG
+ Le9scsFVBZyfq56t+8d9kOiOwjkOa/i8t0SGLWVaiZvN/7wFQh9iMhUf3sJQ0+vO4NR54vs0iDp
+ HQYMUjyiDuICTHjKksFx1lUWLMrgPWg==
+X-Google-Smtp-Source: AGHT+IH6q+c/r/8XZVBV6BuFehgtpcxWK806Z2lT5bLMqawbzEthFokNLqHNCackCtMD0b/aN73UxVUip01R2w8zoec=
+X-Received: by 2002:a17:90b:3b48:b0:2e2:c423:8e16 with SMTP id
+ 98e67ed59e1d1-2e8f0f4ccbdmr16257661a91.1.1730733155852; Mon, 04 Nov 2024
+ 07:12:35 -0800 (PST)
 MIME-Version: 1.0
-References: <20241031180430.3993389-5-alexander.deucher@amd.com>
- <20241104012127.21561-1-yaolu@kylinos.cn>
-In-Reply-To: <20241104012127.21561-1-yaolu@kylinos.cn>
+References: <20241029133141.45335-1-pchelkin@ispras.ru>
+ <ZyDvOdEuxYh7jK5l@sashalap>
+ <20241029-3ca95c1f41e96c39faf2e49a-pchelkin@ispras.ru>
+ <20241104-61da90a19c561bb5ed63141b-pchelkin@ispras.ru>
+In-Reply-To: <20241104-61da90a19c561bb5ed63141b-pchelkin@ispras.ru>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 4 Nov 2024 10:08:37 -0500
-Message-ID: <CADnq5_M4rS5C_6329ZE2cyFWLMkVE+qj5VLDEqmNWZVsJZK0Xg@mail.gmail.com>
-Subject: Re: [PATCH 4/4] drm/amd/display: add non-DC drm_panic support
-To: Lu Yao <yaolu@kylinos.cn>
-Cc: alexander.deucher@amd.com, jfalempe@redhat.com, 
- amd-gfx@lists.freedesktop.org
+Date: Mon, 4 Nov 2024 10:12:24 -0500
+Message-ID: <CADnq5_OR9T5Ocxu6pRu38uzdmcV7_um_6aK4vYefhMiZ0gJJSA@mail.gmail.com>
+Subject: Re: [PATCH 0/1] On DRM -> stable process
+To: Fedor Pchelkin <pchelkin@ispras.ru>
+Cc: Sasha Levin <sashal@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ stable@vger.kernel.org, Alex Deucher <alexander.deucher@amd.com>, 
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, 
+ Fangzhi Zuo <Jerry.Zuo@amd.com>, Wayne Lin <wayne.lin@amd.com>,
+ amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ lvc-project@linuxtesting.org, Alexey Khoroshilov <khoroshilov@ispras.ru>, 
+ Mario Limonciello <mario.limonciello@amd.com>, Jonathan Gray <jsg@jsg.id.au>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -79,71 +93,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Nov 4, 2024 at 4:05=E2=80=AFAM Lu Yao <yaolu@kylinos.cn> wrote:
+On Mon, Nov 4, 2024 at 9:55=E2=80=AFAM Fedor Pchelkin <pchelkin@ispras.ru> =
+wrote:
 >
-> on 2024/11/1 02:04, Alex Deucher wrote:
-> > Add support for the drm_panic module, which displays a pretty user
-> > friendly message on the screen when a Linux kernel panic occurs.
+> On Tue, 29. Oct 18:12, Fedor Pchelkin wrote:
+> > On Tue, 29. Oct 10:20, Sasha Levin wrote:
+> > > On Tue, Oct 29, 2024 at 04:31:40PM +0300, Fedor Pchelkin wrote:
+> > > > BTW, a question to the stable-team: what Git magic (3-way-merge?) l=
+et the
+> > > > duplicate patch be applied successfully? The patch context in stabl=
+e trees
+> > > > was different to that moment so should the duplicate have been expe=
+cted to
+> > > > fail to be applied?
+> > >
+> > > Just plain git... Try it yourself :)
+> > >
+> > > $ git checkout 282f0a482ee6
+> > > HEAD is now at 282f0a482ee61 drm/amd/display: Skip Recompute DSC Para=
+ms if no Stream on Link
+> > >
+> > > $ git cherry-pick 7c887efda1
 > >
-> > Adapt Lu Yao's code to use common helpers derived from
-> > Jocelyn's patch.  This extends the non-DC code to enable
-> > access to non-CPU accessible VRAM and adds support for
-> > other DCE versions.
+> > 7c887efda1 is the commit backported to linux-6.1.y. Of course it will a=
+pply
+> > there.
 > >
-> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> > Cc: Lu Yao <yaolu@kylinos.cn>
-> > Cc: Jocelyn Falempe <jfalempe@redhat.com>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/dce_v10_0.c | 27 ++++++++++++++++++++++++++
-> >  drivers/gpu/drm/amd/amdgpu/dce_v11_0.c | 27 ++++++++++++++++++++++++++
-> >  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c  | 27 ++++++++++++++++++++++++++
-> >  drivers/gpu/drm/amd/amdgpu/dce_v8_0.c  | 26 +++++++++++++++++++++++++
-> >  4 files changed, 107 insertions(+)
+> > What I mean is that the upstream commit for 7c887efda1 is 8151a6c13111b=
+465dbabe07c19f572f7cbd16fef.
 > >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/a=
-md/amdgpu/dce_v10_0.c
-> > index 5098c50d54c8..a26f2381504b 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-> > @@ -2687,6 +2687,32 @@ static const struct drm_crtc_helper_funcs dce_v1=
-0_0_crtc_helper_funcs =3D {
-> >       .get_scanout_position =3D amdgpu_crtc_get_scanout_position,
-> >  };
+> > And cherry-picking 8151a6c13111b465dbabe07c19f572f7cbd16fef to linux-6.=
+1.y
+> > on top of 282f0a482ee6 will not result in duplicating the change, at le=
+ast
+> > with my git configuration.
 > >
-> > +static void dce_v10_0_panic_flush(struct drm_plane *plane)
-> > +{
-> > +     struct drm_framebuffer *fb;
-> > +     struct amdgpu_crtc *amdgpu_crtc;
-> > +     struct amdgpu_device *adev;
-> > +     uint32_t fb_format;
-> > +
-> > +     if (!plane->fb)
-> > +             return;
-> > +
-> > +     fb =3D plane->fb;
-> > +     amdgpu_crtc =3D to_amdgpu_crtc(plane->crtc);
-> > +     adev =3D drm_to_adev(fb->dev);
-> > +
-> > +     /* Disable DC tiling */
-> > +     fb_format =3D RREG32(mmGRPH_CONTROL + amdgpu_crtc->crtc_offset);
-> > +     fb_format &=3D ~GRPH_CONTROL__GRPH_ARRAY_MODE_MASK;
-> > +     WREG32(mmGRPH_CONTROL + amdgpu_crtc->crtc_offset, fb_format);
-> > +
-> > +}
-> > +
-> For non-DC ip, 'mmGRPH_CONTROL' and 'GRPH_CONTROL__GRPH_ARRAY_MODE_MASK' =
-val are same, so whether the panic_flush function can also be made same?
+> > I just don't understand how a duplicating if-statement could be produce=
+d in
+> > result of those cherry-pick'ings and how the content of 7c887efda1 was
+> > generated.
+> >
+> > $ git checkout 282f0a482ee6
+> > HEAD is now at 282f0a482ee6 drm/amd/display: Skip Recompute DSC Params =
+if no Stream on Link
+> >
+> > $ git cherry-pick 8151a6c13111b465dbabe07c19f572f7cbd16fef
+> > Auto-merging drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.=
+c
+> > HEAD detached at 282f0a482ee6
+> > You are currently cherry-picking commit 8151a6c13111.
+> >   (all conflicts fixed: run "git cherry-pick --continue")
+> >   (use "git cherry-pick --skip" to skip this patch)
+> >   (use "git cherry-pick --abort" to cancel the cherry-pick operation)
+> > The previous cherry-pick is now empty, possibly due to conflict resolut=
+ion.
+> > If you wish to commit it anyway, use:
+> >
+> >     git commit --allow-empty
+> >
+> > Otherwise, please use 'git cherry-pick --skip'
+>
+> Sasha,
+>
+> my concern is that maybe there is some issue with the scripts used for th=
+e
+> preparation of backport patches.
+>
+> There are two different upstream commits performing the exact same change=
+:
+> - 50e376f1fe3bf571d0645ddf48ad37eb58323919
+> - 8151a6c13111b465dbabe07c19f572f7cbd16fef
 
-It could, but I didn't want to imply that this should be used for all
-IPs because the tiling controls are different on newer GPUs.
-
-> >
-> > +static const struct drm_plane_helper_funcs dce_v10_0_drm_primary_plane=
-_helper_funcs =3D {
-> > +     .get_scanout_buffer =3D amdgpu_display_get_scanout_buffer,
-> The definition of 'amdgpu_display_get_scanout_buffer' seems to be missing=
-.
-
-It was added in patch 1.
+There were cases where I needed to cherry-pick fixes from -next to
+-fixes.  In the past I had not used -x when cherry-picking because I
+got warnings about references to commits that were not yet in
+mainline.  I have since started using -x when cherry-picking things
+from -next to -fixes.
 
 Alex
+
+>
+> 50e376f1fe3bf571d0645ddf48ad37eb58323919 was backported to stable kernels
+> at first. After that, attempts to backport 8151a6c13111b465dbabe07c19f572=
+f7cbd16fef
+> to those stables should be expected to fail, no? Git would have complaine=
+d
+> about this - the patch was already applied.
+>
+> It is just strange that the (exact same) change made by the commits is
+> duplicated by backporting tools. As it is not the first case where DRM
+> patches are involved per Greg's statement [1], I wonder if something can =
+be
+> done on stable-team's side to avoid such odd behavior in future.
+>
+> [1]: https://lore.kernel.org/stable/20241007035711.46624-1-jsg@jsg.id.au/=
+T/#u
+>
+> --
+> Thanks,
+> Fedor
