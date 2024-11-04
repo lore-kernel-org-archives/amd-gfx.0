@@ -4,83 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26699CFB422
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 007C4E67819
 	for <amd-gfx@archiver.kernel.org>; Mon,  4 Nov 2024 09:05:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 21EAC10E3A6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A80810E3A7;
 	Mon,  4 Nov 2024 09:05:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.b="jnQwjCqu";
+	dkim=pass (2048-bit key; unprotected) header.d=treblig.org header.i=@treblig.org header.b="DFqwdvXk";
 	dkim-atps=neutral
-Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09B4310E271;
- Sun,  3 Nov 2024 17:04:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
- s=mail; t=1730653475;
- bh=vzqsMVfnVQ7g+xXQgYvHKh8WFOGMi08tymfd1lvAle8=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=jnQwjCquAR0qBDmeS/BwDJVhGZ6sUlQQGbmFuOa4A9M2739yz7dkzMP816T+fVMTN
- habdRX2zL4MWpQPB/EZc2fhWd6l5iWr1VitiXAmds7L0pbHnrrKO6nxJP5pGMDdPpU
- 9SGYolS2xrGzTPAPqNh3lGCxTyletOjJlUB8aEf0=
-From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-Date: Sun, 03 Nov 2024 17:03:31 +0000
-Subject: [PATCH v2 02/10] sysfs: introduce callback attribute_group::bin_size
+Received: from mx.treblig.org (mx.treblig.org [46.235.229.95])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC32910E357;
+ Mon,  4 Nov 2024 02:39:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=treblig.org
+ ; s=bytemarkmx;
+ h=MIME-Version:Message-ID:Date:Subject:From:Content-Type:From
+ :Subject; bh=+gndMI+0kZSU1Kvygt+/YQjL5w9rqPYbq+F/LgysxHc=; b=DFqwdvXkdrE5mLFh
+ H/yBZ7Hc/dLLYRfnVmu8/bv58+d7dRpgQa74HlJ/L7D2ZawFRr0B0Wdbe7VDFXmlvNXhV6gipeYQQ
+ MafOZGSsE3r0dBbO+FZfQrOwWyFzA8x2btckqyxpnTj41ECJhfAKir03prZLM2OEtvpom7iR5fm8r
+ liLEIyqbQChn77u/odT7hQrLMAVNGWmVydemEw7v8jz7EWAkmfOA4fKsI53Ux8wJSvnr+p5Ch7VmT
+ ChAvhqitEwW1nuEoxWqr05dy5l4d79R82JtfmZZJYdvBDORuD5CMPUQQrU7PbC9d66fyPokRd0fm+
+ 9G/Ta0No9mZqtYuHGA==;
+Received: from localhost ([127.0.0.1] helo=dalek.home.treblig.org)
+ by mx.treblig.org with esmtp (Exim 4.96)
+ (envelope-from <linux@treblig.org>) id 1t7n02-00FECw-0v;
+ Mon, 04 Nov 2024 02:39:26 +0000
+From: linux@treblig.org
+To: alexander.deucher@amd.com, harry.wentland@amd.com, sunpeng.li@amd.com,
+ Rodrigo.Siqueira@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ chaitanya.dhere@amd.com, jun.lei@amd.com
+Cc: airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ "Dr. David Alan Gilbert" <linux@treblig.org>
+Subject: [PATCH 5/5] drm/amd/display: Remove unused dcn_find_dcfclk_suits_all
+Date: Mon,  4 Nov 2024 02:38:52 +0000
+Message-ID: <20241104023852.492497-6-linux@treblig.org>
+X-Mailer: git-send-email 2.47.0
+In-Reply-To: <20241104023852.492497-1-linux@treblig.org>
+References: <20241104023852.492497-1-linux@treblig.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20241103-sysfs-const-bin_attr-v2-2-71110628844c@weissschuh.net>
-References: <20241103-sysfs-const-bin_attr-v2-0-71110628844c@weissschuh.net>
-In-Reply-To: <20241103-sysfs-const-bin_attr-v2-0-71110628844c@weissschuh.net>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Bjorn Helgaas <bhelgaas@google.com>, 
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, 
- Davidlohr Bueso <dave@stgolabs.net>, 
- Jonathan Cameron <jonathan.cameron@huawei.com>, 
- Dave Jiang <dave.jiang@intel.com>, 
- Alison Schofield <alison.schofield@intel.com>, 
- Vishal Verma <vishal.l.verma@intel.com>, Ira Weiny <ira.weiny@intel.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Tudor Ambarus <tudor.ambarus@linaro.org>, 
- Pratyush Yadav <pratyush@kernel.org>, Michael Walle <mwalle@kernel.org>, 
- Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
- Naveen Krishna Chatradhi <naveenkrishna.chatradhi@amd.com>, 
- Carlos Bilbao <carlos.bilbao.osdev@gmail.com>, 
- Hans de Goede <hdegoede@redhat.com>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- "David E. Box" <david.e.box@linux.intel.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <martin.petersen@oracle.com>, 
- Richard Henderson <richard.henderson@linaro.org>, 
- Matt Turner <mattst88@gmail.com>, Frederic Barrat <fbarrat@linux.ibm.com>, 
- Andrew Donnellan <ajd@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>, 
- Logan Gunthorpe <logang@deltatee.com>, 
- "K. Y. Srinivasan" <kys@microsoft.com>, 
- Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
- Dexuan Cui <decui@microsoft.com>
-Cc: Dan Williams <dan.j.williams@intel.com>, linux-kernel@vger.kernel.org, 
- linux-pci@vger.kernel.org, linux-cxl@vger.kernel.org, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-rdma@vger.kernel.org, linux-mtd@lists.infradead.org, 
- platform-driver-x86@vger.kernel.org, linux-scsi@vger.kernel.org, 
- linux-usb@vger.kernel.org, linux-alpha@vger.kernel.org, 
- linuxppc-dev@lists.ozlabs.org, linux-hyperv@vger.kernel.org, 
- =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1730653468; l=2296;
- i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
- bh=vzqsMVfnVQ7g+xXQgYvHKh8WFOGMi08tymfd1lvAle8=;
- b=+c8c3AK6YNFtR/f5MlFDxfac5E4AdcTfe/LYH8cKiLv+aN2C4MrR8vpsa2SsTXy5NHtfEpdBh
- t4Y6vgc31e8BINAGXwLU2VEDayYxRmKzGs5LRvtEfi4Ux875Z1qlOu8
-X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
- pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
-X-Mailman-Approved-At: Mon, 04 Nov 2024 09:05:02 +0000
+X-Mailman-Approved-At: Mon, 04 Nov 2024 09:05:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,65 +58,178 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Several drivers need to dynamically calculate the size of an binary
-attribute. Currently this is done by assigning attr->size from the
-is_bin_visible() callback.
+From: "Dr. David Alan Gilbert" <linux@treblig.org>
 
-This has drawbacks:
-* It is not documented.
-* A single attribute can be instantiated multiple times, overwriting the
-  shared size field.
-* It prevents the structure to be moved to read-only memory.
+dcn_find_dcfclk_suits_all() last use was removed by 2018's
+commit 4fd994c448a3 ("drm/amd/display: Start using the new pp_smu
+interface")
 
-Introduce a new dedicated callback to calculate the size of the
-attribute.
+Remove it, and the dcn_find_normalized_clock_vdd_Level helper it used.
 
-Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
+Signed-off-by: Dr. David Alan Gilbert <linux@treblig.org>
 ---
- fs/sysfs/group.c      | 2 ++
- include/linux/sysfs.h | 8 ++++++++
- 2 files changed, 10 insertions(+)
+ .../drm/amd/display/dc/dml/calcs/dcn_calcs.c  | 132 ------------------
+ .../gpu/drm/amd/display/dc/inc/dcn_calcs.h    |   4 -
+ 2 files changed, 136 deletions(-)
 
-diff --git a/fs/sysfs/group.c b/fs/sysfs/group.c
-index 45b2e92941da1f49dcc71af3781317c61480c956..8b01a7eda5fb3239e138372417d01967c7a3f122 100644
---- a/fs/sysfs/group.c
-+++ b/fs/sysfs/group.c
-@@ -98,6 +98,8 @@ static int create_files(struct kernfs_node *parent, struct kobject *kobj,
- 				if (!mode)
- 					continue;
- 			}
-+			if (grp->bin_size)
-+				size = grp->bin_size(kobj, *bin_attr, i);
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c b/drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c
+index 39525721c976..f1235bf9a596 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c
+@@ -1312,138 +1312,6 @@ bool dcn_validate_bandwidth(
+ 		return false;
+ }
  
- 			WARN(mode & ~(SYSFS_PREALLOC | 0664),
- 			     "Attribute %s: Invalid permissions 0%o\n",
-diff --git a/include/linux/sysfs.h b/include/linux/sysfs.h
-index c4e64dc112063f7cb89bf66059d0338716089e87..4746cccb95898b24df6f53de9421ea7649b5568f 100644
---- a/include/linux/sysfs.h
-+++ b/include/linux/sysfs.h
-@@ -87,6 +87,11 @@ do {							\
-  *		SYSFS_GROUP_VISIBLE() when assigning this callback to
-  *		specify separate _group_visible() and _attr_visible()
-  *		handlers.
-+ * @bin_size:
-+ *		Optional: Function to return the size of a binary attribute
-+ *		of the group. Will be called repeatedly for each binary
-+ *		attribute in the group. Overwrites the size field embedded
-+ *		inside the attribute itself.
-  * @attrs:	Pointer to NULL terminated list of attributes.
-  * @bin_attrs:	Pointer to NULL terminated list of binary attributes.
-  *		Either attrs or bin_attrs or both must be provided.
-@@ -97,6 +102,9 @@ struct attribute_group {
- 					      struct attribute *, int);
- 	umode_t			(*is_bin_visible)(struct kobject *,
- 						  struct bin_attribute *, int);
-+	size_t			(*bin_size)(struct kobject *,
-+					    const struct bin_attribute *,
-+					    int);
- 	struct attribute	**attrs;
- 	struct bin_attribute	**bin_attrs;
- };
-
+-static unsigned int dcn_find_normalized_clock_vdd_Level(
+-	const struct dc *dc,
+-	enum dm_pp_clock_type clocks_type,
+-	int clocks_in_khz)
+-{
+-	int vdd_level = dcn_bw_v_min0p65;
+-
+-	if (clocks_in_khz == 0)/*todo some clock not in the considerations*/
+-		return vdd_level;
+-
+-	switch (clocks_type) {
+-	case DM_PP_CLOCK_TYPE_DISPLAY_CLK:
+-		if (clocks_in_khz > dc->dcn_soc->max_dispclk_vmax0p9*1000) {
+-			vdd_level = dcn_bw_v_max0p91;
+-			BREAK_TO_DEBUGGER();
+-		} else if (clocks_in_khz > dc->dcn_soc->max_dispclk_vnom0p8*1000) {
+-			vdd_level = dcn_bw_v_max0p9;
+-		} else if (clocks_in_khz > dc->dcn_soc->max_dispclk_vmid0p72*1000) {
+-			vdd_level = dcn_bw_v_nom0p8;
+-		} else if (clocks_in_khz > dc->dcn_soc->max_dispclk_vmin0p65*1000) {
+-			vdd_level = dcn_bw_v_mid0p72;
+-		} else
+-			vdd_level = dcn_bw_v_min0p65;
+-		break;
+-	case DM_PP_CLOCK_TYPE_DISPLAYPHYCLK:
+-		if (clocks_in_khz > dc->dcn_soc->phyclkv_max0p9*1000) {
+-			vdd_level = dcn_bw_v_max0p91;
+-			BREAK_TO_DEBUGGER();
+-		} else if (clocks_in_khz > dc->dcn_soc->phyclkv_nom0p8*1000) {
+-			vdd_level = dcn_bw_v_max0p9;
+-		} else if (clocks_in_khz > dc->dcn_soc->phyclkv_mid0p72*1000) {
+-			vdd_level = dcn_bw_v_nom0p8;
+-		} else if (clocks_in_khz > dc->dcn_soc->phyclkv_min0p65*1000) {
+-			vdd_level = dcn_bw_v_mid0p72;
+-		} else
+-			vdd_level = dcn_bw_v_min0p65;
+-		break;
+-
+-	case DM_PP_CLOCK_TYPE_DPPCLK:
+-		if (clocks_in_khz > dc->dcn_soc->max_dppclk_vmax0p9*1000) {
+-			vdd_level = dcn_bw_v_max0p91;
+-			BREAK_TO_DEBUGGER();
+-		} else if (clocks_in_khz > dc->dcn_soc->max_dppclk_vnom0p8*1000) {
+-			vdd_level = dcn_bw_v_max0p9;
+-		} else if (clocks_in_khz > dc->dcn_soc->max_dppclk_vmid0p72*1000) {
+-			vdd_level = dcn_bw_v_nom0p8;
+-		} else if (clocks_in_khz > dc->dcn_soc->max_dppclk_vmin0p65*1000) {
+-			vdd_level = dcn_bw_v_mid0p72;
+-		} else
+-			vdd_level = dcn_bw_v_min0p65;
+-		break;
+-
+-	case DM_PP_CLOCK_TYPE_MEMORY_CLK:
+-		{
+-			unsigned factor = (ddr4_dram_factor_single_Channel * dc->dcn_soc->number_of_channels);
+-
+-			if (clocks_in_khz > dc->dcn_soc->fabric_and_dram_bandwidth_vmax0p9*1000000/factor) {
+-				vdd_level = dcn_bw_v_max0p91;
+-				BREAK_TO_DEBUGGER();
+-			} else if (clocks_in_khz > dc->dcn_soc->fabric_and_dram_bandwidth_vnom0p8*1000000/factor) {
+-				vdd_level = dcn_bw_v_max0p9;
+-			} else if (clocks_in_khz > dc->dcn_soc->fabric_and_dram_bandwidth_vmid0p72*1000000/factor) {
+-				vdd_level = dcn_bw_v_nom0p8;
+-			} else if (clocks_in_khz > dc->dcn_soc->fabric_and_dram_bandwidth_vmin0p65*1000000/factor) {
+-				vdd_level = dcn_bw_v_mid0p72;
+-			} else
+-				vdd_level = dcn_bw_v_min0p65;
+-		}
+-		break;
+-
+-	case DM_PP_CLOCK_TYPE_DCFCLK:
+-		if (clocks_in_khz > dc->dcn_soc->dcfclkv_max0p9*1000) {
+-			vdd_level = dcn_bw_v_max0p91;
+-			BREAK_TO_DEBUGGER();
+-		} else if (clocks_in_khz > dc->dcn_soc->dcfclkv_nom0p8*1000) {
+-			vdd_level = dcn_bw_v_max0p9;
+-		} else if (clocks_in_khz > dc->dcn_soc->dcfclkv_mid0p72*1000) {
+-			vdd_level = dcn_bw_v_nom0p8;
+-		} else if (clocks_in_khz > dc->dcn_soc->dcfclkv_min0p65*1000) {
+-			vdd_level = dcn_bw_v_mid0p72;
+-		} else
+-			vdd_level = dcn_bw_v_min0p65;
+-		break;
+-
+-	default:
+-		 break;
+-	}
+-	return vdd_level;
+-}
+-
+-unsigned int dcn_find_dcfclk_suits_all(
+-	const struct dc *dc,
+-	struct dc_clocks *clocks)
+-{
+-	unsigned vdd_level, vdd_level_temp;
+-	unsigned dcf_clk;
+-
+-	/*find a common supported voltage level*/
+-	vdd_level = dcn_find_normalized_clock_vdd_Level(
+-		dc, DM_PP_CLOCK_TYPE_DISPLAY_CLK, clocks->dispclk_khz);
+-	vdd_level_temp = dcn_find_normalized_clock_vdd_Level(
+-		dc, DM_PP_CLOCK_TYPE_DISPLAYPHYCLK, clocks->phyclk_khz);
+-
+-	vdd_level = dcn_bw_max(vdd_level, vdd_level_temp);
+-	vdd_level_temp = dcn_find_normalized_clock_vdd_Level(
+-		dc, DM_PP_CLOCK_TYPE_DPPCLK, clocks->dppclk_khz);
+-	vdd_level = dcn_bw_max(vdd_level, vdd_level_temp);
+-
+-	vdd_level_temp = dcn_find_normalized_clock_vdd_Level(
+-		dc, DM_PP_CLOCK_TYPE_MEMORY_CLK, clocks->fclk_khz);
+-	vdd_level = dcn_bw_max(vdd_level, vdd_level_temp);
+-	vdd_level_temp = dcn_find_normalized_clock_vdd_Level(
+-		dc, DM_PP_CLOCK_TYPE_DCFCLK, clocks->dcfclk_khz);
+-
+-	/*find that level conresponding dcfclk*/
+-	vdd_level = dcn_bw_max(vdd_level, vdd_level_temp);
+-	if (vdd_level == dcn_bw_v_max0p91) {
+-		BREAK_TO_DEBUGGER();
+-		dcf_clk = dc->dcn_soc->dcfclkv_max0p9*1000;
+-	} else if (vdd_level == dcn_bw_v_max0p9)
+-		dcf_clk =  dc->dcn_soc->dcfclkv_max0p9*1000;
+-	else if (vdd_level == dcn_bw_v_nom0p8)
+-		dcf_clk =  dc->dcn_soc->dcfclkv_nom0p8*1000;
+-	else if (vdd_level == dcn_bw_v_mid0p72)
+-		dcf_clk =  dc->dcn_soc->dcfclkv_mid0p72*1000;
+-	else
+-		dcf_clk =  dc->dcn_soc->dcfclkv_min0p65*1000;
+-
+-	DC_LOG_BANDWIDTH_CALCS("\tdcf_clk for voltage = %d\n", dcf_clk);
+-	return dcf_clk;
+-}
+-
+ void dcn_bw_update_from_pplib_fclks(
+ 	struct dc *dc,
+ 	struct dm_pp_clock_levels_with_voltage *fclks)
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/dcn_calcs.h b/drivers/gpu/drm/amd/display/dc/inc/dcn_calcs.h
+index 55529c5f471c..d19a595c2be4 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/dcn_calcs.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/dcn_calcs.h
+@@ -624,10 +624,6 @@ bool dcn_validate_bandwidth(
+ 		struct dc_state *context,
+ 		bool fast_validate);
+ 
+-unsigned int dcn_find_dcfclk_suits_all(
+-	const struct dc *dc,
+-	struct dc_clocks *clocks);
+-
+ void dcn_get_soc_clks(
+ 		struct dc *dc,
+ 		int *min_fclk_khz,
 -- 
 2.47.0
 
