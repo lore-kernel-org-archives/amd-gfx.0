@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EF11D2B931
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 Nov 2024 14:06:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19825D2B932
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 Nov 2024 14:06:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA97E10E5B4;
-	Tue,  5 Nov 2024 14:06:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B6ECF10E5B7;
+	Tue,  5 Nov 2024 14:06:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="x+BmiypF";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="BGHElfD9";
 	dkim-atps=neutral
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2061.outbound.protection.outlook.com [40.107.96.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC74410E5B4
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2070.outbound.protection.outlook.com [40.107.92.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0BBCA10E5B4
  for <amd-gfx@lists.freedesktop.org>; Tue,  5 Nov 2024 14:06:47 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=i6TLBeWQRlmm0Tjpif6UZrzPWetnS5/C25FTdvEqQcme0Epjyvz30pIICxwsaZIOfHBdrFD95ZBr9ED63DmWskB1pQ2M8F/+Yv5IlBXpqNTjJEbXnPddDHvQGJEkMZON1BpLMPNSe/BdraNa+rVNR5jVueyL0cABGE8wLmDO+1GLbiM2Bm9Fq4+SCJxMgmgG0YN6BA0YeF3QxGbH09aWPi71sYry49M3b2o+dVZatq40P3AUr70LCG0PwUW/4Fj8E7H4L51cSUKQYV6PtLYpuW4cS9hMc8UOWXurL/fgZemuGBKbPYkCa/WTNZemH6LXYAHY+tsT4+8cqH6vdkuMAA==
+ b=a3MDvm7LhhDGb8LA/T44lzciM5BdguQ0J95fwRhNfm1LDo+Uca+/L4VtWoUsw7j52iL/DcUkMm56c+TCbmQcvrAkGKLku3z2eUiuF31u+JiS8CzMcxdbCYQWOl+HqL+ZrCMrrv2qYiIeoyE0zAtHkf53f9cuWxIlEE8rMS0/pW/6VoZyH49MFGSlYJmMH/hIxgWIS1m9hOt1DI/i/dZz95NFMBzAOoEOy7GuxAJJrowQhkGTiPJ8cWAcnHlJZU9j3kbSyEqYCkN1qJxIp/w5MaSaJ2qS4LzZxyVpmzekUL+bBDLEuSeucDdLrAKwIae4d/5CE9q7VJyqvjoShiXJmg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=y5kBgy5Z8P5dT/LU1r8D+jM2NI/bLVqAxgYpTG5XmpI=;
- b=cqce05Py/wsl+rmOWxD0/lDKVZb1gZnIXVB8IPe0kQJt/ZIHdczWNi4z4VgM0j1aj+ohf96EHZMS6/4X7QxgzhzMHgVUm+5lgUHwH0fNWY8ebN5nuvgV3BYQLzuswwaz2GePLxkUM5gszAnNlx9MHcvxODaQ/Xw11a3Ev2gxpsgjKZLOUDqfM/yr/u8TrYtvNqgNVltyino8JlHWS85imz8GwUD01ljMGniVOAtw0v9a067nTrVfzXIesf1QsrTGS/n2/ykjQVXFcHeLWNm1b8Z2gMz7LdVs2U2bVN17K/+aWHVJUx50x2RTKUjzh0+1L2/Ggie7Mr1Md7Xm91VUWw==
+ bh=K2KUvHR1AHU3iYTvGJwlh40VPMpx8PgFKUk2Xkt/Uj0=;
+ b=DTOmQVoycUhoPrkFUk9jl28uaVl4Rv8IEjXuwdtTLKHMMA96DNScm955yNrxKyE1twQkNu+12iO1af+l/3ufjP95TKAjMWjA/bbssNqnC06u5+tuZnkp69SIbBydcqZUeGfpjBIqvFzLs5bepIvxe8NNkibvaBunC70WMEaTOiNGdacrvJou3tIER1vXnaLX+66wLIFgxTH3SVAZulPGZx8L3JRRemEKDZrmfzujLpHUeuNAcOgsShzU2SUZqVpaXtu5un6FYE4RA8M0UNfu6552Vk/442OPO8rgVTAGtHuWHuZgxBgGFG6jvbiCWCdsIrYJ+z1ryMmkaYbHpL6FMA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=y5kBgy5Z8P5dT/LU1r8D+jM2NI/bLVqAxgYpTG5XmpI=;
- b=x+BmiypFMoYuFM9l8YNm8JcQYB3CWIDZMnRSc1v/QagdShLuxhm0AE96Bl7d9QxI/tE2pUhzy2AT9dJOkK3p7NawtP0Kzb1clskuUqn4rreDGESZUmGh0YP0SjyopI/Ctjl4/FRAteQu3mFsd0igokPxfDfFTCDmFtSY/qkAmIw=
-Received: from MW4PR04CA0332.namprd04.prod.outlook.com (2603:10b6:303:8a::7)
- by SA3PR12MB9157.namprd12.prod.outlook.com (2603:10b6:806:39a::21) with
+ bh=K2KUvHR1AHU3iYTvGJwlh40VPMpx8PgFKUk2Xkt/Uj0=;
+ b=BGHElfD9UP4YnIe3pexpd4lquXpOyalenWtv/5im+VPaC88Gt86FXctdMB9HAzZM3iannkKhgxAJ9IJnUaTsWx/UC2qf9u8979EHXi4XbQ5jL3LmORsWtCdZbmps5a0UIObVaQNJ6HMDefd+AtZm9gWHZThoqE011IcbQ5SHqZM=
+Received: from MW4PR04CA0331.namprd04.prod.outlook.com (2603:10b6:303:8a::6)
+ by PH7PR12MB7819.namprd12.prod.outlook.com (2603:10b6:510:27f::5) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.30; Tue, 5 Nov
- 2024 14:06:42 +0000
+ 2024 14:06:44 +0000
 Received: from CO1PEPF000044F3.namprd05.prod.outlook.com
- (2603:10b6:303:8a:cafe::26) by MW4PR04CA0332.outlook.office365.com
- (2603:10b6:303:8a::7) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:303:8a:cafe::d0) by MW4PR04CA0331.outlook.office365.com
+ (2603:10b6:303:8a::6) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.30 via Frontend
- Transport; Tue, 5 Nov 2024 14:06:41 +0000
+ Transport; Tue, 5 Nov 2024 14:06:43 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,18 +50,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1PEPF000044F3.mail.protection.outlook.com (10.167.241.73) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8137.17 via Frontend Transport; Tue, 5 Nov 2024 14:06:41 +0000
+ 15.20.8137.17 via Frontend Transport; Tue, 5 Nov 2024 14:06:43 +0000
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 5 Nov
- 2024 08:06:40 -0600
+ 2024 08:06:42 -0600
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <yaolu@kylinos.cn>, <jfalempe@redhat.com>, Alex Deucher
  <alexander.deucher@amd.com>
-Subject: [PATCH 1/5] drm/amdgpu: add generic display panic helper code
-Date: Tue, 5 Nov 2024 09:06:20 -0500
-Message-ID: <20241105140624.2897662-2-alexander.deucher@amd.com>
+Subject: [PATCH 4/5] drm/amd/display: add DC drm_panic support
+Date: Tue, 5 Nov 2024 09:06:23 -0500
+Message-ID: <20241105140624.2897662-5-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.47.0
 In-Reply-To: <20241105140624.2897662-1-alexander.deucher@amd.com>
 References: <20241105140624.2897662-1-alexander.deucher@amd.com>
@@ -73,50 +73,50 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000044F3:EE_|SA3PR12MB9157:EE_
-X-MS-Office365-Filtering-Correlation-Id: b6dd67f7-e3db-46bc-f6b0-08dcfda312ef
+X-MS-TrafficTypeDiagnostic: CO1PEPF000044F3:EE_|PH7PR12MB7819:EE_
+X-MS-Office365-Filtering-Correlation-Id: d84e9a77-f3c6-4e1a-fd13-08dcfda31419
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|36860700013|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?bHi7LiuvwvO20kKvvUnt6L7MYOhZMIqcA36j8WLB7YGmOZptesK3XDEea4ZE?=
- =?us-ascii?Q?8hrvor0aipaZdcsiwHCer5uYBPsBZvyBJf/yCof2Oapk9Z5+fOKU9n0bZc3D?=
- =?us-ascii?Q?BKynm32fiRBH+CXQlw/cH8lojf+EZsLB7DR/b2xTFgZzn3rsNjEVdtXlzWYV?=
- =?us-ascii?Q?fDkuFm9ohIEqxxG+hbQ7FonvZcD7Jb6uGxidpKK9FBpPHsgp65CiQdbqMv1O?=
- =?us-ascii?Q?F9I6Ft2Fszt1FU/OleTm6j6hFGglmZjlBuCF4vk0EyAJ9gaWls8IZWKr9yfk?=
- =?us-ascii?Q?frVoMYr2w77gG1duN8Gq4H4Thb7Bc4796iVZldotGfPpmx7IxQKkBM6kZhBd?=
- =?us-ascii?Q?Cn7kb5MkzbUZnH2rvE4K7DJZLUMTNtTXYbuyszmDP0K9Aso6f+6j1oQ1wYoJ?=
- =?us-ascii?Q?4RXXPWqZSuXm8Mb7sKojqFGYKbANgL0Ppme5Igr0rJIOC9itZK2Ci0Wpzpml?=
- =?us-ascii?Q?dLmlCJ/WATmAMM7D5Hhpw9EPF5cqzv0AKLudnp6uZDqJsYwfHBdKyb8mT5ab?=
- =?us-ascii?Q?Vy0X7ashng45P49zG3nenq4bA9RAVNzaSyiJErZL5tsYzgjTqLe+oWsP60VQ?=
- =?us-ascii?Q?ug29We+ivMj08JAo0RTKkQVDALjrCdhJvryuv8JkhsTq5r7L8amzkmzWZgDb?=
- =?us-ascii?Q?ZBcK0Sn/q/x0T2bhh8j9fDI4nPB3CmlCENjPUS01JGztkRzx7qrjcXjhFhnx?=
- =?us-ascii?Q?5GyesDeQd1YWlzIysxM6dFg5Ab19pfuPWNPcKF6UQUnkQF5zbYvVzkq7lKZW?=
- =?us-ascii?Q?w2FWkgH6rf/bmCQyIDLGdh7PrmRLwbnuEd3qh/czgf/HsEvNYFAs79EhkJve?=
- =?us-ascii?Q?YY77qB/mDu//qXRbgtcB77OejVr1jdP6UNJW/wkVBQb1Sq71IgLpGmf3+K7h?=
- =?us-ascii?Q?zWqoejRWyTOQtt45SdnN4VamJLQkOCrfYYAXY5iLibhjfNvPGKsH1Bl+T52U?=
- =?us-ascii?Q?xbOZBOJqXaQO+fdDpak3LkgYN2I0wWA/g+yNglE/p8AgTCPlLha3hGRF01MD?=
- =?us-ascii?Q?oSrYk9yGudE0dyaqP3duTKSj2XcBL0eEskhWYWo5KZmi0e8Wl+P4zse7+83v?=
- =?us-ascii?Q?Cr3DnkH+kFpOnIETBDs198nDUP4cJRXGWrbHQvaF1tA7NWH6EOCWhRf88jSQ?=
- =?us-ascii?Q?7+MFlS7bDSmlhuKvgXSmB4Xyhby+ipcOyqF2WBhx1+XzIVgR8+hWLMo9ziIh?=
- =?us-ascii?Q?p3SZQTMqQUrkrufpWnKd5mJQaLFXOr39PRvARAGJuNuDp3o38imth3PYXxOD?=
- =?us-ascii?Q?PGNnKXDE6rsZ69JiFYpob8X1RVSVf7JNzjTlnXUH/ZjGX5oNE0mtcGs9z6OH?=
- =?us-ascii?Q?qvrm1Yy69BHnDvYj9Yj9G8NAaad+YEB5qSYbj5OaM9Pg/fZ8HT2HTxSQFwmD?=
- =?us-ascii?Q?N503zUSVQnoG9jH1Y6pSLrk2mtfjO4APr4ssdcUYI7OnUituLg=3D=3D?=
+ ARA:13230040|36860700013|376014|1800799024|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?iilOTX6o0BRyS20TN9o0hDD0NxU1NmnjpjMUAPk4OVRIMpZDg2ePRhjWdul/?=
+ =?us-ascii?Q?rQ+wG58CDQpjWjwsIu8mZyjbXeg9hSHSrorN1SQ3VzfXT38dYFxR2bADM04u?=
+ =?us-ascii?Q?HD1se/dkJJGmDvNgCvQYwin10OAsnLSi9ehP+Rs8FC1avTDLEZfoyL7sJazm?=
+ =?us-ascii?Q?UcOoKFv4+c6Qumrr/jdu3s2qoAknY2BXFaKORLZ+ADKmYnvYRw6tzxe0rYkf?=
+ =?us-ascii?Q?v4YvpI77vn4bpxy3LIuSAVC8ogVqdKl3oFu6Uyh0BoFXv++rgN8jyCYabM4f?=
+ =?us-ascii?Q?uDfs+k1BnldxbBloWXj5qy+t7hpficlEmFQCr7uW+uVa6AfooFDddPgcAnME?=
+ =?us-ascii?Q?8+4UNnAc4DKdFXQ7k89wzCF94xU5PWs83dtXAZtql6u1wQpVIbBYGeA5tFVH?=
+ =?us-ascii?Q?VAxGDJYP8sjRQbeLVJnpeUyG0IxqJd+hqHu9YhtqlQIxSgsEUg3Z0uwrsDnK?=
+ =?us-ascii?Q?D91hfge5A5amy6mQOUSTsTso+SxZft2WYvCuixn9jtFj94ByiZvCEKa+FNzp?=
+ =?us-ascii?Q?WTgwosWrJz9l1ZSU8KDaw2AWdAIB49qD9uR7RQZW4AwVhf5WbMz7TrMmdMNe?=
+ =?us-ascii?Q?OD75RqXPest3YZjxC9cY2RjOaiAyJez9sw5DiTM0FyQ9ewHWyBo0OgkYJzKQ?=
+ =?us-ascii?Q?wPqIe/y4Tx32PExW0eLXdtZi/1cbfcOJN6T9WOuaTQB+Tsy0mChBuIby9KXa?=
+ =?us-ascii?Q?ryz4PVKI0rO3pK8H6KCsFmyBDije3vDPTQ40bjbIVoIb7yPIaVxNMboUF5tj?=
+ =?us-ascii?Q?uHFkPPVO1QjpUZa7lNv1oH3AWnvoISJTg0roV8QiK/COlp2OquIJ9XwWtbiQ?=
+ =?us-ascii?Q?Lz/PZKGnDEQysPgicAnife27dgk7sl0xjG1S78z157C5BY2Ze5KvzZldQa6N?=
+ =?us-ascii?Q?AlKGxJB+2dN5tCbMMCpgaUjJlUVlONwgwM0mBTUjiyhXdb055BpuSPn95F6y?=
+ =?us-ascii?Q?OEvxxYlAbcQ9BVJ25MPWbHe8GcYblcjZzUn8xH2bPq6ard0T/ghgCVOsWVB7?=
+ =?us-ascii?Q?sf0Va1Zsrce6sTjpshNLo3B3LIoYb1XKoJhzLhdOaWLf/wzDVbetVlZhp40w?=
+ =?us-ascii?Q?tFWq3NqkILlyAWPzcZhkVgOqQME1E3m6xHicXijv6QKPh2dNimucd3MBqsxs?=
+ =?us-ascii?Q?6WDvZDwF5yki1p9MU9UghlLesOMssV1cMTgKMKQBeOYvdODa9Bak2aVEoyj6?=
+ =?us-ascii?Q?8KEN/f54v+T5b8uBw9WVh9wVfuVZjUac6QjSEWyxzlXDvk+p4yr0TVOXEj46?=
+ =?us-ascii?Q?SJk6ssMG1Qia9grP4vkm4JsL/aUcmbVknmgaTUwqSjXpw9zQlZO/S7QBi5G3?=
+ =?us-ascii?Q?wr3nGhmnEDYLVrtcyqH7/ftTs7OtKOxY9YD8nvzE8gk5Q9Sqzf8jYVfLQ6OM?=
+ =?us-ascii?Q?LlRNG5eQFT+YMcqpHYuHRViACGIyuhdkMN9aPkiOMaptuRtK/A=3D=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026); DIR:OUT;
+ SFS:(13230040)(36860700013)(376014)(1800799024)(82310400026); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2024 14:06:41.7261 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b6dd67f7-e3db-46bc-f6b0-08dcfda312ef
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2024 14:06:43.6793 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d84e9a77-f3c6-4e1a-fd13-08dcfda31419
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000044F3.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9157
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7819
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,132 +131,159 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Pull this out of Jocelyn's patch and make it generic.
+From: Jocelyn Falempe <jfalempe@redhat.com>
 
+Add support for the drm_panic module, which displays a pretty user
+friendly message on the screen when a Linux kernel panic occurs.
+
+It doesn't work yet on laptop panels, maybe due to PSR.
+
+Adapted from Jocelyn's original patch to add DC drm_panic
+support.
+
+Signed-off-by: Jocelyn Falempe <jfalempe@redhat.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Cc: Lu Yao <yaolu@kylinos.cn>
 Cc: Jocelyn Falempe <jfalempe@redhat.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 80 +++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.h |  5 ++
- 2 files changed, 85 insertions(+)
+ .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 103 +++++++++++++++++-
+ 1 file changed, 102 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-index b119d27271c1..35c778426a7c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-@@ -33,6 +33,7 @@
- #include "soc15_common.h"
- #include "gc/gc_11_0_0_offset.h"
- #include "gc/gc_11_0_0_sh_mask.h"
-+#include "bif/bif_4_1_d.h"
- #include <asm/div64.h>
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+index 495e3cd70426..5ba64e7ad3f3 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+@@ -26,6 +26,7 @@
  
- #include <linux/pci.h>
-@@ -1788,3 +1789,82 @@ int amdgpu_display_resume_helper(struct amdgpu_device *adev)
- 	return 0;
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_blend.h>
++#include "drm/drm_framebuffer.h"
+ #include <drm/drm_gem_atomic_helper.h>
+ #include <drm/drm_plane_helper.h>
+ #include <drm/drm_gem_framebuffer_helper.h>
+@@ -1421,6 +1422,93 @@ static void amdgpu_dm_plane_atomic_async_update(struct drm_plane *plane,
+ 	amdgpu_dm_plane_handle_cursor_update(plane, old_state);
  }
  
-+/* panic_bo is set in amdgpu_dm_plane_get_scanout_buffer() and only used in amdgpu_dm_set_pixel()
-+ * they are called from the panic handler, and protected by the drm_panic spinlock.
-+ */
-+static struct amdgpu_bo *panic_abo;
-+
-+/* Use the indirect MMIO to write each pixel to the GPU VRAM,
-+ * This is a simplified version of amdgpu_device_mm_access()
-+ */
-+static void amdgpu_display_set_pixel(struct drm_scanout_buffer *sb,
-+				     unsigned int x,
-+				     unsigned int y,
-+				     u32 color)
++static void amdgpu_dm_plane_panic_flush(struct drm_plane *plane)
 +{
-+	struct amdgpu_res_cursor cursor;
-+	unsigned long offset;
-+	struct amdgpu_bo *abo = panic_abo;
-+	struct amdgpu_device *adev = amdgpu_ttm_adev(abo->tbo.bdev);
-+	uint32_t tmp;
-+
-+	offset = x * 4 + y * sb->pitch[0];
-+	amdgpu_res_first(abo->tbo.resource, offset, 4, &cursor);
-+
-+	tmp = cursor.start >> 31;
-+	WREG32_NO_KIQ(mmMM_INDEX, ((uint32_t) cursor.start) | 0x80000000);
-+	if (tmp != 0xffffffff)
-+		WREG32_NO_KIQ(mmMM_INDEX_HI, tmp);
-+	WREG32_NO_KIQ(mmMM_DATA, color);
-+}
-+
-+int amdgpu_display_get_scanout_buffer(struct drm_plane *plane,
-+				      struct drm_scanout_buffer *sb)
-+{
-+	struct amdgpu_bo *abo;
++	struct dm_plane_state *dm_plane_state = to_dm_plane_state(plane->state);
 +	struct drm_framebuffer *fb = plane->state->fb;
++	struct dc_plane_state *dc_plane_state;
++	struct dc *dc;
++	int i;
 +
-+	if (!fb)
-+		return -EINVAL;
++	if (!dm_plane_state || !dm_plane_state->dc_state)
++		return;
 +
-+	DRM_DEBUG_KMS("Framebuffer %dx%d %p4cc\n", fb->width, fb->height, &fb->format->format);
++	dc_plane_state = dm_plane_state->dc_state;
++	dc = dc_plane_state->ctx->dc;
++	if (!dc || !dc->current_state)
++		return;
 +
-+	abo = gem_to_amdgpu_bo(fb->obj[0]);
-+	if (!abo)
-+		return -EINVAL;
++	for (i = 0; i < dc->res_pool->pipe_count; i++) {
++		struct pipe_ctx *pipe_ctx = &dc->current_state->res_ctx.pipe_ctx[i];
++		struct hubp *hubp;
++		struct mem_input *mi;
 +
-+	sb->width = fb->width;
-+	sb->height = fb->height;
-+	/* Use the generic linear format, because tiling will be disabled in panic_flush() */
-+	sb->format = drm_format_info(fb->format->format);
-+	if (!sb->format)
-+		return -EINVAL;
++		if (!pipe_ctx)
++			continue;
 +
-+	sb->pitch[0] = fb->pitches[0];
++		switch (dc->ctx->dce_version) {
++#if defined(CONFIG_DRM_AMD_DC_SI)
++		case DCE_VERSION_6_0:
++		case DCE_VERSION_6_1:
++		case DCE_VERSION_6_4:
++#endif
++		case DCE_VERSION_8_0:
++		case DCE_VERSION_8_1:
++		case DCE_VERSION_8_3:
++		case DCE_VERSION_10_0:
++		case DCE_VERSION_11_0:
++		case DCE_VERSION_11_2:
++		case DCE_VERSION_11_22:
++		case DCE_VERSION_12_0:
++		case DCE_VERSION_12_1:
++			mi = pipe_ctx->plane_res.mi;
++			if (!mi)
++				continue;
++			/* if framebuffer is tiled, disable tiling */
++			if (fb->modifier && mi->funcs->mem_input_clear_tiling)
++				mi->funcs->mem_input_clear_tiling(mi);
 +
-+	if (abo->flags & AMDGPU_GEM_CREATE_NO_CPU_ACCESS) {
-+		if (abo->tbo.resource->mem_type != TTM_PL_VRAM) {
-+			drm_warn(plane->dev, "amdgpu panic, framebuffer not in VRAM\n");
-+			return -EINVAL;
++			/* force page flip to see the new content of the framebuffer */
++			mi->funcs->mem_input_program_surface_flip_and_addr(mi,
++									   &dc_plane_state->address,
++									   true);
++			break;
++		case DCN_VERSION_1_0:
++		case DCN_VERSION_1_01:
++		case DCN_VERSION_2_0:
++		case DCN_VERSION_2_01:
++		case DCN_VERSION_2_1:
++		case DCN_VERSION_3_0:
++		case DCN_VERSION_3_01:
++		case DCN_VERSION_3_02:
++		case DCN_VERSION_3_03:
++		case DCN_VERSION_3_1:
++		case DCN_VERSION_3_14:
++		case DCN_VERSION_3_16:
++		case DCN_VERSION_3_15:
++		case DCN_VERSION_3_2:
++		case DCN_VERSION_3_21:
++		case DCN_VERSION_3_5:
++		case DCN_VERSION_3_51:
++		case DCN_VERSION_4_01:
++			hubp = pipe_ctx->plane_res.hubp;
++			if (!hubp)
++				continue;
++			/* if framebuffer is tiled, disable tiling */
++			if (fb->modifier && hubp->funcs->hubp_clear_tiling)
++				hubp->funcs->hubp_clear_tiling(hubp);
++
++			/* force page flip to see the new content of the framebuffer */
++			hubp->funcs->hubp_program_surface_flip_and_addr(hubp,
++									&dc_plane_state->address,
++									true);
++			break;
++		default:
++			break;
 +		}
-+		/* Only handle 32bits format, to simplify mmio access */
-+		if (fb->format->cpp[0] != 4) {
-+			drm_warn(plane->dev, "amdgpu panic, pixel format is not 32bits\n");
-+			return -EINVAL;
-+		}
-+		sb->set_pixel = amdgpu_display_set_pixel;
-+		panic_abo = abo;
-+		return 0;
 +	}
-+	if (!abo->kmap.virtual &&
-+	    ttm_bo_kmap(&abo->tbo, 0, PFN_UP(abo->tbo.base.size), &abo->kmap)) {
-+		drm_warn(plane->dev, "amdgpu bo map failed, panic won't be displayed\n");
-+		return -ENOMEM;
-+	}
-+	if (abo->kmap.bo_kmap_type & TTM_BO_MAP_IOMEM_MASK)
-+		iosys_map_set_vaddr_iomem(&sb->map[0], abo->kmap.virtual);
-+	else
-+		iosys_map_set_vaddr(&sb->map[0], abo->kmap.virtual);
-+
-+	return 0;
 +}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h
-index 9d19940f73c8..dfa0d642ac16 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h
-@@ -23,6 +23,8 @@
- #ifndef __AMDGPU_DISPLAY_H__
- #define __AMDGPU_DISPLAY_H__
- 
-+#include <drm/drm_panic.h>
 +
- #define amdgpu_display_vblank_get_counter(adev, crtc) (adev)->mode_info.funcs->vblank_get_counter((adev), (crtc))
- #define amdgpu_display_backlight_set_level(adev, e, l) (adev)->mode_info.funcs->backlight_set_level((e), (l))
- #define amdgpu_display_backlight_get_level(adev, e) (adev)->mode_info.funcs->backlight_get_level((e))
-@@ -49,4 +51,7 @@ amdgpu_lookup_format_info(u32 format, uint64_t modifier);
- int amdgpu_display_suspend_helper(struct amdgpu_device *adev);
- int amdgpu_display_resume_helper(struct amdgpu_device *adev);
+ static const struct drm_plane_helper_funcs dm_plane_helper_funcs = {
+ 	.prepare_fb = amdgpu_dm_plane_helper_prepare_fb,
+ 	.cleanup_fb = amdgpu_dm_plane_helper_cleanup_fb,
+@@ -1429,6 +1517,16 @@ static const struct drm_plane_helper_funcs dm_plane_helper_funcs = {
+ 	.atomic_async_update = amdgpu_dm_plane_atomic_async_update
+ };
  
-+int amdgpu_display_get_scanout_buffer(struct drm_plane *plane,
-+				      struct drm_scanout_buffer *sb);
++static const struct drm_plane_helper_funcs dm_primary_plane_helper_funcs = {
++	.prepare_fb = amdgpu_dm_plane_helper_prepare_fb,
++	.cleanup_fb = amdgpu_dm_plane_helper_cleanup_fb,
++	.atomic_check = amdgpu_dm_plane_atomic_check,
++	.atomic_async_check = amdgpu_dm_plane_atomic_async_check,
++	.atomic_async_update = amdgpu_dm_plane_atomic_async_update,
++	.get_scanout_buffer = amdgpu_display_get_scanout_buffer,
++	.panic_flush = amdgpu_dm_plane_panic_flush,
++};
 +
- #endif
+ static void amdgpu_dm_plane_drm_plane_reset(struct drm_plane *plane)
+ {
+ 	struct dm_plane_state *amdgpu_state = NULL;
+@@ -1855,7 +1953,10 @@ int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
+ 	    plane->type != DRM_PLANE_TYPE_CURSOR)
+ 		drm_plane_enable_fb_damage_clips(plane);
+ 
+-	drm_plane_helper_add(plane, &dm_plane_helper_funcs);
++	if (plane->type == DRM_PLANE_TYPE_PRIMARY)
++		drm_plane_helper_add(plane, &dm_primary_plane_helper_funcs);
++	else
++		drm_plane_helper_add(plane, &dm_plane_helper_funcs);
+ 
+ #ifdef AMD_PRIVATE_COLOR
+ 	dm_atomic_plane_attach_color_mgmt_properties(dm, plane);
 -- 
 2.47.0
 
