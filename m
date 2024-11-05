@@ -4,65 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21069D2B92E
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 Nov 2024 14:30:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1013D2B92E
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 Nov 2024 14:30:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7B7710E5B9;
-	Tue,  5 Nov 2024 14:30:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A3DF010E5BD;
+	Tue,  5 Nov 2024 14:30:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iW17JkUn";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="LX1/zRb0";
 	dkim-atps=neutral
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
- [209.85.216.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE99110E5B9
- for <amd-gfx@lists.freedesktop.org>; Tue,  5 Nov 2024 14:30:40 +0000 (UTC)
-Received: by mail-pj1-f43.google.com with SMTP id
- 98e67ed59e1d1-2e2da8529e1so496431a91.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 05 Nov 2024 06:30:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1730817040; x=1731421840; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=HYykljY8CxALvJR9rVt1BFCMtVAEoI5jiYkvmE58Bqc=;
- b=iW17JkUnqx/pJfZdJr+a133oQ7yrenozzfvGnTJ5kAA1zKopOd3/PunannC3rtyXyO
- qAYb0+7iibZe1s2QNayi5UOw/NJ3sHjhANlOjDmqXkE10H3Qml6Tv/9cc7oP0VdpmYTW
- jPwR4+r2NAZczpWS28pRL5R2M6VnWFlk63V5DooT8FzJ95VFDwFnr6WBPDFsO2959jwP
- gyYAYY+P/hm7z/XtWimmzuojtD7iSym3DjN4Z/dqxIkNsI6CDAQ6/QtChNmRiJg3dJdE
- 4WYXsyPpIXre1mXQQ9I7q0JXPBW4Rt35+jkbhnw4PkGfidtVZ0dJcsenECJ/Nl4OzyEd
- 5SLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1730817040; x=1731421840;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=HYykljY8CxALvJR9rVt1BFCMtVAEoI5jiYkvmE58Bqc=;
- b=cE7qwc0T8fZAbG1kiRX9CiNZDwkaz4X9wWMM6vh3ElUCHNlQ8O5OY0slv+9ai4tfJ+
- +Zea9rwOo5Uw9DENYwit5a0qZOV/u+U/4cS3PqmOmY0N6/1VoojV1YnEnRNl4CLAXgD+
- UAh6Nlrs2B7Yrv5vL5Yycn7k0ytSTbR9eLJheBTUMBnw4ARSsTTJI2nPL1cMFoE7DETx
- 5KoblzDWjyK5ivmUqujbXcg53KNLbH0CFde7iy6SffXSdgOgBPwBwp74J2k1/u02F8O3
- /HcJflOhqswPAHxbQT8fZALncqdk4c2i+xwF44HBVYF4WUN2Y5P/0ns5cPpbkGh4d7sx
- waOg==
-X-Gm-Message-State: AOJu0YwhzIeQJo705/qxt/Jj8FLc20asSYLQSHzRqVHkXUl7JXxlwgwo
- YTXQg6vnGJFginLp45m6Ulgjh/9kYIbNh855zqDoDvbPdWqqlfA4xXARbJY2Cl7ReazYgO7Cg8w
- awMt4itAHngtGEA6Dku1aeI7sGlQ=
-X-Google-Smtp-Source: AGHT+IH+AfsDCqLvLHO0U70kgfAuMa8BsTSr7OfVxc13fRvIJlGZuQDBTKaDmW6Cf8ZwmvFZhqqfge51OvDbMnsJB2I=
-X-Received: by 2002:a17:90a:4bc5:b0:2e2:c04b:da94 with SMTP id
- 98e67ed59e1d1-2e8f11a71b2mr17655765a91.5.1730817037996; Tue, 05 Nov 2024
- 06:30:37 -0800 (PST)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2074.outbound.protection.outlook.com [40.107.94.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F84C10E5BD
+ for <amd-gfx@lists.freedesktop.org>; Tue,  5 Nov 2024 14:30:44 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=q6+GYWsfTISP/djsGZPRVLz+z0TcXq4+M26nBIOwwBMpen2nw5bz6E9iAyscI2J2ArpiiUFJAfjhwMQwehfg8O/gJGoHqQMbKOBb9eSz9GiMHzMIvyvHuoPQvg0nhDKX/keGqu2pPqolriPrR2cOXkxFMvhi93Ll4KVY2c8En1adi5taFEXS0cS4jFfjliSJQdlMpv96pMqxFijCpnPHqN9amF3slsE5cPwQ8czSa0JsFOZM7E0AkmyEHr1jvkgpliisNwTQ6yVZsKq8Q+EIUxUlDUN3tqiHOgTQZNZuJyGxAfJV56u5BY+CGp9k6lBBxh256KlGgsIcK3H27DvJ7w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qMCcYgPt2JBdfp3eUHjUJCmyTRCPdNzMYm+1JLNcZU8=;
+ b=XRRc0J/XZmUNINJ5ZKVKtuz3aX7Tz9Tq+2GY1jXzQkkkYk1/XPXNv1X2qQl+pguQb+oZwrkrVmjopPGuHrtjAbUE+gapPB/2SAUD/pN3ot7Jmqi9mISgVqpDFZ6wFH2UWz9lDwaqUbfPO1Rd00XRgg02Qg1/b2/r1ezZ3vuD8g+AeueAQfjBoaKy1whSYWTXJz1K9bc14v9X6h3cuWXljaQoPPAwqdpSeoi7469xJMi5smtjmPj6XLrB7TqzkIftAiauwbKDge2S+DwYQ31Bn3v8/4pbzyn8PDlr/LdFmLW+NIarHsC7XpER/8Zq6J4Dy86UudIzggQDA+z55y1HRg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qMCcYgPt2JBdfp3eUHjUJCmyTRCPdNzMYm+1JLNcZU8=;
+ b=LX1/zRb0FbIbiiEbLyxF29FycnsnLUjqHvF6t+MhaNlG8zV/ID8JrIR1xkEsSTzitDEBtqdHjimVY8ie/z+zGEFYQRuf6D/jIfhe0zlNpUH/ZQCNs1fihYa9TOVrvQsNgOubqWKAEL6/KvfJ21zjraBvh5nJITXIsguR6aygZbs=
+Received: from MW4P223CA0025.NAMP223.PROD.OUTLOOK.COM (2603:10b6:303:80::30)
+ by DM4PR12MB5772.namprd12.prod.outlook.com (2603:10b6:8:63::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.30; Tue, 5 Nov
+ 2024 14:30:36 +0000
+Received: from SJ1PEPF00002323.namprd03.prod.outlook.com
+ (2603:10b6:303:80:cafe::54) by MW4P223CA0025.outlook.office365.com
+ (2603:10b6:303:80::30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8137.18 via Frontend
+ Transport; Tue, 5 Nov 2024 14:30:36 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SJ1PEPF00002323.mail.protection.outlook.com (10.167.242.85) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8137.17 via Frontend Transport; Tue, 5 Nov 2024 14:30:36 +0000
+Received: from mkmvskvorts01.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 5 Nov
+ 2024 08:30:34 -0600
+From: Victor Skvortsov <victor.skvortsov@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <zhigang.luo@amd.com>,
+ <tao.zhou1@amd.com>, <hawking.zhang@amd.com>
+CC: Victor Skvortsov <victor.skvortsov@amd.com>
+Subject: [PATCH 1/4] drm/amdgpu: Update SRIOV Exchange Headers for RAS
+ Telemetry Support
+Date: Tue, 5 Nov 2024 09:30:04 -0500
+Message-ID: <20241105143007.274828-1-victor.skvortsov@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20241105092454.40017-1-chongli2@amd.com>
-In-Reply-To: <20241105092454.40017-1-chongli2@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 5 Nov 2024 09:30:26 -0500
-Message-ID: <CADnq5_NDkN3yWYAkrsJSc4Q22K_=6HuR+aFpcq2b5oiq-xw9kA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: fix return random value when multiple threads
- read registers via mes.
-To: Chong Li <chongli2@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, christian.koenig@amd.com, 
- Emily.Deng@amd.com, lincao12@amd.com, dandjelk@amd.com, zhengyin@amd.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00002323:EE_|DM4PR12MB5772:EE_
+X-MS-Office365-Filtering-Correlation-Id: f828fc00-e659-488e-70ee-08dcfda669f2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700013|376014|1800799024|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?YWdbSnISQO8yC3o7v+P7Q/6XnMjf7OR3iQg74zhUaGIdqQq7gYh80zArJauM?=
+ =?us-ascii?Q?YQyWeQjGNEgoWIp6VajgizAbr6aA86ppleJyhn6nzwGd97RaN7qVTcb3y2nx?=
+ =?us-ascii?Q?0BK4TfZEt3djDhEpNyHV9dzmXBNU27MW3KwuVlSxfFm7MJo0Oif/B/NIwqji?=
+ =?us-ascii?Q?/GNHrBRxuEUzU16DQPHTz/CWbXnqaUguijY6L+lJddKXWseFFt2WHvGTGrD9?=
+ =?us-ascii?Q?EPJhogYCiMRAAO79v4doRcXpBCQiTOvB+dgldcgu59gR7m4ud07l+W+N8dAK?=
+ =?us-ascii?Q?RN9GTFw+UrgsS79Xt5UHMRFYuCAk+G0KKgkOTKKY3aO2qc1xsT1U4vCWMNXG?=
+ =?us-ascii?Q?owxgTegVyBad8RLclAsKVVaaxaKUqBpK/kivwxmmsCNcN6AQlD1vSjs03MMa?=
+ =?us-ascii?Q?Xdpt5MGMG/g8mmwZ3kLM7SG8d+jgM6V0CRiTQmZulYcc41cBb83dCk4xAIbV?=
+ =?us-ascii?Q?sH4BQf2UZfZ/bS9sfs9pqVy1QZ7Hh+HS6Y63ahSHEgUzI2K7p2Sh8M0Ap8fF?=
+ =?us-ascii?Q?XwfjKs2WjnVqkzv0EkPM6gxdcsuefPC0tYxEDJKxmOj64ye+YDsttX33OUVK?=
+ =?us-ascii?Q?JXAF5eTkwCFRZ2fmGOxp5XqubhXxfgNOwzrqzI+Yl1lCQxNftbc7MFoo2obf?=
+ =?us-ascii?Q?fv42+7XVO5I1oQ3IokHGf2MF1/UQh3dAN0z5sGmwmlgt7sveS9VLy3zp12it?=
+ =?us-ascii?Q?bY5nDp/aSnDiUdgPX4fm2BqZOawyePoOayPitNWXzurDvOTPGNV0rn4mRydZ?=
+ =?us-ascii?Q?wd2dy4tWvbkul+/uOcDoA3iWZ6eT7Dv3YUHpCy8hVD1DjN7HO+StpRLludXy?=
+ =?us-ascii?Q?QwpS6mbbohgRKI9SbNZMULWLFMYYeL67+v3YibU3yJ2jowIqQg2d893VgUIc?=
+ =?us-ascii?Q?2rb84Yq/YtuWhJ4a+xx5O06vuoYOSI7fTdHlV9PI40rt2mVoS6dPnurQSwq5?=
+ =?us-ascii?Q?H214QyFSDJnQEFG4Tl2YO1trtLZ3v/6wfqy4e7KSj5Xgg2BSX1wikkKQIlr1?=
+ =?us-ascii?Q?yGlzaCmQPUQZBBbnZXLR9fhLC6TMdvKphot/1YoZe0Z/vY13E8ktix+g94HX?=
+ =?us-ascii?Q?Q5djygdBvsSGjqN1TASsGxd82NG/wK7zalE6fTRiVIBhIb8XkXqHFJ1UD/yX?=
+ =?us-ascii?Q?bQ/3dlUaf4m2ur96TRbD0aE0w2FGxwQ8PnxEnrzvYBiU1R3Gc8TI5CdGznXB?=
+ =?us-ascii?Q?HFKeySdU4zkbqHm+FMGYWxh/nyBfk3Mifap//xqcNf9JYhA67eEpIqsUMzHJ?=
+ =?us-ascii?Q?j3ryuggWfYmUm0jm6ALbGJmKTzgtCIaQx6G4jUC6AJs1akv5aWn16AzDQ8o+?=
+ =?us-ascii?Q?n6w/bW8Lw4GCMwqex9mEAnrzSV4uJHaO7UQe6HRB074oa8ecfDR8wn1JCiB4?=
+ =?us-ascii?Q?dAYbZ15ttzA++Ba5dRgG0WS1HehQrgmESPC1Ct3Yg30eHZL1Gg=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(376014)(1800799024)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2024 14:30:36.1162 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f828fc00-e659-488e-70ee-08dcfda669f2
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00002323.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5772
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,124 +130,230 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Nov 5, 2024 at 4:39=E2=80=AFAM Chong Li <chongli2@amd.com> wrote:
->
-> The currect code use the address "adev->mes.read_val_ptr" to
-> store the value read from register via mes.
-> So when multiple threads read register,
-> multiple threads have to share the one address,
-> and overwrite the value each other.
->
-> Assign an address by "amdgpu_device_wb_get" to store register value.
-> each thread will has an address to store register value.
->
-> Signed-off-by: Chong Li <chongli2@amd.com>
+The SRIOV PF/VF Data exchange is extended by 64KB for VF RAS Telemetry data.
+Add Host RAS Telemetry enable capabilities bitfields.
+Add a new VF msg REQ_RAS_ERROR_COUNT, the host response data will be populated
+in the RAS Telemetry region.
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Victor Skvortsov <victor.skvortsov@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h | 131 +++++++++++++++++---
+ drivers/gpu/drm/amd/amdgpu/mxgpu_nv.h       |   2 +
+ 2 files changed, 114 insertions(+), 19 deletions(-)
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 30 +++++++++++--------------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h |  3 ---
->  2 files changed, 13 insertions(+), 20 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_mes.c
-> index 83d0f731fb65..a8f7173b2663 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> @@ -189,17 +189,6 @@ int amdgpu_mes_init(struct amdgpu_device *adev)
->                         (uint64_t *)&adev->wb.wb[adev->mes.query_status_f=
-ence_offs[i]];
->         }
->
-> -       r =3D amdgpu_device_wb_get(adev, &adev->mes.read_val_offs);
-> -       if (r) {
-> -               dev_err(adev->dev,
-> -                       "(%d) read_val_offs alloc failed\n", r);
-> -               goto error;
-> -       }
-> -       adev->mes.read_val_gpu_addr =3D
-> -               adev->wb.gpu_addr + (adev->mes.read_val_offs * 4);
-> -       adev->mes.read_val_ptr =3D
-> -               (uint32_t *)&adev->wb.wb[adev->mes.read_val_offs];
-> -
->         r =3D amdgpu_mes_doorbell_init(adev);
->         if (r)
->                 goto error;
-> @@ -220,8 +209,6 @@ int amdgpu_mes_init(struct amdgpu_device *adev)
->                         amdgpu_device_wb_free(adev,
->                                       adev->mes.query_status_fence_offs[i=
-]);
->         }
-> -       if (adev->mes.read_val_ptr)
-> -               amdgpu_device_wb_free(adev, adev->mes.read_val_offs);
->
->         idr_destroy(&adev->mes.pasid_idr);
->         idr_destroy(&adev->mes.gang_id_idr);
-> @@ -246,8 +233,6 @@ void amdgpu_mes_fini(struct amdgpu_device *adev)
->                         amdgpu_device_wb_free(adev,
->                                       adev->mes.query_status_fence_offs[i=
-]);
->         }
-> -       if (adev->mes.read_val_ptr)
-> -               amdgpu_device_wb_free(adev, adev->mes.read_val_offs);
->
->         amdgpu_mes_doorbell_free(adev);
->
-> @@ -918,10 +903,19 @@ uint32_t amdgpu_mes_rreg(struct amdgpu_device *adev=
-, uint32_t reg)
->  {
->         struct mes_misc_op_input op_input;
->         int r, val =3D 0;
-> +       uint32_t addr_offset =3D 0;
-> +       uint64_t read_val_gpu_addr;
-> +       uint32_t *read_val_ptr;
->
-> +       if (amdgpu_device_wb_get(adev, &addr_offset)) {
-> +               DRM_ERROR("critical bug! too many mes readers\n");
-> +               goto error;
-> +       }
-> +       read_val_gpu_addr =3D adev->wb.gpu_addr + (addr_offset * 4);
-> +       read_val_ptr =3D (uint32_t *)&adev->wb.wb[addr_offset];
->         op_input.op =3D MES_MISC_OP_READ_REG;
->         op_input.read_reg.reg_offset =3D reg;
-> -       op_input.read_reg.buffer_addr =3D adev->mes.read_val_gpu_addr;
-> +       op_input.read_reg.buffer_addr =3D read_val_gpu_addr;
->
->         if (!adev->mes.funcs->misc_op) {
->                 DRM_ERROR("mes rreg is not supported!\n");
-> @@ -932,9 +926,11 @@ uint32_t amdgpu_mes_rreg(struct amdgpu_device *adev,=
- uint32_t reg)
->         if (r)
->                 DRM_ERROR("failed to read reg (0x%x)\n", reg);
->         else
-> -               val =3D *(adev->mes.read_val_ptr);
-> +               val =3D *(read_val_ptr);
->
->  error:
-> +       if (addr_offset)
-> +               amdgpu_device_wb_free(adev, addr_offset);
->         return val;
->  }
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_mes.h
-> index 45e3508f0f8e..83f45bb48427 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-> @@ -119,9 +119,6 @@ struct amdgpu_mes {
->         uint32_t                        query_status_fence_offs[AMDGPU_MA=
-X_MES_PIPES];
->         uint64_t                        query_status_fence_gpu_addr[AMDGP=
-U_MAX_MES_PIPES];
->         uint64_t                        *query_status_fence_ptr[AMDGPU_MA=
-X_MES_PIPES];
-> -       uint32_t                        read_val_offs;
-> -       uint64_t                        read_val_gpu_addr;
-> -       uint32_t                        *read_val_ptr;
->
->         uint32_t                        saved_flags;
->
-> --
-> 2.34.1
->
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h b/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
+index 6e9eeaeb3de1..b4f9c2f4e92c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
+@@ -28,17 +28,21 @@
+ #define AMD_SRIOV_MSG_VBIOS_SIZE_KB	     64
+ #define AMD_SRIOV_MSG_DATAEXCHANGE_OFFSET_KB AMD_SRIOV_MSG_VBIOS_SIZE_KB
+ #define AMD_SRIOV_MSG_DATAEXCHANGE_SIZE_KB   4
+-
++#define AMD_SRIOV_MSG_TMR_OFFSET_KB	     2048
++#define AMD_SRIOV_MSG_BAD_PAGE_SIZE_KB	     2
++#define AMD_SRIOV_RAS_TELEMETRY_SIZE_KB	     64
+ /*
+  * layout
+- * 0           64KB        65KB        66KB
+- * |   VBIOS   |   PF2VF   |   VF2PF   |   Bad Page   | ...
+- * |   64KB    |   1KB     |   1KB     |
++ * 0           64KB        65KB        66KB           68KB                   132KB
++ * |   VBIOS   |   PF2VF   |   VF2PF   |   Bad Page   | RAS Telemetry Region | ...
++ * |   64KB    |   1KB     |   1KB     |   2KB        | 64KB                 | ...
+  */
++
+ #define AMD_SRIOV_MSG_SIZE_KB                   1
+ #define AMD_SRIOV_MSG_PF2VF_OFFSET_KB           AMD_SRIOV_MSG_DATAEXCHANGE_OFFSET_KB
+ #define AMD_SRIOV_MSG_VF2PF_OFFSET_KB           (AMD_SRIOV_MSG_PF2VF_OFFSET_KB + AMD_SRIOV_MSG_SIZE_KB)
+ #define AMD_SRIOV_MSG_BAD_PAGE_OFFSET_KB        (AMD_SRIOV_MSG_VF2PF_OFFSET_KB + AMD_SRIOV_MSG_SIZE_KB)
++#define AMD_SRIOV_MSG_RAS_TELEMETRY_OFFSET_KB   (AMD_SRIOV_MSG_BAD_PAGE_OFFSET_KB + AMD_SRIOV_MSG_BAD_PAGE_SIZE_KB)
+ 
+ /*
+  * PF2VF history log:
+@@ -86,30 +90,59 @@ enum amd_sriov_ucode_engine_id {
+ 
+ union amd_sriov_msg_feature_flags {
+ 	struct {
+-		uint32_t error_log_collect : 1;
+-		uint32_t host_load_ucodes  : 1;
+-		uint32_t host_flr_vramlost : 1;
+-		uint32_t mm_bw_management  : 1;
+-		uint32_t pp_one_vf_mode    : 1;
+-		uint32_t reg_indirect_acc  : 1;
+-		uint32_t av1_support       : 1;
+-		uint32_t vcn_rb_decouple   : 1;
+-		uint32_t mes_info_enable   : 1;
+-		uint32_t reserved          : 23;
++		uint32_t error_log_collect	: 1;
++		uint32_t host_load_ucodes	: 1;
++		uint32_t host_flr_vramlost	: 1;
++		uint32_t mm_bw_management	: 1;
++		uint32_t pp_one_vf_mode		: 1;
++		uint32_t reg_indirect_acc	: 1;
++		uint32_t av1_support		: 1;
++		uint32_t vcn_rb_decouple 	: 1;
++		uint32_t mes_info_dump_enable	: 1;
++		uint32_t ras_caps		: 1;
++		uint32_t ras_telemetry		: 1;
++		uint32_t reserved		: 21;
+ 	} flags;
+ 	uint32_t all;
+ };
+ 
+ union amd_sriov_reg_access_flags {
+ 	struct {
+-		uint32_t vf_reg_access_ih 	 : 1;
+-		uint32_t vf_reg_access_mmhub : 1;
+-		uint32_t vf_reg_access_gc 	 : 1;
+-		uint32_t reserved	         : 29;
++		uint32_t vf_reg_access_ih	: 1;
++		uint32_t vf_reg_access_mmhub	: 1;
++		uint32_t vf_reg_access_gc	: 1;
++		uint32_t reserved		: 29;
+ 	} flags;
+ 	uint32_t all;
+ };
+ 
++union amd_sriov_ras_caps {
++	struct {
++		uint64_t block_umc			: 1;
++		uint64_t block_sdma			: 1;
++		uint64_t block_gfx			: 1;
++		uint64_t block_mmhub			: 1;
++		uint64_t block_athub			: 1;
++		uint64_t block_pcie_bif			: 1;
++		uint64_t block_hdp			: 1;
++		uint64_t block_xgmi_wafl		: 1;
++		uint64_t block_df			: 1;
++		uint64_t block_smn			: 1;
++		uint64_t block_sem			: 1;
++		uint64_t block_mp0			: 1;
++		uint64_t block_mp1			: 1;
++		uint64_t block_fuse			: 1;
++		uint64_t block_mca			: 1;
++		uint64_t block_vcn			: 1;
++		uint64_t block_jpeg			: 1;
++		uint64_t block_ih			: 1;
++		uint64_t block_mpio			: 1;
++		uint64_t poison_propogation_mode	: 1;
++		uint64_t reserved			: 44;
++	} bits;
++	uint64_t all;
++};
++
+ union amd_sriov_msg_os_info {
+ 	struct {
+ 		uint32_t windows  : 1;
+@@ -158,7 +191,7 @@ struct amd_sriov_msg_pf2vf_info_header {
+ 	uint32_t reserved[2];
+ };
+ 
+-#define AMD_SRIOV_MSG_PF2VF_INFO_FILLED_SIZE (49)
++#define AMD_SRIOV_MSG_PF2VF_INFO_FILLED_SIZE (55)
+ struct amd_sriov_msg_pf2vf_info {
+ 	/* header contains size and version */
+ 	struct amd_sriov_msg_pf2vf_info_header header;
+@@ -211,6 +244,12 @@ struct amd_sriov_msg_pf2vf_info {
+ 	uint32_t pcie_atomic_ops_support_flags;
+ 	/* Portion of GPU memory occupied by VF.  MAX value is 65535, but set to uint32_t to maintain alignment with reserved size */
+ 	uint32_t gpu_capacity;
++	/* vf bdf on host pci tree for debug only */
++	uint32_t bdf_on_host;
++	uint32_t more_bp;	//Reserved for future use.
++	union amd_sriov_ras_caps ras_en_caps;
++	union amd_sriov_ras_caps ras_telemetry_en_caps;
++
+ 	/* reserved */
+ 	uint32_t reserved[256 - AMD_SRIOV_MSG_PF2VF_INFO_FILLED_SIZE];
+ } __packed;
+@@ -283,8 +322,12 @@ enum amd_sriov_mailbox_request_message {
+ 	MB_REQ_MSG_REL_GPU_FINI_ACCESS,
+ 	MB_REQ_MSG_REQ_GPU_RESET_ACCESS,
+ 	MB_REQ_MSG_REQ_GPU_INIT_DATA,
++	MB_REQ_MSG_PSP_VF_CMD_RELAY,
+ 
+ 	MB_REQ_MSG_LOG_VF_ERROR = 200,
++	MB_REQ_MSG_READY_TO_RESET = 201,
++	MB_REQ_MSG_RAS_POISON = 202,
++	MB_REQ_RAS_ERROR_COUNT = 203,
+ };
+ 
+ /* mailbox message send from host to guest  */
+@@ -297,10 +340,60 @@ enum amd_sriov_mailbox_response_message {
+ 	MB_RES_MSG_FAIL,
+ 	MB_RES_MSG_QUERY_ALIVE,
+ 	MB_RES_MSG_GPU_INIT_DATA_READY,
++	MB_RES_MSG_RAS_ERROR_COUNT_READY = 11,
+ 
+ 	MB_RES_MSG_TEXT_MESSAGE = 255
+ };
+ 
++enum amd_sriov_ras_telemetry_gpu_block {
++	RAS_TELEMETRY_GPU_BLOCK_UMC		= 0,
++	RAS_TELEMETRY_GPU_BLOCK_SDMA		= 1,
++	RAS_TELEMETRY_GPU_BLOCK_GFX		= 2,
++	RAS_TELEMETRY_GPU_BLOCK_MMHUB		= 3,
++	RAS_TELEMETRY_GPU_BLOCK_ATHUB		= 4,
++	RAS_TELEMETRY_GPU_BLOCK_PCIE_BIF	= 5,
++	RAS_TELEMETRY_GPU_BLOCK_HDP		= 6,
++	RAS_TELEMETRY_GPU_BLOCK_XGMI_WAFL	= 7,
++	RAS_TELEMETRY_GPU_BLOCK_DF		= 8,
++	RAS_TELEMETRY_GPU_BLOCK_SMN		= 9,
++	RAS_TELEMETRY_GPU_BLOCK_SEM		= 10,
++	RAS_TELEMETRY_GPU_BLOCK_MP0		= 11,
++	RAS_TELEMETRY_GPU_BLOCK_MP1		= 12,
++	RAS_TELEMETRY_GPU_BLOCK_FUSE		= 13,
++	RAS_TELEMETRY_GPU_BLOCK_MCA		= 14,
++	RAS_TELEMETRY_GPU_BLOCK_VCN		= 15,
++	RAS_TELEMETRY_GPU_BLOCK_JPEG		= 16,
++	RAS_TELEMETRY_GPU_BLOCK_IH		= 17,
++	RAS_TELEMETRY_GPU_BLOCK_MPIO		= 18,
++	RAS_TELEMETRY_GPU_BLOCK_COUNT		= 19,
++};
++
++struct amd_sriov_ras_telemetry_header {
++	uint32_t checksum;
++	uint32_t used_size;
++	uint32_t reserved[2];
++};
++
++struct amd_sriov_ras_telemetry_error_count {
++	struct {
++		uint32_t ce_count;
++		uint32_t ue_count;
++		uint32_t de_count;
++		uint32_t ce_overflow_count;
++		uint32_t ue_overflow_count;
++		uint32_t de_overflow_count;
++		uint32_t reserved[6];
++	} block[RAS_TELEMETRY_GPU_BLOCK_COUNT];
++};
++
++struct amdsriov_ras_telemetry {
++	struct amd_sriov_ras_telemetry_header header;
++
++	union {
++		struct amd_sriov_ras_telemetry_error_count error_count;
++	} body;
++};
++
+ /* version data stored in MAILBOX_MSGBUF_RCV_DW1 for future expansion */
+ enum amd_sriov_gpu_init_data_version {
+ 	GPU_INIT_DATA_READY_V1 = 1,
+diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.h b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.h
+index 1d099ffb3a5a..74e213e1e937 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.h
++++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.h
+@@ -40,6 +40,8 @@ enum idh_request {
+ 	IDH_LOG_VF_ERROR	= 200,
+ 	IDH_READY_TO_RESET 	= 201,
+ 	IDH_RAS_POISON	= 202,
++	IDH_REQ_ECC_COUNT = 203,
++	IDH_REQ_ACA_BANKS = 204,
+ };
+ 
+ enum idh_event {
+-- 
+2.34.1
+
