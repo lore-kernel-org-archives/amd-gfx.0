@@ -4,62 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F20AD31767
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 Nov 2024 16:50:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2892D31769
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 Nov 2024 17:44:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 19F5210E410;
-	Tue,  5 Nov 2024 16:50:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC6C510E075;
+	Tue,  5 Nov 2024 17:44:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="AOvCpM90";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="K3/hOaGC";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E669910E5F6
- for <amd-gfx@lists.freedesktop.org>; Tue,  5 Nov 2024 16:50:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1730825442; x=1762361442;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=2j1rxLlZd31DwI6m/aF3mZF2zyCb/7ZZll95AQ3qe5s=;
- b=AOvCpM90M+JkLNJXKyWNxLex+d3/conh0blqK3EekGAdu84YrDdibkyl
- Ijh04SJFKcJwcV/sSMfGSm64fih2k2lDadH0OVIv9K+4C6DFkFBIQmorD
- qGTwo8fcSmGoV0QTsOcbWr5fbKittnUZXn2EUb9xpQckDxTkPn5pvm+EO
- r7Dbc8O7/dU2QwBAH5KxWd4Bbs6QQdHtdlYALAv/pQX62sNwG8Tw8pnUE
- J1xCmYapYJZ49uGPKRMGVaW8sOQHoyO0hB3ZRxEfBLPImYsm7Qj7z3kB0
- 14PWBVL5ytNWFRJLa716+yrDYWGOY4LWn/+uBFFthMvJ24RHocE0iBZKM Q==;
-X-CSE-ConnectionGUID: 4ZoJqhH4T1qoYi7d3e/4vA==
-X-CSE-MsgGUID: eZ9eHGYGSmeE1Yc+a1GDzA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11222"; a="48047369"
-X-IronPort-AV: E=Sophos;i="6.11,199,1725346800"; d="scan'208";a="48047369"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Nov 2024 08:50:41 -0800
-X-CSE-ConnectionGUID: O+IIc/JIRzOKW+7YisIoew==
-X-CSE-MsgGUID: dsFuuDq6SnS+WCUt2JAfng==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.11,260,1725346800"; d="scan'208";a="84409237"
-Received: from lkp-server01.sh.intel.com (HELO a48cf1aa22e8) ([10.239.97.150])
- by fmviesa010.fm.intel.com with ESMTP; 05 Nov 2024 08:50:38 -0800
-Received: from kbuild by a48cf1aa22e8 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1t8MlI-000mGR-26;
- Tue, 05 Nov 2024 16:50:36 +0000
-Date: Wed, 6 Nov 2024 00:49:44 +0800
-From: kernel test robot <lkp@intel.com>
-To: Jiqian Chen <Jiqian.Chen@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Xinhui Pan <Xinhui.Pan@amd.com>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- Jiqian Chen <Jiqian.Chen@amd.com>, Huang Rui <Ray.Huang@amd.com>
-Subject: Re: [PATCH 2/2] drm/amdgpu: Bypass resizing bars for PVH dom0
-Message-ID: <202411060019.p34zs7ce-lkp@intel.com>
-References: <20241105060531.3503788-3-Jiqian.Chen@amd.com>
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2088.outbound.protection.outlook.com [40.107.237.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 26E7E10E075
+ for <amd-gfx@lists.freedesktop.org>; Tue,  5 Nov 2024 17:44:32 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pC/eFhgHtWSR1BWsAWbDZjxAB1UMvHWGB/SgsgRRCfNauWSZLJaKdsjaZ98+VD+DqeJLS7PnLTD7x3eD8RxvUAmdk7udHnqngdiHz83D3b7zcErusBE51RghFaMcIAK1JcNSikTUaPBmnA42VckyHV+SZyWkaNv12ny9t46DVnl1zy73/vLEjiNCWVmlpMeho55Gs8hlqvtHlqP3ZlvjdEImA3Q3oME2g5rmfwgEWqeqaR2nXGzaL1C9Klyv3oQGZKcnyTfPzpIWPVtDgnzyLqZ+h/F4Pw1drhGKKAEWiV9ZA4S8e8vB7Xz96JJGXGIbUYhGDZrOm1kNsCzrXJm9IQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=H5NQiYxxOHW9PpMkHfJZ0LtFrNF2iPpw1yV2Jkte93s=;
+ b=sBtD0UeDnndqLghBxX0d96UIR3u3xEwKJmEqAajN1kkSgA6GXyv+VKcgyoKQs1vhf0NX105gmsoHQMPqdP4MuVk4dB5Ga0oAn6UwWZRyskgNTBreIYkhqrHSHu5kVSzHRW4nJSfHRVuCdIXoyeY5mXxOEX2bNXf86/iwMWIu0yG04vxF1JdyDHkwWn1NXE7ez5b+1AzwzQHbfp9G3x7jzCUPftfSA9M/lB/khm6i3W5RqtDhIJGrEZqg22JjQroxHlkWUqUbd2DqR1iVqwugMBCrfSX5ptbL8qwDW9bGBU4CofzIcgdUthtUYUk2KnKH2bK2QwcYxKkdPuaGnL7maQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=H5NQiYxxOHW9PpMkHfJZ0LtFrNF2iPpw1yV2Jkte93s=;
+ b=K3/hOaGCtGGal35BAPpyv/Ci1fqEtGrObpTiFcUus6Z8lTy34OTu7uhYQ+kb2KENGIt4gs5C0NKNHWD09gxtO/tnYe7mBVgssCJvH3MvthS6vfkNAfdoWaLolNmH0GSBZYhvL6ZzWkI0a8dwW16bqmH13umhixHtOr1GLsejC+w=
+Received: from MN2PR20CA0044.namprd20.prod.outlook.com (2603:10b6:208:235::13)
+ by SA1PR12MB7409.namprd12.prod.outlook.com (2603:10b6:806:29c::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8137.18; Tue, 5 Nov
+ 2024 17:44:28 +0000
+Received: from BN1PEPF00004688.namprd05.prod.outlook.com
+ (2603:10b6:208:235:cafe::a4) by MN2PR20CA0044.outlook.office365.com
+ (2603:10b6:208:235::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.31 via Frontend
+ Transport; Tue, 5 Nov 2024 17:44:28 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN1PEPF00004688.mail.protection.outlook.com (10.167.243.133) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8137.17 via Frontend Transport; Tue, 5 Nov 2024 17:44:28 +0000
+Received: from jonathan-KFD.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 5 Nov
+ 2024 11:44:27 -0600
+From: Jonathan Kim <jonathan.kim@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <David.Belanger@amd.com>, Jonathan Kim <jonathan.kim@amd.com>
+Subject: [PATCH] drm/amdkfd: remove gfx 12 trap handler page size cap
+Date: Tue, 5 Nov 2024 12:44:21 -0500
+Message-ID: <20241105174421.255188-1-jonathan.kim@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20241105060531.3503788-3-Jiqian.Chen@amd.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF00004688:EE_|SA1PR12MB7409:EE_
+X-MS-Office365-Filtering-Correlation-Id: 68b21e81-3e63-4582-847c-08dcfdc17f4d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|1800799024|376014|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?M+QdoP6I0eCMBso8qgo7KKXKY+XvH3To/4JV221UORzSRArDyMhnRu1o2Mie?=
+ =?us-ascii?Q?71PHJgsjMKwCTPoFXOlKPUWEzWCKIKbA/NkOU2dwUmP+jzmqV2ByPfWOkxeh?=
+ =?us-ascii?Q?gEtJUkgcvKLEr/MAdtrk5uQe5U2GvWQuQwjvs7gUFf+r7/NE82J2PWxFH7Wa?=
+ =?us-ascii?Q?C0D0gs0SPa6hpGyhzgkZef5aH8ZA4bBtZtey52yaQojwcjO5Qtu+NVGobd7X?=
+ =?us-ascii?Q?Psiq++zssFL1c5SazkISAgVjxVsJUsNAglu9EyKekuSKkcmom+Iqw95L3c7U?=
+ =?us-ascii?Q?cMcBy8OoMl3H1b8UE/j/qleSyFiDlCxrMoxSECEyTlW9Qbiwf+5Uy1cmkXHc?=
+ =?us-ascii?Q?jHSjnvFmAgMSfXXjA3xi3DFu/eeMXgF2j0OeAnTSXxAWTowRwkfLLxk+qrSl?=
+ =?us-ascii?Q?U5xZ62P/RunGsjQIMWxZr0qA4jmURLhpHk+ClWqPRR1UUk5WN5jyEcyyQsOK?=
+ =?us-ascii?Q?CFHZsBgU/biYGYMgn9phpPAl0bW/6cpXKoe4rwOSnTmSNj12lmJgKqe+O7Uk?=
+ =?us-ascii?Q?Hs/qD/pSstx6QpvmmN/dU5hL7IhEGYiZUPhMpgA2cYzuq5f5Cq5TK0cer7Fs?=
+ =?us-ascii?Q?QaQBBlzBaNwtBI19bA9A1TLl3ctnJZ7lO/3KzK3nnKF5cZCt1FYrmx8pn2y6?=
+ =?us-ascii?Q?GBVlKvR9XkNMMj0c6ELAkyK/gXnscbPHuNbN6VAsJNg+28jHASUNK6rC9V0K?=
+ =?us-ascii?Q?9ReliTaJNfU5TsH/VIkmu9hHc6NU9AL4GP8Mko+JigA5bjSU5R2N5YIwyBuP?=
+ =?us-ascii?Q?mZqZbpxW/4YjFGRP6kejJSAM4wFPOqMHZR7RNKiN7mXC29lRQ2v11Yf5UrpO?=
+ =?us-ascii?Q?xFtN714ZZxh+WHwYyzOiS5YdWbPwQRFGFs0qIeg73fdqr2NTz4VnKybRl6QU?=
+ =?us-ascii?Q?c8l9QCsYuHurGR4oi/G2icSHCU00KUD1SOEi/pkfIPxPqV9c0ZjKJ+AxOD3X?=
+ =?us-ascii?Q?HTyeGqDcOHP4HB8IJGna16g5lEPPQDPKB1rrGrP8QJe0thi3HIf1RJZq7SRG?=
+ =?us-ascii?Q?5Gk21PQ78ts7kLptL/uhPHLWrsTwgQffF5M1WtXGnNSScTewl7FVjOHQXJRt?=
+ =?us-ascii?Q?ModG0OgLOk6e/y+0zVAawcQIOY6U/mIKzxMBN6Yn6uKdpuGCVYZGPQaRO72n?=
+ =?us-ascii?Q?+wtTd7zS2X5FaT/KExXrIJ/78xt6WksCo2yQLrjdZRjVE2zhqDWgo+Xs6cL8?=
+ =?us-ascii?Q?xBSqazqYTvtcYZITLR/Or7z+ycpbvBGv78cu/vx+6tf4TEDqKCjj1faHGRth?=
+ =?us-ascii?Q?XSc+jO4vqKNmVQGuseUghKI64WJevMdhoUMDGQsD9PE3nnx0VGMoIpqCmTqX?=
+ =?us-ascii?Q?fQ5VWzha6Am9kZhBlO+FXmpA4+Z42YjwlQ8KBfdC0LFnts9ED0/7itN5jazS?=
+ =?us-ascii?Q?/qP4wXr4R9rQji6TjZYdyTtMqq+LrI8h6NpfPesSgBlQYwOVWQ=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(376014)(36860700013); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2024 17:44:28.5444 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 68b21e81-3e63-4582-847c-08dcfdc17f4d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00004688.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7409
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,155 +128,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Jiqian,
+GFX 12 does not require a page size cap for the trap handler because
+it does not require a CWSR work around like GFX 11 did.
 
-kernel test robot noticed the following build errors:
+Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_device.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-[auto build test ERROR on linus/master]
-[also build test ERROR on v6.12-rc6 next-20241105]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Jiqian-Chen/drm-amdgpu-set-passthrough-mode-for-xen-pvh-hvm/20241105-141716
-base:   linus/master
-patch link:    https://lore.kernel.org/r/20241105060531.3503788-3-Jiqian.Chen%40amd.com
-patch subject: [PATCH 2/2] drm/amdgpu: Bypass resizing bars for PVH dom0
-config: arm64-allmodconfig (https://download.01.org/0day-ci/archive/20241106/202411060019.p34zs7ce-lkp@intel.com/config)
-compiler: clang version 20.0.0git (https://github.com/llvm/llvm-project 639a7ac648f1e50ccd2556e17d401c04f9cce625)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20241106/202411060019.p34zs7ce-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202411060019.p34zs7ce-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   In file included from drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:33:
-   In file included from include/linux/iommu.h:10:
-   In file included from include/linux/scatterlist.h:8:
-   In file included from include/linux/mm.h:2213:
-   include/linux/vmstat.h:504:43: warning: arithmetic between different enumeration types ('enum zone_stat_item' and 'enum numa_stat_item') [-Wenum-enum-conversion]
-     504 |         return vmstat_text[NR_VM_ZONE_STAT_ITEMS +
-         |                            ~~~~~~~~~~~~~~~~~~~~~ ^
-     505 |                            item];
-         |                            ~~~~
-   include/linux/vmstat.h:511:43: warning: arithmetic between different enumeration types ('enum zone_stat_item' and 'enum numa_stat_item') [-Wenum-enum-conversion]
-     511 |         return vmstat_text[NR_VM_ZONE_STAT_ITEMS +
-         |                            ~~~~~~~~~~~~~~~~~~~~~ ^
-     512 |                            NR_VM_NUMA_EVENT_ITEMS +
-         |                            ~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/vmstat.h:518:36: warning: arithmetic between different enumeration types ('enum node_stat_item' and 'enum lru_list') [-Wenum-enum-conversion]
-     518 |         return node_stat_name(NR_LRU_BASE + lru) + 3; // skip "nr_"
-         |                               ~~~~~~~~~~~ ^ ~~~
-   include/linux/vmstat.h:524:43: warning: arithmetic between different enumeration types ('enum zone_stat_item' and 'enum numa_stat_item') [-Wenum-enum-conversion]
-     524 |         return vmstat_text[NR_VM_ZONE_STAT_ITEMS +
-         |                            ~~~~~~~~~~~~~~~~~~~~~ ^
-     525 |                            NR_VM_NUMA_EVENT_ITEMS +
-         |                            ~~~~~~~~~~~~~~~~~~~~~~
->> drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:1542:6: error: call to undeclared function 'xen_initial_domain'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-    1542 |         if (xen_initial_domain() && xen_pvh_domain())
-         |             ^
->> drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:1542:30: error: call to undeclared function 'xen_pvh_domain'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-    1542 |         if (xen_initial_domain() && xen_pvh_domain())
-         |                                     ^
-   4 warnings and 2 errors generated.
-
-
-vim +/xen_initial_domain +1542 drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-
-  1519	
-  1520	/**
-  1521	 * amdgpu_device_resize_fb_bar - try to resize FB BAR
-  1522	 *
-  1523	 * @adev: amdgpu_device pointer
-  1524	 *
-  1525	 * Try to resize FB BAR to make all VRAM CPU accessible. We try very hard not
-  1526	 * to fail, but if any of the BARs is not accessible after the size we abort
-  1527	 * driver loading by returning -ENODEV.
-  1528	 */
-  1529	int amdgpu_device_resize_fb_bar(struct amdgpu_device *adev)
-  1530	{
-  1531		int rbar_size = pci_rebar_bytes_to_size(adev->gmc.real_vram_size);
-  1532		struct pci_bus *root;
-  1533		struct resource *res;
-  1534		unsigned int i;
-  1535		u16 cmd;
-  1536		int r;
-  1537	
-  1538		if (!IS_ENABLED(CONFIG_PHYS_ADDR_T_64BIT))
-  1539			return 0;
-  1540	
-  1541		/* Bypass for PVH dom0 which doesn't support resizable bar */
-> 1542		if (xen_initial_domain() && xen_pvh_domain())
-  1543			return 0;
-  1544	
-  1545		/* Bypass for VF */
-  1546		if (amdgpu_sriov_vf(adev))
-  1547			return 0;
-  1548	
-  1549		/* PCI_EXT_CAP_ID_VNDR extended capability is located at 0x100 */
-  1550		if (!pci_find_ext_capability(adev->pdev, PCI_EXT_CAP_ID_VNDR))
-  1551			DRM_WARN("System can't access extended configuration space, please check!!\n");
-  1552	
-  1553		/* skip if the bios has already enabled large BAR */
-  1554		if (adev->gmc.real_vram_size &&
-  1555		    (pci_resource_len(adev->pdev, 0) >= adev->gmc.real_vram_size))
-  1556			return 0;
-  1557	
-  1558		/* Check if the root BUS has 64bit memory resources */
-  1559		root = adev->pdev->bus;
-  1560		while (root->parent)
-  1561			root = root->parent;
-  1562	
-  1563		pci_bus_for_each_resource(root, res, i) {
-  1564			if (res && res->flags & (IORESOURCE_MEM | IORESOURCE_MEM_64) &&
-  1565			    res->start > 0x100000000ull)
-  1566				break;
-  1567		}
-  1568	
-  1569		/* Trying to resize is pointless without a root hub window above 4GB */
-  1570		if (!res)
-  1571			return 0;
-  1572	
-  1573		/* Limit the BAR size to what is available */
-  1574		rbar_size = min(fls(pci_rebar_get_possible_sizes(adev->pdev, 0)) - 1,
-  1575				rbar_size);
-  1576	
-  1577		/* Disable memory decoding while we change the BAR addresses and size */
-  1578		pci_read_config_word(adev->pdev, PCI_COMMAND, &cmd);
-  1579		pci_write_config_word(adev->pdev, PCI_COMMAND,
-  1580				      cmd & ~PCI_COMMAND_MEMORY);
-  1581	
-  1582		/* Free the VRAM and doorbell BAR, we most likely need to move both. */
-  1583		amdgpu_doorbell_fini(adev);
-  1584		if (adev->asic_type >= CHIP_BONAIRE)
-  1585			pci_release_resource(adev->pdev, 2);
-  1586	
-  1587		pci_release_resource(adev->pdev, 0);
-  1588	
-  1589		r = pci_resize_resource(adev->pdev, 0, rbar_size);
-  1590		if (r == -ENOSPC)
-  1591			DRM_INFO("Not enough PCI address space for a large BAR.");
-  1592		else if (r && r != -ENOTSUPP)
-  1593			DRM_ERROR("Problem resizing BAR0 (%d).", r);
-  1594	
-  1595		pci_assign_unassigned_bus_resources(adev->pdev->bus);
-  1596	
-  1597		/* When the doorbell or fb BAR isn't available we have no chance of
-  1598		 * using the device.
-  1599		 */
-  1600		r = amdgpu_doorbell_init(adev);
-  1601		if (r || (pci_resource_flags(adev->pdev, 0) & IORESOURCE_UNSET))
-  1602			return -ENODEV;
-  1603	
-  1604		pci_write_config_word(adev->pdev, PCI_COMMAND, cmd);
-  1605	
-  1606		return 0;
-  1607	}
-  1608	
-
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+index 348925254bff..4705ebb07ba0 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+@@ -534,7 +534,6 @@ static void kfd_cwsr_init(struct kfd_dev *kfd)
+ 			kfd->cwsr_isa = cwsr_trap_gfx11_hex;
+ 			kfd->cwsr_isa_size = sizeof(cwsr_trap_gfx11_hex);
+ 		} else {
+-			BUILD_BUG_ON(sizeof(cwsr_trap_gfx12_hex) > PAGE_SIZE);
+ 			kfd->cwsr_isa = cwsr_trap_gfx12_hex;
+ 			kfd->cwsr_isa_size = sizeof(cwsr_trap_gfx12_hex);
+ 		}
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+2.34.1
+
