@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19825D2B932
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 Nov 2024 14:06:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D915D2B92E
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 Nov 2024 14:06:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B6ECF10E5B7;
-	Tue,  5 Nov 2024 14:06:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0AA6010E5BA;
+	Tue,  5 Nov 2024 14:06:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="BGHElfD9";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="U6Rjy3YS";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2070.outbound.protection.outlook.com [40.107.92.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0BBCA10E5B4
- for <amd-gfx@lists.freedesktop.org>; Tue,  5 Nov 2024 14:06:47 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on2058.outbound.protection.outlook.com [40.107.95.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 92EF810E5BA
+ for <amd-gfx@lists.freedesktop.org>; Tue,  5 Nov 2024 14:06:50 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=a3MDvm7LhhDGb8LA/T44lzciM5BdguQ0J95fwRhNfm1LDo+Uca+/L4VtWoUsw7j52iL/DcUkMm56c+TCbmQcvrAkGKLku3z2eUiuF31u+JiS8CzMcxdbCYQWOl+HqL+ZrCMrrv2qYiIeoyE0zAtHkf53f9cuWxIlEE8rMS0/pW/6VoZyH49MFGSlYJmMH/hIxgWIS1m9hOt1DI/i/dZz95NFMBzAOoEOy7GuxAJJrowQhkGTiPJ8cWAcnHlJZU9j3kbSyEqYCkN1qJxIp/w5MaSaJ2qS4LzZxyVpmzekUL+bBDLEuSeucDdLrAKwIae4d/5CE9q7VJyqvjoShiXJmg==
+ b=GZaDZ/JI/fuaY0GTQrSDC7Y+nLXV/RT5xZCZTIOKX73D/JGOrTexZWWzELYRXgXcsejX2DUtG/I3IxRwaFKZ7JgSVoamom9a/6ZpJSn79zrau7gGhlyUhyxfdYCqDuem02jI14NcGh3SZUkrRKn3yYOOkgTRtKjie1ujI9AfVLSQxCXNVonniCcKmxmoPCG98EH99R6t0tlrCCYQ1KSf7LrbSWQkbCVHHe1epfGhzl4tB8sQOqNMkYh9tFjSTMIZ2JoyI/f05paQnKNEAAGWHrzwiTGMVhc5YnlM4+zqY7/Q5KJjdNTRsJ6vIWar+hTJVwPubrz2RbshNbv/LdCPqg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=K2KUvHR1AHU3iYTvGJwlh40VPMpx8PgFKUk2Xkt/Uj0=;
- b=DTOmQVoycUhoPrkFUk9jl28uaVl4Rv8IEjXuwdtTLKHMMA96DNScm955yNrxKyE1twQkNu+12iO1af+l/3ufjP95TKAjMWjA/bbssNqnC06u5+tuZnkp69SIbBydcqZUeGfpjBIqvFzLs5bepIvxe8NNkibvaBunC70WMEaTOiNGdacrvJou3tIER1vXnaLX+66wLIFgxTH3SVAZulPGZx8L3JRRemEKDZrmfzujLpHUeuNAcOgsShzU2SUZqVpaXtu5un6FYE4RA8M0UNfu6552Vk/442OPO8rgVTAGtHuWHuZgxBgGFG6jvbiCWCdsIrYJ+z1ryMmkaYbHpL6FMA==
+ bh=9+S7QbGEIhe4cSLtprMQ4nnE0SKLPXLSzNdbhhsBCfY=;
+ b=ODou3FsWIuZ9LMg0CkUz3yvpUnlknk7MeWhL/9f6UTfZnx+4YjQBprvafSrMz08RY5cI+EovbunuhJue/+iR1Cmz3Bxfym8nB05GBZXVTfTUSF5TOendO050misu/0kOTLz4S5kZ/YBWrEVOPyQCsuYkxmY+pbWrMucxkY9HeJORNl5+l05jkB4cquCfY27hzZ/XPF0jL+x5r1HeZ8bw3xtm5l7iz6mczIBu8N9RbjVy/17Lvdfjt34+ZeIVg4GvUXRHXhf6L9PuMCHr1+9eAFkh1A9q90FSkAnax7i1iMlaebvKbyvxRWhtPRKCaSIZG0P0SrnDjJlJilZtnl2heA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=K2KUvHR1AHU3iYTvGJwlh40VPMpx8PgFKUk2Xkt/Uj0=;
- b=BGHElfD9UP4YnIe3pexpd4lquXpOyalenWtv/5im+VPaC88Gt86FXctdMB9HAzZM3iannkKhgxAJ9IJnUaTsWx/UC2qf9u8979EHXi4XbQ5jL3LmORsWtCdZbmps5a0UIObVaQNJ6HMDefd+AtZm9gWHZThoqE011IcbQ5SHqZM=
-Received: from MW4PR04CA0331.namprd04.prod.outlook.com (2603:10b6:303:8a::6)
- by PH7PR12MB7819.namprd12.prod.outlook.com (2603:10b6:510:27f::5) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=9+S7QbGEIhe4cSLtprMQ4nnE0SKLPXLSzNdbhhsBCfY=;
+ b=U6Rjy3YSAXR235GqhPO6+VsPD6uEdF9g4gt3YdgpDfngLtADRz7EpJFsGRIuw2bcEg0S+f/GzPQs3fkrAgOiajfU7xtqwmaegnDh2D6Bl+i/Jirb2drSnU+tDyFjAoGKEeGrhvpzskQxIver291dM7qyAe9KU873OuoPiEBftqs=
+Received: from MW4PR04CA0359.namprd04.prod.outlook.com (2603:10b6:303:8a::34)
+ by MW6PR12MB8915.namprd12.prod.outlook.com (2603:10b6:303:23e::16)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.30; Tue, 5 Nov
- 2024 14:06:44 +0000
+ 2024 14:06:42 +0000
 Received: from CO1PEPF000044F3.namprd05.prod.outlook.com
- (2603:10b6:303:8a:cafe::d0) by MW4PR04CA0331.outlook.office365.com
- (2603:10b6:303:8a::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.30 via Frontend
- Transport; Tue, 5 Nov 2024 14:06:43 +0000
+ (2603:10b6:303:8a:cafe::a3) by MW4PR04CA0359.outlook.office365.com
+ (2603:10b6:303:8a::34) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.31 via Frontend
+ Transport; Tue, 5 Nov 2024 14:06:42 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,18 +50,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1PEPF000044F3.mail.protection.outlook.com (10.167.241.73) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8137.17 via Frontend Transport; Tue, 5 Nov 2024 14:06:43 +0000
+ 15.20.8137.17 via Frontend Transport; Tue, 5 Nov 2024 14:06:42 +0000
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 5 Nov
- 2024 08:06:42 -0600
+ 2024 08:06:41 -0600
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <yaolu@kylinos.cn>, <jfalempe@redhat.com>, Alex Deucher
  <alexander.deucher@amd.com>
-Subject: [PATCH 4/5] drm/amd/display: add DC drm_panic support
-Date: Tue, 5 Nov 2024 09:06:23 -0500
-Message-ID: <20241105140624.2897662-5-alexander.deucher@amd.com>
+Subject: [PATCH 2/5] drm/amd/display: add clear_tiling hubp callbacks
+Date: Tue, 5 Nov 2024 09:06:21 -0500
+Message-ID: <20241105140624.2897662-3-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.47.0
 In-Reply-To: <20241105140624.2897662-1-alexander.deucher@amd.com>
 References: <20241105140624.2897662-1-alexander.deucher@amd.com>
@@ -73,50 +73,50 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000044F3:EE_|PH7PR12MB7819:EE_
-X-MS-Office365-Filtering-Correlation-Id: d84e9a77-f3c6-4e1a-fd13-08dcfda31419
+X-MS-TrafficTypeDiagnostic: CO1PEPF000044F3:EE_|MW6PR12MB8915:EE_
+X-MS-Office365-Filtering-Correlation-Id: a5d6bdcb-b655-4593-54e1-08dcfda3134f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|376014|1800799024|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?iilOTX6o0BRyS20TN9o0hDD0NxU1NmnjpjMUAPk4OVRIMpZDg2ePRhjWdul/?=
- =?us-ascii?Q?rQ+wG58CDQpjWjwsIu8mZyjbXeg9hSHSrorN1SQ3VzfXT38dYFxR2bADM04u?=
- =?us-ascii?Q?HD1se/dkJJGmDvNgCvQYwin10OAsnLSi9ehP+Rs8FC1avTDLEZfoyL7sJazm?=
- =?us-ascii?Q?UcOoKFv4+c6Qumrr/jdu3s2qoAknY2BXFaKORLZ+ADKmYnvYRw6tzxe0rYkf?=
- =?us-ascii?Q?v4YvpI77vn4bpxy3LIuSAVC8ogVqdKl3oFu6Uyh0BoFXv++rgN8jyCYabM4f?=
- =?us-ascii?Q?uDfs+k1BnldxbBloWXj5qy+t7hpficlEmFQCr7uW+uVa6AfooFDddPgcAnME?=
- =?us-ascii?Q?8+4UNnAc4DKdFXQ7k89wzCF94xU5PWs83dtXAZtql6u1wQpVIbBYGeA5tFVH?=
- =?us-ascii?Q?VAxGDJYP8sjRQbeLVJnpeUyG0IxqJd+hqHu9YhtqlQIxSgsEUg3Z0uwrsDnK?=
- =?us-ascii?Q?D91hfge5A5amy6mQOUSTsTso+SxZft2WYvCuixn9jtFj94ByiZvCEKa+FNzp?=
- =?us-ascii?Q?WTgwosWrJz9l1ZSU8KDaw2AWdAIB49qD9uR7RQZW4AwVhf5WbMz7TrMmdMNe?=
- =?us-ascii?Q?OD75RqXPest3YZjxC9cY2RjOaiAyJez9sw5DiTM0FyQ9ewHWyBo0OgkYJzKQ?=
- =?us-ascii?Q?wPqIe/y4Tx32PExW0eLXdtZi/1cbfcOJN6T9WOuaTQB+Tsy0mChBuIby9KXa?=
- =?us-ascii?Q?ryz4PVKI0rO3pK8H6KCsFmyBDije3vDPTQ40bjbIVoIb7yPIaVxNMboUF5tj?=
- =?us-ascii?Q?uHFkPPVO1QjpUZa7lNv1oH3AWnvoISJTg0roV8QiK/COlp2OquIJ9XwWtbiQ?=
- =?us-ascii?Q?Lz/PZKGnDEQysPgicAnife27dgk7sl0xjG1S78z157C5BY2Ze5KvzZldQa6N?=
- =?us-ascii?Q?AlKGxJB+2dN5tCbMMCpgaUjJlUVlONwgwM0mBTUjiyhXdb055BpuSPn95F6y?=
- =?us-ascii?Q?OEvxxYlAbcQ9BVJ25MPWbHe8GcYblcjZzUn8xH2bPq6ard0T/ghgCVOsWVB7?=
- =?us-ascii?Q?sf0Va1Zsrce6sTjpshNLo3B3LIoYb1XKoJhzLhdOaWLf/wzDVbetVlZhp40w?=
- =?us-ascii?Q?tFWq3NqkILlyAWPzcZhkVgOqQME1E3m6xHicXijv6QKPh2dNimucd3MBqsxs?=
- =?us-ascii?Q?6WDvZDwF5yki1p9MU9UghlLesOMssV1cMTgKMKQBeOYvdODa9Bak2aVEoyj6?=
- =?us-ascii?Q?8KEN/f54v+T5b8uBw9WVh9wVfuVZjUac6QjSEWyxzlXDvk+p4yr0TVOXEj46?=
- =?us-ascii?Q?SJk6ssMG1Qia9grP4vkm4JsL/aUcmbVknmgaTUwqSjXpw9zQlZO/S7QBi5G3?=
- =?us-ascii?Q?wr3nGhmnEDYLVrtcyqH7/ftTs7OtKOxY9YD8nvzE8gk5Q9Sqzf8jYVfLQ6OM?=
- =?us-ascii?Q?LlRNG5eQFT+YMcqpHYuHRViACGIyuhdkMN9aPkiOMaptuRtK/A=3D=3D?=
+ ARA:13230040|82310400026|36860700013|376014|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?j7T7nqm5iicxTj5e/xd/HhXMS40ScatLDY+X7vb3CmK7gH1HNCoDkFbtb8DS?=
+ =?us-ascii?Q?dFmiLLHy8bLQ+j6O6v0KMyQDqT3HX5+kHX9wADYYI280mmEQDEFvyHxsjPKx?=
+ =?us-ascii?Q?4mKYyKI1xTiRM66uiRgtt3cKNFQcntaRnAuACY5I4BIPtBKPu1jzvkMlSeZ/?=
+ =?us-ascii?Q?DCdKv5X/OYJ1/aizNIFy3QzeQgpzubcIyvAHU6D+vo1kRCHvY13pXCYxZsLR?=
+ =?us-ascii?Q?EurqOPsZcm5oYbzeYwx2eALfIUO8HDQxSPt1H0unQ5xL/KmoShZCgCChnJWa?=
+ =?us-ascii?Q?mGREV4UAZS/eUszWdCdBZtncMv2TuMh7WVWFDRvWdiSZv8+Kjvy72VqpZmz5?=
+ =?us-ascii?Q?15GQ3kx3feBfQvcZ3HparlXmH60yEvf9WiH1jKTB8DdsuUWlxGRn44+DMYoh?=
+ =?us-ascii?Q?sDm2NnKTX/UvgDlnKv7enSA/qeLvvDDMRb7zN3JARpTsiN8Rjp65SZ5Ol+xz?=
+ =?us-ascii?Q?4ATsH339AWknbOrdD7F0jeH7gXfsuUSMd7ZIHrD+Guw2ibvK9H5wF32egKze?=
+ =?us-ascii?Q?0AqSNvosgM7p+1yYSfCS/isiEYjrAtIVHG4NQVw3nfjpthnQuXXMhanp/zfY?=
+ =?us-ascii?Q?dnM4AKGC4nHYPQnZXNOVv26Hz4E27ccv0XWLng0dy/ETRTc8cQA5gZwaC5j/?=
+ =?us-ascii?Q?bG+o7I5wmykYdILLFlAL9PWaDmh79ZXLiLaCKvS1rsCL9QFcAv4GbL6HTZg6?=
+ =?us-ascii?Q?4CUXrhBjmDGlVtP9hx900vdjd7MDr2BNUllygANCSxTiNNkDJ3iPGN+egsgu?=
+ =?us-ascii?Q?uZcgbQbdauTLwKhmeKxC/JrevcbpBrJteQ5x0OhrVacE6MVmrWO9bHAS13V5?=
+ =?us-ascii?Q?yR2wmHucv/qKWoAMiICfaW7EzCUvSzj/E6BZ37CxT7GhpBtTTu0dmp0JMRm6?=
+ =?us-ascii?Q?BjAWWLmL7Ys8OPPagvHv/YHTuVYZ2MNU2rLc1uYNCk02CUAq0sgRY+wBl6h4?=
+ =?us-ascii?Q?7XJ5sLPH4f6NwlgWS9LQbgfnSiqoihD5V2uzr8NHSxZutHqxdKGRat2FbOkt?=
+ =?us-ascii?Q?gF1oKNcI2IRWrAkDUB2LG5MWzea1hgVSzfFaOuj/GSwxJdtF14gskbBK1hCM?=
+ =?us-ascii?Q?6KLTYfaVg34pImpL+TCc46ZZbqOm/3BJ+tabmMGMuPP93F/dbY/qDJq/rvOv?=
+ =?us-ascii?Q?AN0ZNZFI1aqo+yhOy8MtcjnuIQcwm3DJ5Ak3o7HpjRaPQhGziLz+Ayu43a/z?=
+ =?us-ascii?Q?SwcEfNsAPITPrK4ubxLXsk7lr7W2AcaQ/C/A5+BcAnPg9kcHzDsFXaSKhOak?=
+ =?us-ascii?Q?SwNOVhJcCRVerhKLcTAcwOu7fboV1vNXjxNrYRpl/q7oFEVnxPv9lhhC6OMY?=
+ =?us-ascii?Q?NaT9FVK9zPp3BGjgi/PCmIvoY0SPpMRTEXK6ZpJUILxvspCN/UV4HseSIecS?=
+ =?us-ascii?Q?34+aF8Yq4lSECYk2HjeyAnbzGl74+XNZIVKELYw3EsXzRNj7iQ=3D=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(376014)(1800799024)(82310400026); DIR:OUT;
+ SFS:(13230040)(82310400026)(36860700013)(376014)(1800799024); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2024 14:06:43.6793 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d84e9a77-f3c6-4e1a-fd13-08dcfda31419
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2024 14:06:42.3511 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a5d6bdcb-b655-4593-54e1-08dcfda3134f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000044F3.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7819
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8915
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,159 +131,287 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Jocelyn Falempe <jfalempe@redhat.com>
+This adds clear_tiling callbacks to the hubp structure that
+will be used for drm panic support to clear the tiling on
+a display.  hubp3 support from Jocelyn's original patch
+and the rest from me.
 
-Add support for the drm_panic module, which displays a pretty user
-friendly message on the screen when a Linux kernel panic occurs.
-
-It doesn't work yet on laptop panels, maybe due to PSR.
-
-Adapted from Jocelyn's original patch to add DC drm_panic
-support.
-
-Signed-off-by: Jocelyn Falempe <jfalempe@redhat.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Cc: Lu Yao <yaolu@kylinos.cn>
 Cc: Jocelyn Falempe <jfalempe@redhat.com>
 ---
- .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 103 +++++++++++++++++-
- 1 file changed, 102 insertions(+), 1 deletion(-)
+ .../drm/amd/display/dc/hubp/dcn10/dcn10_hubp.c  | 15 +++++++++++++++
+ .../drm/amd/display/dc/hubp/dcn10/dcn10_hubp.h  |  2 ++
+ .../drm/amd/display/dc/hubp/dcn20/dcn20_hubp.c  | 15 +++++++++++++++
+ .../drm/amd/display/dc/hubp/dcn20/dcn20_hubp.h  |  2 ++
+ .../amd/display/dc/hubp/dcn201/dcn201_hubp.c    |  1 +
+ .../drm/amd/display/dc/hubp/dcn21/dcn21_hubp.c  |  1 +
+ .../drm/amd/display/dc/hubp/dcn30/dcn30_hubp.c  | 17 +++++++++++++++++
+ .../drm/amd/display/dc/hubp/dcn30/dcn30_hubp.h  |  2 ++
+ .../drm/amd/display/dc/hubp/dcn31/dcn31_hubp.c  |  1 +
+ .../drm/amd/display/dc/hubp/dcn32/dcn32_hubp.c  |  3 ++-
+ .../drm/amd/display/dc/hubp/dcn35/dcn35_hubp.c  |  1 +
+ .../amd/display/dc/hubp/dcn401/dcn401_hubp.c    | 15 ++++++++++++++-
+ .../amd/display/dc/hubp/dcn401/dcn401_hubp.h    |  2 ++
+ drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h    |  1 +
+ 14 files changed, 76 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-index 495e3cd70426..5ba64e7ad3f3 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-@@ -26,6 +26,7 @@
- 
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_blend.h>
-+#include "drm/drm_framebuffer.h"
- #include <drm/drm_gem_atomic_helper.h>
- #include <drm/drm_plane_helper.h>
- #include <drm/drm_gem_framebuffer_helper.h>
-@@ -1421,6 +1422,93 @@ static void amdgpu_dm_plane_atomic_async_update(struct drm_plane *plane,
- 	amdgpu_dm_plane_handle_cursor_update(plane, old_state);
+diff --git a/drivers/gpu/drm/amd/display/dc/hubp/dcn10/dcn10_hubp.c b/drivers/gpu/drm/amd/display/dc/hubp/dcn10/dcn10_hubp.c
+index 22ac2b7e49ae..f0ba944553df 100644
+--- a/drivers/gpu/drm/amd/display/dc/hubp/dcn10/dcn10_hubp.c
++++ b/drivers/gpu/drm/amd/display/dc/hubp/dcn10/dcn10_hubp.c
+@@ -518,6 +518,20 @@ bool hubp1_program_surface_flip_and_addr(
+ 	return true;
  }
  
-+static void amdgpu_dm_plane_panic_flush(struct drm_plane *plane)
++void hubp1_clear_tiling(struct hubp *hubp)
 +{
-+	struct dm_plane_state *dm_plane_state = to_dm_plane_state(plane->state);
-+	struct drm_framebuffer *fb = plane->state->fb;
-+	struct dc_plane_state *dc_plane_state;
-+	struct dc *dc;
-+	int i;
++	struct dcn10_hubp *hubp1 = TO_DCN10_HUBP(hubp);
 +
-+	if (!dm_plane_state || !dm_plane_state->dc_state)
-+		return;
++	REG_UPDATE(DCHUBP_REQ_SIZE_CONFIG, SWATH_HEIGHT, 0);
++	REG_UPDATE(DCSURF_TILING_CONFIG, SW_MODE, DC_SW_LINEAR);
 +
-+	dc_plane_state = dm_plane_state->dc_state;
-+	dc = dc_plane_state->ctx->dc;
-+	if (!dc || !dc->current_state)
-+		return;
-+
-+	for (i = 0; i < dc->res_pool->pipe_count; i++) {
-+		struct pipe_ctx *pipe_ctx = &dc->current_state->res_ctx.pipe_ctx[i];
-+		struct hubp *hubp;
-+		struct mem_input *mi;
-+
-+		if (!pipe_ctx)
-+			continue;
-+
-+		switch (dc->ctx->dce_version) {
-+#if defined(CONFIG_DRM_AMD_DC_SI)
-+		case DCE_VERSION_6_0:
-+		case DCE_VERSION_6_1:
-+		case DCE_VERSION_6_4:
-+#endif
-+		case DCE_VERSION_8_0:
-+		case DCE_VERSION_8_1:
-+		case DCE_VERSION_8_3:
-+		case DCE_VERSION_10_0:
-+		case DCE_VERSION_11_0:
-+		case DCE_VERSION_11_2:
-+		case DCE_VERSION_11_22:
-+		case DCE_VERSION_12_0:
-+		case DCE_VERSION_12_1:
-+			mi = pipe_ctx->plane_res.mi;
-+			if (!mi)
-+				continue;
-+			/* if framebuffer is tiled, disable tiling */
-+			if (fb->modifier && mi->funcs->mem_input_clear_tiling)
-+				mi->funcs->mem_input_clear_tiling(mi);
-+
-+			/* force page flip to see the new content of the framebuffer */
-+			mi->funcs->mem_input_program_surface_flip_and_addr(mi,
-+									   &dc_plane_state->address,
-+									   true);
-+			break;
-+		case DCN_VERSION_1_0:
-+		case DCN_VERSION_1_01:
-+		case DCN_VERSION_2_0:
-+		case DCN_VERSION_2_01:
-+		case DCN_VERSION_2_1:
-+		case DCN_VERSION_3_0:
-+		case DCN_VERSION_3_01:
-+		case DCN_VERSION_3_02:
-+		case DCN_VERSION_3_03:
-+		case DCN_VERSION_3_1:
-+		case DCN_VERSION_3_14:
-+		case DCN_VERSION_3_16:
-+		case DCN_VERSION_3_15:
-+		case DCN_VERSION_3_2:
-+		case DCN_VERSION_3_21:
-+		case DCN_VERSION_3_5:
-+		case DCN_VERSION_3_51:
-+		case DCN_VERSION_4_01:
-+			hubp = pipe_ctx->plane_res.hubp;
-+			if (!hubp)
-+				continue;
-+			/* if framebuffer is tiled, disable tiling */
-+			if (fb->modifier && hubp->funcs->hubp_clear_tiling)
-+				hubp->funcs->hubp_clear_tiling(hubp);
-+
-+			/* force page flip to see the new content of the framebuffer */
-+			hubp->funcs->hubp_program_surface_flip_and_addr(hubp,
-+									&dc_plane_state->address,
-+									true);
-+			break;
-+		default:
-+			break;
-+		}
-+	}
++	REG_UPDATE_4(DCSURF_SURFACE_CONTROL,
++		     PRIMARY_SURFACE_DCC_EN, 0,
++		     PRIMARY_SURFACE_DCC_IND_64B_BLK, 0,
++		     SECONDARY_SURFACE_DCC_EN, 0,
++		     SECONDARY_SURFACE_DCC_IND_64B_BLK, 0);
 +}
 +
- static const struct drm_plane_helper_funcs dm_plane_helper_funcs = {
- 	.prepare_fb = amdgpu_dm_plane_helper_prepare_fb,
- 	.cleanup_fb = amdgpu_dm_plane_helper_cleanup_fb,
-@@ -1429,6 +1517,16 @@ static const struct drm_plane_helper_funcs dm_plane_helper_funcs = {
- 	.atomic_async_update = amdgpu_dm_plane_atomic_async_update
+ void hubp1_dcc_control(struct hubp *hubp, bool enable,
+ 		enum hubp_ind_block_size independent_64b_blks)
+ {
+@@ -1363,6 +1377,7 @@ static const struct hubp_funcs dcn10_hubp_funcs = {
+ 	.hubp_disable_control =  hubp1_disable_control,
+ 	.hubp_get_underflow_status = hubp1_get_underflow_status,
+ 	.hubp_init = hubp1_init,
++	.hubp_clear_tiling = hubp1_clear_tiling,
+ 
+ 	.dmdata_set_attributes = NULL,
+ 	.dmdata_load = NULL,
+diff --git a/drivers/gpu/drm/amd/display/dc/hubp/dcn10/dcn10_hubp.h b/drivers/gpu/drm/amd/display/dc/hubp/dcn10/dcn10_hubp.h
+index 69119b2fdce2..631350cd4f2e 100644
+--- a/drivers/gpu/drm/amd/display/dc/hubp/dcn10/dcn10_hubp.h
++++ b/drivers/gpu/drm/amd/display/dc/hubp/dcn10/dcn10_hubp.h
+@@ -794,4 +794,6 @@ void hubp1_soft_reset(struct hubp *hubp, bool reset);
+ 
+ void hubp1_set_flip_int(struct hubp *hubp);
+ 
++void hubp1_clear_tiling(struct hubp *hubp);
++
+ #endif
+diff --git a/drivers/gpu/drm/amd/display/dc/hubp/dcn20/dcn20_hubp.c b/drivers/gpu/drm/amd/display/dc/hubp/dcn20/dcn20_hubp.c
+index 0637e4c552d8..200194544bf0 100644
+--- a/drivers/gpu/drm/amd/display/dc/hubp/dcn20/dcn20_hubp.c
++++ b/drivers/gpu/drm/amd/display/dc/hubp/dcn20/dcn20_hubp.c
+@@ -406,6 +406,20 @@ void hubp2_program_rotation(
+ 				H_MIRROR_EN, mirror);
+ }
+ 
++void hubp2_clear_tiling(struct hubp *hubp)
++{
++	struct dcn20_hubp *hubp2 = TO_DCN20_HUBP(hubp);
++
++	REG_UPDATE(DCHUBP_REQ_SIZE_CONFIG, SWATH_HEIGHT, 0);
++	REG_UPDATE(DCSURF_TILING_CONFIG, SW_MODE, DC_SW_LINEAR);
++
++	REG_UPDATE_4(DCSURF_SURFACE_CONTROL,
++		     PRIMARY_SURFACE_DCC_EN, 0,
++		     PRIMARY_SURFACE_DCC_IND_64B_BLK, 0,
++		     SECONDARY_SURFACE_DCC_EN, 0,
++		     SECONDARY_SURFACE_DCC_IND_64B_BLK, 0);
++}
++
+ void hubp2_dcc_control(struct hubp *hubp, bool enable,
+ 		enum hubp_ind_block_size independent_64b_blks)
+ {
+@@ -1676,6 +1690,7 @@ static struct hubp_funcs dcn20_hubp_funcs = {
+ 	.hubp_in_blank = hubp1_in_blank,
+ 	.hubp_soft_reset = hubp1_soft_reset,
+ 	.hubp_set_flip_int = hubp1_set_flip_int,
++	.hubp_clear_tiling = hubp2_clear_tiling,
  };
  
-+static const struct drm_plane_helper_funcs dm_primary_plane_helper_funcs = {
-+	.prepare_fb = amdgpu_dm_plane_helper_prepare_fb,
-+	.cleanup_fb = amdgpu_dm_plane_helper_cleanup_fb,
-+	.atomic_check = amdgpu_dm_plane_atomic_check,
-+	.atomic_async_check = amdgpu_dm_plane_atomic_async_check,
-+	.atomic_async_update = amdgpu_dm_plane_atomic_async_update,
-+	.get_scanout_buffer = amdgpu_display_get_scanout_buffer,
-+	.panic_flush = amdgpu_dm_plane_panic_flush,
-+};
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/hubp/dcn20/dcn20_hubp.h b/drivers/gpu/drm/amd/display/dc/hubp/dcn20/dcn20_hubp.h
+index 18e194507e36..7fd9240868c3 100644
+--- a/drivers/gpu/drm/amd/display/dc/hubp/dcn20/dcn20_hubp.h
++++ b/drivers/gpu/drm/amd/display/dc/hubp/dcn20/dcn20_hubp.h
+@@ -409,6 +409,8 @@ void hubp2_read_state_common(struct hubp *hubp);
+ 
+ void hubp2_read_state(struct hubp *hubp);
+ 
++void hubp2_clear_tiling(struct hubp *hubp);
 +
- static void amdgpu_dm_plane_drm_plane_reset(struct drm_plane *plane)
+ #endif /* __DC_MEM_INPUT_DCN20_H__ */
+ 
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/hubp/dcn201/dcn201_hubp.c b/drivers/gpu/drm/amd/display/dc/hubp/dcn201/dcn201_hubp.c
+index cd2bfcc51276..d910e4a54c34 100644
+--- a/drivers/gpu/drm/amd/display/dc/hubp/dcn201/dcn201_hubp.c
++++ b/drivers/gpu/drm/amd/display/dc/hubp/dcn201/dcn201_hubp.c
+@@ -131,6 +131,7 @@ static struct hubp_funcs dcn201_hubp_funcs = {
+ 	.hubp_clear_underflow = hubp1_clear_underflow,
+ 	.hubp_set_flip_control_surface_gsl = hubp2_set_flip_control_surface_gsl,
+ 	.hubp_init = hubp1_init,
++	.hubp_clear_tiling = hubp1_clear_tiling,
+ };
+ 
+ bool dcn201_hubp_construct(
+diff --git a/drivers/gpu/drm/amd/display/dc/hubp/dcn21/dcn21_hubp.c b/drivers/gpu/drm/amd/display/dc/hubp/dcn21/dcn21_hubp.c
+index e13d69a22c1c..edbdb8c88d5c 100644
+--- a/drivers/gpu/drm/amd/display/dc/hubp/dcn21/dcn21_hubp.c
++++ b/drivers/gpu/drm/amd/display/dc/hubp/dcn21/dcn21_hubp.c
+@@ -837,6 +837,7 @@ static struct hubp_funcs dcn21_hubp_funcs = {
+ 	.hubp_init = hubp21_init,
+ 	.validate_dml_output = hubp21_validate_dml_output,
+ 	.hubp_set_flip_int = hubp1_set_flip_int,
++	.hubp_clear_tiling = hubp1_clear_tiling,
+ };
+ 
+ bool hubp21_construct(
+diff --git a/drivers/gpu/drm/amd/display/dc/hubp/dcn30/dcn30_hubp.c b/drivers/gpu/drm/amd/display/dc/hubp/dcn30/dcn30_hubp.c
+index 60a64d290352..3b16c3cda2c3 100644
+--- a/drivers/gpu/drm/amd/display/dc/hubp/dcn30/dcn30_hubp.c
++++ b/drivers/gpu/drm/amd/display/dc/hubp/dcn30/dcn30_hubp.c
+@@ -334,6 +334,22 @@ void hubp3_program_tiling(
+ 
+ }
+ 
++void hubp3_clear_tiling(struct hubp *hubp)
++{
++	struct dcn20_hubp *hubp2 = TO_DCN20_HUBP(hubp);
++
++	REG_UPDATE(DCHUBP_REQ_SIZE_CONFIG, SWATH_HEIGHT, 0);
++	REG_UPDATE(DCSURF_TILING_CONFIG, SW_MODE, DC_SW_LINEAR);
++
++	REG_UPDATE_6(DCSURF_SURFACE_CONTROL,
++		PRIMARY_SURFACE_DCC_EN, 0,
++		PRIMARY_SURFACE_DCC_IND_BLK, 0,
++		PRIMARY_SURFACE_DCC_IND_BLK_C, 0,
++		SECONDARY_SURFACE_DCC_EN, 0,
++		SECONDARY_SURFACE_DCC_IND_BLK, 0,
++		SECONDARY_SURFACE_DCC_IND_BLK_C, 0);
++}
++
+ void hubp3_dcc_control(struct hubp *hubp, bool enable,
+ 		enum hubp_ind_block_size blk_size)
  {
- 	struct dm_plane_state *amdgpu_state = NULL;
-@@ -1855,7 +1953,10 @@ int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
- 	    plane->type != DRM_PLANE_TYPE_CURSOR)
- 		drm_plane_enable_fb_damage_clips(plane);
+@@ -512,6 +528,7 @@ static struct hubp_funcs dcn30_hubp_funcs = {
+ 	.hubp_in_blank = hubp1_in_blank,
+ 	.hubp_soft_reset = hubp1_soft_reset,
+ 	.hubp_set_flip_int = hubp1_set_flip_int,
++	.hubp_clear_tiling = hubp3_clear_tiling,
+ };
  
--	drm_plane_helper_add(plane, &dm_plane_helper_funcs);
-+	if (plane->type == DRM_PLANE_TYPE_PRIMARY)
-+		drm_plane_helper_add(plane, &dm_primary_plane_helper_funcs);
-+	else
-+		drm_plane_helper_add(plane, &dm_plane_helper_funcs);
+ bool hubp3_construct(
+diff --git a/drivers/gpu/drm/amd/display/dc/hubp/dcn30/dcn30_hubp.h b/drivers/gpu/drm/amd/display/dc/hubp/dcn30/dcn30_hubp.h
+index b010531a7fe8..cfb01bf340a1 100644
+--- a/drivers/gpu/drm/amd/display/dc/hubp/dcn30/dcn30_hubp.h
++++ b/drivers/gpu/drm/amd/display/dc/hubp/dcn30/dcn30_hubp.h
+@@ -297,6 +297,8 @@ void hubp3_read_state(struct hubp *hubp);
  
- #ifdef AMD_PRIVATE_COLOR
- 	dm_atomic_plane_attach_color_mgmt_properties(dm, plane);
+ void hubp3_init(struct hubp *hubp);
+ 
++void hubp3_clear_tiling(struct hubp *hubp);
++
+ #endif /* __DC_HUBP_DCN30_H__ */
+ 
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/hubp/dcn31/dcn31_hubp.c b/drivers/gpu/drm/amd/display/dc/hubp/dcn31/dcn31_hubp.c
+index 8394e8c06919..46b804ed05fb 100644
+--- a/drivers/gpu/drm/amd/display/dc/hubp/dcn31/dcn31_hubp.c
++++ b/drivers/gpu/drm/amd/display/dc/hubp/dcn31/dcn31_hubp.c
+@@ -96,6 +96,7 @@ static struct hubp_funcs dcn31_hubp_funcs = {
+ 	.hubp_set_flip_int = hubp1_set_flip_int,
+ 	.hubp_in_blank = hubp1_in_blank,
+ 	.program_extended_blank = hubp31_program_extended_blank,
++	.hubp_clear_tiling = hubp3_clear_tiling,
+ };
+ 
+ bool hubp31_construct(
+diff --git a/drivers/gpu/drm/amd/display/dc/hubp/dcn32/dcn32_hubp.c b/drivers/gpu/drm/amd/display/dc/hubp/dcn32/dcn32_hubp.c
+index ca5b4b28a664..8b5bd73b8094 100644
+--- a/drivers/gpu/drm/amd/display/dc/hubp/dcn32/dcn32_hubp.c
++++ b/drivers/gpu/drm/amd/display/dc/hubp/dcn32/dcn32_hubp.c
+@@ -201,7 +201,8 @@ static struct hubp_funcs dcn32_hubp_funcs = {
+ 	.hubp_update_force_cursor_pstate_disallow = hubp32_update_force_cursor_pstate_disallow,
+ 	.phantom_hubp_post_enable = hubp32_phantom_hubp_post_enable,
+ 	.hubp_update_mall_sel = hubp32_update_mall_sel,
+-	.hubp_prepare_subvp_buffering = hubp32_prepare_subvp_buffering
++	.hubp_prepare_subvp_buffering = hubp32_prepare_subvp_buffering,
++	.hubp_clear_tiling = hubp3_clear_tiling,
+ };
+ 
+ bool hubp32_construct(
+diff --git a/drivers/gpu/drm/amd/display/dc/hubp/dcn35/dcn35_hubp.c b/drivers/gpu/drm/amd/display/dc/hubp/dcn35/dcn35_hubp.c
+index d1f05b82b3dd..eb62042dfafc 100644
+--- a/drivers/gpu/drm/amd/display/dc/hubp/dcn35/dcn35_hubp.c
++++ b/drivers/gpu/drm/amd/display/dc/hubp/dcn35/dcn35_hubp.c
+@@ -216,6 +216,7 @@ static struct hubp_funcs dcn35_hubp_funcs = {
+ 	.hubp_set_flip_int = hubp1_set_flip_int,
+ 	.hubp_in_blank = hubp1_in_blank,
+ 	.program_extended_blank = hubp31_program_extended_blank_value,
++	.hubp_clear_tiling = hubp3_clear_tiling,
+ };
+ 
+ bool hubp35_construct(
+diff --git a/drivers/gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.c b/drivers/gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.c
+index b1ebf5053b4f..2d2ec8562e78 100644
+--- a/drivers/gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.c
++++ b/drivers/gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.c
+@@ -508,6 +508,18 @@ bool hubp401_program_surface_flip_and_addr(
+ 	return true;
+ }
+ 
++void hubp401_clear_tiling(struct hubp *hubp)
++{
++	struct dcn20_hubp *hubp2 = TO_DCN20_HUBP(hubp);
++
++	REG_UPDATE(DCHUBP_REQ_SIZE_CONFIG, SWATH_HEIGHT, 0);
++	REG_UPDATE(DCSURF_TILING_CONFIG, SW_MODE, DC_SW_LINEAR);
++
++	REG_UPDATE_2(DCSURF_SURFACE_CONTROL,
++		     PRIMARY_SURFACE_DCC_EN, 0,
++		     SECONDARY_SURFACE_DCC_EN, 0);
++}
++
+ void hubp401_dcc_control(struct hubp *hubp,
+ 		struct dc_plane_dcc_param *dcc)
+ {
+@@ -1004,7 +1016,8 @@ static struct hubp_funcs dcn401_hubp_funcs = {
+ 	.hubp_program_3dlut_fl_width = hubp401_program_3dlut_fl_width,
+ 	.hubp_program_3dlut_fl_tmz_protected = hubp401_program_3dlut_fl_tmz_protected,
+ 	.hubp_program_3dlut_fl_crossbar = hubp401_program_3dlut_fl_crossbar,
+-	.hubp_get_3dlut_fl_done = hubp401_get_3dlut_fl_done
++	.hubp_get_3dlut_fl_done = hubp401_get_3dlut_fl_done,
++	.hubp_clear_tiling = hubp2_clear_tiling,
+ };
+ 
+ bool hubp401_construct(
+diff --git a/drivers/gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.h b/drivers/gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.h
+index e52fdb5b0cd0..92041d7e0569 100644
+--- a/drivers/gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.h
++++ b/drivers/gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.h
+@@ -340,4 +340,6 @@ int hubp401_get_3dlut_fl_done(struct hubp *hubp);
+ 
+ void hubp401_set_unbounded_requesting(struct hubp *hubp, bool enable);
+ 
++void hubp401_clear_tiling(struct hubp *hubp);
++
+ #endif /* __DC_HUBP_DCN401_H__ */
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h b/drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h
+index 16580d624278..d0878fc0cc94 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h
+@@ -275,6 +275,7 @@ struct hubp_funcs {
+ 			enum hubp_3dlut_fl_crossbar_bit_slice bit_slice_cb_b,
+ 			enum hubp_3dlut_fl_crossbar_bit_slice bit_slice_cr_r);
+ 	int (*hubp_get_3dlut_fl_done)(struct hubp *hubp);
++	void (*hubp_clear_tiling)(struct hubp *hubp);
+ };
+ 
+ #endif
 -- 
 2.47.0
 
