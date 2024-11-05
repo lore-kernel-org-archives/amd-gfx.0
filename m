@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 608F4D36139
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 Nov 2024 20:24:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96505D36138
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 Nov 2024 20:24:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1757C10E60B;
-	Tue,  5 Nov 2024 20:24:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A30410E612;
+	Tue,  5 Nov 2024 20:24:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="sGJD4ad3";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3zeAxbPW";
 	dkim-atps=neutral
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2088.outbound.protection.outlook.com [40.107.95.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B0AD210E60B
- for <amd-gfx@lists.freedesktop.org>; Tue,  5 Nov 2024 20:24:50 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2069.outbound.protection.outlook.com [40.107.220.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E284F10E612
+ for <amd-gfx@lists.freedesktop.org>; Tue,  5 Nov 2024 20:24:58 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LcjGXRsJtYT/1M/VttlQIsWUx7TBkJjQrk/jlGQ07YKnjDkZu7ZJ0k50J3B1RhjXG6ejT/J4/Q2xXx0TquCAAzfva98wqLIKzuQic6oFXhES3artq/NI9hXhHdBO52FyvW6OZ/DJ5VE1+jNdiXcqlg4oVXZ9op0UuzwNnABItow4xu6K7lLZ7f0QNFMZ9ctbyOXfz2utHscKcDUoTZBqrR2y2jpWMBeBj8rX45Z5XTiJGE3n5yR7ImdmLnsSgibFR/R3dnp/8yRgaayEXy5IJHjGbh8w6dAGRdHW0eiBxyt0bG46/2mH1ULiHx1deqk5qL2lhUfKJKyI+Uqtj+QYoA==
+ b=whzDqs1ydv7SIDalklJY/QUa6wTEpRtx7ehkCEotMxKK7sDRnkH9hmeeEBw5/w+p4zHKKg3m7NmQjlKuZ+sDtZHi+s+cnJa7zI9hWQ5/NzcEF1sBseuTryYeBUtPAP4FiVYGLXdWHNUF1hiRJYu+UkMO6rLpNulyC4WMO98qccIKn7KDbOGmOPxwpSXNg8R2WMsJiRBYqxQACUoV1j+AA+2P9rx6B3Qa2MhrW4UjY6+1rOvwgLw0B1M5wNAo1CL1wC2CrHbUJEIev72MGl+bxo7canyv7u6gKpcFJNqRV6baAieuUI0S9Kt5Wob/LXhbgY6u4F1I4Wj28wkpDvsn6Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Q1Uym+PxPRJ4/51W5N4PqLMq/tI16W/lUyrewvi92NQ=;
- b=bMQksGNt8fHe40QJVp3tKagTPHWDciFBYb3NII/+ETehgk9OgVd5162mlbOR3IlmQXlWP6km3j0Zort8b91N2OrEZ0arl3P00uQnQVEmF2uJtV5iVshKuBiZbMMJalYWtMG9Ohwp3695m1JibTi28ANSAKgi93aU/LFBvaG2kmHlNNM7VPOzMXpVpkW4Ztkfwifp92sLn41CAR8cO80soKoYtsKUvDD4fRBl4vlhWAVJJW6h9UAaHta1Ztblw1xwlwZYgfQzpe+C1SgaDfOkfoeKlCUzDjF/Vo5uhj2327XofsaKpP9nT3GorrWT8TzplgA2chzY2LwXEbIhuO5E7g==
+ bh=+r5zkKdcfrVopF2vSRow4czNP6p4owdkvGEuW65vMPA=;
+ b=RiFleRrXWavuXs99hf0BwOUGH4yu7/Lp79rHEtQkk6pAgbXSclhEASfv7bo4sQpA3vuUq8PLdRhKA9Q9XetOvZl79VDpSrFcpZddNyu6bRyLzN7aX7xiKVocyXTFHsmKhWS8G/iw3Vf2ZCpkY0Yl4QZRDgY/o9STDBZ5WOWpCLgy5X++OWwJqLolQ2/nsQ5ZGAgj42DhjySQylJ/YQl+3bKACS+8/j3FT967h2mFbDpig+LrE9W1LHOSYno3RYrj5vcupI+JNJWLk41azMdZud2CZ8/j1eS07XL3C45fJ0hhPY56NF4JoEvxZi80x+2IMMtHRV7rRRdd6uh3MLcPMA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Q1Uym+PxPRJ4/51W5N4PqLMq/tI16W/lUyrewvi92NQ=;
- b=sGJD4ad3qmXM1Fg9M/VzV18x5EU12ug31I0OHyN+9ARTcZEklJPvqlkGgRs43SAYIZz3LE6tFmm6TK31OncJ93bm6twcGHexRqUFIN3bTHIds1CBR9xwsORKo9SGjiQtMP8D/7RnnXkeS96drB/8rFdmI4NQ66hRSHPbdjRHWl8=
-Received: from BL1PR13CA0171.namprd13.prod.outlook.com (2603:10b6:208:2bd::26)
- by DM4PR12MB6232.namprd12.prod.outlook.com (2603:10b6:8:a5::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.8137.19; Tue, 5 Nov 2024 20:24:48 +0000
-Received: from BL6PEPF00020E65.namprd04.prod.outlook.com
- (2603:10b6:208:2bd:cafe::9b) by BL1PR13CA0171.outlook.office365.com
- (2603:10b6:208:2bd::26) with Microsoft SMTP Server (version=TLS1_2,
+ bh=+r5zkKdcfrVopF2vSRow4czNP6p4owdkvGEuW65vMPA=;
+ b=3zeAxbPWXXvuwfZI3VTaCyF1g5eBhnY7sI9iz7PhJ5SmqFrySYohrDt2XhXdBDl8F1C7Bh7W+BQl7VBKJuWOA/Qf6hsTTV1LhKuuFofM9judPqUIFe9LvhryFHPr9C2rfuUv50hi7NBMgdG9A1fkeL8BjTwh3ivTHwXNS0jVP6Q=
+Received: from BL0PR05CA0029.namprd05.prod.outlook.com (2603:10b6:208:91::39)
+ by SA1PR12MB5669.namprd12.prod.outlook.com (2603:10b6:806:237::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.31; Tue, 5 Nov
+ 2024 20:24:56 +0000
+Received: from BL6PEPF00020E61.namprd04.prod.outlook.com
+ (2603:10b6:208:91:cafe::89) by BL0PR05CA0029.outlook.office365.com
+ (2603:10b6:208:91::39) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8137.19 via Frontend
- Transport; Tue, 5 Nov 2024 20:24:47 +0000
+ Transport; Tue, 5 Nov 2024 20:24:56 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,13 +48,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL6PEPF00020E65.mail.protection.outlook.com (10.167.249.26) with Microsoft
+ BL6PEPF00020E61.mail.protection.outlook.com (10.167.249.22) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8137.17 via Frontend Transport; Tue, 5 Nov 2024 20:24:47 +0000
+ 15.20.8137.17 via Frontend Transport; Tue, 5 Nov 2024 20:24:56 +0000
 Received: from hamza-pc.localhost (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 5 Nov
- 2024 14:24:42 -0600
+ 2024 14:24:51 -0600
 From: Hamza Mahfooz <hamza.mahfooz@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -63,12 +63,10 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Li" <roman.li@amd.com>, Wayne Lin <wayne.lin@amd.com>, Tom Chung
  <chiahsuan.chung@amd.com>, Fangzhi Zuo <jerry.zuo@amd.com>, Zaeem Mohamed
  <zaeem.mohamed@amd.com>, Solomon Chiu <solomon.chiu@amd.com>, Daniel Wheeler
- <daniel.wheeler@amd.com>, Dillon Varone <dillon.varone@amd.com>,
- <stable@vger.kernel.org>, Austin Zheng <austin.zheng@amd.com>
-Subject: [PATCH 12/16] drm/amd/display: Require minimum VBlank size for
- stutter optimization
-Date: Tue, 5 Nov 2024 15:22:13 -0500
-Message-ID: <20241105202341.154036-13-hamza.mahfooz@amd.com>
+ <daniel.wheeler@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 14/16] drm/amd/display: Remove unused code
+Date: Tue, 5 Nov 2024 15:22:15 -0500
+Message-ID: <20241105202341.154036-15-hamza.mahfooz@amd.com>
 X-Mailer: git-send-email 2.46.1
 In-Reply-To: <20241105202341.154036-1-hamza.mahfooz@amd.com>
 References: <20241105202341.154036-1-hamza.mahfooz@amd.com>
@@ -80,50 +78,50 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF00020E65:EE_|DM4PR12MB6232:EE_
-X-MS-Office365-Filtering-Correlation-Id: 236a6719-ae9c-40eb-4906-08dcfdd7e4c4
+X-MS-TrafficTypeDiagnostic: BL6PEPF00020E61:EE_|SA1PR12MB5669:EE_
+X-MS-Office365-Filtering-Correlation-Id: 72995076-2aba-492c-71b6-08dcfdd7e9d4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|376014|82310400026|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?IZWTWJdmmo7zY34j4alvCl+HDwE90mEj6Vp2CGW1m/qeXk1HQ9J3hGAMCAeb?=
- =?us-ascii?Q?qmfJzQzGYQ4cdMEdiIoBq4zWjXxn+iSkCi38AWc8hVlymtNOeT1kkW07yx3x?=
- =?us-ascii?Q?1ePIxCi2UgrA3r9TYPJQ2u6BIZ/CVj3+vCll0MCgCbcrjpTPR2kViXIO5pUA?=
- =?us-ascii?Q?0/Jq5LuZK/zemp1oKaTWZsVrgRCgBdrJuVJzcp+/Y7mx4pdN2sGqmBzhYSbM?=
- =?us-ascii?Q?NPGLDeXF3luQjF4c33yOu1SbS/TXmlxfCNx+bp72pYGedj9NWWH+hlOCQg7O?=
- =?us-ascii?Q?7PfzwzBjG19d7ndEfkgJPJG+3nlsA45QXT+NGlm8mRdnRWebQCzxuTWv8Qp6?=
- =?us-ascii?Q?unY60e3myApjncQDrKR5hthij6be0/S1KigCElLtMB8dnmJ6uyqWERhSJQ0O?=
- =?us-ascii?Q?R/KtBCRWQj2zQlqbqlMGoi/LodPbGTS46///Mjm/Olfe7Zf6BO4li5ZnbxM9?=
- =?us-ascii?Q?mZ5Nv1sOPJ4vDkDm+RQap6N1EIlBN9i1ncxV2yMAe4SkRxO5AMx8uePraS+O?=
- =?us-ascii?Q?jbxMnfkheI7nMum4Egf2WYfQVcvxFIe4Dr5IVW5r2yF/3lvrDVZhg40OBWa/?=
- =?us-ascii?Q?gyjUf8E9crlzdRWDd1yWpqJOFaDLuN1wsbHCiGQ4qheepD52CrQcCVNo2VJm?=
- =?us-ascii?Q?I3YkKOOqF+ABFxvCrSkrvCCwwMc2S/N8Dunn/Lq9Zzw/RHId+lvAxmj7hSnn?=
- =?us-ascii?Q?BCoQWlLfEdwqN1uCbWbT6rgNuylJqsnVYabm6KFRletx4Y/t8qrpEHWyviFb?=
- =?us-ascii?Q?+NdWkvcavEioKcvo7UlJtghVOoT0mB/kpDh7z7oimNco2uzrKLBOAUuUAUSo?=
- =?us-ascii?Q?7QgHbINfM1R1NMyTIQor9fbGvGjPckDWda6RCkMR6qj0NndSDvHF3/OOz78m?=
- =?us-ascii?Q?377GALAyVZTKEKH29y1PlQmQo1llAhcpLxtiIjP0eg2p190pTkPhRxeKVuI7?=
- =?us-ascii?Q?iOlYgXtclRvQ4rp4hQovBdpMdxI4LnmU0Vr5rC1rh+xBHEThRWfsERVF6prx?=
- =?us-ascii?Q?dNIw7XQoc4YQg4NVig86yduWQi9VFC7uLYBiNKnGcG3mg7fmVq85oVXrPM93?=
- =?us-ascii?Q?zh2/tQ4O8Ee985ELE/d7OAYr5AgbSPviM2rrL+XUc9CziTE9RiICeegYuB/4?=
- =?us-ascii?Q?R9vElrH0E9K9tKikXh5XC7832/4j2//U7zrq0ZRwxOqoiEY5brIr8R9ehF3b?=
- =?us-ascii?Q?f2yJ1VXt1Eul4l+WNNhE8n5nW4fJo5uVozLQ182Fp2Uel+pwjXguLYQ7jLPM?=
- =?us-ascii?Q?PNyTd+y7P6XQnTWCgMtJ6HXPrtYxnrO2WhLPnZYam8T+u+4K9y105xSvtieH?=
- =?us-ascii?Q?mKYtzYPnMF81i8vNbqLqk+8ivCWSJGTna2SwGMab4TsfDRFQRXyhkUEfKkwl?=
- =?us-ascii?Q?sqtJfNm9BIoLPHMYLaueBg/kgQaEpzcoIJ9484d6MCH9kYBlVA=3D=3D?=
+ ARA:13230040|82310400026|36860700013|376014|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?nO0VgaZrjhm1m30JSPMe94obzXCsu4yJK90to1thJo2YFB09XcydHFB7WBUl?=
+ =?us-ascii?Q?x/OjRRSW+B37U4ySXT3VkulQndUO/s/VUo4lWI7d74ImOxqLbdTp4POflXA0?=
+ =?us-ascii?Q?Qisrx89Y+6UJdxvCjjVm+CBoK3gWrFr4gq9oeW+6D7zSlkIvJmz4A3CDLjzo?=
+ =?us-ascii?Q?CY6lcbDwCA2X//ZPSGtVtbzebUGQWV3ugIu9S7BSRR57/vC0Si7woCYbqNyn?=
+ =?us-ascii?Q?2YoLcfRx4LRUavh5kon1w/RyG8dA7xt3pP4r8B3FIplylhh6tVu6wiO4BBYY?=
+ =?us-ascii?Q?JK6pWZYb1phY1Xof+zjvJ5kGoRHPOiME65al8P3tgFek29GTjEOPhNXoDgBH?=
+ =?us-ascii?Q?6cbXZhrKhdqEiuhu4PDCl0f+3oNxWXyHEoYsc8XL0KMH86EKDbGk/9HiJ41R?=
+ =?us-ascii?Q?ZCj6ro1TMdM/5OO9hhbmBfh+brvYdRwiyJl0IAjmbt9sFKdKH4p1Ied16eyj?=
+ =?us-ascii?Q?F2zVHMxcFNJHG+Aem4GHKnHsL0bQnaxAjb5VcCT7/1cA5gA9e/PJJBiHWDEi?=
+ =?us-ascii?Q?eSF7U19KKPcEihhfE3EFt9owRVOwfZBhnx1FH/ResraaxorLS9WgUjYkkHFF?=
+ =?us-ascii?Q?y5LM2WG4D4f99jWKMcX9ns0u0SZQ2NFrzQNGnrE79iBPZBx5pDLMV2FbW4dT?=
+ =?us-ascii?Q?TvNyAafcTeW5cPXpHa7+967/fnkrZ7Lns/Gt4VFE8REnVDjyrKjBvO1JNpOg?=
+ =?us-ascii?Q?bbsSNcgzbV3gAQSEBRmThEEVqHVL1DyQ3Y/Rm2d8MggqLnjJGdNzeiUOe1EC?=
+ =?us-ascii?Q?7T3Ej3ZVCl6b420OqWaljRmIf39Pr3rQjfVEN8snpBUKcDY2X++1d4XyouJ5?=
+ =?us-ascii?Q?b4pyJh1NluIJYfH8oAMJ0oT2fNrgV+l6WZKLwMbfw1GVQDdnnRhKccQIezkE?=
+ =?us-ascii?Q?sBa1yw/AOahyke71EAvvhK0AFkWN24KOchZZv/QpfBbduJZZlJCZ3x4RGmwv?=
+ =?us-ascii?Q?rfkyba6AyUZ1M5x/6bLiKiPRXAq/+oQ9nMzn8Z38mtpi6vjNf2jWBqiv+xbq?=
+ =?us-ascii?Q?U/CffBfU/2wBWZobel46LtZI4SkzehGXNPVgE7KqYNOBKoDwwn5Sc+YrhSRZ?=
+ =?us-ascii?Q?vQ0uRpDA1rivaKw42g29itUlams7mmNoAn3uWudbDH13Q2ZFTpsK9R1eH5Im?=
+ =?us-ascii?Q?VkR7zEypyxxkIFXQ54+QkplyRdxpl8dcnRS4JwIKamlNuEY4Wz7VvGvNElm3?=
+ =?us-ascii?Q?ocTYLSkRG/z6yYQ3bIXxNo5mFFKlawAPIClyNGtLjqtboGnkXK7z3eeV13PQ?=
+ =?us-ascii?Q?s6jCbt8O3RN71qrmuPiGfiI61SP74IqZa1Q2XYQW158jb1HZHrEAQKGfscNr?=
+ =?us-ascii?Q?xBSXRQTOcWXAbyDz2W3IADswqBuTxhyItbLPjyAijXstpwN0mOruP7XUWbZS?=
+ =?us-ascii?Q?jW+BIVLzBeAhEJ4gmr1XyTx6uuOV1SsBc98vE73EKL4CzGl+AQ=3D=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(376014)(82310400026)(1800799024); DIR:OUT;
+ SFS:(13230040)(82310400026)(36860700013)(376014)(1800799024); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2024 20:24:47.6382 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 236a6719-ae9c-40eb-4906-08dcfdd7e4c4
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2024 20:24:56.1640 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 72995076-2aba-492c-71b6-08dcfdd7e9d4
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF00020E65.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF00020E61.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6232
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB5669
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,67 +136,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Dillon Varone <dillon.varone@amd.com>
+From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 
-If the nominal VBlank is too small, optimizing for stutter can cause
-the prefetch bandwidth to increase drasticaly, resulting in higher
-clock and power requirements. Only optimize if it is >3x the stutter
-latency.
+This commit removes a legacy debug_defaults_diags struct.
 
-Cc: stable@vger.kernel.org
-Reviewed-by: Austin Zheng <austin.zheng@amd.com>
-Signed-off-by: Dillon Varone <dillon.varone@amd.com>
+Reviewed-by: Leo Li <sunpeng.li@amd.com>
+Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
 ---
- .../dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn4_fams2.c  | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+ .../amd/display/dc/resource/dcn10/dcn10_resource.c  | 13 -------------
+ 1 file changed, 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn4_fams2.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn4_fams2.c
-index 5a09dd298e6f..92269f0e50ed 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn4_fams2.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_pmo/dml2_pmo_dcn4_fams2.c
-@@ -8,6 +8,7 @@
- #include "dml2_pmo_dcn4_fams2.h"
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn10/dcn10_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn10/dcn10_resource.c
+index 4f1bd71b9ad9..770a380cc03d 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn10/dcn10_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn10/dcn10_resource.c
+@@ -559,17 +559,6 @@ static const struct dc_debug_options debug_defaults_drv = {
+ 		.using_dml2 = false,
+ };
  
- static const double MIN_VACTIVE_MARGIN_PCT = 0.25; // We need more than non-zero margin because DET buffer granularity can alter vactive latency hiding
-+static const double MIN_BLANK_STUTTER_FACTOR = 3.0;
+-static const struct dc_debug_options debug_defaults_diags = {
+-		.disable_dmcu = false,
+-		.force_abm_enable = false,
+-		.clock_trace = true,
+-		.disable_stutter = true,
+-		.disable_pplib_clock_request = true,
+-		.disable_pplib_wm_range = true,
+-		.underflow_assert_delay_us = 0xFFFFFFFF,
+-		.enable_legacy_fast_update = true,
+-};
+-
+ static void dcn10_dpp_destroy(struct dpp **dpp)
+ {
+ 	kfree(TO_DCN10_DPP(*dpp));
+@@ -1398,8 +1387,6 @@ static bool dcn10_resource_construct(
  
- static const struct dml2_pmo_pstate_strategy base_strategy_list_1_display[] = {
- 	// VActive Preferred
-@@ -2140,6 +2141,7 @@ bool pmo_dcn4_fams2_init_for_stutter(struct dml2_pmo_init_for_stutter_in_out *in
- 	struct dml2_pmo_instance *pmo = in_out->instance;
- 	bool stutter_period_meets_z8_eco = true;
- 	bool z8_stutter_optimization_too_expensive = false;
-+	bool stutter_optimization_too_expensive = false;
- 	double line_time_us, vblank_nom_time_us;
+ 	if (dc->ctx->dce_environment == DCE_ENV_PRODUCTION_DRV)
+ 		dc->debug = debug_defaults_drv;
+-	else
+-		dc->debug = debug_defaults_diags;
  
- 	unsigned int i;
-@@ -2161,10 +2163,15 @@ bool pmo_dcn4_fams2_init_for_stutter(struct dml2_pmo_init_for_stutter_in_out *in
- 		line_time_us = (double)in_out->base_display_config->display_config.stream_descriptors[i].timing.h_total / (in_out->base_display_config->display_config.stream_descriptors[i].timing.pixel_clock_khz * 1000) * 1000000;
- 		vblank_nom_time_us = line_time_us * in_out->base_display_config->display_config.stream_descriptors[i].timing.vblank_nom;
- 
--		if (vblank_nom_time_us < pmo->soc_bb->power_management_parameters.z8_stutter_exit_latency_us) {
-+		if (vblank_nom_time_us < pmo->soc_bb->power_management_parameters.z8_stutter_exit_latency_us * MIN_BLANK_STUTTER_FACTOR) {
- 			z8_stutter_optimization_too_expensive = true;
- 			break;
- 		}
-+
-+		if (vblank_nom_time_us < pmo->soc_bb->power_management_parameters.stutter_enter_plus_exit_latency_us * MIN_BLANK_STUTTER_FACTOR) {
-+			stutter_optimization_too_expensive = true;
-+			break;
-+		}
- 	}
- 
- 	pmo->scratch.pmo_dcn4.num_stutter_candidates = 0;
-@@ -2180,7 +2187,7 @@ bool pmo_dcn4_fams2_init_for_stutter(struct dml2_pmo_init_for_stutter_in_out *in
- 		pmo->scratch.pmo_dcn4.z8_vblank_optimizable = false;
- 	}
- 
--	if (pmo->soc_bb->power_management_parameters.stutter_enter_plus_exit_latency_us > 0) {
-+	if (!stutter_optimization_too_expensive && pmo->soc_bb->power_management_parameters.stutter_enter_plus_exit_latency_us > 0) {
- 		pmo->scratch.pmo_dcn4.optimal_vblank_reserved_time_for_stutter_us[pmo->scratch.pmo_dcn4.num_stutter_candidates] = (unsigned int)pmo->soc_bb->power_management_parameters.stutter_enter_plus_exit_latency_us;
- 		pmo->scratch.pmo_dcn4.num_stutter_candidates++;
- 	}
+ 	/*************************************************
+ 	 *  Create resources                             *
 -- 
 2.46.1
 
