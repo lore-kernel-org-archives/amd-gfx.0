@@ -4,83 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A8C6D1267F
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 Nov 2024 10:51:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2E7BD12680
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 Nov 2024 10:52:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3FEA910E123;
-	Tue,  5 Nov 2024 10:51:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D21810E55B;
+	Tue,  5 Nov 2024 10:52:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="shgka0iH";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="VeG0ioVb";
 	dkim-atps=neutral
-Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com
- [209.85.128.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D32E110E558
- for <amd-gfx@lists.freedesktop.org>; Tue,  5 Nov 2024 10:51:23 +0000 (UTC)
-Received: by mail-yw1-f169.google.com with SMTP id
- 00721157ae682-6e5b7cd1ef5so44539057b3.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 05 Nov 2024 02:51:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1730803883; x=1731408683; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=8wFnUnciKF2xxhdw0g9UlvzkYqa9uqspkupSHos0NsU=;
- b=shgka0iHIdk1NVQ+U8317hQjo11PtPZsPdq74HyJzaFjB7K16BoM6mVZ0+26gLG5aX
- Zy/7aacEMMy8EGJxrv0QrYXjZt1dfldU6ozcw2FwOM6EpzmNM19xXgxxg7oNbCmZUvkY
- 7iRIRcKzTRHiYcEyBOmBLL26H6mijfx+ZzpLCoPu/kLCsRcKRE2m0dlqYxiwolPfSWzH
- bw/pqga/1TclbpQRSs5+AP4r2XAYpGgi2sc+P5aRJDTQy2OtvcJaKKI+3tVUK67axTd6
- CK5TgRSFbxlozjoHn3WWIE3op/9q9I2G6Lch/+iEdzqJziyEfrahFnv19JpDcMqre8wc
- aAyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1730803883; x=1731408683;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=8wFnUnciKF2xxhdw0g9UlvzkYqa9uqspkupSHos0NsU=;
- b=NSyVsDxEKv/K53ortiJNl8VyuL3s6n3VmKlLuF0s6TU/PdMKT+f11gyCh85cKBFfkJ
- dFqJbltD56kxIGwciSlOjxx7VQxuYcpl9bYxMsBDSmtWryM9WnKkzZl9PAKOiYM9mbYh
- 4i1129knFiZpmUTdYOg0iyzDmb5OO7IdtQknceYMIjQWzE8vZg79O6IM/LfCSHtHZ5S0
- zBNL/XPkWLrEOpRZZoqhbQn+RTGZzm4lq7Asx0smHZ1VX5sT4mCwHHMiQRpMhpLKHCHh
- icmKcneMP/qMai0TH+Z4jhiGFItVX7acAD6o3DcDc93B5ybB/1+9AeuTqPksZMf5s/mS
- cwqQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXFZoiKm6+Tj8OPzQKXq/1n/zo9qOTKFeMbJjNJv2kq0cZOYZ1W5w7TklABzhs/6/mhENU1U9fg@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz4OAFDVGw07FVOSmCLGyGOO5tynZ3vVnrvQF2x+BCqi3rurwbF
- olAeSW29w/hXgd1VQaMc2afcd1+ALRLnr3JaMMUQOM3pRDpegxEH5hmxUCeaLiRprkYUu7YQiHD
- hi7ILY+WRczPEZ38BjjuJkczH2SVfHJ6j9yllXA==
-X-Google-Smtp-Source: AGHT+IHQFSqhKmwFB8KvMA0OA0g7K5yjBP9Ct2aeaH6/E5BqOA7hhimk5zgheZN6yBg6rUs9bzLqJRTFRGU/Y2suREU=
-X-Received: by 2002:a05:690c:dc7:b0:6e7:d974:8d05 with SMTP id
- 00721157ae682-6e9d88cf98bmr365969057b3.4.1730803882742; Tue, 05 Nov 2024
- 02:51:22 -0800 (PST)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2049.outbound.protection.outlook.com [40.107.93.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9E9110E55B
+ for <amd-gfx@lists.freedesktop.org>; Tue,  5 Nov 2024 10:52:55 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jltk1Lokr7GCKRKtdFhehu5KP8RZ7vfwtDon14aoKiAj8kNCX6mpvElO5kMVIry9f/rjgJx5oyL3awr0wmUhA8nLR1bhe4bfWrTRH2vwxkMGbtX9WG1LjtkiAHfIKLzJZnUY1hRblXzo2DFQzf8U1fV1zA6FGGpYhd/pddeNgwwFpahMQPazSNeOq5U/EOamBwmLVjB0R3YX9ascpj4Rf7X96RgH/623PELcQqVwwuRVdZ9Hygym9ZKVMXk6EMTcc83TD+QskJuZSMrX+EDTMvFvC1+g8BL/iSJZxPrJxe9xUnb0HDbUOUIwGEpw9d/Hk6LBT/DozbV5VWABlPbHtg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=m8T7qw1kBPFrEFxAOzw7qVq4ijreBjsyOXAaqk5Dvtk=;
+ b=N+BtbwuStJMw/coSFiLklvasc4/or8QhNi0em4HhFPquMS9DEkV77vM0Qc0zdzFHXMJ5jJEWJAqrHSCJtFP76jWCLHmVJlinQ8cuMiZD1AwYLqHD1DVa5xSmO3mnV3Sq21+s6Ry0NUo1hOioy+OEcm85fhIUvZiMPYOrmnQlKx+PfYN0j4ZSsImvoxp4J1ccjo1TpKk4iaqHwjU2d/42mq7eIjukD6PJXW69jJhuJOpsYkzJ8SCbml0cBQ0LCEkE5vo7a5/iebRZPSnlDgYEsKmcgiaNlWAAHPQgmhY/f0VEgRZHobIKWmHT1WHN44foTWUGiFyuEn6EA5dZ61rfHA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=m8T7qw1kBPFrEFxAOzw7qVq4ijreBjsyOXAaqk5Dvtk=;
+ b=VeG0ioVbuNCkz9O7U0f0lrn4Vld4ZVc3G1UQukNXK3bZQOmhmgywTbLFNeFVrMH6Ok0gqdMkB3ogP45cVL5h3kA05xvRRXlK6sdtQ87fOu+N8USKN80DxoeOfFNEUdVHeunSqB33rCE8RYlIU+4jwZMoiozajKfpptayFWBgQtk=
+Received: from MW4PR03CA0010.namprd03.prod.outlook.com (2603:10b6:303:8f::15)
+ by SA1PR12MB7296.namprd12.prod.outlook.com (2603:10b6:806:2ba::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.29; Tue, 5 Nov
+ 2024 10:52:51 +0000
+Received: from SA2PEPF000015CA.namprd03.prod.outlook.com
+ (2603:10b6:303:8f:cafe::d6) by MW4PR03CA0010.outlook.office365.com
+ (2603:10b6:303:8f::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.31 via Frontend
+ Transport; Tue, 5 Nov 2024 10:52:51 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SA2PEPF000015CA.mail.protection.outlook.com (10.167.241.200) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8137.17 via Frontend Transport; Tue, 5 Nov 2024 10:52:50 +0000
+Received: from asad-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 5 Nov
+ 2024 04:52:47 -0600
+From: Asad Kamal <asad.kamal@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <lijo.lazar@amd.com>,
+ <hawking.zhang@amd.com>
+CC: <le.ma@amd.com>, <shiwu.zhang@amd.com>, <Asad.Kamal@amd.com>,
+ <charis.poag@amd.com>, <donald.cheung@amd.com>, <sepehr.khatir@amd.com>,
+ <daniel.oliveira@amd.com>
+Subject: [PATCH v2] drm/amdgpu: Add supported NPS modes node
+Date: Tue, 5 Nov 2024 18:52:29 +0800
+Message-ID: <20241105105229.863776-1-asad.kamal@amd.com>
+X-Mailer: git-send-email 2.46.0
 MIME-Version: 1.0
-References: <20241101-tonyk-async_flip-v9-0-681814efbfbe@igalia.com>
- <20241101-tonyk-async_flip-v9-1-681814efbfbe@igalia.com>
- <D5CC3U00B7CG.IGKCIES8PC2J@kode54.net>
- <00a99b3e-3fad-42fb-8dc8-4f45d158c4c1@igalia.com>
- <D5E5ZXW1K0A7.1VT1XCR1HIEST@kode54.net>
-In-Reply-To: <D5E5ZXW1K0A7.1VT1XCR1HIEST@kode54.net>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Tue, 5 Nov 2024 10:51:11 +0000
-Message-ID: <CAA8EJpoEEo5tB00Yqoi7V2U=pRud1W44W3V8bJnr3N468EhQOw@mail.gmail.com>
-Subject: Re: [PATCH RESEND v9 1/2] drm/atomic: Let drivers decide which planes
- to async flip
-To: Christopher Snowhill <chris@kode54.net>
-Cc: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>, 
- kernel-dev@igalia.com, Simon Ser <contact@emersion.fr>, 
- Thomas Zimmermann <tzimmermann@suse.de>, joshua@froggi.es,
- ville.syrjala@linux.intel.com, 
- Daniel Stone <daniel@fooishbar.org>, Xaver Hugl <xaver.hugl@gmail.com>, 
- Harry Wentland <harry.wentland@amd.com>, Simona Vetter <simona@ffwll.ch>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- amd-gfx@lists.freedesktop.org, Leo Li <sunpeng.li@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, 
- Xinhui Pan <Xinhui.Pan@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF000015CA:EE_|SA1PR12MB7296:EE_
+X-MS-Office365-Filtering-Correlation-Id: b7a604bd-312d-43c8-7c00-08dcfd87fe5c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|82310400026|1800799024|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?jV9icJCngK7T3I3gI1OFmP0C5j/y6iYzYT61W5QVAW9q89GEFxbo4Iuz7u/m?=
+ =?us-ascii?Q?Opr5g7hQR4gEHeS3D/etcpQIcQz16CIcHBn0uxyGBs3jm2GIqe4TwT727j+3?=
+ =?us-ascii?Q?O+Mw/64pcYQgPBbARuVvxiZlW1FSpXyw1Z6fJcUpcqmtD24r6eFUgYJG8aPk?=
+ =?us-ascii?Q?6hVQq5jo1cgYTiNaosCXewa6j3D2y88ojse7US0BJcitAEhZRcrWwZShFb6M?=
+ =?us-ascii?Q?ofJiPuHb6+gEkDu2kI21Q3FmYTdT7CfLy4Hl7+Yit9IMGPojlfGJMGbctw93?=
+ =?us-ascii?Q?qV6zsQea7s3K1te1SvWVj7OZJUYlT6OEUPsoCPfCRT80+x+IThJmqloA1HSQ?=
+ =?us-ascii?Q?Tm1kPqTeHJUDh9BWHMOtmbVh/C0e/hypBHw6Kq8DVwniJ5UIzBnl0W39EseH?=
+ =?us-ascii?Q?EmSosrORtfXm6oc31gHDE902+KYAn6jeRm1NP18FjKHaxmfAYHyOE9Lv73H9?=
+ =?us-ascii?Q?k/4Z5AudRiK9znpLlleFEqUvSLV059vRNkQZJEW7wHHzsMvj7+zQnLu6n3De?=
+ =?us-ascii?Q?XhsBSUgUVgAr+JbpDW+8MSZnfmhzV1QoJd1wV5o4PXhTSiU7B9OB+e8qPcz/?=
+ =?us-ascii?Q?f8B4LJ/bcK8EWx3hm43PIVNUNI8zkIFjajT+hXZdSGPtvvdFwIgTsOpbe0eE?=
+ =?us-ascii?Q?VytBklSvO3bE9YamzagmEpABHXzLbb96708DIewEhihu1UCPRVC4tKTKzhVU?=
+ =?us-ascii?Q?D6xs6i5/f9GGFlub+5pnRxpBvfRnwqpX7A/DSjb34//I+wjzr5Zbvd6t3poR?=
+ =?us-ascii?Q?o1/OT0zzNumcP5OnUv8x8O3iZxKpr4+X8EaZLjqEmDnzXv8z/ErRkDTuhvLX?=
+ =?us-ascii?Q?6rQKLTN/aFQ0jFpO3U1Ss4dwbB2Sv2pCnVwMiyw3MDEjzNOfDRo0bJOjVDoQ?=
+ =?us-ascii?Q?aGROsLq28AimxPRQLEvEFssFYp9L1pYQRpcY7rBKwwBrSqmkF93vGHZ1cq/k?=
+ =?us-ascii?Q?c102lR1iFKXcIXEPwAp2RL08OoKJSvQ4QjfyUx/aioIWJk/nhICllx7E3Z6v?=
+ =?us-ascii?Q?CkoP1/GCvdjnSVcR1oVxZWYLhAsbn5tiXPTc6GThDTfPsbBTGAs26KbnHNCL?=
+ =?us-ascii?Q?YbYdmW0DWFZMftn/bpYED1PhxxBWXHoW0BatRThQOmcQXEgc0ElllV81ko9K?=
+ =?us-ascii?Q?A+bOC/78ZqSDY7ixoO+cMCmSae8eu14iaJgodyRziNQLUDTi/D5/FEszQdT9?=
+ =?us-ascii?Q?20p9KqCxz6hM9Zo7arOQVo0J+/i00BzT8pXzJMfPY5q+JJg0CMiLujvj1u57?=
+ =?us-ascii?Q?K05zVmh1FTBCd8cRknxtJ6qSFBjO7vTKM+Grb4DvtdCJHAddWel0yLS03nEm?=
+ =?us-ascii?Q?7LSO/Jz4NTPpvZSr5FJn/MkEnPjirlt7s9vx8VyPbz1ooffpgEYj4uwyGwJv?=
+ =?us-ascii?Q?JzkOi3WnQQyt0yAR0MTJSWp+bjlKqzj9d6ifCnAofXYGz+usCg=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(82310400026)(1800799024)(36860700013); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2024 10:52:50.8716 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b7a604bd-312d-43c8-7c00-08dcfd87fe5c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF000015CA.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7296
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,58 +131,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 5 Nov 2024 at 10:15, Christopher Snowhill <chris@kode54.net> wrote:
->
-> On Mon Nov 4, 2024 at 12:52 PM PST, Andr=C3=A9 Almeida wrote:
-> > Hi Christopher,
-> >
-> > Em 03/11/2024 03:36, Christopher Snowhill escreveu:
-> > > On Fri Nov 1, 2024 at 11:23 AM PDT, Andr=C3=A9 Almeida wrote:
-> > >> Currently, DRM atomic uAPI allows only primary planes to be flipped
-> > >> asynchronously. However, each driver might be able to perform async
-> > >> flips in other different plane types. To enable drivers to set their=
- own
-> > >> restrictions on which type of plane they can or cannot flip, use the
-> > >> existing atomic_async_check() from struct drm_plane_helper_funcs to
-> > >> enhance this flexibility, thus allowing different plane types to be =
-able
-> > >> to do async flips as well.
-> > >>
-> > >> In order to prevent regressions and such, we keep the current policy=
-: we
-> > >> skip the driver check for the primary plane, because it is always
-> > >> allowed to do async flips on it.
-> > >>
-> > >> Signed-off-by: Andr=C3=A9 Almeida <andrealmeid@igalia.com>
-> > >
-> > > Should I do a R-b too?
-> >
-> > If you can review the code, it's always really appreciated.
->
-> I mean, I did review your changes, they looked good to me. I just didn't
-> know the protocol for reporting review in addition to testing.
+Add sysfs node to show supported NPS mode for the
+partition configuration selected using xcp_config
 
-Please respond with the R-B tag. Also ideally the Tested-by should
-contain the reference to a platform which was used to test it.
+v2: Hide node if dynamic nps switch not supported
 
->
-> >
-> > > The changes looked sound enough for me to feel
-> > > like testing it as well. Tested Borderlands Game of the Year Enhanced=
- on
-> > > my RX 7700 XT at maximum settings at 1080p165, and the tearing suppor=
-t in
-> > > labwc allowed it to reach over 700fps. No problems from the hardware
-> > > cursor.
-> >
-> > Thanks for testing and reporting!
-> >
-> > >
-> > > Tested-by: Christopher Snowhill <chris@kode54.net>
-> > >
->
+Signed-off-by: Asad Kamal <asad.kamal@amd.com>
+Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c | 41 +++++++++++++++++++++++++
+ 1 file changed, 41 insertions(+)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
+index 83a16918ea76..964667125be0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
+@@ -471,6 +471,16 @@ static const char *xcp_desc[] = {
+ 	[AMDGPU_CPX_PARTITION_MODE] = "CPX",
+ };
+ 
++static const char *nps_desc[] = {
++	[UNKNOWN_MEMORY_PARTITION_MODE] = "UNKNOWN",
++	[AMDGPU_NPS1_PARTITION_MODE] = "NPS1",
++	[AMDGPU_NPS2_PARTITION_MODE] = "NPS2",
++	[AMDGPU_NPS3_PARTITION_MODE] = "NPS3",
++	[AMDGPU_NPS4_PARTITION_MODE] = "NPS4",
++	[AMDGPU_NPS6_PARTITION_MODE] = "NPS6",
++	[AMDGPU_NPS8_PARTITION_MODE] = "NPS8",
++};
++
+ ATTRIBUTE_GROUPS(xcp_cfg_res_sysfs);
+ 
+ #define to_xcp_attr(x) \
+@@ -540,6 +550,26 @@ static ssize_t supported_xcp_configs_show(struct kobject *kobj,
+ 	return size;
+ }
+ 
++static ssize_t supported_nps_configs_show(struct kobject *kobj,
++					  struct kobj_attribute *attr, char *buf)
++{
++	struct amdgpu_xcp_cfg *xcp_cfg = to_xcp_cfg(kobj);
++	int size = 0, mode;
++	char *sep = "";
++
++	if (!xcp_cfg || !xcp_cfg->compatible_nps_modes)
++		return sysfs_emit(buf, "Not supported\n");
++
++	for_each_inst(mode, xcp_cfg->compatible_nps_modes) {
++		size += sysfs_emit_at(buf, size, "%s%s", sep, nps_desc[mode]);
++		sep = ", ";
++	}
++
++	size += sysfs_emit_at(buf, size, "\n");
++
++	return size;
++}
++
+ static ssize_t xcp_config_show(struct kobject *kobj,
+ 			       struct kobj_attribute *attr, char *buf)
+ {
+@@ -596,6 +626,9 @@ static const struct kobj_type xcp_cfg_sysfs_ktype = {
+ static struct kobj_attribute supp_part_sysfs_mode =
+ 	__ATTR_RO(supported_xcp_configs);
+ 
++static struct kobj_attribute supp_nps_sysfs_mode =
++	__ATTR_RO(supported_nps_configs);
++
+ static const struct attribute *xcp_attrs[] = {
+ 	&supp_part_sysfs_mode.attr,
+ 	&xcp_cfg_sysfs_mode.attr,
+@@ -625,6 +658,12 @@ void amdgpu_xcp_cfg_sysfs_init(struct amdgpu_device *adev)
+ 	if (r)
+ 		goto err1;
+ 
++	if (adev->gmc.supported_nps_modes != 0) {
++		r = sysfs_create_file(&xcp_cfg->kobj, &supp_nps_sysfs_mode.attr);
++		if (r)
++			goto err1;
++	}
++
+ 	mode = (xcp_cfg->xcp_mgr->mode ==
+ 		AMDGPU_UNKNOWN_COMPUTE_PARTITION_MODE) ?
+ 		       AMDGPU_SPX_PARTITION_MODE :
+@@ -673,6 +712,8 @@ void amdgpu_xcp_cfg_sysfs_fini(struct amdgpu_device *adev)
+ 		kobject_put(&xcp_res->kobj);
+ 	}
+ 
++	if (adev->gmc.supported_nps_modes != 0)
++		sysfs_remove_file(&xcp_cfg->kobj, &supp_nps_sysfs_mode.attr);
+ 	sysfs_remove_files(&xcp_cfg->kobj, xcp_attrs);
+ 	kobject_put(&xcp_cfg->kobj);
+ }
+-- 
+2.46.0
 
---=20
-With best wishes
-Dmitry
