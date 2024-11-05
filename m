@@ -4,118 +4,147 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32EF8D12663
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 Nov 2024 09:25:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E0B5D12671
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 Nov 2024 09:44:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD13510E548;
-	Tue,  5 Nov 2024 09:25:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCFC810E285;
+	Tue,  5 Nov 2024 09:44:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="nG8EqqJw";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3NtViW4n";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2079.outbound.protection.outlook.com [40.107.223.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 308A710E548
- for <amd-gfx@lists.freedesktop.org>; Tue,  5 Nov 2024 09:25:26 +0000 (UTC)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on2087.outbound.protection.outlook.com [40.107.95.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8346310E285
+ for <amd-gfx@lists.freedesktop.org>; Tue,  5 Nov 2024 09:44:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Lzoja+/aKGSbf+omBuaRZpfyWm031nbMGyoBhJYZPAYOuqFpXtIA8z0WnCiUwoGC7+JRCB/uO46rJIRlXeTP8HetBq/rHiqHstQWY2pDR7rkSzE2WiRdoYaYyIHs+Haw62ySjOxZTuQ4H/m6cWhiug8tR0acjg5SQWoWIAtGnDoI49QztXOeBsI12D6Q8TBDCFZs7tI0uAWgfvrtkUgwsNgTNa8XK4tLHARe3Xkza0P1FXoxOPjnEuVuBHjBLzYWlIPuzc9TeuB6PllSTSSxtB4VPeYc1/21Xebr/wSqWoJHUWfxX/5wAWMnMUHV2jjo9IftHmW2XhGELsK+FAaIIw==
+ b=wFYVLp2tC3CD+jG9JyW8dkkZTIFoI2CCExq7OoKumYohqbrGuHoGRebknhb5ANsN7ElDsqwtCXyBAGphWqMC1lbbs2EXaXUXsVL0Fsh3hF4AREhW0ctxb/r0ntryAfqm8UtQDq7qMzprpyiDZZkK4ZTBK+tHHS+xQNaIIZ5KjK3dane/zsBcwqM7KWQ0Zze8BmO1yLbe9dA06MxSxExvkjbwqBpA5UVGMRpM7HLl6lcRRkQAqCGHcEhZlD7B4SAYUVSOhUcTYlbduLcMhoeIUlUI5FJXEVDj4Va9he5QvfyVjBBl0xivPRCRyDlZJmNoF9t0NuOAawYJcmNBQwLJSQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=D0GThxD0QhfmZJdn0Hvqkv7cErRpmhOWM964PqzLaYU=;
- b=ulPDi29Gi3fY/c0Gh3eci1jjUYXtv5kLRX1YyoUtXHRt7F3F40F1CRUVXs9qLijikZQQNcI6ui545f6d2sFuK31zlXXLkqGPKDUByQQPjfgFFfnSuwOPhgDFfp3W/K6Hv1ri5TT0gRT6vUeZwGilgJ6O1sqKUsWClTFd0m2hJY1v2YexLwpz2WxFU4FZvAZFGqNBHqvv27DQ5K90W6rarHzfpLfngJ3G0DDF17cvYXQ1AGqQQN+d6xOJlbakg8fNx1DtbEEmrNwWtjgdCDscRoePPzfWIuixiPtzMcajfM/G8TlgT3+PEy0nPtvH3Y/RUuNXbdd5fyNOM+NO8bV1EA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=0b9KIrWvjCGOw7J4y9B0+8+lVjg/Dw2RgdlxPZHtVKY=;
+ b=AJ8Ja16GuXK6fahTJYzKIQAUWdAxRfn6cZyLijaD5t/c+9HpKslsl9oJLzfPibH3RVselesi2QYGXxFUjbubi8i66yqvoFZpTsRa8jfJ/ekGnvKm+fuHujmbFE3qxGm5q1sfMx3otPnMxSsw7yTIi5k2bShVZ9O1BPyMFI22k4QpIFGnG9tHj0/LxyetB9y5m/g82kog6EGw6RvTB5rKSn7Ag7kDs290BsFIqswnustcvtSKR+NDvouQR6n2MBVDoMmrD31IwYl5e2ZfFLgSvS5ErzLzkwBojDjE6gGjIc5utKBKGSHhd9vra8Nnjjf+f/FG0El19wwdsiQkh+G1Fg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=D0GThxD0QhfmZJdn0Hvqkv7cErRpmhOWM964PqzLaYU=;
- b=nG8EqqJwusSXuV8baLUSFSc6hEaRn0Fw7GXJTN6g7GEb+FIFarIgODtBP8UmKThWG8Xybz9UUop8TJHb53WVyuHiQ7z21fyeaVNhZy7LZrZNRHVE2dwLq7LQTnDX9Twctsm800kxIZfk1EXlEoW/u1FGNZX7jWMCW8lVHDZD4rc=
-Received: from LV3P220CA0001.NAMP220.PROD.OUTLOOK.COM (2603:10b6:408:234::33)
- by CH3PR12MB8710.namprd12.prod.outlook.com (2603:10b6:610:173::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.31; Tue, 5 Nov
- 2024 09:25:23 +0000
-Received: from BL02EPF0002992D.namprd02.prod.outlook.com
- (2603:10b6:408:234:cafe::18) by LV3P220CA0001.outlook.office365.com
- (2603:10b6:408:234::33) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.31 via Frontend
- Transport; Tue, 5 Nov 2024 09:25:23 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF0002992D.mail.protection.outlook.com (10.167.249.58) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8137.17 via Frontend Transport; Tue, 5 Nov 2024 09:25:23 +0000
-Received: from lc-X10DRi.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 5 Nov
- 2024 03:25:21 -0600
-From: Chong Li <chongli2@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <christian.koenig@amd.com>, <Emily.Deng@amd.com>, <lincao12@amd.com>,
- <dandjelk@amd.com>, <zhengyin@amd.com>, Chong Li <chongli2@amd.com>
-Subject: [PATCH] drm/amdgpu: fix return random value when multiple threads
- read registers via mes.
-Date: Tue, 5 Nov 2024 17:24:53 +0800
-Message-ID: <20241105092454.40017-1-chongli2@amd.com>
-X-Mailer: git-send-email 2.34.1
-MIME-Version: 1.0
+ bh=0b9KIrWvjCGOw7J4y9B0+8+lVjg/Dw2RgdlxPZHtVKY=;
+ b=3NtViW4nkThfw9266Mz03TTQ3mSmbtyhk58DSRzQGoc/naU0Su2qAgL1D2VLsgKqT7ToDZqrljCfHjIU2uUlNdhObtYGOK0eSZRVRFGfN7pe/Sx3Kj0y5yZf2nr6ShEoJw+nF+ZlnGCqMgQPFxIWZIaz23S2UV+E14844IXRRvg=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SN7PR12MB7835.namprd12.prod.outlook.com (2603:10b6:806:328::22)
+ by DM4PR12MB8449.namprd12.prod.outlook.com (2603:10b6:8:17f::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.30; Tue, 5 Nov
+ 2024 09:44:21 +0000
+Received: from SN7PR12MB7835.namprd12.prod.outlook.com
+ ([fe80::ea3a:4720:99cb:32d8]) by SN7PR12MB7835.namprd12.prod.outlook.com
+ ([fe80::ea3a:4720:99cb:32d8%6]) with mapi id 15.20.8114.028; Tue, 5 Nov 2024
+ 09:44:21 +0000
+Message-ID: <60a32e4a-b6af-49b1-b70e-a538ff0c3d86@amd.com>
+Date: Tue, 5 Nov 2024 17:44:15 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RESEND] amdkfd: always include uapi header in priv.h
+To: Felix Kuehling <felix.kuehling@amd.com>, alexander.deucher@amd.com
+Cc: ray.huang@amd.com, amd-gfx@lists.freedesktop.org
+References: <20241031104701.248234-1-lingshan.zhu@amd.com>
+ <19443a63-e82b-444b-9f28-ff0b66929393@amd.com>
+ <5072b301-2e9e-48c5-8404-cdea976c3182@amd.com>
+ <e5bfe061-bd1e-4ce1-8c5d-a0de372ed75c@amd.com>
+Content-Language: en-US
+From: Zhu Lingshan <lingshan.zhu@amd.com>
+In-Reply-To: <e5bfe061-bd1e-4ce1-8c5d-a0de372ed75c@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: TYCP286CA0003.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:26c::10) To SN7PR12MB7835.namprd12.prod.outlook.com
+ (2603:10b6:806:328::22)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0002992D:EE_|CH3PR12MB8710:EE_
-X-MS-Office365-Filtering-Correlation-Id: e3537dcf-a289-4990-0706-08dcfd7bc6ba
+X-MS-TrafficTypeDiagnostic: SN7PR12MB7835:EE_|DM4PR12MB8449:EE_
+X-MS-Office365-Filtering-Correlation-Id: cd6ee865-449b-4545-0e6d-08dcfd7e6cb7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|82310400026|1800799024|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?/04Hbb7zy6cyHesRFjIyTR1rn21jUNje8tdTD22hXQxU6CHUnp1CIbsZFKer?=
- =?us-ascii?Q?Ry4jkSP9k7OfHzo8+UTn2JsgXrXPmEtxd3+pvroxkSwMIJjK7mgFuu9JVtiu?=
- =?us-ascii?Q?qmwroOIGoKWPZm41N0u8BgS8BYjEyEZjTfuCssxQXSpK2l8/tvgeOv86Qr7W?=
- =?us-ascii?Q?tJmCR5JaFkwbKIjzbXI/L4X+B3cHke44VgwJy5go2K61ZVlD0B/YyPPh1R4y?=
- =?us-ascii?Q?z3wdbZ4HAXL2G6om2GyWtEEs0d2oIPq4BzZGQFcLqhXstJrGog1/r0dvsYfU?=
- =?us-ascii?Q?1IQ4tilYLZsxnfo4zSoWHxffBmi8C89jXH/IUi+4bw5YhkLltlAMEnrwgP8c?=
- =?us-ascii?Q?82QOJC0ffbQiYK051z++vBwQlgSe5cheux36s68eQofq9gO7yW08KWkjUf4/?=
- =?us-ascii?Q?d1pKCEKM5jGk0GPcA+cp7nbG79p5RM3BPlN8gQr6SIO3xC6ThzhE2xoXqlj6?=
- =?us-ascii?Q?+ekPMLJiNLrz61hdoD7hmodsyLVGbACMeZ5cM3klPo/wydMxuAGM4rnHHngT?=
- =?us-ascii?Q?XAwOS/Jkd5aDdcA7/xVVMBEuuaqvgAxj/ledks0Ip0uX6liUnbLmpronmokv?=
- =?us-ascii?Q?NhPIcbgOhuz6mAxpmPozAyutbVsZGG1N/mYkhks2RymXPNnKnHwvL9hIJCmo?=
- =?us-ascii?Q?ElavYFrX3j96OJVvFTEp/DNNfog3B1V/tQd9DvlPjjSSyLA6y7NKeXMazyHy?=
- =?us-ascii?Q?GYE12nlaa5IhUZD/7ZQd3F7a6ZoFwhko+JESVT4khMocyk0YwkDE9EnuptpG?=
- =?us-ascii?Q?1vOGrpDXoZ3cSsW3mrfBLIup4vb6JCZWZ/IdmtU8skC8bqD8ILbk4z7jUFQv?=
- =?us-ascii?Q?wWoNRyB5uG72VyO231FvnGWbf5qrJt1GC2aPYNV6oq09Jc4da1LW6sCMQ0Z8?=
- =?us-ascii?Q?rFRYIv33mkhrszFMzCHXQuA+JLnj2/JQ8swiTrIwtrGycgge50muzd4XQkkl?=
- =?us-ascii?Q?7j8lwVEWOz1s6VWyHXb7oTWfntcqzCKpMGPExfPc4NfcKnIo5m5egzJxNDFS?=
- =?us-ascii?Q?19E6+kOf2mlowe7na9PDEuD1NrAwnm78F6mEEmvb68RI/29I6Z9d33MiQfGN?=
- =?us-ascii?Q?2Kc7Np0wowLVZ5gwWB7+/zM7HCsqJqPCEyVGCPzy2xUktYsCzOvmsTzNMAV2?=
- =?us-ascii?Q?kO86goe/HKndBuuyNqXQMKJPys+2caJZTWcbNzqg4zVgkxMEMnd+fk1moKwa?=
- =?us-ascii?Q?G8HH1NM5l7i5LLNbjCIkrNYT7CyfjgcfuTbfAtfDB7jsPaH17rKv7pjyp0aX?=
- =?us-ascii?Q?P+C5i2rP71xkO4XwnxXX8Hol6hQsVKwcle5NEnALcBzod3ln4Q2MTi7c1YX4?=
- =?us-ascii?Q?kTsi5sNUIz53v6bDsciagN8Dk8cn6HPi1asi4Da7Vr75Abm1oYth+GEdpSbk?=
- =?us-ascii?Q?bGDKeIJIyHXId5gsnuSCYG6MhU0+M4Z2XFsQk591NyibkIgKjQ=3D=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(82310400026)(1800799024)(376014); DIR:OUT;
- SFP:1101; 
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?R2VKeUlqSExhQ0o4VkNxbUp5VHp3WE5qVXh0N2k5TGtyWTIzY0w0WHpreVZD?=
+ =?utf-8?B?VXdlbUJUY0N4Y0R2ODN4ak1NSjhEeUxWdzRCY1ZaeEJieVNHZFlZVWdXS1dS?=
+ =?utf-8?B?TVhvTnJWZWpIRDd0VVpadlU2V1phUEdvN2U4SFg0eXFTV0N3TnhkTjd5ekFS?=
+ =?utf-8?B?RWtpdUs3TmxHTUpVelNONDJxb2g3czhGd014NUpQQmo2SlN1eWtQUFllaVJk?=
+ =?utf-8?B?YmRMM2s1Q3BqT0VFSDFxLzh6enk3NVFoL1ptMkRxdlNkZ0FZTVZkNU9FeGpE?=
+ =?utf-8?B?Z2l1OE9jZmx6NFB6RVgxWDNnRWhQSW5zQmgvR1RuTTlmQnZUeXlUSkFDaTJp?=
+ =?utf-8?B?a3ZUWHQ1dWhmK0pEZzNSYUVhMkV0VmI3NzZ2dU9PVEJWem9RdTUxSjZZRjZj?=
+ =?utf-8?B?MVo3UXV0NTRhcXN0TjlqUExFT2p5Z2IwZU95Q09BRmNHeXU4YUc1ZkovckFn?=
+ =?utf-8?B?cGt6aE13OXUwV0JKZkRrcVFTZ1M2TElJODFwdDN4Q3ZiWUJHam5QTEk5bkgv?=
+ =?utf-8?B?bHpFd3F1VHpYOU1Sc2JvVnVOeDErb1R6UEhOd3QzQjdWZGJIdWtTVlhVTTE4?=
+ =?utf-8?B?NS9aOTlXV1B0MmsxUUExWXYxa2s1Zjk4cHB3bS9nMm5kUGRDVkIwR00zNUdu?=
+ =?utf-8?B?Mno2UmdrcmY4alJ1OXcxZ1MxYkIxWVdRUmNvaUVSRjlOYXdFcVFVSzJPOXJ4?=
+ =?utf-8?B?WVpWckw3MTZaOGl2NU85RzByU09UZFdYanl0ZnhWTi9TZFZvZlUyTjVhTDMx?=
+ =?utf-8?B?OExoSCtUK1ZpTEVhMDFVN2FoVnYwWXdOOURuRUZ3c0ZMMnhZQVdRaHFWbTVQ?=
+ =?utf-8?B?MzhZRHhTckF6VFU0K3hxRUluTmt4REFaNUREN2lIRmVXdVJGcDh6aGJKWjI0?=
+ =?utf-8?B?RkN5NFZMYTF6ZE40QXJuS0lyaGY1ZnlBU0QwOThWV3dyTFAyQk1YRWl6NUpZ?=
+ =?utf-8?B?eGU2U3hOaWNlZWJHYVptSksvMVg4ZEd0cHdaMjI1Nm51aitIZ05ZRzhkM091?=
+ =?utf-8?B?YXBwWnJTUnViOFZEM24rQ00zYnJWMlM0UU0zV3ZBTmtXWlJYbVVFdmwrWTJI?=
+ =?utf-8?B?SDhSQUYvaFl2UE90RW5Dd0dadDB1ZmEyRE94czBwRk0rdm1DVG5xM1Fnalhp?=
+ =?utf-8?B?M016dk01dmpLNmJBMnB0WTBPOWVWL1Z3ZG4yQU5MZUpXaFN0RWR3RW83Um5X?=
+ =?utf-8?B?eTV4cG15eldBVkYwQjB5Wml5NzdFeXc0aEpRYVJPSDhlNVlFaU43ckZRazNh?=
+ =?utf-8?B?Z2FadTlXNnU1S2ozNEoyRzhqQmxUeVdkQ2M4bHl6NlltcGJ6UUlqN1pRMzN3?=
+ =?utf-8?B?NHdJbzF0RVJuaExhY255UFVqcGp6bzl6ZDdVQXBuUllKU1NOKzdSQzgxNEVt?=
+ =?utf-8?B?cFNYTE9CbWVWNlJ6a1BHTnZQRFBlbGMrbGxaU2RpZzFsL1BzejdHVi9Jc2cw?=
+ =?utf-8?B?SHRidkRWNnBlU1lSSmYzbnhsRHU3OWRQeis3d3J6K1hGRGhWZ1dxRitOSnF3?=
+ =?utf-8?B?cW9PYVJIdE9aVHZvTmdLVGduMlR3UHM2bi9BQkdMczFIeFRLcHFUTHJsc2dV?=
+ =?utf-8?B?VnJaK0dpTlUzWHdMZDJwYVJYMk9vM3dSTUVIa29HTDVLam5ac2h1a016S1N0?=
+ =?utf-8?B?UkM5M2djbUJXblF4V2RTMS9KL0VpRzczMlVib3FVbmxwK3lSWkRoSk5CdEhD?=
+ =?utf-8?Q?XZzdx+AP6EPftJnhwVj/?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SN7PR12MB7835.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?a0xXS2UvcHEvbGpLNnRyTFNzYmV2azg2d0I3ZnJCdHkrazlvZURFT0RCMnUr?=
+ =?utf-8?B?Zk1vbnNycDdtWGdWZlZDdHBHWHVtUU1TeFk3RVBjSk9TSUJkbzBRaU5vTVY0?=
+ =?utf-8?B?NUpCUWVhMHN0bTE0Z0ppNnlzQkVsTnNXM0hDaGkwMDBPbk9nRitUZ3JLbTYv?=
+ =?utf-8?B?TG1WSmVTcXdLQkdwVlV2ZVpkVERQS1hNRzJmVE9pWkJJOElDQVZISmJqWnZG?=
+ =?utf-8?B?bkN0UTdGT2JUNWVKN2xEc3ZIQXAvYk5FZE5tUjJYMkxodDVNbElOeC81MkIw?=
+ =?utf-8?B?bUhlb2JvY2w4L245U3NpSmk3NlFKUWM4Y2xXQlU3Z0RkdDlNamZmbTkvbVZO?=
+ =?utf-8?B?c1FnblFJREZWbWMvWk5vNkhjQk5qWWdmd29IYzl0dTBIYVU2d0RJRVRjRjBB?=
+ =?utf-8?B?ZkYxeWxhL0dyeUFtNDBpY3VKRzY2bW15YlJRQ2ZsZEtVaUxxd2Eyc2E4L1Fh?=
+ =?utf-8?B?UkJjQzlrYjhPbHgzdUs0Y0tid01EUnBmWmdJN3FpR1J2eEpOaCtwbk5mKy91?=
+ =?utf-8?B?dE84NEdHOWgveUdCTGs2cmk1NW5WQVdybUVhRzBYdi9TQU51dTdvNlFVYk5j?=
+ =?utf-8?B?RGhXOGR0dmMzT0llb3UrUk95WWMydTJ3bDJXL0hSREFnZTNYd1prUWxvbENP?=
+ =?utf-8?B?enhJdE5jL2JMWEJyakZRLzEzdHZrWDNjOFlOcWJkZjdXYnd3MDhsZDdRWXRM?=
+ =?utf-8?B?WUk4SlQvZElXVnlJOXYrQ2xQQmJIWGxLM1dUNlRVZHJtdkxEWWxnWmhMcGF2?=
+ =?utf-8?B?dE15SThvUW9VRUFTYW9TOTJUV3hjR1RJUk9sdkc3TkxHRGtQTmd6NkMrKyt0?=
+ =?utf-8?B?KzNkVjQ1YU1RUFJtVFFSUFVjYU1WUnR6T1p6Y2NkSVRkT254R0Z4cjI3b3NF?=
+ =?utf-8?B?Slk2dUgyQkZ0U09jbk9zNllyVkgvWmxKdFY0Z3hJeEVLckdFVVQ3MHVnT0NU?=
+ =?utf-8?B?ZjBWcHBaTTk4K1laQ091OEVvdTVBL1dDek5zSExHWm5xdURtSHpoSzZNMVhu?=
+ =?utf-8?B?YWx0a2tEUFlsWWlBL2lhaURTanVicldMYjRBYy90K2lPVXBlWTJpdm15d0NU?=
+ =?utf-8?B?dG53VDFQaXAzU2xBUDRHN1l3NkN1THYzUFhWWkNLTEVNSlBRc0ZmQmJlOGs4?=
+ =?utf-8?B?S0ZSZ2prenNOZUxYYitYNkJnMzJpVXFtUVZLZE53ZmtseFZkejFjQTgvclVX?=
+ =?utf-8?B?MnlDMGNCaFNMTk16cGp4eWIweDRZSlIwUXl1Zm4xckYxa2VXaHlZU1dDMWhT?=
+ =?utf-8?B?TSs3S1lOeXJaL3BHcnV0L1UwM3h0Y00wbmVwenk1WWZOWVc3cjZOZkJ2am5p?=
+ =?utf-8?B?dmxISXFGR3ljUU9tUWZ0SWRmOXdaSXZIZ09VNlk0UXZ6RUtBZDBNd0xyUjdz?=
+ =?utf-8?B?UGZQb1RFRlNyN3hWYUNGdEx4QlZCcXlQb1B3M3FVYzFvclNucTdPUlBxTG1w?=
+ =?utf-8?B?dU5sVnQzNXd4bHgyUk1uVkpGT2hpQ05IZHBTSDNRSVdIalY3SkoxV2hrWG5L?=
+ =?utf-8?B?VDZtWElzRFEwb1FScUx4MWJhYUFyMnpUQkF3d3ZGbCtGSkh2RWd5S0FGWHZ3?=
+ =?utf-8?B?VEh3cW1taUhtcWpWclFEMUNSTXM0cXZGUmJ2a1BrTjFxbTdvWisvdnBkdnFX?=
+ =?utf-8?B?ekE1WXRoTzRYVFZWUnYwenFZaTRCYzAvbEZqVm9lRDduTVM0aGJxTjJhTG5J?=
+ =?utf-8?B?UkJUdVd4KzR2MVJNNk1zTTJrcnJOelYxcUpXNnZvaWR0N3hjcTgvSXB5cTVJ?=
+ =?utf-8?B?ZE9zaDJGYW9Va0drYnozSjBvRXVNM0J1MXZwVk5tZzlWa3cwWVV2YXppeDRk?=
+ =?utf-8?B?QmowWmE0aUhCNWFYTG9oY09RY29iRHEzV1l2cHVuanBzYytlNFJXbkkrOWV6?=
+ =?utf-8?B?bUtUYTRKOEs4dTd0QjlVQVFlQ1A3Q1JianlzVHlrcXFzMmEvVnVjVWczTlFU?=
+ =?utf-8?B?cDlnMVpOUzZCWXhsUkppRWkxaFZvMkdBTFlORnlGcnlBQzh3b0FmUWk0Z3lP?=
+ =?utf-8?B?c2lRQUNhRHlmOE5zTW1IanArLzNEcjhUb3N5Vi83Z1J1STl1T055aWNlUDdz?=
+ =?utf-8?B?Yk5oaUk5WGpSMHNkOGRMR1d2NUNaTmJFb0cwSVVRcFY1SWwxWXpYcEptNnlL?=
+ =?utf-8?Q?cVMz2ZwxjjKTU2yD+VM7ZwwOd?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2024 09:25:23.6027 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e3537dcf-a289-4990-0706-08dcfd7bc6ba
+X-MS-Exchange-CrossTenant-Network-Message-Id: cd6ee865-449b-4545-0e6d-08dcfd7e6cb7
+X-MS-Exchange-CrossTenant-AuthSource: SN7PR12MB7835.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2024 09:44:21.4006 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0002992D.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8710
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9XiHWokxxCWeGX39/vUk/xWArn1lt5XgIwysc2NMkHmceAYLHnGr6gUfF6FJ+PL/oZDH1anjshBLd+uic98MuA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB8449
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,109 +159,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The currect code use the address "adev->mes.read_val_ptr" to
-store the value read from register via mes.
-So when multiple threads read register,
-multiple threads have to share the one address,
-and overwrite the value each other.
+On 11/5/2024 4:43 AM, Felix Kuehling wrote:
+> On 2024-10-31 22:15, Zhu Lingshan wrote:
+>> On 10/31/2024 11:27 PM, Felix Kuehling wrote:
+>>> On 2024-10-31 6:47, Zhu Lingshan wrote:
+>>>> The header usr/linux/kfd_ioctl.h is a duplicate of uapi/linux/kfd_ioctl.h.
+>>> I don't see usr/linux/kfd_ioctl.h. Which branch are you looking at?
+>> The mainline master branch:
+>> https://github.com/torvalds/linux/blob/master/drivers/gpu/drm/amd/amdkfd/kfd_priv.h#L35
+>> #include <linux/kfd_ioctl.h>
+>>>> And it is actually not a file in the source code tree.
+>>> If it's a file that only there on your local working tree, maybe just clean up your working tree.
+>> Yes, this is a file on the local working tree, it is generated when build, it is  not in source code tree.
+>> The is even no folder usr/include/linux before building.
+>>
+>> For a quick verify:
+>> 1) it is not a source code file from mainline:
+>> $git blame ./usr/include/linux/kfd_ioctl.h
+>> fatal: no such path 'usr/include/linux/kfd_ioctl.h' in HEAD
+>>
+>> 2) it is generated when build:
+>> remove usr/include/linux/kfd_ioctl.h, then build.
+>> If we remove a required header, kfd would not
+>> build and there will be error messages.
+>>
+>> but here we will see these lines:
+>> HDRINST usr/include/linux/kfd_ioctl.h
+>> HDRTEST usr/include/linux/kfd_ioctl.h,
+>> no build errors, and usr/include/linux/kfd_ioctl.h is
+>> generated by duplicating the uapi one.
+>>
+>>
+>> 2) linux/kfd_ioctl.h is usr/include/linux/kfd_ioctl.h
+>> add random characters in usr/include/linux/kfd_ioctl.h, then build
+>> we will see errors like this:
+>>
+>> In file included from <command-line>:
+>> ./usr/include/linux/kfd_ioctl.h:65:9: error: expected ‘;’ before ‘struct’
+>>    65 | abcd1234
+>>       |         ^
+>>       |         ;
+>>    66 |
+>>    67 | struct kfd_ioctl_create_queue_args {
+>>       | ~~~~~~
+>>>> Ideally, the usr version should be updated whenever the source code is recompiled.
+>>> If the usr version is not in the git repository, it doesn't need to be updated. I don't know where this is coming from on your local tree.
+>> the usr one would be installed to the system when run make install or install_headers,
+>> it is for user space, we should include the uapi one instead of usr one in our source code files
+> I did not see the folder in my tree because I build with O=... so usr/include/linux/kfd_ioctl.h shows up in my build output tree.
+exactly! usr/include/linux/kfd_ioctl.h is not shown until we build the kernel, it is a duplication of the uapi header generated by
+kernel "make", that is why we did not see it until "make". If you run git blame usr/include/linux/kfd_ioctl.h,
+git will tell us: fatal: no such path 'usr/include/linux/kfd_ioctl.h' in HEAD
 
-Assign an address by "amdgpu_device_wb_get" to store register value.
-each thread will has an address to store register value.
+In a fresh cloned kernel tree, without "make", in usr/include, try [lszhu@localhost include]$ find -name kfd_ioctl.h
+shows nothing, usr/include/linux/kfd_ioct.h is not there until build the kernel.
 
-Signed-off-by: Chong Li <chongli2@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 30 +++++++++++--------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h |  3 ---
- 2 files changed, 13 insertions(+), 20 deletions(-)
+Means 'usr/include/linux/kfd_ioctl.h' is not a source code file, thus we should include the original uapi one in our code.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-index 83d0f731fb65..a8f7173b2663 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-@@ -189,17 +189,6 @@ int amdgpu_mes_init(struct amdgpu_device *adev)
- 			(uint64_t *)&adev->wb.wb[adev->mes.query_status_fence_offs[i]];
- 	}
- 
--	r = amdgpu_device_wb_get(adev, &adev->mes.read_val_offs);
--	if (r) {
--		dev_err(adev->dev,
--			"(%d) read_val_offs alloc failed\n", r);
--		goto error;
--	}
--	adev->mes.read_val_gpu_addr =
--		adev->wb.gpu_addr + (adev->mes.read_val_offs * 4);
--	adev->mes.read_val_ptr =
--		(uint32_t *)&adev->wb.wb[adev->mes.read_val_offs];
--
- 	r = amdgpu_mes_doorbell_init(adev);
- 	if (r)
- 		goto error;
-@@ -220,8 +209,6 @@ int amdgpu_mes_init(struct amdgpu_device *adev)
- 			amdgpu_device_wb_free(adev,
- 				      adev->mes.query_status_fence_offs[i]);
- 	}
--	if (adev->mes.read_val_ptr)
--		amdgpu_device_wb_free(adev, adev->mes.read_val_offs);
- 
- 	idr_destroy(&adev->mes.pasid_idr);
- 	idr_destroy(&adev->mes.gang_id_idr);
-@@ -246,8 +233,6 @@ void amdgpu_mes_fini(struct amdgpu_device *adev)
- 			amdgpu_device_wb_free(adev,
- 				      adev->mes.query_status_fence_offs[i]);
- 	}
--	if (adev->mes.read_val_ptr)
--		amdgpu_device_wb_free(adev, adev->mes.read_val_offs);
- 
- 	amdgpu_mes_doorbell_free(adev);
- 
-@@ -918,10 +903,19 @@ uint32_t amdgpu_mes_rreg(struct amdgpu_device *adev, uint32_t reg)
- {
- 	struct mes_misc_op_input op_input;
- 	int r, val = 0;
-+	uint32_t addr_offset = 0;
-+	uint64_t read_val_gpu_addr;
-+	uint32_t *read_val_ptr;
- 
-+	if (amdgpu_device_wb_get(adev, &addr_offset)) {
-+		DRM_ERROR("critical bug! too many mes readers\n");
-+		goto error;
-+	}
-+	read_val_gpu_addr = adev->wb.gpu_addr + (addr_offset * 4);
-+	read_val_ptr = (uint32_t *)&adev->wb.wb[addr_offset];
- 	op_input.op = MES_MISC_OP_READ_REG;
- 	op_input.read_reg.reg_offset = reg;
--	op_input.read_reg.buffer_addr = adev->mes.read_val_gpu_addr;
-+	op_input.read_reg.buffer_addr = read_val_gpu_addr;
- 
- 	if (!adev->mes.funcs->misc_op) {
- 		DRM_ERROR("mes rreg is not supported!\n");
-@@ -932,9 +926,11 @@ uint32_t amdgpu_mes_rreg(struct amdgpu_device *adev, uint32_t reg)
- 	if (r)
- 		DRM_ERROR("failed to read reg (0x%x)\n", reg);
- 	else
--		val = *(adev->mes.read_val_ptr);
-+		val = *(read_val_ptr);
- 
- error:
-+	if (addr_offset)
-+		amdgpu_device_wb_free(adev, addr_offset);
- 	return val;
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-index 45e3508f0f8e..83f45bb48427 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-@@ -119,9 +119,6 @@ struct amdgpu_mes {
- 	uint32_t			query_status_fence_offs[AMDGPU_MAX_MES_PIPES];
- 	uint64_t			query_status_fence_gpu_addr[AMDGPU_MAX_MES_PIPES];
- 	uint64_t			*query_status_fence_ptr[AMDGPU_MAX_MES_PIPES];
--	uint32_t                        read_val_offs;
--	uint64_t			read_val_gpu_addr;
--	uint32_t			*read_val_ptr;
- 
- 	uint32_t			saved_flags;
- 
--- 
-2.34.1
+>
+> The extra copy of the user mode headers seems to be an artifact of the Linux kernel build system. The fact that the build picks up user mode headers from <OUT>/usr/include/... seems intentional. If your tree has an outdated version of kfd_ioctl.h there, it's probably something broken with your build tree. Maybe broken file timestamps. It should be easy to fix with a "make mrproper" to force it to update all the build artifacts.
+the usr one is an extra copy, kernel build system copies headers from uapi folder to usr/include/linux, so the uapi headers are the original ones.
+
+Thanks
+Lingshan
+>
+> I still don't think we need to change the code to fix a problem specific to your build system.
+>
+> Regards,
+>   Felix
+>
+>> Thanks
+>> Lingshan
+>>> Regards,
+>>>   Felix
+>>>
+>>>> However, I have noticed a discrepancy between the two headers
+>>>> even after rebuilding the kernel.
+>>>>
+>>>> This commit modifies kfd_priv.h to always include the header from uapi to ensure
+>>>> the latest changes are reflected. We should always include the source
+>>>> code header other than the duplication.
+>>>>
+>>>> Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
+>>>> ---
+>>>>  drivers/gpu/drm/amd/amdkfd/kfd_priv.h | 2 +-
+>>>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+>>>> index 26e48fdc8728..78de7ac09e8a 100644
+>>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+>>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+>>>> @@ -32,7 +32,7 @@
+>>>>  #include <linux/atomic.h>
+>>>>  #include <linux/workqueue.h>
+>>>>  #include <linux/spinlock.h>
+>>>> -#include <linux/kfd_ioctl.h>
+>>>> +#include <uapi/linux/kfd_ioctl.h>
+>>>>  #include <linux/idr.h>
+>>>>  #include <linux/kfifo.h>
+>>>>  #include <linux/seq_file.h>
 
