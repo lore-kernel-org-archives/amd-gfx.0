@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC585D36137
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 Nov 2024 20:24:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EBB7D36137
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 Nov 2024 20:25:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A221910E618;
-	Tue,  5 Nov 2024 20:24:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B588E10E615;
+	Tue,  5 Nov 2024 20:25:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="rwygj0b7";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qjcBWPxO";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2050.outbound.protection.outlook.com [40.107.220.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E555A10E618
- for <amd-gfx@lists.freedesktop.org>; Tue,  5 Nov 2024 20:24:58 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2044.outbound.protection.outlook.com [40.107.223.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE1FB10E615
+ for <amd-gfx@lists.freedesktop.org>; Tue,  5 Nov 2024 20:25:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=e3wo94bsc5GHzzpnx3yRpQ+xQFpQbKSmVyvvES1qQHeiMgriz9Qi8V58BeVV+TcThm++YsZd6qdvCgHA6+sFMbsrd3FBajl21DBuMB/KQt+XfpN0P6EPosykqPNZXEf7UBLqXOF+WK4I8f4yTpuPafNM/LXEDPNV0QKer8VnkL6lgKt9QnZI+iTJJiu3ANvBR3r+nuQZbmVBMsM0isQh3q4ETOGXeRh1NrUnFt1LDqML51NaTvNqkzREq6SOdJrwjAIqvV+K0FgeqseD7niNU1kDWuxsj7g7bu6OcRMXwOWPJVvyIhzaiSJuTBTl6cysd27Iu6u1uTpVmM7+Eh46/w==
+ b=dI/7+I8k8LwKm8NO6OjbVOYbkQMJtShen2AlCf0eHL98zB/aMqO8eSC3PCNmWGQrTPjFu4WWEPx+SrQBlS0hppM4cweF2xRChr6+CPCtK0KN+/OrnTRh4cnRc9zRQUrxxP/X52KTsJ/iMQKm+51rIhDTpVJUB6w2uU7C+mbCUIZ9MdG+wHs7ivUwrdheoHPX9c4CqR7bA19sERMt5py0Bcp4ExFS9Sd1GI9lEBqELq8xbvbxms7ZVFmIs6/iWGjKw+hAM9gUZc3sF8PYY5b5XBXGY5F/MROQNwFQ6dUjKCcnOeqczPZI0p1k56OkIuXKdr2hWt3+5aKBka8DAs+pVw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=S09HEuQPUJLLfBIJDDNrfsF4EidsmB07JYP3znEKoYI=;
- b=XlHXk2kEKhZiAMstziBzpQmdkzdi3zspD6BoP/2UiVcH768UeQEDwsFxRX8LkZ8xR4g5UE9rka14yxzVDuHBYMX2ee5tAwgYR55PN8qda3726MslhLdmuTD4aR1QjTODm2E0tH6vVfF7dd7Zx0WUxeNp40ql8hrK3PRxeaCWB9giVq9khF077Vl9kAz/OJt4Os9D3WZbjTyPR8N2+1AVJ7u49lp96d/X0c4DhWJZYB+3zI1+LQJXy+G8ZqPdW/dPJ2ifX3wpMjl4FLP5jSKttMaxhnJrt52E4nWtRlqtAPT0ebsmZvpznw2fnwlpVk3hASWi5vpR1GKZX8hJ/49Aug==
+ bh=4z8/q4HbdT+FuZXWEOu93V/2sKEXIK8NbaPKs53oAOA=;
+ b=Qdz5kUVJqNrCRT/j3pjArw2Htxp4prANRiKYhkEGZFm6oudtv8Gl2pBAmXkR39OFIHABh7ckRBl9Ngc/7hRIfsXMGiSd2VbLJghxiDcF5cKR8Sr/sA0+0Vl464NCV4P0vc3h6g8Z0/GfvjiqKrU5HwYtQZn/DNVu5hv/02yEciFTll14/WXUKr4s8a22ILQVBOmqN+yMGKCp3R1nn/b0pEDq27gufcbmn6d5wcSCD6bBuE2Eb86zJrmbotKvFWbzKbzcBQVS7+hvUsc7hH/26cC4SuGx3yKlbaziPBKWDixh6plnsY5tf4k2T6kolLpC5gjGdvj1yxgTYBB1av3l/A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=S09HEuQPUJLLfBIJDDNrfsF4EidsmB07JYP3znEKoYI=;
- b=rwygj0b7WV6P7+fHfxVfuDOMAWt/NBQts9EXvwnrtfrA3mf1cWSzr8o1D546DNQcqO4BurJ7JGuy5RYSH8wlgKk6usyXVCWv4UYAhvMBhGf9QDC47/cHbAce6rxHBeuniIklcWIkJS3zECDCK5hOhJ9kN6LJZYbX4ACUrLh3aQ4=
-Received: from BN9PR03CA0469.namprd03.prod.outlook.com (2603:10b6:408:139::24)
- by CY5PR12MB6598.namprd12.prod.outlook.com (2603:10b6:930:42::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.30; Tue, 5 Nov
- 2024 20:24:52 +0000
-Received: from BL6PEPF00020E65.namprd04.prod.outlook.com
- (2603:10b6:408:139:cafe::19) by BN9PR03CA0469.outlook.office365.com
- (2603:10b6:408:139::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.30 via Frontend
- Transport; Tue, 5 Nov 2024 20:24:51 +0000
+ bh=4z8/q4HbdT+FuZXWEOu93V/2sKEXIK8NbaPKs53oAOA=;
+ b=qjcBWPxOppSk1HOXF3lFBgA0OyTdojUfiyj516c6+I0MFfpf42UEKmOc65ZNFqyWGtyykHM3kBpuVojXm1HVPpo51bAqWioCOncFrqkIF5BVKB+89tbuHarL/hvU9QZHCo98mrfIVtwMwVDSIGkOGi+cJNmn4xG0IauaGkZFwvw=
+Received: from BL0PR05CA0026.namprd05.prod.outlook.com (2603:10b6:208:91::36)
+ by SA1PR12MB7319.namprd12.prod.outlook.com (2603:10b6:806:2b5::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.29; Tue, 5 Nov
+ 2024 20:25:00 +0000
+Received: from BL6PEPF00020E61.namprd04.prod.outlook.com
+ (2603:10b6:208:91:cafe::5f) by BL0PR05CA0026.outlook.office365.com
+ (2603:10b6:208:91::36) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8137.17 via Frontend
+ Transport; Tue, 5 Nov 2024 20:25:00 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,13 +48,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL6PEPF00020E65.mail.protection.outlook.com (10.167.249.26) with Microsoft
+ BL6PEPF00020E61.mail.protection.outlook.com (10.167.249.22) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8137.17 via Frontend Transport; Tue, 5 Nov 2024 20:24:51 +0000
+ 15.20.8137.17 via Frontend Transport; Tue, 5 Nov 2024 20:25:00 +0000
 Received: from hamza-pc.localhost (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 5 Nov
- 2024 14:24:47 -0600
+ 2024 14:24:55 -0600
 From: Hamza Mahfooz <hamza.mahfooz@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -63,12 +63,10 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Li" <roman.li@amd.com>, Wayne Lin <wayne.lin@amd.com>, Tom Chung
  <chiahsuan.chung@amd.com>, Fangzhi Zuo <jerry.zuo@amd.com>, Zaeem Mohamed
  <zaeem.mohamed@amd.com>, Solomon Chiu <solomon.chiu@amd.com>, Daniel Wheeler
- <daniel.wheeler@amd.com>, Yihan Zhu <Yihan.Zhu@amd.com>,
- <stable@vger.kernel.org>, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Subject: [PATCH 13/16] drm/amd/display: update pipe selection policy to check
- head pipe
-Date: Tue, 5 Nov 2024 15:22:14 -0500
-Message-ID: <20241105202341.154036-14-hamza.mahfooz@amd.com>
+ <daniel.wheeler@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 15/16] drm/amd/display: Adjust VSDB parser for replay feature
+Date: Tue, 5 Nov 2024 15:22:16 -0500
+Message-ID: <20241105202341.154036-16-hamza.mahfooz@amd.com>
 X-Mailer: git-send-email 2.46.1
 In-Reply-To: <20241105202341.154036-1-hamza.mahfooz@amd.com>
 References: <20241105202341.154036-1-hamza.mahfooz@amd.com>
@@ -80,50 +78,50 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF00020E65:EE_|CY5PR12MB6598:EE_
-X-MS-Office365-Filtering-Correlation-Id: eb9aee79-c33c-4372-dc58-08dcfdd7e740
+X-MS-TrafficTypeDiagnostic: BL6PEPF00020E61:EE_|SA1PR12MB7319:EE_
+X-MS-Office365-Filtering-Correlation-Id: 44d45e5d-081d-4baa-5439-08dcfdd7ec40
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700013|376014|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?l16oP+G/frmM+a0n/B5aowsE4+MibkqhhFZgd8bcU/UJJTUgiQoon6v5AlLL?=
- =?us-ascii?Q?feYfITd4kTMzAgDY543RJzdvHMC0EYY11zwiZ3AR1zFu+PTaZJf2hZVsGx8F?=
- =?us-ascii?Q?WdWCXVtLUSZFWUb6PVylSg9Sg5wAo6vYVOt5UWBz6tPVyBlaab71zRBNRhfD?=
- =?us-ascii?Q?7pIemfSvXzSBvZt3P8yMnmJkXtCtBdvNYqgfStHrjlGdsiHNE2pKfnS+pDmE?=
- =?us-ascii?Q?58ycbniuN+U7ozeEFZkv/v23Smk/DeVWJGwa3rHC44L/LV8LK0UrtlXmRYqr?=
- =?us-ascii?Q?RRSw+whxHJ8AhtllAET8n4MpSWmO+SJYh2Y+NrL5JqAV+J1IH0dFIIlWadry?=
- =?us-ascii?Q?iqAqdjc1yPboFQm3LELiZXaiVrgib3jd/AuswEYsUtgVKDBsjG01o75elmnN?=
- =?us-ascii?Q?pr7vEje2yDFvJJRomx1STlcEI2qyOZQHNi7desCLoocBlap/s6VHj17QTj9U?=
- =?us-ascii?Q?q1gxJEhY/0o3HPkHR3rCjj2dILz7ZeCE3y8/En+3Jvd2i3d4COhJEWQraTak?=
- =?us-ascii?Q?O4fmRei7+WrR7Yeam4qngoeI8Kpvm9BczclnNaeWtPG4FXcSGydNlC6CPGda?=
- =?us-ascii?Q?WzbU2IoyOIJz4YAqrZlAKRfPsrIT3RwfkogDYn1B1in/GEXjkI/m2vdO2f2b?=
- =?us-ascii?Q?WnJ5xERT9zjPmIy8H2ezr1UOSTv68MbEoB69gpZelKc0A3a+bW5qJDb4ZPxn?=
- =?us-ascii?Q?Eo5KeM5XF/q/F4BsXgBSQ+zkzkOmj8bULw3mNTHY/BDTjMonhnUMW8loXNbt?=
- =?us-ascii?Q?fUUlOBNE5AxVgpYd1dp/L9k90J+l2fLo6pQjLJQjpNfZdRlPQkoDcG05Vjq7?=
- =?us-ascii?Q?QB9ZXPeRyPwYNFoemJ43SA2Wm/GOf9VKqlPykPpDWF1HFyNh+L5TgqQfyFMp?=
- =?us-ascii?Q?+Sc3OYFNIEA8DlTzMEcReTqUdhf2hAVoPNQ0wcq6j4XabkE64aZRnU1KHFHS?=
- =?us-ascii?Q?1Ut5vJ59Wd4lF2UKtBUBbrjRClpQk+wu0cLDCFjN1TBBzV4EEn/0v+LKLzpL?=
- =?us-ascii?Q?gh4w/QkYev8tAcXLTIdXtV0FffuwEkwBofCf8PcyDKPFraa6+/oa8wWE4q91?=
- =?us-ascii?Q?zaRaPGvmsoObpXXde2AtE3xOA6xjml68WWrgOLSgRGfR6UKPvz7w601OjpRR?=
- =?us-ascii?Q?mLmFYxzKz5xwfznYzEGZfL2wvc7odmWU7bwS4XmNcwyEcq163DM9+wimzX9I?=
- =?us-ascii?Q?kLMwIBvoBzYMVUM1JkkpLKXdnlNhbIx9fXFr4XzcIGTmI2LBWFRvzWtxE6GZ?=
- =?us-ascii?Q?Uk3IcvWm1iNmP3n9GM2OVg7bSbAkfJ2S3i/zzLb34Cx7gOTqS1wj3hY/3IlR?=
- =?us-ascii?Q?DcMPtzsbSo+gankZt0bkd00HGqSEQcRQVBtvvdGVy7YMjqTllgcCpC1Wt8AG?=
- =?us-ascii?Q?6lpa0a+eHxMVJI3CXJuy2hRy9pR91RY9IV7YEzpCVcO5oacNHw=3D=3D?=
+ ARA:13230040|376014|1800799024|82310400026|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?gQnW8xuc6QtGNuml7OowxA/wj0wWK65+atYy3820gkwCUc3SY51hFmHfdFIQ?=
+ =?us-ascii?Q?bBRgv5r/u7ZNLx+BjAcqEluZj2MM+hptA3vzBlHmklh3E3Gf+QbLu9dnDLv5?=
+ =?us-ascii?Q?F4Oy6P11NMJH7oVXliZSyMCWc3l2QlKMpezhczQLn5ihsSq3Sfv8CInHmJHI?=
+ =?us-ascii?Q?vBFn8VFd8IvRIgontylWPV80VBMcOYeJeyMLRe9jVw1oHynJ1Mx62ruDqPmp?=
+ =?us-ascii?Q?Wckb9FHNJ5yiECfR9RFrvKwydohgEI02XOpKoqWINkI9qi6RQm8K74Zs+77s?=
+ =?us-ascii?Q?ED789mE9L/FrMeTw9TGUgR5UooiuHty4/W1OUYjkarLdbZ4nuvF9o0z8etmS?=
+ =?us-ascii?Q?0EoLXm851j4wMeyTaCKe239SpOFJd5krQRNimQ/r5u+1FNiH54dpyhFb/kUr?=
+ =?us-ascii?Q?WMn54UrFL68JZYpKklXuudnHbFHS5eoqTrrAo5/sORcAkstc7J9shdTXHeAt?=
+ =?us-ascii?Q?97/G1RjxO2LJJrMrR4EQDHP5o+KVvh27ZbE+gXADavclkeBI2ZjQN2Yxcnie?=
+ =?us-ascii?Q?6bl5rLvl7qzfgC35XcwJ0cRUPM6U0J5s7o4WTnqJW+EiA2l36ZNa0gnnLdcR?=
+ =?us-ascii?Q?nkWkgdqETf1IP1mz18D4+UmfbCTWZe6YBSxH5cMs14MB5aw2vLQVKCJ9fgqD?=
+ =?us-ascii?Q?Mphb29E8Lyt4gm8YdF5brpjCgKEcHC6gs1bXn/MchvZ2Cy2bjGFTCpZhG3Dq?=
+ =?us-ascii?Q?YrCLEkJF4DDjdxnZm4dbgMq6UilWCa9UL6Anin1R3TUOueWzAnfBptSQ787F?=
+ =?us-ascii?Q?t0a7aML9BOiL+SdZ9TmGNch4pFoL21gk9OxRlvNGXo5D7HdpMG+NgLjB67jc?=
+ =?us-ascii?Q?f3K362uDG27M0zfWNDJKZ80lFT93fu4gOJc7RJd9jyygryDcuDSZDJtry+PH?=
+ =?us-ascii?Q?Akh39gKaAX+VsbEymEaghCMNpmHLmIwVokJELekzMe7zXKULL4avRbSqWEaM?=
+ =?us-ascii?Q?U8KY2c8X7e1rR+2f0i2mNgp/2uRTxMVPlVdAavRvOSyi//ljcvOn1XIBkW6n?=
+ =?us-ascii?Q?rnd6QNpIDrx4haigtPGq6DT26knJ44YcOmp8g8d01be1V/PIMNOKmdy2BnLf?=
+ =?us-ascii?Q?FjGfbTJ/I5VXcCHHkU75rj0Ub+dX744DGuDclIz2GdpUWHL23OpQXzGmQJ9L?=
+ =?us-ascii?Q?p59SuqAVDfUuA4z9yYN4GjC6JnvGPIGIPCs99so6szBBNSM8a2iBapE4cL91?=
+ =?us-ascii?Q?yiDVTpiCu6KsQDW2/RacWYVBYV9fe07+yS4Owi47gJy5v5jA7tjmGGWQco0Y?=
+ =?us-ascii?Q?bV3cYTNb145MTkqCmJb8WZeoL/akdpjLNLOMb6Td5gJ3SovcMDFwoYK689Qy?=
+ =?us-ascii?Q?u57aTkOV3nj1M0gSc6hNv9/FXQAB1AaC+COPtGB27K937LKX/GyKSETvQMiK?=
+ =?us-ascii?Q?Ob4ZilXxxQAAJzkEoGshEayQdlvZE9FEy8HMYtrY0n9JWnO/9w=3D=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700013)(376014)(1800799024); DIR:OUT;
+ SFS:(13230040)(376014)(1800799024)(82310400026)(36860700013); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2024 20:24:51.8101 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: eb9aee79-c33c-4372-dc58-08dcfdd7e740
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2024 20:25:00.1483 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 44d45e5d-081d-4baa-5439-08dcfdd7ec40
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF00020E65.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF00020E61.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6598
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7319
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,67 +136,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Yihan Zhu <Yihan.Zhu@amd.com>
+From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 
-[Why]
-No check on head pipe during the dml to dc hw mapping will allow illegal
-pipe usage. This will result in a wrong pipe topology to cause mpcc tree
-totally mess up then cause a display hang.
+At some point, the IEEE ID identification for the replay check in the
+AMD EDID was added. However, this check causes the following
+out-of-bounds issues when using KASAN:
 
-[How]
-Avoid to use the pipe is head in all check and avoid ODM slice during
-preferred pipe check.
+[   27.804016] BUG: KASAN: slab-out-of-bounds in amdgpu_dm_update_freesync_caps+0xefa/0x17a0 [amdgpu]
+[   27.804788] Read of size 1 at addr ffff8881647fdb00 by task systemd-udevd/383
 
-Cc: stable@vger.kernel.org
-Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Signed-off-by: Yihan Zhu <Yihan.Zhu@amd.com>
+...
+
+[   27.821207] Memory state around the buggy address:
+[   27.821215]  ffff8881647fda00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+[   27.821224]  ffff8881647fda80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+[   27.821234] >ffff8881647fdb00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+[   27.821243]                    ^
+[   27.821250]  ffff8881647fdb80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+[   27.821259]  ffff8881647fdc00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+[   27.821268] ==================================================================
+
+This is caused because the ID extraction happens outside of the range of
+the edid lenght. This commit addresses this issue by considering the
+amd_vsdb_block size.
+
+Cc: ChiaHsuan Chung <chiahsuan.chung@amd.com>
+Reviewed-by: Leo Li <sunpeng.li@amd.com>
+Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
 ---
- .../display/dc/dml2/dml2_dc_resource_mgmt.c   | 19 ++++++++++++++++++-
- 1 file changed, 18 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml2_dc_resource_mgmt.c b/drivers/gpu/drm/amd/display/dc/dml2/dml2_dc_resource_mgmt.c
-index 6eccf0241d85..9be9ed7e01d3 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/dml2_dc_resource_mgmt.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/dml2_dc_resource_mgmt.c
-@@ -258,12 +258,23 @@ static unsigned int find_preferred_pipe_candidates(const struct dc_state *existi
- 	 * However this condition comes with a caveat. We need to ignore pipes that will
- 	 * require a change in OPP but still have the same stream id. For example during
- 	 * an MPC to ODM transiton.
-+	 *
-+	 * Adding check to avoid pipe select on the head pipe by utilizing dc resource
-+	 * helper function resource_get_primary_dpp_pipe and comparing the pipe index.
- 	 */
- 	if (existing_state) {
- 		for (i = 0; i < pipe_count; i++) {
- 			if (existing_state->res_ctx.pipe_ctx[i].stream && existing_state->res_ctx.pipe_ctx[i].stream->stream_id == stream_id) {
-+				struct pipe_ctx *head_pipe =
-+					resource_get_primary_dpp_pipe(&existing_state->res_ctx.pipe_ctx[i]);
-+
-+				// we should always respect the head pipe from selection
-+				if (head_pipe && head_pipe->pipe_idx == i)
-+					continue;
- 				if (existing_state->res_ctx.pipe_ctx[i].plane_res.hubp &&
--					existing_state->res_ctx.pipe_ctx[i].plane_res.hubp->opp_id != i)
-+					existing_state->res_ctx.pipe_ctx[i].plane_res.hubp->opp_id != i &&
-+						(existing_state->res_ctx.pipe_ctx[i].prev_odm_pipe ||
-+						existing_state->res_ctx.pipe_ctx[i].next_odm_pipe))
- 					continue;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 1d47719e7af1..8381afbe6e4d 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -12096,7 +12096,7 @@ static int parse_amd_vsdb(struct amdgpu_dm_connector *aconnector,
+ 			break;
+ 	}
  
- 				preferred_pipe_candidates[num_preferred_candidates++] = i;
-@@ -292,6 +303,12 @@ static unsigned int find_last_resort_pipe_candidates(const struct dc_state *exis
- 	 */
- 	if (existing_state) {
- 		for (i  = 0; i < pipe_count; i++) {
-+			struct pipe_ctx *head_pipe =
-+				resource_get_primary_dpp_pipe(&existing_state->res_ctx.pipe_ctx[i]);
-+
-+			// we should always respect the head pipe from selection
-+			if (head_pipe && head_pipe->pipe_idx == i)
-+				continue;
- 			if ((existing_state->res_ctx.pipe_ctx[i].plane_res.hubp &&
- 				existing_state->res_ctx.pipe_ctx[i].plane_res.hubp->opp_id != i) ||
- 				existing_state->res_ctx.pipe_ctx[i].stream_res.tg)
+-	while (j < EDID_LENGTH) {
++	while (j < EDID_LENGTH - sizeof(struct amd_vsdb_block)) {
+ 		struct amd_vsdb_block *amd_vsdb = (struct amd_vsdb_block *)&edid_ext[j];
+ 		unsigned int ieeeId = (amd_vsdb->ieee_id[2] << 16) | (amd_vsdb->ieee_id[1] << 8) | (amd_vsdb->ieee_id[0]);
+ 
 -- 
 2.46.1
 
