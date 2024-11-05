@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCF70D36139
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 Nov 2024 20:24:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26C98D36137
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 Nov 2024 20:24:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7032910E424;
-	Tue,  5 Nov 2024 20:24:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8EAF10E617;
+	Tue,  5 Nov 2024 20:24:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ugSI8iJu";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="jLuhe9jV";
 	dkim-atps=neutral
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2089.outbound.protection.outlook.com [40.107.94.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B1F710E60F
- for <amd-gfx@lists.freedesktop.org>; Tue,  5 Nov 2024 20:24:42 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2057.outbound.protection.outlook.com [40.107.236.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A38910E617
+ for <amd-gfx@lists.freedesktop.org>; Tue,  5 Nov 2024 20:24:49 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=A8ZB354ZW88CEkmctb1vTEei5IKJX9KcvfAB20KdzzbIoiJ5zl6VeIUqfgXOVVQF6uq0Aa8Yjc5cGsjMV11pmJCbQx5WtzHUU/iIb8iLGeA69eo8dn6htegjMaZQnqPB3vHTaBlQKLh7h5LgJBeAyclIsvUyEwU2BV1QVc6CrzqJnHocXvaGUWX1mqmYi+gLFSLfyrIDVoo7WaJhtGodlxQbsxjiVTANKV7fUH1bFMVvrOvYbtit0K1fw9vM3LUKUY0gy50Pfi7GfTGPDMczCKMTfiZ2QZhUt6FiPOFVFEuAUtZOR0+fqF49U4zIFtnS86cZE7qvbN+IQGYLDWVv/g==
+ b=XCm0isbYTJVf0lXGKh3xts0s4PIgM6TBwOzTBiRG/ksjfJ/yje4r3odPZBI1M5UZeN3fUv7u2a1S0T5XJgM9AiDAWTD0con2m2q4p6MgcQfBD3Y5J3YW9ZkWslGnoJkSfKpGxuieNBgNX/o5YYRCXs4oWChxe88JP/+uq3zIh4H1nh71iZcZMNMXcKSlp9xBqEyi7eozf5EOUUsbiGsL6aESQt5KqgyoNHLPlUY+eSYk/2y7iGdzo1QLLQ3HN10g2CTPVWqDsqohxLEs3Keg1XAWW7K3LtAg/rwNBXfhIxNMN/7rDBoRYOeEIGpgO7wtlPtDPsFqpulpA62aEj+GVw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=V/jtngIt0cNKBYHd3vNdxGEWUQDOlbrO7Nq38oj3YnM=;
- b=vxl4k+eBGlDaK+fCE7/brrsSlT0BJd+PdqPVYQsdGgRqmP/we2UiC/TA9nd1ACsIFSIYT8N4BBUVOHHTaqczkttoXJc1UUaPEMxg9sFwyyeL+tyvfRn9KwjIdjcgvdTlYWtLAIdYMCnNy7mNZ8JGEfVUr71Z77vNJkGp+iv6UM+99GmdwNJ3JmzRf79gbXXYwQEHOrNGfe6RF2EJjLT6rairSHghwGyflReOGjBQucCoFvwS1/RGNieZM9oK1LZXQQVJuhrr5Fa3vJidFvvFLDX9f3wbUFUERS6c2ixLcpCjBW1DBf+/Jv56SfedSPCMFmJw8j1lnVW4bZj64r4nOA==
+ bh=sp4EFSOc0IRJJfuMJB/LY0bddSDbEWKUh9Abjr1cURc=;
+ b=C9wKbjm5p3+dZZBLP/+RPCTr+Dh4SqPXH8X3fBqfz19tfw/Iu1ebL1/9xEDW9H4FfoHpK8elLN8W/8YW3ufz0Vu856RlXWbkaIjKpDPhGChX+5Gy+tkcCtWXVeepBv2owm714tMNjiEFx0f6MgfUXNmyYGrTKaO2Mt5ndVtSppjrrYcb3g2ivg4PkbXn6MSn3wpA8GdFlZ1kOmQRsST0HQiNDfoZoVh60eiUE5h162BV4y1ZZT+YYuHZHO0Ma8PZ/9akXv6ooInsuU1sNpx41t9XPFtmToeQnUoambzO6lW58kVatvNyerJcOTLU9CTLnTczHLtZL63WKZDZaZggQw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=V/jtngIt0cNKBYHd3vNdxGEWUQDOlbrO7Nq38oj3YnM=;
- b=ugSI8iJuMg1dE5A4A52t9qpXA++06j83owEDdvR8Pq+5Vnvc4HdFCvqzYMmttG+AYzMmeO+0/GgR0N3Ya7xcmgqfe15DOHS3FX0O/0R0+04iTDJ/yHVLeijuv7ViLlkuE0iIPwA0DM4b0uxkM5Bdb1u4EORoXl5RJu/EAaQoDnk=
-Received: from BL0PR05CA0024.namprd05.prod.outlook.com (2603:10b6:208:91::34)
- by SN7PR12MB7297.namprd12.prod.outlook.com (2603:10b6:806:2ad::17)
+ bh=sp4EFSOc0IRJJfuMJB/LY0bddSDbEWKUh9Abjr1cURc=;
+ b=jLuhe9jVEk0Acggn3OGjOW2yieqdnADMykuo7xBLzMfRit2HLnbP4S8M4EJKFbqFb3Wd9fQE6VYduuj1fw8Zwlm+c7RcjFrpuvrTAfhtvYRQ63fJwd0Kgd68iLFGhGVnC2hT2Fprxpvh58GHPZHsYta7j8cVVH4gekIjk2EBMZM=
+Received: from BL1PR13CA0153.namprd13.prod.outlook.com (2603:10b6:208:2bd::8)
+ by CH2PR12MB4119.namprd12.prod.outlook.com (2603:10b6:610:aa::11)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.29; Tue, 5 Nov
- 2024 20:24:38 +0000
-Received: from BL6PEPF00020E61.namprd04.prod.outlook.com
- (2603:10b6:208:91:cafe::18) by BL0PR05CA0024.outlook.office365.com
- (2603:10b6:208:91::34) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.20; Tue, 5 Nov
+ 2024 20:24:43 +0000
+Received: from BL6PEPF00020E65.namprd04.prod.outlook.com
+ (2603:10b6:208:2bd:cafe::13) by BL1PR13CA0153.outlook.office365.com
+ (2603:10b6:208:2bd::8) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8137.17 via Frontend
- Transport; Tue, 5 Nov 2024 20:24:38 +0000
+ Transport; Tue, 5 Nov 2024 20:24:43 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,13 +48,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL6PEPF00020E61.mail.protection.outlook.com (10.167.249.22) with Microsoft
+ BL6PEPF00020E65.mail.protection.outlook.com (10.167.249.26) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8137.17 via Frontend Transport; Tue, 5 Nov 2024 20:24:38 +0000
+ 15.20.8137.17 via Frontend Transport; Tue, 5 Nov 2024 20:24:43 +0000
 Received: from hamza-pc.localhost (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 5 Nov
- 2024 14:24:34 -0600
+ 2024 14:24:38 -0600
 From: Hamza Mahfooz <hamza.mahfooz@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -63,11 +63,12 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Li" <roman.li@amd.com>, Wayne Lin <wayne.lin@amd.com>, Tom Chung
  <chiahsuan.chung@amd.com>, Fangzhi Zuo <jerry.zuo@amd.com>, Zaeem Mohamed
  <zaeem.mohamed@amd.com>, Solomon Chiu <solomon.chiu@amd.com>, Daniel Wheeler
- <daniel.wheeler@amd.com>, JinZe Xu <jinze.xu@amd.com>, Nicholas Kazlauskas
- <nicholas.kazlauskas@amd.com>
-Subject: [PATCH 10/16] drm/amd/display: Use region6 size in fw_meta_info
-Date: Tue, 5 Nov 2024 15:22:11 -0500
-Message-ID: <20241105202341.154036-11-hamza.mahfooz@amd.com>
+ <daniel.wheeler@amd.com>, Ryan Seto <ryanseto@amd.com>,
+ <stable@vger.kernel.org>, Dillon Varone <dillon.varone@amd.com>
+Subject: [PATCH 11/16] drm/amd/display: Handle dml allocation failure to avoid
+ crash
+Date: Tue, 5 Nov 2024 15:22:12 -0500
+Message-ID: <20241105202341.154036-12-hamza.mahfooz@amd.com>
 X-Mailer: git-send-email 2.46.1
 In-Reply-To: <20241105202341.154036-1-hamza.mahfooz@amd.com>
 References: <20241105202341.154036-1-hamza.mahfooz@amd.com>
@@ -79,50 +80,50 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF00020E61:EE_|SN7PR12MB7297:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8f8f4f4d-7b1c-4572-e0f3-08dcfdd7df76
+X-MS-TrafficTypeDiagnostic: BL6PEPF00020E65:EE_|CH2PR12MB4119:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7a3c1631-ca45-4553-8e9e-08dcfdd7e240
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|36860700013|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?2ZZw3eJLDaOr+7cv1ggcU6QOw8Ul5M3md4AfIDVWA/1jVz7PyyrTTuc/Q+bz?=
- =?us-ascii?Q?fO88uL2+xTjiJaij0fN23cLP/kIa3Lr0qgVzaYzEvXvGNFeJcpnzzaMXRTPo?=
- =?us-ascii?Q?RNmbGpKVdWJ4wDZXK0XFni1Na6h3kQ9bc/MGZqQbBHLRgC3bchtpORHflz5m?=
- =?us-ascii?Q?GNcJ1fZL/woWQ7uijKDc+7/FzFOOGrLkbPYf6QaJZo1lODFNcwPoCnN/zDRX?=
- =?us-ascii?Q?fSErl7PLUKu79HHGM8a0k93uZrggOr0vnswasbae+HvqWQtwCT4cuxi53kVv?=
- =?us-ascii?Q?sgWKMQma4z6JPfwR2beVjjuqiycoaN3uGQWkyKCX4fl4pzO1ttNIkpk8mN5M?=
- =?us-ascii?Q?6R3y8SsDqf+4S/3bSy8Gh82qqiQSHN+sQ1Z/wlYCcLdZ3P4bpz/FNkoQOcVd?=
- =?us-ascii?Q?AEE1iH0Jry6P4Eu5RHWGV72n4hN6paz/BfaoOEoYHcpk5uP0nSsUSW4barda?=
- =?us-ascii?Q?wfSIX/u3kSULtZAr+GEHBKuTv73U09vWAocCyMIb5QsuNKSawR7JTdl5jAa8?=
- =?us-ascii?Q?HtzDLAFqt2XGbnM8junRXNiKLz9IlLowg7fon3KhG76rhhliKIjHbmpe2507?=
- =?us-ascii?Q?Mw9MSUGaiXBfWJHaNT7gNv40NbeDjHSPK+XQwNP1psaDCZ0E52HyH/Y8CyvT?=
- =?us-ascii?Q?GY3iY8g3geoeVs2ZXhY7RKp/1+mYJOSrwsQRTxJ+xiD8cQsNx/KuuF5hUtOF?=
- =?us-ascii?Q?7EQdUTaWd/MXLbDviRCKUrB01fJHjaC+n7ys/wcsPQ/rbs41EhCXt1+hooMb?=
- =?us-ascii?Q?eAMT6Jd74aiKMAx1sa5ByB4Yz/98wjnkpq/6yAymFuKwXRWlxv9AeO/9x0Rl?=
- =?us-ascii?Q?/MIpxKlUDdVdpMThd1siQgZNo6j37Yg9NFoUAjyb2bgDtbJ69rgWtSAURsn4?=
- =?us-ascii?Q?jWDTzYHM6QTTV07XCwnjieN5mZikJUIrq/qbSL7cfD+2nRwIsSaSZVZgXHFm?=
- =?us-ascii?Q?xFy0HU77GZ2Pl66nUAyMsD+0NPotATSCG98Opi9GrKHuFA7Rh+9l0kGYQI14?=
- =?us-ascii?Q?zfwBIcTNum4NGWn+dNvCz26TAb86xfcsUP2rI7iCIAze//+EiNaoITgH0Ka7?=
- =?us-ascii?Q?tKURxHV/m2NgYDRYJxhvwaTiwYOFTKyR1O7LO3pf6mcvfVX8KlhXzw5nKsz0?=
- =?us-ascii?Q?pYekxQCVC7jVObxr61i1CrrzPC3rgHf7tF4DDgfOm+/RqN7EiaJ42n23UJJn?=
- =?us-ascii?Q?DUoHyeZcugabDGDQEA+gaN97HSUgf2V0PQqpDGWZS8frnyiaw5CBdIx5uoo1?=
- =?us-ascii?Q?UuQF1WHGXW0q6FZFPV2Uga5vYkKaLBXrmJJGQwhC2xNU2o+msmFIYzHxPCyg?=
- =?us-ascii?Q?QKvhcylmWPOmYUtUwfC9BuR/cnCxotzZf79mTtfvzb0GKtkIaIQ1rPXBg9Nw?=
- =?us-ascii?Q?PGokpKr8rrQycfUl4b2SvhKSbjbTsNGTslosJ8cmqQPXVOqgfg=3D=3D?=
+ ARA:13230040|376014|36860700013|82310400026|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?owtkuRjC5uGLMVOR42wQClvrO4rPkDDuTD8T2PsaT1RazY01WUA+8WhTjavQ?=
+ =?us-ascii?Q?EpvEOES5CFoKafUc4dSGYDzNgCkARFTTUR8QtHjJMrG0y+D+GceZpi7TW+Qp?=
+ =?us-ascii?Q?3/5EGD4dXp7grBUbpyGRFOWSXEioG8wshrT8v8aV6Wp5jSjo5EfMZ6eW5tN5?=
+ =?us-ascii?Q?4/M60pRnVz4c6k/8jnVbvSrndLZFdMUoERFAppkq+2AZCOte9tG9CGnY+Vl0?=
+ =?us-ascii?Q?FDVE1VRGCqJaQqH5TTmAKDdhm3OVWY5m3qBR5WZ2qzz1RS8niSrJTevd6J+g?=
+ =?us-ascii?Q?64z7oaSMOoGEOvrajBoi4WujDMNqQqngWzVW571AXzodIMEUhy47U3YHZ/mX?=
+ =?us-ascii?Q?yWqBJd0jaRp7H/d27tACtNjoy4tFwWk/JVJEQTkjtoxxxHxZujww8cMI6DqR?=
+ =?us-ascii?Q?gqqMy4fBaAvPbRxcKmXpgnlNfA9kvyydhzGkMJy6zrrD3TTmKtQn131PvqvM?=
+ =?us-ascii?Q?e+zFfQO/0E8VaDCyV36mRtkC6huvVU7qk1KtmLc3Iq+wlFTZjYNhhBIrUNoW?=
+ =?us-ascii?Q?m8YshbgESttuJ8f5MRZXj6LfHNbFwYiJLb1LJgr0qFmGjV/AwNXVgRvZka47?=
+ =?us-ascii?Q?QhMAvTV7EUz40URu5adLZfb7aWe5GlTWC2LsslPbx9nYOvtO9EMYzz9PkMpY?=
+ =?us-ascii?Q?6NCKXsbuJAMx3R9o88Y4VuhvDco1AOeMFRtI/8eMjnWrxOIUhfFs8Zj8cYv4?=
+ =?us-ascii?Q?vS90aDyKS1U/EYlT8WdVRFbM2x72MosG5fJqXWS2Zz4DPn0d2GiVV7vXNvCZ?=
+ =?us-ascii?Q?gIfqFAALOAUfOO8dijwaCuJ0m8fWt3dYLC3jqSR2pXCpe4yko/tGKDcUiPdQ?=
+ =?us-ascii?Q?sawK0bXu3kj2N5MBOSZhwdzkMBlIWs/6t+UKezT5RpQ/D8bULRHmVcLM6c8t?=
+ =?us-ascii?Q?ES1+/Z79U+wpr3CFI6wT+Nf5ngb1mqO13T5kESRpkoBq6tjaX1dwR/hdiF6O?=
+ =?us-ascii?Q?zRJhpREeiPjNyALhpAUn1AQYpzDZ40kSf9kJ9hIg7keu8jAvfvRVuVt/PqPo?=
+ =?us-ascii?Q?9LaFTDBZrrkZfzCWUGWfcuGc0j3wR+vO2dOGCwL5ecTQUF0Mw0rq5aTxSRik?=
+ =?us-ascii?Q?La5l4TVA9Wodv1cVSytC+vO7O/ftryQAjLFSF5rtTEQr56c+nuHrE8kVf6h1?=
+ =?us-ascii?Q?3dzA6aCqvKWZuc075wn+ShWaNGvSV2+zrL7C+PvUsuH8//2fIFkasGLF4NQt?=
+ =?us-ascii?Q?BmpeDqXLZRjoNxqFxDgkDMPyKFyE7Mm6Sg8Jf4ZtecIzpCdcvZ4Vn1L/9pAN?=
+ =?us-ascii?Q?y7bLhJMUZES9volTUl5H+gGGtmNrLwNJBzEpF8KwT3PT+q3TeIYvryRyuE+W?=
+ =?us-ascii?Q?OunH/VlNPUFQyjHw/dMN/kRPY0jKIfBrJ2qwWRFJb+ElHGXs7zk659wDpQt8?=
+ =?us-ascii?Q?KutClAtgKvFn4DhTVjn2d3QW1GjGEu76SngxInzDJgEXM+sb5w=3D=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(36860700013)(82310400026); DIR:OUT;
+ SFS:(13230040)(376014)(36860700013)(82310400026)(1800799024); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2024 20:24:38.7892 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8f8f4f4d-7b1c-4572-e0f3-08dcfdd7df76
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2024 20:24:43.3414 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7a3c1631-ca45-4553-8e9e-08dcfdd7e240
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF00020E61.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF00020E65.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7297
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4119
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,51 +138,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: JinZe Xu <jinze.xu@amd.com>
+From: Ryan Seto <ryanseto@amd.com>
 
 [Why]
-If driver allocated region6 size is not same as the size in firmware,
-dmcub won't enable region6.
+In the case where a dml allocation fails for any reason, the
+current state's dml contexts would no longer be valid. Then
+subsequent calls dc_state_copy_internal would shallow copy
+invalid memory and if the new state was released, a double
+free would occur.
 
 [How]
-Use region6 size in dmcub_fw_meta instead of a constant value.
+Reset dml pointers in new_state to NULL and avoid invalid
+pointer
 
-Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Signed-off-by: JinZe Xu <jinze.xu@amd.com>
+Cc: stable@vger.kernel.org
+Reviewed-by: Dillon Varone <dillon.varone@amd.com>
+Signed-off-by: Ryan Seto <ryanseto@amd.com>
 Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
 ---
- drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/core/dc_state.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-index db16066bc893..a3f3ff5d49ac 100644
---- a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-+++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-@@ -497,6 +497,7 @@ enum dmub_status
- 	const struct dmub_fw_meta_info *fw_info;
- 	uint32_t fw_state_size = DMUB_FW_STATE_SIZE;
- 	uint32_t trace_buffer_size = DMUB_TRACE_BUFFER_SIZE;
-+	uint32_t shared_state_size = DMUB_FW_HEADER_SHARED_STATE_SIZE;
- 	uint32_t window_sizes[DMUB_WINDOW_TOTAL] = { 0 };
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_state.c b/drivers/gpu/drm/amd/display/dc/core/dc_state.c
+index 2597e3fd562b..e006f816ff2f 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_state.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_state.c
+@@ -265,6 +265,9 @@ struct dc_state *dc_state_create_copy(struct dc_state *src_state)
+ 	dc_state_copy_internal(new_state, src_state);
  
- 	if (!dmub->sw_init)
-@@ -514,6 +515,7 @@ enum dmub_status
- 
- 		fw_state_size = fw_info->fw_region_size;
- 		trace_buffer_size = fw_info->trace_buffer_size;
-+		shared_state_size = fw_info->shared_state_size;
- 
- 		/**
- 		 * If DM didn't fill in a version, then fill it in based on
-@@ -534,7 +536,7 @@ enum dmub_status
- 	window_sizes[DMUB_WINDOW_5_TRACEBUFF] = trace_buffer_size;
- 	window_sizes[DMUB_WINDOW_6_FW_STATE] = fw_state_size;
- 	window_sizes[DMUB_WINDOW_7_SCRATCH_MEM] = DMUB_SCRATCH_MEM_SIZE;
--	window_sizes[DMUB_WINDOW_SHARED_STATE] = DMUB_FW_HEADER_SHARED_STATE_SIZE;
-+	window_sizes[DMUB_WINDOW_SHARED_STATE] = max(DMUB_FW_HEADER_SHARED_STATE_SIZE, shared_state_size);
- 
- 	out->fb_size =
- 		dmub_srv_calc_regions_for_memory_type(params, out, window_sizes, DMUB_WINDOW_MEMORY_TYPE_FB);
+ #ifdef CONFIG_DRM_AMD_DC_FP
++	new_state->bw_ctx.dml2 = NULL;
++	new_state->bw_ctx.dml2_dc_power_source = NULL;
++
+ 	if (src_state->bw_ctx.dml2 &&
+ 			!dml2_create_copy(&new_state->bw_ctx.dml2, src_state->bw_ctx.dml2)) {
+ 		dc_state_release(new_state);
 -- 
 2.46.1
 
