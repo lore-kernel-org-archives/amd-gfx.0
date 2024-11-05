@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EBB7D36137
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 Nov 2024 20:25:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C038AD36138
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 Nov 2024 20:25:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B588E10E615;
-	Tue,  5 Nov 2024 20:25:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E15610E61B;
+	Tue,  5 Nov 2024 20:25:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qjcBWPxO";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="We04bl18";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2044.outbound.protection.outlook.com [40.107.223.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE1FB10E615
- for <amd-gfx@lists.freedesktop.org>; Tue,  5 Nov 2024 20:25:04 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2053.outbound.protection.outlook.com [40.107.243.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D0E7710E61B
+ for <amd-gfx@lists.freedesktop.org>; Tue,  5 Nov 2024 20:25:08 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dI/7+I8k8LwKm8NO6OjbVOYbkQMJtShen2AlCf0eHL98zB/aMqO8eSC3PCNmWGQrTPjFu4WWEPx+SrQBlS0hppM4cweF2xRChr6+CPCtK0KN+/OrnTRh4cnRc9zRQUrxxP/X52KTsJ/iMQKm+51rIhDTpVJUB6w2uU7C+mbCUIZ9MdG+wHs7ivUwrdheoHPX9c4CqR7bA19sERMt5py0Bcp4ExFS9Sd1GI9lEBqELq8xbvbxms7ZVFmIs6/iWGjKw+hAM9gUZc3sF8PYY5b5XBXGY5F/MROQNwFQ6dUjKCcnOeqczPZI0p1k56OkIuXKdr2hWt3+5aKBka8DAs+pVw==
+ b=f6eq31LBCLHTc2jBgQQbIXJ9LqTDHLvQabOfx5xraG5brSPHuVp+A/XP5S9emZRlRkaT1KAWZQv1ajx+UHgrG5YHNVdXOod95iRJsX/OdMnMfvq1ucSAD5w5flfzuDrXyJbuS4LV5cSLSlcPufy6NiGeBrPAe3IGLjQWuPI46CD3CyVD/rJEzB1JtYU2KwsbBSHJBm808VRiEjGeDgxlMoj064WQYQTHW7yVrgz8MU05L9Nrz3FFfazGjcd5eMKb+hnppuD0ccLtovDC2ml1hKuRC0ZK3X1PMFAOxhZfrRsgr0w/HgTW7kGeLi/mnrNXVfpVonBNDXF0VpXIvNKVjg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4z8/q4HbdT+FuZXWEOu93V/2sKEXIK8NbaPKs53oAOA=;
- b=Qdz5kUVJqNrCRT/j3pjArw2Htxp4prANRiKYhkEGZFm6oudtv8Gl2pBAmXkR39OFIHABh7ckRBl9Ngc/7hRIfsXMGiSd2VbLJghxiDcF5cKR8Sr/sA0+0Vl464NCV4P0vc3h6g8Z0/GfvjiqKrU5HwYtQZn/DNVu5hv/02yEciFTll14/WXUKr4s8a22ILQVBOmqN+yMGKCp3R1nn/b0pEDq27gufcbmn6d5wcSCD6bBuE2Eb86zJrmbotKvFWbzKbzcBQVS7+hvUsc7hH/26cC4SuGx3yKlbaziPBKWDixh6plnsY5tf4k2T6kolLpC5gjGdvj1yxgTYBB1av3l/A==
+ bh=ZOfnw4fRTlkmkJZN19r9PNwXNV2jD++IrQMxssOPuQI=;
+ b=T3TOXDpYHif5z2PFA6jhWuVnUabAmcW1b6qUYLpQItnDSd7Xi2PHtGMTemwvl+U73T3Bn30Rzmv8InwMPuBUETRJAYH5P0YCB4sCSrMs7Wa0uzkB62XL710uMoMiSxMdokAFqFYMOGDYBnGWZQEOFqlOHPrLLorSrE1u2cJCjPjsDS5t82ovIHlVcKKO/0a3wkglmaFBm5PNEWcQbVvswFPfop8sBAqARBdmw1ykBBj09/fXR5vrv9lpAlI4s3qYrr8DQ2pVLzzlhHTGlHWbfidtpIjRffJi2CN8xL7myFKrELyezBx2nHxjUvpAdgTXRSTJrqCG3TJI58JaMDGwOw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4z8/q4HbdT+FuZXWEOu93V/2sKEXIK8NbaPKs53oAOA=;
- b=qjcBWPxOppSk1HOXF3lFBgA0OyTdojUfiyj516c6+I0MFfpf42UEKmOc65ZNFqyWGtyykHM3kBpuVojXm1HVPpo51bAqWioCOncFrqkIF5BVKB+89tbuHarL/hvU9QZHCo98mrfIVtwMwVDSIGkOGi+cJNmn4xG0IauaGkZFwvw=
-Received: from BL0PR05CA0026.namprd05.prod.outlook.com (2603:10b6:208:91::36)
- by SA1PR12MB7319.namprd12.prod.outlook.com (2603:10b6:806:2b5::19)
+ bh=ZOfnw4fRTlkmkJZN19r9PNwXNV2jD++IrQMxssOPuQI=;
+ b=We04bl18qlGZEZyX4y36BxfaD9CU7kN0GHHliBVrIvOqhbUO19r9d5V/9dHqZn0NXJMzb+NUTSYFvlDc5DuzloemcIu7M8TM7EYS7wTTZ/KybGipvrFNYQtuXdELf51bJQ0mEOyj8NAVObWNiZBKm5M+YY1OJAA1QRG5Wi3gT3k=
+Received: from MN0PR04CA0030.namprd04.prod.outlook.com (2603:10b6:208:52d::29)
+ by MW4PR12MB7238.namprd12.prod.outlook.com (2603:10b6:303:229::16)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.29; Tue, 5 Nov
- 2024 20:25:00 +0000
-Received: from BL6PEPF00020E61.namprd04.prod.outlook.com
- (2603:10b6:208:91:cafe::5f) by BL0PR05CA0026.outlook.office365.com
- (2603:10b6:208:91::36) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8137.17 via Frontend
- Transport; Tue, 5 Nov 2024 20:25:00 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8137.18; Tue, 5 Nov
+ 2024 20:25:04 +0000
+Received: from BL6PEPF00020E66.namprd04.prod.outlook.com
+ (2603:10b6:208:52d:cafe::5) by MN0PR04CA0030.outlook.office365.com
+ (2603:10b6:208:52d::29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8137.19 via Frontend
+ Transport; Tue, 5 Nov 2024 20:25:04 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,13 +48,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL6PEPF00020E61.mail.protection.outlook.com (10.167.249.22) with Microsoft
+ BL6PEPF00020E66.mail.protection.outlook.com (10.167.249.27) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8137.17 via Frontend Transport; Tue, 5 Nov 2024 20:25:00 +0000
+ 15.20.8137.17 via Frontend Transport; Tue, 5 Nov 2024 20:25:03 +0000
 Received: from hamza-pc.localhost (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 5 Nov
- 2024 14:24:55 -0600
+ 2024 14:24:59 -0600
 From: Hamza Mahfooz <hamza.mahfooz@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -63,10 +63,10 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Li" <roman.li@amd.com>, Wayne Lin <wayne.lin@amd.com>, Tom Chung
  <chiahsuan.chung@amd.com>, Fangzhi Zuo <jerry.zuo@amd.com>, Zaeem Mohamed
  <zaeem.mohamed@amd.com>, Solomon Chiu <solomon.chiu@amd.com>, Daniel Wheeler
- <daniel.wheeler@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Subject: [PATCH 15/16] drm/amd/display: Adjust VSDB parser for replay feature
-Date: Tue, 5 Nov 2024 15:22:16 -0500
-Message-ID: <20241105202341.154036-16-hamza.mahfooz@amd.com>
+ <daniel.wheeler@amd.com>, Aric Cyr <aric.cyr@amd.com>
+Subject: [PATCH 16/16] drm/amd/display: 3.2.309
+Date: Tue, 5 Nov 2024 15:22:17 -0500
+Message-ID: <20241105202341.154036-17-hamza.mahfooz@amd.com>
 X-Mailer: git-send-email 2.46.1
 In-Reply-To: <20241105202341.154036-1-hamza.mahfooz@amd.com>
 References: <20241105202341.154036-1-hamza.mahfooz@amd.com>
@@ -78,50 +78,50 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF00020E61:EE_|SA1PR12MB7319:EE_
-X-MS-Office365-Filtering-Correlation-Id: 44d45e5d-081d-4baa-5439-08dcfdd7ec40
+X-MS-TrafficTypeDiagnostic: BL6PEPF00020E66:EE_|MW4PR12MB7238:EE_
+X-MS-Office365-Filtering-Correlation-Id: e7bfbe04-f106-44ef-56a3-08dcfdd7ee5c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|82310400026|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?gQnW8xuc6QtGNuml7OowxA/wj0wWK65+atYy3820gkwCUc3SY51hFmHfdFIQ?=
- =?us-ascii?Q?bBRgv5r/u7ZNLx+BjAcqEluZj2MM+hptA3vzBlHmklh3E3Gf+QbLu9dnDLv5?=
- =?us-ascii?Q?F4Oy6P11NMJH7oVXliZSyMCWc3l2QlKMpezhczQLn5ihsSq3Sfv8CInHmJHI?=
- =?us-ascii?Q?vBFn8VFd8IvRIgontylWPV80VBMcOYeJeyMLRe9jVw1oHynJ1Mx62ruDqPmp?=
- =?us-ascii?Q?Wckb9FHNJ5yiECfR9RFrvKwydohgEI02XOpKoqWINkI9qi6RQm8K74Zs+77s?=
- =?us-ascii?Q?ED789mE9L/FrMeTw9TGUgR5UooiuHty4/W1OUYjkarLdbZ4nuvF9o0z8etmS?=
- =?us-ascii?Q?0EoLXm851j4wMeyTaCKe239SpOFJd5krQRNimQ/r5u+1FNiH54dpyhFb/kUr?=
- =?us-ascii?Q?WMn54UrFL68JZYpKklXuudnHbFHS5eoqTrrAo5/sORcAkstc7J9shdTXHeAt?=
- =?us-ascii?Q?97/G1RjxO2LJJrMrR4EQDHP5o+KVvh27ZbE+gXADavclkeBI2ZjQN2Yxcnie?=
- =?us-ascii?Q?6bl5rLvl7qzfgC35XcwJ0cRUPM6U0J5s7o4WTnqJW+EiA2l36ZNa0gnnLdcR?=
- =?us-ascii?Q?nkWkgdqETf1IP1mz18D4+UmfbCTWZe6YBSxH5cMs14MB5aw2vLQVKCJ9fgqD?=
- =?us-ascii?Q?Mphb29E8Lyt4gm8YdF5brpjCgKEcHC6gs1bXn/MchvZ2Cy2bjGFTCpZhG3Dq?=
- =?us-ascii?Q?YrCLEkJF4DDjdxnZm4dbgMq6UilWCa9UL6Anin1R3TUOueWzAnfBptSQ787F?=
- =?us-ascii?Q?t0a7aML9BOiL+SdZ9TmGNch4pFoL21gk9OxRlvNGXo5D7HdpMG+NgLjB67jc?=
- =?us-ascii?Q?f3K362uDG27M0zfWNDJKZ80lFT93fu4gOJc7RJd9jyygryDcuDSZDJtry+PH?=
- =?us-ascii?Q?Akh39gKaAX+VsbEymEaghCMNpmHLmIwVokJELekzMe7zXKULL4avRbSqWEaM?=
- =?us-ascii?Q?U8KY2c8X7e1rR+2f0i2mNgp/2uRTxMVPlVdAavRvOSyi//ljcvOn1XIBkW6n?=
- =?us-ascii?Q?rnd6QNpIDrx4haigtPGq6DT26knJ44YcOmp8g8d01be1V/PIMNOKmdy2BnLf?=
- =?us-ascii?Q?FjGfbTJ/I5VXcCHHkU75rj0Ub+dX744DGuDclIz2GdpUWHL23OpQXzGmQJ9L?=
- =?us-ascii?Q?p59SuqAVDfUuA4z9yYN4GjC6JnvGPIGIPCs99so6szBBNSM8a2iBapE4cL91?=
- =?us-ascii?Q?yiDVTpiCu6KsQDW2/RacWYVBYV9fe07+yS4Owi47gJy5v5jA7tjmGGWQco0Y?=
- =?us-ascii?Q?bV3cYTNb145MTkqCmJb8WZeoL/akdpjLNLOMb6Td5gJ3SovcMDFwoYK689Qy?=
- =?us-ascii?Q?u57aTkOV3nj1M0gSc6hNv9/FXQAB1AaC+COPtGB27K937LKX/GyKSETvQMiK?=
- =?us-ascii?Q?Ob4ZilXxxQAAJzkEoGshEayQdlvZE9FEy8HMYtrY0n9JWnO/9w=3D=3D?=
+ ARA:13230040|376014|36860700013|1800799024|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?uICJtBGU01/MwPRHoRXikNiSP3+0fjRnRJvUqA8pEsetyMHVV/939EkbfA4m?=
+ =?us-ascii?Q?3rgHY67Yf3X9R7ubp/YeyNLkfnR/iVep6krgYxecC770snRcefLC8IbyZCMA?=
+ =?us-ascii?Q?T/KDaSYAABbxb7kp7sVBK+uhPnoc7KEj9VrcMwuphCZUM+SzQugclOGHiWr4?=
+ =?us-ascii?Q?bR4wmtg1W0LZFfjzmKGsFlN3BhmrFpPGewgI5gU3CgJ7JSZmB9YW56j+pOa2?=
+ =?us-ascii?Q?jJecBrpd/giz3ioCG4L4m9qNQsK0/YIkGNUy63WVZ0BkO02HnPgGXD910WV1?=
+ =?us-ascii?Q?+HAjv2w3ogtAY6rsCmWI4ThmfaoLFXWZoSWV7ou4QHiEN4qUBZa9sD6m/Npl?=
+ =?us-ascii?Q?Yej1TYTKClwJNfGu/Mrrulv6DmSMaQ+Ba4apUQ9xiEGMrcfI3KXHn7Ni23wz?=
+ =?us-ascii?Q?9SldyTfvb0LFmjF//I786aTB8ZdaDMn6ED08PFxQaZ5odr7osNL3kW02YC2Z?=
+ =?us-ascii?Q?qbvsj/FE5RNUtAV1qtNo/w4cNWq5OwVQZ85eDfnZUS0b8kBYle1butWKP8B4?=
+ =?us-ascii?Q?vErMbvYTuAFZuRDK91tIB9Qz0hhPnVzTyEmQd5XdYjbUz9FBbJH+jjU4kpa7?=
+ =?us-ascii?Q?GPgMO6Ikb3PxTAJUBq2lM4enKQj3Vln4doh1WdTa4BQG954ofzjezYS4hOxR?=
+ =?us-ascii?Q?mE5srmHeFX0u+2g6VV3/1WnR0Gjelv/4C76S2g3Qhd3AbiW9XEnJ4BJ7whAl?=
+ =?us-ascii?Q?4XSMQCfTlK5PYiV4zjEGv4P8xIPbQSddY13TIJqEIA38jdkVJfOwZy/0fuYj?=
+ =?us-ascii?Q?RX0We5VYMrOEqf5zrD94XYDRs0Ab88qwa7gFvjqHP4PFZAB4tdMcbKzKjfgK?=
+ =?us-ascii?Q?/1AEHCHiOC3lweIOgkQkThJrVGJnD3joqJnaO2KbI57V3fo1in7iiRrFVRkW?=
+ =?us-ascii?Q?iVlVY285lDYqJW+YQ3azX2+dsi28R+Vxez8l2G3sfOs0d1yvOeB9Fjk56g1u?=
+ =?us-ascii?Q?623WSgfLpJSN/Vab4fT/kANRatFMrt2jn7TrDT7WPxz+iG1QmTIiuqKavBXy?=
+ =?us-ascii?Q?t6GKY86TWg6sonRhk4b+q6CYEtchgL01i/Dur2bxDMinioQGNwtQy9asWJCo?=
+ =?us-ascii?Q?zIiN3L5QQC8qXdAU0pOr75FJ2Ar4TOOSHmhlrs3XqAozxl4iWQudUZMeLfo7?=
+ =?us-ascii?Q?Gjp26SsiCb4hmM8fIKfq2QcAFqWkXxlyAwETCJD1fUgKFLQp3F4FvmnxThVR?=
+ =?us-ascii?Q?eF3PTT57r6VYKjKBBqIvfN/zhfVYvMKj2nkNATt2FzziNH8FhAZN0VIwmXnH?=
+ =?us-ascii?Q?8NA23N9vPZKOyD1JR9tr4+hoVnM2htiF3fCwZdoVA4NuGMKr5rVJddMqVUTN?=
+ =?us-ascii?Q?4IHudLTRbkSoxmhFxI0mjHFfzCOo5Xu1tkeztwoFB/V/4mZUK2yiqWaweQ6z?=
+ =?us-ascii?Q?UtS9WfM7sikQhKVLwxhOnwHJFtCa61HXgkdWSVsMBazmaLpgGg=3D=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(82310400026)(36860700013); DIR:OUT;
+ SFS:(13230040)(376014)(36860700013)(1800799024)(82310400026); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2024 20:25:00.1483 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 44d45e5d-081d-4baa-5439-08dcfdd7ec40
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2024 20:25:03.6561 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e7bfbe04-f106-44ef-56a3-08dcfdd7ee5c
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF00020E61.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF00020E66.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7319
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7238
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,51 +136,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+From: Aric Cyr <aric.cyr@amd.com>
 
-At some point, the IEEE ID identification for the replay check in the
-AMD EDID was added. However, this check causes the following
-out-of-bounds issues when using KASAN:
+This version brings along the following:
 
-[   27.804016] BUG: KASAN: slab-out-of-bounds in amdgpu_dm_update_freesync_caps+0xefa/0x17a0 [amdgpu]
-[   27.804788] Read of size 1 at addr ffff8881647fdb00 by task systemd-udevd/383
+- DML2 fixes
+- DP fixes
+- DPMS fix
+- HPD fixes
+- Misc cleanup
+- ODM fix
+- Replay fix
+- SPL fix
 
-...
-
-[   27.821207] Memory state around the buggy address:
-[   27.821215]  ffff8881647fda00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-[   27.821224]  ffff8881647fda80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-[   27.821234] >ffff8881647fdb00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-[   27.821243]                    ^
-[   27.821250]  ffff8881647fdb80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-[   27.821259]  ffff8881647fdc00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-[   27.821268] ==================================================================
-
-This is caused because the ID extraction happens outside of the range of
-the edid lenght. This commit addresses this issue by considering the
-amd_vsdb_block size.
-
-Cc: ChiaHsuan Chung <chiahsuan.chung@amd.com>
 Reviewed-by: Leo Li <sunpeng.li@amd.com>
-Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Signed-off-by: Aric Cyr <aric.cyr@amd.com>
 Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/dc.h           |  2 +-
+ .../amd/display/dc/hwss/dcn31/dcn31_hwseq.c   |  3 +-
+ .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   | 35 +++++++++++++++----
+ 3 files changed, 32 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 1d47719e7af1..8381afbe6e4d 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -12096,7 +12096,7 @@ static int parse_amd_vsdb(struct amdgpu_dm_connector *aconnector,
- 			break;
- 	}
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index ad9ce3d0bfcf..e143fab00a86 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -55,7 +55,7 @@ struct aux_payload;
+ struct set_config_cmd_payload;
+ struct dmub_notification;
  
--	while (j < EDID_LENGTH) {
-+	while (j < EDID_LENGTH - sizeof(struct amd_vsdb_block)) {
- 		struct amd_vsdb_block *amd_vsdb = (struct amd_vsdb_block *)&edid_ext[j];
- 		unsigned int ieeeId = (amd_vsdb->ieee_id[2] << 16) | (amd_vsdb->ieee_id[1] << 8) | (amd_vsdb->ieee_id[0]);
+-#define DC_VER "3.2.308"
++#define DC_VER "3.2.309"
  
+ #define MAX_SURFACES 3
+ #define MAX_PLANES 6
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c
+index 59b2e87317e3..03ba01f4ace1 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c
+@@ -653,7 +653,8 @@ static void dmub_abm_set_backlight(struct dc_context *dc,
+ 	cmd.abm_set_backlight.header.sub_type = DMUB_CMD__ABM_SET_BACKLIGHT;
+ 	cmd.abm_set_backlight.abm_set_backlight_data.frame_ramp = backlight_level_params->frame_ramp;
+ 	cmd.abm_set_backlight.abm_set_backlight_data.backlight_user_level = backlight_level_params->backlight_pwm_u16_16;
+-	cmd.abm_set_backlight.abm_set_backlight_data.backlight_control_type = backlight_level_params->control_type;
++	cmd.abm_set_backlight.abm_set_backlight_data.backlight_control_type =
++		(enum dmub_backlight_control_type) backlight_level_params->control_type;
+ 	cmd.abm_set_backlight.abm_set_backlight_data.min_luminance = backlight_level_params->min_luminance;
+ 	cmd.abm_set_backlight.abm_set_backlight_data.max_luminance = backlight_level_params->max_luminance;
+ 	cmd.abm_set_backlight.abm_set_backlight_data.min_backlight_pwm = backlight_level_params->min_backlight_pwm;
+diff --git a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
+index a9b90fa00b88..b800a507d1e0 100644
+--- a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
++++ b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
+@@ -4426,6 +4426,24 @@ struct dmub_rb_cmd_abm_set_pipe {
+ 	struct dmub_cmd_abm_set_pipe_data abm_set_pipe_data;
+ };
+ 
++/**
++ * Type of backlight control method to be used by ABM module
++ */
++enum dmub_backlight_control_type {
++	/**
++	 * PWM Backlight control
++	 */
++	DMU_BACKLIGHT_CONTROL_PWM = 0,
++	/**
++	 * VESA Aux-based backlight control
++	 */
++	DMU_BACKLIGHT_CONTROL_VESA_AUX = 1,
++	/**
++	 * AMD DPCD Aux-based backlight control
++	 */
++	DMU_BACKLIGHT_CONTROL_AMD_AUX = 2,
++};
++
+ /**
+  * Data passed from driver to FW in a DMUB_CMD__ABM_SET_BACKLIGHT command.
+  */
+@@ -4452,18 +4470,23 @@ struct dmub_cmd_abm_set_backlight_data {
+ 	 */
+ 	uint8_t panel_mask;
+ 
++	/**
++	 * AUX HW Instance.
++	 */
++	uint8_t aux_inst;
++
++	/**
++	 * Explicit padding to 4 byte boundary.
++	 */
++	uint8_t pad[1];
++
+ 	/**
+ 	 * Backlight control type.
+ 	 * Value 0 is PWM backlight control.
+ 	 * Value 1 is VAUX backlight control.
+ 	 * Value 2 is AMD DPCD AUX backlight control.
+ 	 */
+-	uint8_t backlight_control_type;
+-
+-	/**
+-	 * AUX HW instance.
+-	 */
+-	uint8_t aux_inst;
++	enum dmub_backlight_control_type backlight_control_type;
+ 
+ 	/**
+ 	 * Minimum luminance in nits.
 -- 
 2.46.1
 
