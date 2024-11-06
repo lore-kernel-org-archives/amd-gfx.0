@@ -4,49 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1CBD0D29FBF
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86098D29FBE
 	for <amd-gfx@archiver.kernel.org>; Wed,  6 Nov 2024 08:24:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C9E010E68A;
-	Wed,  6 Nov 2024 08:24:55 +0000 (UTC)
-Received: from szxga04-in.huawei.com (szxga04-in.huawei.com [45.249.212.190])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5CB1D10E5BE;
- Tue,  5 Nov 2024 14:30:43 +0000 (UTC)
-Received: from mail.maildlp.com (unknown [172.19.88.234])
- by szxga04-in.huawei.com (SkyGuard) with ESMTP id 4XjVdv6nMqz2Fbrp;
- Tue,  5 Nov 2024 22:12:19 +0800 (CST)
-Received: from kwepemd200012.china.huawei.com (unknown [7.221.188.145])
- by mail.maildlp.com (Postfix) with ESMTPS id E1AC014011F;
- Tue,  5 Nov 2024 22:13:59 +0800 (CST)
-Received: from huawei.com (10.67.175.84) by kwepemd200012.china.huawei.com
- (7.221.188.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1258.34; Tue, 5 Nov
- 2024 22:13:58 +0800
-From: Zicheng Qu <quzicheng@huawei.com>
-To: <harry.wentland@amd.com>, <sunpeng.li@amd.com>,
- <Rodrigo.Siqueira@amd.com>, <alexander.deucher@amd.com>,
- <christian.koenig@amd.com>, <Xinhui.Pan@amd.com>, <airlied@gmail.com>,
- <simona@ffwll.ch>, <Alvin.Lee2@amd.com>, <chiahsuan.chung@amd.com>,
- <alex.hung@amd.com>, <wenjing.liu@amd.com>, <Dillon.Varone@amd.com>,
- <george.shen@amd.com>, <mwen@igalia.com>, <yi-lchen@amd.com>,
- <martin.leung@amd.com>, <yongqiang.sun@amd.com>, <tony.cheng@amd.com>,
- <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>
-CC: <tanghui20@huawei.com>, <zhangqiao22@huawei.com>,
- <judy.chenhui@huawei.com>, <quzicheng@huawei.com>
-Subject: [PATCH 2/2] drm/amd/display: Fix incorrect power gating configuration
- for DOMAIN11
-Date: Tue, 5 Nov 2024 14:02:56 +0000
-Message-ID: <20241105140256.2465614-3-quzicheng@huawei.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20241105140256.2465614-1-quzicheng@huawei.com>
-References: <20241105140256.2465614-1-quzicheng@huawei.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 11C3210E68D;
+	Wed,  6 Nov 2024 08:24:56 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="1fTkmcG0";
+	dkim-atps=neutral
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 561A310E1AB;
+ Wed,  6 Nov 2024 06:16:20 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 2BCAF5C0118;
+ Wed,  6 Nov 2024 06:15:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C2CAC4CECD;
+ Wed,  6 Nov 2024 06:16:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1730873778;
+ bh=pQlq7hHPU1Y1m8Iq0RTWGhBrUrFVOfLg2Zpy9RE9zsU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=1fTkmcG0N/uvrisql3iDehlDzBNxDNe9oSfkHDOaITMwxsTkdkYbtTOC9lGFg1dwl
+ eMRGjVGRQcsNNJJ3jMsXvMea55ta6/60nim8jexRPhGVrhD/NnBNGv5hgahleeqztB
+ pR75KwmvLCaR4VCYlltAkgEgUf3CMOSWOzvwUlZQ=
+Date: Wed, 6 Nov 2024 07:16:00 +0100
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Yu Kuai <yukuai1@huaweicloud.com>
+Cc: stable@vger.kernel.org, harry.wentland@amd.com, sunpeng.li@amd.com,
+ Rodrigo.Siqueira@amd.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
+ daniel@ffwll.ch, viro@zeniv.linux.org.uk, brauner@kernel.org,
+ Liam.Howlett@oracle.com, akpm@linux-foundation.org,
+ hughd@google.com, willy@infradead.org, sashal@kernel.org,
+ srinivasan.shanmugam@amd.com, chiahsuan.chung@amd.com,
+ mingo@kernel.org, mgorman@techsingularity.net, yukuai3@huawei.com,
+ chengming.zhou@linux.dev, zhangpeng.00@bytedance.com,
+ chuck.lever@oracle.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, maple-tree@lists.infradead.org,
+ linux-mm@kvack.org, yi.zhang@huawei.com, yangerkun@huawei.com
+Subject: Re: [PATCH 6.6 00/28] fix CVE-2024-46701
+Message-ID: <2024110625-earwig-deport-d050@gregkh>
+References: <20241024132009.2267260-1-yukuai1@huaweicloud.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.67.175.84]
-X-ClientProxiedBy: dggems702-chm.china.huawei.com (10.3.19.179) To
- kwepemd200012.china.huawei.com (7.221.188.145)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20241024132009.2267260-1-yukuai1@huaweicloud.com>
 X-Mailman-Approved-At: Wed, 06 Nov 2024 08:24:50 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -62,31 +65,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The current implementation incorrectly updates DOMAIN11_PG_CONFIG with
-DOMAIN9_POWER_FORCEON, which is not the intended behavior. This patch
-corrects the power gating configuration by updating DOMAIN11_PG_CONFIG
-with DOMAIN11_POWER_FORCEON, preventing potential issues related to
-power management.
+On Thu, Oct 24, 2024 at 09:19:41PM +0800, Yu Kuai wrote:
+> From: Yu Kuai <yukuai3@huawei.com>
+> 
+> Fix patch is patch 27, relied patches are from:
+> 
+>  - patches from set [1] to add helpers to maple_tree, the last patch to
+> improve fork() performance is not backported;
 
-Fixes: 46825fcfbe16 ("drm/amd/display: avoid power gate domains that doesn't exist")
-Signed-off-by: Zicheng Qu <quzicheng@huawei.com>
----
- drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+So things slowed down?
 
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-index 67a77274d813..bc21eb0b2760 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-@@ -327,7 +327,7 @@ void dcn20_enable_power_gating_plane(
- 	if (REG(DOMAIN9_PG_CONFIG))
- 		REG_UPDATE(DOMAIN9_PG_CONFIG, DOMAIN9_POWER_FORCEON, force_on);
- 	if (REG(DOMAIN11_PG_CONFIG))
--		REG_UPDATE(DOMAIN11_PG_CONFIG, DOMAIN9_POWER_FORCEON, force_on);
-+		REG_UPDATE(DOMAIN11_PG_CONFIG, DOMAIN11_POWER_FORCEON, force_on);
- 
- 	/* DCS0/1/2/3/4/5 */
- 	REG_UPDATE(DOMAIN16_PG_CONFIG, DOMAIN16_POWER_FORCEON, force_on);
--- 
-2.34.1
+>  - patches from set [2] to change maple_tree, and follow up fixes;
+>  - patches from set [3] to convert offset_ctx from xarray to maple_tree;
+> 
+> Please notice that I'm not an expert in this area, and I'm afraid to
+> make manual changes. That's why patch 16 revert the commit that is
+> different from mainline and will cause conflict backporting new patches.
+> patch 28 pick the original mainline patch again.
+> 
+> (And this is what we did to fix the CVE in downstream kernels).
+> 
+> [1] https://lore.kernel.org/all/20231027033845.90608-1-zhangpeng.00@bytedance.com/
+> [2] https://lore.kernel.org/all/20231101171629.3612299-2-Liam.Howlett@oracle.com/T/
+> [3] https://lore.kernel.org/all/170820083431.6328.16233178852085891453.stgit@91.116.238.104.host.secureserver.net/
 
+This series looks rough.  I want to have the maintainers of these
+files/subsystems to ack this before being able to take them.
+
+thanks,
+
+greg k-h
