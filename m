@@ -4,147 +4,181 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 219C3D5AE70
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Nov 2024 07:56:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E87D3D5AE71
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Nov 2024 08:03:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B04E610E7B3;
-	Thu,  7 Nov 2024 07:56:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E1F510E7BC;
+	Thu,  7 Nov 2024 08:03:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="CLsOvcF1";
+	dkim=pass (2048-bit key; unprotected) header.d=oracle.com header.i=@oracle.com header.b="DAhbLulk";
+	dkim=pass (1024-bit key; unprotected) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b="TKWjMMjF";
 	dkim-atps=neutral
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2062.outbound.protection.outlook.com [40.107.94.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4793010E7B2
- for <amd-gfx@lists.freedesktop.org>; Thu,  7 Nov 2024 07:56:29 +0000 (UTC)
+Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
+ [205.220.177.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3546310E1E4;
+ Wed,  6 Nov 2024 14:44:19 +0000 (UTC)
+Received: from pps.filterd (m0246631.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4A6Ci5bN012886;
+ Wed, 6 Nov 2024 14:43:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=corp-2023-11-20; bh=9RyE9P3GaTIotvb8ev
+ 0hOJy7/Ni7cr8UqPNPRU2qkaI=; b=DAhbLulkqblAVXshYhXS0QjweQ6oFkAl4D
+ GnyTGyM6PGno9dq4UsZMe0Po5Ds7c/jArTo1hfss2hE2BRnUP/5dXSmg1tHloWdk
+ mQJaGe/uqF+4d4fT7xUeUMr64Bl7iGmcQ2/0oFlf3DbNu1yFbfvrUaRl8BZs6Dgv
+ WvZmpHqFAbUdkWfHmog+UNVvMT8aaqBPN7NBY/bf+9vBFHVcM+cUsizmzZEtSs6d
+ TDlrVGzlCCbqFBI8vlJryZoiCc9ETu+OOEP1ewLLbghAsBRk0DSUCxknEPmlQ24o
+ wIDbJ6O7+gbca0xs7YeCBPImqVGdPIUMcm8pBWYmwRafOdtse6IA==
+Received: from phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com
+ (phxpaimrmta02.appoci.oracle.com [147.154.114.232])
+ by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 42nav282mw-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 06 Nov 2024 14:43:11 +0000 (GMT)
+Received: from pps.filterd
+ (phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
+ by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.2/8.18.1.2)
+ with ESMTP id 4A6DNlMK008500; Wed, 6 Nov 2024 14:43:10 GMT
+Received: from nam10-mw2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10lp2044.outbound.protection.outlook.com [104.47.55.44])
+ by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id
+ 42nah8m0kp-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 06 Nov 2024 14:43:10 +0000
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Kg+6W62Rda0Jz/5acIpV/Hbrpi+h68Y5393VSKLQogAVlNhOOz6vD31c3O1oSwi56rmH25xlwo3j4kon0VS2DUTVp7X+DtCncQ2zW7iC8Qeovlu1MZHjuwG+KbDgWnN29IAEogUhsZK6VOp9WerK4cNxWtBFfqEKSAY/8QQUuCv8dfxV87Qd9awuOux9KOdFyoMIdUVNGWzEnxONw2fO1+RqZaTrX+LWc+kR1ugFKpOCsJxQjBwLrmomoT1er/h+EpLzRnuw8TA4fOqBx0RIxBB6edzTHnYXzSwitqVMGltVmkhl3AT8DuFo2MhKJkloWuqctUfwQICWSan+AjZPWA==
+ b=O4LJZ++gqHMRCTkjA5c2N/VLIGMDvqdZcX4wvDXNOPLS54Mpjs1G+vM44wk/PiVzDLMSzBiNNGRX1sH3tdNm9lYT4zhkrepnmraODKAguukzgA9GSu3fY+RoTH5nC1bqD0gOmp5byNgzc9Mdl8FSRU9Z6ebSj/+YCUhBeT50fSV0osXPSYJpa8VuY/f72/zUuu2ywsuim4FMJXn5gDsOCMq6ewZvUFHGVwNttP4hheXpWXGNoHWkSKMAPE57PK+aU/lKj/LhVrQoOaxjhEicthJJSty/CIWoaFhH3ZwzyHGema/7o0vYsuaNbN4mx3YK8HyfFj9ulOdoxP3DKUj/8Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=W29v/XbdoDSyLMJWAw3LDG6qXIqux9YbYknJn3y+v0w=;
- b=yXYZ6WFz7s+s/3RfzNFLhuRBgPbQjg7TCi/Y2lou9EPmRezgOvVgEIvrz2LOQQEo8FGCJxoZqfvSLjJDt6iV3wtYRV3tTlJGnZwugX82ViQ8mNPaPtTYHxUkeyVrxTP/nvHOvT2/X5XahZRQpBUq5qypbPI4z/QTBLWCGk88/yvAHyYYaMpV8DQqNFNW6pRU2XCeUep9JvEsTUUVZdSgp4FCukmG+2hw4qlNo4xl+/tWZMXumyp+ffX6RsgdHGLXqsT99SW2G12+RDaVxJ2p5r7ss7RUjv0J9TXXEfgPYtO+oxTrHYfb6xo2P2fiwkBl7JC8aV0gu0wV/AK1u5v8NA==
+ bh=9RyE9P3GaTIotvb8ev0hOJy7/Ni7cr8UqPNPRU2qkaI=;
+ b=LuBusThFJmjIZwZR+IljS87+BbG/fsWmU5W+T/w0ti1IuN1rucXvINa+csUeimRM77yMY1KxwsbxYyGBbKX5pPqySYfeTo5E4vYRv8NFxOkF9eo97VYs6c2/FFgJmOl3Rqj96Cljl6gU0PbkksJDiS4XH5Vo4JQ3PqoYxG49m42t1Xx2IwMCThYZ0MHBxJ7C0KzoOYL6ukjd0qyA4Jl5WG4rS5Fp8zhj6ngzzcCiXVTU4FBcqMt6jaohbDSecNnfXkHIWGDe7H+jxW+Y1UNYsYcFD/iYAFoCdJzp8DNgJHRz/ePibIPwY9fCeUeMhg8vknvCV/oy0/jJK4pa5mNwkw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=W29v/XbdoDSyLMJWAw3LDG6qXIqux9YbYknJn3y+v0w=;
- b=CLsOvcF1cNtGCrP2oArYKY3fyCusp3nRo+nfLiFJTCmozS2K8U7YYIA0CFXIgJ4DKCZ7G4NPJEONFyAjiYNNlPMh8ioNr5F+8/KJD8HjocdCIPXtI+3gWoW5S19ypLaqPPS6F9LikxpsmPUMjbsF3E8zo8FJ+rm/lxBOshIHM4s=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
- PH7PR12MB7427.namprd12.prod.outlook.com (2603:10b6:510:202::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8137.19; Thu, 7 Nov
- 2024 07:56:26 +0000
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::8327:d71a:ce21:a290]) by DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::8327:d71a:ce21:a290%5]) with mapi id 15.20.8114.028; Thu, 7 Nov 2024
- 07:56:26 +0000
-Message-ID: <e3eac43d-2445-4904-8cab-76429c182297@amd.com>
-Date: Thu, 7 Nov 2024 13:26:18 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/4] drm/amdgpu: Implement virt req_ras_err_count
-To: Victor Skvortsov <victor.skvortsov@amd.com>,
- amd-gfx@lists.freedesktop.org, zhigang.luo@amd.com, tao.zhou1@amd.com,
- hawking.zhang@amd.com
-References: <20241105190429.323478-1-victor.skvortsov@amd.com>
- <20241105190429.323478-4-victor.skvortsov@amd.com>
-Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20241105190429.323478-4-victor.skvortsov@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN3PR01CA0061.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:99::6) To DS0PR12MB7804.namprd12.prod.outlook.com
- (2603:10b6:8:142::5)
+ bh=9RyE9P3GaTIotvb8ev0hOJy7/Ni7cr8UqPNPRU2qkaI=;
+ b=TKWjMMjF+wUifkrkL8fn5xw48r+3P9pM8QdRkIvuAp+o+Oq/C+IxV1NJT/kcpkz68mcvL5+sNWV3ZXHDHUP/p3MpDmnc4iExC566B3U8BFN5UHEOvmvSw2SNlsplfyyHkZ2e6aEnnk7As5aqUvg9+2vwrDkteyZkvYWCc8S8La8=
+Received: from BYAPR10MB3366.namprd10.prod.outlook.com (2603:10b6:a03:14f::25)
+ by BN0PR10MB5095.namprd10.prod.outlook.com (2603:10b6:408:123::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8137.19; Wed, 6 Nov
+ 2024 14:43:07 +0000
+Received: from BYAPR10MB3366.namprd10.prod.outlook.com
+ ([fe80::baf2:dff1:d471:1c9]) by BYAPR10MB3366.namprd10.prod.outlook.com
+ ([fe80::baf2:dff1:d471:1c9%7]) with mapi id 15.20.8137.018; Wed, 6 Nov 2024
+ 14:43:07 +0000
+Date: Wed, 6 Nov 2024 14:43:03 +0000
+From: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+To: Yu Kuai <yukuai1@huaweicloud.com>
+Cc: stable@vger.kernel.org, gregkh@linuxfoundation.org, harry.wentland@amd.com,
+ sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com,
+ Xinhui.Pan@amd.com, airlied@gmail.com, daniel@ffwll.ch,
+ viro@zeniv.linux.org.uk, brauner@kernel.org, Liam.Howlett@oracle.com,
+ akpm@linux-foundation.org, hughd@google.com, willy@infradead.org,
+ sashal@kernel.org, srinivasan.shanmugam@amd.com,
+ chiahsuan.chung@amd.com, mingo@kernel.org, mgorman@techsingularity.net,
+ yukuai3@huawei.com, chengming.zhou@linux.dev,
+ zhangpeng.00@bytedance.com, chuck.lever@oracle.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ maple-tree@lists.infradead.org, linux-mm@kvack.org,
+ yi.zhang@huawei.com, yangerkun@huawei.com
+Subject: Re: [PATCH 6.6 00/28] fix CVE-2024-46701
+Message-ID: <e7942272-9157-4baf-a3e4-ac5957f33cc8@lucifer.local>
+References: <20241024132009.2267260-1-yukuai1@huaweicloud.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20241024132009.2267260-1-yukuai1@huaweicloud.com>
+X-ClientProxiedBy: LO4P123CA0413.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:189::22) To BYAPR10MB3366.namprd10.prod.outlook.com
+ (2603:10b6:a03:14f::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB7804:EE_|PH7PR12MB7427:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4ad718d3-b124-4001-d01b-08dcff01ae29
+X-MS-TrafficTypeDiagnostic: BYAPR10MB3366:EE_|BN0PR10MB5095:EE_
+X-MS-Office365-Filtering-Correlation-Id: 69d4f13f-805a-42d1-6036-08dcfe7153f8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?dWhCT1MxazJjRFl0NWd3RGtsQVhMLzAvVXBYTFJKREhhWnduNEZSZEZ6SFRi?=
- =?utf-8?B?VlJKVWNraEQvZU9Jc3JaV3QwV3ZXMm5Oa3UycnJFK091dnVDK1RMQUZYY0lL?=
- =?utf-8?B?bmFtNmI1cHRHL0l3VnE2amdBRVJOQlhGQ0F1L2g0QjBVc0QvNnc4OWpmM0d3?=
- =?utf-8?B?dzBZQm9uOHE1M2VkbldzUlZYK0p3WExhNXhtL3NpVC95NG1hdmljdnYyRWZE?=
- =?utf-8?B?THNKVThVVFZWd2wyTUxvd3ZKRTIwcW15Y2NjNG53ZXoza0wvWUExT1pBVmZF?=
- =?utf-8?B?WGwrT3JHMVdBVHNiWUUvdTBrcXNmbXBmQk5Wd0RtVzlhbmV3QVRNajMzYTVm?=
- =?utf-8?B?V3luVzdJYmVBL3lHK0VTYXA2UFhtOCs1WVNFR1d5bXgwQ01lVlV0TDI0dWYx?=
- =?utf-8?B?SVdINmQxZTZ1WW5mR0Y2cHdXbEVXYTkxeWs1M1BUbCsyTi9aTjJ6ckRXS1Jl?=
- =?utf-8?B?dnNKYlAzSEx0SGhrVHJzdkVJTGZOUTN3TXBVT3k2QW5TZVNYdkJ4aGt3Tk1L?=
- =?utf-8?B?UUJJNDhrQ0dEK25xZGh0WnlycG1wYVdpU3NzOHF4bEJYSmZlY1NPdDlZY2FJ?=
- =?utf-8?B?ZEptVzg0bFJTVStBZWs3MHVrTE5CaENEVHVFR1luY3R5Q1lJOUJiSGd2ZlNN?=
- =?utf-8?B?NDh6ZjZGc25Bc0JQeUg5VmZTZy9haFUvT2Z0WnJJUjZnUEF1ZkdHMFdTbjdZ?=
- =?utf-8?B?clpRU0pibjVJL3MybnZkdGFqZ2ROTEs5Ujh6K2tJMjdrNTd0c1BqYkRDV2tK?=
- =?utf-8?B?dGNUeVFjb0lSVU1kakFWWlFMTFVsa3F6N29TZUNSZjM3Y0VJNmJ5MG9aeDBu?=
- =?utf-8?B?U1dQbEZFY0tJdnJwMU1xUTg4dkpHNEhIM0w4QW42WjdmalUyMUdpNWtrb3VQ?=
- =?utf-8?B?a0hUL05xM0pVTTAzYkVkUlN4R2pETFBjU0JERDJxYWIzcmIzQWhYNjhxUjhQ?=
- =?utf-8?B?QytQOWhNTTQ4c20xd1F1cVhweEZjN1hscFdwUk9FTndEV0J2aTc2S3N4RUla?=
- =?utf-8?B?NU9jMVRoc1NaK2RVakRLVVN0THJQMXdocFg5R2N0bXE2VzQxZGVUdXBESE9P?=
- =?utf-8?B?V3VDSjNwRmNxVnVrSHN2UmdrbUZiYy9FQXBMamlvb1Nzc1F5eGhoOXYyNDl0?=
- =?utf-8?B?UUppTENlcFZZRWlsVnMxMzlmNEVLaTNjNTZraEVmbWFGQ1cweW9veGhZdkZF?=
- =?utf-8?B?eXRNcXY0dXRRVVNNcytlankrOW13MlZNbTJSWVoxbDVXTEllVWZoamZENUxm?=
- =?utf-8?B?RUtSUkhPM3B4clNZZzZNdVlLUGJnRURXY1U5SmY0NUx2aUhOSXU2dExmVkZD?=
- =?utf-8?B?UkdOMWN0aG0xTUwzVjBpdHdVQnQwWVlUZHkvRVA3V2owU0ZlZjB2UUoyMktC?=
- =?utf-8?B?UkxZRC8rUzNOMHV2SW1OOXFkZ1ovbng5cUlWd3owSEQzc3NEVFNtbTM1Wmoz?=
- =?utf-8?B?dFhVYTlqeWQ2QUNvZWRsamFLOTZCbXdqWnJHTFVHL0VVM2lCY3pyOHI0RzlJ?=
- =?utf-8?B?dXN5NUdwc0xNeHVmWWFPOWs0LzNVNkhkMlVqRjFYSWE4RkttNWs3UlhQL1Y1?=
- =?utf-8?B?S1diZ05ESVQ4UTFwc3VXZkczaHg3eVZsRW1pMFhkQ1JwaE02c0hTcytQU1lD?=
- =?utf-8?B?aEZqRWRpY0Y1THRjZGZnakczODZSKzl3bjdvS3F1NFAzaExQaUx2YnhhaVZz?=
- =?utf-8?B?UU54Qkh2aDhzNTBqSjRoMHp5bHA1UTMwaHZaQ0R0ZXBad0VYZk1nb28xWTgw?=
- =?utf-8?Q?KNnXOHL7B6SfiQgB2ZxUDcQCzqMCopa679vYlVy?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|7416014|366016;
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?JLSF6PXT3Eka+ePTyd8ZwODcwZE05L0wbZ/Qj1qcsqlMKuNt14NstvnhGRmC?=
+ =?us-ascii?Q?48bKu6J4sSMDc9uXfAk4qaSmarM5mvKgjy+QtTQqs161z/geTkdTIoAGmhH4?=
+ =?us-ascii?Q?/OpKquGErmEnP4e3Ce5rlrKfVghYDhhAQWNx7CriAA7lH5Ivs3WXAvN6+qCe?=
+ =?us-ascii?Q?ITesjm+FV1yhDZyuIjHr0lC/TpNNwQMqUSn5tyRTD9fCTj9LdCOZx2kZ5wFn?=
+ =?us-ascii?Q?T18FMdSoXol4J4uaxyi7HKarrpMxaU0f9clJEbUAcF8u7ees0Nx7AUol9BPC?=
+ =?us-ascii?Q?Oenx66BnOJie/sC2ObA7P6mGSyZpH3qAJhS4ATwonIqk46otFSY5K5EUwljD?=
+ =?us-ascii?Q?F7vEHDSpQV4ipT+j1viFvwZ/F2Cc5h8DuIY0v88ABodQ6mW2S+I4h9UZqEOR?=
+ =?us-ascii?Q?5xHstJBBA+uT4YEz0aMbrCKjCPLLnTlH0/AF1rCj6yaUYyVUHnryEYjkZdAn?=
+ =?us-ascii?Q?2D8rXZTQ85+sIKxfErAk5Qs8CYTscB9x893JOi4IF0MgkQElF42MXGXcm0jK?=
+ =?us-ascii?Q?ZeNIeKkZMCPFhuwTPgz1TB1slSRCZrNjdJ3/bYdqJgbqSdEe1zP6QaAvo7zs?=
+ =?us-ascii?Q?26IJZjPrEE1diTRLX0r9uK+Aoz9lw+VdS3FQ9Spvxy3eQzmJGHftrLeFxXvl?=
+ =?us-ascii?Q?vEWmSEWNMo7WbeHorX9nywvHFTGWYDTW6Ml9S4AjCuT5MjrnooDqZvepixHm?=
+ =?us-ascii?Q?ACkAc0K4r4rmh1hRSjtgj9yiiBoDFAeQGny9O9AEulzITpCz419m/OYBebx4?=
+ =?us-ascii?Q?+eXAIidhHWBERgEj/wHUAlegbSqMAT0SzIpd0hiU9all7N4z4OAFrHeDXO/7?=
+ =?us-ascii?Q?o8rb0pLJ4VKarxrHTpD0+NOtSQJ9/V42zHFJwLy6WxJepi5RePlOqifF1pnA?=
+ =?us-ascii?Q?zQbmluVJ1KBkelnPRwzY1LkeRTfeH8Or12OUmxBs1zy0P5F5yv/ZlC4k2WKx?=
+ =?us-ascii?Q?XXvmnEaJuxE7++kuYAVCEpvqTXtyq274WZa8G2Y0s9MfYu5GT7vNrEXw8O1g?=
+ =?us-ascii?Q?Xt/PvgzoV/04OzPWp45eCMEOhsXi0GbH3XHAHIQ/0VK2rZxc2r2CjXobDgl4?=
+ =?us-ascii?Q?gsSmc2PxFISxmpZyYriC9X1UMNpyIx2ywBc8CT97ZXcMQoJixU2G2s+dGOcY?=
+ =?us-ascii?Q?UARu8a58+nhBltK/2rN6AUYZ5SLM7VCefVBXJagAByJBRZOGE0ksC+gPCobr?=
+ =?us-ascii?Q?YS0tBknBOf1eR3FyWl/zIbaLw3n913jVi+EZaIhXTxOmKwUnFUK+cx/KqK+f?=
+ =?us-ascii?Q?lXy21z1wlNJOo488I9i4dKeYTiGyqt+p8yhA49yCYtc2N9qRWdtAom04S/OS?=
+ =?us-ascii?Q?Rce9CQfvhaxi3rQWvgY7neEC?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:BYAPR10MB3366.namprd10.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(7416014)(366016); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?empJcU9rbFpmUHdyZS9aZTJFejZMaWtuYXBXRzJ6cVRKL3hTNnB4N3p6NGww?=
- =?utf-8?B?bmpEV0NrZS8rN0dCcXMzZW1OTWxGVFFrRXFNUXA1TkxTTnBZMlkxeC9RaWE2?=
- =?utf-8?B?TkFDZW5aSmxUR2I2YWw5T0VrOTlDSXJ6Nk1YY25JR0FCd2ZKNXdRUHNTVDRL?=
- =?utf-8?B?TlVTTUVkUmI5dkZYWFpCaTI4ZU9rekE4RGVqVE5rUW9BMnBEQk4rWmF0bDNF?=
- =?utf-8?B?SnNTdnhMR3BYZjhWWXR6QTZFYm1CeWx3ejArUjF6R2Y3REtmOXZsWTg1VDQr?=
- =?utf-8?B?Ylc3bW0rQXhBTUd3K3VaeVE1U0VSM0RIM3cxNEt3NE1NVXhReWNKZTVXZlN3?=
- =?utf-8?B?czVjcDV2cXJweHlpMUJseWpBQlNYYmcwRCtHMUhac2VlNzRXS3doTU9RaHBo?=
- =?utf-8?B?MHVNWU1hNmo3eG9WWDc0dlJQa2VaRXZ6SURYYWh4WFVad3BrVCtCbXNiOHRX?=
- =?utf-8?B?RmZjVDM1bDN4U1ByREZOQU95dUxpaFBHWDJVeXFUQUhrQmh3VHg3NnR2V0pE?=
- =?utf-8?B?U0VOS1M1SGZqUEhmMzZESkdoZUxJQnk0YVIrbXUySE1PZUFIZHFYQmlIdWR1?=
- =?utf-8?B?a0hRUXpMNHB6VXdiR0huRUd4TGlhTGpEbkVXMytMWEJ1THdlZVcvOU8rZmNP?=
- =?utf-8?B?cFpaa1NzOHltS1Z4TDV2Z1lKTmZpbzA4NkpnZkJFZU8ySk9TaU4vRkUwY2hB?=
- =?utf-8?B?N1pLYTI2dWE2WUJ4YWsreEpSVHovcWN1ZWova2NVOXlEMWtxVldxS3pvVnRE?=
- =?utf-8?B?cVlpMklvdmoyU20zS2ZNeXVkalMwaHROSHpwa2UwbVFqdXZuK1c4SHZRNlpG?=
- =?utf-8?B?NFRoaXNHRnBjWTRkaHl6S0R1cWVPRGVQNHE3clZjMzVNbW1OQ1NyZDBPdmxJ?=
- =?utf-8?B?Uld3a3N2blVKbFBkaVpvaFRDRlZYV09VOVlKSmRMaGJvSnBHVUQ0ZCtWdkRu?=
- =?utf-8?B?SExOakR1N3pUcjZyRUhlNjV6UHZyUjNrNGkvc0ZGL0NzMUg4V0lBczVzVndY?=
- =?utf-8?B?ODN5L3RIMS9XdmkwYVFWT2c2L2RWNFRwdXVjMnRSNTJJVXRmNklxRU8xWFRu?=
- =?utf-8?B?MTV4RFBkNzFHK2cyNmpIS3hjbUlYMWpKL2xXU0Rmd1ZRMmlyL2JKYVp4VkNU?=
- =?utf-8?B?U0k0TFFoeGZydzN5bXNVN0N0cWJvdVdCMk5FL0krVlFGRGozZjNsZE1HcVNp?=
- =?utf-8?B?aTI2VC9YU0EvN0JOT2E2aC81OEVlLzJ3WElKS2ppNTRsTmNWZ2YzVFZOWXFa?=
- =?utf-8?B?bkliOU5HZHBzaU1MVlRoR0hYY21VTFZYZlMwMzVKUWI0V1FyampLam1iZk83?=
- =?utf-8?B?eE0vem5PR1p4MW5odlRZVnFVZno1RHlOYU53YmFINmw0V2MwaVNCVktXNDJs?=
- =?utf-8?B?Mmh5ZFdEWXk5Q1I2eE9YQ2wyMnBXOTUzRFl2bFVSbkxiOGVQZnpCWmNKQmJu?=
- =?utf-8?B?RmNXdTRPcGZyTGkrN0RaMjNockxtT3dUMlJyb1dkWnJwZDVCb2FnTFhWUVVR?=
- =?utf-8?B?a2wrYzFOSmJoQ0dGZFcwMGo5L3prSHk5VDV0a0Uvclk5OUEwcjY2ODc3Rzkr?=
- =?utf-8?B?N05qbURndC9qaUZJdTAzcXZhZkU3UVdDclVIZmJHMldRLzB0b1lXa0RQNUlR?=
- =?utf-8?B?WVpGVnBjK3lDSVBxb0Mva2NIUjM5VUN5NFJ0UjkzMWdaTXoyMGFrL2RJM2xC?=
- =?utf-8?B?TzZWYzFxem5kN2dPZ1MyN05ERDdRWjJQbzcrbTc1d1FyTmhZbGRvU0owQmtY?=
- =?utf-8?B?QVlFWFVjVGJTQm0xRE5CZWN5RE1LRGx4MjAzdTNIZkpWTkFMVDJCTnlySjdX?=
- =?utf-8?B?dkFJZnpqSzE3MkhLcnRJYjNEN3AxMUpGYlJ3akxSeWdPa3lnMU5UVGROR2tq?=
- =?utf-8?B?eWtiU05sZmtkYm5jaWdERkJNTUJyYTVrb1ExTnlqM2RyYWp1NjdwWXZGN0Jk?=
- =?utf-8?B?RXRIR0VscVZMalFIUndtLzlqZjdZUDNkV2hLR0JrMG93VWJkeVN1MENDTXV6?=
- =?utf-8?B?OG9KUFVSMG9jb0drakRZaUFneHVkN3lKWmRsS3Y1OFdUQURzcWlTcjhqU21r?=
- =?utf-8?B?MUpVS0ZWSTYxY1hnNW5jemNOUzVjejFkMm9BR3B1VjZXLzZKeEZETGVLbmgr?=
- =?utf-8?Q?YpbY2S+ZcnKJCepcQ/OAb0L2G?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4ad718d3-b124-4001-d01b-08dcff01ae29
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7804.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?kh6ejUS6qtvV1rb0KhCQ1EmgdHrTl6yAPMO2rrTDuXpIKdZlbEjwaAWaeO3A?=
+ =?us-ascii?Q?F9KJArUPbTl7mZavYwidsglQ1Y16/FPOUoTTXTSEV9zdArZdbg6FlXAgZEkN?=
+ =?us-ascii?Q?UVrt9TtMQd0Dk09vpYlONlwuaH5K1vGuICWSh5aGUFhce0+VmBIeflaKJWgo?=
+ =?us-ascii?Q?B3irZuldoy47W7209PnZXjHnsWeC+hjki2vD83Le8oLvby65NNSZCT4CThuw?=
+ =?us-ascii?Q?Fh6bcUkJqcUfD3V+Jq7+ey+YG850vYZFvcvUMnRroPeiC/DpqhPfDHGwfSdm?=
+ =?us-ascii?Q?BTbedYQiK64BpeuCiOyPuQPJmxzjf3u+1GRfPoDmq2yOgQmNztD89y/22tlt?=
+ =?us-ascii?Q?fStIAD55pwc0RBSF0e5BgUAeo0V5d8O3BYkO6CVRyrjTL6iTvCylTySeMdgH?=
+ =?us-ascii?Q?G/HETXjs+5G91c6thO1GQ3tZ6qOWEU4fiTMHP2O/AZ5h1OhxWQqNKVMFgn1y?=
+ =?us-ascii?Q?xVaFV04ZkMDPnncMjgKtlEOq08/CYfuRBRDCRedMSqVUAbze3/xovRizNrdd?=
+ =?us-ascii?Q?zT1QJUHRlOTwmI0ss6e5vMlmOY52BZSzDKBqAzEMYk4yux/rUCQ6ZrPG3jBY?=
+ =?us-ascii?Q?YVAz0Cm57tyq0FhXIGXdI6/ibP1RrlbCeR2BgP8fxgTGizchCy7g7RnmhOFu?=
+ =?us-ascii?Q?4jZaMLJAavCYsyrdw0iYTtyDSbbY8zLG1KBttP92/nbmt0TZ/PxTTJe9Q9CE?=
+ =?us-ascii?Q?YU9YUZpN/icYo9Lf/15eMVrX9PzAcgBpTeyNVFiAODpHHzuuFlaCtzSaIUc1?=
+ =?us-ascii?Q?nZDJX8KyJtGPO0zwLX+GieLirtKo7BpaFX8ZUkGdPhIm4ApPcOLUUBse8FKr?=
+ =?us-ascii?Q?/KKE9xZ5/R/IBlwwcDFgIpp8xA5sLCl8IzkeKkPMlSUhxMXgRuytbSfF61fy?=
+ =?us-ascii?Q?+8A3oBPKSL0BJt4UQhhPMM9UuS0SGRgN1Kd4ykpJGJRFzUa+cfsH4I3q5E2+?=
+ =?us-ascii?Q?kqB9eO4kD4fYSpUk9tYTRU95TO0DJHKx+/1nbmNX4V25Mmr/9q3YNt1dhdDA?=
+ =?us-ascii?Q?I/ID8zQ374wcRgnOCpwbGmz+onzIjRJGbhH8llRM7jijMHSM0MxJV97HHFWu?=
+ =?us-ascii?Q?kXyIaGjsMTAUegkoXts0lmfCGG4xN0K5cpazF21fO38aLWS0/rsBwBsV/t4W?=
+ =?us-ascii?Q?LIM1FrKgRWl64x5Ke3OWR+LH/Jf3YjCzcm7izjcs/abDU3TA4lQAlWHJEYoT?=
+ =?us-ascii?Q?MBMYcjVmd97NZhUWhAfmh+mh/ud8pyntLI75lRcUpQim+tJm24wN6Hu41bGg?=
+ =?us-ascii?Q?SAWWtaXEGJwbeW63RwVhb83DOJ1Su7f1gQtQ5QCvJa7aarls+RfVayasW+IE?=
+ =?us-ascii?Q?RaPeQEEkWiMOvLEOPe7CMLkH31JleDr7Jq+TWCgm/smE7C1vruh/Bu4fnleQ?=
+ =?us-ascii?Q?kDpH1tVeC4dXcT4y/CVCQm5Rcqh9SVUUm/f+ZWpe9GxzziXyCThMzpYZ/iZY?=
+ =?us-ascii?Q?k2WpRp7vOMpYpYeqHmhAm/wj/WMDZHvBQ2Bj4sI0x80tp8tlSlYoMGUd6mOn?=
+ =?us-ascii?Q?qZjc1d4PxlA6gFn/g4uA3MUImgbefHGDV+g8PAOqh52ANwR9i3RUmy+KEOOH?=
+ =?us-ascii?Q?752LymJxDgZ7USV6ClPlts3aHKnUTuBVYUdlChwM1J69YsRv5wxcXH9CuJ8s?=
+ =?us-ascii?Q?yw=3D=3D?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: CtMeLBtbC6uk9F0g98V1Rum7ljPPyl0c/lq1BOd+jOtWzapwIiooMq29sQLNPQUh8iXMFCCIWM1mRSOy/QdfJhpsEnKhI8/oDgEqTU3+gT8PMAsmF24tVlTrMXGsCCGPbkknRUI50Y72ye3vah71K4ULT4ifWTpZCAfjmtcB8mc8/O852LI22V9VSBJr2J8yv4U8IhU59wQW5bjN7TBYWHJDN+H3PMvg07Bv4mC1cHpmU3L6bA+U6AxfaklPFcFm7ROO1URnlkEXkIzFxDRDxbaYOd3jA8PWBfnyxI6pGIVWdl0XZEUessgdFlwIIegfURTlijhvD2twZ10CpOhRSOXWMfVDyjcMEVyxYypoH3HH89e9QIpRPVju+peXPiyN89tIiLjMAEjUN1/jARWYgc773QWAcD3IbC6mbV7/IK10wVKNox0UQmBn9XXIOyGkiwI2Rws6dMiNj6qmN4uS5nH90BAnIGq/hX+vUfJ7/lSfe8SowKIeUU9JGjzn22Fp/UOdVb+cd0gfrjeHMBPt7+61Ou9d+1pPi+WMoImDm51JeaNQMeRH1RdIRGlnz7NicwW9+vU2RWqAn5trReUeMwALUbXJwOxL8iyL8IkhmZQ=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 69d4f13f-805a-42d1-6036-08dcfe7153f8
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR10MB3366.namprd10.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2024 07:56:26.3821 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2024 14:43:07.6858 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mqcFA91c3gdOq/J2NoxUxeMxCmddXCxHU7ZU1enWTVy0xPt2yAelBhZpctjtJZhC
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7427
+X-MS-Exchange-CrossTenant-UserPrincipalName: oBuMzia9b9OwPo17MU6hKv8J9nB2s7dGAw/CMvAwNG92qYYvtPym1jT8D7dnBc/KPfz3NWht3ydFKbp4vpCCyKSuqnL8ZgO3TxXHdIZxatY=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN0PR10MB5095
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.62.30
+ definitions=2024-11-06_08,2024-11-06_01,2024-09-30_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=999
+ bulkscore=0 spamscore=0
+ adultscore=0 phishscore=0 suspectscore=0 malwarescore=0 mlxscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2409260000
+ definitions=main-2411060115
+X-Proofpoint-GUID: _itB63oUZ2IRkngYfqTUN9IJeQVkldN1
+X-Proofpoint-ORIG-GUID: _itB63oUZ2IRkngYfqTUN9IJeQVkldN1
+X-Mailman-Approved-At: Thu, 07 Nov 2024 08:03:03 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,470 +193,107 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+NACK.
 
+Do this some other way that isn't a terrible mess.
 
-On 11/6/2024 12:34 AM, Victor Skvortsov wrote:
-> Enable RAS late init  if VF RAS Telemetry is supported.
-> 
-> When enabled, the VF can use this interface to query total
-> RAS error counts from the host.
-> 
-> The VF FB access may abruptly end due to a fatal error,
-> therefore the VF must cache and sanitize the input.
-> 
-> The Host allows 15 Telemetry messages every 60 seconds, afterwhich
-> the host will ignore any more in-coming telemetry messages. The VF will
-> rate limit its msg calling to once every 5 seconds (12 times in 60 seconds).
-> While the VF is rate limited, it will continue to report the last
-> good cached data.
-> 
-> v2: Flip generate report & update statistics order for VF
-> 
-> Signed-off-by: Victor Skvortsov <victor.skvortsov@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |   6 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c    |   3 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c    |  72 +++++++++--
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h    |   1 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c    |   3 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c   | 138 +++++++++++++++++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h   |  15 +++
->  7 files changed, 231 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 383bbee87df5..c22a9925cba7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -4235,7 +4235,10 @@ int amdgpu_device_init(struct amdgpu_device *adev,
->  	 * for throttling interrupt) = 60 seconds.
->  	 */
->  	ratelimit_state_init(&adev->throttling_logging_rs, (60 - 1) * HZ, 1);
-> +	ratelimit_state_init(&adev->virt.ras_telemetry_rs, 5 * HZ, 1);
-> +
->  	ratelimit_set_flags(&adev->throttling_logging_rs, RATELIMIT_MSG_ON_RELEASE);
-> +	ratelimit_set_flags(&adev->virt.ras_telemetry_rs, RATELIMIT_MSG_ON_RELEASE);
->  
->  	/* Registers mapping */
->  	/* TODO: block userspace mapping of io register */
-> @@ -5185,6 +5188,9 @@ static int amdgpu_device_reset_sriov(struct amdgpu_device *adev,
->  	    amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 4) ||
->  	    amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(11, 0, 3))
->  		amdgpu_ras_resume(adev);
-> +
-> +	amdgpu_virt_ras_telemetry_post_reset(adev);
-> +
->  	return 0;
->  }
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> index b8cc4b146bdc..8c9fcfb7f22e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> @@ -885,6 +885,9 @@ int amdgpu_gfx_ras_late_init(struct amdgpu_device *adev, struct ras_common_if *r
->  		if (r)
->  			return r;
->  
-> +		if (amdgpu_sriov_vf(adev))
-> +			return r;
-> +
->  		if (adev->gfx.cp_ecc_error_irq.funcs) {
->  			r = amdgpu_irq_get(adev, &adev->gfx.cp_ecc_error_irq, 0);
->  			if (r)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> index 89d87dc17ac1..a8b4f4178e5a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> @@ -1214,6 +1214,42 @@ static void amdgpu_ras_error_generate_report(struct amdgpu_device *adev,
->  	}
->  }
->  
-> +static void amdgpu_ras_virt_error_generate_report(struct amdgpu_device *adev,
-> +						  struct ras_query_if *query_if,
-> +						  struct ras_err_data *err_data,
-> +						  struct ras_query_context *qctx)
-> +{
-> +	unsigned long new_ue, new_ce, new_de;
-> +	struct ras_manager *obj = amdgpu_ras_find_obj(adev, &query_if->head);
-> +	const char *blk_name = get_ras_block_str(&query_if->head);
-> +	u64 event_id = qctx->event_id;
-> +
-> +	new_ce = err_data->ce_count - obj->err_data.ce_count;
-> +	new_ue = err_data->ue_count - obj->err_data.ue_count;
-> +	new_de = err_data->de_count - obj->err_data.de_count;
-> +
-> +	if (new_ce) {
-> +		RAS_EVENT_LOG(adev, event_id, "%lu correctable hardware errors "
-> +			      "detected in %s block\n",
-> +			      new_ce,
-> +			      blk_name);
-> +	}
-> +
-> +	if (new_ue) {
-> +		RAS_EVENT_LOG(adev, event_id, "%lu uncorrectable hardware errors "
-> +			      "detected in %s block\n",
-> +			      new_ue,
-> +			      blk_name);
-> +	}
-> +
-> +	if (new_de) {
-> +		RAS_EVENT_LOG(adev, event_id, "%lu deferred hardware errors "
-> +			      "detected in %s block\n",
-> +			      new_de,
-> +			      blk_name);
-> +	}
-> +}
-> +
->  static void amdgpu_rasmgr_error_data_statistic_update(struct ras_manager *obj, struct ras_err_data *err_data)
->  {
->  	struct ras_err_node *err_node;
-> @@ -1237,6 +1273,15 @@ static void amdgpu_rasmgr_error_data_statistic_update(struct ras_manager *obj, s
->  	}
->  }
->  
-> +static void amdgpu_ras_mgr_virt_error_data_statistics_update(struct ras_manager *obj,
-> +							     struct ras_err_data *err_data)
-> +{
-> +	/* Host reports absolute counts */
-> +	obj->err_data.ue_count = err_data->ue_count;
-> +	obj->err_data.ce_count = err_data->ce_count;
-> +	obj->err_data.de_count = err_data->de_count;
-> +}
-> +
->  static struct ras_manager *get_ras_manager(struct amdgpu_device *adev, enum amdgpu_ras_block blk)
->  {
->  	struct ras_common_if head;
-> @@ -1323,7 +1368,9 @@ static int amdgpu_ras_query_error_status_helper(struct amdgpu_device *adev,
->  	if (error_query_mode == AMDGPU_RAS_INVALID_ERROR_QUERY)
->  		return -EINVAL;
->  
-> -	if (error_query_mode == AMDGPU_RAS_DIRECT_ERROR_QUERY) {
-> +	if (error_query_mode == AMDGPU_RAS_VIRT_ERROR_COUNT_QUERY) {
-> +		return amdgpu_virt_req_ras_err_count(adev, blk, err_data);
-> +	} else if (error_query_mode == AMDGPU_RAS_DIRECT_ERROR_QUERY) {
->  		if (info->head.block == AMDGPU_RAS_BLOCK__UMC) {
->  			amdgpu_ras_get_ecc_info(adev, err_data);
->  		} else {
-> @@ -1405,14 +1452,22 @@ static int amdgpu_ras_query_error_status_with_event(struct amdgpu_device *adev,
->  	if (ret)
->  		goto out_fini_err_data;
->  
-> -	amdgpu_rasmgr_error_data_statistic_update(obj, &err_data);
-> +	if (error_query_mode != AMDGPU_RAS_VIRT_ERROR_COUNT_QUERY) {
-> +		amdgpu_rasmgr_error_data_statistic_update(obj, &err_data);
-> +		amdgpu_ras_error_generate_report(adev, info, &err_data, &qctx);
-> +	} else {
-> +		/* Host provides absolute error counts. First generate the report
-> +		 * using the previous VF internal count against new host count.
-> +		 * Then Update VF internal count.
-> +		 */
-> +		amdgpu_ras_virt_error_generate_report(adev, info, &err_data, &qctx);
-> +		amdgpu_ras_mgr_virt_error_data_statistics_update(obj, &err_data);
-> +	}
->  
->  	info->ue_count = obj->err_data.ue_count;
->  	info->ce_count = obj->err_data.ce_count;
->  	info->de_count = obj->err_data.de_count;
->  
-> -	amdgpu_ras_error_generate_report(adev, info, &err_data, &qctx);
-> -
->  out_fini_err_data:
->  	amdgpu_ras_error_data_fini(&err_data);
->  
-> @@ -3929,7 +3984,7 @@ int amdgpu_ras_late_init(struct amdgpu_device *adev)
->  	}
->  
->  	/* Guest side doesn't need init ras feature */
-> -	if (amdgpu_sriov_vf(adev))
-> +	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_ras_telemetry_en(adev))
->  		return 0;
->  
->  	list_for_each_entry_safe(node, tmp, &adev->ras_list, node) {
-> @@ -4396,11 +4451,14 @@ bool amdgpu_ras_get_error_query_mode(struct amdgpu_device *adev,
->  		return false;
->  	}
->  
-> -	if ((smu_funcs && smu_funcs->set_debug_mode) || (mca_funcs && mca_funcs->mca_set_debug_mode))
-> +	if (amdgpu_sriov_vf(adev)) {
-> +		*error_query_mode = AMDGPU_RAS_VIRT_ERROR_COUNT_QUERY;
-> +	} else if ((smu_funcs && smu_funcs->set_debug_mode) || (mca_funcs && mca_funcs->mca_set_debug_mode)) {
->  		*error_query_mode =
->  			(con->is_aca_debug_mode) ? AMDGPU_RAS_DIRECT_ERROR_QUERY : AMDGPU_RAS_FIRMWARE_ERROR_QUERY;
-> -	else
-> +	} else {
->  		*error_query_mode = AMDGPU_RAS_DIRECT_ERROR_QUERY;
-> +	}
->  
->  	return true;
->  }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-> index 871b2d6278e0..6db772ecfee4 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-> @@ -365,6 +365,7 @@ enum amdgpu_ras_error_query_mode {
->  	AMDGPU_RAS_INVALID_ERROR_QUERY		= 0,
->  	AMDGPU_RAS_DIRECT_ERROR_QUERY		= 1,
->  	AMDGPU_RAS_FIRMWARE_ERROR_QUERY		= 2,
-> +	AMDGPU_RAS_VIRT_ERROR_COUNT_QUERY	= 3,
->  };
->  
->  /* ras error status reisger fields */
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
-> index bb7b9b2eaac1..896f3609b0ee 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
-> @@ -318,6 +318,9 @@ int amdgpu_umc_ras_late_init(struct amdgpu_device *adev, struct ras_common_if *r
->  	if (r)
->  		return r;
->  
-> +	if (amdgpu_sriov_vf(adev))
-> +		return r;
-> +
->  	if (amdgpu_ras_is_supported(adev, ras_block->block)) {
->  		r = amdgpu_irq_get(adev, &adev->gmc.ecc_irq, 0);
->  		if (r)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-> index 53297c40f09c..b1e584e4ef13 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-> @@ -524,6 +524,8 @@ static int amdgpu_virt_read_pf2vf_data(struct amdgpu_device *adev)
->  		adev->unique_id =
->  			((struct amd_sriov_msg_pf2vf_info *)pf2vf_info)->uuid;
->  		adev->virt.ras_en_caps.all = ((struct amd_sriov_msg_pf2vf_info *)pf2vf_info)->ras_en_caps.all;
-> +		adev->virt.ras_telemetry_en_caps.all =
-> +			((struct amd_sriov_msg_pf2vf_info *)pf2vf_info)->ras_telemetry_en_caps.all;
->  		break;
->  	default:
->  		dev_err(adev->dev, "invalid pf2vf version: 0x%x\n", pf2vf_info->version);
-> @@ -704,6 +706,8 @@ void amdgpu_virt_exchange_data(struct amdgpu_device *adev)
->  			adev->virt.fw_reserve.p_vf2pf =
->  				(struct amd_sriov_msg_vf2pf_info_header *)
->  				(adev->mman.fw_vram_usage_va + (AMD_SRIOV_MSG_VF2PF_OFFSET_KB << 10));
-> +			adev->virt.fw_reserve.ras_telemetry =
-> +				(adev->mman.fw_vram_usage_va + (AMD_SRIOV_MSG_RAS_TELEMETRY_OFFSET_KB << 10));
+You've reverted my CRITICAL fix, then didn't cc- me so I'm grumpy.
 
-Shouldn't it check if it's telemetry capable before this assignment?
+Even if you bizarrely brought it back later.
 
-Overall, it feels like it would be better to have a ras manager/ras
-control block under virt which maintains
+Don't fail to cc- people you revert in future, please, especially in
+stable. It's not only discourteous it's also an actual security risk.
 
-	count_cache
-	ras_telemetry_rs
-	req_ras_err_count
-	ras_telemetry_en_caps
+Thanks.
 
-It gets initialized only if ras capability and ras telemetry capability
-is detected - amdgpu_virt_ras_init and then go from there. Also, makes
-it easier for read, if all starts like amdgpu_virt_ras
+Also this commit log is ridiculous, you don't even explain WHAT ON EARTH
+YOU ARE DOING HERE. It's not just good enough to reference a CVE and expect
+us to go research this for you, especially one you've 'addressed' in this
+totally bizarre fashion.
 
-	amdgpu_virt_req_ras_err_count => amdgpu_virt_ras_req_err_count
-	amdgpu_virt_cache_host_ => amdgpu_virt_ras_cache_host_errors
+On Thu, Oct 24, 2024 at 09:19:41PM +0800, Yu Kuai wrote:
+> From: Yu Kuai <yukuai3@huawei.com>
+>
+> Fix patch is patch 27, relied patches are from:
+>
+>  - patches from set [1] to add helpers to maple_tree, the last patch to
+> improve fork() performance is not backported;
+>  - patches from set [2] to change maple_tree, and follow up fixes;
+>  - patches from set [3] to convert offset_ctx from xarray to maple_tree;
+>
+> Please notice that I'm not an expert in this area, and I'm afraid to
+> make manual changes. That's why patch 16 revert the commit that is
+> different from mainline and will cause conflict backporting new patches.
+> patch 28 pick the original mainline patch again.
 
-and so forth.
+This is... what? :/
 
->  		} else if (adev->mman.drv_vram_usage_va) {
->  			adev->virt.fw_reserve.p_pf2vf =
->  				(struct amd_sriov_msg_pf2vf_info_header *)
-> @@ -711,6 +715,8 @@ void amdgpu_virt_exchange_data(struct amdgpu_device *adev)
->  			adev->virt.fw_reserve.p_vf2pf =
->  				(struct amd_sriov_msg_vf2pf_info_header *)
->  				(adev->mman.drv_vram_usage_va + (AMD_SRIOV_MSG_VF2PF_OFFSET_KB << 10));
-> +			adev->virt.fw_reserve.ras_telemetry =
-> +				(adev->mman.drv_vram_usage_va + (AMD_SRIOV_MSG_RAS_TELEMETRY_OFFSET_KB << 10));
->  		}
->  
->  		amdgpu_virt_read_pf2vf_data(adev);
-> @@ -1197,3 +1203,135 @@ bool amdgpu_virt_get_ras_capability(struct amdgpu_device *adev)
->  
->  	return true;
->  }
-> +
-> +static inline enum amd_sriov_ras_telemetry_gpu_block
-> +amdgpu_ras_block_to_sriov(struct amdgpu_device *adev, enum amdgpu_ras_block block) {
-> +	switch (block) {
-> +	case AMDGPU_RAS_BLOCK__UMC:
-> +		return RAS_TELEMETRY_GPU_BLOCK_UMC;
-> +	case AMDGPU_RAS_BLOCK__SDMA:
-> +		return RAS_TELEMETRY_GPU_BLOCK_SDMA;
-> +	case AMDGPU_RAS_BLOCK__GFX:
-> +		return RAS_TELEMETRY_GPU_BLOCK_GFX;
-> +	case AMDGPU_RAS_BLOCK__MMHUB:
-> +		return RAS_TELEMETRY_GPU_BLOCK_MMHUB;
-> +	case AMDGPU_RAS_BLOCK__ATHUB:
-> +		return RAS_TELEMETRY_GPU_BLOCK_ATHUB;
-> +	case AMDGPU_RAS_BLOCK__PCIE_BIF:
-> +		return RAS_TELEMETRY_GPU_BLOCK_PCIE_BIF;
-> +	case AMDGPU_RAS_BLOCK__HDP:
-> +		return RAS_TELEMETRY_GPU_BLOCK_HDP;
-> +	case AMDGPU_RAS_BLOCK__XGMI_WAFL:
-> +		return RAS_TELEMETRY_GPU_BLOCK_XGMI_WAFL;
-> +	case AMDGPU_RAS_BLOCK__DF:
-> +		return RAS_TELEMETRY_GPU_BLOCK_DF;
-> +	case AMDGPU_RAS_BLOCK__SMN:
-> +		return RAS_TELEMETRY_GPU_BLOCK_SMN;
-> +	case AMDGPU_RAS_BLOCK__SEM:
-> +		return RAS_TELEMETRY_GPU_BLOCK_SEM;
-> +	case AMDGPU_RAS_BLOCK__MP0:
-> +		return RAS_TELEMETRY_GPU_BLOCK_MP0;
-> +	case AMDGPU_RAS_BLOCK__MP1:
-> +		return RAS_TELEMETRY_GPU_BLOCK_MP1;
-> +	case AMDGPU_RAS_BLOCK__FUSE:
-> +		return RAS_TELEMETRY_GPU_BLOCK_FUSE;
-> +	case AMDGPU_RAS_BLOCK__MCA:
-> +		return RAS_TELEMETRY_GPU_BLOCK_MCA;
-> +	case AMDGPU_RAS_BLOCK__VCN:
-> +		return RAS_TELEMETRY_GPU_BLOCK_VCN;
-> +	case AMDGPU_RAS_BLOCK__JPEG:
-> +		return RAS_TELEMETRY_GPU_BLOCK_JPEG;
-> +	case AMDGPU_RAS_BLOCK__IH:
-> +		return RAS_TELEMETRY_GPU_BLOCK_IH;
-> +	case AMDGPU_RAS_BLOCK__MPIO:
-> +		return RAS_TELEMETRY_GPU_BLOCK_MPIO;
-> +	default:
-> +		dev_err(adev->dev, "Unsupported SRIOV RAS telemetry block 0x%x\n", block);
-> +		return RAS_TELEMETRY_GPU_BLOCK_COUNT;
-> +	}
-> +}
-> +
-> +static int amdgpu_virt_cache_host_error_counts(struct amdgpu_device *adev,
-> +					       struct amdsriov_ras_telemetry *host_telemetry)
-> +{
-> +	struct amd_sriov_ras_telemetry_error_count *tmp = { 0 };
-> +	uint32_t checksum, used_size, tmp_check;
-> +
-> +	checksum = host_telemetry->header.checksum;
-> +	used_size = host_telemetry->header.used_size;
-> +
-> +	if (used_size > (AMD_SRIOV_RAS_TELEMETRY_SIZE_KB << 10))
-> +		return 0;
-> +
-> +	tmp = kmalloc(used_size, GFP_KERNEL);
-> +	if (!tmp)
-> +		return -ENOMEM;
-> +
-> +	memcpy(tmp, &host_telemetry->body.error_count, used_size);
-> +
-> +	tmp_check = amd_sriov_msg_checksum(tmp, used_size, 0, 0);
-> +	if (checksum != amd_sriov_msg_checksum(tmp, used_size, 0, 0))
-> +		goto out;
-> +
-> +	/* Copy sanitized data to guest cache */
-> +	memcpy(&adev->virt.count_cache, tmp, sizeof(adev->virt.count_cache));
-> +out:
-> +	kfree(tmp);
-> +
-> +	return 0;
-> +}
-> +
-> +static int amdgpu_virt_req_ras_err_count_internal(struct amdgpu_device *adev, bool force_update)
-> +{
-> +	struct amdgpu_virt *virt = &adev->virt;
-> +
-> +	/* Host allows 15 ras telemetry requests per 60 seconds. Afterwhich, the Host
-> +	 * will ignore incoming guest messages. Ratelimit the guest messages to
-> +	 * prevent guest self DOS.
-> +	 */
-> +	if (__ratelimit(&adev->virt.ras_telemetry_rs) || force_update) {
-> +		if (!virt->ops->req_ras_err_count(adev))
-> +			amdgpu_virt_cache_host_error_counts(adev,
-> +				adev->virt.fw_reserve.ras_telemetry);
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +/* Bypass ACA interface and query ECC counts directly from host */
-> +int amdgpu_virt_req_ras_err_count(struct amdgpu_device *adev, enum amdgpu_ras_block block,
-> +				  struct ras_err_data *err_data)
-> +{
-> +	int ret;
-> +	enum amd_sriov_ras_telemetry_gpu_block sriov_block;
-> +
-> +	sriov_block = amdgpu_ras_block_to_sriov(adev, block);
-> +
-> +	if (sriov_block >= RAS_TELEMETRY_GPU_BLOCK_COUNT ||
-> +	    !amdgpu_sriov_ras_telemetry_block_en(adev, sriov_block))
-> +		return -EOPNOTSUPP;
-> +
-> +	/* Host Access may be lost during reset, just return last cached data. */
-> +	if (down_read_trylock(&adev->reset_domain->sem)) {
-> +		amdgpu_virt_req_ras_err_count_internal(adev, false);
-> +		up_read(&adev->reset_domain->sem);
-> +	}
-> +
-> +	err_data->ue_count = adev->virt.count_cache.block[sriov_block].ue_count;
-> +	err_data->ce_count = adev->virt.count_cache.block[sriov_block].ce_count;
-> +	err_data->de_count = adev->virt.count_cache.block[sriov_block].de_count;
-> +
-> +	return 0;
-> +}
-> +
-> +int amdgpu_virt_ras_telemetry_post_reset(struct amdgpu_device *adev)
-> +{
-> +	unsigned long ue_count, ce_count;
-> +
-> +	if (amdgpu_sriov_ras_telemetry_en(adev)) {
-> +		amdgpu_virt_req_ras_err_count_internal(adev, true);
-> +		amdgpu_ras_query_error_count(adev, &ce_count, &ue_count, NULL);
-> +	}
-> +
-> +	return 0;
-> +}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-> index f0ff84add692..5381b8d596e6 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-> @@ -104,6 +104,7 @@ struct amdgpu_virt_ops {
->  struct amdgpu_virt_fw_reserve {
->  	struct amd_sriov_msg_pf2vf_info_header *p_pf2vf;
->  	struct amd_sriov_msg_vf2pf_info_header *p_vf2pf;
-> +	void *ras_telemetry;
->  	unsigned int checksum_key;
->  };
->  
-> @@ -138,6 +139,7 @@ enum AMDGIM_FEATURE_FLAG {
->  	/* MES info */
->  	AMDGIM_FEATURE_MES_INFO_ENABLE = (1 << 8),
->  	AMDGIM_FEATURE_RAS_CAPS = (1 << 9),
-> +	AMDGIM_FEATURE_RAS_TELEMETRY = (1 << 10),
->  };
->  
->  enum AMDGIM_REG_ACCESS_FLAG {
-> @@ -280,6 +282,10 @@ struct amdgpu_virt {
->  	struct mutex rlcg_reg_lock;
->  
->  	union amd_sriov_ras_caps ras_en_caps;
-> +	union amd_sriov_ras_caps ras_telemetry_en_caps;
-> +
-> +	struct ratelimit_state ras_telemetry_rs;
-> +	struct amd_sriov_ras_telemetry_error_count count_cache;
->  };
->  
->  struct amdgpu_video_codec_info;
-> @@ -327,6 +333,12 @@ struct amdgpu_video_codec_info;
->  #define amdgpu_sriov_ras_caps_en(adev) \
->  ((adev)->virt.gim_feature & AMDGIM_FEATURE_RAS_CAPS)
->  
-> +#define amdgpu_sriov_ras_telemetry_en(adev) \
-> +(((adev)->virt.gim_feature & AMDGIM_FEATURE_RAS_TELEMETRY) && (adev)->virt.fw_reserve.ras_telemetry)
-> +
+You have to fix conflicts, that's part of what backporting involves.
 
-As a matter of coding style/easier read,  would be good if you could
-maintain gim_feature checks at one place. Now it's mixed across.
+Yeah, rethink your whole approach, thanks.
 
-Thanks,
-Lijo
-
-> +#define amdgpu_sriov_ras_telemetry_block_en(adev, sriov_blk) \
-> +(amdgpu_sriov_ras_telemetry_en((adev)) && (adev)->virt.ras_telemetry_en_caps.all & BIT(sriov_blk))
-> +
->  static inline bool is_virtual_machine(void)
->  {
->  #if defined(CONFIG_X86)
-> @@ -391,4 +403,7 @@ bool amdgpu_virt_get_rlcg_reg_access_flag(struct amdgpu_device *adev,
->  					  bool write, u32 *rlcg_flag);
->  u32 amdgpu_virt_rlcg_reg_rw(struct amdgpu_device *adev, u32 offset, u32 v, u32 flag, u32 xcc_id);
->  bool amdgpu_virt_get_ras_capability(struct amdgpu_device *adev);
-> +int amdgpu_virt_req_ras_err_count(struct amdgpu_device *adev, enum amdgpu_ras_block block,
-> +				  struct ras_err_data *err_data);
-> +int amdgpu_virt_ras_telemetry_post_reset(struct amdgpu_device *adev);
->  #endif
+>
+> (And this is what we did to fix the CVE in downstream kernels).
+>
+> [1] https://lore.kernel.org/all/20231027033845.90608-1-zhangpeng.00@bytedance.com/
+> [2] https://lore.kernel.org/all/20231101171629.3612299-2-Liam.Howlett@oracle.com/T/
+> [3] https://lore.kernel.org/all/170820083431.6328.16233178852085891453.stgit@91.116.238.104.host.secureserver.net/
+>
+> Andrew Morton (1):
+>   lib/maple_tree.c: fix build error due to hotfix alteration
+>
+> Chuck Lever (5):
+>   libfs: Re-arrange locking in offset_iterate_dir()
+>   libfs: Define a minimum directory offset
+>   libfs: Add simple_offset_empty()
+>   maple_tree: Add mtree_alloc_cyclic()
+>   libfs: Convert simple directory offsets to use a Maple Tree
+>
+> Liam R. Howlett (12):
+>   maple_tree: remove unnecessary default labels from switch statements
+>   maple_tree: make mas_erase() more robust
+>   maple_tree: move debug check to __mas_set_range()
+>   maple_tree: add end of node tracking to the maple state
+>   maple_tree: use cached node end in mas_next()
+>   maple_tree: use cached node end in mas_destroy()
+>   maple_tree: clean up inlines for some functions
+>   maple_tree: separate ma_state node from status
+>   maple_tree: remove mas_searchable()
+>   maple_tree: use maple state end for write operations
+>   maple_tree: don't find node end in mtree_lookup_walk()
+>   maple_tree: mtree_range_walk() clean up
+>
+> Lorenzo Stoakes (1):
+>   maple_tree: correct tree corruption on spanning store
+>
+> Peng Zhang (7):
+>   maple_tree: add mt_free_one() and mt_attr() helpers
+>   maple_tree: introduce {mtree,mas}_lock_nested()
+>   maple_tree: introduce interfaces __mt_dup() and mtree_dup()
+>   maple_tree: skip other tests when BENCH is enabled
+>   maple_tree: preserve the tree attributes when destroying maple tree
+>   maple_tree: add test for mtree_dup()
+>   maple_tree: avoid checking other gaps after getting the largest gap
+>
+> Yu Kuai (1):
+>   Revert "maple_tree: correct tree corruption on spanning store"
+>
+> yangerkun (1):
+>   libfs: fix infinite directory reads for offset dir
+>
+>  fs/libfs.c                                  |  129 ++-
+>  include/linux/fs.h                          |    6 +-
+>  include/linux/maple_tree.h                  |  356 +++---
+>  include/linux/mm_types.h                    |    3 +-
+>  lib/maple_tree.c                            | 1096 +++++++++++++------
+>  lib/test_maple_tree.c                       |  218 ++--
+>  mm/internal.h                               |   10 +-
+>  mm/shmem.c                                  |    4 +-
+>  tools/include/linux/spinlock.h              |    1 +
+>  tools/testing/radix-tree/linux/maple_tree.h |    2 +-
+>  tools/testing/radix-tree/maple.c            |  390 ++++++-
+>  11 files changed, 1564 insertions(+), 651 deletions(-)
+>
+> --
+> 2.39.2
+>
