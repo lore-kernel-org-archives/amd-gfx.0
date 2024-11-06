@@ -4,52 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86098D29FBE
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 Nov 2024 08:24:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6822D29FBB
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 Nov 2024 08:24:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 11C3210E68D;
-	Wed,  6 Nov 2024 08:24:56 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="1fTkmcG0";
-	dkim-atps=neutral
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 561A310E1AB;
- Wed,  6 Nov 2024 06:16:20 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 2BCAF5C0118;
- Wed,  6 Nov 2024 06:15:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C2CAC4CECD;
- Wed,  6 Nov 2024 06:16:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1730873778;
- bh=pQlq7hHPU1Y1m8Iq0RTWGhBrUrFVOfLg2Zpy9RE9zsU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=1fTkmcG0N/uvrisql3iDehlDzBNxDNe9oSfkHDOaITMwxsTkdkYbtTOC9lGFg1dwl
- eMRGjVGRQcsNNJJ3jMsXvMea55ta6/60nim8jexRPhGVrhD/NnBNGv5hgahleeqztB
- pR75KwmvLCaR4VCYlltAkgEgUf3CMOSWOzvwUlZQ=
-Date: Wed, 6 Nov 2024 07:16:00 +0100
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Yu Kuai <yukuai1@huaweicloud.com>
-Cc: stable@vger.kernel.org, harry.wentland@amd.com, sunpeng.li@amd.com,
- Rodrigo.Siqueira@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- daniel@ffwll.ch, viro@zeniv.linux.org.uk, brauner@kernel.org,
- Liam.Howlett@oracle.com, akpm@linux-foundation.org,
- hughd@google.com, willy@infradead.org, sashal@kernel.org,
- srinivasan.shanmugam@amd.com, chiahsuan.chung@amd.com,
- mingo@kernel.org, mgorman@techsingularity.net, yukuai3@huawei.com,
- chengming.zhou@linux.dev, zhangpeng.00@bytedance.com,
- chuck.lever@oracle.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, maple-tree@lists.infradead.org,
- linux-mm@kvack.org, yi.zhang@huawei.com, yangerkun@huawei.com
-Subject: Re: [PATCH 6.6 00/28] fix CVE-2024-46701
-Message-ID: <2024110625-earwig-deport-d050@gregkh>
-References: <20241024132009.2267260-1-yukuai1@huaweicloud.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id AEF5710E689;
+	Wed,  6 Nov 2024 08:24:52 +0000 (UTC)
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C2F4410E185;
+ Wed,  6 Nov 2024 01:40:57 +0000 (UTC)
+Received: from mail.maildlp.com (unknown [172.19.163.252])
+ by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4Xjnsl0cV2z10PcB;
+ Wed,  6 Nov 2024 09:38:35 +0800 (CST)
+Received: from dggpeml500024.china.huawei.com (unknown [7.185.36.10])
+ by mail.maildlp.com (Postfix) with ESMTPS id D4AE3180AEB;
+ Wed,  6 Nov 2024 09:40:54 +0800 (CST)
+Received: from huawei.com (10.175.112.208) by dggpeml500024.china.huawei.com
+ (7.185.36.10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2507.39; Wed, 6 Nov
+ 2024 09:40:54 +0800
+From: Yuan Can <yuancan@huawei.com>
+To: <Felix.Kuehling@amd.com>, <alexander.deucher@amd.com>,
+ <christian.koenig@amd.com>, <Xinhui.Pan@amd.com>, <airlied@gmail.com>,
+ <simona@ffwll.ch>, <mukul.joshi@amd.com>, <amd-gfx@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>
+CC: <yuancan@huawei.com>
+Subject: [PATCH] drm/amdkfd: Fix wrong usage of INIT_WORK()
+Date: Wed, 6 Nov 2024 09:35:41 +0800
+Message-ID: <20241106013541.77666-1-yuancan@huawei.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20241024132009.2267260-1-yukuai1@huaweicloud.com>
+Content-Type: text/plain
+X-Originating-IP: [10.175.112.208]
+X-ClientProxiedBy: dggems701-chm.china.huawei.com (10.3.19.178) To
+ dggpeml500024.china.huawei.com (7.185.36.10)
 X-Mailman-Approved-At: Wed, 06 Nov 2024 08:24:50 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,33 +52,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Oct 24, 2024 at 09:19:41PM +0800, Yu Kuai wrote:
-> From: Yu Kuai <yukuai3@huawei.com>
-> 
-> Fix patch is patch 27, relied patches are from:
-> 
->  - patches from set [1] to add helpers to maple_tree, the last patch to
-> improve fork() performance is not backported;
+In kfd_procfs_show(), the sdma_activity_work_handler is a local variable
+and the sdma_activity_work_handler.sdma_activity_work should initialize
+with INIT_WORK_ONSTACK() instead of INIT_WORK().
 
-So things slowed down?
+Fixes: 32cb59f31362 ("drm/amdkfd: Track SDMA utilization per process")
+Signed-off-by: Yuan Can <yuancan@huawei.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
->  - patches from set [2] to change maple_tree, and follow up fixes;
->  - patches from set [3] to convert offset_ctx from xarray to maple_tree;
-> 
-> Please notice that I'm not an expert in this area, and I'm afraid to
-> make manual changes. That's why patch 16 revert the commit that is
-> different from mainline and will cause conflict backporting new patches.
-> patch 28 pick the original mainline patch again.
-> 
-> (And this is what we did to fix the CVE in downstream kernels).
-> 
-> [1] https://lore.kernel.org/all/20231027033845.90608-1-zhangpeng.00@bytedance.com/
-> [2] https://lore.kernel.org/all/20231101171629.3612299-2-Liam.Howlett@oracle.com/T/
-> [3] https://lore.kernel.org/all/170820083431.6328.16233178852085891453.stgit@91.116.238.104.host.secureserver.net/
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index d4aa843aacfd..2792015f1054 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -338,8 +338,8 @@ static ssize_t kfd_procfs_show(struct kobject *kobj, struct attribute *attr,
+ 							      attr_sdma);
+ 		struct kfd_sdma_activity_handler_workarea sdma_activity_work_handler;
+ 
+-		INIT_WORK(&sdma_activity_work_handler.sdma_activity_work,
+-					kfd_sdma_activity_worker);
++		INIT_WORK_ONSTACK(&sdma_activity_work_handler.sdma_activity_work,
++				  kfd_sdma_activity_worker);
+ 
+ 		sdma_activity_work_handler.pdd = pdd;
+ 		sdma_activity_work_handler.sdma_activity_counter = 0;
+@@ -347,6 +347,7 @@ static ssize_t kfd_procfs_show(struct kobject *kobj, struct attribute *attr,
+ 		schedule_work(&sdma_activity_work_handler.sdma_activity_work);
+ 
+ 		flush_work(&sdma_activity_work_handler.sdma_activity_work);
++		destroy_work_on_stack(&sdma_activity_work_handler.sdma_activity_work);
+ 
+ 		return snprintf(buffer, PAGE_SIZE, "%llu\n",
+ 				(sdma_activity_work_handler.sdma_activity_counter)/
+-- 
+2.17.1
 
-This series looks rough.  I want to have the maintainers of these
-files/subsystems to ack this before being able to take them.
-
-thanks,
-
-greg k-h
