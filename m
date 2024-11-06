@@ -4,127 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82321D36129
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 Nov 2024 02:09:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 631CDD3E783
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 Nov 2024 02:10:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F97910E645;
-	Wed,  6 Nov 2024 02:09:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECF6F10E649;
+	Wed,  6 Nov 2024 02:09:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="LftVmk+8";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gj28V6pB";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2068.outbound.protection.outlook.com [40.107.92.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B83CC10E645
- for <amd-gfx@lists.freedesktop.org>; Wed,  6 Nov 2024 02:09:36 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DHtpI6rRJjq1cBpAQNgAtcjDuJHWCZUEa1lqwHGcn9bsiNjJFbYNQLuWgEIt4QuqIgAdIQGFGrd130nHK8EpMAEOtqrb1JjTVSd12WNW4pF7p5Pi9C7m9TBvNGj4He04LNlcnzBYsBqeYD+gjYQfqw9Rn0Boco3Rz7NZII0swNXMiafnba9v1kjzjf8w0AeaPzvl4cCNkuQrdSzaWj9hWezi7kkQQE5HoAI0jziJkSyFE3pUVYo9MWdN3FCjlUw5mu2Tt/WxcRiS5RZ5FCncG1wVI3PGcO4xt6UqbofoK2al9WriLUMoVfxHwOiGBz0XfmBolod8OwAsNXAse23yng==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PWVwJTLbs88lWI1G+1fR3xgzsgY1VbBp3lbyHwWTCnY=;
- b=BthOO9sON1WrnH6E944g1jbrOSVHxVKEs1jBddt+GM1PZPIfVhdKZFXnGJW24qKeXyfbWc/y6qsRpeoRq8lFyOGmMdbykFaWg560apPJK3Srxyp07hwrQt7LUeE/Rtzmuq3Hylw9vLEw+j97TN/gSq8dqH++edXjOZJ6GiBZg/QY6sXuPn8kHCXXtraQjIZJ3ZwWd6RGUz7qfZJhPO2RHFWF57Dw8DuBP2P5g8sl+K6jHcTJ4aS+i+dP27WXSGRmesBFq9bFqtEx/Ig66dv4/56mLJs8pzOu2sjX1z4Z8q2OV7P+aKtAY0m+c4G92wpORZHQ1DrwkDiIch0QAOzEqQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PWVwJTLbs88lWI1G+1fR3xgzsgY1VbBp3lbyHwWTCnY=;
- b=LftVmk+8eu6S/b4FBfDCTD5qD9lmEYfeCJKhb5osFm0UBTcdat+8aa1Bb0toXEE8iIUi7u+fv6GBrcTgxkcZ04Jnko+tsSVgwGZbget3ckGPF6zN3ly9vfou2H9DJ1du2HRXRdkBFmbCsx5KhEKORW/40DOyluhA+bwIkD1PGvU=
-Received: from CH2PR18CA0014.namprd18.prod.outlook.com (2603:10b6:610:4f::24)
- by DS0PR12MB8815.namprd12.prod.outlook.com (2603:10b6:8:14f::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.31; Wed, 6 Nov
- 2024 02:09:34 +0000
-Received: from CH1PEPF0000A346.namprd04.prod.outlook.com
- (2603:10b6:610:4f:cafe::65) by CH2PR18CA0014.outlook.office365.com
- (2603:10b6:610:4f::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.29 via Frontend
- Transport; Wed, 6 Nov 2024 02:09:34 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CH1PEPF0000A346.mail.protection.outlook.com (10.167.244.11) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8137.17 via Frontend Transport; Wed, 6 Nov 2024 02:09:33 +0000
-Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Tue, 5 Nov 2024 20:09:31 -0600
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
- Deucher" <alexander.deucher@amd.com>
-CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
- <srinivasan.shanmugam@amd.com>
-Subject: [PATCH] drm/amd/amdgpu/vcn: Fix kdoc entries for VCN clock/power
- gating functions
-Date: Wed, 6 Nov 2024 07:39:18 +0530
-Message-ID: <20241106020918.4086736-1-srinivasan.shanmugam@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E2CCE10E647;
+ Wed,  6 Nov 2024 02:09:57 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id DC7F2A41BD8;
+ Wed,  6 Nov 2024 02:08:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BD45C4CECF;
+ Wed,  6 Nov 2024 02:09:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1730858996;
+ bh=kOLAwUvIL2dyE5vEwHs72gGgdtVM5z29R9bEbSjh1Gc=;
+ h=From:To:Cc:Subject:Date:From;
+ b=gj28V6pBFzRLTdbWqDuG46lHT6zLWxWyLLydVidhG6tLDGbNhvajy86KINRZWBo1r
+ coj8YGqZBvzvKUL9Pn5VyYfvLhVn34bYAYwAjOtlcoCeFY6siJmgs4yatPBP9lqZMn
+ PNtKGGR2wNne5BVpKO7a7vsXRkMaiqtWKZYEj+bAQkSqYbVWzS7c3RzULCIDuEH8N3
+ Et/eN6O0qBGCoi7OQdklKl+TY328Om594wLu3nXBjrnIumRBBiXqM83k7XZxzJEwHL
+ 89F6Bzs/IBGCGfGBJ16bkrZTXyifRi/odXHHkVIUEqGIrk/qMTlIs1Gqkz3LlwdtCX
+ K0R51BwsMGbVg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org,
+	tvrtko.ursulin@igalia.com
+Cc: Mario Limonciello <mario.limonciello@amd.com>,
+ Evan Quan <evan.quan@amd.com>, Wenyou Yang <WenYou.Yang@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: FAILED: Patch "drm/amd/pm: Vangogh: Fix kernel memory out of bounds
+ write" failed to apply to v6.6-stable tree
+Date: Tue,  5 Nov 2024 21:09:52 -0500
+Message-ID: <20241106020953.174611-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+X-Patchwork-Hint: ignore
+X-stable: review
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000A346:EE_|DS0PR12MB8815:EE_
-X-MS-Office365-Filtering-Correlation-Id: 026b7a82-1313-4173-dc10-08dcfe080ec9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|82310400026|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?OWtHZlNGSXlSamJvUENvZGI3Z0d4anZnSHF3RTUxWGxTMU9PclUzNUNCL3NM?=
- =?utf-8?B?WU1xcG5zbFV3bFVjWTBrZUZxZ3JSdEE3VjBHRkYvQUxyNTdydkhlVW1SK0pE?=
- =?utf-8?B?NG9tcDBwYzI5N3dCUHg4TWdJbFBrV0NoZGF1QXRjK1pmajhJMXBpK1I3WWRy?=
- =?utf-8?B?ZGpyaHNlcG9UcE1kUUkwY0xoSnBwZmFueHhSM0pvQlJ2eGlQNy9VRGd6aVZG?=
- =?utf-8?B?QVhqOGNpblpaZkVIMm1NQnhUb0xDMHBqektzbVFXQWpGSW41ZGg0V0YxS2Vy?=
- =?utf-8?B?bFBMVnZtWjJ6QWVtcmVmMHRsWU1sdjNHY2JkZ2xXZVhSUzdaQ3VnTmJreHMr?=
- =?utf-8?B?U205RElyUnE4YzlqeTJMMFZqdEFsY1JVYlZIUHdwMStEdUljQVFNUGtwS0tO?=
- =?utf-8?B?VndtWWw5Q1RVUUM2dTU0YTUrZ1ZLRGtXcGFqaGlKOEpvWm83eXlHL21rUEpw?=
- =?utf-8?B?dlBpeDE4dVJTVTdMSmNkbm9kbmNSZVdJb2g3UURXSTRPZnl2NW9qZmVjcmN4?=
- =?utf-8?B?K1RLNkJhSS9mcUhSdmh0a3N0NndZeUVWVXA3Y1I1YXAzeHR1UEtPcG1Eb2xI?=
- =?utf-8?B?SVJvVG1wU1N1K090VUhYRnBzMGtQSDk5MWtXNUsrZnpsQWNsc1ozNlpVd1dO?=
- =?utf-8?B?Si8yTkpITFV5RlRMN29SM3lmNEJ6YktPaU1GaWpRVVg0cGNVbGlxWUdWL3Nj?=
- =?utf-8?B?T0FMdFhldWthek9HMktmRFpaa3IvTjdPZ0p1ZllRUWNlYWhtWWRuMTZheDl6?=
- =?utf-8?B?dXc5K1lSSWRaVWxEd0ZtOWpOYlZoZVZDMGp4SEcwS1RDNnp2Nmw4Q3g5RnVI?=
- =?utf-8?B?U0dSREQrY1ZicnAzb0VWMGFVOEVXbnA3cmlHZUYxeWlVOTFuL1YrU3A0dUFn?=
- =?utf-8?B?Z01ucGJlVjdIQVJ6clRlYlFIcWpTQlRrWmErb1RnMjlDZG1zb0JqK2VJOGJI?=
- =?utf-8?B?ZC9BVmp6TE9lanBOTXNTa01USEd3VUpNMkYxbXZDK0ZzcE9FeFJka2dodzFQ?=
- =?utf-8?B?c3NZQTdoSUNWSUNsL1pkamgra3NKa0N6REp3ZVgyaldsVmFIVzlQcE1Wa1pi?=
- =?utf-8?B?cUI0WTBQNmpHWEFlQ1VORnVSaERQS0pQM3ZINzRJTE5qRE54S01uTk0yNU05?=
- =?utf-8?B?QWZiNW9HdWpWc0hrRS9PU01iczV0a1l0N2ZxWGIwR3BvLzUzWkVPaU9nRnJB?=
- =?utf-8?B?Zkg1R0Q0dXd1WlZDV3RnK040NUFqL2tEeTZ0dk02UnFFcUtTRE5IVXZxb1A4?=
- =?utf-8?B?MDBTejA0bU16MGV0a2RjOGtGZzVnUGJEU1VzR1E2c1dhUWxwOFRPdExPN0xx?=
- =?utf-8?B?TVJRWDJEQlQ0bG14RzFobXdkaDRtaGhDTWRwRDlzOGJjNjlaU29Ja3pWSTJ5?=
- =?utf-8?B?RmdyaXlVeVMzSGNPeFdWbGpZVTAweVYzanRFaldjMHdtWkdWWk9PMjdlbU5m?=
- =?utf-8?B?aGtQRmh5L3JaNC9nN1I3ZlFPNXhPaGhnRlUrdFhaejE4am9IM0xYSUtNcHRp?=
- =?utf-8?B?VDBaRzJGby9GR0N0S1I4S2d2NFZIWXpSQkFKV2o4azFYT3NPZTRhMXJVMVpJ?=
- =?utf-8?B?NUZqQmtPQWJWdEhBbTl2QUF4YjB5ZVZLeUhVMjZKdVFiaG0rb0JtUS8xZ0JD?=
- =?utf-8?B?d2p1UVRGc2lOSTJZbUFLcnVZU1VCbzNRSUwvVnptR0RZd3FIZUtmalVnWTEv?=
- =?utf-8?B?NGpQQWFHbTdjN1dQMlY5U1RLMEE1ekd2ZmJCaDlqUFVjMEYzNFU5bEN3R1RR?=
- =?utf-8?B?b2FPSXd3WklZSWxmZUt0VXFIa25ENXllbVhsZ0NuV2ZiTldJQldFMG5pYU5H?=
- =?utf-8?B?WkRScW9MQ0pSNSt5Y3lieTVyTDhjR2JXcVdpKzVQallqZkhJYlUxR2Vma0Z2?=
- =?utf-8?B?VlRpMzF1N2VXL0lRaGltWThIQUxKejIzV2ZMNlZOMzRMSGc9PQ==?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(82310400026)(36860700013); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2024 02:09:33.8727 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 026b7a82-1313-4173-dc10-08dcfe080ec9
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000A346.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8815
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,130 +60,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This commit corrects the descriptors for the
-vcn_v4_0/v4_0_3/v4_0_5/v5_0_0 _set_clockgating_state and
-vcn_v4_0/v4_0_3/v4_0_5/v5_0_0 _set_powergating_state functions in the
-amdgpu driver.
+The patch below does not apply to the v6.6-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-The parameter descriptors in the comments were mismatched with the
-actual function parameters. The non-existent 'handle' parameter has been
-replaced with the correct 'ip_block' parameter in the comments to
-accurately reflect the function signatures and to resolving the below
-with gcc W=1:
+Thanks,
+Sasha
 
-drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c:1232: warning: Function parameter or struct member 'ip_block' not described in 'vcn_v5_0_0_set_clockgating_state'
-drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c:1232: warning: Excess function parameter 'handle' description in 'vcn_v5_0_0_set_clockgating_state'
-drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c:1263: warning: Function parameter or struct member 'ip_block' not described in 'vcn_v5_0_0_set_powergating_state'
-drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c:1263: warning: Excess function parameter 'handle' description in 'vcn_v5_0_0_set_powergating_state'
-drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c:2012: warning: Function parameter or struct member 'ip_block' not described in 'vcn_v4_0_set_clockgating_state'
-drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c:2012: warning: Excess function parameter 'handle' description in 'vcn_v4_0_set_clockgating_state'
-drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c:2043: warning: Function parameter or struct member 'ip_block' not described in 'vcn_v4_0_set_powergating_state'
-drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c:2043: warning: Excess function parameter 'handle' description in 'vcn_v4_0_set_powergating_state'
-drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c:1505: warning: Function parameter or struct member 'ip_block' not described in 'vcn_v4_0_5_set_clockgating_state'
-drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c:1505: warning: Excess function parameter 'handle' description in 'vcn_v4_0_5_set_clockgating_state'
-drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c:1536: warning: Function parameter or struct member 'ip_block' not described in 'vcn_v4_0_5_set_powergating_state'
-drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c:1536: warning: Excess function parameter 'handle' description in 'vcn_v4_0_5_set_powergating_state'
-drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c:1629: warning: Function parameter or struct member 'ip_block' not described in 'vcn_v4_0_3_set_powergating_state'
-drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c:1629: warning: Excess function parameter 'handle' description in 'vcn_v4_0_3_set_powergating_state'
+------------------ original commit in Linus's tree ------------------
 
-Cc: Christian König <christian.koenig@amd.com>
+From 4aa923a6e6406b43566ef6ac35a3d9a3197fa3e8 Mon Sep 17 00:00:00 2001
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Date: Fri, 25 Oct 2024 15:56:39 +0100
+Subject: [PATCH] drm/amd/pm: Vangogh: Fix kernel memory out of bounds write
+
+KASAN reports that the GPU metrics table allocated in
+vangogh_tables_init() is not large enough for the memset done in
+smu_cmn_init_soft_gpu_metrics(). Condensed report follows:
+
+[   33.861314] BUG: KASAN: slab-out-of-bounds in smu_cmn_init_soft_gpu_metrics+0x73/0x200 [amdgpu]
+[   33.861799] Write of size 168 at addr ffff888129f59500 by task mangoapp/1067
+...
+[   33.861808] CPU: 6 UID: 1000 PID: 1067 Comm: mangoapp Tainted: G        W          6.12.0-rc4 #356 1a56f59a8b5182eeaf67eb7cb8b13594dd23b544
+[   33.861816] Tainted: [W]=WARN
+[   33.861818] Hardware name: Valve Galileo/Galileo, BIOS F7G0107 12/01/2023
+[   33.861822] Call Trace:
+[   33.861826]  <TASK>
+[   33.861829]  dump_stack_lvl+0x66/0x90
+[   33.861838]  print_report+0xce/0x620
+[   33.861853]  kasan_report+0xda/0x110
+[   33.862794]  kasan_check_range+0xfd/0x1a0
+[   33.862799]  __asan_memset+0x23/0x40
+[   33.862803]  smu_cmn_init_soft_gpu_metrics+0x73/0x200 [amdgpu 13b1bc364ec578808f676eba412c20eaab792779]
+[   33.863306]  vangogh_get_gpu_metrics_v2_4+0x123/0xad0 [amdgpu 13b1bc364ec578808f676eba412c20eaab792779]
+[   33.864257]  vangogh_common_get_gpu_metrics+0xb0c/0xbc0 [amdgpu 13b1bc364ec578808f676eba412c20eaab792779]
+[   33.865682]  amdgpu_dpm_get_gpu_metrics+0xcc/0x110 [amdgpu 13b1bc364ec578808f676eba412c20eaab792779]
+[   33.866160]  amdgpu_get_gpu_metrics+0x154/0x2d0 [amdgpu 13b1bc364ec578808f676eba412c20eaab792779]
+[   33.867135]  dev_attr_show+0x43/0xc0
+[   33.867147]  sysfs_kf_seq_show+0x1f1/0x3b0
+[   33.867155]  seq_read_iter+0x3f8/0x1140
+[   33.867173]  vfs_read+0x76c/0xc50
+[   33.867198]  ksys_read+0xfb/0x1d0
+[   33.867214]  do_syscall_64+0x90/0x160
+...
+[   33.867353] Allocated by task 378 on cpu 7 at 22.794876s:
+[   33.867358]  kasan_save_stack+0x33/0x50
+[   33.867364]  kasan_save_track+0x17/0x60
+[   33.867367]  __kasan_kmalloc+0x87/0x90
+[   33.867371]  vangogh_init_smc_tables+0x3f9/0x840 [amdgpu]
+[   33.867835]  smu_sw_init+0xa32/0x1850 [amdgpu]
+[   33.868299]  amdgpu_device_init+0x467b/0x8d90 [amdgpu]
+[   33.868733]  amdgpu_driver_load_kms+0x19/0xf0 [amdgpu]
+[   33.869167]  amdgpu_pci_probe+0x2d6/0xcd0 [amdgpu]
+[   33.869608]  local_pci_probe+0xda/0x180
+[   33.869614]  pci_device_probe+0x43f/0x6b0
+
+Empirically we can confirm that the former allocates 152 bytes for the
+table, while the latter memsets the 168 large block.
+
+Root cause appears that when GPU metrics tables for v2_4 parts were added
+it was not considered to enlarge the table to fit.
+
+The fix in this patch is rather "brute force" and perhaps later should be
+done in a smarter way, by extracting and consolidating the part version to
+size logic to a common helper, instead of brute forcing the largest
+possible allocation. Nevertheless, for now this works and fixes the out of
+bounds write.
+
+v2:
+ * Drop impossible v3_0 case. (Mario)
+
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Fixes: 41cec40bc9ba ("drm/amd/pm: Vangogh: Add new gpu_metrics_v2_4 to acquire gpu_metrics")
+Cc: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Evan Quan <evan.quan@amd.com>
+Cc: Wenyou Yang <WenYou.Yang@amd.com>
 Cc: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
+Link: https://lore.kernel.org/r/20241025145639.19124-1-tursulin@igalia.com
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 0880f58f9609f0200483a49429af0f050d281703)
+Cc: stable@vger.kernel.org # v6.6+
 ---
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c   | 4 ++--
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c | 4 ++--
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c | 4 ++--
- drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c | 4 ++--
- 4 files changed, 8 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-index 87c8f1c084a5..385596df47aa 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-@@ -2002,7 +2002,7 @@ static int vcn_v4_0_wait_for_idle(struct amdgpu_ip_block *ip_block)
- /**
-  * vcn_v4_0_set_clockgating_state - set VCN block clockgating state
-  *
-- * @handle: amdgpu_device pointer
-+ * @ip_block: amdgpu_ip_block pointer
-  * @state: clock gating state
-  *
-  * Set VCN block clockgating state
-@@ -2033,7 +2033,7 @@ static int vcn_v4_0_set_clockgating_state(struct amdgpu_ip_block *ip_block,
- /**
-  * vcn_v4_0_set_powergating_state - set VCN block powergating state
-  *
-- * @handle: amdgpu_device pointer
-+ * @ip_block: amdgpu_ip_block pointer
-  * @state: power gating state
-  *
-  * Set VCN block powergating state
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-index 7b0f350d5fca..ac0e76cbaa2d 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-@@ -1591,7 +1591,7 @@ static int vcn_v4_0_3_wait_for_idle(struct amdgpu_ip_block *ip_block)
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+index 22737b11b1bfb..1fe020f1f4dbe 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
+@@ -242,7 +242,9 @@ static int vangogh_tables_init(struct smu_context *smu)
+ 		goto err0_out;
+ 	smu_table->metrics_time = 0;
  
- /* vcn_v4_0_3_set_clockgating_state - set VCN block clockgating state
-  *
-- * @handle: amdgpu_device pointer
-+ * @ip_block: amdgpu_ip_block pointer
-  * @state: clock gating state
-  *
-  * Set VCN block clockgating state
-@@ -1619,7 +1619,7 @@ static int vcn_v4_0_3_set_clockgating_state(struct amdgpu_ip_block *ip_block,
- /**
-  * vcn_v4_0_3_set_powergating_state - set VCN block powergating state
-  *
-- * @handle: amdgpu_device pointer
-+ * @ip_block: amdgpu_ip_block pointer
-  * @state: power gating state
-  *
-  * Set VCN block powergating state
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
-index 9c5257f370f2..98d0ee299c74 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
-@@ -1495,7 +1495,7 @@ static int vcn_v4_0_5_wait_for_idle(struct amdgpu_ip_block *ip_block)
- /**
-  * vcn_v4_0_5_set_clockgating_state - set VCN block clockgating state
-  *
-- * @handle: amdgpu_device pointer
-+ * @ip_block: amdgpu_ip_block pointer
-  * @state: clock gating state
-  *
-  * Set VCN block clockgating state
-@@ -1526,7 +1526,7 @@ static int vcn_v4_0_5_set_clockgating_state(struct amdgpu_ip_block *ip_block,
- /**
-  * vcn_v4_0_5_set_powergating_state - set VCN block powergating state
-  *
-- * @handle: amdgpu_device pointer
-+ * @ip_block: amdgpu_ip_block pointer
-  * @state: power gating state
-  *
-  * Set VCN block powergating state
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
-index 4ecf0aea156f..9cd4d70058ea 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
-@@ -1222,7 +1222,7 @@ static int vcn_v5_0_0_wait_for_idle(struct amdgpu_ip_block *ip_block)
- /**
-  * vcn_v5_0_0_set_clockgating_state - set VCN block clockgating state
-  *
-- * @handle: amdgpu_device pointer
-+ * @ip_block: amdgpu_ip_block pointer
-  * @state: clock gating state
-  *
-  * Set VCN block clockgating state
-@@ -1253,7 +1253,7 @@ static int vcn_v5_0_0_set_clockgating_state(struct amdgpu_ip_block *ip_block,
- /**
-  * vcn_v5_0_0_set_powergating_state - set VCN block powergating state
-  *
-- * @handle: amdgpu_device pointer
-+ * @ip_block: amdgpu_ip_block pointer
-  * @state: power gating state
-  *
-  * Set VCN block powergating state
+-	smu_table->gpu_metrics_table_size = max(sizeof(struct gpu_metrics_v2_3), sizeof(struct gpu_metrics_v2_2));
++	smu_table->gpu_metrics_table_size = sizeof(struct gpu_metrics_v2_2);
++	smu_table->gpu_metrics_table_size = max(smu_table->gpu_metrics_table_size, sizeof(struct gpu_metrics_v2_3));
++	smu_table->gpu_metrics_table_size = max(smu_table->gpu_metrics_table_size, sizeof(struct gpu_metrics_v2_4));
+ 	smu_table->gpu_metrics_table = kzalloc(smu_table->gpu_metrics_table_size, GFP_KERNEL);
+ 	if (!smu_table->gpu_metrics_table)
+ 		goto err1_out;
 -- 
-2.34.1
+2.43.0
+
+
+
 
