@@ -4,33 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25057D5AE72
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Nov 2024 08:03:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2660D5AE7B
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Nov 2024 08:03:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5464510E7C7;
-	Thu,  7 Nov 2024 08:03:06 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="LqZ6urMl";
-	dkim-atps=neutral
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE98D10E283;
- Thu,  7 Nov 2024 05:21:22 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id EE2BCA4218F;
- Thu,  7 Nov 2024 05:19:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 064BBC4CECC;
- Thu,  7 Nov 2024 05:21:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1730956880;
- bh=LcTJNuAS+0u64bln2s0a89deCwW+g5Nrojs1Slddt/Q=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=LqZ6urMldxlvEBhdUM/g9ay6JBw8MxGPCgUReHarZ5Rrrup6qtaAMbkDd8Ut3yIvJ
- TB3aWEUF8ij6xyiKo01mFPXSemUmYSpWT2Gfca8HAeh7vk2NMp5wXiqsR3jTvujmXl
- Vml1yQf1y5lU0zvuowqmi415BENx3kOsFR8a5uB8=
-Date: Thu, 7 Nov 2024 06:21:00 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kw@linux.com>
-Cc: Thomas =?iso-8859-1?Q?Wei=DFschuh?= <linux@weissschuh.net>,
+	by gabe.freedesktop.org (Postfix) with ESMTP id 95DAE10E7D2;
+	Thu,  7 Nov 2024 08:03:09 +0000 (UTC)
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
+ [209.85.214.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8093910E0CC;
+ Wed,  6 Nov 2024 20:05:16 +0000 (UTC)
+Received: by mail-pl1-f179.google.com with SMTP id
+ d9443c01a7336-20cb7139d9dso2418515ad.1; 
+ Wed, 06 Nov 2024 12:05:16 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1730923516; x=1731528316;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=57haWgxVK3Bhz2CTFQJdY/J31Debho+HXpt9b6frcmw=;
+ b=KT2lEbsoLa302AWNF7jbAop0ZXYPUGWXNNFre7qkoOyoO0XYMB627nBKycPW8kxaP9
+ QxpnMSzcg9chwPdRiy6XNOfJWBTuJBTYejWAHdKaEZL5Q7onpS4A4xBMhdyBCz1ypubj
+ HnrEDGVqCvJZXdT5pR2IJgba0O3P8n3s4AhqXdlX6ZFSSiWLYZWaqi3/D8yVCKqrtd/q
+ OyM7Xmxx/LH/MCTNN/MRk0RT2UEbgYI2QhdNQ2IkFL9BODMl9yJ+0SBdpf0qaISokMTJ
+ jWlX0iA9g2sPErZcbVv7Ox2egyuxOJcPeH9ljYlQaFAuRpCjpzmmokzLhaQHGRvVBAZL
+ Cn9w==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWUXYXDObxHrhlqBbxO1bfbBMZILVV7mscByYCA9FKcnn1NClvkO7Bal7curt3w1zQr2Oj9SFTMht/p@lists.freedesktop.org,
+ AJvYcCXXDX8lNtp/M2L4BD7GLqaDVio963qvKxXtKZtSI8VO+sHPwB5wOl2fojhSVQFMEKvrBX5jMnmF@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxQcsVPkCDr+dVgvTfC1DuqKodngFJ/AwGDM6PsDsS7IfUtLgiT
+ qMiYNyUlb2JB8dkSJfGT3NBRa42Nj3ZGWZDNQ1/QaxSE05R5SCfr
+X-Google-Smtp-Source: AGHT+IFmoIbZw8g1IipDn3Lp+ri/9C7OdJSPor3hPH1pRa7RYRF3y6lGuH/8ZaeEQ1eFo8eAFPaCWQ==
+X-Received: by 2002:a17:902:cecd:b0:20c:a97d:cc7f with SMTP id
+ d9443c01a7336-210c6c3ec78mr567878865ad.41.1730923515866; 
+ Wed, 06 Nov 2024 12:05:15 -0800 (PST)
+Received: from localhost (fpd11144dd.ap.nuro.jp. [209.17.68.221])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-211057c076bsm99997795ad.197.2024.11.06.12.05.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 06 Nov 2024 12:05:15 -0800 (PST)
+Date: Thu, 7 Nov 2024 05:05:13 +0900
+From: Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kw@linux.com>
+To: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <linux@weissschuh.net>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  "Rafael J. Wysocki" <rafael@kernel.org>,
  Bjorn Helgaas <bhelgaas@google.com>,
  Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
@@ -40,7 +55,7 @@ Cc: Thomas =?iso-8859-1?Q?Wei=DFschuh?= <linux@weissschuh.net>,
  Alison Schofield <alison.schofield@intel.com>,
  Vishal Verma <vishal.l.verma@intel.com>, Ira Weiny <ira.weiny@intel.com>,
  Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
  Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>,
  Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
@@ -52,7 +67,7 @@ Cc: Thomas =?iso-8859-1?Q?Wei=DFschuh?= <linux@weissschuh.net>,
  Naveen Krishna Chatradhi <naveenkrishna.chatradhi@amd.com>,
  Carlos Bilbao <carlos.bilbao.osdev@gmail.com>,
  Hans de Goede <hdegoede@redhat.com>,
- Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
  "David E. Box" <david.e.box@linux.intel.com>,
  "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
  "Martin K. Petersen" <martin.petersen@oracle.com>,
@@ -73,15 +88,13 @@ Cc: Thomas =?iso-8859-1?Q?Wei=DFschuh?= <linux@weissschuh.net>,
  linux-hyperv@vger.kernel.org
 Subject: Re: [PATCH v2 02/10] sysfs: introduce callback
  attribute_group::bin_size
-Message-ID: <2024110726-hasty-obsolete-3780@gregkh>
+Message-ID: <20241106200513.GB174958@rocinante>
 References: <20241103-sysfs-const-bin_attr-v2-0-71110628844c@weissschuh.net>
  <20241103-sysfs-const-bin_attr-v2-2-71110628844c@weissschuh.net>
- <20241106200513.GB174958@rocinante>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20241106200513.GB174958@rocinante>
+In-Reply-To: <20241103-sysfs-const-bin_attr-v2-2-71110628844c@weissschuh.net>
 X-Mailman-Approved-At: Thu, 07 Nov 2024 08:03:03 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -97,38 +110,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Nov 07, 2024 at 05:05:13AM +0900, Krzysztof Wilczyński wrote:
-> Hello,
+Hello,
+
+> Several drivers need to dynamically calculate the size of an binary
+> attribute. Currently this is done by assigning attr->size from the
+> is_bin_visible() callback.
 > 
-> > Several drivers need to dynamically calculate the size of an binary
-> > attribute. Currently this is done by assigning attr->size from the
-> > is_bin_visible() callback.
-> > 
-> > This has drawbacks:
-> > * It is not documented.
-> > * A single attribute can be instantiated multiple times, overwriting the
-> >   shared size field.
-> > * It prevents the structure to be moved to read-only memory.
-> > 
-> > Introduce a new dedicated callback to calculate the size of the
-> > attribute.
+> This has drawbacks:
+> * It is not documented.
+> * A single attribute can be instantiated multiple times, overwriting the
+>   shared size field.
+> * It prevents the structure to be moved to read-only memory.
 > 
-> Would it be possible to have a helper that when run against a specific
-> kobject reference, then it would refresh or re-run the size callbacks?
-> 
-> We have an use case where we resize BARs on demand via sysfs, and currently
-> the only way to update the size of each resource sysfs object is to remove
-> and added them again, which is a bit crude, and can also be unsafe.
+> Introduce a new dedicated callback to calculate the size of the
+> attribute.
 
-How is it unsafe?
+Would it be possible to have a helper that when run against a specific
+kobject reference, then it would refresh or re-run the size callbacks?
 
-> Hence the question.
-> 
-> There exist the sysfs_update_groups(), but the BAR resource sysfs objects
-> are currently, at least not yet, added to any attribute group.
+We have an use case where we resize BARs on demand via sysfs, and currently
+the only way to update the size of each resource sysfs object is to remove
+and added them again, which is a bit crude, and can also be unsafe.
 
-then maybe they should be added to one :)
+Hence the question.
 
-thanks,
+There exist the sysfs_update_groups(), but the BAR resource sysfs objects
+are currently, at least not yet, added to any attribute group.
 
-greg k-h
+Thank you!
+
+	Krzysztof
