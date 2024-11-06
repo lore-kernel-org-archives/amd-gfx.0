@@ -4,66 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A61B2D44D77
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 Nov 2024 14:13:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2B78D44D78
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 Nov 2024 15:05:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 467D010E166;
-	Wed,  6 Nov 2024 14:13:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 46DE310E712;
+	Wed,  6 Nov 2024 15:05:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Tds6aq+K";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="gn5ZkNoH";
 	dkim-atps=neutral
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
- [209.85.216.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F324D10E166
- for <amd-gfx@lists.freedesktop.org>; Wed,  6 Nov 2024 14:13:41 +0000 (UTC)
-Received: by mail-pj1-f49.google.com with SMTP id
- 98e67ed59e1d1-2e2da8529e1so661151a91.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 06 Nov 2024 06:13:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1730902421; x=1731507221; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=XkzDIJBLDpzrRNx05a/Y7CfdjEzAgFpo9KZdki0kInw=;
- b=Tds6aq+KktUbgTy8qnKIqSGBBzYkRodI5W884DdzXhkQq4xBWHGU5edZkfCEe+kRcE
- 6h+3qK0kFGJxfmfxwFJsOS3ah5qO9ZXhTZT7cfxsZ6bswAR52BHOh3678SBlsJ+BsJxa
- dO6wynNBpNMrCy6C7foZ0bc2iSPNAyz8UNLHgbkAO3U3fPtN7W+OlRbYCrA+pi4Epmhd
- jMawl7O+Z2PT0qkyHR4FQljgTgypvCHEHse9qrAvBKS9YnBY7KWqhcSISC2seLGuuh+A
- nxlRRKccucQDvysUIO7eo4Sp+vlGWSq1xtRnket4C5nSNTyD0kM8JqGhog6fKehPSzJj
- 7pvA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1730902421; x=1731507221;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=XkzDIJBLDpzrRNx05a/Y7CfdjEzAgFpo9KZdki0kInw=;
- b=BS9EUi4AsdRhZt6/MdPwRlDsL8zj+7bIQ2T5aXIqHoAn0soO8Q5pn2bYrCkKu1jsfn
- uq4MGNjFbsybE2mvXNYF6nijE7YoqO893aVZ/wUV8/txKWlK9OxN4Q6IuipuRybERicU
- FAfXaDqwV/Ba2wjefU8fZxwQdiCde8uxvBNGcecUNZtgKNxsLKtde5z+Ib8VVKMzJpzu
- RpgQRvDBvusooweVgMkuQW6WUsabiJOTvfTpI61DTupbpR4W7VkLs/5lR0MlAkp1sVk7
- Q/0elYKdIfTrPrBcRhQK07RFe4AUGspj1iCFOJ2z03afS2g9CUY8TH9lQ5yJe6Q5gfYr
- qctA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWXONfjNMMFbQ/9NY329rH4KrYsjkTm7Uh3PUgtI1h+IaTFG3QT5Aoi7qkR/PW5ZdcAHnvXaExP@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz8fkeV1zbyHr52Vmqzys06sg4KnWsSnIYMUOc0FYX3Qqm/4+Q6
- fm8nklW5HUKd2TD/88hKb99tYZ3zj8901MoElDeYCzz+fD3Xe9bJ90TQ48x4hJAksgAE5wYxnbn
- HDfm/fBPiTDgn+5vRiQnFSfDaiWk0UQ==
-X-Google-Smtp-Source: AGHT+IFrpHbhUwMs1+HneKEgv58UfTqcxijyolwrrvuBOuC5FHCKYG/KK1LDcRvQBTTYWdHG3C6MDaGp44rbkCl+ogM=
-X-Received: by 2002:a17:90b:510:b0:2db:60b:eec with SMTP id
- 98e67ed59e1d1-2e8f11bf830mr19099903a91.7.1730902420977; Wed, 06 Nov 2024
- 06:13:40 -0800 (PST)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on2045.outbound.protection.outlook.com [40.107.95.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA78510E707;
+ Wed,  6 Nov 2024 15:05:05 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gx/cooZb9OFkCpOiYrQeM3CZ5bnNxb/R+xJasIlnXt4kHqRdVIwXpOGjleo/oBUaTI+l4z7u/ZMe1+XQtmZ9oEb9oCvZzHHbgwwEiDW/2NMoVTzC8LZeoc5tm8tPjRIneKt4OHw7xWwX7mnkPOdqVYB7Ys6s21eEQx8E8VuE14MizHVF6HWGvDsrnz42kyjBiUTrkf0xGInK0XWLFud/yu/8zQwLWbPsh3qWVyo2Jy8s7LLoKKBoDAC/3wVRASwiF/vhjevnOTAWs0FpNQ8d3HTdD36ZNlRBFclqrUIK25I0w+ThS4d8EBi8lpXmRCJrQCaIOmKGrX0EnjvsAbxD7w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=y4JYsPRNnfYVKmQXKyYoGauZ2NLvhRns2M2ehfxc5zA=;
+ b=NR4KS6r1E6ULAPy5ZiDuPBXNAPoFbHck7r12v0tzrjqSncWjw3Eg9iydnybjeCIheDpJYx2YHUrCDaWcbTmmyk4/aBjfNTAASdcwVqwbRLHTWy1V6nqyJiTO+4amMNUGZX2+eMVWBXcnn27a+A63w3lS7AZTS9Euf0nbXi0eF5hlDuXk4P50x04IEytnqeB2uG0ZyV32XWT8/L08P1FYcvu/iCbLgHt/jFOljjmPz72MW0/PRe9HZnoVNTgX/O9s+YHHI/t9o0Cwp5BTr0V6yF23NgK029oUgxNtxnY63XZGCc/43pkxXLRY/i3JnMMLDk/LXqNmrqJRDAzUSaQz8w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=y4JYsPRNnfYVKmQXKyYoGauZ2NLvhRns2M2ehfxc5zA=;
+ b=gn5ZkNoHNs6KNNAZpnudo7z+md5zUbIztesp4cb4dLIpQ4yLijwWeVAF+uE8TtI6/EwFLBFOMmbEFVSK5mkLLDAHtN2Iung8t2Ex6QMFhSgnp4XfDGOctkfwuUtSIaYOypP1Za9oX6XuvX3oBfuwqeT2FFlO5+KDs4zPMivajPs=
+Received: from CY5PR13CA0061.namprd13.prod.outlook.com (2603:10b6:930:a::23)
+ by BY5PR12MB4305.namprd12.prod.outlook.com (2603:10b6:a03:213::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8137.19; Wed, 6 Nov
+ 2024 15:05:01 +0000
+Received: from CY4PEPF0000E9CD.namprd03.prod.outlook.com
+ (2603:10b6:930:a:cafe::97) by CY5PR13CA0061.outlook.office365.com
+ (2603:10b6:930:a::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8137.18 via Frontend
+ Transport; Wed, 6 Nov 2024 15:05:01 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CY4PEPF0000E9CD.mail.protection.outlook.com (10.167.241.132) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8137.17 via Frontend Transport; Wed, 6 Nov 2024 15:05:00 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 6 Nov
+ 2024 09:04:59 -0600
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 6 Nov
+ 2024 09:04:59 -0600
+Received: from jzuo-linux.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Wed, 6 Nov 2024 09:04:59 -0600
+From: Fangzhi Zuo <Jerry.Zuo@amd.com>
+To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>,
+ <intel-gfx@lists.freedesktop.org>, <lyude@redhat.com>,
+ <jani.nikula@intel.com>, <imre.deak@intel.com>, <simona@ffwll.ch>,
+ <wayne.lin@amd.com>
+CC: <harry.wentland@amd.com>, <rodrigo.siqueira@amd.com>, Fangzhi Zuo
+ <Jerry.Zuo@amd.com>
+Subject: [PATCH v3 2/2] drm/display/dsc: MST DSC Interface Change
+Date: Wed, 6 Nov 2024 10:03:13 -0500
+Message-ID: <20241106150444.424579-3-Jerry.Zuo@amd.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20241106150444.424579-1-Jerry.Zuo@amd.com>
+References: <20241106150444.424579-1-Jerry.Zuo@amd.com>
 MIME-Version: 1.0
-References: <20241106021900.4104215-1-srinivasan.shanmugam@amd.com>
-In-Reply-To: <20241106021900.4104215-1-srinivasan.shanmugam@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 6 Nov 2024 09:13:29 -0500
-Message-ID: <CADnq5_MjmeN2HDzubBEp96rYiG-ji5W+f5eTbXdbFGfnoF0x4w@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/gfx10: Add cleaner shader for GFX10.3.0
-To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB05.amd.com: Jerry.Zuo@amd.com does not designate
+ permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9CD:EE_|BY5PR12MB4305:EE_
+X-MS-Office365-Filtering-Correlation-Id: c1955e51-6509-482d-510b-08dcfe7462e0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700013|376014|82310400026|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?sM88s/zw/iRrt1buxMFU1tbLqUxqnr6djrmnFLBlsqGdWnW7TXk2Y3FzutYx?=
+ =?us-ascii?Q?zjOhFy58Hmku9SeNoykvRVD3mc/13BDzxljOrxJNLXhsTtnGZvlPwT6Wt+cT?=
+ =?us-ascii?Q?EPnsnj7/nENERpQHZyXYJRiybQWjFJC1wyPgyzkSFt7X+vQWu3PBcPWqr7No?=
+ =?us-ascii?Q?JwWa6nOcn/C01C/34TSh9/9WJFtQDJwoHfR0uevEtlfz6mT3OIEesRz+Qkjc?=
+ =?us-ascii?Q?mqEcXBVE+ASKzAdOYr/cJIzp1gSC+Rda8+XIi4K+bJhAwlM6ebXfOkHLT30X?=
+ =?us-ascii?Q?DlYDpAJsBOmHOU0MyzeiXe3Z6FcOtkKDyqJpE5BjtekYWbYeiE7RpsOldMEq?=
+ =?us-ascii?Q?VmBzAsqJuz6M6E9cOO07oBriXZcMNc6Zv1J78wG4WLmbpsmY4kaiK4IRdnzI?=
+ =?us-ascii?Q?LMMai4iJ2a08J6QoscJStbrX4VS+SfYSgqjITke8OPqfoqs2lahaoR0zWjHv?=
+ =?us-ascii?Q?r0amAXO2SWtfyAx60wkDEOLaUdbTwbLS2nEr3qoTYRwOUvBkNyk6/vxXHA8v?=
+ =?us-ascii?Q?AGbWnEl63TUxpI3YeKC6SklVsmgrGRMngtlQCUbFeRa1XAnZVhwvnPkyLoxp?=
+ =?us-ascii?Q?0Tyob5e/Y8qda5YCTet8fZf1NZa1TE2Vpns+po4Y0mL8HT2bj1LbQ4+U8Oqg?=
+ =?us-ascii?Q?yr9WsiZESSVzoPqX3oc1XeRs1VAYFd1YuX/nxfl21DW++nJ25bb2nIrqd1kC?=
+ =?us-ascii?Q?zWJ9D/haKod49o8qwtt4EGyGP7rVu2JUj+IvHZRNkmBTgL6CCZVullgQXjJl?=
+ =?us-ascii?Q?YneVUimRwZ4UnU1Nvsejp9JTmfVpy/I3bi2Zk/w5H3gpKBCdY6nz7YQ+E7Pm?=
+ =?us-ascii?Q?hVHr7pqYXbZSseg1mbAzpisaEsutE568c3MaQuxPfmbJ+RWgvOk5ghGGZKip?=
+ =?us-ascii?Q?qKgYRktltiIlDCbEp3b9b/OcK26AiMfMSOn+kHPCI1SvZnoaZkMqy79GZJrY?=
+ =?us-ascii?Q?OxA3E7t8/IIDRM02C1uboHYhTc9cxiI6UO2xjgr+TuK1UAZJcZi4Sg5jw1Ye?=
+ =?us-ascii?Q?KpRSkcjBzp+A3mdfNd1kkWYWECsyyBhJXczv+13CMRiVkhF2jyp67nbEEF3v?=
+ =?us-ascii?Q?Lg+SE43NwuN2F76e6WGcmnWUa60sS+DlTZJ/KqASIcFR2HKvjjAPAM5VTUnM?=
+ =?us-ascii?Q?cIClRBHivzdJ6Eu+q/3dP1wOuuavLkflPmBl20hEV9xWR/tZmw2Q5KJws52A?=
+ =?us-ascii?Q?D81XyAE0BvcRPX5iWK3733bC6yBc/3d2vTJYDNmAZsJ94m8ZDXk1oNMSz5q2?=
+ =?us-ascii?Q?aQXR/6fNzOGkAuP2baJoiLozOgxyVRI1go5Lyh/+PyOmDn2/YpwTvDZRyGBf?=
+ =?us-ascii?Q?i2+QYsyLzIxqs+B2IyAVTaIb3gF0oCZVuB2yQr4cWYDKzfGhxiwkExX2Bgbu?=
+ =?us-ascii?Q?MIrTopKhkGAvTBgM0wYFgq7K2Sp3Q/FJmY8T/Vay/Mr9QshqWg=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(376014)(82310400026)(1800799024); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2024 15:05:00.6578 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c1955e51-6509-482d-510b-08dcfe7462e0
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9CD.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4305
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,324 +140,343 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Nov 5, 2024 at 9:19=E2=80=AFPM Srinivasan Shanmugam
-<srinivasan.shanmugam@amd.com> wrote:
->
-> This commit adds the cleaner shader microcode for GFX10.3.0 GPUs. The
-> cleaner shader is a piece of GPU code that is used to clear or
-> initialize certain GPU resources, such as Local Data Share (LDS), Vector
-> General Purpose Registers (VGPRs), and Scalar General Purpose Registers
-> (SGPRs).
->
-> Clearing these resources is important for ensuring data isolation
-> between different workloads running on the GPU. Without the cleaner
-> shader, residual data from a previous workload could potentially be
-> accessed by a subsequent workload, leading to data leaks and incorrect
-> computation results.
->
-> The cleaner shader microcode is represented as an array of 32-bit words
-> (`gfx_10_3_0_cleaner_shader_hex`). This array is the binary
-> representation of the cleaner shader code, which is written in a
-> low-level GPU instruction set.
->
-> When the cleaner shader feature is enabled, the AMDGPU driver loads this
-> array into a specific location in the GPU memory. The GPU then reads
-> this memory location to fetch and execute the cleaner shader
-> instructions.
->
-> The cleaner shader is executed automatically by the GPU at the end of
-> each workload, before the next workload starts. This ensures that all
-> GPU resources are in a clean state before the start of each workload.
->
-> This addition is part of the cleaner shader feature implementation. The
-> cleaner shader feature helps resource utilization by cleaning up GPU
-> resources after they are used. It also enhances security and reliability
-> by preventing data leaks between workloads.
->
-> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+[why]
+Starting from dp2 where dsc passthrough is introduced, it is required to identify
+the dsc passthrough aux, apart from dsc decompression aux. Existing drm_dp_mst_port function
+that returns dsc_aux alone is not sufficient.
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+[how]
+1. Interface change in drm_dp_mst_dsc_aux_for_port, and dependency changes for each vendor.
+2. Rename passthrough_aux with dsc_passthrough_aux to align with the name of dsc_aux.
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c        |  15 +++
->  .../drm/amd/amdgpu/gfx_v10_0_cleaner_shader.h |  56 ++++++++
->  .../amd/amdgpu/gfx_v10_3_0_cleaner_shader.asm | 124 ++++++++++++++++++
->  3 files changed, 195 insertions(+)
->  create mode 100644 drivers/gpu/drm/amd/amdgpu/gfx_v10_0_cleaner_shader.h
->  create mode 100644 drivers/gpu/drm/amd/amdgpu/gfx_v10_3_0_cleaner_shader=
-.asm
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd=
-/amdgpu/gfx_v10_0.c
-> index 4607d5c071ce..4f1cc61f9c43 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> @@ -45,6 +45,7 @@
->  #include "clearstate_gfx10.h"
->  #include "v10_structs.h"
->  #include "gfx_v10_0.h"
-> +#include "gfx_v10_0_cleaner_shader.h"
->  #include "nbio_v2_3.h"
->
->  /*
-> @@ -4733,6 +4734,20 @@ static int gfx_v10_0_sw_init(struct amdgpu_ip_bloc=
-k *ip_block)
->                 break;
->         }
->         switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
-> +       case IP_VERSION(10, 3, 0):
-> +               adev->gfx.cleaner_shader_ptr =3D gfx_10_3_0_cleaner_shade=
-r_hex;
-> +               adev->gfx.cleaner_shader_size =3D sizeof(gfx_10_3_0_clean=
-er_shader_hex);
-> +               if (adev->gfx.me_fw_version >=3D 64 &&
-> +                   adev->gfx.pfp_fw_version >=3D 100 &&
-> +                   adev->gfx.mec_fw_version >=3D 122) {
-> +                       adev->gfx.enable_cleaner_shader =3D true;
-> +                       r =3D amdgpu_gfx_cleaner_shader_sw_init(adev, ade=
-v->gfx.cleaner_shader_size);
-> +                       if (r) {
-> +                               adev->gfx.enable_cleaner_shader =3D false=
-;
-> +                               dev_err(adev->dev, "Failed to initialize =
-cleaner shader\n");
-> +                       }
-> +               }
-> +               break;
->         default:
->                 adev->gfx.enable_cleaner_shader =3D false;
->                 break;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0_cleaner_shader.h b/driv=
-ers/gpu/drm/amd/amdgpu/gfx_v10_0_cleaner_shader.h
-> new file mode 100644
-> index 000000000000..bc8417063af9
-> --- /dev/null
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0_cleaner_shader.h
-> @@ -0,0 +1,56 @@
-> +/* SPDX-License-Identifier: MIT */
-> +/*
-> + * Copyright 2024 Advanced Micro Devices, Inc.
-> + *
-> + * Permission is hereby granted, free of charge, to any person obtaining=
- a
-> + * copy of this software and associated documentation files (the "Softwa=
-re"),
-> + * to deal in the Software without restriction, including without limita=
-tion
-> + * the rights to use, copy, modify, merge, publish, distribute, sublicen=
-se,
-> + * and/or sell copies of the Software, and to permit persons to whom the
-> + * Software is furnished to do so, subject to the following conditions:
-> + *
-> + * The above copyright notice and this permission notice shall be includ=
-ed in
-> + * all copies or substantial portions of the Software.
-> + *
-> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRE=
-SS OR
-> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILI=
-TY,
-> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SH=
-ALL
-> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES=
- OR
-> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-> + * OTHER DEALINGS IN THE SOFTWARE.
-> + */
-> +
-> +/* Define the cleaner shader gfx_10_3_0 */
-> +static const u32 gfx_10_3_0_cleaner_shader_hex[] =3D {
-> +       0xb0804004, 0xbf8a0000,
-> +       0xbe8203b8, 0xbefc0380,
-> +       0x7e008480, 0x7e028480,
-> +       0x7e048480, 0x7e068480,
-> +       0x7e088480, 0x7e0a8480,
-> +       0x7e0c8480, 0x7e0e8480,
-> +       0xbefc0302, 0x80828802,
-> +       0xbf84fff5, 0xbe8203ff,
-> +       0x80000000, 0x87020002,
-> +       0xbf840012, 0xbefe03c1,
-> +       0xbeff03c1, 0xd7650001,
-> +       0x0001007f, 0xd7660001,
-> +       0x0002027e, 0x16020288,
-> +       0xbe8203bf, 0xbefc03c1,
-> +       0xd9382000, 0x00020201,
-> +       0xd9386040, 0x00040401,
-> +       0xd70f6a01, 0x000202ff,
-> +       0x00000400, 0x80828102,
-> +       0xbf84fff7, 0xbefc03ff,
-> +       0x00000068, 0xbe803080,
-> +       0xbe813080, 0xbe823080,
-> +       0xbe833080, 0x80fc847c,
-> +       0xbf84fffa, 0xbeea0480,
-> +       0xbeec0480, 0xbeee0480,
-> +       0xbef00480, 0xbef20480,
-> +       0xbef40480, 0xbef60480,
-> +       0xbef80480, 0xbefa0480,
-> +       0xbf810000, 0xbf9f0000,
-> +       0xbf9f0000, 0xbf9f0000,
-> +       0xbf9f0000, 0xbf9f0000,
-> +};
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_3_0_cleaner_shader.asm b/=
-drivers/gpu/drm/amd/amdgpu/gfx_v10_3_0_cleaner_shader.asm
-> new file mode 100644
-> index 000000000000..83c7be34515d
-> --- /dev/null
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_3_0_cleaner_shader.asm
-> @@ -0,0 +1,124 @@
-> +/* SPDX-License-Identifier: MIT */
-> +/*
-> + * Copyright 2024 Advanced Micro Devices, Inc.
-> + *
-> + * Permission is hereby granted, free of charge, to any person obtaining=
- a
-> + * copy of this software and associated documentation files (the "Softwa=
-re"),
-> + * to deal in the Software without restriction, including without limita=
-tion
-> + * the rights to use, copy, modify, merge, publish, distribute, sublicen=
-se,
-> + * and/or sell copies of the Software, and to permit persons to whom the
-> + * Software is furnished to do so, subject to the following conditions:
-> + *
-> + * The above copyright notice and this permission notice shall be includ=
-ed in
-> + * all copies or substantial portions of the Software.
-> + *
-> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRE=
-SS OR
-> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILI=
-TY,
-> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SH=
-ALL
-> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES=
- OR
-> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-> + * OTHER DEALINGS IN THE SOFTWARE.
-> + */
-> +
-> +// This shader is to clean LDS, SGPRs and VGPRs. It is  first 64 Dwords =
-or 256 bytes of 192 Dwords cleaner shader.
-> +//To turn this shader program on for complitaion change this to main and=
- lower shader main to main_1
-> +
-> +// Navi2 : Clear SGPRs, VGPRs and LDS
-> +//   Launch 32 waves per CU (16 per SIMD) as a workgroup (threadgroup) t=
-o fill every wave slot
-> +//   Waves are "wave32" and have 64 VGPRs each, which uses all 1024 VGPR=
-s per SIMD
-> +//   Waves are launched in "CU" mode, and the workgroup shares 64KB of L=
-DS (half of the WGP's LDS)
-> +//      It takes 2 workgroups to use all of LDS: one on each CU of the W=
-GP
-> +//   Each wave clears SGPRs 0 - 107
-> +//   Each wave clears VGPRs 0 - 63
-> +//   The first wave of the workgroup clears its 64KB of LDS
-> +//   The shader starts with "S_BARRIER" to ensure SPI has launched all w=
-aves of the workgroup
-> +//       before any wave in the workgroup could end.  Without this, it i=
-s possible not all SGPRs get cleared.
-> +
-> +
-> +shader main
-> +  asic(GFX10)
-> +  type(CS)
-> +  wave_size(32)
-> +// Note: original source code from SQ team
-> +
-> +//
-> +// Create 32 waves in a threadgroup (CS waves)
-> +// Each allocates 64 VGPRs
-> +// The workgroup allocates all of LDS (64kbytes)
-> +//
-> +// Takes about 2500 clocks to run.
-> +//   (theorhetical fastest =3D 1024clks vgpr + 640lds =3D 1660 clks)
-> +//
-> +  S_BARRIER
-> +  s_mov_b32     s2, 0x00000038  // Loop 64/8=3D8 times  (loop unrolled f=
-or performance)
-> +  s_mov_b32     m0, 0
-> +  //
-> +  // CLEAR VGPRs
-> +  //
-> +label_0005:
-> +  v_movreld_b32     v0, 0
-> +  v_movreld_b32     v1, 0
-> +  v_movreld_b32     v2, 0
-> +  v_movreld_b32     v3, 0
-> +  v_movreld_b32     v4, 0
-> +  v_movreld_b32     v5, 0
-> +  v_movreld_b32     v6, 0
-> +  v_movreld_b32     v7, 0
-> +  s_mov_b32         m0, s2
-> +  s_sub_u32     s2, s2, 8
-> +  s_cbranch_scc0  label_0005
-> +  //
-> +  s_mov_b32     s2, 0x80000000                     // Bit31 is first_wav=
-e
-> +  s_and_b32     s2, s2, s0                                  // sgpr0 has=
- tg_size (first_wave) term as in ucode only COMPUTE_PGM_RSRC2.tg_size_en is=
- set
-> +  s_cbranch_scc0  label_0023                         // Clean LDS if its=
- first wave of ThreadGroup/WorkGroup
-> +  // CLEAR LDS
-> +  //
-> +  s_mov_b32 exec_lo, 0xffffffff
-> +  s_mov_b32 exec_hi, 0xffffffff
-> +  v_mbcnt_lo_u32_b32  v1, exec_hi, 0          // Set V1 to thread-ID (0.=
-.63)
-> +  v_mbcnt_hi_u32_b32  v1, exec_lo, v1        // Set V1 to thread-ID (0..=
-63)
-> +  v_mul_u32_u24  v1, 0x00000008, v1          // * 8, so each thread is a=
- double-dword address (8byte)
-> +  s_mov_b32     s2, 0x00000003f                    // 64 loop iterations
-> +  s_mov_b32     m0, 0xffffffff
-> +  // Clear all of LDS space
-> +  // Each FirstWave of WorkGroup clears 64kbyte block
-> +
-> +label_001F:
-> +  ds_write2_b64  v1, v[2:3], v[2:3] offset1:32
-> +  ds_write2_b64  v1, v[4:5], v[4:5] offset0:64 offset1:96
-> +  v_add_co_u32     v1, vcc, 0x00000400, v1
-> +  s_sub_u32     s2, s2, 1
-> +  s_cbranch_scc0  label_001F
-> +
-> +  //
-> +  // CLEAR SGPRs
-> +  //
-> +label_0023:
-> +  s_mov_b32     m0, 0x00000068  // Loop 108/4=3D27 times  (loop unrolled=
- for performance)
-> +label_sgpr_loop:
-> +  s_movreld_b32     s0, 0
-> +  s_movreld_b32     s1, 0
-> +  s_movreld_b32     s2, 0
-> +  s_movreld_b32     s3, 0
-> +  s_sub_u32         m0, m0, 4
-> +  s_cbranch_scc0  label_sgpr_loop
-> +
-> +  //clear vcc
-> +  s_mov_b32 flat_scratch_lo, 0   //clear  flat scratch lo SGPR
-> +  s_mov_b32 flat_scratch_hi, 0   //clear  flat scratch hi SGPR
-> +  s_mov_b64 vcc, 0          //clear vcc
-> +  s_mov_b64 ttmp0, 0        //Clear ttmp0 and ttmp1
-> +  s_mov_b64 ttmp2, 0        //Clear ttmp2 and ttmp3
-> +  s_mov_b64 ttmp4, 0        //Clear ttmp4 and ttmp5
-> +  s_mov_b64 ttmp6, 0        //Clear ttmp6 and ttmp7
-> +  s_mov_b64 ttmp8, 0        //Clear ttmp8 and ttmp9
-> +  s_mov_b64 ttmp10, 0       //Clear ttmp10 and ttmp11
-> +  s_mov_b64 ttmp12, 0       //Clear ttmp12 and ttmp13
-> +  s_mov_b64 ttmp14, 0       //Clear ttmp14 and ttmp15
-> +
-> + s_endpgm
-> +
-> +end
-> +
-> +
-> --
-> 2.34.1
->
+Signed-off-by: Fangzhi Zuo <Jerry.Zuo@amd.com>
+Signed-off-by: Wayne Lin <wayne.lin@amd.com>
+---
+ .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c |  2 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 20 +++++------
+ .../display/amdgpu_dm/amdgpu_dm_mst_types.c   | 28 +++++++--------
+ drivers/gpu/drm/display/drm_dp_mst_topology.c | 34 +++++++++----------
+ drivers/gpu/drm/i915/display/intel_dp.c       |  2 +-
+ drivers/gpu/drm/i915/display/intel_dp_mst.c   |  3 +-
+ include/drm/display/drm_dp_mst_helper.h       |  6 ++--
+ 7 files changed, 47 insertions(+), 48 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+index 6a97bb2d9160..6388cae166b1 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+@@ -1370,7 +1370,7 @@ static int dp_dsc_fec_support_show(struct seq_file *m, void *data)
+ 			 * enable DSC on the sink device or on MST branch
+ 			 * its connected to.
+ 			 */
+-			if (aconnector->dsc_aux) {
++			if (aconnector->mst_output_port->dsc_aux) {
+ 				is_fec_supported = true;
+ 				is_dsc_supported = true;
+ 			}
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+index b0fea0856866..94ff77c8fd15 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+@@ -820,20 +820,20 @@ bool dm_helpers_dp_write_dsc_enable(
+ 	uint8_t ret = 0;
+ 
+ 	if (stream->signal == SIGNAL_TYPE_DISPLAY_PORT_MST) {
+-		if (!aconnector->dsc_aux)
++		if (!aconnector->mst_output_port->dsc_aux)
+ 			return false;
+ 
+ 		// apply w/a to synaptics
+ 		if (needs_dsc_aux_workaround(aconnector->dc_link) &&
+ 		    (aconnector->mst_downstream_port_present.byte & 0x7) != 0x3)
+ 			return write_dsc_enable_synaptics_non_virtual_dpcd_mst(
+-				aconnector->dsc_aux, stream, enable_dsc);
++				aconnector->mst_output_port->dsc_aux, stream, enable_dsc);
+ 
+ 		port = aconnector->mst_output_port;
+ 
+ 		if (enable) {
+-			if (port->passthrough_aux) {
+-				ret = drm_dp_dpcd_write(port->passthrough_aux,
++			if (port->dsc_passthrough_aux) {
++				ret = drm_dp_dpcd_write(port->dsc_passthrough_aux,
+ 							DP_DSC_ENABLE,
+ 							&enable_passthrough, 1);
+ 				drm_dbg_dp(dev,
+@@ -841,24 +841,24 @@ bool dm_helpers_dp_write_dsc_enable(
+ 					   ret);
+ 			}
+ 
+-			ret = drm_dp_dpcd_write(aconnector->dsc_aux,
++			ret = drm_dp_dpcd_write(aconnector->mst_output_port->dsc_aux,
+ 						DP_DSC_ENABLE, &enable_dsc, 1);
+ 			drm_dbg_dp(dev,
+ 				   "MST_DSC Sent DSC decoding enable to %s port, ret = %u\n",
+-				   (port->passthrough_aux) ? "remote RX" :
++				   (port->dsc_passthrough_aux) ? "remote RX" :
+ 				   "virtual dpcd",
+ 				   ret);
+ 		} else {
+-			ret = drm_dp_dpcd_write(aconnector->dsc_aux,
++			ret = drm_dp_dpcd_write(aconnector->mst_output_port->dsc_aux,
+ 						DP_DSC_ENABLE, &enable_dsc, 1);
+ 			drm_dbg_dp(dev,
+ 				   "MST_DSC Sent DSC decoding disable to %s port, ret = %u\n",
+-				   (port->passthrough_aux) ? "remote RX" :
++				   (port->dsc_passthrough_aux) ? "remote RX" :
+ 				   "virtual dpcd",
+ 				   ret);
+ 
+-			if (port->passthrough_aux) {
+-				ret = drm_dp_dpcd_write(port->passthrough_aux,
++			if (port->dsc_passthrough_aux) {
++				ret = drm_dp_dpcd_write(port->dsc_passthrough_aux,
+ 							DP_DSC_ENABLE,
+ 							&enable_passthrough, 1);
+ 				drm_dbg_dp(dev,
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+index 6e4359490613..a73b14fac07f 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+@@ -183,8 +183,8 @@ amdgpu_dm_mst_connector_early_unregister(struct drm_connector *connector)
+ 		dc_sink_release(dc_sink);
+ 		aconnector->dc_sink = NULL;
+ 		aconnector->drm_edid = NULL;
+-		aconnector->dsc_aux = NULL;
+-		port->passthrough_aux = NULL;
++		aconnector->mst_output_port->dsc_aux = NULL;
++		aconnector->mst_output_port->dsc_passthrough_aux = NULL;
+ 	}
+ 
+ 	aconnector->mst_status = MST_STATUS_DEFAULT;
+@@ -237,7 +237,7 @@ static bool validate_dsc_caps_on_connector(struct amdgpu_dm_connector *aconnecto
+ 	u8 dsc_branch_dec_caps_raw[3] = { 0 };	// DSC branch decoder caps 0xA0 ~ 0xA2
+ 	u8 *dsc_branch_dec_caps = NULL;
+ 
+-	aconnector->dsc_aux = drm_dp_mst_dsc_aux_for_port(port);
++	drm_dp_mst_dsc_aux_for_port(port);
+ 
+ 	/*
+ 	 * drm_dp_mst_dsc_aux_for_port() will return NULL for certain configs
+@@ -250,19 +250,19 @@ static bool validate_dsc_caps_on_connector(struct amdgpu_dm_connector *aconnecto
+ 	 */
+ 	if (!aconnector->dsc_aux && !port->parent->port_parent &&
+ 	    needs_dsc_aux_workaround(aconnector->dc_link))
+-		aconnector->dsc_aux = &aconnector->mst_root->dm_dp_aux.aux;
++		aconnector->mst_output_port->dsc_aux = &aconnector->mst_root->dm_dp_aux.aux;
+ 
+ 	/* synaptics cascaded MST hub case */
+ 	if (is_synaptics_cascaded_panamera(aconnector->dc_link, port))
+-		aconnector->dsc_aux = port->mgr->aux;
++		aconnector->mst_output_port->dsc_aux = port->mgr->aux;
+ 
+-	if (!aconnector->dsc_aux)
++	if (!aconnector->mst_output_port->dsc_aux)
+ 		return false;
+ 
+-	if (drm_dp_dpcd_read(aconnector->dsc_aux, DP_DSC_SUPPORT, dsc_caps, 16) < 0)
++	if (drm_dp_dpcd_read(aconnector->mst_output_port->dsc_aux, DP_DSC_SUPPORT, dsc_caps, 16) < 0)
+ 		return false;
+ 
+-	if (drm_dp_dpcd_read(aconnector->dsc_aux,
++	if (drm_dp_dpcd_read(aconnector->mst_output_port->dsc_aux,
+ 			DP_DSC_BRANCH_OVERALL_THROUGHPUT_0, dsc_branch_dec_caps_raw, 3) == 3)
+ 		dsc_branch_dec_caps = dsc_branch_dec_caps_raw;
+ 
+@@ -279,10 +279,10 @@ static bool retrieve_downstream_port_device(struct amdgpu_dm_connector *aconnect
+ {
+ 	union dp_downstream_port_present ds_port_present;
+ 
+-	if (!aconnector->dsc_aux)
++	if (!aconnector->mst_output_port->dsc_aux)
+ 		return false;
+ 
+-	if (drm_dp_dpcd_read(aconnector->dsc_aux, DP_DOWNSTREAMPORT_PRESENT, &ds_port_present, 1) < 0) {
++	if (drm_dp_dpcd_read(aconnector->mst_output_port->dsc_aux, DP_DOWNSTREAMPORT_PRESENT, &ds_port_present, 1) < 0) {
+ 		DRM_INFO("Failed to read downstream_port_present 0x05 from DFP of branch device\n");
+ 		return false;
+ 	}
+@@ -505,8 +505,8 @@ dm_dp_mst_detect(struct drm_connector *connector,
+ 		dc_sink_release(aconnector->dc_sink);
+ 		aconnector->dc_sink = NULL;
+ 		aconnector->drm_edid = NULL;
+-		aconnector->dsc_aux = NULL;
+-		port->passthrough_aux = NULL;
++		aconnector->mst_output_port->dsc_aux = NULL;
++		aconnector->mst_output_port->dsc_passthrough_aux = NULL;
+ 
+ 		amdgpu_dm_set_mst_status(&aconnector->mst_status,
+ 			MST_REMOTE_EDID | MST_ALLOCATE_NEW_PAYLOAD | MST_CLEAR_ALLOCATED_PAYLOAD,
+@@ -1802,13 +1802,13 @@ enum dc_status dm_dp_mst_is_port_support_mode(
+ 	}
+ 
+ 	/*DSC necessary case*/
+-	if (!aconnector->dsc_aux)
++	if (!aconnector->mst_output_port->dsc_aux)
+ 		return DC_FAIL_BANDWIDTH_VALIDATE;
+ 
+ 	if (is_dsc_common_config_possible(stream, &bw_range)) {
+ 
+ 		/*capable of dsc passthough. dsc bitstream along the entire path*/
+-		if (aconnector->mst_output_port->passthrough_aux) {
++		if (aconnector->mst_output_port->dsc_passthrough_aux) {
+ 			if (bw_range.min_kbps > end_to_end_bw_in_kbps) {
+ 				DRM_DEBUG_DRIVER("MST_DSC dsc passthrough and decode at endpoint"
+ 						 "Max dsc compression bw can't fit into end-to-end bw\n");
+diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+index a4551c17a07f..483b623961e7 100644
+--- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
++++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+@@ -2259,7 +2259,7 @@ void drm_dp_mst_connector_early_unregister(struct drm_connector *connector,
+ 		    port->aux.name, connector->kdev->kobj.name);
+ 	drm_dp_aux_unregister_devnode(&port->aux);
+ 	port->dsc_aux = NULL;
+-	port->passthrough_aux = NULL;
++	port->dsc_passthrough_aux = NULL;
+ }
+ EXPORT_SYMBOL(drm_dp_mst_connector_early_unregister);
+ 
+@@ -5447,7 +5447,8 @@ int drm_dp_mst_add_affected_dsc_crtcs(struct drm_atomic_state *state, struct drm
+ 		if (!crtc)
+ 			continue;
+ 
+-		if (!drm_dp_mst_dsc_aux_for_port(pos->port))
++		drm_dp_mst_dsc_aux_for_port(pos->port);
++		if (!pos->port->dsc_aux)
+ 			continue;
+ 
+ 		crtc_state = drm_atomic_get_crtc_state(mst_state->base.state, crtc);
+@@ -6019,16 +6020,13 @@ EXPORT_SYMBOL(drm_dp_mst_aux_for_parent);
+  * Depending on the situation, DSC may be enabled via the endpoint aux,
+  * the immediately upstream aux, or the connector's physical aux.
+  *
+- * This is both the correct aux to read DSC_CAPABILITY and the
+- * correct aux to write DSC_ENABLED.
+- *
+- * This operation can be expensive (up to four aux reads), so
+- * the caller should cache the return.
+- *
+  * Returns:
+- * NULL if DSC cannot be enabled on this port, otherwise the aux device
++ * port->dsc_aux - point for dsc decompression
++ *   null if dsc decompression point not found
++ * port->dsc_passthrough_aux - point for dsc passthrough
++ *   null no dsc passthrough support found
+  */
+-struct drm_dp_aux *drm_dp_mst_dsc_aux_for_port(struct drm_dp_mst_port *port)
++void drm_dp_mst_dsc_aux_for_port(struct drm_dp_mst_port *port)
+ {
+ 	struct drm_dp_mst_topology_mgr *mgr = port->mgr;
+ 	struct drm_dp_mst_port *immediate_upstream_port = NULL;
+@@ -6041,17 +6039,17 @@ struct drm_dp_aux *drm_dp_mst_dsc_aux_for_port(struct drm_dp_mst_port *port)
+ 	u8 fec_cap;
+ 
+ 	if (!port)
+-		return NULL;
++		return;
+ 
+ 	port->dsc_aux = NULL;
+-	port->passthrough_aux = NULL;
++	port->dsc_passthrough_aux = NULL;
+ 
+ 	/* Policy start */
+ 	if (!drm_dp_mst_is_end_device(port->pdt, port->mcs)) {
+ 		drm_err(mgr->dev,
+ 			"MST_DSC Can't determine dsc aux for port %p which is not connected to end device\n",
+ 			port);
+-		return NULL;
++		return;
+ 	}
+ 
+ 	if (port->parent->port_parent)
+@@ -6079,12 +6077,12 @@ struct drm_dp_aux *drm_dp_mst_dsc_aux_for_port(struct drm_dp_mst_port *port)
+ 		goto out_dsc_fail;
+ 	}
+ 
+-	/* Consider passthrough as the first option for dsc_aux/passthrough_aux */
++	/* Consider passthrough as the first option for dsc_aux/dsc_passthrough_aux */
+ 	if (endpoint_dsc & DP_DSC_DECOMPRESSION_IS_SUPPORTED &&
+ 			upstream_dsc & DP_DSC_PASSTHROUGH_IS_SUPPORTED) {
+ 		dsc_port = port;
+ 		port->dsc_aux = &port->aux;
+-		port->passthrough_aux = upstream_aux;
++		port->dsc_passthrough_aux = upstream_aux;
+ 		drm_info(mgr->dev, "MST_DSC dsc passthrough to endpoint\n");
+ 	}
+ 
+@@ -6147,11 +6145,11 @@ struct drm_dp_aux *drm_dp_mst_dsc_aux_for_port(struct drm_dp_mst_port *port)
+ 		goto out_dsc_fail;
+ 	}
+ 
+-	return port->dsc_aux;
++	return;
+ 
+ out_dsc_fail:
+ 	port->dsc_aux = NULL;
+-	port->passthrough_aux = NULL;
+-	return NULL;
++	port->dsc_passthrough_aux = NULL;
++	return;
+ }
+ EXPORT_SYMBOL(drm_dp_mst_dsc_aux_for_port);
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index fbb096be02ad..139586a75c70 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -3262,7 +3262,7 @@ intel_dp_sink_set_dsc_passthrough(const struct intel_connector *connector,
+ {
+ 	struct drm_i915_private *i915 = to_i915(connector->base.dev);
+ 	struct drm_dp_aux *aux = connector->port ?
+-				 connector->port->passthrough_aux : NULL;
++				 connector->port->dsc_passthrough_aux : NULL;
+ 
+ 	if (!aux)
+ 		return;
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index 7be8fb047b6c..e4e137b1df9f 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -1721,7 +1721,8 @@ static struct drm_connector *intel_dp_add_mst_connector(struct drm_dp_mst_topolo
+ 
+ 	intel_dp_init_modeset_retry_work(intel_connector);
+ 
+-	intel_connector->dp.dsc_decompression_aux = drm_dp_mst_dsc_aux_for_port(port);
++	drm_dp_mst_dsc_aux_for_port(port);
++	intel_connector->dp.dsc_decompression_aux = port->dsc_aux;
+ 	intel_dp_mst_read_decompression_port_dsc_caps(intel_dp, intel_connector);
+ 	intel_connector->dp.dsc_hblank_expansion_quirk =
+ 		detect_dsc_hblank_expansion_quirk(intel_connector);
+diff --git a/include/drm/display/drm_dp_mst_helper.h b/include/drm/display/drm_dp_mst_helper.h
+index 672e8f6b5655..630ecf872e68 100644
+--- a/include/drm/display/drm_dp_mst_helper.h
++++ b/include/drm/display/drm_dp_mst_helper.h
+@@ -82,7 +82,7 @@ struct drm_dp_mst_branch;
+  * by &drm_dp_mst_topology_mgr.base.lock.
+  * @dsc_aux: aux to which DSC decompression request should be sent,
+  * only set if DSC decompression is possible.
+- * @passthrough_aux: parent aux to which DSC pass-through requests should be
++ * @dsc_passthrough_aux: parent aux to which DSC pass-through requests should be
+  * sent, only set if DSC pass-through is possible.
+  * @parent: branch device parent of this port
+  * @connector: DRM connector this port is connected to. Protected by
+@@ -138,7 +138,7 @@ struct drm_dp_mst_port {
+ 	struct drm_dp_mst_branch *mstb;
+ 	struct drm_dp_aux aux; /* i2c bus for this port? */
+ 	struct drm_dp_aux *dsc_aux;
+-	struct drm_dp_aux *passthrough_aux;
++	struct drm_dp_aux *dsc_passthrough_aux;
+ 	struct drm_dp_mst_branch *parent;
+ 
+ 	struct drm_connector *connector;
+@@ -959,7 +959,7 @@ bool drm_dp_mst_port_is_logical(struct drm_dp_mst_port *port)
+ }
+ 
+ struct drm_dp_aux *drm_dp_mst_aux_for_parent(struct drm_dp_mst_port *port);
+-struct drm_dp_aux *drm_dp_mst_dsc_aux_for_port(struct drm_dp_mst_port *port);
++void drm_dp_mst_dsc_aux_for_port(struct drm_dp_mst_port *port);
+ 
+ static inline struct drm_dp_mst_topology_state *
+ to_drm_dp_mst_topology_state(struct drm_private_state *state)
+-- 
+2.43.0
+
