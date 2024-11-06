@@ -4,145 +4,145 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9924D59F41
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 Nov 2024 15:45:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F27A8D59F41
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 Nov 2024 15:45:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 57DCD10E2E9;
-	Wed,  6 Nov 2024 15:45:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A373210E2E6;
+	Wed,  6 Nov 2024 15:45:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="IkpQwTjf";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="DQdDAs0v";
 	dkim-atps=neutral
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2067.outbound.protection.outlook.com [40.107.243.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3049210E2E9
- for <amd-gfx@lists.freedesktop.org>; Wed,  6 Nov 2024 15:45:31 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2040.outbound.protection.outlook.com [40.107.237.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BEDDB10E2E6
+ for <amd-gfx@lists.freedesktop.org>; Wed,  6 Nov 2024 15:45:58 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Vy6n8VSSYtIrUKLm3lhAgzh0AbxYX9pP+6MJjXRe0Tj3X75pd02SM0DAzkOPbw7ZzNhQP9xYaZSY9vKdv4Vz4o/YC5C38r8nleSSWAzsvAxbebPcyRhcR+gArwrDL+j0wz7vWjELPmxGjD455ijdkmGOANCXjtZP/qFHqaxgEVIJzGmsoF3CjjrfZodRLYm7ZubBI8ABU87oB1xLG+f5HZzu4jO+zbWS5tKn6Z11sY5F9lFei4Qr4XsisbsFsgiHT4wLhSwH8OebKT0S0fuY47khD2+cPfMXSdDvpOWgM+zE8onoJjvIfsuZgRfc2XRVfLQcKufrpZp6yd4NKPfcXg==
+ b=cYucSOGxWlRjKhT1EY5ciqe5kH+1M807xvAXPfyUfVCdQsML8Fa1IagKCZ9r78f8CqdqmCOzX1SCbVZqp2G9OSrZqSoEvAH93mEG4xyyQrPkb0UOBJFkO364Uf1xGb6bmY2RZHT08gTJ65M+yoaIaWrAcTJpMYZCJukhjBezm99nWAFrzsVYg86xlipDLCp2H5sbzWPV9FHyuQ+PUkI6RBu+o5c2hUhxcrvMIcbGSMLq28aENZGGgZF+uwMbKHtspIFZEwQEr/pWXMv6HEGv0bPpYMZDmZTH3Mbp5MiSxuYBlgSITWOyxGOBG6E39LEStLjTm4LE6bUmlAIs9J+qdQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JldqVN9ykvfyFCtatJI/UW0L98AFujci7LTB8wOz/QQ=;
- b=vl74hIHvYcOZLRk3tdCUufDqZV4AAj10344BpwKzauNc4qmXNma35EUlFyAaJ4oe4wRRc0VVLa+/BeibJsvxKARnnT956ibbL2YHR4EEQCf9d966Pn6g7Myud7WE88cpDOfgSDmTqLl5tWLNJ6BnvV/1ja5441YwqNyM6Tfv8dL8odN6t8DOdUFWjdVx007DEhGKXSC/XpmowxwTdXA8i/vk0+IoDON5imeXHxUwuQHm9X1Q+1RniVVQnfikkhUtRlWuya+cSlmuWMzEIPBJHHRyY9HQtCdKcc6M5nsAS58J7B/2JKJVqCF8pP+AAfuuxbOo2hoWks1zmKPDl7WhNw==
+ bh=L/5QrUBEuU9PXnzapo3wOq260wWtyl9Ktzj7GIPsIoM=;
+ b=BKxEhNvkhsgBsjl+OuZnH/MmxQyXlfd46ojNM39CH25wMWKoUDuVvNl2Nbw3G5NMJAz2IE4FdnhJ7XZ4XoL1FMuTk0jUzEPXqOD+ZdMp92TiWVq6oXPm0Hr9zinSVmF2JRAFSwdmZRmHRp7cpp2IM3qw6xiz6PNnwe9TZ9cI3tpPiaagaphK4TUy9oNdU89zl3uVHZgVD8iWg0AJ9wvbQD3Nng/VJP5CbmfKO9dz7hwuYkM740W/f/4r/sFhNUPXvTgY0t/zEnirfILxRxqB9fNRjS9gnQQ6ksMhzxoYRh5GBT5ohSQTTkl0ZDQxp3LLxna8422R2AyTHyKGBDYjsw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JldqVN9ykvfyFCtatJI/UW0L98AFujci7LTB8wOz/QQ=;
- b=IkpQwTjfVb9/fA4aramfPKBcRrkN21ICZD+Qolrht164Nfg1VJOktvSiFZTfq77gnm/l07Py2CGS65N1wVhNmamyvwjf7EL0gCXWZ/vRw4thL8r89oPM4YdN/PalEV5cqXREHPGzj0XQ7x97m+0H8kfgmoED4xZJVIlpquNih44=
+ bh=L/5QrUBEuU9PXnzapo3wOq260wWtyl9Ktzj7GIPsIoM=;
+ b=DQdDAs0vXla73NhAKfTOPjFetFWxzjalmTZNZW2i18P53zw3PjpkbaWmWQwzURTRnVCdfMnrFzcpcAieaz8WYWqx7/zTOvGM9595c9hEN68vIzaEOJFkC3l33W3HML6xoUf1gHwmTGfx7ZRaGcQzeY8ZJvrIDoh2wALxBAQ6euM=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from CY8PR12MB7491.namprd12.prod.outlook.com (2603:10b6:930:92::15)
- by DM6PR12MB4282.namprd12.prod.outlook.com (2603:10b6:5:223::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8137.18; Wed, 6 Nov
- 2024 15:45:24 +0000
+ by LV8PR12MB9418.namprd12.prod.outlook.com (2603:10b6:408:202::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.30; Wed, 6 Nov
+ 2024 15:45:52 +0000
 Received: from CY8PR12MB7491.namprd12.prod.outlook.com
  ([fe80::217f:1ab1:9a5f:fecc]) by CY8PR12MB7491.namprd12.prod.outlook.com
  ([fe80::217f:1ab1:9a5f:fecc%4]) with mapi id 15.20.8114.031; Wed, 6 Nov 2024
- 15:45:24 +0000
+ 15:45:52 +0000
 Content-Type: multipart/alternative;
- boundary="------------JzZDrvO4hdHYmVDuIMBfzHaW"
-Message-ID: <e37bbf94-6aed-45c6-8a6f-d0e2f1fca68e@amd.com>
-Date: Wed, 6 Nov 2024 10:45:22 -0500
+ boundary="------------PYqHpVZpw0uISjUADlD1ml0g"
+Message-ID: <905dfd0c-9926-416f-a9a8-9abac7e5e921@amd.com>
+Date: Wed, 6 Nov 2024 10:45:49 -0500
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/amdgpu: Add missing kdoc 'inst' parameter in
- 'smu_dpm_set_power_gate' function
+Subject: Re: [PATCH] drm/amd/amdgpu/vcn: Fix kdoc entries for VCN clock/power
+ gating functions
 To: amd-gfx@lists.freedesktop.org
-References: <20241106021646.4089039-1-srinivasan.shanmugam@amd.com>
+References: <20241106020918.4086736-1-srinivasan.shanmugam@amd.com>
 Content-Language: en-US
 From: Boyuan Zhang <Boyuan.Zhang@amd.com>
-In-Reply-To: <20241106021646.4089039-1-srinivasan.shanmugam@amd.com>
-X-ClientProxiedBy: YQBPR01CA0139.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:1::39) To CY8PR12MB7491.namprd12.prod.outlook.com
+In-Reply-To: <20241106020918.4086736-1-srinivasan.shanmugam@amd.com>
+X-ClientProxiedBy: YQBPR01CA0134.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:1::34) To CY8PR12MB7491.namprd12.prod.outlook.com
  (2603:10b6:930:92::15)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY8PR12MB7491:EE_|DM6PR12MB4282:EE_
-X-MS-Office365-Filtering-Correlation-Id: 899aa06e-63fc-4b87-ee59-08dcfe7a0749
+X-MS-TrafficTypeDiagnostic: CY8PR12MB7491:EE_|LV8PR12MB9418:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2166764e-314b-43b9-b59a-08dcfe7a1807
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014|8096899003;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?WGREUFNpNVZBb1c2VVE3dTJhWU84S2x2RGN3WmE3cGt4UFpPL1JlZk1xQklr?=
- =?utf-8?B?Mnp4MjdyZEEzMWJUbE1EZzlxQlBvbVU3WGszSStJL0JUaTNtSGJUU1MzRHFP?=
- =?utf-8?B?cWxYSFVqeUhDMjRUaXBRK1hLdjh5UVdHdElEYXZxUGxOanVwRmVwQ1dBaVQz?=
- =?utf-8?B?ais2TDh0TFA4ZWI4M2xINTd2eThLdmI2dXRQYi9HbW5LTUVMeUthUUhJZDAv?=
- =?utf-8?B?ZXU2QVVkT1Y2TGVkZWV3UG15bFc4eE9rRGJQMkh3SFpmc21uWVlDQm9OTmo5?=
- =?utf-8?B?OWl3VUhOSmhyT0RTM1JaWVFPSWhlYklORUlGTkxyUys3MjhJb0tTQU56aVZM?=
- =?utf-8?B?ODV1VHZPYm40UHRvMzdWcjErMHM0cmZiaXc0UnJuVkRHbUloL2hKQVk4MjA1?=
- =?utf-8?B?TUIzdDJ5NWhVUUJjajhsRVhKMXArd1hMK2FxYmRkbzNVT1ZMNEdhVURseHpT?=
- =?utf-8?B?dmo5eEVBWE1qZDBtRXBZeHZYWktSbVZXajM2V0gyekZSbHlEaXFZVXdoV1Nn?=
- =?utf-8?B?eUp3RmsremU1Q1FZbUdwcVBsMW4yWWNTRzJ4YnVSRmdyaHdpNXZOVVdqSk5R?=
- =?utf-8?B?Qnl0K1QxZWhMMFN0VkRBRWRWUGllVzltbjI2V0VFNzBCRGw2Nkt2clNqTlNG?=
- =?utf-8?B?UGlQQlNpaExrSGZJMHlIUjB4S296L2QvK3lGTnpWU3RsYWlCV2svNEFOVFFR?=
- =?utf-8?B?NGpxaDcwMTh6QWMzRCtTUkRSZEU3UHhRVGxHY09sd1dSWm40WkRLbXNIQ0NZ?=
- =?utf-8?B?OFgxODBCZUZ3bWRtTitXK1ladUhrY3lQN0QyYklDWGIxRXJEVERiaHJCOU42?=
- =?utf-8?B?UHRjM08zWW9oU0hHeDFseGZ3d3NFL1hrbml5L1dvVlBwcXRqRUFLRWZqUzZG?=
- =?utf-8?B?NHpoa1J3d3RTVDA0NXRLNy82bjRjbDVCZDM4QjdWZ0lqYnplZlhIU2NLNmcy?=
- =?utf-8?B?cEU3V2JrLzRMYkhJMzcwS0V4TSt2OTlDY3hjNm11YTZMd0Uxd2g3YVM4UjBy?=
- =?utf-8?B?L0t5T0V2ck11R3gzcWF1cVBEakhUemxCS1daUjZVcW53ZFdJNmR3dE9rVlJu?=
- =?utf-8?B?eUlLeW15bWxzK3ZMRWM0anBLT05qcElDd2dXdmV1UnpNVklJK3krd2kzS0lo?=
- =?utf-8?B?bzBjM3dLVmJOdFJZTmdQNU4wM1N0a25oczdoRzlRWFpzQmF1akh5T2xzUm5r?=
- =?utf-8?B?ZnFWNUNlVSsweERSNGNhcWhrS2gvcG9mNkxMVzkwRVNjOXlDUXhjdE8reStL?=
- =?utf-8?B?YS84aVE3M1VzbUlyd04yck91WVBpRW8ycjZvb3hpWnRWSXFzV3kxd3hBdk1i?=
- =?utf-8?B?czlBT01adFdVaUFiNTVxam5MdEZ6OWRlc3BQeDFxWE5XRFJZdGVtS3haTFpD?=
- =?utf-8?B?SmlVekhrU0c4bTJtZTNPUnBLdEZFSnJiQ2o2ZHZ6K1RjaHE3MDNLNXBhMm9H?=
- =?utf-8?B?eHEvaVdmYkVwbTdPVUFvbTNUanROOGxQWUdhbmRmWlRESGdRNEZCN1ZZMmxs?=
- =?utf-8?B?VUlYMVNFZU80SnIvZWVrbEhDWnZ0MjRTaHpqUDBRL01kcjhhNC95bnE2Tlg3?=
- =?utf-8?B?MHV6YlhzU1E3QVV1L1cwMWt6SmxQMkpqOXBzOVhNL25BWnRrc1VQUTdLdU95?=
- =?utf-8?B?eGlBQnVRekRpT0xKbWFSU2NqeVNneSsvQ3ZKc0pBb0xadHpIbCsyRlNGaE5w?=
- =?utf-8?B?em4rVUF0ek1yalBLa2Q2N1JxQjJsSUF3Mk02TWs0NEUzT3h5Q2IzWk93Tnhp?=
- =?utf-8?Q?7taAyxKmE8kBD6EEqGaKYhW0CGndyUY6nGIrKzD?=
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?VkNIR3RKMFJCUzUvKzFZMFBPMENncU9HckQ3dkFaMWtraG9sTnFyQlduNWRO?=
+ =?utf-8?B?VmQ0UVgyejhZSXpXTFpQeXRYZ0E2dnhCSkthb0t0YVZqOTJPVHZOaTRiak42?=
+ =?utf-8?B?cExmVHYwUnZSTkY3ZkFodTRsdmNUbEFWcWJHbXc1N0pTVEFrVG54WkVpKzhQ?=
+ =?utf-8?B?Nkc4b3hCZExRRVpMSE9CeTZzeXVnVzV5SENvVjUwS0tYSlNXbjhwVGszdlVz?=
+ =?utf-8?B?MklJQzYyWHoxUWpLNVJvSU0xcDBQMnBBYW5mSC9NM2tpM2xLOHRZTnBxcVc0?=
+ =?utf-8?B?WG4vWW5EeWU1ZWFQdE5UT091T1R1KzRxRmdVK0k5WlV2bWYxb3gvdHRSMU5I?=
+ =?utf-8?B?MEp4V3lZQjNhZ0dOVmxTR3RvbjI0aVpyT09wbDZXTHNGV3Z3WTBLVkdwcnlH?=
+ =?utf-8?B?N0Q4dUMxamVLL3dZYnE2SDFOOHIrYzVlU20xbW9PVy9CQklFSjFob3BvQ3Iy?=
+ =?utf-8?B?YzNlMlUydkpHaUtSelU2UTkyazI3elhUMVpOWndxOWRISDBhMldIeGlSK21C?=
+ =?utf-8?B?MkhBcWhMUG1oMUZGNkc0M3BMMTBIbjR3RHNDQlVwMkNQTnhSRlJxdTQvaXhh?=
+ =?utf-8?B?TG82dUx0NDVwalY4Mi9XaTc2a0xicFp4N283OExXaGgybEVSQ0RBckIwL0Vn?=
+ =?utf-8?B?R2lIL2pPNUV2dHBRTjV0R2pHVFY3ZkptUXh6QUhNTUdtUDg5R080Z3Z4b1Js?=
+ =?utf-8?B?TGN1aXl2d0V5Y0QwOUFpQnpUT1hkdytGUnhwNmFIRFRrQUIwUUllQ2VBYmp4?=
+ =?utf-8?B?L1p5KzdXbTJnR1lTcnhPOEVTTzRiU2QxdnQyUmx2eDdwVDVaNnF3NHRoMlFt?=
+ =?utf-8?B?am9yOElVRlQ1Vmk0SUVhQlljZGxjUmRHN1pScFBkNEtCSFY1WmFjYXBCUFJM?=
+ =?utf-8?B?VE5xQnBNUlBlendHOTh3VFRmS08wYzlMZG9TR3V6ZGtUTGdYVWZXQnZJTnh4?=
+ =?utf-8?B?SitKRVY1bDVIbGlrT1hIaHV4STVTcm16Z2F2OUxNNUFSQWpKdUlpbnRaMWVS?=
+ =?utf-8?B?UjUxbzNONkR2OEZPOEk4dHdXd2crVEdVcTUyYmg5ME9TU3VVS1FnbGd0ZCtk?=
+ =?utf-8?B?N1k1ZDVQbXpFcyt5c3VSS0ZVRTFNeTRFYW5YbXAvMlZGeWl3clZvK2RENUVH?=
+ =?utf-8?B?VXBZKzZFMDMxNm9tK0Z1UDhFZncvaFd2b3J6cE1jR1ZWTUMzaTZvVnlycnpT?=
+ =?utf-8?B?R2RTTDRXZmJMazdSSTBSVTkxL2JkbC9SLzF4QVg3eE55dk1XVnNReTFuRklq?=
+ =?utf-8?B?c0wvWEhrYzUxK28yN3l2V2N1ZWRZMHBaVEE1b2QvN0toZkFnTitlMU5Jbm81?=
+ =?utf-8?B?SVIyL1dxVHg0cGhxTjNtQnN0bFBzRG1lWmFoejZZa0N4V1pvN2FtQmRRSXlO?=
+ =?utf-8?B?cE1WN2dDVlg3THN3NlpDaHZoaHNOckxER0NZb3c5TVA5czI2NFFTTDBSQnJZ?=
+ =?utf-8?B?Q2JHaU9vdWVlVGtHVlhzVEUvaHh2dkYxWG5hREhQcU1QcmpvbDNMVHI3clFI?=
+ =?utf-8?B?aGNzbmdkQUs1amJtQkhoM1QvYlZxQVFvSEVTNmRMM2xLQ0tITVRqT3lTSkJI?=
+ =?utf-8?B?OVlCdS96QmFmdnNSL3M3UFJ4N3FuUVA2KzM5RU5reUYwYW5vRjdZOEV4dnRI?=
+ =?utf-8?B?WGlSSUxraGJaYXk0YkV3R1JHTnBST2ZUTnpwYTJSTWNCTHdwREdBUlBvaURx?=
+ =?utf-8?B?QkJyWE81M05uek9VZnhGc2ZacUxxbGI3a3dGTzJPVEpsZVUzK3Z1WHhzeXA5?=
+ =?utf-8?Q?YDhuIFHngRuMY0rb+k=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CY8PR12MB7491.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(1800799024)(366016)(376014)(8096899003); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z2plakxLRkFRbXJTUENieThnMlRJT0ZPK3FjVjlHdmpZaGpRbUxROVJtK0Z4?=
- =?utf-8?B?Q3NhbFUxeWsvZzA3NGJ0M256ZzRleUxJS2dGRVJGbUVXWEhMcmthZWxHY2RQ?=
- =?utf-8?B?SE5VT1RNQk10YUpab1JkMHFZWkZnWmVFMUNpR3NFbWVLK2l5U3ltaitrMURW?=
- =?utf-8?B?TVBVd2ppckNHY2Z0RHhyeXRSWm9CbDVsZGRSeTBacElqTk5TSkdLemgzOVFS?=
- =?utf-8?B?Q1g2NXl3aFhOL0RxYmt4UXRjUEE2ZVdBWVZJNDd3RStRRGxFVXNjcUJQaGNX?=
- =?utf-8?B?SXoyWWVZRExKdjRKTFZtWXZoYU9SK3ZBZEFTd1BJUGx2ZytQc1h1MUtNTEth?=
- =?utf-8?B?bXZpd2t3d0VidzVPQ3N6MnJuWmM3M3VJbFRGdHVKdWtMRVUvTXk2QmR0aTNH?=
- =?utf-8?B?d2JMb0NVa1pkY1NOQ01raVRVbVZFZEtmWXNpN1pLRmZaNVlxSERvQ2QzVXdv?=
- =?utf-8?B?WDFlRHBhYU05UllIN2dZMDdqVTRhVmNHVk93VGY2andncXhJTnRwWGxUYkpt?=
- =?utf-8?B?UUExOTUwalFLUS9EVmNXR21KRnJ4MExFVy85ZnpRc3NSQ0FBZTBSYmpRd3Rl?=
- =?utf-8?B?My85SEFoSSs4ZGdpUCtlODNXVk93TEJkcDEycko4UmdvS20vemdxeXhINlpN?=
- =?utf-8?B?WGFPcFRpby9KRG9qaERqMHdJc0phT1VuMkhVMFF2MVlPVzArZStPWnR3c25j?=
- =?utf-8?B?cE1MNVcyYzFmWGVDUVhjVWI3bzJXWDB1RElML2ovaStsTWFzREJRRnMrbnRj?=
- =?utf-8?B?WDJYS1VTd3hwbWRHUDEyVHBQVHNqL1BZdWpkRmw3QmJNQTRLUExlZDJyajJI?=
- =?utf-8?B?eUJFSXUwMUpPbHF1OWdMWUpzbEV6T0N3ZklQbmh5MitqK3lZdSttNGRHWkVx?=
- =?utf-8?B?dDFHWGNPNnRNeW9xb08zUTc5UmxwcVROd1ZXYkdvR0VaUEpVZ1I2cEVYdG5k?=
- =?utf-8?B?TlcvTThtNzNGMzRuUU9iMXpWOVAvRmdDalo4ZlhxcTR0WGFwcG5wU3JQOXRR?=
- =?utf-8?B?TVkybkcxZGtVV1JOSFNhV3haUXFJb0pNbCtQQ1AwV1R2MWZQUFhDYTNnTjBI?=
- =?utf-8?B?OTBzWUxRa3JLbmREWlpJOTFUUEFJQ0Y3WlFSQzVadFFxbW1NSHNydTJjQjNW?=
- =?utf-8?B?Q2Z4a1l6VjJRdjZSc1hDa3g5ZHd4VXNKY2dkTVczSjJ0d216SXJtMmN0bENq?=
- =?utf-8?B?UG1hbnU0cHcyZjhvWEM2cEsva2s3d3NGTXlGYmlRclg0UVlHY2psS3ZZZGtV?=
- =?utf-8?B?dnBWdnRUdW5pblVyNDlVODB4aCtoL3Q5V2tLc1hXVWovY2pRK1hJYUlMQW9n?=
- =?utf-8?B?ZjFXTW16aXlGTUo2V0txOHVjNkt1bEEyOFZlazYzUUVNenZkRHlWS2lyZ3Ju?=
- =?utf-8?B?STRMbGpLc01lNHl6SThVYi9lWGF4aWIwTkFLeDlvbFExbWdRejJ6Qk5tbUc0?=
- =?utf-8?B?V0FUVjZnNTI4TjRac3V6dXlLTVRLeHUycTkzRTA0RGVlaUMyUUxoR1h2cTBC?=
- =?utf-8?B?SHBXdkNPRFpDbkxJUmloVlg2SllPTGM4TDNHQjZnR1UzM0syMUlTM1dheFJT?=
- =?utf-8?B?N2pvM3prcEFjTUI4L3JNWmpsaXdZejFzcHNwTzFWY1hDcUVyU2Jxcnd0dkt3?=
- =?utf-8?B?aGkwV0lzWWZVTFpFS0l0aFdZYkNERjJHYzhPNkJOZ0NTVkNWbmp1RjZSckdH?=
- =?utf-8?B?SERReGwxRVB3RWR4bGxVV2RPeGI5TDZJK244bjRXNkZQM2EvejhLM2dsRGpq?=
- =?utf-8?B?dEtUUTUycTVraUFkSVdVbTFUVEVZS3Iyby83aVhFTTZTbUpaZDNrd2F0Q3pJ?=
- =?utf-8?B?MTlKMnRQSWJZZE1HTkdqWGxsSUxmN3Z3WmtjVGZ2ZGk3Q012aHVTb3MySkY3?=
- =?utf-8?B?R2o0Y1NnZmZvZkRqa1hGUGFOMmtBMzBJdXYvTXI4VjRWb1YxS3grNFlYS1JR?=
- =?utf-8?B?eWtpVmVVaUNpaGwyOUlycmlNTFRDczZrOTN6NzR5eFJKZWhQeDJQaUNublM4?=
- =?utf-8?B?Qmh0NThtdHpRdHA4Y29PU3E1UXlWSnJjdEtCZVE4VW5VK3prWG1hOE50RXdU?=
- =?utf-8?B?eUVXVGU0VEZaUEtjd1pxbGhHbUJPb2ZNQlNiMEgxcm5oYTF3Y3J2Y0k0c3pn?=
- =?utf-8?Q?ndaNob9G69UyP6SZmx1M2HO+t?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VktMNUNrS0NKUTRualpuUTlZUFN1bTc1bEtHbzdCbTNQVDc4VTRHb3lXUmZG?=
+ =?utf-8?B?QzdOeTZ0ME9nOCtOSGlIVGIwSU1TWFZWRW9rUGgwV2FyTGRkRkdqNDB1ZWR6?=
+ =?utf-8?B?YkxYa21QUnlDU29wbklnOVFxVmV1T1BqcXUxMlRaWG1CL3ZoQ2ZTMXY0UmdL?=
+ =?utf-8?B?TzJ3NDVKakJwakkwNjljcHZPSExUU00vRXVwcmt4VmROTTRtMHdqMVl1VFpT?=
+ =?utf-8?B?MWFPY0ZkejBBRm5vUkdtMGhSVDFyenBwbE1GdXV2YmhrRUZnbFFjd1IxUlJH?=
+ =?utf-8?B?NFlnUnVmMnc0ZkRucmJvN2NDWlBnTURSS3pzWnFiUHE0VjE2MzVEdlpzNXNW?=
+ =?utf-8?B?cmhnbnFaclFXMEM3LzdWN1prdXpudlo4SkFZcm9hRlR1ZVZjZjZvR3RRdWNC?=
+ =?utf-8?B?SHlzV2dyRWhiUkg0Mk5XU3hLU2YzSUxkbVdUS3U1TjA0VmNWcDh2bmVobVlq?=
+ =?utf-8?B?TXBWaDZwM0o5ZXc3ZlI5SUltOWpYaE9RYklicU5oQkw0YkpUeUxQUXJ4a1VC?=
+ =?utf-8?B?SGMzS1ZOazBIL0YrUk9rZ2luSVVHMGNvZWFsUDUyOEIyMWVYWTh6TVFYS0M0?=
+ =?utf-8?B?NU5OOGN3THgzaVROcGJXRm1Vc2lENy9ka2JGTGpuWUJ5MmVTbDh2SjJoaytP?=
+ =?utf-8?B?amIwci9ESGU4VWFuWXZQZ3VDajNhVVBmbFlTVUpWT3RUOW8wUHZjT3g1U0dm?=
+ =?utf-8?B?clN2aXo3MFRCVEcrdURza04yZ0doZ282K1E1NUthUEtaTEMyZ1d6Q3R6VUtG?=
+ =?utf-8?B?cWpYcE1QTWd2K1FFMzhXVE0xV3FSWHZ1UWVzYkwvS2J4aUxLbmJSS21PUm1w?=
+ =?utf-8?B?a3JiVzRJWEI2eEFLT2VpRjJtOXpXdmEzQlI0N3liZVZVMWdiK0pEYjJQUWlh?=
+ =?utf-8?B?bVlQeE5EdGhUa1pKeHV1Mk9iWGovL1g2cmdTNzRwb3pNQjdRZy9XZ2FQS0Jl?=
+ =?utf-8?B?cWJWWDEwbmZCNEZsZ3JoNG1DanhFbzZYS2dRY2NhNEN5a1FtWmJRVVBaSUpY?=
+ =?utf-8?B?QTcwL1BpZ0w5cTRWMVhvaHdGcG5mWXdpOFplaU5qNjR6Tk56TDIwd0JSM0d3?=
+ =?utf-8?B?TWl6Z0NPcndXeGdvNGNOdDltWmt5ZVFnWERqOXdtc3JqTFNsL2JsSytCcEtD?=
+ =?utf-8?B?dnVyajFJVDdONENDVTltSnNQV3F0eHkrWGl6UEZpQmY4eVZ0VnU2UTZFYXJ0?=
+ =?utf-8?B?R3F6eTVxOUJQdkJOV1R2UUlQM1R4R2Z1aEtHMjFLY285REUrRGlaTG0yVGpW?=
+ =?utf-8?B?TDBWY285bmFLYmRqd2gzSG1tUHJhdVFlTEhWdWRHc2dVUStKWjlQK2o4U2xx?=
+ =?utf-8?B?MlIrMEViUFAvbVV1RnRiQk5lcHYyMXlZMEFnTWtUSTk4RHNRUjB6SGtuNStI?=
+ =?utf-8?B?eGVORE92NE1YVFhqTTNIdEUvdUVDZit2bXk2aDRhS3k5c0tPYy9MTUZycGJo?=
+ =?utf-8?B?Qkt1b3Bzd2hhbGdvMUU1bXJwTzZxdU1lenpGcXY5MWI4TzZ2RXIwWTFzaTYx?=
+ =?utf-8?B?ZUtIVno4cXd4S0N1UjNaMGZNNmpLM1NrV0M3eElDYU1xa2J3d2JNT3AyRjM2?=
+ =?utf-8?B?bXlhZXkyRjJXVmE0RHBnOEttcUpRbS9hQUZsZE9TMytraFBXWTdnRDVhN0xy?=
+ =?utf-8?B?WUljK3B3cjNYL01saVhBSWFsKzltMFM2d3p6WFlWVnQ4NW9rYXoreGlJNFZp?=
+ =?utf-8?B?R0NUZjd5U3d1elZkUlY0S1NYVGxqQVh2MmNjTzNwNWV4aEVMdGp0UjJ4bDk2?=
+ =?utf-8?B?bjF3ZVBjNzRFWVNnS0IwbDh0blVwSndDOVBCcVlMUnpleXlJOEVhaEJxc0xF?=
+ =?utf-8?B?ZEI0WnNUam5mUjJTVlNSTVlaOE1qNmtJb01yWHRwa1pNM0xZRzZyd082MTZ1?=
+ =?utf-8?B?clZpVlplMlh2cXFDdHE0eVlISTE3VUF4T0NoMlB1QzV3Tmt6WnpCT21OdHpG?=
+ =?utf-8?B?K1VXenFhZVViNnhiUnVLNDdIeUN2YkNBcjJhWm5sZUZYRUtiMThkdE42OFJO?=
+ =?utf-8?B?UnRwY1pzazdzcWxJOVpnUFBEekpOZmpLdjg4dWtRU0orQ3FPejhvd1JycW96?=
+ =?utf-8?B?TnhhRWhPYk5kdUkvT2tsVU82RWJ2WUJBbUt0VzUvUWRWcUI2elhjcE9GaWFC?=
+ =?utf-8?Q?wD5dlhyG19pQOQOAJsl8KyGBK?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 899aa06e-63fc-4b87-ee59-08dcfe7a0749
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2166764e-314b-43b9-b59a-08dcfe7a1807
 X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7491.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2024 15:45:24.3751 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2024 15:45:52.3780 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HouGqSdDsfN0YF9TSncExARn/hUBPvELyYLMQRD447ooKnfq6GzMN0uSFhTN1OCUagkjJz0oyqkzSvcHhnHdvQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4282
+X-MS-Exchange-CrossTenant-UserPrincipalName: dyN2/M6BdAblaT+ughdwL6jcJPsol16AqcVk3paaFJ1yA/cp9EZJ4NWRYFkD/xvLHhKlwFzs5Zwogk8Grt/vDA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9418
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,46 +157,138 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------JzZDrvO4hdHYmVDuIMBfzHaW
+--------------PYqHpVZpw0uISjUADlD1ml0g
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
 Reviewed-by: Boyuan Zhang <Boyuan.Zhang@amd.com>
 
-On 2024-11-05 21:16, Srinivasan Shanmugam wrote:
-> This commit adds the missing kdoc parameter descriptor for 'inst' in the
-> smu_dpm_set_power_gate function.
+On 2024-11-05 21:09, Srinivasan Shanmugam wrote:
+> This commit corrects the descriptors for the
+> vcn_v4_0/v4_0_3/v4_0_5/v5_0_0 _set_clockgating_state and
+> vcn_v4_0/v4_0_3/v4_0_5/v5_0_0 _set_powergating_state functions in the
+> amdgpu driver.
 >
-> The 'inst' parameter, which specifies the instance of the IP block to
-> power gate/ungate.
+> The parameter descriptors in the comments were mismatched with the
+> actual function parameters. The non-existent 'handle' parameter has been
+> replaced with the correct 'ip_block' parameter in the comments to
+> accurately reflect the function signatures and to resolving the below
+> with gcc W=1:
 >
-> Fixes the below with gcc W=1:
-> drivers/gpu/drm/amd/amdgpu/../pm/swsmu/amdgpu_smu.c:359: warning: Function parameter or struct member 'inst' not described in 'smu_dpm_set_power_gate'
+> drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c:1232: warning: Function parameter or struct member 'ip_block' not described in 'vcn_v5_0_0_set_clockgating_state'
+> drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c:1232: warning: Excess function parameter 'handle' description in 'vcn_v5_0_0_set_clockgating_state'
+> drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c:1263: warning: Function parameter or struct member 'ip_block' not described in 'vcn_v5_0_0_set_powergating_state'
+> drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c:1263: warning: Excess function parameter 'handle' description in 'vcn_v5_0_0_set_powergating_state'
+> drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c:2012: warning: Function parameter or struct member 'ip_block' not described in 'vcn_v4_0_set_clockgating_state'
+> drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c:2012: warning: Excess function parameter 'handle' description in 'vcn_v4_0_set_clockgating_state'
+> drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c:2043: warning: Function parameter or struct member 'ip_block' not described in 'vcn_v4_0_set_powergating_state'
+> drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c:2043: warning: Excess function parameter 'handle' description in 'vcn_v4_0_set_powergating_state'
+> drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c:1505: warning: Function parameter or struct member 'ip_block' not described in 'vcn_v4_0_5_set_clockgating_state'
+> drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c:1505: warning: Excess function parameter 'handle' description in 'vcn_v4_0_5_set_clockgating_state'
+> drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c:1536: warning: Function parameter or struct member 'ip_block' not described in 'vcn_v4_0_5_set_powergating_state'
+> drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c:1536: warning: Excess function parameter 'handle' description in 'vcn_v4_0_5_set_powergating_state'
+> drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c:1629: warning: Function parameter or struct member 'ip_block' not described in 'vcn_v4_0_3_set_powergating_state'
+> drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c:1629: warning: Excess function parameter 'handle' description in 'vcn_v4_0_3_set_powergating_state'
 >
 > Cc: Christian König<christian.koenig@amd.com>
 > Cc: Alex Deucher<alexander.deucher@amd.com>
 > Signed-off-by: Srinivasan Shanmugam<srinivasan.shanmugam@amd.com>
 > ---
->   drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 5 +++--
->   1 file changed, 3 insertions(+), 2 deletions(-)
+>   drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c   | 4 ++--
+>   drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c | 4 ++--
+>   drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c | 4 ++--
+>   drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c | 4 ++--
+>   4 files changed, 8 insertions(+), 8 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> index d08c61cddede..0a82fd5a8cbb 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> @@ -342,8 +342,9 @@ static int smu_set_mall_enable(struct smu_context *smu)
->    * smu_dpm_set_power_gate - power gate/ungate the specific IP block
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+> index 87c8f1c084a5..385596df47aa 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+> @@ -2002,7 +2002,7 @@ static int vcn_v4_0_wait_for_idle(struct amdgpu_ip_block *ip_block)
+>   /**
+>    * vcn_v4_0_set_clockgating_state - set VCN block clockgating state
 >    *
->    * @handle:        smu_context pointer
-> - * @block_type: the IP block to power gate/ungate
-> - * @gate:       to power gate if true, ungate otherwise
-> + * @block_type:    the IP block to power gate/ungate
-> + * @gate:          to power gate if true, ungate otherwise
-> + * @inst:          the instance of the IP block to power gate/ungate
+> - * @handle: amdgpu_device pointer
+> + * @ip_block: amdgpu_ip_block pointer
+>    * @state: clock gating state
 >    *
->    * This API uses no smu->mutex lock protection due to:
->    * 1. It is either called by other IP block(gfx/sdma/vcn/uvd/vce).
---------------JzZDrvO4hdHYmVDuIMBfzHaW
+>    * Set VCN block clockgating state
+> @@ -2033,7 +2033,7 @@ static int vcn_v4_0_set_clockgating_state(struct amdgpu_ip_block *ip_block,
+>   /**
+>    * vcn_v4_0_set_powergating_state - set VCN block powergating state
+>    *
+> - * @handle: amdgpu_device pointer
+> + * @ip_block: amdgpu_ip_block pointer
+>    * @state: power gating state
+>    *
+>    * Set VCN block powergating state
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+> index 7b0f350d5fca..ac0e76cbaa2d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+> @@ -1591,7 +1591,7 @@ static int vcn_v4_0_3_wait_for_idle(struct amdgpu_ip_block *ip_block)
+>   
+>   /* vcn_v4_0_3_set_clockgating_state - set VCN block clockgating state
+>    *
+> - * @handle: amdgpu_device pointer
+> + * @ip_block: amdgpu_ip_block pointer
+>    * @state: clock gating state
+>    *
+>    * Set VCN block clockgating state
+> @@ -1619,7 +1619,7 @@ static int vcn_v4_0_3_set_clockgating_state(struct amdgpu_ip_block *ip_block,
+>   /**
+>    * vcn_v4_0_3_set_powergating_state - set VCN block powergating state
+>    *
+> - * @handle: amdgpu_device pointer
+> + * @ip_block: amdgpu_ip_block pointer
+>    * @state: power gating state
+>    *
+>    * Set VCN block powergating state
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
+> index 9c5257f370f2..98d0ee299c74 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
+> @@ -1495,7 +1495,7 @@ static int vcn_v4_0_5_wait_for_idle(struct amdgpu_ip_block *ip_block)
+>   /**
+>    * vcn_v4_0_5_set_clockgating_state - set VCN block clockgating state
+>    *
+> - * @handle: amdgpu_device pointer
+> + * @ip_block: amdgpu_ip_block pointer
+>    * @state: clock gating state
+>    *
+>    * Set VCN block clockgating state
+> @@ -1526,7 +1526,7 @@ static int vcn_v4_0_5_set_clockgating_state(struct amdgpu_ip_block *ip_block,
+>   /**
+>    * vcn_v4_0_5_set_powergating_state - set VCN block powergating state
+>    *
+> - * @handle: amdgpu_device pointer
+> + * @ip_block: amdgpu_ip_block pointer
+>    * @state: power gating state
+>    *
+>    * Set VCN block powergating state
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
+> index 4ecf0aea156f..9cd4d70058ea 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
+> @@ -1222,7 +1222,7 @@ static int vcn_v5_0_0_wait_for_idle(struct amdgpu_ip_block *ip_block)
+>   /**
+>    * vcn_v5_0_0_set_clockgating_state - set VCN block clockgating state
+>    *
+> - * @handle: amdgpu_device pointer
+> + * @ip_block: amdgpu_ip_block pointer
+>    * @state: clock gating state
+>    *
+>    * Set VCN block clockgating state
+> @@ -1253,7 +1253,7 @@ static int vcn_v5_0_0_set_clockgating_state(struct amdgpu_ip_block *ip_block,
+>   /**
+>    * vcn_v5_0_0_set_powergating_state - set VCN block powergating state
+>    *
+> - * @handle: amdgpu_device pointer
+> + * @ip_block: amdgpu_ip_block pointer
+>    * @state: power gating state
+>    *
+>    * Set VCN block powergating state
+--------------PYqHpVZpw0uISjUADlD1ml0g
 Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
@@ -206,45 +298,137 @@ Content-Transfer-Encoding: 8bit
   <body>
     <p><font size="3" face="Times New Roman"><span style="font-size:12pt;"><font size="2"><span style="font-size:11pt;"><span data-markjs="true" class="markwv0w52iao" style="" data-ogac="" data-ogab="" data-ogsc="" data-ogsb="" data-olk-copy-source="MessageBody">Reviewed-by</span>:
               Boyuan Zhang <a class="moz-txt-link-rfc2396E" href="mailto:Boyuan.Zhang@amd.com">&lt;Boyuan.Zhang@amd.com&gt;</a></span></font></span></font></p>
-    <div class="moz-cite-prefix">On 2024-11-05 21:16, Srinivasan
+    <div class="moz-cite-prefix">On 2024-11-05 21:09, Srinivasan
       Shanmugam wrote:<br>
     </div>
-    <blockquote type="cite" cite="mid:20241106021646.4089039-1-srinivasan.shanmugam@amd.com">
-      <pre class="moz-quote-pre" wrap="">This commit adds the missing kdoc parameter descriptor for 'inst' in the
-smu_dpm_set_power_gate function.
+    <blockquote type="cite" cite="mid:20241106020918.4086736-1-srinivasan.shanmugam@amd.com">
+      <pre class="moz-quote-pre" wrap="">This commit corrects the descriptors for the
+vcn_v4_0/v4_0_3/v4_0_5/v5_0_0 _set_clockgating_state and
+vcn_v4_0/v4_0_3/v4_0_5/v5_0_0 _set_powergating_state functions in the
+amdgpu driver.
 
-The 'inst' parameter, which specifies the instance of the IP block to
-power gate/ungate.
+The parameter descriptors in the comments were mismatched with the
+actual function parameters. The non-existent 'handle' parameter has been
+replaced with the correct 'ip_block' parameter in the comments to
+accurately reflect the function signatures and to resolving the below
+with gcc W=1:
 
-Fixes the below with gcc W=1:
-drivers/gpu/drm/amd/amdgpu/../pm/swsmu/amdgpu_smu.c:359: warning: Function parameter or struct member 'inst' not described in 'smu_dpm_set_power_gate'
+drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c:1232: warning: Function parameter or struct member 'ip_block' not described in 'vcn_v5_0_0_set_clockgating_state'
+drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c:1232: warning: Excess function parameter 'handle' description in 'vcn_v5_0_0_set_clockgating_state'
+drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c:1263: warning: Function parameter or struct member 'ip_block' not described in 'vcn_v5_0_0_set_powergating_state'
+drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c:1263: warning: Excess function parameter 'handle' description in 'vcn_v5_0_0_set_powergating_state'
+drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c:2012: warning: Function parameter or struct member 'ip_block' not described in 'vcn_v4_0_set_clockgating_state'
+drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c:2012: warning: Excess function parameter 'handle' description in 'vcn_v4_0_set_clockgating_state'
+drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c:2043: warning: Function parameter or struct member 'ip_block' not described in 'vcn_v4_0_set_powergating_state'
+drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c:2043: warning: Excess function parameter 'handle' description in 'vcn_v4_0_set_powergating_state'
+drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c:1505: warning: Function parameter or struct member 'ip_block' not described in 'vcn_v4_0_5_set_clockgating_state'
+drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c:1505: warning: Excess function parameter 'handle' description in 'vcn_v4_0_5_set_clockgating_state'
+drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c:1536: warning: Function parameter or struct member 'ip_block' not described in 'vcn_v4_0_5_set_powergating_state'
+drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c:1536: warning: Excess function parameter 'handle' description in 'vcn_v4_0_5_set_powergating_state'
+drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c:1629: warning: Function parameter or struct member 'ip_block' not described in 'vcn_v4_0_3_set_powergating_state'
+drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c:1629: warning: Excess function parameter 'handle' description in 'vcn_v4_0_3_set_powergating_state'
 
 Cc: Christian König <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig@amd.com">&lt;christian.koenig@amd.com&gt;</a>
 Cc: Alex Deucher <a class="moz-txt-link-rfc2396E" href="mailto:alexander.deucher@amd.com">&lt;alexander.deucher@amd.com&gt;</a>
 Signed-off-by: Srinivasan Shanmugam <a class="moz-txt-link-rfc2396E" href="mailto:srinivasan.shanmugam@amd.com">&lt;srinivasan.shanmugam@amd.com&gt;</a>
 ---
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c   | 4 ++--
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c | 4 ++--
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c | 4 ++--
+ drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c | 4 ++--
+ 4 files changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-index d08c61cddede..0a82fd5a8cbb 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-@@ -342,8 +342,9 @@ static int smu_set_mall_enable(struct smu_context *smu)
-  * smu_dpm_set_power_gate - power gate/ungate the specific IP block
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+index 87c8f1c084a5..385596df47aa 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+@@ -2002,7 +2002,7 @@ static int vcn_v4_0_wait_for_idle(struct amdgpu_ip_block *ip_block)
+ /**
+  * vcn_v4_0_set_clockgating_state - set VCN block clockgating state
   *
-  * @handle:        smu_context pointer
-- * @block_type: the IP block to power gate/ungate
-- * @gate:       to power gate if true, ungate otherwise
-+ * @block_type:    the IP block to power gate/ungate
-+ * @gate:          to power gate if true, ungate otherwise
-+ * @inst:          the instance of the IP block to power gate/ungate
+- * @handle: amdgpu_device pointer
++ * @ip_block: amdgpu_ip_block pointer
+  * @state: clock gating state
   *
-  * This API uses no smu-&gt;mutex lock protection due to:
-  * 1. It is either called by other IP block(gfx/sdma/vcn/uvd/vce).
+  * Set VCN block clockgating state
+@@ -2033,7 +2033,7 @@ static int vcn_v4_0_set_clockgating_state(struct amdgpu_ip_block *ip_block,
+ /**
+  * vcn_v4_0_set_powergating_state - set VCN block powergating state
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: amdgpu_ip_block pointer
+  * @state: power gating state
+  *
+  * Set VCN block powergating state
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+index 7b0f350d5fca..ac0e76cbaa2d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+@@ -1591,7 +1591,7 @@ static int vcn_v4_0_3_wait_for_idle(struct amdgpu_ip_block *ip_block)
+ 
+ /* vcn_v4_0_3_set_clockgating_state - set VCN block clockgating state
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: amdgpu_ip_block pointer
+  * @state: clock gating state
+  *
+  * Set VCN block clockgating state
+@@ -1619,7 +1619,7 @@ static int vcn_v4_0_3_set_clockgating_state(struct amdgpu_ip_block *ip_block,
+ /**
+  * vcn_v4_0_3_set_powergating_state - set VCN block powergating state
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: amdgpu_ip_block pointer
+  * @state: power gating state
+  *
+  * Set VCN block powergating state
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
+index 9c5257f370f2..98d0ee299c74 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c
+@@ -1495,7 +1495,7 @@ static int vcn_v4_0_5_wait_for_idle(struct amdgpu_ip_block *ip_block)
+ /**
+  * vcn_v4_0_5_set_clockgating_state - set VCN block clockgating state
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: amdgpu_ip_block pointer
+  * @state: clock gating state
+  *
+  * Set VCN block clockgating state
+@@ -1526,7 +1526,7 @@ static int vcn_v4_0_5_set_clockgating_state(struct amdgpu_ip_block *ip_block,
+ /**
+  * vcn_v4_0_5_set_powergating_state - set VCN block powergating state
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: amdgpu_ip_block pointer
+  * @state: power gating state
+  *
+  * Set VCN block powergating state
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
+index 4ecf0aea156f..9cd4d70058ea 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
+@@ -1222,7 +1222,7 @@ static int vcn_v5_0_0_wait_for_idle(struct amdgpu_ip_block *ip_block)
+ /**
+  * vcn_v5_0_0_set_clockgating_state - set VCN block clockgating state
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: amdgpu_ip_block pointer
+  * @state: clock gating state
+  *
+  * Set VCN block clockgating state
+@@ -1253,7 +1253,7 @@ static int vcn_v5_0_0_set_clockgating_state(struct amdgpu_ip_block *ip_block,
+ /**
+  * vcn_v5_0_0_set_powergating_state - set VCN block powergating state
+  *
+- * @handle: amdgpu_device pointer
++ * @ip_block: amdgpu_ip_block pointer
+  * @state: power gating state
+  *
+  * Set VCN block powergating state
 </pre>
     </blockquote>
   </body>
 </html>
 
---------------JzZDrvO4hdHYmVDuIMBfzHaW--
+--------------PYqHpVZpw0uISjUADlD1ml0g--
