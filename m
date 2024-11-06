@@ -4,63 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CEBBD44D78
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 Nov 2024 15:12:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9414DD29FBB
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 Nov 2024 15:27:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4725010E145;
-	Wed,  6 Nov 2024 15:12:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38B8B10E70C;
+	Wed,  6 Nov 2024 15:27:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mk9PJ5v7";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MZPdnoV8";
 	dkim-atps=neutral
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com
- [209.85.215.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA1E710E145
- for <amd-gfx@lists.freedesktop.org>; Wed,  6 Nov 2024 15:12:33 +0000 (UTC)
-Received: by mail-pg1-f171.google.com with SMTP id
- 41be03b00d2f7-7ea535890e0so955196a12.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 06 Nov 2024 07:12:33 -0800 (PST)
+Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com
+ [209.85.215.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6DC9610E2F1;
+ Wed,  6 Nov 2024 15:27:32 +0000 (UTC)
+Received: by mail-pg1-f170.google.com with SMTP id
+ 41be03b00d2f7-7ea7e2204d1so1125587a12.0; 
+ Wed, 06 Nov 2024 07:27:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1730905953; x=1731510753; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1730906852; x=1731511652; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=THzqLEWvEb/85bhWd5Dm4VO5OcBrcIT26HQoIGNyrik=;
- b=mk9PJ5v7HQtXwduuj63B+fig+Kdv0c/VPTgUeT9TX/g5lka2WzZMQAA8MsCR5oY1os
- LHWvI8IzmUkKxccvb+50ZM/LqQ/RlXwqwxVOYsk7Rhpoc8ZhB0OgGrIM6EgqqJUJpeFq
- mfGcCuXoiPf56nr4MU2Gq1ZE6AAj0jk7O6qBgP/yZZDUIQZDaJ5mO1U5kOkNx9avRCBc
- Kd1pWSLfCz1i1SGQuOhhdz0MUf96/AlBgmCTm7tp1W8zihNNZNEHxuOl1ogfpHr4FJCx
- eEj6sCx8qSKeSEjDk9/vt5oCT14S8ppB1DuUHuvHId/w9PZmDO9mLgL2Pmng9oUdgIMn
- FXCw==
+ bh=N89Fo9DcmQh+49s/r11V+5uI0yB2KQxSET80sqWYF/M=;
+ b=MZPdnoV8foKJVCoj9EVIX+YZ9wq0fSxySMVx8YoPV3e8Tvm/fjcA3ci9QlrZ6JwYk9
+ cx9bqeKx5scZ1BKBQ7rcOhdwR0OJp/XGZOfigbTsKMD/BKI8NTB2OQfSZon7JjAwDbUM
+ WnJqCMg+k2g6Gq3T9tAdLePUEico/VxULygI6e1k5GZ3cjjOTAHMsFDcUwhHeMtH4niO
+ 0uMwLGtu28yJtSMiZ5oKRTIfel6OsJu48fgqDy34eFCNKNRTe7poM9Ju19asTBXdDj/B
+ aJZrg8dvfpCGcXUr1ut4iN1tem1fdElpbFheM7fVCjkIoN0gHG6s+rvisvSHNwFmVC4n
+ 6t7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1730905953; x=1731510753;
+ d=1e100.net; s=20230601; t=1730906852; x=1731511652;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=THzqLEWvEb/85bhWd5Dm4VO5OcBrcIT26HQoIGNyrik=;
- b=Z/Avs7/C+usE2Dn7JBIpqelmRbQKPABgSvF3vuE6rij+H/nzFvn97xEFBlWiLfkpQV
- TcVjiL1IXpXwK/XE/luFvF4l6AA+TDD5yGUGjH5GzqRI0LUk3raqXhfVfqXyI/3VXN/q
- Y8ryRRQmz4/XPVMPPUOjHsw0L82wfBHe+UsjrSRhhuSUwnxffQu1BxYrv0hYBIki2Vma
- QGPZFhdcQm8/fdiVuLBwjJaRnZ1nT5kAClFSu70K1USR3nQi26tdzEqwU+rMIPKmHGGL
- aGCWrVbzGcGg5mlbVrgPtmldBjPVKPs9wwegSIOZv8udWLegn2S6nf713V3R/8bB32Ug
- eHPw==
-X-Gm-Message-State: AOJu0Ywi4weW75pLHdB0txqZeUFbpV5/bhv8smNeQr5lVfK6765S6rl7
- qFhYBPIypGcYmmVVvHIlozZ0tZeAYJVBHKDQfKA4fpLMV1jcHDHsF/dosl9OCPnzbvFdi9t4ftJ
- QpKW1+QaF7YQNblCF/BzUM4cH88bC9A==
-X-Google-Smtp-Source: AGHT+IFBNwi7PBNK1QB1dAtrK/Dovc2hioc3wYlyOz/fWQ+aH+cHDUkWjDqKWE2dhsMdqDq6KWD7bHwaOCb+ES1/rmA=
-X-Received: by 2002:a17:90b:1d89:b0:2e2:e545:82c6 with SMTP id
- 98e67ed59e1d1-2e8f0f4fad4mr19163189a91.2.1730905953267; Wed, 06 Nov 2024
- 07:12:33 -0800 (PST)
+ bh=N89Fo9DcmQh+49s/r11V+5uI0yB2KQxSET80sqWYF/M=;
+ b=Q5+Bm1MFHgMgbXHadq5m3P11+tCE4TqdHykGVOcoFqNsuTBBB1G94YfJ7UPuZzsrmd
+ Cpw2oQsem79DgEWeiOQUc6vbiSX5tlvpoun7z5GODmUs+CTT+iTucxNi0FExQ2TGhyrC
+ 2x2F9k/Ce2len5bBOE2ywFa17Mv11ZCXSLyySdfPRlyVXuOmJPaMQzydGiG+x2tBm6J7
+ cEG2jW+cqVJnB9NhOL+3P5CdsTqCkHqrXenoP2YElBlxPRXdjl6+ly+WsFn1fVBBhTud
+ WJTdv477yiZaWaWM0to/9RyxdcKjei9sIkTfpc/cqCZNK7vV558UESlYWZOjcviCNPAQ
+ jrAQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX2MaR8ot2AIQclhCa5sma3vscN1qwDH/IEPZlQ4Jg5iLq6NgxVDtix6XSieePHIu9KeRuGp2PZykpl@lists.freedesktop.org,
+ AJvYcCXI1mwRPVyyPhUkbwaYDQyc8ylj9JN0/GqbBgfADXA7EdLJP0OvHhMB5S9fOorioGdHr6UjKYXJ@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzZd5QlmxAtKOtPjfvlVuxD3F947gUjJEqf1nBxzpuda7qxkGuK
+ lNbI8zGhEZ0fJnAnYG8PjWFOOLo9Ppst5gxM3SqpibXOyWACB9grL9tyKOj8f24upRU8998dZou
+ /TCrZTrQmbhCsXHWyWsqQe4f4do1bLw==
+X-Google-Smtp-Source: AGHT+IGahZV2s0jrrFME50JPfqWlFbkg+b2gaupSacy0btnmiwh794Y0JPIA7PhyejD8rRMMkv2YE2ATPbPZgf2PcdU=
+X-Received: by 2002:a17:90a:5205:b0:2e2:da69:e3fa with SMTP id
+ 98e67ed59e1d1-2e8f104fc1emr19006356a91.2.1730906851873; Wed, 06 Nov 2024
+ 07:27:31 -0800 (PST)
 MIME-Version: 1.0
-References: <20241106063322.2443403-1-Victor.Zhao@amd.com>
- <20241106063322.2443403-2-Victor.Zhao@amd.com>
-In-Reply-To: <20241106063322.2443403-2-Victor.Zhao@amd.com>
+References: <20241105140256.2465614-1-quzicheng@huawei.com>
+ <20241105140256.2465614-2-quzicheng@huawei.com>
+In-Reply-To: <20241105140256.2465614-2-quzicheng@huawei.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 6 Nov 2024 10:12:20 -0500
-Message-ID: <CADnq5_NDDBsWrZvxQrCk8-qXfk-xBUBTM62SNawC__BANtpjOQ@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amdkfd: use cache GTT buffer for PQ and wb pool
-To: Victor Zhao <Victor.Zhao@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, monk.liu@amd.com, christian.koenig@amd.com, 
- philip.yang@amd.com, felix.kuehling@amd.com
+Date: Wed, 6 Nov 2024 10:27:19 -0500
+Message-ID: <CADnq5_OaH9e=4xX=ZJ1yH__EMo6x2Kzh1ZdD2rU+KG5x=4b_4Q@mail.gmail.com>
+Subject: Re: [PATCH 1/2] drm/amd/display: Fix incorrect power gating
+ configuration for DOMAIN10
+To: Zicheng Qu <quzicheng@huawei.com>
+Cc: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, 
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com, 
+ airlied@gmail.com, simona@ffwll.ch, Alvin.Lee2@amd.com, 
+ chiahsuan.chung@amd.com, alex.hung@amd.com, wenjing.liu@amd.com, 
+ Dillon.Varone@amd.com, george.shen@amd.com, mwen@igalia.com, yi-lchen@amd.com, 
+ martin.leung@amd.com, yongqiang.sun@amd.com, tony.cheng@amd.com, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, tanghui20@huawei.com, zhangqiao22@huawei.com, 
+ judy.chenhui@huawei.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -77,45 +88,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Nov 6, 2024 at 1:49=E2=80=AFAM Victor Zhao <Victor.Zhao@amd.com> wr=
+On Wed, Nov 6, 2024 at 3:18=E2=80=AFAM Zicheng Qu <quzicheng@huawei.com> wr=
 ote:
 >
-> From: Monk Liu <Monk.Liu@amd.com>
->
-> As cache GTT buffer is snooped, this way the coherence between CPU write
-> and GPU fetch is guaranteed, but original code uses WC + unsnooped for
-> HIQ PQ(ring buffer) which introduces coherency issues:
-> MEC fetches a stall data from PQ and leads to MEC hang.
+> The current implementation incorrectly updates DOMAIN10_PG_CONFIG with
+> DOMAIN8_POWER_FORCEON, which is not the intended behavior. This patch
+> corrects the power gating configuration by updating DOMAIN10_PG_CONFIG
+> with DOMAIN10_POWER_FORCEON, preventing potential issues related to
+> power management.
 
-Can you elaborate on this?  I can see CPU reads being slower because
-the memory is uncached, but the ring buffer is mostly writes anyway.
-IIRC, the driver uses USWC for most if not all of the other ring
-buffers managed by the kernel.  Why aren't those a problem?
+The bitfield is the same for both so there is no functional change.
+This is just a cosmetic change to use the right bitfield macro.
 
 Alex
 
 >
-> Signed-off-by: Monk Liu <Monk.Liu@amd.com>
+> Fixes: 46825fcfbe16 ("drm/amd/display: avoid power gate domains that does=
+n't exist")
+> Signed-off-by: Zicheng Qu <quzicheng@huawei.com>
 > ---
->  drivers/gpu/drm/amd/amdkfd/kfd_device.c | 2 +-
+>  drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c | 2 +-
 >  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/am=
-d/amdkfd/kfd_device.c
-> index 1f1d79ac5e6c..fb087a0ff5bc 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-> @@ -779,7 +779,7 @@ bool kgd2kfd_device_init(struct kfd_dev *kfd,
->         if (amdgpu_amdkfd_alloc_gtt_mem(
->                         kfd->adev, size, &kfd->gtt_mem,
->                         &kfd->gtt_start_gpu_addr, &kfd->gtt_start_cpu_ptr=
-,
-> -                       false, true)) {
-> +                       false, false)) {
->                 dev_err(kfd_device, "Could not allocate %d bytes\n", size=
-);
->                 goto alloc_gtt_mem_failure;
->         }
+> diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c b/dr=
+ivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
+> index a80c08582932..67a77274d813 100644
+> --- a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
+> +++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
+> @@ -317,7 +317,7 @@ void dcn20_enable_power_gating_plane(
+>         if (REG(DOMAIN8_PG_CONFIG))
+>                 REG_UPDATE(DOMAIN8_PG_CONFIG, DOMAIN8_POWER_FORCEON, forc=
+e_on);
+>         if (REG(DOMAIN10_PG_CONFIG))
+> -               REG_UPDATE(DOMAIN10_PG_CONFIG, DOMAIN8_POWER_FORCEON, for=
+ce_on);
+> +               REG_UPDATE(DOMAIN10_PG_CONFIG, DOMAIN10_POWER_FORCEON, fo=
+rce_on);
+>
+>         /* DPP0/1/2/3/4/5 */
+>         REG_UPDATE(DOMAIN1_PG_CONFIG, DOMAIN1_POWER_FORCEON, force_on);
 > --
 > 2.34.1
 >
