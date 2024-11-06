@@ -4,146 +4,146 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE330D59F52
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 Nov 2024 17:07:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE1C3D59F53
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 Nov 2024 17:21:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7458710E73D;
-	Wed,  6 Nov 2024 17:07:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4393010E08C;
+	Wed,  6 Nov 2024 17:21:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="wsbMRDMs";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZJ+dbRjK";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2060.outbound.protection.outlook.com [40.107.220.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B4B3510E73D
- for <amd-gfx@lists.freedesktop.org>; Wed,  6 Nov 2024 17:07:42 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2086.outbound.protection.outlook.com [40.107.223.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D7B210E08C
+ for <amd-gfx@lists.freedesktop.org>; Wed,  6 Nov 2024 17:21:49 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Oe8A/S/vdXGyiTXMVR1q7lnqzoiPJcIihFxJsHX2mg+4FkjLLJbn7Khp2F08+o5x9TXc1Cp12POxy4Cc7zTaUzZ86iM4fF+mXuHzrIBlBfslziJ0mgID3JMNO3Sk69LYIXO/hGKnxdvuSPbI6b1qw6dPVjXkCzHQN0miXB2JC8rkpnxyW8GRFAbIGfnFx/G4lNB5bdbXVfthMqijnJw0+xPrbM+jxmrd92FmWtBn2XNb9amFJATLDtFzeqomqRurpunr63kNE9YbelX/O40jxqRE7wBviF+2WqamNPEqmJJBnUpkeVKkTg8Rd6DdrER6Z2ZMdxIhhdtIGQjovRlvZQ==
+ b=UdklFdlEuMzMCOs2zSa2Kh0wlqLowbfhFzNK0tFiKaaxg+o99uHhO2JANttLjM03HFRwE2Es/FmlNopb9sClV2s6nhxzP++z5l4K/VPp3d03SUvviakLzxQc7yibItsPJ0bnc+dL4Ksf1p7XaVAIatcjewxOyRbl8kwdmgQWQEOxHVSMVBbyqtkd1PyYiqAa6W9FBW558bF2NZZp554720MSBnYIIxqoCtLFVoCh/k+zKuMOoFbQrm+sXNWxkBajpb2LO3oQIO+eWFjGjYZrfdV7GRb+/COEBFtk7pyqLCEltHl8c73Az1ChGvFf4oFBydT26gqD+BfngC8VuK+9Mw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wQQqtgi1hWWsJye+JYOAwtuvF0Pp1IElQiV5YU8p1To=;
- b=DG+6bwdBvM28qUWertZRbmALOAVbVtTbgcf9kiMzF4Zzniigc2JdNON9Sql5VIG0QIU3HgZ+6bxnZ/f8wRsW3/QLAOJjkNk2PcdFNU4wa2/ZpiLVcuWvJBNcyJaxVDL8YPheAtNtbN3ffDMt4Vjvv+OSvF3BWKZkXqqgNJ74kNnGrt5oTXF3c8LGIKXBN7xhvxPF0FjV3U3/mVWowfLd7pHFsf2BcT7tOPtfaOxMnCpwd2MJ+0MUgjRok8rkM2lTw3lD8p7rFoijYib6ZxamEIZIQAHPaOuzzCgcYbDBrVE9IQ2v+9tbDwlZGf40JryWyHg/BqIV5vGJ7ZfcvxbrcA==
+ bh=M3sVw5ChboI/V/CNPtPeCmtCtVGNiIP7lhH8ihag4uw=;
+ b=xnUFK4vveO5+jRJnZBU1HBy9D7djPUwXxxws6ftHkeJQFIIdbw4GRd6IRfbjOeZV0FNttS5Js7ZTbFnNwDOV4NPj+UkoSdsqI0AbqpR99A/wp/zYcE5kmqMJBkDShzDXT2kzPeQ2sJF6Fqe8GXruxuC0G2JGzHX4WkCskPxVxkpYnDkJYQsesWkg7tBNUj0y8t7eltPJIupJrxfIKWuhoWGxTZN6aAG34AERspFrJTwPGeV0sfDL+R2/0t77j89FccjeWUSvAnh/OtcRJngbx0Pq+gNI/iNHIwgdhgYoFBSJZ1FEQiG1FJgQJH5AEEq+0+p6Temh3tBj8cn7hWGXPQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wQQqtgi1hWWsJye+JYOAwtuvF0Pp1IElQiV5YU8p1To=;
- b=wsbMRDMszCdTDEq8eC9HxrtGgofWs7tjGz3ho7ZhDnjaGHNf1ghAndgZF9m8JpZvM80lZO2aIL/m4R6YU+UkRxd42EMxhSZlqp3mAYIuduYXira4wo8FLBMKrKrzgYcCpW9FQlcqnQnar7WW8OXCoJj9Y3owV0/LOfqGx0DPHGA=
+ bh=M3sVw5ChboI/V/CNPtPeCmtCtVGNiIP7lhH8ihag4uw=;
+ b=ZJ+dbRjK3d9qQSrZwua1NqGcmJmhvxkP7jwyLxANVoIdNsMpWo6BJ9Y0Ov37l/+SYJn4Lw2Hr21+o7o1eIvSn6P1sElhA7kgO572iG18AyeTJxFAYUFOaeshL4KjsVYqoQik/SxY6dYBl89IuZbKTb3U1P8UmqNeiOKIUwNSX4g=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CH0PR12MB8464.namprd12.prod.outlook.com (2603:10b6:610:184::11)
- by DS0PR12MB8503.namprd12.prod.outlook.com (2603:10b6:8:15a::10) with
+Received: from DM4PR12MB6566.namprd12.prod.outlook.com (2603:10b6:8:8d::16) by
+ PH0PR12MB7470.namprd12.prod.outlook.com (2603:10b6:510:1e9::20) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8048.22; Wed, 6 Nov
- 2024 17:07:40 +0000
-Received: from CH0PR12MB8464.namprd12.prod.outlook.com
- ([fe80::39f9:c340:9b03:c651]) by CH0PR12MB8464.namprd12.prod.outlook.com
- ([fe80::39f9:c340:9b03:c651%3]) with mapi id 15.20.8137.018; Wed, 6 Nov 2024
- 17:07:40 +0000
-Message-ID: <7d6b833e-f5e9-4879-f7fd-ff65570c90b8@amd.com>
-Date: Wed, 6 Nov 2024 12:07:38 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-Subject: Re: [PATCH] x86/configs: add VIRTIO configs to debug rock defconfig
-Content-Language: en-US
-From: Amber Lin <amber.lin@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: Max Erenberg <Max.Erenberg@amd.com>
-References: <20241106160810.156698-1-Amber.Lin@amd.com>
-In-Reply-To: <20241106160810.156698-1-Amber.Lin@amd.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8137.19; Wed, 6 Nov
+ 2024 17:21:46 +0000
+Received: from DM4PR12MB6566.namprd12.prod.outlook.com
+ ([fe80::31b:5d31:8ba6:abd7]) by DM4PR12MB6566.namprd12.prod.outlook.com
+ ([fe80::31b:5d31:8ba6:abd7%6]) with mapi id 15.20.8137.018; Wed, 6 Nov 2024
+ 17:21:46 +0000
+Message-ID: <9af6ca27-6d3d-45cf-82fc-1b3f54b88a6c@amd.com>
+Date: Wed, 6 Nov 2024 11:21:44 -0600
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdkfd: Differentiate logging message for driver
+ oversubscription
+Content-Language: en-CA
+To: Felix Kuehling <felix.kuehling@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20241028214014.59940-1-xiaogang.chen@amd.com>
+ <db7208d0-f36b-4223-a6da-b8b050f7a074@amd.com>
+From: "Chen, Xiaogang" <xiaogang.chen@amd.com>
+In-Reply-To: <db7208d0-f36b-4223-a6da-b8b050f7a074@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQZPR01CA0012.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:85::10) To CH0PR12MB8464.namprd12.prod.outlook.com
- (2603:10b6:610:184::11)
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SN7PR04CA0013.namprd04.prod.outlook.com
+ (2603:10b6:806:f2::18) To DM4PR12MB6566.namprd12.prod.outlook.com
+ (2603:10b6:8:8d::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH0PR12MB8464:EE_|DS0PR12MB8503:EE_
-X-MS-Office365-Filtering-Correlation-Id: 99ee98ba-d171-4c42-22da-08dcfe85851e
+X-MS-TrafficTypeDiagnostic: DM4PR12MB6566:EE_|PH0PR12MB7470:EE_
+X-MS-Office365-Filtering-Correlation-Id: 451eab25-69ea-44f0-850a-08dcfe877dad
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?VzhmWXZWV0E5YUlkK3VUN3B2LzNwWnUyRlk2a1ZBUG52N1VoUkV0QnRodXll?=
- =?utf-8?B?V1FEd1M0M2FpK2w3Wmt4Y09TWFBUcFhPOWZHMlZLWXQzbUQwZTk4cmZYVzVZ?=
- =?utf-8?B?SklqYmpjYU9iQ2RSeEZLVFFObGExOElaUDNiWnVaMFVrOVZMWVkyT2JJNm9M?=
- =?utf-8?B?R01FU2w1TWJrMmZLRGthb2VFZWpFZU5IQ0VlYlpjMGEyeUlwRytQaWxWQW1S?=
- =?utf-8?B?NnhqTUhueEQ3ejlxbml0RHh4VHE2ODZpbHhBSGFCT2R1YW4rVmZaYVpBTWd5?=
- =?utf-8?B?S01rekpyZStGNlh2THB3eXE4VzI2NVVsZHVlTGZQbUhyQkN4TGN2OFFiNHBa?=
- =?utf-8?B?YzI2WDdnZGdwYzEvRmIrdFdzNjFuUmZOYURtTnlNRWN5d0MwUUhyVnBtVmwz?=
- =?utf-8?B?dnlVZHQwMnFDK1ZlMUIzL29FVStnRG5GUVczWUpmTUVnQ01HdjNJSG4ranZp?=
- =?utf-8?B?K294NTV6V1Y2d3hDb0lGaXhuaSsxQ1Myek9KSjJVQUJLTTRwRmVYNjBYYWMz?=
- =?utf-8?B?M0kzRExGc01laEh3TE80cCsyd3ZTVnV2WnFSZEg0KzZQQkZPNmt2dmdRQ08v?=
- =?utf-8?B?b1I1RGltM0YxWWpWdU95WENFSEpvY0wybSt6Q1VuL1hNOUVUR3ZVRk81QzJQ?=
- =?utf-8?B?eDEvcVZ5RzlLN1dTazRxamdsbzRrKy9MSVl3blNsMk40dU9OcjJrcjBmc0tE?=
- =?utf-8?B?KzJGYk1xSkx5V2F0WWlxSW1qRG1iSUh6Q09tOXBXM0RHcEZmZDlnOG1za1FM?=
- =?utf-8?B?SXNLc2p4SlQwMVhjY2NTTzh2ckRsOTB1T1NvNTYwenVVUVM4MEZyQlR2TVlo?=
- =?utf-8?B?SkYwaXRhOVlLSjlEQmptZkFuOW5Ueld3eGt1VE8xZjZtZldpOUJRSi81YlZQ?=
- =?utf-8?B?WHZOZ2hFTURFZ0p6dFdPbng1VnlkTFZuZ3B5NDVYUkVYTG5pL054VW5HbzY2?=
- =?utf-8?B?VVN5TklNNGVXR3BFS0FNNm9yNmdScU5KbXY5dVBpTVNXQzBhY09LZWIvWFBM?=
- =?utf-8?B?QzdxMzJnaHlxUnd6OVpKbHU2cm94WkR3djR0L2dHcS9iYmU0WGQxRVR2WjZC?=
- =?utf-8?B?aWRsN01TbHptS0QweWdjTjJCZno5VmdlejQzaEpLUXlNcWg4YVBYYS81TUly?=
- =?utf-8?B?MnQwbXJNY3RadG1XcXVHOTZ1N0YvZzNHQVIrMFM5eGZGbTh6WGlYTUQybTFL?=
- =?utf-8?B?elNlSjZNenprZ1R1Mm9wZ05OemV3SEVkK0d0NDlob2thdHhwWm16ckNxemp2?=
- =?utf-8?B?d1lWbTZ2YmdrZklLSUlNMml6eSt1U0taQ3RQTHE3WHI0UENlcGtXSlZlenpV?=
- =?utf-8?B?OTRFSlc2eFF3R0ZVSzNmRnZraFp5YjRUajl2bGRCUFFNaC9sajJ1ek1jek1S?=
- =?utf-8?B?VTNSQXg3eUptaHdQa1RHTHNWMUdFSmRsUGZ4RHBsNjZ1UFA5Y3IwdG03VDBN?=
- =?utf-8?B?N2tjMmFxVGdkaTZSaWtvMitac1pGcng5S0M3VFJlTnV3clpCK2E3Yk1ZNUdl?=
- =?utf-8?B?V3M5d3ppTXpQV1JNYUxpUWtIc0c3K2NUSFJrT2tsakp0NzJESi9WRVV5dlY1?=
- =?utf-8?B?bTRxSEFmaFB2TGk2REw0M0Z3VEREV1p0WXl4djhiM2NhWUZhQS9TbjhYMFlr?=
- =?utf-8?B?MGNic2JFTE9xQWtueU85UDMyMm5JKzlGZFIxdzZlRzZiWWpNSkc5V2Y1d29R?=
- =?utf-8?B?bXV0NlRhSGUrWGQ3bGJPK3hlTXpIQndOaVJxS0lObHVsOGFxRGVjZEgvOU1O?=
- =?utf-8?Q?DryGd0h0GSQW4W6sXc9vgo21ds4Ibr+uCPMHDAk?=
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?aUx6UXFZcGhFRlFFZG9jUGkvRkVpeHpyT1lyV3dXY1RGbUloaVVnaTRhMThE?=
+ =?utf-8?B?dE1xaVlORk9FYnBDMjRDT2JwUWwva3V6OWY5YlE1cG5Zc3dWT3FPS2JpZjBV?=
+ =?utf-8?B?cktSNCtOYjhybGtCUTNsVUw1c2VLWjdXV2pjUjFzR3JUNTdtMUhveHUzUGRx?=
+ =?utf-8?B?ZVk3OWJ4TytDUjBraUo3czVleUtudjA2UDhzajNqMjc2Y0pBQmNsWVMrVEpl?=
+ =?utf-8?B?aFpaZm14dTRaZW1kNmFFZEJjRG00VUhsdHd5MUZlVEU4ckNxRkNlNVZGQXp4?=
+ =?utf-8?B?TkxVejNDN1IrLzdJdEkxVXRsOGtYS1hGZUJuMnFaOFE4ZW1Kb0U0c1lBODh6?=
+ =?utf-8?B?SFpUSk5NeWNSUGNWV3h5ODlpRkpNUWVXSlQvWVlsZEpkOThLbTFzWjVvN09E?=
+ =?utf-8?B?ek95Kytvend3Q29ZYVNHMEdXODR5Rll0YjZBOHJkYk1IQklzU0JickRlVXFC?=
+ =?utf-8?B?ZEdSTjJ6WnA5WWNFN2MyayszUVlHVGJ0clRPY21vZSswMGtUMGx0OTMvTkp5?=
+ =?utf-8?B?M2xsRWRZWG5rNUZTa2xPTWVQZTB4aHl4TlV5cUxaY09nQmJodEVJOVFBVTNV?=
+ =?utf-8?B?all6UjBxV2g4U1lKRnoyZk9SenE0QnppS1VKL0VlMUdCeWYzRk42ZkZtcEtL?=
+ =?utf-8?B?Wi9oOWwxczBwbFl4S2E4MkkxR1p2Vjc5aHA3U3NKK1ExWDlOOG5EWjhaN3hY?=
+ =?utf-8?B?QVB4eVhSdTFicE1YNHU5OUpnRlNncGdXLzQ5MG9qdVo1ekY3VjVoMEFxeFN3?=
+ =?utf-8?B?eTBYWUluZlRISURjZ083Si9HQXB1V2JBdkdYaVRPb3p2bnZhYlE4UzJvaDNY?=
+ =?utf-8?B?R0ZDT3pVc0IyYWUrVU1NUnc1T1EvK2FvZnk3VEJtdXZCTVF4cWVkV0JrUEc5?=
+ =?utf-8?B?OXAzQmhIWllTRGw5cG9Gc0pwTmg2WTZMYTIwREN0UnBYSmpiN1dMNTJ1V0NY?=
+ =?utf-8?B?UDEzaWtaSjRDSUl1MUpBblRGK3ZGYW5BTHdsMlhmOGNoemtZTHVEcWhZKy93?=
+ =?utf-8?B?NGpLeS9oMU5OYXV2TTRqUzh3ajc2YktCejErMEhpYVB1REE4clVPV2dxbjBM?=
+ =?utf-8?B?aXdPUEJCYTkxQ0k1Rm5SUU5kL0RnaCt0RDlHYXgzUGlwbUZ4T3RmMVJtY3ND?=
+ =?utf-8?B?NjkyYXpFRng4V0tPK1l4SjFId1hqRXIvWVpHNDBSeFpDaWFEc1R0eXMvbWhG?=
+ =?utf-8?B?a1h1OTNJWDBHQjlsakZKUUlmdWNoMG9YRHUvVTNjN1J0d2xXUG94eGxJaGN3?=
+ =?utf-8?B?ZElaR2lGa01FOEdHTWxWOHNIdGVHTGIvK05HU1dydW5sUTlXcEhMNWRIRGMz?=
+ =?utf-8?B?YlRka3Jvckk0TjVTbDRsejN1U1oyYjl3ZjVLVnI4YVkrazlVa3dKNUNXS3U0?=
+ =?utf-8?B?NmFldGk4TFNYeFVxUEJrNDFscEJ5K1ozTk5IMG0wODRaR2UyWnJIMkR1bklQ?=
+ =?utf-8?B?dkNPamRjYmRJMVV3aG8xNFpQZndab2ppQjVnczl2TTdIZnFTWURUNjVYWHV4?=
+ =?utf-8?B?dXdxbm9wSDdOU2g5SXVXa3JRS1lBbzlOUWdWdFBQZHdlR2pUM2dZM094MVBa?=
+ =?utf-8?B?VGxpTklEVmM0eURTK05wVFFLYWw3Ym5GRWxnbFpVWm1SWUlFc284MEtFMmJB?=
+ =?utf-8?B?ZUkxM1ZrMCtob3lPVFQ5MVRtTjVFaldwTk96RndKN1NYWnc4bVVtTTdTVEVT?=
+ =?utf-8?B?TmdhdU55QStYRkxkZnBpbHJOUlVyU1IyUjRrNVdhWnNzQjNVNFZKZVViTDlD?=
+ =?utf-8?Q?ur2fWGwzVozl20xQwM=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH0PR12MB8464.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB6566.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NTY2SENKd2VlRkh5akRRMzdNUkd6b1ZEb3NCQytpMmx5L0l2TlljYks4Smlv?=
- =?utf-8?B?TzlldlBOMjZnU05wcUJadWt1OFdrVGhISktHZnd1U2I4eTdrUDdtdU43ZVpV?=
- =?utf-8?B?ekk1ZTA3SndOSzVkaXd1di9nWGxOTXBjVE1lbTZtcmhjcWV4TEVoVFdxVmNE?=
- =?utf-8?B?bmVDMHNPS3hDaXg5S3lsYVV6RTBCVUE0ZS9wTVBwcW5FcWRpSmFVOS9uRnI2?=
- =?utf-8?B?MC90STJNZFQzNUJCNjlyNUQva0NNWGhWSElqQ3ZjR3NhQkVRWSs1SWxkajE0?=
- =?utf-8?B?OUwrRksxWk05U0hpbklFVDdZNHM3Si8wdG01OWsvc0VnQzIwZVFkY0Jnc2JS?=
- =?utf-8?B?VFJCM2RUTWJnQXpCUjVLc1lqSExpWkVkczIzVnRKaUV3cVMrOVJ1am5kK0t2?=
- =?utf-8?B?bXhmcC85SkU5djhBRHdGdHBjMGV1RVg0Q21NdU1Wb09RQlUzaGRwQlF3K201?=
- =?utf-8?B?dEh3K1ZyTi9zY2ZmNGhtRTJESXo2N2NMamphb05UbjdHUE5KU2ppeG1VbUhI?=
- =?utf-8?B?RnlpSy9lbUovRERaRFJXem5qTU9NSDBCejRtYldGSWZkQVQ2WityZmM1Tkox?=
- =?utf-8?B?UnNzSTd5WTMzNTRCOUlmaHpmeWRBRG14aC9SOFlDNnNXWTlCcHUrZnY1akRE?=
- =?utf-8?B?cmZJcVVZT1ptUmN1bXpPek02STdsekx2T0wvS2R0SUp4SHBNYWRDdUxzQzhS?=
- =?utf-8?B?emwvVGNOUjdlY2ZoNzlCVlNzcUpRNGJhVEY5THpFMjBHbTR0VHlUeitTMW9U?=
- =?utf-8?B?YmJqaC9hdUx6VXBOOG9xL2J1d1NSemlUY0w0N2ZJL3BldWJBMkZzVjVuTklx?=
- =?utf-8?B?eFF3dExvN1ZBNmM5djM5SjZEcHNIWlVJNmtMSjVsQ1Y4TWpCZkt2bTBtVGhX?=
- =?utf-8?B?M20rUUhsRTV1cTVtQkRtTUN6T1VBZHlGeWFkRlo3dkNMR2E4Q1BESUVIOUhp?=
- =?utf-8?B?RStsTW9PVUcvU3B0WVN0dHJvcjdlVG9FVFdVdmJnTHVZYk85YVNRSXgyNkNY?=
- =?utf-8?B?MWF2UW52aW1CN0JaaDJFWE9OSWEwZnQ1TzFyTTBTMjB0OVdIVHNrb0JIaFdF?=
- =?utf-8?B?OWgwSHpTdVBhK1ZDOXJTSXlub3lwMjZmTVhVTXhsYkhtWm1ibUxleWp2L0pE?=
- =?utf-8?B?STJRK2dDSTgzcEM2bHpqTkU5a3dDWDdwQjVkYVBYd3lWeG1ZdnJmMzF3SFlC?=
- =?utf-8?B?VzRUUDZveEZEWlBFTDdGbk5SSFJzRHY3cEtTUFMrZ1IvVS92azhvY2VETFVK?=
- =?utf-8?B?Sm9ZdTdPeXdNVFZRL2hjUE5xWHd1ZzBBeUM2ZW1DUW5TbVpJZFVnNG1SUHY3?=
- =?utf-8?B?ek81SWpadzQzcDROV0VabVdNUmlrUDFjTWI1SmZtbjFRTTBEeWRGdGlUdHk4?=
- =?utf-8?B?UDF3dmJvQzd6YzR0WjFKT09HMWpTTDlyWlI4bnduR0xKUHpTeXkwbExkSGRX?=
- =?utf-8?B?ZmlNVlZFcTZQVEVGWk4zSlpuTlJQSnI0WVU5ZER5NlZHNWdFVCtUbEx3YXBz?=
- =?utf-8?B?dzhZT1ZBUHF4WStnTDQvbnZLeWxzL29Mc1M3QjJFRTIwbzlSc0g2S2tIVVJD?=
- =?utf-8?B?VjRUeUkxY0wreHUzV3UrWU9RVVYwcmlpWkthSVJud05EVFRzUzUzOW90emhT?=
- =?utf-8?B?eU1lYWRaVWhPMWRuRG52bWgwTmpPTzB0cmtURHNPUFBEaWZBQ3VBZ1lDckhY?=
- =?utf-8?B?NG1lbkMyZDVGSVZ2YWdwaUdvVTZhb1dSeDZSWVp1c0hMaCtWVDcyOXp6dFRL?=
- =?utf-8?B?WWtvUkdIUEpCdFBQL3I5TGZOdW94KzNpb2RJV0NmYXZTcUJqS2FOOXBUTjVv?=
- =?utf-8?B?Zk1hWUlTVG9EdjBSRDlURjh6cXM1UWQ3Z0VTSnp0bkRVV083bzIrVFlyeDVZ?=
- =?utf-8?B?R2JNWk16S0hOYTBmMnZxVVMzOE5UREFpME5UTjdteEdIZmsrQXlZeTZDT2Ex?=
- =?utf-8?B?R2RaSHFhQkZjMnB1K2JDRFpCUnZqUHoxazdITStVa0lnTTlTeGJhSEt6d0Rr?=
- =?utf-8?B?dkMwMndKbUJJMVBQa2hraVZZaUU4UWk1QW9pQnRsRWZWZnJWUlpxUFJTL2tF?=
- =?utf-8?B?NmVzM2xYTFZGZFlKb3h1aHgyMHVZcTlBeG5zT0RSbG5CeDJuMzdnd0R1eTh6?=
- =?utf-8?Q?mkiEYAHvfBoxW8yU9aLURh0hC?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TTQxdDBFYVBqZ1lHR0k3UEV5VEpDcXFwSUlNYytRbmN6L0xkVVgvMzQ5Mkwv?=
+ =?utf-8?B?V0FLdHlaWUR0eVg2MUN1VlVQSkRSRkQ0VSt6bkNRWXNqa1lwU1p5RHd5ZGlE?=
+ =?utf-8?B?dGI1dTNzdHhQc2dRTjkzMTlpd3hJSGtCRVF1amplalA2RmlCUGJRZzV6Rkgz?=
+ =?utf-8?B?YzhqTEhLbFU4K08wbVBkeDlqejYyWEg4OTlBTHZPV01mWXg1VHQ4SWZDaEhh?=
+ =?utf-8?B?UnN6VTZ4aThiQ2orSmVBeDByL1drcy9EdWFmS3ZRY2wxMnlCbFhNTjF4YWpZ?=
+ =?utf-8?B?K3BMOWtoMk1nTVlzUU5PSW5YZ1d1YU1GVU5EcUx3QlRZMU9LRjcwUjhsVVJs?=
+ =?utf-8?B?SmtzOGl1Tlk5aDNhalFzUmZ0VDV5MUU0di9CV25JVmFLM2VLem9Ua0s3Nk9x?=
+ =?utf-8?B?Vyt3bUF5SW4wNUxQTGp4aHdiME5pcGhWRGNFbCtGTkxQL0JDbkgyQ2xyOWJB?=
+ =?utf-8?B?Nm1CbDF3WlRhbzBnWnJ2WUJBb2RYRlBQZXFQL1VUMEl0K3R2MXdDazlOSGpm?=
+ =?utf-8?B?cUp2bDFwdm9kaVQzbWR0TDlMTmhiSXVuOE14bXliSDBSd3RqbVptRjI5dWJk?=
+ =?utf-8?B?N3F2UGdTTW0vbmxnRnV4Y1QrTkhtdUVVS2xoWnZCRzl5d2taL3dvYzhQTUpO?=
+ =?utf-8?B?T3U5eVJPRlZHNDJDRkNjcnpzbkpOYUZTdGRkZm5xaHdZeW5sdkVNSWl1QTdK?=
+ =?utf-8?B?QjZJK3VQb3poM2laZXZJK3JVRWcyUHBUMDhGY0EzL3VlNmlTb1JvZEtnemZX?=
+ =?utf-8?B?cmpMNjFnOHZkNVo0VzNvOXR5WTgvN25MamFxMU45dWNmMUZvZDdQZ2NpekRs?=
+ =?utf-8?B?MnhMRjFiMllTYTNhbzZ3eFRtZ2drQ08yK2l6WU1KdVp6R3FHOWpJZFpqNVlO?=
+ =?utf-8?B?WDc1MXVISnNFSFQ5aXRYUVQxVVNuclVXd0k0SjdCTGMwNzVja0xyYkJvNmEr?=
+ =?utf-8?B?V3A2b2tTVGQwTG9IR0xrcUhHRFVyRFRzMkJ4SU82SVFYdzByK2p0OGIxR1Ru?=
+ =?utf-8?B?dENURUhyQkRGelc2MVo2NER0Wkt4TWNnZTBaL1k2YlRmK3c4QmVMc0E3Rnpn?=
+ =?utf-8?B?NyttT0VZMmYxamYvckNpLzJpN3lBSVFrNXNlQmhnR0VrWE1PNmROVXRiVFRk?=
+ =?utf-8?B?bVAwd3NwdFgvMXlsR1JqQWR0WS9ZQy9YMFRONzFuWGQ0dHl3aldYVm5lVUpQ?=
+ =?utf-8?B?YnpIb2dZaHc3cFlCbGRQTGtuTS9IVmpxTFBrR0xzV2pHRmVSZUI4ZjVvNXZL?=
+ =?utf-8?B?ejFPbzNyVjRxbmtRWVVJa2ZZV0JJSEJ5cU1CRG5lN0ltMmhaUk5IWHRaZis0?=
+ =?utf-8?B?T2pJTGM0c2ErUWVvUTJkb2s3ZFIvMWtDRzZ0R24wb2RVbXdsNkFzM0VnSDZv?=
+ =?utf-8?B?cVpUMmZkRytmTW5yUmZFbmFqaXRaMERwRWovK080U1dFWVhyakhQcm03WS80?=
+ =?utf-8?B?cWRuWmNPcEF6L2hmSmNOc3dWMnJ5SXpYYkJkODkzQlRGanN2dHhDclRxdXVW?=
+ =?utf-8?B?NlBNalBEaXFoQ2h2N3BLcGY0bU9WWFB1bVVNbmdTT0NHbFZPRHVrdlJ5NzhB?=
+ =?utf-8?B?anduQ1lFYWFBRGFNQzJRUERnYTdNRmk3WnV5dmlGY1FpajEzMjhUN2VnRXdI?=
+ =?utf-8?B?SnJxcHRaWHNFZS8rWlZhcVFtd2tnRStSeDhabit0clFEUHRJTmFkeVRmNDNh?=
+ =?utf-8?B?YStyWk9VcklpaVdLb2hzeUg3S3p1bmJ1T2xJbkR4U0NseDR3anU3U2pzSndD?=
+ =?utf-8?B?NkdvbndFZkhKNUVYUVV6Yndqc0h6U3l1SDdWQ29vdVM0djJGYUxxNHBRdGJB?=
+ =?utf-8?B?U3BYdTc0KzRjZjdRdkNEOUpuZjRvV1JkcVFTSjd0V1p5alcxbGhNNWMrWmZP?=
+ =?utf-8?B?MzY2OVZtckxobjd0YXM5YlQrOWxMTkJLTWlMTDhyS05kNmR4QVI5SHhlQndE?=
+ =?utf-8?B?cVlBanY1eUl5QUpBT05paEVXbk5qc1M1QWo2MURJeXNyMEE2NmZwV2NYNzky?=
+ =?utf-8?B?QzJaeFgyT2VJYjBnakhsbFF2YkplRU83ZDQ2NDR6c2NCRDFONXI4RzNhZDhv?=
+ =?utf-8?B?cmZRVEk1UWdRYm0wZllBV2Jvc2hqWTRPQU1ObVhiQUpxcEk3NFNZWFZ2SmRT?=
+ =?utf-8?Q?kHJE=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 99ee98ba-d171-4c42-22da-08dcfe85851e
-X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB8464.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 451eab25-69ea-44f0-850a-08dcfe877dad
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6566.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2024 17:07:39.9856 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2024 17:21:46.4113 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: KUpPvHMphG3t4zZZyMs17OMUD6FjiPTLHBT3rw6LAGxIFZx1nP+i//ki0Sp8scR6
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8503
+X-MS-Exchange-CrossTenant-UserPrincipalName: iMMuitoIe5OTsHsR5OzyPjAHGTdYTjGbtH5Q42339L1tyo0n1NjYFBWJMWEVnrSX
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7470
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -158,43 +158,169 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reviewed-by: Amber Lin <Amber.Lin@amd.com>
 
-Regards,
-Amber
+On 11/5/2024 6:31 PM, Felix Kuehling wrote:
+>
+> On 2024-10-28 17:40, Xiaogang.Chen wrote:
+>> From: Xiaogang Chen <xiaogang.chen@amd.com>
+>>
+>> To allow user better understand the cause triggering runlist 
+>> oversubscription.
+>> No function change.
+>>
+>> Signed-off-by: Xiaogang Chen Xiaogang.Chen@amd.com
+>> ---
+>>   .../gpu/drm/amd/amdkfd/kfd_packet_manager.c   | 55 ++++++++++++++-----
+>>   1 file changed, 42 insertions(+), 13 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c 
+>> b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
+>> index 37930629edc5..e22be6da23b7 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
+>> @@ -28,6 +28,10 @@
+>>   #include "kfd_kernel_queue.h"
+>>   #include "kfd_priv.h"
+>>   +#define OVER_SUBSCRIPTION_PROCESS_COUNT 1 << 0
+>> +#define OVER_SUBSCRIPTION_COMPUTE_QUEUE_COUNT 1 << 1
+>> +#define OVER_SUBSCRIPTION_GWS_QUEUE_COUNT 1 << 2
+>> +
+>>   static inline void inc_wptr(unsigned int *wptr, unsigned int 
+>> increment_bytes,
+>>                   unsigned int buffer_size_bytes)
+>>   {
+>> @@ -40,7 +44,7 @@ static inline void inc_wptr(unsigned int *wptr, 
+>> unsigned int increment_bytes,
+>>     static void pm_calc_rlib_size(struct packet_manager *pm,
+>>                   unsigned int *rlib_size,
+>> -                bool *over_subscription)
+>> +                int *over_subscription)
+>>   {
+>>       unsigned int process_count, queue_count, compute_queue_count, 
+>> gws_queue_count;
+>>       unsigned int map_queue_size;
+>> @@ -58,17 +62,20 @@ static void pm_calc_rlib_size(struct 
+>> packet_manager *pm,
+>>        * hws_max_conc_proc has been done in
+>>        * kgd2kfd_device_init().
+>>        */
+>> -    *over_subscription = false;
+>> +    *over_subscription = 0;
+>>         if (node->max_proc_per_quantum > 1)
+>>           max_proc_per_quantum = node->max_proc_per_quantum;
+>>   -    if ((process_count > max_proc_per_quantum) ||
+>> -        compute_queue_count > get_cp_queues_num(pm->dqm) ||
+>> -        gws_queue_count > 1) {
+>> -        *over_subscription = true;
+>> +    if (process_count > max_proc_per_quantum)
+>> +        *over_subscription = *over_subscription || 
+>> OVER_SUBSCRIPTION_PROCESS_COUNT;
+>> +    if (compute_queue_count > get_cp_queues_num(pm->dqm))
+>> +        *over_subscription = *over_subscription || 
+>> OVER_SUBSCRIPTION_COMPUTE_QUEUE_COUNT;
+>> +    if (gws_queue_count > 1)
+>> +        *over_subscription = *over_subscription || 
+>> OVER_SUBSCRIPTION_GWS_QUEUE_COUNT;
+>> +
+>> +    if (*over_subscription)
+>>           dev_dbg(dev, "Over subscribed runlist\n");
+>> -    }
+>>         map_queue_size = pm->pmf->map_queues_size;
+>>       /* calculate run list ib allocation size */
+>> @@ -89,7 +96,7 @@ static int pm_allocate_runlist_ib(struct 
+>> packet_manager *pm,
+>>                   unsigned int **rl_buffer,
+>>                   uint64_t *rl_gpu_buffer,
+>>                   unsigned int *rl_buffer_size,
+>> -                bool *is_over_subscription)
+>> +                int *is_over_subscription)
+>>   {
+>>       struct kfd_node *node = pm->dqm->dev;
+>>       struct device *dev = node->adev->dev;
+>> @@ -134,7 +141,7 @@ static int pm_create_runlist_ib(struct 
+>> packet_manager *pm,
+>>       struct qcm_process_device *qpd;
+>>       struct queue *q;
+>>       struct kernel_queue *kq;
+>> -    bool is_over_subscription;
+>> +    int is_over_subscription;
+>>         rl_wptr = retval = processes_mapped = 0;
+>>   @@ -212,16 +219,38 @@ static int pm_create_runlist_ib(struct 
+>> packet_manager *pm,
+>>       dev_dbg(dev, "Finished map process and queues to runlist\n");
+>>         if (is_over_subscription) {
+>> -        if (!pm->is_over_subscription)
+>> -            dev_warn(
+>> +        if (!pm->is_over_subscription) {
+>> +
+>> +            if (is_over_subscription & 
+>> OVER_SUBSCRIPTION_PROCESS_COUNT) {
+>> +                dev_warn(
+>>                   dev,
+>> -                "Runlist is getting oversubscribed. Expect reduced 
+>> ROCm performance.\n");
+>> +                "process number is more than maximum number of 
+>> processes that"
+>> +                " HWS can schedule concurrently. Runlist is getting"
+>> +                " oversubscribed. Expect reduced ROCm performance.\n");
+>> +            }
+>> +
+>> +            if (is_over_subscription & 
+>> OVER_SUBSCRIPTION_COMPUTE_QUEUE_COUNT) {
+>> +                dev_warn(
+>> +                dev,
+>> +                "compute queue number is more than assigned compute 
+>> queues."
+>> +                " Runlist is getting"
+>> +                " oversubscribed. Expect reduced ROCm performance.\n");
+>> +            }
+>> +
+>> +            if (is_over_subscription & 
+>> OVER_SUBSCRIPTION_GWS_QUEUE_COUNT) {
+>> +                dev_warn(
+>> +                dev,
+>> +                "compute queue for cooperative workgroup is more 
+>> than allowed."
+>> +                " Runlist is getting"
+>> +                " oversubscribed. Expect reduced ROCm performance.\n");
+>> +            }
+>
+> I like the concept of showing the cause of oversubscription. Maybe we 
+> should add "process isolation mode" as a special case of "process count".
+>
+> The messages are overly verbose. There is a common part of the message 
+> that could be printed if is_over_subscription is non-zero. Then just 
+> print some extra info about the cause, e.g.:
+>
+>     if (is_over_subscription) {
+>         dev_warn("Runlist is getting oversubscribed due to%s%s%s. 
+> Expect reduced ROCm performance.\n",
+>             is_over_subscription & OVER_SUBSCRIPTION_PROCESS_COUNT ? " 
+> number-of-processes" : "",
+>             is_over_subscription & 
+> OVER_SUBSCRIPTION_COMPUTE_QUEUE_COUNT ? " number-of-queues" : "",
+>             is_over_subscription & OVER_SUBSCRIPTION_GWS_QUEUE_COUNT ? 
+> " cooperative-launch" : "");
+>     }
 
-On 2024-11-06 11:08, Amber Lin wrote:
-> From: Max Erenberg <Max.Erenberg@amd.com>
-> 
-> These options are necessary to use virtio devices with QEMU.
-> 
-> Signed-off-by: Max Erenberg <Max.Erenberg@amd.com>
-> ---
->   arch/x86/configs/rock-dbg_defconfig | 14 ++++++++++++++
->   1 file changed, 14 insertions(+)
-> 
-> diff --git a/arch/x86/configs/rock-dbg_defconfig b/arch/x86/configs/rock-dbg_defconfig
-> index 0ad80a8c8eab..565e447c6230 100644
-> --- a/arch/x86/configs/rock-dbg_defconfig
-> +++ b/arch/x86/configs/rock-dbg_defconfig
-> @@ -353,6 +353,20 @@ CONFIG_NETCONSOLE=y
->   CONFIG_NETCONSOLE_DYNAMIC=y
->   CONFIG_TUN=y
->   CONFIG_VETH=y
-> +CONFIG_VIRTIO=y
-> +CONFIG_VIRTIO_PCI=y
-> +CONFIG_VIRTIO_PCI_LIB=y
-> +CONFIG_VIRTIO_MMIO=y
-> +CONFIG_VIRTIO_MENU=y
-> +CONFIG_NET_9P=y
-> +CONFIG_NET_9P_VIRTIO=y
-> +CONFIG_9P_FS=y
-> +CONFIG_9P_FSCACHE=y
-> +CONFIG_9P_FS_POSIX_ACL=y
-> +CONFIG_9P_FS_SECURITY=y
-> +CONFIG_VIRTIO_NET=y
-> +CONFIG_VIRTIO_BLK=y
-> +CONFIG_DRM_VIRTIO_GPU=y
->   CONFIG_ALX=y
->   CONFIG_BNX2=y
->   CONFIG_TIGON3=y
+Yes, that makes code concise.
+
+Regards
+
+Xiaogang
+
+>
+> Regards,
+>   Felix
+>
+>
+>> +        }
+>>           retval = pm->pmf->runlist(pm, &rl_buffer[rl_wptr],
+>>                       *rl_gpu_addr,
+>>                       alloc_size_bytes / sizeof(uint32_t),
+>>                       true);
+>>       }
+>> -    pm->is_over_subscription = is_over_subscription;
+>> +    pm->is_over_subscription = is_over_subscription ? true : false;
+>>         for (i = 0; i < alloc_size_bytes / sizeof(uint32_t); i++)
+>>           pr_debug("0x%2X ", rl_buffer[i]);
