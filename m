@@ -4,146 +4,146 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6AEFD40D08
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 Nov 2024 23:58:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66BABD40D13
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 Nov 2024 00:31:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 60DF410E04B;
-	Tue,  5 Nov 2024 23:58:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E55E10E640;
+	Wed,  6 Nov 2024 00:31:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xxWJOnz0";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="C0olJjqy";
 	dkim-atps=neutral
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2076.outbound.protection.outlook.com [40.107.102.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B8CE10E04B
- for <amd-gfx@lists.freedesktop.org>; Tue,  5 Nov 2024 23:58:10 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2063.outbound.protection.outlook.com [40.107.243.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 94B1410E640
+ for <amd-gfx@lists.freedesktop.org>; Wed,  6 Nov 2024 00:31:33 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GsrfkuooX64Jg1C5jh0jQJpoDoh8y2EECTHDn70bcuu0RTzIJVUhIzklMgL9lm3dde+qaEc5aHpPUgxPJqCa5NgizWvsK2JuNZvpsnE6M9Q4YTW0VhNkkO/qY332WJSRJKWcGW0EzWwOlDfRBikIbI5Odrvq5XNteuz/fqPTMcDPjmauyTkdTk/gc0PwIqyeEMTBXrierLgUzOyvVRrrlRmJaMCqzlcK0Emk59J2Tcf+nYFACl6ul0NP3pCOym+2UICTGrf1KB2g9k1fel3shPz9r0X2H3SOygLq/ZK2eW12SH9/H5vlHJrHRJvY/AFkqHrAr6i16ZnHuQmsKRBXjQ==
+ b=Eue2+E1BIt+e1Q4f1Z0tf7cIG1fBQ649Ma/8dt5nKtjgL33B+PSP8S5FVjHN0QJZwt62yhgLqh3MneFUgE8ynxb4cXRvM3NStD+0G4kQSdgQlW0WRWMkoOg5vZWL0B57ey7z9WdNMG5hgJSmV26WiHE2eBlnuLUKKtFPXBUuP4jIKAwWXiRG6TZX4Kmf0Z5ojygJLxZrc7Mb8pwJ//JAyCvE9LAkEIE9Zuoxz8j73v7wEQyg2dcNAyveVvcKR20B6SbHjBYtpnfG0/iRqMsdFnZVMsh7P1xOcSI0K9y2nkjWpUnc3CkMCF0FseU99ERmXzB9h+3vsFIhgUnMQ2XOaQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=F3YtZf8FP4g4xUyS5LLCNwBvWBBfMdlKjtUdXgegdQs=;
- b=jvzRbR+a6aSIDC681nv940c8rppuS4yyoNJrfm7vkwz7jOKsrVoSeOOVCXDqC0mvri3MHaWKTBI3jQYxs80zFlF3Z8YMAgqLxDQyFBPhTV+QYRQMxoQ9oU6/qiA8HNwjf3fCe9cCHXtxyrV9T46x0hrtVDziVVniLXOTTu2ZowL9lwuM8xc2vu+VjH8SHNNrnpYP9EL6wvHoMltEqTNjYKHSOAAu4A2rqcVZNo7Y63NU/TDHOi6koT4sCsgVB3rM8Xu0YFk0SPdtJ4JFL2XjOUBo22qSLku+0haf1EYQQrDbOc3eHpRzG/goWsVOUgmtGR0AjWaexPh8CBk5e/m4ow==
+ bh=qQWxO/VawBYguzyQibO3pok4S3oWC6+mPRqvaRH8Fso=;
+ b=ho1zqamDyqx+rUjm7GpvEgJu6LEhV4NveaZG4X+jCKhrb2v9JdCQNtHbW8Vy813n4akkhNmDzM65jAT3ZpGObmARcwP5YrEr4wpwLS78cvdWO3Uib9M3y6IJ/dMjHJzwtbIPcHmw8wr3CI1BHBrQWP6z6yAzT85dFL/EILARrL0CtV/wvJE01b280u6hYvkRcRxvWA5MPUGr3peLIBv8w88ZVTKPXXopt82pbymTPjOfPPqAhEh0gwxAMQGdX9bGYJhgqU6lKPoBXEGAF+MJzT1A9owkEeZYVT3gEPHRhJMXNW7brbx4ErZVois4RC9O6cm942OFJ2S6jkVWCR8sag==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=F3YtZf8FP4g4xUyS5LLCNwBvWBBfMdlKjtUdXgegdQs=;
- b=xxWJOnz0r2+jUyg9Yror2w/LpAVt0bxMuIZuxD4i++iTDSXwwmsQgQew2OB9tRq0kXqMmhhBHFDJn4VjvddiBCVUNLGoMsRMDnsIW+OgnNQR9xUNqUFpLRHr6+yo3FRZdovfgjFIfib6WfgOYHAUONsUJswfHtbB1XX7IZYuPYk=
+ bh=qQWxO/VawBYguzyQibO3pok4S3oWC6+mPRqvaRH8Fso=;
+ b=C0olJjqySe6Om/j0eGcW407GLRY4ShxCRRzql/rHZEaolz/IB4p09rXbtp/9mD6BPJvxIGzW5AE5nVrnZPATn9lrPnB2PbTkBuSIhMtanuB87NROR0vn7DP/JNn4DLM2dkGhXAOj8WSvwTaRAxw5wreiqku4cniwweo430CVuCI=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by PH7PR12MB8106.namprd12.prod.outlook.com (2603:10b6:510:2ba::9)
+ by LV3PR12MB9166.namprd12.prod.outlook.com (2603:10b6:408:19c::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.30; Tue, 5 Nov
- 2024 23:58:05 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8114.30; Wed, 6 Nov
+ 2024 00:31:27 +0000
 Received: from BN9PR12MB5115.namprd12.prod.outlook.com
  ([fe80::9269:317f:e85:cf81]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::9269:317f:e85:cf81%5]) with mapi id 15.20.8114.031; Tue, 5 Nov 2024
- 23:58:05 +0000
-Message-ID: <c4ac5362-8656-47d6-8a0d-3ffd88314bcf@amd.com>
-Date: Tue, 5 Nov 2024 18:58:03 -0500
+ ([fe80::9269:317f:e85:cf81%5]) with mapi id 15.20.8114.031; Wed, 6 Nov 2024
+ 00:31:26 +0000
+Message-ID: <db7208d0-f36b-4223-a6da-b8b050f7a074@amd.com>
+Date: Tue, 5 Nov 2024 19:31:25 -0500
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] drm/amdkfd: change kfd process kref count at creation
+Subject: Re: [PATCH] drm/amdkfd: Differentiate logging message for driver
+ oversubscription
 To: "Xiaogang.Chen" <xiaogang.chen@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: philip.yang@amd.com
-References: <20241028204301.46168-1-xiaogang.chen@amd.com>
+References: <20241028214014.59940-1-xiaogang.chen@amd.com>
 Content-Language: en-US
 From: Felix Kuehling <felix.kuehling@amd.com>
 Organization: AMD Inc.
-In-Reply-To: <20241028204301.46168-1-xiaogang.chen@amd.com>
+In-Reply-To: <20241028214014.59940-1-xiaogang.chen@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQBPR0101CA0226.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:66::26) To BN9PR12MB5115.namprd12.prod.outlook.com
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YQBPR01CA0084.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:3::20) To BN9PR12MB5115.namprd12.prod.outlook.com
  (2603:10b6:408:118::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|PH7PR12MB8106:EE_
-X-MS-Office365-Filtering-Correlation-Id: c1b7fa5b-6a0a-4866-2a7c-08dcfdf5b07d
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|LV3PR12MB9166:EE_
+X-MS-Office365-Filtering-Correlation-Id: 97337fe8-ad7b-4645-28fc-08dcfdfa59b3
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?azFncGkveGY0QU1BYzZsT2UveWZIcGtXczFUcFBDeWN0RHhmM3BxaDdQRjBQ?=
- =?utf-8?B?NzZCSnFWQmZMOHJ5NE1tNWU5QVNPcXBqMjBQNjcwNlZhajlUU3gvbU5PTHFp?=
- =?utf-8?B?dUd3TDh1YllOcEZRT2FQcGtyWHQ1aE1OcDlvcnZvMEpnWmNtODdaeTBMdXht?=
- =?utf-8?B?WnpSczkwRkJmUlFsSFYxZGswdWhob0I1bkJERS9xa1pKcDd4YmNVTGExeXgr?=
- =?utf-8?B?SUF4ZGREM2xwbnVpWTJ4Ymk3eUUwUGhXL0dtMVUzZmx0ckh4aW9LUkdIeGEr?=
- =?utf-8?B?Y2daTzNGK2dHTmZWNVFwWWhIaG85SFZRZEViVnB1a00wUWtyNG0yc2NtOE42?=
- =?utf-8?B?OEgxeEhla2FWT0g1S1RwUjdoektTUWp1YkU0ZGNHeWVUTTduQ0hhak9wSm91?=
- =?utf-8?B?NnJxNmZIMjFkbkRpRUQxZWQzd0JoY2lnZFBic1dmN1diK2NzUFRsWnNreElO?=
- =?utf-8?B?ZHM0YTU3UFFTRk5nOVRDaTE4Wnl3dmZOd0wwUHc4c3VtaVVKMmo5YWNkb2lo?=
- =?utf-8?B?K3ZTV2o3VVpRWlRZWDMxQktRS3o2Z0YwSVBoY3NZV25YUzAvSmQyaUk1SzlO?=
- =?utf-8?B?dDUvMGcxUWZaaUwyUGwyemNrYlFkODRyQU1wZjRPRmhMaGtIZDBRSWNMUnN6?=
- =?utf-8?B?cWYzTTR4amo1alprUkM4RThzRmdTMlhkU2NaUEVJd3dzUTBlQzUyZ1dhQVdS?=
- =?utf-8?B?VXlld296VWN4enlZTm1lSGE2THROQjRMWk5jbi9MUXZnQmhHUzhycGd2MGdu?=
- =?utf-8?B?dkxQSUVhZkcvZHFRV3Jab3R3VE1WdHRlSS9WaXJ1L3Fkell2YUEvUHo5VGNq?=
- =?utf-8?B?WXFjZ1hCT0dNcEJWbk93T3ZPNnRyQ0xYbnFxWkxidWZCdmhEeUVKczZIQ05L?=
- =?utf-8?B?ZjhHRk5oVmdrVlFNUit5YWpxbDRXWGkvaDFvL2pUWnl5S2FmZ0JxN0JwMTB2?=
- =?utf-8?B?cUJscGlmZ3liNFZpa3RhRTdhR3lrZ2pNNmJnZE1NSU5IVnJZNExQNWFIK2NY?=
- =?utf-8?B?NW5zamQ2MWY4ZVF3ZWZyb3huSHRmVmJHZUdHcmtTOWIvaVR5bTdWdk9jRmJn?=
- =?utf-8?B?NlFxanI5ZURsVXJPemJieXdZcjR6eW8wbDRMZjUyemQrRW1yZkRwdFlSa1ky?=
- =?utf-8?B?aVBJUko3QTVTclFFTjVBYk0rZFlMMDRPNVJoZC9nOHNOVlVmc0ZnZU9jMGVp?=
- =?utf-8?B?UW1vejhobkZPTTRRbTJMQXF0RVhwOXBuczZ1L0pPRkZaSlVrQkNPbUpleVFU?=
- =?utf-8?B?bXhpVERhaU02cmpFOFF4OVNXQkdpSnV3ajBVSm8vSGlnMlRDS095Z1p5MGZ5?=
- =?utf-8?B?ZGZpQWl6UVBzVVdRMXN4M0RDVDgvcVNqcitRUDhQSDh0Tk5RQUFYWFJ0cmxQ?=
- =?utf-8?B?TmNnOWp2K0FNaWNvNlVtUTJxeU96R1FzRzF2VzhSN3RiaGY3KzRIQ1NqUHl1?=
- =?utf-8?B?QVFwaVRpYWxQZEJGMDYwT2o4ZGtodU9nbWFaY1BzcGNBVDZGZ0tkd2VML3JL?=
- =?utf-8?B?MmdWOStMNlFGcTFwdUZrakNCYkwxY0xaNHg1UHBPMlljdENRZ3dYRldSWG5C?=
- =?utf-8?B?cEdoOEVCSUZUb2t4RVJoQnV3VkV3cXd6c2N4R0xTU1JRbWVrWmtqTjNvbWVT?=
- =?utf-8?B?UDNsUkNjcGxETndTcHZleFdscnBDL1BiUjlZVis1OTVRTkF2SGRJNWhvUUhT?=
- =?utf-8?B?NmQ4eEJTcnRDRWVpRlJpd0RkVW41SUVxM1R6M3M0U3BOUWpMSzE3b2U4OFBv?=
- =?utf-8?Q?TNHXBhaqri3yydLxdnPcq1OwiocGb7iErStJMCz?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?UkRpQVE2ZWJiL0E5ajlIMDZRcXRhbmpZQTlGOVdSV3h1ZlBzNGp2RGo3Y2hG?=
+ =?utf-8?B?MTRDN21hcnZBSmJ5QUUwQzl3eWdxWitsSUx4c2w0aEorSXhRV2FRYnNkZkhU?=
+ =?utf-8?B?MldoWlVBU3dnaTdJaEh1QVh3dVRBRWRHS0RldHNGRFplTGRra3JkenV3MnUy?=
+ =?utf-8?B?M0NQL0lYU3U5Vnp3TFlIRmU5dE5YWlBVREJPYW53Y1d6NGNudWNGZG5PT2NQ?=
+ =?utf-8?B?SlF4cVFQbmU5Rk1sQU5jNTM4VUVFVFg4L2VPNkJSZTZjNWN1TFB1RHEzMTdn?=
+ =?utf-8?B?S2tpK05SL0NGdTNjSC9iUE80UnBtWXlQNVJEd0V6STBHT1BxeFJKa1pwNjJN?=
+ =?utf-8?B?bWdXKzlSMnZvdC9XYVprUk9NODRsYWhoMGgwM2lTUktPcG03ektzMUxCNWxr?=
+ =?utf-8?B?NU93RVBPbXlLb3BlaDROQzR0REVCZEVRdERmVmFKRlJKMXEwREl3QzVJblE2?=
+ =?utf-8?B?NkdRRklwSkNCb1JQUGVqaHU0UzlMQXZYNXZZM3hjZzZjcGNJOHdhWmE4WnlL?=
+ =?utf-8?B?WDdwZmhXTGs4VGRPcEJRM0NXTVMyRnFsVXJUSXVQSVc3aUpsR3FLU1h4V25v?=
+ =?utf-8?B?U3dvZm1xT3cyWU5UNSs3TUdGeGl2cHVwTnFHZHNpbmZyWUFrSnI0eGNWMTRE?=
+ =?utf-8?B?R2pTWnRvdEVVd2hvcnMxdk9oTUhzMHg4SU5tRVJ3M2NXRjJUSjVBRmNpQldj?=
+ =?utf-8?B?M3p3bkNYVDYxajZLc3d4VUQxcXBkbzBYL0xJRDdPZlZ0RzZWY3JxZmtxUFg0?=
+ =?utf-8?B?MWFYczVUd3lpK0xtS2JwQU5JM1I5SzlFZGMvR2k3QmI3Mks4aXhLeFRPVE80?=
+ =?utf-8?B?RXN5S2pPa1hGQVdwckRERW5HYzRvdlpsZC82UHQvMlduVlB6dzhGa090b0Nq?=
+ =?utf-8?B?azlQamFPNnlEeVBhaTc5emVwcld2bjM4VlVCSXlUTjZWWkY2TW5lRzhxM2Ny?=
+ =?utf-8?B?cWFHWVlmUnBxQnYyNUVldVdheUtCdmdGbUo3WVA4TDZtekhnTHlDZWRidmw3?=
+ =?utf-8?B?UWZ5WUxtdTdIQnRWbUhOeG1yRkpYTVhUbkpmNndpVFhKSEs4dDQ0ZVl2eGI5?=
+ =?utf-8?B?N1NtTlhIUFVUSmRTRUk2ektEVjlEQXpuUnAxZGF4S012SkVJeEJzWE4yenZN?=
+ =?utf-8?B?M1BVeEF5WWNWVE1PYXNXMlZSLzN5MlN0c0prM01pamg1cDFpVWZkcXN6ZU5z?=
+ =?utf-8?B?YzUxRy8vRXllOGxjRnJ0UmRzMXVqUWtjeW1iVTdUVFJ1SzhkaUNPY1pyRXBG?=
+ =?utf-8?B?aVpnRElqQVVZcDBNZE1uK3MzMWNXN0VGeGJGdlpwb2YrMlluZTExOGhpaFVO?=
+ =?utf-8?B?azBVT1ZQRVpUZ3NVUmd5eUd2aEtWTGFhTld6V2dHSTJ1T05aSWp0T2J6QUhm?=
+ =?utf-8?B?eGcrOFJ6L2J0T01mYWF2MFZoUTlnazd2NlNQZGFQcnhkbjAzVDdiaTc0aHdU?=
+ =?utf-8?B?UnZBY016SVppVVVsUFh2b0t3Y2VqbU9leVdUOEU2ZW8wZzE2eCtKNEZTbFZX?=
+ =?utf-8?B?WTkzb0MrODhnQVRxaVNaTXBlK0IwMDkyRUdyc0UxOTNJRFV1K0RxUThjRm5a?=
+ =?utf-8?B?Um03VGVBdWQvUEhENmR2aWhoNlFzQk0ydW5Dbk9lUGowbmhTdlJjdUwxMzVa?=
+ =?utf-8?B?ZnJpdE1qU05SWjdnbWpZT2RIT0pVeUZoamNvTUZPeDl0cmUwRHIyOUpOazd1?=
+ =?utf-8?B?ZDRuaHlRRkJjL1dkeWFDdTJtNzVtMm1pU29BNGIxUEg2ejZHeUJ3K3JMVHpu?=
+ =?utf-8?Q?EFSUMCFdSPk4aYKpTk=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
+ SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SmNtUS8yTWRYdGlhaWlQWmozSk9KSlhUZTNSTUVDbnR1eUpNOVAxbWNuVkdM?=
- =?utf-8?B?cGhTZ1dVOThYOVNERlBubWlBWDl3U0Q3b0VCQnJzQVAzOEV0VWI2M2dxL1N5?=
- =?utf-8?B?R1lDdEJJUmtsVnhpMWtUcHRWaThoT1lmblErNFVYUHd3YVZJRFVyNWw4YkNN?=
- =?utf-8?B?VUJ1bUNEdHkxcTFBU3QrZGFZc0tBeksxSGdOeHk0Mi84Z2ZTQjI2ZlFDcld1?=
- =?utf-8?B?bDV0VHpITkJ1SUxCZDFNUmpLWkRsR25TS3lyb0xsK3VTWDlJL2lDSlJtTGVa?=
- =?utf-8?B?bkV5Qkx2RFhJVXVsampkQ2NYbzFRTmZZZ0VSK3dzMDdHYkNqd2xDaVZEcElP?=
- =?utf-8?B?TVR2c3U0NUFEc3ErcXhJc1JvREN2UWQvcDFaUjYvQlN1SmJoczBXUk1sb01Z?=
- =?utf-8?B?QmNuWHB1S2xxaTZoTi8vS2NUUXlSL1NmUUpUVVpUVmw0b3FlTnhxclQ2RldD?=
- =?utf-8?B?cXpKU2tOSzludXlZQVpLRnlmNndVdHdzYXhXZHQxNHpRa0FidVVvS0xydGtF?=
- =?utf-8?B?VzNrYXo0ZUhEMkJZaDNvckFENnVJMERhclVTd213dHJRS3IyQ0NielEwcDhS?=
- =?utf-8?B?QWEwamh3WnZtdGxFV3RHbW9wbElSZzdzdk5XdFN1S3A2Qmt2bnUwZFpJeGhO?=
- =?utf-8?B?ckNwNi9Xa3BTSjRBQzBPdkQwQjNObklJWkM3c0Myc0xXaldmNVV0TkdTWGxH?=
- =?utf-8?B?eCtXaXowd2JLMThYQ2xDNTFDSkVzaFFDMVNyUVptdWZGL2VoR29rZGRkWWhG?=
- =?utf-8?B?QWFWdEJnQ2VLM29KTmp3Yk0xOUJWQml2SmV5MDU4d0lRbHFtVXBOTlhGKzJt?=
- =?utf-8?B?WitIeG56K3NaNzNjRDNHZ3dhSk14Yk51enE0MVVYZkVQaTkvbTlHNkNOVGk1?=
- =?utf-8?B?OXFFVHpsSTZaWmsrR0ZQdzNNRWNzelR4YU5vNWdzUFNkS1V5cGVrMHE2Z2oy?=
- =?utf-8?B?M2ovT0lUVnlZWEt5ZzZidW9mdkdLTnNWc0FEVmVUYW9ZODFwVkRhVCtEeFdn?=
- =?utf-8?B?UmI3aFEvOHVpaGp0bmZxUFltWVgvbzZLNm1LOGMyRG9HajlVLzBXK1I3aVRi?=
- =?utf-8?B?QkltakxyZWdSK24xQ3dKTXU4WmoxM3VscXhMMDB1UDhSSnhST2xqRDBkaHhK?=
- =?utf-8?B?QjBWK1JHRjVzdzlYL3hpUU1zdkVXQjJROHVDaGZrMDNUVm1pYldrMG1BWjRK?=
- =?utf-8?B?NVRVczcwYXBwTWh1Yms2UkhxM2JmWStxQlBoWXVyUjRsWUZOKzE3cWU2bVJ2?=
- =?utf-8?B?RktTYmdQRW5SaEQ1enlkbGJDZ1l6akhEazc3TTFJWU9XdzRvSFZjN0NaejBI?=
- =?utf-8?B?R1AzNkF6a1AySXcrNGs3K2UzWWhXT0pTSzdaYk95TkE4Yk5xd2tFbGVMVzAx?=
- =?utf-8?B?a1pPRktJZnlBcThFOTZEN1FscTNZd3BaeUsvUW9mQklYdnRWam1lZFBTcE1x?=
- =?utf-8?B?cjBDckhtNmxBaTRMeFhWTWthRnk5bXJ2Mk9WSFhOVjJuNDdiMnhXZENqWkVX?=
- =?utf-8?B?NnB5ZkRWZEJFRmVMS2lpcDZoODBPRFRoZTlrRzdmRCtkUjl6ZnM1dVZheTdL?=
- =?utf-8?B?U0FwTzB3OFY3aFp4dXRoRExoaVZ5RVplYllsdjRIY3dxZ1BHMzYzNVlUc25X?=
- =?utf-8?B?Yk9VY21kMG1NdnFLRldIZGFLTzIzeGkyZ09oVGtXeS9CelFCcG5oUExVR2Vn?=
- =?utf-8?B?NDRIQndWNm9VVlVkcm5tV25PWHpORnFya3ZEelpFajNJaXZzS2J6dkZGNm15?=
- =?utf-8?B?c2VvL2FodWpaTWNyTGZYSVVYbE1OVmFrMkFaR0p4T3ovK0dJQ2FNSGZQckE0?=
- =?utf-8?B?SnNKSjRkNTU0eDBvcHRPdDlWbFM1bFVnRHNuYVpWL01MbEtzbWpPclJMcWto?=
- =?utf-8?B?dEVJMjdRem51ZndsVk1INU9tVGlralVkeVJnT2V5d1V4NW1zK1Jad1RXSjhu?=
- =?utf-8?B?VzlqUWk0SE5zcTZyM2huNk41dzRxSTdxTTRPbTNtY0JTV1p6N0c4K3Z5U2ZC?=
- =?utf-8?B?YW9pK0R0SVo5MCs3TURTbFQ4WFprWUtMSnhXcXJvWm16bEV4L2xiVThTSkdw?=
- =?utf-8?B?V0U4SWFyQnNEdVJCcURBOUs1blcwUEVQNkErMGxMY29OMURDT3RWbjdiZmJa?=
- =?utf-8?Q?VkRo6y3FfHVhdAsfVnDGjXV9C?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SktRN20rZUN1eitOTHFCZEljeml4eG9FTGMzeUg2dCs1UXlTYzhFZ3lGYnJQ?=
+ =?utf-8?B?T3JxVWRZRDZ1bnlic1FlUUhwK1oxSjRhYWZKNlZzdnhwUmp0bDRveUpXRW5K?=
+ =?utf-8?B?QnVFL0hnU2M2amZnaDRFMG1obkUvTWxjMlhxUWI5clRTaHozSk1xa3RFTW8w?=
+ =?utf-8?B?eXpGOThzbWtkL21FNEpUN0NseXBTektrYzJJMVRmSkNhelpnbjh5UC9OK0NR?=
+ =?utf-8?B?aHAwMDlHdW9QNHgxZ25zaDM2WS8wTGVaMlhwNThCejJ1N2JDczJDaUlwTHdv?=
+ =?utf-8?B?Rk5GbVJxTEV4emNhUjVFaThPYytPa0dhVHFwZDc1bkQ2ZmN1L0hRa2p3ZGov?=
+ =?utf-8?B?ZUNPNTJ1RlhBcVhMS0JXUEUvZVY3alUxYVpwQTJoRkdpcnJTN2NQOVdxT0hN?=
+ =?utf-8?B?TEw1Q3JGRVJvdzhJdSsxdDZoZmh3azFja1Vnd2g5M0xpKzVWTFJGWmdMcGtM?=
+ =?utf-8?B?RTNLTkFCWkxpZGJsdlFqdVBQMjkvWXBlT0pkeUZnTlZLczBCSXFEQUtKUGFm?=
+ =?utf-8?B?NWdlT2RVQjVjejdRelFHSTlNUXdON2MzWUovcXg3cU9ZUlZ1RU1CdTQ4c3I2?=
+ =?utf-8?B?b2Z4OWN4OXBHaWpHaklZemRKTndkN1BMZzJ3S3VMd1lxanpYYjY2b0JGWlRm?=
+ =?utf-8?B?MG94MEVIZFV0N202dFpKaVJzVURzYzM2ZzlCc0RKL0lSR0IyUjBHVGV4N2l6?=
+ =?utf-8?B?NDdNcGZIWVZNOElZa0I0bUZDejdXRFJjTlkxYTdXNk5EcmhicVFGWDNJbkRG?=
+ =?utf-8?B?SURnb2hJT3MxQUh6VzJUNHlDSjFmRHRURk14dFB4MmxTNkN0R2swaWVaS3Q0?=
+ =?utf-8?B?U1dENmhBWnJ2bk1BeUNyQzVuRVNNVk5vMUFjc3lNWlQxYTJqU094aWxBZmNL?=
+ =?utf-8?B?Z2V2eHhqOHRqb2FIRi9ZemVCQ0M3cjJuUXhnZUt2dnRXSXVrcXkyRHJoa1pj?=
+ =?utf-8?B?NjgwMzR1UHlpL1ZzVktUQmdqRWhrTVljWWNNMUI0Y3ZEdGx0LzkwQVRsZVBM?=
+ =?utf-8?B?VFFTKzNIS3A3OWtZaUtyOWRGMGFpMEZMSEtWSFJJSDRwanYzUmFFZ1lVV09G?=
+ =?utf-8?B?Y0F6YzVSaGNjcm9NaXVrMWMva2c5clJSZFhjeDl1V1JGL1lQWE1aYlRzOVYv?=
+ =?utf-8?B?Q1VUeExEQ080eHJBd3phS2xCL3hxMmhrUnk2NjVGQkNYWnFxdWE0WGxiRGVQ?=
+ =?utf-8?B?S1BCM21mM0FrTmw2TWRwcTFQSXBEbXBmYVJoMzNIN3ZoZ05NeEVnNDhza2V0?=
+ =?utf-8?B?Sy8yYW13LzRKRXpUeDFnR1gyR0dTTXlJY2RMa3kxalFqNFJ1M1R1ZFpYUkti?=
+ =?utf-8?B?RG43WkZtYi9Qb1ZZSEQ5Q1dxSTJKMWlpNkF0SUM5YS9ja0JQWk5JQUVJT1dU?=
+ =?utf-8?B?K0FwVUl4TjZQT3dldW1WbGlBSVdtaHB1K29Xdmt4b3Y4WE03TDd3aTJGSEx4?=
+ =?utf-8?B?NmIvaC8zekpLK080Q2Qwdnd5ay9CcStmU1NPZ3VvSHg0VFRSN0c2OXdvOGpL?=
+ =?utf-8?B?UkVPUlJ4U2JaQkNkWUFMZ2p2d1ZGdzlvdjh0VVRHSTRmbW1XWVBRNmhzeWUv?=
+ =?utf-8?B?WldWNERSM1RHNXVRYm93ZTNyN3MzSk1kd0ppNm1QM2pjd3A5ZGZ1bVpXOW5V?=
+ =?utf-8?B?aHN2eDVFSVBwQzlyUDZSK0FxRys4UTlJcDFiekk4aUkrekRlemE5d28wbjE5?=
+ =?utf-8?B?TG9xalhYS05TVkhnT2JpMzJRRFp1WHlreTQrdWtuS01FakVxWkdkRkJ0cUV3?=
+ =?utf-8?B?cGRNVnBYZHJRYUdUbWVWbHFVRzN4R1gwODZjM0pXanNiZnhVOUQ1c2E3aFdB?=
+ =?utf-8?B?a0FUS01UeEVjd2RGZG11cHp3LzF4cTFnOUE0aW5xV0QrQVNDMUJmMG4wMThS?=
+ =?utf-8?B?ZzBXTEloemhmSXVTNjVIQ3pKMEtQckhqZU5BVGlhSVJNSFlGUi9GT2IzTnZ1?=
+ =?utf-8?B?QVJPSGd6cWI1Q2pjQzF2c3VVc2dvUUlpY3QxMVBObDRNS1hKWmhEQkdsSndy?=
+ =?utf-8?B?cmV6VStrTU1ycVBKY3JlMWRJRmQyQklqeDJPUkZxSEpuYy8xUWYyQnZjbDJy?=
+ =?utf-8?B?aFlYcnlHdWdjZHM5NzVFek9OaTN4SEp1ZkJEZCsvVW0wM283dnluOS81L3dO?=
+ =?utf-8?Q?yvUTioQmY+8RJOoN7bEVZRwPz?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c1b7fa5b-6a0a-4866-2a7c-08dcfdf5b07d
+X-MS-Exchange-CrossTenant-Network-Message-Id: 97337fe8-ad7b-4645-28fc-08dcfdfa59b3
 X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2024 23:58:05.0702 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2024 00:31:26.9574 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Zg3dyMgtyPuxS6wnW4mSKX/jDu939S5i3S14Ocn4LWvA4T2JjMLxou9opKo1xOb7+AHGCSBEHEJ4/MTGyiME6A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8106
+X-MS-Exchange-CrossTenant-UserPrincipalName: k5uFcYqpPkWSJylBoGiTiPsih2CZbJbo/q628XDqik75uIR0wgb/EiWhoYnQH74VpUyPDi/ivuwapfBo7PzuSg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9166
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,62 +159,145 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-On 2024-10-28 16:43, Xiaogang.Chen wrote:
+On 2024-10-28 17:40, Xiaogang.Chen wrote:
 > From: Xiaogang Chen <xiaogang.chen@amd.com>
 >
-> kfd process kref count(process->ref) is initialized to 1 by kref_init. After
-> it is created not need to increase its kref. Instad add kfd process kref at kfd
-> process mmu notifier allocation since we already decrease the kref at
-> free_notifier of mmu_notifier_ops, so pair them.
->
-> When user process opens kfd node multiple times the kfd process kref is
-> increased each time to balance with kfd node close operation.
+> To allow user better understand the cause triggering runlist oversubscription.
+> No function change.
 >
 > Signed-off-by: Xiaogang Chen Xiaogang.Chen@amd.com
-
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
-
-
 > ---
->   drivers/gpu/drm/amd/amdkfd/kfd_process.c | 14 ++++++--------
->   1 file changed, 6 insertions(+), 8 deletions(-)
+>   .../gpu/drm/amd/amdkfd/kfd_packet_manager.c   | 55 ++++++++++++++-----
+>   1 file changed, 42 insertions(+), 13 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> index d07acf1b2f93..d871d5320297 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> @@ -850,8 +850,10 @@ struct kfd_process *kfd_create_process(struct task_struct *thread)
->   		goto out;
->   	}
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
+> index 37930629edc5..e22be6da23b7 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
+> @@ -28,6 +28,10 @@
+>   #include "kfd_kernel_queue.h"
+>   #include "kfd_priv.h"
 >   
-> -	/* A prior open of /dev/kfd could have already created the process. */
-> -	process = find_process(thread, false);
-> +	/* A prior open of /dev/kfd could have already created the process.
-> +	 * find_process will increase process kref in this case
-> +	 */
-> +	process = find_process(thread, true);
->   	if (process) {
->   		pr_debug("Process already found\n");
->   	} else {
-> @@ -899,8 +901,6 @@ struct kfd_process *kfd_create_process(struct task_struct *thread)
->   		init_waitqueue_head(&process->wait_irq_drain);
->   	}
->   out:
-> -	if (!IS_ERR(process))
-> -		kref_get(&process->ref);
->   	mutex_unlock(&kfd_processes_mutex);
->   	mmput(thread->mm);
->   
-> @@ -1186,10 +1186,8 @@ static void kfd_process_ref_release(struct kref *ref)
->   
->   static struct mmu_notifier *kfd_process_alloc_notifier(struct mm_struct *mm)
+> +#define OVER_SUBSCRIPTION_PROCESS_COUNT 1 << 0
+> +#define OVER_SUBSCRIPTION_COMPUTE_QUEUE_COUNT 1 << 1
+> +#define OVER_SUBSCRIPTION_GWS_QUEUE_COUNT 1 << 2
+> +
+>   static inline void inc_wptr(unsigned int *wptr, unsigned int increment_bytes,
+>   				unsigned int buffer_size_bytes)
 >   {
-> -	int idx = srcu_read_lock(&kfd_processes_srcu);
-> -	struct kfd_process *p = find_process_by_mm(mm);
-> -
-> -	srcu_read_unlock(&kfd_processes_srcu, idx);
-> +	/* This increments p->ref counter if kfd process p exists */
-> +	struct kfd_process *p = kfd_lookup_process_by_mm(mm);
+> @@ -40,7 +44,7 @@ static inline void inc_wptr(unsigned int *wptr, unsigned int increment_bytes,
 >   
->   	return p ? &p->mmu_notifier : ERR_PTR(-ESRCH);
->   }
+>   static void pm_calc_rlib_size(struct packet_manager *pm,
+>   				unsigned int *rlib_size,
+> -				bool *over_subscription)
+> +				int *over_subscription)
+>   {
+>   	unsigned int process_count, queue_count, compute_queue_count, gws_queue_count;
+>   	unsigned int map_queue_size;
+> @@ -58,17 +62,20 @@ static void pm_calc_rlib_size(struct packet_manager *pm,
+>   	 * hws_max_conc_proc has been done in
+>   	 * kgd2kfd_device_init().
+>   	 */
+> -	*over_subscription = false;
+> +	*over_subscription = 0;
+>   
+>   	if (node->max_proc_per_quantum > 1)
+>   		max_proc_per_quantum = node->max_proc_per_quantum;
+>   
+> -	if ((process_count > max_proc_per_quantum) ||
+> -	    compute_queue_count > get_cp_queues_num(pm->dqm) ||
+> -	    gws_queue_count > 1) {
+> -		*over_subscription = true;
+> +	if (process_count > max_proc_per_quantum)
+> +		*over_subscription = *over_subscription || OVER_SUBSCRIPTION_PROCESS_COUNT;
+> +	if (compute_queue_count > get_cp_queues_num(pm->dqm))
+> +		*over_subscription = *over_subscription || OVER_SUBSCRIPTION_COMPUTE_QUEUE_COUNT;
+> +	if (gws_queue_count > 1)
+> +		*over_subscription = *over_subscription || OVER_SUBSCRIPTION_GWS_QUEUE_COUNT;
+> +
+> +	if (*over_subscription)
+>   		dev_dbg(dev, "Over subscribed runlist\n");
+> -	}
+>   
+>   	map_queue_size = pm->pmf->map_queues_size;
+>   	/* calculate run list ib allocation size */
+> @@ -89,7 +96,7 @@ static int pm_allocate_runlist_ib(struct packet_manager *pm,
+>   				unsigned int **rl_buffer,
+>   				uint64_t *rl_gpu_buffer,
+>   				unsigned int *rl_buffer_size,
+> -				bool *is_over_subscription)
+> +				int *is_over_subscription)
+>   {
+>   	struct kfd_node *node = pm->dqm->dev;
+>   	struct device *dev = node->adev->dev;
+> @@ -134,7 +141,7 @@ static int pm_create_runlist_ib(struct packet_manager *pm,
+>   	struct qcm_process_device *qpd;
+>   	struct queue *q;
+>   	struct kernel_queue *kq;
+> -	bool is_over_subscription;
+> +	int is_over_subscription;
+>   
+>   	rl_wptr = retval = processes_mapped = 0;
+>   
+> @@ -212,16 +219,38 @@ static int pm_create_runlist_ib(struct packet_manager *pm,
+>   	dev_dbg(dev, "Finished map process and queues to runlist\n");
+>   
+>   	if (is_over_subscription) {
+> -		if (!pm->is_over_subscription)
+> -			dev_warn(
+> +		if (!pm->is_over_subscription) {
+> +
+> +			if (is_over_subscription & OVER_SUBSCRIPTION_PROCESS_COUNT) {
+> +				dev_warn(
+>   				dev,
+> -				"Runlist is getting oversubscribed. Expect reduced ROCm performance.\n");
+> +				"process number is more than maximum number of processes that"
+> +				" HWS can schedule concurrently. Runlist is getting"
+> +				" oversubscribed. Expect reduced ROCm performance.\n");
+> +			}
+> +
+> +			if (is_over_subscription & OVER_SUBSCRIPTION_COMPUTE_QUEUE_COUNT) {
+> +				dev_warn(
+> +				dev,
+> +				"compute queue number is more than assigned compute queues."
+> +				" Runlist is getting"
+> +				" oversubscribed. Expect reduced ROCm performance.\n");
+> +			}
+> +
+> +			if (is_over_subscription & OVER_SUBSCRIPTION_GWS_QUEUE_COUNT) {
+> +				dev_warn(
+> +				dev,
+> +				"compute queue for cooperative workgroup is more than allowed."
+> +				" Runlist is getting"
+> +				" oversubscribed. Expect reduced ROCm performance.\n");
+> +			}
+
+I like the concept of showing the cause of oversubscription. Maybe we 
+should add "process isolation mode" as a special case of "process count".
+
+The messages are overly verbose. There is a common part of the message 
+that could be printed if is_over_subscription is non-zero. Then just 
+print some extra info about the cause, e.g.:
+
+	if (is_over_subscription) {
+		dev_warn("Runlist is getting oversubscribed due to%s%s%s. Expect reduced ROCm performance.\n",
+			is_over_subscription & OVER_SUBSCRIPTION_PROCESS_COUNT ? " number-of-processes" : "",
+			is_over_subscription & OVER_SUBSCRIPTION_COMPUTE_QUEUE_COUNT ? " number-of-queues" : "",
+			is_over_subscription & OVER_SUBSCRIPTION_GWS_QUEUE_COUNT ? " cooperative-launch" : "");
+	}
+
+Regards,
+   Felix
+
+
+> +		}
+>   		retval = pm->pmf->runlist(pm, &rl_buffer[rl_wptr],
+>   					*rl_gpu_addr,
+>   					alloc_size_bytes / sizeof(uint32_t),
+>   					true);
+>   	}
+> -	pm->is_over_subscription = is_over_subscription;
+> +	pm->is_over_subscription = is_over_subscription ? true : false;
+>   
+>   	for (i = 0; i < alloc_size_bytes / sizeof(uint32_t); i++)
+>   		pr_debug("0x%2X ", rl_buffer[i]);
