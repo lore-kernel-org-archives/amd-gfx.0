@@ -4,72 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0465D43367
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 Nov 2024 14:22:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30DF9D43368
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 Nov 2024 14:22:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6872410E85B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 70AEF10E85C;
 	Thu,  7 Nov 2024 14:22:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="yqRgB49e";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="C9mMt3q9";
 	dkim-atps=neutral
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
- [209.85.221.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EEDED10E7EB
- for <amd-gfx@lists.freedesktop.org>; Thu,  7 Nov 2024 10:38:05 +0000 (UTC)
-Received: by mail-wr1-f42.google.com with SMTP id
- ffacd0b85a97d-37d518f9abcso480730f8f.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 07 Nov 2024 02:38:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1730975884; x=1731580684; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:message-id:subject:cc
- :to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=Ea2x5q1iMawp9uzNjcI5iHXvZAYMp3llBYpFWmiscrQ=;
- b=yqRgB49ea0vZgK4EGl485Bik2WgdOOGLaYJqn5pkRRoGgppaYJiqMI1bISZk2iAVzy
- hqAxZ7tAea3qhGLCBbv1Zgn3F7UEX3KmRps5/vV4S4QKvmbEgArJAo9O6andBEEZmo/0
- oTIjTRO/9e9oTPJMe8ZBxWt6+AMj2JN9Lmay13mEm8fxPITVa5dgCu9S42dT0hnXgsJq
- Pd/8IQkzXaTMFvGGWuQNhxLkcu6ml/DLCOwGwyeMD5CLVbnFmpK6bsIZixbg463Mjdy5
- AlHBSmmj9moakdIGS9XauBLe9O4tM2dI8S6L26cWi36rGXp55Qf9lbmdngBO6YXQGp/h
- nl6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1730975884; x=1731580684;
- h=in-reply-to:content-disposition:mime-version:message-id:subject:cc
- :to:from:date:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=Ea2x5q1iMawp9uzNjcI5iHXvZAYMp3llBYpFWmiscrQ=;
- b=SWL/izkYR8RZNmLo7Ls2+lbX5zFFzGSNKJuXPlnv7TggvXO9FJp3e/VnHNS/uPpnsL
- mXgyK7zdQFAXK5/rVwfHk4E6gyLrgduRW6Ptld7ZY8bGYlUB/1kY9g/mgjRBNn/HsnTB
- lGjV4C24sKlgD6HU6OWcaLlpkUJpbx5kRC3NR9BtMZhuHL3wrwBuElNWhfvotIDtz+4h
- vS//WPgRvtyVacy7fMs3alSmzdKFpJVfc+lxuyGIhaDWkKhY34lcirNlhHRCmAlZ5uVA
- yXdsEL1SuxdOzClSzMnP7dA6lJxONxXAQ0r07Ct0dqZWJ/chEnQJlBlGFQVOIbQgpHtI
- JzNw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVl98JzzGlLTW7qH+hnnK8sWKRsR1pl+QAqjmDHjasi5pojRI1+r2ffKeyYbOArV0H6S/nSiQhr@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw2vqQzbZJuc/+m7MG6whdGNmJaqJVWOmGaB8LSZduHrWffUnSd
- LuU+i9J2bbNeP6wJwsAnP7Xd3XY4wIVf4zLxHjQkywxacj0A+eIm12iZK3gHqgM=
-X-Google-Smtp-Source: AGHT+IE/JyUY2849SdaTntRM722nrvqF2Ek0pKx7giJ2CxkVbfrvqDorwDiGkVI96IfoO0Q1OO0+jw==
-X-Received: by 2002:a05:6000:104a:b0:37d:2de4:d64 with SMTP id
- ffacd0b85a97d-38061162c32mr28765698f8f.35.1730975884157; 
- Thu, 07 Nov 2024 02:38:04 -0800 (PST)
-Received: from localhost ([89.101.134.25]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-381ed9707c8sm1359412f8f.17.2024.11.07.02.38.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 07 Nov 2024 02:38:03 -0800 (PST)
-Date: Thu, 7 Nov 2024 13:38:01 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: oe-kbuild@lists.linux.dev, Fangzhi Zuo <Jerry.Zuo@amd.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, lyude@redhat.com,
- jani.nikula@intel.com, imre.deak@intel.com, simona@ffwll.ch,
- wayne.lin@amd.com
-Cc: lkp@intel.com, oe-kbuild-all@lists.linux.dev, harry.wentland@amd.com,
- rodrigo.siqueira@amd.com, Fangzhi Zuo <Jerry.Zuo@amd.com>
-Subject: Re: [PATCH v3 1/2] drm/display/dsc: Refactor DRM MST DSC
- Determination Policy
-Message-ID: <a1720b79-e59f-4f69-a089-c03f3a6cbba9@suswa.mountain>
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B126310E7F7;
+ Thu,  7 Nov 2024 10:41:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=I/wj5FuLo31/fpnWb4VJXuQTUN+dwPCJttGkV3MBVS0=; b=C9mMt3q9FCa9LTALsiyHOPTo3E
+ LPgZcDE3GZNshn3tFJDHp53XdtWHITHZFEMEhj6MVWx7cfC1MyGO/WS22qz+6SadyfWiWNbJhjcHO
+ KcLwJYK1XvTdmlwqdFv4fcmFQv/GCaQg+hF7ywKallUVDy8DC/9pWrIVWRxuXBCfN8lVoanHIU+7F
+ cos89d4wRQD84M5pGeL+TluKodrCS25OSIWV274sDd9d+0DcyA3iY3QfXiRB4tgqK/xBO1y77M6FQ
+ mtKfIyoQDO2vMeo4JVsYqF6fYVPXU42+SiTYJGv0SNIaZhJlTVCJuNV+rBT1ksEpvPO8r5bwi54uP
+ h1XrBw5g==;
+Received: from [90.241.98.187] (helo=[192.168.0.101])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1t8zwo-003WcZ-P4; Thu, 07 Nov 2024 11:41:06 +0100
+Message-ID: <b31fd5b2-094a-4d3a-bab9-83102726eefa@igalia.com>
+Date: Thu, 7 Nov 2024 10:41:06 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20241106150444.424579-2-Jerry.Zuo@amd.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 4/5] drm: add drm_memory_stats_is_zero
+To: Yunxiang Li <Yunxiang.Li@amd.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, christian.koenig@amd.com
+Cc: Alexander.Deucher@amd.com
+References: <20241025174113.554-1-Yunxiang.Li@amd.com>
+ <20241025174113.554-5-Yunxiang.Li@amd.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <20241025174113.554-5-Yunxiang.Li@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Thu, 07 Nov 2024 14:22:21 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,50 +62,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Fangzhi,
 
-kernel test robot noticed the following build warnings:
+On 25/10/2024 18:41, Yunxiang Li wrote:
+> Add a helper to check if the memory stats is zero, this will be used to
+> check for memory accounting errors.
+> 
+> Signed-off-by: Yunxiang Li <Yunxiang.Li@amd.com>
+> ---
+>   drivers/gpu/drm/drm_file.c | 9 +++++++++
+>   include/drm/drm_file.h     | 1 +
+>   2 files changed, 10 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
+> index 714e42b051080..75ed701d80f74 100644
+> --- a/drivers/gpu/drm/drm_file.c
+> +++ b/drivers/gpu/drm/drm_file.c
+> @@ -859,6 +859,15 @@ static void print_size(struct drm_printer *p, const char *stat,
+>   	drm_printf(p, "drm-%s-%s:\t%llu%s\n", stat, region, sz, units[u]);
+>   }
+>   
+> +int drm_memory_stats_is_zero(const struct drm_memory_stats *stats) {
+> +	return (stats->shared == 0 &&
+> +		stats->private == 0 &&
+> +		stats->resident == 0 &&
+> +		stats->purgeable == 0 &&
+> +		stats->active == 0);
+> +}
 
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Could use mem_is_zero() for some value of source/binary compactness.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Fangzhi-Zuo/drm-display-dsc-Refactor-DRM-MST-DSC-Determination-Policy/20241106-230854
-base:   git://anongit.freedesktop.org/drm/drm drm-next
-patch link:    https://lore.kernel.org/r/20241106150444.424579-2-Jerry.Zuo%40amd.com
-patch subject: [PATCH v3 1/2] drm/display/dsc: Refactor DRM MST DSC Determination Policy
-config: i386-randconfig-141-20241107 (https://download.01.org/0day-ci/archive/20241107/202411071102.0CMTIEIo-lkp@intel.com/config)
-compiler: clang version 19.1.3 (https://github.com/llvm/llvm-project ab51eccf88f5321e7c60591c5546b254b6afab99)
+> +EXPORT_SYMBOL(drm_memory_stats_is_zero);
+> +
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
-| Closes: https://lore.kernel.org/r/202411071102.0CMTIEIo-lkp@intel.com/
+I am not a huge fan of adding this as an interface as the only caller 
+appears to be a sanity check in amdgpu_vm_fini():
 
-smatch warnings:
-drivers/gpu/drm/display/drm_dp_mst_topology.c:6043 drm_dp_mst_dsc_aux_for_port() warn: variable dereferenced before check 'port' (see line 6033)
+	if (!amdgpu_vm_stats_is_zero(vm))
+		dev_err(adev->dev, "VM memory stats is non-zero when fini\n");
 
-vim +/port +6043 drivers/gpu/drm/display/drm_dp_mst_topology.c
+But I guess there is some value in sanity checking since amdgpu does not 
+have a notion of debug only code (compiled at production and exercised 
+via a test suite).
 
-c2bc1b6eabe65d drivers/gpu/drm/drm_dp_mst_topology.c         David Francis 2019-08-26  6031  struct drm_dp_aux *drm_dp_mst_dsc_aux_for_port(struct drm_dp_mst_port *port)
-c2bc1b6eabe65d drivers/gpu/drm/drm_dp_mst_topology.c         David Francis 2019-08-26  6032  {
-fd05275592ae07 drivers/gpu/drm/display/drm_dp_mst_topology.c Fangzhi Zuo   2024-11-06 @6033  	struct drm_dp_mst_topology_mgr *mgr = port->mgr;
-                                                                                                                                      ^^^^^^^^^
-Dereferenced
+I do suggest to demote the dev_err to notice log level would suffice and 
+be more accurate.
 
-fd05275592ae07 drivers/gpu/drm/display/drm_dp_mst_topology.c Fangzhi Zuo   2024-11-06  6034  	struct drm_dp_mst_port *immediate_upstream_port = NULL;
-fd05275592ae07 drivers/gpu/drm/display/drm_dp_mst_topology.c Fangzhi Zuo   2024-11-06  6035  	struct drm_dp_mst_port *fec_port = NULL;
-fd05275592ae07 drivers/gpu/drm/display/drm_dp_mst_topology.c Fangzhi Zuo   2024-11-06  6036  	struct drm_dp_mst_port *dsc_port = NULL;
-fd05275592ae07 drivers/gpu/drm/display/drm_dp_mst_topology.c Fangzhi Zuo   2024-11-06  6037  	struct drm_dp_aux *upstream_aux;
-fd05275592ae07 drivers/gpu/drm/display/drm_dp_mst_topology.c Fangzhi Zuo   2024-11-06  6038  	bool end_has_dpcd = (port->dpcd_rev > 0);
-fd05275592ae07 drivers/gpu/drm/display/drm_dp_mst_topology.c Fangzhi Zuo   2024-11-06  6039  	u8 endpoint_dsc = 0;
-70a6587dca37a3 drivers/gpu/drm/display/drm_dp_mst_topology.c Imre Deak     2024-09-09  6040  	u8 upstream_dsc;
-fd05275592ae07 drivers/gpu/drm/display/drm_dp_mst_topology.c Fangzhi Zuo   2024-11-06  6041  	u8 fec_cap;
-c2bc1b6eabe65d drivers/gpu/drm/drm_dp_mst_topology.c         David Francis 2019-08-26  6042  
-c2bc1b6eabe65d drivers/gpu/drm/drm_dp_mst_topology.c         David Francis 2019-08-26 @6043  	if (!port)
-                                                                                                    ^^^^^
-Checked too late.
+Regards,
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Tvrtko
 
+>   /**
+>    * drm_print_memory_stats - A helper to print memory stats
+>    * @p: The printer to print output to
+> diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
+> index ab230d3af138d..7f91e35d027d9 100644
+> --- a/include/drm/drm_file.h
+> +++ b/include/drm/drm_file.h
+> @@ -477,6 +477,7 @@ struct drm_memory_stats {
+>   
+>   enum drm_gem_object_status;
+>   
+> +int drm_memory_stats_is_zero(const struct drm_memory_stats *stats);
+>   void drm_print_memory_stats(struct drm_printer *p,
+>   			    const struct drm_memory_stats *stats,
+>   			    enum drm_gem_object_status supported_status,
