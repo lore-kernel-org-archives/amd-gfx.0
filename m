@@ -4,99 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B30EED5E148
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 Nov 2024 08:59:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 377A4D5E14B
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 Nov 2024 08:59:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6619210E93E;
-	Fri,  8 Nov 2024 08:59:26 +0000 (UTC)
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com
- [209.85.214.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A655F10E32A;
- Thu,  7 Nov 2024 15:50:47 +0000 (UTC)
-Received: by mail-pl1-f173.google.com with SMTP id
- d9443c01a7336-20c803787abso10192235ad.0; 
- Thu, 07 Nov 2024 07:50:47 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1730994647; x=1731599447;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=y4g9pTMBWn8NYG8DJqu2aF9WChjDh3es1iM4dJmMreI=;
- b=oOFWw48U7tuqsZlgl97aYEMN+xs91dF989G1ooqukHYzpzCqiZURqFctbFO/yQ+Ywx
- 38GsZ7MkRJvjIvf2zILp2I3gBePqRU3bVTXNXbmWvVkc0lDJK78pQWT6R235ysD3eQ1U
- WSrvHXGXUP786cIK668TmiTKBR0jh91bCQpn+mtlaKSMts+mlL8zNAJYhc74IbcwcSla
- QegfjNFpVvXauvslsU5UNRBNWE+/YMnPKiShe9AzofQJYuBwE1dk/RJ6Pe5i5SClCIEh
- /8jVWAG2Ayxiw+5U1TcWNiVUdUZvVTDrNYmClLlHl3raUycWT2HKZglVDXAtUYGsFd9x
- KeCw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUSIbMbbY9XtLzOaJ5a1e5doX/EdLVDriLKlwMIXZkKIEVsVHmTuHt/nDNfZquU1Qc1KnVB0X4O1fKu@lists.freedesktop.org,
- AJvYcCUsJDMqyy6E1yHcixigcS1v6z5z0kw8EDlN2E7sB9OuPtEBXxnsNGEHfSMgBf8ooUX9jcnUG+Bl@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz0vLFqWHcR9JXOq5+gfdNdor7GYPiMXEvW7/TtRB383F0JwcNP
- XTkPM5ewWgg6X4qBSvYRdGrABeR+ObOwdNh37SCFQxRxtOsS5/uN
-X-Google-Smtp-Source: AGHT+IEfW8mc6K7WMilatY4cRGrx/jJrVZ2Go8Ums63B2x6oVuXb+zNT4RZMBtIqDecZElfJ9fn+6w==
-X-Received: by 2002:a17:903:183:b0:210:e760:77e with SMTP id
- d9443c01a7336-21181184b51mr5235045ad.7.1730994647037; 
- Thu, 07 Nov 2024 07:50:47 -0800 (PST)
-Received: from localhost (fpd11144dd.ap.nuro.jp. [209.17.68.221])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-21177e6c2ecsm13637145ad.252.2024.11.07.07.50.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 07 Nov 2024 07:50:46 -0800 (PST)
-Date: Fri, 8 Nov 2024 00:50:44 +0900
-From: Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kw@linux.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <linux@weissschuh.net>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Davidlohr Bueso <dave@stgolabs.net>,
- Jonathan Cameron <jonathan.cameron@huawei.com>,
- Dave Jiang <dave.jiang@intel.com>,
- Alison Schofield <alison.schofield@intel.com>,
- Vishal Verma <vishal.l.verma@intel.com>, Ira Weiny <ira.weiny@intel.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
- Tudor Ambarus <tudor.ambarus@linaro.org>,
- Pratyush Yadav <pratyush@kernel.org>, Michael Walle <mwalle@kernel.org>,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
- Naveen Krishna Chatradhi <naveenkrishna.chatradhi@amd.com>,
- Carlos Bilbao <carlos.bilbao.osdev@gmail.com>,
- Hans de Goede <hdegoede@redhat.com>,
- Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
- "David E. Box" <david.e.box@linux.intel.com>,
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- Richard Henderson <richard.henderson@linaro.org>,
- Matt Turner <mattst88@gmail.com>, Frederic Barrat <fbarrat@linux.ibm.com>,
- Andrew Donnellan <ajd@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
- Logan Gunthorpe <logang@deltatee.com>,
- "K. Y. Srinivasan" <kys@microsoft.com>,
- Haiyang Zhang <haiyangz@microsoft.com>,
- Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
- Dan Williams <dan.j.williams@intel.com>,
- linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
- linux-cxl@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org,
- linux-mtd@lists.infradead.org, platform-driver-x86@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-alpha@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- linux-hyperv@vger.kernel.org
-Subject: Re: [PATCH v2 02/10] sysfs: introduce callback
- attribute_group::bin_size
-Message-ID: <20241107155044.GA1297107@rocinante>
-References: <20241103-sysfs-const-bin_attr-v2-0-71110628844c@weissschuh.net>
- <20241103-sysfs-const-bin_attr-v2-2-71110628844c@weissschuh.net>
- <20241106200513.GB174958@rocinante>
- <2024110726-hasty-obsolete-3780@gregkh>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 77B1110E93B;
+	Fri,  8 Nov 2024 08:59:25 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="l0kaYs1F";
+	dkim-atps=neutral
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 16A2B10E866;
+ Thu,  7 Nov 2024 14:43:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=DSpTr+ubU1TgbK4HzHxTU6tZTxwj8vle3vfFmeg7iNk=; b=l0kaYs1FTos7nOI+KR1BYwTc7e
+ lMlTdokarIUQ5WS1vTfOLLtHcxDOty40stAZanFCaNQuL4AzvboLi4Bv05nkw4wJFrSNsDMO7FFNe
+ guD4wUhnPM1Oo2cRMrG0kJkwdR7ohOO9ynMw9BPs7EwP2LnQL+zHyQg6xT+gHE6JURcIcXYZapjbe
+ 0DbG0bD+WuDBZjERRS/J4VQmLDI5SZ+ATwl+j0iz+RS+N88uhdFqUSgL6/xV3SQu6y3UZsX6DxsQe
+ bb/6csc6pUOd9dxlIuMGyG20yOgUyGQikuJf/AoGLsmP4aUwg2HWm6vR3rr9tbCRxd/B9qop4wXIU
+ m20iEPSw==;
+Received: from [90.241.98.187] (helo=[192.168.0.101])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1t93jo-003beD-2C; Thu, 07 Nov 2024 15:43:56 +0100
+Message-ID: <bac29354-640f-4f39-b694-b611407c35ae@igalia.com>
+Date: Thu, 7 Nov 2024 14:43:55 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2024110726-hasty-obsolete-3780@gregkh>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 4/5] drm: add drm_memory_stats_is_zero
+To: "Li, Yunxiang (Teddy)" <Yunxiang.Li@amd.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "Koenig, Christian" <Christian.Koenig@amd.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+References: <20241025174113.554-1-Yunxiang.Li@amd.com>
+ <20241025174113.554-5-Yunxiang.Li@amd.com>
+ <b31fd5b2-094a-4d3a-bab9-83102726eefa@igalia.com>
+ <SA1PR12MB8599D376A7EBAB3F46302297ED5C2@SA1PR12MB8599.namprd12.prod.outlook.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <SA1PR12MB8599D376A7EBAB3F46302297ED5C2@SA1PR12MB8599.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Fri, 08 Nov 2024 08:59:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -112,14 +66,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello,
 
-[...]
-> > There exist the sysfs_update_groups(), but the BAR resource sysfs objects
-> > are currently, at least not yet, added to any attribute group.
+On 07/11/2024 14:17, Li, Yunxiang (Teddy) wrote:
+> [AMD Official Use Only - AMD Internal Distribution Only]
 > 
-> then maybe they should be added to one :)
+>> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>> Sent: Thursday, November 7, 2024 5:41
+>> On 25/10/2024 18:41, Yunxiang Li wrote:
+>>> Add a helper to check if the memory stats is zero, this will be used
+>>> to check for memory accounting errors.
+>>>
+>>> Signed-off-by: Yunxiang Li <Yunxiang.Li@amd.com>
+>>> ---
+>>>    drivers/gpu/drm/drm_file.c | 9 +++++++++
+>>>    include/drm/drm_file.h     | 1 +
+>>>    2 files changed, 10 insertions(+)
+>>>
+>>> diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
+>>> index 714e42b051080..75ed701d80f74 100644
+>>> --- a/drivers/gpu/drm/drm_file.c
+>>> +++ b/drivers/gpu/drm/drm_file.c
+>>> @@ -859,6 +859,15 @@ static void print_size(struct drm_printer *p, const char
+>> *stat,
+>>>      drm_printf(p, "drm-%s-%s:\t%llu%s\n", stat, region, sz, units[u]);
+>>>    }
+>>>
+>>> +int drm_memory_stats_is_zero(const struct drm_memory_stats *stats) {
+>>> +   return (stats->shared == 0 &&
+>>> +           stats->private == 0 &&
+>>> +           stats->resident == 0 &&
+>>> +           stats->purgeable == 0 &&
+>>> +           stats->active == 0);
+>>> +}
+>>
+>> Could use mem_is_zero() for some value of source/binary compactness.
+> 
+> Yeah, the patch set started out with that when it's just a function in amdgpu, but Christ didn't like it.
 
-Yeah. There is work in progress that will take care of some of this.
+Okay, I don't feel so strongly about the implementation details.
 
-	Krzysztof
+>>> +EXPORT_SYMBOL(drm_memory_stats_is_zero);
+>>> +
+>>
+>> I am not a huge fan of adding this as an interface as the only caller appears to be a
+>> sanity check in amdgpu_vm_fini():
+>>
+>>        if (!amdgpu_vm_stats_is_zero(vm))
+>>                dev_err(adev->dev, "VM memory stats is non-zero when fini\n");
+>>
+>> But I guess there is some value in sanity checking since amdgpu does not have a
+>> notion of debug only code (compiled at production and exercised via a test suite).
+>>
+>> I do suggest to demote the dev_err to notice log level would suffice and be more
+>> accurate.
+> 
+> I think it's very important to have a check like this when we have a known invariant, especially in this case where there's stat tracking code spread out everywhere and we have very little chance of catching a bug right when it happened. And since whenever this check fails we know for sure there is a bug, I don't see the harm of keeping it as an error.
+It would indeed be a programming error if it can happen, but from the 
+point of view of a driver and system log I think a warning is actually 
+right.
+
+Regards,
+
+Tvrtko
+
+> 
+> Now that I think about it, I probably want to have the process & task name in here to aid in reproduction.
+> 
+> Teddy
