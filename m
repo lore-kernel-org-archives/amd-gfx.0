@@ -4,144 +4,146 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8446D5C0C0
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 Nov 2024 12:44:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BD36D5C0CC
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 Nov 2024 13:59:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8BB0110E247;
-	Fri,  8 Nov 2024 12:44:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9065310E9BC;
+	Fri,  8 Nov 2024 13:59:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="yTziyY6w";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="pI5CagAy";
 	dkim-atps=neutral
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2054.outbound.protection.outlook.com [40.107.94.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A31910E247
- for <amd-gfx@lists.freedesktop.org>; Fri,  8 Nov 2024 12:44:56 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2060.outbound.protection.outlook.com [40.107.244.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A3B3210E9BC
+ for <amd-gfx@lists.freedesktop.org>; Fri,  8 Nov 2024 13:59:23 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=W9NQiIu3x/oQFL2N6h91qzyrB+IkfU9ksgQr7/5qBIVbRf1wNk5fPsoAfW8Hs5F6UDHb7FJbFDU5d+niAshyCHs+XRIjLZNt1UYHdccHDJeK6GU5Bgepqg7tOhxpHDNaqIZdbFB0OPCZGLwAIObWWjaKQKwPJG2YG16RYn2xViu3QeUtfA1EWC8JZE/p+xoWs9wtPtV/ZP95rhudhjUsAAV4dICpsYvgpjBlXM63NO4uMugR7+nwVuY7CXBXH9j/QtArDyVrYDZQgoxh+tXj6IsZIkn36yf+Bq5wE6JJVpGBw1q0iLoz0g56tdpddc2/coSe90l9oBcTwF+M2rI/9w==
+ b=Cxb930yv7Bt9RkJJr/pBiO4sRk7vKmJy8w7szs6tYVleSn+vnxuCmGbIGUI/B62DtKgi801dUHS24ZXPDOkS8hp97twzMw0ZwLF1gDzHttg6njCCsBPSzrpE7jMjqGFDqKXpxHYXY6o626VicU938HLEPZZVNFzTN2IIJkktCk3yN7p4jUu5vXaQ9DObPUY7Os+6uCD39he3KB1L5CahmyVxtyWwtgZY/x79ZFkZz5BT2gSwZlzejPuvQMnsZZk7F5NWLbF7YlSvMgx+iUfV7Fw1AArsvIMUguZfmfO9rMyqibgPUVvC2Pntu7jvajIKQD2ivPWjr6WDBoA/2Xkg/w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2HKVHp1o2/siwLbQjjc7abatBn298EAoXfLbfg3D9k8=;
- b=Ug9bWS5cZ/AkAh6T/FgHCT7aOmY5SZaIJTjjAQb2QKl4LXhdLgPVJlrcKa4aJLL6buubzclvaFmGnwyr3waaFBeIIQBlhZ79G0UnD2FTrP93lXqPcvnY7ayKjyroV9lJVkzVft5xr0mIcCUqkAZxiQkvlt+aDeuoT4InXGEBECT2LVNI8IjD7cFmA06QZZUh2mUsmY9B3xQbWw/RhlmeSezJhsEwS/suYKi3uN8MAKPKMDa1V8p0gdJXRd13rnTrKtiKreBk1YHtMc+Yr85zaJ+Tvx2iI0O/kQQk7Jo6o0kh43uyqwYsfO7u3ynaPx0/gAt6a0pGI3iUAG6RM71CNw==
+ bh=ARXguZBl+zNeHdXxJZ0E89tItyjautUvFJB4m2UwgTU=;
+ b=XnpvzjkjPCx1HT4MmkYnrkAUo4ZaKxWIqRFXj2kE0NClshgfXVOxn1e+dl2hsxBxmXtS+UIeopAqUmWrzg+4+i7gG4t51fgeFT0fNHMCXMz5VTyEfCENyJQ+NMw22xupSjLR3EZqyWz9Cp6B6KuX6WBS1X2hmOandeg4xo9aDAw02FOiYCmUTUrlKjUHLjHvPKJ8bbSh2t8HNCMEKRen9Oaq2bekfVNihQqzNPPhrj8itZFHlD4ESkokxud5Rh/FEXQvT1NmES/+KIg4yIJ/0FEl2Y241Vt8cwZYkGYcKkoWVR8C8Ri/4tB/obq6xFQrAKjW9tMIoZPmDvTozxBc0A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2HKVHp1o2/siwLbQjjc7abatBn298EAoXfLbfg3D9k8=;
- b=yTziyY6wcmS18YfQs2UXmDCl3Fuqrc5fCxUuy0QEbb6cP0U2PY1VvjGZSCW1o/+i7GXiQSsvdxiWRRp5MMV+j9xfg/ZxdmuyiLPkgPUppxQKl54w0PKP9rBO85hiz3ym5TYG+rfyl3CC98f/zN88CL9POCYqMkQiJIuFm/A8qKM=
+ bh=ARXguZBl+zNeHdXxJZ0E89tItyjautUvFJB4m2UwgTU=;
+ b=pI5CagAyHORls+3ybvgXKv4tRwNlQlUUALJBH5x4yQYGXXpCY5RJHD2uzO19+L09VlU0/uEl/RRvRO0D+1nEYgvM2wB0Fb0JCLE/IUbtIM42ElNAz+VyEnUr8DpzZ0fpHvbRe7ljT6sLFP4WpfMTkiZpbrsMWQkRtkSq1KB53GA=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
- DM6PR12MB4204.namprd12.prod.outlook.com (2603:10b6:5:212::23) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.8114.20; Fri, 8 Nov 2024 12:44:54 +0000
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::8327:d71a:ce21:a290]) by DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::8327:d71a:ce21:a290%5]) with mapi id 15.20.8137.018; Fri, 8 Nov 2024
- 12:44:53 +0000
-Message-ID: <f9cdd809-0f2a-493c-a1b8-a1b6577795ba@amd.com>
-Date: Fri, 8 Nov 2024 18:14:47 +0530
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
+ by CY5PR12MB9054.namprd12.prod.outlook.com (2603:10b6:930:36::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8137.20; Fri, 8 Nov
+ 2024 13:59:19 +0000
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::1c2f:5c82:2d9c:6062]) by CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::1c2f:5c82:2d9c:6062%5]) with mapi id 15.20.8137.021; Fri, 8 Nov 2024
+ 13:59:18 +0000
+Message-ID: <cb727a0d-eced-4bfa-ac56-16a972db2d60@amd.com>
+Date: Fri, 8 Nov 2024 08:59:16 -0500
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 01/23] drm/amdgpu: add flag to indicate nps mode switch
-To: Tao Zhou <tao.zhou1@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20241108111423.60169-1-tao.zhou1@amd.com>
+Subject: Re: [PATCH 4/5] drm/amd/display: add DC drm_panic support
+To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: yaolu@kylinos.cn, jfalempe@redhat.com
+References: <20241105140624.2897662-1-alexander.deucher@amd.com>
+ <20241105140624.2897662-5-alexander.deucher@amd.com>
 Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20241108111423.60169-1-tao.zhou1@amd.com>
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <20241105140624.2897662-5-alexander.deucher@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN2PR01CA0209.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:e9::20) To DS0PR12MB7804.namprd12.prod.outlook.com
- (2603:10b6:8:142::5)
+X-ClientProxiedBy: YT4PR01CA0081.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:ff::15) To CO6PR12MB5427.namprd12.prod.outlook.com
+ (2603:10b6:5:358::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB7804:EE_|DM6PR12MB4204:EE_
-X-MS-Office365-Filtering-Correlation-Id: d6048a91-835d-4de2-11db-08dcfff32444
+X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|CY5PR12MB9054:EE_
+X-MS-Office365-Filtering-Correlation-Id: 625557bd-0abb-4983-3e70-08dcfffd89f1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?dFpNaGRjQmlaQVJxWGhKSGdpMFQ0NGNFWU1SOUVFTkk4dmVZWjl4dFh1eU5J?=
- =?utf-8?B?NGZlU083K0RuOG1CS1pBQy8va0NWOFRvQTJLS0p6WlRnc1BJNWRhQlJ0VGRh?=
- =?utf-8?B?M1BTaDdCY2dBTUpqeXI0V2p3TUh1QUVZWGhwc0Evbk1hd09JeUpIOStod2VT?=
- =?utf-8?B?UVo1WGhocWw1NDN1QllBbTZMaG1saC9ZcFhRU3NmbkpDWDZuQUNKR1RaMTVr?=
- =?utf-8?B?T05maWJGOG05QlNCaHdibC9BY25TNVpsTXlkZWxER0NpT2ZQTWN3QnVnZUdm?=
- =?utf-8?B?TXpKRHBvbjNKaXl0T0FKaEFSS1g5M21JY1M5UENCWGpqSGRvSFlneWROWjN5?=
- =?utf-8?B?Z2hmMHdhWXFyMHA2SitVNUxNMHJwZEVBU3RnVklYTDVaU2dyMDJRaGt6aWs2?=
- =?utf-8?B?SnJsV3FJQnYyd1FoaVVzcC8vZlRZY2FCc2ZYaUdmSy8yK2RQL3RjUVJ2aGZt?=
- =?utf-8?B?WmNRd2lpdDJNNnBTQzhXTmVGeXh1eXVISSs5WWFBcGIzVjd2NzV4TEdGS0FN?=
- =?utf-8?B?SWJkOXRTVkNXMGcxK3VuL3NXSm4vd2hFRjdHWVJSRzQzRGdXWHY5c1hBL05h?=
- =?utf-8?B?MDIxZWRhT040bFR0R2dTRzdkck9CLzBFMHFFYThjWWJTTUQzQVBTR3hxUUFG?=
- =?utf-8?B?NUdFUmV2UE43Szlpb1VUZ3lhSnVvOHIwREtmNWx3UGtHNnRuSzZMVWFIdW9V?=
- =?utf-8?B?QnhEdHhNYnVoLzNlNTNpaWRTV09FWGhrSFZzQUFUck1UN0Q3VGVCL05WeDJW?=
- =?utf-8?B?RnhLSjUzMkZuSGF6QU9jOVlGU0tmbWFQTHBxSytSQXFXMEk3Mlc4SVArZTFR?=
- =?utf-8?B?cjVkZVNNOUxKZitGRDJGSm9zaGFqYkxPdjR3T3pyd0YzT01UVXdZUTFJeEJn?=
- =?utf-8?B?YzFKcWIvZ205aXkzQWFaRVpuakNFL2t0KzR1bjZzeWJWOEJWNXVFWlV5QXVu?=
- =?utf-8?B?Ylp6Q0FWU0RtY3pnS1QwV0F0OXgrL0dVeStSRkREVExCQ3dJQ0JyNUpldHRu?=
- =?utf-8?B?eGpwQWl4elBIUWFVVWFVNjVBOFVJN1hrSytvTldpbXlkOGdLditYcGVuNzhD?=
- =?utf-8?B?UHNkQlRxYWdvNlpsTVNocVRycGkxOHF3M3g4dXhpOWlzSWo5aTYxc295U1FV?=
- =?utf-8?B?M0l6aXo2Q2ZnVkl5ZUxFYmxlcWZxTmdMd0Eza1BhZk0rakdnTjhWQTZqamJ5?=
- =?utf-8?B?anhRajlGSlV4VHp0ZHUxVGtTcGJrRmpyeHpmNWlEMFZsOHBOcEJ0cHI2WURT?=
- =?utf-8?B?WDQrZXBQa29rcmxZRW1RZGtzSlQ0akNKYUZGQTdCVkF2SXVKTGttdEk4b0Vn?=
- =?utf-8?B?MTBZdnM5M2RPaFpCa2VWaUFrbE5XQzFVcjNDM3hsY1NUV0lSVXFra0dBaGNG?=
- =?utf-8?B?Q0VoNjZUTWNGdjNmdUxJcnZOUmlIZnRJYkxZQS9PVVF3OVgzbW9lNFdRMWhF?=
- =?utf-8?B?VFVIamRpeGJheXZETEJORVNlNmI2SHgreThyV1pBc2h1WmZJdmhrNlpqd0RY?=
- =?utf-8?B?YlMzTkFQcnp1Sy9XTUNEbjl3T255bzVJa2x6bDVqY2NOWEc0L045NmRqdUNQ?=
- =?utf-8?B?aXVKVlNKMFprSWxvbGRSWjZLS3lKMmI0dHZ4U1o1NGo1N2NCZTV5RGZZMXky?=
- =?utf-8?B?T0QrM3haajZyclM4UEt3dkswcFBHVVBLQ0ZUbStnaVVlN0IwS2l4VFlPbmVO?=
- =?utf-8?B?c1NmeXYxMWhVSHkvS0wxUEp3eVJmblBsYXR6TWNodDlLVWh4cWNSNm9XS3g4?=
- =?utf-8?Q?ONpv5031ndTXkARQ74mOMMP62CLF6Ry1cjQNZIk?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?TEZJOUptWVE4SFVwUXF4SFpzK3VSMEF4Y29WQ0Q2aTF3bHF3MHV3bXl6Z3hN?=
+ =?utf-8?B?d0xLWk8xTjRWSGo5Tmp0U3VHNElQSGhqS3dPeDBiWExDcENsWm1OMnkvMWFt?=
+ =?utf-8?B?a0swQWVhVURsTFBJYSs3N1pvczcwK0wvSHA2VGh2ekxxaUZ3ZnA3cm9rUlRr?=
+ =?utf-8?B?VDQvMDFpRlNFbEZYTjZVWWdvWXhkbkptcTZsOGZQK0kxZ014dE1ITlM4NTFR?=
+ =?utf-8?B?Tm8vODRzTGZZY05WTUxQMVlVdVIyYXlYNWQzZmtjdmF1L3RnS1FpRkZaZDFM?=
+ =?utf-8?B?NWtuRXFhOFBhZ05obXJDbC9IV2c0eU9EVC8yZVhkbkozdGFLVEtML1VGazRF?=
+ =?utf-8?B?Yk1PaFROYlZnS2xuZGc4cTkwOXdQUlVhMWF1QXFFWTRaNS9qSVpEcHZTOHdD?=
+ =?utf-8?B?RitwdXErbDJuQUdaZnVpdVVSTTd3TUtUUDhuWDlabzlueVREQnBiczhTK21C?=
+ =?utf-8?B?aCtCU2U3VXQ4SnFqMVltZjJJRFgxbEk3N2R0YWpUdzJ4azQwNnp0SEFJUDFS?=
+ =?utf-8?B?MEZyeTFURFE1M2tRRi83RzRDaDEvNUJidnM3ZlRrSXNrYlJVQkZra3R0N3Mz?=
+ =?utf-8?B?VzlvWElDc20rc2NCK281TDlJQmkxKzRScDliWDVCQXpueGJhVlZ0V1h1cDNj?=
+ =?utf-8?B?dGZKZ2dueVhMQjlYLzNtOFo0WUdMMDAyZ29lQkQ3WXM5WFgyakF4WDBhTUxS?=
+ =?utf-8?B?UmVuTjVHaVU4bCtVTW9ZSkdqUU5pbXJUOENjbC9seDBKU0oyVjk5OUU5V2Qx?=
+ =?utf-8?B?N05iK1pqVTBpRzEwNzVSRU44OStteGNaZEhFekhzdktualBEQlk3ZWlRSWF3?=
+ =?utf-8?B?MC9PLzhpQm43RnJzN2I1VlBOdDhvd09EbHpoTjFyTkg5d0o0UWhlQUFWQXc5?=
+ =?utf-8?B?SlUzRVF2RGRlSGtmc2JGanV6QnhCblBua1I2VlFUclBhaHJPS0pobGVML0JT?=
+ =?utf-8?B?THAzMGNjOTJiQ3l0cHBVdjFzZ0xYV2pZNEkydWwwRGhydjRHeDBMcmNQOXpi?=
+ =?utf-8?B?TWx2aWlLTUtWL3EzblQyOFJZWWtjNWlyWC8wYUQ5cTBuVmtZUjA3R3dPTzMy?=
+ =?utf-8?B?S1FRWGJtdmFxYUJYUVdqQnVlZ3YvQ040YnZ3QTc0ZXdnSTRqbS9nSTY5TUFV?=
+ =?utf-8?B?R1llUVJwRkFLUzZvSzdLQ0UwdC9NMjNiVDdYQ3dxcldHTUU4c05iR1Zxa2Nt?=
+ =?utf-8?B?cmlHcGxZeGJ4RWhpeGs3UVRhUnZqVCtqQ0FYOFZtcnZMVTZaUU8xS0k2Q0xu?=
+ =?utf-8?B?a3VFQStjUjMxaTJxYkdGZ0M2RFNRSlQ3VVl2dWlWdmE4UHEyRGl6RUM4bXVh?=
+ =?utf-8?B?MVZwVm8wbmNPMWgrL3pwVE9MOVJ4N2FXcmpiZlJzSmowSjlwUG91eUY0aEli?=
+ =?utf-8?B?dGdLS0JEdlZlbGdyRThSU1ZVUzJQeVJGd1liZ2IrM1FENDVxZWIzb1RUUkl4?=
+ =?utf-8?B?bitWa0dORzJtSmlwd1hJVjZrZWlNZFQ3ejRPVGdiMXhaRzVkMXNyQmY3dmc3?=
+ =?utf-8?B?em9CWmZPeUM4clg3dERWelZCWlBSREtmV2U1UUkvTnZjUWdlaDBLeXNJUUFy?=
+ =?utf-8?B?N3N4eUxxTGJJaGRTY01nQXp6d2F0QTk2U1NzU201WCs0K0hhTTBaM1M4cnVP?=
+ =?utf-8?B?cTRFaFZnUkVHQmVPS1lxQmVoZ0d3c2VEQURZN0Z3MFBjdWs1RThBdUYwbTA1?=
+ =?utf-8?B?TXorQm93UUJRR0wvbnVYYmhoQlpXUE9tVVVQVFJqdGpUTjdQL05xa1YxWlRB?=
+ =?utf-8?Q?zuZKkt8AXOkDciEhF3QoeY70mVfdsqnedgCS0ts?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eGZXNGNaNFp2RnZqbVJLYVNwV3E3S0VNbTJ5VEwvc3pWamR2SUUyYnJUTHhH?=
- =?utf-8?B?Zkh2dXRnQ2o5V1QzVHFwemdROCtqMFlqUDYvY3MwNzFqSU1Za0tRQ2RwcmRY?=
- =?utf-8?B?NVR6ZVpQZGJRRTJNa09ITEEyMi83R3ppaVpORW1mTEFlSEIyV1h4SG01MGtE?=
- =?utf-8?B?dVdKMDVEakllclFIUTArd1NRVDZxQmRUL2FhMHF1WE1tSnB5Ti9ySDVHNEpH?=
- =?utf-8?B?MTZkOWV2MDJMRXhLQ0VyaEVWNVBldlRKL2Z2aDZwQXFRaUwzdnZ6YjJZenJK?=
- =?utf-8?B?M1VoM0h3ZWNqTmRuR3dJVVdkWklIVzVFcGJXZ01WM1BLajdJRnZoOVNHTlhz?=
- =?utf-8?B?V1prdy9nUXJqQmRaTFFCckZkR2x2QmJvUjczdjlkRGF0N0FEWUxpdmFWb2ZL?=
- =?utf-8?B?Z1BrY0hwSmMvRzVXTXJuS3hSS1V0NjdQK3ZvcWFoZHJvU1QwRUJ1OHY5Mnlo?=
- =?utf-8?B?UDlINzZLUDFtcjZYNmhma0tFK1R1YmI4SDB3L0FjOEkvNWttOWNUbUFRQkZ6?=
- =?utf-8?B?djRrNEk2c3JmSDFHSGJ2TjkvSjNscTgyZWNCL2hycFE0elFSbzVvbkphcWtn?=
- =?utf-8?B?MkFKY0hqa210N1hnT1k0aWk5TTBuN2lzSWpyTGhiY0ZhVFdTS1NmM0ZQWlhr?=
- =?utf-8?B?WitpbHNXdEo0ZmErMW8xNUh4T29RMzZmL3ZvMjFwODgzV0kvYTBqTWRhcmNG?=
- =?utf-8?B?N01tWlVFajBYYmVoMitUR2tDbVBHMDVweWdJVEIrRWNScStvVVNmd0NtMVFh?=
- =?utf-8?B?dzlvWk9FMWVvMUVLeUVISmtNS2NLNXFvenJFaXA4TEQ1WTBuVDdhMGtUZ1do?=
- =?utf-8?B?WlRldGZWUndQd2JBTTA3S2JHQkkxby9xY1JqcVZoZFprREJUZ2o1VDRKMUI5?=
- =?utf-8?B?TitjTXpURzNIZHg2NU5TTHl6akNLYk8ycWxpUzQ3Syt2Z2EyanB0RE5oeVMy?=
- =?utf-8?B?MlAzT2JWaUFOTTZtRmRMMlN1K0hXb0ZVUUlVcmJuaDFDZWFKVkt2Z1ViakdW?=
- =?utf-8?B?a3hvUkRYQXRwdGd2MURQT1hxNlBncStHK0gxbnBWNmNGZEgxeGFUM3NTNVZV?=
- =?utf-8?B?MnUvSkh2U1ZpYUdkTEVlTTZmanBmYVdnTVBEcFFBMzZmK21lZ1BaQ1VUVklU?=
- =?utf-8?B?cjQzS1dUQnlKNEs1RWo5cWMzb1J5VzJVbTBGclpWM2NHYTF1NWdIUGVxM3Yz?=
- =?utf-8?B?d1hVNDc3RzRkekw0Zml0UnorcEgyNlEzWEltcmpvNTZQblRPQkdVZG9nbUxG?=
- =?utf-8?B?ODd4UTZac1ZjVGt1a2RFZGJQV3dnaDZGR1FsNjYwM3BranhlWEF1YzhVZk84?=
- =?utf-8?B?L1RtTEMva052K0pEd1B4NDBMVjlmb0ZSTzdFeUJPNitrazk2Ymg4cUVxRzBC?=
- =?utf-8?B?c25NajNXcllPaTc5VjdGYUY5bUtya2dMaWRNdm5XSmlROG1HamNxUDJINnpE?=
- =?utf-8?B?R0FhSHVZZ3gyRWJiS0dRWkd5b2hYTzVJQ2YweFpMZWVQcXNQZ3RyN3MxNzM1?=
- =?utf-8?B?L2FRbjc3Y0U4eW5JdTFJamQzSzRKMm1GUlJWZHhxc29Dd3cxRGZ5NmdyRlVM?=
- =?utf-8?B?MEQyR3pZRG1wVEV4Q0pPbHRtaE1QanZjMWlRb0I0RjdNdW9ueGlQeGpaYm0w?=
- =?utf-8?B?VEFnUTQrcWozM3NRMEpHL3lmRzhFaXpnZlNXTG1YUjNjcGNDNnpxR09NVTdW?=
- =?utf-8?B?NEpBV3ExQWhuVkRLUFpQMkp4NXdWaDBqRzBjemFDbHd5bkFQK0JtWVplM1l2?=
- =?utf-8?B?aFhXVUN4SHhuT3pEZ3Bia1BNNUJNRTRWNHR5d2dGempYK1QxN2xHMTlibkw5?=
- =?utf-8?B?VWI3aENScDBMRVR2a1JqTDZUL1ZycEY1NTlEL3RpUlVld3BrcUFPWGQwYlRH?=
- =?utf-8?B?Nk5OdU1BNE9ObUZLbXg0YU0zM0lkSHdRV0RWaGtOa09WTVlzMUtZOWUyNjA1?=
- =?utf-8?B?YnhGUDN4SnIxSURFNWs3MGRPOFUwa2xkNnd4ckNwSDFUeVJQRVZNT1pNZXYy?=
- =?utf-8?B?ZW5XZXJTU1hmOHd0a3QwWCtLaUFDd05IWUF2b3ZISjI1c2ltRVE3bCtKVjhy?=
- =?utf-8?B?Zm52TTRaTTBBL1ZkU3E2cjZncWJoVlEzYTh2dUJhamo4ZHR5cW85WExDTjM3?=
- =?utf-8?Q?XFOQfMgQBvKS4ltlxrRHtFRPP?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?M0ZjZkdIS2duQklaTWFOSk9Ra2lleWYzN2lLMnFwalhacmlyWWVyZS9jazdp?=
+ =?utf-8?B?RmVXanJ1Q1JIMnFJakhqZXE4T1cwUk10b0Jia2dXeFA1WlNTOU8wREtuclIw?=
+ =?utf-8?B?RkpGQ2ZGNmFBa3VSalVpN056emUxMjRyOVpEdkRhL3NtUnFVeW9ncGFaelNz?=
+ =?utf-8?B?VVlGcEhucERRWG1aOGZINHEyVUVlTFBDTzlLTUxBNzlMdzZwV3R0eHpnUHhu?=
+ =?utf-8?B?a2N4K0Q1cUtOS3p3dDYvNVB3VnVHaTZqKzB5UlN4clUvYVpubEFOQVhYNjNn?=
+ =?utf-8?B?Q3h6UnBQbFJIYVY3UndBUStndWhxMW10a3hPSnFYVmVrRjRJYzFjSEZsNlJ0?=
+ =?utf-8?B?em9UYXJFZHVKdlRrb0FmUHRFUFZiZlE5ZmlYR0tBRUU4RGhHbUdHZGtMNENx?=
+ =?utf-8?B?RTVrL0VLWEEyejQyZnd1ZnJjN1ovaUlpdUVTWEdHN1hGd0FEd3g2OE9DKzRK?=
+ =?utf-8?B?L0VjeG1Gb2lSbm1yT3ZPcjNqbTdGNXFWWmxFNlV6T1M2bVhTN2VFbS9oaGZJ?=
+ =?utf-8?B?dVZWWnU5RnFkTXpNLzlYQnF5LzdHeitEYzBTK3JmNnRNWjUyanlKK040dXlr?=
+ =?utf-8?B?U2hvbmF1dm9rc0pmdW56Tnd1MWZNZExjdDhWaGZyMmRxaWtzcENjVVlrQlRB?=
+ =?utf-8?B?bkVhT1NPMW54azVUN0NkcVZNQmYxSnB2RisrZi81N0pYT3ZRMUNxd1VuejJN?=
+ =?utf-8?B?bzRlNWxnNTJ3b3dTeURZMXJ3N2xTcnJwVWNOdnJMS1NDTnRMK1JvazNxTVk1?=
+ =?utf-8?B?ZSsyU2ZmV281MUhnRWxiWSsyMkNxZDg5M041RkU0bEFMNkRCSDRrc1YvQjlS?=
+ =?utf-8?B?cGtEellwZEtVZzhzWS94N0RTbTlNa05pSDNwMVQ5SHQ3enNPdUliT01IcGxT?=
+ =?utf-8?B?QXdsek1jdWJLNkZYYm5FY21peTIyaElDTXJBUVhwYjUvd0NSdTQrUVNNVXJO?=
+ =?utf-8?B?bjdONzN3L1JUU1kvbFcyQ3pES0RMRVFMamUvY3U2c09QUVlhUU1BZmtjdlA5?=
+ =?utf-8?B?OVRNd0VJRU9oS2V2USt6aE54VzVPSXpvY0U5dzZJSkpnMGQwMXQ3ZEozbHkx?=
+ =?utf-8?B?MXQzcitPYmoyTU96UThPQjZHcnk2aWVhSlFaMU81QTE0U05NeEFmTUVPTDRs?=
+ =?utf-8?B?b2JwTVYwSURqbU1zcTVyeEE0UVFHUEs1c2pRTnZiWFNMaytYK2NnRTVRZnY3?=
+ =?utf-8?B?RXY5NlZ0SVhDdC9hNERLUVVhNnN3MGM0RWlqckt3NmYrZ1VKZlhlQXRPY3Y0?=
+ =?utf-8?B?akIwVEJFTHk1dWhmQlREVTQvNXJCbEF1K3pFU3lXVVpVcnJQU1Vxb2tHbHJ0?=
+ =?utf-8?B?UVoyU2FEaE9takxyQmw5Ry90NTRHYVVWQUdJWE91M0ljdEdLY1NJSmxmVlRW?=
+ =?utf-8?B?dGZMZ1VlS01xWTJTUHZVK3BPN1RqSTVmc3RDZlZpT0VwbkNqcjd2eHZNM1dG?=
+ =?utf-8?B?RTdXdHloUW9CVC9MdkwxSHdGcXl6RlhpWjZmNWFta1lvWWVhc0dIRVQzTjZW?=
+ =?utf-8?B?ZzJkOUxMb09sNFNsWkxURFZIZjlJZ0t6L25Ec2Q0dUV5WDdjRmVhNHFnTFor?=
+ =?utf-8?B?S1VzQ2JZTGY4UDg0QURyS0VVZ3JPTXZlcWRBWUJGWGZQMys5R1lORGpjT1k5?=
+ =?utf-8?B?YlpSaFNsaUJ3VDl2THlKREEwM2NRYVM4NHJTZHhGRExtZjJDQ0JzTnMvSHd6?=
+ =?utf-8?B?dzBURE5DWGlSbXhCWHh1V04zSW1VcHJYcHk1bHBGeG1ZRU1kWFV0emN6UVFE?=
+ =?utf-8?B?clNqR1NsWjRTdFlWbTdBaEVKS2JkcHN0NXZxcVBnbTFuSjZjQyt0WFdJb3Iz?=
+ =?utf-8?B?T0V0alZZbDNJc01mWDJEd3BtWHpmdWJaUElBSlB2cksvSWpyYXhIeHVsclo5?=
+ =?utf-8?B?Y2xXVFVnaXpUN21MdGZuVlZhSENGWTk3Y3hTeWREdTJIaWtYZXVZRTN4dGlK?=
+ =?utf-8?B?VVRndTNJTnE1Q2F4QktUUkY4dVdVRUxlR1lHUmdGTlliNDJIZXJqWUJXYzlw?=
+ =?utf-8?B?RnovK2pvdkRaYm56MHN1VVZ3UXVRVEZObWpkTllqZkFmV3IzVjRFUHJLK2Uy?=
+ =?utf-8?B?VHBvbW1NNUtpNnd2V0gzYlRQb2YxL1RvSzhQdWVGUEIzem52d056SXdlREs2?=
+ =?utf-8?Q?d3edWGjcRyHZFi0LvEE87pam0?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d6048a91-835d-4de2-11db-08dcfff32444
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7804.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 625557bd-0abb-4983-3e70-08dcfffd89f1
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Nov 2024 12:44:53.3783 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Nov 2024 13:59:18.8038 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: J89v5Jh3wdAtfO5EwI78XBohmZGUg9Apunq0TW74ckEKyH6FfoSkRRFo209LW/X7
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4204
+X-MS-Exchange-CrossTenant-UserPrincipalName: BaYvSEr3kAs8+KBuStVoXMwbXYRJg7rNCmEZU7XcdPiyd+5I4hKWNtGYe9E9X83xZomUacZpH43CIDb0vNoS8w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB9054
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -158,143 +160,169 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-On 11/8/2024 4:44 PM, Tao Zhou wrote:
-> There are two types of gpu reset, nps mode switch and normal
-> gpu reset, add a flag to distigush them.
+On 2024-11-05 09:06, Alex Deucher wrote:
+> From: Jocelyn Falempe <jfalempe@redhat.com>
 > 
-
-Reset for NPS switch is a subcase of Reset on Initialization scenario
-(reset the device before use). If RAS routines need to be taken care for
-that in general, this needs to be more generic.
-
-Thanks,
-Lijo
-
-> Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
+> Add support for the drm_panic module, which displays a pretty user
+> friendly message on the screen when a Linux kernel panic occurs.
+> 
+> It doesn't work yet on laptop panels, maybe due to PSR.
+> 
+> Adapted from Jocelyn's original patch to add DC drm_panic
+> support.
+> 
+> Signed-off-by: Jocelyn Falempe <jfalempe@redhat.com>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Lu Yao <yaolu@kylinos.cn>
+> Cc: Jocelyn Falempe <jfalempe@redhat.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  1 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  9 +++++++--
->  drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c  | 13 ++++++++++++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h  |  3 ++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c   |  2 +-
->  5 files changed, 23 insertions(+), 5 deletions(-)
+>  .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 103 +++++++++++++++++-
+>  1 file changed, 102 insertions(+), 1 deletion(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> index 9365b43c0055..ba9b0d322b33 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -1681,6 +1681,7 @@ static inline bool amdgpu_is_tmz(struct amdgpu_device *adev)
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> index 495e3cd70426..5ba64e7ad3f3 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> @@ -26,6 +26,7 @@
+>  
+>  #include <drm/drm_atomic_helper.h>
+>  #include <drm/drm_blend.h>
+> +#include "drm/drm_framebuffer.h"
+>  #include <drm/drm_gem_atomic_helper.h>
+>  #include <drm/drm_plane_helper.h>
+>  #include <drm/drm_gem_framebuffer_helper.h>
+> @@ -1421,6 +1422,93 @@ static void amdgpu_dm_plane_atomic_async_update(struct drm_plane *plane,
+>  	amdgpu_dm_plane_handle_cursor_update(plane, old_state);
 >  }
 >  
->  int amdgpu_in_reset(struct amdgpu_device *adev);
-> +int amdgpu_in_nps_switch(struct amdgpu_device *adev);
->  
->  extern const struct attribute_group amdgpu_vram_mgr_attr_group;
->  extern const struct attribute_group amdgpu_gtt_mgr_attr_group;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 286f0fdfcb50..d69fcbb28b0e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -5862,7 +5862,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
->  	/* We need to lock reset domain only once both for XGMI and single device */
->  	tmp_adev = list_first_entry(device_list_handle, struct amdgpu_device,
->  				    reset_list);
-> -	amdgpu_device_lock_reset_domain(tmp_adev->reset_domain);
-> +	amdgpu_device_lock_reset_domain(tmp_adev);
->  
->  	/* block all schedulers and reset given job's ring */
->  	list_for_each_entry(tmp_adev, device_list_handle, reset_list) {
-> @@ -6343,7 +6343,7 @@ pci_ers_result_t amdgpu_pci_error_detected(struct pci_dev *pdev, pci_channel_sta
->  		 * Locking adev->reset_domain->sem will prevent any external access
->  		 * to GPU during PCI error recovery
->  		 */
-> -		amdgpu_device_lock_reset_domain(adev->reset_domain);
-> +		amdgpu_device_lock_reset_domain(adev);
->  		amdgpu_device_set_mp1_state(adev);
->  
->  		/*
-> @@ -6579,6 +6579,11 @@ int amdgpu_in_reset(struct amdgpu_device *adev)
->  	return atomic_read(&adev->reset_domain->in_gpu_reset);
->  }
->  
-> +int amdgpu_in_nps_switch(struct amdgpu_device *adev)
+> +static void amdgpu_dm_plane_panic_flush(struct drm_plane *plane)
 > +{
-> +	return atomic_read(&adev->reset_domain->in_nps_switch);
+> +	struct dm_plane_state *dm_plane_state = to_dm_plane_state(plane->state);
+> +	struct drm_framebuffer *fb = plane->state->fb;
+> +	struct dc_plane_state *dc_plane_state;
+> +	struct dc *dc;
+> +	int i;
+> +
+> +	if (!dm_plane_state || !dm_plane_state->dc_state)
+> +		return;
+> +
+> +	dc_plane_state = dm_plane_state->dc_state;
+> +	dc = dc_plane_state->ctx->dc;
+> +	if (!dc || !dc->current_state)
+> +		return;
+> +
+> +	for (i = 0; i < dc->res_pool->pipe_count; i++) {
+> +		struct pipe_ctx *pipe_ctx = &dc->current_state->res_ctx.pipe_ctx[i];
+> +		struct hubp *hubp;
+> +		struct mem_input *mi;
+> +
+> +		if (!pipe_ctx)
+> +			continue;
+> +
+> +		switch (dc->ctx->dce_version) {
+
+The HW-specific code should live in DC. Can we add a new
+DC interface function (in dc.h, or dc_plane.h) to disable
+tiling and call that from here? That function should then
+do the switch.
+
+Instead of a case statement it's probably easier to check
+against > / < DCE_VERSION_MAX.
+
+Harry
+
+> +#if defined(CONFIG_DRM_AMD_DC_SI)
+> +		case DCE_VERSION_6_0:
+> +		case DCE_VERSION_6_1:
+> +		case DCE_VERSION_6_4:
+> +#endif
+> +		case DCE_VERSION_8_0:
+> +		case DCE_VERSION_8_1:
+> +		case DCE_VERSION_8_3:
+> +		case DCE_VERSION_10_0:
+> +		case DCE_VERSION_11_0:
+> +		case DCE_VERSION_11_2:
+> +		case DCE_VERSION_11_22:
+> +		case DCE_VERSION_12_0:
+> +		case DCE_VERSION_12_1:
+> +			mi = pipe_ctx->plane_res.mi;
+> +			if (!mi)
+> +				continue;
+> +			/* if framebuffer is tiled, disable tiling */
+> +			if (fb->modifier && mi->funcs->mem_input_clear_tiling)
+> +				mi->funcs->mem_input_clear_tiling(mi);
+> +
+> +			/* force page flip to see the new content of the framebuffer */
+> +			mi->funcs->mem_input_program_surface_flip_and_addr(mi,
+> +									   &dc_plane_state->address,
+> +									   true);
+> +			break;
+> +		case DCN_VERSION_1_0:
+> +		case DCN_VERSION_1_01:
+> +		case DCN_VERSION_2_0:
+> +		case DCN_VERSION_2_01:
+> +		case DCN_VERSION_2_1:
+> +		case DCN_VERSION_3_0:
+> +		case DCN_VERSION_3_01:
+> +		case DCN_VERSION_3_02:
+> +		case DCN_VERSION_3_03:
+> +		case DCN_VERSION_3_1:
+> +		case DCN_VERSION_3_14:
+> +		case DCN_VERSION_3_16:
+> +		case DCN_VERSION_3_15:
+> +		case DCN_VERSION_3_2:
+> +		case DCN_VERSION_3_21:
+> +		case DCN_VERSION_3_5:
+> +		case DCN_VERSION_3_51:
+> +		case DCN_VERSION_4_01:
+> +			hubp = pipe_ctx->plane_res.hubp;
+> +			if (!hubp)
+> +				continue;
+> +			/* if framebuffer is tiled, disable tiling */
+> +			if (fb->modifier && hubp->funcs->hubp_clear_tiling)
+> +				hubp->funcs->hubp_clear_tiling(hubp);
+> +
+> +			/* force page flip to see the new content of the framebuffer */
+> +			hubp->funcs->hubp_program_surface_flip_and_addr(hubp,
+> +									&dc_plane_state->address,
+> +									true);
+> +			break;
+> +		default:
+> +			break;
+> +		}
+> +	}
 > +}
 > +
->  /**
->   * amdgpu_device_halt() - bring hardware to some kind of halt state
->   *
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-> index f4c08fa83756..1becf8fbbc71 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-> @@ -301,15 +301,25 @@ struct amdgpu_reset_domain *amdgpu_reset_create_reset_domain(enum amdgpu_reset_d
+>  static const struct drm_plane_helper_funcs dm_plane_helper_funcs = {
+>  	.prepare_fb = amdgpu_dm_plane_helper_prepare_fb,
+>  	.cleanup_fb = amdgpu_dm_plane_helper_cleanup_fb,
+> @@ -1429,6 +1517,16 @@ static const struct drm_plane_helper_funcs dm_plane_helper_funcs = {
+>  	.atomic_async_update = amdgpu_dm_plane_atomic_async_update
+>  };
 >  
->  	INIT_WORK(&reset_domain->clear, amdgpu_reset_domain_cancel_all_work);
->  	atomic_set(&reset_domain->in_gpu_reset, 0);
-> +	atomic_set(&reset_domain->in_nps_switch, 0);
->  	atomic_set(&reset_domain->reset_res, 0);
->  	init_rwsem(&reset_domain->sem);
->  
->  	return reset_domain;
->  }
->  
-> -void amdgpu_device_lock_reset_domain(struct amdgpu_reset_domain *reset_domain)
-> +void amdgpu_device_lock_reset_domain(struct amdgpu_device *adev)
->  {
-> +	struct amdgpu_reset_domain *reset_domain = adev->reset_domain;
+> +static const struct drm_plane_helper_funcs dm_primary_plane_helper_funcs = {
+> +	.prepare_fb = amdgpu_dm_plane_helper_prepare_fb,
+> +	.cleanup_fb = amdgpu_dm_plane_helper_cleanup_fb,
+> +	.atomic_check = amdgpu_dm_plane_atomic_check,
+> +	.atomic_async_check = amdgpu_dm_plane_atomic_async_check,
+> +	.atomic_async_update = amdgpu_dm_plane_atomic_async_update,
+> +	.get_scanout_buffer = amdgpu_display_get_scanout_buffer,
+> +	.panic_flush = amdgpu_dm_plane_panic_flush,
+> +};
 > +
->  	atomic_set(&reset_domain->in_gpu_reset, 1);
-> +	/* The life time of in_nps_switch is longer than
-> +	 * amdgpu_device_nps_switch_needed
-> +	 */
-> +	if (adev->nbio.funcs && adev->nbio.funcs->is_nps_switch_requested &&
-> +	    adev->nbio.funcs->is_nps_switch_requested(adev))
-> +		atomic_set(&reset_domain->in_nps_switch, 1);
-> +
->  	down_write(&reset_domain->sem);
->  }
->  
-> @@ -317,6 +327,7 @@ void amdgpu_device_lock_reset_domain(struct amdgpu_reset_domain *reset_domain)
->  void amdgpu_device_unlock_reset_domain(struct amdgpu_reset_domain *reset_domain)
+>  static void amdgpu_dm_plane_drm_plane_reset(struct drm_plane *plane)
 >  {
->  	atomic_set(&reset_domain->in_gpu_reset, 0);
-> +	atomic_set(&reset_domain->in_nps_switch, 0);
->  	up_write(&reset_domain->sem);
->  }
+>  	struct dm_plane_state *amdgpu_state = NULL;
+> @@ -1855,7 +1953,10 @@ int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
+>  	    plane->type != DRM_PLANE_TYPE_CURSOR)
+>  		drm_plane_enable_fb_damage_clips(plane);
 >  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
-> index 977b2dd2205a..c74a1f88f0ef 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
-> @@ -97,6 +97,7 @@ struct amdgpu_reset_domain {
->  	enum amdgpu_reset_domain_type type;
->  	struct rw_semaphore sem;
->  	atomic_t in_gpu_reset;
-> +	atomic_t in_nps_switch;
->  	atomic_t reset_res;
->  	struct work_struct clear;
->  	bool drain;
-> @@ -158,7 +159,7 @@ static inline bool amdgpu_reset_pending(struct amdgpu_reset_domain *domain)
->  	return rwsem_is_contended(&domain->sem);
->  }
+> -	drm_plane_helper_add(plane, &dm_plane_helper_funcs);
+> +	if (plane->type == DRM_PLANE_TYPE_PRIMARY)
+> +		drm_plane_helper_add(plane, &dm_primary_plane_helper_funcs);
+> +	else
+> +		drm_plane_helper_add(plane, &dm_plane_helper_funcs);
 >  
-> -void amdgpu_device_lock_reset_domain(struct amdgpu_reset_domain *reset_domain);
-> +void amdgpu_device_lock_reset_domain(struct amdgpu_device *adev);
->  
->  void amdgpu_device_unlock_reset_domain(struct amdgpu_reset_domain *reset_domain);
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-> index daa69dfb4dca..8387e075c385 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-> @@ -1540,7 +1540,7 @@ static void amdgpu_xgmi_reset_on_init_work(struct work_struct *work)
->  
->  	tmp_adev = list_first_entry(&device_list, struct amdgpu_device,
->  				    reset_list);
-> -	amdgpu_device_lock_reset_domain(tmp_adev->reset_domain);
-> +	amdgpu_device_lock_reset_domain(tmp_adev);
->  
->  	reset_context.method = AMD_RESET_METHOD_ON_INIT;
->  	reset_context.reset_req_dev = tmp_adev;
+>  #ifdef AMD_PRIVATE_COLOR
+>  	dm_atomic_plane_attach_color_mgmt_properties(dm, plane);
+
