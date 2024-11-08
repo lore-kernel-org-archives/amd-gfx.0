@@ -4,57 +4,161 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5C1FD5E149
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 Nov 2024 08:59:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37811D5E14A
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 Nov 2024 09:15:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1CF010E93F;
-	Fri,  8 Nov 2024 08:59:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D4CBF10E0D4;
+	Fri,  8 Nov 2024 09:15:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="EmDj8+UY";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="TvyMYBp1";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34F6C10E08B;
- Thu,  7 Nov 2024 14:55:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=JRTtfKERzDn183hVWIZ6PZkD6okoIM3qUiZL1mJ3ehc=; b=EmDj8+UYywTwML32lfg1qwxLNd
- styWIaP/JNVdLBawQBRyazvfVwEWbDeYqyNAEgvjgeCtTIghFNIK3DxoZE1u2pTlbYJDzWEwWuufB
- 83FFmTEmztAnzi1IY9XFbpXs9hkr5gweaO23Wdtdi6PCv2/LdisVtIEQWxmOwmb3zX4ve49UYLLY/
- QDu3kSHXL15aH4Bl1yW4AfFm+QB7A12UjelVNL66voLUVU6VOLoksNvshMBn3af4ZEDOxaZi6t2QH
- /wn5Vax00vqEn67p59ZTljjMh6mkJcWMMXUVUx/NN4VQnzYnWRw4NZk7x2SVEKf1knwT4RGscSEVN
- 9lt2aIqA==;
-Received: from [90.241.98.187] (helo=[192.168.0.101])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1t93v4-003bxM-08; Thu, 07 Nov 2024 15:55:34 +0100
-Message-ID: <b67f20a9-64df-4813-84e7-ee9d04c79101@igalia.com>
-Date: Thu, 7 Nov 2024 14:55:33 +0000
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2086.outbound.protection.outlook.com [40.107.92.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 42F2610E0D4
+ for <amd-gfx@lists.freedesktop.org>; Fri,  8 Nov 2024 09:15:10 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=sKPbxyoKVMb8vHD9XUImzXhbIIJra9xi2VbFnEnZJVAvRvlcFpT+QfDL6fvMahMMPEB6iS6NUjwhshrXj+Pg0ybOJyMElas8g+m3v2qF9G3DJm9i3jvPY2slIWrhiJjdxYseoqH38Kl0aG+0aflkX8KepAA1rijWZJJ2X4ZFVdXJRyrOoq35xxJm6perosoIbRdVwBFkP5JFuqYQn04zJEcvFxX3sv0y8HfFvaBkwgB7axSNZII6e7TtswSo1M3kNTrDtqRpXtxf++w3yV5lOjgQENWl38Yqs4Kkr/Epj0NdxxKdJmPMTz5yLROqHgFGBKUHeXufzX1u/WfiPcoqtQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lTdoH6fSW8htVNokFK5r2tbL4AUSVE+/Fer7fBCBe58=;
+ b=xRLU+DaD7N+sDmVA9HZvJLZt2QBDwtccTd99UA84ZX7PrWoGDT3YIgF/zZcn7STs6p0Gj0CrZGPDmAoDxVsCOtDorIeFDM4+V0yQAOi2TaeJH7IyviLpwPoL0jZMCjjloGbtO6OA0lC1mLzxW/scI6TEpPtTsGxgIAit/ZWp6HuJDn/pb+3+yWwSk7DNTfYcOMkHZAV/PnmDs31WTasErXKJrlGiYK8pMfzoBCatnnm4en3/mTN6hDXNPrYarOH5klgZLWeGP3WaiDAv0oMuTHsAr2/L4ICNoo4zPBQqguKWtgyziHk2zZPpvrtOPmrPKFVooGdDj9QQ9M0SuF4lZA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lTdoH6fSW8htVNokFK5r2tbL4AUSVE+/Fer7fBCBe58=;
+ b=TvyMYBp1fryIJVz10nq8F5VqYIfxHHdGCkY6WpTI/xu7bqXY5VSrSXS1N+ow/Xpjz4EvC1hOAEndUrgPG2tNrd21efFY2n3yQoilC/SZS4aBPxzDgz8IFVhhdcJH6fm1hL2ieocwFI/TDMCVZVgTVWlDFa2fu/SDOR/CTBqU5+4=
+Received: from DS7PR12MB6005.namprd12.prod.outlook.com (2603:10b6:8:7c::17) by
+ SN7PR12MB6671.namprd12.prod.outlook.com (2603:10b6:806:26d::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8137.19; Fri, 8 Nov
+ 2024 09:15:07 +0000
+Received: from DS7PR12MB6005.namprd12.prod.outlook.com
+ ([fe80::4dc0:f34c:9e7e:ccb]) by DS7PR12MB6005.namprd12.prod.outlook.com
+ ([fe80::4dc0:f34c:9e7e:ccb%4]) with mapi id 15.20.8137.018; Fri, 8 Nov 2024
+ 09:15:07 +0000
+From: "Liang, Prike" <Prike.Liang@amd.com>
+To: "Koenig, Christian" <Christian.Koenig@amd.com>, "Kuehling, Felix"
+ <Felix.Kuehling@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Kasiviswanathan,
+ Harish" <Harish.Kasiviswanathan@amd.com>
+Subject: RE: [PATCH] drm/amdkfd: correct the SVM DMA device unmap direction
+Thread-Topic: [PATCH] drm/amdkfd: correct the SVM DMA device unmap direction
+Thread-Index: AQHbLysmDzRvKxFHbkC+GTGFAJs2nbKoho8AgABcYwCAAUxMAIAC4z0Q
+Date: Fri, 8 Nov 2024 09:15:07 +0000
+Message-ID: <DS7PR12MB6005480DEC6C9C186A59F90DFB5D2@DS7PR12MB6005.namprd12.prod.outlook.com>
+References: <20241105023332.172404-1-Prike.Liang@amd.com>
+ <04d4ab32-45a1-4b88-86ee-fb0f35a0ca40@amd.com>
+ <3e8ece68-d9e7-4037-bc99-d3f9b78128b5@amd.com>
+ <02ddce81-b7fc-4b72-8fa6-1aee9346edbc@amd.com>
+In-Reply-To: <02ddce81-b7fc-4b72-8fa6-1aee9346edbc@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=c608825a-9973-49a1-821d-97965c1510c9;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution Only;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-11-08T08:30:04Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DS7PR12MB6005:EE_|SN7PR12MB6671:EE_
+x-ms-office365-filtering-correlation-id: cacbeaa0-5868-4179-385c-08dcffd5d6b9
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0; ARA:13230040|376014|1800799024|366016|38070700018;
+x-microsoft-antispam-message-info: =?utf-8?B?dkJIL2twaHVicVVUZ1c4bkVvM1pkVnFnS1FmZS9mZ3dsRVhxNWMrMnpQejR1?=
+ =?utf-8?B?ZkwyVFIxYUQyUFF4NjBMZThvMzBXYVZGdld1djNWNXhwZm1kN0QvOTF0OGFC?=
+ =?utf-8?B?T09aMCs2Z2lpNGZwNjVaYXVJOHE0ZlJEbHkrMVZlR3NXWGRBZUsrYWU0NHVI?=
+ =?utf-8?B?aXlHVElKN1orb2JnYVhrYTM4ZGRuVDNrZXJ5STdGd2FBUXdPcFBZcHBHRjJC?=
+ =?utf-8?B?SVhJY2RQak5ieEdZS1kwZkg1Q1hJMll0aDU0NDZYQW5Bb09GWlo0VjdON1Uz?=
+ =?utf-8?B?cUxjNVgzN25IMlpWUlB2VzhDbkcyaXp0dWp1R2hyL2k3QitZVEJ2M0ROalg4?=
+ =?utf-8?B?ZmJTR1JiUmNUR0JXdWhZWjI4RUFGVVIrQmFFR2ZjU05LVk52MGlLbWtOWUN0?=
+ =?utf-8?B?SEVGeWNlWVd2YWFqeWJPcENhV1VOR0h4dFNibE5QMnYxMVlSSHU4TnBkQyt6?=
+ =?utf-8?B?N0NaNlY4cWYwbkVKaGw2MFVLSjZPN2FsSXJmSFJkbmZ5Y0NFWTRHSmZqS2JL?=
+ =?utf-8?B?OWVQalVTV3lyVkYyZHA1NWNQNWs1T3RBNHRuaEhDdXFlQnd5ODFGY1BmT0lp?=
+ =?utf-8?B?WVdaNTIva2pQa0xWSnFEcTZPWUliVG95L1ZkckRkN0t0MDd3b0Fza280cEdu?=
+ =?utf-8?B?WGxRVmRFb2J5UFNTYkdKcUJpUnlIc1J3d3lRdjdRYlplZ1lsaUVYc05ZWkJq?=
+ =?utf-8?B?NnZNN1UzVENtZERnTHJTR1dFWlFpc0M3dHRULzZ0bW00RS9mOVFxaWIwaUVp?=
+ =?utf-8?B?SCtuTitvemxNNXFHdDdYVFgvV2FYSXpRcEYzNVI1ek03MUEzNm4zbFRSOUpu?=
+ =?utf-8?B?S2FRZGFVNGRJY1pVczh1OWUvTmNwbm1JVWM2T3NqTGN5S2srcDRkS0lET2U4?=
+ =?utf-8?B?bjRCNnE4ZjFHSlpTL1NRRk1tSkJyZ0dmd3FjK2FYVStvMlVUa2xsbE5waXRV?=
+ =?utf-8?B?aUI1cTBaYmlINndGenYvdTBLTUZoaENUSURlVmR1bHlVWFl3cXNzek1aaEpW?=
+ =?utf-8?B?U1ovaWd4SFZldVFQbVRjcVIwdGlCSWUvNldOSytIT0FHRUZabzVETThRRGF5?=
+ =?utf-8?B?UTJvbVplb0VTbCtjOGRxY3ZkNzBSVUNRaDc4U2dBU0dscnBDaUh0aE1RakNN?=
+ =?utf-8?B?QWUzdWQ1dVdva2FNWCtxNmRPMFZELzlHTGpscmpHSVBkN0dlWHk0OWp3RERI?=
+ =?utf-8?B?SStyNEx2MXp6RngzOEVYQm11SWRValpMSkQ2dDhXcUJUV2F5eWVnZ1FTTVIz?=
+ =?utf-8?B?VzJ6enVqc21zOElWclBudm40azZUVmhkZk41ZFJpdk9DQVV0N1ZGU1NGTlBM?=
+ =?utf-8?B?UllEU1BiNUFBcGUxb0lWdklwSHdldVFNa3ZTNENhRCtZMFowbXRHa0xrY29h?=
+ =?utf-8?B?RTJhVVB3STNtWHJWNlFnRDI5bUViOWRkNlpwam5hTFhDc0FDRW1WbWdXZjBp?=
+ =?utf-8?B?OTd2R2JqcTgvTzJHQkZLTTYrWTNxOUV5MG9ZMXpHSG5KeXlubmx2eDJwZFN2?=
+ =?utf-8?B?empZSDZuTms3YkE3d3hZeFVjaC9mM0gvc2VTK2Evb2FGOVlQWGh2b3dGWGpQ?=
+ =?utf-8?B?NnEzNWdzQnZyVmkyczkxRVhmZlBwZWZ1ZDNxMlBZUEVLeWJPWE0rSVVLdjZG?=
+ =?utf-8?B?VTY2emxicy83cFRiSDZwVXhzUGQvY2JKcUhQbjN3cnlhRXZEbnM4TE8wdzRx?=
+ =?utf-8?B?cm9nd2tqam9xaWlDUmhlODlseG85U1hrQ2twVklYeTVpSjBpdEJsWlJsWklO?=
+ =?utf-8?B?UUVMaDhFWmFNWUlrVzkvM3hEaDBOWUZiYVdISHM1RExvVWZzMjNOMGw3MVd5?=
+ =?utf-8?Q?nbCVny3nfYogAMHr5+MWb95JIOHBPL6sz4PcA=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS7PR12MB6005.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(38070700018); DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?ejhnL0pwQzFVVVdRalBTMzFTR3hEMHcva0dyRmN3Q0lPQ2o0cmVNaFdROHQy?=
+ =?utf-8?B?OHBZOXkvcDNLVVJrRWcvQWFaMUpMczVJMTlHMUpQVHhMekw5blpJZmJ0VGpX?=
+ =?utf-8?B?ZUNWZElrQUhxOWx6N2UvQ0hRM2p5ektzNE16cFQyRmh5bVl2WDhqZUhYZ3dp?=
+ =?utf-8?B?NlVFcTYvZFRQa2pxOE02QU42Qlc3RXpOQzUrR1YvUXJLOWVSellQbHAwU0Y2?=
+ =?utf-8?B?eUlBbzdjcHJEcWhRMEYrMHZ2cC8xMk5VdFB1ZEtlWFF3WGVXUkQ0eTVnSk1K?=
+ =?utf-8?B?UDV2VUt1N0hnUkI3M1FxYWRUZ05wYjJFY09sTk5iTFl3NnRxck11aVNpeER1?=
+ =?utf-8?B?TkFrWDYxUTR1VmFUb1ZFZFJKSHMrTWZvZ1BXcjNQZXFPdjQ4eThndGZzUldh?=
+ =?utf-8?B?TSs5citkc3FMT252TlVlaXRUUWtDWGVUd0laUDR6bG5iWUJnd2ZUbTN0SHEz?=
+ =?utf-8?B?QkVFZXhuSGhMa0VlYkVwYXplajB2QVZjNVpuTnFKZzJGc0ZqZW5MSHZSdWkz?=
+ =?utf-8?B?emROM2M4Q2FZanpiMXVOY281Yytib05hVmN0bllnU2JxaXNCUUpRQ2ZHeWtD?=
+ =?utf-8?B?S0Zybi8zU0pzMGZUcVhDUTF6QlR0NlB2QmZJUUphUWJXMkhDeGdJVFZUUmZJ?=
+ =?utf-8?B?Umx3NWpWazVWQ2R2K3hBQ2lJRWJvRU5tNmc2aWNVU2RPRnFLM292ZWFLYVRi?=
+ =?utf-8?B?M0RNN2MyQ0tIMnVKb0IxcmtrTW9BNGJUVC9HTnV2ZGk0a1Z4TlRIUjFEY2N4?=
+ =?utf-8?B?S1ZZVjdPMnVJTm1IRWlKb1poalJLNko1dloxTWMwYjVLVHRnWGhEamJSTGs1?=
+ =?utf-8?B?S3BhNGMwWE5TVVNadTRGODh0Z0VnUHdDQVlvYSszVmYwcDlWVFZubjFhYnQ1?=
+ =?utf-8?B?bm5iSWJob2M1WDk5UkV4b2twbFpsUmlwVFpTV0NDTEZlWmlpVDdPZ24vOEV0?=
+ =?utf-8?B?c3hyRDR6Qzh3RjlHNjV4Q1pSZm5DMitPVFVkUk9GcXRFQS9TUThNRmk0ckYr?=
+ =?utf-8?B?eU0vM0I4V1ZhakN1dlBoRTRRcWcySWFGbjB2Mng1YWNzUDBhY1MzbVFlemtJ?=
+ =?utf-8?B?dHBINU9JVTFLaHgxRXA3OXVFSWlpR2swdmh5eE1wbzBqSm9SYXMzajhpRUVs?=
+ =?utf-8?B?Q3AreEpuWm8xUGZHZjZHREcxSXlHeHhJRUpUYXUxL2ROWGVXcnZ5K2M3WU1n?=
+ =?utf-8?B?NmVseCtsMElxMmgwR2p6MU15clJ6VHJYNWVlQm1vTG1DTXhjeFRVMURRcGVn?=
+ =?utf-8?B?MXYyUlFhZ3ZUaVpHaTFzdldQbU40WUNVOURtNGk5MEFjcDMwU0p3UGRiL21K?=
+ =?utf-8?B?czlvMjgrbUdPcTNmYWpYYXFrajhONEtkd091aDBPWCsvUW0rcHZuWWtmOHJT?=
+ =?utf-8?B?UHlOd2JKenZQZE5kOWJmYS9tY2JmandrVjVuS2NSbytBRXZwc01TR0g0cHox?=
+ =?utf-8?B?Z3laVXZyUDRWQjN0MFFhZytUN0FkeFgzcHB2cXRwclNrVzlTUkxpRURrKzVv?=
+ =?utf-8?B?ZkhnT2o2MlVuUWd3Vnk1ZVNZbWVZYkYyQUdzTTducWxFak1jK2d3aGgyV0Z1?=
+ =?utf-8?B?WENlcStySXlTd2tnMFZYN0FHeGpFZm1ZK1A1bGJ5QTRSb25WNUV0TjdYanlM?=
+ =?utf-8?B?OG8rL29UR25XNnZYa2tCRkdCY2p0RlAxK2Fxdks3NEJyaVhQbm83d0gzSTMx?=
+ =?utf-8?B?VTZyQjFlcHFnNVdSNm5SQVFmSUpvTDdEN2d2QkI4NVBmR01UM3UzL0ZacS9p?=
+ =?utf-8?B?VmhZRTZuT2JlZ3hqYUozWWZyUGw0NFg0SngxNzFNZU5pTFJvWEw5YldHNHo3?=
+ =?utf-8?B?Q3VDOTEzWS9rdEIvd3R0S1VERmJpcDhCaUMwUXhuMVZzY2NjUU1VUEVVRWs2?=
+ =?utf-8?B?dHBCVktmN2VVaVg4aEk2VU55Ri9PY2ZoRnhWdlpibmVWak90MFpsUzdEc1Qv?=
+ =?utf-8?B?ZCs3WHpFcDYveE9YaFZ1UlFyZHlaMERkVWhrdDc1RTREbkZkUCt3NWttdzZG?=
+ =?utf-8?B?TXkyUC91THZmdWw1K09JVmd1Mkt2azJMb0dlK05SOEdhcWpnYk8vTnU0ODJH?=
+ =?utf-8?B?Sk52VC9lYXo5RVE5emRKakUwSUVydENVbDRUYXVKQTlKdmZ5aE9WakhYSnZn?=
+ =?utf-8?Q?EVP0=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 5/5] drm/amdgpu: track bo memory stats at runtime
-To: "Li, Yunxiang (Teddy)" <Yunxiang.Li@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "Koenig, Christian" <Christian.Koenig@amd.com>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-References: <20241025174113.554-1-Yunxiang.Li@amd.com>
- <20241025174113.554-6-Yunxiang.Li@amd.com>
- <a4b907e6-2a23-4e22-bc26-607f05c91821@gmail.com>
- <SA1PR12MB8599A6C097FACA601831465FED552@SA1PR12MB8599.namprd12.prod.outlook.com>
- <8afce7b8-98be-41ad-b06f-c63dacb708b6@igalia.com>
- <SA1PR12MB859951E947C74D34D59D34ADED5C2@SA1PR12MB8599.namprd12.prod.outlook.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <SA1PR12MB859951E947C74D34D59D34ADED5C2@SA1PR12MB8599.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 08 Nov 2024 08:59:24 +0000
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB6005.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cacbeaa0-5868-4179-385c-08dcffd5d6b9
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Nov 2024 09:15:07.4887 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: sI9Yv2cZiv+wT1Vn9rC5eJRfHW9Bni7fEYS4kWO1kI/yoHxtOOYx0UIiYglpXYBx
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6671
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,666 +173,206 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-On 07/11/2024 14:24, Li, Yunxiang (Teddy) wrote:
-> [Public]
-> 
->> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->> Sent: Thursday, November 7, 2024 5:48
->> On 31/10/2024 13:48, Li, Yunxiang (Teddy) wrote:
->>> [Public]
->>>
->>>> From: Christian König <ckoenig.leichtzumerken@gmail.com>
->>>> Sent: Thursday, October 31, 2024 8:54 Am 25.10.24 um 19:41 schrieb
->>>> Yunxiang Li:
->>>>> Before, every time fdinfo is queried we try to lock all the BOs in
->>>>> the VM and calculate memory usage from scratch. This works okay if
->>>>> the fdinfo is rarely read and the VMs don't have a ton of BOs. If
->>>>> either of these conditions is not true, we get a massive performance hit.
->>>>>
->>>>> In this new revision, we track the BOs as they change states. This
->>>>> way when the fdinfo is queried we only need to take the status lock
->>>>> and copy out the usage stats with minimal impact to the runtime performance.
->>>>>
->>>>> Signed-off-by: Yunxiang Li <Yunxiang.Li@amd.com>
->>>>> ---
->>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c |  14 +-
->>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c  |  10 +-
->>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_object.c  | 107 +++--------
->>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_object.h  |   5 +-
->>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h     |   2 +-
->>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c      | 189 +++++++++++++++---
->> --
->>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h      |  12 +-
->>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c   |   1 +
->>>>>     8 files changed, 199 insertions(+), 141 deletions(-)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
->>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
->>>>> index b144404902255..1d8a0ff3c8604 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
->>>>> @@ -36,6 +36,7 @@
->>>>>     #include "amdgpu_gem.h"
->>>>>     #include "amdgpu_dma_buf.h"
->>>>>     #include "amdgpu_xgmi.h"
->>>>> +#include "amdgpu_vm.h"
->>>>>     #include <drm/amdgpu_drm.h>
->>>>>     #include <drm/ttm/ttm_tt.h>
->>>>>     #include <linux/dma-buf.h>
->>>>> @@ -190,6 +191,13 @@ static void amdgpu_dma_buf_unmap(struct
->>>> dma_buf_attachment *attach,
->>>>>       }
->>>>>     }
->>>>>
->>>>> +static void amdgpu_dma_buf_release(struct dma_buf *buf) {
->>>>> +   struct amdgpu_bo *bo = gem_to_amdgpu_bo(buf->priv);
->>>>> +   amdgpu_vm_bo_update_shared(bo, -1);
->>>>> +   drm_gem_dmabuf_release(buf);
->>>>
->>>> Please run checkpatch.pl on the patch. As far as I can see it would
->>>> complain about the coding style here (empty line between declaration and code).
->>>>
->>>> Not much of an issue but we would like to prevent upstream from
->>>> complaining about such things.
->>>
->>> Will do
->>>
->>>>> +}
->>>>> +
->>>>>     /**
->>>>>      * amdgpu_dma_buf_begin_cpu_access -
->>>>> &dma_buf_ops.begin_cpu_access
->>>> implementation
->>>>>      * @dma_buf: Shared DMA buffer
->>>>> @@ -237,7 +245,7 @@ const struct dma_buf_ops amdgpu_dmabuf_ops = {
->>>>>       .unpin = amdgpu_dma_buf_unpin,
->>>>>       .map_dma_buf = amdgpu_dma_buf_map,
->>>>>       .unmap_dma_buf = amdgpu_dma_buf_unmap,
->>>>> -   .release = drm_gem_dmabuf_release,
->>>>> +   .release = amdgpu_dma_buf_release,
->>>>>       .begin_cpu_access = amdgpu_dma_buf_begin_cpu_access,
->>>>>       .mmap = drm_gem_dmabuf_mmap,
->>>>>       .vmap = drm_gem_dmabuf_vmap,
->>>>> @@ -265,8 +273,10 @@ struct dma_buf *amdgpu_gem_prime_export(struct
->>>> drm_gem_object *gobj,
->>>>>               return ERR_PTR(-EPERM);
->>>>>
->>>>>       buf = drm_gem_prime_export(gobj, flags);
->>>>> -   if (!IS_ERR(buf))
->>>>> +   if (!IS_ERR(buf)) {
->>>>>               buf->ops = &amdgpu_dmabuf_ops;
->>>>> +           amdgpu_vm_bo_update_shared(bo, +1);
->>>>> +   }
->>>>>
->>>>>       return buf;
->>>>>     }
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
->>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
->>>>> index 7a9573958d87c..e0e09f7b39d10 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
->>>>> @@ -60,7 +60,7 @@ void amdgpu_show_fdinfo(struct drm_printer *p,
->>>>> struct
->>>> drm_file *file)
->>>>>       struct amdgpu_fpriv *fpriv = file->driver_priv;
->>>>>       struct amdgpu_vm *vm = &fpriv->vm;
->>>>>
->>>>> -   struct amdgpu_mem_stats stats[__AMDGPU_PL_LAST + 1] = { };
->>>>> +   struct amdgpu_mem_stats stats[__AMDGPU_PL_LAST] = { };
->>>>>       ktime_t usage[AMDGPU_HW_IP_NUM];
->>>>>       const char *pl_name[] = {
->>>>>               [TTM_PL_VRAM] = "vram", @@ -70,13 +70,7 @@ void
->>>>> amdgpu_show_fdinfo(struct drm_printer *p, struct
->>>> drm_file *file)
->>>>>       unsigned int hw_ip, i;
->>>>>       int ret;
->>>>>
->>>>> -   ret = amdgpu_bo_reserve(vm->root.bo, false);
->>>>> -   if (ret)
->>>>> -           return;
->>>>> -
->>>>> -   amdgpu_vm_get_memory(vm, stats, ARRAY_SIZE(stats));
->>>>> -   amdgpu_bo_unreserve(vm->root.bo);
->>>>> -
->>>>> +   amdgpu_vm_get_memory(vm, stats);
->>>>>       amdgpu_ctx_mgr_usage(&fpriv->ctx_mgr, usage);
->>>>>
->>>>>       /*
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->>>>> index 2436b7c9ad12b..98563124ff99c 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->>>>> @@ -1156,7 +1156,7 @@ void amdgpu_bo_move_notify(struct
->>>>> ttm_buffer_object
->>>> *bo,
->>>>>               return;
->>>>>
->>>>>       abo = ttm_to_amdgpu_bo(bo);
->>>>> -   amdgpu_vm_bo_invalidate(abo, evict);
->>>>> +   amdgpu_vm_bo_move(abo, new_mem, evict);
->>>>>
->>>>>       amdgpu_bo_kunmap(abo);
->>>>>
->>>>> @@ -1169,86 +1169,6 @@ void amdgpu_bo_move_notify(struct
->>>> ttm_buffer_object *bo,
->>>>>                            old_mem ? old_mem->mem_type : -1);
->>>>>     }
->>>>>
->>>>> -void amdgpu_bo_get_memory(struct amdgpu_bo *bo,
->>>>> -                     struct amdgpu_mem_stats *stats,
->>>>> -                     unsigned int sz)
->>>>> -{
->>>>> -   const unsigned int domain_to_pl[] = {
->>>>> -           [ilog2(AMDGPU_GEM_DOMAIN_CPU)]      = TTM_PL_SYSTEM,
->>>>> -           [ilog2(AMDGPU_GEM_DOMAIN_GTT)]      = TTM_PL_TT,
->>>>> -           [ilog2(AMDGPU_GEM_DOMAIN_VRAM)]     = TTM_PL_VRAM,
->>>>> -           [ilog2(AMDGPU_GEM_DOMAIN_GDS)]      =
->>>> AMDGPU_PL_GDS,
->>>>> -           [ilog2(AMDGPU_GEM_DOMAIN_GWS)]      =
->>>> AMDGPU_PL_GWS,
->>>>> -           [ilog2(AMDGPU_GEM_DOMAIN_OA)]       = AMDGPU_PL_OA,
->>>>> -           [ilog2(AMDGPU_GEM_DOMAIN_DOORBELL)] =
->>>> AMDGPU_PL_DOORBELL,
->>>>> -   };
->>>>> -   struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
->>>>> -   struct ttm_resource *res = bo->tbo.resource;
->>>>> -   struct drm_gem_object *obj = &bo->tbo.base;
->>>>> -   uint64_t size = amdgpu_bo_size(bo);
->>>>> -   unsigned int type;
->>>>> -
->>>>> -   if (!res) {
->>>>> -           /*
->>>>> -            * If no backing store use one of the preferred domain for basic
->>>>> -            * stats. We take the MSB since that should give a reasonable
->>>>> -            * view.
->>>>> -            */
->>>>> -           BUILD_BUG_ON(TTM_PL_VRAM < TTM_PL_TT ||
->>>>> -                        TTM_PL_VRAM < TTM_PL_SYSTEM);
->>>>> -           type = fls(bo->preferred_domains &
->>>> AMDGPU_GEM_DOMAIN_MASK);
->>>>> -           if (!type)
->>>>> -                   return;
->>>>> -           type--;
->>>>> -           if (drm_WARN_ON_ONCE(&adev->ddev,
->>>>> -                                type >= ARRAY_SIZE(domain_to_pl)))
->>>>> -                   return;
->>>>> -           type = domain_to_pl[type];
->>>>> -   } else {
->>>>> -           type = res->mem_type;
->>>>> -   }
->>>>> -
->>>>> -   /* Squash some into 'cpu' to keep the legacy userspace view. */
->>>>> -   switch (type) {
->>>>> -   case TTM_PL_VRAM:
->>>>> -   case TTM_PL_TT:
->>>>> -   case TTM_PL_SYSTEM:
->>>>> -           break;
->>>>> -   default:
->>>>> -           type = TTM_PL_SYSTEM;
->>>>> -           break;
->>>>> -   }
->>>>> -
->>>>> -   if (drm_WARN_ON_ONCE(&adev->ddev, type >= sz))
->>>>> -           return;
->>>>> -
->>>>> -   /* DRM stats common fields: */
->>>>> -
->>>>> -   if (drm_gem_object_is_shared_for_memory_stats(obj))
->>>>> -           stats[type].drm.shared += size;
->>>>> -   else
->>>>> -           stats[type].drm.private += size;
->>>>> -
->>>>> -   if (res) {
->>>>> -           stats[type].drm.resident += size;
->>>>> -
->>>>> -           if (!dma_resv_test_signaled(obj->resv,
->>>> DMA_RESV_USAGE_BOOKKEEP))
->>>>> -                   stats[type].drm.active += size;
->>>>> -           else if (bo->flags & AMDGPU_GEM_CREATE_DISCARDABLE)
->>>>> -                   stats[type].drm.purgeable += size;
->>>>> -   }
->>>>> -
->>>>> -   /* amdgpu specific stats: */
->>>>> -
->>>>> -   if (bo->preferred_domains & AMDGPU_GEM_DOMAIN_VRAM) {
->>>>> -           stats[TTM_PL_VRAM].requested += size;
->>>>> -           if (type != TTM_PL_VRAM)
->>>>> -                   stats[TTM_PL_VRAM].evicted += size;
->>>>> -   } else if (bo->preferred_domains & AMDGPU_GEM_DOMAIN_GTT) {
->>>>> -           stats[TTM_PL_TT].requested += size;
->>>>> -   }
->>>>> -}
->>>>> -
->>>>>     /**
->>>>>      * amdgpu_bo_release_notify - notification about a BO being released
->>>>>      * @bo: pointer to a buffer object @@ -1463,6 +1383,31 @@ u64
->>>>> amdgpu_bo_gpu_offset_no_check(struct
->>>> amdgpu_bo *bo)
->>>>>       return amdgpu_gmc_sign_extend(offset);
->>>>>     }
->>>>>
->>>>> +uint32_t amdgpu_bo_get_preferred_placement(struct amdgpu_bo *bo) {
->>>>> +   uint32_t domain = bo->preferred_domains &
->>>> AMDGPU_GEM_DOMAIN_MASK;
->>>>> +   if (!domain)
->>>>> +           return TTM_PL_SYSTEM;
->>>>> +
->>>>> +   switch (ilog2(domain)) {
->>>>> +           case AMDGPU_GEM_DOMAIN_CPU:
->>>>> +                   return TTM_PL_SYSTEM;
->>>>> +           case AMDGPU_GEM_DOMAIN_GTT:
->>>>> +                   return TTM_PL_TT;
->>>>> +           case AMDGPU_GEM_DOMAIN_VRAM:
->>>>> +                   return TTM_PL_VRAM;
->>>>> +           case AMDGPU_GEM_DOMAIN_GDS:
->>>>> +                   return AMDGPU_PL_GDS;
->>>>> +           case AMDGPU_GEM_DOMAIN_GWS:
->>>>> +                   return AMDGPU_PL_GWS;
->>>>> +           case AMDGPU_GEM_DOMAIN_OA:
->>>>> +                   return AMDGPU_PL_OA;
->>>>> +           case AMDGPU_GEM_DOMAIN_DOORBELL:
->>>>> +                   return AMDGPU_PL_DOORBELL;
->>>>> +           default:
->>>>> +                   return TTM_PL_SYSTEM;
->>>>
->>>> If I'm not completely mistaken that won't work like that.
->>>>
->>>> The AMDGPU_GEM_DOMAIN_* defines are masks and not shifts.
->>>
->>> Yeah you are right, should have been rounddown_pow_of_two
->>>
->>>>> +   }
->>>>> +}
->>>>> +
->>>>>     /**
->>>>>      * amdgpu_bo_get_preferred_domain - get preferred domain
->>>>>      * @adev: amdgpu device object
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
->>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
->>>>> index be6769852ece4..bd58a8b0ece66 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
->>>>> @@ -30,6 +30,7 @@
->>>>>
->>>>>     #include <drm/amdgpu_drm.h>
->>>>>     #include "amdgpu.h"
->>>>> +#include "amdgpu_ttm.h"
->>>>>     #include "amdgpu_res_cursor.h"
->>>>
->>>> Why is that necessary?
->>>
->>> I got a compile error otherwise for those AMDGPU_PL_*
->>>
->>>>>
->>>>>     #ifdef CONFIG_MMU_NOTIFIER
->>>>> @@ -300,9 +301,7 @@ int amdgpu_bo_sync_wait_resv(struct
->>>>> amdgpu_device
->>>> *adev, struct dma_resv *resv,
->>>>>     int amdgpu_bo_sync_wait(struct amdgpu_bo *bo, void *owner, bool intr);
->>>>>     u64 amdgpu_bo_gpu_offset(struct amdgpu_bo *bo);
->>>>>     u64 amdgpu_bo_gpu_offset_no_check(struct amdgpu_bo *bo); -void
->>>>> amdgpu_bo_get_memory(struct amdgpu_bo *bo,
->>>>> -                     struct amdgpu_mem_stats *stats,
->>>>> -                     unsigned int size);
->>>>> +uint32_t amdgpu_bo_get_preferred_placement(struct amdgpu_bo *bo);
->>>>>     uint32_t amdgpu_bo_get_preferred_domain(struct amdgpu_device *adev,
->>>>>                                           uint32_t domain);
->>>>>
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
->>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
->>>>> index 2852a6064c9ac..a9088e864fde4 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
->>>>> @@ -26,8 +26,8 @@
->>>>>
->>>>>     #include <linux/dma-direction.h>
->>>>>     #include <drm/gpu_scheduler.h>
->>>>> +#include <drm/ttm/ttm_placement.h>
->>>>>     #include "amdgpu_vram_mgr.h"
->>>>> -#include "amdgpu.h"
->>>>
->>>> Looks like a valuable cleanup, but should probably a separate patch.
->>>
->>> Without this there's a circular include that breaks compilation
->>> combined with the above
->>>
->>>>>
->>>>>     #define AMDGPU_PL_GDS             (TTM_PL_PRIV + 0)
->>>>>     #define AMDGPU_PL_GWS             (TTM_PL_PRIV + 1)
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>>>> index 9fab64edd0530..abd35c18ddaa8 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>>>> @@ -36,6 +36,7 @@
->>>>>     #include <drm/ttm/ttm_tt.h>
->>>>>     #include <drm/drm_exec.h>
->>>>>     #include "amdgpu.h"
->>>>> +#include "amdgpu_vm.h"
->>>>>     #include "amdgpu_trace.h"
->>>>>     #include "amdgpu_amdkfd.h"
->>>>>     #include "amdgpu_gmc.h"
->>>>> @@ -310,6 +311,94 @@ static void
->>>>> amdgpu_vm_bo_reset_state_machine(struct
->>>> amdgpu_vm *vm)
->>>>>       spin_unlock(&vm->status_lock);
->>>>>     }
->>>>>
->>>>> +/**
->>>>> + * amdgpu_vm_update_shared - helper to update shared memory stat
->>>>> + * @base: base structure for tracking BO usage in a VM
->>>>> + * @sign: if we should add (+1) or subtract (-1) from the shared
->>>>> +stat
->>>>> + *
->>>>> + * Takes the vm status_lock and updates the shared memory stat. If
->>>>> +the basic
->>>>> + * stat changed (e.g. buffer was moved) amdgpu_vm_update_stats need
->>>>> +to be called
->>>>> + * as well.
->>>>> + */
->>>>> +static void amdgpu_vm_update_shared(struct amdgpu_vm_bo_base *base,
->>>>> +int sign) {
->>>>> +   struct amdgpu_vm *vm = base->vm;
->>>>> +   struct amdgpu_bo *bo = base->bo;
->>>>> +   struct ttm_resource *res;
->>>>> +   int64_t size;
->>>>> +   uint32_t type;
->>>>> +
->>>>> +   if (!vm || !bo)
->>>>> +           return;
->>>>> +
->>>>> +   size = sign * amdgpu_bo_size(bo);
->>>>> +   if ((res = bo->tbo.resource))
->>>>> +           type = res->mem_type;
->>>>> +   else
->>>>> +           type = amdgpu_bo_get_preferred_placement(bo);
->>>>
->>>> As discussed with Tvrtko that won't work like this.
->>>>
->>>> Either use the preferred placement or the actual backing store, but
->>>> don't use a fallback here.
->>>
->>> I had a follow up discussion with Tvrtko here
->> https://lists.freedesktop.org/archives/amd-gfx/2024-October/116024.html it seems
->> like this is the intended semantics for the drm-total-* stats. I can see it going both
->> ways, I guess it's just up to which design is most useful for whom ever is reading
->> the stats.
->>>
->>
->> Yeah I think this is correct, unless the allowed mask would perhaps be better than
->> preferred. We don't want drm-total- to show zero if object simply has no current
->> placement.
->>
->>> Current design is for it to mean "all the buffer currently at X" + "all the buffer that
->> wants to be at X but currently don't have a backing"
->>> The alternative I guess is for it to mean "all the buffer that wants to be at X"
->>
->> Alternative is the same, no? But I think it is correct. As I explained before drm-total
->> should be akin to VIRT in top(1) and drm-resident to RES.
-> 
-> The two differ in how "evicted" buffers are counted. In the first case the evicted buffers adds to the total of where they happens to be at, second case the evicted buffers counts towards their preferred placement's total. Since we already have drm-resident that takes eviction into account, there might be some value to have drm-total- track a orthogonal statistics, aka where buffers want to be at?
-
-Oh I see. Hm... Both options appear can result with some confusing 
-runtime behaviour so I am not sure TBH.
-
-For me the main thing is that drm-total- is not shown as zero (in all 
-regions) when there is no backing store but the BO exists, and that 
-drm-resident- reflects the current placement. Don't think I currently 
-have a strong opinion on the details of whether total follows placement, 
-or sticks to the placement from the BO allowed/preferred mask.
-
->>> Btw, I'm having trouble figuring out where I should account for drm-active-* it's for
->> buffers that are currently being used (e.g. have a fence not signaled) it seems like
->> the work scheduling part is quite far removed from the individual BOs...
->>
->> Ah that is a fun one. Perhaps we should add DRM_GEM_OBJECT_ACTIVE and
->> use it from drm_print_memory_stats() as with resident and purgeable.
->> Then amdgpu could opt to not display those and it probably wouldn't be a
->> huge loss since drm-active- is very transient and low value.
-> 
-> That would be fine with me, it's also a quite inflated metric since the kernel doesn't actually know which buffers are used in each submission so it just fence all of them.
-
-Okay lets go with that, as a new patch in the series I guess, and see if 
-someone spots a problem with that approach.
-
-Regards,
-
-Tvrtko
-
-> 
->>
->> Regards,
->>
->> Tvrtko
->>
->>>
->>>>> +   if (type >= __AMDGPU_PL_LAST)
->>>>> +           return;
->>>>> +
->>>>> +   spin_lock(&vm->status_lock);
->>>>> +   vm->stats[type].drm.shared += size;
->>>>> +   vm->stats[type].drm.private -= size;
->>>>> +   spin_unlock(&vm->status_lock);
->>>>> +}
->>>>> +
->>>>> +/**
->>>>> + * amdgpu_vm_update_stats - helper to update normal memory stat
->>>>> + * @base: base structure for tracking BO usage in a VM
->>>>> + * @new_res:  if not NULL, the ttm_resource to use for the purpose of
->>>>> +accounting
->>>>> + * (i.e. ignore the one in the BO)
->>>>> + * @sign: if we should add (+1) or subtract (-1) from the stat
->>>>> + *
->>>>> + * Takes the vm status_lock and updates the basic memory stat. If the
->>>>> +shared
->>>>> + * stat changed (e.g. buffer was exported) amdgpu_vm_update_shared
->>>>> +need to be
->>>>> + * called as well.
->>>>> + */
->>>>> +void amdgpu_vm_update_stats(struct amdgpu_vm_bo_base *base,
->>>>> +                       struct ttm_resource *new_res, int sign) {
->>>>> +   struct amdgpu_vm *vm = base->vm;
->>>>> +   struct amdgpu_bo *bo = base->bo;
->>>>> +   struct ttm_resource *res;
->>>>> +   int64_t size;
->>>>> +   uint32_t type;
->>>>> +   bool shared;
->>>>> +
->>>>> +   if (!vm || !bo)
->>>>> +           return;
->>>>> +
->>>>> +   size = sign * amdgpu_bo_size(bo);
->>>>> +   res = new_res ? new_res : bo->tbo.resource;
->>>>> +   type = res ? res->mem_type : amdgpu_bo_get_preferred_placement(bo);
->>>>
->>>> Same here. Don't use the preferred domain as fallback.
->>>>
->>>>> +   shared = drm_gem_object_is_shared_for_memory_stats(&bo->tbo.base);
->>>>> +
->>>>> +   if (type >= __AMDGPU_PL_LAST)
->>>>> +           return;
->>>>> +
->>>>> +   spin_lock(&vm->status_lock);
->>>>> +
->>>>> +   if (shared)
->>>>> +           vm->stats[type].drm.shared += size;
->>>>> +   else
->>>>> +           vm->stats[type].drm.private += size;
->>>>> +   if (res)
->>>>> +           vm->stats[type].drm.resident += size;
->>>>> +   if (bo->flags & AMDGPU_GEM_CREATE_DISCARDABLE)
->>>>> +           vm->stats[type].drm.purgeable += size;
->>>>> +
->>>>> +   if (bo->preferred_domains & AMDGPU_GEM_DOMAIN_VRAM) {
->>>>> +           vm->stats[TTM_PL_VRAM].requested += size;
->>>>> +           if (type != TTM_PL_VRAM)
->>>>> +                   vm->stats[TTM_PL_VRAM].evicted += size;
->>>>
->>>> That check is probably not correct. We have BOs which can be placed in both
->>>> VRAM and GTT.
->>>
->>> That is true, but does it make sense to count it towards evicted if say our picking
->> order prefers VRAM over GTT?
->>>
->>>>> +   } else if (bo->preferred_domains & AMDGPU_GEM_DOMAIN_GTT) {
->>>>> +                   vm->stats[TTM_PL_TT].requested += size;
->>>>> +   }
->>>>> +
->>>>> +   spin_unlock(&vm->status_lock);
->>>>> +}
->>>>> +
->>>>>     /**
->>>>>      * amdgpu_vm_bo_base_init - Adds bo to the list of bos associated with the
->> vm
->>>>>      *
->>>>> @@ -332,6 +421,7 @@ void amdgpu_vm_bo_base_init(struct
->>>> amdgpu_vm_bo_base *base,
->>>>>               return;
->>>>>       base->next = bo->vm_bo;
->>>>>       bo->vm_bo = base;
->>>>> +   amdgpu_vm_update_stats(base, NULL, +1);
->>>>>
->>>>>       if (!amdgpu_vm_is_bo_always_valid(vm, bo))
->>>>>               return;
->>>>> @@ -1082,53 +1172,11 @@ int amdgpu_vm_update_range(struct
->>>> amdgpu_device *adev, struct amdgpu_vm *vm,
->>>>>       return r;
->>>>>     }
->>>>>
->>>>> -static void amdgpu_vm_bo_get_memory(struct amdgpu_bo_va *bo_va,
->>>>> -                               struct amdgpu_mem_stats *stats,
->>>>> -                               unsigned int size)
->>>>> -{
->>>>> -   struct amdgpu_vm *vm = bo_va->base.vm;
->>>>> -   struct amdgpu_bo *bo = bo_va->base.bo;
->>>>> -
->>>>> -   if (!bo)
->>>>> -           return;
->>>>> -
->>>>> -   /*
->>>>> -    * For now ignore BOs which are currently locked and potentially
->>>>> -    * changing their location.
->>>>> -    */
->>>>> -   if (!amdgpu_vm_is_bo_always_valid(vm, bo) &&
->>>>> -       !dma_resv_trylock(bo->tbo.base.resv))
->>>>> -           return;
->>>>> -
->>>>> -   amdgpu_bo_get_memory(bo, stats, size);
->>>>> -   if (!amdgpu_vm_is_bo_always_valid(vm, bo))
->>>>> -           dma_resv_unlock(bo->tbo.base.resv);
->>>>> -}
->>>>> -
->>>>>     void amdgpu_vm_get_memory(struct amdgpu_vm *vm,
->>>>> -                     struct amdgpu_mem_stats *stats,
->>>>> -                     unsigned int size)
->>>>> +                     struct amdgpu_mem_stats stats[__AMDGPU_PL_LAST])
->>>>>     {
->>>>> -   struct amdgpu_bo_va *bo_va, *tmp;
->>>>> -
->>>>>       spin_lock(&vm->status_lock);
->>>>> -   list_for_each_entry_safe(bo_va, tmp, &vm->idle, base.vm_status)
->>>>> -           amdgpu_vm_bo_get_memory(bo_va, stats, size);
->>>>> -
->>>>> -   list_for_each_entry_safe(bo_va, tmp, &vm->evicted, base.vm_status)
->>>>> -           amdgpu_vm_bo_get_memory(bo_va, stats, size);
->>>>> -
->>>>> -   list_for_each_entry_safe(bo_va, tmp, &vm->relocated, base.vm_status)
->>>>> -           amdgpu_vm_bo_get_memory(bo_va, stats, size);
->>>>> -
->>>>> -   list_for_each_entry_safe(bo_va, tmp, &vm->moved, base.vm_status)
->>>>> -           amdgpu_vm_bo_get_memory(bo_va, stats, size);
->>>>> -
->>>>> -   list_for_each_entry_safe(bo_va, tmp, &vm->invalidated, base.vm_status)
->>>>> -           amdgpu_vm_bo_get_memory(bo_va, stats, size);
->>>>> -
->>>>> -   list_for_each_entry_safe(bo_va, tmp, &vm->done, base.vm_status)
->>>>> -           amdgpu_vm_bo_get_memory(bo_va, stats, size);
->>>>> +   memcpy(stats, vm->stats, sizeof(*stats) * __AMDGPU_PL_LAST);
->>>>>       spin_unlock(&vm->status_lock);
->>>>>     }
->>>>>
->>>>> @@ -2071,6 +2119,7 @@ void amdgpu_vm_bo_del(struct amdgpu_device
->>>> *adev,
->>>>>                       if (*base != &bo_va->base)
->>>>>                               continue;
->>>>>
->>>>> +                   amdgpu_vm_update_stats(*base, NULL, -1);
->>>>>                       *base = bo_va->base.next;
->>>>>                       break;
->>>>>               }
->>>>> @@ -2136,6 +2185,22 @@ bool amdgpu_vm_evictable(struct amdgpu_bo
->> *bo)
->>>>>       return true;
->>>>>     }
->>>>>
->>>>> +/**
->>>>> + * amdgpu_vm_bo_update_shared - called when bo gets shared/unshared
->>>>> + *
->>>>> + * @bo: amdgpu buffer object
->>>>> + * @sign: if we should add (+1) or subtract (-1) the memory stat
->>>>> + *
->>>>> + * Update the per VM stats for all the vm  */ void
->>>>> +amdgpu_vm_bo_update_shared(struct amdgpu_bo *bo, int sign) {
->>>>> +   struct amdgpu_vm_bo_base *bo_base;
->>>>> +
->>>>> +   for (bo_base = bo->vm_bo; bo_base; bo_base = bo_base->next)
->>>>> +           amdgpu_vm_update_shared(bo_base, sign); }
->>>>> +
->>>>>     /**
->>>>>      * amdgpu_vm_bo_invalidate - mark the bo as invalid
->>>>>      *
->>>>> @@ -2169,6 +2234,28 @@ void amdgpu_vm_bo_invalidate(struct amdgpu_bo
->>>> *bo, bool evicted)
->>>>>       }
->>>>>     }
->>>>>
->>>>> +/**
->>>>> + * amdgpu_vm_bo_move - handle BO move
->>>>> + *
->>>>> + * @bo: amdgpu buffer object
->>>>> + * @new_mem: the new placement of the BO move
->>>>> + * @evicted: is the BO evicted
->>>>> + *
->>>>> + * Update the memory stats for the new placement and mark @bo as invalid.
->>>>> + */
->>>>> +void amdgpu_vm_bo_move(struct amdgpu_bo *bo, struct ttm_resource
->>>> *new_mem,
->>>>> +                  bool evicted)
->>>>> +{
->>>>> +   struct amdgpu_vm_bo_base *bo_base;
->>>>> +
->>>>> +   for (bo_base = bo->vm_bo; bo_base; bo_base = bo_base->next) {
->>>>> +           amdgpu_vm_update_stats(bo_base, bo->tbo.resource, -1);
->>>>> +           amdgpu_vm_update_stats(bo_base, new_mem, +1);
->>>>> +   }
->>>>> +
->>>>> +   amdgpu_vm_bo_invalidate(bo, evicted); }
->>>>> +
->>>>>     /**
->>>>>      * amdgpu_vm_get_block_size - calculate VM page table size as power of
->> two
->>>>>      *
->>>>> @@ -2585,6 +2672,18 @@ void amdgpu_vm_release_compute(struct
->>>> amdgpu_device *adev, struct amdgpu_vm *vm)
->>>>>       vm->is_compute_context = false;
->>>>>     }
->>>>>
->>>>> +static int amdgpu_vm_stats_is_zero(struct amdgpu_vm *vm) {
->>>>> +   int is_zero = 1;
->>>>> +   for (int i = 0; i < __AMDGPU_PL_LAST; ++i) {
->>>>> +           is_zero = drm_memory_stats_is_zero(&vm->stats[i].drm) &&
->>>>> +                     vm->stats->evicted == 0 && vm->stats->requested == 0;
->>>>> +           if (!is_zero)
->>>>> +                   break;
->>>>
->>>> Just make that an "if (...) return false", no need for the local variable.
->>>>
->>>> Regards,
->>>> Christian.
->>>>
->>>
->>> D'oh!
->>>
->>> Teddy
+W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEFNRCBJbnRlcm5hbCBEaXN0cmlidXRpb24gT25seV0N
+Cg0KPiBGcm9tOiBLb2VuaWcsIENocmlzdGlhbiA8Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tPg0K
+PiBTZW50OiBXZWRuZXNkYXksIE5vdmVtYmVyIDYsIDIwMjQgODoyNCBQTQ0KPiBUbzogS3VlaGxp
+bmcsIEZlbGl4IDxGZWxpeC5LdWVobGluZ0BhbWQuY29tPjsgTGlhbmcsIFByaWtlDQo+IDxQcmlr
+ZS5MaWFuZ0BhbWQuY29tPjsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gQ2M6IERl
+dWNoZXIsIEFsZXhhbmRlciA8QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbT47IEthc2l2aXN3YW5h
+dGhhbiwgSGFyaXNoDQo+IDxIYXJpc2guS2FzaXZpc3dhbmF0aGFuQGFtZC5jb20+DQo+IFN1Ympl
+Y3Q6IFJlOiBbUEFUQ0hdIGRybS9hbWRrZmQ6IGNvcnJlY3QgdGhlIFNWTSBETUEgZGV2aWNlIHVu
+bWFwIGRpcmVjdGlvbg0KPg0KPiBBbSAwNS4xMS4yNCB1bSAxNzozNCBzY2hyaWViIEZlbGl4IEt1
+ZWhsaW5nOg0KPiA+IE9uIDIwMjQtMTEtMDUgMDY6MDQsIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6
+DQo+ID4+IEFtIDA1LjExLjI0IHVtIDAzOjMzIHNjaHJpZWIgUHJpa2UgTGlhbmc6DQo+ID4+PiBU
+aGUgU1ZNIERNQSBkZXZpY2UgdW5tYXAgZGlyZWN0aW9uIHNob3VsZCBiZSBzYW1lIGFzIHRoZSBE
+TUEgbWFwDQo+ID4+PiBwcm9jZXNzLg0KPiA+Pg0KPiA+PiBBdCBsZWFzdCBvZiBoYW5kIHRoYXQg
+bG9va3MgbGlrZSBpdCdzIG9ubHkgcGFwZXJpbmcgb3ZlciBhIG1ham9yDQo+ID4+IHByb2JsZW0u
+DQo+ID4+DQo+ID4+IFdoeSBhcmUgRE1BIHJhbmdlcyBmb3IgU1ZNIG1hcHBlZCB3aXRoIGEgZGly
+ZWN0aW9uIGluIHRoZSBmaXJzdA0KPiA+PiBwbGFjZT8gVGhhdCBpcyB1c3VhbGx5IG5vdCBzb21l
+dGhpbmcgd2Ugc2hvdWxkIGRvLg0KPiA+DQo+ID4gVGhlc2UgYXJlIERNQSBtYXBwaW5ncyBvZiBz
+eXN0ZW0gbWVtb3J5IHBhZ2VzLiBJIGd1ZXNzIHdlJ3JlIGNyZWF0aW5nDQo+ID4gRE1BIG1hcHBp
+bmdzIG9ubHkgZm9yIHRoZSBhY2Nlc3MgcmVxdWlyZWQgZm9yIHRoZSBtaWdyYXRpb24sIHdoaWNo
+IGlzDQo+ID4gbm90IGJpZGlyZWN0aW9uYWwuIEkgc2VlIHdlIGRvIHNvbWV0aGluZyBzaW1pbGFy
+IGZvciB1c2VycHRyIG1hcHBpbmdzDQo+ID4gZGVwZW5kaW5nIG9uIHdoZXRoZXIgdGhlIEdQVSBt
+YXBwaW5nIGlzIHJlYWQtb25seSBvciByZWFkLXdyaXRlLiBJcw0KPiA+IHRoYXQgd3JvbmcgZm9y
+IHVzZXJwdHJzIGFzIHdlbGw/DQo+DQo+IEkgdGhpbmsgc28sIHllcy4gVGhlIERNQSBkaXJlY3Rp
+b25zIGFyZSB0aGVyZSB0byBtYWtlIGV4cGxpY2l0IENQVSBjYWNoZQ0KPiBtYW5hZ2VtZW50IGFu
+ZCBib3VuY2UgYnVmZmVycyBwb3NzaWJsZS4NCj4NCj4gU2luY2Ugd2Ugc2hvdWxkbid0IG5lZWQg
+b3IgZXZlbiB3YW50IGVpdGhlciBmb3IgYSBjYWNoZSBjb2hlcmVudCBQQ0llIGRldmljZSB3ZQ0K
+PiBzaG91bGQgcHJvYmFibHkgYWx3YXlzIHVzZSBCSURJUkVDVElPTkFMLg0KPg0KVGhlIERNQSBj
+b3JlIHdpbGwgY2hlY2sgdGhlIGRpcmVjdGlvbiB3aGVuIHRoZSBkcml2ZXIgcGVyZm9ybXMgRE1B
+IHVubWFwLCBhbmQgaWYgdGhlIERNQSB1bm1hcCBkaXJlY3Rpb24gZG9lcyBub3QgbWF0Y2ggdGhl
+IG1hcCBkaXJlY3Rpb24gc2V0dGluZywgaXQgd2lsbCByZXBvcnQgYSB3YXJuaW5nIGxpa2UgdGhl
+IGZvbGxvd2luZy4gTWVhbndoaWxlLCBmb3Igc3RyZWFtIERNQSB1bm1hcHBpbmdzIHdpdGhvdXQg
+dGhlIERNQV9BVFRSX1NLSVBfQ1BVX1NZTkMgYXR0cmlidXRlIHNldHRpbmcsIHRoZXJlIHdpbGwg
+YmUgYSBkaWZmZXJlbnQgY2FjaGUgcG9saWN5IGZvciBlYWNoIERNQSBkaXJlY3Rpb24uIFNvLCB3
+aWxsIHRoaXMgYWZmZWN0IHRoZSB1bm1hcCBwZXJmb3JtYW5jZSB3aGVuIGFsbCB1c2luZyB0aGUg
+QklESVJFQ1RJT05BTCBzZXR0aW5nPw0KDQpGb3IgdXNlcnB0ciB1bm1hcHBpbmdzLCBpdCBhcHBl
+YXJzIHRoYXQgdGhleSBhcmUgZG9pbmcgdGhlIGNvcnJlY3QgdGhpbmcgYnkgdXNpbmcgdGhlIHNh
+bWUgZGlyZWN0aW9uIGFzIHRoZSBtYXBwaW5nIHNldHRpbmcuDQoNCi4uLi4uLiA8IFNOSVA+DQpE
+TUEtQVBJOiBhbWRncHUgMDAwMDowMzowMC4wOiBkZXZpY2UgZHJpdmVyIGZyZWVzIERNQSBtZW1v
+cnkgd2l0aCBkaWZmZXJlbnQgZGlyZWN0aW9uIFtkZXZpY2UgYWRkcmVzcz0weDAwMDAwMDAxZjgy
+NjMwMDBdIFtzaXplPTQwOTYgYnl0ZXNdIFttYXBwZWQgd2l0aCBETUFfVE9fREVWSUNFXSBbdW5t
+YXBwZWQgd2l0aCBETUFfQklESVJFQ1RJT05BTF0NCk5vdiAgNCAxNTo0NTozMiBwcmlrZS1xdWV1
+ZS1yZXNldCBrZXJuZWw6IFszNTIwMzMuMzYwMTU4XSBXQVJOSU5HOiBDUFU6IDkgUElEOiAxMTY3
+MSBhdCBrZXJuZWwvZG1hL2RlYnVnLmM6MTAyOCBjaGVja191bm1hcCsweDFjYy8weDkzMA0KTm92
+ICA0IDE1OjQ1OjMyIHByaWtlLXF1ZXVlLXJlc2V0IGtlcm5lbDogWzM1MjAzMy4zNjAxNjVdIE1v
+ZHVsZXMgbGlua2VkIGluOiB2ZXRoIGFtZGdwdShPRSkgYW1keGNwIGRybV9leGVjIGdwdV9zY2hl
+ZCBkcm1fYnVkZHkgZHJtX3R0bV9oZWxwZXIgdHRtKE9FKSBkcm1fc3ViYWxsb2NfaGVscGVyIGRy
+bV9kaXNwbGF5X2hlbHBlciBkcm1fa21zX2hlbHBlciBkcm0gaTJjX2FsZ29fYml0IHZpZGVvIHRs
+cyBycGNzZWNfZ3NzX2tyYjUgYXV0aF9ycGNnc3MgbmZzdjQgbmZzIGxvY2tkIGdyYWNlIG5ldGZz
+IHh0X2Nvbm50cmFjayB4dF9NQVNRVUVSQURFIG5mX2Nvbm50cmFja19uZXRsaW5rIHhmcm1fdXNl
+ciB4ZnJtX2FsZ28gaXB0YWJsZV9uYXQgeHRfYWRkcnR5cGUgaXB0YWJsZV9maWx0ZXIgYnJfbmV0
+ZmlsdGVyIG52bWVfZmFicmljcyBvdmVybGF5IGJyaWRnZSBuZm5ldGxpbmtfY3R0aW1lb3V0IHN0
+cCBsbGMgbmZuZXRsaW5rIG9wZW52c3dpdGNoIG5zaCBuZl9jb25uY291bnQgbmZfbmF0IG5mX2Nv
+bm50cmFjayBuZl9kZWZyYWdfaXB2NiBuZl9kZWZyYWdfaXB2NCBsaWJjcmMzMmMgc2NoX2ZxX2Nv
+ZGVsIGludGVsX3JhcGxfbXNyIGFtZF9hdGwgaW50ZWxfcmFwbF9jb21tb24gc25kX2hkYV9jb2Rl
+Y19yZWFsdGVrIHNuZF9oZGFfY29kZWNfZ2VuZXJpYyBzbmRfaGRhX3Njb2RlY19jb21wb25lbnQg
+c25kX2hkYV9jb2RlY19oZG1pIHN1bnJwYyBlZGFjX21jZV9hbWQgc25kX2hkYV9pbnRlbCBzbmRf
+aW50ZWxfZHNwY2ZnIHNuZF9oZGFfY29kZWMga3ZtX2FtZCBzbmRfcGNpX2FjcDZ4IHNuZF9oZGFf
+Y29yZSBzbmRfYWNwX2NvbmZpZyBzbmRfc29jX2FjcGkgc25kX2h3ZGVwIGJpbmZtdF9taXNjIGt2
+bSBzbmRfcGNtIG5sc19pc284ODU5XzEgY3JjdDEwZGlmX3BjbG11bCBzbmRfc2VxX21pZGkgc25k
+X3NlcV9taWRpX2V2ZW50IGdoYXNoX2NsbXVsbmlfaW50ZWwgc2hhNTEyX3Nzc2UzIHNoYTI1Nl9z
+c3NlMyBzbmRfcmF3bWlkaSBzaGExX3Nzc2UzIGFlc25pX2ludGVsIGNyeXB0b19zaW1kIGNyeXB0
+ZCBzbmRfc2VxIGlucHV0X2xlZHMgcmFwbCBzZXJpb19yYXcgd21pX2Jtb2YNCk5vdiAgNCAxNTo0
+NTozMiBwcmlrZS1xdWV1ZS1yZXNldCBrZXJuZWw6IFszNTIwMzMuMzYwMjU1XSAgc25kX3NlcV9k
+ZXZpY2UgazEwdGVtcCBzbmRfdGltZXIgc3A1MTAwX3RjbyBzbmQgY2NwIHNvdW5kY29yZSBpcG1p
+X2RldmludGYgY20zMjE4MSBpcG1pX21zZ2hhbmRsZXIgaW5kdXN0cmlhbGlvIG1hY19oaWQgbXNy
+IHBhcnBvcnRfcGMgcHBkZXYgbHAgcGFycG9ydCBlZmlfcHN0b3JlIGlwX3RhYmxlcyB4X3RhYmxl
+cyBwY2lfc3R1YiBjcmMzMl9wY2xtdWwgbnZtZSBhaGNpIGxpYmFoY2kgaTJjX3BpaXg0IHI4MTY5
+IG52bWVfY29yZSBpMmNfZGVzaWdud2FyZV9wY2kgcmVhbHRlayBpMmNfY2NneF91Y3NpIHdtaSBj
+ZGNfZXRoZXIgaGlkX2dlbmVyaWMgdXNibmV0IHVzYmhpZCByODE1MiBoaWQgbWlpIFtsYXN0IHVu
+bG9hZGVkOiBkcm1dDQpOb3YgIDQgMTU6NDU6MzIgcHJpa2UtcXVldWUtcmVzZXQga2VybmVsOiBb
+MzUyMDMzLjM2MDI5N10gQ1BVOiA5IFBJRDogMTE2NzEgQ29tbTogcHRfbWFpbl90aHJlYWQgVGFp
+bnRlZDogRyAgICAgICAgICAgT0UgICAgICA2LjEwLjAtY3VzdG9tICM0OTINCk5vdiAgNCAxNTo0
+NTozMiBwcmlrZS1xdWV1ZS1yZXNldCBrZXJuZWw6IFszNTIwMzMuMzYwMzAxXSBIYXJkd2FyZSBu
+YW1lOiBBTUQgTWFqb2xpY2EtUk4vTWFqb2xpY2EtUk4sIEJJT1MgUk1KMTAwOUEgMDYvMTMvMjAy
+MQ0KTm92ICA0IDE1OjQ1OjMyIHByaWtlLXF1ZXVlLXJlc2V0IGtlcm5lbDogWzM1MjAzMy4zNjAz
+MDNdIFJJUDogMDAxMDpjaGVja191bm1hcCsweDFjYy8weDkzMA0KTm92ICA0IDE1OjQ1OjMyIHBy
+aWtlLXF1ZXVlLXJlc2V0IGtlcm5lbDogWzM1MjAzMy4zNjAzMDZdIENvZGU6IGMwIDRjIDg5IDRk
+IGM4IGU4IDM0IGJmIDg2IDAwIDRjIDhiIDRkIGM4IDRjIDhiIDQ1IGMwIDQ4IDhiIDRkIGI4IDQ4
+IDg5IGM2IDQxIDU3IDRjIDg5IGVhIDQ4IGM3IGM3IDgwIDQ5IGI0IDkwIGU4IGI0IDgxIGYzIGZm
+IDwwZj4gMGIgNDggYzcgYzcgMDQgODMgYWMgOTAgZTggNzYgYmEgZmMgZmYgNDEgOGIgNzYgNGMg
+NDkgOGQgN2UgNTANCk5vdiAgNCAxNTo0NTozMiBwcmlrZS1xdWV1ZS1yZXNldCBrZXJuZWw6IFsz
+NTIwMzMuMzYwMzA4XSBSU1A6IDAwMTg6ZmZmZjljMGY4NTUxNzllMCBFRkxBR1M6IDAwMDEwMDg2
+DQpOb3YgIDQgMTU6NDU6MzIgcHJpa2UtcXVldWUtcmVzZXQga2VybmVsOiBbMzUyMDMzLjM2MDMx
+MV0gUkFYOiAwMDAwMDAwMDAwMDAwMDAwIFJCWDogZmZmZmZmZmY5MTY1YzEzOCBSQ1g6IDAwMDAw
+MDAwMDAwMDAwMjcNCk5vdiAgNCAxNTo0NTozMiBwcmlrZS1xdWV1ZS1yZXNldCBrZXJuZWw6IFsz
+NTIwMzMuMzYwMzEzXSBSRFg6IGZmZmY4YTZmY2Y2YTE2ODggUlNJOiAwMDAwMDAwMDAwMDAwMDAx
+IFJESTogZmZmZjhhNmZjZjZhMTY4MA0KTm92ICA0IDE1OjQ1OjMyIHByaWtlLXF1ZXVlLXJlc2V0
+IGtlcm5lbDogWzM1MjAzMy4zNjAzMTVdIFJCUDogZmZmZjljMGY4NTUxN2EzMCBSMDg6IDAwMDAw
+MDAwMDAwMDAwYzkgUjA5OiBmZmZmOWMwZjg1NTE3ODUwDQpOb3YgIDQgMTU6NDU6MzIgcHJpa2Ut
+cXVldWUtcmVzZXQga2VybmVsOiBbMzUyMDMzLjM2MDMxNl0gUjEwOiBmZmZmOWMwZjg1NTE3ODQ4
+IFIxMTogZmZmZmZmZmY5MGY0NjMyOCBSMTI6IGZmZmY5YzBmODU1MTdhNDANCk5vdiAgNCAxNTo0
+NTozMiBwcmlrZS1xdWV1ZS1yZXNldCBrZXJuZWw6IFszNTIwMzMuMzYwMzE4XSBSMTM6IGZmZmY4
+YTZjODMxZWM3ZTAgUjE0OiBmZmZmOGE2YzgxOWNlZDgwIFIxNTogZmZmZmZmZmY5MGFjODMxYg0K
+Tm92ICA0IDE1OjQ1OjMyIHByaWtlLXF1ZXVlLXJlc2V0IGtlcm5lbDogWzM1MjAzMy4zNjAzMjBd
+IEZTOiAgMDAwMDdmZjgxZGIxYjc0MCgwMDAwKSBHUzpmZmZmOGE2ZmNmNjgwMDAwKDAwMDApIGtu
+bEdTOjAwMDAwMDAwMDAwMDAwMDANCk5vdiAgNCAxNTo0NTozMiBwcmlrZS1xdWV1ZS1yZXNldCBr
+ZXJuZWw6IFszNTIwMzMuMzYwMzIyXSBDUzogIDAwMTAgRFM6IDAwMDAgRVM6IDAwMDAgQ1IwOiAw
+MDAwMDAwMDgwMDUwMDMzDQpOb3YgIDQgMTU6NDU6MzIgcHJpa2UtcXVldWUtcmVzZXQga2VybmVs
+OiBbMzUyMDMzLjM2MDMyNF0gQ1IyOiAwMDAwN2ZmMzEwMjAwMDIwIENSMzogMDAwMDAwMDE1OGY3
+YTAwMCBDUjQ6IDAwMDAwMDAwMDAzNTBlZjANCk5vdiAgNCAxNTo0NTozMiBwcmlrZS1xdWV1ZS1y
+ZXNldCBrZXJuZWw6IFszNTIwMzMuMzYwMzI2XSBDYWxsIFRyYWNlOg0KTm92ICA0IDE1OjQ1OjMy
+IHByaWtlLXF1ZXVlLXJlc2V0IGtlcm5lbDogWzM1MjAzMy4zNjAzMjddICA8VEFTSz4NCk5vdiAg
+NCAxNTo0NTozMiBwcmlrZS1xdWV1ZS1yZXNldCBrZXJuZWw6IFszNTIwMzMuMzYwMzMwXSAgPyBz
+aG93X3JlZ3MrMHg2ZC8weDgwDQpOb3YgIDQgMTU6NDU6MzIgcHJpa2UtcXVldWUtcmVzZXQga2Vy
+bmVsOiBbMzUyMDMzLjM2MDMzNF0gID8gX193YXJuKzB4OGMvMHgxNDANCk5vdiAgNCAxNTo0NToz
+MiBwcmlrZS1xdWV1ZS1yZXNldCBrZXJuZWw6IFszNTIwMzMuMzYwMzM5XSAgPyBjaGVja191bm1h
+cCsweDFjYy8weDkzMA0KTm92ICA0IDE1OjQ1OjMyIHByaWtlLXF1ZXVlLXJlc2V0IGtlcm5lbDog
+WzM1MjAzMy4zNjAzNDNdICA/IHJlcG9ydF9idWcrMHgxOTMvMHgxYTANCk5vdiAgNCAxNTo0NToz
+MiBwcmlrZS1xdWV1ZS1yZXNldCBrZXJuZWw6IFszNTIwMzMuMzYwMzQ3XSAgPyBoYW5kbGVfYnVn
+KzB4NDYvMHg4MA0KTm92ICA0IDE1OjQ1OjMyIHByaWtlLXF1ZXVlLXJlc2V0IGtlcm5lbDogWzM1
+MjAzMy4zNjAzNTJdICA/IGV4Y19pbnZhbGlkX29wKzB4MWQvMHg4MA0KTm92ICA0IDE1OjQ1OjMy
+IHByaWtlLXF1ZXVlLXJlc2V0IGtlcm5lbDogWzM1MjAzMy4zNjAzNTVdICA/IGFzbV9leGNfaW52
+YWxpZF9vcCsweDFmLzB4MzANCk5vdiAgNCAxNTo0NTozMiBwcmlrZS1xdWV1ZS1yZXNldCBrZXJu
+ZWw6IFszNTIwMzMuMzYwMzYyXSAgPyBjaGVja191bm1hcCsweDFjYy8weDkzMA0KTm92ICA0IDE1
+OjQ1OjMyIHByaWtlLXF1ZXVlLXJlc2V0IGtlcm5lbDogWzM1MjAzMy4zNjAzNjddICBkZWJ1Z19k
+bWFfdW5tYXBfcGFnZSsweDg2LzB4OTANCk5vdiAgNCAxNTo0NTozMiBwcmlrZS1xdWV1ZS1yZXNl
+dCBrZXJuZWw6IFszNTIwMzMuMzYwMzczXSAgPyBzcnNvX3JldHVybl90aHVuaysweDUvMHg1Zg0K
+Tm92ICA0IDE1OjQ1OjMyIHByaWtlLXF1ZXVlLXJlc2V0IGtlcm5lbDogWzM1MjAzMy4zNjAzNzdd
+ICA/IHJtYXBfd2FsaysweDI4LzB4NTANCk5vdiAgNCAxNTo0NTozMiBwcmlrZS1xdWV1ZS1yZXNl
+dCBrZXJuZWw6IFszNTIwMzMuMzYwMzgwXSAgPyBzcnNvX3JldHVybl90aHVuaysweDUvMHg1Zg0K
+Tm92ICA0IDE1OjQ1OjMyIHByaWtlLXF1ZXVlLXJlc2V0IGtlcm5lbDogWzM1MjAzMy4zNjAzODNd
+ICA/IHJlbW92ZV9taWdyYXRpb25fcHRlcysweDc5LzB4ODANCk5vdiAgNCAxNTo0NTozMiBwcmlr
+ZS1xdWV1ZS1yZXNldCBrZXJuZWw6IFszNTIwMzMuMzYwMzg4XSAgPyBzcnNvX3JldHVybl90aHVu
+aysweDUvMHg1Zg0KTm92ICA0IDE1OjQ1OjMyIHByaWtlLXF1ZXVlLXJlc2V0IGtlcm5lbDogWzM1
+MjAzMy4zNjAzOTFdICBkbWFfdW5tYXBfcGFnZV9hdHRycysweGZhLzB4MWQwDQpOb3YgIDQgMTU6
+NDU6MzIgcHJpa2UtcXVldWUtcmVzZXQga2VybmVsOiBbMzUyMDMzLjM2MDM5Nl0gIHN2bV9yYW5n
+ZV9kbWFfdW5tYXBfZGV2KzB4OGEvMHhmMCBbYW1kZ3B1XQ0KTm92ICA0IDE1OjQ1OjMyIHByaWtl
+LXF1ZXVlLXJlc2V0IGtlcm5lbDogWzM1MjAzMy4zNjA2MzhdICBzdm1fbWlncmF0ZV9yYW1fdG9f
+dnJhbSsweDM2MS8weDc0MCBbYW1kZ3B1XQ0KTm92ICA0IDE1OjQ1OjMyIHByaWtlLXF1ZXVlLXJl
+c2V0IGtlcm5lbDogWzM1MjAzMy4zNjA4NDBdICBzdm1fbWlncmF0ZV90b192cmFtKzB4YTgvMHhl
+MCBbYW1kZ3B1XQ0KTm92ICA0IDE1OjQ1OjMyIHByaWtlLXF1ZXVlLXJlc2V0IGtlcm5lbDogWzM1
+MjAzMy4zNjEwMzRdICBzdm1fcmFuZ2Vfc2V0X2F0dHIrMHhmZjIvMHgxNDUwIFthbWRncHVdDQpO
+b3YgIDQgMTU6NDU6MzIgcHJpa2UtcXVldWUtcmVzZXQga2VybmVsOiBbMzUyMDMzLjM2MTIzMl0g
+IHN2bV9pb2N0bCsweDRhLzB4NTAgW2FtZGdwdV0NCk5vdiAgNCAxNTo0NTozMiBwcmlrZS1xdWV1
+ZS1yZXNldCBrZXJuZWw6IFszNTIwMzMuMzYxNDI0XSAga2ZkX2lvY3RsX3N2bSsweDU0LzB4OTAg
+W2FtZGdwdV0NCk5vdiAgNCAxNTo0NTozMiBwcmlrZS1xdWV1ZS1yZXNldCBrZXJuZWw6IFszNTIw
+MzMuMzYxNjEzXSAga2ZkX2lvY3RsKzB4M2MyLzB4NTMwIFthbWRncHVdDQpOb3YgIDQgMTU6NDU6
+MzIgcHJpa2UtcXVldWUtcmVzZXQga2VybmVsOiBbMzUyMDMzLjM2MTc5OF0gID8gX19wZnhfa2Zk
+X2lvY3RsX3N2bSsweDEwLzB4MTAgW2FtZGdwdQ0KDQpSZWdhcmRzLA0KICAgIFByaWtlDQoNCj4g
+UmVnYXJkcywNCj4gQ2hyaXN0aWFuLg0KPg0KPiA+DQo+ID4gUmVnYXJkcywNCj4gPiAgIEZlbGl4
+DQo+ID4NCj4gPg0KPiA+Pg0KPiA+PiBSZWdhcmRzLA0KPiA+PiBDaHJpc3RpYW4uDQo+ID4+DQo+
+ID4+Pg0KPiA+Pj4gU2lnbmVkLW9mZi1ieTogUHJpa2UgTGlhbmcgPFByaWtlLkxpYW5nQGFtZC5j
+b20+DQo+ID4+PiAtLS0NCj4gPj4+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX21p
+Z3JhdGUuYyB8IDQgKystLQ0KPiA+Pj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRf
+c3ZtLmMgICAgIHwgNiArKystLS0NCj4gPj4+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQv
+a2ZkX3N2bS5oICAgICB8IDMgKystDQo+ID4+PiAgIDMgZmlsZXMgY2hhbmdlZCwgNyBpbnNlcnRp
+b25zKCspLCA2IGRlbGV0aW9ucygtKQ0KPiA+Pj4NCj4gPj4+IGRpZmYgLS1naXQgYS9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfbWlncmF0ZS5jDQo+ID4+PiBiL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1ka2ZkL2tmZF9taWdyYXRlLmMNCj4gPj4+IGluZGV4IGVhY2ZlYjMyZjM1ZC4uOWQ4
+M2JiOWRkMDA0IDEwMDY0NA0KPiA+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQv
+a2ZkX21pZ3JhdGUuYw0KPiA+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2Zk
+X21pZ3JhdGUuYw0KPiA+Pj4gQEAgLTQ0NSw3ICs0NDUsNyBAQCBzdm1fbWlncmF0ZV92bWFfdG9f
+dnJhbShzdHJ1Y3Qga2ZkX25vZGUgKm5vZGUsDQo+ID4+PiBzdHJ1Y3Qgc3ZtX3JhbmdlICpwcmFu
+Z2UsDQo+ID4+PiAgICAgICBwcl9kZWJ1Zygic3VjY2Vzc2Z1bC9jcGFnZXMvbnBhZ2VzIDB4JWx4
+LzB4JWx4LzB4JWx4XG4iLA0KPiA+Pj4gICAgICAgICAgICAgICAgbXBhZ2VzLCBjcGFnZXMsIG1p
+Z3JhdGUubnBhZ2VzKTsNCj4gPj4+ICAgLSAgICBzdm1fcmFuZ2VfZG1hX3VubWFwX2RldihhZGV2
+LT5kZXYsIHNjcmF0Y2gsIDAsIG5wYWdlcyk7DQo+ID4+PiArICAgIHN2bV9yYW5nZV9kbWFfdW5t
+YXBfZGV2KGFkZXYtPmRldiwgc2NyYXRjaCwgMCwgbnBhZ2VzLA0KPiA+Pj4gRE1BX1RPX0RFVklD
+RSk7DQo+ID4+PiAgICAgb3V0X2ZyZWU6DQo+ID4+PiAgICAgICBrdmZyZWUoYnVmKTsNCj4gPj4+
+IEBAIC03NTAsNyArNzUwLDcgQEAgc3ZtX21pZ3JhdGVfdm1hX3RvX3JhbShzdHJ1Y3Qga2ZkX25v
+ZGUgKm5vZGUsDQo+ID4+PiBzdHJ1Y3Qgc3ZtX3JhbmdlICpwcmFuZ2UsDQo+ID4+PiAgICAgICBz
+dm1fbWlncmF0ZV9jb3B5X2RvbmUoYWRldiwgbWZlbmNlKTsNCj4gPj4+ICAgICAgIG1pZ3JhdGVf
+dm1hX2ZpbmFsaXplKCZtaWdyYXRlKTsNCj4gPj4+ICAgLSAgICBzdm1fcmFuZ2VfZG1hX3VubWFw
+X2RldihhZGV2LT5kZXYsIHNjcmF0Y2gsIDAsIG5wYWdlcyk7DQo+ID4+PiArICAgIHN2bV9yYW5n
+ZV9kbWFfdW5tYXBfZGV2KGFkZXYtPmRldiwgc2NyYXRjaCwgMCwgbnBhZ2VzLA0KPiA+Pj4gRE1B
+X0ZST01fREVWSUNFKTsNCj4gPj4+ICAgICBvdXRfZnJlZToNCj4gPj4+ICAgICAgIGt2ZnJlZShi
+dWYpOw0KPiA+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9z
+dm0uYw0KPiA+Pj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfc3ZtLmMNCj4gPj4+
+IGluZGV4IDNlMjkxMTg5NWM3NC4uYzIxNDg1ZmU2Y2JiIDEwMDY0NA0KPiA+Pj4gLS0tIGEvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3N2bS5jDQo+ID4+PiArKysgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGtmZC9rZmRfc3ZtLmMNCj4gPj4+IEBAIC0yMzMsOSArMjMzLDkgQEAgc3Zt
+X3JhbmdlX2RtYV9tYXAoc3RydWN0IHN2bV9yYW5nZSAqcHJhbmdlLA0KPiA+Pj4gdW5zaWduZWQg
+bG9uZyAqYml0bWFwLA0KPiA+Pj4gICB9DQo+ID4+PiAgICAgdm9pZCBzdm1fcmFuZ2VfZG1hX3Vu
+bWFwX2RldihzdHJ1Y3QgZGV2aWNlICpkZXYsIGRtYV9hZGRyX3QNCj4gPj4+ICpkbWFfYWRkciwN
+Cj4gPj4+IC0gICAgICAgICAgICAgdW5zaWduZWQgbG9uZyBvZmZzZXQsIHVuc2lnbmVkIGxvbmcg
+bnBhZ2VzKQ0KPiA+Pj4gKyAgICAgICAgICAgICB1bnNpZ25lZCBsb25nIG9mZnNldCwgdW5zaWdu
+ZWQgbG9uZyBucGFnZXMsDQo+ID4+PiArICAgICAgICAgICAgICAgIGVudW0gZG1hX2RhdGFfZGly
+ZWN0aW9uIGRpcikNCj4gPj4+ICAgew0KPiA+Pj4gLSAgICBlbnVtIGRtYV9kYXRhX2RpcmVjdGlv
+biBkaXIgPSBETUFfQklESVJFQ1RJT05BTDsNCj4gPj4+ICAgICAgIGludCBpOw0KPiA+Pj4gICAg
+ICAgICBpZiAoIWRtYV9hZGRyKQ0KPiA+Pj4gQEAgLTI3Miw3ICsyNzIsNyBAQCB2b2lkIHN2bV9y
+YW5nZV9kbWFfdW5tYXAoc3RydWN0IHN2bV9yYW5nZQ0KPiA+Pj4gKnByYW5nZSkNCj4gPj4+ICAg
+ICAgICAgICB9DQo+ID4+PiAgICAgICAgICAgZGV2ID0gJnBkZC0+ZGV2LT5hZGV2LT5wZGV2LT5k
+ZXY7DQo+ID4+PiAgIC0gICAgICAgIHN2bV9yYW5nZV9kbWFfdW5tYXBfZGV2KGRldiwgZG1hX2Fk
+ZHIsIDAsDQo+ID4+PiBwcmFuZ2UtPm5wYWdlcyk7DQo+ID4+PiArICAgICAgICBzdm1fcmFuZ2Vf
+ZG1hX3VubWFwX2RldihkZXYsIGRtYV9hZGRyLCAwLCBwcmFuZ2UtPm5wYWdlcywNCj4gPj4+IERN
+QV9CSURJUkVDVElPTkFMKTsNCj4gPj4+ICAgICAgIH0NCj4gPj4+ICAgfQ0KPiA+Pj4gICBkaWZm
+IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3N2bS5oDQo+ID4+PiBiL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9zdm0uaA0KPiA+Pj4gaW5kZXggYmRkZDI0ZjA0
+NjY5Li41MzcwZDY4YmM1YjIgMTAwNjQ0DQo+ID4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGtmZC9rZmRfc3ZtLmgNCj4gPj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2Zk
+L2tmZF9zdm0uaA0KPiA+Pj4gQEAgLTE4Miw3ICsxODIsOCBAQCB2b2lkIHN2bV9yYW5nZV9hZGRf
+bGlzdF93b3JrKHN0cnVjdA0KPiA+Pj4gc3ZtX3JhbmdlX2xpc3QgKnN2bXMsDQo+ID4+PiAgICAg
+ICAgICAgICAgICAgICAgZW51bSBzdm1fd29ya19saXN0X29wcyBvcCk7DQo+ID4+PiAgIHZvaWQg
+c2NoZWR1bGVfZGVmZXJyZWRfbGlzdF93b3JrKHN0cnVjdCBzdm1fcmFuZ2VfbGlzdCAqc3Ztcyk7
+DQo+ID4+PiAgIHZvaWQgc3ZtX3JhbmdlX2RtYV91bm1hcF9kZXYoc3RydWN0IGRldmljZSAqZGV2
+LCBkbWFfYWRkcl90DQo+ID4+PiAqZG1hX2FkZHIsDQo+ID4+PiAtICAgICAgICAgICAgIHVuc2ln
+bmVkIGxvbmcgb2Zmc2V0LCB1bnNpZ25lZCBsb25nIG5wYWdlcyk7DQo+ID4+PiArICAgICAgICAg
+ICAgIHVuc2lnbmVkIGxvbmcgb2Zmc2V0LCB1bnNpZ25lZCBsb25nIG5wYWdlcywNCj4gPj4+ICsg
+ICAgICAgICAgICAgZW51bSBkbWFfZGF0YV9kaXJlY3Rpb24gZGlyKTsNCj4gPj4+ICAgdm9pZCBz
+dm1fcmFuZ2VfZG1hX3VubWFwKHN0cnVjdCBzdm1fcmFuZ2UgKnByYW5nZSk7DQo+ID4+PiAgIGlu
+dCBzdm1fcmFuZ2VfZ2V0X2luZm8oc3RydWN0IGtmZF9wcm9jZXNzICpwLCB1aW50MzJfdA0KPiA+
+Pj4gKm51bV9zdm1fcmFuZ2VzLA0KPiA+Pj4gICAgICAgICAgICAgICAgICB1aW50NjRfdCAqc3Zt
+X3ByaXZfZGF0YV9zaXplKTsNCj4gPj4NCg0K
