@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18D28D5E15A
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 Nov 2024 11:14:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B940DD5E15A
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 Nov 2024 11:15:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA0D310E96F;
-	Fri,  8 Nov 2024 11:14:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7092210E0BF;
+	Fri,  8 Nov 2024 11:15:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="jMbj8DOr";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="opwy3Uew";
 	dkim-atps=neutral
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2058.outbound.protection.outlook.com [40.107.96.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4306A10E96C
- for <amd-gfx@lists.freedesktop.org>; Fri,  8 Nov 2024 11:14:57 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2088.outbound.protection.outlook.com [40.107.94.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 692BD10E0BF
+ for <amd-gfx@lists.freedesktop.org>; Fri,  8 Nov 2024 11:15:00 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CfirXVF6efgnVI4i2gpMr59b5UWpIAtYrxd7DUPjsTd+AXVeQnm7pF92v3uCpNGqXKe6VtG8W+NOVhbx5SibIPyCAs9YrYY9YO75DeuGMB0PZ9fMcQDpHM4KwfSgdtHMXNYUowjEOvqktG/hsQUHfahNK1gjbv++z8rwaXtr+TV8lFqN765VVmd/nC59nRw4Tyc5ec/tQZq7xGQMgyenDzNQYlBk+z0mhOJn/z0VVeBHDi3im9/ODxFYYtqg0wY2MK4oLVPJ8kLe+ATSjNBVK16dzeiguPSQ0SDqBEOmKO1dUmWj5IlAmGnPF5n8qcHBjpJricTE9brMIjxPUCihqg==
+ b=BJXwSI73vx5+PP20R0ECJ48kwEE8pBUt1VbZn5GbMmevhCGvz+l90ZLqsqOlnINeZOuWKsFcjBQ3IbtlC34+WlG5Dq7rQNYkAMdYti9vw5IovwpKWWqPn/UhHCOguWJLqyepxGOGBBaSHNOgStRhk5oFsJ1RvVcrLIl/p6vDkA3WMWL+XtnNth/VgcfMEBbG3S00/9KWpWKb5a9QfNgkbd4QcFYkYOnca51fXRoTcyshkvlQF+EMB2wJGSIPpCkOktBlYaWmXna2w0l2U4zZSjShe+XPmcbRXJhVp0nUq97Qzvp4nCtCYNFGvmumA4d76zCL64WWGszgHNpOjFGLGA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FHeXxzwEeJiDjM4fvRuESJWiHRY87lm8bRSerRqUTIk=;
- b=Ta80GWCTE4QQT6x0+PMiO23UobUE6r8hoH93RI7HopjsLGSJtgAinmTIf5ytnTTvWJ8rsQhRWCiJTY+7z84KVfGfl5mHzp8nf14Vzl4hPh2FW6tcbQGlMgcc97fQYsr5xuTuP5OYRyQhPg/LMUIKsaw379HvfAtMoRCL9IyBhRfG4V0ghPGqG4IObJuQ8mxh5fFNs/B1PPes3tbj5qHxPhM/j2Ed0jN61ukZ6u4k/XBjQdCuFzSg0QJh77nqIzSXzrV5DUTBPfhzawGUyEEITvcT1GX5SBQH9Re4PtiBslZNdFUyGuTKvvxm3GZdl9YhZsSZiFtqWut8MTh0vHeKAA==
+ bh=39cdlBGaW6WHGbm1FB6SCVJpcTUFMnZwVQO12yLKuRE=;
+ b=JJ1jJC0notMtLkg7Qe5AgLncnQ7PrwwEYlYMRe4G2XERvI5vTWvscJGbURizub4lqvfIo6ekCLmWHMijQak7Zwm79m6MwRz4CBA2xHvHA8dBbX2HJfhXgI7C9cKgBlqncGhv2Yb/FH40MkCmMf12xmbCm5CBpb2T4xJBryj9pN6ATBYG/Cues7Yb7yz/F5P9kPwhxbnT4pNtcHxGTs0QEBaE9ujTrVz/voe14nQGXYZbRhZCADoHzey+Y6oPJIhWbvxPtNh5A70kDnoKqE9mH1COI8u2NavFpEoZK15JkrKVumoDbP9JtfS/V3rn42Mh9yX5uehyYeNzHExnQu7lsg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FHeXxzwEeJiDjM4fvRuESJWiHRY87lm8bRSerRqUTIk=;
- b=jMbj8DOr5uUZMOKmqQ14HxTn9d1xZN+799chYk2YzbK0g7SgkiWRtT8qfUD8hgMrmIGS+ksn819qYKwZRt+Bk/rvjToVQBwKurZVaNblLNszAgcoflrwU335k9SgVQ93Bws+3E66p2yDokr83TLsK/eO5z2mEqmcsTKlyyq1YP4=
-Received: from BN9PR03CA0253.namprd03.prod.outlook.com (2603:10b6:408:ff::18)
- by DS7PR12MB8323.namprd12.prod.outlook.com (2603:10b6:8:da::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.8137.18; Fri, 8 Nov 2024 11:14:54 +0000
+ bh=39cdlBGaW6WHGbm1FB6SCVJpcTUFMnZwVQO12yLKuRE=;
+ b=opwy3UewtN444fgA6uPJx1saRhwItI9NyDl3KssSA2zj1msKK7fAvKAH3Z+b5ips2+E2UHAb7km/kC5vphQQAAr5K6W+IDcOqQwAhe1oLcZTaMbPGh9RO65raPhluvOuo/9MCQM9mu8H3x0w4pPeldg71CnI48mXNyYKKXJUYG4=
+Received: from BN9PR03CA0261.namprd03.prod.outlook.com (2603:10b6:408:ff::26)
+ by IA0PR12MB7506.namprd12.prod.outlook.com (2603:10b6:208:442::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8137.22; Fri, 8 Nov
+ 2024 11:14:56 +0000
 Received: from BL02EPF0001A0FF.namprd03.prod.outlook.com
- (2603:10b6:408:ff:cafe::97) by BN9PR03CA0253.outlook.office365.com
- (2603:10b6:408:ff::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8137.21 via Frontend
- Transport; Fri, 8 Nov 2024 11:14:54 +0000
+ (2603:10b6:408:ff:cafe::34) by BN9PR03CA0261.outlook.office365.com
+ (2603:10b6:408:ff::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8137.19 via Frontend
+ Transport; Fri, 8 Nov 2024 11:14:55 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,18 +50,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BL02EPF0001A0FF.mail.protection.outlook.com (10.167.242.106) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8137.17 via Frontend Transport; Fri, 8 Nov 2024 11:14:54 +0000
+ 15.20.8137.17 via Frontend Transport; Fri, 8 Nov 2024 11:14:55 +0000
 Received: from tao-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 8 Nov
- 2024 05:14:52 -0600
+ 2024 05:14:53 -0600
 From: Tao Zhou <tao.zhou1@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Tao Zhou <tao.zhou1@amd.com>
-Subject: [PATCH 18/23] drm/amdgpu: add interface to get die id from memory
- address
-Date: Fri, 8 Nov 2024 19:14:18 +0800
-Message-ID: <20241108111423.60169-18-tao.zhou1@amd.com>
+Subject: [PATCH 19/23] drm/amdgpu: add ras_mca2pa to convert UMC address in
+ legacy way
+Date: Fri, 8 Nov 2024 19:14:19 +0800
+Message-ID: <20241108111423.60169-19-tao.zhou1@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20241108111423.60169-1-tao.zhou1@amd.com>
 References: <20241108111423.60169-1-tao.zhou1@amd.com>
@@ -73,50 +73,50 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A0FF:EE_|DS7PR12MB8323:EE_
-X-MS-Office365-Filtering-Correlation-Id: c0478de6-bbbc-42da-3271-08dcffe6925d
+X-MS-TrafficTypeDiagnostic: BL02EPF0001A0FF:EE_|IA0PR12MB7506:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5770f60e-5d82-4471-89e8-08dcffe69357
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|376014|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?OUxJsQQwfzsPqy2BYoG1wdm9l4ASPNGsHxkRzAkQ7pkXOYx8/Op/Lwe4V1gM?=
- =?us-ascii?Q?B9lf9SsWKM93x5TdH2+v4QnFfEVR80AaOdavpVXHtJmHjQgAE9zEFCZn++QH?=
- =?us-ascii?Q?AHjVFsVcAOuluZyOiI7BfN2F0wayrpbCi9rzHfnmljEoV5TVyCcC5SOSkf4k?=
- =?us-ascii?Q?j1WlRo/btrm43fyIK9Q3I8UW7gZC94ZMyV2TIhXpdEG5vQWuJDAElf6gnDK2?=
- =?us-ascii?Q?xfYFdJdrYFnMT7K4pEVipuazCnMuig4SZAMuAMq4aCEWb+u4FExSJmFYLjox?=
- =?us-ascii?Q?JuGQ8ljia5HqoWpcO04V+BaEtp5Iw6uboV84kRyI1i6DdcqWOxPC/ZC91lMX?=
- =?us-ascii?Q?rtDocPDWqOqLrW8weiqPdcjpk68Hr7N380cPR+nMe+wZFPBftj6w6psRolfs?=
- =?us-ascii?Q?ZdMl9jtECffRIusErXC0u3pd1oV/rtgsFLv0iXF24jpjQY+jAZKktxGTNmdI?=
- =?us-ascii?Q?EIV3tsKdYSzTGSnVg9g2IEUYgRGDaKh0silRPt4CAE4mcyfJKQszxgrJRkBK?=
- =?us-ascii?Q?q+4voZlZ4/8xSE7KtGh8CIvvnGnUvh9v8WDwuehRMPNPxhSgB0fxnX9AWzpu?=
- =?us-ascii?Q?2mgmsmhfTUxoo0SpbttxHEegHN64TYYpMwguetMegTayfTGmfMpv04WCXz3J?=
- =?us-ascii?Q?4yYOhTh/dYTDVw47BG60GusR5gjsGW8+wpkiSNVS4mFiDMgxQDJC153omjFg?=
- =?us-ascii?Q?Wo05fFoHz2uznx0ppP3ireG4iiuNGgRladcEXuuwZqzcG20omIHODVwUWx+g?=
- =?us-ascii?Q?+w8ceE+igUVSh/MOh5ZZ4Nd0eZ28VSC2rKGGHNFtT8bF0nE8udCH27Gf3wnz?=
- =?us-ascii?Q?lujcd4ee1qqmTDC9QEea/FFrUGsaeeKUJMQvnm+ru8RnbBoETdYIMxFp1A78?=
- =?us-ascii?Q?hqTkNtH2J+30iKYJpKxs09dOC6nQFuWswUlDLAPEZWzJQ+aIqe9DVHkO0NbB?=
- =?us-ascii?Q?UoIoXHi0ylxo2cyx15y/Vg8qGfCjkmJUfvjhwVmmwTP01XlTeQc6qAPnN9VK?=
- =?us-ascii?Q?mhUJgbYkDFb1KqhxFvuGLlF9IQ1Zr+NK7GGbDl5ufZEzvqXmllmXq3HYniv0?=
- =?us-ascii?Q?plOMbcNXb4jvbhWOzMDxgnYcsE734QQHIERUFh3DpSF2py9EGxWreV0YYJ/X?=
- =?us-ascii?Q?GcyrqYDkReXwvUF+yAZ6sVh4RP4gs7WgMLVrH1RtLj/LwV0TiLw3vp4umSp1?=
- =?us-ascii?Q?sZxXBEYw4IXmeH/9IUhtbjGjk407lXQjKST9g4q2Q9RDZ2sdL+KERRT632ps?=
- =?us-ascii?Q?2jM+NEIZvLLtNvulwB3pHYIMopvtOlBQ8qXgEzyx2IrvmLoe+EaxLLD6o5CZ?=
- =?us-ascii?Q?pdqr8Mo2L8fMpYosc9ww7kuuX7gVSpDBzLmIKOb7fi7hAT4Dd/+k+MuFzIQC?=
- =?us-ascii?Q?mbpMJTE5iLnw4ylG6G1HWuFjsWjZivLQTkF2SlHm5lsfrko9YQ=3D=3D?=
+ ARA:13230040|1800799024|36860700013|376014|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?eahZbTbQAWnl9pqvqR/d+Ke60NoaMEBCZiFxtuF3fdulAOy67zjyStzCJj5F?=
+ =?us-ascii?Q?pf0zKS8P/pXgtFtgkNyxQEI+oUs0BQFqkKqQqiWcqd0O3BLkj9IOrKvZWYlx?=
+ =?us-ascii?Q?Q/woWEKyLY8Jvh7zOGwjagW3kpOHbKEoyhBhBE3dJK0RvC29ptmoq6Y6Jt6E?=
+ =?us-ascii?Q?g5AVU4NIsozicavWmJeEvp8uvkrYpcMdDx5V1DyInyIRA2zD9BbPxrs/Sxa3?=
+ =?us-ascii?Q?OgUem2xPTgHn5d1X3vHuzjNcM6qUUCqLy+C338c8/2CJkEl76H5/lHEb1yH/?=
+ =?us-ascii?Q?ReFnkQSKqoQD0Vfr0f9OMr4q5P5HYEDsd3BmRvYcK2Adk6gL+oUn/Js847sg?=
+ =?us-ascii?Q?RnoUU3Iv5wklTQidgoZLiYEd1WvcMaJJ2+zyi6QU3JVlMoHRQ8Z+XUZ2rIKJ?=
+ =?us-ascii?Q?dFIT6vXMeHiYpMUCoaoisM3r29HrvHeAqxneRjj2vxVDMufrQDcpeaqSKc0U?=
+ =?us-ascii?Q?SLYKWjKzfInWP/fcUrggAQVPyFEo0uTyaKE/QcZIQt6TgmIDiryTEMRNHNQm?=
+ =?us-ascii?Q?DnunJujB6K0qQ/T//E3eRxTSPmpf4+/qRnq0PLZXX+J9yByZxVo5u1OrNtO3?=
+ =?us-ascii?Q?4pyBVhztro4b2T7z2tclHglppBW5yh9dGuKIO6yOpSPyyTSjnK1mRAmS8eKp?=
+ =?us-ascii?Q?tH6CS949DCJqAhTh3Hu/qIzZJ+LWpu2Umax9OV0EhXTfmNQSr5dKTLHbmwTk?=
+ =?us-ascii?Q?CY3jLfiV4FObqHpy5zbOjEmf9TeoCOcHf9w+bM9ObLccDSsz213cL9aFCvP3?=
+ =?us-ascii?Q?0mBFSNYXFNGdMdDaOwG3Z0aAbgx2WiQZXnr6P7e50GcS/oP8q67JSvIopdwp?=
+ =?us-ascii?Q?N1qSa/vzPe9i0IgjilcZ79SDNnMbutHgQH8YeFDnJSGKt3J5FgcUAvKsRZRg?=
+ =?us-ascii?Q?FIdmHct65suVkZEU4QzM4RXr/EdBrcY7HJxVURU5MCVGdYUFj6WFey+Zn++p?=
+ =?us-ascii?Q?lbpZ0xAkv/0Dyp4oqoF7SdUjhSu6XBi11mY9KN9Kb+pR6xHbwoKGIVDMq9WY?=
+ =?us-ascii?Q?HYm8cC/+LjnmtQtqoG1GGW+cPG+XEkxZM+W07g1FLvTKWxZQhWk4vss2uVTD?=
+ =?us-ascii?Q?om1Iht6cfuLGaJ/Oo7EkhPrJ5TrFn90XLw/jfcoY/7Nc7sxn94+U41E46N7d?=
+ =?us-ascii?Q?UNRbZDnoncNF9eTx2etmM3y9nVAmGpZGh+9kTup8Pm7CHk/JMT4yRTi2pEn0?=
+ =?us-ascii?Q?5fIApVvgAOwgKbc/3gJ44Pk1w9QQRnYWfV6wT49eHEfxug/suYGrCWAy4L1C?=
+ =?us-ascii?Q?EJlzuLSs/AzHGn8GbJZ55XP0nOOti0lorEDgoG3rS5hVjh2dN7eAM1IwcuYw?=
+ =?us-ascii?Q?Vfgict1azBGEANDRuhkvmq1ig+PIfwuq6L/i5FhBfyU5QPxv4M0H6j+wC82X?=
+ =?us-ascii?Q?kBXj6DwmxATovlHHdeS39ghD5+KgZ+F/KKzMDWIKk+QMSSa3Mw=3D=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(376014)(36860700013); DIR:OUT;
+ SFS:(13230040)(1800799024)(36860700013)(376014)(82310400026); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Nov 2024 11:14:54.2128 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c0478de6-bbbc-42da-3271-08dcffe6925d
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Nov 2024 11:14:55.8535 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5770f60e-5d82-4471-89e8-08dcffe69357
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A0FF.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8323
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7506
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,87 +131,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-And implement it for UMC v12_0. The die id calculated from IPID
-register in bad page retirement, but we don't store it on eeprom
-and it can be also gotten from physical address.
+Convert UMC address via node instance, UMC instance and channel
+instance. IPID is not sotred on eeprom, so we have to get related
+values in new way, can work in any nps mode.
 
 Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h |  2 ++
- drivers/gpu/drm/amd/amdgpu/umc_v12_0.c  | 22 ++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/umc_v12_0.h  |  7 +++++++
- 3 files changed, 31 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 41 +++++++++++++++++++++++--
+ 1 file changed, 39 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h
-index f97c45b4eeb8..c4e3062008b2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h
-@@ -91,6 +91,8 @@ struct amdgpu_umc_ras {
- 			struct ta_ras_query_address_input *addr_in,
- 			struct ta_ras_query_address_output *addr_out,
- 			bool dump_addr);
-+	uint32_t (*get_die_id_from_pa)(struct amdgpu_device *adev,
-+			uint64_t retired_page);
- };
- 
- struct amdgpu_umc_funcs {
-diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
-index cce93b4ffb58..bcce7a304d6d 100644
---- a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
-@@ -619,6 +619,27 @@ static void umc_v12_0_query_ras_ecc_err_addr(struct amdgpu_device *adev,
- 	mutex_unlock(&con->umc_ecc_log.lock);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index bb559b521a9f..4f1dea11501f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -2665,7 +2665,7 @@ static int amdgpu_ras_realloc_eh_data_space(struct amdgpu_device *adev,
+ 	return 0;
  }
  
-+static uint32_t umc_v12_0_get_die_id(struct amdgpu_device *adev,
-+		uint64_t retired_page)
+-static int amdgpu_ras_mca2pa(struct amdgpu_device *adev,
++static int amdgpu_ras_mca2pa_by_idx(struct amdgpu_device *adev,
+ 			struct eeprom_table_record *bps,
+ 			struct ras_err_data *err_data)
+ {
+@@ -2694,6 +2694,43 @@ static int amdgpu_ras_mca2pa(struct amdgpu_device *adev,
+ 	return ret;
+ }
+ 
++static int amdgpu_ras_mca2pa(struct amdgpu_device *adev,
++			struct eeprom_table_record *bps,
++			struct ras_err_data *err_data)
 +{
-+	uint32_t die = 0;
++	struct ta_ras_query_address_input addr_in;
++	uint32_t die_id, socket = 0;
 +
-+	/* we only calculate die id for nps1 mode right now */
-+	die += ((((retired_page >> 12) & 0x1ULL)^
-+	    (((retired_page >> 20) & 0x1ULL) & HashIntlvCtl64K) ^
-+	    (((retired_page >> 27) & 0x1ULL) & HashIntlvCtl2M) ^
-+	    (((retired_page >> 34) & 0x1ULL) & HashIntlvCtl1G) ^
-+	    (((retired_page >> 41) & 0x1ULL) & HashIntlvCtl1T)) << 0);
-+	die += ((((retired_page >> 13) & 0x1ULL) ^
-+	    (((retired_page >> 21) & 0x1ULL) & HashIntlvCtl64K) ^
-+	    (((retired_page >> 28) & 0x1ULL) & HashIntlvCtl2M) ^
-+	    (((retired_page >> 35) & 0x1ULL) & HashIntlvCtl1G) ^
-+	    (((retired_page >> 42) & 0x1ULL) & HashIntlvCtl1T)) << 1);
-+	die &= 3;
++	if (adev->smuio.funcs && adev->smuio.funcs->get_socket_id)
++		socket = adev->smuio.funcs->get_socket_id(adev);
 +
-+	return die;
++	/* although die id is gotten from PA in nps1 mode, the id is
++	 * fitable for any nps mode
++	 */
++	if (adev->umc.ras && adev->umc.ras->get_die_id_from_pa)
++		die_id = adev->umc.ras->get_die_id_from_pa(adev,
++					bps->retired_page << AMDGPU_GPU_PAGE_SHIFT);
++	else
++		return -EINVAL;
++
++	/* reinit err_data */
++	err_data->err_addr_cnt = 0;
++	err_data->err_addr_len = adev->umc.retire_unit;
++
++	memset(&addr_in, 0, sizeof(addr_in));
++	addr_in.ma.err_addr = bps->address;
++	addr_in.ma.ch_inst = bps->mem_channel;
++	addr_in.ma.umc_inst = bps->mcumc_id;
++	addr_in.ma.node_inst = die_id;
++	addr_in.ma.socket_id = socket;
++
++	if (adev->umc.ras && adev->umc.ras->convert_ras_err_addr)
++		return adev->umc.ras->convert_ras_err_addr(adev, err_data,
++					&addr_in, NULL, false);
++	else
++		return  -EINVAL;
 +}
 +
- struct amdgpu_umc_ras umc_v12_0_ras = {
- 	.ras_block = {
- 		.hw_ops = &umc_v12_0_ras_hw_ops,
-@@ -630,5 +651,6 @@ struct amdgpu_umc_ras umc_v12_0_ras = {
- 	.check_ecc_err_status = umc_v12_0_check_ecc_err_status,
- 	.update_ecc_status = umc_v12_0_update_ecc_status,
- 	.convert_ras_err_addr = umc_v12_0_convert_error_address,
-+	.get_die_id_from_pa = umc_v12_0_get_die_id,
- };
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.h b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.h
-index 9298018d938f..8154a5d6bfaa 100644
---- a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.h
-+++ b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.h
-@@ -77,6 +77,13 @@
- #define MCA_UMC_HWID_V12_0     0x96
- #define MCA_UMC_MCATYPE_V12_0  0x0
- 
-+/* interleave setting */
-+#define HashIntlvCtl4K 0
-+#define HashIntlvCtl64K 1
-+#define HashIntlvCtl2M 1
-+#define HashIntlvCtl1G 1
-+#define HashIntlvCtl1T 1
-+
- #define MCA_IPID_LO_2_UMC_CH(_ipid_lo) (((((_ipid_lo) >> 20) & 0x1) * 4) + \
- 			(((_ipid_lo) >> 12) & 0xF))
- #define MCA_IPID_LO_2_UMC_INST(_ipid_lo) (((_ipid_lo) >> 21) & 0x7)
+ /* it deal with vram only. */
+ int amdgpu_ras_add_bad_pages(struct amdgpu_device *adev,
+ 		struct eeprom_table_record *bps, int pages)
+@@ -2745,7 +2782,7 @@ int amdgpu_ras_add_bad_pages(struct amdgpu_device *adev,
+ 	for (i = 0; i < pages; i++) {
+ 		if (is_mca_add) {
+ 			if (!find_pages_per_pa) {
+-				if (amdgpu_ras_mca2pa(adev, &bps[i], &err_data)) {
++				if (amdgpu_ras_mca2pa_by_idx(adev, &bps[i], &err_data)) {
+ 					if (!i && nps == AMDGPU_NPS1_PARTITION_MODE) {
+ 						/* may use old RAS TA, use PA to find pages in one row */
+ 						if (amdgpu_umc_pages_in_a_row(adev, &err_data,
 -- 
 2.34.1
 
