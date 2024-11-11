@@ -4,70 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7DD6AD5E39A
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Nov 2024 08:32:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B81CD2E9C3
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Nov 2024 09:04:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D8EF10E434;
-	Mon, 11 Nov 2024 08:32:10 +0000 (UTC)
-Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com
- [45.249.212.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 868CC10E15A;
- Mon, 11 Nov 2024 02:36:26 +0000 (UTC)
-Received: from mail.maildlp.com (unknown [172.19.163.235])
- by dggsgout11.his.huawei.com (SkyGuard) with ESMTP id 4Xmtvt1Dkwz4f3l8F;
- Mon, 11 Nov 2024 10:36:10 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.128])
- by mail.maildlp.com (Postfix) with ESMTP id 3791F1A0568;
- Mon, 11 Nov 2024 10:36:23 +0800 (CST)
-Received: from [10.174.176.73] (unknown [10.174.176.73])
- by APP4 (Coremail) with SMTP id gCh0CgCnzoKgbTFnhWTJBQ--.55246S3;
- Mon, 11 Nov 2024 10:36:19 +0800 (CST)
-Subject: Re: [RFC PATCH 6/6 6.6] libfs: fix infinite directory reads for
- offset dir
-To: cel@kernel.org, stable@vger.kernel.org
-Cc: yukuai1@huaweicloud.com, harry.wentland@amd.com, sunpeng.li@amd.com,
- Rodrigo.Siqueira@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- daniel@ffwll.ch, viro@zeniv.linux.org.uk, brauner@kernel.org,
- Liam.Howlett@oracle.com, akpm@linux-foundation.org, hughd@google.com,
- willy@infradead.org, gregkh@linuxfoundation.org, sashal@kernel.org,
- srinivasan.shanmugam@amd.com, chiahsuan.chung@amd.com, mingo@kernel.org,
- mgorman@techsingularity.net, chengming.zhou@linux.dev,
- zhangpeng.00@bytedance.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, maple-tree@lists.infradead.org,
- linux-mm@kvack.org, yi.zhang@huawei.com, yangerkun@huawei.com,
- Chuck Lever <chuck.lever@oracle.com>, "yukuai (C)" <yukuai3@huawei.com>
-References: <20241111005242.34654-1-cel@kernel.org>
- <20241111005242.34654-7-cel@kernel.org>
-From: Yu Kuai <yukuai1@huaweicloud.com>
-Message-ID: <278433c2-611c-6c8e-7964-5c11977b68b7@huaweicloud.com>
-Date: Mon, 11 Nov 2024 10:36:16 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF2AE10E0FB;
+	Mon, 11 Nov 2024 09:04:22 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3mSnw8d/";
+	dkim-atps=neutral
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2060.outbound.protection.outlook.com [40.107.100.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6753910E43B
+ for <amd-gfx@lists.freedesktop.org>; Mon, 11 Nov 2024 09:04:21 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=IiGzWsxxOIQ6uZdo2dFO+sEhG7EESKj5Pq8quI+hzX2s/LyoxdsyzUrZ7PM3Ix8arKU5RSrionz5RcPP97LDlvM9uH36h4q+hwx/NxeZaBoA+/KkwT7eJcTrXLXH/A1VaSgs4Vw2A2N2BC15YatZ9lzsd6Gi5RvAQkEhy6zB5oVQgPiIfiwqojNayodfHNm6gYVtqJBFDkm8yUuJXH7ULnoC6Pl7biRgxlgaKsQQR4OlPdCqw6eMQlWFYxBf+DZplPaez3HKdb65IznSP89rUs/8lc6hcoiU6OV4Yd892knoZPvyrGQtyD17B6+nQXEyKNy0XnRGhWwoOij2xX5KHQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dOUg3qocHcOxZJC8uKv2ohMxr+AFW8/HunjgG/u7Y3U=;
+ b=eKgb7kHG6PQNmY6TCO8yRTaLKYv73q3ZP1Tpo8x14B6w1PnTMR2lo7J49vxkhxTiCyIR0US/Zhu8CR1YtJmk1uwGLAYtHe6U4CqrSUAweLUtz2veuinQDWzeJY67e/IkZmcDoLtiynVWDIOVdxeGRo7k+lHDNxXrNuLag1e+yxhykyGmDFgOE+z+TmrIUnpVcsxpNhCvhr7p2xKt0E0ClPZhtmIqi9iaCOWzMkKj+6UP4SRDP4VOI+OojhmrGy0sgoAtur092MfvP6MMrtH4wRSXDhsvh2zq/mEGBMQfBpZckzGsY6I/9d38fS21DahCVpQsU4vN7SRusvKqup6GNA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dOUg3qocHcOxZJC8uKv2ohMxr+AFW8/HunjgG/u7Y3U=;
+ b=3mSnw8d/qw6828Z9RrxfMlGXoyrANHBluoHBFAWvSTRMVi82BphUpXm2m2dDdFfgipdAL9Fv5NH6Vmu7kM+ND9XmWBtGo1ABtaRfg+5P6YW8nX+yknMNRv8z7saCyd1FfIN9MplR8hJMBAAkKUFqwYNYYUhF2x0Aln367XAOnMg=
+Received: from PH8PR07CA0003.namprd07.prod.outlook.com (2603:10b6:510:2cd::17)
+ by BY5PR12MB4292.namprd12.prod.outlook.com (2603:10b6:a03:212::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8137.29; Mon, 11 Nov
+ 2024 09:04:18 +0000
+Received: from CY4PEPF0000E9D6.namprd05.prod.outlook.com
+ (2603:10b6:510:2cd:cafe::33) by PH8PR07CA0003.outlook.office365.com
+ (2603:10b6:510:2cd::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8137.20 via Frontend
+ Transport; Mon, 11 Nov 2024 09:04:18 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CY4PEPF0000E9D6.mail.protection.outlook.com (10.167.241.69) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8158.14 via Frontend Transport; Mon, 11 Nov 2024 09:04:17 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 11 Nov
+ 2024 03:04:16 -0600
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 11 Nov
+ 2024 03:04:02 -0600
+Received: from jessevm.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Mon, 11 Nov 2024 03:04:01 -0600
+From: Jesse.Zhang <Jesse.Zhang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
+ <vitaly.prosyak@amd.com>, <Tim.Huang@amd.com>, "Jesse.zhang@amd.com"
+ <jesse.zhang@amd.com>
+Subject: [PATCH] drm/amdgpu: fix a mistake when removing mem_info_preempt_used
+ sysfs
+Date: Mon, 11 Nov 2024 17:04:00 +0800
+Message-ID: <20241111090400.229503-1-Jesse.Zhang@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-In-Reply-To: <20241111005242.34654-7-cel@kernel.org>
-Content-Type: text/plain; charset=gbk; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: gCh0CgCnzoKgbTFnhWTJBQ--.55246S3
-X-Coremail-Antispam: 1UD129KBjvJXoW3Gw18Ww4rWF13tF18ZryDGFg_yoW7ZF1fpF
- Z8G3W3Kr4fXw1UKF4vvF1DZryF93Z3Kw45W34rW345Ary2qrZ8KFn2yr1aka48tr95Cr12
- qF45K343Ww4jkrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUB214x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
- JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
- CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
- 2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
- W8JwACjcxG0xvEwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka
- 0xkIwI1lc7I2V7IY0VAS07AlzVAYIcxG8wCY1x0262kKe7AKxVWrXVW3AwCF04k20xvY0x
- 0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E
- 7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Wrv_Gr1UMIIYrxkI7VAKI48JMIIF0x
- vE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE
- 42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6x
- kF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjTRCXdbUUUUU
-X-CM-SenderInfo: 51xn3trlr6x35dzhxuhorxvhhfrp/
-X-Mailman-Approved-At: Mon, 11 Nov 2024 08:32:09 +0000
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB05.amd.com: Jesse.Zhang@amd.com does not designate
+ permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D6:EE_|BY5PR12MB4292:EE_
+X-MS-Office365-Filtering-Correlation-Id: e54ec0e0-0b08-4785-1de7-08dd022fd2bd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|36860700013|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?EMteMN6iECSIvSuvoNUVqlylODv/XC5nZP0OnDubqEh0SzpeIz7eXHj8RP5I?=
+ =?us-ascii?Q?S0vqcABv+2h7aC7KmzE4/JxRlrTjdKXg9caZCEL+pzeLsjnzuXhik09Ia9iE?=
+ =?us-ascii?Q?zs77eT8iM2POFqyMhi3sEBX2O3fhekhFjBwIGdVIb17FWF6qNtacuTUTJLtu?=
+ =?us-ascii?Q?sn0S9/QLS0ARbfBwDUyncnkE6TgwaGD+yEGbY+Dakmu0LDkR0l+anct4au8W?=
+ =?us-ascii?Q?47V+VP6bMsLlH1pEiDyYhs7+oF+0BIfZaopQZWisU1QAdw0W6iAoXb/R9qbE?=
+ =?us-ascii?Q?c3JSwRehWwDKlGgQjEY/ISoZFIotpUgac+x2f4jF9NncWiwcNj54c5MX0oaY?=
+ =?us-ascii?Q?Jclwu+IhyLkOiTCvUILQNQhxS/ktRSby/0Hf/IYCQwXIeZ3SI0j+7vpimtkz?=
+ =?us-ascii?Q?uPrSpykEc8FPfIAuaBVy4Lob0fxQs9/hrsxdjIKEZhEdbqKE/66wtfeByraA?=
+ =?us-ascii?Q?y8AmG1p4JkL1i3PW6piZu6wR+MBP9nTVK0dC2HTHNgPF8jv7ux/9EebaoPA2?=
+ =?us-ascii?Q?u6uHhPrbAyW2Be0FLqWV14j4qGoOqdW6J4YqaV7e/zEJvitWa8dudVFMfHt9?=
+ =?us-ascii?Q?C3YxB3s+ZkoWgWbinbdssagRebL984VKkiuF3XgytYs490pw0j/7/riesxPB?=
+ =?us-ascii?Q?Z7KG34rvgQg31llEJS3WRF120QUKiOiD4yrug/EXbh3oWzqFwY2AUFMbeYGZ?=
+ =?us-ascii?Q?7scMJRk2ihmlARmJgyj8Q+TYVfLgED3UMsZLGRUum7PBq1aiZEPp3inzbLVF?=
+ =?us-ascii?Q?y8UWzF6HmPYRkOt5kK/jQbRwbwUQJztY17NB0EUxOKYNXCHzee30R1RwVxGE?=
+ =?us-ascii?Q?TYcq7GvTpY/ySnnQ+DqE+2Tsh90FXnu35bc6c2HQm9Jj4D7+adg3hgqqkGEI?=
+ =?us-ascii?Q?cnklkmpIA/EYwAw8nF+HUN1nGXsKGoZf80hwgYdeVjcnoJplGnwmgSNC5+FG?=
+ =?us-ascii?Q?DHWDXOOmbif7jPm1HYLGd1+O13LG5aCoDP7zU7eb7he2kRSfchVO/sI6RI0t?=
+ =?us-ascii?Q?KcN6bDlVn8s+xHlUJaWKxgpV+RC2J3OnCvynfSd1dHDsTSUlgF1/44RwICh8?=
+ =?us-ascii?Q?0DLN2HwMzTGt+AQh/fIlETuZfIpqqjLUbBvfBXbjOk6Rh/8LnCBB6cufDU+O?=
+ =?us-ascii?Q?O7LdwQ9Yq3eIjfDNbtGh22Shkjlxp1a6r6ELAecSNbZOTyOkSOWkg8DEw1YQ?=
+ =?us-ascii?Q?50kuVISz6Ygh19FHdExZ2LR/GjEBncjIHya051+NGSEP4rWyZtHRNJkl2l2w?=
+ =?us-ascii?Q?RFEYlxu6OprGWb4OuTrbFCfEl49WR/KNTLlm+JTiTKt8k/PKSe34VP9Fh0qt?=
+ =?us-ascii?Q?7eVy59rlLM1vi5uXG9zTBVEmUPmuxffnQ8eTZh6eDBKSvTeRaN4TSo2SsPPQ?=
+ =?us-ascii?Q?ibSjGIoEKAyYwcEVh2oRheYzvQ0Sxm6GqT8EExhuCPwSzjVXOQ=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2024 09:04:17.6931 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e54ec0e0-0b08-4785-1de7-08dd022fd2bd
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9D6.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4292
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,163 +137,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+From: "Jesse.zhang@amd.com" <jesse.zhang@amd.com>
 
-ÔÚ 2024/11/11 8:52, cel@kernel.org Ð´µÀ:
-> From: yangerkun <yangerkun@huawei.com>
-> 
-> [ Upstream commit 64a7ce76fb901bf9f9c36cf5d681328fc0fd4b5a ]
-> 
-> After we switch tmpfs dir operations from simple_dir_operations to
-> simple_offset_dir_operations, every rename happened will fill new dentry
-> to dest dir's maple tree(&SHMEM_I(inode)->dir_offsets->mt) with a free
-> key starting with octx->newx_offset, and then set newx_offset equals to
-> free key + 1. This will lead to infinite readdir combine with rename
-> happened at the same time, which fail generic/736 in xfstests(detail show
-> as below).
-> 
-> 1. create 5000 files(1 2 3...) under one dir
-> 2. call readdir(man 3 readdir) once, and get one entry
-> 3. rename(entry, "TEMPFILE"), then rename("TEMPFILE", entry)
-> 4. loop 2~3, until readdir return nothing or we loop too many
->     times(tmpfs break test with the second condition)
-> 
-> We choose the same logic what commit 9b378f6ad48cf ("btrfs: fix infinite
-> directory reads") to fix it, record the last_index when we open dir, and
-> do not emit the entry which index >= last_index. The file->private_data
+Skip removing mem_info_preempt_used sysfs when unplugging the device.
 
-Please notice this requires last_index should never overflow, otherwise
-readdir will be messed up.
-> now used in offset dir can use directly to do this, and we also update
-> the last_index when we llseek the dir file.
-> 
-> Fixes: a2e459555c5f ("shmem: stable directory offsets")
-> Signed-off-by: yangerkun <yangerkun@huawei.com>
-> Link: https://lore.kernel.org/r/20240731043835.1828697-1-yangerkun@huawei.com
-> Reviewed-by: Chuck Lever <chuck.lever@oracle.com>
-> [brauner: only update last_index after seek when offset is zero like Jan suggested]
-> Signed-off-by: Christian Brauner <brauner@kernel.org>
-> Link: https://nvd.nist.gov/vuln/detail/CVE-2024-46701
-> [ cel: adjusted to apply to origin/linux-6.6.y ]
-> Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
-> ---
->   fs/libfs.c | 37 +++++++++++++++++++++++++------------
->   1 file changed, 25 insertions(+), 12 deletions(-)
-> 
-> diff --git a/fs/libfs.c b/fs/libfs.c
-> index a87005c89534..b59ff0dfea1f 100644
-> --- a/fs/libfs.c
-> +++ b/fs/libfs.c
-> @@ -449,6 +449,14 @@ void simple_offset_destroy(struct offset_ctx *octx)
->   	xa_destroy(&octx->xa);
->   }
->   
-> +static int offset_dir_open(struct inode *inode, struct file *file)
-> +{
-> +	struct offset_ctx *ctx = inode->i_op->get_offset_ctx(inode);
-> +
-> +	file->private_data = (void *)ctx->next_offset;
-> +	return 0;
-> +}
+Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_preempt_mgr.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Looks like xarray is still used.
-
-I'm in the cc list ,so I assume you saw my set, then I don't know why
-you're ignoring my concerns.
-
-1) next_offset is 32-bit and can overflow in a long-time running
-machine.
-2) Once next_offset overflows, readdir will skip the files that offset
-is bigger.
-
-Thanks,
-Kuai
-
-> +
->   /**
->    * offset_dir_llseek - Advance the read position of a directory descriptor
->    * @file: an open directory whose position is to be updated
-> @@ -462,6 +470,9 @@ void simple_offset_destroy(struct offset_ctx *octx)
->    */
->   static loff_t offset_dir_llseek(struct file *file, loff_t offset, int whence)
->   {
-> +	struct inode *inode = file->f_inode;
-> +	struct offset_ctx *ctx = inode->i_op->get_offset_ctx(inode);
-> +
->   	switch (whence) {
->   	case SEEK_CUR:
->   		offset += file->f_pos;
-> @@ -475,8 +486,9 @@ static loff_t offset_dir_llseek(struct file *file, loff_t offset, int whence)
->   	}
->   
->   	/* In this case, ->private_data is protected by f_pos_lock */
-> -	file->private_data = NULL;
-> -	return vfs_setpos(file, offset, U32_MAX);
-> +	if (!offset)
-> +		file->private_data = (void *)ctx->next_offset;
-> +	return vfs_setpos(file, offset, LONG_MAX);
->   }
->   
->   static struct dentry *offset_find_next(struct xa_state *xas)
-> @@ -505,7 +517,7 @@ static bool offset_dir_emit(struct dir_context *ctx, struct dentry *dentry)
->   			  inode->i_ino, fs_umode_to_dtype(inode->i_mode));
->   }
->   
-> -static void *offset_iterate_dir(struct inode *inode, struct dir_context *ctx)
-> +static void offset_iterate_dir(struct inode *inode, struct dir_context *ctx, long last_index)
->   {
->   	struct offset_ctx *so_ctx = inode->i_op->get_offset_ctx(inode);
->   	XA_STATE(xas, &so_ctx->xa, ctx->pos);
-> @@ -514,17 +526,21 @@ static void *offset_iterate_dir(struct inode *inode, struct dir_context *ctx)
->   	while (true) {
->   		dentry = offset_find_next(&xas);
->   		if (!dentry)
-> -			return ERR_PTR(-ENOENT);
-> +			return;
-> +
-> +		if (dentry2offset(dentry) >= last_index) {
-> +			dput(dentry);
-> +			return;
-> +		}
->   
->   		if (!offset_dir_emit(ctx, dentry)) {
->   			dput(dentry);
-> -			break;
-> +			return;
->   		}
->   
->   		dput(dentry);
->   		ctx->pos = xas.xa_index + 1;
->   	}
-> -	return NULL;
->   }
->   
->   /**
-> @@ -551,22 +567,19 @@ static void *offset_iterate_dir(struct inode *inode, struct dir_context *ctx)
->   static int offset_readdir(struct file *file, struct dir_context *ctx)
->   {
->   	struct dentry *dir = file->f_path.dentry;
-> +	long last_index = (long)file->private_data;
->   
->   	lockdep_assert_held(&d_inode(dir)->i_rwsem);
->   
->   	if (!dir_emit_dots(file, ctx))
->   		return 0;
->   
-> -	/* In this case, ->private_data is protected by f_pos_lock */
-> -	if (ctx->pos == DIR_OFFSET_MIN)
-> -		file->private_data = NULL;
-> -	else if (file->private_data == ERR_PTR(-ENOENT))
-> -		return 0;
-> -	file->private_data = offset_iterate_dir(d_inode(dir), ctx);
-> +	offset_iterate_dir(d_inode(dir), ctx, last_index);
->   	return 0;
->   }
->   
->   const struct file_operations simple_offset_dir_operations = {
-> +	.open		= offset_dir_open,
->   	.llseek		= offset_dir_llseek,
->   	.iterate_shared	= offset_readdir,
->   	.read		= generic_read_dir,
-> 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_preempt_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_preempt_mgr.c
+index 33a714ddfbbc..9a0346ed6ea4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_preempt_mgr.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_preempt_mgr.c
+@@ -138,7 +138,7 @@ void amdgpu_preempt_mgr_fini(struct amdgpu_device *adev)
+ 	if (ret)
+ 		return;
+ 
+-	if (!drm_dev_enter(adev_to_drm(adev), &idx)) {
++	if (drm_dev_enter(adev_to_drm(adev), &idx)) {
+ 		device_remove_file(adev->dev, &dev_attr_mem_info_preempt_used);
+ 		drm_dev_exit(idx);
+ 	}
+-- 
+2.25.1
 
