@@ -4,117 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E24DD5E392
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Nov 2024 08:10:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12ECCD5E392
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Nov 2024 08:32:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D04E10E42E;
-	Mon, 11 Nov 2024 08:10:02 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="CvuvJlJe";
-	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2061.outbound.protection.outlook.com [40.107.236.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 709AE10E42E
- for <amd-gfx@lists.freedesktop.org>; Mon, 11 Nov 2024 08:10:01 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=klHx2YxwvNKl3QXjbHYZ7VooN5NuHX5bKT8eSIb15rZ0U1dIFtNL+nj/1nkODtdDayvAUTPrkZL324TfhMELuWNr/QDPVCheFAc7QmFa1AtUFeFiFjpvmoQ7Dp0bDucnGioIUW7Wh4ua/DH1Nee5RKxBw/9oZEj3mDL4lbIuI/RBpAlforKMAMQsb5xldAHKkX8v0ny6FhvyBJcVtQadfJacPGwbhbliIsUmyFjRpCdvqKgErIc1z0W8v5Rcvx/SnwTRjBlMRAW07xYcayLsuHqvCr+EWZPsZwBAUmTWXLEEv31RDXwbQIVd7IpbIEbMjBA113nSxUqGjq/ZaMylbQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oBR09qSKov2s0pt007GrDWJR4nZmmgyn4cnHXpszAWE=;
- b=ov9tAedpIres0FIc8muJPGoBh/NiK7pk2xmiyoqih++LYkdVqR36NfVgSBGwVCOQThWPTURyk/My8yi3xfq62Evg5jJpckYOTI4qg68iW5wU/3VtzyirR7x54E6v+JIRMnWT1n4iPbzcOzXkX3wKZ+viid5rfeKHjfJ0EVe9c1PVTduLrre1BrfcIjnCbB4Q+Ag6PXY2x50uTZ+8+4jU1Mu6guXIuoauPi1Xw5Fsc2Ssg3UknsM1T8N5kkj1GkXIFK6wMHViBtdkoNwWXMfilI/1b1y1rr7pqzIQVyowL6gGSitO+DEQJD14Zz56d00tBE4IhCDEshmIiZ5vIcuCMQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oBR09qSKov2s0pt007GrDWJR4nZmmgyn4cnHXpszAWE=;
- b=CvuvJlJeQzLl4efduo/QbY9pqSEOBNq2sunXdCoYTHypvhZg96lFqfuxWMsOq6N28Qh1Dr8gWhDwJxdXxvTB3E1TDuDUIRS+g2QNw9oBq0LA3BOAiC4zOvm57DzJRHBL4h9D2Cv9AwcSaW7em48bm/+5fUdt/xXsWsPEWYus/mU=
-Received: from SJ0PR13CA0227.namprd13.prod.outlook.com (2603:10b6:a03:2c1::22)
- by CY8PR12MB7289.namprd12.prod.outlook.com (2603:10b6:930:56::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8137.28; Mon, 11 Nov
- 2024 08:09:54 +0000
-Received: from SJ1PEPF00002323.namprd03.prod.outlook.com
- (2603:10b6:a03:2c1:cafe::1e) by SJ0PR13CA0227.outlook.office365.com
- (2603:10b6:a03:2c1::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8158.14 via Frontend
- Transport; Mon, 11 Nov 2024 08:09:54 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ1PEPF00002323.mail.protection.outlook.com (10.167.242.85) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8158.14 via Frontend Transport; Mon, 11 Nov 2024 08:09:54 +0000
-Received: from amd-X570-AORUS-ELITE.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Mon, 11 Nov 2024 02:05:52 -0600
-From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <christian.koenig@amd.com>
-CC: <alexander.deucher@amd.com>, Arunpravin Paneer Selvam
- <Arunpravin.PaneerSelvam@amd.com>, <stable@vger.kernel.org>
-Subject: [PATCH] drm/amdgpu: Fix UVD contiguous CS mapping problem
-Date: Mon, 11 Nov 2024 13:35:24 +0530
-Message-ID: <20241111080524.353192-1-Arunpravin.PaneerSelvam@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9DE3910E435;
+	Mon, 11 Nov 2024 08:32:10 +0000 (UTC)
+Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com
+ [45.249.212.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 80CEE10E3FC;
+ Mon, 11 Nov 2024 00:57:00 +0000 (UTC)
+Received: from mail.maildlp.com (unknown [172.19.163.216])
+ by dggsgout12.his.huawei.com (SkyGuard) with ESMTP id 4Xmrj10cH0z4f3jcs;
+ Mon, 11 Nov 2024 08:56:37 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.128])
+ by mail.maildlp.com (Postfix) with ESMTP id 3B58A1A018C;
+ Mon, 11 Nov 2024 08:56:55 +0800 (CST)
+Received: from [10.174.176.73] (unknown [10.174.176.73])
+ by APP4 (Coremail) with SMTP id gCh0CgBHIoZSVjFnd7PCBQ--.2481S3;
+ Mon, 11 Nov 2024 08:56:52 +0800 (CST)
+Subject: Re: [PATCH 6.6 00/28] fix CVE-2024-46701
+To: Chuck Lever III <chuck.lever@oracle.com>,
+ Yu Kuai <yukuai1@huaweicloud.com>, Al Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>
+Cc: Greg KH <gregkh@linuxfoundation.org>,
+ linux-stable <stable@vger.kernel.org>,
+ "harry.wentland@amd.com" <harry.wentland@amd.com>,
+ "sunpeng.li@amd.com" <sunpeng.li@amd.com>,
+ "Rodrigo.Siqueira@amd.com" <Rodrigo.Siqueira@amd.com>,
+ "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
+ "christian.koenig@amd.com" <christian.koenig@amd.com>,
+ "Xinhui.Pan@amd.com" <Xinhui.Pan@amd.com>,
+ "airlied@gmail.com" <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Liam Howlett <liam.howlett@oracle.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Hugh Dickins <hughd@google.com>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ Sasha Levin <sashal@kernel.org>,
+ "srinivasan.shanmugam@amd.com" <srinivasan.shanmugam@amd.com>,
+ "chiahsuan.chung@amd.com" <chiahsuan.chung@amd.com>,
+ "mingo@kernel.org" <mingo@kernel.org>,
+ "mgorman@techsingularity.net" <mgorman@techsingularity.net>,
+ "chengming.zhou@linux.dev" <chengming.zhou@linux.dev>,
+ "zhangpeng.00@bytedance.com" <zhangpeng.00@bytedance.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux FS Devel <linux-fsdevel@vger.kernel.org>,
+ "maple-tree@lists.infradead.org" <maple-tree@lists.infradead.org>,
+ linux-mm <linux-mm@kvack.org>, "yi.zhang@huawei.com" <yi.zhang@huawei.com>,
+ yangerkun <yangerkun@huawei.com>, "yukuai (C)" <yukuai3@huawei.com>
+References: <20241024132009.2267260-1-yukuai1@huaweicloud.com>
+ <2024110625-earwig-deport-d050@gregkh>
+ <7AB98056-93CC-4DE5-AD42-49BA582D3BEF@oracle.com>
+ <8bdd405e-0086-5441-e185-3641446ba49d@huaweicloud.com>
+ <ZyzRsR9rMQeIaIkM@tissot.1015granger.net>
+ <4db0a28b-8587-e999-b7a1-1d54fac4e19c@huaweicloud.com>
+ <D2A4C13B-3B50-4BA7-A5CC-C16E98944D55@oracle.com>
+ <a223b1dd-9699-5f6c-2b71-98e9cd377007@huaweicloud.com>
+ <976C0DD5-4337-4C7D-92C6-A38C2EC335A4@oracle.com>
+From: Yu Kuai <yukuai1@huaweicloud.com>
+Message-ID: <48bb5f01-b82b-79a7-dbc6-6ec91bcaab67@huaweicloud.com>
+Date: Mon, 11 Nov 2024 08:56:50 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
+In-Reply-To: <976C0DD5-4337-4C7D-92C6-A38C2EC335A4@oracle.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00002323:EE_|CY8PR12MB7289:EE_
-X-MS-Office365-Filtering-Correlation-Id: dd83ccb4-b208-404d-467c-08dd0228396e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|376014|82310400026|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?PQV/J3sXAw27KW1sOZswhTz8GlMeIRx2Y1kylEiDx/aCkXIYrJ3FgoxHwXNp?=
- =?us-ascii?Q?VQ/vMy2kgYZQ6Ez+qzKbJnANUgZiq3zjhh9PnoXLEtD7uS/dv24mJB1bRPKS?=
- =?us-ascii?Q?du0mIUmnrPap3VcUypvVx80hSWtDn1GGisFXqJQHNbYMhV1DeTWLHgNBDG9L?=
- =?us-ascii?Q?LJj6y4+j7jPMs0huEzcFWTYEI5OLi9E90l/3Rxmm04MtBuhTr6ZJfIowE/mR?=
- =?us-ascii?Q?utDK2UBupiu39gdWovM1VhJzu48dFEPdkfHuQuAwCB9VadYAYlvI1LXQuhoX?=
- =?us-ascii?Q?MKo8R6oxf3fvs+WQDB3OGybAPJdfKpy3zbmUJtjVGLZX2w2rSLCHMveXkYoZ?=
- =?us-ascii?Q?N7wIvyWqTQhtGcYFP17ygFfd4qJLaxP4FAsI7+tTqo4GRP3U8mfplTMWWyMS?=
- =?us-ascii?Q?moIYIBNJMQ4Sc82eQ/IsOGh7jdNinBDNGuL/SHgM/dmSeKHoKlNQzQbY7piv?=
- =?us-ascii?Q?R1yNsZZI+dLTvTtTrMfe8ZJ4L6QZWNhe3VtGIqKsaJr0QBzPc2tdACZT5ika?=
- =?us-ascii?Q?xTb8UbVBBU8IJJUzTX7YOpoFMgj6uFbPEcJbR0ecBgLkyfLY4JQ9T7UlLhw6?=
- =?us-ascii?Q?XVm/fX7W98UfAxW89bbH8KpbVWT7KMjt0P+NIHPPas8u61I1iTG71zKUqPWC?=
- =?us-ascii?Q?Yoby9GOEdUuvvOHG8PEJcFgv1asVFjuqUypJ3xQVGd6G5oknL+4BuF0HB5Di?=
- =?us-ascii?Q?zUUNqJ6sTfusWONCURYVSKgac9GFd5IINfiqm7zT8PP4cYdgUolobhbCiSqA?=
- =?us-ascii?Q?bH3reTelrau8L8oHsoWna6PLwqGcSGZG/yjQpfG580zqfzyCuXTWzST3sqiI?=
- =?us-ascii?Q?1n0/JJMo0N+hHFaKj0y2PLWbpWqhp9WYVjifrGOVK0THFjBQFKU/4//IGgCE?=
- =?us-ascii?Q?pGjAjUYAdVlnh+mgd1YkhgAjT+vj8lFpc+8ED9+N5Ld389ggC3scXYJwu1Ql?=
- =?us-ascii?Q?v4WOC7yaqRpnw4HYlI5lIiLsaDBMkah8cZdhL2ef0edOMvJdSdpqTqBNknf8?=
- =?us-ascii?Q?v9HHJJA6W9nX7fn4GtYwSxwe3y1Zt58EK2QkB/lZc4kpW3axTUV/mARpboc9?=
- =?us-ascii?Q?k3xZ4lTWkg6HQMw47XNKBnlqbcFinQxlTo5XkM7ugVZ9ITNJ3Ewv0zX34wUw?=
- =?us-ascii?Q?Rws3LTB9Ew8kexoJWw8aTnd8J6Fecfwtw84LBbSEkzlZ48pPSRBRkCj2TlYh?=
- =?us-ascii?Q?+NhYHR17w6dtcQiMohK1aPZPCc6wjxX1C/4GOIkYM2YI+4pk3WhmNHby+gIp?=
- =?us-ascii?Q?vf0kTrT67zEeSFm/eDsC64awLj/WfY8Kan7wChEeN1BZlQ3d67sxShNyiLXl?=
- =?us-ascii?Q?vfAF6+x8rZhfU3MOOdDC+YVwWABjNT+Cw0J9i8t2lafKPX2EHtb/XiKBEcZI?=
- =?us-ascii?Q?XlVdYy8=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(376014)(82310400026)(1800799024); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2024 08:09:54.0235 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: dd83ccb4-b208-404d-467c-08dd0228396e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00002323.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7289
+X-CM-TRANSID: gCh0CgBHIoZSVjFnd7PCBQ--.2481S3
+X-Coremail-Antispam: 1UD129KBjvJXoW3Ar18GF17ZrWDJF47Xw45Awb_yoW7AF1kpr
+ Z5t3Wjkr4DJr12kwnFvw1jvFyFyw45Gry5Xrn8WryUCas09r1fKF47Gr4Y9a4DGws3Cw1j
+ qr4ava4xZF1UJ3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUB214x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+ JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+ CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+ 2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
+ W8JwACjcxG0xvEwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka
+ 0xkIwI1lc7I2V7IY0VAS07AlzVAYIcxG8wCY1x0262kKe7AKxVWrXVW3AwCF04k20xvY0x
+ 0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E
+ 7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Wrv_Gr1UMIIYrxkI7VAKI48JMIIF0x
+ vE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE
+ 42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6x
+ kF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjTRJMa0UUUUU
+X-CM-SenderInfo: 51xn3trlr6x35dzhxuhorxvhhfrp/
+X-Mailman-Approved-At: Mon, 11 Nov 2024 08:32:09 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,52 +103,146 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When starting the mpv player, Radeon R9 users are observing
-the below error in dmesg.
+Hi,
 
-[drm:amdgpu_uvd_cs_pass2 [amdgpu]]
-*ERROR* msg/fb buffer ff00f7c000-ff00f7e000 out of 256MB segment!
+在 2024/11/10 0:58, Chuck Lever III 写道:
+> 
+> 
+>> On Nov 8, 2024, at 8:30 PM, Yu Kuai <yukuai1@huaweicloud.com> wrote:
+>>
+>> Hi,
+>>
+>> 在 2024/11/08 21:23, Chuck Lever III 写道:
+>>>> On Nov 7, 2024, at 8:19 PM, Yu Kuai <yukuai1@huaweicloud.com> wrote:
+>>>>
+>>>> Hi,
+>>>>
+>>>> 在 2024/11/07 22:41, Chuck Lever 写道:
+>>>>> On Thu, Nov 07, 2024 at 08:57:23AM +0800, Yu Kuai wrote:
+>>>>>> Hi,
+>>>>>>
+>>>>>> 在 2024/11/06 23:19, Chuck Lever III 写道:
+>>>>>>>
+>>>>>>>
+>>>>>>>> On Nov 6, 2024, at 1:16 AM, Greg KH <gregkh@linuxfoundation.org> wrote:
+>>>>>>>>
+>>>>>>>> On Thu, Oct 24, 2024 at 09:19:41PM +0800, Yu Kuai wrote:
+>>>>>>>>> From: Yu Kuai <yukuai3@huawei.com>
+>>>>>>>>>
+>>>>>>>>> Fix patch is patch 27, relied patches are from:
+>>>>>>>
+>>>>>>> I assume patch 27 is:
+>>>>>>>
+>>>>>>> libfs: fix infinite directory reads for offset dir
+>>>>>>>
+>>>>>>> https://lore.kernel.org/stable/20241024132225.2271667-12-yukuai1@huaweicloud.com/
+>>>>>>>
+>>>>>>> I don't think the Maple tree patches are a hard
+>>>>>>> requirement for this fix. And note that libfs did
+>>>>>>> not use Maple tree originally because I was told
+>>>>>>> at that time that Maple tree was not yet mature.
+>>>>>>>
+>>>>>>> So, a better approach might be to fit the fix
+>>>>>>> onto linux-6.6.y while sticking with xarray.
+>>>>>>
+>>>>>> The painful part is that using xarray is not acceptable, the offet
+>>>>>> is just 32 bit and if it overflows, readdir will read nothing. That's
+>>>>>> why maple_tree has to be used.
+>>>>> A 32-bit range should be entirely adequate for this usage.
+>>>>>   - The offset allocator wraps when it reaches the maximum, it
+>>>>>     doesn't overflow unless there are actually billions of extant
+>>>>>     entries in the directory, which IMO is not likely.
+>>>>
+>>>> Yes, it's not likely, but it's possible, and not hard to trigger for
+>>>> test.
+>>> I question whether such a test reflects any real-world
+>>> workload.
+>>> Besides, there are a number of other limits that will impact
+>>> the ability to create that many entries in one directory.
+>>> The number of inodes in one tmpfs instance is limited, for
+>>> instance.
+>>>> And please notice that the offset will increase for each new file,
+>>>> and file can be removed, while offset stays the same.
+>>
+>> Did you see the above explanation? files can be removed, you don't have
+>> to store that much files to trigger the offset to overflow.
+>>>>>   - The offset values are dense, so the directory can use all 2- or
+>>>>>     4- billion in the 32-bit integer range before wrapping.
+>>>>
+>>>> A simple math, if user create and remove 1 file in each seconds, it will
+>>>> cost about 130 years to overflow. And if user create and remove 1000
+>>>> files in each second, it will cost about 1 month to overflow.
+> 
+>> The problem is that if the next_offset overflows to 0, then after patch
+>> 27, offset_dir_open() will record the 0, and later offset_readdir will
+>> return directly, while there can be many files.
+> 
+> 
+> Let me revisit this for a moment. The xa_alloc_cyclic() call
+> in simple_offset_add() has a range limit argument of 2 - U32_MAX.
+> 
+> So I'm not clear how an overflow (or, more precisely, the
+> reuse of an offset value) would result in a "0" offset being
+> recorded. The range limit prevents the use of 0 and 1.
+> 
+> A "0" offset value would be a bug, I agree, but I don't see
+> how that can happen.
+> 
+> 
+>>> The question is what happens when there are no more offset
+>>> values available. xa_alloc_cyclic should fail, and file
+>>> creation is supposed to fail at that point. If it doesn't,
+>>> that's a bug that is outside of the use of xarray or Maple.
+>>
+>> Can you show me the code that xa_alloc_cyclic should fail? At least
+>> according to the commets, it will return 1 if the allocation succeeded
+>> after wrapping.
+>>
+>> * Context: Any context.  Takes and releases the xa_lock.  May sleep if
+>> * the @gfp flags permit.
+>> * Return: 0 if the allocation succeeded without wrapping.  1 if the
+>> * allocation succeeded after wrapping, -ENOMEM if memory could not be
+>> * allocated or -EBUSY if there are no free entries in @limit.
+>> */
+>> static inline int xa_alloc_cyclic(struct xarray *xa, u32 *id, void *entry,
+>> struct xa_limit limit, u32 *next, gfp_t gfp)
+> 
+> I recall (dimly) that directory entry offset value re-use
+> is acceptable and preferred, so I think ignoring a "1"
+> return value from xa_alloc_cyclic() is OK. If there are
+> no unused offset values available, it will return -EBUSY,
+> and file creation will fail.
+> 
+> Perhaps Christian or Al can chime in here on whether
+> directory entry offset value re-use is indeed expected
+> to be acceptable.
 
-The patch tries to set the TTM_PL_FLAG_CONTIGUOUS for both user
-flag(AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS) set and not set cases.
+This can't be acceptable in this case, the reason is straightforward,
+it will mess readdir, and this is mucth more serious than the cve
+itself.
 
-Closes:https://gitlab.freedesktop.org/drm/amd/-/issues/3599
-Closes:https://gitlab.freedesktop.org/drm/amd/-/issues/3501
-Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-Cc: stable@vger.kernel.org
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 18 +++++++++++-------
- 1 file changed, 11 insertions(+), 7 deletions(-)
+Thanks,
+Kuai
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index d891ab779ca7..9f73f821054b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -1801,13 +1801,17 @@ int amdgpu_cs_find_mapping(struct amdgpu_cs_parser *parser,
- 	if (dma_resv_locking_ctx((*bo)->tbo.base.resv) != &parser->exec.ticket)
- 		return -EINVAL;
- 
--	(*bo)->flags |= AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
--	amdgpu_bo_placement_from_domain(*bo, (*bo)->allowed_domains);
--	for (i = 0; i < (*bo)->placement.num_placement; i++)
--		(*bo)->placements[i].flags |= TTM_PL_FLAG_CONTIGUOUS;
--	r = ttm_bo_validate(&(*bo)->tbo, &(*bo)->placement, &ctx);
--	if (r)
--		return r;
-+	if ((*bo)->flags & AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS) {
-+		(*bo)->placements[0].flags |= TTM_PL_FLAG_CONTIGUOUS;
-+	} else {
-+		(*bo)->flags |= AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS;
-+		amdgpu_bo_placement_from_domain(*bo, (*bo)->allowed_domains);
-+		for (i = 0; i < (*bo)->placement.num_placement; i++)
-+			(*bo)->placements[i].flags |= TTM_PL_FLAG_CONTIGUOUS;
-+		r = ttm_bo_validate(&(*bo)->tbo, &(*bo)->placement, &ctx);
-+		if (r)
-+			return r;
-+	}
- 
- 	return amdgpu_ttm_alloc_gart(&(*bo)->tbo);
- }
--- 
-2.25.1
+> 
+> Further, my understanding is that:
+> 
+> https://lore.kernel.org/stable/20241024132225.2271667-12-yukuai1@huaweicloud.com/
+> 
+> fixes a rename issue that results in an infinite loop,
+> and that's the (only) issue that underlies CVE-2024-46701.
+> 
+> You are suggesting that there are other overflow problems
+> with the xarray-based simple_offset implementation. If I
+> can confirm them, then I can get these fixed in v6.6. But
+> so far, I'm not sure I completely understand these other
+> failure modes.
+> 
+> Are you suggesting that the above fix /introduces/ the
+> 0 offset problem?
+> 
+> --
+> Chuck Lever
+> 
+> 
 
