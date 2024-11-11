@@ -4,135 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 110A8D2E9F2
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Nov 2024 13:43:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC49FD2E9F0
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Nov 2024 13:43:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B08EB10E4B5;
-	Mon, 11 Nov 2024 13:43:18 +0000 (UTC)
-Received: from IND01-BMX-obe.outbound.protection.outlook.com
- (mail-bmxind01on2109.outbound.protection.outlook.com [40.107.239.109])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3EAD210E1E8;
- Mon, 11 Nov 2024 12:09:53 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ug0cZXXRttjOq24OZkVVHsuyxsKz38wgl00dYwqoi5+ln/slxDYRR6bpm3VLymkBvAZgZfktRUVGujxtyEM+amYwOp7tLVlrFzHV9ghGE0Y0ZlTdTytxQanQm8M+Uk1ngFJTB/S5eBtJbtRhTQQuGpt5RLe5Qdl7S0mBKW3LPa/p3UCckju+5XQFmrAD6AoD1UH5DOB2UuHv09F2oq5kyYyW8DRwHQcAw7sbH6fhQdgAM45vhRvyKAuMejrFSFkH0SvRlnvGzVu46kUR8zqAc7Rm//urgSPPIJEDE45Z1u8jx8nTidGVynk8FhU8cE9R1i2aYMF7m6+068k+4aFDRg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oPVH8SNEG3ba863ZYhtWW5xiYUWfQgpqBMM0+rSIZH4=;
- b=miUdeqdB5zhnXHZBdvVjLIWzWw3/kO0XCYzkIbebw+ONhzgcJ5fZIXaa9YAhuKmc8QWrph15v8CfwgH/8SepEgqSx7nSPyLzS3h67MTGjN1U89jmmimP07wHvKK4tXsMdebYcCjkHsvHefYJuyRwWt1sw5MHSCdu7MorMlnoXQk6rNeOXt3Ufz5QapY37RDIP2VjxsYyhH9/4zIcHjIrUVCbUuXhXoa6RaVEIPZkUZ4qUL3HM7a/q1FALnbALR9irEMJNHf7PDnUjpU6jChl/nlGYE/JKSJP9mVQ5Xx0DxjWGeau/k2+DGVb4gNLfZthAr/YY/edCZyVyRZ+TklWvA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=siliconsignals.io; dmarc=pass action=none
- header.from=siliconsignals.io; dkim=pass header.d=siliconsignals.io; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=siliconsignals.io;
-Received: from PN3P287MB1171.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:1a1::5)
- by PN2P287MB0675.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:15d::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8137.28; Mon, 11 Nov
- 2024 12:09:48 +0000
-Received: from PN3P287MB1171.INDP287.PROD.OUTLOOK.COM
- ([fe80::12a8:c951:3e4b:5a8a]) by PN3P287MB1171.INDP287.PROD.OUTLOOK.COM
- ([fe80::12a8:c951:3e4b:5a8a%4]) with mapi id 15.20.8137.027; Mon, 11 Nov 2024
- 12:09:48 +0000
-From: Bhavin Sharma <bhavin.sharma@siliconsignals.io>
-To: alexander.deucher@amd.com
-Cc: tarang.raval@siliconsignals.io,
- Bhavin Sharma <bhavin.sharma@siliconsignals.io>,
- Chaitanya Dhere <chaitanya.dhere@amd.com>, Jun Lei <jun.lei@amd.com>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Kenneth Feng <kenneth.feng@amd.com>,
- Wenjing Liu <wenjing.liu@amd.com>, Roman Li <roman.li@amd.com>,
- Chris Park <chris.park@amd.com>, Leo Ma <hanghong.ma@amd.com>,
- Jose Fernandez <josef@netflix.com>, Ilya Bakoulin <ilya.bakoulin@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH 0/2] Remove redundant condition check 
-Date: Mon, 11 Nov 2024 17:38:27 +0530
-Message-ID: <20241111120900.63869-1-bhavin.sharma@siliconsignals.io>
-X-Mailer: git-send-email 2.43.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: PN3PR01CA0096.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:9b::13) To PN3P287MB1171.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c01:1a1::5)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFC6710E4BF;
+	Mon, 11 Nov 2024 13:43:15 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="FVpnHlwX";
+	dkim-atps=neutral
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 696B810E077;
+ Mon, 11 Nov 2024 10:29:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=1Una/vxZt6iiHlrUyiaIY0BNWaoOC6I2tKxW1QUXfV8=; b=FVpnHlwXxTKD9HXYkn+zQ1iBCJ
+ ZTA1dG5iWtHvwi23aLMlL2s9RCVxtPc+QLsBTY8QQhDRk3Utx78rTslRmjiLuLQlHqnIeXYzEsqM6
+ VXXX36QecBSa8a/OP9O05P4hWj+YL/pA1YhGdCXiZ4DY9W9bRJAVSv7HMoBitmfmR6AiXCNAkwPtR
+ ztR2VCmYQqdtYKdIT1gD7l0lwwOr0ePgS+0Qf2hHrhbsX3krdk8L1/Ws+nNRffUzuZBoPCXPMbNR3
+ 2l42kWl993DoW17TO5tSDuH0OEyqhlmkeqy0EJKZfwWCRP+O4k0ejLptg11I0kYoLQbsuveuG2PZW
+ 5ppEGViw==;
+Received: from [90.241.98.187] (helo=[192.168.0.101])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1tARg8-005Mjp-4A; Mon, 11 Nov 2024 11:29:52 +0100
+Message-ID: <3706dc4f-db98-45e0-b870-f10368ab1ab9@igalia.com>
+Date: Mon, 11 Nov 2024 10:29:50 +0000
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PN3P287MB1171:EE_|PN2P287MB0675:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1d7e42b3-7952-4d18-06a7-08dd0249bd09
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|52116014|7416014|366016|38350700014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?j9L5HrVwNcqr1SDacY3/uwNEjHqt4Vr3+4ojDgoQLI3+BISmsuKqWvyTv3Qr?=
- =?us-ascii?Q?kjVsxGmf/06a630jTnLILV6fD/fAGZ+Ol6bPEa+sr3BLYHhe9u2BlV1LvJLJ?=
- =?us-ascii?Q?HXV5rb6Shc8LGiEuiJ4fLyvKN25opmav9dT4QjtppvuDL3sDBPE52WNqM+gt?=
- =?us-ascii?Q?w1Nc6V50Es/mFOoU32MJ4/MWAaWnX1Ph67AxSgFDhZdJHyuqIacFb/3Bh3+A?=
- =?us-ascii?Q?t6TAfH2R25Q1f5tzGSZ13VdO2/okF17sfnZreOoW19hxXzJy3hnCoDctNjhv?=
- =?us-ascii?Q?PBrLFkppYQB59mhQvZ/cQxJJQRCZRVaiiqlc2/4v0htEncNYkciZkuw6AX1B?=
- =?us-ascii?Q?EWEwPlM9+Vey/RJkpMZ1r2oE6Q1EKl/QoAiJ7taZ/1SL7rGQG6phFMbfKyiK?=
- =?us-ascii?Q?UgeC1eUZBruIiiKU+WsdUEoCTlhOzA0Qbni2AoLLkwp0NmmTzzUErNFp00ec?=
- =?us-ascii?Q?hK1tzd4Eq2FvOFEbNwPLqJ022xSwqhv0R+zMNGhTBpkQNwquqvnScuDy4MdY?=
- =?us-ascii?Q?lZBw/L+s2NNb7Y6LnQd4CgZyuwUa9EAw5/jOOOQ2fHKtZEIQlizQ3JPDCq5O?=
- =?us-ascii?Q?9I/otDsFjb8G+BQaAJ8VT4titWiXRqXMFxNzlmJNzKQO1QeyIesSszLzT1WU?=
- =?us-ascii?Q?MRsXCnHvnmQO0hzrvF4wFcpfPc7HYTGRiag3xZWcoBF37HvE8peEQYIVgbym?=
- =?us-ascii?Q?O1JHzSiIuJhtt1GAl91N/CYtjOP6qwBDA73Dht6WNKi+fcTuEioBzHZ/uB5x?=
- =?us-ascii?Q?DK2SZ8SVpUYKCdS5zHYRJs4+BX0ZlsNXeH/cPch49opWlHq5/G7tQy+2cVtA?=
- =?us-ascii?Q?Gp+SHB2gU6GTztagFTqU2/CZDCwiULn5XktanR5PZULb5Rb6JgyR2lA/aZdZ?=
- =?us-ascii?Q?VlbX83xCD/Em8Dy/yOydMKY/SoKhghR3DIpG+kc+4h8v/nOcRo2Ik7k3A3F+?=
- =?us-ascii?Q?X0YP6uh7M2V2wmfSkf3Kt8c5v6g2hnSt0baTz0RzOTu5MQw7XSG38dogBn2b?=
- =?us-ascii?Q?gMVF3pwTnHyMOMp0SdTTm62n1eR3puybBh6b5l8mMHKwXoKDORzPwrVq9cSA?=
- =?us-ascii?Q?cdGRV/jGmUKmeGQYLB5Crps1E1C7FSXYk4nY0WMiF8mMcV5gvzOu8nfiTSSm?=
- =?us-ascii?Q?E/1hHWoDqvW6ERb6opTD4s3EPoYpdZ87A0emMM0rjdUpyy3CkCu1fW0F8Bhv?=
- =?us-ascii?Q?UapnuJwVmcBwShRYsA8I6WF/u0sfwMPKVBLMjTpCdV/3ZyQdFQ+kgFGqnMCN?=
- =?us-ascii?Q?r40oQunRZHvRqZu7cOdmsUrJpvJGIzEhVoY9RcR5fp3ZTt2OQ4yEL1mVwbg7?=
- =?us-ascii?Q?tDb3mrLVNvHn5v2Go6Nm85yLzwOtqO+cJE6YYKFBLJz3klnvUPE6Ud5d7VeB?=
- =?us-ascii?Q?PJBtAhQ=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PN3P287MB1171.INDP287.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(52116014)(7416014)(366016)(38350700014);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?lBt5+CvjZab391BNFqjLdmj68+tkoOXeiOL3zIpWpgEDyHEFCCxmtDvS813W?=
- =?us-ascii?Q?fzUfR/LgmV9izhhkjArjablOAc5hp53CwG3x082YnAzGddYKEfBXxfizFNAy?=
- =?us-ascii?Q?LK0pgaVNaBMOMXBCyvyB4Kg5FhLa0uMQkz+Wi88TC4HAVj0/yxPlZ71LEZN3?=
- =?us-ascii?Q?H3gSCY9F3hYw/xTH9yrsPFe/zUjqzSh365HgOs7v4qSyQt/d1UvlYXhEJJNc?=
- =?us-ascii?Q?nud6UNt+MGCh+amdZBGznrWI0eVLRobtSXIACq1fi6R+ol26hZAV7RAwT6Iy?=
- =?us-ascii?Q?WRYt5Fce+tO5lRwa7rrCXFLGlEbcCrNj3U34CNHovnDOKWTk0eZPBH7BLoDZ?=
- =?us-ascii?Q?Rs+JGEq+AQT4Lyxq3e0TT5cl56Lqef8b4Rn4cvRbcVKMqbdD/tZ0cvt8zoRI?=
- =?us-ascii?Q?5jd2h2JN8/3ZTayIdbQ3uGuv3MiyJkNJc2y50n/Fw81D6tqWTA99ZujoA1/q?=
- =?us-ascii?Q?BwkkQAFOk9mhGkbfXyCTt3wqLpzEhJqhBjiIHJI1zk4NaV5GrhU7OJVTE1E/?=
- =?us-ascii?Q?xxVH09wbBKu+Ibx8RiD4KLyD5S6gu3xMRuafY0p/5kUxsmeXtMzf8j9f0FyM?=
- =?us-ascii?Q?q0nqOt240Cex6tlqgk1CYt4qV+KTZeqGycH9vToznoPW7eO7M3yWG6fYbl0r?=
- =?us-ascii?Q?Zq0t7t+qzdt9fieLosBccd1rbLzNP3aOOcgOm8lH9S6liIIvySHiKmh4d+GA?=
- =?us-ascii?Q?LunmvSdG9g7zZ16BUnlrLo334st2HRes7ZBlb6aNPWLskWqF9ylzyDof1mEn?=
- =?us-ascii?Q?9NuLqlbzVbkC6o5yy8koIHr+9ma/zBOxssvNDHf5Uef6xEiqBJPnes22X4Of?=
- =?us-ascii?Q?Pr8NufS91yXsEeUbMW2+rqQC7CXoNFcMF3l+xWrHgeoA9g9yNHYMF7s/X3x0?=
- =?us-ascii?Q?FY22KbKo7RKoVu+Fl6+46qJWxAnP/WxJlFfBnhjgZlEQaiW+QRLAxm1V6dXp?=
- =?us-ascii?Q?DukvTwEMj+8GqUxzwgqcbs5CWeBTZO8EiMajCbLLvC5FhvnZVr7reSTcXXeF?=
- =?us-ascii?Q?eK/urEtMpYe5zTQQ34Vqboi7Ruj1EmhZ9HdLltMHOKskdAruI26elsoe9xRW?=
- =?us-ascii?Q?2/R0GolEJdUZ3+DBp+bvXiomADSnfpjnyjbSo6ZLxeihmqrTZ9jFgctAHipj?=
- =?us-ascii?Q?Q8M8x48kYnjbIabZ18wq/0+WTgOYMsDezCPs7Y2tC3/336Z0wOO51L/06hVQ?=
- =?us-ascii?Q?XWyrezOPr1I10v65QQIHjwPy/RsUxZplyY3v5OxmeYCCaldbBVcXCt11TZZ7?=
- =?us-ascii?Q?VO9HzBcM4JHCiMETxrFbZnYd+tygmyV614Vo5KP8eT8yvyEBUd9rHkezSPlp?=
- =?us-ascii?Q?oQ3SxkuSrV/+oj/bhjwyE0M0xG9vu45A9S3kYZHHoix4useh7u9l/GMOoczU?=
- =?us-ascii?Q?+jKy+2pKIU9IrJ3ioRtW2lgDs5K1Npr3rizO94Z8ChlB9zhMfwrfOC4262Sg?=
- =?us-ascii?Q?ueNv0ye2OBVVDTti90o4gWrP/w/0WtCSeUKTrKFEP5sGabY5l/2hxfJrpp8f?=
- =?us-ascii?Q?eKRC+QGFqA/Bl1N+2QZysVrVXZWQJ/mTHKJ86O+TxhwdZKDHErnhjhOeK7GV?=
- =?us-ascii?Q?7+LYDW97g0DAl66cCoACvA6kjjdO9GRpKzOcJjKGymHPTg3OyfaG+Bm2ZPmB?=
- =?us-ascii?Q?WhiKd4kGEGolEtAJ/sKjm7c=3D?=
-X-OriginatorOrg: siliconsignals.io
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1d7e42b3-7952-4d18-06a7-08dd0249bd09
-X-MS-Exchange-CrossTenant-AuthSource: PN3P287MB1171.INDP287.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2024 12:09:48.5346 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 7ec5089e-a433-4bd1-a638-82ee62e21d37
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +W1Y61b2+i6cTZdt3lNBL0IoGx8cfBPIysV9aSKbABQpJSZslYxSG4XNnWco6V9HTVO7XtIw34uXzjPg3UD8j4L5hnq/m4RyaR/3uG7VUZU=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PN2P287MB0675
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 2/4] drm: make drm-active- stats optional
+To: Yunxiang Li <Yunxiang.Li@amd.com>, amd-gfx@lists.freedesktop.org,
+ christian.koenig@amd.com
+Cc: Alexander.Deucher@amd.com, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>
+References: <20241110154152.592-1-Yunxiang.Li@amd.com>
+ <20241110154152.592-3-Yunxiang.Li@amd.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <20241110154152.592-3-Yunxiang.Li@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Mon, 11 Nov 2024 13:43:12 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -148,15 +63,163 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Bhavin Sharma (2):
-  drm: amd: display: Remove redundant check
-  drm: amd: pm: Remove redundant check
 
- .../display/dc/dml/dml1_display_rq_dlg_calc.c |  2 +-
- drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c   | 13 ++++------
- .../amd/pm/powerplay/smumgr/vega12_smumgr.c   | 24 +++++++++----------
- 3 files changed, 17 insertions(+), 22 deletions(-)
+On 10/11/2024 15:41, Yunxiang Li wrote:
+> Make drm-active- optional just like drm-resident- and drm-purgeable-.
 
--- 
-2.43.0
+As Jani has already commented the commit message needs some work.
 
+> Signed-off-by: Yunxiang Li <Yunxiang.Li@amd.com>
+> CC: dri-devel@lists.freedesktop.org
+> CC: intel-gfx@lists.freedesktop.org
+> CC: amd-gfx@lists.freedesktop.org
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c |  1 +
+>   drivers/gpu/drm/drm_file.c                 | 13 +++++++------
+>   drivers/gpu/drm/i915/i915_drm_client.c     |  1 +
+>   drivers/gpu/drm/xe/xe_drm_client.c         |  1 +
+>   include/drm/drm_gem.h                      | 14 ++++++++------
+>   5 files changed, 18 insertions(+), 12 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+> index df2cf5c339255..7717e3e4f05b5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+> @@ -97,6 +97,7 @@ void amdgpu_show_fdinfo(struct drm_printer *p, struct drm_file *file)
+>   
+>   		drm_print_memory_stats(p,
+>   				       &stats[i].drm,
+> +				       DRM_GEM_OBJECT_ACTIVE |
+>   				       DRM_GEM_OBJECT_RESIDENT |
+>   				       DRM_GEM_OBJECT_PURGEABLE,
+>   				       pl_name[i]);
+> diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
+> index e285fcc28c59c..fd06671054723 100644
+> --- a/drivers/gpu/drm/drm_file.c
+> +++ b/drivers/gpu/drm/drm_file.c
+> @@ -884,7 +884,9 @@ void drm_print_memory_stats(struct drm_printer *p,
+>   {
+>   	print_size(p, "total", region, stats->private + stats->shared);
+>   	print_size(p, "shared", region, stats->shared);
+> -	print_size(p, "active", region, stats->active);
+> +
+> +	if (supported_status & DRM_GEM_OBJECT_ACTIVE)
+> +		print_size(p, "active", region, stats->active);
+>   
+>   	if (supported_status & DRM_GEM_OBJECT_RESIDENT)
+>   		print_size(p, "resident", region, stats->resident);
+> @@ -917,15 +919,13 @@ void drm_show_memory_stats(struct drm_printer *p, struct drm_file *file)
+>   
+>   		if (obj->funcs && obj->funcs->status) {
+>   			s = obj->funcs->status(obj);
+> -			supported_status = DRM_GEM_OBJECT_RESIDENT |
+> -					DRM_GEM_OBJECT_PURGEABLE;
+> +			supported_status |= s;
+
+I think this is correct and I think I've raised that it should be like 
+this when the code was originally added. I only don't remember what was 
+the argument to keep it hardcoded, if there was any. Adding Rob in case 
+he can remember.
+
+>   		}
+>   
+> -		if (drm_gem_object_is_shared_for_memory_stats(obj)) {
+> +		if (drm_gem_object_is_shared_for_memory_stats(obj))
+>   			status.shared += obj->size;
+> -		} else {
+> +		else
+>   			status.private += obj->size;
+> -		}
+
+Drive by cleanup, okay.
+
+>   
+>   		if (s & DRM_GEM_OBJECT_RESIDENT) {
+>   			status.resident += add_size;
+> @@ -938,6 +938,7 @@ void drm_show_memory_stats(struct drm_printer *p, struct drm_file *file)
+>   
+>   		if (!dma_resv_test_signaled(obj->resv, dma_resv_usage_rw(true))) {
+>   			status.active += add_size;
+> +			supported_status |= DRM_GEM_OBJECT_ACTIVE;
+
+I wonder what behaviour we should have here if the driver has reported 
+DRM_GEM_OBJECT_ACTIVE via its status vfunc. Like should it be like this:
+
+    if ((s & DRM_GEM_OBJECT_ACTIVE) ||
+        !dma_resv_test_signaled(obj->resv, dma_resv_usage_rw(true))) {
+	  ...
+
+?
+
+So if some driver starts reporting this flag _and_ is still calling 
+drm_show_memory_stats(), it's version of activity tracking is used 
+instead of the the dma_resv based test.
+
+>   
+>   			/* If still active, don't count as purgeable: */
+>   			s &= ~DRM_GEM_OBJECT_PURGEABLE;
+> diff --git a/drivers/gpu/drm/i915/i915_drm_client.c b/drivers/gpu/drm/i915/i915_drm_client.c
+> index f586825054918..168d7375304bc 100644
+> --- a/drivers/gpu/drm/i915/i915_drm_client.c
+> +++ b/drivers/gpu/drm/i915/i915_drm_client.c
+> @@ -102,6 +102,7 @@ static void show_meminfo(struct drm_printer *p, struct drm_file *file)
+>   	for_each_memory_region(mr, i915, id)
+>   		drm_print_memory_stats(p,
+>   				       &stats[id],
+> +				       DRM_GEM_OBJECT_ACTIVE |
+>   				       DRM_GEM_OBJECT_RESIDENT |
+>   				       DRM_GEM_OBJECT_PURGEABLE,
+>   				       mr->uabi_name);
+> diff --git a/drivers/gpu/drm/xe/xe_drm_client.c b/drivers/gpu/drm/xe/xe_drm_client.c
+> index 6a26923fa10e0..54941b4e850c4 100644
+> --- a/drivers/gpu/drm/xe/xe_drm_client.c
+> +++ b/drivers/gpu/drm/xe/xe_drm_client.c
+> @@ -229,6 +229,7 @@ static void show_meminfo(struct drm_printer *p, struct drm_file *file)
+>   		if (man) {
+>   			drm_print_memory_stats(p,
+>   					       &stats[mem_type],
+> +					       DRM_GEM_OBJECT_ACTIVE |
+>   					       DRM_GEM_OBJECT_RESIDENT |
+>   					       (mem_type != XE_PL_SYSTEM ? 0 :
+>   					       DRM_GEM_OBJECT_PURGEABLE),
+> diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
+> index bae4865b2101a..584ffdf5c2542 100644
+> --- a/include/drm/drm_gem.h
+> +++ b/include/drm/drm_gem.h
+> @@ -48,19 +48,21 @@ struct drm_gem_object;
+>    * enum drm_gem_object_status - bitmask of object state for fdinfo reporting
+>    * @DRM_GEM_OBJECT_RESIDENT: object is resident in memory (ie. not unpinned)
+>    * @DRM_GEM_OBJECT_PURGEABLE: object marked as purgeable by userspace
+> + * @DRM_GEM_OBJECT_ACTIVE: object is currently used by an active submission
+>    *
+>    * Bitmask of status used for fdinfo memory stats, see &drm_gem_object_funcs.status
+> - * and drm_show_fdinfo().  Note that an object can DRM_GEM_OBJECT_PURGEABLE if
+> - * it still active or not resident, in which case drm_show_fdinfo() will not
+> + * and drm_show_fdinfo().  Note that an object can report DRM_GEM_OBJECT_PURGEABLE
+> + * and be active or not resident, in which case drm_show_fdinfo() will not
+>    * account for it as purgeable.  So drivers do not need to check if the buffer
+> - * is idle and resident to return this bit.  (Ie. userspace can mark a buffer
+> - * as purgeable even while it is still busy on the GPU.. it does not _actually_
+> - * become puregeable until it becomes idle.  The status gem object func does
+> - * not need to consider this.)
+> + * is idle and resident to return this bit, i.e. userspace can mark a buffer as
+> + * purgeable even while it is still busy on the GPU. It whill not get reported
+
+Good cleanup.
+
+s/whill/will/
+
+> + * in the puregeable stats until it becomes idle.  The status gem object func
+> + * does not need to consider this.
+>    */
+>   enum drm_gem_object_status {
+>   	DRM_GEM_OBJECT_RESIDENT  = BIT(0),
+>   	DRM_GEM_OBJECT_PURGEABLE = BIT(1),
+> +	DRM_GEM_OBJECT_ACTIVE = BIT(2),
+>   };
+>   
+>   /**
+
+Regards,
+
+Tvrtko
