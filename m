@@ -4,59 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D186D41D6E
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1506D41D6B
 	for <amd-gfx@archiver.kernel.org>; Tue, 12 Nov 2024 08:40:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B55110E585;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4625410E587;
 	Tue, 12 Nov 2024 08:40:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.b="CetmhQNd";
+	dkim=pass (4096-bit key; secure) header.d=ijzerbout.nl header.i=@ijzerbout.nl header.b="MnMD4gZC";
 	dkim-atps=neutral
-Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43D3010E500;
- Mon, 11 Nov 2024 18:10:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
- s=mail; t=1731348626;
- bh=Ij7WrOwbX4+J8efDi9hsvP8ax5mhRWdjQ6nHoo28gzE=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=CetmhQNdsZECXWJrRT/UoPheFvOur/9Vb+BD4Vk/ZxTtiwaXo7wkg4Sn1rBQvHcaG
- FXEBDXt/YLFu7KbP4Fw4sUXeNrv227Bgc6rg4++9+WsvTe/T+/tXHbXQ3u2o0qiBlF
- +7Yi7UbT8QJLs9P0aj3ZRNEDZb2uDmZZKksrM73c=
-From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-Date: Mon, 11 Nov 2024 19:09:36 +0100
-Subject: [PATCH v7 2/4] drm/amd/display: Add support for minimum backlight
- quirk
+X-Greylist: delayed 313 seconds by postgrey-1.36 at gabe;
+ Mon, 11 Nov 2024 20:31:10 UTC
+Received: from bout3.ijzerbout.nl (bout3.ijzerbout.nl [136.144.140.114])
+ by gabe.freedesktop.org (Postfix) with ESMTP id C461810E53F
+ for <amd-gfx@lists.freedesktop.org>; Mon, 11 Nov 2024 20:31:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ijzerbout.nl; s=key;
+ t=1731356756; bh=f12Z0l5+q1Mb25CB1gBmGkxSbC3V/vG7Jp8uQvrBwHw=;
+ h=Date:Subject:To:References:From:In-Reply-To:From;
+ b=MnMD4gZCgKkvucdJ6BWoe54cTw891eoy2yRPE+kYAmW55LmGBqFTzJk/sopy+ErET
+ XurkYRuTUALfZOyC3p9rl/UXdHk0rRpYhQg3HxJDyDEromAQd47HTcVxfEQ+q8bx+2
+ uRbFqPII/dVIHzz0PP97BX9qFrBBVcRwTdUJlGAM7MufFv+bWKVTaEXrqcLrgd+XME
+ ZP9jjCS4A3nfxKd8gUcleE4vjIj3OqMaJkaJXiOs+LABYd1fmNgfeTlxcto7llD0TI
+ CBdfiIHo3BdSzLhfw/6HL9NOqKBHvnB80U8N9R3xlJD5oVtbmo3/nEZx4dmGawx5z0
+ 8dSk5rbM19KIlblT23OFIubdunZuJJuT08oXHnv8NINAL4pLMaUagH82EwZUDju5ca
+ 0uF97yadPj4GiLcr9QcB+QJ9Wd7UCSzv0cpD6vgV4N5XsacZEUp+r7z3DoTmbLOvck
+ bGyHIrQXz/AgbSb9s0iWK0PKzVw1oUFD4okGflM8oHJXlbfbXR9D1Bm/vywYkhHHGw
+ F1DGTLkzMBchljR16Tb9OWWKWjenBliO7IRXCvS3DjBu7ZY1Z2Flzfzy1ARp8hhuGz
+ Fb6OCkNsMKIAfabmsKBAJemd+TR9yhkg6KCG/lPHiwzBi22XQJsEKtxQ515BILxWp0
+ kiCPnXWaN4R9MXN9G/FZdQEc=
+Received: from [IPV6:2a10:3781:99:1:1ac0:4dff:fea7:ec3a] (racer.ijzerbout.nl
+ [IPv6:2a10:3781:99:1:1ac0:4dff:fea7:ec3a])
+ by bout3.ijzerbout.nl (Postfix) with ESMTPSA id B85F118DC0F;
+ Mon, 11 Nov 2024 21:25:56 +0100 (CET)
+Message-ID: <48f068e8-b542-4449-bb75-4e8409306347@ijzerbout.nl>
+Date: Mon, 11 Nov 2024 21:25:53 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] drm/amdgpu: add amdgpu_gfx_sched_mask and
+ amdgpu_compute_sched_mask debugfs
+To: Jesse Zhang <Jesse.zhang@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20241018023054.1601248-1-jesse.zhang@amd.com>
+Content-Language: en-US
+From: Kees Bakker <kees@ijzerbout.nl>
+In-Reply-To: <20241018023054.1601248-1-jesse.zhang@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Message-Id: <20241111-amdgpu-min-backlight-quirk-v7-2-f662851fda69@weissschuh.net>
-References: <20241111-amdgpu-min-backlight-quirk-v7-0-f662851fda69@weissschuh.net>
-In-Reply-To: <20241111-amdgpu-min-backlight-quirk-v7-0-f662851fda69@weissschuh.net>
-To: Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, 
- Mario Limonciello <mario.limonciello@amd.com>, 
- Matt Hartley <matt.hartley@gmail.com>, Kieran Levin <ktl@framework.net>, 
- Hans de Goede <hdegoede@redhat.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, Xinhui Pan <Xinhui.Pan@amd.com>, 
- Jonathan Corbet <corbet@lwn.net>, Simona Vetter <simona@ffwll.ch>, 
- Simona Vetter <simona.vetter@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Dustin Howett <dustin@howett.net>, 
- linux-doc@vger.kernel.org, 
- =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1731348626; l=2774;
- i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
- bh=Ij7WrOwbX4+J8efDi9hsvP8ax5mhRWdjQ6nHoo28gzE=;
- b=N1/hwP+f25Iyb2hUfrGmymSai8h22mMgwriToXROom+skaWGq3S8XP6usBZvkb547mrEu517Q
- 2T55qArHRzVAgP6MuWidTheLHzcR3k7VuDE67Ml3CsEn/grMqQvB5jg
-X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
- pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
 X-Mailman-Approved-At: Tue, 12 Nov 2024 08:40:19 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -72,69 +63,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Not all platforms provide the full range of PWM backlight capabilities
-supported by the hardware through ATIF.
-Use the generic drm panel minimum backlight quirk infrastructure to
-override the capabilities where necessary.
+Op 18-10-2024 om 04:30 schreef jesse.zhang at amd.com (Jesse.zhang@amd.com):
+> compute/gfx may have multiple rings on some hardware.
+> In some cases, userspace wants to run jobs on a specific ring for validation purposes.
+> This debugfs entry helps to disable or enable submitting jobs to a specific ring.
+> This entry is populated only if there are at least two or more cores in the gfx/compute ip.
+>
+> Signed-off-by: Jesse Zhang <jesse.zhang at amd.com>
+> Suggested-by:Alex Deucher <alexander.deucher at amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |   2 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c     | 142 ++++++++++++++++++++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h     |   2 +
+>   3 files changed, 146 insertions(+)
+>
+> [...]
+> +
+> +void amdgpu_debugfs_compute_sched_mask_init(struct amdgpu_device *adev)
+> +{
+> +#if defined(CONFIG_DEBUG_FS)
+> +	struct drm_minor *minor = adev_to_drm(adev)->primary;
+> +	struct dentry *root = minor->debugfs_root;
+> +	char name[32];
+> +
+> +	if (!(adev->gfx.num_compute_rings > 1))
+> +		return;
+> +	sprintf(name, "amdgpu_compute_sched_mask");
+> +	debugfs_create_file(name, 0600, root, adev,
+> +			    &amdgpu_debugfs_compute_sched_mask_fops);
+> +#endif
+> +}
+>
+Hi Jesse,
 
-Testing the backlight quirk together with the "panel_power_savings"
-sysfs file has not shown any negative impact.
-One quirk seems to be that 0% at panel_power_savings=0 seems to be
-slightly darker than at panel_power_savings=4.
+Can you please eliminate name[32]? There is absolutely no need
+to copy the filename in a buffer. Also, using sprintf this way is
+weird too.
 
-Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
-Tested-by: Dustin L. Howett <dustin@howett.net>
-Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/Kconfig                | 1 +
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 6 ++++++
- 2 files changed, 7 insertions(+)
+Just do
+     debugfs_create_file("amdgpu_compute_sched_mask", 0600, root, adev, ...
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/Kconfig b/drivers/gpu/drm/amd/amdgpu/Kconfig
-index 41fa3377d9cf566294c6f86eedd8b31a22c77510..1a11cab741aca4483673f8e7794b4d3022d269e6 100644
---- a/drivers/gpu/drm/amd/amdgpu/Kconfig
-+++ b/drivers/gpu/drm/amd/amdgpu/Kconfig
-@@ -26,6 +26,7 @@ config DRM_AMDGPU
- 	select DRM_BUDDY
- 	select DRM_SUBALLOC_HELPER
- 	select DRM_EXEC
-+	select DRM_PANEL_BACKLIGHT_QUIRKS
- 	# amdgpu depends on ACPI_VIDEO when ACPI is enabled, for select to work
- 	# ACPI_VIDEO's dependencies must also be selected.
- 	select INPUT if ACPI
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index f0a6816709ca7dad6415d16f9806f18065026cf7..19a58630e774029767bf2a27eb4ddf17e3c21129 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -93,6 +93,7 @@
- #include <drm/drm_fourcc.h>
- #include <drm/drm_edid.h>
- #include <drm/drm_eld.h>
-+#include <drm/drm_utils.h>
- #include <drm/drm_vblank.h>
- #include <drm/drm_audio_component.h>
- #include <drm/drm_gem_atomic_helper.h>
-@@ -3457,6 +3458,7 @@ static void update_connector_ext_caps(struct amdgpu_dm_connector *aconnector)
- 	struct drm_connector *conn_base;
- 	struct amdgpu_device *adev;
- 	struct drm_luminance_range_info *luminance_range;
-+	int min_input_signal_override;
- 
- 	if (aconnector->bl_idx == -1 ||
- 	    aconnector->dc_link->connector_signal != SIGNAL_TYPE_EDP)
-@@ -3491,6 +3493,10 @@ static void update_connector_ext_caps(struct amdgpu_dm_connector *aconnector)
- 		caps->aux_min_input_signal = 0;
- 		caps->aux_max_input_signal = 512;
- 	}
-+
-+	min_input_signal_override = drm_get_panel_min_brightness_quirk(aconnector->drm_edid);
-+	if (min_input_signal_override >= 0)
-+		caps->min_input_signal = min_input_signal_override;
- }
- 
- void amdgpu_dm_update_connector_after_detect(
-
+The same for amdgpu_debugfs_gfx_sched_mask_init() of course.
 -- 
-2.47.0
-
+Kees
