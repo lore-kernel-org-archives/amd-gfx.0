@@ -4,50 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1506D41D6B
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Nov 2024 08:40:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CA87D41D6F
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Nov 2024 08:40:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4625410E587;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 71BF010E588;
 	Tue, 12 Nov 2024 08:40:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (4096-bit key; secure) header.d=ijzerbout.nl header.i=@ijzerbout.nl header.b="MnMD4gZC";
+	dkim=pass (1024-bit key; unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.b="bpYaCKR/";
 	dkim-atps=neutral
-X-Greylist: delayed 313 seconds by postgrey-1.36 at gabe;
- Mon, 11 Nov 2024 20:31:10 UTC
-Received: from bout3.ijzerbout.nl (bout3.ijzerbout.nl [136.144.140.114])
- by gabe.freedesktop.org (Postfix) with ESMTP id C461810E53F
- for <amd-gfx@lists.freedesktop.org>; Mon, 11 Nov 2024 20:31:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ijzerbout.nl; s=key;
- t=1731356756; bh=f12Z0l5+q1Mb25CB1gBmGkxSbC3V/vG7Jp8uQvrBwHw=;
- h=Date:Subject:To:References:From:In-Reply-To:From;
- b=MnMD4gZCgKkvucdJ6BWoe54cTw891eoy2yRPE+kYAmW55LmGBqFTzJk/sopy+ErET
- XurkYRuTUALfZOyC3p9rl/UXdHk0rRpYhQg3HxJDyDEromAQd47HTcVxfEQ+q8bx+2
- uRbFqPII/dVIHzz0PP97BX9qFrBBVcRwTdUJlGAM7MufFv+bWKVTaEXrqcLrgd+XME
- ZP9jjCS4A3nfxKd8gUcleE4vjIj3OqMaJkaJXiOs+LABYd1fmNgfeTlxcto7llD0TI
- CBdfiIHo3BdSzLhfw/6HL9NOqKBHvnB80U8N9R3xlJD5oVtbmo3/nEZx4dmGawx5z0
- 8dSk5rbM19KIlblT23OFIubdunZuJJuT08oXHnv8NINAL4pLMaUagH82EwZUDju5ca
- 0uF97yadPj4GiLcr9QcB+QJ9Wd7UCSzv0cpD6vgV4N5XsacZEUp+r7z3DoTmbLOvck
- bGyHIrQXz/AgbSb9s0iWK0PKzVw1oUFD4okGflM8oHJXlbfbXR9D1Bm/vywYkhHHGw
- F1DGTLkzMBchljR16Tb9OWWKWjenBliO7IRXCvS3DjBu7ZY1Z2Flzfzy1ARp8hhuGz
- Fb6OCkNsMKIAfabmsKBAJemd+TR9yhkg6KCG/lPHiwzBi22XQJsEKtxQ515BILxWp0
- kiCPnXWaN4R9MXN9G/FZdQEc=
-Received: from [IPV6:2a10:3781:99:1:1ac0:4dff:fea7:ec3a] (racer.ijzerbout.nl
- [IPv6:2a10:3781:99:1:1ac0:4dff:fea7:ec3a])
- by bout3.ijzerbout.nl (Postfix) with ESMTPSA id B85F118DC0F;
- Mon, 11 Nov 2024 21:25:56 +0100 (CET)
-Message-ID: <48f068e8-b542-4449-bb75-4e8409306347@ijzerbout.nl>
-Date: Mon, 11 Nov 2024 21:25:53 +0100
+Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ACF4810E502;
+ Mon, 11 Nov 2024 18:10:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
+ s=mail; t=1731348626;
+ bh=MI2iFMI5An6EgbYmS5WZjVZcL7OiZNeX5hsm8wgEhfQ=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=bpYaCKR/ti753hGae9vVGVXskE4lgZBY59QptDMTD37pYrEVMb7p1XqF5x7vnENoI
+ f9YPeaDEWLOEeLcP/HRl3kJz7aWaqOwlLSMkDvPD6ynQ5Oy2yIESvgODKLaP2hCJBz
+ H60sBkaz8fugZYjKSzVIzPz9XoC+uWpNafXgEL4Y=
+From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+Date: Mon, 11 Nov 2024 19:09:38 +0100
+Subject: [PATCH v7 4/4] drm: panel-backlight-quirks: Add Framework 13
+ glossy and 2.8k panels
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] drm/amdgpu: add amdgpu_gfx_sched_mask and
- amdgpu_compute_sched_mask debugfs
-To: Jesse Zhang <Jesse.zhang@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20241018023054.1601248-1-jesse.zhang@amd.com>
-Content-Language: en-US
-From: Kees Bakker <kees@ijzerbout.nl>
-In-Reply-To: <20241018023054.1601248-1-jesse.zhang@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Message-Id: <20241111-amdgpu-min-backlight-quirk-v7-4-f662851fda69@weissschuh.net>
+References: <20241111-amdgpu-min-backlight-quirk-v7-0-f662851fda69@weissschuh.net>
+In-Reply-To: <20241111-amdgpu-min-backlight-quirk-v7-0-f662851fda69@weissschuh.net>
+To: Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, 
+ Mario Limonciello <mario.limonciello@amd.com>, 
+ Matt Hartley <matt.hartley@gmail.com>, Kieran Levin <ktl@framework.net>, 
+ Hans de Goede <hdegoede@redhat.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, Xinhui Pan <Xinhui.Pan@amd.com>, 
+ Jonathan Corbet <corbet@lwn.net>, Simona Vetter <simona@ffwll.ch>, 
+ Simona Vetter <simona.vetter@ffwll.ch>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Dustin Howett <dustin@howett.net>, 
+ linux-doc@vger.kernel.org, 
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1731348626; l=1550;
+ i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
+ bh=C5Ys8GE15MeKqVacQaK1KCVt6nQBigVpuprfdOPO5K4=;
+ b=/YkPFAPlCsFMyBCs1GWM9MsNLQIinCIm6SZTJTQwCilQi7+QWSO8uGcuabC+6CPLmdKmhyR2S
+ IjHqYHneHjkDPsk0E5X3ac6LzlZsjOZdVwgRlJWAog/h/H+EfQ6h4Z9
+X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
+ pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
 X-Mailman-Approved-At: Tue, 12 Nov 2024 08:40:19 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,46 +72,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Op 18-10-2024 om 04:30 schreef jesse.zhang at amd.com (Jesse.zhang@amd.com):
-> compute/gfx may have multiple rings on some hardware.
-> In some cases, userspace wants to run jobs on a specific ring for validation purposes.
-> This debugfs entry helps to disable or enable submitting jobs to a specific ring.
-> This entry is populated only if there are at least two or more cores in the gfx/compute ip.
->
-> Signed-off-by: Jesse Zhang <jesse.zhang at amd.com>
-> Suggested-by:Alex Deucher <alexander.deucher at amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |   2 +
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c     | 142 ++++++++++++++++++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h     |   2 +
->   3 files changed, 146 insertions(+)
->
-> [...]
-> +
-> +void amdgpu_debugfs_compute_sched_mask_init(struct amdgpu_device *adev)
-> +{
-> +#if defined(CONFIG_DEBUG_FS)
-> +	struct drm_minor *minor = adev_to_drm(adev)->primary;
-> +	struct dentry *root = minor->debugfs_root;
-> +	char name[32];
-> +
-> +	if (!(adev->gfx.num_compute_rings > 1))
-> +		return;
-> +	sprintf(name, "amdgpu_compute_sched_mask");
-> +	debugfs_create_file(name, 0600, root, adev,
-> +			    &amdgpu_debugfs_compute_sched_mask_fops);
-> +#endif
-> +}
->
-Hi Jesse,
+From: "Dustin L. Howett" <dustin@howett.net>
 
-Can you please eliminate name[32]? There is absolutely no need
-to copy the filename in a buffer. Also, using sprintf this way is
-weird too.
+I have tested these panels on the Framework Laptop 13 AMD with firmware
+revision 3.05 (latest at time of submission).
 
-Just do
-     debugfs_create_file("amdgpu_compute_sched_mask", 0600, root, adev, ...
+Signed-off-by: Dustin L. Howett <dustin@howett.net>
+Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
+Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+---
+ drivers/gpu/drm/drm_panel_backlight_quirks.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-The same for amdgpu_debugfs_gfx_sched_mask_init() of course.
+diff --git a/drivers/gpu/drm/drm_panel_backlight_quirks.c b/drivers/gpu/drm/drm_panel_backlight_quirks.c
+index f2aefff618ddbb6c2170db5c9f535f3b6a465d1d..c477d98ade2b41314d4218281ced7d3c4d087769 100644
+--- a/drivers/gpu/drm/drm_panel_backlight_quirks.c
++++ b/drivers/gpu/drm/drm_panel_backlight_quirks.c
+@@ -25,6 +25,22 @@ static const struct drm_panel_min_backlight_quirk drm_panel_min_backlight_quirks
+ 		.ident.name = "NE135FBM-N41",
+ 		.min_brightness = 0,
+ 	},
++	/* 13 inch glossy panel */
++	{
++		.dmi_match.field = DMI_BOARD_VENDOR,
++		.dmi_match.value = "Framework",
++		.ident.panel_id = drm_edid_encode_panel_id('B', 'O', 'E', 0x095f),
++		.ident.name = "NE135FBM-N41",
++		.min_brightness = 0,
++	},
++	/* 13 inch 2.8k panel */
++	{
++		.dmi_match.field = DMI_BOARD_VENDOR,
++		.dmi_match.value = "Framework",
++		.ident.panel_id = drm_edid_encode_panel_id('B', 'O', 'E', 0x0cb4),
++		.ident.name = "NE135A1M-NY1",
++		.min_brightness = 0,
++	},
+ };
+ 
+ static bool drm_panel_min_backlight_quirk_matches(const struct drm_panel_min_backlight_quirk *quirk,
+
 -- 
-Kees
+2.47.0
+
