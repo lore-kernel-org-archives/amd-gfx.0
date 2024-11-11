@@ -4,160 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 920FAD3ABF6
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 Nov 2024 21:11:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 092F2D3ABF4
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 Nov 2024 22:21:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5344510E543;
-	Mon, 11 Nov 2024 21:11:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A23E10E201;
+	Mon, 11 Nov 2024 22:21:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="bDSJ1mh5";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="hZCfiMvL";
 	dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2040.outbound.protection.outlook.com [40.107.244.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A6C0110E106;
- Mon, 11 Nov 2024 21:11:18 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2072.outbound.protection.outlook.com [40.107.93.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 16C7A10E201
+ for <amd-gfx@lists.freedesktop.org>; Mon, 11 Nov 2024 22:21:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=S0NJA5Q5QYYxMTX3j8LgnuxJ3eXd1WU/nSeCvDQDwK2BmTq0GFBAWla+KeWaS5My/zXCNFyLgTj5gMICExPqL1rNnaS6TpgdPezKPi/fdiC9KFttllmdMzdCL0kDA8AwyqPvaPNIO4XGawNuuyU+QkteO/AzPFOw7aX5HnlOmZuAtftb8snfBEYuW+CYKKaBDfGyO6yrdrJV4e1Wv07Fte+bctnfP3a8IUCXsaXogPWMHxOXHgUFWWdhfLMjH0vCksLt1VKDFzcVVPynnVaCSJ8XbbIhn0AxHoMixqwVnAr5QY9CAPg03FUSDN4G6IjKuV6vdEEIcJA26J4XUAx6LA==
+ b=bB2C2o6VsqR74loqfXK5sYbJXB8Mjw0VZYvFjoa3PNTUvUBDz0WivddQZuc2raNOwV1Pbd8THbaQ6VjeerJ5RQ4KtWP0zj97X3tUpQEH+ATATqaZsGDuWlOAWCOuSg9r1tJwk2J7kEe6Qikl2+kjak1DGyiJPoKnCDTzIAyjrVkY6LYbm4JUUexFeqpPQNf5iAs/wvmewFrVvKAq9XSsroa5ya+2NQqbH8uP7jKzkwnxOFhFpgJ7JK5Z1MSrrWPaSU6emHFDGT0kWbrLHs4cn1Zsbg6iZDOYU9TPHWf/JXv7UiWkuPz1ozzOD/sXzlHgBpcW5sW4cUhIqYOdpoLzbg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HZ04U8OaPoQYpeP8Fh5zOz3tA0y6zad5Agehw40qrqA=;
- b=ZHD1crbUQNRvS25P4DovYxR18ujiOkntgKBisPLUKccNWsuIfITWwb9zrZ/BEvl72//ZcqjbXrqB7zrtaX2B/hmZ3CvJOVYFrGsg/BIxkNN+sxYIwaCcU3piYWcsG+YNXKuUhH+tfE3bLU3oAUawxHdxkVIJiMFKdUzfSFpjSRqRrinkTwtVLVw2zIKT1lWJ8qRpMvdmHYJjGc+f5o5UR2XWdG5otQGZEFcilA3S65rHcjNQKQUfhrYsi8h25nJPVG6f9vsf7h2uzIJauh5fXEt/lSCZVsx8ahyzDKyWQzXSsVfVrYln6Nkl065LfognQxOPoikxKZjWKqhRJZJEhg==
+ bh=jyDc+bvYTc2VQ0pkzCKe9btJnEAoPng8kZvbccjy+N4=;
+ b=tKiOKGjDT1RVjeoNsHSkjTJvmrAyldDM7IKezvPlrGm52+LqyWT3VRY8ph+mcuaPeY7H1xMrteUIP4kcS4/E3/gagN7FyxsRltGpXqQi2sVoIgQtvTLvFrWaHtI0elei7SpDCGwnFyq/aAXcyHiDmkGBHYFeHfnvq2lx/ql277idUndOz+uWYmcQSnrG61DLGBoCU7WFNn7n8Y3PZIDncHZZ3MXMtxxxUvCFVWEb+xoWqmH6LkSPa15v1M8fHJfIA9bTwBVtepFb3aJDXGYSCgO/3yrj72pWW8PLqzKEPahSh+VyIdziWxJNhSmE+jsnmmmbSlEiENd2rZH5lqOUoQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HZ04U8OaPoQYpeP8Fh5zOz3tA0y6zad5Agehw40qrqA=;
- b=bDSJ1mh5GLCcDBOEcnbfQ+GL0bRUAwKwUNi0/h41RvbUV8nCE3IFP7DibkO6kCsH0hjWjPpM1Fmw+tX+YnSoG8pr6/aokY3oTVtz0k61q8LvRhaIN+ksJffLtrg6FCRtmX6v/wJ4T/LuJq17qr9ullg8PDcnvP+Ef3RiNF+T3IM=
+ bh=jyDc+bvYTc2VQ0pkzCKe9btJnEAoPng8kZvbccjy+N4=;
+ b=hZCfiMvLYRuQznSgc9NqPaKPT2cLRl2YJwUPycxUSo7tIQ0XL7/6g1TKk1GGs+kwNISrKl3i4eJ/M8Tjir3TE8eruSYZvtJa+oWx1W/Qc5t4LSRTeql+hJoNU6XptCYbQMHcgdkVVcU7ivc1KKSdB05Yp45+VGjhVIowT16OWlA=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
- by MN0PR12MB6173.namprd12.prod.outlook.com (2603:10b6:208:3c6::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8137.28; Mon, 11 Nov
- 2024 21:10:51 +0000
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::1c2f:5c82:2d9c:6062]) by CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::1c2f:5c82:2d9c:6062%5]) with mapi id 15.20.8137.027; Mon, 11 Nov 2024
- 21:10:49 +0000
-Message-ID: <3a97b828-2864-45fd-9fa1-5341bd456d3e@amd.com>
-Date: Mon, 11 Nov 2024 16:10:44 -0500
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by SA3PR12MB7998.namprd12.prod.outlook.com (2603:10b6:806:320::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8069.27; Mon, 11 Nov
+ 2024 22:21:40 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::9269:317f:e85:cf81]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::9269:317f:e85:cf81%5]) with mapi id 15.20.8137.027; Mon, 11 Nov 2024
+ 22:21:40 +0000
+Message-ID: <d96c1117-7eb9-4c65-ab0a-1f4507d32674@amd.com>
+Date: Mon, 11 Nov 2024 17:21:38 -0500
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RESEND v9 2/2] drm/amdgpu: Enable async flip on overlay
- planes
-To: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Xinhui Pan <Xinhui.Pan@amd.com>, dmitry.baryshkov@linaro.org,
- Simon Ser <contact@emersion.fr>, joshua@froggi.es,
- Xaver Hugl <xaver.hugl@gmail.com>, Daniel Stone <daniel@fooishbar.org>,
- ville.syrjala@linux.intel.com
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org
-References: <20241101-tonyk-async_flip-v9-0-681814efbfbe@igalia.com>
- <20241101-tonyk-async_flip-v9-2-681814efbfbe@igalia.com>
+Subject: Re: [RESEND] amdkfd: check ret code for ioctls
+To: Zhu Lingshan <lingshan.zhu@amd.com>, alexander.deucher@amd.com
+Cc: ray.huang@amd.com, amd-gfx@lists.freedesktop.org
+References: <20241031105059.251085-1-lingshan.zhu@amd.com>
+ <616bc79f-ad92-4b22-8df0-0a0ebe27fcf6@amd.com>
+ <2ca21e92-6324-413f-9df9-0bfcf638c669@amd.com>
+ <76ef68f6-dd23-41b3-8dec-d35e6874de01@amd.com>
+ <cc6f4141-a085-41e7-b772-8c400788c1b9@amd.com>
 Content-Language: en-US
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <20241101-tonyk-async_flip-v9-2-681814efbfbe@igalia.com>
-Content-Type: text/plain; charset=UTF-8
+From: Felix Kuehling <felix.kuehling@amd.com>
+Organization: AMD Inc.
+In-Reply-To: <cc6f4141-a085-41e7-b772-8c400788c1b9@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQBPR01CA0004.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:c01::12)
- To CO6PR12MB5427.namprd12.prod.outlook.com
- (2603:10b6:5:358::13)
+X-ClientProxiedBy: YQBPR0101CA0228.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:66::28) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|MN0PR12MB6173:EE_
-X-MS-Office365-Filtering-Correlation-Id: 035e680c-670a-4f56-ae1d-08dd029550fb
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|SA3PR12MB7998:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3179b1f4-bef2-4230-a59f-08dd029f36bd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|7416014|366016|921020; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?RHZGRDNpM3dLbmQrc0QvOElycU0xWm5vY1dqeDBlMEJnV0hTR1p1dGd2ZDdq?=
- =?utf-8?B?MHp0SWhkVHl1TE0zYnlybE1wTjR2TDhCVTNqaStzOUpxclVMQkxVSVR2NmYz?=
- =?utf-8?B?cFdwQ01vN3FhMlJBU28venNwM1RUd3ZYVVFoZzVJOVlFbWRCcDRSckVMK3RZ?=
- =?utf-8?B?WkZBR0xJNFI3Z1BQMy8xcVRhWEVack5rQjBnREJaV3Z0UEtOZlN3Z0NWWHR1?=
- =?utf-8?B?bENXeTBVeVl6YW9hK25ZcWVPTU5rVW5Ud0R2c2hSWm8wbXdsZVdDYlJSV3BT?=
- =?utf-8?B?V0JXTFhpUENOWjR0bC9mZmpuNG4zWG8vWkJSbTZONGJpcUFOMjRkYUgzc0pQ?=
- =?utf-8?B?Uk0yK282OGcwWWtzZ1JGbmpKb3ZVY1ZUcTQraXhGK3hmMGlhZTllZk5nc25F?=
- =?utf-8?B?UmE3SVFyM2dkc1BWakN0NHBOcTBEdzhPUDUzSEJjalpaTEVkWlltd3ZGR0M5?=
- =?utf-8?B?WkVNK0dhWERwMDFNTVkxM1Nyd29NQUlOamVxdXBSbDA5ZHdpeVFsd01JTGcx?=
- =?utf-8?B?SWFCWUkwTWdpNTdjY2RyaS9vNGFGY0p0aDFBWTJtWFJQWlhtNjBJUEFZN0lY?=
- =?utf-8?B?UlVxV3BHbWN2UnQyS2czeTFXV2NnbzJUK2JuU2o0RVpldjR2NUU2TXh6ZFFV?=
- =?utf-8?B?N2VIQk5ZdUo2WVU2UkZVclRJcXdhS2ZrZXhTZDY2UEdwcm9WVzdIN25ZdGFX?=
- =?utf-8?B?Tk1OQWRZRzdyakI4d25hZTVIYnB5UDNaQm54MndzVlJiVjlKVFdwWmRZVHU3?=
- =?utf-8?B?SDFTV3pNVFhBNW9kZ3NBczl6bWJFTzY5bnMrRXREY0RyMVJMd21IdEJocW9o?=
- =?utf-8?B?OXJ1TkZsZWFLbVZDdlBTc2JHQlpYb1FRbjNrNyt6Zmttby9Fb25Cd1FURUJS?=
- =?utf-8?B?TVVodlhhLzUwOFhLWkpVdG5UMmZRWWdUNUZLZ3RMV01WZVNEMjlicTNXSGZJ?=
- =?utf-8?B?eW0zb1NIdWtDdzBLOVRwelI4MHBlNXlwVEJienJSaUtxQml3VlJmb01GNEFR?=
- =?utf-8?B?YUU2NStzdURpVHhTcjNBR2hWdXhWU2MwMldsWUhtRWFYUlhpai9RYTUzKzNI?=
- =?utf-8?B?RjNLZnJrMFNCT3hYTldneXhQb24vM2ViRlhMNmMxTC9DOHBsUktreGRnT2tY?=
- =?utf-8?B?Sko1bHo4VkhVNlVNSjg5TE9WUkJmOUxaOXFMTUdCV3ZaQ1ZiVW5WSmtoVnBH?=
- =?utf-8?B?VTVtZ3FCTWJaMzgxbExXa0UzTG9FcXdJWTlONXllMnRyei9mQys2Ylp6MGpT?=
- =?utf-8?B?YUNaMi82SXRVeG54UUhLNGltcFVUekJCeXE2RlE3b2JkcTk3NkNDMzUwZGRr?=
- =?utf-8?B?SHhMdVNJNzhtQWg5b25jZEI1NFhJaUVveHBTamVzdjkvMjVpcDVGdVluTVlr?=
- =?utf-8?B?bFBhZGxodkwwalNMdVdiM0JidXdwK0dybFdIM1NKeUhUVkQzTTIzd2kvN0g4?=
- =?utf-8?B?VHIvcGY1QSs3WVQ4a2N3N1Zxc1ZUWXN3ajUxR1h5Rnk2SXVUZVJWTkNpSlJp?=
- =?utf-8?B?VFlycFNWNCtzcVFhYUtpNVVMUUJhbXpXNkNHZEJwdTQ1cWxKcVJudTJEL3hJ?=
- =?utf-8?B?cDlnZ05VN0lJNTlLeElJZlRYOGtleitWeEg4MVBPM0U1akNEVzdSMWVwSnNo?=
- =?utf-8?B?OG9TZk9IY3oyVkpQWGF6cGNMeWFOZ3RWb3ljRWhSWWlWa21mR20zOGdKQWhk?=
- =?utf-8?B?d0NIdURLUHUreW1BcjZteU00aXhEUllSRFJYcTB4V1o1Nytwd29kNy9BWHZo?=
- =?utf-8?B?ZEVyZmJLYUVZL0lQek1tVVdTZFM1dGNUTHNBR2JnLzJkL1lEWW9jaklEV2Fn?=
- =?utf-8?Q?3hx89Xhr3rpCZ7zc1Uyy3AObxtpAUHkPCKbtg=3D?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?L0JZeGNERWJRRHY0eDdYZmV0bXltR2VoRHNnZDU2UTYwb1l4SjdzNVJFV21m?=
+ =?utf-8?B?ajBXUlU4MnJMMHkzck5MdnhPVWtXeGk0UzB5UUZQMjEvZm04OFlBQjlwSVN1?=
+ =?utf-8?B?T2ZnWjZmZ2VRQ0p5ZHNtTWR6Sm1jVDB6M01DYVhhTG56eVVLZU9kdUJNUXRr?=
+ =?utf-8?B?WENyRmZ4TXNOUWg5eHlXZnUvSDlOazN3UXpkc2M5MXNvdEdkTDcrZEptQWZX?=
+ =?utf-8?B?Tzk2Vk4xdmhYYnBud2RuTFlpaFRpUWQrVVNVSkZtODAzN0hzMWxSQURJelhi?=
+ =?utf-8?B?SDN6VTlkOE0vbElQYnN0bURmVFJjWjVmcW5BOFNKTUVLNFFINnBPUFBvZURa?=
+ =?utf-8?B?dHdGV0ZpeDhtaS9hQ3R4NmY2ZXJzeitzdG1jMXJFcXJJbnl3Q013WFMzV0w2?=
+ =?utf-8?B?UzhvWi94TWhiV1JkdDlzNmNxUDdrL3hZcjFVbUVCZFFublJXejBWU3Vvc0NL?=
+ =?utf-8?B?bkFMaTFCTUpUWmcrN3RFRE1VZjRraUlIa2g4NzZ5NnNxSlUxZHdyMmFRQUww?=
+ =?utf-8?B?UUNZMk1pZFpQZ1J1WGdkZDhkTDVGS0w4ckZPTUxXRXBXc0pjYUo3QTNqZTR6?=
+ =?utf-8?B?bDRFL2FhVU56STVINTFOVEVxSEZXSTFEbHVjZmdkM3RLazZIVk5PdUlnay9O?=
+ =?utf-8?B?VWZUK2FOV0RCTTgweVppbkgwMFo4WjNNUjJDM21lcVZTY1NZNGwvN3dyMHZO?=
+ =?utf-8?B?dnBRVFJYWEdMeWNPYWg0VHNPcmdPNHYzSzFFOTZ6MkM1MTRETjZtR3p6ZjdY?=
+ =?utf-8?B?ZGxtWWc4STdneUpjUkJjWTNwSnBjbjczdU1JcFQrWjRKbjRVb1JuMm5Jc0pL?=
+ =?utf-8?B?UnNpd2ZDY0FnYzhlRUQ1dmExL0JuN3BkUDJ2WHFISEJZVXhnV2l4QU5TMFVy?=
+ =?utf-8?B?SlF4ME9MT09PVGtJY1JSRXZZNGVnNU9UNEdmQ1R6akJxMEg0Z2o0N2NLaFVx?=
+ =?utf-8?B?VU9vSUdRZmJFcjJVcDVCbEF3QlNZT09qR2hjMml2THBZbVN3ZWlMajB3TFBq?=
+ =?utf-8?B?ZVhnMTc0V29iQkNlVStLeHNtNWZvejYvc1NrblJWaEp6ZmtwSHlxRzRkanhM?=
+ =?utf-8?B?Ry9hNzgxY0V4SG9aUjd2alEzUDJNeENNcFU4SlJ3aGxYNjJMaEdQTXV4RGtp?=
+ =?utf-8?B?TVN1ZGYyL3ZLaGFWejFvd2FCbG8waWFhc0VTNTBFTE92Y2VzMHJzZVBTcGdq?=
+ =?utf-8?B?Qit0dHdMQ2dTY0FjV0E3U0xuTkhNU2dqc2UyZXdIdVFVRmxJNlZiQmVnamZR?=
+ =?utf-8?B?L1F5OVRtV2Y5elJxVzhmN3dQenNVQ0xmaFhlQTRUWFN0TW4wQ3lqRjF3Vkpo?=
+ =?utf-8?B?Mmx5eThwSnAyS3ZwWWZQYnNndVNCdTFmSzFTK0NURS9jZFZrQjNIdzJ5SW1l?=
+ =?utf-8?B?bjlmZXdmZDdFeFJqWE9leGF2MG5nTUZPNENxbGNFSFZCdFA1eloxVUY0bHhm?=
+ =?utf-8?B?bUdBTk55OXdlSEdScXhZdXhoT0hrN3BLYWNoWHYwVWRJMk1UREhqUWVVbTNC?=
+ =?utf-8?B?Ylh5d2NqY2RlbjhPdytSVHRmeEZZKzNWRVRDbDF6VzNEbk5GUStXM0tOdWxY?=
+ =?utf-8?B?Um1mdUlDS0pwTjFuREtMQUtNZ29iTDRiQUtZTzlrQUJ6MXUwZjAvNjBERHlL?=
+ =?utf-8?B?aEVXeVhnT0FNSlBWcmZlVGFOYUJUTXMveWFQOGxuNkduOEhJRHNIOERGcDg4?=
+ =?utf-8?B?MkZuQWVpbjNkTVp5eWJNek00ME41MU90OUNZZ0dKWWw3MDJHa1Y2RjdzQ2lH?=
+ =?utf-8?Q?BZ+nOSY0hx+Ky2/t69CouNkKB/n9AsNrLF8HqY+?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(7416014)(366016)(921020); DIR:OUT; SFP:1101;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N21YK2l2OXhKM1RkV0pKd3ZWbDdOQkRTMkZTN3NFeU5mWFFrVWN6WktaUlVr?=
- =?utf-8?B?RFI3eDEzLzBpbWpyYWFBTTR0YlRsTVpLQ0hrVSt2U3BQRko5aGwyT3JWdjFn?=
- =?utf-8?B?WSt4SXFUNHZua3FMbDY5NktiZjRwNFZaaVk4UWp5a2FJT2VrQURzVS9rZ3Vt?=
- =?utf-8?B?WXphREo2Q3Zpb3UxSVZLbDh5ODAxRTZldjRteUoxWlNkMlUwUDJRNFBCRG1r?=
- =?utf-8?B?aXZrNXB0cVY3RTlYSE9nNGJjRHpZVHdXaDlBMFV0RkIrNnk3WmdINjlQZ1Ew?=
- =?utf-8?B?THhOQnpZRHFUVzFWT3hWRXJmNkhpTUVUYmhGRVJTU3gxQXBySkF3d0RJb241?=
- =?utf-8?B?Rmp5cmV1UEdzUGlWR3J2UG4zMG5iZThjN0xOVWNPeXdOQlVGVGo3dEtDSGQ4?=
- =?utf-8?B?Q0tQL01xUE5nejZTY3NWTHZpTXF2MC9xRm84Z2pwaDdYYitRY1JVcmFaZmhl?=
- =?utf-8?B?dUpiNzVtTlUxQVZqK1NONDdhcjAwdmlRQXBmQkkwZUdCS25wRlY3ZFRuRHhs?=
- =?utf-8?B?aTVqdWt5K1RLUVhyZk5HTHJ4NW02WXVXT1pBeTZiTUtGc0NkMzVhZGhGMjgw?=
- =?utf-8?B?ZytGTncyaWdlLzA5bE1MWGlLQVRWQ3RhbzdpTG9ubWtDUFpCekF1VXF2Nkx5?=
- =?utf-8?B?MkJQWktkbzlzUmdhbTZENzdhbzhoVW9CcFhSLzAydGUwT1FNZm0rNG5ubVhi?=
- =?utf-8?B?eGFtTTJXUUQ5R3NXc2k0T0ZvVk5laHBUVndjeTRPZVhId3RkVmtxM1E2RmM4?=
- =?utf-8?B?NE8rRGZYcTRlK1hDMm1IUm5nakw0UzZlU2FtWWg3Qy9LdHh1dUhSUUtaWWdQ?=
- =?utf-8?B?cjBSYS83clRkcUNIRFA5WFErUVFENC9PVnhES1I0cDl4Sy9GWVFJVFJRV2Qv?=
- =?utf-8?B?ZzZmTmVqbXZEZktmMHhGNmIzNkN2VmxGUWR0L1Z6eFlVdU9xcXR2dXFYdGZQ?=
- =?utf-8?B?ZEthUDFFOXJtSk13MUVsczlsTmI5SEJ1Sks5a2xERnJVVDZPNFRVYmx4Qy9M?=
- =?utf-8?B?VHQrR2NjT3drU2dGVDF2TUp6ME9Pa1RZYVhDVVVlL1JyWkhkM1J2U3N5KzNN?=
- =?utf-8?B?N2ZadXhTOUdBMk1UOG8vS3kvNGNlTnV0UzRpSW1uSVBJTWdkcFZuNmprNTNu?=
- =?utf-8?B?YjYyNEp0d1RsQTI4R1dIdWVBd3I0amd4UG5BcGF1SWJaSVAwWmdkR0lIcFcx?=
- =?utf-8?B?c0orY0tHREpFR1V5VW1BSnFsc2d4bCt3djB6eWlhcDN2WTh5S2RkcGtsSXFs?=
- =?utf-8?B?VjhBSytJQ3RQbkhvQ09lM2crRHZPZmpvOGM1ZEMxdEJrL0hZeWZZTnE1UCtO?=
- =?utf-8?B?Y2Vhbk1zaDZEOFIzMzhQNTFNS2wvdVZJZEpOU0MybnRjcHBFQU5kY2NuaEVs?=
- =?utf-8?B?ekE1bjBVQXBGZXBKM29zc3J1M0lWQzNYNGpXdGkzTjdBWnZoZ2R1YzZvZEY0?=
- =?utf-8?B?eGhBUm9EOGRISUVkNXZEMER4MHU1SGpuaHVrSTZoVWROVitiMHRxR3cvbjJ1?=
- =?utf-8?B?cmt6QWdiMXo2MHZ4a2NFK2lVMXJpbHdySDBrM0dGNHZjbWtaQnAraU8wZC9j?=
- =?utf-8?B?WU9HeEN6SGp0WnIyc0pDZkJRVjFtYWQwNWltQytQT2JJTFo2Ti9OOUdzVXBZ?=
- =?utf-8?B?N1NZdEFXaGIzM3FmNXBIdjZpVW5ka2hIaUFua1lCTDJzc1dPMzlPQUFuUy9O?=
- =?utf-8?B?RXVyQVNxZE1vTktPSWtKNEZtWlMzQ250eXRqUzhUVU1idWI5cFJaNHdsaVBT?=
- =?utf-8?B?Uy9OTSt0V2I3dFJKWFZuQU12ZnJ2YjltYWlGUm01VWRPdmxJcUJORE9PUC9K?=
- =?utf-8?B?TUpQUGNvRlcva0NFa2ZGV2dreVFYcXkwK3dJTnhVbmowclArNHJPQmNlQS9a?=
- =?utf-8?B?VlpaSFNEL3JKM0grVjJzamtjVFhKV09kQmVXeTZYd2JNdC9zaU9xcS9aRENu?=
- =?utf-8?B?ZHhFbHJCZzYwbGRXM255VTQ2QUcyVXpPOW01ZUZ0L3JWbzlrUkpSQ3FwVHpG?=
- =?utf-8?B?UlF1TUlqQWpZekdvUTYyMDRZR0lDdEhnc0l5TVpkY052RFNSVCtzSERUSStW?=
- =?utf-8?B?aEsxcHQ5ZFRhdHRrRVA3VmxDb0FLU0xVRVR1OWZUM1E5dzRCR1hVTGZqT2d5?=
- =?utf-8?Q?qIv09FUP19VKIXLM6tMMGiZbl?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ei9wcGtxcVVmMnlaaW16eFpIOFRLc1R1ZGlOQSs0ak5SbHlYT3lkcHpwbGt2?=
+ =?utf-8?B?NzJjZTg4RFY3MTZySkdQTXhscmx3b09vWEVHcWt3QUdVdkxGQSt3Smg2SGFX?=
+ =?utf-8?B?SmhHamJjMDFDTHRncGoveERzaFdTZHd3K2ZWbUtER21TQ0tzZG9rbUhzUUg0?=
+ =?utf-8?B?OHhSRXpVT2d0cTdabHFvcTZmR0JXVDdZTnpROGZ2SEM3TE5Dc05GWXBDcWpx?=
+ =?utf-8?B?N1hRaGl1QXRlVHluMjVKaWhKV2FiTDNHZmV5Kzh5UkdxYzdSN3lEc2o2VVFE?=
+ =?utf-8?B?d1ArTDJ5UnFndnhTUFhHSk1JbngvekpYaXpVSzAyZzVxbVQ4NnB1WVNGSW1O?=
+ =?utf-8?B?ZXZPSzMyUkFBbHAxWEtwMlVRTFNNVlpwN0ptZ3N0a21nQk5Hc0RJbzY4ZndG?=
+ =?utf-8?B?cytUS2tic253ZVFZb2dweUwwQnF5Uk5SR1Y2RU9XWFpRT3lucVMxR3RRWUtt?=
+ =?utf-8?B?MTFaQmJ3dU1DdkpKUjV2WUw2ZU9ScytQTGdzaXNXbytRazNEU2w0djRCandm?=
+ =?utf-8?B?aDBKUXRIeGJGWkJmdTUwRUQwSmZlZ3hldEhYa2pRTCsvdUxPbDdRSVV6TXFh?=
+ =?utf-8?B?d1hXY0VZN3ptcFUranB4aUUvUHFXbjI1cUhIcUNRdy9wcWpoWjNTR2N3b05Y?=
+ =?utf-8?B?LzRnNVQxUVNZSFViSm5GZ1N4d0ZvN2NoUlc4c0NSVmhZQ0EvNUVVQzlnQUJi?=
+ =?utf-8?B?TzRvNjlBZzJmelRyNjUrdTJMU1IrNzZhQ3VISXY4V0had1M5SmV3L0hjaVp3?=
+ =?utf-8?B?OGUxbG5FR1JNa2dJT2xFZ05WRDBlY1ZyakpQVk5QSDhkN1R6RWJJUjQ2Wno1?=
+ =?utf-8?B?L2Z6Q2k3L1dkTkxad2FlN0FjZE1aKzhUaStoZmVnZzlWOTBiaXJyRUZCdDhT?=
+ =?utf-8?B?MWMwbHVlcUFvdDF5dXFXSHRTMnRjRGRsL3VUVENoZWRrVlhZV2FnMUpSN0pP?=
+ =?utf-8?B?dGc1ZEoxeGkxakw4NkNRbHdqaTRHY1YyWDRZVU9nNXBmVUlXNDdyL0NzbHp1?=
+ =?utf-8?B?aFdMaWdoQThNMVBIL251aUw5RXVWM2EwaVF3OHZPV3lGZWl3SkJwR0ZPcEN5?=
+ =?utf-8?B?WjNNNFp6NzNnMnRGSWtKSU1wM0JhRGJvZUd6bEE5YnVMZTJiK3Blb1NxVXo4?=
+ =?utf-8?B?aitobi9TVHJzb3J5K29md2lCUm41QkpXU2g2MDhnMmVkdTVsb2FsUS95eVpJ?=
+ =?utf-8?B?aXhGU1FqcHczSUNCc005LzBqZWIzQ050MzR1dmtsTng0bzRmU2l3NWwxNjNB?=
+ =?utf-8?B?SGh0ZWt0dm9rZkhPZ1BxNlRUb0VodzN4c1Y1TnNSb1RMVVpzTGptRjFkZlVx?=
+ =?utf-8?B?RzBVMVhnSkNxc3hvY3B2MGxGOGYraWUyOFl0QUU1a3JjcXVseDFhMFZFcllK?=
+ =?utf-8?B?b2sxZnFNeG1VbHRGQWY5RGFaTWFsYTZPaUJ2Q3BOdGFYZEd3bEtBUXVsTk5q?=
+ =?utf-8?B?YTBPNXU1cXNwc1cvMEhKYVUyMnZ6Ym5VZTdzbVUraUx3TWxyTlpoV3dobUQ3?=
+ =?utf-8?B?QWNZRGpFY3hkTVhoYVNTTWJJbk1ZWnpoZ2NjKzJpRkdFbEc4ck9OVnBnQUt2?=
+ =?utf-8?B?bUpVSzdoTnBLQ1pqWnExZm5ISS9iaEVIbkJIc1V0OEJnYkdseGlsZ0M0aUVv?=
+ =?utf-8?B?SHlidjBUWXI0UEV5a3pXa2hLUFAzOWhnNW9ZZ01PL3NsYmc3eGo4cVU5eGlk?=
+ =?utf-8?B?d3hUZXFQOUNmOEU2UllTclNXWWhBZC9KR2xzRXRLTnBLTk9RVG5VNE9UaERw?=
+ =?utf-8?B?UVYzRnBVSHhER05YdTNGY3p3elJsKzJyWGlLZDdESVhMYU1OZ1VGeHRkaDhU?=
+ =?utf-8?B?OFVaZG0xVTBOeUp5a2tyWEVVQjdXc0RnSmUvSExCb1Y1MnBncW5sQUNBb0lQ?=
+ =?utf-8?B?UUQwRFhyQzlnWU9QNktPMTZ1R1ROeE9vbFppSWhTVHdZVXRiMEtYRCtCSXhT?=
+ =?utf-8?B?RGF5c3AzQnJCdnpPL1JDQmlMajlndHN5YnRGbjFZdFBXVlJWeXNFd0VubVVl?=
+ =?utf-8?B?Sk1CQ1Fua0RWSDFFTFNRY2dKakVxMFZvV1dJa0lidWFiTHYyNUJEM21yeGdN?=
+ =?utf-8?B?b2JpWHppQkIxRG8vVEhtb3YzTVBkNWNZU2xXZSs4MXFWUU9CQkVwVmwxVHlo?=
+ =?utf-8?Q?d/QbMxK96kvd1sr6CSohwgTNm?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 035e680c-670a-4f56-ae1d-08dd029550fb
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3179b1f4-bef2-4230-a59f-08dd029f36bd
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2024 21:10:49.0677 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2024 22:21:39.9780 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jh4tm23iREG8CVP1xM56y1BDpY5FsZS3EeqGzfj4dcr4jCd8sf6aCQZ+gmRWOqQuP9di319BMQ208AsiDwmYRA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6173
+X-MS-Exchange-CrossTenant-UserPrincipalName: VhSxbvBT9J9DekdIiE0AsvGgQNLijKjmhV3naNc2rXmcjqOIkuX3EUa7yi/GPLnmap5aDuhDVL0KeA9VUFyaPA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7998
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -172,41 +162,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2024-11-01 14:23, André Almeida wrote:
-> amdgpu can handle async flips on overlay planes, so allow it for atomic
-> async checks.
-> 
-> Signed-off-by: André Almeida <andrealmeid@igalia.com>
-> ---
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> index 495e3cd70426db0182cb2811bc6d5d09f52f8a4b..4c6aed5ca777d76245f5f2865046f0f598be342a 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> @@ -1266,8 +1266,7 @@ static int amdgpu_dm_plane_atomic_async_check(struct drm_plane *plane,
->  	struct drm_plane_state *new_plane_state;
->  	struct dm_crtc_state *dm_new_crtc_state;
->  
-> -	/* Only support async updates on cursor planes. */
-> -	if (plane->type != DRM_PLANE_TYPE_CURSOR)
-> +	if (plane->type != DRM_PLANE_TYPE_CURSOR && plane->type != DRM_PLANE_TYPE_OVERLAY)
 
-This wouldn't just be called for flips, though, but could also be
-called for updates on a plane, right? Those could cause for problems.
+On 2024-11-11 03:08, Zhu Lingshan wrote:
+> On 11/5/2024 4:50 AM, Felix Kuehling wrote:
+>> On 2024-10-31 22:35, Zhu Lingshan wrote:
+>>> On 10/31/2024 11:30 PM, Felix Kuehling wrote:
+>>>> On 2024-10-31 6:50, Zhu Lingshan wrote:
+>>>>> The ioctl functions may fail, causing the args unreliable.
+>>>>> Therefore, the args should not be copied to user space.
+>>>>>
+>>>>> The return code provides enough information for
+>>>>> error handling in user space.
+>>>>>
+>>>>> This commit checks the return code of the ioctl functions
+>>>>> and handles errors appropriately when they fail.
+>>>> I have reviewed and rejected this patch before. My opinion has not changed. The existing code copies the ioctl arg structure back to user mode even in error cases because user mode needs additional information from that structure for some ioctls.
+>>> how can the user space program distinguish the "good informational parameters" from the  "bad default legacy parameters"? There can be other user space programs other than thunk.
+>>>
+>>> what if the user space program doing pulling mode, it can pull the args changes because ioctl is usually slower, our code should be robust.
+>>>
+>>> usually the return code provides enough information for the user space programs.
+>> I don't understand your concern. Even without your patch, the failing ioctl still returns the error code to user mode. User mode can safely ignore additional information returned in the argument structure. You are raising concerns about performance or robustness. I don't see that either of those are negatively impacted by copying additional information in the argument struct to user mode.
+> Still the questions:
+> 1) how can the user space program distinguish the "good informational parameters" from the  "bad default legacy parameters"? 2) what if the user space program doing pulling mode, pull the args before error code returned. Memory changes are usually faster than error code.
 
-There's also nothing special about OVERLAY vs PRIMARY planes, other
-than that amdgpu needs a PRIMARY plane, IIRC. So updates on PRIMARY
-planes should also work (or not).
+There are no "bad default legacy parameters". Ioctls that were defined 
+to return additional information in the parameter structure on errors 
+have always done so. This should be documented in the kfd_ioctl.h 
+header, though some ioctls have better documentation than others. For a 
+good example, see kfd_ioctl_dbg_trap_get_queue_snapshot_args and 
+kfd_ioctl_dbg_trap_get_device_snapshot_args, which do return the number 
+of queues or devices in the parameter structure if user mode didn't 
+allocate enough space.
 
-Maybe this should check that we're actually dealing with a simple
-flip, i.e., a simple surface address update.
+Another example is kfd_ioctl_map_memory_to_gpu_args and 
+kfd_ioctl_unmap_memory_from_gpu_args, which returns the number of 
+successful mappings if the ioctl fails. This is necessary to restart the 
+operation after -ERESTARTSYS and skip mappings that were already completed.
 
-Harry
 
->  		return -EINVAL;
->  
->  	new_plane_state = drm_atomic_get_new_plane_state(state, plane);
-> 
+>> You mention that there can be other user mode clients other than Thunk. That's true. E.g. rocm-gdb calls KFD ioctls directly. And it depends on some of the additional information about errors. If you know of other user mode clients that are broken by the current behaviour, please point them out.
+>>
+>> Before anything else, we do not break existing user mode. Your patch breaks that rule. There is really no room for discussion here. I'm not seeing any reasonable argument to even consider your proposal.
+> If a user space program needs to read arguments to do error recovery, then it is a buggy user space program that should be fixed.
+> Usually the error code provides enough information for error handling. Why our KFD user space are exceptive?
 
+See my examples above. User mode is not buggy if it uses documented API 
+behaviour, like what I showed above. In the case of -ERESTARTSYS, saving 
+information in the argument structure is also necessary for the kernel 
+mode driver itself, not just user mode.
+
+Regards,
+   Felix
+
+
+>
+> Thanks
+> Lingshan
+>> Regards,
+>>    Felix
+>>
+>>> Thanks
+>>> Lingshan
+>>>> Regards,
+>>>>    Felix
+>>>>
+>>>>> Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
+>>>>> ---
+>>>>>   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 3 +++
+>>>>>   1 file changed, 3 insertions(+)
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+>>>>> index 3e6b4736a7fe..a184ca0023b5 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+>>>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+>>>>> @@ -3327,6 +3327,8 @@ static long kfd_ioctl(struct file *filep, unsigned int cmd, unsigned long arg)
+>>>>>   	}
+>>>>>   
+>>>>>   	retcode = func(filep, process, kdata);
+>>>>> +	if (retcode)
+>>>>> +		goto err_retcode;
+>>>>>   
+>>>>>   	if (cmd & IOC_OUT)
+>>>>>   		if (copy_to_user((void __user *)arg, kdata, usize) != 0)
+>>>>> @@ -3340,6 +3342,7 @@ static long kfd_ioctl(struct file *filep, unsigned int cmd, unsigned long arg)
+>>>>>   	if (kdata != stack_kdata)
+>>>>>   		kfree(kdata);
+>>>>>   
+>>>>> +err_retcode:
+>>>>>   	if (retcode)
+>>>>>   		dev_dbg(kfd_device, "ioctl cmd (#0x%x), arg 0x%lx, ret = %d\n",
+>>>>>   				nr, arg, retcode);
