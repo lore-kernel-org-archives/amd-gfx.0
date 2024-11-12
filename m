@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E6E3E6781D
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Nov 2024 19:58:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FB99D41D51
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Nov 2024 19:58:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A69010E63F;
-	Tue, 12 Nov 2024 19:58:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D3F8910E640;
+	Tue, 12 Nov 2024 19:58:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1C+8bm7M";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="OLnbbGke";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2063.outbound.protection.outlook.com [40.107.237.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5DC110E63C
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Nov 2024 19:58:31 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2060.outbound.protection.outlook.com [40.107.93.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E3E610E63D
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 Nov 2024 19:58:32 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JLsR4g8aM9sa2SJBJoGNNo7PXfW4xRt3zWxR++V1hHW07Kaq/xryi283aXDRJh0VeSr+C9LVf+JYtKFaFZiMr/sZU0/hOAeFaLu82VwuaVkIdcZ760OC2rYMwEqviR+9vLmNWgPzL0d3xZejr4KypqzG00QBHzQtVSeqKsIQZkDnIrlqGcjtMAJdXEJtRbJSXdeemwu9euFyC4kmJbycoYA3ITr+Dc2CKOgYePSt18dNXkc706d1s8BbD2NcIv4GuiNktoFcTnUUjVzLnwlJMew9UZK6xUimj4cbaoFAKn0oAU3XfStv3hG83q/7JfkpZa3stPW3+RxA1bHiORQQgw==
+ b=rgHFWOvj5KmdKjIIBwWwF+wSlGYOfhBS5eAwPmdl0IDUlaGTPtt4+Pd6rZ95ywfM+0yVHrXDYn/gkdY1d8kpSaWYaRxxJ9unjATmGdQuPD2pFvl8uApTWJ222n8gSSFOMysID25ye5ybZnvfslV2zDy+Qvf9PVwmKSSfWdZ0ELi+t4Tg7/EBt6vCDCa14ZQpnaW3O64CbUHYGJwmMYm/Q0L0TCYPQKKSeSorQr1xFo0Wf/ZoOviOTHu0XkUAZ+e3s8IvUqhVhuUGGAxb6DsrAAgk9FTaMiKm9E7U0Excos8URGhWepAk1+1JHBh0dNBpff/bayb40/+SVFY5qHc9pA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CPfSx3IJwF1qVJoBjqQ9/vhUaMWd1QmQV/1t+0nIXrA=;
- b=ps76PYNnMHBCw7p1XBALnOo1pWlT4kFOChpZW+odjiEffusxLD2YjP1NePbeXqaamI5vBpYG0T5AbzGhTZMTostZfERLeRC/nSKMzOXfKwjKJnmYot7EzoZGejEbV2uwicv+vAPe7zSS4WiR/29XGLuTfy8FqGlJ4P69D3S4c2ws7dwSlla8S1COmdULu7L66R505R3Ob1mdE/5c7uN8wHjzI+/gF/Y1AZajetGb51IjHQTULY7XYUE3pME4BzdhoEFziXCMQPS7uvpDIRhSqbzAFzRQvYcOHpx4GxIja67c8be7rdknqffTZyNjKMU3VevUOzJFTgWf9606D80tpQ==
+ bh=1tQ0LlkaeWxN0lgBWQw4ezS8YVDlzeKmMUXIzb5DQxg=;
+ b=GAh1uEfaXlr93iTpTj4KXqH0zS/v2osZ56MohJzjP6mxfdtuFUHjs5XKp/bKRDEBrrdnumELEjMb+iFS9bBVruwUWO2v3f2KHg+yoFaNY19oIHekPQL3mwTdjVFh5WHCajNEsNp3fo3L5s45bRiShwKDDx65irc1mxiNK3mIGhOqNAomFQI9Z0SxXhY2iHpNJh+tgoXEMzrks/CFiNAvs9+yZ2wj0MUuaPG5R+0b2z9RVez0rsNzgBAo9N2ibwil3OajnpZ0/ysTQzh09lpW6WYi6eUMj824UxF1QQR/fyFu/30uLnLOTFy/iNPsE/WvgdyYzny975C3xkklZDdnWA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CPfSx3IJwF1qVJoBjqQ9/vhUaMWd1QmQV/1t+0nIXrA=;
- b=1C+8bm7Mc6LNcBBnScnBvYG/Kbxi4Y9vzwtcE1FLEHhMc8om+pc0QkzCChTsFMIjRXuiEX3m8lNYmYwkmifKJnzo/tP99TOPnF5ToS3vBOH9mm7tskw9hgdFdxaxBtJAC7hpFSPk50UDtkXw/m9ec6JE2/BeV9QY53BXs+zl/xo=
-Received: from MW4PR03CA0280.namprd03.prod.outlook.com (2603:10b6:303:b5::15)
- by SN7PR12MB7417.namprd12.prod.outlook.com (2603:10b6:806:2a4::18)
+ bh=1tQ0LlkaeWxN0lgBWQw4ezS8YVDlzeKmMUXIzb5DQxg=;
+ b=OLnbbGkeACt+Ad2rP2t//UmlDozCXhQ8HuA8weUfEtI/mmE+NrokLtSb6bRM7FR1w36ic+S7lcvqObTIIYR6U1hEn86LqsYbKjsVQrWNNHlwdu4OZo4UPC+RwoFoN20V32l634HeHO1693ItmBo6iPX6J+OEHRQLqBF7Y4p2jhA=
+Received: from MW4PR03CA0282.namprd03.prod.outlook.com (2603:10b6:303:b5::17)
+ by BL3PR12MB6571.namprd12.prod.outlook.com (2603:10b6:208:38e::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8137.29; Tue, 12 Nov
- 2024 19:58:22 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8137.27; Tue, 12 Nov
+ 2024 19:58:26 +0000
 Received: from SJ1PEPF000023D3.namprd21.prod.outlook.com
- (2603:10b6:303:b5:cafe::c6) by MW4PR03CA0280.outlook.office365.com
- (2603:10b6:303:b5::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8137.29 via Frontend
- Transport; Tue, 12 Nov 2024 19:58:22 +0000
+ (2603:10b6:303:b5:cafe::b7) by MW4PR03CA0282.outlook.office365.com
+ (2603:10b6:303:b5::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8137.28 via Frontend
+ Transport; Tue, 12 Nov 2024 19:58:26 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,11 +50,11 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  SJ1PEPF000023D3.mail.protection.outlook.com (10.167.244.68) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8182.1 via Frontend Transport; Tue, 12 Nov 2024 19:58:22 +0000
+ 15.20.8182.1 via Frontend Transport; Tue, 12 Nov 2024 19:58:26 +0000
 Received: from hamza-pc.localhost (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 12 Nov
- 2024 13:58:19 -0600
+ 2024 13:58:22 -0600
 From: Hamza Mahfooz <hamza.mahfooz@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -63,12 +63,12 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Li" <roman.li@amd.com>, Wayne Lin <wayne.lin@amd.com>, Tom Chung
  <chiahsuan.chung@amd.com>, Fangzhi Zuo <jerry.zuo@amd.com>, Zaeem Mohamed
  <zaeem.mohamed@amd.com>, Solomon Chiu <solomon.chiu@amd.com>, Daniel Wheeler
- <daniel.wheeler@amd.com>, Dillon Varone <dillon.varone@amd.com>,
- <stable@vger.kernel.org>, Alvin Lee <alvin.lee2@amd.com>
-Subject: [PATCH 4/9] drm/amd/display: Enable Request rate limiter during
- C-State on dcn401
-Date: Tue, 12 Nov 2024 14:55:59 -0500
-Message-ID: <20241112195752.127546-5-hamza.mahfooz@amd.com>
+ <daniel.wheeler@amd.com>, Samson Tam <Samson.Tam@amd.com>, Navid Assadian
+ <navid.assadian@amd.com>
+Subject: [PATCH 7/9] drm/amd/display: allow chroma 1:1 scaling when sharpness
+ is off
+Date: Tue, 12 Nov 2024 14:56:02 -0500
+Message-ID: <20241112195752.127546-8-hamza.mahfooz@amd.com>
 X-Mailer: git-send-email 2.46.1
 In-Reply-To: <20241112195752.127546-1-hamza.mahfooz@amd.com>
 References: <20241112195752.127546-1-hamza.mahfooz@amd.com>
@@ -80,50 +80,50 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000023D3:EE_|SN7PR12MB7417:EE_
-X-MS-Office365-Filtering-Correlation-Id: 248cbc1d-e496-467b-f206-08dd03545c9f
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000023D3:EE_|BL3PR12MB6571:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5dd92653-6734-45c0-5d73-08dd03545f34
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|376014|82310400026|1800799024|30052699003; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?3tWY7CUCG3tQjjT4S9Tdr+wGPffm4x97MA14w3KAHjGsBRsz7FIw0XIVw7OE?=
- =?us-ascii?Q?VFKFK9Rj190tsJO/GhuPPlWdutPHY5qmt05hrWb+2hDJxyb29g5g21KBZ6yv?=
- =?us-ascii?Q?PESi2kAuiU52cUFUzySet246KUuAZQQZa6C+D36BKhOlfbbz+xXZE8k7xYCd?=
- =?us-ascii?Q?Y/sFh+mjmTIe35mkXuT8gpoSweswf5X/dlDP7MmehvQHfKOdxOGG5Xt/Ailw?=
- =?us-ascii?Q?NZSRetDXpw6GsDSAWESEng1bXvOAoFs5z5Kx1E6qgjan1rsJHU3goPpX5dfw?=
- =?us-ascii?Q?u+VDGfZXFDGil1uFfMlElv5hRBW18LJkdVf+bKvmtzB+nigiDA5WRr8KIQ+x?=
- =?us-ascii?Q?oarbp0n20YTCJNSEQIBdq7U0ECQn1J5c6cHwiJXVzDqFPSyUS16KrVuJkEVP?=
- =?us-ascii?Q?HbKMUPdbyYfZVU+yiutKFMv1EM6no0F54VU+nQclbVG3MioH2hrZOzEWOTI5?=
- =?us-ascii?Q?OBSVP7uSJ48tALo+gw/t05AIi2dhp8BY1ImTegDxPCy6Evq6nbClt4GQ+KMn?=
- =?us-ascii?Q?frucYIw2AZ35TyVDUOg9wNMlAMZnjWhpU0ARSDT0SLReNB+STB2rxt/BIY8c?=
- =?us-ascii?Q?HB/4sEsKDZHbtVEi8HD8hArydHO10wjvnJ0AZ6EBnQVQIdaZ56AIDcAIhNoO?=
- =?us-ascii?Q?vW1agaH68E1FPV+mUNuO/JcweuiPpIsl3oRYc1x+BTaKaYbTEfNKHJm91LzA?=
- =?us-ascii?Q?P07fmpy/Z3vnZXE9DE+HHisfMo3DXIjcTufA4drj4QGDJ60sQ3/bAsxb4Q97?=
- =?us-ascii?Q?0BX0TijbiV0vcex6K4pN/TYNl7b3hU0HYrgzRtXAZFbwbU9YB1UvqDHybsW4?=
- =?us-ascii?Q?9SirPySkOvM28gcz+t7ENIpliwQ56jcrzNIe3kw14IwMLijPgVvpMoYxckxL?=
- =?us-ascii?Q?kZxXPf297wzmsfwOQuE0NhDRdZvMAQON2fnpEoe/KQxIz0tuOWVUz/Q9R7ws?=
- =?us-ascii?Q?ulLQXI5vCA1ujDlSFqI6evoOSMVV6jsL2YdkVQlYQmbHqn8E7iOPbFeSBR87?=
- =?us-ascii?Q?FKQlwcDyLNl9f8yH4gDLMjvvMRtew7Ooou8B5UNBtG1HOTlPcvNKs/f5kTCb?=
- =?us-ascii?Q?bi9Yj/SAmMMyPagHdhgkfKFx0fZ6k72dv6JB5tok24YszK9RScmYaVU/Xicd?=
- =?us-ascii?Q?S/CAHxd6S4HNKcJ/X1j/pltX5eGziozvqqCq9kK5CEsTu7eHcZoKKwYBDK4m?=
- =?us-ascii?Q?x6KhRfd2xNLp/MqGieyOcX6RBtcrX0u3WuDxSYYnsxgMvFbvUe0q52NeAzmF?=
- =?us-ascii?Q?/ZH2dzr/sNXV94ECkox1Fht3vMPhlAlD8/9PlOMnMk3RHCTX/lcMQ1GhA3P1?=
- =?us-ascii?Q?bR+JzFCvKYC/++fEOjS1YiXz66Cit7SWeSBaNAjt6sRwtsnMBvYIGgMKgpkh?=
- =?us-ascii?Q?LzQ5y8LZXefmQJi0tNiTwBTZjTdNTLqK7sEeGfoyE8Sw1I57uQ=3D=3D?=
+ ARA:13230040|376014|1800799024|36860700013|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?I95lD8FvvcA7hKl8s/87q9nAm1zxNHm6lsg2UoAqhPZJ7OdBntAM+k9+WyVS?=
+ =?us-ascii?Q?NS5TJCwhR1XXhInh3HQEYNJye2FnAgBTYtb+waDIDy665JMsKYuic7Pq3M/U?=
+ =?us-ascii?Q?cT0r8ozYaI7tR+E1zX7smUKkcDcY+ZpqmnOS99zDKUHgoG7ZKXvoLFNdbiol?=
+ =?us-ascii?Q?UgPWZeHNibrsBVYd+Q+dKqp+ZE+F8YicO31lqYUj6FXLlAkyUZhKMfxTnXPc?=
+ =?us-ascii?Q?k8sd3254Pa2CvyuOp/JUzlfcyseFRsbaCBZx8JLXkVQjmEhQ1uTPQsh15dxH?=
+ =?us-ascii?Q?wAjBG0Whogsr8F9fSuYZ3NiSRpNcwkn9xSA703EzAUOTOL6vRhR8QLYdZNs+?=
+ =?us-ascii?Q?oDJHHBUuRJd0WHSEqzgrFJFVbqwRA9a7BJt1X9Lq7ADPRb/9VDavV0ZCdg27?=
+ =?us-ascii?Q?XkNQoKiylcaA4sog8pBa+iauQgV0Eljg02PqWbREZoOZBg+tKCcYjoHXQUkV?=
+ =?us-ascii?Q?pipgSQVBLEpKIV64QJ0DS8ipBsjAOGYMSprq9VZZlKA+dKUzQ3uvzboHZfQt?=
+ =?us-ascii?Q?tb3bODoi80txEULZx1568pvg49ON/ETXin2LZbs8W2W7kbd0fUkxiG8JM0So?=
+ =?us-ascii?Q?NB+nVTjMWvmaDucqUfbzZcBYLVhK0W8OI2fUdcKGNfFVhUoCVo/3Hxf3TwaZ?=
+ =?us-ascii?Q?9Q61we3lSiihbGGDhFwY7j4Kd13jMaGluKaBR6LawCMGm2lRZD1zxwqDS9R0?=
+ =?us-ascii?Q?5GeBxPba5hG8SydT1Fq7Kz+bKuQ0mWnBW9uxxsr+MsLoas7I6UTAmQcMyNHl?=
+ =?us-ascii?Q?++qP9Ob7zTsIdfwBjoavTBePRBkq/JuN+JsO78zZF/mapEyOFHI3u61xeAdo?=
+ =?us-ascii?Q?3DPpJZPIcmekfE3HodlCoZffqYrtKPIVEU5N79WoDspjXpgNIKE74vjXxFqO?=
+ =?us-ascii?Q?9ARIKuAX4LsMP0ydw3B0/8T80qAo6OOMUrHYkZGbRj53+GZJFgbQLjRUfhmX?=
+ =?us-ascii?Q?CnMoa5IDKNMk+xEA6uEbrnTJr4T37Xtth5l6wLBHOM9qSPLbd0l4UCPJn3Lp?=
+ =?us-ascii?Q?KTpCvkrVa7e8aaSq60jSBvhQvbtCIU6LqGNtmFLmWeRxgEEHC1IOkFq0+gqj?=
+ =?us-ascii?Q?BtXSq8a57lrH29T7/1gjtRxt5ygv56aPv8luo+vsr8CsPXD5x8RIPiKYSyLi?=
+ =?us-ascii?Q?h8gLEl4+s7R6Ov9+FJygygUo7p8zFVwad4Q0hZbXkrz7rjaf1b+90Rpi73Uf?=
+ =?us-ascii?Q?Z6nebuywxs6cVTZly/eNMFaElcMvkRyo2b+7wLAUijUTGyw+pNIVSA9UYVP1?=
+ =?us-ascii?Q?u7wvhRlXWjqORGtVR12ZfTyr+2Te3r9KRMfkYXue6JUrsUottiH2zOCtAufr?=
+ =?us-ascii?Q?TwO2g6yoo7A+/P1KbUZUKm9WMNxHRhi/n2y3JmkbojYYhKHEg5jYWnc0fsrb?=
+ =?us-ascii?Q?C3NGzJCWcXzhuxPanwB637nxrj+j+yWTBANyF7rmiIXhaqe2Vw=3D=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(376014)(82310400026)(1800799024)(30052699003);
- DIR:OUT; SFP:1101; 
+ SFS:(13230040)(376014)(1800799024)(36860700013)(82310400026); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2024 19:58:22.0258 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 248cbc1d-e496-467b-f206-08dd03545c9f
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2024 19:58:26.4163 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5dd92653-6734-45c0-5d73-08dd03545f34
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000023D3.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7417
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6571
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,232 +138,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Dillon Varone <dillon.varone@amd.com>
+From: Samson Tam <Samson.Tam@amd.com>
 
-[WHY]
-When C-State entry is requested, the rate limiter will be disabled
-which can result in high contention in the DCHUB return path.
+[Why]
+SPL code forces taps to 1 when ratio is 1:1 and sharpness is off
+But for chroma 1:1, need taps > 1 to handle cositing
 
-[HOW]
-Enable the rate limiter during C-state requests to prevent contention.
+[How]
+Do not force chroma taps to 1 when ratio is 1:1 for YUV420
+Remove 420_CHROMA_BYPASS mode for scaler
 
-Cc: stable@vger.kernel.org # 6.11+
-Reviewed-by: Alvin Lee <alvin.lee2@amd.com>
-Signed-off-by: Dillon Varone <dillon.varone@amd.com>
+Reviewed-by: Navid Assadian <navid.assadian@amd.com>
+Signed-off-by: Samson Tam <Samson.Tam@amd.com>
 Signed-off-by: Hamza Mahfooz <hamza.mahfooz@amd.com>
 ---
- .../src/dml2_core/dml2_core_dcn4_calcs.c      |  6 +++++
- .../display/dc/hubbub/dcn10/dcn10_hubbub.h    |  8 ++++++-
- .../display/dc/hubbub/dcn20/dcn20_hubbub.h    |  1 +
- .../display/dc/hubbub/dcn401/dcn401_hubbub.c  | 24 +++++++++++++++++--
- .../display/dc/hubbub/dcn401/dcn401_hubbub.h  |  7 +++++-
- .../amd/display/dc/hwss/dcn401/dcn401_hwseq.c | 13 ++++++----
- .../gpu/drm/amd/display/dc/inc/hw/dchubbub.h  |  2 +-
- .../dc/resource/dcn401/dcn401_resource.h      |  3 ++-
- 8 files changed, 53 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/amd/display/dc/spl/dc_spl.c | 34 ++++++++++++---------
+ 1 file changed, 20 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
-index 92e43a1e4dd4..601320b1be81 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
-@@ -11,6 +11,7 @@
- 
- #define DML2_MAX_FMT_420_BUFFER_WIDTH 4096
- #define DML_MAX_NUM_OF_SLICES_PER_DSC 4
-+#define ALLOW_SDPIF_RATE_LIMIT_PRE_CSTATE
- 
- const char *dml2_core_internal_bw_type_str(enum dml2_core_internal_bw_type bw_type)
- {
-@@ -3886,6 +3887,10 @@ static void CalculateSwathAndDETConfiguration(struct dml2_core_internal_scratch
- #endif
- 
- 	*p->hw_debug5 = false;
-+#ifdef ALLOW_SDPIF_RATE_LIMIT_PRE_CSTATE
-+	if (p->NumberOfActiveSurfaces > 1)
-+		*p->hw_debug5 = true;
-+#else
- 	for (unsigned int k = 0; k < p->NumberOfActiveSurfaces; ++k) {
- 		if (!(p->mrq_present) && (!(*p->UnboundedRequestEnabled)) && (TotalActiveDPP == 1)
- 			&& p->display_cfg->plane_descriptors[k].surface.dcc.enable
-@@ -3901,6 +3906,7 @@ static void CalculateSwathAndDETConfiguration(struct dml2_core_internal_scratch
- 		dml2_printf("DML::%s: k=%u hw_debug5 = %u\n", __func__, k, *p->hw_debug5);
- #endif
+diff --git a/drivers/gpu/drm/amd/display/dc/spl/dc_spl.c b/drivers/gpu/drm/amd/display/dc/spl/dc_spl.c
+index da477406a4b7..73a65913cb12 100644
+--- a/drivers/gpu/drm/amd/display/dc/spl/dc_spl.c
++++ b/drivers/gpu/drm/amd/display/dc/spl/dc_spl.c
+@@ -739,14 +739,13 @@ static enum scl_mode spl_get_dscl_mode(const struct spl_in *spl_in,
+ 			return SCL_MODE_SCALING_444_RGB_ENABLE;
  	}
-+#endif
- }
  
- static enum dml2_odm_mode DecideODMMode(unsigned int HActive,
-diff --git a/drivers/gpu/drm/amd/display/dc/hubbub/dcn10/dcn10_hubbub.h b/drivers/gpu/drm/amd/display/dc/hubbub/dcn10/dcn10_hubbub.h
-index 4bd1dda07719..9fbd45c7dfef 100644
---- a/drivers/gpu/drm/amd/display/dc/hubbub/dcn10/dcn10_hubbub.h
-+++ b/drivers/gpu/drm/amd/display/dc/hubbub/dcn10/dcn10_hubbub.h
-@@ -200,6 +200,7 @@ struct dcn_hubbub_registers {
- 	uint32_t DCHUBBUB_ARB_FRAC_URG_BW_MALL_B;
- 	uint32_t DCHUBBUB_TIMEOUT_DETECTION_CTRL1;
- 	uint32_t DCHUBBUB_TIMEOUT_DETECTION_CTRL2;
-+	uint32_t DCHUBBUB_CTRL_STATUS;
- };
- 
- #define HUBBUB_REG_FIELD_LIST_DCN32(type) \
-@@ -320,7 +321,12 @@ struct dcn_hubbub_registers {
- 		type DCHUBBUB_TIMEOUT_REQ_STALL_THRESHOLD;\
- 		type DCHUBBUB_TIMEOUT_PSTATE_STALL_THRESHOLD;\
- 		type DCHUBBUB_TIMEOUT_DETECTION_EN;\
--		type DCHUBBUB_TIMEOUT_TIMER_RESET
-+		type DCHUBBUB_TIMEOUT_TIMER_RESET;\
-+		type ROB_UNDERFLOW_STATUS;\
-+		type ROB_OVERFLOW_STATUS;\
-+		type ROB_OVERFLOW_CLEAR;\
-+		type DCHUBBUB_HW_DEBUG;\
-+		type CSTATE_SWATH_CHK_GOOD_MODE
- 
- #define HUBBUB_STUTTER_REG_FIELD_LIST(type) \
- 		type DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_A;\
-diff --git a/drivers/gpu/drm/amd/display/dc/hubbub/dcn20/dcn20_hubbub.h b/drivers/gpu/drm/amd/display/dc/hubbub/dcn20/dcn20_hubbub.h
-index 036bb3e6c957..46d8f5c70750 100644
---- a/drivers/gpu/drm/amd/display/dc/hubbub/dcn20/dcn20_hubbub.h
-+++ b/drivers/gpu/drm/amd/display/dc/hubbub/dcn20/dcn20_hubbub.h
-@@ -96,6 +96,7 @@ struct dcn20_hubbub {
- 	unsigned int det1_size;
- 	unsigned int det2_size;
- 	unsigned int det3_size;
-+	bool allow_sdpif_rate_limit_when_cstate_req;
- };
- 
- void hubbub2_construct(struct dcn20_hubbub *hubbub,
-diff --git a/drivers/gpu/drm/amd/display/dc/hubbub/dcn401/dcn401_hubbub.c b/drivers/gpu/drm/amd/display/dc/hubbub/dcn401/dcn401_hubbub.c
-index 5d658e9bef64..92fab471b183 100644
---- a/drivers/gpu/drm/amd/display/dc/hubbub/dcn401/dcn401_hubbub.c
-+++ b/drivers/gpu/drm/amd/display/dc/hubbub/dcn401/dcn401_hubbub.c
-@@ -1192,15 +1192,35 @@ static void dcn401_wait_for_det_update(struct hubbub *hubbub, int hubp_inst)
+-	/* Bypass YUV if at 1:1 with no ISHARP or if doing 2:1 YUV
+-	 *  downscale without EASF
++	/*
++	 * Bypass YUV if Y is 1:1 with no ISHARP
++	 * Do not bypass UV at 1:1 for cositing to be applied
+ 	 */
+-	if ((!enable_isharp) && (!enable_easf)) {
++	if (!enable_isharp) {
+ 		if (data->ratios.horz.value == one && data->ratios.vert.value == one)
+ 			return SCL_MODE_SCALING_420_LUMA_BYPASS;
+-		if (data->ratios.horz_c.value == one && data->ratios.vert_c.value == one)
+-			return SCL_MODE_SCALING_420_CHROMA_BYPASS;
  	}
- }
  
--static void dcn401_program_timeout_thresholds(struct hubbub *hubbub, struct dml2_display_arb_regs *arb_regs)
-+static bool dcn401_program_arbiter(struct hubbub *hubbub, struct dml2_display_arb_regs *arb_regs, bool safe_to_lower)
- {
- 	struct dcn20_hubbub *hubbub2 = TO_DCN20_HUBBUB(hubbub);
+ 	return SCL_MODE_SCALING_420_YCBCR_ENABLE;
+@@ -933,6 +932,7 @@ static bool spl_get_optimal_number_of_taps(
+ 	int min_taps_y, min_taps_c;
+ 	enum lb_memory_config lb_config;
+ 	bool skip_easf = false;
++	bool is_ycbcr = spl_dscl_is_video_format(spl_in->basic_in.format);
  
-+	bool wm_pending = false;
-+	uint32_t temp;
+ 	if (spl_scratch->scl_data.viewport.width > spl_scratch->scl_data.h_active &&
+ 		max_downscale_src_width != 0 &&
+@@ -1074,10 +1074,9 @@ static bool spl_get_optimal_number_of_taps(
+ 
+ 	/* Sharpener requires scaler to be enabled, including for 1:1
+ 	 * Check if ISHARP can be enabled
+-	 * If ISHARP is not enabled, for 1:1, set taps to 1 and disable
+-	 *  EASF
+-	 * For case of 2:1 YUV where chroma is 1:1, set taps to 1 if
+-	 *  EASF is not enabled
++	 * If ISHARP is not enabled, set taps to 1 if ratio is 1:1
++	 *  except for chroma taps.  Keep previous taps so it can
++	 *  handle cositing
+ 	 */
+ 
+ 	*enable_isharp = spl_get_isharp_en(spl_in, spl_scratch);
+@@ -1087,20 +1086,28 @@ static bool spl_get_optimal_number_of_taps(
+ 			spl_scratch->scl_data.taps.h_taps = 1;
+ 			spl_scratch->scl_data.taps.v_taps = 1;
+ 
+-			if (IDENTITY_RATIO(spl_scratch->scl_data.ratios.horz_c))
++			if (IDENTITY_RATIO(spl_scratch->scl_data.ratios.horz_c) && !is_ycbcr)
+ 				spl_scratch->scl_data.taps.h_taps_c = 1;
+ 
+-			if (IDENTITY_RATIO(spl_scratch->scl_data.ratios.vert_c))
++			if (IDENTITY_RATIO(spl_scratch->scl_data.ratios.vert_c) && !is_ycbcr)
+ 				spl_scratch->scl_data.taps.v_taps_c = 1;
+ 
+ 			*enable_easf_v = false;
+ 			*enable_easf_h = false;
+ 		} else {
+ 			if ((!*enable_easf_h) &&
++				(IDENTITY_RATIO(spl_scratch->scl_data.ratios.horz)))
++				spl_scratch->scl_data.taps.h_taps = 1;
 +
- 	/* request backpressure and outstanding return threshold (unused)*/
- 	//REG_UPDATE(DCHUBBUB_TIMEOUT_DETECTION_CTRL1, DCHUBBUB_TIMEOUT_REQ_STALL_THRESHOLD, arb_regs->req_stall_threshold);
- 
- 	/* P-State stall threshold */
- 	REG_UPDATE(DCHUBBUB_TIMEOUT_DETECTION_CTRL2, DCHUBBUB_TIMEOUT_PSTATE_STALL_THRESHOLD, arb_regs->pstate_stall_threshold);
++			if ((!*enable_easf_v) &&
++				(IDENTITY_RATIO(spl_scratch->scl_data.ratios.vert)))
++				spl_scratch->scl_data.taps.v_taps = 1;
 +
-+	if (safe_to_lower || arb_regs->allow_sdpif_rate_limit_when_cstate_req > hubbub2->allow_sdpif_rate_limit_when_cstate_req) {
-+		hubbub2->allow_sdpif_rate_limit_when_cstate_req = arb_regs->allow_sdpif_rate_limit_when_cstate_req;
-+
-+		/* only update the required bits */
-+		REG_GET(DCHUBBUB_CTRL_STATUS, DCHUBBUB_HW_DEBUG, &temp);
-+		if (hubbub2->allow_sdpif_rate_limit_when_cstate_req) {
-+			temp |= (1 << 5);
-+		} else {
-+			temp &= ~(1 << 5);
-+		}
-+		REG_UPDATE(DCHUBBUB_CTRL_STATUS, DCHUBBUB_HW_DEBUG, temp);
-+	} else {
-+		wm_pending = true;
-+	}
-+
-+	return wm_pending;
- }
++			if ((!*enable_easf_h) && !is_ycbcr &&
+ 				(IDENTITY_RATIO(spl_scratch->scl_data.ratios.horz_c)))
+ 				spl_scratch->scl_data.taps.h_taps_c = 1;
  
- static const struct hubbub_funcs hubbub4_01_funcs = {
-@@ -1226,7 +1246,7 @@ static const struct hubbub_funcs hubbub4_01_funcs = {
- 	.program_det_segments = dcn401_program_det_segments,
- 	.program_compbuf_segments = dcn401_program_compbuf_segments,
- 	.wait_for_det_update = dcn401_wait_for_det_update,
--	.program_timeout_thresholds = dcn401_program_timeout_thresholds,
-+	.program_arbiter = dcn401_program_arbiter,
- };
- 
- void hubbub401_construct(struct dcn20_hubbub *hubbub2,
-diff --git a/drivers/gpu/drm/amd/display/dc/hubbub/dcn401/dcn401_hubbub.h b/drivers/gpu/drm/amd/display/dc/hubbub/dcn401/dcn401_hubbub.h
-index 5f1960722ebd..b1d9ea9d1c3d 100644
---- a/drivers/gpu/drm/amd/display/dc/hubbub/dcn401/dcn401_hubbub.h
-+++ b/drivers/gpu/drm/amd/display/dc/hubbub/dcn401/dcn401_hubbub.h
-@@ -128,7 +128,12 @@
- 	HUBBUB_SF(DCHUBBUB_TIMEOUT_DETECTION_CTRL1, DCHUBBUB_TIMEOUT_REQ_STALL_THRESHOLD, mask_sh),\
- 	HUBBUB_SF(DCHUBBUB_TIMEOUT_DETECTION_CTRL2, DCHUBBUB_TIMEOUT_PSTATE_STALL_THRESHOLD, mask_sh),\
- 	HUBBUB_SF(DCHUBBUB_TIMEOUT_DETECTION_CTRL2, DCHUBBUB_TIMEOUT_DETECTION_EN, mask_sh),\
--	HUBBUB_SF(DCHUBBUB_TIMEOUT_DETECTION_CTRL2, DCHUBBUB_TIMEOUT_TIMER_RESET, mask_sh)
-+	HUBBUB_SF(DCHUBBUB_TIMEOUT_DETECTION_CTRL2, DCHUBBUB_TIMEOUT_TIMER_RESET, mask_sh),\
-+	HUBBUB_SF(DCHUBBUB_CTRL_STATUS, ROB_UNDERFLOW_STATUS, mask_sh),\
-+	HUBBUB_SF(DCHUBBUB_CTRL_STATUS, ROB_OVERFLOW_STATUS, mask_sh),\
-+	HUBBUB_SF(DCHUBBUB_CTRL_STATUS, ROB_OVERFLOW_CLEAR, mask_sh),\
-+	HUBBUB_SF(DCHUBBUB_CTRL_STATUS, DCHUBBUB_HW_DEBUG, mask_sh),\
-+	HUBBUB_SF(DCHUBBUB_CTRL_STATUS, CSTATE_SWATH_CHK_GOOD_MODE, mask_sh)
- 
- bool hubbub401_program_urgent_watermarks(
- 		struct hubbub *hubbub,
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
-index e8cc1bfa73f3..5de11e2837c0 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
-@@ -1488,6 +1488,10 @@ void dcn401_prepare_bandwidth(struct dc *dc,
- 					&context->bw_ctx.bw.dcn.watermarks,
- 					dc->res_pool->ref_clocks.dchub_ref_clock_inKhz / 1000,
- 					false);
-+	/* update timeout thresholds */
-+	if (hubbub->funcs->program_arbiter) {
-+		dc->wm_optimized_required |= hubbub->funcs->program_arbiter(hubbub, &context->bw_ctx.bw.dcn.arb_regs, false);
-+	}
- 
- 	/* decrease compbuf size */
- 	if (hubbub->funcs->program_compbuf_segments) {
-@@ -1529,6 +1533,10 @@ void dcn401_optimize_bandwidth(
- 					&context->bw_ctx.bw.dcn.watermarks,
- 					dc->res_pool->ref_clocks.dchub_ref_clock_inKhz / 1000,
- 					true);
-+	/* update timeout thresholds */
-+	if (hubbub->funcs->program_arbiter) {
-+		hubbub->funcs->program_arbiter(hubbub, &context->bw_ctx.bw.dcn.arb_regs, true);
-+	}
- 
- 	if (dc->clk_mgr->dc_mode_softmax_enabled)
- 		if (dc->clk_mgr->clks.dramclk_khz > dc->clk_mgr->bw_params->dc_mode_softmax_memclk * 1000 &&
-@@ -1554,11 +1562,6 @@ void dcn401_optimize_bandwidth(
- 						pipe_ctx->dlg_regs.min_dst_y_next_start);
+-			if ((!*enable_easf_v) &&
++			if ((!*enable_easf_v) && !is_ycbcr &&
+ 				(IDENTITY_RATIO(spl_scratch->scl_data.ratios.vert_c)))
+ 				spl_scratch->scl_data.taps.v_taps_c = 1;
  		}
- 	}
--
--	/* update timeout thresholds */
--	if (hubbub->funcs->program_timeout_thresholds) {
--		hubbub->funcs->program_timeout_thresholds(hubbub, &context->bw_ctx.bw.dcn.arb_regs);
--	}
- }
- 
- void dcn401_fams2_global_control_lock(struct dc *dc,
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/dchubbub.h b/drivers/gpu/drm/amd/display/dc/inc/hw/dchubbub.h
-index 6c1d41c0f099..52b745667ef7 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw/dchubbub.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw/dchubbub.h
-@@ -228,7 +228,7 @@ struct hubbub_funcs {
- 	void (*program_det_segments)(struct hubbub *hubbub, int hubp_inst, unsigned det_buffer_size_seg);
- 	void (*program_compbuf_segments)(struct hubbub *hubbub, unsigned compbuf_size_seg, bool safe_to_increase);
- 	void (*wait_for_det_update)(struct hubbub *hubbub, int hubp_inst);
--	void (*program_timeout_thresholds)(struct hubbub *hubbub, struct dml2_display_arb_regs *arb_regs);
-+	bool (*program_arbiter)(struct hubbub *hubbub, struct dml2_display_arb_regs *arb_regs, bool safe_to_lower);
- };
- 
- struct hubbub {
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.h b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.h
-index 7c8d61db153d..19568c359669 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.h
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.h
-@@ -612,7 +612,8 @@ void dcn401_prepare_mcache_programming(struct dc *dc, struct dc_state *context);
- 	SR(DCHUBBUB_SDPIF_CFG1),                                                 \
- 	SR(DCHUBBUB_MEM_PWR_MODE_CTRL),                                          \
- 	SR(DCHUBBUB_TIMEOUT_DETECTION_CTRL1),                                    \
--	SR(DCHUBBUB_TIMEOUT_DETECTION_CTRL2)
-+	SR(DCHUBBUB_TIMEOUT_DETECTION_CTRL2),									 \
-+	SR(DCHUBBUB_CTRL_STATUS)
- 
- /* DCCG */
- 
+@@ -1111,8 +1118,7 @@ static bool spl_get_optimal_number_of_taps(
+ static void spl_set_black_color_data(enum spl_pixel_format format,
+ 			struct scl_black_color *scl_black_color)
+ {
+-	bool ycbcr = format >= SPL_PIXEL_FORMAT_VIDEO_BEGIN
+-					&& format <= SPL_PIXEL_FORMAT_VIDEO_END;
++	bool ycbcr = spl_dscl_is_video_format(format);
+ 	if (ycbcr)	{
+ 		scl_black_color->offset_rgb_y = BLACK_OFFSET_RGB_Y;
+ 		scl_black_color->offset_rgb_cbcr = BLACK_OFFSET_CBCR;
 -- 
 2.46.1
 
