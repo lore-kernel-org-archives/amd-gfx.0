@@ -4,151 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56593D41C17
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Nov 2024 08:49:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E17FD41C17
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Nov 2024 08:49:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 07C8010E69C;
-	Wed, 13 Nov 2024 08:49:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4478F10E6A2;
+	Wed, 13 Nov 2024 08:49:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="EGUBlgvL";
+	dkim=pass (1024-bit key; unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.b="K5C/EeWl";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2060.outbound.protection.outlook.com [40.107.237.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB56B10E69C
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 Nov 2024 08:49:08 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FAuONVN4ry4By0SxZYZhf55rwlhDC67ml8R2Obl6jQqFIwCyClyiv3A5YIB/E0ZIUgluzwaSARI9Je5FEt79c0LeuTLS2mCn7d1tzEv7wbKOyDykRmpLzVbQraAGXWiiG2NP+AyPKSGBYqt04pE2FjN+FjfEHBLEvf6J1uXq6Wf3jr5zReDn8QltgU6hnMO39dvIfzJ0bXYUKJV1/z9pWT39vy892k8kzXc+PhDV4yfo/QsIQ0FTKMJJgfULqjDq7pnFGlYV0tEFGsfDQ7MMALeNM80ru1bwg25t7gDUIGcn2ogbI5xH9JlYt8B0CX/4Jb7wPfEyPHSGuQkDNNaZwg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zKEddRO/gn/HKFWeuaMIKogC7FZGBKpxMPPIh6m16+w=;
- b=IxxLRUThKRZmV2/Dr/k5PadQWOJ266XYF0TSWPUvNbO1oNdb/6JFUanPE0swNnAPVuO6qFDBLye7vMOz4YJfVkA8P/ePNYSN/wUjwyYQkn3pixWsL6dEL2UahQa3X8tHTDV2BLE2cQUlykzxpNtLEKoKwairdx+vHGYkIKu+CLkPs7VfODnFTYVzmGQhrvX0ue70jkGlMECHJO8hkD+9hnB0CfminS8rMcEZqm4bAvIdA+A1ar4/z+6MzZQigBJSg2G/LNleyp1XDpQYH1FTkzWct3MmVLNifEXu+PMxRne4kVKDgE/UApZdzWVtD5GJPVAt4S+3LNgei+c6kiXDqg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zKEddRO/gn/HKFWeuaMIKogC7FZGBKpxMPPIh6m16+w=;
- b=EGUBlgvLE8pwar14geIgFH6ukiOM+xdih5qFPiih4zAHL9uLURHFwrTLkYmSzZmZiLZrOOxXM2UyjU/Eacp47i8keanxtwnhYyh4smwtNKw899LeletOBwd8Mpjqjg1eQpsQXD1eT5tJKvnNooSXe8Ud0QeL8Xuwc2afSk30KMc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CY5PR12MB6406.namprd12.prod.outlook.com (2603:10b6:930:3d::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8137.28; Wed, 13 Nov
- 2024 08:49:06 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%2]) with mapi id 15.20.8137.027; Wed, 13 Nov 2024
- 08:49:06 +0000
-Message-ID: <92be210e-b552-45ee-9322-1944a4bfd325@amd.com>
-Date: Wed, 13 Nov 2024 09:49:01 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 4/4] drm/amdgpu: track bo memory stats at runtime
-To: "Li, Yunxiang (Teddy)" <Yunxiang.Li@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "tvrtko.ursulin@igalia.com" <tvrtko.ursulin@igalia.com>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-References: <20241110154152.592-1-Yunxiang.Li@amd.com>
- <20241110154152.592-5-Yunxiang.Li@amd.com>
- <5d1c88a5-9802-4bb7-b76a-5e501847ced1@gmail.com>
- <SA1PR12MB85998D24DDB5EB93AE88E5A1ED592@SA1PR12MB8599.namprd12.prod.outlook.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <SA1PR12MB85998D24DDB5EB93AE88E5A1ED592@SA1PR12MB8599.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR0P281CA0091.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a9::11) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0410F10E626;
+ Tue, 12 Nov 2024 18:34:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
+ s=mail; t=1731436455;
+ bh=qCgxSe+6OiA7qFuTKE7GRpdlVfifdiH0Ryq6gKTEzEE=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=K5C/EeWle3iIZPHCNHmBNVNBtj2GXAHlywd8e0zeV7oCkMMlyes5GdOWBLrRrimT4
+ 5Hlbmb7etz0V/USXl7QVi4WqoVFAEEk1t/QFq4/7VQBF7wqNJ7ehvcTaFxLSgcL3jq
+ KXXa3hFnPgoD/sLiIAYg4WJlgKIMNajQ1/Gp/5mg=
+From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+Date: Tue, 12 Nov 2024 19:34:14 +0100
+Subject: [PATCH v2 5/7] drm/amd/display: Switch dc_sink to struct drm_edid
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CY5PR12MB6406:EE_
-X-MS-Office365-Filtering-Correlation-Id: ac00d847-45e8-470d-d9e5-08dd03c007da
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?cE1LTEZ3dHNIQ09lYmFESGk4b2dUSHNZSFV6dVYrWFF5MW0xK0UxV2FCSXRE?=
- =?utf-8?B?M1I3a09zaURncVJTOFRJQklDQ1pSMkVPQW9BR2ZTU21la243L3dWQ2NXYWZt?=
- =?utf-8?B?SmdYTDZlYTE2VTU5amp2Z202WWJTQ1VvS0NBMGtXZElXN1dGQ21sR29BRGc2?=
- =?utf-8?B?NkpLNkV2WmtHejVyYjNLWWJGd05WYVlVdFpLU1B2MTNiNWpjVGlmeCtiMzFH?=
- =?utf-8?B?YWFxdHFRdUZ0TFordU1DeGYxNEVlbHNVZTVsSDVwMnVPWDZlcFl4QlJpZ3E0?=
- =?utf-8?B?bFY0M3VmeFZlOGtaNDZYWDZIL3NBOFVDZEJxanpRenJRc2hqTjNuVXZqdFQz?=
- =?utf-8?B?eTZibmxmRzF0ai93b1FlK1B4K1Q2L2xtS0MyblRmSmsxSHo3QlZrL2xBR29n?=
- =?utf-8?B?ay9ORmhMZUJGb3p0STJhR0dEdnd4K3BMVWFHaC9xWmx1ZFJvSTlIUDNBN0Na?=
- =?utf-8?B?M1Y2ZHQ3ZnBIalpXcERIMFZXZW55SGFuTXAvaGVENHcyOXNBRzAzNjFYNXdv?=
- =?utf-8?B?bWZjYUhRN1FrOVB6RGRtd2RKRDBiTVRHeitrcG1uUlJFV3BWUjFaa2lwTjk1?=
- =?utf-8?B?cnU3cmZJeEw2OWdWSk1veEFaYkF5U2J1NHlCN09VUW1uUDRNaWY0elpKbjl2?=
- =?utf-8?B?b2tYRWdxRXJBNjA4NzhIczVNeEZORmpkNWQ4eE4rYmVBSjVlWk5CUXVUWmow?=
- =?utf-8?B?VzZiOHR5U1pGaEhvZzdkempaam80NGFRcFYxU3VHVzkxbW1KeHJrRnBtcExI?=
- =?utf-8?B?MTVNRmlOOFB2V09DZjVjR0gxbGNBZG1HeXZxRE0wT282TisrNncrSnF6Z09m?=
- =?utf-8?B?azlGQUtIbjhOU1lSZlRRQjVoR1RqNDhYNGpLTys4MWxUTTlqRkRrMXRLZk5V?=
- =?utf-8?B?NGRMc043TEVsOFd2MnpmYnJpZzQxTW53TnB5dytORkZNNlFmWHgzZlFmVkVp?=
- =?utf-8?B?TjRDOEowd2xpQ2QzNDZ0UmRlSEdkY0Q4WnZYbyt2cVE5SlZtTDJFZW9GaDNw?=
- =?utf-8?B?YlI1SVZUcVc0anJkeDg3eFhMeWo5MTU1Sm9ZaFgwVy9YWjQ3OWRXUDhyQXFh?=
- =?utf-8?B?cUx6aS9KUlZPUzNQVWxjdU50SkZCWlhEVW5RanZyZ0d5MndkeEtlV3ZmRGNt?=
- =?utf-8?B?RjVyOWRpUXRaQ2habDVxMlJqOXpnalNSN1F1dXZJYVRqL3RyTnYvOFpib1Zu?=
- =?utf-8?B?cTU2UC8wbGsrNWJzWXNMZ3ZyTnV6eWxBN1V2U2hvRHVXY2xJeUNZdWNjYzJG?=
- =?utf-8?B?Zk43TjVJS2l3L0J2UkRYOXAzRW9sODJPWVk2SXh0RlZGQ2pid25PcVR2L3lu?=
- =?utf-8?B?cURQZ0ROa01RU0JxQXRqOHlNRC9pR0h2alArMlczVFI2R0RUaVMyYVA2RStO?=
- =?utf-8?B?L3RjVUdpNHIvT1ZzbVZUUCsxMmpvNTBiRjFPdDZVR0FhZVNLbWdQNnFjbWVH?=
- =?utf-8?B?andPV2NFK28vRXN3RWk1RjJVUTM1eTZsY20vZE5PcTF6dWljR096Vjc5L3la?=
- =?utf-8?B?R1psTzhMOGNNZVE0aGpSVVdUM2c0elRLZ1JzZFpDcUpjNGJaUjUxazlBK3lk?=
- =?utf-8?B?Nml1YzJVaE9KdzYwbHNac1VFRExzSHRaUzhQSzRqK0gwZnBObllhYnd3SUdE?=
- =?utf-8?B?M1ZLaVBXSUQ0RGppeWQxbGs0UUZEWXVIOUxRbW01UjQyWXZER3RONi93V0h0?=
- =?utf-8?B?bVNuNGRQS2dqNlhEaUVITUM1dW90eEVvVmlBYmF6dXlBa05yQU5QMnB5T2k1?=
- =?utf-8?Q?bx8yvYG7stUnlVgoFf0yyAozxv5CJFP6khxUoP/?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MXZ0d1VESTZzMitacGwvMFowZnB4R1JKZ3hyREltNGRlOVBqYUF5Q2ZrNVAy?=
- =?utf-8?B?SlB2R05VZUdKVVZHc3JHK1ZabDFkM3FubWlEdWVSdmZGNTdIaUpxNGJ3RTBP?=
- =?utf-8?B?YTd4cUw0Yjg2bDBreFNiMTh6ekY2bkcrM1l1M01WR1lVK3hNQlBkaGlXTnRo?=
- =?utf-8?B?aHFLZWVHMVpxZ3BNa2I2TUxmWDdiZ1Q2MUt1MlZsRVFZeVBRaUJTOG1WRlNt?=
- =?utf-8?B?cnR4THRoYWhaUUxmYzBwb0MvTTZmWXk2RENIYkZOZnN1QytMTk5QaEFVQk5k?=
- =?utf-8?B?blZlRUtZWjhaWjV1VStHY0xuclFwUkVlSDNZcitXRVRET3l1NW94QTFrWWlp?=
- =?utf-8?B?NGxvUGxxRjdJeDVUZnhva1ZRSnA1UGJOUFE2UWlwZkRnT3R1S0h2SG1nNmdX?=
- =?utf-8?B?MzE0MjdIZ3B6bDBOMmRMOTVXa0t2Y3FYQVFKei9ONVZYSWEvL1UyQUNTcXV3?=
- =?utf-8?B?bDY5Uk9vMzBtWEc3cVVzaFBFMDZmVGVoVEVhRFNtS0pQN3JuMXBVTE1DVEVD?=
- =?utf-8?B?UWU2blBpa1ozWlZNQVUzYkdoWU9ZWFRwMGo3OVMzYVVZejg0K052ZGNUUnBW?=
- =?utf-8?B?TmFUVWs5QW53K3ZmeHFFUlpUQ0ptYmg2RUxuL2hSZkRzT1VmTGJrd1Z1ckhl?=
- =?utf-8?B?Rmk3bG5WWWJZSlNSZnNxd2RGVUlKSnNuVkl5V2dvazIzN0d2T0hiUmN0dUR6?=
- =?utf-8?B?Q2RNc2RGUU8wbC9Sd1p1S1p1TGZSWHF4dGN5b2pNd05QditETHJHZSs0WDdR?=
- =?utf-8?B?MGRGNnZUSUVROUwvamdkOWMzNVdjNC9QbExObndicWcvYTBibnJVZld4Q0Uw?=
- =?utf-8?B?bDBRZS9sa2xwNG9ZeFNqN3lZdWRqNC9QS0hhaU9YQWpDdzNVK2cvTzl0cWEv?=
- =?utf-8?B?RXdTSmhQVEN1ZWlIbi9XYXNadWNHa1lKS2Q2VWU4S2dqd3NhdGZ6UElXRWk5?=
- =?utf-8?B?V1pDUnZQUGJ6SDRlanF0U1FqZm14bUVScTNTU3ptUHBhMjgvTXg3UElaQWxU?=
- =?utf-8?B?OGRieXpJamNhU0xDc3htbkxSb2ZaZFNZRE80WkZPK3BNaGhtS3dnaldjczAz?=
- =?utf-8?B?RENCY3h4MEVGbGNXWWFscDJQcU1vYm5XMVlPWE0vTlJ6UHJmaVJWb05Zdzdy?=
- =?utf-8?B?cFRMN3U1dk9jbkx4Y0VKSkloQkZhUmo4UEpMTVE0ZFY3eUttdGZvcm1HaXVV?=
- =?utf-8?B?azFEaHpyakF3K2hxRFdlNGdlNmQrRGRtcEd6MW9OaFhyNEtzNjgvcy9sOVFO?=
- =?utf-8?B?cHIzSGR3TDE3ZStRdXlyTVBSeDhVTXBRUjhBY1dqczdLbkNZRHo0RFF3bjdH?=
- =?utf-8?B?TnZwNzBaa3RwZzNOT1RCVGxoY3BZVmpKWFVzVzg4NzYyVzdiMkNXbXEzYW0x?=
- =?utf-8?B?UTB1aDdYUnJTeTcrNnI4aWw2K1dLTXZ0aXQ0N2lBNWgvY3pkdG12aWpQdDJw?=
- =?utf-8?B?S0diU09UUVZlYnJ2SVNUcnM1UTJobFBNSnlnS2F6REJMRDVrNGxic0t1NXVx?=
- =?utf-8?B?b2tiaWtLclpLdm1hRFZyNG9ZYWg4OFEvNnNHZC9kSjRNZVFXQ3kyT0JNcGY5?=
- =?utf-8?B?V25JU2c5RHRMNVo2b0QrNXR2OFNJdG56UlFwSzZkYlFxMnhGamxYUjFteUNp?=
- =?utf-8?B?UWFEaGEyU0Z6M0ZGYklLc2R4Vk03dkt3emdaMDEyZU1lNnp1VmI0WGNIcU1H?=
- =?utf-8?B?Sk5YZGlXNkVlTDZ5eWVTY0Rra0d5TzVxTDNXby9NU2hrZm5jNlVoT3VEV1N5?=
- =?utf-8?B?eEVrN3cxTUdwNjdsUUExSDhOUTRqZGpYVi9uT1JmRkJKSlBtYnFTdysvR3B5?=
- =?utf-8?B?d1k3NW5XLys1THVSR0k4YTZTT0VRUFVPMHVySFdhOElzMm44ZGU3VlN0aTZp?=
- =?utf-8?B?bEZYZXQ1V1hidUtxY2l6VTdxMXVid014ZW5neStMRWs5c2lHQkFqbmZsYnQx?=
- =?utf-8?B?YURDaHR1TUNtbzYwaUZNQVJHQzg4R1FxRzlJNkk3eGlobTFTWm83WUJrbG51?=
- =?utf-8?B?TExQRXYvekIyeDJkL28yaTV3UjRBZ2pvYTB2NmFEM1ljeEZFUzg0aUtMVEx1?=
- =?utf-8?B?amVxU0lSR2FXcThORlpmZ29jZ2hoYmNHWXZNcmJMSnVTQXV3ZnhvVmdOQ1BZ?=
- =?utf-8?Q?wWu0q9fkOWCAxJXWnDkQRj6kn?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ac00d847-45e8-470d-d9e5-08dd03c007da
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2024 08:49:05.9340 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JIm9Cf2dfnO7frGhhrmlK1XidMq0/dlzk4Prc8ZvqnHGu3921RcoJ33/6G9ZMuKq
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6406
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20241112-amdgpu-drm_edid-v2-5-1399dc0f0469@weissschuh.net>
+References: <20241112-amdgpu-drm_edid-v2-0-1399dc0f0469@weissschuh.net>
+In-Reply-To: <20241112-amdgpu-drm_edid-v2-0-1399dc0f0469@weissschuh.net>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>, 
+ jinzh <jinzh@github.amd.com>, Aric Cyr <Aric.Cyr@amd.com>, 
+ Alan Liu <HaoPing.Liu@amd.com>, Tony Cheng <Tony.Cheng@amd.com>, 
+ Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Simona Vetter <simona@ffwll.ch>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Harry Wentland <Harry.Wentland@amd.com>, 
+ Melissa Wen <mwen@igalia.com>, 
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1731436454; l=12701;
+ i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
+ bh=qCgxSe+6OiA7qFuTKE7GRpdlVfifdiH0Ryq6gKTEzEE=;
+ b=JJ1lDa5Po+Q08N1NaTjpiwDbGSFVL1muYt4aSsmnVvRSAvGXyreWmc+jf4Ab5AhPqpQ40vqP4
+ ul/WiGW0nW5D/8TYQhzzs0SOWxnHnNS4swN80DcsZofr3cI+klWYVOi
+X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
+ pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
+X-Mailman-Approved-At: Wed, 13 Nov 2024 08:49:34 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -163,121 +69,343 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 12.11.24 um 19:16 schrieb Li, Yunxiang (Teddy):
-> [Public]
->
->> From: Christian König <ckoenig.leichtzumerken@gmail.com>
->> Sent: Tuesday, November 12, 2024 5:54
->> Am 10.11.24 um 16:41 schrieb Yunxiang Li:
->>> @@ -310,6 +311,92 @@ static void amdgpu_vm_bo_reset_state_machine(struct
->> amdgpu_vm *vm)
->>>      spin_unlock(&vm->status_lock);
->>>    }
->>>
->>> +/**
->>> + * amdgpu_vm_update_shared - helper to update shared memory stat
->>> + * @base: base structure for tracking BO usage in a VM
->>> + * @sign: if we should add (+1) or subtract (-1) from the shared stat
->>> + *
->>> + * Takes the vm status_lock and updates the shared memory stat. If
->>> +the basic
->>> + * stat changed (e.g. buffer was moved) amdgpu_vm_update_stats need
->>> +to be called
->>> + * as well.
->>> + */
->>> +static void amdgpu_vm_update_shared(struct amdgpu_vm_bo_base *base,
->>> +int sign) {
->>> +   struct amdgpu_vm *vm = base->vm;
->>> +   struct amdgpu_bo *bo = base->bo;
->>> +   struct ttm_resource *res;
->>> +   int64_t size;
->>> +   uint32_t type;
->>> +
->>> +   if (!vm || !bo)
->>> +           return;
->>> +
->>> +   size = sign * amdgpu_bo_size(bo);
->>> +   res = bo->tbo.resource;
->>> +   type = res ? res->mem_type : amdgpu_bo_get_preferred_placement(bo);
->> Again, it's a clear NAK from my side to do stuff like that.
->>
->> When there isn't any backing store the BO should *not* be accounted to anything.
-> I don't have a preference either way, but I think it should be a separate discussion to properly define what drm-total- means.
->
->>> +   type = res ? res->mem_type : amdgpu_bo_get_preferred_placement(bo);
->>> +   shared = drm_gem_object_is_shared_for_memory_stats(&bo->tbo.base);
->>> +
->>> +   if (type >= __AMDGPU_PL_LAST)
->>> +           return;
->>> +
->>> +   spin_lock(&vm->status_lock);
->>> +
->>> +   if (shared)
->>> +           vm->stats[type].drm.shared += size;
->>> +   else
->>> +           vm->stats[type].drm.private += size;
->>> +   if (res)
->>> +           vm->stats[type].drm.resident += size;
->>> +   if (bo->flags & AMDGPU_GEM_CREATE_DISCARDABLE)
->>> +           vm->stats[type].drm.purgeable += size;
->>> +
->>> +   if (bo->preferred_domains & AMDGPU_GEM_DOMAIN_VRAM) {
->>> +           vm->stats[TTM_PL_VRAM].requested += size;
->>> +           if (type != TTM_PL_VRAM)
->>> +                   vm->stats[TTM_PL_VRAM].evicted += size;
->> Again that is incorrect. BOs can be created with VRAM|GTT as their placement.
->>
->> If such a BO is placed into GTT that doesn't mean it is evicted.
-> In that case, do we count BO with VRAM|GTT in both VRAM and GTT's .requested field? and if they are not in either, they go in both .evicted field?
+The custom "struct dc_edid" can be replaced by the standard "struct
+drm_edid.
 
-Oh, good question depends on the definition of the requested field.
+Rename the member to make sure that no usage sites are missed,
+as "struct drm_edid" has some restrictions, for example it can not be
+used with kfree().
 
-Accounting it to VRAM.evicted while GTT placement is desirable as well 
-is certainly not correct.
+Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 15 ++------
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c  | 27 ++++++-------
+ drivers/gpu/drm/amd/display/dc/dc.h                |  2 +-
+ drivers/gpu/drm/amd/display/dc/dc_ddc_types.h      |  3 --
+ drivers/gpu/drm/amd/display/dc/dc_types.h          |  5 ---
+ drivers/gpu/drm/amd/display/dc/dm_helpers.h        |  2 +-
+ .../gpu/drm/amd/display/dc/link/link_detection.c   | 44 ++++++++++++----------
+ 7 files changed, 43 insertions(+), 55 deletions(-)
 
- From my understanding they should go into the VRAM request, but not 
-account to evicted. But Tvrtko might see that differently.
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 4a093aff4499add545f7beb654ace477036b46fb..b09e13aed570756655b94647d4346c722a02e34a 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -3594,15 +3594,13 @@ void amdgpu_dm_update_connector_after_detect(
+ 
+ 		aconnector->dc_sink = sink;
+ 		dc_sink_retain(aconnector->dc_sink);
+-		if (sink->dc_edid.length == 0) {
++		if (!sink->drm_edid) {
+ 			aconnector->drm_edid = NULL;
+ 			if (aconnector->dc_link->aux_mode) {
+ 				drm_dp_cec_unset_edid(&aconnector->dm_dp_aux.aux);
+ 			}
+ 		} else {
+-			const struct edid *edid = (const struct edid *)sink->dc_edid.raw_edid;
+-
+-			aconnector->drm_edid = drm_edid_alloc(edid, sink->dc_edid.length);
++			aconnector->drm_edid = drm_edid_dup(sink->drm_edid);
+ 			drm_edid_connector_update(connector, aconnector->drm_edid);
+ 
+ 			if (aconnector->dc_link->aux_mode)
+@@ -7185,15 +7183,10 @@ static void amdgpu_dm_connector_funcs_force(struct drm_connector *connector)
+ 	aconnector->drm_edid = drm_edid;
+ 	/* Update emulated (virtual) sink's EDID */
+ 	if (dc_em_sink && dc_link) {
+-		// FIXME: Get rid of drm_edid_raw()
+-		const struct edid *edid = drm_edid_raw(drm_edid);
+-
+-		memset(&dc_em_sink->edid_caps, 0, sizeof(struct dc_edid_caps));
+-		memmove(dc_em_sink->dc_edid.raw_edid, edid,
+-			(edid->extensions + 1) * EDID_LENGTH);
++		dc_em_sink->drm_edid = drm_edid_dup(drm_edid);
+ 		dm_helpers_parse_edid_caps(
+ 			dc_link,
+-			&dc_em_sink->dc_edid,
++			dc_em_sink->drm_edid,
+ 			&dc_em_sink->edid_caps);
+ 	}
+ }
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+index b0fea0856866d68b2e78a9f141effe2777ea26ee..57b4a58eb9c8bfcb7b76622cf303ba01450e30ba 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+@@ -48,14 +48,14 @@
+ #include "ddc_service_types.h"
+ #include "clk_mgr.h"
+ 
+-static u32 edid_extract_panel_id(struct edid *edid)
++static u32 edid_extract_panel_id(const struct edid *edid)
+ {
+ 	return (u32)edid->mfg_id[0] << 24   |
+ 	       (u32)edid->mfg_id[1] << 16   |
+ 	       (u32)EDID_PRODUCT_ID(edid);
+ }
+ 
+-static void apply_edid_quirks(struct edid *edid, struct dc_edid_caps *edid_caps)
++static void apply_edid_quirks(const struct edid *edid, struct dc_edid_caps *edid_caps)
+ {
+ 	uint32_t panel_id = edid_extract_panel_id(edid);
+ 
+@@ -89,19 +89,19 @@ static void apply_edid_quirks(struct edid *edid, struct dc_edid_caps *edid_caps)
+  * dm_helpers_parse_edid_caps() - Parse edid caps
+  *
+  * @link: current detected link
+- * @edid:	[in] pointer to edid
++ * @drm_edid:	[in] pointer to edid
+  * @edid_caps:	[in] pointer to edid caps
+  *
+  * Return: void
+  */
+ enum dc_edid_status dm_helpers_parse_edid_caps(
+ 		struct dc_link *link,
+-		const struct dc_edid *edid,
++		const struct drm_edid *drm_edid,
+ 		struct dc_edid_caps *edid_caps)
+ {
+ 	struct amdgpu_dm_connector *aconnector = link->priv;
+ 	struct drm_connector *connector = &aconnector->base;
+-	struct edid *edid_buf = edid ? (struct edid *) edid->raw_edid : NULL;
++	const struct edid *edid_buf = drm_edid_raw(drm_edid);
+ 	struct cea_sad *sads;
+ 	int sad_count = -1;
+ 	int sadb_count = -1;
+@@ -110,10 +110,10 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
+ 
+ 	enum dc_edid_status result = EDID_OK;
+ 
+-	if (!edid_caps || !edid)
++	if (!edid_caps || !drm_edid)
+ 		return EDID_BAD_INPUT;
+ 
+-	if (!drm_edid_is_valid(edid_buf))
++	if (!drm_edid_valid(drm_edid))
+ 		result = EDID_BAD_CHECKSUM;
+ 
+ 	edid_caps->manufacturer_id = (uint16_t) edid_buf->mfg_id[0] |
+@@ -132,7 +132,7 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
+ 
+ 	apply_edid_quirks(edid_buf, edid_caps);
+ 
+-	sad_count = drm_edid_to_sad((struct edid *) edid->raw_edid, &sads);
++	sad_count = drm_edid_to_sad(edid_buf, &sads);
+ 	if (sad_count <= 0)
+ 		return result;
+ 
+@@ -146,7 +146,7 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
+ 		edid_caps->audio_modes[i].sample_size = sad->byte2;
+ 	}
+ 
+-	sadb_count = drm_edid_to_speaker_allocation((struct edid *) edid->raw_edid, &sadb);
++	sadb_count = drm_edid_to_speaker_allocation(edid_buf, &sadb);
+ 
+ 	if (sadb_count < 0) {
+ 		DRM_ERROR("Couldn't read Speaker Allocation Data Block: %d\n", sadb_count);
+@@ -966,7 +966,6 @@ enum dc_edid_status dm_helpers_read_local_edid(
+ 	int retry = 3;
+ 	enum dc_edid_status edid_status;
+ 	const struct drm_edid *drm_edid;
+-	const struct edid *edid;
+ 
+ 	if (link->aux_mode)
+ 		ddc = &aconnector->dm_dp_aux.aux.ddc;
+@@ -996,16 +995,14 @@ enum dc_edid_status dm_helpers_read_local_edid(
+ 		if (!drm_edid)
+ 			return EDID_NO_RESPONSE;
+ 
+-		edid = drm_edid_raw(drm_edid); // FIXME: Get rid of drm_edid_raw()
+-		sink->dc_edid.length = EDID_LENGTH * (edid->extensions + 1);
+-		memmove(sink->dc_edid.raw_edid, (uint8_t *)edid, sink->dc_edid.length);
++		sink->drm_edid = drm_edid_dup(drm_edid);
+ 
+ 		/* We don't need the original edid anymore */
+ 		drm_edid_free(drm_edid);
+ 
+ 		edid_status = dm_helpers_parse_edid_caps(
+ 						link,
+-						&sink->dc_edid,
++						sink->drm_edid,
+ 						&sink->edid_caps);
+ 
+ 	} while (edid_status == EDID_BAD_CHECKSUM && --retry > 0);
+@@ -1032,7 +1029,7 @@ enum dc_edid_status dm_helpers_read_local_edid(
+ 		dm_helpers_dp_write_dpcd(ctx,
+ 					link,
+ 					DP_TEST_EDID_CHECKSUM,
+-					&sink->dc_edid.raw_edid[sink->dc_edid.length-1],
++					&drm_edid_raw(sink->drm_edid)->checksum,
+ 					1);
+ 
+ 		dm_helpers_dp_write_dpcd(ctx,
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index 7d5c790cab50987f361e1b4228562483a0f908f9..60f535fd39620b5657c1bc34b7f2e1509f62a5f3 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -2389,7 +2389,7 @@ struct scdc_caps {
+  */
+ struct dc_sink {
+ 	enum signal_type sink_signal;
+-	struct dc_edid dc_edid; /* raw edid */
++	const struct drm_edid *drm_edid; /* raw edid */
+ 	struct dc_edid_caps edid_caps; /* parse display caps */
+ 	struct dc_container_id *dc_container_id;
+ 	uint32_t dongle_max_pix_clk;
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_ddc_types.h b/drivers/gpu/drm/amd/display/dc/dc_ddc_types.h
+index 7dd1cfb9ab763c1e37d1cf6e27bbe4790a732f5b..6e0a457b7551dcec06614bab0aedbbf5f9ec3ff0 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_ddc_types.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_ddc_types.h
+@@ -178,9 +178,6 @@ enum display_dongle_type {
+ 	DISPLAY_DONGLE_DP_HDMI_MISMATCHED_DONGLE,
+ };
+ 
+-#define DC_MAX_EDID_BUFFER_SIZE 2048
+-#define DC_EDID_BLOCK_SIZE 128
+-
+ struct ddc_service {
+ 	struct ddc *ddc_pin;
+ 	struct ddc_flags flags;
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_types.h b/drivers/gpu/drm/amd/display/dc/dc_types.h
+index edf4df1d03b58ca97a23bfe97f7bd9651b21517b..d16be380d3eda73adfeee63eabca6836d3a36df0 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_types.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_types.h
+@@ -149,11 +149,6 @@ struct dc_cea_audio_mode {
+ 	};
+ };
+ 
+-struct dc_edid {
+-	uint32_t length;
+-	uint8_t raw_edid[DC_MAX_EDID_BUFFER_SIZE];
+-};
+-
+ /* When speaker location data block is not available, DEFAULT_SPEAKER_LOCATION
+  * is used. In this case we assume speaker location are: front left, front
+  * right and front center. */
+diff --git a/drivers/gpu/drm/amd/display/dc/dm_helpers.h b/drivers/gpu/drm/amd/display/dc/dm_helpers.h
+index 483d8c29261814a608895abe1a195225514f78e6..5a3d4bf7c370f08babc052f259d26a1a291d4c72 100644
+--- a/drivers/gpu/drm/amd/display/dc/dm_helpers.h
++++ b/drivers/gpu/drm/amd/display/dc/dm_helpers.h
+@@ -61,7 +61,7 @@ void dm_helpers_free_gpu_mem(
+ 
+ enum dc_edid_status dm_helpers_parse_edid_caps(
+ 	struct dc_link *link,
+-	const struct dc_edid *edid,
++	const struct drm_edid *drm_edid,
+ 	struct dc_edid_caps *edid_caps);
+ 
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/link/link_detection.c b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
+index 05adaf8248b1b11675aa9e86a24fa24a2a811e01..f13b4e8929d5b217495b5fd29c4da7248a01a8e6 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
++++ b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
+@@ -618,16 +618,25 @@ static bool detect_dp(struct dc_link *link,
+ 	return true;
+ }
+ 
+-static bool is_same_edid(struct dc_edid *old_edid, struct dc_edid *new_edid)
++static bool is_same_edid(const struct drm_edid *old_drm_edid,
++			 const struct drm_edid *new_drm_edid)
+ {
+-	if (old_edid->length != new_edid->length)
++	const struct edid *old_edid, *new_edid;
++	size_t old_edid_length, new_edid_length;
++
++	old_edid = drm_edid_raw(old_drm_edid);
++	new_edid = drm_edid_raw(new_drm_edid);
++
++	if (!old_edid || !new_edid)
+ 		return false;
+ 
+-	if (new_edid->length == 0)
++	old_edid_length = (old_edid->extensions + 1) * EDID_LENGTH;
++	new_edid_length = (new_edid->extensions + 1) * EDID_LENGTH;
++
++	if (old_edid_length != new_edid_length)
+ 		return false;
+ 
+-	return (memcmp(old_edid->raw_edid,
+-		       new_edid->raw_edid, new_edid->length) == 0);
++	return memcmp(old_edid, new_edid, old_edid_length) == 0;
+ }
+ 
+ static bool wait_for_entering_dp_alt_mode(struct dc_link *link)
+@@ -878,6 +887,7 @@ static bool detect_link_and_local_sink(struct dc_link *link,
+ 	struct dpcd_caps prev_dpcd_caps;
+ 	enum dc_connection_type new_connection_type = dc_connection_none;
+ 	const uint32_t post_oui_delay = 30; // 30ms
++	const struct edid *edid;
+ 
+ 	DC_LOGGER_INIT(link->ctx->logger);
+ 
+@@ -1112,8 +1122,8 @@ static bool detect_link_and_local_sink(struct dc_link *link,
+ 		// Check if edid is the same
+ 		if ((prev_sink) &&
+ 		    (edid_status == EDID_THE_SAME || edid_status == EDID_OK))
+-			same_edid = is_same_edid(&prev_sink->dc_edid,
+-						 &sink->dc_edid);
++			same_edid = is_same_edid(prev_sink->drm_edid,
++						 sink->drm_edid);
+ 
+ 		if (sink->edid_caps.panel_patch.skip_scdc_overwrite)
+ 			link->ctx->dc->debug.hdmi20_disable = true;
+@@ -1150,11 +1160,12 @@ static bool detect_link_and_local_sink(struct dc_link *link,
+ 		if (link->local_sink && dc_is_dp_signal(sink_caps.signal))
+ 			dp_trace_init(link);
+ 
++		edid = drm_edid_raw(sink->drm_edid);
+ 		/* Connectivity log: detection */
+-		for (i = 0; i < sink->dc_edid.length / DC_EDID_BLOCK_SIZE; i++) {
++		for (i = 0; i < edid->extensions + 1; i++) {
+ 			CONN_DATA_DETECT(link,
+-					 &sink->dc_edid.raw_edid[i * DC_EDID_BLOCK_SIZE],
+-					 DC_EDID_BLOCK_SIZE,
++					 edid + i,
++					 EDID_LENGTH,
+ 					 "%s: [Block %d] ", sink->edid_caps.display_name, i);
+ 		}
+ 
+@@ -1399,11 +1410,6 @@ struct dc_sink *link_add_remote_sink(
+ 	struct dc_sink *dc_sink;
+ 	enum dc_edid_status edid_status;
+ 
+-	if (len > DC_MAX_EDID_BUFFER_SIZE) {
+-		dm_error("Max EDID buffer size breached!\n");
+-		return NULL;
+-	}
+-
+ 	if (!init_data) {
+ 		BREAK_TO_DEBUGGER();
+ 		return NULL;
+@@ -1419,8 +1425,7 @@ struct dc_sink *link_add_remote_sink(
+ 	if (!dc_sink)
+ 		return NULL;
+ 
+-	memmove(dc_sink->dc_edid.raw_edid, edid, len);
+-	dc_sink->dc_edid.length = len;
++	dc_sink->drm_edid = drm_edid_alloc(edid, len);
+ 
+ 	if (!link_add_remote_sink_helper(
+ 			link,
+@@ -1429,7 +1434,7 @@ struct dc_sink *link_add_remote_sink(
+ 
+ 	edid_status = dm_helpers_parse_edid_caps(
+ 			link,
+-			&dc_sink->dc_edid,
++			dc_sink->drm_edid,
+ 			&dc_sink->edid_caps);
+ 
+ 	/*
+@@ -1437,7 +1442,8 @@ struct dc_sink *link_add_remote_sink(
+ 	 * parsing fails
+ 	 */
+ 	if (edid_status != EDID_OK && edid_status != EDID_PARTIAL_VALID) {
+-		dc_sink->dc_edid.length = 0;
++		drm_edid_free(dc_sink->drm_edid);
++		dc_sink->drm_edid = NULL;
+ 		dm_error("Bad EDID, status%d!\n", edid_status);
+ 	}
+ 
 
->
->>> @@ -2612,7 +2707,6 @@ void amdgpu_vm_fini(struct amdgpu_device *adev,
->>> struct amdgpu_vm *vm)
->>>
->>>      root = amdgpu_bo_ref(vm->root.bo);
->>>      amdgpu_bo_reserve(root, true);
->>> -   amdgpu_vm_put_task_info(vm->task_info);
->>>      amdgpu_vm_set_pasid(adev, vm, 0);
->>>      dma_fence_wait(vm->last_unlocked, false);
->>>      dma_fence_put(vm->last_unlocked);
->>> @@ -2660,6 +2754,15 @@ void amdgpu_vm_fini(struct amdgpu_device *adev,
->> struct amdgpu_vm *vm)
->>>              }
->>>      }
->>>
->>> +   if (!amdgpu_vm_stats_is_zero(vm)) {
->>> +           struct amdgpu_task_info *ti = vm->task_info;
->>> +
->>> +           dev_warn(adev->dev,
->>> +                    "VM memory stats for proc %s(%d) task %s(%d) is non-zero
->> when fini\n",
->>> +                    ti->process_name, ti->pid, ti->task_name, ti->tgid);
->>> +   }
->>> +
->>> +   amdgpu_vm_put_task_info(vm->task_info);
->> Please don't move the call to amdgpu_vm_put_task_info().
-> Is keeping the task_info alive a hazard here? I could copy out the info, it just seemed a bit wasteful.
-
-Ah, now I see why you have moved that.
-
-IIRC we need to free up the task info before releasing the PASID, but 
-that info might be outdated. Need to check the code.
-
-Does it work if you move the message further up or does the root PD then 
-break your neck because it isn't released yet?
-
-Thanks,
-Christian.
-
->
-> Regards,
-> Teddy
+-- 
+2.47.0
 
