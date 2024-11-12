@@ -4,57 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8F79D41C1B
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Nov 2024 08:49:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E90FCD41C1D
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Nov 2024 08:49:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E1FA710E6AB;
-	Wed, 13 Nov 2024 08:49:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8977510E6A8;
+	Wed, 13 Nov 2024 08:49:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.b="rMalO9Ta";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="dz6Czezm";
 	dkim-atps=neutral
-Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 130C410E62D;
- Tue, 12 Nov 2024 18:34:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
- s=mail; t=1731436455;
- bh=OCMki1vQqbDliRkOMezACkpm1Q36q6wLOkTgwor2sVw=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=rMalO9TaEUVfeVBWfJC8vJPCeZyaLbaD3ioHhJ2otPSxCRAZzRd3nPeXNEYucB5H9
- W6ncVnx7bpKq7Mb3eFqODFpvcH6DvaLfOZz7cpnrkf8N74g98IBITim9N6mJ1gBA46
- x/r6DycF3Ubt4KaYLI18UbdPcXM3mClAE9OyaXLU=
-From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-Date: Tue, 12 Nov 2024 19:34:16 +0100
-Subject: [PATCH v2 7/7] drm/amd/display: Switch dc_link_add_remote_sink()
- to struct drm_edid
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 76DC710E234;
+ Tue, 12 Nov 2024 16:45:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=f9JaviCbLXmyeAuQ/U0n+aUYuMEEP12gJE4r6O2lA6Y=; b=dz6CzezmviA0qhKwz4iETP5x++
+ 60lndbluRwU2y7LIH/85fO/EIxtU0DTh93U+Loi47xtk4d5Hxt32CLMbrYemVc0eYVEz2ljYazoHw
+ oI1VjVYYPwbdxUpwpB757Rn5ZlzzdK8eGro/nIUB+rBY1xqaFITK8rI9vvwYxQ2MX3ski8MVtLDMf
+ v0c46+ni+C2Nm1P2Y619iYPRJB2UOnhErPAcP3S8Z3uAd7DDT5L+WID89wr9hDhGLiftrIZ89SXbq
+ LNMa8ZgeGN8fpHIvQN+nFyZitDtl4aMlfFN19uO7dlCNb86S+0RjiXk/OVhjaizKOUZXi2sAJrJ4p
+ qFs4H62g==;
+Received: from [179.118.191.54] (helo=[192.168.15.100])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1tAu0X-005xVV-V4; Tue, 12 Nov 2024 17:44:50 +0100
+Message-ID: <0829825f-6e6e-465e-aa3c-444d57bd115e@igalia.com>
+Date: Tue, 12 Nov 2024 13:44:43 -0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RESEND v9 2/2] drm/amdgpu: Enable async flip on overlay
+ planes
+To: Harry Wentland <harry.wentland@amd.com>
+Cc: kernel-dev@igalia.com, Daniel Stone <daniel@fooishbar.org>,
+ Xaver Hugl <xaver.hugl@gmail.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, David Airlie <airlied@gmail.com>,
+ Xinhui Pan <Xinhui.Pan@amd.com>, joshua@froggi.es,
+ Leo Li <sunpeng.li@amd.com>, Maxime Ripard <mripard@kernel.org>,
+ Simon Ser <contact@emersion.fr>, dmitry.baryshkov@linaro.org,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, ville.syrjala@linux.intel.com,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>
+References: <20241101-tonyk-async_flip-v9-0-681814efbfbe@igalia.com>
+ <20241101-tonyk-async_flip-v9-2-681814efbfbe@igalia.com>
+ <3a97b828-2864-45fd-9fa1-5341bd456d3e@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
+In-Reply-To: <3a97b828-2864-45fd-9fa1-5341bd456d3e@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Message-Id: <20241112-amdgpu-drm_edid-v2-7-1399dc0f0469@weissschuh.net>
-References: <20241112-amdgpu-drm_edid-v2-0-1399dc0f0469@weissschuh.net>
-In-Reply-To: <20241112-amdgpu-drm_edid-v2-0-1399dc0f0469@weissschuh.net>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>, 
- jinzh <jinzh@github.amd.com>, Aric Cyr <Aric.Cyr@amd.com>, 
- Alan Liu <HaoPing.Liu@amd.com>, Tony Cheng <Tony.Cheng@amd.com>, 
- Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Simona Vetter <simona@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Harry Wentland <Harry.Wentland@amd.com>, 
- Melissa Wen <mwen@igalia.com>, 
- =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1731436454; l=6539;
- i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
- bh=OCMki1vQqbDliRkOMezACkpm1Q36q6wLOkTgwor2sVw=;
- b=ivWuWrGWBTBrHZtGZ8K6EFZ4S0boWjcegIJwbAhytLAqAYLmxQnpjj5yol6OlTrlX/w3mHYvQ
- MNeJgFiZ5GEAZGjhTpMZ6kKzVtivWazGXTH+sJRlyDxt87rFx9IRHkH
-X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
- pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
 X-Mailman-Approved-At: Wed, 13 Nov 2024 08:49:34 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -70,145 +74,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-"struct drm_edid" is the safe and recommended alternative to "struct edid".
-Now that all callers of dc_link_add_remote_sink() have access to a
-validate struct drm_edid, pass it around directly.
+Hi Harry, thanks for the reply!
 
-Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c           | 4 +---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c | 4 +---
- drivers/gpu/drm/amd/display/dc/core/dc_link_exports.c       | 4 ++--
- drivers/gpu/drm/amd/display/dc/dc.h                         | 2 +-
- drivers/gpu/drm/amd/display/dc/inc/link.h                   | 2 +-
- drivers/gpu/drm/amd/display/dc/link/link_detection.c        | 5 ++---
- drivers/gpu/drm/amd/display/dc/link/link_detection.h        | 2 +-
- 7 files changed, 9 insertions(+), 14 deletions(-)
+Em 11/11/2024 18:10, Harry Wentland escreveu:
+> On 2024-11-01 14:23, André Almeida wrote:
+>> amdgpu can handle async flips on overlay planes, so allow it for atomic
+>> async checks.
+>>
+>> Signed-off-by: André Almeida <andrealmeid@igalia.com>
+>> ---
+>>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 3 +--
+>>   1 file changed, 1 insertion(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+>> index 495e3cd70426db0182cb2811bc6d5d09f52f8a4b..4c6aed5ca777d76245f5f2865046f0f598be342a 100644
+>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+>> @@ -1266,8 +1266,7 @@ static int amdgpu_dm_plane_atomic_async_check(struct drm_plane *plane,
+>>   	struct drm_plane_state *new_plane_state;
+>>   	struct dm_crtc_state *dm_new_crtc_state;
+>>   
+>> -	/* Only support async updates on cursor planes. */
+>> -	if (plane->type != DRM_PLANE_TYPE_CURSOR)
+>> +	if (plane->type != DRM_PLANE_TYPE_CURSOR && plane->type != DRM_PLANE_TYPE_OVERLAY)
+> 
+> This wouldn't just be called for flips, though, but could also be
+> called for updates on a plane, right? Those could cause for problems.
+> 
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index b09e13aed570756655b94647d4346c722a02e34a..a555809f2691001b26fc2cbcd3dff41484521365 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -7218,7 +7218,6 @@ static void create_eml_sink(struct amdgpu_dm_connector *aconnector)
- 			.sink_signal = SIGNAL_TYPE_VIRTUAL
- 	};
- 	const struct drm_edid *drm_edid;
--	const struct edid *edid;
- 
- 	drm_edid = drm_edid_read(connector);
- 	drm_edid_connector_update(connector, drm_edid);
-@@ -7232,10 +7231,9 @@ static void create_eml_sink(struct amdgpu_dm_connector *aconnector)
- 
- 	aconnector->drm_edid = drm_edid;
- 
--	edid = drm_edid_raw(drm_edid); // FIXME: Get rid of drm_edid_raw()
- 	aconnector->dc_em_sink = dc_link_add_remote_sink(
- 		aconnector->dc_link,
--		edid,
-+		drm_edid,
- 		&init_params);
- 
- 	if (aconnector->base.force == DRM_FORCE_ON) {
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-index 554cc7a7216858ff10e138bf71ab826aa635afe8..df70f6bc92a3fa247aa9389ab29d8e249bb683ab 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-@@ -361,12 +361,10 @@ static int dm_dp_mst_get_modes(struct drm_connector *connector)
- 		struct dc_sink_init_data init_params = {
- 				.link = aconnector->dc_link,
- 				.sink_signal = SIGNAL_TYPE_DISPLAY_PORT_MST };
--		const struct edid *edid;
- 
--		edid = drm_edid_raw(aconnector->drm_edid); // FIXME: Get rid of drm_edid_raw()
- 		dc_sink = dc_link_add_remote_sink(
- 			aconnector->dc_link,
--			edid,
-+			aconnector->drm_edid,
- 			&init_params);
- 
- 		if (!dc_sink) {
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_exports.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_exports.c
-index be55165a16df65c623092906582ba7e81a141464..26c975ec7861848d458d13190cb173c6e1003cef 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link_exports.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_exports.c
-@@ -266,10 +266,10 @@ unsigned int dc_dp_trace_get_link_loss_count(struct dc_link *link)
- 
- struct dc_sink *dc_link_add_remote_sink(
- 		struct dc_link *link,
--		const struct edid *edid,
-+		const struct drm_edid *drm_edid,
- 		struct dc_sink_init_data *init_data)
- {
--	return link->dc->link_srv->add_remote_sink(link, edid, init_data);
-+	return link->dc->link_srv->add_remote_sink(link, drm_edid, init_data);
- }
- 
- void dc_link_remove_remote_sink(struct dc_link *link, struct dc_sink *sink)
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index 60f535fd39620b5657c1bc34b7f2e1509f62a5f3..b12f95ba7dcd29f2722d0e9d498295c34de40b2a 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -1851,7 +1851,7 @@ struct dc_sink_init_data;
-  */
- struct dc_sink *dc_link_add_remote_sink(
- 		struct dc_link *dc_link,
--		const struct edid *edid,
-+		const struct drm_edid *drm_edid,
- 		struct dc_sink_init_data *init_data);
- 
- /* Remove remote sink from a link with dc_connection_mst_branch connection type.
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/link.h b/drivers/gpu/drm/amd/display/dc/inc/link.h
-index 76bac2e773b0f5036b82942ed90b9c43c6558d4c..12a452315b0ee84412b36c66b231658837186537 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/link.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/link.h
-@@ -109,7 +109,7 @@ struct link_service {
- 			enum dc_connection_type *type);
- 	struct dc_sink *(*add_remote_sink)(
- 			struct dc_link *link,
--			const struct edid *edid,
-+			const struct drm_edid *drm_edid,
- 			struct dc_sink_init_data *init_data);
- 	void (*remove_remote_sink)(struct dc_link *link, struct dc_sink *sink);
- 	bool (*get_hpd_state)(struct dc_link *link);
-diff --git a/drivers/gpu/drm/amd/display/dc/link/link_detection.c b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-index f13b4e8929d5b217495b5fd29c4da7248a01a8e6..387117863c9e8af6298b07d2040a4372f94c8c88 100644
---- a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-@@ -1403,10 +1403,9 @@ static bool link_add_remote_sink_helper(struct dc_link *dc_link, struct dc_sink
- 
- struct dc_sink *link_add_remote_sink(
- 		struct dc_link *link,
--		const struct edid *edid,
-+		const struct drm_edid *drm_edid,
- 		struct dc_sink_init_data *init_data)
- {
--	int len = edid ? (edid->extensions + 1) * EDID_LENGTH : 0;
- 	struct dc_sink *dc_sink;
- 	enum dc_edid_status edid_status;
- 
-@@ -1425,7 +1424,7 @@ struct dc_sink *link_add_remote_sink(
- 	if (!dc_sink)
- 		return NULL;
- 
--	dc_sink->drm_edid = drm_edid_alloc(edid, len);
-+	dc_sink->drm_edid = drm_edid_dup(drm_edid);
- 
- 	if (!link_add_remote_sink_helper(
- 			link,
-diff --git a/drivers/gpu/drm/amd/display/dc/link/link_detection.h b/drivers/gpu/drm/amd/display/dc/link/link_detection.h
-index dec5001411be2c008c8684f474b020bf78278442..c35b4f5304c6e8bcbb6f998962d089b43104db89 100644
---- a/drivers/gpu/drm/amd/display/dc/link/link_detection.h
-+++ b/drivers/gpu/drm/amd/display/dc/link/link_detection.h
-@@ -31,7 +31,7 @@ bool link_detect_connection_type(struct dc_link *link,
- 		enum dc_connection_type *type);
- struct dc_sink *link_add_remote_sink(
- 		struct dc_link *link,
--		const struct edid *edid,
-+		const struct drm_edid *drm_edid,
- 		struct dc_sink_init_data *init_data);
- void link_remove_remote_sink(struct dc_link *link, struct dc_sink *sink);
- bool link_reset_cur_dp_mst_topology(struct dc_link *link);
+I see, I think you are right and can be called from a non-flip commmit.
 
--- 
-2.47.0
+> There's also nothing special about OVERLAY vs PRIMARY planes, other
+> than that amdgpu needs a PRIMARY plane, IIRC. So updates on PRIMARY
+> planes should also work (or not).
+> 
+
+Right, the PRIMARY plane type is already supported for every DRM driver 
+in the API so I didn't explicitly added it here.
+
+> Maybe this should check that we're actually dealing with a simple
+> flip, i.e., a simple surface address update.
+> 
+
+Right, that makes sense to me, thanks!
+
+> Harry
+> 
+>>   		return -EINVAL;
+>>   
+>>   	new_plane_state = drm_atomic_get_new_plane_state(state, plane);
+>>
+> 
 
