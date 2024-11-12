@@ -4,161 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2074FD32D7E
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Nov 2024 09:41:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA85CD32D8E
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Nov 2024 10:54:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CAE6A10E31F;
-	Tue, 12 Nov 2024 09:41:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 657EF10E5BB;
+	Tue, 12 Nov 2024 10:54:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="r86YW8bg";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="i6l5GruD";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2065.outbound.protection.outlook.com [40.107.223.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 236AC10E31F
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Nov 2024 09:41:28 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PHr/fbl1catD9S8PHnJvhCmIithj1pfxFCiFSk14oYDO5mbkamtfsl8GmF7KafWkFP1YOsIYCdlYoJColaOwWWZ5bTDyFbhBslCRIs64Q1javtitySsP8W2pMPrK3gJ+YieOIqpWZ1CMZhXJxXH9ihDB25qXd9NOsaXX8r3CjTFiN9+XC9NRfh/FZAaSzQeO/YOkpgYT9IrpR36GtDvQpDMrhlruW8zeQOLL/IkczDlGRyTcyDehCI36JVTS8xtN2jQEm9by4km8bKELu+LrTxkQ+WUTHJYCyAyWEnLwshkl7YbfHtSbdjECduNdYxSop/5iCEFmKtw87kpCx8Xo+Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YkJiI/B1b/FtEjmnGLEmaeDCZKOhYpDNsuDQupnEQHU=;
- b=LTF8HNJmJGd6z7nKdK9FRIA2PGeXSkRxYVZRuV8Fh4U/senP3ZmbyBSfPkF9+VTB8FRHrnE8Mj9Z6iNN9I+9BERCImbHrfIaObtr/qKfepwwNljmq4ev8YzJp3h+/XTk3rMdx3AmR1xyBqo8FxV5sB+N2xL5LsxmZinN7IjU0tIxViH4MKqzmn5jvufU/OVx/Gik1iP3MZvzdu7CWMsUv4JJqFbau4Mkn6nFVIMfde8HtfO/Yk4sgioSoEm1hn+B/gWMTGRHD7a7DstnLVbOiw3M2sYHBLMUXTZ+O2P11xL7FVx15uaL5k6WJ/Fdwj7yV0jBJImZhHUxdhzo0Ziqmg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YkJiI/B1b/FtEjmnGLEmaeDCZKOhYpDNsuDQupnEQHU=;
- b=r86YW8bgZLbpgGx+7dJHgOMWHSl5cuLmz+0GAg5lh4OA0x+CNuL1fr6V+nmlPEGzdU2V0POhYg6kw4Bia9hBvuI9zimsEza7ZvjT+D/DVYdlavBYmOlcUusLYxNnEXUasioRE8asP7jNlydpt8RQ0VzIlDZrWjSya7bV4hUkU5M=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by PH0PR12MB7906.namprd12.prod.outlook.com (2603:10b6:510:26c::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8137.27; Tue, 12 Nov
- 2024 09:41:25 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%2]) with mapi id 15.20.8137.027; Tue, 12 Nov 2024
- 09:41:25 +0000
-Message-ID: <0b00a914-0274-4268-9e9f-c2ff3e43da12@amd.com>
-Date: Tue, 12 Nov 2024 10:41:13 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/amdkfd: use cache GTT buffer for PQ and wb pool
-To: "Liu, Monk" <Monk.Liu@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- "Lazar, Lijo" <Lijo.Lazar@amd.com>, Alex Deucher <alexdeucher@gmail.com>,
- "Zhao, Victor" <Victor.Zhao@amd.com>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "Yang, Philip" <Philip.Yang@amd.com>,
- "Kuehling, Felix" <Felix.Kuehling@amd.com>
-References: <20241106063322.2443403-1-Victor.Zhao@amd.com>
- <20241106063322.2443403-2-Victor.Zhao@amd.com>
- <CADnq5_NDDBsWrZvxQrCk8-qXfk-xBUBTM62SNawC__BANtpjOQ@mail.gmail.com>
- <6dc831bf-f7d8-4e9d-98c8-8204b330e466@amd.com>
- <7c8e9102-0d4f-405c-8749-1653118400f1@amd.com>
- <BL1PR12MB5269C32C36AEBAE40FBC131A845D2@BL1PR12MB5269.namprd12.prod.outlook.com>
- <BL1PR12MB52690F8688563810F74A261A845D2@BL1PR12MB5269.namprd12.prod.outlook.com>
- <7c0bc3a5-756d-4c60-b459-73a2ee910ce7@amd.com>
- <BL1PR12MB5269AC1E12A48107FA87A03084582@BL1PR12MB5269.namprd12.prod.outlook.com>
- <6950b5e1-c283-4029-84e8-7dcc42b16912@amd.com>
- <bef834a5-b7ae-4ef0-bd75-55003d38f4ac@gmail.com>
- <BL1PR12MB526909544DD2302032E2488084592@BL1PR12MB5269.namprd12.prod.outlook.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <BL1PR12MB526909544DD2302032E2488084592@BL1PR12MB5269.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR0P281CA0176.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:b4::15) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
+ [209.85.128.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 46F2E10E5BB
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 Nov 2024 10:54:08 +0000 (UTC)
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-4316f3d3c21so44609145e9.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 Nov 2024 02:54:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1731408846; x=1732013646; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=wIiKhG7OlxUFE8ljnu/4UVL4wYfcd2pknbidg/sA9Io=;
+ b=i6l5GruDrxveUcBMsuOqff7R33TruvMU//r5i43GIMb/91ww6oMNRaAVJwxAIeoh4e
+ JFBu4vq9QEQrTni3B/Q4c/lVUIN5rYqB3MfZKSNKhzEPXaO6sCu3dC56zDU4Sok/T4+w
+ WMoc1/1NvOtae2LusNEtzGWUY3UiO6UybcRZ13a7auyyBqwUM7dpwyiZPh1Xkhe7P/NP
+ J2MT6WbUuOOrgCByHD/esqmCrjBVL3n4JwPjKbSktXx6VS8xHIXKVm2N3jsUg3iQtkI7
+ hlwxa1FaOzGbAKfBMXt/PUAyTuJ/cpZ4Si5tG1XhOohptxEhHeLK/f62h2lEPUmQehcp
+ W1dA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1731408846; x=1732013646;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=wIiKhG7OlxUFE8ljnu/4UVL4wYfcd2pknbidg/sA9Io=;
+ b=PNGSq2mR6V1LGgl+ec4Mw8YLQjTejSfMi04S4/n4JonMW1X1e13Rj6QBT3Bd+J91NX
+ b/wb8CVdZzdDWU/pryrb2Rb0n3dU2dMkHrY06d4MMwBOYO9+1gp4RKY8BzQd4ZVWOC8m
+ U/fey51F7CudIIgzXRVoAVkrSGaDtIVM4/4lBqDIx8eIA2WbCKIB1prD1na7Jr2og3/T
+ ZwTcJw5CrdgkQNE1TdzlmTHAtypRSnQPXj3X0d7lO8a4jHvRXY3ukULHurDChNxJY6YE
+ C5UDqbJi+JVSDuejibaQd9HsCurFZns++0VBNC1dDSuoyngB5pKMibZCr8TropUVswQ0
+ dhuQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUXFlgMKfUCXJ4dv6yAx0ksdYTeKhoilmb8V2bwelk/t8VtMdvp9VgELje7ODCDHJPFeaiegzk9@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw7uiYF9z0sJc0O4Vpe9iCLDBtvdlsNMJ9Ose+tfsTgXfDoD+eI
+ 3w/IJNPw68hUZZUZPqSWvWg9TolB5c4SX1lKu3cGP5yMTG2Ak+1rhEjHD8E8
+X-Google-Smtp-Source: AGHT+IF4Al6PrjyA3S7v6rofZqL5mF0nlT2+qGcKbsPErUvefP1tQx/N0BknyNP3rUtzp78nWo3zGg==
+X-Received: by 2002:a05:600c:1908:b0:431:5187:28dd with SMTP id
+ 5b1f17b1804b1-432cd47d919mr15937175e9.28.1731408846120; 
+ Tue, 12 Nov 2024 02:54:06 -0800 (PST)
+Received: from [10.254.108.83] (munvpn.amd.com. [165.204.72.6])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-381eda04ad0sm15044309f8f.100.2024.11.12.02.54.04
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 12 Nov 2024 02:54:05 -0800 (PST)
+Message-ID: <5d1c88a5-9802-4bb7-b76a-5e501847ced1@gmail.com>
+Date: Tue, 12 Nov 2024 11:54:02 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH0PR12MB7906:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3d5ae90d-2b18-42f0-e2c1-08dd02fe2cc2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?YnFjWmZ3ZjF6S3RFU0g2NmZaMnVWTnlHRFdVUlpQa2dnbGNuclp5eDlQYTc0?=
- =?utf-8?B?bXVHNFZGdjV0N1pTZmtqVmhGaHVPN2VJV2lSYkl1Z0NjVzBZYzR0NWdyUFV3?=
- =?utf-8?B?dGRBSkRzSEVRYlBneWsxMlg4dVZDVnpBV3U2RVFxb201d1pQN1NPcVZ3U3I3?=
- =?utf-8?B?V0dyRHhQd0ZkajZpYTNtc3BwTDREOHhDdlNtSmZ4ZXlnc0tENUlXcWpDMVA1?=
- =?utf-8?B?eFM3ektoNzN6YUdJdWx0Q2k2Q1VGZjNGeGF1NE04ZVZHdlVRc0N5d3FpV3hT?=
- =?utf-8?B?TVFTUkRLV3hXUHZnTGFmS2ptd0FudllBeFJJNFNVYUdJUHZSMVRBZXdVVjNM?=
- =?utf-8?B?RHJGMVNTeWRGY2RuenRoZVFzTDlzOUlZcmo3TDR4QTFmdnI2ZGNjOFlOY1JS?=
- =?utf-8?B?WEV1OXpnRDZWd1ZXazJaZkl6NWFQWjhGVW5pWWVjUDBRNkdzRXUxUzZhZjN0?=
- =?utf-8?B?K2JicTNzdThOaDdZTzdickR6c0tEaUFtL0ZjVnhlZ2diSm00Z3Rudkg5dTdF?=
- =?utf-8?B?SGpkdmxmL1Z1eVZlaEYyelYvWEZGbXNoN3JseDV3N01UbWRBYmFPK0NhN2J1?=
- =?utf-8?B?MUNtRTFoeHV6YmVCcXlYNzFWek9tUGp2amRVRE5Vb1ZDKzVWbkRzbG5nZjFI?=
- =?utf-8?B?SUdyOUZ1ZzgvZnZuazFUS2pIMnFLMFg5S1BFb0FoMjBmdjRrK1hxS3VkNENP?=
- =?utf-8?B?OS9LN0dNZkxqYlo2YWgxZHZpem4yVEZEUlYxcnZLSzc0aExuZGlrN1B2RUFm?=
- =?utf-8?B?dzdiQ01sK1lpbjZHU3VjU0g1STdsOWJPVVVJckN4YXZNZmZsM2lVUmhuSVJF?=
- =?utf-8?B?aXFrWllsN1FHSUZuT3krMkNMY2Q5NllQelVMT0RvQ1B0K0NyREJJR2ZuS2h1?=
- =?utf-8?B?dkZ3QWNJcG00V2ZwQXpudEo4Ky9JVXl1UU42ZlN1REcrYmpPdndyT1UwSVpM?=
- =?utf-8?B?R3IrL1E1NlFHWEcvOHIvRnZxUGZnL2NRZFhibXBMc1RnclNSLytvK1NKZURG?=
- =?utf-8?B?SHh2WGJIS1R3NzJDM3NPdndFS0thTW5zc1NucWRqSStpdUpwdElxZm9QdHFz?=
- =?utf-8?B?Zk5oM0xjYmFjWjVHWDRlZS9MQjdzakRncU5CS1FjWTVwUGU4dXNzRXVUWG5R?=
- =?utf-8?B?bmlMc1ZqL3dDWms3ZXhUaG94ejBtV0VPMERaY1Q0b3REckZmbmt4ZFBrbE96?=
- =?utf-8?B?NHZLVlhtRkR2R3VuQ2ppMm5UUHRjM2pDZG04QjVSZFAyVHFmd3BLV1gzd2ZW?=
- =?utf-8?B?djQyZERyd05BZ3ZleVl5c3l5cXJ3dmNWcyt1YlN1R2p1bk1PRStrbkc1VkdD?=
- =?utf-8?B?YUw1ZEJpaUlCS1Z3aXIxa0hJeE55azhjZitqU3lsWDk2QlBOdmwrN1RXVXNo?=
- =?utf-8?B?NU84NE1iQUdkcEVnY2NmNnhuN1VGOWpEOXBnK0poT0h6TytrNFRRVUFhWE40?=
- =?utf-8?B?MmI0SHd6MWNHOFd4L2VhNXFvcnlMUVNxamJUa0xPcnFLTUxaZnJvQ2E2OTVI?=
- =?utf-8?B?b1VxNzBoeHNxRUcwVXN3SlNPVzdJUG9xVEtzQUtTVnVFNTl4NFJOdVloR2Zl?=
- =?utf-8?B?bGs3S1FTcGh5SlNYeGl6ZDlDK0dScG1VZHl4dHNoYWZyQ3FPYVg4M0FMZzBK?=
- =?utf-8?B?RWFjMnp1NjhmS21wNTVYeGt0alNBMGtTSS80bjROa3MrSGJ6Y3dVcVpGMENG?=
- =?utf-8?B?QmY5encyRE02bFp2cUlFMnZDNjluM2NuRmV5NnFmei8yWHRxV0pqZG5ieVJx?=
- =?utf-8?Q?NgBb+n/tFrQhqsZ/WiXPpPI5PVIz9KAgqolox6U?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RlFlTy9DQWxQcUx0ejcyUHF5ZlJyd1E1NE13bzlwVGpRdDRhZmQ5WTlXQ3Mw?=
- =?utf-8?B?RTMxdW1ZV05HWU9TV1J4TG1GYnRKZVlQaGZ0NENQZ3IyMGpKdHBRQ1BJOUtJ?=
- =?utf-8?B?OVRjTlVHbWpDZldpa2tZQnVnMmtxc0ZaQU1JWTN6VjBEaFZiV1d3NzBGWndN?=
- =?utf-8?B?dXcxTEhXa0JMYjlXV0NVaWRaUEk3SmxVNWR2VW5xR1pldGsxdWZvQlVlQ0hJ?=
- =?utf-8?B?MVBYSGk0WFBBRStkbTA1R1hOenJaV1MzWFJYVVlLQ1dnVlZDNG5RQjJHTFZF?=
- =?utf-8?B?Um0vR2QzcUVpbjhHejR2eS81citMMy9UVXBta3RXcE0xZTJJcUN6SHlMUlA0?=
- =?utf-8?B?Q0orU1ZFS2tRdFhZNTdNSU52QlRBUkEralVJa0U5WHhRdkdRTktRaURQOEFR?=
- =?utf-8?B?c3ZEOW1Oay8vdzNabi9hSHhtN1lPUFlGZkZqWTNGSktza1pOOU5vaUxkWlh4?=
- =?utf-8?B?NDV3blVFa1ZJbmd6UDlIZ2hhVzhWNnl4ZEhpSGdjNGxZT1ZXS3FNMFpYTERv?=
- =?utf-8?B?dU5kVlhhQTZHOE9IUTZyQU5aUWJWNnVrZkUyK3dITXVCQVZXckVHQVl3QkxI?=
- =?utf-8?B?Zk1PdEtRVjBJMndLTXAwOGhod25IL1BxSHVMV3Z6cHJxaFdFcWovT3gwQXlB?=
- =?utf-8?B?bXdMVUZoYUdsUE8wWVJYaHJRVzN4VlNUcHRyVkhRR3pvekxMTVk0djFWWFVl?=
- =?utf-8?B?LzVXc1I1WVZpemM3VXZpd2g1dkExQTNHaHNwTkF0aVlFcVdidXEyNDhnV3dv?=
- =?utf-8?B?Q2ZvL1pWYzhNTCtkYzNpVzB4YTVBNUZEVW56MzlMckhKQUg2UVlFWHBMSHRE?=
- =?utf-8?B?c09WVWdPWlBNdk9uaG85TDlXd2w3MlMxUU5jU2RMVnFyN1BzYmMvakdQUE91?=
- =?utf-8?B?VSt5dTF6Zk41M3V6S2RGK3NEMnR2eDhVbWlmWXBDRWRFb213SUQwY1VpY1dG?=
- =?utf-8?B?SThwWFYxQ0NjNk0rWjVpeUpxU3p6d2FxNm1sYURGa2tRRGxDWUVLbEdKV3FV?=
- =?utf-8?B?NEN4U0podzhoSzJOTzRxWXBwQ1VycmVuUHR4TytHUXV1QlhZVzJkS1ZMY3k5?=
- =?utf-8?B?bm9BOUZLcEFxN1Nob0lrQTBFaFIzeDdkQ0xSTHcxT2lxdktqL3lqdkRRZXdI?=
- =?utf-8?B?YlVuYzczaEJ3b2c1M2RHdWM4Q3VLQmxFQmRFMjY4RHF0cjVqS0E3MnpLMmVi?=
- =?utf-8?B?cW1oWFg1VEhkWnB5UnRFK0IvR3hOMmxxaTZqdEJRS1krNnNMeXMyVjRiNWNN?=
- =?utf-8?B?MlJha1g0aXZBcHN2RW5CQWxIMG9YZUdqYzBETGsxVFNUbEtndEFUTFpic2Iy?=
- =?utf-8?B?RjVPZ0gzNCtaTUJ3Sy9ZMnV5RldrUDZOTUtoQnF2ckhtVTJ6Y285UGIvdjR3?=
- =?utf-8?B?T3ZrMldEWHF2ZTZsbHN2bE0yR1NWTDlCeEVtQ1V6U2IyVk1DOGZGbmVpT215?=
- =?utf-8?B?SUtCd1d5UU1kUWM0bTFEQWZGbm9QbzVKU1FtWWJMVVhRaXlJaVV0R2hTdzky?=
- =?utf-8?B?OThGRU5qQ00yNnlRVUxMVmJONWVTcXJ1QnVQN2hVVlFHR3FNS0dpQ3ZCQjQz?=
- =?utf-8?B?K3VvdFYydTg1ZzhkZ2s3cHRuNzhmYXdFUzZTY2djTTJNalFVdm5hNVh1UGVp?=
- =?utf-8?B?WDZVVy9yOVJDVjdPNDMyZTd1d1lyQmQvTW1aR3h0dGJBUk1OdEdINjBmR05m?=
- =?utf-8?B?eXlVbklxOHN4d2RvRWFxR2JBeUJzcDR4TmJaZlF0OHNTbVRNM3pkSVNic1lu?=
- =?utf-8?B?R0d2ZWIrZUsrdkE4Q2lQL3pIRGxrOGtOM0R0QS9MM0dZOTNYRThvYVl6WHcx?=
- =?utf-8?B?OTVNWU5pSFBYaG5xMm44VG5zWk83dy85aWlQWjZJbnJVYkpkZTNWdWh1MTBM?=
- =?utf-8?B?UUhSM2Z4VFdldzV4SHVzNzEvRUpHSFczaENQeVpoS3NCWmhrbWpIV2E2YzZv?=
- =?utf-8?B?eG81ZnJmYzRIT1c2dlUrYmIxakY5Z040eGlmUXhHWjgyVzhFcEw5cDhYWG9u?=
- =?utf-8?B?VDA1Vmd4RURjcUhRL1lmZExRVk1NVGg0RHE1Yk94dkl1ZTJSOHpQUFFrajFT?=
- =?utf-8?B?TXlsSmd3WWIyUXBEUHhua3pjMmRGTjJCVUV1NUVmYXlEQWxqTjl4WXZRYWlN?=
- =?utf-8?Q?vmpH7wFLOaKf6qUosFZJTR5sQ?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3d5ae90d-2b18-42f0-e2c1-08dd02fe2cc2
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2024 09:41:25.5103 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1aaYsvdGPCWj38mIotD6r2w+cogleRzJ/LHF5k3Ri0m7YCJRUd8gw5tk734c4B8l
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7906
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 4/4] drm/amdgpu: track bo memory stats at runtime
+To: Yunxiang Li <Yunxiang.Li@amd.com>, amd-gfx@lists.freedesktop.org,
+ christian.koenig@amd.com, tvrtko.ursulin@igalia.com
+Cc: Alexander.Deucher@amd.com
+References: <20241110154152.592-1-Yunxiang.Li@amd.com>
+ <20241110154152.592-5-Yunxiang.Li@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20241110154152.592-5-Yunxiang.Li@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -173,335 +85,637 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Monk,
+Am 10.11.24 um 16:41 schrieb Yunxiang Li:
+> Before, every time fdinfo is queried we try to lock all the BOs in the
+> VM and calculate memory usage from scratch. This works okay if the
+> fdinfo is rarely read and the VMs don't have a ton of BOs. If either of
+> these conditions is not true, we get a massive performance hit.
+>
+> In this new revision, we track the BOs as they change states. This way
+> when the fdinfo is queried we only need to take the status lock and copy
+> out the usage stats with minimal impact to the runtime performance. With
+> this new approach however, we would no longer be able to track active
+> buffers.
+>
+> Signed-off-by: Yunxiang Li <Yunxiang.Li@amd.com>
+> ---
+> v7: fix style and other minor issues, the best definition of drm-total-
+> is still an open question but that feel like a seperate patch series
+> since it would also affect other drivers
+>
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c |  15 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c  |  11 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c  |  98 +++-------
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.h  |   5 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h     |   2 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c      | 193 +++++++++++++++-----
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h      |  15 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c   |   1 +
+>   8 files changed, 207 insertions(+), 133 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+> index b144404902255..423cea4e571ee 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+> @@ -36,6 +36,7 @@
+>   #include "amdgpu_gem.h"
+>   #include "amdgpu_dma_buf.h"
+>   #include "amdgpu_xgmi.h"
+> +#include "amdgpu_vm.h"
+>   #include <drm/amdgpu_drm.h>
+>   #include <drm/ttm/ttm_tt.h>
+>   #include <linux/dma-buf.h>
+> @@ -190,6 +191,14 @@ static void amdgpu_dma_buf_unmap(struct dma_buf_attachment *attach,
+>   	}
+>   }
+>   
+> +static void amdgpu_dma_buf_release(struct dma_buf *buf)
+> +{
+> +	struct amdgpu_bo *bo = gem_to_amdgpu_bo(buf->priv);
+> +
+> +	amdgpu_vm_bo_update_shared(bo, -1);
+> +	drm_gem_dmabuf_release(buf);
+> +}
+> +
+>   /**
+>    * amdgpu_dma_buf_begin_cpu_access - &dma_buf_ops.begin_cpu_access implementation
+>    * @dma_buf: Shared DMA buffer
+> @@ -237,7 +246,7 @@ const struct dma_buf_ops amdgpu_dmabuf_ops = {
+>   	.unpin = amdgpu_dma_buf_unpin,
+>   	.map_dma_buf = amdgpu_dma_buf_map,
+>   	.unmap_dma_buf = amdgpu_dma_buf_unmap,
+> -	.release = drm_gem_dmabuf_release,
+> +	.release = amdgpu_dma_buf_release,
+>   	.begin_cpu_access = amdgpu_dma_buf_begin_cpu_access,
+>   	.mmap = drm_gem_dmabuf_mmap,
+>   	.vmap = drm_gem_dmabuf_vmap,
+> @@ -265,8 +274,10 @@ struct dma_buf *amdgpu_gem_prime_export(struct drm_gem_object *gobj,
+>   		return ERR_PTR(-EPERM);
+>   
+>   	buf = drm_gem_prime_export(gobj, flags);
+> -	if (!IS_ERR(buf))
+> +	if (!IS_ERR(buf)) {
+>   		buf->ops = &amdgpu_dmabuf_ops;
+> +		amdgpu_vm_bo_update_shared(bo, +1);
+> +	}
+>   
+>   	return buf;
+>   }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+> index 7717e3e4f05b5..1a74d8d9dedb7 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
+> @@ -60,7 +60,7 @@ void amdgpu_show_fdinfo(struct drm_printer *p, struct drm_file *file)
+>   	struct amdgpu_fpriv *fpriv = file->driver_priv;
+>   	struct amdgpu_vm *vm = &fpriv->vm;
+>   
+> -	struct amdgpu_mem_stats stats[__AMDGPU_PL_LAST + 1] = { };
+> +	struct amdgpu_mem_stats stats[__AMDGPU_PL_LAST] = { };
+>   	ktime_t usage[AMDGPU_HW_IP_NUM];
+>   	const char *pl_name[] = {
+>   		[TTM_PL_VRAM] = "vram",
+> @@ -74,13 +74,7 @@ void amdgpu_show_fdinfo(struct drm_printer *p, struct drm_file *file)
+>   	unsigned int hw_ip, i;
+>   	int ret;
+>   
+> -	ret = amdgpu_bo_reserve(vm->root.bo, false);
+> -	if (ret)
+> -		return;
+> -
+> -	amdgpu_vm_get_memory(vm, stats, ARRAY_SIZE(stats));
+> -	amdgpu_bo_unreserve(vm->root.bo);
+> -
+> +	amdgpu_vm_get_memory(vm, stats);
+>   	amdgpu_ctx_mgr_usage(&fpriv->ctx_mgr, usage);
+>   
+>   	/*
+> @@ -97,7 +91,6 @@ void amdgpu_show_fdinfo(struct drm_printer *p, struct drm_file *file)
+>   
+>   		drm_print_memory_stats(p,
+>   				       &stats[i].drm,
+> -				       DRM_GEM_OBJECT_ACTIVE |
+>   				       DRM_GEM_OBJECT_RESIDENT |
+>   				       DRM_GEM_OBJECT_PURGEABLE,
+>   				       pl_name[i]);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> index f0486519bee84..ec9b013a15d81 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> @@ -1156,7 +1156,7 @@ void amdgpu_bo_move_notify(struct ttm_buffer_object *bo,
+>   		return;
+>   
+>   	abo = ttm_to_amdgpu_bo(bo);
+> -	amdgpu_vm_bo_invalidate(abo, evict);
+> +	amdgpu_vm_bo_move(abo, new_mem, evict);
+>   
+>   	amdgpu_bo_kunmap(abo);
+>   
+> @@ -1169,75 +1169,6 @@ void amdgpu_bo_move_notify(struct ttm_buffer_object *bo,
+>   			     old_mem ? old_mem->mem_type : -1);
+>   }
+>   
+> -void amdgpu_bo_get_memory(struct amdgpu_bo *bo,
+> -			  struct amdgpu_mem_stats *stats,
+> -			  unsigned int sz)
+> -{
+> -	const unsigned int domain_to_pl[] = {
+> -		[ilog2(AMDGPU_GEM_DOMAIN_CPU)]	    = TTM_PL_SYSTEM,
+> -		[ilog2(AMDGPU_GEM_DOMAIN_GTT)]	    = TTM_PL_TT,
+> -		[ilog2(AMDGPU_GEM_DOMAIN_VRAM)]	    = TTM_PL_VRAM,
+> -		[ilog2(AMDGPU_GEM_DOMAIN_GDS)]	    = AMDGPU_PL_GDS,
+> -		[ilog2(AMDGPU_GEM_DOMAIN_GWS)]	    = AMDGPU_PL_GWS,
+> -		[ilog2(AMDGPU_GEM_DOMAIN_OA)]	    = AMDGPU_PL_OA,
+> -		[ilog2(AMDGPU_GEM_DOMAIN_DOORBELL)] = AMDGPU_PL_DOORBELL,
+> -	};
+> -	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
+> -	struct ttm_resource *res = bo->tbo.resource;
+> -	struct drm_gem_object *obj = &bo->tbo.base;
+> -	uint64_t size = amdgpu_bo_size(bo);
+> -	unsigned int type;
+> -
+> -	if (!res) {
+> -		/*
+> -		 * If no backing store use one of the preferred domain for basic
+> -		 * stats. We take the MSB since that should give a reasonable
+> -		 * view.
+> -		 */
+> -		BUILD_BUG_ON(TTM_PL_VRAM < TTM_PL_TT ||
+> -			     TTM_PL_VRAM < TTM_PL_SYSTEM);
+> -		type = fls(bo->preferred_domains & AMDGPU_GEM_DOMAIN_MASK);
+> -		if (!type)
+> -			return;
+> -		type--;
+> -		if (drm_WARN_ON_ONCE(&adev->ddev,
+> -				     type >= ARRAY_SIZE(domain_to_pl)))
+> -			return;
+> -		type = domain_to_pl[type];
+> -	} else {
+> -		type = res->mem_type;
+> -	}
+> -
+> -	if (drm_WARN_ON_ONCE(&adev->ddev, type >= sz))
+> -		return;
+> -
+> -	/* DRM stats common fields: */
+> -
+> -	if (drm_gem_object_is_shared_for_memory_stats(obj))
+> -		stats[type].drm.shared += size;
+> -	else
+> -		stats[type].drm.private += size;
+> -
+> -	if (res) {
+> -		stats[type].drm.resident += size;
+> -
+> -		if (!dma_resv_test_signaled(obj->resv, DMA_RESV_USAGE_BOOKKEEP))
+> -			stats[type].drm.active += size;
+> -		else if (bo->flags & AMDGPU_GEM_CREATE_DISCARDABLE)
+> -			stats[type].drm.purgeable += size;
+> -	}
+> -
+> -	/* amdgpu specific stats: */
+> -
+> -	if (bo->preferred_domains & AMDGPU_GEM_DOMAIN_VRAM) {
+> -		stats[TTM_PL_VRAM].requested += size;
+> -		if (type != TTM_PL_VRAM)
+> -			stats[TTM_PL_VRAM].evicted += size;
+> -	} else if (bo->preferred_domains & AMDGPU_GEM_DOMAIN_GTT) {
+> -		stats[TTM_PL_TT].requested += size;
+> -	}
+> -}
+> -
+>   /**
+>    * amdgpu_bo_release_notify - notification about a BO being released
+>    * @bo: pointer to a buffer object
+> @@ -1452,6 +1383,33 @@ u64 amdgpu_bo_gpu_offset_no_check(struct amdgpu_bo *bo)
+>   	return amdgpu_gmc_sign_extend(offset);
+>   }
+>   
+> +uint32_t amdgpu_bo_get_preferred_placement(struct amdgpu_bo *bo)
+> +{
+> +	uint32_t domain = bo->preferred_domains & AMDGPU_GEM_DOMAIN_MASK;
+> +
+> +	if (!domain)
+> +		return TTM_PL_SYSTEM;
+> +
+> +	switch (rounddown_pow_of_two(domain)) {
+> +	case AMDGPU_GEM_DOMAIN_CPU:
+> +		return TTM_PL_SYSTEM;
+> +	case AMDGPU_GEM_DOMAIN_GTT:
+> +		return TTM_PL_TT;
+> +	case AMDGPU_GEM_DOMAIN_VRAM:
+> +		return TTM_PL_VRAM;
+> +	case AMDGPU_GEM_DOMAIN_GDS:
+> +		return AMDGPU_PL_GDS;
+> +	case AMDGPU_GEM_DOMAIN_GWS:
+> +		return AMDGPU_PL_GWS;
+> +	case AMDGPU_GEM_DOMAIN_OA:
+> +		return AMDGPU_PL_OA;
+> +	case AMDGPU_GEM_DOMAIN_DOORBELL:
+> +		return AMDGPU_PL_DOORBELL;
+> +	default:
+> +		return TTM_PL_SYSTEM;
+> +	}
+> +}
+> +
+>   /**
+>    * amdgpu_bo_get_preferred_domain - get preferred domain
+>    * @adev: amdgpu device object
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+> index be6769852ece4..bd58a8b0ece66 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+> @@ -30,6 +30,7 @@
+>   
+>   #include <drm/amdgpu_drm.h>
+>   #include "amdgpu.h"
+> +#include "amdgpu_ttm.h"
+>   #include "amdgpu_res_cursor.h"
+>   
+>   #ifdef CONFIG_MMU_NOTIFIER
+> @@ -300,9 +301,7 @@ int amdgpu_bo_sync_wait_resv(struct amdgpu_device *adev, struct dma_resv *resv,
+>   int amdgpu_bo_sync_wait(struct amdgpu_bo *bo, void *owner, bool intr);
+>   u64 amdgpu_bo_gpu_offset(struct amdgpu_bo *bo);
+>   u64 amdgpu_bo_gpu_offset_no_check(struct amdgpu_bo *bo);
+> -void amdgpu_bo_get_memory(struct amdgpu_bo *bo,
+> -			  struct amdgpu_mem_stats *stats,
+> -			  unsigned int size);
+> +uint32_t amdgpu_bo_get_preferred_placement(struct amdgpu_bo *bo);
+>   uint32_t amdgpu_bo_get_preferred_domain(struct amdgpu_device *adev,
+>   					    uint32_t domain);
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+> index 2852a6064c9ac..a9088e864fde4 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+> @@ -26,8 +26,8 @@
+>   
+>   #include <linux/dma-direction.h>
+>   #include <drm/gpu_scheduler.h>
+> +#include <drm/ttm/ttm_placement.h>
+>   #include "amdgpu_vram_mgr.h"
+> -#include "amdgpu.h"
+>   
+>   #define AMDGPU_PL_GDS		(TTM_PL_PRIV + 0)
+>   #define AMDGPU_PL_GWS		(TTM_PL_PRIV + 1)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> index d0db155a9ab7c..032e672b1299f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -36,6 +36,7 @@
+>   #include <drm/ttm/ttm_tt.h>
+>   #include <drm/drm_exec.h>
+>   #include "amdgpu.h"
+> +#include "amdgpu_vm.h"
+>   #include "amdgpu_trace.h"
+>   #include "amdgpu_amdkfd.h"
+>   #include "amdgpu_gmc.h"
+> @@ -310,6 +311,92 @@ static void amdgpu_vm_bo_reset_state_machine(struct amdgpu_vm *vm)
+>   	spin_unlock(&vm->status_lock);
+>   }
+>   
+> +/**
+> + * amdgpu_vm_update_shared - helper to update shared memory stat
+> + * @base: base structure for tracking BO usage in a VM
+> + * @sign: if we should add (+1) or subtract (-1) from the shared stat
+> + *
+> + * Takes the vm status_lock and updates the shared memory stat. If the basic
+> + * stat changed (e.g. buffer was moved) amdgpu_vm_update_stats need to be called
+> + * as well.
+> + */
+> +static void amdgpu_vm_update_shared(struct amdgpu_vm_bo_base *base, int sign)
+> +{
+> +	struct amdgpu_vm *vm = base->vm;
+> +	struct amdgpu_bo *bo = base->bo;
+> +	struct ttm_resource *res;
+> +	int64_t size;
+> +	uint32_t type;
+> +
+> +	if (!vm || !bo)
+> +		return;
+> +
+> +	size = sign * amdgpu_bo_size(bo);
+> +	res = bo->tbo.resource;
+> +	type = res ? res->mem_type : amdgpu_bo_get_preferred_placement(bo);
 
-> The memory we are talking about is pure guest system memory not FB BAR right?
+Again, it's a clear NAK from my side to do stuff like that.
 
-No, that works a bit differently.
+When there isn't any backing store the BO should *not* be accounted to 
+anything.
 
-QEMU and their virtual drivers uses a virtual PCI MMIO BAR to map 
-buffers from the host into the guest. Those buffers can be both point to 
-the FB BAR as well as system memory.
+> +	if (type >= __AMDGPU_PL_LAST)
+> +		return;
+> +
+> +	spin_lock(&vm->status_lock);
+> +	vm->stats[type].drm.shared += size;
+> +	vm->stats[type].drm.private -= size;
+> +	spin_unlock(&vm->status_lock);
+> +}
+> +
+> +/**
+> + * amdgpu_vm_update_stats - helper to update normal memory stat
+> + * @base: base structure for tracking BO usage in a VM
+> + * @new_res:  if not NULL, the ttm_resource to use for the purpose of accounting
+> + * (i.e. ignore the one in the BO)
+> + * @sign: if we should add (+1) or subtract (-1) from the stat
+> + *
+> + * Takes the vm status_lock and updates the basic memory stat. If the shared
+> + * stat changed (e.g. buffer was exported) amdgpu_vm_update_shared need to be
+> + * called as well.
+> + */
+> +void amdgpu_vm_update_stats(struct amdgpu_vm_bo_base *base,
+> +			    struct ttm_resource *new_res, int sign)
+> +{
+> +	struct amdgpu_vm *vm = base->vm;
+> +	struct amdgpu_bo *bo = base->bo;
+> +	struct ttm_resource *res;
+> +	int64_t size;
+> +	uint32_t type;
+> +	bool shared;
+> +
+> +	if (!vm || !bo)
+> +		return;
 
-Only the host knows if the buffer is backed by MMIO (FB) or system 
-memory, so only the host can setup the tables to have the correct 
-caching and WC attributes.
+Please drop those checks.
 
-The KVM patch completely breaks that because they suddenly say that not 
-the host setups the caching and WC attributes but the guest.
+> +
+> +	size = sign * amdgpu_bo_size(bo);
+> +	res = new_res ? new_res : bo->tbo.resource;
 
-Because of that this KVM patch not only breaks amdgpu, but also other 
-drivers which do the same thing. The general approach of the patch seems 
-to be broken.
+That is basically broken logic. What could be is that bo->tbo.resource 
+is given as a parameter here, but we shouldn't have such logic inside 
+the function.
 
->           if (kq->dev->kfd->device_info.doorbell_size == 8) {
->                   *kq->wptr64_kernel = kq->pending_wptr64;
-> +               mb();
->                   write_kernel_doorbell64(kq->queue->properties.doorbell_ptr,
->                                           kq->pending_wptr64);
->           } else {
->                   *kq->wptr_kernel = kq->pending_wptr;
-> +               mb();
->                   write_kernel_doorbell(kq->queue->properties.doorbell_ptr,
->                                           kq->pending_wptr);
+> +	type = res ? res->mem_type : amdgpu_bo_get_preferred_placement(bo);
+> +	shared = drm_gem_object_is_shared_for_memory_stats(&bo->tbo.base);
+> +
+> +	if (type >= __AMDGPU_PL_LAST)
+> +		return;
+> +
+> +	spin_lock(&vm->status_lock);
+> +
+> +	if (shared)
+> +		vm->stats[type].drm.shared += size;
+> +	else
+> +		vm->stats[type].drm.private += size;
+> +	if (res)
+> +		vm->stats[type].drm.resident += size;
+> +	if (bo->flags & AMDGPU_GEM_CREATE_DISCARDABLE)
+> +		vm->stats[type].drm.purgeable += size;
+> +
+> +	if (bo->preferred_domains & AMDGPU_GEM_DOMAIN_VRAM) {
+> +		vm->stats[TTM_PL_VRAM].requested += size;
+> +		if (type != TTM_PL_VRAM)
+> +			vm->stats[TTM_PL_VRAM].evicted += size;
 
-We should probably move that into 
-write_kernel_doorbell()/write_kernel_doorbell64() but in general looks 
-correct to me as well.
+Again that is incorrect. BOs can be created with VRAM|GTT as their 
+placement.
 
-Regards,
-Christian.
+If such a BO is placed into GTT that doesn't mean it is evicted.
 
-Am 12.11.24 um 04:50 schrieb Liu, Monk:
-> [AMD Official Use Only - AMD Internal Distribution Only]
->
-> Hi Lijo
->
-> Thanks for your quote to the SPEC, yes I read that as well, supposedly WC storage buffer shall be flushed to memory with mfence, but it just doesn't work after applied that KVM patch which honor the WC attributes from guest.
->
-> This means the WC storage buffer from a KVM guest couldn’t be flushed to memory even with mb inserted... I don't know why. (is there any inconsistencies between nested page tables and host page tables?)
->
-> Hi Christian
->
->>> The guest sees driver exposed memory as "emulated" MMIO BAR of a PCIe device, that's just how QEMU is designed. Because of this the guest maps the memory USWC or uncached. But in reality the memory can as well be GTT memory which is cached.
-> The memory we are talking about is pure guest system memory not FB BAR right? Therefore, I don't see why in reality it has to be cached, you see that only guest vCPU is accessing this buffer.
->
->
-> BTW: we should aways insert that MB() in our KFD part:
->
->>>           if (kq->dev->kfd->device_info.doorbell_size == 8) {
->>>                   *kq->wptr64_kernel = kq->pending_wptr64;
->>> +               mb();
->>>                   write_kernel_doorbell64(kq->queue->properties.doorbell_ptr,
->>>                                           kq->pending_wptr64);
->>>           } else {
->>>                   *kq->wptr_kernel = kq->pending_wptr;
->>> +               mb();
->>>                   write_kernel_doorbell(kq->queue->properties.doorbell_ptr,
->>>                                           kq->pending_wptr);
->>>           }
-> Thanks
->
-> Monk Liu | Cloud GPU & Virtualization | AMD
->
->
->
-> -----Original Message-----
-> From: Christian König <ckoenig.leichtzumerken@gmail.com>
-> Sent: Monday, November 11, 2024 8:40 PM
-> To: Lazar, Lijo <Lijo.Lazar@amd.com>; Liu, Monk <Monk.Liu@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>; Alex Deucher <alexdeucher@gmail.com>; Zhao, Victor <Victor.Zhao@amd.com>
-> Cc: amd-gfx@lists.freedesktop.org; Yang, Philip <Philip.Yang@amd.com>; Kuehling, Felix <Felix.Kuehling@amd.com>
-> Subject: Re: [PATCH 2/2] drm/amdkfd: use cache GTT buffer for PQ and wb pool
->
-> Hi guys,
->
-> trying to merge multiple responses back into one mail thread.
->
-> Lijo, you're completely right, but there is one really strong argument you are missing:
->
-> The patch here doesn't change the write combine behavior, it changes the caching behavior!
->
-> So when the patch works and fixes the issue, then the issue is 100% certain not a write combine issue but rather an incorrectly applied caching :)
->
->>   From what I heard there was a KVM patch to correct the mapping behavior -- previously the mapping is forced to cache mode even guest KMD maps the buffer with "WC".
->> But after the patch the buffer will be really "WC" if guest maps it with WC"... and this reveals the bug and hit our issue.
-> Yeah, exactly that's the problem. The guest doesn't know if WB, USWC or uncached should be used!
->
-> The guest sees driver exposed memory as "emulated" MMIO BAR of a PCIe device, that's just how QEMU is designed. Because of this the guest maps the memory USWC or uncached. But in reality the memory can as well be GTT memory which is cached.
->
-> So forcing the cache mode even if the guest KMD maps the buffer with "WC" is intentional behavior, that's the correct approach.
->
-> The upstream people realized that as well. That's one major reason why the patch was reverted.
->
->> Can you explain why USWC for ring buffer is safe, why it will not hit coherence issue, why you don't make all ring buffers with USWC even for amdgpu side if you really believe USWC is innocent ...
-> We already tried this, but there is simply no benefit for it.
->
-> Regards,
-> Christian.
->
->
-> Am 11.11.24 um 06:58 schrieb Lazar, Lijo:
->> On 11/11/2024 7:00 AM, Liu, Monk wrote:
->>> [AMD Official Use Only - AMD Internal Distribution Only]
->>>
->>> Hi Lijo
->>>
->>> This is the patch we verified before:
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c
->>> b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c
->>> index 4843dcb9a5f7..39553c7648eb 100644
->>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c
->>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c
->>> @@ -308,10 +308,12 @@ int kq_submit_packet(struct kernel_queue *kq)
->>>
->>>           if (kq->dev->kfd->device_info.doorbell_size == 8) {
->>>                   *kq->wptr64_kernel = kq->pending_wptr64;
->>> +               mb();
->>>                   write_kernel_doorbell64(kq->queue->properties.doorbell_ptr,
->>>                                           kq->pending_wptr64);
->>>           } else {
->>>                   *kq->wptr_kernel = kq->pending_wptr;
->>> +               mb();
->>>                   write_kernel_doorbell(kq->queue->properties.doorbell_ptr,
->>>                                           kq->pending_wptr);
->>>           }
->>>
->>>
->>> This mb() doesn't resolve the problem during customer's testing, I also thought of MB() first in beginning like you and Christian ...
->>> The mb() here shall resolve the re-ordering between WPTR and doorbell kicking so GPU won't fetch stalled data from WPTR polling once it receives notification from doorbell kicking.
->>> (in SR-IOV we set doorbell mode to force GPU still fetch from WPTR
->>> polling area, doorbell kicking is just to notify GPU)
->>>
->>> And by your theory: mb() shall flush the WC storage buffer to memory, thus, this mb() shall also make sure that the ring buffer is not holding stalled data anymore, right ?
->> This is not my theory. All the quotes in my earlier mails are from
->> "Intel® 64 and IA-32 Architectures Software Developer’s Manual".
->>
->> Yet another one -
->>
->> <snip>
->>
->> Writes may be delayed and combined in the write combining buffer (WC
->> buffer) to reduce memory accesses.
->>
->> "If the WC buffer is partially filled, the writes may be delayed until
->> the next occurrence of a serializing event; such as an SFENCE or
->> MFENCE instruction, CPUID or other serializing instruction, a read or
->> write to uncached memory, an interrupt occurrence, or an execution of
->> a LOCK instruction (including one with an XACQUIRE or XRELEASE
->> prefix)."
->>
->> </snip>
->>
->>
->>> But we still hit hang and get stalled data from dump.
->>>
->>> Maybe we need to put mb() in another place ? can you proposal if you insist the cache mapping is not acceptable to you and we can ask customer to verify again.
->>>
->> There are a couple of things which are still working strangely, they
->> will need some explanation as well -
->>
->>        Even though write pointer allocations are also to WC region, and are
->> correctly seen by CP every time. Since it needs to get wptr updates
->> from memory rather than doorbell value, don't know how your snooping
->> theory works for this. Also, it is weird that WC writes to those pass
->> MQD buffer writes even with fence.
->>
->>        MQD allocation for user queues are still from USWC as per your latest
->> patch and they still work correctly.
->>
->> For debug -
->>        Is the WPTR reg value correctly reflecting the memory value? Have you
->> tried initializing MQD to a known pattern (memset32/64) like a series
->> of 0xcafedead and verified what is seen at the CP side?
->>
->> Thanks,
->> Lijo
->>
->>> Thanks
->>>
->>> Monk Liu | Cloud GPU & Virtualization | AMD
->>>
->>>
->>>
->>>
->>>
->>>
->>>
->>> -----Original Message-----
->>> From: Lazar, Lijo <Lijo.Lazar@amd.com>
->>> Sent: Friday, November 8, 2024 7:26 PM
->>> To: Liu, Monk <Monk.Liu@amd.com>; Koenig, Christian
->>> <Christian.Koenig@amd.com>; Alex Deucher <alexdeucher@gmail.com>;
->>> Zhao, Victor <Victor.Zhao@amd.com>
->>> Cc: amd-gfx@lists.freedesktop.org; Yang, Philip
->>> <Philip.Yang@amd.com>; Kuehling, Felix <Felix.Kuehling@amd.com>
->>> Subject: Re: [PATCH 2/2] drm/amdkfd: use cache GTT buffer for PQ and
->>> wb pool
->>>
->>>
->>>
->>> On 11/8/2024 4:29 PM, Liu, Monk wrote:
->>>> [AMD Official Use Only - AMD Internal Distribution Only]
->>>>
->>>> To be clear for the mb() approach: Even if we insert mb() in prior to amdgpu_ring_set_wptr(ring), GPU might still fetch stalled data from PQ due to USWC attributes.
->>>>
->>> Inserting an mb() doesn't cause WC buffer flush is a wrong assumption.
->>>
->>> All prior loads/stores are supposed to be globally visible. Hence mb() followed by a write pointer update also should guarantee the same (From Arch manual).
->>>
->>>           The MFENCE instruction establishes a memory fence for both
->>> loads and stores. The processor ensures that no load or store after
->>> MFENCE will become globally visible *until all loads and stores
->>> before MFENCE are globally visible.*
->>>
->>>
->>> Ignoring the amdgpu driver part of it - if mb() is not working as expected as you claim that means something is wrong with the system.
->>>
->>> USWC or WB for ring type may still be a separate discussion.
->>>
->>> Thanks,
->>> Lijo
->>>
->>>> The issue here is not the re-ordering but the stalled PQ.
->>>>
->>>> Monk Liu | Cloud GPU & Virtualization | AMD
->>>>
->>>>
->>>>
->>>> -----Original Message-----
->>>> From: Liu, Monk
->>>> Sent: Friday, November 8, 2024 6:22 PM
->>>> To: Koenig, Christian <Christian.Koenig@amd.com>; Lazar, Lijo
->>>> <Lijo.Lazar@amd.com>; Alex Deucher <alexdeucher@gmail.com>; Zhao,
->>>> Victor <Victor.Zhao@amd.com>
->>>> Cc: amd-gfx@lists.freedesktop.org; Yang, Philip
->>>> <Philip.Yang@amd.com>; Kuehling, Felix <Felix.Kuehling@amd.com>
->>>> Subject: RE: [PATCH 2/2] drm/amdkfd: use cache GTT buffer for PQ and
->>>> wb pool
->>>>
->>>> Christian/Lijo
->>>>
->>>> We verified all approaches, and we know what works and not works, obviously the mb() doesn't work.
->>>>
->>>> The way of mb() between set wptr_polling and kicking off doorbell is theoretically correct, and I'm not object to do so... but this won't resolve the issue we hit.
->>>> First of all, USWC will have some chance that the data is still in CPU's WC storage place and not flushed to the memory and even with MB() get rid of re-ordering GPU might still have a chance to read stalled data from ring buffer as long as it is mapped USWC.
->>>>
->>>> This is why only cache plus snoop memory can get rid of inconsistence issues.
->>>>
->>>> Besides, do you know what's the rational to keep all GFX KCQ cache+snoop but only HIQ/KIQ from KFD configured to USWC ?
->>>>
->>>> For performance concern that looks to me always the second priority compared to "correct" especially under the case HIQ contributes very little to ROCM performance when switching to cache mapping.
->>>>
->>>>
->>>> Monk Liu | Cloud GPU & Virtualization | AMD
->>>>
->>>>
->>>>
->>>>
->>>>
->>>>
->>>>
->>>> -----Original Message-----
->>>> From: Koenig, Christian <Christian.Koenig@amd.com>
->>>> Sent: Thursday, November 7, 2024 7:57 PM
->>>> To: Lazar, Lijo <Lijo.Lazar@amd.com>; Alex Deucher
->>>> <alexdeucher@gmail.com>; Zhao, Victor <Victor.Zhao@amd.com>
->>>> Cc: amd-gfx@lists.freedesktop.org; Liu, Monk <Monk.Liu@amd.com>;
->>>> Yang, Philip <Philip.Yang@amd.com>; Kuehling, Felix
->>>> <Felix.Kuehling@amd.com>
->>>> Subject: Re: [PATCH 2/2] drm/amdkfd: use cache GTT buffer for PQ and
->>>> wb pool
->>>>
->>>> Am 07.11.24 um 06:58 schrieb Lazar, Lijo:
->>>>> On 11/6/2024 8:42 PM, Alex Deucher wrote:
->>>>>> On Wed, Nov 6, 2024 at 1:49 AM Victor Zhao <Victor.Zhao@amd.com> wrote:
->>>>>>> From: Monk Liu <Monk.Liu@amd.com>
->>>>>>>
->>>>>>> As cache GTT buffer is snooped, this way the coherence between
->>>>>>> CPU write and GPU fetch is guaranteed, but original code uses WC
->>>>>>> + unsnooped for HIQ PQ(ring buffer) which introduces coherency issues:
->>>>>>> MEC fetches a stall data from PQ and leads to MEC hang.
->>>>>> Can you elaborate on this?  I can see CPU reads being slower
->>>>>> because the memory is uncached, but the ring buffer is mostly writes anyway.
->>>>>> IIRC, the driver uses USWC for most if not all of the other ring
->>>>>> buffers managed by the kernel.  Why aren't those a problem?
->>>>> We have this on other rings -
->>>>>            mb();
->>>>>            amdgpu_ring_set_wptr(ring);
->>>>>
->>>>> I think the solution should be to use barrier before write pointer
->>>>> updates rather than relying on PCIe snooping.
->>>> Yeah, completely agree as well. The barrier also takes care of preventing the compiler from re-ordering writes.
->>>>
->>>> Regards,
->>>> Christian.
->>>>
->>>>> Thanks,
->>>>> Lijo
->>>>>
->>>>>> Alex
->>>>>>
->>>>>>> Signed-off-by: Monk Liu <Monk.Liu@amd.com>
->>>>>>> ---
->>>>>>>     drivers/gpu/drm/amd/amdkfd/kfd_device.c | 2 +-
->>>>>>>     1 file changed, 1 insertion(+), 1 deletion(-)
->>>>>>>
->>>>>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
->>>>>>> b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
->>>>>>> index 1f1d79ac5e6c..fb087a0ff5bc 100644
->>>>>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
->>>>>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
->>>>>>> @@ -779,7 +779,7 @@ bool kgd2kfd_device_init(struct kfd_dev *kfd,
->>>>>>>            if (amdgpu_amdkfd_alloc_gtt_mem(
->>>>>>>                            kfd->adev, size, &kfd->gtt_mem,
->>>>>>>                            &kfd->gtt_start_gpu_addr, &kfd->gtt_start_cpu_ptr,
->>>>>>> -                       false, true)) {
->>>>>>> +                       false, false)) {
->>>>>>>                    dev_err(kfd_device, "Could not allocate %d bytes\n", size);
->>>>>>>                    goto alloc_gtt_mem_failure;
->>>>>>>            }
->>>>>>> --
->>>>>>> 2.34.1
->>>>>>>
+> +	} else if (bo->preferred_domains & AMDGPU_GEM_DOMAIN_GTT) {
+> +		vm->stats[TTM_PL_TT].requested += size;
+> +	}
+> +
+> +	spin_unlock(&vm->status_lock);
+> +}
+> +
+>   /**
+>    * amdgpu_vm_bo_base_init - Adds bo to the list of bos associated with the vm
+>    *
+> @@ -332,6 +419,7 @@ void amdgpu_vm_bo_base_init(struct amdgpu_vm_bo_base *base,
+>   		return;
+>   	base->next = bo->vm_bo;
+>   	bo->vm_bo = base;
+> +	amdgpu_vm_update_stats(base, NULL, +1);
+>   
+>   	if (!amdgpu_vm_is_bo_always_valid(vm, bo))
+>   		return;
+> @@ -1082,53 +1170,11 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>   	return r;
+>   }
+>   
+> -static void amdgpu_vm_bo_get_memory(struct amdgpu_bo_va *bo_va,
+> -				    struct amdgpu_mem_stats *stats,
+> -				    unsigned int size)
+> -{
+> -	struct amdgpu_vm *vm = bo_va->base.vm;
+> -	struct amdgpu_bo *bo = bo_va->base.bo;
+> -
+> -	if (!bo)
+> -		return;
+> -
+> -	/*
+> -	 * For now ignore BOs which are currently locked and potentially
+> -	 * changing their location.
+> -	 */
+> -	if (!amdgpu_vm_is_bo_always_valid(vm, bo) &&
+> -	    !dma_resv_trylock(bo->tbo.base.resv))
+> -		return;
+> -
+> -	amdgpu_bo_get_memory(bo, stats, size);
+> -	if (!amdgpu_vm_is_bo_always_valid(vm, bo))
+> -		dma_resv_unlock(bo->tbo.base.resv);
+> -}
+> -
+>   void amdgpu_vm_get_memory(struct amdgpu_vm *vm,
+> -			  struct amdgpu_mem_stats *stats,
+> -			  unsigned int size)
+> +			  struct amdgpu_mem_stats stats[__AMDGPU_PL_LAST])
+>   {
+> -	struct amdgpu_bo_va *bo_va, *tmp;
+> -
+>   	spin_lock(&vm->status_lock);
+> -	list_for_each_entry_safe(bo_va, tmp, &vm->idle, base.vm_status)
+> -		amdgpu_vm_bo_get_memory(bo_va, stats, size);
+> -
+> -	list_for_each_entry_safe(bo_va, tmp, &vm->evicted, base.vm_status)
+> -		amdgpu_vm_bo_get_memory(bo_va, stats, size);
+> -
+> -	list_for_each_entry_safe(bo_va, tmp, &vm->relocated, base.vm_status)
+> -		amdgpu_vm_bo_get_memory(bo_va, stats, size);
+> -
+> -	list_for_each_entry_safe(bo_va, tmp, &vm->moved, base.vm_status)
+> -		amdgpu_vm_bo_get_memory(bo_va, stats, size);
+> -
+> -	list_for_each_entry_safe(bo_va, tmp, &vm->invalidated, base.vm_status)
+> -		amdgpu_vm_bo_get_memory(bo_va, stats, size);
+> -
+> -	list_for_each_entry_safe(bo_va, tmp, &vm->done, base.vm_status)
+> -		amdgpu_vm_bo_get_memory(bo_va, stats, size);
+> +	memcpy(stats, vm->stats, sizeof(*stats) * __AMDGPU_PL_LAST);
+>   	spin_unlock(&vm->status_lock);
+>   }
+>   
+> @@ -2075,6 +2121,7 @@ void amdgpu_vm_bo_del(struct amdgpu_device *adev,
+>   			if (*base != &bo_va->base)
+>   				continue;
+>   
+> +			amdgpu_vm_update_stats(*base, NULL, -1);
+>   			*base = bo_va->base.next;
+>   			break;
+>   		}
+> @@ -2140,6 +2187,22 @@ bool amdgpu_vm_evictable(struct amdgpu_bo *bo)
+>   	return true;
+>   }
+>   
+> +/**
+> + * amdgpu_vm_bo_update_shared - called when bo gets shared/unshared
+> + *
+> + * @bo: amdgpu buffer object
+> + * @sign: if we should add (+1) or subtract (-1) the memory stat
+> + *
+> + * Update the per VM stats for all the vm
+> + */
+> +void amdgpu_vm_bo_update_shared(struct amdgpu_bo *bo, int sign)
+> +{
+> +	struct amdgpu_vm_bo_base *bo_base;
+> +
+> +	for (bo_base = bo->vm_bo; bo_base; bo_base = bo_base->next)
+> +		amdgpu_vm_update_shared(bo_base, sign);
+> +}
+> +
+>   /**
+>    * amdgpu_vm_bo_invalidate - mark the bo as invalid
+>    *
+> @@ -2173,6 +2236,28 @@ void amdgpu_vm_bo_invalidate(struct amdgpu_bo *bo, bool evicted)
+>   	}
+>   }
+>   
+> +/**
+> + * amdgpu_vm_bo_move - handle BO move
+> + *
+> + * @bo: amdgpu buffer object
+> + * @new_mem: the new placement of the BO move
+> + * @evicted: is the BO evicted
+> + *
+> + * Update the memory stats for the new placement and mark @bo as invalid.
+> + */
+> +void amdgpu_vm_bo_move(struct amdgpu_bo *bo, struct ttm_resource *new_mem,
+> +		       bool evicted)
+> +{
+> +	struct amdgpu_vm_bo_base *bo_base;
+> +
+> +	for (bo_base = bo->vm_bo; bo_base; bo_base = bo_base->next) {
+> +		amdgpu_vm_update_stats(bo_base, bo->tbo.resource, -1);
+> +		amdgpu_vm_update_stats(bo_base, new_mem, +1);
+> +	}
+> +
+> +	amdgpu_vm_bo_invalidate(bo, evicted);
+> +}
+> +
+>   /**
+>    * amdgpu_vm_get_block_size - calculate VM page table size as power of two
+>    *
+> @@ -2589,6 +2674,16 @@ void amdgpu_vm_release_compute(struct amdgpu_device *adev, struct amdgpu_vm *vm)
+>   	vm->is_compute_context = false;
+>   }
+>   
+> +static int amdgpu_vm_stats_is_zero(struct amdgpu_vm *vm)
+> +{
+> +	for (int i = 0; i < __AMDGPU_PL_LAST; ++i) {
+> +		if (!(drm_memory_stats_is_zero(&vm->stats[i].drm) &&
+> +		      vm->stats->evicted == 0 && vm->stats->requested == 0))
+> +			return false;
+> +	}
+> +	return true;
+> +}
+> +
+>   /**
+>    * amdgpu_vm_fini - tear down a vm instance
+>    *
+> @@ -2612,7 +2707,6 @@ void amdgpu_vm_fini(struct amdgpu_device *adev, struct amdgpu_vm *vm)
+>   
+>   	root = amdgpu_bo_ref(vm->root.bo);
+>   	amdgpu_bo_reserve(root, true);
+> -	amdgpu_vm_put_task_info(vm->task_info);
+>   	amdgpu_vm_set_pasid(adev, vm, 0);
+>   	dma_fence_wait(vm->last_unlocked, false);
+>   	dma_fence_put(vm->last_unlocked);
+> @@ -2660,6 +2754,15 @@ void amdgpu_vm_fini(struct amdgpu_device *adev, struct amdgpu_vm *vm)
+>   		}
+>   	}
+>   
+> +	if (!amdgpu_vm_stats_is_zero(vm)) {
+> +		struct amdgpu_task_info *ti = vm->task_info;
+> +
+> +		dev_warn(adev->dev,
+> +			 "VM memory stats for proc %s(%d) task %s(%d) is non-zero when fini\n",
+> +			 ti->process_name, ti->pid, ti->task_name, ti->tgid);
+> +	}
+> +
+> +	amdgpu_vm_put_task_info(vm->task_info);
+
+Please don't move the call to amdgpu_vm_put_task_info().
+
+
+
+>   }
+>   
+>   /**
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> index 6a1b344e15e1b..30efe9c9c08ef 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> @@ -35,6 +35,7 @@
+>   #include "amdgpu_sync.h"
+>   #include "amdgpu_ring.h"
+>   #include "amdgpu_ids.h"
+> +#include "amdgpu_ttm.h"
+>   
+>   struct drm_exec;
+>   
+> @@ -327,7 +328,8 @@ struct amdgpu_mem_stats {
+>   	/* buffers that requested this placement */
+>   	uint64_t requested;
+>   	/* buffers that requested this placement
+> -	 * but are currently evicted */
+> +	 * but are currently evicted
+> +	 */
+>   	uint64_t evicted;
+>   };
+>   
+> @@ -345,6 +347,9 @@ struct amdgpu_vm {
+>   	/* Lock to protect vm_bo add/del/move on all lists of vm */
+>   	spinlock_t		status_lock;
+>   
+> +	/* Memory statistics for this vm, protected by the status_lock */
+> +	struct amdgpu_mem_stats stats[__AMDGPU_PL_LAST];
+> +
+>   	/* Per-VM and PT BOs who needs a validation */
+>   	struct list_head	evicted;
+>   
+> @@ -525,6 +530,11 @@ int amdgpu_vm_bo_update(struct amdgpu_device *adev,
+>   			bool clear);
+>   bool amdgpu_vm_evictable(struct amdgpu_bo *bo);
+>   void amdgpu_vm_bo_invalidate(struct amdgpu_bo *bo, bool evicted);
+> +void amdgpu_vm_update_stats(struct amdgpu_vm_bo_base *base,
+> +			    struct ttm_resource *new_res, int sign);
+> +void amdgpu_vm_bo_update_shared(struct amdgpu_bo *bo, int sign);
+> +void amdgpu_vm_bo_move(struct amdgpu_bo *bo, struct ttm_resource *new_mem,
+> +		       bool evicted);
+>   uint64_t amdgpu_vm_map_gart(const dma_addr_t *pages_addr, uint64_t addr);
+>   struct amdgpu_bo_va *amdgpu_vm_bo_find(struct amdgpu_vm *vm,
+>   				       struct amdgpu_bo *bo);
+> @@ -575,8 +585,7 @@ void amdgpu_vm_set_task_info(struct amdgpu_vm *vm);
+>   void amdgpu_vm_move_to_lru_tail(struct amdgpu_device *adev,
+>   				struct amdgpu_vm *vm);
+>   void amdgpu_vm_get_memory(struct amdgpu_vm *vm,
+> -			  struct amdgpu_mem_stats *stats,
+> -			  unsigned int size);
+> +			  struct amdgpu_mem_stats stats[__AMDGPU_PL_LAST]);
+>   
+>   int amdgpu_vm_pt_clear(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>   		       struct amdgpu_bo_vm *vmbo, bool immediate);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> index f78a0434a48fa..384526d10a3bc 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> @@ -537,6 +537,7 @@ static void amdgpu_vm_pt_free(struct amdgpu_vm_bo_base *entry)
+>   	if (!entry->bo)
+>   		return;
+>   
+> +	amdgpu_vm_update_stats(entry, NULL, -1);
+>   	entry->bo->vm_bo = NULL;
+>   	ttm_bo_set_bulk_move(&entry->bo->tbo, NULL);
+>   
 
