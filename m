@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43D49D597A7
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 Nov 2024 21:37:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84065D597AA
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 Nov 2024 21:37:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2877310E669;
-	Tue, 12 Nov 2024 21:37:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2FF8310E66B;
+	Tue, 12 Nov 2024 21:37:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZNtE91gd";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="kf5iA9S3";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2063.outbound.protection.outlook.com [40.107.236.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96DB610E660
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 Nov 2024 21:37:37 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2043.outbound.protection.outlook.com [40.107.101.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5541910E66B
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 Nov 2024 21:37:42 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iPMtZZMRm+GQ7SqdfDjQxCpoO0OVQePp2HdXP1JfXnUm0JpCYzbgtLMPzyupen4mVyuuFkky4WX6d7HyhwV0ZHK4wH16sXwTxGRjO+HnqFY4cKlBEJ8NvWE8FhyP7POcZb6UST9XjMsDPqGl+5j6c7/2Be0bIAZuBPEJpBHmml/Wdz5rBywAxXOz0EXiYrEvnILo4ZoZ3/hVxjStGuR/LqD3F466mwXDLiGSehQnK6V6njVzBr6kgs2OqHmSWqdGv2YdJffvgeVP6ffMUQ7AYyUwj8ETp24QonUCW6ekJDFbj9aAZZB/dOgsI7GqOgTY50TLB/ZETZYwCBia6jX8bA==
+ b=XQJkUAQmklaxee/tIAdwzpAeAdWJF5TIlTg2zFnvcvtbm3jj97ClGMibDpXZzByhImK50wc1vmrjFRVHEHEaCw9fHNPlVTrIaL1IOItWlU2Scz13g1vbe1SpyJNTgLlaqQNbL/b2yj5bMAFnvWg35It8kTEA8214jpMgdUSN2MnvhVFmki+KSrgom15qTuYCwTRWQWaGQnmZeBEKzWw91MtOfICZ9fziLi4w167h4O75RwgChh+HRA5sc+je5SVzsHzT+kh6yYEH3Iye4+ziXUVT0KcswmPpLB7ZyDtlxW8RttH9pjGpqQH/LUy6aOFcovnXyYgJmQOuOZfme7NgdA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OHv9YJo3hGasNAYzmueKkmo4TxGIm6ueIjVsQWQ2KYc=;
- b=jHn6nMEbFtEEvyJ/Nzntrc9Tt8IaBz1GeGyccv290ZadyDGvB1HDTB6B3q9K3e231RsSBmpSQuH3hhz8I9Vcyfejggf1txAVHWfG/GVnFcKuBhDxQytoqhaLDxZ/ujgSzOz+6YtE7RN5dcWnTsU9Ib3y9XXnKqBpwwfq3brYFix4wu7gxIfVNiq+vSH/vxOAdVS/OvT1ewsTDu0aVEKmqbho+1MyZV34nwtfr67AuzfCxLilncdOq3ABzJddVX3uVD9p1U2Rnlhe4AIGz+itk8Vh0QLI7xcWF0BNRfnx7AYN7cZxIz6HFY/j4OFu9Y0vA/AmXC9bkGCTLV2vBTLDfg==
+ bh=X7fpLcZM5AN2/25sbtSiwcA+MuUY5ggs2MhrdpSeL9U=;
+ b=vfzymaTpdsPZgERpgX0v+QtL0WKJeCDmNfk4BSBk/+w010u3FY71mqdKCkc6JR8vldi3fnIJq1IPo7Rjm+lV3euDufEgzKKO2WvvPvoVsiCa6abKCD2uah2V+ZDRlzoh1jKqXtTd1xO+eBnS96zJh4SDuEveBJYXTJxkTDwY6+2raKRTVv7AIPbNoYXPNZi1wZ72mNCH9wT7JYwa76QXyL8i2QqXZhBn/7eyfgKDaEtqbLcLB7QNdNqanNp5Ck4BrFqjpCLO5DFBrgSU/hYPWxrY9ZZba0nIZEy7iokNAyjTPnK5dIUtPfdKUh4zHVtsMPY1U8AD6FeoeUx9xWqt5g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OHv9YJo3hGasNAYzmueKkmo4TxGIm6ueIjVsQWQ2KYc=;
- b=ZNtE91gdLGsQL8T77LlYmL8n7NwvpNF/1GL/DRL/IlDzkaHyGezVZ8zShkL1WHbXe1vpbkc+uP40eYYeKYeAkJyMeefVPUDdT2v1xDFP/JZubeMnBr0msB51yQjsSV+cfpZE8tFL4p6f9VmixneZvf+B9j/RXwrEUdvZYc237xU=
-Received: from BN0PR03CA0044.namprd03.prod.outlook.com (2603:10b6:408:e7::19)
- by DS0PR12MB6390.namprd12.prod.outlook.com (2603:10b6:8:ce::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.8137.28; Tue, 12 Nov 2024 21:37:31 +0000
+ bh=X7fpLcZM5AN2/25sbtSiwcA+MuUY5ggs2MhrdpSeL9U=;
+ b=kf5iA9S33gg9kj7lz0YS/X3vCu0kpEcs6qJahxiRcRL5qr3DnTZDDRQeZLPGQELg/LxaCiWJTso9BuSvza7958t7meEMzJ27dn5sw4l08tGrc6UKlpKXBgLajvSRDMi6WJK5ITDHintffUx4IeqVc5nTbsvB41vdYO9kCd6aAZs=
+Received: from BN0PR03CA0040.namprd03.prod.outlook.com (2603:10b6:408:e7::15)
+ by DS7PR12MB6333.namprd12.prod.outlook.com (2603:10b6:8:96::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8158.16; Tue, 12 Nov
+ 2024 21:37:33 +0000
 Received: from BL6PEPF00020E5F.namprd04.prod.outlook.com
- (2603:10b6:408:e7:cafe::60) by BN0PR03CA0044.outlook.office365.com
- (2603:10b6:408:e7::19) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:408:e7:cafe::69) by BN0PR03CA0040.outlook.office365.com
+ (2603:10b6:408:e7::15) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8158.16 via Frontend
- Transport; Tue, 12 Nov 2024 21:37:31 +0000
+ Transport; Tue, 12 Nov 2024 21:37:33 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,18 +50,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BL6PEPF00020E5F.mail.protection.outlook.com (10.167.249.20) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8158.14 via Frontend Transport; Tue, 12 Nov 2024 21:37:31 +0000
+ 15.20.8158.14 via Frontend Transport; Tue, 12 Nov 2024 21:37:33 +0000
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 12 Nov
- 2024 15:37:29 -0600
+ 2024 15:37:30 -0600
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <yaolu@kylinos.cn>, <jfalempe@redhat.com>, <harry.wentland@amd.com>, "Alex
  Deucher" <alexander.deucher@amd.com>
-Subject: [PATCH 1/6] drm/amdgpu: add generic display panic helper code
-Date: Tue, 12 Nov 2024 16:37:11 -0500
-Message-ID: <20241112213716.49355-2-alexander.deucher@amd.com>
+Subject: [PATCH 3/6] drm/amd/display: add clear_tiling mi callbacks
+Date: Tue, 12 Nov 2024 16:37:13 -0500
+Message-ID: <20241112213716.49355-4-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.47.0
 In-Reply-To: <20241112213716.49355-1-alexander.deucher@amd.com>
 References: <20241112213716.49355-1-alexander.deucher@amd.com>
@@ -73,50 +73,50 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF00020E5F:EE_|DS0PR12MB6390:EE_
-X-MS-Office365-Filtering-Correlation-Id: a0cc4423-03f9-4eec-ab8c-08dd036236a8
+X-MS-TrafficTypeDiagnostic: BL6PEPF00020E5F:EE_|DS7PR12MB6333:EE_
+X-MS-Office365-Filtering-Correlation-Id: ab2d7289-3310-4fd3-9e05-08dd036237bf
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|36860700013|82310400026|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?ByCtb20hNWZdrrtzqJrVUFGlZWFHuYrCMPyP/coufbivpUd4u7CVdWTxzs5E?=
- =?us-ascii?Q?xLwoTcS/GfuUXyQmkQGqf+w3hRqvT2/1tuSDGu5IGjCU51h3s9Gu5SosOpe/?=
- =?us-ascii?Q?e2696cClf+8hNgr5JRN1rulMNMTjRtkPjhM/jon3uiCFKAESteN9J1eZdCJS?=
- =?us-ascii?Q?ecggyp3DmD2MfrXrGV177Ns6EzdnSQ1Zj6p/Cfx+Ee9npk7AIbiR54Sy01wR?=
- =?us-ascii?Q?dp8Iy2aXbov/EnueZA4unJ4oBNgs89nApepZD8pYZ5YGgu/BleKy257WH+NL?=
- =?us-ascii?Q?FGpr1UuA0gAaPuJOKH4rrAeVTik6rVY+YJ7agXibP1fek4wUtsjnYVGMAYsM?=
- =?us-ascii?Q?I5+G7QRuewd/lSqcXJYXYuUz98a45NpyHTe3cwUckKqpr7k9ovsjCqNVOJQ1?=
- =?us-ascii?Q?PfYZToh+YQ4YWwz2SuKSpRYLR5qNDJB5xTqFDOITE0N+KzR7/y6D4RPvtziX?=
- =?us-ascii?Q?+RlQSJZIrzGF+rt9gh+adVnJd4RDhO08jlALTvTVVpWs+pRwvZjIuhVJADeC?=
- =?us-ascii?Q?nhC7++inC/8lHQoZ6y9tVbIilepHxELUtw5Kbqy+KSrq8YXBGlst5rIkHFAW?=
- =?us-ascii?Q?r+KQT16AAV97mgdK2uAOGqvAnrCr7ESi8DbizinmSKN8Qi+JAYPDKu6xEFhF?=
- =?us-ascii?Q?PcSKEPAZ0BhroZRrKaUiIYHbkvLXSE0C/cD/DhoRoc14zfOcA+mK3R3AVALi?=
- =?us-ascii?Q?3wOcz8loj6UoDBYdzGKAeHWehkuJi6f67dhJAxltBL0qJLiZXGTGUUXY4aYA?=
- =?us-ascii?Q?Ha+fvjzqVG0WVkYmaUuZuCFwV0Ek30SJcpOOcivZDpI1KJu3+HPhKxpTsCAu?=
- =?us-ascii?Q?hJRJ8SRwR/vPjxxvXCup4ZHPB5iWAq4Usy9mVQ09984ev7uvf3ZE4dEUHiVJ?=
- =?us-ascii?Q?UiWGgaK15Asg34LwDywoualb6H5OHm0mn+OTonxo59n6ritYBdcvZbaFqiF4?=
- =?us-ascii?Q?RL1t8iCovuZ5N3PcVjkekx5Jqvv1qMtf2L8ajfuPQe55B6skvNDITeLJZ1v+?=
- =?us-ascii?Q?pBWuC+cGljIvoLb56HtqT7EET+qKHUMTNxdLAPbS6a2cPR2aWcboH3aqRhtQ?=
- =?us-ascii?Q?+dR16HTm6/eQ9itj6c07wb2m+KnWCafjMgkYJN5idqDUbUjvHgm7iVmlnZ8c?=
- =?us-ascii?Q?/bvQpoFNH4U/hN6jeP/ckPUMW6+rnIkHBj172aq7gtNedgdSqD3XiefQV3wU?=
- =?us-ascii?Q?YnwwRNW/069NyVkHmQe+WuRSpYvN8Fj74xq1FaYM9AzU7xVUt+kFlecDjnLY?=
- =?us-ascii?Q?EgSjwRozK+EDKUT0Tx8uSmLQLQ3haFeRXY5Mkh0x/GMiFPLKQ3qI80miQRxt?=
- =?us-ascii?Q?Y81Aua7FlaQUAke/6mEttftxocp29uShX8C/boaMfjkMZKJqCQZltvhV6uaL?=
- =?us-ascii?Q?PDr0ju/R0E55PpbbLDH069lA3ISO1Fkg1fsHKvlKprMIf/jETQ=3D=3D?=
+ ARA:13230040|36860700013|376014|82310400026|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?IdfueuHRlvMo356SwVuMJc23x2TIPcSfXWA2H2r+4VaBeuDRYRHB5/3pZz8l?=
+ =?us-ascii?Q?Ls50NUTZLcNyZob7mCKkBAUNDW5anZPOzekHdJRAjx/mdAAkCxitfA+Iu4ih?=
+ =?us-ascii?Q?KSjwS2y0B9M1wEFUHj3rC6+j33YwgQyrgrlxd9ZkabeCTW5+wU7xFgVZfKgr?=
+ =?us-ascii?Q?WbicSlebr+EsHzqAn54tx72wrVXMY6+r3gZib8o97Jdp4AwzikkT9ZPTOIgL?=
+ =?us-ascii?Q?UpH+6qijWYCTGqn8xfYvGRQDpN2Za9Zf63RLO36CTsVFEHd5tyCl4BXCM0Sr?=
+ =?us-ascii?Q?Qlj9QodpF8jhcSitNdnWjj+4lUp8oZ2eid4ThCVYY2UJWyrTJ/BXtftnEM1j?=
+ =?us-ascii?Q?Dz83R5zPSm58ATiIaQj7edgETXv63i7p/3z6Nu5MLltEAxEg1e8R+cDEinhL?=
+ =?us-ascii?Q?OFORpriiAMZUJAw8NL8XF4zvTgXMBxmMdC3IJn+rtjGEKo6T9dKNwAZQOqfj?=
+ =?us-ascii?Q?0NIEO0ILOwdaXrGIs/q8zaxM0ttZiuGZ6Ywk5VsmYhwVFX8Oe+QiQ45+9MEZ?=
+ =?us-ascii?Q?semUWrC9qfRPOzd882P/akqEjnemcqHqqfI9ADzYAq8YKMs92qDm4qpRCJ1g?=
+ =?us-ascii?Q?oup9EGLAor8dXKaBHDpeSYqYao2EBMSyKnuH4PzUgyepzkpFEpJNlREyOMUu?=
+ =?us-ascii?Q?MhAdObq88NL19TQZ+M9s8mAq9D6UsNBW8fcVR4P+iOWMdyBpiDwVux7cGYWs?=
+ =?us-ascii?Q?ZijjfGGqfuas7dpCNBCJG84xToABzSAYrXffDwQURRZdw+hJr1/hvzMo2PQM?=
+ =?us-ascii?Q?WFtN/ed8/xLfXQOdzz/g8ugZybyFgzg9cIAIRZvZpWkgvwBJlQmhDrGXtxAH?=
+ =?us-ascii?Q?BP/GPJVu4J9JM5UPeCfBfLpSCQ1tUkoD6c1d8lgzTVz7zCyAjvQF5qS+o/Qd?=
+ =?us-ascii?Q?1u0vvW580jXkRPJiWrLfIx/RjEcBJzp5PJXVhUFZK4NGtoe/sn2u3yxUcfO0?=
+ =?us-ascii?Q?2Qk1SyUg78Z0o8a/dNel4bfTOYAHYFnsXl9ML30i5qtWczbOP+DB7Fdp5EJX?=
+ =?us-ascii?Q?r5M8am4eJVtSLh1Px9h8pu2rgO+PeMW5bLK56tXPl7068IljrRIXcvSa7Ap7?=
+ =?us-ascii?Q?9Ze7oMkh+f9/8n5dGm11JDr3PuZrL6TRfUkp9iXsq5I9N0ZnrtSIJ7943zvI?=
+ =?us-ascii?Q?il3AtrP4mBMVzkY1ADlkTYGu+mzbB3SbR9lqGRO1L5TSp+O5zbMvH7e55lqR?=
+ =?us-ascii?Q?pFdzdK+9mKINmBz4kBgYXnD1x/Sk2oT8AJe+CryjrFHLEIQBk1/jDt67XWtM?=
+ =?us-ascii?Q?mZxNf+MlM+xMfCduHliSC52qqstKZ7lC/6OuA3s8NYGJEZst4sdaXhkuOIrz?=
+ =?us-ascii?Q?qzX0GCygFK2YYqOT6nLrA7uehc7fJJgJycsM9hVtHh66z/4Pm+WbZshIFJhM?=
+ =?us-ascii?Q?rEc4SjxzjB2zCQG17pxBrUyUICbky/r4xmlJzlD+CuXF0iqAMQ=3D=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014); DIR:OUT;
+ SFS:(13230040)(36860700013)(376014)(82310400026)(1800799024); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2024 21:37:31.3774 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a0cc4423-03f9-4eec-ab8c-08dd036236a8
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2024 21:37:33.1742 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ab2d7289-3310-4fd3-9e05-08dd036237bf
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF00020E5F.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6390
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6333
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,132 +131,112 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Pull this out of Jocelyn's patch and make it generic.
+This adds clear_tiling callbacks to the mi structure that
+will be used for drm panic support to clear the tiling on
+a display.  Mem input (mi) is used on DCE based display
+IPs.
 
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Cc: Lu Yao <yaolu@kylinos.cn>
 Cc: Jocelyn Falempe <jfalempe@redhat.com>
 Cc: Harry Wentland <harry.wentland@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 80 +++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.h |  5 ++
- 2 files changed, 85 insertions(+)
+ .../drm/amd/display/dc/dce/dce_mem_input.c    | 34 ++++++++++++++++---
+ .../gpu/drm/amd/display/dc/inc/hw/mem_input.h |  2 ++
+ 2 files changed, 31 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-index b119d27271c1..35c778426a7c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-@@ -33,6 +33,7 @@
- #include "soc15_common.h"
- #include "gc/gc_11_0_0_offset.h"
- #include "gc/gc_11_0_0_sh_mask.h"
-+#include "bif/bif_4_1_d.h"
- #include <asm/div64.h>
- 
- #include <linux/pci.h>
-@@ -1788,3 +1789,82 @@ int amdgpu_display_resume_helper(struct amdgpu_device *adev)
- 	return 0;
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c b/drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c
+index f5e1d9caee4c..ebd174be5786 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c
++++ b/drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c
+@@ -481,7 +481,6 @@ static void program_tiling(
+ 	}
  }
  
-+/* panic_bo is set in amdgpu_dm_plane_get_scanout_buffer() and only used in amdgpu_dm_set_pixel()
-+ * they are called from the panic handler, and protected by the drm_panic spinlock.
-+ */
-+static struct amdgpu_bo *panic_abo;
-+
-+/* Use the indirect MMIO to write each pixel to the GPU VRAM,
-+ * This is a simplified version of amdgpu_device_mm_access()
-+ */
-+static void amdgpu_display_set_pixel(struct drm_scanout_buffer *sb,
-+				     unsigned int x,
-+				     unsigned int y,
-+				     u32 color)
+-
+ static void program_size_and_rotation(
+ 	struct dce_mem_input *dce_mi,
+ 	enum dc_rotation_angle rotation,
+@@ -627,6 +626,27 @@ static void program_grph_pixel_format(
+ 			GRPH_PRESCALE_B_SIGN, sign);
+ }
+ 
++static void dce_mi_clear_tiling(
++	struct mem_input *mi)
 +{
-+	struct amdgpu_res_cursor cursor;
-+	unsigned long offset;
-+	struct amdgpu_bo *abo = panic_abo;
-+	struct amdgpu_device *adev = amdgpu_ttm_adev(abo->tbo.bdev);
-+	uint32_t tmp;
++	struct dce_mem_input *dce_mi = TO_DCE_MEM_INPUT(mi);
 +
-+	offset = x * 4 + y * sb->pitch[0];
-+	amdgpu_res_first(abo->tbo.resource, offset, 4, &cursor);
++	if (dce_mi->masks->GRPH_SW_MODE) { /* GFX9 */
++		REG_UPDATE(GRPH_CONTROL,
++			   GRPH_SW_MODE, DC_SW_LINEAR);
++	}
 +
-+	tmp = cursor.start >> 31;
-+	WREG32_NO_KIQ(mmMM_INDEX, ((uint32_t) cursor.start) | 0x80000000);
-+	if (tmp != 0xffffffff)
-+		WREG32_NO_KIQ(mmMM_INDEX_HI, tmp);
-+	WREG32_NO_KIQ(mmMM_DATA, color);
++	if (dce_mi->masks->GRPH_MICRO_TILE_MODE) { /* GFX8 */
++		REG_UPDATE(GRPH_CONTROL,
++			   GRPH_ARRAY_MODE, DC_SW_LINEAR);
++	}
++
++	if (dce_mi->masks->GRPH_ARRAY_MODE) { /* GFX6 but reuses gfx8 struct */
++		REG_UPDATE(GRPH_CONTROL,
++			   GRPH_ARRAY_MODE, DC_SW_LINEAR);
++	}
 +}
 +
-+int amdgpu_display_get_scanout_buffer(struct drm_plane *plane,
-+				      struct drm_scanout_buffer *sb)
-+{
-+	struct amdgpu_bo *abo;
-+	struct drm_framebuffer *fb = plane->state->fb;
-+
-+	if (!fb)
-+		return -EINVAL;
-+
-+	DRM_DEBUG_KMS("Framebuffer %dx%d %p4cc\n", fb->width, fb->height, &fb->format->format);
-+
-+	abo = gem_to_amdgpu_bo(fb->obj[0]);
-+	if (!abo)
-+		return -EINVAL;
-+
-+	sb->width = fb->width;
-+	sb->height = fb->height;
-+	/* Use the generic linear format, because tiling will be disabled in panic_flush() */
-+	sb->format = drm_format_info(fb->format->format);
-+	if (!sb->format)
-+		return -EINVAL;
-+
-+	sb->pitch[0] = fb->pitches[0];
-+
-+	if (abo->flags & AMDGPU_GEM_CREATE_NO_CPU_ACCESS) {
-+		if (abo->tbo.resource->mem_type != TTM_PL_VRAM) {
-+			drm_warn(plane->dev, "amdgpu panic, framebuffer not in VRAM\n");
-+			return -EINVAL;
-+		}
-+		/* Only handle 32bits format, to simplify mmio access */
-+		if (fb->format->cpp[0] != 4) {
-+			drm_warn(plane->dev, "amdgpu panic, pixel format is not 32bits\n");
-+			return -EINVAL;
-+		}
-+		sb->set_pixel = amdgpu_display_set_pixel;
-+		panic_abo = abo;
-+		return 0;
-+	}
-+	if (!abo->kmap.virtual &&
-+	    ttm_bo_kmap(&abo->tbo, 0, PFN_UP(abo->tbo.base.size), &abo->kmap)) {
-+		drm_warn(plane->dev, "amdgpu bo map failed, panic won't be displayed\n");
-+		return -ENOMEM;
-+	}
-+	if (abo->kmap.bo_kmap_type & TTM_BO_MAP_IOMEM_MASK)
-+		iosys_map_set_vaddr_iomem(&sb->map[0], abo->kmap.virtual);
-+	else
-+		iosys_map_set_vaddr(&sb->map[0], abo->kmap.virtual);
-+
-+	return 0;
-+}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h
-index 9d19940f73c8..dfa0d642ac16 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.h
-@@ -23,6 +23,8 @@
- #ifndef __AMDGPU_DISPLAY_H__
- #define __AMDGPU_DISPLAY_H__
+ static void dce_mi_program_surface_config(
+ 	struct mem_input *mi,
+ 	enum surface_pixel_format format,
+@@ -884,7 +904,8 @@ static const struct mem_input_funcs dce_mi_funcs = {
+ 	.mem_input_program_pte_vm = dce_mi_program_pte_vm,
+ 	.mem_input_program_surface_config =
+ 			dce_mi_program_surface_config,
+-	.mem_input_is_flip_pending = dce_mi_is_flip_pending
++	.mem_input_is_flip_pending = dce_mi_is_flip_pending,
++	.mem_input_clear_tiling = dce_mi_clear_tiling,
+ };
  
-+#include <drm/drm_panic.h>
-+
- #define amdgpu_display_vblank_get_counter(adev, crtc) (adev)->mode_info.funcs->vblank_get_counter((adev), (crtc))
- #define amdgpu_display_backlight_set_level(adev, e, l) (adev)->mode_info.funcs->backlight_set_level((e), (l))
- #define amdgpu_display_backlight_get_level(adev, e) (adev)->mode_info.funcs->backlight_get_level((e))
-@@ -49,4 +51,7 @@ amdgpu_lookup_format_info(u32 format, uint64_t modifier);
- int amdgpu_display_suspend_helper(struct amdgpu_device *adev);
- int amdgpu_display_resume_helper(struct amdgpu_device *adev);
+ #if defined(CONFIG_DRM_AMD_DC_SI)
+@@ -897,7 +918,8 @@ static const struct mem_input_funcs dce60_mi_funcs = {
+ 	.mem_input_program_pte_vm = dce_mi_program_pte_vm,
+ 	.mem_input_program_surface_config =
+ 			dce60_mi_program_surface_config,
+-	.mem_input_is_flip_pending = dce_mi_is_flip_pending
++	.mem_input_is_flip_pending = dce_mi_is_flip_pending,
++	.mem_input_clear_tiling = dce_mi_clear_tiling,
+ };
+ #endif
  
-+int amdgpu_display_get_scanout_buffer(struct drm_plane *plane,
-+				      struct drm_scanout_buffer *sb);
-+
+@@ -910,7 +932,8 @@ static const struct mem_input_funcs dce112_mi_funcs = {
+ 	.mem_input_program_pte_vm = dce_mi_program_pte_vm,
+ 	.mem_input_program_surface_config =
+ 			dce_mi_program_surface_config,
+-	.mem_input_is_flip_pending = dce_mi_is_flip_pending
++	.mem_input_is_flip_pending = dce_mi_is_flip_pending,
++	.mem_input_clear_tiling = dce_mi_clear_tiling,
+ };
+ 
+ static const struct mem_input_funcs dce120_mi_funcs = {
+@@ -922,7 +945,8 @@ static const struct mem_input_funcs dce120_mi_funcs = {
+ 	.mem_input_program_pte_vm = dce_mi_program_pte_vm,
+ 	.mem_input_program_surface_config =
+ 			dce_mi_program_surface_config,
+-	.mem_input_is_flip_pending = dce_mi_is_flip_pending
++	.mem_input_is_flip_pending = dce_mi_is_flip_pending,
++	.mem_input_clear_tiling = dce_mi_clear_tiling,
+ };
+ 
+ void dce_mem_input_construct(
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/mem_input.h b/drivers/gpu/drm/amd/display/dc/inc/hw/mem_input.h
+index a8b44f398ce6..4f5d102455ca 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw/mem_input.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw/mem_input.h
+@@ -187,6 +187,8 @@ struct mem_input_funcs {
+ 			const struct dc_cursor_position *pos,
+ 			const struct dc_cursor_mi_param *param);
+ 
++	void (*mem_input_clear_tiling)(
++		struct mem_input *mem_input);
+ };
+ 
  #endif
 -- 
 2.47.0
