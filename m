@@ -4,36 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 367E1D41C1B
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Nov 2024 08:49:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E543D41C19
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Nov 2024 08:49:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 39EF610E6A5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0955110E6A4;
 	Wed, 13 Nov 2024 08:49:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.b="ZSd7Tal6";
+	dkim=pass (1024-bit key; unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.b="trWuKTH6";
 	dkim-atps=neutral
 Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 241F810E623;
- Tue, 12 Nov 2024 18:34:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3963310E62E;
+ Tue, 12 Nov 2024 18:34:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
- s=mail; t=1731436454;
- bh=N0c1AAbtePVSIawYLO3q1m7P6uw9XKLYSSRostz+3OQ=;
- h=From:Subject:Date:To:Cc:From;
- b=ZSd7Tal6uncyzkCLszuWlsuHp0Htz1BcIfaA7ab67Z2Fvb/rQVsHHSDaDetTeZWEn
- b1XkfbT1hhjqo+1k5rXt2rUijbRZGZnSsruu9YuSOLFdgHsSdSCQ/s+k5C5fZ6TxxG
- Xc6RDnMkt4wtuZ3e7AyexjzW/6pduXD6WMw+GaPQ=
+ s=mail; t=1731436455;
+ bh=GQbAFEDWc3+fqXey0UCnib602pu/hNtipXn2veTOQnE=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=trWuKTH6f5Cm+jMlyBaJwqdnRcGUxNEXY17GJ5McYfCxpCUrl7YaM54ykLW2nIDX4
+ 88mFmPzX8Ggw46/R98XaMq4Y7tJrTNAgxwmfk4NL9sSszRBZith+B09bpTDJeFCWS+
+ ZrLaODco5BWN790kX2SflQCvlCQ333t6+i0Ganqs=
 From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-Subject: [PATCH v2 0/7] drm/amd: Switch over to struct drm_edid
-Date: Tue, 12 Nov 2024 19:34:09 +0100
-Message-Id: <20241112-amdgpu-drm_edid-v2-0-1399dc0f0469@weissschuh.net>
+Date: Tue, 12 Nov 2024 19:34:15 +0100
+Subject: [PATCH v2 6/7] drm/amd/display: Drop opencoded edid panel id
+ extraction
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAKGfM2cC/2WNQQ6CMBBFr0JmbQ2tWKkr72GIqZ0pnYVAWkAN4
- e5WXLp8L/nvL5AoMiU4FwtEmjlx32VQuwJcsF1LgjEzqFJVpZZHYR/YDpPA+LgRMoqDQqMN+nt
- tDOTVEMnzaytem8yB09jH93Ywy6/9tWpZ/7VmKUphyWrtpD85X12exCklF6aw72iEZl3XD7xmj
- JGzAAAA
-X-Change-ID: 20240615-amdgpu-drm_edid-32d969dfb899
+Message-Id: <20241112-amdgpu-drm_edid-v2-6-1399dc0f0469@weissschuh.net>
+References: <20241112-amdgpu-drm_edid-v2-0-1399dc0f0469@weissschuh.net>
+In-Reply-To: <20241112-amdgpu-drm_edid-v2-0-1399dc0f0469@weissschuh.net>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
  Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, 
  Alex Deucher <alexander.deucher@amd.com>, 
@@ -50,11 +48,11 @@ Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  Melissa Wen <mwen@igalia.com>, 
  =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1731436454; l=2732;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1731436454; l=1611;
  i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
- bh=N0c1AAbtePVSIawYLO3q1m7P6uw9XKLYSSRostz+3OQ=;
- b=DSan8VeZ7z6jB8KBMTo1YdJljrXaXmpIwmBYKc4f+pXlBmb7Gc3xQgOb8/t/+Sr+ybouB/T2u
- w8012xFrELoDJzXSW3yrth4Kwa64Dvu6H1KIVEjBjxpgrwRw8+vKYJ6
+ bh=GQbAFEDWc3+fqXey0UCnib602pu/hNtipXn2veTOQnE=;
+ b=BV0quP0krDQKRm6g1QR1UItqHJe3GadXKHvPM5oEacRP9OTIyVhR+ESaBNNakuCVBBg9ZIVQI
+ N224eyv7XrvC5BhtHt+rG9GsUcBq1ZjK689gN/i8Sh2PjB5hxkG8+bM
 X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
  pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
 X-Mailman-Approved-At: Wed, 13 Nov 2024 08:49:34 +0000
@@ -72,62 +70,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The AMD DRM drivers use 'struct edid', raw pointers and even custom
-structs to represent EDID data.
-Uniformly switch to the safe and recommended "struct drm_edid".
-
-Some uses of "struct edid" are left because some ad-hoc parsing is still
-being done inside the drivers.
-
-Patches 1 and 2 delete some dead code.
-The remaining patches perform the actual conversion in steps.
-
-If some patches are already acceptable as they are, I'd be happy for
-those to be picked up from the series.
+Now that a struct drm_edid is available make use of the standard
+drm_edid_get_panel_id().
 
 Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
 ---
-Changes in v2:
-- Remove a wrong kfree(struct drm_edid);
-- Drop patch "drm/edid: constify argument of drm_edid_is_valid()"
-- Add missing call to drm_edid_connector_update()
-- Drop drm_edid_equal()
-- Add patch to remove edid_extract_panel_id()
-- Link to v1: https://lore.kernel.org/r/20240818-amdgpu-drm_edid-v1-0-aea66c1f7cf4@weissschuh.net
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 13 +++----------
+ 1 file changed, 3 insertions(+), 10 deletions(-)
 
----
-Thomas Weißschuh (7):
-      drm/amd/display: Remove spurious declaration of dm_helpers_get_sbios_edid()
-      drm/amd/display: Remove EDID members of ddc_service
-      drm/amd/display: Use struct edid in dc_link_add_remote_sink()
-      drm/amdgpu: Switch amdgpu_connector to struct drm_edid
-      drm/amd/display: Switch dc_sink to struct drm_edid
-      drm/amd/display: Drop opencoded edid panel id extraction
-      drm/amd/display: Switch dc_link_add_remote_sink() to struct drm_edid
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+index 57b4a58eb9c8bfcb7b76622cf303ba01450e30ba..6f51395bf02cd6fd647de5c1a63822853deb23c9 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+@@ -48,16 +48,9 @@
+ #include "ddc_service_types.h"
+ #include "clk_mgr.h"
+ 
+-static u32 edid_extract_panel_id(const struct edid *edid)
++static void apply_edid_quirks(const struct drm_edid *edid, struct dc_edid_caps *edid_caps)
+ {
+-	return (u32)edid->mfg_id[0] << 24   |
+-	       (u32)edid->mfg_id[1] << 16   |
+-	       (u32)EDID_PRODUCT_ID(edid);
+-}
+-
+-static void apply_edid_quirks(const struct edid *edid, struct dc_edid_caps *edid_caps)
+-{
+-	uint32_t panel_id = edid_extract_panel_id(edid);
++	u32 panel_id = drm_edid_get_panel_id(edid);
+ 
+ 	switch (panel_id) {
+ 	/* Workaround for some monitors which does not work well with FAMS */
+@@ -130,7 +123,7 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
+ 
+ 	edid_caps->edid_hdmi = connector->display_info.is_hdmi;
+ 
+-	apply_edid_quirks(edid_buf, edid_caps);
++	apply_edid_quirks(drm_edid, edid_caps);
+ 
+ 	sad_count = drm_edid_to_sad(edid_buf, &sads);
+ 	if (sad_count <= 0)
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c     | 55 +++++++++++-----------
- drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h           |  3 +-
- drivers/gpu/drm/amd/amdgpu/dce_v10_0.c             |  4 +-
- drivers/gpu/drm/amd/amdgpu/dce_v11_0.c             |  4 +-
- drivers/gpu/drm/amd/amdgpu/dce_v6_0.c              |  4 +-
- drivers/gpu/drm/amd/amdgpu/dce_v8_0.c              |  4 +-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 20 ++------
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c  | 36 +++++---------
- .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    |  6 +--
- .../gpu/drm/amd/display/dc/core/dc_link_exports.c  |  5 +-
- drivers/gpu/drm/amd/display/dc/dc.h                |  8 ++--
- drivers/gpu/drm/amd/display/dc/dc_ddc_types.h      |  7 ---
- drivers/gpu/drm/amd/display/dc/dc_types.h          |  5 --
- drivers/gpu/drm/amd/display/dc/dm_helpers.h        |  4 +-
- drivers/gpu/drm/amd/display/dc/inc/link.h          |  3 +-
- .../gpu/drm/amd/display/dc/link/link_detection.c   | 49 ++++++++++---------
- .../gpu/drm/amd/display/dc/link/link_detection.h   |  3 +-
- 17 files changed, 92 insertions(+), 128 deletions(-)
----
-base-commit: 377dda2cff59825079aee3906aa4904779747b0b
-change-id: 20240615-amdgpu-drm_edid-32d969dfb899
-
-Best regards,
 -- 
-Thomas Weißschuh <linux@weissschuh.net>
+2.47.0
 
