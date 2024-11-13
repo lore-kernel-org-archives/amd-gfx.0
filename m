@@ -4,73 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EBADD462A5
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Nov 2024 14:04:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86D05D462A7
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Nov 2024 14:04:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93A5810E70B;
-	Wed, 13 Nov 2024 14:04:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AFAF210E706;
+	Wed, 13 Nov 2024 14:04:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="GUFakreu";
+	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="L66uwNj0";
 	dkim-atps=neutral
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
- [209.85.221.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DFABC10E1B7
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 Nov 2024 10:13:45 +0000 (UTC)
-Received: by mail-wr1-f42.google.com with SMTP id
- ffacd0b85a97d-37d51055097so4064612f8f.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 Nov 2024 02:13:45 -0800 (PST)
+Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com
+ [209.85.222.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E6FCD10E6E1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 Nov 2024 12:10:38 +0000 (UTC)
+Received: by mail-qk1-f182.google.com with SMTP id
+ af79cd13be357-7b15d7b7a32so520052885a.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 Nov 2024 04:10:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1731492824; x=1732097624; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=29r3GUvbzZw8w4aPc5tnOj0HcCOWENCLL4KD5K0a91E=;
- b=GUFakreuT0/7xy42F7kiOUOoPmK9dcv/TkY8r1e8kS9pSVcAEsChUvFjbfMQlb3wSI
- /TUzib6qbhSGRsCjPysG59/HvP3Kern/mD7lA1Q+2KE5/AKvayXZR8GFrfBV2SSM8JNV
- g94KTYcTBJVr5cChqGGyhb9gHaYiHA06df/jhmRSzDJnE3hx1lQgPezBpSWUvSbTIgXS
- 3qrDmeWVcl40yQ8s4LyN5xoQ4CiaxoAoe9bMFGw4VGCQkzra6yqwKoe3s34gruWNCITQ
- 9oCpYFkidbNC/5OtU+0AEZ97kSW7nE34asxMkh4+tCq+LTAfglxtp1U4oqa5oR1Rqlzg
- gP5A==
+ d=broadcom.com; s=google; t=1731499838; x=1732104638;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=BWGgKKfnruIFCmNAQq/RA1NoQPeaVY6VHLTnlmnX0Gs=;
+ b=L66uwNj0E4HIWvOyvbDFOGEEQE4BTptk76iM+l7aphqzzDRaCiidFmZi23szL8PlRp
+ tt4x8k75KTmHCLikUtqqRF98OgV2cuQ8+isSUG6OdN+ScCJvT78EJlsqQQtPyS5GADsz
+ 0P4dyipOodUW56RiDfIXD09FaVKdIqlmOonHw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1731492824; x=1732097624;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=29r3GUvbzZw8w4aPc5tnOj0HcCOWENCLL4KD5K0a91E=;
- b=jyGz4yb9AvMmwkacXO2D7IYNhr0qKd6sb4f4PuneVO6tMYAlvSqRzYyw2U7aym0bso
- nkpwXlwo4zjBBQFfLiEBwqGAtHUvp9WWGkjH15BPCsY4reJw1X6wCF9gCT7wAxbGG/qc
- bdYTjPRTT4dz6eE+3Dg/lFH+28I8tsbcqUMoJ2OxiAnwYo5NOH4P1q04Dzf5tEvLvioD
- YFFwjqcXvpo+3llvRr4pEVivt43kLFCiSCu0csI7Ej17UNhWD9i6f62aWMbGvB14HX3+
- ScusCpiCw61TTqwf8BlyrJKlDctZpYwMONUa2vGMqMTYeXiErxnGUJrIyWNKmhVEOOWO
- 19vw==
+ d=1e100.net; s=20230601; t=1731499838; x=1732104638;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=BWGgKKfnruIFCmNAQq/RA1NoQPeaVY6VHLTnlmnX0Gs=;
+ b=KrWS3CS6R9L5NyxKwaL4KvZ11fhIrYTvAtwhY+y+n20oqnc/Bo069WaKn4ZjBMATPb
+ wWzxvfB4XTD55EAq/PUie3in/aih96XOBhGgELWa55CjxzZdaHtP8npOhgxziNMCJWnz
+ GMDNlufWnGBotdJEo5CweoJbDrhJBwHpvFbWmb/hAUOC/GnAcxniGDwYRWy+zcsjbOJU
+ aGJVH6oePBHGci2H02zykp2TaycJpJn7JM6wMlusCKJggjgj5qeZ8ydpJKzAJMbJP8VU
+ K7tSjuv7T3ix5aft6MmU1zpGehtj25rSRtiKEpUjVb8H41JyXgPyYBxNabq+vuSejlMz
+ k2qA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXw7jP7KNKBwPR6/2wO+omc0h900GZ0UaTzlFmuIs4xlohqQCavI9L6/NzplZDSR2MKb9wmhrlu@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzDOE8OJLHpqfn2OByOd3YARXhIfkZTQYCjf+V+ld8SK4MXKYJj
- eaID3KhlGDcHprMX6HDv4RQvlBlgl5EZ6ajt7iR+SlnidL25CrUWSnTy7DEwHrc=
-X-Google-Smtp-Source: AGHT+IH2BH3MALMB+E+XITlkb+0lyVpVuMJIDJUUSnd3RYPMU6chFRG2glEc9VGrAjVDTMO03oJKpw==
-X-Received: by 2002:a05:6000:210e:b0:382:424:9520 with SMTP id
- ffacd0b85a97d-382042496a7mr6550276f8f.49.1731492823996; 
- Wed, 13 Nov 2024 02:13:43 -0800 (PST)
-Received: from localhost ([196.207.164.177]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-381ed970d10sm17689789f8f.20.2024.11.13.02.13.43
+ AJvYcCV8Nz61yG+m15XkZmr6v07XQZp4h50Vi61TWfmMnVDfXtAUyL3mIKZDKDoOsIEaZWYAE/nVtKD4@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy9M9BF142e0TRjgPG0AwygklbNKG2u5lHh+8QzBg/pxkB2Ntuc
+ OOQcV+VqeHe0xYsJGJE1i9xE4eyEFSp8D/mAVYu70ORw/s6/qulI/Vw4Zlo3rg==
+X-Google-Smtp-Source: AGHT+IFjtssmcQYSDLPWHMXFElrFwUn5PC8jwBOpMwg6tt3NwANpV7HOJmiNf1o83ySdAhKvsm1rwg==
+X-Received: by 2002:a05:620a:4244:b0:7ac:b197:3004 with SMTP id
+ af79cd13be357-7b331ebcd1emr2427155885a.29.1731499837429; 
+ Wed, 13 Nov 2024 04:10:37 -0800 (PST)
+Received: from vb004028-vm1.. ([192.19.161.250])
+ by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-7b32acae494sm683467685a.73.2024.11.13.04.10.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 13 Nov 2024 02:13:43 -0800 (PST)
-Date: Wed, 13 Nov 2024 13:13:40 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Colin Ian King <colin.i.king@gmail.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, kernel-janitors@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH][next] drm/amd/amdgpu: Fix spelling mistake "versoin" ->
- "version"
-Message-ID: <dceebb5d-9cc6-40ec-b1b4-6ae40cba45fe@stanley.mountain>
-References: <20241113095349.1161044-1-colin.i.king@gmail.com>
+ Wed, 13 Nov 2024 04:10:36 -0800 (PST)
+From: Vamsi Krishna Brahmajosyula <vamsi-krishna.brahmajosyula@broadcom.com>
+To: stable@vger.kernel.org,
+	gregkh@linuxfoundation.org
+Cc: Philip.Yang@amd.com, Felix.Kuehling@amd.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
+ daniel@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ ajay.kaher@broadcom.com, alexey.makhalov@broadcom.com,
+ vasavi.sirnapalli@broadcom.com, Felix Kuehling <felix.kuehling@amd.com>,
+ Sasha Levin <sashal@kernel.org>,
+ Vamsi Krishna Brahmajosyula <vamsi-krishna.brahmajosyula@broadcom.com>
+Subject: [PATCH v6.1] drm/amdkfd: amdkfd_free_gtt_mem clear the correct pointer
+Date: Wed, 13 Nov 2024 12:10:30 +0000
+Message-Id: <20241113121030.2405520-1-vamsi-krishna.brahmajosyula@broadcom.com>
+X-Mailer: git-send-email 2.39.4
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20241113095349.1161044-1-colin.i.king@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 13 Nov 2024 14:04:26 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -86,27 +86,161 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Nov 13, 2024 at 09:53:49AM +0000, Colin Ian King wrote:
-> There is a spelling mistake in a dev_err message. Fix it.
-> 
-> Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/mes_v11_0.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> index 9c905b9e9376..feecd099cf86 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> @@ -646,7 +646,7 @@ static int mes_v11_0_misc_op(struct amdgpu_mes *mes,
->  		break;
->  	case MES_MISC_OP_CHANGE_CONFIG:
->  		if ((mes->adev->mes.sched_version & AMDGPU_MES_VERSION_MASK) < 0x63) {
-> -			dev_err(mes->adev->dev, "MES FW versoin must be larger than 0x63 to support limit single process feature.\n");
-> +			dev_err(mes->adev->dev, "MES FW version must be larger than 0x63 to support limit single process feature.\n");
+From: Philip Yang <Philip.Yang@amd.com>
 
-What does "to support limit single process feature" mean?
+[ Upstream commit c86ad39140bbcb9dc75a10046c2221f657e8083b ]
 
-regards,
-dan carpenter
+Pass pointer reference to amdgpu_bo_unref to clear the correct pointer,
+otherwise amdgpu_bo_unref clear the local variable, the original pointer
+not set to NULL, this could cause use-after-free bug.
+
+Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+Acked-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Vamsi Krishna Brahmajosyula <vamsi-krishna.brahmajosyula@broadcom.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c         | 14 +++++++-------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h         |  2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c           |  2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_device.c            |  4 ++--
+ .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c  |  2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c       |  2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c           |  2 +-
+ .../gpu/drm/amd/amdkfd/kfd_process_queue_manager.c |  4 ++--
+ 8 files changed, 16 insertions(+), 16 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+index 5d9a34601a1a..c31e5f9d63da 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+@@ -344,15 +344,15 @@ int amdgpu_amdkfd_alloc_gtt_mem(struct amdgpu_device *adev, size_t size,
+ 	return r;
+ }
+ 
+-void amdgpu_amdkfd_free_gtt_mem(struct amdgpu_device *adev, void *mem_obj)
++void amdgpu_amdkfd_free_gtt_mem(struct amdgpu_device *adev, void **mem_obj)
+ {
+-	struct amdgpu_bo *bo = (struct amdgpu_bo *) mem_obj;
++	struct amdgpu_bo **bo = (struct amdgpu_bo **) mem_obj;
+ 
+-	amdgpu_bo_reserve(bo, true);
+-	amdgpu_bo_kunmap(bo);
+-	amdgpu_bo_unpin(bo);
+-	amdgpu_bo_unreserve(bo);
+-	amdgpu_bo_unref(&(bo));
++	amdgpu_bo_reserve(*bo, true);
++	amdgpu_bo_kunmap(*bo);
++	amdgpu_bo_unpin(*bo);
++	amdgpu_bo_unreserve(*bo);
++	amdgpu_bo_unref(bo);
+ }
+ 
+ int amdgpu_amdkfd_alloc_gws(struct amdgpu_device *adev, size_t size,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+index 4b694886715c..c7672a1d1560 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+@@ -210,7 +210,7 @@ int amdgpu_amdkfd_evict_userptr(struct kgd_mem *mem, struct mm_struct *mm)
+ int amdgpu_amdkfd_alloc_gtt_mem(struct amdgpu_device *adev, size_t size,
+ 				void **mem_obj, uint64_t *gpu_addr,
+ 				void **cpu_ptr, bool mqd_gfx9);
+-void amdgpu_amdkfd_free_gtt_mem(struct amdgpu_device *adev, void *mem_obj);
++void amdgpu_amdkfd_free_gtt_mem(struct amdgpu_device *adev, void **mem_obj);
+ int amdgpu_amdkfd_alloc_gws(struct amdgpu_device *adev, size_t size,
+ 				void **mem_obj);
+ void amdgpu_amdkfd_free_gws(struct amdgpu_device *adev, void *mem_obj);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index e3cd66c4d95d..f83574107eb8 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -408,7 +408,7 @@ static int kfd_ioctl_create_queue(struct file *filep, struct kfd_process *p,
+ 
+ err_create_queue:
+ 	if (wptr_bo)
+-		amdgpu_amdkfd_free_gtt_mem(dev->adev, wptr_bo);
++		amdgpu_amdkfd_free_gtt_mem(dev->adev, (void **)&wptr_bo);
+ err_wptr_map_gart:
+ err_alloc_doorbells:
+ err_bind_process:
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+index 27820f0a282d..e2c055abfea9 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+@@ -673,7 +673,7 @@ bool kgd2kfd_device_init(struct kfd_dev *kfd,
+ kfd_doorbell_error:
+ 	kfd_gtt_sa_fini(kfd);
+ kfd_gtt_sa_init_error:
+-	amdgpu_amdkfd_free_gtt_mem(kfd->adev, kfd->gtt_mem);
++	amdgpu_amdkfd_free_gtt_mem(kfd->adev, &kfd->gtt_mem);
+ alloc_gtt_mem_failure:
+ 	if (kfd->gws)
+ 		amdgpu_amdkfd_free_gws(kfd->adev, kfd->gws);
+@@ -693,7 +693,7 @@ void kgd2kfd_device_exit(struct kfd_dev *kfd)
+ 		kfd_doorbell_fini(kfd);
+ 		ida_destroy(&kfd->doorbell_ida);
+ 		kfd_gtt_sa_fini(kfd);
+-		amdgpu_amdkfd_free_gtt_mem(kfd->adev, kfd->gtt_mem);
++		amdgpu_amdkfd_free_gtt_mem(kfd->adev, &kfd->gtt_mem);
+ 		if (kfd->gws)
+ 			amdgpu_amdkfd_free_gws(kfd->adev, kfd->gws);
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+index 1b7b29426480..3ab0a796af06 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+@@ -2392,7 +2392,7 @@ static void deallocate_hiq_sdma_mqd(struct kfd_dev *dev,
+ {
+ 	WARN(!mqd, "No hiq sdma mqd trunk to free");
+ 
+-	amdgpu_amdkfd_free_gtt_mem(dev->adev, mqd->gtt_mem);
++	amdgpu_amdkfd_free_gtt_mem(dev->adev, &mqd->gtt_mem);
+ }
+ 
+ void device_queue_manager_uninit(struct device_queue_manager *dqm)
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c
+index 623ccd227b7d..c733d6888c30 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c
+@@ -204,7 +204,7 @@ void kfd_free_mqd_cp(struct mqd_manager *mm, void *mqd,
+ 	      struct kfd_mem_obj *mqd_mem_obj)
+ {
+ 	if (mqd_mem_obj->gtt_mem) {
+-		amdgpu_amdkfd_free_gtt_mem(mm->dev->adev, mqd_mem_obj->gtt_mem);
++		amdgpu_amdkfd_free_gtt_mem(mm->dev->adev, &mqd_mem_obj->gtt_mem);
+ 		kfree(mqd_mem_obj);
+ 	} else {
+ 		kfd_gtt_sa_free(mm->dev, mqd_mem_obj);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index 5bca6abd55ae..9582c9449fff 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -1052,7 +1052,7 @@ static void kfd_process_destroy_pdds(struct kfd_process *p)
+ 
+ 		if (pdd->dev->shared_resources.enable_mes)
+ 			amdgpu_amdkfd_free_gtt_mem(pdd->dev->adev,
+-						   pdd->proc_ctx_bo);
++						   &pdd->proc_ctx_bo);
+ 		/*
+ 		 * before destroying pdd, make sure to report availability
+ 		 * for auto suspend
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+index 99aa8a8399d6..1918a3c06ac8 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+@@ -441,9 +441,9 @@ int pqm_destroy_queue(struct process_queue_manager *pqm, unsigned int qid)
+ 
+ 		if (dev->shared_resources.enable_mes) {
+ 			amdgpu_amdkfd_free_gtt_mem(dev->adev,
+-						   pqn->q->gang_ctx_bo);
++						   &pqn->q->gang_ctx_bo);
+ 			if (pqn->q->wptr_bo)
+-				amdgpu_amdkfd_free_gtt_mem(dev->adev, pqn->q->wptr_bo);
++				amdgpu_amdkfd_free_gtt_mem(dev->adev, (void **)&pqn->q->wptr_bo);
+ 
+ 		}
+ 		uninit_queue(pqn->q);
+-- 
+2.39.4
 
