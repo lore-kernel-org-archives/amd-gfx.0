@@ -4,152 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0345FD597CF
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Nov 2024 03:35:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD760D41C00
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Nov 2024 04:47:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C94E10E673;
-	Wed, 13 Nov 2024 03:35:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BF9910E67C;
+	Wed, 13 Nov 2024 04:47:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="TwWALL6c";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JPb9Hsdv";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2080.outbound.protection.outlook.com [40.107.93.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6716B10E673
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 Nov 2024 03:35:33 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JMioBRk1ElsL6pDdNI01f191NELdNkHhR9GOGhQVoBc5WrWhzRUE8Ck+KTkJiCpVkV6L3EKVYGZXOL8F6c3bzv3l/BYYcKCLcmTu3XgUQIKNv/IuUogbxCwhemv1WHj3nV/DuoAwqdo0OKn8+2pokho4Rsbnfn+wneuD8HuydY40ukI/6PWzbjcqUhfSLT0B/ejimbnFpaEFxj2jfYmaZkFmoX5nzdVDEnWdQ8eqTXCzI7SeJi9FY2NU8JXrutYIMVomai7zHbKO1zkZBRjvbwdvkatvRS2nT9XTN6BHCR6kr7nond5gDYck6UJ97zFnQTepY8XsBIi/WZ2lGK6oBg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=d+/h80qV4ZaL6qPd4dYbUV1RVyb2QPUzkI0R9DhxD/I=;
- b=PrunGbZbtlC4u8LKXMd5AFiT6O8nmQFfKDP06kSLtYBrsAb/aGFnBHsRGX+iGChzNzh864ZfU8TyozrY24+mTobZ11Vuo5Hw5qmfOWsBJ0K6dYz9ESpJBuRZmzBMItKV0+e6NJhBVKRGnkJcBYRSFx4gmoYJdXBBxxkX73voAnTHGtCZurXnge1y/ALLjEDB0AWlFuTtu/BZ5/4xBGhNLUrgH4RQFjo0A8p0CgFC+AHoDzOy+ddubRcqlVVCf9HqbNA30o3AGOC+/wUavwcKzQuNUkwOJxGjlCSc83+CqQ65w34yQ+Ls3Mt8UyIyCfNvccLSpCxJuDQJjjtTxExNAg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=d+/h80qV4ZaL6qPd4dYbUV1RVyb2QPUzkI0R9DhxD/I=;
- b=TwWALL6cHtz+jp8yflpaSy4sg3sFhcW2QTjCUMY6Vq1aYB7yKQdMzshGqDBwvhEMDgdWBYTHMciPM3PIfjWBHcaE7fYS8p8KjOZWu3GICIoxxKYMtDq8urVLcN+ulNoIryxq6oTyg5ZbRkVHjB6rNxr2ffL6ncyIgVV2IVjH1sE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SN7PR12MB7835.namprd12.prod.outlook.com (2603:10b6:806:328::22)
- by CH2PR12MB4072.namprd12.prod.outlook.com (2603:10b6:610:7e::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8137.28; Wed, 13 Nov
- 2024 03:35:28 +0000
-Received: from SN7PR12MB7835.namprd12.prod.outlook.com
- ([fe80::ea3a:4720:99cb:32d8]) by SN7PR12MB7835.namprd12.prod.outlook.com
- ([fe80::ea3a:4720:99cb:32d8%4]) with mapi id 15.20.8137.027; Wed, 13 Nov 2024
- 03:35:28 +0000
-Message-ID: <e198d4aa-b6ff-4592-8785-dae262f4f694@amd.com>
-Date: Wed, 13 Nov 2024 11:35:21 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RESEND] amdkfd: check ret code for ioctls
-To: Felix Kuehling <felix.kuehling@amd.com>, alexander.deucher@amd.com
-Cc: ray.huang@amd.com, amd-gfx@lists.freedesktop.org
-References: <20241031105059.251085-1-lingshan.zhu@amd.com>
- <616bc79f-ad92-4b22-8df0-0a0ebe27fcf6@amd.com>
- <2ca21e92-6324-413f-9df9-0bfcf638c669@amd.com>
- <76ef68f6-dd23-41b3-8dec-d35e6874de01@amd.com>
- <cc6f4141-a085-41e7-b772-8c400788c1b9@amd.com>
- <d96c1117-7eb9-4c65-ab0a-1f4507d32674@amd.com>
- <87029c10-4fce-4a42-a04b-ed2633c69148@amd.com>
- <bfa7bfa7-c134-4268-97aa-7b9baf899be3@amd.com>
-Content-Language: en-US
-From: Zhu Lingshan <lingshan.zhu@amd.com>
-In-Reply-To: <bfa7bfa7-c134-4268-97aa-7b9baf899be3@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SG2PR01CA0131.apcprd01.prod.exchangelabs.com
- (2603:1096:4:40::35) To SN7PR12MB7835.namprd12.prod.outlook.com
- (2603:10b6:806:328::22)
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com
+ [209.85.216.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7BE6610E24F
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 Nov 2024 04:47:07 +0000 (UTC)
+Received: by mail-pj1-f45.google.com with SMTP id
+ 98e67ed59e1d1-2e9ecb67701so103794a91.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 12 Nov 2024 20:47:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1731473227; x=1732078027; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=1kGkpHtpTy8Fj+ECUpJx90q98mjrx/JCrFCpHQX7Pv4=;
+ b=JPb9HsdvlEPcaEXYnoRVm1WF3JB8qDhN8Yl4i8DsSSqhetGH1segpSz12d6eMfxo6G
+ BpZibL5XzI9sXJZ1JlE8sovV0Sl44c7Lllynwhwatle0wWN9aDNM+WII/kxV8lcSN9WZ
+ p8lUAoYqdWySbYJ0vKgRSnG34qFRG9y6wSTOgD8nVNnZpEI9FMh+e1QztUTPWW6a9jCE
+ G443iJFhAF+Z0jLJYsicGJQ7oDj491ET6G1A5RlGRmCd82Rhjgz+dsirelavwu1+f61C
+ wtOy6QBizKGeQXYh+BABeQIz1qrx0IWJ16OT4PEIUrCfw/5vKs49kewnqwnZtiXYsBxw
+ robw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1731473227; x=1732078027;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=1kGkpHtpTy8Fj+ECUpJx90q98mjrx/JCrFCpHQX7Pv4=;
+ b=joRT8J0fYyQUz8MnMqKCkRXzb1Pv5WBlSq7UM/OMdhU9oP+gmGZNNlHQPI29K6IfDz
+ ami5568AJcPjZyX/ljX3npEncN+4QMV2E9eeho6jJSsMYhgsg+2YN6h+syeu/u2yuQWV
+ nxop0xevIMiczQUFyNhKt23Bi+yFEPLyXjsb2mRj+n/sdPT6oHljMkW19ORgXueHu+Q4
+ zkbqpZSCyrhagTBNkEvIqbCFDGn1rbYlQkFUbTlYa2IjOfcEQZKfjiKJvcTekiWYrpkC
+ P/XwOIVDxJ6RD7nSCmrxOT1sGRWAFy18eZ22nunU66LhaCZWlM3DkIuK4Wg77iqwt3SG
+ aLVQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWXqoQVec+1vPKEiCPHA9jJZdRcGxShbTyWQktZ3DuEZLT4U9ObwDln0f7IPMr3VRGyJ+dxtfUd@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw5mKIQCyDEu/rGYOqN/9DE1XWR9u25nNVsh3KGkr35wizW9Xd7
+ LmRCn+ynQ56F/nP6/HAjR6bD3y5kqjeop61iHdir/6HLf6e2Yij4AtTp2mZGn9b2ESWk2ErnXFL
+ LPK1oa8G/89SlWnGN2BsyAxGo4cc9eA==
+X-Google-Smtp-Source: AGHT+IGB8E7W+0KGc+l+swZuFq0jOKBCmDa0r24pv9ipF77aOJpCtxVZVU9VDfcGcIuBJwiMIi4L5epHcLmrFGcyXgc=
+X-Received: by 2002:a17:90b:38c4:b0:2e1:682b:361e with SMTP id
+ 98e67ed59e1d1-2e9b165272amr10535332a91.4.1731473226873; Tue, 12 Nov 2024
+ 20:47:06 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN7PR12MB7835:EE_|CH2PR12MB4072:EE_
-X-MS-Office365-Filtering-Correlation-Id: 449da908-6e83-4c3a-afd5-08dd0394379e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?d0huZXlicVI4MFAzd1BYYzZIMjBoWmkybkpBYXhUV1VPTS80TFA0Qy9ZbXpK?=
- =?utf-8?B?UHU3eVF3MFhKQ0xmVkRBNnJQRHRJb0laeXJYeUxNUVhPY0l6WnNCZzhOWUY4?=
- =?utf-8?B?dXdUT1h6NXBLc2RrVE44QXcyMXNaRFJvRzlQbVpYb1hnRHJocEtwSWtheWND?=
- =?utf-8?B?QlVFTzhKWm94STVxSmYydVlLNk1NRjNGTndXRko4bWZ1MHRxRmx2SWdqT2hy?=
- =?utf-8?B?cUpQY1pDeXVuZFJkRmFwdXBQNTB2RFkyN05WT211RFV0T242OUFuYVRUMUpI?=
- =?utf-8?B?SnpjZzBqVmZNQVRGdmkrcmN4R3JsM0lUc0pZVDZkalRvOXpGYUNpemRzdEhT?=
- =?utf-8?B?azVZV3Rud3dHd3VMSktqZ0xOOW5SRzU5TGhvNjlraUxHeSszcTFqYXhMT0dl?=
- =?utf-8?B?QXA5TzF1VWZjeUo2b0FnL0szQlJrcE0xcWpKcURUQ09ONlBybk5GR3J1OUJx?=
- =?utf-8?B?YldlMzFOc1ZONGkycEMvMngwTjJiR0piTTNRQkFURjVXNE1FbmNMOGVyVEE5?=
- =?utf-8?B?a2gva1ZNUndtUEFLWWdHM2xMU3U3ajgwY2RPcXZPb3BjS3RwSkpsQnV4dkdh?=
- =?utf-8?B?V0xSS0RFN2h6d0tjRXlpRVh4c2RxRDh6TEtjQlluQ3pnRFd2NWFuUlB1bk9y?=
- =?utf-8?B?RUFESjd2YkVJUUpuZks5TGhrRkdkRFZyZU5hdkp5cnM1cThLUUNxQ1BOdGV2?=
- =?utf-8?B?SjJJeDdiYWIrY3BHWGZwZ0JKbGtGNlFFVy9SY213NWplSWFtWlJMNGpxSlI4?=
- =?utf-8?B?YThtM25zaTkvQi9aSkwvVU4veUUwdVdSVjVndnNFaW9LYVpRRE1zMnhQWUdX?=
- =?utf-8?B?Y29yUi9ZM0U0TVNFM3FNd1NGMm5wSUUwclpPci9ja3l2VzVjYnh5Y25YV25D?=
- =?utf-8?B?SXBIUUVQNEgvMUh0UnpvckQxNE9pT3NHN0dQVFhhdjRZZ2xlVXorRW9Wd291?=
- =?utf-8?B?cFVBTDdJTWtya1IwVUtldTRPVEhudTFTZHNrRHBUQlgwQWFXYzBvL0FqM29R?=
- =?utf-8?B?bWFhcDdFSFpCd0tnVlNRRXBHdkl4ZHlBUk1xbTBvdUVma1N0cTdDS2FSZWVm?=
- =?utf-8?B?K2VjSUFaVVhxdk93QmlOWDJBMlZ6ZTI1QWIrNmRRWENvY3gxODlJc0cyeTlj?=
- =?utf-8?B?aXdRc3JkS3hvcmtPYTVTYndYcFBlUFRxaFFpWWMwaG1VN0NDMTZnSHgxMkV2?=
- =?utf-8?B?eURGRXJueStOY0FaN1d2d2F1RW9DeHUrSXhNQjZWdmM2TkxNa0ZBSGJhQkZl?=
- =?utf-8?B?R0N0aFZEVWE4VDhWR0RyRDY1TlZTM3lJT0hmYStNMUY1UnFBZFI5SnRmQk5E?=
- =?utf-8?B?ako2N3NWZlZzSDFBYm4ybkNtZCt3cmJOVTNOZGJwS1RxMkE0VjdZcXM2bmJk?=
- =?utf-8?B?TGJPQ3ozVUFmK0IwYkhRMzRxV1J2YVhYZExWd0IyNWRsOU4rKysvTmRJaGd1?=
- =?utf-8?B?TkVWb2lRT3dnenNOUDZESllyb2FXR0lyWjltbjBKdUY3TmZRbURmU0poTlBF?=
- =?utf-8?B?aXhYWndCVWpvR1ZFeUhTNU9LZkVwRnlpOVVFL08vL0RGV2pnaW93bGVFTlUz?=
- =?utf-8?B?Z2N6K3dqTWZ6L1d2anVRYUpSc1VqcFJZTC9OQ1VkSXRZS1k4cGFVZHlMd3Zj?=
- =?utf-8?B?cko3T1phekNvSStDOHI5QkRpcW1nOG1wMHRXcG51TzJHVWo3UW41SWJSZUFF?=
- =?utf-8?B?dm9TVVNmbHpGRlZqbmZCU1ZIenkvUHdYd0NRUmZFR2RkKzhIT09BenBEZ3RH?=
- =?utf-8?Q?p+eKNN+nY/UTaaUQFv5w9EboeUVOF6eHGk1Fq0q?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SN7PR12MB7835.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VTNYbVc3ZlBoZUxLanZJQ3hEa3VGY0xaVmllcVlFUUhGM2VoRk1Xek0zSU1u?=
- =?utf-8?B?djQ4QmZCRU9rcElQTE44Z3ZDYWozaytDVThjbXEzWEoxQ0VmSGNEY0d5TUpw?=
- =?utf-8?B?b2s4bFB0R0RUa0M1TklPTlFzRlYrNDBCdUdrdlliQkFKaGVqOXRrNHpjRG5D?=
- =?utf-8?B?b2pwcDhIaGx2MHVqOWFlYUExWUt3Z1RwRG03bWhxS0dKQk5TTkRMdmxSMTZS?=
- =?utf-8?B?Y2lZODd5dFY5OWdrTTVJb09zVVBmRmQ5bm5YLzRBUFVoMENaMEtZWlRBb3JZ?=
- =?utf-8?B?Q3hWeTBqcXpDbERtOHFBMC9sUFVkY3NlQXhVajhhQVE0MGgweWxzRU9XdWVh?=
- =?utf-8?B?QVJRejFsOGdYUTdXcHNCVk1JYVlReWJ4TEFXb0NPQzUyaXMwcUNaMnd3ekEy?=
- =?utf-8?B?OGdsYUE2SVlKSnYvSGFYbm9XaXV4YXJpbVNSdTVqc255L3ZpN3pQMmxUYmQr?=
- =?utf-8?B?U0FBeEhJUEx6cnVUMUJZOVc5OUIyYVMyUWlEVEp1S2lGZ2MrU0o5VlZqbjQx?=
- =?utf-8?B?Zk9tQlg4bEUvQ2lxVXk3Mkh4SVJsRjZndXpOd21KYzJaa25jK1h3VmxDL2Ex?=
- =?utf-8?B?WDBKNXpFQjhWeUtWSk1md3dDaVRGOGV1NGVXSGtmdkYrK1YwTWZ3Z2xUZUJU?=
- =?utf-8?B?dkhDZ0l4M2k5TmlaUkw2VTdBbnRFdzU1L1dvT1FudEp3YnMrMnc1QzFuYWo2?=
- =?utf-8?B?OXU2b0RnWnJVK1I5bXQ4MzhHaTh1SVBlYTYyRjZBOGlUNHFVakNmejU4LzlR?=
- =?utf-8?B?Z0Rsa1dET1YrQkFsVWNLcmxrSndHZm9XdDIrMHkyMXhPTTgzRFNiWWRjQ2Mv?=
- =?utf-8?B?Ry9zQUZyVzhLN0hFRTY3dkJ4ODNSVy8yUlVBUG82YkxQUlRmNCsvWVg5emRp?=
- =?utf-8?B?ZG1BZGhCaG1QeUR0NHdTTFV2SDNPTnVBbG9YUkViMXVYbWdsdUJTSmNNNzlB?=
- =?utf-8?B?VEdGK3ZyR3huOUhQc1d1aEI1U2I1REpxZTdvTjZQS3JiTDd2WVpnL1l3bjB4?=
- =?utf-8?B?b05zcW92K25MRmE1R2VtSHQ0cEdzcDBPcitueElUVmpXOS94MVIxWDFGYlZ2?=
- =?utf-8?B?bk55VWNySDBDMERYbXpyVjNERXFXR2FaN0ExVWlpRENVNmpCSkZ3anpEMm5J?=
- =?utf-8?B?QWVDN2FPa01qaTN6emVIOXpxQmJMaDd1bDZsTWQ3Skc0cExPS1Z1bTAvZEJi?=
- =?utf-8?B?U1l4VkdZRHdINERoSFlyRTlNelptU1krSEtiRzZDME5SbFlUeWVTUEd5QUlF?=
- =?utf-8?B?bEp6Rzd1VjIxUXhLdVB4ODJDZ0JEajNQWFJVTmZzLzVtYkgwcGpGdDZBMkR5?=
- =?utf-8?B?VlBqUG5oWExYUi9kSzlRZ0dGZ3B3cDk2OVB6RnRRUjQ1M0VYY0RGWXFLcEMy?=
- =?utf-8?B?NG40K1JlMHFxQzUwcElBajlUZGJVeW5QSFNjeHlBUGpMazNEMUdFcmJOY0Q3?=
- =?utf-8?B?ZG5QZWo3QnpaemI5U241RE1VU3JWay9vd1BRdnR1YzZzSzYxNS9mNm1INGRK?=
- =?utf-8?B?NkRCdHFsc2UvQ1NFR291dWNiZDZHM09yWk5DNmc5R2hyQXMwbVRsSW81QU9E?=
- =?utf-8?B?dGhqZEg2L0QrZzFWcTNVOFBCQUt4bzZ3VXoyQ2FldjM4dTlGQjYxT1UzK3NR?=
- =?utf-8?B?dmxUMjFVZmcxQTczL3VkQlp0UTVWdDQveTU0SEZqYmUvd01xQXpvbGxxbzhQ?=
- =?utf-8?B?ZmtyU1U3SUNWSjcrVFJJT3ZVQVhWbldHZnhPQjQxY0NkUzRMTUJEOEh5YVNZ?=
- =?utf-8?B?VUJHSmNlcTdJTmFhSU1ZcHpoWGo5NklhL0R6MUlIYVM5U0Y5ZTd1NzQ2TDVj?=
- =?utf-8?B?T3lDNVNOOUpVWDdFL01wUXFaOW5ScFBkU01pMXB6Q1l4SmxvRGx2blpxVEg5?=
- =?utf-8?B?V0hncW1kS2JMMmlWd0RXeHlRK0IxVHlmbVRHcld1TWhTcFJZaTEwT25IdWp2?=
- =?utf-8?B?OWJpVjhTMUF3SU5kZkJPZnY0SWdHNWg4a0VmeW9IVmhVZ1I0Q2NHU3JwUmZz?=
- =?utf-8?B?OTlLdnJIYWkxR2VIUktqbW1lejhvREVQWldXbjl3aUtQV0Frb2pZQWg0cnZp?=
- =?utf-8?B?VUxKeHVvR0NJeVdRS051d1BjR2xtOWVSSnM3a3lhK0kvTlRmajFKS3l0SDNk?=
- =?utf-8?Q?Qvi24XbDq/qIZ+rHH/wWXBYsZ?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 449da908-6e83-4c3a-afd5-08dd0394379e
-X-MS-Exchange-CrossTenant-AuthSource: SN7PR12MB7835.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2024 03:35:28.0982 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: SXxJw01Penx30cYhDNcpAvta0twXFTrS9XvjcHClKXXDR1FRkjyB5z2KkdxllzOVrBwjb/5i/dd0HTXvLYvABw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4072
+References: <20241112143050.1931822-1-jesse.zhang@amd.com>
+ <20241112143050.1931822-2-jesse.zhang@amd.com>
+ <910caa3a-802a-41d6-ae07-c39292081d4d@amd.com>
+ <DM4PR12MB51524E90E5A98A03BF7FDD8CE35A2@DM4PR12MB5152.namprd12.prod.outlook.com>
+ <63fcdfc5-af2a-4065-ab5a-81ca5dca6db9@amd.com>
+In-Reply-To: <63fcdfc5-af2a-4065-ab5a-81ca5dca6db9@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 12 Nov 2024 23:46:54 -0500
+Message-ID: <CADnq5_Pix7r90tHzXF85vNMrqk+KZSOGSgHRuCvHH1LSG6JVgQ@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amdgpu: fix vcn sw init failed
+To: "Lazar, Lijo" <lijo.lazar@amd.com>
+Cc: "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>, 
+ "Prosyak, Vitaly" <Vitaly.Prosyak@amd.com>, "Huang, Tim" <Tim.Huang@amd.com>
+Content-Type: multipart/mixed; boundary="000000000000a0ce4f0626c406a8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -164,117 +83,212 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 11/13/2024 7:46 AM, Felix Kuehling wrote:
->
-> On 2024-11-12 2:35, Zhu Lingshan wrote:
->> On 11/12/2024 6:21 AM, Felix Kuehling wrote:
->>> On 2024-11-11 03:08, Zhu Lingshan wrote:
->>>> On 11/5/2024 4:50 AM, Felix Kuehling wrote:
->>>>> On 2024-10-31 22:35, Zhu Lingshan wrote:
->>>>>> On 10/31/2024 11:30 PM, Felix Kuehling wrote:
->>>>>>> On 2024-10-31 6:50, Zhu Lingshan wrote:
->>>>>>>> The ioctl functions may fail, causing the args unreliable.
->>>>>>>> Therefore, the args should not be copied to user space.
->>>>>>>>
->>>>>>>> The return code provides enough information for
->>>>>>>> error handling in user space.
->>>>>>>>
->>>>>>>> This commit checks the return code of the ioctl functions
->>>>>>>> and handles errors appropriately when they fail.
->>>>>>> I have reviewed and rejected this patch before. My opinion has not changed. The existing code copies the ioctl arg structure back to user mode even in error cases because user mode needs additional information from that structure for some ioctls.
->>>>>> how can the user space program distinguish the "good informational parameters" from the  "bad default legacy parameters"? There can be other user space programs other than thunk.
->>>>>>
->>>>>> what if the user space program doing pulling mode, it can pull the args changes because ioctl is usually slower, our code should be robust.
->>>>>>
->>>>>> usually the return code provides enough information for the user space programs.
->>>>> I don't understand your concern. Even without your patch, the failing ioctl still returns the error code to user mode. User mode can safely ignore additional information returned in the argument structure. You are raising concerns about performance or robustness. I don't see that either of those are negatively impacted by copying additional information in the argument struct to user mode.
->>>> Still the questions:
->>>> 1) how can the user space program distinguish the "good informational parameters" from the  "bad default legacy parameters"? 2) what if the user space program doing pulling mode, pull the args before error code returned. Memory changes are usually faster than error code.
->>> There are no "bad default legacy parameters". Ioctls that were defined to return additional information in the parameter structure on errors have always done so. This should be documented in the kfd_ioctl.h header, though some ioctls have better documentation than others. For a good example, see kfd_ioctl_dbg_trap_get_queue_snapshot_args and kfd_ioctl_dbg_trap_get_device_snapshot_args, which do return the number of queues or devices in the parameter structure if user mode didn't allocate enough space.
->>>
->>> Another example is kfd_ioctl_map_memory_to_gpu_args and kfd_ioctl_unmap_memory_from_gpu_args, which returns the number of successful mappings if the ioctl fails. This is necessary to restart the operation after -ERESTARTSYS and skip mappings that were already completed.
->> I believe these are bugs that should be fixed. If request N but only allocate M where M < N, the kernel space should return a proper error code and then user space should reduce the requesting number, like N/2.
-> That's not how these ioctls work. The ioctl needs to return data for all queues or all devices. User mode may not know that number ahead of time and may not have allocated enough memory. So the ioctl needs to be able to return the required allocation size in the failure case. This is what it's designed to do.
-shall we document this? Or how can the developers know about these constraints when implementing changes.
->
->> We must keep do defensive programming to reduce potential risks & bugs, keep our system robust, we should not assume the other side work perfectly as expected.  
-> Exactly. More information makes this easier. Removing information that has always been available breaks the ABI and does not improve robustness.
->
->>>
->>>>> You mention that there can be other user mode clients other than Thunk. That's true. E.g. rocm-gdb calls KFD ioctls directly. And it depends on some of the additional information about errors. If you know of other user mode clients that are broken by the current behaviour, please point them out.
->>>>>
->>>>> Before anything else, we do not break existing user mode. Your patch breaks that rule. There is really no room for discussion here. I'm not seeing any reasonable argument to even consider your proposal.
->>>> If a user space program needs to read arguments to do error recovery, then it is a buggy user space program that should be fixed.
->>>> Usually the error code provides enough information for error handling. Why our KFD user space are exceptive?
->>> See my examples above. User mode is not buggy if it uses documented API behaviour, like what I showed above. In the case of -ERESTARTSYS, saving information in the argument structure is also necessary for the kernel mode driver itself, not just user mode.
->> so we need a list to document what parameters are guaranteed to be safe to read in user space?
-> I don't think it's a safety concern. If you make it one, you need to define what you consider unsafe. From the kernel's point of view, user mode can do whatever they want with the data returned to user mode. If user mode ends up crashing because of it, that's a user mode bug unless the kernel violated some API contract.
->
-> That said, I did point you to API documentation that explains exactly what ioctl args contain useful information after certain ioctls return an error.
->
->  And Kernel must always make sure the parameters are reasonable even when ioctls fail in the first place?> I am not sure this is a good practice, we don't see many drivers rely on this kind of design.
->
-> I disagree. You can see the same behaviour in drm_ioctl.c:
->
->         retcode = drm_ioctl_kernel(filp, func, kdata, ioctl->flags);
->         if (copy_to_user((void __user *)arg, kdata, out_size) != 0)
->                 retcode = -EFAULT;
->
-> 	...
->
-> This is the ioctl handler used by many GPU drivers in the kernel, including amdgpu.
->
->> Here is an example explains why this is messy:
->>
->> kfd_ioctl returns -EINVAL if the requesting ioctl number > AMDKFD_CORE_IOCTL_COUNT. Here no kfd ioctl functions are invoked, therefore the arguments are not touched, they are legacy values or random values, even all 0.> 
->> Other kfd ioctl functions, like kfd_ioctl_create_queue and kfd_ioctl_destroy_queue, they also may return -EINVAL, but the arguments may be modified. How can the user space tell whether the arguments are modified by kernel, containing useful information, or not touched at all?
-> They know by reading the API documentation.
-yeah, so at least we need documentation, at least comments in the source code.
+--000000000000a0ce4f0626c406a8
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thanks
-Lingshan
+On Tue, Nov 12, 2024 at 10:24=E2=80=AFPM Lazar, Lijo <lijo.lazar@amd.com> w=
+rote:
 >
-> Regards,
->   Felix
 >
->> And what if the user space pull memory changes of the arguments?> 
->> Thanks
->> Lingshan
->>> Regards,
->>>   Felix
->>>
->>>
->>>> Thanks
->>>> Lingshan
->>>>> Regards,
->>>>>    Felix
->>>>>
->>>>>> Thanks
->>>>>> Lingshan
->>>>>>> Regards,
->>>>>>>    Felix
->>>>>>>
->>>>>>>> Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
->>>>>>>> ---
->>>>>>>>   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 3 +++
->>>>>>>>   1 file changed, 3 insertions(+)
->>>>>>>>
->>>>>>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
->>>>>>>> index 3e6b4736a7fe..a184ca0023b5 100644
->>>>>>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
->>>>>>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
->>>>>>>> @@ -3327,6 +3327,8 @@ static long kfd_ioctl(struct file *filep, unsigned int cmd, unsigned long arg)
->>>>>>>>       }
->>>>>>>>         retcode = func(filep, process, kdata);
->>>>>>>> +    if (retcode)
->>>>>>>> +        goto err_retcode;
->>>>>>>>         if (cmd & IOC_OUT)
->>>>>>>>           if (copy_to_user((void __user *)arg, kdata, usize) != 0)
->>>>>>>> @@ -3340,6 +3342,7 @@ static long kfd_ioctl(struct file *filep, unsigned int cmd, unsigned long arg)
->>>>>>>>       if (kdata != stack_kdata)
->>>>>>>>           kfree(kdata);
->>>>>>>>   +err_retcode:
->>>>>>>>       if (retcode)
->>>>>>>>           dev_dbg(kfd_device, "ioctl cmd (#0x%x), arg 0x%lx, ret = %d\n",
->>>>>>>>                   nr, arg, retcode);
+>
+> On 11/13/2024 7:58 AM, Zhang, Jesse(Jie) wrote:
+> > [AMD Official Use Only - AMD Internal Distribution Only]
+> >
+> > Hi, Lijo,
+> >
+> > -----Original Message-----
+> > From: Lazar, Lijo <Lijo.Lazar@amd.com>
+> > Sent: Tuesday, November 12, 2024 10:54 PM
+> > To: Zhang, Jesse(Jie) <Jesse.Zhang@amd.com>; amd-gfx@lists.freedesktop.=
+org
+> > Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <=
+Christian.Koenig@amd.com>; Prosyak, Vitaly <Vitaly.Prosyak@amd.com>; Huang,=
+ Tim <Tim.Huang@amd.com>
+> > Subject: Re: [PATCH 2/2] drm/amdgpu: fix vcn sw init failed
+> >
+> >
+> >
+> > On 11/12/2024 8:00 PM, Jesse.zhang@amd.com wrote:
+> >> [ 2875.870277] [drm:amdgpu_device_init [amdgpu]] *ERROR* sw_init of IP
+> >> block <vcn_v4_0_3> failed -22 [ 2875.880494] amdgpu 0000:01:00.0:
+> >> amdgpu: amdgpu_device_ip_init failed [ 2875.887689] amdgpu
+> >> 0000:01:00.0: amdgpu: Fatal error during GPU init [ 2875.894791] amdgp=
+u 0000:01:00.0: amdgpu: amdgpu: finishing device.
+> >>
+> >> Add irqs with different IRQ source pointer for vcn0 and vcn1.
+> >>
+> >> Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
+> >> ---
+> >>  drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c | 19 +++++++++++++------
+> >>  1 file changed, 13 insertions(+), 6 deletions(-)
+> >>
+> >> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+> >> b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+> >> index ef3dfd44a022..82b90f1e6f33 100644
+> >> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+> >> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+> >> @@ -83,6 +83,10 @@ static const struct amdgpu_hwip_reg_entry
+> >> vcn_reg_list_4_0_3[] =3D {
+> >>
+> >>  #define NORMALIZE_VCN_REG_OFFSET(offset) \
+> >>               (offset & 0x1FFFF)
+> >> +static int amdgpu_ih_clientid_vcns[] =3D {
+> >> +     SOC15_IH_CLIENTID_VCN,
+> >> +     SOC15_IH_CLIENTID_VCN1
+> >
+> > This is not valid for 4.0.3. It uses only the same client id, different=
+ node_id to distinguish. Also, there are max of 4 instances.
+> >
+> > I would say that entire IP instance series was done in a haste without =
+applying thought and breaks other things including ip block mask.
+> >
+> > If the same client id is used, it returns -EINVAL (because of the follo=
+wing check) and sw init fails at step vcn_v4_0_3_sw_init / amdgpu_irq_add_i=
+d.
+> >
+> > amdgpu_irq_add_id:
+> > if (adev->irq.client[client_id].sources[src_id] !=3D NULL)
+> >         return -EINVAL;
+> >
+>
+> We had some side discussions on IP block-per-instance approach.
+> Personally, I was not in favour of it as I thought allowing IP block to
+> handle its own instances is the better approach and that could handle
+> dependencies between instances. Turns out that there are more like
+> handling common things for all instances as in this example.
 
+We tried that route as well before this one and it was ugly as well.
+
+>
+> I would prefer to revert the patch series and consider all angles before
+> moving forward on the approach. Will leave this to Alex/Christian/Leo on
+> the final decsion.
+
+Do the attached patches fix it?
+
+Alex
+
+>
+> Thanks,
+> Lijo
+>
+> > Regards
+> > Jesse
+> >
+> >
+> > Thanks,
+> > Lijo
+> >
+> >> +};
+> >>
+> >>  static int vcn_v4_0_3_start_sriov(struct amdgpu_device *adev);
+> >> static void vcn_v4_0_3_set_unified_ring_funcs(struct amdgpu_device
+> >> *adev, int inst); @@ -150,9 +154,9 @@ static int vcn_v4_0_3_sw_init(st=
+ruct amdgpu_ip_block *ip_block)
+> >>       if (r)
+> >>               return r;
+> >>
+> >> -     /* VCN DEC TRAP */
+> >> -     r =3D amdgpu_irq_add_id(adev, SOC15_IH_CLIENTID_VCN,
+> >> -             VCN_4_0__SRCID__UVD_ENC_GENERAL_PURPOSE, &adev->vcn.inst=
+->irq);
+> >> +     /* VCN UNIFIED TRAP */
+> >> +     r =3D amdgpu_irq_add_id(adev, amdgpu_ih_clientid_vcns[inst],
+> >> +                     VCN_4_0__SRCID__UVD_ENC_GENERAL_PURPOSE,
+> >> +&adev->vcn.inst[inst].irq);
+> >>       if (r)
+> >>               return r;
+> >>
+> >> @@ -174,7 +178,7 @@ static int vcn_v4_0_3_sw_init(struct
+> >> amdgpu_ip_block *ip_block)
+> >>
+> >>       ring->vm_hub =3D AMDGPU_MMHUB0(adev->vcn.inst[inst].aid_id);
+> >>       sprintf(ring->name, "vcn_unified_%d", adev->vcn.inst[inst].aid_i=
+d);
+> >> -     r =3D amdgpu_ring_init(adev, ring, 512, &adev->vcn.inst->irq, 0,
+> >> +     r =3D amdgpu_ring_init(adev, ring, 512, &adev->vcn.inst[inst].ir=
+q, 0,
+> >>                                AMDGPU_RING_PRIO_DEFAULT,
+> >>                                &adev->vcn.inst[inst].sched_score);
+> >>       if (r)
+> >> @@ -1734,9 +1738,12 @@ static const struct amdgpu_irq_src_funcs vcn_v4=
+_0_3_irq_funcs =3D {
+> >>   */
+> >>  static void vcn_v4_0_3_set_irq_funcs(struct amdgpu_device *adev, int
+> >> inst)  {
+> >> -     adev->vcn.inst->irq.num_types++;
+> >> +     if (adev->vcn.harvest_config & (1 << inst))
+> >> +             return;
+> >> +
+> >> +     adev->vcn.inst[inst].irq.num_types =3D adev->vcn.num_enc_rings +=
+ 1;
+> >>
+> >> -     adev->vcn.inst->irq.funcs =3D &vcn_v4_0_3_irq_funcs;
+> >> +     adev->vcn.inst[inst].irq.funcs =3D &vcn_v4_0_3_irq_funcs;
+> >>  }
+> >>
+> >>  static void vcn_v4_0_3_print_ip_state(struct amdgpu_ip_block
+> >> *ip_block, struct drm_printer *p)
+
+--000000000000a0ce4f0626c406a8
+Content-Type: text/x-patch; charset="US-ASCII"; 
+	name="0002-drm-amdgpu-use-a-single-set-of-interrupt-funcs-for-v.patch"
+Content-Disposition: attachment; 
+	filename="0002-drm-amdgpu-use-a-single-set-of-interrupt-funcs-for-v.patch"
+Content-Transfer-Encoding: base64
+Content-ID: <f_m3fectx30>
+X-Attachment-Id: f_m3fectx30
+
+RnJvbSA5MzlhOTNjODM1YzEzMDcyMGEzNDZkZmI2YmFhZDI5N2YxZjI2ZTI1IE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5j
+b20+CkRhdGU6IFR1ZSwgMTIgTm92IDIwMjQgMjM6MjY6NTIgLTA1MDAKU3ViamVjdDogW1BBVENI
+IDIvMl0gZHJtL2FtZGdwdTogdXNlIGEgc2luZ2xlIHNldCBvZiBpbnRlcnJ1cHQgZnVuY3MgZm9y
+IHZjbgogNC4wLjMKClRoZXJlIGEgc2luZ2xlIGNsaWVudCBhbmQgc291cmNlIGlkLiAgVGhlIG5v
+ZGUgaWQgZnJvbSB0aGUgSVYKcmluZyBpcyB1c2VkIHRvIGRldGVybWluZSB3aGljaCBpbnN0YW5j
+ZSB0aGUgaW50ZXJydXB0IGJlbG9uZ3MKdG8uCgpTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIg
+PGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvdmNuX3Y0XzBfMy5jIHwgNCArKy0tCiAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCsp
+LCAyIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L3Zjbl92NF8wXzMuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Zjbl92NF8wXzMuYwpp
+bmRleCA4OGNiZjFhODhhMDcuLjg1MzRmNTM3MDA5NCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvdmNuX3Y0XzBfMy5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L3Zjbl92NF8wXzMuYwpAQCAtMTUzLDcgKzE1Myw3IEBAIHN0YXRpYyBpbnQgdmNuX3Y0XzBf
+M19zd19pbml0KHN0cnVjdCBhbWRncHVfaXBfYmxvY2sgKmlwX2Jsb2NrKQogCS8qIFZDTiBERUMg
+VFJBUCAqLwogCXIgPSBhbWRncHVfaXJxX2FkZF9pZChhZGV2LCBTT0MxNV9JSF9DTElFTlRJRF9W
+Q04sCiAJCVZDTl80XzBfX1NSQ0lEX19VVkRfRU5DX0dFTkVSQUxfUFVSUE9TRSwgJmFkZXYtPnZj
+bi5pbnN0LT5pcnEpOwotCWlmIChyKQorCWlmIChyICYmIHIgIT0gLUVFWElTVCkKIAkJcmV0dXJu
+IHI7CiAKIAl2b2xhdGlsZSBzdHJ1Y3QgYW1kZ3B1X3ZjbjRfZndfc2hhcmVkICpmd19zaGFyZWQ7
+CkBAIC0xNzQxLDcgKzE3NDEsNyBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGFtZGdwdV9pcnFfc3Jj
+X2Z1bmNzIHZjbl92NF8wXzNfaXJxX2Z1bmNzID0gewogICovCiBzdGF0aWMgdm9pZCB2Y25fdjRf
+MF8zX3NldF9pcnFfZnVuY3Moc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIGludCBpbnN0KQog
+ewotCWFkZXYtPnZjbi5pbnN0LT5pcnEubnVtX3R5cGVzKys7CisJYWRldi0+dmNuLmluc3QtPmly
+cS5udW1fdHlwZXMgPSAxOwogCiAJYWRldi0+dmNuLmluc3QtPmlycS5mdW5jcyA9ICZ2Y25fdjRf
+MF8zX2lycV9mdW5jczsKIH0KLS0gCjIuNDcuMAoK
+--000000000000a0ce4f0626c406a8
+Content-Type: text/x-patch; charset="US-ASCII"; 
+	name="0001-drm-amdgpu-return-EEXIST-if-an-interrupt-handler-exi.patch"
+Content-Disposition: attachment; 
+	filename="0001-drm-amdgpu-return-EEXIST-if-an-interrupt-handler-exi.patch"
+Content-Transfer-Encoding: base64
+Content-ID: <f_m3fecty51>
+X-Attachment-Id: f_m3fecty51
+
+RnJvbSBjOTgxNGYyYjAzMWE4YTA4YzUzYTY3ZTkxZTI1ZjRlMDZiM2UwYjE5IE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5j
+b20+CkRhdGU6IFR1ZSwgMTIgTm92IDIwMjQgMjI6NTE6MDEgLTA1MDAKU3ViamVjdDogW1BBVENI
+IDEvMl0gZHJtL2FtZGdwdTogcmV0dXJuIC1FRVhJU1QgaWYgYW4gaW50ZXJydXB0IGhhbmRsZXIg
+ZXhpc3RzCgpTbyB3ZSBjYW4gdGVsbCBpcyBvbmUgaXMgYWxyZWFkeSByZWdpc3RlcmVkLgoKU2ln
+bmVkLW9mZi1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgotLS0K
+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pcnEuYyB8IDIgKy0KIDEgZmlsZSBj
+aGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pcnEuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV9pcnEuYwppbmRleCAxOWNlNGRhMjg1ZTguLjJmNjZiOGJiYTNjNyAxMDA2
+NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2lycS5jCisrKyBiL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pcnEuYwpAQCAtNDA4LDcgKzQwOCw3IEBA
+IGludCBhbWRncHVfaXJxX2FkZF9pZChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKIAl9CiAK
+IAlpZiAoYWRldi0+aXJxLmNsaWVudFtjbGllbnRfaWRdLnNvdXJjZXNbc3JjX2lkXSAhPSBOVUxM
+KQotCQlyZXR1cm4gLUVJTlZBTDsKKwkJcmV0dXJuIC1FRVhJU1Q7CiAKIAlpZiAoc291cmNlLT5u
+dW1fdHlwZXMgJiYgIXNvdXJjZS0+ZW5hYmxlZF90eXBlcykgewogCQlhdG9taWNfdCAqdHlwZXM7
+Ci0tIAoyLjQ3LjAKCg==
+--000000000000a0ce4f0626c406a8--
