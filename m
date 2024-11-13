@@ -4,143 +4,152 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39743D597C8
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Nov 2024 03:15:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0345FD597CF
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Nov 2024 03:35:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB2D410E334;
-	Wed, 13 Nov 2024 03:15:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C94E10E673;
+	Wed, 13 Nov 2024 03:35:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ozE7K4kR";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="TwWALL6c";
 	dkim-atps=neutral
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2073.outbound.protection.outlook.com [40.107.94.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1603810E334
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 Nov 2024 03:15:24 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2080.outbound.protection.outlook.com [40.107.93.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6716B10E673
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 Nov 2024 03:35:33 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bqs36BQNNl86kziWcDxMsrzkIcE9qhlUy9Ao1G2fJ29VnqrWRaB/JUEeSc4uWVxdJG7jRJSBL/ZAv4/oi6PXzT018hrCr0yROO7O08ie/tcaskj5NhQCHWxNRWDx9XdsWWwj207NCFmnDn0pXgwexO+7d+Yy8mx/uPEoOignS1VD2Fp+xDfch22sLErkAhX+lHYdp9BwsjWQF9RGUf2wlbkzuz7nRnv1GTw3hzJoLvrRjRhV1MIjOAYa+lqb3lPfV5nIrBHtrMo+sQtllf34hTiCG8M79PLW9UPTuvANJoh9E4ly9LJF0Pc/KHrKz8pjDxf3nUdjDvqLfHO2UZvZRQ==
+ b=JMioBRk1ElsL6pDdNI01f191NELdNkHhR9GOGhQVoBc5WrWhzRUE8Ck+KTkJiCpVkV6L3EKVYGZXOL8F6c3bzv3l/BYYcKCLcmTu3XgUQIKNv/IuUogbxCwhemv1WHj3nV/DuoAwqdo0OKn8+2pokho4Rsbnfn+wneuD8HuydY40ukI/6PWzbjcqUhfSLT0B/ejimbnFpaEFxj2jfYmaZkFmoX5nzdVDEnWdQ8eqTXCzI7SeJi9FY2NU8JXrutYIMVomai7zHbKO1zkZBRjvbwdvkatvRS2nT9XTN6BHCR6kr7nond5gDYck6UJ97zFnQTepY8XsBIi/WZ2lGK6oBg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qbMihwGIGv2nodSyUK+8F29ITOHI6YNANsazPZst81I=;
- b=ooE+liOnkfuIQn3ctPISW1c7PgmrPefU1YyWqZuSXZb2AqIuPdbB0QCpoHzKZecK7WT1E6+arCRHmbMy1bsnR09KYCUXVxtizH9JJ2tlJYGr+5iy5a2SvyjE95pzCeKJ/lA0M+xYxZKeyR8J9DgI9J3WB/8bbmpUeBfCVpr6aoRnsIxiWvPUvtGxykJukSBzsxQd5zYZrJ+6yDDSugBFyCE+ximYCeqApIVVyIVOviDNG8vGJSEQ5TF8avDzIkHXK0jekLou+Q8NXp0d7EmQApkJfH2aEPJeeUADqf5VoHMIedvUEAMLe29BqijPEhAKUitrpKkAvXuA7ozuoA+czQ==
+ bh=d+/h80qV4ZaL6qPd4dYbUV1RVyb2QPUzkI0R9DhxD/I=;
+ b=PrunGbZbtlC4u8LKXMd5AFiT6O8nmQFfKDP06kSLtYBrsAb/aGFnBHsRGX+iGChzNzh864ZfU8TyozrY24+mTobZ11Vuo5Hw5qmfOWsBJ0K6dYz9ESpJBuRZmzBMItKV0+e6NJhBVKRGnkJcBYRSFx4gmoYJdXBBxxkX73voAnTHGtCZurXnge1y/ALLjEDB0AWlFuTtu/BZ5/4xBGhNLUrgH4RQFjo0A8p0CgFC+AHoDzOy+ddubRcqlVVCf9HqbNA30o3AGOC+/wUavwcKzQuNUkwOJxGjlCSc83+CqQ65w34yQ+Ls3Mt8UyIyCfNvccLSpCxJuDQJjjtTxExNAg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qbMihwGIGv2nodSyUK+8F29ITOHI6YNANsazPZst81I=;
- b=ozE7K4kRlesvPm72DhYgt3NoP4rNiZ62PPtyTRB14wiJgOlxysFHqm52wmBfLYXvmey+4i30Xxioc9e2SUuJtgS7ErsYozYU2NGmp0qvDTLlLnbWvY+NzJEF6dqrzLnVXFVDqROjP7HDlFCcIMOaKqiZ061Yhj2zzNb+6Gwk0Hs=
-Received: from SA1PR12MB7343.namprd12.prod.outlook.com (2603:10b6:806:2b5::22)
- by PH0PR12MB5631.namprd12.prod.outlook.com (2603:10b6:510:144::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8137.19; Wed, 13 Nov
- 2024 03:15:22 +0000
-Received: from SA1PR12MB7343.namprd12.prod.outlook.com
- ([fe80::cb36:d7c3:c354:e74b]) by SA1PR12MB7343.namprd12.prod.outlook.com
- ([fe80::cb36:d7c3:c354:e74b%7]) with mapi id 15.20.8158.013; Wed, 13 Nov 2024
- 03:15:22 +0000
-From: "Fan, Shikang" <Shikang.Fan@amd.com>
-To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: "Liu01, Tong (Esther)" <Tong.Liu01@amd.com>, "Deng, Emily"
- <Emily.Deng@amd.com>
-Subject: Re: [PATCH] [PATCH] drm/amdgpu/sriov: Check pending job finished or
- not to  identify has bad job
-Thread-Topic: [PATCH] [PATCH] drm/amdgpu/sriov: Check pending job finished or
- not to  identify has bad job
-Thread-Index: AQHbMbIX8zmrDDJ+a0ik1Bqx57RLcLK0kPEq
-Date: Wed, 13 Nov 2024 03:15:21 +0000
-Message-ID: <SA1PR12MB73435E05146A9DBA720ECFB3EB5A2@SA1PR12MB7343.namprd12.prod.outlook.com>
-References: <20241108074435.641831-1-shikang.fan@amd.com>
-In-Reply-To: <20241108074435.641831-1-shikang.fan@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-11-13T03:15:21.585Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution
- Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard; 
-authentication-results: dkim=none (message not signed)
+ bh=d+/h80qV4ZaL6qPd4dYbUV1RVyb2QPUzkI0R9DhxD/I=;
+ b=TwWALL6cHtz+jp8yflpaSy4sg3sFhcW2QTjCUMY6Vq1aYB7yKQdMzshGqDBwvhEMDgdWBYTHMciPM3PIfjWBHcaE7fYS8p8KjOZWu3GICIoxxKYMtDq8urVLcN+ulNoIryxq6oTyg5ZbRkVHjB6rNxr2ffL6ncyIgVV2IVjH1sE=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SA1PR12MB7343:EE_|PH0PR12MB5631:EE_
-x-ms-office365-filtering-correlation-id: f1ba8cf7-cd32-45ee-93b0-08dd039168d5
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|38070700018|8096899003; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?5vj/wbwcXI7U2eIpcF10k/hwYMRHejsw8IotNTDk622Tq+gRZSDxHLcfIJSt?=
- =?us-ascii?Q?M57eV4PIf8SdceNcPjidCuy1hZ+tFYIkLqU1MotHck47nUPhQkrye3yVbppp?=
- =?us-ascii?Q?tpULToaGIigjffc/BSehjwyEjwSszQxZb01wF2MlIEVHwD30e4KJ4AucgsoX?=
- =?us-ascii?Q?FJ7zgNpumAwqJTNKhtd7B4TKNT8loeLQ8orYZN3jm6JdtRpZdtLQTsQCvlWt?=
- =?us-ascii?Q?J/mzKy7jYW4nmIKOD6BvFGVjerIZfkp+5z1UTpkNZeE09WWYRRCkYLb8ax3A?=
- =?us-ascii?Q?aqNFj0T1m29ifidtb2MgkKF7oQS6xuo5shEQg6jAWkuJzhKTyaMsPd0FSyNG?=
- =?us-ascii?Q?PyJQPnFNQ48XRrJ4+pIwIKx8HUmU+eKX8BBsgo/6LQ9b6DfMDlizGnZ6lEoe?=
- =?us-ascii?Q?r7jSbTA6068KSf+Oe3oyPnz2atpSw6JdrMXKGmIyVIWSk7T3tK2/PbV4HBPD?=
- =?us-ascii?Q?FwcQQ/mSZSyLp4RSUWrUOw4ayShw9OuQrqdJ23wwzGLNOBFvvHjxdE0Zbmdv?=
- =?us-ascii?Q?W0EgAbb7q/I0GYJSuCV67+i0B0VHQju3wIgl9h9SqgTUCqh5oicfQdqCOAwE?=
- =?us-ascii?Q?kXHig8fz6QE3E7EnJSJcCroQeaVvK8sfwHbBrIlMJ541kQSQ0dpx19gnigHN?=
- =?us-ascii?Q?INb+b7YKrajAPAfCJA/Pu0xWwjIDf2R0M8tut5jjwxzPtl2puMoSCq/IGnQC?=
- =?us-ascii?Q?nI7J02McqLQLOZft7p2w7ds9AnRitp40ooNKjL98yfTFRZkbAIob6VY9eVuH?=
- =?us-ascii?Q?IwA0v17n2lCrzG4SLT11lX04z+3wisUhyAFULUI92yn0wchSTRV11qjBEzE5?=
- =?us-ascii?Q?Z+0VSJ/YgNUkzPWu2naeXTP/HH4Y8jbXGd8IN0mUSofyhxw7tgaa3eTcHzq7?=
- =?us-ascii?Q?pVCg/OhSRysMoyzBKQUQDzjzU7DtWfy+EIn4KRrbWYpQW+qObCG4bY1bgX3K?=
- =?us-ascii?Q?s1aGteq8Gc7qlznkR6BS2v+JjreOhlWgzCeSABhGoi2dLesYqWS3W/gnRNGC?=
- =?us-ascii?Q?M2XOsqzUyAYNHPoEJyCNE8mLX33wxgUVs0QxU4IRQRrJYfo3K62uuIPZ+jEQ?=
- =?us-ascii?Q?bDWV0vlDOGvOzsFl3rz/9My5xOEeIZ3iThM4B0Gu1Fc/3mKnh4S/UHX1m0AO?=
- =?us-ascii?Q?fdzCulOQVglha4vpBkAWe7zyb7MRFIAVDK/BpQVmcEuwE1jWyZUgS7VxTICr?=
- =?us-ascii?Q?PuHyhg9AU9UMZQJ+XWJXAHXBboYOsMOxMB/4TSIHpGmfCbQ7Nb0ShHgFLjlP?=
- =?us-ascii?Q?ZxXQ99kM4QUuCOavsOj9DomsRr+zxVbPeWcPdHYMAhHfjxAUHnmom+u74DdS?=
- =?us-ascii?Q?BYDgAPTFLkXT52AaY0NS+/eVuwBOkISio2S35Sn/iRad0nf0djxWdrXEAymz?=
- =?us-ascii?Q?QEakw5M=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA1PR12MB7343.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(38070700018)(8096899003); DIR:OUT;
- SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?1EZ44OGtrhr4uWdJgnd4EC0M5R6SclDIcJ70B94p9AOdxTdJwCGrI9kXuJ4W?=
- =?us-ascii?Q?axAwQ5eYRThYsNmBCB8D8AS1oYCWiFrx0i8hkJyE+KLkGIJCVa17P8J5sZVK?=
- =?us-ascii?Q?l8dfwY4EYPWtNFl3Ke50IoXw0J0EdtR6zAq2WCDc4Nk3Ig040o32dcdtJOLu?=
- =?us-ascii?Q?uW7ITyxlf92wzEL/P22viOykuAx8i++cvpuWoXzItAkDcK/tTrsailFksDDz?=
- =?us-ascii?Q?OcuaXTZo5n5yEFIGRe23s48PSYfnkVMH1vgrOQJ2KImkuZJUtqTIV657JUYO?=
- =?us-ascii?Q?NdRHba9AaCTgyGwP4YMrmXnO4v76qidQr+XbAwS4XeeEsJdpLaO2aUKUSCYC?=
- =?us-ascii?Q?OxiTtExRK2Qil8bB9M7R0Xhec2qksT3YCKAqPXlw62g6vKCTDgf4H+GJg+X7?=
- =?us-ascii?Q?RoTRU9dFHa9P5rNPZtdkRSZkMz9Wyg0MyZXCepY7Q0nKKpGZElC/37UM7xyV?=
- =?us-ascii?Q?h4PceONg0od98/lNyB5m8ezHLRGpRUcxwBWLvvEE5zRDPRoxlaILSsJTaRfP?=
- =?us-ascii?Q?f4/x0mH/UGmxRhmLb3lXuk9eoSXMpinQo07+DWu8IgUqTYkDStS9Rqw/49nu?=
- =?us-ascii?Q?HZKW7HlKOWA6utcm85x4hPWthnXHJMHcPkxJvo7g+vxDonmU/D0+l04vcTSr?=
- =?us-ascii?Q?FTXpdJGHoRb49NBa7XgVDge4YoAXWUaTZMKgoaDK68EUnkPj/5KfOcs9YgbU?=
- =?us-ascii?Q?og+V6E7kWQI7RVaXgHYIWYk3Bh+ejyJKATtRWPhALI2fGEmldMj45My26Hu+?=
- =?us-ascii?Q?38c76azJUChAsl6zaO7Xx5EEAXvUcKF93VbC89hDpPSPXjTInCltay/TI/mH?=
- =?us-ascii?Q?lCdz4eoJ51tMgPpJ+DPq9F7Tx+2dUZ05MhGy92+NYs6KP/o/WR1tF3N0oXnL?=
- =?us-ascii?Q?mEk4lWlVZxCPLhcg/7jYpaY5KotnJ2sKfvRe2lqTBhnb8z356u9qC0AemwuH?=
- =?us-ascii?Q?Rn6PfamG8uj6qgcYztqIkcYFwieZBQwmrLkCn54hJF70hHld7pLA7o9fs5zu?=
- =?us-ascii?Q?XC1QGZljdqxVm7ZHC5u+72yrCPS3osYJbfPHF7fv+HTIAr0x68KxQ8m27Yh8?=
- =?us-ascii?Q?NGV9zHwL6WKfiLYltCGXirvvMSjUOyJJK0xSmEY0tAeGjvu/r3sGE4itRgcr?=
- =?us-ascii?Q?43LkKA/bbEXvSoMuI5tXCG4yUsWhPUc0IrRe+poJuNJShGpv7TtXEwew+ys3?=
- =?us-ascii?Q?t+AEANFSB5KLwKSqim6J1eynwmxNrugLi+vBniX979NIKERnHfYtFdc8YGos?=
- =?us-ascii?Q?S7vkaVW9YA8NOa3wTju+3QzzWnk3iHY+P8pCV0NQKcVikGHhzWdWW5oXJo41?=
- =?us-ascii?Q?UdcjvUf6sOC0QmojC1QlGsKXFGSb+wgZrQ5mC140pr7gVDGjOz8KZYbPLNpE?=
- =?us-ascii?Q?Xm4zzLG6Bg16cPYo81leE8cfvqrIh3Y15xuhka49gAnh5elBPOrJt8/+Q7FJ?=
- =?us-ascii?Q?MhG3UKc7cTlx4ArT+gV0+7AQavoLEdJPcowHPE4Fkf0wIvuBOw3mo736B+v4?=
- =?us-ascii?Q?o79pSCZTkNXjb/6BXdi0Yx1S2yBKAHB6lRNIuGshwpJAy3mOO/Kq3UZ8akFG?=
- =?us-ascii?Q?9Jsp1g1qp2Ciou48PxE=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_SA1PR12MB73435E05146A9DBA720ECFB3EB5A2SA1PR12MB7343namp_"
+Received: from SN7PR12MB7835.namprd12.prod.outlook.com (2603:10b6:806:328::22)
+ by CH2PR12MB4072.namprd12.prod.outlook.com (2603:10b6:610:7e::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8137.28; Wed, 13 Nov
+ 2024 03:35:28 +0000
+Received: from SN7PR12MB7835.namprd12.prod.outlook.com
+ ([fe80::ea3a:4720:99cb:32d8]) by SN7PR12MB7835.namprd12.prod.outlook.com
+ ([fe80::ea3a:4720:99cb:32d8%4]) with mapi id 15.20.8137.027; Wed, 13 Nov 2024
+ 03:35:28 +0000
+Message-ID: <e198d4aa-b6ff-4592-8785-dae262f4f694@amd.com>
+Date: Wed, 13 Nov 2024 11:35:21 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RESEND] amdkfd: check ret code for ioctls
+To: Felix Kuehling <felix.kuehling@amd.com>, alexander.deucher@amd.com
+Cc: ray.huang@amd.com, amd-gfx@lists.freedesktop.org
+References: <20241031105059.251085-1-lingshan.zhu@amd.com>
+ <616bc79f-ad92-4b22-8df0-0a0ebe27fcf6@amd.com>
+ <2ca21e92-6324-413f-9df9-0bfcf638c669@amd.com>
+ <76ef68f6-dd23-41b3-8dec-d35e6874de01@amd.com>
+ <cc6f4141-a085-41e7-b772-8c400788c1b9@amd.com>
+ <d96c1117-7eb9-4c65-ab0a-1f4507d32674@amd.com>
+ <87029c10-4fce-4a42-a04b-ed2633c69148@amd.com>
+ <bfa7bfa7-c134-4268-97aa-7b9baf899be3@amd.com>
+Content-Language: en-US
+From: Zhu Lingshan <lingshan.zhu@amd.com>
+In-Reply-To: <bfa7bfa7-c134-4268-97aa-7b9baf899be3@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SG2PR01CA0131.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:40::35) To SN7PR12MB7835.namprd12.prod.outlook.com
+ (2603:10b6:806:328::22)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN7PR12MB7835:EE_|CH2PR12MB4072:EE_
+X-MS-Office365-Filtering-Correlation-Id: 449da908-6e83-4c3a-afd5-08dd0394379e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?d0huZXlicVI4MFAzd1BYYzZIMjBoWmkybkpBYXhUV1VPTS80TFA0Qy9ZbXpK?=
+ =?utf-8?B?UHU3eVF3MFhKQ0xmVkRBNnJQRHRJb0laeXJYeUxNUVhPY0l6WnNCZzhOWUY4?=
+ =?utf-8?B?dXdUT1h6NXBLc2RrVE44QXcyMXNaRFJvRzlQbVpYb1hnRHJocEtwSWtheWND?=
+ =?utf-8?B?QlVFTzhKWm94STVxSmYydVlLNk1NRjNGTndXRko4bWZ1MHRxRmx2SWdqT2hy?=
+ =?utf-8?B?cUpQY1pDeXVuZFJkRmFwdXBQNTB2RFkyN05WT211RFV0T242OUFuYVRUMUpI?=
+ =?utf-8?B?SnpjZzBqVmZNQVRGdmkrcmN4R3JsM0lUc0pZVDZkalRvOXpGYUNpemRzdEhT?=
+ =?utf-8?B?azVZV3Rud3dHd3VMSktqZ0xOOW5SRzU5TGhvNjlraUxHeSszcTFqYXhMT0dl?=
+ =?utf-8?B?QXA5TzF1VWZjeUo2b0FnL0szQlJrcE0xcWpKcURUQ09ONlBybk5GR3J1OUJx?=
+ =?utf-8?B?YldlMzFOc1ZONGkycEMvMngwTjJiR0piTTNRQkFURjVXNE1FbmNMOGVyVEE5?=
+ =?utf-8?B?a2gva1ZNUndtUEFLWWdHM2xMU3U3ajgwY2RPcXZPb3BjS3RwSkpsQnV4dkdh?=
+ =?utf-8?B?V0xSS0RFN2h6d0tjRXlpRVh4c2RxRDh6TEtjQlluQ3pnRFd2NWFuUlB1bk9y?=
+ =?utf-8?B?RUFESjd2YkVJUUpuZks5TGhrRkdkRFZyZU5hdkp5cnM1cThLUUNxQ1BOdGV2?=
+ =?utf-8?B?SjJJeDdiYWIrY3BHWGZwZ0JKbGtGNlFFVy9SY213NWplSWFtWlJMNGpxSlI4?=
+ =?utf-8?B?YThtM25zaTkvQi9aSkwvVU4veUUwdVdSVjVndnNFaW9LYVpRRE1zMnhQWUdX?=
+ =?utf-8?B?Y29yUi9ZM0U0TVNFM3FNd1NGMm5wSUUwclpPci9ja3l2VzVjYnh5Y25YV25D?=
+ =?utf-8?B?SXBIUUVQNEgvMUh0UnpvckQxNE9pT3NHN0dQVFhhdjRZZ2xlVXorRW9Wd291?=
+ =?utf-8?B?cFVBTDdJTWtya1IwVUtldTRPVEhudTFTZHNrRHBUQlgwQWFXYzBvL0FqM29R?=
+ =?utf-8?B?bWFhcDdFSFpCd0tnVlNRRXBHdkl4ZHlBUk1xbTBvdUVma1N0cTdDS2FSZWVm?=
+ =?utf-8?B?K2VjSUFaVVhxdk93QmlOWDJBMlZ6ZTI1QWIrNmRRWENvY3gxODlJc0cyeTlj?=
+ =?utf-8?B?aXdRc3JkS3hvcmtPYTVTYndYcFBlUFRxaFFpWWMwaG1VN0NDMTZnSHgxMkV2?=
+ =?utf-8?B?eURGRXJueStOY0FaN1d2d2F1RW9DeHUrSXhNQjZWdmM2TkxNa0ZBSGJhQkZl?=
+ =?utf-8?B?R0N0aFZEVWE4VDhWR0RyRDY1TlZTM3lJT0hmYStNMUY1UnFBZFI5SnRmQk5E?=
+ =?utf-8?B?ako2N3NWZlZzSDFBYm4ybkNtZCt3cmJOVTNOZGJwS1RxMkE0VjdZcXM2bmJk?=
+ =?utf-8?B?TGJPQ3ozVUFmK0IwYkhRMzRxV1J2YVhYZExWd0IyNWRsOU4rKysvTmRJaGd1?=
+ =?utf-8?B?TkVWb2lRT3dnenNOUDZESllyb2FXR0lyWjltbjBKdUY3TmZRbURmU0poTlBF?=
+ =?utf-8?B?aXhYWndCVWpvR1ZFeUhTNU9LZkVwRnlpOVVFL08vL0RGV2pnaW93bGVFTlUz?=
+ =?utf-8?B?Z2N6K3dqTWZ6L1d2anVRYUpSc1VqcFJZTC9OQ1VkSXRZS1k4cGFVZHlMd3Zj?=
+ =?utf-8?B?cko3T1phekNvSStDOHI5QkRpcW1nOG1wMHRXcG51TzJHVWo3UW41SWJSZUFF?=
+ =?utf-8?B?dm9TVVNmbHpGRlZqbmZCU1ZIenkvUHdYd0NRUmZFR2RkKzhIT09BenBEZ3RH?=
+ =?utf-8?Q?p+eKNN+nY/UTaaUQFv5w9EboeUVOF6eHGk1Fq0q?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SN7PR12MB7835.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VTNYbVc3ZlBoZUxLanZJQ3hEa3VGY0xaVmllcVlFUUhGM2VoRk1Xek0zSU1u?=
+ =?utf-8?B?djQ4QmZCRU9rcElQTE44Z3ZDYWozaytDVThjbXEzWEoxQ0VmSGNEY0d5TUpw?=
+ =?utf-8?B?b2s4bFB0R0RUa0M1TklPTlFzRlYrNDBCdUdrdlliQkFKaGVqOXRrNHpjRG5D?=
+ =?utf-8?B?b2pwcDhIaGx2MHVqOWFlYUExWUt3Z1RwRG03bWhxS0dKQk5TTkRMdmxSMTZS?=
+ =?utf-8?B?Y2lZODd5dFY5OWdrTTVJb09zVVBmRmQ5bm5YLzRBUFVoMENaMEtZWlRBb3JZ?=
+ =?utf-8?B?Q3hWeTBqcXpDbERtOHFBMC9sUFVkY3NlQXhVajhhQVE0MGgweWxzRU9XdWVh?=
+ =?utf-8?B?QVJRejFsOGdYUTdXcHNCVk1JYVlReWJ4TEFXb0NPQzUyaXMwcUNaMnd3ekEy?=
+ =?utf-8?B?OGdsYUE2SVlKSnYvSGFYbm9XaXV4YXJpbVNSdTVqc255L3ZpN3pQMmxUYmQr?=
+ =?utf-8?B?U0FBeEhJUEx6cnVUMUJZOVc5OUIyYVMyUWlEVEp1S2lGZ2MrU0o5VlZqbjQx?=
+ =?utf-8?B?Zk9tQlg4bEUvQ2lxVXk3Mkh4SVJsRjZndXpOd21KYzJaa25jK1h3VmxDL2Ex?=
+ =?utf-8?B?WDBKNXpFQjhWeUtWSk1md3dDaVRGOGV1NGVXSGtmdkYrK1YwTWZ3Z2xUZUJU?=
+ =?utf-8?B?dkhDZ0l4M2k5TmlaUkw2VTdBbnRFdzU1L1dvT1FudEp3YnMrMnc1QzFuYWo2?=
+ =?utf-8?B?OXU2b0RnWnJVK1I5bXQ4MzhHaTh1SVBlYTYyRjZBOGlUNHFVakNmejU4LzlR?=
+ =?utf-8?B?Z0Rsa1dET1YrQkFsVWNLcmxrSndHZm9XdDIrMHkyMXhPTTgzRFNiWWRjQ2Mv?=
+ =?utf-8?B?Ry9zQUZyVzhLN0hFRTY3dkJ4ODNSVy8yUlVBUG82YkxQUlRmNCsvWVg5emRp?=
+ =?utf-8?B?ZG1BZGhCaG1QeUR0NHdTTFV2SDNPTnVBbG9YUkViMXVYbWdsdUJTSmNNNzlB?=
+ =?utf-8?B?VEdGK3ZyR3huOUhQc1d1aEI1U2I1REpxZTdvTjZQS3JiTDd2WVpnL1l3bjB4?=
+ =?utf-8?B?b05zcW92K25MRmE1R2VtSHQ0cEdzcDBPcitueElUVmpXOS94MVIxWDFGYlZ2?=
+ =?utf-8?B?bk55VWNySDBDMERYbXpyVjNERXFXR2FaN0ExVWlpRENVNmpCSkZ3anpEMm5J?=
+ =?utf-8?B?QWVDN2FPa01qaTN6emVIOXpxQmJMaDd1bDZsTWQ3Skc0cExPS1Z1bTAvZEJi?=
+ =?utf-8?B?U1l4VkdZRHdINERoSFlyRTlNelptU1krSEtiRzZDME5SbFlUeWVTUEd5QUlF?=
+ =?utf-8?B?bEp6Rzd1VjIxUXhLdVB4ODJDZ0JEajNQWFJVTmZzLzVtYkgwcGpGdDZBMkR5?=
+ =?utf-8?B?VlBqUG5oWExYUi9kSzlRZ0dGZ3B3cDk2OVB6RnRRUjQ1M0VYY0RGWXFLcEMy?=
+ =?utf-8?B?NG40K1JlMHFxQzUwcElBajlUZGJVeW5QSFNjeHlBUGpMazNEMUdFcmJOY0Q3?=
+ =?utf-8?B?ZG5QZWo3QnpaemI5U241RE1VU3JWay9vd1BRdnR1YzZzSzYxNS9mNm1INGRK?=
+ =?utf-8?B?NkRCdHFsc2UvQ1NFR291dWNiZDZHM09yWk5DNmc5R2hyQXMwbVRsSW81QU9E?=
+ =?utf-8?B?dGhqZEg2L0QrZzFWcTNVOFBCQUt4bzZ3VXoyQ2FldjM4dTlGQjYxT1UzK3NR?=
+ =?utf-8?B?dmxUMjFVZmcxQTczL3VkQlp0UTVWdDQveTU0SEZqYmUvd01xQXpvbGxxbzhQ?=
+ =?utf-8?B?ZmtyU1U3SUNWSjcrVFJJT3ZVQVhWbldHZnhPQjQxY0NkUzRMTUJEOEh5YVNZ?=
+ =?utf-8?B?VUJHSmNlcTdJTmFhSU1ZcHpoWGo5NklhL0R6MUlIYVM5U0Y5ZTd1NzQ2TDVj?=
+ =?utf-8?B?T3lDNVNOOUpVWDdFL01wUXFaOW5ScFBkU01pMXB6Q1l4SmxvRGx2blpxVEg5?=
+ =?utf-8?B?V0hncW1kS2JMMmlWd0RXeHlRK0IxVHlmbVRHcld1TWhTcFJZaTEwT25IdWp2?=
+ =?utf-8?B?OWJpVjhTMUF3SU5kZkJPZnY0SWdHNWg4a0VmeW9IVmhVZ1I0Q2NHU3JwUmZz?=
+ =?utf-8?B?OTlLdnJIYWkxR2VIUktqbW1lejhvREVQWldXbjl3aUtQV0Frb2pZQWg0cnZp?=
+ =?utf-8?B?VUxKeHVvR0NJeVdRS051d1BjR2xtOWVSSnM3a3lhK0kvTlRmajFKS3l0SDNk?=
+ =?utf-8?Q?Qvi24XbDq/qIZ+rHH/wWXBYsZ?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 449da908-6e83-4c3a-afd5-08dd0394379e
+X-MS-Exchange-CrossTenant-AuthSource: SN7PR12MB7835.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SA1PR12MB7343.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f1ba8cf7-cd32-45ee-93b0-08dd039168d5
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Nov 2024 03:15:21.9941 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: As+vhjmh9l+Ti8ovMqg7gmzexqfvApE0/9hAK/ru0nuCx9aBK7h5FIEAnaO2Z3loTLtDabriE4jHscXlyfU0tg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5631
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2024 03:35:28.0982 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: SXxJw01Penx30cYhDNcpAvta0twXFTrS9XvjcHClKXXDR1FRkjyB5z2KkdxllzOVrBwjb/5i/dd0HTXvLYvABw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4072
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,262 +164,117 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_SA1PR12MB73435E05146A9DBA720ECFB3EB5A2SA1PR12MB7343namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-[AMD Official Use Only - AMD Internal Distribution Only]
-
-Abandon this patch as a modified new patch is sent for review.
-
-Regards,
-Shikang
-________________________________
-From: Shikang Fan <shikang.fan@amd.com>
-Sent: Friday, November 8, 2024 3:44 PM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Fan, Shikang <Shikang.Fan@amd.com>; Liu01, Tong (Esther) <Tong.Liu01@am=
-d.com>; Deng, Emily <Emily.Deng@amd.com>
-Subject: [PATCH] [PATCH] drm/amdgpu/sriov: Check pending job finished or no=
-t to identify has bad job
-
-drm_sched_free_job_work is a queue work function,
-so even job is finished in hw, it still needs some time to
-be deleted from the pending queue by drm_sched_free_job_work.
-here iterates over the pending job list and wait for each job to finish
-within specified timeout (1s by default) to avoid jobs that are not
-cleaned up in time or are about to finished.
-if wait timeout, return true
-
-Signed-off-by: Tong Liu01 <Tong.Liu01@amd.com>
-Signed-off-by: Emily Deng <Emily.Deng@amd.com>
-Signed-off-by: Shikang Fan <shikang.fan@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 21 ++++++++++++++++-----
- 1 file changed, 16 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_device.c
-index 6c0ff1c2ae4c..83ce1c85e680 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -100,6 +100,7 @@ MODULE_FIRMWARE("amdgpu/navi12_gpu_info.bin");
- #define AMDGPU_PCIE_INDEX_FALLBACK (0x38 >> 2)
- #define AMDGPU_PCIE_INDEX_HI_FALLBACK (0x44 >> 2)
- #define AMDGPU_PCIE_DATA_FALLBACK (0x3C >> 2)
-+#define AMDGPU_PENDING_JOB_TIMEOUT     msecs_to_jiffies(1000)
-
- static const struct drm_driver amdgpu_kms_driver;
-
-@@ -5198,7 +5199,8 @@ static int amdgpu_device_reset_sriov(struct amdgpu_de=
-vice *adev,
- bool amdgpu_device_has_job_running(struct amdgpu_device *adev)
- {
-         int i;
--       struct drm_sched_job *job;
-+       struct drm_sched_job *job, *tmp;
-+       long r;
-
-         for (i =3D 0; i < AMDGPU_MAX_RINGS; ++i) {
-                 struct amdgpu_ring *ring =3D adev->rings[i];
-@@ -5207,11 +5209,20 @@ bool amdgpu_device_has_job_running(struct amdgpu_de=
-vice *adev)
-                         continue;
-
-                 spin_lock(&ring->sched.job_list_lock);
--               job =3D list_first_entry_or_null(&ring->sched.pending_list,
--                                              struct drm_sched_job, list);
-+
-+               /* iterates over the pending job list
-+                * wait for each job to finish within timeout (1s by defaul=
-t)
-+                * if wait timeout, return true
-+                */
-+               list_for_each_entry_safe(job, tmp, &ring->sched.pending_lis=
-t, list) {
-+                       r =3D dma_fence_wait_timeout(&job->s_fence->finishe=
-d,
-+                                                               false, AMDG=
-PU_PENDING_JOB_TIMEOUT);
-+                       if (r <=3D 0) {
-+                               spin_unlock(&ring->sched.job_list_lock);
-+                               return true;
-+                       }
-+               }
-                 spin_unlock(&ring->sched.job_list_lock);
--               if (job)
--                       return true;
-         }
-         return false;
- }
---
-2.34.1
-
-
---_000_SA1PR12MB73435E05146A9DBA720ECFB3EB5A2SA1PR12MB7343namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+On 11/13/2024 7:46 AM, Felix Kuehling wrote:
 >
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Calibri;font-size:10pt;color:#0000FF;margin:5pt;fon=
-t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
-[AMD Official Use Only - AMD Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
-olor: rgb(0, 0, 0);">
-Abandon this patch as a modified new patch is sent for review.</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
-olor: rgb(0, 0, 0);">
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
-olor: rgb(0, 0, 0);">
-Regards,</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
-olor: rgb(0, 0, 0);">
-Shikang</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Shikang Fan &lt;shika=
-ng.fan@amd.com&gt;<br>
-<b>Sent:</b> Friday, November 8, 2024 3:44 PM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Fan, Shikang &lt;Shikang.Fan@amd.com&gt;; Liu01, Tong (Esther) &=
-lt;Tong.Liu01@amd.com&gt;; Deng, Emily &lt;Emily.Deng@amd.com&gt;<br>
-<b>Subject:</b> [PATCH] [PATCH] drm/amdgpu/sriov: Check pending job finishe=
-d or not to identify has bad job</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">drm_sched_free_job_work is a queue work function,<=
-br>
-so even job is finished in hw, it still needs some time to<br>
-be deleted from the pending queue by drm_sched_free_job_work.<br>
-here iterates over the pending job list and wait for each job to finish<br>
-within specified timeout (1s by default) to avoid jobs that are not<br>
-cleaned up in time or are about to finished.<br>
-if wait timeout, return true<br>
-<br>
-Signed-off-by: Tong Liu01 &lt;Tong.Liu01@amd.com&gt;<br>
-Signed-off-by: Emily Deng &lt;Emily.Deng@amd.com&gt;<br>
-Signed-off-by: Shikang Fan &lt;shikang.fan@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 21 ++++++++++++++++-----=
-<br>
-&nbsp;1 file changed, 16 insertions(+), 5 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_device.c<br>
-index 6c0ff1c2ae4c..83ce1c85e680 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-@@ -100,6 +100,7 @@ MODULE_FIRMWARE(&quot;amdgpu/navi12_gpu_info.bin&quot;)=
-;<br>
-&nbsp;#define AMDGPU_PCIE_INDEX_FALLBACK (0x38 &gt;&gt; 2)<br>
-&nbsp;#define AMDGPU_PCIE_INDEX_HI_FALLBACK (0x44 &gt;&gt; 2)<br>
-&nbsp;#define AMDGPU_PCIE_DATA_FALLBACK (0x3C &gt;&gt; 2)<br>
-+#define AMDGPU_PENDING_JOB_TIMEOUT&nbsp;&nbsp;&nbsp;&nbsp; msecs_to_jiffie=
-s(1000)<br>
-&nbsp;<br>
-&nbsp;static const struct drm_driver amdgpu_kms_driver;<br>
-&nbsp;<br>
-@@ -5198,7 +5199,8 @@ static int amdgpu_device_reset_sriov(struct amdgpu_de=
-vice *adev,<br>
-&nbsp;bool amdgpu_device_has_job_running(struct amdgpu_device *adev)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_sched_job *job;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_sched_job *job, *tmp;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; long r;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; AMDGP=
-U_MAX_RINGS; ++i) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; struct amdgpu_ring *ring =3D adev-&gt;rings[i];<br>
-@@ -5207,11 +5209,20 @@ bool amdgpu_device_has_job_running(struct amdgpu_de=
-vice *adev)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; conti=
-nue;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; spin_lock(&amp;ring-&gt;sched.job_list_lock);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; job =3D list_first_entry_or_null(&amp;ring-&gt;sched.pending_lis=
-t,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_sched_job, list);=
-<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; /* iterates over the pending job list<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; * wait for each job to finish within timeout (1s by defaul=
-t)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; * if wait timeout, return true<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; */<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; list_for_each_entry_safe(job, tmp, &amp;ring-&gt;sched.pending_l=
-ist, list) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D dma_fence_=
-wait_timeout(&amp;job-&gt;s_fence-&gt;finished,<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; f=
-alse, AMDGPU_PENDING_JOB_TIMEOUT);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r &lt;=3D 0)=
- {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; spin_unlock(&amp;ring-&gt;sched.job_list_lo=
-ck);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return true;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; spin_unlock(&amp;ring-&gt;sched.job_list_lock);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (job)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return true;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return false;<br>
-&nbsp;}<br>
--- <br>
-2.34.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
+> On 2024-11-12 2:35, Zhu Lingshan wrote:
+>> On 11/12/2024 6:21 AM, Felix Kuehling wrote:
+>>> On 2024-11-11 03:08, Zhu Lingshan wrote:
+>>>> On 11/5/2024 4:50 AM, Felix Kuehling wrote:
+>>>>> On 2024-10-31 22:35, Zhu Lingshan wrote:
+>>>>>> On 10/31/2024 11:30 PM, Felix Kuehling wrote:
+>>>>>>> On 2024-10-31 6:50, Zhu Lingshan wrote:
+>>>>>>>> The ioctl functions may fail, causing the args unreliable.
+>>>>>>>> Therefore, the args should not be copied to user space.
+>>>>>>>>
+>>>>>>>> The return code provides enough information for
+>>>>>>>> error handling in user space.
+>>>>>>>>
+>>>>>>>> This commit checks the return code of the ioctl functions
+>>>>>>>> and handles errors appropriately when they fail.
+>>>>>>> I have reviewed and rejected this patch before. My opinion has not changed. The existing code copies the ioctl arg structure back to user mode even in error cases because user mode needs additional information from that structure for some ioctls.
+>>>>>> how can the user space program distinguish the "good informational parameters" from the  "bad default legacy parameters"? There can be other user space programs other than thunk.
+>>>>>>
+>>>>>> what if the user space program doing pulling mode, it can pull the args changes because ioctl is usually slower, our code should be robust.
+>>>>>>
+>>>>>> usually the return code provides enough information for the user space programs.
+>>>>> I don't understand your concern. Even without your patch, the failing ioctl still returns the error code to user mode. User mode can safely ignore additional information returned in the argument structure. You are raising concerns about performance or robustness. I don't see that either of those are negatively impacted by copying additional information in the argument struct to user mode.
+>>>> Still the questions:
+>>>> 1) how can the user space program distinguish the "good informational parameters" from the  "bad default legacy parameters"? 2) what if the user space program doing pulling mode, pull the args before error code returned. Memory changes are usually faster than error code.
+>>> There are no "bad default legacy parameters". Ioctls that were defined to return additional information in the parameter structure on errors have always done so. This should be documented in the kfd_ioctl.h header, though some ioctls have better documentation than others. For a good example, see kfd_ioctl_dbg_trap_get_queue_snapshot_args and kfd_ioctl_dbg_trap_get_device_snapshot_args, which do return the number of queues or devices in the parameter structure if user mode didn't allocate enough space.
+>>>
+>>> Another example is kfd_ioctl_map_memory_to_gpu_args and kfd_ioctl_unmap_memory_from_gpu_args, which returns the number of successful mappings if the ioctl fails. This is necessary to restart the operation after -ERESTARTSYS and skip mappings that were already completed.
+>> I believe these are bugs that should be fixed. If request N but only allocate M where M < N, the kernel space should return a proper error code and then user space should reduce the requesting number, like N/2.
+> That's not how these ioctls work. The ioctl needs to return data for all queues or all devices. User mode may not know that number ahead of time and may not have allocated enough memory. So the ioctl needs to be able to return the required allocation size in the failure case. This is what it's designed to do.
+shall we document this? Or how can the developers know about these constraints when implementing changes.
+>
+>> We must keep do defensive programming to reduce potential risks & bugs, keep our system robust, we should not assume the other side work perfectly as expected.  
+> Exactly. More information makes this easier. Removing information that has always been available breaks the ABI and does not improve robustness.
+>
+>>>
+>>>>> You mention that there can be other user mode clients other than Thunk. That's true. E.g. rocm-gdb calls KFD ioctls directly. And it depends on some of the additional information about errors. If you know of other user mode clients that are broken by the current behaviour, please point them out.
+>>>>>
+>>>>> Before anything else, we do not break existing user mode. Your patch breaks that rule. There is really no room for discussion here. I'm not seeing any reasonable argument to even consider your proposal.
+>>>> If a user space program needs to read arguments to do error recovery, then it is a buggy user space program that should be fixed.
+>>>> Usually the error code provides enough information for error handling. Why our KFD user space are exceptive?
+>>> See my examples above. User mode is not buggy if it uses documented API behaviour, like what I showed above. In the case of -ERESTARTSYS, saving information in the argument structure is also necessary for the kernel mode driver itself, not just user mode.
+>> so we need a list to document what parameters are guaranteed to be safe to read in user space?
+> I don't think it's a safety concern. If you make it one, you need to define what you consider unsafe. From the kernel's point of view, user mode can do whatever they want with the data returned to user mode. If user mode ends up crashing because of it, that's a user mode bug unless the kernel violated some API contract.
+>
+> That said, I did point you to API documentation that explains exactly what ioctl args contain useful information after certain ioctls return an error.
+>
+>  And Kernel must always make sure the parameters are reasonable even when ioctls fail in the first place?> I am not sure this is a good practice, we don't see many drivers rely on this kind of design.
+>
+> I disagree. You can see the same behaviour in drm_ioctl.c:
+>
+>         retcode = drm_ioctl_kernel(filp, func, kdata, ioctl->flags);
+>         if (copy_to_user((void __user *)arg, kdata, out_size) != 0)
+>                 retcode = -EFAULT;
+>
+> 	...
+>
+> This is the ioctl handler used by many GPU drivers in the kernel, including amdgpu.
+>
+>> Here is an example explains why this is messy:
+>>
+>> kfd_ioctl returns -EINVAL if the requesting ioctl number > AMDKFD_CORE_IOCTL_COUNT. Here no kfd ioctl functions are invoked, therefore the arguments are not touched, they are legacy values or random values, even all 0.> 
+>> Other kfd ioctl functions, like kfd_ioctl_create_queue and kfd_ioctl_destroy_queue, they also may return -EINVAL, but the arguments may be modified. How can the user space tell whether the arguments are modified by kernel, containing useful information, or not touched at all?
+> They know by reading the API documentation.
+yeah, so at least we need documentation, at least comments in the source code.
 
---_000_SA1PR12MB73435E05146A9DBA720ECFB3EB5A2SA1PR12MB7343namp_--
+Thanks
+Lingshan
+>
+> Regards,
+>   Felix
+>
+>> And what if the user space pull memory changes of the arguments?> 
+>> Thanks
+>> Lingshan
+>>> Regards,
+>>>   Felix
+>>>
+>>>
+>>>> Thanks
+>>>> Lingshan
+>>>>> Regards,
+>>>>>    Felix
+>>>>>
+>>>>>> Thanks
+>>>>>> Lingshan
+>>>>>>> Regards,
+>>>>>>>    Felix
+>>>>>>>
+>>>>>>>> Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
+>>>>>>>> ---
+>>>>>>>>   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 3 +++
+>>>>>>>>   1 file changed, 3 insertions(+)
+>>>>>>>>
+>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+>>>>>>>> index 3e6b4736a7fe..a184ca0023b5 100644
+>>>>>>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+>>>>>>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+>>>>>>>> @@ -3327,6 +3327,8 @@ static long kfd_ioctl(struct file *filep, unsigned int cmd, unsigned long arg)
+>>>>>>>>       }
+>>>>>>>>         retcode = func(filep, process, kdata);
+>>>>>>>> +    if (retcode)
+>>>>>>>> +        goto err_retcode;
+>>>>>>>>         if (cmd & IOC_OUT)
+>>>>>>>>           if (copy_to_user((void __user *)arg, kdata, usize) != 0)
+>>>>>>>> @@ -3340,6 +3342,7 @@ static long kfd_ioctl(struct file *filep, unsigned int cmd, unsigned long arg)
+>>>>>>>>       if (kdata != stack_kdata)
+>>>>>>>>           kfree(kdata);
+>>>>>>>>   +err_retcode:
+>>>>>>>>       if (retcode)
+>>>>>>>>           dev_dbg(kfd_device, "ioctl cmd (#0x%x), arg 0x%lx, ret = %d\n",
+>>>>>>>>                   nr, arg, retcode);
+
