@@ -4,54 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFC63D462A6
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 Nov 2024 14:04:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EBADD462A5
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 Nov 2024 14:04:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B5BA210E708;
-	Wed, 13 Nov 2024 14:04:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93A5810E70B;
+	Wed, 13 Nov 2024 14:04:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="edeDH+sF";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="GUFakreu";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 650CF10E6C3
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 Nov 2024 10:25:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=gq6Eayza14Hch8vY0yv4ho9QxzPHtdC8sA1sAkxvos0=; b=edeDH+sFZA2faR3c5o6zHCJA5M
- x8BOp6x7kqAIFYIepmilAalIwgU+Dw3xlqDBV8NnUP0/YRaCRtS7GPWMcP+i6ynxHgSba3cFgOuly
- zJpLPnZzosuTqC6sMTbF3E6k8pEc/caof1WhUgeS/AtBNSt0443Yf5a0RMXo6S4vGQX/wXdWh32ao
- HXPFi3oev8R2I8GhmWjnHYj0vQsHqHvhd3Ld/xOqgBN85GwWvEY8W94UEjcM90NHTbDzwemk5m/Ne
- 4mVWj8q0xpJmpdJlQ2gttK+bQ/7phV2bonP8Rk4Gz88OTSIdtHyZ4S6x7bmJKbJLirEO2p9qsbemc
- GQZ7BHpw==;
-Received: from [90.241.98.187] (helo=[192.168.0.101])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1tBAYY-006Hq2-RB; Wed, 13 Nov 2024 11:25:02 +0100
-Message-ID: <cc63f0ef-e152-49fc-90d9-ca695a8918f3@igalia.com>
-Date: Wed, 13 Nov 2024 10:25:01 +0000
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
+ [209.85.221.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFABC10E1B7
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 Nov 2024 10:13:45 +0000 (UTC)
+Received: by mail-wr1-f42.google.com with SMTP id
+ ffacd0b85a97d-37d51055097so4064612f8f.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 Nov 2024 02:13:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1731492824; x=1732097624; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=29r3GUvbzZw8w4aPc5tnOj0HcCOWENCLL4KD5K0a91E=;
+ b=GUFakreuT0/7xy42F7kiOUOoPmK9dcv/TkY8r1e8kS9pSVcAEsChUvFjbfMQlb3wSI
+ /TUzib6qbhSGRsCjPysG59/HvP3Kern/mD7lA1Q+2KE5/AKvayXZR8GFrfBV2SSM8JNV
+ g94KTYcTBJVr5cChqGGyhb9gHaYiHA06df/jhmRSzDJnE3hx1lQgPezBpSWUvSbTIgXS
+ 3qrDmeWVcl40yQ8s4LyN5xoQ4CiaxoAoe9bMFGw4VGCQkzra6yqwKoe3s34gruWNCITQ
+ 9oCpYFkidbNC/5OtU+0AEZ97kSW7nE34asxMkh4+tCq+LTAfglxtp1U4oqa5oR1Rqlzg
+ gP5A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1731492824; x=1732097624;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=29r3GUvbzZw8w4aPc5tnOj0HcCOWENCLL4KD5K0a91E=;
+ b=jyGz4yb9AvMmwkacXO2D7IYNhr0qKd6sb4f4PuneVO6tMYAlvSqRzYyw2U7aym0bso
+ nkpwXlwo4zjBBQFfLiEBwqGAtHUvp9WWGkjH15BPCsY4reJw1X6wCF9gCT7wAxbGG/qc
+ bdYTjPRTT4dz6eE+3Dg/lFH+28I8tsbcqUMoJ2OxiAnwYo5NOH4P1q04Dzf5tEvLvioD
+ YFFwjqcXvpo+3llvRr4pEVivt43kLFCiSCu0csI7Ej17UNhWD9i6f62aWMbGvB14HX3+
+ ScusCpiCw61TTqwf8BlyrJKlDctZpYwMONUa2vGMqMTYeXiErxnGUJrIyWNKmhVEOOWO
+ 19vw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXw7jP7KNKBwPR6/2wO+omc0h900GZ0UaTzlFmuIs4xlohqQCavI9L6/NzplZDSR2MKb9wmhrlu@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzDOE8OJLHpqfn2OByOd3YARXhIfkZTQYCjf+V+ld8SK4MXKYJj
+ eaID3KhlGDcHprMX6HDv4RQvlBlgl5EZ6ajt7iR+SlnidL25CrUWSnTy7DEwHrc=
+X-Google-Smtp-Source: AGHT+IH2BH3MALMB+E+XITlkb+0lyVpVuMJIDJUUSnd3RYPMU6chFRG2glEc9VGrAjVDTMO03oJKpw==
+X-Received: by 2002:a05:6000:210e:b0:382:424:9520 with SMTP id
+ ffacd0b85a97d-382042496a7mr6550276f8f.49.1731492823996; 
+ Wed, 13 Nov 2024 02:13:43 -0800 (PST)
+Received: from localhost ([196.207.164.177]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-381ed970d10sm17689789f8f.20.2024.11.13.02.13.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 13 Nov 2024 02:13:43 -0800 (PST)
+Date: Wed, 13 Nov 2024 13:13:40 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Colin Ian King <colin.i.king@gmail.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, kernel-janitors@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH][next] drm/amd/amdgpu: Fix spelling mistake "versoin" ->
+ "version"
+Message-ID: <dceebb5d-9cc6-40ec-b1b4-6ae40cba45fe@stanley.mountain>
+References: <20241113095349.1161044-1-colin.i.king@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 4/4] drm/amdgpu: track bo memory stats at runtime
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- "Li, Yunxiang (Teddy)" <Yunxiang.Li@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-References: <20241110154152.592-1-Yunxiang.Li@amd.com>
- <20241110154152.592-5-Yunxiang.Li@amd.com>
- <5d1c88a5-9802-4bb7-b76a-5e501847ced1@gmail.com>
- <SA1PR12MB85998D24DDB5EB93AE88E5A1ED592@SA1PR12MB8599.namprd12.prod.outlook.com>
- <92be210e-b552-45ee-9322-1944a4bfd325@amd.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <92be210e-b552-45ee-9322-1944a4bfd325@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20241113095349.1161044-1-colin.i.king@gmail.com>
 X-Mailman-Approved-At: Wed, 13 Nov 2024 14:04:26 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -67,184 +86,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-On 13/11/2024 08:49, Christian König wrote:
-> Am 12.11.24 um 19:16 schrieb Li, Yunxiang (Teddy):
->> [Public]
->>
->>> From: Christian König <ckoenig.leichtzumerken@gmail.com>
->>> Sent: Tuesday, November 12, 2024 5:54
->>> Am 10.11.24 um 16:41 schrieb Yunxiang Li:
->>>> @@ -310,6 +311,92 @@ static void 
->>>> amdgpu_vm_bo_reset_state_machine(struct
->>> amdgpu_vm *vm)
->>>>      spin_unlock(&vm->status_lock);
->>>>    }
->>>>
->>>> +/**
->>>> + * amdgpu_vm_update_shared - helper to update shared memory stat
->>>> + * @base: base structure for tracking BO usage in a VM
->>>> + * @sign: if we should add (+1) or subtract (-1) from the shared stat
->>>> + *
->>>> + * Takes the vm status_lock and updates the shared memory stat. If
->>>> +the basic
->>>> + * stat changed (e.g. buffer was moved) amdgpu_vm_update_stats need
->>>> +to be called
->>>> + * as well.
->>>> + */
->>>> +static void amdgpu_vm_update_shared(struct amdgpu_vm_bo_base *base,
->>>> +int sign) {
->>>> +   struct amdgpu_vm *vm = base->vm;
->>>> +   struct amdgpu_bo *bo = base->bo;
->>>> +   struct ttm_resource *res;
->>>> +   int64_t size;
->>>> +   uint32_t type;
->>>> +
->>>> +   if (!vm || !bo)
->>>> +           return;
->>>> +
->>>> +   size = sign * amdgpu_bo_size(bo);
->>>> +   res = bo->tbo.resource;
->>>> +   type = res ? res->mem_type : amdgpu_bo_get_preferred_placement(bo);
->>> Again, it's a clear NAK from my side to do stuff like that.
->>>
->>> When there isn't any backing store the BO should *not* be accounted 
->>> to anything.
->> I don't have a preference either way, but I think it should be a 
->> separate discussion to properly define what drm-total- means.
-
-Total must show the total size of all BOs which exist even if they don't 
-currently have a backing store. That's how drm-usage-stats.rst defines 
-the field and that is how all the other drivers work.
-
->>>> +   type = res ? res->mem_type : amdgpu_bo_get_preferred_placement(bo);
->>>> +   shared = drm_gem_object_is_shared_for_memory_stats(&bo->tbo.base);
->>>> +
->>>> +   if (type >= __AMDGPU_PL_LAST)
->>>> +           return;
->>>> +
->>>> +   spin_lock(&vm->status_lock);
->>>> +
->>>> +   if (shared)
->>>> +           vm->stats[type].drm.shared += size;
->>>> +   else
->>>> +           vm->stats[type].drm.private += size;
->>>> +   if (res)
->>>> +           vm->stats[type].drm.resident += size;
->>>> +   if (bo->flags & AMDGPU_GEM_CREATE_DISCARDABLE)
->>>> +           vm->stats[type].drm.purgeable += size;
->>>> +
->>>> +   if (bo->preferred_domains & AMDGPU_GEM_DOMAIN_VRAM) {
->>>> +           vm->stats[TTM_PL_VRAM].requested += size;
->>>> +           if (type != TTM_PL_VRAM)
->>>> +                   vm->stats[TTM_PL_VRAM].evicted += size;
->>> Again that is incorrect. BOs can be created with VRAM|GTT as their 
->>> placement.
->>>
->>> If such a BO is placed into GTT that doesn't mean it is evicted.
->> In that case, do we count BO with VRAM|GTT in both VRAM and GTT's 
->> .requested field? and if they are not in either, they go in both 
->> .evicted field?
+On Wed, Nov 13, 2024 at 09:53:49AM +0000, Colin Ian King wrote:
+> There is a spelling mistake in a dev_err message. Fix it.
 > 
-> Oh, good question depends on the definition of the requested field.
+> Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/mes_v11_0.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> Accounting it to VRAM.evicted while GTT placement is desirable as well 
-> is certainly not correct.
-> 
->  From my understanding they should go into the VRAM request, but not 
-> account to evicted. But Tvrtko might see that differently.
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> index 9c905b9e9376..feecd099cf86 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> @@ -646,7 +646,7 @@ static int mes_v11_0_misc_op(struct amdgpu_mes *mes,
+>  		break;
+>  	case MES_MISC_OP_CHANGE_CONFIG:
+>  		if ((mes->adev->mes.sched_version & AMDGPU_MES_VERSION_MASK) < 0x63) {
+> -			dev_err(mes->adev->dev, "MES FW versoin must be larger than 0x63 to support limit single process feature.\n");
+> +			dev_err(mes->adev->dev, "MES FW version must be larger than 0x63 to support limit single process feature.\n");
 
-Semantics of requested and evicted are kind of amdgpu 'legacy' thing. So 
-the question is whether or not they should keep matching. Originally 
-they were like this (I will edit out parts which deal with CPU visible 
-for ease of comparison, and which have since been removed anyway):
+What does "to support limit single process feature" mean?
 
-        if (bo->preferred_domains & AMDGPU_GEM_DOMAIN_VRAM) {
-                stats->requested_vram += size;
-                if (res->mem_type != TTM_PL_VRAM)
-                         stats->evicted_vram += size;
-         } else if (bo->preferred_domains & AMDGPU_GEM_DOMAIN_GTT) {
-                stats->requested_gtt += size;
-         }
+regards,
+dan carpenter
 
-So the part about accounting as evicted with dual preferred placement 
-was there from the start.
-
-Then after my changes:
-
-         if (bo->preferred_domains & AMDGPU_GEM_DOMAIN_VRAM) {
-                 stats[TTM_PL_VRAM].requested += size;
-                 if (type != TTM_PL_VRAM) {
-                         stats[TTM_PL_VRAM].evicted += size;
-                 }
-         } else if (bo->preferred_domains & AMDGPU_GEM_DOMAIN_GTT) {
-                 stats[TTM_PL_TT].requested += size;
-         }
-
-I mostly kept the same semantics.
-
-Teddy's version keeps it the same:
-
-	if (bo->preferred_domains & AMDGPU_GEM_DOMAIN_VRAM) {
-		vm->stats[TTM_PL_VRAM].requested += size;
-		if (type != TTM_PL_VRAM)
-			vm->stats[TTM_PL_VRAM].evicted += size;
-	} else if (bo->preferred_domains & AMDGPU_GEM_DOMAIN_GTT) {
-		vm->stats[TTM_PL_TT].requested += size;
-	}
-
-If no AMD tools depend on the legacy semantics for evicted/requested we 
-can change them. There is some overlap with the standard keys anyway and 
-the fact preferred mask is unordered made the original behaviour a bit 
-presumptuous to begin with. In summary I think it depends on whether we 
-need to keep the legacy semantics, or even the keys themselves.
-
-Regards,
-
-Tvrtko
-
->>>> @@ -2612,7 +2707,6 @@ void amdgpu_vm_fini(struct amdgpu_device *adev,
->>>> struct amdgpu_vm *vm)
->>>>
->>>>      root = amdgpu_bo_ref(vm->root.bo);
->>>>      amdgpu_bo_reserve(root, true);
->>>> -   amdgpu_vm_put_task_info(vm->task_info);
->>>>      amdgpu_vm_set_pasid(adev, vm, 0);
->>>>      dma_fence_wait(vm->last_unlocked, false);
->>>>      dma_fence_put(vm->last_unlocked);
->>>> @@ -2660,6 +2754,15 @@ void amdgpu_vm_fini(struct amdgpu_device *adev,
->>> struct amdgpu_vm *vm)
->>>>              }
->>>>      }
->>>>
->>>> +   if (!amdgpu_vm_stats_is_zero(vm)) {
->>>> +           struct amdgpu_task_info *ti = vm->task_info;
->>>> +
->>>> +           dev_warn(adev->dev,
->>>> +                    "VM memory stats for proc %s(%d) task %s(%d) is 
->>>> non-zero
->>> when fini\n",
->>>> +                    ti->process_name, ti->pid, ti->task_name, 
->>>> ti->tgid);
->>>> +   }
->>>> +
->>>> +   amdgpu_vm_put_task_info(vm->task_info);
->>> Please don't move the call to amdgpu_vm_put_task_info().
->> Is keeping the task_info alive a hazard here? I could copy out the 
->> info, it just seemed a bit wasteful.
-> 
-> Ah, now I see why you have moved that.
-> 
-> IIRC we need to free up the task info before releasing the PASID, but 
-> that info might be outdated. Need to check the code.
-> 
-> Does it work if you move the message further up or does the root PD then 
-> break your neck because it isn't released yet?
-> 
-> Thanks,
-> Christian.
-> 
->>
->> Regards,
->> Teddy
-> 
