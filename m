@@ -4,157 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08867D68B31
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Nov 2024 15:21:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FA02D68B32
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Nov 2024 15:30:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E6F510E7F5;
-	Thu, 14 Nov 2024 15:21:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D086210E7FD;
+	Thu, 14 Nov 2024 15:30:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="DpETuFhz";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="U7Fl2dxY";
 	dkim-atps=neutral
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2057.outbound.protection.outlook.com [40.107.212.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 353BF10E7F5;
- Thu, 14 Nov 2024 15:21:26 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZLpBkr10pSu6Xwiw+m3K9jX8PAnRYR3R612p9yuSh0DMYrBYbOAiM+zpvueCE4zPMdOSTQ1YGii8YryeTzGy9EulkqTfOKMeX3ncPmgLuUFeNBbBhFq9X6BKMmFwiIuNXF988IEZCseQFSKVOUYgPn3jjVzJLcZJlV9wYKQxdZHNI6J+IodGrCiwozwmVyJ/qbk12GFmI6aqvmEXl+dgwuhtnWY8kHohPtuHPtfpSzOHyCKB++K1/Ytrx9hvlsWSS5yjP0sg9YR2AhgTXNUXljtLUmiccqQcOKlBPBZWEe+JyL6L8maxXfYbQ7wz9rrEnFVWts+swoSCFZZYon3pxQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4NzKxGax6xy04Cd1bamgyqIaRD9vZkBSZBa3tIomVVI=;
- b=SvhpHRIhHJJIFqH1yqKa3rXHMkrNusx6F8ssHA68ZZeEOYVHmVhkpASPW1c+IK/PjkS3MAcSjO2/FhHMDjQZFcc1SpseDdggdVp0PEcMICyU2iKj/kXoISAmaKd+7vS0C0g4vB0nFuFxZYArbJ1v0sByV0+CeBzWkH3NZ1hpBp7M9LFSrgGspVlx6nU+6S7m6affRLj8XcVoVWdbCE30vyaNroHP2R1HL2TyvRtgUwNzSq6Bh+7HHy27Uj5DzYXoBnkeM5R8Q5rcm3RQL2NWM7uKcq4WZuFOuVt21PnegVOZB2a6+fhwxWPrZQW4rcnER/rT3Sn0+I0BRpspgHIqYg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4NzKxGax6xy04Cd1bamgyqIaRD9vZkBSZBa3tIomVVI=;
- b=DpETuFhzEAUHx3tNh27en1PUBFqaXws2cggPl4t402+1NYzQm2Xazva6TyiW6eDtt38caVH7q+JKaVeVE4phMo+euoZnPkaMCFF7Ygb35mMgsMZkb9Q1ZLMmSOZYp7rn8vH5sb0MNjyDdfSJPHdS4Gflov8HQs/UwrbzdIZUCBA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CH3PR12MB9344.namprd12.prod.outlook.com (2603:10b6:610:1c8::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8158.17; Thu, 14 Nov
- 2024 15:21:23 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%2]) with mapi id 15.20.8137.027; Thu, 14 Nov 2024
- 15:21:23 +0000
-Message-ID: <511539bb-bc1d-459e-bfd1-10ad8e9d1435@amd.com>
-Date: Thu, 14 Nov 2024 16:21:14 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] drm/amd/display: remove redundant is_dsc_possible
- check
-To: Bhavin Sharma <bhavin.sharma@siliconsignals.io>,
- alexander.deucher@amd.com, alex.hung@amd.com
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Xinhui Pan
- <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Kenneth Feng <kenneth.feng@amd.com>,
- Wenjing Liu <wenjing.liu@amd.com>, Chris Park <chris.park@amd.com>,
- Roman Li <roman.li@amd.com>, Leo Ma <hanghong.ma@amd.com>,
- Ryan Seto <ryanseto@amd.com>, Jose Fernandez <josef@netflix.com>,
- Ilya Bakoulin <ilya.bakoulin@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20241114151150.19576-1-bhavin.sharma@siliconsignals.io>
- <20241114151150.19576-2-bhavin.sharma@siliconsignals.io>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20241114151150.19576-2-bhavin.sharma@siliconsignals.io>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0316.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:eb::16) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com
+ [209.85.208.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C8DF10E7FD;
+ Thu, 14 Nov 2024 15:30:25 +0000 (UTC)
+Received: by mail-ed1-f49.google.com with SMTP id
+ 4fb4d7f45d1cf-5cf6f367f97so985111a12.0; 
+ Thu, 14 Nov 2024 07:30:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1731598223; x=1732203023; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:from:to:cc:subject:date:message-id:reply-to;
+ bh=szKhuhQmiVIM02ZbdgLbY1lco3UqzkBAMcoq3GvKKrk=;
+ b=U7Fl2dxYTMDjVSgXg5w5kHeUg7KTJ41PwIFv/W8kCfs0rmYQIzU5u6RNUTyBaE3FcS
+ 8r/xYkj7l6bbS1Bfqf18hFu78mt/h32TC3J6P9JjJFCY7KVvH0vmg23s1jMAkRkRp0AH
+ KWdV2ApwpWEh3MEVmY4OAvXKBA5pAD6MHTmwItWxJga/i2FSjMXVsbds9lH5vVXmlJfq
+ cNH6NiR2jwJoTBJdDhSb/pDNjbhTyoQHPYNJldF5YhY5cAB6x1U6OL1HYuRb5EAykUPP
+ +T8kBWxCGIUCc11LkfXnxlywNu7BItud4cWON5pMoacq1nobBcc0gse4sTr1ChwMzzPE
+ b5vQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1731598223; x=1732203023;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=szKhuhQmiVIM02ZbdgLbY1lco3UqzkBAMcoq3GvKKrk=;
+ b=DtHNPBGIQuuIwPahwmlDK4MMQ0FBv74eKHK+cLgCaUP4bkjGuCIffzinhJCFUTsfgD
+ YyvdZYBDWxyze1z4IVcoJOZ7ITwoS60LMshPyhMRHO8JHbTxhJW8LFFPkcyYWVXy1/jJ
+ caeI5lCi+W8bh7zUOvNBLtn1hIkzLJ5muGjvU+a2LxpDWMkD3dgGoiW12BtRxM2z0+9z
+ 6TKhoCKqk9unheY4FQ8c+17dpywG7WduhryCeS9KEBK+pIRwkhMrwC97xGQ19VDelIn+
+ ES1YzKraPq4wAtFBmSoTprxeQq1PVr5d/blPj0pGqPFTt5X1slCDJjjul1/ZaXEXGAbr
+ TX2A==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVO8LBBbqMyOrELd3YMdOEy1Nbm/jDoIiLqw8nAhGAFXsjCZKUSf4X+zK69m5szRydBj3/3vm1g9cE=@lists.freedesktop.org,
+ AJvYcCWSFaYAI9zz+S2EsN3y0AeAmqU1wie5gHMPi9qhmZTJWmrrvFKUOQ0EnOVgTGiAwN3ROP836nAk@lists.freedesktop.org,
+ AJvYcCWyA8hgwzSdFZyzHCzKH+9z3MQc76AfRw/Lw6dv+Z0NJrjOLd4+KbSjuyf5GaSnQ4fop1clqGxRjzm/@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzuvRPJZL/AjBff2kjAXSueery8+cNENEDuZAI4KrBxBotoG2CH
+ POeoyulIpK0uCr73rFkvy+UOa5o0DNdwF2jOgXqIYNp3igmE2dNF
+X-Google-Smtp-Source: AGHT+IFn0AJrpN7erqmeNM/7HGlotZXPzE8O1SvFHPedjgfZG+/b95RXkljUudU1q+VN+H1HIMSRZw==
+X-Received: by 2002:a17:907:31c2:b0:a99:fb56:39cc with SMTP id
+ a640c23a62f3a-aa1f810644amr669660066b.38.1731598223137; 
+ Thu, 14 Nov 2024 07:30:23 -0800 (PST)
+Received: from able.fritz.box ([2a00:e180:15c9:2500:bb23:40f5:fe29:201])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-aa20e046919sm74063266b.156.2024.11.14.07.30.22
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 14 Nov 2024 07:30:22 -0800 (PST)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: kraxel@redhat.com, airlied@redhat.com, alexander.deucher@amd.com,
+ zack.rusin@broadcom.com, bcm-kernel-feedback-list@broadcom.com,
+ virtualization@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+Subject: Switch remaining drivers over to drm_exec
+Date: Thu, 14 Nov 2024 16:30:13 +0100
+Message-Id: <20241114153020.6209-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH3PR12MB9344:EE_
-X-MS-Office365-Filtering-Correlation-Id: 46dae4c7-5210-4e7e-8062-08dd04bfff85
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?azFNbDJKK1pxS2s2ZDZQTEFFNzJCRlRVbytQck02YlFWa29icmYrYzVMemo2?=
- =?utf-8?B?SS9oY044Y0kxOG9zb1ZIZ1k5eW9BSWI1TmFYTkltY0R5Ylo5eFliUUQ0R1ZT?=
- =?utf-8?B?anQycC8wbnd4QzhJK3d6Wk5CbmVwNUxqSWVmUWJwS3ZxVCtObUNVNEhnRG9F?=
- =?utf-8?B?WlBlQVJYQ1VQOFZtZnBpeTJoR09GTVc5T0xFM1VDRTBxVnd5T2tEVFRmcHFp?=
- =?utf-8?B?bTVHd0R4dFhjS2hENy9aaFE5OEU2RERqU0FPVWh3MklrTkp3eVJ5UE12RDVl?=
- =?utf-8?B?NHBHWVE3MWdLSVFXZ3U2TTltcE03NWM4VHJocTFRT3Zpd1NPRXBqMUx6bkJ3?=
- =?utf-8?B?c25oMWNTRlJhNElEMHp2bTRZNnh4S2t1dEt0NUtvcXNobVdqNGJpVXRuZis4?=
- =?utf-8?B?T2h3V1o3ZEtuWGk3WGZhRUVpemNIZzFZclhabktoVGNaZHpnSHp3cTZKaU1U?=
- =?utf-8?B?VFJMZkd2UDk0bGNPZzR3cm9ZSFhSQmx4OUJ4aEhhTEJlcXRIRmpLWEwxWjJ1?=
- =?utf-8?B?RDBadDBQMEp3akJqUEQ3TmdQY3hqTmZiQ0Z5c2F2WDhXa2tyeVdBNnhuUGxL?=
- =?utf-8?B?NkVEWjJGb1Fsb1JrWXgzNDcveHhSSkZlVFh4THE1MHI0T09wMCtGR1Y3UTRm?=
- =?utf-8?B?ektNYmNUdW8wZUxULzlpdWNzTzhjWjdLd0JXUUxlZU9mZ2xsdHVTME5jeUhE?=
- =?utf-8?B?RHdTckZKNlV2T1lrQk5lRlRDWUtjUFFZQ3ZlZFdWUzJuRElXNEx4bFJTd2xp?=
- =?utf-8?B?NGZ5clRRUXgvMmNvd3ZWRjQ5b2U1d0N6dGdOS2cvalNUZnZxZm1LZUdHUktk?=
- =?utf-8?B?cktaN1JLTWptY1R3cjlRcHlmeXVVa1RKNFpHTzJ2QnVQNDdKUnpHRjZuWWYr?=
- =?utf-8?B?c3pUODk3WHE4RGpMWDFQYTZUSnhDT25jNlkrSzhaWmtEWmNQNDNEUzJxalFp?=
- =?utf-8?B?ZVZjb0k0dE9YY2NsUmxFNGtzTktTTjkyMnFlbFhhWXdxREFwU1hGRDZUMXN2?=
- =?utf-8?B?VnRTaUpMTDVmdjh3L3VNdVhPbHNUUS81TklMb3dwWEdBcExLWnYwNVVaNXJC?=
- =?utf-8?B?SXZjc0Y4cFBNbnFZSXV5T0lRK0N1SUpaQkozd1p3alk1SkYwdEJNZm5CdVpY?=
- =?utf-8?B?RXhqN0hCUnBoTkVkMFhoWFIvVkJEV0xUckZxZ2xrU1BiT0tmeW1PZi9UcEQz?=
- =?utf-8?B?REpvWjhXWGRDL1JIbGhLT0hwbnVpckdXRzRwK1hGdFhSSzdzdElzZG1ySG1L?=
- =?utf-8?B?OFd4V2x0eHVGMml1TGErbzhDMGFOSnVuaEcxcytURUwvNkRydU5MUjBzbnlG?=
- =?utf-8?B?Z3NpSGZKUEFSWURLMEZiZXBzcGNEaGlhclRSdEhGZ05mcEhRMlpseE1kVkJk?=
- =?utf-8?B?RDI3MTUrVElvZ1ZHeWUvZjVza0oyam5BMG05TTYvbWhQRDdHNWcwcnpiU3JO?=
- =?utf-8?B?K29lVnRTa1lBQW1NRHh3bnVBZWdnRHFSUjY1N2FORDFBaFBCQTh5SW9RdStR?=
- =?utf-8?B?cVl3V0NuYktHUkdwT3V1eUZld3d2K3hMU2lGNVpkSHJHVytDVHRSRXhUTExw?=
- =?utf-8?B?SktrbFFpM2FnOStKbFhyWmgzdWlyWjVGOVM0SHgvcnFzRnQrNVhXNXh5cmM1?=
- =?utf-8?B?Vmk1OFhqNEozT08reDRGR1F1REpDV3MvQUpGcHZlaGYrN29YdFQ4NU9lczRz?=
- =?utf-8?B?UStHZU9sOUF1bnNNOExDMmpCSnFVYjl0SFZkVkhFNGZNRlRwbllaTlc0aGl2?=
- =?utf-8?Q?Y7QjvoPRx85rAMbBG9ewryC/I3pq4K5gzaq6lt/?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UWFVWGM5UDhSdkw4TkFHaUhjTWwxY2ZtQ0Z1aVI3TTJ4ZFJhYlZkQXE1cVZ2?=
- =?utf-8?B?SEFCMkE4TzE5dDdBc3d3SDZBNUZJOHhBZWFkeGMxZ2lUN2RyM3BZWDBsbm1B?=
- =?utf-8?B?WTcrak4reGd2RTFHckh5Rnl2dkE4aGc1em5yc3JyNk5WNVVFK2l3dmw0N2VB?=
- =?utf-8?B?V3ZjVkw1MHdIWTZKNE9kUVppSlBWR1pqWE0zRUZQZDZoRGF2eEFFN0pldm53?=
- =?utf-8?B?V3k0dEhuTVh6UzR2SDF6ZnZ5M2VHcFVyODcxWnloZmtvcTVwSUhPTE05Wm85?=
- =?utf-8?B?T2JmL0hqaFJoSU9tVE1VejVOVFhGYVV3cWVacE5IUExJQkVIZ0VQcGxYOHRO?=
- =?utf-8?B?emVDbUY5Z3RpbDEwSjJLcHdkdEZCS0E1TW5sVktDVDZoTEtENDFNUmdGVlA4?=
- =?utf-8?B?T2pid1lzM3hYVkFCc1YzbDVsdUM3azRtbldKNFZvVUZ4NXBtQjBGclZQVWFD?=
- =?utf-8?B?TDRQK0ZpQjBkdXM4bVRYMm84aS9ZTDJOcmZldlZtR3B6ODVzaXBjSDVHY21n?=
- =?utf-8?B?N0JxRC9IVi9qQ3orZkNRWVlsNHpZUHdxalBqamZOekFBK2tVZWx6UGtmTUtJ?=
- =?utf-8?B?UjZYNG1vMko0NFV0M1drcUpsQ2JQdkNjcnFDY2VVMkVJdmVvWUI0SVRGaWZT?=
- =?utf-8?B?K3I1bWFjejZueHpCSWFXZ3VQbHZQdnhNQnNmWHhXVnBtK0JLNXBsa1NtYVBy?=
- =?utf-8?B?TnkyUDlWdEdaUGpDMmswMkgyNXlKM0FZc1NVTS9QY0laSE8xZll4QUwyMGVD?=
- =?utf-8?B?d0lad1BuRUM5cUZ6RGo4Qithcm93WnJJVUFqcm45TSthNTlKSFRyU1NzVWxj?=
- =?utf-8?B?cjRJZ2wwMk1wNjZMSVhseXlBNlcxTTBXMUY2TEcxNVdyeHBQbEpPSFJ1RXRh?=
- =?utf-8?B?SmlOcldHbzkwV1FxZWtsaExRTG9UWXhNQkNZRHNKekQvanltMkM5VmJNZ1Vx?=
- =?utf-8?B?dEhLMWc2Q24wT2prbzNvajB5UGo2QlRITXZ0T21MSFBiK2ZhNzREczFEWHMz?=
- =?utf-8?B?SHpCcXU4SXAxN1ZxbDJIclNNcEtoUEpwUjZ0SzFxK1dSZjhCSGV1R2Rtc3lL?=
- =?utf-8?B?VGNIcjR6MkVOdnQ5aEpoZmtJdnpLbFZrTW1LTldsR2NtVm9mTzRtYWxUKzMx?=
- =?utf-8?B?OU5YTUJSZWk3Wk1rREhiWUFXaSthUDBXVlVqZlRiWWRRMlNrR3NRKy8zeGxp?=
- =?utf-8?B?QnFGMkg3YkdKd0RaWlBlRW5jNlV3NGNQOE44cnU2WHBDREMwQjREVjJhQW1n?=
- =?utf-8?B?ZGJKNW1WVEZDN2w1RzdTc1l3ZlFPYUQ4eThxa0NIeG44WnpjRTZGVndFUnRF?=
- =?utf-8?B?ZndmSWxKQ3RFSWZ4U0xmYTlzMmplbkNJMzZ5QzBqRG15ZEJScjcxRUVra25S?=
- =?utf-8?B?enZhWlg5TVY0b3FLSHlBVGJaMkZTQnBnL0tHVDRZMndmcDFXVzdyUjF6WEp0?=
- =?utf-8?B?Q1J6T3pGRnVCczlpK1FKMWs4dWxLSlpaSm1BNkt1dnFudVRPeUgwYW5GMGpT?=
- =?utf-8?B?a1NuMFJMeEVZTStKREFGazJIK0U0dnBDdktSemRhUWJETUt0MW1JOFJlVXhr?=
- =?utf-8?B?V2g4M1pLT2FlNENwanNOdVJaMzFkd05KTVRiVE1XZGVMTk5ocW5XZTk1R2k5?=
- =?utf-8?B?MUNzczJ0a2h4ZmM3OHNzTGVkNGZibjJ0Qk5MeFVoQUNvdUdIdU01SVY5WlBZ?=
- =?utf-8?B?VjRlMUlCU1RCeGtFYzNMK0o5MWI5c2pNYzcxcVdtNWN0bEU0c1YwR2NXM3B2?=
- =?utf-8?B?NGlRQzM1NGg5K3RQVStDRmZWVEVMQkRmaWhVMVpiREt4TC9Id0JUVXhTRTFu?=
- =?utf-8?B?cWJ4QXQzUUJLanFnY240RGFYOHlIZm5FcUFUSFJ6M056STkrV2tETEU5YytD?=
- =?utf-8?B?UWRsT0VjaDliYjRLdDhZSThkTzZzazhLOXlHM1FHaXlVZlorcldXOXlHUURL?=
- =?utf-8?B?TUNOQVZ5dzQrL1l5dzBab04rSnJGNXpuUy9kMCthaGlJUEh4MzBrRGVNU1lx?=
- =?utf-8?B?bFNZTFNHeDFRallhS2JrWTQ4bzd2NnI4Y3pqajFZWndhSFhGQyt6b2Qwd3lv?=
- =?utf-8?B?M3N5UTdWQm1CNHd5dUM5R3RzT0tPY1lNL3NUNGRsaDVpSzFMalB4TzZGQXRM?=
- =?utf-8?Q?H6ik=3D?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 46dae4c7-5210-4e7e-8062-08dd04bfff85
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Nov 2024 15:21:23.0937 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: S/jyUUcgIgR1EHCnJD0+nYYN8fT3yor0As6u93RrWL+DIxNN8zLJHUS7/X/IB/zc
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9344
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -169,44 +84,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 14.11.24 um 16:11 schrieb Bhavin Sharma:
-> Since is_dsc_possible is already checked just above, there's no need to
-> check it again before filling out the DSC settings.
->
-> Signed-off-by: Bhavin Sharma <bhavin.sharma@siliconsignals.io>
-> ---
->   drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c | 13 +++++--------
->   1 file changed, 5 insertions(+), 8 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c b/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
-> index ebd5df1a36e8..85f6f8e43947 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
-> @@ -1093,14 +1093,11 @@ static bool setup_dsc_config(
->   	if (!is_dsc_possible)
->   		goto done;
->   
-> -	// Final decission: can we do DSC or not?
-> -	if (is_dsc_possible) {
-> -		// Fill out the rest of DSC settings
-> -		dsc_cfg->block_pred_enable = dsc_common_caps.is_block_pred_supported;
-> -		dsc_cfg->linebuf_depth = dsc_common_caps.lb_bit_depth;
-> -		dsc_cfg->version_minor = (dsc_common_caps.dsc_version & 0xf0) >> 4;
-> -		dsc_cfg->is_dp = dsc_sink_caps->is_dp;
-> -	}
-> +	// Fill out the rest of DSC settings
+Hi guys,
 
-While at it you should probably replace the // style comment with /* */.
+switching the remaining driver over to drm_exec, cleaning up XE and the
+finally remove ttm_execbug_util since it isn't used any more.
 
-Apart from that looks good to me.
+When I originally posted the patch set for drm_exec vmwgfx was to
+complicated to trivially switch over. This is now done with this patch
+set.
 
+Additional to that radeon and QXL were never pushed because I couldn't
+get an rb for them.
+
+Please review and/or comment,
 Christian.
 
-> +	dsc_cfg->block_pred_enable = dsc_common_caps.is_block_pred_supported;
-> +	dsc_cfg->linebuf_depth = dsc_common_caps.lb_bit_depth;
-> +	dsc_cfg->version_minor = (dsc_common_caps.dsc_version & 0xf0) >> 4;
-> +	dsc_cfg->is_dp = dsc_sink_caps->is_dp;
->   
->   done:
->   	if (!is_dsc_possible)
 
