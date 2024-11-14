@@ -4,116 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE867D6DDE7
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Nov 2024 08:03:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F36A6D6DDEA
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Nov 2024 08:38:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46ECA10E3AD;
-	Fri, 15 Nov 2024 08:03:59 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3ScNaP4I";
-	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2064.outbound.protection.outlook.com [40.107.93.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7608810E3AD
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 Nov 2024 08:03:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 83C9E10E3B7;
+	Fri, 15 Nov 2024 08:38:21 +0000 (UTC)
+Received: from MA0PR01CU009.outbound.protection.outlook.com
+ (mail-southindiaazon11020128.outbound.protection.outlook.com
+ [52.101.227.128])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 954D010E7F4;
+ Thu, 14 Nov 2024 15:12:49 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=O/Z60281yB/bWPbh3leBu4r74RGjPmp2GyDxXFLFXU6m75cH/TgOBdWpD7M19rkzOC9htTCSuhfxkzjA4UO+0C91RxiqbvuRmlN+uZBXmsFyW6drX2lo2PPSFaF5pZZPoXRGrSUlvih7e89S+ZAIDY1mCDvrlodIwEgEswR7YV/0cT43K1ZsnI1kqt533pPt7+ZOdJqX6yCIWkFl8ytOuknUbxCUE6wHKsg0G1yzhwU7Yj5bgrHhHV89IAnGSV3PwtCQaNVTKFQHkcq6ereflY/F3z69hx5P84IxCy3H2WEzRuBf4naGeeXDS51H0eeI/LHvFM4eF1yzxKBzEkG8Mw==
+ b=bFAWZmT4owL7OwcpOOcfJ7p8mI6CI3xGHw54zeOCGHqq8EQTK+hxw2+j6Jkl5FwgpBJKHVTp37H5DRhhWfB1UgaRtc4OrcsRvOveJibA6XYuhAm1jlSKsmWCT82WCU3UT/3DotKpp9fcJZc5GQ8w7pOhEGblNym7AyKc1t3Vik/0XKsO9ky0yyNoC0GKDMiAZ/LoFA8EEMgqyzBrUsvAp90vkvTxaBq+qvoc6UettGSjUrybf57NB7VmmKImfyBV+6RvRRX1jB0VptAoR9S+4JXL/TUzL7fwIFaxtXH9ywrb0h+TPN27vg2Z+Fgl6W0k4dYdSmeSk+pwGWsxtOnyIg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tKVr1ag08Xn7U/Aa/CWibElwRTK4V+nmfLiKbtP0qpk=;
- b=undP4VSnlm7HgI3ot/dTNmqDwpvP4btHRUKyz7TP1G7hMQweHJKF//TR5M7UfXZb6yHlmCT/98i9Lmad08IZvKYbn1ka0PXbUdQ8kyp/dtYOTt59rXsdhkDlxe4biZ+5Sh68LWn8KQ+PK6vPl0MXSWULZATABYxI51vv6om6woncyfnVfpb8tsgQy23n6UgwjgEUVtdmiiIyUZT6hUNJtW6y8y3MKD1Zf1OId7aWEJsQF5eQnRdVmTiUcc6v30s+CWQFGRyQDN16kxuZPkcoNp+G8CYRiIPQRXdysn8jzeBNuOPG9SRGBbQ1g7BmcDqym+hZ/qO/NjKNIo+zXIEfcg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tKVr1ag08Xn7U/Aa/CWibElwRTK4V+nmfLiKbtP0qpk=;
- b=3ScNaP4IpYMAu5BvpILCyyVPh83WZgMvkUm9TnlTEtjjw8Qegv9BDew+MriG1RgpxHKB7FOLkwjLqRAEUw+5JnoEMGRLd7SQMQOvyyQ10u0tIacB2dvQocwAiNaxnzRjA+xJTrmwbI7UIjh4W5AAeosWRBqSYKFE3yxOU84mE/U=
-Received: from SN1PR12CA0070.namprd12.prod.outlook.com (2603:10b6:802:20::41)
- by PH7PR12MB6585.namprd12.prod.outlook.com (2603:10b6:510:213::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8158.18; Fri, 15 Nov
- 2024 08:03:51 +0000
-Received: from SA2PEPF000015C9.namprd03.prod.outlook.com
- (2603:10b6:802:20:cafe::98) by SN1PR12CA0070.outlook.office365.com
- (2603:10b6:802:20::41) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8158.18 via Frontend
- Transport; Fri, 15 Nov 2024 08:03:50 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SA2PEPF000015C9.mail.protection.outlook.com (10.167.241.199) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8158.14 via Frontend Transport; Fri, 15 Nov 2024 08:03:50 +0000
-Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 15 Nov
- 2024 02:03:48 -0600
-From: Lijo Lazar <lijo.lazar@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Hawking.Zhang@amd.com>, <Alexander.Deucher@amd.com>, <Tao.Zhou1@amd.com>
-Subject: [PATCH 1/2] drm/amdgpu: Add init level for post reset reinit
-Date: Fri, 15 Nov 2024 13:33:31 +0530
-Message-ID: <20241115080332.3373091-1-lijo.lazar@amd.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
+ bh=Bw0cIZJ64UmjbmmNvP66gFrQvqnsPHnKXxghmuvnpPM=;
+ b=Q03ReuyWR4emWnd5wZp34XLINcGF2cLRhjlKTPYp5YDhyrTXexFV+cqZl6eq0zhnrsUMt5a9YyGNkWypr4SIClh4Sp9O5s+t2yVRpkK07mll/Sdt7wgMptRk9w+bu0AB5SDayaaxjgKf3jiSIK98U70d09p4hIO8y0Ez/PmX0cGDtCSyILFI28+2wMywUHiqOQHwCPvKYbyL6PLHNaPCsp10W/yKGPESijSofuC5+oOVAKFlb5AIjI06ACh8Wccuz7jusf6uY6px/F6d2N1dcOKchRrf5ewtdM1vXobiVdRZb0aMZJw3WtrQ/TXkbPfPDzffdv7N/j6nr8keOGQuBw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=siliconsignals.io; dmarc=pass action=none
+ header.from=siliconsignals.io; dkim=pass header.d=siliconsignals.io; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=siliconsignals.io;
+Received: from PN3P287MB1171.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:1a1::5)
+ by PN3P287MB1340.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:1a0::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8158.17; Thu, 14 Nov
+ 2024 15:12:46 +0000
+Received: from PN3P287MB1171.INDP287.PROD.OUTLOOK.COM
+ ([fe80::c75a:632:1645:5db]) by PN3P287MB1171.INDP287.PROD.OUTLOOK.COM
+ ([fe80::c75a:632:1645:5db%4]) with mapi id 15.20.8158.017; Thu, 14 Nov 2024
+ 15:12:46 +0000
+From: Bhavin Sharma <bhavin.sharma@siliconsignals.io>
+To: alexander.deucher@amd.com,
+	alex.hung@amd.com
+Cc: Bhavin Sharma <bhavin.sharma@siliconsignals.io>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Kenneth Feng <kenneth.feng@amd.com>,
+ Wenjing Liu <wenjing.liu@amd.com>, Leo Ma <hanghong.ma@amd.com>,
+ Ryan Seto <ryanseto@amd.com>, Jose Fernandez <josef@netflix.com>,
+ Ilya Bakoulin <ilya.bakoulin@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v2 2/2] drm/amd/pm: remove redundant tools_size check
+Date: Thu, 14 Nov 2024 20:41:12 +0530
+Message-ID: <20241114151150.19576-3-bhavin.sharma@siliconsignals.io>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20241114151150.19576-1-bhavin.sharma@siliconsignals.io>
+References: <20241114151150.19576-1-bhavin.sharma@siliconsignals.io>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: PN3PR01CA0092.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:9b::10) To PN3P287MB1171.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:c01:1a1::5)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF000015C9:EE_|PH7PR12MB6585:EE_
-X-MS-Office365-Filtering-Correlation-Id: 64e926a1-d47e-4445-a135-08dd054c0a4e
+X-MS-TrafficTypeDiagnostic: PN3P287MB1171:EE_|PN3P287MB1340:EE_
+X-MS-Office365-Filtering-Correlation-Id: 344fe975-d6b9-4676-3c60-08dd04becbe5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|376014|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?/puLk8DJ458aYqss+VXS0La+aIoK1te+n1s4Hvt65s5gXAclNTgOnQK3Oiw8?=
- =?us-ascii?Q?lFenwZzkXP1QWIxO+HJpFFgsD2iaGdVHCc823MlN/LUCOMlQdd3dlYoKgajR?=
- =?us-ascii?Q?9kOq3NghL1J4/aUmzAQN2vyY3XrN4fiKKt8ia09LP6dUaLdeyyXQA4aTrK3q?=
- =?us-ascii?Q?xUU43nlVnnVrndt8UbSYcYT3yTAqOyeCIP6XZvpR5xzZpUA9SkzJoL+qSypE?=
- =?us-ascii?Q?fetdBTo1JYunltrTsTD60YuTmSYw0/aVHQKXB2GV36N+r4dwvqYj+iGTEVNd?=
- =?us-ascii?Q?f2Cz4NzHCgVR3nR3D1DyiD/P9jJ9t11db5vLDe6O56urfMhesvtEOgRGbG1v?=
- =?us-ascii?Q?bzleD0j0EYb569A7TbfryAM4QzmwS73LhFxAfI8z2mas4U7f7rFwAG9372kc?=
- =?us-ascii?Q?OWBz3MFSFejT7rGwuHKYYKFU/lgPdiX/j2aZg6HQszwluGUfAKUbS4loEkz4?=
- =?us-ascii?Q?60OjgzK4osEmivRBWBZnjI/qw49YM89aMpXMDlVu7qq3qw4sf8xR74znhWAD?=
- =?us-ascii?Q?rpol3hb6UFAJp9K0/bfD+6EEyIjlf9Zkqx8HLle2Hb3b/lcTyIN4jG/9Tdke?=
- =?us-ascii?Q?mTdsjWVoXmAgufJ4CPTjNg8HJVOiVcqrpyddisZmozES3eebZGnSoAnKcnCM?=
- =?us-ascii?Q?E3LiM+zB9rtjBulF39m7T561tC9Z0vXpmoMAmgbff0PNGu9Vr/TTBA1YLWG2?=
- =?us-ascii?Q?sK7aRTqJSWdYxNhW25H9Ef5wqFgh0UliY2i8oFni3D//r66ZdOpbHq4/iOla?=
- =?us-ascii?Q?08G4uvNxzqP+Rpi5eOmb1pXE2ov1H+44rCravI3WiztEit6n1P1ethwY7taZ?=
- =?us-ascii?Q?cviCDYE10liGvceMNYmz2czomMh95h0MVzH2R643lYTqyJesOKqVnFK418lQ?=
- =?us-ascii?Q?ECKS5TIzjp+yoQrQM95+Gmi8ZBMdIHeg6ZiuIUd7heymUwQyStOxoO4Kf+o8?=
- =?us-ascii?Q?w7vNlduuKK9s/ynRKeWOgWnSVwsv84JlLDsR8p2S3lSGcTmKOs0i+COprJnd?=
- =?us-ascii?Q?7uy4myknJgJv111Mi2/yaOkqqwHhIcFT0FEVGWgKvwNrF4/Md437WQePRrqz?=
- =?us-ascii?Q?WlsJh8Ut75zCjmSFHeDy+mHB+yFHEVcEXXLgWCYzUMKnB5Lh9xbMLbtEr5YL?=
- =?us-ascii?Q?Cjd5G47L86Az2kgYTbPn1T6IrG7d8msqwSmWCrmrSuN76YXtRwjaagbALZRf?=
- =?us-ascii?Q?Qv/bXH3/xQu5D3ya0NoUahhsAPdbzYg4ke9rPFxl0/1rIboptgqSvPgPVOI4?=
- =?us-ascii?Q?bHt/1k3+TeJnYs2T8KNLzZMXLvcbn89BkOwgNKLs9Tb31/4/mjNM0/vdBuhA?=
- =?us-ascii?Q?/BUSRvGixDUTjwonGERe7yOJZ9Fw9eiMBxLrrKJBLWGeoSJB3VyvHpq7ZkSf?=
- =?us-ascii?Q?kWuMlTYceJC4UH6n0j6soF1Z2xRkyu792wvWSZzxp7KDvKZM+w=3D=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(376014)(36860700013); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Nov 2024 08:03:50.4119 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 64e926a1-d47e-4445-a135-08dd054c0a4e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF000015C9.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6585
+ ARA:13230040|1800799024|52116014|376014|366016|7416014|38350700014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?cMwzViqPSo3Y0qBrKorLlq8RSdpiPOlR/07xmxXGLiXVlj/5Fw7L7SY33IQp?=
+ =?us-ascii?Q?CNduHWYM6hUOe8jgMrzQx4oq5PdQa5ernSZW3RHgRrX5nk+yd5K7Ddhd5U2Y?=
+ =?us-ascii?Q?OJYdF+O1OdbLukGCA9M35E3IFj/i7vQtju2wKNsBpwlcjWi8DEQ0laXryldZ?=
+ =?us-ascii?Q?rZjQIvX2pU1vQPpjha9hs/++Im2UFYga1xb/XHCxIcnzHY8BAWsgV8BDeKA3?=
+ =?us-ascii?Q?sJXjqmTYky1sUPsC6w3cLP7JR6PaEufkHeEXYHEXHv48K6Ew2IBRGB77Dxjp?=
+ =?us-ascii?Q?WSuqAhMjwUYsfH7qq3ljVvVrZb7isr3KcYF0NPGMJQfuiIbmhNhCBQ4bz2ey?=
+ =?us-ascii?Q?t3FnS8SKMQjj17y/YzZ8nm+qfYHWStn51ejsnAUTvL/LFPURktXqnqdViU09?=
+ =?us-ascii?Q?+mvWHc975HEsWWafsE56NsxTZpV/0EavpAOy8wfPDWD8c3w+4UzQaEh9rGRI?=
+ =?us-ascii?Q?N71TPNWUx+pyRh+nZT32suOaYyMpFYjDVX2AFr0iARbKhfwE7ptvAH0gTeYr?=
+ =?us-ascii?Q?iUrmUtpoBrwopoVIYty4Rx/eCIGDzkSdVGlh8vVeEBo64VwKyHlPn7c7DCIR?=
+ =?us-ascii?Q?EcY25cH6UYtX5JMeUNUSGilO9hDT1dAc9KzOqlhFSLzz9kqf4cxPkXRn1ARp?=
+ =?us-ascii?Q?70F0atsKkh9D9CG1jFjQZTJqSungd+WHKh08zIYco+um957uNiOce+204B2T?=
+ =?us-ascii?Q?v5hlzhOZ9eyJEcPDRAkqcQ0vcE7jBOMxsovB7YIhNCP32ly4YN/IVsu9OXUV?=
+ =?us-ascii?Q?zu5YPM9xqyFMXErhYTMiU9yBOhZKZfW9day2goPj+oZV4s8xRX8moekROvXH?=
+ =?us-ascii?Q?KD+pE+kLhB7aSALrj82QSk2M78VbSzv3RokHY4EiuVKsO1OnWOUf+7muHzkZ?=
+ =?us-ascii?Q?9tVuBVnFH6o6SBosNJ3XUskny38iKz8t+z06yilt1Qdho846OochSfyNys1Y?=
+ =?us-ascii?Q?L5sutY+ZCanPMbWVho0hVxlSr3/JnVI7Ba+GuHXXVObeCAuKkKEJ2x76Ca3T?=
+ =?us-ascii?Q?Sw9IvjnCXcocC37E2B3NQDmd+6cYvKtK7yW6dYsJyo66L4KLXyZUMMJVtIK5?=
+ =?us-ascii?Q?2QphnCoAb6z28f9p9ON0io5unLyqSFcc068IoLCi9WqSGBuw2O6fN93rl9Wd?=
+ =?us-ascii?Q?WgTKYsh2vHPC3H0cQRj1fluQmvFAIjFYexKGyassh6cuKYX7mJwQ9YKUloC/?=
+ =?us-ascii?Q?wXRRqOWF2Y3URgGi2+yFGn350dHsLLPqAP9H5KtyxZ2LpfNASgGlGFFzFDwO?=
+ =?us-ascii?Q?ffURog9dYl9Ao/J18zOD5YxCgmfJZhk5HhKRXOoEhgC/ml0XzfuGmZeysufN?=
+ =?us-ascii?Q?lQPfSHGWq85nH6f3vICBEYYmsYlL/SMWsIlcyYdDhQhOtJJ/XuGtlVqw1NHs?=
+ =?us-ascii?Q?T+gd6/Y=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PN3P287MB1171.INDP287.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(52116014)(376014)(366016)(7416014)(38350700014);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?2DtPh/ARynGUt7/3nOIvT7uy1TA4nQy/bQgNqdsaz3wAlYO9/h4NBYU6ZQln?=
+ =?us-ascii?Q?eZiV+5FrZZ4uwdszDaCOIq4dcCGprs1r2NxE2IVNit00FfN9R2xRTqTQjIH2?=
+ =?us-ascii?Q?Ct2g4h2ZuftaAm1kRDLQg5jUNP7SQaTYTMYw518dgBv0MxtVl2UhNflaVob7?=
+ =?us-ascii?Q?rsQnP/nkIpJUJXlZMenhuFbCouZkoMxSQZwtuTHr7O8zIn043RFIwhPYy3B4?=
+ =?us-ascii?Q?Y92rxONM5lEFLMgkqNPRZ2dqE9SUsDx7F8MPNSu7yLhVBxdT7QUW+4dTg9nw?=
+ =?us-ascii?Q?sgCCmC7rteH3oxkGXnotQqbwLBciAI86L15OSbIIHyF4ubBaKQO0VyVkXeHE?=
+ =?us-ascii?Q?q2eP6FygAWz4kW7lX20M56n01i9ut3jHhhZxBsfkwWSTWEh01rPaK/p+WeBM?=
+ =?us-ascii?Q?QIo54jZ7Crj+HlapPSLVAueGjA+bqeK2vG2/e8rqqlRVLgeZ3/GgEf/rsZ4i?=
+ =?us-ascii?Q?7ZQ1iP0xJFP8nmpLchiJjb/tLsF/0VQat4JWFWfAoaKyc3xBzJdixZZiIXwz?=
+ =?us-ascii?Q?Awwc3qs2m/J8GlQJyuxqf+jX4Du4mqYT2dTjL2hFNQvR9uk+x0V5GEiP/17j?=
+ =?us-ascii?Q?xXxBsmlajABneOwSREr9LPh11hIB8fQHJGbJ9MQI9Mef920QYL7Mwbx2S1ZT?=
+ =?us-ascii?Q?mYZ4MdnNzN+8xUHcK3k1um4ErSEJ4UT6gjh3Ui5Nd7BuCc7d9KzLFa2Dw3Da?=
+ =?us-ascii?Q?gRmRm7kyMqLvSue2hFXDC20C+KiUCi7K9mFaR8VH0lfPxy+Of6M8Yi8qXsXn?=
+ =?us-ascii?Q?2s4JahQINLB8GHusuuD6fTXO2EQ//9IC+4FOZYFFQtgeC4/0sRgwEXiTEOVH?=
+ =?us-ascii?Q?9YA7OP9AfLvKWioy1gup05O3T26pwn+adQ26FEqAOQw71W83C7Qa1YlZKOkW?=
+ =?us-ascii?Q?H7LxkKtkT4GiN8tkQVW29GHr2zGwGaHs0VPrq99jMLSo5HjLzizj8b7B0zUV?=
+ =?us-ascii?Q?NcrgptmPir5uUlHJVVDWUgApts4NA/n+ULhISJdEc1ZQIflMeWnhlpj3xxJv?=
+ =?us-ascii?Q?+E1iexIufUpg5k5k1ov3VvM19Mw1jwABIhuzcwiohkmr+3pouqd4g9qq3ku/?=
+ =?us-ascii?Q?QclnqRop2wUrIi4TGP+GjuDcw0wjdyXkM18FEXFA6rfiyrJQdX/QJhYKbQKz?=
+ =?us-ascii?Q?8Yg2vTZzAbXg6+i8MohbqznpJLSTF0dBaFEUjzKVzKJ4SZwJmxRl/3fT9RtV?=
+ =?us-ascii?Q?/rAW8bH43cj3PE6oDKhpM55Gbd6P6yOQtiymKWOcGK183+DfXdu+HGWd2bz/?=
+ =?us-ascii?Q?KKE053HLdoYJOSzEPABQznjr1Stu1P8jqRnMhSY67V5JluuJc4rIvaf+titM?=
+ =?us-ascii?Q?CLnP4iJOJw4DXPqVmRx5aQ3TKWAepNzLq3PWR7G9JFpBTHWtRiQqf1ZdQ0JC?=
+ =?us-ascii?Q?qfmdYyYKaKuVvVc3S+NW9XyM9uxzqVWleyqnvx+uDlf64PsWLVf5orLBY8H2?=
+ =?us-ascii?Q?GSLmZdeRRf2idupVHfbjp1H7MjZ6RV8dz2awdTm/jGbh/6uqW9aQOYqnpjcd?=
+ =?us-ascii?Q?yEhe/qKvGhQ55bZM9RWJ/1AwHQZulMLg2eVRY3W11nJUjg223uUFGIz4cJpB?=
+ =?us-ascii?Q?eVV29oaMwFM4zb6xUrWtohlLNKbiZrzsZ2nMZ4F2TRIRfSIebCrujYQNFmRA?=
+ =?us-ascii?Q?P4K/Wfs7rVFVxVIRXG3Vr8k=3D?=
+X-OriginatorOrg: siliconsignals.io
+X-MS-Exchange-CrossTenant-Network-Message-Id: 344fe975-d6b9-4676-3c60-08dd04becbe5
+X-MS-Exchange-CrossTenant-AuthSource: PN3P287MB1171.INDP287.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Nov 2024 15:12:46.8336 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 7ec5089e-a433-4bd1-a638-82ee62e21d37
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: oAW90gYzvK5FSXt4wFBYym7HUjjyZi6q16yiqWNrARcf8bxNpg5yvmPDLtDbN2CWj+AlVGkfPnwK35OU1UaAAvS2a3AoQYj3MvwzVSKGoL4=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PN3P287MB1340
+X-Mailman-Approved-At: Fri, 15 Nov 2024 08:38:20 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,189 +150,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When device needs to be reset before initialization, it's not required
-for all IPs to be initialized before a reset. In such cases, it needs to
-identify whether the IP/feature is initialized for the first time or
-whether it's reinitialized after a reset.
+The check for tools_size being non-zero is redundant as tools_size is
+explicitly set to a non-zero value (0x19000). Removing the if condition
+simplifies the code without altering functionality.
 
-Add RESET_RECOVERY init level to identify post reset reinitialization
-phase. This only provides a device level identification, IP/features may
-choose to track their state independently also.
-
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+Signed-off-by: Bhavin Sharma <bhavin.sharma@siliconsignals.io>
 ---
- drivers/gpu/drm/amd/amdgpu/aldebaran.c      |  4 ++++
- drivers/gpu/drm/amd/amdgpu/amdgpu.h         |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  | 24 ++++++++++++++++++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c   |  5 +++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h   |  2 ++
- drivers/gpu/drm/amd/amdgpu/sienna_cichlid.c |  2 ++
- drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.c   |  2 ++
- 7 files changed, 37 insertions(+), 3 deletions(-)
+ .../amd/pm/powerplay/smumgr/vega12_smumgr.c   | 24 +++++++++----------
+ 1 file changed, 11 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/aldebaran.c b/drivers/gpu/drm/amd/amdgpu/aldebaran.c
-index 6a2fd9e4f470..57c1ca055388 100644
---- a/drivers/gpu/drm/amd/amdgpu/aldebaran.c
-+++ b/drivers/gpu/drm/amd/amdgpu/aldebaran.c
-@@ -330,6 +330,8 @@ aldebaran_mode2_restore_hwcontext(struct amdgpu_reset_control *reset_ctl,
- 	}
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/smumgr/vega12_smumgr.c b/drivers/gpu/drm/amd/pm/powerplay/smumgr/vega12_smumgr.c
+index b52ce135d84d..d3ff6a831ed5 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/smumgr/vega12_smumgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/smumgr/vega12_smumgr.c
+@@ -257,20 +257,18 @@ static int vega12_smu_init(struct pp_hwmgr *hwmgr)
+ 	priv->smu_tables.entry[TABLE_WATERMARKS].size = sizeof(Watermarks_t);
  
- 	list_for_each_entry(tmp_adev, reset_device_list, reset_list) {
-+		amdgpu_set_init_level(tmp_adev,
-+				      AMDGPU_INIT_LEVEL_RESET_RECOVERY);
- 		dev_info(tmp_adev->dev,
- 			 "GPU reset succeeded, trying to resume\n");
- 		/*TBD: Ideally should clear only GFX, SDMA blocks*/
-@@ -377,6 +379,8 @@ aldebaran_mode2_restore_hwcontext(struct amdgpu_reset_control *reset_ctl,
- 							tmp_adev);
+ 	tools_size = 0x19000;
+-	if (tools_size) {
+-		ret = amdgpu_bo_create_kernel((struct amdgpu_device *)hwmgr->adev,
+-					      tools_size,
+-					      PAGE_SIZE,
+-					      AMDGPU_GEM_DOMAIN_VRAM,
+-					      &priv->smu_tables.entry[TABLE_PMSTATUSLOG].handle,
+-					      &priv->smu_tables.entry[TABLE_PMSTATUSLOG].mc_addr,
+-					      &priv->smu_tables.entry[TABLE_PMSTATUSLOG].table);
+-		if (ret)
+-			goto err1;
++	ret = amdgpu_bo_create_kernel((struct amdgpu_device *)hwmgr->adev,
++				      tools_size,
++				      PAGE_SIZE,
++				      AMDGPU_GEM_DOMAIN_VRAM,
++				      &priv->smu_tables.entry[TABLE_PMSTATUSLOG].handle,
++				      &priv->smu_tables.entry[TABLE_PMSTATUSLOG].mc_addr,
++				      &priv->smu_tables.entry[TABLE_PMSTATUSLOG].table);
++	if (ret)
++		goto err1;
  
- 		if (!r) {
-+			amdgpu_set_init_level(tmp_adev,
-+					      AMDGPU_INIT_LEVEL_DEFAULT);
- 			amdgpu_irq_gpu_reset_resume_helper(tmp_adev);
+-		priv->smu_tables.entry[TABLE_PMSTATUSLOG].version = 0x01;
+-		priv->smu_tables.entry[TABLE_PMSTATUSLOG].size = tools_size;
+-	}
++	priv->smu_tables.entry[TABLE_PMSTATUSLOG].version = 0x01;
++	priv->smu_tables.entry[TABLE_PMSTATUSLOG].size = tools_size;
  
- 			r = amdgpu_ib_ring_tests(tmp_adev);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 4f72ad4e843f..b8ef89d64704 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -846,6 +846,7 @@ struct amdgpu_mqd {
- enum amdgpu_init_lvl_id {
- 	AMDGPU_INIT_LEVEL_DEFAULT,
- 	AMDGPU_INIT_LEVEL_MINIMAL_XGMI,
-+	AMDGPU_INIT_LEVEL_RESET_RECOVERY,
- };
- 
- struct amdgpu_init_level {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 0419b37e75a8..415c469c2d80 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -155,6 +155,11 @@ struct amdgpu_init_level amdgpu_init_default = {
- 	.hwini_ip_block_mask = AMDGPU_IP_BLK_MASK_ALL,
- };
- 
-+struct amdgpu_init_level amdgpu_init_recovery = {
-+	.level = AMDGPU_INIT_LEVEL_RESET_RECOVERY,
-+	.hwini_ip_block_mask = AMDGPU_IP_BLK_MASK_ALL,
-+};
-+
- /*
-  * Minimal blocks needed to be initialized before a XGMI hive can be reset. This
-  * is used for cases like reset on initialization where the entire hive needs to
-@@ -181,6 +186,9 @@ void amdgpu_set_init_level(struct amdgpu_device *adev,
- 	case AMDGPU_INIT_LEVEL_MINIMAL_XGMI:
- 		adev->init_lvl = &amdgpu_init_minimal_xgmi;
- 		break;
-+	case AMDGPU_INIT_LEVEL_RESET_RECOVERY:
-+		adev->init_lvl = &amdgpu_init_recovery;
-+		break;
- 	case AMDGPU_INIT_LEVEL_DEFAULT:
- 		fallthrough;
- 	default:
-@@ -5445,7 +5453,7 @@ int amdgpu_device_reinit_after_reset(struct amdgpu_reset_context *reset_context)
- 	struct list_head *device_list_handle;
- 	bool full_reset, vram_lost = false;
- 	struct amdgpu_device *tmp_adev;
--	int r;
-+	int r, init_level;
- 
- 	device_list_handle = reset_context->reset_device_list;
- 
-@@ -5454,10 +5462,17 @@ int amdgpu_device_reinit_after_reset(struct amdgpu_reset_context *reset_context)
- 
- 	full_reset = test_bit(AMDGPU_NEED_FULL_RESET, &reset_context->flags);
- 
-+	/**
-+	 * If it's reset on init, it's default init level, otherwise keep level
-+	 * as recovery level.
-+	 */
-+	if (reset_context->method == AMD_RESET_METHOD_ON_INIT)
-+		init_level = AMDGPU_INIT_LEVEL_DEFAULT;
-+	else
-+		init_level = AMDGPU_INIT_LEVEL_RESET_RECOVERY;
- 	r = 0;
- 	list_for_each_entry(tmp_adev, device_list_handle, reset_list) {
--		/* After reset, it's default init level */
--		amdgpu_set_init_level(tmp_adev, AMDGPU_INIT_LEVEL_DEFAULT);
-+		amdgpu_set_init_level(tmp_adev, init_level);
- 		if (full_reset) {
- 			/* post card */
- 			amdgpu_ras_clear_err_state(tmp_adev);
-@@ -5544,6 +5559,9 @@ int amdgpu_device_reinit_after_reset(struct amdgpu_reset_context *reset_context)
- 
- out:
- 		if (!r) {
-+			/* IP init is complete now, set level as default */
-+			amdgpu_set_init_level(tmp_adev,
-+					      AMDGPU_INIT_LEVEL_DEFAULT);
- 			amdgpu_irq_gpu_reset_resume_helper(tmp_adev);
- 			r = amdgpu_ib_ring_tests(tmp_adev);
- 			if (r) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-index 4fc0ee01d56b..59a29fa12db3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-@@ -343,3 +343,8 @@ void amdgpu_reset_get_desc(struct amdgpu_reset_context *rst_ctxt, char *buf,
- 		strscpy(buf, "unknown", len);
- 	}
- }
-+
-+bool amdgpu_reset_in_recovery(struct amdgpu_device *adev)
-+{
-+	return (adev->init_lvl->level == AMDGPU_INIT_LEVEL_RESET_RECOVERY);
-+}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
-index f8628bc898df..4d9b9701139b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
-@@ -158,4 +158,6 @@ extern struct amdgpu_reset_handler xgmi_reset_on_init_handler;
- int amdgpu_reset_do_xgmi_reset_on_init(
- 	struct amdgpu_reset_context *reset_context);
- 
-+bool amdgpu_reset_in_recovery(struct amdgpu_device *adev);
-+
- #endif
-diff --git a/drivers/gpu/drm/amd/amdgpu/sienna_cichlid.c b/drivers/gpu/drm/amd/amdgpu/sienna_cichlid.c
-index 9b01e074af47..2594467bdd87 100644
---- a/drivers/gpu/drm/amd/amdgpu/sienna_cichlid.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sienna_cichlid.c
-@@ -220,6 +220,7 @@ sienna_cichlid_mode2_restore_hwcontext(struct amdgpu_reset_control *reset_ctl,
- 	int r;
- 	struct amdgpu_device *tmp_adev = (struct amdgpu_device *)reset_ctl->handle;
- 
-+	amdgpu_set_init_level(tmp_adev, AMDGPU_INIT_LEVEL_RESET_RECOVERY);
- 	dev_info(tmp_adev->dev,
- 			"GPU reset succeeded, trying to resume\n");
- 	r = sienna_cichlid_mode2_restore_ip(tmp_adev);
-@@ -237,6 +238,7 @@ sienna_cichlid_mode2_restore_hwcontext(struct amdgpu_reset_control *reset_ctl,
- 
- 	amdgpu_irq_gpu_reset_resume_helper(tmp_adev);
- 
-+	amdgpu_set_init_level(tmp_adev, AMDGPU_INIT_LEVEL_DEFAULT);
- 	r = amdgpu_ib_ring_tests(tmp_adev);
- 	if (r) {
- 		dev_err(tmp_adev->dev,
-diff --git a/drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.c b/drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.c
-index e70ebad3f9fa..70569ea906bc 100644
---- a/drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.c
-+++ b/drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.c
-@@ -221,6 +221,7 @@ smu_v13_0_10_mode2_restore_hwcontext(struct amdgpu_reset_control *reset_ctl,
- 	int r;
- 	struct amdgpu_device *tmp_adev = (struct amdgpu_device *)reset_ctl->handle;
- 
-+	amdgpu_set_init_level(tmp_adev, AMDGPU_INIT_LEVEL_RESET_RECOVERY);
- 	dev_info(tmp_adev->dev,
- 			"GPU reset succeeded, trying to resume\n");
- 	r = smu_v13_0_10_mode2_restore_ip(tmp_adev);
-@@ -234,6 +235,7 @@ smu_v13_0_10_mode2_restore_hwcontext(struct amdgpu_reset_control *reset_ctl,
- 
- 	amdgpu_irq_gpu_reset_resume_helper(tmp_adev);
- 
-+	amdgpu_set_init_level(tmp_adev, AMDGPU_INIT_LEVEL_DEFAULT);
- 	r = amdgpu_ib_ring_tests(tmp_adev);
- 	if (r) {
- 		dev_err(tmp_adev->dev,
+ 	/* allocate space for AVFS Fuse table */
+ 	ret = amdgpu_bo_create_kernel((struct amdgpu_device *)hwmgr->adev,
 -- 
-2.25.1
+2.43.0
 
