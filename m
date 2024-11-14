@@ -4,71 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 377E1D65C5E
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Nov 2024 09:06:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D84FD68B2A
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Nov 2024 14:34:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC9D110E7BD;
-	Thu, 14 Nov 2024 09:06:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E9DC10E2B6;
+	Thu, 14 Nov 2024 14:34:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="I01OfNgU";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ssY7GG73";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5CC4010E7BD
- for <amd-gfx@lists.freedesktop.org>; Thu, 14 Nov 2024 09:06:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1731575199; x=1763111199;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=vsj1gjfIdCoTe9tsTB8KJOCCRnXaY16KvOLgSudcp+Q=;
- b=I01OfNgUwRSlOvWrhuAHKFsIoA0VLTopmBVc8+AXe59CLYF7RrOlVgk/
- iI7lvJpB0/oEMvCj2rhC76oG0pQBAJFsYl+YR1xL27uCK1oZ7kJiwSc5l
- 5JWd2+0inAm3jaNIJ3tOnrr68eBoOYxZ6zT9tfmKOOfEuKCb9xdRDNeXd
- bG4Q6vqwBrz0+xG9Ffm0gprGwhQGyK+X2ikggEPxsOlMyG5JmPoPaEDJn
- yxtXQZNgw5BFvOQtyFEhinlrdPxlFoWoWFfmiAn5foq387d4WHhhxiYeH
- Z7O9GLOqy9atqhwQkHE8e2FJ+hiGwNmjOfVBOqQ0Fq3uLG7ZedtLlOaUs w==;
-X-CSE-ConnectionGUID: 87jaRCmVS7GUtPwZsjbUVQ==
-X-CSE-MsgGUID: YXAiDwldSw6GVT9ZLIs9Fw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11255"; a="56896691"
-X-IronPort-AV: E=Sophos;i="6.12,153,1728975600"; d="scan'208";a="56896691"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Nov 2024 01:06:37 -0800
-X-CSE-ConnectionGUID: YigTxEbWToC5vqtQKsTIpg==
-X-CSE-MsgGUID: iC7GCNlRQxWO3s+DXHtw/Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,153,1728975600"; d="scan'208";a="88026630"
-Received: from mjarzebo-mobl1.ger.corp.intel.com (HELO [10.245.244.22])
- ([10.245.244.22])
- by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Nov 2024 01:06:35 -0800
-Message-ID: <1e64ea08-a317-4475-974f-61788799982e@intel.com>
-Date: Thu, 14 Nov 2024 09:06:33 +0000
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2052.outbound.protection.outlook.com [40.107.94.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B3CE10E2AC;
+ Thu, 14 Nov 2024 14:34:28 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NcT0CB2aqbDoAHJSJ6VqoG8QPX9oYMiSURGLkG7iLV+2qHLXedatQi1BKfnDzCu+1zVNpHCdb4r2MPArlW9WLNS+eqQK4Ch7pRPVU+0PihI88Fa0A/KQ2zWHe5C+UGKupjVaV3QNWBKrvZZpEY/sJh8NyKcrDFuamWmj8PsZJsZq5z6xQKWR6LOEsI3Fnkk09JuRcPrmDeoPV3BfK2CMGQmkCPDy8DpbxgM/0JJ2I1Us2uq0D9IilCiwbBob2p87nnOVDCOs5KHZahax3mTo5UOlReawqNbpJ3kxtmF6dFk35+L7yIZ7ATac6QWQUuKadpcRte8hMWZXQUpfVxyjJQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Ycoh9kQ0+nCSmvJngycpLvr/1w6UoKBdSnNRf8B+skw=;
+ b=N6WEEppT7VTKE81iHrw3pGa0mKiidbWSU8FBYhCX1h6MpsCIi1tFJ6mE5cz359hEM59kuTawYcJslX2I8lz1h4xENLAJXZ1iRPMVrID63CHWzGnI6kjpMjJ41UifFsgFnx+y58jZ8fHZwPJ+BOeN/xvDqPIHDuT/ZXB49cWJtevPF/yNHWfxwPnM/MRAk+z+DjbUx/G9Kjp5BYMe1feQDaxiE4z6zINrzjOsZzerVypnVqDUdMFQ10aoads36ovLEbpPqI/8f6ehcYrK+0t7GLkh82Jo35mthldrSjPcrRadqRiPMwPptqiJqmL11LCq7mIULXoVdwpb5UEy9ygKAQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Ycoh9kQ0+nCSmvJngycpLvr/1w6UoKBdSnNRf8B+skw=;
+ b=ssY7GG73f/VIj6nbfHNYU9f2DxfKGi03HZX03niu7jYmKNivTKcw5BVT8PirIhHa1YQNpsgzUv3G+3f0iWyp5Q9ttHzU9Z5X6rhV1lso8AVJgoVkdXmdx/cdfUi5aNxt5f1GVTEqoTHWZWU5D27NZUyU82843Q+1ZNIR3aEikgo=
+Received: from CH5P223CA0013.NAMP223.PROD.OUTLOOK.COM (2603:10b6:610:1f3::8)
+ by MW4PR12MB7015.namprd12.prod.outlook.com (2603:10b6:303:218::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8158.17; Thu, 14 Nov
+ 2024 14:34:20 +0000
+Received: from CH1PEPF0000AD78.namprd04.prod.outlook.com
+ (2603:10b6:610:1f3:cafe::de) by CH5P223CA0013.outlook.office365.com
+ (2603:10b6:610:1f3::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8158.18 via Frontend
+ Transport; Thu, 14 Nov 2024 14:34:20 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CH1PEPF0000AD78.mail.protection.outlook.com (10.167.244.56) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8158.14 via Frontend Transport; Thu, 14 Nov 2024 14:34:19 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 14 Nov
+ 2024 08:34:17 -0600
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <simona@ffwll.ch>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [pull] amdgpu drm-fixes-6.12
+Date: Thu, 14 Nov 2024 09:34:00 -0500
+Message-ID: <20241114143401.448210-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.47.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 4/4] drm/amdgpu: track bo memory stats at runtime
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- "Li, Yunxiang (Teddy)" <Yunxiang.Li@amd.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-References: <20241110154152.592-1-Yunxiang.Li@amd.com>
- <20241110154152.592-5-Yunxiang.Li@amd.com>
- <5d1c88a5-9802-4bb7-b76a-5e501847ced1@gmail.com>
- <SA1PR12MB85998D24DDB5EB93AE88E5A1ED592@SA1PR12MB8599.namprd12.prod.outlook.com>
- <92be210e-b552-45ee-9322-1944a4bfd325@amd.com>
- <cc63f0ef-e152-49fc-90d9-ca695a8918f3@igalia.com>
- <eed6b35e-912a-4d7a-ac18-643d571f6e03@amd.com>
- <SA1PR12MB85999903EC92F7A1329D741CED5A2@SA1PR12MB8599.namprd12.prod.outlook.com>
- <76af3cc6-5535-47ca-9473-792f3e9c2d13@amd.com>
- <SA1PR12MB859954E2004C03CAAF764812ED5A2@SA1PR12MB8599.namprd12.prod.outlook.com>
- <dd23e624-c8c5-41f4-b4b0-316351d8c8e4@igalia.com>
-Content-Language: en-GB
-From: Matthew Auld <matthew.auld@intel.com>
-In-Reply-To: <dd23e624-c8c5-41f4-b4b0-316351d8c8e4@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD78:EE_|MW4PR12MB7015:EE_
+X-MS-Office365-Filtering-Correlation-Id: d397348d-bf63-4f42-f815-08dd04b96cef
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700013|1800799024|376014|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?OCtMaDlOcnp2enNSR0FXTHdZRGNhb0prZm81Z1p4MzJaSlp3U3RLQVdyaU5M?=
+ =?utf-8?B?RVVXdjdtSW52VWRRWFpGeDdGRWRvWlFnZ2laL012dXNRT1RrYmVmc25tL3Ju?=
+ =?utf-8?B?cFRwNnpWazNnSGEyWW16OU80dm12UHpwUUFUVVFNYjZGL1RkYSsyc1NkTVd3?=
+ =?utf-8?B?R1BIRGQ5NThjSmgxL2dud2pNLzA4ak5oZWFXaUViK054SFpMQnorNy94bXhG?=
+ =?utf-8?B?eW45TWRsdjRQcFJDRDVqeW5mUFpDNmZseGtvOTgrd3RVN1ZGT2VkMUpIQmhr?=
+ =?utf-8?B?ZG1jb1FyZWZ2MDJwc0YyKytpQnR5Yld0VCtKTG91UFZhZUxWajFsN2k0endQ?=
+ =?utf-8?B?OFFOR01laUc2Mkc1THNYZUJqcmU1WXA4NG1ObjBQZWxLODY5ZThDdXQwSmNL?=
+ =?utf-8?B?U0tNUXJlVm1JdG1TUHpZQi9wK0dsY09IYnBwaTd1bVpqMVFTNE11TnY5blBU?=
+ =?utf-8?B?SmhYZ3pnRkxLWkhsQ0lVWFZqTTViWmhHUUF4eWFXem1mRVlxVEdyVFlVVUN5?=
+ =?utf-8?B?SlEwYmhBeXdpM0c0MGZxeUVING1MUitteSs2c3JXU21TcTNWckkzWUQxYnJ1?=
+ =?utf-8?B?OXcvdFQxRlBsWDQvcjVkejEvMDZBUUFRc0U5MTRYRjV3ODQrRFV6N1k1S3ZN?=
+ =?utf-8?B?M0hBeDZ0VHlMeHA4MjQzTmFnN0IwMDluSmUzNWhraVB0akpRUE1QZnlpNEpM?=
+ =?utf-8?B?S2MwSTBUOHk1YXhLU2U3Ymd5SlpuQVIyb3hoazM4K3pHK2t5YW10ZDhoUlpU?=
+ =?utf-8?B?bFIyZ3NIdzY4TjNBSndDbnB5emJVbzRJaTMrNUNsZW5RVGJzajVHMXlWWGpo?=
+ =?utf-8?B?TDZvOSsrY2RGdk5udWNtWUFoUzBqL3Byaml2VUgzMGZjYm93TlNYRkpiZlBv?=
+ =?utf-8?B?RFZvaU10SkdJTzdmcU1LeW1UTFNSVUViN0NjN2FZNGxuODBFbnhZUWNTR1k5?=
+ =?utf-8?B?TWJSR21JTzZTeitKMC9yaW4vdHYvcEJBUDcxYUVMTEpObUVnaVErRHJadWdM?=
+ =?utf-8?B?eVRVNWd5ZE9IU3lVaG9OZ2NHaDl2KzNTRWRWeVhucHNROElGS1JXQ05MWHlM?=
+ =?utf-8?B?dnJEZTZycnAraHpidDNVcFp2eEhoS2tmdks2ZjB0NnZ6dWZoSWlaQnF3U3kr?=
+ =?utf-8?B?ZUhaSFR1d0p4cVZ5bE1kelBZOTdFemdTZ0gxRWh0N3RPbDhwVVJBVDN5eC8y?=
+ =?utf-8?B?QlUrQjZFTUluV0tRSGE5bVFOVU9pUUl5bUxYa1RFQVNLN3d1L0MvQ0pnK01r?=
+ =?utf-8?B?K1VIWDhZRGEwSUtra3hpTG9FQTR1ZFNOMktwaTI1elV0bmU5NzIyWDB1aDht?=
+ =?utf-8?B?d2s0cC9QSVAycjB1L3J6TmxTS0F0a2Z5ajNWZ3V3VUxiOXg4OGY4ZE5uZFRt?=
+ =?utf-8?B?ZmMrVGRaWm5rTmIxL1dWbitWUGRaNFFmaURZSUtzN0JheEFWQW9xQXRJKytM?=
+ =?utf-8?B?TUVSczdkZk9HVXZlSG11ZlJ2L01qOXJUOWc3OGVjZDRIeFhlZHpLbFBkMHBt?=
+ =?utf-8?B?cDF1amJTQ05MUkNoLyt5dVk1am0wZ2QxVUdmQVpTUmM5R3E0VDlYQmw0MVNK?=
+ =?utf-8?B?dzFvd2hsT2pWWUdXdU5MRU5WMTdXUDRrSUM3UnBVRjlnQUo2aEdDRjR4Unkv?=
+ =?utf-8?B?Qks3ZDZnWlhyaXZTOFJpV2dnRHNFd3dmQXlOa3l0SnlaeE4wNzdacjB4VU5h?=
+ =?utf-8?B?dDRNUmx4RDl1YlNKblFQWVVlK0ZKUW81TlgxeStiYTA2UWd6aGtJdHk3OUVk?=
+ =?utf-8?B?RnN6bkJEcWFGQ2U5a3dQbC8zeFc3bTRXWHdkL0hjWFhCUFlXbzk3S0RYUXg1?=
+ =?utf-8?Q?juJ25jEiRQboi30ATLt+gNqhexVQdr0NJUyE8=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(1800799024)(376014)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Nov 2024 14:34:19.8824 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d397348d-bf63-4f42-f815-08dd04b96cef
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000AD78.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7015
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,124 +136,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+Hi Dave, Simona,
 
-On 13/11/2024 17:30, Tvrtko Ursulin wrote:
-> 
-> On 13/11/2024 17:01, Li, Yunxiang (Teddy) wrote:
->> [Public]
->>
->>> From: Koenig, Christian <Christian.Koenig@amd.com>
->>> Sent: Wednesday, November 13, 2024 9:22
->>> Am 13.11.24 um 14:53 schrieb Li, Yunxiang (Teddy):
->>>> [Public]
->>>>
->>>>> From: Koenig, Christian <Christian.Koenig@amd.com>
->>>>> Sent: Wednesday, November 13, 2024 6:39 Am 13.11.24 um 11:25 schrieb
->>>>> Tvrtko Ursulin:
->>>>>> On 13/11/2024 08:49, Christian König wrote:
->>>>>>> Am 12.11.24 um 19:16 schrieb Li, Yunxiang (Teddy):
->>>>>>>> [SNIP]
->>>>>>>>>> +   size = sign * amdgpu_bo_size(bo);
->>>>>>>>>> +   res = bo->tbo.resource;
->>>>>>>>>> +   type = res ? res->mem_type :
->>>>>>>>>> amdgpu_bo_get_preferred_placement(bo);
->>>>>>>>> Again, it's a clear NAK from my side to do stuff like that.
->>>>>>>>>
->>>>>>>>> When there isn't any backing store the BO should *not* be
->>>>>>>>> accounted to anything.
->>>>>>>> I don't have a preference either way, but I think it should be a
->>>>>>>> separate discussion to properly define what drm-total- means.
->>>>>> Total must show the total size of all BOs which exist even if they
->>>>>> don't currently have a backing store. That's how drm-usage-stats.rst
->>>>>> defines the field and that is how all the other drivers work.
->>>>> In that case we should only look at the preferred placement and not
->>>>> the backing store at all.
->>>>>
->>>>> But that makes the total identical to the requested value, doesn't it?
->>>> Yes, the issue is not which BO needs to be counted but where they 
->>>> should be
->>> counted. This gets more complicated if we consider BOs to prefer 
->>> multiple
->>> placements.
->>>>
->>>> IMO it makes sense to have drm-total- to work like the legacy amd- 
->>>> requested-
->>> where we look at BO's preferred placement. For multiple preferred 
->>> placements we
->>> say that the implementation needs to pick one of them to avoid double 
->>> counting, but
->>> which one is up to the implementation as long as it's done in a 
->>> consistent manner.
->>> Does that sound reasonable?
->>>
->>> Yeah that works for me. Just don't look at both bo- 
->>> >preferred_placement and bo-
->>>> tbo.resource because that will certainly be inconsistent in some use 
->>>> cases.
->>
->> oof, from the commit message i915/xe is doing the exact opposite, BO 
->> gets counted in the totals for all the possible(preferred?) regions.
-> 
-> Which commit message? I was doing that early during i915 patch 
-> development but stopped in v2:
-> 
-> commit 968853033d8aa4dbb80fbafa6f5d9b6a0ea21272
-> Author: Tvrtko Ursulin <tursulin@ursulin.net>
-> Date:   Tue Nov 7 10:18:06 2023 +0000
-> 
->      drm/i915: Implement fdinfo memory stats printing
-> 
->      Use the newly added drm_print_memory_stats helper to show memory
->      utilisation of our objects in drm/driver specific fdinfo output.
-> 
->      To collect the stats we walk the per memory regions object lists
->      and accumulate object size into the respective drm_memory_stats
->      categories.
-> 
->      v2:
->       * Only account against the active region.
-> 
-> ^^^ THIS ^^^
-> 
->       * Use DMA_RESV_USAGE_BOOKKEEP when testing for active. (Tejas)
-> 
->      v3:
->       * Update commit text. (Aravind)
->       * Update to use memory regions uabi names.
-> 
-> In code that would be here:
-> 
-> static void
-> obj_meminfo(struct drm_i915_gem_object *obj,
->          struct drm_memory_stats stats[INTEL_REGION_UNKNOWN])
-> {
->      const enum intel_region_id id = obj->mm.region ?
->                      obj->mm.region->id : INTEL_REGION_SMEM;
-> 
-> So either active region or SMEM if no backing store. Maybe that should 
-> be improved too. Grr (to myself).
-> 
-> I don't see xe is counting total against all regions either, apart that 
-> maybe it has potential null ptr deref?
-> 
-> static void bo_meminfo(struct xe_bo *bo,
->                 struct drm_memory_stats stats[TTM_NUM_MEM_TYPES])
-> {
->      u64 sz = bo->size;
->      u32 mem_type = bo->ttm.resource->mem_type;
-> 
-> Or is bo->ttm.resource always present in xe? Adding Matt according to 
-> git blame.
+Last fixes for 6.12.
 
-Right, we shouldn't currently have a way of seeing NULL resource here in 
-xe, at least if we are holding the bo lock.
+The following changes since commit 2d5404caa8c7bb5c4e0435f94b28834ae5456623:
 
-> 
-> Regards,
-> 
-> Tvrtko
-> 
->>
->> Teddy
+  Linux 6.12-rc7 (2024-11-10 14:19:35 -0800)
 
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-6.12-2024-11-14
+
+for you to fetch changes up to 7013a8268d311fded6c7a6528fc1de82668e75f6:
+
+  drm/amd: Fix initialization mistake for NBIO 7.7.0 (2024-11-12 17:37:39 -0500)
+
+----------------------------------------------------------------
+amd-drm-fixes-6.12-2024-11-14:
+
+amdgpu:
+- PSR fix
+- Panel replay fixes
+- DML fix
+- vblank power fix
+- Fix video caps
+- SMU 14.0 fix
+- GPUVM fix
+- MES 12 fix
+- APU carve out fix
+- DC vbios fix
+- NBIO fix
+
+----------------------------------------------------------------
+Alex Deucher (1):
+      Revert "drm/amd/display: parse umc_info or vram_info based on ASIC"
+
+Christian König (2):
+      drm/amdgpu: fix check in gmc_v9_0_get_vm_pte()
+      drm/amdgpu: enable GTT fallback handling for dGPUs only
+
+David Rosca (1):
+      drm/amdgpu: Fix video caps for H264 and HEVC encode maximum size
+
+Dillon Varone (1):
+      drm/amd/display: Require minimum VBlank size for stutter optimization
+
+Hamish Claxton (1):
+      drm/amd/display: Fix failure to read vram info due to static BP_RESULT
+
+Jack Xiao (1):
+      drm/amdgpu/mes12: correct kiq unmap latency
+
+Rodrigo Siqueira (1):
+      drm/amd/display: Adjust VSDB parser for replay feature
+
+Ryan Seto (1):
+      drm/amd/display: Handle dml allocation failure to avoid crash
+
+Tim Huang (1):
+      drm/amd/pm: print pp_dpm_mclk in ascending order on SMU v14.0.0
+
+Tom Chung (2):
+      drm/amd/display: Change some variable name of psr
+      drm/amd/display: Fix Panel Replay not update screen correctly
+
+Vijendar Mukunda (1):
+      drm/amd: Fix initialization mistake for NBIO 7.7.0
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c         |   3 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c              |  13 ++-
+ drivers/gpu/drm/amd/amdgpu/mes_v12_0.c             |   2 +-
+ drivers/gpu/drm/amd/amdgpu/nbio_v7_7.c             |   6 ++
+ drivers/gpu/drm/amd/amdgpu/nv.c                    |  12 +--
+ drivers/gpu/drm/amd/amdgpu/soc15.c                 |   4 +-
+ drivers/gpu/drm/amd/amdgpu/soc21.c                 |  12 +--
+ drivers/gpu/drm/amd/amdgpu/soc24.c                 |   2 +-
+ drivers/gpu/drm/amd/amdgpu/vi.c                    |   8 +-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 117 +++++++++++----------
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h  |   2 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c |   5 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_irq_params.h   |   2 +-
+ drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c |   6 +-
+ drivers/gpu/drm/amd/display/dc/core/dc_state.c     |   3 +
+ .../dml2/dml21/src/dml2_pmo/dml2_pmo_dcn4_fams2.c  |  11 +-
+ .../gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c   |   5 +-
+ 17 files changed, 117 insertions(+), 96 deletions(-)
