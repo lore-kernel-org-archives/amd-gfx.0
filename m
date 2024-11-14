@@ -4,71 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8D0BD6A230
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 Nov 2024 21:23:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48FF8D6A230
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 Nov 2024 21:26:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3AF1210E37E;
-	Thu, 14 Nov 2024 21:23:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB25310E37F;
+	Thu, 14 Nov 2024 21:26:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="V3VkXBYR";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ISE7uq6M";
 	dkim-atps=neutral
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com
- [209.85.210.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C4FF10E37D;
- Thu, 14 Nov 2024 21:23:00 +0000 (UTC)
-Received: by mail-pf1-f178.google.com with SMTP id
- d2e1a72fcca58-72458778447so131325b3a.1; 
- Thu, 14 Nov 2024 13:23:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1731619380; x=1732224180; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=RHPQdWeymjSqEq39MrfOKaA+rsratObJz0alenKPpxA=;
- b=V3VkXBYRVQtDXTdbaO3Hrk7JTvT1yEXWX1GG3JC1C+mo2WeFvql62YBlncALg6Ki5F
- WUkkMX7S2tLy28V0q7IlKMP71axhGqFnFbabAT7trn0vPAMI3bgB5CV7AhVCKKVbUqIX
- wfc+I7yoWMhZID2YkV34XznI7hs0MDwsdzX4s5utuj4ONbiYuUHlwHatZw5u2Gg8GMRo
- jFHaHrmlwZ2UJDJG9q1n2eT4dw4xdcd8eg8cBWoJ9Xfhfl9UGf1NNFOyijy44cZ06mz5
- D12/MUbM9pBSmebpA5DRLupZjm7dsA+Y3RyICsmSGOdsZ34saslVpUctUVTijk/YLmpF
- 15SQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1731619380; x=1732224180;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=RHPQdWeymjSqEq39MrfOKaA+rsratObJz0alenKPpxA=;
- b=X7fc8VcApKprL+myFTbQP0XivhFAKy68yhCDio20wqdjGkcZRXmZUzuyuqkf2zuWhD
- cekGL99HFsDJmLkNLN7DzKl69lJwrdh0tAXDOSkGQEzHRuPR7+S/EI4r6VgIdxuTYa7/
- t+V3K0W9At5cryy4sM3FBhgWYEkDi2/Y37HnQpD0T631PldHHrfKJpJpKkZrLZmVMgRR
- pRP0PIKNM53klwO1diHQUfgzNqYY5P2T0vLAN6tfWzRP/s8gN6Nw1E6newqNwVIFjuTA
- 7wF7n+kcDR/qqwcT/ED5mnltB3FxpTnEaFgUcYJ9MJeRaYDk+pF885yJ7PWj91uE/Yq7
- Bc/g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUuCw6BtWs8HKVKGwpd86CcQSoXq8x1vZogsH4e3IhR1lZ7P/349qQKKPc2bybU/vRa1o4QnhC6@lists.freedesktop.org,
- AJvYcCXbsed9gPr5DNiIgkmaUp2w69sjlg+lhCleBJpFSJviD/Zkk83cCTkhqfJRDiqdjgxQLJl/qRBOvyfy@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyKqPf2YyOtkvyPcyCmo2N3FNM7BcosQFXFCsvxmx0A+MH1OKy8
- CU8rKVImw01hiL1RuEe25jMKIQ2un8KM/b7S3PoO7lPKiVuGAlDxc3aREoQBi5DgWwU4vC6siVz
- ek3QCUvE7NcQO8/jjlw+ytrFxCNM=
-X-Google-Smtp-Source: AGHT+IE8GWehKpjTSXpVYptjXohMTqCxTrt68SQgfk9jJxHogJwyh/7+THbVI3C/Zce2x/BRDDMS7zuQSkIWIB9rRps=
-X-Received: by 2002:a17:90b:33c6:b0:2ea:120e:14b6 with SMTP id
- 98e67ed59e1d1-2ea1556e6d0mr205457a91.5.1731619379810; Thu, 14 Nov 2024
- 13:22:59 -0800 (PST)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2049.outbound.protection.outlook.com [40.107.223.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 497BF10E37F
+ for <amd-gfx@lists.freedesktop.org>; Thu, 14 Nov 2024 21:26:31 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kbEXc9BOKxFGPUNBUO0QIEY2vfzj5DlHB+NeGE50RIhIRpRyOHgwbkP8cfnwMXqYwPvdossCxlZyDVms+aXpY8Ib2SLqJnLyEKSGk0uluk8Z6Qnt03nOyWy7wH/x5n+ofpwhZha58NjEH9jhvmHNx/Pom5V/9p40EVJRgmLuQYcHl0on63swlZelRmFV81KIrW96sui4a2R7qVnluHTogCsen5/WdgS9IuFc0dtk8qzUTBw3A5V2XrUc5V46Y6gpzB77uQfKrUBe+c77//v6roVtaU0/ipPbLKxiqbC0B8dMDl6g5Xii87XmUiLzb6CR/zW45MINY/CN2U7vGAPl5g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fjNikG9jOAqBaELbyMeLKojwiDQs7eYciezgBStaS8o=;
+ b=xMrg9hJMLiFElboWsYF6U87f2+oqgAd19dCdpdk8i/JS9je0veElIwn/nk/8rY9unIClQiwemSd+Wy2QzeBzLqgMHvZgfA+vjitSheMYLWo7oUP4BrD0hyZELjb3iP7kXz+9uZL/LX2ayjpJPbn2mcnFkm9UgNHQchqoQGRZX9XfhtCvkQ6iJHqr+v0yt4Ul28Z3ASNUWjqMMVydECfz22kuXdkf4mCLRsmQA/EoirC53oXGyXEWjEBrivLWhxXyvx85RW6S0IguiFcIqYh2JOSJPQPg9FnvYMApWKdeGGFSE/1v0FSx5hmjocel9WgcOII46ngqRIhoSfXCqnQ7MA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fjNikG9jOAqBaELbyMeLKojwiDQs7eYciezgBStaS8o=;
+ b=ISE7uq6M5PEStWfbAw5F5YpxUiRgek+SKj/TqTjtRBYDfOrRnKNHA9vrbbOjL6nFbfJSIQGlyLFlAbspuFX5ikYDHI0hF/+fysY0+z8saHJTQOa/3DKT9Bqsfkkham7ZTGhINoEiy//EvjAAgkZlsCAUQGr6hesNQR1VcAC1/8Y=
+Received: from SJ0PR03CA0212.namprd03.prod.outlook.com (2603:10b6:a03:39f::7)
+ by DS0PR12MB7875.namprd12.prod.outlook.com (2603:10b6:8:14d::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8158.17; Thu, 14 Nov
+ 2024 21:26:27 +0000
+Received: from MWH0EPF000989EB.namprd02.prod.outlook.com
+ (2603:10b6:a03:39f:cafe::e0) by SJ0PR03CA0212.outlook.office365.com
+ (2603:10b6:a03:39f::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8137.29 via Frontend
+ Transport; Thu, 14 Nov 2024 21:26:26 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ MWH0EPF000989EB.mail.protection.outlook.com (10.167.241.138) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8158.14 via Frontend Transport; Thu, 14 Nov 2024 21:26:26 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 14 Nov
+ 2024 15:26:24 -0600
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Alex Deucher <alexander.deucher@amd.com>, Shixiong Ou
+ <oushixiong@kylinos.cn>
+Subject: [PATCH] Revert "drm/radeon: Delay Connector detecting when HPD
+ singals is unstable"
+Date: Thu, 14 Nov 2024 16:26:09 -0500
+Message-ID: <20241114212609.36939-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.47.0
 MIME-Version: 1.0
-References: <20241113125158.1959533-1-chenhuacai@loongson.cn>
- <11457899-355a-4682-aea1-6b0a196bcef2@amd.com>
-In-Reply-To: <11457899-355a-4682-aea1-6b0a196bcef2@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 14 Nov 2024 16:22:48 -0500
-Message-ID: <CADnq5_OUK8pEakX9w1dia31EvV1LCe1zU6mkk3nRZq=oW7hq-w@mail.gmail.com>
-Subject: Re: [PATCH] drm/radeon: Use ttm_bo_move_null() in radeon_bo_move()
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Huacai Chen <chenhuacai@loongson.cn>, David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Xinhui <Xinhui.Pan@amd.com>, 
- Huacai Chen <chenhuacai@kernel.org>, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000989EB:EE_|DS0PR12MB7875:EE_
+X-MS-Office365-Filtering-Correlation-Id: 530c1a5f-a037-49cf-1d6a-08dd04f2ff15
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|82310400026|36860700013|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?3wqmiHz9e1HhnzH8PSbLQiPDsK6Z5q1+ICFoxQvostEdEqd6SUbKVEI+K5e0?=
+ =?us-ascii?Q?YiQSmvsJRYVji5cWBTIvz8zT9ihM1DMHEIk6vD+pWt+Nqco9x8SZ+XT8AkMy?=
+ =?us-ascii?Q?hgJOj1hDDP4Xxg9ChsReQ2Yr0nx4cHHFAH+96hPjpU/pfiwEvqZz3n3ILn6Y?=
+ =?us-ascii?Q?GtLZVcYWJqGlfEofLDtgUubayf3H1TZxpbK3R9FJSWrIPyUzwUW9hWmtDZIw?=
+ =?us-ascii?Q?qIWWvK9isPH6CNpmIbyJuEoOVBvT0TznitpRb6Ys8jV1L7dfTdLp7w/FiMfD?=
+ =?us-ascii?Q?LS/Qn+InZDjCvm0R0vTlCaIKHr1mMXhtMohxkMQqZyCuE/W1hl/gdlIfKiNL?=
+ =?us-ascii?Q?imBkkgejmSXhcue+G0mMPDEW0suHpAqoGLuPNuIusViQrdsR32W/50yPctMR?=
+ =?us-ascii?Q?QD7x8ZP3+wi4do8f6sG+G1hZo8EYv949Aew/ES5U3LFMSQGLm9oanZlVyhv1?=
+ =?us-ascii?Q?bhxQCDM9qKc5PNIerKFVoFtNn5Sf1XMVF9uXruLmdvKNMsyPK3CmjzSTskij?=
+ =?us-ascii?Q?r4hjPnpwpcYssI86Jdm3Lz9dQnyr/uRM08iBeD783xGfzUVdni8q8qfXzKhk?=
+ =?us-ascii?Q?GNk6aq7qGysxkixUXwXuUeRMrbbM3NRb+wjXwgE5gFzqtV9HRv9LFdR3x9PW?=
+ =?us-ascii?Q?CyY6wQGkxxHxc915Rph1XdRZ5eTLD9aFIjZZOb9AalzssdG7ziQPOgvYqxbr?=
+ =?us-ascii?Q?d9V7etubkaej0Q/CyPvbWcC3uTVUVvNAb8XWIXYa+Zx5ll6lhcEwofw9uDZ6?=
+ =?us-ascii?Q?85MPTvAkUNE/mUROupfQ3lruJ98xCuI9q4dJAOKVotgiPb9d62qdRCcDxtpO?=
+ =?us-ascii?Q?5BpeFyTxQFSx43QW20089uiIOYqCuoCC4uN2GuiXIZtiNYsdqNQ4aYjnjGIf?=
+ =?us-ascii?Q?YxTm/oC0E5E6aXlQDN/QwVMkqLLg11oeXvl8gpy6HsR1NdAQd5KFTQsu1Cd9?=
+ =?us-ascii?Q?RyWbsi801ME5fJ23AJAQ940PUmfRsj18Cs2mdRGk5DKMVhf1EtneqZATeHv/?=
+ =?us-ascii?Q?AhXrhpMm09eJFqZmYjzzG2p+JIlk9+6ENkw0dcVhNLyGgZkML5cYSpVGBLNx?=
+ =?us-ascii?Q?N1JPG2rziM6Iy70nD8hMVfzrzbxV4tUrIZnJ81GD8kgP3vFhKF1uwSryAa1b?=
+ =?us-ascii?Q?9fFMz6gTvS9LHBzkbqgYlM0VpUVM6fkXMcx4M05FirMn6mK9ERtcSYg+QZz3?=
+ =?us-ascii?Q?KeH3gHSGeEKTJ52QJIe+26GluLnEsTCgIJJr+L8cMy5TPI5mn6p+j710vsE+?=
+ =?us-ascii?Q?bctHkOaflSMVy/w3v8xoKkCBKkMXTbVsvRy0cq/8vRd1LYL8YFuLQrtnRF0m?=
+ =?us-ascii?Q?Ts46vzjIV+GM6fEFx2/3pWvWOyRqmTNN5AmzR1rJx683OFln7bNw8hfkhP5c?=
+ =?us-ascii?Q?m25BVZ8=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Nov 2024 21:26:26.3086 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 530c1a5f-a037-49cf-1d6a-08dd04f2ff15
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000989EB.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7875
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,42 +130,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+This reverts commit 949658cb9b69ab9d22a42a662b2fdc7085689ed8.
 
-Alex
+This causes a blank screen on boot.
 
-On Wed, Nov 13, 2024 at 8:04=E2=80=AFAM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
->
-> Am 13.11.24 um 13:51 schrieb Huacai Chen:
-> > Since ttm_bo_move_null() is exactly the same as ttm_resource_free() +
-> > ttm_bo_assign_mem(), we use ttm_bo_move_null() for the GTT --> SYSTEM
-> > move case too. Then the code is more consistent as the SYSTEM --> GTT
-> > move case.
-> >
-> > Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
->
-> Looks reasonable to me, Acked-by: Christian K=C3=B6nig <christian.koenig@=
-amd.com>
->
-> > ---
-> >   drivers/gpu/drm/radeon/radeon_ttm.c | 3 +--
-> >   1 file changed, 1 insertion(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/radeon/radeon_ttm.c b/drivers/gpu/drm/rade=
-on/radeon_ttm.c
-> > index 69d0c12fa419..616d25c8c2de 100644
-> > --- a/drivers/gpu/drm/radeon/radeon_ttm.c
-> > +++ b/drivers/gpu/drm/radeon/radeon_ttm.c
-> > @@ -219,8 +219,7 @@ static int radeon_bo_move(struct ttm_buffer_object =
-*bo, bool evict,
-> >       if (old_mem->mem_type =3D=3D TTM_PL_TT &&
-> >           new_mem->mem_type =3D=3D TTM_PL_SYSTEM) {
-> >               radeon_ttm_tt_unbind(bo->bdev, bo->ttm);
-> > -             ttm_resource_free(bo, &bo->resource);
-> > -             ttm_bo_assign_mem(bo, new_mem);
-> > +             ttm_bo_move_null(bo, new_mem);
-> >               goto out;
-> >       }
-> >       if (rdev->ring[radeon_copy_ring_index(rdev)].ready &&
->
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3696
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Cc: Shixiong Ou <oushixiong@kylinos.cn>
+---
+ drivers/gpu/drm/radeon/radeon_connectors.c | 10 ----------
+ 1 file changed, 10 deletions(-)
+
+diff --git a/drivers/gpu/drm/radeon/radeon_connectors.c b/drivers/gpu/drm/radeon/radeon_connectors.c
+index f9c73c55f04f..f9996304d943 100644
+--- a/drivers/gpu/drm/radeon/radeon_connectors.c
++++ b/drivers/gpu/drm/radeon/radeon_connectors.c
+@@ -1255,16 +1255,6 @@ radeon_dvi_detect(struct drm_connector *connector, bool force)
+ 			goto exit;
+ 		}
+ 	}
+-
+-	if (dret && radeon_connector->hpd.hpd != RADEON_HPD_NONE &&
+-	    !radeon_hpd_sense(rdev, radeon_connector->hpd.hpd) &&
+-	    connector->connector_type == DRM_MODE_CONNECTOR_HDMIA) {
+-		DRM_DEBUG_KMS("EDID is readable when HPD disconnected\n");
+-		schedule_delayed_work(&rdev->hotplug_work, msecs_to_jiffies(1000));
+-		ret = connector_status_disconnected;
+-		goto exit;
+-	}
+-
+ 	if (dret) {
+ 		radeon_connector->detected_by_load = false;
+ 		radeon_connector_free_edid(connector);
+-- 
+2.47.0
+
