@@ -4,61 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C0D6D6DDED
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Nov 2024 08:38:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B04ABD6DDEE
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Nov 2024 08:38:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 88F6D10E3B9;
-	Fri, 15 Nov 2024 08:38:21 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="WNQFxvJH";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C6D210E392;
- Fri, 15 Nov 2024 05:09:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1731647368; x=1763183368;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=C0Go77JRspDZ6YCdJsFPXJmyTgePsxBhOmNlyEWUFuU=;
- b=WNQFxvJHYylu9gSuEx2z6Z82yXgYs1ox6msWAhCMc9EerpHz3eoJcoFV
- IjjQbMv1Z6BMmqhoB5DJV4R/zPtXCZaWQ5chUcaAe9Um+PlUyHryk9C7I
- v3iGl64pV/8eHyhBQA/rE+0vA0hvpektl846Qu6Cpx//ILmddwYgLroLk
- GevN8pJmUcgqfLkAFnXZyuIICONfEPIagIfC6+YS7SRHZXjca445TjOr0
- HUVKGcIUxlWykB6wRWaKWJB9jhyx/9ZBtucpEzcqDxZimP6bNbP/15EJW
- gzj8dYwA/WnRQQvwbCQ6r6h3MR9f3vc7JkeQIDgjAi1pcyxOBCAs5RGMQ Q==;
-X-CSE-ConnectionGUID: DJgtPGvnSSeS+mTHEmYQrA==
-X-CSE-MsgGUID: B41LtndKREC0DCXIJgcp7A==
-X-IronPort-AV: E=McAfee;i="6700,10204,11256"; a="31023934"
-X-IronPort-AV: E=Sophos;i="6.12,155,1728975600"; d="scan'208";a="31023934"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Nov 2024 21:09:27 -0800
-X-CSE-ConnectionGUID: hIwmimUOSTuIIsOpRacKEg==
-X-CSE-MsgGUID: /eHAfNjwRbqc5qCqx6lV7A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,155,1728975600"; d="scan'208";a="92493552"
-Received: from jraag-nuc8i7beh.iind.intel.com ([10.145.169.79])
- by fmviesa003.fm.intel.com with ESMTP; 14 Nov 2024 21:09:22 -0800
-From: Raag Jadav <raag.jadav@intel.com>
-To: airlied@gmail.com, simona@ffwll.ch, lucas.demarchi@intel.com,
- rodrigo.vivi@intel.com, jani.nikula@linux.intel.com,
- andriy.shevchenko@linux.intel.com, lina@asahilina.net,
- michal.wajdeczko@intel.com, christian.koenig@amd.com
-Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, himal.prasad.ghimiray@intel.com,
- aravind.iddamsetty@linux.intel.com, anshuman.gupta@intel.com,
- alexander.deucher@amd.com, andrealmeid@igalia.com,
- amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
- Raag Jadav <raag.jadav@intel.com>
-Subject: [PATCH v9 2/4] drm/doc: Document device wedged event
-Date: Fri, 15 Nov 2024 10:37:31 +0530
-Message-Id: <20241115050733.806934-3-raag.jadav@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20241115050733.806934-1-raag.jadav@intel.com>
-References: <20241115050733.806934-1-raag.jadav@intel.com>
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F5AD10E3BE;
+	Fri, 15 Nov 2024 08:38:22 +0000 (UTC)
+Received: from MA0PR01CU012.outbound.protection.outlook.com
+ (mail-southindiaazon11021105.outbound.protection.outlook.com [40.107.57.105])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C7E710E7EF;
+ Thu, 14 Nov 2024 15:12:31 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lln+kxwxCsfPdZVp5lBPafiicxDwnWpLh7Z5gPiUPwYrk19XVa5cJKzkSdnVKTArRX8E4wP1qe7tkssxpv+S2iF59ezPWyPjiU/KYTMr2FuE9nGOJNwee/biX6RRr/38Qb4VMP5JlWVRjPwOp/g/R7lCZuV7nzz1/P1bz1H4dRx4tF5iQjoiDqLpv/2NNpYCUvhOsCGtPhlKi9oWk7MEf3iKGTXapgNUxC4iEOoCoBsYSxg0qvbgW0bEuSbqY4lSMq/YMZ/1sy7p57dXjSd98HW7PEOlPT8l7pHZZ4ItcadkEotaYKU4gkx3lROJYlGgpxx1WIWfDWXVOlqfF3KnSw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=b/5zT8L+ga1akjzZrV8IFK3FVU6pNNmkMGwm2cpRQWQ=;
+ b=PKFutCJl06JhmzvekL37uPy2GzQkmPOPxj97w3zmb4SAsC0W4MoLWyIe9nEz+x+/Frgp5w+OoZ+FC6Pp/IfF495I3Dftyed5ORha21vUarYRe6HA5c6ZrYNcuFzJVp28AKM+tnCW4YuqD9NEo8ykxazgLYba5ucFJVoezQNmR45EQarxmyuOIlPp3syb4MInP+6iKiJvaW6i0yYv2C5BLvvXirlpBriZuwoHRdLRysSvKQX2YPesr1GoZPjEQlmE9JA0bbGf7TIpip+D+jdKISCBTFWlA05mivjlzggzqPzVwnoVoC+yipZEUEnAggiw2EnV65fe2MMnL3LipW1q1w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=siliconsignals.io; dmarc=pass action=none
+ header.from=siliconsignals.io; dkim=pass header.d=siliconsignals.io; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=siliconsignals.io;
+Received: from PN3P287MB1171.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:1a1::5)
+ by MAZP287MB0541.INDP287.PROD.OUTLOOK.COM (2603:1096:a01:cd::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8158.18; Thu, 14 Nov
+ 2024 15:12:26 +0000
+Received: from PN3P287MB1171.INDP287.PROD.OUTLOOK.COM
+ ([fe80::c75a:632:1645:5db]) by PN3P287MB1171.INDP287.PROD.OUTLOOK.COM
+ ([fe80::c75a:632:1645:5db%4]) with mapi id 15.20.8158.017; Thu, 14 Nov 2024
+ 15:12:26 +0000
+From: Bhavin Sharma <bhavin.sharma@siliconsignals.io>
+To: alexander.deucher@amd.com,
+	alex.hung@amd.com
+Cc: Bhavin Sharma <bhavin.sharma@siliconsignals.io>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Kenneth Feng <kenneth.feng@amd.com>,
+ Wenjing Liu <wenjing.liu@amd.com>, Leo Ma <hanghong.ma@amd.com>,
+ Roman Li <roman.li@amd.com>, Ilya Bakoulin <ilya.bakoulin@amd.com>,
+ Jose Fernandez <josef@netflix.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/2] Remove redundant check
+Date: Thu, 14 Nov 2024 20:41:10 +0530
+Message-ID: <20241114151150.19576-1-bhavin.sharma@siliconsignals.io>
+X-Mailer: git-send-email 2.43.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: PN3PR01CA0092.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:9b::10) To PN3P287MB1171.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:c01:1a1::5)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PN3P287MB1171:EE_|MAZP287MB0541:EE_
+X-MS-Office365-Filtering-Correlation-Id: 02a32371-c10d-4115-2597-08dd04bebf73
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|7416014|52116014|366016|38350700014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?BliELXlER5zjlvTM2Lki246OiPYtcL0sGrNvmFKoI+dL7Alfzyy1DKgx3q+i?=
+ =?us-ascii?Q?TmyAXFZFFlYQ0V1IT55IiQVHTvCyxaUw4qV4qbNxACaEfzxidF15z36icRoh?=
+ =?us-ascii?Q?t10YEu5lMnVpTbP5KyYvjAl5D+aAzwvpvureWa/31shMr8DVZrpa6Qa5jRIR?=
+ =?us-ascii?Q?x4TDumxY5tFtJabiTW04izpY+BQHxs8LFNJOb51apCfPsXtqS9TClOLiKAm8?=
+ =?us-ascii?Q?S+cl2/b49UV5cqmFyWH+rIq3bsQmDSeEn82OtMMpOcM6wEZaVubpGnnDS+/8?=
+ =?us-ascii?Q?Upo5oadUZT6fNjm/qVg6aexCAbO3zbUMFs809ZyKviRIwwzARf4uTeovrS6J?=
+ =?us-ascii?Q?Y5ctxMDff+NHELucwM75QRe48iSAHl1RKUty4XBUXlLkvriw+KR11VYn7Oer?=
+ =?us-ascii?Q?ANXWmw1+kgXTmWbO/AuH9lgGYOic4XOPrUjbaxRa5nyl3rNtYJPm/7GetLgC?=
+ =?us-ascii?Q?Rb5ebnJLYu9FQzfe+VMX3rIrhZytsqm7nBckwGP082/oMNCAVcK41f+wi5yL?=
+ =?us-ascii?Q?XbWsUG9B4QVuSqMBaSSgtap5GSVvq9Jo0rbzVKKqcHZ7bzYMs+NlNtvzhDIo?=
+ =?us-ascii?Q?vP7qgcKfSP3sS3Z/rejsB1C2W1n+H6FlrgfmlTuYt8Ihoaay6Ef5+eBgQbPT?=
+ =?us-ascii?Q?bg38j5zoeGxmyOQuJaIisIrotjgo2990iae3/dCzCeUJMf5WIujCdcoVl1QR?=
+ =?us-ascii?Q?AlyBc13MXMs+NzS4wSdo7aplG8A/o6V0ZmGws/udsC5Yu6Cgk6Hwmsj+duP+?=
+ =?us-ascii?Q?0qRbT5up9YJqU+h8oKUyoBoD9FO/eDClukH7AhfQUdrLHuh6DKgQzo/5YWLH?=
+ =?us-ascii?Q?DAV6Qa6ZDh0zMbFtKMb2RIEAj/D3wuxZ21oWQ+uy7v/Jlhn9+mRmJdvKSpSu?=
+ =?us-ascii?Q?muzp8ya+LFLGbE7D5qTW/EKNkL6RxCHSlscycvFGskeWut6DdXkFOSeqfeke?=
+ =?us-ascii?Q?rOiTbO8JCS+v/rkJUZkDwWs/DjKZK3Nv/g2PPl6Z+SELmQ4azlj3sBM2A6pD?=
+ =?us-ascii?Q?IztfrZMXmnCYFTRIbVpDpOy0pXwyclsy+w5cXm2AbVt1b60biBRzirwpZRK1?=
+ =?us-ascii?Q?pRx7BFWAVPRs/BoDb9erSKymBJ2O4SIFYNJcYtWL+ckQsbTf+OGhXu+gAxsS?=
+ =?us-ascii?Q?qdqKZLEoHa73B+q/Hl93UKwuKFX5LDeTz5PeYesvPftq4+W52rLb6gzF7QNM?=
+ =?us-ascii?Q?DsffrY6fUQipeV1ylL8A/0MgiqmHM8IwFce1HmMuJlxWm82jTMPkkbWIFmNx?=
+ =?us-ascii?Q?FTJXHs/QUJqoZrGRvZekpw4BoTeQLEIX+y8g8RPpIrHYBuTjukUZPB+RTMg4?=
+ =?us-ascii?Q?/WfCNQuOFmEIGmFbO+T9VHEp?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PN3P287MB1171.INDP287.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(7416014)(52116014)(366016)(38350700014);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?8KYJsD/frVgynyPvisI1MQN469qLr2txxX17f8qQWLv5FB6gtoB2ET7cW339?=
+ =?us-ascii?Q?tQ6VR9sefFwQYzs8gxAPH+ZI8/KR0IR3uTR9dLrTu+LZdX0sERli8v5aYC4g?=
+ =?us-ascii?Q?2l7P/xk6+txOOtZfcAwnMKo0bFbwMWxBjJj0BKTkobbTHDpdrBDr2U4cdtRy?=
+ =?us-ascii?Q?T7G95HcZekv4HN8m7/7ryBQGCodK1upl8SYpG3OlDAsfUP+bdpbibWLTDsLT?=
+ =?us-ascii?Q?3ipEB2XLZopwX27zdY3oCsxkB7gAtTBjSJCGnkrKx2ucXYZd8aMlUZm2xcLZ?=
+ =?us-ascii?Q?eYv1JNHJtH2J9fxlS6phdPtOLtAwz2X+YMNc615tZ7Cax3NquK5qePJVJmYH?=
+ =?us-ascii?Q?CXRpNqlTJMgaRc3cKWQGGzguDnRPjJ+VA8jEG1IA9sZgjdvju4IXMXRp4AaO?=
+ =?us-ascii?Q?YOaifEags1jH5DQw1jM+JTQXP5ZWz44wIuzPCu61Wz3VaWgK8UPSWmGM1/He?=
+ =?us-ascii?Q?Efk8eLNyVwQqAjWyNXcrhPPskyAAb3XM2m9KLH8YNFkgvDsAx0JBg4GMpIhX?=
+ =?us-ascii?Q?leZnNY7EvH9vGh1ip2KaxzuhfEx9nremWu6Pq5CZu5Xl+9CRDIrFhy8ULA+N?=
+ =?us-ascii?Q?h7NGjkCG52QRAGzb3tbvDPL791ZolsLQeaKBPhIwdSWgVpNBWiE1eVy9CY2a?=
+ =?us-ascii?Q?GSg3nwzk3F3PQYIpCkiFBHrrw8WEdY/evgokYINOvBJzUrRvE4hadWIIP3jo?=
+ =?us-ascii?Q?xzs+syiwW25BlgJhbfBPnBr2pjo4RLQ9FhJ4TxSzfWU6RIxh3gczVcno85uU?=
+ =?us-ascii?Q?oLnQyzcM1Ul79BubyoTwN0+Pdp8B3tdhaRWAEC5SdICWlpUdziRwziOjWi+J?=
+ =?us-ascii?Q?pAljefSPWVsQTGvbGVT4T8S5xEvmK+6TWGAZBjvQ0qC958n3uCOXzaiSUt+Z?=
+ =?us-ascii?Q?nkmWNM/nTt35Wxxn32iZkNNaLKJS/+qlq9Bj9TpNWujpEpYn1zDBUSjjkgtp?=
+ =?us-ascii?Q?Qlk20CsIE7wANUSLasF9LOmnKPrt9a8Wlp6EObqIwPk+Ajesd74lZU6CLW5M?=
+ =?us-ascii?Q?TlUR5mQFPGsEdo70jXCfaWZtbPvsms5r3SzQuAVxT+Nhvcik6S5oB89rHcuj?=
+ =?us-ascii?Q?vi9v2ZslDKDvCVAafHYYEw8/a8ZsT+SIN8U+ffY+UUOzD9N/4ggj4OahDKEU?=
+ =?us-ascii?Q?uNmV4YKw8RVoa5e4/SH1IBSrXxQiF8TtBIW90iqRFZhvc5WbAI3x0rnpnApD?=
+ =?us-ascii?Q?WR5KKuUO1EmnGpXRJYW1eYYgReEFdcELvyyr4NW9Jhvi44ERhSK+LYEDgS5N?=
+ =?us-ascii?Q?lu6mUnGldnK7CWgATKsuwaFHixn+zcjQc1FIVG6uNGJ+KB+Az3AEdFDHH2uJ?=
+ =?us-ascii?Q?ZQAMH4I37+b4sFMw4MT+COR1hJVqjrRBjje5dIsAZf+f+XUFxK3RN+2cvrKN?=
+ =?us-ascii?Q?9Mp0vVqKCRkqZAZO0vStCKxRuvjktO5vnT9TtFZawCfWQDK2+Dy5D5Tz5hGf?=
+ =?us-ascii?Q?TNcyL+J2qViaBnr7EqW3H7A21wU3QIgpUqNii9EwwnsOfmY//Y3EY0mLocWC?=
+ =?us-ascii?Q?jgq7YvNb7k3Tpe+5utUU6V/LcH7LKT8qyjEkiCf7CqOIJisv66T7OJuDHPdY?=
+ =?us-ascii?Q?krUQz64gHjbhmprlChuuJSJE0F4MGgsfeAE50aHcZB0bvL/t9YBed3vkx+5y?=
+ =?us-ascii?Q?m3/qPovriI0SKsWKveGfVAQ=3D?=
+X-OriginatorOrg: siliconsignals.io
+X-MS-Exchange-CrossTenant-Network-Message-Id: 02a32371-c10d-4115-2597-08dd04bebf73
+X-MS-Exchange-CrossTenant-AuthSource: PN3P287MB1171.INDP287.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Nov 2024 15:12:26.0397 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 7ec5089e-a433-4bd1-a638-82ee62e21d37
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: BCVc6XI2FUMg2BMqlQEX2AEOqnKdJM7gxyk1AH9asqNwCKRmDV/T8ok2jnHh17eeFPOoE+BR9ROQbT2Ad5znzh53hZ4eZPPbYS7qpXmiJrE=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MAZP287MB0541
 X-Mailman-Approved-At: Fri, 15 Nov 2024 08:38:20 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -74,131 +146,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add documentation for device wedged event in a new 'Device wedging'
-chapter. The describes basic definitions and consumer expectations
-along with an example.
+Change in V2:
 
-v8: Improve documentation (Christian, Rodrigo)
-v9: Add prerequisites section (Christian)
+in patch 1/2:
+	- Remove mode_422 condition check because that
+	  is fixed in amd-staging-drm-next
 
-Signed-off-by: Raag Jadav <raag.jadav@intel.com>
----
- Documentation/gpu/drm-uapi.rst | 102 ++++++++++++++++++++++++++++++++-
- 1 file changed, 99 insertions(+), 3 deletions(-)
+Link for v1: https://lore.kernel.org/dri-devel/20241111120900.63869-1-bhavin.sharma@siliconsignals.io/T/#t
 
-diff --git a/Documentation/gpu/drm-uapi.rst b/Documentation/gpu/drm-uapi.rst
-index b75cc9a70d1f..33d9c253d4d6 100644
---- a/Documentation/gpu/drm-uapi.rst
-+++ b/Documentation/gpu/drm-uapi.rst
-@@ -371,9 +371,105 @@ Reporting causes of resets
- 
- Apart from propagating the reset through the stack so apps can recover, it's
- really useful for driver developers to learn more about what caused the reset in
--the first place. DRM devices should make use of devcoredump to store relevant
--information about the reset, so this information can be added to user bug
--reports.
-+the first place. For this, drivers can make use of devcoredump to store relevant
-+information about the reset and send device wedged event without recovery method
-+(as explained in next chapter) to notify userspace, so this information can be
-+collected and added to user bug reports.
-+
-+Device wedging
-+==============
-+
-+Drivers can optionally make use of device wedged event (implemented as
-+drm_dev_wedged_event() in DRM subsystem), which notifies userspace of 'wedged'
-+(hanged/unusable) state of the DRM device through a uevent. This is useful
-+especially in cases where the device is no longer operating as expected and
-+has become unrecoverable from driver context. Purpose of this implementation
-+is to provide drivers a generic way to recover with the help of userspace
-+intervention without taking any drastic measures in the driver.
-+
-+A 'wedged' device is basically a dead device that needs attention. The
-+uevent is the notification that is sent to userspace along with a hint about
-+what could possibly be attempted to recover the device and bring it back to
-+usable state. Different drivers may have different ideas of a 'wedged' device
-+depending on their hardware implementation, and hence the vendor agnostic
-+nature of the event. It is up to the drivers to decide when they see the need
-+for recovery and how they want to recover from the available methods.
-+
-+Prerequisites
-+-------------
-+
-+The driver, before opting for recovery, needs to make sure that the 'wedged'
-+device doesn't harm the system as a whole by taking care of the prerequisites.
-+Necessary actions must include disabling DMA to system memory as well as any
-+communication channels with other devices. Further, the driver must ensure
-+that all dma_fences are signalled and any device state that the core kernel
-+might depend on are cleaned up. Once the event is sent, the device must be
-+kept in 'wedged' state until the recovery is performed. New accesses to the
-+device (IOCTLs) should be blocked, preferably with an error code that
-+resembles the type of failure the device has encountered. This will signify
-+the reason for wegeding which can be reported to the application if needed.
-+
-+Recovery
-+--------
-+
-+Current implementation defines three recovery methods, out of which, drivers
-+can use any one, multiple or none. Method(s) of choice will be sent in the
-+uevent environment as ``WEDGED=<method1>[,<method2>]`` in order of less to
-+more side-effects. If driver is unsure about recovery or method is unknown
-+(like soft/hard reboot, firmware flashing, hardware replacement or any other
-+procedure which can't be attempted on the fly), ``WEDGED=unknown`` will be
-+sent instead.
-+
-+Userspace consumers can parse this event and attempt recovery as per the
-+following expectations.
-+
-+    =============== ================================
-+    Recovery method Consumer expectations
-+    =============== ================================
-+    none            optional telemetry collection
-+    rebind          unbind + bind driver
-+    bus-reset       unbind + reset bus device + bind
-+    unknown         admin/user policy
-+    =============== ================================
-+
-+The only exception to this is ``WEDGED=none``, which signifies that the
-+device was temporarily 'wedged' at some point but was able to recover using
-+device specific methods like reset. No explicit action is expected from
-+userspace consumers in this case, but they can still take additional steps
-+like gathering telemetry information (devcoredump, syslog). This is useful
-+because the first hang is usually the most critical one which can result in
-+consequential hangs or complete wedging.
-+
-+Example
-+-------
-+
-+Udev rule::
-+
-+    SUBSYSTEM=="drm", ENV{WEDGED}=="rebind", DEVPATH=="*/drm/card[0-9]",
-+    RUN+="/path/to/rebind.sh $env{DEVPATH}"
-+
-+Recovery script::
-+
-+    #!/bin/sh
-+
-+    DEVPATH=$(readlink -f /sys/$1/device)
-+    DEVICE=$(basename $DEVPATH)
-+    DRIVER=$(readlink -f $DEVPATH/driver)
-+
-+    echo -n $DEVICE > $DRIVER/unbind
-+    sleep 1
-+    echo -n $DEVICE > $DRIVER/bind
-+
-+Customization
-+-------------
-+
-+Although basic recovery is possible with a simple script, admin/users can
-+define custom policies around recovery action. For example, if the driver
-+supports multiple recovery methods, consumers can opt for the suitable one
-+based on policy definition. Consumers can also choose to have the device
-+available for debugging or additional data collection before performing the
-+recovery. This is useful especially when the driver is unsure about recovery
-+or method is unknown.
- 
- .. _drm_driver_ioctl:
- 
+Bhavin Sharma (2):
+  drm/amd/display: remove redundant is_dsc_possible check
+  drm/amd/pm: remove redundant tools_size check
+
+ drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c   | 13 ++++------
+ .../amd/pm/powerplay/smumgr/vega12_smumgr.c   | 24 +++++++++----------
+ 2 files changed, 16 insertions(+), 21 deletions(-)
+
 -- 
-2.34.1
+2.43.0
 
