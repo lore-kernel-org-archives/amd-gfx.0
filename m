@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C8F8D6DDD9
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Nov 2024 06:09:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5850D6DDD7
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Nov 2024 06:09:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0977F10E39B;
-	Fri, 15 Nov 2024 06:09:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A32A10E39C;
+	Fri, 15 Nov 2024 06:09:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="L8BTrwHy";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ynxsQ2K/";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2065.outbound.protection.outlook.com [40.107.220.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A76210E399
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 Nov 2024 06:09:46 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on2086.outbound.protection.outlook.com [40.107.96.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F07010E39C
+ for <amd-gfx@lists.freedesktop.org>; Fri, 15 Nov 2024 06:09:48 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lwnjR1uOXcSc4SxH0MlsIGs7NHQ3wIncfqBm+/9FOX6//6kaZjdKKj1SgI/bICT3z87X74S9VpXajbUuoF3jsfJ3JrocFXCZpvbOlUdeq2Kp9CTxFBhtevauumHepAmDficoGIAV9xZ2sx3vRFJOgv6fulS0S8I9qhywxtMPpEuZ6RWZOmt+FGB8XlcjomePNY/+6IN8Og5xPAj4I2yphePFLQrSS3FDr5nIAxpPNjbBQLnhoZwFAHcX4zZJDquWqhh+FK8FHmLAd0jvnjXlXRN0ZZK8fINThM1spM/veC+X1lQWi+4guSYJyAEV/EjmC3Mmh+axQ5yhYPWLHK38Fg==
+ b=FQDaPRmJVOTgiCDKyo7oHwfIypeuufycCYL+dVtHNPJm20abjN6tIljXSnMD8Z0fv0VAk1aRifTyt0bOpjBXOrceMl/R0wfGCrVKdr4B82o2xyYh7nfFiXbOWCLJAmHzBadnOwpWP67pPV4pkIatkQQwUMbOQvvc676eAQr22QBXYAczscwvGq0gcIRht9sXRtW0/TrAWv3hiLE2mo1DRaKChbP8hdctn35zyql5bn7W86P9PDebZhcjjsl5LKmojSPEU25phe4HkbsN2c5B4J99eW7FomxDsNGpM4aEmpkk6jhfId2PU7O0fZosP+KO8bVnzYWg6WALOWE6XeYd8A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mVbngoasEKuwrF0bfBR412gHdMzM+7rOCRacWM5lSgk=;
- b=ybkAj0KkvnEfxIWMpaPYgs4ecp6dTH+VvF4SBLFDpHwmzSxa+vIz8gmtws6w9EAZm943KMEgcmjiA8tjRePCY4T19Y8yWY9AL5JgzPQ+8nDF0sJG2PRAKCq6zSnu8XFALjSpUpFRP7fgf+wPm04UOWgwwattdhHH/JlvgUg7RED/Oum84ZiDJjLEhzlT/lZmWOkwnAaohG1gBLHJGQ2Z6Jwwpeek6M4V6SAlnDVoE4Nr0I4nn1Nb2v93aZbcGEn2dW1QODs+NnUv9A4JvyZl91HqY523A8V+ZVWQoSBlVg1BNq9HoOXhghSVTSLvnrA874D3Tgdb2O2k/UPz2cLNHg==
+ bh=qkHFXVjhUqGhGcmzBnqrNiBqCom80DD/jbaHGNuE2W4=;
+ b=A4jScngH7INj7UE2a/BYmtJmR46c22XYHjflJX6QuBnpkNZWIRJCbR5RyxLaXuvTnBsFapKogt/dCdfYNeRtWVoLbCnIY9tmicpvz7oTjQxcgn1kjAVI3oPgnzW7du7MUuIQ475M9eSmbgjrA4kKPMtcz88vgT+VE35TajM9EM/SyP3SeZXU+3siCdCZxLOe6dc5V1DYd3Jq36gNUn1/G7SGAY28Adcsu9m5iDt7SpPIUQDyMIpo/U2oh+978P6kXMMZZEF40uW8bVjlUQbwtO5MKlBK4/p5hsMN9mzclcE6alLM8DQn46Gvb2SxwRx7p3/gPy/VNnNPWCmwdUSZoA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mVbngoasEKuwrF0bfBR412gHdMzM+7rOCRacWM5lSgk=;
- b=L8BTrwHywPE/W3otrsDq8+qcZcibWJFNWHjcmALKljSw5YW4Q6jtPIZUMXKItgMleXgHMkIP3zf71eXChlbivYZw42w7ju6L8nu4sQqFL/jkbGEtsIrxBmP3YXSTQUNUu1njzCmV6qBmik3RvWz//Bt0jDS5cq9WaNX9UwSggVc=
-Received: from SJ0PR13CA0107.namprd13.prod.outlook.com (2603:10b6:a03:2c5::22)
- by SA1PR12MB6680.namprd12.prod.outlook.com (2603:10b6:806:253::14)
+ bh=qkHFXVjhUqGhGcmzBnqrNiBqCom80DD/jbaHGNuE2W4=;
+ b=ynxsQ2K/f8gnJCJaIL/hCnlpYiKiokSYJCWA560G9RZlEaVygq+d9m2LZuIX0MtCmxw3pvu3gles/v4XM9wYI7d+y7ayjJcbv0rCD1p1hL59oO4NLixPTWNP/MK5ZfC0bSLzJVxb/les/9vQRcSu//O+mOJoaBie4GFKrA6veCQ=
+Received: from SJ0PR13CA0120.namprd13.prod.outlook.com (2603:10b6:a03:2c5::35)
+ by SJ0PR12MB7033.namprd12.prod.outlook.com (2603:10b6:a03:448::15)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8158.17; Fri, 15 Nov
- 2024 06:09:39 +0000
+ 2024 06:09:44 +0000
 Received: from SJ5PEPF000001F2.namprd05.prod.outlook.com
- (2603:10b6:a03:2c5:cafe::c4) by SJ0PR13CA0107.outlook.office365.com
- (2603:10b6:a03:2c5::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8158.18 via Frontend
- Transport; Fri, 15 Nov 2024 06:09:39 +0000
+ (2603:10b6:a03:2c5:cafe::98) by SJ0PR13CA0120.outlook.office365.com
+ (2603:10b6:a03:2c5::35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8158.17 via Frontend
+ Transport; Fri, 15 Nov 2024 06:09:44 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,18 +50,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  SJ5PEPF000001F2.mail.protection.outlook.com (10.167.242.70) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8158.14 via Frontend Transport; Fri, 15 Nov 2024 06:09:39 +0000
+ 15.20.8158.14 via Frontend Transport; Fri, 15 Nov 2024 06:09:44 +0000
 Received: from AUS-P9-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 15 Nov
- 2024 00:09:37 -0600
+ 2024 00:09:39 -0600
 From: Mario Limonciello <mario.limonciello@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Mario Limonciello <mario.limonciello@amd.com>
-Subject: [PATCH 0/5] Better recovery from DMUB load failures
-Date: Fri, 15 Nov 2024 00:09:19 -0600
-Message-ID: <20241115060924.1805-1-mario.limonciello@amd.com>
+Subject: [PATCH 5/5] drm/amd/display: Make DMUB auto-load failures fatal
+Date: Fri, 15 Nov 2024 00:09:24 -0600
+Message-ID: <20241115060924.1805-6-mario.limonciello@amd.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20241115060924.1805-1-mario.limonciello@amd.com>
+References: <20241115060924.1805-1-mario.limonciello@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -70,50 +72,50 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001F2:EE_|SA1PR12MB6680:EE_
-X-MS-Office365-Filtering-Correlation-Id: 10085dc2-e1c4-454a-a24c-08dd053c16ca
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001F2:EE_|SJ0PR12MB7033:EE_
+X-MS-Office365-Filtering-Correlation-Id: 62576914-31dc-4fe5-52b0-08dd053c1a08
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|36860700013|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?RshmXVi5whVJD4CcLOKcgTumkK+NurNYqcrgGuk4xhSZIQiKtwNOHhNA/EGj?=
- =?us-ascii?Q?ZrvQ1fieO7Eber49PLXzByNlEOjVGnFPB83Le+nnN3Lvy8BIoevsZxMph/qS?=
- =?us-ascii?Q?1z1O9RJCptpERLnVIMZh0Vf479DzTSl6rFldRJYMBI6/w99B1JjX3hffK7w3?=
- =?us-ascii?Q?cGZa7SOBokgDMkrZWgnHgDM6I+vmlngqaQOTaOTCEwupGpIBbIQzXw7y1d/k?=
- =?us-ascii?Q?+jTfCXQj923/U8lRvMP9ZaP0MzAWTC08O0EYFFDfl+Jjn4V+D4WO0VtOkQIs?=
- =?us-ascii?Q?DfQffjVFrUY/lB7+qqlQj6RDTxfCvZc0MpVReu9rEjioaMaCkvoCCZenN0bB?=
- =?us-ascii?Q?NdMnJFymauR8Sn6GeKdMbbn4EYLj1U1RWd/NwUe7lcBUitGebdshauiU3sgf?=
- =?us-ascii?Q?i91Sz1bD+EEUppltJ/gFDH56A3V7NhNZ68hp79tFOW1ZAMcQhwWwDx1eoapi?=
- =?us-ascii?Q?hsiax27T34c51oa0IgswwuzjyQhZDKg06eIktjQOA1xd2OK3dl2hNkP4gVK8?=
- =?us-ascii?Q?AWlobzmOmkyEl9S/TBv4tzTKG1wcA8d1J3gifeTcSSxbIcgfuuGr4gOLiAPW?=
- =?us-ascii?Q?OyPzrs4YmDZKxz2Ub1ibc3pKMQdqzX3hfBuRisH2xxkivto+PMtpGYOc3p06?=
- =?us-ascii?Q?gaQro/AWtycHHyQRNc6zd3+5SWvvUsSeG9l6AeI8HPbNCdxlnwaISPvYakwn?=
- =?us-ascii?Q?4M7boQLJ3HG2VNAiWYQh1S76/2EXCj2/wZfCIgirkNVn7uDpWN0cpAesTrfV?=
- =?us-ascii?Q?DM9fnq27ZI66jDKPkl/s/oweFHWiAuf6Dt3liVJSXerSMbjuCs4aEGkmzmE8?=
- =?us-ascii?Q?+QE3/kF8s3vZk2iWC0eTt+8mN7g+unVjdZllzVXV1u77zhQipf7gfgssXO3v?=
- =?us-ascii?Q?I1AbhgNtg4AkLCfwzBebKt+mAavd0W++dkjkBPvs42sfONpkpsJhDp8U+090?=
- =?us-ascii?Q?1eGqXW0S8jKg72IjFqK52Gb3b1UyEaub4oDkfErQ5yuId8xBcLMt5g3PEi/0?=
- =?us-ascii?Q?uWYkMuIv1GB0grpulq0mY2oi+o6hV2XhUEfEiS6C7CGGj/4yMi1LwT/Jr6fy?=
- =?us-ascii?Q?H8GsDJ9MG0oYpbW/B7lPAfB7N9/ZqliWTN7bGQCGndQGwtLycSpfgmYydd8H?=
- =?us-ascii?Q?w1R6rxgQJ6YihgQ1bRAzEj3gf3dNa0SXPVnriWK2zG+LSSfjcYB59yiwqpiA?=
- =?us-ascii?Q?mODd2FNVcyPOJ/RXQuy9AYCM8zdDMbGiV/EgP+AEtCMgDiuHUwaLSPjI4KaK?=
- =?us-ascii?Q?wvU0uoOg/4AllvcksFGbphlq9YcxusjSE+uL8dXN5Li0xzEyH16SbD2A9iyv?=
- =?us-ascii?Q?gMbsF4pfs0Y176oyN+Wx8JOdTh2+IxNalTRaV11z0N/DF7tCECMeG6HqTIhq?=
- =?us-ascii?Q?TkLYuSERDWwflgWW4xp+QUKoJKSC5m7AJKCyMfIwXjr+ijZu5Q=3D=3D?=
+ ARA:13230040|82310400026|36860700013|376014|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?ssgNusTqHUwv0oPMucrgXdRBSNv5UXPe8SiJNjutB/5ugAk5ksOnTsQn0OqP?=
+ =?us-ascii?Q?FKh+3stHNQm3a1h9jkP13K71F7lT7USZAcTIbBXGe7r1ihNxzz4r7Fy8MxpZ?=
+ =?us-ascii?Q?wcvwFnOgBEkikmsb/GcezoNQCRUIVCa4UP/57YmWxIdtMoZ3Ck9RCmYnKKwd?=
+ =?us-ascii?Q?JqZQEDzQL/LlPIPZv3I3qUO8CsLcR/mM0AKwibGm1LfdWfCHsGTa0oSN8TJZ?=
+ =?us-ascii?Q?DAano0Q0cV6lNV/NaEaLfqF8Mu7h9i1NT8he8cD9zJ54LPuGjGbk+DwZYbzE?=
+ =?us-ascii?Q?K25yYU7l46ZYosSIQopyg8UrGqaoCd3v9B/JH8FSD2cVy8eX70wdUHDDg+un?=
+ =?us-ascii?Q?eZi6+4D/dW8m3xnrtCnWdehKXs2Svs+iNmq/Ir+iVJruIQgcMFfN9vcVaMe1?=
+ =?us-ascii?Q?k/a+8FFdZkbhQpskfOupbpfv/ZRT+c5mD84HKuRcd91DMNPjLivVs7+wPqDC?=
+ =?us-ascii?Q?kW6jkEA+zdf179amFSYXCZjxzJXr1yQ0cHR+HzsIibyjQbovv29Iy9iQnL1z?=
+ =?us-ascii?Q?F6waAej/zFx5gygQ7sMRpC3J/KVCLLhlAAEJrBwObmTgenVMUt85594zPxM6?=
+ =?us-ascii?Q?7EGRPQtEwdtQWY3yU0deAf8GXYu1JeOhccQio/7Gln+QRq2TUTMSLKBiISnM?=
+ =?us-ascii?Q?cwpt65Xb9F3iHlp2VIuthg5a6XzvNpfOkPiyVpEBgEoZdcLp/ZNPLPYbO6bZ?=
+ =?us-ascii?Q?EIL6wB/AG9eiENuSlPBURqJvbYa7w0xPWf83OPBgcMYLPxesrvjoKg/lbhqg?=
+ =?us-ascii?Q?Bzb9/amc7H5+2HKG1KE3GlcCWJ5jtSKcAHLDfkW0m37hY8w/ZXPx5l8ut+2A?=
+ =?us-ascii?Q?IWQ4bUUp6fupfui4ACMNxpd69BLOCqOjM9uGGKRg4gex3It0xpkYT5rA9DhO?=
+ =?us-ascii?Q?y4Ty2itgtgo5uaX0jzWWDrRlAO3MVo5ID3/Oz1H42nhEbHPZ9a8cG/wyWiB9?=
+ =?us-ascii?Q?oOOShB7PeISg+CxZKuCcM5e4bX+ajTTMkTkppTjtD2AkyKTQDxxATp07l5lV?=
+ =?us-ascii?Q?N374JD3acVbG7BFP1yORNPzD/JGm9B9SCqK67UXTnHp9A3QXqBnypmSB5bzM?=
+ =?us-ascii?Q?KZwkQvdS6uHPRIDv5Fz5kS+W99c6ly8U1l1OXSZdOScOSmvlcOa5SjG2lkM2?=
+ =?us-ascii?Q?tN994USQlnVIeLC67ViFRteAH0kjRJHKqSctIo+emUUsqsnz7o2YriDRvQOa?=
+ =?us-ascii?Q?c9LRZFZEKYMQvMHRwQv98kShrIHCCNQCnEVSrj/YZbhy+Vskl9ikBJVnfo5X?=
+ =?us-ascii?Q?0YcvoT8pRXt/Dbm0xXpr1Tr5MIoDU3I6N9w4dUq7DfiVpWAm6xfCt0pFlsiM?=
+ =?us-ascii?Q?lzd2pfABifjyMCQEMSa3avN/8B5kBIMr8UfyOhGMe31afltyXwONbIBWcLdn?=
+ =?us-ascii?Q?Gl1zpE7h//aYSYinwv3grHNo3jvn7ct2u1RKBUJfVrZeMegkCQ=3D=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(36860700013)(82310400026); DIR:OUT;
+ SFS:(13230040)(82310400026)(36860700013)(376014)(1800799024); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Nov 2024 06:09:39.2064 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 10085dc2-e1c4-454a-a24c-08dd053c16ca
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Nov 2024 06:09:44.6283 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 62576914-31dc-4fe5-52b0-08dd053c1a08
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001F2.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6680
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB7033
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,24 +130,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When a DMUB load failure occurs the amdgpu driver is left in a pretty
-bad state because the display core thinks everything is fine.
+Realistically when these happen the driver is in a pretty bad state.
+Future calls later in the driver such as dm_read_reg_func() can hang
+causing soft lockups on CPUs and never letting the module load
+finish.
 
-This explodes once the core tries to do a register read which stalls.
+If one of these problems happens abort the hw init or resume sequence.
 
-Instead of papering over these errors return error codes up and do
-the proper cleanup.
-Mario Limonciello (5):
-  drm/amd: Disable interrupts after amdgpu_fence_driver_hw_fini()
-  drm/amd/display: Fix null pointer derference in amdgpu_dm_fini()
-  drm/amd/display: Only free dm private atomic_obj if initialized
-  drm/amd/display: convert all DRM_ERROR and DRM_WARN to drm_*
-  drm/amd/display: Make DMUB auto-load failures fatal
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 41 ++++++++++++-------
+ 1 file changed, 27 insertions(+), 14 deletions(-)
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |   2 +-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 388 ++++++++++--------
- 2 files changed, 217 insertions(+), 173 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 95807d035a153..e7ebc26070d6b 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -1291,8 +1291,10 @@ static int dm_dmub_hw_init(struct amdgpu_device *adev)
+ 
+ 	/* Wait for firmware load to finish. */
+ 	status = dmub_srv_wait_for_auto_load(dmub_srv, 100000);
+-	if (status != DMUB_STATUS_OK)
+-		DRM_WARN("Wait for DMUB auto-load failed: %d\n", status);
++	if (status != DMUB_STATUS_OK) {
++		drm_err(adev->dm.ddev, "Wait for DMUB auto-load failed: %d\n", status);
++		return -EINVAL;
++	}
+ 
+ 	/* Init DMCU and ABM if available. */
+ 	if (dmcu && abm) {
+@@ -1336,7 +1338,7 @@ static int dm_dmub_hw_init(struct amdgpu_device *adev)
+ 	return 0;
+ }
+ 
+-static void dm_dmub_hw_resume(struct amdgpu_device *adev)
++static int dm_dmub_hw_resume(struct amdgpu_device *adev)
+ {
+ 	struct dmub_srv *dmub_srv = adev->dm.dmub_srv;
+ 	enum dmub_status status;
+@@ -1345,24 +1347,30 @@ static void dm_dmub_hw_resume(struct amdgpu_device *adev)
+ 
+ 	if (!dmub_srv) {
+ 		/* DMUB isn't supported on the ASIC. */
+-		return;
++		return 0;
+ 	}
+ 
+ 	status = dmub_srv_is_hw_init(dmub_srv, &init);
+ 	if (status != DMUB_STATUS_OK)
+-		DRM_WARN("DMUB hardware init check failed: %d\n", status);
++		drm_warn(adev->dm.ddev, "DMUB hardware init check failed: %d\n", status);
+ 
+ 	if (status == DMUB_STATUS_OK && init) {
+ 		/* Wait for firmware load to finish. */
+ 		status = dmub_srv_wait_for_auto_load(dmub_srv, 100000);
+-		if (status != DMUB_STATUS_OK)
+-			DRM_WARN("Wait for DMUB auto-load failed: %d\n", status);
+-	} else {
+-		/* Perform the full hardware initialization. */
+-		r = dm_dmub_hw_init(adev);
+-		if (r)
+-			DRM_ERROR("DMUB interface failed to initialize: status=%d\n", r);
++		if (status != DMUB_STATUS_OK) {
++			drm_err(adev->dm.ddev, "Wait for DMUB auto-load failed: %d\n", status);
++			return -EINVAL;
++		}
++
++		return 0;
+ 	}
++
++	/* Perform the full hardware initialization. */
++	r = dm_dmub_hw_init(adev);
++	if (r)
++		drm_err(adev->dm.ddev, "DMUB interface failed to initialize: status=%d\n", r);
++
++	return r;
+ }
+ 
+ static void mmhub_read_system_context(struct amdgpu_device *adev, struct dc_phy_addr_space_config *pa_config)
+@@ -3244,9 +3252,12 @@ static int dm_resume(struct amdgpu_ip_block *ip_block)
+ 		link_enc_cfg_copy(adev->dm.dc->current_state, dc_state);
+ 
+ 		r = dm_dmub_hw_init(adev);
+-		if (r)
++
++		if (r) {
+ 			drm_err(adev->dm.ddev,
+ 				"DMUB interface failed to initialize: status=%d\n", r);
++			return r;
++		}
+ 
+ 		dc_dmub_srv_set_power_state(dm->dc->ctx->dmub_srv, DC_ACPI_CM_POWER_STATE_D0);
+ 		dc_set_power_state(dm->dc, DC_ACPI_CM_POWER_STATE_D0);
+@@ -3292,7 +3303,9 @@ static int dm_resume(struct amdgpu_ip_block *ip_block)
+ 	/* TODO: Remove dc_state->dccg, use dc->dccg directly. */
+ 
+ 	/* Before powering on DC we need to re-initialize DMUB. */
+-	dm_dmub_hw_resume(adev);
++	r = dm_dmub_hw_resume(adev);
++	if (r)
++		return r;
+ 
+ 	/* Re-enable outbox interrupts for DPIA. */
+ 	if (dc_is_dmub_outbox_supported(adev->dm.dc)) {
 -- 
 2.43.0
 
