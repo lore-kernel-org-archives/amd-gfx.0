@@ -4,153 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69847D6DDEA
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Nov 2024 09:19:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0DD2D6DDEA
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Nov 2024 09:59:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02DE310E81A;
-	Fri, 15 Nov 2024 09:19:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5119410E831;
+	Fri, 15 Nov 2024 09:59:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="We7VZZqr";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xJ38b12s";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2050.outbound.protection.outlook.com [40.107.236.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08E7B10E3F4;
- Fri, 15 Nov 2024 09:19:54 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2072.outbound.protection.outlook.com [40.107.223.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 867A210E831
+ for <amd-gfx@lists.freedesktop.org>; Fri, 15 Nov 2024 09:59:09 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Mf7ekMMAlY9lPAGAmzxm8eFGUee1LoVMG8We7TglS36bpLyVAE7iiSoVIU0LUC1CZ+cWnTGs90RoS/LhPBxh2YikER1TTUhDdyZvM/naYwkR1Dlt8T/DTE9MFBQPsk/EGX01XK1Lj/wBfAdrLJRkrk4RLnKw+NTzgHEHDx4/K/VmgdNb64kQq6zgRhVvqQA8JSThcFKCZA3BEOzVOB/x/EmaFRpFFedUzOoWbI91L8vt5FwpgRBlru8mJCe6UwQ2qG+J3h8OSh8jjwaac+JO4/h+XXGMEFcSLYsXoKX4ncY9rVze44GVTkKabVZLPMNWsOw8WdSRo7STAHgq1o7DJA==
+ b=djgldE2/3EfqbOfnV1ckTMPgR6sD7FRimh/bt/Zx29xuheMIl/ZU0e8sEoDyjl5T1DafmrlYzsSXx1z7KXWf+KE+UWugU6BGlvQgvuDrxSVQZKMhM2aKFwpaoHP0nD3zddEXC2QLAYn0GPtRp/32G+M3cdVGQlVrNer4hQ+dGC4bKhJuTy0Etyg1MEVLr2bVIWCmzuC0/O5xsJ4hF4cuhd6UBUhJGOrvtKHE9t8NwuqIcpzFvXiNMAN6G7vQC0TiG9Gbu1MCoKSMX9r2v8ymd5xrWOPBkCzgnugyrqMs00IAyj4hDtc3Uf1NZOx20OnBeV75wVG2w0Z1j+2wXbx/SQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nnAy94aAmPfF2Lxr2+TCKvCMlQ/C5kh3fiCUoHB0AIg=;
- b=oGlJBW99feWsO7EPHIyfs0ZkV87mP4RxjxSRboSo+KOVsOY79hP+i8aaqnyhQFXgG5wJVSfnC5613sxYZdMo5VakoElby2wIDY8kBxL33a9TWV+E9uDk0NiXLDot3LYD9an+P/tEtHpYlfsiLEdIvGP9HBb7Hf4u4QG0wg72CEfms7xpXGE3VDks8gb/SBOn6xzNELJhBhoyRqgO/IeIcLNgxpw3DIj/PjKMTBVRL7z7WZsLtgiX/6HU3+n25eGdcAXN43TcMV1QKg2Zd8NnzihNjZBiymK/s6cA56JR6L9XH7AElIeTcIK8Px4LO0+PGe/4+gOTQ8FwJKSJ7vZOBw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=ttGsqHrIWD0TJBrK6zBtz8d/nF/2vrr9Ay4+9eirt6Y=;
+ b=HEyajrbDcpo9GURUzWpgYD12NPEiDsHc/ejMIWt0Cis/upGIGmlpRqX4xJ/Z5GuBv5wji9OU2WVbA8vFcMwXLDuFIX87Sv+j30kkGhcCmfgk70Mp0CSi2PKCwqpgp5TICXLJ4sDuUB/up4CTo58CGOm+gNeygXwkPzZ7Rdm3NEhYG/OxgMIcUK8rWJJttH9gJokHXJzDQ0tbGQ9OEP1B6ZbjNdATHLES6Y+hvfBxBphFNqn+oGwAp2bhBs9UkG75LMZG2N9NA8Z/6mKZzfpxENtDkuyHNGjYyh6uCt5PsWtICmqQtPj22AADEJFxo4yPFK6w2KgkJCaCd6xt9/QCmw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nnAy94aAmPfF2Lxr2+TCKvCMlQ/C5kh3fiCUoHB0AIg=;
- b=We7VZZqrlAcXiLvlRLVfLEgmb33LKkZfBUWB4lhTxiYvP7jyr1sZVXEOGFg9/LD58g6F9c6+jmDC+DqCm+pgV6lrcVUJ2MfV5Sq/yBwzRQbNMRBO2gdIbWoYNN6wr41p/lEYwht2PmAB2VH8wBnxGQnJU33GziJIvN368FhgxXY=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CY5PR12MB6383.namprd12.prod.outlook.com (2603:10b6:930:3d::12)
+ bh=ttGsqHrIWD0TJBrK6zBtz8d/nF/2vrr9Ay4+9eirt6Y=;
+ b=xJ38b12suXspKLs7bRlnAnD8KJ0RGmryFYS4a7tbKscF5ygM5OP/VrxcIBocsC5vGONY8QVRQEwJdUql/n1IpleQTNA14KM8PQA3TuKvwquS7Cbp3pecTmV/rGvMxlCPhQZCiNSYMYjIJ/ohYe7P9uoJAk+r6iO0OfytwZSFe68=
+Received: from BN0PR08CA0005.namprd08.prod.outlook.com (2603:10b6:408:142::20)
+ by MN6PR12MB8514.namprd12.prod.outlook.com (2603:10b6:208:474::16)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8137.29; Fri, 15 Nov
- 2024 09:19:50 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%2]) with mapi id 15.20.8137.027; Fri, 15 Nov 2024
- 09:19:50 +0000
-Message-ID: <b5798f03-51d2-4517-8866-8e3368e4531d@amd.com>
-Date: Fri, 15 Nov 2024 10:19:42 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 2/4] drm/doc: Document device wedged event
-To: Raag Jadav <raag.jadav@intel.com>, airlied@gmail.com, simona@ffwll.ch,
- lucas.demarchi@intel.com, rodrigo.vivi@intel.com,
- jani.nikula@linux.intel.com, andriy.shevchenko@linux.intel.com,
- lina@asahilina.net, michal.wajdeczko@intel.com
-Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, himal.prasad.ghimiray@intel.com,
- aravind.iddamsetty@linux.intel.com, anshuman.gupta@intel.com,
- alexander.deucher@amd.com, andrealmeid@igalia.com,
- amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com
-References: <20241115050733.806934-1-raag.jadav@intel.com>
- <20241115050733.806934-3-raag.jadav@intel.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20241115050733.806934-3-raag.jadav@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0045.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:4a::16) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8158.18; Fri, 15 Nov
+ 2024 09:59:04 +0000
+Received: from BN1PEPF0000468D.namprd05.prod.outlook.com
+ (2603:10b6:408:142:cafe::23) by BN0PR08CA0005.outlook.office365.com
+ (2603:10b6:408:142::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8158.18 via Frontend
+ Transport; Fri, 15 Nov 2024 09:59:04 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN1PEPF0000468D.mail.protection.outlook.com (10.167.243.138) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8158.14 via Frontend Transport; Fri, 15 Nov 2024 09:59:04 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 15 Nov
+ 2024 03:59:03 -0600
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 15 Nov
+ 2024 03:59:03 -0600
+Received: from victor-x86-02.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Fri, 15 Nov 2024 03:59:01 -0600
+From: Victor Zhao <Victor.Zhao@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <monk.liu@amd.com>, <christian.koenig@amd.com>, <philip.yang@amd.com>,
+ <felix.kuehling@amd.com>, <alexdeucher@gmail.com>, <lijo.lazar@amd.com>,
+ Victor Zhao <Victor.Zhao@amd.com>
+Subject: [PATCH] drm/amdkfd: make sure ring buffer is flushed before update
+ wptr
+Date: Fri, 15 Nov 2024 17:58:44 +0800
+Message-ID: <20241115095844.1487807-1-Victor.Zhao@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CY5PR12MB6383:EE_
-X-MS-Office365-Filtering-Correlation-Id: e859be3f-3d03-4121-fc55-08dd0556a82a
+X-MS-TrafficTypeDiagnostic: BN1PEPF0000468D:EE_|MN6PR12MB8514:EE_
+X-MS-Office365-Filtering-Correlation-Id: 70be1bde-0dce-4cd3-a2ee-08dd055c232b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|7416014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?OGNFeWJkenNFdS9MLzB4WmpTUE9oRE5HeWd6TTFHMW5OR1lubDczZTBuT1R4?=
- =?utf-8?B?NUNUaXB0N2Z3YjdvSkV3bExyTmRSVnlHY09qdmQ2NjFwNXRvMW92bGVwMjdX?=
- =?utf-8?B?bDdRS0xTSVZFSTdZZ2RXblhweWhIN01MaWNPbUFWVkR3eU9SZGlNOHhNckxF?=
- =?utf-8?B?eVFZcUord3pFOWZTVmxTRDNsN1dUTDZyTHpvclRWYzQweUhPYkN2NWlDYXNN?=
- =?utf-8?B?MlZXWThOU0JROEh4aUwzcTJTV1pDdmZON0E5K25jVDJRbng2eDhRTXhQRmFZ?=
- =?utf-8?B?U3g2eVBsRkNJOFl0NWxCME85Ny9zRklqQTBoL3ExdC9LdjBmRkFMSGNGRkor?=
- =?utf-8?B?Zm52THBvUjZNSit4dEVBK1gycmNZcWU5Z1NscnVNblZPaGJBaDJCVHZXZFF2?=
- =?utf-8?B?NURQN0h0ZEx4NExKSHBXRnRJalc0NVQzOTVxakpuVlQ2bnUrMHpJSWkzV1RX?=
- =?utf-8?B?eU9ZeXh5WG9mRVBpWnp3QUpSN1VRcjNSbWJ5QjNWMWs5dVExZXdxQURyd0Jr?=
- =?utf-8?B?aW52VUllNDMwMlIvYTJyZW5iUUpWMzdzVWVSaWY4K05GMlpVQlc1SzFxK0pr?=
- =?utf-8?B?ZHZyMFdwZWphU1J1NEMzc1BoVWJZTkIwM2d1OWhpcGVHajI3SFVBRmFpV09s?=
- =?utf-8?B?QUk3bFdoOWQ2S2RtSHRKWitIM2lxMXRjTVdUVlRHTGdtNEtQc3VkZ3VOMWJ2?=
- =?utf-8?B?Ull5eXNkVjhRTnlIQ2RySU0rVUhLbko1bjZkUVhaZUNsWnl5SVVGOHBhZC9i?=
- =?utf-8?B?VXV2N3U0SkxtWXZsOVFjd2RpUTZqL0VBaG5qcUJlVTNrek5admEyZ0tSUkgy?=
- =?utf-8?B?RW1EQS9iTjNOMDVMZG9uTDcvWDIxQlJMTkFZZTBoeVI3SzFZYlZGNUk1Q0hL?=
- =?utf-8?B?YXJJdVZ1TFQ4TTRBNDc1YS93amU0VUg3Wk92cUZvdGplZUtpSDlJRkdwcFp2?=
- =?utf-8?B?a3k2eWpHcVhKS3c1aFIvVDl6bDZjRkdGb0RrTTIzWWtZNE9tUlkvQm11R3A2?=
- =?utf-8?B?b3VtRmtuazlkU2k2TDlGenJtMnFrZW10S3R3azBpTHRTOHhqZ0VYY3RPa2JT?=
- =?utf-8?B?QXRhV09PbTdhTHpuZ0Y1RWI1RmJ3U3hlYVhDcVhWcmNhdnZHQ1puejlSOVJF?=
- =?utf-8?B?T2ZwRkl5Q2VQQ2NNOGpWOGZyZko3MmU4Z0NDb1VpaWYvZmZPeHdCNDFSYVNM?=
- =?utf-8?B?YS9MTUhyUXVqTzFuQmJ5K0FGYTZRb2V5V25xZTFGaFo2eGpqLzNESjl0WjU3?=
- =?utf-8?B?S3p5YXF5NjZzc242SzkxSFQzbDBLTXlaaUFZY1NhRVFWWHgrVnF6UjdqRlRX?=
- =?utf-8?B?VHdzZWJkZkpxMEloZW5VallGRmwzM0ZxUC9lRzdRMFR3RnhvQWhxNFVvaTFH?=
- =?utf-8?B?Tlczdzl6Rzl1YmthZFE1RkptZUU3ZkVqeVk5d0NzUUZrTk5WTlJ1a0NXREhj?=
- =?utf-8?B?NjcvUkxJaTVjSkd0b0ZxMlFVTG1sdDdGV2VUeVFLbHAyK3lYUHFjRGxONU5n?=
- =?utf-8?B?bFEyVFdDTGI0WGYyOExUMEhIQVJxQVBIM1pOSUNPTU5leUtuZlBXM3loQmll?=
- =?utf-8?B?bkg4Y2k0UDh0TGRBZWJZVkZvc0ZEclBuMUdheWxJZnVmUWllYlkrV3RiMG1J?=
- =?utf-8?B?d01WUTlJV3p3VlFxSjRDSEoyZEN4cFkrejVpa1JrRk5qbUxGNGtBMHJ0WHU5?=
- =?utf-8?B?bTNWbXVGQ2dhVzdPTlBCYzh1N1ZIc3A3OTlzTkNPQmhycEJQVndJRE1MRFZ2?=
- =?utf-8?Q?gBCogjQ24WMg+g57Jp8xjlOP2TLqiGof/fn0rYi?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(366016)(1800799024); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VTdKL2huL1FTVTIxWVIydUpkZGdDZ2kzemlTU3hHeERYSVNabEs1MzM1SFd1?=
- =?utf-8?B?UGdJMVd1NzBGWm1sRXhnczRRRFFoS29oRkY0Yk52Sm5ReVZBWnpXTElZa1lj?=
- =?utf-8?B?MktVc2Y5ZmtYckllSGpmanJwS3dQRDNWYXgyVUtBY3JtV003cElyRVlUd3Rx?=
- =?utf-8?B?cjJ4NlRjQXBrMHVqZG1NK0txMjE4S093OE4rV1pvNjBvcDVTMk5PU01nM0pv?=
- =?utf-8?B?M1NGYlFxRFFJT3ZaV1M3ZnNoNjc0L3lpL2EwM3ZDMDBBZHZMbFdxYnpqZnJD?=
- =?utf-8?B?YlFlcmtlM1FMb1liLzdKdmt6MEdwOXgxVE1RRmlzQWJYMEtkN3p2dkgvVjNZ?=
- =?utf-8?B?UjRUb1dGRFVja3RORUNSYW1vZnEyaUhvVDVDenp2eThyNmxPWGpyMVlSMGRm?=
- =?utf-8?B?SFNlMlN5NkxRV0JMNUxzbVl3dnY5MVNDdEJFQXRxZ1BVRHYyamZDWUw0dHFs?=
- =?utf-8?B?eHpoenBoUFdOazBZOWxmMTVMUENlMjJrRGlyRGtRdy9MUktVa1c4RzJWbjI5?=
- =?utf-8?B?WmVJRnN6RE4yTi9JTjk2alpBVGVIWWFjN283THpTb1BURGpwL0dYNkI4UlZI?=
- =?utf-8?B?S0llMnJPNkhGVm9HZCt1UGNNb3Baa0ZQaFFYd2F2b2RjT3JxeXVTdlVORHBT?=
- =?utf-8?B?ckt4djBDTnRONkQxSEhpcjRiaGtVZ2xtZzRhZktybGVXQjlacVVoZlVadVBq?=
- =?utf-8?B?UzdMY1RIVzR6QmFVajVEcWlEZGN6VEZlSXMwNEFUT0ZzcWhJakl5VjhQeDVp?=
- =?utf-8?B?cVNobGRUNkE0WktOSm8zaXZnVlFETHJBWkNabW1sUERodldmWlB2Qk42aEJL?=
- =?utf-8?B?RS9Fa0ZmRE96STdEVFRnZ2RWYzFlbTJyQTBXMmxFYXp2eG1paGxENzFKRk5F?=
- =?utf-8?B?TTl5YThFQWswM2R0aDJaWlQ5bVR1MXVWL3ZlSVZ5WHhQNXJicGxYK0VmNzBm?=
- =?utf-8?B?NFZ2SzdyRWZYcEZDU2xDb3hwSWxoU0cxWXdHT1YzNlBNaElOcEJtZlFpejIv?=
- =?utf-8?B?STlLNkpFalVUY0tnMHB5RjdvRG9ySUtKY2FUQ0VXQUF3aUhMbDFIMTUzMlM3?=
- =?utf-8?B?WmdJMzg0RitERlJIeFgyZTcyVXVaZmUwNUE1UkczMzFTK0xqWCtyRVlKcXhs?=
- =?utf-8?B?QXBqaTgwOFFZY1ZXQk9rS1BHakk5U3FWVk4xbWZnZ3IxMVFmZnNNdkdXNjQ3?=
- =?utf-8?B?YjNmbUNya3YyNW1JNS9xL01HTzl2ZnlSQ05vY3VVUjRWV01IZ0hrMmJUQmxB?=
- =?utf-8?B?WUFXVFNvdjlMbjVYUmwzaE56ekhRYWY2MTd6V1Rib2E5NWRYTDJlMnp4YmhX?=
- =?utf-8?B?dWd1d0F5WDlzTFI5dWVVeFQrVjBXNVJlSmpRYllxV2JMMy82NnBSdnl2WWdC?=
- =?utf-8?B?WHZXNm5GQjZWS0ZEa21xTFVBWmJNak1wTzd6Mzl3K0VaMHBEd2p1REZvQldh?=
- =?utf-8?B?OU95RGxDM1BmYXhTUjZxQ0ZEU3pJc05ZNU1PeUIvYzNMVFBMVWdpTllaL0RY?=
- =?utf-8?B?UVpsc0xFeFN1WElMTWJOM2hRazVpcnlnU1hhZjBBNFI5ZnB0WnhaZVZ6SW5q?=
- =?utf-8?B?dFhERjFXVWhPMnRpSldLdW4rU0twa01rM2FMYmFZWDNXaGNXTmxzaDVjVzdJ?=
- =?utf-8?B?YlZLeDgwMHJhWlBxcVB2NEIyOW9IcVh1MW9QUGJaTG9sM2o3RWI2VitXblBW?=
- =?utf-8?B?dEIwOVgzTHBEUnJ0MXJ4MHEwOVZLOFZzTXQzc1pHc1pYWkxidGl5U041UkVq?=
- =?utf-8?B?SGtBbUxSRHJhcnF0bG4xOXpzMFIxRmJ5WlJKcHhDVGRRZVJxQXJTNU45UHpG?=
- =?utf-8?B?YVRnSnB6cnNaMU83UW9GcVVsdzI1V2IycXJIRVBJalNOYWtUN2xzWEhTcFlV?=
- =?utf-8?B?eHJzVG0vQkFWNVJuclBSWEdxNUUvZkpCLytiZ0VtOWNyTmFKRW5jVlR0ZERF?=
- =?utf-8?B?NWpnSWlzUCs3NUN1a2FLcCthSWN0S0IvUFBqUE51bmVHekFTaUxiU240ZjI5?=
- =?utf-8?B?Q0U2SDNTKzZqSnZCWnY3dUFqYjBWaXBmQTZjQTJCMzZJT1VBWnBXTVkxdVhk?=
- =?utf-8?B?dE1sVHc4cS93b0lqSWgyOUJDQ2gvOUpJc0kwSXdaYXllZk5MUGMrY3RweXE3?=
- =?utf-8?Q?3m2k=3D?=
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|36860700013|376014|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?pKqlmtqRWYxhVh8Z/dg6OlJQ15BeQu/IJ84K4a6bwvIn4q76KR4hsqFuE9SL?=
+ =?us-ascii?Q?4JXGKTJ79xtzQCewkpnXvde6xHhUMLi9ehBVKEI//scc/DrBsp4i5QbpzogX?=
+ =?us-ascii?Q?4IzLaSqt6Te5heby93lkmO+QjDiBwZ20aWJ65jxOsfgn58fy5GIsBLwhWUnz?=
+ =?us-ascii?Q?nwWiOSGwrTfmyQaDHQinv8mFwMuPkZTXsGTrFIwkWrEo23b+1eFYFYNxN3rB?=
+ =?us-ascii?Q?pJXVQkM+SLEdmLRgDQ1bsHMFa4MhkOziUW8VO5SLmb8NrK0Ch4NSieggcl04?=
+ =?us-ascii?Q?7dJAOYbvZGoHrMMU7mmFepBETCf0aOJZI7FiNaQpkagc+pSFUbfuFufL8X5v?=
+ =?us-ascii?Q?pSF4L0rqVuBFnfQcC/tGWs2MXCTHq77LTAoM8FwpBJWXolS80iC0K+IriPlO?=
+ =?us-ascii?Q?E2f+K3IpP8DrrX8Afg/VZob9+24blLQw46P3OKoKB1Oo/Plm3ogEozl1Opqi?=
+ =?us-ascii?Q?M/nhS2GF1wDM3vvthYWi5HsTfKJ65Oj77nLoEeU7s2yDI+4hDMFO60xFA3tW?=
+ =?us-ascii?Q?p33lHl/O1WhCtPaO3Nr752dgdNWIZwsYh+zwg1SXuswMwV2Y4d0JZHzRKnOM?=
+ =?us-ascii?Q?hvOBZD7TersbzZzIJtBN40FwO5PdtvC1cZ2tvLzX3jShzqvMNwq9D2tHRU7t?=
+ =?us-ascii?Q?cCeXOWVQyc0yph+QNbdAmKh5RA7gUVA2S/jbQ5LuqPC04Jii8SSlYeadas4h?=
+ =?us-ascii?Q?kmG9kM/po9TAaLGYHq4SawoHay54c7SoluqYWzAYgvz8/hBbU2f79CiAXpLx?=
+ =?us-ascii?Q?5uaZCM+++rh0R2goVui+3djDqPd5TDDeyhLsRuRgIFqjmj539WXEwBaVDa9q?=
+ =?us-ascii?Q?W7h4cjmpoSIzLVhQnZQ4MPckqFk+IOpqMfToJfD+bgR2wETVeTTlLVsf8uTK?=
+ =?us-ascii?Q?5bZaOf/jd+Tpe58cQc+Gh3TBDmP/K1NH7ZYknFQW/oNHI9qFF3Yh7GV5lcFU?=
+ =?us-ascii?Q?Y3W/zz1hfp8q8bto3Eo3u4E775p5ZNwzgKd6IEu7WG1B7H66kAmhGCZF9Ztj?=
+ =?us-ascii?Q?rUKnrWNEKNMFTTGe89F2p8kCUoG0P9Ba1i2VIHnkBY5K9yuujynSCVhlkZZf?=
+ =?us-ascii?Q?wl0ApBGPPAKTpZxvBaPlqsovCG8ly1o60WGuMhMch3UTf2EuB7wgiXeOi1be?=
+ =?us-ascii?Q?6pcqtVNN5tD0xxHh2ayfSyeFm8VBdqC9XNmQI7UtEhFaP4qHA7o351wWaq0z?=
+ =?us-ascii?Q?lMBN3KBaQ7w+BuEHqeEHsxj3sY5cFO83cog9o/kLvTML8wiUw6gDCBkJcCSu?=
+ =?us-ascii?Q?o/6DhLA6v8inryeySaN+xv1ueZbXAl/l6SnhCmWTnwNLG/MWfjnCqECVMCRm?=
+ =?us-ascii?Q?0BXA3KVOghiDMPtOAWYBsdwiifwx4X3v4aFDcO1z+OzzCT8dx261qNOPgLEj?=
+ =?us-ascii?Q?5q6vr0cr5afNOKdNPqdGIGGv4KRoxLoiFgYr7LAdPiJals6m1g=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700013)(376014)(82310400026); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e859be3f-3d03-4121-fc55-08dd0556a82a
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Nov 2024 09:19:50.5748 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Nov 2024 09:59:04.1045 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 70be1bde-0dce-4cd3-a2ee-08dd055c232b
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RbmxX4yAyejz2PoPwvmRw5dbIKxsCU24JZ7XoTLidOqsTxJTqTN9LzvuudCq3MDO
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6383
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF0000468D.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8514
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -165,140 +135,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 15.11.24 um 06:07 schrieb Raag Jadav:
-> Add documentation for device wedged event in a new 'Device wedging'
-> chapter. The describes basic definitions and consumer expectations
-> along with an example.
->
-> v8: Improve documentation (Christian, Rodrigo)
-> v9: Add prerequisites section (Christian)
->
-> Signed-off-by: Raag Jadav <raag.jadav@intel.com>
+In a consecutive packet submission, for example unmap and query status,
+when CP is reading wptr caused by unmap packet doorbell ring, if in some
+case CP operates slower (e.g. doorbell_mode=1) and wptr has been updated
+to next packet (query status), but the query status packet content has
+not been flushed to memory yet, it will cause CP fetched stalled data.
 
-Sounds totally sane to me, but I'm not a native speaker of English so 
-other should probably look at it as well.
+Adding mb to ensure ring buffer has been updated before updating wptr.
+Also adding a mb to ensure wptr updated before doorbell ring.
 
-Anyway feel free to add Reviewed-by: Christian König 
-<christian.koenig@amd.com>.
+Signed-off-by: Victor Zhao <Victor.Zhao@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-Regards,
-Christian.
-
-> ---
->   Documentation/gpu/drm-uapi.rst | 102 ++++++++++++++++++++++++++++++++-
->   1 file changed, 99 insertions(+), 3 deletions(-)
->
-> diff --git a/Documentation/gpu/drm-uapi.rst b/Documentation/gpu/drm-uapi.rst
-> index b75cc9a70d1f..33d9c253d4d6 100644
-> --- a/Documentation/gpu/drm-uapi.rst
-> +++ b/Documentation/gpu/drm-uapi.rst
-> @@ -371,9 +371,105 @@ Reporting causes of resets
->   
->   Apart from propagating the reset through the stack so apps can recover, it's
->   really useful for driver developers to learn more about what caused the reset in
-> -the first place. DRM devices should make use of devcoredump to store relevant
-> -information about the reset, so this information can be added to user bug
-> -reports.
-> +the first place. For this, drivers can make use of devcoredump to store relevant
-> +information about the reset and send device wedged event without recovery method
-> +(as explained in next chapter) to notify userspace, so this information can be
-> +collected and added to user bug reports.
-> +
-> +Device wedging
-> +==============
-> +
-> +Drivers can optionally make use of device wedged event (implemented as
-> +drm_dev_wedged_event() in DRM subsystem), which notifies userspace of 'wedged'
-> +(hanged/unusable) state of the DRM device through a uevent. This is useful
-> +especially in cases where the device is no longer operating as expected and
-> +has become unrecoverable from driver context. Purpose of this implementation
-> +is to provide drivers a generic way to recover with the help of userspace
-> +intervention without taking any drastic measures in the driver.
-> +
-> +A 'wedged' device is basically a dead device that needs attention. The
-> +uevent is the notification that is sent to userspace along with a hint about
-> +what could possibly be attempted to recover the device and bring it back to
-> +usable state. Different drivers may have different ideas of a 'wedged' device
-> +depending on their hardware implementation, and hence the vendor agnostic
-> +nature of the event. It is up to the drivers to decide when they see the need
-> +for recovery and how they want to recover from the available methods.
-> +
-> +Prerequisites
-> +-------------
-> +
-> +The driver, before opting for recovery, needs to make sure that the 'wedged'
-> +device doesn't harm the system as a whole by taking care of the prerequisites.
-> +Necessary actions must include disabling DMA to system memory as well as any
-> +communication channels with other devices. Further, the driver must ensure
-> +that all dma_fences are signalled and any device state that the core kernel
-> +might depend on are cleaned up. Once the event is sent, the device must be
-> +kept in 'wedged' state until the recovery is performed. New accesses to the
-> +device (IOCTLs) should be blocked, preferably with an error code that
-> +resembles the type of failure the device has encountered. This will signify
-> +the reason for wegeding which can be reported to the application if needed.
-> +
-> +Recovery
-> +--------
-> +
-> +Current implementation defines three recovery methods, out of which, drivers
-> +can use any one, multiple or none. Method(s) of choice will be sent in the
-> +uevent environment as ``WEDGED=<method1>[,<method2>]`` in order of less to
-> +more side-effects. If driver is unsure about recovery or method is unknown
-> +(like soft/hard reboot, firmware flashing, hardware replacement or any other
-> +procedure which can't be attempted on the fly), ``WEDGED=unknown`` will be
-> +sent instead.
-> +
-> +Userspace consumers can parse this event and attempt recovery as per the
-> +following expectations.
-> +
-> +    =============== ================================
-> +    Recovery method Consumer expectations
-> +    =============== ================================
-> +    none            optional telemetry collection
-> +    rebind          unbind + bind driver
-> +    bus-reset       unbind + reset bus device + bind
-> +    unknown         admin/user policy
-> +    =============== ================================
-> +
-> +The only exception to this is ``WEDGED=none``, which signifies that the
-> +device was temporarily 'wedged' at some point but was able to recover using
-> +device specific methods like reset. No explicit action is expected from
-> +userspace consumers in this case, but they can still take additional steps
-> +like gathering telemetry information (devcoredump, syslog). This is useful
-> +because the first hang is usually the most critical one which can result in
-> +consequential hangs or complete wedging.
-> +
-> +Example
-> +-------
-> +
-> +Udev rule::
-> +
-> +    SUBSYSTEM=="drm", ENV{WEDGED}=="rebind", DEVPATH=="*/drm/card[0-9]",
-> +    RUN+="/path/to/rebind.sh $env{DEVPATH}"
-> +
-> +Recovery script::
-> +
-> +    #!/bin/sh
-> +
-> +    DEVPATH=$(readlink -f /sys/$1/device)
-> +    DEVICE=$(basename $DEVPATH)
-> +    DRIVER=$(readlink -f $DEVPATH/driver)
-> +
-> +    echo -n $DEVICE > $DRIVER/unbind
-> +    sleep 1
-> +    echo -n $DEVICE > $DRIVER/bind
-> +
-> +Customization
-> +-------------
-> +
-> +Although basic recovery is possible with a simple script, admin/users can
-> +define custom policies around recovery action. For example, if the driver
-> +supports multiple recovery methods, consumers can opt for the suitable one
-> +based on policy definition. Consumers can also choose to have the device
-> +available for debugging or additional data collection before performing the
-> +recovery. This is useful especially when the driver is unsure about recovery
-> +or method is unknown.
->   
->   .. _drm_driver_ioctl:
->   
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c
+index 4843dcb9a5f7..55d18aed257b 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c
+@@ -306,12 +306,17 @@ int kq_submit_packet(struct kernel_queue *kq)
+ 	if (amdgpu_amdkfd_is_fed(kq->dev->adev))
+ 		return -EIO;
+ 
++	/* Make sure ring buffer is updated before wptr updated */
++	mb();
++
+ 	if (kq->dev->kfd->device_info.doorbell_size == 8) {
+ 		*kq->wptr64_kernel = kq->pending_wptr64;
++		mb(); /* Make sure wptr updated before ring doorbell */
+ 		write_kernel_doorbell64(kq->queue->properties.doorbell_ptr,
+ 					kq->pending_wptr64);
+ 	} else {
+ 		*kq->wptr_kernel = kq->pending_wptr;
++		mb(); /* Make sure wptr updated before ring doorbell */
+ 		write_kernel_doorbell(kq->queue->properties.doorbell_ptr,
+ 					kq->pending_wptr);
+ 	}
+-- 
+2.34.1
 
