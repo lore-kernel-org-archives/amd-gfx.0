@@ -4,62 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49873D6DDEF
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 Nov 2024 08:38:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF56AD6DDEA
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 Nov 2024 08:40:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 707D210E3C1;
-	Fri, 15 Nov 2024 08:38:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9ACD810E3BD;
+	Fri, 15 Nov 2024 08:40:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VRNwnLaS";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="TtV3FBwn";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF5D910E38E;
- Fri, 15 Nov 2024 05:09:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1731647362; x=1763183362;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=YYyLJ4E4/H8Ir/A43hkGpUgr5AjYSevSa2RpNECxKuw=;
- b=VRNwnLaSUwWrxKtoZB155iMudDNrkyNHL+q7GuohKLYsRTE9N8Lfqrc7
- 6f1Un3wo4kLnUppTzDej2kNxYqxDwwtgF2SFauz7iNjuuS4xC+DeLerGF
- +leoA/Io5Xh5x9nk4VZF1Q0wjVwHieshj+SzaWfLkBZx+zxANNOGl3NT6
- aXbJHoIPT0YrzRFrKHdqHT05YEQo6wkC2eaTz1GLE/vLlLwQWEugDYRou
- PxGoE5/2NOmYxd52NU/7R9nPU9KKi2SCwa9qaP40FvKes/Nfh+D+WpdzE
- ZI60wnIa7fwKlsjmaBYHXf6ndFHXWyRrBeAlh+XqFEwKti6P3DjOPuUk9 g==;
-X-CSE-ConnectionGUID: 6ctTSTr8Q2mIzGM8QyI8Pw==
-X-CSE-MsgGUID: fs4dZ7bkQbSLamTM8OjsXQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11256"; a="31023914"
-X-IronPort-AV: E=Sophos;i="6.12,155,1728975600"; d="scan'208";a="31023914"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Nov 2024 21:09:21 -0800
-X-CSE-ConnectionGUID: yudy2b/YQIiSOOYV1T8OVw==
-X-CSE-MsgGUID: kWXO/kiVTpWu+LY54Js2HA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,155,1728975600"; d="scan'208";a="92493535"
-Received: from jraag-nuc8i7beh.iind.intel.com ([10.145.169.79])
- by fmviesa003.fm.intel.com with ESMTP; 14 Nov 2024 21:09:16 -0800
-From: Raag Jadav <raag.jadav@intel.com>
-To: airlied@gmail.com, simona@ffwll.ch, lucas.demarchi@intel.com,
- rodrigo.vivi@intel.com, jani.nikula@linux.intel.com,
- andriy.shevchenko@linux.intel.com, lina@asahilina.net,
- michal.wajdeczko@intel.com, christian.koenig@amd.com
-Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, himal.prasad.ghimiray@intel.com,
- aravind.iddamsetty@linux.intel.com, anshuman.gupta@intel.com,
- alexander.deucher@amd.com, andrealmeid@igalia.com,
- amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
- Raag Jadav <raag.jadav@intel.com>
-Subject: [PATCH v9 1/4] drm: Introduce device wedged event
-Date: Fri, 15 Nov 2024 10:37:30 +0530
-Message-Id: <20241115050733.806934-2-raag.jadav@intel.com>
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2049.outbound.protection.outlook.com [40.107.94.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1367710E3BD
+ for <amd-gfx@lists.freedesktop.org>; Fri, 15 Nov 2024 08:40:00 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gnE5wIP8w1DOFBrcrnuidLx9GGl45uPdLfmLDBQBY/6P/iFz4yqAowvLWUtu0VATELduKdKNlk1XxYmUEj/UcY3rPR2EuqnH+0HgUYopNIK8tFt8UToLcUZDuJZzY0sVgfsbHZd53tXbna+yb7ON9lFeITFB1IbRJpiJcYwqvqKgtXSJvxbP1HBIDTRB6nOY34JAn3nntMqLtSwllrNcwqh8BmGc/9oR4DmT7yfUoDsB5jBzwfeoO8OfmPiqnVyB8oKcBoZNfD5xyTD8C8DSDnxTMcyy+aO+aesdLxDJFNvEnDqT5jNAaj7RUZGqtVXPl6bH0MJTVlfE6PCFODyl7g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bRDS4r4476BbLmVk7ee+rN2S3T01NnCvZUOfaepr36Q=;
+ b=Neao2wdkEWqZAYaKpi+nQjje1Pm4Mr4LdQu6j36QiYhEDOIA2OyhdGvK/qEDpPFSwilahLAUN/Bl2Jeqm77vaV4PZRWD/JKBVk67kWhpXVRtwOzwpB6Oh7/SShAyDz0AH9EslsWLT+uc2KGzmtMge8qKvuRWlmuRGYW2cq0pyZn/9Zx3apz3Qh0laJBCiPHpoAw7FmZeHSd1ctCP1/fkazpvcB+azmxFPScNZo5UDj+TipVukprscpXkYVpPmzbx4DiJLIYMH4c/7p5r/a85vXP8sz7F4c+wzbzBLpnbu+sO0GoCqAXysTba1Kg6h/U9PeMrHHtVKuxpJc2dC4+NAQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bRDS4r4476BbLmVk7ee+rN2S3T01NnCvZUOfaepr36Q=;
+ b=TtV3FBwnecS3VubVkcQRervLUk9AI/RCmnh4c6QKF0nWRgfcS3Tbb+L65LPlGpRdFbGMRywjXr9TaraJlOevgyia0UxyrazAnKm+rq+OBvmZB0FbKxvXNqwpeXWO1lCh6qjqHbjJknphe4S/YBdYPKwM9+051V1SK13N86QqIXY=
+Received: from SN7PR18CA0030.namprd18.prod.outlook.com (2603:10b6:806:f3::7)
+ by IA0PR12MB7697.namprd12.prod.outlook.com (2603:10b6:208:433::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8158.17; Fri, 15 Nov
+ 2024 08:39:55 +0000
+Received: from SN1PEPF0002529F.namprd05.prod.outlook.com
+ (2603:10b6:806:f3:cafe::61) by SN7PR18CA0030.outlook.office365.com
+ (2603:10b6:806:f3::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8158.18 via Frontend
+ Transport; Fri, 15 Nov 2024 08:39:55 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SN1PEPF0002529F.mail.protection.outlook.com (10.167.242.6) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8158.14 via Frontend Transport; Fri, 15 Nov 2024 08:39:54 +0000
+Received: from prike-code-pc.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 15 Nov
+ 2024 02:39:53 -0600
+From: Prike Liang <Prike.Liang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Alexander.Deucher@amd.com>, Prike Liang <Prike.Liang@amd.com>
+Subject: [PATCH] drm/amdgpu: reduce the mmio writes in kiq setting
+Date: Fri, 15 Nov 2024 16:39:43 +0800
+Message-ID: <20241115083943.284924-1-Prike.Liang@amd.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20241115050733.806934-1-raag.jadav@intel.com>
-References: <20241115050733.806934-1-raag.jadav@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 15 Nov 2024 08:38:20 +0000
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002529F:EE_|IA0PR12MB7697:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8a8c08f0-2c6c-431b-c32d-08dd05511474
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700013|1800799024|376014|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?Muf955S1erR/sp/4CXwIHfJG9wvgxIa88eENKSYTeHcFiJ+AWpsqO1KXTFU8?=
+ =?us-ascii?Q?yrMn7v69LsPL4oRQezWYqTRjaO7cPL1au28/GXa8odKtKmwt3kua9SU46efG?=
+ =?us-ascii?Q?wdYY70WmEFjWfKDoYTAo8gRcRDbFAKkzOY2kCND2WnQY1SlCpx0ZS3DxyhcF?=
+ =?us-ascii?Q?vwMrgG+MKAAKyo0f3mdiVMiYacYCZDqBNHd9rW/rA9+IyajdkZo9PsvJnR+L?=
+ =?us-ascii?Q?wJ0CdKZH7br8CCxW/D9iwQpK8aQc04WbXzVH911bF479TPYeUZErkCX2u39a?=
+ =?us-ascii?Q?p+LFB589Q/3zEb8xmdfgEQk+I3nvgV96w07MIo0HsTHlWB/AT1YqIB0l3VV1?=
+ =?us-ascii?Q?gNTzpzDq++lVAkYHgvx3V4cMxEC5WcWSlj3reuQ0yHi61v7hHUoianThLPoA?=
+ =?us-ascii?Q?bJKqmmlRNGYM2mGxrRg/5Miubm0SRisCgfvkJ7ldPSgFfkzjHBZgps0CWG0h?=
+ =?us-ascii?Q?wFUk3uYqTGDtJ/b/KnxOe/f0nmIJ6mjt2kfAdj57ERyshA94YG3Vt2b1urG1?=
+ =?us-ascii?Q?EyKaFHz+MfG8ypCdP8D0m+tImcCyBQQ0dXQC0ZKqnHqDmSSw4Gc7To6FD6fI?=
+ =?us-ascii?Q?JPBuJh8cdJmWQrwkbGv5BYbGzoaYY0CPNbuieY8zyJFFVmooOEJLJOdCDZFj?=
+ =?us-ascii?Q?VaumINSv0mK3t0mNyg57YeimWTOqA9tDB/h1hLwdTatqGExN6Ag4Qq+3/CfB?=
+ =?us-ascii?Q?DlIJi34QgMlHlP7zWpW2W10VPdpJzuRnAzo3Op2SwchxGzFKtP/phW4DkWZB?=
+ =?us-ascii?Q?HIuhIbqQnsy9WxPeBEHtzcRM9/3lan09ytGFimxfFm4V7ca9UKf7B15AWJm0?=
+ =?us-ascii?Q?SHpTAo5rLLk39+YJ2H+SMlJe5X2kHqO42dnJQHJp0kEETb5nqlwUYkcnUTix?=
+ =?us-ascii?Q?6Y4iWIs5ZxIHSIq/jLx3zIFpnkwZrwqwJJx6ArRspd2dXRWPglPX7VTPMS+Y?=
+ =?us-ascii?Q?lNn1VDUCXG6q6Tv2sDr3K9X92xoBN4toapOvYL6bYNHqqrl8iE9Sy4vYxp3J?=
+ =?us-ascii?Q?gfdjyE977RYjxEmagvCmuC7unAkcLU02sFt2Y/ct4ehZVnlHhXF2R7nweGTr?=
+ =?us-ascii?Q?2neVMDOuXWAOVXeFmj06+hlhdpGJ7jGx5+YHhC1bi1zWuf/56LALJiv2g32y?=
+ =?us-ascii?Q?To0lbsPYSj0WU2U1xM3FRoKlJHU0g5Dvzvlx+wVv6sleIox2ADjbOxtd3k7j?=
+ =?us-ascii?Q?uYLyoz4c9y5nMQWElqTPMZXDAV4ITWePosPm+EK8CJfeT6hWzicluw7u8skr?=
+ =?us-ascii?Q?qo9Zb7nJfHxwE9MiJbjrsKvcY3IDzp//uL89BrZUcYWbgKZ56IGz99E459cy?=
+ =?us-ascii?Q?ezc2SgfO10h2gbJxy4w47v9bZUT5C0+Wv5VuVwcVj1N1QcuNBgKHYRxmC8JZ?=
+ =?us-ascii?Q?+mXpKMSwV/ud7k3aKQwrZq4uYnZtjP/v24qcB4jCofineXe9tA=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(1800799024)(376014)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Nov 2024 08:39:54.9071 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8a8c08f0-2c6c-431b-c32d-08dd05511474
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002529F.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7697
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,240 +128,151 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Introduce device wedged event, which notifies userspace of 'wedged'
-(hanged/unusable) state of the DRM device through a uevent. This is
-useful especially in cases where the device is no longer operating as
-expected and has become unrecoverable from driver context. Purpose of
-this implementation is to provide drivers a generic way to recover with
-the help of userspace intervention without taking any drastic measures
-in the driver.
+There's no need to perform the two MMIO writes in the KIQ
+Setting registers programmed period, and reducing the MMIO
+writes will save the driver loading time.
 
-A 'wedged' device is basically a dead device that needs attention. The
-uevent is the notification that is sent to userspace along with a hint
-about what could possibly be attempted to recover the device and bring
-it back to usable state. Different drivers may have different ideas of
-a 'wedged' device depending on their hardware implementation, and hence
-the vendor agnostic nature of the event. It is up to the drivers to
-decide when they see the need for recovery and how they want to recover
-from the available methods.
-
-Prerequisites
--------------
-
-The driver, before opting for recovery, needs to make sure that the
-'wedged' device doesn't harm the system as a whole by taking care of the
-prerequisites. Necessary actions must include disabling DMA to system
-memory as well as any communication channels with other devices. Further,
-the driver must ensure that all dma_fences are signalled and any device
-state that the core kernel might depend on are cleaned up. Once the event
-is sent, the device must be kept in 'wedged' state until the recovery is
-performed. New accesses to the device (IOCTLs) should be blocked,
-preferably with an error code that resembles the type of failure the
-device has encountered. This will signify the reason for wegeding which
-can be reported to the application if needed.
-
-Recovery
---------
-
-Current implementation defines three recovery methods, out of which,
-drivers can use any one, multiple or none. Method(s) of choice will be
-sent in the uevent environment as ``WEDGED=<method1>[,<method2>]`` in
-order of less to more side-effects. If driver is unsure about recovery
-or method is unknown (like soft/hard reboot, firmware flashing, hardware
-replacement or any other procedure which can't be attempted on the fly),
-``WEDGED=unknown`` will be sent instead.
-
-Userspace consumers can parse this event and attempt recovery as per the
-following expectations.
-
-    =============== ================================
-    Recovery method Consumer expectations
-    =============== ================================
-    none            optional telemetry collection
-    rebind          unbind + bind driver
-    bus-reset       unbind + reset bus device + bind
-    unknown         admin/user policy
-    =============== ================================
-
-The only exception to this is ``WEDGED=none``, which signifies that the
-device was temporarily 'wedged' at some point but was able to recover
-using device specific methods like reset. No explicit action is expected
-from userspace consumers in this case, but they can still take additional
-steps like gathering telemetry information (devcoredump, syslog). This is
-useful because the first hang is usually the most critical one which can
-result in consequential hangs or complete wedging.
-
-Example
--------
-
-Udev rule::
-
-    SUBSYSTEM=="drm", ENV{WEDGED}=="rebind", DEVPATH=="*/drm/card[0-9]",
-    RUN+="/path/to/rebind.sh $env{DEVPATH}"
-
-Recovery script::
-
-    #!/bin/sh
-
-    DEVPATH=$(readlink -f /sys/$1/device)
-    DEVICE=$(basename $DEVPATH)
-    DRIVER=$(readlink -f $DEVPATH/driver)
-
-    echo -n $DEVICE > $DRIVER/unbind
-    sleep 1
-    echo -n $DEVICE > $DRIVER/bind
-
-Customization
--------------
-
-Although basic recovery is possible with a simple script, admin/users can
-define custom policies around recovery action. For example, if the driver
-supports multiple recovery methods, consumers can opt for the suitable one
-based on policy definition. Consumers can also choose to have the device
-available for debugging or additional data collection before performing
-the recovery. This is useful especially when the driver is unsure about
-recovery or method is unknown.
-
-v4: s/drm_dev_wedged/drm_dev_wedged_event
-    Use drm_info() (Jani)
-    Kernel doc adjustment (Aravind)
-v5: Send recovery method with uevent (Lina)
-v6: Access wedge_recovery_opts[] using helper function (Jani)
-    Use snprintf() (Jani)
-v7: Convert recovery helpers into regular functions (Andy, Jani)
-    Aesthetic adjustments (Andy)
-    Handle invalid method cases
-v8: Allow sending multiple methods with uevent (Lucas, Michal)
-    static_assert() globally (Andy)
-v9: Provide 'none' method for reset cases (Christian)
-    Provide recovery opts using switch cases
-
-Signed-off-by: Raag Jadav <raag.jadav@intel.com>
+Signed-off-by: Prike Liang <Prike.Liang@amd.com>
 ---
- drivers/gpu/drm/drm_drv.c | 63 +++++++++++++++++++++++++++++++++++++++
- include/drm/drm_device.h  |  8 +++++
- include/drm/drm_drv.h     |  1 +
- 3 files changed, 72 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c  | 8 ++------
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c  | 4 +---
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c  | 4 +---
+ drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c   | 4 +---
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c   | 4 +---
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c | 4 +---
+ drivers/gpu/drm/amd/amdgpu/mes_v11_0.c  | 4 +---
+ drivers/gpu/drm/amd/amdgpu/mes_v12_0.c  | 4 +---
+ 8 files changed, 9 insertions(+), 27 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
-index c2c172eb25df..115e1d1c80ea 100644
---- a/drivers/gpu/drm/drm_drv.c
-+++ b/drivers/gpu/drm/drm_drv.c
-@@ -26,6 +26,7 @@
-  * DEALINGS IN THE SOFTWARE.
-  */
- 
-+#include <linux/bitops.h>
- #include <linux/debugfs.h>
- #include <linux/fs.h>
- #include <linux/module.h>
-@@ -33,6 +34,7 @@
- #include <linux/mount.h>
- #include <linux/pseudo_fs.h>
- #include <linux/slab.h>
-+#include <linux/sprintf.h>
- #include <linux/srcu.h>
- #include <linux/xarray.h>
- 
-@@ -497,6 +499,67 @@ void drm_dev_unplug(struct drm_device *dev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+index 9da95b25e158..ffd3c45b4ccd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+@@ -6593,17 +6593,13 @@ static void gfx_v10_0_kiq_setting(struct amdgpu_ring *ring)
+ 		tmp = RREG32_SOC15(GC, 0, mmRLC_CP_SCHEDULERS_Sienna_Cichlid);
+ 		tmp &= 0xffffff00;
+ 		tmp |= (ring->me << 5) | (ring->pipe << 3) | (ring->queue);
+-		WREG32_SOC15(GC, 0, mmRLC_CP_SCHEDULERS_Sienna_Cichlid, tmp);
+-		tmp |= 0x80;
+-		WREG32_SOC15(GC, 0, mmRLC_CP_SCHEDULERS_Sienna_Cichlid, tmp);
++		WREG32_SOC15(GC, 0, mmRLC_CP_SCHEDULERS_Sienna_Cichlid, tmp | 0x80);
+ 		break;
+ 	default:
+ 		tmp = RREG32_SOC15(GC, 0, mmRLC_CP_SCHEDULERS);
+ 		tmp &= 0xffffff00;
+ 		tmp |= (ring->me << 5) | (ring->pipe << 3) | (ring->queue);
+-		WREG32_SOC15(GC, 0, mmRLC_CP_SCHEDULERS, tmp);
+-		tmp |= 0x80;
+-		WREG32_SOC15(GC, 0, mmRLC_CP_SCHEDULERS, tmp);
++		WREG32_SOC15(GC, 0, mmRLC_CP_SCHEDULERS, tmp | 0x80);
+ 		break;
+ 	}
  }
- EXPORT_SYMBOL(drm_dev_unplug);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+index 5aff8f72de9c..a2aedcabae65 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+@@ -3890,9 +3890,7 @@ static void gfx_v11_0_kiq_setting(struct amdgpu_ring *ring)
+ 	tmp = RREG32_SOC15(GC, 0, regRLC_CP_SCHEDULERS);
+ 	tmp &= 0xffffff00;
+ 	tmp |= (ring->me << 5) | (ring->pipe << 3) | (ring->queue);
+-	WREG32_SOC15(GC, 0, regRLC_CP_SCHEDULERS, tmp);
+-	tmp |= 0x80;
+-	WREG32_SOC15(GC, 0, regRLC_CP_SCHEDULERS, tmp);
++	WREG32_SOC15(GC, 0, regRLC_CP_SCHEDULERS, tmp | 0x80);
+ }
  
-+/*
-+ * Available recovery methods for wedged device. To be sent along with device
-+ * wedged uevent.
-+ */
-+static const char *drm_get_wedge_recovery(unsigned int opt)
-+{
-+	switch (BIT(opt)) {
-+	case DRM_WEDGE_RECOVERY_NONE:
-+		return "none";
-+	case DRM_WEDGE_RECOVERY_REBIND:
-+		return "rebind";
-+	case DRM_WEDGE_RECOVERY_BUS_RESET:
-+		return "bus-reset";
-+	default:
-+		return NULL;
-+	}
-+}
-+
-+/**
-+ * drm_dev_wedged_event - generate a device wedged uevent
-+ * @dev: DRM device
-+ * @method: method(s) to be used for recovery
-+ *
-+ * This generates a device wedged uevent for the DRM device specified by @dev.
-+ * Recovery @method\(s) of choice will be sent in the uevent environment as
-+ * ``WEDGED=<method1>[,<method2>]`` in order of less to more side-effects.
-+ * If caller is unsure about recovery or @method is unknown (0),
-+ * ``WEDGED=unknown`` will be sent instead.
-+ *
-+ * Returns: 0 on success, negative error code otherwise.
-+ */
-+int drm_dev_wedged_event(struct drm_device *dev, unsigned long method)
-+{
-+	const char *recovery = NULL;
-+	unsigned int len, opt;
-+	/* Event string length up to 28+ characters with available methods */
-+	char event_string[32];
-+	char *envp[] = { event_string, NULL };
-+
-+	len = scnprintf(event_string, sizeof(event_string), "%s", "WEDGED=");
-+
-+	for_each_set_bit(opt, &method, BITS_PER_TYPE(method)) {
-+		recovery = drm_get_wedge_recovery(opt);
-+		if (drm_WARN(dev, !recovery, "device wedged, invalid recovery method %u\n", opt))
-+			break;
-+
-+		len += scnprintf(event_string + len, sizeof(event_string), "%s,", recovery);
-+	}
-+
-+	if (recovery)
-+		/* Get rid of trailing comma */
-+		event_string[len - 1] = '\0';
-+	else
-+		/* Caller is unsure about recovery, do the best we can at this point. */
-+		snprintf(event_string, sizeof(event_string), "%s", "WEDGED=unknown");
-+
-+	drm_info(dev, "device wedged, needs recovery\n");
-+	return kobject_uevent_env(&dev->primary->kdev->kobj, KOBJ_CHANGE, envp);
-+}
-+EXPORT_SYMBOL(drm_dev_wedged_event);
-+
- /*
-  * DRM internal mount
-  * We want to be able to allocate our own "struct address_space" to control
-diff --git a/include/drm/drm_device.h b/include/drm/drm_device.h
-index c91f87b5242d..6ea54a578cda 100644
---- a/include/drm/drm_device.h
-+++ b/include/drm/drm_device.h
-@@ -21,6 +21,14 @@ struct inode;
- struct pci_dev;
- struct pci_controller;
+ static void gfx_v11_0_cp_set_doorbell_range(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+index 9fec28d8a5fc..c61d383c45c4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+@@ -2826,9 +2826,7 @@ static void gfx_v12_0_kiq_setting(struct amdgpu_ring *ring)
+ 	tmp = RREG32_SOC15(GC, 0, regRLC_CP_SCHEDULERS);
+ 	tmp &= 0xffffff00;
+ 	tmp |= (ring->me << 5) | (ring->pipe << 3) | (ring->queue);
+-	WREG32_SOC15(GC, 0, regRLC_CP_SCHEDULERS, tmp);
+-	tmp |= 0x80;
+-	WREG32_SOC15(GC, 0, regRLC_CP_SCHEDULERS, tmp);
++	WREG32_SOC15(GC, 0, regRLC_CP_SCHEDULERS, tmp | 0x80);
+ }
  
-+/*
-+ * Recovery methods for wedged device in order of less to more side-effects.
-+ * To be used with drm_dev_wedged_event() as recovery @method. Callers can
-+ * use any one, multiple (or'd) or none depending on their needs.
-+ */
-+#define DRM_WEDGE_RECOVERY_NONE		BIT(0)	/* optional telemetry collection */
-+#define DRM_WEDGE_RECOVERY_REBIND	BIT(1)	/* unbind + bind driver */
-+#define DRM_WEDGE_RECOVERY_BUS_RESET	BIT(2)	/* unbind + reset bus device + bind */
+ static void gfx_v12_0_cp_set_doorbell_range(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+index 480c41ee947e..d465c3ea6e6c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+@@ -4304,9 +4304,7 @@ static void gfx_v8_0_kiq_setting(struct amdgpu_ring *ring)
+ 	tmp = RREG32(mmRLC_CP_SCHEDULERS);
+ 	tmp &= 0xffffff00;
+ 	tmp |= (ring->me << 5) | (ring->pipe << 3) | (ring->queue);
+-	WREG32(mmRLC_CP_SCHEDULERS, tmp);
+-	tmp |= 0x80;
+-	WREG32(mmRLC_CP_SCHEDULERS, tmp);
++	WREG32(mmRLC_CP_SCHEDULERS, tmp | 0x80);
+ }
  
- /**
-  * enum switch_power_state - power state of drm device
-diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
-index 1bbbcb8e2d23..f41a82839e28 100644
---- a/include/drm/drm_drv.h
-+++ b/include/drm/drm_drv.h
-@@ -479,6 +479,7 @@ void drm_put_dev(struct drm_device *dev);
- bool drm_dev_enter(struct drm_device *dev, int *idx);
- void drm_dev_exit(int idx);
- void drm_dev_unplug(struct drm_device *dev);
-+int drm_dev_wedged_event(struct drm_device *dev, unsigned long method);
+ static int gfx_v8_0_kiq_kcq_enable(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+index e9248a855ba7..a6cb30558f2f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+@@ -3482,9 +3482,7 @@ static void gfx_v9_0_kiq_setting(struct amdgpu_ring *ring)
+ 	tmp = RREG32_SOC15(GC, 0, mmRLC_CP_SCHEDULERS);
+ 	tmp &= 0xffffff00;
+ 	tmp |= (ring->me << 5) | (ring->pipe << 3) | (ring->queue);
+-	WREG32_SOC15_RLC(GC, 0, mmRLC_CP_SCHEDULERS, tmp);
+-	tmp |= 0x80;
+-	WREG32_SOC15_RLC(GC, 0, mmRLC_CP_SCHEDULERS, tmp);
++	WREG32_SOC15_RLC(GC, 0, mmRLC_CP_SCHEDULERS, tmp | 0x80);
+ }
  
- /**
-  * drm_dev_is_unplugged - is a DRM device unplugged
+ static void gfx_v9_0_mqd_set_priority(struct amdgpu_ring *ring, struct v9_mqd *mqd)
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+index 016290f00592..ae3c8645633b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+@@ -1771,9 +1771,7 @@ static void gfx_v9_4_3_xcc_kiq_setting(struct amdgpu_ring *ring, int xcc_id)
+ 	tmp = RREG32_SOC15(GC, GET_INST(GC, xcc_id), regRLC_CP_SCHEDULERS);
+ 	tmp &= 0xffffff00;
+ 	tmp |= (ring->me << 5) | (ring->pipe << 3) | (ring->queue);
+-	WREG32_SOC15_RLC(GC, GET_INST(GC, xcc_id), regRLC_CP_SCHEDULERS, tmp);
+-	tmp |= 0x80;
+-	WREG32_SOC15_RLC(GC, GET_INST(GC, xcc_id), regRLC_CP_SCHEDULERS, tmp);
++	WREG32_SOC15_RLC(GC, GET_INST(GC, xcc_id), regRLC_CP_SCHEDULERS, tmp | 0x80);
+ }
+ 
+ static void gfx_v9_4_3_mqd_set_priority(struct amdgpu_ring *ring, struct v9_mqd *mqd)
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+index 8ca137313961..3b818441c7ba 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+@@ -1491,9 +1491,7 @@ static void mes_v11_0_kiq_setting(struct amdgpu_ring *ring)
+ 	tmp = RREG32_SOC15(GC, 0, regRLC_CP_SCHEDULERS);
+ 	tmp &= 0xffffff00;
+ 	tmp |= (ring->me << 5) | (ring->pipe << 3) | (ring->queue);
+-	WREG32_SOC15(GC, 0, regRLC_CP_SCHEDULERS, tmp);
+-	tmp |= 0x80;
+-	WREG32_SOC15(GC, 0, regRLC_CP_SCHEDULERS, tmp);
++	WREG32_SOC15(GC, 0, regRLC_CP_SCHEDULERS, tmp | 0x80);
+ }
+ 
+ static void mes_v11_0_kiq_clear(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
+index 9d0e342a2f81..44b0d0f76944 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
+@@ -1453,9 +1453,7 @@ static void mes_v12_0_kiq_setting(struct amdgpu_ring *ring)
+ 	tmp = RREG32_SOC15(GC, 0, regRLC_CP_SCHEDULERS);
+ 	tmp &= 0xffffff00;
+ 	tmp |= (ring->me << 5) | (ring->pipe << 3) | (ring->queue);
+-	WREG32_SOC15(GC, 0, regRLC_CP_SCHEDULERS, tmp);
+-	tmp |= 0x80;
+-	WREG32_SOC15(GC, 0, regRLC_CP_SCHEDULERS, tmp);
++	WREG32_SOC15(GC, 0, regRLC_CP_SCHEDULERS, tmp | 0x80);
+ }
+ 
+ static int mes_v12_0_kiq_hw_init(struct amdgpu_device *adev)
 -- 
 2.34.1
 
