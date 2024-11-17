@@ -4,63 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 516B6D10F38
-	for <amd-gfx@archiver.kernel.org>; Sun, 17 Nov 2024 23:05:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D859FD10F3C
+	for <amd-gfx@archiver.kernel.org>; Sun, 17 Nov 2024 23:22:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6135410E074;
-	Sun, 17 Nov 2024 23:05:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B31B10E465;
+	Sun, 17 Nov 2024 23:22:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="xp4Oln/t";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="EjLJOa5z";
 	dkim-atps=neutral
-Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com
- [209.85.128.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 97FD210E454
- for <amd-gfx@lists.freedesktop.org>; Sun, 17 Nov 2024 23:05:01 +0000 (UTC)
-Received: by mail-yw1-f173.google.com with SMTP id
- 00721157ae682-6ee79e82361so7056977b3.1
- for <amd-gfx@lists.freedesktop.org>; Sun, 17 Nov 2024 15:05:01 -0800 (PST)
+Received: from mail-yb1-f178.google.com (mail-yb1-f178.google.com
+ [209.85.219.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F54C10E458
+ for <amd-gfx@lists.freedesktop.org>; Sun, 17 Nov 2024 23:22:36 +0000 (UTC)
+Received: by mail-yb1-f178.google.com with SMTP id
+ 3f1490d57ef6-e38232fc4d8so943256276.2
+ for <amd-gfx@lists.freedesktop.org>; Sun, 17 Nov 2024 15:22:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1731884700; x=1732489500; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1731885755; x=1732490555; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=wDP6nXqV0MtINrrHnzk5JYR07FFy3dWX4G1E1aHVYAU=;
- b=xp4Oln/tUHb1sLCGE8fLUBKH9isMRMkdQuv/jlECp97zabiyPN1YN3A8Np8xo6Ed7m
- 4GJCcpv4rT+BqYSohv0MG1TC7M27IQn1ANU7j96OlmJD8ANN9fy9mI4k7Q7x7xiCMQlU
- 01BB7/YQ7u3FLngWZoDQ2FeRx9nF+fw5hSzoYP4wTibd6WKFxaQfXCNU4EzsVXkLznB8
- 0mG4P4VWqc8ambAQjy+UEd+HytvdQffHm9NrJmexdfsreF+BFfD/kdkKKkLB71C4uITH
- 95nPZbrFv85kGpMixkbsV5aow52TWm4c6yheZM4J17OXqe61O+apXn25syRjvXw2suf7
- WMBQ==
+ bh=421dnoBG8EVTU7khRTWnYcAennve4M8YbD8yLemljJw=;
+ b=EjLJOa5zVz//3qC+q8u/npQZGxAJ7CDAKA5/jrSg60jnKf6nxiClZ6dG0pMo6reSWs
+ a0S2eHxhNsZV1unAJuJkohYVAvAI0O5IpbCGXsl0NykNYGTNDMBtNwThUHhltZzfXQLr
+ nN4Dr4VfVcoZRoTQZbC+jJEt5YutGI/+YpZ/dfP0bloZD4Jg//hO4oKAcS5f7pUSDZFV
+ 0Z4HgGXF9M92NWDfeIoT2O2KOjjHLme+nE74NC9w/IUo+Z8qMcvUJwLlwhomrxhtZ2Cx
+ a+7hGuVaTwgz8JNcG+EZradwasQnDja/X57HVl3ii7j5/4K/FfPue+B6gLssGyW7l5kF
+ 8dfg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1731884700; x=1732489500;
+ d=1e100.net; s=20230601; t=1731885755; x=1732490555;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=wDP6nXqV0MtINrrHnzk5JYR07FFy3dWX4G1E1aHVYAU=;
- b=M8MENzjvcKex43BFnd81RZkhq6/MP117R4TgernCEYFhY9OpOxd/Q859Bmo6olUFly
- 5rvyv512droU9PERnYvADAZFJjYjTA2OKXTA9JgcdIe76ERlanBZbL2t2z8wqGb8v6cQ
- iDZqEm8vQzFu7EboWb9/Sxn+LBGRO3WY3+HEqnsguXU1vT7KtzbUX2iMxD0CsV4JHW5i
- 9UsSr7GZRyL7fmOD0whORE9P22UUDkGBukb9kmqSpBeLfRlC5T6PN1UOlOXFuC9UcxmS
- DYGqnL+/FiaS24UpaLsedlu+V8XkHoVlHMGy3uunx+LP8PEipQCtN9K6lWucB/zzXBJ4
- GsrA==
+ bh=421dnoBG8EVTU7khRTWnYcAennve4M8YbD8yLemljJw=;
+ b=S3I4k2VlWVSIPtHYflX+SvFCl60US34LyTx4muP5pGOlqVD90jFEnoBdQTbEwOv1XV
+ yKzzOyBl/J0pzlWGdsJONC5hC3WYvhtnKYowcNoMivVaae/2ApGdTmTmCJfBJhPmW4JW
+ mQ4AFSoTSdfW0RG5KLdstZ3PNeLoOoc7Qo7y6JEsYqod8/hKKX34A4+gTR7dr3igsz9z
+ q3nK/1bhN3cpgqgggJPzscSfKWu7sQGbfzQ+Yv3HaElbUaT3EIL36Dbou9FDGziWNR7y
+ nXcdX6L765r2WKnallgtn+jqRy6R8PBUVZIa1TLK8L7tzIFOBY4dZaFgFi/Be/4qjxpY
+ lqXA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWdnM4fDR8nLW9zEdiduC1s2NQmdQtitFVV/a2zEGu89ZDzzbgrfub2Du1p9Dz+Z6/bVnmZ+YzZ@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YznlIYliirCjuyjmXlHsfluh7Q1eV+OC+F+rhtouTmv081IWeV2
- L7DQWfssafDeffeYmb8bTjJxIaUov2OBhFgfSyXEpRIS8DnHZJPZcF63mDZDt1IYAkUXz6QfLHt
- ZKaAqQ94uqitXK48x+QAQdFmJrO16ibx+8EZHiA==
-X-Google-Smtp-Source: AGHT+IGVsF/URQuiejSFS99+KP1AY+jCheh9Nd1ZQr7ln/8GfgdK5A5KGqyQAn7jrmLKuajvWL2ja0QoE8LpmQwfuqA=
-X-Received: by 2002:a05:690c:4b81:b0:6e2:fcb5:52fa with SMTP id
- 00721157ae682-6ee54ea2bffmr91201617b3.9.1731884700024; Sun, 17 Nov 2024
- 15:05:00 -0800 (PST)
+ AJvYcCVpAA3GKrE4iElj2UYpIK/iUdjaswjp2sHn5kv3MjmhcNJkdnhnDcBWd9KaRcgOV52FibjWF8rh@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzbV3b1etCb6MjPCDncZHqI7BFYwkOB79KPA0wF+I75INLo6HFT
+ jmbOVrLFBu4cB4FexZCIUssV7V+M2NlJl3/yqSOmSCph4YT5G6R/GMGWE+39avm7XmFtEl/kpcl
+ AaQoCzjchZd6YOF4TT0CsyuG18b5Z0MkbPLLUwg==
+X-Google-Smtp-Source: AGHT+IEKu4HQ4qxL7ggceao+8OGc691sv4/g0I2nwk1Rm7VUkJQLOOIbagikzI5b/uN25//8jFEf3+o5fWyZPy0dMUc=
+X-Received: by 2002:a05:6902:12ca:b0:e33:2533:2d52 with SMTP id
+ 3f1490d57ef6-e38263dc27bmr8339143276.44.1731885754875; Sun, 17 Nov 2024
+ 15:22:34 -0800 (PST)
 MIME-Version: 1.0
 References: <20241115-drm-connector-mode-valid-const-v1-0-b1b523156f71@linaro.org>
- <20241115-drm-connector-mode-valid-const-v1-5-b1b523156f71@linaro.org>
- <20241117212427.GI12409@pendragon.ideasonboard.com>
-In-Reply-To: <20241117212427.GI12409@pendragon.ideasonboard.com>
+ <20241115-drm-connector-mode-valid-const-v1-1-b1b523156f71@linaro.org>
+ <20241117205426.GE12409@pendragon.ideasonboard.com>
+In-Reply-To: <20241117205426.GE12409@pendragon.ideasonboard.com>
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Mon, 18 Nov 2024 01:04:49 +0200
-Message-ID: <CAA8EJpqCXPQD1qkdGCae+p6YtGB9rrFBKwt1VDSK__We8dAfVg@mail.gmail.com>
-Subject: Re: [PATCH 5/5] drm/connector: make mode_valid accept const struct
- drm_display_mode
+Date: Mon, 18 Nov 2024 01:22:12 +0200
+Message-ID: <CAA8EJpr=4AQVRKbtR2MaCQfguGW0a=3ay-ttew-mFR4f086Uyg@mail.gmail.com>
+Subject: Re: [PATCH 1/5] drm/encoder_slave: make mode_valid accept const
+ struct drm_display_mode
 To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 Cc: Jani Nikula <jani.nikula@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>, 
@@ -131,29 +131,100 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sun, 17 Nov 2024 at 23:24, Laurent Pinchart
+On Sun, 17 Nov 2024 at 22:54, Laurent Pinchart
 <laurent.pinchart@ideasonboard.com> wrote:
 >
 > Hi Dmitry,
 >
 > Thank you for the patch.
 >
-> On Fri, Nov 15, 2024 at 11:09:30PM +0200, Dmitry Baryshkov wrote:
+> On Fri, Nov 15, 2024 at 11:09:26PM +0200, Dmitry Baryshkov wrote:
 > > The mode_valid() callbacks of drm_encoder, drm_crtc and drm_bridge
 > > accept const struct drm_display_mode argument. Change the mode_valid
-> > callback of drm_connector to also accept const argument.
+> > callback of drm_encoder_slave to also accept const argument.
 > >
 > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 >
-> Assuming you've compile-tested all this,
-
-Yes, compile-tested x86, arm and arm64, this covers all the drivers
-that had .mode_valid. The question is now what would be the best way
-to merge this?
-
->
 > Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 >
+> On a side note, there's only two I2C slave encoder drivers left... I
+> wonder if we could so something about them. The ch7006 and sil164
+> drivers seem to be used by nouveau only, could they be moved to
+> drivers/gpu/drm/nouveau/ ? We would move the whole drm_encoder_slave
+> implementation there too, and leave it to die (or get taken out of limbo
+> and fixed) with dispnv04.
+
+Or it might be better to switch to drm_bridge. Currently we also have
+sil164 (sub)drivers in ast and i915 drivers. I don't know if there is
+any common code to share or not. If there is some, it might be nice to
+use common framework.
+
+>
+> > ---
+> >  drivers/gpu/drm/i2c/ch7006_drv.c          | 2 +-
+> >  drivers/gpu/drm/i2c/sil164_drv.c          | 2 +-
+> >  drivers/gpu/drm/nouveau/dispnv04/tvnv17.c | 2 +-
+> >  include/drm/drm_encoder_slave.h           | 2 +-
+> >  4 files changed, 4 insertions(+), 4 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/i2c/ch7006_drv.c b/drivers/gpu/drm/i2c/ch7006_drv.c
+> > index 131512a5f3bd996ad1e2eb869ffa09837daba0c7..a57f0a41c1a9e2006142fe0bad2914b0c344c82a 100644
+> > --- a/drivers/gpu/drm/i2c/ch7006_drv.c
+> > +++ b/drivers/gpu/drm/i2c/ch7006_drv.c
+> > @@ -104,7 +104,7 @@ static bool ch7006_encoder_mode_fixup(struct drm_encoder *encoder,
+> >  }
+> >
+> >  static int ch7006_encoder_mode_valid(struct drm_encoder *encoder,
+> > -                                  struct drm_display_mode *mode)
+> > +                                  const struct drm_display_mode *mode)
+> >  {
+> >       if (ch7006_lookup_mode(encoder, mode))
+> >               return MODE_OK;
+> > diff --git a/drivers/gpu/drm/i2c/sil164_drv.c b/drivers/gpu/drm/i2c/sil164_drv.c
+> > index ff23422727fce290a188e495d343e32bc2c373ec..708e119072fcb50c31b5596b75dc341429b93697 100644
+> > --- a/drivers/gpu/drm/i2c/sil164_drv.c
+> > +++ b/drivers/gpu/drm/i2c/sil164_drv.c
+> > @@ -255,7 +255,7 @@ sil164_encoder_restore(struct drm_encoder *encoder)
+> >
+> >  static int
+> >  sil164_encoder_mode_valid(struct drm_encoder *encoder,
+> > -                       struct drm_display_mode *mode)
+> > +                       const struct drm_display_mode *mode)
+> >  {
+> >       struct sil164_priv *priv = to_sil164_priv(encoder);
+> >
+> > diff --git a/drivers/gpu/drm/nouveau/dispnv04/tvnv17.c b/drivers/gpu/drm/nouveau/dispnv04/tvnv17.c
+> > index 3ecb101d23e949b753b873d24eec01ad6fe7f5d6..35ad4e10d27323c87704a3ff35b7dc26462c82bd 100644
+> > --- a/drivers/gpu/drm/nouveau/dispnv04/tvnv17.c
+> > +++ b/drivers/gpu/drm/nouveau/dispnv04/tvnv17.c
+> > @@ -308,7 +308,7 @@ static int nv17_tv_get_modes(struct drm_encoder *encoder,
+> >  }
+> >
+> >  static int nv17_tv_mode_valid(struct drm_encoder *encoder,
+> > -                           struct drm_display_mode *mode)
+> > +                           const struct drm_display_mode *mode)
+> >  {
+> >       struct nv17_tv_norm_params *tv_norm = get_tv_norm(encoder);
+> >
+> > diff --git a/include/drm/drm_encoder_slave.h b/include/drm/drm_encoder_slave.h
+> > index 49172166a164474f43e4afb2eeeb3cde8ae7c61a..b526643833dcf78bae29f9fbbe27de3f730b55d8 100644
+> > --- a/include/drm/drm_encoder_slave.h
+> > +++ b/include/drm/drm_encoder_slave.h
+> > @@ -85,7 +85,7 @@ struct drm_encoder_slave_funcs {
+> >        * @mode_valid: Analogous to &drm_encoder_helper_funcs @mode_valid.
+> >        */
+> >       int (*mode_valid)(struct drm_encoder *encoder,
+> > -                       struct drm_display_mode *mode);
+> > +                       const struct drm_display_mode *mode);
+> >       /**
+> >        * @mode_set: Analogous to &drm_encoder_helper_funcs @mode_set
+> >        * callback. Wrapped by drm_i2c_encoder_mode_set().
+> >
+>
+> --
+> Regards,
+>
+> Laurent Pinchart
 
 
 
