@@ -4,71 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D5CFD4923B
-	for <amd-gfx@archiver.kernel.org>; Mon, 18 Nov 2024 15:38:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84129D591A3
+	for <amd-gfx@archiver.kernel.org>; Mon, 18 Nov 2024 16:46:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1033510E514;
-	Mon, 18 Nov 2024 15:38:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2CDEF10E453;
+	Mon, 18 Nov 2024 16:46:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OJrzEOIG";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="FPQTDZvS";
 	dkim-atps=neutral
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com
- [209.85.216.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A8F5510E514;
- Mon, 18 Nov 2024 15:38:10 +0000 (UTC)
-Received: by mail-pj1-f45.google.com with SMTP id
- 98e67ed59e1d1-2ea456f1029so114006a91.2; 
- Mon, 18 Nov 2024 07:38:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1731944290; x=1732549090; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=nTYbN1OsvdU5Dd4t4uAh14jyVMSTfclkWku0ijH9Wm8=;
- b=OJrzEOIGKfg4Vq3A8VleTcl30xJE7XGHpB86HxPyL3TB8vnzUTCTZgHx/aSKa43zMM
- YWC4JynjgLcmZ93Hkd6RFDL3/UpiJPbb17hW1wdpugs5fJfMWyzOpCbABCpbiZ+lHMXR
- Ld4+g3UqDq7lMHGIqsKYwx8od8qyxpCSY1qc3lrAaYQgGjNOqW+FVWBjDrBQQhfRDRxY
- cgwHh8ocA/+rzmOe3rwhSYr7YPOMf9I1dSlKjtNsMdML/1SMZzcDLr4Q9nB5pN/WCrQH
- pGnC2yY3GkAQ/deMkW0kvZrmNUR4DUdLQNnQ3a28mKBtKF3yB3tR3VKheSgSlvNKwsQY
- NnAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1731944290; x=1732549090;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=nTYbN1OsvdU5Dd4t4uAh14jyVMSTfclkWku0ijH9Wm8=;
- b=Vq5ET5nrYlNMowDayIIptqbpoEOvZ6h14A/rnFNAOKK52xdSSY4wvFxVGSc6bIcsQk
- D08RrZq6lgcPAX0r/f7DYCJPf1TKb5Vr6c1rq/sPRXT/6pQOQ1i+RvmqLw4NELF5SU/P
- oKwjdPxDzpXyKq2AxqJLHGUsZzB1xwPalpjxNgPgi3JPG03VFQyl6YsoM/M82JvhXnVa
- CrzyBRl1uM59YEHha08LF/q8e3flnEVdlSmGFXnrp4PJb/iPNoe/sBYQNvwRnYK8twln
- ySHRv6Tn68+l76HDstfo6Tiu9Kk99pjICrfRgkb+i5psWVaOG5+Y3ru4w1U/hsfS0G4W
- M9zw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWS2O3LWFePX9YSlVAhQSEmAQ2YW9ylWRWXEZgqDB6grrKiRZUsfvyuGuTmxudpNH2Kx/a83KqIlSNy@lists.freedesktop.org,
- AJvYcCXCi3LfgUNUA84RmM9oAj5JhwWjA5x1P3zG23dFxGxPtUretsePFNV0ti4J7RBvekm+8KHklEQC@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxNrcQmDNt4wSnBWHIETPgD34IWby1saSXQ6i749ukILhYn2Hq8
- tmwWYx4KFQPwfhVubEqxZXUvP5QhtDaOT9GcQHCpGFSvJDGkY+rN3QiOgs0H6qSnrDotU2GJb6I
- YsbzNh4pP9IbPNy7xwuohMaO9dRA=
-X-Google-Smtp-Source: AGHT+IEN02qRQSfSFYKEmvCrxizXKdSQjzhxs2MHTfZpG06Cqh+0iQYE11DVNoao0qWezYQn+s8IlKyg0rbWaOn2IjI=
-X-Received: by 2002:a17:90b:3803:b0:2e2:a60f:289e with SMTP id
- 98e67ed59e1d1-2ea151f4782mr6268389a91.0.1731944290121; Mon, 18 Nov 2024
- 07:38:10 -0800 (PST)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2044.outbound.protection.outlook.com [40.107.223.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2B3D10E453
+ for <amd-gfx@lists.freedesktop.org>; Mon, 18 Nov 2024 16:46:28 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ft5Q+kGP4ITLn31RjERPJ1OGwMsO4Q+82NM44SWRHeYnXu4M/Y/4RS+Cfi6tc0B/5mHW+VB5xfQLOcj8sXu4kbB4MGsiec8O26FxvBYNf0SLrp99ybOXpwaax7YYi9NnALqDeUVsoPpkYCAH0Fmi17r5qTL2yvQ6mGr9KENa+3ekAg3/eKPYvUPqnDXvuDtgE3c8vXa59OLTJhA7rvSByplji1PmAkd0w0A8EIRVUyywU6rlO5YVL8DvYgMwzCf2LLuPNVV4UXsYCg7Xkhh4jk1HrBUbuIcN7LjizzHiAyq+aeSFl5uVSkbwbSvBU/0clxPx5lKZy8r7Y7Yo6ng4kQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=d0uFJi7N38kDj+ZGMyGB3R0iKqF1kPozBQJT6iTHrsQ=;
+ b=qpT8u5Jbyn2DmnjiTiUrZwCQpi8PhyCd1dfn9Evq4L8Hx4RUHzcqfHK5Irf2XK4KZDgQbygJB/iSeGJBZNVG2BXaw9HIWaIEsiv0ZS0xV2I5Q/30f1EpghmudkDRbrlEP2+WGW6zDIypshW2qAygFYczt3+PffyWQl3ekMFBzNXrtmy2STp6QsEx1eQ7eJ0YWXmmYTyEZLMHtTZUh2HRWKxwgcCV8CvzeKANDUkZ0WdyVHE6vKkJu2kejgHznhuTLi3K3iaK6NBsCSHYD5emJ/iLoeV7DNm9x80jsBxBVMPMQoV5rVOlvKyJAKDcfa8dH81yZc70r2nVJxQrjuTNHA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.12) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=d0uFJi7N38kDj+ZGMyGB3R0iKqF1kPozBQJT6iTHrsQ=;
+ b=FPQTDZvSBaYfAj8sSUPUcIOnJ1tuH/8p/BMMPhJ0vFIbVu4pYJj8Cx5iZahAJVP4OPdGavDFNDpxc4DR6bHfSoaz3xRlKb78bWTva3M2ZmEiWIZqiayCS8vGWHDn+SgYl/ofgmzZ8/OM5YOnDtjIIa3PJPc0xzuiQmgn3Ra0x6k=
+Received: from CH0PR03CA0229.namprd03.prod.outlook.com (2603:10b6:610:e7::24)
+ by MN2PR12MB4407.namprd12.prod.outlook.com (2603:10b6:208:260::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8158.24; Mon, 18 Nov
+ 2024 16:46:26 +0000
+Received: from DS2PEPF00003443.namprd04.prod.outlook.com
+ (2603:10b6:610:e7:cafe::a9) by CH0PR03CA0229.outlook.office365.com
+ (2603:10b6:610:e7::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8158.23 via Frontend
+ Transport; Mon, 18 Nov 2024 16:46:25 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.12)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.12 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.12; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.12) by
+ DS2PEPF00003443.mail.protection.outlook.com (10.167.17.70) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8158.14 via Frontend Transport; Mon, 18 Nov 2024 16:46:25 +0000
+Received: from AUS-P9-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 18 Nov
+ 2024 10:46:24 -0600
+From: Mario Limonciello <mario.limonciello@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Mario Limonciello <mario.limonciello@amd.com>
+Subject: [PATCH] drm/amd: Fail the suspend sequence if GPU is not going to
+ s0i3 or s3
+Date: Mon, 18 Nov 2024 10:46:03 -0600
+Message-ID: <20241118164603.3794-1-mario.limonciello@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20241115-hdmi-audio-radeon-connectors-v1-1-d6d66d3128dd@chromium.org>
-In-Reply-To: <20241115-hdmi-audio-radeon-connectors-v1-1-d6d66d3128dd@chromium.org>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 18 Nov 2024 10:37:58 -0500
-Message-ID: <CADnq5_MmRYfd-Be-GYs6cowfcjX6XLfmD-FVoM_FpZA6so+y2w@mail.gmail.com>
-Subject: Re: [PATCH] drm/radeon: Fix spurious unplug event on radeon HDMI
-To: "Steven 'Steve' Kendall" <skend@chromium.org>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Takashi Iwai <tiwai@suse.de>, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS2PEPF00003443:EE_|MN2PR12MB4407:EE_
+X-MS-Office365-Filtering-Correlation-Id: e2bc023b-1d12-4c5b-6def-08dd07f08aa2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|36860700013|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?mT60nWO/ph9dFUhxsDKykoRDALUlIcN/7BVoB+g1gwm5HzLsmRE9KunyKbC/?=
+ =?us-ascii?Q?9zM9nF0hnK9Wwp65h0LpPMNz+p48MixmOMJI/1Djho48JOE2C823aT+/3YIj?=
+ =?us-ascii?Q?a0OLz2KY6qUA301fi2/7LeNbYCLq1m+x+f66OsxYSmXVCW5L7RqwfWh/Kqxc?=
+ =?us-ascii?Q?OJIDK9AGtrF4gX2JYCt51kjc7CayWZHX4eQ0JiCWfTTogsb1goPCM6FfmO9B?=
+ =?us-ascii?Q?L8aVD4r1zg+LU3UD2N7GrbHCfrAQWBqTknwUqxzU+Ospob13WTGcZGHrg1JF?=
+ =?us-ascii?Q?ICI8lDg0VYMDEnwV2HjmMTG81t7WLUZIf7ZLpXMM0OfS3PKYPsttx8D8rO8g?=
+ =?us-ascii?Q?1jRSTUsOMJm9/0QbyyxJGfgjwCRM4uFxjuk+Pr7Qy4T95VG9gpqmTGfr1BAT?=
+ =?us-ascii?Q?2xbza8RFPhzIrDmrIxyqsqxNOPipkg0ag98UmFJbAf473vEQEQEgxAHD1Dgk?=
+ =?us-ascii?Q?XLERG+xHEs93gXARDDzXu2rfBoJCF/mcqiyLzdEEnRS8aUbf668I1e+UAsut?=
+ =?us-ascii?Q?qam8yFUGWp8caPe72OEQx9G0Wsj0+tLn6lxvx2rn7Jk9SqqxsGyBNNQ7ov7D?=
+ =?us-ascii?Q?tkMnCVh5TV9MCiFIAd1hdrh1UQvQdewAxNkwQRChWXhO96jllrksgmqbtf5s?=
+ =?us-ascii?Q?mDuaxUZbd3xpcxjm3OxtgEr5WkUv0QK5hK8/YE2ZgLeXqSwcM8G9MureMJEH?=
+ =?us-ascii?Q?6KV0LecAskb4EHBTChLb2kHWEo7YHc3sjNpq7scjdoCh59BdmwTrJ0PMq8WB?=
+ =?us-ascii?Q?EactO7Hl35dr25VnA6wQGMhoWz749DQxYyXkafZU6UtkuYmz+uINEysra6aM?=
+ =?us-ascii?Q?MLBcCNthYammc4Yf626Osu+jBgR5zpIQEYaMKnTG5ASvOeIlNuT0K+8tNR8A?=
+ =?us-ascii?Q?JtrAXrdbgv812SrSNbST+0zM2YokiQLRn8LtPcmpO3n8uwPQoc+CF3UwN9bx?=
+ =?us-ascii?Q?GzQRAdFi50iE15ZucDVm1hvUI+62znEfi2fXfni+/R7pEecRxubDiHmQfLib?=
+ =?us-ascii?Q?4Bol9FDRp7bh3ugsfWCHDXn4mjfZIr6/err0qLeYiZ9eZW1PyDXvQ5xosxnC?=
+ =?us-ascii?Q?Rj63aHdOnxY/ZVKxu6tuhDvFQQNbUUAtA85/inCvOrhbV96m0Gio/6Zkwiv0?=
+ =?us-ascii?Q?KqwlYPzMYrF4t7PtPODdR4EMfzuZSworTpUE/fstIZkFKcqyrCsBhtU8bKvS?=
+ =?us-ascii?Q?RkHZak92r4v7+Xr5jZhvsLTlZQtaDV4iWnpwCtL6WN9ymU65g3qNPt9f1BV/?=
+ =?us-ascii?Q?BQjvcOaj1eKMAlVtZ/TCr6h6muiEmsWdbCuZCbIzQAPf8tZm6/xoRttbqKSU?=
+ =?us-ascii?Q?54WkBCtuCffKfvNzQQXXv6A2IEXqq2XuKvQRxCExX5m+4XDqfgjQKacqki8/?=
+ =?us-ascii?Q?qJP/3cA=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.12; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:atlvpn-bp.amd.com; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2024 16:46:25.4987 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e2bc023b-1d12-4c5b-6def-08dd07f08aa2
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.12];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF00003443.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4407
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,76 +129,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+Before commit ca47518663973 ("drm/amd: Don't allow s0ix on APUs
+older than Raven") there were combinations allowed where a user could
+attempt to put a device into s2idle even if the platform was misconfigured.
 
-Alex
+The idea was just skip the whole amdgpu suspend and resume sequence.  This
+however doesn't work properly for dGPUs.  This is commonly triggered by
+a behavior in systemd that it will first try "deep" followed by "s2idle"
+if "deep" fails for any reason.
 
-On Sat, Nov 16, 2024 at 4:51=E2=80=AFAM Steven 'Steve' Kendall
-<skend@chromium.org> wrote:
->
-> On several HP models (tested on HP 3125 and HP Probook 455 G2),
-> spurious unplug events are emitted upon login on Chrome OS.
-> This is likely due to the way Chrome OS restarts graphics
-> upon login, so it's possible it's an issue on other
-> distributions but not as common, though I haven't
-> reproduced the issue elsewhere.
-> Use logic from an earlier version of the merged change
-> (see link below) which iterates over connectors and finds
-> matching encoders, rather than the other way around.
-> Also fixes an issue with screen mirroring on Chrome OS.
-> I've deployed this patch on Fedora and did not observe
-> any regression on these devices.
->
-> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/1569#note_1603002
-> Link: https://gitlab.freedesktop.org/drm/amd/-/issues/3771
-> Fixes: 20ea34710f7b ("drm/radeon: Add HD-audio component notifier support=
- (v6)")
-> Signed-off-by: Steven 'Steve' Kendall <skend@chromium.org>
-> ---
->  drivers/gpu/drm/radeon/radeon_audio.c | 12 ++++++++----
->  1 file changed, 8 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/radeon/radeon_audio.c b/drivers/gpu/drm/rade=
-on/radeon_audio.c
-> index 47aa06a9a942..5b69cc8011b4 100644
-> --- a/drivers/gpu/drm/radeon/radeon_audio.c
-> +++ b/drivers/gpu/drm/radeon/radeon_audio.c
-> @@ -760,16 +760,20 @@ static int radeon_audio_component_get_eld(struct de=
-vice *kdev, int port,
->         if (!rdev->audio.enabled || !rdev->mode_info.mode_config_initiali=
-zed)
->                 return 0;
->
-> -       list_for_each_entry(encoder, &rdev_to_drm(rdev)->mode_config.enco=
-der_list, head) {
-> +       list_for_each_entry(connector, &dev->mode_config.connector_list, =
-head) {
-> +               const struct drm_connector_helper_funcs *connector_funcs =
-=3D
-> +                               connector->helper_private;
-> +               encoder =3D connector_funcs->best_encoder(connector);
-> +
-> +               if (!encoder)
-> +                       continue;
-> +
->                 if (!radeon_encoder_is_digital(encoder))
->                         continue;
->                 radeon_encoder =3D to_radeon_encoder(encoder);
->                 dig =3D radeon_encoder->enc_priv;
->                 if (!dig->pin || dig->pin->id !=3D port)
->                         continue;
-> -               connector =3D radeon_get_connector_for_encoder(encoder);
-> -               if (!connector)
-> -                       continue;
->                 *enabled =3D true;
->                 ret =3D drm_eld_size(connector->eld);
->                 memcpy(buf, connector->eld, min(max_bytes, ret));
->
-> ---
-> base-commit: 2d5404caa8c7bb5c4e0435f94b28834ae5456623
-> change-id: 20241115-hdmi-audio-radeon-connectors-f8ffac989b0d
->
-> Best regards,
-> --
-> Steven 'Steve' Kendall <skend@chromium.org>
->
+In this fail the suspend so that the system doesn't get put into a bad
+state.
+
+Link: https://github.com/systemd/systemd/issues/25151
+Link: https://gitlab.freedesktop.org/drm/amd/-/issues/3476
+Link: https://gitlab.freedesktop.org/drm/amd/-/issues/2599
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 5224077bbdd8..1df6796e323d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -2506,8 +2506,10 @@ static int amdgpu_pmops_suspend(struct device *dev)
+ 		adev->in_s0ix = true;
+ 	else if (amdgpu_acpi_is_s3_active(adev))
+ 		adev->in_s3 = true;
+-	if (!adev->in_s0ix && !adev->in_s3)
+-		return 0;
++	if (!adev->in_s0ix && !adev->in_s3) {
++		drm_warn_once(drm_dev, "Unsupported suspend state for device");
++		return -EINVAL;
++	}
+ 	return amdgpu_device_suspend(drm_dev, true);
+ }
+ 
+-- 
+2.34.1
+
