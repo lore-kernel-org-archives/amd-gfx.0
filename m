@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D061BD60074
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Nov 2024 08:19:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72F09D6007E
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Nov 2024 08:19:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 84ACB10E5E7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C0A710E5E6;
 	Tue, 19 Nov 2024 08:19:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="r3tGsDQi";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="XYHSlXQS";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A0A9010E516;
- Mon, 18 Nov 2024 15:43:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D930A10E4E7;
+ Mon, 18 Nov 2024 14:38:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
@@ -22,35 +22,30 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
  Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=Gjlj+8pI7iKltGAS+pM3XlLAUwzmQ0mgAsg2XLJWqI0=; b=r3tGsDQiKD84tfrZ+JBVStiWzD
- ovPWrIFb6THxctS2rpUIu0nwSrH/bAavv/uWOmhNIoTjajbmqx0m6NLbbF+GrJgmwKx8imKAbxZCq
- 5sTQ8kk9XDmJ7ZxkzlDmIldCc391Qn7BaDWHRoQGMUwVc2RKF6wYW1Rh9HaxFwQcQXGm7X7hve+ZS
- 3q0/uix0J3HEv6fpCtUHVJDDHA7FAuIIvHGCz2Pe7aIY3ZyixIQ/62uZc4mNmAbyXaeugBovxQkS5
- hE5BKvQIQVlElo93SZqLdQfgRc470M97f0MMplWw2EuTMuy7DJWNJB3Cabam0gD8Q9Y8OSqgMpi34
- YNFCNHeQ==;
+ bh=aRPJo6oa1QTCNsRN2c0ERmDqm5TWPP/WO86iMSK2Gps=; b=XYHSlXQS8z8Xt+Yfi0KIgAJYYC
+ c4Mfp2wdoHF+HwTLPMClmTHkRZ25MDRBRGshIU5zrKevJSQ432eDD+lVBNhlCe/BB8ZkWmO2+3C2E
+ wR0gvSivhB7/nWX4Oq4iQOyCSgdphtx9VkpLgLc6x9W4coVrrtuR070JMai0m+0cUUUihwfiB5wSF
+ 7XGlM7yPM7C5g861udkFlPWviRJxFebKYj676bj6Pp2Fv2DQyb1xU/MRU0H61KCDa4cyvOdKA8sLK
+ JR8ISGoOepeFa1SV677X4f6oEYE8YJ7CFXeX/L6lxCTLsNa3GImzEpR7yZ+YTyqv3TCQyRI8SZT0n
+ HxYICCSQ==;
 Received: from [90.241.98.187] (helo=[192.168.0.101])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1tD3ty-008ZsV-59; Mon, 18 Nov 2024 16:42:58 +0100
-Message-ID: <4ce953a9-f9b1-42c2-8efd-670af35474e3@igalia.com>
-Date: Mon, 18 Nov 2024 15:42:57 +0000
+ id 1tD2tQ-008Y7T-Uh; Mon, 18 Nov 2024 15:38:20 +0100
+Message-ID: <57e02488-1e6b-4e61-a082-4c54be07e071@igalia.com>
+Date: Mon, 18 Nov 2024 14:38:20 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 2/4] drm: make drm-active- stats optional
-To: "Li, Yunxiang (Teddy)" <Yunxiang.Li@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "Koenig, Christian" <Christian.Koenig@amd.com>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- Rob Clark <robdclark@gmail.com>
-References: <20241110154152.592-1-Yunxiang.Li@amd.com>
- <20241110154152.592-3-Yunxiang.Li@amd.com>
- <3706dc4f-db98-45e0-b870-f10368ab1ab9@igalia.com>
- <SA1PR12MB8599BD231D856C89DE4207BAED272@SA1PR12MB8599.namprd12.prod.outlook.com>
+Subject: Re: [PATCH v8 3/5] Documentation/gpu: Clarify drm memory stats
+ definition
+To: Yunxiang Li <Yunxiang.Li@amd.com>, amd-gfx@lists.freedesktop.org,
+ christian.koenig@amd.com
+Cc: Alexander.Deucher@amd.com, dri-devel@lists.freedesktop.org
+References: <20241116044452.5925-1-Yunxiang.Li@amd.com>
+ <20241116044452.5925-4-Yunxiang.Li@amd.com>
 Content-Language: en-GB
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <SA1PR12MB8599BD231D856C89DE4207BAED272@SA1PR12MB8599.namprd12.prod.outlook.com>
+In-Reply-To: <20241116044452.5925-4-Yunxiang.Li@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Tue, 19 Nov 2024 08:19:19 +0000
@@ -69,203 +64,120 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-On 18/11/2024 15:17, Li, Yunxiang (Teddy) wrote:
-> [Public]
+On 16/11/2024 04:44, Yunxiang Li wrote:
+> Define how to handle buffers with multiple possible placement so we
+> don't get incompatible implementations. Callout the resident requirement
+> for drm-purgeable- explicitly. Remove the requirement for there to be
+> only drm-memory- or only drm-resident-, it's not what's implemented and
+> having both is better for back-compat. Also re-order the paragraphs to
+> flow better.
 > 
->> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->> Sent: Monday, November 11, 2024 5:30
->> On 10/11/2024 15:41, Yunxiang Li wrote:
->>> Make drm-active- optional just like drm-resident- and drm-purgeable-.
->>
->> As Jani has already commented the commit message needs some work.
->>
->>> Signed-off-by: Yunxiang Li <Yunxiang.Li@amd.com>
->>> CC: dri-devel@lists.freedesktop.org
->>> CC: intel-gfx@lists.freedesktop.org
->>> CC: amd-gfx@lists.freedesktop.org
->>> ---
->>>    drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c |  1 +
->>>    drivers/gpu/drm/drm_file.c                 | 13 +++++++------
->>>    drivers/gpu/drm/i915/i915_drm_client.c     |  1 +
->>>    drivers/gpu/drm/xe/xe_drm_client.c         |  1 +
->>>    include/drm/drm_gem.h                      | 14 ++++++++------
->>>    5 files changed, 18 insertions(+), 12 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
->>> index df2cf5c339255..7717e3e4f05b5 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
->>> @@ -97,6 +97,7 @@ void amdgpu_show_fdinfo(struct drm_printer *p,
->>> struct drm_file *file)
->>>
->>>              drm_print_memory_stats(p,
->>>                                     &stats[i].drm,
->>> +                                  DRM_GEM_OBJECT_ACTIVE |
->>>                                     DRM_GEM_OBJECT_RESIDENT |
->>>                                     DRM_GEM_OBJECT_PURGEABLE,
->>>                                     pl_name[i]);
->>> diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
->>> index e285fcc28c59c..fd06671054723 100644
->>> --- a/drivers/gpu/drm/drm_file.c
->>> +++ b/drivers/gpu/drm/drm_file.c
->>> @@ -884,7 +884,9 @@ void drm_print_memory_stats(struct drm_printer *p,
->>>    {
->>>      print_size(p, "total", region, stats->private + stats->shared);
->>>      print_size(p, "shared", region, stats->shared);
->>> -   print_size(p, "active", region, stats->active);
->>> +
->>> +   if (supported_status & DRM_GEM_OBJECT_ACTIVE)
->>> +           print_size(p, "active", region, stats->active);
->>>
->>>      if (supported_status & DRM_GEM_OBJECT_RESIDENT)
->>>              print_size(p, "resident", region, stats->resident); @@ -917,15
->>> +919,13 @@ void drm_show_memory_stats(struct drm_printer *p, struct
->>> drm_file *file)
->>>
->>>              if (obj->funcs && obj->funcs->status) {
->>>                      s = obj->funcs->status(obj);
->>> -                   supported_status = DRM_GEM_OBJECT_RESIDENT |
->>> -                                   DRM_GEM_OBJECT_PURGEABLE;
->>> +                   supported_status |= s;
->>
->> I think this is correct and I think I've raised that it should be like this when the code
->> was originally added. I only don't remember what was the argument to keep it
->> hardcoded, if there was any. Adding Rob in case he can remember.
->>
->>>              }
->>>
->>> -           if (drm_gem_object_is_shared_for_memory_stats(obj)) {
->>> +           if (drm_gem_object_is_shared_for_memory_stats(obj))
->>>                      status.shared += obj->size;
->>> -           } else {
->>> +           else
->>>                      status.private += obj->size;
->>> -           }
->>
->> Drive by cleanup, okay.
->>
->>>
->>>              if (s & DRM_GEM_OBJECT_RESIDENT) {
->>>                      status.resident += add_size;
->>> @@ -938,6 +938,7 @@ void drm_show_memory_stats(struct drm_printer *p,
->>> struct drm_file *file)
->>>
->>>              if (!dma_resv_test_signaled(obj->resv, dma_resv_usage_rw(true))) {
->>>                      status.active += add_size;
->>> +                   supported_status |= DRM_GEM_OBJECT_ACTIVE;
->>
->> I wonder what behaviour we should have here if the driver has reported
->> DRM_GEM_OBJECT_ACTIVE via its status vfunc. Like should it be like this:
->>
->>      if ((s & DRM_GEM_OBJECT_ACTIVE) ||
->>          !dma_resv_test_signaled(obj->resv, dma_resv_usage_rw(true))) {
->>          ...
->>
->> ?
->>
->> So if some driver starts reporting this flag _and_ is still calling
->> drm_show_memory_stats(), it's version of activity tracking is used instead of the
->> the dma_resv based test.
+> Signed-off-by: Yunxiang Li <Yunxiang.Li@amd.com>
+> CC: dri-devel@lists.freedesktop.org
+> ---
+>   Documentation/gpu/drm-usage-stats.rst | 36 ++++++++++++---------------
+>   1 file changed, 16 insertions(+), 20 deletions(-)
 > 
-> I don't think that is feasible with the current API, because there's no way to differentiate "driver thinks a BO is not active" and "driver does not implement activity tracking". I think it's probably okay to keep it like this until someone wants to do it differently and refactor then.
+> diff --git a/Documentation/gpu/drm-usage-stats.rst b/Documentation/gpu/drm-usage-stats.rst
+> index ff964c707754a..973663f91a292 100644
+> --- a/Documentation/gpu/drm-usage-stats.rst
+> +++ b/Documentation/gpu/drm-usage-stats.rst
+> @@ -140,13 +140,9 @@ both.
+>   Memory
+>   ^^^^^^
+>   
+> -- drm-memory-<region>: <uint> [KiB|MiB]
+> -
+> -Each possible memory type which can be used to store buffer objects by the
+> -GPU in question shall be given a stable and unique name to be returned as the
+> -string here.
+> -
+> -The region name "memory" is reserved to refer to normal system memory.
+> +Each possible memory type which can be used to store buffer objects by the GPU
+> +in question shall be given a stable and unique name to be used as the "<region>"
+> +string. The region name "memory" is reserved to refer to normal system memory.
+>   
+>   Value shall reflect the amount of storage currently consumed by the buffer
+>   objects belong to this client, in the respective memory region.
+> @@ -154,31 +150,27 @@ objects belong to this client, in the respective memory region.
+>   Default unit shall be bytes with optional unit specifiers of 'KiB' or 'MiB'
+>   indicating kibi- or mebi-bytes.
+>   
+> -This key is deprecated and is an alias for drm-resident-<region>. Only one of
+> -the two should be present in the output.
 
-Ah yes, good point. I actually initially thought the same (that we would 
-need additional "supports active reporting" flag) but then for some 
-reason convinced myself it is possible without it. I agree it works as is.
+IMO the second sentence should stay in principle (I mean at the new 
+location, where you moved it). Intent is to avoid new implementations 
+adding both keys. The fact amdgpu has both is not relevant for that 
+purpose. We don't want someone just reading it is an alias and having to 
+have any doubt whether they need to output both or not.
+
+> +- drm-total-<region>: <uint> [KiB|MiB]
+> +
+> +The total size of all created buffers including shared and private memory. The
+> +backing store for the buffers does not have to be currently instantiated to
+> +count under this category. To avoid double counting, if a buffer falls under
+> +multiple regions, the implementation should pick only one of the regions, and do
+> +so in a consistent manner.
+
+Addition feels fine to me in principle. I would only suggest rewording 
+it a bit to avoid ambiguity about what it means to "fall under". Perhaps 
+like this:
+
+To avoid double counting when buffers can be instantiated in one of the 
+multiple allowed memory regions, the implementation should account the 
+total against only one of the regions, and should pick this region in a 
+consistent manner.
+
+>   
+>   - drm-shared-<region>: <uint> [KiB|MiB]
+>   
+>   The total size of buffers that are shared with another file (e.g., have more
+> -than a single handle).
+> -
+> -- drm-total-<region>: <uint> [KiB|MiB]
+> -
+> -The total size of all created buffers including shared and private memory. The
+> -backing store for the buffers does not have to be currently instantiated to be
+> -counted under this category.
+> +than a single handle). Same caveat as drm-total- applies.
+
+I suggest to explicitly point out the caveat is the multiple region one.
+
+>   
+>   - drm-resident-<region>: <uint> [KiB|MiB]
+>   
+>   The total size of buffers that are resident (have their backing store present or
+>   instantiated) in the specified region.
+>   
+> -This is an alias for drm-memory-<region> and only one of the two should be
+> -present in the output.
+
+I think it does not harm to keep this note at both keys. Or at least 
+make one reference the other for this point specifically.
+
+> -
+>   - drm-purgeable-<region>: <uint> [KiB|MiB]
+>   
+> -The total size of buffers that are purgeable.
+> +The total size of buffers that are resident and purgeable.
+
+Is it not redundant? How could something not resident be purgeable in 
+the first place?
+>   For example drivers which implement a form of 'madvise' like functionality can
+>   here count buffers which have instantiated backing store, but have been marked
+> @@ -192,6 +184,10 @@ One practical example of this can be presence of unsignaled fences in an GEM
+>   buffer reservation object. Therefore the active category is a subset of
+>   resident.
+>   
+> +- drm-memory-<region>: <uint> [KiB|MiB]
+> +
+> +This key is deprecated and is an alias for drm-resident-<region> if present.
+> +
+>   Implementation Details
+>   ======================
+>   
 
 Regards,
 
 Tvrtko
-
-> 
-> Teddy
-> 
->>>
->>>                      /* If still active, don't count as purgeable: */
->>>                      s &= ~DRM_GEM_OBJECT_PURGEABLE;
->>> diff --git a/drivers/gpu/drm/i915/i915_drm_client.c
->>> b/drivers/gpu/drm/i915/i915_drm_client.c
->>> index f586825054918..168d7375304bc 100644
->>> --- a/drivers/gpu/drm/i915/i915_drm_client.c
->>> +++ b/drivers/gpu/drm/i915/i915_drm_client.c
->>> @@ -102,6 +102,7 @@ static void show_meminfo(struct drm_printer *p, struct
->> drm_file *file)
->>>      for_each_memory_region(mr, i915, id)
->>>              drm_print_memory_stats(p,
->>>                                     &stats[id],
->>> +                                  DRM_GEM_OBJECT_ACTIVE |
->>>                                     DRM_GEM_OBJECT_RESIDENT |
->>>                                     DRM_GEM_OBJECT_PURGEABLE,
->>>                                     mr->uabi_name);
->>> diff --git a/drivers/gpu/drm/xe/xe_drm_client.c
->>> b/drivers/gpu/drm/xe/xe_drm_client.c
->>> index 6a26923fa10e0..54941b4e850c4 100644
->>> --- a/drivers/gpu/drm/xe/xe_drm_client.c
->>> +++ b/drivers/gpu/drm/xe/xe_drm_client.c
->>> @@ -229,6 +229,7 @@ static void show_meminfo(struct drm_printer *p, struct
->> drm_file *file)
->>>              if (man) {
->>>                      drm_print_memory_stats(p,
->>>                                             &stats[mem_type],
->>> +                                          DRM_GEM_OBJECT_ACTIVE |
->>>                                             DRM_GEM_OBJECT_RESIDENT |
->>>                                             (mem_type != XE_PL_SYSTEM ? 0 :
->>>                                             DRM_GEM_OBJECT_PURGEABLE),
->> diff --git
->>> a/include/drm/drm_gem.h b/include/drm/drm_gem.h index
->>> bae4865b2101a..584ffdf5c2542 100644
->>> --- a/include/drm/drm_gem.h
->>> +++ b/include/drm/drm_gem.h
->>> @@ -48,19 +48,21 @@ struct drm_gem_object;
->>>     * enum drm_gem_object_status - bitmask of object state for fdinfo reporting
->>>     * @DRM_GEM_OBJECT_RESIDENT: object is resident in memory (ie. not
->> unpinned)
->>>     * @DRM_GEM_OBJECT_PURGEABLE: object marked as purgeable by
->>> userspace
->>> + * @DRM_GEM_OBJECT_ACTIVE: object is currently used by an active
->>> + submission
->>>     *
->>>     * Bitmask of status used for fdinfo memory stats, see
->>> &drm_gem_object_funcs.status
->>> - * and drm_show_fdinfo().  Note that an object can
->>> DRM_GEM_OBJECT_PURGEABLE if
->>> - * it still active or not resident, in which case drm_show_fdinfo()
->>> will not
->>> + * and drm_show_fdinfo().  Note that an object can report
->>> + DRM_GEM_OBJECT_PURGEABLE
->>> + * and be active or not resident, in which case drm_show_fdinfo()
->>> + will not
->>>     * account for it as purgeable.  So drivers do not need to check if
->>> the buffer
->>> - * is idle and resident to return this bit.  (Ie. userspace can mark
->>> a buffer
->>> - * as purgeable even while it is still busy on the GPU.. it does not
->>> _actually_
->>> - * become puregeable until it becomes idle.  The status gem object
->>> func does
->>> - * not need to consider this.)
->>> + * is idle and resident to return this bit, i.e. userspace can mark a
->>> + buffer as
->>> + * purgeable even while it is still busy on the GPU. It whill not get
->>> + reported
->>
->> Good cleanup.
->>
->> s/whill/will/
->>
->>> + * in the puregeable stats until it becomes idle.  The status gem
->>> + object func
->>> + * does not need to consider this.
->>>     */
->>>    enum drm_gem_object_status {
->>>      DRM_GEM_OBJECT_RESIDENT  = BIT(0),
->>>      DRM_GEM_OBJECT_PURGEABLE = BIT(1),
->>> +   DRM_GEM_OBJECT_ACTIVE = BIT(2),
->>>    };
->>>
->>>    /**
->>
->> Regards,
->>
->> Tvrtko
