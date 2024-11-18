@@ -4,50 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 088A1D49221
-	for <amd-gfx@archiver.kernel.org>; Mon, 18 Nov 2024 14:17:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3E18D49225
+	for <amd-gfx@archiver.kernel.org>; Mon, 18 Nov 2024 14:17:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA8C910E249;
-	Mon, 18 Nov 2024 14:17:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ADF2210E4E1;
+	Mon, 18 Nov 2024 14:17:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="JuIHoMgO";
+	dkim=pass (2048-bit key; unprotected) header.d=maxima.ru header.i=@maxima.ru header.b="mhiL004E";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6508210E11E;
- Mon, 18 Nov 2024 14:11:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=e8UfdNR329P2M7potRTmyDk47Jb38kQfn6K1ctH8OHc=; b=JuIHoMgOUMmJ3a+WxUe2xXnCxV
- bpd0KDm2dqLnlSlDwqARYd8q/z8MaoYwxsLNHJp8ldFzBkB6SE0DdawY7yU/pKrl0dqRY5HuiPvAX
- TQhDB3tfi9KNgBHg/bzjbMjmnurpEQvhjQkHi7VZawoYV2PRRz8DWFf/C3Itjq/B5H2cGuKngTSRM
- ShJ9CZLTp4m6pQYRmUxckWTcRSxONductOX80xhPuGpDbXz0D6y1seosqwDuIEwmfxsrk7nIkO9OL
- NytSMO6Xmbo4/UgFikO36rI/ehNfeW9vquOyTKbPDLwWGS83Hf2OYpKGuiEslg5IJA8dA67dvTJSt
- IKA7VxrA==;
-Received: from [90.241.98.187] (helo=[192.168.0.101])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1tD2Td-008XPK-I3; Mon, 18 Nov 2024 15:11:41 +0100
-Message-ID: <e917bc49-11fc-4f6c-b003-8015f53c0caa@igalia.com>
-Date: Mon, 18 Nov 2024 14:11:40 +0000
+X-Greylist: delayed 522 seconds by postgrey-1.36 at gabe;
+ Mon, 18 Nov 2024 12:51:38 UTC
+Received: from ksmg02.maxima.ru (ksmg02.maxima.ru [81.200.124.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8283D10E081
+ for <amd-gfx@lists.freedesktop.org>; Mon, 18 Nov 2024 12:51:38 +0000 (UTC)
+Received: from ksmg02.maxima.ru (localhost [127.0.0.1])
+ by ksmg02.maxima.ru (Postfix) with ESMTP id F0D291E0008;
+ Mon, 18 Nov 2024 15:42:52 +0300 (MSK)
+DKIM-Filter: OpenDKIM Filter v2.11.0 ksmg02.maxima.ru F0D291E0008
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=maxima.ru; s=sl;
+ t=1731933772; bh=j5rebjL+mlIZO9+tBTCrAr7sdKNYnS0zH0ITX1r28zg=;
+ h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type:From;
+ b=mhiL004EOfb/i23Uf6HPyZDhiOCRKbSfR6joCbYcyhowapXjRPx28SuF3zMUnDbzv
+ slWm0rkEpB4ioYV4QWDHJO743PGz/MOvO6Dv31alMkuMrb6yz4Z8MtwDUfS0XjEbsI
+ ymiKTZY5zXGKHTAaF2a13i/Y7iqW21nWllh5H6sfWCHif5iB8uVMl9pdxHg1LZ3jvk
+ f6L/QO1ic3ml+VZzJpkAt6YkyYPR2gP3yqq+Ui1J+GmNHBteETeuWMdftOdGbkml/E
+ INVFGEjMj9tb22js5+ETDZOecqeoCtJWqALqaVAzuznMzWYO1TvAt5PirZtAHtx8dv
+ EDSBeGfsjH6pw==
+Received: from ksmg02.maxima.ru (mail.maxima.ru [81.200.124.62])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (Client CN "*.maxima.ru",
+ Issuer "GlobalSign GCC R3 DV TLS CA 2020" (verified OK))
+ by ksmg02.maxima.ru (Postfix) with ESMTPS;
+ Mon, 18 Nov 2024 15:42:52 +0300 (MSK)
+Received: from GS-NOTE-190.mt.ru (10.0.246.216) by mmail-p-exch02.mt.ru
+ (81.200.124.62) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.1544.4; Mon, 18 Nov
+ 2024 15:42:49 +0300
+From: Murad Masimov <m.masimov@maxima.ru>
+To: Kenneth Feng <kenneth.feng@amd.com>
+CC: Murad Masimov <m.masimov@maxima.ru>, Alex Deucher
+ <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>, Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Ma Jun
+ <Jun.Ma2@amd.com>, Lijo Lazar <lijo.lazar@amd.com>, Yang Wang
+ <kevinyang.wang@amd.com>, Asad Kamal <asad.kamal@amd.com>, Hawking Zhang
+ <Hawking.Zhang@amd.com>, Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>, 
+ Tim Huang <Tim.Huang@amd.com>, Tao Zhou <tao.zhou1@amd.com>, Mario
+ Limonciello <mario.limonciello@amd.com>, Jesse Zhang <jesse.zhang@amd.com>,
+ Evan Quan <quanliangl@hotmail.com>, Kevin Wang <kevin1.wang@amd.com>,
+ <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <lvc-project@linuxtesting.org>
+Subject: [PATCH] drm/amd/pm: prevent invalid fan speed value in smu13 driver
+Date: Mon, 18 Nov 2024 15:42:17 +0300
+Message-ID: <20241118124220.274-1-m.masimov@maxima.ru>
+X-Mailer: git-send-email 2.46.0.windows.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 2/5] drm: make drm-active- stats optional
-To: Yunxiang Li <Yunxiang.Li@amd.com>, amd-gfx@lists.freedesktop.org,
- christian.koenig@amd.com
-Cc: Alexander.Deucher@amd.com, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org
-References: <20241116044452.5925-1-Yunxiang.Li@amd.com>
- <20241116044452.5925-3-Yunxiang.Li@amd.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <20241116044452.5925-3-Yunxiang.Li@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.0.246.216]
+X-ClientProxiedBy: mt-exch-01.mt.ru (91.220.120.210) To mmail-p-exch02.mt.ru
+ (81.200.124.62)
+X-KSMG-Rule-ID: 7
+X-KSMG-Message-Action: clean
+X-KSMG-AntiSpam-Lua-Profiles: 189241 [Nov 18 2024]
+X-KSMG-AntiSpam-Version: 6.1.1.7
+X-KSMG-AntiSpam-Envelope-From: m.masimov@maxima.ru
+X-KSMG-AntiSpam-Rate: 0
+X-KSMG-AntiSpam-Status: not_detected
+X-KSMG-AntiSpam-Method: none
+X-KSMG-AntiSpam-Auth: dmarc=none header.from=maxima.ru;
+ spf=none smtp.mailfrom=maxima.ru; dkim=none
+X-KSMG-AntiSpam-Info: LuaCore: 41 0.3.41
+ 623e98d5198769c015c72f45fabbb9f77bdb702b, {rep_avail},
+ {Tracking_from_domain_doesnt_match_to}, 127.0.0.199:7.1.2; maxima.ru:7.1.1;
+ d41d8cd98f00b204e9800998ecf8427e.com:7.1.1; ksmg02.maxima.ru:7.1.1;
+ 81.200.124.62:7.1.2, FromAlignment: s, ApMailHostAddress: 81.200.124.62
+X-MS-Exchange-Organization-SCL: -1
+X-KSMG-AntiSpam-Interceptor-Info: scan successful
+X-KSMG-AntiPhishing: Clean
+X-KSMG-LinksScanning: Clean
+X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.0.1.6960,
+ bases: 2024/11/18 10:31:00 #26875800
+X-KSMG-AntiVirus-Status: Clean, skipped
 X-Mailman-Approved-At: Mon, 18 Nov 2024 14:17:10 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,143 +101,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+If user-provided fan speed is higher than max speed, ->set_fan_speed_rpm() won't
+return error code, which can lead not only to problems with the hardware, but
+also to a zero division in smu_v13_0_set_fan_speed_rpm, since (8 * speed), which
+is used as a divisor, can evaluate to zero because of an integer overflow.
 
-On 16/11/2024 04:44, Yunxiang Li wrote:
-> When memory stats is generated fresh everytime by going though all the
-> BOs, their active information is quite easy to get. But if the stats are
-> tracked with BO's state this becomes harder since the job scheduling
-> part doesn't really deal with individual buffers.
-> 
-> Make drm-active- optional to enable amdgpu to switch to the second
-> method.
+Define ->get_fan_parameters() callbacks for smu_v13_0_0 and smu_v13_0_7 in order
+to have smu->fan_max_rpm variable initialized. Modify ->set_fan_speed_rpm()
+callback to fail if speed is higher than smu->fan_max_rpm.
 
-Perhaps you missed 
-https://lore.kernel.org/dri-devel/3706dc4f-db98-45e0-b870-f10368ab1ab9@igalia.com/ 
-?
+Fixes: c05d1c401572 ("drm/amd/swsmu: add aldebaran smu13 ip support (v3)")
+Signed-off-by: Murad Masimov <m.masimov@maxima.ru>
+---
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c       |  2 +-
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c | 11 +++++++++++
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c | 11 +++++++++++
+ 3 files changed, 23 insertions(+), 1 deletion(-)
 
-Regards,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+index e17466cc1952..6f3277639fe9 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
+@@ -1228,7 +1228,7 @@ int smu_v13_0_set_fan_speed_rpm(struct smu_context *smu,
+ 	uint32_t tach_period;
+ 	int ret;
 
-Tvrtko
+-	if (!speed)
++	if (!speed || speed > smu->fan_max_rpm)
+ 		return -EINVAL;
 
-> Signed-off-by: Yunxiang Li <Yunxiang.Li@amd.com>
-> CC: dri-devel@lists.freedesktop.org
-> CC: intel-gfx@lists.freedesktop.org
-> CC: amd-gfx@lists.freedesktop.org
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c |  1 +
->   drivers/gpu/drm/drm_file.c                 | 13 +++++++------
->   drivers/gpu/drm/i915/i915_drm_client.c     |  1 +
->   drivers/gpu/drm/xe/xe_drm_client.c         |  1 +
->   include/drm/drm_gem.h                      | 14 ++++++++------
->   5 files changed, 18 insertions(+), 12 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
-> index df2cf5c339255..7717e3e4f05b5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fdinfo.c
-> @@ -97,6 +97,7 @@ void amdgpu_show_fdinfo(struct drm_printer *p, struct drm_file *file)
->   
->   		drm_print_memory_stats(p,
->   				       &stats[i].drm,
-> +				       DRM_GEM_OBJECT_ACTIVE |
->   				       DRM_GEM_OBJECT_RESIDENT |
->   				       DRM_GEM_OBJECT_PURGEABLE,
->   				       pl_name[i]);
-> diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
-> index e285fcc28c59c..fd06671054723 100644
-> --- a/drivers/gpu/drm/drm_file.c
-> +++ b/drivers/gpu/drm/drm_file.c
-> @@ -884,7 +884,9 @@ void drm_print_memory_stats(struct drm_printer *p,
->   {
->   	print_size(p, "total", region, stats->private + stats->shared);
->   	print_size(p, "shared", region, stats->shared);
-> -	print_size(p, "active", region, stats->active);
-> +
-> +	if (supported_status & DRM_GEM_OBJECT_ACTIVE)
-> +		print_size(p, "active", region, stats->active);
->   
->   	if (supported_status & DRM_GEM_OBJECT_RESIDENT)
->   		print_size(p, "resident", region, stats->resident);
-> @@ -917,15 +919,13 @@ void drm_show_memory_stats(struct drm_printer *p, struct drm_file *file)
->   
->   		if (obj->funcs && obj->funcs->status) {
->   			s = obj->funcs->status(obj);
-> -			supported_status = DRM_GEM_OBJECT_RESIDENT |
-> -					DRM_GEM_OBJECT_PURGEABLE;
-> +			supported_status |= s;
->   		}
->   
-> -		if (drm_gem_object_is_shared_for_memory_stats(obj)) {
-> +		if (drm_gem_object_is_shared_for_memory_stats(obj))
->   			status.shared += obj->size;
-> -		} else {
-> +		else
->   			status.private += obj->size;
-> -		}
->   
->   		if (s & DRM_GEM_OBJECT_RESIDENT) {
->   			status.resident += add_size;
-> @@ -938,6 +938,7 @@ void drm_show_memory_stats(struct drm_printer *p, struct drm_file *file)
->   
->   		if (!dma_resv_test_signaled(obj->resv, dma_resv_usage_rw(true))) {
->   			status.active += add_size;
-> +			supported_status |= DRM_GEM_OBJECT_ACTIVE;
->   
->   			/* If still active, don't count as purgeable: */
->   			s &= ~DRM_GEM_OBJECT_PURGEABLE;
-> diff --git a/drivers/gpu/drm/i915/i915_drm_client.c b/drivers/gpu/drm/i915/i915_drm_client.c
-> index f586825054918..168d7375304bc 100644
-> --- a/drivers/gpu/drm/i915/i915_drm_client.c
-> +++ b/drivers/gpu/drm/i915/i915_drm_client.c
-> @@ -102,6 +102,7 @@ static void show_meminfo(struct drm_printer *p, struct drm_file *file)
->   	for_each_memory_region(mr, i915, id)
->   		drm_print_memory_stats(p,
->   				       &stats[id],
-> +				       DRM_GEM_OBJECT_ACTIVE |
->   				       DRM_GEM_OBJECT_RESIDENT |
->   				       DRM_GEM_OBJECT_PURGEABLE,
->   				       mr->uabi_name);
-> diff --git a/drivers/gpu/drm/xe/xe_drm_client.c b/drivers/gpu/drm/xe/xe_drm_client.c
-> index 6a26923fa10e0..54941b4e850c4 100644
-> --- a/drivers/gpu/drm/xe/xe_drm_client.c
-> +++ b/drivers/gpu/drm/xe/xe_drm_client.c
-> @@ -229,6 +229,7 @@ static void show_meminfo(struct drm_printer *p, struct drm_file *file)
->   		if (man) {
->   			drm_print_memory_stats(p,
->   					       &stats[mem_type],
-> +					       DRM_GEM_OBJECT_ACTIVE |
->   					       DRM_GEM_OBJECT_RESIDENT |
->   					       (mem_type != XE_PL_SYSTEM ? 0 :
->   					       DRM_GEM_OBJECT_PURGEABLE),
-> diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
-> index bae4865b2101a..584ffdf5c2542 100644
-> --- a/include/drm/drm_gem.h
-> +++ b/include/drm/drm_gem.h
-> @@ -48,19 +48,21 @@ struct drm_gem_object;
->    * enum drm_gem_object_status - bitmask of object state for fdinfo reporting
->    * @DRM_GEM_OBJECT_RESIDENT: object is resident in memory (ie. not unpinned)
->    * @DRM_GEM_OBJECT_PURGEABLE: object marked as purgeable by userspace
-> + * @DRM_GEM_OBJECT_ACTIVE: object is currently used by an active submission
->    *
->    * Bitmask of status used for fdinfo memory stats, see &drm_gem_object_funcs.status
-> - * and drm_show_fdinfo().  Note that an object can DRM_GEM_OBJECT_PURGEABLE if
-> - * it still active or not resident, in which case drm_show_fdinfo() will not
-> + * and drm_show_fdinfo().  Note that an object can report DRM_GEM_OBJECT_PURGEABLE
-> + * and be active or not resident, in which case drm_show_fdinfo() will not
->    * account for it as purgeable.  So drivers do not need to check if the buffer
-> - * is idle and resident to return this bit.  (Ie. userspace can mark a buffer
-> - * as purgeable even while it is still busy on the GPU.. it does not _actually_
-> - * become puregeable until it becomes idle.  The status gem object func does
-> - * not need to consider this.)
-> + * is idle and resident to return this bit, i.e. userspace can mark a buffer as
-> + * purgeable even while it is still busy on the GPU. It whill not get reported
-> + * in the puregeable stats until it becomes idle.  The status gem object func
-> + * does not need to consider this.
->    */
->   enum drm_gem_object_status {
->   	DRM_GEM_OBJECT_RESIDENT  = BIT(0),
->   	DRM_GEM_OBJECT_PURGEABLE = BIT(1),
-> +	DRM_GEM_OBJECT_ACTIVE = BIT(2),
->   };
->   
->   /**
+ 	ret = smu_v13_0_auto_fan_control(smu, 0);
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+index d53e162dcd8d..44844cddb3bf 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+@@ -947,6 +947,16 @@ static int smu_v13_0_0_get_dpm_ultimate_freq(struct smu_context *smu,
+ 	return 0;
+ }
+
++static int smu_v13_0_0_get_fan_parameters(struct smu_context *smu)
++{
++	struct smu_table_context *table_context = &smu->smu_table;
++	PPTable_t *smc_pptable = table_context->driver_pptable;
++
++	smu->fan_max_rpm = smc_pptable->SkuTable.FanMaximumRpm;
++
++	return 0;
++}
++
+ static int smu_v13_0_0_read_sensor(struct smu_context *smu,
+ 				   enum amd_pp_sensors sensor,
+ 				   void *data,
+@@ -3045,6 +3055,7 @@ static const struct pptable_funcs smu_v13_0_0_ppt_funcs = {
+ 	.get_dpm_ultimate_freq = smu_v13_0_0_get_dpm_ultimate_freq,
+ 	.get_vbios_bootup_values = smu_v13_0_get_vbios_bootup_values,
+ 	.read_sensor = smu_v13_0_0_read_sensor,
++	.get_fan_parameters = smu_v13_0_0_get_fan_parameters,
+ 	.feature_is_enabled = smu_cmn_feature_is_enabled,
+ 	.print_clk_levels = smu_v13_0_0_print_clk_levels,
+ 	.force_clk_levels = smu_v13_0_0_force_clk_levels,
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+index b891a5e0a396..b305bce1bccc 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+@@ -936,6 +936,16 @@ static int smu_v13_0_7_get_dpm_ultimate_freq(struct smu_context *smu,
+ 	return 0;
+ }
+
++static int smu_v13_0_7_get_fan_parameters(struct smu_context *smu)
++{
++	struct smu_table_context *table_context = &smu->smu_table;
++	PPTable_t *smc_pptable = table_context->driver_pptable;
++
++	smu->fan_max_rpm = smc_pptable->SkuTable.FanMaximumRpm;
++
++	return 0;
++}
++
+ static int smu_v13_0_7_read_sensor(struct smu_context *smu,
+ 				   enum amd_pp_sensors sensor,
+ 				   void *data,
+@@ -2628,6 +2638,7 @@ static const struct pptable_funcs smu_v13_0_7_ppt_funcs = {
+ 	.get_dpm_ultimate_freq = smu_v13_0_7_get_dpm_ultimate_freq,
+ 	.get_vbios_bootup_values = smu_v13_0_get_vbios_bootup_values,
+ 	.read_sensor = smu_v13_0_7_read_sensor,
++	.get_fan_parameters = smu_v13_0_7_get_fan_parameters,
+ 	.feature_is_enabled = smu_cmn_feature_is_enabled,
+ 	.print_clk_levels = smu_v13_0_7_print_clk_levels,
+ 	.force_clk_levels = smu_v13_0_7_force_clk_levels,
+--
+2.39.2
+
