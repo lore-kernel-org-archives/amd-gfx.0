@@ -4,49 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26C99D4921B
-	for <amd-gfx@archiver.kernel.org>; Mon, 18 Nov 2024 12:52:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1833D49220
+	for <amd-gfx@archiver.kernel.org>; Mon, 18 Nov 2024 13:17:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BCEE610E081;
-	Mon, 18 Nov 2024 12:52:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9614210E4D6;
+	Mon, 18 Nov 2024 13:17:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="S8WalzOi";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="WIcCP9E5";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5791410E081
- for <amd-gfx@lists.freedesktop.org>; Mon, 18 Nov 2024 12:52:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=9ZQ9WL5jO9YPB3vAu+6o0HT0kH9ELWimN1JUK4u3ze8=; b=S8WalzOigjeFH4s8PTf0F5kTbX
- kLH71a+JUzplWMNZKmYMFg2esz8bMIKyaRY9uaenSN2N+OellFWRwyyKu203+ExkQoTe2jIKpQa2l
- UtjGXy5bxzQcoU00N1Jm0khDJiZtomwW9lS/3w2iEn28QF1glnDwD8Ax+1Kvzk+E/o/tdoWIjJqJr
- VU1zGFCmXIdb0uabSbRDM6MdIEBo0HgaLWer24YT5pYiUuQYMQtSIG+DEL2tT6NQkQxvKeXYQckP6
- Fhv2E+WiuaT5y6AEsrvYvGiJ/EKjuLuqLvDxrL4a4EHEu0YNNpzyTMEBRh7svguRC/h5t78ps7zeK
- vuvkQ63Q==;
-Received: from [179.214.71.67] (helo=[192.168.0.55])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1tD1Ek-008VDi-3r; Mon, 18 Nov 2024 13:52:14 +0100
-Message-ID: <db124999-db4e-4f42-b0ed-86249dd20bbd@igalia.com>
-Date: Mon, 18 Nov 2024 09:52:09 -0300
+Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com
+ [209.85.167.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A89110E4D9
+ for <amd-gfx@lists.freedesktop.org>; Mon, 18 Nov 2024 13:17:37 +0000 (UTC)
+Received: by mail-lf1-f47.google.com with SMTP id
+ 2adb3069b0e04-539f1292a9bso4889228e87.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 18 Nov 2024 05:17:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1731935855; x=1732540655; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=QEQ0UnPHgL8X1IzKLkITrqLzsus1TunLlu+R1N5lrJc=;
+ b=WIcCP9E5yB4BhQneZ6ay16LOBRQ1t5RfEyuX9y4RAbRJ4TDwrZoK0Qw/u48eWAbSKQ
+ 2I971De8G99/8QX8dBDGXou0lK9X0x0GmoQF+NLMRVWKCuolwga7WsAeeCheBYm6vKHv
+ 6sTBMuTH6KszIqAgsE54G0WU1Wu9+KV+wDNxUX6rMHjsTygph4fCpERbhP7ItmGAo70a
+ 3M3mGeuSBy17ZL3SK/jPLlFZJCNul3vA05jsPRFrY9baEtZoaVjqMXkqKeQlh7ercMAh
+ wjl7+VuWfcOil3JzoEf6lVE/nRcCqKqNqt9lyOFKeMs/7IoU1Z8TqrwWmzrAe1mkvy8p
+ +E1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1731935855; x=1732540655;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=QEQ0UnPHgL8X1IzKLkITrqLzsus1TunLlu+R1N5lrJc=;
+ b=FrvOPPSrQbn7sUZh5NlA/+uTrUpzVQj2ZBbBNMld30rziaav9McQGG5Gf4qJ30Mdhv
+ BaMMK69sdaTIG07Gvgu0+2mlutDSiBr+k4aGNuVUJTtuWYK3LyBJeWocuRRDvNRBEol2
+ G8D0jYyooixaSqLaRgpHp5opwr7GMb4F1lTjLuw0xVliGBQRSbahTKdVkB/y+gvs8BOv
+ gr59plrg/DRIcfIEXbDJJURAbcqLAiJrZxnZD6LgVMrqaYxViX6dX4FAzg/+EjxLD6YI
+ 1K74ZdRqS0akCqJSJbO2Iu8heGV2GSHkK6qFZ01u2gY35rxT7LmoKjKdRBfR3txLSo6X
+ 4sdA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVPTxr/qcirIlXrCao2Lo5xVLIDg5PkTwonHYD7YnWywG16N5BnA8B+FgHcCms+qa3R5gWybg/S@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzUeaLzWuGLDaXURKBbZYeBMjpBIRBWI/Yfeq1c+ZZlWtRRK4vk
+ kKGBzNb19wPW6rdqWZcVFI/kt9I80mYvP1kHepaha62rHIzOPK1f/0KYhwm9mqg=
+X-Google-Smtp-Source: AGHT+IGdzRCE2acExYOAR/Q1TPJs2CyZISyIMx5j4q3L/H9VxSQ26s/Ffm8H90fecvqfEbJsuGZxrw==
+X-Received: by 2002:a05:6512:3e07:b0:536:55a9:caf0 with SMTP id
+ 2adb3069b0e04-53dab25f7c9mr4511337e87.0.1731935855301; 
+ Mon, 18 Nov 2024 05:17:35 -0800 (PST)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-53da64f8cafsm1591434e87.54.2024.11.18.05.17.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 18 Nov 2024 05:17:33 -0800 (PST)
+Date: Mon, 18 Nov 2024 15:17:31 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Karol Herbst <kherbst@redhat.com>, Lyude Paul <lyude@redhat.com>, 
+ Danilo Krummrich <dakr@redhat.com>, Harry Wentland <harry.wentland@amd.com>, 
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
+ Xinhui Pan <Xinhui.Pan@amd.com>, Alain Volmat <alain.volmat@foss.st.com>, 
+ Raphael Gallais-Pou <rgallaispou@gmail.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Peter Senna Tschudin <peter.senna@gmail.com>, 
+ Ian Ray <ian.ray@ge.com>, Martyn Welch <martyn.welch@collabora.co.uk>, 
+ Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>, 
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>, Stefan Agner <stefan@agner.ch>, 
+ Alison Wang <alison.wang@nxp.com>,
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Dave Airlie <airlied@redhat.com>, 
+ Gerd Hoffmann <kraxel@redhat.com>, Sandy Huang <hjc@rock-chips.com>, 
+ Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>, Chen-Yu Tsai <wens@csie.org>, 
+ Samuel Holland <samuel@sholland.org>, Thierry Reding <thierry.reding@gmail.com>,
+ Mikko Perttunen <mperttunen@nvidia.com>, Jonathan Hunter <jonathanh@nvidia.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>, 
+ Chia-I Wu <olvaffe@gmail.com>, Zack Rusin <zack.rusin@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ nouveau@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
+ linux-samsung-soc@vger.kernel.org, imx@lists.linux.dev,
+ linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, virtualization@lists.linux.dev, 
+ spice-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, linux-tegra@vger.kernel.org
+Subject: Re: [PATCH 1/5] drm/encoder_slave: make mode_valid accept const
+ struct drm_display_mode
+Message-ID: <4prwsjl7nhg4u4tgyqdmgt6am5ryewslosmbezkfmyxgh2oket@zglhp7zqhfwe>
+References: <20241115-drm-connector-mode-valid-const-v1-0-b1b523156f71@linaro.org>
+ <20241115-drm-connector-mode-valid-const-v1-1-b1b523156f71@linaro.org>
+ <20241117205426.GE12409@pendragon.ideasonboard.com>
+ <CAA8EJpr=4AQVRKbtR2MaCQfguGW0a=3ay-ttew-mFR4f086Uyg@mail.gmail.com>
+ <20241117233250.GK12409@pendragon.ideasonboard.com>
+ <CAA8EJpq6Gkp4W=rGbpY6ASPgoDt=64HTFDk4_OZsTmbSUxhhGw@mail.gmail.com>
+ <87plms51w4.fsf@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] SWDEV-476969 - dm/amdgpu: Fail dm_atomic_check if cursor
- overlay is required at MAX_SURFACES
-To: Mario Limonciello <mario.limonciello@amd.com>,
- Zaeem Mohamed <zaeem.mohamed@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20241114143741.627128-1-zaeem.mohamed@amd.com>
- <61209a80-9796-42db-8d3d-0b5de317c338@amd.com>
-Content-Language: en-US
-From: Melissa Wen <mwen@igalia.com>
-In-Reply-To: <61209a80-9796-42db-8d3d-0b5de317c338@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87plms51w4.fsf@intel.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,103 +140,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Mon, Nov 18, 2024 at 11:26:03AM +0200, Jani Nikula wrote:
+> On Mon, 18 Nov 2024, Dmitry Baryshkov <dmitry.baryshkov@linaro.org> wrote:
+> > On Mon, 18 Nov 2024 at 01:33, Laurent Pinchart
+> > <laurent.pinchart@ideasonboard.com> wrote:
+> >>
+> >> On Mon, Nov 18, 2024 at 01:22:12AM +0200, Dmitry Baryshkov wrote:
+> >> > On Sun, 17 Nov 2024 at 22:54, Laurent Pinchart wrote:
+> >> > > On Fri, Nov 15, 2024 at 11:09:26PM +0200, Dmitry Baryshkov wrote:
+> >> > > > The mode_valid() callbacks of drm_encoder, drm_crtc and drm_bridge
+> >> > > > accept const struct drm_display_mode argument. Change the mode_valid
+> >> > > > callback of drm_encoder_slave to also accept const argument.
+> >> > > >
+> >> > > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> >> > >
+> >> > > Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+> >> > >
+> >> > > On a side note, there's only two I2C slave encoder drivers left... I
+> >> > > wonder if we could so something about them. The ch7006 and sil164
+> >> > > drivers seem to be used by nouveau only, could they be moved to
+> >> > > drivers/gpu/drm/nouveau/ ? We would move the whole drm_encoder_slave
+> >> > > implementation there too, and leave it to die (or get taken out of limbo
+> >> > > and fixed) with dispnv04.
+> >> >
+> >> > Or it might be better to switch to drm_bridge. Currently we also have
+> >> > sil164 (sub)drivers in ast and i915 drivers. I don't know if there is
+> >> > any common code to share or not. If there is some, it might be nice to
+> >> > use common framework.
+> >>
+> >> That would require porting nouveau and i915 to drm_bridge. As much as
+> >> I'd love to see that happening, I won't hold my breath.
+> >
+> > Me neither. Probably moving those two and drm_encoder_slave to nouveau
+> > is really the best course for now.
+> 
+> Granted, the dvo part of i915 is ugly, but it's also only relevant for
+> the oldest hardware i915 supports. Like 20 years old. Not sure there's
+> much return on investment in big refactoring, more risk that it breaks
+> without nobody noticing. Just let it be in i915?
+
+Agreed
 
 
-
-On 14/11/2024 16:04, Mario Limonciello wrote:
-> Although it's really useful information for AMD people, the Jira 
-> shouldn't be in the "title" of the commit message.
->
-> "If" we want to get into the habit of including this information for 
-> display code we should come up with a prescriptive field that goes 
-> into the commit message during promotion and it should be part of all 
-> patches in the promotion that have it.
->
-> Something like this:
->
-> AMD-Jira: SWDEV-476969
->
-> Probably need to align that with other stakeholders though before 
-> starting that way.
->
-> On 11/14/2024 08:37, Zaeem Mohamed wrote:
->> [why]
->> Prevent index-out-of-bounds due to requiring cursor overlay when
->> plane_count is MAX_SURFACES.
->>
->> [how]
->> Bounds check on plane_count when requiring overlay cursor.
->>
->
-> Any link to failing bugs or anything like that you can include?
-Hi Mario,
-
-About this question, these are the related issues:
-- Link: https://gitlab.freedesktop.org/drm/amd/-/issues/3693
-- Link: https://gitlab.freedesktop.org/drm/amd/-/issues/3594
-
-You can find more details in previous iterations related to this bug:
-- 
-https://lore.kernel.org/amd-gfx/575d66c7-e77d-42ea-acbf-412d6e508a0b@igalia.com/
-- https://lore.kernel.org/amd-gfx/20240925154324.348774-1-mwen@igalia.com/
->
->> Co-developed-by: Melissa Wen <mwen@igalia.com>
->> Signed-off-by: Zaeem Mohamed <zaeem.mohamed@amd.com>
->
-> You're missing Melisaa's SoB for a co-developed patch.
-> IIRC this should fail checkpatch.
-I already mentioned before, I don't think I actually co-dev this code, 
-so Zaeem can remove it in the next iteration.
-
----
-
-BTW, about the implementation:
-
-As I don't have the proper environment, I asked reporters to check this 
-patch up and it doesn't help prevent interface freeze.
-It seems to prevent the out of bounds bug but is causing a page fault now:
-
-kernel: BUG: unable to handle page fault for address: 000000000174e354
-
- From their feedback, I found curious that MAX_SURFACES -> 4 prevents 
-the freeze but not completely solve the problem.
-MAX_SURFACES -> 6 solves it, what let me consider that the MAX_SURFACES 
-vs MAX_SURFACE_NUM vs MAX_PLANE mismatch might be related.
-I'm going to analyzing the logs but you can find more details here: 
-https://gitlab.freedesktop.org/drm/amd/-/issues/3693#note_2658994
-
-BR,
-
-Melissa Wen
->
->> ---
->>   amdgpu_dm/amdgpu_dm.c | 10 +++++++++-
->>   1 file changed, 9 insertions(+), 1 deletion(-)
->>
->> diff --git a/amdgpu_dm/amdgpu_dm.c b/amdgpu_dm/amdgpu_dm.c
->> index 97e0a1bbba..964497c613 100644
->> --- a/amdgpu_dm/amdgpu_dm.c
->> +++ b/amdgpu_dm/amdgpu_dm.c
->> @@ -11821,8 +11821,16 @@ static int amdgpu_dm_atomic_check(struct 
->> drm_device *dev,
->>             /* Overlay cusor not subject to native cursor 
->> restrictions */
->>           dm_new_crtc_state = to_dm_crtc_state(new_crtc_state);
->> -        if (dm_new_crtc_state->cursor_mode == DM_CURSOR_OVERLAY_MODE)
->> +        if (dm_new_crtc_state->cursor_mode == DM_CURSOR_OVERLAY_MODE) {
->> +            if (dc->current_state->stream_status->plane_count > 
->> MAX_SURFACES) {
->> +                drm_dbg_driver(crtc->dev,
->> +                       "Can't enable cursor plane with %d planes\n", 
->> MAX_SURFACES);
->> +                ret = -EINVAL;
->> +                goto fail;
->> +            }
->> +
->>               continue;
->> +        }
->>             /* Check if rotation or scaling is enabled on DCN401 */
->>           if ((drm_plane_mask(crtc->cursor) & 
->> new_crtc_state->plane_mask) &&
->
-
+-- 
+With best wishes
+Dmitry
