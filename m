@@ -4,128 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1833D49220
-	for <amd-gfx@archiver.kernel.org>; Mon, 18 Nov 2024 13:17:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75995D49225
+	for <amd-gfx@archiver.kernel.org>; Mon, 18 Nov 2024 14:03:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9614210E4D6;
-	Mon, 18 Nov 2024 13:17:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 217D210E4DE;
+	Mon, 18 Nov 2024 14:03:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="WIcCP9E5";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ToHHmwDm";
 	dkim-atps=neutral
-Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com
- [209.85.167.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A89110E4D9
- for <amd-gfx@lists.freedesktop.org>; Mon, 18 Nov 2024 13:17:37 +0000 (UTC)
-Received: by mail-lf1-f47.google.com with SMTP id
- 2adb3069b0e04-539f1292a9bso4889228e87.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 18 Nov 2024 05:17:37 -0800 (PST)
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
+ [209.85.128.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A5A7710E4DE;
+ Mon, 18 Nov 2024 14:03:56 +0000 (UTC)
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-4315eac969aso24105875e9.1; 
+ Mon, 18 Nov 2024 06:03:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1731935855; x=1732540655; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=QEQ0UnPHgL8X1IzKLkITrqLzsus1TunLlu+R1N5lrJc=;
- b=WIcCP9E5yB4BhQneZ6ay16LOBRQ1t5RfEyuX9y4RAbRJ4TDwrZoK0Qw/u48eWAbSKQ
- 2I971De8G99/8QX8dBDGXou0lK9X0x0GmoQF+NLMRVWKCuolwga7WsAeeCheBYm6vKHv
- 6sTBMuTH6KszIqAgsE54G0WU1Wu9+KV+wDNxUX6rMHjsTygph4fCpERbhP7ItmGAo70a
- 3M3mGeuSBy17ZL3SK/jPLlFZJCNul3vA05jsPRFrY9baEtZoaVjqMXkqKeQlh7ercMAh
- wjl7+VuWfcOil3JzoEf6lVE/nRcCqKqNqt9lyOFKeMs/7IoU1Z8TqrwWmzrAe1mkvy8p
- +E1A==
+ d=gmail.com; s=20230601; t=1731938635; x=1732543435; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=QLVSAd65F3kzay2k04s+ucIRrq7MVSoMKuKcfsAr9cM=;
+ b=ToHHmwDmeiZatutChkppAwkz4y/lXJWvXg54cHdMsGBO+loLXtWMRwe2VV2diKurba
+ Y7NSwAhjdPOE3c0Tm7XJouxBN4D7LgStglbdP1C/FWbKk6ywiXgP+FBhzVGQgYJWpa+V
+ PEHfFfh+doSYfkICMYdfIr/3ffO08bSNFtlJA/Vq6lQOLE1jwuQMOl/J4BlwjuEHSq59
+ 1haZfsK6Ng8w4U/HkB3PFMQ51PHTKNEvC34gCTq1iqDLPAR0J1y4HSlrY5vASMgo6I/b
+ OHnR6l0W4yUbSVt/T8AKRslhpZw+z3g/Zc5HthJ/K+mlWm0JgFP83qved26CuIIOhDId
+ heiQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1731935855; x=1732540655;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=QEQ0UnPHgL8X1IzKLkITrqLzsus1TunLlu+R1N5lrJc=;
- b=FrvOPPSrQbn7sUZh5NlA/+uTrUpzVQj2ZBbBNMld30rziaav9McQGG5Gf4qJ30Mdhv
- BaMMK69sdaTIG07Gvgu0+2mlutDSiBr+k4aGNuVUJTtuWYK3LyBJeWocuRRDvNRBEol2
- G8D0jYyooixaSqLaRgpHp5opwr7GMb4F1lTjLuw0xVliGBQRSbahTKdVkB/y+gvs8BOv
- gr59plrg/DRIcfIEXbDJJURAbcqLAiJrZxnZD6LgVMrqaYxViX6dX4FAzg/+EjxLD6YI
- 1K74ZdRqS0akCqJSJbO2Iu8heGV2GSHkK6qFZ01u2gY35rxT7LmoKjKdRBfR3txLSo6X
- 4sdA==
+ d=1e100.net; s=20230601; t=1731938635; x=1732543435;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=QLVSAd65F3kzay2k04s+ucIRrq7MVSoMKuKcfsAr9cM=;
+ b=u0ZMG0usVHunqrUILsv76pqY6KOp7+Cezipu9bcJBkgi/6uC8tR1iLpawlKQbHA75m
+ bXyPMIAj9L67yoZvMSlYrhoKEavUbw7W11vuTKUg3D9ixzNIjhUAbiHCXJwHhAIoXLQy
+ 6m48dLFN89sO/IO24GfRgDwcIJx4U7E2dKYLHjHHcIPCvpYZY3ogfsfC5Me7g9IBY7ge
+ WhIjFuEeFKOdwOQQwR4yf5v9rnE1p/Jv0DKvk9c+XoJcsSFrVkQcBiewJI420+nPpw+I
+ AUWN+xLwWNOsXimiJzHlaPeVSdT34qZEJtZpq7FQY9EkxKHdPdP6qre3wLs0/3WQI2NE
+ ZwuA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVPTxr/qcirIlXrCao2Lo5xVLIDg5PkTwonHYD7YnWywG16N5BnA8B+FgHcCms+qa3R5gWybg/S@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzUeaLzWuGLDaXURKBbZYeBMjpBIRBWI/Yfeq1c+ZZlWtRRK4vk
- kKGBzNb19wPW6rdqWZcVFI/kt9I80mYvP1kHepaha62rHIzOPK1f/0KYhwm9mqg=
-X-Google-Smtp-Source: AGHT+IGdzRCE2acExYOAR/Q1TPJs2CyZISyIMx5j4q3L/H9VxSQ26s/Ffm8H90fecvqfEbJsuGZxrw==
-X-Received: by 2002:a05:6512:3e07:b0:536:55a9:caf0 with SMTP id
- 2adb3069b0e04-53dab25f7c9mr4511337e87.0.1731935855301; 
- Mon, 18 Nov 2024 05:17:35 -0800 (PST)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
+ AJvYcCXKAmwWAoH2WWtH7+tvsP4cjMC0r4YEO+8LJrOSXDRHLWlfpvaCAl+k+m+lsLKRte+aHpbg8jjk@lists.freedesktop.org,
+ AJvYcCXaSPxei6p1fq1V3REI+oa2gWcC2aYRjRUVL9DyB1oLYgphRru0EuiT4F3sHwHNRyxl1X8gdt3FqBDW@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxKi37gmH1yNPP+ov8P3rzvMCO0g2XZyosSNemJ0j+lAsvNKHJJ
+ R966gsrkG/tIiwGpR/fv8UZe4T+a2+pUrf3ol+2gttw3bV2cekIJ
+X-Google-Smtp-Source: AGHT+IFkFPdP9yQ1V5FQYfHddHd9JrLiZeWtNn85QWbNgeXn8nBR/CKz6fZvYiBn4bxzcERLpMOZ6w==
+X-Received: by 2002:a05:600c:a4c:b0:42c:b991:98bc with SMTP id
+ 5b1f17b1804b1-432d95ad53cmr137284915e9.0.1731938634613; 
+ Mon, 18 Nov 2024 06:03:54 -0800 (PST)
+Received: from [192.168.178.25] ([185.254.126.212])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-53da64f8cafsm1591434e87.54.2024.11.18.05.17.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 18 Nov 2024 05:17:33 -0800 (PST)
-Date: Mon, 18 Nov 2024 15:17:31 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Karol Herbst <kherbst@redhat.com>, Lyude Paul <lyude@redhat.com>, 
- Danilo Krummrich <dakr@redhat.com>, Harry Wentland <harry.wentland@amd.com>, 
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
- Xinhui Pan <Xinhui.Pan@amd.com>, Alain Volmat <alain.volmat@foss.st.com>, 
- Raphael Gallais-Pou <rgallaispou@gmail.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Peter Senna Tschudin <peter.senna@gmail.com>, 
- Ian Ray <ian.ray@ge.com>, Martyn Welch <martyn.welch@collabora.co.uk>, 
- Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>, 
- Kyungmin Park <kyungmin.park@samsung.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>, Stefan Agner <stefan@agner.ch>, 
- Alison Wang <alison.wang@nxp.com>,
- Patrik Jakobsson <patrik.r.jakobsson@gmail.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- Dave Airlie <airlied@redhat.com>, 
- Gerd Hoffmann <kraxel@redhat.com>, Sandy Huang <hjc@rock-chips.com>, 
- Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>, Chen-Yu Tsai <wens@csie.org>, 
- Samuel Holland <samuel@sholland.org>, Thierry Reding <thierry.reding@gmail.com>,
- Mikko Perttunen <mperttunen@nvidia.com>, Jonathan Hunter <jonathanh@nvidia.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>, 
- Chia-I Wu <olvaffe@gmail.com>, Zack Rusin <zack.rusin@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- nouveau@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
- linux-samsung-soc@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org, virtualization@lists.linux.dev, 
- spice-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- linux-sunxi@lists.linux.dev, linux-tegra@vger.kernel.org
-Subject: Re: [PATCH 1/5] drm/encoder_slave: make mode_valid accept const
- struct drm_display_mode
-Message-ID: <4prwsjl7nhg4u4tgyqdmgt6am5ryewslosmbezkfmyxgh2oket@zglhp7zqhfwe>
-References: <20241115-drm-connector-mode-valid-const-v1-0-b1b523156f71@linaro.org>
- <20241115-drm-connector-mode-valid-const-v1-1-b1b523156f71@linaro.org>
- <20241117205426.GE12409@pendragon.ideasonboard.com>
- <CAA8EJpr=4AQVRKbtR2MaCQfguGW0a=3ay-ttew-mFR4f086Uyg@mail.gmail.com>
- <20241117233250.GK12409@pendragon.ideasonboard.com>
- <CAA8EJpq6Gkp4W=rGbpY6ASPgoDt=64HTFDk4_OZsTmbSUxhhGw@mail.gmail.com>
- <87plms51w4.fsf@intel.com>
+ 5b1f17b1804b1-432dab80a10sm155478505e9.26.2024.11.18.06.03.51
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 18 Nov 2024 06:03:53 -0800 (PST)
+Message-ID: <93826dcc-82de-4fb5-8574-7e6cb8355da4@gmail.com>
+Date: Mon, 18 Nov 2024 15:03:50 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87plms51w4.fsf@intel.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 3/5] Documentation/gpu: Clarify drm memory stats
+ definition
+To: Yunxiang Li <Yunxiang.Li@amd.com>, amd-gfx@lists.freedesktop.org,
+ christian.koenig@amd.com, tvrtko.ursulin@igalia.com
+Cc: Alexander.Deucher@amd.com, dri-devel@lists.freedesktop.org
+References: <20241116044452.5925-1-Yunxiang.Li@amd.com>
+ <20241116044452.5925-4-Yunxiang.Li@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20241116044452.5925-4-Yunxiang.Li@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,48 +87,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Nov 18, 2024 at 11:26:03AM +0200, Jani Nikula wrote:
-> On Mon, 18 Nov 2024, Dmitry Baryshkov <dmitry.baryshkov@linaro.org> wrote:
-> > On Mon, 18 Nov 2024 at 01:33, Laurent Pinchart
-> > <laurent.pinchart@ideasonboard.com> wrote:
-> >>
-> >> On Mon, Nov 18, 2024 at 01:22:12AM +0200, Dmitry Baryshkov wrote:
-> >> > On Sun, 17 Nov 2024 at 22:54, Laurent Pinchart wrote:
-> >> > > On Fri, Nov 15, 2024 at 11:09:26PM +0200, Dmitry Baryshkov wrote:
-> >> > > > The mode_valid() callbacks of drm_encoder, drm_crtc and drm_bridge
-> >> > > > accept const struct drm_display_mode argument. Change the mode_valid
-> >> > > > callback of drm_encoder_slave to also accept const argument.
-> >> > > >
-> >> > > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> >> > >
-> >> > > Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-> >> > >
-> >> > > On a side note, there's only two I2C slave encoder drivers left... I
-> >> > > wonder if we could so something about them. The ch7006 and sil164
-> >> > > drivers seem to be used by nouveau only, could they be moved to
-> >> > > drivers/gpu/drm/nouveau/ ? We would move the whole drm_encoder_slave
-> >> > > implementation there too, and leave it to die (or get taken out of limbo
-> >> > > and fixed) with dispnv04.
-> >> >
-> >> > Or it might be better to switch to drm_bridge. Currently we also have
-> >> > sil164 (sub)drivers in ast and i915 drivers. I don't know if there is
-> >> > any common code to share or not. If there is some, it might be nice to
-> >> > use common framework.
-> >>
-> >> That would require porting nouveau and i915 to drm_bridge. As much as
-> >> I'd love to see that happening, I won't hold my breath.
-> >
-> > Me neither. Probably moving those two and drm_encoder_slave to nouveau
-> > is really the best course for now.
-> 
-> Granted, the dvo part of i915 is ugly, but it's also only relevant for
-> the oldest hardware i915 supports. Like 20 years old. Not sure there's
-> much return on investment in big refactoring, more risk that it breaks
-> without nobody noticing. Just let it be in i915?
+Am 16.11.24 um 05:44 schrieb Yunxiang Li:
+> Define how to handle buffers with multiple possible placement so we
+> don't get incompatible implementations. Callout the resident requirement
+> for drm-purgeable- explicitly. Remove the requirement for there to be
+> only drm-memory- or only drm-resident-, it's not what's implemented and
+> having both is better for back-compat. Also re-order the paragraphs to
+> flow better.
+>
+> Signed-off-by: Yunxiang Li <Yunxiang.Li@amd.com>
+> CC: dri-devel@lists.freedesktop.org
+> ---
+>   Documentation/gpu/drm-usage-stats.rst | 36 ++++++++++++---------------
+>   1 file changed, 16 insertions(+), 20 deletions(-)
+>
+> diff --git a/Documentation/gpu/drm-usage-stats.rst b/Documentation/gpu/drm-usage-stats.rst
+> index ff964c707754a..973663f91a292 100644
+> --- a/Documentation/gpu/drm-usage-stats.rst
+> +++ b/Documentation/gpu/drm-usage-stats.rst
+> @@ -140,13 +140,9 @@ both.
+>   Memory
+>   ^^^^^^
+>   
+> -- drm-memory-<region>: <uint> [KiB|MiB]
+> -
+> -Each possible memory type which can be used to store buffer objects by the
+> -GPU in question shall be given a stable and unique name to be returned as the
+> -string here.
+> -
+> -The region name "memory" is reserved to refer to normal system memory.
+> +Each possible memory type which can be used to store buffer objects by the GPU
+> +in question shall be given a stable and unique name to be used as the "<region>"
+> +string. The region name "memory" is reserved to refer to normal system memory.
 
-Agreed
+That looks like you squashed the "The region name..." sentence at the 
+end. Is that really helpful and intended?
 
+>   
+>   Value shall reflect the amount of storage currently consumed by the buffer
+>   objects belong to this client, in the respective memory region.
+> @@ -154,31 +150,27 @@ objects belong to this client, in the respective memory region.
+>   Default unit shall be bytes with optional unit specifiers of 'KiB' or 'MiB'
+>   indicating kibi- or mebi-bytes.
+>   
+> -This key is deprecated and is an alias for drm-resident-<region>. Only one of
+> -the two should be present in the output.
+> +- drm-total-<region>: <uint> [KiB|MiB]
+> +
+> +The total size of all created buffers including shared and private memory. The
 
--- 
-With best wishes
-Dmitry
+Maybe write "requested" instead of "created" since without a backing 
+store it is questionable if the BO is really "created".
+
+Apart from those two nit picks it looks good to me,
+Christian.
+
+> +backing store for the buffers does not have to be currently instantiated to
+> +count under this category. To avoid double counting, if a buffer falls under
+> +multiple regions, the implementation should pick only one of the regions, and do
+> +so in a consistent manner.
+>   
+>   - drm-shared-<region>: <uint> [KiB|MiB]
+>   
+>   The total size of buffers that are shared with another file (e.g., have more
+> -than a single handle).
+> -
+> -- drm-total-<region>: <uint> [KiB|MiB]
+> -
+> -The total size of all created buffers including shared and private memory. The
+> -backing store for the buffers does not have to be currently instantiated to be
+> -counted under this category.
+> +than a single handle). Same caveat as drm-total- applies.
+>   
+>   - drm-resident-<region>: <uint> [KiB|MiB]
+>   
+>   The total size of buffers that are resident (have their backing store present or
+>   instantiated) in the specified region.
+>   
+> -This is an alias for drm-memory-<region> and only one of the two should be
+> -present in the output.
+> -
+>   - drm-purgeable-<region>: <uint> [KiB|MiB]
+>   
+> -The total size of buffers that are purgeable.
+> +The total size of buffers that are resident and purgeable.
+>   
+>   For example drivers which implement a form of 'madvise' like functionality can
+>   here count buffers which have instantiated backing store, but have been marked
+> @@ -192,6 +184,10 @@ One practical example of this can be presence of unsignaled fences in an GEM
+>   buffer reservation object. Therefore the active category is a subset of
+>   resident.
+>   
+> +- drm-memory-<region>: <uint> [KiB|MiB]
+> +
+> +This key is deprecated and is an alias for drm-resident-<region> if present.
+> +
+>   Implementation Details
+>   ======================
+>   
+
