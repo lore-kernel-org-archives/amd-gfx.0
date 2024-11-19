@@ -4,64 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AB4BD6E2DD
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7557D6E2DB
 	for <amd-gfx@archiver.kernel.org>; Wed, 20 Nov 2024 08:43:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D486210E117;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D99FD10E12F;
 	Wed, 20 Nov 2024 08:43:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="BVV34r8m";
+	dkim=pass (2048-bit key; unprotected) header.d=wanadoo.fr header.i=@wanadoo.fr header.b="P57nhXr3";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 01ED210E3A1;
- Wed, 20 Nov 2024 07:26:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1732087604; x=1763623604;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=lJF1BO8cpIT2Ewk09WmHV4SsVJLrfP5TOl+MPz0RQrg=;
- b=BVV34r8m4yuAF9sPDeJzkJn4BUdTXTT1H4OYg9D4EeVMa5eOwEuTWAx4
- nT6LWy4Rmw+ALvhgk6WxTzcAp9UtFqGaykrPmRObuiD2xFZi6u/PCM5Cf
- /zpVq9WbVO1UPnHEAnXeVuLZzPjTcmw2DsSk3mbhjnumFcHeIjsyEL6gR
- Smck99YP6cEOK47FklBioqZ2eLSc1S1yyNrQut9XbLu0t5VZ1VB1TEU9x
- i+rbUe9X0lmIFiMNQgzCJjsni7kN9lRqig+bKFgrAjswaPKpkSxQHXDvT
- B15tbUZbD4i67lMUZDj/4a62s5d3enIcEn+R66MdsIJTIT5GN1IQMK5jp g==;
-X-CSE-ConnectionGUID: uiaTnlM1Q32ILCPVoKRr8Q==
-X-CSE-MsgGUID: YVK4BAd7R6ajO5VmWq3Wqg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11261"; a="31878778"
-X-IronPort-AV: E=Sophos;i="6.12,169,1728975600"; d="scan'208";a="31878778"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Nov 2024 23:26:43 -0800
-X-CSE-ConnectionGUID: KDyYHiBTR6ySXRnu7TAKZg==
-X-CSE-MsgGUID: iNI4eyrIQqigss4ndezLHw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,169,1728975600"; d="scan'208";a="94646238"
-Received: from black.fi.intel.com ([10.237.72.28])
- by fmviesa004.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Nov 2024 23:26:39 -0800
-Date: Wed, 20 Nov 2024 09:26:36 +0200
-From: Raag Jadav <raag.jadav@intel.com>
-To: "Ghimiray, Himal Prasad" <himal.prasad.ghimiray@intel.com>
-Cc: airlied@gmail.com, simona@ffwll.ch, lucas.demarchi@intel.com,
- rodrigo.vivi@intel.com, jani.nikula@linux.intel.com,
- andriy.shevchenko@linux.intel.com, lina@asahilina.net,
- michal.wajdeczko@intel.com, christian.koenig@amd.com,
- intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, aravind.iddamsetty@linux.intel.com,
- anshuman.gupta@intel.com, alexander.deucher@amd.com,
- andrealmeid@igalia.com, amd-gfx@lists.freedesktop.org,
- kernel-dev@igalia.com
-Subject: Re: [PATCH v9 3/4] drm/xe: Use device wedged event
-Message-ID: <Zz2PLNDeoPaxFuxh@black.fi.intel.com>
-References: <20241115050733.806934-1-raag.jadav@intel.com>
- <20241115050733.806934-4-raag.jadav@intel.com>
- <9249af09-3943-4c72-ab44-08f08ea4807e@intel.com>
+Received: from smtp.smtpout.orange.fr (smtp-19.smtpout.orange.fr
+ [80.12.242.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0992710E363;
+ Tue, 19 Nov 2024 20:36:56 +0000 (UTC)
+Received: from localhost.localdomain ([90.11.132.44])
+ by smtp.orange.fr with ESMTPA
+ id DUxytSUZHgiuVDUxyt3ul2; Tue, 19 Nov 2024 21:36:55 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
+ s=t20230301; t=1732048615;
+ bh=ZhEWScZ9cqnOnTV9yj0gNXc3fVhx21n0ePBE8U68IHM=;
+ h=From:To:Subject:Date:Message-ID:MIME-Version;
+ b=P57nhXr38pLvajtcxUwpyqtxVAZnB3p7P873TOjBwuUwX2eTr9aw0DTGzJulbMwms
+ B6RqDI5XSi8xi+YjRLToHCFNSusSJ3RooJBgwq1RInVrUuNMHriQ66D5yuJIMTAN07
+ MIlTtWSqUA48jR1Rak662jtiUSWbGDWp1jsAM7ZwjkZkH/jj78KeBv3l2+1RBHobx5
+ z7O1tT6WOIZJ4q94OdrRbuomYk2ceHa55IOK0lKC3UfnZ9iKdBotJV5NRVB9HJjXf9
+ ooLVsD4qqPhS+/LJnj8t1JJfVl7Uuawy0kpdIL6nwyB0qMC70RqhY/4aqljtCkiZPi
+ ukkbxXnUm+mLg==
+X-ME-Helo: localhost.localdomain
+X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
+X-ME-Date: Tue, 19 Nov 2024 21:36:55 +0100
+X-ME-IP: 90.11.132.44
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Le Ma <Le.Ma@amd.com>,
+ Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+Cc: linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu: Fix an error handling path in
+ amdgpu_device_xgmi_reset_func()
+Date: Tue, 19 Nov 2024 21:36:43 +0100
+Message-ID: <59760ee9c40003b50eac7fd08f20a6c3e3acf5d0.1732048587.git.christophe.jaillet@wanadoo.fr>
+X-Mailer: git-send-email 2.47.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <9249af09-3943-4c72-ab44-08f08ea4807e@intel.com>
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 20 Nov 2024 08:43:03 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -77,38 +64,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Nov 19, 2024 at 10:25:10AM +0530, Ghimiray, Himal Prasad wrote:
-> On 15-11-2024 10:37, Raag Jadav wrote:
-> > This was previously attempted as xe specific reset uevent but dropped
-> > in commit 77a0d4d1cea2 ("drm/xe/uapi: Remove reset uevent for now")
-> > as part of refactoring.
-> > 
-> > Now that we have device wedged event provided by DRM core, make use
-> > of it and support both driver rebind and bus-reset based recovery.
-> > With this in place userspace will be notified of wedged device, on
-> > the basis of which, userspace may take respective action to recover
-> > the device.
-> > 
-> > $ udevadm monitor --property --kernel
-> > monitor will print the received events for:
-> > KERNEL - the kernel uevent
-> > 
-> > KERNEL[265.802982] change   /devices/pci0000:00/0000:00:01.0/0000:01:00.0/0000:02:01.0/0000:03:00.0/drm/card0 (drm)
-> > ACTION=change
-> > DEVPATH=/devices/pci0000:00/0000:00:01.0/0000:01:00.0/0000:02:01.0/0000:03:00.0/drm/card0
-> > SUBSYSTEM=drm
-> > WEDGED=rebind,bus-reset
-> > DEVNAME=/dev/dri/card0
-> > DEVTYPE=drm_minor
-> > SEQNUM=5208
-> > MAJOR=226
-> > MINOR=0
-> 
-> 
-> The patch in itself looks good. Do we have IGT tests in place to validate
-> this uevent ?
+In case of error after a amdgpu_gfx_rlc_enter_safe_mode() call, it is not
+balanced by a corresponding amdgpu_gfx_rlc_exit_safe_mode() call.
 
-I unit tested it with documented example which seems to work. We can have an
-igt in place once we have acceptance from the community.
+Add the missing call.
 
-Raag
+Fixes: c6a6e2db9945 ("drm/amdgpu: Redo XGMI reset synchronization.")
+Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+---
+Compile tested only.
+
+This patch is completely speculative, review with care!
+
+It is only based on naming where an _enter() function if not followed by an
+_exit() in some paths but is in other paths.
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 0171d240fcb0..facb35249da0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -3933,11 +3933,11 @@ static void amdgpu_device_xgmi_reset_func(struct work_struct *__work)
+ 
+ 		task_barrier_enter(&hive->tb);
+ 		adev->asic_reset_res = amdgpu_device_baco_enter(adev_to_drm(adev));
++		task_barrier_exit(&hive->tb);
+ 
+ 		if (adev->asic_reset_res)
+ 			goto fail;
+ 
+-		task_barrier_exit(&hive->tb);
+ 		adev->asic_reset_res = amdgpu_device_baco_exit(adev_to_drm(adev));
+ 
+ 		if (adev->asic_reset_res)
+-- 
+2.47.0
+
