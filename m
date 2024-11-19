@@ -4,139 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27B32D6C285
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Nov 2024 18:29:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F22F6D6C28C
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Nov 2024 19:23:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A8C6610E2BE;
-	Tue, 19 Nov 2024 18:29:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 92C7110E35D;
+	Tue, 19 Nov 2024 19:23:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ukdSW9ug";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="lGi2df/j";
 	dkim-atps=neutral
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2077.outbound.protection.outlook.com [40.107.212.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E1CC10E2BE
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 Nov 2024 18:29:11 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2075.outbound.protection.outlook.com [40.107.93.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B937210E35D
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 Nov 2024 19:23:26 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=R5RVzDyoA/Z4z9Q9UoQO/NtBKQhHgqjMo6jv7fy+HttqzZQ+Pt9FMuxinNrVFXhLOWNUdZ+mqFwVlC6H6KZaHOlrnRpxkxfqDdDUVR9JBiaavK0rBYrOv+2OiwZgymog2kEfBQgQ/7v+Q8Cppy72nfftyTYIbLckcKaWbCd7E8kwpuEFvW7aimVs+TD3Xbr3DQAY/0ojsGY3rksmDX1NcTsM1tKULlTjJod2klJxhajyOPOmCHYgme00hEtkCF9bFIO7WLbC50cULDTEhhOQif5VlsUlWZlXneiyu05gmhX24W+MEJkDzfehAX45we0tSgBR6+iqI0VCtZsrvaJPTA==
+ b=Zkmc8X9HsJ66Gjm8qLNYWmARvvwZnTzz/lyhP6YoMQaqcu7O0+j3C21oVQh8VGLOOHsmhrEaDdfXTur3f3uaxOgOIVLfkPKle0iaaDhCeoEpjm9H2mlwuWNJtgw3Dqyj3I7mydskGhj9wQ345/QZ4h1ABgiLO/DrCR9Mi6FupoU8r2JkRFjwVPIADQYv/Lwr4SMq2DItA4xcN/ku+bzlZhA4d7gnGI+2jRQipfPG2W9hTvW5UsD9iqgKBRVjUwLmXREiqUOdiBj5As4wEykaZOsKTLGbJmCbzs3D/rryPZaERdEMEgDRkOzBdNMd1bBbET9auJ3ciJ5evGG8Aq1v2g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AtgbU2Oye8FUJ/+m5J6vxLvcu85DneHkluUTFzazHes=;
- b=IZpwemSTNVgBZfdMGQGzzczUlIJpOdPzGdYmeMyPx1VN6kJ6JmVpRaUohWDiLV4KsvGLYXMP8802/9p/6FgJK7XZL7bLz8J339qAPgCH4za6lA6LmaBve54rE8pAnOgsIkcucFZxkWvFhgjw5PELqxfNr99HwHkheEd6dLbm+lHVwXR/NXrxdtjhRfa5OhtKOpHK7PHmhe6nOCvweS2grWEs2uZu4B5cA9/R681rg4Zf34yBHHUpv/70uzMk1oD4Nyy9OzZEEl5LYXK8fN/zj0tDHmtYqTiWrcvdBJWKnWxPzXKaWNpGANim4clN7YKYLX3/tDMOq+/MwWkLq2s4cw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=+mGXQzxyVm9M+zUKrIPB1j+OApz1xY/gYIiTUig8/do=;
+ b=ba49FXGal0VBT4Eo18nM7pGMtKS5YFkboH8/p/Boi1e70fUYTE9T2bgDX0EAvY35vHFn+U9agL2EcE07naspwkLTzgpzvwNk661Th/ctSd6ntFrnng9YHCBXKUf+PuQdsm260Oogyw4VuxaYZOXXnnGmN3cVXGYSZcD9pJ6xgmo6o/FXY265g6zhkjb0xrLX6RcsQ+PBBkGLVnn4J3bM0e7/5PnOv0WQlT5Zj78l+1xJRJYBddeh+L35xZq6AbfDM5cofA6zPfKhdj1yssCbo1UDftvZPTu51iUeT7aMR72WCab6kI9FahXEqaIUHWkXEOZODid7rGabfMS5GmHusg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.12) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AtgbU2Oye8FUJ/+m5J6vxLvcu85DneHkluUTFzazHes=;
- b=ukdSW9ug3qNK9ZeEVEdDgcN7YJEiR3fUd/EvhH1IVcueDYa0CRzR7hiL6w0anJ+RtuQ2dsmHbWW7VekND9WYwpyg41FNvz69zjqwPVbdKoesHBjnMmcWZwpsLja01k+7QhP/rgbwClcA5vrK56mrHeWShMm0zzcE5DQ20qaVnf8=
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by SJ2PR12MB7865.namprd12.prod.outlook.com (2603:10b6:a03:4cc::9)
+ bh=+mGXQzxyVm9M+zUKrIPB1j+OApz1xY/gYIiTUig8/do=;
+ b=lGi2df/jkKubgnfGMSpovIWeSrKsg5Jv4oz2OSNHRrHVpBOZlloB10Hp7QdV9VciAhNacSyDy5xP5ylyQHlX9ckpVVwa0Zi3Nj0jjnspEg8Elv4nH/HhtjKST8PrZUzjX95tzHD3acihlT9ICgNCKjzXKTlUABFlb5neQlIji20=
+Received: from PH7P220CA0085.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:32c::26)
+ by MW6PR12MB9018.namprd12.prod.outlook.com (2603:10b6:303:241::6)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8158.20; Tue, 19 Nov
- 2024 18:29:04 +0000
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::491a:cce3:e531:3c42]) by BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::491a:cce3:e531:3c42%5]) with mapi id 15.20.8158.023; Tue, 19 Nov 2024
- 18:29:04 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Liang, Prike" <Prike.Liang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amdgpu: reduce the mmio writes in kiq setting
-Thread-Topic: [PATCH] drm/amdgpu: reduce the mmio writes in kiq setting
-Thread-Index: AQHbNzn0TKw1fcSmdkyKdqrTPd1yrbK+8tIJ
-Date: Tue, 19 Nov 2024 18:29:04 +0000
-Message-ID: <BL1PR12MB51448295DDBC844F44F4ADB4F7202@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <20241115083943.284924-1-Prike.Liang@amd.com>
-In-Reply-To: <20241115083943.284924-1-Prike.Liang@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2024-11-19T18:29:04.409Z;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
- Source; MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=0;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged; 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BL1PR12MB5144:EE_|SJ2PR12MB7865:EE_
-x-ms-office365-filtering-correlation-id: 7c28f934-0f65-4b38-1489-08dd08c80c36
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|8096899003|38070700018; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?LhjMb8NG1rKi+73mhZQCuQCT89skLNqD9lD8gqtE1ePNb2c0s5sZuKMYPSFx?=
- =?us-ascii?Q?FWdIU82Mkh26vrH3KOLFjZN1oVyw+zLJZ31M6evk1r5Y/f0zXESkStRnc7Rx?=
- =?us-ascii?Q?xOO2rzhtRzd1+sRN+tEnw+IKke+w9pdW5Lz3UhEjzPy5rJ3p9gQSMy+yeY5x?=
- =?us-ascii?Q?SGJfjSQtBa4PbYKhC9pthBFmypbNQ2t1Erjt7LYegSo1OXBN3g2xz2BFDt9u?=
- =?us-ascii?Q?T/O+HYzuJOzIGP4QRY937JaIDWyF5ZBiZNwnPGBcTeAgYHZ11unOr25R2ioA?=
- =?us-ascii?Q?Eef3/PZpkDnmCYWW4NVL5ggwV3coQ8moO+vlQP2yA/AXXwqSi8X8+QMKAjOq?=
- =?us-ascii?Q?voWTUjs1RKJNCT/j84c3mFbMKdf8aMrni7Er3lOo+wrjWxe9/B/dl2K+zlYN?=
- =?us-ascii?Q?mv3JpmHSh47ROkgnYAE7xxHmG0jZrFVmDNRRCd6BNBsiJ4owEIh/hgSR3hRu?=
- =?us-ascii?Q?97yOjNvr5zPrhn1ESP7V673Phy+65Byi+z5lFkgB9NnJKw+42ye75U2z+xEp?=
- =?us-ascii?Q?8mqS3OCLbG+OOuxSIC9RJdJCLza3NdPYcN2oS3KEHmF8sabTFtMqiIEOiclo?=
- =?us-ascii?Q?WWPnBduPCa6vHRzkZeWIRRQPMSicv9+y1MTqhCbEHDDy9Ylu4vKKLmZBZbqy?=
- =?us-ascii?Q?lRutU5sCizBQ+d+fw0Oq4cB082LV3BhtsafeW84k8p5cmOZhdIwXx0TZs3x1?=
- =?us-ascii?Q?fELEgRamS54pYQ/jLgPE8NFylktt37VmSUgdT2AVFBMtdnVheQLIw2WRex55?=
- =?us-ascii?Q?85bBy9MqnUgoUB0bD1SSsnQnklhYjv17iWqL+SCvnKfyZQOr6H+gJ8rqGRnD?=
- =?us-ascii?Q?WGPaQRCETEdz8r7xDWynL4BJlmEhKM185aKD3OMxbxLKGY1qHkg2jB0K11Ny?=
- =?us-ascii?Q?SCr+nw5eIybPhlx9Yfa7EFmHUa36xwgF88mZ2s2TA9265seXgd4Sd8Btf7em?=
- =?us-ascii?Q?J7ZS9Xec5eVHZHWpHONbXLGAQNIGZbJdMjmYsF2ARuONV7F3q06ComCszkZO?=
- =?us-ascii?Q?GoAfthwPmHhF+i+RvS+/ZIt5xPCitP9FPIH5/ZChakUhYnwmE7rlPNXDOagY?=
- =?us-ascii?Q?soIc5L/7NB9YHXy+kzTgcso44CgIJBLHx0eMq4GCf/lDTBjmPNsFlmh6Zz2F?=
- =?us-ascii?Q?BYA801RxpUPxJk7nR3WrPhl0fiCJkVcbSccFNicIuvDFRmjBKoUXQASACQ3S?=
- =?us-ascii?Q?5O3dG+IefKCjvO5Fmo6SG/quSSIB+hcGVRfgwa6++GMT9Ro2d53VnzdU1yT5?=
- =?us-ascii?Q?9RexJIez17268RUBy/SH1GI2X+n2z+0lVyZ2ypk6HJQUqnGBpoIYPkTR6IB8?=
- =?us-ascii?Q?dvhVNSkX4A58Bef2759IDDTJfKyXpxHok8aS0tBwYqrD+cvg7EZo8YJ5Qj3K?=
- =?us-ascii?Q?Tya4nI8=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(8096899003)(38070700018); DIR:OUT;
- SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?/PpkLJ6T6eT++1Eu/HQvTmlIh6OA/IP61JCx6TPHGXIAziawCAjamNvX9wAU?=
- =?us-ascii?Q?jgCWvRgcDmDgFVzDENHkhGPWpFB+3NpY87ZikoKUR20UIxAy26iNB1yYa70P?=
- =?us-ascii?Q?c9gTBkdg8yNU478IiD7NpSuAGUt6f1bTBpSXMwpQHDUd4DtQ7bPvP6sU91Vv?=
- =?us-ascii?Q?YcLSwhz7LTQMngJivhZ9Ce/rJalxeD2XpeKzjrjI524I4Y9Vlcpl88c5Eyo3?=
- =?us-ascii?Q?wRCsiv2CQO+2+J0hJ5jls5+7TwjRB34LLmhtw5FrJd6sqedUQRWHLBJp8EnO?=
- =?us-ascii?Q?fkfU6aUgQ7NuhVmWahfdn0LhOWuw0xpnDxIQmCxqTWIotZG88JjchO4FwWGY?=
- =?us-ascii?Q?v0bBn2iSX7V8gIMxElQUyvTXRsp41Yn/Wf5JtvQJnMPg3Tg2nuBEUjmjw+Hg?=
- =?us-ascii?Q?V27ZTHEywyMXTveEDMCvQVpiftDEZ2QoSTYBQb1FAiStbMWiee3jc8ibOdIY?=
- =?us-ascii?Q?HhFrIVLqdYX+kVaD2VHsEfKqI1u+AVC03GLH1PdWj0XnhTN9RsuNWU0Zqszi?=
- =?us-ascii?Q?MNhTLH4yhsPeiQYOSa8RufD0HQ4+heRWJJzwbOLAUtJ6B1lOn1yAgUmqWiMb?=
- =?us-ascii?Q?oaW5VD6+LnVKzHnbTl3jMFXY5g47DrWGL2tOlgLdUZVRb/jZ8iM/IPV35/AQ?=
- =?us-ascii?Q?JPqvFYhEusbj18VrmXP7jXWdbAEEN/pY7T2d3VL78zR71omvXElRIC/Zv0qW?=
- =?us-ascii?Q?EE8nBzAtNOGzzQ/xxl10jEYFZ+LqHa3MDPiR511SeZQZRV4bAFk9KGhvVWaz?=
- =?us-ascii?Q?m4jW/oaWwBRwwtX0q9xXgMC0iomWHEQuCoBE0ItpobRy6/SNW+Pjw1EwDDAw?=
- =?us-ascii?Q?wkPmggdJ1h/zRz3Z9ZPIVCiuf49eM7G+pbaOH46zJHNbdSwBTjfUW9triS0W?=
- =?us-ascii?Q?SmiLvjhwZPIuvQaQkwvIsgdXluHryTmZreH6GCxd0HmSYPuaGwANsMKFKMUn?=
- =?us-ascii?Q?i4e28tFW47KhBuMKMuSV7koVaiU2psPSpeVoZfujrRiOSkns0H21lOb+mOld?=
- =?us-ascii?Q?pzjNSDQ3LqgpapT8MppVP2vR8pLkxx4mwRCQ8IhbUnhph+s2xGBEDnFejP3i?=
- =?us-ascii?Q?dIC6T/mfwk7z3lChcXcNrlt8gTv6dK4ljvPckVRMj+oi0Ru7MOr4OiuovAVt?=
- =?us-ascii?Q?xCds2P2xM9biaIpILpBrvj/BXPx7f4Qe6RG+XauwcHlMhPkxT48B2pcA9YoV?=
- =?us-ascii?Q?pG6Vxs6FQ7XP5aMDERDvYyfvA126AxqGFm2FS0VaPp8cA1EPOoR7v2Qv3QMA?=
- =?us-ascii?Q?Z3K/FXq9zn7hwIuJTPpTKexwixP/larBUzrtgzymDEWu17117JxJwFqjW5IA?=
- =?us-ascii?Q?6wBHwpY8tjP7sX1BLcjaJvhTtPWGs33AZIuVNoy+Ns845wTpgrFJ8tykqu8d?=
- =?us-ascii?Q?91Uf36Y5Q2wTft9fLJ6tJJf8AhqZe0cufUI+cuSKun052mEtbNPyUxs1a50P?=
- =?us-ascii?Q?tYlbJ56H5a2V9R7k3CAkpQnJ7+JzLBoDvMpWPSKihb+7bXUeMZ+sxuT1Xh17?=
- =?us-ascii?Q?zfqUN2OcxD+RngTt7oSgdDBnxqBy3RMW4Df37sJ8Wc64Nkf797KxjJvTMwxH?=
- =?us-ascii?Q?7lhfKEvt7ypZKDtQE4w=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_BL1PR12MB51448295DDBC844F44F4ADB4F7202BL1PR12MB5144namp_"
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8158.23; Tue, 19 Nov
+ 2024 19:23:22 +0000
+Received: from CY4PEPF0000E9D2.namprd03.prod.outlook.com
+ (2603:10b6:510:32c:cafe::69) by PH7P220CA0085.outlook.office365.com
+ (2603:10b6:510:32c::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8158.24 via Frontend
+ Transport; Tue, 19 Nov 2024 19:23:20 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.12)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.12 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.12; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.12) by
+ CY4PEPF0000E9D2.mail.protection.outlook.com (10.167.241.137) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8158.14 via Frontend Transport; Tue, 19 Nov 2024 19:23:20 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 19 Nov
+ 2024 13:23:18 -0600
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Michel=20D=C3=A4nzer?=
+ <michel@daenzer.net>, Sunil Khatri <sunil.khatri@amd.com>
+Subject: [PATCH] drm/amdgpu/gmc7: fix wait_for_idle callers
+Date: Tue, 19 Nov 2024 14:23:04 -0500
+Message-ID: <20241119192304.72501-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.47.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D2:EE_|MW6PR12MB9018:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2e0bc405-0ca2-4095-8348-08dd08cfa09e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|82310400026|376014|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?cE5USjkvMTNVKzFvTFVLQ0oydTNDRm5vV2JvV0k1VmJXZG9LWmNGdGNBcDFB?=
+ =?utf-8?B?RG0yU29GdUVFZDVlYWI0YVgvV0pXTXRXSm8rZmNYNmpRek9XU1dmbWhYU0Jr?=
+ =?utf-8?B?VHZlanlBdnplNzNqb3k5T0FTZTJnb0JmRmRnU1daNDR4WVJNRkREb2R4Qkdp?=
+ =?utf-8?B?d1M5NXFLV1dlamo5YlpHa3N4WFJpWVhoRVRjMkxEcFM5WHJRdWRVdTFUc0d1?=
+ =?utf-8?B?N1JzVWVHM0VZeEJVV0xybXRRaGxXZjBxaDAxQVJXcVc4WVN2QzQxMWFuOHAw?=
+ =?utf-8?B?VXdpNElkdEIyZUFXM2xhZk95MXEvY3hqNndxbmoxWjhhWnFwTXJUM2pPc09h?=
+ =?utf-8?B?N0cxVEZySmlCQTVmSWZsL1Z6TkQvOHFYVGR5eGQ4RFloWUk3VXZpdm04NnN6?=
+ =?utf-8?B?U2NWT2pWVlVtNytOYlFWVmpDOTJGQUtjbGh4Qzc4cUsyREtjR2FXaDlwTlcr?=
+ =?utf-8?B?ekxtV3RCTmt2WnJLVVliQlpkNHBKbXVQVkpTQ1pjeklsTXNFSCtsYk55cHlO?=
+ =?utf-8?B?TEpCai9oNWVhcGozNXN5dGhsZXIzZE5Wb2dUd091RHlyMzBiMENXRkRVb1hU?=
+ =?utf-8?B?RzdiV1RXYXh3TkN4alFlNzFPZ3F4SWh1SjNTSWFUZlhlNkhTMk5yTmtOQ0Zk?=
+ =?utf-8?B?SnB0STFNbjlEaXpEVHQxaHo0SlFnK2VyOHBOdHNKdHc3cytvR0tRVWhDVzdi?=
+ =?utf-8?B?WUYwWWd3OEVPRkw1MVFYTy94dlY5K3FqVmtPcE5VWHd5NzlaakY1eG52KzNQ?=
+ =?utf-8?B?VXdEa2o1eURvOGt4ajh2dHM0dHdYcGM1cTVwWTZManlnZ29Na2NMOFNlV0JK?=
+ =?utf-8?B?MnRCRmxVWTQzeGRPM1BCR2ZDYmpQdzBac3M3di9JcXQrL1ZTeS9hVHFCR2o2?=
+ =?utf-8?B?bHdPZXRZZno3NE5VMFN2dmtyTHh4bGpQemhCMmc4MzNId1hoenZSb0tlc0xX?=
+ =?utf-8?B?QmJ1ZDNVVWVKVUVvRzBDN3k2WU5WL0NUQmtWdmlGdjVNSk5SbFliWm5FVWJI?=
+ =?utf-8?B?Rnd6dDU2dDZnb0VMN0x0TFp1MDZSd24yclpwSWdNMlBQYVNUeXNBT0xrN1E4?=
+ =?utf-8?B?UVY3QzBWYzlYdlpVeWIxMWJiQks2ekZ0NFowTXN1Q2VqbzlFWHEzbyszZE1p?=
+ =?utf-8?B?b0RxZmhvL0NCU0VoUktqa3RrV25MUGpBT2htb2EzRkp4dC81UlZyVnJUT3Ni?=
+ =?utf-8?B?UEw0SWJpbWFoN1ZsN3VuZjZrTjNNVjFpTlBWMHpjWWRQREUrazJEaWtYRlZh?=
+ =?utf-8?B?QmppYlQ5LzhxMUxMZGtUeWJzcEZrTHViVWVCYU1DVDZOVFdxTVNtWXlBRTd3?=
+ =?utf-8?B?MXFaY2hQOUJQNVp0dXJMUE9MOXZuL08xZVRJd1h4YTNpelIvakNqcmZwaHpV?=
+ =?utf-8?B?MXd4S3B0dXJTTWo1MFcwTnpRK2VIcTd2ci9pYTFCWGUxM1RUMmN6d3hmbEpX?=
+ =?utf-8?B?bUo3UlF6VXd2T3RRUkdNbEY5ajNDK2lUNlBhRlFPTjBUa01peDRWbitvTVdQ?=
+ =?utf-8?B?Y1BZZ1dDSFNsY3ZiRGxhVkpKWHE5VjE0U2xUdGtmNzhKaHFOV0JRNHlaa3Ji?=
+ =?utf-8?B?U2hKRmVqWUk4cUFoK2hFcVRtREhHSkJBUklYdGh6Q3YzS2c5V29UR1BGUFFK?=
+ =?utf-8?B?Zk5RSnE3ZUk5eWJFbUY4WTdWSnoxVnpXRkVRRm9lUVJuUjE4anVwWkhoSUI5?=
+ =?utf-8?B?N2hNYXQwMTM4VGZXbUZBTk5TYTAzb3RIQXNsd1pmbVZFNko1Q01SWnhSSUJi?=
+ =?utf-8?B?MVRmZmI5Y1c1MEJOc0ZKaU5oWnZSV1pkM1UyNWtZM2d6RUZXZndIYUxYNDJW?=
+ =?utf-8?B?enh2Zzk1VVl3SlQ1emwyU0UwUVNtaW54WGUyUjh6Um9nRHlPQ2w0T29vMHhB?=
+ =?utf-8?B?MHNNTmg3cGNjeC9KUVlOU25MZTJCVFBHUEVkR3daMmczTUE9PQ==?=
+X-Forefront-Antispam-Report: CIP:165.204.84.12; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:atlvpn-bp.amd.com; CAT:NONE;
+ SFS:(13230040)(1800799024)(82310400026)(376014)(36860700013); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7c28f934-0f65-4b38-1489-08dd08c80c36
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Nov 2024 18:29:04.7663 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: rgW9BVkc5wzF5ZfcUFdcJjdKfHpRI16t6FjERTE+SJVKW4A25TZ/m176Lx1FOg3DWyEX6ZLlzbTcezDEZ70RHA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7865
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2024 19:23:20.0755 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2e0bc405-0ca2-4095-8348-08dd08cfa09e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.12];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9D2.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB9018
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,478 +137,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BL1PR12MB51448295DDBC844F44F4ADB4F7202BL1PR12MB5144namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+The wait_for_idle signature was changed, but the callers
+were not.
 
-[Public]
-
-As long as there is no hw programming sequence requirement to do it as two =
-separate writes this looks fine to me.
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-________________________________
-From: Liang, Prike <Prike.Liang@amd.com>
-Sent: Friday, November 15, 2024 3:39 AM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Liang, Prike <Prike.Lia=
-ng@amd.com>
-Subject: [PATCH] drm/amdgpu: reduce the mmio writes in kiq setting
-
-There's no need to perform the two MMIO writes in the KIQ
-Setting registers programmed period, and reducing the MMIO
-writes will save the driver loading time.
-
-Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+Reported-by: Michel Dänzer <michel@daenzer.net>
+Fixes: 82ae6619a450 ("drm/amdgpu: update the handle ptr in wait_for_idle")
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Cc: Sunil Khatri <sunil.khatri@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c  | 8 ++------
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c  | 4 +---
- drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c  | 4 +---
- drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c   | 4 +---
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c   | 4 +---
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c | 4 +---
- drivers/gpu/drm/amd/amdgpu/mes_v11_0.c  | 4 +---
- drivers/gpu/drm/amd/amdgpu/mes_v12_0.c  | 4 +---
- 8 files changed, 9 insertions(+), 27 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c | 18 ++++++++++++++----
+ 1 file changed, 14 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/gfx_v10_0.c
-index 9da95b25e158..ffd3c45b4ccd 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-@@ -6593,17 +6593,13 @@ static void gfx_v10_0_kiq_setting(struct amdgpu_rin=
-g *ring)
-                 tmp =3D RREG32_SOC15(GC, 0, mmRLC_CP_SCHEDULERS_Sienna_Cic=
-hlid);
-                 tmp &=3D 0xffffff00;
-                 tmp |=3D (ring->me << 5) | (ring->pipe << 3) | (ring->queu=
-e);
--               WREG32_SOC15(GC, 0, mmRLC_CP_SCHEDULERS_Sienna_Cichlid, tmp=
-);
--               tmp |=3D 0x80;
--               WREG32_SOC15(GC, 0, mmRLC_CP_SCHEDULERS_Sienna_Cichlid, tmp=
-);
-+               WREG32_SOC15(GC, 0, mmRLC_CP_SCHEDULERS_Sienna_Cichlid, tmp=
- | 0x80);
-                 break;
-         default:
-                 tmp =3D RREG32_SOC15(GC, 0, mmRLC_CP_SCHEDULERS);
-                 tmp &=3D 0xffffff00;
-                 tmp |=3D (ring->me << 5) | (ring->pipe << 3) | (ring->queu=
-e);
--               WREG32_SOC15(GC, 0, mmRLC_CP_SCHEDULERS, tmp);
--               tmp |=3D 0x80;
--               WREG32_SOC15(GC, 0, mmRLC_CP_SCHEDULERS, tmp);
-+               WREG32_SOC15(GC, 0, mmRLC_CP_SCHEDULERS, tmp | 0x80);
-                 break;
-         }
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/gfx_v11_0.c
-index 5aff8f72de9c..a2aedcabae65 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-@@ -3890,9 +3890,7 @@ static void gfx_v11_0_kiq_setting(struct amdgpu_ring =
-*ring)
-         tmp =3D RREG32_SOC15(GC, 0, regRLC_CP_SCHEDULERS);
-         tmp &=3D 0xffffff00;
-         tmp |=3D (ring->me << 5) | (ring->pipe << 3) | (ring->queue);
--       WREG32_SOC15(GC, 0, regRLC_CP_SCHEDULERS, tmp);
--       tmp |=3D 0x80;
--       WREG32_SOC15(GC, 0, regRLC_CP_SCHEDULERS, tmp);
-+       WREG32_SOC15(GC, 0, regRLC_CP_SCHEDULERS, tmp | 0x80);
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+index 8f6f2f067641..347bccd92696 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+@@ -87,9 +87,14 @@ static void gmc_v7_0_init_golden_registers(struct amdgpu_device *adev)
+ 
+ static void gmc_v7_0_mc_stop(struct amdgpu_device *adev)
+ {
++	struct amdgpu_ip_block *ip_block;
+ 	u32 blackout;
+ 
+-	gmc_v7_0_wait_for_idle((void *)adev);
++	ip_block = amdgpu_device_ip_get_ip_block(adev, AMD_IP_BLOCK_TYPE_GMC);
++	if (!ip_block)
++		return;
++
++	gmc_v7_0_wait_for_idle(ip_block);
+ 
+ 	blackout = RREG32(mmMC_SHARED_BLACKOUT_CNTL);
+ 	if (REG_GET_FIELD(blackout, MC_SHARED_BLACKOUT_CNTL, BLACKOUT_MODE) != 1) {
+@@ -251,9 +256,14 @@ static void gmc_v7_0_vram_gtt_location(struct amdgpu_device *adev,
+  */
+ static void gmc_v7_0_mc_program(struct amdgpu_device *adev)
+ {
++	struct amdgpu_ip_block *ip_block;
+ 	u32 tmp;
+ 	int i, j;
+ 
++	ip_block = amdgpu_device_ip_get_ip_block(adev, AMD_IP_BLOCK_TYPE_GMC);
++	if (!ip_block)
++		return;
++
+ 	/* Initialize HDP */
+ 	for (i = 0, j = 0; i < 32; i++, j += 0x6) {
+ 		WREG32((0xb05 + j), 0x00000000);
+@@ -264,7 +274,7 @@ static void gmc_v7_0_mc_program(struct amdgpu_device *adev)
+ 	}
+ 	WREG32(mmHDP_REG_COHERENCY_FLUSH_CNTL, 0);
+ 
+-	if (gmc_v7_0_wait_for_idle((void *)adev))
++	if (gmc_v7_0_wait_for_idle(ip_block))
+ 		dev_warn(adev->dev, "Wait for MC idle timedout !\n");
+ 
+ 	if (adev->mode_info.num_crtc) {
+@@ -288,7 +298,7 @@ static void gmc_v7_0_mc_program(struct amdgpu_device *adev)
+ 	WREG32(mmMC_VM_AGP_BASE, 0);
+ 	WREG32(mmMC_VM_AGP_TOP, adev->gmc.agp_end >> 22);
+ 	WREG32(mmMC_VM_AGP_BOT, adev->gmc.agp_start >> 22);
+-	if (gmc_v7_0_wait_for_idle((void *)adev))
++	if (gmc_v7_0_wait_for_idle(ip_block))
+ 		dev_warn(adev->dev, "Wait for MC idle timedout !\n");
+ 
+ 	WREG32(mmBIF_FB_EN, BIF_FB_EN__FB_READ_EN_MASK | BIF_FB_EN__FB_WRITE_EN_MASK);
+@@ -1183,7 +1193,7 @@ static int gmc_v7_0_soft_reset(struct amdgpu_ip_block *ip_block)
+ 
+ 	if (srbm_soft_reset) {
+ 		gmc_v7_0_mc_stop(adev);
+-		if (gmc_v7_0_wait_for_idle((void *)adev))
++		if (gmc_v7_0_wait_for_idle(ip_block))
+ 			dev_warn(adev->dev, "Wait for GMC idle timed out !\n");
+ 
+ 		tmp = RREG32(mmSRBM_SOFT_RESET);
+-- 
+2.47.0
 
- static void gfx_v11_0_cp_set_doorbell_range(struct amdgpu_device *adev)
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/gfx_v12_0.c
-index 9fec28d8a5fc..c61d383c45c4 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-@@ -2826,9 +2826,7 @@ static void gfx_v12_0_kiq_setting(struct amdgpu_ring =
-*ring)
-         tmp =3D RREG32_SOC15(GC, 0, regRLC_CP_SCHEDULERS);
-         tmp &=3D 0xffffff00;
-         tmp |=3D (ring->me << 5) | (ring->pipe << 3) | (ring->queue);
--       WREG32_SOC15(GC, 0, regRLC_CP_SCHEDULERS, tmp);
--       tmp |=3D 0x80;
--       WREG32_SOC15(GC, 0, regRLC_CP_SCHEDULERS, tmp);
-+       WREG32_SOC15(GC, 0, regRLC_CP_SCHEDULERS, tmp | 0x80);
- }
-
- static void gfx_v12_0_cp_set_doorbell_range(struct amdgpu_device *adev)
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/am=
-dgpu/gfx_v8_0.c
-index 480c41ee947e..d465c3ea6e6c 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-@@ -4304,9 +4304,7 @@ static void gfx_v8_0_kiq_setting(struct amdgpu_ring *=
-ring)
-         tmp =3D RREG32(mmRLC_CP_SCHEDULERS);
-         tmp &=3D 0xffffff00;
-         tmp |=3D (ring->me << 5) | (ring->pipe << 3) | (ring->queue);
--       WREG32(mmRLC_CP_SCHEDULERS, tmp);
--       tmp |=3D 0x80;
--       WREG32(mmRLC_CP_SCHEDULERS, tmp);
-+       WREG32(mmRLC_CP_SCHEDULERS, tmp | 0x80);
- }
-
- static int gfx_v8_0_kiq_kcq_enable(struct amdgpu_device *adev)
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/am=
-dgpu/gfx_v9_0.c
-index e9248a855ba7..a6cb30558f2f 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-@@ -3482,9 +3482,7 @@ static void gfx_v9_0_kiq_setting(struct amdgpu_ring *=
-ring)
-         tmp =3D RREG32_SOC15(GC, 0, mmRLC_CP_SCHEDULERS);
-         tmp &=3D 0xffffff00;
-         tmp |=3D (ring->me << 5) | (ring->pipe << 3) | (ring->queue);
--       WREG32_SOC15_RLC(GC, 0, mmRLC_CP_SCHEDULERS, tmp);
--       tmp |=3D 0x80;
--       WREG32_SOC15_RLC(GC, 0, mmRLC_CP_SCHEDULERS, tmp);
-+       WREG32_SOC15_RLC(GC, 0, mmRLC_CP_SCHEDULERS, tmp | 0x80);
- }
-
- static void gfx_v9_0_mqd_set_priority(struct amdgpu_ring *ring, struct v9_=
-mqd *mqd)
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/=
-amdgpu/gfx_v9_4_3.c
-index 016290f00592..ae3c8645633b 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-@@ -1771,9 +1771,7 @@ static void gfx_v9_4_3_xcc_kiq_setting(struct amdgpu_=
-ring *ring, int xcc_id)
-         tmp =3D RREG32_SOC15(GC, GET_INST(GC, xcc_id), regRLC_CP_SCHEDULER=
-S);
-         tmp &=3D 0xffffff00;
-         tmp |=3D (ring->me << 5) | (ring->pipe << 3) | (ring->queue);
--       WREG32_SOC15_RLC(GC, GET_INST(GC, xcc_id), regRLC_CP_SCHEDULERS, tm=
-p);
--       tmp |=3D 0x80;
--       WREG32_SOC15_RLC(GC, GET_INST(GC, xcc_id), regRLC_CP_SCHEDULERS, tm=
-p);
-+       WREG32_SOC15_RLC(GC, GET_INST(GC, xcc_id), regRLC_CP_SCHEDULERS, tm=
-p | 0x80);
- }
-
- static void gfx_v9_4_3_mqd_set_priority(struct amdgpu_ring *ring, struct v=
-9_mqd *mqd)
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/mes_v11_0.c
-index 8ca137313961..3b818441c7ba 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-@@ -1491,9 +1491,7 @@ static void mes_v11_0_kiq_setting(struct amdgpu_ring =
-*ring)
-         tmp =3D RREG32_SOC15(GC, 0, regRLC_CP_SCHEDULERS);
-         tmp &=3D 0xffffff00;
-         tmp |=3D (ring->me << 5) | (ring->pipe << 3) | (ring->queue);
--       WREG32_SOC15(GC, 0, regRLC_CP_SCHEDULERS, tmp);
--       tmp |=3D 0x80;
--       WREG32_SOC15(GC, 0, regRLC_CP_SCHEDULERS, tmp);
-+       WREG32_SOC15(GC, 0, regRLC_CP_SCHEDULERS, tmp | 0x80);
- }
-
- static void mes_v11_0_kiq_clear(struct amdgpu_device *adev)
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/mes_v12_0.c
-index 9d0e342a2f81..44b0d0f76944 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-@@ -1453,9 +1453,7 @@ static void mes_v12_0_kiq_setting(struct amdgpu_ring =
-*ring)
-         tmp =3D RREG32_SOC15(GC, 0, regRLC_CP_SCHEDULERS);
-         tmp &=3D 0xffffff00;
-         tmp |=3D (ring->me << 5) | (ring->pipe << 3) | (ring->queue);
--       WREG32_SOC15(GC, 0, regRLC_CP_SCHEDULERS, tmp);
--       tmp |=3D 0x80;
--       WREG32_SOC15(GC, 0, regRLC_CP_SCHEDULERS, tmp);
-+       WREG32_SOC15(GC, 0, regRLC_CP_SCHEDULERS, tmp | 0x80);
- }
-
- static int mes_v12_0_kiq_hw_init(struct amdgpu_device *adev)
---
-2.34.1
-
-
---_000_BL1PR12MB51448295DDBC844F44F4ADB4F7202BL1PR12MB5144namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Calibri;font-size:10pt;color:#008000;margin:5pt;fon=
-t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
-[Public]<br>
-</p>
-<br>
-<div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-As long as there is no hw programming sequence requirement to do it as two =
-separate writes this looks fine to me.</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-Acked-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Liang, Prike &lt;Prik=
-e.Liang@amd.com&gt;<br>
-<b>Sent:</b> Friday, November 15, 2024 3:39 AM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Liang, Pri=
-ke &lt;Prike.Liang@amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: reduce the mmio writes in kiq setting</=
-font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">There's no need to perform the two MMIO writes in =
-the KIQ<br>
-Setting registers programmed period, and reducing the MMIO<br>
-writes will save the driver loading time.<br>
-<br>
-Signed-off-by: Prike Liang &lt;Prike.Liang@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c&nbsp; | 8 ++------<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c&nbsp; | 4 +---<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c&nbsp; | 4 +---<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c&nbsp;&nbsp; | 4 +---<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c&nbsp;&nbsp; | 4 +---<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c | 4 +---<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/mes_v11_0.c&nbsp; | 4 +---<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/mes_v12_0.c&nbsp; | 4 +---<br>
-&nbsp;8 files changed, 9 insertions(+), 27 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/gfx_v10_0.c<br>
-index 9da95b25e158..ffd3c45b4ccd 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c<br>
-@@ -6593,17 +6593,13 @@ static void gfx_v10_0_kiq_setting(struct amdgpu_rin=
-g *ring)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; tmp =3D RREG32_SOC15(GC, 0, mmRLC_CP_SCHEDULERS_Sienn=
-a_Cichlid);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; tmp &amp;=3D 0xffffff00;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; tmp |=3D (ring-&gt;me &lt;&lt; 5) | (ring-&gt;pipe &l=
-t;&lt; 3) | (ring-&gt;queue);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; WREG32_SOC15(GC, 0, mmRLC_CP_SCHEDULERS_Sienna_Cichlid, tmp);<br=
->
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; tmp |=3D 0x80;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; WREG32_SOC15(GC, 0, mmRLC_CP_SCHEDULERS_Sienna_Cichlid, tmp);<br=
->
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; WREG32_SOC15(GC, 0, mmRLC_CP_SCHEDULERS_Sienna_Cichlid, tmp | 0x=
-80);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; break;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; tmp =3D RREG32_SOC15(GC, 0, mmRLC_CP_SCHEDULERS);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; tmp &amp;=3D 0xffffff00;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; tmp |=3D (ring-&gt;me &lt;&lt; 5) | (ring-&gt;pipe &l=
-t;&lt; 3) | (ring-&gt;queue);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; WREG32_SOC15(GC, 0, mmRLC_CP_SCHEDULERS, tmp);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; tmp |=3D 0x80;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; WREG32_SOC15(GC, 0, mmRLC_CP_SCHEDULERS, tmp);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; WREG32_SOC15(GC, 0, mmRLC_CP_SCHEDULERS, tmp | 0x80);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; break;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;}<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/gfx_v11_0.c<br>
-index 5aff8f72de9c..a2aedcabae65 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c<br>
-@@ -3890,9 +3890,7 @@ static void gfx_v11_0_kiq_setting(struct amdgpu_ring =
-*ring)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D RREG32_SOC15(GC, 0=
-, regRLC_CP_SCHEDULERS);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp &amp;=3D 0xffffff00;<b=
-r>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp |=3D (ring-&gt;me &lt;=
-&lt; 5) | (ring-&gt;pipe &lt;&lt; 3) | (ring-&gt;queue);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(GC, 0, regRLC_CP_SCHEDUL=
-ERS, tmp);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp |=3D 0x80;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(GC, 0, regRLC_CP_SCHEDUL=
-ERS, tmp);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(GC, 0, regRLC_CP_SCHEDUL=
-ERS, tmp | 0x80);<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;static void gfx_v11_0_cp_set_doorbell_range(struct amdgpu_device *ade=
-v)<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/gfx_v12_0.c<br>
-index 9fec28d8a5fc..c61d383c45c4 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c<br>
-@@ -2826,9 +2826,7 @@ static void gfx_v12_0_kiq_setting(struct amdgpu_ring =
-*ring)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D RREG32_SOC15(GC, 0=
-, regRLC_CP_SCHEDULERS);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp &amp;=3D 0xffffff00;<b=
-r>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp |=3D (ring-&gt;me &lt;=
-&lt; 5) | (ring-&gt;pipe &lt;&lt; 3) | (ring-&gt;queue);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(GC, 0, regRLC_CP_SCHEDUL=
-ERS, tmp);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp |=3D 0x80;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(GC, 0, regRLC_CP_SCHEDUL=
-ERS, tmp);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(GC, 0, regRLC_CP_SCHEDUL=
-ERS, tmp | 0x80);<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;static void gfx_v12_0_cp_set_doorbell_range(struct amdgpu_device *ade=
-v)<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/am=
-dgpu/gfx_v8_0.c<br>
-index 480c41ee947e..d465c3ea6e6c 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c<br>
-@@ -4304,9 +4304,7 @@ static void gfx_v8_0_kiq_setting(struct amdgpu_ring *=
-ring)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D RREG32(mmRLC_CP_SC=
-HEDULERS);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp &amp;=3D 0xffffff00;<b=
-r>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp |=3D (ring-&gt;me &lt;=
-&lt; 5) | (ring-&gt;pipe &lt;&lt; 3) | (ring-&gt;queue);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(mmRLC_CP_SCHEDULERS, tmp);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp |=3D 0x80;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(mmRLC_CP_SCHEDULERS, tmp);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(mmRLC_CP_SCHEDULERS, tmp | 0x8=
-0);<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;static int gfx_v8_0_kiq_kcq_enable(struct amdgpu_device *adev)<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/am=
-dgpu/gfx_v9_0.c<br>
-index e9248a855ba7..a6cb30558f2f 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c<br>
-@@ -3482,9 +3482,7 @@ static void gfx_v9_0_kiq_setting(struct amdgpu_ring *=
-ring)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D RREG32_SOC15(GC, 0=
-, mmRLC_CP_SCHEDULERS);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp &amp;=3D 0xffffff00;<b=
-r>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp |=3D (ring-&gt;me &lt;=
-&lt; 5) | (ring-&gt;pipe &lt;&lt; 3) | (ring-&gt;queue);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15_RLC(GC, 0, mmRLC_CP_SCHE=
-DULERS, tmp);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp |=3D 0x80;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15_RLC(GC, 0, mmRLC_CP_SCHE=
-DULERS, tmp);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15_RLC(GC, 0, mmRLC_CP_SCHE=
-DULERS, tmp | 0x80);<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;static void gfx_v9_0_mqd_set_priority(struct amdgpu_ring *ring, struc=
-t v9_mqd *mqd)<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/=
-amdgpu/gfx_v9_4_3.c<br>
-index 016290f00592..ae3c8645633b 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c<br>
-@@ -1771,9 +1771,7 @@ static void gfx_v9_4_3_xcc_kiq_setting(struct amdgpu_=
-ring *ring, int xcc_id)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D RREG32_SOC15(GC, G=
-ET_INST(GC, xcc_id), regRLC_CP_SCHEDULERS);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp &amp;=3D 0xffffff00;<b=
-r>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp |=3D (ring-&gt;me &lt;=
-&lt; 5) | (ring-&gt;pipe &lt;&lt; 3) | (ring-&gt;queue);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15_RLC(GC, GET_INST(GC, xcc=
-_id), regRLC_CP_SCHEDULERS, tmp);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp |=3D 0x80;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15_RLC(GC, GET_INST(GC, xcc=
-_id), regRLC_CP_SCHEDULERS, tmp);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15_RLC(GC, GET_INST(GC, xcc=
-_id), regRLC_CP_SCHEDULERS, tmp | 0x80);<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;static void gfx_v9_4_3_mqd_set_priority(struct amdgpu_ring *ring, str=
-uct v9_mqd *mqd)<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/mes_v11_0.c<br>
-index 8ca137313961..3b818441c7ba 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c<br>
-@@ -1491,9 +1491,7 @@ static void mes_v11_0_kiq_setting(struct amdgpu_ring =
-*ring)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D RREG32_SOC15(GC, 0=
-, regRLC_CP_SCHEDULERS);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp &amp;=3D 0xffffff00;<b=
-r>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp |=3D (ring-&gt;me &lt;=
-&lt; 5) | (ring-&gt;pipe &lt;&lt; 3) | (ring-&gt;queue);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(GC, 0, regRLC_CP_SCHEDUL=
-ERS, tmp);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp |=3D 0x80;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(GC, 0, regRLC_CP_SCHEDUL=
-ERS, tmp);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(GC, 0, regRLC_CP_SCHEDUL=
-ERS, tmp | 0x80);<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;static void mes_v11_0_kiq_clear(struct amdgpu_device *adev)<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/mes_v12_0.c<br>
-index 9d0e342a2f81..44b0d0f76944 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c<br>
-@@ -1453,9 +1453,7 @@ static void mes_v12_0_kiq_setting(struct amdgpu_ring =
-*ring)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D RREG32_SOC15(GC, 0=
-, regRLC_CP_SCHEDULERS);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp &amp;=3D 0xffffff00;<b=
-r>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp |=3D (ring-&gt;me &lt;=
-&lt; 5) | (ring-&gt;pipe &lt;&lt; 3) | (ring-&gt;queue);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(GC, 0, regRLC_CP_SCHEDUL=
-ERS, tmp);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp |=3D 0x80;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(GC, 0, regRLC_CP_SCHEDUL=
-ERS, tmp);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(GC, 0, regRLC_CP_SCHEDUL=
-ERS, tmp | 0x80);<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;static int mes_v12_0_kiq_hw_init(struct amdgpu_device *adev)<br>
--- <br>
-2.34.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_BL1PR12MB51448295DDBC844F44F4ADB4F7202BL1PR12MB5144namp_--
