@@ -4,58 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3C13D60CEF
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Nov 2024 04:26:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F29E6D4920E
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Nov 2024 05:48:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 39F7A10E5C2;
-	Tue, 19 Nov 2024 04:26:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9961510E06A;
+	Tue, 19 Nov 2024 05:48:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="L3hr+KiG";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="nK4WAsyB";
 	dkim-atps=neutral
-Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com
- [209.85.219.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 347C710E5B0
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 Nov 2024 04:26:09 +0000 (UTC)
-Received: by mail-qv1-f43.google.com with SMTP id
- 6a1803df08f44-6d382677c92so21501636d6.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 18 Nov 2024 20:26:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1731990368; x=1732595168; darn=lists.freedesktop.org;
- h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=AK5WzutSqLOtOViCBoZHYe7VbnzH5rpDtrrLlgrlmdo=;
- b=L3hr+KiGnlEF7LzEri4+tv3HjAOS8G0LXcSE44OCFBfjGD0VNMKq+1zwHhzDBsmM89
- ccdUcQf5hQQInz/3gcKKr5sWRQxHD6pTHnZJ1boae3f41EEBQoUS8FplrMBAHUHPVA4H
- oGMeunIPmFu9SlXEEIXdV7GYFG4eMUK72P/VzgBgXyQYhY4NMkb9iUIaM+CWG4ffcYpB
- YddYNgtv7VQ33hrfLx/Qee36XqSR06mCbSYbNiNZtL+IF5sKT+A/Gx+IPYgTVLEmddWG
- q9fIB5KVGHdcuYxx1Qsja9oyOKxUDXpv5Ui3UflcygvUHpoUlfwHamze75WjqN4Y/wqu
- BGsw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1731990368; x=1732595168;
- h=to:subject:message-id:date:from:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=AK5WzutSqLOtOViCBoZHYe7VbnzH5rpDtrrLlgrlmdo=;
- b=wdjjHESkfxRat3awbOm23/BHf4Nbr7MoKpTaNXzApKNYbDizg0klUMedwhFHwPLVAc
- rGEiUlMBqzQ5mRSoGUVVhwek/lUJEky7H6oMndcSGiaN0q02WBzRUIwhcg8tWkSbNMLw
- u6PcbN8gcJOoX34mT7P+/EDYc/E5U6mOmiLzmAQ8WUMsO5QoxhJzedYbVfmAthCj6DPq
- N4NVmb5Goxc7symH4/es4WwiRSJ01EOpDdos3uGychhameHGCgO+A3Eh3m5VExWWHsn9
- IPMSlTDIYXYhYCoND46C4uWJpJw0GGcvSGJx+kuJ2DPG3MAo4a/BFUmLFGafmsBdrtrg
- B5kg==
-X-Gm-Message-State: AOJu0YzvOpot+VUhismFMAbSnLIQwlnZIvIb3VtGzAntVvD8lFYbhWx4
- tNazQk2vxoA9Aky1NPuNryWB1UcWbeLvUZ1v19yaLywOhaqnFs0IsAv8QZdv3rcHqNCpDiGMUOa
- oRaKi1seK3wdlYZedqIwNCMOgOKm9f4CZMXo=
-X-Google-Smtp-Source: AGHT+IGMzPQcznQXObhKG3ngoauhk6K0Cs9uXcPbqE1xJ7+Za310apa6dON4V5fGUXISgkfyuxDb6+K+3h1K3UoBx9o=
-X-Received: by 2002:a05:6214:e67:b0:6d4:19d2:2086 with SMTP id
- 6a1803df08f44-6d419d222c5mr148044226d6.36.1731990367822; Mon, 18 Nov 2024
- 20:26:07 -0800 (PST)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2064.outbound.protection.outlook.com [40.107.244.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B09010E06A
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 Nov 2024 05:48:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=JgUnhGk/UnpGl576nS+Ad0XPtcDQlIXp6zOqRnAHPrZnchzSabJB0xlIbEH/jUVDDVmBCIlwiczJ/cRwF2cXx8hrhi6s3dK1vG/uR9uf+Djr1MTBhnw3W2ePvgZwf6fHXW7MXzfruukyB5YL+84c8OPzqpzwKDuphEpG8qJW7hlyItOCtsglamoov5g8YL8CG1Gyp4PhMzO13giO9SDqPit3rJqPinllMKZWkVg1aq62HeMeuuOO9fERYvJlNqTeLQBSCv2JxrvEtve2tRJ+MPixOHoiKDjBKfwdkw40+W1qP8CvRMJULPpCU3EtH82rXWjgPwo5DuCqOxFVisWVvA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OvMt4LVG+CrF3JGzCGUmI8IjQdytUfw2cwF0ganMrTo=;
+ b=PeVxEam8m1lB5oKSmdqLIw/g53D+FQxfnWX0vKD2e3+aH0S4yBTvVTtqGO4xqRy5rxIQv/kIxxXVunH4vhG4rbpl3XB+sZ2OWv/JTEHWoKBdk6VZxirCM+XaDuXDyEPniLM7xUJ7gFBytCGqvKlcFAngz3odXIn4t4e6nkSZszZlfnK5tSSGuhhSi+8ZnZB/MTPLzMIa2hJAIVFKY7D9suRk6IsIy0qUGND5OZ0msxR6YK7xI4+FAWyEQLwYakeQnD8c54qC51AQPpjkFlK858MJLrG87xaFWCh6v7HKI7FUb8BroPaphg3kQaHaj2z4FQLBKEGqiLFu8nleQjEuzg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.12) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OvMt4LVG+CrF3JGzCGUmI8IjQdytUfw2cwF0ganMrTo=;
+ b=nK4WAsyB1k0XC4mxRD1phKTM6knkPklpeLRnWxdSX89hYpQ9yvToPFz+cfr/xEkOeqiZ+D7wwm8ffDgnqCHW3LLReoH8zaa0mAPMKoUI6d6ATHW2U8ChxgEfaZ53Z5XQJ5ZH06U/TLKXQTsYgNL2HOwe6q0Wg96eE3xtnZcLMhA=
+Received: from BL1PR13CA0314.namprd13.prod.outlook.com (2603:10b6:208:2c1::19)
+ by CY8PR12MB7436.namprd12.prod.outlook.com (2603:10b6:930:50::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8158.23; Tue, 19 Nov
+ 2024 05:48:27 +0000
+Received: from BN3PEPF0000B36E.namprd21.prod.outlook.com
+ (2603:10b6:208:2c1:cafe::11) by BL1PR13CA0314.outlook.office365.com
+ (2603:10b6:208:2c1::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8182.12 via Frontend Transport; Tue,
+ 19 Nov 2024 05:48:26 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.12)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.12 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.12; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.12) by
+ BN3PEPF0000B36E.mail.protection.outlook.com (10.167.243.165) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8207.0 via Frontend Transport; Tue, 19 Nov 2024 05:48:26 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 18 Nov
+ 2024 23:48:26 -0600
+Received: from kenneth-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via
+ Frontend Transport; Mon, 18 Nov 2024 23:48:25 -0600
+From: Kenneth Feng <kenneth.feng@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <kevinyang.wang@amd.com>, Kenneth Feng <kenneth.feng@amd.com>
+Subject: [PATCH] drm/amdgpu/pm: skip the power source check on smu v14.0.2/3
+Date: Tue, 19 Nov 2024 13:48:23 +0800
+Message-ID: <20241119054823.436238-1-kenneth.feng@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-From: Gregory Carter <gjcarter2@gmail.com>
-Date: Mon, 18 Nov 2024 21:25:57 -0700
-Message-ID: <CAE4jU7gZPeznzxOZdOqieyH1e-8kD1hKg+NwRGXkTKn4yB_6DQ@mail.gmail.com>
-Subject: Vanilla Kernel Build of Recent 6.12.0 Kernel Test Results on M18r1
- AMD Alienware
-To: amd-gfx@lists.freedesktop.org
-Content-Type: multipart/alternative; boundary="000000000000a0ed7106273c6e5c"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB03.amd.com: kenneth.feng@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B36E:EE_|CY8PR12MB7436:EE_
+X-MS-Office365-Filtering-Correlation-Id: 394fd725-02b1-4ad9-9c5b-08dd085dc9f0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|36860700013|376014|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?IBB9n5DSOvv1I2GtEuk/XXeO2aRS3SDvh5tcy/dQH5dq/G38OwRKYL3WeeoV?=
+ =?us-ascii?Q?DgW2i4DUhG9BTCQpxnqZh51tue8NuFtfi4yCvPVoKtJhYEa0KZWCm340YEVF?=
+ =?us-ascii?Q?j12pXQC1dphbF956ODVJrzpnqSrKuq6/ZcbOsG2tLSXm5wAlGJEZqWKyKmO8?=
+ =?us-ascii?Q?zD7aXVz7TwZHnPfAP/fABzkly3STsKsDHFKa/fRpq2dMjmcrnBo68vlLR5aY?=
+ =?us-ascii?Q?vq4q7scXyC1nSGg9qrzwnOXQyc7jsG9C9Qyv/e8NZCMfuqaQ0HNUVn5rqC9Z?=
+ =?us-ascii?Q?vSabHV8zhsNcjj1fo8duyGfEKu79NcuElqHHMUeKKe0fXkHQMdqGu0yyxa9R?=
+ =?us-ascii?Q?G0vKgWXQ4XJKqgBBajmGbG0vtmVn5mhVzEQCnAtf8I8Bp9dBC4Rkwkqv51tZ?=
+ =?us-ascii?Q?8T0oXGDP3yz19TGmQp4vJu4Hq1YLjZDw/fjczfUXyz+U7hynNt8mdKH85kUX?=
+ =?us-ascii?Q?mpyrHufo9XHKpFntF/5sgcxxFVzq93HLIwJpxxewOQmDVzlx/9F8ew8ch/Ft?=
+ =?us-ascii?Q?ZzvzrxkHJj1CAHSf6/nXOkDzqYnKK2/7u2qKoa3W6k8wsedpWyxKx+48cc49?=
+ =?us-ascii?Q?Gofv+aq7/QF8IpERQJrfXhfryKY4QdeDiOHkUEtmgmuIJNo7OZZnO3wGyW7B?=
+ =?us-ascii?Q?/Fk3pbHlsFehbZXx1LxnFjGYQeYme/EzOOwK/s7Xrj2ixc176uatlW4MQ9nc?=
+ =?us-ascii?Q?6cuI7Gq+qUwb4GqolQ3DJPJ8yEW8wwvxGBpVHxVdN/+EPtKigTYG8dc4nYzy?=
+ =?us-ascii?Q?LezZ3Ms7/oPgtNN5neeSZa/MnurOYXuCzGk1swPoCKvdi1rZ6Z4Zhr3IdHaA?=
+ =?us-ascii?Q?00nGNpfgS8DYutjyae2G6leHVPDJvq9E8xyLmzzodBXWlsbH9UobfI/BA8f0?=
+ =?us-ascii?Q?93KX8T1tgsmY57XfwvPZ0cz4xzr0LMURZSIltrvk3NSI8f9ha8t5Yv4U1Y4F?=
+ =?us-ascii?Q?2RxIK4IykVyeq2j2IT0Jqq4Jz9yFCW18JdSu4bjzLR6ASxeUIGJgEux0UKcZ?=
+ =?us-ascii?Q?W20Fp9DYCeQl0om0att4edYi404crOOvTSAZqyNFAZGfPKtb2zi7nQDjCQBE?=
+ =?us-ascii?Q?FKE4jwHxxp867KyapcVA6ZVAJxOdrB4yfhbtSoKE5jXKQszTXsajbu2IiOVW?=
+ =?us-ascii?Q?SUMQYeWueKxZRj/CdV9CWo+/zraXZzz8axi2OuPgFM5CTWtks7HKADe9hb6p?=
+ =?us-ascii?Q?cY0BIfsCCVOOf5gHB40QcEiSz8O0h+T1ORrJ/UsrlDbAFTwlIiGysS6f6Gds?=
+ =?us-ascii?Q?Hn/iE49tV4aV4269d9u5/8pXVYbnVHcXPyOU+Atf1qMzGNCIw3CcFbI2wKdo?=
+ =?us-ascii?Q?6b9je46aKPCic7iJkGEIFDvRns4LC3ImVD8q0hUTzevLQyQCmj8pUjCSgCr2?=
+ =?us-ascii?Q?+vgRe/3QbnNNBdttU0vhQLSbLVRlPAu9Gf5hGJhLqSJpDS0erA=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.12; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:atlvpn-bp.amd.com; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700013)(376014)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2024 05:48:26.8667 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 394fd725-02b1-4ad9-9c5b-08dd085dc9f0
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.12];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B36E.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7436
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,197 +130,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---000000000000a0ed7106273c6e5c
-Content-Type: text/plain; charset="UTF-8"
+skip the power source check on smu v14.0.2/3
 
-Nov 18 18:37:33.973691 discernment.aesgi.com kernel: warning:
-`QSampleCache::L' uses wireless extensions which will stop working for
-Wi-Fi 7 hardware; use nl80211
-Nov 18 18:37:35.761857 discernment.aesgi.com kernel: ------------[ cut here
-]------------
-Nov 18 18:37:35.761928 discernment.aesgi.com kernel: WARNING: CPU: 10 PID:
-11 at drivers/gpu/drm/amd/amdgpu/../display/dc/dce/dmub_psr.c:223
-dmub_psr_enable+0xfa/0x110 [amdgpu]
-Nov 18 18:37:35.761940 discernment.aesgi.com kernel: Modules linked in:
-snd_seq_dummy snd_hrtimer rfcomm nft_masq nft_ct nft_reject_ipv4
-nf_reject_ipv4 nft_reject nft_chain_nat nf_nat nf_conntrack nf_defrag_ipv6
-nf_defrag_ipv4 nf_table>
-Nov 18 18:37:35.761991 discernment.aesgi.com kernel:  videobuf2_v4l2
-btintel videobuf2_common btbcm snd_seq_device libarc4 snd_pcm dell_smbios
-btmtk videodev spd5118 snd_timer snd_pci_acp5x dcdbas bluetooth cfg80211
-r8169 mc rapl dell_>
-Nov 18 18:37:35.762015 discernment.aesgi.com kernel: CPU: 10 UID: 0 PID: 11
-Comm: kworker/u128:0 Not tainted 6.12.0-RX7900M #1
-Nov 18 18:37:35.762024 discernment.aesgi.com kernel: Hardware name:
-Alienware Alienware m18 R1 AMD/049YP9, BIOS 1.15.0 09/09/2024
-Nov 18 18:37:35.762038 discernment.aesgi.com kernel: Workqueue:
-dm_vblank_control_workqueue amdgpu_dm_crtc_vblank_control_worker [amdgpu]
-Nov 18 18:37:35.762047 discernment.aesgi.com kernel: RIP:
-0010:dmub_psr_enable+0xfa/0x110 [amdgpu]
-Nov 18 18:37:35.762056 discernment.aesgi.com kernel: Code: d1 81 fb e8 03
-00 00 74 21 48 8b 44 24 48 65 48 2b 04 25 28 00 00 00 75 15 48 83 c4 50 5b
-5d 41 5c 41 5d 41 5e c3 cc cc cc cc <0f> 0b eb db e8 4d 39 27 ee 66 66 2e
-0f 1f 84 00 >
-Nov 18 18:37:35.762065 discernment.aesgi.com kernel: RSP:
-0018:ffffad0dc018fd38 EFLAGS: 00010246
-Nov 18 18:37:35.762074 discernment.aesgi.com kernel: RAX: 0000001cb9fdfc52
-RBX: 00000000000003e9 RCX: 000000000000000a
-Nov 18 18:37:35.762082 discernment.aesgi.com kernel: RDX: 00000000000001f4
-RSI: 000000000000004e RDI: 0000001cb9fdfa5e
-Nov 18 18:37:35.762090 discernment.aesgi.com kernel: RBP: 0000000000000000
-R08: ffff9ee0128a6a00 R09: 0000000000001d00
-Nov 18 18:37:35.762098 discernment.aesgi.com kernel: R10: ffffad0e00af3500
-R11: 000000000000001c R12: ffff9ee00cef9c90
-Nov 18 18:37:35.762105 discernment.aesgi.com kernel: R13: 0000000000000000
-R14: ffffad0dc018fd3c R15: ffffad0dc018fe1c
-Nov 18 18:37:35.762114 discernment.aesgi.com kernel: FS:
- 0000000000000000(0000) GS:ffff9eeebd300000(0000) knlGS:0000000000000000
-Nov 18 18:37:35.762121 discernment.aesgi.com kernel: CS:  0010 DS: 0000 ES:
-0000 CR0: 0000000080050033
-Nov 18 18:37:35.762129 discernment.aesgi.com kernel: CR2: 00007f0f41031b28
-CR3: 0000000abb42a000 CR4: 0000000000f50ef0
-Nov 18 18:37:35.762140 discernment.aesgi.com kernel: PKRU: 55555554
-Nov 18 18:37:35.762147 discernment.aesgi.com kernel: Call Trace:
-Nov 18 18:37:35.762155 discernment.aesgi.com kernel:  <TASK>
-Nov 18 18:37:35.762791 discernment.aesgi.com kernel:  ?
-dmub_psr_enable+0xfa/0x110 [amdgpu]
-Nov 18 18:37:35.762811 discernment.aesgi.com kernel:  ?
-__warn.cold+0x93/0xfa
-Nov 18 18:37:35.762818 discernment.aesgi.com kernel:  ?
-dmub_psr_enable+0xfa/0x110 [amdgpu]
-Nov 18 18:37:35.762823 discernment.aesgi.com kernel:  ?
-report_bug+0xff/0x140
-Nov 18 18:37:35.762830 discernment.aesgi.com kernel:  ? handle_bug+0x58/0x90
-Nov 18 18:37:35.762835 discernment.aesgi.com kernel:  ?
-exc_invalid_op+0x17/0x70
-Nov 18 18:37:35.762840 discernment.aesgi.com kernel:  ?
-asm_exc_invalid_op+0x1a/0x20
-Nov 18 18:37:35.762847 discernment.aesgi.com kernel:  ?
-dmub_psr_enable+0xfa/0x110 [amdgpu]
-Nov 18 18:37:35.762852 discernment.aesgi.com kernel:  ?
-dmub_psr_enable+0xaf/0x110 [amdgpu]
-Nov 18 18:37:35.762858 discernment.aesgi.com kernel:
- edp_set_psr_allow_active+0x27d/0x3b0 [amdgpu]
-Nov 18 18:37:35.763760 discernment.aesgi.com kernel:
- amdgpu_dm_psr_disable+0x5b/0x80 [amdgpu]
-Nov 18 18:37:35.763807 discernment.aesgi.com kernel:
- amdgpu_dm_crtc_vblank_control_worker+0x257/0x260 [amdgpu]
-Nov 18 18:37:35.763838 discernment.aesgi.com kernel:
- process_one_work+0x178/0x330
-Nov 18 18:37:35.763850 discernment.aesgi.com kernel:
- worker_thread+0x252/0x390
-Nov 18 18:37:35.763861 discernment.aesgi.com kernel:  ?
-__pfx_worker_thread+0x10/0x10
-Nov 18 18:37:35.763871 discernment.aesgi.com kernel:  kthread+0xcf/0x100
-Nov 18 18:37:35.763881 discernment.aesgi.com kernel:  ?
-__pfx_kthread+0x10/0x10
-Nov 18 18:37:35.763892 discernment.aesgi.com kernel:
- ret_from_fork+0x31/0x50
-Nov 18 18:37:35.763906 discernment.aesgi.com kernel:  ?
-__pfx_kthread+0x10/0x10
-Nov 18 18:37:35.763914 discernment.aesgi.com kernel:
- ret_from_fork_asm+0x1a/0x30
-Nov 18 18:37:35.763921 discernment.aesgi.com kernel:  </TASK>
-Nov 18 18:37:35.763929 discernment.aesgi.com kernel: ---[ end trace
-0000000000000000 ]---
+Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
+---
+ drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
---000000000000a0ed7106273c6e5c
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
+index 5460f8e62264..b60837bd259f 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
+@@ -1365,6 +1365,10 @@ int smu_v14_0_set_power_source(struct smu_context *smu,
+ {
+ 	int pwr_source;
+ 
++	if ((amdgpu_ip_version(smu->adev, MP1_HWIP, 0) == IP_VERSION(14, 0, 2)) ||
++	    (amdgpu_ip_version(smu->adev, MP1_HWIP, 0) == IP_VERSION(14, 0, 3)))
++		return 0;
++
+ 	pwr_source = smu_cmn_to_asic_specific_index(smu,
+ 						    CMN2ASIC_MAPPING_PWR,
+ 						    (uint32_t)power_src);
+-- 
+2.34.1
 
-<div dir=3D"ltr">Nov 18 18:37:33.973691 <a href=3D"http://discernment.aesgi=
-.com">discernment.aesgi.com</a> kernel: warning: `QSampleCache::L&#39; uses=
- wireless extensions which will stop working for Wi-Fi 7 hardware; use nl80=
-211<br>Nov 18 18:37:35.761857 <a href=3D"http://discernment.aesgi.com">disc=
-ernment.aesgi.com</a> kernel: ------------[ cut here ]------------<br>Nov 1=
-8 18:37:35.761928 <a href=3D"http://discernment.aesgi.com">discernment.aesg=
-i.com</a> kernel: WARNING: CPU: 10 PID: 11 at drivers/gpu/drm/amd/amdgpu/..=
-/display/dc/dce/dmub_psr.c:223 dmub_psr_enable+0xfa/0x110 [amdgpu]<br>Nov 1=
-8 18:37:35.761940 <a href=3D"http://discernment.aesgi.com">discernment.aesg=
-i.com</a> kernel: Modules linked in: snd_seq_dummy snd_hrtimer rfcomm nft_m=
-asq nft_ct nft_reject_ipv4 nf_reject_ipv4 nft_reject nft_chain_nat nf_nat n=
-f_conntrack nf_defrag_ipv6 nf_defrag_ipv4 nf_table&gt;<br>Nov 18 18:37:35.7=
-61991 <a href=3D"http://discernment.aesgi.com">discernment.aesgi.com</a> ke=
-rnel: =C2=A0videobuf2_v4l2 btintel videobuf2_common btbcm snd_seq_device li=
-barc4 snd_pcm dell_smbios btmtk videodev spd5118 snd_timer snd_pci_acp5x dc=
-dbas bluetooth cfg80211 r8169 mc rapl dell_&gt;<br>Nov 18 18:37:35.762015 <=
-a href=3D"http://discernment.aesgi.com">discernment.aesgi.com</a> kernel: C=
-PU: 10 UID: 0 PID: 11 Comm: kworker/u128:0 Not tainted 6.12.0-RX7900M #1<br=
->Nov 18 18:37:35.762024 <a href=3D"http://discernment.aesgi.com">discernmen=
-t.aesgi.com</a> kernel: Hardware name: Alienware Alienware m18 R1 AMD/049YP=
-9, BIOS 1.15.0 09/09/2024<br>Nov 18 18:37:35.762038 <a href=3D"http://disce=
-rnment.aesgi.com">discernment.aesgi.com</a> kernel: Workqueue: dm_vblank_co=
-ntrol_workqueue amdgpu_dm_crtc_vblank_control_worker [amdgpu]<br>Nov 18 18:=
-37:35.762047 <a href=3D"http://discernment.aesgi.com">discernment.aesgi.com=
-</a> kernel: RIP: 0010:dmub_psr_enable+0xfa/0x110 [amdgpu]<br>Nov 18 18:37:=
-35.762056 <a href=3D"http://discernment.aesgi.com">discernment.aesgi.com</a=
-> kernel: Code: d1 81 fb e8 03 00 00 74 21 48 8b 44 24 48 65 48 2b 04 25 28=
- 00 00 00 75 15 48 83 c4 50 5b 5d 41 5c 41 5d 41 5e c3 cc cc cc cc &lt;0f&g=
-t; 0b eb db e8 4d 39 27 ee 66 66 2e 0f 1f 84 00 &gt;<br>Nov 18 18:37:35.762=
-065 <a href=3D"http://discernment.aesgi.com">discernment.aesgi.com</a> kern=
-el: RSP: 0018:ffffad0dc018fd38 EFLAGS: 00010246<br>Nov 18 18:37:35.762074 <=
-a href=3D"http://discernment.aesgi.com">discernment.aesgi.com</a> kernel: R=
-AX: 0000001cb9fdfc52 RBX: 00000000000003e9 RCX: 000000000000000a<br>Nov 18 =
-18:37:35.762082 <a href=3D"http://discernment.aesgi.com">discernment.aesgi.=
-com</a> kernel: RDX: 00000000000001f4 RSI: 000000000000004e RDI: 0000001cb9=
-fdfa5e<br>Nov 18 18:37:35.762090 <a href=3D"http://discernment.aesgi.com">d=
-iscernment.aesgi.com</a> kernel: RBP: 0000000000000000 R08: ffff9ee0128a6a0=
-0 R09: 0000000000001d00<br>Nov 18 18:37:35.762098 <a href=3D"http://discern=
-ment.aesgi.com">discernment.aesgi.com</a> kernel: R10: ffffad0e00af3500 R11=
-: 000000000000001c R12: ffff9ee00cef9c90<br>Nov 18 18:37:35.762105 <a href=
-=3D"http://discernment.aesgi.com">discernment.aesgi.com</a> kernel: R13: 00=
-00000000000000 R14: ffffad0dc018fd3c R15: ffffad0dc018fe1c<br>Nov 18 18:37:=
-35.762114 <a href=3D"http://discernment.aesgi.com">discernment.aesgi.com</a=
-> kernel: FS: =C2=A00000000000000000(0000) GS:ffff9eeebd300000(0000) knlGS:=
-0000000000000000<br>Nov 18 18:37:35.762121 <a href=3D"http://discernment.ae=
-sgi.com">discernment.aesgi.com</a> kernel: CS: =C2=A00010 DS: 0000 ES: 0000=
- CR0: 0000000080050033<br>Nov 18 18:37:35.762129 <a href=3D"http://discernm=
-ent.aesgi.com">discernment.aesgi.com</a> kernel: CR2: 00007f0f41031b28 CR3:=
- 0000000abb42a000 CR4: 0000000000f50ef0<br>Nov 18 18:37:35.762140 <a href=
-=3D"http://discernment.aesgi.com">discernment.aesgi.com</a> kernel: PKRU: 5=
-5555554<br>Nov 18 18:37:35.762147 <a href=3D"http://discernment.aesgi.com">=
-discernment.aesgi.com</a> kernel: Call Trace:<br>Nov 18 18:37:35.762155 <a =
-href=3D"http://discernment.aesgi.com">discernment.aesgi.com</a> kernel: =C2=
-=A0&lt;TASK&gt;<br>Nov 18 18:37:35.762791 <a href=3D"http://discernment.aes=
-gi.com">discernment.aesgi.com</a> kernel: =C2=A0? dmub_psr_enable+0xfa/0x11=
-0 [amdgpu]<br>Nov 18 18:37:35.762811 <a href=3D"http://discernment.aesgi.co=
-m">discernment.aesgi.com</a> kernel: =C2=A0? __warn.cold+0x93/0xfa<br>Nov 1=
-8 18:37:35.762818 <a href=3D"http://discernment.aesgi.com">discernment.aesg=
-i.com</a> kernel: =C2=A0? dmub_psr_enable+0xfa/0x110 [amdgpu]<br>Nov 18 18:=
-37:35.762823 <a href=3D"http://discernment.aesgi.com">discernment.aesgi.com=
-</a> kernel: =C2=A0? report_bug+0xff/0x140<br>Nov 18 18:37:35.762830 <a hre=
-f=3D"http://discernment.aesgi.com">discernment.aesgi.com</a> kernel: =C2=A0=
-? handle_bug+0x58/0x90<br>Nov 18 18:37:35.762835 <a href=3D"http://discernm=
-ent.aesgi.com">discernment.aesgi.com</a> kernel: =C2=A0? exc_invalid_op+0x1=
-7/0x70<br>Nov 18 18:37:35.762840 <a href=3D"http://discernment.aesgi.com">d=
-iscernment.aesgi.com</a> kernel: =C2=A0? asm_exc_invalid_op+0x1a/0x20<br>No=
-v 18 18:37:35.762847 <a href=3D"http://discernment.aesgi.com">discernment.a=
-esgi.com</a> kernel: =C2=A0? dmub_psr_enable+0xfa/0x110 [amdgpu]<br>Nov 18 =
-18:37:35.762852 <a href=3D"http://discernment.aesgi.com">discernment.aesgi.=
-com</a> kernel: =C2=A0? dmub_psr_enable+0xaf/0x110 [amdgpu]<br>Nov 18 18:37=
-:35.762858 <a href=3D"http://discernment.aesgi.com">discernment.aesgi.com</=
-a> kernel: =C2=A0edp_set_psr_allow_active+0x27d/0x3b0 [amdgpu]<br>Nov 18 18=
-:37:35.763760 <a href=3D"http://discernment.aesgi.com">discernment.aesgi.co=
-m</a> kernel: =C2=A0amdgpu_dm_psr_disable+0x5b/0x80 [amdgpu]<br>Nov 18 18:3=
-7:35.763807 <a href=3D"http://discernment.aesgi.com">discernment.aesgi.com<=
-/a> kernel: =C2=A0amdgpu_dm_crtc_vblank_control_worker+0x257/0x260 [amdgpu]=
-<br>Nov 18 18:37:35.763838 <a href=3D"http://discernment.aesgi.com">discern=
-ment.aesgi.com</a> kernel: =C2=A0process_one_work+0x178/0x330<br>Nov 18 18:=
-37:35.763850 <a href=3D"http://discernment.aesgi.com">discernment.aesgi.com=
-</a> kernel: =C2=A0worker_thread+0x252/0x390<br>Nov 18 18:37:35.763861 <a h=
-ref=3D"http://discernment.aesgi.com">discernment.aesgi.com</a> kernel: =C2=
-=A0? __pfx_worker_thread+0x10/0x10<br>Nov 18 18:37:35.763871 <a href=3D"htt=
-p://discernment.aesgi.com">discernment.aesgi.com</a> kernel: =C2=A0kthread+=
-0xcf/0x100<br>Nov 18 18:37:35.763881 <a href=3D"http://discernment.aesgi.co=
-m">discernment.aesgi.com</a> kernel: =C2=A0? __pfx_kthread+0x10/0x10<br>Nov=
- 18 18:37:35.763892 <a href=3D"http://discernment.aesgi.com">discernment.ae=
-sgi.com</a> kernel: =C2=A0ret_from_fork+0x31/0x50<br>Nov 18 18:37:35.763906=
- <a href=3D"http://discernment.aesgi.com">discernment.aesgi.com</a> kernel:=
- =C2=A0? __pfx_kthread+0x10/0x10<br>Nov 18 18:37:35.763914 <a href=3D"http:=
-//discernment.aesgi.com">discernment.aesgi.com</a> kernel: =C2=A0ret_from_f=
-ork_asm+0x1a/0x30<br>Nov 18 18:37:35.763921 <a href=3D"http://discernment.a=
-esgi.com">discernment.aesgi.com</a> kernel: =C2=A0&lt;/TASK&gt;<br>Nov 18 1=
-8:37:35.763929 <a href=3D"http://discernment.aesgi.com">discernment.aesgi.c=
-om</a> kernel: ---[ end trace 0000000000000000 ]---<br></div>
-
---000000000000a0ed7106273c6e5c--
