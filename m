@@ -4,142 +4,190 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64E73D60074
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 Nov 2024 08:00:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCC8AD6007E
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 Nov 2024 08:19:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D060410E0CF;
-	Tue, 19 Nov 2024 08:00:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7DA0610E5E3;
+	Tue, 19 Nov 2024 08:19:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="eIj5fDiB";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hcgevmJV";
 	dkim-atps=neutral
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2070.outbound.protection.outlook.com [40.107.95.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 32DAB10E0CF
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 Nov 2024 08:00:18 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8298310E274;
+ Tue, 19 Nov 2024 04:55:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1731992129; x=1763528129;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=zBVU7HnFM7Fv86iCrSLClosrlyHWj1KsAviN66sUbL0=;
+ b=hcgevmJVMzqKASxvFquM7TweRiPzcvLGzxNnFljuJRA1Ky01VKpfMeB6
+ /F9IoMiSiMmpiOjPyAdpyIZnpsMUb/mvDMtvYUj3ErfPmVQBklVvknaKd
+ 9boXcyrFT5hKoycMwLOsjvZBF0cNgeSnq6I+dF1tUn3DvD4Zivc+hZZvv
+ 2ZjIDbuprii6x6llFS0Yg5TB/xqzkeqNcK42W4tOWf1RVRA3kOSV8bgDn
+ 5PfBrgkxYnRV1jaIRIEKuIbJTHY+7bxVee4XWxg8ZKTZI0FGFUtbAySl9
+ +KrTjcxIezE0evzSF4i1sJ5J30xRO5APfMy3CJ3uWWrbzYdrniNZyQnKx g==;
+X-CSE-ConnectionGUID: JTzfij6ySVmOb8Z4bIEetw==
+X-CSE-MsgGUID: Ei4RKPESS/mksloiNYUigA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11260"; a="19585014"
+X-IronPort-AV: E=Sophos;i="6.12,165,1728975600"; d="scan'208";a="19585014"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Nov 2024 20:55:25 -0800
+X-CSE-ConnectionGUID: ICyUpprwRJ6AavHEPw3iKg==
+X-CSE-MsgGUID: xy/HDUrBQ5+2IXIiMWvobQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.12,165,1728975600"; d="scan'208";a="93897890"
+Received: from orsmsx603.amr.corp.intel.com ([10.22.229.16])
+ by fmviesa005.fm.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
+ 18 Nov 2024 20:55:23 -0800
+Received: from orsmsx601.amr.corp.intel.com (10.22.229.14) by
+ ORSMSX603.amr.corp.intel.com (10.22.229.16) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39; Mon, 18 Nov 2024 20:55:23 -0800
+Received: from ORSEDG602.ED.cps.intel.com (10.7.248.7) by
+ orsmsx601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39 via Frontend Transport; Mon, 18 Nov 2024 20:55:23 -0800
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com (104.47.58.173)
+ by edgegateway.intel.com (134.134.137.103) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.39; Mon, 18 Nov 2024 20:55:22 -0800
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NhGjvGiUs6wwNLH6seIv3HNuKAO/58aCXpbu57FHi/FmQCQ+jmZLS9FA1yakm9DSLqE37K4gyF6HIkQlzdNeNGp+uKqVzJ8djPNnLvgRvNHEJW3OhodZkHN8SvzxDIXeNbTtNYTscPB+tXxrMX9vslDOJkEKocE4LehYqRVAmL8ud7tUsYzs+1xHHVmluD4aIMGJKl40NNhKTHzZtPZ1vQedIGdle08EizFuq33eyi5+gz8rsPc88leYni7Rdy0112a20pJlgZyIF1hyBzTyJ73qLX8mnMShJS5SU4hoPQ7RwZdnasROwqCWNOOB87I2KH1Bfk99vDJBUi9SlzRAzw==
+ b=W2noBvVr2rVP02G2Y+tisxkzKXLi34w3S8m4RumR5Hnl8mivGYsK8iOFEX7T3SKwdomVQW3OXdB6h4eJR/61lsdhx+pFuKn4/tVkCjdFCnKc/A7IR212fDrKrZ9My7uVjxAWDlpawCIAfFUWzy9fHPevQaAI6cilTtSo7ilnLW/cZE+0FNIcdVTKzCB7YMPWtGtR8kz/5aTSmIfOB3PnG3JNZ+Y3zHq9DhUfFw+mzIjPfZuVxYBmxWl/Z87bR1nLnkIKDZVV48y5Vevl5V3/XNlqFenw/slV9UyB+/UHoWxY05Npde2v7lirAWdf0MGhfV1jjHUKCM+QbM598kWurQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AFjYXFTFwxnMBDfhdxgZuXQrlj6JxVUc8poyUuGovNw=;
- b=ivSEJpMCh3MEug89gnLKhQHgyacTYMHWETefdJ5I4svFM5HtmCVg2MHzZOeGvZYJpD6bHHA4WgwOLGjcltBLTFqPo+vuDzi/iAspeEgEwB+AxAw6CKyYl2KSp1T372W3o/YppM0OQztB7h/1ERY6aKx/DUlMX63RQ0fpDgJ1J+G+i7T8w88gyGydgMFQ3+nE4iJOy+XaRp/5LlKHq1Y3kOTFJP7ImFpbTI9bheiVsmPwhO+OCGw6YViJtJDaQ2ahwxeHZcm09UVSfhhytiktAhAoJ3DpZUCGuQ7LKZ/vP7l4UoBbG4h4qlwLiN2HQP7O+yotWApiQS9loGL1CVQFcg==
+ bh=OYuoL3p2G3HTl7dSyxdKJAzThAO4ZeKznm/dzrdEAjE=;
+ b=UHeno3QRD1lsUd3gCHvCmCdZ6z7aPXWCmlBkX9LhZzKuepZpRyKtomGwOgGBwtOm1dYMTmjqBnocvsoGO/3UWeldfbC82Cvs5XbfQw2n//VRaz4q2QKxReCk3aPvcEA6M2NNde3nOYVRCIE9FrQbB8QOYooc383QWc1tsFElYLroEdJ8pBGd65te5ZH2k7t55s5Nuk1wZhpHrCI/j5NfyygRJASwcooyCPoh6MaViBtJ9KYaYFtTnqebnDpGiu7mUz6m1JmwHS2+RX3k182ntWXfdypoSJIeC+cDnhEWQZs0FfnNckAWKEooJiqV4OiXPDrYlppDtSsanPP4MIZ9KA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AFjYXFTFwxnMBDfhdxgZuXQrlj6JxVUc8poyUuGovNw=;
- b=eIj5fDiBGL5+//xYScQkSTh/bXwAgCrSR7cbXmvkPMmwpFf80lY0wD6pQ133380oSln0daM6cFRL/9DrNAiyTtXx0XVuNtRAB2EdAzT5kHb5LY+Zhwctdbolvepideif2NcMRxED0vciVBMLYMRMi3rF4tS/0I1VMI9jLbkabBI=
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
- by SA1PR12MB6969.namprd12.prod.outlook.com (2603:10b6:806:24c::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8158.18; Tue, 19 Nov
- 2024 08:00:15 +0000
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::c593:f43d:c798:e009]) by BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::c593:f43d:c798:e009%7]) with mapi id 15.20.8158.023; Tue, 19 Nov 2024
- 08:00:15 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Zhou1, Tao" <Tao.Zhou1@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Zhou1, Tao" <Tao.Zhou1@amd.com>
-Subject: RE: [PATCH 01/21] drm/amdgpu: simplify RAS page retirement in one
- memory row
-Thread-Topic: [PATCH 01/21] drm/amdgpu: simplify RAS page retirement in one
- memory row
-Thread-Index: AQHbOk1lKZew3MoGXU6skJ6poLUmwrK+PJpw
-Date: Tue, 19 Nov 2024 08:00:15 +0000
-Message-ID: <BN9PR12MB52574E63581EAAC7BD01B415FC202@BN9PR12MB5257.namprd12.prod.outlook.com>
-References: <20241119063604.81461-1-tao.zhou1@amd.com>
-In-Reply-To: <20241119063604.81461-1-tao.zhou1@amd.com>
-Accept-Language: en-US
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from MW4PR11MB7056.namprd11.prod.outlook.com (2603:10b6:303:21a::12)
+ by DM4PR11MB6430.namprd11.prod.outlook.com (2603:10b6:8:b6::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8158.24; Tue, 19 Nov
+ 2024 04:55:20 +0000
+Received: from MW4PR11MB7056.namprd11.prod.outlook.com
+ ([fe80::c4d8:5a0b:cf67:99c5]) by MW4PR11MB7056.namprd11.prod.outlook.com
+ ([fe80::c4d8:5a0b:cf67:99c5%5]) with mapi id 15.20.8158.023; Tue, 19 Nov 2024
+ 04:55:20 +0000
+Message-ID: <9249af09-3943-4c72-ab44-08f08ea4807e@intel.com>
+Date: Tue, 19 Nov 2024 10:25:10 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 3/4] drm/xe: Use device wedged event
+To: Raag Jadav <raag.jadav@intel.com>, <airlied@gmail.com>, <simona@ffwll.ch>, 
+ <lucas.demarchi@intel.com>, <rodrigo.vivi@intel.com>,
+ <jani.nikula@linux.intel.com>, <andriy.shevchenko@linux.intel.com>,
+ <lina@asahilina.net>, <michal.wajdeczko@intel.com>,
+ <christian.koenig@amd.com>
+CC: <intel-xe@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <aravind.iddamsetty@linux.intel.com>,
+ <anshuman.gupta@intel.com>, <alexander.deucher@amd.com>,
+ <andrealmeid@igalia.com>, <amd-gfx@lists.freedesktop.org>,
+ <kernel-dev@igalia.com>
+References: <20241115050733.806934-1-raag.jadav@intel.com>
+ <20241115050733.806934-4-raag.jadav@intel.com>
 Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=7d148d50-d870-4afb-8711-de9720705c60;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution Only;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-11-19T07:56:56Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|SA1PR12MB6969:EE_
-x-ms-office365-filtering-correlation-id: eac9ef16-4c41-481c-e751-08dd087033b2
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0; ARA:13230040|366016|376014|1800799024|38070700018;
-x-microsoft-antispam-message-info: =?us-ascii?Q?G6Cp5QtljEMiJceSBGNAaaK9oQ+ZZ5kJe9pffCqdtA1c9GbQxa2mtWLCf+uA?=
- =?us-ascii?Q?3Z4WUEAbGxF1hGkgPFtBEqdg3WzmzWBpXOY9JnSBGufMbC9Syrmwx33kA+bb?=
- =?us-ascii?Q?DEECAW+j2rw9iORiES4BlM+WYsUbXL7BFgcm64aI2Bm/QhbYamLEGme2Ct3v?=
- =?us-ascii?Q?9xCENFOMQfAF4ZMzRbdCQAmUaMrBqey+o2ugM/f3+jJdWB15YCJEIIiUN2zZ?=
- =?us-ascii?Q?pV6x2Qcw2XdPFmk4fh7O6T8ruTeq5JJ6IrxjrW0loPHk5yrVw5GrgjE6jksS?=
- =?us-ascii?Q?hB9VeaDfocDyr/2doxBgDmdJPHSBDsmRiHm8vpe8kFVwt8idf4VBXU7Y8AhO?=
- =?us-ascii?Q?xEkmRg36mJ9OXqs1lLm5HX9PZrDwgb1U3NnWYs9SFNi/VTi1PU2ThyXmHqKX?=
- =?us-ascii?Q?JGWOEyg3sDYE1dx+kM9KGr5kkLE4dDgACvzFFagVjkhudv7RCubEg01jJAF0?=
- =?us-ascii?Q?fEKRMSfkqJy2EeLfkdPnSqHT89Vuq/aEqnvAOVOyXV8ZrrJdIlQrPB0/Ac95?=
- =?us-ascii?Q?d9MnzevJd0TI+Fd6UJ6Lne6XeGRQzzr5Rn5X4fQnpvLJhpEwGfAjTwOttWtR?=
- =?us-ascii?Q?tEZjsqo8DFKkFvqqkz6VNLBF+t2tgapbM+4losLxfx3U5LvdpOdCgFbDK0gy?=
- =?us-ascii?Q?WHqHc7FKKFBrchBr7Br9XMnlC8DwTDgFKWKjYbP/ecsbo6uV9bB3JjGz8EDe?=
- =?us-ascii?Q?jkNZtsJvnvq6TPxmtLGmdFzibkvYaeSAELuHz1FPlXyeTczEVaajkONGAcIk?=
- =?us-ascii?Q?qU8YmSbDJMZVaPqs7fLNFuFfSJ85/SVDfHCogDjPxWFZHr/BkdzLyY+1nhu/?=
- =?us-ascii?Q?BrUjqGFVl/JtJMllnZu6XMykspxC7mDVEiKpauFcejet1y7UEo80MP5FRfWF?=
- =?us-ascii?Q?DzJxs3/id5yBJnj37KPZBzXtDYzKTzJrcdMPg/nnjiUjcwAVpzf4MRS88pIS?=
- =?us-ascii?Q?FaIOFMBXEyMv6OtHY6cQYUSsVS9GkxB4D6yj6CDxFvDkZfkZa4/Io98J9b2E?=
- =?us-ascii?Q?jNh7v4BCB89z1OqeSiu1yxWE1Mq1HSAntvcYnW2RB+2RdMPWiyjrKPL0+nwW?=
- =?us-ascii?Q?CK7S4aLoj2nYxt77L0qb4JQkrfqKznN+uj+CpoXnmbNmyfl0BljKjAoEPOgM?=
- =?us-ascii?Q?LRm/aoSmnp0kukmQishTPkYcsjc3c85g6q3uAlrhWv7jqdUbte22URsy5DA6?=
- =?us-ascii?Q?eZdRyypRFVoESdD81/LqKVU2ehKNaA/jSgwik8HIVsjzTo9zLUxMFLxQvHP1?=
- =?us-ascii?Q?CmjhdBKhmbyWHr6YBBUlK7uYMwI8WPcvbcI9CMMcMrB3r3mth9gLAaAHzgj3?=
- =?us-ascii?Q?vjOBoG3qMoaWucOmp7BFkQ2HrlK6tYf2+jXZhQPK65gsNQdTnH/94lLpyb3t?=
- =?us-ascii?Q?jRLJAyM=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(38070700018); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?rC6ZZRhS0D4Ui3pXIumkDfbFoZC/F/4MUVLgEdKC58X0QFfcDIrqwCE24jAD?=
- =?us-ascii?Q?Okv9f3MJR0tdh2xfHf4QTWxZHXngqJIoc/saYH8RLbwZpI8xdiSPWWbU94X1?=
- =?us-ascii?Q?yRHKaXIgrpTPJO/KQG5KXrV8HAulZ67kG2qAe0Vx+MHbOL/ZXcdaQ2qNKaGW?=
- =?us-ascii?Q?5eCu+Y0G9UXpPHEQoZf/vdDKCCY9gsAeVHXu5x7QqAw9lz55roSr2fVwPPPb?=
- =?us-ascii?Q?SWUsmGDxXj134MtTcEGfEBoGQMDq7XCpeN5OFS/LUoN0wfdIf8/CDV2tQIPO?=
- =?us-ascii?Q?AwMlxgufp2nzhiQEtVf/VLu9pDAJUroB6Df5C+PUvzOL1zHga87rhZGN57t2?=
- =?us-ascii?Q?7nUKUEjO/wnH3jX7EgXTY8uy8cWFF3oJBUTg5louD4NdxRvfsQMo1DaoJYvq?=
- =?us-ascii?Q?j4ivgX8JSsrgaBwh4qbqYoxEdJ9w65uAC2RSRN8Ew4G7ArYBMhoSioznwmaE?=
- =?us-ascii?Q?spuCGiI1TXEXGSs4uucd873EUwd3IN92iwqjQndRWWhKSzCn1EoFFlejhmNe?=
- =?us-ascii?Q?5wCGZGj7IELmYUXBRD+bv4ads0Auyb2PiwN3ki+n4le1QHcJzRdvd6yUVi+g?=
- =?us-ascii?Q?E7ZqbJUZTxMi3AojFAp42OIT2tWl8IU7gSZ6Wm5Ls4GwssHXgS6XXbMaP6hr?=
- =?us-ascii?Q?jxdwOIpKGhpgB7oSIHkTBUqlRghJ9PvuHlwytiQJgvT0O97qTvS6G0z4nLZq?=
- =?us-ascii?Q?8zSPSdgOOjC8iXDbwpZOC/+/Vsl5l7iTdm4z0QShlCwDdXjzIYORNoGhg3No?=
- =?us-ascii?Q?qTfUplSMP4eGfD4CRJqn3dV5N7UzLsRfY3KwtHNmfbYpySmrxoVn2serZ8Pe?=
- =?us-ascii?Q?BS4AU1/s7G78Jz4uM2pUseOghDMsYgTRbHPYjiqmCJutSg/m6Itxvu6Ekto+?=
- =?us-ascii?Q?ujfp6vCAuJI22m2ty9LrT3Ua0jOku9fqNSqLuCwAw5qfXQUQB9iXQd3TY0Qm?=
- =?us-ascii?Q?4Eeg8r3fHdsFwD1KrnNf8hMl1D2FEn0XmrhNWUXVq+1HvZOWJZHOc+oOtl8w?=
- =?us-ascii?Q?6ZncfvZSPXSv3puem7MhvY3pUBpIzfR/ovYv1U7Qhh7FZBkhlWm7HNgB03Ck?=
- =?us-ascii?Q?V1VNOs/hKwmC+ZAH3Lce+pV0Tw9MFx3AJhe5ZFWlmMl3JMgpQi3sUBqiTqg9?=
- =?us-ascii?Q?Pt10e9C4DhOHw0Srfn+AHqx7JAJrtkxxQKHpiNASnwZhYyyJe8U5Cl/Pb41w?=
- =?us-ascii?Q?HmQzL5wDnYAcikwzycZHwAc6X6swmOl1UhcgpRvGmln8vd0uUSWAaYHPdzTs?=
- =?us-ascii?Q?hCZ2Qr4dzEwYasuDxLUgRrKQBoAAogqAisE0tagXbmlhrGecR7KckzJSJHiG?=
- =?us-ascii?Q?NJI5Q6NSuukhf5Y0Mby/OFAZqpOZ2Bul/41btTloaNnbxyU63Bhf1FMEBo98?=
- =?us-ascii?Q?pzWjw23Lh2JCIw8TImJnjRSrG9KBguvx9BbuePf8gl4koXEbCTUFihZ5VNeF?=
- =?us-ascii?Q?k/sfAlHEUG+SQV2yWGgU23tEL47jPSGSQ7cwT0eJeXwPm2JBQvddjIZDvPZj?=
- =?us-ascii?Q?3hb95hnhEf/E529SQn8PR1hgQWJaXrWuqATtL8q1BB2w3HzpI3Pdd30ER9as?=
- =?us-ascii?Q?buS4vp1TZR/KOBglk1bqcxfN/5gB8qtejP+eJppj?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+From: "Ghimiray, Himal Prasad" <himal.prasad.ghimiray@intel.com>
+In-Reply-To: <20241115050733.806934-4-raag.jadav@intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BM1PR01CA0154.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:b00:68::24) To MW4PR11MB7056.namprd11.prod.outlook.com
+ (2603:10b6:303:21a::12)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR11MB7056:EE_|DM4PR11MB6430:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4e03a6a6-ef15-415e-dcb7-08dd08565e59
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|1800799024|376014|366016|921020; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?azNEODJoZWNlZzZ0ZWNCWTd4d00vbWREd2VvTEp3VC83SHIvQStidWpnaVor?=
+ =?utf-8?B?N2Rpb0ZEaHVVSll0WXJyODlxM2psL3pUYnVvb0pxODQ4cW4wOVliNUF6alBw?=
+ =?utf-8?B?UG56RW01Zy9rd1dGcXk0SjkyODROWWRXMmJlN21UNDNsbS9hc3p2UnR5NDNW?=
+ =?utf-8?B?WmRJZjV3a1NTWis0TUFYcENJMWExRDFCRlpHQVNOTlh3T1UyMzVWQktBL0l0?=
+ =?utf-8?B?WHBhUy85STc5WnNWZFNwcXVwZm1CNjlWaHMwNW1pbjMwb0pPOGplc0ZPVFRX?=
+ =?utf-8?B?V2pySG14U3pKK3R6MlozaDhVbDZXaDUzRUhXVEZwMkh3NlRJZE5zQTdnZkJ4?=
+ =?utf-8?B?dXlMeTZZZUVScnBoTlJJRlVhQW1SRWRUQXl2U3pJVm5MR3Z3Yi9ZczdRWVZF?=
+ =?utf-8?B?KzNsN1BIQlVDQlR4YTF1ZjRGUjJnbnVtSDRHQjB6d1RHd05ITDVJMkF0aStj?=
+ =?utf-8?B?c0ZmTkxUR21mb1pkdmREWWhhMWNLOGFpbWdnS2gzRjdDd2M4azhpVzZZY0xM?=
+ =?utf-8?B?S3NhVVM1WjczZFJWZmNQeTZlQXFONk9PaHhmNEZsY25EMWhrRUxXOWtYQ3Fj?=
+ =?utf-8?B?N1hMVDlGZmYxYmx6VUtud1R1R21ZZ2ppVW0vZFlTYXo0WEtGR29aeXB1cnJn?=
+ =?utf-8?B?N2lSNWtjMThhNWIxRU5NY0NRNlp3THhGdG5RMjRkbnE0U1ZWa0dLKzVBYVFI?=
+ =?utf-8?B?TUFxVDRmRERacFFxaWZJemV5TkxSQkU5UVhtYjh1UnRuay81VlJ0N24rWXhE?=
+ =?utf-8?B?R3hoWUVLR25uNnd6TDYvdFNCRUpzRjJySk83VVBMaUdTbHNaeHJEaitsYzRv?=
+ =?utf-8?B?R3BPc1pkN3VjWnMvQlJ2M3lmMUpqUFRtYXVGd1BtUmthdlcyRnhGSnFNN29z?=
+ =?utf-8?B?UGJTMytCQXZaL05RUWRESVVvQlRrRFYwQ1Q5NkFOeGpWZnRCdDAxNklmVndp?=
+ =?utf-8?B?U04zbFhYTzNqVEpnRkNZbmNTQkthd2lxelUxZWQ0VzRtcXJsMXNIYXRTL3ZW?=
+ =?utf-8?B?MGJreWFEQ3JkeHl1K2F1RWl2NzVDc0ZZWmNiN2hnc0pSOENWblBVZ0lnYmtn?=
+ =?utf-8?B?dUc0azhSWG9URkdkTWRjNzNreVZ4ODV6dG01V20wVmRjLzN3RkpabEFRWCtr?=
+ =?utf-8?B?RVNiT3NDSFE0MmdNOElXNktMbUlsdjhSSlpJQ0xPeGxJV01uTE0zTlNueWly?=
+ =?utf-8?B?bzFGa3NQejZ5SjJ2alErWTYzeWRXcUJJWklvQUhWU3RXeWtvZWpIUGxsMC9G?=
+ =?utf-8?B?UHhtWWRYSC84UU4yM0QxekgvcnorZXJia0VIS0VTTWU3WGo2cDdGRDFxZkNl?=
+ =?utf-8?B?RURJTzZSMWhXUDlKbjFoaFRkTnZJWVBCU2NsZ3JSeTMwOC95amt2bHo1U3Iv?=
+ =?utf-8?B?T2R2T3QvUmF0THdFSEgyZmUreWFLQXVWMzgvSkVkL25KUUtxVG5UdzJJWTNN?=
+ =?utf-8?B?QWloMnRHM0dlckdYc3RvNndicG5yUCtqSVBwVWhlNElHUHlpS29XREJXOUpi?=
+ =?utf-8?B?OVZuOG0xRldxaTg2YjVxMFRidXlwYUJ5czFvVG91ZXgweldyRnNRY1ZyYmtx?=
+ =?utf-8?B?MC81ODlPaWRXYUtQbjJmSUdzSFdjdkRPcXBGRDQyY1pzNVlPc1lrbUYzSWJk?=
+ =?utf-8?B?bTJ0eWg1N1Awa2s1NktzYi9oSzNrcEZMVFdLNVBOdTdibCsrZEpLODh1OFRC?=
+ =?utf-8?B?bTR0ZWdjQUIrUG00RWY3RlVvbk5penVzcHhCRHhjK0toNVg0REtkUUxkMDFV?=
+ =?utf-8?Q?L59A5Dy8QtG7blRtpA=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW4PR11MB7056.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(1800799024)(376014)(366016)(921020); DIR:OUT; SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bXlvaEs1YXMzRXNrUEVmQTJ0K21lTzBNT2VvSmZxc1RnZzkxNmFXdkFaSGlB?=
+ =?utf-8?B?ZEdsNDlXNU5tVWV2YzQ4b3FUdU4wdnkwSWRCYTdzR0VJdWFLNndpNnlRZGxh?=
+ =?utf-8?B?Tkoycy96UEpVcmVlbTBqTU1aMmNqV21yVUdQUXlBUHdPNHNnTi94YitFWnRI?=
+ =?utf-8?B?SjB2Um9WT1F2a3BPV2szZ2MyUFB0aDlNdUdlckszQ0FxcVV4UzBYdnRaME9m?=
+ =?utf-8?B?eitNWlpYcjhGUXlrMjUwNUpVc3Vmbm5Ya09CWUwzZTN2T2JjcjlNc1lxN3l0?=
+ =?utf-8?B?OGdIem9LK05OWlc3cHdxNlAvSE5GdmN6WHNSUndtYlhDSFZSUGhteSs2NG00?=
+ =?utf-8?B?dWgvaDJHWW1xbnZabm9OKzE2dE5hY2RoWEFEcllTT3lqVGZqcGthbG0rbDNl?=
+ =?utf-8?B?czZHSVdHdXBPa250a1ZKblduSTZhQzNYK2VPZEFzSERORzR5dXdObmxxZHR2?=
+ =?utf-8?B?U0ZwYWFiL1FIaCtZblFJL2FuR3BTd1NxempnR2V1MndaYmJKNUphMUJtTFFO?=
+ =?utf-8?B?THhRSDhBWTdQck1WNG0vWURWMG9idWFpNzU2Yzd5d2pZTzJlMEpTQlRMRDQ0?=
+ =?utf-8?B?Z2owdW8wM3RKSjVSVW5Zb2lzOUkwUW5IejJ2T2lqSlFQeFYyNkFWK0NkSXFm?=
+ =?utf-8?B?OW40TU9EOTFDZUxES3FTRWJWMGVsUG9qa01xblhpUVF5WmRBVlR0QnNhTisy?=
+ =?utf-8?B?NXZiWFNYRmJjd2NRQ0Z6cS9wYWNVSEt2SG0yaEdLdm5hTjJUNFhuUFZRdkw5?=
+ =?utf-8?B?SkpCM3I1bDI4SXI4Ym1lR2JpenFRM3E1bGlYRUlGdXJrTU1mTXJ2VEU5SnlF?=
+ =?utf-8?B?a3RJSTdtTWwzdEpBOCtHbXYvU3V6WlRuaDd6TzJmMWlVTjUrc1d0dlZ3OWZP?=
+ =?utf-8?B?aGRVeE5aWDF4MU1BQ3FLQnJNYmNpaW93TlhnTTI0THVvQnBZMVJ6TnM3ODhS?=
+ =?utf-8?B?NVlITWZpR2llVSt4WU55TW5TeHF2NG9QSk9Ic1IwN2NNVUMxVVpyNk9xWUtH?=
+ =?utf-8?B?bmp4a21WVUF4eWpObUhVeERqdyt6MXgyZ2E4VDhDbThadVJDOTRPZVlWQ0Vs?=
+ =?utf-8?B?bFYydVRFSEVubC9neHpSOW84QWlhTE5MVU80NHQ5R3JoL084a01ZU1lmbEpt?=
+ =?utf-8?B?NlZZelhVOTVKQmxrNUhuSE0vTWd2emdsZ05ZdWw0cWxsU2t6ZmhXMVVYZGdq?=
+ =?utf-8?B?VEdhcDhlS1hsOTVZY1pJaHUweDlMWEtYWDFqeUdCTCt0eWtJZGNNT2xLcnhq?=
+ =?utf-8?B?UmREZWtJOC9DNE5WMW9vaU1jV1cxL0NvdmJNVStDbnkrdkR5YU81VnN5ZXVX?=
+ =?utf-8?B?MnFibFRQZ2pFVE9XS3RvV0xVbHpHbm9hVU9GY2N6d1F6Wnp0elpiSVZLSk9p?=
+ =?utf-8?B?QWZ0OHNNSE5HaHZ0V1VnSFJhTFZscDBxaFQ0dG9TYXJSckxUMmNJU3RNc2wr?=
+ =?utf-8?B?eXdKN0VOUG42dUVobnZlZWdidUlBNklaZnpTQ3g1ZFJQc3M5MWhuYlFNelVC?=
+ =?utf-8?B?eWxGNXoyZmNFaDFzZzVrT09lTkJ6R0ZIMFBMRmFaWU5xV1RFNS9nVkJSM01j?=
+ =?utf-8?B?WlhPWFFQem5IYnArNlg2OWhkNFlkTEZXODROdXF2VG5zZEZGODFwRXRSKzJm?=
+ =?utf-8?B?T01vMGt1OFpvZTFZdUhYcFd1eFZ2RXkyYTk5em84RnZyQ2NoMElZUFIyRkRx?=
+ =?utf-8?B?REFqcGpmUVM4OWdSKzFpVHlabU9QMmxJdVhXbnBGNTU1SUFUM1ZuaUVrb1Z5?=
+ =?utf-8?B?b3d3YWhMYWkwdmluRk1KeVFiUFFJc2x6Z3hrMytsdmNqcm5icGI3VUQ3cjdw?=
+ =?utf-8?B?OUxZTmMwWVFhNEQ5cEcrcWVTRjZUQkIzcGxCUU0rVDhHOTl6N3B2M2ViSTMv?=
+ =?utf-8?B?U2NJbzlYZzJUVmpmR0FEMUFvbXVSZTBUa3VEcCtnYkZIUTFTOUw1bnBpMzVM?=
+ =?utf-8?B?TjFOb1pnRk4vRk0ya04wNlR4Szd6NEx5ZG1CYnEraEk4UTJPek1zMHZuOHRU?=
+ =?utf-8?B?YVZaTWYrdTV6SThnR09lZm9lYUFjTTZoblJRd1NrbTRiU3FYcWEwOFpob05o?=
+ =?utf-8?B?Mk1acmV6OGo4RElPSTRSdW81aWZlNlNtSmNJSUhQOFltMHdxNld5ZDVYUm9a?=
+ =?utf-8?B?aktVQWJKL0tPYzZqa3l2QkoxVXZ1ei9uZ3UrUFdYSnFLZ2tCbDcrLzRBYmkz?=
+ =?utf-8?Q?/ovJjTTCKNDTKPmmS6g1jwo=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4e03a6a6-ef15-415e-dcb7-08dd08565e59
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR11MB7056.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: eac9ef16-4c41-481c-e751-08dd087033b2
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Nov 2024 08:00:15.2897 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: jMUXOha1N4LvBDSmLOfDj3Amg0RXLCaNc6GWl/IKiruKDp1b8gePVratFiO9cLp1v7GDegz5OjQlwQUbYg94TA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6969
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2024 04:55:20.3042 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: LCyeTqEeV68jWg3jy29+Z04QFk4PViLhUk+4Az92ngNTICD5VBlVUDIcMGhg1hh1ffOeplcJCwF9KGeZkIub6t9vrIpQ2oGwsO4qjz+Vg+M=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR11MB6430
+X-OriginatorOrg: intel.com
+X-Mailman-Approved-At: Tue, 19 Nov 2024 08:19:19 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,195 +202,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - AMD Internal Distribution Only]
 
-Series is
 
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+On 15-11-2024 10:37, Raag Jadav wrote:
+> This was previously attempted as xe specific reset uevent but dropped
+> in commit 77a0d4d1cea2 ("drm/xe/uapi: Remove reset uevent for now")
+> as part of refactoring.
+> 
+> Now that we have device wedged event provided by DRM core, make use
+> of it and support both driver rebind and bus-reset based recovery.
+> With this in place userspace will be notified of wedged device, on
+> the basis of which, userspace may take respective action to recover
+> the device.
+> 
+> $ udevadm monitor --property --kernel
+> monitor will print the received events for:
+> KERNEL - the kernel uevent
+> 
+> KERNEL[265.802982] change   /devices/pci0000:00/0000:00:01.0/0000:01:00.0/0000:02:01.0/0000:03:00.0/drm/card0 (drm)
+> ACTION=change
+> DEVPATH=/devices/pci0000:00/0000:00:01.0/0000:01:00.0/0000:02:01.0/0000:03:00.0/drm/card0
+> SUBSYSTEM=drm
+> WEDGED=rebind,bus-reset
+> DEVNAME=/dev/dri/card0
+> DEVTYPE=drm_minor
+> SEQNUM=5208
+> MAJOR=226
+> MINOR=0
 
-Regards,
-Hawking
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Tao Zhou
-Sent: Tuesday, November 19, 2024 14:36
-To: amd-gfx@lists.freedesktop.org
-Cc: Zhou1, Tao <Tao.Zhou1@amd.com>
-Subject: [PATCH 01/21] drm/amdgpu: simplify RAS page retirement in one memo=
-ry row
 
-Take R13 and column bits as a whole for UMC v12.
+The patch in itself looks good. Do we have IGT tests in place to 
+validate this uevent ?
 
-Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/umc_v12_0.c | 57 +++++++++++---------------  dr=
-ivers/gpu/drm/amd/amdgpu/umc_v12_0.h |  1 +
- 2 files changed, 24 insertions(+), 34 deletions(-)
+BR
+Himal
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/umc_v12_0.c
-index 1a8ea834efa6..8939b4f1fb49 100644
---- a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
-@@ -177,7 +177,7 @@ static void umc_v12_0_convert_error_address(struct amdg=
-pu_device *adev,
-                                        struct ras_err_data *err_data,
-                                        struct ta_ras_query_address_input *=
-addr_in)  {
--       uint32_t col, row, row_xor, bank, channel_index;
-+       uint32_t col, row, bank, channel_index;
-        uint64_t soc_pa, retired_page, column, err_addr;
-        struct ta_ras_query_address_output addr_out;
-
-@@ -195,31 +195,27 @@ static void umc_v12_0_convert_error_address(struct am=
-dgpu_device *adev,
-        channel_index =3D addr_out.pa.channel_idx;
-
-        col =3D (err_addr >> 1) & 0x1fULL;
--       row =3D (err_addr >> 10) & 0x3fffULL;
--       row_xor =3D row ^ (0x1ULL << 13);
-        /* clear [C3 C2] in soc physical address */
-        soc_pa &=3D ~(0x3ULL << UMC_V12_0_PA_C2_BIT);
-        /* clear [C4] in soc physical address */
-        soc_pa &=3D ~(0x1ULL << UMC_V12_0_PA_C4_BIT);
-+       /* clear [R13] in soc physical address */
-+       soc_pa &=3D ~(0x1ULL << UMC_V12_0_PA_R13_BIT);
-
--       /* loop for all possibilities of [C4 C3 C2] */
--       for (column =3D 0; column < UMC_V12_0_NA_MAP_PA_NUM; column++) {
-+       /* loop for all possibilities of [R13 C4 C3 C2] */
-+       for (column =3D 0; column < UMC_V12_0_BAD_PAGE_NUM_PER_CHANNEL;
-+column++) {
-                retired_page =3D soc_pa | ((column & 0x3) << UMC_V12_0_PA_C=
-2_BIT);
-                retired_page |=3D (((column & 0x4) >> 2) << UMC_V12_0_PA_C4=
-_BIT);
-+               retired_page |=3D (((column & 0x8) >> 3) << UMC_V12_0_PA_R1=
-3_BIT);
-+
-                /* include column bit 0 and 1 */
-                col &=3D 0x3;
-                col |=3D (column << 2);
--               dev_info(adev->dev,
--                       "Error Address(PA):0x%-10llx Row:0x%-4x Col:0x%-2x =
-Bank:0x%x Channel:0x%x\n",
--                       retired_page, row, col, bank, channel_index);
--               amdgpu_umc_fill_error_record(err_data, err_addr,
--                       retired_page, channel_index, addr_in->ma.umc_inst);
-+               row =3D (retired_page >> UMC_V12_0_PA_R0_BIT) & 0x3fffULL;
-
--               /* shift R13 bit */
--               retired_page ^=3D (0x1ULL << UMC_V12_0_PA_R13_BIT);
-                dev_info(adev->dev,
-                        "Error Address(PA):0x%-10llx Row:0x%-4x Col:0x%-2x =
-Bank:0x%x Channel:0x%x\n",
--                       retired_page, row_xor, col, bank, channel_index);
-+                       retired_page, row, col, bank, channel_index);
-                amdgpu_umc_fill_error_record(err_data, err_addr,
-                        retired_page, channel_index, addr_in->ma.umc_inst);
-        }
-@@ -229,7 +225,7 @@ static void umc_v12_0_dump_addr_info(struct amdgpu_devi=
-ce *adev,
-                                struct ta_ras_query_address_output *addr_ou=
-t,
-                                uint64_t err_addr)
- {
--       uint32_t col, row, row_xor, bank, channel_index;
-+       uint32_t col, row, bank, channel_index;
-        uint64_t soc_pa, retired_page, column;
-
-        soc_pa =3D addr_out->pa.pa;
-@@ -237,29 +233,27 @@ static void umc_v12_0_dump_addr_info(struct amdgpu_de=
-vice *adev,
-        channel_index =3D addr_out->pa.channel_idx;
-
-        col =3D (err_addr >> 1) & 0x1fULL;
--       row =3D (err_addr >> 10) & 0x3fffULL;
--       row_xor =3D row ^ (0x1ULL << 13);
-        /* clear [C3 C2] in soc physical address */
-        soc_pa &=3D ~(0x3ULL << UMC_V12_0_PA_C2_BIT);
-        /* clear [C4] in soc physical address */
-        soc_pa &=3D ~(0x1ULL << UMC_V12_0_PA_C4_BIT);
-+       /* clear [R13] in soc physical address */
-+       soc_pa &=3D ~(0x1ULL << UMC_V12_0_PA_R13_BIT);
-
--       /* loop for all possibilities of [C4 C3 C2] */
--       for (column =3D 0; column < UMC_V12_0_NA_MAP_PA_NUM; column++) {
-+       /* loop for all possibilities of [R13 C4 C3 C2] */
-+       for (column =3D 0; column < UMC_V12_0_BAD_PAGE_NUM_PER_CHANNEL;
-+column++) {
-                retired_page =3D soc_pa | ((column & 0x3) << UMC_V12_0_PA_C=
-2_BIT);
-                retired_page |=3D (((column & 0x4) >> 2) << UMC_V12_0_PA_C4=
-_BIT);
-+               retired_page |=3D (((column & 0x8) >> 3) << UMC_V12_0_PA_R1=
-3_BIT);
-+
-                /* include column bit 0 and 1 */
-                col &=3D 0x3;
--               col |=3D (column << 2);
--               dev_info(adev->dev,
--                       "Error Address(PA):0x%-10llx Row:0x%-4x Col:0x%-2x =
-Bank:0x%x Channel:0x%x\n",
--                       retired_page, row, col, bank, channel_index);
-+               col |=3D ((column & 0x7) << 2);
-+               row =3D (retired_page >> UMC_V12_0_PA_R0_BIT) & 0x3fffULL;
-
--               /* shift R13 bit */
--               retired_page ^=3D (0x1ULL << UMC_V12_0_PA_R13_BIT);
-                dev_info(adev->dev,
-                        "Error Address(PA):0x%-10llx Row:0x%-4x Col:0x%-2x =
-Bank:0x%x Channel:0x%x\n",
--                       retired_page, row_xor, col, bank, channel_index);
-+                       retired_page, row, col, bank, channel_index);
-        }
- }
-
-@@ -274,23 +268,18 @@ static int umc_v12_0_lookup_bad_pages_in_a_row(struct=
- amdgpu_device *adev,
-        soc_pa &=3D ~(0x3ULL << UMC_V12_0_PA_C2_BIT);
-        /* clear [C4] in soc physical address */
-        soc_pa &=3D ~(0x1ULL << UMC_V12_0_PA_C4_BIT);
-+       /* clear [R13] in soc physical address */
-+       soc_pa &=3D ~(0x1ULL << UMC_V12_0_PA_R13_BIT);
-
-        /* loop for all possibilities of [C4 C3 C2] */
--       for (column =3D 0; column < UMC_V12_0_NA_MAP_PA_NUM; column++) {
-+       for (column =3D 0; column < UMC_V12_0_BAD_PAGE_NUM_PER_CHANNEL;
-+column++) {
-                retired_page =3D soc_pa | ((column & 0x3) << UMC_V12_0_PA_C=
-2_BIT);
-                retired_page |=3D (((column & 0x4) >> 2) << UMC_V12_0_PA_C4=
-_BIT);
-+               retired_page |=3D (((column & 0x8) >> 3) << UMC_V12_0_PA_R1=
-3_BIT);
-
-                if (pos >=3D len)
-                        return 0;
-                pfns[pos++] =3D retired_page >> AMDGPU_GPU_PAGE_SHIFT;
--
--               /* shift R13 bit */
--               retired_page ^=3D (0x1ULL << UMC_V12_0_PA_R13_BIT);
--
--               if (pos >=3D len)
--                       return 0;
--               pfns[pos++] =3D retired_page >> AMDGPU_GPU_PAGE_SHIFT;
--
-        }
-
-        return pos;
-diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.h b/drivers/gpu/drm/amd/a=
-mdgpu/umc_v12_0.h
-index be5598d76c1d..dea42810fc53 100644
---- a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.h
-+++ b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.h
-@@ -60,6 +60,7 @@
- #define UMC_V12_0_PA_C2_BIT 15
- #define UMC_V12_0_PA_C4_BIT 21
- /* row bits in SOC physical address */
-+#define UMC_V12_0_PA_R0_BIT 22
- #define UMC_V12_0_PA_R13_BIT 35
-
- #define MCA_UMC_HWID_V12_0     0x96
---
-2.34.1
+> 
+> v2: Change authorship to Himal (Aravind)
+>      Add uevent for all device wedged cases (Aravind)
+> v3: Generic re-implementation in DRM subsystem (Lucas)
+> v4: Change authorship to Raag (Aravind)
+> 
+> Signed-off-by: Raag Jadav <raag.jadav@intel.com>
+> ---
+>   drivers/gpu/drm/xe/xe_device.c | 9 +++++++--
+>   1 file changed, 7 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_device.c
+> index 0e2dd691bdae..5878b331e35c 100644
+> --- a/drivers/gpu/drm/xe/xe_device.c
+> +++ b/drivers/gpu/drm/xe/xe_device.c
+> @@ -989,11 +989,12 @@ static void xe_device_wedged_fini(struct drm_device *drm, void *arg)
+>    * xe_device_declare_wedged - Declare device wedged
+>    * @xe: xe device instance
+>    *
+> - * This is a final state that can only be cleared with a mudule
+> + * This is a final state that can only be cleared with a module
+>    * re-probe (unbind + bind).
+>    * In this state every IOCTL will be blocked so the GT cannot be used.
+>    * In general it will be called upon any critical error such as gt reset
+> - * failure or guc loading failure.
+> + * failure or guc loading failure. Userspace will be notified of this state
+> + * by a DRM uevent.
+>    * If xe.wedged module parameter is set to 2, this function will be called
+>    * on every single execution timeout (a.k.a. GPU hang) right after devcoredump
+>    * snapshot capture. In this mode, GT reset won't be attempted so the state of
+> @@ -1023,6 +1024,10 @@ void xe_device_declare_wedged(struct xe_device *xe)
+>   			"IOCTLs and executions are blocked. Only a rebind may clear the failure\n"
+>   			"Please file a _new_ bug report at https://gitlab.freedesktop.org/drm/xe/kernel/issues/new\n",
+>   			dev_name(xe->drm.dev));
+> +
+> +		/* Notify userspace of wedged device */
+> +		drm_dev_wedged_event(&xe->drm,
+> +				     DRM_WEDGE_RECOVERY_REBIND | DRM_WEDGE_RECOVERY_BUS_RESET);
+>   	}
+>   
+>   	for_each_gt(gt, xe, id)
 
