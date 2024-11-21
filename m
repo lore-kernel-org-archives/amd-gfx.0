@@ -4,62 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7715DD75E22
-	for <amd-gfx@archiver.kernel.org>; Fri, 22 Nov 2024 10:31:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E23ED75E24
+	for <amd-gfx@archiver.kernel.org>; Fri, 22 Nov 2024 10:31:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BBE9810EB4A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC33C10EB48;
 	Fri, 22 Nov 2024 10:31:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="JAQKhnad";
+	dkim=pass (2048-bit key; unprotected) header.d=johnrowley.me header.i=@johnrowley.me header.b="nuehN1SE";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 67FF010E21D;
- Fri, 22 Nov 2024 09:25:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1732267558; x=1763803558;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=yw4x0hQe3k9KPm6YYncbQCpHw7cJuBKLSWGSHbEBsHs=;
- b=JAQKhnadGmqZPSGQhXwPJAUvXpxCMEKI8VyULRWm72J/zwqHdwdx6AaQ
- 5QRMeuMv5pVJiuQr9YwWCOSTZY5gqRJrSEzfdd7D+71MTLY+pxGrL4bX5
- 8/aOjDh8OBVvJd0vqxGGcaQfDvDzuxCueZWz1jlRgnuz8pJgbsAMdxo1R
- pJRp0dSNJZwnPvkr6r2JUfDS6GKtM0as9xxD/h9VSa5VebQvqABcNWxlb
- ErDDEB2HXRxt3nd6xmtKJoikqDwQ0Byx6Wz5G3XK5AzgjKHEvR+9+m/ze
- XqmURx/MQxmtTK+aKf8NJQqEiGP02olw4RJXcccsRFA8CEAiX7r8geuYJ A==;
-X-CSE-ConnectionGUID: isWgrgSsRr+KJmlH5+PP6A==
-X-CSE-MsgGUID: bBnTWqO+T9SRWtrE7oyxkg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11263"; a="57817075"
-X-IronPort-AV: E=Sophos;i="6.12,175,1728975600"; d="scan'208";a="57817075"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Nov 2024 01:25:57 -0800
-X-CSE-ConnectionGUID: iRs4PElvSq27OQWPHXMhZQ==
-X-CSE-MsgGUID: ssuPJiiZQxW13OWSVi9r9Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,175,1728975600"; d="scan'208";a="95610690"
-Received: from jkrzyszt-mobl2.ger.corp.intel.com (HELO localhost)
- ([10.245.246.157])
- by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Nov 2024 01:25:53 -0800
-From: Jani Nikula <jani.nikula@intel.com>
-To: "Zuo, Jerry" <Jerry.Zuo@amd.com>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "intel-gfx@lists.freedesktop.org"
- <intel-gfx@lists.freedesktop.org>, "lyude@redhat.com" <lyude@redhat.com>,
- "imre.deak@intel.com" <imre.deak@intel.com>, "simona@ffwll.ch"
- <simona@ffwll.ch>
-Cc: "Wentland, Harry" <Harry.Wentland@amd.com>, "Siqueira, Rodrigo"
- <Rodrigo.Siqueira@amd.com>, "Lin, Wayne" <Wayne.Lin@amd.com>
-Subject: RE: [PATCH v4 0/2] Refactor MST DSC Determination Policy
-In-Reply-To: <IA1PR12MB90631D65960DEFFCE3CFD4C0E5222@IA1PR12MB9063.namprd12.prod.outlook.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20241108174439.141418-1-Jerry.Zuo@amd.com>
- <IA1PR12MB90631D65960DEFFCE3CFD4C0E5222@IA1PR12MB9063.namprd12.prod.outlook.com>
-Date: Fri, 22 Nov 2024 11:25:46 +0200
-Message-ID: <87jzcvzkkl.fsf@intel.com>
+X-Greylist: delayed 475 seconds by postgrey-1.36 at gabe;
+ Thu, 21 Nov 2024 15:16:12 UTC
+Received: from mail.vapourmail.eu (mail.vapourmail.eu [5.75.183.223])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8471310E991
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 Nov 2024 15:16:12 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 18412C3AF6; Thu, 21 Nov 2024 15:08:12 +0000 (GMT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=johnrowley.me;
+ s=dkim; t=1732201694;
+ h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=4sMVi/TNiWhag813YO8ZoSVoCYOYc7/uQrNIYwegqEo=;
+ b=nuehN1SEgk2FBDqWHj/LfphI6/n78HVMTzQqXzjGJrZ4Uai35+UC+Mshf0D49boWB55T1r
+ SyolmvUMZXMy4LorcjVW3FzY8g7oZKwbuKyVAh0615oimmc3KfzRp3XApK9MGBz0U36V0X
+ 5xfES/a/jnpTcLLZtWXWIqIkkAjgnqJYZj4HO7Y1hYgTJdaZkYPk7cNgOQr8/EvUyvikeE
+ 1XPLCgpaHGT3WoZhjwVhByxE/OJ6qFFCKL6pmWPiFRMpdGFBJre2rQLmoB+r9vX8kS+KOx
+ 19A1XQkqoZNdqd4Gc8271hniFgCGhuS3nkRCBcsZe3U4eeEkiNMR2iCnhiJG5A==
+Message-ID: <fe8a0485-4a6c-4676-bcb7-ff32e67f5dfe@johnrowley.me>
+Date: Thu, 21 Nov 2024 15:08:00 +0000
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [REGRESSION][BISECTED] 58a261bfc967: choppy GPU performance
+To: Mario Limonciello <mario.limonciello@amd.com>, Leo Li
+ <sunpeng.li@amd.com>, Hamza Mahfooz <hamza.mahfooz@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
+ regressions@lists.linux.dev
+References: <9b80e957-f20a-4bd7-a40b-2b5f1decf5a4@johnrowley.me>
+ <925cd47c-8f1e-4b74-aeff-6d13ae5f0753@johnrowley.me>
+ <95c575a3-100c-4808-b451-b92f14598188@amd.com>
+ <836c2c82-4dfe-40f4-8d50-5e7bff04c38c@johnrowley.me>
+ <7ed81635-3872-463c-94e5-e4972da9d014@amd.com>
+ <bcc97e4e-ffe0-47a7-bd29-c993e5404a33@amd.com>
+ <9c562132-64a0-41f5-80ad-8492d1039692@amd.com>
+ <3c0dfd3a-9549-4afa-94b6-80041f498436@johnrowley.me>
+ <25eed927-fe69-4005-8c0d-c5f3052e662e@amd.com>
+ <92af8678-2b45-409e-82d1-f273fe907a36@johnrowley.me>
+From: John Rowley <lkml@johnrowley.me>
+In-Reply-To: <92af8678-2b45-409e-82d1-f273fe907a36@johnrowley.me>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 X-Mailman-Approved-At: Fri, 22 Nov 2024 10:31:40 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -75,77 +69,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 21 Nov 2024, "Zuo, Jerry" <Jerry.Zuo@amd.com> wrote:
-> [AMD Official Use Only - AMD Internal Distribution Only]
->
-> Hi Lyude, Jani, Imre, Simona:
->
->      Please kindly review the patch series at your convenient
->      time. Thanks.
-
-There's still way too much going on in one patch. It's too hard to do
-proper detailed review on this. I don't have that kind of time to spend.
-
-If you were to get a regression report on this maybe a year down the
-line when it hits major distros, what are your chances of pinpointing
-what went wrong? What are your chances of quickly debugging and fixing
-it? I'm thinking slim.
-
-MST is too complicated to trap ourselves in that scenario.
-
-Please find a way to do incremental refactoring first to support your
-functional changes.
-
-BR,
-Jani.
-
-
->
-> Regards,
-> Jerry
->
->> -----Original Message-----
->> From: Fangzhi Zuo <Jerry.Zuo@amd.com>
->> Sent: Friday, November 8, 2024 12:42 PM
->> To: dri-devel@lists.freedesktop.org; amd-gfx@lists.freedesktop.org; intel-
->> gfx@lists.freedesktop.org; lyude@redhat.com; jani.nikula@intel.com;
->> imre.deak@intel.com; simona@ffwll.ch; Lin, Wayne <Wayne.Lin@amd.com>
->> Cc: Wentland, Harry <Harry.Wentland@amd.com>; Siqueira, Rodrigo
->> <Rodrigo.Siqueira@amd.com>; Zuo, Jerry <Jerry.Zuo@amd.com>
->> Subject: [PATCH v4 0/2] Refactor MST DSC Determination Policy
+John Rowley wrote:
+> The attached patch seems to improve rendering performance a lot; animations and desktop performance are generally smoother again.
+> 
+> But it doesn't seem 100%, e.g. if I let the laptop idle for 10 secs before interacting with the touchpad, the desktop cursor seems to stick in-place for 100-200ms or so, before becoming responsive again.
+> 
+> This 'sticking' problem doesn't seem to occur with PSR disabled.
+> 
+> My testing isn't exactly scientifically sound I'm afraid, if there's a better test or benchmark I can run, please let me know.
+> 
+> On 01/10/2024 22:16, Mario Limonciello wrote:
+>> On 10/1/2024 16:14, John Rowley wrote:
+>>> Disabling PSR as per Leo's reply seems to have done the trick!
+>>>
+>>> Stock 6.12-rc1 (without revert): BROKEN
+>>>
+>>>      /sys/kernel/debug/dri/0000:c1:00.0/eDP-1/psr_state:
+>>>      6
+>>>
+>>>      /sys/kernel/debug/dri/0000:c1:00.0/eDP-1/psr_capability:
+>>>      Sink support: yes [0x03]
+>>>      Driver support: yes
+>>>
+>>> With amdgpu.dcdebugmask=0x800: BROKEN
+>>>
+>>> With amdgpu.dcdebugmask=0x10: FIXED! Performance is as it was on 6.11.
+>>>
+>>>      /sys/kernel/debug/dri/0000:c1:00.0/eDP-1/psr_state:
+>>>      0
+>>>
+>>>      /sys/kernel/debug/dri/0000:c1:00.0/eDP-1/psr_capability:
+>>>      Sink support: yes [0x03]
+>>>      Driver support: no [0xffffffff]
+>>>
+>>> I have the older Framework 13 panel (BOE 0x0BCA, 2256x1504 @ 59.999 Hz) so I assume PSR isn't supported according to Mario, yet psr_{state,capability} above seem to indicate otherwise?
+>>>
 >>
->> The patch series is to refactor existing dsc determination policy for dsc
->> decompression and dsc passthrough given a mst output port.
+>> PSR and Replay are two different things.  But from your above analysis it does confirm it's a PSR issue.
 >>
->> Original routine was written based on different peer device types which is not
->> accurate and shows difficulty when expanding support of products that do not fully
->> comply with DP specs.
+>> There's a patch that Hamza attached to https://gitlab.freedesktop.org/drm/amd/-/issues/3658.
 >>
->> To make the routine more accurate and generic, the series includes below changes:
->> 1. Refactor MST DSC determination policy solely based on
->>    topology connection status and dsc dpcd capability info.
->> 2. Dependency changes required for each vendor due to interface change.
+>> Can you try that?
 >>
->> v2: split original single patch into two
->> v3: rebase against the latest code
->> v4: fix a ci issue
->>
->> Fangzhi Zuo (2):
->>   drm/display/dsc: Refactor DRM MST DSC Determination Policy
->>   drm/display/dsc: MST DSC Interface Change
->>
->>  .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c |   2 +-
->>  .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |  20 +-
->>  .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  28 +-
->>  drivers/gpu/drm/display/drm_dp_mst_topology.c | 261 ++++++++----------
->>  drivers/gpu/drm/i915/display/intel_dp.c       |   2 +-
->>  drivers/gpu/drm/i915/display/intel_dp_mst.c   |   3 +-
->>  include/drm/display/drm_dp_mst_helper.h       |   9 +-
->>  7 files changed, 147 insertions(+), 178 deletions(-)
->>
->> --
->> 2.43.0
->
+>> Thanks,
 
--- 
-Jani Nikula, Intel
+Hi,
+
+Has there been any movement with this? I's still experiencing performance issues on 6.12.
+
+The previously mentioned patch does not fix the issue, only adding 'amdgpu.dcdebugmask=0x10' to the kernel cmdline does.
+
+FYI I'm running upstream kernel on an AMD Framework 13" (AMD Ryzen 7 7840U w/ Radeon  780M Graphics).
+
+Thanks.
+
