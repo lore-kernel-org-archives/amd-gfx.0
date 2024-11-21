@@ -4,145 +4,147 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5DB5D75BB0
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 Nov 2024 04:30:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD74AD75BBA
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 Nov 2024 04:59:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5819C10E85F;
-	Thu, 21 Nov 2024 04:30:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62C4110E037;
+	Thu, 21 Nov 2024 04:59:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="dhX2J0wC";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Keyr5XWJ";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2060.outbound.protection.outlook.com [40.107.220.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0293410E85F
- for <amd-gfx@lists.freedesktop.org>; Thu, 21 Nov 2024 04:30:19 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2071.outbound.protection.outlook.com [40.107.100.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5075F10E037
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 Nov 2024 04:58:59 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QEZ0ZojnDb4X2rvRDQ74SQtrQv6JjCJ4Ni9D6BUNV4o2PulVCRgaP0PimTLV8Lbkqpty6HSuqQsG5/J9/6TjuswGK/cOEy6I9tIIO2arPVnvzNZQyD7ZlsWtqGImsnVNyxLklEJ7AmoMesoCWohXVdZzxE/EnriHXkO/2+RYLlWYH58YlUkmOvcj6m2eHWk/Nv8iN4Cdco3xo9DYZU9Es+bo9pRU2lJkMvHOd5cJO+R8QjS/xZy8lJHwlWnCI/LLryvTG1kIepKh05Caac0z+ndfC+MHtiF2bfZpwDnAOlckrm2tSqUi8BQGxVUruDQzzOUIF2r3xxYPShB7FG7GdQ==
+ b=FM4KNHjoIAgwUdZrOjgFxhVFBeflV5EEb9EQnBjSUVXKx5d3rofxXDUWy9hx40iEPtlIyiqPqCbtikOh2oD+88VHcMTqI0603hmpwL7mtFV92TecL81EwQmgc3ZLYtmIIIHnhXcguXQg0QzUXv6d9+D5rCz/Nj+SX0bn5YTLPhyLAk/jntwK6YtZKwMmTGmO9BxA4Cpn7cSQZqsxfuuL9SzecivLZwjvk73lOGpaqymfxMLq36MREzshs5PtDELM6bU+/mIgILYA7ja9+32DnlJOwZ9AWdTxip59X1f21H/9g3Rne4jkfSggJ1CgOsSynVWqo/QVu3a3yXRl/YwWOA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WRAEs419l8loXHiMo9svEJP/hI6GcaZrTGFsoHqoP0k=;
- b=qMMAqbW4S0SADVxXU90ZCMWygJ6XVJ8v7ubzaMmuyOycy5SYEeHz3UAG3yKB9BgHy2VjQZbuoEa1BH6nKrJAgZue+ZvjGcJvmojJOg33ld+VxwSJigNlED/93+YSWHd9q1hWiEiDbnmlz89gPon6hxpWZDXuJxnQhegbA32iL7Oy8YGFLkwCbuzaDT2C4qPbxa8Tfb3xgzAQCWQ5HVqQvvKR3+mBQII1ulc2QIqs9xsGq/+lqKHgyvbGAtn4dirYKyw+UEbKwAA2DRAjT8q0sBtsGVJMFLrXpSsRAFL7bAJlXEYaW8suRrZ77fmLUnUpKbS8HzLEAeAXNKVLKGmQkQ==
+ bh=zQP+eOUUAQ85bYGram8yxso58ZhZHNT8qJWwEqfi1F8=;
+ b=jCiSI+dX8lLJYYGl4+DayBiruec8Hv9Zfk+Hr5wYtvSDnizeFY9VMoqDO8oQhZgpN+140SR8KE6tmn/lTdD0i48f34Guifki1mQzb1RXdcdV30moHt0Lq0S7hCM6QwpEpU1qAmwhclGBLcG//T38triYG6H9vTXxpHlD9YZbdU1tfMezvF/qiePbC/NuOg3SsFcdgcNu8PhSMY8TER8eWtwq8SznBKcD7aDkZ2ZtWPgXeOoR+vcqwU66bZ18PXGndOi2W9ytox/G24CTrC3XsKp4ey6WIN8HPy1W0HScusAug6Jju8sY7M0O9KRX67Bbto3jYgTu5v7/s+pCLIUkEQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WRAEs419l8loXHiMo9svEJP/hI6GcaZrTGFsoHqoP0k=;
- b=dhX2J0wCVRfWvg87oLwRMINUIIx2/NWXhizkuyRyHBouDq0jRIfiTuwbDU5jxImOJz9vIR3GnkNg3Y620VqZBrroB9OlWk/JJPMVD8shUk8BiyHxkz4nqKhBcQFlrsgwfP3eFrw9Vp9oXkvm/UgH9s1XpYoplsejWa4bjMntUp4=
+ bh=zQP+eOUUAQ85bYGram8yxso58ZhZHNT8qJWwEqfi1F8=;
+ b=Keyr5XWJHgCi0QWFl7UfJNI2VX02R3WFJNpG7j9zEchyeQmy6D7K3NmMV5sUjDrtmlM6fvc7Hy67cLdWVdrGAqBG16CkB9G77lZxs/GLS8g8Kxh+WituQ0IxhWvJb87VAsEbBw7G+k8p5I5XEuW6dBEhKujaZjMxBaaEJETh4s0=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
- SJ2PR12MB9088.namprd12.prod.outlook.com (2603:10b6:a03:565::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8158.23; Thu, 21 Nov
- 2024 04:30:16 +0000
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::8327:d71a:ce21:a290]) by DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::8327:d71a:ce21:a290%7]) with mapi id 15.20.8182.013; Thu, 21 Nov 2024
- 04:30:16 +0000
-Message-ID: <f88d5b7c-94e5-4bfd-af56-0714faf34f2d@amd.com>
-Date: Thu, 21 Nov 2024 10:00:09 +0530
+Received: from DM4PR12MB6566.namprd12.prod.outlook.com (2603:10b6:8:8d::16) by
+ DS0PR12MB6414.namprd12.prod.outlook.com (2603:10b6:8:cd::12) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.8158.23; Thu, 21 Nov 2024 04:58:56 +0000
+Received: from DM4PR12MB6566.namprd12.prod.outlook.com
+ ([fe80::31b:5d31:8ba6:abd7]) by DM4PR12MB6566.namprd12.prod.outlook.com
+ ([fe80::31b:5d31:8ba6:abd7%6]) with mapi id 15.20.8158.023; Thu, 21 Nov 2024
+ 04:58:55 +0000
+Message-ID: <d8884052-8b31-4928-adfe-1f5dd5b09cde@amd.com>
+Date: Wed, 20 Nov 2024 22:58:53 -0600
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/pm: fix and simplify workload handling
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Kenneth Feng <kenneth.feng@amd.com>
-References: <20241120182828.2507700-1-alexander.deucher@amd.com>
-Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20241120182828.2507700-1-alexander.deucher@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PNYP287CA0019.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c01:23d::22) To DS0PR12MB7804.namprd12.prod.outlook.com
- (2603:10b6:8:142::5)
+Subject: Re: [PATCH] drm/amdkfd: Have kfd driver use same PASID values from
+ graphic driver
+To: Felix Kuehling <felix.kuehling@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: christian.koenig@amd.com, jonathan.kim@amd.com
+References: <20241111193323.278768-1-xiaogang.chen@amd.com>
+ <6013a2b2-7e49-49e4-af90-8ea156a9722e@amd.com>
+Content-Language: en-CA
+From: "Chen, Xiaogang" <xiaogang.chen@amd.com>
+In-Reply-To: <6013a2b2-7e49-49e4-af90-8ea156a9722e@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SA0PR11CA0027.namprd11.prod.outlook.com
+ (2603:10b6:806:d3::32) To DM4PR12MB6566.namprd12.prod.outlook.com
+ (2603:10b6:8:8d::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB7804:EE_|SJ2PR12MB9088:EE_
-X-MS-Office365-Filtering-Correlation-Id: eaf103d1-9f25-4687-b657-08dd09e532b5
+X-MS-TrafficTypeDiagnostic: DM4PR12MB6566:EE_|DS0PR12MB6414:EE_
+X-MS-Office365-Filtering-Correlation-Id: c497fe56-9559-491a-569f-08dd09e9337d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?Q05vd1Fnbzg1TUw1cDBaZGM4SFUvcTZMV3k3dHVhc2Z3ZVU2ZldySmhFN0Fq?=
- =?utf-8?B?TlFTMW5aRjlFOURNQ3VPRHoxOWxMR2VmV3ppZ2hvTU9pQXdrYWxxdVpEUER5?=
- =?utf-8?B?RVMrS3lJakVHQ1FNdmoxZnVtdmdFVngwSUpDVlA0OVlqRkxaUVpZWHpvU2pQ?=
- =?utf-8?B?RFhORHBSeTVoRXhYRmtJMGQ3V2J4NjNHQ3JlV0Jscm92eEhjeXFhbHFEK3I2?=
- =?utf-8?B?ZnJ5VDVxUG9GeHpuS1dyU0QvbHA5b0tOeHRTYXo1Qm5DRnRET1orVjVoTGpr?=
- =?utf-8?B?dk9oS1NTYTJRSFkzYjhyRUNsZFc3MVZzNXZ0Uk1QSnk2TGhFYkl6Z1Q3Vm9V?=
- =?utf-8?B?ZzF0bmQ2Ky8vbnFtRzR0L1UvOE02WEdCVDQ3YjY4UGV4cjlBUEZDQitvOWpx?=
- =?utf-8?B?K3ZLQmtOQUk3ZVBGbTJwdi9aYUxtdy9HZngzeXVRSSt0a21pTTZtbFprdE1V?=
- =?utf-8?B?SHoxc0ZUY1Q1U0UzVUtDRTh2Y3Y5QVh3RlhtVnpBQTFLOVhTVSs5NEpheW5K?=
- =?utf-8?B?K2QvcmpuNVYycEkvb2J0REkvS0EzaXhLZ3Z3ajJUSkZDK2xDZDlpa256TjRo?=
- =?utf-8?B?T1FrWjhmc2FHelhieWdaVEpQVXpGWldJNGhtaEJvdjVOV0NRRnVlVEJzK1NV?=
- =?utf-8?B?SW1rUUZSU08rVk5HbXRCcGxFbmNwRE1xOHJDbG5aeWVNSkRPR1cwL2tTQ3lv?=
- =?utf-8?B?cUcyMGMzZUE4emRGOU91Ym1JZTJHS3B6YkRZQnAxSEdLVHc3MlJQRjhGN3R3?=
- =?utf-8?B?dDhSR2Q1NW5zTkVZcEpkUWdwMTZsNmxFL0NRSStoNU9SNFpJNXNoYVpKcVFT?=
- =?utf-8?B?K09VY21JalVCS0hNUXpDSUk1c1pkSDl2anZsSVo5Ti8zejBQV1crZ1VFYVpE?=
- =?utf-8?B?d1hXdnBoT05iM2lTbkdEQ2VwRStmZ0lkNHRYSDVvcHJRUkdldTdjR2VaNkdW?=
- =?utf-8?B?MHBsNHhRSmJTcHdxSEI5R25TL21ybFQ4TkF2MUxyZEcxNzBsMjFBdTUxSm1T?=
- =?utf-8?B?WHdlejNuRFU3a2VBeTNENC9uK096ODk5RXVvUDZEelMrZnFwRzRVTUQ2MCtj?=
- =?utf-8?B?MW5hbE1MemtwWkl1V05NeFlzWUNlSEw3ZlpPRUswNy9ZWG9pUjlVREF4TFdj?=
- =?utf-8?B?VUxNY0Z5aHFFME5LZU0xdW5vSDdOQjRTRU1lYVlBY1hPcG9IVHFQNS9oQ1dw?=
- =?utf-8?B?UUZJcHF4dFg1YWJwL1VDUnEyNGFnNE5GcEFpTEFRd3NIbE1YTm8yY0ZoY0Nr?=
- =?utf-8?B?N3FoRS92Z0ZlWHBGZ1ZBeFlVZ2VDUlNQamxONU1jWnRLUzZwQWM3Q0hVUFFk?=
- =?utf-8?B?R2k2ZmY2UERUcUNLYjBFbEJ6WHhVOEVWZDB2bEthMVhYWUpQR2pId1JNR1I0?=
- =?utf-8?B?Si9sck9rS2F3TGprWHB5dHlzcnhBYVJWWVorWDNQZkhINzhtM1JIcWNWMWE2?=
- =?utf-8?B?TkI2MWRvdnB3TWkzd0NwMEVjNlpsVmxmeXhjaXBTNlA2QWtDVEZ0RlRORklQ?=
- =?utf-8?B?YmtKTDNYdW1iS2ljMzJWdE1LY1ZvR0dKQnhOYXR5N25jRFExaEs0N3lzbitF?=
- =?utf-8?B?cUh5OE1OV2w2MG5TaXVhSHl4dEpDc21KYnUxUHI1bU9TaExMM2dWQWpFNjNO?=
- =?utf-8?B?V20xT1pBQzNoeTJYSkRxZ1BlQ0p2RndGOFlOMjF4a3M0cnlqYnE2V1M5NWll?=
- =?utf-8?B?UFVBRHkreHFsTlRNUy9ZUWVZOFpvSGNqVkRPT2dZaWVNaVNuaXZSRTBVQ3Aw?=
- =?utf-8?Q?L2AzjPCQN2sTEPrBR/jNHk9rwvw8IxrouwFUcec?=
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?WDJqOGdJZDBSb1pYcEFUSS9PREx3UWlGeFJXRGNJdkZWK0dPTDVhdEttRXl0?=
+ =?utf-8?B?NVhkN3JjYnJnVy9TSnpIbTY4c2tHeWkxQVB3bncvV0VDN2RwNTRuOGNqbllo?=
+ =?utf-8?B?YThwVFh5cG5XaGxlUmQ2cGUvZ0x5VVc3ZWlGcWhsTlRuR3Q5b3RxQzFUOEZ3?=
+ =?utf-8?B?K2Y4Qmk5NDVuN1RxcFo0dHBaM0dmNnJlWFdaOGt1UVBkSlpPN2FPSGJ0cG0r?=
+ =?utf-8?B?UytrZ0ZvaWxwc1RyM3AxaTlPMFhpWGhYYkhjTkFrU2dJdkZtdEUvb0ZHa1lm?=
+ =?utf-8?B?SnZrMUJyQnNCRHpFd1lrL2xneVRqakloVFViMmxLUHFwVGFDa1NqY2xRL3k2?=
+ =?utf-8?B?ejEyVXB3VmJldUtyVWJoRElkOVZtTlo2OHVCMTNxQ1B5TjFCL244MEYvYmJO?=
+ =?utf-8?B?eTNRaGlCWk9nZE01eHdBOHowaGNock1yYU9mbjRieXJNNnAzVTl1RlUvZmxJ?=
+ =?utf-8?B?VVdONlM4eXVpZWFUMDJMQUdCeXo5SlJrOFlWTTc5bHlRbXdETGxjendnVUhK?=
+ =?utf-8?B?dklhLzJ1WVdxcExpeDh4Q2ZCOXJMc2w1ZUFGZ3NlLzNBVXh4aysyanRGbTdF?=
+ =?utf-8?B?NURFeHFPVmh6MDZTb2lGbEtGVDdENElWY25MQ0s1VEpybWE0L1Yzc3R0dC9m?=
+ =?utf-8?B?RTQ2TTNpakR4T2NtaDVabWI5MGpZQ1FWK1NPUHhmRGR0OHVNYVJsZ2pNQ0Y1?=
+ =?utf-8?B?NE9RL1VNeitteFRPWFZnTVVoWjg2YXczVjgxUGsyblRIaTVGenRtTnhHS3dL?=
+ =?utf-8?B?ZXU5Z09SRkxmL0NCQkc0SzJMeEJyZFEwNTJkM0lvUjhySlRIZUJkTzltVWZV?=
+ =?utf-8?B?S2ZDMFNMNDFkaHFWZTVHWU45UGpKYjNFNGQxcHFJR3J1QitaQml5RzlXaE5Z?=
+ =?utf-8?B?K2hPcFA2L2pUN0lMdE5tdEJKcndYUzFCRFNKNTNkSkVmUU9aVll5cFc5Vjhw?=
+ =?utf-8?B?WFowT1BHU2U1QzV6QUpPTE1xbjFRemRndkYySXVEMXdWbEp1LytkQkNjdHh6?=
+ =?utf-8?B?YlpFYkd3S2FrY3VXOWlnRW1iZWNNSUVoS1VnOFBHWWtvMXRKbmY2K254S1Qr?=
+ =?utf-8?B?Nk12RzlIb0Y1eVNwaWkrQTR3OHVRaEN6VWhSM2NuWitidVRmQU8zSXY4VFNW?=
+ =?utf-8?B?YWg2YjFEY2ZkRHpGWC9JcjNKaVBlRTVTNHBianc0djlxMkZzVzcxazNldFF0?=
+ =?utf-8?B?YWNsV2VrWm04Yis4eHVVVzlrYVBCN3ZyOXdUZE5rbXhOWnFKSkRrREkvODBN?=
+ =?utf-8?B?UHdNZDNWU2Y2aGhsMWRReGhOZjZhTW1wbjdoSHcwRHVnWTVvdzgvS1E3Q25O?=
+ =?utf-8?B?NU0xNlZsNjNqR215NGNrMTM3U0ppNEE4YVhsSWFhVUJnVlBEMlJLMWhoSXJP?=
+ =?utf-8?B?N2ltOHhzWUlNU1lyVHZ1WHh3M09Ba3FteWdDTVBRTXd3b2xNVXVkZWxybTNX?=
+ =?utf-8?B?YUk2K2NuenZjRFhMekIrc0xwQmM0RHM2L3czQ0xtYUV0TFVhblNqbHBtaTJY?=
+ =?utf-8?B?d3VSVDRaa3hkQ1N2akpUNGtUZEpET0Zhd25jcGtBZnFjR3NVMTNIdGRNOVBH?=
+ =?utf-8?B?ZGNqSWpqSFRsRkxWS0I1ZmlOQldmbXI4aHdBZkpvMWJXVVJIWm4zQWZoOE44?=
+ =?utf-8?B?ME1KZko2RlptMHNJS3hTLzBOd0tON1JBdTFHS3J0SmdzMmVjV1dDbVprcDRs?=
+ =?utf-8?B?d0M5YVZCZWF6TUROdEZBQTNXQ2FGS3UzQ1FQaW1yQnN0YlpOdUFpdTI3UlF1?=
+ =?utf-8?Q?2GcFKzWyrWTnKsmrwZRFanFkeVL3oBejKUKHqvO?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB6566.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(1800799024)(376014)(366016); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NXNmWUowWmZzSEFFb3c4ODU1K3VFM1kya2puTlMwZUhEb2M2T0JwWjhlQjdB?=
- =?utf-8?B?eGZhc1hKMi8vUjZhSWZJS09MVktOaTJZLzNRcW4vTXJOREtZVWJkWWhNRnYv?=
- =?utf-8?B?MnBpWW11ZjA2UDBJdmZLTmdDUzF5elBCM1Y0TW45cno4Nk5QZUI5TkVvZGkw?=
- =?utf-8?B?ZkpCbS9YZlk0Vm5kU2xmKzQyZCsycnBTV2VvSW4xbDBHSmlrVmV2MlZWcW9E?=
- =?utf-8?B?bUU2NXc2MmptVjFGU3E4cHU0OXlaQm51U0xFMUZjTGxBdk1lUUdmR1YvNytS?=
- =?utf-8?B?TVdaM2hjZG9scG1JZEV6VU1YSDhhY0xwZXpadjVIYTIrWjlaT3MwWERDK25M?=
- =?utf-8?B?WjBYTFB5ekhaa3dWeGUrU09JR0EvTEluT0dFSTN1QVhpbFJVYzZpclQxWSsy?=
- =?utf-8?B?TzhxNTVJU1JULzlLeC9jQjFuMlRBQTNEKytFaUxhc0Q0THpsNEVobHd3N21l?=
- =?utf-8?B?UnBjVUhxMFNJU3BnMmJ0ZStXQURldHEvNnFPc091aGNIaUpQbWFrTFZlenRo?=
- =?utf-8?B?S084Vi92NXJORDVLZDhJbllpUVZ5T2FSZHZmdGRtOUtDbkE4V0d0OHNMR3ZL?=
- =?utf-8?B?cHo1SHB6d0NXQVkvRUIyTVZTTGhEdXkvQXNKaG5GSk9rTGJ3TWRDcTlFd2lL?=
- =?utf-8?B?c3lFekdGUVVmZWVaNnl0dm1WUnNGZm1PY3N6NElweGIxRGU0ZC9kMnJSRjA4?=
- =?utf-8?B?V0pxRkRmYTBoS3FBYjRIV2pkWHZqaGFNeXE5V0JxR3dqMVlvTzBSY2tlWUpU?=
- =?utf-8?B?VGxnaVdHcEVsazZrbmVmU29RcDJFWGR0MmhUU1VRUDNyZTBiTlNmN1p1eSty?=
- =?utf-8?B?cDBNYVh2L1czOFkwaExKb29OTjRtTmd2bWt3OVA5OS9MM3lQbDN0UnlqUmtO?=
- =?utf-8?B?OWFSN2VpckI2RWtHUWlVSHNRWEZSeXdRV1o3VzZJMGxMYVNtNWs5Wk1Vemo2?=
- =?utf-8?B?cnlsOTlpYlNZendyclFMdElPcU5ZNnJURExrNDlGVjY0WG10TWF5Qk1hRXhy?=
- =?utf-8?B?ZmdoWU5JVFhDbE4wMCtPR3BSRnRPb09Eb1BlSWhad0RET3dYK09maWtJM09T?=
- =?utf-8?B?dnpYQ0Q2WDIwdmNFR1VIK3Vld1hFMWhHY2lFSFErTWJ6dHJQZ1ExbXVITERl?=
- =?utf-8?B?bnpQVXY1SHZzcVMvZldBakJqdG41WmkzRmFOb1p2VUVKVk1IUTAybkpyM3pj?=
- =?utf-8?B?ZjVtVzBqMkVXdG5XTCtua1FOTG4wY0pTWXdIZ1hPKzJkOXNiWXFFTmk0cmEv?=
- =?utf-8?B?VDgxTjcwWkw0Q21ycnhlVVFxdjZvQkVvaFRYMEo3MVBnMWRGb0NJNmhQTEpK?=
- =?utf-8?B?bVVONFRLSXNmYWw3NS92Qm1ZZVo3bWxETFhsckVkRjhkcG83V1BscUd3ZTV2?=
- =?utf-8?B?WVRsbnpoNzczMlJLYkI0M0ZzOEVxZ3hPM1BrMDJOWk5hV2huV0tuYUx1QXJ1?=
- =?utf-8?B?QWVrZTVmRXYvUlFoZW1qVGhtTExOaFFUckQ5M2xaalNjS1ZLbHFtSFJEdW80?=
- =?utf-8?B?aFFCdGU0a003VGh5ekhPQTZvSEJCM0l6bnBLcEV0T241RnBoRHlpN08vaG04?=
- =?utf-8?B?SVkvZVJtMVdIMG9vanUwZlRzVSs0Z0NKdXpEZ2U0SEtKNk56Qno2dHg1WVFC?=
- =?utf-8?B?S0NDQldpMnFySXJ0bTc5RnBsSDFzRHBweUtHU1l5anhyd3lhMDQveWF0V0x2?=
- =?utf-8?B?d2FmTXZ0ZHpPM3VsNjVxcHE1Rkl6MTZ2T1pHaWZzOFBqUlZiOHU3d0VuUFpN?=
- =?utf-8?B?UzFPRzNxeldwRGhTeHNUNmNqcTFSQW5aaS8vZ1pwZERjcno4aDBzTzNPbzB4?=
- =?utf-8?B?V0RGS3Y5S0tsS2Q4dG9QMXJhQ1o3WVZwSkVzMy9rMmZRK2QvQ0VaK2EwTS9H?=
- =?utf-8?B?THB0K2pLdDl4em85THg0UDZwdmpHMlN3VUFiU2o5YzYxTXFVeW1DeU53NGNQ?=
- =?utf-8?B?eW1sUHllUTFhUlozZ1Y2bmtET2FueE1XbFFjVUVsWTc3VmZ0a2pWdTdvaWlQ?=
- =?utf-8?B?YVE1QmtuUEJTTndGMFl6alJrZG9wUGhxYWhmaXhabEhFZ0tSd29IaVg3bEdJ?=
- =?utf-8?B?cjQ3NTZPVmU2QldwYUVWcEpaS0dFdzVZTE8wR1VwT2hkV2wrcTFlM0VUb0pS?=
- =?utf-8?Q?FQL+pDmr1IilEYRKmB5KPQVn3?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dnQvTjdGeUFZTlRBRXA0VkJYTjlIa2pYL21aRGlESFNMNXVyYkUyaitTdjJn?=
+ =?utf-8?B?cVVFZ3U5TytXL3REQVhPdm9qSXRHN2dOMDNEM202aWs4UHQ3M3NoR1pYemhs?=
+ =?utf-8?B?aXRoZGY0ZkRqaTVMT3FqWXZ4bUpRSmFRMWF2dmFReHFHeGpMZzhNTkFKUW5B?=
+ =?utf-8?B?RTZTK0RLL2hSalNZVU9YbkdrK3NrMjA3b1VnbEJoWlZhYjJjSFRNVmdzQ3Ey?=
+ =?utf-8?B?VVg1aFVtWGdYbDR0ZGdXNFdkNmR0MCt3NlhYbWJGRnk1U0J4TDh5ZW1iVGF2?=
+ =?utf-8?B?cG51WWdud0VnS3R3Uy9HOVJwKzJlSVB2NHhUSVJGeVZaRnB2MFF5UTFpazJn?=
+ =?utf-8?B?cEUwbGdLT2R3UUNhUEVjNnV1UU9TRXV0YmdqZHh1NHh4eWJ5Qi9tU0ZSWmJT?=
+ =?utf-8?B?VVZWVHJyc1V6cDE1bXhTZFA2SFlBRzY3MlNPcWRVeWZFbnkzL1FrSGF4NDA5?=
+ =?utf-8?B?UnBTc011ZFZldW54SUNqMDIwVkZ4UVErL0lwenBoSWVuaGpWTGJMZjduZWt5?=
+ =?utf-8?B?UEkxRWFvZWs0WHQrSUNUeVhxb29renk4Zi90SWQyS0ZvYkJSZkpOSFBGdmoz?=
+ =?utf-8?B?N2ttdUVJc0RzTlZGZ2ltWUdXMmJ4M0tKaWVPV2NBNngyTXhwMlZmNTNZZndt?=
+ =?utf-8?B?N04wNTZMUXhMQ3lCcEZ2aG1SYXF0eEFmTldSRm9XZ29jdzVjdWtVM3Z2Z0po?=
+ =?utf-8?B?c29JRzV4QmY1eUg2d045VmFVWU1GRDRxUnEzemJ2cDdYM1JVS0xPSkh1dnJS?=
+ =?utf-8?B?THI2MjRqN1FpbWlWc29YNDhPdDdUR3ZRSXpVdTRybWxqT21kVVVMajBBaEIx?=
+ =?utf-8?B?ZVl4akJqRURCT2JVbC9CNU9jK1czWi9JcW04MGJiYklJd2d1NkY0bUF4YjNK?=
+ =?utf-8?B?bEJYSDg0cDE4OG5TMmVaakxuNENWbzMvOERIS1FKUUpVZkR4L3VHZVlEWkJZ?=
+ =?utf-8?B?dTVHeXd3TFQ1bnFaUk1nNy9SQW96d0drZHN4dGozZnovMkk2bU1qTFpmWjJt?=
+ =?utf-8?B?anVCdjBpWXcvdjlkTDNUTGZnMFAwNmZ3UXRPY21hV21GRGZzOGJISjYzd3dR?=
+ =?utf-8?B?MlNVVitRTUFpT1VJRnBkNHVxWkwwcDR0TlZzY2hZZTU5V243KzBwOEJwZ2xS?=
+ =?utf-8?B?VzJMR3Y0MUtoMGVFb3Ywb3l4RExjY3M4WUFlQW9LOXdKK3pIYzFWMGdZQnUy?=
+ =?utf-8?B?TGJQWDhycHJXK1ZZNnB6QkszMFJwMnVuSU8vYUJtUmxKazFURXNISnJ5enR4?=
+ =?utf-8?B?ZUtxcDBCZk9WN2dCUk1pMVllMkdNWnNLRTJSM3JWbUFnYjVscVdkZU5IWVE5?=
+ =?utf-8?B?R2E3SGtRTHdzQlR5Zm0reFgvZldXZmJEV1VFbS8xL0p4bE0rQkdrUHhSTWV1?=
+ =?utf-8?B?aEdoRE9BL01sN1hMMmNBOWZ4S3F5Skh5a2p1eHZWU2haUHdvTGxJeHI5S05o?=
+ =?utf-8?B?OE1UeUFSSGlqWnoveFN3ci9VS21YUjhudTJkRlpsZmsxM3c2UUFRZkM0Nllr?=
+ =?utf-8?B?QkduYWxOd3o1NTA0WEJoYzhyaGY1VlFab2lXWHF0L3pNbDdVYklXRmpxUzB2?=
+ =?utf-8?B?cjh3dnNnRzRwdCt6dElVNWFObWRXYWtkVEpjbi9NNFRxd2VRZi90TGlPc2Jl?=
+ =?utf-8?B?SUdKRkliSmlwV0VjL1F4T1A3cG5QVy9zclhlbHJEUW5MTnRIZENqWStKYjlP?=
+ =?utf-8?B?ZDg1L1hpSEgxT0NienNmVFB3M3Q1eEVSSjhVWFZWVGw3eDRuWVlUUWRTVW1x?=
+ =?utf-8?B?VUVMMUEvWXo4YXhxQnZNZjh6MDhMd0N5VjM4bkJsWWU5b2E5TGxsZVhSMDZT?=
+ =?utf-8?B?ZlZqSXhqdlZSZmZyVUdrTVB0SFFubGVEV0pvNFFxdFZjNlJYS3ZjVzNJQ0xr?=
+ =?utf-8?B?Unpqb0ZNb25QTnZzcVVuQjZETWI2dXR3WmRuUGZsYXZoeU1MS0ZIa091Zytq?=
+ =?utf-8?B?UHZNWU54eXMwNksrK2gxMkpMdXc3UFRtakdYcHk2enFoNWFvQTVmdWxNVmYr?=
+ =?utf-8?B?TG1NSkdFbGlBOWxQS0krbU1JU1lqYzY5aEM0SHREa1hrQ2F6TXVlOXV1ZlE3?=
+ =?utf-8?B?MzcrTHpBRG5QRm85Mncxc0pUYVJaOEcxRjRYWUNIWHBvQktaUndybks5WkxO?=
+ =?utf-8?Q?OyCw=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: eaf103d1-9f25-4687-b657-08dd09e532b5
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7804.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c497fe56-9559-491a-569f-08dd09e9337d
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6566.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Nov 2024 04:30:16.5243 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Nov 2024 04:58:55.4106 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5oSgslIDnOBJ4LliDUv3e9+4OjYRtup1HQzvFMrUPAuqj3sx9qt0CMtfMwDpsLno
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9088
+X-MS-Exchange-CrossTenant-UserPrincipalName: +M4ETrLxV7K4qWOjhcR2li6+iP2dXZFtpsonrmK+DbO6I6nq+/fNh9oubmUI1Tnb
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6414
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -158,1666 +160,832 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
+On 11/20/2024 4:39 PM, Felix Kuehling wrote:
+>
+> On 2024-11-11 13:33, Xiaogang.Chen wrote:
+>> From: Xiaogang Chen <xiaogang.chen@amd.com>
+>>
+>> Current kfd driver has its own PASID value for a kfd process and uses it to
+>> locate vm at interrupt handler or mapping between kfd process and vm. That
+>> design is not working when a physical gpu device has multiple spatial
+>> partitions, ex: adev in CPX mode. This patch has kfd driver use same pasid
+>> values that graphic driver generated which is per vm per pasid.
+>>
+>> These pasid values are passed to fw/hardware. We do not need change interrupt
+>> handler though more pasid values are used. Also, pasid values at log are
+>> replaced by user process pid, or pasid values are not exposed to user, user
+>> will see their process pids that have meaning in user space.
+>>
+>> Signed-off-by: Xiaogang Chen <xiaogang.chen@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |  4 +-
+>>   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 34 +++++----
+>>   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      | 25 +++----
+>>   drivers/gpu/drm/amd/amdkfd/kfd_debug.c        |  8 +--
+>>   .../drm/amd/amdkfd/kfd_device_queue_manager.c | 52 +++++++-------
+>>   drivers/gpu/drm/amd/amdkfd/kfd_events.c       | 17 ++---
+>>   .../drm/amd/amdkfd/kfd_packet_manager_v9.c    |  4 +-
+>>   .../drm/amd/amdkfd/kfd_packet_manager_vi.c    |  3 +-
+>>   drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  5 +-
+>>   drivers/gpu/drm/amd/amdkfd/kfd_process.c      | 71 ++++++++-----------
+>>   .../amd/amdkfd/kfd_process_queue_manager.c    | 10 +--
+>>   drivers/gpu/drm/amd/amdkfd/kfd_svm.c          | 17 +++--
+>>   12 files changed, 127 insertions(+), 123 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+>> index 4b80ad860639..e576f65979a2 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+>> @@ -47,6 +47,7 @@ enum TLB_FLUSH_TYPE {
+>>   };
+>>   
+>>   struct amdgpu_device;
+>> +struct kfd_process_device;
+>>   struct amdgpu_reset_context;
+>>   
+>>   enum kfd_mem_attachment_type {
+>> @@ -300,7 +301,8 @@ bool amdgpu_amdkfd_compute_active(struct amdgpu_device *adev, uint32_t node_id);
+>>   		((struct drm_file *)(drm_priv))->driver_priv)->vm)
+>>   
+>>   int amdgpu_amdkfd_gpuvm_set_vm_pasid(struct amdgpu_device *adev,
+>> -				     struct amdgpu_vm *avm, u32 pasid);
+>> +				     struct kfd_process_device *pdd,
+>> +				     struct amdgpu_vm *avm);
+>>   int amdgpu_amdkfd_gpuvm_acquire_process_vm(struct amdgpu_device *adev,
+>>   					struct amdgpu_vm *avm,
+>>   					void **process_info,
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+>> index f30548f4c3b3..f63c6b185bbb 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+>> @@ -1530,24 +1530,30 @@ static void amdgpu_amdkfd_gpuvm_unpin_bo(struct amdgpu_bo *bo)
+>>   }
+>>   
+>>   int amdgpu_amdkfd_gpuvm_set_vm_pasid(struct amdgpu_device *adev,
+>> -				     struct amdgpu_vm *avm, u32 pasid)
+>> +				     struct kfd_process_device *pdd,
+>> +				     struct amdgpu_vm *avm)
+> I'd prefer if this function got renamed to amdgpu_amdkfd_gpuvm_get_pasid and it returns the pasid.
+ok.
+>>   
+>>   {
+>> -	int ret;
+>> -
+>> -	/* Free the original amdgpu allocated pasid,
+>> -	 * will be replaced with kfd allocated pasid.
+>> -	 */
+>> -	if (avm->pasid) {
+>> -		amdgpu_pasid_free(avm->pasid);
+>> -		amdgpu_vm_set_pasid(adev, avm, 0);
+>> +	int ret = 0;
+>> +	int pasid;
+>> +
+>> +	/* if avm has pasid assigned use it */
+>> +	if (avm->pasid)
+>> +		pdd->pasid = avm->pasid;
+>> +	else {
+>> +		/* otherwise generate a new pasid and assign to avm */
+> Does this ever happen? I think any avm that was acquired properly should already have a PASID. If it doesn't, maybe we can just return an error.
+Right, this case should not happen as app should open render node first, 
+then acquire vm through kfd node. I handled the case here just in case, 
+but we can return an error here.
+>
+>> +		pasid = amdgpu_pasid_alloc(16);
+>> +		if (pasid < 0) {
+>> +			dev_warn(adev->dev, "No more PASIDs available!");
+>> +			ret = -ENOMEM;
+>> +		} else
+>> +			ret = xa_err(xa_store_irq(&adev->vm_manager.pasids, pasid, avm,
+>> +						  GFP_KERNEL));
+>> +		if (ret >= 0)
+>> +			avm->pasid = pasid;
+>>   	}
+>>   
+>> -	ret = amdgpu_vm_set_pasid(adev, avm, pasid);
+>> -	if (ret)
+>> -		return ret;
+>> -
+>> -	return 0;
+>> +	return ret;
+>>   }
+>>   
+>>   int amdgpu_amdkfd_gpuvm_acquire_process_vm(struct amdgpu_device *adev,
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+>> index 065d87841459..8b1fd8e7452b 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+>> @@ -155,8 +155,8 @@ static int kfd_open(struct inode *inode, struct file *filep)
+>>   	/* filep now owns the reference returned by kfd_create_process */
+>>   	filep->private_data = process;
+>>   
+>> -	dev_dbg(kfd_device, "process %d opened, compat mode (32 bit) - %d\n",
+>> -		process->pasid, process->is_32bit_user_mode);
+>> +	dev_dbg(kfd_device, "process pid %d opened kfd node, compat mode (32 bit) - %d\n",
+>> +		(int)process->lead_thread->pid, process->is_32bit_user_mode);
+>>   
+>>   	return 0;
+>>   }
+>> @@ -361,8 +361,8 @@ static int kfd_ioctl_create_queue(struct file *filep, struct kfd_process *p,
+>>   		goto err_acquire_queue_buf;
+>>   	}
+>>   
+>> -	pr_debug("Creating queue for PASID 0x%x on gpu 0x%x\n",
+>> -			p->pasid,
+>> +	pr_debug("Creating queue for process pid 0x%x on gpu 0x%x\n",
+>> +			(int)p->lead_thread->pid,
+>>   			dev->id);
+>>   
+>>   	err = pqm_create_queue(&p->pqm, dev, &q_properties, &queue_id,
+>> @@ -415,9 +415,9 @@ static int kfd_ioctl_destroy_queue(struct file *filp, struct kfd_process *p,
+>>   	int retval;
+>>   	struct kfd_ioctl_destroy_queue_args *args = data;
+>>   
+>> -	pr_debug("Destroying queue id %d for pasid 0x%x\n",
+>> +	pr_debug("Destroying queue id %d for process pid 0x%x\n",
+>>   				args->queue_id,
+>> -				p->pasid);
+>> +				(int)p->lead_thread->pid);
+>>   
+>>   	mutex_lock(&p->mutex);
+>>   
+>> @@ -468,8 +468,8 @@ static int kfd_ioctl_update_queue(struct file *filp, struct kfd_process *p,
+>>   	properties.pm4_target_xcc = (args->queue_percentage >> 8) & 0xFF;
+>>   	properties.priority = args->queue_priority;
+>>   
+>> -	pr_debug("Updating queue id %d for pasid 0x%x\n",
+>> -			args->queue_id, p->pasid);
+>> +	pr_debug("Updating queue id %d for process pid 0x%x\n",
+>> +			args->queue_id, (int)p->lead_thread->pid);
+>>   
+>>   	mutex_lock(&p->mutex);
+>>   
+>> @@ -695,7 +695,7 @@ static int kfd_ioctl_get_process_apertures(struct file *filp,
+>>   	struct kfd_process_device_apertures *pAperture;
+>>   	int i;
+>>   
+>> -	dev_dbg(kfd_device, "get apertures for PASID 0x%x", p->pasid);
+>> +	dev_dbg(kfd_device, "get apertures for process pid 0x%x", (int)p->lead_thread->pid);
+>>   
+>>   	args->num_of_nodes = 0;
+>>   
+>> @@ -747,7 +747,8 @@ static int kfd_ioctl_get_process_apertures_new(struct file *filp,
+>>   	int ret;
+>>   	int i;
+>>   
+>> -	dev_dbg(kfd_device, "get apertures for PASID 0x%x", p->pasid);
+>> +	dev_dbg(kfd_device, "get apertures for process pid 0x%x",
+>> +			(int)p->lead_thread->pid);
+>>   
+>>   	if (args->num_of_nodes == 0) {
+>>   		/* Return number of nodes, so that user space can alloacate
+>> @@ -3365,12 +3366,12 @@ static int kfd_mmio_mmap(struct kfd_node *dev, struct kfd_process *process,
+>>   
+>>   	vma->vm_page_prot = pgprot_noncached(vma->vm_page_prot);
+>>   
+>> -	pr_debug("pasid 0x%x mapping mmio page\n"
+>> +	pr_debug("process pid 0x%x mapping mmio page\n"
+>>   		 "     target user address == 0x%08llX\n"
+>>   		 "     physical address    == 0x%08llX\n"
+>>   		 "     vm_flags            == 0x%04lX\n"
+>>   		 "     size                == 0x%04lX\n",
+>> -		 process->pasid, (unsigned long long) vma->vm_start,
+>> +		 (int)process->lead_thread->pid, (unsigned long long) vma->vm_start,
+>>   		 address, vma->vm_flags, PAGE_SIZE);
+>>   
+>>   	return io_remap_pfn_range(vma,
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
+>> index 312dfa84f29f..93ba497042b2 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
+>> @@ -238,8 +238,8 @@ bool kfd_set_dbg_ev_from_interrupt(struct kfd_node *dev,
+>>   
+>>   			mutex_unlock(&p->mutex);
+>>   		} else if (trap_mask & KFD_EC_MASK(EC_DEVICE_MEMORY_VIOLATION)) {
+>> -			kfd_dqm_evict_pasid(dev->dqm, p->pasid);
+>> -			kfd_signal_vm_fault_event(dev, p->pasid, NULL,
+>> +			kfd_dqm_evict_pasid(dev->dqm, pasid);
+>> +			kfd_signal_vm_fault_event(dev, pasid, NULL,
+>>   							exception_data);
+>>   
+>>   			signaled_to_debugger_or_runtime = true;
+>> @@ -276,8 +276,8 @@ int kfd_dbg_send_exception_to_runtime(struct kfd_process *p,
+>>   		data = (struct kfd_hsa_memory_exception_data *)
+>>   						pdd->vm_fault_exc_data;
+>>   
+>> -		kfd_dqm_evict_pasid(pdd->dev->dqm, p->pasid);
+>> -		kfd_signal_vm_fault_event(pdd->dev, p->pasid, NULL, data);
+>> +		kfd_dqm_evict_pasid(pdd->dev->dqm, pdd->pasid);
+> kfd_dqm_evict_pasid just goes and looks up the pdd from the pasid again. Maybe this could be streamlined with a kfd_dqm_evict_pdd that avoids the unnecessary lookup. Could be a follow-up patch.
 
-On 11/20/2024 11:58 PM, Alex Deucher wrote:
-> smu->workload_mask is IP specific and should not be messed with in
-> the common code. The mask bits vary across SMU versions.
-> 
-> Move all handling of smu->workload_mask in to the backends and
-> simplify the code.  Store the user's preference in smu->power_profile_mode
-> which will be reflected in sysfs.  For internal driver profile
-> switches for KFD or VCN, just update the workload mask so that the
-> user's preference is retained.  Remove all of the extra now unused
-> workload related elements in the smu structure.
-> 
-> v2: use refcounts for workload profiles
-> v3: rework based on feedback from Lijo
-> v4: fix the refcount on failure, drop backend mask
-> v5: rework custom handling
-> v6: handle failure cleanup with custom profile
-> 
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Kenneth Feng <kenneth.feng@amd.com>
-> Cc: Lijo Lazar <lijo.lazar@amd.com>
-> ---
->  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 150 ++++++++++------
->  drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |  15 +-
->  .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c | 166 +++++++++--------
->  .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   | 167 ++++++++++-------
->  .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 168 +++++++++++-------
->  .../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c  |  41 ++---
->  .../gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c   |  43 ++---
->  .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  | 167 +++++++++--------
->  .../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c  | 138 ++++++++------
->  .../drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c  | 168 +++++++++++-------
->  drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c        |  25 +++
->  drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h        |   4 +
->  12 files changed, 736 insertions(+), 516 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> index f99fe2508852..acaa1530c25c 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> @@ -72,6 +72,10 @@ static int smu_set_power_limit(void *handle, uint32_t limit);
->  static int smu_set_fan_speed_rpm(void *handle, uint32_t speed);
->  static int smu_set_gfx_cgpg(struct smu_context *smu, bool enabled);
->  static int smu_set_mp1_state(void *handle, enum pp_mp1_state mp1_state);
-> +static void smu_power_profile_mode_get(struct smu_context *smu,
-> +				       enum PP_SMC_POWER_PROFILE profile_mode);
-> +static void smu_power_profile_mode_put(struct smu_context *smu,
-> +				       enum PP_SMC_POWER_PROFILE profile_mode);
->  
->  static int smu_sys_get_pp_feature_mask(void *handle,
->  				       char *buf)
-> @@ -1268,8 +1272,6 @@ static int smu_sw_init(struct amdgpu_ip_block *ip_block)
->  	INIT_WORK(&smu->interrupt_work, smu_interrupt_work_fn);
->  	atomic64_set(&smu->throttle_int_counter, 0);
->  	smu->watermarks_bitmap = 0;
-> -	smu->power_profile_mode = PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT;
-> -	smu->default_power_profile_mode = PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT;
->  
->  	for (i = 0; i < adev->vcn.num_vcn_inst; i++)
->  		atomic_set(&smu->smu_power.power_gate.vcn_gated[i], 1);
-> @@ -1277,27 +1279,13 @@ static int smu_sw_init(struct amdgpu_ip_block *ip_block)
->  	atomic_set(&smu->smu_power.power_gate.vpe_gated, 1);
->  	atomic_set(&smu->smu_power.power_gate.umsch_mm_gated, 1);
->  
-> -	smu->workload_prority[PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT] = 0;
-> -	smu->workload_prority[PP_SMC_POWER_PROFILE_FULLSCREEN3D] = 1;
-> -	smu->workload_prority[PP_SMC_POWER_PROFILE_POWERSAVING] = 2;
-> -	smu->workload_prority[PP_SMC_POWER_PROFILE_VIDEO] = 3;
-> -	smu->workload_prority[PP_SMC_POWER_PROFILE_VR] = 4;
-> -	smu->workload_prority[PP_SMC_POWER_PROFILE_COMPUTE] = 5;
-> -	smu->workload_prority[PP_SMC_POWER_PROFILE_CUSTOM] = 6;
-> -
->  	if (smu->is_apu ||
->  	    !smu_is_workload_profile_available(smu, PP_SMC_POWER_PROFILE_FULLSCREEN3D))
-> -		smu->workload_mask = 1 << smu->workload_prority[PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT];
-> +		smu->power_profile_mode = PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT;
->  	else
-> -		smu->workload_mask = 1 << smu->workload_prority[PP_SMC_POWER_PROFILE_FULLSCREEN3D];
-> -
-> -	smu->workload_setting[0] = PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT;
-> -	smu->workload_setting[1] = PP_SMC_POWER_PROFILE_FULLSCREEN3D;
-> -	smu->workload_setting[2] = PP_SMC_POWER_PROFILE_POWERSAVING;
-> -	smu->workload_setting[3] = PP_SMC_POWER_PROFILE_VIDEO;
-> -	smu->workload_setting[4] = PP_SMC_POWER_PROFILE_VR;
-> -	smu->workload_setting[5] = PP_SMC_POWER_PROFILE_COMPUTE;
-> -	smu->workload_setting[6] = PP_SMC_POWER_PROFILE_CUSTOM;
-> +		smu->power_profile_mode = PP_SMC_POWER_PROFILE_FULLSCREEN3D;
-> +	smu_power_profile_mode_get(smu, smu->power_profile_mode);
-> +
->  	smu->display_config = &adev->pm.pm_display_cfg;
->  
->  	smu->smu_dpm.dpm_level = AMD_DPM_FORCED_LEVEL_AUTO;
-> @@ -1350,6 +1338,11 @@ static int smu_sw_fini(struct amdgpu_ip_block *ip_block)
->  		return ret;
->  	}
->  
-> +	if (smu->custom_profile_params) {
-> +		kfree(smu->custom_profile_params);
-> +		smu->custom_profile_params = NULL;
-> +	}
-> +
->  	smu_fini_microcode(smu);
->  
->  	return 0;
-> @@ -2137,6 +2130,9 @@ static int smu_suspend(struct amdgpu_ip_block *ip_block)
->  	if (!ret)
->  		adev->gfx.gfx_off_entrycount = count;
->  
-> +	/* clear this on suspend so it will get reprogrammed on resume */
-> +	smu->workload_mask = 0;
-> +
->  	return 0;
->  }
->  
-> @@ -2249,25 +2245,49 @@ static int smu_enable_umd_pstate(void *handle,
->  }
->  
->  static int smu_bump_power_profile_mode(struct smu_context *smu,
-> -					   long *param,
-> -					   uint32_t param_size)
-> +				       long *custom_params,
-> +				       u32 custom_params_max_idx)
->  {
-> -	int ret = 0;
-> +	u32 workload_mask = 0;
-> +	int i, ret = 0;
-> +
-> +	for (i = 0; i < PP_SMC_POWER_PROFILE_COUNT; i++) {
-> +		if (smu->workload_refcount[i])
-> +			workload_mask |= 1 << i;
-> +	}
-> +
-> +	if (smu->workload_mask == workload_mask)
-> +		return 0;
->  
->  	if (smu->ppt_funcs->set_power_profile_mode)
-> -		ret = smu->ppt_funcs->set_power_profile_mode(smu, param, param_size);
-> +		ret = smu->ppt_funcs->set_power_profile_mode(smu, workload_mask,
-> +							     custom_params,
-> +							     custom_params_max_idx);
-> +
-> +	if (!ret)
-> +		smu->workload_mask = workload_mask;
->  
->  	return ret;
->  }
->  
-> +static void smu_power_profile_mode_get(struct smu_context *smu,
-> +				       enum PP_SMC_POWER_PROFILE profile_mode)
-> +{
-> +	smu->workload_refcount[profile_mode]++;
-> +}
-> +
-> +static void smu_power_profile_mode_put(struct smu_context *smu,
-> +				       enum PP_SMC_POWER_PROFILE profile_mode)
-> +{
-> +	if (smu->workload_refcount[profile_mode])
-> +		smu->workload_refcount[profile_mode]--;
-> +}
-> +
->  static int smu_adjust_power_state_dynamic(struct smu_context *smu,
->  					  enum amd_dpm_forced_level level,
-> -					  bool skip_display_settings,
-> -					  bool init)
-> +					  bool skip_display_settings)
->  {
->  	int ret = 0;
-> -	int index = 0;
-> -	long workload[1];
->  	struct smu_dpm_context *smu_dpm_ctx = &(smu->smu_dpm);
->  
->  	if (!skip_display_settings) {
-> @@ -2304,14 +2324,8 @@ static int smu_adjust_power_state_dynamic(struct smu_context *smu,
->  	}
->  
->  	if (smu_dpm_ctx->dpm_level != AMD_DPM_FORCED_LEVEL_MANUAL &&
-> -		smu_dpm_ctx->dpm_level != AMD_DPM_FORCED_LEVEL_PERF_DETERMINISM) {
-> -		index = fls(smu->workload_mask);
-> -		index = index > 0 && index <= WORKLOAD_POLICY_MAX ? index - 1 : 0;
-> -		workload[0] = smu->workload_setting[index];
-> -
-> -		if (init || smu->power_profile_mode != workload[0])
-> -			smu_bump_power_profile_mode(smu, workload, 0);
-> -	}
-> +	    smu_dpm_ctx->dpm_level != AMD_DPM_FORCED_LEVEL_PERF_DETERMINISM)
-> +		smu_bump_power_profile_mode(smu, NULL, 0);
->  
->  	return ret;
->  }
-> @@ -2330,13 +2344,13 @@ static int smu_handle_task(struct smu_context *smu,
->  		ret = smu_pre_display_config_changed(smu);
->  		if (ret)
->  			return ret;
-> -		ret = smu_adjust_power_state_dynamic(smu, level, false, false);
-> +		ret = smu_adjust_power_state_dynamic(smu, level, false);
->  		break;
->  	case AMD_PP_TASK_COMPLETE_INIT:
-> -		ret = smu_adjust_power_state_dynamic(smu, level, true, true);
-> +		ret = smu_adjust_power_state_dynamic(smu, level, true);
->  		break;
->  	case AMD_PP_TASK_READJUST_POWER_STATE:
-> -		ret = smu_adjust_power_state_dynamic(smu, level, true, false);
-> +		ret = smu_adjust_power_state_dynamic(smu, level, true);
->  		break;
->  	default:
->  		break;
-> @@ -2358,12 +2372,11 @@ static int smu_handle_dpm_task(void *handle,
->  
->  static int smu_switch_power_profile(void *handle,
->  				    enum PP_SMC_POWER_PROFILE type,
-> -				    bool en)
-> +				    bool enable)
->  {
->  	struct smu_context *smu = handle;
->  	struct smu_dpm_context *smu_dpm_ctx = &(smu->smu_dpm);
-> -	long workload[1];
-> -	uint32_t index;
-> +	int ret;
->  
->  	if (!smu->pm_enabled || !smu->adev->pm.dpm_enabled)
->  		return -EOPNOTSUPP;
-> @@ -2371,21 +2384,21 @@ static int smu_switch_power_profile(void *handle,
->  	if (!(type < PP_SMC_POWER_PROFILE_CUSTOM))
->  		return -EINVAL;
->  
-> -	if (!en) {
-> -		smu->workload_mask &= ~(1 << smu->workload_prority[type]);
-> -		index = fls(smu->workload_mask);
-> -		index = index > 0 && index <= WORKLOAD_POLICY_MAX ? index - 1 : 0;
-> -		workload[0] = smu->workload_setting[index];
-> -	} else {
-> -		smu->workload_mask |= (1 << smu->workload_prority[type]);
-> -		index = fls(smu->workload_mask);
-> -		index = index <= WORKLOAD_POLICY_MAX ? index - 1 : 0;
-> -		workload[0] = smu->workload_setting[index];
-> -	}
-> -
->  	if (smu_dpm_ctx->dpm_level != AMD_DPM_FORCED_LEVEL_MANUAL &&
-> -		smu_dpm_ctx->dpm_level != AMD_DPM_FORCED_LEVEL_PERF_DETERMINISM)
-> -		smu_bump_power_profile_mode(smu, workload, 0);
-> +	    smu_dpm_ctx->dpm_level != AMD_DPM_FORCED_LEVEL_PERF_DETERMINISM) {
-> +		if (enable)
-> +			smu_power_profile_mode_get(smu, type);
-> +		else
-> +			smu_power_profile_mode_put(smu, type);
-> +		ret = smu_bump_power_profile_mode(smu, NULL, 0);
-> +		if (ret) {
-> +			if (enable)
-> +				smu_power_profile_mode_put(smu, type);
-> +			else
-> +				smu_power_profile_mode_get(smu, type);
-> +			return ret;
-> +		}
-> +	}
->  
->  	return 0;
->  }
-> @@ -3084,12 +3097,35 @@ static int smu_set_power_profile_mode(void *handle,
->  				      uint32_t param_size)
->  {
->  	struct smu_context *smu = handle;
-> +	bool custom = false;
-> +	int ret = 0;
->  
->  	if (!smu->pm_enabled || !smu->adev->pm.dpm_enabled ||
->  	    !smu->ppt_funcs->set_power_profile_mode)
->  		return -EOPNOTSUPP;
->  
-> -	return smu_bump_power_profile_mode(smu, param, param_size);
-> +	if (param[param_size] == PP_SMC_POWER_PROFILE_CUSTOM) {
-> +		custom = true;
-> +		/* clear frontend mask so custom changes propogate */
-> +		smu->workload_mask = 0;
-> +	}
-> +
-> +	if ((param[param_size] != smu->power_profile_mode) || custom) {
-> +		/* clear the old user preference */
-> +		smu_power_profile_mode_put(smu, smu->power_profile_mode);
-> +		/* set the new user preference */
-> +		smu_power_profile_mode_get(smu, param[param_size]);
-> +		ret = smu_bump_power_profile_mode(smu,
-> +						  custom ? param : NULL,
-> +						  custom ? param_size : 0);
-> +		if (ret)
-> +			smu_power_profile_mode_put(smu, param[param_size]);
-> +		else
-> +			/* store the user's preference */
-> +			smu->power_profile_mode = param[param_size];
-> +	}
-> +
-> +	return ret;
->  }
->  
->  static int smu_get_fan_control_mode(void *handle, u32 *fan_mode)
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-> index d407777d6711..3630593bce61 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-> @@ -556,11 +556,13 @@ struct smu_context {
->  	uint32_t hard_min_uclk_req_from_dal;
->  	bool disable_uclk_switch;
->  
-> +	/* asic agnostic workload mask */
->  	uint32_t workload_mask;
-> -	uint32_t workload_prority[WORKLOAD_POLICY_MAX];
-> -	uint32_t workload_setting[WORKLOAD_POLICY_MAX];
-> +	/* default/user workload preference */
->  	uint32_t power_profile_mode;
-> -	uint32_t default_power_profile_mode;
-> +	uint32_t workload_refcount[PP_SMC_POWER_PROFILE_COUNT];
-> +	/* backend specific custom workload settings */
-> +	long *custom_profile_params;
->  	bool pm_enabled;
->  	bool is_apu;
->  
-> @@ -731,9 +733,12 @@ struct pptable_funcs {
->  	 * @set_power_profile_mode: Set a power profile mode. Also used to
->  	 *                          create/set custom power profile modes.
->  	 * &input: Power profile mode parameters.
-> -	 * &size: Size of &input.
-> +	 * &workload_mask: mask of workloads to enable
-> +	 * &custom_params: custom profile parameters
-> +	 * &custom_params_max_idx: max valid idx into custom_params
->  	 */
-> -	int (*set_power_profile_mode)(struct smu_context *smu, long *input, uint32_t size);
-> +	int (*set_power_profile_mode)(struct smu_context *smu, u32 workload_mask,
-> +				      long *custom_params, u32 custom_params_max_idx);
->  
->  	/**
->  	 * @dpm_set_vcn_enable: Enable/disable VCN engine dynamic power
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-> index a15754b1989f..8aa61a9f7778 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-> @@ -1445,98 +1445,120 @@ static int arcturus_get_power_profile_mode(struct smu_context *smu,
->  	return size;
->  }
->  
-> -static int arcturus_set_power_profile_mode(struct smu_context *smu,
-> -					   long *input,
-> -					   uint32_t size)
-> +#define ARCTURUS_CUSTOM_PARAMS_COUNT 10
-> +#define ARCTURUS_CUSTOM_PARAMS_CLOCK_COUNT 2
-> +#define ARCTURUS_CUSTOM_PARAMS_SIZE (ARCTURUS_CUSTOM_PARAMS_CLOCK_COUNT * ARCTURUS_CUSTOM_PARAMS_COUNT * sizeof(long))
-> +
-> +static int arcturus_set_power_profile_mode_coeff(struct smu_context *smu,
-> +						 long *input)
->  {
->  	DpmActivityMonitorCoeffInt_t activity_monitor;
-> -	int workload_type = 0;
-> -	uint32_t profile_mode = input[size];
-> -	int ret = 0;
-> +	int ret, idx;
->  
-> -	if (profile_mode > PP_SMC_POWER_PROFILE_CUSTOM) {
-> -		dev_err(smu->adev->dev, "Invalid power profile mode %d\n", profile_mode);
-> -		return -EINVAL;
-> +	ret = smu_cmn_update_table(smu,
-> +				   SMU_TABLE_ACTIVITY_MONITOR_COEFF,
-> +				   WORKLOAD_PPLIB_CUSTOM_BIT,
-> +				   (void *)(&activity_monitor),
-> +				   false);
-> +	if (ret) {
-> +		dev_err(smu->adev->dev, "[%s] Failed to get activity monitor!", __func__);
-> +		return ret;
->  	}
->  
-> +	idx = 0 * ARCTURUS_CUSTOM_PARAMS_COUNT;
-> +	if (input[idx]) {
-> +		/* Gfxclk */
-> +		activity_monitor.Gfx_FPS = input[idx + 1];
-> +		activity_monitor.Gfx_UseRlcBusy = input[idx + 2];
-> +		activity_monitor.Gfx_MinActiveFreqType = input[idx + 3];
-> +		activity_monitor.Gfx_MinActiveFreq = input[idx + 4];
-> +		activity_monitor.Gfx_BoosterFreqType = input[idx + 5];
-> +		activity_monitor.Gfx_BoosterFreq = input[idx + 6];
-> +		activity_monitor.Gfx_PD_Data_limit_c = input[idx + 7];
-> +		activity_monitor.Gfx_PD_Data_error_coeff = input[idx + 8];
-> +		activity_monitor.Gfx_PD_Data_error_rate_coeff = input[idx + 9];
-> +	}
-> +	idx = 1 * ARCTURUS_CUSTOM_PARAMS_COUNT;
-> +	if (input[idx]) {
-> +		/* Uclk */
-> +		activity_monitor.Mem_FPS = input[idx + 1];
-> +		activity_monitor.Mem_UseRlcBusy = input[idx + 2];
-> +		activity_monitor.Mem_MinActiveFreqType = input[idx + 3];
-> +		activity_monitor.Mem_MinActiveFreq = input[idx + 4];
-> +		activity_monitor.Mem_BoosterFreqType = input[idx + 5];
-> +		activity_monitor.Mem_BoosterFreq = input[idx + 6];
-> +		activity_monitor.Mem_PD_Data_limit_c = input[idx + 7];
-> +		activity_monitor.Mem_PD_Data_error_coeff = input[idx + 8];
-> +		activity_monitor.Mem_PD_Data_error_rate_coeff = input[idx + 9];
-> +	}
->  
-> -	if ((profile_mode == PP_SMC_POWER_PROFILE_CUSTOM) &&
-> -	     (smu->smc_fw_version >= 0x360d00)) {
-> -		if (size != 10)
-> -			return -EINVAL;
-> +	ret = smu_cmn_update_table(smu,
-> +				   SMU_TABLE_ACTIVITY_MONITOR_COEFF,
-> +				   WORKLOAD_PPLIB_CUSTOM_BIT,
-> +				   (void *)(&activity_monitor),
-> +				   true);
-> +	if (ret) {
-> +		dev_err(smu->adev->dev, "[%s] Failed to set activity monitor!", __func__);
-> +		return ret;
-> +	}
->  
-> -		ret = smu_cmn_update_table(smu,
-> -				       SMU_TABLE_ACTIVITY_MONITOR_COEFF,
-> -				       WORKLOAD_PPLIB_CUSTOM_BIT,
-> -				       (void *)(&activity_monitor),
-> -				       false);
-> -		if (ret) {
-> -			dev_err(smu->adev->dev, "[%s] Failed to get activity monitor!", __func__);
-> -			return ret;
-> -		}
-> +	return ret;
-> +}
->  
-> -		switch (input[0]) {
-> -		case 0: /* Gfxclk */
-> -			activity_monitor.Gfx_FPS = input[1];
-> -			activity_monitor.Gfx_UseRlcBusy = input[2];
-> -			activity_monitor.Gfx_MinActiveFreqType = input[3];
-> -			activity_monitor.Gfx_MinActiveFreq = input[4];
-> -			activity_monitor.Gfx_BoosterFreqType = input[5];
-> -			activity_monitor.Gfx_BoosterFreq = input[6];
-> -			activity_monitor.Gfx_PD_Data_limit_c = input[7];
-> -			activity_monitor.Gfx_PD_Data_error_coeff = input[8];
-> -			activity_monitor.Gfx_PD_Data_error_rate_coeff = input[9];
-> -			break;
-> -		case 1: /* Uclk */
-> -			activity_monitor.Mem_FPS = input[1];
-> -			activity_monitor.Mem_UseRlcBusy = input[2];
-> -			activity_monitor.Mem_MinActiveFreqType = input[3];
-> -			activity_monitor.Mem_MinActiveFreq = input[4];
-> -			activity_monitor.Mem_BoosterFreqType = input[5];
-> -			activity_monitor.Mem_BoosterFreq = input[6];
-> -			activity_monitor.Mem_PD_Data_limit_c = input[7];
-> -			activity_monitor.Mem_PD_Data_error_coeff = input[8];
-> -			activity_monitor.Mem_PD_Data_error_rate_coeff = input[9];
-> -			break;
-> -		default:
-> +static int arcturus_set_power_profile_mode(struct smu_context *smu,
-> +					   u32 workload_mask,
-> +					   long *custom_params,
-> +					   u32 custom_params_max_idx)
-> +{
-> +	u32 backend_workload_mask = 0;
-> +	int ret, idx = -1, i;
-> +
-> +	smu_cmn_get_backend_workload_mask(smu, workload_mask,
-> +					  &backend_workload_mask);
-> +
-> +	if (workload_mask & (1 << PP_SMC_POWER_PROFILE_CUSTOM)) {
-> +		if (smu->smc_fw_version < 0x360d00)
->  			return -EINVAL;
-> +		if (!smu->custom_profile_params) {
-> +			smu->custom_profile_params =
-> +				kzalloc(ARCTURUS_CUSTOM_PARAMS_SIZE, GFP_KERNEL);
-> +			if (!smu->custom_profile_params)
-> +				return -ENOMEM;
->  		}
-> -
-> -		ret = smu_cmn_update_table(smu,
-> -				       SMU_TABLE_ACTIVITY_MONITOR_COEFF,
-> -				       WORKLOAD_PPLIB_CUSTOM_BIT,
-> -				       (void *)(&activity_monitor),
-> -				       true);
-> +		if (custom_params && custom_params_max_idx) {
-> +			if (custom_params_max_idx != ARCTURUS_CUSTOM_PARAMS_COUNT)
-> +				return -EINVAL;
-> +			if (custom_params[0] >= ARCTURUS_CUSTOM_PARAMS_CLOCK_COUNT)
-> +				return -EINVAL;
-> +			idx = custom_params[0] * ARCTURUS_CUSTOM_PARAMS_COUNT;
-> +			smu->custom_profile_params[idx] = 1;
-> +			for (i = 1; i < custom_params_max_idx; i++)
-> +				smu->custom_profile_params[idx + i] = custom_params[i];
-> +		}
-> +		ret = arcturus_set_power_profile_mode_coeff(smu,
-> +							    smu->custom_profile_params);
->  		if (ret) {
-> -			dev_err(smu->adev->dev, "[%s] Failed to set activity monitor!", __func__);
-> +			if (idx != -1)
-> +				smu->custom_profile_params[idx] = 0;
+This is a different thing that we loop up kfd process or pdd more than 
+one time(redundant). This issue happened at several places. I will 
+remove some redundant  loop up in next version.
 
-I don't know if this is the right thing to do. This means we are only
-having a partial revert eventhough custom mode settings as a whole failed.
+>
+>> +		kfd_signal_vm_fault_event(pdd->dev, pdd->pasid, NULL, data);
+> Similarly, this function looks up the process from the PASID. Maybe this could be refactored to avoid the redundant lookup.
+Same as above.
+>
+>>   		error_reason &= ~KFD_EC_MASK(EC_DEVICE_MEMORY_VIOLATION);
+>>   	}
+>>   
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+>> index 38c19dc8311d..ca8db5e3a7b7 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+>> @@ -206,7 +206,7 @@ static int add_queue_mes(struct device_queue_manager *dqm, struct queue *q,
+>>   		return -EIO;
+>>   
+>>   	memset(&queue_input, 0x0, sizeof(struct mes_add_queue_input));
+>> -	queue_input.process_id = qpd->pqm->process->pasid;
+>> +	queue_input.process_id = pdd->pasid;
+>>   	queue_input.page_table_base_addr =  qpd->page_table_base;
+>>   	queue_input.process_va_start = 0;
+>>   	queue_input.process_va_end = adev->vm_manager.max_pfn - 1;
+>> @@ -496,6 +496,7 @@ static int allocate_vmid(struct device_queue_manager *dqm,
+>>   			struct qcm_process_device *qpd,
+>>   			struct queue *q)
+>>   {
+>> +	struct kfd_process_device *pdd = qpd_to_pdd(qpd);
+>>   	struct device *dev = dqm->dev->adev->dev;
+>>   	int allocated_vmid = -1, i;
+>>   
+>> @@ -514,9 +515,9 @@ static int allocate_vmid(struct device_queue_manager *dqm,
+>>   
+>>   	pr_debug("vmid allocated: %d\n", allocated_vmid);
+>>   
+>> -	dqm->vmid_pasid[allocated_vmid] = q->process->pasid;
+>> +	dqm->vmid_pasid[allocated_vmid] = pdd->pasid;
+>>   
+>> -	set_pasid_vmid_mapping(dqm, q->process->pasid, allocated_vmid);
+>> +	set_pasid_vmid_mapping(dqm, pdd->pasid, allocated_vmid);
+>>   
+>>   	qpd->vmid = allocated_vmid;
+>>   	q->properties.vmid = allocated_vmid;
+>> @@ -768,6 +769,11 @@ static int dbgdev_wave_reset_wavefronts(struct kfd_node *dev, struct kfd_process
+>>   		return -EOPNOTSUPP;
+>>   	}
+>>   
+>> +	/* taking the VMID for that process on the safe way using PDD */
+>> +	pdd = kfd_get_process_device_data(dev, p);
+>> +	if (!pdd)
+>> +		return -EFAULT;
+>> +
+>>   	/* Scan all registers in the range ATC_VMID8_PASID_MAPPING ..
+>>   	 * ATC_VMID15_PASID_MAPPING
+>>   	 * to check which VMID the current process is mapped to.
+>> @@ -777,23 +783,19 @@ static int dbgdev_wave_reset_wavefronts(struct kfd_node *dev, struct kfd_process
+>>   		status = dev->kfd2kgd->get_atc_vmid_pasid_mapping_info
+>>   				(dev->adev, vmid, &queried_pasid);
+>>   
+>> -		if (status && queried_pasid == p->pasid) {
+>> -			pr_debug("Killing wave fronts of vmid %d and pasid 0x%x\n",
+>> -					vmid, p->pasid);
+>> +		if (status && queried_pasid == pdd->pasid) {
+>> +			pr_debug("Killing wave fronts of vmid %d and process pid 0x%x\n",
+>> +				 vmid, p->lead_thread->pid);
+>>   			break;
+>>   		}
+>>   	}
+>>   
+>>   	if (vmid > last_vmid_to_scan) {
+>> -		dev_err(dev->adev->dev, "Didn't find vmid for pasid 0x%x\n", p->pasid);
+>> +		dev_err(dev->adev->dev, "Didn't find vmid for process pid 0x%x\n",
+>> +			p->lead_thread->pid);
+>>   		return -EFAULT;
+>>   	}
+>>   
+>> -	/* taking the VMID for that process on the safe way using PDD */
+>> -	pdd = kfd_get_process_device_data(dev, p);
+>> -	if (!pdd)
+>> -		return -EFAULT;
+>> -
+>>   	reg_gfx_index.bits.sh_broadcast_writes = 1;
+>>   	reg_gfx_index.bits.se_broadcast_writes = 1;
+>>   	reg_gfx_index.bits.instance_broadcast_writes = 1;
+>> @@ -1029,8 +1031,8 @@ static int suspend_single_queue(struct device_queue_manager *dqm,
+>>   	if (q->properties.is_suspended)
+>>   		return 0;
+>>   
+>> -	pr_debug("Suspending PASID %u queue [%i]\n",
+>> -			pdd->process->pasid,
+>> +	pr_debug("Suspending process pid %u queue [%i]\n",
+>> +			pdd->process->lead_thread->pid,
+>>   			q->properties.queue_id);
+>>   
+>>   	is_new = q->properties.exception_status & KFD_EC_MASK(EC_QUEUE_NEW);
+>> @@ -1077,8 +1079,8 @@ static int resume_single_queue(struct device_queue_manager *dqm,
+>>   
+>>   	pdd = qpd_to_pdd(qpd);
+>>   
+>> -	pr_debug("Restoring from suspend PASID %u queue [%i]\n",
+>> -			    pdd->process->pasid,
+>> +	pr_debug("Restoring from suspend process pid %u queue [%i]\n",
+>> +			    pdd->process->lead_thread->pid,
+>>   			    q->properties.queue_id);
+>>   
+>>   	q->properties.is_suspended = false;
+>> @@ -1111,8 +1113,8 @@ static int evict_process_queues_nocpsch(struct device_queue_manager *dqm,
+>>   		goto out;
+>>   
+>>   	pdd = qpd_to_pdd(qpd);
+>> -	pr_debug_ratelimited("Evicting PASID 0x%x queues\n",
+>> -			    pdd->process->pasid);
+>> +	pr_debug_ratelimited("Evicting process pid 0x%x queues\n",
+>> +			    pdd->process->lead_thread->pid);
+>>   
+>>   	pdd->last_evict_timestamp = get_jiffies_64();
+>>   	/* Mark all queues as evicted. Deactivate all active queues on
+>> @@ -1169,8 +1171,8 @@ static int evict_process_queues_cpsch(struct device_queue_manager *dqm,
+>>   	if (!pdd->drm_priv)
+>>   		goto out;
+>>   
+>> -	pr_debug_ratelimited("Evicting PASID 0x%x queues\n",
+>> -			    pdd->process->pasid);
+>> +	pr_debug_ratelimited("Evicting process pid 0x%x queues\n",
+>> +			    pdd->process->lead_thread->pid);
+>>   
+>>   	/* Mark all queues as evicted. Deactivate all active queues on
+>>   	 * the qpd.
+>> @@ -1228,8 +1230,8 @@ static int restore_process_queues_nocpsch(struct device_queue_manager *dqm,
+>>   		goto out;
+>>   	}
+>>   
+>> -	pr_debug_ratelimited("Restoring PASID 0x%x queues\n",
+>> -			    pdd->process->pasid);
+>> +	pr_debug_ratelimited("Restoring process pid 0x%x queues\n",
+>> +			    pdd->process->lead_thread->pid);
+>>   
+>>   	/* Update PD Base in QPD */
+>>   	qpd->page_table_base = pd_base;
+>> @@ -1312,8 +1314,8 @@ static int restore_process_queues_cpsch(struct device_queue_manager *dqm,
+>>   	if (!pdd->drm_priv)
+>>   		goto vm_not_acquired;
+>>   
+>> -	pr_debug_ratelimited("Restoring PASID 0x%x queues\n",
+>> -			    pdd->process->pasid);
+>> +	pr_debug_ratelimited("Restoring process pid 0x%x queues\n",
+>> +			     pdd->process->lead_thread->pid);
+>>   
+>>   	/* Update PD Base in QPD */
+>>   	qpd->page_table_base = amdgpu_amdkfd_gpuvm_get_process_page_dir(pdd->drm_priv);
+>> @@ -2102,7 +2104,7 @@ static void set_queue_as_reset(struct device_queue_manager *dqm, struct queue *q
+>>   	struct kfd_process_device *pdd = qpd_to_pdd(qpd);
+>>   
+>>   	dev_err(dqm->dev->adev->dev, "queue id 0x%0x at pasid 0x%0x is reset\n",
+>> -		q->properties.queue_id, q->process->pasid);
+>> +		q->properties.queue_id, pdd->process->lead_thread->pid);
+>>   
+>>   	pdd->has_reset_queue = true;
+>>   	if (q->properties.is_active) {
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+>> index ea3792249209..a38c0b3b88fc 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+>> @@ -1128,8 +1128,8 @@ static void lookup_events_by_type_and_signal(struct kfd_process *p,
+>>   
+>>   	if (type == KFD_EVENT_TYPE_MEMORY) {
+>>   		dev_warn(kfd_device,
+>> -			"Sending SIGSEGV to process %d (pasid 0x%x)",
+>> -				p->lead_thread->pid, p->pasid);
+>> +			"Sending SIGSEGV to process pid %d",
+>> +				p->lead_thread->pid);
+>>   		send_sig(SIGSEGV, p->lead_thread, 0);
+>>   	}
+>>   
+>> @@ -1137,13 +1137,13 @@ static void lookup_events_by_type_and_signal(struct kfd_process *p,
+>>   	if (send_signal) {
+>>   		if (send_sigterm) {
+>>   			dev_warn(kfd_device,
+>> -				"Sending SIGTERM to process %d (pasid 0x%x)",
+>> -					p->lead_thread->pid, p->pasid);
+>> +				"Sending SIGTERM to process pid %d",
+>> +					p->lead_thread->pid);
+>>   			send_sig(SIGTERM, p->lead_thread, 0);
+>>   		} else {
+>>   			dev_err(kfd_device,
+>> -				"Process %d (pasid 0x%x) got unhandled exception",
+>> -				p->lead_thread->pid, p->pasid);
+>> +				"Process pid %d got unhandled exception",
+>> +				p->lead_thread->pid);
+>>   		}
+>>   	}
+>>   
+>> @@ -1253,7 +1253,8 @@ void kfd_signal_reset_event(struct kfd_node *dev)
+>>   		}
+>>   
+>>   		if (unlikely(!pdd)) {
+>> -			WARN_ONCE(1, "Could not get device data from pasid:0x%x\n", p->pasid);
+>> +			WARN_ONCE(1, "Could not get device data from process pid:0x%x\n",
+>> +				  p->lead_thread->pid);
+>>   			continue;
+>>   		}
+>>   
+>> @@ -1263,7 +1264,7 @@ void kfd_signal_reset_event(struct kfd_node *dev)
+>>   		if (dev->dqm->detect_hang_count) {
+>>   			struct amdgpu_task_info *ti;
+>>   
+>> -			ti = amdgpu_vm_get_task_info_pasid(dev->adev, p->pasid);
+>> +			ti = amdgpu_vm_get_task_info_pasid(dev->adev, pdd->pasid);
+> Can we use amdgpu_vm_get_task_info_vm here to avoid a redundant lookup of the VM from the pasid? You'd need a helper to get the vm from pdd->drm_priv (drm_priv_to_vm in amdgpu_amdkfd.h).
+Same as above, redundant loop up at original code. Will change that in 
+next version.
+>
+>>   			if (ti) {
+>>   				dev_err(dev->adev->dev,
+>>   					"Queues reset on process %s tid %d thread %s pid %d\n",
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
+>> index 1f9f5bfeaf86..d56525201155 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
+>> @@ -47,7 +47,7 @@ static int pm_map_process_v9(struct packet_manager *pm,
+>>   		packet->bitfields2.exec_cleaner_shader = 1;
+>>   	packet->bitfields2.diq_enable = (qpd->is_debug) ? 1 : 0;
+>>   	packet->bitfields2.process_quantum = 10;
+>> -	packet->bitfields2.pasid = qpd->pqm->process->pasid;
+>> +	packet->bitfields2.pasid = pdd->pasid;
+>>   	packet->bitfields14.gds_size = qpd->gds_size & 0x3F;
+>>   	packet->bitfields14.gds_size_hi = (qpd->gds_size >> 6) & 0xF;
+>>   	packet->bitfields14.num_gws = (qpd->mapped_gws_queue) ? qpd->num_gws : 0;
+>> @@ -106,7 +106,7 @@ static int pm_map_process_aldebaran(struct packet_manager *pm,
+>>   		packet->bitfields2.exec_cleaner_shader = 1;
+>>   	packet->bitfields2.diq_enable = (qpd->is_debug) ? 1 : 0;
+>>   	packet->bitfields2.process_quantum = 10;
+>> -	packet->bitfields2.pasid = qpd->pqm->process->pasid;
+>> +	packet->bitfields2.pasid = pdd->pasid;
+>>   	packet->bitfields14.gds_size = qpd->gds_size & 0x3F;
+>>   	packet->bitfields14.gds_size_hi = (qpd->gds_size >> 6) & 0xF;
+>>   	packet->bitfields14.num_gws = (qpd->mapped_gws_queue) ? qpd->num_gws : 0;
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_vi.c b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_vi.c
+>> index c1199d06d131..347c86e1c378 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_vi.c
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_vi.c
+>> @@ -42,6 +42,7 @@ unsigned int pm_build_pm4_header(unsigned int opcode, size_t packet_size)
+>>   static int pm_map_process_vi(struct packet_manager *pm, uint32_t *buffer,
+>>   				struct qcm_process_device *qpd)
+>>   {
+>> +	struct kfd_process_device *pdd = qpd_to_pdd(qpd);
+>>   	struct pm4_mes_map_process *packet;
+>>   
+>>   	packet = (struct pm4_mes_map_process *)buffer;
+>> @@ -52,7 +53,7 @@ static int pm_map_process_vi(struct packet_manager *pm, uint32_t *buffer,
+>>   					sizeof(struct pm4_mes_map_process));
+>>   	packet->bitfields2.diq_enable = (qpd->is_debug) ? 1 : 0;
+>>   	packet->bitfields2.process_quantum = 10;
+>> -	packet->bitfields2.pasid = qpd->pqm->process->pasid;
+>> +	packet->bitfields2.pasid = pdd->pasid;
+>>   	packet->bitfields3.page_table_base = qpd->page_table_base;
+>>   	packet->bitfields10.gds_size = qpd->gds_size;
+>>   	packet->bitfields10.num_gws = qpd->num_gws;
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+>> index 9e5ca0b93b2a..08bcbc45197c 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+>> @@ -849,6 +849,8 @@ struct kfd_process_device {
+>>   
+>>   	/* Tracks queue reset status */
+>>   	bool has_reset_queue;
+>> +
+>> +	u32 pasid;
+>>   };
+>>   
+>>   #define qpd_to_pdd(x) container_of(x, struct kfd_process_device, qpd)
+>> @@ -908,8 +910,6 @@ struct kfd_process {
+>>   	/* We want to receive a notification when the mm_struct is destroyed */
+>>   	struct mmu_notifier mmu_notifier;
+>>   
+>> -	u32 pasid;
+>> -
+>>   	/*
+>>   	 * Array of kfd_process_device pointers,
+>>   	 * one for each device the process is using.
+>> @@ -970,7 +970,6 @@ struct kfd_process {
+>>   	/* Kobj for our procfs */
+>>   	struct kobject *kobj;
+>>   	struct kobject *kobj_queues;
+>> -	struct attribute attr_pasid;
+>>   
+>>   	/* Keep track cwsr init */
+>>   	bool has_cwsr;
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+>> index 6bab6fc6a35d..edc4f47061f5 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+>> @@ -282,8 +282,8 @@ static int kfd_get_cu_occupancy(struct attribute *attr, char *buffer)
+>>   	cu_cnt = 0;
+>>   	proc = pdd->process;
+>>   	if (pdd->qpd.queue_count == 0) {
+>> -		pr_debug("Gpu-Id: %d has no active queues for process %d\n",
+>> -			 dev->id, proc->pasid);
+>> +		pr_debug("Gpu-Id: %d has no active queues for process pid %d\n",
+>> +			 dev->id, (int)proc->lead_thread->pid);
+>>   		return snprintf(buffer, PAGE_SIZE, "%d\n", cu_cnt);
+>>   	}
+>>   
+>> @@ -327,12 +327,7 @@ static int kfd_get_cu_occupancy(struct attribute *attr, char *buffer)
+>>   static ssize_t kfd_procfs_show(struct kobject *kobj, struct attribute *attr,
+>>   			       char *buffer)
+>>   {
+>> -	if (strcmp(attr->name, "pasid") == 0) {
+>> -		struct kfd_process *p = container_of(attr, struct kfd_process,
+>> -						     attr_pasid);
+>> -
+>> -		return snprintf(buffer, PAGE_SIZE, "%d\n", p->pasid);
+>> -	} else if (strncmp(attr->name, "vram_", 5) == 0) {
+>> +	if (strncmp(attr->name, "vram_", 5) == 0) {
+>>   		struct kfd_process_device *pdd = container_of(attr, struct kfd_process_device,
+>>   							      attr_vram);
+>>   		return snprintf(buffer, PAGE_SIZE, "%llu\n", atomic64_read(&pdd->vram_usage));
+>> @@ -887,9 +882,6 @@ struct kfd_process *kfd_create_process(struct task_struct *thread)
+>>   			goto out;
+>>   		}
+>>   
+>> -		kfd_sysfs_create_file(process->kobj, &process->attr_pasid,
+>> -				      "pasid");
+>> -
+>>   		process->kobj_queues = kobject_create_and_add("queues",
+>>   							process->kobj);
+>>   		if (!process->kobj_queues)
+>> @@ -1055,8 +1047,8 @@ static void kfd_process_destroy_pdds(struct kfd_process *p)
+>>   	for (i = 0; i < p->n_pdds; i++) {
+>>   		struct kfd_process_device *pdd = p->pdds[i];
+>>   
+>> -		pr_debug("Releasing pdd (topology id %d) for process (pasid 0x%x)\n",
+>> -				pdd->dev->id, p->pasid);
+>> +		pr_debug("Releasing pdd (topology id %d, for pid 0x%0x)\n",
+>> +			 pdd->dev->id, (int)p->lead_thread->pid);
+>>   
+>>   		kfd_process_device_destroy_cwsr_dgpu(pdd);
+>>   		kfd_process_device_destroy_ib_mem(pdd);
+>> @@ -1102,7 +1094,6 @@ static void kfd_process_remove_sysfs(struct kfd_process *p)
+>>   	if (!p->kobj)
+>>   		return;
+>>   
+>> -	sysfs_remove_file(p->kobj, &p->attr_pasid);
+>>   	kobject_del(p->kobj_queues);
+>>   	kobject_put(p->kobj_queues);
+>>   	p->kobj_queues = NULL;
+>> @@ -1171,7 +1162,6 @@ static void kfd_process_wq_release(struct work_struct *work)
+>>   
+>>   	kfd_event_free_process(p);
+>>   
+>> -	kfd_pasid_free(p->pasid);
+>>   	mutex_destroy(&p->mutex);
+>>   
+>>   	put_task_struct(p->lead_thread);
+>> @@ -1524,12 +1514,6 @@ static struct kfd_process *create_process(const struct task_struct *thread)
+>>   	atomic_set(&process->debugged_process_count, 0);
+>>   	sema_init(&process->runtime_enable_sema, 0);
+>>   
+>> -	process->pasid = kfd_pasid_alloc();
+>> -	if (process->pasid == 0) {
+>> -		err = -ENOSPC;
+>> -		goto err_alloc_pasid;
+>> -	}
+>> -
+>>   	err = pqm_init(&process->pqm, process);
+>>   	if (err != 0)
+>>   		goto err_process_pqm_init;
+>> @@ -1583,8 +1567,6 @@ static struct kfd_process *create_process(const struct task_struct *thread)
+>>   err_init_apertures:
+>>   	pqm_uninit(&process->pqm);
+>>   err_process_pqm_init:
+>> -	kfd_pasid_free(process->pasid);
+>> -err_alloc_pasid:
+>>   	kfd_event_free_process(process);
+>>   err_event_init:
+>>   	mutex_destroy(&process->mutex);
+>> @@ -1723,7 +1705,7 @@ int kfd_process_device_init_vm(struct kfd_process_device *pdd,
+>>   	if (ret)
+>>   		goto err_init_cwsr;
+>>   
+>> -	ret = amdgpu_amdkfd_gpuvm_set_vm_pasid(dev->adev, avm, p->pasid);
+>> +	ret = amdgpu_amdkfd_gpuvm_set_vm_pasid(dev->adev, pdd, avm);
+>>   	if (ret)
+>>   		goto err_set_pasid;
+>>   
+>> @@ -1822,15 +1804,20 @@ struct kfd_process *kfd_lookup_process_by_pasid(u32 pasid)
+>>   {
+>>   	struct kfd_process *p, *ret_p = NULL;
+>>   	unsigned int temp;
+>> +	int i;
+>>   
+>>   	int idx = srcu_read_lock(&kfd_processes_srcu);
+>>   
+>>   	hash_for_each_rcu(kfd_processes_table, temp, p, kfd_processes) {
+>> -		if (p->pasid == pasid) {
+>> -			kref_get(&p->ref);
+>> -			ret_p = p;
+>> -			break;
+>> +		for (i = 0; i < p->n_pdds; i++) {
+>> +			if (p->pdds[i]->pasid == pasid) {
+>> +				kref_get(&p->ref);
+>> +				ret_p = p;
+>> +				break;
+>> +			}
+> I think this won't work correctly. The same PASID can be used for different processes on different GPUs because each adev manages its own PASID->amdgpu_vm lookup table. So kfd_lookup_process_by_pasid needs a new parameter that identifies the GPU adev, and you should only compare pasids, if the adev matches.
 
-1) Current Mode = 3D
-2) Pass Custom + GfxCLK custom settings
-3) Pass Custom + MemCLK custom settings
+I think it is the main concern here: the pasid used here is global in 
+driver by amdgpu_pasid_alloc(16) at amdgpu_driver_open_kms.  Each time a 
+render node(partition) got opened, a new pasid value is generated. Its 
+lifetime is until render node got closed. A pdd just uses this pasid.  
+And each adev has its own xarray which saves pasids for this adev.
 
-When 3) fails, we revert from the custom mode (put operation) and it
-goes back to 3D as the new settings failed. At a later point if user
-passes MemCLK custom settings, this is going to pick the initial GFXCLK
-custom settings also. Is that needed?
+Regards
 
-Thanks,
-Lijo
->  			return ret;
->  		}
-> -	}
-> -
-> -	/*
-> -	 * Conv PP_SMC_POWER_PROFILE* to WORKLOAD_PPLIB_*_BIT
-> -	 * Not all profile modes are supported on arcturus.
-> -	 */
-> -	workload_type = smu_cmn_to_asic_specific_index(smu,
-> -						       CMN2ASIC_MAPPING_WORKLOAD,
-> -						       profile_mode);
-> -	if (workload_type < 0) {
-> -		dev_dbg(smu->adev->dev, "Unsupported power profile mode %d on arcturus\n", profile_mode);
-> -		return -EINVAL;
-> +	} else if (smu->custom_profile_params) {
-> +		memset(smu->custom_profile_params, 0, ARCTURUS_CUSTOM_PARAMS_SIZE);
->  	}
->  
->  	ret = smu_cmn_send_smc_msg_with_param(smu,
-> -					  SMU_MSG_SetWorkloadMask,
-> -					  1 << workload_type,
-> -					  NULL);
-> +					      SMU_MSG_SetWorkloadMask,
-> +					      backend_workload_mask,
-> +					      NULL);
->  	if (ret) {
-> -		dev_err(smu->adev->dev, "Fail to set workload type %d\n", workload_type);
-> +		dev_err(smu->adev->dev, "Failed to set workload mask 0x%08x\n",
-> +			workload_mask);
-> +		if (idx != -1)
-> +			smu->custom_profile_params[idx] = 0;
->  		return ret;
->  	}
->  
-> -	smu->power_profile_mode = profile_mode;
-> -
-> -	return 0;
-> +	return ret;
->  }
->  
->  static int arcturus_set_performance_level(struct smu_context *smu,
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> index faa8e7d9c3c6..7fad5dfb39c4 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> @@ -2006,87 +2006,122 @@ static int navi10_get_power_profile_mode(struct smu_context *smu, char *buf)
->  	return size;
->  }
->  
-> -static int navi10_set_power_profile_mode(struct smu_context *smu, long *input, uint32_t size)
-> +#define NAVI10_CUSTOM_PARAMS_COUNT 10
-> +#define NAVI10_CUSTOM_PARAMS_CLOCKS_COUNT 3
-> +#define NAVI10_CUSTOM_PARAMS_SIZE (NAVI10_CUSTOM_PARAMS_CLOCKS_COUNT * NAVI10_CUSTOM_PARAMS_COUNT * sizeof(long))
-> +
-> +static int navi10_set_power_profile_mode_coeff(struct smu_context *smu,
-> +					       long *input)
->  {
->  	DpmActivityMonitorCoeffInt_t activity_monitor;
-> -	int workload_type, ret = 0;
-> +	int ret, idx;
->  
-> -	smu->power_profile_mode = input[size];
-> +	ret = smu_cmn_update_table(smu,
-> +				   SMU_TABLE_ACTIVITY_MONITOR_COEFF, WORKLOAD_PPLIB_CUSTOM_BIT,
-> +				   (void *)(&activity_monitor), false);
-> +	if (ret) {
-> +		dev_err(smu->adev->dev, "[%s] Failed to get activity monitor!", __func__);
-> +		return ret;
-> +	}
->  
-> -	if (smu->power_profile_mode > PP_SMC_POWER_PROFILE_CUSTOM) {
-> -		dev_err(smu->adev->dev, "Invalid power profile mode %d\n", smu->power_profile_mode);
-> -		return -EINVAL;
-> +	idx = 0 * NAVI10_CUSTOM_PARAMS_COUNT;
-> +	if (input[idx]) {
-> +		/* Gfxclk */
-> +		activity_monitor.Gfx_FPS = input[idx + 1];
-> +		activity_monitor.Gfx_MinFreqStep = input[idx + 2];
-> +		activity_monitor.Gfx_MinActiveFreqType = input[idx + 3];
-> +		activity_monitor.Gfx_MinActiveFreq = input[idx + 4];
-> +		activity_monitor.Gfx_BoosterFreqType = input[idx + 5];
-> +		activity_monitor.Gfx_BoosterFreq = input[idx + 6];
-> +		activity_monitor.Gfx_PD_Data_limit_c = input[idx + 7];
-> +		activity_monitor.Gfx_PD_Data_error_coeff = input[idx + 8];
-> +		activity_monitor.Gfx_PD_Data_error_rate_coeff = input[idx + 9];
-> +	}
-> +	idx = 1 * NAVI10_CUSTOM_PARAMS_COUNT;
-> +	if (input[idx]) {
-> +		/* Socclk */
-> +		activity_monitor.Soc_FPS = input[idx + 1];
-> +		activity_monitor.Soc_MinFreqStep = input[idx + 2];
-> +		activity_monitor.Soc_MinActiveFreqType = input[idx + 3];
-> +		activity_monitor.Soc_MinActiveFreq = input[idx + 4];
-> +		activity_monitor.Soc_BoosterFreqType = input[idx + 5];
-> +		activity_monitor.Soc_BoosterFreq = input[idx + 6];
-> +		activity_monitor.Soc_PD_Data_limit_c = input[idx + 7];
-> +		activity_monitor.Soc_PD_Data_error_coeff = input[idx + 8];
-> +		activity_monitor.Soc_PD_Data_error_rate_coeff = input[idx + 9];
-> +	}
-> +	idx = 2 * NAVI10_CUSTOM_PARAMS_COUNT;
-> +	if (input[idx]) {
-> +		/* Memclk */
-> +		activity_monitor.Mem_FPS = input[idx + 1];
-> +		activity_monitor.Mem_MinFreqStep = input[idx + 2];
-> +		activity_monitor.Mem_MinActiveFreqType = input[idx + 3];
-> +		activity_monitor.Mem_MinActiveFreq = input[idx + 4];
-> +		activity_monitor.Mem_BoosterFreqType = input[idx + 5];
-> +		activity_monitor.Mem_BoosterFreq = input[idx + 6];
-> +		activity_monitor.Mem_PD_Data_limit_c = input[idx + 7];
-> +		activity_monitor.Mem_PD_Data_error_coeff = input[idx + 8];
-> +		activity_monitor.Mem_PD_Data_error_rate_coeff = input[idx + 9];
-> +	}
-> +
-> +	ret = smu_cmn_update_table(smu,
-> +				   SMU_TABLE_ACTIVITY_MONITOR_COEFF, WORKLOAD_PPLIB_CUSTOM_BIT,
-> +				   (void *)(&activity_monitor), true);
-> +	if (ret) {
-> +		dev_err(smu->adev->dev, "[%s] Failed to set activity monitor!", __func__);
-> +		return ret;
->  	}
->  
-> -	if (smu->power_profile_mode == PP_SMC_POWER_PROFILE_CUSTOM) {
-> -		if (size != 10)
-> -			return -EINVAL;
-> +	return ret;
-> +}
->  
-> -		ret = smu_cmn_update_table(smu,
-> -				       SMU_TABLE_ACTIVITY_MONITOR_COEFF, WORKLOAD_PPLIB_CUSTOM_BIT,
-> -				       (void *)(&activity_monitor), false);
-> -		if (ret) {
-> -			dev_err(smu->adev->dev, "[%s] Failed to get activity monitor!", __func__);
-> -			return ret;
-> -		}
-> +static int navi10_set_power_profile_mode(struct smu_context *smu,
-> +					 u32 workload_mask,
-> +					 long *custom_params,
-> +					 u32 custom_params_max_idx)
-> +{
-> +	u32 backend_workload_mask = 0;
-> +	int ret, idx = -1, i;
->  
-> -		switch (input[0]) {
-> -		case 0: /* Gfxclk */
-> -			activity_monitor.Gfx_FPS = input[1];
-> -			activity_monitor.Gfx_MinFreqStep = input[2];
-> -			activity_monitor.Gfx_MinActiveFreqType = input[3];
-> -			activity_monitor.Gfx_MinActiveFreq = input[4];
-> -			activity_monitor.Gfx_BoosterFreqType = input[5];
-> -			activity_monitor.Gfx_BoosterFreq = input[6];
-> -			activity_monitor.Gfx_PD_Data_limit_c = input[7];
-> -			activity_monitor.Gfx_PD_Data_error_coeff = input[8];
-> -			activity_monitor.Gfx_PD_Data_error_rate_coeff = input[9];
-> -			break;
-> -		case 1: /* Socclk */
-> -			activity_monitor.Soc_FPS = input[1];
-> -			activity_monitor.Soc_MinFreqStep = input[2];
-> -			activity_monitor.Soc_MinActiveFreqType = input[3];
-> -			activity_monitor.Soc_MinActiveFreq = input[4];
-> -			activity_monitor.Soc_BoosterFreqType = input[5];
-> -			activity_monitor.Soc_BoosterFreq = input[6];
-> -			activity_monitor.Soc_PD_Data_limit_c = input[7];
-> -			activity_monitor.Soc_PD_Data_error_coeff = input[8];
-> -			activity_monitor.Soc_PD_Data_error_rate_coeff = input[9];
-> -			break;
-> -		case 2: /* Memclk */
-> -			activity_monitor.Mem_FPS = input[1];
-> -			activity_monitor.Mem_MinFreqStep = input[2];
-> -			activity_monitor.Mem_MinActiveFreqType = input[3];
-> -			activity_monitor.Mem_MinActiveFreq = input[4];
-> -			activity_monitor.Mem_BoosterFreqType = input[5];
-> -			activity_monitor.Mem_BoosterFreq = input[6];
-> -			activity_monitor.Mem_PD_Data_limit_c = input[7];
-> -			activity_monitor.Mem_PD_Data_error_coeff = input[8];
-> -			activity_monitor.Mem_PD_Data_error_rate_coeff = input[9];
-> -			break;
-> -		default:
-> -			return -EINVAL;
-> -		}
-> +	smu_cmn_get_backend_workload_mask(smu, workload_mask,
-> +					  &backend_workload_mask);
->  
-> -		ret = smu_cmn_update_table(smu,
-> -				       SMU_TABLE_ACTIVITY_MONITOR_COEFF, WORKLOAD_PPLIB_CUSTOM_BIT,
-> -				       (void *)(&activity_monitor), true);
-> +	if (workload_mask & (1 << PP_SMC_POWER_PROFILE_CUSTOM)) {
-> +		if (!smu->custom_profile_params) {
-> +			smu->custom_profile_params = kzalloc(NAVI10_CUSTOM_PARAMS_SIZE, GFP_KERNEL);
-> +			if (!smu->custom_profile_params)
-> +				return -ENOMEM;
-> +		}
-> +		if (custom_params && custom_params_max_idx) {
-> +			if (custom_params_max_idx != NAVI10_CUSTOM_PARAMS_COUNT)
-> +				return -EINVAL;
-> +			if (custom_params[0] >= NAVI10_CUSTOM_PARAMS_CLOCKS_COUNT)
-> +				return -EINVAL;
-> +			idx = custom_params[0] * NAVI10_CUSTOM_PARAMS_COUNT;
-> +			smu->custom_profile_params[idx] = 1;
-> +			for (i = 1; i < custom_params_max_idx; i++)
-> +				smu->custom_profile_params[idx + i] = custom_params[i];
-> +		}
-> +		ret = navi10_set_power_profile_mode_coeff(smu,
-> +							  smu->custom_profile_params);
->  		if (ret) {
-> -			dev_err(smu->adev->dev, "[%s] Failed to set activity monitor!", __func__);
-> +			if (idx != -1)
-> +				smu->custom_profile_params[idx] = 0;
->  			return ret;
->  		}
-> +	} else if (smu->custom_profile_params) {
-> +		memset(smu->custom_profile_params, 0, NAVI10_CUSTOM_PARAMS_SIZE);
->  	}
->  
-> -	/* conv PP_SMC_POWER_PROFILE* to WORKLOAD_PPLIB_*_BIT */
-> -	workload_type = smu_cmn_to_asic_specific_index(smu,
-> -						       CMN2ASIC_MAPPING_WORKLOAD,
-> -						       smu->power_profile_mode);
-> -	if (workload_type < 0)
-> -		return -EINVAL;
->  	ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_SetWorkloadMask,
-> -				    1 << workload_type, NULL);
-> -	if (ret)
-> -		dev_err(smu->adev->dev, "[%s] Failed to set work load mask!", __func__);
-> +					      backend_workload_mask, NULL);
-> +	if (ret) {
-> +		dev_err(smu->adev->dev, "Failed to set workload mask 0x%08x\n",
-> +			workload_mask);
-> +		if (idx != -1)
-> +			smu->custom_profile_params[idx] = 0;
-> +		return ret;
-> +	}
->  
->  	return ret;
->  }
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> index 30d050a6e953..19a25fdc2f5b 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-> @@ -1704,90 +1704,126 @@ static int sienna_cichlid_get_power_profile_mode(struct smu_context *smu, char *
->  	return size;
->  }
->  
-> -static int sienna_cichlid_set_power_profile_mode(struct smu_context *smu, long *input, uint32_t size)
-> +#define SIENNA_CICHLID_CUSTOM_PARAMS_COUNT 10
-> +#define SIENNA_CICHLID_CUSTOM_PARAMS_CLOCK_COUNT 3
-> +#define SIENNA_CICHLID_CUSTOM_PARAMS_SIZE (SIENNA_CICHLID_CUSTOM_PARAMS_CLOCK_COUNT * SIENNA_CICHLID_CUSTOM_PARAMS_COUNT * sizeof(long))
-> +
-> +static int sienna_cichlid_set_power_profile_mode_coeff(struct smu_context *smu,
-> +						       long *input)
->  {
->  
->  	DpmActivityMonitorCoeffIntExternal_t activity_monitor_external;
->  	DpmActivityMonitorCoeffInt_t *activity_monitor =
->  		&(activity_monitor_external.DpmActivityMonitorCoeffInt);
-> -	int workload_type, ret = 0;
-> +	int ret, idx;
->  
-> -	smu->power_profile_mode = input[size];
-> +	ret = smu_cmn_update_table(smu,
-> +				   SMU_TABLE_ACTIVITY_MONITOR_COEFF, WORKLOAD_PPLIB_CUSTOM_BIT,
-> +				   (void *)(&activity_monitor_external), false);
-> +	if (ret) {
-> +		dev_err(smu->adev->dev, "[%s] Failed to get activity monitor!", __func__);
-> +		return ret;
-> +	}
->  
-> -	if (smu->power_profile_mode > PP_SMC_POWER_PROFILE_CUSTOM) {
-> -		dev_err(smu->adev->dev, "Invalid power profile mode %d\n", smu->power_profile_mode);
-> -		return -EINVAL;
-> +	idx = 0 * SIENNA_CICHLID_CUSTOM_PARAMS_COUNT;
-> +	if (input[idx]) {
-> +		/* Gfxclk */
-> +		activity_monitor->Gfx_FPS = input[idx + 1];
-> +		activity_monitor->Gfx_MinFreqStep = input[idx + 2];
-> +		activity_monitor->Gfx_MinActiveFreqType = input[idx + 3];
-> +		activity_monitor->Gfx_MinActiveFreq = input[idx + 4];
-> +		activity_monitor->Gfx_BoosterFreqType = input[idx + 5];
-> +		activity_monitor->Gfx_BoosterFreq = input[idx + 6];
-> +		activity_monitor->Gfx_PD_Data_limit_c = input[idx + 7];
-> +		activity_monitor->Gfx_PD_Data_error_coeff = input[idx + 8];
-> +		activity_monitor->Gfx_PD_Data_error_rate_coeff = input[idx + 9];
-> +	}
-> +	idx = 1 * SIENNA_CICHLID_CUSTOM_PARAMS_COUNT;
-> +	if (input[idx]) {
-> +		/* Socclk */
-> +		activity_monitor->Fclk_FPS = input[idx + 1];
-> +		activity_monitor->Fclk_MinFreqStep = input[idx + 2];
-> +		activity_monitor->Fclk_MinActiveFreqType = input[idx + 3];
-> +		activity_monitor->Fclk_MinActiveFreq = input[idx + 4];
-> +		activity_monitor->Fclk_BoosterFreqType = input[idx + 5];
-> +		activity_monitor->Fclk_BoosterFreq = input[idx + 6];
-> +		activity_monitor->Fclk_PD_Data_limit_c = input[idx + 7];
-> +		activity_monitor->Fclk_PD_Data_error_coeff = input[idx + 8];
-> +		activity_monitor->Fclk_PD_Data_error_rate_coeff = input[idx + 9];
-> +	}
-> +	idx = 2 * SIENNA_CICHLID_CUSTOM_PARAMS_COUNT;
-> +	if (input[idx]) {
-> +		/* Memclk */
-> +		activity_monitor->Mem_FPS = input[idx + 1];
-> +		activity_monitor->Mem_MinFreqStep = input[idx + 2];
-> +		activity_monitor->Mem_MinActiveFreqType = input[idx + 3];
-> +		activity_monitor->Mem_MinActiveFreq = input[idx + 4];
-> +		activity_monitor->Mem_BoosterFreqType = input[idx + 5];
-> +		activity_monitor->Mem_BoosterFreq = input[idx + 6];
-> +		activity_monitor->Mem_PD_Data_limit_c = input[idx + 7];
-> +		activity_monitor->Mem_PD_Data_error_coeff = input[idx + 8];
-> +		activity_monitor->Mem_PD_Data_error_rate_coeff = input[idx + 9];
->  	}
->  
-> -	if (smu->power_profile_mode == PP_SMC_POWER_PROFILE_CUSTOM) {
-> -		if (size != 10)
-> -			return -EINVAL;
-> +	ret = smu_cmn_update_table(smu,
-> +				   SMU_TABLE_ACTIVITY_MONITOR_COEFF, WORKLOAD_PPLIB_CUSTOM_BIT,
-> +				   (void *)(&activity_monitor_external), true);
-> +	if (ret) {
-> +		dev_err(smu->adev->dev, "[%s] Failed to set activity monitor!", __func__);
-> +		return ret;
-> +	}
->  
-> -		ret = smu_cmn_update_table(smu,
-> -				       SMU_TABLE_ACTIVITY_MONITOR_COEFF, WORKLOAD_PPLIB_CUSTOM_BIT,
-> -				       (void *)(&activity_monitor_external), false);
-> -		if (ret) {
-> -			dev_err(smu->adev->dev, "[%s] Failed to get activity monitor!", __func__);
-> -			return ret;
-> -		}
-> +	return ret;
-> +}
->  
-> -		switch (input[0]) {
-> -		case 0: /* Gfxclk */
-> -			activity_monitor->Gfx_FPS = input[1];
-> -			activity_monitor->Gfx_MinFreqStep = input[2];
-> -			activity_monitor->Gfx_MinActiveFreqType = input[3];
-> -			activity_monitor->Gfx_MinActiveFreq = input[4];
-> -			activity_monitor->Gfx_BoosterFreqType = input[5];
-> -			activity_monitor->Gfx_BoosterFreq = input[6];
-> -			activity_monitor->Gfx_PD_Data_limit_c = input[7];
-> -			activity_monitor->Gfx_PD_Data_error_coeff = input[8];
-> -			activity_monitor->Gfx_PD_Data_error_rate_coeff = input[9];
-> -			break;
-> -		case 1: /* Socclk */
-> -			activity_monitor->Fclk_FPS = input[1];
-> -			activity_monitor->Fclk_MinFreqStep = input[2];
-> -			activity_monitor->Fclk_MinActiveFreqType = input[3];
-> -			activity_monitor->Fclk_MinActiveFreq = input[4];
-> -			activity_monitor->Fclk_BoosterFreqType = input[5];
-> -			activity_monitor->Fclk_BoosterFreq = input[6];
-> -			activity_monitor->Fclk_PD_Data_limit_c = input[7];
-> -			activity_monitor->Fclk_PD_Data_error_coeff = input[8];
-> -			activity_monitor->Fclk_PD_Data_error_rate_coeff = input[9];
-> -			break;
-> -		case 2: /* Memclk */
-> -			activity_monitor->Mem_FPS = input[1];
-> -			activity_monitor->Mem_MinFreqStep = input[2];
-> -			activity_monitor->Mem_MinActiveFreqType = input[3];
-> -			activity_monitor->Mem_MinActiveFreq = input[4];
-> -			activity_monitor->Mem_BoosterFreqType = input[5];
-> -			activity_monitor->Mem_BoosterFreq = input[6];
-> -			activity_monitor->Mem_PD_Data_limit_c = input[7];
-> -			activity_monitor->Mem_PD_Data_error_coeff = input[8];
-> -			activity_monitor->Mem_PD_Data_error_rate_coeff = input[9];
-> -			break;
-> -		default:
-> -			return -EINVAL;
-> -		}
-> +static int sienna_cichlid_set_power_profile_mode(struct smu_context *smu,
-> +						 u32 workload_mask,
-> +						 long *custom_params,
-> +						 u32 custom_params_max_idx)
-> +{
-> +	u32 backend_workload_mask = 0;
-> +	int ret, idx = -1, i;
->  
-> -		ret = smu_cmn_update_table(smu,
-> -				       SMU_TABLE_ACTIVITY_MONITOR_COEFF, WORKLOAD_PPLIB_CUSTOM_BIT,
-> -				       (void *)(&activity_monitor_external), true);
-> +	smu_cmn_get_backend_workload_mask(smu, workload_mask,
-> +					  &backend_workload_mask);
-> +
-> +	if (workload_mask & (1 << PP_SMC_POWER_PROFILE_CUSTOM)) {
-> +		if (!smu->custom_profile_params) {
-> +			smu->custom_profile_params =
-> +				kzalloc(SIENNA_CICHLID_CUSTOM_PARAMS_SIZE, GFP_KERNEL);
-> +			if (!smu->custom_profile_params)
-> +				return -ENOMEM;
-> +		}
-> +		if (custom_params && custom_params_max_idx) {
-> +			if (custom_params_max_idx != SIENNA_CICHLID_CUSTOM_PARAMS_COUNT)
-> +				return -EINVAL;
-> +			if (custom_params[0] >= SIENNA_CICHLID_CUSTOM_PARAMS_CLOCK_COUNT)
-> +				return -EINVAL;
-> +			idx = custom_params[0] * SIENNA_CICHLID_CUSTOM_PARAMS_COUNT;
-> +			smu->custom_profile_params[idx] = 1;
-> +			for (i = 1; i < custom_params_max_idx; i++)
-> +				smu->custom_profile_params[idx + i] = custom_params[i];
-> +		}
-> +		ret = sienna_cichlid_set_power_profile_mode_coeff(smu,
-> +								  smu->custom_profile_params);
->  		if (ret) {
-> -			dev_err(smu->adev->dev, "[%s] Failed to set activity monitor!", __func__);
-> +			if (idx != -1)
-> +				smu->custom_profile_params[idx] = 0;
->  			return ret;
->  		}
-> +	} else if (smu->custom_profile_params) {
-> +		memset(smu->custom_profile_params, 0, SIENNA_CICHLID_CUSTOM_PARAMS_SIZE);
->  	}
->  
-> -	/* conv PP_SMC_POWER_PROFILE* to WORKLOAD_PPLIB_*_BIT */
-> -	workload_type = smu_cmn_to_asic_specific_index(smu,
-> -						       CMN2ASIC_MAPPING_WORKLOAD,
-> -						       smu->power_profile_mode);
-> -	if (workload_type < 0)
-> -		return -EINVAL;
->  	ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_SetWorkloadMask,
-> -				    1 << workload_type, NULL);
-> -	if (ret)
-> -		dev_err(smu->adev->dev, "[%s] Failed to set work load mask!", __func__);
-> +					      backend_workload_mask, NULL);
-> +	if (ret) {
-> +		dev_err(smu->adev->dev, "Failed to set workload mask 0x%08x\n",
-> +			workload_mask);
-> +		if (idx != -1)
-> +			smu->custom_profile_params[idx] = 0;
-> +		return ret;
-> +	}
->  
->  	return ret;
->  }
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-> index cd3e9ba3eff4..a55ea76d7399 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-> @@ -1056,42 +1056,27 @@ static int vangogh_get_power_profile_mode(struct smu_context *smu,
->  	return size;
->  }
->  
-> -static int vangogh_set_power_profile_mode(struct smu_context *smu, long *input, uint32_t size)
-> +static int vangogh_set_power_profile_mode(struct smu_context *smu,
-> +					  u32 workload_mask,
-> +					  long *custom_params,
-> +					  u32 custom_params_max_idx)
->  {
-> -	int workload_type, ret;
-> -	uint32_t profile_mode = input[size];
-> +	u32 backend_workload_mask = 0;
-> +	int ret;
->  
-> -	if (profile_mode >= PP_SMC_POWER_PROFILE_COUNT) {
-> -		dev_err(smu->adev->dev, "Invalid power profile mode %d\n", profile_mode);
-> -		return -EINVAL;
-> -	}
-> -
-> -	if (profile_mode == PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT ||
-> -			profile_mode == PP_SMC_POWER_PROFILE_POWERSAVING)
-> -		return 0;
-> -
-> -	/* conv PP_SMC_POWER_PROFILE* to WORKLOAD_PPLIB_*_BIT */
-> -	workload_type = smu_cmn_to_asic_specific_index(smu,
-> -						       CMN2ASIC_MAPPING_WORKLOAD,
-> -						       profile_mode);
-> -	if (workload_type < 0) {
-> -		dev_dbg(smu->adev->dev, "Unsupported power profile mode %d on VANGOGH\n",
-> -					profile_mode);
-> -		return -EINVAL;
-> -	}
-> +	smu_cmn_get_backend_workload_mask(smu, workload_mask,
-> +					  &backend_workload_mask);
->  
->  	ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_ActiveProcessNotify,
-> -				    1 << workload_type,
-> -				    NULL);
-> +					      backend_workload_mask,
-> +					      NULL);
->  	if (ret) {
-> -		dev_err_once(smu->adev->dev, "Fail to set workload type %d\n",
-> -					workload_type);
-> +		dev_err_once(smu->adev->dev, "Fail to set workload mask 0x%08x\n",
-> +			     workload_mask);
->  		return ret;
->  	}
->  
-> -	smu->power_profile_mode = profile_mode;
-> -
-> -	return 0;
-> +	return ret;
->  }
->  
->  static int vangogh_set_soft_freq_limited_range(struct smu_context *smu,
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-> index a34797f3576b..37d82a71a2d7 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-> @@ -864,44 +864,27 @@ static int renoir_force_clk_levels(struct smu_context *smu,
->  	return ret;
->  }
->  
-> -static int renoir_set_power_profile_mode(struct smu_context *smu, long *input, uint32_t size)
-> +static int renoir_set_power_profile_mode(struct smu_context *smu,
-> +					 u32 workload_mask,
-> +					 long *custom_params,
-> +					 u32 custom_params_max_idx)
->  {
-> -	int workload_type, ret;
-> -	uint32_t profile_mode = input[size];
-> +	int ret;
-> +	u32 backend_workload_mask = 0;
->  
-> -	if (profile_mode > PP_SMC_POWER_PROFILE_CUSTOM) {
-> -		dev_err(smu->adev->dev, "Invalid power profile mode %d\n", profile_mode);
-> -		return -EINVAL;
-> -	}
-> -
-> -	if (profile_mode == PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT ||
-> -			profile_mode == PP_SMC_POWER_PROFILE_POWERSAVING)
-> -		return 0;
-> -
-> -	/* conv PP_SMC_POWER_PROFILE* to WORKLOAD_PPLIB_*_BIT */
-> -	workload_type = smu_cmn_to_asic_specific_index(smu,
-> -						       CMN2ASIC_MAPPING_WORKLOAD,
-> -						       profile_mode);
-> -	if (workload_type < 0) {
-> -		/*
-> -		 * TODO: If some case need switch to powersave/default power mode
-> -		 * then can consider enter WORKLOAD_COMPUTE/WORKLOAD_CUSTOM for power saving.
-> -		 */
-> -		dev_dbg(smu->adev->dev, "Unsupported power profile mode %d on RENOIR\n", profile_mode);
-> -		return -EINVAL;
-> -	}
-> +	smu_cmn_get_backend_workload_mask(smu, workload_mask,
-> +					  &backend_workload_mask);
->  
->  	ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_ActiveProcessNotify,
-> -				    1 << workload_type,
-> -				    NULL);
-> +					      backend_workload_mask,
-> +					      NULL);
->  	if (ret) {
-> -		dev_err_once(smu->adev->dev, "Fail to set workload type %d\n", workload_type);
-> +		dev_err_once(smu->adev->dev, "Failed to set workload mask 0x08%x\n",
-> +			     workload_mask);
->  		return ret;
->  	}
->  
-> -	smu->power_profile_mode = profile_mode;
-> -
-> -	return 0;
-> +	return ret;
->  }
->  
->  static int renoir_set_peak_clock_by_device(struct smu_context *smu)
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> index 199bdd9720d3..3aa705aae4c0 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-> @@ -2571,82 +2571,76 @@ static int smu_v13_0_0_get_power_profile_mode(struct smu_context *smu,
->  	return size;
->  }
->  
-> -static int smu_v13_0_0_set_power_profile_mode(struct smu_context *smu,
-> -					      long *input,
-> -					      uint32_t size)
-> +#define SMU_13_0_0_CUSTOM_PARAMS_COUNT 9
-> +#define SMU_13_0_0_CUSTOM_PARAMS_CLOCK_COUNT 2
-> +#define SMU_13_0_0_CUSTOM_PARAMS_SIZE (SMU_13_0_0_CUSTOM_PARAMS_CLOCK_COUNT * SMU_13_0_0_CUSTOM_PARAMS_COUNT * sizeof(long))
-> +
-> +static int smu_v13_0_0_set_power_profile_mode_coeff(struct smu_context *smu,
-> +						    long *input)
->  {
->  	DpmActivityMonitorCoeffIntExternal_t activity_monitor_external;
->  	DpmActivityMonitorCoeffInt_t *activity_monitor =
->  		&(activity_monitor_external.DpmActivityMonitorCoeffInt);
-> -	int workload_type, ret = 0;
-> -	u32 workload_mask, selected_workload_mask;
-> -
-> -	smu->power_profile_mode = input[size];
-> +	int ret, idx;
->  
-> -	if (smu->power_profile_mode >= PP_SMC_POWER_PROFILE_COUNT) {
-> -		dev_err(smu->adev->dev, "Invalid power profile mode %d\n", smu->power_profile_mode);
-> -		return -EINVAL;
-> +	ret = smu_cmn_update_table(smu,
-> +				   SMU_TABLE_ACTIVITY_MONITOR_COEFF,
-> +				   WORKLOAD_PPLIB_CUSTOM_BIT,
-> +				   (void *)(&activity_monitor_external),
-> +				   false);
-> +	if (ret) {
-> +		dev_err(smu->adev->dev, "[%s] Failed to get activity monitor!", __func__);
-> +		return ret;
->  	}
->  
-> -	if (smu->power_profile_mode == PP_SMC_POWER_PROFILE_CUSTOM) {
-> -		if (size != 9)
-> -			return -EINVAL;
-> -
-> -		ret = smu_cmn_update_table(smu,
-> -					   SMU_TABLE_ACTIVITY_MONITOR_COEFF,
-> -					   WORKLOAD_PPLIB_CUSTOM_BIT,
-> -					   (void *)(&activity_monitor_external),
-> -					   false);
-> -		if (ret) {
-> -			dev_err(smu->adev->dev, "[%s] Failed to get activity monitor!", __func__);
-> -			return ret;
-> -		}
-> -
-> -		switch (input[0]) {
-> -		case 0: /* Gfxclk */
-> -			activity_monitor->Gfx_FPS = input[1];
-> -			activity_monitor->Gfx_MinActiveFreqType = input[2];
-> -			activity_monitor->Gfx_MinActiveFreq = input[3];
-> -			activity_monitor->Gfx_BoosterFreqType = input[4];
-> -			activity_monitor->Gfx_BoosterFreq = input[5];
-> -			activity_monitor->Gfx_PD_Data_limit_c = input[6];
-> -			activity_monitor->Gfx_PD_Data_error_coeff = input[7];
-> -			activity_monitor->Gfx_PD_Data_error_rate_coeff = input[8];
-> -			break;
-> -		case 1: /* Fclk */
-> -			activity_monitor->Fclk_FPS = input[1];
-> -			activity_monitor->Fclk_MinActiveFreqType = input[2];
-> -			activity_monitor->Fclk_MinActiveFreq = input[3];
-> -			activity_monitor->Fclk_BoosterFreqType = input[4];
-> -			activity_monitor->Fclk_BoosterFreq = input[5];
-> -			activity_monitor->Fclk_PD_Data_limit_c = input[6];
-> -			activity_monitor->Fclk_PD_Data_error_coeff = input[7];
-> -			activity_monitor->Fclk_PD_Data_error_rate_coeff = input[8];
-> -			break;
-> -		default:
-> -			return -EINVAL;
-> -		}
-> +	idx = 0 * SMU_13_0_0_CUSTOM_PARAMS_COUNT;
-> +	if (input[idx]) {
-> +		/* Gfxclk */
-> +		activity_monitor->Gfx_FPS = input[idx + 1];
-> +		activity_monitor->Gfx_MinActiveFreqType = input[idx + 2];
-> +		activity_monitor->Gfx_MinActiveFreq = input[idx + 3];
-> +		activity_monitor->Gfx_BoosterFreqType = input[idx + 4];
-> +		activity_monitor->Gfx_BoosterFreq = input[idx + 5];
-> +		activity_monitor->Gfx_PD_Data_limit_c = input[idx + 6];
-> +		activity_monitor->Gfx_PD_Data_error_coeff = input[idx + 7];
-> +		activity_monitor->Gfx_PD_Data_error_rate_coeff = input[idx + 8];
-> +	}
-> +	idx = 1 * SMU_13_0_0_CUSTOM_PARAMS_COUNT;
-> +	if (input[idx]) {
-> +		/* Fclk */
-> +		activity_monitor->Fclk_FPS = input[idx + 1];
-> +		activity_monitor->Fclk_MinActiveFreqType = input[idx + 2];
-> +		activity_monitor->Fclk_MinActiveFreq = input[idx + 3];
-> +		activity_monitor->Fclk_BoosterFreqType = input[idx + 4];
-> +		activity_monitor->Fclk_BoosterFreq = input[idx + 5];
-> +		activity_monitor->Fclk_PD_Data_limit_c = input[idx + 6];
-> +		activity_monitor->Fclk_PD_Data_error_coeff = input[idx + 7];
-> +		activity_monitor->Fclk_PD_Data_error_rate_coeff = input[idx + 8];
-> +	}
->  
-> -		ret = smu_cmn_update_table(smu,
-> -					   SMU_TABLE_ACTIVITY_MONITOR_COEFF,
-> -					   WORKLOAD_PPLIB_CUSTOM_BIT,
-> -					   (void *)(&activity_monitor_external),
-> -					   true);
-> -		if (ret) {
-> -			dev_err(smu->adev->dev, "[%s] Failed to set activity monitor!", __func__);
-> -			return ret;
-> -		}
-> +	ret = smu_cmn_update_table(smu,
-> +				   SMU_TABLE_ACTIVITY_MONITOR_COEFF,
-> +				   WORKLOAD_PPLIB_CUSTOM_BIT,
-> +				   (void *)(&activity_monitor_external),
-> +				   true);
-> +	if (ret) {
-> +		dev_err(smu->adev->dev, "[%s] Failed to set activity monitor!", __func__);
-> +		return ret;
->  	}
->  
-> -	/* conv PP_SMC_POWER_PROFILE* to WORKLOAD_PPLIB_*_BIT */
-> -	workload_type = smu_cmn_to_asic_specific_index(smu,
-> -						       CMN2ASIC_MAPPING_WORKLOAD,
-> -						       smu->power_profile_mode);
-> +	return ret;
-> +}
->  
-> -	if (workload_type < 0)
-> -		return -EINVAL;
-> +static int smu_v13_0_0_set_power_profile_mode(struct smu_context *smu,
-> +					      u32 workload_mask,
-> +					      long *custom_params,
-> +					      u32 custom_params_max_idx)
-> +{
-> +	u32 backend_workload_mask = 0;
-> +	int workload_type, ret, idx = -1, i;
->  
-> -	selected_workload_mask = workload_mask = 1 << workload_type;
-> +	smu_cmn_get_backend_workload_mask(smu, workload_mask,
-> +					  &backend_workload_mask);
->  
->  	/* Add optimizations for SMU13.0.0/10.  Reuse the power saving profile */
->  	if ((amdgpu_ip_version(smu->adev, MP1_HWIP, 0) == IP_VERSION(13, 0, 0) &&
-> @@ -2658,15 +2652,48 @@ static int smu_v13_0_0_set_power_profile_mode(struct smu_context *smu,
->  							       CMN2ASIC_MAPPING_WORKLOAD,
->  							       PP_SMC_POWER_PROFILE_POWERSAVING);
->  		if (workload_type >= 0)
-> -			workload_mask |= 1 << workload_type;
-> +			backend_workload_mask |= 1 << workload_type;
-> +	}
-> +
-> +	if (workload_mask & (1 << PP_SMC_POWER_PROFILE_CUSTOM)) {
-> +		if (!smu->custom_profile_params) {
-> +			smu->custom_profile_params =
-> +				kzalloc(SMU_13_0_0_CUSTOM_PARAMS_SIZE, GFP_KERNEL);
-> +			if (!smu->custom_profile_params)
-> +				return -ENOMEM;
-> +		}
-> +		if (custom_params && custom_params_max_idx) {
-> +			if (custom_params_max_idx != SMU_13_0_0_CUSTOM_PARAMS_COUNT)
-> +				return -EINVAL;
-> +			if (custom_params[0] >= SMU_13_0_0_CUSTOM_PARAMS_CLOCK_COUNT)
-> +				return -EINVAL;
-> +			idx = custom_params[0] * SMU_13_0_0_CUSTOM_PARAMS_COUNT;
-> +			smu->custom_profile_params[idx] = 1;
-> +			for (i = 1; i < custom_params_max_idx; i++)
-> +				smu->custom_profile_params[idx + i] = custom_params[i];
-> +		}
-> +		ret = smu_v13_0_0_set_power_profile_mode_coeff(smu,
-> +							       smu->custom_profile_params);
-> +		if (ret) {
-> +			if (idx != -1)
-> +				smu->custom_profile_params[idx] = 0;
-> +			return ret;
-> +		}
-> +	} else if (smu->custom_profile_params) {
-> +		memset(smu->custom_profile_params, 0, SMU_13_0_0_CUSTOM_PARAMS_SIZE);
->  	}
->  
->  	ret = smu_cmn_send_smc_msg_with_param(smu,
-> -					       SMU_MSG_SetWorkloadMask,
-> -					       workload_mask,
-> -					       NULL);
-> -	if (!ret)
-> -		smu->workload_mask = selected_workload_mask;
-> +					      SMU_MSG_SetWorkloadMask,
-> +					      backend_workload_mask,
-> +					      NULL);
-> +	if (ret) {
-> +		dev_err(smu->adev->dev, "Failed to set workload mask 0x%08x\n",
-> +			workload_mask);
-> +		if (idx != -1)
-> +			smu->custom_profile_params[idx] = 0;
-> +		return ret;
-> +	}
->  
->  	return ret;
->  }
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-> index 34c1e0c7e1e4..f4ac403b8b36 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-> @@ -2530,78 +2530,110 @@ do {													\
->  	return result;
->  }
->  
-> -static int smu_v13_0_7_set_power_profile_mode(struct smu_context *smu, long *input, uint32_t size)
-> +#define SMU_13_0_7_CUSTOM_PARAMS_COUNT 8
-> +#define SMU_13_0_7_CUSTOM_PARAMS_CLOCK_COUNT 2
-> +#define SMU_13_0_7_CUSTOM_PARAMS_SIZE (SMU_13_0_7_CUSTOM_PARAMS_CLOCK_COUNT * SMU_13_0_7_CUSTOM_PARAMS_COUNT * sizeof(long))
-> +
-> +static int smu_v13_0_7_set_power_profile_mode_coeff(struct smu_context *smu,
-> +						    long *input)
->  {
->  
->  	DpmActivityMonitorCoeffIntExternal_t activity_monitor_external;
->  	DpmActivityMonitorCoeffInt_t *activity_monitor =
->  		&(activity_monitor_external.DpmActivityMonitorCoeffInt);
-> -	int workload_type, ret = 0;
-> +	int ret, idx;
->  
-> -	smu->power_profile_mode = input[size];
-> +	ret = smu_cmn_update_table(smu,
-> +				   SMU_TABLE_ACTIVITY_MONITOR_COEFF, WORKLOAD_PPLIB_CUSTOM_BIT,
-> +				   (void *)(&activity_monitor_external), false);
-> +	if (ret) {
-> +		dev_err(smu->adev->dev, "[%s] Failed to get activity monitor!", __func__);
-> +		return ret;
-> +	}
->  
-> -	if (smu->power_profile_mode > PP_SMC_POWER_PROFILE_WINDOW3D) {
-> -		dev_err(smu->adev->dev, "Invalid power profile mode %d\n", smu->power_profile_mode);
-> -		return -EINVAL;
-> +	idx = 0 * SMU_13_0_7_CUSTOM_PARAMS_COUNT;
-> +	if (input[idx]) {
-> +		/* Gfxclk */
-> +		activity_monitor->Gfx_ActiveHystLimit = input[idx + 1];
-> +		activity_monitor->Gfx_IdleHystLimit = input[idx + 2];
-> +		activity_monitor->Gfx_FPS = input[idx + 3];
-> +		activity_monitor->Gfx_MinActiveFreqType = input[idx + 4];
-> +		activity_monitor->Gfx_BoosterFreqType = input[idx + 5];
-> +		activity_monitor->Gfx_MinActiveFreq = input[idx + 6];
-> +		activity_monitor->Gfx_BoosterFreq = input[idx + 7];
-> +	}
-> +	idx = 1 * SMU_13_0_7_CUSTOM_PARAMS_COUNT;
-> +	if (input[idx]) {
-> +		/* Fclk */
-> +		activity_monitor->Fclk_ActiveHystLimit = input[idx + 1];
-> +		activity_monitor->Fclk_IdleHystLimit = input[idx + 2];
-> +		activity_monitor->Fclk_FPS = input[idx + 3];
-> +		activity_monitor->Fclk_MinActiveFreqType = input[idx + 4];
-> +		activity_monitor->Fclk_BoosterFreqType = input[idx + 5];
-> +		activity_monitor->Fclk_MinActiveFreq = input[idx + 6];
-> +		activity_monitor->Fclk_BoosterFreq = input[idx + 7];
->  	}
->  
-> -	if (smu->power_profile_mode == PP_SMC_POWER_PROFILE_CUSTOM) {
-> -		if (size != 8)
-> -			return -EINVAL;
-> +	ret = smu_cmn_update_table(smu,
-> +				   SMU_TABLE_ACTIVITY_MONITOR_COEFF, WORKLOAD_PPLIB_CUSTOM_BIT,
-> +				   (void *)(&activity_monitor_external), true);
-> +	if (ret) {
-> +		dev_err(smu->adev->dev, "[%s] Failed to set activity monitor!", __func__);
-> +		return ret;
-> +	}
->  
-> -		ret = smu_cmn_update_table(smu,
-> -				       SMU_TABLE_ACTIVITY_MONITOR_COEFF, WORKLOAD_PPLIB_CUSTOM_BIT,
-> -				       (void *)(&activity_monitor_external), false);
-> -		if (ret) {
-> -			dev_err(smu->adev->dev, "[%s] Failed to get activity monitor!", __func__);
-> -			return ret;
-> -		}
-> +	return ret;
-> +}
->  
-> -		switch (input[0]) {
-> -		case 0: /* Gfxclk */
-> -			activity_monitor->Gfx_ActiveHystLimit = input[1];
-> -			activity_monitor->Gfx_IdleHystLimit = input[2];
-> -			activity_monitor->Gfx_FPS = input[3];
-> -			activity_monitor->Gfx_MinActiveFreqType = input[4];
-> -			activity_monitor->Gfx_BoosterFreqType = input[5];
-> -			activity_monitor->Gfx_MinActiveFreq = input[6];
-> -			activity_monitor->Gfx_BoosterFreq = input[7];
-> -			break;
-> -		case 1: /* Fclk */
-> -			activity_monitor->Fclk_ActiveHystLimit = input[1];
-> -			activity_monitor->Fclk_IdleHystLimit = input[2];
-> -			activity_monitor->Fclk_FPS = input[3];
-> -			activity_monitor->Fclk_MinActiveFreqType = input[4];
-> -			activity_monitor->Fclk_BoosterFreqType = input[5];
-> -			activity_monitor->Fclk_MinActiveFreq = input[6];
-> -			activity_monitor->Fclk_BoosterFreq = input[7];
-> -			break;
-> -		default:
-> -			return -EINVAL;
-> +static int smu_v13_0_7_set_power_profile_mode(struct smu_context *smu,
-> +					      u32 workload_mask,
-> +					      long *custom_params,
-> +					      u32 custom_params_max_idx)
-> +{
-> +	u32 backend_workload_mask = 0;
-> +	int ret, idx = -1, i;
-> +
-> +	smu_cmn_get_backend_workload_mask(smu, workload_mask,
-> +					  &backend_workload_mask);
-> +
-> +	if (workload_mask & (1 << PP_SMC_POWER_PROFILE_CUSTOM)) {
-> +		if (!smu->custom_profile_params) {
-> +			smu->custom_profile_params =
-> +				kzalloc(SMU_13_0_7_CUSTOM_PARAMS_SIZE, GFP_KERNEL);
-> +			if (!smu->custom_profile_params)
-> +				return -ENOMEM;
->  		}
-> -
-> -		ret = smu_cmn_update_table(smu,
-> -				       SMU_TABLE_ACTIVITY_MONITOR_COEFF, WORKLOAD_PPLIB_CUSTOM_BIT,
-> -				       (void *)(&activity_monitor_external), true);
-> +		if (custom_params && custom_params_max_idx) {
-> +			if (custom_params_max_idx != SMU_13_0_7_CUSTOM_PARAMS_COUNT)
-> +				return -EINVAL;
-> +			if (custom_params[0] >= SMU_13_0_7_CUSTOM_PARAMS_CLOCK_COUNT)
-> +				return -EINVAL;
-> +			idx = custom_params[0] * SMU_13_0_7_CUSTOM_PARAMS_COUNT;
-> +			smu->custom_profile_params[idx] = 1;
-> +			for (i = 1; i < custom_params_max_idx; i++)
-> +				smu->custom_profile_params[idx + i] = custom_params[i];
-> +		}
-> +		ret = smu_v13_0_7_set_power_profile_mode_coeff(smu,
-> +							       smu->custom_profile_params);
->  		if (ret) {
-> -			dev_err(smu->adev->dev, "[%s] Failed to set activity monitor!", __func__);
-> +			if (idx != -1)
-> +				smu->custom_profile_params[idx] = 0;
->  			return ret;
->  		}
-> +	} else if (smu->custom_profile_params) {
-> +		memset(smu->custom_profile_params, 0, SMU_13_0_7_CUSTOM_PARAMS_SIZE);
->  	}
->  
-> -	/* conv PP_SMC_POWER_PROFILE* to WORKLOAD_PPLIB_*_BIT */
-> -	workload_type = smu_cmn_to_asic_specific_index(smu,
-> -						       CMN2ASIC_MAPPING_WORKLOAD,
-> -						       smu->power_profile_mode);
-> -	if (workload_type < 0)
-> -		return -EINVAL;
->  	ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_SetWorkloadMask,
-> -				    1 << workload_type, NULL);
-> +					      backend_workload_mask, NULL);
->  
-> -	if (ret)
-> -		dev_err(smu->adev->dev, "[%s] Failed to set work load mask!", __func__);
-> -	else
-> -		smu->workload_mask = (1 << workload_type);
-> +	if (ret) {
-> +		dev_err(smu->adev->dev, "Failed to set workload mask 0x%08x\n",
-> +			workload_mask);
-> +		if (idx != -1)
-> +			smu->custom_profile_params[idx] = 0;
-> +		return ret;
-> +	}
->  
->  	return ret;
->  }
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-> index 98e01a06add8..6a565ce74d5b 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-> @@ -1739,90 +1739,120 @@ static int smu_v14_0_2_get_power_profile_mode(struct smu_context *smu,
->  	return size;
->  }
->  
-> -static int smu_v14_0_2_set_power_profile_mode(struct smu_context *smu,
-> -					      long *input,
-> -					      uint32_t size)
-> +#define SMU_14_0_2_CUSTOM_PARAMS_COUNT 9
-> +#define SMU_14_0_2_CUSTOM_PARAMS_CLOCK_COUNT 2
-> +#define SMU_14_0_2_CUSTOM_PARAMS_SIZE (SMU_14_0_2_CUSTOM_PARAMS_CLOCK_COUNT * SMU_14_0_2_CUSTOM_PARAMS_COUNT * sizeof(long))
-> +
-> +static int smu_v14_0_2_set_power_profile_mode_coeff(struct smu_context *smu,
-> +						    long *input)
->  {
->  	DpmActivityMonitorCoeffIntExternal_t activity_monitor_external;
->  	DpmActivityMonitorCoeffInt_t *activity_monitor =
->  		&(activity_monitor_external.DpmActivityMonitorCoeffInt);
-> -	int workload_type, ret = 0;
-> -	uint32_t current_profile_mode = smu->power_profile_mode;
-> -	smu->power_profile_mode = input[size];
-> +	int ret, idx;
->  
-> -	if (smu->power_profile_mode >= PP_SMC_POWER_PROFILE_COUNT) {
-> -		dev_err(smu->adev->dev, "Invalid power profile mode %d\n", smu->power_profile_mode);
-> -		return -EINVAL;
-> +	ret = smu_cmn_update_table(smu,
-> +				   SMU_TABLE_ACTIVITY_MONITOR_COEFF,
-> +				   WORKLOAD_PPLIB_CUSTOM_BIT,
-> +				   (void *)(&activity_monitor_external),
-> +				   false);
-> +	if (ret) {
-> +		dev_err(smu->adev->dev, "[%s] Failed to get activity monitor!", __func__);
-> +		return ret;
->  	}
->  
-> -	if (smu->power_profile_mode == PP_SMC_POWER_PROFILE_CUSTOM) {
-> -		if (size != 9)
-> -			return -EINVAL;
-> +	idx = 0 * SMU_14_0_2_CUSTOM_PARAMS_COUNT;
-> +	if (input[idx]) {
-> +		/* Gfxclk */
-> +		activity_monitor->Gfx_FPS = input[idx + 1];
-> +		activity_monitor->Gfx_MinActiveFreqType = input[idx + 2];
-> +		activity_monitor->Gfx_MinActiveFreq = input[idx + 3];
-> +		activity_monitor->Gfx_BoosterFreqType = input[idx + 4];
-> +		activity_monitor->Gfx_BoosterFreq = input[idx + 5];
-> +		activity_monitor->Gfx_PD_Data_limit_c = input[idx + 6];
-> +		activity_monitor->Gfx_PD_Data_error_coeff = input[idx + 7];
-> +		activity_monitor->Gfx_PD_Data_error_rate_coeff = input[idx + 8];
-> +	}
-> +	idx = 1 * SMU_14_0_2_CUSTOM_PARAMS_COUNT;
-> +	if (input[idx]) {
-> +		/* Fclk */
-> +		activity_monitor->Fclk_FPS = input[idx + 1];
-> +		activity_monitor->Fclk_MinActiveFreqType = input[idx + 2];
-> +		activity_monitor->Fclk_MinActiveFreq = input[idx + 3];
-> +		activity_monitor->Fclk_BoosterFreqType = input[idx + 4];
-> +		activity_monitor->Fclk_BoosterFreq = input[idx + 5];
-> +		activity_monitor->Fclk_PD_Data_limit_c = input[idx + 6];
-> +		activity_monitor->Fclk_PD_Data_error_coeff = input[idx + 7];
-> +		activity_monitor->Fclk_PD_Data_error_rate_coeff = input[idx + 8];
-> +	}
->  
-> -		ret = smu_cmn_update_table(smu,
-> -					   SMU_TABLE_ACTIVITY_MONITOR_COEFF,
-> -					   WORKLOAD_PPLIB_CUSTOM_BIT,
-> -					   (void *)(&activity_monitor_external),
-> -					   false);
-> -		if (ret) {
-> -			dev_err(smu->adev->dev, "[%s] Failed to get activity monitor!", __func__);
-> -			return ret;
-> -		}
-> +	ret = smu_cmn_update_table(smu,
-> +				   SMU_TABLE_ACTIVITY_MONITOR_COEFF,
-> +				   WORKLOAD_PPLIB_CUSTOM_BIT,
-> +				   (void *)(&activity_monitor_external),
-> +				   true);
-> +	if (ret) {
-> +		dev_err(smu->adev->dev, "[%s] Failed to set activity monitor!", __func__);
-> +		return ret;
-> +	}
->  
-> -		switch (input[0]) {
-> -		case 0: /* Gfxclk */
-> -			activity_monitor->Gfx_FPS = input[1];
-> -			activity_monitor->Gfx_MinActiveFreqType = input[2];
-> -			activity_monitor->Gfx_MinActiveFreq = input[3];
-> -			activity_monitor->Gfx_BoosterFreqType = input[4];
-> -			activity_monitor->Gfx_BoosterFreq = input[5];
-> -			activity_monitor->Gfx_PD_Data_limit_c = input[6];
-> -			activity_monitor->Gfx_PD_Data_error_coeff = input[7];
-> -			activity_monitor->Gfx_PD_Data_error_rate_coeff = input[8];
-> -			break;
-> -		case 1: /* Fclk */
-> -			activity_monitor->Fclk_FPS = input[1];
-> -			activity_monitor->Fclk_MinActiveFreqType = input[2];
-> -			activity_monitor->Fclk_MinActiveFreq = input[3];
-> -			activity_monitor->Fclk_BoosterFreqType = input[4];
-> -			activity_monitor->Fclk_BoosterFreq = input[5];
-> -			activity_monitor->Fclk_PD_Data_limit_c = input[6];
-> -			activity_monitor->Fclk_PD_Data_error_coeff = input[7];
-> -			activity_monitor->Fclk_PD_Data_error_rate_coeff = input[8];
-> -			break;
-> -		default:
-> -			return -EINVAL;
-> -		}
-> +	return ret;
-> +}
->  
-> -		ret = smu_cmn_update_table(smu,
-> -					   SMU_TABLE_ACTIVITY_MONITOR_COEFF,
-> -					   WORKLOAD_PPLIB_CUSTOM_BIT,
-> -					   (void *)(&activity_monitor_external),
-> -					   true);
-> -		if (ret) {
-> -			dev_err(smu->adev->dev, "[%s] Failed to set activity monitor!", __func__);
-> -			return ret;
-> -		}
-> -	}
-> +static int smu_v14_0_2_set_power_profile_mode(struct smu_context *smu,
-> +					      u32 workload_mask,
-> +					      long *custom_params,
-> +					      u32 custom_params_max_idx)
-> +{
-> +	u32 backend_workload_mask = 0;
-> +	int ret, idx = -1, i;
-> +
-> +	smu_cmn_get_backend_workload_mask(smu, workload_mask,
-> +					  &backend_workload_mask);
->  
-> -	if (smu->power_profile_mode == PP_SMC_POWER_PROFILE_COMPUTE)
-> +	/* disable deep sleep if compute is enabled */
-> +	if (workload_mask & (1 << PP_SMC_POWER_PROFILE_COMPUTE))
->  		smu_v14_0_deep_sleep_control(smu, false);
-> -	else if (current_profile_mode == PP_SMC_POWER_PROFILE_COMPUTE)
-> +	else
->  		smu_v14_0_deep_sleep_control(smu, true);
->  
-> -	/* conv PP_SMC_POWER_PROFILE* to WORKLOAD_PPLIB_*_BIT */
-> -	workload_type = smu_cmn_to_asic_specific_index(smu,
-> -						       CMN2ASIC_MAPPING_WORKLOAD,
-> -						       smu->power_profile_mode);
-> -	if (workload_type < 0)
-> -		return -EINVAL;
-> +	if (workload_mask & (1 << PP_SMC_POWER_PROFILE_CUSTOM)) {
-> +		if (!smu->custom_profile_params) {
-> +			smu->custom_profile_params =
-> +				kzalloc(SMU_14_0_2_CUSTOM_PARAMS_SIZE, GFP_KERNEL);
-> +			if (!smu->custom_profile_params)
-> +				return -ENOMEM;
-> +		}
-> +		if (custom_params && custom_params_max_idx) {
-> +			if (custom_params_max_idx != SMU_14_0_2_CUSTOM_PARAMS_COUNT)
-> +				return -EINVAL;
-> +			if (custom_params[0] >= SMU_14_0_2_CUSTOM_PARAMS_CLOCK_COUNT)
-> +				return -EINVAL;
-> +			idx = custom_params[0] * SMU_14_0_2_CUSTOM_PARAMS_COUNT;
-> +			smu->custom_profile_params[idx] = 1;
-> +			for (i = 1; i < custom_params_max_idx; i++)
-> +				smu->custom_profile_params[idx + i] = custom_params[i];
-> +		}
-> +		ret = smu_v14_0_2_set_power_profile_mode_coeff(smu,
-> +							       smu->custom_profile_params);
-> +		if (ret) {
-> +			if (idx != -1)
-> +				smu->custom_profile_params[idx] = 0;
-> +			return ret;
-> +		}
-> +	} else if (smu->custom_profile_params) {
-> +		memset(smu->custom_profile_params, 0, SMU_14_0_2_CUSTOM_PARAMS_SIZE);
-> +	}
->  
-> -	ret = smu_cmn_send_smc_msg_with_param(smu,
-> -					       SMU_MSG_SetWorkloadMask,
-> -					       1 << workload_type,
-> -					       NULL);
-> -	if (!ret)
-> -		smu->workload_mask = 1 << workload_type;
-> +	ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_SetWorkloadMask,
-> +					      backend_workload_mask, NULL);
-> +	if (ret) {
-> +		dev_err(smu->adev->dev, "Failed to set workload mask 0x%08x\n",
-> +			workload_mask);
-> +		if (idx != -1)
-> +			smu->custom_profile_params[idx] = 0;
-> +		return ret;
-> +	}
->  
->  	return ret;
->  }
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-> index 007a81e108ec..8f92b2777726 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-> @@ -1221,3 +1221,28 @@ void smu_cmn_generic_plpd_policy_desc(struct smu_dpm_policy *policy)
->  {
->  	policy->desc = &xgmi_plpd_policy_desc;
->  }
-> +
-> +void smu_cmn_get_backend_workload_mask(struct smu_context *smu,
-> +				       u32 workload_mask,
-> +				       u32 *backend_workload_mask)
-> +{
-> +	int workload_type;
-> +	u32 profile_mode;
-> +
-> +	*backend_workload_mask = 0;
-> +
-> +	for (profile_mode = 0; profile_mode < PP_SMC_POWER_PROFILE_COUNT; profile_mode++) {
-> +		if (!(workload_mask & (1 << profile_mode)))
-> +			continue;
-> +
-> +		/* conv PP_SMC_POWER_PROFILE* to WORKLOAD_PPLIB_*_BIT */
-> +		workload_type = smu_cmn_to_asic_specific_index(smu,
-> +							       CMN2ASIC_MAPPING_WORKLOAD,
-> +							       profile_mode);
-> +
-> +		if (workload_type < 0)
-> +			continue;
-> +
-> +		*backend_workload_mask |= 1 << workload_type;
-> +	}
-> +}
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
-> index 1de685defe85..a020277dec3e 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
-> @@ -147,5 +147,9 @@ bool smu_cmn_is_audio_func_enabled(struct amdgpu_device *adev);
->  void smu_cmn_generic_soc_policy_desc(struct smu_dpm_policy *policy);
->  void smu_cmn_generic_plpd_policy_desc(struct smu_dpm_policy *policy);
->  
-> +void smu_cmn_get_backend_workload_mask(struct smu_context *smu,
-> +				       u32 workload_mask,
-> +				       u32 *backend_workload_mask);
-> +
->  #endif
->  #endif
+Xiaogang
+
+>
+> Regards,
+>    Felix
+>
+>>   		}
+>> +		if (ret_p)
+>> +			break;
+>>   	}
+>>   
+>>   	srcu_read_unlock(&kfd_processes_srcu, idx);
+>> @@ -1991,7 +1978,7 @@ static void evict_process_worker(struct work_struct *work)
+>>   	 */
+>>   	p = container_of(dwork, struct kfd_process, eviction_work);
+>>   
+>> -	pr_debug("Started evicting pasid 0x%x\n", p->pasid);
+>> +	pr_debug("Started evicting process pid 0x%x\n", (int)p->lead_thread->pid);
+>>   	ret = kfd_process_evict_queues(p, KFD_QUEUE_EVICTION_TRIGGER_TTM);
+>>   	if (!ret) {
+>>   		/* If another thread already signaled the eviction fence,
+>> @@ -2003,9 +1990,9 @@ static void evict_process_worker(struct work_struct *work)
+>>   				     msecs_to_jiffies(PROCESS_RESTORE_TIME_MS)))
+>>   			kfd_process_restore_queues(p);
+>>   
+>> -		pr_debug("Finished evicting pasid 0x%x\n", p->pasid);
+>> +		pr_debug("Finished evicting process pid 0x%x\n", (int)p->lead_thread->pid);
+>>   	} else
+>> -		pr_err("Failed to evict queues of pasid 0x%x\n", p->pasid);
+>> +		pr_err("Failed to evict queues of process pid 0x%x\n", (int)p->lead_thread->pid);
+>>   }
+>>   
+>>   static int restore_process_helper(struct kfd_process *p)
+>> @@ -2022,9 +2009,11 @@ static int restore_process_helper(struct kfd_process *p)
+>>   
+>>   	ret = kfd_process_restore_queues(p);
+>>   	if (!ret)
+>> -		pr_debug("Finished restoring pasid 0x%x\n", p->pasid);
+>> +		pr_debug("Finished restoring process pid 0x%x\n",
+>> +			 (int)p->lead_thread->pid);
+>>   	else
+>> -		pr_err("Failed to restore queues of pasid 0x%x\n", p->pasid);
+>> +		pr_err("Failed to restore queues of process pid 0x%x\n",
+>> +			(int)p->lead_thread->pid);
+>>   
+>>   	return ret;
+>>   }
+>> @@ -2041,7 +2030,7 @@ static void restore_process_worker(struct work_struct *work)
+>>   	 * lifetime of this thread, kfd_process p will be valid
+>>   	 */
+>>   	p = container_of(dwork, struct kfd_process, restore_work);
+>> -	pr_debug("Started restoring pasid 0x%x\n", p->pasid);
+>> +	pr_debug("Started restoring process pasid 0x%x\n", (int)p->lead_thread->pid);
+>>   
+>>   	/* Setting last_restore_timestamp before successful restoration.
+>>   	 * Otherwise this would have to be set by KGD (restore_process_bos)
+>> @@ -2057,8 +2046,8 @@ static void restore_process_worker(struct work_struct *work)
+>>   
+>>   	ret = restore_process_helper(p);
+>>   	if (ret) {
+>> -		pr_debug("Failed to restore BOs of pasid 0x%x, retry after %d ms\n",
+>> -			 p->pasid, PROCESS_BACK_OFF_TIME_MS);
+>> +		pr_debug("Failed to restore BOs of process pid 0x%x, retry after %d ms\n",
+>> +			 (int)p->lead_thread->pid, PROCESS_BACK_OFF_TIME_MS);
+>>   		if (mod_delayed_work(kfd_restore_wq, &p->restore_work,
+>>   				     msecs_to_jiffies(PROCESS_RESTORE_TIME_MS)))
+>>   			kfd_process_restore_queues(p);
+>> @@ -2074,7 +2063,7 @@ void kfd_suspend_all_processes(void)
+>>   	WARN(debug_evictions, "Evicting all processes");
+>>   	hash_for_each_rcu(kfd_processes_table, temp, p, kfd_processes) {
+>>   		if (kfd_process_evict_queues(p, KFD_QUEUE_EVICTION_TRIGGER_SUSPEND))
+>> -			pr_err("Failed to suspend process 0x%x\n", p->pasid);
+>> +			pr_err("Failed to suspend process pid 0x%x\n", (int)p->lead_thread->pid);
+>>   		signal_eviction_fence(p);
+>>   	}
+>>   	srcu_read_unlock(&kfd_processes_srcu, idx);
+>> @@ -2088,8 +2077,8 @@ int kfd_resume_all_processes(void)
+>>   
+>>   	hash_for_each_rcu(kfd_processes_table, temp, p, kfd_processes) {
+>>   		if (restore_process_helper(p)) {
+>> -			pr_err("Restore process %d failed during resume\n",
+>> -			       p->pasid);
+>> +			pr_err("Restore process pid %d failed during resume\n",
+>> +			       (int)p->lead_thread->pid);
+>>   			ret = -EFAULT;
+>>   		}
+>>   	}
+>> @@ -2144,7 +2133,7 @@ int kfd_process_drain_interrupts(struct kfd_process_device *pdd)
+>>   	memset(irq_drain_fence, 0, sizeof(irq_drain_fence));
+>>   	irq_drain_fence[0] = (KFD_IRQ_FENCE_SOURCEID << 8) |
+>>   							KFD_IRQ_FENCE_CLIENTID;
+>> -	irq_drain_fence[3] = pdd->process->pasid;
+>> +	irq_drain_fence[3] = pdd->pasid;
+>>   
+>>   	/*
+>>   	 * For GFX 9.4.3, send the NodeId also in IH cookie DW[3]
+>> @@ -2296,7 +2285,7 @@ int kfd_debugfs_mqds_by_process(struct seq_file *m, void *data)
+>>   
+>>   	hash_for_each_rcu(kfd_processes_table, temp, p, kfd_processes) {
+>>   		seq_printf(m, "Process %d PASID 0x%x:\n",
+>> -			   p->lead_thread->tgid, p->pasid);
+>> +			   p->lead_thread->tgid, (int)p->lead_thread->pid);
+>>   
+>>   		mutex_lock(&p->mutex);
+>>   		r = pqm_debugfs_mqds(m, &p->pqm);
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+>> index c76db22a1000..1f98c16e0fe9 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+>> @@ -69,8 +69,8 @@ static int find_available_queue_slot(struct process_queue_manager *pqm,
+>>   	pr_debug("The new slot id %lu\n", found);
+>>   
+>>   	if (found >= KFD_MAX_NUM_OF_QUEUES_PER_PROCESS) {
+>> -		pr_info("Cannot open more queues for process with pasid 0x%x\n",
+>> -				pqm->process->pasid);
+>> +		pr_info("Cannot open more queues for process with pid 0x%x\n",
+>> +			pqm->process->lead_thread->pid);
+>>   		return -ENOMEM;
+>>   	}
+>>   
+>> @@ -425,8 +425,8 @@ int pqm_create_queue(struct process_queue_manager *pqm,
+>>   	}
+>>   
+>>   	if (retval != 0) {
+>> -		pr_err("Pasid 0x%x DQM create queue type %d failed. ret %d\n",
+>> -			pqm->process->pasid, type, retval);
+>> +		pr_err("process pid 0x%x DQM create queue type %d failed. ret %d\n",
+>> +			pqm->process->lead_thread->pid, type, retval);
+>>   		goto err_create_queue;
+>>   	}
+>>   
+>> @@ -520,7 +520,7 @@ int pqm_destroy_queue(struct process_queue_manager *pqm, unsigned int qid)
+>>   		retval = dqm->ops.destroy_queue(dqm, &pdd->qpd, pqn->q);
+>>   		if (retval) {
+>>   			pr_err("Pasid 0x%x destroy queue %d failed, ret %d\n",
+>> -				pqm->process->pasid,
+>> +				pdd->pasid,
+>>   				pqn->q->properties.queue_id, retval);
+>>   			if (retval != -ETIME)
+>>   				goto err_destroy_queue;
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+>> index 3e2911895c74..4910cfcaff36 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+>> @@ -563,7 +563,8 @@ svm_range_vram_node_new(struct kfd_node *node, struct svm_range *prange,
+>>   	int r;
+>>   
+>>   	p = container_of(prange->svms, struct kfd_process, svms);
+>> -	pr_debug("pasid: %x svms 0x%p [0x%lx 0x%lx]\n", p->pasid, prange->svms,
+>> +	pr_debug("process pid: %x svms 0x%p [0x%lx 0x%lx]\n",
+>> +		 (int)p->lead_thread->pid, prange->svms,
+>>   		 prange->start, prange->last);
+>>   
+>>   	if (svm_range_validate_svm_bo(node, prange))
+>> @@ -3232,7 +3233,8 @@ void svm_range_list_fini(struct kfd_process *p)
+>>   	struct svm_range *prange;
+>>   	struct svm_range *next;
+>>   
+>> -	pr_debug("pasid 0x%x svms 0x%p\n", p->pasid, &p->svms);
+>> +	pr_debug("process pid 0x%x svms 0x%p\n", (int)p->lead_thread->pid,
+>> +		 &p->svms);
+>>   
+>>   	cancel_delayed_work_sync(&p->svms.restore_work);
+>>   
+>> @@ -3255,7 +3257,8 @@ void svm_range_list_fini(struct kfd_process *p)
+>>   
+>>   	mutex_destroy(&p->svms.lock);
+>>   
+>> -	pr_debug("pasid 0x%x svms 0x%p done\n", p->pasid, &p->svms);
+>> +	pr_debug("process pid 0x%x svms 0x%p done\n",
+>> +		(int)p->lead_thread->pid, &p->svms);
+>>   }
+>>   
+>>   int svm_range_list_init(struct kfd_process *p)
+>> @@ -3618,8 +3621,8 @@ svm_range_set_attr(struct kfd_process *p, struct mm_struct *mm,
+>>   	bool flush_tlb;
+>>   	int r, ret = 0;
+>>   
+>> -	pr_debug("pasid 0x%x svms 0x%p [0x%llx 0x%llx] pages 0x%llx\n",
+>> -		 p->pasid, &p->svms, start, start + size - 1, size);
+>> +	pr_debug("process pid 0x%x svms 0x%p [0x%llx 0x%llx] pages 0x%llx\n",
+>> +		 (int)p->lead_thread->pid, &p->svms, start, start + size - 1, size);
+>>   
+>>   	r = svm_range_check_attr(p, nattr, attrs);
+>>   	if (r)
+>> @@ -3727,8 +3730,8 @@ svm_range_set_attr(struct kfd_process *p, struct mm_struct *mm,
+>>   out:
+>>   	mutex_unlock(&process_info->lock);
+>>   
+>> -	pr_debug("pasid 0x%x svms 0x%p [0x%llx 0x%llx] done, r=%d\n", p->pasid,
+>> -		 &p->svms, start, start + size - 1, r);
+>> +	pr_debug("process pid 0x%x svms 0x%p [0x%llx 0x%llx] done, r=%d\n",
+>> +		 (int)p->lead_thread->pid, &p->svms, start, start + size - 1, r);
+>>   
+>>   	return ret ? ret : r;
+>>   }
