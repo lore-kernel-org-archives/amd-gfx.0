@@ -4,119 +4,148 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA674E69190
-	for <amd-gfx@archiver.kernel.org>; Fri, 22 Nov 2024 19:06:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCD14E6918E
+	for <amd-gfx@archiver.kernel.org>; Fri, 22 Nov 2024 19:08:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 95F7710EC64;
-	Fri, 22 Nov 2024 19:06:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8359910E1A1;
+	Fri, 22 Nov 2024 19:08:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="sT329w5e";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="LXgSaXes";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2044.outbound.protection.outlook.com [40.107.92.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 901A110EC5A
- for <amd-gfx@lists.freedesktop.org>; Fri, 22 Nov 2024 19:06:48 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2057.outbound.protection.outlook.com [40.107.100.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B19410E1A1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 22 Nov 2024 19:08:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GBmQPIW99VqYpHXNBKN/Zh0Y0eVF9TiR3qvB6XANBEl5uJ4j1YWFSsZqRvX2/2Jul9JqCmQ0ooAR8JhfMWeHyzM/x3rmANwSM9Jfw9Uh1mT9YAA6P1lgV8BWZkqGLOADXJVXovQPj48WLuaiuDsNzU1a/fiXUrEs5NG+fiF+4y40is46536he/c8ibjL2dgrq1xFyv6VtMHblagq96JvkPpPB0Ykhg1tRs1pNxSJO9tueFA18ExVNmTu3LmmMJ0cVJlEvvKXnuR99HWaB54yv7Z0pSZv82LtgSnOfHkkq2WmCJXQk/o5XX2EKqID7uefyf/C7xO+LZzjEeBiqwcfHQ==
+ b=voqWn8Y+ucGz/HFYzxnHYhqQvExJjgBVPqnVQm0t4vMd+UcPEq4BwvStnBxsSnhgv/5zwDUie8PdFqhg/NoPP3W5vvuM9OB1ciO+fuYVxylDlaPqNLVm4ffgShaHq5Hw3REEmaWweL9bwX5vQqzGI6LPS55G9Rj3cpiqGrSlXlxSrchF9ztKyYGgtOJQDuZCPdhSYV6u1GMzevs6Yv56JA49oQCb3j9zf62hmU7spuZhdrboYxDhZv5r4LKTBZghlSYKd/pSl21PmCumj7ZJg3Ev/Ray2jRKybr5YwfEvdc54+4sFioOAN0Giifci7ssNDwm91QhOwI6eT/055Joww==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bFY00ole2n0H4fI1pS4VB+8e3/Yjo81GitQQ7GXMR8k=;
- b=Xg5UdZsZYzJAPzYYQ+dkh5tbwbqtgOrTHYFKqTc9URnMqK+4XqBO+mrFyjzLvBDRWF5iVtMu3GFn6CGCgYMv1bVsYgYz8nSLuZN+MfCzlf836pTmJlsrrcdVDyNUzrqaGQdK4bmi/ZEgId3Kp8WJo/f0nqYSCsyyZR4j2keHnuUod5q8UTOshq1FRx/QdDi8w77qaDBmeKHlC+esb5ZZeMknAvRRxJPWWaoLC2w/5WIr2uE08W8h0VEy5ZI/hSPMQHmtIyQqstAmPcwWlBe4laDb+5qpevFHLgnWJ1LBdZccbqQdsx9TYgRtTKr0tUlzuTcUXLWC6umG+C1tsjh7qA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.12) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=BmzwqayoX4uGKZt/cOCJC5hSRx9TickEJmG9/echhbY=;
+ b=q+GFzw0gNYZyaFa7yiq5p8EUou0MXcLIyeLXGdGcMiW3uzOM050gKpzTszowB60wvHth+JxLK4K0kjRc2FmBLjBdm6smTZ+zwAC45Qc7gKGfWqol37Ok0EYGw4Mq+m9nN32GuJtKicpQY9gjqGqET6lhR1ynXyYLxeai3m/dcuCaR04uoOqZwG1DoBAt6NGcz9l5vFjDWAt5WV/4GdS5+0bBm2Dvw3Q/aHlhpFc8qcJ697kl0+cQx42CdJ8Q6Eiz+CQqBc9Dy+SCI51qGN+PCEDR0K3bKGP2qwbebLZ7Xs3wyjkCrwFcnXlMF7ah5aqeCOSE/I2kHU5+Q7D9D/34lQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bFY00ole2n0H4fI1pS4VB+8e3/Yjo81GitQQ7GXMR8k=;
- b=sT329w5e3mYNV8LFoVCIa+QmTkO0JASqjmgVYrVz0meZD19A6MKM8JtyCtm1qzsiA6EOqHFAMZqFKuuu7xZuoHZUC0RZQDqTpmXONwcLIXcRM/zVVCL2ypVmXaWIPRq4055qrWIqfmZDa4njvOKt0Eusc1Y4O7ABBps/f0jUihk=
-Received: from DS7PR06CA0028.namprd06.prod.outlook.com (2603:10b6:8:54::33) by
- CH2PR12MB4037.namprd12.prod.outlook.com (2603:10b6:610:7a::20) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.8182.18; Fri, 22 Nov 2024 19:06:43 +0000
-Received: from DS1PEPF00017097.namprd05.prod.outlook.com
- (2603:10b6:8:54:cafe::7d) by DS7PR06CA0028.outlook.office365.com
- (2603:10b6:8:54::33) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8158.24 via Frontend
- Transport; Fri, 22 Nov 2024 19:06:43 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.12)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.12 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.12; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.12) by
- DS1PEPF00017097.mail.protection.outlook.com (10.167.18.101) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8182.16 via Frontend Transport; Fri, 22 Nov 2024 19:06:43 +0000
-Received: from AUS-P9-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 22 Nov
- 2024 13:06:38 -0600
+ bh=BmzwqayoX4uGKZt/cOCJC5hSRx9TickEJmG9/echhbY=;
+ b=LXgSaXesQNocTZm8skrgI4VsDNuiQlpXp0ZXtoqbF7rpfZ+I+VpL8FVx94EM771Kz/dHN+SenZsHS/BFGPiVFyM3Bc2z0XujOvuEhK93sJphZSG8A8ZMj/UafeQPZAKw4JjWirbkcoawYMwOldt49kH5e8mQVfNxU32J7WGQZQA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
+ by MW6PR12MB8898.namprd12.prod.outlook.com (2603:10b6:303:246::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8182.14; Fri, 22 Nov
+ 2024 19:08:19 +0000
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::37ee:a763:6d04:81ca]) by MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::37ee:a763:6d04:81ca%4]) with mapi id 15.20.8158.019; Fri, 22 Nov 2024
+ 19:08:19 +0000
+Message-ID: <1bc84604-0176-4bfc-a8bf-33591c5ad7fc@amd.com>
+Date: Fri, 22 Nov 2024 13:08:16 -0600
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] drm/amd: Invert APU check for
+ amdgpu_device_evict_resources()
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, Lijo Lazar <lijo.lazar@amd.com>
+References: <20241122155004.3565-1-mario.limonciello@amd.com>
+ <CADnq5_MY8kwafb_-YxB9vBNyHe-j3tq-gu1SsLrBSz67C95vSw@mail.gmail.com>
+Content-Language: en-US
 From: Mario Limonciello <mario.limonciello@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Mario Limonciello <mario.limonciello@amd.com>
-Subject: [PATCH v3 2/3] drm/amd: Add Suspend/Hibernate notification callback
- support
-Date: Fri, 22 Nov 2024 13:06:25 -0600
-Message-ID: <20241122190626.19305-2-mario.limonciello@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20241122190626.19305-1-mario.limonciello@amd.com>
-References: <20241122190626.19305-1-mario.limonciello@amd.com>
-MIME-Version: 1.0
+In-Reply-To: <CADnq5_MY8kwafb_-YxB9vBNyHe-j3tq-gu1SsLrBSz67C95vSw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: SA0PR11CA0110.namprd11.prod.outlook.com
+ (2603:10b6:806:d1::25) To MN0PR12MB6101.namprd12.prod.outlook.com
+ (2603:10b6:208:3cb::10)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF00017097:EE_|CH2PR12MB4037:EE_
-X-MS-Office365-Filtering-Correlation-Id: 03795f50-ae5c-4d28-4d27-08dd0b28cd8f
+X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|MW6PR12MB8898:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3c42b32b-f638-4527-39d8-08dd0b2906bf
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|1800799024|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?5DdQuy/YHxBam4uHBYe9NwzvQu29b9wB/1fjN+cWQMAvLXq00tpjubgkZwvE?=
- =?us-ascii?Q?s8ou3iKgahjRx6B9bCyBPy/zFIZg1e2kVU9I4OrucY+tywGB033pnnQ56EyK?=
- =?us-ascii?Q?7++knB1dEeCgcIb30TLiAfazVbL5ANdcNdAiVcHLbStqoxGaf7sA54rJPFiv?=
- =?us-ascii?Q?LTnYDc2Ii2wlSonZOGFidsZlj+VgBwLEexDeMg0jVqCU8RpuLd6PSbL9UXve?=
- =?us-ascii?Q?rXsKc0cEwj2T6nLmzTHviK2L5ramZ88qUdl8yxt9wJaY+NazM3NIB7QgStxk?=
- =?us-ascii?Q?S1meZEG8aXnXYEmcL7r3bHX/DVMfVl9cR0uv7+YJXtUgeg2QjGcL0UMDPejb?=
- =?us-ascii?Q?ihy1wFp20xCpl13JnQMXNAwylA1EBr8Kp9onbNRikQK3NAqK0bdkRZPuuBlN?=
- =?us-ascii?Q?xAQ4gnxlCAUsnUJMsB7wKA1b3fRvNhji8KocKr1i2FFf2USb7jNeTA64c8QT?=
- =?us-ascii?Q?S9Hb01VGnU908ooFmQaYzFNNCH7sLEMtkyA9UGBM1WafZDe+m/J+K0istC9M?=
- =?us-ascii?Q?K1DAP8FW/ZhXyGfS3CAOzESl6CGFOvDYbk/hbKU0bbc9kof87k1HsWaPEppX?=
- =?us-ascii?Q?I11GNi6mOi3GtEcBW4U+BGqwhYu7jsABpCqSdI+nDHR+Bsi9Hv0nGvjYMFN7?=
- =?us-ascii?Q?7VBbKwTTTtM48VG/lQpeydt35V9mST7PQeIm8YpZ2RVx+u70PG2XFCgg3exD?=
- =?us-ascii?Q?Rg6hMDaB6zy6fukyVQ3UyvmLtnGBXo5ZSCMFwcYiBuaqQJHgnBtp3jZoSaLd?=
- =?us-ascii?Q?L3XRWKS9lac4Z/V2h7O67zXdE5Me37ZgIPrmQQlOHPTIa7Trr9TugQV2n93Y?=
- =?us-ascii?Q?OW0YhY5QZ/b9mKQrN82K9+Y13jnc9FdSuWFn9KR/OH9Br2RzEJk02n6Tj+K8?=
- =?us-ascii?Q?hoY2RPj4xBYJF8Lkgeyg2xTgUCJ7f2eAsdKnZfAqYrfEyLN9HTqdJIAGHhjR?=
- =?us-ascii?Q?1CvwpRuLfktNFsym2bcFvj6Ywu2rp7eSGdc0SEbCBOyOo/UuvNHDf1ojW4lr?=
- =?us-ascii?Q?upUJBZPh/XFRMB5oOGYSMorTJxCszRFVvaIhCpa/cJizIOABb2OkamT/lIbP?=
- =?us-ascii?Q?LGDGYQ/vKQHmMZlsjV0740IEZQXptM2TEvQWJSThIy0yrVBvAwSeFHx4E/Xk?=
- =?us-ascii?Q?vBP7405/EME4mmPflCquLlRR7VRB9B+gDL+wGoz9tIs5E1VXtNNcRbuYLEDS?=
- =?us-ascii?Q?d8QHlhGkMO+lH71DwK7VS7ozW2C1S9OD7r/GhA6vPCiDhUZhwNuUnSFIavQD?=
- =?us-ascii?Q?gSg6x7I4/s0eKNnkewUx5J6oWghseeCgkO+kbG1v8oalLlFJkYYd54grwn/Z?=
- =?us-ascii?Q?lfaNxGyJCTq4c5RUucCFAMM8yXoYWwsFYDiAfDHfKXQkd769KlWiN/VT2pOA?=
- =?us-ascii?Q?se9/G8o=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.12; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:atlvpn-bp.amd.com; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(1800799024)(36860700013); DIR:OUT;
- SFP:1101; 
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?RnRLS2pKK2pwWFNpb0MzYVRKSlVlOUR4N1RpR3JjaUREcEtBeW5Lc3kzT0Zt?=
+ =?utf-8?B?aW5nRngzQUhLVzF3YmRYYjZEQzNEUUdpSUs5VWFjZzRYZVhXUUhySFFMWmNG?=
+ =?utf-8?B?UnN3dnBkaHg5ampOcVh3YTNyY0tMNHI2Ymp3YktNa1RhTEMxWDdMeGNEVWJ4?=
+ =?utf-8?B?aU5lUENZK0NlemZmVnRzTStPTzZBYnJ4Y2dnTTBCTzlXZ09yL2dqTE9rYjlS?=
+ =?utf-8?B?d1pOQVdiL1F4QWh0TTk1d1hybCtGLzQ5SkpJWXY2dWQ4MUdTbDZuYWthNlRK?=
+ =?utf-8?B?Ty9lSGpIRFMzUkJXL2lFSFowc3l5SUpWWTlKNmd3Uk5oUWVVOFJ3cGRYU1ND?=
+ =?utf-8?B?SUJJdTVORFU5QUVycnlIQU95WnhqaUdXc3c4eVRpWWlZaHAzRGVtSU4yMm1K?=
+ =?utf-8?B?bHlLMkI2MHBxblYyTVdrdGRFUXdmaStFRVZyZG9wWmwwZ1Z3STExT3BRVnVP?=
+ =?utf-8?B?ajZ3UnNXcEtpVDFIZnhQdlFZYXNQalJ3dEg5Snh0RTRSSjliR012dFNUOXhR?=
+ =?utf-8?B?dUJzVHFwMXA0UWpUWUVwRko4ZXBxeW42UnpWOXVQS2ozTVY1Q2NCdGNMWW5h?=
+ =?utf-8?B?NDNjNFBRYTIwM0ZOeHkyN0hJcGs1OG5KdTd3aHZTekpYRFkzRW5TWVhFZE4r?=
+ =?utf-8?B?NXJGQXlkSUJqR254QkRrcTIrUTlKZE82RjZFb1piOSt6ZVErOHhSZVlKZUFo?=
+ =?utf-8?B?UGk4M1EvQVVIcXREUkhUY0dDNHlVN2lZYXB1d2JlMHN6d1hSTnVCNktsbkJr?=
+ =?utf-8?B?MHRHWjhBRWIzV1JqQ1l4a2hxOTdBYUlZRHVVZ1c5aXVpYWpUNEJJUWxrNFlK?=
+ =?utf-8?B?OGg5WG9maCtOWTVXUjFpLzlhNHdUNjlUZTJFRWZXRUVUaXE2dElwRHVVVDJ5?=
+ =?utf-8?B?c3dYU3NaOUExRTFlVk9oN0FFL1VBZHBhaVFZemU1SzdMaElMeGZPaDZBOU5h?=
+ =?utf-8?B?a0RXbTAvSDdsMVJJVStpMmJ6bGZmR3czM09pNVpDc0F3Y2E1cDY0UVJxQnUr?=
+ =?utf-8?B?aTh1a2h5NXVwYlJPUWZzVlNKTTdWVWg1Z01wbW5XZU5WSkVzNTdlMVl2bG0w?=
+ =?utf-8?B?amtpaVMrN3lQeW95Mit5T09NeTBxVEhoY3ErMGdWcjFwb21qUVM5VmlnSFN3?=
+ =?utf-8?B?MVUxeDNoWk4zTTBEQWVSOGtKVDFiaXNkN1VqR0ZTejViR1lTMmVWM1VYWTBC?=
+ =?utf-8?B?dWhITVZ1R2NWOGQyRFFRdWVCOGR1RFRuOGF2eUl4TzA2bVpvV2FqOEZad3Q4?=
+ =?utf-8?B?TmlpSHdMWkZpb3A1V1F6RWxQT0pORUhvdXVWeS9WN0V3bnFJUy9iNTZhcDY4?=
+ =?utf-8?B?Rmw0dkZQNkd1UUhxQmtGT0Z0VVpLKzkzalhzTGVJZCtnaFZFWG5BK3JzazZt?=
+ =?utf-8?B?OUlYc1lsbkFoRXhIVk9yWXNLVldvS05QajBxSkdjWnZlUVJuaUhuQjNmY1do?=
+ =?utf-8?B?NjducVJraDdQSXpwaEJiWTFYMGdCK2loOVIycUxZdTU4My9hVE8wTm9NSFhu?=
+ =?utf-8?B?MXBGbkJneXU1aG5xbWlRNVgrM0JVdnlkUGJjRkRKR21pNkUycExhbDRDUk1h?=
+ =?utf-8?B?UVF1N0IzZ05WQVNxL2VEbUpSYzRrMFo2dnp3bEVLWTF6T2NyVEZ4T2ZFWEdz?=
+ =?utf-8?B?YnYxWElhSlowblZKeG1RbncwNGR2TUFOQ2d4eDA4YnFrZ2d0UEd2SWtBTFNm?=
+ =?utf-8?B?RGV4MUpVbnprbDF6RXVaVXdmY3hBeE5ZNVRqY0ZQV2huK25Ja2ltSkduZlRI?=
+ =?utf-8?B?RWRLbFRENDl6SEVCWi82aHRJT29qWXUrVlEwNHBxYzBUZE10WlJSc0RmR212?=
+ =?utf-8?Q?QymSda8ayTMRjN4RCGeZZ5Ciga1mCIiIlQ8Eo=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?L0JsdFZRUWVSazJTTjl5Tzh1emZscmNRYk5sQTBZMEVXYk1qN01ueFVJZEhX?=
+ =?utf-8?B?b00wUUFmLzZiY3F6NmUvOUlTem95a0FWdUN1dmJvdXVLMmdKUmpqTXhKN0xz?=
+ =?utf-8?B?M2FWSmpucE54ZVgyYnFLV1djSm9DWkNTemlvMjRpOXJFYWdhUHJqRWVRdWM1?=
+ =?utf-8?B?N2REV1dvVysxNk9lbHJTdk9RT1NscWdVbWJiVXhQczdPZEc5WXZTVGpQUElE?=
+ =?utf-8?B?SGwwOGNkNU91bGdUcTE1SEF3bFM0c1VFL2J1cGRscHQzVWg1aFRDeHhGUTZr?=
+ =?utf-8?B?M1VqcEJrcW9udHpBSHNybTlnNVZNSUg2WHpZN1FrM0xFU3ZaWjV1bTlLVlpP?=
+ =?utf-8?B?dU9OcUlvc1pHYi9QbEU1UnZuZ0UzWGR3ME1zcm5ZM25HNUNjeDU5V0M5bURB?=
+ =?utf-8?B?WEFrNENnT2pqb3N1QSs0WFF0NTZmV2RxeFNwN2xxbjhsSDNBMGZNUUlQR3da?=
+ =?utf-8?B?QkxJSXZGRUZPcEY1TFAwK09LazFJNTdORnpVamJrQjJMTm5aYlBzNEdnVStB?=
+ =?utf-8?B?eHFFRkNpK2UzNmdQSXUyWmJyVkNTZFFYWmpza3g0L0hYd2VkLzl2Kzl5MXUy?=
+ =?utf-8?B?VWxhb2dwQlY3TytFYTNVajdUeXhNYzFTS1l4Qjk3TEZRenRUUytsV2dCTjF1?=
+ =?utf-8?B?aXpOMkZFQXk1L1hOMFBLbGpWa1JheVFlSUZzNFBxeUtJUlA2Z2FEY0FoVm5l?=
+ =?utf-8?B?SmtlejJ1N2hSSGRZQWlOWTFXN2pNdkh6NTJndUIvUUpSd2pvOVBDZ1JYbnNq?=
+ =?utf-8?B?Y01hOFVqcmdXcUhzREZyZ1ZjM2VybTVrNXZva3d4Mk1JNHkxVy9FN0pPNENk?=
+ =?utf-8?B?SmlSeGhTakx6RnhGcUNSUFgyRzZNb3l6cDRFRE9Xb1J1amNqL1JuU1kvczZ4?=
+ =?utf-8?B?S2JuUjM5MVc5bjBZNTdiUUt3Wkl2d25FTi9SbmUrVjdKRU9Ia2h5bTdWWmkw?=
+ =?utf-8?B?Y3VUR0FmZkk5SjBGc3grbGVJeUhVdVl4VllZSFhMdkdZSnQ2b3RTQWpxeU9O?=
+ =?utf-8?B?YmdFMFpXUWYvdm1RY1BEb0ZnMUUrUklSYWZtTnB1S1FUelFnMElTUk5RWllF?=
+ =?utf-8?B?VjJ6c0dtQUN2Q0E1cDNobGV6Umx2dTdHVUo0YXV6dEhvRHovZ2pqWXJ1UEEy?=
+ =?utf-8?B?TDhXTlNPTFZEOE03ei9pSFZ5YzNQcHZja2t1NzJwZ1ZkbWxPNXpDMEZpMHJG?=
+ =?utf-8?B?OXBCbEhhSWJqS2srR01OZFNiZ0I1L0VZRkowS1A0enByaHpLbUdQZ3gxWEl2?=
+ =?utf-8?B?eEN6MjdpdE1Na3cyR1ZZNm5YTlp5VGdkVnVHYkNsNiswcjhpUVR3eXhyR200?=
+ =?utf-8?B?QTdsQXROT054SXJramdLK0FjVnYzK2VIVlo2R3lxdDZURWpvaEdsWW51SHhZ?=
+ =?utf-8?B?dndCTFkrVHllemovM0NQdUN1MkhQUnZCMEh4b2c5ZmhDNnprWGc0QUdjeUxx?=
+ =?utf-8?B?bFhLdnJzc0lZRWVpT2w1N21CM3dpTm0rVnI3cnB5c0d6ZmpZVzFaaXRNNFBh?=
+ =?utf-8?B?ZDJrbVRpQVBpNGROVE9lL21ramFUZk82bFhKdzM2SUVCNzIreU9VU2ZkalBw?=
+ =?utf-8?B?MURWbVF0WXZ2dGZWRG9qeGpRT1ZvWlVmcHlVNHNUOWRsdk1MNmpWSGJrWTN6?=
+ =?utf-8?B?b0I3ZVBacGtUSTNFVDMvblM0blNRb3JBQjAvM25QUkNBbzd5TVNTbTI5RllM?=
+ =?utf-8?B?VXVnNUV5bGdiNXZ2Szh0ellpSEFJeG1adTV6TFVibjN5OGpORngxaGwrSmZQ?=
+ =?utf-8?B?dGUrRTUxWFR2YWVsdXYvMEo1OXdmQ3dZajVXVVVLVG5aL0QxTE96SzdYNndy?=
+ =?utf-8?B?cTJyQ0dLc1VjaUdtemI2WVUxaVAxUm5NZnBBS2F0ejRPNmpKZWc5SkhRMEpI?=
+ =?utf-8?B?MlVld3RBR2tGNS90b3BPMkptdVl1bFRRdTdXV0NFdTBZNUJCdlE3eUVLbWxM?=
+ =?utf-8?B?UGNQRmlYQkVxbm5qUnNVQ1ZUM2xFeEdXQ3NVeDYrcVR2V2VpRUJmYTU3UVNX?=
+ =?utf-8?B?QUlWN2R4SHdIenA5RTdUM3J3KzBRVElUcjRTZVB4OFpMdWpKQ3hEbjJjNmZx?=
+ =?utf-8?B?Q3RqZXhtYUVnMmpoNW0wYXNkWlNnTEw3VVl6TGV1V2tBWG5IVjlZRGJIbEZW?=
+ =?utf-8?Q?oEhMZRHpYuFe6IyKNC2iKIjSc?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Nov 2024 19:06:43.0858 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 03795f50-ae5c-4d28-4d27-08dd0b28cd8f
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3c42b32b-f638-4527-39d8-08dd0b2906bf
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Nov 2024 19:08:19.3190 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.12];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF00017097.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4037
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 99peRcS4mPmqvJJSm/hpSBfo6RSV3q4rZk7ktgPIHr7msETAEiHu4K2RzoSUH17mBus9ecTxW9HUvm679j52+A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8898
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,117 +160,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-As part of the suspend sequence VRAM needs to be evicted on dGPUs.
-In order to make suspend/resume more reliable we moved this into
-the pmops prepare() callback so that the suspend sequence would fail
-but the system could remain operational under high memory usage suspend.
+On 11/22/2024 11:00, Alex Deucher wrote:
+> On Fri, Nov 22, 2024 at 11:17 AM Mario Limonciello
+> <mario.limonciello@amd.com> wrote:
+>>
+>> Resource eviction isn't needed for s3 or s2idle on APUs, but should
+>> be run for S4. As amdgpu_device_evict_resources() will be called
+>> by prepare notifier adjust logic so that APUs only cover S4.
+>>
+>> Suggested-by: Lijo Lazar <lijo.lazar@amd.com>
+>> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+>> --
+>> v2:
+>>   * New patch
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++--
+>>   1 file changed, 2 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>> index 11d344166ba7..d511ba949dff 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>> @@ -4744,8 +4744,8 @@ static int amdgpu_device_evict_resources(struct amdgpu_device *adev)
+>>   {
+>>          int ret;
+>>
+>> -       /* No need to evict vram on APUs for suspend to ram or s2idle */
+>> -       if ((adev->in_s3 || adev->in_s0ix) && (adev->flags & AMD_IS_APU))
+>> +       /* No need to evict vram on APUs unless going to S4 */
+>> +       if (!adev->in_s4 && (adev->flags & AMD_IS_APU))
+> 
+> Will the in_s4 flag be set at this point?
 
-Another class of issues exist though where due to memory fragementation
-there isn't a large enough contiguous space and swap isn't accessible.
+It won't, so this would mean APU's to S4 wouldn't be covered.  It looks 
+like a gap in the prepare() implementation too.
 
-Add support for a suspend/hibernate notification callback that could
-evict VRAM before tasks are frozen. This should allow paging out to swap
-if necessary.
+I've adjusted it in v3.
 
-Link: https://github.com/ROCm/ROCK-Kernel-Driver/issues/174
-Link: https://gitlab.freedesktop.org/drm/amd/-/issues/3476
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/2362
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
----
-v3:
- * Drop A-b
- * Set adev->is_s4 for s4.
-v2:
- * Collect tags
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 40 ++++++++++++++++++++++
- 2 files changed, 41 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 9424974c662d..9ece32d284c3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -886,6 +886,7 @@ struct amdgpu_device {
- 	bool				need_swiotlb;
- 	bool				accel_working;
- 	struct notifier_block		acpi_nb;
-+	struct notifier_block		pm_nb;
- 	struct amdgpu_i2c_chan		*i2c_bus[AMDGPU_MAX_I2C_BUS];
- 	struct debugfs_blob_wrapper     debugfs_vbios_blob;
- 	struct debugfs_blob_wrapper     debugfs_discovery_blob;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index d511ba949dff..be87491d1851 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -198,6 +198,8 @@ void amdgpu_set_init_level(struct amdgpu_device *adev,
- }
- 
- static inline void amdgpu_device_stop_pending_resets(struct amdgpu_device *adev);
-+static int amdgpu_device_pm_notifier(struct notifier_block *nb, unsigned long mode,
-+				     void *data);
- 
- /**
-  * DOC: pcie_replay_count
-@@ -4562,6 +4564,11 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 
- 	amdgpu_device_check_iommu_direct_map(adev);
- 
-+	adev->pm_nb.notifier_call = amdgpu_device_pm_notifier;
-+	r = register_pm_notifier(&adev->pm_nb);
-+	if (r)
-+		goto failed;
-+
- 	return 0;
- 
- release_ras_con:
-@@ -4626,6 +4633,8 @@ void amdgpu_device_fini_hw(struct amdgpu_device *adev)
- 		drain_workqueue(adev->mman.bdev.wq);
- 	adev->shutdown = true;
- 
-+	unregister_pm_notifier(&adev->pm_nb);
-+
- 	/* make sure IB test finished before entering exclusive mode
- 	 * to avoid preemption on IB test
- 	 */
-@@ -4757,6 +4766,37 @@ static int amdgpu_device_evict_resources(struct amdgpu_device *adev)
- /*
-  * Suspend & resume.
-  */
-+/**
-+ * amdgpu_device_pm_notifier - Notification block for Suspend/Hibernate events
-+ * @nb: notifier block
-+ * @mode: suspend mode
-+ * @data: data
-+ *
-+ * This function is called when the system is about to suspend or hibernate.
-+ * It is used to evict resources from the device before the system goes to
-+ * sleep while there is still access to swap.
-+ */
-+static int amdgpu_device_pm_notifier(struct notifier_block *nb, unsigned long mode,
-+				     void *data)
-+{
-+	struct amdgpu_device *adev = container_of(nb, struct amdgpu_device, pm_nb);
-+	int r;
-+
-+	switch (mode) {
-+	case PM_HIBERNATION_PREPARE:
-+		adev->in_s4 = true;
-+		fallthrough;
-+	case PM_SUSPEND_PREPARE:
-+		r = amdgpu_device_evict_resources(adev);
-+		adev->in_s4 = false;
-+		if (r)
-+			return NOTIFY_BAD;
-+		break;
-+	}
-+
-+	return NOTIFY_DONE;
-+}
-+
- /**
-  * amdgpu_device_prepare - prepare for device suspend
-  *
--- 
-2.34.1
+> 
+> Alex
+> 
+>>                  return 0;
+>>
+>>          ret = amdgpu_ttm_evict_resources(adev, TTM_PL_VRAM);
+>> --
+>> 2.34.1
+>>
 
