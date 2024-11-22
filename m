@@ -4,154 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08886D75E4A
-	for <amd-gfx@archiver.kernel.org>; Fri, 22 Nov 2024 13:47:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE337D75E54
+	for <amd-gfx@archiver.kernel.org>; Fri, 22 Nov 2024 14:05:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0EED10EBA0;
-	Fri, 22 Nov 2024 13:47:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CCEA10EBA3;
+	Fri, 22 Nov 2024 14:05:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="SytjWTf4";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lZK8iYNe";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2052.outbound.protection.outlook.com [40.107.236.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E535810EB98;
- Fri, 22 Nov 2024 13:47:08 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KJwN0ubrZHFYmVoyhYW8R9pG9oC8SOKwJMMN0mt8oMEBP16Wl30/JnHJvLsUckG5v7xP43roEjsErrqeeHfaAfsG2+LKiXymCHz5Ta1ZGaZT7Yc2FggQl1t2UP/ip2o++C9gWwwklR4iKpxLaqASHf5R2t/Lce7kl6bneZCTyE8aTf+cMpxEjDekqvAOAtZTB0yCwNvN8jDXD1wR67CVdHwMajemwu6ufECkFw1hB3poBVbUVyFYiaALahhpFWJ6sRu2EN54UHSkYlD85VEr+f7txAMcE8fUhAqrchPoH6yP7rO1At1rcDQwUl7nZH0RObwjCtkPXJN0upsul6zOsA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AEJ0fFeGTr7Kp0POsvdwNGbhrV4ljNryPqy/MAqAtmA=;
- b=q9UqW3fs+KIVupJFXM0QQRVnHm+RD0wJX2QE9rb2EjNGgyWdr6Ue37V6GusmCUDFCmXQ/gJjRthwXUvpYzwwtncvE7a6zMZtG9w13rW8v6OCfQLopNUDtBwJLq0YwPDwG7gfHDx9bt+P8KBTynE28OtUgLRhiEHDHXsaq9owDZ7Gd6QADHmeO/l4heR4jg4mdYNdLEgfyPyY7ULtQcU/buWUjTdVqQrNlevELQi2q189KjukhJPnhfYorPFpkIAxqX8BrO5Mcopx/hh1g239Ry7U2+WrjHjwsRE5d/Ufdu8H3xI11B9b08/foWKuOYgs3b3droGsR7if5+HuyHMjSA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AEJ0fFeGTr7Kp0POsvdwNGbhrV4ljNryPqy/MAqAtmA=;
- b=SytjWTf4hnNrmEiNtK5UuloVRcF9xYUTuWsaxCULyuhDP+rCNaKFf5byiHe41BxhRnVjlRReR+UuI/hPjHvWpUFNDNE0eiooAKHKeH0wpoW8iUGELJTGMDrB8zA3omDGaRX8ds5esxEuCkkIFwmnarMTP8Swy7Tupvmyl+JUicg=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by IA0PR12MB8931.namprd12.prod.outlook.com (2603:10b6:208:48a::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8182.15; Fri, 22 Nov
- 2024 13:47:02 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%5]) with mapi id 15.20.8158.019; Fri, 22 Nov 2024
- 13:47:02 +0000
-Message-ID: <14e6e7a3-4077-4074-aaae-3be4b6fd071d@amd.com>
-Date: Fri, 22 Nov 2024 14:46:56 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: Make the submission path memory reclaim safe
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Tvrtko Ursulin <tursulin@igalia.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, stable@vger.kernel.org,
- Matthew Brost <matthew.brost@intel.com>, Danilo Krummrich <dakr@kernel.org>,
- Philipp Stanner <pstanner@redhat.com>,
- Alex Deucher <alexander.deucher@amd.com>
-References: <20241113134838.52608-1-tursulin@igalia.com>
- <e30428ce-a4d1-43e0-89d3-1487f7af2fde@amd.com>
- <154641d9-be2a-4018-af5e-a57dbffb45d5@igalia.com>
- <61ad957b-34be-4ee5-944f-261c7a412962@igalia.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <61ad957b-34be-4ee5-944f-261c7a412962@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR5P281CA0011.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f2::19) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com
+ [209.85.210.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED3E210EBA3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 22 Nov 2024 14:05:45 +0000 (UTC)
+Received: by mail-pf1-f177.google.com with SMTP id
+ d2e1a72fcca58-7247888f092so244409b3a.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 22 Nov 2024 06:05:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1732284345; x=1732889145; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=XcYTaP+gBiWsNspWHGvTj1BfceIltQA+YnFE4v2OGtk=;
+ b=lZK8iYNeoSWk7b0th/WR5/boBg3014MfaXEREfrEUC+tzKwChS2vIAedj1MZjT0ZTB
+ dDgqpnxqr4wahwoQHdv6FxwM6GDlnJCGM0N15PBgTNREv/qjSgqUyHCIxmBJd6z4FNyP
+ jPJooL5JG7oCJ2eQUH/ixdfUuomA3AEropUBnK8BjozfuRmK+4QvdIYD3RFbXpI9aooC
+ ylb6e4FZA8nsUgZX883lvpSSYDY34Hz3nmaaoBkK9vafgNENHncR0FF8IqfMTXa2D4eM
+ jBKMXAWoJDh8YGkeFEqmtHF+MAEi0+S0M37k00lp+Mntv0MuxIh8gpprVSwW9CYJq7V0
+ SOAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1732284345; x=1732889145;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=XcYTaP+gBiWsNspWHGvTj1BfceIltQA+YnFE4v2OGtk=;
+ b=a6cTU/N/w0ySKSF2cP/XRLTvPAREwvysLtP0Cv0KNMjM/ak8jIhmcmzxuGSdPlCa1U
+ 8MHqcrRHxXs7Acx91IR6BW6+Ge8+gt62dvgpBabnR6+/NJ4tIstoAttqoBgi1h6iccVP
+ JRs4fZLtZaSzlpOFp71bs2jsVtHNAz7sor4hj26o/HlUbA5zy/Q4NsfHyopvy/r8J9U+
+ 6s9x0Wzh/31eznuOicuUp8yLXFvRTQJZl02yYxZkMEcyTx/wOSbiyyBdD72yZLCsNdmn
+ Y+KkMxQPEyl9SOAecU+/oDebXOVHG7+PJx41EphZtfXpQ8tCK+HWmfGukLWsDb4xZFbl
+ jYLg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVgTOvUrNNTBGYPFjouDpcyEepeivyI1G0PMKrBPL5GbfTQilVQhUNGdAKP8LEo+5XDhbWjv/b+@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyS47X34K9d/99EuJ3TdaRcPwvmBKPi0zRbVFh3rNk9W0RquOwL
+ fMXtLqIzF6Cyjn5+v1hds3o8QnU5FzSqiwN5JBj9Fb7rSHsRiTLC82ZVUj7XtH0T+2sUBvxFJrT
+ l6eKl9Vv96tsWwxDCUYjokfQrV4c=
+X-Gm-Gg: ASbGncuA6rOWsWcbHV5wPPpwgOtGdhpS50cj9b9dZQEkOO/qiaNJKA48m6x0DpV549q
+ 6YiTdEYqVIwX46KZazENKKxNXWnsCDzM=
+X-Google-Smtp-Source: AGHT+IG2mMc8FGykqOnTB72zmS/FoKFS73NlCDdVbyt/1P2w8WkERK2IpVjBN0pyAOHtsefO4aIlvc4xt1cZCCgVfak=
+X-Received: by 2002:a05:6a00:9299:b0:71e:6650:60f7 with SMTP id
+ d2e1a72fcca58-724df677f84mr1611926b3a.5.1732284344837; Fri, 22 Nov 2024
+ 06:05:44 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|IA0PR12MB8931:EE_
-X-MS-Office365-Filtering-Correlation-Id: c86aee59-2e29-4335-75d3-08dd0afc247d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014|7053199007;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?ZTlSV2pHNFMwUlc4ZXBib2oySElxTVUySHJxelNyTUEydXAyYjdxQkJ6ZUFZ?=
- =?utf-8?B?eWpCcjRWRStwOWlMNmkrR0hOaG42Q0t1NVA2bjZTVW5hZTRVMEZTK2FNU0xv?=
- =?utf-8?B?VEhTYjFGQ0xIbmF6bnRrWmNtNXU5UHhPZSt6NERPTUJzR28wcFk3ZENlMXJw?=
- =?utf-8?B?RGwraThLUTlYWWpRVlVhZ0VESEhhYTY2NUVxREN2NE9hcEpBTFI3Sk1IWFRn?=
- =?utf-8?B?ZXVPcTVHYlc4UTFKbmNkRTdEZGIvejBMdEMyNTJnbkhHZjYxaXlneG91dTl0?=
- =?utf-8?B?N3haaUxXZWkxWEVQenQ3cXRLVWFsNUtkQkhBNmhzSUpVSTY2ZXlGLzkybmJr?=
- =?utf-8?B?L29OaFRHMHMwZ3RVenRuZkcvU0k2SHBnZ1RLT1l2YVBPRDNXUGxxNFkyd3VG?=
- =?utf-8?B?clBDTEtodG5ZOUdZendkNDlBS0ZpR0FEclFHaXBjUVpGa2U2UmdtT3N3Z2tM?=
- =?utf-8?B?ay80R2JiRnZwcWZYQjlicEVVazhaMTk1TXRqdFN3K05kMmVLaEFRU0o3OTBx?=
- =?utf-8?B?V2YwYk90VzJ1M0lsWGQrWkFXemtFZDJEdVpSaDNXTWVVa0J4aUxhZnNtenJa?=
- =?utf-8?B?cU1pMTlqdmMwYjRwNXh3TDl4NkYzK2hnaGE1cmNjcDBIQXJ4YWRtRzIrUjh6?=
- =?utf-8?B?WHVYdkZrZU92M1o2Ym5mRElWdHFEQVlpUHllTk5YU254V1RIMmlJNWlqS0NN?=
- =?utf-8?B?Z1VPOVFtcGtxUHNPWXZ3SGwrMThwekFabFYzSkRpbDdjOTdtSHM2RlVDbjdP?=
- =?utf-8?B?ZjhhWTFNbmZISFZzOEppcGdBL1VCd0cwMmlZbklha3ZrVHhwU3V0Y1ByZ01C?=
- =?utf-8?B?OUV3UnM3TmR0N2FkZ1ZUbzZhYkFON1BOcUVTOUx2Z3FQTzBTd3FuYTg0Y1Q4?=
- =?utf-8?B?MGcvTTRocmpMU2dJdUlISDkrOHkyWmtJc0dRUmVDOTJPMk80ZGg1NTBWR3NB?=
- =?utf-8?B?YXZxOUZ1ZlFEN3RLVDR1UWtueVhNZ0t5SnRVbXhtOG9ENnJwU1pvcUFXdDc4?=
- =?utf-8?B?VkY0Y2xwTkd1bi80SFFhVXp6M1VCdVhielpmMWdpU1NBWmtoVGo2dzhCZFhn?=
- =?utf-8?B?bkVpdXdrMUFTUGdFVWR3TW11dTlaTmdyaGRTTS9ncDQwRTR3NWNhTE9kZ3hJ?=
- =?utf-8?B?a1ZaT0IrMEFQRnlHb2RhdHdPcUpmdFBPbzN5Q3RvUnJNdjdEa0R0VU9lWjVr?=
- =?utf-8?B?aXNqdlJtRURyZitFL0hCVmlyckJqK1ZYcmtRMU9yd2ZZZSt6aDUyK1BsWUkr?=
- =?utf-8?B?Qzh0QVkvTW9HOFcrcmowWFhETkU3dlg1TlRRbkpwWlRGcmFBWFJEcVFvb1Jw?=
- =?utf-8?B?UGdKdHY3MG5reTI5NG1DbCs2RUdqUWtrZUFiMU5sdHFaTGlvc2paUm5OR2lU?=
- =?utf-8?B?U1JzL2tKcG9MeTdqdUFMNjhQS2tFN2dTN210cU00RXhZY3NPaVhXYjBabEFT?=
- =?utf-8?B?RExiZ3A5ejViYjFHL3IxdzFyNFN4ZklSSmNXK1ZLTVcrWVlkRCt0T05zOVha?=
- =?utf-8?B?TEluME1Db3ZHYUZ6TmJsNVFLWWx5THdPYys2dnQ5b1BWbDVyTVY0WVJ0SVhF?=
- =?utf-8?B?U2tRM2QzZnk0SjlkNkdrTTg1NjhxMnhXT3liK3hlN0xjbkVwczNrT0dYKzg4?=
- =?utf-8?B?UWt4a3lBQS9RbWR2YVdaa1liQWVaT1pFc0I3ME9Ka2UvNm5sZXYwRVhKZmRU?=
- =?utf-8?B?Q1pROUZQZEgzczZFcytKenNvemM0QnZsYy9PZUZzRHJwUDNhT1JzaEpydWFi?=
- =?utf-8?B?UnFHUWxZelFvMkdMRVBleERBS3FPaFBOYkV1RU53cWJsYUpqdlhiT0p4Q2NN?=
- =?utf-8?B?VUNFbEQyazVCZzZPVUtQUT09?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(7053199007); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S0NodXFrN0RvYnZRaEUwUWE3ZWxaVFBVUFZrZ3pIeFg4YS9iRlprN2hKMDdL?=
- =?utf-8?B?SnFzMHJycjhyb2Z0dWJpNnQydkdyNzZyVTJLSmNnay8xdUJOZkxLdk9lcEU5?=
- =?utf-8?B?Q25kTEVjbkE3OXhKb2tDTEx4ZEw1SlMxcDdNdWRTMVdlZEdIWENJRHhSWGtm?=
- =?utf-8?B?N1VGcFdOV3dmUmkvR09CZGgrMnpKdzgyUWxrVXlnSlRPVWdjVWdKV3IvQnEv?=
- =?utf-8?B?a3dFeEFtbjlNVDIrRXNQN2dwV1k1VE12b1N0ZUJvbjZqcnYwaGVTUEdXOERt?=
- =?utf-8?B?VjBwUU9paStxajBmQytjbCtYUHZhNGFhVXdKVTVBRE45dEFqRmxLOTc0Y05V?=
- =?utf-8?B?c29LM1dkMGtEZTlneXFRelIvQ0xwMVpNajlUVTRpWXpwWWNhTzFjdWJwRzRK?=
- =?utf-8?B?NXhYVjZKcFgrdnp3L3o0TktoUFk1UDVVU25GYjVFa0FEM0F2VGRYY1B0Qm5H?=
- =?utf-8?B?cElQai9oYmV1SlJyZDkwampqTDc5cnZqV1JJUjdhYnBubjN3U0ZQc2ltbXFt?=
- =?utf-8?B?am8wZFhpdEJqTlA5WXd6Z0ZaNXBjTkpmSDJraGpoQitCMVhkazl6aUszZW55?=
- =?utf-8?B?ZjNFV0MwTWVIYXhiOGt1ZEtCdTNWdUZEcmptYjNndjBLZWtueW5CZW5ZUjBm?=
- =?utf-8?B?Y0V1VE95ekllVkFtalZPYlQxSWZLZGRSOVF0VHVrMG8vQ3lIMXNQTVhnUzdi?=
- =?utf-8?B?dGVqL2JrS1R6TWwxckFhdmt6OCtGWDcxajJoRnhTTmp0T3NVSGE2dlV1VW4z?=
- =?utf-8?B?OEZWMGk5aDV2WFBvcjlqQnoxcCtOa1F0MXgrOGtiZ3dFc0g0d0pqbFpPaDh5?=
- =?utf-8?B?dHBCK2FMbUJGZUVHZC9GSHpRYUZHTHl5QlErYk9HdlgzUlUxSVRuWnpYQjcz?=
- =?utf-8?B?V3g2OWlkM0I5MzhIVFRyV1JyVVBqVDRCT3JVcldPaWhQREJUUmRJcTMrVXdw?=
- =?utf-8?B?czhHeHZuNE50SWRMQUFrUUFWQ0dHUDd4bzU2RFFwM0htdkZUbThuSmwyNUo0?=
- =?utf-8?B?c245ajk3VkdBVXJraFpLb29XS0dRWmQrY09YeXl5TlFxWnZwTzZ3ZGtLM2ZY?=
- =?utf-8?B?bU5wa1J4amMxa1JJQWpwZ3ozRFlURnBDRFZTRGJkdmY0SGIxaXhFcHIxa21j?=
- =?utf-8?B?RHNlWE5BWXF1cTdzN01hUVY3WUx2Nm9UbEpYMmVqUEtCWkpRQktIeFFpNDNW?=
- =?utf-8?B?NXc2ajRrT0xHMk0xeDFsaE9EYmpiMW9XekU5MVhSVk95YWJCaUFOc0JML0FL?=
- =?utf-8?B?RGg0cW1HVWRNK2dSaURTUkcrMlVFbHNBMGpEWU8rdWdGcUxQNzVUb0tKMDgv?=
- =?utf-8?B?OUs0ZDZHRG9uYlZGMy92Qy9ZK202M08reDFxeWdwdytyOHYvWUtNWWVaMWg3?=
- =?utf-8?B?NWtiZTN3K0s2N2dUenNWaWhqVm5Jd20vNEdUaHpFcitSWU5iYlhudDFZT0g4?=
- =?utf-8?B?MGVrb2ZTbXVZR1pXazVOSkNvbkVEb3ErWW41VlZVT3FlZCtlTXdCS1dZN3Jp?=
- =?utf-8?B?NmVmVk1zOEdiQ2VlVGZrKy9XZXpmTjRZUkNiVVFpcG1qdVFvaFA4UlVUbTVr?=
- =?utf-8?B?bW1qdEpBcGZCUElCZHRRMktOM0ZlY05uejRqVFVQQ0RFMERod0NycEdsOFVn?=
- =?utf-8?B?SmVveXNKMU8rR01XNEh4azZSY0R0b21yaE9DWWFOSHdkNGtjcDB0azByelNa?=
- =?utf-8?B?S0c2RlcyK3ZzdlRiSmEwRTk3QWs0SmUwak92cUNlOVZhU1ZBMVdnOWphQkg0?=
- =?utf-8?B?aEZZczVsUWNpbjRXZUZ4UzM3UVkzZlJySkwxQ1FncnRRNFMrSlNqWVEzU0V5?=
- =?utf-8?B?dytxYWNhK1ZOSUtEVXo4Uy9YR3Z3Z09WY3E4QjlpK05QcG1KaWhwT1hBdkxp?=
- =?utf-8?B?QzAvc2JURU5WVTgzR1pkTjR6bk1lYTJ5NGRuRzdPNjM3cTJiNmgvVXJFVm12?=
- =?utf-8?B?c1dJL3M1MzFkYmRGWGhlSlNmV25Fc0w5YXd2d1N0dnRRWXo5VlZRNk5uaFY0?=
- =?utf-8?B?WkJ2cXp6OWZFbWdhMHBnbncwblB4R1lVK2tHaEEydXJXVGlaUEpWbmRhSFEx?=
- =?utf-8?B?cXoyVXBrOFVzOE9iVms0ci8wNTFpakFSQmpkMGhEMWRvQlhSTk8vaGN3WnJX?=
- =?utf-8?Q?6L/Q5KqEcKclvi99dNiljWb7P?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c86aee59-2e29-4335-75d3-08dd0afc247d
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Nov 2024 13:47:01.9668 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7M07mjWLOsq/beQi5Q93TzOoxhJsWfklVWjRbb3LHt0wSlDW0RYK3umpRMtaRlsz
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8931
+References: <20241118200323.16541-1-mario.limonciello@amd.com>
+ <27b016a8-57e6-4ab2-ab5f-fafe1086e437@gmail.com>
+In-Reply-To: <27b016a8-57e6-4ab2-ab5f-fafe1086e437@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 22 Nov 2024 09:05:32 -0500
+Message-ID: <CADnq5_NThhRpb-0KYgBcd8CSnuz+Qxh4df-P+aGebU_KK71MbQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd: Add Suspend/Hibernate notification callback
+ support
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Cc: Mario Limonciello <mario.limonciello@amd.com>,
+ amd-gfx@lists.freedesktop.org, Alex Deucher <Alexander.Deucher@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -166,205 +82,137 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 22.11.24 um 12:34 schrieb Tvrtko Ursulin:
-> On 13/11/2024 14:42, Tvrtko Ursulin wrote:
->> On 13/11/2024 14:26, Christian König wrote:
->>> Am 13.11.24 um 14:48 schrieb Tvrtko Ursulin:
->>>> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->>>>
->>>> As commit 746ae46c1113 ("drm/sched: Mark scheduler work queues with 
->>>> WQ_MEM_RECLAIM")
->>>> points out, ever since
->>>> a6149f039369 ("drm/sched: Convert drm scheduler to use a work queue 
->>>> rather than kthread"),
->>>> any workqueue flushing done from the job submission path must only
->>>> involve memory reclaim safe workqueues to be safe against reclaim
->>>> deadlocks.
->>>>
->>>> This is also pointed out by workqueue sanity checks:
->>>>
->>>>   [ ] workqueue: WQ_MEM_RECLAIM sdma0:drm_sched_run_job_work 
->>>> [gpu_sched] is flushing !WQ_MEM_RECLAIM 
->>>> events:amdgpu_device_delay_enable_gfx_off [amdgpu]
->>>> ...
->>>>   [ ] Workqueue: sdma0 drm_sched_run_job_work [gpu_sched]
->>>> ...
->>>>   [ ] Call Trace:
->>>>   [ ]  <TASK>
->>>> ...
->>>>   [ ]  ? check_flush_dependency+0xf5/0x110
->>>> ...
->>>>   [ ]  cancel_delayed_work_sync+0x6e/0x80
->>>>   [ ]  amdgpu_gfx_off_ctrl+0xab/0x140 [amdgpu]
->>>>   [ ]  amdgpu_ring_alloc+0x40/0x50 [amdgpu]
->>>>   [ ]  amdgpu_ib_schedule+0xf4/0x810 [amdgpu]
->>>>   [ ]  ? drm_sched_run_job_work+0x22c/0x430 [gpu_sched]
->>>>   [ ]  amdgpu_job_run+0xaa/0x1f0 [amdgpu]
->>>>   [ ]  drm_sched_run_job_work+0x257/0x430 [gpu_sched]
->>>>   [ ]  process_one_work+0x217/0x720
->>>> ...
->>>>   [ ]  </TASK>
->>>>
->>>> Fix this by creating a memory reclaim safe driver workqueue and 
->>>> make the
->>>> submission path use it.
->>>
->>> Oh well, that is a really good catch! I wasn't aware the workqueues 
->>> could be blocked by memory reclaim as well.
->>
->> Only credit I can take is for the habit that I often run with many 
->> kernel debugging aids enabled.
+On Fri, Nov 22, 2024 at 5:03=E2=80=AFAM Christian K=C3=B6nig
+<ckoenig.leichtzumerken@gmail.com> wrote:
 >
-> Although this one actually isn't even under "Kernel hacking".
+> Am 18.11.24 um 21:03 schrieb Mario Limonciello:
+> > As part of the suspend sequence VRAM needs to be evicted on dGPUs.
+> > In order to make suspend/resume more reliable we moved this into
+> > the pmops prepare() callback so that the suspend sequence would fail
+> > but the system could remain operational under high memory usage suspend=
+.
+> >
+> > Another class of issues exist though where due to memory fragementation
+> > there isn't a large enough contiguous space and swap isn't accessible.
+> >
+> > Add support for a suspend/hibernate notification callback that could
+> > evict VRAM before tasks are frozen. This should allow paging out to swa=
+p
+> > if necessary.
+> >
+> > Link: https://github.com/ROCm/ROCK-Kernel-Driver/issues/174
+> > Link: https://gitlab.freedesktop.org/drm/amd/-/issues/3476
+> > Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 >
->>> Do we have system wide workqueues for that? It seems a bit overkill 
->>> that amdgpu has to allocate one on his own.
->>
->> I wondered the same but did not find any. Only ones I am aware of are 
->> system_wq&co created in workqueue_init_early().
+> I'm absolutely not an expert on that stuff but it looks rather
+> reasonable to me.
 >
-> Gentle ping on this. I don't have any better ideas that creating a new 
-> wq.
+> Alex what do you think?
 
-It took me a moment to realize, but I now think this warning message is 
-a false positive.
-
-What happens is that the code calls cancel_delayed_work_sync().
-
-If the work item never run because of lack of memory then it can just be 
-canceled.
-
-If the work item is running then we will block for it to finish.
-
-There is no need to use WQ_MEM_RECLAIM for the workqueue or do I miss 
-something?
-
-If I'm not completely mistaken you stumbled over a bug in the warning 
-code instead :)
-
-Regards,
-Christian.
+Yeah, same.  Seems reasonable to me.
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
 >
 > Regards,
+> Christian.
 >
-> Tvrtko
->>> Apart from that looks good to me.
->>>
->>> Regards,
->>> Christian.
->>>
->>>>
->>>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->>>> References: 746ae46c1113 ("drm/sched: Mark scheduler work queues 
->>>> with WQ_MEM_RECLAIM")
->>>> Fixes: a6149f039369 ("drm/sched: Convert drm scheduler to use a 
->>>> work queue rather than kthread")
->>>> Cc: stable@vger.kernel.org
->>>> Cc: Matthew Brost <matthew.brost@intel.com>
->>>> Cc: Danilo Krummrich <dakr@kernel.org>
->>>> Cc: Philipp Stanner <pstanner@redhat.com>
->>>> Cc: Alex Deucher <alexander.deucher@amd.com>
->>>> Cc: Christian König <christian.koenig@amd.com>
->>>> ---
->>>>   drivers/gpu/drm/amd/amdgpu/amdgpu.h     |  2 ++
->>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 25 
->>>> +++++++++++++++++++++++++
->>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c |  5 +++--
->>>>   3 files changed, 30 insertions(+), 2 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h 
->>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->>>> index 7645e498faa4..a6aad687537e 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->>>> @@ -268,6 +268,8 @@ extern int amdgpu_agp;
->>>>   extern int amdgpu_wbrf;
->>>> +extern struct workqueue_struct *amdgpu_reclaim_wq;
->>>> +
->>>>   #define AMDGPU_VM_MAX_NUM_CTX            4096
->>>>   #define AMDGPU_SG_THRESHOLD            (256*1024*1024)
->>>>   #define AMDGPU_WAIT_IDLE_TIMEOUT_IN_MS            3000
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c 
->>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>>> index 38686203bea6..f5b7172e8042 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
->>>> @@ -255,6 +255,8 @@ struct amdgpu_watchdog_timer 
->>>> amdgpu_watchdog_timer = {
->>>>       .period = 0x0, /* default to 0x0 (timeout disable) */
->>>>   };
->>>> +struct workqueue_struct *amdgpu_reclaim_wq;
->>>> +
->>>>   /**
->>>>    * DOC: vramlimit (int)
->>>>    * Restrict the total amount of VRAM in MiB for testing. The 
->>>> default is 0 (Use full VRAM).
->>>> @@ -2971,6 +2973,21 @@ static struct pci_driver 
->>>> amdgpu_kms_pci_driver = {
->>>>       .dev_groups = amdgpu_sysfs_groups,
->>>>   };
->>>> +static int amdgpu_wq_init(void)
->>>> +{
->>>> +    amdgpu_reclaim_wq =
->>>> +        alloc_workqueue("amdgpu-reclaim", WQ_MEM_RECLAIM, 0);
->>>> +    if (!amdgpu_reclaim_wq)
->>>> +        return -ENOMEM;
->>>> +
->>>> +    return 0;
->>>> +}
->>>> +
->>>> +static void amdgpu_wq_fini(void)
->>>> +{
->>>> +    destroy_workqueue(amdgpu_reclaim_wq);
->>>> +}
->>>> +
->>>>   static int __init amdgpu_init(void)
->>>>   {
->>>>       int r;
->>>> @@ -2978,6 +2995,10 @@ static int __init amdgpu_init(void)
->>>>       if (drm_firmware_drivers_only())
->>>>           return -EINVAL;
->>>> +    r = amdgpu_wq_init();
->>>> +    if (r)
->>>> +        goto error_wq;
->>>> +
->>>>       r = amdgpu_sync_init();
->>>>       if (r)
->>>>           goto error_sync;
->>>> @@ -3006,6 +3027,9 @@ static int __init amdgpu_init(void)
->>>>       amdgpu_sync_fini();
->>>>   error_sync:
->>>> +    amdgpu_wq_fini();
->>>> +
->>>> +error_wq:
->>>>       return r;
->>>>   }
->>>> @@ -3017,6 +3041,7 @@ static void __exit amdgpu_exit(void)
->>>>       amdgpu_acpi_release();
->>>>       amdgpu_sync_fini();
->>>>       amdgpu_fence_slab_fini();
->>>> +    amdgpu_wq_fini();
->>>>       mmu_notifier_synchronize();
->>>>       amdgpu_xcp_drv_release();
->>>>   }
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c 
->>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
->>>> index 2f3f09dfb1fd..f8fd71d9382f 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
->>>> @@ -790,8 +790,9 @@ void amdgpu_gfx_off_ctrl(struct amdgpu_device 
->>>> *adev, bool enable)
->>>>                           AMD_IP_BLOCK_TYPE_GFX, true))
->>>>                       adev->gfx.gfx_off_state = true;
->>>>               } else {
->>>> - schedule_delayed_work(&adev->gfx.gfx_off_delay_work,
->>>> -                          delay);
->>>> +                queue_delayed_work(amdgpu_reclaim_wq,
->>>> + &adev->gfx.gfx_off_delay_work,
->>>> +                           delay);
->>>>               }
->>>>           }
->>>>       } else {
->>>
-
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  1 +
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 36 +++++++++++++++++++++=
++
+> >   2 files changed, 37 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu.h
+> > index a37e687acbbc5..e70ca85151046 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> > @@ -885,6 +885,7 @@ struct amdgpu_device {
+> >       bool                            need_swiotlb;
+> >       bool                            accel_working;
+> >       struct notifier_block           acpi_nb;
+> > +     struct notifier_block           pm_nb;
+> >       struct amdgpu_i2c_chan          *i2c_bus[AMDGPU_MAX_I2C_BUS];
+> >       struct debugfs_blob_wrapper     debugfs_vbios_blob;
+> >       struct debugfs_blob_wrapper     debugfs_discovery_blob;
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/d=
+rm/amd/amdgpu/amdgpu_device.c
+> > index b3ca911e55d61..5a4e9c7daf895 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > @@ -190,6 +190,8 @@ void amdgpu_set_init_level(struct amdgpu_device *ad=
+ev,
+> >   }
+> >
+> >   static inline void amdgpu_device_stop_pending_resets(struct amdgpu_de=
+vice *adev);
+> > +static int amdgpu_device_pm_notifier(struct notifier_block *nb, unsign=
+ed long mode,
+> > +                                  void *data);
+> >
+> >   /**
+> >    * DOC: pcie_replay_count
+> > @@ -4582,6 +4584,11 @@ int amdgpu_device_init(struct amdgpu_device *ade=
+v,
+> >
+> >       amdgpu_device_check_iommu_direct_map(adev);
+> >
+> > +     adev->pm_nb.notifier_call =3D amdgpu_device_pm_notifier;
+> > +     r =3D register_pm_notifier(&adev->pm_nb);
+> > +     if (r)
+> > +             goto failed;
+> > +
+> >       return 0;
+> >
+> >   release_ras_con:
+> > @@ -4646,6 +4653,8 @@ void amdgpu_device_fini_hw(struct amdgpu_device *=
+adev)
+> >               drain_workqueue(adev->mman.bdev.wq);
+> >       adev->shutdown =3D true;
+> >
+> > +     unregister_pm_notifier(&adev->pm_nb);
+> > +
+> >       /* make sure IB test finished before entering exclusive mode
+> >        * to avoid preemption on IB test
+> >        */
+> > @@ -4777,6 +4786,33 @@ static int amdgpu_device_evict_resources(struct =
+amdgpu_device *adev)
+> >   /*
+> >    * Suspend & resume.
+> >    */
+> > +/**
+> > + * amdgpu_device_pm_notifier - Notification block for Suspend/Hibernat=
+e events
+> > + * @nb: notifier block
+> > + * @mode: suspend mode
+> > + * @data: data
+> > + *
+> > + * This function is called when the system is about to suspend or hibe=
+rnate.
+> > + * It is used to evict resources from the device before the system goe=
+s to
+> > + * sleep while there is still access to swap.
+> > + *
+> > + */
+> > +static int amdgpu_device_pm_notifier(struct notifier_block *nb, unsign=
+ed long mode,
+> > +                                  void *data)
+> > +{
+> > +     struct amdgpu_device *adev =3D container_of(nb, struct amdgpu_dev=
+ice, pm_nb);
+> > +
+> > +     switch (mode) {
+> > +     case PM_HIBERNATION_PREPARE:
+> > +     case PM_SUSPEND_PREPARE:
+> > +             if (amdgpu_device_evict_resources(adev))
+> > +                     return NOTIFY_BAD;
+> > +             break;
+> > +     }
+> > +
+> > +     return NOTIFY_DONE;
+> > +}
+> > +
+> >   /**
+> >    * amdgpu_device_prepare - prepare for device suspend
+> >    *
+>
