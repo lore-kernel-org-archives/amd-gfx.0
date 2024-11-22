@@ -4,56 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E23ED75E24
-	for <amd-gfx@archiver.kernel.org>; Fri, 22 Nov 2024 10:31:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E486DD75E22
+	for <amd-gfx@archiver.kernel.org>; Fri, 22 Nov 2024 10:31:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC33C10EB48;
-	Fri, 22 Nov 2024 10:31:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96C2010EB4B;
+	Fri, 22 Nov 2024 10:31:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=johnrowley.me header.i=@johnrowley.me header.b="nuehN1SE";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="WS4rgxUF";
 	dkim-atps=neutral
-X-Greylist: delayed 475 seconds by postgrey-1.36 at gabe;
- Thu, 21 Nov 2024 15:16:12 UTC
-Received: from mail.vapourmail.eu (mail.vapourmail.eu [5.75.183.223])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8471310E991
- for <amd-gfx@lists.freedesktop.org>; Thu, 21 Nov 2024 15:16:12 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 18412C3AF6; Thu, 21 Nov 2024 15:08:12 +0000 (GMT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=johnrowley.me;
- s=dkim; t=1732201694;
- h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=4sMVi/TNiWhag813YO8ZoSVoCYOYc7/uQrNIYwegqEo=;
- b=nuehN1SEgk2FBDqWHj/LfphI6/n78HVMTzQqXzjGJrZ4Uai35+UC+Mshf0D49boWB55T1r
- SyolmvUMZXMy4LorcjVW3FzY8g7oZKwbuKyVAh0615oimmc3KfzRp3XApK9MGBz0U36V0X
- 5xfES/a/jnpTcLLZtWXWIqIkkAjgnqJYZj4HO7Y1hYgTJdaZkYPk7cNgOQr8/EvUyvikeE
- 1XPLCgpaHGT3WoZhjwVhByxE/OJ6qFFCKL6pmWPiFRMpdGFBJre2rQLmoB+r9vX8kS+KOx
- 19A1XQkqoZNdqd4Gc8271hniFgCGhuS3nkRCBcsZe3U4eeEkiNMR2iCnhiJG5A==
-Message-ID: <fe8a0485-4a6c-4676-bcb7-ff32e67f5dfe@johnrowley.me>
-Date: Thu, 21 Nov 2024 15:08:00 +0000
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F6EE10E082;
+ Fri, 22 Nov 2024 07:08:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1732259298; x=1763795298;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=euGw3dtXA1ltlsc5+XqXfQexRPcnAxDPo0W1W8gAIno=;
+ b=WS4rgxUFUpSWHSgLJ6HDOzJcw6xmSYbHnVlTgsLH+/aBwzpNsx1PWW7N
+ LsJ82r8jLg0YXXqXJZzJejj1hm2kM4tK9HOl0UKQXQl7j4y74atffRyUN
+ 482CCni99LL5v0ha15jcEnl/Sv9GvAxxm349tQOlr76j53m0U4PWTwYBi
+ ODYAAsUZg4HGhH8R4I4XfDS9Z6O0sSuJfJiztxD+KpFlbCbJRzra7Gspv
+ eaUO7SBcRKE9PGeJuvrX9TdZqLJu053CKWnCXUzcLoU33oqK0X3/fOpSW
+ B+9oPlH38ipjyFxXWvG/f+P01PjFmU54ztDzbtsSgyFGlV0O+pXhoB9UR g==;
+X-CSE-ConnectionGUID: 5bLCxap3SI++gdeVWLc8cg==
+X-CSE-MsgGUID: QUHRDVOiRUqruX9giE+6YQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11263"; a="43467074"
+X-IronPort-AV: E=Sophos;i="6.12,175,1728975600"; d="scan'208";a="43467074"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Nov 2024 23:07:51 -0800
+X-CSE-ConnectionGUID: IB0ACSyWTqCIMsr7NGKLBQ==
+X-CSE-MsgGUID: 4f9Jg2fFQFWEeyNozHwXmw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.12,175,1728975600"; d="scan'208";a="90429696"
+Received: from black.fi.intel.com ([10.237.72.28])
+ by orviesa010.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Nov 2024 23:07:46 -0800
+Date: Fri, 22 Nov 2024 09:07:43 +0200
+From: Raag Jadav <raag.jadav@intel.com>
+To: Aravind Iddamsetty <aravind.iddamsetty@linux.intel.com>
+Cc: airlied@gmail.com, simona@ffwll.ch, lucas.demarchi@intel.com,
+ rodrigo.vivi@intel.com, jani.nikula@linux.intel.com,
+ andriy.shevchenko@linux.intel.com, lina@asahilina.net,
+ michal.wajdeczko@intel.com, christian.koenig@amd.com,
+ intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, himal.prasad.ghimiray@intel.com,
+ anshuman.gupta@intel.com, alexander.deucher@amd.com,
+ andrealmeid@igalia.com, amd-gfx@lists.freedesktop.org,
+ kernel-dev@igalia.com
+Subject: Re: [PATCH v9 1/4] drm: Introduce device wedged event
+Message-ID: <Z0Atv3Zw1d0N8hvv@black.fi.intel.com>
+References: <20241115050733.806934-1-raag.jadav@intel.com>
+ <20241115050733.806934-2-raag.jadav@intel.com>
+ <8c7292c3-8459-4ddc-a899-b56b1d93076f@linux.intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [REGRESSION][BISECTED] 58a261bfc967: choppy GPU performance
-To: Mario Limonciello <mario.limonciello@amd.com>, Leo Li
- <sunpeng.li@amd.com>, Hamza Mahfooz <hamza.mahfooz@amd.com>
-Cc: Harry Wentland <harry.wentland@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
- regressions@lists.linux.dev
-References: <9b80e957-f20a-4bd7-a40b-2b5f1decf5a4@johnrowley.me>
- <925cd47c-8f1e-4b74-aeff-6d13ae5f0753@johnrowley.me>
- <95c575a3-100c-4808-b451-b92f14598188@amd.com>
- <836c2c82-4dfe-40f4-8d50-5e7bff04c38c@johnrowley.me>
- <7ed81635-3872-463c-94e5-e4972da9d014@amd.com>
- <bcc97e4e-ffe0-47a7-bd29-c993e5404a33@amd.com>
- <9c562132-64a0-41f5-80ad-8492d1039692@amd.com>
- <3c0dfd3a-9549-4afa-94b6-80041f498436@johnrowley.me>
- <25eed927-fe69-4005-8c0d-c5f3052e662e@amd.com>
- <92af8678-2b45-409e-82d1-f273fe907a36@johnrowley.me>
-From: John Rowley <lkml@johnrowley.me>
-In-Reply-To: <92af8678-2b45-409e-82d1-f273fe907a36@johnrowley.me>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <8c7292c3-8459-4ddc-a899-b56b1d93076f@linux.intel.com>
 X-Mailman-Approved-At: Fri, 22 Nov 2024 10:31:40 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,57 +77,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-John Rowley wrote:
-> The attached patch seems to improve rendering performance a lot; animations and desktop performance are generally smoother again.
+On Mon, Nov 18, 2024 at 08:26:37PM +0530, Aravind Iddamsetty wrote:
+> On 15/11/24 10:37, Raag Jadav wrote:
+> > Introduce device wedged event, which notifies userspace of 'wedged'
+> > (hanged/unusable) state of the DRM device through a uevent. This is
+> > useful especially in cases where the device is no longer operating as
+> > expected and has become unrecoverable from driver context. Purpose of
+> > this implementation is to provide drivers a generic way to recover with
+> > the help of userspace intervention without taking any drastic measures
+> > in the driver.
+> >
+> > A 'wedged' device is basically a dead device that needs attention. The
+> > uevent is the notification that is sent to userspace along with a hint
+> > about what could possibly be attempted to recover the device and bring
+> > it back to usable state. Different drivers may have different ideas of
+> > a 'wedged' device depending on their hardware implementation, and hence
+> > the vendor agnostic nature of the event. It is up to the drivers to
+> > decide when they see the need for recovery and how they want to recover
+> > from the available methods.
+> >
+> > Prerequisites
+> > -------------
+> >
+> > The driver, before opting for recovery, needs to make sure that the
+> > 'wedged' device doesn't harm the system as a whole by taking care of the
+> > prerequisites. Necessary actions must include disabling DMA to system
+> > memory as well as any communication channels with other devices. Further,
+> > the driver must ensure that all dma_fences are signalled and any device
+> > state that the core kernel might depend on are cleaned up. Once the event
+> > is sent, the device must be kept in 'wedged' state until the recovery is
+> > performed. New accesses to the device (IOCTLs) should be blocked,
+> > preferably with an error code that resembles the type of failure the
+> > device has encountered. This will signify the reason for wegeding which
+> > can be reported to the application if needed.
 > 
-> But it doesn't seem 100%, e.g. if I let the laptop idle for 10 secs before interacting with the touchpad, the desktop cursor seems to stick in-place for 100-200ms or so, before becoming responsive again.
-> 
-> This 'sticking' problem doesn't seem to occur with PSR disabled.
-> 
-> My testing isn't exactly scientifically sound I'm afraid, if there's a better test or benchmark I can run, please let me know.
-> 
-> On 01/10/2024 22:16, Mario Limonciello wrote:
->> On 10/1/2024 16:14, John Rowley wrote:
->>> Disabling PSR as per Leo's reply seems to have done the trick!
->>>
->>> Stock 6.12-rc1 (without revert): BROKEN
->>>
->>>      /sys/kernel/debug/dri/0000:c1:00.0/eDP-1/psr_state:
->>>      6
->>>
->>>      /sys/kernel/debug/dri/0000:c1:00.0/eDP-1/psr_capability:
->>>      Sink support: yes [0x03]
->>>      Driver support: yes
->>>
->>> With amdgpu.dcdebugmask=0x800: BROKEN
->>>
->>> With amdgpu.dcdebugmask=0x10: FIXED! Performance is as it was on 6.11.
->>>
->>>      /sys/kernel/debug/dri/0000:c1:00.0/eDP-1/psr_state:
->>>      0
->>>
->>>      /sys/kernel/debug/dri/0000:c1:00.0/eDP-1/psr_capability:
->>>      Sink support: yes [0x03]
->>>      Driver support: no [0xffffffff]
->>>
->>> I have the older Framework 13 panel (BOE 0x0BCA, 2256x1504 @ 59.999 Hz) so I assume PSR isn't supported according to Mario, yet psr_{state,capability} above seem to indicate otherwise?
->>>
->>
->> PSR and Replay are two different things.  But from your above analysis it does confirm it's a PSR issue.
->>
->> There's a patch that Hamza attached to https://gitlab.freedesktop.org/drm/amd/-/issues/3658.
->>
->> Can you try that?
->>
->> Thanks,
+> should we even drop the mmaps we created?
 
-Hi,
+Whatever is required for a clean recovery, yes.
 
-Has there been any movement with this? I's still experiencing performance issues on 6.12.
+Although how would this play out? Do we risk loosing display?
+Or any other possible side-effects?
 
-The previously mentioned patch does not fix the issue, only adding 'amdgpu.dcdebugmask=0x10' to the kernel cmdline does.
-
-FYI I'm running upstream kernel on an AMD Framework 13" (AMD Ryzen 7 7840U w/ Radeon  780M Graphics).
-
-Thanks.
-
+Raag
