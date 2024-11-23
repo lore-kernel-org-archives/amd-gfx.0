@@ -4,60 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE46DE6ADE4
-	for <amd-gfx@archiver.kernel.org>; Sat, 23 Nov 2024 10:05:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6F26E6ADFF
+	for <amd-gfx@archiver.kernel.org>; Sat, 23 Nov 2024 13:59:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 26A3810E1A0;
-	Sat, 23 Nov 2024 10:05:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6075E10E081;
+	Sat, 23 Nov 2024 13:59:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="DVygJJJJ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ybo3hSlu";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C0FE410E1A0;
- Sat, 23 Nov 2024 10:05:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1732356335; x=1763892335;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=VfFjtMVJJGAyXRv2MDPvzehn2J0t4usVdu6w1H6HT4o=;
- b=DVygJJJJQaBbMkZ72GkS6vDts++hwhXFLNLnJSu35JCFgcz8aiyWT/KR
- J8/Hw1YMyB3z8jgkhKEffEepYS3NJRnXxgenDJqNEJ0cX+uGvmdCC/H+I
- s0SBWSJT7U+BJc1X0mcowSwpMOGTADI5qbpE2I8GZk45oZ22CXNvi/Q1j
- 7uTFqYUcff/bfmNDOXIIi4F0Ljxkekfj81YHRX3jJ+jPeqRA2SFkkZCTX
- Zu+o+V7Rdn3MhuUYsNQt/ntQiwsgyT+NZ1kXbylG7/GEEQ+U1y1a/+IFq
- 0RXLNxfOdyqJ/+suiQfBAoF3brlUZ0wJU62vY8sB5eJzhZXce6FAIjLcY Q==;
-X-CSE-ConnectionGUID: if5SDLfLQp2rOMG85j3K7g==
-X-CSE-MsgGUID: bmSxtB1TQ9GC72yzoPvqyQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11264"; a="55016039"
-X-IronPort-AV: E=Sophos;i="6.12,178,1728975600"; d="scan'208";a="55016039"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Nov 2024 02:05:34 -0800
-X-CSE-ConnectionGUID: hw0wb8yPRbu/4r9ZMEGp4w==
-X-CSE-MsgGUID: mDTNnOiESrmz+mqlvhquBw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,178,1728975600"; d="scan'208";a="114087048"
-Received: from lkp-server01.sh.intel.com (HELO 8122d2fc1967) ([10.239.97.150])
- by fmviesa002.fm.intel.com with ESMTP; 23 Nov 2024 02:05:31 -0800
-Received: from kbuild by 8122d2fc1967 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1tEn17-0004YV-05;
- Sat, 23 Nov 2024 10:05:29 +0000
-Date: Sat, 23 Nov 2024 18:05:28 +0800
-From: kernel test robot <lkp@intel.com>
-To: Mika Laitio <lamikr@gmail.com>, christian.koenig@amd.com,
- Xinhui.Pan@amd.com, airlied@gmail.com, simona@ffwll.ch,
- Hawking.Zhang@amd.com, sunil.khatri@amd.com, lijo.lazar@amd.com,
- kevinyang.wang@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Cc: oe-kbuild-all@lists.linux.dev
-Subject: Re: [PATCH] ammdgpu fix for gfx1103 queue evict/restore crash
-Message-ID: <202411231721.vBNjHNvr-lkp@intel.com>
-References: <20241121195233.10679-1-lamikr@gmail.com>
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2088.outbound.protection.outlook.com [40.107.100.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D6FCF10E095
+ for <amd-gfx@lists.freedesktop.org>; Sat, 23 Nov 2024 13:59:31 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KWEVbbi4NkQtO38/X89dNAkiF15gYk18W3WmhTp8l13r8QGN05ZYHkmRkX6qZDxmrdJigc5JQHMv2haaKyPtwZo4tgSF57E8egVLc1YD+SAstJl7xPeKMDBlXLUKJxHuOBCM+a94r6+OWBsaeT9KKJl8DInO2ZpOOlEIHpicV5eqFTSSBksWHUwXVICltKemK2yXRtkMScto1cwrr0QqOPGduJKaRnlq7gJJkjMdI07eUngvZgtN3B8fef1W2VCSdqSC+XL7LS5N+OiSyxQ5iQ6YGahQpx1hGETQIYNZwURCT7bVNyvNpTXFoyQd01lvn8VMyB3nefE5MkujLO8l8w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=DKGkOPE2ZmoZbB4/L5PBUshZ0QmPYfxLmlR8kuQfiZ4=;
+ b=tvM4exOZyyVHrFJWlwc6/Mm9LY/k+zpHzipxwIlmzposu3VnXpyZVHOMW5Wf4DtVp8Xm1SqYkcBU8mdmzINBLCa/eE1QXAFRLnXIdyiSwMiZ71zzgsn/w9Yquz6yz9Xl3QYNRbwjBXgg5d9STUnaXqZC/hDY4HGm3KAyYY0IlrVKJ1I8pWKs0fMK813ZzpN3SGxhCucfq3LKlKuTeih0rPbIAOYxOEE+zw35VFo0IQHtnSOjTDdpgm9OFKvgaxNPA5SS/QxL5ro+HssVWhVxEcD20Bjhl2HhFcU/Sh1kIWHT3MxvLSiJamh4fI2xehIE/z7JpaI9GQV58sKbpJR3lQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.12) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DKGkOPE2ZmoZbB4/L5PBUshZ0QmPYfxLmlR8kuQfiZ4=;
+ b=ybo3hSluxO92JqjFQWoGb7SkPzHIWCm112NecULOgdF3ZjtQRQj9V0wPhq1iuDe5TWGJZ7O5utUS0u6+nNJLegregk3ZlLRV2Y+jBzCmj4Cp1IIqyACy51UfK6fvUbBYV1/IEb6tyRjCA97bALxvapujtxepW143H14wirdZL9Q=
+Received: from MN2PR14CA0006.namprd14.prod.outlook.com (2603:10b6:208:23e::11)
+ by SA3PR12MB9157.namprd12.prod.outlook.com (2603:10b6:806:39a::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8158.27; Sat, 23 Nov
+ 2024 13:59:28 +0000
+Received: from BL6PEPF0001AB4E.namprd04.prod.outlook.com
+ (2603:10b6:208:23e:cafe::95) by MN2PR14CA0006.outlook.office365.com
+ (2603:10b6:208:23e::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8158.24 via Frontend
+ Transport; Sat, 23 Nov 2024 13:59:28 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.12)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.12 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.12; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.12) by
+ BL6PEPF0001AB4E.mail.protection.outlook.com (10.167.242.72) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8182.16 via Frontend Transport; Sat, 23 Nov 2024 13:59:27 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Sat, 23 Nov
+ 2024 07:59:27 -0600
+Received: from victor-x86-02.amd.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Sat, 23 Nov 2024 07:59:26 -0600
+From: Victor Zhao <Victor.Zhao@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Victor Zhao <Victor.Zhao@amd.com>
+Subject: [PATCH] drm/amdgpu: use sjt mec fw on gfx943 for sriov
+Date: Sat, 23 Nov 2024 21:59:20 +0800
+Message-ID: <20241123135920.2593163-1-Victor.Zhao@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20241121195233.10679-1-lamikr@gmail.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB04.amd.com: Victor.Zhao@amd.com does not designate
+ permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB4E:EE_|SA3PR12MB9157:EE_
+X-MS-Office365-Filtering-Correlation-Id: 147a49b4-8f77-46fc-148e-08dd0bc70bb5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700013|82310400026|1800799024|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?KwgRYwPc4fnKa46/Aiua3VVht4o4AGrHXMSu0LSvvyblr48STI1iEr2kj1uY?=
+ =?us-ascii?Q?Oyxf138hDM9wifvdT3Q9B8fCc9Gv2OCv+Lonw9JOlhQP30uyavESeeG7etwS?=
+ =?us-ascii?Q?rd96rV1Le8WE2qwwUkOxgyQcqvweq75Ybhz8xVAL3QK0d5OcDpYdRuHjiqs1?=
+ =?us-ascii?Q?nQS1mUZfVgSIp5FHb5O24kdNZ5IA8SMSyYC6fTR1rQZzTwzzTuHHuTO+tZF4?=
+ =?us-ascii?Q?sDhKOKZnyk5uTOGlj1UcKWOEtGkF+0SOk/sV6vBI+8siyr4kly7zsoaAUx4s?=
+ =?us-ascii?Q?3YKAHjSLW+FGe2lGuCeafPrqE75o5OxJhF68KMDsQzZJSIpEovbZhUIvy0rY?=
+ =?us-ascii?Q?I/0JpvZSAANppBI8mt0MxKvbSmeYT8f29fQt+gUQCj5O42fXWqbQbnES/EaM?=
+ =?us-ascii?Q?hYR8E7iNQin8tba1IkvHfBV7lG3x1oiyZhG4Ay0jM4Xqsel4VX8Rv7an0eiR?=
+ =?us-ascii?Q?DjE8xmtpM7Br+zRip/M+5Pumz7DWCj+sMxEqK9NpcXJ25ztmCRul0vwCfYhn?=
+ =?us-ascii?Q?DDZ6HVrUIofjbMK9wohWCSwTBOQRcGfskScCW2wPkPUd5PLi50nuDSucFfeR?=
+ =?us-ascii?Q?nLkJnAvVtDCEts/6Jr8ghBitmegzxpcYFmVO17E79bv4YUnh3GjZvPZZOgEC?=
+ =?us-ascii?Q?NaOCcXFTmvsMKAgSaRQwB3e44qTFD4+D4E/CJCJoQ7jp8d3ffnpQw8QsYJIH?=
+ =?us-ascii?Q?lVOmWe6FuSBuAHBFn7Igc09FfbGvQT8TK/kwumiFW3Mnef6vp7Ed6mJBpNNA?=
+ =?us-ascii?Q?ZRGBgQjyWY3wwP3rfq/8prYmEHTl79Qey/0bISeqGtuAyYtDwZ2e8CtZlktR?=
+ =?us-ascii?Q?7hLKvFmGlO0k8635spyVYKDTTQmmcHk8bdDSubmGPRZOg7buks1rpj3HDWlI?=
+ =?us-ascii?Q?Ae3FCSSBWmjvk08u7CZLrUnf4JePZ9v4Fc2bqUuMJ82Yje3/HfWLjxb0mUEQ?=
+ =?us-ascii?Q?7vzBzE1rzV/aDbRxZCaaf4+zCQare3k28CZ5ooY57semrnp/t9FDaavK615X?=
+ =?us-ascii?Q?rhnd9dcgZRH+68tvhjXdyttzQUXG1C9WElm1LCY02881HZd7VJGXchzQCCbA?=
+ =?us-ascii?Q?5teY0b3Sj/RXbGHir9iMK7WI2Z2xP0aoJqsoWojryBInZoo15jiDd0PXgP7M?=
+ =?us-ascii?Q?REQYAs2zz9ISb1HWoIvDNlzMvJ0NdpxzHqwjinY8NT36Jqm+yvlekaUWolZD?=
+ =?us-ascii?Q?Mpi0iWqxyX+rGW3M7EvlJzTKGWsJ4mdQeUSuCq7Ap3BKQ3c/DoHuxTimlMy8?=
+ =?us-ascii?Q?UGPrEwtmY9NnOw1OTm1BlS/3PKThn9S9uzf6U/lmT2U1FdmyCFULwzSQ6Wc7?=
+ =?us-ascii?Q?CI48V5+lcl4sNQBo9NolEGy2yC08AMNxXV6Yuostx0/tCyLNRSk8dfsrBzWt?=
+ =?us-ascii?Q?Y8l6lVloDsg+ypvJGO8oPh4HkpQtgR2V5o1Mn89QBWxHVxa1F4oFiCpmrGU0?=
+ =?us-ascii?Q?4z439pVcY4aHAijbOTx9Wp5ktaI1IU18?=
+X-Forefront-Antispam-Report: CIP:165.204.84.12; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:atlvpn-bp.amd.com; CAT:NONE;
+ SFS:(13230040)(36860700013)(82310400026)(1800799024)(376014); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2024 13:59:27.8511 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 147a49b4-8f77-46fc-148e-08dd0bc70bb5
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.12];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB4E.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9157
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,108 +131,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Mika,
+Use second jump table in sriov for live migration or mulitple VF
+support so different VF can load different version of MEC as long
+as they support sjt
 
-kernel test robot noticed the following build warnings:
+Signed-off-by: Victor Zhao <Victor.Zhao@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-[auto build test WARNING on drm-misc/drm-misc-next]
-[also build test WARNING on drm-tip/drm-tip v6.12 next-20241122]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Mika-Laitio/ammdgpu-fix-for-gfx1103-queue-evict-restore-crash/20241122-035602
-base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
-patch link:    https://lore.kernel.org/r/20241121195233.10679-1-lamikr%40gmail.com
-patch subject: [PATCH] ammdgpu fix for gfx1103 queue evict/restore crash
-config: powerpc-allmodconfig (https://download.01.org/0day-ci/archive/20241123/202411231721.vBNjHNvr-lkp@intel.com/config)
-compiler: powerpc64-linux-gcc (GCC) 14.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20241123/202411231721.vBNjHNvr-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202411231721.vBNjHNvr-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
-   drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_device_queue_manager.c: In function 'restore_process_queues_cpsch':
->> drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_device_queue_manager.c:1354:1: warning: label 'out_unlock' defined but not used [-Wunused-label]
-    1354 | out_unlock:
-         | ^~~~~~~~~~
-
-
-vim +/out_unlock +1354 drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_device_queue_manager.c
-
-  1292	
-  1293	static int restore_process_queues_cpsch(struct device_queue_manager *dqm,
-  1294						struct qcm_process_device *qpd)
-  1295	{
-  1296		struct queue *q;
-  1297		struct device *dev = dqm->dev->adev->dev;
-  1298		struct kfd_process_device *pdd;
-  1299		uint64_t eviction_duration;
-  1300		int retval = 0;
-  1301	
-  1302		// gfx1103 APU fails to remove the queue usually after 10-50 attempts
-  1303		if (dqm->dev->adev->flags & AMD_IS_APU)
-  1304			goto out;
-  1305		pdd = qpd_to_pdd(qpd);
-  1306	
-  1307		dqm_lock(dqm);
-  1308		if (WARN_ON_ONCE(!qpd->evicted)) /* already restored, do nothing */
-  1309			goto out;
-  1310		if (qpd->evicted > 1) { /* ref count still > 0, decrement & quit */
-  1311			qpd->evicted--;
-  1312			goto out;
-  1313		}
-  1314	
-  1315		/* The debugger creates processes that temporarily have not acquired
-  1316		 * all VMs for all devices and has no VMs itself.
-  1317		 * Skip queue restore on process restore.
-  1318		 */
-  1319		if (!pdd->drm_priv)
-  1320			goto vm_not_acquired;
-  1321	
-  1322		pr_debug_ratelimited("Restoring PASID 0x%x queues\n",
-  1323				    pdd->process->pasid);
-  1324	
-  1325		/* Update PD Base in QPD */
-  1326		qpd->page_table_base = amdgpu_amdkfd_gpuvm_get_process_page_dir(pdd->drm_priv);
-  1327		pr_debug("Updated PD address to 0x%llx\n", qpd->page_table_base);
-  1328	
-  1329		/* activate all active queues on the qpd */
-  1330		list_for_each_entry(q, &qpd->queues_list, list) {
-  1331			q->properties.is_evicted = false;
-  1332			if (!QUEUE_IS_ACTIVE(q->properties))
-  1333				continue;
-  1334	
-  1335			q->properties.is_active = true;
-  1336			increment_queue_count(dqm, &pdd->qpd, q);
-  1337	
-  1338			if (dqm->dev->kfd->shared_resources.enable_mes) {
-  1339				retval = add_queue_mes(dqm, q, qpd);
-  1340				if (retval) {
-  1341					dev_err(dev, "Failed to restore queue %d\n",
-  1342						q->properties.queue_id);
-  1343					goto out;
-  1344				}
-  1345			}
-  1346		}
-  1347		if (!dqm->dev->kfd->shared_resources.enable_mes)
-  1348			retval = execute_queues_cpsch(dqm,
-  1349						      KFD_UNMAP_QUEUES_FILTER_DYNAMIC_QUEUES, 0, USE_DEFAULT_GRACE_PERIOD);
-  1350		eviction_duration = get_jiffies_64() - pdd->last_evict_timestamp;
-  1351		atomic64_add(eviction_duration, &pdd->evict_duration_counter);
-  1352	vm_not_acquired:
-  1353		qpd->evicted = 0;
-> 1354	out_unlock:
-  1355		dqm_unlock(dqm);
-  1356	out:
-  1357		return retval;
-  1358	}
-  1359	
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+index f23df55d72fd..58541b93580a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+@@ -45,6 +45,8 @@ MODULE_FIRMWARE("amdgpu/gc_9_4_3_mec.bin");
+ MODULE_FIRMWARE("amdgpu/gc_9_4_4_mec.bin");
+ MODULE_FIRMWARE("amdgpu/gc_9_4_3_rlc.bin");
+ MODULE_FIRMWARE("amdgpu/gc_9_4_4_rlc.bin");
++MODULE_FIRMWARE("amdgpu/gc_9_4_3_sjt_mec.bin");
++MODULE_FIRMWARE("amdgpu/gc_9_4_4_sjt_mec.bin");
+ 
+ #define GFX9_MEC_HPD_SIZE 4096
+ #define RLCG_UCODE_LOADING_START_ADDRESS 0x00002000L
+@@ -574,8 +576,12 @@ static int gfx_v9_4_3_init_cp_compute_microcode(struct amdgpu_device *adev,
+ {
+ 	int err;
+ 
+-	err = amdgpu_ucode_request(adev, &adev->gfx.mec_fw,
+-				   "amdgpu/%s_mec.bin", chip_name);
++	if (amdgpu_sriov_vf(adev))
++		err = amdgpu_ucode_request(adev, &adev->gfx.mec_fw,
++				"amdgpu/%s_sjt_mec.bin", chip_name);
++	else
++		err = amdgpu_ucode_request(adev, &adev->gfx.mec_fw,
++				"amdgpu/%s_mec.bin", chip_name);
+ 	if (err)
+ 		goto out;
+ 	amdgpu_gfx_cp_init_microcode(adev, AMDGPU_UCODE_ID_CP_MEC1);
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+2.34.1
+
