@@ -4,66 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCB60E6ADD9
-	for <amd-gfx@archiver.kernel.org>; Sat, 23 Nov 2024 01:56:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F814E6ADE7
+	for <amd-gfx@archiver.kernel.org>; Sat, 23 Nov 2024 08:32:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3FEB210E1A9;
-	Sat, 23 Nov 2024 01:56:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C19610E15E;
+	Sat, 23 Nov 2024 08:32:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="D3VZzrfu";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Xyx9FjeF";
 	dkim-atps=neutral
-Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com
- [209.85.160.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 06A5D10E1A9;
- Sat, 23 Nov 2024 01:56:45 +0000 (UTC)
-Received: by mail-qt1-f172.google.com with SMTP id
- d75a77b69052e-460dce6fff9so18565681cf.1; 
- Fri, 22 Nov 2024 17:56:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1732327004; x=1732931804; darn=lists.freedesktop.org;
- h=content-transfer-encoding:to:subject:message-id:date:from
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=SbWHakUX9ZtEgnqPU/NswGuac0NLhWtUUtku6WlLLAk=;
- b=D3VZzrfulSxhgjchzZRP61c84IxKm5gxIgXqWskwyADH269I6jgc5HqFl1jRwWDMSy
- Cpzzih35SmHqagaYypF6RPzUy4xP7A5NFYyln1ige1nTYDzN3kCiX/xmt96zV2RGrE4H
- Nincjd9/J09QtD5pSkMw6MVSGCbgrsi9wtBtAbjop6CFVbPd1uM4nF38VphrPnWnAWNT
- KTIsQEenLYR8rpvg/RO6fZReoU30/wNSDKBKAibqdqWKcFYLphs1vc06nOZHSmuYyjwA
- 6080hc7TspjlEi4xPGbIGEC9Q6hsENU3nVHPOltVCONqjL2mORVGni3cTsiObsJRJWZN
- E9uA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1732327004; x=1732931804;
- h=content-transfer-encoding:to:subject:message-id:date:from
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=SbWHakUX9ZtEgnqPU/NswGuac0NLhWtUUtku6WlLLAk=;
- b=BIWjRAFX7VdzdA6linZ9I4+D4WvR+py5RDrdA36u0mxX6vnEosS++6Ec4kAcp0p+fL
- d5JKHcB8ewtYZkbfhSvUXxM1nYqLy10Wa+PjR5KxyuuMBSqwEtZm/4Qto8UwZvXR5Nhf
- khJ6olcIgEzBO6B/pKNBoTe8DASRjv+jHdpA9A3NyMF9TyGza3ergcaSVnMgImjet92W
- WAyGWr1UXsc4MR3Jyg6ESGkOuM/jNA8wqNxd3fh51DfYsx5gnevcFNxJAggelrySveKG
- 9bfMyIHaebTCrxOmIVoXX0jJZPcU/TjyVv4vL/DXG+2jmRnKo9hggRKJLK90n5vi0BWk
- C3rw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUZ16V8ncIvCvcij39dlXP3t5UhfuSV8gy5HIgHsN+qjO5Yx8Zd6fkvGxlZBR+5SWUFVmFvH+QbPQk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzCEoSUGABMbTcjjh8Nnt0u/JwRYVPG7T5KjXHSd3StfkR3xNBE
- lG+Qv6cWyqZkolnCNsHZh2rk5RLWy/NBwhCRQuzeoxJn66c6IwEP61geh+tCmJ5B2++LOjgIGEG
- 5ff9bEPq7k3vJktCPLRpt46t59Kx6iu7/
-X-Gm-Gg: ASbGncvxEpa+w0JpS29TFAnpujzCbGVul3uaCpod3k90UYoXT3TcHBY6UrClH8e0qPI
- xOOwO8DAAuUbHo1/suy6K5OLsPuzeJkg=
-X-Google-Smtp-Source: AGHT+IH5Fr+sZz4ivcPBKChPrt0U8V00z85wYBlkns1ZmbO0KyN5E4Wne4c9VY5F9GW5Ke0M2gnvhqdoh+YlxAUf+h4=
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 823B110E02A;
+ Sat, 23 Nov 2024 08:32:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1732350749; x=1763886749;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=QVVQVUkwUKvj4AcABye2tB/9AricLFsjzdPmpmeWWtg=;
+ b=Xyx9FjeFtn/34yEbsgnDZ0ytjtN6r8LOZREZ7gH4U2KSdNxvkshBBU1r
+ n74V4VLuOlacnQ93WYHxYm2lPQqqDJtwnWSQ4ozsCvyPzT0+I2bs5pkFC
+ nZe7u00S3BichV0ys3k4/67cuiTMawZT/6LawPbRi40nQ3TeMDWj5tv2z
+ TBjdEXxMr1I7HPTfHzeKyiuLQ4W3wcZCawJNy1MPMnFyNpw8LbyhRMJgm
+ RjqNowHflgBqsK09EMM1z5E07bfr6lJUq9VAWndxtF4sKF7FKLgzcuVBv
+ c+2u3oAiccrAu/POjfD/BmRgQvuXdkSlThRHFr0fggc945dlzvC1sH2iI w==;
+X-CSE-ConnectionGUID: R2ahCvxUSs+f//PdIuntWA==
+X-CSE-MsgGUID: swhPaGuMQFeMc59wpAf2wQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11264"; a="36170895"
+X-IronPort-AV: E=Sophos;i="6.12,178,1728975600"; d="scan'208";a="36170895"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Nov 2024 00:32:28 -0800
+X-CSE-ConnectionGUID: iFKF55+nTgWHLfTFRbv9zA==
+X-CSE-MsgGUID: GgiivKJNRWeqMgs9wXzwPw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.12,178,1728975600"; d="scan'208";a="91144616"
+Received: from lkp-server01.sh.intel.com (HELO 8122d2fc1967) ([10.239.97.150])
+ by fmviesa010.fm.intel.com with ESMTP; 23 Nov 2024 00:32:24 -0800
+Received: from kbuild by 8122d2fc1967 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1tElZ0-0004WV-1g;
+ Sat, 23 Nov 2024 08:32:22 +0000
+Date: Sat, 23 Nov 2024 16:31:57 +0800
+From: kernel test robot <lkp@intel.com>
+To: Mika Laitio <lamikr@gmail.com>, christian.koenig@amd.com,
+ Xinhui.Pan@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ Hawking.Zhang@amd.com, sunil.khatri@amd.com, lijo.lazar@amd.com,
+ kevinyang.wang@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev
+Subject: Re: [PATCH] ammdgpu fix for gfx1103 queue evict/restore crash
+Message-ID: <202411231603.PMbyCkko-lkp@intel.com>
+References: <20241121195233.10679-1-lamikr@gmail.com>
 MIME-Version: 1.0
-X-Received: by 2002:a05:622a:10e:b0:462:aac9:56bd with SMTP id
- d75a77b69052e-4653d5222c6mr77267211cf.4.1732327004147; Fri, 22 Nov 2024
- 17:56:44 -0800 (PST)
-Received: from 377903785069 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 22 Nov 2024 20:56:43 -0500
-From: Forest Crossman <cyrozap@gmail.com>
-Date: Fri, 22 Nov 2024 20:56:43 -0500
-Message-ID: <CAO3ALPyC20qhCV4J93gxsiaovgXY_DWh7D2=mVK-YKAV=9sXQA@mail.gmail.com>
-Subject: Kernel warning in dcn30_dpp.c; short freezing, crashes in KWin
-To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20241121195233.10679-1-lamikr@gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,160 +72,132 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi, all. I have a laptop with an AMD Radeon 780M, and I'm getting a
-warning message shortly after boot (see the end of this email for the
-message). I noticed the message while investigating some issues that I
-began to experience after performing some software updates.
+Hi Mika,
 
-The first issue I noticed was that the screen will have very short
-freezes--like it's failing to refresh--when the mouse isn't moving,
-which is immediately noticeable when typing. I've been able to work
-around this issue by dropping my displays refresh rate from its native
-120 Hz to 60 Hz (which according to the EDID isn't actually changing the
-refresh rate of the screen so much as increasing the blanking period so
-the screen only gets updated 60 times per second), but I still
-experience the issue when entering my password at the login screen
-(SDDM), which I think is still running the display at its native 120 Hz.
+kernel test robot noticed the following build warnings:
 
-Coincidentally (or perhaps not), I've also been getting very consistent
-crashes in KWin (Wayland) whenever I run a Vulkan game (specifically,
-Baldur's Gate 3 version 4.1.1.6072089). KWin doesn't crash if I instead
-run the game in DirectX 11 mode, with Wine performing the translation to
-OpenGL. Using DXVK to translate the DirectX calls to Vulkan causes the
-same crash in KWin.
+[auto build test WARNING on drm-misc/drm-misc-next]
+[also build test WARNING on drm-tip/drm-tip v6.12 next-20241122]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-If you need any more information from me to find the source of these
-warning messages, freezing, and crashes, or if you have any suggestions
-as to how I can troubleshoot further, please let me know.
+url:    https://github.com/intel-lab-lkp/linux/commits/Mika-Laitio/ammdgpu-fix-for-gfx1103-queue-evict-restore-crash/20241122-035602
+base:   git://anongit.freedesktop.org/drm/drm-misc drm-misc-next
+patch link:    https://lore.kernel.org/r/20241121195233.10679-1-lamikr%40gmail.com
+patch subject: [PATCH] ammdgpu fix for gfx1103 queue evict/restore crash
+config: arm64-allmodconfig (https://download.01.org/0day-ci/archive/20241123/202411231603.PMbyCkko-lkp@intel.com/config)
+compiler: clang version 20.0.0git (https://github.com/llvm/llvm-project 592c0fe55f6d9a811028b5f3507be91458ab2713)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20241123/202411231603.PMbyCkko-lkp@intel.com/reproduce)
 
-My system information and the warning message itself can be found at the
-end of this message.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202411231603.PMbyCkko-lkp@intel.com/
 
-Regards,
-Forest
+All warnings (new ones prefixed by >>):
 
----
+   In file included from drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_device_queue_manager.c:32:
+   In file included from drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_priv.h:37:
+   In file included from include/linux/kfifo.h:40:
+   In file included from include/linux/dma-mapping.h:11:
+   In file included from include/linux/scatterlist.h:8:
+   In file included from include/linux/mm.h:2213:
+   include/linux/vmstat.h:504:43: warning: arithmetic between different enumeration types ('enum zone_stat_item' and 'enum numa_stat_item') [-Wenum-enum-conversion]
+     504 |         return vmstat_text[NR_VM_ZONE_STAT_ITEMS +
+         |                            ~~~~~~~~~~~~~~~~~~~~~ ^
+     505 |                            item];
+         |                            ~~~~
+   include/linux/vmstat.h:511:43: warning: arithmetic between different enumeration types ('enum zone_stat_item' and 'enum numa_stat_item') [-Wenum-enum-conversion]
+     511 |         return vmstat_text[NR_VM_ZONE_STAT_ITEMS +
+         |                            ~~~~~~~~~~~~~~~~~~~~~ ^
+     512 |                            NR_VM_NUMA_EVENT_ITEMS +
+         |                            ~~~~~~~~~~~~~~~~~~~~~~
+   include/linux/vmstat.h:518:36: warning: arithmetic between different enumeration types ('enum node_stat_item' and 'enum lru_list') [-Wenum-enum-conversion]
+     518 |         return node_stat_name(NR_LRU_BASE + lru) + 3; // skip "nr_"
+         |                               ~~~~~~~~~~~ ^ ~~~
+   include/linux/vmstat.h:524:43: warning: arithmetic between different enumeration types ('enum zone_stat_item' and 'enum numa_stat_item') [-Wenum-enum-conversion]
+     524 |         return vmstat_text[NR_VM_ZONE_STAT_ITEMS +
+         |                            ~~~~~~~~~~~~~~~~~~~~~ ^
+     525 |                            NR_VM_NUMA_EVENT_ITEMS +
+         |                            ~~~~~~~~~~~~~~~~~~~~~~
+>> drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_device_queue_manager.c:1354:1: warning: unused label 'out_unlock' [-Wunused-label]
+    1354 | out_unlock:
+         | ^~~~~~~~~~~
+   5 warnings generated.
 
-System information:
 
-Operating System: Arch Linux
-KDE Plasma Version: 6.2.3
-KDE Frameworks Version: 6.8.0
-Qt Version: 6.8.0
-Kernel Version: 6.11.9-arch1-1 (64-bit)
-Graphics Platform: Wayland
-Processors: 16 =C3=97 AMD Ryzen 7 PRO 8840HS w/ Radeon 780M Graphics
-Memory: 58.5 GiB of RAM
-Graphics Processor: AMD Radeon Graphics
-Manufacturer: LENOVO
-Product Name: 21ME001MUS
-System Version: ThinkPad P14s Gen 5 AMD
+vim +/out_unlock +1354 drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_device_queue_manager.c
 
-Display: 2880x1800 120 Hz HDR OLED (eDP), set to 60 Hz with HDR enabled
+  1292	
+  1293	static int restore_process_queues_cpsch(struct device_queue_manager *dqm,
+  1294						struct qcm_process_device *qpd)
+  1295	{
+  1296		struct queue *q;
+  1297		struct device *dev = dqm->dev->adev->dev;
+  1298		struct kfd_process_device *pdd;
+  1299		uint64_t eviction_duration;
+  1300		int retval = 0;
+  1301	
+  1302		// gfx1103 APU fails to remove the queue usually after 10-50 attempts
+  1303		if (dqm->dev->adev->flags & AMD_IS_APU)
+  1304			goto out;
+  1305		pdd = qpd_to_pdd(qpd);
+  1306	
+  1307		dqm_lock(dqm);
+  1308		if (WARN_ON_ONCE(!qpd->evicted)) /* already restored, do nothing */
+  1309			goto out;
+  1310		if (qpd->evicted > 1) { /* ref count still > 0, decrement & quit */
+  1311			qpd->evicted--;
+  1312			goto out;
+  1313		}
+  1314	
+  1315		/* The debugger creates processes that temporarily have not acquired
+  1316		 * all VMs for all devices and has no VMs itself.
+  1317		 * Skip queue restore on process restore.
+  1318		 */
+  1319		if (!pdd->drm_priv)
+  1320			goto vm_not_acquired;
+  1321	
+  1322		pr_debug_ratelimited("Restoring PASID 0x%x queues\n",
+  1323				    pdd->process->pasid);
+  1324	
+  1325		/* Update PD Base in QPD */
+  1326		qpd->page_table_base = amdgpu_amdkfd_gpuvm_get_process_page_dir(pdd->drm_priv);
+  1327		pr_debug("Updated PD address to 0x%llx\n", qpd->page_table_base);
+  1328	
+  1329		/* activate all active queues on the qpd */
+  1330		list_for_each_entry(q, &qpd->queues_list, list) {
+  1331			q->properties.is_evicted = false;
+  1332			if (!QUEUE_IS_ACTIVE(q->properties))
+  1333				continue;
+  1334	
+  1335			q->properties.is_active = true;
+  1336			increment_queue_count(dqm, &pdd->qpd, q);
+  1337	
+  1338			if (dqm->dev->kfd->shared_resources.enable_mes) {
+  1339				retval = add_queue_mes(dqm, q, qpd);
+  1340				if (retval) {
+  1341					dev_err(dev, "Failed to restore queue %d\n",
+  1342						q->properties.queue_id);
+  1343					goto out;
+  1344				}
+  1345			}
+  1346		}
+  1347		if (!dqm->dev->kfd->shared_resources.enable_mes)
+  1348			retval = execute_queues_cpsch(dqm,
+  1349						      KFD_UNMAP_QUEUES_FILTER_DYNAMIC_QUEUES, 0, USE_DEFAULT_GRACE_PERIOD);
+  1350		eviction_duration = get_jiffies_64() - pdd->last_evict_timestamp;
+  1351		atomic64_add(eviction_duration, &pdd->evict_duration_counter);
+  1352	vm_not_acquired:
+  1353		qpd->evicted = 0;
+> 1354	out_unlock:
+  1355		dqm_unlock(dqm);
+  1356	out:
+  1357		return retval;
+  1358	}
+  1359	
 
----
-
-Kernel warning message:
-
-[   22.335551] ------------[ cut here ]------------
-[   22.335557] WARNING: CPU: 8 PID: 537 at
-drivers/gpu/drm/amd/amdgpu/../display/dc/dpp/dcn30/dcn30_dpp.c:534
-dpp3_deferred_update+0x101/0x330 [amdgpu]
-[   22.335904] Modules linked in: snd_seq_dummy rfcomm snd_hrtimer
-snd_seq snd_seq_device wireguard curve25519_x86_64 libchacha20poly1305
-chacha_x86_64 poly1305_x86_64 libcurve25519_generic libchacha
-ip6_udp_tunnel udp_tunnel nft_masq nft_reject_ipv4 nf_nat_tftp
-nf_conntrack_tftp bridge stp llc nft_fib_inet nft_fib_ipv4
-nft_fib_ipv6 nft_fib nft_reject_inet nf_reject_ipv4 nf_reject_ipv6
-nft_reject nft_ct nft_chain_nat ip6table_nat ip6table_mangle
-ip6table_raw ip6table_security iptable_nat nf_nat nf_conntrack
-nf_defrag_ipv6 nf_defrag_ipv4 iptable_mangle iptable_raw
-iptable_security nf_tables libcrc32c ip6table_filter ip6_tables
-iptable_filter cmac algif_hash algif_skcipher af_alg bnep qrtr_mhi
-vfat fat amd_atl intel_rapl_msr intel_rapl_common amdgpu
-snd_soc_ps_mach snd_soc_dmic snd_ps_pdm_dma snd_sof_amd_acp63
-snd_sof_amd_vangogh snd_sof_amd_rembrandt snd_sof_amd_renoir joydev
-snd_sof_amd_acp mousedev snd_sof_pci snd_sof_xtensa_dsp qrtr snd_sof
-snd_sof_utils ath11k_pci btusb snd_pci_ps btrtl snd_amd_sdw_acpi
-btintel ath11k
-[   22.335963]  uvcvideo soundwire_amd btbcm
-soundwire_generic_allocation videobuf2_vmalloc snd_hda_codec_realtek
-btmtk uvc soundwire_bus qmi_helpers snd_hda_codec_generic
-videobuf2_memops snd_hda_scodec_component snd_hda_codec_hdmi
-videobuf2_v4l2 amdxcp snd_soc_core drm_exec mac80211 gpu_sched
-videodev snd_compress snd_hda_intel drm_buddy ac97_bus hid_multitouch
-snd_intel_dspcfg i2c_algo_bit snd_pcm_dmaengine videobuf2_common
-snd_intel_sdw_acpi snd_rpl_pci_acp6x think_lmi kvm_amd spd5118
-hid_generic drm_suballoc_helper libarc4 bluetooth mc wmi_bmof
-firmware_attributes_class snd_hda_codec snd_ctl_led snd_acp_pci
-drm_ttm_helper snd_acp_legacy_common snd_hda_core ttm kvm
-snd_pci_acp6x snd_hwdep cfg80211 snd_pcm drm_display_helper
-thinkpad_acpi snd_pci_acp5x r8169 snd_rn_pci_acp3x snd_timer
-sparse_keymap sp5100_tco cec ucsi_acpi snd_acp_config realtek rapl snd
-typec_ucsi video i2c_piix4 snd_soc_acpi rfkill mdio_devres psmouse
-typec pcspkr amd_pmf thunderbolt snd_pci_acp3x soundcore mhi i2c_smbus
-k10temp libphy roles amdtee
-[   22.336033]  wmi i2c_hid_acpi amd_sfh i2c_hid platform_profile
-amd_pmc mac_hid usbip_host usbip_core i2c_dev sg crypto_user loop
-nfnetlink ip_tables x_tables ext4 crc32c_generic crc16 mbcache jbd2
-dm_crypt cbc encrypted_keys trusted asn1_encoder tee dm_mod
-crct10dif_pclmul crc32_pclmul crc32c_intel polyval_clmulni
-polyval_generic ghash_clmulni_intel serio_raw sha512_ssse3 atkbd
-sha256_ssse3 libps2 sha1_ssse3 vivaldi_fmap aesni_intel nvme gf128mul
-crypto_simd nvme_core cryptd xhci_pci i8042 ccp xhci_pci_renesas
-nvme_auth serio
-[   22.336077] CPU: 8 UID: 0 PID: 537 Comm: kworker/u64:9 Not tainted
-6.11.9-arch1-1 #1 1400000003000000474e55001d863d1de79e869f
-[   22.336081] Hardware name: LENOVO 21ME001MUS/21ME001MUS, BIOS
-R2LET29W (1.10 ) 09/25/2024
-[   22.336083] Workqueue: events_unbound commit_work
-[   22.336089] RIP: 0010:dpp3_deferred_update+0x101/0x330 [amdgpu]
-[   22.336242] Code: 83 78 e1 00 00 0f b6 90 a8 02 00 00 48 8b 83 70
-e1 00 00 8b b0 78 04 00 00 e8 bb bf 11 00 8b 74 24 04 85 f6 0f 84 5d
-01 00 00 <0f> 0b 0f b6 83 48 96 00 00 83 e0 f7 88 83 48 96 00 00 a8 01
-0f 84
-[   22.336244] RSP: 0018:ffff9e9800ce3ba0 EFLAGS: 00010202
-[   22.336246] RAX: 0000000000000066 RBX: ffff8b3230d60000 RCX: 00000000000=
-00004
-[   22.336247] RDX: 0000000000000000 RSI: 0000000000000002 RDI: ffff8b323de=
-00000
-[   22.336248] RBP: ffff8b3252d80000 R08: ffff9e9800ce3ba4 R09: ffff9e9800c=
-e3bd0
-[   22.336249] R10: ffff9e9800ce3b48 R11: 0000000000000000 R12: 00000000000=
-00000
-[   22.336250] R13: ffff8b3252d840a8 R14: ffff8b3252d85f78 R15: ffff8b323f4=
-ab800
-[   22.336251] FS:  0000000000000000(0000) GS:ffff8b4061e00000(0000)
-knlGS:0000000000000000
-[   22.336252] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[   22.336253] CR2: 000075470cd2ff80 CR3: 0000000dd0822000 CR4: 0000000000f=
-50ef0
-[   22.336254] PKRU: 55555554
-[   22.336255] Call Trace:
-[   22.336259]  <TASK>
-[   22.336261]  ? dpp3_deferred_update+0x101/0x330 [amdgpu
-1400000003000000474e5500c4a6d1c766d8f3ae]
-[   22.336383]  ? __warn.cold+0x8e/0xe8
-[   22.336387]  ? dpp3_deferred_update+0x101/0x330 [amdgpu
-1400000003000000474e5500c4a6d1c766d8f3ae]
-[   22.336539]  ? report_bug+0xff/0x140
-[   22.336542]  ? handle_bug+0x58/0x90
-[   22.336545]  ? exc_invalid_op+0x17/0x70
-[   22.336546]  ? asm_exc_invalid_op+0x1a/0x20
-[   22.336551]  ? dpp3_deferred_update+0x101/0x330 [amdgpu
-1400000003000000474e5500c4a6d1c766d8f3ae]
-[   22.336667]  dc_post_update_surfaces_to_stream+0x1b1/0x2b0 [amdgpu
-1400000003000000474e5500c4a6d1c766d8f3ae]
-[   22.336799]  amdgpu_dm_atomic_commit_tail+0x2c9b/0x3a50 [amdgpu
-1400000003000000474e5500c4a6d1c766d8f3ae]
-[   22.336959]  commit_tail+0x91/0x130
-[   22.336963]  process_one_work+0x17b/0x330
-[   22.336968]  worker_thread+0x2ce/0x3f0
-[   22.336970]  ? __pfx_worker_thread+0x10/0x10
-[   22.336972]  kthread+0xcf/0x100
-[   22.336975]  ? __pfx_kthread+0x10/0x10
-[   22.336978]  ret_from_fork+0x31/0x50
-[   22.336981]  ? __pfx_kthread+0x10/0x10
-[   22.336983]  ret_from_fork_asm+0x1a/0x30
-[   22.336989]  </TASK>
-[   22.336989] ---[ end trace 0000000000000000 ]---
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
