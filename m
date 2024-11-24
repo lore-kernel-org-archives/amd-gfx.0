@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97473E668AB
-	for <amd-gfx@archiver.kernel.org>; Sun, 24 Nov 2024 13:37:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B821E668AB
+	for <amd-gfx@archiver.kernel.org>; Sun, 24 Nov 2024 13:37:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 40D8310E4EA;
-	Sun, 24 Nov 2024 13:37:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C895010E4EB;
+	Sun, 24 Nov 2024 13:37:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BiRaPziq";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="F01qzbw8";
 	dkim-atps=neutral
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C1CAC10E4E7;
- Sun, 24 Nov 2024 13:37:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E8E5610E4E7;
+ Sun, 24 Nov 2024 13:37:42 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 8FBBC5C53B8;
- Sun, 24 Nov 2024 13:36:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42EE7C4CECC;
- Sun, 24 Nov 2024 13:37:09 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id A90985C48E9;
+ Sun, 24 Nov 2024 13:36:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA2FDC4CECC;
+ Sun, 24 Nov 2024 13:37:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1732455431;
- bh=DqWiCfpkrzTx2envKHNBpAO1sH0IGlyIeYuu6hZ0jJo=;
+ s=k20201202; t=1732455462;
+ bh=8E0zxXlJhERkU6dY0p0wmypLqUVuTj51YrRPg2MOAk0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=BiRaPziq31VWRl9Hskl+THHZ5X2w16QQ5ABPp2CdKLbcBIZSrc5auJaD1ph8SYaP1
- y2CxlRkAJqzQ3bK3HKlvJ89fqSGVyyPSHSfueEItjNiU2XawJbDU/NTSjFoxIbHZeb
- hWUfJnijKBSXSpLhgAhg/allSfbJNpwm4FSmPJI7mUYqUqPi5EuIR+Llnk/dAhva0E
- 17VERAVVE2IxO3rUKWaLueg6GrACngVFzxHSeYJiGJOwkavLw1bloHHp7xxjQKhWzI
- rQpGypoMSnQM7W0aEOr2Xaz/NzqobQhxuP8t07/gGBAd+frtBvOC/j/yIzvrESLZqx
- y4fLcmYS7dccw==
+ b=F01qzbw87iPDfhi8q05DUCRO/LQTAzfqap6xryDsvb6V8wazV3TQ3DeLffW5Us+Q+
+ +RgZrxL32ag2XjHfZJARHNU4AUu4aMddjgQUQuRTPZjZYLZ1bkTgaJgm5D5HCOwrLu
+ 4vxLEuMWqbCFFYOScPFDtBzM7XQDZKheOM5d4B4GgwvLtJ8HXTbzKVqE+7pkHdKrsD
+ 4lYSzdUMCxtDBHZ7zIg9YV0+vPIWrK3mUT00Emd+Bv3zbCHWbHV8KEnYjj27mQ1SQx
+ AJ3nqS/akj8An09/faUGVoOowsJDre7hCgaeo7LL7yKBHIxmlgaitmoE9LClfsOOsj
+ 4PQGzhv4fUUSg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Leo Ma <hanghong.ma@amd.com>, Alvin Lee <alvin.lee2@amd.com>,
- Dillon Varone <dillon.varone@amd.com>, Tom Chung <chiahsuan.chung@amd.com>,
+Cc: Ausef Yousof <Ausef.Yousof@amd.com>, Charlene Liu <charlene.liu@amd.com>,
+ Zaeem Mohamed <zaeem.mohamed@amd.com>,
  Daniel Wheeler <daniel.wheeler@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- chaitanya.dhere@amd.com, jun.lei@amd.com, harry.wentland@amd.com,
- sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, christian.koenig@amd.com,
- Xinhui.Pan@amd.com, airlied@gmail.com, simona@ffwll.ch, Alvin.Lee2@amd.com,
- Samson.Tam@amd.com, aurabindo.pillai@amd.com, alex.hung@amd.com,
- joshua.aberback@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.12 067/107] drm/amd/display: Fix underflow when
- playing 8K video in full screen mode
-Date: Sun, 24 Nov 2024 08:29:27 -0500
-Message-ID: <20241124133301.3341829-67-sashal@kernel.org>
+ harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
+ christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, wenjing.liu@amd.com, alex.hung@amd.com,
+ michael.strauss@amd.com, george.shen@amd.com, daniel.sa@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: [PATCH AUTOSEL 6.12 079/107] Revert "drm/amd/display: Block UHBR
+ Based On USB-C PD Cable ID"
+Date: Sun, 24 Nov 2024 08:29:39 -0500
+Message-ID: <20241124133301.3341829-79-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20241124133301.3341829-1-sashal@kernel.org>
 References: <20241124133301.3341829-1-sashal@kernel.org>
@@ -69,39 +68,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Leo Ma <hanghong.ma@amd.com>
+From: Ausef Yousof <Ausef.Yousof@amd.com>
 
-[ Upstream commit 4007f07a47de4a277f4760cac3aed1b31d973eea ]
+[ Upstream commit d7b86a002cf7e1b55ec311c11264f70d079860b9 ]
 
-[Why&How]
-Flickering observed while playing 8k HEVC-10 bit video in full screen
-mode with black border. We didn't support this case for subvp.
-Make change to the existing check to disable subvp for this corner case.
+This reverts commit 4f01a68751194d05280d659a65758c09e4af04d6.
 
-Reviewed-by: Alvin Lee <alvin.lee2@amd.com>
-Signed-off-by: Leo Ma <hanghong.ma@amd.com>
-Signed-off-by: Dillon Varone <dillon.varone@amd.com>
-Signed-off-by: Tom Chung <chiahsuan.chung@amd.com>
+[why & how]
+The offending commit caused a lighting issue for Samsung Odyssey G9
+monitors when connecting via USB-C. The commit was intended to block certain UHBR rates.
+
+Reviewed-by: Charlene Liu <charlene.liu@amd.com>
+Signed-off-by: Ausef Yousof <Ausef.Yousof@amd.com>
+Signed-off-by: Zaeem Mohamed <zaeem.mohamed@amd.com>
 Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../drm/amd/display/dc/dml2/dml21/dml21_translation_helper.c    | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../dc/link/protocols/link_dp_capability.c    | 22 +++++--------------
+ 1 file changed, 6 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_translation_helper.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_translation_helper.c
-index 8697eac1e1f7e..6c9e1a10911e2 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_translation_helper.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_translation_helper.c
-@@ -859,7 +859,7 @@ static void populate_dml21_plane_config_from_plane_state(struct dml2_context *dm
- 	plane->immediate_flip = plane_state->flip_immediate;
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
+index fe4aa2c158eae..d78c8ec4de79e 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
+@@ -1409,8 +1409,7 @@ static bool get_usbc_cable_id(struct dc_link *link, union dp_cable_id *cable_id)
  
- 	plane->composition.rect_out_height_spans_vactive =
--		plane_state->dst_rect.height >= stream->timing.v_addressable &&
-+		plane_state->dst_rect.height >= stream->src.height &&
- 		stream->dst.height >= stream->timing.v_addressable;
+ 	if (!link->ctx->dmub_srv ||
+ 			link->ep_type != DISPLAY_ENDPOINT_PHY ||
+-			link->link_enc->features.flags.bits.DP_IS_USB_C == 0 ||
+-			link->link_enc->features.flags.bits.IS_DP2_CAPABLE == 0)
++			link->link_enc->features.flags.bits.DP_IS_USB_C == 0)
+ 		return false;
+ 
+ 	memset(&cmd, 0, sizeof(cmd));
+@@ -1423,9 +1422,7 @@ static bool get_usbc_cable_id(struct dc_link *link, union dp_cable_id *cable_id)
+ 		cable_id->raw = cmd.cable_id.data.output_raw;
+ 		DC_LOG_DC("usbc_cable_id = %d.\n", cable_id->raw);
+ 	}
+-
+-	ASSERT(cmd.cable_id.header.ret_status);
+-	return true;
++	return cmd.cable_id.header.ret_status == 1;
  }
  
+ static void retrieve_cable_id(struct dc_link *link)
+@@ -2106,8 +2103,6 @@ struct dc_link_settings dp_get_max_link_cap(struct dc_link *link)
+ 	/* get max link encoder capability */
+ 	if (link_enc)
+ 		link_enc->funcs->get_max_link_cap(link_enc, &max_link_cap);
+-	else
+-		return max_link_cap;
+ 
+ 	/* Lower link settings based on sink's link cap */
+ 	if (link->reported_link_cap.lane_count < max_link_cap.lane_count)
+@@ -2141,15 +2136,10 @@ struct dc_link_settings dp_get_max_link_cap(struct dc_link *link)
+ 	 */
+ 	cable_max_link_rate = get_cable_max_link_rate(link);
+ 
+-	if (!link->dc->debug.ignore_cable_id) {
+-		if (cable_max_link_rate != LINK_RATE_UNKNOWN)
+-			// cable max link rate known
+-			max_link_cap.link_rate = MIN(max_link_cap.link_rate, cable_max_link_rate);
+-		else if (link_enc->funcs->is_in_alt_mode && link_enc->funcs->is_in_alt_mode(link_enc))
+-			// cable max link rate ambiguous, DP alt mode, limit to HBR3
+-			max_link_cap.link_rate = MIN(max_link_cap.link_rate, LINK_RATE_HIGH3);
+-		//else {}
+-			// cable max link rate ambiguous, DP, do nothing
++	if (!link->dc->debug.ignore_cable_id &&
++			cable_max_link_rate != LINK_RATE_UNKNOWN) {
++		if (cable_max_link_rate < max_link_cap.link_rate)
++			max_link_cap.link_rate = cable_max_link_rate;
+ 
+ 		if (!link->dpcd_caps.cable_id.bits.UHBR13_5_CAPABILITY &&
+ 				link->dpcd_caps.cable_id.bits.CABLE_TYPE >= 2)
 -- 
 2.43.0
 
