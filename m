@@ -4,49 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B70BFE668AB
-	for <amd-gfx@archiver.kernel.org>; Sun, 24 Nov 2024 13:57:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92BA1D68BFF
+	for <amd-gfx@archiver.kernel.org>; Sun, 24 Nov 2024 19:00:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DCED10E575;
-	Sun, 24 Nov 2024 13:57:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 124AD10E0B1;
+	Sun, 24 Nov 2024 19:00:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QpF9zXol";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JkMt69h9";
 	dkim-atps=neutral
 Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC98F10E575;
- Sun, 24 Nov 2024 13:57:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6CCAC10E0B1
+ for <amd-gfx@lists.freedesktop.org>; Sun, 24 Nov 2024 19:00:08 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id BAC70A40DFF;
- Sun, 24 Nov 2024 13:55:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B08FC4CECC;
- Sun, 24 Nov 2024 13:57:11 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id 466B3A40F91;
+ Sun, 24 Nov 2024 18:58:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DD03C4CECC;
+ Sun, 24 Nov 2024 19:00:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1732456632;
- bh=HxrGBajcKqbur6utAJ0iiZ+WwhJF2qQdxREm1N0uIR4=;
+ s=k20201202; t=1732474807;
+ bh=j700XncnWqwPhVKKIIvHw5fTsIhVOrR0PIIdWUkIzJE=;
  h=From:To:Cc:Subject:Date:From;
- b=QpF9zXolPZBgITMVp1lKIzhwC07riaK/0OwADQQxMzC8OFHM6RHMQFWw4KfZXZ7Lx
- dYMzTgKkjNAndlZjejnVRNy5jjwpWqH97DGP8nGP9tu1Lh0yg95jX32z8vKnP0jg7H
- 78SSriaj9nOuykur43d9fyKhNDzMuZZW5Vy8jhci1YhgmUKGSrQlgTGBqD5UluM6La
- 4Idec28l9OMLuCJkJjvAt58SiJZeTuGnf3YYv+/qd5cUzRWLoP4KkyekwKK9CZcrK/
- irA0fTPGuVla4WS6mDTrXWe+MR3mo1EbUL/fDmRzd9OeVxH5/FYdxo+SmJvjMlDize
- 9VhNwQVXciSng==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Cc: Igor Artemiev <Igor.A.Artemiev@mcst.ru>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 4.19 01/21] drm/radeon/r600_cs: Fix possible int
- overflow in r600_packet3_check()
-Date: Sun, 24 Nov 2024 08:56:34 -0500
-Message-ID: <20241124135709.3351371-1-sashal@kernel.org>
+ b=JkMt69h9Tcfwn0q9PNLmEOucFbclk1HWt33fmE8HzCXpIKFV4X4BbVWN1WgvCmFFi
+ sLmxbpuIA3Tkhx+i9CsfhjjQQpQNRBEAHPRGNPrkh8USMrD6ZwXIhAe4BX+qQ5AXIr
+ v6lfs10tdx2m2hTz03+B/kpgrookKECfl7e0ZQwIJyS/SelR8BG43ZIL1WpRia5msh
+ 2lxFoVyKM0sywMxl7dZyGFCyrTTKfwuci9mRA4I4L4bQs6AuPzxOktt/IMgQh3cbZS
+ 5RT8I1+XrGFEU6rNvhr6N6dpcTYuY7xnkOoyrUqToo0v1JfuhuMt5MT4sGSZNE6y7D
+ f7LaOmncDxoig==
+From: Mario Limonciello <superm1@kernel.org>
+To: amd-gfx@lists.freedesktop.org
+Cc: Mario Limonciello <mario.limonciello@amd.com>,
+ Lijo Lazar <lijo.lazar@amd.com>
+Subject: [PATCH v4 1/2] drm/amd: Invert APU check for
+ amdgpu_device_evict_resources()
+Date: Sun, 24 Nov 2024 13:00:00 -0600
+Message-ID: <20241124190001.2633591-1-superm1@kernel.org>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 4.19.324
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -62,38 +55,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Igor Artemiev <Igor.A.Artemiev@mcst.ru>
+From: Mario Limonciello <mario.limonciello@amd.com>
 
-[ Upstream commit a1e2da6a5072f8abe5b0feaa91a5bcd9dc544a04 ]
+Resource eviction isn't needed for s3 or s2idle on APUs, but should
+be run for S4. As amdgpu_device_evict_resources() will be called
+by prepare notifier adjust logic so that APUs only cover S4.
 
-It is possible, although unlikely, that an integer overflow will occur
-when the result of radeon_get_ib_value() is shifted to the left.
+--
+v2:
+ * New patch
 
-Avoid it by casting one of the operands to larger data type (u64).
-
-Found by Linux Verification Center (linuxtesting.org) with static
-analysis tool SVACE.
-
-Signed-off-by: Igor Artemiev <Igor.A.Artemiev@mcst.ru>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Suggested-by: Lijo Lazar <lijo.lazar@amd.com>
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
- drivers/gpu/drm/radeon/r600_cs.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/r600_cs.c b/drivers/gpu/drm/radeon/r600_cs.c
-index b6bdfb3f4a7f7..580ca4f753531 100644
---- a/drivers/gpu/drm/radeon/r600_cs.c
-+++ b/drivers/gpu/drm/radeon/r600_cs.c
-@@ -2104,7 +2104,7 @@ static int r600_packet3_check(struct radeon_cs_parser *p,
- 				return -EINVAL;
- 			}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 0171d240fcb05..996e9c78384dd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -4735,8 +4735,8 @@ static int amdgpu_device_evict_resources(struct amdgpu_device *adev)
+ {
+ 	int ret;
  
--			offset = radeon_get_ib_value(p, idx+1) << 8;
-+			offset = (u64)radeon_get_ib_value(p, idx+1) << 8;
- 			if (offset != track->vgt_strmout_bo_offset[idx_value]) {
- 				DRM_ERROR("bad STRMOUT_BASE_UPDATE, bo offset does not match: 0x%llx, 0x%x\n",
- 					  offset, track->vgt_strmout_bo_offset[idx_value]);
+-	/* No need to evict vram on APUs for suspend to ram or s2idle */
+-	if ((adev->in_s3 || adev->in_s0ix) && (adev->flags & AMD_IS_APU))
++	/* No need to evict vram on APUs unless going to S4 */
++	if (!adev->in_s4 && (adev->flags & AMD_IS_APU))
+ 		return 0;
+ 
+ 	ret = amdgpu_ttm_evict_resources(adev, TTM_PL_VRAM);
 -- 
 2.43.0
 
