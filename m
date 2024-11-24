@@ -4,44 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD147E66887
-	for <amd-gfx@archiver.kernel.org>; Sun, 24 Nov 2024 13:50:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F2B6E668B3
+	for <amd-gfx@archiver.kernel.org>; Sun, 24 Nov 2024 13:50:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5AAB910E54F;
-	Sun, 24 Nov 2024 13:50:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B72E10E551;
+	Sun, 24 Nov 2024 13:50:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OFYqH7XN";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="G/cgKAJ2";
 	dkim-atps=neutral
 Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A2BA610E54E;
- Sun, 24 Nov 2024 13:50:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C97F410E550;
+ Sun, 24 Nov 2024 13:50:54 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id C447BA40D59;
- Sun, 24 Nov 2024 13:48:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0566CC4CECC;
- Sun, 24 Nov 2024 13:50:47 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id E927EA40D59;
+ Sun, 24 Nov 2024 13:49:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E68F6C4CECC;
+ Sun, 24 Nov 2024 13:50:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1732456249;
- bh=ZY44IHedXHybYQd5QP0PoNOjOVOximKt8dPydbgGOAU=;
+ s=k20201202; t=1732456253;
+ bh=QXpIFoOYPXnJFfvMVOnUy/Y6CB1RJZItjRXAW+vjCmQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=OFYqH7XNbYwySLEfgcjj+XGfMi9fl2x9pnV+cIz1IXwByx7jurPhLTu1HNLskDqcT
- DsfYjVVk3n8nPJFRBTUEhBFj9jt2JouW9RxsEADbqVbpM8o93DUkWqgAGNe6+5cs/Z
- 8SCcpjbk7kg8OKT8n8vrQpPsEoXLmGbqwDBUeY/773dTXot39tTQoMDprzLJogXS6R
- iRbZTTXQY/KzTGlZYcnWI/mpopELVmO4BRVbAWtSUOo+CLF5rsrczoUaUTcVXfLg9R
- ZmpDf7cjhC5ejpDSEzbUhb4iQ9ENQjahfhEgkGuDtt5J4xt+uIUhhEUDAcMrkIBHAN
- KvUubylGJfN4A==
+ b=G/cgKAJ2GKxcY7QhFQxC5gbupak1XqjL5ZMk61JuzK03bN+RG0ZUa3F5Yt1lvneMc
+ CVJ0gMGdCHEXCkO001vu8iKt5LpkAyo0Y7ZwsUgXr464QTklpXafF96PBGs8YcOGxT
+ BnMqOtjcMpWnGWdsjyv8mC+Q/ZUr8HGY0X8gIfFa1+Mtrck92FMuEEM93n33ugI/mf
+ CIwO4TDjjoMlQ5LMo55zB0VcakWNqCppjyk4zi/F+tCSO5QgsNqeI3bUUEhsVOEM3w
+ MzThUDCaQo72x3tm/m1VFA0/FruaMlBLFEl3r2n26cICOHa1Y+/+vn/yCASr6hfTfx
+ 19VJcNqrfj0XQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Prike Liang <Prike.Liang@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- simona@ffwll.ch, mario.limonciello@amd.com, Jun.Ma2@amd.com,
- antonio@mandelbit.com, sunpeng.li@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.1 28/48] drm/amdgpu: Dereference the ATCS ACPI buffer
-Date: Sun, 24 Nov 2024 08:48:51 -0500
-Message-ID: <20241124134950.3348099-28-sashal@kernel.org>
+Cc: Lang Yu <lang.yu@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Sasha Levin <sashal@kernel.org>, christian.koenig@amd.com,
+ Xinhui.Pan@amd.com, airlied@gmail.com, simona@ffwll.ch, Frank.Min@amd.com,
+ Likun.Gao@amd.com, mdaenzer@redhat.com, Philip.Yang@amd.com,
+ Arunpravin.PaneerSelvam@amd.com, Amaranath.Somalapuram@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: [PATCH AUTOSEL 6.1 29/48] drm/amdgpu: refine error handling in
+ amdgpu_ttm_tt_pin_userptr
+Date: Sun, 24 Nov 2024 08:48:52 -0500
+Message-ID: <20241124134950.3348099-29-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20241124134950.3348099-1-sashal@kernel.org>
 References: <20241124134950.3348099-1-sashal@kernel.org>
@@ -64,34 +65,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Prike Liang <Prike.Liang@amd.com>
+From: Lang Yu <lang.yu@amd.com>
 
-[ Upstream commit 32e7ee293ff476c67b51be006e986021967bc525 ]
+[ Upstream commit 46186667f98fb7158c98f4ff5da62c427761ffcd ]
 
-Need to dereference the atcs acpi buffer after
-the method is executed, otherwise it will result in
-a memory leak.
+Free sg table when dma_map_sgtable() failed to avoid memory leak.
 
-Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+Signed-off-by: Lang Yu <lang.yu@amd.com>
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-index 7ad7ebaaa93cd..5fa7f6d8aa309 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-@@ -758,6 +758,7 @@ int amdgpu_acpi_power_shift_control(struct amdgpu_device *adev,
- 		return -EIO;
- 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 7afefaa374276..2b15d938c779f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -776,7 +776,7 @@ static int amdgpu_ttm_tt_pin_userptr(struct ttm_device *bdev,
+ 	/* Map SG to device */
+ 	r = dma_map_sgtable(adev->dev, ttm->sg, direction, 0);
+ 	if (r)
+-		goto release_sg;
++		goto release_sg_table;
  
-+	kfree(info);
+ 	/* convert SG to linear array of pages and dma addresses */
+ 	drm_prime_sg_to_dma_addr_array(ttm->sg, gtt->ttm.dma_address,
+@@ -784,6 +784,8 @@ static int amdgpu_ttm_tt_pin_userptr(struct ttm_device *bdev,
+ 
  	return 0;
- }
  
++release_sg_table:
++	sg_free_table(ttm->sg);
+ release_sg:
+ 	kfree(ttm->sg);
+ 	ttm->sg = NULL;
 -- 
 2.43.0
 
