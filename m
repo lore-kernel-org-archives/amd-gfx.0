@@ -4,44 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50499E66887
-	for <amd-gfx@archiver.kernel.org>; Sun, 24 Nov 2024 13:50:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A358AE668B3
+	for <amd-gfx@archiver.kernel.org>; Sun, 24 Nov 2024 13:50:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F2F8410E547;
-	Sun, 24 Nov 2024 13:50:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3813910E54D;
+	Sun, 24 Nov 2024 13:50:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oF1DU/OU";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="U2m/vxcU";
 	dkim-atps=neutral
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9606810E546;
- Sun, 24 Nov 2024 13:50:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 977CF10E54D;
+ Sun, 24 Nov 2024 13:50:46 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 6CE775C4AA9;
- Sun, 24 Nov 2024 13:49:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82DB0C4CED1;
- Sun, 24 Nov 2024 13:50:04 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 7CC515C56F6;
+ Sun, 24 Nov 2024 13:50:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DC7DC4CED1;
+ Sun, 24 Nov 2024 13:50:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1732456205;
- bh=eO3m00Z3UyT2yYPSOrZkiKbUamp6g9UCUDM1OHjpmHI=;
+ s=k20201202; t=1732456245;
+ bh=2O8QUltsFBoYt2xOLgHBENSJk2Qb/KzlOlICBSMWuGQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=oF1DU/OUp2kovKtxurS+br+BJfP5SSIVa9x/YWFIBZMCnbcjSl84gQbvAKBqMu69w
- ISgCZ6RiHLhQfX7kn86Kbq+YRWbaN9ElXgFCkn2j6I/esWgi4oj9G2fEjYWIKOD+SL
- nmfBxSmvo3nYzkgTE6L9eHz9GGQ9hrzvWsXkdSmX5PxESe5hI+MKA4XZL7O7kG/Tlu
- EJlw0RmjYZuOO5P4pAjJ+jLxTxkIU4cMIYG1NEBOEdfzWWP7cEFPRyFXWuR6A5k9hV
- 2/CiBl76bqPn+b9yX7d6ey63fRh/i9pmpKFmRI+ezLoDwYaWZWUsi72jeCEgJHl6Un
- R+mPiqjCUR0Bg==
+ b=U2m/vxcUs50DLktsK8MJQua88YCbjZrcp0Uz6mLIQaWw54gedojNkhqW20q0dSCFY
+ +yP6x9X+ysvxw7YmE41tecRR1lEhAx9WuCdIJynkYQACn5ko22QDR1kAw1dVtDC1Ic
+ pQG/t1RnCtqC2bq/mZtpvS/X0vI3N+RztlNRG0UY7zjr7axKNyT2ly9KEm9uKLObia
+ 8PuRgSKoHuiIycByb2Cd/VmlLFFgfRV4hqcXsKRBniYCjrC/QNMvMO367B7OA1Rlz6
+ iiwrtNQQ5B7INfCtIi/B5OdK3ZJf7e+Ef3WuZY6JP2/WcZXmVOtbrEuRoZINaRUexp
+ orY2MMyUN8WzQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Igor Artemiev <Igor.A.Artemiev@mcst.ru>,
+Cc: Victor Lu <victorchengchi.lu@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
  christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ simona@ffwll.ch, sunil.khatri@amd.com, friedrich.vock@gmx.de,
+ Hawking.Zhang@amd.com, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.1 08/48] drm/radeon/r600_cs: Fix possible int
- overflow in r600_packet3_check()
-Date: Sun, 24 Nov 2024 08:48:31 -0500
-Message-ID: <20241124134950.3348099-8-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.1 27/48] drm/amdgpu: clear RB_OVERFLOW bit when
+ enabling interrupts for vega20_ih
+Date: Sun, 24 Nov 2024 08:48:50 -0500
+Message-ID: <20241124134950.3348099-27-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20241124134950.3348099-1-sashal@kernel.org>
 References: <20241124134950.3348099-1-sashal@kernel.org>
@@ -64,38 +65,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Igor Artemiev <Igor.A.Artemiev@mcst.ru>
+From: Victor Lu <victorchengchi.lu@amd.com>
 
-[ Upstream commit a1e2da6a5072f8abe5b0feaa91a5bcd9dc544a04 ]
+[ Upstream commit 8b22f048331dfd45fdfbf0efdfb1d43deff7518d ]
 
-It is possible, although unlikely, that an integer overflow will occur
-when the result of radeon_get_ib_value() is shifted to the left.
+Port this change to vega20_ih.c:
+commit afbf7955ff01 ("drm/amdgpu: clear RB_OVERFLOW bit when enabling interrupts")
 
-Avoid it by casting one of the operands to larger data type (u64).
+Original commit message:
+"Why:
+Setting IH_RB_WPTR register to 0 will not clear the RB_OVERFLOW bit
+if RB_ENABLE is not set.
 
-Found by Linux Verification Center (linuxtesting.org) with static
-analysis tool SVACE.
+How to fix:
+Set WPTR_OVERFLOW_CLEAR bit after RB_ENABLE bit is set.
+The RB_ENABLE bit is required to be set, together with
+WPTR_OVERFLOW_ENABLE bit so that setting WPTR_OVERFLOW_CLEAR bit
+would clear the RB_OVERFLOW."
 
-Signed-off-by: Igor Artemiev <Igor.A.Artemiev@mcst.ru>
+Signed-off-by: Victor Lu <victorchengchi.lu@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/radeon/r600_cs.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/vega20_ih.c | 27 ++++++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
 
-diff --git a/drivers/gpu/drm/radeon/r600_cs.c b/drivers/gpu/drm/radeon/r600_cs.c
-index 6cf54a747749d..780352f794e91 100644
---- a/drivers/gpu/drm/radeon/r600_cs.c
-+++ b/drivers/gpu/drm/radeon/r600_cs.c
-@@ -2104,7 +2104,7 @@ static int r600_packet3_check(struct radeon_cs_parser *p,
- 				return -EINVAL;
- 			}
+diff --git a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
+index f1ba76c35cd6e..e85a0fb227d4e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
++++ b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
+@@ -109,6 +109,33 @@ static int vega20_ih_toggle_ring_interrupts(struct amdgpu_device *adev,
+ 	tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, RB_ENABLE, (enable ? 1 : 0));
+ 	tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, RB_GPU_TS_ENABLE, 1);
  
--			offset = radeon_get_ib_value(p, idx+1) << 8;
-+			offset = (u64)radeon_get_ib_value(p, idx+1) << 8;
- 			if (offset != track->vgt_strmout_bo_offset[idx_value]) {
- 				DRM_ERROR("bad STRMOUT_BASE_UPDATE, bo offset does not match: 0x%llx, 0x%x\n",
- 					  offset, track->vgt_strmout_bo_offset[idx_value]);
++	if (enable) {
++		/* Unset the CLEAR_OVERFLOW bit to make sure the next step
++		 * is switching the bit from 0 to 1
++		 */
++		tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 0);
++		if (amdgpu_sriov_vf(adev) && amdgpu_sriov_reg_indirect_ih(adev)) {
++			if (psp_reg_program(&adev->psp, ih_regs->psp_reg_id, tmp))
++				return -ETIMEDOUT;
++		} else {
++			WREG32_NO_KIQ(ih_regs->ih_rb_cntl, tmp);
++		}
++
++		/* Clear RB_OVERFLOW bit */
++		tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 1);
++		if (amdgpu_sriov_vf(adev) && amdgpu_sriov_reg_indirect_ih(adev)) {
++			if (psp_reg_program(&adev->psp, ih_regs->psp_reg_id, tmp))
++				return -ETIMEDOUT;
++		} else {
++			WREG32_NO_KIQ(ih_regs->ih_rb_cntl, tmp);
++		}
++
++		/* Unset the CLEAR_OVERFLOW bit immediately so new overflows
++		 * can be detected.
++		 */
++		tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 0);
++	}
++
+ 	/* enable_intr field is only valid in ring0 */
+ 	if (ih == &adev->irq.ih)
+ 		tmp = REG_SET_FIELD(tmp, IH_RB_CNTL, ENABLE_INTR, (enable ? 1 : 0));
 -- 
 2.43.0
 
