@@ -4,49 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D4C3E66887
-	for <amd-gfx@archiver.kernel.org>; Sun, 24 Nov 2024 13:33:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13E83E66887
+	for <amd-gfx@archiver.kernel.org>; Sun, 24 Nov 2024 13:33:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C889C10E039;
-	Sun, 24 Nov 2024 13:33:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA66510E4C4;
+	Sun, 24 Nov 2024 13:33:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ektTkZ2b";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hq4nHtfw";
 	dkim-atps=neutral
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C63E10E039;
- Sun, 24 Nov 2024 13:33:35 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2367C10E4C4;
+ Sun, 24 Nov 2024 13:33:41 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 0922F5C4A5F;
- Sun, 24 Nov 2024 13:32:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D2F3C4CECC;
- Sun, 24 Nov 2024 13:33:32 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id EF6425C4A5F;
+ Sun, 24 Nov 2024 13:32:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A9F2C4CECC;
+ Sun, 24 Nov 2024 13:33:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1732455214;
- bh=gQhLTHHexreWu6vGLnNR+R7mKdozoHlwdHtZyWiXySU=;
+ s=k20201202; t=1732455220;
+ bh=pUR7LS8rtvBrcO5otHl1s5R7MoMWIs36PNQumxhIOks=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ektTkZ2b+ZtSD8tmlZTic5JN1DF8LKy++IUXRMHc2jaZ2dNGAE+kOdHCgijhfQdJv
- HLH2U2WSsCHcJYC7iHYuX2xUsQ34QvQ5XZP27j420xFWMAah/LQmjAU/V4pApR8UMu
- qlWg9smNGVomHiA5tkyMTz8SyA7o0w9DrUZF3M5pBc2X645rl1y654ZfhJjaoxh8F0
- LjMyw73t4MoRLOf5WC0WllUCEHXZk0lb0O/t7t/Ir1HF2FiuD7pudMNlxVbcuvRgDr
- EitHOR6VYsA/2ISBsRAlOIxKUtEcXTvL2O7DU+Ez9IVvK2blkfnr3JV2sMCPLy5ktN
- iecwDP0Yr3UGw==
+ b=hq4nHtfwchALs+BgfTkwgwBkuouIoar8Pu4yjVvCQg1jfwOTAuHw0h+usBQtYnLDS
+ nYA3HuA7i7X6E+MT6ofhic7LW8WNLH6hzKSKtlv0FvDGtgBEK0wLOlBvDCIlNtLdQA
+ 0JtCFhoQFLlkP7sVz5XOpLXYdbfBMv4Wgi5OTn/yWWvpEn9ATjMI6te8gu22+36nZ8
+ AeWHtjN+STHRfBzPXBfgqLK7zMLtxvIVR3LHHcBUo3kwG38YSKJkw2d+vXwejiVLp3
+ SLNziSh48+GQ8ae3fLh8R7ecD+aAPauDZs3TTKS6YkFrcWSO3jBBgeq69VaVXGRPiJ
+ ZWK2N0ksELXGA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Michael Strauss <michael.strauss@amd.com>,
- Wenjing Liu <wenjing.liu@amd.com>, Ovidiu Bunea <ovidiu.bunea@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Daniel Wheeler <daniel.wheeler@amd.com>,
+Cc: Igor Artemiev <Igor.A.Artemiev@mcst.ru>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
  christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- simona@ffwll.ch, alex.hung@amd.com, george.shen@amd.com, daniel.sa@amd.com,
- Ausef.Yousof@amd.com, amd-gfx@lists.freedesktop.org,
+ simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.12 016/107] drm/amd/display: Block UHBR Based On
- USB-C PD Cable ID
-Date: Sun, 24 Nov 2024 08:28:36 -0500
-Message-ID: <20241124133301.3341829-16-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.12 018/107] drm/radeon/r600_cs: Fix possible int
+ overflow in r600_packet3_check()
+Date: Sun, 24 Nov 2024 08:28:38 -0500
+Message-ID: <20241124133301.3341829-18-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20241124133301.3341829-1-sashal@kernel.org>
 References: <20241124133301.3341829-1-sashal@kernel.org>
@@ -69,89 +64,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Michael Strauss <michael.strauss@amd.com>
+From: Igor Artemiev <Igor.A.Artemiev@mcst.ru>
 
-[ Upstream commit 4f01a68751194d05280d659a65758c09e4af04d6 ]
+[ Upstream commit a1e2da6a5072f8abe5b0feaa91a5bcd9dc544a04 ]
 
-[WHY]
-Currently the absence of UHBR cable ID caps from USB-C PD does not block UHBR
-rates. In situations where DPCD reports valid UHBR capability but USB-C PD
-does not, such as using a USB-C to DP1.4 dongle connected to a native DP2.1
-cable, link loss and lightup failures can be seen as a result.
+It is possible, although unlikely, that an integer overflow will occur
+when the result of radeon_get_ib_value() is shifted to the left.
 
-Additionally, in edge cases where a platform supports cable ID but DMUB
-doesn't correctly return cable ID caps, driver currently also allows UHBR.
+Avoid it by casting one of the operands to larger data type (u64).
 
-[HOW]
-Block UHBR rates over DP alt mode if cable id indicates no UHBR support.
-Additionally, block UHBR rates if a cable ID supported platform receives no
-reply from a DMUB cable id query.
+Found by Linux Verification Center (linuxtesting.org) with static
+analysis tool SVACE.
 
-Reviewed-by: Wenjing Liu <wenjing.liu@amd.com>
-Reviewed-by: Ovidiu Bunea <ovidiu.bunea@amd.com>
-Signed-off-by: Michael Strauss <michael.strauss@amd.com>
-Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+Signed-off-by: Igor Artemiev <Igor.A.Artemiev@mcst.ru>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../dc/link/protocols/link_dp_capability.c    | 22 ++++++++++++++-----
- 1 file changed, 16 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/radeon/r600_cs.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-index d78c8ec4de79e..fe4aa2c158eae 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-@@ -1409,7 +1409,8 @@ static bool get_usbc_cable_id(struct dc_link *link, union dp_cable_id *cable_id)
+diff --git a/drivers/gpu/drm/radeon/r600_cs.c b/drivers/gpu/drm/radeon/r600_cs.c
+index 1b2d31c4d77ca..ac77d1246b945 100644
+--- a/drivers/gpu/drm/radeon/r600_cs.c
++++ b/drivers/gpu/drm/radeon/r600_cs.c
+@@ -2104,7 +2104,7 @@ static int r600_packet3_check(struct radeon_cs_parser *p,
+ 				return -EINVAL;
+ 			}
  
- 	if (!link->ctx->dmub_srv ||
- 			link->ep_type != DISPLAY_ENDPOINT_PHY ||
--			link->link_enc->features.flags.bits.DP_IS_USB_C == 0)
-+			link->link_enc->features.flags.bits.DP_IS_USB_C == 0 ||
-+			link->link_enc->features.flags.bits.IS_DP2_CAPABLE == 0)
- 		return false;
- 
- 	memset(&cmd, 0, sizeof(cmd));
-@@ -1422,7 +1423,9 @@ static bool get_usbc_cable_id(struct dc_link *link, union dp_cable_id *cable_id)
- 		cable_id->raw = cmd.cable_id.data.output_raw;
- 		DC_LOG_DC("usbc_cable_id = %d.\n", cable_id->raw);
- 	}
--	return cmd.cable_id.header.ret_status == 1;
-+
-+	ASSERT(cmd.cable_id.header.ret_status);
-+	return true;
- }
- 
- static void retrieve_cable_id(struct dc_link *link)
-@@ -2103,6 +2106,8 @@ struct dc_link_settings dp_get_max_link_cap(struct dc_link *link)
- 	/* get max link encoder capability */
- 	if (link_enc)
- 		link_enc->funcs->get_max_link_cap(link_enc, &max_link_cap);
-+	else
-+		return max_link_cap;
- 
- 	/* Lower link settings based on sink's link cap */
- 	if (link->reported_link_cap.lane_count < max_link_cap.lane_count)
-@@ -2136,10 +2141,15 @@ struct dc_link_settings dp_get_max_link_cap(struct dc_link *link)
- 	 */
- 	cable_max_link_rate = get_cable_max_link_rate(link);
- 
--	if (!link->dc->debug.ignore_cable_id &&
--			cable_max_link_rate != LINK_RATE_UNKNOWN) {
--		if (cable_max_link_rate < max_link_cap.link_rate)
--			max_link_cap.link_rate = cable_max_link_rate;
-+	if (!link->dc->debug.ignore_cable_id) {
-+		if (cable_max_link_rate != LINK_RATE_UNKNOWN)
-+			// cable max link rate known
-+			max_link_cap.link_rate = MIN(max_link_cap.link_rate, cable_max_link_rate);
-+		else if (link_enc->funcs->is_in_alt_mode && link_enc->funcs->is_in_alt_mode(link_enc))
-+			// cable max link rate ambiguous, DP alt mode, limit to HBR3
-+			max_link_cap.link_rate = MIN(max_link_cap.link_rate, LINK_RATE_HIGH3);
-+		//else {}
-+			// cable max link rate ambiguous, DP, do nothing
- 
- 		if (!link->dpcd_caps.cable_id.bits.UHBR13_5_CAPABILITY &&
- 				link->dpcd_caps.cable_id.bits.CABLE_TYPE >= 2)
+-			offset = radeon_get_ib_value(p, idx+1) << 8;
++			offset = (u64)radeon_get_ib_value(p, idx+1) << 8;
+ 			if (offset != track->vgt_strmout_bo_offset[idx_value]) {
+ 				DRM_ERROR("bad STRMOUT_BASE_UPDATE, bo offset does not match: 0x%llx, 0x%x\n",
+ 					  offset, track->vgt_strmout_bo_offset[idx_value]);
 -- 
 2.43.0
 
