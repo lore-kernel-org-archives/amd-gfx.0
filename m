@@ -4,143 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2EF43D609A0
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 Nov 2024 06:25:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FD04D609B0
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 Nov 2024 09:02:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA78710E0E5;
-	Wed, 27 Nov 2024 06:25:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 341D810E07D;
+	Wed, 27 Nov 2024 09:02:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0XD49Cnt";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=Usama.Anjum@collabora.com header.b="YXvTH1yh";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2059.outbound.protection.outlook.com [40.107.237.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B763F10E0E5
- for <amd-gfx@lists.freedesktop.org>; Wed, 27 Nov 2024 06:25:03 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=om8BsabkwGUPWXeYCh1wppJ41nC7TbtCc2Y9BUqKIpVI+jdAx2yLVEKSFtMGmf8u4x7Hb/BiMD0X7Yv44jYntHpTBf+QiosAyo9ymT8H+QWJTQgqoRJkt6+lDTM9Fi8tmgoqNmEIZ1IkReBLPpQ+YxRKC/KbLuSoQ0MQIMlAW3/WWoEiW39IG7ZwUnpKT5lQxH4M6PBLDYgUrxZynC6DK3DQE48on7tWLvymHUqf7YZAHccWBl/dIny2izHJ5mVSCiZWTEoyKEw1IL80p5IzfH40d6KLZXBH9frEVJRpwJeYbWNnFYKFCtKDseU8s/z7q/M89tnYIFUL3LxbM17Y0Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9dKgXjXT+EpXe54w+h9SLwMwZpjn9HTO0LbOJ2TXO3w=;
- b=kmlUJZ0OPUYWFbzaSQl6roWac3Y5BWPc7qf7MM0MasNQp3dN5gGTZ8ZANJPYPb32bTpZaN+VAhOsiE4SqLe65IkMJsyUBMyAjtVCuIh5f7CDgy8KT0k1OwWnXnKTTZ/xRerSqvAU84WT1oZMYgDpuKHcj5fJXr1dn/CVNAhIcTlLOjQYd2RNZN35MY/X0KmeAoPp4PbJj08psx6jfCvRu2t4hj357+xdP3ULSt8EwLHYMcIp1HwuTbF5WiaDum2fQsA2aHRXgUafEI/0HUuMv1iC6VH0xtsz2GJRy2AFv9WiRE9EdYh8R4+I89XTtSHWYaiCj9zQGUAdiu36Vv8RiA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9dKgXjXT+EpXe54w+h9SLwMwZpjn9HTO0LbOJ2TXO3w=;
- b=0XD49CntDS6AcibPKw6T2XHzGnM5KK/qx+O/FmntE6iv0AkU39yk0mzRSRLgXSs4ksmlb4MhRlhb9Jfc5dRE9w9dd5P7ROQRoW4HojaSkTXkeiQ7N+/uwQ0kJiqXgJ+nDBIGKLHVli0htQQqtPp7rH1cwOM3h3cwHaVVRoyhiu8=
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
- by PH7PR12MB7987.namprd12.prod.outlook.com (2603:10b6:510:27c::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8207.13; Wed, 27 Nov
- 2024 06:24:59 +0000
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::c593:f43d:c798:e009]) by BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::c593:f43d:c798:e009%6]) with mapi id 15.20.8207.010; Wed, 27 Nov 2024
- 06:24:59 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Khatri, Sunil"
- <Sunil.Khatri@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: Remove gfxoff usage
-Thread-Topic: [PATCH] drm/amdgpu: Remove gfxoff usage
-Thread-Index: AQHbQJOYBSNK3QPC00Scnkuwz2sPubLKqOrg
-Date: Wed, 27 Nov 2024 06:24:59 +0000
-Message-ID: <BN9PR12MB5257A52B86130AC5157B4C63FC282@BN9PR12MB5257.namprd12.prod.outlook.com>
-References: <20241127061353.3461098-1-lijo.lazar@amd.com>
-In-Reply-To: <20241127061353.3461098-1-lijo.lazar@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=a6de619e-a912-4852-a600-21b6fece9bcc;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution Only;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-11-27T06:24:38Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|PH7PR12MB7987:EE_
-x-ms-office365-filtering-correlation-id: 5fcef78e-3057-42c9-aca1-08dd0eac3831
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|7053199007|38070700018; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?nu81Ckv57d10z5PxcOxCakP/a8seIj8Fq3y3rqgc897+ylTdHgL635b1jAjD?=
- =?us-ascii?Q?pUGbv39dlcVDhQTUzDs2biPEafhwTD0gRKqjs1dUbcRxbKmkegUYpMSwY0Bz?=
- =?us-ascii?Q?ntHAHSJ9bZKXm2cbkZodUWUr0bWyAtyBiDzqEdOyHS/De0+3/WRfBXwRXEUs?=
- =?us-ascii?Q?VTvkNIGfW4QO98WkCeuLwr98szdBYUDPCn3cVvE2lgICR8YoGLEzokGOFsaX?=
- =?us-ascii?Q?GlLPCpu2OoJRv4OjMwXrLMRVtfCBzC0RZwuNIm03ZW5CA4X6P9udYIZggvcL?=
- =?us-ascii?Q?jqv+2l1hFc6nsRzinfKEfToT4t0voebnjlorNfT5H9j2cvkbES7KzEz0g+z1?=
- =?us-ascii?Q?gr/Z0bggHLFu+t5x95/7d/9gyqMi1cjVa2E0/mbytN27lbF+3hZs+uTqE538?=
- =?us-ascii?Q?I4qpWgYiL0xu2n4ZN0EiNjXUVRplWhPdcOA/9jnUE/zDda/MXHOIz67WseSD?=
- =?us-ascii?Q?c9kCH8/OFO07qUpBa4HsUN25xOvTn6hAyiiUD15tl7gB4UgDfhEaEKmlMUfz?=
- =?us-ascii?Q?9/SfV4e5lCrV6z+CmiOEfYthsWHXlX3NkudfHCNKfpi+RA8u6VQEGNtYEgQ4?=
- =?us-ascii?Q?PvePMIbCp63RHVnes/UOeGx4KD9RXxzn9bUZ2DSFwFD/JX8/jqTe6e8OpBO/?=
- =?us-ascii?Q?9p8FegTDR8Oo7vgWY2U0w3l36sN4xnVBI0UXhBjk5AoK8r1gemny9pGVnrYW?=
- =?us-ascii?Q?MnA4YblxJAqC6UUfAVzis6yPaylzU3L/+incEKLITIROXTe5UqJ5PhQXHtic?=
- =?us-ascii?Q?J8B7pnaPl4yxnnJtBTR9Ma9dfe32bYL4ksKMY5ufY+Tq5UGMABfo9ztn43Eu?=
- =?us-ascii?Q?iM4GYQjUQAlimE0kv2wgax4T9KH5tScQy4aIYtOCtx/ZSOc4pAXMuY2wU9wr?=
- =?us-ascii?Q?TxkejfWRXO0wl/+ah0gmLFz3gz+C7Idkxt3Mo3pKQrnat+SE8OXFXRaj2XjW?=
- =?us-ascii?Q?D6oBocX4V83cnBkLey1WPgbVbsFxC3C4go2PemsHMC8RwP8jt+mDDj64uZiA?=
- =?us-ascii?Q?yjKM8osDaqYAFpihyz5JWgkcDbcsV1aQMphl+uCQF3gQ5bnwVm8Z6YXeFPhY?=
- =?us-ascii?Q?ADk3mIwUG7I0qZA3Yz6phThzDllVayxi3Ls7O/BZlbElVH8mWKzajYYPqCey?=
- =?us-ascii?Q?L/aKHtJK9M8A/YPTNR1HX3ULJ6Af5hrV4QUdSXcMQb9yrtw7b35wS1GxQ7pg?=
- =?us-ascii?Q?CIAnL0ivhPIvZn/XXRceiuQgg58TTtsMHrxpIJB6mrTEFVQ/SScMtchmftO7?=
- =?us-ascii?Q?jla87Ph7Vhx1WL1vhv69ZHRcLr9Rcq4/Qaeag672V/L9ggL8bbHUz+ESetmL?=
- =?us-ascii?Q?+DwoHhjmkN3DZff4obWtGDEXKHq/NnoEEb2ZMye7flnjZArd71Q0uDyIRN9x?=
- =?us-ascii?Q?JHxBLCTCFF5trqAFucyL+yXpLIp9zIzcubPoDC4899jJAEjJoA=3D=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(7053199007)(38070700018); DIR:OUT;
- SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?xrtUV6quOC12ZI0dTZMMx7VI0WvTtkhjPLZEzvNpn7NNbr6FocIJ7K1Jz5+n?=
- =?us-ascii?Q?Cx5wHXfUdNwQbj7caexqrEUxup3xR1aG8S0ymISOMwN3pKKu4yf/DMJfKk/L?=
- =?us-ascii?Q?YHAsn5Fl9B5GtA5dZ1dwVpPRDCNMevJh5Tj1HnbwRGgTXsu/wtiOnFZXvrGt?=
- =?us-ascii?Q?zFLR+QF+5HRnqohDEXcLaNJtPP2uIvFtHwY73tc0GyEJv6p4UCG0xGa2GvY1?=
- =?us-ascii?Q?ePwypn1RgAPPbSWO6E3gEemAUpOG4l1RI4WGGiSRtIzI7huua9mQsSF2qmCZ?=
- =?us-ascii?Q?pNVvPCAcFwVXxY2Ec0RDjT1KKSAyFo9+YplYWa9RBB6ZhoR2G643lYLseGFP?=
- =?us-ascii?Q?+cGcZObKkPILjLdWogc+0DbGcx9KjPX23J75nLVK/lDIIGzm+F436w9nwZra?=
- =?us-ascii?Q?Ftj4Pi9m7mAzeOXBwqJI4ED+6zjXGUqDNlz5h3KHLJRs1XtUqi/jkqzTIpJs?=
- =?us-ascii?Q?lnzI4x+s3l0XiUlBmjHoWkvdVxDoyizM0wIp6QiRWZRykAuzCKDeIz1r+6ug?=
- =?us-ascii?Q?bUlJ30eu7TP1Ab0tsbYW0bM9VLn7ge7Bz1LNy6gesGDD8v0kqp+09buRc4pB?=
- =?us-ascii?Q?0H61mQwuLCVyYdGzTrefdJf/2R9n4gefcp7ekr4fD/sGI2Kzo1epbi4wuBKl?=
- =?us-ascii?Q?U1ziWrEMIT6JDaeHqjPA7OY6K4ihvoQ/eIOspKvoV6nK7v6/UGP8uxr4iFDG?=
- =?us-ascii?Q?lVTumC60mfEXUkrYw5PXW2WkL5WRSonvDz+QYRJTRtQ/68nvLqw3ceas0BWK?=
- =?us-ascii?Q?627ic4Pj0E/eAXs2ZI7OQwmSBv+QxwMDbf3OnMubsMJCCFzqH9jDK3Q2s/nM?=
- =?us-ascii?Q?SKrq0NrLfrasDOYbQMk/PTVu509WpTBMI3LSkfrW9domZlLA28QV/eTPDlOs?=
- =?us-ascii?Q?F2H3gsK9OBY0VO26PQsUOpBZULSU1rsyYx2XZqWH2CQTnMvQsPhUjf+5rh9J?=
- =?us-ascii?Q?smzLK6fG616V4RcCtY88TjW2/9icH0NulItdhbglX04YMd6K8X/a4C7K0P0G?=
- =?us-ascii?Q?bQyy1eGLTjsIUGQJchcRRlSzlSsZ8ih2p4Jy/1cIurTLrO2iDXVB3WlKycFY?=
- =?us-ascii?Q?TOa8g1lMeRcVtIdR1ZWml/ElzCAvSVBZOJeeQxiuT1qOjXcUvfSaA8Ct5SRo?=
- =?us-ascii?Q?iA00NBYPRjroTZ040caltO69Pcr7O71cYqf3mian2TEDMCtKbedZ6sX/s6gT?=
- =?us-ascii?Q?SAx/JleLYcdJoC45NcelkqX0QjL7TJsw9lVSXpZuwoFkc+OUQ44B5DeMYQzD?=
- =?us-ascii?Q?+npIIlqe62PSPI+8m0R7Eg+5uadi0k2LA5zDoyzyArYHsgwBTbHzjFoAaqYM?=
- =?us-ascii?Q?lZtdrSfYcb/NwsIM1U9oBOLhFJlbJljwweZQmMzte0OoDagB08WINpoXmdbD?=
- =?us-ascii?Q?3P27NYcAUGvHpmDMKKBdcdKd9hsPHtphoV1khp+woSAm3ucyzb0kjwl7QHEd?=
- =?us-ascii?Q?tRzXr+yCEQCpJZhPKBlvecAf0U0dUACm7pDal+P/nus98TRe5rEk4CK4LBUB?=
- =?us-ascii?Q?ilZ9aQAZ1WDziAIQF0mkYkpsqp0wsE794Ch2ccn8Hql8m7TuVelpHqp6QeXM?=
- =?us-ascii?Q?xAUpa/MTNrGQPiEFrsg=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F2C6610E8C6;
+ Tue, 26 Nov 2024 14:16:31 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1732630586; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=cjmqaF/GIZj6aAUKbpn1mZEAsalC1q89ejEthPd74jo8R1iebUeg98jd0bTOMExrBnOMbzWzeXXRTQE35VDqCRCRssfjMrbuigal9yU1u6+WP61tWSxJx1zqA4j9bM6K1G1H22zSR++VqvQBa1Uuld0E7GPAqY7dlCbYlwSAQCU=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1732630586;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=FDO7eDQHyNV+5Ifxde9MtWfXA0DBzyust/9vl90ohIY=; 
+ b=iZNYqAK6TlOeaX6gasgsysCoS1KoOYQUZ0qbNZB7vEC27KwDf5npR3Xr0vsp0YMDjx+01pE1cGYxkxV9Ti2CTs+1fQsmH2vH5T79IFHyMEU4ltGOT0D47oOwELaVygigs903+oNjlcqglEWbQ+jtlnhccfAjQ6D5y2aYSt2Jxfk=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=Usama.Anjum@collabora.com;
+ dmarc=pass header.from=<Usama.Anjum@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1732630586; 
+ s=zohomail; d=collabora.com; i=Usama.Anjum@collabora.com;
+ h=Message-ID:Date:Date:MIME-Version:Cc:Cc:To:To:From:From:Subject:Subject:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=FDO7eDQHyNV+5Ifxde9MtWfXA0DBzyust/9vl90ohIY=;
+ b=YXvTH1yhgRYSkp9fDzujm/yuQ6cqmNb4PF/7tgtPFAS6/JEHx/s3u+1qUmr6rl46
+ 7x0hcoslnKQbJnOr8pacYpoprbOrVANoxp6AdXRW9vzUXpxb80KkDnk6mbNqBa6+Mun
+ NonstgqcmVsoV/TSrDvlX1uzDb3+h2rrIZcydzes=
+Received: by mx.zohomail.com with SMTPS id 1732630582504831.1595780791179;
+ Tue, 26 Nov 2024 06:16:22 -0800 (PST)
+Message-ID: <bd40847e-e277-4f0f-b158-87c581192cef@collabora.com>
+Date: Tue, 26 Nov 2024 19:16:19 +0500
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5fcef78e-3057-42c9-aca1-08dd0eac3831
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Nov 2024 06:24:59.6132 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: FW8xBCuXH+xun7E0ih8BsuQohmw4wWF/GYBua+0cCml+4jQbeZixRhwWe6NEChD/A2BMQKGDlIe4wQnAZZnMbg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7987
+User-Agent: Mozilla Thunderbird
+Cc: Usama.Anjum@collabora.com
+Content-Language: en-US
+To: LKML <linux-kernel@vger.kernel.org>, linux-next@vger.kernel.org,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Sunil Khatri <sunil.khatri@amd.com>,
+ Ma Jun <Jun.Ma2@amd.com>, Vitaly Prosyak <vitaly.prosyak@amd.com>,
+ Johannes Weiner <hannes@cmpxchg.org>, Jack Xiao <Jack.Xiao@amd.com>,
+ Friedrich Vock <friedrich.vock@gmx.de>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+From: Muhammad Usama Anjum <Usama.Anjum@collabora.com>
+Subject: [Bug Report] Warning from __flush_work() on next-20241126
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
+X-Mailman-Approved-At: Wed, 27 Nov 2024 09:02:21 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,95 +72,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - AMD Internal Distribution Only]
+Hi, 
 
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+We are getting this warning on x86_64 and i386 targets:
+[    8.677157] amdgpu 0000:03:00.0: [drm:amdgpu_ib_ring_tests] *ERROR* IB test failed on sdma0 (-110).
+[    8.698661] ------------[ cut here ]------------
+[    8.703310] WARNING: CPU: 1 PID: 49 at kernel/workqueue.c:4192 __flush_work+0xb8/0xd0
+[    8.711206] Modules linked in:
+[    8.714285] CPU: 1 UID: 0 PID: 49 Comm: kworker/1:1 Tainted: G        W          6.12.0-next-20241126 #1
+[    8.723790] Tainted: [W]=WARN
+[    8.726781] Hardware name: Google Shuboz/Shuboz, BIOS Google_Shuboz.13434.780.2022_10_13_1418 09/12/2022
+[    8.736273] Workqueue: events amdgpu_device_delayed_init_work_handler
+[    8.742768] EIP: __flush_work+0xb8/0xd0
+[    8.746632] Code: 00 00 f3 90 8d 45 c0 e8 92 1d 04 00 84 c0 74 f2 eb d2 8d b4 26 00 00 00 00 90 0f 0b c6 45 9b 00 eb c2 8d b4 26 00 00 00 00 90 <0f> 0b eb ee 8d 74 26 00 0f 0b eb a6 8d 74 26 00 e8 8f c4 8d 01 8d
+[    8.765410] EAX: 00000000 EBX: c272ee01 ECX: 00000001 EDX: 00000000
+[    8.771726] ESI: c272eea8 EDI: c194d77c EBP: c17bbd64 ESP: c17bbcfc
+[    8.778011] DS: 007b ES: 007b FS: 00d8 GS: 0000 SS: 0068 EFLAGS: 00010246
+[    8.784829] CR0: 80050033 CR2: 00000000 CR3: 1355b000 CR4: 003506d0
+[    8.791120] Call Trace:
+[    8.793591]  ? show_regs+0x51/0x58
+[    8.797028]  ? __flush_work+0xb8/0xd0
+[    8.800724]  ? __warn+0x8d/0x1b8
+[    8.804024]  ? __flush_work+0xb8/0xd0
+[    8.807710]  ? __flush_work+0xb8/0xd0
+[    8.811403]  ? report_bug+0x186/0x1b0
+[    8.815094]  ? __flush_work+0xb9/0xd0
+[    8.818785]  ? exc_overflow+0x50/0x50
+[    8.822474]  ? handle_bug+0x56/0x90
 
-Regards,
-Hawking
------Original Message-----
-From: Lazar, Lijo <Lijo.Lazar@amd.com>
-Sent: Wednesday, November 27, 2024 14:14
-To: amd-gfx@lists.freedesktop.org
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander <Alexander.D=
-eucher@amd.com>; Khatri, Sunil <Sunil.Khatri@amd.com>
-Subject: [PATCH] drm/amdgpu: Remove gfxoff usage
+For complete details:
+[1] https://kcidb.kernelci.org/d/test/test?orgId=1&var-datasource=default&var-build_architecture=i386&var-build_config_name=defconfig&var-id=maestro:67455b9a3be6da94b19fde77&from=now-100y&to=now&timezone=browser&var-origin=$__all&var-test_path=&var-issue_presence=$__all
+[2]https://kcidb.kernelci.org/d/test/test?orgId=1&var-datasource=default&var-build_architecture=x86_64&var-build_config_name=cros:%2F%2Fchromeos-6.6%2Fx86_64%2Fchromeos-amd-stoneyridge.flavour.config&var-id=maestro:67455b923be6da94b19fde4b&from=now-100y&to=now&timezone=browser&var-origin=$__all&var-test_path=&var-issue_presence=$__all
+[3]https://kcidb.kernelci.org/d/test/test?orgId=1&var-datasource=default&var-build_architecture=x86_64&var-build_config_name=cros:%2F%2Fchromeos-6.6%2Fx86_64%2Fchromeos-amd-stoneyridge.flavour.config&var-id=maestro:67455b923be6da94b19fde48&from=now-100y&to=now&timezone=browser&var-origin=$__all&var-test_path=&var-issue_presence=$__all
+[4]https://kcidb.kernelci.org/d/test/test?orgId=1&var-datasource=default&var-build_architecture=x86_64&var-build_config_name=cros:%2F%2Fchromeos-6.6%2Fx86_64%2Fchromeos-amd-stoneyridge.flavour.config&var-id=maestro:67455b8c3be6da94b19fde34&from=now-100y&to=now&timezone=browser&var-origin=$__all&var-test_path=&var-issue_presence=$__all
 
-GFXOFF is not valid for these IP versions. Also, SDMA v4.4.2 is not in GFX =
-domain.
-
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c  | 4 ----  drivers/gpu/drm/amd/amd=
-gpu/sdma_v4_4_2.c | 2 --
- 2 files changed, 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/=
-amdgpu/gfx_v9_4_3.c
-index f23df55d72fd..decb709707e2 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-@@ -4651,7 +4651,6 @@ static void gfx_v9_4_3_ip_dump(struct amdgpu_ip_block=
- *ip_block)
-
-        num_xcc =3D NUM_XCC(adev->gfx.xcc_mask);
-
--       amdgpu_gfx_off_ctrl(adev, false);
-        for (xcc_id =3D 0; xcc_id < num_xcc; xcc_id++) {
-                xcc_offset =3D xcc_id * reg_count;
-                for (i =3D 0; i < reg_count; i++)
-@@ -4659,7 +4658,6 @@ static void gfx_v9_4_3_ip_dump(struct amdgpu_ip_block=
- *ip_block)
-                                RREG32(SOC15_REG_ENTRY_OFFSET_INST(gc_reg_l=
-ist_9_4_3[i],
-                                                                   GET_INST=
-(GC, xcc_id)));
-        }
--       amdgpu_gfx_off_ctrl(adev, true);
-
-        /* dump compute queue registers for all instances */
-        if (!adev->gfx.ip_dump_compute_queues)
-@@ -4668,7 +4666,6 @@ static void gfx_v9_4_3_ip_dump(struct amdgpu_ip_block=
- *ip_block)
-        num_inst =3D adev->gfx.mec.num_mec * adev->gfx.mec.num_pipe_per_mec=
- *
-                adev->gfx.mec.num_queue_per_pipe;
-        reg_count =3D ARRAY_SIZE(gc_cp_reg_list_9_4_3);
--       amdgpu_gfx_off_ctrl(adev, false);
-        mutex_lock(&adev->srbm_mutex);
-        for (xcc_id =3D 0; xcc_id < num_xcc; xcc_id++) {
-                xcc_offset =3D xcc_id * reg_count * num_inst; @@ -4695,7 +4=
-692,6 @@ static void gfx_v9_4_3_ip_dump(struct amdgpu_ip_block *ip_block)
-        }
-        soc15_grbm_select(adev, 0, 0, 0, 0, 0);
-        mutex_unlock(&adev->srbm_mutex);
--       amdgpu_gfx_off_ctrl(adev, true);
- }
-
- static void gfx_v9_4_3_ring_emit_cleaner_shader(struct amdgpu_ring *ring) =
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c b/drivers/gpu/drm/amd=
-/amdgpu/sdma_v4_4_2.c
-index e70460693ef2..f206e98f2069 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-@@ -1948,7 +1948,6 @@ static void sdma_v4_4_2_dump_ip_state(struct amdgpu_i=
-p_block *ip_block)
-        if (!adev->sdma.ip_dump)
-                return;
-
--       amdgpu_gfx_off_ctrl(adev, false);
-        for (i =3D 0; i < adev->sdma.num_instances; i++) {
-                instance_offset =3D i * reg_count;
-                for (j =3D 0; j < reg_count; j++)
-@@ -1956,7 +1955,6 @@ static void sdma_v4_4_2_dump_ip_state(struct amdgpu_i=
-p_block *ip_block)
-                                RREG32(sdma_v4_4_2_get_reg_offset(adev, i,
-                                       sdma_reg_list_4_4_2[j].reg_offset));
-        }
--       amdgpu_gfx_off_ctrl(adev, true);
- }
-
- const struct amd_ip_funcs sdma_v4_4_2_ip_funcs =3D {
---
-2.25.1
-
+-- 
+BR,
+Muhammad Usama Anjum
