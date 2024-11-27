@@ -4,150 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19823D6ACC0
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 Nov 2024 11:51:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD093D6ACF0
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 Nov 2024 15:45:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B9F8A10E255;
-	Wed, 27 Nov 2024 11:51:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 12C0210EB3D;
+	Wed, 27 Nov 2024 15:45:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="yEVb5TNv";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="BoKKbBd2";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2063.outbound.protection.outlook.com [40.107.220.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 03C1D10E255;
- Wed, 27 Nov 2024 11:51:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lGPKEd/a4DjevUfM+E69p4s59KuavoAg86eGKrImE7P98YZ/nnoQDUw/mSsf0NPvLXs0sm10jt60CZ7nNlWsvcBj8lAjq/41K6iPuGwGlqPW1eYFHFr53OzxgtgDUUn8G2rqAbor5HEcyB0TezW7+CZ80/IqrkVC7pcP80vo0vjmx1V4JtVVvXJAtd5BV2mTUncs8ugWtx+BxPN0SSgWkJkU1HogCisGHEA1QK95U0v7FUFakb2Fbsth1W9MAa/2u08ZmVTAKL7v0AAO3RqjZqImAvLWoA/FxGiznm58QB/3T9dYh8mCw4mzwD83QzkDbOnslqxbW+x7AIhX76MQTA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IDBsgBCGRyXkOtuzTGe0uAqzPzGkec6z9VM/Cld+69k=;
- b=yOTu14/1LwM8BQHEkfogA/PVK4cV4C0jYHuFsmDyBUhkvL8YBYpjKjT6CaoOOahhS/G1me+W+jzyUwDD5q4JP4tqxKWk1bzFHmFUPcajmVV62N2YzIKX2qCjKfbZA3UpeGlUMjAHHUfFpiIdWdgnkInYnGdpgi2byRTu/MSUwM3MMxKAJ7fCuDUctDMpCH6Xad+lX+jm7Q4v7tHtP7EQpmMepLcCI7AuOSqCtSrIWRrUd/55CVZBY3hC0i6LGsTt5NQP+RAGnxW9wgdc23d7AUvxzKvqy/wai/jIB8v6q/ocpIMA2ZttWuo1cPTWS2UIF7keJeMrC72chUXKBEikCQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IDBsgBCGRyXkOtuzTGe0uAqzPzGkec6z9VM/Cld+69k=;
- b=yEVb5TNvHoP88wTJRThnJxEDTJqz44z35jJlvZv9MjsLmLB97FFc2uuEF2hGmlmQLZ1EfR90S+dwtE0s7Whp/FLcg6Em/IAPSq/v1cc33beah3J+LP6qgxfjU+N8Yg4C0JAJk4dZYRczDb+MkJ75Etn0vAjcTBIocQ5UT5bjPPs=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SJ1PR12MB6170.namprd12.prod.outlook.com (2603:10b6:a03:45b::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8207.13; Wed, 27 Nov
- 2024 11:51:24 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%5]) with mapi id 15.20.8182.019; Wed, 27 Nov 2024
- 11:51:24 +0000
-Message-ID: <8266003e-eb98-44cb-a326-1e4f688eeb4c@amd.com>
-Date: Wed, 27 Nov 2024 12:51:18 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/1] amdgpu fix for gfx1103 queue evict/restore crash
-To: Mika Laitio <lamikr@gmail.com>, Xinhui.Pan@amd.com, airlied@gmail.com,
- simona@ffwll.ch, Hawking.Zhang@amd.com, sunil.khatri@amd.com,
- lijo.lazar@amd.com, kevinyang.wang@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20241127114638.11216-1-lamikr@gmail.com>
- <20241127114638.11216-2-lamikr@gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20241127114638.11216-2-lamikr@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0252.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:af::14) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7937F10EB3D
+ for <amd-gfx@lists.freedesktop.org>; Wed, 27 Nov 2024 15:45:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:Cc:
+ References:To:From:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=9luGTgUggLdlcJ15ZolisxNaoTiakeGacy4h0WBXwC8=; b=BoKKbBd2zJjYTvK0kz735DTw+o
+ +4fLSTqKOgwuPbXmNKEYBLoSNwcfmGejGskYol0pdnAp758C55DvINTVQ0J5Jrou4tRs+tdTGuqTX
+ GyVUjWpR18X3dy/jBPRal3ar52ig4whHhgzObUPsDQjASyk+2JPaDcWRnDusebjlsYvT1EgpECSWA
+ YpvB0jwEba+X98gPuWUPe2wFt0c1H7jc2+ZtHlLv7WK7ct8I11Lkyy+niyy+8UDB0zSNuCKVNr/hG
+ OMhQAs4M5wkDSok0cpLCiEn2PteiFoRkz7Hdvo8KQ6/gxXZ4HBAR288kl5uTM68d1LwyBFDlDtmFQ
+ c3JTKpYQ==;
+Received: from [179.214.71.67] (helo=[192.168.0.55])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1tGKEH-00Dfhq-1s; Wed, 27 Nov 2024 16:45:25 +0100
+Message-ID: <4cecb3b4-a413-4934-bf13-a96e1f2b7090@igalia.com>
+Date: Wed, 27 Nov 2024 12:45:19 -0300
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ1PR12MB6170:EE_
-X-MS-Office365-Filtering-Correlation-Id: 99f9dc07-252f-4ae1-e84e-08dd0ed9d190
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016|921020;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?V0tIQnFuNDVXWnNwZUFlQVNBVG5nWEd0am5VWmlrbDlCSTQ1dTVTQWNEMFFF?=
- =?utf-8?B?bnB6RlNIL2J1dXgyRkVNM3QvZFpaZDcvTlFhMERqL2lKL2FVSVNEQTdsYXBR?=
- =?utf-8?B?TFZIdCsrc0h1WFVpUjdocXJDdnEyeWFPL2pEdDRJUll4RksySTRTbDZCT211?=
- =?utf-8?B?RnZqVWpWVVl0MDBnaVFvS3VMdVFpdzM4SWJWSFFueSs1cXlkbExlQUhXdUln?=
- =?utf-8?B?MXpsMmRmVHJDQjZhd056ejdoSk1aUm4yYlRKRGpYb0FBMWx6blZyTEl4dlBh?=
- =?utf-8?B?Y0RMcmJJSVh2cVA3YlRLY1NzcjlmQjgrVjZlZ1Z6YkU2dlRWRVF6WUZyK1o4?=
- =?utf-8?B?OE5zS3NNT1Z5NnpvbnJRVFYza0s0d1gzMVB4Zm5DbnZPaHArbjZwdnVsSlBM?=
- =?utf-8?B?YUdhVy8wL0QxRXNHM2pKaWVZeWRnNzIwUVBlVXVXNk93TS9mVUYzMWdBRGp4?=
- =?utf-8?B?dnZsVTg1K0k3OXpoTGZDOUdROTFmMzVzTnU1NHhrcXA2QVNwbFlXSmVucnJT?=
- =?utf-8?B?eEZYcUwzVDYrV3lRNDBLdE5sbVZFTExDSU53b0RwcXlZNUIxQXpqb3ZYWFpP?=
- =?utf-8?B?YjZtOVkrTTNEYjJtaWlTUUFtQ0JpZFNmditNYlBNT1ZkTEJIMzJ4SlNxR29j?=
- =?utf-8?B?Uk81Zk5HaWpQaVBjOE9GbUhpTGtCWUNpSVlNQ3R0am9oV0hVdUZVMUR6cFo5?=
- =?utf-8?B?anIzNkUxODVlbENiM1NLR29nK3oySFJQamlieWpuTTVlbXUwU211eGs2RjdF?=
- =?utf-8?B?T0pud3BhTHpHcGNFWXZTZnh6MnYyaGJ6SWU5TGFjaWVUZUphMk02QjBoMVZn?=
- =?utf-8?B?TkFVM1VNTnZHYVpGbGl6S3JqYlFsNnF2WEpDQW9CdWNpUGFEcFFWVDZwNGs4?=
- =?utf-8?B?QjIxaXovNVZhTzcyMDBPYXc2cDQydW5VU2hPMWVMOWRJaFVTbWcwS1NvcXhu?=
- =?utf-8?B?eU1ia3Bpa1NGYjBiYllXY3o0cUFaRkdmTVJTRk9yaUR5QU9LeEswUlpTcmdo?=
- =?utf-8?B?MWE5ZnAxQit4aFRBOGNob3pEZXJlZUxuKytaSndXSlE3UHd5Y1FhYlBBZTNS?=
- =?utf-8?B?eXIreWphTE44b01VRmcwa0t0STZVSDZwZnJjV1VqTE83S0VOdVpRVlZEMHVk?=
- =?utf-8?B?KzRuUmhQdS9GZjFiSnk0cUppYzlCMEZFMXF5QkdEeUk1Ry9jMHVMZ3ZqSmpI?=
- =?utf-8?B?WUhBT1l0eW5CbEdaZzAzRWhVdnhvc05pM2RTOVplcDRGTERNaGdHbjZ5d2ZL?=
- =?utf-8?B?S3czK216ZzRBUkhJLzdmdnI0NW9qSHZWc1BRTVprdEZ5ekJWREswU2NLcUdK?=
- =?utf-8?B?MHFYR2UrTXZuNnNKSGQ4VDg1UjA2YkVvd214K1VlZUx1anhsUFpUQk95Q1M4?=
- =?utf-8?B?eU9rdXNJOU8wWCtZU0dEVWxjbHNCQXptdEcwaEZJTUJkSnhtanFsZjBBQ2RU?=
- =?utf-8?B?ZG5mTUhacnRuU0FmK3ZrUVk5YmtZZkRoRFRmSTY2ZWJVUzBnUmNlSURTRTl2?=
- =?utf-8?B?R1htUVVHSkEwbEc3bDhZZU9td0xTSnhQR0gzWCtBenU0elpHakxtRndlKzYx?=
- =?utf-8?B?MGNPRC8zT0ZFNVhEenlaQXZ4ZkxZVWFIR3Era0tyMG9vTTRxTWxUbTRLbElq?=
- =?utf-8?B?Z1laaUM3YStZdHhzdXdOUGJxNGhFWW90V1RBRkRmOFFmclRHU0pLSXcxT2Zt?=
- =?utf-8?B?MVAvaEdCT09tZGgvUjluRFpoN0o0RVdHeGpVK014MWRUUCtjTmw0OFBGMXo0?=
- =?utf-8?B?c3ZITytaUVJRQVUwYkc3YXVLMnE2SkRXLzJsdjh4QS90dmdId1VYcmI0enc3?=
- =?utf-8?B?amdTMFBVOTJiNDI4YTR1akZScVNkYUdoWHYvaERJQUt5blhORGUzUFRpTWVy?=
- =?utf-8?B?MTM2M21TMWhUd1NGRGRpVk9Nb1RGem43OVhlU0VMazIzcVE9PQ==?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(921020); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ekQvRVhpYzNicnlvNXBVVzQ4dVl5RHA1YzJsTFplTkhEeDZqUzhoU1dLSy9K?=
- =?utf-8?B?VGlZYnNUakd3blhwanlzK0hxRkdYN2FYcjhaTnVZYjgrTjRhbkptWDhEWGFM?=
- =?utf-8?B?WlhDSWM3WW8zQlhkNjRBTlFuTHpNSGNOK0N3RThPd0RxcmRRWWticEYzTmh1?=
- =?utf-8?B?RTVUMnJWN0w2MnZzTWFCaUgwL2pqelp4ZjFNZjhicTNLNHZwYVhVdnVRdVFW?=
- =?utf-8?B?YXpQZTg4NG92MitEOHhja1I3alBnR1NVVzNodGQrYjM0VUdGQ1dCQ2pDR0c2?=
- =?utf-8?B?cm5rUGRIek1aVzFzUW9OZm0zWThxMERhYUNYQUVnNUdNKzVsTkRDOTI3S0ZI?=
- =?utf-8?B?Sk8rRHJ4cDJLM1F0cW8yT1E2M2w5ZklibVRoZktSclZoT1pEdWtwRVhRUVc2?=
- =?utf-8?B?Qi83aUtXN1VGcWJVR1dDNGNtRTVmak5CeEVab1VTLzZvdk9VNjY2Y2prbWhl?=
- =?utf-8?B?TW5VWFc0Uk51TmVIc3pKSFlhZ3NhdDZ4UnN4UDFSZUs2UmprZXl1eDJZWnZ4?=
- =?utf-8?B?STZGOEIrZWJjUDVnWG52enAyUy9ESlc3NHpzSWkwSWM5SUpxSTdGMHhkeHNs?=
- =?utf-8?B?aHBLQUNYTXNHNkkzL2djSE5KeEgxeDFEbzdNVnNEUFZnU2laRVI5aHRpcnM4?=
- =?utf-8?B?NjFoU0pXV2NmUi90TDdIVk1QMEZPeG1uMlZlUlY2MnZYdmlKYVdOZEFzSlhN?=
- =?utf-8?B?cUJ5ZkNtWWtKbWQ0U2x2WjBySmxOSzRWOWNocHhvOERIK1ZXZTg0RVVJMHJm?=
- =?utf-8?B?cEs1RDNXL1lZOU1ENzl3cDh2RlVaS0h5SnUvYkpPV204TkdhTUhXczNDb1E3?=
- =?utf-8?B?MlBuelFybmQ3NUN3RHR5aWZPTnpGRGF1dElMUXFtNE9tTG0wTTJpRUdQZWYr?=
- =?utf-8?B?dzZZV0JraElnNlBsMHlGVVR6V2ZVWEh3OEwrMG44ZHpJeW1NQ2ZsUnNKMkZp?=
- =?utf-8?B?eWx4S0RsZTR1Q3lMUFd2UVMybm9PS0xxZ2x4bytHcEZyVHFKUlVuWGFNblJH?=
- =?utf-8?B?NHYrcnluYi9UL3RySFlCNjF3bmtxa3hKeGk0bEw0MldoN2ZaOWYxWHpMdGsy?=
- =?utf-8?B?dEs0NG50OW1ETVFuRGdWbS9nYUNwaFplWmhjZnFqOEpMTXRlM2hRRk5zaEIw?=
- =?utf-8?B?MGx2VVJjam5yVXZ3LzI0ZXJUVTFtRzlJRzdmUUlYRmtGaEVJK2tiUXFFVkdJ?=
- =?utf-8?B?SmNucXNmMHB3QStjZUVjRWhwbGM3U3RUMURzaTlkYXNLTm1vc3BuRWE1OEVo?=
- =?utf-8?B?V0JHUkZMSlBYTXhMWUEzcEtFQVZ5aHE1dmtGYjA0eWgwZVBCQW5QUWEzMVk1?=
- =?utf-8?B?RHFSNmpEdFBPRmlGTWtaK3BGdTgzcFZOSnpWbXNvNXlvWDVmRzZCaVYvK3I4?=
- =?utf-8?B?MGE0M255OURaUFY4MTJuSTBWUWg0bjZacWdVZUhnUXFNaGRHaFNsS2tRWXNO?=
- =?utf-8?B?QldobHNnanUyMHNOdWpBNWU0STBqbDE5RjFla0lCVkFUTXN6N0p1N2hEdnBH?=
- =?utf-8?B?bmFhdHVqeXN4UjhOODMrREpBMXVjQ1hhQW5EYkJqKzYvRzlsZjliWUZiaEdq?=
- =?utf-8?B?aTVBYUcxQ0VablhrR1lMU1M3RTBDemN1TGExNE9JTVZlMlhhNXdwYXFmaVZY?=
- =?utf-8?B?WHZoZzRmZzhJVllSZ1c4WDgwVG80aUpJcVdZaGJVejdseHBUK3hwM3B3ZWsr?=
- =?utf-8?B?ZUxGTTFtWnR0VXRvRXE3WHphVzFFM3dDNm9UWFVlSEZVL1ZSU3ZTS2hHdFR3?=
- =?utf-8?B?OUtEZ0JPVDVRVHlTT3dGckQvQmRXRDRndlFQbTBZNS9uYVZVaGdkNFlzaHZR?=
- =?utf-8?B?ZFdBeVFMWUltVDNYUjhOUG05c2NFa3B5dGVEdUt2WFZJVXp4dlMwTDBrL1hP?=
- =?utf-8?B?VDlDWS94UFNvVlZoanl0N3ArSGpWSHRYSElCZStkbDcxaWdwSStJTkNTL1Rm?=
- =?utf-8?B?MVlEQzRYSFVzTVF3WkhFZTArVUU4UktENFp3Mk5Ha0s1TVNMdWtsRVZXTnNX?=
- =?utf-8?B?NHdJS2FCcXdHM0lNREVyVUJleUJUN3d6R0JSZjY3UGgrbGdvd2FESmh0OEVw?=
- =?utf-8?B?NUxONjBiMVN6UTIvWHdOU3RsZC9vZ2VBSWlZZ2xMRTVxaFFEU1ZyTU50YmJW?=
- =?utf-8?Q?G3v69nB84vnqp/5Yr9fUOtz/M?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 99f9dc07-252f-4ae1-e84e-08dd0ed9d190
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2024 11:51:24.6148 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AlP1IIbFGtFjTKrJyMQR7oxB/w1nDd3HSrJLkH+hkoW00BJAyxVs/VXxZI13wU+5
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6170
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] SWDEV-476969 - dm/amdgpu: Fail dm_atomic_check if cursor
+ overlay is required at MAX_SURFACES
+From: Melissa Wen <mwen@igalia.com>
+To: Zaeem Mohamed <zaeem.mohamed@amd.com>
+References: <20241114143741.627128-1-zaeem.mohamed@amd.com>
+ <61209a80-9796-42db-8d3d-0b5de317c338@amd.com>
+ <db124999-db4e-4f42-b0ed-86249dd20bbd@igalia.com>
+Content-Language: en-US
+Cc: Mario Limonciello <mario.limonciello@amd.com>,
+ amd-gfx@lists.freedesktop.org
+In-Reply-To: <db124999-db4e-4f42-b0ed-86249dd20bbd@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,158 +63,219 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 27.11.24 um 12:46 schrieb Mika Laitio:
-> AMD gfx1103 / M780 iGPU will crash eventually when used for
-> pytorch ML/AI operations on rocm sdk stack. After kernel error
-> the application exits on error and linux desktop can itself
-> sometimes either freeze or reset back to login screen.
->
-> Error will happen randomly when kernel calls evict_process_queues_cpsch and
-> restore_process_queues_cpsch methods to remove and restore the queues
-> that has been created earlier.
->
-> The fix is to remove the evict and restore calls when device used is
-> iGPU. The queues that has been added during the user space application execution
-> time will still be removed when the application exits
 
-As far as I can see that is absolutely not a fix but rather a obviously 
-broken workaround.
 
-Evicting and restoring queues is usually mandatory for correct operation.
 
-So just ignore that this doesn't work will just is not something you can do.
-
-Regards,
-Christian.
-
+On 18/11/2024 09:52, Melissa Wen wrote:
 >
-> On evety test attempts the crash has always happened on the
-> same location while removing the 2nd queue of 3 with doorbell id 0x1002.
 >
-> Below is the trace captured by adding more printouts to problem
-> location to print message also when the queue is evicted or resrored
-> succesfully.
 >
-> [  948.324174] amdgpu 0000:c4:00.0: amdgpu: add_queue_mes added hardware queue to MES, doorbell=0x1202, queue: 2, caller: restore_process_queues_cpsch
-> [  948.334344] amdgpu 0000:c4:00.0: amdgpu: add_queue_mes added hardware queue to MES, doorbell=0x1002, queue: 1, caller: restore_process_queues_cpsch
-> [  948.344499] amdgpu 0000:c4:00.0: amdgpu: add_queue_mes added hardware queue to MES, doorbell=0x1000, queue: 0, caller: restore_process_queues_cpsch
-> [  952.380614] amdgpu 0000:c4:00.0: amdgpu: remove_queue_mes removed hardware queue from MES, doorbell=0x1202, queue: 2, caller: evict_process_queues_cpsch
-> [  952.391330] amdgpu 0000:c4:00.0: amdgpu: remove_queue_mes removed hardware queue from MES, doorbell=0x1002, queue: 1, caller: evict_process_queues_cpsch
-> [  952.401634] amdgpu 0000:c4:00.0: amdgpu: remove_queue_mes removed hardware queue from MES, doorbell=0x1000, queue: 0, caller: evict_process_queues_cpsch
-> [  952.414507] amdgpu 0000:c4:00.0: amdgpu: add_queue_mes added hardware queue to MES, doorbell=0x1202, queue: 2, caller: restore_process_queues_cpsch
-> [  952.424618] amdgpu 0000:c4:00.0: amdgpu: add_queue_mes added hardware queue to MES, doorbell=0x1002, queue: 1, caller: restore_process_queues_cpsch
-> [  952.434922] amdgpu 0000:c4:00.0: amdgpu: add_queue_mes added hardware queue to MES, doorbell=0x1000, queue: 0, caller: restore_process_queues_cpsch
-> [  952.446272] amdgpu 0000:c4:00.0: amdgpu: remove_queue_mes removed hardware queue from MES, doorbell=0x1202, queue: 2, caller: evict_process_queues_cpsch
-> [  954.460341] amdgpu 0000:c4:00.0: amdgpu: MES failed to respond to msg=REMOVE_QUEUE
-> [  954.460356] amdgpu 0000:c4:00.0: amdgpu: remove_queue_mes failed to remove hardware queue from MES, doorbell=0x1002, queue: 1, caller: evict_process_queues_cpsch
-> [  954.460360] amdgpu 0000:c4:00.0: amdgpu: MES might be in unrecoverable state, issue a GPU reset
-> [  954.460366] amdgpu 0000:c4:00.0: amdgpu: Failed to evict queue 1
-> [  954.460368] amdgpu 0000:c4:00.0: amdgpu: Failed to evict process queues
-> [  954.460439] amdgpu 0000:c4:00.0: amdgpu: GPU reset begin!
-> [  954.460464] amdgpu 0000:c4:00.0: amdgpu: remove_all_queues_mes: Failed to remove queue 0 for dev 5257
-> [  954.460515] amdgpu 0000:c4:00.0: amdgpu: Dumping IP State
-> [  954.462637] amdgpu 0000:c4:00.0: amdgpu: Dumping IP State Completed
-> [  955.865591] amdgpu: process_termination_cpsch started
-> [  955.866432] amdgpu: process_termination_cpsch started
-> [  955.866445] amdgpu 0000:c4:00.0: amdgpu: Failed to remove queue 0
-> [  956.503043] amdgpu 0000:c4:00.0: amdgpu: MES failed to respond to msg=REMOVE_QUEUE
-> [  956.503059] [drm:amdgpu_mes_unmap_legacy_queue [amdgpu]] *ERROR* failed to unmap legacy queue
-> [  958.507491] amdgpu 0000:c4:00.0: amdgpu: MES failed to respond to msg=REMOVE_QUEUE
-> [  958.507507] [drm:amdgpu_mes_unmap_legacy_queue [amdgpu]] *ERROR* failed to unmap legacy queue
-> [  960.512077] amdgpu 0000:c4:00.0: amdgpu: MES failed to respond to msg=REMOVE_QUEUE
-> [  960.512093] [drm:amdgpu_mes_unmap_legacy_queue [amdgpu]] *ERROR* failed to unmap legacy queue
-> [  960.785816] [drm:gfx_v11_0_hw_fini [amdgpu]] *ERROR* failed to halt cp gfx
+> On 14/11/2024 16:04, Mario Limonciello wrote:
+>> Although it's really useful information for AMD people, the Jira 
+>> shouldn't be in the "title" of the commit message.
+>>
+>> "If" we want to get into the habit of including this information for 
+>> display code we should come up with a prescriptive field that goes 
+>> into the commit message during promotion and it should be part of all 
+>> patches in the promotion that have it.
+>>
+>> Something like this:
+>>
+>> AMD-Jira: SWDEV-476969
+>>
+>> Probably need to align that with other stakeholders though before 
+>> starting that way.
+>>
+>> On 11/14/2024 08:37, Zaeem Mohamed wrote:
+>>> [why]
+>>> Prevent index-out-of-bounds due to requiring cursor overlay when
+>>> plane_count is MAX_SURFACES.
+>>>
+>>> [how]
+>>> Bounds check on plane_count when requiring overlay cursor.
+>>>
+>>
+>> Any link to failing bugs or anything like that you can include?
+> Hi Mario,
 >
-> Signed-off-by: Mika Laitio <lamikr@gmail.com>
+> About this question, these are the related issues:
+> - Link: https://gitlab.freedesktop.org/drm/amd/-/issues/3693
+> - Link: https://gitlab.freedesktop.org/drm/amd/-/issues/3594
+>
+> You can find more details in previous iterations related to this bug:
+> - 
+> https://lore.kernel.org/amd-gfx/575d66c7-e77d-42ea-acbf-412d6e508a0b@igalia.com/
+> - 
+> https://lore.kernel.org/amd-gfx/20240925154324.348774-1-mwen@igalia.com/
+>>
+>>> Co-developed-by: Melissa Wen <mwen@igalia.com>
+>>> Signed-off-by: Zaeem Mohamed <zaeem.mohamed@amd.com>
+>>
+>> You're missing Melisaa's SoB for a co-developed patch.
+>> IIRC this should fail checkpatch.
+> I already mentioned before, I don't think I actually co-dev this code, 
+> so Zaeem can remove it in the next iteration.
+>
 > ---
->   .../drm/amd/amdkfd/kfd_device_queue_manager.c | 24 ++++++++++++-------
->   1 file changed, 16 insertions(+), 8 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> index c79fe9069e22..96088d480e09 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> @@ -1187,9 +1187,12 @@ static int evict_process_queues_cpsch(struct device_queue_manager *dqm,
->   	struct kfd_process_device *pdd;
->   	int retval = 0;
->   
-> +	// gfx1103 APU can fail to remove queue on evict/restore cycle
-> +	if (dqm->dev->adev->flags & AMD_IS_APU)
-> +		goto out;
->   	dqm_lock(dqm);
->   	if (qpd->evicted++ > 0) /* already evicted, do nothing */
-> -		goto out;
-> +		goto out_unlock;
->   
->   	pdd = qpd_to_pdd(qpd);
->   
-> @@ -1198,7 +1201,7 @@ static int evict_process_queues_cpsch(struct device_queue_manager *dqm,
->   	 * Skip queue eviction on process eviction.
->   	 */
->   	if (!pdd->drm_priv)
-> -		goto out;
-> +		goto out_unlock;
->   
->   	pr_debug_ratelimited("Evicting PASID 0x%x queues\n",
->   			    pdd->process->pasid);
-> @@ -1219,7 +1222,7 @@ static int evict_process_queues_cpsch(struct device_queue_manager *dqm,
->   			if (retval) {
->   				dev_err(dev, "Failed to evict queue %d\n",
->   					q->properties.queue_id);
-> -				goto out;
-> +				goto out_unlock;
->   			}
->   		}
->   	}
-> @@ -1231,8 +1234,9 @@ static int evict_process_queues_cpsch(struct device_queue_manager *dqm,
->   					      KFD_UNMAP_QUEUES_FILTER_DYNAMIC_QUEUES, 0,
->   					      USE_DEFAULT_GRACE_PERIOD);
->   
-> -out:
-> +out_unlock:
->   	dqm_unlock(dqm);
-> +out:
->   	return retval;
->   }
->   
-> @@ -1326,14 +1330,17 @@ static int restore_process_queues_cpsch(struct device_queue_manager *dqm,
->   	uint64_t eviction_duration;
->   	int retval = 0;
->   
-> +	// gfx1103 APU can fail to remove queue on evict/restore cycle
-> +	if (dqm->dev->adev->flags & AMD_IS_APU)
-> +		goto out;
->   	pdd = qpd_to_pdd(qpd);
->   
->   	dqm_lock(dqm);
->   	if (WARN_ON_ONCE(!qpd->evicted)) /* already restored, do nothing */
-> -		goto out;
-> +		goto out_unlock;
->   	if (qpd->evicted > 1) { /* ref count still > 0, decrement & quit */
->   		qpd->evicted--;
-> -		goto out;
-> +		goto out_unlock;
->   	}
->   
->   	/* The debugger creates processes that temporarily have not acquired
-> @@ -1364,7 +1371,7 @@ static int restore_process_queues_cpsch(struct device_queue_manager *dqm,
->   			if (retval) {
->   				dev_err(dev, "Failed to restore queue %d\n",
->   					q->properties.queue_id);
-> -				goto out;
-> +				goto out_unlock;
->   			}
->   		}
->   	}
-> @@ -1375,8 +1382,9 @@ static int restore_process_queues_cpsch(struct device_queue_manager *dqm,
->   	atomic64_add(eviction_duration, &pdd->evict_duration_counter);
->   vm_not_acquired:
->   	qpd->evicted = 0;
-> -out:
-> +out_unlock:
->   	dqm_unlock(dqm);
-> +out:
->   	return retval;
->   }
->   
+> BTW, about the implementation:
+>
+> As I don't have the proper environment, I asked reporters to check 
+> this patch up and it doesn't help prevent interface freeze.
+> It seems to prevent the out of bounds bug but is causing a page fault 
+> now:
+>
+> kernel: BUG: unable to handle page fault for address: 000000000174e354
+>
+> From their feedback, I found curious that MAX_SURFACES -> 4 prevents 
+> the freeze but not completely solve the problem.
+> MAX_SURFACES -> 6 solves it, what let me consider that the 
+> MAX_SURFACES vs MAX_SURFACE_NUM vs MAX_PLANE mismatch might be related.
+> I'm going to analyzing the logs but you can find more details here: 
+> https://gitlab.freedesktop.org/drm/amd/-/issues/3693#note_2658994
+
+Hi Zaeem,
+
+I managed to reproduce the interface freeze on kernel v6.11.4 (Fedora 
+41) and
+amd-staging-drm-next and I have some findings to share that might be 
+relevant.
+
+- I'm running Fedora 41 or Pop!_OS 22.04 with Cosmic on DCN301. The 
+issue was
+   also reported on DCN312 and DCN314.
+
+- Steps to reproduce the interface freeze:
+   1. Start a Cosmic session.
+   2. Open firefox and drag to the right half of the desktop (multitask
+      resizing).
+   3. Open file manager and drag to the top-left quarter of the desktop. 
+<- Here the interface freezes.
+- Running v6.11.4 kernel (Fedora), we can see a bunch of
+   array-index-out-of-bounds error on the dmesg, but the last error is 
+actually
+   the page-fault error reported by one user. Which means, the 
+page-fault isn't
+   related to Zaeem's patch.
+   - dmesg: 
+https://gitlab.freedesktop.org/-/project/4522/uploads/619a13e78cc5e9a645fb208ddff592b1/index-out-of-bounds-plus-page-fault-fedora41-cosmic-6-11-kernel.txt
+- Running amd-staging-drm-next kernel, there is only the page-fault 
+error, and
+   no array-index-out-of-bounds. So the page-fault is the main issue 
+since the
+   beginning.
+   - dmesg: 
+https://gitlab.freedesktop.org/-/project/4522/uploads/f17b85e66f0a8c7e98013ad3b6f174f8/page-fault-fedora41-cosmic-asdn-kernel.txt
+
+The stack trace of the page fault error [1] points to
+commit_minimal_transition_state machinery, so I suspect the mismatch between
+MAX_SURFACE and MAX_SURFACE_NUM may be related.
+I'm investigating the problem and adding more info to the AMD issue:
+- https://gitlab.freedesktop.org/drm/amd/-/issues/3693#note_2675384
+
+[1]
+
+[Nov26 21:33] BUG: unable to handle page fault for address: 0000000051d0f08b
+[  +0.000015] #PF: supervisor read access in kernel mode
+[  +0.000006] #PF: error_code(0x0000) - not-present page
+[  +0.000005] PGD 0 P4D 0
+[  +0.000007] Oops: Oops: 0000 [#1] PREEMPT SMP NOPTI
+[  +0.000006] CPU: 4 PID: 71 Comm: kworker/u32:6 Not tainted 6.10.0+ #300
+[  +0.000006] Hardware name: Valve Jupiter/Jupiter, BIOS F7A0131 01/30/2024
+[  +0.000007] Workqueue: events_unbound commit_work [drm_kms_helper]
+[  +0.000040] RIP: 0010:copy_stream_update_to_stream.isra.0+0x30d/0x750 
+[amdgpu]
+[  +0.000847] Code: 8b 10 49 89 94 24 f8 00 00 00 48 8b 50 08 49 89 94 
+24 00 01 00 00 8b 40 10 41 89 84 24 08 01 00 00 49 8b 45 78 48 85 c0 74 
+0b <0f> b6 00 41 88 84 24 90 64 00 00 49 8b 45 60 48 85 c0 74 3b 48 8b
+[  +0.000010] RSP: 0018:ffffc203802f79a0 EFLAGS: 00010206
+[  +0.000009] RAX: 0000000051d0f08b RBX: 0000000000000004 RCX: 
+ffff9f964f0a8070
+[  +0.000004] RDX: ffff9f9710f90e40 RSI: ffff9f96600c8000 RDI: 
+ffff9f964f000000
+[  +0.000004] RBP: ffffc203802f79f8 R08: 0000000000000000 R09: 
+0000000000000000
+[  +0.000005] R10: 0000000000000000 R11: 0000000000000000 R12: 
+ffff9f96600c8000
+[  +0.000004] R13: ffff9f9710f90e40 R14: ffff9f964f000000 R15: 
+ffff9f96600c8000
+[  +0.000004] FS:  0000000000000000(0000) GS:ffff9f9970000000(0000) 
+knlGS:0000000000000000
+[  +0.000005] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[  +0.000005] CR2: 0000000051d0f08b CR3: 00000002e6a20000 CR4: 
+0000000000350ef0
+[  +0.000005] Call Trace:
+[  +0.000011]  <TASK>
+[  +0.000010]  ? __die_body.cold+0x19/0x27
+[  +0.000012]  ? page_fault_oops+0x15a/0x2d0
+[  +0.000014]  ? exc_page_fault+0x7e/0x180
+[  +0.000009]  ? asm_exc_page_fault+0x26/0x30
+[  +0.000013]  ? copy_stream_update_to_stream.isra.0+0x30d/0x750 [amdgpu]
+[  +0.000739]  ? dc_commit_state_no_check+0xd6c/0xe70 [amdgpu]
+[  +0.000470]  update_planes_and_stream_state+0x49b/0x4f0 [amdgpu]
+[  +0.000450]  ? srso_return_thunk+0x5/0x5f
+[  +0.000009]  ? commit_minimal_transition_state+0x239/0x3d0 [amdgpu]
+[  +0.000446]  update_planes_and_stream_v2+0x24a/0x590 [amdgpu]
+[  +0.000464]  ? srso_return_thunk+0x5/0x5f
+[  +0.000009]  ? sort+0x31/0x50
+[  +0.000007]  ? amdgpu_dm_atomic_commit_tail+0x159f/0x3a30 [amdgpu]
+[  +0.000508]  ? srso_return_thunk+0x5/0x5f
+[  +0.000009]  ? amdgpu_crtc_get_scanout_position+0x28/0x40 [amdgpu]
+[  +0.000377]  ? srso_return_thunk+0x5/0x5f
+[  +0.000009]  ? 
+drm_crtc_vblank_helper_get_vblank_timestamp_internal+0x160/0x390 [drm]
+[  +0.000058]  ? srso_return_thunk+0x5/0x5f
+[  +0.000005]  ? dma_fence_default_wait+0x8c/0x260
+[  +0.000010]  ? srso_return_thunk+0x5/0x5f
+[  +0.000005]  ? wait_for_completion_timeout+0x13b/0x170
+[  +0.000006]  ? srso_return_thunk+0x5/0x5f
+[  +0.000005]  ? dma_fence_wait_timeout+0x108/0x140
+[  +0.000010]  ? commit_tail+0x94/0x130 [drm_kms_helper]
+[  +0.000024]  ? process_one_work+0x177/0x330
+[  +0.000008]  ? worker_thread+0x266/0x3a0
+[  +0.000006]  ? __pfx_worker_thread+0x10/0x10
+[  +0.000004]  ? kthread+0xd2/0x100
+[  +0.000006]  ? __pfx_kthread+0x10/0x10
+[  +0.000006]  ? ret_from_fork+0x34/0x50
+[  +0.000004]  ? __pfx_kthread+0x10/0x10
+[  +0.000005]  ? ret_from_fork_asm+0x1a/0x30
+[  +0.000011]  </TASK>
+
+>
+> BR,
+>
+> Melissa Wen
+>>
+>>> ---
+>>>   amdgpu_dm/amdgpu_dm.c | 10 +++++++++-
+>>>   1 file changed, 9 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/amdgpu_dm/amdgpu_dm.c b/amdgpu_dm/amdgpu_dm.c
+>>> index 97e0a1bbba..964497c613 100644
+>>> --- a/amdgpu_dm/amdgpu_dm.c
+>>> +++ b/amdgpu_dm/amdgpu_dm.c
+>>> @@ -11821,8 +11821,16 @@ static int amdgpu_dm_atomic_check(struct 
+>>> drm_device *dev,
+>>>             /* Overlay cusor not subject to native cursor 
+>>> restrictions */
+>>>           dm_new_crtc_state = to_dm_crtc_state(new_crtc_state);
+>>> -        if (dm_new_crtc_state->cursor_mode == DM_CURSOR_OVERLAY_MODE)
+>>> +        if (dm_new_crtc_state->cursor_mode == 
+>>> DM_CURSOR_OVERLAY_MODE) {
+>>> +            if (dc->current_state->stream_status->plane_count > 
+>>> MAX_SURFACES) {
+>>> +                drm_dbg_driver(crtc->dev,
+>>> +                       "Can't enable cursor plane with %d 
+>>> planes\n", MAX_SURFACES);
+>>> +                ret = -EINVAL;
+>>> +                goto fail;
+>>> +            }
+>>> +
+>>>               continue;
+>>> +        }
+>>>             /* Check if rotation or scaling is enabled on DCN401 */
+>>>           if ((drm_plane_mask(crtc->cursor) & 
+>>> new_crtc_state->plane_mask) &&
+>>
+>
 
