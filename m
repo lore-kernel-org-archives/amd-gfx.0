@@ -4,60 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FD04D609B0
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 Nov 2024 09:02:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 654FAD6ACC0
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 Nov 2024 11:47:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 341D810E07D;
-	Wed, 27 Nov 2024 09:02:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1743410EAAE;
+	Wed, 27 Nov 2024 11:47:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=Usama.Anjum@collabora.com header.b="YXvTH1yh";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jA5JvupG";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F2C6610E8C6;
- Tue, 26 Nov 2024 14:16:31 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1732630586; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=cjmqaF/GIZj6aAUKbpn1mZEAsalC1q89ejEthPd74jo8R1iebUeg98jd0bTOMExrBnOMbzWzeXXRTQE35VDqCRCRssfjMrbuigal9yU1u6+WP61tWSxJx1zqA4j9bM6K1G1H22zSR++VqvQBa1Uuld0E7GPAqY7dlCbYlwSAQCU=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1732630586;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=FDO7eDQHyNV+5Ifxde9MtWfXA0DBzyust/9vl90ohIY=; 
- b=iZNYqAK6TlOeaX6gasgsysCoS1KoOYQUZ0qbNZB7vEC27KwDf5npR3Xr0vsp0YMDjx+01pE1cGYxkxV9Ti2CTs+1fQsmH2vH5T79IFHyMEU4ltGOT0D47oOwELaVygigs903+oNjlcqglEWbQ+jtlnhccfAjQ6D5y2aYSt2Jxfk=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=Usama.Anjum@collabora.com;
- dmarc=pass header.from=<Usama.Anjum@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1732630586; 
- s=zohomail; d=collabora.com; i=Usama.Anjum@collabora.com;
- h=Message-ID:Date:Date:MIME-Version:Cc:Cc:To:To:From:From:Subject:Subject:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=FDO7eDQHyNV+5Ifxde9MtWfXA0DBzyust/9vl90ohIY=;
- b=YXvTH1yhgRYSkp9fDzujm/yuQ6cqmNb4PF/7tgtPFAS6/JEHx/s3u+1qUmr6rl46
- 7x0hcoslnKQbJnOr8pacYpoprbOrVANoxp6AdXRW9vzUXpxb80KkDnk6mbNqBa6+Mun
- NonstgqcmVsoV/TSrDvlX1uzDb3+h2rrIZcydzes=
-Received: by mx.zohomail.com with SMTPS id 1732630582504831.1595780791179;
- Tue, 26 Nov 2024 06:16:22 -0800 (PST)
-Message-ID: <bd40847e-e277-4f0f-b158-87c581192cef@collabora.com>
-Date: Tue, 26 Nov 2024 19:16:19 +0500
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
+ [209.85.214.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30F9510EAB1;
+ Wed, 27 Nov 2024 11:47:09 +0000 (UTC)
+Received: by mail-pl1-f177.google.com with SMTP id
+ d9443c01a7336-21288ce11d7so52706685ad.2; 
+ Wed, 27 Nov 2024 03:47:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1732708028; x=1733312828; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:from:to:cc:subject:date:message-id:reply-to;
+ bh=Kh6bddqnZi0Jk8P/+StFE9apNLAJyAYwCrJWGP3mQEw=;
+ b=jA5JvupG8Skia0MSmNnW3bG/izlQhLZzrr/6em2dkFU65LGQjeI5arLV5qc6U/E9jI
+ UKhpXwWCCh6LDk7MUDle1ZsH7COkTStMKlyH8TeaHyh2TL/AxaMAccOIb2z9G784410m
+ lWze8R0wDUZZMnLCGFkn+2XRAQ/BCT9rFLFjrL9clZ2erpeQatPQEy+aUvCYBUqPMm7B
+ P0K4HDzJf8tB5fPCzAldiDvjQOoTfqciN7DI2VqI7G/yT8nxVTqDoJmpOPmkugyOPm5f
+ Yes48rBmMr5h+4bTbBw2yni3+mDKt/9jJ2qYEbfU9N2u9QhoJt8cWzCLh2GBsGl64bMV
+ wGlw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1732708028; x=1733312828;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=Kh6bddqnZi0Jk8P/+StFE9apNLAJyAYwCrJWGP3mQEw=;
+ b=W0GwCSgIIhJVlZsPcX3R2mF8MVk5liIGHmKzHGHc+OTJzDS4PgsYUAPMZKy7FZY9tW
+ J9gF40DYjCNXr3qjOw6fYMD66CFrhfc5wbXCp9XfIhoYWDVBI4985zCgPsVouLz+hqU8
+ E5OInGE2nEw1P2qTtkD9h2CuLdRYA+ijQw52R/MmyFD2EqUX1eTQ+AyRXFsvX0qefebw
+ d0em5uqTUWUNvIhMcyne5TeAdzHjV8D8l4+1PsVXdIofB44aHWeDpW3Z5MPpfADFSMkS
+ 6AtM6eaAvl7J2Lm6QQ0urZF1qnuj34pRMfEi4ixKW5U5aG3rP05MBa5O5LWBegDIZZLm
+ XYZA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUSdYrxN1aUwrXQUvi/50Id8L7z+0LJJ9aT6Hhd84ftfD6D44nA+XtEwmUxU43qzi+JS/zFDpXTYHHE@lists.freedesktop.org,
+ AJvYcCW6xRcu+hV9Q21VZSjJpjpc0BgWc5Ubdm5wbnVgHNI7LplsT+xJo0QjdIWFlz095DTsQGvdbZSM@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzMFZK74qVM3KVZXX/JEAo/RYWR+DUCJUcMRl0YXQCiWV9P1S8/
+ 6/hBkPJAV7b0ltJIdkTQ8Sxw5b/x4OJ065crmTT/WLzbVxe/0oyNstMJHkG8ejk=
+X-Gm-Gg: ASbGncsVV2hyp0mGdsnvmeHWbuv69/RTM5SAbCC0Rt0bkUfZTvdrrNt7hc3he2zSdKZ
+ 6YI9rp6P3mOCOMsTFqSwwpCNsTm8FBFM/HOFvv4hJEznJ5rwHj8sxzPsQTYbOSrLBtP4TFQ1D+E
+ 0w1/EmMth/OJ3xg3K07Zoo9Fx7u9nwtUKVsMWx8U2L/+uKDgBxo6OcMrIsjBpCGSj51xySp2St/
+ IdaPLT51PX2mHPenUQnG7gOK27JjE2leGsyhIkHCwdI6lFshf8Ky42b9YvnmjDZBL5stdmqP1i8
+ +A==
+X-Google-Smtp-Source: AGHT+IHihpjvcI1BlDLzyC9VZbD85R46tQlCudAYuP0VXXMA7mlJGUngy95fEvQGSagVPN/Fafe39Q==
+X-Received: by 2002:a17:902:e88b:b0:212:55cc:6ba7 with SMTP id
+ d9443c01a7336-21501095f82mr27411875ad.4.1732708028190; 
+ Wed, 27 Nov 2024 03:47:08 -0800 (PST)
+Received: from miley.lan (c-73-162-202-2.hsd1.ca.comcast.net. [73.162.202.2])
+ by smtp.googlemail.com with ESMTPSA id
+ d9443c01a7336-2129dbfa834sm100805645ad.117.2024.11.27.03.47.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 27 Nov 2024 03:47:07 -0800 (PST)
+From: Mika Laitio <lamikr@gmail.com>
+To: christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, Hawking.Zhang@amd.com, sunil.khatri@amd.com,
+ lijo.lazar@amd.com, kevinyang.wang@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ lamikr@gmail.com
+Subject: [PATCH 0/1] amdgpu fix for gfx1103 queue evict/restore crash v2
+Date: Wed, 27 Nov 2024 03:46:37 -0800
+Message-ID: <20241127114638.11216-1-lamikr@gmail.com>
+X-Mailer: git-send-email 2.41.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: Usama.Anjum@collabora.com
-Content-Language: en-US
-To: LKML <linux-kernel@vger.kernel.org>, linux-next@vger.kernel.org,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Sunil Khatri <sunil.khatri@amd.com>,
- Ma Jun <Jun.Ma2@amd.com>, Vitaly Prosyak <vitaly.prosyak@amd.com>,
- Johannes Weiner <hannes@cmpxchg.org>, Jack Xiao <Jack.Xiao@amd.com>,
- Friedrich Vock <friedrich.vock@gmx.de>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-From: Muhammad Usama Anjum <Usama.Anjum@collabora.com>
-Subject: [Bug Report] Warning from __flush_work() on next-20241126
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
-X-Mailman-Approved-At: Wed, 27 Nov 2024 09:02:21 +0000
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,40 +86,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi, 
+This is the corrected v2 version from the patch that was send earlier.
+Fixes:
+- add cover letter
+- use "goto out_unlock" instead of "goto out" in restore_process_queues_cpsch 
+method after the mutex has been acquired in the code.
+- fixed typo on patch subject line and improved patch description
 
-We are getting this warning on x86_64 and i386 targets:
-[    8.677157] amdgpu 0000:03:00.0: [drm:amdgpu_ib_ring_tests] *ERROR* IB test failed on sdma0 (-110).
-[    8.698661] ------------[ cut here ]------------
-[    8.703310] WARNING: CPU: 1 PID: 49 at kernel/workqueue.c:4192 __flush_work+0xb8/0xd0
-[    8.711206] Modules linked in:
-[    8.714285] CPU: 1 UID: 0 PID: 49 Comm: kworker/1:1 Tainted: G        W          6.12.0-next-20241126 #1
-[    8.723790] Tainted: [W]=WARN
-[    8.726781] Hardware name: Google Shuboz/Shuboz, BIOS Google_Shuboz.13434.780.2022_10_13_1418 09/12/2022
-[    8.736273] Workqueue: events amdgpu_device_delayed_init_work_handler
-[    8.742768] EIP: __flush_work+0xb8/0xd0
-[    8.746632] Code: 00 00 f3 90 8d 45 c0 e8 92 1d 04 00 84 c0 74 f2 eb d2 8d b4 26 00 00 00 00 90 0f 0b c6 45 9b 00 eb c2 8d b4 26 00 00 00 00 90 <0f> 0b eb ee 8d 74 26 00 0f 0b eb a6 8d 74 26 00 e8 8f c4 8d 01 8d
-[    8.765410] EAX: 00000000 EBX: c272ee01 ECX: 00000001 EDX: 00000000
-[    8.771726] ESI: c272eea8 EDI: c194d77c EBP: c17bbd64 ESP: c17bbcfc
-[    8.778011] DS: 007b ES: 007b FS: 00d8 GS: 0000 SS: 0068 EFLAGS: 00010246
-[    8.784829] CR0: 80050033 CR2: 00000000 CR3: 1355b000 CR4: 003506d0
-[    8.791120] Call Trace:
-[    8.793591]  ? show_regs+0x51/0x58
-[    8.797028]  ? __flush_work+0xb8/0xd0
-[    8.800724]  ? __warn+0x8d/0x1b8
-[    8.804024]  ? __flush_work+0xb8/0xd0
-[    8.807710]  ? __flush_work+0xb8/0xd0
-[    8.811403]  ? report_bug+0x186/0x1b0
-[    8.815094]  ? __flush_work+0xb9/0xd0
-[    8.818785]  ? exc_overflow+0x50/0x50
-[    8.822474]  ? handle_bug+0x56/0x90
+Patch will fix the evict/restore queue problem on AMD 
+gfx1103 iGPU. Problem has not been seen on following other AMD GPUs tested:
+- gfx1010 (RX 5700)
+- gfx1030 (RZ 6800)
+- gfx1035 (M680 iGPU) 
+- gfx1102 (RX 7700S)
 
-For complete details:
-[1] https://kcidb.kernelci.org/d/test/test?orgId=1&var-datasource=default&var-build_architecture=i386&var-build_config_name=defconfig&var-id=maestro:67455b9a3be6da94b19fde77&from=now-100y&to=now&timezone=browser&var-origin=$__all&var-test_path=&var-issue_presence=$__all
-[2]https://kcidb.kernelci.org/d/test/test?orgId=1&var-datasource=default&var-build_architecture=x86_64&var-build_config_name=cros:%2F%2Fchromeos-6.6%2Fx86_64%2Fchromeos-amd-stoneyridge.flavour.config&var-id=maestro:67455b923be6da94b19fde4b&from=now-100y&to=now&timezone=browser&var-origin=$__all&var-test_path=&var-issue_presence=$__all
-[3]https://kcidb.kernelci.org/d/test/test?orgId=1&var-datasource=default&var-build_architecture=x86_64&var-build_config_name=cros:%2F%2Fchromeos-6.6%2Fx86_64%2Fchromeos-amd-stoneyridge.flavour.config&var-id=maestro:67455b923be6da94b19fde48&from=now-100y&to=now&timezone=browser&var-origin=$__all&var-test_path=&var-issue_presence=$__all
-[4]https://kcidb.kernelci.org/d/test/test?orgId=1&var-datasource=default&var-build_architecture=x86_64&var-build_config_name=cros:%2F%2Fchromeos-6.6%2Fx86_64%2Fchromeos-amd-stoneyridge.flavour.config&var-id=maestro:67455b8c3be6da94b19fde34&from=now-100y&to=now&timezone=browser&var-origin=$__all&var-test_path=&var-issue_presence=$__all
+From these devices the gfx1102 uses same codepath 
+than gfx1102 and calls evict and restore queue methods which will
+then call the MES firmware.
+
+Fix will remove the evict/restore calls to MES in case the device is iGPU.
+Added queues will still be removed normally when the program closes.
+
+Easy way to trigger the problem is to build the the
+ML/AI support for gfx1103 M780 iGPU with the
+rocm sdk builder and then running the test application in loop.
+
+Most of the testing has been done on 6.13 devel and 6.12 final kernels
+but the same problem can also be triggered at least with the 6.8
+and 6.11 kernels.
+
+Adding delays to either to test application between calls \
+(tested with 1 second) or to loop inside kernel which removes the
+queues (tested with mdelay(10)) did not help to avoid the crash.
+
+After applying the kernel fix, I and others have executed 
+the test loop thousands of times without seeing the error to happen again.
+
+On multi-gpu devices, correct gfx1103 needs to be forced in use by exporting
+environment variable HIP_VISIBLE_DEVICES=<gpu-index>
+
+Original bug and test case was made by jrl290 on rocm sdk builder bug issue 141.
+Test app below to trigger the problem.
+
+import torch
+import numpy as np
+from onnx import load
+from onnx2pytorch import ConvertModel
+import time
+
+if __name__ == "__main__":
+    ii = 0
+    while True:
+        ii = ii + 1
+        print("Loop Start")
+        model_path = "model.onnx"
+        device = 'cuda'
+        model_run = ConvertModel(load(model_path))
+        model_run.to(device).eval()
+
+        #This code causes the crash. Comment out to remove the crash
+        random = np.random.rand(1, 4, 3072, 256)
+        tensor = torch.tensor(random, dtype=torch.float32, device=device)
+
+        #This code doesn't cause a crash
+        tensor = torch.randn(1, 4, 3072, 256, dtype=torch.float32, device=device)
+
+        print("[" + str(ii) + "], the crash happens here:")
+        time.sleep(0.5)
+        result = model_run(tensor).numpy(force=True)
+        print(result.shape)
+Mika Laitio (1):
+  amdgpu fix for gfx1103 queue evict/restore crash
+
+ .../drm/amd/amdkfd/kfd_device_queue_manager.c | 24 ++++++++++++-------
+ 1 file changed, 16 insertions(+), 8 deletions(-)
 
 -- 
-BR,
-Muhammad Usama Anjum
+2.43.0
+
