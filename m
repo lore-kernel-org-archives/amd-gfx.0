@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36573D6D255
-	for <amd-gfx@archiver.kernel.org>; Thu, 28 Nov 2024 03:22:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90EF5D6D25A
+	for <amd-gfx@archiver.kernel.org>; Thu, 28 Nov 2024 03:25:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E053110E46C;
-	Thu, 28 Nov 2024 03:22:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3950E10E44E;
+	Thu, 28 Nov 2024 03:25:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ysh+Y2ZC";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XECOsdnI";
 	dkim-atps=neutral
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A0ED10E46C
- for <amd-gfx@lists.freedesktop.org>; Thu, 28 Nov 2024 03:22:33 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8FB8310E44E
+ for <amd-gfx@lists.freedesktop.org>; Thu, 28 Nov 2024 03:25:10 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 29A825C5B0B;
- Thu, 28 Nov 2024 03:21:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9378C4CECC;
- Thu, 28 Nov 2024 03:22:30 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id ACF00A40471;
+ Thu, 28 Nov 2024 03:23:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78907C4CECC;
+ Thu, 28 Nov 2024 03:25:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1732764152;
- bh=JFWON1a1gwL/eNqi9PJoN9/0QX8IdvNZQuFcTh7vx1c=;
+ s=k20201202; t=1732764309;
+ bh=ZQ+mmZy7wN9T1VM98lQ76O17LVrc1NXFHB7fmFPwqcM=;
  h=From:To:Cc:Subject:Date:From;
- b=Ysh+Y2ZC5Cb9l50PHjHtB4R9cp8A0l/BBR/4R9J2p07l0MmBdbZB2FVLlmm8DMHYP
- FnmJDqnJYFnJ4shCuTZQC/FTn1i9D8cS225GXfZJ/FHYpabIw5uaHMEGoPf2xP+rXs
- QhnZfbzpwNv7v3kIVGD3zUq7pDaoeB1tXBGjmKk3dCH1SjTeWk0cDtedeYnISN2+Hy
- 6IdN7j9ctWDKAPJ6L2SeFU968JEMHsIIcsVxv+PrAyc5aGWqnHyBVhV/hXTJ5IMJsD
- 3tU8PWBmUe38I6iEcTQLtNHlstgia6L7rzKCjhJydSaplCbdqR4T+G5xenic5shyqM
- c6TkJXO/9JVgw==
+ b=XECOsdnIkibVIGSwVBosr5FdSJ7M+VipHfjVVYRWyYjjRmddg9zqfe+gPwzIPWQDL
+ HYOk+QFY0pCT7WlfccptluX7XRD0Ax+gQmYSRl152CNhrEuezIxTH2Csvsrt5AsUa9
+ D1yoXuCMvWFktQ037mSaoUx0r+Jm4rDAQs1vjJZ+Vhvu1W5P3Qt/jUdA5MFFtzm6op
+ oJ23o2TxURE40k8pZ4OTez5gQVswkEWQx1Wr1trDSkJbLlEu1oxcPu7nk23SSJzCDg
+ Vetf9ZZoU3cBKLuHOf8K0wJz/XGMQWvdbnFmAYwsQTeqH2yayFvjlN19fkM/hasByx
+ upz5Lfy+td8oQ==
 From: Mario Limonciello <superm1@kernel.org>
 To: amd-gfx@lists.freedesktop.org
-Cc: Kaitlyn.Tse@amd.com, nicholas.kazlauskas@amd.com, zaeem.mohamed@amd.com,
- daniel.wheeler@amd.com, harry.wentland@amd.com,
- regressions@lists.linux.dev, Mario Limonciello <mario.limonciello@amd.com>,
- Luke Jones <luke@ljones.dev>
-Subject: [PATCH] drm/amd/display: Fix programming backlight on OLED panels
-Date: Wed, 27 Nov 2024 21:22:00 -0600
-Message-ID: <20241128032200.2085398-1-superm1@kernel.org>
+Cc: alex.hung@amd.com, regressions@lists.linux.dev,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Tobias Jakobi <tjakobi@math.uni-bielefeld.de>,
+ Chris Bainbridge <chris.bainbridge@gmail.com>
+Subject: [PATCH] drm/amd: Sanity check the ACPI EDID
+Date: Wed, 27 Nov 2024 21:25:00 -0600
+Message-ID: <20241128032500.2088288-1-superm1@kernel.org>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -58,35 +58,57 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Mario Limonciello <mario.limonciello@amd.com>
 
-commit 38077562e0594 ("drm/amd/display: Implement new
-backlight_level_params structure") adjusted DC core to require
-the backlight type to be programmed in the dc link when changing
-brightness.  This isn't initialized in amdgpu_dm for OLED panels
-though which broke brightness.
+An HP Pavilion Aero Laptop 13-be0xxx/8916 has an ACPI EDID, but using
+it is causing corruption. It's got illogical values of not specifying
+a digital interface. Sanity check the ACPI EDID to avoid tripping such
+problems.
 
-Explicitly initialize when aux support is enabled.
-
-Reported-and-tested-by: Luke Jones <luke@ljones.dev>
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3792
-Fixes: 38077562e059 ("drm/amd/display: Implement new backlight_level_params structure")
+Suggested-by: Tobias Jakobi <tjakobi@math.uni-bielefeld.de>
+Reported-and-tested-by: Chris Bainbridge <chris.bainbridge@gmail.com>
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3782
+Fixes: c6a837088bed ("drm/amd/display: Fetch the EDID from _DDC if available for eDP")
 Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 ++
- 1 file changed, 2 insertions(+)
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c   | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 19a58630e7740..243cee2841312 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -3483,6 +3483,8 @@ static void update_connector_ext_caps(struct amdgpu_dm_connector *aconnector)
- 		caps->aux_support = false;
- 	else if (amdgpu_backlight == 1)
- 		caps->aux_support = true;
-+	if (caps->aux_support)
-+		aconnector->dc_link->backlight_control_type = BACKLIGHT_CONTROL_AMD_AUX;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+index b0fea0856866d..6cbbb71d752be 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+@@ -907,14 +907,14 @@ dm_helpers_probe_acpi_edid(void *data, u8 *buf, unsigned int block, size_t len)
+ 	struct drm_connector *connector = data;
+ 	struct acpi_device *acpidev = ACPI_COMPANION(connector->dev->dev);
+ 	unsigned char start = block * EDID_LENGTH;
+-	void *edid;
++	struct edid *edid;
+ 	int r;
  
- 	luminance_range = &conn_base->display_info.luminance_range;
+ 	if (!acpidev)
+ 		return -ENODEV;
  
+ 	/* fetch the entire edid from BIOS */
+-	r = acpi_video_get_edid(acpidev, ACPI_VIDEO_DISPLAY_LCD, -1, &edid);
++	r = acpi_video_get_edid(acpidev, ACPI_VIDEO_DISPLAY_LCD, -1, (void *)&edid);
+ 	if (r < 0) {
+ 		drm_dbg(connector->dev, "Failed to get EDID from ACPI: %d\n", r);
+ 		return r;
+@@ -924,7 +924,14 @@ dm_helpers_probe_acpi_edid(void *data, u8 *buf, unsigned int block, size_t len)
+ 		goto cleanup;
+ 	}
+ 
+-	memcpy(buf, edid + start, len);
++	/* sanity check */
++	if (edid->revision < 4 || !(edid->input & DRM_EDID_INPUT_DIGITAL) ||
++	    (edid->input & DRM_EDID_DIGITAL_TYPE_MASK) == DRM_EDID_DIGITAL_TYPE_UNDEF) {
++		r = -EINVAL;
++		goto cleanup;
++	}
++
++	memcpy(buf, (void *)edid + start, len);
+ 	r = 0;
+ 
+ cleanup:
 -- 
 2.43.0
 
