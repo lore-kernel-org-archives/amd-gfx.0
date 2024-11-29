@@ -4,61 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A50AD10DC5
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Dec 2024 08:39:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82512D10DC7
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Dec 2024 08:39:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8206D10E661;
-	Mon,  2 Dec 2024 08:39:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7AD2110E657;
+	Mon,  2 Dec 2024 08:39:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=itb.spb.ru header.i=@itb.spb.ru header.b="YZCkkwv0";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Xy5OzWq5";
 	dkim-atps=neutral
-X-Greylist: delayed 395 seconds by postgrey-1.36 at gabe;
- Mon, 02 Dec 2024 08:08:43 UTC
-Received: from forward202b.mail.yandex.net (forward202b.mail.yandex.net
- [178.154.239.155])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C81C210E48A;
- Mon,  2 Dec 2024 08:08:43 +0000 (UTC)
-Received: from forward101a.mail.yandex.net (forward101a.mail.yandex.net
- [IPv6:2a02:6b8:c0e:500:1:45:d181:d101])
- by forward202b.mail.yandex.net (Yandex) with ESMTPS id 3DF4B64A6B;
- Mon,  2 Dec 2024 11:02:39 +0300 (MSK)
-Received: from mail-nwsmtp-smtp-production-main-42.myt.yp-c.yandex.net
- (mail-nwsmtp-smtp-production-main-42.myt.yp-c.yandex.net
- [IPv6:2a02:6b8:c12:2720:0:640:5aee:0])
- by forward101a.mail.yandex.net (Yandex) with ESMTPS id 803B560F03;
- Mon,  2 Dec 2024 11:02:04 +0300 (MSK)
-Received: by mail-nwsmtp-smtp-production-main-42.myt.yp-c.yandex.net
- (smtp/Yandex) with ESMTPSA id f1ZvNeGOfiE0-wjjuYp10; 
- Mon, 02 Dec 2024 11:02:03 +0300
-X-Yandex-Fwd: 1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=itb.spb.ru; s=mail;
- t=1733126523; bh=fAvlWEkjGOo1q72idjWA0Eucb8ySH4M7IRqqfWdyYRE=;
- h=Message-Id:Date:Cc:Subject:To:From;
- b=YZCkkwv0CsBqEe9B3jleawzwSzgsrdVWTohT8pxpvgP4vnYIybRWF2MoGiOFsWpJQ
- t0u4obNc4EDN19bYamRefun5j7kg56DW7YghxnRW/uriBhWV6+C1yP0KyoU19KYt1S
- 1oQXmUZu5CD2fgaGtmHWiO4v5D1Gf56aQFBvbB0w=
-Authentication-Results: mail-nwsmtp-smtp-production-main-42.myt.yp-c.yandex.net;
- dkim=pass header.i=@itb.spb.ru
-From: Ivan Stepchenko <sid@itb.spb.ru>
-To: Kenneth Feng <kenneth.feng@amd.com>
-Cc: Ivan Stepchenko <sid@itb.spb.ru>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Tim Huang <Tim.Huang@amd.com>,
- "Dr. David Alan Gilbert" <linux@treblig.org>,
- Alexander Richards <electrodeyt@gmail.com>,
- Samasth Norway Ananda <samasth.norway.ananda@oracle.com>,
- Jesse Zhang <jesse.zhang@amd.com>, Rex Zhu <Rex.Zhu@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- lvc-project@linuxtesting.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: [PATCH] drm: amd: Fix potential NULL pointer dereference in
- atomctrl_get_smc_sclk_range_table
-Date: Mon,  2 Dec 2024 11:00:43 +0300
-Message-Id: <20241202080043.5343-1-sid@itb.spb.ru>
-X-Mailer: git-send-email 2.34.1
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C26710E0A9;
+ Fri, 29 Nov 2024 13:40:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=B9G+ISBCzGMu3zooxRuGQW3H7hCDwh/ifGOAFtaTYIo=; b=Xy5OzWq5/8D1y8X8LGfw59i+RE
+ VqOuuoQs00bDh0GnRa8a+AY4gbwWPpEO5ajvQyFN3UmvIEg4eGoSKSAW07VKTWNS+Gp5IMpf0TbJD
+ wfGGb0+sTPPDcb4hg19vYbCfIeifI2D55wrbuHBHqMG8xenSFBp38R8TEPYoryLJcn6FlpcqwaGFD
+ m4w2bt0ybvk2YA3+AN/Csf0U2Kfwtjk3uz9DCrkCZEqzjaUIs2aPoCK0n9L/oa+6opP3gAVxrHLsK
+ YsYq13Mb17gf7JQGwGmy5qxSHue91t821uY9vQEZzLJntDcg62v30MEAsOZL3ajZmcASDN4eKOvgQ
+ QcryfM5Q==;
+Received: from [179.118.187.88] (helo=[192.168.15.100])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1tH1EL-00EMsm-4G; Fri, 29 Nov 2024 14:40:21 +0100
+Message-ID: <1d448e67-0c28-4e21-afdd-223495346921@igalia.com>
+Date: Fri, 29 Nov 2024 10:40:14 -0300
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 1/4] drm: Introduce device wedged event
+To: Raag Jadav <raag.jadav@intel.com>
+Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, himal.prasad.ghimiray@intel.com,
+ aravind.iddamsetty@linux.intel.com, christian.koenig@amd.com,
+ rodrigo.vivi@intel.com, michal.wajdeczko@intel.com, lina@asahilina.net,
+ anshuman.gupta@intel.com, alexander.deucher@amd.com,
+ amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com, airlied@gmail.com,
+ simona@ffwll.ch, lucas.demarchi@intel.com, jani.nikula@linux.intel.com,
+ andriy.shevchenko@linux.intel.com
+References: <20241128153707.1294347-1-raag.jadav@intel.com>
+ <20241128153707.1294347-2-raag.jadav@intel.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
+In-Reply-To: <20241128153707.1294347-2-raag.jadav@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Mon, 02 Dec 2024 08:39:10 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -74,32 +68,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The function atomctrl_get_smc_sclk_range_table() does not check the return
-value of smu_atom_get_data_table(). If smu_atom_get_data_table() fails to
-retrieve SMU_Info table, it returns NULL which is later dereferenced.
+Hi Raag,
 
-Found by Linux Verification Center (linuxtesting.org) with SVACE.
+Em 28/11/2024 12:37, Raag Jadav escreveu:
+> Introduce device wedged event, which notifies userspace of 'wedged'
+> (hanged/unusable) state of the DRM device through a uevent. This is
+> useful especially in cases where the device is no longer operating as
+> expected and has become unrecoverable from driver context. Purpose of
+> this implementation is to provide drivers a generic way to recover with
+> the help of userspace intervention without taking any drastic measures
+> in the driver.
+> 
+> A 'wedged' device is basically a dead device that needs attention. The
+> uevent is the notification that is sent to userspace along with a hint
+> about what could possibly be attempted to recover the device and bring
+> it back to usable state. Different drivers may have different ideas of
+> a 'wedged' device depending on their hardware implementation, and hence
+> the vendor agnostic nature of the event. It is up to the drivers to
+> decide when they see the need for device recovery and how they want to
+> recover from the available methods.
+> 
 
-Fixes: a23eefa2f461 ("drm/amd/powerplay: enable dpm for baffin.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ivan Stepchenko <sid@itb.spb.ru>
----
- drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c
-index fe24219c3bf4..4bd92fd782be 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c
-@@ -992,6 +992,8 @@ int atomctrl_get_smc_sclk_range_table(struct pp_hwmgr *hwmgr, struct pp_atom_ctr
- 			GetIndexIntoMasterTable(DATA, SMU_Info),
- 			&size, &frev, &crev);
- 
-+	if (!psmu_info)
-+		return -EINVAL;
- 
- 	for (i = 0; i < psmu_info->ucSclkEntryNum; i++) {
- 		table->entry[i].ucVco_setting = psmu_info->asSclkFcwRangeEntry[i].ucVco_setting;
--- 
-2.34.1
-
+Thank you for your work. Do you think you can add the optional PID 
+parameter, as the PID of the app that caused the reset? For SteamOS use 
+case it has been proved to be useful to kill the fault app as well. If 
+the reset was caused by a kthread, no PID can be provided hence it's an 
+optional parameter.
