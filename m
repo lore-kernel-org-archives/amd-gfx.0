@@ -4,128 +4,147 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C3C7D6EC0B
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 Nov 2024 13:59:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B20C3D6EC0E
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 Nov 2024 14:23:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 33D5210E03A;
-	Fri, 29 Nov 2024 13:59:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B81C10E039;
+	Fri, 29 Nov 2024 14:23:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="EQv3J6xK";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="zbKngnKU";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2052.outbound.protection.outlook.com [40.107.223.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7509210E03A
- for <amd-gfx@lists.freedesktop.org>; Fri, 29 Nov 2024 13:59:00 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2086.outbound.protection.outlook.com [40.107.237.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 346F910E039
+ for <amd-gfx@lists.freedesktop.org>; Fri, 29 Nov 2024 14:23:09 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tdPCn+LE1c52IGGrVelP+3dosserLcLu1oDaw4XdEtVAMAfAKL2f2X5eo3ufaDc75QJrtt5Cp7xPmVqFxuM3XE2ehUewbRUPW+zSmth8Q4weIdZRsbcAI5NH8XkE/88PreEYLY3F9QuXFj7cTk99Z0hj2ewZiOuHY7HxVB2ixYndliZGc2I2nOLzdMshQH2moCusr+sO+zhznDqV7LpdKfNHnzSh2KdV3FJJAnW8wirXQxBivOY8hqW/73KbvWoygujNS+muOpE6HX2hK3L9t1cRWEZKkAiPNRum4piYQI2SZRvbbDjTmeBzXBQpz8Surejic+aDU+iJf7E0CuM/eA==
+ b=K1IJ1RTbkFMTmgwyag6BIJp+3oWd6f4FVFbkofJ7Lu1OUcQys7StE00WCNWvkyu/kL2wgWuMTIB1zC6akec1qc9Q2PgwCZpVRKHS85/egZ2sf6Oz5/HJfD0LuJSqCx93oF4jywd+7uBVb8Acbq8vNDlkISxueSwNRICE1EvJ5LrgmqFpSgmZQmoCkdaPufVTW6qHDW5Hts6lW7Ba5c6zokQLOvknh8lZ26b2536v3pewVV4mB4o5oJMhmawq8rbvJCZ9DvH6kd2ugdgrYHsxDQR8puFd/RWITeSrkzYJ02lX0X8hGfXcVbXHAS+VAp62VMeJL4XtGHzTuvYJJFEoVw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=id7AAIjB/iZeRbCWVo8LpKZqe550kGkMnoVlNNf5myQ=;
- b=G+CP98HWkYHAqOgGJkdYlE2EPits/PMubEvf9+zhaSmX/nftSKRj/EFhNN9VzWsEV4uW8iuN4OUOGMr6HDGqtkDRtC5Jiwpe1iSfAxLb/NtDn+iTUo/5VhGZddwq93ikB68KlrCuGWIf7fhjuaacsLMlaqlMkupGBdRlhgGgD68sRNbeRQqwLCheUqIoiLBDrbX8Xm8XoznE80uTYTVgvRSMOpMERmKCH5JCJA1MKU0XWyWeYrv2UsJ4qP7EqTgm7Si0fkILI9eWfsWmXpkZZ7OKrtEZC0j5nCbkx1s18U4E6ksmy3Sa+OpZ9/uDSJG8JOUIUeif5U9AlzqDHYdtag==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=LDZAQxaB/4FjJwriWrCe0NzWU2vbuu/dG9u967eytZk=;
+ b=Idrus3wRutnqYs+426aDkQ4rmUHw6M3Y6hf6Bx8XREWJaz8stw2IVdPWQU7WvRuo+2VJuEpIp19GZV1jPUShok6ZrjmaOXPLrJwjXmw0WOEOfUVG8CcOzLBMsms3x+fFoX0QhXlJ+HiMEG0tj50aXrXd6mAdZxOs1MrUb3/CneV+vz7Uu4Ju6LLPwrO6HV84QYzeCNN4ZZWnVPzV/mrFpRM32BVOKOag/vcTFnuRatAe1O3fh6R4CQXyYAoOrC18yZIoprRnc4bCc0+V6m/QQ5nF59wfs3RowECYKr6LGiNs1Npcr5nzVeHdeak7jFVubFRa11D7QHaZsdMGhw1njg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=id7AAIjB/iZeRbCWVo8LpKZqe550kGkMnoVlNNf5myQ=;
- b=EQv3J6xKuvu4E5ptU9uErf0TN01uiGZ2wsz1OjJp+tRw0l0qHGkYKTqY0HypSskHeJMUFsJbhIn5YkdOiVAkFTLTdSZotsSetuH8YKOf48oJCOXqgQ9XRLCv2y45aG1d8/kE7wivJ5c21BsLs0zczTYeAPzZ+ag9P65rb7sDAXM=
-Received: from MN0P221CA0002.NAMP221.PROD.OUTLOOK.COM (2603:10b6:208:52a::26)
- by CY8PR12MB7515.namprd12.prod.outlook.com (2603:10b6:930:93::6) with
+ bh=LDZAQxaB/4FjJwriWrCe0NzWU2vbuu/dG9u967eytZk=;
+ b=zbKngnKUUl99+rTg3Lq7NvjkkvmQB5O9rpXGRRp2CwpwzrlcO1OcvEmijxSpl89qGYWSdFshwbVFUiYqPAFPVtr/F1SiYlCbbiUFNGkqW3+McQu7yq7tEtIKu4PLy3M1TMoLQDAL/jt72uRBkYi2OesO6uiZ3tB8syZo6m3wQv4=
+Received: from DS0PR12MB6534.namprd12.prod.outlook.com (2603:10b6:8:c1::19) by
+ SJ2PR12MB7942.namprd12.prod.outlook.com (2603:10b6:a03:4c3::17) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8207.14; Fri, 29 Nov
- 2024 13:58:52 +0000
-Received: from BL6PEPF0001AB51.namprd04.prod.outlook.com
- (2603:10b6:208:52a:cafe::58) by MN0P221CA0002.outlook.office365.com
- (2603:10b6:208:52a::26) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8207.14 via Frontend Transport; Fri,
- 29 Nov 2024 13:58:52 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL6PEPF0001AB51.mail.protection.outlook.com (10.167.242.75) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8207.12 via Frontend Transport; Fri, 29 Nov 2024 13:58:52 +0000
-Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Fri, 29 Nov 2024 07:58:50 -0600
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
- Deucher" <alexander.deucher@amd.com>
-CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
- <srinivasan.shanmugam@amd.com>
-Subject: [PATCH] drm/amd/amdgpu: Add Descriptions to Process Isolation and
- Cleaner Shader Sysfs Functions
-Date: Fri, 29 Nov 2024 19:28:37 +0530
-Message-ID: <20241129135837.4070078-1-srinivasan.shanmugam@amd.com>
-X-Mailer: git-send-email 2.34.1
+ 2024 14:23:05 +0000
+Received: from DS0PR12MB6534.namprd12.prod.outlook.com
+ ([fe80::ea87:74ba:36ec:8cf6]) by DS0PR12MB6534.namprd12.prod.outlook.com
+ ([fe80::ea87:74ba:36ec:8cf6%6]) with mapi id 15.20.8207.010; Fri, 29 Nov 2024
+ 14:23:05 +0000
+From: "Wheeler, Daniel" <Daniel.Wheeler@amd.com>
+To: "Zuo, Jerry" <Jerry.Zuo@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Wentland, Harry" <Harry.Wentland@amd.com>, "Li, Sun peng (Leo)"
+ <Sunpeng.Li@amd.com>, "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>,
+ "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>, "Li, Roman"
+ <Roman.Li@amd.com>, "Lin, Wayne" <Wayne.Lin@amd.com>, "Chung, ChiaHsuan
+ (Tom)" <ChiaHsuan.Chung@amd.com>, "Zuo, Jerry" <Jerry.Zuo@amd.com>, "Mohamed, 
+ Zaeem" <Zaeem.Mohamed@amd.com>, "Chiu, Solomon" <Solomon.Chiu@amd.com>, "Zuo, 
+ Jerry" <Jerry.Zuo@amd.com>
+Subject: RE: [PATCH 0/9] DC Patches Nov 26, 2024
+Thread-Topic: [PATCH 0/9] DC Patches Nov 26, 2024
+Thread-Index: AQHbQaIUNopvKhbTgUCkBaON+BsuwLLOUNHw
+Date: Fri, 29 Nov 2024 14:23:05 +0000
+Message-ID: <DS0PR12MB6534D0214B5D887443076DAD9C2A2@DS0PR12MB6534.namprd12.prod.outlook.com>
+References: <20241128142958.28370-1-Jerry.Zuo@amd.com>
+In-Reply-To: <20241128142958.28370-1-Jerry.Zuo@amd.com>
+Accept-Language: en-CA, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ActionId=d151b6a6-8b31-42e3-b22d-0b345983f910;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=0;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=true;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open Source;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2024-11-29T14:22:10Z;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DS0PR12MB6534:EE_|SJ2PR12MB7942:EE_
+x-ms-office365-filtering-correlation-id: 806d08e2-143f-467b-4ba7-08dd1081572b
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0; ARA:13230040|366016|376014|1800799024|38070700018;
+x-microsoft-antispam-message-info: =?iso-8859-1?Q?7nb+/0X5/Xokfz3weg9OActbCNku4qqQCd5ox+x4vGld9P+AS94mMGaet8?=
+ =?iso-8859-1?Q?gapQm6u6w/kbWuhChleex3gXmg9Y/MU8QfO0+NwzM3LRXZ0BV21vt4yl/6?=
+ =?iso-8859-1?Q?2QPFif1AngzfOO+5cPBYHQjhGOb0crSPKykrhnPeOPcCHbSqaOK4CQNURY?=
+ =?iso-8859-1?Q?LrL2LUUCgomvjR28yWMyCQEFAhs5uT/WvtT09+mRWj8zDc73Vl8IM7+O83?=
+ =?iso-8859-1?Q?FHfN44KS+GogEghErJqlGV5gNgOLdxJrrWrBNLLKIAjmLT2EzH1GL8xzlO?=
+ =?iso-8859-1?Q?hdpNSj8wG2A9BQhJLQN80yoUKPNYzr5XTo5lUNP3JQsu84FUkzQz8g3d4m?=
+ =?iso-8859-1?Q?LzxXKCtJ4UtluA6+GRwp8bkDNpJfCDROQoEs0o+9j73tggzjkSTxcUbe8p?=
+ =?iso-8859-1?Q?q2yibjCb8NrQbRySP4SAfHb3vjeILLb6+AC8q+0QHLv5CRRugUsZSJL6S+?=
+ =?iso-8859-1?Q?edEtLDzY0Vc33h864ph94uKWF/DmWEPi33IcuNkY/FTSVxN4O8HohKVhWT?=
+ =?iso-8859-1?Q?gARZ3lREnMdWFsV5yfM/DdvcbgCouPgV7DH/5XBR3XnyKIEZAv0MYUF5W7?=
+ =?iso-8859-1?Q?OrFwyGcq7FaGRfmXfHYhQ8A1WitKeGB7T7rAIkWcdcwSzTPPZwM20PKdR6?=
+ =?iso-8859-1?Q?Y3CSmF+6+wpZoorxaJFFfqQUOkIdNXaX5eKH+QW//iMctPy8mLug1/Mpiu?=
+ =?iso-8859-1?Q?m6OvVgvySpPPACSTQZyQVyxPPSjEw1t2BKTFKOXB0yu+cSTtcKnViYcoLA?=
+ =?iso-8859-1?Q?kPrg4wy6X5CebipO+4Lq80qIdQI/NURE+IpX+4oYbtLUz2ZIUFpoSJTNhq?=
+ =?iso-8859-1?Q?8/C1S/WSulLthK4VEibwvBkFSchthCugoZnGfTqNr+2q0YrbQ+uHB/vq2t?=
+ =?iso-8859-1?Q?W3t/MO5k8Wn2odEeLQ9KqwMtx9zKgXz106RJBEzdkSgH/RYZ2xAXxT/vNO?=
+ =?iso-8859-1?Q?D1B2CMZho51JewmKufk424hHbr54XjJ4i9PzpiG0Q3sDXK4L5LVApgHF0J?=
+ =?iso-8859-1?Q?30V3C+eoDgjC3oWXg75WlqHpTpEn24OlfUyzpnvWmb627+vBC6iV911shT?=
+ =?iso-8859-1?Q?xWYmkQNnrRMufpOIE5E3jpRd/k51GNZy86u/QtMYfr0K5y5D1qViHnqMMu?=
+ =?iso-8859-1?Q?vVQ0Hi0ArHfYnWCvRVl3Zo7OP0itcLvLBeZQQ/7edoRQf+ODXZ3J3E5/Wd?=
+ =?iso-8859-1?Q?K39QJQRh83izpe9SZOfeEmd4HAg5XXVtDvozgTWSWxDWVNtg74QaxnrGc0?=
+ =?iso-8859-1?Q?0QgJhV9ghqnlJ7eFIcrvsYQewwspFNCCS3gAiU3vjXHnJLYyP5hI0VM2xz?=
+ =?iso-8859-1?Q?uRmCKfiyx5lhPLVEeJvgPOzhsSmkN4O7AWlBjQn2fK6htu+KAF1nz/qrDk?=
+ =?iso-8859-1?Q?JG0GfFG9mXDfGawwU9aAHzQ9g70r+YaeTpL12qMhjovkhEyhhO/MbrZdOj?=
+ =?iso-8859-1?Q?n0hnt8vSdqjKw820ia8w8fafRabER8n7Fo79oQ=3D=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6534.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(38070700018); DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?1QFVAovYMxWIrfKapCvqVb5Jf1DMaFCoMpoSuNRUGfXOBKeVh/Y6AvEM8z?=
+ =?iso-8859-1?Q?kPvRwXafokZiN2A6htouoF15l0wjAT2FNgwAEtE3kzdOiUxIAIPhh/IDLs?=
+ =?iso-8859-1?Q?HupoHsE6DYr7rFGFirAeTYPVEbWlQwFqpNMULQbsYrc6WhVqGBGhSh156K?=
+ =?iso-8859-1?Q?BFRRyNUXd8HmEMKWazyMZAX2WOgVlfTbvLNZl4fqulLYJMwpQbR2atz94s?=
+ =?iso-8859-1?Q?5c9YMU3ZhyF8tbrP+CHRSUDEuzHRQzVpYTahkjscegyykbl47wd1IgNYZS?=
+ =?iso-8859-1?Q?MuRSGBhzbpmGlvfXjGyYoMxrBrM8qhmAeLAbdBMEWI06FczWytWDJsOV4o?=
+ =?iso-8859-1?Q?xv43uqZm7I6Woaq9OlRUZOrHfhtGbD3zaGvcDc05LQ/4xx++zB8mFYQbs0?=
+ =?iso-8859-1?Q?wco01Q9a7zV0ZPIyRKpGbY5oVWiVVbo4w2IOhnu4PX9bTcec/GpXWaTEad?=
+ =?iso-8859-1?Q?/472rvORb/En2W3L1vIF6SpCXgOEUtadGnk6TidI8+xQGiMu8ZDcwkeecJ?=
+ =?iso-8859-1?Q?cra+OR6QGzejG1nBic7zjHrWJFEUnlzf2PRNWUCRoSjfm6ZEX15PwSSPBU?=
+ =?iso-8859-1?Q?KpqtoalO9BGkyEmlFHRpGldi6iP3+pnSXTetyuWmrVsmYQfdrQJy+xCGOG?=
+ =?iso-8859-1?Q?SXSmZS7zhC6xxA/IHVnZVaRvxNHv1DiMdtGv2k+4xYouNdg4a2RbBYl4xZ?=
+ =?iso-8859-1?Q?dHueJoYwzIrDgL8pk9a81nYYMogO7egTK6nRIQLQ3FADy0+EH+gwM7ys9m?=
+ =?iso-8859-1?Q?DlvBvYB6/VjFs0aVe+YpKsrbK7wR2Ge61C58+46zf5h+d4+0ydudJZuw0a?=
+ =?iso-8859-1?Q?PIDiV8V88ApWYrvXp079qb9tBu+7pa7pkrU95ekt4DmlIaO2yarIqCKe3q?=
+ =?iso-8859-1?Q?ZgoQJldfq8ViyzvEsveqikefKRlQOZ1m7kAG4ytwWIuxh2pq06RjCCMuZ/?=
+ =?iso-8859-1?Q?dq3IqWjsDB3UaMI1yJ0Hfo0yUVtbrO+RUV913NopytPv+4KHSBt8Ts91lX?=
+ =?iso-8859-1?Q?XpC6wO8uciqdFcNj8p3ALncmKXBY6FRJqhf0sVDZJonuJHFyeGMWQo283p?=
+ =?iso-8859-1?Q?YgneDbwXhRxtFVGDhq7VnuyenzoZujS8ctuhA0NXZA/CVUdYw2SAMCjgrP?=
+ =?iso-8859-1?Q?SAV/r3v/cqxnMbYp+fScjHtq+IJo+scPkVzGo4WwAE++ld4m7eJp4oKGBX?=
+ =?iso-8859-1?Q?FlaGea2r9Y68wNpmlnzvSI/9uI+PeYRoNlLXdWUotnR71IIh0DtekHiHVe?=
+ =?iso-8859-1?Q?zPqvwUkQdygAV0ONwCuQd4G8zpjWC3OvW1P1nx4pkpRX0GZVWU10wSyMQp?=
+ =?iso-8859-1?Q?zBjYFbyv7oUYZduPLE/bIdEjyH/hrvxeLeiDZ8AK/Cef93AczpUKL1Ia61?=
+ =?iso-8859-1?Q?LVlpVGPq1NrOMhcAVDUt6KQSm4qt86D4HrWLzNO56KSXCV1Zg9LV06LGJY?=
+ =?iso-8859-1?Q?UdSz4mB7EmlzLCNmLQ5XDijjKye7DYQ3CHaAwkX5QL5h45nF7Ccu6EFgWX?=
+ =?iso-8859-1?Q?WYw1vn60DP3roKeZOHsZWt3XHaolwDAz7nuiXWWxGNc7/mYpZ6WDN9ueR4?=
+ =?iso-8859-1?Q?48ptlB8TeNfNeM+5nJ0WMVlKYzx+KbOjAS7jxYmSNO+rYGjKBA0mM/x4Iu?=
+ =?iso-8859-1?Q?0tasKK3Vzlhpc=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB51:EE_|CY8PR12MB7515:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3240cbda-dbf4-4943-260d-08dd107df52a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|1800799024|376014|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?aGQwOVoyRnAxUDhzYm4yTm82TmlpcXRiaFFBWVhWSnRVQWhXMTlCeVc1L0pG?=
- =?utf-8?B?SHR6R3d6YmgyVnV2SDJMNk5mV09DMC9DUDVkQUE5WERJdUVHR3B1bk1nRGVE?=
- =?utf-8?B?SmRweGtRcmZCa1dwSThWY1pkbkRnMjY3QnpOc2pKakcrWUlWSTB5ejdaWWM0?=
- =?utf-8?B?cVN0SmFhWWRaMkVjRm5UcGZJOWNkajVscmdOSjN3RktBaUlodGlpSmJwYjlw?=
- =?utf-8?B?RVFxUktMV3lIZk5haTZSQnBYN2ZTdzVYcjZhcUs4QStlUW56U01DWHRkS0FG?=
- =?utf-8?B?MWJXQXVSd3JibUJLTTNOQVRFbURHcS8zSEdHREhZRUZmQ29LWTdRVkt3aUds?=
- =?utf-8?B?Y05MNWkrQ3VUcjFFTE40SnhZTHNuU2RWbDV6VkxRMFk1M0R5MXpaUkE5R0hZ?=
- =?utf-8?B?dW1YcHM3RWpRMUdCQk9XWXFVNWdYSFA4L0UyNEJOR3A3K09jNGhuMFhiQjB2?=
- =?utf-8?B?UTVkeFgzTWhBaVN0QTB0WlJUa2hKUkkzQ25rVnhvVU51RDlIY09NL0ZmSGhi?=
- =?utf-8?B?TWVoWUcxazhxdEc2OUNaKzBFdklPZ0NRYi9sN2NzTDl3c1R6NEZNenRTRlcv?=
- =?utf-8?B?Zk93UEVOZzdKMVJoSWRENmMzb240SmI1RzlRdCtNQ09BMHQveW8yd1U1bW54?=
- =?utf-8?B?bjFwUnZieGpnZS9GYTh0UmhLQ1dtNjJENWplNDVPRUNOYjFBem12TnJhenpO?=
- =?utf-8?B?UEJiNmJXNjhtYzlrbzdLQ1VCT01UeHhSUm8zd0RXRXZVT1dWMkFQeHRWNDJy?=
- =?utf-8?B?VjlFcFI1Rk9pYWx5M3JKMkhPQ2pDZGJTYzRLWitJaTRQWSs2U0krOWZSQUhT?=
- =?utf-8?B?dnZpSW8vNkh4TE5iMjZFQXRPT2FoNitqZFBUZnNkTUdpbzlSVDhwbkNLRm55?=
- =?utf-8?B?c243bk1tNjNJTjIwbUZWS1VmQzhMRVQvQU90R0lvVG05NDU2WHd2Smd5UU52?=
- =?utf-8?B?ZGpZN0V3eG9CUVgwTzZJZ0FpbGNoOEhOc0x5YmRvZzVIMzZseENycFZaSE1G?=
- =?utf-8?B?RFlyL1c4eWlqT3lnK01hbDBHV1JRTUFKS2ZZTkJGZUVtTmNDOFRGaVg1Y2Zn?=
- =?utf-8?B?Z0FFU242QVBXUUJ4cVpHTkxPeDRDWkZRekxBakpYSGtTb2F4SU1XYi9zT1Mz?=
- =?utf-8?B?R2xBMDQ3L3V4U3N2QkpNTXRiS2VUVnNITE9pS29qdk9tbW9vb29xWDZON0dL?=
- =?utf-8?B?cThJdGcvV3hNdDRFQzRmS3hpYktLbFQwZ0RNRkFRcFBxZHhOOVlFd3Rqdldi?=
- =?utf-8?B?MnozdFRDZXFxd2tMaW5RbC9xZ0VXTzdRdGVQQ1VtRHU1NDVsWHJtb1ROK2ZC?=
- =?utf-8?B?dEZ3S0RRWTF0ek1kbiswdUlJL0JvRisrUm95MXV6TUpaWXRVMkxnQkZFc28v?=
- =?utf-8?B?S2VvUm5QVXd6a29ncjdoaVk4NFcyY2F1dnRpNmtDR3pwazRmeGVTNDNCMWlr?=
- =?utf-8?B?OWRMTnBjSEoxU3ArRmJPSUM4eW5LRi9mcFNsL2JnbzlnOUdJZFBZK29yOGpU?=
- =?utf-8?B?RCtnQzFFMGhzY1ZsMUs5OHE3Yjl6U010dVZDeGpibEx5MlozMXhoUUtRVWt4?=
- =?utf-8?B?M21iZG9WYXVNL2FlanZBekJwdE9CNldHMTZsbEZHZmFEeTlRaG9lbU5nMXh0?=
- =?utf-8?B?UVl6KzZGdU02aUQyWmhGKzFxL3JCUzN0WWl4dSthcGwvdGpBVWRjV3BBT0pI?=
- =?utf-8?B?UkpHZVFlRCtVNktwelF2N2dBbUQxb1Y0TUlLY2VFTnkyZFhBU2lId2ZJTmpH?=
- =?utf-8?B?WnduWWZGa3lXOWRGWE5oN3dYc0RjVnpQMHRxZWRTbmtGRWhiVzBCRkdzT0Zz?=
- =?utf-8?B?dCtwNDhndEIvVkJQQ2tOSUtIb0oyeldaVldRMEdaMFhmTTdLZEhyY0g5ckc1?=
- =?utf-8?B?ckZ3TTZKNEVpUHlBVExCaWw4SEdYN2NXaFJWMUVHVEJhV2x2elJJdGpIbVlC?=
- =?utf-8?Q?B5+r5z+iszaUFEMWHyOADtooWJNz1vcv?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(1800799024)(376014)(82310400026); DIR:OUT;
- SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Nov 2024 13:58:52.5990 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3240cbda-dbf4-4943-260d-08dd107df52a
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB51.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7515
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6534.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 806d08e2-143f-467b-4ba7-08dd1081572b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Nov 2024 14:23:05.5528 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 47eeSY4m88+ZgDKkgX/j0I8j7yU42/cvBWyBOXxKEEa+0hfM1fDSHBnAL0jYDuUF4HeQ/2KgAF2eVBkcsP9b9w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7942
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,96 +159,145 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This update adds explainations to key functions related to process
-isolation and cleaner shader execution sysfs interfaces.
+[Public]
 
-- `amdgpu_gfx_set_run_cleaner_shader`: Describes how to run the cleaner
-  shader via the sysfs interface in clearing the Local Data Store
-(LDS) and General Purpose Registers (GPRs).
+Hi all,
 
-- `amdgpu_gfx_get_enforce_isolation`: Describes how to query the current
-  settings of the 'enforce_isolation' feature for each GPU partition.
+This week this patchset was tested on 4 systems, two dGPU and two APU based=
+, and tested across multiple display and connection types.
 
-- `amdgpu_gfx_set_enforce_isolation`: Describes how to enable or disable
-  process isolation for GPU partitions through the sysfs interface.
+APU
+        * Single Display eDP -> 1080p 60hz, 2560x1600 120hz, 1920x1200 165h=
+z
+        * Single Display DP -> 4k144hz, 4k240hz
+        * Multi display -> eDP + DP/HDMI/USB-C -> 1080p 60hz eDP + 4k 144hz=
+, 4k 240hz (Includes USB-C to DP/HDMI adapters)
+        * Thunderbolt -> LG Ultrafine 5k
+        * DSC -> Cable Matters 101075 (DP to 3x DP) with 3x 4k60hz displays=
+, HP Hook G2 with 2x 4k60hz displays
+        * USB 4 -> HP Hook G4, Lenovo Thunderbolt Dock, both with 2x 4k60hz=
+ DP and 1x 4k60hz HDMI displays
+        * SST PCON -> Club3D CAC-1085 + 1x 4k 144hz, at a max resolution su=
+pported by the dongle of 4k 120hz YUV420 12bpc.
+        * MST PCON -> 1x 4k 144hz, at a max resolution supported by the ada=
+pter of 4k 120hz YUV420 12bpc.
 
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 45 +++++++++++++++++++++++++
- 1 file changed, 45 insertions(+)
+DGPU
+        * Single Display DP -> 4k144hz, 4k240hz
+        * Multiple Display DP -> 4k240hz + 4k144hz
+        * MST (Startech MST14DP123DP [DP to 3x DP] and 2x 4k 60hz displays)
+        * DSC (with Cable Matters 101075 [DP to 3x DP] with 3x 4k60hz displ=
+ays)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-index e54f42e3797e..881a633bf0ab 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-@@ -1484,6 +1484,24 @@ static int amdgpu_gfx_run_cleaner_shader(struct amdgpu_device *adev, int xcp_id)
- 	return 0;
- }
- 
-+/**
-+ * amdgpu_gfx_set_run_cleaner_shader - Execute the AMDGPU GFX Cleaner Shader
-+ * @dev: The device structure
-+ * @attr: The device attribute structure
-+ * @buf: The buffer containing the input data
-+ * @count: The size of the input data
-+ *
-+ * This function allows manual execution of the cleaner shader, which is
-+ * used to reset the GPU state between different tasks. Writing '0' to the
-+ * 'run_cleaner_shader' sysfs file triggers the cleaner shader execution.
-+ * The value written corresponds to the partition index on multi-partition
-+ * devices. On single-partition devices, the value should be '0'.
-+ *
-+ * The cleaner shader clears the Local Data Store (LDS) and General Purpose
-+ * Registers (GPRs) to ensure data isolation between GPU workloads.
-+ *
-+ * Return: The number of bytes written to the sysfs file.
-+ */
- static ssize_t amdgpu_gfx_set_run_cleaner_shader(struct device *dev,
- 						 struct device_attribute *attr,
- 						 const char *buf,
-@@ -1532,6 +1550,19 @@ static ssize_t amdgpu_gfx_set_run_cleaner_shader(struct device *dev,
- 	return count;
- }
- 
-+/**
-+ * amdgpu_gfx_get_enforce_isolation - Query AMDGPU GFX Enforce Isolation Settings
-+ * @dev: The device structure
-+ * @attr: The device attribute structure
-+ * @buf: The buffer to store the output data
-+ *
-+ * This function provides the current settings of the 'enforce_isolation'
-+ * feature for each GPU partition. Reading from the 'enforce_isolation'
-+ * sysfs file returns the isolation settings for all partitions, where '0'
-+ * indicates disabled and '1' indicates enabled.
-+ *
-+ * Return: The number of bytes read from the sysfs file.
-+ */
- static ssize_t amdgpu_gfx_get_enforce_isolation(struct device *dev,
- 						struct device_attribute *attr,
- 						char *buf)
-@@ -1555,6 +1586,20 @@ static ssize_t amdgpu_gfx_get_enforce_isolation(struct device *dev,
- 	return size;
- }
- 
-+/**
-+ * amdgpu_gfx_set_enforce_isolation - Control AMDGPU GFX Enforce Isolation
-+ * @dev: The device structure
-+ * @attr: The device attribute structure
-+ * @buf: The buffer containing the input data
-+ * @count: The size of the input data
-+ *
-+ * This function allows control over the 'enforce_isolation' feature, which
-+ * serializes access to the graphics engine. Writing '1' or '0' to the
-+ * 'enforce_isolation' sysfs file enables or disables process isolation for
-+ * each partition. The input should specify the setting for all partitions.
-+ *
-+ * Return: The number of bytes written to the sysfs file.
-+ */
- static ssize_t amdgpu_gfx_set_enforce_isolation(struct device *dev,
- 						struct device_attribute *attr,
- 						const char *buf, size_t count)
--- 
-2.34.1
+The testing is a mix of automated and manual tests. Manual testing includes=
+ (but is not limited to)
+        * Changing display configurations and settings
+        * Video/Audio playback
+        * Benchmark testing
+        * Suspend/Resume testing
+        * Feature testing (Freesync, HDCP, etc.)
+
+Automated testing includes (but is not limited to)
+        * Script testing (scripts to automate some of the manual checks)
+        * IGT testing
+
+The testing is mainly tested on the following displays, but occasionally th=
+ere are tests with other displays
+        * Samsung G8 Neo 4k240hz
+        * Samsung QN55QN95B 4k 120hz
+        * Acer XV322QKKV 4k144hz
+        * HP U27 4k Wireless 4k60hz
+        * LG 27UD58B 4k60hz
+        * LG 32UN650WA 4k60hz
+        * LG Ultrafine 5k 5k60hz
+        * AU Optronics B140HAN01.1 1080p 60hz eDP
+        * AU Optronics B160UAN01.J 1920x1200 165hz eDP
+        * AU Optronics B160QAN02.L 2560x1600 120hz eDP
+
+The patchset consists of the amd-staging-drm-next branch (Head commit - 1dc=
+92f1a42645868062a22cd00f31bee77d9a8d9 -> drm/amdgpu: add "restore" missing =
+variable comment) with new patches added on top of it.
+
+Tested on Ubuntu 24.04.1, on Wayland and X11, using KDE Plasma and Gnome.
+
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+
+Thank you,
+
+Dan Wheeler
+Sr. Technologist  |  AMD
+SW Display
+---------------------------------------------------------------------------=
+---------------------------------------
+1 Commerce Valley Dr E, Thornhill, ON L3T 7X6
+Facebook |  Twitter |  amd.com
+
+
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Fangzhi =
+Zuo
+Sent: Thursday, November 28, 2024 9:26 AM
+To: amd-gfx@lists.freedesktop.org
+Cc: Wentland, Harry <Harry.Wentland@amd.com>; Li, Sun peng (Leo) <Sunpeng.L=
+i@amd.com>; Siqueira, Rodrigo <Rodrigo.Siqueira@amd.com>; Pillai, Aurabindo=
+ <Aurabindo.Pillai@amd.com>; Li, Roman <Roman.Li@amd.com>; Lin, Wayne <Wayn=
+e.Lin@amd.com>; Chung, ChiaHsuan (Tom) <ChiaHsuan.Chung@amd.com>; Zuo, Jerr=
+y <Jerry.Zuo@amd.com>; Mohamed, Zaeem <Zaeem.Mohamed@amd.com>; Chiu, Solomo=
+n <Solomon.Chiu@amd.com>; Wheeler, Daniel <Daniel.Wheeler@amd.com>; Zuo, Je=
+rry <Jerry.Zuo@amd.com>
+Subject: [PATCH 0/9] DC Patches Nov 26, 2024
+
+This DC patchset brings improvements in multiple areas. In summary, we have=
+:
+* Fix dcn351 clk table
+* Bug fix on IP2, reply, DP tunneling
+
+Cc: Daniel Wheeler <daniel.wheeler@amd.com>
+
+Alex Deucher (1):
+  drm/amdgpu: rework resume handling for display
+
+Aric Cyr (1):
+  drm/amd/display: 3.2.312
+
+Ausef Yousof (1):
+  drm/amd/display: Populate chroma prefetch parameters, DET buffer fix
+
+Charlene Liu (1):
+  drm/amd/display: correct dcn351 dpm clk table based on pmfw_drv_if
+
+Cruise (1):
+  drm/amd/display: Adjust DPCD read for DP tunneling
+
+Dennis Chan (1):
+  drm/amd/display: Revised for Replay Pseudo vblank control
+
+Nicholas Kazlauskas (1):
+  drm/amd/display: Don't allow IPS2 in D0 for RCG Dynamic
+
+Peterson (1):
+  drm/amd/display: Check that hw cursor is not required when falling
+    back to subvp sw cursor
+
+Samson Tam (1):
+  drm/amd/display: fix v tap calculation for non-adaptive scaling in SPL
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 42 ++++++++-
+ .../display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c  | 93 ++++++++++++++++++-  ..=
+./amd/display/dc/clk_mgr/dcn35/dcn35_smu.h  | 41 +++++---
+ drivers/gpu/drm/amd/display/dc/core/dc.c      |  2 +-
+ drivers/gpu/drm/amd/display/dc/dc.h           |  2 +-
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c  |  5 +-  drivers/gpu/drm/amd=
+/display/dc/dc_dmub_srv.h  |  1 +
+ drivers/gpu/drm/amd/display/dc/dc_types.h     |  4 +-
+ .../amd/display/dc/dml2/display_mode_core.c   |  5 +-
+ .../drm/amd/display/dc/dml2/dml2_wrapper.c    | 35 +++++--
+ .../dc/link/protocols/link_dp_capability.c    | 21 ++---
+ drivers/gpu/drm/amd/display/dc/spl/dc_spl.c   |  8 +-
+ .../amd/display/modules/power/power_helpers.c |  4 +-  .../amd/display/mod=
+ules/power/power_helpers.h |  2 +-
+ 14 files changed, 215 insertions(+), 50 deletions(-)
+
+--
+2.43.0
 
