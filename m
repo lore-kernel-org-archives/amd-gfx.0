@@ -4,118 +4,111 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C130CD78311
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Dec 2024 12:45:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A060D7832E
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Dec 2024 15:03:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C6D810E71E;
-	Mon,  2 Dec 2024 12:45:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4EFD510E283;
+	Mon,  2 Dec 2024 15:03:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="dBGdWJis";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="T+7XcBNR";
 	dkim-atps=neutral
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2045.outbound.protection.outlook.com [40.107.243.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 46EF510E71E
- for <amd-gfx@lists.freedesktop.org>; Mon,  2 Dec 2024 12:45:44 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OPr+n4G0j2jD7DuKRqeirnzrP0rd2CBpF1KgANhNgIZpJznQn9HaHYu9F7AtJ9JtIlqPwmceDZ4ZE6f0Nsjj5hvx8zaBNMH4mhWDHVKCTwYTOKJzYBWqTjTx2NtFzd5getm6MqkGAxhljbhFT7oAHqJghOXeCYX3wG9WBdCSzFlHpJCkdc2hham4/RT9/eLWUTt8QsSAohuiGGR75gFsZTf7JyYGOWM8N+SuBsEjlVCD0LAfAc7QpOR+Fqo4jNCYTatCnwUwkiHWsbzOTWqo3TjZGEIwU4SSSwjvR5jdsvVl0vfB2QvR3u27TC9bt9jZzsPvvDVIBbYa0z/mLq1IiA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CMamiFo0OkIzveM1lNXlKBv6Z0EyBhS28SclqdbofWs=;
- b=Tz2oodLzwLDgPgpVvlTK0J1t865IaEmi7csa5W5j7oqnzAmm62I+Zj0f4a11ScB+cmQLvMe5XCWt/gSzB35NPkobZy2TFK0pENzJE/Td/chXoMJxk+FwZrgAonCfBUWpo0AITwnJx3DLMk543D9twbwZt0Xi8dDShf2mE5eDcQYh/nLuNTx+ZKspUtTSPVhq1iXF0Bb1p0mKWoS48BvOspLKN/LKTtl6+xV9/RN4h0FMGxf4OaufKvtPfiulZzwIFc/UtrY3rESzxfABz5oOlkDBDGaMSmXmKupNf5EGxEWj54cmb4bOQVJ+SVgPkZ37Gryy8z5pg/ThKzVoIvLbEg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CMamiFo0OkIzveM1lNXlKBv6Z0EyBhS28SclqdbofWs=;
- b=dBGdWJisDVkaPA+Bgw31AAFNlEnTZY2DC7EHkKnvpHsOEVH7lmzdGFAeQJK8g/M+x5Q8AbLpSRifdYCN+gC4QbTUefatEuw9/JSohR0Sloso2KeG/7ADry7bkfRg0M596EJGXnE1FJ4VjRM7tq3PdlZthbAtf5vwgDH6mGEmW78=
-Received: from DM5PR08CA0037.namprd08.prod.outlook.com (2603:10b6:4:60::26) by
- LV8PR12MB9111.namprd12.prod.outlook.com (2603:10b6:408:189::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8207.16; Mon, 2 Dec
- 2024 12:45:37 +0000
-Received: from DS2PEPF0000343A.namprd02.prod.outlook.com
- (2603:10b6:4:60:cafe::d7) by DM5PR08CA0037.outlook.office365.com
- (2603:10b6:4:60::26) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8158.24 via Frontend Transport; Mon,
- 2 Dec 2024 12:45:36 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS2PEPF0000343A.mail.protection.outlook.com (10.167.18.37) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8230.7 via Frontend Transport; Mon, 2 Dec 2024 12:45:36 +0000
-Received: from amartin-dev-ubuntu.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Mon, 2 Dec 2024 06:45:35 -0600
-From: Andrew Martin <Andrew.Martin@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <felix.kuehling@amd.com>, <alexandru.tudor@amd.com>,
- <andrew.martin@amd.com>, Andrew Martin <Andrew.Martin@amd.com>
-Subject: [PATCH v2] drm/amdkfd: Dereference null return value
-Date: Mon, 2 Dec 2024 07:45:05 -0500
-Message-ID: <20241202124505.1760749-1-Andrew.Martin@amd.com>
-X-Mailer: git-send-email 2.43.0
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED5DA10E283;
+ Mon,  2 Dec 2024 15:03:48 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-434a742481aso35385005e9.3; 
+ Mon, 02 Dec 2024 07:03:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1733151827; x=1733756627; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=qujM4d7qCY1L5TaGGSMsXfZ1apvo+jAfsCE8VLdjQ4I=;
+ b=T+7XcBNRWuMrN5dmxYuTZPo/OWfy8Hfox5UmYP1yzzvJnVDT1xMSDw6TVwVmLsSXOv
+ p1W4Lm4I+uj3BxxhqG1YXFo88YrZEdBB+fKyfqPcCNFz0518W/l6WZp7cEK+8pZPEV6+
+ OFR5M+eouJl0etUCwXOo+S8yVR7tAOe+tOK/qz8L57Vyjb9aAjS88xk6UviT6v6a/OHY
+ QEv1iC+385KIuGOj0DxzTS1QrCwMUlRDjJnVlvKI80WnmupnbCqeht5NpEd3AcjcF+Zh
+ 80hcHKHdHCSgzD+RrWEtzrxiMK4eABg+Eqeyx/iRias/wq0YjmuANwAX8oief2WDM7zz
+ dY7w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1733151827; x=1733756627;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=qujM4d7qCY1L5TaGGSMsXfZ1apvo+jAfsCE8VLdjQ4I=;
+ b=HY3Lug/LQttgXvkFAe6zN5EiQCmR2qJXZNcqxXKI1je2qVzef6mjeoDhHLEEW6bZ3s
+ B8CFRVrL3bVYZ4vNidwkVE2Qi6vLC6TdjeUXO1U979jI4Rf/Hpfkt5zPXz5p/7mUIJmO
+ wqZQBQA7NBvR/93/4tF8f0/IDi/8BMzgW7u7S98yqcH0qJ4BO2qD4VeG3XSGB1DFBPv3
+ O/krlaAbu853h9yaoS1jXbjjVKs/geD0/XezhKYq2vDpSGQhlJaGyaL1o1os4gwaY7xv
+ Qjr16mPk7qOa2F0AKZc3/GvU5HzZ77XoNbFqEdhtjYwpZ8OGYk75uzy4SXQMk6DZtJdv
+ PH0g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUPARCcDdV87+x6+JcQ1OtGA8SmNTdnKi6mUF6ht7cU4CsNp+nhPtfRNtyBLhy14loqqmA4SFsYMH0=@lists.freedesktop.org,
+ AJvYcCUuCa5RBPO+l/cgTin+SafUgpetmjpeK5jD684ce0/v37LcfYiPswQh05hSbjp63fafhYJzWJt4h+EG@lists.freedesktop.org,
+ AJvYcCVeu9yH3AtP1yKZZv7ncRgVBNGTiRvwq6PvongqQtCJKHDQYI5CblYa0/nGpMdlDWvWg26Sp1vRCz7D@lists.freedesktop.org,
+ AJvYcCXOt1U7l9U1lDcClyJyV5Ud24wdq6JAJNJPZT92kvDDrMdGXgA8UQJx9PeBzWQsLEcDgUtmw6//@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwHjGNioabcM13DRD88pSasny1gwZ7k/hLLoi1kvKazYwxTTsXb
+ EF8HUxm8zohEZxEN2b1sGTHjHaRURD8QqYR4a5gaE9fUZcUtnXFr
+X-Gm-Gg: ASbGncvKO+1XIHXeEPyajkKRaBRWnRS2BHF8yoql5LikIDjY8QGCjRelnxz1wZkxD9c
+ 2YIY1394NsDWTRllN+SBgv3gGae/CvB7ucGx+Y9OlOH40y7S73u5Q6jScHZMAEGPrNSfxKDnhFK
+ FRlKe+imLuzTeDDOOpNmGVDb/gAlanRjLVZcX5wdcDLmwHXFLpbSPydpkRH5yxLIq6lBtWB2/AN
+ GcjJPmOafLq/worvQgIjazf457353WzzBfJ9Hwpy1Mf59TpQj6Eu+HB8OObMisSBKWIB4wdgkd0
+ fojfWwqh3yaImeaLRE0=
+X-Google-Smtp-Source: AGHT+IGDnqoQPM9S2ZXAYcJFrCBwMFmcYVdD5NrlXMVFXBAOrzgALnyLT6wqVMw+fFjssl311bGusQ==
+X-Received: by 2002:a5d:64cc:0:b0:385:f092:e16 with SMTP id
+ ffacd0b85a97d-385f0a153ccmr4698133f8f.55.1733151825042; 
+ Mon, 02 Dec 2024 07:03:45 -0800 (PST)
+Received: from ?IPV6:2001:861:3385:e20:6384:4cf:52c5:3194?
+ ([2001:861:3385:e20:6384:4cf:52c5:3194])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-385ec6a3d8fsm5080310f8f.101.2024.12.02.07.03.43
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 02 Dec 2024 07:03:44 -0800 (PST)
+Message-ID: <0eb908f2-2304-4a91-9c91-e7f291da9dcd@gmail.com>
+Date: Mon, 2 Dec 2024 16:03:42 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 09/10] drm/sti: hdmi: use eld_mutex to protect access to
+ connector->eld
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Xinhui Pan <Xinhui.Pan@amd.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Phong LE <ple@baylibre.com>, Inki Dae <inki.dae@samsung.com>,
+ Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Alim Akhtar
+ <alim.akhtar@samsung.com>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Rob Clark <robdclark@gmail.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Alain Volmat <alain.volmat@foss.st.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org
+References: <20241201-drm-connector-eld-mutex-v1-0-ba56a6545c03@linaro.org>
+ <20241201-drm-connector-eld-mutex-v1-9-ba56a6545c03@linaro.org>
+Content-Language: en-US, fr
+From: =?UTF-8?Q?Rapha=C3=ABl_Gallais-Pou?= <rgallaispou@gmail.com>
+In-Reply-To: <20241201-drm-connector-eld-mutex-v1-9-ba56a6545c03@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF0000343A:EE_|LV8PR12MB9111:EE_
-X-MS-Office365-Filtering-Correlation-Id: 200fd596-e19c-42c1-70ce-08dd12cf383b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|82310400026|1800799024|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?MZQc1doNnDH4ZQ/YAKuLzgoIB26cWPe5ABgbx7WB7WOzdk1TOtwndI2Av7AW?=
- =?us-ascii?Q?uXE5GOkJUNfTnf7aPPYWab+HdMKMxAWlN63b8XoKKXhQVmhWYCrrcjp5lwtu?=
- =?us-ascii?Q?iXOnISPBjO6SPtloMgCpE5la7njDZZ0II2NYY1mVPMuEGD5XRakQOvewqdhG?=
- =?us-ascii?Q?IhEiHAdMhVw2F0usUlQwhSiqvyzqgjtVzwsUS5/+2RKsPZIS+25qG24LzHpe?=
- =?us-ascii?Q?BZxTK82dvVjsSeWRozkVyYs+gdyc10mQvCi2pZKE15ba2jBV9tNfYYicn20I?=
- =?us-ascii?Q?/CGxnzsWF2sx+l2SnsJ+dv9ep/1pLjxP6cxv7UrKCfFiZT93ctFT18aZmgGQ?=
- =?us-ascii?Q?dSxZkRrmTZGHUfy5tvwk/zsiTgBVodI3PNqd2XIAUuZSGYIT/TS6BKmci65S?=
- =?us-ascii?Q?qIVKl6dNB9oewu5yjypZXitDaxj1+DDe3qOK8a/zS8V38Ue1e55rz9K6z1OT?=
- =?us-ascii?Q?MKFxqao7m/jCrHx08Ec7nOZmNW7VwSTMkagKyWF0dVv3H0WqoqqZKGHNG+lE?=
- =?us-ascii?Q?e6bQUxmem4h56S4SgiHexmnSO60NPPbg+uDsmEM7TLF8kG2BUW0uktGGvro5?=
- =?us-ascii?Q?gtPocZDsv724pbCK7obfjboFX9uTWNWj521aVCRQjUnytR/cUIvY9Z6hNrPB?=
- =?us-ascii?Q?+842O217WfgJWJ/o1H6vjBnTa9g7sVaFUCGPVNK7ReBjO+4DXxIieRE1EbQE?=
- =?us-ascii?Q?40zZdjIZF4PofZ0b+biQpioYy7oGFdkrv5ULlZbRy9IhTl3OdZpquoDm7QbB?=
- =?us-ascii?Q?X6OR7yoVyQkAxv6pZO2M0/KG3TZ48xGbza8XbtTX/VLQstjUt271YVMSxf+g?=
- =?us-ascii?Q?5qOmN9il0jYXWpr6HadlUWW6P0oHqPkAGOGlqe69bJYoZ6KCwZDBZCtzNfUg?=
- =?us-ascii?Q?XexSlZ8zWjuex4wQH0MCQZyrt1rV/Sogt2z5+7IfHP8SOgwPpBkQTaz5VstL?=
- =?us-ascii?Q?3wpejAoJs8hIuACHNUCydjQa8cIxbXg4MzTZGOO/imB3e73391VPKunRxd+o?=
- =?us-ascii?Q?iLQf25hSt1on0Kkq2tOGHrzpaHpWbWg4RJfSckw6zAwCVtvnCt/pr2FB2zK2?=
- =?us-ascii?Q?hUy9MPLvG3RRbChW/563ujuZYRwxhVETLYyjUrHJebX/+xVgzjSC0BQo41B2?=
- =?us-ascii?Q?9a+Req3TmOmHMwDlhKl+pvwtCcvcWGQZ23TKe8RICqFd3e9BOlYxmXUO6Wms?=
- =?us-ascii?Q?1jprz6EFFfNURw3QX08eqgor822GrWVhSjrCjabsM58NaGwYU53i9tW6UoGe?=
- =?us-ascii?Q?LCUuCLtBtQQt7Xk6MuihiKMtzdEMaLIQPZbTlCzzkW/r16Ufu76ns+lNK7Es?=
- =?us-ascii?Q?XFAFvKu/bBH6aslIbIbl7votq1RSDfk2VECqH942ltCk6OdZSOkFubFAujqK?=
- =?us-ascii?Q?M0tO/t6ti33UDHGE911d1Wk/mqqPgyUUPc/71OXm34G3xYPUdiSzWeK+tBpe?=
- =?us-ascii?Q?TY/TgFmgytrB3gWMud6/CGjLAnN9ZOSZ?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(82310400026)(1800799024)(376014); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Dec 2024 12:45:36.6334 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 200fd596-e19c-42c1-70ce-08dd12cf383b
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF0000343A.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9111
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,36 +123,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In the function pqm_uninit there is a call-assignment of "pdd =
-kfd_get_process_device_data" which could be null, and this value was
-later dereferenced without checking.
 
-Fixes: fb91065851cd ("drm/amdkfd: Refactor queue wptr_bo GART mapping")
-Signed-off-by: Andrew Martin <Andrew.Martin@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-index c76db22a1000..89aa578f6c68 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-@@ -212,11 +212,13 @@ static void pqm_clean_queue_resource(struct process_queue_manager *pqm,
- void pqm_uninit(struct process_queue_manager *pqm)
- {
- 	struct process_queue_node *pqn, *next;
--	struct kfd_process_device *pdd;
- 
- 	list_for_each_entry_safe(pqn, next, &pqm->queues, process_queue_list) {
- 		if (pqn->q) {
--			pdd = kfd_get_process_device_data(pqn->q->device, pqm->process);
-+			struct kfd_process_device *pdd = kfd_get_process_device_data(pqn->q->device,
-+										     pqm->process);
-+			if (WARN_ON(!pdd))
-+				return;
- 			kfd_queue_unref_bo_vas(pdd, &pqn->q->properties);
- 			kfd_queue_release_buffers(pdd, &pqn->q->properties);
- 			pqm_clean_queue_resource(pqm, pqn);
--- 
-2.43.0
+Le 01/12/2024 à 00:55, Dmitry Baryshkov a écrit :
+> Reading access to connector->eld can happen at the same time the
+> drm_edid_to_eld() updates the data. Take the newly added eld_mutex in
+> order to protect connector->eld from concurrent access.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
+Hi Dmitry,
+
+Acked-by: Raphael Gallais-Pou <rgallaispou@gmail.com>
+
+Thanks,
+Raphaël
+> ---
+>   drivers/gpu/drm/sti/sti_hdmi.c | 2 ++
+>   1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/sti/sti_hdmi.c b/drivers/gpu/drm/sti/sti_hdmi.c
+> index 847470f747c0efad61c2ebdc3fb3746a7a13a863..3c8f3532c79723e7b1a720c855c90e40584cc6ca 100644
+> --- a/drivers/gpu/drm/sti/sti_hdmi.c
+> +++ b/drivers/gpu/drm/sti/sti_hdmi.c
+> @@ -1225,7 +1225,9 @@ static int hdmi_audio_get_eld(struct device *dev, void *data, uint8_t *buf, size
+>   	struct drm_connector *connector = hdmi->drm_connector;
+>   
+>   	DRM_DEBUG_DRIVER("\n");
+> +	mutex_lock(&connector->eld_mutex);
+>   	memcpy(buf, connector->eld, min(sizeof(connector->eld), len));
+> +	mutex_unlock(&connector->eld_mutex);
+>   
+>   	return 0;
+>   }
+> 
 
