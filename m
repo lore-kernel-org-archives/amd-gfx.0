@@ -4,115 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12DF0D7361C
-	for <amd-gfx@archiver.kernel.org>; Sat, 30 Nov 2024 23:55:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 348A3D49798
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Dec 2024 03:31:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A178B10E5FF;
-	Sat, 30 Nov 2024 23:55:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C146010E210;
+	Mon,  2 Dec 2024 03:31:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="UMqCJubV";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="RyiDJ89s";
 	dkim-atps=neutral
-Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com
- [209.85.167.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9AB7810E5FE
- for <amd-gfx@lists.freedesktop.org>; Sat, 30 Nov 2024 23:55:56 +0000 (UTC)
-Received: by mail-lf1-f43.google.com with SMTP id
- 2adb3069b0e04-53de79c2be4so3508547e87.2
- for <amd-gfx@lists.freedesktop.org>; Sat, 30 Nov 2024 15:55:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1733010955; x=1733615755; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=IxPAXAkXtGSfHE+6MDrNppIG4p1UF1/hBXNkV/LR66A=;
- b=UMqCJubVZ2qCds0DqN8GOzRtWt7koNud8Buv/B/CCDiIH+5SXrMq+ZgIjp6lKSnYo7
- jGqkM6EF4sypEZqPM3A67fefDcfBNZkhRjwCrsmXBi+bXl81IGb4GsyQhaxQDXpXhtW0
- g9CFP+ZWtIosora26dWZDOJGsKVf4uB8Xzlk1rznlhQU2Oudl7hkdiM73lNEabDz68iV
- s5h7pON/MbNGbigsUW4F1yvRagyoJ3X3GIowcjU6cr0L8MLg3y29uG4dPwsePKZPO3HL
- i59DNDEgt2xS/vgIOY4hakxVrj+RFXy7r1UTO6Es0IWr/8MzvmW1E60VZo0ivlZRUZUV
- 27UA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733010955; x=1733615755;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=IxPAXAkXtGSfHE+6MDrNppIG4p1UF1/hBXNkV/LR66A=;
- b=DosMxeKT0zcdvV50jFrbavcf6Luw+up/Abvi7QG3tvpa/opb9X1ILRkLYMKNjj0ix5
- 6ELGFqIDvN4GJpAVB6s3DCWaiCnYMQvm7WJG3Ux3L3wbxwboZ5MRGAym19TSKk5x+RXI
- mbS3dsGMU4DQGI0wjWPUcOBo/bKnxJDYp9uSPYs8TyYKtAOClEF0hTnAp8xyBYNKTJox
- B54oiCdK0m0C1s/FuOhcr/f+3XBiP1qItJbHaLFo7od+DUex+G8dy+wXn8Za84cKUIqD
- nXXp37wgmnB0xhg9vDGGCLmyZVJaG6GvVPl7L5fgpehIE+TXbpD1PpiZDpLb4AP9/rgO
- fd8g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU4jNjSSYFHUcbcjBIa8t0qWqXFswDO3HzDmWhMNxI7zYW0cx0ucPamDLmaaD+emRD4cBzP1w9K@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxzEu+hYBlDBd3I7svMWt+OdklaQ1wAWhWVbcQNU45nJGewsMgQ
- MWuBsSIGq9vktRrN6srRnvOPsjYj37DaXb2G9GwORmunQMXVr60Nx2gB+CifxNg=
-X-Gm-Gg: ASbGncuJ7efVfGVKMtAz8kWVi+1cLTG1zcFIUIq0FbGHvMKaMn01ozUBEnK4bheLg7H
- G7S7gfGCMdqNYfMEFIXt8jwQbKJRbqlo8NGZaN6prvf/9hI5tuSq4+YMrr3JV3mZGkdoJljbX+P
- R8gmzybLbm+6dbafa15Qdl66TPzF+hiJIk8fryT+MjDIiOkUj92m9P6nGXl0Vfu02GKQDu+vQEz
- D9spVAND2CGdVCgSp6R2TyAKQ66uMBDm9znDdzFHVPp5xr99p7ZTaV9nA==
-X-Google-Smtp-Source: AGHT+IEiP7LHRrhx+1WZHRcdbmuf6q9u5MgJwOgShs4CTI9tBcamTyp7ARZo+XbTG2Yuz34sCo+pVA==
-X-Received: by 2002:a05:6512:2355:b0:53d:e41a:c182 with SMTP id
- 2adb3069b0e04-53df00dc9afmr8720884e87.31.1733010954752; 
- Sat, 30 Nov 2024 15:55:54 -0800 (PST)
-Received: from umbar.lan ([192.130.178.90]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-53df649647dsm900706e87.195.2024.11.30.15.55.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 30 Nov 2024 15:55:53 -0800 (PST)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Sun, 01 Dec 2024 01:55:27 +0200
-Subject: [PATCH 10/10] drm/vc4: hdmi: use eld_mutex to protect access to
- connector->eld
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2078.outbound.protection.outlook.com [40.107.100.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D327810E210
+ for <amd-gfx@lists.freedesktop.org>; Mon,  2 Dec 2024 03:31:11 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=m9bPXVpgDHaFtDdvaum4YcIsHIkOvP3WNW4SQoaXwL5lVM34ln7uj9d6yBnf3w9fe8zcLF51kvPyyL6nij0b3DqgPDD7Lcpkd9yXFeaiDbkuomSdbLFvEzxAH7np/3DNo2QwOTBGN/e6DH0bEyEx3ETMIz/JAoqSlgMynu8Joy9kbymJOWKFzEhtP6Iu5Uw3fMtQUY99/H3pYeg/Z+ZpYpmO56TGR8DfmGQ+TqAycrkPmYzqDZLw/wwzsc2z4faCtAtOnjc9AjnVRXA5RW13mwdLEwlg4jri2w8INAiM0q9WkCbr1oXF6Qj6rIPY2XrkVxlW3TonfciSOtTb+6VCeg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Jhf5S1mokHrPPH+LF8kkWsdwIivOS60OlDUPeHHwsD0=;
+ b=NlbRoB9nFZqFT57uEcxRZrWneS2oUTu1lT/4RBluKcU5RLz7Zx9y5nHjRO4YOGZYwzszHdnyG1wGq7dcwd50n+0QgPeDlKR3GGA75nzNaxnzZutapAfcZfUnnRc9Uaz2jA43dq+DV15VP93ymdBPBQwNLbxiY+xFQChQhKJv/yDBYzuqfqMeQRhFAevA/p9VmpkgAm0rDz/m72PmZPSz4lt/vamXFaaj9tdF9AcstXSIWIIuuVXV5NMdl1nSqtv+TBULNiKzF1VFT18jE2XC1nzalLNiEMxME4kSCE+wIvNjIBGG6ghILIzlFQ/c1VZFXP/k/5/EKeuXgmfkwOl7qA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Jhf5S1mokHrPPH+LF8kkWsdwIivOS60OlDUPeHHwsD0=;
+ b=RyiDJ89sZKTVOk5HE7knEjSHbx31swSRxDcjqiXs5yTWTEji0rS/YsSlHWP7gAQp/QkJ7isoEXm4IvmAeEcd7OvZcZkb87/KNbmEmkdaK/rQdjLkSjRvh4PmssJ6Y//DR9Ea2ZthXijAf513un2588U1aNTRxCR/4FmymHL6ptk=
+Received: from MN0PR05CA0028.namprd05.prod.outlook.com (2603:10b6:208:52c::12)
+ by CY8PR12MB8193.namprd12.prod.outlook.com (2603:10b6:930:71::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8207.18; Mon, 2 Dec
+ 2024 03:31:08 +0000
+Received: from BN1PEPF00005FFD.namprd05.prod.outlook.com
+ (2603:10b6:208:52c:cafe::6e) by MN0PR05CA0028.outlook.office365.com
+ (2603:10b6:208:52c::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8230.8 via Frontend Transport; Mon, 2
+ Dec 2024 03:31:08 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN1PEPF00005FFD.mail.protection.outlook.com (10.167.243.229) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8230.7 via Frontend Transport; Mon, 2 Dec 2024 03:30:39 +0000
+Received: from jenkins-joe.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Sun, 1 Dec
+ 2024 21:30:19 -0600
+From: Jinzhou Su <jinzhou.su@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <hawking.zhang@amd.com>, <stanley.yang@amd.com>, Jinzhou Su
+ <jinzhou.su@amd.com>
+Subject: [PATCH] drm/amdgpu: return error when eeprom checksum failed
+Date: Mon, 2 Dec 2024 11:30:01 +0800
+Message-ID: <20241202033001.5585-1-jinzhou.su@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20241201-drm-connector-eld-mutex-v1-10-ba56a6545c03@linaro.org>
-References: <20241201-drm-connector-eld-mutex-v1-0-ba56a6545c03@linaro.org>
-In-Reply-To: <20241201-drm-connector-eld-mutex-v1-0-ba56a6545c03@linaro.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Xinhui Pan <Xinhui.Pan@amd.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Phong LE <ple@baylibre.com>, Inki Dae <inki.dae@samsung.com>, 
- Seung-Woo Kim <sw0312.kim@samsung.com>, 
- Kyungmin Park <kyungmin.park@samsung.com>, 
- Krzysztof Kozlowski <krzk@kernel.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Alain Volmat <alain.volmat@foss.st.com>, 
- Raphael Gallais-Pou <rgallaispou@gmail.com>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- amd-gfx@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
- linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
- freedreno@lists.freedesktop.org
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1060;
- i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
- bh=lgKbIB6YZtC8eZYzJNVRgp7pi8XWpClyliAzF0BBx7c=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBnS6XuosVGIxLVzwgwJF8Kv6UpGUOBhiO+tdbfv
- UsZEOLUAHeJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ0ul7gAKCRCLPIo+Aiko
- 1V2qB/9kxbcsSq/MwiRkIP4VkcbtJ6bvhuQ7s59Dqdt1LcK7+6hylNonFqksssAfCJeGxk6Rz41
- PgtsXMXUIVf52olUBxeNBxH2OY+HNW4u5Q21SkNlRJh2M0Jmo7qcQnvJomIEF/JLLln7LE967u4
- LJzHO8MY0j+0/Z9PGmgWmBObyPWPr4XVV5y/Wl9HZN+30NHViJDwIBGE1n0gmK2YS1053O/fbr7
- UN4+r2D3Hx6EkhG2ZPFdgyrFznaQnOHP4P43x3PUt3CBr+Op2Wwa39k2bJPTyZy7IXk/JXc3yhM
- OB9LNQpibUSlojNLFeX59UmOP5dzC3uJw9JhdOJFJ+2D7v9S
-X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF00005FFD:EE_|CY8PR12MB8193:EE_
+X-MS-Office365-Filtering-Correlation-Id: bc057039-96d0-402a-d282-08dd1281c276
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|36860700013|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?QM5eHzKFDUpCnVVHJ53iHEaeIhJOf0lLqe0NMDJtKaoBahBYJfWxXfxl93ud?=
+ =?us-ascii?Q?/8CUwNkfhQzrZW+PJnLU4qB8jpaI322ATYn057qIgnwSpKgDn9ZGDS2xUp9e?=
+ =?us-ascii?Q?ujHyKNfzS1c7AW4RVQk4gf5Pr+cjkS/FBvi/tjMefuvheSNHwgadYYQX1Kcq?=
+ =?us-ascii?Q?gFP4Lvo0JJ1r7v6PoYCdw9L7oYPAu92rIxZgEHLM4R/KAOMWo8jG1z5hFaHx?=
+ =?us-ascii?Q?TEfyhXnYVFF2IKVKACq+MXUSjcT1+PuQjNgTBtNuxh20YF9onEZGcbBM1LC4?=
+ =?us-ascii?Q?LqwslDWGFIw9hfWCIqxDToa73HIEHupY/X8Q2dnv5PAy8F9/96hQf6nD6ejD?=
+ =?us-ascii?Q?HmZm8+bKlDurb4Shaui1WaDnksNwO+J+nP/g1SG0F/SLI9DHiaaJqhcLHxFn?=
+ =?us-ascii?Q?AVk3bEcjHISdKqfmcUvG2aSZXMkN5rO1ZLaaZYBaZJW+wPCF+N0EJUpseAyt?=
+ =?us-ascii?Q?dJyW2tmFoTo0t5djLcF/1WLQpwDctsAxqqwh+ec8W0JsB8D/C4YPtkzEaECn?=
+ =?us-ascii?Q?GfEW2ZdUdETeLwX1IgwTd/hOI71ut6m54t5qawM+q/dJ3p6j00jtrNoYgq1K?=
+ =?us-ascii?Q?OTyT04q3S0V4U3ET9PPeIlwKKblVAtpy8ei4kt3/eEMGqmxtdq7xX9CN8LDz?=
+ =?us-ascii?Q?91u8trGQdDnignLMT2DOp662upwDeJ6aUfg6yFy0zbiHEOgRXVk1B/4iNOtd?=
+ =?us-ascii?Q?w7V1LjKC4PaDeYPt8aiRIRyuWf3Fw+2CHRUf0J9zqKyun0Zn8mrmqLtNm7NE?=
+ =?us-ascii?Q?bFjhwiYSU9eO5mFY09Rrghl1VjselkLR7OB1O3TvTyZEDAGjYlM8bWfto/D/?=
+ =?us-ascii?Q?6nyV2sK69Y4+DkDMCzu9NIMVBV1H94FdiW33nGFWLydD18IvjOPgTRUX/5YG?=
+ =?us-ascii?Q?it7aWx6mEyBqSZj7cDh5P2mXpmeVspIx7abVtrKC8x8do2ZcpZx6a/xWgz/K?=
+ =?us-ascii?Q?AGMMMgiw9Sub1W7iVXT+Ki3GnpiOhIHvNHNiZxwS0A25vpTCcAdro5I8YT+P?=
+ =?us-ascii?Q?cyTchImiJ/uEfipduIPIcrYjv600y7V9D2mwF2R5Dv/UgqbWOgbdnsDI31SC?=
+ =?us-ascii?Q?ZsVb2eL2+udUHNtRB7FJJhqfvQKaHdSoQmy57v9+tceP/VA+dS/LbOjRvp8I?=
+ =?us-ascii?Q?HR26fOZ5ks6BnahxOQW3xYitRdGFBYdIioZMRgwCs9mgAv3V0bSvCJbQcysp?=
+ =?us-ascii?Q?V1TEM++VaVfmthh/tiXqlq6MZgl5JJMoGkbpFJdoToHjJa+7R9oLmS27QW+H?=
+ =?us-ascii?Q?pHZLkvIiHeLL9b8qGM/HoZOJbkvV8B5pLH61/FP/qU2bfiuF//KmUxhAo8t2?=
+ =?us-ascii?Q?vdNq1kSt3IpkleO4zrH5ORVTifgmW3jxwilsaf7PUYrxsgk03GPtNML4yexa?=
+ =?us-ascii?Q?4rxObcmqrbNDvYWjSFpss/EQmdF8lpniP7e3sVDkWQ+eSXio6Iwejf+SfW+f?=
+ =?us-ascii?Q?hTUejBaAkEl6UoGfBbmhUr+C82p+z1qK?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(36860700013)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Dec 2024 03:30:39.7874 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bc057039-96d0-402a-d282-08dd1281c276
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00005FFD.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8193
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,32 +130,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reading access to connector->eld can happen at the same time the
-drm_edid_to_eld() updates the data. Take the newly added eld_mutex in
-order to protect connector->eld from concurrent access.
+Return eeprom table checksum error result, otherwise
+it might be overwritten by next call.
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Signed-off-by: Jinzhou Su <jinzhou.su@amd.com>
 ---
- drivers/gpu/drm/vc4/vc4_hdmi.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
-index b9fc4d981cf4d682bedd978795cf7284d2650e74..7295834e75fb1ab0cd241ed274e675567e66870b 100644
---- a/drivers/gpu/drm/vc4/vc4_hdmi.c
-+++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
-@@ -2221,9 +2221,9 @@ static int vc4_hdmi_audio_get_eld(struct device *dev, void *data,
- 	struct vc4_hdmi *vc4_hdmi = dev_get_drvdata(dev);
- 	struct drm_connector *connector = &vc4_hdmi->connector;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+index f4a9e15389ae..19fe2a4cba46 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+@@ -1412,9 +1412,11 @@ int amdgpu_ras_eeprom_init(struct amdgpu_ras_eeprom_control *control)
+ 		}
  
--	mutex_lock(&vc4_hdmi->mutex);
-+	mutex_lock(&connector->eld_mutex);
- 	memcpy(buf, connector->eld, min(sizeof(connector->eld), len));
--	mutex_unlock(&vc4_hdmi->mutex);
-+	mutex_unlock(&connector->eld_mutex);
- 
- 	return 0;
- }
-
+ 		res = __verify_ras_table_checksum(control);
+-		if (res)
++		if (res) {
+ 			DRM_ERROR("RAS Table incorrect checksum or error:%d\n",
+ 				  res);
++			return -EINVAL;
++		}
+ 		if (ras->bad_page_cnt_threshold > control->ras_num_recs) {
+ 			/* This means that, the threshold was increased since
+ 			 * the last time the system was booted, and now,
 -- 
-2.39.5
+2.43.0
 
