@@ -4,64 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3ECFD78306
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Dec 2024 11:03:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D9CFD7830F
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Dec 2024 12:00:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D0DC10E6CA;
-	Mon,  2 Dec 2024 11:03:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F0C810E6F2;
+	Mon,  2 Dec 2024 12:00:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="bly6xU5h";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YNJkDSvb";
 	dkim-atps=neutral
-Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com
- [209.85.167.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A3C110E6D0
- for <amd-gfx@lists.freedesktop.org>; Mon,  2 Dec 2024 11:03:14 +0000 (UTC)
-Received: by mail-lf1-f49.google.com with SMTP id
- 2adb3069b0e04-53de6b7da14so4081689e87.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 02 Dec 2024 03:03:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1733137392; x=1733742192; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=6X4f5B7p/4ISxO7icMRqa8h5IT36sTqoFNtM1b1oYjE=;
- b=bly6xU5hN3JrB5LSazECeKpAtIqVdVpb7mdZ2D115fr3uffGfNqr8mmPlJ09jGk3yl
- 1r2jYyBbO1nBTuKpINfcuvCDx0Hs1mrBocCElQvhG3Tflu+iIj8QswnuhIL7mmQo7HdR
- VedbycDpCPvO1WrubCu8TFsLJY3Eo6dQ2H3MjcHKOiM0sWcikXqdR6h2DS6aIMv5s2By
- wyNypOHkLO3i58sZ5geck2efru3X7NU8tShqxDdB9cF+bBS4/IER6yy+UbBn5j0+9nWA
- E+YZ4MpTCvHgWXNiM5RTGEl/qkxRdrOCLY+BEq/DDkv2eWK+9tDe2NlUdPK8beocEx8w
- YOKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733137392; x=1733742192;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=6X4f5B7p/4ISxO7icMRqa8h5IT36sTqoFNtM1b1oYjE=;
- b=Ju21qNpn5fLScKUmxf3Xra34t8tyhO8WgbcgESiGjigJ+/ubsd+rF8jrdgmncknrIm
- L56d7COuoa4J7lRqE+5C4xCoIvU2Gt7WZur5VNdYbK5DvcMoOG0UTNKXsmgn1clDl9Ky
- nd0sdgkmJ1WEDV3TH4uaAs79tk+sbVr/6h5XSU0nLzlNIWBpGnkNdR4pY/pZGYbt+Y/t
- L23C8FGvSERU3tr9/ZzHj6Uiwww68xPVYR2TmgnHP0aQeX13E81xSVl2CFBlYdalLPF1
- OHSy3653tdi0IYu/OlD5oOXWDSWDk30NTpQaQoGk/QQ5DuPGbf7aB3gjRWk3mtAu69dU
- 5x5g==
-X-Gm-Message-State: AOJu0YzducV1rGYqLFojTx4+e0+uYHDRx5brDjhVHPJ94d8PXtQcFKYg
- L1482s2LaG45+jO4njB6rlYtGIOBiUNTPoPpq/5OFgIYVkmfzLsTPoyZX4eeZLA=
-X-Gm-Gg: ASbGncvlE85jeuQDk3nLuolk1joltNlI90nzdNjlV85AUjTNXwHyWAuOB9XSxRNmtqj
- /ZdeT0GdBmeEwuqM43XwYWicITQd8WYbXoiY5K5N0TUwRFB3Vbf0rzney1+lxAIC+eWik1hOJcT
- fs51ieYxreR0mIfaScJswTo40DWu1TvtG4kf0XZv3w7gtiWqDd9Xrn7MHZch4St4s6C5dEKN6io
- MrgvVxRLjoYrz6rEKY1ROSkYy5Ht8rL4R+cXLZD6eVXwhdrWgRCv3+SvABRlI1KXdu7g4U6eVA7
- PXDIxhO5+ScCD8ByqTDFYVxuhRR33g==
-X-Google-Smtp-Source: AGHT+IFGDFefBhtw1PCqTOI5KhQIlj3rWjRnFP/b36RPBBTJEaQRx6orQjZk5ZBCQurK/QAedMSg2Q==
-X-Received: by 2002:a05:6512:2385:b0:53d:ed25:fb75 with SMTP id
- 2adb3069b0e04-53df00d3e65mr7699888e87.15.1733137392309; 
- Mon, 02 Dec 2024 03:03:12 -0800 (PST)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-53df646efd9sm1443877e87.143.2024.12.02.03.03.09
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 02 Dec 2024 03:03:10 -0800 (PST)
-Date: Mon, 2 Dec 2024 13:03:07 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Maxime Ripard <mripard@kernel.org>
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 44EC510E6F2;
+ Mon,  2 Dec 2024 12:00:27 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 7E8635C6468;
+ Mon,  2 Dec 2024 11:59:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89875C4CED2;
+ Mon,  2 Dec 2024 12:00:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1733140826;
+ bh=uq6P50nPVqYzYznK6CDOgelQtYASy802lUz2VNa3X4k=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=YNJkDSvbo8lkY9GLqT/hIrlkLQ08AZHdWUxs5r6bl3m2EBQ5pBgHM/mjPWR+I6JMf
+ WHkFLn1IDnuQbsHQe0nadbr8vKz3xRW21XdUSdb4xT+i2Zor5fgGmzAoSEMfYcJPEX
+ fwGe0wsbkhNxUqOwQeGiP8NfPPrneSL6Q9Sw24mlIlLforIDucg4Oz6evGeFxOliV0
+ MWA8nqkra3Zn8VhWEpF06jAI0MaT8iKhzitPgCHIdv1qO0FwMpYUOE7uBvzD2uekk0
+ +LA/RyRMTlyePXs6iJYth+3uw/OLHT4f3rvhAG9K2jgL+C9JqGuyzaknOpMmRTdq0t
+ 0COIRkOoz/T+w==
+Date: Mon, 2 Dec 2024 13:00:23 +0100
+From: Maxime Ripard <mripard@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
  freedreno@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  intel-xe@lists.freedesktop.org, 
@@ -95,13 +66,15 @@ Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  Tvrtko Ursulin <tursulin@ursulin.net>, Xinhui Pan <Xinhui.Pan@amd.com>
 Subject: Re: [PATCH 00/10] drm/connector: add eld_mutex to protect
  connector->eld
-Message-ID: <ohbtatnn33jj6y3q4milf4txi4n7yirnny2eefdjddlkn2dnhp@eqjedetct4q3>
+Message-ID: <20241202-hummingbird-of-hypothetical-aptitude-646def@houat>
 References: <20241201-drm-connector-eld-mutex-v1-0-ba56a6545c03@linaro.org>
  <77545786331df8bfaf5fdcb309437358@kernel.org>
+ <ohbtatnn33jj6y3q4milf4txi4n7yirnny2eefdjddlkn2dnhp@eqjedetct4q3>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="rf5ewnb7ayc4e2uu"
 Content-Disposition: inline
-In-Reply-To: <77545786331df8bfaf5fdcb309437358@kernel.org>
+In-Reply-To: <ohbtatnn33jj6y3q4milf4txi4n7yirnny2eefdjddlkn2dnhp@eqjedetct4q3>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,24 +89,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Dec 02, 2024 at 10:19:41AM +0000, Maxime Ripard wrote:
-> On Sun, 1 Dec 2024 01:55:17 +0200, Dmitry Baryshkov wrote:
-> > The connector->eld is accessed by the .get_eld() callback. This access
-> > can collide with the drm_edid_to_eld() updating the data at the same
-> > time. Add drm_connector.eld_mutex to protect the data from concurrenct
-> > access.
-> > 
-> > 
-> > [ ... ]
-> 
-> Reviewed-by: Maxime Ripard <mripard@kernel.org>
 
-Thanks!
+--rf5ewnb7ayc4e2uu
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 00/10] drm/connector: add eld_mutex to protect
+ connector->eld
+MIME-Version: 1.0
 
-I'm going to post v2 to fix Jani's comment, but what should be the merge
-strategy? Merge patches 1-3, 5, 9-10 through drm-misc and the rest (AMD,
-i915, MSM, radeon) through the driver trees?
+On Mon, Dec 02, 2024 at 01:03:07PM +0200, Dmitry Baryshkov wrote:
+> On Mon, Dec 02, 2024 at 10:19:41AM +0000, Maxime Ripard wrote:
+> > On Sun, 1 Dec 2024 01:55:17 +0200, Dmitry Baryshkov wrote:
+> > > The connector->eld is accessed by the .get_eld() callback. This access
+> > > can collide with the drm_edid_to_eld() updating the data at the same
+> > > time. Add drm_connector.eld_mutex to protect the data from concurrenct
+> > > access.
+> > >=20
+> > >=20
+> > > [ ... ]
+> >=20
+> > Reviewed-by: Maxime Ripard <mripard@kernel.org>
+>=20
+> Thanks!
+>=20
+> I'm going to post v2 to fix Jani's comment, but what should be the merge
+> strategy? Merge patches 1-3, 5, 9-10 through drm-misc and the rest (AMD,
+> i915, MSM, radeon) through the driver trees?
 
--- 
-With best wishes
-Dmitry
+The easiest is probably to merge everything through drm-misc if everyone ag=
+rees.
+
+Maxime
+
+--rf5ewnb7ayc4e2uu
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCZ02hVgAKCRAnX84Zoj2+
+did2AYCKqjIX2aHftKtybJaUPI3aEKi2s1lRBLYyjb1Uwicsybws1tIK08t+OLLX
+OfIShgYBfiJJHZ+4Gj/u8uuAs91T4EvzTss9Zo2aF+YDFdrV47edIsjbVE2McJQO
+YLEiS8Wy0Q==
+=Idbn
+-----END PGP SIGNATURE-----
+
+--rf5ewnb7ayc4e2uu--
