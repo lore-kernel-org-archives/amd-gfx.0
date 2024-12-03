@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64C13E74ADB
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Dec 2024 21:41:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63E27E74ADF
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Dec 2024 21:41:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0B0F10EB65;
-	Tue,  3 Dec 2024 21:41:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 16CC810EB6E;
+	Tue,  3 Dec 2024 21:41:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="gZYkOiAw";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="wgiDc/ai";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2055.outbound.protection.outlook.com [40.107.220.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D462A10EB63
- for <amd-gfx@lists.freedesktop.org>; Tue,  3 Dec 2024 21:41:46 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2053.outbound.protection.outlook.com [40.107.237.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2BF1610EB6C
+ for <amd-gfx@lists.freedesktop.org>; Tue,  3 Dec 2024 21:41:49 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rv8q1WO0qi0XVa4rMRz8v6hug79w4/7ffu/l4CmiXAbHDqv2Z48CTEOGIC2crgb1GfNK/M0aagv4YLb1KIYxaipwXcSz5Ic7mMubxgUMa9oE5FzDHHNLCCDhPtgQZjj7SPukliuMoyoLGJgf+MfFtUr9Z9ZCRQTWHuGZHrrPGSXBvV5oZIlIesX/xEqp+P4yMFMBaY1dkMtKv4zUWTF1lbDhacIv9II1YcNCYzge8EMqE+2QXcaHz47hQMRbaPZQVAc5U03BTPiPLDNWwGqLjrQVD9F2milOieCqYjlDjvxFO3jfcaPMeDMlZsU8cnCIxKOOxlS2VQv/G2DgzG/k5w==
+ b=LOS+WweszdEL+BXvhJYOkV+ZnaG/vC+2+XkRDrA2mO0BxGSkid31UbhpMV4sa1d3a0cudml8wAK4j6OUtYFUKW0EA8d69WDhyA2oXXSRjKbHfbDgO0bQHdKwIGUgs4Uagqbtg1m+AxykoS2eTxnWsWNdqD2SSAxiWQpwa6RrDZ5UvGIc5LHvwtB79WnGNE+6pGXoqgp5EoSaiyExLNM5zM61s/U35LB9ZzOMluN1oFP9CkXztP5O4tBX4SVm8HlIQI/2T+5zI5rPQz3fwQoo663cICB08mJlKtmlLRdj3FOsljgxNjdSxgzdJupSkPWZMQ5/tKfauDVgDuU8QDGJeA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+xKhUAKINLM5n7Hi2ArewiFmfQQY4+27hy8kXidaUQs=;
- b=G7noslsPgcY59v85HhSPQPZs5RwSVxMmXj/epmj/5Lle8DDq2vMOJq2PJf6/dXhJlXWFtBCDQCxFeY1i3pPH2car0InLx48smhXRlg/Hzhwfq9jlw26INQnzY7D4S1iOPVVGS2gemENyW5WfAfS6so2lCGQoxl5f9UvYPNl2gDRDVOEbRcnVGDacDIofOE1jgyKDBUl4f2PzbX+xzyoh1ZbR+Rz02gTwtNY/9R4Xntji/+MNzVnXIDT0cIWXlZorwwTIDEDi0OfNox9VeIMm1UPLNDsKpmImBmdAy+XI5XkOtcvbLKg89lbNqzA39XCWfBOyE0o9wx9Lp32TXcm6bw==
+ bh=0UaWvJOIIwuT5Gzz058hpTfoB/5zxPgFFk6RSsl2j9s=;
+ b=o25Bgqfx2zJMfIQKXAJz6i7G0WoPafP+W7RlGVtDkPjKw06eqrP0x6f3qnJbBneYqTJu8rZ8YUooyDIb9/FIzf0t+F3zvQu+IRTKtxpIHt/a1z4F3fPzOTlhtMmA3nywD96mtjIjN4C7GmWIcTeI/quVmL9VXvdCOmk/qMy1GZxwjfj6ohopKvrbfSZDLoF8RTd3AyLrPp7k4Yp9rX7CehamKtlioBpPGm9rzS4tG7BKxQJxHkMxgel7jeJjIQtS/WIWHtP6N7srzk7Xr0FGqWt6MOBYiQwTiCtZ5vFa9RvILNZkU8EFPGj47c/nwf0w85sed2Dn4Iw3urLaENoiMQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+xKhUAKINLM5n7Hi2ArewiFmfQQY4+27hy8kXidaUQs=;
- b=gZYkOiAwL/kIow+4XZVLSaIu7jxZGnT1TqLvgbC7u/Zq0KQjDpR53896NdBysC2L3ssgP8plvtEsHvGJ4BKYYghckfmHjuLdGP/C/3aKkjIq54G7miBnzUg8sQh5I4A7G9w6MYq++Bx5YIW+Qi7DE7V3Sz2lliVYiCHtlsajCzM=
-Received: from BN9PR03CA0348.namprd03.prod.outlook.com (2603:10b6:408:f6::23)
- by SA1PR12MB8698.namprd12.prod.outlook.com (2603:10b6:806:38b::10)
+ bh=0UaWvJOIIwuT5Gzz058hpTfoB/5zxPgFFk6RSsl2j9s=;
+ b=wgiDc/aikzAC5avHB+ExyFg75dA522Zd+kl7YVWA9+CklnNYh7V4zkrXXEZ6HzEiTCD2vibTTQDqpj+aePEpgoQgs1nG+iMoQgWSGuIXYJPTJB/rCCh4D0sxqxg3x9Nja7SJe5OhAiZxbRNPxOZ6DOrDLUNnUXIHAiqkcvGCRUA=
+Received: from BN9PR03CA0345.namprd03.prod.outlook.com (2603:10b6:408:f6::20)
+ by SJ2PR12MB9088.namprd12.prod.outlook.com (2603:10b6:a03:565::15)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8207.18; Tue, 3 Dec
- 2024 21:41:41 +0000
+ 2024 21:41:43 +0000
 Received: from BN3PEPF0000B075.namprd04.prod.outlook.com
- (2603:10b6:408:f6:cafe::26) by BN9PR03CA0348.outlook.office365.com
- (2603:10b6:408:f6::23) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8207.18 via Frontend Transport; Tue,
- 3 Dec 2024 21:41:41 +0000
+ (2603:10b6:408:f6:cafe::bf) by BN9PR03CA0345.outlook.office365.com
+ (2603:10b6:408:f6::20) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8207.17 via Frontend Transport; Tue,
+ 3 Dec 2024 21:41:42 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,14 +50,14 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BN3PEPF0000B075.mail.protection.outlook.com (10.167.243.120) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8230.7 via Frontend Transport; Tue, 3 Dec 2024 21:41:41 +0000
+ 15.20.8230.7 via Frontend Transport; Tue, 3 Dec 2024 21:41:42 +0000
 Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 3 Dec
- 2024 15:41:40 -0600
+ 2024 15:41:41 -0600
 Received: from aaurabin-suse.king-squeaker.ts.net (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39
- via Frontend Transport; Tue, 3 Dec 2024 15:41:34 -0600
+ via Frontend Transport; Tue, 3 Dec 2024 15:41:41 -0600
 From: Aurabindo Pillai <aurabindo.pillai@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -65,12 +65,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>, Wayne Lin
  <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, Fangzhi Zuo
  <jerry.zuo@amd.com>, Zaeem Mohamed <zaeem.mohamed@amd.com>, Solomon Chiu
- <solomon.chiu@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>, Wayne Lin
- <Wayne.Lin@amd.com>, HaoPing Liu <haoping.liu@amd.com>
-Subject: [PATCH 06/19] drm/amd/display: Adjust secure_display_context data
- structure
-Date: Tue, 3 Dec 2024 16:39:44 -0500
-Message-ID: <20241203214120.1161810-7-aurabindo.pillai@amd.com>
+ <solomon.chiu@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>, Samson Tam
+ <Samson.Tam@amd.com>, Navid Assadian <navid.assadian@amd.com>
+Subject: [PATCH 08/19] drm/amd/display: clean up SPL code
+Date: Tue, 3 Dec 2024 16:39:46 -0500
+Message-ID: <20241203214120.1161810-9-aurabindo.pillai@amd.com>
 X-Mailer: git-send-email 2.47.1
 In-Reply-To: <20241203214120.1161810-1-aurabindo.pillai@amd.com>
 References: <20241203214120.1161810-1-aurabindo.pillai@amd.com>
@@ -81,51 +80,51 @@ Received-SPF: None (SATLEXMB04.amd.com: aurabindo.pillai@amd.com does not
  designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B075:EE_|SA1PR12MB8698:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6833317a-328c-4bd2-811c-08dd13e34617
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B075:EE_|SJ2PR12MB9088:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6ea26c58-3b10-49b5-4c9b-08dd13e34727
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|1800799024|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?bpkT5Stu2+a+XACoIslkT234dC9yIcCN6aWYFR5v1qKUAbyE+tJ2NJtYIxhL?=
- =?us-ascii?Q?yO0G1gFzZZanUJPtJA/TrBv1GoSxbQI8SOatFFgnhyX9fL9Z+FaPb58LIR/J?=
- =?us-ascii?Q?eEIRHRYpXX35awjdy2QXWvxliEX5v0q1D+AYDMLU2y7rvEBP6zY6K9soTsx/?=
- =?us-ascii?Q?pBYJcF+oPhUrzLmpIL5beDeDrEVCkVCt1yqH3ROkaaOFG4nO07GwIfWSTfQo?=
- =?us-ascii?Q?Ng0jZLQY4wxcsYZeK6i0+A8EIxZIguwab1mB1OX3Jearu4PBuEVQJ3shkyqR?=
- =?us-ascii?Q?AuhiJWfXy0hXAj4QCR60wR6QDRZyxJef/7o6aC3dqTp7y6JZ3Zsgy72Fiouo?=
- =?us-ascii?Q?CA+d8qSKuYAUP1eZcFLrA2UFf1DdMmtdIMNaePOAXKJhFwRhElIHzUvtsb34?=
- =?us-ascii?Q?J42h+KBwPt357t8kEGA8qASdWKGQUghxx1StJbN/J8+7CHtNlzag+DCg6z/3?=
- =?us-ascii?Q?Xs2975rXC2LXdYMLPixrtjN7/w/vk1hIU3DItZLhnhrO52RwU5Gb+CmExgHf?=
- =?us-ascii?Q?pXjFOu8VUAA+oUqjV2trXbiQiHjRsgKKnhwM8aIRv0Netp7v473E/nay+NT1?=
- =?us-ascii?Q?BiWJn5RkZSYHS08/riu67AVvv51Zs4nZ8YKfV5sL13/3JubMC6KZs+mFmqXZ?=
- =?us-ascii?Q?NxXbl2T+F0xCdQ4ikfgvSmZaZurnSpToqMJtQzia9PNQdVWZB1Zsrko5B89/?=
- =?us-ascii?Q?NCJgkb/EJJe1UNF0/zZCGNJXjnLOZ8kJtEM9JxMYgqOZii+prL66/ngFmy16?=
- =?us-ascii?Q?0Q+q7G07ZiRdmHGQt7xYMkIFNMZ3QaI1IDcOJglGFou0WybWhK5z7PJTDX3D?=
- =?us-ascii?Q?Nwa7h9kDMw5HtttYhJPkoq8BWOiKqao0hNpYumdQHHB48esvZCXIRK744R6m?=
- =?us-ascii?Q?Gp4dui/0rptE7Run3jEz3cBqzYkO+s+IVIh+dWuMlx6cqhWPJ084H5XaA1Zs?=
- =?us-ascii?Q?LZFxONDbWgZ7c1M/qu3+dHdTuMbBoKLtCbZ1IvFwhKxX1Sq5BAzQsaGEUvUC?=
- =?us-ascii?Q?u3jR9nMwvHsRGTVfD9h0SrLiBCfq0jpkwTTnuA11UVhmJXZvCPZj2ojlt/ll?=
- =?us-ascii?Q?gR96YZxKGKlHb6xiv17QApsAKdaB+klIaAo5rxP7GfcjVj54tWW5ykdUt7VK?=
- =?us-ascii?Q?XRo1trMXyhhbbhDSxXIWJcjVFx1FjYGbnEUYffNMkevRmXDbNHFTZarnssMG?=
- =?us-ascii?Q?K0B7KFniH5EFIGEaZYFsrtNnHDNlceyePtxl2ufqWy6EyxJO51lUqsVTbta8?=
- =?us-ascii?Q?i8XJh6wYINKhVfCNHo8i4NtE0hVgOzoRN5+JXvjOMUbRrT4p0jewMx03K4u5?=
- =?us-ascii?Q?BJUVM+zpasfEwIVew0qOmhRQx/UuHQsGMjfjyJMLTBpRDitUkg6k5cxkW3YZ?=
- =?us-ascii?Q?CL+cKci5HAgaeY7N63oT2t38FQocbE1wWHZI75PJQ6C5UP4olkpVujnmrHR8?=
- =?us-ascii?Q?USiOUOV5Xy5kJN9+0KvKyWkBgnMmXiAI?=
+ ARA:13230040|82310400026|1800799024|36860700013|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?Ubu/pvY2C1BnKgpp6JZNBoO+ugNVFfcYUlpAGwb8Xe/peS1MFm46pB0pXtK0?=
+ =?us-ascii?Q?AoEjCsKl5DaY9Fwj77mByq5uiB1jXxhUWOQIDIjc/nTnhS2NT+DwnOMR1PE/?=
+ =?us-ascii?Q?593EBoOEvGREnhXve9rYanwbZloB3AbFXNnuCl3WzRacQH4KGZ98kM2sgQw4?=
+ =?us-ascii?Q?3IWqq//u16Gznug64QkT/+tIe0kD/u4x9rANG7OxicGDXkvg9RWF2Cm1+CbG?=
+ =?us-ascii?Q?VQi8RanPkBxhXh+yjo0YP3s0HLIch9j5N6UMzWJWEB5CClszBCKfx8aOCPUv?=
+ =?us-ascii?Q?T6dvG/8YeKis1UIeYqreWyhPn5iUvdRNQrjJsNAgkEN0pAYcjqo1JYsOHwmL?=
+ =?us-ascii?Q?pAvavInR7xcAxGFNNmAHulmSGy9h5QU+FxRYncH4ltw+MYfT7KXBCdUj+KB1?=
+ =?us-ascii?Q?X2RY4Wo4ZWEwMQogiNC0uMOynxqxBojI05K3/dbsrXOpJvCLEQv2byyFivY0?=
+ =?us-ascii?Q?TsNNGVxTsMdATv/fUrQPdXra8bTHq3hexK7WqfDURWAhAhFA0RPowXVF7WB+?=
+ =?us-ascii?Q?f6vdcYlZwbZc9KjB4MQCsBDYMV2am9eZ7GI0TOt3J78exleKYO/+30tC3lSl?=
+ =?us-ascii?Q?lUuGYap93X12ds1MHUqob7bha8V3VLmKUuk+pfOjjLs7Iuc2j9uBI4Khsxk3?=
+ =?us-ascii?Q?XKr/EvkFIUgTVPSF6ZTeD4/14hplyz58YSd3UZmKJnKb48dZLehjOHnT/22f?=
+ =?us-ascii?Q?ayKv52LaO7FuYKYzQ0Q7QYKOOAcG39RIdXeElBx3ENPf+gWc6UjYycJQ82QY?=
+ =?us-ascii?Q?2muqIp6iXGodZj8U9S9foDQ+4QunKxTWbIEqVtDgLss8IW7gmF1E4TKqZUNa?=
+ =?us-ascii?Q?EaltfDqS0egMOo2nmqp/xkh84miAGgqP1csJt9UZF67yHjN2ezNPYZ7iflUR?=
+ =?us-ascii?Q?RFj6xnp8nlGhdp3ipBtvSX8b0LZA3Dpnh8Fcj3kczMT0dcoLTmzhjVyoHiWL?=
+ =?us-ascii?Q?aoN8EQNAJNj21HszOZp75CdhlYsTwKA/kOwHsO/SxUF4wNx8RNMKRTK/Apfm?=
+ =?us-ascii?Q?tu/QZ/xTYvb+WmUR+HwQ3xWXh4+/K9NoAGIpjd/3BXUwY7p050XyErYQtKwY?=
+ =?us-ascii?Q?a4M+RFYuw/C71EbEyODGDow+VUzelR2kpPk46BwiRVuoaJ7wpwrWVByQgj3F?=
+ =?us-ascii?Q?t8DptCIYTS7xJfXyoOd6SAEiQ6adnrZC+Su9OwQRAvl6la/Kc3UU3OkcgvHj?=
+ =?us-ascii?Q?2BIXV8Ie2W5FZxJ6uEtZWFEVrAD+2x9g2ck11xmIeKdE6vKr+SwLrR9LW/73?=
+ =?us-ascii?Q?rXxTKE9BoENoQzZzkrF1NvO0M7Zrvl0DaXGZjkKZY+4WpavLbKfDGOhS1RTS?=
+ =?us-ascii?Q?7bhpWua3jgQHBCtgdLSzuRwGBheAe0YsU9FQVK+efscsIH5/G1CXCe6BouyO?=
+ =?us-ascii?Q?JfOv5rD3cqGYMoZ8GOKTUxBl1ZXVMsjponS4ghM8ZwwTDuho73KuT9LbLW1j?=
+ =?us-ascii?Q?qA3mvexbmiulAII/HVoZMFVqUYFsUUrj?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(1800799024)(36860700013); DIR:OUT;
+ SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Dec 2024 21:41:41.0302 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6833317a-328c-4bd2-811c-08dd13e34617
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Dec 2024 21:41:42.8115 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6ea26c58-3b10-49b5-4c9b-08dd13e34727
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B075.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8698
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9088
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,392 +139,256 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Wayne Lin <Wayne.Lin@amd.com>
+From: Samson Tam <Samson.Tam@amd.com>
 
-[Why]
-Variables relates to secure display are spreading out within struct
-amdgpu_display_manager.
+[Why & How]
+Add check for invalid pixel format, remove unused pixel formats
+and clean up some names
 
-[How]
-Encapsulate relevant variables into struct secure_display_context and
-adjust relevant affected codes.
-
-Reviewed-by: HaoPing Liu <haoping.liu@amd.com>
-Signed-off-by: Wayne Lin <Wayne.Lin@amd.com>
+Reviewed-by: Navid Assadian <navid.assadian@amd.com>
+Signed-off-by: Samson Tam <Samson.Tam@amd.com>
 Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  16 +--
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  12 +-
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c | 109 +++++++++---------
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_crc.h |  16 ++-
- 4 files changed, 81 insertions(+), 72 deletions(-)
+ .../gpu/drm/amd/display/dc/dc_spl_translate.c |  9 ++-
+ drivers/gpu/drm/amd/display/dc/spl/dc_spl.c   | 71 +++++++++----------
+ .../gpu/drm/amd/display/dc/spl/dc_spl_types.h |  6 +-
+ 3 files changed, 46 insertions(+), 40 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 85f21db6ef24..f5aff4dfbe6f 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -2152,8 +2152,8 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_spl_translate.c b/drivers/gpu/drm/amd/display/dc/dc_spl_translate.c
+index a4907cfe3f08..3518eb1b8cd1 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_spl_translate.c
++++ b/drivers/gpu/drm/amd/display/dc/dc_spl_translate.c
+@@ -64,6 +64,13 @@ static void populate_inits_from_splinits(struct scl_inits *inits,
+ 	inits->h_c = dc_fixpt_from_int_dy(spl_inits->h_filter_init_int_c, spl_inits->h_filter_init_frac_c >> 5, 0, 19);
+ 	inits->v_c = dc_fixpt_from_int_dy(spl_inits->v_filter_init_int_c, spl_inits->v_filter_init_frac_c >> 5, 0, 19);
+ }
++static void populate_splformat_from_format(enum spl_pixel_format *spl_pixel_format, const enum pixel_format pixel_format)
++{
++	if (pixel_format < PIXEL_FORMAT_INVALID)
++		*spl_pixel_format = (enum spl_pixel_format)pixel_format;
++	else
++		*spl_pixel_format = SPL_PIXEL_FORMAT_INVALID;
++}
+ /// @brief Translate SPL input parameters from pipe context
+ /// @param pipe_ctx
+ /// @param spl_in
+@@ -89,7 +96,7 @@ void translate_SPL_in_params_from_pipe_ctx(struct pipe_ctx *pipe_ctx, struct spl
+ 		spl_in->callbacks = dcn2_spl_callbacks;
  	}
- 
- #if defined(CONFIG_DRM_AMD_SECURE_DISPLAY)
--	adev->dm.secure_display_ctxs = amdgpu_dm_crtc_secure_display_create_contexts(adev);
--	if (!adev->dm.secure_display_ctxs)
-+	amdgpu_dm_crtc_secure_display_create_contexts(adev);
-+	if (!adev->dm.secure_display_ctx.crtc_ctx)
- 		DRM_ERROR("amdgpu: failed to initialize secure display contexts.\n");
- #endif
- 
-@@ -2197,15 +2197,15 @@ static void amdgpu_dm_fini(struct amdgpu_device *adev)
- 	amdgpu_dm_destroy_drm_device(&adev->dm);
- 
- #if defined(CONFIG_DRM_AMD_SECURE_DISPLAY)
--	if (adev->dm.secure_display_ctxs) {
-+	if (adev->dm.secure_display_ctx.crtc_ctx) {
- 		for (i = 0; i < adev->mode_info.num_crtc; i++) {
--			if (adev->dm.secure_display_ctxs[i].crtc) {
--				flush_work(&adev->dm.secure_display_ctxs[i].notify_ta_work);
--				flush_work(&adev->dm.secure_display_ctxs[i].forward_roi_work);
-+			if (adev->dm.secure_display_ctx.crtc_ctx[i].crtc) {
-+				flush_work(&adev->dm.secure_display_ctx.crtc_ctx[i].notify_ta_work);
-+				flush_work(&adev->dm.secure_display_ctx.crtc_ctx[i].forward_roi_work);
- 			}
- 		}
--		kfree(adev->dm.secure_display_ctxs);
--		adev->dm.secure_display_ctxs = NULL;
-+		kfree(adev->dm.secure_display_ctx.crtc_ctx);
-+		adev->dm.secure_display_ctx.crtc_ctx = NULL;
- 	}
- #endif
- 	if (adev->dm.hdcp_workqueue) {
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index cbd7a1cb34af..e46e1365fe91 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -541,16 +541,12 @@ struct amdgpu_display_manager {
- 
- #if defined(CONFIG_DRM_AMD_SECURE_DISPLAY)
- 	/**
--	 * @secure_display_ctxs:
-+	 * @secure_display_ctx:
- 	 *
--	 * Store the ROI information and the work_struct to command dmub and psp for
--	 * all crtcs.
-+	 * Store secure display relevant info. e.g. the ROI information
-+	 * , the work_struct to command dmub, etc.
- 	 */
--	struct secure_display_context *secure_display_ctxs;
--
--	bool secure_display_phy_mapping_updated;
--	int phy_id_mapping_cnt;
--	struct phy_id_mapping phy_id_mapping[AMDGPU_DM_MAX_CRTC];
-+	struct secure_display_context secure_display_ctx;
- #endif
- 	/**
- 	 * @hpd_rx_offload_wq:
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
-index 066054caa4c7..309c7999faa6 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
-@@ -93,7 +93,7 @@ static void update_phy_id_mapping(struct amdgpu_device *adev)
- 	struct drm_connector_list_iter iter;
- 	uint8_t idx = 0, idx_2 = 0, connector_cnt = 0;
- 
--	dm->secure_display_phy_mapping_updated = false;
-+	dm->secure_display_ctx.phy_mapping_updated = false;
- 
- 	mutex_lock(&ddev->mode_config.mutex);
- 	drm_connector_list_iter_begin(ddev, &iter);
-@@ -194,27 +194,27 @@ static void update_phy_id_mapping(struct amdgpu_device *adev)
- 		}
- 	}
- 
--	/* Complete sorting. Assign relavant result to dm->phy_id_mapping[]*/
--	memset(dm->phy_id_mapping, 0, sizeof(dm->phy_id_mapping));
-+	/* Complete sorting. Assign relavant result to dm->secure_display_ctx.phy_id_mapping[]*/
-+	memset(dm->secure_display_ctx.phy_id_mapping, 0, sizeof(dm->secure_display_ctx.phy_id_mapping));
- 	for (idx = 0; idx < connector_cnt; idx++) {
- 		aconnector = sort_connector[idx];
- 
--		dm->phy_id_mapping[idx].assigned = true;
--		dm->phy_id_mapping[idx].is_mst = false;
--		dm->phy_id_mapping[idx].enc_hw_inst = aconnector->dc_link->link_enc_hw_inst;
-+		dm->secure_display_ctx.phy_id_mapping[idx].assigned = true;
-+		dm->secure_display_ctx.phy_id_mapping[idx].is_mst = false;
-+		dm->secure_display_ctx.phy_id_mapping[idx].enc_hw_inst = aconnector->dc_link->link_enc_hw_inst;
- 
- 		if (sort_connector[idx]->mst_root) {
--			dm->phy_id_mapping[idx].is_mst = true;
--			dm->phy_id_mapping[idx].lct = aconnector->mst_output_port->parent->lct;
--			dm->phy_id_mapping[idx].port_num = aconnector->mst_output_port->port_num;
--			memcpy(dm->phy_id_mapping[idx].rad, aconnector->mst_output_port->parent->rad,
--				sizeof(aconnector->mst_output_port->parent->rad));
-+			dm->secure_display_ctx.phy_id_mapping[idx].is_mst = true;
-+			dm->secure_display_ctx.phy_id_mapping[idx].lct = aconnector->mst_output_port->parent->lct;
-+			dm->secure_display_ctx.phy_id_mapping[idx].port_num = aconnector->mst_output_port->port_num;
-+			memcpy(dm->secure_display_ctx.phy_id_mapping[idx].rad,
-+				aconnector->mst_output_port->parent->rad, sizeof(aconnector->mst_output_port->parent->rad));
- 		}
- 	}
- 	mutex_unlock(&ddev->mode_config.mutex);
- 
--	dm->phy_id_mapping_cnt = connector_cnt;
--	dm->secure_display_phy_mapping_updated = true;
-+	dm->secure_display_ctx.phy_id_mapping_cnt = connector_cnt;
-+	dm->secure_display_ctx.phy_mapping_updated = true;
+ 	// Make format field from spl_in point to plane_res scl_data format
+-	spl_in->basic_in.format = (enum spl_pixel_format)pipe_ctx->plane_res.scl_data.format;
++	populate_splformat_from_format(&spl_in->basic_in.format, pipe_ctx->plane_res.scl_data.format);
+ 	// Make view_format from basic_out point to view_format from stream
+ 	spl_in->basic_out.view_format = (enum spl_view_3d)stream->view_format;
+ 	// Populate spl input basic input clip rect from plane state clip rect
+diff --git a/drivers/gpu/drm/amd/display/dc/spl/dc_spl.c b/drivers/gpu/drm/amd/display/dc/spl/dc_spl.c
+index 72d55e9a4fd7..1306ce0321e2 100644
+--- a/drivers/gpu/drm/amd/display/dc/spl/dc_spl.c
++++ b/drivers/gpu/drm/amd/display/dc/spl/dc_spl.c
+@@ -563,6 +563,24 @@ static bool spl_is_rgb8(enum spl_pixel_format format)
+ 	return false;
  }
  
- static bool get_phy_id(struct amdgpu_display_manager *dm,
-@@ -227,19 +227,20 @@ static bool get_phy_id(struct amdgpu_display_manager *dm,
- 	 * Assume secure display start after all connectors are probed. The connection
- 	 * config is static as well
- 	 */
--	if (!dm->secure_display_phy_mapping_updated) {
-+	if (!dm->secure_display_ctx.phy_mapping_updated) {
- 		DRM_WARN("%s Should update the phy id table before get it's value", __func__);
- 		return false;
++static bool spl_is_video_format(enum spl_pixel_format format)
++{
++	if (format >= SPL_PIXEL_FORMAT_VIDEO_BEGIN
++			&& format <= SPL_PIXEL_FORMAT_VIDEO_END)
++		return true;
++	else
++		return false;
++}
++
++static bool spl_is_subsampled_format(enum spl_pixel_format format)
++{
++	if (format >= SPL_PIXEL_FORMAT_SUBSAMPLED_BEGIN
++			&& format <= SPL_PIXEL_FORMAT_SUBSAMPLED_END)
++		return true;
++	else
++		return false;
++}
++
+ /*Calculate inits and viewport */
+ static void spl_calculate_inits_and_viewports(struct spl_in *spl_in,
+ 		struct spl_scratch *spl_scratch)
+@@ -607,7 +625,7 @@ static void spl_calculate_inits_and_viewports(struct spl_in *spl_in,
+ 		spl_swap(flip_vert_scan_dir, flip_horz_scan_dir);
  	}
  
--	for (idx = 0; idx < dm->phy_id_mapping_cnt; idx++) {
--		if (!dm->phy_id_mapping[idx].assigned) {
-+	for (idx = 0; idx < dm->secure_display_ctx.phy_id_mapping_cnt; idx++) {
-+		if (!dm->secure_display_ctx.phy_id_mapping[idx].assigned) {
- 			DRM_ERROR("phy_id_mapping[%d] should be assigned", idx);
- 			return false;
- 		}
- 
--		if (aconnector->dc_link->link_enc_hw_inst == dm->phy_id_mapping[idx].enc_hw_inst) {
--			if (!dm->phy_id_mapping[idx].is_mst) {
-+		if (aconnector->dc_link->link_enc_hw_inst ==
-+				dm->secure_display_ctx.phy_id_mapping[idx].enc_hw_inst) {
-+			if (!dm->secure_display_ctx.phy_id_mapping[idx].is_mst) {
- 				found = true;
- 				goto out;
- 			} else {
-@@ -254,8 +255,8 @@ static bool get_phy_id(struct amdgpu_display_manager *dm,
- 					DRM_WARN("%s pass in a stale mst connector", __func__);
- 				}
- 
--				if (aconnector->mst_output_port->parent->lct == dm->phy_id_mapping[idx].lct &&
--					aconnector->mst_output_port->port_num == dm->phy_id_mapping[idx].port_num) {
-+				if (aconnector->mst_output_port->parent->lct == dm->secure_display_ctx.phy_id_mapping[idx].lct &&
-+					aconnector->mst_output_port->port_num == dm->secure_display_ctx.phy_id_mapping[idx].port_num) {
- 					if (aconnector->mst_output_port->parent->lct == 1) {
- 						found = true;
- 						goto out;
-@@ -264,7 +265,7 @@ static bool get_phy_id(struct amdgpu_display_manager *dm,
- 						for (idx_2 = 0; idx_2 < aconnector->mst_output_port->parent->lct - 1; idx_2++) {
- 							int shift = (idx_2 % 2) ? 0 : 4;
- 							int port_num = (aconnector->mst_output_port->parent->rad[idx_2 / 2] >> shift) & 0xf;
--							int port_num2 = (dm->phy_id_mapping[idx].rad[idx_2 / 2] >> shift) & 0xf;
-+							int port_num2 = (dm->secure_display_ctx.phy_id_mapping[idx].rad[idx_2 / 2] >> shift) & 0xf;
- 
- 							if (port_num != port_num2)
- 								break;
-@@ -318,8 +319,8 @@ static void amdgpu_dm_set_crc_window_default(struct drm_crtc *crtc, struct dc_st
- 	/* Disable secure_display if it was enabled */
- 	if (was_activated) {
- 		/* stop ROI update on this crtc */
--		flush_work(&dm->secure_display_ctxs[crtc->index].notify_ta_work);
--		flush_work(&dm->secure_display_ctxs[crtc->index].forward_roi_work);
-+		flush_work(&dm->secure_display_ctx.crtc_ctx[crtc->index].notify_ta_work);
-+		flush_work(&dm->secure_display_ctx.crtc_ctx[crtc->index].forward_roi_work);
- 
- 		aconnector = (struct amdgpu_dm_connector *)stream->dm_stream_context;
- 
-@@ -332,7 +333,7 @@ static void amdgpu_dm_set_crc_window_default(struct drm_crtc *crtc, struct dc_st
- 
- static void amdgpu_dm_crtc_notify_ta_to_read(struct work_struct *work)
- {
--	struct secure_display_context *secure_display_ctx;
-+	struct secure_display_crtc_context *crtc_ctx;
- 	struct psp_context *psp;
- 	struct ta_securedisplay_cmd *securedisplay_cmd;
- 	struct drm_crtc *crtc;
-@@ -342,8 +343,8 @@ static void amdgpu_dm_crtc_notify_ta_to_read(struct work_struct *work)
- 	struct amdgpu_display_manager *dm;
- 	int ret;
- 
--	secure_display_ctx = container_of(work, struct secure_display_context, notify_ta_work);
--	crtc = secure_display_ctx->crtc;
-+	crtc_ctx = container_of(work, struct secure_display_crtc_context, notify_ta_work);
-+	crtc = crtc_ctx->crtc;
- 
- 	if (!crtc)
- 		return;
-@@ -393,15 +394,15 @@ static void amdgpu_dm_crtc_notify_ta_to_read(struct work_struct *work)
- static void
- amdgpu_dm_forward_crc_window(struct work_struct *work)
- {
--	struct secure_display_context *secure_display_ctx;
-+	struct secure_display_crtc_context *crtc_ctx;
- 	struct amdgpu_display_manager *dm;
- 	struct drm_crtc *crtc;
- 	struct dc_stream_state *stream;
- 	struct amdgpu_dm_connector *aconnector;
- 	uint8_t phy_id;
- 
--	secure_display_ctx = container_of(work, struct secure_display_context, forward_roi_work);
--	crtc = secure_display_ctx->crtc;
-+	crtc_ctx = container_of(work, struct secure_display_crtc_context, forward_roi_work);
-+	crtc = crtc_ctx->crtc;
- 
- 	if (!crtc)
- 		return;
-@@ -422,7 +423,7 @@ amdgpu_dm_forward_crc_window(struct work_struct *work)
- 	mutex_unlock(&crtc->dev->mode_config.mutex);
- 
- 	mutex_lock(&dm->dc_lock);
--	dc_stream_forward_crc_window(stream, &secure_display_ctx->rect,
-+	dc_stream_forward_crc_window(stream, &crtc_ctx->rect,
- 		phy_id, false);
- 	mutex_unlock(&dm->dc_lock);
- }
-@@ -656,7 +657,7 @@ int amdgpu_dm_crtc_set_crc_source(struct drm_crtc *crtc, const char *src_name)
- 
- #if defined(CONFIG_DRM_AMD_SECURE_DISPLAY)
- 	/* Initialize phy id mapping table for secure display*/
--	if (!dm->secure_display_phy_mapping_updated)
-+	if (!dm->secure_display_ctx.phy_mapping_updated)
- 		update_phy_id_mapping(adev);
- #endif
- 
-@@ -730,7 +731,7 @@ void amdgpu_dm_crtc_handle_crc_window_irq(struct drm_crtc *crtc)
- 	enum amdgpu_dm_pipe_crc_source cur_crc_src;
- 	struct amdgpu_crtc *acrtc = NULL;
- 	struct amdgpu_device *adev = NULL;
--	struct secure_display_context *secure_display_ctx = NULL;
-+	struct secure_display_crtc_context *crtc_ctx = NULL;
- 	unsigned long flags1;
- 
- 	if (crtc == NULL)
-@@ -756,23 +757,23 @@ void amdgpu_dm_crtc_handle_crc_window_irq(struct drm_crtc *crtc)
- 		goto cleanup;
- 	}
- 
--	secure_display_ctx = &adev->dm.secure_display_ctxs[acrtc->crtc_id];
--	if (WARN_ON(secure_display_ctx->crtc != crtc)) {
--		/* We have set the crtc when creating secure_display_context,
-+	crtc_ctx = &adev->dm.secure_display_ctx.crtc_ctx[acrtc->crtc_id];
-+	if (WARN_ON(crtc_ctx->crtc != crtc)) {
-+		/* We have set the crtc when creating secure_display_crtc_context,
- 		 * don't expect it to be changed here.
+-	if (spl_is_yuv420(spl_in->basic_in.format)) {
++	if (spl_is_subsampled_format(spl_in->basic_in.format)) {
+ 		/* this gives the direction of the cositing (negative will move
+ 		 * left, right otherwise)
  		 */
--		secure_display_ctx->crtc = crtc;
-+		crtc_ctx->crtc = crtc;
- 	}
- 
- 	if (acrtc->dm_irq_params.window_param.update_win) {
- 		/* prepare work for dmub to update ROI */
--		secure_display_ctx->rect.x = acrtc->dm_irq_params.window_param.x_start;
--		secure_display_ctx->rect.y = acrtc->dm_irq_params.window_param.y_start;
--		secure_display_ctx->rect.width = acrtc->dm_irq_params.window_param.x_end -
-+		crtc_ctx->rect.x = acrtc->dm_irq_params.window_param.x_start;
-+		crtc_ctx->rect.y = acrtc->dm_irq_params.window_param.y_start;
-+		crtc_ctx->rect.width = acrtc->dm_irq_params.window_param.x_end -
- 								acrtc->dm_irq_params.window_param.x_start;
--		secure_display_ctx->rect.height = acrtc->dm_irq_params.window_param.y_end -
-+		crtc_ctx->rect.height = acrtc->dm_irq_params.window_param.y_end -
- 								acrtc->dm_irq_params.window_param.y_start;
--		schedule_work(&secure_display_ctx->forward_roi_work);
-+		schedule_work(&crtc_ctx->forward_roi_work);
- 
- 		acrtc->dm_irq_params.window_param.update_win = false;
- 
-@@ -785,32 +786,34 @@ void amdgpu_dm_crtc_handle_crc_window_irq(struct drm_crtc *crtc)
- 
- 	} else {
- 		/* prepare work for psp to read ROI/CRC and send to I2C */
--		schedule_work(&secure_display_ctx->notify_ta_work);
-+		schedule_work(&crtc_ctx->notify_ta_work);
- 	}
- 
- cleanup:
- 	spin_unlock_irqrestore(&drm_dev->event_lock, flags1);
+@@ -715,24 +733,6 @@ static void spl_clamp_viewport(struct spl_rect *viewport)
+ 		viewport->width = MIN_VIEWPORT_SIZE;
  }
  
--struct secure_display_context *
--amdgpu_dm_crtc_secure_display_create_contexts(struct amdgpu_device *adev)
-+void amdgpu_dm_crtc_secure_display_create_contexts(struct amdgpu_device *adev)
+-static bool spl_dscl_is_420_format(enum spl_pixel_format format)
+-{
+-	if (format == SPL_PIXEL_FORMAT_420BPP8 ||
+-			format == SPL_PIXEL_FORMAT_420BPP10)
+-		return true;
+-	else
+-		return false;
+-}
+-
+-static bool spl_dscl_is_video_format(enum spl_pixel_format format)
+-{
+-	if (format >= SPL_PIXEL_FORMAT_VIDEO_BEGIN
+-			&& format <= SPL_PIXEL_FORMAT_VIDEO_END)
+-		return true;
+-	else
+-		return false;
+-}
+-
+ static enum scl_mode spl_get_dscl_mode(const struct spl_in *spl_in,
+ 				const struct spl_scaler_data *data,
+ 				bool enable_isharp, bool enable_easf)
+@@ -749,8 +749,8 @@ static enum scl_mode spl_get_dscl_mode(const struct spl_in *spl_in,
+ 			&& !enable_isharp)
+ 		return SCL_MODE_SCALING_444_BYPASS;
+ 
+-	if (!spl_dscl_is_420_format(pixel_format)) {
+-		if (spl_dscl_is_video_format(pixel_format))
++	if (!spl_is_subsampled_format(pixel_format)) {
++		if (spl_is_video_format(pixel_format))
+ 			return SCL_MODE_SCALING_444_YCBCR_ENABLE;
+ 		else
+ 			return SCL_MODE_SCALING_444_RGB_ENABLE;
+@@ -773,7 +773,7 @@ static bool spl_choose_lls_policy(enum spl_pixel_format format,
+ 	enum spl_transfer_func_predefined tf_predefined_type,
+ 	enum linear_light_scaling *lls_pref)
  {
--	struct secure_display_context *secure_display_ctxs = NULL;
-+	struct secure_display_crtc_context *crtc_ctx = NULL;
- 	int i;
+-	if (spl_is_yuv420(format)) {
++	if (spl_is_video_format(format)) {
+ 		*lls_pref = LLS_PREF_NO;
+ 		if ((tf_type == SPL_TF_TYPE_PREDEFINED) ||
+ 			(tf_type == SPL_TF_TYPE_DISTRIBUTED_POINTS))
+@@ -832,7 +832,7 @@ static bool enable_easf(struct spl_in *spl_in, struct spl_scratch *spl_scratch)
+ /* Check if video is in fullscreen mode */
+ static bool spl_is_video_fullscreen(struct spl_in *spl_in)
+ {
+-	if (spl_is_yuv420(spl_in->basic_in.format) && spl_in->is_fullscreen)
++	if (spl_is_video_format(spl_in->basic_in.format) && spl_in->is_fullscreen)
+ 		return true;
+ 	return false;
+ }
+@@ -863,10 +863,10 @@ static bool spl_get_isharp_en(struct spl_in *spl_in,
+ 	 * Apply sharpness to RGB and YUV (NV12/P010)
+ 	 *  surfaces based on policy setting
+ 	 */
+-	if (!spl_is_yuv420(spl_in->basic_in.format) &&
++	if (!spl_is_video_format(spl_in->basic_in.format) &&
+ 		(spl_in->sharpen_policy == SHARPEN_YUV))
+ 		return enable_isharp;
+-	else if ((spl_is_yuv420(spl_in->basic_in.format) && !fullscreen) &&
++	else if ((spl_is_video_format(spl_in->basic_in.format) && !fullscreen) &&
+ 		(spl_in->sharpen_policy == SHARPEN_RGB_FULLSCREEN_YUV))
+ 		return enable_isharp;
+ 	else if (!spl_in->is_fullscreen &&
+@@ -949,7 +949,7 @@ static bool spl_get_optimal_number_of_taps(
+ 	int min_taps_y, min_taps_c;
+ 	enum lb_memory_config lb_config;
+ 	bool skip_easf = false;
+-	bool is_ycbcr = spl_dscl_is_video_format(spl_in->basic_in.format);
++	bool is_subsampled = spl_is_subsampled_format(spl_in->basic_in.format);
  
--	secure_display_ctxs = kcalloc(adev->mode_info.num_crtc,
--				      sizeof(struct secure_display_context),
-+	crtc_ctx = kcalloc(adev->mode_info.num_crtc,
-+				      sizeof(struct secure_display_crtc_context),
- 				      GFP_KERNEL);
+ 	if (spl_scratch->scl_data.viewport.width > spl_scratch->scl_data.h_active &&
+ 		max_downscale_src_width != 0 &&
+@@ -981,7 +981,7 @@ static bool spl_get_optimal_number_of_taps(
+ 	if (skip_easf)
+ 		spl_get_taps_non_adaptive_scaler(spl_scratch, in_taps);
+ 	else {
+-		if (spl_is_yuv420(spl_in->basic_in.format)) {
++		if (spl_is_video_format(spl_in->basic_in.format)) {
+ 			spl_scratch->scl_data.taps.h_taps = 6;
+ 			spl_scratch->scl_data.taps.v_taps = 6;
+ 			spl_scratch->scl_data.taps.h_taps_c = 4;
+@@ -999,8 +999,7 @@ static bool spl_get_optimal_number_of_taps(
+ 	min_taps_c = spl_fixpt_ceil(spl_scratch->scl_data.ratios.vert_c);
  
--	if (!secure_display_ctxs)
--		return NULL;
-+	if (!crtc_ctx) {
-+		adev->dm.secure_display_ctx.crtc_ctx = NULL;
-+		return;
-+	}
+ 	/* Use LB_MEMORY_CONFIG_3 for 4:2:0 */
+-	if ((spl_in->basic_in.format == SPL_PIXEL_FORMAT_420BPP8)
+-		|| (spl_in->basic_in.format == SPL_PIXEL_FORMAT_420BPP10))
++	if (spl_is_yuv420(spl_in->basic_in.format))
+ 		lb_config = LB_MEMORY_CONFIG_3;
+ 	else
+ 		lb_config = LB_MEMORY_CONFIG_0;
+@@ -1056,7 +1055,7 @@ static bool spl_get_optimal_number_of_taps(
+ 		if (spl_scratch->scl_data.taps.h_taps_c == 5)
+ 			spl_scratch->scl_data.taps.h_taps_c = 4;
  
- 	for (i = 0; i < adev->mode_info.num_crtc; i++) {
--		INIT_WORK(&secure_display_ctxs[i].forward_roi_work, amdgpu_dm_forward_crc_window);
--		INIT_WORK(&secure_display_ctxs[i].notify_ta_work, amdgpu_dm_crtc_notify_ta_to_read);
--		secure_display_ctxs[i].crtc = &adev->mode_info.crtcs[i]->base;
-+		INIT_WORK(&crtc_ctx[i].forward_roi_work, amdgpu_dm_forward_crc_window);
-+		INIT_WORK(&crtc_ctx[i].notify_ta_work, amdgpu_dm_crtc_notify_ta_to_read);
-+		crtc_ctx[i].crtc = &adev->mode_info.crtcs[i]->base;
+-		if (spl_is_yuv420(spl_in->basic_in.format)) {
++		if (spl_is_video_format(spl_in->basic_in.format)) {
+ 			if (spl_scratch->scl_data.taps.h_taps <= 4) {
+ 				*enable_easf_v = false;
+ 				*enable_easf_h = false;
+@@ -1101,10 +1100,10 @@ static bool spl_get_optimal_number_of_taps(
+ 			spl_scratch->scl_data.taps.h_taps = 1;
+ 			spl_scratch->scl_data.taps.v_taps = 1;
+ 
+-			if (IDENTITY_RATIO(spl_scratch->scl_data.ratios.horz_c) && !is_ycbcr)
++			if (IDENTITY_RATIO(spl_scratch->scl_data.ratios.horz_c) && !is_subsampled)
+ 				spl_scratch->scl_data.taps.h_taps_c = 1;
+ 
+-			if (IDENTITY_RATIO(spl_scratch->scl_data.ratios.vert_c) && !is_ycbcr)
++			if (IDENTITY_RATIO(spl_scratch->scl_data.ratios.vert_c) && !is_subsampled)
+ 				spl_scratch->scl_data.taps.v_taps_c = 1;
+ 
+ 			*enable_easf_v = false;
+@@ -1118,11 +1117,11 @@ static bool spl_get_optimal_number_of_taps(
+ 				(IDENTITY_RATIO(spl_scratch->scl_data.ratios.vert)))
+ 				spl_scratch->scl_data.taps.v_taps = 1;
+ 
+-			if ((!*enable_easf_h) && !is_ycbcr &&
++			if ((!*enable_easf_h) && !is_subsampled &&
+ 				(IDENTITY_RATIO(spl_scratch->scl_data.ratios.horz_c)))
+ 				spl_scratch->scl_data.taps.h_taps_c = 1;
+ 
+-			if ((!*enable_easf_v) && !is_ycbcr &&
++			if ((!*enable_easf_v) && !is_subsampled &&
+ 				(IDENTITY_RATIO(spl_scratch->scl_data.ratios.vert_c)))
+ 				spl_scratch->scl_data.taps.v_taps_c = 1;
+ 		}
+@@ -1133,7 +1132,7 @@ static bool spl_get_optimal_number_of_taps(
+ static void spl_set_black_color_data(enum spl_pixel_format format,
+ 			struct scl_black_color *scl_black_color)
+ {
+-	bool ycbcr = spl_dscl_is_video_format(format);
++	bool ycbcr = spl_is_video_format(format);
+ 	if (ycbcr)	{
+ 		scl_black_color->offset_rgb_y = BLACK_OFFSET_RGB_Y;
+ 		scl_black_color->offset_rgb_cbcr = BLACK_OFFSET_CBCR;
+@@ -1600,7 +1599,7 @@ static void spl_set_easf_data(struct spl_scratch *spl_scratch, struct spl_out *s
+ 			0x0;	// fp1.5.10, C3 coefficient
  	}
  
--	return secure_display_ctxs;
-+	adev->dm.secure_display_ctx.crtc_ctx = crtc_ctx;
-+	return;
- }
- #endif
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.h
-index 82afb551632b..4ec2510bc312 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.h
-@@ -40,6 +40,8 @@ enum amdgpu_dm_pipe_crc_source {
+-	if (spl_is_yuv420(format)) { /* TODO: 0 = RGB, 1 = YUV */
++	if (spl_is_video_format(format)) { /* TODO: 0 = RGB, 1 = YUV */
+ 		dscl_prog_data->easf_matrix_mode = 1;
+ 		/*
+ 		 * 2-bit, BF3 chroma mode correction calculation mode
+diff --git a/drivers/gpu/drm/amd/display/dc/spl/dc_spl_types.h b/drivers/gpu/drm/amd/display/dc/spl/dc_spl_types.h
+index 0e6db94bbfb2..467af9dd90de 100644
+--- a/drivers/gpu/drm/amd/display/dc/spl/dc_spl_types.h
++++ b/drivers/gpu/drm/amd/display/dc/spl/dc_spl_types.h
+@@ -63,13 +63,13 @@ enum spl_pixel_format {
+ 	SPL_PIXEL_FORMAT_420BPP8,
+ 	SPL_PIXEL_FORMAT_420BPP10,
+ 	/*end of pixel format definition*/
+-	SPL_PIXEL_FORMAT_INVALID,
+-	SPL_PIXEL_FORMAT_422BPP8,
+-	SPL_PIXEL_FORMAT_422BPP10,
+ 	SPL_PIXEL_FORMAT_GRPH_BEGIN = SPL_PIXEL_FORMAT_INDEX8,
+ 	SPL_PIXEL_FORMAT_GRPH_END = SPL_PIXEL_FORMAT_FP16,
++	SPL_PIXEL_FORMAT_SUBSAMPLED_BEGIN = SPL_PIXEL_FORMAT_420BPP8,
++	SPL_PIXEL_FORMAT_SUBSAMPLED_END = SPL_PIXEL_FORMAT_420BPP10,
+ 	SPL_PIXEL_FORMAT_VIDEO_BEGIN = SPL_PIXEL_FORMAT_420BPP8,
+ 	SPL_PIXEL_FORMAT_VIDEO_END = SPL_PIXEL_FORMAT_420BPP10,
++	SPL_PIXEL_FORMAT_INVALID,
+ 	SPL_PIXEL_FORMAT_UNKNOWN
  };
  
- #ifdef CONFIG_DRM_AMD_SECURE_DISPLAY
-+#define MAX_CRTC 6
-+
- struct phy_id_mapping {
- 	bool assigned;
- 	bool is_mst;
-@@ -62,7 +64,7 @@ struct crc_window_param {
- 	int skip_frame_cnt;
- };
- 
--struct secure_display_context {
-+struct secure_display_crtc_context {
- 	/* work to notify PSP TA*/
- 	struct work_struct notify_ta_work;
- 
-@@ -74,6 +76,15 @@ struct secure_display_context {
- 	/* Region of Interest (ROI) */
- 	struct rect rect;
- };
-+
-+struct secure_display_context {
-+
-+	struct secure_display_crtc_context *crtc_ctx;
-+
-+	bool phy_mapping_updated;
-+	int phy_id_mapping_cnt;
-+	struct phy_id_mapping phy_id_mapping[MAX_CRTC];
-+};
- #endif
- 
- static inline bool amdgpu_dm_is_valid_crc_source(enum amdgpu_dm_pipe_crc_source source)
-@@ -104,8 +115,7 @@ void amdgpu_dm_crtc_handle_crc_irq(struct drm_crtc *crtc);
- #ifdef CONFIG_DRM_AMD_SECURE_DISPLAY
- bool amdgpu_dm_crc_window_is_activated(struct drm_crtc *crtc);
- void amdgpu_dm_crtc_handle_crc_window_irq(struct drm_crtc *crtc);
--struct secure_display_context *amdgpu_dm_crtc_secure_display_create_contexts(
--						struct amdgpu_device *adev);
-+void amdgpu_dm_crtc_secure_display_create_contexts(struct amdgpu_device *adev);
- #else
- #define amdgpu_dm_crc_window_is_activated(x)
- #define amdgpu_dm_crtc_handle_crc_window_irq(x)
 -- 
 2.47.1
 
