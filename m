@@ -4,145 +4,143 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5390FE6C60B
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Dec 2024 06:17:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E00BE6C60C
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Dec 2024 06:29:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0606A10E8F7;
-	Tue,  3 Dec 2024 06:17:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C224210E903;
+	Tue,  3 Dec 2024 06:29:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="U7hy4yqD";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="RefjbliE";
 	dkim-atps=neutral
 Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2069.outbound.protection.outlook.com [40.107.94.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3504A10E8F7
- for <amd-gfx@lists.freedesktop.org>; Tue,  3 Dec 2024 06:17:17 +0000 (UTC)
+ (mail-mw2nam10on2058.outbound.protection.outlook.com [40.107.94.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 278C310E903
+ for <amd-gfx@lists.freedesktop.org>; Tue,  3 Dec 2024 06:29:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FSkxgHjGm6d2xgOx4LydtMlWkUbIUn9+4YZshTLqS6vxtQjaVrbKzzUEEnEXPj80vdaSVN1hz7+VkPTfOTBX2RX5NdMnCWHHL0tfu9845xXO2h8t74w2Lquh2YvTkwesXIU1EfOmSEzUwO7wrveAU7+GfqUjZKFODRgeY3QFO9LgbeHzsLvOhGOzJyMwuMhwMiqW5VEJj7rXUVWUOwDCGDZT6NnJAglIdu4mfFTzcfs+TLD/Y9ip3Pc2XBfW805IPz7XBrlWbrk/Snr0H7N9cEVIhZ1bJNBjJsVJ3Z5ELyaNKk5wx/arcIypCx23O6e4cKAvw9Ma4W+30fgXz+0yOQ==
+ b=qvmtrhDG7VWe48hg/t/ib/k6QwVbuJu5oDFQJiH49hDaE8/5fUZwOXilMnLAKaWyRAX4iig4qj8Y8anIYCZQpyPQZgFyZJuZmKDX19BWzfDy+pmNSVZAPDZmpglvYBuaqPKnhxSHyxn2r+bLAtklwK11Fd8sNCg74NyvJ5gfuSCyptg8qX3xeHS4uBX1Fqhu26X4z/HUgLPtx6R1uL2t+5ceCNmbNuSy3lNnLFbV/HEwzgOeZKs0DyZfYpYlRRXBB+Bg7rDOX2K+vRuBmr3A254ESvGjgODlb0LsaoxZjHjJvpNAqiWLqj0vTCVkR67zv+omTFe22mlUskRW50sWow==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NoshA5RTnlAkO4BTEDMZli5YvQ0a5Pn4ulIU0UGa1Zg=;
- b=DM/fJ+xhpR8MNtJYhczG4jrLjvRGPVYXeB5YbuZsf52cmvycL7AOc8sGEWLU2RQHX4bzOSuZfXHituzx5QLKCDshI37iMmVxWTav2Lgf6PrXz8zkh85rp+0Le9OvXxzdi+KO6gC2c0cCGEYo/PC4oJzEjpWtjI/C9lXT3dL00zcU8IThmBzAsRgSPXjTl1hMqaArNt80ob7FG/qogMb2rno06qfyekeZrJbr/MdBeRcM91ckEKGoneIuoxTJ5BZmK7GriqPOVxCauappc08LXAvxwhKWN2XwzKB8u/Ma8qatQnnpmxeKauRoPiAKNeG4LcYj2DdmSb8JmxNffGlEAw==
+ bh=DdlJ5zGMHhuDb0weQho7c8l7QTzXF+lCCzzn0lQdGOs=;
+ b=u+IQsu7rQvWOyhKbb4YTgetPF0spIlxMF91jMYWl2n5XDIj2NqUsg9baY6q4uVYg5JvJuvdNLDPZMeyJLK5ZrmIEKTK9qvopaikGGU3EhJfqhRIosOBbhUOf/aLDO4GzdxzmxzS8tnVj/+MpXKp7tLU/TB+qlGSAe+2mxxaFGFtr2xcrPERlXiZHkFIsucmaMc2WaChyDWmd1ijjdXAOgnrXgvvz8SxL6FxOeGGfmL30r+bM6GaQ7UbrRJE5WxfzFREskjRYxpn2NRcfv6dDpuK57GkExSjKtC6/2DELjvPgyEor3G7WLg07Oer5WVyxQr+TuMUoW5iGzwyXaIVZIA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NoshA5RTnlAkO4BTEDMZli5YvQ0a5Pn4ulIU0UGa1Zg=;
- b=U7hy4yqDIDi//SbPzcjxf9WYzFVroM/HCUm7be/lfe2RhY0rGtiJR2RsDtWqQ4anv/O8m3MO2FbXrN7e/bI63B2ZR1IwmeXaYeZiS3aTGMVzcWkfr1G9USXBWEZxQoY13EOOjyx3TXE9RCfbtq5LSLsdY7x71HxPVwU0+vrPmzg=
-Received: from PH7PR12MB8796.namprd12.prod.outlook.com (2603:10b6:510:272::22)
- by DM6PR12MB4467.namprd12.prod.outlook.com (2603:10b6:5:2a8::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8207.19; Tue, 3 Dec
- 2024 06:17:15 +0000
-Received: from PH7PR12MB8796.namprd12.prod.outlook.com
- ([fe80::910f:c354:ea0d:1fd]) by PH7PR12MB8796.namprd12.prod.outlook.com
- ([fe80::910f:c354:ea0d:1fd%4]) with mapi id 15.20.8207.017; Tue, 3 Dec 2024
- 06:17:15 +0000
-From: "Zhou1, Tao" <Tao.Zhou1@amd.com>
-To: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Yang, Stanley"
- <Stanley.Yang@amd.com>, "Zhang, Hawking" <Hawking.Zhang@amd.com>
-Subject: RE: [PATCH 1/3] drm/amdgpu: move common ACA ipid defines into
- amdgpu_aca.h
-Thread-Topic: [PATCH 1/3] drm/amdgpu: move common ACA ipid defines into
- amdgpu_aca.h
-Thread-Index: AQHbRJcLkT1PGnXpOEC4duaLkSFZ+7LUDLzQ
-Date: Tue, 3 Dec 2024 06:17:15 +0000
-Message-ID: <PH7PR12MB87962405F7055669AF24544AB0362@PH7PR12MB8796.namprd12.prod.outlook.com>
-References: <20241202084850.1960341-1-kevinyang.wang@amd.com>
-In-Reply-To: <20241202084850.1960341-1-kevinyang.wang@amd.com>
+ bh=DdlJ5zGMHhuDb0weQho7c8l7QTzXF+lCCzzn0lQdGOs=;
+ b=RefjbliESy4Yn0DiOY7zbsZSn/spLvuN+bX/vxxy1YP0ECkX4Nmz+sWd7hu3SVTAKyTlsxU7/mDdjbjXl8IYN4ooeEuF/jKPBnezDkIrbYGgUdA5t5aJd9iSiClDnNXWAraqDJOjbqIsF/nDx+Up9BKfPDgYQdCn/qXlII+W9zE=
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
+ by LV8PR12MB9419.namprd12.prod.outlook.com (2603:10b6:408:206::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8207.18; Tue, 3 Dec
+ 2024 06:29:36 +0000
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::c593:f43d:c798:e009]) by BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::c593:f43d:c798:e009%6]) with mapi id 15.20.8207.017; Tue, 3 Dec 2024
+ 06:29:36 +0000
+From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+To: "Zhou1, Tao" <Tao.Zhou1@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Zhou1, Tao" <Tao.Zhou1@amd.com>
+Subject: RE: [PATCH 2/2] drm/amdgpu: correct the calculation of RAS bad page
+Thread-Topic: [PATCH 2/2] drm/amdgpu: correct the calculation of RAS bad page
+Thread-Index: AQHbRKRx88Pfr0emDUi+Vi4dG32dQLLUDzmg
+Date: Tue, 3 Dec 2024 06:29:36 +0000
+Message-ID: <BN9PR12MB5257DF46EB0694904033CAD2FC362@BN9PR12MB5257.namprd12.prod.outlook.com>
+References: <20241202102433.117496-1-tao.zhou1@amd.com>
+ <20241202102433.117496-2-tao.zhou1@amd.com>
+In-Reply-To: <20241202102433.117496-2-tao.zhou1@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=e2fc633b-8131-4683-ad05-64517bdcd5fa;
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=ff41664a-c54e-45c3-816c-e9a877b0da73;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
  Internal Distribution Only;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-12-03T06:16:58Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-12-03T06:26:15Z;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH7PR12MB8796:EE_|DM6PR12MB4467:EE_
-x-ms-office365-filtering-correlation-id: 9da293ab-f6ad-4f17-7496-08dd136221c3
+x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|LV8PR12MB9419:EE_
+x-ms-office365-filtering-correlation-id: ecb1b5f6-3703-43c4-7084-08dd1363dbd8
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|7053199007|38070700018; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?0MQ3m96wu0shCiJFTu3CVMtYy1u9pnbVsIho4X9UMFEtHT0OMHpRWCvbKYyP?=
- =?us-ascii?Q?7Z+bZ2sEJBwSAhJXrP14LJ8b/Sj2GBLrrXjZbBGOX1OP5w7LAy3ACNis5G54?=
- =?us-ascii?Q?nP/Y/LoD2h5jj0VyBCtPdEDGNVVgHDqHTu7VYARXK3RIpZ/AaastsF7pWEQ9?=
- =?us-ascii?Q?T3JQ8flFgLJynywGukTUPsU72071jkJvf3QhL8tY8AAoDgBTgIEG1YUTgHHp?=
- =?us-ascii?Q?ipWkF17rHit6Hc0WBNJptVl9FV7P3Tz7R8ATbXKE6tYRvWmo9dghsnbH3Ber?=
- =?us-ascii?Q?k90TsAeq/XKVBIcMWAMlFcxEDXCUU8Ym6cCVwIASOxbPEkqHAV6++Cw02o9e?=
- =?us-ascii?Q?GfWuhmLrzcbDj2fYkckuMdefF7MxRh8HX+ymIEmbnTTfj75aM4LQL40NPrfM?=
- =?us-ascii?Q?Y7eo2QmKQA2QqpU4Mh3jPhkB/JTHc5o0qh5gxVq+LM8oWpVARsgEhmTmGbQK?=
- =?us-ascii?Q?lmRzUiF2YyQtxyiz5WutNhd0MBQ0dyvHZ+QSU1kGiTmAK+VOkqnNd2E8fbFU?=
- =?us-ascii?Q?ESBVrcM3bJldQVC1k4c0Csl1ua3yuQnAjCPFoIUe8b8ynY/G1vCmEnkKnNyv?=
- =?us-ascii?Q?HzDsvw7PBXP6+ArGFLMgJfQxoGU7C9hN9t4QWZ0SlKoyYibkUFPH1g7uN/mB?=
- =?us-ascii?Q?WhdVfCScg1Ddrnkf7+6o5MgcsU6RaRFQdPXFvQBWgpCbHAxULVBo+DhaqL7Y?=
- =?us-ascii?Q?b1dbqZwdwTwu7s2vdAgLMy1+IiyejBWhct08U60jL450agvlBjH2VS+gWWSg?=
- =?us-ascii?Q?sSzZ9iGXZHuEFEI4y5DVEN4dPmwpo3vcAzMMkMcL6fhNudilFIqAsEfI8CPH?=
- =?us-ascii?Q?O0ITLSze27Gy6ZUwA4+8TSBqY5NPC5IXhxa2/e/UYynXEEQBAgTPCELQ6Eb4?=
- =?us-ascii?Q?HrrsrqGiAhESuAsXqCq65qLgFrurKecPiYTeBozu7pLg6j4P2871CFMDmYMC?=
- =?us-ascii?Q?kWyhXWMYWM2/r2Qcl2CaCrxEZToNNb4DPgeEhM6go84y6M0+EMau9pL7bO1E?=
- =?us-ascii?Q?m/X+J+xJCqVWFgu0bwISJ1ssG3gtH8lYe4fbHfimexMTfFidG7ITefUX/FzD?=
- =?us-ascii?Q?81wRvTw9as3rkdHw0kskWcSYAIomN7oFUXltPDfjiErJh3vc8WpHm6DeZB40?=
- =?us-ascii?Q?kMTVH1TfJwharDH87FMXTLH2gSgC2RDayAl5TSqWo5hfBLB8caqG52/Sq+Vx?=
- =?us-ascii?Q?uVgrYmlMMkvhxv3jBRa06KLRbasKgVZlonvu65VIRMzvWrXgpf9dym+LXIoV?=
- =?us-ascii?Q?d0zUbPpJlNwpZI1lEL4GYj95+xjqRZ2g/AYjZr5hHFBtTHcsJ6R2WYs7H0Z9?=
- =?us-ascii?Q?5DWtUPPSpLXidoBM3x3sO9AWabaiM5dF+aVuOCHRJ0GEOpA7uFuei2POy3kf?=
- =?us-ascii?Q?zIeTPeBVx0MC05NdFNAElVRpldeGZDEdK/pVPW4NfWzfBiaG0Q=3D=3D?=
+ ARA:13230040|366016|376014|1800799024|7053199007|38070700018; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?IyOOwrsasViZYsc77atpbLU1xWrTFrRSMQHI1ffbwWaX8nFqhIV6cJ1UR4Az?=
+ =?us-ascii?Q?i+AfmfgWpDwIvbI6pM/5gGM5HdFKFiqQkIYbiI1a5ag3Q4k/Ee1DYUCl1fRK?=
+ =?us-ascii?Q?vBZHXEEO8p0bcxwN9EALfwDRZ3Vwxpxi3EQW9VeuinwLM8Omcuq1w22FuOh8?=
+ =?us-ascii?Q?NEyepxesGi7Dcw2OvWbmf3hlHS6I5Pbd65lis4rVgmv+JEW7UNtVIDmqGClS?=
+ =?us-ascii?Q?joDEKKSFxpnfqqxo+JOTh6aaJEsYaD7bySP77QVAvuWXL1tvNBc85vFFw2b3?=
+ =?us-ascii?Q?ZIAWYZOXmsdazOUuYg/l493xr3t24SjFhhbeWA4iHjqRTE0LI/mwnnP08g7T?=
+ =?us-ascii?Q?jbIM81pY+R4UHYXthjB4r4JxopFKqwxcpnS2NUijtJjc61QFIMRh+TZt4V9+?=
+ =?us-ascii?Q?l302ohHmS2gV30Yw3zw9WrB6W2F8N6vUM0IXKfnQ9ZpMpv3WtOR/+ehfGn2e?=
+ =?us-ascii?Q?rEX3zBLjyHC8Dd5LVrLQurxhS4ULeEDSHpu+XIB9ZHx6q2TAvb/WwhZBPfJJ?=
+ =?us-ascii?Q?7Le+Rqh7rUkoXI+Swikub89CeYYlM3oVZjFI6rB0Pbxre7I8P0eAak02Ad4E?=
+ =?us-ascii?Q?qlGA6YOVlSX+ZpxJFA1KNodY3d2oKDZQSxfEpd/W7tUVEDWAOGVFRzD873iY?=
+ =?us-ascii?Q?1bfiRmzJcErWdqu9Cu8kqk23E2o99Chd6OBg05ozbOstjHxqH3FMtRzXz87r?=
+ =?us-ascii?Q?RKrjkoZC3M8PeZYmh8M/H0RPwOGMauXmXT9oFBJeu/Y/a5ehfozE58pQhPul?=
+ =?us-ascii?Q?9ArOHTWizncbTNzxaeMkw56tKhqfC5VEW+WkwDezWuFdEBfV6T4sMcqX7OwQ?=
+ =?us-ascii?Q?CCUu1hbt/amBmhdiBuZr6w2XMkKEtV3PcESbVYu6kX1ffq10+D+UrAmF1c5z?=
+ =?us-ascii?Q?JVKZrs3g8B3Bzrw0yN5W+BZJHXaWed+l9obM5I7TNkOC6lPhzx/fr2L7vp8n?=
+ =?us-ascii?Q?C6gV2n8XtHi6nTZB5ZgVRlg22sEVv10ADYtlsykgOphkWadlDGz/mbih040X?=
+ =?us-ascii?Q?i6KYkzVev+8QhEp5m2y34Yk9Njq4rfunH/crfG/hxpibxQXSTBrVhYh7YgwR?=
+ =?us-ascii?Q?KzV1pYFUkZ8xFOMs1pERs6y4H+6ZnUQKWxEdzMsrU7SGKrQlf0k1W5Ysz2SR?=
+ =?us-ascii?Q?gqR29r7a9uKbOQUAvWrCA9HJ+/KW5NC4cUZu0vdMJe8rn1FIdbRu48W0meQi?=
+ =?us-ascii?Q?24+ZdyEej4ujAwa4idWJ+SkmZ/3aoVuKnpLXkhSylZuXtmNnjkA1q9ZlFglb?=
+ =?us-ascii?Q?JFoo5JI+GZTtm4uRfOpFotZGV3EE0LiBZuvzWR5wBFcAHNj10GUpntxYUxP/?=
+ =?us-ascii?Q?i2zrIrLlSga+IWkQ/pCGfLXiqcopM4dlsGlLAd7JFoll84rXGLHiPbIyQl3H?=
+ =?us-ascii?Q?uYfzxa+7KBM+C6fOuhItIE9gka2v3lD8ClQON21bP6w3V8vQiQ=3D=3D?=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB8796.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(7053199007)(38070700018); DIR:OUT;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(7053199007)(38070700018); DIR:OUT;
  SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?8KA3iepAELKspVRU1xq3I1b1QMAM5A72Mey32dbd/XJ/xh+Gmh/Bt+mNS+N6?=
- =?us-ascii?Q?viPdqibnno+7n3ocJEZ4H6qG3SgYgblj6C2XiWEdksI7Ki0Fv9QHfffrt/dp?=
- =?us-ascii?Q?28cYYpto78pK01cEBUDqg2RilBjnCij91WX7d552FhH/4AMN1hrSbGJBES2g?=
- =?us-ascii?Q?91JxzC9fVo2CestIWDAvr3x5qk30L3KpiklIXbgOtdv+rZgVQofiWXCD5eH9?=
- =?us-ascii?Q?hd2hTh8i12hB8rvwTMLYwTokO89hshD4+w2k2hiOtAH8z6WVGz8KpKkOTar9?=
- =?us-ascii?Q?UXE7PxwIvmLXw0/5NmlBs5Jy6KJtiw0RBhq5SXMvEOMoIvYhWY95/l6+oPvf?=
- =?us-ascii?Q?cKB16up1uHiGEF3MVKFegB6pcpCIOVAnHbyYkIccJfPmXMXRfP0PjerUAOx9?=
- =?us-ascii?Q?PotV9FAKr3Lo3qpeAOZ+ZHMrm9VdD+oxJamOxa5HM0x4Jx4seXZTnVycCo9N?=
- =?us-ascii?Q?4v8NqFeM4a/G/hB1b3NZrkCvKuOnXkVkIzdiYR2jTvyZY0vyflnAcM5o6s+b?=
- =?us-ascii?Q?I8M+KePIsys3j16flK/lTyVeAztNJ8sajZAlluyIFje6KqOjg/YtBsPZXLYr?=
- =?us-ascii?Q?aFgTW+6dYYrwLDUob96etZ9fKIU3a3VLTHevv0WL4/C0bWFzMmYTJyofvipL?=
- =?us-ascii?Q?Hpsq98gRlrY9eqW86P1RF8/16MUwrv+extpKLMb1yHfC5qKFloJ/VzUe9cv7?=
- =?us-ascii?Q?tw8xWE+DYIENjAYTZsHXwB8F2WQcbBA9TkHJ3BxoqbCZXsyEWX69Pf9zmEpN?=
- =?us-ascii?Q?C8JMouQwlaniw36/PJNoz14hnyMir5JQtbo1SeAPAWBd5sBHrSfQxN4OnyJv?=
- =?us-ascii?Q?e+EIRM9mnAbz71axk1HcKT6jT8mvFqhPKT1uKZnxAs6IpUwGpqfDSl1XqK+x?=
- =?us-ascii?Q?FCHvSjD9sk4RYNzx7Gd8wR0DgsGwpaaRxnVZVCpJcT9KHY2vW6ZPb0Sol6zI?=
- =?us-ascii?Q?yQV85RVe0s5bp75Hrt+xJNfXjM3Ze/ESo9WAyNiRVDxDJ632QmYXCNSx7nlb?=
- =?us-ascii?Q?eMyhaHnTuL/iSZcum8Mwtitfd9l2gm+hPRMr5X6+xSO0V/Cuez0FhEZFsLbm?=
- =?us-ascii?Q?dDIVADhdYqFFHGSA80JsiooYqcUQ1/SmCkY8lFlXH2jgzuXi7bk2MYpHT2aA?=
- =?us-ascii?Q?eiq/tNVPRooWWwcRKgaaFyD3Kytj6QP0FFtWl7m3Bh7RNilw/mR2rnnAGsrJ?=
- =?us-ascii?Q?lE0JuU47588/bYSOZWO7XLeojJWIc3wzuc80TqAYrl13GhRVgXeX8gNyeNRN?=
- =?us-ascii?Q?lJCX2MH+UJ0DDJHvsBCh3PnuNI9r01b8D3Td+TNUhpRrm/jGmBEcIqzRrvdK?=
- =?us-ascii?Q?8GVRxet7vA42RxYrOZXAdhoda7GggOoJQCyAQ+rz4n917xa0sgS38e6QbXgB?=
- =?us-ascii?Q?JPxdFabBgy1JLHV2dSNxNsx7iHTuk9sFfTXhKvBF1mHWw/CxnER59C7V+y9O?=
- =?us-ascii?Q?/BAZml/DBAyF/WTaLppoUL1iU7RtGRnd3wnl04x5yKJbH/DNJrvOCAT9Q3oJ?=
- =?us-ascii?Q?fXt+oZtHPJnxekBCbikTGIAlJfcp2E85lVVh/1FYYa7VFhRLGH/yXGUEJ2I6?=
- =?us-ascii?Q?r7CXpKMhk6GRDTeOkY8=3D?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?xDsN9SYBMDCaeK1K1F0PNjdGpg29e1WMmSuVKPYx4WKWXmAPZxWhwF2LU7J0?=
+ =?us-ascii?Q?Td1lKCR9umMZ1LpzDU+z08hGX9UnWNVu9DwL8LRgG03woUd48I/IBZiQ+QNx?=
+ =?us-ascii?Q?QBkChjFS460yCwtOpNHl5PzY2WFz1Gs/73vWr33NJrdOEJB/jDdTkBoekgHE?=
+ =?us-ascii?Q?xfV5iCYlLYxcPdW03VHbZoTI+tFCe6+6pJxbssieyju7hXg0F2pVHd3zWap5?=
+ =?us-ascii?Q?z4qtYuw0P4M9W+yttjF4YrsHSldfX5yZqmxMa0/sje2L33zQmfPeJVPan5hO?=
+ =?us-ascii?Q?uyRsVn9UXfuiyuUKy5k+i3xJnxWIsxIGyRHr7Tbjka0gch8uz6l8HFTyGI2t?=
+ =?us-ascii?Q?gDYqiQEbsZv7BAuA785bV9a+0CLyRClBl1z1chi9rZP025J9ZYSkGStVRZBW?=
+ =?us-ascii?Q?KD9lAVplG9D74QpfYXDoog7tdwkvtW/uhMkDuF3GFYSbapy2UcoFECQFM8Ww?=
+ =?us-ascii?Q?dgwSW9E5RGuuiCV7Z7EB6o//3ZWcvBAw4iTs/Ig+Oy32AYvxm0j875zx28sF?=
+ =?us-ascii?Q?sJMu4AWDCS1CtQR6e3Fq672a0F/vKxWC1azqLhs8Ialb3NzqqJsNhTZq96U5?=
+ =?us-ascii?Q?tMXQtzcZybRMoTsgIRXhuE7ne5FtmuYkURqcc02ab+0ESvgAvOLq7AkdKn1L?=
+ =?us-ascii?Q?Zi/yXr13gG5jQvtZk7q1WXyWJkfaxmF0WKG6f8Tk/Kqj+T6oXH06Zf/DbDU7?=
+ =?us-ascii?Q?iZA8IaMi3zSr/jCmNGJ6brZ9k9WMiBI25xlLEBZoWo4A+2BPjsTwCjXvywxh?=
+ =?us-ascii?Q?B22T+o4PaCuJxiGfu2rC7Of3ynWbSodYEIrYnfUSIIIBqk/FGMN6ZLidtTep?=
+ =?us-ascii?Q?O4eJGkGRUBb2+qQmRPCjap2yn1nZqsTY/PXS9BKJqNeYCaj/VqpDeChQjxwh?=
+ =?us-ascii?Q?m/6ntoQe1/EjfcCL8aoDpOSWDVZHgSeNDl9Eds1y2Rmn2TjkoF3RF+vbQcC5?=
+ =?us-ascii?Q?ovwFCab1LevZA/WK6ohOZkZ5MU/7Eh1LuaHNimQTDMuYIp0H2kmXqc9IFEYz?=
+ =?us-ascii?Q?Ki5UGZaZ8z2x2txKntz0JNPL0viOfHTreasZQEaouy0V3LrjlX+k/FAnpTj2?=
+ =?us-ascii?Q?Jrzxn+5NFgUxOKIDO2yMgBzsZUaZzVbeIY1rQQjS/yvDEKqpfr7FRQSBUIuP?=
+ =?us-ascii?Q?TCHfe0Z5d9qRBysDGuEi19/Z7ocU0daPgGKu9SwkDcJipUv4bnqnB6l1QHcp?=
+ =?us-ascii?Q?6W5ARyEOWorXKfp8ALc2DOkC3dscTc/0eMiwoonu/RGyjjx/8o/YU94TXSJC?=
+ =?us-ascii?Q?igSH4CIH6wi0B5w16iuHrm7OOJwJno+fXF7ALe9JHMWbFcROGA9XThddswHa?=
+ =?us-ascii?Q?MM4FEOUiJdroyzEFqPC1D4OqAKdFcqtaq7/KLjorJDnvw9pJKJFQEUczzf+2?=
+ =?us-ascii?Q?6sRZWejAzhFVIpCCK6rQwy7mFDaV5PelqxRb3AhQgUBHkv/wZNlWyxVpmU8w?=
+ =?us-ascii?Q?78JLvb3C5fd+1/dzr/hbPOmVPmCCoFvcqqOe2xQR4GWbUM5+TsYAZvHKRJJ7?=
+ =?us-ascii?Q?Q8W7CLe7Cdpi5hkh5J6niXjCzIgztEfg6KARsJrytr/zK05nFs5Q0QhyQXyA?=
+ =?us-ascii?Q?CZxkVpPMXNW1GSbpAyHyu8zECG0W4t6XncOe+d2F?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB8796.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9da293ab-f6ad-4f17-7496-08dd136221c3
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Dec 2024 06:17:15.0521 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ecb1b5f6-3703-43c4-7084-08dd1363dbd8
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Dec 2024 06:29:36.7543 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: GH9Hg8QM9FgJm0QLuxwmPUQ7uqPobafkSYWYXVlDGL+yOaOwpwJdjoDqkBK/2Bxz
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4467
+X-MS-Exchange-CrossTenant-userprincipalname: RZprAdtDGsSl0W02QO6iEsP8KqtBc/CMYsSCrV2jiV5kdhJG1fh3UhP/4XXuPVFyEBE5tjioM9rJJviSHoJBdw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9419
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,81 +157,274 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 [AMD Official Use Only - AMD Internal Distribution Only]
 
-The series is:
+Series is
 
-Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 
-> -----Original Message-----
-> From: Wang, Yang(Kevin) <KevinYang.Wang@amd.com>
-> Sent: Monday, December 2, 2024 4:49 PM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Zhou1, Tao
-> <Tao.Zhou1@amd.com>; Yang, Stanley <Stanley.Yang@amd.com>; Zhang,
-> Hawking <Hawking.Zhang@amd.com>
-> Subject: [PATCH 1/3] drm/amdgpu: move common ACA ipid defines into
-> amdgpu_aca.h
->
-> move common ACA ipid defines into amdgpu_aca.h file.
->
-> Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
-> Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_aca.h | 5 +++++
-> drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c | 4 ----
-> drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c | 1 -
->  3 files changed, 5 insertions(+), 5 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.h
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.h
-> index 5ef6b745f222..f3289d289913 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.h
-> @@ -71,6 +71,11 @@ struct ras_query_context;
->  #define ACA_ERROR_CE_MASK            BIT_MASK(ACA_ERROR_TYPE_CE)
->  #define ACA_ERROR_DEFERRED_MASK
->       BIT_MASK(ACA_ERROR_TYPE_DEFERRED)
->
-> +#define mmSMNAID_AID0_MCA_SMU                0x03b30400      /* SMN AID =
-AID0
-> */
-> +#define mmSMNAID_XCD0_MCA_SMU                0x36430400      /* SMN AID
-> XCD0 */
-> +#define mmSMNAID_XCD1_MCA_SMU                0x38430400      /* SMN AID
-> XCD1 */
-> +#define mmSMNXCD_XCD0_MCA_SMU                0x40430400      /* SMN XCD
-> XCD0 */
-> +
->  enum aca_reg_idx {
->       ACA_REG_IDX_CTL                 =3D 0,
->       ACA_REG_IDX_STATUS              =3D 1,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-> b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-> index f23df55d72fd..4e920607a278 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-> @@ -52,10 +52,6 @@ MODULE_FIRMWARE("amdgpu/gc_9_4_4_rlc.bin");
->  #define GOLDEN_GB_ADDR_CONFIG 0x2a114042  #define
-> CP_HQD_PERSISTENT_STATE_DEFAULT 0xbe05301
->
-> -#define mmSMNAID_XCD0_MCA_SMU 0x36430400     /* SMN AID XCD0 */
-> -#define mmSMNAID_XCD1_MCA_SMU 0x38430400     /* SMN AID XCD1 */
-> -#define mmSMNXCD_XCD0_MCA_SMU 0x40430400     /* SMN XCD XCD0 */
-> -
->  #define XCC_REG_RANGE_0_LOW  0x2000     /* XCC gfxdec0 lower Bound */
->  #define XCC_REG_RANGE_0_HIGH 0x3400     /* XCC gfxdec0 upper Bound */
->  #define XCC_REG_RANGE_1_LOW  0xA000     /* XCC gfxdec1 lower Bound */
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c
-> b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c
-> index b01bb759d0f4..e646e5cef0a2 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c
-> @@ -33,7 +33,6 @@
->
->  #define regVM_L2_CNTL3_DEFAULT       0x80100007
->  #define regVM_L2_CNTL4_DEFAULT       0x000000c1
-> -#define mmSMNAID_AID0_MCA_SMU 0x03b30400
->
->  static u64 mmhub_v1_8_get_fb_location(struct amdgpu_device *adev)  {
-> --
-> 2.34.1
+Regards,
+Hawking
+
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Tao Zhou
+Sent: Monday, December 2, 2024 18:25
+To: amd-gfx@lists.freedesktop.org
+Cc: Zhou1, Tao <Tao.Zhou1@amd.com>
+Subject: [PATCH 2/2] drm/amdgpu: correct the calculation of RAS bad page
+
+After the introduction of NPS RAS, one bad page record on eeprom may be rel=
+ated to 1 or 16 bad pages, so the bad page record and bad page are two diff=
+erent concepts, define a new variable to store bad page number.
+
+Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c       | 10 +----
+ .../gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c    | 40 +++++++++++++------
+ .../gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h    |  5 +++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c       |  2 +-
+ 4 files changed, 35 insertions(+), 22 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_ras.c
+index da072ab3fb5c..d03e4ae708dd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -2934,13 +2934,7 @@ int amdgpu_ras_save_bad_pages(struct amdgpu_device *=
+adev,
+        mutex_lock(&con->recovery_lock);
+        control =3D &con->eeprom_control;
+        data =3D con->eh_data;
+-       bad_page_num =3D control->ras_num_recs;
+-       /* one record on eeprom stands for all pages in one memory row
+-        * in this mode
+-        */
+-       if (control->rec_type =3D=3D AMDGPU_RAS_EEPROM_REC_MCA)
+-               bad_page_num =3D control->ras_num_recs * adev->umc.retire_u=
+nit;
+-
++       bad_page_num =3D control->ras_num_bad_pages;
+        save_count =3D data->count - bad_page_num;
+        mutex_unlock(&con->recovery_lock);
+
+@@ -3432,7 +3426,7 @@ int amdgpu_ras_init_badpage_info(struct amdgpu_device=
+ *adev)
+                        return ret;
+
+                amdgpu_dpm_send_hbm_bad_pages_num(
+-                       adev, control->ras_num_recs);
++                       adev, control->ras_num_bad_pages);
+
+                if (con->update_channel_flag =3D=3D true) {
+                        amdgpu_dpm_send_hbm_bad_channel_flag(
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c b/drivers/gpu/d=
+rm/amd/amdgpu/amdgpu_ras_eeprom.c
+index 9dae4ac2f5d0..0b15f0370b67 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+@@ -470,9 +470,10 @@ int amdgpu_ras_eeprom_reset_table(struct amdgpu_ras_ee=
+prom_control *control)
+                res =3D __write_table_ras_info(control);
+
+        control->ras_num_recs =3D 0;
++       control->ras_num_bad_pages =3D 0;
+        control->ras_fri =3D 0;
+
+-       amdgpu_dpm_send_hbm_bad_pages_num(adev, control->ras_num_recs);
++       amdgpu_dpm_send_hbm_bad_pages_num(adev, control->ras_num_bad_pages)=
+;
+
+        control->bad_channel_bitmap =3D 0;
+        amdgpu_dpm_send_hbm_bad_channel_flag(adev, control->bad_channel_bit=
+map); @@ -559,7 +560,7 @@ bool amdgpu_ras_eeprom_check_err_threshold(struct=
+ amdgpu_device *adev)
+        if (con->eeprom_control.tbl_hdr.header =3D=3D RAS_TABLE_HDR_BAD) {
+                if (amdgpu_bad_page_threshold =3D=3D -1) {
+                        dev_warn(adev->dev, "RAS records:%d exceed threshol=
+d:%d",
+-                               con->eeprom_control.ras_num_recs, con->bad_=
+page_cnt_threshold);
++                               con->eeprom_control.ras_num_bad_pages,
++con->bad_page_cnt_threshold);
+                        dev_warn(adev->dev,
+                                "But GPU can be operated due to bad_page_th=
+reshold =3D -1.\n");
+                        return false;
+@@ -621,6 +622,7 @@ amdgpu_ras_eeprom_append_table(struct amdgpu_ras_eeprom=
+_control *control,
+                               const u32 num)
+ {
+        struct amdgpu_ras *con =3D amdgpu_ras_get_context(to_amdgpu_device(=
+control));
++       struct amdgpu_device *adev =3D to_amdgpu_device(control);
+        u32 a, b, i;
+        u8 *buf, *pp;
+        int res;
+@@ -723,6 +725,12 @@ amdgpu_ras_eeprom_append_table(struct amdgpu_ras_eepro=
+m_control *control,
+        control->ras_num_recs =3D 1 + (control->ras_max_record_count + b
+                                     - control->ras_fri)
+                % control->ras_max_record_count;
++
++       if (control->rec_type =3D=3D AMDGPU_RAS_EEPROM_REC_PA)
++               control->ras_num_bad_pages =3D control->ras_num_recs;
++       else
++               control->ras_num_bad_pages =3D
++                       control->ras_num_recs * adev->umc.retire_unit;
+ Out:
+        kfree(buf);
+        return res;
+@@ -740,10 +748,10 @@ amdgpu_ras_eeprom_update_header(struct amdgpu_ras_eep=
+rom_control *control)
+        /* Modify the header if it exceeds.
+         */
+        if (amdgpu_bad_page_threshold !=3D 0 &&
+-           control->ras_num_recs >=3D ras->bad_page_cnt_threshold) {
++           control->ras_num_bad_pages >=3D ras->bad_page_cnt_threshold) {
+                dev_warn(adev->dev,
+                        "Saved bad pages %d reaches threshold value %d\n",
+-                       control->ras_num_recs, ras->bad_page_cnt_threshold)=
+;
++                       control->ras_num_bad_pages, ras->bad_page_cnt_thres=
+hold);
+                control->tbl_hdr.header =3D RAS_TABLE_HDR_BAD;
+                if (control->tbl_hdr.version =3D=3D RAS_TABLE_VER_V2_1) {
+                        control->tbl_rai.rma_status =3D GPU_RETIRED__ECC_RE=
+ACH_THRESHOLD; @@ -798,9 +806,9 @@ amdgpu_ras_eeprom_update_header(struct a=
+mdgpu_ras_eeprom_control *control)
+         */
+        if (amdgpu_bad_page_threshold !=3D 0 &&
+            control->tbl_hdr.version =3D=3D RAS_TABLE_VER_V2_1 &&
+-           control->ras_num_recs < ras->bad_page_cnt_threshold)
++           control->ras_num_bad_pages < ras->bad_page_cnt_threshold)
+                control->tbl_rai.health_percent =3D ((ras->bad_page_cnt_thr=
+eshold -
+-                                                  control->ras_num_recs) *=
+ 100) /
++                                                  control->ras_num_bad_pag=
+es) * 100) /
+                                                   ras->bad_page_cnt_thresh=
+old;
+
+        /* Recalc the checksum.
+@@ -1402,9 +1410,15 @@ int amdgpu_ras_eeprom_check(struct amdgpu_ras_eeprom=
+_control *control)
+        if (!__get_eeprom_i2c_addr(adev, control))
+                return -EINVAL;
+
++       if (control->rec_type =3D=3D AMDGPU_RAS_EEPROM_REC_PA)
++               control->ras_num_bad_pages =3D control->ras_num_recs;
++       else
++               control->ras_num_bad_pages =3D
++                       control->ras_num_recs * adev->umc.retire_unit;
++
+        if (hdr->header =3D=3D RAS_TABLE_HDR_VAL) {
+                DRM_DEBUG_DRIVER("Found existing EEPROM table with %d recor=
+ds",
+-                                control->ras_num_recs);
++                                control->ras_num_bad_pages);
+
+                if (hdr->version =3D=3D RAS_TABLE_VER_V2_1) {
+                        res =3D __read_table_ras_info(control); @@ -1419,9 =
++1433,9 @@ int amdgpu_ras_eeprom_check(struct amdgpu_ras_eeprom_control *co=
+ntrol)
+
+                /* Warn if we are at 90% of the threshold or above
+                 */
+-               if (10 * control->ras_num_recs >=3D 9 * ras->bad_page_cnt_t=
+hreshold)
++               if (10 * control->ras_num_bad_pages >=3D 9 *
++ras->bad_page_cnt_threshold)
+                        dev_warn(adev->dev, "RAS records:%u exceeds 90%% of=
+ threshold:%d",
+-                                       control->ras_num_recs,
++                                       control->ras_num_bad_pages,
+                                        ras->bad_page_cnt_threshold);
+        } else if (hdr->header =3D=3D RAS_TABLE_HDR_BAD &&
+                   amdgpu_bad_page_threshold !=3D 0) {
+@@ -1435,7 +1449,7 @@ int amdgpu_ras_eeprom_check(struct amdgpu_ras_eeprom_=
+control *control)
+                if (res)
+                        DRM_ERROR("RAS Table incorrect checksum or error:%d=
+\n",
+                                  res);
+-               if (ras->bad_page_cnt_threshold > control->ras_num_recs) {
++               if (ras->bad_page_cnt_threshold > control->ras_num_bad_page=
+s) {
+                        /* This means that, the threshold was increased sin=
+ce
+                         * the last time the system was booted, and now,
+                         * ras->bad_page_cnt_threshold - control->num_recs =
+> 0, @@ -1445,13 +1459,13 @@ int amdgpu_ras_eeprom_check(struct amdgpu_ras_=
+eeprom_control *control)
+                        dev_info(adev->dev,
+                                 "records:%d threshold:%d, resetting "
+                                 "RAS table header signature",
+-                                control->ras_num_recs,
++                                control->ras_num_bad_pages,
+                                 ras->bad_page_cnt_threshold);
+                        res =3D amdgpu_ras_eeprom_correct_header_tag(contro=
+l,
+                                                                   RAS_TABL=
+E_HDR_VAL);
+                } else {
+                        dev_err(adev->dev, "RAS records:%d exceed threshold=
+:%d",
+-                               control->ras_num_recs, ras->bad_page_cnt_th=
+reshold);
++                               control->ras_num_bad_pages, ras->bad_page_c=
+nt_threshold);
+                        if (amdgpu_bad_page_threshold =3D=3D -1) {
+                                dev_warn(adev->dev, "GPU will be initialize=
+d due to bad_page_threshold =3D -1.");
+                                res =3D 0;
+@@ -1460,7 +1474,7 @@ int amdgpu_ras_eeprom_check(struct amdgpu_ras_eeprom_=
+control *control)
+                                dev_err(adev->dev,
+                                        "RAS records:%d exceed threshold:%d=
+, "
+                                        "GPU will not be initialized. Repla=
+ce this GPU or increase the threshold",
+-                                       control->ras_num_recs, ras->bad_pag=
+e_cnt_threshold);
++                                       control->ras_num_bad_pages, ras->ba=
+d_page_cnt_threshold);
+                        }
+                }
+        } else {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h b/drivers/gpu/d=
+rm/amd/amdgpu/amdgpu_ras_eeprom.h
+index b87422df52fd..81d55cb7b397 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h
+@@ -95,6 +95,11 @@ struct amdgpu_ras_eeprom_control {
+         */
+        u32 ras_num_recs;
+
++       /* the bad page number is ras_num_recs or
++        * ras_num_recs * umc.retire_unit
++        */
++       u32 ras_num_bad_pages;
++
+        /* First record index to read, 0-based.
+         * Range is [0, num_recs-1]. This is
+         * an absolute index, starting right after diff --git a/drivers/gpu=
+/drm/amd/amdgpu/amdgpu_umc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
+index 1881bcd040c7..cffe22b86118 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
+@@ -169,7 +169,7 @@ void amdgpu_umc_handle_bad_pages(struct amdgpu_device *=
+adev,
+                                                err_data->err_addr_cnt, fal=
+se);
+                        amdgpu_ras_save_bad_pages(adev, &err_count);
+
+-                       amdgpu_dpm_send_hbm_bad_pages_num(adev, con->eeprom=
+_control.ras_num_recs);
++                       amdgpu_dpm_send_hbm_bad_pages_num(adev,
++con->eeprom_control.ras_num_bad_pages);
+
+                        if (con->update_channel_flag =3D=3D true) {
+                                amdgpu_dpm_send_hbm_bad_channel_flag(adev, =
+con->eeprom_control.bad_channel_bitmap);
+--
+2.34.1
 
