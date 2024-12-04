@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42F26E7716F
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Dec 2024 23:29:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4831E7716F
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Dec 2024 23:30:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC77110ED79;
-	Wed,  4 Dec 2024 23:29:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 670FE10ED84;
+	Wed,  4 Dec 2024 23:30:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lTfGIcS2";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QUUI0Ktx";
 	dkim-atps=neutral
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5865910ED79;
- Wed,  4 Dec 2024 23:29:17 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0983610ED83;
+ Wed,  4 Dec 2024 23:29:59 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 574C1A41399;
- Wed,  4 Dec 2024 23:27:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40851C4CECD;
- Wed,  4 Dec 2024 23:29:14 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 8E5C55C573B;
+ Wed,  4 Dec 2024 23:29:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61EC0C2BCC4;
+ Wed,  4 Dec 2024 23:29:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1733354956;
- bh=pFQjjEdkgiRe6I61WhUqrKY6q25ZpHWn+fnlSX5OMTk=;
+ s=k20201202; t=1733354998;
+ bh=+J+kz/M+Y8prMAq3RC1OxtSLP4O3Db7wbLLW3XlzyMg=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=lTfGIcS2ZfwDYS2tpsbw9iq6MywlJc33TwCg6+J6mcK2jnry8h24WtsIjWmbDed0D
- Q2xQHwxcOL/4UxQaJdssqrs39drqV56ahd6TtLHc06pXijMUtyOlRow6i+Ijpm7NHk
- Sm7iZBAfaIcrkH0mni/wJb37HFKrZpAiEVsH0Um2Z9sp3gy45ympFJnLXGoNXbLns5
- 2THmr1NmztR0qVDT3CnpiKCfgbQi6ciNjxNDGQpn7uX8I+ROqOadUZkZ64A1HEHsJZ
- JrBn8Td2AZRMKhLd7ySm9voLAFr8zK7hodUFpVbdKefg0gmc4SNI6UwIzgxbgT1PtI
- 3rQmjIgmaEYyQ==
+ b=QUUI0Ktx6giwokja8FInhutIaiBLV81gp9sLgwi+7wkT4mSuVC08D46/7lUuiaG0o
+ /KeU0aUfXz+H7Y7L1yhdgnLCwVpuF1OwM8EVcELqJAhk3JYpdWzpA7fh7TBYB2T1Vl
+ KvJSsw9ALIXJylUWKbZS0REfkrvepJRo7iWtF+YwZKvMVGSxiJp3QAxjQgsvCSBnn8
+ pPRh+Tnj/Efq9WnwhUAGw3YIKw7gZdq0euWafp1yjll7oCA/kcAkbHcLmGTGU6ONUo
+ mC/ZQsib8KvS3zm4ZTCig0BJGvoMlr2Mp1aDLNj87TCgBqhDn+kVoery6ZWxpS3kQO
+ q5Hz2xjrGOMzg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
@@ -38,21 +38,21 @@ Cc: Xiang Liu <xiang.liu@amd.com>,
  "Stanley . Yang" <Stanley.Yang@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
  Xinhui.Pan@amd.com, airlied@gmail.com, simona@ffwll.ch,
- sunil.khatri@amd.com, lijo.lazar@amd.com, leo.liu@amd.com,
- Jane.Jian@amd.com, David.Wu3@amd.com, sathishkumar.sundararaju@amd.com,
+ sunil.khatri@amd.com, lijo.lazar@amd.com, Jane.Jian@amd.com,
+ David.Wu3@amd.com, sathishkumar.sundararaju@amd.com,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.11 12/15] drm/amdgpu/vcn: reset fw_shared when VCPU
+Subject: [PATCH AUTOSEL 6.6 07/10] drm/amdgpu/vcn: reset fw_shared when VCPU
  buffers corrupted on vcn v4.0.3
-Date: Wed,  4 Dec 2024 17:17:06 -0500
-Message-ID: <20241204221726.2247988-12-sashal@kernel.org>
+Date: Wed,  4 Dec 2024 17:18:05 -0500
+Message-ID: <20241204221820.2248367-7-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20241204221726.2247988-1-sashal@kernel.org>
-References: <20241204221726.2247988-1-sashal@kernel.org>
+In-Reply-To: <20241204221820.2248367-1-sashal@kernel.org>
+References: <20241204221820.2248367-1-sashal@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.11.10
+X-stable-base: Linux 6.6.63
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,10 +92,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 22 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-index 9bae95538b628..77071967f965a 100644
+index f85d18cd74eca..e80c4f5b4f402 100644
 --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
 +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-@@ -80,6 +80,20 @@ static int vcn_v4_0_3_early_init(void *handle)
+@@ -77,6 +77,20 @@ static int vcn_v4_0_3_early_init(void *handle)
  	return amdgpu_vcn_early_init(adev);
  }
  
@@ -116,7 +116,7 @@ index 9bae95538b628..77071967f965a 100644
  /**
   * vcn_v4_0_3_sw_init - sw init for VCN block
   *
-@@ -110,8 +124,6 @@ static int vcn_v4_0_3_sw_init(void *handle)
+@@ -107,8 +121,6 @@ static int vcn_v4_0_3_sw_init(void *handle)
  		return r;
  
  	for (i = 0; i < adev->vcn.num_vcn_inst; i++) {
@@ -125,7 +125,7 @@ index 9bae95538b628..77071967f965a 100644
  		vcn_inst = GET_INST(VCN, i);
  
  		ring = &adev->vcn.inst[i].ring_enc[0];
-@@ -134,12 +146,7 @@ static int vcn_v4_0_3_sw_init(void *handle)
+@@ -131,12 +143,7 @@ static int vcn_v4_0_3_sw_init(void *handle)
  		if (r)
  			return r;
  
@@ -139,7 +139,7 @@ index 9bae95538b628..77071967f965a 100644
  	}
  
  	if (amdgpu_sriov_vf(adev)) {
-@@ -224,6 +231,8 @@ static int vcn_v4_0_3_hw_init(void *handle)
+@@ -221,6 +228,8 @@ static int vcn_v4_0_3_hw_init(void *handle)
  		}
  	} else {
  		for (i = 0; i < adev->vcn.num_vcn_inst; ++i) {
@@ -148,7 +148,7 @@ index 9bae95538b628..77071967f965a 100644
  			vcn_inst = GET_INST(VCN, i);
  			ring = &adev->vcn.inst[i].ring_enc[0];
  
-@@ -247,6 +256,11 @@ static int vcn_v4_0_3_hw_init(void *handle)
+@@ -244,6 +253,11 @@ static int vcn_v4_0_3_hw_init(void *handle)
  					regVCN_RB1_DB_CTRL);
  			}
  
@@ -159,7 +159,7 @@ index 9bae95538b628..77071967f965a 100644
 +
  			r = amdgpu_ring_test_helper(ring);
  			if (r)
- 				return r;
+ 				goto done;
 -- 
 2.43.0
 
