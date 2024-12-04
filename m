@@ -4,76 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CC28E77170
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Dec 2024 16:45:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E35E4E77170
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Dec 2024 20:28:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0729489167;
-	Wed,  4 Dec 2024 16:45:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F24310E575;
+	Wed,  4 Dec 2024 20:28:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FGuGqK9P";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="E81QQxn0";
 	dkim-atps=neutral
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com
- [209.85.210.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E384989167
- for <amd-gfx@lists.freedesktop.org>; Wed,  4 Dec 2024 16:45:16 +0000 (UTC)
-Received: by mail-pf1-f170.google.com with SMTP id
- d2e1a72fcca58-724e24ab195so2572b3a.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 04 Dec 2024 08:45:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1733330716; x=1733935516; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=KqzaH5dVcIc4AD57JsNH4z+TgOXdpcm2S+g6Fr9RsdE=;
- b=FGuGqK9PpLSC7OpYqH42NYPvwuhiYurltRgfzXn2hN27gf07Sk9/ATqQr2E5HkhVY8
- GDk5v0lcMS78fE8dugSjL5TVlIQnQRh9ejuPpqKMSF+InxgiMTi/Imvf5PTuUi9k87ci
- 82gPwrvmmWC/5bK5CmxtXwgZLzhR7GEK1ItB9HhwzBb5RI83epWgvgzIGToJXCh0O9Yr
- 77zwA/Rua6RzCcmwsGDul02oFQ2vOELnW0RE7eXHvD33zgL3EmHtLJvv/XeYq0DnEDw4
- fL6VFV3x2aSGEaA6XuRaYMgVn2Hr5t+ZG8HcLR2/IQGhrBLBz8KY7DwPew9aIAZlNZls
- +JFg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733330716; x=1733935516;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=KqzaH5dVcIc4AD57JsNH4z+TgOXdpcm2S+g6Fr9RsdE=;
- b=nVLuJvgae4MsV05G2yBS2fGgl7+TQt/ujHttVZGXLu4wqy4L6CIVVA8PEwL5xl6loY
- QwDcxLXdYPNngZJvft0LVLBk6VGvB6ra33O0pKArYJBQHWcD53Bc2eT7WH4Bv+IlSrcA
- re8pfv3JXgL5Y0xlbsBFWL7J5vB1VeHKhTVlH9pCWXVX4FEv7zhHsP+oeIAi/80DJAzu
- xpydXDqz1U8e3OEX300JZtKtIa83cIYAdpD9aeBRpDO3hw3f2hkffNQW9JVYTe2PQ7ek
- PKgKK4Ajmd9j8zqPY5OAesIB3LHpRvPnX0hY3bBXb7UeGpdsA/Z6rs7EcAiyxY9DRRFa
- Mvzg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVWvWTY3+e3kaNTBkKFfiU6XITT4N+j5rgKFPD5zvFtLXyouD4f96YdKiPcg20MKEMJxhRlHw4T@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzCz03jwHYwOnhIze03YDT7+hlWy5XzkBy2PFCYGKkfH4dd9dUu
- XoVLxJ95OFby0p6QCtgpH0N7idRZ3kWz/gR2RJmMtRjOjTHFRq7Q2xGyJlTzYwt5ai6Xv0zr8Ht
- d7EqlsP0FZTZq1FapICwT9V1P0po=
-X-Gm-Gg: ASbGnculiqqsgj2ik33Zng+3kjxNH2IINNxLZJC34V6BLEb/UAoLKs1skRSd1WL+DO/
- b8BUBibvqWfkcTNSooslVorrLoh3uu8s=
-X-Google-Smtp-Source: AGHT+IEA/o5ovRvuiNivskj0cvhuypuJ6zrDPsk/r46HXNkmvjCpqiihG29Jq1Q41RPyVPzTyMzikNcX1kTyvY4ZRDc=
-X-Received: by 2002:a05:6a00:b53:b0:725:2927:d89d with SMTP id
- d2e1a72fcca58-7257fa42516mr4572328b3a.2.1733330714735; Wed, 04 Dec 2024
- 08:45:14 -0800 (PST)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2051.outbound.protection.outlook.com [40.107.223.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8056F10E575
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 Dec 2024 20:28:07 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=omfLBJMb2p188BxdLnylRrBHQ+9m6B6Bj+Q/F9bKcSEjpeKIkOxFwcnc9NdjzjnQI3Ro9MVXn6/N3XSVeUSpqN0tWz4X9DWbLDdlOot7TnOa/albJCpFGAbJzYU/zWFz2Bj56YWMMFV7MfMhXQbT2ARfvdVdWmrVYRGl1rTJCdM2d+FSFIzq+PdTQ0ts/rJpHS5ISDT5t3g9/vva8HCZNLSS48yQ8u5eemCpaRIxbMN8M88+B6XIltix+WbhVkAdVZWj6GfnzWXf4tjkyxX9VBVtruSV1MgxfY6xfCi72xnfG6l1k53Z2rnsf85G4+JcCKDbKTDcqNKRNJAJ1UZ/TQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SEcBPwlnle7//AgU37rY9N5CMIt0MVq813knE23pIE0=;
+ b=a+qyWlr1ebShAQn8tP55sP6VSB9c6Edt8D+6XTHdITsVXMHGNtETyZWYaaX4TE40f6CkWvj64QITcdALDHf2DQVBt8R22xQkTf7hb43/p3aPcTEoDzoDFjDiSdZc86kvmCoNXaRGYBDNjBUQq3p1cd1Z/VAK7kZDAGOuWAUGQn93M8SokzeNZMpBSKFjP08ESlS82fmMy/4O1wguuZcySeG2wwdPpkYfuV2dE6O3f7hz7yGNBudUTWaKATL/9m7WETgqLST28B9WjixcgjcF6d2F2974T0VPI8QOF5xjjGnM7zVRU3p62wRxf6UtFtSCmDyfuo8XwFsNdrAehnpngw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SEcBPwlnle7//AgU37rY9N5CMIt0MVq813knE23pIE0=;
+ b=E81QQxn0XiEIYvp0fKl/ctECy8e43TcxLJAPrXhGGlaagHh9E5qHnlxaiAJzG/c8/msjThZCkbMUw+hRov/Re6BbuUkAbAuEDEa/Y8WZ/UNx5UC8PvjkA7uP3PyIyOiSQK154G38NFmCE8HPCamUcjyyhqRxTOWPrEvrNs4lSyA=
+Received: from BN9PR03CA0509.namprd03.prod.outlook.com (2603:10b6:408:130::34)
+ by CY8PR12MB7218.namprd12.prod.outlook.com (2603:10b6:930:5a::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8207.14; Wed, 4 Dec
+ 2024 20:28:03 +0000
+Received: from BL6PEPF0001AB56.namprd02.prod.outlook.com
+ (2603:10b6:408:130:cafe::b) by BN9PR03CA0509.outlook.office365.com
+ (2603:10b6:408:130::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8207.19 via Frontend Transport; Wed,
+ 4 Dec 2024 20:27:59 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL6PEPF0001AB56.mail.protection.outlook.com (10.167.241.8) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8230.7 via Frontend Transport; Wed, 4 Dec 2024 20:27:59 +0000
+Received: from AUS-P9-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 4 Dec
+ 2024 14:27:57 -0600
+From: Mario Limonciello <mario.limonciello@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Mario Limonciello <mario.limonciello@amd.com>
+Subject: [PATCH] drm/amd/display: Remove double checks for
+ `debug.enable_mem_low_power.bits.cm`
+Date: Wed, 4 Dec 2024 14:27:42 -0600
+Message-ID: <20241204202742.95271-1-mario.limonciello@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20241203181403.23515-1-mario.limonciello@amd.com>
- <e8ae8d63-44d5-4e77-818f-67cf69d0c8b7@amd.com>
- <c5a7f27c-c676-4e10-83ba-393a4df06ada@amd.com>
- <20d00e76-7ce4-42d0-a968-d7adae616984@amd.com>
- <CADnq5_MPEZA2CYfFnG3u--bDeD3eQyZO6igCQQqHEp-BJNwy-g@mail.gmail.com>
- <2062652c-16f6-4e06-b3d7-73ef6a684aaa@amd.com>
- <CADnq5_MD0wexpOc+mGoXkHMHDv5BxybR+tyowedwxg7vvp6mQg@mail.gmail.com>
- <9f85de41-5574-4e83-b5ed-1640e45e90e9@amd.com>
-In-Reply-To: <9f85de41-5574-4e83-b5ed-1640e45e90e9@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 4 Dec 2024 11:45:03 -0500
-Message-ID: <CADnq5_PvErRnCQp-oTR1Qw46H6vo9BuWzH76ERqQ5XDzA1dkoQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd: Add the capability to mark certain firmware as
- "required"
-To: "Lazar, Lijo" <lijo.lazar@amd.com>
-Cc: Mario Limonciello <mario.limonciello@amd.com>,
- amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB56:EE_|CY8PR12MB7218:EE_
+X-MS-Office365-Filtering-Correlation-Id: 481d9529-d5cf-4bc2-a1a2-08dd14a224fc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|36860700013|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?Ax0lIluT8H32+Y0uzTR8qesnEDpFH1Xe2ZnbFVgmNksCsZsLybkS6kL6bmDw?=
+ =?us-ascii?Q?jzbYhuoBSmO+I4l4ePkOzjtQfOxLTMO/niFaQiQw4ndJgL5ZvQ4bu4xLxmll?=
+ =?us-ascii?Q?zXe02iu0xYxskVwX3U2n61yg2Oe8oBOBypSDHnAumwECssVdiN9SFTQDdcOa?=
+ =?us-ascii?Q?3jL3n7U0KlCzeZbPVuL1aohA/0w2+sFulCBivlhjdNGueeRDVEzhYfRpe55O?=
+ =?us-ascii?Q?Gix1ioKGMWeFO0xUQwBR+B1fmXj6/DMK39aheZq2lgvrNj3/FJaBtmCnyLaw?=
+ =?us-ascii?Q?WytEcb5iLziwBuLTOflSv0XOXWeQOeagstE5NudHVH8iA/nTQK2HPbx5G+V1?=
+ =?us-ascii?Q?/J6e9ZD8KuhlsXVAlphBgEne9ihSZIP9dCFs//XKO0dLr66QwUUwAlYCObiq?=
+ =?us-ascii?Q?vMW0afIx/5zcCwLTDYEae+WWdZbTv5P52eD4ntfkh+afIgZwEuSGw/Ng/36J?=
+ =?us-ascii?Q?yF69mOHegy83Y6pISK/azeCVj3AL9Ory80u3Tsiuyci57BvbShnCLLl477mY?=
+ =?us-ascii?Q?s1Wpg3F8o2bzTahPZAbHTtoj4bgTz6WEMysJHdf9MMiEuW6UhkhSSmKd7vkf?=
+ =?us-ascii?Q?abFjnSg4xFnQ9STJ6HSyN1zaNoHRlxncH4NPvPpSCHSxkpQUVLdi0Dtc0qgC?=
+ =?us-ascii?Q?yeHZG/MlBe1SUFyiXJHjYARXxrmFmJ8LWSAAU72D9qlefT/vvU4tOuQMetFp?=
+ =?us-ascii?Q?6rrxuVOvlVb2/G562iYTV5us/YpWEwrXxI55VqLWbgfoHH8Xr5PgehX06LW9?=
+ =?us-ascii?Q?fzXM0dm9gFXE6/aucS9Wrfy05lUfpRWuwvH7QwI2ROl/x+Gy8nsdh4wqQkfY?=
+ =?us-ascii?Q?EeZru6jG/Qw3PDfQ2tU5fl/qbZUFRp4o5YmDr18+s8fVgcVduxeJH5SnESqD?=
+ =?us-ascii?Q?kI8yV98605meeheQ8d8h7JtQirYqnK3ZZZyFMPZlVWxbxi8GBCjYZPJdA6MW?=
+ =?us-ascii?Q?te0BFxPhcp2VTqGxjxOcK7b0dHgMQPF9R/J7/7k9ggTN06vSnY6m7glQA+UP?=
+ =?us-ascii?Q?jGJnyLC8PdE4lX1eyx8hpkeOlqrbppzhTSztV0EGuZ35UohjJ+CG2VSPLfy7?=
+ =?us-ascii?Q?3jAqER9ZseulfRPtcS2THF66e5d9mIMHwa/vWBSXJnt1jn/fYfjCHdlwgZOn?=
+ =?us-ascii?Q?y3sZXzGTM6C4TFAaJjzsOF517eJS2wnJ7sIwx2XDvekdG5emQm+rr2f/fh/Z?=
+ =?us-ascii?Q?cR/vWW2sN5Wh+X4bM4J21aE4YD7dFqWnL+2ZBvRm6P6O2N8iSN50ygO6356F?=
+ =?us-ascii?Q?M43o9ugA15CSZSXSKgrkTBFPr537eErTeg3TrhrXaJwraBp629XyeVrYR/hd?=
+ =?us-ascii?Q?MZWdPaXoFWCg0ocb6H66+tZGWGyCrCizxd1l/lYnkSX1K5ed+90zT2l5o6Xr?=
+ =?us-ascii?Q?54fdAW1gYAKoi2ueOZ2gBEcFlwWc56fy1sjD6+5RSckDrn+dAnoVRco7bLJ5?=
+ =?us-ascii?Q?Wl9gf3hq+ckBJhJsSFw9ETWRnVCtAQ4g?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Dec 2024 20:27:59.3647 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 481d9529-d5cf-4bc2-a1a2-08dd14a224fc
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB56.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7218
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,99 +130,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Dec 4, 2024 at 11:18=E2=80=AFAM Lazar, Lijo <lijo.lazar@amd.com> wr=
-ote:
->
->
->
-> On 12/4/2024 9:30 PM, Alex Deucher wrote:
-> > On Wed, Dec 4, 2024 at 10:56=E2=80=AFAM Lazar, Lijo <lijo.lazar@amd.com=
-> wrote:
-> >>
-> >>
-> >>
-> >> On 12/4/2024 7:51 PM, Alex Deucher wrote:
-> >>> On Wed, Dec 4, 2024 at 12:47=E2=80=AFAM Lazar, Lijo <lijo.lazar@amd.c=
-om> wrote:
-> >>>>
-> >>>>
-> >>>>
-> >>>> On 12/4/2024 10:44 AM, Mario Limonciello wrote:
-> >>>>>
-> >>>>>>> +enum amdgpu_ucode_required {
-> >>>>>>> +    AMDGPU_UCODE_NOT_REQUIRED,
-> >>>>>>> +    AMDGPU_UCODE_REQUIRED,
-> >>>>>>
-> >>>>>> Couldn't this be handled in another API instead of having to flag =
-every
-> >>>>>> load? By default, every ucode is required and if optional may be s=
-kipped
-> >>>>>> with amdgpu_ucode_request_optional() API?
-> >>>>>>
-> >>>>>
-> >>>>> I guess this would be a smaller patch, but 6 eggs one hand, half do=
-zen
-> >>>>> in the other?
-> >>>>>
-> >>>>
-> >>>> I thought only ISP and gpu_info (no longer there for newer SOCs) fal=
-l
-> >>>> into the optional ones so far. The usage is rare, similar to the
-> >>>> nowarn() API usage.
-> >>>>
-> >>>> Also, as far as I know, the cap microcode is a must whenever used. T=
-hat
-> >>>> is not optional.
-> >>>>
-> >>>
-> >>> The cap firmware is definitely optional.  Some customers use it, some=
- don't.
-> >>>
-> >>
-> >> I thought optional is something that can be ignored even if FW is not
-> >> found and then driver load proceeds.
-> >>
-> >> What is the expected driver action if we classify cap firmware as
-> >> optional and then it fails on a customer system that expects it?
-> >
-> > I guess if the customer expects it, they can make sure it's there.
->
-> I don't think customer really can do that without any diagnostic message
-> from the driver. Driver has to show the right message. If it passes that
-> silently and fails at some other point, it could be a totally different
-> signature.
+A variety of the 3DLUT handling functions check
+`debug.enable_mem_low_power.bits.cm` both in the caller and function.
 
-yeah, I haven't seen any bug reports about the cap firmware so the
-current behavior seems to be fine.
+For each of them reduce to just checking just in caller or function.
 
-Alex
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+ .../drm/amd/display/dc/dpp/dcn30/dcn30_dpp.c  | 31 ++++++++-----------
+ 1 file changed, 13 insertions(+), 18 deletions(-)
 
->
-> > I'm not sure how you can have both without it being optional.  For
-> > customers that don't use it, requiring it would break them if it
-> > wasn't present.
-> >
->
-> It's working so far. Having all is better as long as loading that is
-> harmless.
->
-> Thanks,
-> Lijo
->
-> > Alex
-> >
-> >>
-> >> Thanks,
-> >> Lijo
-> >>
-> >>
-> >>> Alex
-> >>>
-> >>>
-> >>>> Thanks,
-> >>>> Lijo
-> >>>>
-> >>>>> Alex - what's your take?
-> >>>>
-> >>
->
+diff --git a/drivers/gpu/drm/amd/display/dc/dpp/dcn30/dcn30_dpp.c b/drivers/gpu/drm/amd/display/dc/dpp/dcn30/dcn30_dpp.c
+index 40acebd13e46d..53565b60cd847 100644
+--- a/drivers/gpu/drm/amd/display/dc/dpp/dcn30/dcn30_dpp.c
++++ b/drivers/gpu/drm/amd/display/dc/dpp/dcn30/dcn30_dpp.c
+@@ -589,14 +589,12 @@ static void dpp3_power_on_hdr3dlut(
+ {
+ 	struct dcn3_dpp *dpp = TO_DCN30_DPP(dpp_base);
+ 
+-	if (dpp_base->ctx->dc->debug.enable_mem_low_power.bits.cm) {
+-		if (power_on) {
+-			REG_UPDATE(CM_MEM_PWR_CTRL2, HDR3DLUT_MEM_PWR_FORCE, 0);
+-			REG_WAIT(CM_MEM_PWR_STATUS2, HDR3DLUT_MEM_PWR_STATE, 0, 1, 5);
+-		} else {
+-			dpp_base->ctx->dc->optimized_required = true;
+-			dpp_base->deferred_reg_writes.bits.disable_3dlut = true;
+-		}
++	if (power_on) {
++		REG_UPDATE(CM_MEM_PWR_CTRL2, HDR3DLUT_MEM_PWR_FORCE, 0);
++		REG_WAIT(CM_MEM_PWR_STATUS2, HDR3DLUT_MEM_PWR_STATE, 0, 1, 5);
++	} else {
++		dpp_base->ctx->dc->optimized_required = true;
++		dpp_base->deferred_reg_writes.bits.disable_3dlut = true;
+ 	}
+ }
+ 
+@@ -606,14 +604,12 @@ static void dpp3_power_on_shaper(
+ {
+ 	struct dcn3_dpp *dpp = TO_DCN30_DPP(dpp_base);
+ 
+-	if (dpp_base->ctx->dc->debug.enable_mem_low_power.bits.cm) {
+-		if (power_on) {
+-			REG_UPDATE(CM_MEM_PWR_CTRL2, SHAPER_MEM_PWR_FORCE, 0);
+-			REG_WAIT(CM_MEM_PWR_STATUS2, SHAPER_MEM_PWR_STATE, 0, 1, 5);
+-		} else {
+-			dpp_base->ctx->dc->optimized_required = true;
+-			dpp_base->deferred_reg_writes.bits.disable_shaper = true;
+-		}
++	if (power_on) {
++		REG_UPDATE(CM_MEM_PWR_CTRL2, SHAPER_MEM_PWR_FORCE, 0);
++		REG_WAIT(CM_MEM_PWR_STATUS2, SHAPER_MEM_PWR_STATE, 0, 1, 5);
++	} else {
++		dpp_base->ctx->dc->optimized_required = true;
++		dpp_base->deferred_reg_writes.bits.disable_shaper = true;
+ 	}
+ }
+ 
+@@ -789,8 +785,7 @@ static bool dpp3_program_blnd_lut(struct dpp *dpp_base,
+ 
+ 	if (params == NULL) {
+ 		REG_SET(CM_BLNDGAM_CONTROL, 0, CM_BLNDGAM_MODE, 0);
+-		if (dpp_base->ctx->dc->debug.enable_mem_low_power.bits.cm)
+-			dpp3_power_on_blnd_lut(dpp_base, false);
++		dpp3_power_on_blnd_lut(dpp_base, false);
+ 		return false;
+ 	}
+ 
+-- 
+2.43.0
+
