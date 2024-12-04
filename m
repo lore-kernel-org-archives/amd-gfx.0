@@ -4,88 +4,107 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80955E7716D
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Dec 2024 23:14:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A83CE77171
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Dec 2024 23:26:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1813910E357;
-	Wed,  4 Dec 2024 23:14:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B6B2A10ED75;
+	Wed,  4 Dec 2024 23:26:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="uV7+aXB1";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="THa7UkIn";
 	dkim-atps=neutral
-Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com
- [209.85.208.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1801110E357
- for <amd-gfx@lists.freedesktop.org>; Wed,  4 Dec 2024 23:14:49 +0000 (UTC)
-Received: by mail-lj1-f173.google.com with SMTP id
- 38308e7fff4ca-2ffb5b131d0so2250821fa.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 04 Dec 2024 15:14:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1733354087; x=1733958887; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=ByDBggfihaA7bzylhtE2nPcYIo+DwLJnDtkfjIDytqw=;
- b=uV7+aXB1OTFM17UJhS5k9FRXyR9YuNRgZKJDXE8UZi7V1fiy8FDPzQSoga/XB5CZbK
- SB/sosHL0DLY9dp9iWglazwgE95P2Xf3seEZvtdl7X2HbuAoUAr4UAwsOkhs53Xj2Dvu
- pSwkqXjIJeVzqGjvbOo8le68FjDZ/3gRFz1wz4/qypXSG1ZLD4/RkSeP39hN1Q7TeSjO
- 4dr04xUQSQ/zf0U1YGVWyjPfAuFYqTfQ+K7ZqLwZ+lM0eq+aEdoe86OQDqqpw+hkO3lq
- ZF9Yf2Y5rYRgkwiL9XbVgkLIOcSCsGTuhWgxX9jHB0lUe107xc0paeOxifYmL/cB8zxI
- +Z6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733354087; x=1733958887;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ByDBggfihaA7bzylhtE2nPcYIo+DwLJnDtkfjIDytqw=;
- b=Cupugp9ym1hBqiiH/K3GAHoF3wwKI5yGIjefETMo6j++5ltZtAEOxWhhRaPzfmUCHD
- PFk2bwrYamrBNYo8PvBm0SEB7u1015ROM2LZeixEqaKS3GtIsYY1G+VnOaGwkGem3+J0
- QReoplMrzCQBRGFFzrpxMFmXc8hbviqsdJRdnvmhfCVwjhmCVy0VxFZj75OcI9LmgWFY
- ayCyZsv7XEqx5f6UOyn8L8LiZL1zGvacVZZK/GvWNnL3LEUAZ9bvW2vqX1Ro7BE7Pp/X
- ZvBAqwFZG0i/7g+xypvILXZBhESfPqJVFMW1krYXOorUxYbUk0nmN6KBVt/y+KruO1rf
- pOcA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWHEaxB2mYw0taPPbysx8lL2tuSzXeU3k2FkGVz5YsAThydPgu9jclDom8uJ/1ig+OsSONt/HlE@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyJxRdbXmrYk3ojtmhqbJiGIWnIFDVuL4pnzow1Q4fIimL4N4wC
- u16GGaUq/jvebPms7NFQ3dFc+JG7Ym/vIqU4BYh8OecjxA8HEU7/oJdwC64izeE=
-X-Gm-Gg: ASbGncvLBHW6ysWKjn7YQQXDVJoNqqjop2w0xyeInQ4kvfUrtZlsgsAFuhF6l9rszpl
- WpVRhnTs7VR+PUu5zwS4Uulpx7WirlmR3hYLcj55iimZkOmOeFIO2S7P3zcwfV/PA9S7lSraIPC
- 8GRxIAL/nEc/CpLIsZDAwMYOZ9QhgdIJXbY62yY0OAjAAIzSb1mAsjiF/4/VhAtZJUvnhu0IIQ6
- krOi5/aeKSDGbpBEK80LyCR1x/z/wX1AWlCG4zucz8iGaLGg3MTLw0qRhs6qMZrNcJI7knwuGil
- oZN2B7doAI4ypDDLl5BiFm7NMhmCPg==
-X-Google-Smtp-Source: AGHT+IFuUS7Not1i5YzDB3gHy3ub9/hXvCvAwbQxzNqfeGQDqOoYZ6k6qPs0qszHy91ZjySfOh3ENQ==
-X-Received: by 2002:a05:651c:210c:b0:2ff:7a4f:e770 with SMTP id
- 38308e7fff4ca-30014eaa13cmr17797471fa.31.1733354087009; 
- Wed, 04 Dec 2024 15:14:47 -0800 (PST)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-30020e2085fsm158771fa.83.2024.12.04.15.14.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 04 Dec 2024 15:14:45 -0800 (PST)
-Date: Thu, 5 Dec 2024 01:14:43 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Jani Nikula <jani.nikula@intel.com>
-Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, Javier Martinez Canillas <javierm@redhat.com>, 
- Alex Deucher <alexander.deucher@amd.com>, Simon Ser <contact@emersion.fr>, 
- Jeffrey Hugo <quic_jhugo@quicinc.com>, David Airlie <airlied@gmail.com>, 
- Hamza Mahfooz <hamza.mahfooz@amd.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, 
- Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- amd-gfx@lists.freedesktop.org, 
- linux-arm-kernel@lists.infradead.org, nouveau@lists.freedesktop.org,
- xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v2 3/3] drm: remove driver date from struct drm_driver
- and all drivers
-Message-ID: <couqmlshll3v6vgziqnt6sq7caf4nart42ljo5fbim3rg7ec5o@3ym66tyaytd2>
-References: <cover.1733322525.git.jani.nikula@intel.com>
- <1f2bf2543aed270a06f6c707fd6ed1b78bf16712.1733322525.git.jani.nikula@intel.com>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E6AB10E5A5;
+ Wed,  4 Dec 2024 23:26:46 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4B4GwrnU023313;
+ Wed, 4 Dec 2024 23:26:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ +NcU+NmHJdNR31TOBlMnx/TcllfV5Lqqi/BTC8sXm10=; b=THa7UkInrllMtWzJ
+ uYkCvLLot7XsIfeRzLNoQGWv6Sj3rWCWJlXyW3UZnreHGwEtRTUooSNUvHEgK1PR
+ K5Vm8zZAg+ebgd8n6M7uBY8jje3BMUl+6FEq3qCHA9PA8ii7qvuLQZM0nuVhsJZi
+ 182C2/CCqy1eSDupcgPyJ6Vvk6e0mtbA2QvKA0BR5OQAI0mTksQcZg7PPQf+lpvM
+ l7HU0Fc5YBYUgQtojE1QP6NIsEgsmnunjne+QWyxD8hGDmk15RJQ1+qC6Go4TFk6
+ xs0kXCPNIJys991PW+dDAvF7bgEVttrt4oW952qRKZbYE/C0wJJMqNlLP+r09eCD
+ M8h8MA==
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43aj42aeds-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 04 Dec 2024 23:26:23 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4B4NQMKZ030623
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 4 Dec 2024 23:26:22 GMT
+Received: from [10.71.110.107] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 4 Dec 2024
+ 15:26:19 -0800
+Message-ID: <c4c3dd96-727b-4be1-9152-e384478a7508@quicinc.com>
+Date: Wed, 4 Dec 2024 15:26:18 -0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1f2bf2543aed270a06f6c707fd6ed1b78bf16712.1733322525.git.jani.nikula@intel.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 07/10] drm/msm/dp: use eld_mutex to protect access to
+ connector->eld
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+CC: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Harry Wentland
+ <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira
+ <Rodrigo.Siqueira@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, Xinhui Pan
+ <Xinhui.Pan@amd.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Phong LE <ple@baylibre.com>, Inki Dae <inki.dae@samsung.com>,
+ Seung-Woo Kim <sw0312.kim@samsung.com>, Kyungmin Park
+ <kyungmin.park@samsung.com>, Krzysztof Kozlowski <krzk@kernel.org>, Alim
+ Akhtar <alim.akhtar@samsung.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
+ Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Alain Volmat <alain.volmat@foss.st.com>,
+ Raphael Gallais-Pou <rgallaispou@gmail.com>, Dave Stevenson
+ <dave.stevenson@raspberrypi.com>, =?UTF-8?Q?Ma=C3=ADra_Canal?=
+ <mcanal@igalia.com>, Raspberry Pi Kernel Maintenance
+ <kernel-list@raspberrypi.com>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <amd-gfx@lists.freedesktop.org>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-samsung-soc@vger.kernel.org>, <intel-gfx@lists.freedesktop.org>,
+ <intel-xe@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>,
+ <freedreno@lists.freedesktop.org>
+References: <20241201-drm-connector-eld-mutex-v1-0-ba56a6545c03@linaro.org>
+ <20241201-drm-connector-eld-mutex-v1-7-ba56a6545c03@linaro.org>
+ <ca906dc4-ac72-4a76-a670-36c011c853c9@quicinc.com>
+ <n2zmw4wquxzht6gvlx6yjurpobgwlsryh75n5gw65j5vjclhgr@jqubqjispqsr>
+Content-Language: en-US
+From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+In-Reply-To: <n2zmw4wquxzht6gvlx6yjurpobgwlsryh75n5gw65j5vjclhgr@jqubqjispqsr>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: ih6cbWCa3Fo1OS03TdHomljQ100iLSU9
+X-Proofpoint-ORIG-GUID: ih6cbWCa3Fo1OS03TdHomljQ100iLSU9
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 bulkscore=0
+ mlxscore=0 mlxlogscore=925 lowpriorityscore=0 clxscore=1015 malwarescore=0
+ priorityscore=1501 spamscore=0 adultscore=0 suspectscore=0 impostorscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2411120000
+ definitions=main-2412040179
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,28 +119,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Dec 04, 2024 at 04:31:12PM +0200, Jani Nikula wrote:
-> We stopped using the driver initialized date in commit 7fb8af6798e8
-> ("drm: deprecate driver date") and (eventually) started returning "0"
-> for drm_version ioctl instead.
-> 
-> Finish the job, and remove the unused date member from struct
-> drm_driver, its initialization from drivers, along with the common
-> DRIVER_DATE macros.
-> 
-> v2: Also update drivers/accel (kernel test robot)
-> 
-> Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
-> Acked-by: Alex Deucher <alexander.deucher@amd.com>
-> Acked-by: Simon Ser <contact@emersion.fr>
-> Acked-by: Jeffrey Hugo <quic_jhugo@quicinc.com>
-> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 
-Acked-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org> # msm
 
+On 12/3/2024 5:58 AM, Dmitry Baryshkov wrote:
+> On Mon, Dec 02, 2024 at 07:27:45PM -0800, Abhinav Kumar wrote:
+>>
+>>
+>> On 11/30/2024 3:55 PM, Dmitry Baryshkov wrote:
+>>> Reading access to connector->eld can happen at the same time the
+>>> drm_edid_to_eld() updates the data. Take the newly added eld_mutex in
+>>> order to protect connector->eld from concurrent access.
+>>>
+>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>>> ---
+>>>    drivers/gpu/drm/msm/dp/dp_audio.c | 2 ++
+>>>    1 file changed, 2 insertions(+)
+>>>
+>>
+>> Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 > 
-> ---
+> Ack to merge through drm-misc?
+> 
 
--- 
-With best wishes
-Dmitry
+Yes,
+
+Acked-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
