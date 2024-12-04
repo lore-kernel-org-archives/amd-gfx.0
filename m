@@ -4,147 +4,176 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94B41E7716C
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Dec 2024 03:36:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A18F4E7716B
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Dec 2024 03:46:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3107210E44A;
-	Wed,  4 Dec 2024 03:36:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4FD8A10E29F;
+	Wed,  4 Dec 2024 03:46:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="tvY7Yjm4";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="h1w6JnAN";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2068.outbound.protection.outlook.com [40.107.223.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F2F8D10E44A
- for <amd-gfx@lists.freedesktop.org>; Wed,  4 Dec 2024 03:36:11 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2079.outbound.protection.outlook.com [40.107.243.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C93B610EBC5;
+ Wed,  4 Dec 2024 03:46:10 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vn+qmZqNoHYPlm78JkKKNWMhLoO31sNRUszj4pLRJElIFOaHlP03psK+5MyjejvA41YXTaDuy0JM+Eaim2CJt77HMyQJR/W1bblwy5PA9a0z3+LRVlIhf4csMvNzRX/8wEusdiIASWBkoAkxg9oXn6z+MDM99jh6tMjOLnu6nQfsDB/dfBV/lYKzop4O0vGmuVZeVOj6CpZrpA4d8h8Ckk2ZkRSttLzE/9LRaKPT95AewruVQaVwaJ8Igo0UYDFhco0vMBU4PeoWb5oKnuyCEJMAc/C04wYPbqQQ/wkqiZqP2XF/BrQTC17ghi7uPOckEWjsISENR0hURzF+wBgXwg==
+ b=vZJkzVzioJHXCmyj98nWf6nCVqbqHUqwoWw+WPFQh5ZtojcVvaxwjtWPXvR9sOu40LgFVWIQo/We8UJQbyXzV1pGeW8fMjVJST0EN9L23OW4zbivpCBfv5X6eCbKr/sVj2eSAknxcM3mBA0aPoOmGvUxjcigGBWBVeXB9WjLak5FEQWV6k0oE+iXaOdjD3jcqywfehCIVZpFA5bJfCqMc+nIY53ytPjK8c7u8a9/ujuauMBz8t8wy+pHLIkBiv+s/8o6wJo5xQNwFtzTpoVkIDMGbjUeUNcCOqWGLctu+2QUCnX5CJ5JR4g8LNUAziKy4Oiax6uCOxr2UU+3rvIslg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rBJuKQUemvWyhfpGu8P3VPBV167siAnxoLrwOYlAfM4=;
- b=M0mKQjq2TwZSpw8/8mJy0t1YxoUH3kAR5eRyc6JkIgvgkBybMNh38ri4GW93lfJntZ5kS20uukzSLCMHQrBdpiPQfHpCwQsk23MclX327FwwU4B8YRacsVoSJ1+7pQaDJlAcm9u5hQapgp456fC+y85EEjJmzoUzvTzTIS+aJ75xECgSFaUieHuoejFdDt3vQWYqt4j+8iBl5sbS1wvJGo+hAKTjVYU0NEIOykQ6oW6Hh8ryUuBooG/GhwXzNXq0JjIeuyav/JyFecdGSeR8sSPsGzfxPRbOOf6uJ9+Kxd0HZhFogzx7A6IR1UcOUfoo1sUFBNwhylDCwchTdmUaBg==
+ bh=9P5R9xtI9pBadzQIGjgz5oKb/TohmP5KPdY4xuplp1Y=;
+ b=U2m6mpwafuxKYvYYGSseygTwKNFlo6T15SYfBzDkbS97+SGQrAW6mb1qVvMghPnDxELcoqkcEjDC5l/OgDSxe69zXB23eQH+8TzTOzhr+w0yrLNcPkIRnDDIs1NuFxcq0pTz+C2vEX2BhRbfsUvpg4y24C0DZ9qLXbbXv7ogrkR24D44Jrm1xN2rMY7d35Stq3cE/GBVPoKQPokJvOCHeZ5iK6aCALBi86aRfGzKOfsD/DA5Bzvb3WaslqlYjbd1hnlIaxrWgOgXp+yu9EOIrzg0WShMu/uUmEeGxS1+YxxENob3zi1NXoGN3/Pgh1oA7K7ACH2fogeJUIZnQclroQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rBJuKQUemvWyhfpGu8P3VPBV167siAnxoLrwOYlAfM4=;
- b=tvY7Yjm43qxVYzFZA5gClMYYeDN0Coo+IgzYVvGiEYIdO7q49yfXjmMDhKt+gaBLRKxAtVtKvwv97pvpLg9pOGfDpmRiSOdFLdY4Q6kvascOMOV88nnSk+N4WL/RPJvqnitEFD4/Pz3LPMnzPVqiWlSkl62vlBk/Dt97qgrXj7M=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
- SA1PR12MB8599.namprd12.prod.outlook.com (2603:10b6:806:254::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.8207.18; Wed, 4 Dec 2024 03:36:06 +0000
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::8327:d71a:ce21:a290]) by DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::8327:d71a:ce21:a290%7]) with mapi id 15.20.8230.010; Wed, 4 Dec 2024
- 03:36:06 +0000
-Message-ID: <e8ae8d63-44d5-4e77-818f-67cf69d0c8b7@amd.com>
-Date: Wed, 4 Dec 2024 09:05:59 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd: Add the capability to mark certain firmware as
- "required"
-To: Mario Limonciello <mario.limonciello@amd.com>,
- amd-gfx@lists.freedesktop.org
-References: <20241203181403.23515-1-mario.limonciello@amd.com>
+ bh=9P5R9xtI9pBadzQIGjgz5oKb/TohmP5KPdY4xuplp1Y=;
+ b=h1w6JnANA+iSGaC80lNFM68A2oxD6GtvVv7uysEcfHivxHX8FqyvUcIlUJQ/6ZI3GkFeFyuupxyIuev3BFgVsO4JEhOPdQXG8HZrCUvEKtFPT19rVesJK82Gy25RJYYYA/pmOwUkQFxGq8oUWHiHDnKiR3x6EBOQLVSi1tuVYnM=
+Received: from IA1PR12MB6532.namprd12.prod.outlook.com (2603:10b6:208:3a3::12)
+ by SA3PR12MB9107.namprd12.prod.outlook.com (2603:10b6:806:381::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8207.19; Wed, 4 Dec
+ 2024 03:46:05 +0000
+Received: from IA1PR12MB6532.namprd12.prod.outlook.com
+ ([fe80::dc05:a63a:39fa:ff0b]) by IA1PR12MB6532.namprd12.prod.outlook.com
+ ([fe80::dc05:a63a:39fa:ff0b%7]) with mapi id 15.20.8207.017; Wed, 4 Dec 2024
+ 03:46:05 +0000
+From: "Zhang, Julia" <Julia.Zhang@amd.com>
+To: "Koenig, Christian" <Christian.Koenig@amd.com>, Gurchetan Singh
+ <gurchetansingh@chromium.org>, Chia-I Wu <olvaffe@gmail.com>, David Airlie
+ <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "virtualization@lists.linux-foundation.org"
+ <virtualization@lists.linux-foundation.org>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>, David Airlie <airlied@gmail.com>, Erik Faye-Lund
+ <kusmabite@gmail.com>, "Olsak, Marek" <Marek.Olsak@amd.com>, David Stevens
+ <stevensd@chromium.org>, Daniel Vetter <daniel@ffwll.ch>
+CC: "Huang, Ray" <Ray.Huang@amd.com>, "Zhu, Lingshan" <Lingshan.Zhu@amd.com>, 
+ "robdclark@chromium.org" <robdclark@chromium.org>, "Pelloux-Prayer,
+ Pierre-Eric" <Pierre-eric.Pelloux-prayer@amd.com>, "Huang, Honglei1"
+ <Honglei1.Huang@amd.com>, "Chen, Jiqian" <Jiqian.Chen@amd.com>
+Subject: RE: [PATCH v2 1/1] drm/virtio: Implement device_attach
+Thread-Topic: [PATCH v2 1/1] drm/virtio: Implement device_attach
+Thread-Index: AQHaUp5loSGDM+9UH0yP2y64Fdg2D7DyNKOAgAABk4CAADRYAIAB1EAA///AjQCB3Dz9AIAHGwZA
+Date: Wed, 4 Dec 2024 03:46:05 +0000
+Message-ID: <IA1PR12MB6532BBDDA6B5DC4744E38232F2372@IA1PR12MB6532.namprd12.prod.outlook.com>
+References: <20240129103118.3258781-1-julia.zhang@amd.com>
+ <ZbjZJ3qQzdOksnb2@phenom.ffwll.local> <ZbjaebswTCxmlwu0@phenom.ffwll.local>
+ <97c50e01-ee33-4ac8-975c-f645c2ed49c6@amd.com>
+ <IA1PR12MB653270F7FD75C1B4DF8B90E8F27C2@IA1PR12MB6532.namprd12.prod.outlook.com>
+ <638e9cf4-d03f-43a9-89f9-27f63326a8df@amd.com>
+ <IA1PR12MB653239AF1851273176779828F22A2@IA1PR12MB6532.namprd12.prod.outlook.com>
+In-Reply-To: <IA1PR12MB653239AF1851273176779828F22A2@IA1PR12MB6532.namprd12.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20241203181403.23515-1-mario.limonciello@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN2PR01CA0185.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:e8::12) To PH7PR12MB7820.namprd12.prod.outlook.com
- (2603:10b6:510:268::8)
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=21284ccc-1ea4-4305-81fb-08ccb934a705;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution Only;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-12-04T03:40:46Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: IA1PR12MB6532:EE_|SA3PR12MB9107:EE_
+x-ms-office365-filtering-correlation-id: 6de4bd66-951d-4f39-8c10-08dd14162e66
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|7416014|366016|1800799024|8096899003|7053199007|38070700018|921020;
+x-microsoft-antispam-message-info: =?utf-8?B?aVRtREEwa1lEZno4ZERtYjh2SEFwUmkyYTlnMjZ1eHpYZGphb20vYWFTd0cr?=
+ =?utf-8?B?UUdROVBubGo4cmVpNm1KNFVndThWekpnQ1JZaWdRM0VRRk9PY0IwQWw2ZVJs?=
+ =?utf-8?B?TW8rOXduRStEY1ExK1JtR1lCcHlOMXBjTWs0Z2grUUtJZTB3bkV0N3VUSlh5?=
+ =?utf-8?B?V2dqWWFhNVQ0UEVaNEM1dXVCY0N5dlVDKzVUaEZ3WWpNNjRsNlhVcUpNM2JR?=
+ =?utf-8?B?TmxOQ1NST25DV09OS3dVZmg3MEwrZlMyditJLzc3Y1hzS25BS2tpS045OGQ1?=
+ =?utf-8?B?RXBUdFhtR2JndGs0SzBROGs4dzVENzJKTm10VjdzdUVwV0RrRmYvQXk4RDJz?=
+ =?utf-8?B?dHp6SzhiNHc1UU5IRlZXN2EwR1lMRVh6MitScVR6KzRRTk1YNkc1WFA5MGRj?=
+ =?utf-8?B?eHh3a2RNZzlVNzhyQXBxbzh1NDB5dkVNWnJpMzMycE14UUt5Q01IeXZTUTlp?=
+ =?utf-8?B?ekg5NjZWTDdRbXhyRStoNDBiMk5CanJzZWZKa3dWMlJKR0FFWUNTSUlmdGs3?=
+ =?utf-8?B?bnR4Tk1GL3duV1IwcUhrMUcwNWNKTHFxd0grQ2RPN2tYZHhhVThSZnk2ZzVq?=
+ =?utf-8?B?QThLV2xjWi82MGVjSkdSRmxyeTY2UzNkbFMxNWpNWnlWZzlBZWpld21LTUc3?=
+ =?utf-8?B?ZEJ6NFpRUGlXaTVwbDl3bXdxZE5vZDZBeGdlRzNpOE9jcFY3QmVrTEJydFlq?=
+ =?utf-8?B?OHNYQnQ5d0F2cTlMZTcxcW1CK2Z4YURBZG5rYnFES1piR3B5V2R0SytPd1lu?=
+ =?utf-8?B?eUNhVXpDNzBDYS9TVVhzVzJrRXZweml4a3NVNFROWEdkMThBL0drOVNhT1Nt?=
+ =?utf-8?B?VlJUUEhyRU04WWZWbmttUjN3MHhoQnF6ckY4WkFSbFU5M2dqOVY5alpmb2dB?=
+ =?utf-8?B?ZDU1VEM4TlVkQjRtK2VzUm10R1Zmd3JmaUYzenlGdldUd3ZoWFRibXlPT3lC?=
+ =?utf-8?B?U0lrODR4c0hkWFBEZFpIRXU5U3Y5ZC9uKzdGSFFIbjBJbDZuRXhXOVdieGF4?=
+ =?utf-8?B?Y0cwWktWWkdhNGc1emhFSi8wSGhBODJKcFhpelpmYjhxMWtqNTFsUVFtcXNz?=
+ =?utf-8?B?cGtVU0ZXV0phbVJobDZjdnBmV2RYaWM1czR6Yjd5MENVWkt2Q2xDZHl4OEhp?=
+ =?utf-8?B?b0tlY0dNV05rS0pNSGs2QWFUajZxTi84NE1PZFc1R3ZPWHh1U3RHZjN2YVRV?=
+ =?utf-8?B?NGw3VGdzY242OFlLVEFIVXRabzNhQVhYVkxQZ2hqLzRUalpiQzM5YmlGRHFD?=
+ =?utf-8?B?VnM2VVpUU28yUzU1M1ZZa0hsVldhSEtSY0k4UkxFMEVxN2d2Tis3TmNZSXBs?=
+ =?utf-8?B?TGN3RkRQK01wSnoyQU1mVUZDa3lDMVErMlFJYXV1RGNnejFqR25oWXVzUk91?=
+ =?utf-8?B?dUZHVVZYcEUyemM1V3lqOWRhUi9MS3U1QVljVEdEQ3hGWWlicWM3YmM4MCtK?=
+ =?utf-8?B?TUZFWWx6T0UxRlQxQnBwLy9jclVIUmxZb0tRVTRmVXk3U3plK1JZb3dSTXJy?=
+ =?utf-8?B?UWh4UEN6SW1FY0NoQnY5UXp2bzFvQ09ZRXZlWTgySnZ5Zm5MZVVoRzQxb2ZJ?=
+ =?utf-8?B?dkxrM3hKUmhTWlNRV0xqVzBQMkFVYUJnNXdWdkpWdVdLLzM5aEtuQnFWbmZQ?=
+ =?utf-8?B?d0l5YzVkZ0JQTDZ6VGVncllWeU9lcG15Z2pVMU4zQjZ2NDNnZEVlSHNmMnhZ?=
+ =?utf-8?B?K2d4eVJIby8vS21ZWmpwSXdKbDJBK3Y3NmZOQVhmNUhIUmNMdnRyb3AydkFu?=
+ =?utf-8?B?aDJhN0JsbUdiQ2gwT08zbDJMU2lvcnJMSloxM2VxQXhhTTI0VkpTWXpkSUd1?=
+ =?utf-8?B?SDZzbGpZM2VLdEU4bVVpbFZuaXVVVmJQaml3bXVibHN2REhnNVFVS2FUcHlQ?=
+ =?utf-8?Q?9evrRzK3xEQs4?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:IA1PR12MB6532.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(366016)(1800799024)(8096899003)(7053199007)(38070700018)(921020);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?VTBpb0pTL3Q5UTJjRXFkSkdHcVZJK2RDOVloOGo0aUExeDZPb0NUZHloR2FO?=
+ =?utf-8?B?c3BpcGRnRXM4Mm84bmE4bHRBejFnRDBDSzF1Y29HOEJEQmdSS1NXbk5GNUZ2?=
+ =?utf-8?B?em1NWlF1b2taOEwzN1ZEMEZhYzhQZndHZGs0NG9UMG9TaTE5RWYwTWFCWXAx?=
+ =?utf-8?B?bEJyalY5YXhaa2liQWZHNVcxVnRucjlhZHdzN2tQcGlRcTY4U05HTjErK0Fh?=
+ =?utf-8?B?OXZZK2pVV1E3RWYrd3BOaTh1b2EyNkh3SnYzREc2cndQOXZNc3ZoTkFzSlVO?=
+ =?utf-8?B?L3RFSFNIMXArRWJVanY1SzJjWmJ5K0JiN1ZoTlR1L1VlT2xBdjhab2xFYnYx?=
+ =?utf-8?B?bStocWRwMEtEa3h3MGwreHdEWEcwZmJ2Y25XUENCdzdHREFDbmx6QUIyaDdP?=
+ =?utf-8?B?YXluN0o2Rzh2Qk82Tk5JZ3h0cy9NdjlISSt6L3BRaUhjSVZkVk5tR1l0bnJr?=
+ =?utf-8?B?d0J1VUl3YmVDZ3ZnNGJiaVM3VjF5d2tuTjN2NXJMMm5HQUZJRTdZem94YVN0?=
+ =?utf-8?B?NmM1SUJMdVlrL3J3NDArbjVqNTFmODZuRGk4SWxjMlZPNjJ0VU5FZGZadTFC?=
+ =?utf-8?B?N1A0WUl5TEd1dzhaZTRGaDJpTFplRHFjNWtQNTc4ZU9SblJlWTFObFgvYXpk?=
+ =?utf-8?B?Q1l4S1pxZFBwamNaQ0lVVFYvRFlmckttemEwdmN1YTl0RmYxSUtFTkdCclJo?=
+ =?utf-8?B?MU5NMUNVdncwUFNKTmR6VlVPbHZ5U3lVOHNaeDdBTEJkU0hRaWd5cXhlWmd2?=
+ =?utf-8?B?UU93T0E2eVEwNnR5Yzd3QTFWN2tpT0RucDVoWWw3K0dhUU1wYVEzODNueld2?=
+ =?utf-8?B?WXZYZEtYdTZXdE1UTkJiYVdaaE5FMTdKb0xUV0ZwOUhmbVozK3ZNNnNid0hI?=
+ =?utf-8?B?a2lVQW44eXFoRGdtTCtWNG4xN1ZoVXVxeVV0UllMN3ZQYTZCeUZxRVJwU1ky?=
+ =?utf-8?B?V1V3cDg4MkJJcG5yYTNVclRmVkl0bkVObDlZdnBzQmd1ZUVIYVFJemtlNFhj?=
+ =?utf-8?B?M2I4UDJqWXp1MlZ6bXNYSk4ycGNTN1FsMVRlK0JpRnE0R1NlWjlaWDNKVDRK?=
+ =?utf-8?B?K3dSWUhlZVptQW1JbDBoNllROHBFNDlNQk4vQTVvL1lhSGcvbzR2QzZ5U3Y3?=
+ =?utf-8?B?aFVPcnh5Y0dTZUZha1JISWZXOHgxUzhJMXArcW4wRDNZSzZSZDFJZ1A5VU9K?=
+ =?utf-8?B?Mk55UlhRR3RsaUQ2akkvRTFRZER3Q2NHZ1dGdW5aTUEwUFZVSFZaSFBYS2Z3?=
+ =?utf-8?B?MUFObTNZZEtmS3R2U1NLM3JFQ0MvUTFCKzE5L3BjcnRxTFczRHJMTGpQaUVT?=
+ =?utf-8?B?TFZEazFLOG9keEQvTnQyN09nQTNML1N0ajhRTjdWeDhrempkdnc2QjVUNTlS?=
+ =?utf-8?B?b2hTUndOVkVVS1ZBUnc4eTI3NlpuajE4ZTZIMEMxRXZFZXhuZDA3VDdGVllQ?=
+ =?utf-8?B?UmpkUHV4ZHpjN2V0QjBSMWxmRG44dzFHazVrVG80RDc5eEl0dk5rME1GV0s2?=
+ =?utf-8?B?Q09pQUNMajVUVnZ2Z293UU8wOG05R2N1NFFwbEkzcDh1L3ZIRWZIM0JHYWpC?=
+ =?utf-8?B?SVc0b2hXMWJEWDlFWE1lMUJpTjl2Q0lGU0xQQjhLRTRPaitVZG5VUWU0aUQ3?=
+ =?utf-8?B?LzVzdUhHNTBUQ2hTdEswSXZuVkV1SENJYUVXcU1HL3R2Mkc2bnlQM3IyeWRN?=
+ =?utf-8?B?SlBnL1ErbU9VeVVBeWovNTFLdWFqMmdFSmplNVdqZVRSazBOM00vbWZ5TUFm?=
+ =?utf-8?B?T3l0N0o0MUZOUWZUMmVwMmJtZ2xMbWRRZ3MwY01YdTlNYjdOaXNJYjhMTEU3?=
+ =?utf-8?B?WGRlTGRZV0kzemh3aGswemZ0azUySWJqRVpNcXc0elN0UkVSMWp5dEVjY0Jn?=
+ =?utf-8?B?VkxnVWkvUUJUbWozMWNZd0YwQ0JZek1CZnVlRWd0SkE5U2w3TnpqdGdGYkZK?=
+ =?utf-8?B?SVJHMSt1WVZJMTVCMzVwd1BSTmRxdkRDUEpnQW8yUkZaTDJGa3ExUThJemQ2?=
+ =?utf-8?B?eE8vZXdDSTlsYlE3WElqcXllK1VBMUZyN0tZUm9yZXl6SkxBWDZORU1WS21s?=
+ =?utf-8?B?RUVkVTN6ZEtMV0Zid0h0ZS8zZlM0MnlKdXovT25EbXJDUUx2NytxWVl6VFVK?=
+ =?utf-8?Q?6tq8=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_IA1PR12MB6532BBDDA6B5DC4744E38232F2372IA1PR12MB6532namp_"
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB7804:EE_|SA1PR12MB8599:EE_
-X-MS-Office365-Filtering-Correlation-Id: fb30db9b-ec37-48d3-269f-08dd1414c85e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?dWd3NUc0aVJlZE51cTUyR2YwWlI0Qi9MK0g4UGFkWlBEcExORDFxQktGaTFK?=
- =?utf-8?B?dnp1ZlhWaDJtbVcxSHNQZ282Zk9qZ21wU3VwSWxNb2tvVnlaMmV0QVZCdUlU?=
- =?utf-8?B?S0pDVGNxR3VIVWduSWhFenZQQ1Zja0Z5TFc1TnNsYVpVaFM4MTg0VXVSK2Zy?=
- =?utf-8?B?R3cvQjZLZGQ3ZWhLVTh0YW95VlowSUhmQVRUc1YzOU9SalMrNUJjcDBvT2d6?=
- =?utf-8?B?ZG5PTE5oRlB5TE9JNFdiNitja0JtMmdEUmJKRlhKd0FXaWE0L3pJU2FGem9t?=
- =?utf-8?B?dUMxT3RKamk1RVJNZDJTTGNjT0dlR0srcXNub0ZPWVIrM1hkZndhQVF4Y1ZL?=
- =?utf-8?B?SVZJL0JHbHNYZmhORlRLN2JROGtTWW9iVDU5R2FhcFE1NVh6T3FtYmE1Rytq?=
- =?utf-8?B?S2RWWEdjaE9DN0IycUlKQ3VjRkRVMEJZYm5IZ3k5QmJjN0Z6djNNQys1Szds?=
- =?utf-8?B?Zzc2TldoOGFyVk02MzJDY1dOWHpGZHhNbURxeTdkSEFjMzdUNnIrdFFXaDZq?=
- =?utf-8?B?NTlNMmNZRVJyVGZOa3pQeDY2aFYzd2ZJTkF0bzFNOE95MGw5M3ZudFJUZVQw?=
- =?utf-8?B?LzZhQ0x3OUlTZTFUSE1oRXJUSlcrSys4ZFloeHhWQnZWbzNzcEtUTktma0dM?=
- =?utf-8?B?K1Zjck9ZSzdJSlZMOVloOXM3TkxZNGtVNkFZTHNWWGpZMUt6SE9RWW9TM3lj?=
- =?utf-8?B?aCsyVFhsTWtRRVBKWDh1cG9nd3o1TklKLzFOZWZ6MmUwbURVVmdMT293K0lI?=
- =?utf-8?B?TUE3V3dSTmVyWE5qSm1mY21yMlg0NUlkQXhtMml0ODdtc21GdHRmYUUyMUJC?=
- =?utf-8?B?eEJ4Rkt5VGlRSXljSGd0Tis3N1FCemlNaHlZWlNXVnIvY1c3QlBTVFhzTTI2?=
- =?utf-8?B?OGIyaHZmczRiWFB0SWNYNk5aSHJFRWwwY09GNmhkRDdxcnF0RWU0ZDRiVlZR?=
- =?utf-8?B?NnJNZEdteWlaVE9kczN2UDQrLzlWaDQwOXpmdmpKWHh6aXdDY3pBU0RMNzJM?=
- =?utf-8?B?cjUyMCtEVnE5c2VaeFVpeWRSNTlrY1FCQWR0dXJYcTYxSFNzeGhKVDdtb0Zo?=
- =?utf-8?B?eXJQbjlKOCttTnpicVUwK084eWV3NkJZdm9uSUVudHhFVFJkSmdtcGxpb3RQ?=
- =?utf-8?B?eHZ6U2dtZFUrbXZmc1E2Z1FCbThxUUhUeWNhdzR1VTh6MDVER1p1ZjVLQk9W?=
- =?utf-8?B?cXN2eTFFQkRMbHN5dE9qS1M0Z0NiMTlUaXhpbFN6SmNOTHFBaUtuMkxKWUVD?=
- =?utf-8?B?YmZDaWxiZUVoRUhBRExaeDE0cE9xZ0ozcDQrTXJwaktTSGMrODllb2EyT2d1?=
- =?utf-8?B?U2p4U2k3WDBiaVVsU2RqY0poVnZ5QWhQS3N6ekk5OUY4QkxvcUoyektxcUJI?=
- =?utf-8?B?YysxSk5uRXpwSnNucHFCdWc2OTNBMGlkRG1NR3luU0Rjc2RXTnpIWWpiTzdT?=
- =?utf-8?B?MGwzQXJOdGNSNUJMWndOanJLRTFjVldiakNNejFyVG55TUxyR0xvcDZzMTRw?=
- =?utf-8?B?d2o4U1FUNXV0VE8vUWhzRENGcTFvbmI3dnRjMHVORjVERGZHcnVVYTBBZFhS?=
- =?utf-8?B?N0owczJadXRCNnZxMW5Sb1N6QWFDQ0JZb2VveEhzNVNTVFM4bnA0aTlxL2k5?=
- =?utf-8?B?b2hWbnRtZTNQbFNzNUdpcFEwUTFueWMxckZaUnRlVmhkN1RVWjRDQ0NkV3E2?=
- =?utf-8?B?K3J6UVZJV2hvbnFlU1BDZW54ZkNnMEU0YWhHVE5rYWRuc1NhN1YxcVlhQ2hp?=
- =?utf-8?B?VDI3aTlybktBbEIrZlZuNVNPVkxmNk0rTmo1cU8zVzhXRHo0K2pRODgvRTFL?=
- =?utf-8?B?OThwdFZBMmhld1cyN2padz09?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TFZQdzVNSUpLSWhJdTFGTkp2L1ZXL2FWMjhjaWtOUzNjbU52SC84dU5jaGF6?=
- =?utf-8?B?YlNIVHRGSUxKa1dhUENUUUQ3SUZwemduU0R4R1BvNHRnY3c5ZjdHMlV5akFy?=
- =?utf-8?B?LzdhTmIyWmlIbWtqR3pGYURsak1QdDlielo3aC9WdFFraXRlSjRaK21CY1Yv?=
- =?utf-8?B?QXp5b1ZtTHhDNUxLbzlkeHRCVW9wbnUyZno1ZFhZNHgzYXJqMUZ5M2kyL2h0?=
- =?utf-8?B?K0JRQk9xWlN6NDBvUG03YTVoaWxHVWk3bnBTdmE2ekowby9OcGdOZ1NzZXZ3?=
- =?utf-8?B?RVp3TkNnT204RTJ4RlJRdGIxL0dlMytsN1VVL0xycExOQnJIczhIM3NmUWRP?=
- =?utf-8?B?cGRPYnVKci9Hd053ZXlVNDNaS0czMTJlcklZNi9GZzhnU2c4RTJXdmRKQlox?=
- =?utf-8?B?ZUtQYnFtNit6YjVicWYxd2ZmanpzK3MyZHlidWdiRVh3TlFBaURyM2xyUzZW?=
- =?utf-8?B?d3lSWUErVGlvbEttVHZkY2paUHVCZ2JVaUlGbXZvRUJYdUlBdlozYWlXbjB4?=
- =?utf-8?B?VWxiY2R1SzVQTDdhNDBPZjlKMHJmaC9WeVJaNmxXaGM3Qy9GbUR4TFVCVGoy?=
- =?utf-8?B?THZ2aXVHcEFYMzBaZUp4U0RlY3UwZFF2dnBENFdxc3plTFNIUHdsWjNHTVhS?=
- =?utf-8?B?aXpXOFNzY1piWmhqN1NtSHMvdzFxNWFxK2NUdHZoMnNGdStzQ3dUTWtnbFZI?=
- =?utf-8?B?Sy9wQUw5NjdPYS9ucE9jWUtKL0tYeDNwWkt3cFg4dU5oaERDMUZOdjgxMU9H?=
- =?utf-8?B?bDF4QWM2L3dtRy94TXZCNTFhMkJSdnBiMmJ5bG5ScVNBcnlnMWF3eHlIRjFP?=
- =?utf-8?B?aWx0dkc1a3E1VlVVVnp0NEVSendFcDd5d3hhc2FNaU92NDRUbVFBSUwyeW5L?=
- =?utf-8?B?akVSUzlEMm5lRjFtQXZWWUF5T2Y0NFYwbmtTd1N4Y0wvWFhzMUp0MDhJYU9o?=
- =?utf-8?B?RTF6Szk4MjdPZ3RIcDVnVWRxbXY5R2dYTjJiamVacjl4VjNrL1R5aExNc2pj?=
- =?utf-8?B?OVZCSnBjKzJyQ1lrV0lLeUI4ZnIrWlZZY1dINmJUUWRQU2NaSGVYYkRHalBu?=
- =?utf-8?B?V2hRZkgrd1kzelpoNDZOQlFPRW1jNFhuWDJ3Q3hJYVV5MVZSS2VKcUdKRkxF?=
- =?utf-8?B?bkFnb2k2Ui9UU0dnM0J6czdKazhSVzZaRnJkR2p0RkRTRlBralJIZTJrYzRT?=
- =?utf-8?B?THJJRldKMjFUSWRsZ0hweEx1QWRGMDg2UlY0akZJQ2d3Z0xEb2c0L0ZJWVBG?=
- =?utf-8?B?UDltbWlDdFdxVnRpNUFxU21NMFh4SHUzbGxBV3VCemM5MlJETnR3Y2RGZWFQ?=
- =?utf-8?B?RHFKTmhqZlB1RHNzaERvMWFZaCtTMzNPTW1EUXhMSkZFdXRGOUJBMWM0cEVK?=
- =?utf-8?B?NXlRWm5IdnBJUHhINGQ2TXZIY2hPZTZ3eEtLd3kyMVRkL1JiUzNIaHkxUS9L?=
- =?utf-8?B?MWhsaW1NR20zTTZ5QnVlT3pZV1dPTERhOXZLYUYxQzBSTHRRMU02cEZwbE1s?=
- =?utf-8?B?S0ppbERTSEVZNVhIVTdvdG40QTNzQXhFNTFHS1RYdDVwWVZjVGppNGNMTG40?=
- =?utf-8?B?VHJaRjdSMkhFa0t1c0FZRXZ2a3Q3bTltUEJXNHpLSjJ4Y005V1FYQ2FpeU10?=
- =?utf-8?B?ODBsTjFxWjNPcXk1MUtrWFU1Qlo5QTNtU25pSjdUbFRPTGhTZno5REpIeW9m?=
- =?utf-8?B?VThCUGlRQXJQdVM3RXFsVnVzSWo0aHZqM0dNR2VYUDRJb01tWlJTK2h1NzRU?=
- =?utf-8?B?WlVUaGZYYjE3OHR6NllZWElpdklZdzdUOTlqWGxiTmNGclQxSmErY0ljZExN?=
- =?utf-8?B?R2xNMHYwTVZFRi9obTVLOVR0Rk1tUkRVWkN3WG1rMTFOdXpMRHQ0bWxwZ3JK?=
- =?utf-8?B?M3pLeVhDdU16OERTQS8wL1NiWnRaTE5rd3d1b2NsazR3amREbFZQWWNWMk5D?=
- =?utf-8?B?NFRoSjR0TGF1RzNxaWl3ZEJQeXBwUSszcjZ4SEs1b1ltRFgwVlVJd2VhSE0r?=
- =?utf-8?B?ZEgwNlFidGZRUGh1TEZpSnJTMC9QQTZrKzBpY1VnOFhJZWlBeENRenhoSmVM?=
- =?utf-8?B?c3YrZkdpYlFlQWpvT28rcUlObEtnOTh4MFZqSFBPL1pZeXR1SjNpYkFFSnhL?=
- =?utf-8?Q?8zhZrm9qT3k8E4m+/EvODsTxI?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fb30db9b-ec37-48d3-269f-08dd1414c85e
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB7820.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Dec 2024 03:36:06.4190 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: d295NeYrXL/z8OMANXxzloYWg+iTAi1BtTTEe8GBlw5NxAlgji4UfFHlNl48zqXo
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8599
+X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB6532.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6de4bd66-951d-4f39-8c10-08dd14162e66
+X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Dec 2024 03:46:05.6721 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 3ycK9TyMk5QukK5rt56Ozuid2gs1nRe/6aqQKi9MPUbL7bAPlzgbXweMp+Zd8YlWiOnJsHIATMv5Irgc6mmzEw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9107
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,965 +188,319 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+--_000_IA1PR12MB6532BBDDA6B5DC4744E38232F2372IA1PR12MB6532namp_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
+W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEFNRCBJbnRlcm5hbCBEaXN0cmlidXRpb24gT25seV0N
+Cg0KSGkgU2ltYSwgQ2hyaXN0aWFuLA0KDQpJIHdvdWxkIGxpa2UgdG8gcmVkaXNjdXNzIGFib3V0
+IHAycCBpbiBndWVzdCBWTSwgY2FuIHlvdSBwbGVhc2UgdGFrZSBhIGxvb2suIFRoYW5rcy4NCg0K
+QmVzdCByZWdhcmRzLA0KSnVsaWENCg0KRnJvbTogWmhhbmcsIEp1bGlhIDxKdWxpYS5aaGFuZ0Bh
+bWQuY29tPg0KU2VudDogRnJpZGF5LCBOb3ZlbWJlciAyOSwgMjAyNCAzOjUyIFBNDQpUbzogS29l
+bmlnLCBDaHJpc3RpYW4gPENocmlzdGlhbi5Lb2VuaWdAYW1kLmNvbT47IFpoYW5nLCBKdWxpYSA8
+SnVsaWEuWmhhbmdAYW1kLmNvbT47IEd1cmNoZXRhbiBTaW5naCA8Z3VyY2hldGFuc2luZ2hAY2hy
+b21pdW0ub3JnPjsgQ2hpYS1JIFd1IDxvbHZhZmZlQGdtYWlsLmNvbT47IERhdmlkIEFpcmxpZSA8
+YWlybGllZEByZWRoYXQuY29tPjsgR2VyZCBIb2ZmbWFubiA8a3JheGVsQHJlZGhhdC5jb20+OyBs
+aW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnOyBkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnOyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsgdmlydHVhbGl6YXRpb25AbGlzdHMu
+bGludXgtZm91bmRhdGlvbi5vcmc7IERldWNoZXIsIEFsZXhhbmRlciA8QWxleGFuZGVyLkRldWNo
+ZXJAYW1kLmNvbT47IERhdmlkIEFpcmxpZSA8YWlybGllZEBnbWFpbC5jb20+OyBFcmlrIEZheWUt
+THVuZCA8a3VzbWFiaXRlQGdtYWlsLmNvbT47IE9sc2FrLCBNYXJlayA8TWFyZWsuT2xzYWtAYW1k
+LmNvbT47IFBlbGxvdXgtUHJheWVyLCBQaWVycmUtRXJpYyA8UGllcnJlLWVyaWMuUGVsbG91eC1w
+cmF5ZXJAYW1kLmNvbT47IEh1YW5nLCBIb25nbGVpMSA8SG9uZ2xlaTEuSHVhbmdAYW1kLmNvbT47
+IENoZW4sIEppcWlhbiA8SmlxaWFuLkNoZW5AYW1kLmNvbT47IEh1YW5nLCBSYXkgPFJheS5IdWFu
+Z0BhbWQuY29tPjsgRGF2aWQgU3RldmVucyA8c3RldmVuc2RAY2hyb21pdW0ub3JnPg0KQ2M6IEh1
+YW5nLCBSYXkgPFJheS5IdWFuZ0BhbWQuY29tPjsgWmh1LCBMaW5nc2hhbiA8TGluZ3NoYW4uWmh1
+QGFtZC5jb20+OyByb2JkY2xhcmtAY2hyb21pdW0ub3JnDQpTdWJqZWN0OiBSZTogW1BBVENIIHYy
+IDEvMV0gZHJtL3ZpcnRpbzogSW1wbGVtZW50IGRldmljZV9hdHRhY2gNCg0KDQpIaSBhbGwsDQoN
+ClNvcnJ5IGZvciBteSBsYXRlIHJlcGx5LiBJIGRvbid0IGtub3cgaWYgeW91IHN0aWxsIHJlbWVt
+YmVyIHRoaXMgdGhyZWFkLCBsZXQgbWUgZ2l2ZSBhIHF1aWNrIHN1bW1hcnk6DQoNCiAgMS4gIFdl
+IHdhbnQgdG8gaW1wbGVtZW50IHRoZSBkR1BVIHByaW1lIGZlYXR1cmUgaW4gZ3Vlc3QgVk0uIEJ1
+dCB3ZSBlbmNvdW50ZXJlZCB0aGlzIGlzc3VlOiB2aXJ0aW8tZ3B1IGRvZXNu4oCZdCBoYXZlIC0+
+Z2V0X3NnX3RhYmxlIGltcGxlbWVudGVkIHdoaWNoIGlzIHJlcXVpcmVkIGJ5IGRybV9nZW1fbWFw
+X2F0dGFjaCgpLiBUaGlzIGlzIG1vZGlmaWVkIGJ5OiAyMDczOTVkYTVhOTcgKOKAnGRybS9wcmlt
+ZTogcmVqZWN0IERNQS1CVUYgYXR0YWNoIHdoZW4gZ2V0X3NnX3RhYmxlIGlzIG1pc3NpbmfigJ0p
+Lg0KICAyLiAgVG8gZml4IHRoaXMsIEkgb3ZlcnJpZGUgdGhlIGZ1bmN0aW9uIHZpcnRncHVfZ2Vt
+X2RldmljZV9hdHRhY2goKSB0byBub3QgY2FsbCBkcm1fZ2VtX21hcF9hdHRhY2goKSBmb3IgdnJh
+bSBvYmplY3Qgc28gZHJtX2dlbV9tYXBfYXR0YWNoKCkgd2lsbCBub3QgcmV0dXJuIC1FTk9TWVMg
+Zm9yIG5vdCBoYXZpbmcgLT5nZXRfc2dfdGFibGUuDQogIDMuICBUaGVuIHlvdSB0aGluayB0aGlz
+IGlzIGluY29ycmVjdCBhbmQgZHJtX2dlbV9tYXBfYXR0YWNoKCkgcmVxdWlyZXMgZ2V0X3NnX3Rh
+YmxlIHRvIGJlIGltcGxlbWVudGVkIGlzIGludGVudGlvbmFsLiBJIHNob3VsZCBlaXRoZXIgaW1w
+bGVtZW50IC0+YXR0YWNoIG9yIC0+Z2V0X3NnX3RhYmxlIGZvciB2aXJ0aW8tZ3B1Lg0KICA0LiAg
+QXMgZGlzY3Vzc2VkLCBJIGltcGxlbWVudGVkIC0+YXR0YWNoIGZvciB2aXJ0aW8tZ3B1LCBidXQg
+eW91IHN1Z2dlc3RlZCB0aGF0IEkgc2hvdWxkIGNoZWNrIHBlZXIycGVlciBmbGFnIGZpcnN0Lg0K
+ICA1LiAgTm93IEkgaGF2ZSB0aGUgaW1wbGVtZW50YXRpb24gdG8gZ2V0IHAycF9kaXN0YW5jZSBh
+bmQgY2hlY2sgdGhlIHAycCBmbGFnIGFscmVhZHksIGJ1dCBJIGZvdW5kIHRoYXQgUm9iIENsYXJr
+IG1lcmdlZCBhIHBhdGNoIHRvIGZpeCBhYm92ZSBwYXRjaDogMjA3Mzk1ZGE1YTk3ICjigJxkcm0v
+cHJpbWU6IHJlamVjdCBETUEtQlVGIGF0dGFjaCB3aGVuIGdldF9zZ190YWJsZSBpcyBtaXNzaW5n
+4oCdKQ0KICAgICAqICAgUm9i4oCZcyBwYXRjaDogaHR0cHM6Ly9wYXRjaHdvcmsuZnJlZWRlc2t0
+b3Aub3JnL3BhdGNoLzU4NDMxOC8NCiAgNi4gIFdpdGggUm9i4oCZcyBwYXRjaCwgLT5nZXRfc2df
+dGFibGUgaXNu4oCZdCByZXF1aXJlZCBmb3IgdmlydGlvLWdwdSBhbnltb3JlIGFuZCAgaXQgc2Vl
+bXMgcDJwIGZsYWcgYWxzbyBkb2VzbuKAmXQgbmVlZCB0byBiZSBjaGVja2VkIGFueW1vcmUuDQoN
+ClNvIEkgd2FudCB0byByZWRpc2N1c3MgaWYgd2Ugc3RpbGwgbmVlZCB0byBkbyBwMnAgY2hlY2tp
+bmcgbm93Pw0KDQpJZiBzbywgSSB3aWxsIHNlbmQgb3V0IG15IGltcGxlbWVudGF0aW9uIHNvb24u
+DQoNCkJlc3QgcmVnYXJkcywNCg0KSnVsaWENCg0KDQpPbiAyMDI0LzEvMzEgMjI6MzIsIENocmlz
+dGlhbiBLw7ZuaWcgd3JvdGU6DQpBbSAzMS4wMS4yNCB1bSAxMToyMCBzY2hyaWViIFpoYW5nLCBK
+dWxpYToNCg0KT24gMjAyNC8xLzMwIDIyOjIzLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOg0KDQpB
+bSAzMC4wMS4yNCB1bSAxMjoxNiBzY2hyaWViIERhbmllbCBWZXR0ZXI6DQoNCk9uIFR1ZSwgSmFu
+IDMwLCAyMDI0IGF0IDEyOjEwOjMxUE0gKzAxMDAsIERhbmllbCBWZXR0ZXIgd3JvdGU6DQpbU05J
+UF0NCg0KSGkgU2ltYSwgQ2hyaXN0aWFuLA0KDQoNCg0KWWVhaCwgdGhhdCBpcyByZWFsbHkganVz
+dCBzcGVjdWxhdGl2ZS4gQWxsIGltcG9ydGVycyBuZWVkIHRvIHNldCB0aGUgcGVlcjJwZWVyIGZs
+YWcganVzdCBpbiBjYXNlLg0KDQpJIHNlZSwgSSB3aWxsIG1vZGlmeSB0aGlzLg0KDQoNCg0KV2hh
+dCBoYXBwZW5zIHVuZGVyIHRoZSBob29kIGlzIHRoYXQgSU9NTVUgcmVkaXJlY3RzIHRoZSAiVlJB
+TSIgbWVtb3J5IGFjY2VzcyB0byB3aGF0ZXZlciBhZGRyZXNzIHRoZSBETUEtYnVmIG9uIHRoZSBo
+b3N0IGlzIHBvaW50aW5nIHRvIChzeXN0ZW0sIFZSQU0sIGRvb3JiZWxsLCBJT01NVSwgd2hhdGV2
+ZXIpLg0KDQoNCg0KSSdtIGFsc28gbm90IDEwMCUgc3VyZSBpZiBhbGwgdGhlIGNhY2hlIHNub29w
+aW5nIGlzIGRvbmUgY29ycmVjdGx5IGluIGFsbCBjYXNlcywgYnV0IGZvciBub3cgaXQgc2VlbXMg
+dG8gd29yay4NCg0KRnJhbmtseSB0aGUgbW9yZSBJIGxvb2sgYXQgdGhlIG9yaWdpbmFsIHBhdGNo
+IHRoYXQgYWRkZWQgdnJhbSBleHBvcnQNCg0Kc3VwcG9ydCB0aGUgbW9yZSB0aGlzIGp1c3QgbG9v
+a3MgbGlrZSBhICJwbHMgcmV2ZXJ0LCB0aGlzIGlzIGp1c3QgdG9vDQoNCmJyb2tlbiIuDQoNClRo
+ZSBjb21taXQgSSBtZWFuIGlzIHRoaXMgb25lOiBlYTVlYTNkOGExMTcgKCJkcm0vdmlydGlvOiBz
+dXBwb3J0IG1hcHBpbmcNCg0KZXhwb3J0ZWQgdnJhbSIpLiBUaGUgY29tbWl0IG1lc3NhZ2UgZGVm
+aW5pdGVseSBuZWVkcyB0byBjaXRlIHRoYXQgb25lLCBhbmQNCg0KYWxzbyBuZWVkcyBhIGNjOiBz
+dGFibGUgYmVjYXVzZSBub3QgcmVqZWN0aW5nIGludmFsaWQgaW1wb3J0cyBpcyBhIHByZXR0eQ0K
+DQpiaWcgZGVhbC4NCg0KWWVhaCwgSSd2ZSBwb2ludGVkIG91dCB0aGF0IGNvbW1pdCBpbiBhbiBp
+bnRlcm5hbCBkaXNjdXNzaW9uIGFzIHdlbGwuIEkgd2FzIGp1c3Qgbm90IGF3YXJlIHRoYXQgaXQn
+cyB0aGF0IHNldmVyZWx5IGJyb2tlbi4NCg0KDQoNClllYWggd2UgaGF2ZSBtZW50aW9uZWQgdGhp
+cyBwYXRjaCBiZWZvcmUsIGJ1dCBJIGRvbid0IHRvdGFsbHkgdW5kZXJzdGFuZCB3aHkgdGhpcyBp
+cyB0b28gYnJva2VuLiBXaXRob3V0IGV4cG9ydGluZyB2cmFtIG9iamVjdHMsIGRHUFUgcHJpbWUg
+ZmVhdHVyZSB3b3VsZCBub3QgYmUgcmVhbGl6ZWQuDQoNCldvdWxkIHlvdSBtaW5kIHRvIGV4cGxh
+aW4gbW9yZSBhYm91dCBpdC4gVGhhbmtzIQ0KDQpPbmUgcmVhc29uIGlzIHRoYXQgdXNpbmcgc2cg
+dGFibGVzIHdpdGhvdXQgc3RydWN0IHBhZ2VzIGlzIGFjdHVhbGx5IGEgaGFjayB3ZSBjYW1lIHVw
+IHdpdGggYmVjYXVzZSB3ZSBjb3VsZG4ndCBob3BlIHRvIGNsZWFuIHVwIHRoZSBzZyB0YWJsZSBz
+dHJ1Y3R1cmUgYW55IHRpbWUgc29vbiB0byBub3QgaW5jbHVkZSBzdHJ1Y3QgcGFnZSBwb2ludGVy
+cy4NCg0KQW5vdGhlciByZWFzb24gaXMgdGhhdCB1c2luZyB0aGlzIHdpdGggZGV2aWNlcyB3aGlj
+aCBkb24ndCBleHBlY3QgYSBETUEgYWRkcmVzcyBwb2ludGluZyBpbnRvIGEgdmlydHVhbCBQQ0kg
+QkFSLiBTbyBkb2luZyB0aGlzIHdpdGhvdXQgY2hlY2tpbmcgdGhlIHBlZXIycGVlciBmbGFnIGNh
+biBtb3N0IGxpa2VseSBjYXVzZSBxdWl0ZSBhIGJpdCBvZiB0cm91YmxlLg0KDQpSZWdhcmRzLA0K
+Q2hyaXN0aWFuLg0KDQoNCkJlc3QgcmVnYXJkcywNCg0KSnVsaWENCg0KDQoNClJlZ2FyZHMsDQoN
+CkNocmlzdGlhbi4NCg0KDQo=
 
-On 12/3/2024 11:44 PM, Mario Limonciello wrote:
-> Some of the firmware that is loaded by amdgpu is not actually required.
-> For example the ISP firmware on some SoCs is optional, and if it's not
-> present the ISP IP block just won't be initialized.
-> 
-> The firmware loader core however will show a warning when this happens
-> like this:
-> ```
-> Direct firmware load for amdgpu/isp_4_1_0.bin failed with error -2
-> ```
-> 
-> To avoid confusion for non-required firmware, adjust the amd-ucode helper
-> to take an extra argument indicating if the firmware is required or not.
-> 
-> On non-required firmware use firmware_request_nowarn() instead of
-> request_firmware() to avoid the warnings.
-> 
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c        |  4 +++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c     |  1 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c        |  3 ++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c        |  4 +++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c        | 18 ++++++++++++------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c       |  2 ++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c      |  8 ++++++--
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h      |  9 +++++++--
->  drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c   |  3 ++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c        |  2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c        |  2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c        |  8 ++++++--
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c        |  3 ++-
->  drivers/gpu/drm/amd/amdgpu/cik_sdma.c          |  2 ++
->  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c         |  5 +++++
->  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c         |  6 ++++++
->  drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c         |  5 +++++
->  drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c          |  4 ++++
->  drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c          |  6 ++++++
->  drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c          | 16 ++++++++++++++++
->  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c          | 12 +++++++++++-
->  drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c        |  7 +++++--
->  drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c          |  3 ++-
->  drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c          |  3 ++-
->  drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c          |  3 ++-
->  drivers/gpu/drm/amd/amdgpu/imu_v11_0.c         |  3 ++-
->  drivers/gpu/drm/amd/amdgpu/imu_v12_0.c         |  3 ++-
->  drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c         |  2 ++
->  drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c         |  2 ++
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  6 ++++--
->  drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c     |  3 ++-
->  drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c |  3 ++-
->  drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c |  3 ++-
->  .../drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c   |  3 ++-
->  drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c |  3 ++-
->  35 files changed, 136 insertions(+), 34 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c
-> index 16153d275d7a..68bce6a6d09d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c
-> @@ -414,7 +414,9 @@ static int amdgpu_cgs_get_firmware_info(struct cgs_device *cgs_device,
->  				return -EINVAL;
->  			}
->  
-> -			err = amdgpu_ucode_request(adev, &adev->pm.fw, "%s", fw_name);
-> +			err = amdgpu_ucode_request(adev, &adev->pm.fw,
-> +						   AMDGPU_UCODE_REQUIRED,
-> +						   "%s", fw_name);
->  			if (err) {
->  				DRM_ERROR("Failed to load firmware \"%s\"", fw_name);
->  				amdgpu_ucode_release(&adev->pm.fw);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 16b9b3c4190c..83f0de30317e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -2483,6 +2483,7 @@ static int amdgpu_device_parse_gpu_info_fw(struct amdgpu_device *adev)
->  	}
->  
->  	err = amdgpu_ucode_request(adev, &adev->firmware.gpu_info_fw,
-> +				   AMDGPU_UCODE_NOT_REQUIRED,
->  				   "amdgpu/%s_gpu_info.bin", chip_name);
->  	if (err) {
->  		dev_err(adev->dev,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c
-> index d52f18393970..56cc179fca26 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c
-> @@ -77,7 +77,8 @@ static int isp_load_fw_by_psp(struct amdgpu_device *adev)
->  				       sizeof(ucode_prefix));
->  
->  	/* read isp fw */
-> -	r = amdgpu_ucode_request(adev, &adev->isp.fw, "amdgpu/%s.bin", ucode_prefix);
-> +	r = amdgpu_ucode_request(adev, &adev->isp.fw, AMDGPU_UCODE_NOT_REQUIRED,
-> +				"amdgpu/%s.bin", ucode_prefix);
->  	if (r) {
->  		amdgpu_ucode_release(&adev->isp.fw);
->  		return r;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> index a67e6a52347f..bb946fa1e912 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> @@ -1438,10 +1438,12 @@ int amdgpu_mes_init_microcode(struct amdgpu_device *adev, int pipe)
->  			 pipe == AMDGPU_MES_SCHED_PIPE ? "" : "1");
->  	}
->  
-> -	r = amdgpu_ucode_request(adev, &adev->mes.fw[pipe], "%s", fw_name);
-> +	r = amdgpu_ucode_request(adev, &adev->mes.fw[pipe], AMDGPU_UCODE_REQUIRED,
-> +				 "%s", fw_name);
->  	if (r && need_retry && pipe == AMDGPU_MES_SCHED_PIPE) {
->  		dev_info(adev->dev, "try to fall back to %s_mes.bin\n", ucode_prefix);
->  		r = amdgpu_ucode_request(adev, &adev->mes.fw[pipe],
-> +					 AMDGPU_UCODE_REQUIRED,
->  					 "amdgpu/%s_mes.bin", ucode_prefix);
->  	}
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> index 12832fd834fb..3043ec5d3a31 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> @@ -3290,7 +3290,8 @@ int psp_init_asd_microcode(struct psp_context *psp, const char *chip_name)
->  	const struct psp_firmware_header_v1_0 *asd_hdr;
->  	int err = 0;
->  
-> -	err = amdgpu_ucode_request(adev, &adev->psp.asd_fw, "amdgpu/%s_asd.bin", chip_name);
-> +	err = amdgpu_ucode_request(adev, &adev->psp.asd_fw, AMDGPU_UCODE_REQUIRED,
-> +				   "amdgpu/%s_asd.bin", chip_name);
->  	if (err)
->  		goto out;
->  
-> @@ -3312,7 +3313,8 @@ int psp_init_toc_microcode(struct psp_context *psp, const char *chip_name)
->  	const struct psp_firmware_header_v1_0 *toc_hdr;
->  	int err = 0;
->  
-> -	err = amdgpu_ucode_request(adev, &adev->psp.toc_fw, "amdgpu/%s_toc.bin", chip_name);
-> +	err = amdgpu_ucode_request(adev, &adev->psp.toc_fw, AMDGPU_UCODE_REQUIRED,
-> +				   "amdgpu/%s_toc.bin", chip_name);
->  	if (err)
->  		goto out;
->  
-> @@ -3475,7 +3477,8 @@ int psp_init_sos_microcode(struct psp_context *psp, const char *chip_name)
->  	uint8_t *ucode_array_start_addr;
->  	int err = 0;
->  
-> -	err = amdgpu_ucode_request(adev, &adev->psp.sos_fw, "amdgpu/%s_sos.bin", chip_name);
-> +	err = amdgpu_ucode_request(adev, &adev->psp.sos_fw, AMDGPU_UCODE_REQUIRED,
-> +				   "amdgpu/%s_sos.bin", chip_name);
->  	if (err)
->  		goto out;
->  
-> @@ -3751,7 +3754,8 @@ int psp_init_ta_microcode(struct psp_context *psp, const char *chip_name)
->  	struct amdgpu_device *adev = psp->adev;
->  	int err;
->  
-> -	err = amdgpu_ucode_request(adev, &adev->psp.ta_fw, "amdgpu/%s_ta.bin", chip_name);
-> +	err = amdgpu_ucode_request(adev, &adev->psp.ta_fw, AMDGPU_UCODE_REQUIRED,
-> +				   "amdgpu/%s_ta.bin", chip_name);
->  	if (err)
->  		return err;
->  
-> @@ -3786,7 +3790,8 @@ int psp_init_cap_microcode(struct psp_context *psp, const char *chip_name)
->  		return -EINVAL;
->  	}
->  
-> -	err = amdgpu_ucode_request(adev, &adev->psp.cap_fw, "amdgpu/%s_cap.bin", chip_name);
-> +	err = amdgpu_ucode_request(adev, &adev->psp.cap_fw, AMDGPU_UCODE_NOT_REQUIRED,
-> +				   "amdgpu/%s_cap.bin", chip_name);
->  	if (err) {
->  		if (err == -ENODEV) {
->  			dev_warn(adev->dev, "cap microcode does not exist, skip\n");
-> @@ -3909,7 +3914,8 @@ static ssize_t psp_usbc_pd_fw_sysfs_write(struct device *dev,
->  	if (!drm_dev_enter(ddev, &idx))
->  		return -ENODEV;
->  
-> -	ret = amdgpu_ucode_request(adev, &usbc_pd_fw, "amdgpu/%s", buf);
-> +	ret = amdgpu_ucode_request(adev, &usbc_pd_fw, AMDGPU_UCODE_REQUIRED,
-> +				   "amdgpu/%s", buf);
->  	if (ret)
->  		goto fail;
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-> index 113f0d242618..b3c032f249f5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-> @@ -219,9 +219,11 @@ int amdgpu_sdma_init_microcode(struct amdgpu_device *adev,
->  	amdgpu_ucode_ip_version_decode(adev, SDMA0_HWIP, ucode_prefix, sizeof(ucode_prefix));
->  	if (instance == 0)
->  		err = amdgpu_ucode_request(adev, &adev->sdma.instance[instance].fw,
-> +					   AMDGPU_UCODE_REQUIRED,
->  					   "amdgpu/%s.bin", ucode_prefix);
->  	else
->  		err = amdgpu_ucode_request(adev, &adev->sdma.instance[instance].fw,
-> +					   AMDGPU_UCODE_REQUIRED,
->  					   "amdgpu/%s%d.bin", ucode_prefix, instance);
->  	if (err)
->  		goto out;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-> index d3cd76c6dab3..ffbb3377e0f6 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-> @@ -1434,6 +1434,7 @@ void amdgpu_ucode_ip_version_decode(struct amdgpu_device *adev, int block_type,
->   *
->   * @adev: amdgpu device
->   * @fw: pointer to load firmware to
-> + * @required: whether the firmware is required
->   * @fmt: firmware name format string
->   * @...: variable arguments
->   *
-> @@ -1442,7 +1443,7 @@ void amdgpu_ucode_ip_version_decode(struct amdgpu_device *adev, int block_type,
->   * the error code to -ENODEV, so that early_init functions will fail to load.
->   */
->  int amdgpu_ucode_request(struct amdgpu_device *adev, const struct firmware **fw,
-> -			 const char *fmt, ...)
-> +			 enum amdgpu_ucode_required required, const char *fmt, ...)
->  {
->  	char fname[AMDGPU_UCODE_NAME_MAX];
->  	va_list ap;
-> @@ -1456,7 +1457,10 @@ int amdgpu_ucode_request(struct amdgpu_device *adev, const struct firmware **fw,
->  		return -EOVERFLOW;
->  	}
->  
-> -	r = request_firmware(fw, fname, adev->dev);
-> +	if (required == AMDGPU_UCODE_REQUIRED)
-> +		r = request_firmware(fw, fname, adev->dev);
-> +	else
-> +		r = firmware_request_nowarn(fw, fname, adev->dev);
->  	if (r)
->  		return -ENODEV;
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h
-> index 4150ec0aa10d..827d75185d83 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h
-> @@ -551,6 +551,11 @@ enum amdgpu_firmware_load_type {
->  	AMDGPU_FW_LOAD_RLC_BACKDOOR_AUTO,
->  };
->  
-> +enum amdgpu_ucode_required {
-> +	AMDGPU_UCODE_NOT_REQUIRED,
-> +	AMDGPU_UCODE_REQUIRED,
+--_000_IA1PR12MB6532BBDDA6B5DC4744E38232F2372IA1PR12MB6532namp_
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Couldn't this be handled in another API instead of having to flag every
-load? By default, every ucode is required and if optional may be skipped
-with amdgpu_ucode_request_optional() API?
+PGh0bWwgeG1sbnM6dj0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTp2bWwiIHhtbG5zOm89InVy
+bjpzY2hlbWFzLW1pY3Jvc29mdC1jb206b2ZmaWNlOm9mZmljZSIgeG1sbnM6dz0idXJuOnNjaGVt
+YXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6d29yZCIgeG1sbnM6bT0iaHR0cDovL3NjaGVtYXMubWlj
+cm9zb2Z0LmNvbS9vZmZpY2UvMjAwNC8xMi9vbW1sIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcv
+VFIvUkVDLWh0bWw0MCI+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIg
+Y29udGVudD0idGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRv
+ciIgY29udGVudD0iTWljcm9zb2Z0IFdvcmQgMTUgKGZpbHRlcmVkIG1lZGl1bSkiPg0KPHN0eWxl
+PjwhLS0NCi8qIEZvbnQgRGVmaW5pdGlvbnMgKi8NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6
+IkNhbWJyaWEgTWF0aCI7DQoJcGFub3NlLTE6MiA0IDUgMyA1IDQgNiAzIDIgNDt9DQpAZm9udC1m
+YWNlDQoJe2ZvbnQtZmFtaWx5OkRlbmdYaWFuOw0KCXBhbm9zZS0xOjIgMSA2IDAgMyAxIDEgMSAx
+IDE7fQ0KQGZvbnQtZmFjZQ0KCXtmb250LWZhbWlseTpDYWxpYnJpOw0KCXBhbm9zZS0xOjIgMTUg
+NSAyIDIgMiA0IDMgMiA0O30NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6QXB0b3M7fQ0KQGZv
+bnQtZmFjZQ0KCXtmb250LWZhbWlseToiXEBEZW5nWGlhbiI7DQoJcGFub3NlLTE6MiAxIDYgMCAz
+IDEgMSAxIDEgMTt9DQpAZm9udC1mYWNlDQoJe2ZvbnQtZmFtaWx5OkNvbnNvbGFzOw0KCXBhbm9z
+ZS0xOjIgMTEgNiA5IDIgMiA0IDMgMiA0O30NCi8qIFN0eWxlIERlZmluaXRpb25zICovDQpwLk1z
+b05vcm1hbCwgbGkuTXNvTm9ybWFsLCBkaXYuTXNvTm9ybWFsDQoJe21hcmdpbjowaW47DQoJZm9u
+dC1zaXplOjEyLjBwdDsNCglmb250LWZhbWlseToiQXB0b3MiLHNhbnMtc2VyaWY7fQ0KYTpsaW5r
+LCBzcGFuLk1zb0h5cGVybGluaw0KCXttc28tc3R5bGUtcHJpb3JpdHk6OTk7DQoJY29sb3I6IzQ2
+Nzg4NjsNCgl0ZXh0LWRlY29yYXRpb246dW5kZXJsaW5lO30NCnByZQ0KCXttc28tc3R5bGUtcHJp
+b3JpdHk6OTk7DQoJbXNvLXN0eWxlLWxpbms6IkhUTUwgUHJlZm9ybWF0dGVkIENoYXIiOw0KCW1h
+cmdpbjowaW47DQoJZm9udC1zaXplOjEwLjBwdDsNCglmb250LWZhbWlseToiQ291cmllciBOZXci
+O30NCnNwYW4uSFRNTFByZWZvcm1hdHRlZENoYXINCgl7bXNvLXN0eWxlLW5hbWU6IkhUTUwgUHJl
+Zm9ybWF0dGVkIENoYXIiOw0KCW1zby1zdHlsZS1wcmlvcml0eTo5OTsNCgltc28tc3R5bGUtbGlu
+azoiSFRNTCBQcmVmb3JtYXR0ZWQiOw0KCWZvbnQtZmFtaWx5OkNvbnNvbGFzO30NCnNwYW4uRW1h
+aWxTdHlsZTIyDQoJe21zby1zdHlsZS10eXBlOnBlcnNvbmFsLXJlcGx5Ow0KCWZvbnQtZmFtaWx5
+OiJBcmlhbCIsc2Fucy1zZXJpZjsNCgljb2xvcjp3aW5kb3d0ZXh0O30NCi5Nc29DaHBEZWZhdWx0
+DQoJe21zby1zdHlsZS10eXBlOmV4cG9ydC1vbmx5Ow0KCWZvbnQtc2l6ZToxMC4wcHQ7DQoJbXNv
+LWxpZ2F0dXJlczpub25lO30NCkBwYWdlIFdvcmRTZWN0aW9uMQ0KCXtzaXplOjguNWluIDExLjBp
+bjsNCgltYXJnaW46MS4waW4gMS4waW4gMS4waW4gMS4waW47fQ0KZGl2LldvcmRTZWN0aW9uMQ0K
+CXtwYWdlOldvcmRTZWN0aW9uMTt9DQovKiBMaXN0IERlZmluaXRpb25zICovDQpAbGlzdCBsMA0K
+CXttc28tbGlzdC1pZDo3MjM0MDk2MTA7DQoJbXNvLWxpc3QtdGVtcGxhdGUtaWRzOi0xNzQ5NDA5
+OTk2O30NCkBsaXN0IGwwOmxldmVsMg0KCXttc28tbGV2ZWwtbnVtYmVyLWZvcm1hdDphbHBoYS1s
+b3dlcjsNCgltc28tbGV2ZWwtdGFiLXN0b3A6MS4waW47DQoJbXNvLWxldmVsLW51bWJlci1wb3Np
+dGlvbjpsZWZ0Ow0KCXRleHQtaW5kZW50Oi0uMjVpbjt9DQpAbGlzdCBsMQ0KCXttc28tbGlzdC1p
+ZDoxMjA5NDkwMjE2Ow0KCW1zby1saXN0LXR5cGU6aHlicmlkOw0KCW1zby1saXN0LXRlbXBsYXRl
+LWlkczo4OTYxNjc1MDggNjc2OTg3MDMgNjc2OTg3MTMgNjc2OTg3MTUgNjc2OTg3MDMgNjc2OTg3
+MTMgNjc2OTg3MTUgNjc2OTg3MDMgNjc2OTg3MTMgNjc2OTg3MTU7fQ0KQGxpc3QgbDE6bGV2ZWwx
+DQoJe21zby1sZXZlbC10YWItc3RvcDpub25lOw0KCW1zby1sZXZlbC1udW1iZXItcG9zaXRpb246
+bGVmdDsNCgl0ZXh0LWluZGVudDotLjI1aW47fQ0KQGxpc3QgbDE6bGV2ZWwyDQoJe21zby1sZXZl
+bC1udW1iZXItZm9ybWF0OmFscGhhLWxvd2VyOw0KCW1zby1sZXZlbC10YWItc3RvcDpub25lOw0K
+CW1zby1sZXZlbC1udW1iZXItcG9zaXRpb246bGVmdDsNCgl0ZXh0LWluZGVudDotLjI1aW47fQ0K
+QGxpc3QgbDE6bGV2ZWwzDQoJe21zby1sZXZlbC1udW1iZXItZm9ybWF0OnJvbWFuLWxvd2VyOw0K
+CW1zby1sZXZlbC10YWItc3RvcDpub25lOw0KCW1zby1sZXZlbC1udW1iZXItcG9zaXRpb246cmln
+aHQ7DQoJdGV4dC1pbmRlbnQ6LTkuMHB0O30NCkBsaXN0IGwxOmxldmVsNA0KCXttc28tbGV2ZWwt
+dGFiLXN0b3A6bm9uZTsNCgltc28tbGV2ZWwtbnVtYmVyLXBvc2l0aW9uOmxlZnQ7DQoJdGV4dC1p
+bmRlbnQ6LS4yNWluO30NCkBsaXN0IGwxOmxldmVsNQ0KCXttc28tbGV2ZWwtbnVtYmVyLWZvcm1h
+dDphbHBoYS1sb3dlcjsNCgltc28tbGV2ZWwtdGFiLXN0b3A6bm9uZTsNCgltc28tbGV2ZWwtbnVt
+YmVyLXBvc2l0aW9uOmxlZnQ7DQoJdGV4dC1pbmRlbnQ6LS4yNWluO30NCkBsaXN0IGwxOmxldmVs
+Ng0KCXttc28tbGV2ZWwtbnVtYmVyLWZvcm1hdDpyb21hbi1sb3dlcjsNCgltc28tbGV2ZWwtdGFi
+LXN0b3A6bm9uZTsNCgltc28tbGV2ZWwtbnVtYmVyLXBvc2l0aW9uOnJpZ2h0Ow0KCXRleHQtaW5k
+ZW50Oi05LjBwdDt9DQpAbGlzdCBsMTpsZXZlbDcNCgl7bXNvLWxldmVsLXRhYi1zdG9wOm5vbmU7
+DQoJbXNvLWxldmVsLW51bWJlci1wb3NpdGlvbjpsZWZ0Ow0KCXRleHQtaW5kZW50Oi0uMjVpbjt9
+DQpAbGlzdCBsMTpsZXZlbDgNCgl7bXNvLWxldmVsLW51bWJlci1mb3JtYXQ6YWxwaGEtbG93ZXI7
+DQoJbXNvLWxldmVsLXRhYi1zdG9wOm5vbmU7DQoJbXNvLWxldmVsLW51bWJlci1wb3NpdGlvbjps
+ZWZ0Ow0KCXRleHQtaW5kZW50Oi0uMjVpbjt9DQpAbGlzdCBsMTpsZXZlbDkNCgl7bXNvLWxldmVs
+LW51bWJlci1mb3JtYXQ6cm9tYW4tbG93ZXI7DQoJbXNvLWxldmVsLXRhYi1zdG9wOm5vbmU7DQoJ
+bXNvLWxldmVsLW51bWJlci1wb3NpdGlvbjpyaWdodDsNCgl0ZXh0LWluZGVudDotOS4wcHQ7fQ0K
+b2wNCgl7bWFyZ2luLWJvdHRvbTowaW47fQ0KdWwNCgl7bWFyZ2luLWJvdHRvbTowaW47fQ0KLS0+
+PC9zdHlsZT48IS0tW2lmIGd0ZSBtc28gOV0+PHhtbD4NCjxvOnNoYXBlZGVmYXVsdHMgdjpleHQ9
+ImVkaXQiIHNwaWRtYXg9IjEwMjYiIC8+DQo8L3htbD48IVtlbmRpZl0tLT48IS0tW2lmIGd0ZSBt
+c28gOV0+PHhtbD4NCjxvOnNoYXBlbGF5b3V0IHY6ZXh0PSJlZGl0Ij4NCjxvOmlkbWFwIHY6ZXh0
+PSJlZGl0IiBkYXRhPSIxIiAvPg0KPC9vOnNoYXBlbGF5b3V0PjwveG1sPjwhW2VuZGlmXS0tPg0K
+PC9oZWFkPg0KPGJvZHkgbGFuZz0iRU4tVVMiIGxpbms9IiM0Njc4ODYiIHZsaW5rPSIjOTY2MDdE
+IiBzdHlsZT0id29yZC13cmFwOmJyZWFrLXdvcmQiPg0KPHAgc3R5bGU9ImZvbnQtZmFtaWx5OkNh
+bGlicmk7Zm9udC1zaXplOjEwcHQ7Y29sb3I6IzAwMDBGRjttYXJnaW46NXB0O2ZvbnQtc3R5bGU6
+bm9ybWFsO2ZvbnQtd2VpZ2h0Om5vcm1hbDt0ZXh0LWRlY29yYXRpb246bm9uZTsiIGFsaWduPSJM
+ZWZ0Ij4NCltBTUQgT2ZmaWNpYWwgVXNlIE9ubHkgLSBBTUQgSW50ZXJuYWwgRGlzdHJpYnV0aW9u
+IE9ubHldPGJyPg0KPC9wPg0KPGJyPg0KPGRpdj4NCjxkaXYgY2xhc3M9IldvcmRTZWN0aW9uMSI+
+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250
+LWZhbWlseTomcXVvdDtBcmlhbCZxdW90OyxzYW5zLXNlcmlmIj5IaSBTaW1hLCBDaHJpc3RpYW4s
+PG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9
+ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7QXJpYWwmcXVvdDssc2Fucy1zZXJp
+ZiI+PG86cD4mbmJzcDs8L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNw
+YW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7QXJpYWwmcXVvdDss
+c2Fucy1zZXJpZiI+SSB3b3VsZCBsaWtlIHRvIHJlZGlzY3VzcyBhYm91dCBwMnAgaW4gZ3Vlc3Qg
+Vk0sIGNhbiB5b3UgcGxlYXNlIHRha2UgYSBsb29rLiBUaGFua3MuPG86cD48L286cD48L3NwYW4+
+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7
+Zm9udC1mYW1pbHk6JnF1b3Q7QXJpYWwmcXVvdDssc2Fucy1zZXJpZiI+PG86cD4mbmJzcDs8L286
+cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6
+ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7QXJpYWwmcXVvdDssc2Fucy1zZXJpZiI+QmVzdCBy
+ZWdhcmRzLDxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFu
+IHN0eWxlPSJmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OiZxdW90O0FyaWFsJnF1b3Q7LHNh
+bnMtc2VyaWYiPkp1bGlhPG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1h
+bCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7QXJpYWwm
+cXVvdDssc2Fucy1zZXJpZiI+PG86cD4mbmJzcDs8L286cD48L3NwYW4+PC9wPg0KPGRpdj4NCjxk
+aXYgc3R5bGU9ImJvcmRlcjpub25lO2JvcmRlci10b3A6c29saWQgI0UxRTFFMSAxLjBwdDtwYWRk
+aW5nOjMuMHB0IDBpbiAwaW4gMGluIj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxiPjxzcGFuIHN0
+eWxlPSJmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssc2Fu
+cy1zZXJpZiI+RnJvbTo8L3NwYW4+PC9iPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0O2Zv
+bnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssc2Fucy1zZXJpZiI+IFpoYW5nLCBKdWxpYSAm
+bHQ7SnVsaWEuWmhhbmdAYW1kLmNvbSZndDsNCjxicj4NCjxiPlNlbnQ6PC9iPiBGcmlkYXksIE5v
+dmVtYmVyIDI5LCAyMDI0IDM6NTIgUE08YnI+DQo8Yj5Ubzo8L2I+IEtvZW5pZywgQ2hyaXN0aWFu
+ICZsdDtDaHJpc3RpYW4uS29lbmlnQGFtZC5jb20mZ3Q7OyBaaGFuZywgSnVsaWEgJmx0O0p1bGlh
+LlpoYW5nQGFtZC5jb20mZ3Q7OyBHdXJjaGV0YW4gU2luZ2ggJmx0O2d1cmNoZXRhbnNpbmdoQGNo
+cm9taXVtLm9yZyZndDs7IENoaWEtSSBXdSAmbHQ7b2x2YWZmZUBnbWFpbC5jb20mZ3Q7OyBEYXZp
+ZCBBaXJsaWUgJmx0O2FpcmxpZWRAcmVkaGF0LmNvbSZndDs7IEdlcmQgSG9mZm1hbm4gJmx0O2ty
+YXhlbEByZWRoYXQuY29tJmd0OzsgbGludXgta2VybmVsQHZnZXIua2VybmVsLm9yZzsNCiBkcmkt
+ZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
+ZzsgdmlydHVhbGl6YXRpb25AbGlzdHMubGludXgtZm91bmRhdGlvbi5vcmc7IERldWNoZXIsIEFs
+ZXhhbmRlciAmbHQ7QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbSZndDs7IERhdmlkIEFpcmxpZSAm
+bHQ7YWlybGllZEBnbWFpbC5jb20mZ3Q7OyBFcmlrIEZheWUtTHVuZCAmbHQ7a3VzbWFiaXRlQGdt
+YWlsLmNvbSZndDs7IE9sc2FrLCBNYXJlayAmbHQ7TWFyZWsuT2xzYWtAYW1kLmNvbSZndDs7DQog
+UGVsbG91eC1QcmF5ZXIsIFBpZXJyZS1FcmljICZsdDtQaWVycmUtZXJpYy5QZWxsb3V4LXByYXll
+ckBhbWQuY29tJmd0OzsgSHVhbmcsIEhvbmdsZWkxICZsdDtIb25nbGVpMS5IdWFuZ0BhbWQuY29t
+Jmd0OzsgQ2hlbiwgSmlxaWFuICZsdDtKaXFpYW4uQ2hlbkBhbWQuY29tJmd0OzsgSHVhbmcsIFJh
+eSAmbHQ7UmF5Lkh1YW5nQGFtZC5jb20mZ3Q7OyBEYXZpZCBTdGV2ZW5zICZsdDtzdGV2ZW5zZEBj
+aHJvbWl1bS5vcmcmZ3Q7PGJyPg0KPGI+Q2M6PC9iPiBIdWFuZywgUmF5ICZsdDtSYXkuSHVhbmdA
+YW1kLmNvbSZndDs7IFpodSwgTGluZ3NoYW4gJmx0O0xpbmdzaGFuLlpodUBhbWQuY29tJmd0Ozsg
+cm9iZGNsYXJrQGNocm9taXVtLm9yZzxicj4NCjxiPlN1YmplY3Q6PC9iPiBSZTogW1BBVENIIHYy
+IDEvMV0gZHJtL3ZpcnRpbzogSW1wbGVtZW50IGRldmljZV9hdHRhY2g8bzpwPjwvbzpwPjwvc3Bh
+bj48L3A+DQo8L2Rpdj4NCjwvZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PG86cD4mbmJzcDs8
+L286cD48L3A+DQo8cD5IaSBhbGwsPG86cD48L286cD48L3A+DQo8cD5Tb3JyeSBmb3IgbXkgbGF0
+ZSByZXBseS4gSSBkb24ndCBrbm93IGlmIHlvdSBzdGlsbCByZW1lbWJlciB0aGlzIHRocmVhZCwg
+bGV0IG1lIGdpdmUgYSBxdWljayBzdW1tYXJ5OjxvOnA+PC9vOnA+PC9wPg0KPG9sIHN0YXJ0PSIx
+IiB0eXBlPSIxIj4NCjxsaSBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0ibXNvLW1hcmdpbi10b3At
+YWx0OmF1dG87bXNvLW1hcmdpbi1ib3R0b20tYWx0OmF1dG87bXNvLWxpc3Q6bDEgbGV2ZWwxIGxm
+bzMiPg0KV2Ugd2FudCB0byBpbXBsZW1lbnQgdGhlIGRHUFUgcHJpbWUgZmVhdHVyZSBpbiBndWVz
+dCBWTS4gQnV0IHdlIGVuY291bnRlcmVkIHRoaXMgaXNzdWU6IHZpcnRpby1ncHUgZG9lc27igJl0
+IGhhdmUgLSZndDtnZXRfc2dfdGFibGUgaW1wbGVtZW50ZWQgd2hpY2ggaXMgcmVxdWlyZWQgYnkg
+ZHJtX2dlbV9tYXBfYXR0YWNoKCkuIFRoaXMgaXMgbW9kaWZpZWQgYnk6IDIwNzM5NWRhNWE5NyAo
+4oCcZHJtL3ByaW1lOiByZWplY3QgRE1BLUJVRiBhdHRhY2ggd2hlbiBnZXRfc2dfdGFibGUNCiBp
+cyBtaXNzaW5n4oCdKS48bzpwPjwvbzpwPjwvbGk+PGxpIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxl
+PSJtc28tbWFyZ2luLXRvcC1hbHQ6YXV0bzttc28tbWFyZ2luLWJvdHRvbS1hbHQ6YXV0bzttc28t
+bGlzdDpsMSBsZXZlbDEgbGZvMyI+DQpUbyBmaXggdGhpcywgSSBvdmVycmlkZSB0aGUgZnVuY3Rp
+b24gdmlydGdwdV9nZW1fZGV2aWNlX2F0dGFjaCgpIHRvIG5vdCBjYWxsIGRybV9nZW1fbWFwX2F0
+dGFjaCgpIGZvciB2cmFtIG9iamVjdCBzbyBkcm1fZ2VtX21hcF9hdHRhY2goKSB3aWxsIG5vdCBy
+ZXR1cm4gLUVOT1NZUyBmb3Igbm90IGhhdmluZyAtJmd0O2dldF9zZ190YWJsZS48bzpwPjwvbzpw
+PjwvbGk+PGxpIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJtc28tbWFyZ2luLXRvcC1hbHQ6YXV0
+bzttc28tbWFyZ2luLWJvdHRvbS1hbHQ6YXV0bzttc28tbGlzdDpsMSBsZXZlbDEgbGZvMyI+DQpU
+aGVuIHlvdSB0aGluayB0aGlzIGlzIGluY29ycmVjdCBhbmQgZHJtX2dlbV9tYXBfYXR0YWNoKCkg
+cmVxdWlyZXMgZ2V0X3NnX3RhYmxlIHRvIGJlIGltcGxlbWVudGVkIGlzIGludGVudGlvbmFsLiBJ
+IHNob3VsZCBlaXRoZXIgaW1wbGVtZW50IC0mZ3Q7YXR0YWNoIG9yIC0mZ3Q7Z2V0X3NnX3RhYmxl
+IGZvciB2aXJ0aW8tZ3B1LjxvOnA+PC9vOnA+PC9saT48bGkgY2xhc3M9Ik1zb05vcm1hbCIgc3R5
+bGU9Im1zby1tYXJnaW4tdG9wLWFsdDphdXRvO21zby1tYXJnaW4tYm90dG9tLWFsdDphdXRvO21z
+by1saXN0OmwxIGxldmVsMSBsZm8zIj4NCkFzIGRpc2N1c3NlZCwgSSBpbXBsZW1lbnRlZCAtJmd0
+O2F0dGFjaCBmb3IgdmlydGlvLWdwdSwgYnV0IHlvdSBzdWdnZXN0ZWQgdGhhdCBJIHNob3VsZCBj
+aGVjayBwZWVyMnBlZXIgZmxhZyBmaXJzdC48bzpwPjwvbzpwPjwvbGk+PGxpIGNsYXNzPSJNc29O
+b3JtYWwiIHN0eWxlPSJtc28tbWFyZ2luLXRvcC1hbHQ6YXV0bzttc28tbWFyZ2luLWJvdHRvbS1h
+bHQ6YXV0bzttc28tbGlzdDpsMSBsZXZlbDEgbGZvMyI+DQpOb3cgSSBoYXZlIHRoZSBpbXBsZW1l
+bnRhdGlvbiB0byBnZXQgcDJwX2Rpc3RhbmNlIGFuZCBjaGVjayB0aGUgcDJwIGZsYWcgYWxyZWFk
+eSwgYnV0IEkgZm91bmQgdGhhdCBSb2IgQ2xhcmsgbWVyZ2VkIGEgcGF0Y2ggdG8gZml4IGFib3Zl
+IHBhdGNoOiAyMDczOTVkYTVhOTcgKOKAnGRybS9wcmltZTogcmVqZWN0IERNQS1CVUYgYXR0YWNo
+IHdoZW4gZ2V0X3NnX3RhYmxlIGlzIG1pc3NpbmfigJ0pPG86cD48L286cD48L2xpPjxvbCBzdGFy
+dD0iMSIgdHlwZT0iYSI+DQo8bGkgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1zby1tYXJnaW4t
+dG9wLWFsdDphdXRvO21zby1tYXJnaW4tYm90dG9tLWFsdDphdXRvO21zby1saXN0OmwxIGxldmVs
+MiBsZm8zIj4NClJvYuKAmXMgcGF0Y2g6IDxhIGhyZWY9Imh0dHBzOi8vcGF0Y2h3b3JrLmZyZWVk
+ZXNrdG9wLm9yZy9wYXRjaC81ODQzMTgvIj5odHRwczovL3BhdGNod29yay5mcmVlZGVza3RvcC5v
+cmcvcGF0Y2gvNTg0MzE4LzwvYT48bzpwPjwvbzpwPjwvbGk+PC9vbD4NCjxsaSBjbGFzcz0iTXNv
+Tm9ybWFsIiBzdHlsZT0ibXNvLW1hcmdpbi10b3AtYWx0OmF1dG87bXNvLW1hcmdpbi1ib3R0b20t
+YWx0OmF1dG87bXNvLWxpc3Q6bDEgbGV2ZWwxIGxmbzMiPg0KV2l0aCBSb2LigJlzIHBhdGNoLCAt
+Jmd0O2dldF9zZ190YWJsZSBpc27igJl0IHJlcXVpcmVkIGZvciB2aXJ0aW8tZ3B1IGFueW1vcmUg
+YW5kICZuYnNwO2l0IHNlZW1zIHAycCBmbGFnIGFsc28gZG9lc27igJl0IG5lZWQgdG8gYmUgY2hl
+Y2tlZCBhbnltb3JlLjxvOnA+PC9vOnA+PC9saT48L29sPg0KPHA+U28gSSB3YW50IHRvIHJlZGlz
+Y3VzcyBpZiB3ZSBzdGlsbCBuZWVkIHRvIGRvIHAycCBjaGVja2luZyBub3c/IDxvOnA+PC9vOnA+
+PC9wPg0KPHA+SWYgc28sIEkgd2lsbCBzZW5kIG91dCBteSBpbXBsZW1lbnRhdGlvbiBzb29uLjxv
+OnA+PC9vOnA+PC9wPg0KPHA+QmVzdCByZWdhcmRzLDxvOnA+PC9vOnA+PC9wPg0KPHA+SnVsaWE8
+bzpwPjwvbzpwPjwvcD4NCjxwPjxvOnA+Jm5ic3A7PC9vOnA+PC9wPg0KPGRpdj4NCjxwIGNsYXNz
+PSJNc29Ob3JtYWwiPk9uIDIwMjQvMS8zMSAyMjozMiwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZTo8
+bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0KPGJsb2NrcXVvdGUgc3R5bGU9Im1hcmdpbi10b3A6NS4w
+cHQ7bWFyZ2luLWJvdHRvbTo1LjBwdCI+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0ibWFy
+Z2luLWJvdHRvbToxMi4wcHQiPkFtIDMxLjAxLjI0IHVtIDExOjIwIHNjaHJpZWIgWmhhbmcsIEp1
+bGlhOjxvOnA+PC9vOnA+PC9wPg0KPGJsb2NrcXVvdGUgc3R5bGU9Im1hcmdpbi10b3A6NS4wcHQ7
+bWFyZ2luLWJvdHRvbTo1LjBwdCI+DQo8cHJlPk9uIDIwMjQvMS8zMCAyMjoyMywgQ2hyaXN0aWFu
+IEvDtm5pZyB3cm90ZTo8bzpwPjwvbzpwPjwvcHJlPg0KPGJsb2NrcXVvdGUgc3R5bGU9Im1hcmdp
+bi10b3A6NS4wcHQ7bWFyZ2luLWJvdHRvbTo1LjBwdCI+DQo8cHJlPkFtIDMwLjAxLjI0IHVtIDEy
+OjE2IHNjaHJpZWIgRGFuaWVsIFZldHRlcjo8bzpwPjwvbzpwPjwvcHJlPg0KPGJsb2NrcXVvdGUg
+c3R5bGU9Im1hcmdpbi10b3A6NS4wcHQ7bWFyZ2luLWJvdHRvbTo1LjBwdCI+DQo8cHJlPk9uIFR1
+ZSwgSmFuIDMwLCAyMDI0IGF0IDEyOjEwOjMxUE0gKzAxMDAsIERhbmllbCBWZXR0ZXIgd3JvdGU6
+PG86cD48L286cD48L3ByZT4NCjxibG9ja3F1b3RlIHN0eWxlPSJtYXJnaW4tdG9wOjUuMHB0O21h
+cmdpbi1ib3R0b206NS4wcHQiPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+W1NOSVBdIDxvOnA+PC9v
+OnA+PC9wPg0KPC9ibG9ja3F1b3RlPg0KPC9ibG9ja3F1b3RlPg0KPC9ibG9ja3F1b3RlPg0KPHBy
+ZT5IaSBTaW1hLCBDaHJpc3RpYW4sPG86cD48L286cD48L3ByZT4NCjxwcmU+PG86cD4mbmJzcDs8
+L286cD48L3ByZT4NCjxibG9ja3F1b3RlIHN0eWxlPSJtYXJnaW4tdG9wOjUuMHB0O21hcmdpbi1i
+b3R0b206NS4wcHQiPg0KPHByZT5ZZWFoLCB0aGF0IGlzIHJlYWxseSBqdXN0IHNwZWN1bGF0aXZl
+LiBBbGwgaW1wb3J0ZXJzIG5lZWQgdG8gc2V0IHRoZSBwZWVyMnBlZXIgZmxhZyBqdXN0IGluIGNh
+c2UuPG86cD48L286cD48L3ByZT4NCjwvYmxvY2txdW90ZT4NCjxwcmU+SSBzZWUsIEkgd2lsbCBt
+b2RpZnkgdGhpcy48bzpwPjwvbzpwPjwvcHJlPg0KPHByZT48bzpwPiZuYnNwOzwvbzpwPjwvcHJl
+Pg0KPGJsb2NrcXVvdGUgc3R5bGU9Im1hcmdpbi10b3A6NS4wcHQ7bWFyZ2luLWJvdHRvbTo1LjBw
+dCI+DQo8cHJlPldoYXQgaGFwcGVucyB1bmRlciB0aGUgaG9vZCBpcyB0aGF0IElPTU1VIHJlZGly
+ZWN0cyB0aGUgJnF1b3Q7VlJBTSZxdW90OyBtZW1vcnkgYWNjZXNzIHRvIHdoYXRldmVyIGFkZHJl
+c3MgdGhlIERNQS1idWYgb24gdGhlIGhvc3QgaXMgcG9pbnRpbmcgdG8gKHN5c3RlbSwgVlJBTSwg
+ZG9vcmJlbGwsIElPTU1VLCB3aGF0ZXZlcikuPG86cD48L286cD48L3ByZT4NCjxwcmU+PG86cD4m
+bmJzcDs8L286cD48L3ByZT4NCjxwcmU+SSdtIGFsc28gbm90IDEwMCUgc3VyZSBpZiBhbGwgdGhl
+IGNhY2hlIHNub29waW5nIGlzIGRvbmUgY29ycmVjdGx5IGluIGFsbCBjYXNlcywgYnV0IGZvciBu
+b3cgaXQgc2VlbXMgdG8gd29yay48bzpwPjwvbzpwPjwvcHJlPg0KPGJsb2NrcXVvdGUgc3R5bGU9
+Im1hcmdpbi10b3A6NS4wcHQ7bWFyZ2luLWJvdHRvbTo1LjBwdCI+DQo8YmxvY2txdW90ZSBzdHls
+ZT0ibWFyZ2luLXRvcDo1LjBwdDttYXJnaW4tYm90dG9tOjUuMHB0Ij4NCjxwcmU+RnJhbmtseSB0
+aGUgbW9yZSBJIGxvb2sgYXQgdGhlIG9yaWdpbmFsIHBhdGNoIHRoYXQgYWRkZWQgdnJhbSBleHBv
+cnQ8bzpwPjwvbzpwPjwvcHJlPg0KPHByZT5zdXBwb3J0IHRoZSBtb3JlIHRoaXMganVzdCBsb29r
+cyBsaWtlIGEgJnF1b3Q7cGxzIHJldmVydCwgdGhpcyBpcyBqdXN0IHRvbzxvOnA+PC9vOnA+PC9w
+cmU+DQo8cHJlPmJyb2tlbiZxdW90Oy48bzpwPjwvbzpwPjwvcHJlPg0KPC9ibG9ja3F1b3RlPg0K
+PHByZT5UaGUgY29tbWl0IEkgbWVhbiBpcyB0aGlzIG9uZTogZWE1ZWEzZDhhMTE3ICgmcXVvdDtk
+cm0vdmlydGlvOiBzdXBwb3J0IG1hcHBpbmc8bzpwPjwvbzpwPjwvcHJlPg0KPHByZT5leHBvcnRl
+ZCB2cmFtJnF1b3Q7KS4gVGhlIGNvbW1pdCBtZXNzYWdlIGRlZmluaXRlbHkgbmVlZHMgdG8gY2l0
+ZSB0aGF0IG9uZSwgYW5kPG86cD48L286cD48L3ByZT4NCjxwcmU+YWxzbyBuZWVkcyBhIGNjOiBz
+dGFibGUgYmVjYXVzZSBub3QgcmVqZWN0aW5nIGludmFsaWQgaW1wb3J0cyBpcyBhIHByZXR0eTxv
+OnA+PC9vOnA+PC9wcmU+DQo8cHJlPmJpZyBkZWFsLjxvOnA+PC9vOnA+PC9wcmU+DQo8L2Jsb2Nr
+cXVvdGU+DQo8cHJlPlllYWgsIEkndmUgcG9pbnRlZCBvdXQgdGhhdCBjb21taXQgaW4gYW4gaW50
+ZXJuYWwgZGlzY3Vzc2lvbiBhcyB3ZWxsLiBJIHdhcyBqdXN0IG5vdCBhd2FyZSB0aGF0IGl0J3Mg
+dGhhdCBzZXZlcmVseSBicm9rZW4uPG86cD48L286cD48L3ByZT4NCjxwcmU+PG86cD4mbmJzcDs8
+L286cD48L3ByZT4NCjwvYmxvY2txdW90ZT4NCjxwcmU+WWVhaCB3ZSBoYXZlIG1lbnRpb25lZCB0
+aGlzIHBhdGNoIGJlZm9yZSwgYnV0IEkgZG9uJ3QgdG90YWxseSB1bmRlcnN0YW5kIHdoeSB0aGlz
+IGlzIHRvbyBicm9rZW4uIFdpdGhvdXQgZXhwb3J0aW5nIHZyYW0gb2JqZWN0cywgZEdQVSBwcmlt
+ZSBmZWF0dXJlIHdvdWxkIG5vdCBiZSByZWFsaXplZC48bzpwPjwvbzpwPjwvcHJlPg0KPHByZT5X
+b3VsZCB5b3UgbWluZCB0byBleHBsYWluIG1vcmUgYWJvdXQgaXQuIFRoYW5rcyE8bzpwPjwvbzpw
+PjwvcHJlPg0KPC9ibG9ja3F1b3RlPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1hcmdp
+bi1ib3R0b206MTIuMHB0Ij48YnI+DQpPbmUgcmVhc29uIGlzIHRoYXQgdXNpbmcgc2cgdGFibGVz
+IHdpdGhvdXQgc3RydWN0IHBhZ2VzIGlzIGFjdHVhbGx5IGEgaGFjayB3ZSBjYW1lIHVwIHdpdGgg
+YmVjYXVzZSB3ZSBjb3VsZG4ndCBob3BlIHRvIGNsZWFuIHVwIHRoZSBzZyB0YWJsZSBzdHJ1Y3R1
+cmUgYW55IHRpbWUgc29vbiB0byBub3QgaW5jbHVkZSBzdHJ1Y3QgcGFnZSBwb2ludGVycy48YnI+
+DQo8YnI+DQpBbm90aGVyIHJlYXNvbiBpcyB0aGF0IHVzaW5nIHRoaXMgd2l0aCBkZXZpY2VzIHdo
+aWNoIGRvbid0IGV4cGVjdCBhIERNQSBhZGRyZXNzIHBvaW50aW5nIGludG8gYSB2aXJ0dWFsIFBD
+SSBCQVIuIFNvIGRvaW5nIHRoaXMgd2l0aG91dCBjaGVja2luZyB0aGUgcGVlcjJwZWVyIGZsYWcg
+Y2FuIG1vc3QgbGlrZWx5IGNhdXNlIHF1aXRlIGEgYml0IG9mIHRyb3VibGUuPGJyPg0KPGJyPg0K
+UmVnYXJkcyw8YnI+DQpDaHJpc3RpYW4uPGJyPg0KPGJyPg0KPG86cD48L286cD48L3A+DQo8Ymxv
+Y2txdW90ZSBzdHlsZT0ibWFyZ2luLXRvcDo1LjBwdDttYXJnaW4tYm90dG9tOjUuMHB0Ij4NCjxw
+cmU+QmVzdCByZWdhcmRzLDxvOnA+PC9vOnA+PC9wcmU+DQo8cHJlPkp1bGlhPG86cD48L286cD48
+L3ByZT4NCjxwcmU+PG86cD4mbmJzcDs8L286cD48L3ByZT4NCjxibG9ja3F1b3RlIHN0eWxlPSJt
+YXJnaW4tdG9wOjUuMHB0O21hcmdpbi1ib3R0b206NS4wcHQiPg0KPHByZT5SZWdhcmRzLDxvOnA+
+PC9vOnA+PC9wcmU+DQo8cHJlPkNocmlzdGlhbi48bzpwPjwvbzpwPjwvcHJlPg0KPHByZT48bzpw
+PiZuYnNwOzwvbzpwPjwvcHJlPg0KPC9ibG9ja3F1b3RlPg0KPC9ibG9ja3F1b3RlPg0KPC9ibG9j
+a3F1b3RlPg0KPC9kaXY+DQo8L2Rpdj4NCjwvYm9keT4NCjwvaHRtbD4NCg==
 
-Thanks,
-Lijo
-
-> +};
-> +
->  /* conform to smu_ucode_xfer_cz.h */
->  #define AMDGPU_SDMA0_UCODE_LOADED	0x00000001
->  #define AMDGPU_SDMA1_UCODE_LOADED	0x00000002
-> @@ -604,9 +609,9 @@ void amdgpu_ucode_print_rlc_hdr(const struct common_firmware_header *hdr);
->  void amdgpu_ucode_print_sdma_hdr(const struct common_firmware_header *hdr);
->  void amdgpu_ucode_print_psp_hdr(const struct common_firmware_header *hdr);
->  void amdgpu_ucode_print_gpu_info_hdr(const struct common_firmware_header *hdr);
-> -__printf(3, 4)
-> +__printf(4, 5)
->  int amdgpu_ucode_request(struct amdgpu_device *adev, const struct firmware **fw,
-> -			 const char *fmt, ...);
-> +			 enum amdgpu_ucode_required required, const char *fmt, ...);
->  void amdgpu_ucode_release(const struct firmware **fw);
->  bool amdgpu_ucode_hdr_version(union amdgpu_firmware_header *hdr,
->  				uint16_t hdr_major, uint16_t hdr_minor);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c
-> index bd2d3863c3ed..dde15c6a96e1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c
-> @@ -587,7 +587,8 @@ int amdgpu_umsch_mm_init_microcode(struct amdgpu_umsch_mm *umsch)
->  		break;
->  	}
->  
-> -	r = amdgpu_ucode_request(adev, &adev->umsch_mm.fw, "%s", fw_name);
-> +	r = amdgpu_ucode_request(adev, &adev->umsch_mm.fw, AMDGPU_UCODE_REQUIRED,
-> +				 "%s", fw_name);
->  	if (r) {
->  		release_firmware(adev->umsch_mm.fw);
->  		adev->umsch_mm.fw = NULL;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-> index 31fd30dcd593..30e9869a0584 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-> @@ -260,7 +260,7 @@ int amdgpu_uvd_sw_init(struct amdgpu_device *adev)
->  		return -EINVAL;
->  	}
->  
-> -	r = amdgpu_ucode_request(adev, &adev->uvd.fw, "%s", fw_name);
-> +	r = amdgpu_ucode_request(adev, &adev->uvd.fw, AMDGPU_UCODE_REQUIRED, "%s", fw_name);
->  	if (r) {
->  		dev_err(adev->dev, "amdgpu_uvd: Can't validate firmware \"%s\"\n",
->  			fw_name);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
-> index 599d3ca4e0ef..65387f6943b4 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
-> @@ -158,7 +158,7 @@ int amdgpu_vce_sw_init(struct amdgpu_device *adev, unsigned long size)
->  		return -EINVAL;
->  	}
->  
-> -	r = amdgpu_ucode_request(adev, &adev->vce.fw, "%s", fw_name);
-> +	r = amdgpu_ucode_request(adev, &adev->vce.fw, AMDGPU_UCODE_REQUIRED, "%s", fw_name);
->  	if (r) {
->  		dev_err(adev->dev, "amdgpu_vce: Can't validate firmware \"%s\"\n",
->  			fw_name);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> index 05f01f50194b..2455cc126e59 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> @@ -99,9 +99,13 @@ int amdgpu_vcn_early_init(struct amdgpu_device *adev)
->  	amdgpu_ucode_ip_version_decode(adev, UVD_HWIP, ucode_prefix, sizeof(ucode_prefix));
->  	for (i = 0; i < adev->vcn.num_vcn_inst; i++) {
->  		if (i == 1 && amdgpu_ip_version(adev, UVD_HWIP, 0) ==  IP_VERSION(4, 0, 6))
-> -			r = amdgpu_ucode_request(adev, &adev->vcn.inst[i].fw, "amdgpu/%s_%d.bin", ucode_prefix, i);
-> +			r = amdgpu_ucode_request(adev, &adev->vcn.inst[i].fw,
-> +						 AMDGPU_UCODE_REQUIRED,
-> +						 "amdgpu/%s_%d.bin", ucode_prefix, i);
->  		else
-> -			r = amdgpu_ucode_request(adev, &adev->vcn.inst[i].fw, "amdgpu/%s.bin", ucode_prefix);
-> +			r = amdgpu_ucode_request(adev, &adev->vcn.inst[i].fw,
-> +						 AMDGPU_UCODE_REQUIRED,
-> +						 "amdgpu/%s.bin", ucode_prefix);
->  		if (r) {
->  			amdgpu_ucode_release(&adev->vcn.inst[i].fw);
->  			return r;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
-> index 83cb9f565fe5..2c12840ea444 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
-> @@ -236,7 +236,8 @@ int amdgpu_vpe_init_microcode(struct amdgpu_vpe *vpe)
->  	int ret;
->  
->  	amdgpu_ucode_ip_version_decode(adev, VPE_HWIP, fw_prefix, sizeof(fw_prefix));
-> -	ret = amdgpu_ucode_request(adev, &adev->vpe.fw, "amdgpu/%s.bin", fw_prefix);
-> +	ret = amdgpu_ucode_request(adev, &adev->vpe.fw, AMDGPU_UCODE_REQUIRED,
-> +				   "amdgpu/%s.bin", fw_prefix);
->  	if (ret)
->  		goto out;
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c b/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
-> index 1563e35da0fe..a5cd950c94be 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
-> @@ -133,9 +133,11 @@ static int cik_sdma_init_microcode(struct amdgpu_device *adev)
->  	for (i = 0; i < adev->sdma.num_instances; i++) {
->  		if (i == 0)
->  			err = amdgpu_ucode_request(adev, &adev->sdma.instance[i].fw,
-> +						   AMDGPU_UCODE_REQUIRED,
->  						   "amdgpu/%s_sdma.bin", chip_name);
->  		else
->  			err = amdgpu_ucode_request(adev, &adev->sdma.instance[i].fw,
-> +						   AMDGPU_UCODE_REQUIRED,
->  						   "amdgpu/%s_sdma1.bin", chip_name);
->  		if (err)
->  			goto out;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> index f1b35b4a73ff..c4e15418e187 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> @@ -4138,18 +4138,21 @@ static int gfx_v10_0_init_microcode(struct amdgpu_device *adev)
->  	amdgpu_ucode_ip_version_decode(adev, GC_HWIP, ucode_prefix, sizeof(ucode_prefix));
->  
->  	err = amdgpu_ucode_request(adev, &adev->gfx.pfp_fw,
-> +				   AMDGPU_UCODE_REQUIRED,
->  				   "amdgpu/%s_pfp%s.bin", ucode_prefix, wks);
->  	if (err)
->  		goto out;
->  	amdgpu_gfx_cp_init_microcode(adev, AMDGPU_UCODE_ID_CP_PFP);
->  
->  	err = amdgpu_ucode_request(adev, &adev->gfx.me_fw,
-> +				   AMDGPU_UCODE_REQUIRED,
->  				   "amdgpu/%s_me%s.bin", ucode_prefix, wks);
->  	if (err)
->  		goto out;
->  	amdgpu_gfx_cp_init_microcode(adev, AMDGPU_UCODE_ID_CP_ME);
->  
->  	err = amdgpu_ucode_request(adev, &adev->gfx.ce_fw,
-> +				   AMDGPU_UCODE_REQUIRED,
->  				   "amdgpu/%s_ce%s.bin", ucode_prefix, wks);
->  	if (err)
->  		goto out;
-> @@ -4173,6 +4176,7 @@ static int gfx_v10_0_init_microcode(struct amdgpu_device *adev)
->  	}
->  
->  	err = amdgpu_ucode_request(adev, &adev->gfx.mec_fw,
-> +				   AMDGPU_UCODE_REQUIRED,
->  				   "amdgpu/%s_mec%s.bin", ucode_prefix, wks);
->  	if (err)
->  		goto out;
-> @@ -4180,6 +4184,7 @@ static int gfx_v10_0_init_microcode(struct amdgpu_device *adev)
->  	amdgpu_gfx_cp_init_microcode(adev, AMDGPU_UCODE_ID_CP_MEC1_JT);
->  
->  	err = amdgpu_ucode_request(adev, &adev->gfx.mec2_fw,
-> +				   AMDGPU_UCODE_REQUIRED,
->  				   "amdgpu/%s_mec2%s.bin", ucode_prefix, wks);
->  	if (!err) {
->  		amdgpu_gfx_cp_init_microcode(adev, AMDGPU_UCODE_ID_CP_MEC2);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> index f63a06661f86..67cd42031571 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> @@ -641,6 +641,7 @@ static int gfx_v11_0_init_toc_microcode(struct amdgpu_device *adev, const char *
->  	int err = 0;
->  
->  	err = amdgpu_ucode_request(adev, &adev->psp.toc_fw,
-> +				   AMDGPU_UCODE_REQUIRED,
->  				   "amdgpu/%s_toc.bin", ucode_prefix);
->  	if (err)
->  		goto out;
-> @@ -690,6 +691,7 @@ static int gfx_v11_0_init_microcode(struct amdgpu_device *adev)
->  
->  	amdgpu_ucode_ip_version_decode(adev, GC_HWIP, ucode_prefix, sizeof(ucode_prefix));
->  	err = amdgpu_ucode_request(adev, &adev->gfx.pfp_fw,
-> +				   AMDGPU_UCODE_REQUIRED,
->  				   "amdgpu/%s_pfp.bin", ucode_prefix);
->  	if (err)
->  		goto out;
-> @@ -707,6 +709,7 @@ static int gfx_v11_0_init_microcode(struct amdgpu_device *adev)
->  	}
->  
->  	err = amdgpu_ucode_request(adev, &adev->gfx.me_fw,
-> +				   AMDGPU_UCODE_REQUIRED,
->  				   "amdgpu/%s_me.bin", ucode_prefix);
->  	if (err)
->  		goto out;
-> @@ -722,9 +725,11 @@ static int gfx_v11_0_init_microcode(struct amdgpu_device *adev)
->  		if (amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(11, 0, 0) &&
->  		    adev->pdev->revision == 0xCE)
->  			err = amdgpu_ucode_request(adev, &adev->gfx.rlc_fw,
-> +						   AMDGPU_UCODE_REQUIRED,
->  						   "amdgpu/gc_11_0_0_rlc_1.bin");
->  		else
->  			err = amdgpu_ucode_request(adev, &adev->gfx.rlc_fw,
-> +						   AMDGPU_UCODE_REQUIRED,
->  						   "amdgpu/%s_rlc.bin", ucode_prefix);
->  		if (err)
->  			goto out;
-> @@ -737,6 +742,7 @@ static int gfx_v11_0_init_microcode(struct amdgpu_device *adev)
->  	}
->  
->  	err = amdgpu_ucode_request(adev, &adev->gfx.mec_fw,
-> +				   AMDGPU_UCODE_REQUIRED,
->  				   "amdgpu/%s_mec.bin", ucode_prefix);
->  	if (err)
->  		goto out;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> index ebb09c363803..d0697b0869e3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> @@ -539,6 +539,7 @@ static int gfx_v12_0_init_toc_microcode(struct amdgpu_device *adev, const char *
->  	int err = 0;
->  
->  	err = amdgpu_ucode_request(adev, &adev->psp.toc_fw,
-> +				   AMDGPU_UCODE_REQUIRED,
->  				   "amdgpu/%s_toc.bin", ucode_prefix);
->  	if (err)
->  		goto out;
-> @@ -568,6 +569,7 @@ static int gfx_v12_0_init_microcode(struct amdgpu_device *adev)
->  	amdgpu_ucode_ip_version_decode(adev, GC_HWIP, ucode_prefix, sizeof(ucode_prefix));
->  
->  	err = amdgpu_ucode_request(adev, &adev->gfx.pfp_fw,
-> +				   AMDGPU_UCODE_REQUIRED,
->  				   "amdgpu/%s_pfp.bin", ucode_prefix);
->  	if (err)
->  		goto out;
-> @@ -575,6 +577,7 @@ static int gfx_v12_0_init_microcode(struct amdgpu_device *adev)
->  	amdgpu_gfx_cp_init_microcode(adev, AMDGPU_UCODE_ID_CP_RS64_PFP_P0_STACK);
->  
->  	err = amdgpu_ucode_request(adev, &adev->gfx.me_fw,
-> +				   AMDGPU_UCODE_REQUIRED,
->  				   "amdgpu/%s_me.bin", ucode_prefix);
->  	if (err)
->  		goto out;
-> @@ -583,6 +586,7 @@ static int gfx_v12_0_init_microcode(struct amdgpu_device *adev)
->  
->  	if (!amdgpu_sriov_vf(adev)) {
->  		err = amdgpu_ucode_request(adev, &adev->gfx.rlc_fw,
-> +					   AMDGPU_UCODE_REQUIRED,
->  					   "amdgpu/%s_rlc.bin", ucode_prefix);
->  		if (err)
->  			goto out;
-> @@ -595,6 +599,7 @@ static int gfx_v12_0_init_microcode(struct amdgpu_device *adev)
->  	}
->  
->  	err = amdgpu_ucode_request(adev, &adev->gfx.mec_fw,
-> +				   AMDGPU_UCODE_REQUIRED,
->  				   "amdgpu/%s_mec.bin", ucode_prefix);
->  	if (err)
->  		goto out;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
-> index 81c185a8b3a0..1b4c0dcee7e1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
-> @@ -337,6 +337,7 @@ static int gfx_v6_0_init_microcode(struct amdgpu_device *adev)
->  	}
->  
->  	err = amdgpu_ucode_request(adev, &adev->gfx.pfp_fw,
-> +				   AMDGPU_UCODE_REQUIRED,
->  				   "amdgpu/%s_pfp.bin", chip_name);
->  	if (err)
->  		goto out;
-> @@ -345,6 +346,7 @@ static int gfx_v6_0_init_microcode(struct amdgpu_device *adev)
->  	adev->gfx.pfp_feature_version = le32_to_cpu(cp_hdr->ucode_feature_version);
->  
->  	err = amdgpu_ucode_request(adev, &adev->gfx.me_fw,
-> +				   AMDGPU_UCODE_REQUIRED,
->  				   "amdgpu/%s_me.bin", chip_name);
->  	if (err)
->  		goto out;
-> @@ -353,6 +355,7 @@ static int gfx_v6_0_init_microcode(struct amdgpu_device *adev)
->  	adev->gfx.me_feature_version = le32_to_cpu(cp_hdr->ucode_feature_version);
->  
->  	err = amdgpu_ucode_request(adev, &adev->gfx.ce_fw,
-> +				   AMDGPU_UCODE_REQUIRED,
->  				   "amdgpu/%s_ce.bin", chip_name);
->  	if (err)
->  		goto out;
-> @@ -361,6 +364,7 @@ static int gfx_v6_0_init_microcode(struct amdgpu_device *adev)
->  	adev->gfx.ce_feature_version = le32_to_cpu(cp_hdr->ucode_feature_version);
->  
->  	err = amdgpu_ucode_request(adev, &adev->gfx.rlc_fw,
-> +				   AMDGPU_UCODE_REQUIRED,
->  				   "amdgpu/%s_rlc.bin", chip_name);
->  	if (err)
->  		goto out;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-> index 60931396f76b..17a07e1adffa 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-> @@ -934,33 +934,39 @@ static int gfx_v7_0_init_microcode(struct amdgpu_device *adev)
->  	}
->  
->  	err = amdgpu_ucode_request(adev, &adev->gfx.pfp_fw,
-> +				   AMDGPU_UCODE_REQUIRED,
->  				   "amdgpu/%s_pfp.bin", chip_name);
->  	if (err)
->  		goto out;
->  
->  	err = amdgpu_ucode_request(adev, &adev->gfx.me_fw,
-> +				   AMDGPU_UCODE_REQUIRED,
->  				   "amdgpu/%s_me.bin", chip_name);
->  	if (err)
->  		goto out;
->  
->  	err = amdgpu_ucode_request(adev, &adev->gfx.ce_fw,
-> +				   AMDGPU_UCODE_REQUIRED,
->  				   "amdgpu/%s_ce.bin", chip_name);
->  	if (err)
->  		goto out;
->  
->  	err = amdgpu_ucode_request(adev, &adev->gfx.mec_fw,
-> +				   AMDGPU_UCODE_REQUIRED,
->  				   "amdgpu/%s_mec.bin", chip_name);
->  	if (err)
->  		goto out;
->  
->  	if (adev->asic_type == CHIP_KAVERI) {
->  		err = amdgpu_ucode_request(adev, &adev->gfx.mec2_fw,
-> +					   AMDGPU_UCODE_REQUIRED,
->  					   "amdgpu/%s_mec2.bin", chip_name);
->  		if (err)
->  			goto out;
->  	}
->  
->  	err = amdgpu_ucode_request(adev, &adev->gfx.rlc_fw,
-> +				   AMDGPU_UCODE_REQUIRED,
->  				   "amdgpu/%s_rlc.bin", chip_name);
->  out:
->  	if (err) {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> index f15beb217b48..a2a45be68c24 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> @@ -982,13 +982,16 @@ static int gfx_v8_0_init_microcode(struct amdgpu_device *adev)
->  
->  	if (adev->asic_type >= CHIP_POLARIS10 && adev->asic_type <= CHIP_POLARIS12) {
->  		err = amdgpu_ucode_request(adev, &adev->gfx.pfp_fw,
-> +					   AMDGPU_UCODE_NOT_REQUIRED,
->  					   "amdgpu/%s_pfp_2.bin", chip_name);
->  		if (err == -ENODEV) {
->  			err = amdgpu_ucode_request(adev, &adev->gfx.pfp_fw,
-> +						   AMDGPU_UCODE_REQUIRED,
->  						   "amdgpu/%s_pfp.bin", chip_name);
->  		}
->  	} else {
->  		err = amdgpu_ucode_request(adev, &adev->gfx.pfp_fw,
-> +					   AMDGPU_UCODE_REQUIRED,
->  					   "amdgpu/%s_pfp.bin", chip_name);
->  	}
->  	if (err)
-> @@ -999,13 +1002,16 @@ static int gfx_v8_0_init_microcode(struct amdgpu_device *adev)
->  
->  	if (adev->asic_type >= CHIP_POLARIS10 && adev->asic_type <= CHIP_POLARIS12) {
->  		err = amdgpu_ucode_request(adev, &adev->gfx.me_fw,
-> +					   AMDGPU_UCODE_NOT_REQUIRED,
->  					   "amdgpu/%s_me_2.bin", chip_name);
->  		if (err == -ENODEV) {
->  			err = amdgpu_ucode_request(adev, &adev->gfx.me_fw,
-> +						   AMDGPU_UCODE_REQUIRED,
->  						   "amdgpu/%s_me.bin", chip_name);
->  		}
->  	} else {
->  		err = amdgpu_ucode_request(adev, &adev->gfx.me_fw,
-> +					   AMDGPU_UCODE_REQUIRED,
->  					   "amdgpu/%s_me.bin", chip_name);
->  	}
->  	if (err)
-> @@ -1017,13 +1023,16 @@ static int gfx_v8_0_init_microcode(struct amdgpu_device *adev)
->  
->  	if (adev->asic_type >= CHIP_POLARIS10 && adev->asic_type <= CHIP_POLARIS12) {
->  		err = amdgpu_ucode_request(adev, &adev->gfx.ce_fw,
-> +					   AMDGPU_UCODE_NOT_REQUIRED,
->  					   "amdgpu/%s_ce_2.bin", chip_name);
->  		if (err == -ENODEV) {
->  			err = amdgpu_ucode_request(adev, &adev->gfx.ce_fw,
-> +						   AMDGPU_UCODE_REQUIRED,
->  						   "amdgpu/%s_ce.bin", chip_name);
->  		}
->  	} else {
->  		err = amdgpu_ucode_request(adev, &adev->gfx.ce_fw,
-> +					   AMDGPU_UCODE_REQUIRED,
->  					   "amdgpu/%s_ce.bin", chip_name);
->  	}
->  	if (err)
-> @@ -1044,6 +1053,7 @@ static int gfx_v8_0_init_microcode(struct amdgpu_device *adev)
->  		adev->virt.chained_ib_support = false;
->  
->  	err = amdgpu_ucode_request(adev, &adev->gfx.rlc_fw,
-> +				   AMDGPU_UCODE_REQUIRED,
->  				   "amdgpu/%s_rlc.bin", chip_name);
->  	if (err)
->  		goto out;
-> @@ -1093,13 +1103,16 @@ static int gfx_v8_0_init_microcode(struct amdgpu_device *adev)
->  
->  	if (adev->asic_type >= CHIP_POLARIS10 && adev->asic_type <= CHIP_POLARIS12) {
->  		err = amdgpu_ucode_request(adev, &adev->gfx.mec_fw,
-> +					   AMDGPU_UCODE_NOT_REQUIRED,
->  					   "amdgpu/%s_mec_2.bin", chip_name);
->  		if (err == -ENODEV) {
->  			err = amdgpu_ucode_request(adev, &adev->gfx.mec_fw,
-> +						   AMDGPU_UCODE_REQUIRED,
->  						   "amdgpu/%s_mec.bin", chip_name);
->  		}
->  	} else {
->  		err = amdgpu_ucode_request(adev, &adev->gfx.mec_fw,
-> +					   AMDGPU_UCODE_REQUIRED,
->  					   "amdgpu/%s_mec.bin", chip_name);
->  	}
->  	if (err)
-> @@ -1112,13 +1125,16 @@ static int gfx_v8_0_init_microcode(struct amdgpu_device *adev)
->  	    (adev->asic_type != CHIP_TOPAZ)) {
->  		if (adev->asic_type >= CHIP_POLARIS10 && adev->asic_type <= CHIP_POLARIS12) {
->  			err = amdgpu_ucode_request(adev, &adev->gfx.mec2_fw,
-> +						   AMDGPU_UCODE_NOT_REQUIRED,
->  						   "amdgpu/%s_mec2_2.bin", chip_name);
->  			if (err == -ENODEV) {
->  				err = amdgpu_ucode_request(adev, &adev->gfx.mec2_fw,
-> +							   AMDGPU_UCODE_REQUIRED,
->  							   "amdgpu/%s_mec2.bin", chip_name);
->  			}
->  		} else {
->  			err = amdgpu_ucode_request(adev, &adev->gfx.mec2_fw,
-> +						   AMDGPU_UCODE_REQUIRED,
->  						   "amdgpu/%s_mec2.bin", chip_name);
->  		}
->  		if (!err) {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> index 4e27528b7e57..30d9b6dacb6e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> @@ -1429,18 +1429,21 @@ static int gfx_v9_0_init_cp_gfx_microcode(struct amdgpu_device *adev,
->  	int err;
->  
->  	err = amdgpu_ucode_request(adev, &adev->gfx.pfp_fw,
-> +				   AMDGPU_UCODE_REQUIRED,
->  				   "amdgpu/%s_pfp.bin", chip_name);
->  	if (err)
->  		goto out;
->  	amdgpu_gfx_cp_init_microcode(adev, AMDGPU_UCODE_ID_CP_PFP);
->  
->  	err = amdgpu_ucode_request(adev, &adev->gfx.me_fw,
-> +				   AMDGPU_UCODE_REQUIRED,
->  				   "amdgpu/%s_me.bin", chip_name);
->  	if (err)
->  		goto out;
->  	amdgpu_gfx_cp_init_microcode(adev, AMDGPU_UCODE_ID_CP_ME);
->  
->  	err = amdgpu_ucode_request(adev, &adev->gfx.ce_fw,
-> +				   AMDGPU_UCODE_REQUIRED,
->  				   "amdgpu/%s_ce.bin", chip_name);
->  	if (err)
->  		goto out;
-> @@ -1476,6 +1479,7 @@ static int gfx_v9_0_init_rlc_microcode(struct amdgpu_device *adev,
->  		(((adev->pdev->revision >= 0xC8) && (adev->pdev->revision <= 0xCF)) ||
->  		((adev->pdev->revision >= 0xD8) && (adev->pdev->revision <= 0xDF))))
->  		err = amdgpu_ucode_request(adev, &adev->gfx.rlc_fw,
-> +					   AMDGPU_UCODE_REQUIRED,
->  					   "amdgpu/%s_rlc_am4.bin", chip_name);
->  	else if (!strcmp(chip_name, "raven") && (amdgpu_pm_load_smu_firmware(adev, &smu_version) == 0) &&
->  		(smu_version >= 0x41e2b))
-> @@ -1483,9 +1487,11 @@ static int gfx_v9_0_init_rlc_microcode(struct amdgpu_device *adev,
->  		*SMC is loaded by SBIOS on APU and it's able to get the SMU version directly.
->  		*/
->  		err = amdgpu_ucode_request(adev, &adev->gfx.rlc_fw,
-> +					   AMDGPU_UCODE_REQUIRED,
->  					   "amdgpu/%s_kicker_rlc.bin", chip_name);
->  	else
->  		err = amdgpu_ucode_request(adev, &adev->gfx.rlc_fw,
-> +					   AMDGPU_UCODE_REQUIRED,
->  					   "amdgpu/%s_rlc.bin", chip_name);
->  	if (err)
->  		goto out;
-> @@ -1518,9 +1524,11 @@ static int gfx_v9_0_init_cp_compute_microcode(struct amdgpu_device *adev,
->  
->  	if (amdgpu_sriov_vf(adev) && (adev->asic_type == CHIP_ALDEBARAN))
->  		err = amdgpu_ucode_request(adev, &adev->gfx.mec_fw,
-> -					   "amdgpu/%s_sjt_mec.bin", chip_name);
-> +				   AMDGPU_UCODE_REQUIRED,
-> +				   "amdgpu/%s_sjt_mec.bin", chip_name);
->  	else
->  		err = amdgpu_ucode_request(adev, &adev->gfx.mec_fw,
-> +					   AMDGPU_UCODE_REQUIRED,
->  					   "amdgpu/%s_mec.bin", chip_name);
->  	if (err)
->  		goto out;
-> @@ -1531,9 +1539,11 @@ static int gfx_v9_0_init_cp_compute_microcode(struct amdgpu_device *adev,
->  	if (gfx_v9_0_load_mec2_fw_bin_support(adev)) {
->  		if (amdgpu_sriov_vf(adev) && (adev->asic_type == CHIP_ALDEBARAN))
->  			err = amdgpu_ucode_request(adev, &adev->gfx.mec2_fw,
-> +						   AMDGPU_UCODE_REQUIRED,
->  						   "amdgpu/%s_sjt_mec2.bin", chip_name);
->  		else
->  			err = amdgpu_ucode_request(adev, &adev->gfx.mec2_fw,
-> +						   AMDGPU_UCODE_REQUIRED,
->  						   "amdgpu/%s_mec2.bin", chip_name);
->  		if (!err) {
->  			amdgpu_gfx_cp_init_microcode(adev, AMDGPU_UCODE_ID_CP_MEC2);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-> index 8eccb080d56f..9c146e37c55e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-> @@ -545,6 +545,7 @@ static int gfx_v9_4_3_init_rlc_microcode(struct amdgpu_device *adev,
->  
->  
->  	err = amdgpu_ucode_request(adev, &adev->gfx.rlc_fw,
-> +				   AMDGPU_UCODE_REQUIRED,
->  				   "amdgpu/%s_rlc.bin", chip_name);
->  	if (err)
->  		goto out;
-> @@ -578,10 +579,12 @@ static int gfx_v9_4_3_init_cp_compute_microcode(struct amdgpu_device *adev,
->  
->  	if (amdgpu_sriov_vf(adev))
->  		err = amdgpu_ucode_request(adev, &adev->gfx.mec_fw,
-> -				"amdgpu/%s_sjt_mec.bin", chip_name);
-> +					   AMDGPU_UCODE_REQUIRED,
-> +					   "amdgpu/%s_sjt_mec.bin", chip_name);
->  	else
->  		err = amdgpu_ucode_request(adev, &adev->gfx.mec_fw,
-> -				"amdgpu/%s_mec.bin", chip_name);
-> +					   AMDGPU_UCODE_REQUIRED,
-> +					   "amdgpu/%s_mec.bin", chip_name);
->  	if (err)
->  		goto out;
->  	amdgpu_gfx_cp_init_microcode(adev, AMDGPU_UCODE_ID_CP_MEC1);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-> index 8e878ab44e76..2245dda92021 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-> @@ -131,7 +131,8 @@ static int gmc_v6_0_init_microcode(struct amdgpu_device *adev)
->  	if (((RREG32(mmMC_SEQ_MISC0) & 0xff000000) >> 24) == 0x58)
->  		chip_name = "si58";
->  
-> -	err = amdgpu_ucode_request(adev, &adev->gmc.fw, "amdgpu/%s_mc.bin", chip_name);
-> +	err = amdgpu_ucode_request(adev, &adev->gmc.fw, AMDGPU_UCODE_REQUIRED,
-> +				   "amdgpu/%s_mc.bin", chip_name);
->  	if (err) {
->  		dev_err(adev->dev,
->  		       "si_mc: Failed to load firmware \"%s_mc.bin\"\n",
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-> index 347bccd92696..9aac4b1101e3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-> @@ -157,7 +157,8 @@ static int gmc_v7_0_init_microcode(struct amdgpu_device *adev)
->  		return -EINVAL;
->  	}
->  
-> -	err = amdgpu_ucode_request(adev, &adev->gmc.fw, "amdgpu/%s_mc.bin", chip_name);
-> +	err = amdgpu_ucode_request(adev, &adev->gmc.fw, AMDGPU_UCODE_REQUIRED,
-> +				   "amdgpu/%s_mc.bin", chip_name);
->  	if (err) {
->  		pr_err("cik_mc: Failed to load firmware \"%s_mc.bin\"\n", chip_name);
->  		amdgpu_ucode_release(&adev->gmc.fw);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> index 29ce36038b3f..d06585207c33 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> @@ -259,7 +259,8 @@ static int gmc_v8_0_init_microcode(struct amdgpu_device *adev)
->  		return -EINVAL;
->  	}
->  
-> -	err = amdgpu_ucode_request(adev, &adev->gmc.fw, "amdgpu/%s_mc.bin", chip_name);
-> +	err = amdgpu_ucode_request(adev, &adev->gmc.fw, AMDGPU_UCODE_REQUIRED,
-> +				   "amdgpu/%s_mc.bin", chip_name);
->  	if (err) {
->  		pr_err("mc: Failed to load firmware \"%s_mc.bin\"\n", chip_name);
->  		amdgpu_ucode_release(&adev->gmc.fw);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/imu_v11_0.c b/drivers/gpu/drm/amd/amdgpu/imu_v11_0.c
-> index d4f72e47ae9e..aeca5c08ea2f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/imu_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/imu_v11_0.c
-> @@ -50,7 +50,8 @@ static int imu_v11_0_init_microcode(struct amdgpu_device *adev)
->  	DRM_DEBUG("\n");
->  
->  	amdgpu_ucode_ip_version_decode(adev, GC_HWIP, ucode_prefix, sizeof(ucode_prefix));
-> -	err = amdgpu_ucode_request(adev, &adev->gfx.imu_fw, "amdgpu/%s_imu.bin", ucode_prefix);
-> +	err = amdgpu_ucode_request(adev, &adev->gfx.imu_fw, AMDGPU_UCODE_REQUIRED,
-> +				   "amdgpu/%s_imu.bin", ucode_prefix);
->  	if (err)
->  		goto out;
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/imu_v12_0.c b/drivers/gpu/drm/amd/amdgpu/imu_v12_0.c
-> index 1341f0292031..df898dbb746e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/imu_v12_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/imu_v12_0.c
-> @@ -47,7 +47,8 @@ static int imu_v12_0_init_microcode(struct amdgpu_device *adev)
->  	DRM_DEBUG("\n");
->  
->  	amdgpu_ucode_ip_version_decode(adev, GC_HWIP, ucode_prefix, sizeof(ucode_prefix));
-> -	err = amdgpu_ucode_request(adev, &adev->gfx.imu_fw, "amdgpu/%s_imu.bin", ucode_prefix);
-> +	err = amdgpu_ucode_request(adev, &adev->gfx.imu_fw, AMDGPU_UCODE_REQUIRED,
-> +				   "amdgpu/%s_imu.bin", ucode_prefix);
->  	if (err)
->  		goto out;
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c b/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
-> index c6af318908e4..269bf1e3337b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
-> @@ -145,9 +145,11 @@ static int sdma_v2_4_init_microcode(struct amdgpu_device *adev)
->  	for (i = 0; i < adev->sdma.num_instances; i++) {
->  		if (i == 0)
->  			err = amdgpu_ucode_request(adev, &adev->sdma.instance[i].fw,
-> +						   AMDGPU_UCODE_REQUIRED,
->  						   "amdgpu/%s_sdma.bin", chip_name);
->  		else
->  			err = amdgpu_ucode_request(adev, &adev->sdma.instance[i].fw,
-> +						   AMDGPU_UCODE_REQUIRED,
->  						   "amdgpu/%s_sdma1.bin", chip_name);
->  		if (err)
->  			goto out;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
-> index d438f2f7a408..c9ad9ec48688 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
-> @@ -305,9 +305,11 @@ static int sdma_v3_0_init_microcode(struct amdgpu_device *adev)
->  	for (i = 0; i < adev->sdma.num_instances; i++) {
->  		if (i == 0)
->  			err = amdgpu_ucode_request(adev, &adev->sdma.instance[i].fw,
-> +						   AMDGPU_UCODE_REQUIRED,
->  						   "amdgpu/%s_sdma.bin", chip_name);
->  		else
->  			err = amdgpu_ucode_request(adev, &adev->sdma.instance[i].fw,
-> +						   AMDGPU_UCODE_REQUIRED,
->  						   "amdgpu/%s_sdma1.bin", chip_name);
->  		if (err)
->  			goto out;
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 85f21db6ef24..fff5a1cdf474 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -2338,7 +2338,8 @@ static int load_dmcu_fw(struct amdgpu_device *adev)
->  		return 0;
->  	}
->  
-> -	r = amdgpu_ucode_request(adev, &adev->dm.fw_dmcu, "%s", fw_name_dmcu);
-> +	r = amdgpu_ucode_request(adev, &adev->dm.fw_dmcu, AMDGPU_UCODE_REQUIRED,
-> +				 "%s", fw_name_dmcu);
->  	if (r == -ENODEV) {
->  		/* DMCU firmware is not necessary, so don't raise a fuss if it's missing */
->  		DRM_DEBUG_KMS("dm: DMCU firmware not found\n");
-> @@ -5306,7 +5307,8 @@ static int dm_init_microcode(struct amdgpu_device *adev)
->  		/* ASIC doesn't support DMUB. */
->  		return 0;
->  	}
-> -	r = amdgpu_ucode_request(adev, &adev->dm.dmub_fw, "%s", fw_name_dmub);
-> +	r = amdgpu_ucode_request(adev, &adev->dm.dmub_fw, AMDGPU_UCODE_REQUIRED,
-> +				 "%s", fw_name_dmub);
->  	return r;
->  }
->  
-> diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-> index 2bed85ba835e..a87dcf0974bc 100644
-> --- a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-> +++ b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-> @@ -7709,7 +7709,8 @@ static int si_dpm_init_microcode(struct amdgpu_device *adev)
->  	default: BUG();
->  	}
->  
-> -	err = amdgpu_ucode_request(adev, &adev->pm.fw, "amdgpu/%s_smc.bin", chip_name);
-> +	err = amdgpu_ucode_request(adev, &adev->pm.fw, AMDGPU_UCODE_REQUIRED,
-> +				   "amdgpu/%s_smc.bin", chip_name);
->  	if (err) {
->  		DRM_ERROR("si_smc: Failed to load firmware. err = %d\"%s_smc.bin\"\n",
->  			  err, chip_name);
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-> index 480cf3cb204d..189c6a32b6bd 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-> @@ -105,7 +105,8 @@ int smu_v11_0_init_microcode(struct smu_context *smu)
->  		return 0;
->  
->  	amdgpu_ucode_ip_version_decode(adev, MP1_HWIP, ucode_prefix, sizeof(ucode_prefix));
-> -	err = amdgpu_ucode_request(adev, &adev->pm.fw, "amdgpu/%s.bin", ucode_prefix);
-> +	err = amdgpu_ucode_request(adev, &adev->pm.fw, AMDGPU_UCODE_REQUIRED,
-> +				   "amdgpu/%s.bin", ucode_prefix);
->  	if (err)
->  		goto out;
->  
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-> index bb506d15d787..7bb45ff6d5c8 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-> @@ -103,7 +103,8 @@ int smu_v13_0_init_microcode(struct smu_context *smu)
->  		return 0;
->  
->  	amdgpu_ucode_ip_version_decode(adev, MP1_HWIP, ucode_prefix, sizeof(ucode_prefix));
-> -	err = amdgpu_ucode_request(adev, &adev->pm.fw, "amdgpu/%s.bin", ucode_prefix);
-> +	err = amdgpu_ucode_request(adev, &adev->pm.fw, AMDGPU_UCODE_REQUIRED,
-> +				   "amdgpu/%s.bin", ucode_prefix);
->  	if (err)
->  		goto out;
->  
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-> index 8344f54e6674..5b86df0c8536 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-> @@ -305,7 +305,8 @@ static int smu_v13_0_6_init_microcode(struct smu_context *smu)
->  
->  	amdgpu_ucode_ip_version_decode(adev, MP1_HWIP, ucode_prefix,
->  				       sizeof(ucode_prefix));
-> -	ret  = amdgpu_ucode_request(adev, &adev->pm.fw, "amdgpu/%s.bin", ucode_prefix);
-> +	ret  = amdgpu_ucode_request(adev, &adev->pm.fw, AMDGPU_UCODE_REQUIRED,
-> +				    "amdgpu/%s.bin", ucode_prefix);
->  	if (ret)
->  		goto out;
->  
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
-> index 4d083f7f772e..9b2f4fe1578b 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
-> @@ -79,7 +79,8 @@ int smu_v14_0_init_microcode(struct smu_context *smu)
->  		return 0;
->  
->  	amdgpu_ucode_ip_version_decode(adev, MP1_HWIP, ucode_prefix, sizeof(ucode_prefix));
-> -	err = amdgpu_ucode_request(adev, &adev->pm.fw, "amdgpu/%s.bin", ucode_prefix);
-> +	err = amdgpu_ucode_request(adev, &adev->pm.fw, AMDGPU_UCODE_REQUIRED,
-> +				   "amdgpu/%s.bin", ucode_prefix);
->  	if (err)
->  		goto out;
->  
-
+--_000_IA1PR12MB6532BBDDA6B5DC4744E38232F2372IA1PR12MB6532namp_--
