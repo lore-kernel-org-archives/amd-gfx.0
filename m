@@ -4,107 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A83CE77171
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Dec 2024 23:26:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57E2CE77174
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Dec 2024 23:28:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B6B2A10ED75;
-	Wed,  4 Dec 2024 23:26:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E3BF910ED78;
+	Wed,  4 Dec 2024 23:28:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="THa7UkIn";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hoNGQQ+m";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E6AB10E5A5;
- Wed,  4 Dec 2024 23:26:46 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4B4GwrnU023313;
- Wed, 4 Dec 2024 23:26:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- +NcU+NmHJdNR31TOBlMnx/TcllfV5Lqqi/BTC8sXm10=; b=THa7UkInrllMtWzJ
- uYkCvLLot7XsIfeRzLNoQGWv6Sj3rWCWJlXyW3UZnreHGwEtRTUooSNUvHEgK1PR
- K5Vm8zZAg+ebgd8n6M7uBY8jje3BMUl+6FEq3qCHA9PA8ii7qvuLQZM0nuVhsJZi
- 182C2/CCqy1eSDupcgPyJ6Vvk6e0mtbA2QvKA0BR5OQAI0mTksQcZg7PPQf+lpvM
- l7HU0Fc5YBYUgQtojE1QP6NIsEgsmnunjne+QWyxD8hGDmk15RJQ1+qC6Go4TFk6
- xs0kXCPNIJys991PW+dDAvF7bgEVttrt4oW952qRKZbYE/C0wJJMqNlLP+r09eCD
- M8h8MA==
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 43aj42aeds-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 04 Dec 2024 23:26:23 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.18.1.2/8.18.1.2) with ESMTPS id 4B4NQMKZ030623
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 4 Dec 2024 23:26:22 GMT
-Received: from [10.71.110.107] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.9; Wed, 4 Dec 2024
- 15:26:19 -0800
-Message-ID: <c4c3dd96-727b-4be1-9152-e384478a7508@quicinc.com>
-Date: Wed, 4 Dec 2024 15:26:18 -0800
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F64D10ED69;
+ Wed,  4 Dec 2024 23:28:18 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 7609AA4136F;
+ Wed,  4 Dec 2024 23:26:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67A2DC4CECD;
+ Wed,  4 Dec 2024 23:28:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1733354897;
+ bh=+xvD9PxdjL4QXA4HRCcN/0klB+D9Qd6jLPiwD9S8Erg=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=hoNGQQ+mw7lgO9mP4L1BbLH9+IpgxtO0w6GJvBPkarB3GZVE/vACQ9Xpv/nhHosTA
+ +iVdNHjPBfNAFcTnD1mGScrAzUti5NXo1vDbOL9PMi9SesNqWFG8FV5flxSQRmtGNO
+ G/cOL1KfYUGaXmq2QDvQyDdY65a5Wgvghq8pnHgjbmPXlZ8J4a43xVYGb9JQ41oa0U
+ w5ObFIRbxeI7xtGB43EESdPIdZhaqb5UpNN9ALeq+1svSrpE3ESVlNrFyOIerEm7Qa
+ 50gnpVwwqP7h+GqyaWdmea2hPRQGribDLc+TFfBM2aAuY3cc4o6QWIXgqvU/GUnw8D
+ ziOg65Kqx6jAw==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Cc: Xiang Liu <xiang.liu@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Stanley . Yang" <Stanley.Yang@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
+ Xinhui.Pan@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ sunil.khatri@amd.com, lijo.lazar@amd.com, leo.liu@amd.com,
+ Jane.Jian@amd.com, David.Wu3@amd.com, sathishkumar.sundararaju@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: [PATCH AUTOSEL 6.12 12/15] drm/amdgpu/vcn: reset fw_shared when VCPU
+ buffers corrupted on vcn v4.0.3
+Date: Wed,  4 Dec 2024 17:16:06 -0500
+Message-ID: <20241204221627.2247598-12-sashal@kernel.org>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20241204221627.2247598-1-sashal@kernel.org>
+References: <20241204221627.2247598-1-sashal@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 07/10] drm/msm/dp: use eld_mutex to protect access to
- connector->eld
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-CC: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Harry Wentland
- <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira
- <Rodrigo.Siqueira@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, Xinhui Pan
- <Xinhui.Pan@amd.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Phong LE <ple@baylibre.com>, Inki Dae <inki.dae@samsung.com>,
- Seung-Woo Kim <sw0312.kim@samsung.com>, Kyungmin Park
- <kyungmin.park@samsung.com>, Krzysztof Kozlowski <krzk@kernel.org>, Alim
- Akhtar <alim.akhtar@samsung.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
- Rob Clark <robdclark@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Alain Volmat <alain.volmat@foss.st.com>,
- Raphael Gallais-Pou <rgallaispou@gmail.com>, Dave Stevenson
- <dave.stevenson@raspberrypi.com>, =?UTF-8?Q?Ma=C3=ADra_Canal?=
- <mcanal@igalia.com>, Raspberry Pi Kernel Maintenance
- <kernel-list@raspberrypi.com>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <amd-gfx@lists.freedesktop.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-samsung-soc@vger.kernel.org>, <intel-gfx@lists.freedesktop.org>,
- <intel-xe@lists.freedesktop.org>, <linux-arm-msm@vger.kernel.org>,
- <freedreno@lists.freedesktop.org>
-References: <20241201-drm-connector-eld-mutex-v1-0-ba56a6545c03@linaro.org>
- <20241201-drm-connector-eld-mutex-v1-7-ba56a6545c03@linaro.org>
- <ca906dc4-ac72-4a76-a670-36c011c853c9@quicinc.com>
- <n2zmw4wquxzht6gvlx6yjurpobgwlsryh75n5gw65j5vjclhgr@jqubqjispqsr>
-Content-Language: en-US
-From: Abhinav Kumar <quic_abhinavk@quicinc.com>
-In-Reply-To: <n2zmw4wquxzht6gvlx6yjurpobgwlsryh75n5gw65j5vjclhgr@jqubqjispqsr>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: ih6cbWCa3Fo1OS03TdHomljQ100iLSU9
-X-Proofpoint-ORIG-GUID: ih6cbWCa3Fo1OS03TdHomljQ100iLSU9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
- definitions=2024-09-06_09,2024-09-06_01,2024-09-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 bulkscore=0
- mlxscore=0 mlxlogscore=925 lowpriorityscore=0 clxscore=1015 malwarescore=0
- priorityscore=1501 spamscore=0 adultscore=0 suspectscore=0 impostorscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2411120000
- definitions=main-2412040179
+Content-Type: text/plain; charset=UTF-8
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 6.12.1
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,28 +68,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+From: Xiang Liu <xiang.liu@amd.com>
 
+[ Upstream commit 928cd772e18ffbd7723cb2361db4a8ccf2222235 ]
 
-On 12/3/2024 5:58 AM, Dmitry Baryshkov wrote:
-> On Mon, Dec 02, 2024 at 07:27:45PM -0800, Abhinav Kumar wrote:
->>
->>
->> On 11/30/2024 3:55 PM, Dmitry Baryshkov wrote:
->>> Reading access to connector->eld can happen at the same time the
->>> drm_edid_to_eld() updates the data. Take the newly added eld_mutex in
->>> order to protect connector->eld from concurrent access.
->>>
->>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->>> ---
->>>    drivers/gpu/drm/msm/dp/dp_audio.c | 2 ++
->>>    1 file changed, 2 insertions(+)
->>>
->>
->> Reviewed-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
-> 
-> Ack to merge through drm-misc?
-> 
+It is not necessarily corrupted. When there is RAS fatal error, device
+memory access is blocked. Hence vcpu bo cannot be saved to system memory
+as in a regular suspend sequence before going for reset. In other full
+device reset cases, that gets saved and restored during resume.
 
-Yes,
+v2: Remove redundant code like vcn_v4_0 did
+v2: Refine commit message
+v3: Drop the volatile
+v3: Refine commit message
 
-Acked-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+Signed-off-by: Xiang Liu <xiang.liu@amd.com>
+Acked-by: Christian König <christian.koenig@amd.com>
+Reviewed-by: Stanley.Yang <Stanley.Yang@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c | 30 ++++++++++++++++++-------
+ 1 file changed, 22 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+index 0fda703363004..6fca2915ea8fd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+@@ -116,6 +116,20 @@ static int vcn_v4_0_3_early_init(void *handle)
+ 	return amdgpu_vcn_early_init(adev);
+ }
+ 
++static int vcn_v4_0_3_fw_shared_init(struct amdgpu_device *adev, int inst_idx)
++{
++	struct amdgpu_vcn4_fw_shared *fw_shared;
++
++	fw_shared = adev->vcn.inst[inst_idx].fw_shared.cpu_addr;
++	fw_shared->present_flag_0 = cpu_to_le32(AMDGPU_FW_SHARED_FLAG_0_UNIFIED_QUEUE);
++	fw_shared->sq.is_enabled = 1;
++
++	if (amdgpu_vcnfw_log)
++		amdgpu_vcn_fwlog_init(&adev->vcn.inst[inst_idx]);
++
++	return 0;
++}
++
+ /**
+  * vcn_v4_0_3_sw_init - sw init for VCN block
+  *
+@@ -148,8 +162,6 @@ static int vcn_v4_0_3_sw_init(void *handle)
+ 		return r;
+ 
+ 	for (i = 0; i < adev->vcn.num_vcn_inst; i++) {
+-		volatile struct amdgpu_vcn4_fw_shared *fw_shared;
+-
+ 		vcn_inst = GET_INST(VCN, i);
+ 
+ 		ring = &adev->vcn.inst[i].ring_enc[0];
+@@ -172,12 +184,7 @@ static int vcn_v4_0_3_sw_init(void *handle)
+ 		if (r)
+ 			return r;
+ 
+-		fw_shared = adev->vcn.inst[i].fw_shared.cpu_addr;
+-		fw_shared->present_flag_0 = cpu_to_le32(AMDGPU_FW_SHARED_FLAG_0_UNIFIED_QUEUE);
+-		fw_shared->sq.is_enabled = true;
+-
+-		if (amdgpu_vcnfw_log)
+-			amdgpu_vcn_fwlog_init(&adev->vcn.inst[i]);
++		vcn_v4_0_3_fw_shared_init(adev, i);
+ 	}
+ 
+ 	if (amdgpu_sriov_vf(adev)) {
+@@ -273,6 +280,8 @@ static int vcn_v4_0_3_hw_init(void *handle)
+ 		}
+ 	} else {
+ 		for (i = 0; i < adev->vcn.num_vcn_inst; ++i) {
++			struct amdgpu_vcn4_fw_shared *fw_shared;
++
+ 			vcn_inst = GET_INST(VCN, i);
+ 			ring = &adev->vcn.inst[i].ring_enc[0];
+ 
+@@ -296,6 +305,11 @@ static int vcn_v4_0_3_hw_init(void *handle)
+ 					regVCN_RB1_DB_CTRL);
+ 			}
+ 
++			/* Re-init fw_shared when RAS fatal error occurred */
++			fw_shared = adev->vcn.inst[i].fw_shared.cpu_addr;
++			if (!fw_shared->sq.is_enabled)
++				vcn_v4_0_3_fw_shared_init(adev, i);
++
+ 			r = amdgpu_ring_test_helper(ring);
+ 			if (r)
+ 				return r;
+-- 
+2.43.0
+
