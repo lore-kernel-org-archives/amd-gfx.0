@@ -4,70 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30AC9E7716C
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Dec 2024 15:56:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CD52E77178
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Dec 2024 17:05:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDF3610EEE2;
-	Thu,  5 Dec 2024 15:56:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB6B210EF26;
+	Thu,  5 Dec 2024 17:05:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KTJka0N2";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="JNsDFi61";
 	dkim-atps=neutral
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com
- [209.85.216.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B018610EED7
- for <amd-gfx@lists.freedesktop.org>; Thu,  5 Dec 2024 15:56:14 +0000 (UTC)
-Received: by mail-pj1-f52.google.com with SMTP id
- 98e67ed59e1d1-2ee7c059b97so168809a91.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 05 Dec 2024 07:56:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1733414174; x=1734018974; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=k+38ePLggD3Rt9Vm1VRT+hbTBYoeJt/pG/c7zAyIR18=;
- b=KTJka0N28KK2abQyYUVPmixM+byxTSvjQo3ULM+HGHQljCBbNYfwQuw/mk/GuJ3Sis
- IaEZ4Vy+WkY3f35Yb4KYl3TLZkumazBcSUzi0dn3lZ3hg6A+0w4OnntF/C4vXHTNmBgd
- IN54DSbRkefx3H65mGOXXG+2H+M9Q4P1O8d4KcDRGHKc65iQGbWwlNCIXaYDvQO+2N1s
- hyUmObDUYlQ00xNpB8g/zRvjjK9qWL0MEMuOMu3gdJSzperXVxSZTIngWjXqZ9HEemSW
- bk3/lCZuk+fR8VGNuKU3Fo/5oidTYJcgE9nOUfUAl/soMvKR3SoRTZOA1EKbwAoxA0Xx
- 0ozw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733414174; x=1734018974;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=k+38ePLggD3Rt9Vm1VRT+hbTBYoeJt/pG/c7zAyIR18=;
- b=c8pPMmpFbmFDnzD9gegS+nukGPS3Qjp4SdOwyZpqVXq84fMGzjtcGEcNjPCLpdvfrH
- bXmLTTUKJRAeOJZE80Ai9is563qz7q1XXLLN9JigyrYkmDEbfjZPl1Sy5DbvPe7S8vo5
- X5sD2khxa9BA0tK3voTX2HmMtgUXA+xh9guZu6NNkFyVCYRCNfkZTQHFKVAd7jTVnime
- 9AP38KX3J8jEpVF8rmWcs7eqkNyVVWtxiNtgav34jupIvnRKPDY28DvDCkWfXbogGnBt
- ElChRMUFycfOiJxfMPixoTNj0Pdm/pFq2zODU0EPt/ivIdV/bQUvwUNnliVE2lk7kUS7
- 9ZmA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWHHE4OduCUmGOn/wPIHZ4ulYcW/IaKGtQojnc1ITz0YVUrlD+PsQSrZkZdgcWU1PCxbOaGCTKH@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzc1cEoqQIp+/aNC2BnyMU1a6M2GrbjLqLek9PhE55xrUVX2L8Z
- P0ycgj3sg4I81BIlsi6qOPWC+ESpH6G1oDgXIgNX8dtXgIqqORXpys1D8hLWethuS1sAVx0i9Jw
- 3aUfjwlTsWeNmf7GHISh6rwTG5gp2SA==
-X-Gm-Gg: ASbGncsP7yzAHOXya2EY1wrkx9GCjY0i8ZPzP+by87GeO8gWV0KUMn6MBQxPJE8EPgk
- Ly6X/7V7MF5k0CruP6zLWWUOeqhK5ouk=
-X-Google-Smtp-Source: AGHT+IFAdKSbvlEO2VZlKuKk3i2A6jsDn9VZc2geILaxkHod0p4dmX9MuGg395Woy1UjJTNz6TBkezgGMFbJH8f1yQc=
-X-Received: by 2002:a17:90b:1645:b0:2ee:b665:12ce with SMTP id
- 98e67ed59e1d1-2ef011df52emr5840351a91.1.1733414172623; Thu, 05 Dec 2024
- 07:56:12 -0800 (PST)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2080.outbound.protection.outlook.com [40.107.223.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 58B7A10EF26
+ for <amd-gfx@lists.freedesktop.org>; Thu,  5 Dec 2024 17:05:29 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=SHTlo9bVSVe3dVWBu4E8oUUP29n0w3yyH/FM210iQ3hwcj9818odWIaxHP2dq3TwYGYbRvJA/qPszLpOo0x51ADh4KQrgVA6P/VxJqam/hsnGVzj4grF8YOt707mZ/QHJPNmeg02jI+MhYwna8RNqHn+4hgxWnm/fCp/EMueo5Nw4EDD2Kn1zGyJI1HvKivCiZykt9IyC1VOS+Os4XGYILsTaTHQZa0ocHw0e0indJIpb++BqF1oSGyoXBCPokkoVBMIJbPzgR1iFzEnvgJUnNc1fRm6YOeo6Djyn19Q0EB6xJCAUzE+X6fC6P6xI2bTvXgpLNDNUikk+7/GZhTUBA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=X5+Nw+zbHLGAgQFbsZn/ZwurHV7jaXJvitBqKhslvaQ=;
+ b=n7ensN1kwqaPuI+ySB+u6abMvXrC0Kv8CWtMkHtcvdAhTz2Ok6OJcPOgihe+wIVCgelh00AN7taRflVK8tUOzWgKlq5GgOAAfNr/hcsNFXYfAmE88PxhVJatP2eP3S21nR7h64NHXK/5usi4FHZtolpOJMR95UTqbtfPmsZHr44ORJxxALzYdykkaH+nk1ONfPqhGrJ/eBLQ/PmL8eJY4/C1dyIGKxDaYmYVI3Oi3aNThvb8df+VzwD0ZghR+qbAAijcQObgi78kt0sGmJoL2SSVApG02ngukEr0SH0b0Zo+9UtSPwSdPriSgAZnuk7GXw5dojByedCgV0tDUHACdg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=X5+Nw+zbHLGAgQFbsZn/ZwurHV7jaXJvitBqKhslvaQ=;
+ b=JNsDFi61QSH7fw3zkhAlRJD+AOlwovHDw+2INsZj2U4TcrUEEE0Sz1iGkNxySWLDB3D25s+ME2jpb+tzZKNm6DjKy8EnftN/AwYF7C+IOvMrDqeZbNrmbZV1f1hA//B9UcFrhobtGTnZUzrOudlcok2D1sKoPO58JYl24xMGmm8=
+Received: from MW4PR04CA0195.namprd04.prod.outlook.com (2603:10b6:303:86::20)
+ by PH8PR12MB6724.namprd12.prod.outlook.com (2603:10b6:510:1cf::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8230.11; Thu, 5 Dec
+ 2024 17:05:20 +0000
+Received: from CO1PEPF000044F4.namprd05.prod.outlook.com
+ (2603:10b6:303:86:cafe::23) by MW4PR04CA0195.outlook.office365.com
+ (2603:10b6:303:86::20) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8207.19 via Frontend Transport; Thu,
+ 5 Dec 2024 17:05:20 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1PEPF000044F4.mail.protection.outlook.com (10.167.241.74) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8230.7 via Frontend Transport; Thu, 5 Dec 2024 17:05:20 +0000
+Received: from AUS-P9-MLIMONCI.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 5 Dec
+ 2024 11:05:18 -0600
+From: Mario Limonciello <mario.limonciello@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Mario Limonciello <mario.limonciello@amd.com>, Lijo Lazar
+ <lijo.lazar@amd.com>
+Subject: [PATCH] drm/amd: Show an info message about optional firmware missing
+Date: Thu, 5 Dec 2024 11:05:07 -0600
+Message-ID: <20241205170507.126585-1-mario.limonciello@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20241129135837.4070078-1-srinivasan.shanmugam@amd.com>
- <20241205151957.2465687-1-srinivasan.shanmugam@amd.com>
-In-Reply-To: <20241205151957.2465687-1-srinivasan.shanmugam@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 5 Dec 2024 10:56:01 -0500
-Message-ID: <CADnq5_NWj+mnnFfJQrdCEO0yhpRMF28uOt-Xzt0SEG5ZNdrZHA@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amd/amdgpu: Add Descriptions to Process Isolation
- and Cleaner Shader Sysfs Functions
-To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF000044F4:EE_|PH8PR12MB6724:EE_
+X-MS-Office365-Filtering-Correlation-Id: 80ca28d9-3001-4156-a72f-08dd154effeb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|82310400026|1800799024|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?aAxNTLAPcmMQGqY+s7z21WKo6txsqurVaa0Mr2qbcyAmZ91IcSgbl93KRBi6?=
+ =?us-ascii?Q?6zFziM3wc7YMGeVrx+ctQGL8DJNKoSfDYUjlFVRy5zaolrbtrIugiK10z1cp?=
+ =?us-ascii?Q?nXSIp9b8zfdjjEm3WrclCU3L+w5UDebSaqCvrwMea0ejDjpbi7QPMjDF9gxR?=
+ =?us-ascii?Q?anpC2cuzgglgzVLnOYrIss5rmSVQum7093qNsHQ84ZOdVizbWqIkubhbMdmV?=
+ =?us-ascii?Q?AgqfodabEZe0avKzgzrKagtPzWQ/5b0VX1VnVHTTcEFZxzlEVl2f761opgba?=
+ =?us-ascii?Q?u6dBXhYfmjfKzWvFRtvtTE2U3gwhsHP9DkW8u40sqlblPEWuUs3S/3w5HEYb?=
+ =?us-ascii?Q?qKA8Aosp3Q08dpezn9iS7zJIKU+wWMxn1PGpSVnqPJYUGTvRiZTpfepBCOKc?=
+ =?us-ascii?Q?n+F5sLId895bU8MlSEZSRKL+zJaOiFHTEdTU4AnDXVr2a7ScLboAbNeJtjOq?=
+ =?us-ascii?Q?yWvR27qtLL2FaMC3Di7tt14yUmEMqc6rmscw+Syg56XlQ/wmjVZynuVFB5R1?=
+ =?us-ascii?Q?sB33iEgDr8ZqS+oINDZZWbH6VWE0M0Fxa8jtPBYf97NdhHB4Yx+6yifbIf7w?=
+ =?us-ascii?Q?kCWhqa7y6UrCpJlYAu97HpxzJdOAA7Sd8Ja+WU4N+l9fbswczuZMPeZ1BPvC?=
+ =?us-ascii?Q?z2S4Rds23/QXBdZtM/RoAG5kzbok52vpKvxF0gGS0svwyIx6Gs5cVlpHUO2y?=
+ =?us-ascii?Q?ifYKjrSrMcxbPbl7c/k/GSUxPlITs+DjX1BeWZ4zy8QzCsDINtlPUG5AYZ8O?=
+ =?us-ascii?Q?w97ayR61wLgJwcbiTQVkr+E99JeYRPk1JjGE112NRD5v5jCQ9h5+Dv8FdEaz?=
+ =?us-ascii?Q?QJrXb4au0knZD6JyBL55Hbhkny34Yv8jzPrBM0In8/7JxwRW4FYbH3+L/Bca?=
+ =?us-ascii?Q?55w0CwvdfNmizwD3sqla6DqnbG3pfn0hY4cSsk0eX4fSvODY3TopTDmtmNH3?=
+ =?us-ascii?Q?b4bbRLI1fa4gduQRysJFcWA0t0A+dRA7nXAAyBOAAuDVNiByYP/JPiESHNUN?=
+ =?us-ascii?Q?kJdmpnn7caVH76phHY3Tbpk/VfdFMDW6MZ0WykJNsyztAI0hVYgVHp2umXS1?=
+ =?us-ascii?Q?cqY/26BI9Kc/SPCKLlH3/lgeP7mUZj6cDybHL80UrASJcMEa4gH4dn+NjPxJ?=
+ =?us-ascii?Q?0WfhpLZgxUAtPK6Zc/0c7G70tmIAJ7j5ugLS+dwPUalrPlUXTXFFq7sri0YC?=
+ =?us-ascii?Q?ED+cuECAyGNGzTkmr6aN8tXzXjeEvXHycyTXEWh62+yMnviUuMfg2UPA6jot?=
+ =?us-ascii?Q?SnaIE1HEobN2Mnbm9ZFWuOlFMNOA2jY6dI2+/rGog95dwJ4ulU0vPofnMVK8?=
+ =?us-ascii?Q?BqmLY12Xq8z3FD+UR9/NonIU1j/+bqG3CUXtm+dH8Wb/ZFkvNF7GKSjD0eSa?=
+ =?us-ascii?Q?0v77MF5Wdb4Wn8VdLzI7rAorJ6gjDKfe/ubD+BnyB0qjmUQa2TTCNUMyY/J4?=
+ =?us-ascii?Q?/c0AcdJJDtyJIcvpIDNcTYTmibFqa+HC?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(82310400026)(1800799024)(36860700013); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Dec 2024 17:05:20.0182 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 80ca28d9-3001-4156-a72f-08dd154effeb
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000044F4.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6724
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,128 +130,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Dec 5, 2024 at 10:30=E2=80=AFAM Srinivasan Shanmugam
-<srinivasan.shanmugam@amd.com> wrote:
->
-> This update adds explanations to key functions related to process
-> isolation and cleaner shader execution sysfs interfaces.
->
-> - `amdgpu_gfx_set_run_cleaner_shader`: Describes how to manually run a
->   cleaner shader, which clears the Local Data Store (LDS) and General
->   Purpose Registers (GPRs) to ensure data isolation between GPU workloads=
-.
->
-> - `amdgpu_gfx_get_enforce_isolation`: Describes how to query the current
->   settings of the 'enforce_isolation' feature for each GPU partition.
->
-> - `amdgpu_gfx_set_enforce_isolation`: Describes how to enable or disable
->   process isolation for GPU partitions through the sysfs interface.
->
-> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-> Suggested-by: Alex Deucher <alexander.deucher@amd.com>
+With the warning from the core about missing firmware gone, users still
+may be notified of missing optional firmware by a more friendly message
+to clarify it's optional.
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Suggested-by: Lijo Lazar <lijo.lazar@amd.com>
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-> ---
-> v2:
->  - Incorporated feedbacks for function descriptions (Alex)
->
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 45 +++++++++++++++++++++++++
->  1 file changed, 45 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_gfx.c
-> index e54f42e3797e..7e2ad7818903 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> @@ -1484,6 +1484,24 @@ static int amdgpu_gfx_run_cleaner_shader(struct am=
-dgpu_device *adev, int xcp_id)
->         return 0;
->  }
->
-> +/**
-> + * amdgpu_gfx_set_run_cleaner_shader - Execute the AMDGPU GFX Cleaner Sh=
-ader
-> + * @dev: The device structure
-> + * @attr: The device attribute structure
-> + * @buf: The buffer containing the input data
-> + * @count: The size of the input data
-> + *
-> + * Provides the sysfs interface to manually run a cleaner shader, which =
-is
-> + * used to clear the GPU state between different tasks. Writing a value =
-to the
-> + * 'run_cleaner_shader' sysfs file triggers the cleaner shader execution=
-.
-> + * The value written corresponds to the partition index on multi-partiti=
-on
-> + * devices. On single-partition devices, the value should be '0'.
-> + *
-> + * The cleaner shader clears the Local Data Store (LDS) and General Purp=
-ose
-> + * Registers (GPRs) to ensure data isolation between GPU workloads.
-> + *
-> + * Return: The number of bytes written to the sysfs file.
-> + */
->  static ssize_t amdgpu_gfx_set_run_cleaner_shader(struct device *dev,
->                                                  struct device_attribute =
-*attr,
->                                                  const char *buf,
-> @@ -1532,6 +1550,19 @@ static ssize_t amdgpu_gfx_set_run_cleaner_shader(s=
-truct device *dev,
->         return count;
->  }
->
-> +/**
-> + * amdgpu_gfx_get_enforce_isolation - Query AMDGPU GFX Enforce Isolation=
- Settings
-> + * @dev: The device structure
-> + * @attr: The device attribute structure
-> + * @buf: The buffer to store the output data
-> + *
-> + * Provides the sysfs read interface to get the current settings of the =
-'enforce_isolation'
-> + * feature for each GPU partition. Reading from the 'enforce_isolation'
-> + * sysfs file returns the isolation settings for all partitions, where '=
-0'
-> + * indicates disabled and '1' indicates enabled.
-> + *
-> + * Return: The number of bytes read from the sysfs file.
-> + */
->  static ssize_t amdgpu_gfx_get_enforce_isolation(struct device *dev,
->                                                 struct device_attribute *=
-attr,
->                                                 char *buf)
-> @@ -1555,6 +1586,20 @@ static ssize_t amdgpu_gfx_get_enforce_isolation(st=
-ruct device *dev,
->         return size;
->  }
->
-> +/**
-> + * amdgpu_gfx_set_enforce_isolation - Control AMDGPU GFX Enforce Isolati=
-on
-> + * @dev: The device structure
-> + * @attr: The device attribute structure
-> + * @buf: The buffer containing the input data
-> + * @count: The size of the input data
-> + *
-> + * This function allows control over the 'enforce_isolation' feature, wh=
-ich
-> + * serializes access to the graphics engine. Writing '1' or '0' to the
-> + * 'enforce_isolation' sysfs file enables or disables process isolation =
-for
-> + * each partition. The input should specify the setting for all partitio=
-ns.
-> + *
-> + * Return: The number of bytes written to the sysfs file.
-> + */
->  static ssize_t amdgpu_gfx_set_enforce_isolation(struct device *dev,
->                                                 struct device_attribute *=
-attr,
->                                                 const char *buf, size_t c=
-ount)
-> --
-> 2.34.1
->
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
+index ffbb3377e0f6..cf700824b960 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
+@@ -1459,8 +1459,11 @@ int amdgpu_ucode_request(struct amdgpu_device *adev, const struct firmware **fw,
+ 
+ 	if (required == AMDGPU_UCODE_REQUIRED)
+ 		r = request_firmware(fw, fname, adev->dev);
+-	else
++	else {
+ 		r = firmware_request_nowarn(fw, fname, adev->dev);
++		if (r)
++			drm_info(&adev->ddev, "Optional firmware \"%s\" was not found\n", fname);
++	}
+ 	if (r)
+ 		return -ENODEV;
+ 
+-- 
+2.34.1
+
