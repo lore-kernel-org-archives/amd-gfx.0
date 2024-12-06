@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07C97E77179
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Dec 2024 09:05:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E57D7E77173
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Dec 2024 09:05:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AAE5E10E610;
-	Fri,  6 Dec 2024 09:05:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9101710F03A;
+	Fri,  6 Dec 2024 09:05:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1UnDA2G8";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="nwQelPmz";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2077.outbound.protection.outlook.com [40.107.220.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D454B10E610
- for <amd-gfx@lists.freedesktop.org>; Fri,  6 Dec 2024 09:05:36 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2053.outbound.protection.outlook.com [40.107.236.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 06E6210F03A
+ for <amd-gfx@lists.freedesktop.org>; Fri,  6 Dec 2024 09:05:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Lp0U5j02rMJspFnXuoqoIPZBeq41nCeC70KlPa2KMj3pS+XwqU7xIvdYfBL6GST1NptlzwYOIIYorxe/rhXuBEfguXwQ0Urzo8mN8zs5d1ChDhydxnvstbKWmaQxYVfflKBt2BWKU62Tnn1svgwHHcKubCPEH6X/PHICqAwa8DlXvKZsIrYnjdoUE6FVbn8DkWINwG8ziJU9alPAKZ287fFgbiVr9EP9fAO5+B5/x0NyWXeBG7feovVGdnhJiyQSD9/tykIC1clDgNzSltD3k85XS3GiormmAWMFyAmo41s17F9F0WhxuJKXUeK8pqUghv34g3kCfmFIMhbXRd6xdg==
+ b=YsAlhs016unewcu8dejtCWWES0OZeX7nbhr8E3oZBLildJEHIn6o8hMj4v1Eh1jkMX10DXbn+Yl8P+irbijS2t6AaL/QynRj2S+v/oUvVSHHdjUgKNUwBHBHa7GpqpbOt93sPM/mzS9ljqcme9102gVnkVhFt4Algff1IzaU9W68XnK8s7zBzs/1yGCy+BVh8obYgDiEpH6LdJ64w7IyVDAfSiQuHcWgrZwKw6XM0KSSBvvE7d0PbVOcrGNoMG7vw0Z7d7DSAxxIaHp9U9vBqN317FUIJaInAumZt52eUDojJk0LQHOXXL0q+f+apNzRNaUEz1efv66PzITSRKhP/g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Lnr7E+R4luA7UUbVVEIMm1s/IDX9IC+oF9sp+5/j+T8=;
- b=g61HMDUKXBzbjUE+nVxP78/Txj4jWLXnQsaKk3LS9cVlTKW1c0k7eYRrvDdEpqT9NM/scxc4eTu4Cvsnx52ggnKOOYvS6HPvNaK/1uRmyms9xr+dUCUDwRxetmG/oiHgANzodmRYCXKqgUT+hz8AHE21DN0lcMPmEiksflij/gr20ZEoCvcIAG2So/CictLMdvZNTWrJGCnIo31nybPgSgUbq28Snsi1pUNbjjd7iDXZlGVFITx3oy1U5sOrw69wER/p5cpL9c2GJfMM1W+OOKARqvrQ4PfIhLLWlt8+vkjqnJuMW4ezZ7NRygtw/OrlKztR0h56zumQwElkjqqp1w==
+ bh=n8I36v3ARjXAPXeGRiaQFogol6UEebv0Q+XLa+GBeIo=;
+ b=DY8TnxhGbwV4fJDOo3Djj5zaIULiIx7rtLfPb66fc1Hy8tI908KTXR2zfc3r5ilEVY7z6OTwtjgpS9bRYDGRgtMlmwnICXoOOyUr2IqZYNpEAV6mWqwEn9+k2BwWAAeKhD7pW0rehfEmhZMnV+LoqK8OrCpWz0nxxTGPCDT14CzAj4pQC9kJlCHBOU+rsjUTozotuTZQmi7YHzA+KchJvVCPDEvT6Dc/rG5HMficAw/ykSH79B/JTPXUNU4OAYKakIMBVIgB9G2dHNas5Uzrqg4vQ3Jbydro0lOfEqxuBB37qVTeLeQ1rAvxLs3EZAOfpctxn2M7oGYSuoUzE9xvCA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Lnr7E+R4luA7UUbVVEIMm1s/IDX9IC+oF9sp+5/j+T8=;
- b=1UnDA2G8Yli/wQxZ8YztwKs1j/Sz5X4jHrmXKCQeiEfAU5X2OJUL9f5PPZy7g1XHQU3bv73oqBAHtA5ESRXsgE0wJCHexaBPvTUdHSoO1va42N9UzvMtm0xTQGfQplnvn+Aiah33XPhAMS0PaIzbHPrG603g2+JVbmdTqLTE8+4=
-Received: from BYAPR07CA0101.namprd07.prod.outlook.com (2603:10b6:a03:12b::42)
- by LV8PR12MB9407.namprd12.prod.outlook.com (2603:10b6:408:1f9::13)
+ bh=n8I36v3ARjXAPXeGRiaQFogol6UEebv0Q+XLa+GBeIo=;
+ b=nwQelPmzn6awVb2SAGvsKO4Kw8aC0F9hNYWwj2v6kZPW9CByk8As4MhuR8su0H/zs1rZx7Y79BOjQmqLUmRAexQRH0HihktCTs+pNRx9zO3cN8jmhziOt8CItqRZW8taY/gdn/7IcJ8LmqfS+pFtzEBiipZbf6IEl91CgowFltk=
+Received: from PH8PR21CA0011.namprd21.prod.outlook.com (2603:10b6:510:2ce::19)
+ by CH3PR12MB9123.namprd12.prod.outlook.com (2603:10b6:610:1a4::17)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8230.12; Fri, 6 Dec
- 2024 09:05:28 +0000
-Received: from CY4PEPF0000EE37.namprd05.prod.outlook.com
- (2603:10b6:a03:12b:cafe::3e) by BYAPR07CA0101.outlook.office365.com
- (2603:10b6:a03:12b::42) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8230.9 via Frontend Transport; Fri, 6
- Dec 2024 09:05:27 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8207.19; Fri, 6 Dec
+ 2024 09:05:35 +0000
+Received: from CY4PEPF0000EE31.namprd05.prod.outlook.com
+ (2603:10b6:510:2ce:cafe::d3) by PH8PR21CA0011.outlook.office365.com
+ (2603:10b6:510:2ce::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8251.8 via Frontend Transport; Fri, 6
+ Dec 2024 09:05:35 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,19 +48,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000EE37.mail.protection.outlook.com (10.167.242.43) with Microsoft
+ CY4PEPF0000EE31.mail.protection.outlook.com (10.167.242.37) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8230.7 via Frontend Transport; Fri, 6 Dec 2024 09:05:26 +0000
+ 15.20.8230.7 via Frontend Transport; Fri, 6 Dec 2024 09:05:34 +0000
 Received: from canli-build.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 6 Dec
- 2024 03:05:24 -0600
+ 2024 03:05:31 -0600
 From: Candice Li <candice.li@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Candice Li <candice.li@amd.com>
-Subject: [PATCH 3/4] drm/amdgpu: Add umc v8_14 ras functions
-Date: Fri, 6 Dec 2024 17:04:54 +0800
-Message-ID: <20241206090455.182520-3-candice.li@amd.com>
+Subject: [PATCH 4/4] drm/amdgpu: Support nbif v6_3_1 fatal error handling
+Date: Fri, 6 Dec 2024 17:04:55 +0800
+Message-ID: <20241206090455.182520-4-candice.li@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20241206090455.182520-1-candice.li@amd.com>
 References: <20241206090455.182520-1-candice.li@amd.com>
@@ -72,51 +72,51 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE37:EE_|LV8PR12MB9407:EE_
-X-MS-Office365-Filtering-Correlation-Id: 79a197dd-3c65-4142-7d7c-08dd15d52040
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE31:EE_|CH3PR12MB9123:EE_
+X-MS-Office365-Filtering-Correlation-Id: ebf5c6da-5ff4-4150-1c10-08dd15d524dc
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|36860700013|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?RffMI7WeURLOwIoAhlNycIS7kadlMDNW7QwhNhHIOdrMe2oVUMO4lUFDwecZ?=
- =?us-ascii?Q?jymllMIEaTdvi1Opplrx4uMb5lSSb79/rN27QJZSwJhv5lB0tOiwf8eJSQ/T?=
- =?us-ascii?Q?D6rhvSy7F/iT4RsA8Sb4LEVvet6q+9oa7r4sfNmc7D5z+T1N9N5lXGB93mxj?=
- =?us-ascii?Q?BFyKAPiP/M9OFXjM3L4SlB8xo4EhX245Sa1penYT76kzZuYTKPb/RrFHqR52?=
- =?us-ascii?Q?pyEI/i7LKoX8IfoGtPyTBWXU0Oa+S5A4paPTNQ0lFOF/MjlDN0FO/VAw0CbM?=
- =?us-ascii?Q?JgcgTxrO52/z9nNoBbSnA/s103MHJioWErzmyTKKtz3X7HPhqTbpnmxobkAD?=
- =?us-ascii?Q?pHjxPDjfC1aFK+0H0cTDYZfcm4wqlbNTdRsMqhmZw7TsQbWR7AvVoVZkAhNy?=
- =?us-ascii?Q?PkM+rDcLrPQ+Q7VzTrcDGDSTRwu00obtTBQSp8hgqEmJrGhbK/xVdwwDWJxW?=
- =?us-ascii?Q?+zEGmOT0+DsJWem1H+ZikcshvgqB+Mz80eek30mxWlrxWhijmMqLyo1T7G/t?=
- =?us-ascii?Q?i7vYu3e0z+FZzyU5azxniQCcZE1BOJtNV02fRaxY0ENRLv3hn8ap/P+lv8GH?=
- =?us-ascii?Q?U1/kKatRtnGntHggmWtCXtqF02E2TxpBjDq974VqZAxFkTNncMynq3NY4Fa8?=
- =?us-ascii?Q?lqpjbRd4gA7T5c8aC4a3xJfYoynZ3fLw8zPjWhP9weAC9l4BU2DJRgGGM0h+?=
- =?us-ascii?Q?aOk9JNMSzkKDildYCJnPrMjsu5TY4XKwPBLL/Yo/2GPPF/iDuXGBXDXeM0uW?=
- =?us-ascii?Q?ngP+eiImJY1JAWNHNT/Z/rF53Lc/PiKmj6EPDSEJbGchGYjpb+4/s6SJKPwS?=
- =?us-ascii?Q?fEtpXl6mj/szmGkaOzLtmeqqhAEJ8MeMt0oUzd/KRvIFTv3zlH6arlDz9U6/?=
- =?us-ascii?Q?wpw6FZdDV3vVmSBvg6trpJCRWlI0K88dmVPi45gZ6BAc31mXytLQw/cWjZL2?=
- =?us-ascii?Q?c8hHxv9UVNG/Pt+70S10jry7QpiYJ16wMmwOYz5EHE+cmnThHRSRj0kYpLh9?=
- =?us-ascii?Q?OD3bCBE8WpR54YkxPECqiDZJldYWnuRdW2la/peE4L4de/U5jVlbrsvXAlEi?=
- =?us-ascii?Q?L+BYV0WNIcwbsQh5bxsfGWqKZfQFBUtF4YcW+J8VZyMO/omYffKl/rw0MyN1?=
- =?us-ascii?Q?TUaH+JS92CCBOiMT4LdWXYSA4LLMTixk0tCP/hFd4BgQ7scm3WCw6wxCVrVA?=
- =?us-ascii?Q?3ho9YFcZiINrU7w2rgJXZVE9zrxFTnv/avpWqQQ4G4fuEmZ+ius1lX3SXcIF?=
- =?us-ascii?Q?IrWvXCOVwWadJZmlRlO3l6KEzp53VnoB1TeDoG5ZvTwzYlGqnA4++KXFMg4q?=
- =?us-ascii?Q?iScxriQ4Xe/0xf2vSrbXg+phFABghenpY2aCHD9vCRMTzgFClcHUbjU/KThm?=
- =?us-ascii?Q?UfSSOF5btfrORppEhWt5/cQTi40bn8KL3r23Sz8Hl4xC4vQ/JQAuRlEZjfT8?=
- =?us-ascii?Q?9LC7QEpLPycoHvpV9FGnzQYzKpCfH1Y+?=
+ ARA:13230040|376014|1800799024|36860700013|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?toaKTGS+vlB8PMA1JKSOqGkcaW/slKTepo30avFKghIsrkgPtk524+3S1aBI?=
+ =?us-ascii?Q?qKlB1rMtmc5mDDzn1vsE7vOHQO+hJi0xnnLzN2LNiE9AlXuGy6PTvDu6usYR?=
+ =?us-ascii?Q?l9S4Z69J745gXcqyfBBKlVyQQ3aBmh81XTwO2AAU8JHR5ROnytpqLs9eo5NZ?=
+ =?us-ascii?Q?BZ+jFKOim0Y3bUCy0D5xvbtkAXN5Y9xN131BHBKSjf2jOBlbbtS8n5iQymCU?=
+ =?us-ascii?Q?aoJ6DGbpUz/7iWFrkJ5nVCwC5O/E8A44MdNsZ1ndzYOV8/QMIKvyb+P+JVCv?=
+ =?us-ascii?Q?oQ5Za3aS5guy+cUBRIka39dR3UU4/xfz4S9vvWJJ3z3MpMHsrHwzKkaZD02M?=
+ =?us-ascii?Q?Iy3Or0KSx4H3yqsIzgUWmH9cZUmqRKJF2Dp+Vxl7cyF2qzb8obwAj+2f/2ij?=
+ =?us-ascii?Q?I6BMBiLooyS0XQS/3JhoLVXh46O7F3ivdQiUgWLWbFNtzJ6rIm15VKE1/eBo?=
+ =?us-ascii?Q?S5Tb1fUdT2MpHgYhJrMe31UcL9Kr7ftixMLYxDN3FbWd0msXuA9ahrv2gvUV?=
+ =?us-ascii?Q?39+Lf1zZbWSOo3rnMIOGiZv752p2jxuzaHYaVOyEPQSiWBRr7guDZJKHBz/+?=
+ =?us-ascii?Q?jIIvSphqfFDH1J6SovzR64v7HSdpcH9SVvYfDOIBGwnQ78TKi9IfEKSieqqn?=
+ =?us-ascii?Q?pQyiHMNQgI62VHcAe2s9fkz/gtgcVfxOHBCi4UI+JVAoGntdd49hrZbdzkGP?=
+ =?us-ascii?Q?4hqXck4q0GV6rOZKJuoYgragUSpNmpIe+nGSt6I2XK7OgqaOGWxXTRERWoob?=
+ =?us-ascii?Q?vgYjnG/Dx6TZ6pqXMLPOrQ3gK3aRI1okIwPcWqYIlgd5vUxdhMjVATvxMZO0?=
+ =?us-ascii?Q?ouE2ae5LvfsMTLaa5Z3OoMkiWMBn5jw5RoBJZND8z7ZhoDXNTFvNXMwSIlMy?=
+ =?us-ascii?Q?vRG6B8Apl2Gj3q0jaMLKb6uP5x8QhY+wmFJ53dwzlIQK080Jtjk2Z6jGkqgG?=
+ =?us-ascii?Q?xwHAN1ROyrvnR4oAFYREAxjex5FOzA6zu5ovCmmxC6MuMaD4t1/UcW56rb6J?=
+ =?us-ascii?Q?ddOxcZvsS918LiG+zvOa0eBo/08/+NorYRDtDX+0NQ6zHmvgaHioLHkVA+ws?=
+ =?us-ascii?Q?PWmdkQwxKVYqSgC9q8rcXVHlXQodqg07cPoJXPMTBVIBVT4Chrspzu03SUNm?=
+ =?us-ascii?Q?B4hXy/itz9NnPb+D0wwYjwm64/ow1UY/CWeCzlfBZR+lZ3zvfwPNf+4FLyJS?=
+ =?us-ascii?Q?jFJsbEoQj8LhUbvyOWlMVep5K2YE+PYt/2jeV29SQKxSe4q7IvuYZc3s0D4e?=
+ =?us-ascii?Q?usnJQNa03typQTp8q1cx3cXtn0hJhe6mwFvyzv0xk81dsBZysDTConeR4WLw?=
+ =?us-ascii?Q?DYD5aRjKF0A0uhWOXaSBfDo74VRqpX9sYFFTVt+qyabhKWoYQIzmpVFfF977?=
+ =?us-ascii?Q?iABjVPQ4k36gZLyun5YiSbYOQcHRAAHbN5+sJ57ai77fYyOuEeeD/CDIWWBQ?=
+ =?us-ascii?Q?C907Z+9H7cBlkC7vCS+k/FYPxBpdz6cA?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024); DIR:OUT;
+ SFS:(13230040)(376014)(1800799024)(36860700013)(82310400026); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Dec 2024 09:05:26.8074 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 79a197dd-3c65-4142-7d7c-08dd15d52040
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Dec 2024 09:05:34.5382 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ebf5c6da-5ff4-4150-1c10-08dd15d524dc
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE37.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE31.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9407
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9123
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,297 +131,192 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add umc v8_14 ras functions.
+Add nbif v6_3_1 fatal error handling support.
 
 Signed-off-by: Candice Li <candice.li@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/Makefile    |   2 +-
- drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c |  18 ++-
- drivers/gpu/drm/amd/amdgpu/umc_v8_14.c | 160 +++++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/umc_v8_14.h |  51 ++++++++
- 4 files changed, 229 insertions(+), 2 deletions(-)
- create mode 100644 drivers/gpu/drm/amd/amdgpu/umc_v8_14.c
- create mode 100644 drivers/gpu/drm/amd/amdgpu/umc_v8_14.h
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c  | 12 ++++
+ drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.c | 81 ++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.h |  1 +
+ drivers/gpu/drm/amd/amdgpu/soc24.c       | 19 +++++-
+ 4 files changed, 111 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
-index 502adcda7b65cd..88caac49e46e0b 100644
---- a/drivers/gpu/drm/amd/amdgpu/Makefile
-+++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-@@ -106,7 +106,7 @@ amdgpu-y += \
- 
- # add UMC block
- amdgpu-y += \
--	umc_v6_0.o umc_v6_1.o umc_v6_7.o umc_v8_7.o umc_v8_10.o umc_v12_0.o
-+	umc_v6_0.o umc_v6_1.o umc_v6_7.o umc_v8_7.o umc_v8_10.o umc_v12_0.o umc_v8_14.o
- 
- # add IH block
- amdgpu-y += \
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-index 621769255ffac2..b749f1c3f6a9af 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
-@@ -40,7 +40,7 @@
- #include "gfxhub_v12_0.h"
- #include "mmhub_v4_1_0.h"
- #include "athub_v4_1_0.h"
--
-+#include "umc_v8_14.h"
- 
- static int gmc_v12_0_ecc_interrupt_state(struct amdgpu_device *adev,
- 					 struct amdgpu_irq_src *src,
-@@ -581,6 +581,18 @@ static void gmc_v12_0_set_gmc_funcs(struct amdgpu_device *adev)
- 
- static void gmc_v12_0_set_umc_funcs(struct amdgpu_device *adev)
- {
-+	switch (amdgpu_ip_version(adev, UMC_HWIP, 0)) {
-+	case IP_VERSION(8, 14, 0):
-+		adev->umc.channel_inst_num = UMC_V8_14_CHANNEL_INSTANCE_NUM;
-+		adev->umc.umc_inst_num = UMC_V8_14_UMC_INSTANCE_NUM(adev);
-+		adev->umc.node_inst_num = 0;
-+		adev->umc.max_ras_err_cnt_per_query = UMC_V8_14_TOTAL_CHANNEL_NUM(adev);
-+		adev->umc.channel_offs = UMC_V8_14_PER_CHANNEL_OFFSET;
-+		adev->umc.ras = &umc_v8_14_ras;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index 623ae9b3880037..db081618e85c3b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -36,6 +36,7 @@
+ #include "amdgpu_xgmi.h"
+ #include "ivsrcid/nbio/irqsrcs_nbif_7_4.h"
+ #include "nbio_v4_3.h"
++#include "nbif_v6_3_1.h"
+ #include "nbio_v7_9.h"
+ #include "atom.h"
+ #include "amdgpu_reset.h"
+@@ -3911,6 +3912,17 @@ int amdgpu_ras_init(struct amdgpu_device *adev)
+ 			 * check DF RAS */
+ 			adev->nbio.ras = &nbio_v4_3_ras;
+ 		break;
++	case IP_VERSION(6, 3, 1):
++		if (adev->ras_hw_enabled & (1 << AMDGPU_RAS_BLOCK__DF))
++			/* unlike other generation of nbio ras,
++			 * nbif v6_3_1 only support fatal error interrupt
++			 * to inform software that DF is freezed due to
++			 * system fatal error event. driver should not
++			 * enable nbio ras in such case. Instead,
++			 * check DF RAS
++			 */
++			adev->nbio.ras = &nbif_v6_3_1_ras;
 +		break;
-+	default:
-+		break;
-+	}
- }
+ 	case IP_VERSION(7, 9, 0):
+ 	case IP_VERSION(7, 9, 1):
+ 		if (!adev->gmc.is_app_apu)
+diff --git a/drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.c b/drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.c
+index 39919e0892c148..c92875ceb31f45 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.c
+@@ -28,6 +28,7 @@
+ #include "nbif/nbif_6_3_1_sh_mask.h"
+ #include "pcie/pcie_6_1_0_offset.h"
+ #include "pcie/pcie_6_1_0_sh_mask.h"
++#include "ivsrcid/nbio/irqsrcs_nbif_7_4.h"
+ #include <uapi/linux/kfd_ioctl.h>
  
- 
-@@ -829,6 +841,10 @@ static int gmc_v12_0_sw_init(struct amdgpu_ip_block *ip_block)
- 
- 	amdgpu_vm_manager_init(adev);
- 
-+	r = amdgpu_gmc_ras_sw_init(adev);
-+	if (r)
-+		return r;
+ static void nbif_v6_3_1_remap_hdp_registers(struct amdgpu_device *adev)
+@@ -518,3 +519,83 @@ const struct amdgpu_nbio_funcs nbif_v6_3_1_sriov_funcs = {
+ 	.get_rom_offset = nbif_v6_3_1_get_rom_offset,
+ 	.set_reg_remap = nbif_v6_3_1_set_reg_remap,
+ };
 +
++static int nbif_v6_3_1_set_ras_err_event_athub_irq_state(struct amdgpu_device *adev,
++						       struct amdgpu_irq_src *src,
++						       unsigned type,
++						       enum amdgpu_interrupt_state state)
++{
++	/* The ras_controller_irq enablement should be done in psp bl when it
++	 * tries to enable ras feature. Driver only need to set the correct interrupt
++	 * vector for bare-metal and sriov use case respectively
++	 */
++	uint32_t bif_doorbell_int_cntl;
++
++	bif_doorbell_int_cntl = RREG32_SOC15(NBIO, 0, regBIF_BX0_BIF_DOORBELL_INT_CNTL);
++	bif_doorbell_int_cntl = REG_SET_FIELD(bif_doorbell_int_cntl,
++					      BIF_BX0_BIF_DOORBELL_INT_CNTL,
++					      RAS_ATHUB_ERR_EVENT_INTERRUPT_DISABLE,
++					      (state == AMDGPU_IRQ_STATE_ENABLE) ? 0 : 1);
++	WREG32_SOC15(NBIO, 0, regBIF_BX0_BIF_DOORBELL_INT_CNTL, bif_doorbell_int_cntl);
++
++	return 0;
++}
++
++static int nbif_v6_3_1_process_err_event_athub_irq(struct amdgpu_device *adev,
++						 struct amdgpu_irq_src *source,
++						 struct amdgpu_iv_entry *entry)
++{
++	/* By design, the ih cookie for err_event_athub_irq should be written
++	 * to bif ring. since bif ring is not enabled, just leave process callback
++	 * as a dummy one.
++	 */
++	return 0;
++}
++
++static const struct amdgpu_irq_src_funcs nbif_v6_3_1_ras_err_event_athub_irq_funcs = {
++	.set = nbif_v6_3_1_set_ras_err_event_athub_irq_state,
++	.process = nbif_v6_3_1_process_err_event_athub_irq,
++};
++
++static void nbif_v6_3_1_handle_ras_err_event_athub_intr_no_bifring(struct amdgpu_device *adev)
++{
++	uint32_t bif_doorbell_int_cntl;
++
++	bif_doorbell_int_cntl = RREG32_SOC15(NBIO, 0, regBIF_BX0_BIF_DOORBELL_INT_CNTL);
++	if (REG_GET_FIELD(bif_doorbell_int_cntl,
++			  BIF_BX0_BIF_DOORBELL_INT_CNTL,
++			  RAS_ATHUB_ERR_EVENT_INTERRUPT_STATUS)) {
++		/* driver has to clear the interrupt status when bif ring is disabled */
++		bif_doorbell_int_cntl = REG_SET_FIELD(bif_doorbell_int_cntl,
++						BIF_BX0_BIF_DOORBELL_INT_CNTL,
++						RAS_ATHUB_ERR_EVENT_INTERRUPT_CLEAR, 1);
++		WREG32_SOC15(NBIO, 0, regBIF_BX0_BIF_DOORBELL_INT_CNTL, bif_doorbell_int_cntl);
++		amdgpu_ras_global_ras_isr(adev);
++	}
++}
++
++static int nbif_v6_3_1_init_ras_err_event_athub_interrupt(struct amdgpu_device *adev)
++{
++	int r;
++
++	/* init the irq funcs */
++	adev->nbio.ras_err_event_athub_irq.funcs =
++		&nbif_v6_3_1_ras_err_event_athub_irq_funcs;
++	adev->nbio.ras_err_event_athub_irq.num_types = 1;
++
++	/* register ras err event athub interrupt
++	 * nbif v6_3_1 uses the same irq source as nbio v7_4
++	 */
++	r = amdgpu_irq_add_id(adev, SOC21_IH_CLIENTID_BIF,
++			      NBIF_7_4__SRCID__ERREVENT_ATHUB_INTERRUPT,
++			      &adev->nbio.ras_err_event_athub_irq);
++
++	return r;
++}
++
++struct amdgpu_nbio_ras nbif_v6_3_1_ras = {
++	.handle_ras_err_event_athub_intr_no_bifring =
++		nbif_v6_3_1_handle_ras_err_event_athub_intr_no_bifring,
++	.init_ras_err_event_athub_interrupt =
++		nbif_v6_3_1_init_ras_err_event_athub_interrupt,
++};
+diff --git a/drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.h b/drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.h
+index b7f2e0d88905d2..9ac4831d39e17b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.h
++++ b/drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.h
+@@ -29,5 +29,6 @@
+ extern const struct nbio_hdp_flush_reg nbif_v6_3_1_hdp_flush_reg;
+ extern const struct amdgpu_nbio_funcs nbif_v6_3_1_funcs;
+ extern const struct amdgpu_nbio_funcs nbif_v6_3_1_sriov_funcs;
++extern struct amdgpu_nbio_ras nbif_v6_3_1_ras;
+ 
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc24.c b/drivers/gpu/drm/amd/amdgpu/soc24.c
+index eda03d40d76589..6b8e078ee7c751 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc24.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc24.c
+@@ -444,8 +444,18 @@ static int soc24_common_late_init(struct amdgpu_ip_block *ip_block)
+ {
+ 	struct amdgpu_device *adev = ip_block->adev;
+ 
+-	if (amdgpu_sriov_vf(adev))
++	if (amdgpu_sriov_vf(adev)) {
+ 		xgpu_nv_mailbox_get_irq(adev);
++	} else {
++		if (adev->nbio.ras &&
++		    adev->nbio.ras_err_event_athub_irq.funcs)
++			/* don't need to fail gpu late init
++			 * if enabling athub_err_event interrupt failed
++			 * nbif v6_3_1 only support fatal error hanlding
++			 * just enable the interrupt directly
++			 */
++			amdgpu_irq_get(adev, &adev->nbio.ras_err_event_athub_irq, 0);
++	}
+ 
+ 	/* Enable selfring doorbell aperture late because doorbell BAR
+ 	 * aperture will change if resize BAR successfully in gmc sw_init.
+@@ -501,8 +511,13 @@ static int soc24_common_hw_fini(struct amdgpu_ip_block *ip_block)
+ 	adev->nbio.funcs->enable_doorbell_aperture(adev, false);
+ 	adev->nbio.funcs->enable_doorbell_selfring_aperture(adev, false);
+ 
+-	if (amdgpu_sriov_vf(adev))
++	if (amdgpu_sriov_vf(adev)) {
+ 		xgpu_nv_mailbox_put_irq(adev);
++	} else {
++		if (adev->nbio.ras &&
++		    adev->nbio.ras_err_event_athub_irq.funcs)
++			amdgpu_irq_put(adev, &adev->nbio.ras_err_event_athub_irq, 0);
++	}
+ 
  	return 0;
  }
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v8_14.c b/drivers/gpu/drm/amd/amdgpu/umc_v8_14.c
-new file mode 100644
-index 00000000000000..eaca10a3c4a9df
---- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/umc_v8_14.c
-@@ -0,0 +1,160 @@
-+/*
-+ * Copyright 2024 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ */
-+#include "umc_v8_14.h"
-+#include "amdgpu_ras.h"
-+#include "amdgpu_umc.h"
-+#include "amdgpu.h"
-+#include "umc/umc_8_14_0_offset.h"
-+#include "umc/umc_8_14_0_sh_mask.h"
-+
-+static inline uint32_t get_umc_v8_14_reg_offset(struct amdgpu_device *adev,
-+					    uint32_t umc_inst,
-+					    uint32_t ch_inst)
-+{
-+	return adev->umc.channel_offs * ch_inst + UMC_V8_14_INST_DIST * umc_inst;
-+}
-+
-+static int umc_v8_14_clear_error_count_per_channel(struct amdgpu_device *adev,
-+					uint32_t node_inst, uint32_t umc_inst,
-+					uint32_t ch_inst, void *data)
-+{
-+	uint32_t ecc_err_cnt_addr;
-+	uint32_t umc_reg_offset =
-+		get_umc_v8_14_reg_offset(adev, umc_inst, ch_inst);
-+
-+	ecc_err_cnt_addr =
-+		SOC15_REG_OFFSET(UMC, 0, regUMCCH0_GeccErrCnt);
-+
-+	/* clear error count */
-+	WREG32_PCIE((ecc_err_cnt_addr + umc_reg_offset) * 4,
-+			UMC_V8_14_CE_CNT_INIT);
-+
-+	return 0;
-+}
-+
-+static void umc_v8_14_clear_error_count(struct amdgpu_device *adev)
-+{
-+	amdgpu_umc_loop_channels(adev,
-+		umc_v8_14_clear_error_count_per_channel, NULL);
-+}
-+
-+static void umc_v8_14_query_correctable_error_count(struct amdgpu_device *adev,
-+						   uint32_t umc_reg_offset,
-+						   unsigned long *error_count)
-+{
-+	uint32_t ecc_err_cnt, ecc_err_cnt_addr;
-+
-+	/* UMC 8_14 registers */
-+	ecc_err_cnt_addr =
-+		SOC15_REG_OFFSET(UMC, 0, regUMCCH0_GeccErrCnt);
-+
-+	ecc_err_cnt = RREG32_PCIE((ecc_err_cnt_addr + umc_reg_offset) * 4);
-+	*error_count +=
-+		(REG_GET_FIELD(ecc_err_cnt, UMCCH0_GeccErrCnt, GeccErrCnt) -
-+		 UMC_V8_14_CE_CNT_INIT);
-+}
-+
-+static void umc_v8_14_query_uncorrectable_error_count(struct amdgpu_device *adev,
-+						      uint32_t umc_reg_offset,
-+						      unsigned long *error_count)
-+{
-+	uint32_t ecc_err_cnt, ecc_err_cnt_addr;
-+	/* UMC 8_14 registers */
-+	ecc_err_cnt_addr =
-+		SOC15_REG_OFFSET(UMC, 0, regUMCCH0_GeccErrCnt);
-+
-+	ecc_err_cnt = RREG32_PCIE((ecc_err_cnt_addr + umc_reg_offset) * 4);
-+	*error_count +=
-+		(REG_GET_FIELD(ecc_err_cnt, UMCCH0_GeccErrCnt, GeccUnCorrErrCnt) -
-+		 UMC_V8_14_CE_CNT_INIT);
-+}
-+
-+static int umc_v8_14_query_error_count_per_channel(struct amdgpu_device *adev,
-+					uint32_t node_inst, uint32_t umc_inst,
-+					uint32_t ch_inst, void *data)
-+{
-+	struct ras_err_data *err_data = (struct ras_err_data *)data;
-+	uint32_t umc_reg_offset =
-+		get_umc_v8_14_reg_offset(adev, umc_inst, ch_inst);
-+
-+	umc_v8_14_query_correctable_error_count(adev,
-+					umc_reg_offset,
-+					&(err_data->ce_count));
-+	umc_v8_14_query_uncorrectable_error_count(adev,
-+					umc_reg_offset,
-+					&(err_data->ue_count));
-+
-+	return 0;
-+}
-+
-+static void umc_v8_14_query_ras_error_count(struct amdgpu_device *adev,
-+					   void *ras_error_status)
-+{
-+	amdgpu_umc_loop_channels(adev,
-+		umc_v8_14_query_error_count_per_channel, ras_error_status);
-+
-+	umc_v8_14_clear_error_count(adev);
-+}
-+
-+static int umc_v8_14_err_cnt_init_per_channel(struct amdgpu_device *adev,
-+					uint32_t node_inst, uint32_t umc_inst,
-+					uint32_t ch_inst, void *data)
-+{
-+	uint32_t ecc_err_cnt_sel, ecc_err_cnt_sel_addr;
-+	uint32_t ecc_err_cnt_addr;
-+	uint32_t umc_reg_offset =
-+		get_umc_v8_14_reg_offset(adev, umc_inst, ch_inst);
-+
-+	ecc_err_cnt_sel_addr =
-+		SOC15_REG_OFFSET(UMC, 0, regUMCCH0_GeccErrCntSel);
-+	ecc_err_cnt_addr =
-+		SOC15_REG_OFFSET(UMC, 0, regUMCCH0_GeccErrCnt);
-+
-+	ecc_err_cnt_sel = RREG32_PCIE((ecc_err_cnt_sel_addr + umc_reg_offset) * 4);
-+
-+	/* set ce error interrupt type to APIC based interrupt */
-+	ecc_err_cnt_sel = REG_SET_FIELD(ecc_err_cnt_sel, UMCCH0_GeccErrCntSel,
-+					GeccErrInt, 0x1);
-+	WREG32_PCIE((ecc_err_cnt_sel_addr + umc_reg_offset) * 4, ecc_err_cnt_sel);
-+	/* set error count to initial value */
-+	WREG32_PCIE((ecc_err_cnt_addr + umc_reg_offset) * 4, UMC_V8_14_CE_CNT_INIT);
-+
-+	return 0;
-+}
-+
-+static void umc_v8_14_err_cnt_init(struct amdgpu_device *adev)
-+{
-+	amdgpu_umc_loop_channels(adev,
-+		umc_v8_14_err_cnt_init_per_channel, NULL);
-+}
-+
-+const struct amdgpu_ras_block_hw_ops umc_v8_14_ras_hw_ops = {
-+	.query_ras_error_count = umc_v8_14_query_ras_error_count,
-+};
-+
-+struct amdgpu_umc_ras umc_v8_14_ras = {
-+	.ras_block = {
-+		.hw_ops = &umc_v8_14_ras_hw_ops,
-+	},
-+	.err_cnt_init = umc_v8_14_err_cnt_init,
-+};
-diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v8_14.h b/drivers/gpu/drm/amd/amdgpu/umc_v8_14.h
-new file mode 100644
-index 00000000000000..20a258f0017aa1
---- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/umc_v8_14.h
-@@ -0,0 +1,51 @@
-+/*
-+ * Copyright 2024 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ */
-+#ifndef __UMC_V8_14_H__
-+#define __UMC_V8_14_H__
-+
-+#include "soc15_common.h"
-+#include "amdgpu.h"
-+
-+/* number of umc channel instance with memory map register access */
-+#define UMC_V8_14_CHANNEL_INSTANCE_NUM		2
-+/* number of umc instance with memory map register access */
-+#define UMC_V8_14_UMC_INSTANCE_NUM(adev)		((adev)->umc.node_inst_num)
-+
-+/* Total channel instances for all available umc nodes */
-+#define UMC_V8_14_TOTAL_CHANNEL_NUM(adev) \
-+	(UMC_V8_14_CHANNEL_INSTANCE_NUM * (adev)->gmc.num_umc)
-+
-+/* UMC register per channel offset */
-+#define UMC_V8_14_PER_CHANNEL_OFFSET		0x400
-+
-+#define UMC_V8_14_INST_DIST		0x40000
-+
-+/* EccErrCnt max value */
-+#define UMC_V8_14_CE_CNT_MAX		0xffff
-+/* umc ce interrupt threshold */
-+#define UMC_V8_14_CE_INT_THRESHOLD		0xffff
-+/* umc ce count initial value */
-+#define UMC_V8_14_CE_CNT_INIT	(UMC_V8_14_CE_CNT_MAX - UMC_V8_14_CE_INT_THRESHOLD)
-+
-+extern struct amdgpu_umc_ras umc_v8_14_ras;
-+#endif
 -- 
 2.25.1
 
