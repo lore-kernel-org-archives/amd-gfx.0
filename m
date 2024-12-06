@@ -4,118 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71390E77173
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Dec 2024 20:07:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38392E7717B
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Dec 2024 21:13:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C9A510F1AC;
-	Fri,  6 Dec 2024 20:07:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02F0C10F1C8;
+	Fri,  6 Dec 2024 21:13:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="T8L7X3mF";
+	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="AqCD0Xva";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2085.outbound.protection.outlook.com [40.107.92.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F0B0310F1AC
- for <amd-gfx@lists.freedesktop.org>; Fri,  6 Dec 2024 20:07:50 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fMlgy7Fqkc+Pz7iojFUEFT+a2Y5pWB4AqPG7RfOc+0EjWhrkK+rvMPRjmOAla4ugzAIp0/drlC0cM1IrZY7F39fyihyzD4nQkJkK51XmNkJOOt7a4lxdJt8BQv9UX4mj4HVOzxTds0CHNqxp9zmGuh1kwv07jYZjGzPNGM/4J/0BnE2QLZSI/e3KjgCzmcufMU0sB4ClPV9pGbaJMHpbwQbMdEalRPzb+7g+8wX6fBcUnXKrQFk7N6ZZlvWhLIrYzlG0UXwuoiPeJuuvWIt1vm872D5ERStjN2+qkhzkPhCpiGzt7tT3Ts4GKVr2A4S3TcaK7M8S+wTMwKxUFV9NYw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OIlCaexli15jnJyKZgNJuGzCN+fiaXuzNRH0bupAD98=;
- b=t91GCFGWWsIlmzWMZkRoJwZNxiVjsnijw32kygG4avcSDuWxoevlkH3VPaQCmBhxU7+bGivhQtuvfSv8trLLhAulw0Ofx4WfY+gqn1QwKHiFvv6PnDMeJEsnl/YlG7Dwi4KA57JrXmVpNebB6CDyEUfpwJJDKQsQBi3gb1fOubKFaXssj3KxIk9TRGql1xKIRpXWhL3KGwXHz+wD6X+oVfPtIpaTEUAxeoDpcgkbrOkuMVnkgf7NXUd/SNM8h5P8618JnvmlfaZho6GHBmgC63MCrScOf15YBAIO19nzSfYJhcFfQ6AlNeV0kXO4GnZW0rUqdK2KNriN/5QU+uU42w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OIlCaexli15jnJyKZgNJuGzCN+fiaXuzNRH0bupAD98=;
- b=T8L7X3mFFd0lwG06jloZ3eDrao5xqzz38vVbfnd6J+ZhxWfjtIyRdjvxARCtyi3pnahnh5IrfLxMBNor/bZGqQGvtoWYkWrmO/UBxAYfHGitsC2AuLDoIfNgJGi4CHXCVX1dJVurtj/KwL7rzyFZ6ko6M4D48o4jRUnM7Bdd2Hg=
-Received: from BYAPR11CA0082.namprd11.prod.outlook.com (2603:10b6:a03:f4::23)
- by CH2PR12MB4296.namprd12.prod.outlook.com (2603:10b6:610:af::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8230.12; Fri, 6 Dec
- 2024 20:07:44 +0000
-Received: from MWH0EPF000971E2.namprd02.prod.outlook.com
- (2603:10b6:a03:f4:cafe::e1) by BYAPR11CA0082.outlook.office365.com
- (2603:10b6:a03:f4::23) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8230.12 via Frontend Transport; Fri,
- 6 Dec 2024 20:07:44 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MWH0EPF000971E2.mail.protection.outlook.com (10.167.243.69) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8230.7 via Frontend Transport; Fri, 6 Dec 2024 20:07:44 +0000
-Received: from amartin-dev-ubuntu.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Fri, 6 Dec 2024 14:07:42 -0600
-From: Andrew Martin <Andrew.Martin@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <felix.kuehling@amd.com>, <alexandru.tudor@amd.com>,
- <andrew.martin@amd.com>, Andrew Martin <Andrew.Martin@amd.com>
-Subject: [PATCH] drm/amdkfd: Uninitialized pointer read
-Date: Fri, 6 Dec 2024 15:07:26 -0500
-Message-ID: <20241206200727.2771144-1-Andrew.Martin@amd.com>
-X-Mailer: git-send-email 2.43.0
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
+ [209.85.221.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF3D510F1C8
+ for <amd-gfx@lists.freedesktop.org>; Fri,  6 Dec 2024 21:13:24 +0000 (UTC)
+Received: by mail-wr1-f54.google.com with SMTP id
+ ffacd0b85a97d-385f07cd1a4so1780707f8f.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 06 Dec 2024 13:13:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ffwll.ch; s=google; t=1733519603; x=1734124403; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=UMN4Zf0r0p/s9EFwpScLc/QM7qUF6t9GVN6iGLfG77U=;
+ b=AqCD0XvaLbp3my8mW0if3B9f+8fx616sby8JBy39pcZJg7wL5yF7sY2Ve8H6RaqB97
+ PwGOAwdA845gN61OlOpYW60Ogz3TEpV1BQuLlFYXDhYTGdI6cNLLwMCC5eu3vnGqYvHl
+ I0VsabtvfZeOOCATx0lsAwYFRND/Hxa+0JI/o=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1733519603; x=1734124403;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=UMN4Zf0r0p/s9EFwpScLc/QM7qUF6t9GVN6iGLfG77U=;
+ b=ubVZjROmhHJEZotxfjyXwal0RqLqv8X39RACdXp90xJlHHkxH1hg9snV+KqtjIPD2S
+ ooT/ipoMbjyvi864UlDiae10L2qNzMd6k3ADzQCTKCQmQ/pBJruEcCb6x3G2MZz2WKus
+ pSzMfPK78WNoDhymRFhnvxiQ3f1+gREbYpW43FK08puifpQlfgsfUlUditbiI03xsA5E
+ VTiG0oCHhf+R7YSs4vThggUkqSXnpI19LdtgEexypOcpVYqhF0qQSgTup1HByhKjdBVl
+ WowdwA//tsT3RneMGZarcQoRh1yOo5Zi72M/k7bcj40x4j8qDpmGjkdb2QJB2+E+0l6Z
+ psng==
+X-Gm-Message-State: AOJu0YxC59rH6lNUcVe834V6xZQSK8QIcvdZ+Zlt1tytJs3alKBb+Xhx
+ jzR7zLpm7CKNhOWxynS8Dq6qUXMmhkKE5pabQQaIjbKaYGDB1waZQl4Atf4dRPk=
+X-Gm-Gg: ASbGncseeFeM64+wban13KvK6YDS1A5wkVnpjLm6secrsBh/jXItDjzmo02SINqKE9W
+ VCxt2S1KX6ATYwKk3FNiYZN9KXEuGwh6psOUB8eKPz8bbCiCGS+kLTSfhgqBYoJgIKtU4KOW6Wm
+ JhOC4Cwih59+W3fmd/JttI+UA5EId67uuEwBCu3DgsRFVuGkvmjPJK1sHbMyY65a/ogj5fKdmiv
+ EtLEU/pzmJAQAQ/KzPi1HKy3sJaSsMJgLq4Fq5nnCNbCDlaOL96Ki5Om/8Hzg==
+X-Google-Smtp-Source: AGHT+IF9ZonleRtF24ap+ZPBpJmyfCI8HYl2N16v/qtPHMJGwJW5M0mLUtiDBTe2qiDQeRm6bGf9Xw==
+X-Received: by 2002:a05:6000:2c2:b0:386:3263:6c76 with SMTP id
+ ffacd0b85a97d-38632636e77mr1199910f8f.54.1733519602738; 
+ Fri, 06 Dec 2024 13:13:22 -0800 (PST)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:5485:d4b2:c087:b497])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38621909952sm5330446f8f.69.2024.12.06.13.13.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 06 Dec 2024 13:13:22 -0800 (PST)
+Date: Fri, 6 Dec 2024 22:13:20 +0100
+From: Simona Vetter <simona.vetter@ffwll.ch>
+To: Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ airlied@gmail.com, simona@ffwll.ch
+Subject: Re: [pull] amdgpu, amdkfd drm-fixes-6.13
+Message-ID: <Z1No8IxgQbHwkNOk@phenom.ffwll.local>
+References: <20241206190452.2571042-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000971E2:EE_|CH2PR12MB4296:EE_
-X-MS-Office365-Filtering-Correlation-Id: c0135224-e765-4017-4e04-08dd1631a5a4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|36860700013|376014|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?yiij2oDU0CPo83x06pKLZmLu7OGvEnoig/ByNmBm7Kc84xdP9IBA6uYIO+NL?=
- =?us-ascii?Q?Wtu/kq9UcHyconC//yLXwqKJfdtRK2kKpGype9P4tGRgbnv9Xkw7zyNrxxxT?=
- =?us-ascii?Q?/C/NfJGOQavQlcN9XHyOVNN0yNrklTnKHZeMC8IHPJgEMN9QukiXQD5ha87/?=
- =?us-ascii?Q?iy00rJjUPqPTpU2mlUXKo4PGi7lgJc1fJRT4ZxRiDCfOe4LPTJlEYY31bMeP?=
- =?us-ascii?Q?OBua/BByqohukE3rKy+zA1ynd6Gz25VRc74oG+daH3aeHD2S5xE+NF5Reqlr?=
- =?us-ascii?Q?0PEQ9cyg8yKaSqrGg9gPGj+ms2FTbBkCP440Yw0JqWXDdMK+Fx2ePkKHgG+C?=
- =?us-ascii?Q?sPt9eeLJisIxZ2BDW3qAt0Gp7L05762wWSUGzbA05QQoHKLUCSAbASbSiE4E?=
- =?us-ascii?Q?8sItJqqiKUHF2u8GE3MZKwtSS3+7RdkkePebWSrjMnLDY8fTkYwcDftdFSw0?=
- =?us-ascii?Q?d0iP9BpLqLozbeXev1Im07/2zNLgbNlsIaChrm9gZohjcyoKxZ+apowIH8eR?=
- =?us-ascii?Q?lpu8ZFEogwLVrABqZR1c0uhmjUsIiktFxx2wf/dq/IcuamxKIesU1ZQIKrbh?=
- =?us-ascii?Q?OTTm6AvWkDlVVK6junIQB99utKjAy0sQx8myTBzzFj8SiILfGFMriOJXJ9GN?=
- =?us-ascii?Q?hwHbxlkp6C7Vz/Wngy7kAg/aoyeUv4sxwozxTaJHbJOQMKoMJ/0tUFJ/7FI8?=
- =?us-ascii?Q?pH0Hp2joOQFfxMeFbEGHc3ohEhW8hy1e1Hdw7V5x9M/ehk6CfFHqV+3t3+KS?=
- =?us-ascii?Q?0zz3Nmc5FQvjbSqPxb9QiCFoqSKvxS1Z+zS7kJaeO4b6BMEF1K208CvnLYIZ?=
- =?us-ascii?Q?Z0ZSMrM29+Fswq53xhUCyJS5UUOwaiwJAzzgnAmEhaS4dEiXthEfHl94b9HS?=
- =?us-ascii?Q?EXwf+r0tK6PewBsfzXMvgmbN73yDbIHkc5wa+vgopGDutbJW8uUww06sijVX?=
- =?us-ascii?Q?M1Gq7dvuOS51FQrGAmmvMr7J+pTR6qN5ALDw7nmcti4d6JWskfQtZbwBmdJh?=
- =?us-ascii?Q?Nzz6uSUZSMLTpRTbjdENam3BReeFz+UmN+Fud+Lci0fHWOhRXC5LQ7XnCt2D?=
- =?us-ascii?Q?bIWzr4ZWlBcgn54u/wkJJubYI4HwjYdgUlJbrNGTOpNAQ6BhnrMeHKY1PmCZ?=
- =?us-ascii?Q?oyu1jKOyV4P47CzZMGnqZkAA8Mii5pteJ/O31j0LyvOxekEDgiwgg4BcrxCr?=
- =?us-ascii?Q?lW/Lbxy6NCkOCNrrs/kd8r7dF9QvjABweGLiGEviNlUNwDAfmIjeR8xUhSd/?=
- =?us-ascii?Q?2leU6f+S6rMEVqYAxwJPFSxsTmdEcrJSrXdaFAohrIGuEERkZxv22HqHg0yd?=
- =?us-ascii?Q?hxteJirvE6xoHeqg3Ye0AUPzfd0ShLFOrZs9ZW7+djLDlFynAz0MzjE7p6KE?=
- =?us-ascii?Q?Yt5GSpwfvh/DGyTQbjv4xKjh+esbqzBac20hf2rdlZ+s9mvf4V+A7xDO24LR?=
- =?us-ascii?Q?7YGdIDtXCWlOBwlot3uv5m5MM+Xb4N90?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(36860700013)(376014)(82310400026); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Dec 2024 20:07:44.2351 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c0135224-e765-4017-4e04-08dd1631a5a4
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000971E2.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4296
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20241206190452.2571042-1-alexander.deucher@amd.com>
+X-Operating-System: Linux phenom 6.11.6-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,27 +81,147 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This a pointer that is being passed into other functions, so it is best to
-initialize it to NULL prior.
+On Fri, Dec 06, 2024 at 02:04:52PM -0500, Alex Deucher wrote:
+> Hi Dave, Simona,
+> 
+> Fixes for 6.13.
+> 
+> Resending as this didn't seem to make it out to the mailing list when I first
+> sent it.
+> 
+> The following changes since commit 40384c840ea1944d7c5a392e8975ed088ecf0b37:
+> 
+>   Linux 6.13-rc1 (2024-12-01 14:28:56 -0800)
+> 
+> are available in the Git repository at:
+> 
+>   https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-6.13-2024-12-04
 
-Signed-off-by: Andrew Martin <Andrew.Martin@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Pulled, thanks.
+-Sima
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-index 52c6c5e9d264..ceb9fb475ef1 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-@@ -1777,7 +1777,7 @@ static void kfd_fill_cache_non_crat_info(struct kfd_topology_device *dev, struct
- 	struct amdgpu_cu_info *cu_info = &kdev->adev->gfx.cu_info;
- 	struct amdgpu_gfx_config *gfx_info = &kdev->adev->gfx.config;
- 	int gpu_processor_id;
--	struct kfd_cache_properties *props_ext;
-+	struct kfd_cache_properties *props_ext = NULL;
- 	int num_of_entries = 0;
- 	int num_of_cache_types = 0;
- 	struct kfd_gpu_cache_info cache_info[KFD_MAX_CACHE_TYPES];
+> 
+> for you to fetch changes up to 73dae652dcac776296890da215ee7dec357a1032:
+> 
+>   drm/amdgpu: rework resume handling for display (v2) (2024-12-03 18:19:23 -0500)
+> 
+> ----------------------------------------------------------------
+> amd-drm-fixes-6.13-2024-12-04:
+> 
+> amdgpu:
+> - Jpeg work handler fix for VCN 1.0
+> - HDP flush fixes
+> - ACPI EDID sanity check
+> - OLED panel backlight fix
+> - DC YCbCr fix
+> - DC Detile buffer size debugging
+> - DC prefetch calculation fix
+> - DC VTotal handling fix
+> - DC HBlank fix
+> - ISP fix
+> - SR-IOV fix
+> - Workload profile fixes
+> - DCN 4.0.1 resume fix
+> 
+> amdkfd:
+> - GC 12.x fix
+> - GC 9.4.x fix
+> 
+> ----------------------------------------------------------------
+> Alex Deucher (9):
+>       drm/amdgpu/jpeg1.0: fix idle work handler
+>       drm/amdgpu/hdp4.0: do a posting read when flushing HDP
+>       drm/amdgpu/hdp5.0: do a posting read when flushing HDP
+>       drm/amdgpu/hdp5.2: do a posting read when flushing HDP
+>       drm/amdgpu/hdp6.0: do a posting read when flushing HDP
+>       drm/amdgpu/hdp7.0: do a posting read when flushing HDP
+>       Revert "drm/amd/pm: correct the workload setting"
+>       drm/amd/pm: fix and simplify workload handling
+>       drm/amdgpu: rework resume handling for display (v2)
+> 
+> Chris Park (1):
+>       drm/amd/display: Add hblank borrowing support
+> 
+> David Yat Sin (1):
+>       drm/amdkfd: hard-code cacheline for gc943,gc944
+> 
+> Dillon Varone (1):
+>       drm/amd/display: Limit VTotal range to max hw cap minus fp
+> 
+> Lo-an Chen (1):
+>       drm/amd/display: Correct prefetch calculation
+> 
+> Mario Limonciello (2):
+>       drm/amd: Sanity check the ACPI EDID
+>       drm/amd/display: Fix programming backlight on OLED panels
+> 
+> Peterson Guo (1):
+>       drm/amd/display: Add a left edge pixel if in YCbCr422 or YCbCr420 and odm
+> 
+> Pratap Nirujogi (1):
+>       drm/amdgpu: Fix ISP hw init issue
+> 
+> Sreekant Somasekharan (1):
+>       drm/amdkfd: add MEC version that supports no PCIe atomics for GFX12
+> 
+> Sung Lee (1):
+>       drm/amd/display: Add option to retrieve detile buffer size
+> 
+> Yiqing Yao (1):
+>       drm/amdgpu: fix sriov reinit late orders
+> 
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |  90 ++++++++---
+>  drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c              |  12 +-
+>  drivers/gpu/drm/amd/amdgpu/hdp_v5_0.c              |   7 +-
+>  drivers/gpu/drm/amd/amdgpu/hdp_v5_2.c              |   6 +-
+>  drivers/gpu/drm/amd/amdgpu/hdp_v6_0.c              |   6 +-
+>  drivers/gpu/drm/amd/amdgpu/hdp_v7_0.c              |   6 +-
+>  drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c             |   2 +-
+>  drivers/gpu/drm/amd/amdkfd/kfd_crat.c              |   6 +
+>  drivers/gpu/drm/amd/amdkfd/kfd_device.c            |   3 +
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |   2 +
+>  .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c  |  13 +-
+>  drivers/gpu/drm/amd/display/dc/core/dc.c           |  18 +++
+>  drivers/gpu/drm/amd/display/dc/core/dc_resource.c  |  42 ++++-
+>  drivers/gpu/drm/amd/display/dc/dc.h                |   4 +
+>  drivers/gpu/drm/amd/display/dc/dc_spl_translate.c  |   2 +-
+>  .../drm/amd/display/dc/dml2/display_mode_core.c    |   1 +
+>  .../dc/dml2/dml21/dml21_translation_helper.c       |  48 +++++-
+>  .../drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c    |   3 +-
+>  .../drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c  |   7 +-
+>  drivers/gpu/drm/amd/display/dc/inc/core_types.h    |   3 +
+>  drivers/gpu/drm/amd/display/dc/link/link_dpms.c    |   3 +-
+>  .../amd/display/dc/resource/dcn20/dcn20_resource.c |  23 +++
+>  .../amd/display/dc/resource/dcn30/dcn30_resource.c |   1 +
+>  .../display/dc/resource/dcn302/dcn302_resource.c   |   1 +
+>  .../display/dc/resource/dcn303/dcn303_resource.c   |   1 +
+>  .../amd/display/dc/resource/dcn31/dcn31_resource.c |   7 +
+>  .../amd/display/dc/resource/dcn31/dcn31_resource.h |   3 +
+>  .../display/dc/resource/dcn314/dcn314_resource.c   |   1 +
+>  .../display/dc/resource/dcn315/dcn315_resource.c   |   1 +
+>  .../display/dc/resource/dcn316/dcn316_resource.c   |   1 +
+>  .../amd/display/dc/resource/dcn32/dcn32_resource.c |   2 +
+>  .../display/dc/resource/dcn321/dcn321_resource.c   |   1 +
+>  .../amd/display/dc/resource/dcn35/dcn35_resource.c |   2 +
+>  .../display/dc/resource/dcn351/dcn351_resource.c   |   2 +
+>  .../display/dc/resource/dcn401/dcn401_resource.c   |   1 +
+>  .../drm/amd/display/modules/freesync/freesync.c    |  13 +-
+>  drivers/gpu/drm/amd/pm/amdgpu_pm.c                 |   6 +-
+>  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c          | 169 +++++++++++---------
+>  drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h      |  17 +-
+>  drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c  | 167 +++++++++++---------
+>  drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c    | 170 ++++++++++++--------
+>  .../drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c    | 171 ++++++++++++--------
+>  drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c   |  41 ++---
+>  drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c    |  43 ++---
+>  .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c   | 175 +++++++++++----------
+>  .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c   | 139 +++++++++-------
+>  .../gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c   | 165 +++++++++++--------
+>  drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c             |  33 +++-
+>  drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h             |   6 +-
+>  49 files changed, 1031 insertions(+), 615 deletions(-)
+
 -- 
-2.43.0
-
+Simona Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
