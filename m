@@ -4,145 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1EA5E77173
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Dec 2024 09:19:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 769B9E77180
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Dec 2024 14:05:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9AB0810E498;
-	Mon,  9 Dec 2024 09:19:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BEE7310E4C8;
+	Mon,  9 Dec 2024 14:05:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Y682iSX2";
+	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=toralf.foerster@gmx.de header.b="Los3TLxq";
 	dkim-atps=neutral
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2071.outbound.protection.outlook.com [40.107.102.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7942D10E498
- for <amd-gfx@lists.freedesktop.org>; Mon,  9 Dec 2024 09:19:05 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eRM8DJ221Enu+wYosPaYC7/hGuGg6PyC0dWiNPp5QEMkNJ+fT4K8PR7W2WRiYki240eX60m4uLSmaysJRamsU3Ah+vLnvJY4SWPsND3XSVi8/kACIhJMM8y3jUtlbKQZIU7aSAz58Hi2c21Bou8QoT1caePxGRyy57PJf6W38+Nh35+GRpEypLY7vdpP/J6+MkLcYP1bAxhuMML85/J/+z+dFtGWtpgsor1MnhPvqHLpSMRMB4hdgXqLamARJvw4bgt7eJCAkTsDwGLFTUzlxjDBnbzj6oyjHpjmt2DTRuf1fDBTayf/crUedeuS/mIFyB9sbIBmSXQSTMY5T7i3hg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2YFbWt6LsZCu81/TBxY7VQ5jHhASkOrEAnn9V2+G40A=;
- b=EL4RRUlPyFXSKd/cyNHA3+oHFkBwj8qhOpmxb3VrWuXpEzllUSaF1u+dN+KIUc3D3igRgv2tudC9zVvJzuQP9tKXdQ3TKdby8ptroj+uJLdHZ8h5XsCUbTDlQgQ1ozna7f97jy7dfluHf+kJT10h8oF5Ri1OcgEjUL/yNH5RPFPzIC4D1JpCHNGTfNPxMJQB4Z+r7aTBDRto61gY5+FmWDZDr+/wBiMITjVJIQITvozOl+mmm/Tf8/DmsRL8xEh0aN2UmIXhr20lbL/BF6u0UHNdGki5M8v6zD9yWlENMcYWfbz86JuwVAkYP3vMbTsf4sSIgpB4vxgscsxhrGxuZA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2YFbWt6LsZCu81/TBxY7VQ5jHhASkOrEAnn9V2+G40A=;
- b=Y682iSX2pZhIM/pqj8zJcKwOED7ggsEp6X7zxjJ2heVqSJ1OpmdvWQ0lflk2+mVjBuLrp9s3yBTUUKdByyXlCuFstN22Sqn5x7CnXDbQmGMipBcB4HoZgvX+L8KiX0KRfbvQlYwdgRqeGQ20Va/zNEvANJw4G4mL4Wk+GcrgsWU=
-Received: from PH7PR12MB8796.namprd12.prod.outlook.com (2603:10b6:510:272::22)
- by BN5PR12MB9488.namprd12.prod.outlook.com (2603:10b6:408:2a9::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8230.12; Mon, 9 Dec
- 2024 09:19:02 +0000
-Received: from PH7PR12MB8796.namprd12.prod.outlook.com
- ([fe80::910f:c354:ea0d:1fd]) by PH7PR12MB8796.namprd12.prod.outlook.com
- ([fe80::910f:c354:ea0d:1fd%4]) with mapi id 15.20.8230.016; Mon, 9 Dec 2024
- 09:19:02 +0000
-From: "Zhou1, Tao" <Tao.Zhou1@amd.com>
-To: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: improve RAS ACA to avoid binding unsupported
- RAS blocks
-Thread-Topic: [PATCH] drm/amdgpu: improve RAS ACA to avoid binding unsupported
- RAS blocks
-Thread-Index: AQHbShjZDOtr1MqgE0m4eAyrrKtlxbLdoowg
-Date: Mon, 9 Dec 2024 09:19:02 +0000
-Message-ID: <PH7PR12MB8796105FC0B6EF80BA4227DEB03C2@PH7PR12MB8796.namprd12.prod.outlook.com>
-References: <20241209090038.3255608-1-kevinyang.wang@amd.com>
-In-Reply-To: <20241209090038.3255608-1-kevinyang.wang@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=446ba45d-00d6-42dd-9d71-23206c8a8cdd;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution Only;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-12-09T09:18:55Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH7PR12MB8796:EE_|BN5PR12MB9488:EE_
-x-ms-office365-filtering-correlation-id: 68737477-4d67-4f5b-50d2-08dd183285b8
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|10070799003|7053199007|38070700018; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?eSZ6hXcEcxxF/9qIVAYSurez/EwmU05EYen7zh8umTWZOWNW2DoHufLV2GBs?=
- =?us-ascii?Q?d7vfIweaMJt5xjl5TNwC1y1vUhi8fjTPMBO2p2Cl4CDq2WfCP+kigFEfVX5G?=
- =?us-ascii?Q?722a1LXmCtBy9eUwyhwtnaoADWRVvCkzI24MYqZ9uxVp0MHPH5xijxQ4J13E?=
- =?us-ascii?Q?iqZbre/ezjfFhtX8zD5wC14Z5s5ItVIiwtNW0JF0luLzoQNJBxRzTsYHnNkp?=
- =?us-ascii?Q?TukYmQaofe7pR+zahtSwp0oCZZ9G7EMEsSJdIEj9l0fdKTwLEhbirr/xpo16?=
- =?us-ascii?Q?CH/8wXjIdwZJvZvzaPzJy0PiAk8CVPWI5OQA21NxfvgccAgfXttuGqsStlQS?=
- =?us-ascii?Q?eIx+MWES9KmQkS92aG2L0goydFo5kmz8BotBnSk4SMtCv2yy0qLbaD+Jylt7?=
- =?us-ascii?Q?e6UL4Q9K14/NLsRlp2p28keXe7HffCraCk587zhktcJeJaGPN4NyybsQAYMn?=
- =?us-ascii?Q?bTE10IPaWDttrahkkFJIUGCFJ1nPIvS1MMhMAGdwrRNQ2MBSMxe07UbUxYnB?=
- =?us-ascii?Q?QfV4c949XlUgvDkEhjSovkCyhrQErCRwlswfJ8GybCo5jd4UJ5tQ7U8PapJY?=
- =?us-ascii?Q?0DHqBZXPSJAQe6MBuQIEsoeJNPLz13FVmTGwbw15cy5RV5kpfQj8T+kY+qYo?=
- =?us-ascii?Q?U7aPQot6UfPreXZALZqdlYhCtFobdCiORT/91bC5K9vWsLJGCk4+Tx7iCump?=
- =?us-ascii?Q?/5jPyoUFTJB1KOLI2QUHB9z1p+/M6k2i2Mb8I3jici6KWIpipB2cXz/Ows1L?=
- =?us-ascii?Q?mzLlzdd7i5dhye6RT0hs6B7Le+hjjJEniIVmoqATL02BiJ1NFb37xCv6NaGr?=
- =?us-ascii?Q?Ip+5HncvGeNLoM9FBXGN0preARugKd1rEqs9H7FGYh15zcEDHvNDXKOwyazN?=
- =?us-ascii?Q?pO2CAsbvAiQC8W0VHV2+L08LgO1E+1hs5aEFM3uiQXJKC2O5c4faQFEOT+4T?=
- =?us-ascii?Q?SK4cuYTLGa6+dfZ8gzDgZvsgQnYSK1AJ/yPFSRozstqcF20sKXS4gNfaVHM+?=
- =?us-ascii?Q?I6vr00ZoVlaqssvG/0JOSsydJP3ohjccbwsRdoLuRvGi4d4TeZyC7ujIdZW2?=
- =?us-ascii?Q?A8ue71g6TNnG/wmOH07J+7slVxpY4TiGIvNM4iUxajiWW17lzTPjD1qGMNE6?=
- =?us-ascii?Q?dIfxXxzD7umMwymCURvzKwbDNEOGEDefzcivkSvhu7CTr1N3vnKnvV1+0hVJ?=
- =?us-ascii?Q?vhBpmceIuEAnwBmkLw7z1ulKJLOHvDo4Qv3mqHu8RcELJEzuetNE1/z/PDQ+?=
- =?us-ascii?Q?8XxD8wSND7TDSUenXLpS5WtNEakVc8y42+Dmw9LVjf45df9Fulp9YOQjLZL3?=
- =?us-ascii?Q?fjvsoe1Zh/QSUui5dW+s/hSy4xW5wN9i/p4aZ9YXrvgpBrLX32Xr7C2uIE7q?=
- =?us-ascii?Q?dzolEdjwhPiTT6XkG7r72No1l7M8oObsUJwBcOdtdktu5fqg9Q=3D=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB8796.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(10070799003)(7053199007)(38070700018);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?yV7dm0rTAPH5meJvhyj8jKln2wqCVMOBO/e3/7hr7j4vxCAKsNwGI+wZ6RDI?=
- =?us-ascii?Q?NsjPK1rw/URJapneq0ueH3Bi676aX4LSKlgsf+76jMrDv5zdaTPw6XCKgxuy?=
- =?us-ascii?Q?Mp2F7bYLnlFNlP7SqadNHaKOUIuraHPINPYELGOE1npGJ3qcNmxu/tJm/xPb?=
- =?us-ascii?Q?ZAQbNaB/LJ4XysCqamkGl65WH9e7FAgRWmQC72iKRMS4hsVFRUs4gGFle1zs?=
- =?us-ascii?Q?eqVDw+8tClZ46E9FZRuXZSk1aBzlEquEUXS5I3gbTybMQTt3MN8nnviR0KJR?=
- =?us-ascii?Q?d/SWUJc4+4pTEiPv8xlstaQ898G/dBlDlvIcpF9I/JclIkkTqZRGfExdrAW+?=
- =?us-ascii?Q?yl8SDclUcev8sGjvslPALjLCqxSmqGnUkTAq9q4AgKXzFrWMfZSM662dgwej?=
- =?us-ascii?Q?A6kYSHhPFATA9ujiXs2tMKUJ4hRRapU/zZG8azUYlBA9rc/D79KCHvBc2J2f?=
- =?us-ascii?Q?5Kf9cL+5jofj4IKyirMCN7p5T6gpzELBZYVgir0jMZyrev+Bj1wpeuI/BZya?=
- =?us-ascii?Q?f63QxDX5P0T8YmhtQIFe+Ns/8aFP8JVtjGLPB+nVL1PrHZBQlB2vj9osxv06?=
- =?us-ascii?Q?+uxPMh9bTOsK55hhMBMrgw8/bGfzzbOB73FLpZGlgGdJKw+VhaJ+qb7Z4XGB?=
- =?us-ascii?Q?OBwYZIrOp6kxNYzi36+pugCibOnl/x+F2duVxFN4IoNkyOHXyiK3A5x5MbZH?=
- =?us-ascii?Q?0bX6n5LwnJyzcYUT61T2VdslGSFMNjvEieUplfqhGYungMeKu8zqt7XtnEux?=
- =?us-ascii?Q?90GZvDmu/4BQl1e5pK7WDZslzxHGPxWbm5RiAt1/k4WPJ7Mwge6gCsjTtdBm?=
- =?us-ascii?Q?4he/qvoanLLwi1RG1N+C9FsVYOuTctprc+E8G6F8SwhBBGIvCaujjPfdHR85?=
- =?us-ascii?Q?maiXGnpL7LT/xfwxTwz8xUenfGtMXGcZ2FbffXEQM2r4iMFnOAinidT0OWgC?=
- =?us-ascii?Q?sqretAj0/hHIcZXJmtM4CxNjGdH3mu4OUnzNrTdR8YV+r4Np5JSbMurhpUlD?=
- =?us-ascii?Q?dWT/TeHlKk6YRou+XJdvcEzVoHOyWuYfgwei9HXjh3t4cS6GYSyOyM5u4tl/?=
- =?us-ascii?Q?6Bogu9sEiJ/OHCFLkqVguSrVSZ+Q7BcC3uTWA7ntw24rw6RTostdmCnjOXHp?=
- =?us-ascii?Q?WN/ZqPsq1PywZvh5QBsEzmp8ewxVkzO+SEW1NmchqUKE/mezdGXAuoTKUJRv?=
- =?us-ascii?Q?yAZTNZ6Dc2PDECOHUibZPs3ZtiSvuDPWO6hlPOSI/vF4rkzCuV90HDwJlWS8?=
- =?us-ascii?Q?fl4uSPB8efWyBbiQdVgmKP02A2H/Lj40yEV0TyRKAHyJCbtWP8HvgWVH62nP?=
- =?us-ascii?Q?YEelcOhA14y/dKVoIq/V0u0Y6d+RDFAkKMfVHZ+k7C+f768DCQ2l202NaAlQ?=
- =?us-ascii?Q?/nS4+dTkxwlBL5LY1TxBL4E497S7+OjBUNse1N+Ad/62SVXHq04QBZLxHyy5?=
- =?us-ascii?Q?Y5leElRP+Gl7rIcqTmwJmnqxHwzJhj2tbprYzAaTJNAs4oxfgo+ti3DBei/3?=
- =?us-ascii?Q?xrX/FjCOsUkjEQOcHv0gwq9Bq6kkxS7zKM1qAzTdhUihvQEwoi2rYJFnW6sG?=
- =?us-ascii?Q?u2ndt8fTN/4ox97O1Z3ERltRW4RsSrqATXF5SA91TymR8wA0puo8rPgUsiR8?=
- =?us-ascii?Q?cD8B1s1hWWRem2A0U7wHIvo=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D03410E6B7;
+ Mon,  9 Dec 2024 10:08:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+ s=s31663417; t=1733738908; x=1734343708; i=toralf.foerster@gmx.de;
+ bh=++GSIVtMPvhelwP5xwNl0IfmdO/ctiFEal2GziBdmUc=;
+ h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:From:To:
+ Cc:References:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+ cc:content-transfer-encoding:content-type:date:from:message-id:
+ mime-version:reply-to:subject:to;
+ b=Los3TLxqctonPt/IjJifsiy4ra63zkNqLlqov+AuWN9qcEizGpKraQXVIWk5ZVeC
+ oUPYk79Rml85n4quPmjeKuYGVON1UdBhcjof20HaxOgabjga3OX5iilQ33oQtJSP/
+ YKYsKQc6R4f8J3eWSKJt1a64orYPm/zPGhAeRfXH9COBWsp1YVAl+8Jd1s1LeV9lV
+ tp8LM3CxhmR1U3rG7Th/a+Y+eeAEUlXjX4b98VEsb24rAtCsjw3GsO4ISAggxaIV/
+ woSALVUMmLJvBDng58RVZNwkbifrMrveCD+Ttwyv8wrqaIpt5CT276ktJwW727bBy
+ fZ7L0CNkJIisVgvc0w==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from [192.168.178.33] ([77.8.121.179]) by mail.gmx.net (mrgmx005
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1Mnps0-1tzlKb3RIA-00bRw2; Mon, 09
+ Dec 2024 11:08:27 +0100
+Message-ID: <b77c293a-8418-437c-b879-7d292d96f2cc@gmx.de>
+Date: Mon, 9 Dec 2024 11:08:27 +0100
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB8796.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 68737477-4d67-4f5b-50d2-08dd183285b8
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Dec 2024 09:19:02.7210 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Cbabi1Sx2JMxp8s/cDrjaIoBrEwNX7ytAbM+wh5U61bzeQic43hbm03xEhGLpChW
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN5PR12MB9488
+User-Agent: Mozilla Thunderbird
+Subject: Re: 6.6.57 has a new WARNING:
+ amdgpu/../display/dc/dcn30/dcn30_dpp.c:501 dpp3_deferred_update+0x106/0x330
+ [amdgpu
+From: =?UTF-8?Q?Toralf_F=C3=B6rster?= <toralf.foerster@gmx.de>
+To: Linux Kernel <linux-kernel@vger.kernel.org>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel
+ <dri-devel@lists.freedesktop.org>, airlied@gmail.com
+References: <b110ad59-f503-492d-9758-1634c1277b5d@gmx.de>
+Content-Language: en-US
+Autocrypt: addr=toralf.foerster@gmx.de; keydata=
+ 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
+In-Reply-To: <b110ad59-f503-492d-9758-1634c1277b5d@gmx.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:qPBSZ9kU9yi3FNk66Rpoj3F10Z9DR9Pu6clIiJcJeZwFB+W5C5r
+ 67whLsoMOpzFT972xA6UchezNDCqXYVHlHphd6fb8NfDx0BQaytVywgbNaWx+mXASNsnc+6
+ FnIwFT/WPd8S6MqpNXPDXtRd8WOJzcJIWKMZjuc8J1VEf0vcfGcHLvcMecJS2ftaxSkeotb
+ XRJcV9LGWw+7z57gDjCHg==
+UI-OutboundReport: notjunk:1;M01:P0:wOIRnsUMyUc=;eCbegi37DDA93hhqwbZlbiHFgU8
+ YxOvRGZmp0kXqzBNAQXx42AIk+7rwtEdMAmQMA/gbTU1iJpvUhxOV1dsLR7BHZGUQ9/Q2nkmz
+ vPCdCVO9Nbitv7AMhdnoJQSrZxPiHMRxjdS3DAuAffYrZ+BlW1TaPxhruPaQiEgxCSdpNGkjp
+ 7yiwDqD9kYNlajcI8F/MwC2q17AEYeDUNak5CGAey6xX78xauAtfvW2MMdOKLUaghT/vhaXTG
+ 0UL+ZK5AKWff7eVb878v5BaCjhfzJnhRG2AIgZdygY9Vpx83degifmX8nv/eUXKA2ZzKsOC5J
+ huCFvjNCRB+IreAoiMVM/w43uor0GWLqqNVUc+KQDo7nnDZ5a6Ld/yQf8EN4aRlC6qQAQ/eYh
+ g+rsqGfvTT6EtCJmkAARRmDGIuavavwL77LQqN1/7KIB8jeH0hDhrBn+6jISJ1DAC3d1dfH8S
+ m5n4xy3Hch6wHymsINj5cxRtqdGqPr/9sLWwFY5QEh/H4p5mdyPqLD1Vii3bby+rXw1nu+W+8
+ l6YOD/yiVxH5IPtqSwAxWodLKFQ+x/kuwzb/kheQUEX4tAGx9Lpay7qQYnQ/gy58fzEep6VMu
+ A3Qql9vQ8jTow5nrtX+84jU4dps5twdnkdnl/pmWJjQtreRvyU1TyKjLPgis0iFEL77Drsafm
+ MfaTv8KxzU7hLAEO9vQh7Lz8SVuxxJ83YITH34Psn5ctYgaGP5MfSeEs3wXz7Oglzu5iRfQWF
+ iCj7nGarlxNKG+grS+VpufFKExEIXM7oq9ehM6MJRK++mS3XvC2jStyFOR64whiT9T1IU7PdJ
+ OOx90QAPtmf4GRKjAsjbmxjjSwjjllaZtql8uhD+2fGHDBhraW2QQii+wTgGw/wNyiduKf5NY
+ dtXB7cqlS0sGelwTCVNJKyYFBBHtxUI8a3kAi1kYQ6CZXksyfpuWSH2Gvbxfu/4vaBuvkq7YL
+ lCfVwPSdf6HeO0pGfnYx7yX/iOFG7dw6vP2dHvi4tk/howZR7cXtCXm8ikw9z6tS6CCMoKNW0
+ ahU8ojSV4dCc+wwuJ7eJVkFkrHLodptYy9NOW+RBU+yUPN7o6s2Tt65Vz8ffLM3Onw6YihlHb
+ xXBx4oNE9gnuGrskL+KJI4dwz7E+mF
+X-Mailman-Approved-At: Mon, 09 Dec 2024 14:05:53 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,55 +132,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - AMD Internal Distribution Only]
+Since 6.6.57 there'se a new warning here which is still in 6.6.64.
 
-Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
+Is this a known issue?
 
-> -----Original Message-----
-> From: Wang, Yang(Kevin) <KevinYang.Wang@amd.com>
-> Sent: Monday, December 9, 2024 5:01 PM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Zhou1, Tao
-> <Tao.Zhou1@amd.com>
-> Subject: [PATCH] drm/amdgpu: improve RAS ACA to avoid binding unsupported
-> RAS blocks
->
-> Improve RAS ACA code to avoid binding unsupported RAS blocks, thus avoidi=
-ng
-> invalid ACA Bank to ACA Bank cache, and also reduce system memory
-> consumption.
->
-> Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 6 ++++++
->  1 file changed, 6 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> index db081618e85c..54426e04c7bf 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> @@ -1302,6 +1302,9 @@ int amdgpu_ras_bind_aca(struct amdgpu_device *adev,
-> enum amdgpu_ras_block blk,
->       if (adev->in_suspend || amdgpu_reset_in_recovery(adev))
->               return 0;
->
-> +     if (!amdgpu_ras_is_supported(adev, blk))
-> +             return 0;
-> +
->       obj =3D get_ras_manager(adev, blk);
->       if (!obj)
->               return -EINVAL;
-> @@ -1313,6 +1316,9 @@ int amdgpu_ras_unbind_aca(struct amdgpu_device
-> *adev, enum amdgpu_ras_block blk)  {
->       struct ras_manager *obj;
->
-> +     if (!amdgpu_ras_is_supported(adev, blk))
-> +             return 0;
-> +
->       obj =3D get_ras_manager(adev, blk);
->       if (!obj)
->               return -EINVAL;
-> --
-> 2.34.1
 
+On 10/17/24 17:05, Toralf F=C3=B6rster wrote:
+> [=C2=A0=C2=A0 22.120385] ------------[ cut here ]------------
+> [=C2=A0=C2=A0 22.120389] WARNING: CPU: 13 PID: 11 at drivers/gpu/drm/amd=
+/
+> amdgpu/../display/dc/dcn30/dcn30_dpp.c:501
+> dpp3_deferred_update+0x106/0x330 [amdgpu]
+> [=C2=A0=C2=A0 22.120484] Modules linked in: fuse michael_mic hid_jabra
+> ip6table_filter ip6_tables xt_LOG nf_log_syslog xt_recent xt_multiport
+> xt_limit xt_conntrack nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4
+> iptable_filter xt_comment ip_tables 8021q r8153_ecm cdc_ether usbnet
+> r8152 mii hid_logitech_hidpp snd_usb_audio snd_usbmidi_lib snd_rawmidi
+> bnep hid_logitech_dj btusb qrtr_mhi btrtl btintel btbcm btmtk bluetooth
+> ecdh_generic dm_crypt trusted asn1_encoder uvcvideo videobuf2_vmalloc
+> videobuf2_memops uvc videobuf2_v4l2 videodev videobuf2_common mc qrtr
+> ath11k_pci mhi snd_ctl_led ath11k amdgpu snd_hda_codec_realtek
+> qmi_helpers snd_hda_codec_generic snd_hda_codec_hdmi snd_hda_intel
+> i2c_algo_bit snd_intel_dspcfg drm_ttm_helper ttm hid_multitouch
+> snd_hda_codec agpgart drm_exec intel_rapl_msr hid_generic
+> drm_suballoc_helper snd_hwdep amdxcp think_lmi mac80211 wmi_bmof
+> firmware_attributes_class drm_buddy snd_hda_core libarc4 thinkpad_acpi
+> snd_pcm gpu_sched snd_pci_acp5x ledtrig_audio drm_display_helper
+> snd_timer platform_profile
+> [=C2=A0=C2=A0 22.120565]=C2=A0 snd_rn_pci_acp3x cfg80211 intel_rapl_comm=
+on
+> snd_acp_config drm_kms_helper snd xhci_pci edac_mce_amd sp5100_tco video
+> snd_soc_acpi xhci_pci_renesas kvm_amd kvm irqbypass crct10dif_pclmul
+> crc32_pclmul crc32c_intel ghash_clmulni_intel rapl serio_raw ucsi_acpi
+> cec rfkill r8169 i2c_piix4 xhci_hcd ccp soundcore k10temp typec_ucsi
+> i2c_hid_acpi snd_pci_acp3x i2c_hid roles typec drm wmi amd_pmc acpi_tad
+> [=C2=A0=C2=A0 22.120606] CPU: 13 PID: 11 Comm: kworker/u32:0 Tainted: G =
+=C2=A0=C2=A0=C2=A0 T
+> 6.6.57 #12
+> [=C2=A0=C2=A0 22.120609] Hardware name: LENOVO 21J5002FGE/21J5002FGE, BI=
+OS
+> R23ET60W (1.30 ) 09/14/2022
+> [=C2=A0=C2=A0 22.120611] Workqueue: events_unbound commit_work [drm_kms_=
+helper]
+> [=C2=A0=C2=A0 22.120628] RIP: 0010:dpp3_deferred_update+0x106/0x330 [amd=
+gpu]
+> [=C2=A0=C2=A0 22.120709] Code: 83 78 e1 00 00 0f b6 90 a7 02 00 00 48 8b=
+ 83 70 e1
+> 00 00 8b b0 78 04 00 00 e8 f6 9e 09 00 8b 74 24 04 85 f6 0f 84 5d 01 00
+> 00 <0f> 0b 0f b6 83 48 96 00 00 83 e0 f7 88 83 48 96 00 00 a8 01 0f 84
+> [=C2=A0=C2=A0 22.120712] RSP: 0018:ffffc900000f7b88 EFLAGS: 00010202
+> [=C2=A0=C2=A0 22.120714] RAX: 0000000000000066 RBX: ffff888113e60000 RCX=
+:
+> 0000000000000000
+> [=C2=A0=C2=A0 22.120716] RDX: 0000000000000000 RSI: 0000000000000002 RDI=
+:
+> 0000000000000000
+> [=C2=A0=C2=A0 22.120717] RBP: 0000000000000000 R08: 0000000000000000 R09=
+:
+> 0000000000000000
+> [=C2=A0=C2=A0 22.120719] R10: 0000000000000000 R11: 0000000000000000 R12=
+:
+> ffff88813e100000
+> [=C2=A0=C2=A0 22.120720] R13: ffff88813e102608 R14: ffff88813e1037e8 R15=
+:
+> ffff8881050be800
+> [=C2=A0=C2=A0 22.120722] FS:=C2=A0 0000000000000000(0000) GS:ffff88881ee=
+80000(0000)
+> knlGS:0000000000000000
+> [=C2=A0=C2=A0 22.120723] CS:=C2=A0 0010 DS: 0000 ES: 0000 CR0: 000000008=
+0050033
+> [=C2=A0=C2=A0 22.120725] CR2: 000055d896379fe0 CR3: 0000000017216000 CR4=
+:
+> 0000000000f50ee0
+> [=C2=A0=C2=A0 22.120727] PKRU: 55555554
+> [=C2=A0=C2=A0 22.120728] Call Trace:
+> [=C2=A0=C2=A0 22.120731]=C2=A0 <TASK>
+> [=C2=A0=C2=A0 22.120733]=C2=A0 ? __warn+0x6f/0xd0
+> [=C2=A0=C2=A0 22.120739]=C2=A0 ? dpp3_deferred_update+0x106/0x330 [amdgp=
+u]
+> [=C2=A0=C2=A0 22.120820]=C2=A0 ? report_bug+0x148/0x190
+> [=C2=A0=C2=A0 22.120825]=C2=A0 ? handle_bug+0x40/0x80
+> [=C2=A0=C2=A0 22.120828]=C2=A0 ? exc_invalid_op+0x17/0x80
+> [=C2=A0=C2=A0 22.120830]=C2=A0 ? asm_exc_invalid_op+0x1a/0x20
+> [=C2=A0=C2=A0 22.120835]=C2=A0 ? dpp3_deferred_update+0x106/0x330 [amdgp=
+u]
+> [=C2=A0=C2=A0 22.120907]=C2=A0 ? dpp3_deferred_update+0xfa/0x330 [amdgpu=
+]
+> [=C2=A0=C2=A0 22.120988]=C2=A0 dc_post_update_surfaces_to_stream+0x196/0=
+x1e0 [amdgpu]
+> [=C2=A0=C2=A0 22.121070]=C2=A0 amdgpu_dm_atomic_commit_tail+0x2a25/0x395=
+0 [amdgpu]
+> [=C2=A0=C2=A0 22.121166]=C2=A0 ? srso_alias_return_thunk+0x5/0xfbef5
+> [=C2=A0=C2=A0 22.121169]=C2=A0 ? newidle_balance+0x335/0x3f0
+> [=C2=A0=C2=A0 22.121173]=C2=A0 ? finish_task_switch.isra.0+0x30/0x280
+> [=C2=A0=C2=A0 22.121179]=C2=A0 commit_tail+0x8f/0x130 [drm_kms_helper]
+> [=C2=A0=C2=A0 22.121189]=C2=A0 process_one_work+0x17c/0x2a0
+> [=C2=A0=C2=A0 22.121192]=C2=A0 worker_thread+0x318/0x460
+> [=C2=A0=C2=A0 22.121195]=C2=A0 ? rescuer_thread+0x5f0/0x5f0
+> [=C2=A0=C2=A0 22.121196]=C2=A0 kthread+0xcb/0xf0
+> [=C2=A0=C2=A0 22.121200]=C2=A0 ? kthread_complete_and_exit+0x20/0x20
+> [=C2=A0=C2=A0 22.121202]=C2=A0 ret_from_fork+0x2f/0x50
+> [=C2=A0=C2=A0 22.121206]=C2=A0 ? kthread_complete_and_exit+0x20/0x20
+> [=C2=A0=C2=A0 22.121208]=C2=A0 ret_from_fork_asm+0x11/0x20
+> [=C2=A0=C2=A0 22.121212]=C2=A0 </TASK>
+> [=C2=A0=C2=A0 22.121215] ---[ end trace 0000000000000000 ]---
+>
+>
+
+
+=2D-
+Toralf
