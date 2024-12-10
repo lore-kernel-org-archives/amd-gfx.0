@@ -4,106 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B320E77182
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Dec 2024 21:20:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6776E7717F
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Dec 2024 21:47:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F30BE10E994;
-	Tue, 10 Dec 2024 21:20:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5899810E00C;
+	Tue, 10 Dec 2024 21:47:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="GYXTu5hw";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="iEAO7Ya6";
 	dkim-atps=neutral
-Received: from mail-lj1-f178.google.com (mail-lj1-f178.google.com
- [209.85.208.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE99110E97E
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 Dec 2024 21:20:31 +0000 (UTC)
-Received: by mail-lj1-f178.google.com with SMTP id
- 38308e7fff4ca-3011c7b39c7so28971151fa.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 Dec 2024 13:20:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1733865630; x=1734470430; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=yF3vBmNZS9MU6AYhmkZOCnnb/mhvQHCH0jIPUUHFQrU=;
- b=GYXTu5hwODkGHe3hMDIcBzdLz6sd9WCs7EzNK6Om4e7iKZAAcSNcbiyzgRSRzlm7Tr
- rbfPtowRZd3CNp7MV0pstXKaazTyMu2dzMECG1CBtETWYjegBzEgUm0RFZF1IrPb8d9o
- /pl/sVcHUOASLTsrwpii3CEn8hbrcXj3ga9Q4iYui5IN5R4VyEWdSN+DmDh1Y2Df2kme
- lGICeYQJH4sTSrMlOYRxNXEb+bSCylhSVo+9z/Q27NVpawUSqDne4FJbZyoTV+AusPMZ
- VDheN79kYFbTMaBGEna8GkRddHl1+2qCn9r6+7KtHu7bGFii9KdMogSewWjRUcyvv9mN
- 55WQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733865630; x=1734470430;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=yF3vBmNZS9MU6AYhmkZOCnnb/mhvQHCH0jIPUUHFQrU=;
- b=d/hyAKRIBMklsHXDr+GKVLKuxPGscYuZmUEgBZk3RmW4GJiSXTiCWjKYYShjY5slLS
- 8zuOyTMIh7FsDfDx2wzsYO1uOTcRYkB3+oFuuIwcx4Xm/GEJlkRf8k4xYShdv43oNbCx
- 3LQFFNZmUUZ8GDsyP3l8NrSX3+o4NxsRobEfUOhKGcywdwTw7aashI60cQhmH6/yCAlh
- qelcXUP2F0NTyh2mLpGIcfwONu8eyK4jqEKDHziWG0whXpuZ12GN9H4KYBU/V17Xkr5L
- EE9aileL3JdTGnZ/3EwjOxXUnr0prv4sZDNELS5LhmWxnwxD6UpPIQMwXhCtUjyvpU0/
- O7Cw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUQzvvj56ynyr1H/YBd3qTZBbV3JQDHyBZNNe9uBq9d29c6aDftz0Pz08D9sqb1jHDqYmAleMnw@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxw4XIj893vwCbhk3Z2duwE9NuYctoHUf29d/Nj1LGjEj8Z2/sr
- 0Kpm4RZrPg4i1feVwL+ezeYSAcmCLqU3+iuMc9dftGe6Uaf9/IaV2GbHwd4jCH8=
-X-Gm-Gg: ASbGncvsn8z3Ieupu3Scom3zPDQBH+anocO8iB1bMgG6UDLaVsZNgSBbhjveyK5tvhn
- jnrpn7mT00zXsYxkaO5rO2B49wZv24Pqkac1vwLdT7VSCGZCOZ383dvXGHwVXAeQxWRmnRomGVZ
- EYI7I0I5+FuAZ5tBwXstUAL9do49/HMS5M9kT7Cles3lohAcjwURn4aCrL5ns2ysZjqF5Xo2B7c
- iQuLHi6orH6/cT4A0ZOWjJTy1CNhSnLRmRBfPyPJOUH1U4s/nbdvVi4mkNjRke5j7jaYFfkw/2k
- nhxFgfZ5uhMrHnamk6z+aimptjnEk43vbQ==
-X-Google-Smtp-Source: AGHT+IHCODZIQ0z4mmWtV1wEX8j8zg9S/BNFluONyQd2XvnZpEGUwS4bPVxg3YoPJtWqjVmMgWar/A==
-X-Received: by 2002:a05:6512:3990:b0:53e:368c:ac4f with SMTP id
- 2adb3069b0e04-5402a5d3d6cmr107076e87.9.1733865629981; 
- Tue, 10 Dec 2024 13:20:29 -0800 (PST)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-53e34569209sm1395827e87.128.2024.12.10.13.20.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 10 Dec 2024 13:20:28 -0800 (PST)
-Date: Tue, 10 Dec 2024 23:20:26 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Xinhui Pan <Xinhui.Pan@amd.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Phong LE <ple@baylibre.com>, Inki Dae <inki.dae@samsung.com>, 
- Seung-Woo Kim <sw0312.kim@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>, 
- Krzysztof Kozlowski <krzk@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, 
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- Alain Volmat <alain.volmat@foss.st.com>,
- Raphael Gallais-Pou <rgallaispou@gmail.com>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- amd-gfx@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
- linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-Subject: Re: [PATCH v2 04/10] drm/amd/display: use eld_mutex to protect
- access to connector->eld
-Message-ID: <pgi7p3aemxm3db2k27vi5euh6q6ppayrw6y7tcfeq4g5z23hzr@xousag2qhobp>
-References: <20241206-drm-connector-eld-mutex-v2-0-c9bce1ee8bea@linaro.org>
- <20241206-drm-connector-eld-mutex-v2-4-c9bce1ee8bea@linaro.org>
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on2074.outbound.protection.outlook.com [40.107.96.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F396010E00C
+ for <amd-gfx@lists.freedesktop.org>; Tue, 10 Dec 2024 21:47:22 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bN4XHvuroth83je58lPp9qGHMEXs0ewSLPX98ChaTYlofhEHw9FDj6BgGCP9ZlBmF+iZ7MebFq6QmHRGgp0GcWulkImWdrbCPRetGGX8K/eq9QXgrJ+r+5mZzb1bt4lim4MoBSLV+Bv9HK+r9w0B8tj3o2z+gN5BK5nCNaPtDdJGhRq/ozqVY509oasCNctX1+SU/dwI7p3pvXmi6o7wIURkcFz7O44kELkNS6ZmI137/C24QlayitCQ+rRe+4+LKkPe5IQoldVyrHuIP39utvapToc12BVbp2fMdXzvLMDCPfMct/p6arKSPr3pvpPDE98NSgowMDwyH054dhSLkw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GT+bm9KAhEBo17L8XzMa93G2ZsPesfsft4RXnOxj/co=;
+ b=p7mHtryOUyQ8wReMC0JaHWezS5+yqii5zwXdJWXF/pMWjTs6lQb+l2lMdtabVev0HUNij/VYzPomEFXzn6sWVetBl2CVf3iQAXGQUVFdnag5AQIbkLyz2ZcOy23Db0WzH2EpEtWbAHELKHJR9yBGuukUa9Kp+swAshmrwEoUF0bg3kC72Hvxpy6rArWqV2m/G3HurU3z4/hFYuAeg34Z94zQD6oKKGa6a8IyUJ7qaEGq5FATUWBTCFlKEoBn5/hk2u22ShTru1kgNiBjgDNopSXLYcA03+rpSuyztZwkuQ1k+huJeOlzWHvMumwpPzaJrP1uHUUEE2Uny6fLgi5vwQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GT+bm9KAhEBo17L8XzMa93G2ZsPesfsft4RXnOxj/co=;
+ b=iEAO7Ya64ABTr/F8obxhMtnJ/3hXY3+cmjywhUnFPdn7EXKnpqSy3xZF16Y+2ViaZNOdAn1hHIt6pJQps3Gp1YFz3TONSX99nGdhBHh9fTVEuQXBwxQCLlT4A47L13UTm72n12YzbiO0zOQHzK2mIvHvpw20h6nlfrGSRbBF9lI=
+Received: from CH2PR07CA0035.namprd07.prod.outlook.com (2603:10b6:610:20::48)
+ by CY8PR12MB9034.namprd12.prod.outlook.com (2603:10b6:930:76::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8230.18; Tue, 10 Dec
+ 2024 21:47:17 +0000
+Received: from CH1PEPF0000AD75.namprd04.prod.outlook.com
+ (2603:10b6:610:20:cafe::d) by CH2PR07CA0035.outlook.office365.com
+ (2603:10b6:610:20::48) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8251.14 via Frontend Transport; Tue,
+ 10 Dec 2024 21:47:17 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CH1PEPF0000AD75.mail.protection.outlook.com (10.167.244.54) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8251.15 via Frontend Transport; Tue, 10 Dec 2024 21:47:17 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 10 Dec
+ 2024 15:47:16 -0600
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH 1/2] drm/amdgpu/jpeg4.0.3: use num_jpeg_inst for SR-IOV
+Date: Tue, 10 Dec 2024 16:47:02 -0500
+Message-ID: <20241210214703.34668-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.47.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20241206-drm-connector-eld-mutex-v2-4-c9bce1ee8bea@linaro.org>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD75:EE_|CY8PR12MB9034:EE_
+X-MS-Office365-Filtering-Correlation-Id: 95af123b-e147-4867-184f-08dd1964377b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|36860700013|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?nYguxI0ftyzIe1dNWsmuvfSw7MuL3JTl8NVDmArsB1sCDCFAchycf5HBoV26?=
+ =?us-ascii?Q?LF4m9byzQl1p8EEOKuAKDNWF5Z0VXRCY1uGIFEMSQHbvLIZ3EMJlt6/bDL8F?=
+ =?us-ascii?Q?/0cb1chdCHvwQ1jWcCKGaFroVeJINgnD2vICPjpppe0ypNW9j5KfD7BGfYwB?=
+ =?us-ascii?Q?3TqZem4bR5Z19QmZs0xNKrhLaSBkxbr/bFkWY3UCTzut3WgZvwYq8tO5N8uW?=
+ =?us-ascii?Q?8toynms8PNb+GQWHrvEAjB8k4rQDNgmR6CTCvFfn2/lKnA4TRaJq02961D/A?=
+ =?us-ascii?Q?cyR2XBTgvKrlx8QNmDTiHjmKm1g1dvzvo7l7YTZtdNOtbPqhCwvJSuENJgHK?=
+ =?us-ascii?Q?yFQ1nujAH6l9guaYs7YP3Jwr5p11K2vqAebBujr+lelco6O/Sc67h+jDEsSm?=
+ =?us-ascii?Q?KINcYVtciuztz1s5cN77BuG4Qv8E+fw5IFfMPElVXGq1/4b8AQ1IMElg3dm4?=
+ =?us-ascii?Q?0MdAISa367cUfytlyHYDYm4E4XgjVoFkLciVjfE/ixxlUNfkh5esMy9gxWlK?=
+ =?us-ascii?Q?U0tXVFNZClxqGWwqMBNArIx+5uKN9hHnDCKxptLhXHMAZzs6KuWtC02hQD2+?=
+ =?us-ascii?Q?P+uYEZxhs5mI1LXAHC2VNCgocgSC/anUmflheQ9XiXTSBPZEY983dFg7y5kP?=
+ =?us-ascii?Q?oBiraKWpFZLwpLlU0OWuuFwj8yU2DEUOXXeWm7pKc+q5HG609fwAKEQr+K4I?=
+ =?us-ascii?Q?uW85rE6vOOmR6uJOftzbyEHMBEhlIm+w3Fv6iraAI8Vs45ZsTq6h5Qu+NJXL?=
+ =?us-ascii?Q?A+zaGuJLWQ/DsERXW61E204Co2UfPCGJVq46wqlkIplQQB6WY13L9P3XL00E?=
+ =?us-ascii?Q?eF7NBI/17Q/jEUXwCBmD2q82hPCZqn44T8afJH7Q34WAaxcCGxbbnm2oOCun?=
+ =?us-ascii?Q?Vc8nAxdQ5GA4RkvXfdksllfAQJx33ATK47SiksU8e4Xos0syl2uCnl2M/RqZ?=
+ =?us-ascii?Q?ffeLFAoWK6P9fS7NAmBV6LtSsDHjgPAbgWQ39oIvKu65XpkIu8Q28IaMBJPy?=
+ =?us-ascii?Q?TjUI1sGseOLChwzeBY9Rxg2UzLPtJcmCagcS1+3JnONdXzU+tlpJJs7lkofm?=
+ =?us-ascii?Q?+tqeG+blb6+aX4PKXL3XbpeGgwjjxY7IZOE9F+sGiWORBYr3Ku+zDxT8K/z2?=
+ =?us-ascii?Q?Ng+szwVAOONl1R6T9kKeTL9SXeqKOe5VDZcRhIVwkLsaOWz4wcyOxjsWmnrs?=
+ =?us-ascii?Q?OMFLIl2mCr/aHkWZKROnWG1k5vaXytzvRhKBLXgWZF7zMxrRq4j4fu3u1k97?=
+ =?us-ascii?Q?FIcMzZ7Wa4chDttc6RQREbbAgYpnvIMV1kZYQi3Xz+bBU3R7qz//oGyExDJ3?=
+ =?us-ascii?Q?rKG2HNnlZSL4VVoI/QHtldPHS8JKEcP+PRmtq8RQ7A57FwuPqPauktkT2nng?=
+ =?us-ascii?Q?+iM6dsaXPj7mXLgOu06ZEOyy4FGP+9bC0kCa5esKCz5FrwgqDHxUJet5y2vw?=
+ =?us-ascii?Q?6uTDa4/BWNxW6gfpfuEnL9SMMKcYsfS7?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(36860700013)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Dec 2024 21:47:17.3935 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 95af123b-e147-4867-184f-08dd1964377b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000AD75.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB9034
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,42 +129,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Dec 06, 2024 at 11:43:07AM +0200, Dmitry Baryshkov wrote:
-> Reading access to connector->eld can happen at the same time the
-> drm_edid_to_eld() updates the data. Take the newly added eld_mutex in
-> order to protect connector->eld from concurrent access.
-> 
-> Reviewed-by: Maxime Ripard <mripard@kernel.org>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 ++
->  1 file changed, 2 insertions(+)
+They should be the same, but use the proper variable.
 
-Harry, Leo, Rodrigo, Alex, Christian, Xinhui, any response to this one
-and to the radeon patches? I'd like to be able to pick the series for
-drm-misc and these two are not reviewed by you.
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 19a58630e774029767bf2a27eb4ddf17e3c21129..04c68c320252b5ce9647f0606fb86fe57f347639 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -1037,8 +1037,10 @@ static int amdgpu_dm_audio_component_get_eld(struct device *kdev, int port,
->  			continue;
->  
->  		*enabled = true;
-> +		mutex_lock(&connector->eld_mutex);
->  		ret = drm_eld_size(connector->eld);
->  		memcpy(buf, connector->eld, min(max_bytes, ret));
-> +		mutex_unlock(&connector->eld_mutex);
->  
->  		break;
->  	}
-> 
-> -- 
-> 2.39.5
-> 
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
+index fd0490934f912..88f9771c16869 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
+@@ -321,7 +321,7 @@ static int jpeg_v4_0_3_hw_init(struct amdgpu_ip_block *ip_block)
+ 		if (r)
+ 			return r;
+ 
+-		for (i = 0; i < adev->vcn.num_vcn_inst; ++i) {
++		for (i = 0; i < adev->jpeg.num_jpeg_inst; ++i) {
+ 			for (j = 0; j < adev->jpeg.num_jpeg_rings; ++j) {
+ 				ring = &adev->jpeg.inst[i].ring_dec[j];
+ 				ring->wptr = 0;
 -- 
-With best wishes
-Dmitry
+2.47.1
+
