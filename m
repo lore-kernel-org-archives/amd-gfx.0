@@ -4,67 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4ED3DE77184
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Dec 2024 15:10:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 385E7E77186
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Dec 2024 15:10:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7974910EB82;
-	Wed, 11 Dec 2024 15:10:11 +0000 (UTC)
-X-Greylist: delayed 340 seconds by postgrey-1.36 at gabe;
- Wed, 11 Dec 2024 09:09:20 UTC
-Received: from mx0b-0064b401.pphosted.com (mx0b-0064b401.pphosted.com
- [205.220.178.238])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 834D610EAD7;
- Wed, 11 Dec 2024 09:09:20 +0000 (UTC)
-Received: from pps.filterd (m0250811.ppops.net [127.0.0.1])
- by mx0a-0064b401.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4BB7fYB0012824;
- Wed, 11 Dec 2024 09:09:14 GMT
-Received: from ala-exchng02.corp.ad.wrs.com (ala-exchng02.wrs.com
- [147.11.82.254])
- by mx0a-0064b401.pphosted.com (PPS) with ESMTPS id 43cx4xby8r-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Wed, 11 Dec 2024 09:09:14 +0000 (GMT)
-Received: from ALA-EXCHNG02.corp.ad.wrs.com (147.11.82.254) by
- ALA-EXCHNG02.corp.ad.wrs.com (147.11.82.254) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.43; Wed, 11 Dec 2024 01:09:13 -0800
-Received: from pek-lpg-core1.wrs.com (147.11.136.210) by
- ALA-EXCHNG02.corp.ad.wrs.com (147.11.82.254) with Microsoft SMTP Server id
- 15.1.2507.43 via Frontend Transport; Wed, 11 Dec 2024 01:09:07 -0800
-From: <jianqi.ren.cn@windriver.com>
-To: <sohaib.nadeem@amd.com>, <gregkh@linuxfoundation.org>
-CC: <patches@lists.linux.dev>, <alexander.deucher@amd.com>,
- <daniel.wheeler@amd.com>, <mario.limonciello@amd.com>,
- <josip.pavic@amd.com>, <aurabindo.pillai@amd.com>,
- <stable@vger.kernel.org>, <harry.wentland@amd.com>,
- <sunpeng.li@amd.com>, <Rodrigo.Siqueira@amd.com>,
- <christian.koenig@amd.com>, <Xinhui.Pan@amd.com>, <airlied@gmail.com>,
- <daniel@ffwll.ch>, <wayne.lin@amd.com>, <sashal@kernel.org>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <charlene.liu@amd.com>, <gabe.teeger@amd.com>,
- <amd-gfx@lists.freedesktop.org>, <Nicholas.Kazlauskas@amd.com>
-Subject: [PATCH 6.1.y] drm/amd/display: fixed integer types and null check
- locations
-Date: Wed, 11 Dec 2024 18:07:01 +0800
-Message-ID: <20241211100701.2069799-1-jianqi.ren.cn@windriver.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id A7AE910EB87;
+	Wed, 11 Dec 2024 15:10:15 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FA3V3zFa";
+	dkim-atps=neutral
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com
+ [209.85.210.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 39E4F10E183
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Dec 2024 03:17:58 +0000 (UTC)
+Received: by mail-pf1-f182.google.com with SMTP id
+ d2e1a72fcca58-725ecc42d43so2329778b3a.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 10 Dec 2024 19:17:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1733887077; x=1734491877; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:sender:from:to:cc:subject:date:message-id
+ :reply-to; bh=MkB64RFwpW9AUQt2wKyq1Yb5kYMbSZj/H+ENOEOo5+A=;
+ b=FA3V3zFaOOrm93Dl2RxxQi+OfA9Id/RHd3hMB1qb6YE9MyFbAxvhlDgfI/q5qDB2HP
+ bBmIauWZBOmbWCNGjQGa5MZAWB9A0eFw5cRP9gGpSEjuJFK29mk9aRW3LFpsK7SG62K6
+ 55WkcThllmCfj5uTA790zLVtn8Ej3aFYlCEgf0ayZHYgFHJ87iMp5MbnDSc2O2WSNQU9
+ Hf09yIuyc+5ooN1J0l6Fqt5nYNKfTUQQzG05khNdbIV82YHjVBKRHA7McKw134KCa9DI
+ ps2Fe1/O8iwhUf0U6fk7W+OmOxG2nJN3WQ0revihb0XRzruzeuhCX9BtvrLcE+junBmk
+ Vvew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1733887077; x=1734491877;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:sender:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=MkB64RFwpW9AUQt2wKyq1Yb5kYMbSZj/H+ENOEOo5+A=;
+ b=Vg9b1LYlYjwMVHFD082/4oR+wOBoCX3QDz5onB12rGHTVB22mpNk6TKZEGBimtxSsE
+ IH11PqJF209YMiz19gwLuZ82ysDCBo7mp0STBRbzkq89GRoYDuyrPRFDv+lcunYIwSPW
+ XGkL1SD7xNf6ifJYdjkOwmaEmOHsDx5ooW6k00XT1Aysb9Hl9YZ1Lk+Fdmcfk19T8/ZP
+ YeRlDaRWEX08DLr5ApUL+fz/sqMtXM08prKuag/1y9C2zwg8ttaohiBDM2Dva63MLgUu
+ jYIYlFdtD3pRwKWwzlpViNszIdiAZuEMk9475eHzjjkNOkbS8LUGPmhFoiTNZszpBx+v
+ Ilug==
+X-Gm-Message-State: AOJu0YyMjgIDpPP4H0LppHEpr6XidPmod7Mbjru5KYh4YmHfUwJRwbti
+ tbmaNxdiNTseQuFm50ySRnlCOmleyD0wpNwe7oszcQRZLc+4Hh5PDmZNVg==
+X-Gm-Gg: ASbGncvMZP+eUy1NSpBLIekFyHrffYTUdg/a/KF04miDsL7VPTnRInnBimSrzgioBRG
+ Gx7GZ9kCKxffPvGrrvSMVqhtbc7O6SS4r3tGYKRwVrvLHgzNb0iXcA1AAjROcNSMXhomya7Tc0q
+ C3NS0i0u1hyKnLWqTp1CX4liDBkn//WVyUWzax4dMRP1gVlEoh/iiKgNLV69QTn97YnSmM23ToH
+ eC11Utg6hI77d9d2KHdni31aaQZnsZVLaEvKsfAx8Tpg9/9nmT7ODyPQmIi0u0ADnA=
+X-Google-Smtp-Source: AGHT+IG7zOYLXKIClvUY2/43cDFsOI7npDSa9Oy+0ygdPM2bqkUlxmwDQ+/Geu7s7eCtenoMWn99Ug==
+X-Received: by 2002:a05:6a20:d50c:b0:1e0:be48:177d with SMTP id
+ adf61e73a8af0-1e1c12ab50emr2530724637.3.1733887076867; 
+ Tue, 10 Dec 2024 19:17:56 -0800 (PST)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-725ceb7c02dsm6803657b3a.136.2024.12.10.19.17.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 10 Dec 2024 19:17:56 -0800 (PST)
+Date: Tue, 10 Dec 2024 19:17:53 -0800
+From: Guenter Roeck <linux@roeck-us.net>
+To: Alex Hung <alex.hung@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Harry.Wentland@amd.com,
+ Sunpeng.Li@amd.com, Rodrigo.Siqueira@amd.com,
+ Aurabindo.Pillai@amd.com, roman.li@amd.com, wayne.lin@amd.com,
+ agustin.gutierrez@amd.com, chiahsuan.chung@amd.com,
+ hersenxs.wu@amd.com, jerry.zuo@amd.com,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ Duncan Ma <duncan.ma@amd.com>
+Subject: Re: [PATCH 10/34] drm/amd/display: Add debug prints for IPS testing
+Message-ID: <abe64cad-4ac4-4372-9d46-5e77618b3836@roeck-us.net>
+References: <20240228183940.1883742-1-alex.hung@amd.com>
+ <20240228183940.1883742-11-alex.hung@amd.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-GUID: 8BfToSjv8ncYxNP0D0vx4TLj3G2rPXal
-X-Proofpoint-ORIG-GUID: 8BfToSjv8ncYxNP0D0vx4TLj3G2rPXal
-X-Authority-Analysis: v=2.4 cv=Y/UCsgeN c=1 sm=1 tr=0 ts=675956ba cx=c_pps
- a=K4BcnWQioVPsTJd46EJO2w==:117 a=K4BcnWQioVPsTJd46EJO2w==:17
- a=RZcAm9yDv7YA:10 a=zd2uoN0lAAAA:8 a=VwQbUJbxAAAA:8 a=t7CeM3EgAAAA:8
- a=fmNT8XcYnNex_eyvA98A:9 a=FdTzh2GWekK77mhwV6Dw:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2024-12-11_08,2024-12-10_01,2024-11-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0
- bulkscore=0 mlxscore=0 clxscore=1011 malwarescore=0 priorityscore=1501
- phishscore=0 suspectscore=0 adultscore=0 mlxlogscore=999 spamscore=0
- impostorscore=0 classifier=spam authscore=0 adjust=0 reason=mlx
- scancount=1 engine=8.21.0-2411120000 definitions=main-2412110068
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240228183940.1883742-11-alex.hung@amd.com>
 X-Mailman-Approved-At: Wed, 11 Dec 2024 15:10:09 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -80,98 +90,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Sohaib Nadeem <sohaib.nadeem@amd.com>
+Hi,
 
-[ Upstream commit 0484e05d048b66d01d1f3c1d2306010bb57d8738 ]
+On Wed, Feb 28, 2024 at 11:39:16AM -0700, Alex Hung wrote:
+> From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+> 
+> [WHY]
+> To log commit states and when we transition in/out of allow and idle
+> states and the caller.
+> 
+> [HOW]
+> Add a new logging helper and wrap idle optimization calls to receive
+> the caller.
+> 
+> Reviewed-by: Duncan Ma <duncan.ma@amd.com>
+> Acked-by: Alex Hung <alex.hung@amd.com>
+> Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+> ---
+...
+>  
+> +	DC_LOG_ERROR("%s: DMCUB error - collecting diagnostic data\n", __func__);
+> +
 
-[why]:
-issues fixed:
-- comparison with wider integer type in loop condition which can cause
-infinite loops
-- pointer dereference before null check
+This patch generates _lots_ of logging noise.
 
-Cc: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: stable@vger.kernel.org
-Reviewed-by: Josip Pavic <josip.pavic@amd.com>
-Acked-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Signed-off-by: Sohaib Nadeem <sohaib.nadeem@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Jianqi Ren <jianqi.ren.cn@windriver.com>
----
- .../gpu/drm/amd/display/dc/bios/bios_parser2.c   | 16 ++++++++++------
- 1 file changed, 10 insertions(+), 6 deletions(-)
+[689208.336969] amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+[689219.628141] amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+[689221.098993] amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+[689222.645994] amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+[689225.341470] amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+[689226.467388] amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+[689226.716755] amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+[689231.507746] amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+[689247.287990] amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
+[689252.441150] amdgpu 0000:03:00.0: [drm] *ERROR* dc_dmub_srv_log_diagnostic_data: DMCUB error - collecting diagnostic data
 
-diff --git a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
-index 4d2590964a20..75e44d8a7b40 100644
---- a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
-+++ b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
-@@ -1862,19 +1862,21 @@ static enum bp_result get_firmware_info_v3_2(
- 		/* Vega12 */
- 		smu_info_v3_2 = GET_IMAGE(struct atom_smu_info_v3_2,
- 							DATA_TABLES(smu_info));
--		DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", smu_info_v3_2->gpuclk_ss_percentage);
- 		if (!smu_info_v3_2)
- 			return BP_RESULT_BADBIOSTABLE;
- 
-+		DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", smu_info_v3_2->gpuclk_ss_percentage);
-+
- 		info->default_engine_clk = smu_info_v3_2->bootup_dcefclk_10khz * 10;
- 	} else if (revision.minor == 3) {
- 		/* Vega20 */
- 		smu_info_v3_3 = GET_IMAGE(struct atom_smu_info_v3_3,
- 							DATA_TABLES(smu_info));
--		DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", smu_info_v3_3->gpuclk_ss_percentage);
- 		if (!smu_info_v3_3)
- 			return BP_RESULT_BADBIOSTABLE;
- 
-+		DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", smu_info_v3_3->gpuclk_ss_percentage);
-+
- 		info->default_engine_clk = smu_info_v3_3->bootup_dcefclk_10khz * 10;
- 	}
- 
-@@ -2439,10 +2441,11 @@ static enum bp_result get_integrated_info_v11(
- 	info_v11 = GET_IMAGE(struct atom_integrated_system_info_v1_11,
- 					DATA_TABLES(integratedsysteminfo));
- 
--	DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", info_v11->gpuclk_ss_percentage);
- 	if (info_v11 == NULL)
- 		return BP_RESULT_BADBIOSTABLE;
- 
-+	DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", info_v11->gpuclk_ss_percentage);
-+
- 	info->gpu_cap_info =
- 	le32_to_cpu(info_v11->gpucapinfo);
- 	/*
-@@ -2654,11 +2657,12 @@ static enum bp_result get_integrated_info_v2_1(
- 
- 	info_v2_1 = GET_IMAGE(struct atom_integrated_system_info_v2_1,
- 					DATA_TABLES(integratedsysteminfo));
--	DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", info_v2_1->gpuclk_ss_percentage);
- 
- 	if (info_v2_1 == NULL)
- 		return BP_RESULT_BADBIOSTABLE;
- 
-+	DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", info_v2_1->gpuclk_ss_percentage);
-+
- 	info->gpu_cap_info =
- 	le32_to_cpu(info_v2_1->gpucapinfo);
- 	/*
-@@ -2816,11 +2820,11 @@ static enum bp_result get_integrated_info_v2_2(
- 	info_v2_2 = GET_IMAGE(struct atom_integrated_system_info_v2_2,
- 					DATA_TABLES(integratedsysteminfo));
- 
--	DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", info_v2_2->gpuclk_ss_percentage);
--
- 	if (info_v2_2 == NULL)
- 		return BP_RESULT_BADBIOSTABLE;
- 
-+	DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", info_v2_2->gpuclk_ss_percentage);
-+
- 	info->gpu_cap_info =
- 	le32_to_cpu(info_v2_2->gpucapinfo);
- 	/*
--- 
-2.25.1
+I disabled it in my private kernel build, so no problem for me. However,
+searching for the string on the web shows lots of complaints. Not my call
+to make, but claiming that this patch adds "debug prints for IPS testing"
+seems to be a bit misleading.
 
+Guenter
