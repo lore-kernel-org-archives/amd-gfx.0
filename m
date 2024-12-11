@@ -4,153 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D70DE77180
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Dec 2024 15:03:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4AD2E7717D
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Dec 2024 15:10:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 298C710EB7C;
-	Wed, 11 Dec 2024 15:03:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69A8910E3EF;
+	Wed, 11 Dec 2024 15:10:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="y5xGBoVB";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="IuQZbhcY";
 	dkim-atps=neutral
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on2043.outbound.protection.outlook.com [40.107.100.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCCCA10EB7B;
- Wed, 11 Dec 2024 15:03:05 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aluzRmaxzlPZ8MkdsdUSmJ/pIwyMY38f+XfGoeaBbSWL+MQ43llawK3LlEu4/aMTKHo2XYQAc+Sg7X9DAxVMYiwPS9co7nw8I6G+NTk9LNzhGa+yedYU0SKtxKlCbklxxrIt0LTTQjMs+9QCickvP5cvWH5+d+VJHRL1iqCX6N/8q/5+X/PTZW/w/FKPyHwJvm7rvy8Ixi2ymLbfR6JV5V8+rPRpMz3JtCgjBE9HuTKTD7INbJJ3tutWnWwifbgCadv5vjNqoHR0qoPfkAng1ukT0MmIdJww3gTqPq/efM+g2p8dlLw2jdwzSdJe9N2Hhoto8z5IwgQZsrPGKDkzQg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=C9ah541LLK/u8JDu/2+XORpqAAKyeOLanIHarWpWdV4=;
- b=YHKyqtvOTxv44RrN72F+gibOaKo8//atL4hIfchN5omta7i7oe6rtuTc40tHZ1wQOuD6rXQ05We7MXFxZNuBF0TpOPTc/4IP4iKyUI0nSP9FKDxxdETpC52YeTMuLXkfno3k80D8qOq+GICBwpXUtVTNfXZOaks/jNGVfYXXQOJOJ0NNCup6IFaIzcIrWTKDY+T5V1TjNkPu7nAyB+i/9l1IOatK+old8SZRUXHnawmsIMuc8GXZlF8sNoR1hVHhxWMLFbO3P0QAFHDj4nBEDHRrJ8yOwjD2PQZLibp/Ww6zPzBADqqpn6VQ1xtZdU3IM5fP4t2SprArIbLEy4uApA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=C9ah541LLK/u8JDu/2+XORpqAAKyeOLanIHarWpWdV4=;
- b=y5xGBoVBBtmahUPjJmkN0bG4hSTuClMisV2HZWtGosrWm7PwNKcprfIVaTyISZEDPOk33x+7hpIPQe/iBp9Whfq57ML22LzS/rW0bNxGvpSo9rttDn52qu6CGmYvIWbpjrNyRgjposmKVBOMxhiwRW6PHxMqUaT2b8htCRZUem8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CH3PR12MB8710.namprd12.prod.outlook.com (2603:10b6:610:173::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8230.17; Wed, 11 Dec
- 2024 15:03:01 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%5]) with mapi id 15.20.8230.016; Wed, 11 Dec 2024
- 15:03:01 +0000
-Message-ID: <8e514b7b-7826-4870-921a-ab6dac9a65c2@amd.com>
-Date: Wed, 11 Dec 2024 16:02:57 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 4/6] drm: consider GEM object shared when it is
- exported
-To: "Li, Yunxiang (Teddy)" <Yunxiang.Li@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "tvrtko.ursulin@igalia.com" <tvrtko.ursulin@igalia.com>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-References: <20241210175939.2498-1-Yunxiang.Li@amd.com>
- <20241210175939.2498-5-Yunxiang.Li@amd.com>
- <674b6d62-2274-4b0d-8d27-382faad5de88@amd.com>
- <SA1PR12MB859965C4B7EEB4B131E8C7E6ED3E2@SA1PR12MB8599.namprd12.prod.outlook.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <SA1PR12MB859965C4B7EEB4B131E8C7E6ED3E2@SA1PR12MB8599.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0276.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:e6::6) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD6C810EA4F;
+ Wed, 11 Dec 2024 03:25:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Cc:To:Content-Transfer-Encoding:Content-Type:MIME-Version:
+ Message-Id:Date:Subject:From:Sender:Reply-To:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=+f1nfrUYcs1wSQhhCmsy52L607zRZwkgSeCEyoxcG8Q=; b=IuQZbhcY43mPZuHRZgEmA67lN5
+ MjELu5RzmKigWNbWZApCcxPGdw6+D719bPVZ6fHk5y968JkEly+FI+0xEdrrzz+OIZ4d1FgDAuRyF
+ vJf14zLsN/yglbIffz3qmVxDxxYtoc4XEOMFhEZ2PWZpzL+R5qFalD+M8dV1iMldg+kCepeAmYBXl
+ OeZG23rhZAmm3bNW4z6Vz1KBrA4FsCA+W3VYjNPQCdvtCGeMxSDGfrJ4qo2/P7n0HqsVqL+MPoAXY
+ 212fOI+qbYO8AW4BxJT+wMe0Vm0AjdoWpd56IKjsyIsvGp9thM0HkkaGrLP09JOtNXLTwrBIzgrVd
+ A5F1gVOA==;
+Received: from [179.118.189.35] (helo=[192.168.15.100])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1tLDLq-001lyu-7z; Wed, 11 Dec 2024 04:25:26 +0100
+From: =?utf-8?q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
+Subject: [PATCH v10 0/2] drm/atomic: Ease async flip restrictions
+Date: Wed, 11 Dec 2024 00:25:07 -0300
+Message-Id: <20241211-tonyk-async_flip-v10-0-6b1ff04847c2@igalia.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH3PR12MB8710:EE_
-X-MS-Office365-Filtering-Correlation-Id: 00a1dea8-c95e-4001-0a74-08dd19f4e84f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?YmlJSCsrRXZza3ZXWTV1QysxZi91dFNYeFBKZ2lyUFBTMjVpd2Vsa1hNazhq?=
- =?utf-8?B?UjBhYTgzci9kbXNDejc4dnJ4SUlZVVM5OHNjT09iOW83OTZWMUZBU1NVSXI0?=
- =?utf-8?B?MjRER0RwMjVFRC8rNmVJM3pxc21sTXFnaWtrSEVUU2FDQytZcXVXQ2tIbTBU?=
- =?utf-8?B?SitRS3ZtZzFMd1VUMTVBc1lwa0xFSUtiakRrZ2RodTgyNHhZNTFLcndKeVlq?=
- =?utf-8?B?dEFQRWd6TW95OStiTlN0SVBHbzZKb0tjeGd1K0UxU3U1T0psaFl5aWpSblFj?=
- =?utf-8?B?aW5iWmZJd1lUQTcvV1hJMG1qSXBlalZ0TmNVcjYzL2ZTTG1oUDlQT3MvYm04?=
- =?utf-8?B?bXhGOVg5dWYxQ3k1Q1lRdWY5M08wd21MRWZzdU14WUxXSWg2ZHVselB3NWFR?=
- =?utf-8?B?SFEyQzFOOEdZK0Q4dENSYmVTbDdDUHI1cTA4TUorT1dDTTNQcTcycWZSN09B?=
- =?utf-8?B?NExZUlMvMENCSFFvS0p6RU1mK2hJQzU2aVc2bUp5YWZDREIzMWZYVFhrc0FR?=
- =?utf-8?B?TDZZLzRtWnBlYm5MZSsrOWd1K0VLckdQOVpDZGFudnp1cWVwcVhYMEN4QmE5?=
- =?utf-8?B?Qmc0Rm9XcjdMUFdCenNIZVpMdkxmTFppYkhhOXNWVGZBNTV0V0V3b0kyRTRD?=
- =?utf-8?B?ckhNQytEUkVXR2VrRk85S05UZ3p1N2pQMXJlYnM2Si9BeUVVcFo3YWNPNk9n?=
- =?utf-8?B?YVJzNWZCWThwL0pYVUdNS0trTFM4bkVQQ0pZLzd3YmpScUxyQTJHeEhsQUww?=
- =?utf-8?B?eEQ2K2dLQVZMZ2hKWDBmanlMZW9OeEs3Y0RHa2wwWHZRa05laWVOZ2NlNHZk?=
- =?utf-8?B?QWNBS21kR1dZd1k1NHZTV3g0TzFhamgyOEtFTXZDbWF1VElxanB5QmhFMkhw?=
- =?utf-8?B?NmdHUFdybnM1NUphY3pYTUxxam1VSmZrcDIvVWlSeWJPajg5czMrSndUaXZJ?=
- =?utf-8?B?bW55eERVZXZjN1pZc2JoZGl3a1ZnaTk5T2VZaFdqSkxhUzFraXNrOHk1M284?=
- =?utf-8?B?MVhxQVQ4V0xwRkZNY25MbHJQWGphbC9JOVpLQnA4SVFRdjBHY1Rrd08yQXlM?=
- =?utf-8?B?SGV2WTRVQ2NzNDAyQzgzMS84TWgyNS9DWE5Va3pIWlNYdWxDNzBXdmUzeHVT?=
- =?utf-8?B?V2tLV0xFMi81ZTgxNks3ZEZJUVJoUGZoWjBvcWxzWmJvcjlZY3lSMHVaVWtX?=
- =?utf-8?B?YVBaaksra3dZQWFmWjlaakVEclFEWTdhK0VZMmxRajNnYnQ0N0JpdGdkNnlS?=
- =?utf-8?B?aXZtNmJNUnkyWWhORktRMEF0QmwxbmxXSVJmLzNsbnkrSHdDdk9VcTh3clIw?=
- =?utf-8?B?MHN5RHczMzJLLzIzT3RzdnN1dXBRcWJTcGJZdHgyNGtzNDByc3E1dGFYWm53?=
- =?utf-8?B?dm5vRGNrZWtrMjJNNE1JRnBmbVd3eGxSYjl0VjROMGtRZ0FMMjFueS9RZ2Nj?=
- =?utf-8?B?K1FFbmczMXVyWE11SjBXektJbVE1Y2taOWlqUFpHWXZONlBvamUzSXdWWnFN?=
- =?utf-8?B?SzJ3SjBEY3ZJbXVoSjZ1THZUc1M3dTBUVVhTT1M3aWhIb2FIcS9QdTVQT1ZN?=
- =?utf-8?B?cmdtc0pXQzIzbC9Vb04xdjhkZVhHSVVnbGNVdWN2aWYrWHB1UTVjNjdMbWdS?=
- =?utf-8?B?eFZrd3NtcmpRMFlCZk15N1Zvb1dxZFJiY3NyUW80RXVDa2QvTElzMzIvcVZw?=
- =?utf-8?B?MnVqM1N0dGNCdzNiRjVKeUhIUldHeG9ubmRDek9KSHpCenpKcGNDdW9Mc0Yv?=
- =?utf-8?B?bEUyWVVwZzFoRFBFbWlSNVdYTFZkallUbVBqNWh4YzRYMUpVMzhqNXpJTkNS?=
- =?utf-8?B?VDVtOW5kNmNESC92Qkd3Zz09?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZzFCYVJJMmhJTVYzMU5xSXM2cDdoYnVLMmxrQ2d4WFVubVdIMm1YdS95Qmdu?=
- =?utf-8?B?MGZVaFV4ZEJHYjZaZXNqRGNIbnBTdU51VEJYTUNaU21EYncwZ3F5RDFXOUMz?=
- =?utf-8?B?TFJYMSt0QURFdjZ3cmNDNWN3NXV3b1JrMDd1cTg1bkJWQ1M4QzQwVm14cWky?=
- =?utf-8?B?NGIxd2h0eUJCV3MrNGw1M3BLOGpmYVNPUTBDc05IWXlUU3ZsNDdPb2huSGk0?=
- =?utf-8?B?SmFVWDRxcS96TVpiMWJOdGZCZitNMmk4RkJ0QW9Eam5rdlYwV1Fld1B3K0Jm?=
- =?utf-8?B?WWlQeEFEcUVnVDBEalZuazF5RHpSSkdkYWMxYnVSeElybjBNK0wzeGswREZa?=
- =?utf-8?B?dDUyTFc3djQyUXFEck5OZnpLWE1DaXpJV3crVnVyN2J0Q3VxR1grbFh5TzY1?=
- =?utf-8?B?VE93c2N1UkpmTDFTSW1tUkJHeVpMR1lIYk1LWkVrdEErL1AwQ0I2UzUyYmhB?=
- =?utf-8?B?Q0o1SUc4UGtTSVRPMDNjeGpDeXpCZmEvOENwQmc0NVJ5dkZxdkFzWnBvdEtl?=
- =?utf-8?B?OGdyYjZlZ2Y4eFphSHNDVDNwK0w2ZmR5QlpsbXNmcUxpdDFGcnFlb09BVW54?=
- =?utf-8?B?amREYU5xbnhVNmVxRy9QazVUK0JxV0JybVpPb0MvSU5pUlJYSyt3T2JLKy9S?=
- =?utf-8?B?VHJpdHBJRkVkaWc1SmVXaGFKNnorb1hLclc5aHJTb3E1R0cxQklSYk8xWFhS?=
- =?utf-8?B?YVcwQ1dodStqbDl6WDF2MHpzWWlkOXk3ZmpFTFpsWXJ4VEpqUTliRUdnK1c4?=
- =?utf-8?B?SkJodzVKOFM3cGU5RkxQeldSVnNkVkxwMEF6dTBydi9CT1FSQjhmRjNYQjNw?=
- =?utf-8?B?cDM1OXBBQzRocUV2RXByOTRFMVR1bmZEbkVPUzJmZUtnTkpyR2RQcklqVFpB?=
- =?utf-8?B?Tm5LVkxvRVhVdzFLQXpXMUhOUklaREVQdG9vbFpTTDM1WTFpZmlPcXArampC?=
- =?utf-8?B?d2RQdmxWYnRRS2NTRXM2eGxkd1FXSkYrS2l3TUF4NnM5eGpKQnBvS3pOenFm?=
- =?utf-8?B?UTRMQTZaRFBxS0lRaDZkL0VrcjUxQVJ0NDA4L1U4Tjl0QlVoRGVRbU9ISDFw?=
- =?utf-8?B?aUE0M2EzWStWbjkrTnBxZXdaaFJGZUtORkdIK0I3NVRRZjRKZGVWZ0UxUEZJ?=
- =?utf-8?B?Y2hOdXUrMmFkSmw5TEhKSW5PdnVZOVJkZCtaa1ppWFZuWWR6UVRkSWNCMGht?=
- =?utf-8?B?V3FacEVaYTVpZkNMZDJJQlpLL2VNK0FPczl5Q2hMZGFUQmdGUGxRUFpyd29P?=
- =?utf-8?B?WXIyL09WYzhnci9mNFlML2JQam1kVDZhdE9DUlNSNm52TDRaL0xIb3E2a2t0?=
- =?utf-8?B?MjZNczNBelVlWkhtdUoyeVJpVHY0VmxBYmZVVW1lUUM1V0hLVjFjR2JZblll?=
- =?utf-8?B?aFZRbzUwa2wxWDVZY1NZSERzQitJMnFZRkptc21VSGRPMjdDclFwQ2h0NkVz?=
- =?utf-8?B?VHRpeFJpS2tBSHhnOG5aYWxUTDNjV0xCZXRtWGNpd1Z0VFBVci9rMjcwNStG?=
- =?utf-8?B?RkZGQXp3Um1GQyttS2VBZlA5QTJGMkV6SmtwOXJtKy9XcmoraVRxS01HOFJr?=
- =?utf-8?B?cmtsYW9melVZcGNHNVVGRjhCVzY4VUdVVW1uMmVNUjBHMVNrQlZaMk5SVFV3?=
- =?utf-8?B?S1BNTWxZRTdQWU9oNHR2Yzg5ck4xSHJlQkh3NHhBZWtJd2FWYmpJc3lDc1J0?=
- =?utf-8?B?NFpaRHlqVHd3bG1nK3ZZTmtpQzZKeVZJd1pxaEVlNGRzUTB5dWp6dGE2NTlD?=
- =?utf-8?B?RUx0RWU2cW5Gc0t1RkZrZ3ZzNy9QMC8xMUUyeUpSWG94M3V0M1gxcjlJSml2?=
- =?utf-8?B?Z1UxVmNQUVBoSkVIZ1ZHRnB2V0lzRHVLWlJFQkVUTkpETVRsdVpsVUNJYXF6?=
- =?utf-8?B?eWdKMUN1aC9kcnc5MUlDaHVSNnlzZDByQzhiSi9qQTJJSU9TSU5vSHNoU3Vh?=
- =?utf-8?B?K1luV3dNQ0tjenh3SkZrbHhPaTZ2TEtoOU1GckhKZ05TVFg2T1JrMlJINVlX?=
- =?utf-8?B?L2t6S1BRUVNHenFNdDhMb0dLZ2l2OUVPcmhlUE9FeXIyYWVYMkdhcXJNVXBS?=
- =?utf-8?B?YTVsTDlvWll1OWUzeGJid0dnZEdIUHVLU2hHSkJlb2JiREtqWmh3WTdla0d1?=
- =?utf-8?Q?xVMc=3D?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 00a1dea8-c95e-4001-0a74-08dd19f4e84f
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Dec 2024 15:03:01.8019 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Z3/LqORu052EwR9LZ8AEexb38RWfwYEUzJhfA8oBdSLxNPHNeVAc6hzfE2FJBue9
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8710
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIABMGWWcC/3WNsQ7CIBiEX6VhFgO0WnDSuDg6uJnGAEL7xwoNN
+ I1N03cXO7l0vO/y3U0omgAmokM2oWAGiOBdCpRsMqQb6WqD4ZkAYoQVlBCGe+/GF5ZxdPphW+g
+ wZ1xbI7TNtURJ64Kx8Fk27+h6up0vqEq4gdj7MC5Pg1jK9c1BYIKLXa6o4qIs1fMItWxBbrV//
+ z4WkxK6Yu455bQwVlll/s1qnucvQLo8EPMAAAA=
+X-Change-ID: 20241002-tonyk-async_flip-828cfe9cf3ca
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Xinhui Pan <Xinhui.Pan@amd.com>, dmitry.baryshkov@linaro.org, 
+ Simon Ser <contact@emersion.fr>, joshua@froggi.es, 
+ Xaver Hugl <xaver.hugl@gmail.com>, Daniel Stone <daniel@fooishbar.org>, 
+ ville.syrjala@linux.intel.com
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
+ =?utf-8?q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
+X-Mailer: b4 0.14.2
+X-Mailman-Approved-At: Wed, 11 Dec 2024 15:10:09 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -165,130 +74,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 11.12.24 um 15:02 schrieb Li, Yunxiang (Teddy):
-> [Public]
->
->> From: Koenig, Christian <Christian.Koenig@amd.com>
->> Sent: Wednesday, December 11, 2024 3:16
->> Am 10.12.24 um 18:59 schrieb Yunxiang Li:
->>> Tracking the state of a GEM object for shared stats is quite difficult
->>> since the handle_count is managed behind driver's back. So instead
->>> considers GEM object shared the moment it is exported with flink ioctl.
->>> This makes it work the same to the dma_buf case. Add a callback for
->>> drivers to get notified when GEM object is being shared.
->> First of all GEM flink is pretty much deprecated, we only have it for compatibility
->> reasons. So please don't change anything here.
->>
->> Then flink is not the only way to create multiple handles for a GEM object. So this
->> here won't handle all cases.
->>
->> And finally we already have the .open and .close callbacks, which are called
->> whenever a handle for a GEM object is created/destroyed. So it shouldn't be
->> necessary in the first place.
-> For the importing VM the shared stats is automatically correct by open and close, but for the exporting VM we need to update the shared stat when the buffer gets shared, since it is already counted as private there. As far as I could find, seems like flink ioctl is the only place where the global name is assigned? The importing side have multiple places to get the global name, but the exporter always needs to first call flink to allocate the number right? So hooking into flink and dma-buf should cover the bases?
+Hi,
 
-It's irrelevant where the global name is assigned. The problem is that 
-there are more ways to create a new handle for a GEM object than just 
-flink and DMA-buf.
+The goal of this work is to find a nice way to allow amdgpu to perform
+async page flips in the overlay plane as well, not only on the primary
+one. Currently, when using the atomic uAPI, this is the only type of
+plane allowed to do async flips, and every driver accepts it.
 
-For example you can just ask a framebuffer to give you a GEM handle for 
-the currently displayed buffer. See the call to drm_gem_handle_create() 
-in drm_mode_getfb2_ioctl().
+This patchset re-uses the per-plane function atomic_async_check() to
+this purpose, so drivers can allow different plane types. There's a
+`bool flip` parameter so the atomic_async_check() can do different
+decisions if it's a complete page flip or a plane update.
 
-When you make this change here then those GEM handles are not considered 
-shared any more even if they are and you sooner or later run into 
-warnings on VM destruction.
+igt test: https://lore.kernel.org/igt-dev/20241211031820.115844-1-andrealmeid@igalia.com/
 
-> I could probably make handle_count work somehow, but it looks like it's read in a lot of places without locks so I'm not sure if there will be some race conditions.
+Changelog
+ v9: https://lore.kernel.org/r/20241101-tonyk-async_flip-v9-0-681814efbfbe@igalia.com
+ - Add a 'flip' flag to indicate where the atomic_async_check() is being called from.
 
-The handle count is protected by the object_name_lock of the device. The 
-drm_gem_object_is_shared_for_memory_stats() function is pretty much the 
-only case where we read the value without holding the lock since that is 
-used only opportunistically.
+ v8: https://lore.kernel.org/lkml/20240806135300.114469-1-andrealmeid@igalia.com/
+ - Rebased on top of 6.12-rc1 (drm/drm-next)
 
-What you could do is to hook into amdgpu_gem_object_open() and 
-amdgpu_gem_object_close(), call 
-drm_gem_object_is_shared_for_memory_stats() and go over all the VMs the 
-BO belongs to. (See how amdgpu_vm_bo_find() and amdgpu_vm_bo_add are used).
+ v7: https://lore.kernel.org/dri-devel/20240618030024.500532-1-andrealmeid@igalia.com/
+ - Complete rewrite
 
-Then have an additional flag inside amdgpu_bo_va who tells you if a BO 
-was previously considered shared or private and update the stats 
-accordingly when that status changes.
+---
+André Almeida (2):
+      drm/atomic: Let drivers decide which planes to async flip
+      drm/amdgpu: Enable async flip on overlay planes
 
-Regards,
-Christian.
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c    | 11 ++++---
+ drivers/gpu/drm/drm_atomic_helper.c                |  2 +-
+ drivers/gpu/drm/drm_atomic_uapi.c                  | 37 ++++++++++++++++------
+ drivers/gpu/drm/loongson/lsdc_plane.c              |  3 +-
+ drivers/gpu/drm/mediatek/mtk_plane.c               |  2 +-
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c         |  2 +-
+ drivers/gpu/drm/rockchip/rockchip_drm_vop.c        |  2 +-
+ drivers/gpu/drm/tegra/dc.c                         |  3 +-
+ drivers/gpu/drm/vc4/vc4_plane.c                    |  2 +-
+ include/drm/drm_modeset_helper_vtables.h           |  7 +++-
+ 10 files changed, 49 insertions(+), 22 deletions(-)
+---
+base-commit: c40c32cf71b90d85386fcc066c19feb23eb42804
+change-id: 20241002-tonyk-async_flip-828cfe9cf3ca
 
->
->> Regards,
->> Christian.
->>
->>> Signed-off-by: Yunxiang Li <Yunxiang.Li@amd.com>
->>>
->>> CC: dri-devel@lists.freedesktop.org
->>> ---
->>>    drivers/gpu/drm/drm_gem.c   |  3 +++
->>>    drivers/gpu/drm/drm_prime.c |  3 +++
->>>    include/drm/drm_gem.h       | 12 +++++++++++-
->>>    3 files changed, 17 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
->>> index d4bbc5d109c8b..1ead11de31f6b 100644
->>> --- a/drivers/gpu/drm/drm_gem.c
->>> +++ b/drivers/gpu/drm/drm_gem.c
->>> @@ -854,6 +854,9 @@ drm_gem_flink_ioctl(struct drm_device *dev, void *data,
->>>                      goto err;
->>>
->>>              obj->name = ret;
->>> +
->>> +           if (obj->funcs->shared)
->>> +                   obj->funcs->shared(obj);
->>>      }
->>>
->>>      args->name = (uint64_t) obj->name;
->>> diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
->>> index 0e3f8adf162f6..336d982d69807 100644
->>> --- a/drivers/gpu/drm/drm_prime.c
->>> +++ b/drivers/gpu/drm/drm_prime.c
->>> @@ -406,6 +406,9 @@ static struct dma_buf *export_and_register_object(struct
->> drm_device *dev,
->>>      obj->dma_buf = dmabuf;
->>>      get_dma_buf(obj->dma_buf);
->>>
->>> +   if (obj->funcs->shared)
->>> +           obj->funcs->shared(obj);
->>> +
->>>      return dmabuf;
->>>    }
->>>
->>> diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h index
->>> da11c16e212aa..8c5ffcd485752 100644
->>> --- a/include/drm/drm_gem.h
->>> +++ b/include/drm/drm_gem.h
->>> @@ -122,6 +122,16 @@ struct drm_gem_object_funcs {
->>>       */
->>>      struct dma_buf *(*export)(struct drm_gem_object *obj, int flags);
->>>
->>> +   /**
->>> +    * @shared:
->>> +    *
->>> +    * Callback when GEM object becomes shared, see also
->>> +    * drm_gem_object_is_shared_for_memory_stats
->>> +    *
->>> +    * This callback is optional.
->>> +    */
->>> +   void (*shared)(struct drm_gem_object *obj);
->>> +
->>>      /**
->>>       * @pin:
->>>       *
->>> @@ -568,7 +578,7 @@ int drm_gem_evict(struct drm_gem_object *obj);
->>>     */
->>>    static inline bool drm_gem_object_is_shared_for_memory_stats(struct
->> drm_gem_object *obj)
->>>    {
->>> -   return (obj->handle_count > 1) || obj->dma_buf;
->>> +   return obj->name || obj->dma_buf;
->>>    }
->>>
->>>    #ifdef CONFIG_LOCKDEP
+Best regards,
+-- 
+André Almeida <andrealmeid@igalia.com>
 
