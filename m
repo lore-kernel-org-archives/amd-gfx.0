@@ -4,70 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B70CE7717D
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Dec 2024 17:32:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF69EE7717D
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Dec 2024 19:35:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02B9010E403;
-	Wed, 11 Dec 2024 17:32:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C45710E40E;
+	Wed, 11 Dec 2024 19:35:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SOGhB15i";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="qPSsMiQO";
 	dkim-atps=neutral
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com
- [209.85.214.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A0A910E403
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Dec 2024 17:32:56 +0000 (UTC)
-Received: by mail-pl1-f170.google.com with SMTP id
- d9443c01a7336-2162f968cd7so6024505ad.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Dec 2024 09:32:56 -0800 (PST)
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [IPv6:2a00:1450:4864:20::135])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9198B10E40E
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Dec 2024 19:35:22 +0000 (UTC)
+Received: by mail-lf1-x135.google.com with SMTP id
+ 2adb3069b0e04-540215984f0so3406803e87.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Dec 2024 11:35:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1733938376; x=1734543176; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=94WM8fCyV1AVoEqupGN2jDEnkZmdK3s9QAWISLhJrAw=;
- b=SOGhB15iB/nVIykeItoyOlg2ytTNj9lnxehLR2W8Ge65wJei6UobCIVN4bu8LZF10G
- CH1F4HZf64GOOyBF+9WCGqhu3Afw4yqLIte46XVHC4ElR0Dt0kIXM8Pz4jZHxfaLWzK8
- xkvx/QwKpF05Q6c5yjcAl7UKPEqtxlW8tPfGqUsm19YFgOQLBAsrlqzRRPKYOeJgiU2f
- W0LCT7OuqNycBm6ewsr7nrnXo21xxNsE4C4lU38nY4C8B2lFZJy38JAmvMS9oKdLSwUf
- 9cwIpczwhPnfHM3c1F5sdnNHGTJ+vlVuuewer6Cp0wjivC3WisRZ/4bOxeYFIPdHynDq
- NOGw==
+ d=linaro.org; s=google; t=1733945721; x=1734550521; darn=lists.freedesktop.org;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=mlmxBycUGwX5pHsGKJE1We114Ns4Oa+/FIJwhXU3Bf0=;
+ b=qPSsMiQONcwc7c+1YpPu+evtAjgnpbp5PSTefi7UT0T4ZZxqU26tOMmcfprPKBji8J
+ on19O/k2G0Di/rq1NBbeRUDPcBd6E7bGe/qJXK3zUiRVW+roxosmNe/LknF94BvBmTvs
+ qNec1LuaXGrJLc06tmnpOz7aV5WB1J1TYmcOXp4sfevFS9wwqS69yKcgRgzN6xW5VxKl
+ HGSUSZgoUTWul8YpJv9LF55j4W6izk+XnZqxoXIb5f2W9eDlPA0Va5k8MB4H+HVJM/7B
+ THeY0OyIDL/D41LgQqZpsdAWn7VwmKNGKWIAdcy+iVceALPS0ViXqvivQpJTk2iOZbiB
+ iOPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733938376; x=1734543176;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=94WM8fCyV1AVoEqupGN2jDEnkZmdK3s9QAWISLhJrAw=;
- b=UcOJfMBz+FyVfd+XWOc7uATszeH2QJ6wNuIZ48/fPfJS4AwMAvbCk8TpJ8w530RzUm
- AdMW+SH9SMbbxKzqLp/+Coxua/A9YRQOzg6LSESjlRsI7YoQnsOdO9IvCNz1kR3HcdAo
- 9Ceggetctt2xkbbiKNPQ+mCTu6HGEkrZF7JU5Rlax7NarkmDD8wsHjLtXwMd2oQM2APm
- 77uz17CAEVGFdbjQIcHfOXBmdLP8AWFGErbjQbnlwA4bXfd6u9/GvzspblUkbqFi2aJG
- ynzTmLfzK4OcYqtTpXE4GyPhnw+fY59ciJ0Puca65wjQUchsJyL7MIMd1RRLMmngtiAI
- C6uw==
+ d=1e100.net; s=20230601; t=1733945721; x=1734550521;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=mlmxBycUGwX5pHsGKJE1We114Ns4Oa+/FIJwhXU3Bf0=;
+ b=J3z4sxWqQ3sxOo0T78baf6621LXs1wrGRMp9WzVcbAvfy0lt5XEuDbMYhtk9fr+09x
+ LcUoMV279qtM0yU8qmoREq+QMs5Ww/+VL33IKkVFpCrVFKPPFNEL67k07icKiUUFGra/
+ SpYibYCeP3+l5nCj5AdLCCNH4Pgpk6zSJclUreVBCa9ZRLjOzJrnGW9j2udYTCT0cENJ
+ 1rJO+hiMwnMLXRMN+ZJ0b436UcOLFsrgcexCiLYIB5r0PNO/9gk8qkSuNTeGeFvXo7fz
+ jc8RpehwrkgUDzwNkj6Cf8jtRtkgv9LtrsR8w83fk5pBejSKGpYP5P5o/Ay71Ef/hNvy
+ Y7Gg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWQJgXInIw4qSO/wYrCW1bQDXlXPISCgDoe77jzM9hOzFr8EWy7dKjogjUNw4L/Q8X4GEquIxpd@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxKAb8sOGSKR5GSEt0GE6IxSvrAeTDT7RFUQ5YsGSV7tf4SeIAB
- hw2a67CxOEGmt4NS4D+nTUFE2xAScVoTHuSkFAfyKMjsoyCw9/+VppgILtSf47t4IcS1KescdnU
- NgNgll9dlz39Q7h2Y/k53m9YDa1k=
-X-Gm-Gg: ASbGnctM8cqSDlqUifn8OBh9x/KwsimOlX77MQE90Toalc/9uHYfBe+qWZVcdY1auAm
- fbNe19akfFJ8oawDtsUYsVAjn1EnZfqPW2sk=
-X-Google-Smtp-Source: AGHT+IFwIXLhtX4m258sV2q+WxeFfOu6Vk/KWPb7MnFKg8s5KrACACHiHtXqBzxi3HBmsSyDh3GGIxs4ZvptpqVRHiw=
-X-Received: by 2002:a17:902:d4c2:b0:215:a81b:42e1 with SMTP id
- d9443c01a7336-217783c26bdmr21494455ad.8.1733938376021; Wed, 11 Dec 2024
- 09:32:56 -0800 (PST)
+ AJvYcCWjl36IPM7SLISieBltB30jEHOvlTpd6nJ8gNn7fPvHbRRezj9z6L/DlB4mQA0y7FQ8h6ssVLQM@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxbU2OlIj0hR2m032eMEaQejosel+pq8jymoCB2NvjPIpWTiScz
+ TBXa9VZ/u2fnYnbh4QykPqUBqYltCq4y0VxVD8KaklrC+UMSoIPZb1wFbJ2mkHU=
+X-Gm-Gg: ASbGncsTRUjz6bK0SP63OIqa+C+Mbw+yrp1RzzFgaDTIjj75xRD4SfVWEJtlYacCDBe
+ aXqUJkiaONAnaikLgId1jBZP3xHT8EaD1FBhzT4Fmu9BL1xum+DJNHbmtltw2/+LqfjNz7U5ACS
+ CkOeXzlQ6PweWUWrc1N7m0389Htl3InWlD1+Hjxknr1iuWk/id+aRvdqO6kXzvodKsDiwyX6kDU
+ 3HhEwoBce8iUaBnTe+f32ZsZSemCgR32/S9VEncVSil+yyO6dYmOHek0pxk4NfZ8aKzymj0ISKl
+ XXhhwb5+vqQYFm60HwGSyBhlem8x2UnXQg==
+X-Google-Smtp-Source: AGHT+IFXG9kNop6Dow/dfMq9L/6cEoHmDiwAQOF9Wkw7NDsQvYPpji8SHNbXQPAGHwNjq9pSMY6jew==
+X-Received: by 2002:a05:6512:1302:b0:540:17ac:b372 with SMTP id
+ 2adb3069b0e04-5402a5eae13mr1520110e87.30.1733945720766; 
+ Wed, 11 Dec 2024 11:35:20 -0800 (PST)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-53e229c0d92sm2113398e87.171.2024.12.11.11.35.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 11 Dec 2024 11:35:19 -0800 (PST)
+Date: Wed, 11 Dec 2024 21:35:17 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: =?utf-8?B?QW5kcsOp?= Almeida <andrealmeid@igalia.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, 
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Xinhui Pan <Xinhui.Pan@amd.com>, Simon Ser <contact@emersion.fr>, 
+ joshua@froggi.es, Xaver Hugl <xaver.hugl@gmail.com>, 
+ Daniel Stone <daniel@fooishbar.org>, ville.syrjala@linux.intel.com,
+ kernel-dev@igalia.com, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH v10 0/2] drm/atomic: Ease async flip restrictions
+Message-ID: <ouyulceg7zrnjirg2yf4qbgp5pfovz4y6hq5v6e573yx7ih5qe@uqqne6yq27wl>
+References: <20241211-tonyk-async_flip-v10-0-6b1ff04847c2@igalia.com>
 MIME-Version: 1.0
-References: <20241210225337.75394-1-alexander.deucher@amd.com>
- <20241210225337.75394-44-alexander.deucher@amd.com>
- <893c7427-2d06-477e-8249-b5cf3ad22a11@amd.com>
-In-Reply-To: <893c7427-2d06-477e-8249-b5cf3ad22a11@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 11 Dec 2024 12:32:44 -0500
-Message-ID: <CADnq5_OaJPWPE_YN5q-6=EyVH9fHgDkkbpCb818RvmoE4yKc=Q@mail.gmail.com>
-Subject: Re: [PATCH 43/48] drm/amdgpu: add a helper to get the number of
- instances
-To: "Lazar, Lijo" <lijo.lazar@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20241211-tonyk-async_flip-v10-0-6b1ff04847c2@igalia.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,108 +100,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Dec 11, 2024 at 2:10=E2=80=AFAM Lazar, Lijo <lijo.lazar@amd.com> wr=
-ote:
->
->
->
-> On 12/11/2024 4:23 AM, Alex Deucher wrote:
-> > Add a helper to get the number of instances of an IP type.
-> >
-> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  3 ++
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 37 ++++++++++++++++++++++
-> >  2 files changed, 40 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu.h
-> > index 0ef598aac05c9..c3be17835f103 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> > @@ -410,6 +410,9 @@ amdgpu_device_ip_get_ip_block(struct amdgpu_device =
-*adev,
-> >  int amdgpu_device_ip_block_add(struct amdgpu_device *adev,
-> >                              const struct amdgpu_ip_block_version *ip_b=
-lock_version);
-> >
-> > +int amdgpu_device_ip_get_num_inst(struct amdgpu_device *adev,
-> > +                               enum amd_ip_block_type block_type);
-> > +
-> >  /*
-> >   * BIOS.
-> >   */
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/d=
-rm/amd/amdgpu/amdgpu_device.c
-> > index b5208a16d7d41..fcd8a1e8ae351 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > @@ -2371,6 +2371,43 @@ int amdgpu_device_ip_block_add(struct amdgpu_dev=
-ice *adev,
-> >       return 0;
-> >  }
-> >
-> > +/**
-> > + * amdgpu_device_ip_get_num_inst - get number of instances
-> > + *
-> > + * @adev: amdgpu_device pointer
-> > + * @block_type: Type of hardware IP (SMU, GFX, UVD, etc.)
-> > + *
-> > + * Returns the number of instances of the IP block type.
-> > + */
-> > +int amdgpu_device_ip_get_num_inst(struct amdgpu_device *adev,
-> > +                               enum amd_ip_block_type block_type)
-> > +{
-> > +     int i;
-> > +
->
-> Patches 43 - 48
->
-> Now respective ip blocks know about adev-><ip> and use that in one way
-> or the other. Instead of a straight forward usage, now iterating over
-> multiple blocks to find the same information seems a bit too much. If
-> adev-><ip> is already abstracted, then this makes sense, but that's not
-> the case now.
+On Wed, Dec 11, 2024 at 12:25:07AM -0300, André Almeida wrote:
+> Hi,
+> 
+> The goal of this work is to find a nice way to allow amdgpu to perform
+> async page flips in the overlay plane as well, not only on the primary
+> one. Currently, when using the atomic uAPI, this is the only type of
+> plane allowed to do async flips, and every driver accepts it.
+> 
+> This patchset re-uses the per-plane function atomic_async_check() to
+> this purpose, so drivers can allow different plane types. There's a
+> `bool flip` parameter so the atomic_async_check() can do different
+> decisions if it's a complete page flip or a plane update.
+> 
+> igt test: https://lore.kernel.org/igt-dev/20241211031820.115844-1-andrealmeid@igalia.com/
+> 
+> Changelog
+>  v9: https://lore.kernel.org/r/20241101-tonyk-async_flip-v9-0-681814efbfbe@igalia.com
+>  - Add a 'flip' flag to indicate where the atomic_async_check() is being called from.
 
-These last few patches were more of a proof of concept to hide the IP
-specific details from other IPs and core code.  I agree that we can
-probably skip the iteration in this function for now since it's not
-necessary and add it later if we do split instances to IP blocks.
+I think something went wrong. There is no changelog for v10 and also no
+tags that you've got for v9.
 
-Thanks,
+> 
+>  v8: https://lore.kernel.org/lkml/20240806135300.114469-1-andrealmeid@igalia.com/
+>  - Rebased on top of 6.12-rc1 (drm/drm-next)
+> 
+>  v7: https://lore.kernel.org/dri-devel/20240618030024.500532-1-andrealmeid@igalia.com/
+>  - Complete rewrite
+> 
+> ---
+> André Almeida (2):
+>       drm/atomic: Let drivers decide which planes to async flip
+>       drm/amdgpu: Enable async flip on overlay planes
+> 
+>  .../drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c    | 11 ++++---
+>  drivers/gpu/drm/drm_atomic_helper.c                |  2 +-
+>  drivers/gpu/drm/drm_atomic_uapi.c                  | 37 ++++++++++++++++------
+>  drivers/gpu/drm/loongson/lsdc_plane.c              |  3 +-
+>  drivers/gpu/drm/mediatek/mtk_plane.c               |  2 +-
+>  drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c         |  2 +-
+>  drivers/gpu/drm/rockchip/rockchip_drm_vop.c        |  2 +-
+>  drivers/gpu/drm/tegra/dc.c                         |  3 +-
+>  drivers/gpu/drm/vc4/vc4_plane.c                    |  2 +-
+>  include/drm/drm_modeset_helper_vtables.h           |  7 +++-
+>  10 files changed, 49 insertions(+), 22 deletions(-)
+> ---
+> base-commit: c40c32cf71b90d85386fcc066c19feb23eb42804
+> change-id: 20241002-tonyk-async_flip-828cfe9cf3ca
+> 
+> Best regards,
+> -- 
+> André Almeida <andrealmeid@igalia.com>
+> 
 
-Alex
-
->
-> Thanks,
-> Lijo
->
-> > +     for (i =3D 0; i < adev->num_ip_blocks; i++) {
-> > +             if (!adev->ip_blocks[i].status.valid)
-> > +                     continue;
-> > +             if (adev->ip_blocks[i].version->type =3D=3D block_type) {
-> > +                     switch (block_type) {
-> > +                     case AMD_IP_BLOCK_TYPE_UVD:
-> > +                             return adev->uvd.num_uvd_inst;
-> > +                     case AMD_IP_BLOCK_TYPE_VCN:
-> > +                             return adev->vcn.num_vcn_inst;
-> > +                     case AMD_IP_BLOCK_TYPE_SDMA:
-> > +                             return adev->sdma.num_instances;
-> > +                     case AMD_IP_BLOCK_TYPE_JPEG:
-> > +                             return adev->jpeg.num_jpeg_inst;
-> > +                     case AMD_IP_BLOCK_TYPE_VPE:
-> > +                             return adev->vpe.num_instances;
-> > +                     default:
-> > +                             return 1;
-> > +                     }
-> > +             }
-> > +     }
-> > +
-> > +     return 0;
-> > +}
-> > +
-> >  /**
-> >   * amdgpu_device_enable_virtual_display - enable virtual display featu=
-re
-> >   *
->
+-- 
+With best wishes
+Dmitry
