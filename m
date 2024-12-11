@@ -4,62 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52905E7717D
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Dec 2024 15:10:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3879E77180
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Dec 2024 15:10:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5CECA10EB7E;
-	Wed, 11 Dec 2024 15:10:11 +0000 (UTC)
-Received: from mx0b-0064b401.pphosted.com (mx0b-0064b401.pphosted.com
- [205.220.178.238])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC3DD10E184;
- Wed, 11 Dec 2024 09:33:31 +0000 (UTC)
-Received: from pps.filterd (m0250812.ppops.net [127.0.0.1])
- by mx0a-0064b401.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4BB8lCZP020629;
- Wed, 11 Dec 2024 09:03:36 GMT
-Received: from ala-exchng02.corp.ad.wrs.com (ala-exchng02.wrs.com
- [147.11.82.254])
- by mx0a-0064b401.pphosted.com (PPS) with ESMTPS id 43cwy3kyhv-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Wed, 11 Dec 2024 09:03:36 +0000 (GMT)
-Received: from ALA-EXCHNG02.corp.ad.wrs.com (147.11.82.254) by
- ALA-EXCHNG02.corp.ad.wrs.com (147.11.82.254) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.43; Wed, 11 Dec 2024 01:03:35 -0800
-Received: from pek-lpg-core1.wrs.com (147.11.136.210) by
- ALA-EXCHNG02.corp.ad.wrs.com (147.11.82.254) with Microsoft SMTP Server id
- 15.1.2507.43 via Frontend Transport; Wed, 11 Dec 2024 01:03:26 -0800
-From: <jianqi.ren.cn@windriver.com>
-To: <wayne.lin@amd.com>, <gregkh@linuxfoundation.org>
-CC: <jerry.zuo@amd.com>, <zaeem.mohamed@amd.com>, <daniel.wheeler@amd.com>,
- <alexander.deucher@amd.com>, <stable@vger.kernel.org>,
- <harry.wentland@amd.com>, <sunpeng.li@amd.com>,
- <Rodrigo.Siqueira@amd.com>, <christian.koenig@amd.com>,
- <airlied@gmail.com>, <daniel@ffwll.ch>, <Jerry.Zuo@amd.com>,
- <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>
-Subject: [PATCH 6.1.y] drm/amd/display: Don't refer to dc_sink in
- is_dsc_need_re_compute
-Date: Wed, 11 Dec 2024 18:01:19 +0800
-Message-ID: <20241211100119.2069620-1-jianqi.ren.cn@windriver.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id AFCD710EB77;
+	Wed, 11 Dec 2024 15:10:10 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="UZUp3K84";
+	dkim-atps=neutral
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 37B9610EA51;
+ Wed, 11 Dec 2024 03:25:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329; h=Cc:To:In-Reply-To:References:Message-Id:
+ Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:Sender:
+ Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
+ :Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=Zn/T8taxWJ7f6yE4dYmTIdSMoIHpsY7XiRAof5kVslg=; b=UZUp3K84fQBlL/2LO2HfmGfP7A
+ XwZP4KzCz+qyTbhKUeJYzhylFb/x1VRufDn5akynbZvvW6DDs4nBTysarnzF/nMadKJKOcGixhsEu
+ +XleT6xCCPu21HIlkfEo+VKnWhs5DV8jtsgd/a3yn17J8mTlZWBO34f2sM7nm/XjlXLtzJsmxlx2Z
+ VaMIteFbVM1wMQnBTC9+o3OFORvle/mJ+pZKJYtLic4ebq5nYfacT/AG0pzeKhOzWk3dQM7JEq17P
+ hB7u5PE6v07DNPaebHomws1Rl0f+OOfomYJIkXHlMhPrtQmseH86ze1npiZm+XiIqrgooYqcgFTR5
+ Ei3nWnfg==;
+Received: from [179.118.189.35] (helo=[192.168.15.100])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1tLDLv-001lyu-M5; Wed, 11 Dec 2024 04:25:31 +0100
+From: =?utf-8?q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
+Date: Wed, 11 Dec 2024 00:25:08 -0300
+Subject: [PATCH v10 1/2] drm/atomic: Let drivers decide which planes to
+ async flip
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-GUID: 6JGyg6j6_c0tYsWVTXEkEHnFsYNgTGNo
-X-Proofpoint-ORIG-GUID: 6JGyg6j6_c0tYsWVTXEkEHnFsYNgTGNo
-X-Authority-Analysis: v=2.4 cv=D7O9KuRj c=1 sm=1 tr=0 ts=67595568 cx=c_pps
- a=K4BcnWQioVPsTJd46EJO2w==:117 a=K4BcnWQioVPsTJd46EJO2w==:17
- a=RZcAm9yDv7YA:10 a=zd2uoN0lAAAA:8 a=t7CeM3EgAAAA:8 a=3MRwYbaJRXBt91PjEZAA:9
- a=FdTzh2GWekK77mhwV6Dw:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2024-12-11_08,2024-12-10_01,2024-11-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0
- lowpriorityscore=0 bulkscore=0 mlxlogscore=999 spamscore=0 malwarescore=0
- adultscore=0 priorityscore=1501 mlxscore=0 impostorscore=0 phishscore=0
- clxscore=1011 classifier=spam authscore=0 adjust=0 reason=mlx scancount=1
- engine=8.21.0-2411120000 definitions=main-2412110068
+Message-Id: <20241211-tonyk-async_flip-v10-1-6b1ff04847c2@igalia.com>
+References: <20241211-tonyk-async_flip-v10-0-6b1ff04847c2@igalia.com>
+In-Reply-To: <20241211-tonyk-async_flip-v10-0-6b1ff04847c2@igalia.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Xinhui Pan <Xinhui.Pan@amd.com>, dmitry.baryshkov@linaro.org, 
+ Simon Ser <contact@emersion.fr>, joshua@froggi.es, 
+ Xaver Hugl <xaver.hugl@gmail.com>, Daniel Stone <daniel@fooishbar.org>, 
+ ville.syrjala@linux.intel.com
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
+ =?utf-8?q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
+X-Mailer: b4 0.14.2
 X-Mailman-Approved-At: Wed, 11 Dec 2024 15:10:09 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -75,53 +71,222 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Wayne Lin <wayne.lin@amd.com>
+Currently, DRM atomic uAPI allows only primary planes to be flipped
+asynchronously. However, each driver might be able to perform async
+flips in other different plane types. To enable drivers to set their own
+restrictions on which type of plane they can or cannot flip, use the
+existing atomic_async_check() from struct drm_plane_helper_funcs to
+enhance this flexibility, thus allowing different plane types to be able
+to do async flips as well.
 
-[ Upstream commit fcf6a49d79923a234844b8efe830a61f3f0584e4 ]
+Create a new parameter for the atomic_async_check(), `bool flip`. This
+parameter is used to distinguish when this function is being called from
+a plane update from a full page flip.
 
-[Why]
-When unplug one of monitors connected after mst hub, encounter null pointer dereference.
+In order to prevent regressions and such, we keep the current policy: we
+skip the driver check for the primary plane, because it is always
+allowed to do async flips on it.
 
-It's due to dc_sink get released immediately in early_unregister() or detect_ctx(). When
-commit new state which directly referring to info stored in dc_sink will cause null pointer
-dereference.
-
-[how]
-Remove redundant checking condition. Relevant condition should already be covered by checking
-if dsc_aux is null or not. Also reset dsc_aux to NULL when the connector is disconnected.
-
-Reviewed-by: Jerry Zuo <jerry.zuo@amd.com>
-Acked-by: Zaeem Mohamed <zaeem.mohamed@amd.com>
-Signed-off-by: Wayne Lin <wayne.lin@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Jianqi Ren <jianqi.ren.cn@windriver.com>
+Signed-off-by: André Almeida <andrealmeid@igalia.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c | 4 ++++
- 1 file changed, 4 insertions(+)
+Changes from v9:
+- Add a 'flip' flag to indicate where the atomic_async_check() is being
+  called from.
+Changes from v8:
+- Rebased on top of 6.12-rc1
+---
+ drivers/gpu/drm/drm_atomic_helper.c         |  2 +-
+ drivers/gpu/drm/drm_atomic_uapi.c           | 37 +++++++++++++++++++++--------
+ drivers/gpu/drm/loongson/lsdc_plane.c       |  3 ++-
+ drivers/gpu/drm/mediatek/mtk_plane.c        |  2 +-
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c  |  2 +-
+ drivers/gpu/drm/rockchip/rockchip_drm_vop.c |  2 +-
+ drivers/gpu/drm/tegra/dc.c                  |  3 ++-
+ drivers/gpu/drm/vc4/vc4_plane.c             |  2 +-
+ include/drm/drm_modeset_helper_vtables.h    |  7 +++++-
+ 9 files changed, 42 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-index 1acef5f3838f..a1619f4569cf 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-@@ -183,6 +183,8 @@ amdgpu_dm_mst_connector_early_unregister(struct drm_connector *connector)
- 		dc_sink_release(dc_sink);
- 		aconnector->dc_sink = NULL;
- 		aconnector->edid = NULL;
-+		aconnector->dsc_aux = NULL;
-+		port->passthrough_aux = NULL;
+diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
+index 5186d2114a503701e228e382cc45180b0c578d0c..8a5d62c3faecfd764fd485434858fa3933104918 100644
+--- a/drivers/gpu/drm/drm_atomic_helper.c
++++ b/drivers/gpu/drm/drm_atomic_helper.c
+@@ -1928,7 +1928,7 @@ int drm_atomic_helper_async_check(struct drm_device *dev,
+ 		return -EBUSY;
  	}
  
- 	aconnector->mst_status = MST_STATUS_DEFAULT;
-@@ -487,6 +489,8 @@ dm_dp_mst_detect(struct drm_connector *connector,
- 		dc_sink_release(aconnector->dc_sink);
- 		aconnector->dc_sink = NULL;
- 		aconnector->edid = NULL;
-+		aconnector->dsc_aux = NULL;
-+		port->passthrough_aux = NULL;
+-	ret = funcs->atomic_async_check(plane, state);
++	ret = funcs->atomic_async_check(plane, state, false);
+ 	if (ret != 0)
+ 		drm_dbg_atomic(dev,
+ 			       "[PLANE:%d:%s] driver async check failed\n",
+diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+index 370dc676e3aa543c9827b50df20df78f02b738c9..2765ba90ad8faec6f1c1db112ef667e794d465c2 100644
+--- a/drivers/gpu/drm/drm_atomic_uapi.c
++++ b/drivers/gpu/drm/drm_atomic_uapi.c
+@@ -27,8 +27,9 @@
+  * Daniel Vetter <daniel.vetter@ffwll.ch>
+  */
  
- 		amdgpu_dm_set_mst_status(&aconnector->mst_status,
- 			MST_REMOTE_EDID | MST_ALLOCATE_NEW_PAYLOAD | MST_CLEAR_ALLOCATED_PAYLOAD,
+-#include <drm/drm_atomic_uapi.h>
+ #include <drm/drm_atomic.h>
++#include <drm/drm_atomic_helper.h>
++#include <drm/drm_atomic_uapi.h>
+ #include <drm/drm_framebuffer.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_drv.h>
+@@ -1063,6 +1064,7 @@ int drm_atomic_set_property(struct drm_atomic_state *state,
+ 		struct drm_plane *plane = obj_to_plane(obj);
+ 		struct drm_plane_state *plane_state;
+ 		struct drm_mode_config *config = &plane->dev->mode_config;
++		const struct drm_plane_helper_funcs *plane_funcs = plane->helper_private;
+ 
+ 		plane_state = drm_atomic_get_plane_state(state, plane);
+ 		if (IS_ERR(plane_state)) {
+@@ -1070,15 +1072,30 @@ int drm_atomic_set_property(struct drm_atomic_state *state,
+ 			break;
+ 		}
+ 
+-		if (async_flip &&
+-		    (plane_state->plane->type != DRM_PLANE_TYPE_PRIMARY ||
+-		     (prop != config->prop_fb_id &&
+-		      prop != config->prop_in_fence_fd &&
+-		      prop != config->prop_fb_damage_clips))) {
+-			ret = drm_atomic_plane_get_property(plane, plane_state,
+-							    prop, &old_val);
+-			ret = drm_atomic_check_prop_changes(ret, old_val, prop_value, prop);
+-			break;
++		if (async_flip) {
++			/* check if the prop does a nop change */
++			if ((prop != config->prop_fb_id &&
++			     prop != config->prop_in_fence_fd &&
++			     prop != config->prop_fb_damage_clips)) {
++				ret = drm_atomic_plane_get_property(plane, plane_state,
++								    prop, &old_val);
++				ret = drm_atomic_check_prop_changes(ret, old_val, prop_value, prop);
++			}
++
++			/* ask the driver if this non-primary plane is supported */
++			if (plane->type != DRM_PLANE_TYPE_PRIMARY) {
++				ret = -EINVAL;
++
++				if (plane_funcs && plane_funcs->atomic_async_check)
++					ret = plane_funcs->atomic_async_check(plane, state, true);
++
++				if (ret) {
++					drm_dbg_atomic(prop->dev,
++						       "[PLANE:%d:%s] does not support async flips\n",
++						       obj->id, plane->name);
++					break;
++				}
++			}
+ 		}
+ 
+ 		ret = drm_atomic_plane_set_property(plane,
+diff --git a/drivers/gpu/drm/loongson/lsdc_plane.c b/drivers/gpu/drm/loongson/lsdc_plane.c
+index d227a2c1dcf16a3d5190de3893a55228ec70b254..aa9a97f9c4dc28eea3098507ce52e6aa6caa46eb 100644
+--- a/drivers/gpu/drm/loongson/lsdc_plane.c
++++ b/drivers/gpu/drm/loongson/lsdc_plane.c
+@@ -171,7 +171,8 @@ static const struct drm_plane_helper_funcs lsdc_primary_helper_funcs = {
+ };
+ 
+ static int lsdc_cursor_plane_atomic_async_check(struct drm_plane *plane,
+-						struct drm_atomic_state *state)
++						struct drm_atomic_state *state,
++						bool flip)
+ {
+ 	struct drm_plane_state *new_state;
+ 	struct drm_crtc_state *crtc_state;
+diff --git a/drivers/gpu/drm/mediatek/mtk_plane.c b/drivers/gpu/drm/mediatek/mtk_plane.c
+index 8a48b3b0a95676c9823daa2052aefb7f86f629ff..655106bbb76d3300edb71fa027591b2f943bbe68 100644
+--- a/drivers/gpu/drm/mediatek/mtk_plane.c
++++ b/drivers/gpu/drm/mediatek/mtk_plane.c
+@@ -101,7 +101,7 @@ static void mtk_plane_destroy_state(struct drm_plane *plane,
+ }
+ 
+ static int mtk_plane_atomic_async_check(struct drm_plane *plane,
+-					struct drm_atomic_state *state)
++					struct drm_atomic_state *state, bool flip)
+ {
+ 	struct drm_plane_state *new_plane_state = drm_atomic_get_new_plane_state(state,
+ 										 plane);
+diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
+index 62de248ed1b09ae479327691eea4866391977b85..bb16019219387e7c5e714106b2fb8054d0db85c1 100644
+--- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
++++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
+@@ -368,7 +368,7 @@ static void mdp5_plane_atomic_update(struct drm_plane *plane,
+ }
+ 
+ static int mdp5_plane_atomic_async_check(struct drm_plane *plane,
+-					 struct drm_atomic_state *state)
++					 struct drm_atomic_state *state, bool flip)
+ {
+ 	struct drm_plane_state *new_plane_state = drm_atomic_get_new_plane_state(state,
+ 										 plane);
+diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop.c
+index 69900138295bf792a1002aff8d66a781082befb9..cd72c726df84fec6ded3d824222ce1d7a85b7a65 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_vop.c
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop.c
+@@ -1072,7 +1072,7 @@ static void vop_plane_atomic_update(struct drm_plane *plane,
+ }
+ 
+ static int vop_plane_atomic_async_check(struct drm_plane *plane,
+-					struct drm_atomic_state *state)
++					struct drm_atomic_state *state, bool flip)
+ {
+ 	struct drm_plane_state *new_plane_state = drm_atomic_get_new_plane_state(state,
+ 										 plane);
+diff --git a/drivers/gpu/drm/tegra/dc.c b/drivers/gpu/drm/tegra/dc.c
+index be61c9d1a4f0e8289ba83cb82edb9f30b95f187c..22fc81a71702e5e384d6df968ee3f5ef7b7b14d9 100644
+--- a/drivers/gpu/drm/tegra/dc.c
++++ b/drivers/gpu/drm/tegra/dc.c
+@@ -1025,7 +1025,8 @@ static void tegra_cursor_atomic_disable(struct drm_plane *plane,
+ 	tegra_dc_writel(dc, value, DC_DISP_DISP_WIN_OPTIONS);
+ }
+ 
+-static int tegra_cursor_atomic_async_check(struct drm_plane *plane, struct drm_atomic_state *state)
++static int tegra_cursor_atomic_async_check(struct drm_plane *plane, struct drm_atomic_state *state,
++					   bool flip)
+ {
+ 	struct drm_plane_state *new_state = drm_atomic_get_new_plane_state(state, plane);
+ 	struct drm_crtc_state *crtc_state;
+diff --git a/drivers/gpu/drm/vc4/vc4_plane.c b/drivers/gpu/drm/vc4/vc4_plane.c
+index ba6e86d62a77cc504826d4ff3ab6db9fb7005f2e..22e34b622a422dbea05baf78eaaa9765d346f25b 100644
+--- a/drivers/gpu/drm/vc4/vc4_plane.c
++++ b/drivers/gpu/drm/vc4/vc4_plane.c
+@@ -1541,7 +1541,7 @@ static void vc4_plane_atomic_async_update(struct drm_plane *plane,
+ }
+ 
+ static int vc4_plane_atomic_async_check(struct drm_plane *plane,
+-					struct drm_atomic_state *state)
++					struct drm_atomic_state *state, bool flip)
+ {
+ 	struct drm_plane_state *new_plane_state = drm_atomic_get_new_plane_state(state,
+ 										 plane);
+diff --git a/include/drm/drm_modeset_helper_vtables.h b/include/drm/drm_modeset_helper_vtables.h
+index ec59015aec3cf3ba01510031c55df8c0b3e0b382..0939ace53e7eb51db54dc133d2a8f898d31fc950 100644
+--- a/include/drm/drm_modeset_helper_vtables.h
++++ b/include/drm/drm_modeset_helper_vtables.h
+@@ -1400,13 +1400,18 @@ struct drm_plane_helper_funcs {
+ 	 * given update can be committed asynchronously, that is, if it can
+ 	 * jump ahead of the state currently queued for update.
+ 	 *
++	 * This function is also used by drm_atomic_set_property() to determine
++	 * if the plane can be flipped in async. The flip flag is used to
++	 * distinguish if the function is used for just the plane state or for a
++	 * flip.
++	 *
+ 	 * RETURNS:
+ 	 *
+ 	 * Return 0 on success and any error returned indicates that the update
+ 	 * can not be applied in asynchronous manner.
+ 	 */
+ 	int (*atomic_async_check)(struct drm_plane *plane,
+-				  struct drm_atomic_state *state);
++				  struct drm_atomic_state *state, bool flip);
+ 
+ 	/**
+ 	 * @atomic_async_update:
+
 -- 
-2.25.1
+2.47.1
 
