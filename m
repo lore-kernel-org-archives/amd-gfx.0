@@ -4,88 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF69EE7717D
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Dec 2024 19:35:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72842E7717D
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Dec 2024 20:08:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C45710E40E;
-	Wed, 11 Dec 2024 19:35:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0284010EC2D;
+	Wed, 11 Dec 2024 20:08:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="qPSsMiQO";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dgLjU6N2";
 	dkim-atps=neutral
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
- [IPv6:2a00:1450:4864:20::135])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9198B10E40E
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Dec 2024 19:35:22 +0000 (UTC)
-Received: by mail-lf1-x135.google.com with SMTP id
- 2adb3069b0e04-540215984f0so3406803e87.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Dec 2024 11:35:22 -0800 (PST)
+Received: from mail-pl1-x631.google.com (mail-pl1-x631.google.com
+ [IPv6:2607:f8b0:4864:20::631])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6CD2010EC1F
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Dec 2024 20:08:51 +0000 (UTC)
+Received: by mail-pl1-x631.google.com with SMTP id
+ d9443c01a7336-21644db9f3cso6188005ad.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Dec 2024 12:08:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1733945721; x=1734550521; darn=lists.freedesktop.org;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=mlmxBycUGwX5pHsGKJE1We114Ns4Oa+/FIJwhXU3Bf0=;
- b=qPSsMiQONcwc7c+1YpPu+evtAjgnpbp5PSTefi7UT0T4ZZxqU26tOMmcfprPKBji8J
- on19O/k2G0Di/rq1NBbeRUDPcBd6E7bGe/qJXK3zUiRVW+roxosmNe/LknF94BvBmTvs
- qNec1LuaXGrJLc06tmnpOz7aV5WB1J1TYmcOXp4sfevFS9wwqS69yKcgRgzN6xW5VxKl
- HGSUSZgoUTWul8YpJv9LF55j4W6izk+XnZqxoXIb5f2W9eDlPA0Va5k8MB4H+HVJM/7B
- THeY0OyIDL/D41LgQqZpsdAWn7VwmKNGKWIAdcy+iVceALPS0ViXqvivQpJTk2iOZbiB
- iOPw==
+ d=gmail.com; s=20230601; t=1733947731; x=1734552531; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=3MhP8BW87RLRwafKzik92viifalfTT35Oj4i/pit0Fo=;
+ b=dgLjU6N2nJmzAmTZj+MwWc0qzRCc0gZZR0vSD9PYQakmp1luchbh4h074iQY8Ino2h
+ qlWkhiE+Gn7G0w6pxe45dOf4u1gCqargyWwcvQtYOK9jTgsR7RvuEOgHWi6b8Dxkn6ox
+ 1IGDIF66sfxrJKhgwNQ3Oj08XQ3NBmqkr+e4ODFLFIm8N9LPP05DXhs8AlFu9pnQIhLc
+ OBv0YDCc/zW6OSbGqR8iBLDm0wWuZlJmk1iuUlp98QoIIw+zZ7De5/G2TnrvXqONII2H
+ tGRMo/It1MdKVhvFBATRi9EHLTeCdkKelTuRVVD/wdOPrH8fiMg0vXR/g/Xdbt8lqP3W
+ XYEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1733945721; x=1734550521;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=mlmxBycUGwX5pHsGKJE1We114Ns4Oa+/FIJwhXU3Bf0=;
- b=J3z4sxWqQ3sxOo0T78baf6621LXs1wrGRMp9WzVcbAvfy0lt5XEuDbMYhtk9fr+09x
- LcUoMV279qtM0yU8qmoREq+QMs5Ww/+VL33IKkVFpCrVFKPPFNEL67k07icKiUUFGra/
- SpYibYCeP3+l5nCj5AdLCCNH4Pgpk6zSJclUreVBCa9ZRLjOzJrnGW9j2udYTCT0cENJ
- 1rJO+hiMwnMLXRMN+ZJ0b436UcOLFsrgcexCiLYIB5r0PNO/9gk8qkSuNTeGeFvXo7fz
- jc8RpehwrkgUDzwNkj6Cf8jtRtkgv9LtrsR8w83fk5pBejSKGpYP5P5o/Ay71Ef/hNvy
- Y7Gg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWjl36IPM7SLISieBltB30jEHOvlTpd6nJ8gNn7fPvHbRRezj9z6L/DlB4mQA0y7FQ8h6ssVLQM@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxbU2OlIj0hR2m032eMEaQejosel+pq8jymoCB2NvjPIpWTiScz
- TBXa9VZ/u2fnYnbh4QykPqUBqYltCq4y0VxVD8KaklrC+UMSoIPZb1wFbJ2mkHU=
-X-Gm-Gg: ASbGncsTRUjz6bK0SP63OIqa+C+Mbw+yrp1RzzFgaDTIjj75xRD4SfVWEJtlYacCDBe
- aXqUJkiaONAnaikLgId1jBZP3xHT8EaD1FBhzT4Fmu9BL1xum+DJNHbmtltw2/+LqfjNz7U5ACS
- CkOeXzlQ6PweWUWrc1N7m0389Htl3InWlD1+Hjxknr1iuWk/id+aRvdqO6kXzvodKsDiwyX6kDU
- 3HhEwoBce8iUaBnTe+f32ZsZSemCgR32/S9VEncVSil+yyO6dYmOHek0pxk4NfZ8aKzymj0ISKl
- XXhhwb5+vqQYFm60HwGSyBhlem8x2UnXQg==
-X-Google-Smtp-Source: AGHT+IFXG9kNop6Dow/dfMq9L/6cEoHmDiwAQOF9Wkw7NDsQvYPpji8SHNbXQPAGHwNjq9pSMY6jew==
-X-Received: by 2002:a05:6512:1302:b0:540:17ac:b372 with SMTP id
- 2adb3069b0e04-5402a5eae13mr1520110e87.30.1733945720766; 
- Wed, 11 Dec 2024 11:35:20 -0800 (PST)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-53e229c0d92sm2113398e87.171.2024.12.11.11.35.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 Dec 2024 11:35:19 -0800 (PST)
-Date: Wed, 11 Dec 2024 21:35:17 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: =?utf-8?B?QW5kcsOp?= Almeida <andrealmeid@igalia.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Xinhui Pan <Xinhui.Pan@amd.com>, Simon Ser <contact@emersion.fr>, 
- joshua@froggi.es, Xaver Hugl <xaver.hugl@gmail.com>, 
- Daniel Stone <daniel@fooishbar.org>, ville.syrjala@linux.intel.com,
- kernel-dev@igalia.com, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org
-Subject: Re: [PATCH v10 0/2] drm/atomic: Ease async flip restrictions
-Message-ID: <ouyulceg7zrnjirg2yf4qbgp5pfovz4y6hq5v6e573yx7ih5qe@uqqne6yq27wl>
-References: <20241211-tonyk-async_flip-v10-0-6b1ff04847c2@igalia.com>
+ d=1e100.net; s=20230601; t=1733947731; x=1734552531;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=3MhP8BW87RLRwafKzik92viifalfTT35Oj4i/pit0Fo=;
+ b=cnUzZ9JURZLN3j+W5/Xc2OgtYrItHA4QS5qtA1hwj3uaZ2eHAXHmpp6nBxx41hWSKp
+ faczbZ1K48L66wRsvNw+EZFR2h6dEJFkbQhNZ9R+w95J9SPBsDIsiw9BtPIomAfWqqvR
+ uN/hNhl4AIqJzGv97j5zgj2exV5BrVXtl5QSd6tr+SPkz3pm69pUga5CGeOXqFtx1AyV
+ 33sD1aId4JqQs8DdEzcjUoOk1T8cUzHlOgA5JttXg63AW878vvlxIjxNhHC/eUmGrzto
+ 9Nw9L/Hqi+51VnSLnXiaBoX8n/+7we/iNY2U2Ly5k2Kj5+bU8/nm2dEejbXPCLI1HOBr
+ 10Zg==
+X-Gm-Message-State: AOJu0YwQ1Idj5t/lbOqXw0RbLLr/TBT+Uw0D6ma8NUKz8YQBLGDFrA3X
+ BzsVx3XcQ08uzTvPok25a08C/VnjYlf5/Yhx+j9EVy8t/IvueWYD+wiqipYtBzH/Y8ShEd2nT+i
+ AjbBNHhUS7emAskCNQdlIYeT/OyY=
+X-Gm-Gg: ASbGncsUMPSJR8Z8I/7+zhWhENms0+4nyzzxs6lhxmJbLc9SntTfGj4WwgOAgRLKdp1
+ lKSwUXRZ7jzbuW+YMSuIANcZyu5oXh9MP6Lw=
+X-Google-Smtp-Source: AGHT+IHxDZ8b0zbzGz3Px345GCSZa6CJVogWLLhrkEpe3WBqbBIq7v8vd5TegJmCh7DbVqMQ3T3Au/VZDrvbocXE2dE=
+X-Received: by 2002:a17:90b:1a92:b0:2ee:acea:9ec4 with SMTP id
+ 98e67ed59e1d1-2f127fc732dmr2429404a91.3.1733947731003; Wed, 11 Dec 2024
+ 12:08:51 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20241211-tonyk-async_flip-v10-0-6b1ff04847c2@igalia.com>
+References: <20241211155601.3585256-1-superm1@kernel.org>
+In-Reply-To: <20241211155601.3585256-1-superm1@kernel.org>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 11 Dec 2024 15:08:39 -0500
+Message-ID: <CADnq5_PxZP4fgMcuD0xD3m2Y3_kbOV_wK4Qq4GzGHJB_9wxepQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd: Require CONFIG_HOTPLUG_PCI_PCIE for BOCO
+To: Mario Limonciello <superm1@kernel.org>
+Cc: amd-gfx@lists.freedesktop.org, 
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Gabriel Marcano <gabemarcano@yahoo.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,60 +79,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Dec 11, 2024 at 12:25:07AM -0300, André Almeida wrote:
-> Hi,
-> 
-> The goal of this work is to find a nice way to allow amdgpu to perform
-> async page flips in the overlay plane as well, not only on the primary
-> one. Currently, when using the atomic uAPI, this is the only type of
-> plane allowed to do async flips, and every driver accepts it.
-> 
-> This patchset re-uses the per-plane function atomic_async_check() to
-> this purpose, so drivers can allow different plane types. There's a
-> `bool flip` parameter so the atomic_async_check() can do different
-> decisions if it's a complete page flip or a plane update.
-> 
-> igt test: https://lore.kernel.org/igt-dev/20241211031820.115844-1-andrealmeid@igalia.com/
-> 
-> Changelog
->  v9: https://lore.kernel.org/r/20241101-tonyk-async_flip-v9-0-681814efbfbe@igalia.com
->  - Add a 'flip' flag to indicate where the atomic_async_check() is being called from.
+On Wed, Dec 11, 2024 at 10:56=E2=80=AFAM Mario Limonciello <superm1@kernel.=
+org> wrote:
+>
+> From: Mario Limonciello <mario.limonciello@amd.com>
+>
+> If the kernel hasn't been compiled with PCIe hotplug support this
+> can lead to problems with dGPUs that use BOCO because they effectively
+> drop off the bus.
+>
+> To prevent issues, disable BOCO support when compiled without PCIe hotplu=
+g.
+>
+> Reported-by: Gabriel Marcano <gabemarcano@yahoo.com>
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/1707#note_2696862
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 
-I think something went wrong. There is no changelog for v10 and also no
-tags that you've got for v9.
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-> 
->  v8: https://lore.kernel.org/lkml/20240806135300.114469-1-andrealmeid@igalia.com/
->  - Rebased on top of 6.12-rc1 (drm/drm-next)
-> 
->  v7: https://lore.kernel.org/dri-devel/20240618030024.500532-1-andrealmeid@igalia.com/
->  - Complete rewrite
-> 
+Seems like this should affect any device which supports d3cold.  Maybe
+we want something more general as well?
+
+Alex
+
 > ---
-> André Almeida (2):
->       drm/atomic: Let drivers decide which planes to async flip
->       drm/amdgpu: Enable async flip on overlay planes
-> 
->  .../drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c    | 11 ++++---
->  drivers/gpu/drm/drm_atomic_helper.c                |  2 +-
->  drivers/gpu/drm/drm_atomic_uapi.c                  | 37 ++++++++++++++++------
->  drivers/gpu/drm/loongson/lsdc_plane.c              |  3 +-
->  drivers/gpu/drm/mediatek/mtk_plane.c               |  2 +-
->  drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c         |  2 +-
->  drivers/gpu/drm/rockchip/rockchip_drm_vop.c        |  2 +-
->  drivers/gpu/drm/tegra/dc.c                         |  3 +-
->  drivers/gpu/drm/vc4/vc4_plane.c                    |  2 +-
->  include/drm/drm_modeset_helper_vtables.h           |  7 +++-
->  10 files changed, 49 insertions(+), 22 deletions(-)
-> ---
-> base-commit: c40c32cf71b90d85386fcc066c19feb23eb42804
-> change-id: 20241002-tonyk-async_flip-828cfe9cf3ca
-> 
-> Best regards,
-> -- 
-> André Almeida <andrealmeid@igalia.com>
-> 
-
--- 
-With best wishes
-Dmitry
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 +++
+>  1 file changed, 3 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_device.c
+> index 764d41434a82f..7db796ebb967e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -419,6 +419,9 @@ bool amdgpu_device_supports_boco(struct drm_device *d=
+ev)
+>  {
+>         struct amdgpu_device *adev =3D drm_to_adev(dev);
+>
+> +       if (!IS_ENABLED(CONFIG_HOTPLUG_PCI_PCIE))
+> +               return false;
+> +
+>         if (adev->has_pr3 ||
+>             ((adev->flags & AMD_IS_PX) && amdgpu_is_atpx_hybrid()))
+>                 return true;
+> --
+> 2.43.0
+>
