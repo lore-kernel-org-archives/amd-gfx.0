@@ -4,46 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4AD2E7717D
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Dec 2024 15:10:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CDDFE77182
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Dec 2024 15:10:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69A8910E3EF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B4B610E3FF;
 	Wed, 11 Dec 2024 15:10:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="IuQZbhcY";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="lQkmEMCr";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD6C810EA4F;
- Wed, 11 Dec 2024 03:25:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B49910E14C;
+ Wed, 11 Dec 2024 03:25:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Cc:To:Content-Transfer-Encoding:Content-Type:MIME-Version:
- Message-Id:Date:Subject:From:Sender:Reply-To:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=+f1nfrUYcs1wSQhhCmsy52L607zRZwkgSeCEyoxcG8Q=; b=IuQZbhcY43mPZuHRZgEmA67lN5
- MjELu5RzmKigWNbWZApCcxPGdw6+D719bPVZ6fHk5y968JkEly+FI+0xEdrrzz+OIZ4d1FgDAuRyF
- vJf14zLsN/yglbIffz3qmVxDxxYtoc4XEOMFhEZ2PWZpzL+R5qFalD+M8dV1iMldg+kCepeAmYBXl
- OeZG23rhZAmm3bNW4z6Vz1KBrA4FsCA+W3VYjNPQCdvtCGeMxSDGfrJ4qo2/P7n0HqsVqL+MPoAXY
- 212fOI+qbYO8AW4BxJT+wMe0Vm0AjdoWpd56IKjsyIsvGp9thM0HkkaGrLP09JOtNXLTwrBIzgrVd
- A5F1gVOA==;
+ s=20170329; h=Cc:To:In-Reply-To:References:Message-Id:
+ Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:Sender:
+ Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
+ :Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=PrQgF4dnk3S2LprziJrI8Fd1ba1twX8nobVmzaXgmsA=; b=lQkmEMCrmc4ttoZgoAygYY8iks
+ LKBWvNsjWW7Qwm6rhDMc8m9g9GATacLTr/5p9cQFoyvqqoe8JXJ2wapRw2aVeAkyF0WEqRKSSb8Ds
+ K05xR8+IkqjJuDQs1+d/Vz1ORQxbOwXcYcrkG1qvvZI9/Twf4PmVrvD4hvRuxffVI4IXfdOQc8AYY
+ yCcLYSn7CBSk8MnuMhjhNp4BVHg+BmDKWpa5MmLbEAOal8EwaNRFvUFuAs9zeWbEIzUMnkH27B1yp
+ SDDJ6VCHtga8/cHmajuvBFJaOPBfmVaJ3AJoxLByuHa5+N1OqDcaQRPrOC4W3hadmPON7wpDvHuxn
+ 26s7XL/A==;
 Received: from [179.118.189.35] (helo=[192.168.15.100])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1tLDLq-001lyu-7z; Wed, 11 Dec 2024 04:25:26 +0100
+ id 1tLDM1-001lyu-3k; Wed, 11 Dec 2024 04:25:37 +0100
 From: =?utf-8?q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
-Subject: [PATCH v10 0/2] drm/atomic: Ease async flip restrictions
-Date: Wed, 11 Dec 2024 00:25:07 -0300
-Message-Id: <20241211-tonyk-async_flip-v10-0-6b1ff04847c2@igalia.com>
+Date: Wed, 11 Dec 2024 00:25:09 -0300
+Subject: [PATCH v10 2/2] drm/amdgpu: Enable async flip on overlay planes
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIABMGWWcC/3WNsQ7CIBiEX6VhFgO0WnDSuDg6uJnGAEL7xwoNN
- I1N03cXO7l0vO/y3U0omgAmokM2oWAGiOBdCpRsMqQb6WqD4ZkAYoQVlBCGe+/GF5ZxdPphW+g
- wZ1xbI7TNtURJ64Kx8Fk27+h6up0vqEq4gdj7MC5Pg1jK9c1BYIKLXa6o4qIs1fMItWxBbrV//
- z4WkxK6Yu455bQwVlll/s1qnucvQLo8EPMAAAA=
-X-Change-ID: 20241002-tonyk-async_flip-828cfe9cf3ca
+Message-Id: <20241211-tonyk-async_flip-v10-2-6b1ff04847c2@igalia.com>
+References: <20241211-tonyk-async_flip-v10-0-6b1ff04847c2@igalia.com>
+In-Reply-To: <20241211-tonyk-async_flip-v10-0-6b1ff04847c2@igalia.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
@@ -74,51 +70,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+amdgpu can handle async flips on overlay planes, so allow it for atomic
+async checks.
 
-The goal of this work is to find a nice way to allow amdgpu to perform
-async page flips in the overlay plane as well, not only on the primary
-one. Currently, when using the atomic uAPI, this is the only type of
-plane allowed to do async flips, and every driver accepts it.
-
-This patchset re-uses the per-plane function atomic_async_check() to
-this purpose, so drivers can allow different plane types. There's a
-`bool flip` parameter so the atomic_async_check() can do different
-decisions if it's a complete page flip or a plane update.
-
-igt test: https://lore.kernel.org/igt-dev/20241211031820.115844-1-andrealmeid@igalia.com/
-
-Changelog
- v9: https://lore.kernel.org/r/20241101-tonyk-async_flip-v9-0-681814efbfbe@igalia.com
- - Add a 'flip' flag to indicate where the atomic_async_check() is being called from.
-
- v8: https://lore.kernel.org/lkml/20240806135300.114469-1-andrealmeid@igalia.com/
- - Rebased on top of 6.12-rc1 (drm/drm-next)
-
- v7: https://lore.kernel.org/dri-devel/20240618030024.500532-1-andrealmeid@igalia.com/
- - Complete rewrite
-
+Signed-off-by: André Almeida <andrealmeid@igalia.com>
 ---
-André Almeida (2):
-      drm/atomic: Let drivers decide which planes to async flip
-      drm/amdgpu: Enable async flip on overlay planes
-
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c    | 11 ++++---
- drivers/gpu/drm/drm_atomic_helper.c                |  2 +-
- drivers/gpu/drm/drm_atomic_uapi.c                  | 37 ++++++++++++++++------
- drivers/gpu/drm/loongson/lsdc_plane.c              |  3 +-
- drivers/gpu/drm/mediatek/mtk_plane.c               |  2 +-
- drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c         |  2 +-
- drivers/gpu/drm/rockchip/rockchip_drm_vop.c        |  2 +-
- drivers/gpu/drm/tegra/dc.c                         |  3 +-
- drivers/gpu/drm/vc4/vc4_plane.c                    |  2 +-
- include/drm/drm_modeset_helper_vtables.h           |  7 +++-
- 10 files changed, 49 insertions(+), 22 deletions(-)
+Changes from v8:
+- Use new parameter 'flip'
 ---
-base-commit: c40c32cf71b90d85386fcc066c19feb23eb42804
-change-id: 20241002-tonyk-async_flip-828cfe9cf3ca
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
-Best regards,
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+index 495e3cd70426db0182cb2811bc6d5d09f52f8a4b..2792d393157beec12d6e96843c43158c03f16027 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+@@ -1260,22 +1260,25 @@ static int amdgpu_dm_plane_atomic_check(struct drm_plane *plane,
+ }
+ 
+ static int amdgpu_dm_plane_atomic_async_check(struct drm_plane *plane,
+-					      struct drm_atomic_state *state)
++					      struct drm_atomic_state *state, bool flip)
+ {
+ 	struct drm_crtc_state *new_crtc_state;
+ 	struct drm_plane_state *new_plane_state;
+ 	struct dm_crtc_state *dm_new_crtc_state;
+ 
+-	/* Only support async updates on cursor planes. */
+-	if (plane->type != DRM_PLANE_TYPE_CURSOR)
++	if (flip) {
++		if (plane->type != DRM_PLANE_TYPE_OVERLAY)
++			return -EINVAL;
++	} else if (plane->type != DRM_PLANE_TYPE_CURSOR)
+ 		return -EINVAL;
+ 
+ 	new_plane_state = drm_atomic_get_new_plane_state(state, plane);
+ 	new_crtc_state = drm_atomic_get_new_crtc_state(state, new_plane_state->crtc);
+ 	dm_new_crtc_state = to_dm_crtc_state(new_crtc_state);
+ 	/* Reject overlay cursors for now*/
+-	if (dm_new_crtc_state->cursor_mode == DM_CURSOR_OVERLAY_MODE)
++	if (!flip && dm_new_crtc_state->cursor_mode == DM_CURSOR_OVERLAY_MODE) {
+ 		return -EINVAL;
++	}
+ 
+ 	return 0;
+ }
+
 -- 
-André Almeida <andrealmeid@igalia.com>
+2.47.1
 
