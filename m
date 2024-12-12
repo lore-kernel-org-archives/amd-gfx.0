@@ -4,53 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AA67E77180
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Dec 2024 08:24:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34453E7717F
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Dec 2024 08:24:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 665BC10EF3F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F5CE10E44E;
 	Fri, 13 Dec 2024 08:24:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Zw9E7hsA";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Mk3VbTqk";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B48FE10E647;
- Thu, 12 Dec 2024 19:09:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7299B10EE83;
+ Thu, 12 Dec 2024 19:20:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
- In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=VpELTsB7bIQQvBcg9aNtXqozy4PQPmxVaPVIZ5jVbMI=; b=Zw9E7hsAcTVnooq7GHNVoK0DSN
- CxL/2FR6+MV/XAgkO6WXNqjTXFHbfaTDcUJ+X7EmZn0WO7wWZ7KKKCu3gKMJAB0Ghx6SUJxCmLjJ7
- X/MoNdQK0NM2B4kMfrbsxeEUGUemzwoDZEnMHl1eRNcR2KdREHrcu20SZVTGPXgdPjYP5IuBttxFf
- bAg+1UTxj2klK5Vw/YwfpJLlui5dxz0JX9PafQqeRArwKYk8aTPziwV1mP0VP4O4DZI+Xl2eIIS8S
- FXGweGXMM+V6WVaXnYRWb3X1ogpb+F3j6UMQqwdYMuc8xbPA/YRvw5kho92DFNrKCiemrUlihLjKo
- e9TGG7sw==;
-Received: from [179.193.1.214] (helo=localhost.localdomain)
+ s=20170329; h=Cc:To:In-Reply-To:References:Message-Id:
+ Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:Sender:
+ Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
+ :Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=z2ipejCRyWSKv27ShitN4KY4MHhmTPh5W2J+LTJowRg=; b=Mk3VbTqksrdXuSWlApUZxWrQ84
+ emq5DahrVJA8WVYeNFS5rlee5JvOMKSr7Zx1Bbzl5vEqGMxlKe2eTI5DSSgkOgzE3XC/61ehur+Yb
+ q+iPttpGsVraPNhXISNtDiSdV7bFdHzgdsdJra0rUWOiwD5NBRcT32JseKjpftfBqkb/pYhECpb3e
+ 5qqWuKzlmGwcVLLBJvP2kTS+0rgXXsevzHEL7d2shc4uUMchDvmHfqi+q9IFz+9TyiHDEKrLotsY5
+ RLcsmTWmSdZSfB39K1sicw9z1H5mWinMBIqzynlXYuyTm5liQF8a46AFWxZVDz/vOAqJ0aV5GpgIm
+ gYw0rRAw==;
+Received: from [179.193.1.214] (helo=[192.168.15.100])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1tLoYt-002MeQ-Bd; Thu, 12 Dec 2024 20:09:23 +0100
-From: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
-To: Raag Jadav <raag.jadav@intel.com>, airlied@gmail.com, simona@ffwll.ch,
- lucas.demarchi@intel.com, rodrigo.vivi@intel.com,
- jani.nikula@linux.intel.com, andriy.shevchenko@linux.intel.com,
- lina@asahilina.net, michal.wajdeczko@intel.com, christian.koenig@amd.com
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- himal.prasad.ghimiray@intel.com, aravind.iddamsetty@linux.intel.com,
- anshuman.gupta@intel.com, alexander.deucher@amd.com,
- andrealmeid@igalia.com, amd-gfx@lists.freedesktop.org,
- kernel-dev@igalia.com
-Subject: [PATCH 1/1] drm/amdgpu: Use device wedged event
-Date: Thu, 12 Dec 2024 16:09:09 -0300
-Message-ID: <20241212190909.28559-2-andrealmeid@igalia.com>
-X-Mailer: git-send-email 2.47.1
-In-Reply-To: <20241212190909.28559-1-andrealmeid@igalia.com>
-References: <20241212190909.28559-1-andrealmeid@igalia.com>
+ id 1tLojT-002MsO-O1; Thu, 12 Dec 2024 20:20:19 +0100
+From: =?utf-8?q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
+Date: Thu, 12 Dec 2024 16:19:34 -0300
+Subject: [PATCH v11 2/2] drm/amdgpu: Enable async flip on overlay planes
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Message-Id: <20241212-tonyk-async_flip-v11-2-14379434be70@igalia.com>
+References: <20241212-tonyk-async_flip-v11-0-14379434be70@igalia.com>
+In-Reply-To: <20241212-tonyk-async_flip-v11-0-14379434be70@igalia.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Xinhui Pan <Xinhui.Pan@amd.com>, dmitry.baryshkov@linaro.org, 
+ Simon Ser <contact@emersion.fr>, joshua@froggi.es, 
+ Xaver Hugl <xaver.hugl@gmail.com>, Daniel Stone <daniel@fooishbar.org>, 
+ ville.syrjala@linux.intel.com
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
+ =?utf-8?q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
+X-Mailer: b4 0.14.2
 X-Mailman-Approved-At: Fri, 13 Dec 2024 08:24:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,29 +70,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use DRM's device wedged event to notify userspace that a reset had
-happened. For now, only use `none` method meant for telemetry
-capture.
+amdgpu can handle async flips on overlay planes, so allow it for atomic
+async checks.
 
 Signed-off-by: André Almeida <andrealmeid@igalia.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 96316111300a..19e1a5493778 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -6057,6 +6057,9 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
- 		dev_info(adev->dev, "GPU reset end with ret = %d\n", r);
- 
- 	atomic_set(&adev->reset_domain->reset_res, r);
-+
-+	drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE);
-+
- 	return r;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+index 495e3cd70426db0182cb2811bc6d5d09f52f8a4b..2792d393157beec12d6e96843c43158c03f16027 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+@@ -1260,22 +1260,25 @@ static int amdgpu_dm_plane_atomic_check(struct drm_plane *plane,
  }
  
+ static int amdgpu_dm_plane_atomic_async_check(struct drm_plane *plane,
+-					      struct drm_atomic_state *state)
++					      struct drm_atomic_state *state, bool flip)
+ {
+ 	struct drm_crtc_state *new_crtc_state;
+ 	struct drm_plane_state *new_plane_state;
+ 	struct dm_crtc_state *dm_new_crtc_state;
+ 
+-	/* Only support async updates on cursor planes. */
+-	if (plane->type != DRM_PLANE_TYPE_CURSOR)
++	if (flip) {
++		if (plane->type != DRM_PLANE_TYPE_OVERLAY)
++			return -EINVAL;
++	} else if (plane->type != DRM_PLANE_TYPE_CURSOR)
+ 		return -EINVAL;
+ 
+ 	new_plane_state = drm_atomic_get_new_plane_state(state, plane);
+ 	new_crtc_state = drm_atomic_get_new_crtc_state(state, new_plane_state->crtc);
+ 	dm_new_crtc_state = to_dm_crtc_state(new_crtc_state);
+ 	/* Reject overlay cursors for now*/
+-	if (dm_new_crtc_state->cursor_mode == DM_CURSOR_OVERLAY_MODE)
++	if (!flip && dm_new_crtc_state->cursor_mode == DM_CURSOR_OVERLAY_MODE) {
+ 		return -EINVAL;
++	}
+ 
+ 	return 0;
+ }
+
 -- 
 2.47.1
 
