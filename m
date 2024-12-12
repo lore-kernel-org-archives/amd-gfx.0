@@ -4,148 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEC95E7717F
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Dec 2024 09:47:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A7CCE7717F
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Dec 2024 11:08:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FDEE10ED1E;
-	Thu, 12 Dec 2024 09:47:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EFD1B10E215;
+	Thu, 12 Dec 2024 11:08:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Qs9c9bx2";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="N5VFq3Cj";
 	dkim-atps=neutral
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on20631.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:2412::631])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 373AB10ED1E
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Dec 2024 09:47:15 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2054.outbound.protection.outlook.com [40.107.220.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D3C310E215
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Dec 2024 11:08:32 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=F6NZYf3Gf6esl1YkdKLgEyjJGh+J4RG9oLCNOUDqLaUY2mmUCtauGpRKRc23eg7JRsDZ29YlnPofA/HXrFgw5xQOVX3x8KHIyxpW7lfgOi3BMEAKVqk2GOTxpi1rSx4FkoJcnsKX4+7N4VwCBSAegVinxCS236+bwcHNjLIx3VWD9/IAth7CPBoyuaXdy21QS0Y1QEAn+clQZ1bDYZl4pB8MCtAXulBPW966KWe8eyvGgxkKij4S1ADnjvWfVaapgku8L8LhiD9j8aaao12AeCvNIEx1rhM3njFPoCZy9VG8GlmbiBm7XRo9VgxaE25I1CG9FlMrcTMA6qwNsicglg==
+ b=HvC84cwdMpMBSQjtSjH/9zhtYFYUiQw/MZyrHfEm41A9Co1bkfx/pDW1SskbilG1VWfKAH/jWXzQZDiATcdj5cutf7O475dqMZfBZ6TB+Vc/yhi+sOSH0+i2rGeYw5n+nfhE/1Q7gHHRB14m/M/XHGAeM92UzlLvqvoHVNcXNJN/02HLZz3DyNMvfwgnpz5u0//lr43R4OL82jXySZf30kj7tazFTegc2v+twyxyakZbbKyL5nGYioYZ5CyJFjkY+6jPemJqam/SqsS5xtxOnI0qG9efT2ol/suBVabsdYa/42HWHWKQyxPfKKlo1EaMxAy3abtLw8Xz/V3jc6i7qg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4LeYyI7MFY2xMRtSDsW3TzJ2RHhTLP8fTMYS9fVdbWA=;
- b=b7I1YoId3Lljyn4W0sqQdW5Kqr32XxOQAQO67bl5UzKuhcRzSrzax6zs7VXNp2E/NLB1s5SL8FmsxDNGLMLSY+Sz1YXoJAHZw1K+zAi43MZus9Ktuo9ZY5R3NpclL/TD0NranRSfNXpVOgEP+m685Qc8yQkO9gyUHu/CKhvoAiwEXFFmxacJv5Sh5oTzD7X0xwMf+UP1NHp8pvssJRZRGPllOWtlFlXpgdTQgbzZh1FpOYnXVMBCX5rmp+JCTcui/e0VeBnPYks3a/1bSOu0GZWUUYUlLO7QkZOLvx6URjrqsT1EFo43zO47itCmxXw/PCgR/tBnvKR5VVrDLjqsaA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=DrtWItukpz6RkXpY/2dORYwL7FCBH4CN2QY7fH4EQfY=;
+ b=o3Y7yRo0w7t9/zOYJAAwsa6/bTcPxZLGeG4wH5gia4obIHs5gEbRzmvN5CdBlkoEdu6Te8OeYNyS5arE+ihyoK6AF2Pcrz+BPaUGR4E1eK+xiN8ZClfy+9ewToeTLer/tcGDdRNpZX4IMKd3UDEZ+z4P2UBVmwgzhtyypnCJoy4VWyQD7UseIvkVgEBI/pBPwB7/3HfWRocWEvT2Dp3xsexrhg2uRzKjUeONJLhrFMUPJxVC2k6TaEs0Lvx2rB6gqpAtO8AmyGTh8+HX2YCgUKMSWBXb33yUKf1CmLc4x6we8OnrcBhVJBuV45Z0TwpLVnNMx8qPecwyJ7P/uMFPTQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4LeYyI7MFY2xMRtSDsW3TzJ2RHhTLP8fTMYS9fVdbWA=;
- b=Qs9c9bx2lE2Xi7LqrjTlQIXBH+oW7mHdu6IzbkIRciRA5Yii0hSGJdn9/VNwCpU87UsmtzzAcYqRop14TgfCtR76p+kWEwJ8vF7felaAUL6/VVtubD7X5/or9IFLPkU9oLtiO0yeZYiSYYdsn0IS+QK0hbBXYCpIwGROXqRwij8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB7820.namprd12.prod.outlook.com (2603:10b6:510:268::8)
- by PH7PR12MB7938.namprd12.prod.outlook.com (2603:10b6:510:276::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8230.18; Thu, 12 Dec
- 2024 09:47:13 +0000
-Received: from PH7PR12MB7820.namprd12.prod.outlook.com
- ([fe80::7606:59:8d0d:6d4c]) by PH7PR12MB7820.namprd12.prod.outlook.com
- ([fe80::7606:59:8d0d:6d4c%4]) with mapi id 15.20.8251.008; Thu, 12 Dec 2024
- 09:47:13 +0000
-Message-ID: <fd21fe0d-ff57-4903-8cc0-1810570dec3f@amd.com>
-Date: Thu, 12 Dec 2024 15:17:06 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 14/48] drm/amdgpu/vcn2.0: convert internal functions to
- use vcn_inst
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20241210225337.75394-1-alexander.deucher@amd.com>
- <20241210225337.75394-15-alexander.deucher@amd.com>
-Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20241210225337.75394-15-alexander.deucher@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN2PR01CA0197.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:e9::6) To PH7PR12MB7820.namprd12.prod.outlook.com
- (2603:10b6:510:268::8)
+ bh=DrtWItukpz6RkXpY/2dORYwL7FCBH4CN2QY7fH4EQfY=;
+ b=N5VFq3CjKbGDf/mXPYJ4fXZBAoc9OXD1fUEM2pyvCZCabssemt9YY0YgzG1mJP74s+ccOcNIC6DmJj9BhyM0cgQLsgQrsiqhiEjz24VPrNq+zzSBWbdoGwqYqzJ7M7pTDETq+5ZQ7qkMy30FNWdw8mrwyWiD7ONy3xPHs2G3nZQ=
+Received: from DM6PR02CA0154.namprd02.prod.outlook.com (2603:10b6:5:332::21)
+ by SJ2PR12MB7919.namprd12.prod.outlook.com (2603:10b6:a03:4cc::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8251.16; Thu, 12 Dec
+ 2024 11:08:28 +0000
+Received: from DS2PEPF00003445.namprd04.prod.outlook.com
+ (2603:10b6:5:332:cafe::40) by DM6PR02CA0154.outlook.office365.com
+ (2603:10b6:5:332::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8251.16 via Frontend Transport; Thu,
+ 12 Dec 2024 11:08:28 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS2PEPF00003445.mail.protection.outlook.com (10.167.17.72) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8251.15 via Frontend Transport; Thu, 12 Dec 2024 11:08:28 +0000
+Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39; Thu, 12 Dec 2024 05:08:24 -0600
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Aurabindo Pillai
+ <aurabindo.pillai@amd.com>
+CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
+ <srinivasan.shanmugam@amd.com>, Leo Li <sunpeng.li@amd.com>, Tom Chung
+ <chiahsuan.chung@amd.com>, Roman Li <roman.li@amd.com>, Alex Hung
+ <alex.hung@amd.com>, Harry Wentland <harry.wentland@amd.com>, Hamza Mahfooz
+ <hamza.mahfooz@amd.com>, Dan Carpenter <dan.carpenter@linaro.org>
+Subject: [PATCH v2] drm/amd/display: Fix NULL pointer dereference in
+ dmub_tracebuffer_show
+Date: Thu, 12 Dec 2024 16:38:08 +0530
+Message-ID: <20241212110808.956179-1-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB7820:EE_|PH7PR12MB7938:EE_
-X-MS-Office365-Filtering-Correlation-Id: c627c453-0ca3-4a29-737e-08dd1a91f463
+X-MS-TrafficTypeDiagnostic: DS2PEPF00003445:EE_|SJ2PR12MB7919:EE_
+X-MS-Office365-Filtering-Correlation-Id: 00c18175-b6c9-4d92-9627-08dd1a9d4e47
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?akhmNklsTTZuREdPeEJZV0VOc3ZiK2hsYnhNcU11ZlRqV1ZpYTFHclVXeGRH?=
- =?utf-8?B?bzQwUFRIVlcreVdTTDFCSFRpQXlVclFyWGVHWWIzbGV5bTZYc085MTFNcktF?=
- =?utf-8?B?a1I1NE92RHpDZ2hnU3BwbXZmSHZwdG5tbGhDSXFud0NQbU0rcndNeExyc3hq?=
- =?utf-8?B?Y3VPVCtTbWFkYVM2dzMxNzNKUGxyN0hXbENLTFJyYVo0QS9KUWJhRE5OMzVH?=
- =?utf-8?B?ZGVlTDEyV09xWVhlVVpxZzdrVkhRRVRBSnlseDJ3WFlYQXhCS2RucmxmdUtW?=
- =?utf-8?B?eS9OOUcvY2FrMFZueTgrRlU0bk9OSGFLR3BBdXlYQjVyeUZLSE81VG5TUHl4?=
- =?utf-8?B?QWxBWGV5dzJ3Q09iRDRZUDZuQ01SRSswZXdmM2ozblRnMEE2RkZCR3FNbFdn?=
- =?utf-8?B?TzgyMmJVVTN0dG9GVkFsNWVYSWliU1R0NFdJY2xVSCtQd2ZVbTB4aTVJTElh?=
- =?utf-8?B?cUFUZEo5TTZ2RnFMblpXeEwvcUNsdkE5NzVoMnpQVDkyWDZuamNKK1duQmFS?=
- =?utf-8?B?SXBWbCtxR3hjbUpBZDB6VHljajkrRVpqdWQwYUYwc25nS3BDa0ZNTS9WdU9W?=
- =?utf-8?B?cnJxMW1oTVhsa0tKNnZ3TGw2amFibzNXYXE2cDNmdW10L3pzMHpteldKMm8z?=
- =?utf-8?B?TEdMNXJmS0czU0JZR29WVWRDRnNobUcvUWh5R3ZZOGNpR1JWVTFQVy9HOVRu?=
- =?utf-8?B?UTRjV05sbHRucVpXOXZZbmNWKzF4QTlHYTlJemFJYWx1c1RxcW5mZDI5c0s2?=
- =?utf-8?B?enoyQ1NmcWZlaStUNTdWbTBQeUswQzZGdXdBb1VuSm1sdCtaS2luZlh0M0tn?=
- =?utf-8?B?QWJrRmpVUnhqSmlmOUJxaGNDdi9YR2lKMEVHVEJFd3JyTnBtcFd2cmxYVko1?=
- =?utf-8?B?a1M3SWN2V1NqUUlTd3BrVjdCZllVRDM3U3NaVlZSRXNocERSdlVlbEtpUTdC?=
- =?utf-8?B?REw4ZXM1bXFUbTAyVm1MZlB0R01LV2xjUHZFd2N2U3VUTzY1T3lHOThoVDNk?=
- =?utf-8?B?b0hneHlDZWphUDdKdmZwaEpvU2w1K0o2ekUwZHUvUVJ1Szh1N0NGSTRvOE0z?=
- =?utf-8?B?aXJncEl5K3p3clRLWVh6aHRZbUMwcklkTTFhN245c3dYMzRkWXhwRExrVUJN?=
- =?utf-8?B?b3VwVVpmcE1SQVBvb1ErT2JjR3QvMlVwSUZBWGRLbE9NYXFpeWJTcDZjUWM0?=
- =?utf-8?B?V0VidjRnWDVHK2l2WnBvQ3dleU1kMVRjOUNiM0x2UEU4aWdEenM4aUdka3N4?=
- =?utf-8?B?OERBNGthMDJsb2NVbUJaSE5kMEVENzFjVmoyeXNySXd1b2VHcnBNd2Fvc1ZQ?=
- =?utf-8?B?N2xUVWNqNnJ4L1g3MHZKMnRZMnJ0M29NNDdqRkY1ZVQ4MkQ1NEZ3TmQ1dEN6?=
- =?utf-8?B?MDY2SHRwUW9SZFhtdUpZV1NpYTM3UnN0blFTaW03K293R1JkNDNFOXl1Mkwx?=
- =?utf-8?B?Q0plY1F5d3dhSGNjTlJITjA3a2piZ3dVQU93VlFBbEE3eDJsSktGeEhvVzV2?=
- =?utf-8?B?M2NRKzc2MTJCS2F4NENITlluMGJaaGhWdnJzQ0lET2RzczBTaHovV3V0MTNq?=
- =?utf-8?B?NjRpWXhvcEFlNXZHMWtyaVEwQnNCRk1Nb0hCNnFrK2dNSnVkVDB3aUJDS1RC?=
- =?utf-8?B?NHhENnZBaFQ0Y2FtMjJ5N3ZTdEFoQ1I5US9kNlpFS2Zob3lMcGxXUnhhd1Ur?=
- =?utf-8?B?ajBZcGZzb0pMd3NIRC94RWtsSktqWktjRXI4N1FmUk5FQng5ZGVUNERndDB1?=
- =?utf-8?B?aFh2MWZXUzJXSVU5L2ljYkhUUHJQa3VvTFpQNEJiTzlvZ3IrMHB6TVpMb0Ji?=
- =?utf-8?B?cTErTW9uaDVhT2todUhDdz09?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB7820.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?M2pqbWlSN1lic05aUklWaStERFpaM3lETzVZeFdub29FdW51ZFovL0p2elRr?=
- =?utf-8?B?TThGZlNESDdwRlUwWkJNazhHYW9lemxzMFhkRTg1OXcxWEVCajV3VWdUNmZO?=
- =?utf-8?B?UGxEWVZ2TmFQY3p3bHVHRlorQnhFamFDd1JIL0hvZFhHMlZTWkpUMEVOYnBO?=
- =?utf-8?B?aW1CQXFncXVIb2h3ck40U3gvSU84U0hGSVYzMjNyRU9OWVFHcmovbjdGWXFp?=
- =?utf-8?B?ZUdEbzF1ejQ5ZmZIZ2E4dy93cVg4SkIveFVhN0c0MHVFbHM4c3V1dXB4Z2Fa?=
- =?utf-8?B?OXV4eUZLbGpLaVFWMWN1bHR6T0UrbVFPLzlGY0JYa05jRnNrZ25vSlVpSHpk?=
- =?utf-8?B?WmlQeVBkVTI0SEI5Zk95VDRYUll3c0NQNUFnQVdCRjdjeWQ5VmtuTDY3M3hP?=
- =?utf-8?B?dUtVaVI0OG5lZWZHWTh3dGxjQ2k5VXU0L0pMQmsvQ1B6RGNxNTJ3N2RsNFNG?=
- =?utf-8?B?U0VEa2RTM09yVlgva0J5cGZmMTZDZHpOWTBYdXFIQTZrQ215d3EwRUo3ZUwz?=
- =?utf-8?B?SlB2cE1najdHcmpuZUdlY0JQRTczUlpNTUI4SmE4ZVBXM3NjNnFXdCtmRWNV?=
- =?utf-8?B?TXRtZ3FCMW1oOWkybmtsTXRSUjlXZ01uSWRXdlZ3bGhnb25VSGpOL1VGV2tl?=
- =?utf-8?B?TTNCV25LQ1c5ZHhZSVU0YkQ1a2hrSEQ5YVdEZG81bGNRQlZ3cVNyYXIwang5?=
- =?utf-8?B?N284NlZGanJBejR0eXdmWHI1Zkw3S0UvQUV6eUZhd3Y5VGVKQXFEbk15ZjFk?=
- =?utf-8?B?RVZrbStiTERCdW1mdGtrbjF1ZG9reEdub2prWHZaRFg1RTl1cGhzRXZCN043?=
- =?utf-8?B?K2EzRXZoSUl4UHNoN1IzeGJVTlI4aHQ2aHArb250SEZPYmtTc2dOZDdvTTVi?=
- =?utf-8?B?QTNBbkEwaDZqL0lBaDVUbUwxUlhqbmZuaWdjZmduQmtVUmFZaHJXeXpRWk82?=
- =?utf-8?B?NzJvNHdxWkpiWEVIL3FBL01nYktJN1lRWTgzcVlWVFJTcUVIM2FRNlVvU0x6?=
- =?utf-8?B?dlpiRVQrR0dYUUN0eFl6MXZUckVoQWlqTnM1UUNuMzNWU3RndlZ0R1ZNVmpV?=
- =?utf-8?B?cVZrQlBReFZEeXlobC9UQm9DVFRtME5nVG5TaXFKa05MK1VYMktQV0ZtSmMx?=
- =?utf-8?B?L2w3S092K2FpejA1UHBJbHZMcHhOQXk0MklKTS9CZnZOSlVFVVVzRTBHelY1?=
- =?utf-8?B?UXQ1aGxNVGZQNzFrdVh3Q1U2cUhmamNlRkQyc1VocHh6OC9oNkFRWkpieU1C?=
- =?utf-8?B?YTgyR0pzU2EvNWhJSk92NmVPclVtOUR5SENTNEdBSmlnVmdRNk82eVd6dFNM?=
- =?utf-8?B?ajc3MUlLeURnYlFKOWxrQlBTMnhEZ3RZRHBwT0JWeU85OEdTeVlwcXY3d05M?=
- =?utf-8?B?YzE3NlVxNGR1cFZhbU13ODRjcjFMeDJJZERmN1dFaFp0bnVLR2wrby9lNTlU?=
- =?utf-8?B?Q29TZHZJWjNIbmU3WnA2VFZna3B4eDVFR3pkSGVZZWdWNEVCYTJiN2RqWWhq?=
- =?utf-8?B?RTlaOUZsaW4vZk5uMU5TUHRHazljS25RdWFIb3dvR3hvQkxzaWQxbEErSHNm?=
- =?utf-8?B?RkhiWHRNUXE1a2YzamVWbksrN2wweUc0b0c4TVp0dXdtNUIvMU01d0lNYlRH?=
- =?utf-8?B?SUZEWjk5RHYwM25uREYxUWRqSlZweG9GWFpoWFJmSFRyd0pVODFFakdUODRw?=
- =?utf-8?B?d1Zmc2hIdXJkZkFVR20zeDV5YVVBT2NIdDl0SjFlSkVIdEFad0sza29Sb1Vt?=
- =?utf-8?B?VEFXT1ArNEFMZGJzYTA5MDV1NkVIMFBPelk4ZXVFTy9SUUhheU5VMVRJK1dI?=
- =?utf-8?B?bnl4VVZaUmRIZ0dObFAwam4zeUs4Vzdwa09OSXA4QXByYTgyejJud1NrM29H?=
- =?utf-8?B?bWRXbURHTnRuTTZBSWpaVVlVQnZTNTZrNWtHSXAycDFwYmR4WmYzaXdQMkJq?=
- =?utf-8?B?OC96RGdZQ2ZaVThxVjgydUk0S3VxVCsvaFkrd3VZblJwM1hTZWZUb1lRRlJh?=
- =?utf-8?B?VkxJZzVJaFdjaU9rOUI0aXZTSmJSVVBNajB1Y3BLcU1CTkdKVXVUVEpaUnhO?=
- =?utf-8?B?cWtGbGdUMklIRllDMnp1SlpaVG85d2dKTGQwMk9qako5cE5jOXRCWVJ2ODBZ?=
- =?utf-8?Q?LBhSP6JoB7MqSm2hsOZ5YbSB4?=
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|82310400026|36860700013|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?v4GBGZnE88o4R4V6CR5eWjlAglrZP7uPjt39lIDUyjpLogoTTVX2ELXeqYLL?=
+ =?us-ascii?Q?kihaetF8WJa+8mE2jm8dPjxRm3Ei5RnjNsPD5RC6E5/WOJwY9jMvYPe4LuYU?=
+ =?us-ascii?Q?eKvvclejRPNNETIL96R3FzKvvhgQSzvQjUI+iD8wHdtpS09z+Ug7gGWVqaoV?=
+ =?us-ascii?Q?Yk1AU/PYYYraylJRjS3WWXdzledQF6LLUT3zhJZ82eb4mi5yijjVK+1bUgtC?=
+ =?us-ascii?Q?eVA0G5FfPGh1hLoRO01JsIp2Z5IoqIglV37GQEwqUBnQK/5MyR2z20MlLFtN?=
+ =?us-ascii?Q?AO7jidGSmrzSptRGZYEIkV7sUJpgXqumv+n8YeA3q4GZmlvEmmUhoJOLz5sP?=
+ =?us-ascii?Q?KbKzfWDGSGkxkJgYP422xwAwwc/rWTfz0g+tkUuDCp6G00rF0zZoLSVyyKG4?=
+ =?us-ascii?Q?G9PZ5NAinT2p+7hf/QTaYmCxwBRVxW48v/FumDegQLT7WSkdgtgqfF5bobu7?=
+ =?us-ascii?Q?vg69CuWUAnGz15TQzHkpQJLzVjEi0PMzFcFnJlNfTr48i5/z3lWim3SmTzau?=
+ =?us-ascii?Q?4WKPrvh5Q75Si561RToAVAwNnpdg27Cres6jsd/Qvea1WCFtn4cg20gCCMSV?=
+ =?us-ascii?Q?HQhVDZzbvKE8u3JwlRIAed+DFI+sYRAoH+GJLb0wgQoXpdGwv4vkXEElQN+y?=
+ =?us-ascii?Q?Ss2LFaJu73Sbg82WyhFEwTOdoWz14jRP2ctmKUOGeQTwMadWolImWRJBgRR1?=
+ =?us-ascii?Q?3nvdUMv7fqNoMYSUBxEaKU45HTtMLGJITo7lSpwkL2vabogdbzDRvsVfNpyf?=
+ =?us-ascii?Q?AivY/dDwELHcxPabbSn4rIDkPoshsbOIkcsov5lmhfgdf6FTsskdu38R/aih?=
+ =?us-ascii?Q?lkUJmw6P8C1gL8emmOb3TS6xFqSgvzN3Jgk4QO6adSHX7LSe0vV1KcO5xkbg?=
+ =?us-ascii?Q?M8scFd1hjcLM6p0veAd70YYhmeAS8XL4cauONLB5Ghovyo2d6X6E3vLXrSjC?=
+ =?us-ascii?Q?WtdATwZvPzPdjlvwqCvDN1B+dxHc0JwxNl5zMxhZhy+99ycGx7wVGNcF38Iq?=
+ =?us-ascii?Q?B+6zReErcF6igqgTV9yFuIdpUl8Sf4EjKbaXLrhTAwnVi0NmIwReyGDtuHSW?=
+ =?us-ascii?Q?/CkVk+MW59aszMBgW4k32fZQuqZRn42vLhlWQAixI/RwSFnF2+LX4AYeNPDS?=
+ =?us-ascii?Q?oLFtcXRkJ6dp5eg5GmNuolenQTRsQgPLgLZg7VSoivlxJrbfLTT766q/N/1p?=
+ =?us-ascii?Q?RMaMIXVTl032okNMrYlEPdkjXpQNaIOSVkoXIJjlpjahIq//26PyFIAan7od?=
+ =?us-ascii?Q?qnmZ1300AOrjSDZelm5jvabxkYMME/T0fmCqPJsYNSL9R+DJKChXW4oJOEIT?=
+ =?us-ascii?Q?uuxDTNzHOXgcRD3oxwkLWja7hUs9kvPa2LPQOl/qbEBYxrckBqWV5Z/9R5OW?=
+ =?us-ascii?Q?1zJXt9co+V9mg9gJeyJ8oHN8Grt9?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c627c453-0ca3-4a29-737e-08dd1a91f463
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB7820.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Dec 2024 09:47:13.2543 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Dec 2024 11:08:28.1042 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 00c18175-b6c9-4d92-9627-08dd1a9d4e47
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: cj98DTYu0+BdP1PD3pDO/osRR8pgYilK4iJ/DdUdsP0q+LwaH/1uYZg+7nncbmjf
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7938
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF00003445.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7919
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,256 +134,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+It corrects the issue by checking if 'adev->dm.dmub_srv' is NULL before
+accessing its 'meta_info' member. This ensures that we do not
+dereference a NULL pointer.
 
+Fixes the below:
+	drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_debugfs.c:917 dmub_tracebuffer_show()
+	warn: address of 'adev->dm.dmub_srv->meta_info' is non-NULL
 
-On 12/11/2024 4:23 AM, Alex Deucher wrote:
-> Pass the vcn instance structure to these functions rather
-> than adev and the instance number.
-> 
-> TODO: clean up the function internals to use the vinst state
-> directly rather than accessing it indirectly via adev->vcn.inst[].
-> 
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c | 66 ++++++++++++++++-----------
->  1 file changed, 39 insertions(+), 27 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-> index 3902e0d239d8d..b42b369a386da 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-> @@ -370,8 +370,9 @@ static int vcn_v2_0_resume(struct amdgpu_ip_block *ip_block)
->   *
->   * Let the VCN memory controller know it's offsets
->   */
-> -static void vcn_v2_0_mc_resume(struct amdgpu_device *adev)
-> +static void vcn_v2_0_mc_resume(struct amdgpu_vcn_inst *vinst)
->  {
-> +	struct amdgpu_device *adev = vinst->adev;
->  	uint32_t size = AMDGPU_GPU_PAGE_ALIGN(adev->vcn.inst[0].fw->size + 4);
->  	uint32_t offset;
->  
-> @@ -426,8 +427,10 @@ static void vcn_v2_0_mc_resume(struct amdgpu_device *adev)
->  	WREG32_SOC15(UVD, 0, mmUVD_GFX10_ADDR_CONFIG, adev->gfx.config.gb_addr_config);
->  }
->  
-> -static void vcn_v2_0_mc_resume_dpg_mode(struct amdgpu_device *adev, bool indirect)
-> +static void vcn_v2_0_mc_resume_dpg_mode(struct amdgpu_vcn_inst *vinst,
-> +					bool indirect)
->  {
-> +	struct amdgpu_device *adev = vinst->adev;
->  	uint32_t size = AMDGPU_GPU_PAGE_ALIGN(adev->vcn.inst[0].fw->size + 4);
->  	uint32_t offset;
->  
-> @@ -525,12 +528,13 @@ static void vcn_v2_0_mc_resume_dpg_mode(struct amdgpu_device *adev, bool indirec
->  /**
->   * vcn_v2_0_disable_clock_gating - disable VCN clock gating
->   *
-> - * @adev: amdgpu_device pointer
-> + * @vinst: VCN instance
->   *
->   * Disable clock gating for VCN block
->   */
-> -static void vcn_v2_0_disable_clock_gating(struct amdgpu_device *adev)
-> +static void vcn_v2_0_disable_clock_gating(struct amdgpu_vcn_inst *vinst)
->  {
-> +	struct amdgpu_device *adev = vinst->adev;
->  	uint32_t data;
->  
->  	if (amdgpu_sriov_vf(adev))
-> @@ -634,9 +638,10 @@ static void vcn_v2_0_disable_clock_gating(struct amdgpu_device *adev)
->  	WREG32_SOC15(VCN, 0, mmUVD_SUVD_CGC_CTRL, data);
->  }
->  
-> -static void vcn_v2_0_clock_gating_dpg_mode(struct amdgpu_device *adev,
-> +static void vcn_v2_0_clock_gating_dpg_mode(struct amdgpu_vcn_inst *vinst,
->  		uint8_t sram_sel, uint8_t indirect)
->  {
-> +	struct amdgpu_device *adev = vinst->adev;
->  	uint32_t reg_data = 0;
->  
->  	/* enable sw clock gating control */
-> @@ -685,12 +690,13 @@ static void vcn_v2_0_clock_gating_dpg_mode(struct amdgpu_device *adev,
->  /**
->   * vcn_v2_0_enable_clock_gating - enable VCN clock gating
->   *
-> - * @adev: amdgpu_device pointer
-> + * @vinst: VCN instance
->   *
->   * Enable clock gating for VCN block
->   */
-> -static void vcn_v2_0_enable_clock_gating(struct amdgpu_device *adev)
-> +static void vcn_v2_0_enable_clock_gating(struct amdgpu_vcn_inst *vinst)
->  {
-> +	struct amdgpu_device *adev = vinst->adev;
->  	uint32_t data = 0;
->  
->  	if (amdgpu_sriov_vf(adev))
-> @@ -743,8 +749,9 @@ static void vcn_v2_0_enable_clock_gating(struct amdgpu_device *adev)
->  	WREG32_SOC15(VCN, 0, mmUVD_SUVD_CGC_CTRL, data);
->  }
->  
-> -static void vcn_v2_0_disable_static_power_gating(struct amdgpu_device *adev)
-> +static void vcn_v2_0_disable_static_power_gating(struct amdgpu_vcn_inst *vinst)
->  {
-> +	struct amdgpu_device *adev = vinst->adev;
->  	uint32_t data = 0;
->  
->  	if (amdgpu_sriov_vf(adev))
-> @@ -792,8 +799,9 @@ static void vcn_v2_0_disable_static_power_gating(struct amdgpu_device *adev)
->  	WREG32_SOC15(VCN, 0, mmUVD_POWER_STATUS, data);
->  }
->  
-> -static void vcn_v2_0_enable_static_power_gating(struct amdgpu_device *adev)
-> +static void vcn_v2_0_enable_static_power_gating(struct amdgpu_vcn_inst *vinst)
->  {
-> +	struct amdgpu_device *adev = vinst->adev;
->  	uint32_t data = 0;
->  
->  	if (amdgpu_sriov_vf(adev))
-> @@ -834,13 +842,14 @@ static void vcn_v2_0_enable_static_power_gating(struct amdgpu_device *adev)
->  	}
->  }
->  
-> -static int vcn_v2_0_start_dpg_mode(struct amdgpu_device *adev, bool indirect)
-> +static int vcn_v2_0_start_dpg_mode(struct amdgpu_vcn_inst *vinst, bool indirect)
->  {
-> +	struct amdgpu_device *adev = vinst->adev;
->  	volatile struct amdgpu_fw_shared *fw_shared = adev->vcn.inst->fw_shared.cpu_addr;
->  	struct amdgpu_ring *ring = &adev->vcn.inst->ring_dec;
->  	uint32_t rb_bufsz, tmp;
->  
-> -	vcn_v2_0_enable_static_power_gating(adev);
-> +	vcn_v2_0_enable_static_power_gating(vinst);
->  
->  	/* enable dynamic power gating mode */
->  	tmp = RREG32_SOC15(UVD, 0, mmUVD_POWER_STATUS);
-> @@ -852,7 +861,7 @@ static int vcn_v2_0_start_dpg_mode(struct amdgpu_device *adev, bool indirect)
->  		adev->vcn.inst->dpg_sram_curr_addr = (uint32_t *)adev->vcn.inst->dpg_sram_cpu_addr;
->  
->  	/* enable clock gating */
-> -	vcn_v2_0_clock_gating_dpg_mode(adev, 0, indirect);
-> +	vcn_v2_0_clock_gating_dpg_mode(vinst, 0, indirect);
->  
->  	/* enable VCPU clock */
->  	tmp = (0xFF << UVD_VCPU_CNTL__PRB_TIMEOUT_VAL__SHIFT);
-> @@ -901,7 +910,7 @@ static int vcn_v2_0_start_dpg_mode(struct amdgpu_device *adev, bool indirect)
->  		 (0x1 << UVD_MPC_SET_MUX__SET_1__SHIFT) |
->  		 (0x2 << UVD_MPC_SET_MUX__SET_2__SHIFT)), 0, indirect);
->  
-> -	vcn_v2_0_mc_resume_dpg_mode(adev, indirect);
-> +	vcn_v2_0_mc_resume_dpg_mode(vinst, indirect);
->  
->  	WREG32_SOC15_DPG_MODE(0, SOC15_DPG_MODE_OFFSET(
->  		UVD, 0, mmUVD_REG_XX_MASK), 0x10, 0, indirect);
-> @@ -969,8 +978,9 @@ static int vcn_v2_0_start_dpg_mode(struct amdgpu_device *adev, bool indirect)
->  	return 0;
->  }
->  
-> -static int vcn_v2_0_start(struct amdgpu_device *adev)
-> +static int vcn_v2_0_start(struct amdgpu_vcn_inst *vinst)
->  {
-> +	struct amdgpu_device *adev = vinst->adev;
->  	volatile struct amdgpu_fw_shared *fw_shared = adev->vcn.inst->fw_shared.cpu_addr;
->  	struct amdgpu_ring *ring = &adev->vcn.inst->ring_dec;
->  	uint32_t rb_bufsz, tmp;
-> @@ -981,16 +991,16 @@ static int vcn_v2_0_start(struct amdgpu_device *adev)
->  		amdgpu_dpm_enable_vcn(adev, true, 0);
->  
->  	if (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG)
-> -		return vcn_v2_0_start_dpg_mode(adev, adev->vcn.inst->indirect_sram);
-> +		return vcn_v2_0_start_dpg_mode(vinst, adev->vcn.inst->indirect_sram);
->  
-> -	vcn_v2_0_disable_static_power_gating(adev);
-> +	vcn_v2_0_disable_static_power_gating(vinst);
->  
->  	/* set uvd status busy */
->  	tmp = RREG32_SOC15(UVD, 0, mmUVD_STATUS) | UVD_STATUS__UVD_BUSY;
->  	WREG32_SOC15(UVD, 0, mmUVD_STATUS, tmp);
->  
->  	/*SW clock gating */
-> -	vcn_v2_0_disable_clock_gating(adev);
-> +	vcn_v2_0_disable_clock_gating(vinst);
->  
->  	/* enable VCPU clock */
->  	WREG32_P(SOC15_REG_OFFSET(UVD, 0, mmUVD_VCPU_CNTL),
-> @@ -1034,7 +1044,7 @@ static int vcn_v2_0_start(struct amdgpu_device *adev)
->  		(0x1 << UVD_MPC_SET_MUX__SET_1__SHIFT) |
->  		(0x2 << UVD_MPC_SET_MUX__SET_2__SHIFT)));
->  
-> -	vcn_v2_0_mc_resume(adev);
-> +	vcn_v2_0_mc_resume(vinst);
->  
->  	/* release VCPU reset to boot */
->  	WREG32_P(SOC15_REG_OFFSET(UVD, 0, mmUVD_SOFT_RESET), 0,
-> @@ -1142,8 +1152,9 @@ static int vcn_v2_0_start(struct amdgpu_device *adev)
->  	return 0;
->  }
->  
-> -static int vcn_v2_0_stop_dpg_mode(struct amdgpu_device *adev)
-> +static int vcn_v2_0_stop_dpg_mode(struct amdgpu_vcn_inst *vinst)
->  {
-> +	struct amdgpu_device *adev = vinst->adev;
->  	struct dpg_pause_state state = {.fw_based = VCN_DPG_STATE__UNPAUSE};
->  	uint32_t tmp;
->  
-> @@ -1172,13 +1183,14 @@ static int vcn_v2_0_stop_dpg_mode(struct amdgpu_device *adev)
->  	return 0;
->  }
->  
-> -static int vcn_v2_0_stop(struct amdgpu_device *adev)
-> +static int vcn_v2_0_stop(struct amdgpu_vcn_inst *vinst)
->  {
-> +	struct amdgpu_device *adev = vinst->adev;
->  	uint32_t tmp;
->  	int r;
->  
->  	if (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG) {
-> -		r = vcn_v2_0_stop_dpg_mode(adev);
-> +		r = vcn_v2_0_stop_dpg_mode(vinst);
->  		if (r)
->  			return r;
->  		goto power_off;
-> @@ -1230,8 +1242,8 @@ static int vcn_v2_0_stop(struct amdgpu_device *adev)
->  	/* clear status */
->  	WREG32_SOC15(VCN, 0, mmUVD_STATUS, 0);
->  
-> -	vcn_v2_0_enable_clock_gating(adev);
-> -	vcn_v2_0_enable_static_power_gating(adev);
-> +	vcn_v2_0_enable_clock_gating(vinst);
-> +	vcn_v2_0_enable_static_power_gating(vinst);
->  
->  power_off:
->  	if (adev->pm.dpm_enabled)
-> @@ -1348,10 +1360,10 @@ static int vcn_v2_0_set_clockgating_state(struct amdgpu_ip_block *ip_block,
->  		/* wait for STATUS to clear */
->  		if (!vcn_v2_0_is_idle(adev))
->  			return -EBUSY;
-> -		vcn_v2_0_enable_clock_gating(adev);
-> +		vcn_v2_0_enable_clock_gating(adev->vcn.inst);
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_debugfs.c
+    901 static int dmub_tracebuffer_show(struct seq_file *m, void *data)
+    902 {
+    903         struct amdgpu_device *adev = m->private;
+    904         struct dmub_srv_fb_info *fb_info = adev->dm.dmub_fb_info;
+    905         struct dmub_fw_meta_info *fw_meta_info = &adev->dm.dmub_srv->meta_info;
+                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Even if adev->dm.dmub_srv is NULL, the address of ->meta_info can't be NULL
 
-Consider &adev->vcn.inst[0] for readability.
+    906         struct dmub_debugfs_trace_entry *entries;
+    907         uint8_t *tbuf_base;
+    908         uint32_t tbuf_size, max_entries, num_entries, first_entry, i;
+    909
+    910         if (!fb_info)
+    911                 return 0;
+    912
+    913         tbuf_base = (uint8_t *)fb_info->fb[DMUB_WINDOW_5_TRACEBUFF].cpu_addr;
+    914         if (!tbuf_base)
+    915                 return 0;
+    916
+--> 917         tbuf_size = fw_meta_info ? fw_meta_info->trace_buffer_size :
+                            ^^^^^^^^^^^^ Always non-NULL
 
-Thanks,
-Lijo
+    918                                    DMUB_TRACE_BUFFER_SIZE;
+    919         max_entries = (tbuf_size - sizeof(struct dmub_debugfs_trace_header)) /
+    920                       sizeof(struct dmub_debugfs_trace_entry);
+    921
+    922         num_entries =
 
->  	} else {
->  		/* disable HW gating and enable Sw gating */
-> -		vcn_v2_0_disable_clock_gating(adev);
-> +		vcn_v2_0_disable_clock_gating(adev->vcn.inst);
->  	}
->  	return 0;
->  }
-> @@ -1818,9 +1830,9 @@ static int vcn_v2_0_set_powergating_state(struct amdgpu_ip_block *ip_block,
->  		return 0;
->  
->  	if (state == AMD_PG_STATE_GATE)
-> -		ret = vcn_v2_0_stop(adev);
-> +		ret = vcn_v2_0_stop(adev->vcn.inst);
->  	else
-> -		ret = vcn_v2_0_start(adev);
-> +		ret = vcn_v2_0_start(adev->vcn.inst);
->  
->  	if (!ret)
->  		adev->vcn.inst->cur_state = state;
+Fixes: c506f6e03b18 ("drm/amd/display: Make DMCUB tracebuffer debugfs chronological")
+Cc: Leo Li <sunpeng.li@amd.com>
+Cc: Tom Chung <chiahsuan.chung@amd.com>
+Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Cc: Roman Li <roman.li@amd.com>
+Cc: Alex Hung <alex.hung@amd.com>
+Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Hamza Mahfooz <hamza.mahfooz@amd.com>
+Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+---
+v2:
+ - initially initialize struct dmub_fw_meta_info *fw_meta_info to NULL (Dan
+   Carpenter)
+  
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+index 11a7ac54f91c..2d31836ecb98 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+@@ -902,7 +902,7 @@ static int dmub_tracebuffer_show(struct seq_file *m, void *data)
+ {
+ 	struct amdgpu_device *adev = m->private;
+ 	struct dmub_srv_fb_info *fb_info = adev->dm.dmub_fb_info;
+-	struct dmub_fw_meta_info *fw_meta_info = &adev->dm.dmub_srv->meta_info;
++	struct dmub_fw_meta_info *fw_meta_info = NULL;
+ 	struct dmub_debugfs_trace_entry *entries;
+ 	uint8_t *tbuf_base;
+ 	uint32_t tbuf_size, max_entries, num_entries, first_entry, i;
+@@ -914,6 +914,9 @@ static int dmub_tracebuffer_show(struct seq_file *m, void *data)
+ 	if (!tbuf_base)
+ 		return 0;
+ 
++	if (adev->dm.dmub_srv)
++		fw_meta_info = &adev->dm.dmub_srv->meta_info;
++
+ 	tbuf_size = fw_meta_info ? fw_meta_info->trace_buffer_size :
+ 				   DMUB_TRACE_BUFFER_SIZE;
+ 	max_entries = (tbuf_size - sizeof(struct dmub_debugfs_trace_header)) /
+-- 
+2.34.1
 
