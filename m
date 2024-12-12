@@ -4,68 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44277E77180
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2C97E77186
 	for <amd-gfx@archiver.kernel.org>; Fri, 13 Dec 2024 08:24:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4193610EF48;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7BA7A10EF4C;
 	Fri, 13 Dec 2024 08:24:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="rJZTFsYU";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="F+hrtu0O";
 	dkim-atps=neutral
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [IPv6:2a00:1450:4864:20::531])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4BC1010EF11
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Dec 2024 07:41:20 +0000 (UTC)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-5d3bdccba49so2525861a12.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Dec 2024 23:41:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1734075679; x=1734680479; darn=lists.freedesktop.org;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc:subject:date:message-id:reply-to;
- bh=ECAswhSjbBa0l5WXOE2XiUyA0/uxnQ2bbT4EuE3Nw5M=;
- b=rJZTFsYUqCCzhjHe91QFmrtQevoU0XsWy9yv6Kdw9FQjz0kvWa3dOxEqMi8THa+5kA
- IXYMPxF9pjcv6gngEdZEvz284XQUBnMC8x4R/1wj/SNmeahpD/BW2KKPUcBtmPZpx+65
- prXO/OSteAXbrdMDum/3PkSOYDIg9QRuCP1R8eMeRcF9rrWjZ0Cdp5XR3JoOLVd3CfA9
- azrUB2hrl7PS2FLlAJDucn2c++ejiSpfMWxLY3jxKjcpL+HsN7B7Co2XObKHs5+b9cgp
- 7ISYuaZeY6j2E0YfSGWcPskAlDRhhonRuKktAOfy3BCeMc9z17exC0R4Jwscf7oQ8sqL
- +W7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734075679; x=1734680479;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=ECAswhSjbBa0l5WXOE2XiUyA0/uxnQ2bbT4EuE3Nw5M=;
- b=KIQtUzI1KL2NXIo77Ai09/NmFPpcvCJzhA+4JOAMe8ezCTSA8cDvFnqoXGJO/qSEu6
- d1H28vKSH6glg3B7EjG/uUNpYt9MxijcpSbuXB9fhqW6j/GgnpjeNIgTqebW9GDA5skS
- WCraUkW/jeNOL7HYyJDNR6J0jBDcWSN17VIm8Ft7CpY+JO2UY8otEHWovay7JAUIFFUt
- OT6YpG9ai87spp2mJbwlHNk/dkFbxuVW/nHEDmmuSku1aWJvo36eG/Nc5MnHQjXJV8ys
- fWEn4XSEi0l+RqtVzLIvGSvbsMqhygn1mc73VoYxMFtducw/DUDnanvsYVHe3SyvtQ+/
- JtTg==
-X-Gm-Message-State: AOJu0Yxy3puxIgve32I25f9kNBjSBK18J/c/gs4znHd78JA3iih5tB1y
- oWzCZlNE8aL5z3j3Mb92TbuVX3Vqop/5PytPkobYJew2TkDUarYyFtCuAnBMzW4=
-X-Gm-Gg: ASbGnctlXDZnoyZ/8zTz7ADges6tjlluvchCAFq9h2gH3/vsuOp9UyM2ah8rAsPLopw
- T7BtVLdayZcpqs3jxI5Q2ZYwFYtAlU17GG+G5HjBpdH70mxSoGuFNI0sO0c7R6u7TMK9Zp4uFpS
- bUz6jRjaz3E3+H8cTAKTGBG7j5wfQxr04eC6cqBsOvQ3R0u5t76GQ77ZKy2/9HwIM1svUIlIkVk
- CZtopWGuf9QOMvlHOffTNRRAamAR4sMi/YhbUEJK4NvNbOLRSRch3og9YY0Ng==
-X-Google-Smtp-Source: AGHT+IHL6HVnn3gzbK7xOsJgeBTtrEHedemU+ZK48cGZknGZbGVAOSfA9w6GbYiTVe1HKURCAKHqRA==
-X-Received: by 2002:a05:6402:4582:b0:5cf:e71c:ff88 with SMTP id
- 4fb4d7f45d1cf-5d63c2e9de7mr1256322a12.4.1734075678714; 
- Thu, 12 Dec 2024 23:41:18 -0800 (PST)
-Received: from localhost ([196.207.164.177]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5d42a754cb0sm4025883a12.88.2024.12.12.23.41.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 Dec 2024 23:41:18 -0800 (PST)
-Date: Fri, 13 Dec 2024 10:41:14 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Tao Zhou <tao.zhou1@amd.com>
-Cc: amd-gfx@lists.freedesktop.org,
- "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>
-Subject: [bug report] drm/amdgpu: parse legacy RAS bad page mixed with new
- data in various NPS modes
-Message-ID: <f647df3b-42da-4e61-8eee-239408ed4556@stanley.mountain>
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3870210E301;
+ Thu, 12 Dec 2024 19:20:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Cc:To:Content-Transfer-Encoding:Content-Type:MIME-Version:
+ Message-Id:Date:Subject:From:Sender:Reply-To:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=ThDleRXc8ca+wLmuV0H//xGtHzIz1jauUjmXogggRF4=; b=F+hrtu0O8hFchKWLt6bVBRE/MH
+ Yi71z+Z20Da584RzdvE+QIxGBhw7Uxw7tOio3kWsqSaYV0YUwTSuj8tbtdQAe+PhanOsjjbh7IHif
+ CP6Bm4JalavO6NjF9eFH1Y4bxvPKafq6ybgU0PD2g2MBB+YlQmoCgxkW5VuGi7oHK+Zhly27D4+Ql
+ UucG4IM5P3FnSkfw6d82Ya5lPgvRjKNd21M2aTsPh4yfKWIDrddfoAYCVvsobzL9+YSVx1X2QDxJI
+ ynGRa2gortA2HxySB4M8UhFnnx4hVYYUWmENyN/yY9PVKSRWb8uh7LwIhvxyU14bVBYdy8MxJZ62y
+ hyRfy3jA==;
+Received: from [179.193.1.214] (helo=[192.168.15.100])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1tLojI-002MsO-I3; Thu, 12 Dec 2024 20:20:08 +0100
+From: =?utf-8?q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
+Subject: [PATCH v11 0/2] drm/atomic: Ease async flip restrictions
+Date: Thu, 12 Dec 2024 16:19:32 -0300
+Message-Id: <20241212-tonyk-async_flip-v11-0-14379434be70@igalia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAEQ3W2cC/3WOsQ6CMBRFf4V0tqavVClOGhdHBzdjTFtaeBGBU
+ EIkhH8XWNRExndvzrmvJ97WaD3ZBT2pbYsey2I8AFYBMZkqUksxGQPCGRfAGKdNWXQPqnxXmLv
+ LsaKSS+NsbFxoFBmxqrYOX7PzSs6Hy/FEbmOcoW/KupuX2ngul51tTBkVm1CDlnEU6WSPqcpRr
+ U35nDZmEhgskFsJEoR12mn7TU5/tMA+4xz+KYBNDg3OMSFFZPiPYxiGN+0g6us3AQAA
+X-Change-ID: 20241002-tonyk-async_flip-828cfe9cf3ca
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Xinhui Pan <Xinhui.Pan@amd.com>, dmitry.baryshkov@linaro.org, 
+ Simon Ser <contact@emersion.fr>, joshua@froggi.es, 
+ Xaver Hugl <xaver.hugl@gmail.com>, Daniel Stone <daniel@fooishbar.org>, 
+ ville.syrjala@linux.intel.com
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
+ =?utf-8?q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>, 
+ Christopher Snowhill <chris@kode54.net>
+X-Mailer: b4 0.14.2
 X-Mailman-Approved-At: Fri, 13 Dec 2024 08:24:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -81,158 +75,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello Tao Zhou,
+Hi,
 
-Commit a8d133e625ce ("drm/amdgpu: parse legacy RAS bad page mixed
-with new data in various NPS modes") from Oct 31, 2024 (linux-next),
-leads to the following Smatch static checker warning:
+The goal of this work is to find a nice way to allow amdgpu to perform
+async page flips in the overlay plane as well, not only on the primary
+one. Currently, when using the atomic uAPI, this is the only type of
+plane allowed to do async flips, and every driver accepts it.
 
-drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c:2849 amdgpu_ras_add_bad_pages() warn: missing error code here? 'amdgpu_umc_pages_in_a_row()' failed.
-drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c:2884 amdgpu_ras_add_bad_pages() warn: missing error code here? 'amdgpu_ras_mca2pa()' failed.
+This patchset re-uses the per-plane function atomic_async_check() to
+this purpose, so drivers can allow different plane types. There's a
+`bool flip` parameter so the atomic_async_check() can do different
+decisions if it's a complete page flip or a plane update.
 
-drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-    2800 int amdgpu_ras_add_bad_pages(struct amdgpu_device *adev,
-    2801                 struct eeprom_table_record *bps, int pages, bool from_rom)
-    2802 {
-    2803         struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
-    2804         struct ras_err_handler_data *data;
-    2805         struct ras_err_data err_data;
-    2806         struct eeprom_table_record *err_rec;
-    2807         struct amdgpu_ras_eeprom_control *control =
-    2808                         &adev->psp.ras_context.ras->eeprom_control;
-    2809         enum amdgpu_memory_partition nps = AMDGPU_NPS1_PARTITION_MODE;
-    2810         int ret = 0;
-    2811         uint32_t i, j, loop_cnt = 1;
-    2812         bool find_pages_per_pa = false;
-    2813 
-    2814         if (!con || !con->eh_data || !bps || pages <= 0)
-    2815                 return 0;
-    2816 
-    2817         if (from_rom) {
-    2818                 err_data.err_addr =
-    2819                         kcalloc(adev->umc.retire_unit,
-    2820                                 sizeof(struct eeprom_table_record), GFP_KERNEL);
-    2821                 if (!err_data.err_addr) {
-    2822                         dev_warn(adev->dev, "Failed to alloc UMC error address record in mca2pa conversion!\n");
-    2823                         ret = -ENOMEM;
-    2824                         goto out;
-    2825                 }
-    2826 
-    2827                 err_rec = err_data.err_addr;
-    2828                 loop_cnt = adev->umc.retire_unit;
-    2829                 if (adev->gmc.gmc_funcs->query_mem_partition_mode)
-    2830                         nps = adev->gmc.gmc_funcs->query_mem_partition_mode(adev);
-    2831         }
-    2832 
-    2833         mutex_lock(&con->recovery_lock);
-    2834         data = con->eh_data;
-    2835         if (!data)
-    2836                 goto free;
+igt test: https://lore.kernel.org/igt-dev/20241211031820.115844-1-andrealmeid@igalia.com/
 
-I guess this is intentionally success?
+Changelog
+ v11:
+  - Fix changelog
+  - Add R-b and T-b tags
 
-    2837 
-    2838         for (i = 0; i < pages; i++) {
-    2839                 if (from_rom &&
-    2840                     control->rec_type == AMDGPU_RAS_EEPROM_REC_MCA) {
-    2841                         if (!find_pages_per_pa) {
-    2842                                 if (amdgpu_ras_mca2pa_by_idx(adev, &bps[i], &err_data)) {
-    2843                                         if (!i && nps == AMDGPU_NPS1_PARTITION_MODE) {
-    2844                                                 /* may use old RAS TA, use PA to find pages in
-    2845                                                  * one row
-    2846                                                  */
-    2847                                                 if (amdgpu_umc_pages_in_a_row(adev, &err_data,
-    2848                                                                 bps[i].retired_page << AMDGPU_GPU_PAGE_SHIFT))
-    2849                                                         goto free;
+ v10: https://lore.kernel.org/all/20241211-tonyk-async_flip-v10-0-6b1ff04847c2@igalia.com/
+ - Add a 'flip' flag to indicate where the atomic_async_check() is being called from.
 
-This should be an error code.
+ v9: https://lore.kernel.org/all/20241101-tonyk-async_flip-v9-0-681814efbfbe@igalia.com/
+ - Rebased on top of 6.12-rc1 (drm/drm-next)
 
-    2850                                                 else
-    2851                                                         find_pages_per_pa = true;
-    2852                                         } else {
-    2853                                                 /* unsupported cases */
-    2854                                                 goto free;
+ v8: https://lore.kernel.org/lkml/20240806135300.114469-1-andrealmeid@igalia.com/
+ - Complete rewrite
 
-Error code.
+---
+André Almeida (2):
+      drm/atomic: Let drivers decide which planes to async flip
+      drm/amdgpu: Enable async flip on overlay planes
 
-    2855                                         }
-    2856                                 }
-    2857                         } else {
-    2858                                 if (amdgpu_umc_pages_in_a_row(adev, &err_data,
-    2859                                                 bps[i].retired_page << AMDGPU_GPU_PAGE_SHIFT))
-    2860                                         goto free;
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c    | 11 ++++---
+ drivers/gpu/drm/drm_atomic_helper.c                |  2 +-
+ drivers/gpu/drm/drm_atomic_uapi.c                  | 37 ++++++++++++++++------
+ drivers/gpu/drm/loongson/lsdc_plane.c              |  3 +-
+ drivers/gpu/drm/mediatek/mtk_plane.c               |  2 +-
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c         |  2 +-
+ drivers/gpu/drm/rockchip/rockchip_drm_vop.c        |  2 +-
+ drivers/gpu/drm/tegra/dc.c                         |  3 +-
+ drivers/gpu/drm/vc4/vc4_plane.c                    |  2 +-
+ include/drm/drm_modeset_helper_vtables.h           |  7 +++-
+ 10 files changed, 49 insertions(+), 22 deletions(-)
+---
+base-commit: c40c32cf71b90d85386fcc066c19feb23eb42804
+change-id: 20241002-tonyk-async_flip-828cfe9cf3ca
 
-Error code.
+Best regards,
+-- 
+André Almeida <andrealmeid@igalia.com>
 
-    2861                         }
-    2862                 } else {
-    2863                         if (from_rom && !find_pages_per_pa) {
-    2864                                 if (bps[i].retired_page & UMC_CHANNEL_IDX_V2) {
-    2865                                         /* bad page in any NPS mode in eeprom */
-    2866                                         if (amdgpu_ras_mca2pa_by_idx(adev, &bps[i], &err_data))
-    2867                                                 goto free;
-
-Error code.
-
-    2868                                 } else {
-    2869                                         /* legacy bad page in eeprom, generated only in
-    2870                                          * NPS1 mode
-    2871                                          */
-    2872                                         if (amdgpu_ras_mca2pa(adev, &bps[i], &err_data)) {
-    2873                                                 /* old RAS TA or ASICs which don't support to
-    2874                                                  * convert addrss via mca address
-    2875                                                  */
-    2876                                                 if (!i && nps == AMDGPU_NPS1_PARTITION_MODE) {
-    2877                                                         find_pages_per_pa = true;
-    2878                                                         err_rec = &bps[i];
-    2879                                                         loop_cnt = 1;
-    2880                                                 } else {
-    2881                                                         /* non-nps1 mode, old RAS TA
-    2882                                                          * can't support it
-    2883                                                          */
---> 2884                                                         goto free;
-
-Error code.
-
-    2885                                                 }
-    2886                                         }
-    2887                                 }
-    2888 
-    2889                                 if (!find_pages_per_pa)
-    2890                                         i += (adev->umc.retire_unit - 1);
-    2891                         } else {
-    2892                                 err_rec = &bps[i];
-    2893                         }
-    2894                 }
-    2895 
-    2896                 for (j = 0; j < loop_cnt; j++) {
-    2897                         if (amdgpu_ras_check_bad_page_unlock(con,
-    2898                                 err_rec[j].retired_page << AMDGPU_GPU_PAGE_SHIFT))
-    2899                                 continue;
-    2900 
-    2901                         if (!data->space_left &&
-    2902                             amdgpu_ras_realloc_eh_data_space(adev, data, 256)) {
-    2903                                 ret = -ENOMEM;
-    2904                                 goto free;
-    2905                         }
-    2906 
-    2907                         amdgpu_ras_reserve_page(adev, err_rec[j].retired_page);
-    2908 
-    2909                         memcpy(&data->bps[data->count], &(err_rec[j]),
-    2910                                         sizeof(struct eeprom_table_record));
-    2911                         data->count++;
-    2912                         data->space_left--;
-    2913                 }
-    2914         }
-    2915 
-    2916 free:
-    2917         if (from_rom)
-    2918                 kfree(err_data.err_addr);
-    2919 out:
-    2920         mutex_unlock(&con->recovery_lock);
-    2921 
-    2922         return ret;
-    2923 }
-
-regards,
-dan carpenter
