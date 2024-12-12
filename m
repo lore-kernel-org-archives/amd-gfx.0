@@ -4,77 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77D98E77185
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Dec 2024 14:04:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CC02E7717F
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Dec 2024 14:04:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 21F1810EDCA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 37CC310EDDC;
 	Thu, 12 Dec 2024 14:04:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="A4YaT6y8";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="H2k36yM4";
 	dkim-atps=neutral
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [IPv6:2a00:1450:4864:20::330])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 64F7A10E21B
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Dec 2024 11:15:26 +0000 (UTC)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-436281c8a38so315415e9.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Dec 2024 03:15:26 -0800 (PST)
+Received: from mail-pg1-x52b.google.com (mail-pg1-x52b.google.com
+ [IPv6:2607:f8b0:4864:20::52b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0CB8510ED60;
+ Thu, 12 Dec 2024 10:56:30 +0000 (UTC)
+Received: by mail-pg1-x52b.google.com with SMTP id
+ 41be03b00d2f7-7e6d04f74faso310007a12.1; 
+ Thu, 12 Dec 2024 02:56:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1734002125; x=1734606925; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=g/QnWL633DATk/D0Ttai9VtCMe1kqYKn1pLuJll4508=;
- b=A4YaT6y8MElPomdMlks/fIKVWpGlJi4Xz1tQMIXL/rIqy++ieCVuVo6jG80mJjyCuz
- QVe4aNRa6S4WRjzBn9ZYvqlRbsKfRU21XXmSfaZm6Vp24u6mwTl+pRY9GLbDNRAcvBo8
- CfvRie6W3FzF4DAw8CZ04qpv0FbpUcip+MjZho07+gMISotvOESshmP6o+4qyHBI9aTZ
- laNmfScIOvKInufJ2QvWl46vtFuB80xvvD5CFCrYrs8NwxAhD9+Tc2ZeqKvfjL+YChJz
- rW8ZdvJchi5QcZSDJJ7NSppXpJxyHzehJX8KQyvEBEMmgmoV7f5+nC8mVi5n4XCpUbIU
- TleA==
+ d=gmail.com; s=20230601; t=1734000989; x=1734605789; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=TVIQo8NqWQ6SELkLfckK1F5HTaemJ2gPgY9CRh8/kkQ=;
+ b=H2k36yM4tFav2zo8wyHyKp03YMAsa37TD57hh4fcyH5WFtYsCIHGzhceU6po1qN8I8
+ //d+GXE5LKAaQJgUmznobGNXE+1VyTMPVdomlSgpmOrXvPjMDuaWc5sys1g2ZFJTbGQJ
+ 0Mvob+db3wlB0AdeaP0JDfMO0EaMVWMl4ii7IRRzWCBr5Un0T06xhKeeC0bpVaLLUVvB
+ lKihbBB7189HPBlSVyIfUW+qcMdmq2Cf7xoM2hWHtdtSyINaVtG3Ssf86wok/oARWqHq
+ Z07gbXaWESbK/QQ730iBQEgcZOF/1tG8CE0d+3xTjr2axHXM3S0k3c/tLzfeVxC1fuZt
+ bkXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734002125; x=1734606925;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=g/QnWL633DATk/D0Ttai9VtCMe1kqYKn1pLuJll4508=;
- b=pJJ4AfFB4yQZ8lK9u7Np1opr55Gj1pThWa8W7eNWk0QcfSNE90yoPAOmV5V6kjGzCK
- L2/ElNwrar7RU8W3VO+5irMt3hh6MOAsxh+sEYVKKsHFm6ArPGc9EeafG9QtCi5kznOL
- H04YUO0053gCIM2lSSGxZCUIbY3XPXUt/VBdWKxGXdroPfWgMcpUvrPMVmvm0YRQexfn
- A9pS1FfkMWboKICmPzyvD5QePL7dRRIa8Mlfd1DzPNPX7m1JxMvkHIX5ru6oYn8rInXa
- HB6Ez11F+EDckiuS73CdnGhfDbWNf+xVLqSp84kmHkr4jjhWBijUDqweU9h5t2+afGh0
- BhWw==
+ d=1e100.net; s=20230601; t=1734000989; x=1734605789;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=TVIQo8NqWQ6SELkLfckK1F5HTaemJ2gPgY9CRh8/kkQ=;
+ b=JlEOFRGltMPcGkM7wFapPoidPVusdb2nPQEYXARYAYgOiqrZADupNhKX7jdBc5kO72
+ FyVI6Dsyyga+I1h1Jou9y2Vi7kZ6/3MvbHD6TYt1Ps1uPAVlzicg6aNR6MgLCR7qd/0z
+ wgJq6CcR8Qmx5Qk6oTdFbib7S/gYh5pkaUxNSyOui5brY6PKNa3hnFRuC1OJC+dfRRjG
+ 6D2oBNEP7R5S/KYtGFHq2mCNSxg1XWNZMiDIwUOFRdgGbq0o6EqtUngF78jZOuXFjHnd
+ z43mCCePcdnW+rxWbM15nQ/ziPJpVtdxH08U6LAUT3aPbplnxvYOjXw6jCQLOTUxsIa1
+ jXwA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVyKn2OD1+y3pnVo2dxvXSmKsDUgd2bZa/U0bI/2RbGOlSe5f3YPKlKIj/bZJBnrDhJdojKxJE4@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwviXtjIyC9K6XepyQx+ugq82kY0joyD0fjZTQ1XAOqNCulpq0o
- YKckdVPGkhKOjDQLRo06pVlkETvXRkiUtM4JVHpxotmmBPJUmA6kA7l07+pa/DU=
-X-Gm-Gg: ASbGncvHtlIwC30yKTEGc8WZmwqDdsJ4EwapVL1m0Ro6xNCgiCg3GCq48/CT5oVhQJ/
- 8Pc/iVypyXZ8HCInrPhRjp13zSaYfvF7zZlyJtBftfgvpRexPRnJFaoLYOGJPtL81D8AI4xaUCE
- MOnKA0Jl04Li7kCLp/Y4SvYzPllbWBjwNdZrArzNLYX78hutAlC2EeNof6T7zGY3KsSK8lQB5FV
- Pd72zqy2d46S6U6Aols5fv4gE0LdNImGcrslERSz/vEY00FJMaGwXmwNuJzgg==
-X-Google-Smtp-Source: AGHT+IFp55pQ2gUsjE25dxRL/twFqRaMvKuj65DF74GVH4rT9f29RNfPP5f0avwzyCra7X1h4hezTA==
-X-Received: by 2002:a05:6000:471d:b0:374:c4e2:3ca7 with SMTP id
- ffacd0b85a97d-38787685b4amr2282393f8f.5.1734002124981; 
- Thu, 12 Dec 2024 03:15:24 -0800 (PST)
-Received: from localhost ([196.207.164.177]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-436256e05f1sm13238445e9.40.2024.12.12.03.15.24
+ AJvYcCWsUOrBVUsOROejKJcZ8TnVS2bkSPZH/UJbuNIzewXWYjIuI5PihBDm7u6tlxODzVOoKDq3QmWggRNM@lists.freedesktop.org,
+ AJvYcCXjr7gWOBvgIpkgsmrbsJoPYljzQZ6Osm/lvMyxuQlR+Fg9arFmMk1FosYZpzKGbJ9kgC8Nt7NK@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwyV4v+pEaZqHeqK+0UjdvvkmD8+T8AovGNN2vPHWrMEaZ2TZXR
+ N3fse/p6cZRlbHYaMO9Iys2JC7swYHbzIMV2Gd5N93i7v9es2vj1tsBPUw==
+X-Gm-Gg: ASbGncsm4Uz992/xqbJ62r286SKC45j1ge+c0GjWom39FzjRIgv+9bQ0BBWAfpUNM7p
+ 5hlhN91uaW8qqpXBDmbYY7zv2ndpuQx8i2nK1U2eRAGf7GEGhoS2kMWO/ovBU+5CGDdvcER6jtf
+ NMVDMy02zuhZINjHhknixUIbEMH/I+UdKUugeqbCW0QG7Q9v4PagxyKNJOClWKp6Aq1dtb+Is+o
+ H4pxW4wuMIi0TnsrhgjUQ5mnidw6ZHZ0PtwzVLLPJKoQ4/7zbh2fBZtnaxRsg==
+X-Google-Smtp-Source: AGHT+IHR9YBy2fc9hy1FcQ+uJJ1iUSaXLspeZXS2ea9QTPKDUsicXHM39fumSQB2wALvNjSDERvIpg==
+X-Received: by 2002:a05:6a20:4321:b0:1d9:a94:feec with SMTP id
+ adf61e73a8af0-1e1ceefcfb6mr4960965637.2.1734000989398; 
+ Thu, 12 Dec 2024 02:56:29 -0800 (PST)
+Received: from HOME-PC ([223.185.132.235]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-725cf9f681esm9223571b3a.98.2024.12.12.02.56.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 Dec 2024 03:15:24 -0800 (PST)
-Date: Thu, 12 Dec 2024 14:15:21 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- amd-gfx@lists.freedesktop.org, Leo Li <sunpeng.li@amd.com>,
- Tom Chung <chiahsuan.chung@amd.com>, Roman Li <roman.li@amd.com>,
- Alex Hung <alex.hung@amd.com>, Harry Wentland <harry.wentland@amd.com>,
- Hamza Mahfooz <hamza.mahfooz@amd.com>
-Subject: Re: [PATCH v2] drm/amd/display: Fix NULL pointer dereference in
- dmub_tracebuffer_show
-Message-ID: <e53e8832-e05d-4d76-839b-ed5ff3b9e999@stanley.mountain>
-References: <20241212110808.956179-1-srinivasan.shanmugam@amd.com>
+ Thu, 12 Dec 2024 02:56:29 -0800 (PST)
+From: Dheeraj Reddy Jonnalagadda <dheeraj.linuxdev@gmail.com>
+To: airlied@gmail.com,
+	simona@ffwll.ch,
+	amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Dheeraj Reddy Jonnalagadda <dheeraj.linuxdev@gmail.com>
+Subject: [PATCH drm-next] drm/amdgpu: simplify return statement in
+ amdgpu_ras_eeprom_init
+Date: Thu, 12 Dec 2024 16:26:24 +0530
+Message-Id: <20241212105624.35877-1-dheeraj.linuxdev@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20241212110808.956179-1-srinivasan.shanmugam@amd.com>
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 12 Dec 2024 14:04:19 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,8 +88,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Thanks!
+Remove the logically dead code in the last return statement of
+amdgpu_ras_eeprom_init. The condition res < 0 is redundant since
+res is already checked for a negative value earlier. Replace
+return res < 0 ? res : 0; with return 0 to improve clarity.
 
-regards,
-dan carpenter
+Fixes: 63d4c081a556 ("drm/amdgpu: Optimize EEPROM RAS table I/O")
+Closes: https://scan7.scan.coverity.com/#/project-view/52337/11354?selectedIssue=1602413
+Signed-off-by: Dheeraj Reddy Jonnalagadda <dheeraj.linuxdev@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+index 0d824f016916..52c16bfeccaa 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+@@ -1390,7 +1390,7 @@ int amdgpu_ras_eeprom_init(struct amdgpu_ras_eeprom_control *control)
+ 	}
+ 	control->ras_fri = RAS_OFFSET_TO_INDEX(control, hdr->first_rec_offset);
+ 
+-	return res < 0 ? res : 0;
++	return 0;
+ }
+ 
+ int amdgpu_ras_eeprom_check(struct amdgpu_ras_eeprom_control *control)
+-- 
+2.34.1
 
