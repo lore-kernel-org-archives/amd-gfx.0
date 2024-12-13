@@ -4,152 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DF89E7717D
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Dec 2024 09:03:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2A63E7717D
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Dec 2024 10:09:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0B9710EF6E;
-	Fri, 13 Dec 2024 09:03:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F1A110EF8E;
+	Fri, 13 Dec 2024 10:09:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="YTolhmq6";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="m75gWdgf";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on20630.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:2416::630])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D5EE810EF6C
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Dec 2024 09:03:14 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=U3Vxo40wXIknTzS1X3wU2S6VV9srQYqwmTUgfLps5Wam/j/aoX4owEYoj6XYQLsI3yGtKjx0ym1XjX9XatGXIGWB67NR6ywk3rCHp25JE/ZQmQ1WzSpeX+3Rur9G6GTx+0Hte8Z+rviLQWI1PM9RiOYvQ5nI27JyuCxurP7dVMIhaCuLMDGvXdCOTzMRVI3bLarX4BFZOEnHyeSy8pJ2me9JAGx+nc2MJbY+ZtOHVxKxriPIeMwvIk9TsqAGPotifJrxZ4v5nf8iqHJ9+D/IZ9iF8oRaX39jzCibqI7xvTJRV/HFfX5bEYqTMJMrKuZ+8v0m1HZdBFtjc+K/dXzi+w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=e9Lrd5aAnEj1o63Nwk2vDEZGhTClNp9eJmTiltxZv80=;
- b=jbuTUcuo+0OPIZ9JGMjP+SDjqJh19nAQsgLp+EwleuvP5Dds2XCKzyFIYl/SiYWRDA3lPCHjQk6iKjf2eVqKq/7z6M4/HOkAv2IcEAYl8Rwq7JLmWNZggIvf6szfi4jd7Wn/XRMP2NFuhQgrB3foy0AOIxTTKa0p31P4SyF84NSCzR9GFBVC46HrEHm3wivFH7sHmJPCKHqxufa+KE5dB2jw+uUrCX68XAjkJEZeXf3zIahzW5avBtpgYbGYtxfgctLiuzmL8UXQe+1xheLoJf0QJA7qASO5RhRi1ChiX3a1BwM8VsWHHpqYYJojecqDxGKza2IDDDpERXjoaq0Aig==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=e9Lrd5aAnEj1o63Nwk2vDEZGhTClNp9eJmTiltxZv80=;
- b=YTolhmq6MmIZsnBP5E+c9V8Bla2JVkXuqEnRpnu/kbW0kWH27A16zwGiFIrNKGVd/V2BlqjdJIwnDlL8LBPUfJGT5IivpsJ2+e+2Ei1wTnqq+DzsjgS9icoizXurG/ddMvRThmz+1B8Ah66nRN+rc/8KMINEpG3uJHtQW4iMIRs=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SN7PR12MB7835.namprd12.prod.outlook.com (2603:10b6:806:328::22)
- by SN7PR12MB6861.namprd12.prod.outlook.com (2603:10b6:806:266::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8251.15; Fri, 13 Dec
- 2024 09:03:13 +0000
-Received: from SN7PR12MB7835.namprd12.prod.outlook.com
- ([fe80::ea3a:4720:99cb:32d8]) by SN7PR12MB7835.namprd12.prod.outlook.com
- ([fe80::ea3a:4720:99cb:32d8%5]) with mapi id 15.20.8251.008; Fri, 13 Dec 2024
- 09:03:12 +0000
-Message-ID: <ecdece2e-3a6a-41ee-8384-7b37a600e114@amd.com>
-Date: Fri, 13 Dec 2024 17:03:06 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RESEND] amdkfd: always include uapi header in priv.h
-To: "Lazar, Lijo" <lijo.lazar@amd.com>,
- Felix Kuehling <felix.kuehling@amd.com>, alexander.deucher@amd.com
-Cc: ray.huang@amd.com, amd-gfx@lists.freedesktop.org
-References: <20241031104701.248234-1-lingshan.zhu@amd.com>
- <19443a63-e82b-444b-9f28-ff0b66929393@amd.com>
- <5072b301-2e9e-48c5-8404-cdea976c3182@amd.com>
- <e5bfe061-bd1e-4ce1-8c5d-a0de372ed75c@amd.com>
- <d3771cb9-124c-409b-afc5-1e6db3714504@amd.com>
-Content-Language: en-US
-From: Zhu Lingshan <lingshan.zhu@amd.com>
-In-Reply-To: <d3771cb9-124c-409b-afc5-1e6db3714504@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: TYCP286CA0092.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:2b4::10) To SN7PR12MB7835.namprd12.prod.outlook.com
- (2603:10b6:806:328::22)
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [IPv6:2a00:1450:4864:20::434])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 92CF610EF8E
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Dec 2024 10:09:46 +0000 (UTC)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-3862b364538so887210f8f.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Dec 2024 02:09:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1734084585; x=1734689385; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=dacGTdAVyDdao17ZX+iskHgLsX0DD3Y/nhcB3prIE/c=;
+ b=m75gWdgflIO1axMEyYtfGahL9FoJUQea5x0aa2jgdHzsuAlE7CO2kih3bM8lQ3318P
+ uQBd7YgeB+YYTq4IRoXuB9nhTU5q+YIfSeDopLT1zGrLKHp0U2WfL3A/rOKXbEksaFzX
+ Y8oJa9fX5AN73qx1uB5tTq+lEj0s4IC1wOeUcodFhsaNl98EDrURzo7m6JZpI7dJUeT1
+ 0esE2MMFvwREHgTnQSO8gkZcRw8HzzZkVYaoSdgVVH5LlLhab1Pc5SFMjXsP1zGwUQHy
+ 4gy+6Guh7rxsczNiS8gCEGp1EksruAt7szmAwjYoXDMWQi0eTCZi/gYdTbMg11JP5Oo2
+ Ic9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1734084585; x=1734689385;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=dacGTdAVyDdao17ZX+iskHgLsX0DD3Y/nhcB3prIE/c=;
+ b=crb2zbw6Efz/XBeQ6rLtuJEPVzyIrF74Km+xZWK8Cb/2hW5dS3vj4UK4AXGjpMAs1E
+ q2YVgqvFiAj4epzzfbn3cA60n4bmjqVgqGwnm5WjYZwRVlGRDu39Eph6bZEB8yAskJSc
+ eU07CI+LasVPWK/eoETjuNm1XbJJMbMJR6B4XkpBl8z+ZJgGYqSqPTtDrfzr3Obve5XF
+ UTgirFInWkOwTe0WbUxi/nh0ciHivXwycI/RkDB4QUtok/KEZ+oMr0ptmH8Yem9qobcS
+ sYvEzj6Df/8Yd5UtpKinKcqcK2I578QOavXRA0FkhuGK0Q+v+r+/COW7Tkt3oVoGzHgJ
+ E0Hg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX/dxFRbV3N+OUpPVIxBLUjWcxtquTXu5bK/0CXl7FxABVSgu+/ukdpX+dT2gjZKo+ByP/X+doM@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxvWuU1dKGeaTckfoKoupoTl6tFcA07GawZ4dJvvCUNwpW7dk3D
+ DSabO1Gnq/TLW/8w8G5ETbuembqvlBbwytoc9N4JtE7yQh38uV6w
+X-Gm-Gg: ASbGncvBEtF7JgJ1d8DUuSTZR8PQVIdWBAoudE+gopvw99ZlwDB18dv1VxdCH/46b82
+ KthisXG2wdH1IPssY7KK/kI5j+wWlLNXbScZeFGHU11SZuzd5dUezfuOAs/f0WFHs59kAdaBMT+
+ R2YNVuaPBFLHpRSkH28GxZCRdjAVUO/PEldO6a3HSlRFkhQRwgWjmGPIxoO/sZIeSvGwa6nfcfE
+ YvHZvWkf4BMtAtBPS0Rv2GECnig8UlAKqdI9cTbSRF463RwJEfaS2MQPGl66OiuDp/RlpeTiZlH
+ sOq4jYZy6g==
+X-Google-Smtp-Source: AGHT+IGIp7tP2pNIHADHXFBlP92YUnBhZChLJyISsUfdXA+hQL+ySCuWaWWJgRmX/V3cpReCMtbjBA==
+X-Received: by 2002:a5d:4249:0:b0:386:4a16:dadb with SMTP id
+ ffacd0b85a97d-387887df18amr4190029f8f.11.1734084584086; 
+ Fri, 13 Dec 2024 02:09:44 -0800 (PST)
+Received: from [10.254.108.83] (munvpn.amd.com. [165.204.72.6])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4362559f9b5sm45702085e9.26.2024.12.13.02.09.42
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 13 Dec 2024 02:09:43 -0800 (PST)
+Message-ID: <6a8fe245-9430-437b-97df-021b701e6a84@gmail.com>
+Date: Fri, 13 Dec 2024 11:09:40 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN7PR12MB7835:EE_|SN7PR12MB6861:EE_
-X-MS-Office365-Filtering-Correlation-Id: b5159d50-b8cd-4022-eae0-08dd1b54f8f5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?encxVVlxK05QcG9kVGl1eGh0OUlQcDdtRGhKWnZIcEoyaEgxL0VUbzFpeVpL?=
- =?utf-8?B?SkloV0xjd1EremJJaVlrU3JmbUJpTFVqeTFZOWtFTTZiUndBTnIrYmdBSWty?=
- =?utf-8?B?VkpBRGdqYjZtVW1HSGtBRjZiS2ZZM25waEZnNTN2bEZpMkZrVVpzTmxGOWRv?=
- =?utf-8?B?NzdSYXFIQSt1SzR2NXp4SnFJV0RKenlPR1gxOHRiZDhWdmRQYmwvMnd5bEdD?=
- =?utf-8?B?anVlSjBOeCtuazVwblV0N1ZLRFZqRXo5WHZMZWVHS0draGdTZkg4cDdVdXNq?=
- =?utf-8?B?OEpCUzd4T1pxTmNJa1B6WU5vZEYvdVRUdEozVFlYRzNSUEhIQVozWkVJSVpx?=
- =?utf-8?B?WERlWTJHWlRrelRUYWZjZklVck0xQWNwSXMxaFBXaG9LdVJDM3JhQmZyajFE?=
- =?utf-8?B?TEwzdFEzNXhEN3NQTFM4TnRqRjVMOFNrZkwveS9IVThDbU5DTWxtRTFjOEFr?=
- =?utf-8?B?Yk54TzIwKzdxY2ZNbzM5UkdzTVNFNnJIdHE0TE1ZK0VWZ09EemZsNFd2a2xO?=
- =?utf-8?B?NjNSaXNoM2J2RU54ZGxERTlPbHRZbmkxMDhSNVk3cC9pdTJKZjljeHQ2VXBY?=
- =?utf-8?B?L0QxNmI3RDNCSm1tQXR3RXZhMk9KL0cxQXRYeTZnS08rZC92SFFlYjdUQVZ4?=
- =?utf-8?B?SndSamxLVGt5SGlMYVVNckNYd25XR1lLRUE2enRvOS9lSVFGS0ZSREc0Y1M1?=
- =?utf-8?B?d3h3bmZpaEFTSk1TZmtFOEdEeDZSQlBXY3VWR1JOWkVEWkNuc1dacElqZlNL?=
- =?utf-8?B?VEt2OXIzNVd6bVF4by8xQVpZd3JYWUI4WjRxbkVBTCtHNzZWYXNEOHNzWWdU?=
- =?utf-8?B?YkYyNHYvZUZaazFUZnVNdmt1UWpkVkdmMGxQbEViSy8zNVpYaHlRRTJaYkRJ?=
- =?utf-8?B?UmM3WFA1UzBTMjU1dWZSM2MyTEczdjhTZ0w3c2JhK240T1owdzl6eWtRY2Zw?=
- =?utf-8?B?aXM2WEZldzBNN3VEZGtoYXpmYWRTNmZNUG5RNC9yTnIvZ1NmcTM4YUh2TDFl?=
- =?utf-8?B?VlRCSFpwOTF4R0o3djVYQU9GYW9WT2c1NGZ3VXV2QkRIeVBjQ0tieFBjc1Ir?=
- =?utf-8?B?Yjh0d3JkZWFJUEVOMTY0NVoxUjR6cFVDeXc4L21GczVBZ041MTV3OXhrK0pX?=
- =?utf-8?B?Z2dEU1Eyd0xuQVVYUlNpQnU1ZnlzTmhIZ2tDc0FyaGZYRG5yRStrc2xnTVlR?=
- =?utf-8?B?bWdLbFVpZlF0dmFWeS8rSnpZVmF1UkpaRkticHl6ZURhR2FQSWJnYk42aVh3?=
- =?utf-8?B?OU5zYXVtdXVpTTc4UUhwbklJdGphOHdPTEdadTE3UDJ0Q0xPUWdTb29MNlJQ?=
- =?utf-8?B?Z3VDNWNMb3NMdnlKREg4SXlBbEtxcjF2djc5aDJFQktrSmxFS1ZMRjU5R1hz?=
- =?utf-8?B?ZjM1QmkzaU82WVFEQkpIdmxCRHlDb0prdzhDRWdrTUN3QTd3alFMZlF6VEkv?=
- =?utf-8?B?S295bUxzTkt0bGl5cWN6am4ySnFxcENVR0ZJK3ZIeDVDYnZpWDV6TkYxSnpR?=
- =?utf-8?B?aWgvT1FSS0U1QnMvSzNHWXdtZE5XTUYvdWpJb3RkMDRhYzlDZmF5Mk5vaXhP?=
- =?utf-8?B?Z0IzbHVBVzEvMFpWQ0lsZXZMQkNGZHU2cnhiamE3RDJpeUp2NmNkb3Z5WXpz?=
- =?utf-8?B?bVJTOWVIcUFTOTNTVTUxSk1FR3dZNnBrVUk1T3FrZTVwQUE3REpoTWh2Mk5l?=
- =?utf-8?B?dUpkeWxZTGhXcnVCdWNsdmt4MWlmdjhVZmgzTkw0b1BtQnVmRzcwVGtQVlB4?=
- =?utf-8?B?Zlk3YUhORkhJMmtyd0ErR1J3T0lVaU83b2FkSktHSVcxaVFhd01lbDZOWmZl?=
- =?utf-8?Q?CEVgkPvh3DZEXYKRICtw9wRfay9zmbo270ddA=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SN7PR12MB7835.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z09YZEc5YjJ0R3JWdVUyTTdzR2FPZ01hUFdEbUJmRG5iQ3VvbzhOVE80Z2po?=
- =?utf-8?B?bENhVVd3cGRpVUJCSEhlZFpMaWZaM21sc3RnaTNaaVR1TE0wMzRLQVl2aVg3?=
- =?utf-8?B?b3BMaXVKS09Ea1hCdHpYUFA5c1dqNkdSOXVsNTc1MFIwT1d2VGRXNmMrKzZh?=
- =?utf-8?B?TjhPUDFWWGdEbHZDcUI5b2V4QlBlMm1Gb2FFSXBWcTZld3RxQllBRFVDVE5Z?=
- =?utf-8?B?QnRhV0xCbWJFNlYxQlFKMHJ6TThLVElnZkJtYUl4a0pWZWwrcUJPb2hUWm1p?=
- =?utf-8?B?ejNYMEVnM2tHVVl4UkdHVmcxRUJxbk81REJ6cnhJS2FycVF6V1hDak1wSlc0?=
- =?utf-8?B?NVErK1A0VFhLWERBZFMyUDF3YWxTVWdpSnN5Q0RiWFp1WWxSQlgrVlNVUkUz?=
- =?utf-8?B?ZTZmZzBSUjNINTEvQkxCRXJrUVJNZk41azNSZDB4MWRxdmdJa0YrOGgzL1JE?=
- =?utf-8?B?cUJpNDY4WXU5WGlDVFhUTEp0eUlQdmNDVWFNaStoNTNWdTNJME5jVWlTaDVG?=
- =?utf-8?B?MmVUZXl1ejF3WTJ6MnFIT0pxSW15bFpjTkRKZG5KcG9WTWVOaUhpYXhFODg1?=
- =?utf-8?B?NERiK1lmU1dTcy9yK1hOR1FEdDhSYjBWYW9ReTlCT1VNUmdOL1ZBSFdwNXpl?=
- =?utf-8?B?a2JTK2ZpTUFyMjh4SUtQNFpFc0NxcFhpTUdyVEhTUTN2WFNkTzF0OHpyL2tv?=
- =?utf-8?B?a0RYblF6VXdzc3JveEZOWllEWVlpS1pHRVB3eHk5cU5MalNLTlNDOFVXN0h2?=
- =?utf-8?B?N2RkbHFYQUJNKytDdHlWeHJ1QU1wZDE1ZVdHM0NvWUUyVWVyQmxnQ1RUOHpt?=
- =?utf-8?B?eVBpcU9aVUE4YktVOTBCckpZa3FzMVhVQ01oYi9XcWd5QTdlMk5wM2wycVJD?=
- =?utf-8?B?SThWcWpRODdUcHI0Y3lsMXhtc2M1QXBPS3NVVjhldmhRekFOVThQVS9pc2J4?=
- =?utf-8?B?UCtRSkw2Zks4cXF6MGRGT0NNVm9jLzBSUnhWaU1ubXJVeGZ6Q0pBcVBTbGZr?=
- =?utf-8?B?K3QyZDZmTEU1UTAyd201RVgyV0N6Q2J1YktoMWFydmpvbW5jV3Bwai9OMzRx?=
- =?utf-8?B?aVNCRFU5b2VxMjNES1pUbFNEdmpIc2l5SWFtTVBzb0M4TWF0SmdzTEx3VXho?=
- =?utf-8?B?T2w3MXR6SDBEdlE1UjVQSjZGRjV3eVZSUnNxSnh4WTZkQ0RSTDR3NkNwR3oz?=
- =?utf-8?B?bnpnM29DNkMvbFlvdHFJWFRBbm5LMHM1UVBNamNGc1VFK1FlWVdVUENGRk1C?=
- =?utf-8?B?OTZSL0p1Zkw4TUpVeHFDbXNBNE9ER002Kytna0dZbi9vNVBqWGVkajV2RVFV?=
- =?utf-8?B?WHZtSmFMNWdDK3hsVDVOcFdUZmhMUklHZThWdkk4ZEV2ak5SdG1KK3VBV0dJ?=
- =?utf-8?B?VGE1dysyWTR6SG90YnVUZnRSems5ZDA2V1pNVFJ2aElqWDl6RWRKU3dTTEtn?=
- =?utf-8?B?MUM2Zys4V0cxYUE3M1M0SVNEeXJ1bmxkREZWNHlhZHJtVGlhODllcXY4Nk9U?=
- =?utf-8?B?TEY3UlNscUoyeSt1SWdrcHV6UVNoc3pFck5jM3d2TUczWTFFS2lTc3B3dnRL?=
- =?utf-8?B?RWlPK2piK1FhVnRmZXJZRDZyR1pGWTZzTlQ2N3pSYWg1blhwTWZleVlNQkty?=
- =?utf-8?B?Y0YzUFZxdUVISW0reHd0aVpIelI1M0xDZjZJOTFBL2hWMTV1ZmVIdDBYZ1Ir?=
- =?utf-8?B?L0NKZEFaTElwQWYwSXJZTzN5OXhTMSszdnZtQkJQSzBwbFNKVkRpaWl4VXdS?=
- =?utf-8?B?OGI1T1c3ZnlNRjEzdlhKYS94LzJJZTJFaWc2akREL1pGeGVNZkZsOFYzQ0lh?=
- =?utf-8?B?Nzg3ZmNZSzkzZ0d4YnFIQ1NrWTFrZkcxNHRWVHNhM2piOEVNYmFLYWVwZkE2?=
- =?utf-8?B?cjJEdk8rRFd0dmlJRmNyV0NvSi92d1k2ZEdleXJENUFhS3VNZmxkb0dlcFo0?=
- =?utf-8?B?cHJiemttNE9QemowVkE3anJVZU5OSUoyV0dpN2NhVCtTWW10aXZpTlEwZG5k?=
- =?utf-8?B?aDROb2V1ZDMxTWZQTVNhaWxjamVRRlBicjRtT2dMSW9EVEljL0U1eGZyRHZC?=
- =?utf-8?B?QjNzaWtEVS92NmhtckRsRnlBZ2p0OFlrSEh3YlgvZzZSWStvSWJ2am02N3Bw?=
- =?utf-8?Q?puc1/P4qgnzASWq4K68IWbG4I?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b5159d50-b8cd-4022-eae0-08dd1b54f8f5
-X-MS-Exchange-CrossTenant-AuthSource: SN7PR12MB7835.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Dec 2024 09:03:12.7203 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gPGNmNZ0pz4VJtSsMY1fiEp7d9bAulHCJtSXkz7OOYHobUsdQ/pcsW7ahOCaV6msVtWPWbuisMPlU5UNuFJsDQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6861
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/7] drm/amdgpu: Add mqd for userq compute queue
+To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ amd-gfx@lists.freedesktop.org
+Cc: christian.koenig@amd.com, alexander.deucher@amd.com
+References: <20241212142533.2164946-1-Arunpravin.PaneerSelvam@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20241212142533.2164946-1-Arunpravin.PaneerSelvam@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -164,103 +89,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 11/5/2024 6:35 PM, Lazar, Lijo wrote:
+Am 12.12.24 um 15:25 schrieb Arunpravin Paneer Selvam:
+> Add mqd for userq compute queue for gfx11/gfx12
 >
-> On 11/5/2024 2:13 AM, Felix Kuehling wrote:
->> On 2024-10-31 22:15, Zhu Lingshan wrote:
->>> On 10/31/2024 11:27 PM, Felix Kuehling wrote:
->>>> On 2024-10-31 6:47, Zhu Lingshan wrote:
->>>>> The header usr/linux/kfd_ioctl.h is a duplicate of uapi/linux/kfd_ioctl.h.
->>>> I don't see usr/linux/kfd_ioctl.h. Which branch are you looking at?
->>> The mainline master branch:
->>> https://github.com/torvalds/linux/blob/master/drivers/gpu/drm/amd/amdkfd/kfd_priv.h#L35
->>> #include <linux/kfd_ioctl.h>
->>>>> And it is actually not a file in the source code tree.
->>>> If it's a file that only there on your local working tree, maybe just clean up your working tree.
->>> Yes, this is a file on the local working tree, it is generated when build, it is  not in source code tree.
->>> The is even no folder usr/include/linux before building.
->>>
->>> For a quick verify:
->>> 1) it is not a source code file from mainline:
->>> $git blame ./usr/include/linux/kfd_ioctl.h
->>> fatal: no such path 'usr/include/linux/kfd_ioctl.h' in HEAD
->>>
->>> 2) it is generated when build:
->>> remove usr/include/linux/kfd_ioctl.h, then build.
->>> If we remove a required header, kfd would not
->>> build and there will be error messages.
->>>
->>> but here we will see these lines:
->>> HDRINST usr/include/linux/kfd_ioctl.h
->>> HDRTEST usr/include/linux/kfd_ioctl.h,
->>> no build errors, and usr/include/linux/kfd_ioctl.h is
->>> generated by duplicating the uapi one.
->>>
->>>
->>> 2) linux/kfd_ioctl.h is usr/include/linux/kfd_ioctl.h
->>> add random characters in usr/include/linux/kfd_ioctl.h, then build
->>> we will see errors like this:
->>>
->>> In file included from <command-line>:
->>> ./usr/include/linux/kfd_ioctl.h:65:9: error: expected ‘;’ before ‘struct’
->>>    65 | abcd1234
->>>       |         ^
->>>       |         ;
->>>    66 |
->>>    67 | struct kfd_ioctl_create_queue_args {
->>>       | ~~~~~~
->>>>> Ideally, the usr version should be updated whenever the source code is recompiled.
->>>> If the usr version is not in the git repository, it doesn't need to be updated. I don't know where this is coming from on your local tree.
->>> the usr one would be installed to the system when run make install or install_headers,
->>> it is for user space, we should include the uapi one instead of usr one in our source code files
->> I did not see the folder in my tree because I build with O=... so usr/include/linux/kfd_ioctl.h shows up in my build output tree.
->>
->> The extra copy of the user mode headers seems to be an artifact of the Linux kernel build system. The fact that the build picks up user mode headers from <OUT>/usr/include/... seems intentional. If your tree has an outdated version of kfd_ioctl.h there, it's probably something broken with your build tree. Maybe broken file timestamps. It should be easy to fix with a "make mrproper" to force it to update all the build artifacts.
->>
->> I still don't think we need to change the code to fix a problem specific to your build system.
->>
-> Looking at the number of occurrences with "#include <uapi/", it appears
-> like explicitly mentioning as uapi/linux for header location is a better
-> practice.
-Gentle ping, Felix
+> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
 
-Thanks
-Lingshan
+Acked-by: Christian König <christian.koenig@amd.com>
+
+> ---
+>   drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c    | 4 ++++
+>   drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c    | 4 ++++
+>   drivers/gpu/drm/amd/include/v11_structs.h | 4 ++--
+>   drivers/gpu/drm/amd/include/v12_structs.h | 4 ++--
+>   4 files changed, 12 insertions(+), 4 deletions(-)
 >
-> Thanks,
-> Lijo
->
->> Regards,
->>   Felix
->>
->>> Thanks
->>> Lingshan
->>>> Regards,
->>>>   Felix
->>>>
->>>>> However, I have noticed a discrepancy between the two headers
->>>>> even after rebuilding the kernel.
->>>>>
->>>>> This commit modifies kfd_priv.h to always include the header from uapi to ensure
->>>>> the latest changes are reflected. We should always include the source
->>>>> code header other than the duplication.
->>>>>
->>>>> Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
->>>>> ---
->>>>>  drivers/gpu/drm/amd/amdkfd/kfd_priv.h | 2 +-
->>>>>  1 file changed, 1 insertion(+), 1 deletion(-)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->>>>> index 26e48fdc8728..78de7ac09e8a 100644
->>>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->>>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->>>>> @@ -32,7 +32,7 @@
->>>>>  #include <linux/atomic.h>
->>>>>  #include <linux/workqueue.h>
->>>>>  #include <linux/spinlock.h>
->>>>> -#include <linux/kfd_ioctl.h>
->>>>> +#include <uapi/linux/kfd_ioctl.h>
->>>>>  #include <linux/idr.h>
->>>>>  #include <linux/kfifo.h>
->>>>>  #include <linux/seq_file.h>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> index 67cd42031571..b9a672c51cba 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> @@ -4255,6 +4255,10 @@ static int gfx_v11_0_compute_mqd_init(struct amdgpu_device *adev, void *m,
+>   
+>   	mqd->cp_hqd_active = prop->hqd_active;
+>   
+> +	/* set UQ fenceaddress */
+> +	mqd->fence_address_lo = lower_32_bits(prop->fence_address);
+> +	mqd->fence_address_hi = upper_32_bits(prop->fence_address);
+> +
+>   	return 0;
+>   }
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> index d0697b0869e3..8c0a4f3a4914 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> @@ -3177,6 +3177,10 @@ static int gfx_v12_0_compute_mqd_init(struct amdgpu_device *adev, void *m,
+>   
+>   	mqd->cp_hqd_active = prop->hqd_active;
+>   
+> +	/* set UQ fenceaddress */
+> +	mqd->fence_address_lo = lower_32_bits(prop->fence_address);
+> +	mqd->fence_address_hi = upper_32_bits(prop->fence_address);
+> +
+>   	return 0;
+>   }
+>   
+> diff --git a/drivers/gpu/drm/amd/include/v11_structs.h b/drivers/gpu/drm/amd/include/v11_structs.h
+> index f6d4dab849eb..3728389fc3be 100644
+> --- a/drivers/gpu/drm/amd/include/v11_structs.h
+> +++ b/drivers/gpu/drm/amd/include/v11_structs.h
+> @@ -1118,8 +1118,8 @@ struct v11_compute_mqd {
+>   	uint32_t reserved_443; // offset: 443  (0x1BB)
+>   	uint32_t reserved_444; // offset: 444  (0x1BC)
+>   	uint32_t reserved_445; // offset: 445  (0x1BD)
+> -	uint32_t reserved_446; // offset: 446  (0x1BE)
+> -	uint32_t reserved_447; // offset: 447  (0x1BF)
+> +	uint32_t fence_address_lo; // offset: 446  (0x1BE)
+> +	uint32_t fence_address_hi; // offset: 447  (0x1BF)
+>   	uint32_t gws_0_val; // offset: 448  (0x1C0)
+>   	uint32_t gws_1_val; // offset: 449  (0x1C1)
+>   	uint32_t gws_2_val; // offset: 450  (0x1C2)
+> diff --git a/drivers/gpu/drm/amd/include/v12_structs.h b/drivers/gpu/drm/amd/include/v12_structs.h
+> index 5787c8a51b7c..03a35f8a65b0 100644
+> --- a/drivers/gpu/drm/amd/include/v12_structs.h
+> +++ b/drivers/gpu/drm/amd/include/v12_structs.h
+> @@ -1118,8 +1118,8 @@ struct v12_compute_mqd {
+>       uint32_t reserved_443; // offset: 443  (0x1BB)
+>       uint32_t reserved_444; // offset: 444  (0x1BC)
+>       uint32_t reserved_445; // offset: 445  (0x1BD)
+> -    uint32_t reserved_446; // offset: 446  (0x1BE)
+> -    uint32_t reserved_447; // offset: 447  (0x1BF)
+> +    uint32_t fence_address_lo; // offset: 446  (0x1BE)
+> +    uint32_t fence_address_hi; // offset: 447  (0x1BF)
+>       uint32_t gws_0_val; // offset: 448  (0x1C0)
+>       uint32_t gws_1_val; // offset: 449  (0x1C1)
+>       uint32_t gws_2_val; // offset: 450  (0x1C2)
 
