@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE30AE77183
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Dec 2024 20:34:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F470E77180
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Dec 2024 20:34:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A2C910E473;
-	Fri, 13 Dec 2024 20:34:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD3B310F0CB;
+	Fri, 13 Dec 2024 20:34:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="pX1XpIwv";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Vjih6Jku";
 	dkim-atps=neutral
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2065.outbound.protection.outlook.com [40.107.212.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1632110E1C1
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Dec 2024 20:34:09 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2079.outbound.protection.outlook.com [40.107.92.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 169FA10F0CE
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Dec 2024 20:34:11 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FVKTrgF5nR/jMI2uUYY4pWyxtlmq7a5GlDMelRAjE6jba++9yXIwFbrgH3WMU3wuqiXaTlbhc8WWPobodVWrGFUEaCtA44nzVh67ZB08DgYFKCzBU4FWj1rvGYqZnvhVWsnE9gO40cyCqlwOja04ZNMOiJHBz6jQfI/97/3B4on6n5OokEpuUkDIv79pItwooVJJ6W9oBw4YOC4SRhF/b6RJE4PUS+v9gYN+XPjweaRNN9ix3t/yxNRg+2eb8PhKO48RCn+3lwV3JUIw1HO04xt/ITO2ulV/udMbsAiIyoKFuqMjkMHRVBIh/N5HJ+nfs7pMIp6V8J6oD86OeTvFPw==
+ b=we7AgueBr6GWm15bZjH6wrR+MrLRR/OqkRTgrOmo9YGOv6zjgyCGw7iThybRwZuV7YmiWXEQ9AgE0U/C62+IrHRGizCsti4fim4KAqb0V3WHIHMlqlO5BDbQxLQaJm4Prh3b7VhRFR4G+Ww+nZ/zYqh1hy2zBvI4kRSovh8aqSC1iqKTUQGPpXwJY0Gf0fu1IWdQMcAg2qWnitLjaRuACxBzAG2YwuXu0+4gzZia0NUCSkq8gTM/Tw7Cw09aXQL3sshpMkpSMQKZBl1pxldxRa9HIzoekKQyzW7c3ugb7WF7QrQquGKlr0wYFg4H0R7CfypNeSczl6rdUNgz0kB8fw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/G7+2Up/3nTiLgLLEk9OLPnJC+PviPGuU0tkVV4SPu0=;
- b=L0/Dpn8Tgw6WAlgLcUFH/lu+AoLdvkPE71sji44aKzMfXucAjXTqa1ReHPv34QkPDQ3nIfGlFSKphefEsmf+i1Dg7CHb+orf3BNUb5ea2geE7FaG/BggalWEGIZsSrHI87KlBuZE6OF5j1NZN3jZ8XjFwUX8XUOfA1P/xeyUJtZ1wJEavRNrZ3eB9kLX+rrkgvcZn4fc35vlQIGmkVKLKtBS+esjrEqJk9jvVyNVkCk1l24SUegZIjJFGLTBOKeVMGUGUMhLA9XDfwGjG7PqoKpwqYgIe0G5O55kT63PN4hElrMwxUzbjEZp/nZvtrEmfwZu7ghsULuSXT60h+Gf/A==
+ bh=g6CEKRbRFQauKCl1bW/fV3fHY9QAAXkbb9q9VloOXTo=;
+ b=ai0HlhbT9vlHkR0kPxqY+Vj6Q2SThHvDVsMNJeYf5sdPvjfXuclPGXWhFabDVUyQF5afXg0gtmXj1mKPJeH9Zw65betNWcwnMbM+ISBADhOcMFeStVEnqdhP93oUpmzjfnOfp9fmVCe8R7WpMeKCxPxccLFe6AcRdMIZYEIQYWDJctUiz/DGdY34AR1+yN4DopA+z8EE1r+Ss0QHDG2+pONvqFVSmA/2MtU84tdU1hm27ETNSLFQ3H0Bdqx99QW/6ElYQCwpKsR74LIodIa8BU+QHp7UrYsrP9k0m0VcYG2oJ3NuN7N639RWB6aZXF2og9C3NNGP3BZ2fU6i507PlQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/G7+2Up/3nTiLgLLEk9OLPnJC+PviPGuU0tkVV4SPu0=;
- b=pX1XpIwveHKKx5QrYGf7QcgnosRg3+lOq767xrHQbejH9psYMmvQ+zgagw0/bkWN5wl/2on22HmVWejocm6Hj/JcAvQuXhpaUz7rb+au8fjfzaYRHk4sM1IPwEhwGpvESrZTDXevc1OC8KwN4ANlC/iTzc3JPW/A4o8plGCrdmw=
-Received: from BN0PR04CA0199.namprd04.prod.outlook.com (2603:10b6:408:e9::24)
- by MN2PR12MB4143.namprd12.prod.outlook.com (2603:10b6:208:1d0::24)
+ bh=g6CEKRbRFQauKCl1bW/fV3fHY9QAAXkbb9q9VloOXTo=;
+ b=Vjih6JkuLGDYoYgGtHq2MWLSEUPtDl0q4HzdGtIkSMVutV1LDJeR83OWga6J7GrsyPYNxyz2H4T71tgAydzjQmyr0YcQwg3qxG8AuS7EkzarvaeFxyWNiZRCWPUj/FNFRy1IwVEylKDzQiRnFSMV0Qqw6cQaGDJmLrvoOaF6v6Y=
+Received: from BN0PR04CA0192.namprd04.prod.outlook.com (2603:10b6:408:e9::17)
+ by MN6PR12MB8542.namprd12.prod.outlook.com (2603:10b6:208:477::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8207.13; Fri, 13 Dec
- 2024 20:34:05 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8251.16; Fri, 13 Dec
+ 2024 20:34:07 +0000
 Received: from BN2PEPF000055DB.namprd21.prod.outlook.com
- (2603:10b6:408:e9:cafe::a0) by BN0PR04CA0199.outlook.office365.com
- (2603:10b6:408:e9::24) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8251.17 via Frontend Transport; Fri,
- 13 Dec 2024 20:34:05 +0000
+ (2603:10b6:408:e9:cafe::bb) by BN0PR04CA0192.outlook.office365.com
+ (2603:10b6:408:e9::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8251.16 via Frontend Transport; Fri,
+ 13 Dec 2024 20:34:07 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,19 +50,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BN2PEPF000055DB.mail.protection.outlook.com (10.167.245.5) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8272.0 via Frontend Transport; Fri, 13 Dec 2024 20:34:05 +0000
+ 15.20.8272.0 via Frontend Transport; Fri, 13 Dec 2024 20:34:07 +0000
 Received: from Philip-Dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 13 Dec
- 2024 14:34:04 -0600
+ 2024 14:34:06 -0600
 From: Philip Yang <Philip.Yang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Felix.Kuehling@amd.com>, <christian.koenig@amd.com>,
  <jay.cornwall@amd.com>, <Hawking.Zhang@amd.com>, <flora.cui@amd.com>, "Philip
  Yang" <Philip.Yang@amd.com>, Felix Kuehling <felix.kuehling@amd.com>
-Subject: [PATCH 2/6] drm/amdkfd: KFD interrupt access ih_fifo data in-place
-Date: Fri, 13 Dec 2024 15:33:27 -0500
-Message-ID: <20241213203332.18165-2-Philip.Yang@amd.com>
+Subject: [PATCH 5/6] drm/amdkfd: Improve signal event slow path
+Date: Fri, 13 Dec 2024 15:33:30 -0500
+Message-ID: <20241213203332.18165-5-Philip.Yang@amd.com>
 X-Mailer: git-send-email 2.47.1
 In-Reply-To: <20241213203332.18165-1-Philip.Yang@amd.com>
 References: <20241213203332.18165-1-Philip.Yang@amd.com>
@@ -74,51 +74,51 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000055DB:EE_|MN2PR12MB4143:EE_
-X-MS-Office365-Filtering-Correlation-Id: 72845722-01c5-49dc-d3c3-08dd1bb57d18
+X-MS-TrafficTypeDiagnostic: BN2PEPF000055DB:EE_|MN6PR12MB8542:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8e6accc4-1fbd-41a4-d947-08dd1bb57e42
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|36860700013|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?V2snGZ1o0TN7mpUQJWqJNqSu4m1ZftdjLqBYPNhnfOpURh1OMSWTqa3+S2xO?=
- =?us-ascii?Q?4RWEDGQab9uxSK10md7B4fQcYxdVzxWImvj2VeiFY1gxgMNO577EnN6ufMOj?=
- =?us-ascii?Q?VYFK0CC2umJGU6lo/HngWwdqYwJVP9u19DUiiQsbpIoBKeWu1Sj7m0u3G4nv?=
- =?us-ascii?Q?OlCsUlIHvbywX3VNwH17tFhK1DdfHeOTZ8CcTiPp5fINx55U1kfROwQXdoN5?=
- =?us-ascii?Q?fsLVwWAikE0sn+f8UubcQaEcJx+DvhhlJ5DYnZzHhphaaOa4miKfVvorHrEY?=
- =?us-ascii?Q?7cF7qFQeOGTUqFt6I3DnMRNfBufuwCb4E+51NNgU9NgpgNyVjt3OYN5JDTR7?=
- =?us-ascii?Q?6m96Nh0mJhZQ2o6R+BxX2hiQDip8E1Wj8RquXVGJxJ+ubhiDy82W8iBxpQ1r?=
- =?us-ascii?Q?agReRd+wlBd5vVHkDYt8pCyNwqh22XY8vUNo72TRX6mgurNYm5p6eUEkrVf/?=
- =?us-ascii?Q?M7krWcBGYxDD6E3CnGFmqdDEMmHKcW6Trleydu+Zqu12SzSvpbGdX7Y2RMFh?=
- =?us-ascii?Q?eh5RUAJCBnZGPu7XHGRDN2Wg3s6+uO1Xzq1B4q6IlyqPvPAfROdKhNbD9qcy?=
- =?us-ascii?Q?vh1vmU4cM7DQOrIO/92YIKaBC8vlJ35pTwWaBz6yv36uFdNzOvvJfnflQDcE?=
- =?us-ascii?Q?ZtDScguv63VB+QVmrF4r0BBBre1bu3B3LyS8oR5DDy8qpNLZRNMW+cPQOCqz?=
- =?us-ascii?Q?pn20miJ/CZje3l/sm/hOuWKVcHQjbkh0SM69VVFT3z4iLC11Iz6JPhwhEs2o?=
- =?us-ascii?Q?xoXOiJ/Whc3QAgcRxfc7LMuiDR7cJYwKQ3Oxdea7S7+JE5VNPAON1GDqK/A0?=
- =?us-ascii?Q?ayQq+EUy1ANjKXrzV7j0NNZ3gJ7Pbm8zGbfOopG8EBjvQvJHrLx0Lo1pjMWf?=
- =?us-ascii?Q?v8v4ePKbRV225ySh0P+tsNXG/4w+J/9KDtU798040hwsKw6nSHaP1UTjhQXl?=
- =?us-ascii?Q?Dk/r+n3jJWTRtQV/tDh8q5U0UaGgcXG/XY1Nofh6O2SKjEYoer/Vlli/qs7s?=
- =?us-ascii?Q?IbQQdk1V6hhzRdffPNulP4WEK7Zhenytf6ZrZ70uXs0+eAyTy2dC3YAicPoO?=
- =?us-ascii?Q?WWdLMFkNMtru1J9hs+hhcYIDSMcZ5f1E0lb4GMEIbkoUkwfo/4nSZxAN1g8d?=
- =?us-ascii?Q?NQOdT/Qc1dyQ3F5/8NKrAM2KEMmgTl/4ubAhGpoRvJ50M58YsBfauPf11inp?=
- =?us-ascii?Q?ZUpezMc7oU8aZunRnyxkyBzpdpkJTngIXBhuflrDNCkZDCrqHvBYIwfQH/Sv?=
- =?us-ascii?Q?GmpJorWXa90b4hMhMe85OZCxfTLiSxf5qtUVz+GQUOzMopMu/ofZrB7IIA0p?=
- =?us-ascii?Q?P0M9B+TE5mMnaIPEYbb8CPFNtkjvmZOr31K+DWfG3C1iqA05g6bjdaKw+XCi?=
- =?us-ascii?Q?F3IZQWCGPFOh3xcm/IkG7jFxCisPInY1T2FG9GQnAqeRLM2HFYEVdgnCpSsB?=
- =?us-ascii?Q?cIeqpmsgzUJqvmb8nPLdGrTYRFxhT03D?=
+ ARA:13230040|36860700013|376014|1800799024|82310400026|30052699003; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?Z97K6YTUkg140O+XvOf1VRyt1YeBArfRptgEoMQuQECMMeb6oJhQ2AE59551?=
+ =?us-ascii?Q?DES6z1cePbjx0A6fiCs1Kn5nCoZKVnthDUjKbq/NRVK7kBDciUy6wswBOAr6?=
+ =?us-ascii?Q?5IZ6fKdcjX9HA0MYzpYinA2s43cKzDGkl4plJjnjsTzB1D+MI05F0wSi7lQh?=
+ =?us-ascii?Q?BmlvNKF+calFKDwr5mvVqtAnMBtbB7iDrtuCfp3rdNPlo6w84dld4oBDXmLD?=
+ =?us-ascii?Q?lpFfuUxToz3VrvYXp1p2jl8xDkszcRuPWEay+vrQLN4F6nB05Kfp9Wg8CRdk?=
+ =?us-ascii?Q?P0FIbMVgGhvJIO3bGRYhe4hY5c/X53U0Q8bSRDeXSzEUb2N5Ee2ToOxrXcIS?=
+ =?us-ascii?Q?BfqPEXXNZREbE34u8rghF1jqwLi91KbSnF85Eh4E5EOcGFe/nDxQzQGnT5Yu?=
+ =?us-ascii?Q?3vURdGGektKdtLMqIVYsjLDK/pCYZbrAgPfn8p9t0dwbCZwOqo0PxKOqBJf4?=
+ =?us-ascii?Q?2uviKr7IsTbhQc+vgksRxEV73ZPdWKo3aLIa2SL9HQ5MmbjZDlfT4CsgHMec?=
+ =?us-ascii?Q?zXHj8vBBYDgtSZNsPfWrPWwjgGlIddZJo83cn/7Q6mwpbJxPhYKTuf+SVEa+?=
+ =?us-ascii?Q?gp1D2n0KwxNhyaFE3NjVte72GAWaJLhMKwEMDsxkWh02Bpk19PIZ5ODJTtlo?=
+ =?us-ascii?Q?5x4IuIjPDh5vSIfn7LMn5ZHyPVGKifaTF6aKf3d4YWtvJqx8WuoCtuaLhifM?=
+ =?us-ascii?Q?qb27ojV56KX0c7sIfr/7f1VTqXEqbUTghJ/sxdjKg5fuCJAQ/za2xvyUAQz7?=
+ =?us-ascii?Q?d8SvCOvsFVKo5/4YBEFn1x8h/tQWRZx7REaH3WpXhX30J545ar11CV11NovG?=
+ =?us-ascii?Q?EMY2C58S9td+ddhSGlEVz+aoDAV+bfb9tQbjlnEtXsjB2oFT3z/TnpEvahG7?=
+ =?us-ascii?Q?O5gsxNtbo12P6s6K2R4M7JGhTsKRh/lJBuZu6IcvSF7nMxvqU1mqlLPQ2p3F?=
+ =?us-ascii?Q?Qefr9+C+t3ZuFj/m1Ois0t43wKwTOL3k+zBMritqKq1X9Hv9ikeruq57+MCQ?=
+ =?us-ascii?Q?R+Y4dpmRvxjZxJ/cQJAT9m+P+K//q5/0ejrNlKzyJovHPOZL+Y47lSTvUH4B?=
+ =?us-ascii?Q?6lGK8OSxsLeTGzNyC/6Efh6pN8g79aeUh5w5LCT6Xf5yCnxJlRQ8hTm63Sej?=
+ =?us-ascii?Q?HxdS5w1NahuHC8Recekpsyc2+NSgRdODBi4NEvvmdYgd1Lv8T4lE+h9byiEO?=
+ =?us-ascii?Q?NfFSFaZLqX/b8GHML1eQPM9Y3PICgTCtUwVz7hlJ2xI/YU1RU2qWrZlOfb7/?=
+ =?us-ascii?Q?s5go8YaeTPT77w8UCS4dvoyizedmPs/qODynZ+QiD/KEuZ6FhqK61GcXJPbB?=
+ =?us-ascii?Q?yw/5EWb2Oq/XYndHjOTyiT1F7cYAtuIzqShvDyOpKbDxVbzcl3mN3azj8ndZ?=
+ =?us-ascii?Q?/O1hj/QiMDsg/nhfbQNJB1kXu4fFA5FHLeeEFM5DM+RU0iKgYP7lkYw/u4Fm?=
+ =?us-ascii?Q?MKypsNz0m9HIZsZVeiql+ZawTJVGQ5Rg?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014); DIR:OUT;
- SFP:1101; 
+ SFS:(13230040)(36860700013)(376014)(1800799024)(82310400026)(30052699003);
+ DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Dec 2024 20:34:05.7663 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 72845722-01c5-49dc-d3c3-08dd1bb57d18
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Dec 2024 20:34:07.7194 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8e6accc4-1fbd-41a4-d947-08dd1bb57e42
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000055DB.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4143
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8542
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,88 +133,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-To handle 40000 to 80000 interrupts per second running CPX mode with 4
-streams/queues per KFD node, KFD interrupt handler becomes the
-performance bottleneck.
+If event slot is not signaled, kfd_signal_event_interrupt goes to slow
+path to scan all event slots to find the signaled event, this is needed
+for old ASICs that don't have the event ID or the event IDs are
+incorrect in the IH payload.
 
-Remove the kfifo_out memcpy overhead by accessing ih_fifo data in-place
-and updating rptr with kfifo_skip_count.
+There is case that GPU signal the same event twice, then driver process
+the first event interrupt, set_event and event slot is auto-reset, then
+for the second event interrupt, KFD goes to slow path as event is not
+signaled, just drop the second event interrupt because the application
+only need wakeup once.
 
 Signed-off-by: Philip Yang <Philip.Yang@amd.com>
 Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c | 35 +++++++++-------------
- 1 file changed, 14 insertions(+), 21 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_events.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c b/drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c
-index 9b6b6e882593..e7412de9a0ac 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c
-@@ -114,50 +114,43 @@ void kfd_interrupt_exit(struct kfd_node *node)
-  */
- bool enqueue_ih_ring_entry(struct kfd_node *node, const void *ih_ring_entry)
- {
--	int count;
--
--	count = kfifo_in(&node->ih_fifo, ih_ring_entry,
--				node->kfd->device_info.ih_ring_entry_size);
--	if (count != node->kfd->device_info.ih_ring_entry_size) {
-+	if (kfifo_is_full(&node->ih_fifo)) {
- 		dev_dbg_ratelimited(node->adev->dev,
--			"Interrupt ring overflow, dropping interrupt %d\n",
--			count);
-+				    "Interrupt ring overflow, dropping interrupt\n");
- 		return false;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+index ea3792249209..d075f24e5f9f 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+@@ -748,6 +748,16 @@ void kfd_signal_event_interrupt(u32 pasid, uint32_t partial_id,
+ 		uint64_t *slots = page_slots(p->signal_page);
+ 		uint32_t id;
+ 
++		/*
++		 * If id is valid but slot is not signaled, GPU may signal the same event twice
++		 * before driver have chance to process the first interrupt, then signal slot is
++		 * auto-reset after set_event wakeup the user space, just drop the second event as
++		 * the application only need wakeup once.
++		 */
++		if ((valid_id_bits > 31 || (1U << valid_id_bits) >= KFD_SIGNAL_EVENT_LIMIT) &&
++		    partial_id < KFD_SIGNAL_EVENT_LIMIT && slots[partial_id] == UNSIGNALED_EVENT_SLOT)
++			goto out_unlock;
++
+ 		if (valid_id_bits)
+ 			pr_debug_ratelimited("Partial ID invalid: %u (%u valid bits)\n",
+ 					     partial_id, valid_id_bits);
+@@ -776,6 +786,7 @@ void kfd_signal_event_interrupt(u32 pasid, uint32_t partial_id,
+ 		}
  	}
  
-+	kfifo_in(&node->ih_fifo, ih_ring_entry, node->kfd->device_info.ih_ring_entry_size);
- 	return true;
++out_unlock:
+ 	rcu_read_unlock();
+ 	kfd_unref_process(p);
  }
- 
- /*
-  * Assumption: single reader/writer. This function is not re-entrant
-  */
--static bool dequeue_ih_ring_entry(struct kfd_node *node, void *ih_ring_entry)
-+static bool dequeue_ih_ring_entry(struct kfd_node *node, u32 **ih_ring_entry)
- {
- 	int count;
- 
--	count = kfifo_out(&node->ih_fifo, ih_ring_entry,
--				node->kfd->device_info.ih_ring_entry_size);
--
--	WARN_ON(count && count != node->kfd->device_info.ih_ring_entry_size);
-+	if (kfifo_is_empty(&node->ih_fifo))
-+		return false;
- 
-+	count = kfifo_out_linear_ptr(&node->ih_fifo, ih_ring_entry,
-+				     node->kfd->device_info.ih_ring_entry_size);
-+	WARN_ON(count != node->kfd->device_info.ih_ring_entry_size);
- 	return count == node->kfd->device_info.ih_ring_entry_size;
- }
- 
- static void interrupt_wq(struct work_struct *work)
- {
--	struct kfd_node *dev = container_of(work, struct kfd_node,
--						interrupt_work);
--	uint32_t ih_ring_entry[KFD_MAX_RING_ENTRY_SIZE];
-+	struct kfd_node *dev = container_of(work, struct kfd_node, interrupt_work);
-+	uint32_t *ih_ring_entry;
- 	unsigned long start_jiffies = jiffies;
- 
--	if (dev->kfd->device_info.ih_ring_entry_size > sizeof(ih_ring_entry)) {
--		dev_err_once(dev->adev->dev, "Ring entry too small\n");
--		return;
--	}
--
--	while (dequeue_ih_ring_entry(dev, ih_ring_entry)) {
-+	while (dequeue_ih_ring_entry(dev, &ih_ring_entry)) {
- 		dev->kfd->device_info.event_interrupt_class->interrupt_wq(dev,
- 								ih_ring_entry);
-+		kfifo_skip_count(&dev->ih_fifo, dev->kfd->device_info.ih_ring_entry_size);
-+
- 		if (time_is_before_jiffies(start_jiffies + HZ)) {
- 			/* If we spent more than a second processing signals,
- 			 * reschedule the worker to avoid soft-lockup warnings
 -- 
 2.47.1
 
