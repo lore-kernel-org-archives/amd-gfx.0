@@ -4,131 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7613E77180
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Dec 2024 08:33:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E4CEE77183
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Dec 2024 08:33:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5648C10E536;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A86210E533;
 	Mon, 16 Dec 2024 08:33:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ua4ivgLA";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="UFEe2ZfH";
 	dkim-atps=neutral
-Received: from mail-pl1-x634.google.com (mail-pl1-x634.google.com
- [IPv6:2607:f8b0:4864:20::634])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 061B910E1B2
- for <amd-gfx@lists.freedesktop.org>; Sat, 14 Dec 2024 18:32:56 +0000 (UTC)
-Received: by mail-pl1-x634.google.com with SMTP id
- d9443c01a7336-21634338cfdso33370565ad.2
- for <amd-gfx@lists.freedesktop.org>; Sat, 14 Dec 2024 10:32:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1734201176; x=1734805976; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:autocrypt:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
- bh=Ig31/DDRXGBnbfiVrjaU0lcPEnLqBV0eS0DnAh0zqPg=;
- b=Ua4ivgLAf7Rnyj/wtuDdWz4qndYFFtZ1OY99qlCt2Raf5c3083TPl6oKqyWd1+jvWS
- 2g2qbV+6WImYEnaKuNo3wh+5jvmGWUaRNNIYTcR6nmb5NTS+9fNSfClvJIMSDZAO76f5
- TqPAcTOKEcQyxGkTA6UPVOFCLHCaxEnP6r6pFBWLbwe+vC/RGOZbmynz4jAomo/IAfIp
- rSD0HyPO0q2WIRwjZYEX1EkIaD9BmQu/qu4GctyjfCtyhLH7A6yfKzkWqPx1oegjDF0N
- EVpf9Bf+hqLrufXSkZDbXEpN0pSbNPopaunXy4XeBybrT56OGPIF1tIW/+famgDtX63f
- 3uIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734201176; x=1734805976;
- h=content-transfer-encoding:in-reply-to:autocrypt:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:sender:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Ig31/DDRXGBnbfiVrjaU0lcPEnLqBV0eS0DnAh0zqPg=;
- b=p8x+7aTBzKBd3ZEto8L9d9BInE3fqYZT9gVWoMTO0YUgYr58ib2Xs2VsbRm6YTHTVa
- 62kFEjM3Dv7MoPEESR5nvJzBa9JDhyMP6sSqHhdHVta4pycevylQRUGuhQRt2U7N6dhA
- wXMgLhmUaO1sIgBjg2WhNSMIv+ktXdJ5ARVi6a9MIm8dx/PPGVPhoNI+JC369G9qpY+C
- VLPf8FKElEn91VkpkDvpeUxLBE9WNfSCaO7wITxHXqvr+E3QTSBKPcL9K0z+aoBuQapE
- OB1D0heiNVobHAXEzhEbzGkOFirz8JcNwfdGxeXexiCUvk97H0gBo7QdqlDq0dpvo4qo
- Zu6A==
-X-Gm-Message-State: AOJu0YzWzauwJRoDRdKIArh31/brveO2eWnWXJa6W9qcR9mToxGihdMc
- 32PoWF8ExvhLwDcfHJ4ZSw+BXigEjOxMnwYBGS4t2Y+cNcf6JBiNRY82HQ==
-X-Gm-Gg: ASbGncuB2uJ9cXKdy1P3c2pelHi+AZC1rgLQgK9/wkA70KX1LS+tyBlqXixivqwYNUl
- TuZRs+h3MaQ04HgnmKwNpb2wWDQGAgv9rbSMg/89G1ZMzcXBextqeZB8J3mHPFBELVfOUwiX3Bj
- eBfbL7MbQxHY9iWVcsTTI9mdn2FiLa2gpT4UMy146rKXAGvg9luFMZPgMNfIEqzn1slzWeDErZn
- JKuvmJlwxvRHNukWZ9xHVQ4ECHMC8j7t+F5ThrW0Wmqgr1k/A3zUOu1u89F/yBDRZC1SFJSpaHr
- RJthMgVtbTIHovb22n3z9XPQn4nRQg==
-X-Google-Smtp-Source: AGHT+IFu+DOBOmaCpS4mVxVGL3k2P3g+uggP/Cy4R82p84nEmPqQodjD05t2UUiHFw0oB0nAx3HGfw==
-X-Received: by 2002:a17:903:2b07:b0:215:5d43:6f0e with SMTP id
- d9443c01a7336-21892ab83b0mr106715805ad.41.1734201176046; 
- Sat, 14 Dec 2024 10:32:56 -0800 (PST)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5?
- ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-218a1e5d07bsm15364935ad.190.2024.12.14.10.32.53
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 14 Dec 2024 10:32:55 -0800 (PST)
-Message-ID: <8acbf588-2bd1-4654-a67b-a51624f8360d@roeck-us.net>
-Date: Sat, 14 Dec 2024 10:32:52 -0800
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C407D10F083;
+ Fri, 13 Dec 2024 15:57:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=3QqOWyG17hM5ZyO+5DWj7DOWxTFghs0Aib9479drS2k=; b=UFEe2ZfHxFgO4cZ4DI3BMVMOwP
+ Hf5a16cPRbbGZT6x63XepyQEdoz0Aeb7WSSRqwWEkWot0GP3CgO3Aae7xj3DQoPTqteV/7V9NcKLl
+ b8UN94miMbtMV8YtF2utpA/wpPa2CWThdL+07EjBlJI90IJtbgIjaisQN5PRdN3nCTU+ee4UKbk7L
+ vDwqAswAchcetpQp0YAfIyUy/xl5Dx/v213NMc0eq1IoCf7F/k1rgiTcVB9sVvtz/y2zq8IhYPDpp
+ 9lbNtqwuysWndf0jDUnQUl1VhiSHqLij1qdgAnpNSeCxwspuaIj622VRiNc5hrux5HtAYzZM9HNIT
+ UBMxgTsA==;
+Received: from [179.193.1.214] (helo=[192.168.15.100])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1tM82B-002i9f-SV; Fri, 13 Dec 2024 16:56:56 +0100
+Message-ID: <ed83b0a1-62d1-48e5-ac7b-478be3043733@igalia.com>
+Date: Fri, 13 Dec 2024 12:56:50 -0300
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 10/34] drm/amd/display: Add debug prints for IPS testing
-To: "Hung, Alex" <Alex.Hung@amd.com>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "Wentland, Harry" <Harry.Wentland@amd.com>,
- "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>,
- "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>,
- "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>, "Li, Roman"
- <Roman.Li@amd.com>, "Lin, Wayne" <Wayne.Lin@amd.com>,
- "Chung, ChiaHsuan (Tom)" <ChiaHsuan.Chung@amd.com>,
- "hersenxs.wu@amd.com" <hersenxs.wu@amd.com>, "Zuo, Jerry"
- <Jerry.Zuo@amd.com>, "Kazlauskas, Nicholas" <Nicholas.Kazlauskas@amd.com>,
- "Ma, Duncan" <Duncan.Ma@amd.com>
-References: <20240228183940.1883742-1-alex.hung@amd.com>
- <20240228183940.1883742-11-alex.hung@amd.com>
- <abe64cad-4ac4-4372-9d46-5e77618b3836@roeck-us.net>
- <DM4PR12MB8476E86FE65DEE9CA8DC7895F73E2@DM4PR12MB8476.namprd12.prod.outlook.com>
+Subject: Re: [PATCH 1/1] drm/amdgpu: Use device wedged event
+To: Raag Jadav <raag.jadav@intel.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: airlied@gmail.com, simona@ffwll.ch, lucas.demarchi@intel.com,
+ rodrigo.vivi@intel.com, jani.nikula@linux.intel.com,
+ andriy.shevchenko@linux.intel.com, lina@asahilina.net,
+ michal.wajdeczko@intel.com, "Sharma, Shashank" <Shashank.Sharma@amd.com>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ himal.prasad.ghimiray@intel.com, aravind.iddamsetty@linux.intel.com,
+ anshuman.gupta@intel.com, alexander.deucher@amd.com,
+ amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com
+References: <20241212190909.28559-1-andrealmeid@igalia.com>
+ <20241212190909.28559-2-andrealmeid@igalia.com>
+ <d9f2583d-da79-4532-90fc-85028e977ceb@amd.com>
+ <c7c498f0-2ee3-42f5-9b45-c87e52ffc3e4@igalia.com>
+ <Z1xGe1X_XzB00J1Q@black.fi.intel.com>
 Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- mDW4+i+XlNFUPUYMrIKi9joBhu18ssf5i5Q=
-In-Reply-To: <DM4PR12MB8476E86FE65DEE9CA8DC7895F73E2@DM4PR12MB8476.namprd12.prod.outlook.com>
+From: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
+In-Reply-To: <Z1xGe1X_XzB00J1Q@black.fi.intel.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 16 Dec 2024 08:33:15 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -144,93 +72,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gMTIvMTEvMjQgMDg6MTgsIEh1bmcsIEFsZXggd3JvdGU6DQo+IFtBTUQgT2ZmaWNpYWwg
-VXNlIE9ubHkgLSBBTUQgSW50ZXJuYWwgRGlzdHJpYnV0aW9uIE9ubHldDQo+IA0KPiANCj4g
-SGkgR3VlbnRlciwNCj4gDQo+IFRoYW5rcyBmb3IgdGhlIHVwZGF0ZXMuDQo+IA0KPiBUaGlz
-IG1heSBiZSBhIHJlYWwgaXNzdWUuIFBsZWFzZSBmaWxlIGEgYnVnIGF0IGh0dHBzOi8vZ2l0
-bGFiLmZyZWVkZXNrdG9wLm9yZy9kcm0vYW1kLy0vaXNzdWVzIDxodHRwczovL2dpdGxhYi5m
-cmVlZGVza3RvcC5vcmcvZHJtL2FtZC8tL2lzc3Vlcz7CoGFuZCBzaGFyZSB5b3VyIHNldHVw
-LiBUaGlzIGhlbHBzIHVzIGludmVzdGlnYXRlIGZ1cnRoZXIuDQo+IA0KDQpGb2xsb3dpbmcg
-dXAgaGVyZSBmb3IgcmVmZXJlbmNlOg0KDQpUaGUgcHJvYmxlbSBpcyBzZWVuIGlmIGFuIG9s
-ZGVyIGRtY3ViIGZpcm13YXJlIGlzIGluc3RhbGxlZC4gSW4gbXkgY2FzZSwNCm15IHN5c3Rl
-bSBpcyBVYnVudHUgMjIuMDQgcnVubmluZyBhIDYuMTIueCBrZXJuZWwuIEFwcGFyZW50bHkg
-VWJ1bnR1IDIyLjA0DQpkb2VzIG5vdCBpbnN0YWxsIHRoZSBsYXRlc3QgZG1jdWIgZmlybXdh
-cmUuIENvcHlpbmcgYW5kIHVzaW5nIHRoZSBmaXJtd2FyZQ0KZnJvbSBVYnVudHUgMjQuMDQg
-bWFrZXMgdGhlIHByb2JsZW0gZGlzYXBwZWFyLg0KDQpUaGFua3MgYSBsb3QgdG8gQWxleCBm
-b3IgcG9pbnRpbmcgbWUgaW50byB0aGUgcmlnaHQgZGlyZWN0aW9uLg0KDQpHdWVudGVyDQoN
-Cj4gDQo+IC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQ0KPiAqRnJvbToqIEd1ZW50ZXIgUm9lY2sgPGdy
-b2VjazdAZ21haWwuY29tPiBvbiBiZWhhbGYgb2YgR3VlbnRlciBSb2VjayA8bGludXhAcm9l
-Y2stdXMubmV0Pg0KPiAqU2VudDoqIDEwIERlY2VtYmVyIDIwMjQgMjA6MTcNCj4gKlRvOiog
-SHVuZywgQWxleCA8QWxleC5IdW5nQGFtZC5jb20+DQo+ICpDYzoqIGFtZC1nZnhAbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnIDxhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZz47IFdlbnRs
-YW5kLCBIYXJyeSA8SGFycnkuV2VudGxhbmRAYW1kLmNvbT47IExpLCBTdW4gcGVuZyAoTGVv
-KSA8U3VucGVuZy5MaUBhbWQuY29tPjsgU2lxdWVpcmEsIFJvZHJpZ28gPFJvZHJpZ28uU2lx
-dWVpcmFAYW1kLmNvbT47IFBpbGxhaSwgQXVyYWJpbmRvIDxBdXJhYmluZG8uUGlsbGFpQGFt
-ZC5jb20+OyBMaSwgUm9tYW4gPFJvbWFuLkxpQGFtZC5jb20+OyBMaW4sIFdheW5lIDxXYXlu
-ZS5MaW5AYW1kLmNvbT47IEd1dGllcnJleiwgQWd1c3RpbiA8QWd1c3Rpbi5HdXRpZXJyZXpA
-YW1kLmNvbT47IENodW5nLCBDaGlhSHN1YW4gKFRvbSkgPENoaWFIc3Vhbi5DaHVuZ0BhbWQu
-Y29tPjsgaGVyc2VueHMud3VAYW1kLmNvbSA8aGVyc2VueHMud3VAYW1kLmNvbT47IFp1bywg
-SmVycnkgPEplcnJ5Llp1b0BhbWQuY29tPjsgS2F6bGF1c2thcywgTmljaG9sYXMgPE5pY2hv
-bGFzLkthemxhdXNrYXNAYW1kLmNvbT47IE1hLCBEdW5jYW4gPER1bmNhbi5NYUBhbWQuY29t
-Pg0KPiAqU3ViamVjdDoqIFJlOiBbUEFUQ0ggMTAvMzRdIGRybS9hbWQvZGlzcGxheTogQWRk
-IGRlYnVnIHByaW50cyBmb3IgSVBTIHRlc3RpbmcNCj4gSGksDQo+IA0KPiBPbiBXZWQsIEZl
-YiAyOCwgMjAyNCBhdCAxMTozOToxNkFNIC0wNzAwLCBBbGV4IEh1bmcgd3JvdGU6DQo+PiBG
-cm9tOiBOaWNob2xhcyBLYXpsYXVza2FzIDxuaWNob2xhcy5rYXpsYXVza2FzQGFtZC5jb20+
-DQo+PiANCj4+IFtXSFldDQo+PiBUbyBsb2cgY29tbWl0IHN0YXRlcyBhbmQgd2hlbiB3ZSB0
-cmFuc2l0aW9uIGluL291dCBvZiBhbGxvdyBhbmQgaWRsZQ0KPj4gc3RhdGVzIGFuZCB0aGUg
-Y2FsbGVyLg0KPj4gDQo+PiBbSE9XXQ0KPj4gQWRkIGEgbmV3IGxvZ2dpbmcgaGVscGVyIGFu
-ZCB3cmFwIGlkbGUgb3B0aW1pemF0aW9uIGNhbGxzIHRvIHJlY2VpdmUNCj4+IHRoZSBjYWxs
-ZXIuDQo+PiANCj4+IFJldmlld2VkLWJ5OiBEdW5jYW4gTWEgPGR1bmNhbi5tYUBhbWQuY29t
-Pg0KPj4gQWNrZWQtYnk6IEFsZXggSHVuZyA8YWxleC5odW5nQGFtZC5jb20+DQo+PiBTaWdu
-ZWQtb2ZmLWJ5OiBOaWNob2xhcyBLYXpsYXVza2FzIDxuaWNob2xhcy5rYXpsYXVza2FzQGFt
-ZC5jb20+DQo+PiAtLS0NCj4gLi4uDQo+PiAgDQo+PiArwqDCoMKgwqAgRENfTE9HX0VSUk9S
-KCIlczogRE1DVUIgZXJyb3IgLSBjb2xsZWN0aW5nIGRpYWdub3N0aWMgZGF0YVxuIiwgX19m
-dW5jX18pOw0KPj4gKw0KPiANCj4gVGhpcyBwYXRjaCBnZW5lcmF0ZXMgX2xvdHNfIG9mIGxv
-Z2dpbmcgbm9pc2UuDQo+IA0KPiBbNjg5MjA4LjMzNjk2OV0gYW1kZ3B1IDAwMDA6MDM6MDAu
-MDogW2RybV0gKkVSUk9SKiBkY19kbXViX3Nydl9sb2dfZGlhZ25vc3RpY19kYXRhOiBETUNV
-QiBlcnJvciAtIGNvbGxlY3RpbmcgZGlhZ25vc3RpYyBkYXRhDQo+IFs2ODkyMTkuNjI4MTQx
-XSBhbWRncHUgMDAwMDowMzowMC4wOiBbZHJtXSAqRVJST1IqIGRjX2RtdWJfc3J2X2xvZ19k
-aWFnbm9zdGljX2RhdGE6IERNQ1VCIGVycm9yIC0gY29sbGVjdGluZyBkaWFnbm9zdGljIGRh
-dGENCj4gWzY4OTIyMS4wOTg5OTNdIGFtZGdwdSAwMDAwOjAzOjAwLjA6IFtkcm1dICpFUlJP
-UiogZGNfZG11Yl9zcnZfbG9nX2RpYWdub3N0aWNfZGF0YTogRE1DVUIgZXJyb3IgLSBjb2xs
-ZWN0aW5nIGRpYWdub3N0aWMgZGF0YQ0KPiBbNjg5MjIyLjY0NTk5NF0gYW1kZ3B1IDAwMDA6
-MDM6MDAuMDogW2RybV0gKkVSUk9SKiBkY19kbXViX3Nydl9sb2dfZGlhZ25vc3RpY19kYXRh
-OiBETUNVQiBlcnJvciAtIGNvbGxlY3RpbmcgZGlhZ25vc3RpYyBkYXRhDQo+IFs2ODkyMjUu
-MzQxNDcwXSBhbWRncHUgMDAwMDowMzowMC4wOiBbZHJtXSAqRVJST1IqIGRjX2RtdWJfc3J2
-X2xvZ19kaWFnbm9zdGljX2RhdGE6IERNQ1VCIGVycm9yIC0gY29sbGVjdGluZyBkaWFnbm9z
-dGljIGRhdGENCj4gWzY4OTIyNi40NjczODhdIGFtZGdwdSAwMDAwOjAzOjAwLjA6IFtkcm1d
-ICpFUlJPUiogZGNfZG11Yl9zcnZfbG9nX2RpYWdub3N0aWNfZGF0YTogRE1DVUIgZXJyb3Ig
-LSBjb2xsZWN0aW5nIGRpYWdub3N0aWMgZGF0YQ0KPiBbNjg5MjI2LjcxNjc1NV0gYW1kZ3B1
-IDAwMDA6MDM6MDAuMDogW2RybV0gKkVSUk9SKiBkY19kbXViX3Nydl9sb2dfZGlhZ25vc3Rp
-Y19kYXRhOiBETUNVQiBlcnJvciAtIGNvbGxlY3RpbmcgZGlhZ25vc3RpYyBkYXRhDQo+IFs2
-ODkyMzEuNTA3NzQ2XSBhbWRncHUgMDAwMDowMzowMC4wOiBbZHJtXSAqRVJST1IqIGRjX2Rt
-dWJfc3J2X2xvZ19kaWFnbm9zdGljX2RhdGE6IERNQ1VCIGVycm9yIC0gY29sbGVjdGluZyBk
-aWFnbm9zdGljIGRhdGENCj4gWzY4OTI0Ny4yODc5OTBdIGFtZGdwdSAwMDAwOjAzOjAwLjA6
-IFtkcm1dICpFUlJPUiogZGNfZG11Yl9zcnZfbG9nX2RpYWdub3N0aWNfZGF0YTogRE1DVUIg
-ZXJyb3IgLSBjb2xsZWN0aW5nIGRpYWdub3N0aWMgZGF0YQ0KPiBbNjg5MjUyLjQ0MTE1MF0g
-YW1kZ3B1IDAwMDA6MDM6MDAuMDogW2RybV0gKkVSUk9SKiBkY19kbXViX3Nydl9sb2dfZGlh
-Z25vc3RpY19kYXRhOiBETUNVQiBlcnJvciAtIGNvbGxlY3RpbmcgZGlhZ25vc3RpYyBkYXRh
-DQo+IA0KPiBJIGRpc2FibGVkIGl0IGluIG15IHByaXZhdGUga2VybmVsIGJ1aWxkLCBzbyBu
-byBwcm9ibGVtIGZvciBtZS4gSG93ZXZlciwNCj4gc2VhcmNoaW5nIGZvciB0aGUgc3RyaW5n
-IG9uIHRoZSB3ZWIgc2hvd3MgbG90cyBvZiBjb21wbGFpbnRzLiBOb3QgbXkgY2FsbA0KPiB0
-byBtYWtlLCBidXQgY2xhaW1pbmcgdGhhdCB0aGlzIHBhdGNoIGFkZHMgImRlYnVnIHByaW50
-cyBmb3IgSVBTIHRlc3RpbmciDQo+IHNlZW1zIHRvIGJlIGEgYml0IG1pc2xlYWRpbmcuDQo+
-IA0KPiBHdWVudGVyDQoNCg==
+
+
+Em 13/12/2024 11:36, Raag Jadav escreveu:
+> On Fri, Dec 13, 2024 at 11:15:31AM -0300, André Almeida wrote:
+>> Hi Christian,
+>>
+>> Em 13/12/2024 04:34, Christian König escreveu:
+>>> Am 12.12.24 um 20:09 schrieb André Almeida:
+>>>> Use DRM's device wedged event to notify userspace that a reset had
+>>>> happened. For now, only use `none` method meant for telemetry
+>>>> capture.
+>>>>
+>>>> Signed-off-by: André Almeida <andrealmeid@igalia.com>
+>>>> ---
+>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 +++
+>>>>    1 file changed, 3 insertions(+)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>>> b/drivers/gpu/ drm/amd/amdgpu/amdgpu_device.c
+>>>> index 96316111300a..19e1a5493778 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>>> @@ -6057,6 +6057,9 @@ int amdgpu_device_gpu_recover(struct
+>>>> amdgpu_device *adev,
+>>>>            dev_info(adev->dev, "GPU reset end with ret = %d\n", r);
+>>>>        atomic_set(&adev->reset_domain->reset_res, r);
+>>>> +
+>>>> +    drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE);
+>>>
+>>> That looks really good in general. I would just make the
+>>> DRM_WEDGE_RECOVERY_NONE depend on the value of "r".
+>>>
+>>
+>> Why depend or `r`? A reset was triggered anyway, regardless of the success
+>> of it, shouldn't we tell userspace?
+> 
+> A failed reset would perhaps result in wedging, atleast that's how i915
+> is handling it.
+> 
+
+Right, and I think this raises the question of what wedge recovery 
+method should I add for amdgpu... Christian?
+
