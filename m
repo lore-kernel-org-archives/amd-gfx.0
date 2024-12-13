@@ -4,75 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C094E77184
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Dec 2024 08:33:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0250BE77186
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Dec 2024 08:33:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6336C10E537;
-	Mon, 16 Dec 2024 08:33:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 01AEB10E53C;
+	Mon, 16 Dec 2024 08:33:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mE3QPaCF";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="fizE5Mk9";
 	dkim-atps=neutral
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [IPv6:2a00:1450:4864:20::52c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D5A110E087;
- Sun, 15 Dec 2024 12:29:02 +0000 (UTC)
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-5d4e2aa7ea9so5980990a12.2; 
- Sun, 15 Dec 2024 04:29:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1734265740; x=1734870540; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=bHWJV/LD4gPHZZNcXt29U0PATFI+oJ17IUeLcy4IdyI=;
- b=mE3QPaCFU6vw5wuG8j1PawAC5/h3/286hPfWvobkLggeH2zTMqmNDz2iQWf0rZJNnY
- ZAvkqLa0LhcLUXy9uSW9NG/cEIDtuW38mhfIMqEoJhH8Dexca3zWkahYvnFW7DVo5Th2
- 3oe6b/YE6eNFTIdXmHBW6XBU2G6ASidfSNB+muB2Q4CfYkjH1KUSD7X8v/8UNN2uVr4o
- H+B+KgABuZAOiXxX0dfjTLgOKrwgdVyBndOPdXAnBROf4zglm860Rsql0N0ET+bO4IAQ
- GXYwtvODqJFoyStWwS1xnXAsFS9BGmK+6KacHyWBo6mL+/NR6O346Hc9qyL/dNoNNF8J
- +Edg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734265740; x=1734870540;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=bHWJV/LD4gPHZZNcXt29U0PATFI+oJ17IUeLcy4IdyI=;
- b=TyETxFAeAJ1C66JmdV4oe3WW4PPgb8p9rjKHntyavkA8WhELAMgHDsr9jmASBegLcn
- /HdX01pziXLAdGQ3zqZIzX8jbOsTv08tTsdEc6Ner3onl2W049x+pEsu6lyKDJr+E9gr
- el2v1ApJ81oy5pthL1gWWWunxs1g782xbf5V0Jwr7Op/DHydkyro5a85bkxT1sc9wovI
- Jq1+HLCeL/IzaOrZGmdipDtxrCNh0/U3ELNKa7lyyDS4rXMFicCwxVax5KR8efNXIdA9
- O9cQMtT6BsPhtfwRGNfD4J47HHZ24W0RuKDyv+yjb3s6xUwVkPJj9pD53vUp+ztaNmL0
- w3TA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVp3xq75mf5r6uYPUAMJsXGhU0x8Xuk+LlYBDYgbPGXrstyr0YokWYAT/427IyzETRqRuVsqiZ0@lists.freedesktop.org,
- AJvYcCWLJ8IQ75YElxQSDxAxluSAuLjQgQ4w7pDK3HuE5QAUOL6HL6yMnE7ZDcuvFCLeUiEQvcCrarKkp9Sg@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxBR+zYuhHZq2P/hEzBgcKcuPp7An16oDiC1NfxvvEo9Jvmnfyv
- MLhz7aIYozyGcPp3S+4qGdqX8Fps6IjGdzbDSrUqVB5t0vOlXGrt
-X-Gm-Gg: ASbGncutlcC128kCY3GT4ppAkSVojCpZ6iBznPU1T1T7RDkmEdn/j3CAO5arDhxLLZg
- 90ST4WCt2wrnr2CGEZWkAKX95ihjqoxhR+bIDOxFnRBcjuE5/q2n4aTKQ0GOI8riQyQbcDr/BV9
- CipD8qFZ1uGbwHjnPhoF92ixTZzZ9bN1TAVHLJtOmnEBTSVkWnhHkwBZ7B67sqSgkWcTBz3whnj
- Vt648f3pfy7oBS/O2mTaqIoR3FxS11pA5LuBK5XXZhT+VR5ts/I4yneKktjULK6YLA=
-X-Google-Smtp-Source: AGHT+IFs4h7kFQ1tBETm2pZSMvLI9Eb//palqWRPKxDQoSymF7Pdlu6jW09S5JdbUeT9M+3q91Focw==
-X-Received: by 2002:a05:6402:348b:b0:5d0:8197:7ab3 with SMTP id
- 4fb4d7f45d1cf-5d63c2e5275mr7998238a12.3.1734265740122; 
- Sun, 15 Dec 2024 04:29:00 -0800 (PST)
-Received: from localhost.localdomain ([83.168.79.145])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5d652ad187dsm2055327a12.28.2024.12.15.04.28.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 15 Dec 2024 04:28:59 -0800 (PST)
-From: Karol Przybylski <karprzy7@gmail.com>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, simona@ffwll.ch, srinivasan.shanmugam@amd.com,
- Hawking.Zhang@amd.com, Jack.Xiao@amd.com, lijo.lazar@amd.com,
- Jesse.zhang@amd.com, tao.zhou1@amd.com
-Cc: Karol Przybylski <karprzy7@gmail.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/amdgpu: Fix potential integer overflow in scheduler mask
- calculations
-Date: Sun, 15 Dec 2024 13:28:57 +0100
-Message-Id: <20241215122857.927606-1-karprzy7@gmail.com>
-X-Mailer: git-send-email 2.34.1
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D0E310E1B6;
+ Fri, 13 Dec 2024 14:15:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=587hDqcnKGq/bywvORxhW/qrnyvDDPlNgcMgllHItw4=; b=fizE5Mk9MPAJ77lbIvT/XXy3s4
+ +6dEhX43NYQHMpkr4d4naK7v5ufVEg512QX0on5IqJwUmlIpyVRBNwO+6X27PqcMIsog2AShcsUlG
+ XgWgDI9hG2wYicxbDv+Dfv0Vgw9i4O1PGKDhHwo9v0UC9W0pfWstUGyfmt3N/kpVcVBGPYGGKbxiF
+ sk0AHheO/nHgk6dvnTQi854TSMqHu6kdhZsa0bhUV7A8D3NiaHssPccPWWy//h8QDggio1uvSdrln
+ 0W1ktme8f8t9/L6xf7xu8v0PhBKaM2tjcmjVeHbA51e7hToaFJd+JJfs7fIpIvyTmy4sbc7++QU26
+ o569INLw==;
+Received: from [179.193.1.214] (helo=[192.168.15.100])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1tM6SA-002g5A-2u; Fri, 13 Dec 2024 15:15:38 +0100
+Message-ID: <c7c498f0-2ee3-42f5-9b45-c87e52ffc3e4@igalia.com>
+Date: Fri, 13 Dec 2024 11:15:31 -0300
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/1] drm/amdgpu: Use device wedged event
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Raag Jadav <raag.jadav@intel.com>, airlied@gmail.com, simona@ffwll.ch,
+ lucas.demarchi@intel.com, rodrigo.vivi@intel.com,
+ jani.nikula@linux.intel.com, andriy.shevchenko@linux.intel.com,
+ lina@asahilina.net, michal.wajdeczko@intel.com,
+ "Sharma, Shashank" <Shashank.Sharma@amd.com>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ himal.prasad.ghimiray@intel.com, aravind.iddamsetty@linux.intel.com,
+ anshuman.gupta@intel.com, alexander.deucher@amd.com,
+ amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com
+References: <20241212190909.28559-1-andrealmeid@igalia.com>
+ <20241212190909.28559-2-andrealmeid@igalia.com>
+ <d9f2583d-da79-4532-90fc-85028e977ceb@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
+In-Reply-To: <d9f2583d-da79-4532-90fc-85028e977ceb@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 16 Dec 2024 08:33:15 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -89,61 +70,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The use of 1 << i in scheduler mask calculations can result in an
-unintentional integer overflow due to the expression being
-evaluated as a 32-bit signed integer.
+Hi Christian,
 
-This patch replaces 1 << i with 1ULL << i to ensure the operation
-is performed as a 64-bit unsigned integer, preventing overflow
+Em 13/12/2024 04:34, Christian König escreveu:
+> Am 12.12.24 um 20:09 schrieb André Almeida:
+>> Use DRM's device wedged event to notify userspace that a reset had
+>> happened. For now, only use `none` method meant for telemetry
+>> capture.
+>>
+>> Signed-off-by: André Almeida <andrealmeid@igalia.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 +++
+>>   1 file changed, 3 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/ 
+>> drm/amd/amdgpu/amdgpu_device.c
+>> index 96316111300a..19e1a5493778 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>> @@ -6057,6 +6057,9 @@ int amdgpu_device_gpu_recover(struct 
+>> amdgpu_device *adev,
+>>           dev_info(adev->dev, "GPU reset end with ret = %d\n", r);
+>>       atomic_set(&adev->reset_domain->reset_res, r);
+>> +
+>> +    drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE);
+> 
+> That looks really good in general. I would just make the 
+> DRM_WEDGE_RECOVERY_NONE depend on the value of "r".
+> 
 
-Discovered in coverity scan, CID 1636393, 1636175, 1636007, 1635853
-
-Fixes: c5c63d9cb5d3b drm/amdgpu: add amdgpu_gfx_sched_mask and amdgpu_compute_sched_mask debugfs
-Signed-off-by: Karol Przybylski <karprzy7@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-index 69a6b6dba0a5..8fb6c5f6a060 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-@@ -2050,7 +2050,7 @@ static int amdgpu_debugfs_gfx_sched_mask_set(void *data, u64 val)
- 	if (!adev)
- 		return -ENODEV;
- 
--	mask = (1 << adev->gfx.num_gfx_rings) - 1;
-+	mask = (1ULL << adev->gfx.num_gfx_rings) - 1;
- 	if ((val & mask) == 0)
- 		return -EINVAL;
- 
-@@ -2078,7 +2078,7 @@ static int amdgpu_debugfs_gfx_sched_mask_get(void *data, u64 *val)
- 	for (i = 0; i < adev->gfx.num_gfx_rings; ++i) {
- 		ring = &adev->gfx.gfx_ring[i];
- 		if (ring->sched.ready)
--			mask |= 1 << i;
-+			mask |= 1ULL << i;
- 	}
- 
- 	*val = mask;
-@@ -2120,7 +2120,7 @@ static int amdgpu_debugfs_compute_sched_mask_set(void *data, u64 val)
- 	if (!adev)
- 		return -ENODEV;
- 
--	mask = (1 << adev->gfx.num_compute_rings) - 1;
-+	mask = (1ULL << adev->gfx.num_compute_rings) - 1;
- 	if ((val & mask) == 0)
- 		return -EINVAL;
- 
-@@ -2149,7 +2149,7 @@ static int amdgpu_debugfs_compute_sched_mask_get(void *data, u64 *val)
- 	for (i = 0; i < adev->gfx.num_compute_rings; ++i) {
- 		ring = &adev->gfx.compute_ring[i];
- 		if (ring->sched.ready)
--			mask |= 1 << i;
-+			mask |= 1ULL << i;
- 	}
- 
- 	*val = mask;
--- 
-2.34.1
-
+Why depend or `r`? A reset was triggered anyway, regardless of the 
+success of it, shouldn't we tell userspace?
