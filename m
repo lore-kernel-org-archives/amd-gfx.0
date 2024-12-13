@@ -4,73 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 109A9E77180
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Dec 2024 08:53:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D888AE7717D
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Dec 2024 09:00:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD64210EF66;
-	Fri, 13 Dec 2024 08:53:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8CB0B10EF68;
+	Fri, 13 Dec 2024 09:00:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Vhu0cr9O";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="f04s0396";
 	dkim-atps=neutral
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [IPv6:2a00:1450:4864:20::32c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A94E10EF66
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Dec 2024 08:53:00 +0000 (UTC)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-434ab938e37so10638745e9.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Dec 2024 00:53:00 -0800 (PST)
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [IPv6:2a00:1450:4864:20::329])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B9B9810EF68
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Dec 2024 09:00:25 +0000 (UTC)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-4361815b96cso9979675e9.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Dec 2024 01:00:25 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1734079979; x=1734684779; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=WknFLcktsG9Y7JrtG1ZkUSeTmHt0mMOzXtdeo6fLyng=;
- b=Vhu0cr9O/RZDIPcB8TSSBIP/iX+0M6TEV/+leIlHnvqlb366FGsNLQHc//swCdLQBK
- Bl39AtxY/7klvWmInVksnFuGxhkd/d98zTE5yr2KL1vxj2AYgx9aOAX0F9cGZcz+G+Ss
- zgovWd6EegHFe5hPfQmfe2BmyPUBmyKOzRw1yvRqvu5Zs5Ebazs6osGprykOdLnNBQBJ
- E15I5BQFgd7eowOR6WpzhgCcc2jwcQbhchIn9AlTyuwYODmEUXtPQDwH7iju25rpuXXk
- f8YDbpjK4tufmKIHgc5CpxO3BY2BnC4ZE/6vsnZo9XG/BW68CC8MUhKRJF9kaKJ9nrqP
- HakQ==
+ d=gmail.com; s=20230601; t=1734080424; x=1734685224; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:content-language:references
+ :cc:to:from:subject:user-agent:mime-version:date:message-id:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=xxFYciqwFV2cndQH7JmXW6mDpDzvGX2lKICy0a5G1GY=;
+ b=f04s03965s+3UGVQq+WmKMeRb+eXBWH708K0ppxI5wwM8NONIcCU5GKewUxNSCNq0W
+ t1y0GOeZ5f5h3oH6oLbJ/8m+w4kwINoNGfglLZO95Rq3yKbvgaWy4aIdkJshiZppx9vD
+ Jvnnz8LVoZbPm2wGnJlC8xtbfsgNzW3mwN2EIqfUBthuxRJmigVsdFKMkVP8PpSpDG2M
+ tf67m6lq+pOBq1AaEUJRZ87/vF4wNpQd8js98YCKI25+NYjS1MV+dmJfWphMVrhiHoAf
+ cOS/NzRJ9f83HiassVmTmjolfIoP3bo4fnTncsPoZOeWg3m5s8pTTWBtBwb1QwnOo0wc
+ mpdw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734079979; x=1734684779;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=WknFLcktsG9Y7JrtG1ZkUSeTmHt0mMOzXtdeo6fLyng=;
- b=OvwfUkF15mLWiquXFRMFwDyMrfds9KElgf6AC8Z0/tgYUdPN5lvU7DkUhUnzYAK1AX
- ehzgAeCe1RiZ+nczV12/64JLdDEnUXA2gib+iGhru9GNzaYN7uxlv9kkUDKpGc5r2RyI
- i5GqAGtWnBSfhPALgDlR2ue/YqshoeVcGlwX4EXkkTc9x6tTjvAaiP3Q3hgCn+66s6EK
- hOFqX/G2KeWrwjU3k9DX+4YGFJ4xBza4NBbifEqeCN81YPWeuKNEOeXch20QYJQnXmiP
- AuH/XwQ7flgYYXAGgJihTS6U9fBRR0ggpD26sRR+/1PxEyfmb/S/3m7PFuhVbprd8xWF
- WM4g==
-X-Gm-Message-State: AOJu0YydPYhLgjaNcAb9rke4SZvk+v4N2JuWkMD3wZdqvm96vbFoWkT7
- l9jafyIEcaoSM7rskbAOiQZJMpVY0pEfJPWsCQcBu8W25T4uU8QTWvhjaA==
-X-Gm-Gg: ASbGnct3Z/PqFsaK9yMFShqztbRoJs0PdDoG42yJtBATkyK4E3LI3dSB49ePXxO4wKC
- ZVYZFoZdYqSnxKUS0HqsUesHzn3snhFtSCMQL6BvHjk8knwgYN76EfomNvdy8otw3MgFqMoGERq
- C1WTL+qFsiVRXD6mi623M7pgMb/sHZ/98WF8AUhbpV/kd5rvafDRJkob3lNkcKCD6VaO8VMcdwv
- XUtnWzGWQI4gR/KmfRPa0SoCGjYTQ1AAY2gOM2Q00UjFbKOMeDpxPtkjrTVYu1FJaj09A==
-X-Google-Smtp-Source: AGHT+IGOHYbbliSm6G53gH9HwoLoOspLTvEbAEh6WP9NjhHcDsK9rAMhXnsDgIts3G2FEgUoZmI3Kw==
-X-Received: by 2002:a05:600c:1e21:b0:434:9499:9e87 with SMTP id
- 5b1f17b1804b1-4362aaa9d7emr11279595e9.25.1734079978643; 
- Fri, 13 Dec 2024 00:52:58 -0800 (PST)
-Received: from able.fritz.box ([2a00:e180:15a3:f300:e495:bece:6ecb:efbd])
+ d=1e100.net; s=20230601; t=1734080424; x=1734685224;
+ h=content-transfer-encoding:in-reply-to:content-language:references
+ :cc:to:from:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=xxFYciqwFV2cndQH7JmXW6mDpDzvGX2lKICy0a5G1GY=;
+ b=mXvHda7V5IEzjyTZy5GgqexTaPzI/nebbxryiBmCtAtwgBIdURpdnMzJCApeCKp/Ag
+ L7935xRx46DTsdatD/ifqRy5rKYPwif1M7DKcYYUAY5Hq4teR08QYQSLDEa1aDQZk4lW
+ +8JIsz83owhYZng2XpHoeAyL96lKCD/3x41zsUyYkmvcU9BAoj3Gex7mGbgIexcjPfLY
+ 2gU4Nspve56/6otrgwkTwAe8NnUek99FyQui+mMXviiSjnEDyUs8WXWxmzBbQSH7cBtB
+ J8Yc3Zo003c0DGxS6dn1G5bAIUEjiH8cyRdR48/ccZUw1WBlVi1hpU1Bi3TMgKdy65ZA
+ dOrg==
+X-Gm-Message-State: AOJu0YyIQ04SsGOiauHq59Pj99k/MYwTysj3G+1b/T951X9eJP5cHrrC
+ bz+qTlDxNDo6OAsZbj/lrGevpKsAGtjk2vt+gup7DAjKG8WyvJ6poVaa0lf1
+X-Gm-Gg: ASbGncsMdeea455wwpNnOzqVHdXZDcqFxC7smf657N0PJ6dJcVoZlG2LEATzQJF+DM4
+ DixMDbNisJr+hynjlTR9e4Vs5VR0vHcLIzVsiOuxpDpJh3cw6mnVC37tSNduuGYsJYPY9YV8oGY
+ NunRVh8WXc4C+f8OM/YQg2CH/wyD6HdIQ94nKtRsv4oq39yLwbZDyeuGS9yFZv49KDLXOqKqIXp
+ Bt4xdqMgr72JRk9Pu4hdkoxxmZUmfcOFIzRmUuf/EUGvH7SKohLqpfsxoKwK9n6Z1Zdxzmu0JSh
+ gGXUR2txMg==
+X-Google-Smtp-Source: AGHT+IHc9mmquC1pWGgV/MrifZ6+x1Zd+SmAv9vv8xcZKYHUuj2WFOeq8l+s/5Hllm4mTYOOb1NFbQ==
+X-Received: by 2002:a05:600c:3ba1:b0:436:1b7a:c0b8 with SMTP id
+ 5b1f17b1804b1-4362aa15453mr12044025e9.7.1734080423909; 
+ Fri, 13 Dec 2024 01:00:23 -0800 (PST)
+Received: from [10.254.108.83] (munvpn.amd.com. [165.204.72.6])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-387824cab97sm6392473f8f.62.2024.12.13.00.52.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Dec 2024 00:52:58 -0800 (PST)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: Alexander.Deucher@amd.com
-Subject: [PATCH 3/3] drm/amdgpu: partially revert "reduce reset time"
-Date: Fri, 13 Dec 2024 09:52:55 +0100
-Message-Id: <20241213085255.1449-3-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20241213085255.1449-1-christian.koenig@amd.com>
-References: <20241213085255.1449-1-christian.koenig@amd.com>
+ ffacd0b85a97d-387824a609esm6502746f8f.40.2024.12.13.01.00.22
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 13 Dec 2024 01:00:23 -0800 (PST)
+Message-ID: <4b6ab16e-fd17-4fa5-b65b-57cdc33717b7@gmail.com>
+Date: Fri, 13 Dec 2024 10:00:21 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] drm/amdgpu: fix amdgpu_coredump
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+To: amd-gfx@lists.freedesktop.org, "Khatri, Sunil" <Sunil.Khatri@amd.com>
+Cc: Alexander.Deucher@amd.com
+References: <20241213085255.1449-1-christian.koenig@amd.com>
+Content-Language: en-US
+In-Reply-To: <20241213085255.1449-1-christian.koenig@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -86,104 +86,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This partially reverts commit 194eb174cbe4fe2b3376ac30acca2dc8c8beca00.
+Sunil please take a look as well.
 
-This commit introduced a new state variable into adev without even
-remotely worrying about CPU barriers.
+Thanks,
+Christian.
 
-Since we already have the amdgpu_in_reset() function exactly for this
-use case partially revert that.
-
-Signed-off-by: Christian König <christian.koenig@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h        | 1 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c    | 4 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.c    | 3 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c     | 2 +-
- 5 files changed, 4 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 7051b697530b..5e55a44f9eef 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -1192,7 +1192,6 @@ struct amdgpu_device {
- 
- 	struct work_struct		reset_work;
- 
--	bool                            job_hang;
- 	bool                            dc_enabled;
- 	/* Mask of active clusters */
- 	uint32_t			aid_mask;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-index 503051352922..dca5a4ef2734 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-@@ -836,7 +836,7 @@ int amdgpu_amdkfd_unmap_hiq(struct amdgpu_device *adev, u32 doorbell_off,
- 	if (!kiq->pmf || !kiq->pmf->kiq_unmap_queues)
- 		return -EINVAL;
- 
--	if (!kiq_ring->sched.ready || adev->job_hang)
-+	if (!kiq_ring->sched.ready || amdgpu_in_reset(adev))
- 		return 0;
- 
- 	ring_funcs = kzalloc(sizeof(*ring_funcs), GFP_KERNEL);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-index a4dde54512b1..2e6829e1554b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-@@ -515,7 +515,7 @@ int amdgpu_gfx_disable_kcq(struct amdgpu_device *adev, int xcc_id)
- 	if (!kiq->pmf || !kiq->pmf->kiq_unmap_queues)
- 		return -EINVAL;
- 
--	if (!kiq_ring->sched.ready || adev->job_hang || amdgpu_in_reset(adev))
-+	if (!kiq_ring->sched.ready || amdgpu_in_reset(adev))
- 		return 0;
- 
- 	spin_lock(&kiq->ring_lock);
-@@ -567,7 +567,7 @@ int amdgpu_gfx_disable_kgq(struct amdgpu_device *adev, int xcc_id)
- 	if (!kiq->pmf || !kiq->pmf->kiq_unmap_queues)
- 		return -EINVAL;
- 
--	if (!adev->gfx.kiq[0].ring.sched.ready || adev->job_hang)
-+	if (!adev->gfx.kiq[0].ring.sched.ready || amdgpu_in_reset(adev))
- 		return 0;
- 
- 	if (amdgpu_gfx_is_master_xcc(adev, xcc_id)) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-index 7fdf7b047317..6cc44eb2586f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-@@ -102,8 +102,6 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
- 		return DRM_GPU_SCHED_STAT_ENODEV;
- 	}
- 
--	adev->job_hang = true;
--
- 	/*
- 	 * Do the coredump immediately after a job timeout to get a very
- 	 * close dump/snapshot/representation of GPU's current error status
-@@ -181,7 +179,6 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
- 	}
- 
- exit:
--	adev->job_hang = false;
- 	drm_dev_exit(idx);
- 	return DRM_GPU_SCHED_STAT_NOMINAL;
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-index c4e15418e187..714a6caeb679 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-@@ -5957,7 +5957,7 @@ static int gfx_v10_0_cp_gfx_enable(struct amdgpu_device *adev, bool enable)
- 	else
- 		WREG32_SOC15(GC, 0, mmCP_ME_CNTL, tmp);
- 
--	if (adev->job_hang && !enable)
-+	if (amdgpu_in_reset(adev) && !enable)
- 		return 0;
- 
- 	for (i = 0; i < adev->usec_timeout; i++) {
--- 
-2.34.1
+Am 13.12.24 um 09:52 schrieb Christian König:
+> The VM pointer might already be outdated when that function is called.
+> Use the PASID instead to gather the information instead.
+>
+> Signed-off-by: Christian König <christian.koenig@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c | 5 ++---
+>   1 file changed, 2 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
+> index 946c48829f19..824f9da5b6ce 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
+> @@ -343,11 +343,10 @@ void amdgpu_coredump(struct amdgpu_device *adev, bool skip_vram_check,
+>   	coredump->skip_vram_check = skip_vram_check;
+>   	coredump->reset_vram_lost = vram_lost;
+>   
+> -	if (job && job->vm) {
+> -		struct amdgpu_vm *vm = job->vm;
+> +	if (job && job->pasid) {
+>   		struct amdgpu_task_info *ti;
+>   
+> -		ti = amdgpu_vm_get_task_info_vm(vm);
+> +		ti = amdgpu_vm_get_task_info_pasid(adev, job->pasid);
+>   		if (ti) {
+>   			coredump->reset_task_info = *ti;
+>   			amdgpu_vm_put_task_info(ti);
 
