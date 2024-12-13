@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B816EE77184
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Dec 2024 20:34:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63155E7717F
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Dec 2024 20:34:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 526D710F0CF;
-	Fri, 13 Dec 2024 20:34:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0EAFF10F0D8;
+	Fri, 13 Dec 2024 20:34:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Sw2hXh6C";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="OhPZxq4E";
 	dkim-atps=neutral
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2080.outbound.protection.outlook.com [40.107.243.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0115B10F0CE
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Dec 2024 20:34:12 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2065.outbound.protection.outlook.com [40.107.244.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE08C10F0CB
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Dec 2024 20:34:10 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cE5YEF8zZ2VX9UybqDoD5BcL4FRSfBq1/Pk0QUTQMKe4k+UDpbRyhxFnMGTLq3EGzjPwzShIBIkPwS2OlfeRJewclF14Ileta5eRXic0pj6/0Q/CXgD7ftF4fvcrm+k0ipKijnZH2kkYewBiAEdOyVb2YAkCP58l4tV3ZhLpWX4f9XwmfNO8CbRMRgmOmEBWH6877aXuYupsXUeuyixfoXp+gT+KFoiS+zjQg9aQmGaKfkOxoKny01cbkT7DAJFZGyNgEGbraiehlzHWi1JCeqEJgIJ+g43wBZhm36RnQtLoF2dANPuIgQSyP1tksGE60ik9amzwnyh8UgLSbK5RFg==
+ b=gx62n6rt1sTP8RH0UB5aAwppYMgEScxs0zUzDckIl63r6wg+gE8MvxoQMd3csN/kZ+MdLMQGCtI7H0+Io7cV/488CkaBUVf2ljGYmW/wMAMOplkRLGav4vODA4szZ7u6bPBqZ6g8cvJpTGbBLxR8eybqCjKNtyhaCjRDFosUMt0QCUjolxybrc6zjNQ95LhVGsuFLhkLzVwKRbN5bMW7Y9hwOhOP/7GNascJcyoZgQ+EWkO4gpNSOwjK1EXwIbu72yJKRxt5UkwWgMzqVgGU5MxiPwAaZ0sSv3gx9zBY46/xM2Yw8VUfndCMj3gBCHY1pNupsGX/ESAD8GneWD0ynQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9DwUaxpAFtYz2Lc0wOMlay5FCahR3ELtPJWIV3BEVEs=;
- b=yyHSOUw0SggxXZkxnS6YNdkwQt0xnbrxpNmUFPh2vVjNhuXIvYdsW2ncLJO8hm6GAUfdEBH5nUvIf9wg831LyNc2OVmHlpiMWM15+veazBZWdZsV/SxsYkJwTfxQOqmz+ga1fCw89XfLBtqTIvudmZ0eI8dKaTQmT3/rdw6Ettni8DNsyU6xkxRYcfiDiUZskxUuFwjmp1UGx/DdhN7zL9ot6eIf5z1+6LnDVZ02tu1zw93MlpYCgtfmvbXCqnWYETSh1kmZEwmyT8aVUb2NYp/9EH2ZcTsxARTKUqUHhGBRfoXP0sDQthnzWmWe+5f+qgDrVRu2WxfGuh6SoNfiNQ==
+ bh=ornrJmQ7oAe3P4qTKLJxhr4qkTMJU3kwGLiQo6O6kvs=;
+ b=Ksdc7oO6s1Z2DWTE6BE6Kddz1NUnJTB5ZeYoduYGSQXrZflENaRE20c0G25xo29KCgROmoddqjNVw7T2rFt8acDLQs+3eFl8q8XppUWSuLkd6w16eaqe6yiDrnYeqHf6tab0xAbhO0E7MFjtxY11dxCz+vGDeL3r6hp6Rf4NOEGhNsq/tamFPtxySREtycVawQcIWDtU++VNqFNso/vxmrZICNE8tIixDCszthKH5LeiWFHBm/A2Y79nb/DfHeAypod5RA64BeR/zsDixPKmbHJyDwZQAztMoc3h8s5Hnskr+N+r/Ma3xliGk0/VnAzu7ie77DaH2EYGhhuoUOyZNg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9DwUaxpAFtYz2Lc0wOMlay5FCahR3ELtPJWIV3BEVEs=;
- b=Sw2hXh6CYLBurWveZ+siOMH6gSjFfUCn2te5HoiITjbbjD6FCOEoyNk18+qfEbpF775JfD48VZBoirhqcCq70gtp0zu59sBoCIIXv+vushgyhFgcPdLv21aTuLXF048bwFheZwkxE+4db1ogFMOEMSsNQrXsHUam2CdMG8yUBzI=
-Received: from BN0PR04CA0203.namprd04.prod.outlook.com (2603:10b6:408:e9::28)
- by PH7PR12MB6738.namprd12.prod.outlook.com (2603:10b6:510:1a9::16)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=ornrJmQ7oAe3P4qTKLJxhr4qkTMJU3kwGLiQo6O6kvs=;
+ b=OhPZxq4EUG1GSAlxRBVTrzbk1/0XDZKgtM8onLvNulzoydq+T1bUkLu0idQxMjdcO5xlRZOTyXaPoY5/5jr7nJFN/Rcq8cmJQjE6HbPi/4AHkmbooaFSkeu2CAFK54y/0y5E/9VK80hxOKAVKgOMbyatRvT6yIHPni+s5sPf99U=
+Received: from BN0PR04CA0182.namprd04.prod.outlook.com (2603:10b6:408:e9::7)
+ by CH3PR12MB7545.namprd12.prod.outlook.com (2603:10b6:610:146::13) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8251.16; Fri, 13 Dec
- 2024 20:34:08 +0000
+ 2024 20:34:07 +0000
 Received: from BN2PEPF000055DB.namprd21.prod.outlook.com
- (2603:10b6:408:e9:cafe::ee) by BN0PR04CA0203.outlook.office365.com
- (2603:10b6:408:e9::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8251.16 via Frontend Transport; Fri,
- 13 Dec 2024 20:34:08 +0000
+ (2603:10b6:408:e9:cafe::87) by BN0PR04CA0182.outlook.office365.com
+ (2603:10b6:408:e9::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8251.17 via Frontend Transport; Fri,
+ 13 Dec 2024 20:34:07 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,83 +50,75 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BN2PEPF000055DB.mail.protection.outlook.com (10.167.245.5) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8272.0 via Frontend Transport; Fri, 13 Dec 2024 20:34:08 +0000
+ 15.20.8272.0 via Frontend Transport; Fri, 13 Dec 2024 20:34:07 +0000
 Received: from Philip-Dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 13 Dec
- 2024 14:34:06 -0600
+ 2024 14:34:05 -0600
 From: Philip Yang <Philip.Yang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Felix.Kuehling@amd.com>, <christian.koenig@amd.com>,
  <jay.cornwall@amd.com>, <Hawking.Zhang@amd.com>, <flora.cui@amd.com>, "Philip
  Yang" <Philip.Yang@amd.com>, Felix Kuehling <felix.kuehling@amd.com>
-Subject: [PATCH 6/6] drm/amdgpu: Show warning message if IH ring overflow
-Date: Fri, 13 Dec 2024 15:33:31 -0500
-Message-ID: <20241213203332.18165-6-Philip.Yang@amd.com>
+Subject: [PATCH 4/6] drm/amdkfd: Queue interrupt work to different CPU
+Date: Fri, 13 Dec 2024 15:33:29 -0500
+Message-ID: <20241213203332.18165-4-Philip.Yang@amd.com>
 X-Mailer: git-send-email 2.47.1
 In-Reply-To: <20241213203332.18165-1-Philip.Yang@amd.com>
 References: <20241213203332.18165-1-Philip.Yang@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
 X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000055DB:EE_|PH7PR12MB6738:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4c1ae4f5-2d52-4b62-1193-08dd1bb57e7c
+X-MS-TrafficTypeDiagnostic: BN2PEPF000055DB:EE_|CH3PR12MB7545:EE_
+X-MS-Office365-Filtering-Correlation-Id: dcd79328-451e-4025-034d-08dd1bb57e0c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|1800799024|82310400026|376014; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?ZklPV2M0eVpaUEZqVGhybzgzYXo4UmtweHd6Ny9ENWZYUXozT3FqQThoZWF4?=
- =?utf-8?B?OGV3Mnl4STVuS2RSa1BPWldsajlPWHp1Lzl5cmg1aENwU1BTd05iTFNRV3dS?=
- =?utf-8?B?bCtBMGt4V0JWMlcwWVlvMk8rNFdlek5NVlJQSk5mMDZiRTFXRXRvTWxHSFBt?=
- =?utf-8?B?RHJYYVZGMlRCK3lMMHJVYkd3eEt3RjZBWlRyL2JmTTVpL3pNSDJzRjF6NlBE?=
- =?utf-8?B?K0tucDlOYys5aUVNVnRvQWorYUFBMVMwNFRhNFliRFEydjFJWFdLRlIrbVI0?=
- =?utf-8?B?ZWt1TWtMY2NpMFJMS2pKUkR4dlB5T0FOK1AyVDlqVE5ja3hjZU5kTXgyWWRU?=
- =?utf-8?B?RVcxRWZ4Nk9ielR5cDRDQzYrVjBzbnM2NlJWU1NiRDFHM3VFUEpHcmRUYmgr?=
- =?utf-8?B?UDh5K1dBbTR3SGNUQTBxNGlTSkF4N2hKNXlUQldpSTRiRmZ2SHlyWXBHUFd2?=
- =?utf-8?B?YmFEMER4RmpyWWFtK1I5ZncyQVVCOTVmb0VQc1ByYVE3aGgrT1RsLzRNRDBl?=
- =?utf-8?B?c01uK05abkpDTGdtVTY1ejI3UHE5N1ArbXZpVWx1Y09SUHFPRnM3SUFlMWJq?=
- =?utf-8?B?QlA5cFVOeXFsSkhNYWZ2SGx2aUlQUC8yUkVTR2hNeGJuUW5QSHorb3YxTmhI?=
- =?utf-8?B?bzdlQVdmWmRNUmJ4bVliT3dlaVN0dzRWaGQxNmNBTENaM2dDeXlXUUMrcllo?=
- =?utf-8?B?RnlFQ1ZwTmVyeU40OTlKeVJvNVpFSXlKQUkyUGh2aW1PaVJ2VzhkUldmOUFS?=
- =?utf-8?B?MEdnVVk5VG44UVNhWEFzYzZnWWNiQTMyZ2NwY1F2STlzWkNvVnFJQW90VWta?=
- =?utf-8?B?Ujc3U0FUUE9lWG9XMmpLQ0xqRFpEcXNPV1pkeFk4RUlGSGFBVTkrZ2VmRmpT?=
- =?utf-8?B?cG9Oak04a1BLQlNEYnZBWE9BNDdPZHVlRnB5cVdXSHlWTzlSZmp6amk3MFBp?=
- =?utf-8?B?WjZiclNEZGQ2RTNmbDlBZEdCTGMzb2tobGM3N1JrYXpkdTlzczZXbHNvYlNM?=
- =?utf-8?B?Nnk1OXE2TE5USzB5YWV2MEFaa3NBUlQ1My9TT1p3WnJPNDB0TFFkdHZjalpr?=
- =?utf-8?B?dFRBVjBSeWlXYXhydkxIbG41ekdvRW1DMzF5TDJHQ2xBYVRvVXN0c2V0Qis1?=
- =?utf-8?B?aEVsR3ZYamFPbHNPSzY0NnN1TWorTURZSlE2MkUycSt1WERKM3p5U0preHph?=
- =?utf-8?B?d0VaUyttaGM0bk9OaUtEODIyTlFkaG9EV3hlMm53T1lld3ZnZGNFY3ovTXk0?=
- =?utf-8?B?dDRWTkFveVYvQkZMaWNuM0VFN0ZCQVNqWHROMGFKODcrSXhEL3R6R1FUNm9j?=
- =?utf-8?B?RS8rbWtIbDNPd21MRUlYVGhvRUhjcGxuU1U2Yk05eTQ3SW9YdHo2dU5wY1FQ?=
- =?utf-8?B?N1U4OGZveEN6c3VJWHBMdkVCb2tFNmhLOVV2OTBLdHVNRjF3R3g4OXgvV3RS?=
- =?utf-8?B?UmJhMWZUL2tCN0QyaHJsa2tjSEZscU8xdFhSWXE0ZTVCT3hiV28wMnBFR2RR?=
- =?utf-8?B?TEU5NUxQUkZ5THFvRHQ4VDdPOEJ1UzRQdG0zbURBU0JHbTJtYUFqZ3dBbkF1?=
- =?utf-8?B?OEZ3dVdlZ3RuRkM3ZEJ6aCtrb3J1TWRvdFFON3hEUGJKdFdDZC8wd2dMcnZa?=
- =?utf-8?B?RE50NEZXWWJIYXZHS05SYTlmNTdZNzFGRXk4RXJucWR2ZGZ6Y1VTc1QybmpM?=
- =?utf-8?B?LzI1Qk5KcXNVRUNMQUxEeTE2UDdiQmRqM0E0MVBadkluVDhzVksrdVlVTFp5?=
- =?utf-8?B?alZQc0RSY1pRa3Y4dGNHMk9ZYkdZc24zaHNORm9hNVhGSTQ0ZmFCNWQ2a2VP?=
- =?utf-8?B?ZlBMWU54Ti9OSUk0b3huTHhBWDRxTU43NEdhRi9McGwvbmdxQjhZZnIrRkY3?=
- =?utf-8?B?MzdxcU1aNnAwd1lWWTJsS3ZKaWFRMW5TaGJJRWNsZUNxQUlKN2t4am1yS3pj?=
- =?utf-8?Q?2TAKMrGcxfeIOW9VHHHnx8FFrLZ6MnXQ?=
+ ARA:13230040|376014|36860700013|1800799024|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?qZ5mwyOum0pkapqFColszGIE08az2jQfF4LAnz3Iynsb0P1XNH1VLAE7hKTu?=
+ =?us-ascii?Q?YQx+qclPCniByO5xYXlcu9ZP6WeMYJwASeGqdXQKtJJYT6Toa16Y0EG+FiV/?=
+ =?us-ascii?Q?jBdTu9eCGH5FAqfaeEY5aRLeEwJyPfwLDD0fhW+CiTboZaW3NSs417bv2GCv?=
+ =?us-ascii?Q?q2tqcbTJK/gN6M/4JnO6elTsJdwrniDRq9HvmbEOL8uXgZdES8Sm3tdrGyMd?=
+ =?us-ascii?Q?F5VhNpWxs5WOioahmp5mKirAlc2mEzHGC76PscTrBGrTSXy9wMBkm/ZqmIj5?=
+ =?us-ascii?Q?3gFzd/+OvZEninQf+ZW5ZTvMThhRhWTtkw/Blq1PoTjx7gTEvp/pj6E6BG7t?=
+ =?us-ascii?Q?R5RnvrUHW3Um4173qAT1MWgt9sFXF6LYediCKhxRHNgPKRkW5M/4f87jX1QA?=
+ =?us-ascii?Q?o/lUBdcK+N8W5c0zT6oiMJy9KNZ4V4BD/GT3nlU28LfU+oeL55HGVDfU8VCF?=
+ =?us-ascii?Q?VaMWhb4C6/JtZusIgDRzO1MuNzE0HLPpWorXSCci4G+jZ5FGOZ9tcNukz49y?=
+ =?us-ascii?Q?d5r1TY7rGk1A6u0oCaIE+bMmQy6Uuy86MxfxwEPenn94dlO9PAm89dM6Uma7?=
+ =?us-ascii?Q?Tv4Plo81jud8znJXaQvS7hgRWysPXj6Gy3sM7UE0C5lzkttzvZg3v//ib1di?=
+ =?us-ascii?Q?xxMzBjZ+MAAXoX/euJLxKaCZLFo5DbXMEz2tXFhhP1CA922/riW/9tXyn+kd?=
+ =?us-ascii?Q?lV7fWv5giMVVnqm6tg3wEdKw+V/omIhD5ia4uGXyN6rTiA0tJ49vH2lNHWyb?=
+ =?us-ascii?Q?WoicvXeEdui9xch2uJxNz83hYi57JIggrabAj7ja5Oa6ua43tYSsaNbmvk93?=
+ =?us-ascii?Q?/5EMKBLYxGuDiIR/C3CjHPGX1cx35RVRgZNr+DL6xGeCWk//X9SYAGBEf6kr?=
+ =?us-ascii?Q?DGymjvEFTICg9igTOhlkRP45K2YpryIg5J+TxJ+rMoi3pzXCWOjC0q1xT6oH?=
+ =?us-ascii?Q?uSwPCFODfzpXWvh6DC1xWSCmyTw1vhMhk8JNFHGz6Yw+QbD1GgY1JKyx0jfK?=
+ =?us-ascii?Q?D5KRYvJGV2vt6RD6C7CcE56KPltusTtDpyDqaF0CIubYUWIU2zcJ6KrTLamI?=
+ =?us-ascii?Q?NQaPmny7eHDuglSg1TDakfjV+7zqheSzxK1Z3lR4vNX0+SDlWe1jF2+dazz+?=
+ =?us-ascii?Q?zFc3jXWqQO9EDh5OoWPUuKS946wrnz6NLZl/2gmsty8kmmwZCCElseYEydhI?=
+ =?us-ascii?Q?rf5ZtGc/Mq4SkY2vR9SWaBB0joJTxBYoFhBJwQMp++bGQWSwC61AjZmH1WFv?=
+ =?us-ascii?Q?a1XiRZGbyTQ+lSwRFxEE1F/xsgE4/iF/OoGVyZsc93vTwWEWOKUarmwQq5L/?=
+ =?us-ascii?Q?oJubntCboOpi0eCTVAIwKkcOVI42KIihhF7wNGSPxMbO2cOReE/J0t+xbJYr?=
+ =?us-ascii?Q?2axQDCsJ9ZFRYSUGbdg5QvzDrrbOyL0dTvLAe+DJERTaf0mK1zBhLN801hz6?=
+ =?us-ascii?Q?4GKJRbX9b9bQzNZ7SeNCirqXRjeWxSZT?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014); DIR:OUT;
+ SFS:(13230040)(376014)(36860700013)(1800799024)(82310400026); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Dec 2024 20:34:08.0944 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4c1ae4f5-2d52-4b62-1193-08dd1bb57e7c
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Dec 2024 20:34:07.3600 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: dcd79328-451e-4025-034d-08dd1bb57e0c
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000055DB.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6738
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7545
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,112 +133,143 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-If IH primary ring and KFD ih fifo overflows, we may miss CP, SDMA
-interrupts and cause application soft hang. Show warning message with
-ring name if overflow happens.
+For CPX mode, each KFD node has interrupt worker to process ih_fifo to
+send events to user space. Currently all interrupt workers of same adev
+queue to same CPU, all workers execution are actually serialized and
+this cause KFD ih_fifo overflow when CPU usage is high.
 
-Add function to get ih ring name to avoid duplicating it. To keep
-warning message consistent between GPU generations, change all
-*_ih.c except ASICs older than Vega which has only one ih ring.
+Use per-GPU unbounded highpri queue with number of workers equals to
+number of partitions, let queue_work select the next CPU round robin
+among the local CPUs of same NUMA.
 
 Signed-off-by: Philip Yang <Philip.Yang@amd.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
 Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c     | 6 ++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h     | 1 +
- drivers/gpu/drm/amd/amdgpu/navi10_ih.c     | 5 ++---
- drivers/gpu/drm/amd/amdgpu/vega10_ih.c     | 5 ++---
- drivers/gpu/drm/amd/amdgpu/vega20_ih.c     | 5 ++---
- drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c | 4 ++--
- 6 files changed, 15 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_device.c    | 25 ++++++++--------------
+ drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c | 25 ++++++++--------------
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h      |  3 ++-
+ 3 files changed, 20 insertions(+), 33 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
-index f3b0aaf3ebc6..901f8b12c672 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
-@@ -298,3 +298,9 @@ uint64_t amdgpu_ih_decode_iv_ts_helper(struct amdgpu_ih_ring *ih, u32 rptr,
- 	dw2 = le32_to_cpu(ih->ring[ring_index + 2]);
- 	return dw1 | ((u64)(dw2 & 0xffff) << 32);
- }
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+index 9b49563f2c42..a29374c86405 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+@@ -649,6 +649,14 @@ static void kfd_cleanup_nodes(struct kfd_dev *kfd, unsigned int num_nodes)
+ 	struct kfd_node *knode;
+ 	unsigned int i;
+ 
++	/*
++	 * flush_work ensures that there are no outstanding
++	 * work-queue items that will access interrupt_ring. New work items
++	 * can't be created because we stopped interrupt handling above.
++	 */
++	flush_workqueue(kfd->ih_wq);
++	destroy_workqueue(kfd->ih_wq);
 +
-+const char *amdgpu_ih_ring_name(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih)
-+{
-+	return ih == &adev->irq.ih ? "ih" : ih == &adev->irq.ih_soft ? "sw ih" :
-+	       ih == &adev->irq.ih1 ? "ih1" : ih == &adev->irq.ih2 ? "ih2" : "unknown";
-+}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
-index 508f02eb0cf8..7d4395a5d8ac 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
-@@ -110,4 +110,5 @@ void amdgpu_ih_decode_iv_helper(struct amdgpu_device *adev,
- 				struct amdgpu_iv_entry *entry);
- uint64_t amdgpu_ih_decode_iv_ts_helper(struct amdgpu_ih_ring *ih, u32 rptr,
- 				       signed int offset);
-+const char *amdgpu_ih_ring_name(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih);
- #endif
-diff --git a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-index ebc2ab9c3c5c..62cdfe10e6f4 100644
---- a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-+++ b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-@@ -434,9 +434,8 @@ static u32 navi10_ih_get_wptr(struct amdgpu_device *adev,
- 	 * this should allow us to catch up.
- 	 */
- 	tmp = (wptr + 32) & ih->ptr_mask;
--	dev_warn(adev->dev, "IH ring buffer overflow "
--		 "(0x%08X, 0x%08X, 0x%08X)\n",
--		 wptr, ih->rptr, tmp);
-+	dev_warn(adev->dev, "%s ring buffer overflow (0x%08X, 0x%08X, 0x%08X)\n",
-+		 amdgpu_ih_ring_name(adev, ih), wptr, ih->rptr, tmp);
- 	ih->rptr = tmp;
+ 	for (i = 0; i < num_nodes; i++) {
+ 		knode = kfd->nodes[i];
+ 		device_queue_manager_uninit(knode->dqm);
+@@ -1066,21 +1074,6 @@ static int kfd_resume(struct kfd_node *node)
+ 	return err;
+ }
  
- 	tmp = RREG32_NO_KIQ(ih_regs->ih_rb_cntl);
-diff --git a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
-index 378da889e075..98fc6941159e 100644
---- a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
-@@ -364,9 +364,8 @@ static u32 vega10_ih_get_wptr(struct amdgpu_device *adev,
- 	 * this should allow us to catchup.
- 	 */
- 	tmp = (wptr + 32) & ih->ptr_mask;
--	dev_warn(adev->dev, "IH ring buffer overflow "
--		 "(0x%08X, 0x%08X, 0x%08X)\n",
--		 wptr, ih->rptr, tmp);
-+	dev_warn_ratelimited(adev->dev, "%s ring buffer overflow (0x%08X, 0x%08X, 0x%08X)\n",
-+			     amdgpu_ih_ring_name(adev, ih), wptr, ih->rptr, tmp);
- 	ih->rptr = tmp;
- 
- 	tmp = RREG32_NO_KIQ(ih_regs->ih_rb_cntl);
-diff --git a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
-index 2c1c4b788b6d..e9e3b2ed4b7b 100644
---- a/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vega20_ih.c
-@@ -444,9 +444,8 @@ static u32 vega20_ih_get_wptr(struct amdgpu_device *adev,
- 	 * this should allow us to catchup.
- 	 */
- 	tmp = (wptr + 32) & ih->ptr_mask;
--	dev_warn(adev->dev, "IH ring buffer overflow "
--		 "(0x%08X, 0x%08X, 0x%08X)\n",
--		 wptr, ih->rptr, tmp);
-+	dev_warn_ratelimited(adev->dev, "%s ring buffer overflow (0x%08X, 0x%08X, 0x%08X)\n",
-+			     amdgpu_ih_ring_name(adev, ih), wptr, ih->rptr, tmp);
- 	ih->rptr = tmp;
- 
- 	tmp = RREG32_NO_KIQ(ih_regs->ih_rb_cntl);
+-static inline void kfd_queue_work(struct workqueue_struct *wq,
+-				  struct work_struct *work)
+-{
+-	int cpu, new_cpu;
+-
+-	cpu = new_cpu = smp_processor_id();
+-	do {
+-		new_cpu = cpumask_next(new_cpu, cpu_online_mask) % nr_cpu_ids;
+-		if (cpu_to_node(new_cpu) == numa_node_id())
+-			break;
+-	} while (cpu != new_cpu);
+-
+-	queue_work_on(new_cpu, wq, work);
+-}
+-
+ /* This is called directly from KGD at ISR. */
+ void kgd2kfd_interrupt(struct kfd_dev *kfd, const void *ih_ring_entry)
+ {
+@@ -1106,7 +1099,7 @@ void kgd2kfd_interrupt(struct kfd_dev *kfd, const void *ih_ring_entry)
+ 			    	patched_ihre, &is_patched)
+ 		    && enqueue_ih_ring_entry(node,
+ 			    	is_patched ? patched_ihre : ih_ring_entry)) {
+-			kfd_queue_work(node->ih_wq, &node->interrupt_work);
++			queue_work(node->kfd->ih_wq, &node->interrupt_work);
+ 			spin_unlock_irqrestore(&node->interrupt_lock, flags);
+ 			return;
+ 		}
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c b/drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c
-index 6beb786c582a..783c2f5a04e4 100644
+index 8e00800f3207..6beb786c582a 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c
-@@ -108,8 +108,8 @@ void kfd_interrupt_exit(struct kfd_node *node)
- bool enqueue_ih_ring_entry(struct kfd_node *node, const void *ih_ring_entry)
- {
- 	if (kfifo_is_full(&node->ih_fifo)) {
--		dev_dbg_ratelimited(node->adev->dev,
--				    "Interrupt ring overflow, dropping interrupt\n");
-+		dev_warn_ratelimited(node->adev->dev, "KFD node %d ih_fifo overflow\n",
-+				     node->node_id);
- 		return false;
+@@ -62,11 +62,14 @@ int kfd_interrupt_init(struct kfd_node *node)
+ 		return r;
  	}
+ 
+-	node->ih_wq = alloc_workqueue("KFD IH", WQ_HIGHPRI, 1);
+-	if (unlikely(!node->ih_wq)) {
+-		kfifo_free(&node->ih_fifo);
+-		dev_err(node->adev->dev, "Failed to allocate KFD IH workqueue\n");
+-		return -ENOMEM;
++	if (!node->kfd->ih_wq) {
++		node->kfd->ih_wq = alloc_workqueue("KFD IH", WQ_HIGHPRI | WQ_UNBOUND,
++						   node->kfd->num_nodes);
++		if (unlikely(!node->kfd->ih_wq)) {
++			kfifo_free(&node->ih_fifo);
++			dev_err(node->adev->dev, "Failed to allocate KFD IH workqueue\n");
++			return -ENOMEM;
++		}
+ 	}
+ 	spin_lock_init(&node->interrupt_lock);
+ 
+@@ -96,16 +99,6 @@ void kfd_interrupt_exit(struct kfd_node *node)
+ 	spin_lock_irqsave(&node->interrupt_lock, flags);
+ 	node->interrupts_active = false;
+ 	spin_unlock_irqrestore(&node->interrupt_lock, flags);
+-
+-	/*
+-	 * flush_work ensures that there are no outstanding
+-	 * work-queue items that will access interrupt_ring. New work items
+-	 * can't be created because we stopped interrupt handling above.
+-	 */
+-	flush_workqueue(node->ih_wq);
+-
+-	destroy_workqueue(node->ih_wq);
+-
+ 	kfifo_free(&node->ih_fifo);
+ }
+ 
+@@ -155,7 +148,7 @@ static void interrupt_wq(struct work_struct *work)
+ 			/* If we spent more than a second processing signals,
+ 			 * reschedule the worker to avoid soft-lockup warnings
+ 			 */
+-			queue_work(dev->ih_wq, &dev->interrupt_work);
++			queue_work(dev->kfd->ih_wq, &dev->interrupt_work);
+ 			break;
+ 		}
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index e529fdc1b422..c32b255c0eb2 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -274,7 +274,6 @@ struct kfd_node {
+ 
+ 	/* Interrupts */
+ 	struct kfifo ih_fifo;
+-	struct workqueue_struct *ih_wq;
+ 	struct work_struct interrupt_work;
+ 	spinlock_t interrupt_lock;
+ 
+@@ -367,6 +366,8 @@ struct kfd_dev {
+ 	struct kfd_node *nodes[MAX_KFD_NODES];
+ 	unsigned int num_nodes;
+ 
++	struct workqueue_struct *ih_wq;
++
+ 	/* Kernel doorbells for KFD device */
+ 	struct amdgpu_bo *doorbells;
  
 -- 
 2.47.1
