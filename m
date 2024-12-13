@@ -4,68 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCB92E7717D
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Dec 2024 08:52:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4033DE7717F
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Dec 2024 08:53:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F07010EF62;
-	Fri, 13 Dec 2024 08:52:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 77E0510EF64;
+	Fri, 13 Dec 2024 08:53:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hze0bm4+";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="I1j2gK0S";
 	dkim-atps=neutral
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [IPv6:2a00:1450:4864:20::429])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B4A210EF62
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [IPv6:2a00:1450:4864:20::32a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C9DB410EF64
  for <amd-gfx@lists.freedesktop.org>; Fri, 13 Dec 2024 08:52:59 +0000 (UTC)
-Received: by mail-wr1-x429.google.com with SMTP id
- ffacd0b85a97d-385d7f19f20so692209f8f.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Dec 2024 00:52:58 -0800 (PST)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-43621d27adeso10291915e9.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Dec 2024 00:52:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1734079977; x=1734684777; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=Cr3DmktarIL8ep3LtsWOY7HkGHM/fJL+lGthxxsNVnk=;
- b=hze0bm4+lZx4l43BgBCI4idq3PmsMM0R/C6M6S8pPao94czJnSS/szf0jNVFq9Oj2T
- YkTQPlGX3PaV45/A90kLEO/Cnn4k2f0Dw8G+6dnH9MjCv9SkRJOfiHyvEWq8IQkmFtlq
- qkUYebhZf73GoBMEVNbJfjOM2bRKBjmTvQeYDlQvY5RLk3VUm/pdSWen8WQsPpb8wF2W
- 0uzuKrKEvSNVZ7uaxEsTsShy2M7rwRHsezlVPFeinhgo2oBw/9HEJ6shb3GxEwvbDoRh
- ZQvT40uGiI9gGc1OolqGlFru8gyqvMJMx4yAEmFCOA4+Cs1Yggf3zqyvIOfvLLRqklsG
- hAyA==
+ d=gmail.com; s=20230601; t=1734079978; x=1734684778; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=mH07pMS2yDvVoZ+w96eKUMkNBpCKjLgK/Qmp04pavos=;
+ b=I1j2gK0STlNsKfNrggPNUyVLqAeoecLDkFMCYi8E3H/xe4fj2VKfvK0UleZh6SvGVo
+ jxVI47O/YhZuAbGRwpdaIJruXnIcWrY9oXZDZ2JDQ/Rm+clIr5QD2Ww9JFRhHYnPrHSh
+ w8A50tm/7OIJkbvXDuamSel0l+dOUrzWav1pKHnV9mza+w+5LUfGljBsv/KeGNNqRNtw
+ /lhqDr4Nl08LwPuKGDUs4WMCKvnGLh9iorQ10EktDZBkUQRQsoikeDUpqx9aP1tOwFse
+ B0qHURNLcfhGEExWK57aP3s60bwSNaimZYnSlF6UWWXMeeIXttbKvLxpI9pUSMj2j5q8
+ lAoQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734079977; x=1734684777;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=Cr3DmktarIL8ep3LtsWOY7HkGHM/fJL+lGthxxsNVnk=;
- b=gM8cVlXPNhli99Rn/kPjMOwP+1rGWCXN6GqKlyQOGIvkJ1sO7FCk/+uEIKGafeGBI8
- XqcGWKyLXx7I1/FZqx9uiTOIcqJ6zYwuwO9NPtPDkIxa1iVDRA49Fs1WXY/6RG6LXNQO
- aGFQ+nT1MUNVKliyN3nMxnYg2q2x41DuMWRMEvzau/9Br+OUflO+gti3ux3jn/T+A1RI
- 2dH4IJg1S+Ttw/FCtLPYi0oqYJHU/WV/eyqhVRg6j/U6zIR4n5c7v3G2EOvXssuu59yY
- h3B2DBJyIJMmMSlOh7dc0tTpoI853Hmho9yVoIGliUhmnTQM5Yzu0cYPP5GXxobeZ9eD
- J//Q==
-X-Gm-Message-State: AOJu0YzqcispSQVa2WZ3I4doP8r/GcU/I21m0MW/qDPYOiEbpl9xqauC
- m9fLluSs0AmgpnzXgV3jzJ+9A526uF0lgoA4tElb81u+0FSK5wuGBo9DJg==
-X-Gm-Gg: ASbGnct3fSrjobu+5NokS5hPAFAtY4FM0+KCEJNx9QFonzZb1c0vlBQOsYLjxfez0Qi
- n8zZNk41n/WnTOmQPcG1++SpqS/MJrotaGhqxJSkrYORFvbYB+2HCjKtJvsEV0iZ7ug/R7oW4UG
- ypoCVK3nS1O4jtiryF4gHtLT01vVrOmIAZ2+5yBNdN+22NhPFI+LWTOZpAy5luOiICjlhZEA+ro
- Mm/ybv7UB5t4ULlW4m1VaZAG56fY1d9GaXfOLlhJXESHbEqLn8MwC1e0sxPUk2QYwg4gg==
-X-Google-Smtp-Source: AGHT+IFrT26KhU+2KAihXJXXnIpP2IZA9/obcPetHL7+2zg+4u/zVBf3cQ3Jp7KKz2+A36ddSiPxdg==
-X-Received: by 2002:a5d:6481:0:b0:386:4277:6cf1 with SMTP id
- ffacd0b85a97d-3888e0b5977mr1222496f8f.39.1734079977268; 
+ d=1e100.net; s=20230601; t=1734079978; x=1734684778;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=mH07pMS2yDvVoZ+w96eKUMkNBpCKjLgK/Qmp04pavos=;
+ b=oBr1lLxermIT4iCe5AtJMPd0fEsbIbabILlHuISShLZr+NdSydRn844xxkjOSxeiih
+ OSm6GasaAJj4RJYgda8cPD5uqfyq4CGLWp/yvBrcVnnGL3I43r8o3uppIhksHmPvTRrQ
+ N/eFbpa11PjQ7aJpsLIuyfcXu0eMH475RuwDuKEJ/2uhGJBsoLovMjqNor9JEcACS61s
+ etji0dHJpjnFKkYrDhfdxVej7wLKm4Nc18hwjIIw8WvLVSiENcVe4ZjkqXdPj+6dfqf+
+ wxIoRS8UJGOepn3EIbaeKW9EMyYIqsrp+hDpFO5WOQ/VFQJFi26ElmO3kuMHnWjRNpPq
+ X8lQ==
+X-Gm-Message-State: AOJu0YwpZjEYl0fuJ2oP6TFj/QgzJ/UmzbzL8d8TTGXqoTrW8o4wUVXt
+ AHU6zDrap7wFWce9FKb4mk8Im3kt1k2P/G3EsfYhAK4Cte9AYNEduW3sjA==
+X-Gm-Gg: ASbGncsj/zgzSMVasGyfzT/DOubFUqZl/5xx0TZG5N+Oy0eylLSoH5SMr8b/SmVTrX1
+ C2OdKbnYx9w+G3pWwWL2RPCFP89IgVtlZnwbRsme7JbGkZvAEVqaikxW0aT6AA7b/S+KO2R9LPF
+ VStsva7RkexG8MLU/hT9ezv43oR60yLQf1Kj2yW7DoWt5fG9AfNG2wkQlZnvR6BAlNcK5wAYwFm
+ 9v7KSZTUGpPnCKdfTzm+bhf+NiuRJUXGJTenW9UULhkyv1UllFzsQLait/meLfgIh/vuw==
+X-Google-Smtp-Source: AGHT+IHwXrwx6HIF/djmaTorelNq9NAjDVNOGXJ9xYkkzGb1R408TFk2Hi8T/wL3stP6jWk4bnVOjA==
+X-Received: by 2002:a5d:64c3:0:b0:386:41bd:53a3 with SMTP id
+ ffacd0b85a97d-3888e0c07f6mr1077976f8f.50.1734079977968; 
  Fri, 13 Dec 2024 00:52:57 -0800 (PST)
 Received: from able.fritz.box ([2a00:e180:15a3:f300:e495:bece:6ecb:efbd])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-387824cab97sm6392473f8f.62.2024.12.13.00.52.56
+ ffacd0b85a97d-387824cab97sm6392473f8f.62.2024.12.13.00.52.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Dec 2024 00:52:56 -0800 (PST)
+ Fri, 13 Dec 2024 00:52:57 -0800 (PST)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: Alexander.Deucher@amd.com
-Subject: [PATCH 1/3] drm/amdgpu: fix amdgpu_coredump
-Date: Fri, 13 Dec 2024 09:52:53 +0100
-Message-Id: <20241213085255.1449-1-christian.koenig@amd.com>
+Subject: [PATCH 2/3] drm/amdgpu: set the VM pointer to NULL in
+ amdgpu_job_prepare
+Date: Fri, 13 Dec 2024 09:52:54 +0100
+Message-Id: <20241213085255.1449-2-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20241213085255.1449-1-christian.koenig@amd.com>
+References: <20241213085255.1449-1-christian.koenig@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -83,32 +87,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The VM pointer might already be outdated when that function is called.
-Use the PASID instead to gather the information instead.
+As soon as the prepare phase is completed the VM might be released,
+better set it to NULL.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-index 946c48829f19..824f9da5b6ce 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-@@ -343,11 +343,10 @@ void amdgpu_coredump(struct amdgpu_device *adev, bool skip_vram_check,
- 	coredump->skip_vram_check = skip_vram_check;
- 	coredump->reset_vram_lost = vram_lost;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+index b9d08bc96581..7fdf7b047317 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+@@ -367,6 +367,13 @@ amdgpu_job_prepare_job(struct drm_sched_job *sched_job,
+ 			dev_err(ring->adev->dev, "Error getting VM ID (%d)\n", r);
+ 			goto error;
+ 		}
++		/*
++		 * The VM structure might be released after the VMID is
++		 * assigned, we had multiple problems with people trying to use
++		 * the VM pointer so better set it to NULL.
++		 */
++		if (!fence)
++			job->vm = NULL;
+ 	}
  
--	if (job && job->vm) {
--		struct amdgpu_vm *vm = job->vm;
-+	if (job && job->pasid) {
- 		struct amdgpu_task_info *ti;
- 
--		ti = amdgpu_vm_get_task_info_vm(vm);
-+		ti = amdgpu_vm_get_task_info_pasid(adev, job->pasid);
- 		if (ti) {
- 			coredump->reset_task_info = *ti;
- 			amdgpu_vm_put_task_info(ti);
+ 	return fence;
 -- 
 2.34.1
 
