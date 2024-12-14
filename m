@@ -4,121 +4,142 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63155E7717F
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Dec 2024 20:34:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AC31E77180
+	for <amd-gfx@archiver.kernel.org>; Sat, 14 Dec 2024 13:37:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0EAFF10F0D8;
-	Fri, 13 Dec 2024 20:34:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8DF8910E200;
+	Sat, 14 Dec 2024 13:37:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="OhPZxq4E";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="OR0OVJOd";
 	dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2065.outbound.protection.outlook.com [40.107.244.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE08C10F0CB
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Dec 2024 20:34:10 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gx62n6rt1sTP8RH0UB5aAwppYMgEScxs0zUzDckIl63r6wg+gE8MvxoQMd3csN/kZ+MdLMQGCtI7H0+Io7cV/488CkaBUVf2ljGYmW/wMAMOplkRLGav4vODA4szZ7u6bPBqZ6g8cvJpTGbBLxR8eybqCjKNtyhaCjRDFosUMt0QCUjolxybrc6zjNQ95LhVGsuFLhkLzVwKRbN5bMW7Y9hwOhOP/7GNascJcyoZgQ+EWkO4gpNSOwjK1EXwIbu72yJKRxt5UkwWgMzqVgGU5MxiPwAaZ0sSv3gx9zBY46/xM2Yw8VUfndCMj3gBCHY1pNupsGX/ESAD8GneWD0ynQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ornrJmQ7oAe3P4qTKLJxhr4qkTMJU3kwGLiQo6O6kvs=;
- b=Ksdc7oO6s1Z2DWTE6BE6Kddz1NUnJTB5ZeYoduYGSQXrZflENaRE20c0G25xo29KCgROmoddqjNVw7T2rFt8acDLQs+3eFl8q8XppUWSuLkd6w16eaqe6yiDrnYeqHf6tab0xAbhO0E7MFjtxY11dxCz+vGDeL3r6hp6Rf4NOEGhNsq/tamFPtxySREtycVawQcIWDtU++VNqFNso/vxmrZICNE8tIixDCszthKH5LeiWFHBm/A2Y79nb/DfHeAypod5RA64BeR/zsDixPKmbHJyDwZQAztMoc3h8s5Hnskr+N+r/Ma3xliGk0/VnAzu7ie77DaH2EYGhhuoUOyZNg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ornrJmQ7oAe3P4qTKLJxhr4qkTMJU3kwGLiQo6O6kvs=;
- b=OhPZxq4EUG1GSAlxRBVTrzbk1/0XDZKgtM8onLvNulzoydq+T1bUkLu0idQxMjdcO5xlRZOTyXaPoY5/5jr7nJFN/Rcq8cmJQjE6HbPi/4AHkmbooaFSkeu2CAFK54y/0y5E/9VK80hxOKAVKgOMbyatRvT6yIHPni+s5sPf99U=
-Received: from BN0PR04CA0182.namprd04.prod.outlook.com (2603:10b6:408:e9::7)
- by CH3PR12MB7545.namprd12.prod.outlook.com (2603:10b6:610:146::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8251.16; Fri, 13 Dec
- 2024 20:34:07 +0000
-Received: from BN2PEPF000055DB.namprd21.prod.outlook.com
- (2603:10b6:408:e9:cafe::87) by BN0PR04CA0182.outlook.office365.com
- (2603:10b6:408:e9::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8251.17 via Frontend Transport; Fri,
- 13 Dec 2024 20:34:07 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN2PEPF000055DB.mail.protection.outlook.com (10.167.245.5) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8272.0 via Frontend Transport; Fri, 13 Dec 2024 20:34:07 +0000
-Received: from Philip-Dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 13 Dec
- 2024 14:34:05 -0600
-From: Philip Yang <Philip.Yang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Felix.Kuehling@amd.com>, <christian.koenig@amd.com>,
- <jay.cornwall@amd.com>, <Hawking.Zhang@amd.com>, <flora.cui@amd.com>, "Philip
- Yang" <Philip.Yang@amd.com>, Felix Kuehling <felix.kuehling@amd.com>
-Subject: [PATCH 4/6] drm/amdkfd: Queue interrupt work to different CPU
-Date: Fri, 13 Dec 2024 15:33:29 -0500
-Message-ID: <20241213203332.18165-4-Philip.Yang@amd.com>
-X-Mailer: git-send-email 2.47.1
-In-Reply-To: <20241213203332.18165-1-Philip.Yang@amd.com>
-References: <20241213203332.18165-1-Philip.Yang@amd.com>
+Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
+ [IPv6:2a00:1450:4864:20::229])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C609E10E00D
+ for <amd-gfx@lists.freedesktop.org>; Sat, 14 Dec 2024 13:37:13 +0000 (UTC)
+Received: by mail-lj1-x229.google.com with SMTP id
+ 38308e7fff4ca-300479ca5c6so24684141fa.3
+ for <amd-gfx@lists.freedesktop.org>; Sat, 14 Dec 2024 05:37:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1734183432; x=1734788232; darn=lists.freedesktop.org;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=D5Yifu5AHqHdXbQoT1ZLOpnCiREtj9Cd9aALDn2mK+0=;
+ b=OR0OVJOdeRRCp8MjZa1V8fmVVa9aehr2OMdCl9ADzCLQSP9Rpl/AybHry9cQP0fyqy
+ L9pMDBDl68Wkl9ywG0fqnEoSnCvJFuukthUof9Eko6LTMitf3f6WUyLyVT+yWQU3ysKf
+ RLNXP0ls/MMeZn6mqTgfqjsa9/g8PHGBeuxnYpPV5gvOX9qGg+azhxu9C1RNWlnWzSJ+
+ U8zSxLLHhZTZG+61onX9vjXoEh6k4BLevpzVTzwiu/+lT4zvEG4JxL5TlcoPPuWr+Mgb
+ 0awVtXj6AayzhkjIOuw+/yaB8ftgv27yGe6erpWg8BEsK1+Mm9+ajgd919zpJhD+cy0P
+ yAoA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1734183432; x=1734788232;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=D5Yifu5AHqHdXbQoT1ZLOpnCiREtj9Cd9aALDn2mK+0=;
+ b=tkjf5N3coxk+GUF7BmJPIuDvU3HERDXAFIy3sWlhCyZnllWKt5x5CBqCqHoFJVSHq0
+ q0QD81FzijJ8IktGF05WzgFwuDQE9wIKaakL7+3vmzC5wfdpSKuw89fyrI3eKk3Ex5dT
+ 15R/6joBsC0KMUFbOUU2yT0zaO439e5LpAh6SZlK2Guf6PVDmrOIIzQf+vkVcr4xdECL
+ uUNG9UctAryOzTVP3G52MhNaQR/6PC1HE0a2xD8QPM+SKJWxrUandWPqvlAgy3Jvdh9J
+ 6YkLCGJ5iQ7q3xUsw/tlzwHsb+VNsFiIE3tYUEZJva6GLG3V7vCjktYa0KYc62TeXpIk
+ srWw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCW/PwS78sqA3egOafuDST9xgm6RYIpyso7FvRhsEsG4aa55AtjD2rXaMCI+m/HAJX6uzFhc/iXJ@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YztOS3Xx2nJJ28TxQFe6uuElPLJOMsmoijOLOozD2lTOiqX6jiP
+ F7Mm56DCAz8OV5UgHcAbNJTHswzxbpjH0r9laeRhxqzgNQzOAIReeMmJn8oCQRo=
+X-Gm-Gg: ASbGnctlFZCxLIogLoFVi8nD7rSjDJ74HTf9idXIryObaIcSG1HJC3JPNSCdCqTn0m3
+ 0QM4Pz5hRWpjtRWTQNLQOLdqGmwpm+6g0EIvkA6utaWNCD5OeqdOawDHeOvmzPktXR1wXvQ22os
+ fqUD7ulO/I8QbdufSc3tto28msZLmgSj/boXW5/qDQ4KUucVr0r8Mbfa8lSY/8RDBbZDzna/VKG
+ UxXHNV6kgqiel0dor9mNeFcjuGJctkfhLlzAJV7iZiP13NlzRut/r3qbGA1rE49
+X-Google-Smtp-Source: AGHT+IEmz28NMTXAP81JXsAlUmRjxWGG4URFEoZPW2057H7lgb26FPjGbNMLBZ5J86SvfmTU0Z3DXQ==
+X-Received: by 2002:a05:6512:ba3:b0:540:3567:2ede with SMTP id
+ 2adb3069b0e04-5408ad822dcmr1895173e87.12.1734183431555; 
+ Sat, 14 Dec 2024 05:37:11 -0800 (PST)
+Received: from umbar.lan ([192.130.178.90]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-54120baa474sm220131e87.90.2024.12.14.05.37.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 14 Dec 2024 05:37:10 -0800 (PST)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Subject: [PATCH v2 0/5] drm/connector: make mode_valid() callback accept
+ const mode pointer
+Date: Sat, 14 Dec 2024 15:37:04 +0200
+Message-Id: <20241214-drm-connector-mode-valid-const-v2-0-4f9498a4c822@linaro.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000055DB:EE_|CH3PR12MB7545:EE_
-X-MS-Office365-Filtering-Correlation-Id: dcd79328-451e-4025-034d-08dd1bb57e0c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700013|1800799024|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?qZ5mwyOum0pkapqFColszGIE08az2jQfF4LAnz3Iynsb0P1XNH1VLAE7hKTu?=
- =?us-ascii?Q?YQx+qclPCniByO5xYXlcu9ZP6WeMYJwASeGqdXQKtJJYT6Toa16Y0EG+FiV/?=
- =?us-ascii?Q?jBdTu9eCGH5FAqfaeEY5aRLeEwJyPfwLDD0fhW+CiTboZaW3NSs417bv2GCv?=
- =?us-ascii?Q?q2tqcbTJK/gN6M/4JnO6elTsJdwrniDRq9HvmbEOL8uXgZdES8Sm3tdrGyMd?=
- =?us-ascii?Q?F5VhNpWxs5WOioahmp5mKirAlc2mEzHGC76PscTrBGrTSXy9wMBkm/ZqmIj5?=
- =?us-ascii?Q?3gFzd/+OvZEninQf+ZW5ZTvMThhRhWTtkw/Blq1PoTjx7gTEvp/pj6E6BG7t?=
- =?us-ascii?Q?R5RnvrUHW3Um4173qAT1MWgt9sFXF6LYediCKhxRHNgPKRkW5M/4f87jX1QA?=
- =?us-ascii?Q?o/lUBdcK+N8W5c0zT6oiMJy9KNZ4V4BD/GT3nlU28LfU+oeL55HGVDfU8VCF?=
- =?us-ascii?Q?VaMWhb4C6/JtZusIgDRzO1MuNzE0HLPpWorXSCci4G+jZ5FGOZ9tcNukz49y?=
- =?us-ascii?Q?d5r1TY7rGk1A6u0oCaIE+bMmQy6Uuy86MxfxwEPenn94dlO9PAm89dM6Uma7?=
- =?us-ascii?Q?Tv4Plo81jud8znJXaQvS7hgRWysPXj6Gy3sM7UE0C5lzkttzvZg3v//ib1di?=
- =?us-ascii?Q?xxMzBjZ+MAAXoX/euJLxKaCZLFo5DbXMEz2tXFhhP1CA922/riW/9tXyn+kd?=
- =?us-ascii?Q?lV7fWv5giMVVnqm6tg3wEdKw+V/omIhD5ia4uGXyN6rTiA0tJ49vH2lNHWyb?=
- =?us-ascii?Q?WoicvXeEdui9xch2uJxNz83hYi57JIggrabAj7ja5Oa6ua43tYSsaNbmvk93?=
- =?us-ascii?Q?/5EMKBLYxGuDiIR/C3CjHPGX1cx35RVRgZNr+DL6xGeCWk//X9SYAGBEf6kr?=
- =?us-ascii?Q?DGymjvEFTICg9igTOhlkRP45K2YpryIg5J+TxJ+rMoi3pzXCWOjC0q1xT6oH?=
- =?us-ascii?Q?uSwPCFODfzpXWvh6DC1xWSCmyTw1vhMhk8JNFHGz6Yw+QbD1GgY1JKyx0jfK?=
- =?us-ascii?Q?D5KRYvJGV2vt6RD6C7CcE56KPltusTtDpyDqaF0CIubYUWIU2zcJ6KrTLamI?=
- =?us-ascii?Q?NQaPmny7eHDuglSg1TDakfjV+7zqheSzxK1Z3lR4vNX0+SDlWe1jF2+dazz+?=
- =?us-ascii?Q?zFc3jXWqQO9EDh5OoWPUuKS946wrnz6NLZl/2gmsty8kmmwZCCElseYEydhI?=
- =?us-ascii?Q?rf5ZtGc/Mq4SkY2vR9SWaBB0joJTxBYoFhBJwQMp++bGQWSwC61AjZmH1WFv?=
- =?us-ascii?Q?a1XiRZGbyTQ+lSwRFxEE1F/xsgE4/iF/OoGVyZsc93vTwWEWOKUarmwQq5L/?=
- =?us-ascii?Q?oJubntCboOpi0eCTVAIwKkcOVI42KIihhF7wNGSPxMbO2cOReE/J0t+xbJYr?=
- =?us-ascii?Q?2axQDCsJ9ZFRYSUGbdg5QvzDrrbOyL0dTvLAe+DJERTaf0mK1zBhLN801hz6?=
- =?us-ascii?Q?4GKJRbX9b9bQzNZ7SeNCirqXRjeWxSZT?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700013)(1800799024)(82310400026); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Dec 2024 20:34:07.3600 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: dcd79328-451e-4025-034d-08dd1bb57e0c
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000055DB.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7545
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAACKXWcC/42NTQqDMBBGr1Jm3SlOrApd9R7FRX5GHdCkJBJax
+ Ls3eoIu34PvfRskjsIJHpcNImdJEnwBdb2AnbQfGcUVBlWpOxE16OKCNnjPdg0Rl+AYs57FHTK
+ tqLl2puKhtaaDEnlHHuRzHrz6wpOksvuef5kO+3c6E1ZoyDSqpqYdOnrO4nUMtxBH6Pd9/wHZe
+ zDbzQAAAA==
+X-Change-ID: 20241115-drm-connector-mode-valid-const-ae3db0ef6cb7
+To: Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Karol Herbst <kherbst@redhat.com>, Lyude Paul <lyude@redhat.com>, 
+ Danilo Krummrich <dakr@redhat.com>, Harry Wentland <harry.wentland@amd.com>, 
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Xinhui Pan <Xinhui.Pan@amd.com>, Alain Volmat <alain.volmat@foss.st.com>, 
+ Raphael Gallais-Pou <rgallaispou@gmail.com>, 
+ Liviu Dudau <liviu.dudau@arm.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Peter Senna Tschudin <peter.senna@gmail.com>, Ian Ray <ian.ray@ge.com>, 
+ Martyn Welch <martyn.welch@collabora.co.uk>, 
+ Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>, 
+ Kyungmin Park <kyungmin.park@samsung.com>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>, Stefan Agner <stefan@agner.ch>, 
+ Alison Wang <alison.wang@nxp.com>, 
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Rob Clark <robdclark@gmail.com>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Dave Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>, 
+ Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, Chen-Yu Tsai <wens@csie.org>, 
+ Samuel Holland <samuel@sholland.org>, 
+ Thierry Reding <thierry.reding@gmail.com>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ Gurchetan Singh <gurchetansingh@chromium.org>, 
+ Chia-I Wu <olvaffe@gmail.com>, Zack Rusin <zack.rusin@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ nouveau@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
+ linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
+ imx@lists.linux.dev, linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, virtualization@lists.linux.dev, 
+ spice-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
+ linux-sunxi@lists.linux.dev, linux-tegra@vger.kernel.org, 
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+ Jani Nikula <jani.nikula@intel.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6418;
+ i=dmitry.baryshkov@linaro.org; h=from:subject:message-id;
+ bh=CFKCP8gmNVOgeqNjr+3QJjtmtNC/tAX/00xUMnJ/tTs=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBnXYoDmM2S87MrW8vu+JbVhyOODFafbOCaZxOjt
+ xp9pGfUjhmJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCZ12KAwAKCRCLPIo+Aiko
+ 1eEwB/4jmBS/ZZEzFjxaESTGxzhJNhkCvznhOV0ymm9HyVmb5cREFRRAYjI5LoTWx7bG2RoJpPx
+ UvuWQ54Hy/EBhfpWcduIr/JhudedQ7jBPBIKLI9pTuxk9R5EX73GEkl63Fke70Rl4RJk106amoZ
+ L5UKcCV/8bd4eJp0zytj96tqIz4Ck6AKNLE/phVZ9qgSiEy8WyBf4S97qdT56EH3M7y0HwvvZUR
+ hYu0+I8MmFd53hj3SU9abEOy2j4vRwWzuePJ9fgEjSd8QoY+ntVzjh+bjurDQ8D7x0pTI/WJqrS
+ 6pXMPMXEdtL00Ib+8dAXox6yumWc5m53LQxFithWGBOqgCaL
+X-Developer-Key: i=dmitry.baryshkov@linaro.org; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,144 +154,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-For CPX mode, each KFD node has interrupt worker to process ih_fifo to
-send events to user space. Currently all interrupt workers of same adev
-queue to same CPU, all workers execution are actually serialized and
-this cause KFD ih_fifo overflow when CPU usage is high.
+While working on the generic mode_valid() implementation for the HDMI
+Connector framework I noticed that unlike other DRM objects
+drm_connector accepts non-const pointer to struct drm_display_mode,
+while obviously mode_valid() isn't expected to modify the argument.
 
-Use per-GPU unbounded highpri queue with number of workers equals to
-number of partitions, let queue_work select the next CPU round robin
-among the local CPUs of same NUMA.
+Mass-change the DRM framework code to pass const argument to that
+callback.
 
-Signed-off-by: Philip Yang <Philip.Yang@amd.com>
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+The series has been compile-tested with defconfig for x86-64, arm and
+arm64.
+
+Note: yes, I understand that this change might be hard to review and
+merge. The only viable option that I foresee is to add new callback,
+having the const argument and migrate drivers into using it one by one.
+
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_device.c    | 25 ++++++++--------------
- drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c | 25 ++++++++--------------
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h      |  3 ++-
- 3 files changed, 20 insertions(+), 33 deletions(-)
+Changes in v2:
+- Rebased on top of linux-next
+- Replaced 'accept const argument' with 'take a const arugment'
+  (Laurent)
+- Link to v1: https://lore.kernel.org/r/20241115-drm-connector-mode-valid-const-v1-0-b1b523156f71@linaro.org
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-index 9b49563f2c42..a29374c86405 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-@@ -649,6 +649,14 @@ static void kfd_cleanup_nodes(struct kfd_dev *kfd, unsigned int num_nodes)
- 	struct kfd_node *knode;
- 	unsigned int i;
- 
-+	/*
-+	 * flush_work ensures that there are no outstanding
-+	 * work-queue items that will access interrupt_ring. New work items
-+	 * can't be created because we stopped interrupt handling above.
-+	 */
-+	flush_workqueue(kfd->ih_wq);
-+	destroy_workqueue(kfd->ih_wq);
-+
- 	for (i = 0; i < num_nodes; i++) {
- 		knode = kfd->nodes[i];
- 		device_queue_manager_uninit(knode->dqm);
-@@ -1066,21 +1074,6 @@ static int kfd_resume(struct kfd_node *node)
- 	return err;
- }
- 
--static inline void kfd_queue_work(struct workqueue_struct *wq,
--				  struct work_struct *work)
--{
--	int cpu, new_cpu;
--
--	cpu = new_cpu = smp_processor_id();
--	do {
--		new_cpu = cpumask_next(new_cpu, cpu_online_mask) % nr_cpu_ids;
--		if (cpu_to_node(new_cpu) == numa_node_id())
--			break;
--	} while (cpu != new_cpu);
--
--	queue_work_on(new_cpu, wq, work);
--}
--
- /* This is called directly from KGD at ISR. */
- void kgd2kfd_interrupt(struct kfd_dev *kfd, const void *ih_ring_entry)
- {
-@@ -1106,7 +1099,7 @@ void kgd2kfd_interrupt(struct kfd_dev *kfd, const void *ih_ring_entry)
- 			    	patched_ihre, &is_patched)
- 		    && enqueue_ih_ring_entry(node,
- 			    	is_patched ? patched_ihre : ih_ring_entry)) {
--			kfd_queue_work(node->ih_wq, &node->interrupt_work);
-+			queue_work(node->kfd->ih_wq, &node->interrupt_work);
- 			spin_unlock_irqrestore(&node->interrupt_lock, flags);
- 			return;
- 		}
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c b/drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c
-index 8e00800f3207..6beb786c582a 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c
-@@ -62,11 +62,14 @@ int kfd_interrupt_init(struct kfd_node *node)
- 		return r;
- 	}
- 
--	node->ih_wq = alloc_workqueue("KFD IH", WQ_HIGHPRI, 1);
--	if (unlikely(!node->ih_wq)) {
--		kfifo_free(&node->ih_fifo);
--		dev_err(node->adev->dev, "Failed to allocate KFD IH workqueue\n");
--		return -ENOMEM;
-+	if (!node->kfd->ih_wq) {
-+		node->kfd->ih_wq = alloc_workqueue("KFD IH", WQ_HIGHPRI | WQ_UNBOUND,
-+						   node->kfd->num_nodes);
-+		if (unlikely(!node->kfd->ih_wq)) {
-+			kfifo_free(&node->ih_fifo);
-+			dev_err(node->adev->dev, "Failed to allocate KFD IH workqueue\n");
-+			return -ENOMEM;
-+		}
- 	}
- 	spin_lock_init(&node->interrupt_lock);
- 
-@@ -96,16 +99,6 @@ void kfd_interrupt_exit(struct kfd_node *node)
- 	spin_lock_irqsave(&node->interrupt_lock, flags);
- 	node->interrupts_active = false;
- 	spin_unlock_irqrestore(&node->interrupt_lock, flags);
--
--	/*
--	 * flush_work ensures that there are no outstanding
--	 * work-queue items that will access interrupt_ring. New work items
--	 * can't be created because we stopped interrupt handling above.
--	 */
--	flush_workqueue(node->ih_wq);
--
--	destroy_workqueue(node->ih_wq);
--
- 	kfifo_free(&node->ih_fifo);
- }
- 
-@@ -155,7 +148,7 @@ static void interrupt_wq(struct work_struct *work)
- 			/* If we spent more than a second processing signals,
- 			 * reschedule the worker to avoid soft-lockup warnings
- 			 */
--			queue_work(dev->ih_wq, &dev->interrupt_work);
-+			queue_work(dev->kfd->ih_wq, &dev->interrupt_work);
- 			break;
- 		}
- 	}
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index e529fdc1b422..c32b255c0eb2 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -274,7 +274,6 @@ struct kfd_node {
- 
- 	/* Interrupts */
- 	struct kfifo ih_fifo;
--	struct workqueue_struct *ih_wq;
- 	struct work_struct interrupt_work;
- 	spinlock_t interrupt_lock;
- 
-@@ -367,6 +366,8 @@ struct kfd_dev {
- 	struct kfd_node *nodes[MAX_KFD_NODES];
- 	unsigned int num_nodes;
- 
-+	struct workqueue_struct *ih_wq;
-+
- 	/* Kernel doorbells for KFD device */
- 	struct amdgpu_bo *doorbells;
- 
+---
+Dmitry Baryshkov (5):
+      drm/encoder_slave: make mode_valid accept const struct drm_display_mode
+      drm/amdgpu: don't change mode in amdgpu_dm_connector_mode_valid()
+      drm/sti: hda: pass const struct drm_display_mode* to hda_get_mode_idx()
+      drm/connector: make mode_valid_ctx take a const struct drm_display_mode
+      drm/connector: make mode_valid take a const struct drm_display_mode
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c           |  8 ++++----
+ drivers/gpu/drm/amd/amdgpu/atombios_dp.c                 |  2 +-
+ drivers/gpu/drm/amd/amdgpu/atombios_dp.h                 |  2 +-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c        | 12 +++++++++---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h        |  2 +-
+ drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c |  2 +-
+ drivers/gpu/drm/arm/malidp_mw.c                          |  2 +-
+ drivers/gpu/drm/bridge/adv7511/adv7511_drv.c             |  2 +-
+ drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c      |  2 +-
+ drivers/gpu/drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c |  7 -------
+ drivers/gpu/drm/display/drm_bridge_connector.c           |  2 +-
+ drivers/gpu/drm/display/drm_hdmi_state_helper.c          |  2 +-
+ drivers/gpu/drm/drm_crtc_helper_internal.h               |  2 +-
+ drivers/gpu/drm/drm_probe_helper.c                       |  2 +-
+ drivers/gpu/drm/exynos/exynos_hdmi.c                     |  2 +-
+ drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_rgb.c                |  2 +-
+ drivers/gpu/drm/gma500/cdv_intel_crt.c                   |  2 +-
+ drivers/gpu/drm/gma500/cdv_intel_dp.c                    |  2 +-
+ drivers/gpu/drm/gma500/cdv_intel_hdmi.c                  |  2 +-
+ drivers/gpu/drm/gma500/cdv_intel_lvds.c                  |  2 +-
+ drivers/gpu/drm/gma500/oaktrail_hdmi.c                   |  2 +-
+ drivers/gpu/drm/gma500/psb_intel_drv.h                   |  2 +-
+ drivers/gpu/drm/gma500/psb_intel_lvds.c                  |  2 +-
+ drivers/gpu/drm/gma500/psb_intel_sdvo.c                  |  2 +-
+ drivers/gpu/drm/i2c/ch7006_drv.c                         |  2 +-
+ drivers/gpu/drm/i2c/sil164_drv.c                         |  2 +-
+ drivers/gpu/drm/i915/display/dvo_ch7017.c                |  2 +-
+ drivers/gpu/drm/i915/display/dvo_ch7xxx.c                |  2 +-
+ drivers/gpu/drm/i915/display/dvo_ivch.c                  |  2 +-
+ drivers/gpu/drm/i915/display/dvo_ns2501.c                |  2 +-
+ drivers/gpu/drm/i915/display/dvo_sil164.c                |  2 +-
+ drivers/gpu/drm/i915/display/dvo_tfp410.c                |  2 +-
+ drivers/gpu/drm/i915/display/icl_dsi.c                   |  2 +-
+ drivers/gpu/drm/i915/display/intel_crt.c                 |  2 +-
+ drivers/gpu/drm/i915/display/intel_dp.c                  |  2 +-
+ drivers/gpu/drm/i915/display/intel_dp_mst.c              |  2 +-
+ drivers/gpu/drm/i915/display/intel_dsi.c                 |  2 +-
+ drivers/gpu/drm/i915/display/intel_dsi.h                 |  2 +-
+ drivers/gpu/drm/i915/display/intel_dvo.c                 |  2 +-
+ drivers/gpu/drm/i915/display/intel_dvo_dev.h             |  2 +-
+ drivers/gpu/drm/i915/display/intel_hdmi.c                |  2 +-
+ drivers/gpu/drm/i915/display/intel_lvds.c                |  2 +-
+ drivers/gpu/drm/i915/display/intel_sdvo.c                |  2 +-
+ drivers/gpu/drm/i915/display/intel_tv.c                  |  2 +-
+ drivers/gpu/drm/i915/display/vlv_dsi.c                   |  2 +-
+ drivers/gpu/drm/imx/ipuv3/imx-tve.c                      |  2 +-
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_connector.c      |  2 +-
+ drivers/gpu/drm/nouveau/dispnv04/tvnv17.c                |  2 +-
+ drivers/gpu/drm/nouveau/dispnv50/disp.c                  |  2 +-
+ drivers/gpu/drm/nouveau/nouveau_connector.c              |  2 +-
+ drivers/gpu/drm/qxl/qxl_display.c                        |  2 +-
+ drivers/gpu/drm/radeon/atombios_dp.c                     |  2 +-
+ drivers/gpu/drm/radeon/radeon_connectors.c               | 10 +++++-----
+ drivers/gpu/drm/radeon/radeon_mode.h                     |  2 +-
+ drivers/gpu/drm/rockchip/cdn-dp-core.c                   |  2 +-
+ drivers/gpu/drm/rockchip/inno_hdmi.c                     |  4 ++--
+ drivers/gpu/drm/rockchip/rk3066_hdmi.c                   |  2 +-
+ drivers/gpu/drm/sti/sti_dvo.c                            |  2 +-
+ drivers/gpu/drm/sti/sti_hda.c                            | 12 ++++++------
+ drivers/gpu/drm/sti/sti_hdmi.c                           |  2 +-
+ drivers/gpu/drm/tegra/dsi.c                              |  2 +-
+ drivers/gpu/drm/tegra/hdmi.c                             |  2 +-
+ drivers/gpu/drm/tegra/sor.c                              |  2 +-
+ drivers/gpu/drm/vc4/vc4_txp.c                            |  2 +-
+ drivers/gpu/drm/virtio/virtgpu_display.c                 |  2 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_kms.c                      |  2 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_kms.h                      |  2 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c                     |  2 +-
+ include/drm/display/drm_hdmi_state_helper.h              |  2 +-
+ include/drm/drm_encoder_slave.h                          |  2 +-
+ include/drm/drm_modeset_helper_vtables.h                 |  4 ++--
+ 71 files changed, 92 insertions(+), 93 deletions(-)
+---
+base-commit: 4176cf5c5651c33769de83bb61b0287f4ec7719f
+change-id: 20241115-drm-connector-mode-valid-const-ae3db0ef6cb7
+
+Best regards,
 -- 
-2.47.1
+Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
