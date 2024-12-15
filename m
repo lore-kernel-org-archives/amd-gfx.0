@@ -4,66 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEEB7E7717F
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Dec 2024 08:33:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C094E77184
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Dec 2024 08:33:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C76B10E530;
-	Mon, 16 Dec 2024 08:33:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6336C10E537;
+	Mon, 16 Dec 2024 08:33:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="IVHnUBK+";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mE3QPaCF";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B240510F03B;
- Fri, 13 Dec 2024 14:36:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1734100612; x=1765636612;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=YBcoTpTWKibasV/+heQtN+JEvDMzFqVAV8Zs1N+emGg=;
- b=IVHnUBK+oadTmeMvl3u1OJWkB0U2+Rq5uUYzv4klw7279GcA4J3ZSElt
- cy6+BWDwlxKIduQnNkQz2jU5Du0QAP28yI0cW4cDVuiW3/Q+hPMvR6DP6
- 8k2X6M/wNycGtOWZxVxNYLVu3cN8yPSvM5RYJfhnXbAQO/nipdNUZ+8c3
- REsLvyt9Sn1T1KlX41zndTzqtw/jBrctLGhR3ymMv8UOKMMFJCXCJpY37
- ePskT1A4THW7yv9KSEHoKY9PseTuKoIZuDzClqLC5yUVr3mJU32IPaNc6
- +a7UiSwrbay6uc8Z9jRbEBnsPZEBPco7LZx2RloktdrBdj8EIrSvSbmlU g==;
-X-CSE-ConnectionGUID: RxjBKZdVQfSupXn3bqP1fw==
-X-CSE-MsgGUID: yA+kY9XiSEiq1HQbYeX3Og==
-X-IronPort-AV: E=McAfee;i="6700,10204,11285"; a="45163432"
-X-IronPort-AV: E=Sophos;i="6.12,231,1728975600"; d="scan'208";a="45163432"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Dec 2024 06:36:51 -0800
-X-CSE-ConnectionGUID: aOpbWUmCTTGH6embKJih9A==
-X-CSE-MsgGUID: oOnkyNxSTumTT/K5CaiZcg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="96408972"
-Received: from black.fi.intel.com ([10.237.72.28])
- by orviesa010.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Dec 2024 06:36:47 -0800
-Date: Fri, 13 Dec 2024 16:36:43 +0200
-From: Raag Jadav <raag.jadav@intel.com>
-To: =?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>
-Cc: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- airlied@gmail.com, simona@ffwll.ch, lucas.demarchi@intel.com,
- rodrigo.vivi@intel.com, jani.nikula@linux.intel.com,
- andriy.shevchenko@linux.intel.com, lina@asahilina.net,
- michal.wajdeczko@intel.com, "Sharma, Shashank" <Shashank.Sharma@amd.com>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- himal.prasad.ghimiray@intel.com, aravind.iddamsetty@linux.intel.com,
- anshuman.gupta@intel.com, alexander.deucher@amd.com,
- amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com
-Subject: Re: [PATCH 1/1] drm/amdgpu: Use device wedged event
-Message-ID: <Z1xGe1X_XzB00J1Q@black.fi.intel.com>
-References: <20241212190909.28559-1-andrealmeid@igalia.com>
- <20241212190909.28559-2-andrealmeid@igalia.com>
- <d9f2583d-da79-4532-90fc-85028e977ceb@amd.com>
- <c7c498f0-2ee3-42f5-9b45-c87e52ffc3e4@igalia.com>
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [IPv6:2a00:1450:4864:20::52c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D5A110E087;
+ Sun, 15 Dec 2024 12:29:02 +0000 (UTC)
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-5d4e2aa7ea9so5980990a12.2; 
+ Sun, 15 Dec 2024 04:29:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1734265740; x=1734870540; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=bHWJV/LD4gPHZZNcXt29U0PATFI+oJ17IUeLcy4IdyI=;
+ b=mE3QPaCFU6vw5wuG8j1PawAC5/h3/286hPfWvobkLggeH2zTMqmNDz2iQWf0rZJNnY
+ ZAvkqLa0LhcLUXy9uSW9NG/cEIDtuW38mhfIMqEoJhH8Dexca3zWkahYvnFW7DVo5Th2
+ 3oe6b/YE6eNFTIdXmHBW6XBU2G6ASidfSNB+muB2Q4CfYkjH1KUSD7X8v/8UNN2uVr4o
+ H+B+KgABuZAOiXxX0dfjTLgOKrwgdVyBndOPdXAnBROf4zglm860Rsql0N0ET+bO4IAQ
+ GXYwtvODqJFoyStWwS1xnXAsFS9BGmK+6KacHyWBo6mL+/NR6O346Hc9qyL/dNoNNF8J
+ +Edg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1734265740; x=1734870540;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=bHWJV/LD4gPHZZNcXt29U0PATFI+oJ17IUeLcy4IdyI=;
+ b=TyETxFAeAJ1C66JmdV4oe3WW4PPgb8p9rjKHntyavkA8WhELAMgHDsr9jmASBegLcn
+ /HdX01pziXLAdGQ3zqZIzX8jbOsTv08tTsdEc6Ner3onl2W049x+pEsu6lyKDJr+E9gr
+ el2v1ApJ81oy5pthL1gWWWunxs1g782xbf5V0Jwr7Op/DHydkyro5a85bkxT1sc9wovI
+ Jq1+HLCeL/IzaOrZGmdipDtxrCNh0/U3ELNKa7lyyDS4rXMFicCwxVax5KR8efNXIdA9
+ O9cQMtT6BsPhtfwRGNfD4J47HHZ24W0RuKDyv+yjb3s6xUwVkPJj9pD53vUp+ztaNmL0
+ w3TA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVp3xq75mf5r6uYPUAMJsXGhU0x8Xuk+LlYBDYgbPGXrstyr0YokWYAT/427IyzETRqRuVsqiZ0@lists.freedesktop.org,
+ AJvYcCWLJ8IQ75YElxQSDxAxluSAuLjQgQ4w7pDK3HuE5QAUOL6HL6yMnE7ZDcuvFCLeUiEQvcCrarKkp9Sg@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxBR+zYuhHZq2P/hEzBgcKcuPp7An16oDiC1NfxvvEo9Jvmnfyv
+ MLhz7aIYozyGcPp3S+4qGdqX8Fps6IjGdzbDSrUqVB5t0vOlXGrt
+X-Gm-Gg: ASbGncutlcC128kCY3GT4ppAkSVojCpZ6iBznPU1T1T7RDkmEdn/j3CAO5arDhxLLZg
+ 90ST4WCt2wrnr2CGEZWkAKX95ihjqoxhR+bIDOxFnRBcjuE5/q2n4aTKQ0GOI8riQyQbcDr/BV9
+ CipD8qFZ1uGbwHjnPhoF92ixTZzZ9bN1TAVHLJtOmnEBTSVkWnhHkwBZ7B67sqSgkWcTBz3whnj
+ Vt648f3pfy7oBS/O2mTaqIoR3FxS11pA5LuBK5XXZhT+VR5ts/I4yneKktjULK6YLA=
+X-Google-Smtp-Source: AGHT+IFs4h7kFQ1tBETm2pZSMvLI9Eb//palqWRPKxDQoSymF7Pdlu6jW09S5JdbUeT9M+3q91Focw==
+X-Received: by 2002:a05:6402:348b:b0:5d0:8197:7ab3 with SMTP id
+ 4fb4d7f45d1cf-5d63c2e5275mr7998238a12.3.1734265740122; 
+ Sun, 15 Dec 2024 04:29:00 -0800 (PST)
+Received: from localhost.localdomain ([83.168.79.145])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5d652ad187dsm2055327a12.28.2024.12.15.04.28.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 15 Dec 2024 04:28:59 -0800 (PST)
+From: Karol Przybylski <karprzy7@gmail.com>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, simona@ffwll.ch, srinivasan.shanmugam@amd.com,
+ Hawking.Zhang@amd.com, Jack.Xiao@amd.com, lijo.lazar@amd.com,
+ Jesse.zhang@amd.com, tao.zhou1@amd.com
+Cc: Karol Przybylski <karprzy7@gmail.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/amdgpu: Fix potential integer overflow in scheduler mask
+ calculations
+Date: Sun, 15 Dec 2024 13:28:57 +0100
+Message-Id: <20241215122857.927606-1-karprzy7@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <c7c498f0-2ee3-42f5-9b45-c87e52ffc3e4@igalia.com>
 X-Mailman-Approved-At: Mon, 16 Dec 2024 08:33:15 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -79,40 +89,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Dec 13, 2024 at 11:15:31AM -0300, André Almeida wrote:
-> Hi Christian,
-> 
-> Em 13/12/2024 04:34, Christian König escreveu:
-> > Am 12.12.24 um 20:09 schrieb André Almeida:
-> > > Use DRM's device wedged event to notify userspace that a reset had
-> > > happened. For now, only use `none` method meant for telemetry
-> > > capture.
-> > > 
-> > > Signed-off-by: André Almeida <andrealmeid@igalia.com>
-> > > ---
-> > >   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 +++
-> > >   1 file changed, 3 insertions(+)
-> > > 
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > > b/drivers/gpu/ drm/amd/amdgpu/amdgpu_device.c
-> > > index 96316111300a..19e1a5493778 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > > @@ -6057,6 +6057,9 @@ int amdgpu_device_gpu_recover(struct
-> > > amdgpu_device *adev,
-> > >           dev_info(adev->dev, "GPU reset end with ret = %d\n", r);
-> > >       atomic_set(&adev->reset_domain->reset_res, r);
-> > > +
-> > > +    drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE);
-> > 
-> > That looks really good in general. I would just make the
-> > DRM_WEDGE_RECOVERY_NONE depend on the value of "r".
-> > 
-> 
-> Why depend or `r`? A reset was triggered anyway, regardless of the success
-> of it, shouldn't we tell userspace?
+The use of 1 << i in scheduler mask calculations can result in an
+unintentional integer overflow due to the expression being
+evaluated as a 32-bit signed integer.
 
-A failed reset would perhaps result in wedging, atleast that's how i915
-is handling it.
+This patch replaces 1 << i with 1ULL << i to ensure the operation
+is performed as a 64-bit unsigned integer, preventing overflow
 
-Raag
+Discovered in coverity scan, CID 1636393, 1636175, 1636007, 1635853
+
+Fixes: c5c63d9cb5d3b drm/amdgpu: add amdgpu_gfx_sched_mask and amdgpu_compute_sched_mask debugfs
+Signed-off-by: Karol Przybylski <karprzy7@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+index 69a6b6dba0a5..8fb6c5f6a060 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+@@ -2050,7 +2050,7 @@ static int amdgpu_debugfs_gfx_sched_mask_set(void *data, u64 val)
+ 	if (!adev)
+ 		return -ENODEV;
+ 
+-	mask = (1 << adev->gfx.num_gfx_rings) - 1;
++	mask = (1ULL << adev->gfx.num_gfx_rings) - 1;
+ 	if ((val & mask) == 0)
+ 		return -EINVAL;
+ 
+@@ -2078,7 +2078,7 @@ static int amdgpu_debugfs_gfx_sched_mask_get(void *data, u64 *val)
+ 	for (i = 0; i < adev->gfx.num_gfx_rings; ++i) {
+ 		ring = &adev->gfx.gfx_ring[i];
+ 		if (ring->sched.ready)
+-			mask |= 1 << i;
++			mask |= 1ULL << i;
+ 	}
+ 
+ 	*val = mask;
+@@ -2120,7 +2120,7 @@ static int amdgpu_debugfs_compute_sched_mask_set(void *data, u64 val)
+ 	if (!adev)
+ 		return -ENODEV;
+ 
+-	mask = (1 << adev->gfx.num_compute_rings) - 1;
++	mask = (1ULL << adev->gfx.num_compute_rings) - 1;
+ 	if ((val & mask) == 0)
+ 		return -EINVAL;
+ 
+@@ -2149,7 +2149,7 @@ static int amdgpu_debugfs_compute_sched_mask_get(void *data, u64 *val)
+ 	for (i = 0; i < adev->gfx.num_compute_rings; ++i) {
+ 		ring = &adev->gfx.compute_ring[i];
+ 		if (ring->sched.ready)
+-			mask |= 1 << i;
++			mask |= 1ULL << i;
+ 	}
+ 
+ 	*val = mask;
+-- 
+2.34.1
+
