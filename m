@@ -4,106 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31D95E7717F
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Dec 2024 11:24:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C310E77183
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Dec 2024 11:47:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D48E210E5B9;
-	Mon, 16 Dec 2024 11:24:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F03610E5D7;
+	Mon, 16 Dec 2024 11:47:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="X3l5Ybth";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hMacY/PD";
 	dkim-atps=neutral
-Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
- [IPv6:2a00:1450:4864:20::22b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B8A1810E5AD
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Dec 2024 11:24:34 +0000 (UTC)
-Received: by mail-lj1-x22b.google.com with SMTP id
- 38308e7fff4ca-2ffdbc0c103so36271341fa.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Dec 2024 03:24:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1734348273; x=1734953073; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=gty21mjzYgvbYsbhfcrs7XMj7b14Ja6LtCdRiQMw9IQ=;
- b=X3l5YbthhhVTEeMbX8SZAbqoPCr7Mmq1yC0hwAnhNTsutlpSvKMegr3H3PgSj175H7
- Yy0BS7IsIqgy2tt+I8qk00T/eEoE6KlR63+KCxeBrQcbxsY9l4DA49NT7sqNbiS3W231
- 98YgYxiRlbgR426qrBld7CHuGaCVWnCkMa4zb5JUzYRZRkxl/fSWQxDDT7/Mgl367UX4
- XwGRPoV6EIUnczu3oIglF9yfPlX+Xfr1YFJDBst2s0K4+lDSVvYeHz/Ez+9HwkoZDGX0
- qov42N9YUtyuTD9zw/CFasHNDaB3uz8+5rlaNC+8+Z9HfURIQKWnkhAy4U4uXvb0CB4Y
- L4XQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734348273; x=1734953073;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=gty21mjzYgvbYsbhfcrs7XMj7b14Ja6LtCdRiQMw9IQ=;
- b=q1NYBTCXaAvSap/Ign17DJG6lDkCjwo1Ho9iNTyEOdn88ERDGYxBaxvcZdO9SiZfA0
- ZGdbJH/FKCVMIIQmysmWd4i4/x2hSITbXEqRYNMWu6Yc+q5GkTQlBQr4FEu8ndK65bcC
- thvnTIaNAc7VmJ/hxq3QGe/r2vkMOYipx96jpYfsQHpRqziqaGQFjDxynCy2SGu1Tqc8
- c/sOlDT0IdGJC+IRPGzy2VmbkNCxkD7Y+pEm2hWPN4tI4Xe91qSH73ZbXtl+8dBCnsiU
- FdsHsYK2qRdjU1shq7T17ED+Z48feZlEZrFXaPtFqL/ZNdJX3HRywRZTgmdvNO4Q9kBn
- 4J9Q==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWAAeD0DR8ELuScu7HH216RYDNvJXU5FpuN8QnDPIaopIiI+iXa/jb+cJ/oK68+euqbxmYrYc5b@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwxJbfqIk/wGJ867Wp78m/xWCMIM9ngDhLtZuXkXWuHngDk8b+o
- HrfGifp4EjFnM0pg2HLwuAN6dqQvJ1VUq491wkKfS/fJX7mH2MMJoDwDV7hMM7w=
-X-Gm-Gg: ASbGncvGtNy9IxIrMvV4+l+Ke+GNNIblyI2ovNqnO1RT2AssauEF4H1PhhGoTnB3JRC
- k48DFv4DHjq+TMKNU3oM4louY4MSCWjWgB+5hVJdgR/uADUb5kF8E/+C6FxndyjolXtqQcOwADd
- fQJLz4nk++XEYPpI52ap4vg0fp3OG9UAsx/nOj2T45VJRP2aq1AEpkgWLAdaPu2Iqreej7nY2v+
- alBVAstk/S/2/l/b3h4xqp4krGp9sHuTJ9InMd+51ystFOJsfR2mXrQAwVbRE9rjbAhtLEU0lfh
- 6hN3AwG7AgVsVrTW2J9qMSInruwtLEFFZQOh
-X-Google-Smtp-Source: AGHT+IHzioRjGIPfaVwEFSX3By+G0bPm5p1y4IolLwPf7YBpM4LUQ/QUZx/r1EiqpYtLRC9+8oUd8Q==
-X-Received: by 2002:a05:6512:2212:b0:540:1a3f:e848 with SMTP id
- 2adb3069b0e04-5409054bce1mr3948864e87.15.1734348273018; 
- Mon, 16 Dec 2024 03:24:33 -0800 (PST)
-Received: from eriador.lumag.spb.ru
- (2001-14ba-a0c3-3a00--b8c.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::b8c])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-54120c1612asm817266e87.222.2024.12.16.03.24.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Dec 2024 03:24:31 -0800 (PST)
-Date: Mon, 16 Dec 2024 13:24:29 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Xinhui Pan <Xinhui.Pan@amd.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Phong LE <ple@baylibre.com>, Inki Dae <inki.dae@samsung.com>, 
- Seung-Woo Kim <sw0312.kim@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>, 
- Krzysztof Kozlowski <krzk@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, 
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- Alain Volmat <alain.volmat@foss.st.com>,
- Raphael Gallais-Pou <rgallaispou@gmail.com>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- amd-gfx@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
- linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
- Jani Nikula <jani.nikula@intel.com>
-Subject: Re: [PATCH v2 00/10] drm/connector: add eld_mutex to protect
- connector->eld
-Message-ID: <xchjpeykkqwlpniaspbzitaozuoltoq7aturtu7jq6z4lcxh77@y7t5ge2sa4er>
-References: <20241206-drm-connector-eld-mutex-v2-0-c9bce1ee8bea@linaro.org>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 263FE10E5C7;
+ Mon, 16 Dec 2024 11:47:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1734349667; x=1765885667;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=b/jnVnpWxsgsujPLPcohF02Om3SRNnOQCq/3TSfEFrg=;
+ b=hMacY/PDMGImbV80bGQ35VpGevSR6FdkGGwvQKAUZInpLWEkI0hn2d7+
+ Hw58P3UYYk6uN3f98egRzycMF0IGp8rrmDOy28w74PP22tKZ42FwDjIi7
+ 2ib/wt9WfJY+qT+5Q1xp3Ptfk7JnGnD892LhOx9emSRc6hqiuXJ+T22mx
+ 9XF1YAvzrr6siZnzNgwmpXMwTwN1/Xnm0zdmSyzKCpidduVsSB7JXJSFw
+ Ha4FgRHY8W7kfqhLp0ZG6pWhsaIIkDO4ObeOoLzZrVgtMZLMbOSGovx/Z
+ mbXjAQLHrgCX0F5DI424tMZju40jUlYgt1aOIweWXB2rzk/8T3DoECsHx A==;
+X-CSE-ConnectionGUID: 6cJItNuHQ5ycHyLhWvy7xQ==
+X-CSE-MsgGUID: yLFF5jPrQTuBMCNdZ7bMZQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11287"; a="52144727"
+X-IronPort-AV: E=Sophos;i="6.12,238,1728975600"; d="scan'208";a="52144727"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Dec 2024 03:47:47 -0800
+X-CSE-ConnectionGUID: ibVkrFHNQ56/atLPvsZSZg==
+X-CSE-MsgGUID: dFEPEd+kTEamIvmrKVQJlA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.12,238,1728975600"; d="scan'208";a="102046463"
+Received: from mjarzebo-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.246.245])
+ by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Dec 2024 03:47:40 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <linux@weissschuh.net>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Qiang Yu <yuq825@gmail.com>, Joonas
+ Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, Alex
+ Deucher <alexander.deucher@amd.com>, Christian =?utf-8?Q?K=C3=B6nig?=
+ <christian.koenig@amd.com>, Xinhui Pan <Xinhui.Pan@amd.com>, Harry
+ Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Rodrigo
+ Siqueira <Rodrigo.Siqueira@amd.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ lima@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, Thomas =?utf-8?Q?Wei=C3=9Fschuh?=
+ <linux@weissschuh.net>
+Subject: Re: [PATCH 1/5] drm/sysfs: Constify 'struct bin_attribute'
+In-Reply-To: <20241216-sysfs-const-bin_attr-drm-v1-1-210f2b36b9bf@weissschuh.net>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20241216-sysfs-const-bin_attr-drm-v1-0-210f2b36b9bf@weissschuh.net>
+ <20241216-sysfs-const-bin_attr-drm-v1-1-210f2b36b9bf@weissschuh.net>
+Date: Mon, 16 Dec 2024 13:47:37 +0200
+Message-ID: <87r067svc6.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20241206-drm-connector-eld-mutex-v2-0-c9bce1ee8bea@linaro.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,41 +81,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Dec 06, 2024 at 11:43:03AM +0200, Dmitry Baryshkov wrote:
-> The connector->eld is accessed by the .get_eld() callback. This access
-> can collide with the drm_edid_to_eld() updating the data at the same
-> time. Add drm_connector.eld_mutex to protect the data from concurrenct
-> access.
-> 
-> The individual drivers were just compile tested. I propose to merge the
-> drm_connector and bridge drivers through drm-misc, allowing other
-> maintainers either to ack merging through drm-misc or merging the
-> drm-misc into their tree and then picking up correcponding patch.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> ---
-> Changes in v2:
-> - Also take the mutex in clear_eld() (Jani)
-> - Rebased on top of linux-next + drm-misc-next to solve build error
-> - Link to v1: https://lore.kernel.org/r/20241201-drm-connector-eld-mutex-v1-0-ba56a6545c03@linaro.org
-> 
-> ---
-> Dmitry Baryshkov (10):
->       drm/connector: add mutex to protect ELD from concurrent access
->       drm/bridge: anx7625: use eld_mutex to protect access to connector->eld
->       drm/bridge: ite-it66121: use eld_mutex to protect access to connector->eld
->       drm/amd/display: use eld_mutex to protect access to connector->eld
->       drm/exynos: hdmi: use eld_mutex to protect access to connector->eld
->       drm/i915/audio: use eld_mutex to protect access to connector->eld
->       drm/msm/dp: use eld_mutex to protect access to connector->eld
->       drm/radeon: use eld_mutex to protect access to connector->eld
->       drm/sti: hdmi: use eld_mutex to protect access to connector->eld
->       drm/vc4: hdmi: use eld_mutex to protect access to connector->eld
+On Mon, 16 Dec 2024, Thomas Wei=C3=9Fschuh <linux@weissschuh.net> wrote:
+> The sysfs core now allows instances of 'struct bin_attribute' to be
+> moved into read-only memory. Make use of that to protect them against
+> accidental or malicious modifications.
+>
+> Signed-off-by: Thomas Wei=C3=9Fschuh <linux@weissschuh.net>
 
-Granted the lack of reviews from AMD maintainers and granted that the
-rest of the series was reviewed and acked, is it suitable to leave those
-two patches out and merge the rest through drm-misc-next?
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 
--- 
-With best wishes
-Dmitry
+> ---
+>  drivers/gpu/drm/drm_sysfs.c | 10 +++++-----
+>  1 file changed, 5 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/drm_sysfs.c b/drivers/gpu/drm/drm_sysfs.c
+> index fb3bbb6adcd16f3f325a2ae8e35f41851c00b272..60c1f26edb6fad23153c32a29=
+fd3be02700fc938 100644
+> --- a/drivers/gpu/drm/drm_sysfs.c
+> +++ b/drivers/gpu/drm/drm_sysfs.c
+> @@ -261,7 +261,7 @@ static ssize_t enabled_show(struct device *device,
+>  }
+>=20=20
+>  static ssize_t edid_show(struct file *filp, struct kobject *kobj,
+> -			 struct bin_attribute *attr, char *buf, loff_t off,
+> +			 const struct bin_attribute *attr, char *buf, loff_t off,
+>  			 size_t count)
+>  {
+>  	struct device *connector_dev =3D kobj_to_dev(kobj);
+> @@ -315,21 +315,21 @@ static struct attribute *connector_dev_attrs[] =3D {
+>  	NULL
+>  };
+>=20=20
+> -static struct bin_attribute edid_attr =3D {
+> +static const struct bin_attribute edid_attr =3D {
+>  	.attr.name =3D "edid",
+>  	.attr.mode =3D 0444,
+>  	.size =3D 0,
+> -	.read =3D edid_show,
+> +	.read_new =3D edid_show,
+>  };
+>=20=20
+> -static struct bin_attribute *connector_bin_attrs[] =3D {
+> +static const struct bin_attribute *const connector_bin_attrs[] =3D {
+>  	&edid_attr,
+>  	NULL
+>  };
+>=20=20
+>  static const struct attribute_group connector_dev_group =3D {
+>  	.attrs =3D connector_dev_attrs,
+> -	.bin_attrs =3D connector_bin_attrs,
+> +	.bin_attrs_new =3D connector_bin_attrs,
+>  };
+>=20=20
+>  static const struct attribute_group *connector_dev_groups[] =3D {
+
+--=20
+Jani Nikula, Intel
