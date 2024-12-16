@@ -4,65 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A96E1E77183
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Dec 2024 14:04:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70C5FE77180
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Dec 2024 14:04:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 39B7310E690;
-	Mon, 16 Dec 2024 14:04:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C7C910E691;
+	Mon, 16 Dec 2024 14:04:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="cn57FJ3s";
+	dkim=pass (1024-bit key; unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.b="Q8X3uZbR";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CBC9210E2E5;
- Mon, 16 Dec 2024 13:15:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=PA5qK1Y5qawnNblg9rcx1vkSoH/ji+aiw7dwYyTmfVE=; b=cn57FJ3ssHtcSwjQ/Nd6k6282V
- gKAyeSWP2C1C5DH2v8TjWnJElbS4+9w1nIsNFWGAEDGDTBXqCuF571okxSLxWdyVo5tAnxLLbJTvc
- KtPFu8MZxn0flrPOkjRAG2cJz7WKDlNrvTVTW3wP31fh+iIqaQBy7N4EKW0hZHgeHaK93plDjdSBu
- lSI0cvinyZKdhiH/Du5XXEhNqvPTlfBsTvIwZjgr0JUrrYRkOfVh0a/ikDT25IpLQqV/FJzZX2Oip
- O1MWojXwS9YD6nHRnmC9Mm1haoyQT+gFjbUuKJ+Vfsxcl7FXra/9YsKg3kUxzzvgzcOrjcEo6PNwV
- PAthqoNQ==;
-Received: from [179.193.1.214] (helo=[192.168.15.100])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1tNAwE-003n5j-I0; Mon, 16 Dec 2024 14:15:06 +0100
-Message-ID: <8d6395fc-8143-4099-a9d6-b13d450d7fd7@igalia.com>
-Date: Mon, 16 Dec 2024 10:15:00 -0300
+Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 68E2010E5C8;
+ Mon, 16 Dec 2024 11:34:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
+ s=mail; t=1734348890;
+ bh=JrDLH7p18msOukR2ZaEDeYMa++p2Hc53UfMP6H+bFkY=;
+ h=From:Subject:Date:To:Cc:From;
+ b=Q8X3uZbRg9FYXju4K4AV8wuHPp1Z5kkc+5QRYWmkiU6dDjuLFcyxH3J5phdv4cEQi
+ poL+yaMJ/CxlEBDJnXlmaHuGfS5xmL8dq31N/GpSrH8tOIkkQgnZQb5r8ULpK83MZP
+ Ovpz2ObDaOltbl6o0mLPn0CiRt4BxpFTbh1a1UP0=
+From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+Subject: [PATCH 0/5] drm: Constify 'struct bin_attribute'
+Date: Mon, 16 Dec 2024 12:34:46 +0100
+Message-Id: <20241216-sysfs-const-bin_attr-drm-v1-0-210f2b36b9bf@weissschuh.net>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/1] drm/amdgpu: Use device wedged event
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- "Lazar, Lijo" <lijo.lazar@amd.com>
-Cc: airlied@gmail.com, simona@ffwll.ch, Raag Jadav <raag.jadav@intel.com>,
- lucas.demarchi@intel.com, rodrigo.vivi@intel.com,
- jani.nikula@linux.intel.com, andriy.shevchenko@linux.intel.com,
- lina@asahilina.net, michal.wajdeczko@intel.com,
- "Sharma, Shashank" <Shashank.Sharma@amd.com>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- himal.prasad.ghimiray@intel.com, aravind.iddamsetty@linux.intel.com,
- anshuman.gupta@intel.com, alexander.deucher@amd.com,
- amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com
-References: <20241212190909.28559-1-andrealmeid@igalia.com>
- <20241212190909.28559-2-andrealmeid@igalia.com>
- <d9f2583d-da79-4532-90fc-85028e977ceb@amd.com>
- <c7c498f0-2ee3-42f5-9b45-c87e52ffc3e4@igalia.com>
- <Z1xGe1X_XzB00J1Q@black.fi.intel.com>
- <ed83b0a1-62d1-48e5-ac7b-478be3043733@igalia.com>
- <28d7dcd8-ed3f-4e52-b7fa-c348a827085d@amd.com>
- <7c64746a-c1f6-46c6-a97f-cfd87e9ec3b7@amd.com>
- <5f7dd8ac-e8cc-4a40-b636-9917d82e27f5@igalia.com>
- <84b6dc5b-8c97-4c8d-8995-78cf88b883fc@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
-In-Reply-To: <84b6dc5b-8c97-4c8d-8995-78cf88b883fc@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAFYQYGcC/x3MQQqDMBBA0avIrB1Iglbbq4hINJN2Fo1lJogi3
+ t3Q5Vv8f4KSMCm8qhOENlZeU4GtK1g+Pr0JORSDM66xzraoh0bFZU2aceY0+ZwFg3zxOceuMyb
+ 4vn9AyX9Ckff/ehiv6wbk5oKRagAAAA==
+X-Change-ID: 20241215-sysfs-const-bin_attr-drm-9bf7700da886
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Qiang Yu <yuq825@gmail.com>, Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Xinhui Pan <Xinhui.Pan@amd.com>, Harry Wentland <harry.wentland@amd.com>, 
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ lima@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org, 
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1734348889; l=1344;
+ i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
+ bh=JrDLH7p18msOukR2ZaEDeYMa++p2Hc53UfMP6H+bFkY=;
+ b=Xj9EbjZgGe/b+nVilZvAUNOPjobV5Pr3zvNLYMijU+Cqt7GNooFVhGe8zr7suSEuHgTAadNxv
+ EqLRPoJWl7iAGW/qiD88SXGLPYXJObEWP0Ve31yZ+iBZIN5+6wrMarN
+X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
+ pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
 X-Mailman-Approved-At: Mon, 16 Dec 2024 14:04:38 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -78,121 +71,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+The sysfs core now allows instances of 'struct bin_attribute' to be
+moved into read-only memory. Make use of that to protect them against
+accidental or malicious modifications.
 
+Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
+---
+Thomas Weißschuh (5):
+      drm/sysfs: Constify 'struct bin_attribute'
+      drm/lima: Constify 'struct bin_attribute'
+      drm/i915: Constify 'struct bin_attribute'
+      drm/amdgpu: Constify 'struct bin_attribute'
+      drm/amd/display: Constify 'struct bin_attribute'
 
-Em 16/12/2024 10:10, Christian König escreveu:
-> Am 16.12.24 um 14:04 schrieb André Almeida:
->> Em 16/12/2024 07:38, Lazar, Lijo escreveu:
->>>
->>>
->>> On 12/16/2024 3:48 PM, Christian König wrote:
->>>> Am 13.12.24 um 16:56 schrieb André Almeida:
->>>>> Em 13/12/2024 11:36, Raag Jadav escreveu:
->>>>>> On Fri, Dec 13, 2024 at 11:15:31AM -0300, André Almeida wrote:
->>>>>>> Hi Christian,
->>>>>>>
->>>>>>> Em 13/12/2024 04:34, Christian König escreveu:
->>>>>>>> Am 12.12.24 um 20:09 schrieb André Almeida:
->>>>>>>>> Use DRM's device wedged event to notify userspace that a reset had
->>>>>>>>> happened. For now, only use `none` method meant for telemetry
->>>>>>>>> capture.
->>>>>>>>>
->>>>>>>>> Signed-off-by: André Almeida <andrealmeid@igalia.com>
->>>>>>>>> ---
->>>>>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 +++
->>>>>>>>>     1 file changed, 3 insertions(+)
->>>>>>>>>
->>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>>>>>>> b/drivers/gpu/ drm/amd/amdgpu/amdgpu_device.c
->>>>>>>>> index 96316111300a..19e1a5493778 100644
->>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>>>>>>> @@ -6057,6 +6057,9 @@ int amdgpu_device_gpu_recover(struct
->>>>>>>>> amdgpu_device *adev,
->>>>>>>>>             dev_info(adev->dev, "GPU reset end with ret = 
->>>>>>>>> %d\n", r);
->>>>>>>>> atomic_set(&adev->reset_domain->reset_res, r);
->>>>>>>>> +
->>>>>>>>> +    drm_dev_wedged_event(adev_to_drm(adev),
->>>>>>>>> DRM_WEDGE_RECOVERY_NONE);
->>>>>>>>
->>>>>>>> That looks really good in general. I would just make the
->>>>>>>> DRM_WEDGE_RECOVERY_NONE depend on the value of "r".
->>>>>>>>
->>>>>>>
->>>>>>> Why depend or `r`? A reset was triggered anyway, regardless of the
->>>>>>> success
->>>>>>> of it, shouldn't we tell userspace?
->>>>>>
->>>>>> A failed reset would perhaps result in wedging, atleast that's how 
->>>>>> i915
->>>>>> is handling it.
->>>>>>
->>>>>
->>>>> Right, and I think this raises the question of what wedge recovery
->>>>> method should I add for amdgpu... Christian?
->>>>>
->>>>
->>>> In theory a rebind should be enough to get the device going again, our
->>>> BOCO does a bus reset on driver load anyway.
->>>>
->>>
->>> The behavior varies between SOCs. In certain ones, if driver reset
->>> fails, that means it's really in a bad state and it would need system
->>> reboot.
->>>
->>
->> Is this documented somewhere? Then I could even add a 
->> DRM_WEDGE_RECOVERY_REBOOT so we can cover every scenario.
-> 
-> Not publicly as far as I know. But indeed a driver reset has basically 
-> the same chance of succeeding than a driver reload.
-> 
-> I think the use case we have here is more that the administrator 
-> intentionally disabled the reset to allow HW investigation.
-> 
-> So far we did that with a rather broken we don't do anything at all 
-> approach.
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c             |  6 +++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c                | 14 +++++++-------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c                | 13 ++++++-------
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c |  8 ++++----
+ drivers/gpu/drm/drm_sysfs.c                            | 10 +++++-----
+ drivers/gpu/drm/i915/i915_gpu_error.c                  |  8 ++++----
+ drivers/gpu/drm/i915/i915_sysfs.c                      | 12 ++++++------
+ drivers/gpu/drm/lima/lima_drv.c                        |  8 ++++----
+ 8 files changed, 39 insertions(+), 40 deletions(-)
+---
+base-commit: 78d4f34e2115b517bcbfe7ec0d018bbbb6f9b0b8
+change-id: 20241215-sysfs-const-bin_attr-drm-9bf7700da886
 
-OK.
-
-> 
->>> I had asked earlier about the utility of this one here. If this is just
->>> to inform userspace that driver has done a reset and recovered, it would
->>> need some additional context also. We have a mechanism in KFD which
->>> sends the context in which a reset has to be done. Currently, that's
->>> restricted to compute applications, but if this is in a similar line, we
->>> would like to pass some additional info like job timeout, RAS error etc.
->>>
->>
->> DRM_WEDGE_RECOVERY_NONE is to inform userspace that driver has done a 
->> reset and recovered, but additional data about like which job timeout, 
->> RAS error and such belong to devcoredump I guess, where all data is 
->> gathered and collected later.
-> 
-> I think somebody else mentioned it as well that the source of the issue, 
-> e.g. the PID of the submitting process would be helpful as well for 
-> supervising daemons which need to restart processes when they caused 
-> some issue.
-> 
-
-It was me :) we have a use case that we would need the PID for the 
-daemon indeed, but the daemon doesn't need to know what's the RAS error 
-or the job name that timeouted, there's no immediate action to be taken 
-with this information, contrary to the PID that we need to know.
-
-> We just postponed adding that till later.
-> 
-> Regards,
-> Christian.
-> 
->>
->>> Thanks,
->>> Lijo
->>>
->>>> Regards,
->>>> Christian.
->>>
->>
-> 
+Best regards,
+-- 
+Thomas Weißschuh <linux@weissschuh.net>
 
