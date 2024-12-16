@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B8BAE77187
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Dec 2024 11:26:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C158E7717F
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Dec 2024 11:26:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1807210E922;
-	Tue, 17 Dec 2024 11:26:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 312E610E2DD;
+	Tue, 17 Dec 2024 11:26:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="by5kvuIs";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="VBC7F9dy";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F90110E6C0;
- Mon, 16 Dec 2024 15:04:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E93D610E1C8;
+ Mon, 16 Dec 2024 16:21:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
@@ -22,16 +22,16 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=3eVpJx106NZNtZJBx56mmaimA9TRsBvd5tEkdIyqrT8=; b=by5kvuIswIqoBNE+J81OWkm2bG
- 05g304C+qXB5ENeUmBQDYYgpgvreGWQ2cLmqmMhps+2G4e/ld5b5wXj0ieD2GCvml3SaERojT5fIA
- rWn6oMwQA2/3lauIaxRR6a0zs3FK6dlfjbGGbT+4Zkvhf4JB3coOV+VPXtm0eXr5TRxGKR3GClMt3
- m4aFxuANba4ftaoRPxT9WJ91cpIXywCNnWP4F/RWrgaZVMuCX9rfou8ofxG/YpneZaW+onRfcY28j
- QgMZM4Nwhd/MsfrNLB3nT360N+ERJi/6HZFbFinroWeIBQVMvEKQE8XvlF2DjaNfZWLe0eAnlQpDX
- zD6DCTzg==;
+ bh=ZbebpDFFFNf13wUEwMhbDOAbWmM9tWxfWhhdGNIFxd0=; b=VBC7F9dy65FOnCwO3xcNxaIn2F
+ Pg1+qTmL/XcPUQW1nrFUp16n9vNnQHHeKy7qTqiT4ihV/Q+1oefgruzXdEcgf63e7pL8U5zKb/fKy
+ RSITB9aHakfYQ1jBksabcbY9LVmN3sIhwOj0y4+zyJ969zv07/cZPITI/A67A1BuwclVN5ThC/320
+ 3xkLPUxjRMcrV+ypYldCRTYsCAu6Sq99dHS3Xpx7pTYvJEPyKGyzfxgvtwZLsW/Qrkc5sEIh5xrP6
+ WX7YE7KyB6bMbQu8SIJ7gSBzqMukeHUdpatSHUjwd47An1XA12/Mi+4BfWTss3n/5op6/mg66ax2Z
+ w2aHnuHQ==;
 Received: from [179.193.1.214] (helo=localhost.localdomain)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1tNCdy-003p0Z-Vh; Mon, 16 Dec 2024 16:04:23 +0100
+ id 1tNDqQ-003qch-0z; Mon, 16 Dec 2024 17:21:18 +0100
 From: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
 To: Raag Jadav <raag.jadav@intel.com>, airlied@gmail.com, simona@ffwll.ch,
  lucas.demarchi@intel.com, rodrigo.vivi@intel.com,
@@ -42,12 +42,12 @@ Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  anshuman.gupta@intel.com, alexander.deucher@amd.com,
  andrealmeid@igalia.com, amd-gfx@lists.freedesktop.org,
  kernel-dev@igalia.com, Shashank Sharma <shashank.sharma@amd.com>
-Subject: [PATCH v2 1/1] drm/amdgpu: Use device wedged event
-Date: Mon, 16 Dec 2024 12:02:50 -0300
-Message-ID: <20241216150250.38242-2-andrealmeid@igalia.com>
+Subject: [PATCH v3 1/1] drm/amdgpu: Use device wedged event
+Date: Mon, 16 Dec 2024 13:21:04 -0300
+Message-ID: <20241216162104.58241-2-andrealmeid@igalia.com>
 X-Mailer: git-send-email 2.47.1
-In-Reply-To: <20241216150250.38242-1-andrealmeid@igalia.com>
-References: <20241216150250.38242-1-andrealmeid@igalia.com>
+In-Reply-To: <20241216162104.58241-1-andrealmeid@igalia.com>
+References: <20241216162104.58241-1-andrealmeid@igalia.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -76,13 +76,14 @@ succeed.
 Acked-by: Shashank Sharma <shashank.sharma@amd.com>
 Signed-off-by: André Almeida <andrealmeid@igalia.com>
 ---
-v2: Only report reset if reset succeeded
+v3: fix if condition
+v2: Only report reset if reset succedded
 ---
  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++++
  1 file changed, 4 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 96316111300a..b0079d66d9e6 100644
+index 96316111300a..c8012253ebed 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
 @@ -6057,6 +6057,10 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
@@ -90,7 +91,7 @@ index 96316111300a..b0079d66d9e6 100644
  
  	atomic_set(&adev->reset_domain->reset_res, r);
 +
-+	if (r)
++	if (!r)
 +		drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE);
 +
  	return r;
