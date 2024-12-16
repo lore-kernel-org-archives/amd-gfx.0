@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50589E77186
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Dec 2024 14:04:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A96E1E77183
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Dec 2024 14:04:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E97210E68C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 39B7310E690;
 	Mon, 16 Dec 2024 14:04:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="aF+o01as";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="cn57FJ3s";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B5D5A10E652;
- Mon, 16 Dec 2024 13:04:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CBC9210E2E5;
+ Mon, 16 Dec 2024 13:15:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
@@ -22,24 +22,24 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
  Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=XND6TO5sEm0SKTknLagdVQ8hB4BMhSt3Ch4J8+pH2A8=; b=aF+o01asKMRe9xwBYjCjrZmKdp
- 8jZEJjOxTeLEzTKa/Hc2/cG6rQBu2TBjdx7m2iGVqRLGL2068b2fEIy2TAhC2OKz9AKLvyEIQxDL4
- 4u/+qO+F4G4RjW5xvSq8LY4Lg9XKxMNfUgCO0aoYZI9h79bTKXC1L2BxGE4E6hDjiH+n7r2YrcKoc
- XCFz+djPt6gVlCUOsgmotK7TRe6C3xTDFjtg8PlSQaRkgAkARVtZA9wsclMtbllBT4GvGzd6sulDH
- Hy7eXsU3gMjo89b+kM1KOiY0epBw33riPyzW1oPcF86uUibedLQSaMX8/Bek2zs9oF0Co2zbCuj5J
- cI1KAryw==;
+ bh=PA5qK1Y5qawnNblg9rcx1vkSoH/ji+aiw7dwYyTmfVE=; b=cn57FJ3ssHtcSwjQ/Nd6k6282V
+ gKAyeSWP2C1C5DH2v8TjWnJElbS4+9w1nIsNFWGAEDGDTBXqCuF571okxSLxWdyVo5tAnxLLbJTvc
+ KtPFu8MZxn0flrPOkjRAG2cJz7WKDlNrvTVTW3wP31fh+iIqaQBy7N4EKW0hZHgeHaK93plDjdSBu
+ lSI0cvinyZKdhiH/Du5XXEhNqvPTlfBsTvIwZjgr0JUrrYRkOfVh0a/ikDT25IpLQqV/FJzZX2Oip
+ O1MWojXwS9YD6nHRnmC9Mm1haoyQT+gFjbUuKJ+Vfsxcl7FXra/9YsKg3kUxzzvgzcOrjcEo6PNwV
+ PAthqoNQ==;
 Received: from [179.193.1.214] (helo=[192.168.15.100])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1tNAm6-003msX-8s; Mon, 16 Dec 2024 14:04:38 +0100
-Message-ID: <5f7dd8ac-e8cc-4a40-b636-9917d82e27f5@igalia.com>
-Date: Mon, 16 Dec 2024 10:04:28 -0300
+ id 1tNAwE-003n5j-I0; Mon, 16 Dec 2024 14:15:06 +0100
+Message-ID: <8d6395fc-8143-4099-a9d6-b13d450d7fd7@igalia.com>
+Date: Mon, 16 Dec 2024 10:15:00 -0300
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 1/1] drm/amdgpu: Use device wedged event
-To: "Lazar, Lijo" <lijo.lazar@amd.com>
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Lazar, Lijo" <lijo.lazar@amd.com>
 Cc: airlied@gmail.com, simona@ffwll.ch, Raag Jadav <raag.jadav@intel.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
  lucas.demarchi@intel.com, rodrigo.vivi@intel.com,
  jani.nikula@linux.intel.com, andriy.shevchenko@linux.intel.com,
  lina@asahilina.net, michal.wajdeczko@intel.com,
@@ -56,9 +56,11 @@ References: <20241212190909.28559-1-andrealmeid@igalia.com>
  <ed83b0a1-62d1-48e5-ac7b-478be3043733@igalia.com>
  <28d7dcd8-ed3f-4e52-b7fa-c348a827085d@amd.com>
  <7c64746a-c1f6-46c6-a97f-cfd87e9ec3b7@amd.com>
+ <5f7dd8ac-e8cc-4a40-b636-9917d82e27f5@igalia.com>
+ <84b6dc5b-8c97-4c8d-8995-78cf88b883fc@amd.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
-In-Reply-To: <7c64746a-c1f6-46c6-a97f-cfd87e9ec3b7@amd.com>
+In-Reply-To: <84b6dc5b-8c97-4c8d-8995-78cf88b883fc@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 16 Dec 2024 14:04:38 +0000
@@ -78,84 +80,119 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-Em 16/12/2024 07:38, Lazar, Lijo escreveu:
-> 
-> 
-> On 12/16/2024 3:48 PM, Christian König wrote:
->> Am 13.12.24 um 16:56 schrieb André Almeida:
->>> Em 13/12/2024 11:36, Raag Jadav escreveu:
->>>> On Fri, Dec 13, 2024 at 11:15:31AM -0300, André Almeida wrote:
->>>>> Hi Christian,
->>>>>
->>>>> Em 13/12/2024 04:34, Christian König escreveu:
->>>>>> Am 12.12.24 um 20:09 schrieb André Almeida:
->>>>>>> Use DRM's device wedged event to notify userspace that a reset had
->>>>>>> happened. For now, only use `none` method meant for telemetry
->>>>>>> capture.
+Em 16/12/2024 10:10, Christian König escreveu:
+> Am 16.12.24 um 14:04 schrieb André Almeida:
+>> Em 16/12/2024 07:38, Lazar, Lijo escreveu:
+>>>
+>>>
+>>> On 12/16/2024 3:48 PM, Christian König wrote:
+>>>> Am 13.12.24 um 16:56 schrieb André Almeida:
+>>>>> Em 13/12/2024 11:36, Raag Jadav escreveu:
+>>>>>> On Fri, Dec 13, 2024 at 11:15:31AM -0300, André Almeida wrote:
+>>>>>>> Hi Christian,
 >>>>>>>
->>>>>>> Signed-off-by: André Almeida <andrealmeid@igalia.com>
->>>>>>> ---
->>>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 +++
->>>>>>>     1 file changed, 3 insertions(+)
+>>>>>>> Em 13/12/2024 04:34, Christian König escreveu:
+>>>>>>>> Am 12.12.24 um 20:09 schrieb André Almeida:
+>>>>>>>>> Use DRM's device wedged event to notify userspace that a reset had
+>>>>>>>>> happened. For now, only use `none` method meant for telemetry
+>>>>>>>>> capture.
+>>>>>>>>>
+>>>>>>>>> Signed-off-by: André Almeida <andrealmeid@igalia.com>
+>>>>>>>>> ---
+>>>>>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 +++
+>>>>>>>>>     1 file changed, 3 insertions(+)
+>>>>>>>>>
+>>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>>>>>>>> b/drivers/gpu/ drm/amd/amdgpu/amdgpu_device.c
+>>>>>>>>> index 96316111300a..19e1a5493778 100644
+>>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>>>>>>>> @@ -6057,6 +6057,9 @@ int amdgpu_device_gpu_recover(struct
+>>>>>>>>> amdgpu_device *adev,
+>>>>>>>>>             dev_info(adev->dev, "GPU reset end with ret = 
+>>>>>>>>> %d\n", r);
+>>>>>>>>> atomic_set(&adev->reset_domain->reset_res, r);
+>>>>>>>>> +
+>>>>>>>>> +    drm_dev_wedged_event(adev_to_drm(adev),
+>>>>>>>>> DRM_WEDGE_RECOVERY_NONE);
+>>>>>>>>
+>>>>>>>> That looks really good in general. I would just make the
+>>>>>>>> DRM_WEDGE_RECOVERY_NONE depend on the value of "r".
+>>>>>>>>
 >>>>>>>
->>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>>>>> b/drivers/gpu/ drm/amd/amdgpu/amdgpu_device.c
->>>>>>> index 96316111300a..19e1a5493778 100644
->>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>>>>> @@ -6057,6 +6057,9 @@ int amdgpu_device_gpu_recover(struct
->>>>>>> amdgpu_device *adev,
->>>>>>>             dev_info(adev->dev, "GPU reset end with ret = %d\n", r);
->>>>>>> atomic_set(&adev->reset_domain->reset_res, r);
->>>>>>> +
->>>>>>> +    drm_dev_wedged_event(adev_to_drm(adev),
->>>>>>> DRM_WEDGE_RECOVERY_NONE);
+>>>>>>> Why depend or `r`? A reset was triggered anyway, regardless of the
+>>>>>>> success
+>>>>>>> of it, shouldn't we tell userspace?
 >>>>>>
->>>>>> That looks really good in general. I would just make the
->>>>>> DRM_WEDGE_RECOVERY_NONE depend on the value of "r".
+>>>>>> A failed reset would perhaps result in wedging, atleast that's how 
+>>>>>> i915
+>>>>>> is handling it.
 >>>>>>
 >>>>>
->>>>> Why depend or `r`? A reset was triggered anyway, regardless of the
->>>>> success
->>>>> of it, shouldn't we tell userspace?
+>>>>> Right, and I think this raises the question of what wedge recovery
+>>>>> method should I add for amdgpu... Christian?
+>>>>>
 >>>>
->>>> A failed reset would perhaps result in wedging, atleast that's how i915
->>>> is handling it.
+>>>> In theory a rebind should be enough to get the device going again, our
+>>>> BOCO does a bus reset on driver load anyway.
 >>>>
 >>>
->>> Right, and I think this raises the question of what wedge recovery
->>> method should I add for amdgpu... Christian?
+>>> The behavior varies between SOCs. In certain ones, if driver reset
+>>> fails, that means it's really in a bad state and it would need system
+>>> reboot.
 >>>
 >>
->> In theory a rebind should be enough to get the device going again, our
->> BOCO does a bus reset on driver load anyway.
+>> Is this documented somewhere? Then I could even add a 
+>> DRM_WEDGE_RECOVERY_REBOOT so we can cover every scenario.
+> 
+> Not publicly as far as I know. But indeed a driver reset has basically 
+> the same chance of succeeding than a driver reload.
+> 
+> I think the use case we have here is more that the administrator 
+> intentionally disabled the reset to allow HW investigation.
+> 
+> So far we did that with a rather broken we don't do anything at all 
+> approach.
+
+OK.
+
+> 
+>>> I had asked earlier about the utility of this one here. If this is just
+>>> to inform userspace that driver has done a reset and recovered, it would
+>>> need some additional context also. We have a mechanism in KFD which
+>>> sends the context in which a reset has to be done. Currently, that's
+>>> restricted to compute applications, but if this is in a similar line, we
+>>> would like to pass some additional info like job timeout, RAS error etc.
+>>>
 >>
+>> DRM_WEDGE_RECOVERY_NONE is to inform userspace that driver has done a 
+>> reset and recovered, but additional data about like which job timeout, 
+>> RAS error and such belong to devcoredump I guess, where all data is 
+>> gathered and collected later.
 > 
-> The behavior varies between SOCs. In certain ones, if driver reset
-> fails, that means it's really in a bad state and it would need system
-> reboot.
-> 
-
-Is this documented somewhere? Then I could even add a 
-DRM_WEDGE_RECOVERY_REBOOT so we can cover every scenario.
-
-> I had asked earlier about the utility of this one here. If this is just
-> to inform userspace that driver has done a reset and recovered, it would
-> need some additional context also. We have a mechanism in KFD which
-> sends the context in which a reset has to be done. Currently, that's
-> restricted to compute applications, but if this is in a similar line, we
-> would like to pass some additional info like job timeout, RAS error etc.
+> I think somebody else mentioned it as well that the source of the issue, 
+> e.g. the PID of the submitting process would be helpful as well for 
+> supervising daemons which need to restart processes when they caused 
+> some issue.
 > 
 
-DRM_WEDGE_RECOVERY_NONE is to inform userspace that driver has done a 
-reset and recovered, but additional data about like which job timeout, 
-RAS error and such belong to devcoredump I guess, where all data is 
-gathered and collected later.
+It was me :) we have a use case that we would need the PID for the 
+daemon indeed, but the daemon doesn't need to know what's the RAS error 
+or the job name that timeouted, there's no immediate action to be taken 
+with this information, contrary to the PID that we need to know.
 
-> Thanks,
-> Lijo
+> We just postponed adding that till later.
 > 
->> Regards,
->> Christian.
+> Regards,
+> Christian.
+> 
+>>
+>>> Thanks,
+>>> Lijo
+>>>
+>>>> Regards,
+>>>> Christian.
+>>>
+>>
 > 
 
