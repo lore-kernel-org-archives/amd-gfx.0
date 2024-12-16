@@ -4,84 +4,155 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 786E7E77180
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Dec 2024 19:53:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1D14E7717F
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Dec 2024 20:20:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BBE5910E13A;
-	Mon, 16 Dec 2024 19:53:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 026E010E2D2;
+	Mon, 16 Dec 2024 20:20:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="f9y78Cb9";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0Y2WsviG";
 	dkim-atps=neutral
-Received: from mail-pj1-x1032.google.com (mail-pj1-x1032.google.com
- [IPv6:2607:f8b0:4864:20::1032])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3199510E13A;
- Mon, 16 Dec 2024 19:53:39 +0000 (UTC)
-Received: by mail-pj1-x1032.google.com with SMTP id
- 98e67ed59e1d1-2ef05d0ef18so794549a91.0; 
- Mon, 16 Dec 2024 11:53:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1734378819; x=1734983619; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=MIYj4bJCscXDlJoY7W+vXtaBhQexWWb3wrX5bFyCwNs=;
- b=f9y78Cb9HZ17C6JDDViRrbIi1D52tv8IhX2jWSOK1gRNY2WLvGEDWLOg+V3l/5NLC7
- rJjAZEgS7EA8XnsFbooTuiwe1dZK2hD8K6Fct8KNJ6R1UPB5ROvCN7jFY2l/uvPmzNPa
- T6rFfpHn0asn+E0HtpaVwUNnO7nsz7l/T+f+bb0kcjVNgQew+CZrDa8tpLI0YMG5TJt/
- 66kQOKX+i7ZSUoFcBaaZFRqeqZR7s6VttesF5LHlAdjHVJYvb74YHLixTf+3hSJ3BAhG
- dDNtLnLGuW48mzqrC//Uxcxx3R2/NhB3S6Mf141ywHjHwl0a4CyMLW7phR+nUI5+KvyF
- UljA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734378819; x=1734983619;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=MIYj4bJCscXDlJoY7W+vXtaBhQexWWb3wrX5bFyCwNs=;
- b=ao3EaWoARHWFhxsqQ3H6pfZgQQBdlV9k48In5phRyOu9P/x6hYITtr9WlOtk+IPQrE
- 7XHYtVHdgYfsu5tsHzy1ITXZJr1VCUXYdw7sn7T+I8WvSWhCylgxQA9Zb1ZJMfoXTIaz
- 8DqMkdeLwQqrjf1IlY4zfw8F44rHs9k+4NZGGFmVC8VJRV064KxGAx937hcxtXBnZ4zF
- bRb96qhwvfLrEIsTJue+t3/+dgTKwullwifVWLNLRk31alnEOy1LVrhx19n9iDyL9lzI
- GChCPm4qMPbuP7IPlMCSbMBXSEnehgWe3S1hJ03TjXzH5wuLtXJqPAM8eT+1UtbnC6KA
- G1Fg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVZo2kEFnCn7DnYViIG+ZYwunKb3gJAe33FHwugKLqT20imrhzagJ9fOi1565tu30ENfGkkkA==@lists.freedesktop.org,
- AJvYcCViyYAnRfOznoLpsghqgj0K49SwVXUDfjGFMoQo/ml4zM/GPpGQtTG1Rqv27GbQUcFRYOm7H0b7@lists.freedesktop.org,
- AJvYcCVpLYv4gl8wJFKQjwFg8y0ycVfsRPahjSXgrBerbh/A80AHMmW3m3+fGgG4se556dQbolGfgrcI0sQk@lists.freedesktop.org,
- AJvYcCWHFe+R+8skYu+Kog76is33CSsKgSQkeSPo2t+pghLtpPWnCONb7xdHboL+UDYGElvcrHqhddItGeCQ@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzM7RZADF0cv0xUTpprjgagcp7DSdotNe0LsyROBQgmDXIzEwuJ
- zeQ+LCzyQ0WYUQIlBtH4+f6VzBncEE16QEVwKQwDCzSOqkq+hsZaVYtl2J1Rs/2nhFUgtO7qGd0
- D4RF6u8UcOyib9fPBpOnHq9j+IrE=
-X-Gm-Gg: ASbGncvm365eBMJw4G9ARL076YYcEyK9C8SFlkg4EWHEMJOdsfn0r4Z4tFXTGMSQsib
- h7E4oa/I3B0azvFJicUhUkpTl/KzT5yZsbu38tA==
-X-Google-Smtp-Source: AGHT+IHw07J50LjkLVhVLiSn1KCIPan7Le0TMFJV6k1ZwY/55RNLENGR9IgNrc4XNQq+FbWOpLs0wM/oMgnVdK0H3xA=
-X-Received: by 2002:a17:90b:3509:b0:2ee:3fa7:ef23 with SMTP id
- 98e67ed59e1d1-2f2905b4479mr7485753a91.8.1734378818588; Mon, 16 Dec 2024
- 11:53:38 -0800 (PST)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2040.outbound.protection.outlook.com [40.107.223.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 65A5810E2D2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 16 Dec 2024 20:20:08 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=D0WClc/25OHUd/Mx7tgUK0XOWrxVsfEgkp7dHKKwN3tKMAHbjJAVDH+yIeh5swLjvr5MkliKUfzxM69e73+gcbI5R1JglYw/cwE77kZR4gyN3DFvtBc+2irYJTrtan9PSvXyZYlYiex/PO+Y14CAT/Wh0HxFLNdu9d4jOYN5jXr58NIR7lRh4e6RKEA3UYJK6t+jiO0nNRwEnfksyrAH0s4HCdomSeFDDFRgRTGBQawWYZOztu4r+REwyLWU+uFtnE3Xvr11ELPjaliuJ5n+UuD69E8QhS9s0AL/qpdCIM6fYTpnmA6xtGohJMy5+iRJhQdqRqePZfBJgTSeUs9UHA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Usdc9DyUTtRmFZs912NWVvZvo/POEoce765Vjr+y5qA=;
+ b=jKXuhuHuzdeaLHuxBaZNmFPbV+4W5XjiP3u5nF21Hae5hs6oK1KbzNG4WadWYyPQBEzyujq1/GqaCKErG759J1n9OlR7JN8AoZTwq6ZnXZxgpLdBCFxk9N7lISTgYTp73MjtZuLQQ3CNNtMbKzuQI2oTWD0aBUTqvzC9JmYz159f6mhI2wGumEBJwJU1gi85Tn+ZTf4UMHI+XcRNwxQgSgvmRWIqGuqhy+rJsHmDWP1m79IkJsGKWChaVNSwzNYtiuslozepxUP4O7uc7hxIoX0NJU0x3VRPdQgxwJvXaN7eFoE9kxOwQCdm24muFxJSZ4DpdsXim98+SAU9KG6VOw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Usdc9DyUTtRmFZs912NWVvZvo/POEoce765Vjr+y5qA=;
+ b=0Y2WsviGUmTU43Fzq0zf+aB75BNOgjT+VvJ/AY1wpKlnYffKD9DgTCK8T2WiAd12Q4h7DxXonN6p+JnCoa09DT7fjz1PwNhMwG+Z5z43EFl7C/1S3TTxYXkS7dQ3QcI4Voit6YPlkUkl8wohp913NwjOX3FXPoNFtziJUsyjBuE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
+ by MN0PR12MB5834.namprd12.prod.outlook.com (2603:10b6:208:379::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8251.21; Mon, 16 Dec
+ 2024 20:20:06 +0000
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::37ee:a763:6d04:81ca]) by MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::37ee:a763:6d04:81ca%4]) with mapi id 15.20.8251.015; Mon, 16 Dec 2024
+ 20:20:05 +0000
+Message-ID: <a3d33784-24fb-41ca-b86b-26c43056ef48@amd.com>
+Date: Mon, 16 Dec 2024 14:20:03 -0600
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 12/17] Revert "drm/amd/display: Fix green screen issue
+ after suspend"
+To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>,
+ Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>,
+ Fangzhi Zuo <jerry.zuo@amd.com>, Zaeem Mohamed <zaeem.mohamed@amd.com>,
+ Solomon Chiu <solomon.chiu@amd.com>, Daniel Wheeler
+ <daniel.wheeler@amd.com>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+References: <20241213155405.393252-1-Rodrigo.Siqueira@amd.com>
+ <20241213155405.393252-13-Rodrigo.Siqueira@amd.com>
+Content-Language: en-US
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <20241213155405.393252-13-Rodrigo.Siqueira@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SA0PR11CA0066.namprd11.prod.outlook.com
+ (2603:10b6:806:d2::11) To MN0PR12MB6101.namprd12.prod.outlook.com
+ (2603:10b6:208:3cb::10)
 MIME-Version: 1.0
-References: <20241216-sysfs-const-bin_attr-drm-v1-0-210f2b36b9bf@weissschuh.net>
- <20241216-sysfs-const-bin_attr-drm-v1-4-210f2b36b9bf@weissschuh.net>
-In-Reply-To: <20241216-sysfs-const-bin_attr-drm-v1-4-210f2b36b9bf@weissschuh.net>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 16 Dec 2024 14:53:26 -0500
-Message-ID: <CADnq5_Md9Oy5LdrNSPLFcH7fbtJqjxZ-usrVwj93OOxLjjEgmA@mail.gmail.com>
-Subject: Re: [PATCH 4/5] drm/amdgpu: Constify 'struct bin_attribute'
-To: =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Qiang Yu <yuq825@gmail.com>, Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Xinhui Pan <Xinhui.Pan@amd.com>, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, lima@lists.freedesktop.org, 
- intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|MN0PR12MB5834:EE_
+X-MS-Office365-Filtering-Correlation-Id: a57786e9-0e57-4742-4bc2-08dd1e0f0792
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?bndGWmk3dGJ6TjF0dU1pUU9KaTU3blo0TVJqanV1T0FFd3J1RXJRNTR2WVhk?=
+ =?utf-8?B?TGlKNEs0elpyeUVTbThFTnpOcnd3Y1FxRXdjZWhTL1kwb3pBVDNyVmd6VXVz?=
+ =?utf-8?B?TjJPZDl3MHpOR0VzYm5xT0hGaGR5clBPUnROWW91RC9QZTdad3ZHYi9ZZFBu?=
+ =?utf-8?B?aDhMc2gzTmhkY2RBeldGQ3JzMzZHeHRLWEUrZ2FlVTAxSnRGWTZTTWVHeVdO?=
+ =?utf-8?B?TU1Ia2ZWQ2JscUU4Q1NrTTBLWXhQSkF3ZlBKR3JUVlA3RUN6dm4veHRoek9s?=
+ =?utf-8?B?Z0xSSTRvME9zVm5ON3lLTHJ1WDZsUm5uYmRGcWRmVzN6bWpzSXFhS0N1M3VX?=
+ =?utf-8?B?Q1FtdUYyYnhCSVE1YW1BM3lMTlIycW9WTUo1aldkaEt2dTRHMlo2S3ZXRWxX?=
+ =?utf-8?B?UXQxb1JvM1BsVnhmR2xHb3dPbzhTdWlTWmNTZ2RQQWxTQjNhOC92dXg1ZFlx?=
+ =?utf-8?B?ZHhVd1VFR1hsRjBUMy9HQTRSMTVBam4vanJwOWkrTVo5MnFJWGd0N1kwL0xL?=
+ =?utf-8?B?MjNoT3ArbFdEanpadm9xbkJYZU1qTnBsMnBaUkh2TitQaTRnakpFbElwekha?=
+ =?utf-8?B?dzRldHVZR3NvRmdiRWZWay9UMjJCZWFXTHdvcFhSejdrRzJ2Q2Nnek9RME95?=
+ =?utf-8?B?V0dDWFFhcmNUOXdVYjkyQ3plTlNyZ0h3emxsSHExYUttZ3hGWGJTTDRja3Vy?=
+ =?utf-8?B?T2s2THRZbk9QMGR5N0pGWXNjakE4VmJaWS9tVmZIME94c3c1eEd2U3NZWFZv?=
+ =?utf-8?B?eWdDSkRCekszK0tONkdNSkMydmVMbEpMa1NncWx6WC9nOHNFN1N4UHBpaHBG?=
+ =?utf-8?B?QkhjSnpRWXp5c2ZwOGFkaVJQK3B6a0RSN3NYWHpObkJYZk9aTzZWTFpzZFFp?=
+ =?utf-8?B?b040QnpPRkxLVkZXbStqdnlYWEQ1MzF0OG5yeXMrSnR3cGZKK1krcXlnV0Nm?=
+ =?utf-8?B?d1NQdGVEdHgxd1JRSG5ITVdyUGxUN0d2NVM3MFVaZXd6R2dENVBzWExDMC9L?=
+ =?utf-8?B?QWluZWtjTkpkL2tRVTAxNVdIUEMrZDBadWh1eGlVOXNrOGUzU2ZuMEs4ZmtW?=
+ =?utf-8?B?ZFpnbXhtMXRXVlFwQys5Nkh1ZTdMc2NWNVBaSGN3cmlnbFJiamV5bUtjMGhU?=
+ =?utf-8?B?cWJmWVdvQml5NXlYV3p6R3RSSytwZlRzeEltSWoxZ1EzTHFDUWpJQUNkc0xm?=
+ =?utf-8?B?R3lyUnBUNGdHUHNkUDg3aUdmWmdPdWd6NVhmdi9xVklramlkenNMKzI0dC9D?=
+ =?utf-8?B?UmxjQ0J2MTE4N2RYQ3RqcmdwUm04YTNqUENvdENjcmZkNFhIajF2eEhwc0VB?=
+ =?utf-8?B?aWtvbWx2eU1NVzJUZjRxVVRQODEyQzRscW9XZndJejJ1M1hieUFMMHhmeVZl?=
+ =?utf-8?B?RGRneG93QWxkdFppY01QdnJNRDlWS1dqK2x3aGhvTXFwOFV4dnNuMzJESzl3?=
+ =?utf-8?B?MnF4YVh3b2Vxd2ZyOGk0SzFIQVBFNHJGOG83WSt1dzMvN21xeUZEZmFXcXRL?=
+ =?utf-8?B?bWQvd0JYc3UrVkRUaEViOTZJeVN6SHVDMjVHSmFxR0FXa3RvMGo5Zit2KzJ1?=
+ =?utf-8?B?TE1mOGdrejNXRG5GUld3Q0pBWnA1ODRvYkQzay83RUJUUTl3Uy82OS9jQVh0?=
+ =?utf-8?B?VmhSRTA1MlI4ajNiRlNrUmJxYmh3T3BpRFgrZFZRZ1JacUx0ODQraW9KVExQ?=
+ =?utf-8?B?aTROU3BSYWdiZ013cVRRMHBxaks2SGRQUjViNnA0Q09RbER6YTFZemd3Z1Vo?=
+ =?utf-8?B?MWVzUG51NlBUUzQyZ1BreDkzbkFGSXc5NWpSVFFwYjZnU1JqU1hiOWpaZlFD?=
+ =?utf-8?B?UVZBUVg5SVVJaW1DRU80QURwdXZpMXVJT09oOGF4aTRSZWRTeWdhV001di9i?=
+ =?utf-8?Q?4FsaGze6z/nbU?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cTZJY3ZrQVRGZzZOUmtBbU5pN0hNc0YwQVB3bjQwck92eDJLc2lsWnhsV0RH?=
+ =?utf-8?B?WjhreG5NUkxaeDJOVVRVLzVRSU82clhKTkwrQjZoRFdCNDJLbFMxUmgwWnBk?=
+ =?utf-8?B?MjlXNGNtRFgxTHZqOHAzTldVUVV4elQrc1N2OXE3YU9URFl2dDVlNzdWQy9P?=
+ =?utf-8?B?S3dHQ0FlQ0t2TkN5VDVZSU1wUVZjcDViUjJNTXYraGVXWERtVzJvVG8rb1F2?=
+ =?utf-8?B?OUUydGwrbWFiV0dHWEh1YmJCMXNmckJPYlJIV3g0a3ljYXVSTTBzK1l0UlJL?=
+ =?utf-8?B?eVJXQlcwUjllOC9Rcm9EZmZEZUo3K25TbXMvbUdqajIyT1VKMUdNaUJwZkJy?=
+ =?utf-8?B?aW5QSDljUkF5aGtwSmt6UjM5ajhweVlNVExCRVE5anZSZkFjS2dRR2V2cTBh?=
+ =?utf-8?B?NktwMlE0ajJTWkF0VHB3Q3F2bmZ2TWx1eHM0S0o3UVBkUStOQmVSRHVZQ1p0?=
+ =?utf-8?B?MjM2N0ZiejBmNDBUbjhhQmlRajRQUHJDOWxWRDBXc3QyOS9iTzBOcHE4ZkRo?=
+ =?utf-8?B?NHlKWFBHWFFWS2ZUTUZyNjR6YUJjTUpOZlRnL3pBbFMxditFejhFYnJKa3hN?=
+ =?utf-8?B?MEF6T2huUFJ3TS9Jb3ZPdTVqS0NuNXRIb2VibzYrblJDNytSdER1U3hKRFJ3?=
+ =?utf-8?B?bWFXNWxJZmlEQ2R4MG9KWmQ5Mlh1WTJGdGE5Mk1PUGg5V29sbnIyRWtCMStl?=
+ =?utf-8?B?YkdrWUFIVGRRakdkOStlQ2RzM3EzcEJVaGl5clBialJ2ZFRrWWtFekp1d2p6?=
+ =?utf-8?B?cU40SXlqT3Z1V1gweldhSXdTb0ZSam5yT3grUzljTDA5eTJiRldSKzh1aVlr?=
+ =?utf-8?B?Vng5Y3pseGJLeWZrZElmTzQzM3gzNjhNRjBrNW5ucnIveHBSL2RJQTY4ZUVV?=
+ =?utf-8?B?MWFnSDRDWXVEL3ByS1F0WEh0UzNod3U0bnd5TWJmS056UTZEUm5abFlpaGgw?=
+ =?utf-8?B?VXM3bzl6dXNQUzRGWmRLekc1dFdmUFBWc2ZOeGpjOGdCZkZjMHZJZzRNOFlW?=
+ =?utf-8?B?L0Q5NWVCNGNOR2UwcmNUOWZrN1dNS0VNQnFJVVdOa3BhLzVHOUlFWFJTWm1K?=
+ =?utf-8?B?MnBaRlgrSjBTV09vbGNkZWMyL0F1WXd6TnNsNHFDZjFhdjJJaURVM3NGTnYw?=
+ =?utf-8?B?R3hpRytKcUx5YWJnREJQY0tsczFYU0JSaGozVlpRRTFMSmdVL25ISVplSlA0?=
+ =?utf-8?B?K0dpVHVpR2cyalUzcldJd090YVVVaGl0L0xSZ3p0eWJKOUxMVXV5NGI4dUNC?=
+ =?utf-8?B?QzVHb1hkV21reVFtVDhaNmVUVWtNcUo4SFNYRHNVT05KcDZEZ3htQk9IYkNj?=
+ =?utf-8?B?b2ZnaVg4aThlUWpNN0M2ZFloR0ppNkgzOEZZdHkrOTFLWHMzNmwybWZtSFN0?=
+ =?utf-8?B?RWdUUXJOcWtjK1ZaSnpGVFNmQ2gxbkxMV1ExdjRtaUk2dVFEa29HVE85Yksx?=
+ =?utf-8?B?aGwrclNnY2hOQ3VJdDdJbnA3bVpzSDhKR2l4blljY1hrUFVpcDh5QTlzM2tC?=
+ =?utf-8?B?V1dnYlE1MGszd2NaMVVjc0ZwTWV4SzdnQlFHQ1MvMkxvWmtkVGl3eWxhMC9o?=
+ =?utf-8?B?Z3k3d2JCSXI3T0ZhTUlnY2pLckVRSTNiaG1GSE02R1BwL3RHbTdibE9RK3BW?=
+ =?utf-8?B?YXdvd0pxVnV0NE1WQTNuUUFZV094Z2ZpM1JIR0U0WHlyeVNoU0tpZFNma3dH?=
+ =?utf-8?B?QkdTSlRBVFF6UmpZcmp3eG5ldWJodGVLRVZMMCtITlNQUmk2QiswblQ3c3lD?=
+ =?utf-8?B?c1hjTGxSNlVObW5EZDBOUHp6bGwxT2N0dGo4RlNQa1BubThZUjhYMDVsZ1ZG?=
+ =?utf-8?B?clBVL3A0RTc0MGhoaUhqOEd4bmdZUFZ1MkZpUnIvZVExMi9RMWx4WnZMUVJK?=
+ =?utf-8?B?dUpSeWpHaEpBUUNTbXUxME1WejZSd2lWazA1WFFXNGxxTWV3ZTRjRmUybHY2?=
+ =?utf-8?B?R2JicC8zSCt4QXNURnBWKy9KR1Vud1FYSHJ2L0QyeEs0Q1lYS2NwdFVlUnFl?=
+ =?utf-8?B?MndNTi84RDdEZE1lMGhSZWJyOVJUTUN3VURGVXVXWUNKN2p0eHQ3Z3J2dTR0?=
+ =?utf-8?B?bDBCZHRlQmtaODR3dWVEYlZNb0YwSHo4TkFHd1VUWVRwSGRLUC9tMkJPWWdw?=
+ =?utf-8?Q?5NHrAWYWbc58muGABwDUb5yz2?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a57786e9-0e57-4742-4bc2-08dd1e0f0792
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Dec 2024 20:20:05.8703 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: XAGq8KwWKrnt8hJiC7tUxo3NjUlpVplrXPcPEcKiszWRKRftjlQZtb5PdYj0CWxHtX8ieRePRMuLWG1gQtxLGw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5834
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,176 +167,192 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Dec 16, 2024 at 6:53=E2=80=AFAM Thomas Wei=C3=9Fschuh <linux@weisss=
-chuh.net> wrote:
->
-> The sysfs core now allows instances of 'struct bin_attribute' to be
-> moved into read-only memory. Make use of that to protect them against
-> accidental or malicious modifications.
->
-> Signed-off-by: Thomas Wei=C3=9Fschuh <linux@weissschuh.net>
+On 12/13/2024 09:52, Rodrigo Siqueira wrote:
+> This reverts commit 87b7ebc2e16c14d32a912f18206a4d6cc9abc3e8.
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Blast from the past, that's from 5.7!
+Nice tech debt removal.
 
+> 
+> A long time ago, we had an issue with the Raven system when it was
+> connected to two displays: one with DP and another with HDMI. After the
+> system woke up from suspension, we saw a solid green screen caused by an
+> underflow generated by bad DCC metadata. To workaround this issue, the
+> 'commit 87b7ebc2e16c ("drm/amd/display: Fix green screen issue after
+> suspend")' was introduced to disable the DCC for a few frames after in
+> the resume phase. However, in hindsight, this solution was probably a
+> workaround at the kernel level for some issues from another part
+> (probably other driver components or user space). After applying this
+> patch and trying to reproduce the green issue in a similar hardware
+> system but using the latest kernel and userspace, we cannot see the
+> issue, which makes this workaround obsolete and creates extra
+> unnecessary complexity to the code; for all of this reason, this commit
+> reverts the original change.
+> 
+> Cc: Mario Limonciello <mario.limonciello@amd.com>
+> Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+> Reviewed-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+> Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  6 +++---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c    | 14 +++++++-------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c    | 13 ++++++-------
->  3 files changed, 16 insertions(+), 17 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_device.c
-> index d272d95dd5b2f5eb83be279281d55af323f7f508..88459de2cd2e47390d33e5939=
-875c3322b740b4d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -223,7 +223,7 @@ static DEVICE_ATTR(pcie_replay_count, 0444,
->                 amdgpu_device_get_pcie_replay_count, NULL);
->
->  static ssize_t amdgpu_sysfs_reg_state_get(struct file *f, struct kobject=
- *kobj,
-> -                                         struct bin_attribute *attr, cha=
-r *buf,
-> +                                         const struct bin_attribute *att=
-r, char *buf,
->                                           loff_t ppos, size_t count)
->  {
->         struct device *dev =3D kobj_to_dev(kobj);
-> @@ -259,8 +259,8 @@ static ssize_t amdgpu_sysfs_reg_state_get(struct file=
- *f, struct kobject *kobj,
->         return bytes_read;
->  }
->
-> -BIN_ATTR(reg_state, 0444, amdgpu_sysfs_reg_state_get, NULL,
-> -        AMDGPU_SYS_REG_STATE_END);
-> +static const BIN_ATTR(reg_state, 0444, amdgpu_sysfs_reg_state_get, NULL,
-> +                     AMDGPU_SYS_REG_STATE_END);
->
->  int amdgpu_reg_state_sysfs_init(struct amdgpu_device *adev)
->  {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_psp.c
-> index 448f9e742983f3ef0c5fccc18d85f0c2449aa08e..cda25174730a6852bcb6e01ae=
-ec858faad172b19 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> @@ -3969,7 +3969,7 @@ int is_psp_fw_valid(struct psp_bin_desc bin)
->  }
->
->  static ssize_t amdgpu_psp_vbflash_write(struct file *filp, struct kobjec=
-t *kobj,
-> -                                       struct bin_attribute *bin_attr,
-> +                                       const struct bin_attribute *bin_a=
-ttr,
->                                         char *buffer, loff_t pos, size_t =
-count)
->  {
->         struct device *dev =3D kobj_to_dev(kobj);
-> @@ -4005,7 +4005,7 @@ static ssize_t amdgpu_psp_vbflash_write(struct file=
- *filp, struct kobject *kobj,
->  }
->
->  static ssize_t amdgpu_psp_vbflash_read(struct file *filp, struct kobject=
- *kobj,
-> -                                      struct bin_attribute *bin_attr, ch=
-ar *buffer,
-> +                                      const struct bin_attribute *bin_at=
-tr, char *buffer,
->                                        loff_t pos, size_t count)
->  {
->         struct device *dev =3D kobj_to_dev(kobj);
-> @@ -4057,11 +4057,11 @@ static ssize_t amdgpu_psp_vbflash_read(struct fil=
-e *filp, struct kobject *kobj,
->   * Writing to this file will stage an IFWI for update. Reading from this=
- file
->   * will trigger the update process.
->   */
-> -static struct bin_attribute psp_vbflash_bin_attr =3D {
-> +static const struct bin_attribute psp_vbflash_bin_attr =3D {
->         .attr =3D {.name =3D "psp_vbflash", .mode =3D 0660},
->         .size =3D 0,
-> -       .write =3D amdgpu_psp_vbflash_write,
-> -       .read =3D amdgpu_psp_vbflash_read,
-> +       .write_new =3D amdgpu_psp_vbflash_write,
-> +       .read_new =3D amdgpu_psp_vbflash_read,
->  };
->
->  /**
-> @@ -4088,7 +4088,7 @@ static ssize_t amdgpu_psp_vbflash_status(struct dev=
-ice *dev,
->  }
->  static DEVICE_ATTR(psp_vbflash_status, 0440, amdgpu_psp_vbflash_status, =
-NULL);
->
-> -static struct bin_attribute *bin_flash_attrs[] =3D {
-> +static const struct bin_attribute *const bin_flash_attrs[] =3D {
->         &psp_vbflash_bin_attr,
->         NULL
->  };
-> @@ -4124,7 +4124,7 @@ static umode_t amdgpu_bin_flash_attr_is_visible(str=
-uct kobject *kobj,
->
->  const struct attribute_group amdgpu_flash_attr_group =3D {
->         .attrs =3D flash_attrs,
-> -       .bin_attrs =3D bin_flash_attrs,
-> +       .bin_attrs_new =3D bin_flash_attrs,
->         .is_bin_visible =3D amdgpu_bin_flash_attr_is_visible,
->         .is_visible =3D amdgpu_flash_attr_is_visible,
->  };
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_ras.c
-> index 4c9fa24dd9726a405935907524ed7bf7862779d1..2991e0967b5bfc848328aaa59=
-ddfb9a8f202bae9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> @@ -1732,7 +1732,7 @@ static char *amdgpu_ras_badpage_flags_str(unsigned =
-int flags)
->   */
->
->  static ssize_t amdgpu_ras_sysfs_badpages_read(struct file *f,
-> -               struct kobject *kobj, struct bin_attribute *attr,
-> +               struct kobject *kobj, const struct bin_attribute *attr,
->                 char *buf, loff_t ppos, size_t count)
->  {
->         struct amdgpu_ras *con =3D
-> @@ -2063,8 +2063,8 @@ void amdgpu_ras_debugfs_create_all(struct amdgpu_de=
-vice *adev)
->  /* debugfs end */
->
->  /* ras fs */
-> -static BIN_ATTR(gpu_vram_bad_pages, S_IRUGO,
-> -               amdgpu_ras_sysfs_badpages_read, NULL, 0);
-> +static const BIN_ATTR(gpu_vram_bad_pages, S_IRUGO,
-> +                     amdgpu_ras_sysfs_badpages_read, NULL, 0);
->  static DEVICE_ATTR(features, S_IRUGO,
->                 amdgpu_ras_sysfs_features_read, NULL);
->  static DEVICE_ATTR(version, 0444,
-> @@ -2086,7 +2086,7 @@ static int amdgpu_ras_fs_init(struct amdgpu_device =
-*adev)
->                 &con->event_state_attr.attr,
->                 NULL
->         };
-> -       struct bin_attribute *bin_attrs[] =3D {
-> +       const struct bin_attribute *bin_attrs[] =3D {
->                 NULL,
->                 NULL,
->         };
-> @@ -2112,11 +2112,10 @@ static int amdgpu_ras_fs_init(struct amdgpu_devic=
-e *adev)
->
->         if (amdgpu_bad_page_threshold !=3D 0) {
->                 /* add bad_page_features entry */
-> -               bin_attr_gpu_vram_bad_pages.private =3D NULL;
->                 con->badpages_attr =3D bin_attr_gpu_vram_bad_pages;
-> +               sysfs_bin_attr_init(&con->badpages_attr);
->                 bin_attrs[0] =3D &con->badpages_attr;
-> -               group.bin_attrs =3D bin_attrs;
-> -               sysfs_bin_attr_init(bin_attrs[0]);
-> +               group.bin_attrs_new =3D bin_attrs;
->         }
->
->         r =3D sysfs_create_group(&adev->dev->kobj, &group);
->
-> --
-> 2.47.1
->
+>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 12 ++++------
+>   .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 22 +++++++------------
+>   .../amd/display/amdgpu_dm/amdgpu_dm_plane.h   |  3 +--
+>   3 files changed, 13 insertions(+), 24 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 3407741152f7..4f0267b2d5ad 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -5524,8 +5524,7 @@ fill_dc_plane_info_and_addr(struct amdgpu_device *adev,
+>   			    const u64 tiling_flags,
+>   			    struct dc_plane_info *plane_info,
+>   			    struct dc_plane_address *address,
+> -			    bool tmz_surface,
+> -			    bool force_disable_dcc)
+> +			    bool tmz_surface)
+>   {
+>   	const struct drm_framebuffer *fb = plane_state->fb;
+>   	const struct amdgpu_framebuffer *afb =
+> @@ -5624,7 +5623,7 @@ fill_dc_plane_info_and_addr(struct amdgpu_device *adev,
+>   					   &plane_info->tiling_info,
+>   					   &plane_info->plane_size,
+>   					   &plane_info->dcc, address,
+> -					   tmz_surface, force_disable_dcc);
+> +					   tmz_surface);
+>   	if (ret)
+>   		return ret;
+>   
+> @@ -5645,7 +5644,6 @@ static int fill_dc_plane_attributes(struct amdgpu_device *adev,
+>   	struct dc_scaling_info scaling_info;
+>   	struct dc_plane_info plane_info;
+>   	int ret;
+> -	bool force_disable_dcc = false;
+>   
+>   	ret = amdgpu_dm_plane_fill_dc_scaling_info(adev, plane_state, &scaling_info);
+>   	if (ret)
+> @@ -5656,13 +5654,11 @@ static int fill_dc_plane_attributes(struct amdgpu_device *adev,
+>   	dc_plane_state->clip_rect = scaling_info.clip_rect;
+>   	dc_plane_state->scaling_quality = scaling_info.scaling_quality;
+>   
+> -	force_disable_dcc = adev->asic_type == CHIP_RAVEN && adev->in_suspend;
+>   	ret = fill_dc_plane_info_and_addr(adev, plane_state,
+>   					  afb->tiling_flags,
+>   					  &plane_info,
+>   					  &dc_plane_state->address,
+> -					  afb->tmz_surface,
+> -					  force_disable_dcc);
+> +					  afb->tmz_surface);
+>   	if (ret)
+>   		return ret;
+>   
+> @@ -9099,7 +9095,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
+>   			afb->tiling_flags,
+>   			&bundle->plane_infos[planes_count],
+>   			&bundle->flip_addrs[planes_count].address,
+> -			afb->tmz_surface, false);
+> +			afb->tmz_surface);
+>   
+>   		drm_dbg_state(state->dev, "plane: id=%d dcc_en=%d\n",
+>   				 new_plane_state->plane->index,
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> index c10cabb8b42b..1ec4e4b9ea94 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> @@ -310,8 +310,7 @@ static int amdgpu_dm_plane_fill_gfx9_plane_attributes_from_modifiers(struct amdg
+>   								     const struct plane_size *plane_size,
+>   								     union dc_tiling_info *tiling_info,
+>   								     struct dc_plane_dcc_param *dcc,
+> -								     struct dc_plane_address *address,
+> -								     const bool force_disable_dcc)
+> +								     struct dc_plane_address *address)
+>   {
+>   	const uint64_t modifier = afb->base.modifier;
+>   	int ret = 0;
+> @@ -319,7 +318,7 @@ static int amdgpu_dm_plane_fill_gfx9_plane_attributes_from_modifiers(struct amdg
+>   	amdgpu_dm_plane_fill_gfx9_tiling_info_from_modifier(adev, tiling_info, modifier);
+>   	tiling_info->gfx9.swizzle = amdgpu_dm_plane_modifier_gfx9_swizzle_mode(modifier);
+>   
+> -	if (amdgpu_dm_plane_modifier_has_dcc(modifier) && !force_disable_dcc) {
+> +	if (amdgpu_dm_plane_modifier_has_dcc(modifier)) {
+>   		uint64_t dcc_address = afb->address + afb->base.offsets[1];
+>   		bool independent_64b_blks = AMD_FMT_MOD_GET(DCC_INDEPENDENT_64B, modifier);
+>   		bool independent_128b_blks = AMD_FMT_MOD_GET(DCC_INDEPENDENT_128B, modifier);
+> @@ -361,8 +360,7 @@ static int amdgpu_dm_plane_fill_gfx12_plane_attributes_from_modifiers(struct amd
+>   								      const struct plane_size *plane_size,
+>   								      union dc_tiling_info *tiling_info,
+>   								      struct dc_plane_dcc_param *dcc,
+> -								      struct dc_plane_address *address,
+> -								      const bool force_disable_dcc)
+> +								      struct dc_plane_address *address)
+>   {
+>   	const uint64_t modifier = afb->base.modifier;
+>   	int ret = 0;
+> @@ -372,7 +370,7 @@ static int amdgpu_dm_plane_fill_gfx12_plane_attributes_from_modifiers(struct amd
+>   
+>   	tiling_info->gfx9.swizzle = amdgpu_dm_plane_modifier_gfx9_swizzle_mode(modifier);
+>   
+> -	if (amdgpu_dm_plane_modifier_has_dcc(modifier) && !force_disable_dcc) {
+> +	if (amdgpu_dm_plane_modifier_has_dcc(modifier)) {
+>   		int max_compressed_block = AMD_FMT_MOD_GET(DCC_MAX_COMPRESSED_BLOCK, modifier);
+>   
+>   		dcc->enable = 1;
+> @@ -840,8 +838,7 @@ int amdgpu_dm_plane_fill_plane_buffer_attributes(struct amdgpu_device *adev,
+>   			     struct plane_size *plane_size,
+>   			     struct dc_plane_dcc_param *dcc,
+>   			     struct dc_plane_address *address,
+> -			     bool tmz_surface,
+> -			     bool force_disable_dcc)
+> +			     bool tmz_surface)
+>   {
+>   	const struct drm_framebuffer *fb = &afb->base;
+>   	int ret;
+> @@ -901,16 +898,14 @@ int amdgpu_dm_plane_fill_plane_buffer_attributes(struct amdgpu_device *adev,
+>   		ret = amdgpu_dm_plane_fill_gfx12_plane_attributes_from_modifiers(adev, afb, format,
+>   										 rotation, plane_size,
+>   										 tiling_info, dcc,
+> -										 address,
+> -										 force_disable_dcc);
+> +										 address);
+>   		if (ret)
+>   			return ret;
+>   	} else if (adev->family >= AMDGPU_FAMILY_AI) {
+>   		ret = amdgpu_dm_plane_fill_gfx9_plane_attributes_from_modifiers(adev, afb, format,
+>   										rotation, plane_size,
+>   										tiling_info, dcc,
+> -										address,
+> -										force_disable_dcc);
+> +										address);
+>   		if (ret)
+>   			return ret;
+>   	} else {
+> @@ -1001,14 +996,13 @@ static int amdgpu_dm_plane_helper_prepare_fb(struct drm_plane *plane,
+>   	    dm_plane_state_old->dc_state != dm_plane_state_new->dc_state) {
+>   		struct dc_plane_state *plane_state =
+>   			dm_plane_state_new->dc_state;
+> -		bool force_disable_dcc = !plane_state->dcc.enable;
+>   
+>   		amdgpu_dm_plane_fill_plane_buffer_attributes(
+>   			adev, afb, plane_state->format, plane_state->rotation,
+>   			afb->tiling_flags,
+>   			&plane_state->tiling_info, &plane_state->plane_size,
+>   			&plane_state->dcc, &plane_state->address,
+> -			afb->tmz_surface, force_disable_dcc);
+> +			afb->tmz_surface);
+>   	}
+>   
+>   	return 0;
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h
+> index 6498359bff6f..2eef13b1c05a 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h
+> @@ -51,8 +51,7 @@ int amdgpu_dm_plane_fill_plane_buffer_attributes(struct amdgpu_device *adev,
+>   				 struct plane_size *plane_size,
+>   				 struct dc_plane_dcc_param *dcc,
+>   				 struct dc_plane_address *address,
+> -				 bool tmz_surface,
+> -				 bool force_disable_dcc);
+> +				 bool tmz_surface);
+>   
+>   int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
+>   			 struct drm_plane *plane,
+
