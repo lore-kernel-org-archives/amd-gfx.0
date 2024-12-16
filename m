@@ -4,105 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 891DCE77183
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Dec 2024 15:39:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0690E77180
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Dec 2024 16:07:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D2F3210E1C2;
-	Mon, 16 Dec 2024 15:39:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE08D10E3EF;
+	Mon, 16 Dec 2024 16:07:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="FmB3d/UV";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jFJaFujX";
 	dkim-atps=neutral
-Received: from mail-yb1-xb29.google.com (mail-yb1-xb29.google.com
- [IPv6:2607:f8b0:4864:20::b29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D7FD10E27F
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Dec 2024 15:39:34 +0000 (UTC)
-Received: by mail-yb1-xb29.google.com with SMTP id
- 3f1490d57ef6-e46ac799015so1768212276.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Dec 2024 07:39:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1734363573; x=1734968373; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=XE8Rp1QeAFeNcwGnjINgL1qZo7r+EId51k/PevPG3+0=;
- b=FmB3d/UV5abFEaEi1IURSo7CR4wq33KDmBWQwEciKcFGkOwZSDf/3efB9WYcSW9afu
- lh4Rt7Ek2cuhpKO4yl3thgizcVS1zgpTjhgouOseSQaaieZaDzx7Id+LHIvg3IDr1Ucm
- oeL7Vh33XiNpUnDSQdeOS/vD1yDqIgeUrerAG1t9rUPzZM2iR/CCVxcaqte8luMnBXy6
- cn28j2fRubBL8gtdY8eFTmD6aP/QcCqX3pWH16bkt3e9R4s1uvh4DArLK9LMtDgwJve6
- MSqXBPUmVQdTi14sncB2aH+USLrtfro5gYPw92VeoBjxFjtsCIme9QndaMqJXcpzAx+O
- /I9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734363573; x=1734968373;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=XE8Rp1QeAFeNcwGnjINgL1qZo7r+EId51k/PevPG3+0=;
- b=VOeYQnMY138uRmvcbIKnygWe1YeS+yMYVVfkpx5qh52xYAM/+uv31xdIiETofXI/gA
- q2JX7Uptaj5wonaIq4gV/l30/323kRZXfJHLqqCdGvBhZmfg889AblCwrdDvoJstZ9QK
- 1oz4xeTOgfOkesPqnmR4JfHLdkbhVrSRrcmI7xHZTLFt/pdUqFJHMZrpWm4OySEE0Xu9
- rlEbZMIjf0P1rk17fXOw+pDo3MjBAljZL44gSA404zGm9VibtE8/QIhOKLGmG+9+KQSI
- etGeqgDbFjjYQgRXj7XJXktYJEeicV1rQCdZfbhXnQqFwmOprbuKnUB20XBDf9rbMSvZ
- GDlQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWdiuzPkvzIdKw+fMiM+yqgH3FTO7u8SgOz0Tb0KydF6rKHqbLOykJ4873f75WlB1CMorBgWnVv@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwO4a5DS7/F/8tO6MrgrJHxjL3tVCFj2Ld1vCI+jwkHF11L1l3e
- mQhgE5s7oAmbNySeaR2vENZFtBwHtdMEihIWsDA27fBhEkf/9It+/gEosPjpoPBD1uJnognh/E2
- lh9PYbWbFZ4/O+WGDpS1LO5/H07WQl+i8ZmcBvw==
-X-Gm-Gg: ASbGncvImaNFrJUgPYv6l0EdstLC5deJDz89UH2NnMFnFvpHbfPR+eEC+lRnbWxku4q
- uvhWl+FD9RPH5aXlhrdxdC0Gk6CZzuQL1JkFknm5qcL9VJTjmZZjq
-X-Google-Smtp-Source: AGHT+IG+H16BKk2N9qAAZI58ZkiAMWnWq2KJ5i2xrkWhHJZG86PFBQyzzbHk+XT6vSRTQXHuY/aP5XO15EqLEv61aT4=
-X-Received: by 2002:a05:6902:70b:b0:e33:1096:f2e1 with SMTP id
- 3f1490d57ef6-e434fd23319mr9276225276.40.1734363573390; Mon, 16 Dec 2024
- 07:39:33 -0800 (PST)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6DB7E10E2FD;
+ Mon, 16 Dec 2024 16:07:06 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id BF0A95C5B8F;
+ Mon, 16 Dec 2024 16:06:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 565DAC4CED4;
+ Mon, 16 Dec 2024 16:07:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1734365224;
+ bh=AM/8aKA98AZ889JcW0STJ3XuC0MMP8g8wFOlSiAd6Nk=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=jFJaFujXUgK6lTHxCB3Ow6w7gMm9d2l0z4seD9UJ3AidNDOoRvTlTQGMqHOHnuvgM
+ aOgft41I+6EOFSJh8ejSPJbZld3D8ot/iOook7Ic8jWR4Y/2N4zFHk+nDymp5RVOmQ
+ /ol6lbEUc5aXbI5Ay4U55QLEogzpxuWOnTmlPGlOtkBl+7tmAOinA3tVE/+9sfNTqK
+ du2IIe/uzKGbLrWe1BHjUdALaqlRRkrTBPbTeltJCfhzuB551rHI6oHUkxCs5L01cv
+ qY7slCPmT1u9qCey8iWK2yTTmxSN5+FPtHUvNSciBPusICvSyFUdzjd/BS56fSVFMz
+ byLzGJbRcDgMg==
+Date: Mon, 16 Dec 2024 17:07:02 +0100
+From: Maxime Ripard <mripard@kernel.org>
+To: Raag Jadav <raag.jadav@intel.com>
+Cc: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
+ maarten.lankhorst@linux.intel.com, tzimmermann@suse.de, 
+ =?utf-8?B?QW5kcsOp?= Almeida <andrealmeid@igalia.com>,
+ intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, himal.prasad.ghimiray@intel.com, 
+ aravind.iddamsetty@linux.intel.com, rodrigo.vivi@intel.com,
+ michal.wajdeczko@intel.com, 
+ lina@asahilina.net, anshuman.gupta@intel.com, alexander.deucher@amd.com, 
+ amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com, airlied@gmail.com,
+ simona@ffwll.ch, lucas.demarchi@intel.com, jani.nikula@linux.intel.com,
+ andriy.shevchenko@linux.intel.com
+Subject: Re: [PATCH v10 1/4] drm: Introduce device wedged event
+Message-ID: <20241216-grinning-stimulating-jackal-a5fea0@houat>
+References: <20241128153707.1294347-1-raag.jadav@intel.com>
+ <20241128153707.1294347-2-raag.jadav@intel.com>
+ <1d448e67-0c28-4e21-afdd-223495346921@igalia.com>
+ <Z01q1-7OF7jgANEM@black.fi.intel.com>
+ <Z06QUpm3o_izNjoV@black.fi.intel.com>
+ <7d0660f8-ce78-4458-a084-b65ab71e8243@amd.com>
+ <Z1A6PYFCUNL9edv6@black.fi.intel.com>
+ <m6ysmkxnit6kqeilkcaa3hoyfzyznymsa3eybzsl66jsn2ku67@jl3ajhxgqmvy>
+ <Z1q9B4iQlQQNieS7@black.fi.intel.com>
 MIME-Version: 1.0
-References: <20241206-drm-connector-eld-mutex-v2-0-c9bce1ee8bea@linaro.org>
- <20241206-drm-connector-eld-mutex-v2-4-c9bce1ee8bea@linaro.org>
- <pgi7p3aemxm3db2k27vi5euh6q6ppayrw6y7tcfeq4g5z23hzr@xousag2qhobp>
- <fc8e80dd-bcea-4515-b446-158649719569@amd.com>
- <CAA8EJpoR8HYq9ATDfmR5ksSnttBzj=DY+BKp5=OuVNF1WDJ-fg@mail.gmail.com>
- <CADnq5_M8jC2w=XWB4BG+id60zfGFMMkSegmeg-y=VpSHC+FvFQ@mail.gmail.com>
-In-Reply-To: <CADnq5_M8jC2w=XWB4BG+id60zfGFMMkSegmeg-y=VpSHC+FvFQ@mail.gmail.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Mon, 16 Dec 2024 17:39:22 +0200
-Message-ID: <CAA8EJpqYs92T9x3omDa5XR21GC04Kcc75eVRr6w3pt0W7qPX-w@mail.gmail.com>
-Subject: Re: [PATCH v2 04/10] drm/amd/display: use eld_mutex to protect access
- to connector->eld
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: Harry Wentland <harry.wentland@amd.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Xinhui Pan <Xinhui.Pan@amd.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, Phong LE <ple@baylibre.com>, 
- Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>, 
- Kyungmin Park <kyungmin.park@samsung.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Rob Clark <robdclark@gmail.com>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- Alain Volmat <alain.volmat@foss.st.com>, 
- Raphael Gallais-Pou <rgallaispou@gmail.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- =?UTF-8?B?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
- linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="nxbd5nusaiy7kazk"
+Content-Disposition: inline
+In-Reply-To: <Z1q9B4iQlQQNieS7@black.fi.intel.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,95 +74,127 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 16 Dec 2024 at 17:32, Alex Deucher <alexdeucher@gmail.com> wrote:
->
-> On Mon, Dec 16, 2024 at 10:12=E2=80=AFAM Dmitry Baryshkov
-> <dmitry.baryshkov@linaro.org> wrote:
-> >
-> > On Mon, 16 Dec 2024 at 16:53, Harry Wentland <harry.wentland@amd.com> w=
-rote:
-> > >
-> > >
-> > >
-> > > On 2024-12-10 16:20, Dmitry Baryshkov wrote:
-> > > > On Fri, Dec 06, 2024 at 11:43:07AM +0200, Dmitry Baryshkov wrote:
-> > > >> Reading access to connector->eld can happen at the same time the
-> > > >> drm_edid_to_eld() updates the data. Take the newly added eld_mutex=
- in
-> > > >> order to protect connector->eld from concurrent access.
-> > > >>
-> > > >> Reviewed-by: Maxime Ripard <mripard@kernel.org>
-> > > >> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > > >> ---
-> > > >>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 ++
-> > > >>  1 file changed, 2 insertions(+)
-> > > >
-> > > > Harry, Leo, Rodrigo, Alex, Christian, Xinhui, any response to this =
-one
-> > > > and to the radeon patches? I'd like to be able to pick the series f=
-or
-> > > > drm-misc and these two are not reviewed by you.
-> > > >
-> > > >>
-> > > >> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/d=
-rivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > > >> index 19a58630e774029767bf2a27eb4ddf17e3c21129..04c68c320252b5ce96=
-47f0606fb86fe57f347639 100644
-> > > >> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > > >> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > > >> @@ -1037,8 +1037,10 @@ static int amdgpu_dm_audio_component_get_el=
-d(struct device *kdev, int port,
-> > > >>                      continue;
-> > > >>
-> > > >>              *enabled =3D true;
-> > > >> +            mutex_lock(&connector->eld_mutex);
-> > > >>              ret =3D drm_eld_size(connector->eld);
-> > > >>              memcpy(buf, connector->eld, min(max_bytes, ret));
-> > > >> +            mutex_unlock(&connector->eld_mutex);
-> > >
-> > > All of this is wrapped by the adev->dm.audio_lock mutex. It might
-> > > be safer to modify the audio_lock mutex so it only guards the
-> > > aconnector->audio_inst access.
-> > >
-> > > But I don't see any way these mutexes would otherwise interact,
-> > > so this change should be good as-is.
-> > >
-> > > Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-> >
-> > Would you ack it to merge it through drm-misc? Or would you prefer to
-> > pick up those two patches after merging drm-misc-next once the rest of
-> > the series lands?
->
-> Merging through drm-misc is fine with me.
 
-Thanks!
+--nxbd5nusaiy7kazk
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v10 1/4] drm: Introduce device wedged event
+MIME-Version: 1.0
 
->
-> Thanks,
->
-> Alex
->
-> >
-> > >
-> > > Harry
-> > >
-> > > >>
-> > > >>              break;
-> > > >>      }
-> > > >>
-> > > >> --
-> > > >> 2.39.5
-> > > >>
-> > > >
-> > >
-> >
-> >
-> > --
-> > With best wishes
-> > Dmitry
+Hi,
 
+On Thu, Dec 12, 2024 at 12:37:59PM +0200, Raag Jadav wrote:
+> On Wed, Dec 11, 2024 at 06:14:12PM +0100, Maxime Ripard wrote:
+> > On Wed, Dec 04, 2024 at 01:17:17PM +0200, Raag Jadav wrote:
+> > > + misc maintainers
+> > >=20
+> > > On Tue, Dec 03, 2024 at 11:18:00AM +0100, Christian K=F6nig wrote:
+> > > > Am 03.12.24 um 06:00 schrieb Raag Jadav:
+> > > > > On Mon, Dec 02, 2024 at 10:07:59AM +0200, Raag Jadav wrote:
+> > > > > > On Fri, Nov 29, 2024 at 10:40:14AM -0300, Andr=E9 Almeida wrote:
+> > > > > > > Hi Raag,
+> > > > > > >=20
+> > > > > > > Em 28/11/2024 12:37, Raag Jadav escreveu:
+> > > > > > > > Introduce device wedged event, which notifies userspace of =
+'wedged'
+> > > > > > > > (hanged/unusable) state of the DRM device through a uevent.=
+ This is
+> > > > > > > > useful especially in cases where the device is no longer op=
+erating as
+> > > > > > > > expected and has become unrecoverable from driver context. =
+Purpose of
+> > > > > > > > this implementation is to provide drivers a generic way to =
+recover with
+> > > > > > > > the help of userspace intervention without taking any drast=
+ic measures
+> > > > > > > > in the driver.
+> > > > > > > >=20
+> > > > > > > > A 'wedged' device is basically a dead device that needs att=
+ention. The
+> > > > > > > > uevent is the notification that is sent to userspace along =
+with a hint
+> > > > > > > > about what could possibly be attempted to recover the devic=
+e and bring
+> > > > > > > > it back to usable state. Different drivers may have differe=
+nt ideas of
+> > > > > > > > a 'wedged' device depending on their hardware implementatio=
+n, and hence
+> > > > > > > > the vendor agnostic nature of the event. It is up to the dr=
+ivers to
+> > > > > > > > decide when they see the need for device recovery and how t=
+hey want to
+> > > > > > > > recover from the available methods.
+> > > > > > > >=20
+> > > > > > > Thank you for your work. Do you think you can add the optiona=
+l PID
+> > > > > > > parameter, as the PID of the app that caused the reset? For S=
+teamOS use case
+> > > > > > > it has been proved to be useful to kill the fault app as well=
+=2E If the reset
+> > > > > > > was caused by a kthread, no PID can be provided hence it's an=
+ optional
+> > > > > > > parameter.
+> > > > > > Hmm, I'm not sure if it really fits here since it doesn't seem =
+like
+> > > > > > a generic usecase.
+> > > > > >=20
+> > > > > > I'd still be open for it if found useful by the drivers but per=
+haps
+> > > > > > as an extended feature in a separate series.
+> > > > > What do you think Chris, are we good to go with v10?
+> > > >=20
+> > > > I agree with Andre that the PID and maybe the new DRM client name w=
+ould be
+> > > > really nice to have here.
+> > > >=20
+> > > > We do have that in the device core dump we create, but if an applic=
+ation is
+> > > > supervised by daemon for example then that would be really useful.
+> > > >=20
+> > > > On the other hand I think we should merge the documentation and cod=
+e as is
+> > > > and then add the PID/name later on. That is essentially a separate
+> > > > discussion.
+> > >=20
+> > > So how do we proceed, perhaps through misc tree?
+> >=20
+> > Provided it follows the usual rules (ie, Reviewed-by, open source
+> > userspace tools using it if it's a new uAPI, etc.) then yeah, we can
+> > merge it through drm-misc.
+>=20
+> My understanding is that the core patches are to be reviewed by the
+> maintainers? The rest of it (patch 2 to 4) seems already reviewed.
+>=20
+> We have a documented example (patch 2) with udev rule and a reference
+> script which can be setup to get this working. Does that qualify as
+> a consumer?
 
+Given the description you stated above, I'd expect a compositor to be
+the expected user, right?
 
---=20
-With best wishes
-Dmitry
+Our doc
+(https://docs.kernel.org/gpu/drm-uapi.html#open-source-userspace-requiremen=
+ts)
+states:
+
+  The open-source userspace must not be a toy/test application, but the
+  real thing. Specifically it needs to handle all the usual error and
+  corner cases. These are often the places where new uAPI falls apart
+  and hence essential to assess the fitness of a proposed interface.
+
+Maxime
+
+--nxbd5nusaiy7kazk
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCZ2BQIQAKCRAnX84Zoj2+
+drhfAX9mPXpDK7b9lAQTMkeulf9d78L3Yk31TxHyY0Df+hmLgDsXqyD85JOfk2AC
+Ahe+5Q8Bf2+/43VF5ukum62mTd38WMc+kqx9L7goTASLt5sd7lBBG9JnOLgUTWWY
+nG+jR9uAsQ==
+=IMCP
+-----END PGP SIGNATURE-----
+
+--nxbd5nusaiy7kazk--
