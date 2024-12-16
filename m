@@ -4,184 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BE33E77183
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Dec 2024 19:39:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 786E7E77180
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Dec 2024 19:53:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1816A10E781;
-	Mon, 16 Dec 2024 19:39:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BBE5910E13A;
+	Mon, 16 Dec 2024 19:53:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="jdyVTih7";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="f9y78Cb9";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on20608.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:2009::608])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE20E10E0C7;
- Mon, 16 Dec 2024 19:39:03 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=F7RnMF1NvxE3JX/wITRXs0i3Bgq+LlC+KRx1g3YX5nMkyVhOz7TQGPhOibeD977VYcHoYoofJLaXyyCAnnwCbMLf/uzG3gis/pWD2KsWH6ZoxauwctCJu4IT1Q5ylmjQ1HXdy8+GUKPDoT2gro8+dkluegCgAgFuPM6NW7BCK9kgo4VTr61ss/emMetWIb/8VlkQA9L4KHzbvkfMrtZvZlt3dBD/9MBgyFjf8oWVXC3fvVghent6Itxeke3KUdilIFjk8Vjffri0dV3DROv/w6wSGnL72wkKnh4TtlYPNFVa3qbTbYdOXEjYfhxI7VHdRmazyZ8kI7EPK5kGT8pAiA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=n5lEFc2e5j4ysgh7+ljtbgCNlvs0fSAytIxF5b0lfRk=;
- b=Ra8U+kxM2cWODKTIT8XtCqK8SIXOdzxnL3Xh0GsjW8dlSGPUZQDUCRPrV8zFr2JVKaOf6nWLou3pVh8AeqCTcDgEtCA6mCPoImFDlkExtxjEZmaq4YiQBNe4yuQYvdGO4MPHhfyGAidqK2yyksM/6VCAizY/Cw7R3Fy0aF7l+oecxXkBhRz9A9EENJsO0+EwEi//WHhP4XtJ2SLb9rTdstszBJGW6Hw/k4pv3ZOuM37kT0172u8Os21LhVePMOjq+UZJR3r+nKYkL2dhyd1DDv8EkLk1aet+D4Dl8BOGKTWYvhBnGq+diDb8QMsSVvnDbtmAxzC1iHxK7lMoGwgN6g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=n5lEFc2e5j4ysgh7+ljtbgCNlvs0fSAytIxF5b0lfRk=;
- b=jdyVTih73We19x8sXgxSmMauBtspCuFzMRY8eggMCdnEhVPZ3I5yWaYQea8be76pF2HJUYa+pvFMQOZCct5Tazxlhpzj5vEIpmPraHCeRLEax4ra/zdAfR56VYq4Ijc4wwPW0MUukfCTp35jqMxSanS8omG0xj2W5f4ricoCUz8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
- by SA1PR12MB8968.namprd12.prod.outlook.com (2603:10b6:806:388::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8251.21; Mon, 16 Dec
- 2024 19:39:01 +0000
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::1c2f:5c82:2d9c:6062]) by CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::1c2f:5c82:2d9c:6062%4]) with mapi id 15.20.8251.015; Mon, 16 Dec 2024
- 19:39:01 +0000
-Message-ID: <ab347745-80cc-4a5c-ab92-de6bc6bce3cc@amd.com>
-Date: Mon, 16 Dec 2024 14:38:54 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 04/10] drm/amd/display: use eld_mutex to protect access
- to connector->eld
-To: Alex Deucher <alexdeucher@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Xinhui Pan <Xinhui.Pan@amd.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Phong LE <ple@baylibre.com>, Inki Dae <inki.dae@samsung.com>,
- Seung-Woo Kim <sw0312.kim@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, Alim Akhtar
- <alim.akhtar@samsung.com>, Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Alain Volmat <alain.volmat@foss.st.com>,
- Raphael Gallais-Pou <rgallaispou@gmail.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org
-References: <20241206-drm-connector-eld-mutex-v2-0-c9bce1ee8bea@linaro.org>
- <20241206-drm-connector-eld-mutex-v2-4-c9bce1ee8bea@linaro.org>
- <pgi7p3aemxm3db2k27vi5euh6q6ppayrw6y7tcfeq4g5z23hzr@xousag2qhobp>
- <fc8e80dd-bcea-4515-b446-158649719569@amd.com>
- <CAA8EJpoR8HYq9ATDfmR5ksSnttBzj=DY+BKp5=OuVNF1WDJ-fg@mail.gmail.com>
- <CADnq5_M8jC2w=XWB4BG+id60zfGFMMkSegmeg-y=VpSHC+FvFQ@mail.gmail.com>
-Content-Language: en-US
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <CADnq5_M8jC2w=XWB4BG+id60zfGFMMkSegmeg-y=VpSHC+FvFQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT4PR01CA0116.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:d7::27) To CO6PR12MB5427.namprd12.prod.outlook.com
- (2603:10b6:5:358::13)
+Received: from mail-pj1-x1032.google.com (mail-pj1-x1032.google.com
+ [IPv6:2607:f8b0:4864:20::1032])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3199510E13A;
+ Mon, 16 Dec 2024 19:53:39 +0000 (UTC)
+Received: by mail-pj1-x1032.google.com with SMTP id
+ 98e67ed59e1d1-2ef05d0ef18so794549a91.0; 
+ Mon, 16 Dec 2024 11:53:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1734378819; x=1734983619; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=MIYj4bJCscXDlJoY7W+vXtaBhQexWWb3wrX5bFyCwNs=;
+ b=f9y78Cb9HZ17C6JDDViRrbIi1D52tv8IhX2jWSOK1gRNY2WLvGEDWLOg+V3l/5NLC7
+ rJjAZEgS7EA8XnsFbooTuiwe1dZK2hD8K6Fct8KNJ6R1UPB5ROvCN7jFY2l/uvPmzNPa
+ T6rFfpHn0asn+E0HtpaVwUNnO7nsz7l/T+f+bb0kcjVNgQew+CZrDa8tpLI0YMG5TJt/
+ 66kQOKX+i7ZSUoFcBaaZFRqeqZR7s6VttesF5LHlAdjHVJYvb74YHLixTf+3hSJ3BAhG
+ dDNtLnLGuW48mzqrC//Uxcxx3R2/NhB3S6Mf141ywHjHwl0a4CyMLW7phR+nUI5+KvyF
+ UljA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1734378819; x=1734983619;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=MIYj4bJCscXDlJoY7W+vXtaBhQexWWb3wrX5bFyCwNs=;
+ b=ao3EaWoARHWFhxsqQ3H6pfZgQQBdlV9k48In5phRyOu9P/x6hYITtr9WlOtk+IPQrE
+ 7XHYtVHdgYfsu5tsHzy1ITXZJr1VCUXYdw7sn7T+I8WvSWhCylgxQA9Zb1ZJMfoXTIaz
+ 8DqMkdeLwQqrjf1IlY4zfw8F44rHs9k+4NZGGFmVC8VJRV064KxGAx937hcxtXBnZ4zF
+ bRb96qhwvfLrEIsTJue+t3/+dgTKwullwifVWLNLRk31alnEOy1LVrhx19n9iDyL9lzI
+ GChCPm4qMPbuP7IPlMCSbMBXSEnehgWe3S1hJ03TjXzH5wuLtXJqPAM8eT+1UtbnC6KA
+ G1Fg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVZo2kEFnCn7DnYViIG+ZYwunKb3gJAe33FHwugKLqT20imrhzagJ9fOi1565tu30ENfGkkkA==@lists.freedesktop.org,
+ AJvYcCViyYAnRfOznoLpsghqgj0K49SwVXUDfjGFMoQo/ml4zM/GPpGQtTG1Rqv27GbQUcFRYOm7H0b7@lists.freedesktop.org,
+ AJvYcCVpLYv4gl8wJFKQjwFg8y0ycVfsRPahjSXgrBerbh/A80AHMmW3m3+fGgG4se556dQbolGfgrcI0sQk@lists.freedesktop.org,
+ AJvYcCWHFe+R+8skYu+Kog76is33CSsKgSQkeSPo2t+pghLtpPWnCONb7xdHboL+UDYGElvcrHqhddItGeCQ@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzM7RZADF0cv0xUTpprjgagcp7DSdotNe0LsyROBQgmDXIzEwuJ
+ zeQ+LCzyQ0WYUQIlBtH4+f6VzBncEE16QEVwKQwDCzSOqkq+hsZaVYtl2J1Rs/2nhFUgtO7qGd0
+ D4RF6u8UcOyib9fPBpOnHq9j+IrE=
+X-Gm-Gg: ASbGncvm365eBMJw4G9ARL076YYcEyK9C8SFlkg4EWHEMJOdsfn0r4Z4tFXTGMSQsib
+ h7E4oa/I3B0azvFJicUhUkpTl/KzT5yZsbu38tA==
+X-Google-Smtp-Source: AGHT+IHw07J50LjkLVhVLiSn1KCIPan7Le0TMFJV6k1ZwY/55RNLENGR9IgNrc4XNQq+FbWOpLs0wM/oMgnVdK0H3xA=
+X-Received: by 2002:a17:90b:3509:b0:2ee:3fa7:ef23 with SMTP id
+ 98e67ed59e1d1-2f2905b4479mr7485753a91.8.1734378818588; Mon, 16 Dec 2024
+ 11:53:38 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|SA1PR12MB8968:EE_
-X-MS-Office365-Filtering-Correlation-Id: d05d4583-45b3-4def-9ad2-08dd1e094a5d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|7416014|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?MXNGUnoyZ2Y5Z0xUbmJpQm5LT3BNeTVmUzB6bjgrNjd0dEZYTXFSV21tNXBK?=
- =?utf-8?B?UjdGNGZDSlQ2LzRta2REMHFvdUdhRUZwYXZYSituOWJ0WDNlRmpZRjJyZlFz?=
- =?utf-8?B?d0Q4N1FYeGtYdU5ldFFlNHducy9FcXNCb0JNWE9sWE1Db3M2OVYyMWxabHp0?=
- =?utf-8?B?RGtGT1NhVkxNYUdjWDZmcDZkYWtubWIrWkNjQVBGbEh4dVZxQVNOSzN1aHFK?=
- =?utf-8?B?M0FHamw4c1EwUG1hSkhCcHROOXlBSzVsQ0FWMjNoNUhHZ1VWb1AzV3pMRGRL?=
- =?utf-8?B?ZE9aa3M0cGNheW00WW9OOGJEbnR0b1c1b3drRjRmcURiWkpQeWZVaXZ1TmhY?=
- =?utf-8?B?WnhncHhYd2Rnbng2eWdrdzQzdTB2Zk1KdEZHaVRuTjgrUTQ2aUNZRDVRZVlT?=
- =?utf-8?B?RTJjTi9XL3Y4TjQ1ZU9HaFd1cWw4NzRNNXRiODdLcnNteFpNaE9CWTdBcnhT?=
- =?utf-8?B?Q08raWJHbU5Kd1g2MDkyakNBYU5sbjljeHhsa1d3L3NUamk4NEZIdms4OVJl?=
- =?utf-8?B?ZFFqRHM2RlNRVlBIRU9HQWFJZ0kvQy94V3ZQS3V1TnFFYmxLQm1acGRuSVIr?=
- =?utf-8?B?dVlyNmp6dnZNWnRWVG5HSkp3dlRrMmgzeC8wcXFKbUxCdEhNZnJGUldHT3BH?=
- =?utf-8?B?ZXBTcWRoeU5peHEwc3k4ZUlwYzJCUTVBOHltazluNVBGelJNZGkzWGVNZ2E4?=
- =?utf-8?B?eER1Z1A5RzdCQzFkYnFHK1MyR1hibURNd2p6YUZySnNMQ3JnNGRFTkpveW02?=
- =?utf-8?B?NG43VTZCSXFRTXgzeU9waks3eUZGRTlxMmtGT3NNUW9lTkR5N1dCWUNEbVJ2?=
- =?utf-8?B?NjJDUTJYQzdoZktLZUFHZm16NWRTdjR5TDVsT2w0Mnh1Zy9pMkgxQmp3aXhi?=
- =?utf-8?B?ZjUxWHpSY1c2RTkwSzdqK1FWY0tidWhOSnVDV3VsU3IvUmJGMk0wV2ZEdmN0?=
- =?utf-8?B?SGo3NGVoYWlTZDlJMmhLNzBWMTcwczM2djJKU0pYWnFKZElSTlR0TlU1bmNZ?=
- =?utf-8?B?MHYzeE11OGdaTlgzdXZ3Wm51cHVtUXRMVHlTQnh3eEpURzRPQ3phUXkxTGRM?=
- =?utf-8?B?aUhHb3Bad2F6YjU5R1ZXNG9kWERKNXNIZjQ5bDVqbm0vZllVZ1M3RGRmNFBm?=
- =?utf-8?B?VjBmTG9FYTFOTTgza1UwM0pLajRkd0Y1cENlTkhkdzBwUS9wREpIOUhpYmcy?=
- =?utf-8?B?ZFpUN21FU2lDdnRPazU0b2l0dVpiT1lhSjRIQkZKSzN2NVZsc2hZeVZ6MU1P?=
- =?utf-8?B?Nzhsbjh0NUhTem1wdkQybkFEcDdzOHBFTFhzM2hhRG9VZWdFM0FESnNSQjVU?=
- =?utf-8?B?Zld0WDdSdE9CRmxYQkxGdzRGK1BIaWx0YUV2ZWZFRjJlNDRtL2JYT1k4d0M2?=
- =?utf-8?B?ZDUwdUFyckdhWUl3dFZ3anRGNDA4c2ZTRFV4OE1BYmlMb2pBbWdKNlZXelh2?=
- =?utf-8?B?L0JDZ2ZHMVdjWGtYbzFhdno2NU04b3BBME15eXBRck9FOHlwemVnTTRsdmpB?=
- =?utf-8?B?NjNYSEgzaUg4aXZNUnRmRHNFVjBGQUpuWnBHR0kyNHJmQzlFZ2N4K2VidDcy?=
- =?utf-8?B?NHcvd1dNUTRsYjlDZWFvbU1WSHArSFZOYUdnR1pxcVoyQWRNa0R3VzRPNS9l?=
- =?utf-8?B?V0IxVlN1eHdzZW02VkJ6eDBvU24yT0dFbEJKOTRiK3hDOVhqWFRubUtGNFZQ?=
- =?utf-8?B?YlJaZHRpYU0yMENwMkhtWDhDcXYvNVN4VEdXOWtVNDRweFZGTkExb215eUlM?=
- =?utf-8?B?V3ZnSmMvQ290ZW0wRDdhbjJZRGd4YTBoOXJZVFlJbVIzZjVlNTRpdnFhZjJH?=
- =?utf-8?B?WVR6dEhvb09JaExlOGQwRWtIWXdmTzYzazVQRWdtSW04WEFYWXVNV08vd0pU?=
- =?utf-8?Q?duy1dH3k/AfiR?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(7416014)(366016); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eHIxOVpyaUlkK2NiS2NTY1lmSnhwTFk1UXVMYVNDZGtrZHYxcjdKZi9rd1dp?=
- =?utf-8?B?djZRa2h4ZXpqUFNXT3VYaHdvbmJJOTBOZDhEdlloRUFTdzFjZVU4M1lPU25X?=
- =?utf-8?B?b2ZyTTdkalpKN202eENrd1kzbDdzQmd3Z2w1akJON3IyRkVidW9tYVkraEly?=
- =?utf-8?B?VHZaME9HY2hISlZxM3dmTW14ZERjcDBXbnZaMjl2eFdtckxRUEFONE1RMitC?=
- =?utf-8?B?Mk5ha3BTUjNBUklGYUdtajcrckk3eWNEakIxWEl2d284Z3U5YmF0ZWVNQVFN?=
- =?utf-8?B?N2d3bzNDQzA1eVVPWG5zbVZKUXlQTFVuYmZJRkN3Wko4ZFdNeTM2cEZ3OW9l?=
- =?utf-8?B?N2xPM0xzZU90UWkwRWxxa1ZaSzRNeitJRHk1VGcyUTZaZG4zc2lZelduYkQ3?=
- =?utf-8?B?MDJ5WDZSSElDdWtaNkxtVVZWNEIvMmo3YjdrOFp5bzJQUlVVOTEySWpuNmZG?=
- =?utf-8?B?aHd1RkhJRWhGamlDcnVVdkJ6aVRGdGJjMEhJTVB2ZHZBc0lVREwyWkxlbDB3?=
- =?utf-8?B?VVFxRm1STHdRMmp6aXpzdGI3cndPc3d3aHZQM2ltMmVaVjdJb3VZTHhyVVJG?=
- =?utf-8?B?S2wzSnJZWjRlQUdBZU42aitaK3A3WDJGSlpZWnRqVzBYZzhURzM1d1FscGhj?=
- =?utf-8?B?V1FTSkpoMGpuQm9zdG4yN0k0VE50MU5aK0IvK0F4MnQ1WklSYXhuVHZtenZN?=
- =?utf-8?B?blMwbGJBc0JtZmk0dlRBN24wMTE4bE5KY0IwcHNnZnpyblVtSmRPWmVSMkQw?=
- =?utf-8?B?WGhyaWIwemlSY1BROVRjTjBtVUw5UHhFaDBJNXBBSVA0VjJTRjZXc25UNW5v?=
- =?utf-8?B?YnppcHZZTDlKM3Z4cFlJUGpqNU0zS0JxR2NBQWVSRC92Q1dycnFEcTVSbVNa?=
- =?utf-8?B?b1lkUVJvSzFHREprQkp0MldoYld4OU9vYXNLWWgxcEFlNllZQlU2SkpndkVw?=
- =?utf-8?B?Zm93UXdJdW5XN3VJbFhBUTZlQ0puR3RMQzI5RnZkTWVQNG1qUHVtM1RWaG02?=
- =?utf-8?B?VnUwdm1yYUo1NUhMMEZ3bEhaZFdYMWh1bkxuc0poZ3ovQldiQWxSMXBkSVVl?=
- =?utf-8?B?aERNb2JSdkpxZk1UV0V1ODlRK1BWTHgyUHJpcHc3VmpDQjF1QnNCYmMvbXBw?=
- =?utf-8?B?WWRsdUJ2YnZKOEJPRE9lRFAwNU02RmF3RHdIRG0rclZySGkySHNKdDVMb1Fl?=
- =?utf-8?B?ZGN1K2VFS01EUjdOV3FzdERMSmZxS3ZOamc5aGVHMFcrN1VjcHBsZE1LU05E?=
- =?utf-8?B?ME5OdzBMUmNKYVdJUDcwYTJEZzR1d1VQcmpBVlJsVU80cnozSmpDRmVJV2hJ?=
- =?utf-8?B?V09WQmhjY3liSm12R0VYcVVveldacFd0NUYwOXpIVlNiWEYybUdGcEFWVDhS?=
- =?utf-8?B?ejhybFIzVTZxNVI1QS9zbjc3WCtsZlpVK0pOQk5vaU5tRHUzUURGem92Y3ph?=
- =?utf-8?B?Z0pFR081QVhES3hMay9hMnZCRUIzSFV0d2FIM2lhYXdxQmFhczhRR0NRRTcx?=
- =?utf-8?B?VmdHMVhTTzZqN3JsUnZjWE01UW8zSitZVVArQXFGUDhtMmZqV1VGRVhBbm9j?=
- =?utf-8?B?eVU3VjJhUUJ2dmh0Y1VNYnJ0andVbndLNy9wTm0wYkFObEJvdFN4TFE4WER1?=
- =?utf-8?B?dlZkVGpiRldUY3lDZ0d4cjh4UFZmWVpldWlPOVFLei85QTIzeU94WFZ6WWlu?=
- =?utf-8?B?QklGRE5jajBKZmJra214MU5PY0p2bk5QRTBnWFh4Q3E0R3l3SnE4UVJjT2lw?=
- =?utf-8?B?Y0hJZ1NuOER6SGQvdWUxMWUzazdUWHorWmRlQ2w0QnlEOGVObnFVMXVidVdK?=
- =?utf-8?B?QVVxQkphNVRDYjNmQ09qLzhCYzJObXFzVFM4VGJjWVRUSUdSWkJMQk1na2Nk?=
- =?utf-8?B?aDEyS1U4K25MdG9sa052V2NQQXVwRTNjYWYzdjE5dm9OSDgvVUZIT2lkSFlM?=
- =?utf-8?B?Nkc2Tmt3bVhlc2pxdjN1Y1JiZFNoSUkyaFM4NUR2RlJROWpCTTZTQjZwNVlz?=
- =?utf-8?B?aENzaWRzSVJwNXdOREZ6YVJDUW9YZTI4YzFlRFNEWVRsa1VFa0ZNcC9ZUkp1?=
- =?utf-8?B?U0FXdWM4cFZaUVRRMzB1NCttd1dMMHRrbFNVL0ljSGkxajdrUjRlOFMyVWlN?=
- =?utf-8?Q?Xe/2EqlXsvkLREZ6nImg7TGmN?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d05d4583-45b3-4def-9ad2-08dd1e094a5d
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Dec 2024 19:39:00.9535 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: UMz8C23jUrIPSaqurdXBvYnY8kCYHDZ2MJhG64cCBuJxihWC9duqIxxkhZCmEo+i8nm2/e6KCp0RFqgSdcZn0Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8968
+References: <20241216-sysfs-const-bin_attr-drm-v1-0-210f2b36b9bf@weissschuh.net>
+ <20241216-sysfs-const-bin_attr-drm-v1-4-210f2b36b9bf@weissschuh.net>
+In-Reply-To: <20241216-sysfs-const-bin_attr-drm-v1-4-210f2b36b9bf@weissschuh.net>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 16 Dec 2024 14:53:26 -0500
+Message-ID: <CADnq5_Md9Oy5LdrNSPLFcH7fbtJqjxZ-usrVwj93OOxLjjEgmA@mail.gmail.com>
+Subject: Re: [PATCH 4/5] drm/amdgpu: Constify 'struct bin_attribute'
+To: =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Qiang Yu <yuq825@gmail.com>, Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Xinhui Pan <Xinhui.Pan@amd.com>, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, lima@lists.freedesktop.org, 
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -196,86 +96,176 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Mon, Dec 16, 2024 at 6:53=E2=80=AFAM Thomas Wei=C3=9Fschuh <linux@weisss=
+chuh.net> wrote:
+>
+> The sysfs core now allows instances of 'struct bin_attribute' to be
+> moved into read-only memory. Make use of that to protect them against
+> accidental or malicious modifications.
+>
+> Signed-off-by: Thomas Wei=C3=9Fschuh <linux@weissschuh.net>
 
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-On 2024-12-16 10:31, Alex Deucher wrote:
-> On Mon, Dec 16, 2024 at 10:12 AM Dmitry Baryshkov
-> <dmitry.baryshkov@linaro.org> wrote:
->>
->> On Mon, 16 Dec 2024 at 16:53, Harry Wentland <harry.wentland@amd.com> wrote:
->>>
->>>
->>>
->>> On 2024-12-10 16:20, Dmitry Baryshkov wrote:
->>>> On Fri, Dec 06, 2024 at 11:43:07AM +0200, Dmitry Baryshkov wrote:
->>>>> Reading access to connector->eld can happen at the same time the
->>>>> drm_edid_to_eld() updates the data. Take the newly added eld_mutex in
->>>>> order to protect connector->eld from concurrent access.
->>>>>
->>>>> Reviewed-by: Maxime Ripard <mripard@kernel.org>
->>>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
->>>>> ---
->>>>>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 ++
->>>>>  1 file changed, 2 insertions(+)
->>>>
->>>> Harry, Leo, Rodrigo, Alex, Christian, Xinhui, any response to this one
->>>> and to the radeon patches? I'd like to be able to pick the series for
->>>> drm-misc and these two are not reviewed by you.
->>>>
->>>>>
->>>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>>>> index 19a58630e774029767bf2a27eb4ddf17e3c21129..04c68c320252b5ce9647f0606fb86fe57f347639 100644
->>>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>>>> @@ -1037,8 +1037,10 @@ static int amdgpu_dm_audio_component_get_eld(struct device *kdev, int port,
->>>>>                      continue;
->>>>>
->>>>>              *enabled = true;
->>>>> +            mutex_lock(&connector->eld_mutex);
->>>>>              ret = drm_eld_size(connector->eld);
->>>>>              memcpy(buf, connector->eld, min(max_bytes, ret));
->>>>> +            mutex_unlock(&connector->eld_mutex);
->>>
->>> All of this is wrapped by the adev->dm.audio_lock mutex. It might
->>> be safer to modify the audio_lock mutex so it only guards the
->>> aconnector->audio_inst access.
->>>
->>> But I don't see any way these mutexes would otherwise interact,
->>> so this change should be good as-is.
->>>
->>> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
->>
->> Would you ack it to merge it through drm-misc? Or would you prefer to
->> pick up those two patches after merging drm-misc-next once the rest of
->> the series lands?
-> 
-> Merging through drm-misc is fine with me.
-> 
-
-Same.
-
-Harry
-
-> Thanks,
-> 
-> Alex
-> 
->>
->>>
->>> Harry
->>>
->>>>>
->>>>>              break;
->>>>>      }
->>>>>
->>>>> --
->>>>> 2.39.5
->>>>>
->>>>
->>>
->>
->>
->> --
->> With best wishes
->> Dmitry
-
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  6 +++---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c    | 14 +++++++-------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c    | 13 ++++++-------
+>  3 files changed, 16 insertions(+), 17 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_device.c
+> index d272d95dd5b2f5eb83be279281d55af323f7f508..88459de2cd2e47390d33e5939=
+875c3322b740b4d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -223,7 +223,7 @@ static DEVICE_ATTR(pcie_replay_count, 0444,
+>                 amdgpu_device_get_pcie_replay_count, NULL);
+>
+>  static ssize_t amdgpu_sysfs_reg_state_get(struct file *f, struct kobject=
+ *kobj,
+> -                                         struct bin_attribute *attr, cha=
+r *buf,
+> +                                         const struct bin_attribute *att=
+r, char *buf,
+>                                           loff_t ppos, size_t count)
+>  {
+>         struct device *dev =3D kobj_to_dev(kobj);
+> @@ -259,8 +259,8 @@ static ssize_t amdgpu_sysfs_reg_state_get(struct file=
+ *f, struct kobject *kobj,
+>         return bytes_read;
+>  }
+>
+> -BIN_ATTR(reg_state, 0444, amdgpu_sysfs_reg_state_get, NULL,
+> -        AMDGPU_SYS_REG_STATE_END);
+> +static const BIN_ATTR(reg_state, 0444, amdgpu_sysfs_reg_state_get, NULL,
+> +                     AMDGPU_SYS_REG_STATE_END);
+>
+>  int amdgpu_reg_state_sysfs_init(struct amdgpu_device *adev)
+>  {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_psp.c
+> index 448f9e742983f3ef0c5fccc18d85f0c2449aa08e..cda25174730a6852bcb6e01ae=
+ec858faad172b19 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> @@ -3969,7 +3969,7 @@ int is_psp_fw_valid(struct psp_bin_desc bin)
+>  }
+>
+>  static ssize_t amdgpu_psp_vbflash_write(struct file *filp, struct kobjec=
+t *kobj,
+> -                                       struct bin_attribute *bin_attr,
+> +                                       const struct bin_attribute *bin_a=
+ttr,
+>                                         char *buffer, loff_t pos, size_t =
+count)
+>  {
+>         struct device *dev =3D kobj_to_dev(kobj);
+> @@ -4005,7 +4005,7 @@ static ssize_t amdgpu_psp_vbflash_write(struct file=
+ *filp, struct kobject *kobj,
+>  }
+>
+>  static ssize_t amdgpu_psp_vbflash_read(struct file *filp, struct kobject=
+ *kobj,
+> -                                      struct bin_attribute *bin_attr, ch=
+ar *buffer,
+> +                                      const struct bin_attribute *bin_at=
+tr, char *buffer,
+>                                        loff_t pos, size_t count)
+>  {
+>         struct device *dev =3D kobj_to_dev(kobj);
+> @@ -4057,11 +4057,11 @@ static ssize_t amdgpu_psp_vbflash_read(struct fil=
+e *filp, struct kobject *kobj,
+>   * Writing to this file will stage an IFWI for update. Reading from this=
+ file
+>   * will trigger the update process.
+>   */
+> -static struct bin_attribute psp_vbflash_bin_attr =3D {
+> +static const struct bin_attribute psp_vbflash_bin_attr =3D {
+>         .attr =3D {.name =3D "psp_vbflash", .mode =3D 0660},
+>         .size =3D 0,
+> -       .write =3D amdgpu_psp_vbflash_write,
+> -       .read =3D amdgpu_psp_vbflash_read,
+> +       .write_new =3D amdgpu_psp_vbflash_write,
+> +       .read_new =3D amdgpu_psp_vbflash_read,
+>  };
+>
+>  /**
+> @@ -4088,7 +4088,7 @@ static ssize_t amdgpu_psp_vbflash_status(struct dev=
+ice *dev,
+>  }
+>  static DEVICE_ATTR(psp_vbflash_status, 0440, amdgpu_psp_vbflash_status, =
+NULL);
+>
+> -static struct bin_attribute *bin_flash_attrs[] =3D {
+> +static const struct bin_attribute *const bin_flash_attrs[] =3D {
+>         &psp_vbflash_bin_attr,
+>         NULL
+>  };
+> @@ -4124,7 +4124,7 @@ static umode_t amdgpu_bin_flash_attr_is_visible(str=
+uct kobject *kobj,
+>
+>  const struct attribute_group amdgpu_flash_attr_group =3D {
+>         .attrs =3D flash_attrs,
+> -       .bin_attrs =3D bin_flash_attrs,
+> +       .bin_attrs_new =3D bin_flash_attrs,
+>         .is_bin_visible =3D amdgpu_bin_flash_attr_is_visible,
+>         .is_visible =3D amdgpu_flash_attr_is_visible,
+>  };
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_ras.c
+> index 4c9fa24dd9726a405935907524ed7bf7862779d1..2991e0967b5bfc848328aaa59=
+ddfb9a8f202bae9 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> @@ -1732,7 +1732,7 @@ static char *amdgpu_ras_badpage_flags_str(unsigned =
+int flags)
+>   */
+>
+>  static ssize_t amdgpu_ras_sysfs_badpages_read(struct file *f,
+> -               struct kobject *kobj, struct bin_attribute *attr,
+> +               struct kobject *kobj, const struct bin_attribute *attr,
+>                 char *buf, loff_t ppos, size_t count)
+>  {
+>         struct amdgpu_ras *con =3D
+> @@ -2063,8 +2063,8 @@ void amdgpu_ras_debugfs_create_all(struct amdgpu_de=
+vice *adev)
+>  /* debugfs end */
+>
+>  /* ras fs */
+> -static BIN_ATTR(gpu_vram_bad_pages, S_IRUGO,
+> -               amdgpu_ras_sysfs_badpages_read, NULL, 0);
+> +static const BIN_ATTR(gpu_vram_bad_pages, S_IRUGO,
+> +                     amdgpu_ras_sysfs_badpages_read, NULL, 0);
+>  static DEVICE_ATTR(features, S_IRUGO,
+>                 amdgpu_ras_sysfs_features_read, NULL);
+>  static DEVICE_ATTR(version, 0444,
+> @@ -2086,7 +2086,7 @@ static int amdgpu_ras_fs_init(struct amdgpu_device =
+*adev)
+>                 &con->event_state_attr.attr,
+>                 NULL
+>         };
+> -       struct bin_attribute *bin_attrs[] =3D {
+> +       const struct bin_attribute *bin_attrs[] =3D {
+>                 NULL,
+>                 NULL,
+>         };
+> @@ -2112,11 +2112,10 @@ static int amdgpu_ras_fs_init(struct amdgpu_devic=
+e *adev)
+>
+>         if (amdgpu_bad_page_threshold !=3D 0) {
+>                 /* add bad_page_features entry */
+> -               bin_attr_gpu_vram_bad_pages.private =3D NULL;
+>                 con->badpages_attr =3D bin_attr_gpu_vram_bad_pages;
+> +               sysfs_bin_attr_init(&con->badpages_attr);
+>                 bin_attrs[0] =3D &con->badpages_attr;
+> -               group.bin_attrs =3D bin_attrs;
+> -               sysfs_bin_attr_init(bin_attrs[0]);
+> +               group.bin_attrs_new =3D bin_attrs;
+>         }
+>
+>         r =3D sysfs_create_group(&adev->dev->kobj, &group);
+>
+> --
+> 2.47.1
+>
