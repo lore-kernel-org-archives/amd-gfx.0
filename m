@@ -4,72 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5E23E7717F
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Dec 2024 21:49:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2F3AE7717F
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Dec 2024 21:55:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C96810E639;
-	Mon, 16 Dec 2024 21:49:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 613B310E7BE;
+	Mon, 16 Dec 2024 21:55:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JAEZS01T";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JtkC9tkO";
 	dkim-atps=neutral
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [IPv6:2a00:1450:4864:20::533])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 366A210E639
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Dec 2024 21:49:49 +0000 (UTC)
-Received: by mail-ed1-x533.google.com with SMTP id
- 4fb4d7f45d1cf-5d3ce64e7e5so551321a12.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Dec 2024 13:49:49 -0800 (PST)
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [IPv6:2a00:1450:4864:20::531])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 619F210E7BC;
+ Mon, 16 Dec 2024 21:55:04 +0000 (UTC)
+Received: by mail-ed1-x531.google.com with SMTP id
+ 4fb4d7f45d1cf-5d3cd8e59fdso523439a12.3; 
+ Mon, 16 Dec 2024 13:55:04 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1734385788; x=1734990588; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1734386103; x=1734990903; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=+ghNhQid0DkBHv76x2DcxyuVJ0HKDDV4RW6k0LG/rdA=;
- b=JAEZS01T9WtT5kKqobNvEh+HQ8uMJGZO5ClHWiPyJSGTiF8MhFehXgKfqWDmubvf7C
- 5Y6DqHkTaXAsxA0XMgrD2nRdjzyVTmjJN4lkXufEzZN1ZD078/8/OAOriArNTjBeD3HY
- 3VSQaiwhPusikZ6Mlcz0lZRCWgqdOJDYcs+nIroev4UmMXMD78WUAR9buv7c0Akd3Ni2
- tjHFnHBy5M3sZHpSS4SD7MaqvCsTRfgDC5JBLdQqMMUhqEujGpNxW8aXgftEhALlv9xA
- YTIsoDfiJnaFPpPB/EpVsJf25yKMofJJPCeMZw6fsIZkaHp60opwPit87C9s5PzeJDBF
- Hs8Q==
+ bh=7g3tDEPdEdGCybIEXwQPrCHeb6NOr4ZMTNOYXdBj46w=;
+ b=JtkC9tkO1VEcuklvUvx08aCdxXQp5PdjSaqfHvP+JDj25d2HAUaMGu6j2oPjoygbGH
+ q2FfxeuZL31wBGVAzRn3BqbDhHd1Ph/QNzDBhmvXk4zd26xYfKPQPxteruG4AIXs1i9n
+ bRDzH59M22I/4m9UdPm7zbzoiqhw7tgtkcXyQSCt9ayLTHCZFuFgLzrMpGUDPR/bzj88
+ XeqVLnWBuhO8P9IFUuEDFUNu9Q8Tqj+itMNxRlp1affXOgLrmsHphNSKa4oXfUeR0nj2
+ at8DWYClcPk2wi1oN7vg1ReAlPCDSNUihZA7k66EPUpBuTqLdD18o0cflh9jDwaGl6O4
+ Yv4A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734385788; x=1734990588;
+ d=1e100.net; s=20230601; t=1734386103; x=1734990903;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=+ghNhQid0DkBHv76x2DcxyuVJ0HKDDV4RW6k0LG/rdA=;
- b=TjYdGj6VB7yxyI1eA2dZOToDob6nfeamuLTG5gk9fkQL8pRPWlfCGvAmQ3BN4UW7zI
- huzV0PNeBqe1zosxIf2fPStLOSMo/mlAYo1Uuayv+6O3jVqD7/0sYe+BdXOZVmUzq8s4
- 7pGRUYfT9XVQFRabAi9HA4ls5TXrWenb36DuRNVg8hm1GEFRUE2iYntT2214358n5eZI
- KwyqKfVAwIp45GtAX7IE4ku5h8UE6e8ZXgKVNByMvgJpTANXOx2D5tMe4F8macyAbxRS
- MK6e+FXV0vhkx6w+jNjc4ZD3z0PcjVKtk6w874fKkk8hY6wuorZypYhIy6GqDfNBm8v6
- lajA==
+ bh=7g3tDEPdEdGCybIEXwQPrCHeb6NOr4ZMTNOYXdBj46w=;
+ b=fhMsa1Daq3CujhygFbW1plwZe5LGD9K5MiNcIWWJf9TjpupLCgkzlb9F8w0lNFSuPE
+ ucyx8mWbPlgOhUqFJ0bx5zxwxILZgWsc5+qi/eEUqmrjNsTIrxdeV+8DFQu6ezsCKDoz
+ zF+/28/5h2F6I1wy3SAbfZoA7pn7AfCFgaX6qIu61NiWJiIUsPTyOLTy0jRecCu8FPkE
+ ik8fChaJI/PhLwf9dNyS7TP5tP5a7H98jYOxV+jfZ0lLZG9egePgyvIz7xtwaGq1Tu45
+ JQdy7io3C4QjAz1dfY3T8G22eSYlLDyAygYBe/3TaO/ZxWwaq3iEhj4tfQ3WUOhnny3r
+ T/lg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW3MGPOb8UnndjKA8/Au6LGcKx07me/M6Wf0orjJrOItsiuche+lbI17cpzDjQ05VQKg+moIvAB@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxj7GsLsTVo9Q0ARnoEdFMC0WW89uVR+qq43/eKFzf9Z5Xh8nB3
- RkgYmYqbNnLqbnBAWhsFMcaOI29eJY7w/DKu/bL4j41s+GLcLsfXpZJL/8eMZfnWqT07U1HdnkP
- k6PEAtBK3tg9ieX2krFiIooImqq8qTQ==
-X-Gm-Gg: ASbGncsnMLjfUQPR+xxbbuSsUa2PdKWVfCnemWSqI2+wL1+QpR+KOxO7R/aT9axLfFi
- gkAkSKY0xBNZ+I4wxmeLb/7Oeuc6vhXmk8t1sj5s=
-X-Google-Smtp-Source: AGHT+IFYlHahlbI7XVXNYVLU4+vR+TYjN4wik6pMGAbmX+L9B8yOh92Hyqg4lo8AVuPbWGENvECkkWbx2TuOrgLXz8w=
-X-Received: by 2002:a05:6402:27cb:b0:5d0:bcc4:8af1 with SMTP id
- 4fb4d7f45d1cf-5d63c157160mr5073941a12.0.1734385787422; Mon, 16 Dec 2024
- 13:49:47 -0800 (PST)
+ AJvYcCUDMMVBhdpJFJ8vQtRHZslUyctmIJEa2Bd8nF19gWju9dd6ZeX9kCT4FxlTfi065VnuRcP0IRWAYqOR@lists.freedesktop.org,
+ AJvYcCUFnRPjjDxe+Jtk+b403mOOvN61dWkUXr7brP46FfB58NfB1IjwFWSzS29pi2+qfu65SfLwqyUX@lists.freedesktop.org,
+ AJvYcCUNKas5uvKbEXa1T9Pbhi5OXPJr70Z+BnLmzUB5KUUoCA0Lek1tw0F//finwND8856zJxRygPpyUF4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx9DMD+AZEoQjtvnrDpWVIwNHJOr7Ba4e2e0iRZJvEf1FLoDjz5
+ jM5KdNnxbj5DQRchLYqmDyknK9NG2ApGopsDSdhLgyThjPVdV5Lq8A+qJcG2H1pvducyUCp5lOL
+ pVn20vUDIoJKmRrIFe3gA5e/yA8s=
+X-Gm-Gg: ASbGncsPtA/XZU2j5grRHo+Uiw91kicUw4GOjYLRAWcgakyGpwb/K+JNyENjrgJFDKb
+ rYkugCsGPR6O9bVYhghc8L1N3his0Rqio8zikjt4=
+X-Google-Smtp-Source: AGHT+IFKfN/bXsKg0G+nB5Tq+KneDyQMoRqtpNMcckJbG/3ZFzuNQQLKkqs1Po9i1zEEb69nAFSeHgo2ITCkGXRjM+Q=
+X-Received: by 2002:a05:6402:1e89:b0:5d0:b87c:3eb6 with SMTP id
+ 4fb4d7f45d1cf-5d63c3eb62fmr3684633a12.10.1734386102559; Mon, 16 Dec 2024
+ 13:55:02 -0800 (PST)
 MIME-Version: 1.0
 References: <CAAxE2A5BkF13bFt8_UnuiqPM8W-ZESgmKEjqqGfv=DGzSfJ7aQ@mail.gmail.com>
- <CAAxE2A77j94VNp33VhO97n3db_fZz1zUpM_VUPfkt96_Dzu9Bg@mail.gmail.com>
- <972c14f7-bf6f-450f-92c5-3f2b8390eac8@froggi.es>
- <CAAxE2A6popiaVF=u5B1swqXLGwnPxFTrqJKSEJJZ4tjVeWDpsA@mail.gmail.com>
- <893fedef-1592-487d-abd7-18f9d9ff79c8@froggi.es>
- <CAAxE2A79pOgZV9iK4fnbG0m8+vhrWej1J0jdMKwsxMSYEq3Chw@mail.gmail.com>
- <j6tx2oxperyjzb2qukuho5jadricty7twshempdxufl5b6c6hs@ccyy6hnnrphq>
-In-Reply-To: <j6tx2oxperyjzb2qukuho5jadricty7twshempdxufl5b6c6hs@ccyy6hnnrphq>
+ <340ed70a-a576-43c6-86ff-9b58ed513c72@mailbox.org>
+ <a42981617e880d48e9614c9ab5a8892f7ae0a315.camel@pengutronix.de>
+In-Reply-To: <a42981617e880d48e9614c9ab5a8892f7ae0a315.camel@pengutronix.de>
 From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-Date: Mon, 16 Dec 2024 16:49:11 -0500
-Message-ID: <CAAxE2A65DwFQurmCFAnv0r5-KKj36gwbZbeNWMBDoreyXsF0YQ@mail.gmail.com>
+Date: Mon, 16 Dec 2024 16:54:26 -0500
+Message-ID: <CAAxE2A6WVzkfeG-yU8QzM=V4qrWWKw7N1i2Ado=iNQMn5v4gGQ@mail.gmail.com>
 Subject: Re: [PATCH] drm/fourcc: add LINEAR modifiers with an exact pitch
  alignment
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: Joshua Ashton <joshua@froggi.es>, amd-gfx@lists.freedesktop.org
-Content-Type: multipart/alternative; boundary="000000000000c34fbd06296a284f"
+To: Lucas Stach <l.stach@pengutronix.de>
+Cc: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>, 
+ dri-devel <dri-devel@lists.freedesktop.org>, 
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>, 
+ ML Mesa-dev <mesa-dev@lists.freedesktop.org>
+Content-Type: multipart/alternative; boundary="0000000000008bed2906296a3b12"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,178 +85,182 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---000000000000c34fbd06296a284f
+--0000000000008bed2906296a3b12
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Dec 16, 2024 at 4:28=E2=80=AFAM Dmitry Baryshkov <
-dmitry.baryshkov@linaro.org> wrote:
+On Mon, Dec 16, 2024 at 5:46=E2=80=AFAM Lucas Stach <l.stach@pengutronix.de=
+> wrote:
 
-> On Mon, Dec 16, 2024 at 12:40:54AM -0500, Marek Ol=C5=A1=C3=A1k wrote:
-> > git send-email (or rather the way it sends email) has been banned by
-> gmail
-> > due to being considered unsecure. I don't plan to find a way to make it
-> > work and I don't plan to use a different email provider. It doesn't
-> matter
-> > because I'll be the committer of this patch in our amd-staging-drm-next
-> > branch.
+> Am Montag, dem 16.12.2024 um 10:27 +0100 schrieb Michel D=C3=A4nzer:
+> > On 2024-12-15 21:53, Marek Ol=C5=A1=C3=A1k wrote:
+> > > The comment explains the problem with DRM_FORMAT_MOD_LINEAR.
+> > >
+> > > Signed-off-by: Marek Ol=C5=A1=C3=A1k <marek.olsak@amd.com <mailto:
+> marek.olsak@amd.com>>
+> > >
+> > > diff --git a/include/uapi/drm/drm_fourcc.h
+> b/include/uapi/drm/drm_fourcc.h
+> > > index 78abd819fd62e..8ec4163429014 100644
+> > > --- a/include/uapi/drm/drm_fourcc.h
+> > > +++ b/include/uapi/drm/drm_fourcc.h
+> > > @@ -484,9 +484,27 @@ extern "C" {
+> > >   * modifier (e.g. not setting DRM_MODE_FB_MODIFIERS in the DRM_ADDFB=
+2
+> ioctl),
+> > >   * which tells the driver to also take driver-internal information
+> into account
+> > >   * and so might actually result in a tiled framebuffer.
+> > > + *
+> > > + * WARNING:
+> > > + * There are drivers out there that expose DRM_FORMAT_MOD_LINEAR, bu=
+t
+> only
+> > > + * support a certain pitch alignment and can't import images with
+> this modifier
+> > > + * if the pitch alignment isn't exactly the one supported. They can
+> however
+> > > + * allocate images with this modifier and other drivers can import
+> them only
+> > > + * if they support the same pitch alignment. Thus,
+> DRM_FORMAT_MOD_LINEAR is
+> > > + * fundamentically incompatible across devices and is the only
+> modifier that
+> > > + * has a chance of not working. The PITCH_ALIGN modifiers should be
+> used
+> > > + * instead.
+> > >   */
+> > >  #define DRM_FORMAT_MOD_LINEAR  fourcc_mod_code(NONE, 0)
+> > >
+> > > +/* Linear layout modifiers with an explicit pitch alignment in bytes=
+.
+> > > + * Exposing this modifier requires that the pitch alignment is exact=
+ly
+> > > + * the number in the definition.
+> > > + */
+> > > +#define DRM_FORMAT_MOD_LINEAR_PITCH_ALIGN_64B fourcc_mod_code(NONE, =
+1)
+> >
+> > It's not clear what you mean by "requires that the pitch alignment is
+> exactly
+> > the number in the definition", since a pitch which is aligned to 256
+> bytes is
+> > also aligned to 128 & 64 bytes. Do you mean the pitch must be exactly
+> the width
+> > rounded up to the next / smallest possible multiple of the specified
+> number of bytes?
 >
-> I'm sorry, but I'd second Joshua. As a community we use certain methods
-> and certain approaches which makes it easier for other people to review
-> your patches. One of those includes sending patches in plain text
-> without any attachments, etc (documented under Documentation/process/).
-> All my patches are being sent using git-send-email or b4 send via GMail.
-> Other developers use web-relay provided by the B4 tool.
+> I guess that's the intention here, as some AMD GPUs apparently have
+> this limitation that they need an exact aligned pitch.
 >
-> Next, the MAINTAINERS file lists Alex, Christian and Xinhui as
-> maintainers of the drm/amd tree. If the file is incorrect or incomplete,
-> please correct it.
->
-> Last, but not least, this patch will likely go into drm-misc-next or
-> drm-next instead of amd-saging-drm-next. It is not AMD-specific.
->
-
-I won't comment on this because it's irrelevant. Alex will decide which
-pull request it will end up in.
-
-
-> > Let's talk about the concept and brokenness of DRM_FORMAT_MOD_LINEAR, n=
-ot
-> > send-email.
->
-> The biggest problem with your approach is tht it is not clear which
-> modifier to use. For example, if one of the formats requires 128-byte
-> alignment, should the driver list just 128B or both 128B and 256B? If at
-> some point we add 32B alignment, will we have to update the drivers?
-> Which format should be used for exported buffers? Please provide
-> corresponding driver patches that utilize new uAPI.
->
-
-This is format(bpp)-independent. If some formats don't support some
-alignment, only modifiers that are supported by all formats should be
-exposed.
-
-Drivers should list the alignment they support and all greater ones, e.g.:
-Intel: 64B, 128B, 256B
-AMD: 256B
-
-Nobody chooses exactly which modifier to use in advance, and if some app
-did that, it would be a violation of how modifiers work. Drivers only
-expose modifiers sorted from best to worst, apps only compute intersections
-of modifier lists and pass them to drivers, and drivers pick the first one
-in the list or the best one in the list, but it doesn't matter which one at
-that point. The computation of the intersection is what determines which
-modifiers are allowed.
-
-
->
-> Also, please don't forget the backwards compatibility issue. If we
-> follow this approach, the drivers have to list both LINEAR and new
-> PITCH_ALIGN modifiers. So the userspace still will attempt to use
-> LINEAR.
->
-
-Yes and no. Apps should never get an image using LINEAR if PITCH_ALIGN is
-first in the list.
-
-
-> It is true that such requirements are platform-specific and are usually
-> encoded in the compostitor. I think it might make more sense to export
-> the pitch requirements using the extra hint-like property, which then
-> can be used by a smart userspace.
+> If we open the can of worms to overhaul the linear modifier, I think it
+> would make sense to also add modifiers for the more common restriction,
+> where the pitch needs to be aligned to a specific granule, but the
+> engine doesn't care if things get overaligned to a multiple of the
+> granule. Having both sets would probably make it easier for the reader
+> to see the difference to the exact pitch modifiers proposed in this
+> patch.
 >
 
-If we did that, it would be an admission that using modifiers exposed by
-drivers can fail image allocation for any reason, and thus it would be an
-indication that modifiers are a badly designed API because driver-exposed
-modifiers don't fully describe image layouts, which is what they were
-supposed to do in the first place.
+That's a good point.
+
+It could be:
+- LINEAR_PITCH_ALIGN_EXACT_#B
+- LINEAR_PITCH_ALIGN_MULTIPLE_#B
+
+Drivers that expose the MULTIPLE ones should also expose the EXACT ones
+that are equivalent. Other drivers will only expose the EXACT ones but not
+the MULTIPLE ones.
 
 Marek
 
---000000000000c34fbd06296a284f
+--0000000000008bed2906296a3b12
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 <div dir=3D"ltr"><div class=3D"gmail_quote gmail_quote_container"><div dir=
-=3D"ltr" class=3D"gmail_attr">On Mon, Dec 16, 2024 at 4:28=E2=80=AFAM Dmitr=
-y Baryshkov &lt;<a href=3D"mailto:dmitry.baryshkov@linaro.org">dmitry.barys=
-hkov@linaro.org</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" s=
-tyle=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);pad=
-ding-left:1ex">On Mon, Dec 16, 2024 at 12:40:54AM -0500, Marek Ol=C5=A1=C3=
-=A1k wrote:<br>
-&gt; git send-email (or rather the way it sends email) has been banned by g=
-mail<br>
-&gt; due to being considered unsecure. I don&#39;t plan to find a way to ma=
-ke it<br>
-&gt; work and I don&#39;t plan to use a different email provider. It doesn&=
-#39;t matter<br>
-&gt; because I&#39;ll be the committer of this patch in our amd-staging-drm=
--next<br>
-&gt; branch.<br>
+=3D"ltr" class=3D"gmail_attr">On Mon, Dec 16, 2024 at 5:46=E2=80=AFAM Lucas=
+ Stach &lt;<a href=3D"mailto:l.stach@pengutronix.de">l.stach@pengutronix.de=
+</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:=
+0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">=
+Am Montag, dem 16.12.2024 um 10:27 +0100 schrieb Michel D=C3=A4nzer:<br>
+&gt; On 2024-12-15 21:53, Marek Ol=C5=A1=C3=A1k wrote:<br>
+&gt; &gt; The comment explains the problem with DRM_FORMAT_MOD_LINEAR.<br>
+&gt; &gt; =C2=A0 =C2=A0<br>
+&gt; &gt; Signed-off-by: Marek Ol=C5=A1=C3=A1k &lt;<a href=3D"mailto:marek.=
+olsak@amd.com" target=3D"_blank">marek.olsak@amd.com</a> &lt;mailto:<a href=
+=3D"mailto:marek.olsak@amd.com" target=3D"_blank">marek.olsak@amd.com</a>&g=
+t;&gt;<br>
+&gt; &gt; <br>
+&gt; &gt; diff --git a/include/uapi/drm/drm_fourcc.h b/include/uapi/drm/drm=
+_fourcc.h<br>
+&gt; &gt; index 78abd819fd62e..8ec4163429014 100644<br>
+&gt; &gt; --- a/include/uapi/drm/drm_fourcc.h<br>
+&gt; &gt; +++ b/include/uapi/drm/drm_fourcc.h<br>
+&gt; &gt; @@ -484,9 +484,27 @@ extern &quot;C&quot; {<br>
+&gt; &gt; =C2=A0 * modifier (e.g. not setting DRM_MODE_FB_MODIFIERS in the =
+DRM_ADDFB2 ioctl),<br>
+&gt; &gt; =C2=A0 * which tells the driver to also take driver-internal info=
+rmation into account<br>
+&gt; &gt; =C2=A0 * and so might actually result in a tiled framebuffer.<br>
+&gt; &gt; + *<br>
+&gt; &gt; + * WARNING:<br>
+&gt; &gt; + * There are drivers out there that expose DRM_FORMAT_MOD_LINEAR=
+, but only<br>
+&gt; &gt; + * support a certain pitch alignment and can&#39;t import images=
+ with this modifier<br>
+&gt; &gt; + * if the pitch alignment isn&#39;t exactly the one supported. T=
+hey can however<br>
+&gt; &gt; + * allocate images with this modifier and other drivers can impo=
+rt them only<br>
+&gt; &gt; + * if they support the same pitch alignment. Thus, DRM_FORMAT_MO=
+D_LINEAR is<br>
+&gt; &gt; + * fundamentically incompatible across devices and is the only m=
+odifier that<br>
+&gt; &gt; + * has a chance of not working. The PITCH_ALIGN modifiers should=
+ be used<br>
+&gt; &gt; + * instead.<br>
+&gt; &gt; =C2=A0 */<br>
+&gt; &gt; =C2=A0#define DRM_FORMAT_MOD_LINEAR =C2=A0fourcc_mod_code(NONE, 0=
+)<br>
+&gt; &gt; =C2=A0<br>
+&gt; &gt; +/* Linear layout modifiers with an explicit pitch alignment in b=
+ytes.<br>
+&gt; &gt; + * Exposing this modifier requires that the pitch alignment is e=
+xactly<br>
+&gt; &gt; + * the number in the definition.<br>
+&gt; &gt; + */<br>
+&gt; &gt; +#define DRM_FORMAT_MOD_LINEAR_PITCH_ALIGN_64B fourcc_mod_code(NO=
+NE, 1)<br>
+&gt; <br>
+&gt; It&#39;s not clear what you mean by &quot;requires that the pitch alig=
+nment is exactly<br>
+&gt; the number in the definition&quot;, since a pitch which is aligned to =
+256 bytes is<br>
+&gt; also aligned to 128 &amp; 64 bytes. Do you mean the pitch must be exac=
+tly the width<br>
+&gt; rounded up to the next / smallest possible multiple of the specified n=
+umber of bytes?<br>
 <br>
-I&#39;m sorry, but I&#39;d second Joshua. As a community we use certain met=
-hods<br>
-and certain approaches which makes it easier for other people to review<br>
-your patches. One of those includes sending patches in plain text<br>
-without any attachments, etc (documented under Documentation/process/).<br>
-All my patches are being sent using git-send-email or b4 send via GMail.<br=
->
-Other developers use web-relay provided by the B4 tool.<br>
+I guess that&#39;s the intention here, as some AMD GPUs apparently have<br>
+this limitation that they need an exact aligned pitch.<br>
 <br>
-Next, the MAINTAINERS file lists Alex, Christian and Xinhui as<br>
-maintainers of the drm/amd tree. If the file is incorrect or incomplete,<br=
->
-please correct it.<br>
-<br>
-Last, but not least, this patch will likely go into drm-misc-next or<br>
-drm-next instead of amd-saging-drm-next. It is not AMD-specific.<br></block=
-quote><div><br></div><div>I won&#39;t comment on this because it&#39;s irre=
-levant. Alex will decide which pull request it will end up in.</div><div><b=
-r></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex=
-;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-<br>
-&gt; Let&#39;s talk about the concept and brokenness of DRM_FORMAT_MOD_LINE=
-AR, not<br>
-&gt; send-email.<br>
-<br>
-The biggest problem with your approach is tht it is not clear which<br>
-modifier to use. For example, if one of the formats requires 128-byte<br>
-alignment, should the driver list just 128B or both 128B and 256B? If at<br=
->
-some point we add 32B alignment, will we have to update the drivers?<br>
-Which format should be used for exported buffers? Please provide<br>
-corresponding driver patches that utilize new uAPI.<br></blockquote><div><b=
-r></div><div>This is format(bpp)-independent. If some formats don&#39;t sup=
-port some alignment, only modifiers that are supported by all formats shoul=
-d be exposed.</div><div><br></div><div>Drivers should list the alignment th=
-ey support and all greater ones, e.g.:</div><div>Intel: 64B, 128B, 256B<br>=
-</div><div>AMD: 256B</div><div><br></div><div>Nobody chooses exactly which =
-modifier to use in advance, and if some app did that, it would be a violati=
-on of how modifiers work. Drivers only expose modifiers sorted from best to=
- worst, apps only compute intersections of modifier lists and pass them to =
-drivers, and drivers pick the first one in the list or the best one in the =
-list, but it doesn&#39;t matter which one at that point. The computation of=
- the intersection is what determines which modifiers are allowed.<br></div>=
-<div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px =
-0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-<br>
-Also, please don&#39;t forget the backwards compatibility issue. If we<br>
-follow this approach, the drivers have to list both LINEAR and new<br>
-PITCH_ALIGN modifiers. So the userspace still will attempt to use<br>
-LINEAR.<br></blockquote><div><br></div><div>Yes and no. Apps should never g=
-et an image using LINEAR if PITCH_ALIGN is first in the list.<br></div><div=
-><br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.=
-8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-<br>
-It is true that such requirements are platform-specific and are usually<br>
-encoded in the compostitor. I think it might make more sense to export<br>
-the pitch requirements using the extra hint-like property, which then<br>
-can be used by a smart userspace.<br></blockquote><div><br></div><div>If we=
- did that, it would be an admission that using modifiers exposed by drivers=
- can fail image allocation for any reason, and thus it would be an indicati=
-on that modifiers are a badly designed API because driver-exposed modifiers=
- don&#39;t fully describe image layouts, which is what they were supposed t=
-o do in the first place.<br></div><div>=C2=A0</div>Marek<br></div></div>
+If we open the can of worms to overhaul the linear modifier, I think it<br>
+would make sense to also add modifiers for the more common restriction,<br>
+where the pitch needs to be aligned to a specific granule, but the<br>
+engine doesn&#39;t care if things get overaligned to a multiple of the<br>
+granule. Having both sets would probably make it easier for the reader<br>
+to see the difference to the exact pitch modifiers proposed in this<br>
+patch.<br></blockquote><div><br></div>That&#39;s a good point.</div><div cl=
+ass=3D"gmail_quote gmail_quote_container"><br></div><div class=3D"gmail_quo=
+te gmail_quote_container">It could be:</div><div class=3D"gmail_quote gmail=
+_quote_container">- LINEAR_PITCH_ALIGN_EXACT_#B</div><div class=3D"gmail_qu=
+ote gmail_quote_container">- LINEAR_PITCH_ALIGN_MULTIPLE_#B</div><div class=
+=3D"gmail_quote gmail_quote_container"><br></div><div class=3D"gmail_quote =
+gmail_quote_container">Drivers that expose the MULTIPLE ones should also ex=
+pose the EXACT ones that are equivalent. Other drivers will only expose the=
+ EXACT ones but not the MULTIPLE ones.<br></div><div class=3D"gmail_quote g=
+mail_quote_container"><br></div><div class=3D"gmail_quote gmail_quote_conta=
+iner">Marek<br></div></div>
 
---000000000000c34fbd06296a284f--
+--0000000000008bed2906296a3b12--
