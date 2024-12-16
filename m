@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7ACBCE77187
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6863E77184
 	for <amd-gfx@archiver.kernel.org>; Mon, 16 Dec 2024 14:04:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1EBEE10E693;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 34F1910E696;
 	Mon, 16 Dec 2024 14:04:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.b="I1LoHCoq";
+	dkim=pass (1024-bit key; unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.b="syJzmf0d";
 	dkim-atps=neutral
 Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CF4210E5C1;
- Mon, 16 Dec 2024 11:34:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3FCF10E5AD;
+ Mon, 16 Dec 2024 11:34:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
  s=mail; t=1734348890;
- bh=y5VdIlFmZrN99wi17sHDS/2XA6J1JYaGxHyZF4VUIi4=;
+ bh=UcFNLmnvsYaQOHcmZvcmxzeMoweYVAEm2PgsTyadgkI=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=I1LoHCoq945+zGqi2IJw4PxdFgsNnMEsCh+MDvewdAwWOrbvQ6KLSiNTIbLg5yzn1
- jcN/lq3bd/ulKW8+VJAlilAJWJHswSCyZg3KwsVTXZlMx816S/1SrZ9k6QbcliP1NA
- lz2vqXg8r3nA+XBY8L+mzkSccVgIdg/yYTKDS9KM=
+ b=syJzmf0d4MfCocdBz4SdwRhaTCrA7uJxy2KQkCR7vFDUozn+OrKnjr+sCP5846KEM
+ pOb1SZsB+JL7/uyO0moALDM8wWobbJx88Pq57EmLv/sD7CAT4zYI681gHjAcS6phLE
+ 1xB6vfUEiLUnjkBkMiiTLyZs6ozj1ORaZReYlWv0=
 From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-Date: Mon, 16 Dec 2024 12:34:51 +0100
-Subject: [PATCH 5/5] drm/amd/display: Constify 'struct bin_attribute'
+Date: Mon, 16 Dec 2024 12:34:49 +0100
+Subject: [PATCH 3/5] drm/i915: Constify 'struct bin_attribute'
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20241216-sysfs-const-bin_attr-drm-v1-5-210f2b36b9bf@weissschuh.net>
+Message-Id: <20241216-sysfs-const-bin_attr-drm-v1-3-210f2b36b9bf@weissschuh.net>
 References: <20241216-sysfs-const-bin_attr-drm-v1-0-210f2b36b9bf@weissschuh.net>
 In-Reply-To: <20241216-sysfs-const-bin_attr-drm-v1-0-210f2b36b9bf@weissschuh.net>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -47,11 +47,11 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  amd-gfx@lists.freedesktop.org, 
  =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1734348889; l=1989;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1734348889; l=3431;
  i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
- bh=y5VdIlFmZrN99wi17sHDS/2XA6J1JYaGxHyZF4VUIi4=;
- b=CINJ3HLrSMhMcfUsU7NZIyH1+y1/TzIm0rkb5ETIxXa+H/f3F/O5bIuXKhuLkCFAOgO1NyygM
- 0FozzyXfHeLAjv++M4Tndb+I24Twp4TVweWBj+rGRLNhapMZs6RYICv
+ bh=UcFNLmnvsYaQOHcmZvcmxzeMoweYVAEm2PgsTyadgkI=;
+ b=Cf8bG3lKy+H2AAGHpNlU9pJX+g0endqvP6W/4Y7M0B1o4fSNb6WQQ2Ir7gmA0kMgrqUn11+go
+ eYMtY4tn9ibBNp7Y4fsPYQsbC+bjLvJlQU2xTEStr9ySkNZJezQ0n2x
 X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
  pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
 X-Mailman-Approved-At: Mon, 16 Dec 2024 14:04:38 +0000
@@ -75,42 +75,87 @@ accidental or malicious modifications.
 
 Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/i915_gpu_error.c |  8 ++++----
+ drivers/gpu/drm/i915/i915_sysfs.c     | 12 ++++++------
+ 2 files changed, 10 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
-index e339c7a8d541c962aa44ae25ad97b864285394b8..e27d077396327bbe25014aec5b978293b1c20dac 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
-@@ -614,7 +614,7 @@ static void update_config(void *handle, struct cp_psp_stream_config *config)
-  *	incorrect/corrupted and we should correct our SRM by getting it from PSP
-  */
- static ssize_t srm_data_write(struct file *filp, struct kobject *kobj,
--			      struct bin_attribute *bin_attr, char *buffer,
-+			      const struct bin_attribute *bin_attr, char *buffer,
- 			      loff_t pos, size_t count)
- {
- 	struct hdcp_workqueue *work;
-@@ -638,7 +638,7 @@ static ssize_t srm_data_write(struct file *filp, struct kobject *kobj,
+diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
+index 71c0daef19962660086b37fe55ca2d6b01f2bb9a..a4cb4e731bdd72201c91541fb86e827e96214a8b 100644
+--- a/drivers/gpu/drm/i915/i915_gpu_error.c
++++ b/drivers/gpu/drm/i915/i915_gpu_error.c
+@@ -2491,7 +2491,7 @@ void i915_gpu_error_debugfs_register(struct drm_i915_private *i915)
  }
  
- static ssize_t srm_data_read(struct file *filp, struct kobject *kobj,
--			     struct bin_attribute *bin_attr, char *buffer,
-+			     const struct bin_attribute *bin_attr, char *buffer,
- 			     loff_t pos, size_t count)
+ static ssize_t error_state_read(struct file *filp, struct kobject *kobj,
+-				struct bin_attribute *attr, char *buf,
++				const struct bin_attribute *attr, char *buf,
+ 				loff_t off, size_t count)
  {
- 	struct hdcp_workqueue *work;
-@@ -698,8 +698,8 @@ static ssize_t srm_data_read(struct file *filp, struct kobject *kobj,
- static const struct bin_attribute data_attr = {
- 	.attr = {.name = "hdcp_srm", .mode = 0664},
- 	.size = PSP_HDCP_SRM_FIRST_GEN_MAX_SIZE, /* Limit SRM size */
--	.write = srm_data_write,
--	.read = srm_data_read,
-+	.write_new = srm_data_write,
-+	.read_new = srm_data_read,
+ 
+@@ -2527,7 +2527,7 @@ static ssize_t error_state_read(struct file *filp, struct kobject *kobj,
+ }
+ 
+ static ssize_t error_state_write(struct file *file, struct kobject *kobj,
+-				 struct bin_attribute *attr, char *buf,
++				 const struct bin_attribute *attr, char *buf,
+ 				 loff_t off, size_t count)
+ {
+ 	struct device *kdev = kobj_to_dev(kobj);
+@@ -2543,8 +2543,8 @@ static const struct bin_attribute error_state_attr = {
+ 	.attr.name = "error",
+ 	.attr.mode = S_IRUSR | S_IWUSR,
+ 	.size = 0,
+-	.read = error_state_read,
+-	.write = error_state_write,
++	.read_new = error_state_read,
++	.write_new = error_state_write,
  };
  
- struct hdcp_workqueue *hdcp_create_workqueue(struct amdgpu_device *adev,
+ void i915_gpu_error_sysfs_setup(struct drm_i915_private *i915)
+diff --git a/drivers/gpu/drm/i915/i915_sysfs.c b/drivers/gpu/drm/i915/i915_sysfs.c
+index 8775beab9cb8438c2e8abb0f9d8104dcba7c0df3..f936e8f1f12942287a5a7d6aa7db6ed3a4c28281 100644
+--- a/drivers/gpu/drm/i915/i915_sysfs.c
++++ b/drivers/gpu/drm/i915/i915_sysfs.c
+@@ -60,7 +60,7 @@ static int l3_access_valid(struct drm_i915_private *i915, loff_t offset)
+ 
+ static ssize_t
+ i915_l3_read(struct file *filp, struct kobject *kobj,
+-	     struct bin_attribute *attr, char *buf,
++	     const struct bin_attribute *attr, char *buf,
+ 	     loff_t offset, size_t count)
+ {
+ 	struct device *kdev = kobj_to_dev(kobj);
+@@ -88,7 +88,7 @@ i915_l3_read(struct file *filp, struct kobject *kobj,
+ 
+ static ssize_t
+ i915_l3_write(struct file *filp, struct kobject *kobj,
+-	      struct bin_attribute *attr, char *buf,
++	      const struct bin_attribute *attr, char *buf,
+ 	      loff_t offset, size_t count)
+ {
+ 	struct device *kdev = kobj_to_dev(kobj);
+@@ -140,8 +140,8 @@ i915_l3_write(struct file *filp, struct kobject *kobj,
+ static const struct bin_attribute dpf_attrs = {
+ 	.attr = {.name = "l3_parity", .mode = (S_IRUSR | S_IWUSR)},
+ 	.size = GEN7_L3LOG_SIZE,
+-	.read = i915_l3_read,
+-	.write = i915_l3_write,
++	.read_new = i915_l3_read,
++	.write_new = i915_l3_write,
+ 	.mmap = NULL,
+ 	.private = (void *)0
+ };
+@@ -149,8 +149,8 @@ static const struct bin_attribute dpf_attrs = {
+ static const struct bin_attribute dpf_attrs_1 = {
+ 	.attr = {.name = "l3_parity_slice_1", .mode = (S_IRUSR | S_IWUSR)},
+ 	.size = GEN7_L3LOG_SIZE,
+-	.read = i915_l3_read,
+-	.write = i915_l3_write,
++	.read_new = i915_l3_read,
++	.write_new = i915_l3_write,
+ 	.mmap = NULL,
+ 	.private = (void *)1
+ };
 
 -- 
 2.47.1
