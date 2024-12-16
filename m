@@ -4,69 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59386E77183
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Dec 2024 18:04:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D7F3E7717F
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Dec 2024 18:23:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E742310E616;
-	Mon, 16 Dec 2024 18:04:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A766110E74E;
+	Mon, 16 Dec 2024 18:22:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OCjYj6A2";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="UqVsBykE";
 	dkim-atps=neutral
-Received: from mail-pj1-x102f.google.com (mail-pj1-x102f.google.com
- [IPv6:2607:f8b0:4864:20::102f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34D6410E616
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Dec 2024 18:04:08 +0000 (UTC)
-Received: by mail-pj1-x102f.google.com with SMTP id
- 98e67ed59e1d1-2ee8ecb721dso780301a91.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Dec 2024 10:04:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1734372248; x=1734977048; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=SmdU+z4thx6hqK5wfrVIEw+18jKRwR9or1g+LDTZilI=;
- b=OCjYj6A23L/kI58nOPD7v7K5NEAgjGgnltyXsS8GJ19le6Au+DWMaLmjFllqZZ05LZ
- MoDuaClfTsk6Rjb8RQfv+rOsTV9FIvGm9EOnJWGM349DnML4kMVAJQoh2qWD2JME1Php
- mbBCt6bIU6gHXxtWlucieEd5n0GHn8sOjzXZfbgMRQVm6R32YLsB/C6c2dpaeopEFhV8
- KkDWS/pJ0TGOryCr1kCWrev5RviMe21czw+EAQfUFqQX+pYOWWugtnbVjd58JhVFmmPF
- /j7NrhOTjKdcW5arDeRv/IpR4hfdjIY3e0r4SOyNJKsMYMa0522yN4YoXgZJFshRZU6y
- xRyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734372248; x=1734977048;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=SmdU+z4thx6hqK5wfrVIEw+18jKRwR9or1g+LDTZilI=;
- b=UzWmy1iQEkORmawNum+9O34Y/0NP2v1PEaJbRJot02J0HuWd2ESlxwGN/Q8B8+S7/k
- h6WM+//5ykmiEg8q9cHgGqEwChcqXVHcRMFxuJ9RcvSDoQScgGZWT0Y3KucnfJN+GOUC
- 8lIZxp0ERpuXa2zATjX9RAPcwXttWxzrEvGrxtgXpFDteAHulsyVsHQVVeiHzcofwRkH
- rh1+ZmV0u2V6Jiw6AnpevL3uPk5WQzlP2jWpdOum14EB0xnm6yPirkZmRRo8TsYiI4qV
- HbCQyjmpnWmbg8xqstK+Chb+m8jzQHYEzVmfRzaTL7ZB+pwCLWS5lN7wWfSJJ7TtzA1o
- xMig==
-X-Gm-Message-State: AOJu0YxcZh7KuLnQWypxL0ugYRRJrQIVWqUNe2KGaN1utOmo4Hxm4ZGt
- rYT+4kVpbIRXeHSdtu5E7D7xPMNRLByBxT63S208Y1u8xErWFksbRUJYATFbqmBD+j1a8nqQw+a
- kXGcyn1UVb5J1wsQv4zFuGZAXPmpoOg==
-X-Gm-Gg: ASbGncuFZyKGF77MjAXV7TO66dm8E9mzdtef5argTTyS1QyVZLNqprY73BinXeptupL
- QX/eKPeo0U1Kyq0vND5A4IYjFq3LLcYizKPm3Og==
-X-Google-Smtp-Source: AGHT+IE1n3ZNwFKPcHlHF+l4d9G/qTMnWJoaxXLdUmXRS4T8tJTWhumcHc9x27A0kd2Wtj5IivJ9o+JqyqW9l4a/+aQ=
-X-Received: by 2002:a17:90b:5444:b0:2ef:93:154e with SMTP id
- 98e67ed59e1d1-2f2901b2b70mr7407588a91.5.1734372247677; Mon, 16 Dec 2024
- 10:04:07 -0800 (PST)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C07BD10E74E;
+ Mon, 16 Dec 2024 18:22:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1734373378; x=1765909378;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=iKU5yVrn5hqkJE+UB+SfyYpkwyNwGfC1ks+EOS8fcPA=;
+ b=UqVsBykErR+B3i5c/fJ1rdfzLWkXwjEhA+A90cnRCGmnWGd+M1qlTpbk
+ THzA9pEyw3RCvccOyFv+E/n5OgJB9jfvM2U8fifY0w8FCHkyUga0hkimg
+ EtweaXVGBCw300x43ceYM5aKlNzQdswtVxQQuCtJ4JCt24R2lrVn27fZa
+ fbBDwbg0GbYtBnFEMifIANz/rB0CCv38i9WoebUf4R7lGUoMrsoTji82T
+ LVJYv0P1fpAMFkyCCtgVE7qLDgUxm+sD4IDectgnWxA0QODzk8XG1tDBy
+ E9TEuV9UREGIMqR730XoxftVp/OqYeIZbm3rlKE0u6Pa62Ewy8EMrBgor A==;
+X-CSE-ConnectionGUID: 5rOd8ifBQU+hytzKoP09Mw==
+X-CSE-MsgGUID: O/c3LfQfTkKdusdZ6WvYsA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11288"; a="34929915"
+X-IronPort-AV: E=Sophos;i="6.12,239,1728975600"; d="scan'208";a="34929915"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Dec 2024 10:22:58 -0800
+X-CSE-ConnectionGUID: vMjSlv4pTD6/BOBC1qvF9g==
+X-CSE-MsgGUID: 7xtVY/fsRpKCA2MSiQVx/A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="101426816"
+Received: from dhhellew-desk2.ger.corp.intel.com.ger.corp.intel.com (HELO
+ [10.245.244.246]) ([10.245.244.246])
+ by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Dec 2024 10:22:57 -0800
+Message-ID: <e26daaa7-253a-4753-a5a8-f8f0c045c583@intel.com>
+Date: Mon, 16 Dec 2024 18:22:54 +0000
 MIME-Version: 1.0
-References: <20241216092929.105280-1-jesse.zhang@amd.com>
- <20241216092929.105280-3-jesse.zhang@amd.com>
-In-Reply-To: <20241216092929.105280-3-jesse.zhang@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 16 Dec 2024 13:03:56 -0500
-Message-ID: <CADnq5_OAHoTVhHJtabAbLWTQ390nrHgFyOwiK03fkBn1-5C60A@mail.gmail.com>
-Subject: Re: [PATCH 3/3] drm/amdgpu/pm: Implement SDMA queue reset for
- different asic
-To: "Jesse.zhang@amd.com" <jesse.zhang@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
- Christian Koenig <christian.koenig@amd.com>, Tim.Huang@amd.com,
- jiadong.zhu@amd.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] drm/buddy: Add a testcase to verify the multiroot fini
+To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: christian.koenig@amd.com, alexander.deucher@amd.com,
+ "Lin . Cao" <lincao12@amd.com>
+References: <20241216130735.314298-1-Arunpravin.PaneerSelvam@amd.com>
+ <20241216130735.314298-2-Arunpravin.PaneerSelvam@amd.com>
+Content-Language: en-GB
+From: Matthew Auld <matthew.auld@intel.com>
+In-Reply-To: <20241216130735.314298-2-Arunpravin.PaneerSelvam@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,77 +72,157 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Dec 16, 2024 at 4:30=E2=80=AFAM Jesse.zhang@amd.com <jesse.zhang@am=
-d.com> wrote:
->
-> Implement sdma queue reset by SMU_MSG_ResetSDMA2
->
-> Suggested-by: Tim Huang <tim.huang@amd.com>
-> Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
-
-Series is:
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-
-
+On 16/12/2024 13:07, Arunpravin Paneer Selvam wrote:
+> - Added a testcase to verify the multiroot force merge fini.
+> - Added a new field in_use to track the mm freed status.
+> 
+> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+> Signed-off-by: Lin.Cao <lincao12@amd.com>
 > ---
->  .../drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c  | 30 ++++++++++++++-----
->  1 file changed, 22 insertions(+), 8 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drive=
-rs/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-> index 9222e7a777a6..446959145058 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-> @@ -2721,17 +2721,31 @@ static int smu_v13_0_6_send_rma_reason(struct smu=
-_context *smu)
->
->  static int smu_v13_0_6_reset_sdma(struct smu_context *smu, uint32_t inst=
-_mask)
->  {
-> -       struct amdgpu_device *adev =3D smu->adev;
-> +       uint32_t smu_program;
->         int ret =3D 0;
->
-> -       /* the message is only valid on SMU 13.0.6 with pmfw 85.121.00 an=
-d above */
-> -       if ((adev->flags & AMD_IS_APU) ||
-> -           amdgpu_ip_version(adev, MP1_HWIP, 0) !=3D IP_VERSION(13, 0, 6=
-) ||
-> -           smu->smc_fw_version < 0x00557900)
-> -               return 0;
-> +       smu_program =3D (smu->smc_fw_version >> 24) & 0xff;
-> +       switch (amdgpu_ip_version(smu->adev, MP1_HWIP, 0)) {
-> +       case IP_VERSION(13, 0, 6):
-> +               if (((smu_program =3D=3D 7) && (smu->smc_fw_version > 0x0=
-7550763)) ||
-> +                       ((smu_program =3D=3D 0) && (smu->smc_fw_version >=
- 0x00557700)))
-> +                       ret =3D smu_cmn_send_smc_msg_with_param(smu,
-> +                               SMU_MSG_ResetSDMA, inst_mask, NULL);
-> +               else if ((smu_program =3D=3D 4) &&
-> +                       (smu->smc_fw_version > 0x4556e6c))
-> +                       ret =3D smu_cmn_send_smc_msg_with_param(smu,
-> +                                     SMU_MSG_ResetSDMA2, inst_mask, NULL=
-);
-> +               break;
-> +       case IP_VERSION(13, 0, 14):
-> +               if ((smu_program =3D=3D 5) &&
-> +                       (smu->smc_fw_version > 0x05550f00))
-> +                       ret =3D smu_cmn_send_smc_msg_with_param(smu,
-> +                                     SMU_MSG_ResetSDMA2, inst_mask, NULL=
-);
-> +               break;
-> +       default:
-> +               break;
-> +       }
->
-> -       ret =3D smu_cmn_send_smc_msg_with_param(smu,
-> -                                             SMU_MSG_ResetSDMA, inst_mas=
-k, NULL);
->         if (ret)
->                 dev_err(smu->adev->dev,
->                         "failed to send ResetSDMA event with mask 0x%x\n"=
-,
-> --
-> 2.25.1
->
+>   drivers/gpu/drm/drm_buddy.c            | 20 ++++++++++++++++-
+>   drivers/gpu/drm/tests/drm_buddy_test.c | 30 ++++++++++++++++++--------
+>   include/drm/drm_buddy.h                |  2 ++
+>   3 files changed, 42 insertions(+), 10 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
+> index ca42e6081d27..39ce918b3a65 100644
+> --- a/drivers/gpu/drm/drm_buddy.c
+> +++ b/drivers/gpu/drm/drm_buddy.c
+> @@ -102,6 +102,18 @@ static inline bool contains(u64 s1, u64 e1, u64 s2, u64 e2)
+>   	return s1 <= s2 && e1 >= e2;
+>   }
+>   
+> +static bool is_roots_freed(struct drm_buddy *mm)
+> +{
+> +	int i;
+> +
+> +	for (i = 0; i < mm->n_roots; ++i) {
+> +		if (!drm_buddy_block_is_free(mm->roots[i]))
+> +			return false;
+> +	}
+> +
+> +	return true;
+> +}
+> +
+>   static struct drm_buddy_block *
+>   __get_buddy(struct drm_buddy_block *block)
+>   {
+> @@ -303,6 +315,8 @@ int drm_buddy_init(struct drm_buddy *mm, u64 size, u64 chunk_size)
+>   		i++;
+>   	} while (size);
+>   
+> +	mm->in_use = true;
+> +
+>   	return 0;
+>   
+>   out_free_roots:
+> @@ -335,13 +349,17 @@ void drm_buddy_fini(struct drm_buddy *mm)
+>   		start = drm_buddy_block_offset(mm->roots[i]);
+>   		__force_merge(mm, start, start + size, order);
+>   
+> -		WARN_ON(!drm_buddy_block_is_free(mm->roots[i]));
+
+So does this warn not pop? Or it does but kunit ignores it or something?
+
+>   		drm_block_free(mm, mm->roots[i]);
+>   
+>   		root_size = mm->chunk_size << order;
+>   		size -= root_size;
+>   	}
+>   
+> +	mm->in_use = false;
+> +
+> +	if (WARN_ON(!is_roots_freed(mm)))
+
+This looks like UAF under normal operation, since each root pointer 
+within mm->roots is already gone.
+
+How about something like this:
+
++ #include <kunit/test-bug.h>
++
+  #include <linux/kmemleak.h>
+  #include <linux/module.h>
+  #include <linux/sizes.h>
+@@ -335,7 +337,9 @@ void drm_buddy_fini(struct drm_buddy *mm)
+                 start = drm_buddy_block_offset(mm->roots[i]);
+                 __force_merge(mm, start, start + size, order);
+
+-               WARN_ON(!drm_buddy_block_is_free(mm->roots[i]));
++               if (WARN_ON(!drm_buddy_block_is_free(mm->roots[i])))
++                       kunit_fail_current_test("buddy_fini() root");
++
+                 drm_block_free(mm, mm->roots[i]);
+
+                 root_size = mm->chunk_size << order;
+
+And then also drop the in_use stuff. As a follow up could do that for 
+all warnings in this file that don't result in error being returned to 
+the caller...
+
+> +		mm->in_use = true;
+> +
+>   	WARN_ON(mm->avail != mm->size);
+
+...like this one.
+
+ >   >   	kfree(mm->roots);
+> diff --git a/drivers/gpu/drm/tests/drm_buddy_test.c b/drivers/gpu/drm/tests/drm_buddy_test.c
+> index 9662c949d0e3..694b058ddd6d 100644
+> --- a/drivers/gpu/drm/tests/drm_buddy_test.c
+> +++ b/drivers/gpu/drm/tests/drm_buddy_test.c
+> @@ -385,19 +385,31 @@ static void drm_test_buddy_alloc_clear(struct kunit *test)
+>   	drm_buddy_fini(&mm);
+>   
+>   	/*
+> -	 * Create a new mm with a non power-of-two size. Allocate a random size, free as
+> -	 * cleared and then call fini. This will ensure the multi-root force merge during
+> -	 * fini.
+> +	 * Create a new mm with a non power-of-two size. Allocate a random size from each
+> +	 * root, free as cleared and then call fini. This will ensure the multi-root
+> +	 * force merge during fini.
+>   	 */
+> -	mm_size = 12 * SZ_4K;
+> -	size = max(round_up(prandom_u32_state(&prng) % mm_size, ps), ps);
+> +	mm_size = (SZ_4K << max_order) + (SZ_4K << (max_order - 2));
+> +
+>   	KUNIT_EXPECT_FALSE(test, drm_buddy_init(&mm, mm_size, ps));
+> -	KUNIT_ASSERT_FALSE_MSG(test, drm_buddy_alloc_blocks(&mm, 0, mm_size,
+> -							    size, ps, &allocated,
+> -							    DRM_BUDDY_TOPDOWN_ALLOCATION),
+> -				"buddy_alloc hit an error size=%u\n", size);
+> +	KUNIT_EXPECT_EQ(test, mm.max_order, max_order);
+> +	KUNIT_ASSERT_FALSE_MSG(test, drm_buddy_alloc_blocks(&mm, 0, SZ_4K << max_order,
+> +							    4 * ps, ps, &allocated,
+> +							    DRM_BUDDY_RANGE_ALLOCATION),
+> +				"buddy_alloc hit an error size=%lu\n", 4 * ps);
+> +	drm_buddy_free_list(&mm, &allocated, DRM_BUDDY_CLEARED);
+> +	KUNIT_ASSERT_FALSE_MSG(test, drm_buddy_alloc_blocks(&mm, 0, SZ_4K << max_order,
+> +							    2 * ps, ps, &allocated,
+> +							    DRM_BUDDY_CLEAR_ALLOCATION),
+> +				"buddy_alloc hit an error size=%lu\n", 2 * ps);
+> +	drm_buddy_free_list(&mm, &allocated, DRM_BUDDY_CLEARED);
+> +	KUNIT_ASSERT_FALSE_MSG(test, drm_buddy_alloc_blocks(&mm, SZ_4K << max_order, mm_size,
+> +							    ps, ps, &allocated,
+> +							    DRM_BUDDY_RANGE_ALLOCATION),
+> +				"buddy_alloc hit an error size=%lu\n", ps);
+>   	drm_buddy_free_list(&mm, &allocated, DRM_BUDDY_CLEARED);
+>   	drm_buddy_fini(&mm);
+> +	KUNIT_EXPECT_EQ(test, mm.in_use, false);
+>   }
+>   
+>   static void drm_test_buddy_alloc_contiguous(struct kunit *test)
+> diff --git a/include/drm/drm_buddy.h b/include/drm/drm_buddy.h
+> index 9689a7c5dd36..d692d831ffdd 100644
+> --- a/include/drm/drm_buddy.h
+> +++ b/include/drm/drm_buddy.h
+> @@ -86,6 +86,8 @@ struct drm_buddy {
+>   	unsigned int n_roots;
+>   	unsigned int max_order;
+>   
+> +	bool in_use;
+> +
+>   	/* Must be at least SZ_4K */
+>   	u64 chunk_size;
+>   	u64 size;
+
