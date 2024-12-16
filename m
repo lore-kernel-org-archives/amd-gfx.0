@@ -4,56 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C524E77184
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Dec 2024 14:04:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50589E77186
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Dec 2024 14:04:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 349EC10E68F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E97210E68C;
 	Mon, 16 Dec 2024 14:04:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.b="Q8zsUSw4";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="aF+o01as";
 	dkim-atps=neutral
-Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 506DB10E5C1;
- Mon, 16 Dec 2024 11:34:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
- s=mail; t=1734348890;
- bh=zuT+LJN8yyZdjBUYgx4LeWWwlVkL7wdTwqvya297jls=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=Q8zsUSw45BtgARRdWi3boy4K+6THyxtcF4oUO/jPWdN8pAVOI3rQJkUz2GF14htdS
- EJ2du0p7474uP0KSCM97/l/z1co3lKUSAc74rJf5fgoR6CzcZ1LWTHAsGnO8OtsJ4V
- Ns1bKYa8fvFqN9jvTm/aHo3VwdBTsiFTm1imSxpw=
-From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-Date: Mon, 16 Dec 2024 12:34:50 +0100
-Subject: [PATCH 4/5] drm/amdgpu: Constify 'struct bin_attribute'
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B5D5A10E652;
+ Mon, 16 Dec 2024 13:04:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=XND6TO5sEm0SKTknLagdVQ8hB4BMhSt3Ch4J8+pH2A8=; b=aF+o01asKMRe9xwBYjCjrZmKdp
+ 8jZEJjOxTeLEzTKa/Hc2/cG6rQBu2TBjdx7m2iGVqRLGL2068b2fEIy2TAhC2OKz9AKLvyEIQxDL4
+ 4u/+qO+F4G4RjW5xvSq8LY4Lg9XKxMNfUgCO0aoYZI9h79bTKXC1L2BxGE4E6hDjiH+n7r2YrcKoc
+ XCFz+djPt6gVlCUOsgmotK7TRe6C3xTDFjtg8PlSQaRkgAkARVtZA9wsclMtbllBT4GvGzd6sulDH
+ Hy7eXsU3gMjo89b+kM1KOiY0epBw33riPyzW1oPcF86uUibedLQSaMX8/Bek2zs9oF0Co2zbCuj5J
+ cI1KAryw==;
+Received: from [179.193.1.214] (helo=[192.168.15.100])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1tNAm6-003msX-8s; Mon, 16 Dec 2024 14:04:38 +0100
+Message-ID: <5f7dd8ac-e8cc-4a40-b636-9917d82e27f5@igalia.com>
+Date: Mon, 16 Dec 2024 10:04:28 -0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/1] drm/amdgpu: Use device wedged event
+To: "Lazar, Lijo" <lijo.lazar@amd.com>
+Cc: airlied@gmail.com, simona@ffwll.ch, Raag Jadav <raag.jadav@intel.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ lucas.demarchi@intel.com, rodrigo.vivi@intel.com,
+ jani.nikula@linux.intel.com, andriy.shevchenko@linux.intel.com,
+ lina@asahilina.net, michal.wajdeczko@intel.com,
+ "Sharma, Shashank" <Shashank.Sharma@amd.com>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ himal.prasad.ghimiray@intel.com, aravind.iddamsetty@linux.intel.com,
+ anshuman.gupta@intel.com, alexander.deucher@amd.com,
+ amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com
+References: <20241212190909.28559-1-andrealmeid@igalia.com>
+ <20241212190909.28559-2-andrealmeid@igalia.com>
+ <d9f2583d-da79-4532-90fc-85028e977ceb@amd.com>
+ <c7c498f0-2ee3-42f5-9b45-c87e52ffc3e4@igalia.com>
+ <Z1xGe1X_XzB00J1Q@black.fi.intel.com>
+ <ed83b0a1-62d1-48e5-ac7b-478be3043733@igalia.com>
+ <28d7dcd8-ed3f-4e52-b7fa-c348a827085d@amd.com>
+ <7c64746a-c1f6-46c6-a97f-cfd87e9ec3b7@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
+In-Reply-To: <7c64746a-c1f6-46c6-a97f-cfd87e9ec3b7@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Message-Id: <20241216-sysfs-const-bin_attr-drm-v1-4-210f2b36b9bf@weissschuh.net>
-References: <20241216-sysfs-const-bin_attr-drm-v1-0-210f2b36b9bf@weissschuh.net>
-In-Reply-To: <20241216-sysfs-const-bin_attr-drm-v1-0-210f2b36b9bf@weissschuh.net>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Qiang Yu <yuq825@gmail.com>, Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Xinhui Pan <Xinhui.Pan@amd.com>, Harry Wentland <harry.wentland@amd.com>, 
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- lima@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org, 
- =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1734348889; l=5717;
- i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
- bh=zuT+LJN8yyZdjBUYgx4LeWWwlVkL7wdTwqvya297jls=;
- b=t/e4NpjzaihOxUQhxM9fCFKwdSbBN4HpYBXnVQDcuR8p8/tYTm7wlNTElz/kh4GFe2sa+7MPl
- RfSBcyst2hbDjIWe0ng8erI2054SsD6gVbtFvLfTdtHkotBHapZ8aeM
-X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
- pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
 X-Mailman-Approved-At: Mon, 16 Dec 2024 14:04:38 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,144 +76,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The sysfs core now allows instances of 'struct bin_attribute' to be
-moved into read-only memory. Make use of that to protect them against
-accidental or malicious modifications.
 
-Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  6 +++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c    | 14 +++++++-------
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c    | 13 ++++++-------
- 3 files changed, 16 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index d272d95dd5b2f5eb83be279281d55af323f7f508..88459de2cd2e47390d33e5939875c3322b740b4d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -223,7 +223,7 @@ static DEVICE_ATTR(pcie_replay_count, 0444,
- 		amdgpu_device_get_pcie_replay_count, NULL);
- 
- static ssize_t amdgpu_sysfs_reg_state_get(struct file *f, struct kobject *kobj,
--					  struct bin_attribute *attr, char *buf,
-+					  const struct bin_attribute *attr, char *buf,
- 					  loff_t ppos, size_t count)
- {
- 	struct device *dev = kobj_to_dev(kobj);
-@@ -259,8 +259,8 @@ static ssize_t amdgpu_sysfs_reg_state_get(struct file *f, struct kobject *kobj,
- 	return bytes_read;
- }
- 
--BIN_ATTR(reg_state, 0444, amdgpu_sysfs_reg_state_get, NULL,
--	 AMDGPU_SYS_REG_STATE_END);
-+static const BIN_ATTR(reg_state, 0444, amdgpu_sysfs_reg_state_get, NULL,
-+		      AMDGPU_SYS_REG_STATE_END);
- 
- int amdgpu_reg_state_sysfs_init(struct amdgpu_device *adev)
- {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index 448f9e742983f3ef0c5fccc18d85f0c2449aa08e..cda25174730a6852bcb6e01aeec858faad172b19 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -3969,7 +3969,7 @@ int is_psp_fw_valid(struct psp_bin_desc bin)
- }
- 
- static ssize_t amdgpu_psp_vbflash_write(struct file *filp, struct kobject *kobj,
--					struct bin_attribute *bin_attr,
-+					const struct bin_attribute *bin_attr,
- 					char *buffer, loff_t pos, size_t count)
- {
- 	struct device *dev = kobj_to_dev(kobj);
-@@ -4005,7 +4005,7 @@ static ssize_t amdgpu_psp_vbflash_write(struct file *filp, struct kobject *kobj,
- }
- 
- static ssize_t amdgpu_psp_vbflash_read(struct file *filp, struct kobject *kobj,
--				       struct bin_attribute *bin_attr, char *buffer,
-+				       const struct bin_attribute *bin_attr, char *buffer,
- 				       loff_t pos, size_t count)
- {
- 	struct device *dev = kobj_to_dev(kobj);
-@@ -4057,11 +4057,11 @@ static ssize_t amdgpu_psp_vbflash_read(struct file *filp, struct kobject *kobj,
-  * Writing to this file will stage an IFWI for update. Reading from this file
-  * will trigger the update process.
-  */
--static struct bin_attribute psp_vbflash_bin_attr = {
-+static const struct bin_attribute psp_vbflash_bin_attr = {
- 	.attr = {.name = "psp_vbflash", .mode = 0660},
- 	.size = 0,
--	.write = amdgpu_psp_vbflash_write,
--	.read = amdgpu_psp_vbflash_read,
-+	.write_new = amdgpu_psp_vbflash_write,
-+	.read_new = amdgpu_psp_vbflash_read,
- };
- 
- /**
-@@ -4088,7 +4088,7 @@ static ssize_t amdgpu_psp_vbflash_status(struct device *dev,
- }
- static DEVICE_ATTR(psp_vbflash_status, 0440, amdgpu_psp_vbflash_status, NULL);
- 
--static struct bin_attribute *bin_flash_attrs[] = {
-+static const struct bin_attribute *const bin_flash_attrs[] = {
- 	&psp_vbflash_bin_attr,
- 	NULL
- };
-@@ -4124,7 +4124,7 @@ static umode_t amdgpu_bin_flash_attr_is_visible(struct kobject *kobj,
- 
- const struct attribute_group amdgpu_flash_attr_group = {
- 	.attrs = flash_attrs,
--	.bin_attrs = bin_flash_attrs,
-+	.bin_attrs_new = bin_flash_attrs,
- 	.is_bin_visible = amdgpu_bin_flash_attr_is_visible,
- 	.is_visible = amdgpu_flash_attr_is_visible,
- };
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index 4c9fa24dd9726a405935907524ed7bf7862779d1..2991e0967b5bfc848328aaa59ddfb9a8f202bae9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -1732,7 +1732,7 @@ static char *amdgpu_ras_badpage_flags_str(unsigned int flags)
-  */
- 
- static ssize_t amdgpu_ras_sysfs_badpages_read(struct file *f,
--		struct kobject *kobj, struct bin_attribute *attr,
-+		struct kobject *kobj, const struct bin_attribute *attr,
- 		char *buf, loff_t ppos, size_t count)
- {
- 	struct amdgpu_ras *con =
-@@ -2063,8 +2063,8 @@ void amdgpu_ras_debugfs_create_all(struct amdgpu_device *adev)
- /* debugfs end */
- 
- /* ras fs */
--static BIN_ATTR(gpu_vram_bad_pages, S_IRUGO,
--		amdgpu_ras_sysfs_badpages_read, NULL, 0);
-+static const BIN_ATTR(gpu_vram_bad_pages, S_IRUGO,
-+		      amdgpu_ras_sysfs_badpages_read, NULL, 0);
- static DEVICE_ATTR(features, S_IRUGO,
- 		amdgpu_ras_sysfs_features_read, NULL);
- static DEVICE_ATTR(version, 0444,
-@@ -2086,7 +2086,7 @@ static int amdgpu_ras_fs_init(struct amdgpu_device *adev)
- 		&con->event_state_attr.attr,
- 		NULL
- 	};
--	struct bin_attribute *bin_attrs[] = {
-+	const struct bin_attribute *bin_attrs[] = {
- 		NULL,
- 		NULL,
- 	};
-@@ -2112,11 +2112,10 @@ static int amdgpu_ras_fs_init(struct amdgpu_device *adev)
- 
- 	if (amdgpu_bad_page_threshold != 0) {
- 		/* add bad_page_features entry */
--		bin_attr_gpu_vram_bad_pages.private = NULL;
- 		con->badpages_attr = bin_attr_gpu_vram_bad_pages;
-+		sysfs_bin_attr_init(&con->badpages_attr);
- 		bin_attrs[0] = &con->badpages_attr;
--		group.bin_attrs = bin_attrs;
--		sysfs_bin_attr_init(bin_attrs[0]);
-+		group.bin_attrs_new = bin_attrs;
- 	}
- 
- 	r = sysfs_create_group(&adev->dev->kobj, &group);
+Em 16/12/2024 07:38, Lazar, Lijo escreveu:
+> 
+> 
+> On 12/16/2024 3:48 PM, Christian König wrote:
+>> Am 13.12.24 um 16:56 schrieb André Almeida:
+>>> Em 13/12/2024 11:36, Raag Jadav escreveu:
+>>>> On Fri, Dec 13, 2024 at 11:15:31AM -0300, André Almeida wrote:
+>>>>> Hi Christian,
+>>>>>
+>>>>> Em 13/12/2024 04:34, Christian König escreveu:
+>>>>>> Am 12.12.24 um 20:09 schrieb André Almeida:
+>>>>>>> Use DRM's device wedged event to notify userspace that a reset had
+>>>>>>> happened. For now, only use `none` method meant for telemetry
+>>>>>>> capture.
+>>>>>>>
+>>>>>>> Signed-off-by: André Almeida <andrealmeid@igalia.com>
+>>>>>>> ---
+>>>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 +++
+>>>>>>>     1 file changed, 3 insertions(+)
+>>>>>>>
+>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>>>>>> b/drivers/gpu/ drm/amd/amdgpu/amdgpu_device.c
+>>>>>>> index 96316111300a..19e1a5493778 100644
+>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>>>>>> @@ -6057,6 +6057,9 @@ int amdgpu_device_gpu_recover(struct
+>>>>>>> amdgpu_device *adev,
+>>>>>>>             dev_info(adev->dev, "GPU reset end with ret = %d\n", r);
+>>>>>>> atomic_set(&adev->reset_domain->reset_res, r);
+>>>>>>> +
+>>>>>>> +    drm_dev_wedged_event(adev_to_drm(adev),
+>>>>>>> DRM_WEDGE_RECOVERY_NONE);
+>>>>>>
+>>>>>> That looks really good in general. I would just make the
+>>>>>> DRM_WEDGE_RECOVERY_NONE depend on the value of "r".
+>>>>>>
+>>>>>
+>>>>> Why depend or `r`? A reset was triggered anyway, regardless of the
+>>>>> success
+>>>>> of it, shouldn't we tell userspace?
+>>>>
+>>>> A failed reset would perhaps result in wedging, atleast that's how i915
+>>>> is handling it.
+>>>>
+>>>
+>>> Right, and I think this raises the question of what wedge recovery
+>>> method should I add for amdgpu... Christian?
+>>>
+>>
+>> In theory a rebind should be enough to get the device going again, our
+>> BOCO does a bus reset on driver load anyway.
+>>
+> 
+> The behavior varies between SOCs. In certain ones, if driver reset
+> fails, that means it's really in a bad state and it would need system
+> reboot.
+> 
 
--- 
-2.47.1
+Is this documented somewhere? Then I could even add a 
+DRM_WEDGE_RECOVERY_REBOOT so we can cover every scenario.
+
+> I had asked earlier about the utility of this one here. If this is just
+> to inform userspace that driver has done a reset and recovered, it would
+> need some additional context also. We have a mechanism in KFD which
+> sends the context in which a reset has to be done. Currently, that's
+> restricted to compute applications, but if this is in a similar line, we
+> would like to pass some additional info like job timeout, RAS error etc.
+> 
+
+DRM_WEDGE_RECOVERY_NONE is to inform userspace that driver has done a 
+reset and recovered, but additional data about like which job timeout, 
+RAS error and such belong to devcoredump I guess, where all data is 
+gathered and collected later.
+
+> Thanks,
+> Lijo
+> 
+>> Regards,
+>> Christian.
+> 
 
