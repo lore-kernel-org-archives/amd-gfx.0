@@ -4,70 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92299E77183
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Dec 2024 21:29:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FC95E7717F
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Dec 2024 21:30:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 42AA810E632;
-	Mon, 16 Dec 2024 21:29:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4CBAF10E06D;
+	Mon, 16 Dec 2024 21:30:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KVTzzRkW";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="CjFnDM+H";
 	dkim-atps=neutral
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [IPv6:2a00:1450:4864:20::536])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 326DA10E626;
- Mon, 16 Dec 2024 21:29:44 +0000 (UTC)
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-5d3da226a2aso507430a12.0; 
- Mon, 16 Dec 2024 13:29:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1734384583; x=1734989383; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=ui3ngXv6KtZvNASMuiLTgdCGRcx8WMeUEyA30kq8bow=;
- b=KVTzzRkWUast4ZWqC7FdeoCPE0KY4H39GYmdmELv+jWi7jB/kHBa6LrssaJADqGleb
- v9jgzXKb/wBlK/n78m0sU9uUz0iCUt90AS350oZKVbFL7Jhmv+UuRt96Hc6SN1BYvLn1
- nkbVPCMTxOtnjUqiiPFCghMEJRJAE6zxzYdIUA4e0Nd17//wllLNC0NMFyxSjmrt7hHq
- VsO+DTtASPRKrlbjzClf+jQPPhaQdm3IU/0myk5aXhb0A2H2YmN5noTqnuzjq4HyDTCo
- qMjMnWUjJ8zN4NMTAd+PzC4vHro4ymMFhG3arZnJWNpqeWZguAMxftvfg0e67kNFAEeY
- QDyw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734384583; x=1734989383;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=ui3ngXv6KtZvNASMuiLTgdCGRcx8WMeUEyA30kq8bow=;
- b=LivRqpsZJ4slLOm6nlrDv8LoYopaFl3Txi76lhcvfvy92KuKlYIikT54QWY8rKOxFT
- jqBiIFhHpcfqGq8daS07mxGbNsywx6TqIz3YQGH1KG4Tt3CUH9ohNybUy5iDUcsrz8Zs
- zaBuI812pV6rh+JydiJ4Ej0J+pJyUpn+RfH+J8PWZRz+HnkcIARM81SA3aPOPWbQ7FA5
- Z2x7ZsBAg0rRSG9pd3hPldBFp0jtl/cGDp3QrOZwZr4kUPmnCdPpY9uhMuCtG/b3ygh6
- sbJywutPHRTGnRmmOZRcFvooBivGLHV+gkkaQ2YP+bY6c4GSEs3XhfwuDrGPufC7UfJa
- royQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUdQQoVXfAvwZ9zO7Uwt00eRLps+NorWK46nu6tFgORm+E8flMbIzYiJdITfkHcR7AYbPSwJRQDfFg=@lists.freedesktop.org,
- AJvYcCWTzUanKjcxx7jmYSiZddpodSbKAPQbqme588cMVQoAgCRqNy7papW2hRI1BxOeaIa0V1RDnGXl@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwHUeqR71sc64I06GIhYXe8eAb49HmZzlBwFTK/2AwBW02rbxVZ
- PDCDXr3NfPq3LLnmkzccOPgM3T77u7Jq40eOX3W8heiIDFNBmNu2KWVtXUNAEYdmaglFk0Al7YJ
- EXNY7LEviUPlf6M0rNCuAancXAkA=
-X-Gm-Gg: ASbGncsBUWajywn/jwCMmBNfjLL/5j1r96FlHRSNpPAIflVF1bdlhGx0gGYBNNuZj+H
- XO0xTHFobym/BWU7ruJJ+jcyjDv+kRm7se7gWnug=
-X-Google-Smtp-Source: AGHT+IHpi0Y5sTs+I55N/j3Dr6fECI/Ik3UK1n899YR7bPozdDojKIkaFGpYHuRECX/K0bXur+jRDznjdUJFISyMtus=
-X-Received: by 2002:a05:6402:5253:b0:5d0:e522:9731 with SMTP id
- 4fb4d7f45d1cf-5d63c14db04mr4886490a12.0.1734384582393; Mon, 16 Dec 2024
- 13:29:42 -0800 (PST)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2061e.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:2415::61e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F98D10E06D
+ for <amd-gfx@lists.freedesktop.org>; Mon, 16 Dec 2024 21:30:39 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ngoC1DJZI3e1qXSmkgEwtK0Ojro4/AignKznv/p1aUxeamqmXPnmQmk+/F0kv8AdII7MS/R6w7aRRyRu+x3kvnTILmT5kWUo0IZkLFfKeoxpS0/LWBZ2fMGl+X0Cg72RFscjfQpxbEeNr6odbo9aMBW+1LTBUvBKhFabr7oL2A7sWMkKtLYWtbmpvjgFkkd+PO1+hj7qMoNu3jA8MhW4C5wB+fzYTpHDA//lLzPDBuBZfQ9MCgi+SgG5YydfX3JPY0enrO4Hb2I+4xG6vNPK5ozGEtZUiGsSGa2rHKq0wd+nCJmwh/sYe3iZ7UElxo0g/5Sy3+O3oJyxKqwjPIWdbQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PjijFBJOy+oPnF5phGo5SEeQeFzRb0dhWOCNtEq+icE=;
+ b=Yy1ql3FPJoCCyMamRFhrJxeryzN6edFwrfIxCVhJRsHuBnSHqs9JJXnCIldVvWMRBsDt7iFAhmSKCVCUl8wo8Mb7SjlauTSEfDMY/jIHm7dcHxt1Ioqh2bBCHWMoIme/aegmjMoJFEOWKWcQiGC69YW4+Q+9g5N0Nz2FexEkeCjBJDB0NMdfc00KJaOgSjOf0KGkAP9ETpuZWIiljmCG5nJtwPniXyJsxd9sdkX2GKY0a7eEU1VSDT0VwClMWvUokdlfa7dbhhC1UuoPRcEx44O0bXknQHavYOnoBXfRYEC4MFbFqwLryNHJoadLfLqls3PBr83pR3ZGncktOVlkSw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PjijFBJOy+oPnF5phGo5SEeQeFzRb0dhWOCNtEq+icE=;
+ b=CjFnDM+HUZO56AJSRbKArPg9T8mTZjPFO5HHJTg7aZHaHO5vhNr9lN0Bcp1io/niKu5CrcdAR2GszgXeKdwg2p+ojtU3rInscQK2ZZt9ujutOQToEBOhxgMf78ZTWIwxTGasGf0/Tcq3gSPlKHAp8xQUE1OZVGOBO/oSdIZ2H3s=
+Received: from PH7P222CA0025.NAMP222.PROD.OUTLOOK.COM (2603:10b6:510:33a::19)
+ by PH7PR12MB7427.namprd12.prod.outlook.com (2603:10b6:510:202::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8251.22; Mon, 16 Dec
+ 2024 21:30:35 +0000
+Received: from SA2PEPF000015C6.namprd03.prod.outlook.com
+ (2603:10b6:510:33a:cafe::e6) by PH7P222CA0025.outlook.office365.com
+ (2603:10b6:510:33a::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8251.20 via Frontend Transport; Mon,
+ 16 Dec 2024 21:30:34 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SA2PEPF000015C6.mail.protection.outlook.com (10.167.241.196) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8251.15 via Frontend Transport; Mon, 16 Dec 2024 21:30:34 +0000
+Received: from elenaOnsiteDevTest.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39; Mon, 16 Dec 2024 15:30:34 -0600
+From: Elena Sakhnovitch <Elena.Sakhnovitch@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <elena.sakhnovitch@amd.com>, Elena Sakhnovitch <Elena.Sakhovitch@amd.com>, 
+ Elena Sakhnovitch <Elena.Sakhnovitch@amd.com>
+Subject: [PATCH] drm/amd: decrease CP queue sleep time
+Date: Mon, 16 Dec 2024 16:30:19 -0500
+Message-ID: <20241216213019.3926329-1-Elena.Sakhnovitch@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <CAAxE2A5BkF13bFt8_UnuiqPM8W-ZESgmKEjqqGfv=DGzSfJ7aQ@mail.gmail.com>
- <340ed70a-a576-43c6-86ff-9b58ed513c72@mailbox.org>
-In-Reply-To: <340ed70a-a576-43c6-86ff-9b58ed513c72@mailbox.org>
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-Date: Mon, 16 Dec 2024 16:29:06 -0500
-Message-ID: <CAAxE2A4+6fMd+Ly_5UgAnLxWP3NTYyc=boCK_H7-_qsrgsE2eA@mail.gmail.com>
-Subject: Re: [PATCH] drm/fourcc: add LINEAR modifiers with an exact pitch
- alignment
-To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
-Cc: dri-devel <dri-devel@lists.freedesktop.org>, 
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>, 
- ML Mesa-dev <mesa-dev@lists.freedesktop.org>
-Content-Type: multipart/alternative; boundary="000000000000f0089a062969e0b9"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF000015C6:EE_|PH7PR12MB7427:EE_
+X-MS-Office365-Filtering-Correlation-Id: e0a87f25-20a6-47ba-be3b-08dd1e18e050
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|1800799024|376014|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?RrxpWlGt+pnMoiItp6BkNecneW/apYPsHnOLt4iefS6QhYvZAkxDK644H4I/?=
+ =?us-ascii?Q?zo7StaeD9GPGBuVKJIT+a+hFizVpCHmUBtAx8FHjiZ5noRbBgJK7ZpOr6ot1?=
+ =?us-ascii?Q?a02jnGcvo+u5ZvC9CJAJTOg64l/+yQzybQb61yRtQEmCVYRdW4lzW17R0XbK?=
+ =?us-ascii?Q?pvx0DjspU2XIY7r2VWxgxxdDIXc5YcB8xBs6bmM+vOqz+vLnsnrz8dMOzjxR?=
+ =?us-ascii?Q?k5BGHBVJCJqBDRJESVBC1Hy5wA3nQ5NrwQeX2RS1JNkR/XOkOgTdAZ8tmAwe?=
+ =?us-ascii?Q?mVVAx+0jl4rg4WYMAgsRArrUeIenYFahQftw3tkxEKsl/rgSN6S2P8OMkfOs?=
+ =?us-ascii?Q?QQHw8OqozWrU7K6t17Qve6MhIUHknQpmjyIa5KAm/SFDCQ/d0bF9N8SnHssj?=
+ =?us-ascii?Q?X7HLhQgWCU7jBUiEcxhHaRvoM8Pgrb+8hZYMVZXOJmnayZxWZpAHrlSK1XAs?=
+ =?us-ascii?Q?POdpCEyqDgt9zFhs/HXwilIKGqkAXf119ftCgDwUyNxYO3mDhp+dO6sE42+d?=
+ =?us-ascii?Q?FagktXu8THE2uYsVNRzw3/oLW6VnjdWjAnozTJCI6dWv58hNPQzfBSiW1qob?=
+ =?us-ascii?Q?GIVFgKuujpKl41yswnf7Z26kre9rbWyd0BpvZlDJTKy4ev808+bOvweBpJ6Z?=
+ =?us-ascii?Q?z6Tr7ouLhNhHMQVP6E/L4DYa1MELeRHAPFnXM5vOwibnRr8g7rHoCBCbbeYo?=
+ =?us-ascii?Q?XBD5D5OrOehBNFEcaD2JSpQ8SGh1u5/gz2ZpIBi0Smws62el88gXN4YyDx0a?=
+ =?us-ascii?Q?3s6mE6/z/5OnJH+ObB/OrHTZakPBVCPTJhsVdFXTE6zI6ecHuzCRRf3kFttc?=
+ =?us-ascii?Q?q/YlEzLybbfUAlRNOKsgCRD2F0PVIgtuEDroSsDtjYaew9QJ86M3tjgFFiaL?=
+ =?us-ascii?Q?PZuzZCdXmzH33fTYa9WWzKGoo0JyKZDrVg6DJkwwC10E3q5KamfM3fGZdzNd?=
+ =?us-ascii?Q?UXOWoE61eHq4vv83d7+zWD8T786vL72ft96CqxuJo4n+r2Z6oWBkJ5FJRWyr?=
+ =?us-ascii?Q?F0JOeoLffQUAQKqCeT710O33xj5auVb51+doZKlL0NM/gvPfsPffXoYqMh3V?=
+ =?us-ascii?Q?gYBkq6W/u+QEvPqCY8zjscJYYbZVYTNCO6gMtqVLRqhVjL/gSAzr2FgA7rg5?=
+ =?us-ascii?Q?HZVzZ+R1BKm5hqjqIYQGuhm0CGtgOVjDru8EljxdrX2UrA/LozXexWG8Tt9y?=
+ =?us-ascii?Q?Y520AFGD3V9TV0mr/zX8sdV1yT/jO5PIzgA29ItLIcb5D5XowNfW/Rm5QnGT?=
+ =?us-ascii?Q?zuqp7lUMWSNZ1nhs2w8w40z1YRwSOXkWMkKzr+AtJxnJn/liVvx0U4huBShP?=
+ =?us-ascii?Q?wNJ7Y+xAKcFJ1RfpTAMBnnphvoSg/jztx1FJMA1ZhJaY9k8R54svq+X6wo3O?=
+ =?us-ascii?Q?T6Dcbb8PCQXCuUn9sq+x4TvBrR6O3Mjy2KNDZwQQSGJO5lZEZx3KA7dze9bO?=
+ =?us-ascii?Q?zof60r+fbCg+UFhhctJE5SHWutNtoCRuC0LPo9OgC09dO4EzKfCB6A=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(376014)(36860700013); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Dec 2024 21:30:34.7133 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e0a87f25-20a6-47ba-be3b-08dd1e18e050
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF000015C6.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7427
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,137 +131,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---000000000000f0089a062969e0b9
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+From: Elena Sakhnovitch <Elena.Sakhovitch@amd.com>
 
-On Mon, Dec 16, 2024 at 4:27=E2=80=AFAM Michel D=C3=A4nzer <michel.daenzer@=
-mailbox.org>
-wrote:
+CP_IQ_WAIT_TIME2.QUE_SLEEP hardware default is 0x40, i.e.
+ 64, so we put the queue to sleep for 64,000 clock cycles.
+This is too long, and setting it to 0x1 shoul be enough to
+load date out of memory during queue connect.
+Signed-off-by: Elena Sakhnovitch <Elena.Sakhnovitch@amd.com>
+---
+ drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_1_0_default.h | 2 +-
+ drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_3_0_default.h | 2 +-
+ drivers/gpu/drm/amd/include/asic_reg/gc/gc_9_0_default.h    | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
-> On 2024-12-15 21:53, Marek Ol=C5=A1=C3=A1k wrote:
-> > The comment explains the problem with DRM_FORMAT_MOD_LINEAR.
-> >
-> > Signed-off-by: Marek Ol=C5=A1=C3=A1k <marek.olsak@amd.com <mailto:
-> marek.olsak@amd.com>>
-> >
-> > diff --git a/include/uapi/drm/drm_fourcc.h
-> b/include/uapi/drm/drm_fourcc.h
-> > index 78abd819fd62e..8ec4163429014 100644
-> > --- a/include/uapi/drm/drm_fourcc.h
-> > +++ b/include/uapi/drm/drm_fourcc.h
-> > @@ -484,9 +484,27 @@ extern "C" {
-> >   * modifier (e.g. not setting DRM_MODE_FB_MODIFIERS in the DRM_ADDFB2
-> ioctl),
-> >   * which tells the driver to also take driver-internal information int=
-o
-> account
-> >   * and so might actually result in a tiled framebuffer.
-> > + *
-> > + * WARNING:
-> > + * There are drivers out there that expose DRM_FORMAT_MOD_LINEAR, but
-> only
-> > + * support a certain pitch alignment and can't import images with this
-> modifier
-> > + * if the pitch alignment isn't exactly the one supported. They can
-> however
-> > + * allocate images with this modifier and other drivers can import the=
-m
-> only
-> > + * if they support the same pitch alignment. Thus,
-> DRM_FORMAT_MOD_LINEAR is
-> > + * fundamentically incompatible across devices and is the only modifie=
-r
-> that
-> > + * has a chance of not working. The PITCH_ALIGN modifiers should be us=
-ed
-> > + * instead.
-> >   */
-> >  #define DRM_FORMAT_MOD_LINEAR  fourcc_mod_code(NONE, 0)
-> >
-> > +/* Linear layout modifiers with an explicit pitch alignment in bytes.
-> > + * Exposing this modifier requires that the pitch alignment is exactly
-> > + * the number in the definition.
-> > + */
-> > +#define DRM_FORMAT_MOD_LINEAR_PITCH_ALIGN_64B fourcc_mod_code(NONE, 1)
->
-> It's not clear what you mean by "requires that the pitch alignment is
-> exactly the number in the definition", since a pitch which is aligned to
-> 256 bytes is also aligned to 128 & 64 bytes. Do you mean the pitch must b=
-e
-> exactly the width rounded up to the next / smallest possible multiple of
-> the specified number of bytes?
->
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_1_0_default.h b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_1_0_default.h
+index 320e1ee5df1a..da6762309c3c 100644
+--- a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_1_0_default.h
++++ b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_1_0_default.h
+@@ -2479,7 +2479,7 @@
+ #define mmCP_CONTEXT_CNTL_DEFAULT                                                0x00750075
+ #define mmCP_MAX_CONTEXT_DEFAULT                                                 0x00000007
+ #define mmCP_IQ_WAIT_TIME1_DEFAULT                                               0x40404040
+-#define mmCP_IQ_WAIT_TIME2_DEFAULT                                               0x40404040
++#define mmCP_IQ_WAIT_TIME2_DEFAULT                                               0x10404040
+ #define mmCP_RB0_BASE_HI_DEFAULT                                                 0x00000000
+ #define mmCP_RB1_BASE_HI_DEFAULT                                                 0x00000000
+ #define mmCP_VMID_RESET_DEFAULT                                                  0x00000000
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_3_0_default.h b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_3_0_default.h
+index 21d2f7d1debc..07b112b11a3f 100644
+--- a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_3_0_default.h
++++ b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_3_0_default.h
+@@ -2320,7 +2320,7 @@
+ #define mmCP_CONTEXT_CNTL_DEFAULT                                                0x00750075
+ #define mmCP_MAX_CONTEXT_DEFAULT                                                 0x00000007
+ #define mmCP_IQ_WAIT_TIME1_DEFAULT                                               0x40404040
+-#define mmCP_IQ_WAIT_TIME2_DEFAULT                                               0x40404040
++#define mmCP_IQ_WAIT_TIME2_DEFAULT                                               0x10404040
+ #define mmCP_RB0_BASE_HI_DEFAULT                                                 0x00000000
+ #define mmCP_RB1_BASE_HI_DEFAULT                                                 0x00000000
+ #define mmCP_VMID_RESET_DEFAULT                                                  0x00000000
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_9_0_default.h b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_9_0_default.h
+index 5bf84c6d0ec3..64183c888fd4 100644
+--- a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_9_0_default.h
++++ b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_9_0_default.h
+@@ -1295,7 +1295,7 @@
+ #define mmCP_CONTEXT_CNTL_DEFAULT                                                0x00750075
+ #define mmCP_MAX_CONTEXT_DEFAULT                                                 0x00000007
+ #define mmCP_IQ_WAIT_TIME1_DEFAULT                                               0x40404040
+-#define mmCP_IQ_WAIT_TIME2_DEFAULT                                               0x40404040
++#define mmCP_IQ_WAIT_TIME2_DEFAULT                                               0x10404040
+ #define mmCP_RB0_BASE_HI_DEFAULT                                                 0x00000000
+ #define mmCP_RB1_BASE_HI_DEFAULT                                                 0x00000000
+ #define mmCP_VMID_RESET_DEFAULT                                                  0x00000000
+-- 
+2.34.1
 
-The pitch must be width*Bpp aligned to the number of bytes in the
-definition.
-
-Marek
-
---000000000000f0089a062969e0b9
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div class=3D"gmail_quote gmail_quote_container"><div dir=
-=3D"ltr" class=3D"gmail_attr">On Mon, Dec 16, 2024 at 4:27=E2=80=AFAM Miche=
-l D=C3=A4nzer &lt;<a href=3D"mailto:michel.daenzer@mailbox.org">michel.daen=
-zer@mailbox.org</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" s=
-tyle=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);pad=
-ding-left:1ex">On 2024-12-15 21:53, Marek Ol=C5=A1=C3=A1k wrote:<br>
-&gt; The comment explains the problem with DRM_FORMAT_MOD_LINEAR.<br>
-&gt; =C2=A0 =C2=A0<br>
-&gt; Signed-off-by: Marek Ol=C5=A1=C3=A1k &lt;<a href=3D"mailto:marek.olsak=
-@amd.com" target=3D"_blank">marek.olsak@amd.com</a> &lt;mailto:<a href=3D"m=
-ailto:marek.olsak@amd.com" target=3D"_blank">marek.olsak@amd.com</a>&gt;&gt=
-;<br>
-&gt; <br>
-&gt; diff --git a/include/uapi/drm/drm_fourcc.h b/include/uapi/drm/drm_four=
-cc.h<br>
-&gt; index 78abd819fd62e..8ec4163429014 100644<br>
-&gt; --- a/include/uapi/drm/drm_fourcc.h<br>
-&gt; +++ b/include/uapi/drm/drm_fourcc.h<br>
-&gt; @@ -484,9 +484,27 @@ extern &quot;C&quot; {<br>
-&gt; =C2=A0 * modifier (e.g. not setting DRM_MODE_FB_MODIFIERS in the DRM_A=
-DDFB2 ioctl),<br>
-&gt; =C2=A0 * which tells the driver to also take driver-internal informati=
-on into account<br>
-&gt; =C2=A0 * and so might actually result in a tiled framebuffer.<br>
-&gt; + *<br>
-&gt; + * WARNING:<br>
-&gt; + * There are drivers out there that expose DRM_FORMAT_MOD_LINEAR, but=
- only<br>
-&gt; + * support a certain pitch alignment and can&#39;t import images with=
- this modifier<br>
-&gt; + * if the pitch alignment isn&#39;t exactly the one supported. They c=
-an however<br>
-&gt; + * allocate images with this modifier and other drivers can import th=
-em only<br>
-&gt; + * if they support the same pitch alignment. Thus, DRM_FORMAT_MOD_LIN=
-EAR is<br>
-&gt; + * fundamentically incompatible across devices and is the only modifi=
-er that<br>
-&gt; + * has a chance of not working. The PITCH_ALIGN modifiers should be u=
-sed<br>
-&gt; + * instead.<br>
-&gt; =C2=A0 */<br>
-&gt; =C2=A0#define DRM_FORMAT_MOD_LINEAR =C2=A0fourcc_mod_code(NONE, 0)<br>
-&gt; =C2=A0<br>
-&gt; +/* Linear layout modifiers with an explicit pitch alignment in bytes.=
-<br>
-&gt; + * Exposing this modifier requires that the pitch alignment is exactl=
-y<br>
-&gt; + * the number in the definition.<br>
-&gt; + */<br>
-&gt; +#define DRM_FORMAT_MOD_LINEAR_PITCH_ALIGN_64B fourcc_mod_code(NONE, 1=
-)<br>
-<br>
-It&#39;s not clear what you mean by &quot;requires that the pitch alignment=
- is exactly the number in the definition&quot;, since a pitch which is alig=
-ned to 256 bytes is also aligned to 128 &amp; 64 bytes. Do you mean the pit=
-ch must be exactly the width rounded up to the next / smallest possible mul=
-tiple of the specified number of bytes?<br></blockquote><div><br></div>The =
-pitch must be width*Bpp aligned to the number of bytes in the definition.</=
-div><div class=3D"gmail_quote gmail_quote_container"><br></div><div class=
-=3D"gmail_quote gmail_quote_container">Marek<br></div></div>
-
---000000000000f0089a062969e0b9--
