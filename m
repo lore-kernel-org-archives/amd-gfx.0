@@ -4,55 +4,148 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AE21E77187
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Dec 2024 20:51:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A337AE77184
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Dec 2024 21:22:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C43AA10EA82;
-	Tue, 17 Dec 2024 20:51:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 37BA710E062;
+	Tue, 17 Dec 2024 21:22:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="p5v+n94e";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="F3S17BWN";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 30FCF10EA7A;
- Tue, 17 Dec 2024 20:51:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
- Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=MDD/P9JnTcvTSEiE0azCXeoLygAOmmUMZRhHs/CK1pU=; b=p5v+n94eHZdSnFfydK/tyyZ6XN
- s2tiryqOG6thcoECv6z0moaWe7vDLnGion4QyiaXjaeylOogGj0CDku8OISQp1vk62ewlLdb2zP2c
- E9TK1E/9xHg2Atbr2+07b/5b8CyUfRWUgxpOMCk2srLl9eHfyW8vSw2yXaAhs59Kl9oiWngX+vAan
- iAsmdlUd1x4DhrfRk0OllSJVM/xGAPqDDqJ2tzRSPDdhOjczei9+NoErs5qY2abx3U6jB24UdLYTl
- 4Az41rY+cXvlnNV9HRm6znqiQe148B6Dk/WiE/Y4WLz4hVmCCpLX1l9C4TY+KT8a4vnJw5gBOPef1
- oA0UfDew==;
-Received: from [179.214.71.67] (helo=killbill.home)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1tNeWx-004X2k-9t; Tue, 17 Dec 2024 21:50:59 +0100
-From: Melissa Wen <mwen@igalia.com>
-To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, daniel@ffwll.ch, zaeem.mohamed@amd.com,
- pekka.paalanen@collabora.com
-Cc: Mario Limonciello <mario.limonciello@amd.com>,
- Timur Kristof <timur.kristof@gmail.com>,
- Victoria Brekenfeld <victoria@system76.com>,
- =?UTF-8?q?Michel=20D=C3=A4nzer?= <mdaenzer@redhat.com>,
- Fabio Scaccabarozzi <fsvm88@gmail.com>,
- Matthew Schwartz <mattschwartz@gwmail.gwu.edu>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- kernel-dev@igalia.com
-Subject: [PATCH 3/3] drm/amd/display: fix divide error in DM plane scale calcs
-Date: Tue, 17 Dec 2024 17:45:05 -0300
-Message-ID: <20241217205029.39850-4-mwen@igalia.com>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20241217205029.39850-1-mwen@igalia.com>
-References: <20241217205029.39850-1-mwen@igalia.com>
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2060.outbound.protection.outlook.com [40.107.93.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9792D10E062
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Dec 2024 21:22:35 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=SHp992QmoGdeVdhgB69TBcqmt+lqDtzF08hn6zqk7X6/GKOuF2y5XUJIRd6rTx26TiE9PFhwbkHCUA5//uECMNBP7IsGyJQxa/8Hp7Up7ZQ5nDRXCb8+oxbIZLBYcF0m4SaIVUVSJ36U0+2z4cwWC24HKKujtS1kThmKfU/XpHGW2S74ZHnkb9GLAyWq6VYEpKJKnCKUIC7BASAMB6o2tyVBLjeBAzV05EQyR6KvR4wYZMxEkjjEUGgym391ykZmvcv3Lj0GtChOOD6tONnSY85vZDEt3tePHdO6SyAOsKMnDgApCjasvwp3OxSWAqEPsuhBBZfcMz3HmWpJGnibwg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=btolaeftaBqDwQXyWKFWaSVtI2pmNU7Bdm5TZCQUjNw=;
+ b=je6NhPBmwdUucVERDVtda33mHgHZOjhajOBpGz1bKEjZShPQhz+YEld0GeiJJtjf26x+rxDrzD6LD5eo4V8XhamDSPwmAWlBo+szhN9ri9U0d5X14X2ottsctMZms22iqC0guhqz3zb19Re2p0i2z7mLGXqEhyxtGFdiyUSh77hVJtanUSy1FdoseNbS5suEV8im2/ALnUFWVuONfA1VWsp236pKLHNcwuJCbOwsSB4sTNJipLkl1mK7Qz6n+MM69zQs+txJ2rtq+WBH/kwKbvQV7EZFBM97aD4x8Md/+w9tAJS7r6ZuiHcmL4YRZ2HV1t4y49j/+EPxA4Xz9E4yKA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=btolaeftaBqDwQXyWKFWaSVtI2pmNU7Bdm5TZCQUjNw=;
+ b=F3S17BWNzC8nWsbfzPpf6psRNak5PmWSSXS6kkg/DG1ImC4PY5spJhaKpO4/imkLphR8qI+NgwfnoxpzMHJ0ztbpKXVyisst3RoU8TmFizL65dPNEaoSwUyITXUdhskj+XRmyJU3YgvH4kgbWqi/9p4QVzUtyiqs1WVQyFoPaII=
+Received: from CY8PR12MB8193.namprd12.prod.outlook.com (2603:10b6:930:71::22)
+ by CH2PR12MB4183.namprd12.prod.outlook.com (2603:10b6:610:7a::24)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8272.13; Tue, 17 Dec
+ 2024 21:22:33 +0000
+Received: from CY8PR12MB8193.namprd12.prod.outlook.com
+ ([fe80::9edb:7f9f:29f8:7123]) by CY8PR12MB8193.namprd12.prod.outlook.com
+ ([fe80::9edb:7f9f:29f8:7123%5]) with mapi id 15.20.8251.015; Tue, 17 Dec 2024
+ 21:22:33 +0000
+From: "Li, Roman" <Roman.Li@amd.com>
+To: "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>, "Siqueira,
+ Rodrigo" <Rodrigo.Siqueira@amd.com>, "Pillai, Aurabindo"
+ <Aurabindo.Pillai@amd.com>
+CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Li, Sun
+ peng (Leo)" <Sunpeng.Li@amd.com>, "Chung, ChiaHsuan (Tom)"
+ <ChiaHsuan.Chung@amd.com>, "Hung, Alex" <Alex.Hung@amd.com>, "Wentland,
+ Harry" <Harry.Wentland@amd.com>, Dan Carpenter <dan.carpenter@linaro.org>
+Subject: RE: [PATCH v2] drm/amd/display: Fix NULL pointer dereference in
+ dmub_tracebuffer_show
+Thread-Topic: [PATCH v2] drm/amd/display: Fix NULL pointer dereference in
+ dmub_tracebuffer_show
+Thread-Index: AQHbTIYtI3rmrEmtl027HY21QI1eULLq+c0g
+Date: Tue, 17 Dec 2024 21:22:32 +0000
+Message-ID: <CY8PR12MB8193BA9C783152B8FFA9D05E89042@CY8PR12MB8193.namprd12.prod.outlook.com>
+References: <20241212110808.956179-1-srinivasan.shanmugam@amd.com>
+In-Reply-To: <20241212110808.956179-1-srinivasan.shanmugam@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ActionId=42032737-c72f-4837-9701-5df9541329b5;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=0;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=true;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open Source;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2024-12-17T21:20:09Z;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CY8PR12MB8193:EE_|CH2PR12MB4183:EE_
+x-ms-office365-filtering-correlation-id: 01c6904c-568f-4a10-3a26-08dd1ee0eb7f
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|376014|366016|7053199007|38070700018; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?z+86pRh1Pl5Q8kQyjsYKkSQgrwSjJ8l1ncpr8gk9ARum2R24nqVqwC/Kf3oP?=
+ =?us-ascii?Q?ocLgyYcpD3Yiy9z4FcvEPOrCsPm29WC4edwZpAxwIAEXubZnHYeAjGrTLK5Y?=
+ =?us-ascii?Q?gaH1a76cGW47Wj0FRLqvJk27GHPT/lp9nbKd8/qMs6WjU9NocZvt6IuxYxOG?=
+ =?us-ascii?Q?RBKlIXI2RL5EqoXbOcygh2T20OehEzoQkqIwEy6/1saTcQLDbFYIsfd6WGDG?=
+ =?us-ascii?Q?lsXq57910/jDiGLTScLHIs0x2d0BA0wr2fEeWZFsXtJ4YASyJ6+BcrOgAqwh?=
+ =?us-ascii?Q?+hKhfmjk+3StAJpN7PlTTVfbAC/nx6KsKWEkqaYCGNqHPl4dfCLvhlE+SSyc?=
+ =?us-ascii?Q?NTskpnfm19xjOkHe2SBAyp7xRj1mrkuiRdzFGKjSj8B77YyreWIE4wEfIP6y?=
+ =?us-ascii?Q?wIYd/7mha21c8nZiL2a6LW7U3j1papGmSYb3p27XfhxFBRW9wh/1vv6pHgaF?=
+ =?us-ascii?Q?ToC4fLZLXHUTrQn8nsWAUemqlDjL6hCbwtREzp3J37WuaLjYBLzpqyBUWfOT?=
+ =?us-ascii?Q?NCs1f0BR5mOPI0V/nJKG5KM+qfcRTGLDHgq9gXgNLtCuVUO5ZgIp4NXksKPw?=
+ =?us-ascii?Q?NCytF8H4l/qv+9elye9BJAKwc0SCPPg69cE4dONVLkwa/BA5dwrXQjKGtAiI?=
+ =?us-ascii?Q?NNEq/We1lFQ73WZNBwJZnWwmZ7BPdDtAaNEN33AD39AkYbjE7z9j4MeFXDZT?=
+ =?us-ascii?Q?QRABxaH75pQ6juwPHdpFDiMGsb4w6JRch8ouCsZydac5cfZXySj5gByrVdcz?=
+ =?us-ascii?Q?iNTfrXhhmIIiDfFWkWh7Xz5S2eQeQtonRX9md7bMbP2mAjr9PfnVlby+vsLP?=
+ =?us-ascii?Q?rEeK4MQBGfPgLOjlSayMkN9Uh2lyhMGO8BUsvNbQjbYy7bdT4FpEF2or20FD?=
+ =?us-ascii?Q?5sRhkPv250Sd/7vNzxz0ZTqwvjjz2uHy90VvygSq5RHEot8NcmsiwKgQ7Jxg?=
+ =?us-ascii?Q?BUsu6jnnFc3I23XhASygDYdRku1rbnunRCRX3csKz2Gluf65nIL8Dxqc6sEI?=
+ =?us-ascii?Q?YUhDB/RylauN8Hkyg5EkzH2a8NBFRwx+1mrmUlYWLTcRc94RHmk5FIW87Olf?=
+ =?us-ascii?Q?pAwwMd+DpjU8B6xPPr8ssoZgKvCeAgAvXrLtJhkgQdvC9ty0HR6ANfXzacfC?=
+ =?us-ascii?Q?8zc9fF1XIU/DfBCPl2D03oKO6+gMa/Mf+S8ZXi+Wh4Ewkt8l3tu/yCnTRqL6?=
+ =?us-ascii?Q?FhWxppYIhQZmwyVMeclI+i6Acjb92yJexAUJSNdbIeKNDFZJEBfkzZwjbs+t?=
+ =?us-ascii?Q?Rc4Nzg0JP6E5lggr7sd7iN6NmSi1/EVrHT/RXg3lULKhCYFJhCVM5usYwKFm?=
+ =?us-ascii?Q?kcNi9oR0zUmhJ5b5ahWU5qU7JeugFBOMNuJagKTo4iWsbiP9GmTTXlN4BxQW?=
+ =?us-ascii?Q?wtpykb375YDV7IjwJiRhvtHj+QZrcwMjnONNejAKPYZxn2ojS63iKrLRBSFb?=
+ =?us-ascii?Q?dp+DeWd+mMZSWZ9n0ZDS9zig/S5Djmkm?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY8PR12MB8193.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(7053199007)(38070700018); DIR:OUT;
+ SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?GJDvNBEtkSQSu6lemrE2XjV8paWD9U5YJJZ2aT4UDSKzDVmskhKFwJcGrRDs?=
+ =?us-ascii?Q?KAdKGsnbouwoveymHTdV4daCLu5fLGeiBbGBNtUA/WUky8MrAdFwMt4k30yU?=
+ =?us-ascii?Q?QmyiXVU0IC/L0n7bWr7sXZ5vFl1PGpSrJIOD/7CGQCMyXR+0dvWVGjVcColj?=
+ =?us-ascii?Q?UTwsVkjNzOUCVHIpnx/urwdJQfUW0RC13aSAGrfs7ISufDgMuuC+zW3QU8OO?=
+ =?us-ascii?Q?DU/bqvjBRNSgrARheaEegyrCFGyE46UEp/T0MGfRDteuyoquktMa7rmAURsT?=
+ =?us-ascii?Q?94uSEhJ6m2L/lIviX0qCs5rxWdVwtNoovJpGiOfFcBfKDsX8Y/B8HiJ4Khuz?=
+ =?us-ascii?Q?SMkxFDYug6F2OtOSllaHSqIekigI8q2Wd7NYN89ZhhET8+MGv4PRb4ViVXCk?=
+ =?us-ascii?Q?DgWz5z27lv12Qr8o4YllonWx5xf+xb51m4QK/2ki419OegYAIRcOtOgzT6ac?=
+ =?us-ascii?Q?FQa5rBxtdftBmbq+wiOqxmkkjpFnvNHy6gilFeBJBnrhzAIkDytHR9PSvEcd?=
+ =?us-ascii?Q?OCaRhoSd4n0S4CXkNBpd2PItRTxbB7IXFJpQnzn+0FOtihO7xSeYr4keZnBo?=
+ =?us-ascii?Q?XylhcIiM//OCsQbEc3hhX8huqPohTfNiCq1QS5JaEnQhoLgZ3+tNqWwxEn1u?=
+ =?us-ascii?Q?Yda2EvxaboUyLHOxEJdl7t1fV/ZfPygHscXCZTCuxB2KdTLUjahNkUioa0CJ?=
+ =?us-ascii?Q?kQ3B1xU+zvpGdmNObN7YqS/Cux/JZCDFNUpAU06eDRxXq7cNxt+z1QpjFeAO?=
+ =?us-ascii?Q?k4c1Lb/YfcGiTKJuxPyAON7yS8BN9SMxkLPzdta013CVNrep4t45i7TZ0QYy?=
+ =?us-ascii?Q?onyAdDCPXfEtfUTckQmLHb9NBFeufqecC2fcm3sjJViKh3lRCjDi5qy/2F0D?=
+ =?us-ascii?Q?93sbVw9e0Hp5aCLkLv2bfb+zNfQaFM3Bg7jbMtrWFHOGeB4TaKr1TBW++5fu?=
+ =?us-ascii?Q?AT4gnfuireDwhEaqfoxdbrcey96QPLhxXRANOLQTuKNyqeLvXTmss55l6R+Z?=
+ =?us-ascii?Q?yF6fpwXxu+3UetcMoosVk2Dgnl92ejzjr+Lc1W3gWF0IRJEH2jUBNp3dpGXu?=
+ =?us-ascii?Q?ZtFkwk1zexClT2hA6RoGl73L49ZiG4hXIxuJVFg6AMkncvnOvNNOOHHPhoh6?=
+ =?us-ascii?Q?HcTRx4HhC7yMx/lwgxlB3ETW+23dOs7Fhfddy/hvUo3G7jRVeuNmfnZpeobj?=
+ =?us-ascii?Q?sB3CbFdqWYyIKjOuGhzHHalfU9AiYsocEqTgjr3cApDFxsSmaeQrRlENah+Z?=
+ =?us-ascii?Q?PtqXydP1sQobOGV3JlWQ0hnVUOjivPNySn6tWByWfM3lTIGCq5t9N3xffsDZ?=
+ =?us-ascii?Q?B25vMEbYZQNF7z03jaj9jlNgbtr6QOWRd+mudU1hp7hkb0D3QnUzTTesGOVF?=
+ =?us-ascii?Q?pYJluetBgbK5fMfowKbgfEGEzgGwQc9X6Rf2LwLUACaxYNhWugpP63ekvA88?=
+ =?us-ascii?Q?2ams/nb9iTbTUloDZIjg360MUV1S3CBIssjxUXQ30IHJuRUdRa8HBP76SGKR?=
+ =?us-ascii?Q?qe6Ffsd0ukUVm52J/HSobJ0fybuzyf2S+nATF6KcfXVcOM4dP/0Wl0yMJntR?=
+ =?us-ascii?Q?S6m35F95tu3hQ85woDg=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB8193.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 01c6904c-568f-4a10-3a26-08dd1ee0eb7f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Dec 2024 21:22:32.8492 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: l5w9IkCS3mKEDpmi23VaMg3bxshAWs7Zzp/BjcRyMWlkWyahbY4RGYXf783Hl/M0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4183
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,106 +160,122 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-dm_get_plane_scale doesn't take into account plane scaled size equal to
-zero, leading to a kernel oops due to division by zero. Fix by setting
-out-scale size as zero when the dst size is zero, similar to what is
-done by drm_calc_scale(). This issue started with the introduction of
-cursor ovelay mode that uses this function to assess cursor mode changes
-via dm_crtc_get_cursor_mode() before checking plane state.
+[Public]
 
-[Dec17 17:14] Oops: divide error: 0000 [#1] PREEMPT SMP NOPTI
-[  +0.000018] CPU: 5 PID: 1660 Comm: surface-DP-1 Not tainted 6.10.0+ #231
-[  +0.000007] Hardware name: Valve Jupiter/Jupiter, BIOS F7A0131 01/30/2024
-[  +0.000004] RIP: 0010:dm_get_plane_scale+0x3f/0x60 [amdgpu]
-[  +0.000553] Code: 44 0f b7 41 3a 44 0f b7 49 3e 83 e0 0f 48 0f a3 c2 73 21 69 41 28 e8 03 00 00 31 d2 41 f7 f1 31 d2 89 06 69 41 2c e8 03 00 00 <41> f7 f0 89 07 e9 d7 d8 7e e9 44 89 c8 45 89 c1 41 89 c0 eb d4 66
-[  +0.000005] RSP: 0018:ffffa8df0de6b8a0 EFLAGS: 00010246
-[  +0.000006] RAX: 00000000000003e8 RBX: ffff9ac65c1f6e00 RCX: ffff9ac65d055500
-[  +0.000003] RDX: 0000000000000000 RSI: ffffa8df0de6b8b0 RDI: ffffa8df0de6b8b4
-[  +0.000004] RBP: ffff9ac64e7a5800 R08: 0000000000000000 R09: 0000000000000a00
-[  +0.000003] R10: 00000000000000ff R11: 0000000000000054 R12: ffff9ac6d0700010
-[  +0.000003] R13: ffff9ac65d054f00 R14: ffff9ac65d055500 R15: ffff9ac64e7a60a0
-[  +0.000004] FS:  00007f869ea00640(0000) GS:ffff9ac970080000(0000) knlGS:0000000000000000
-[  +0.000004] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[  +0.000003] CR2: 000055ca701becd0 CR3: 000000010e7f2000 CR4: 0000000000350ef0
-[  +0.000004] Call Trace:
-[  +0.000007]  <TASK>
-[  +0.000006]  ? __die_body.cold+0x19/0x27
-[  +0.000009]  ? die+0x2e/0x50
-[  +0.000007]  ? do_trap+0xca/0x110
-[  +0.000007]  ? do_error_trap+0x6a/0x90
-[  +0.000006]  ? dm_get_plane_scale+0x3f/0x60 [amdgpu]
-[  +0.000504]  ? exc_divide_error+0x38/0x50
-[  +0.000005]  ? dm_get_plane_scale+0x3f/0x60 [amdgpu]
-[  +0.000488]  ? asm_exc_divide_error+0x1a/0x20
-[  +0.000011]  ? dm_get_plane_scale+0x3f/0x60 [amdgpu]
-[  +0.000593]  dm_crtc_get_cursor_mode+0x33f/0x430 [amdgpu]
-[  +0.000562]  amdgpu_dm_atomic_check+0x2ef/0x1770 [amdgpu]
-[  +0.000501]  drm_atomic_check_only+0x5e1/0xa30 [drm]
-[  +0.000047]  drm_mode_atomic_ioctl+0x832/0xcb0 [drm]
-[  +0.000050]  ? __pfx_drm_mode_atomic_ioctl+0x10/0x10 [drm]
-[  +0.000047]  drm_ioctl_kernel+0xb3/0x100 [drm]
-[  +0.000062]  drm_ioctl+0x27a/0x4f0 [drm]
-[  +0.000049]  ? __pfx_drm_mode_atomic_ioctl+0x10/0x10 [drm]
-[  +0.000055]  amdgpu_drm_ioctl+0x4e/0x90 [amdgpu]
-[  +0.000360]  __x64_sys_ioctl+0x97/0xd0
-[  +0.000010]  do_syscall_64+0x82/0x190
-[  +0.000008]  ? __pfx_drm_mode_createblob_ioctl+0x10/0x10 [drm]
-[  +0.000044]  ? srso_return_thunk+0x5/0x5f
-[  +0.000006]  ? drm_ioctl_kernel+0xb3/0x100 [drm]
-[  +0.000040]  ? srso_return_thunk+0x5/0x5f
-[  +0.000005]  ? __check_object_size+0x50/0x220
-[  +0.000007]  ? srso_return_thunk+0x5/0x5f
-[  +0.000005]  ? srso_return_thunk+0x5/0x5f
-[  +0.000005]  ? drm_ioctl+0x2a4/0x4f0 [drm]
-[  +0.000039]  ? __pfx_drm_mode_createblob_ioctl+0x10/0x10 [drm]
-[  +0.000043]  ? srso_return_thunk+0x5/0x5f
-[  +0.000005]  ? srso_return_thunk+0x5/0x5f
-[  +0.000005]  ? __pm_runtime_suspend+0x69/0xc0
-[  +0.000006]  ? srso_return_thunk+0x5/0x5f
-[  +0.000005]  ? amdgpu_drm_ioctl+0x71/0x90 [amdgpu]
-[  +0.000366]  ? srso_return_thunk+0x5/0x5f
-[  +0.000006]  ? syscall_exit_to_user_mode+0x77/0x210
-[  +0.000007]  ? srso_return_thunk+0x5/0x5f
-[  +0.000005]  ? do_syscall_64+0x8e/0x190
-[  +0.000006]  ? srso_return_thunk+0x5/0x5f
-[  +0.000006]  ? do_syscall_64+0x8e/0x190
-[  +0.000006]  ? srso_return_thunk+0x5/0x5f
-[  +0.000007]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
-[  +0.000008] RIP: 0033:0x55bb7cd962bc
-[  +0.000007] Code: 4c 89 6c 24 18 4c 89 64 24 20 4c 89 74 24 28 0f 57 c0 0f 11 44 24 30 89 c7 48 8d 54 24 08 b8 10 00 00 00 be bc 64 38 c0 0f 05 <49> 89 c7 48 83 3b 00 74 09 4c 89 c7 ff 15 62 64 99 00 48 83 7b 18
-[  +0.000005] RSP: 002b:00007f869e9f4da0 EFLAGS: 00000217 ORIG_RAX: 0000000000000010
-[  +0.000007] RAX: ffffffffffffffda RBX: 00007f869e9f4fb8 RCX: 000055bb7cd962bc
-[  +0.000004] RDX: 00007f869e9f4da8 RSI: 00000000c03864bc RDI: 000000000000003b
-[  +0.000003] RBP: 000055bb9ddcbcc0 R08: 00007f86541b9920 R09: 0000000000000009
-[  +0.000004] R10: 0000000000000004 R11: 0000000000000217 R12: 00007f865406c6b0
-[  +0.000003] R13: 00007f86541b5290 R14: 00007f865410b700 R15: 000055bb9ddcbc18
-[  +0.000009]  </TASK>
+Reviewed-by: Roman Li <roman.li@amd.com>
 
-Fixes: 1b04dcca4fb1 ("drm/amd/display: Introduce overlay cursor mode")
-Link: https://gitlab.freedesktop.org/drm/amd/-/issues/3729
-Reported-by: Fabio Scaccabarozzi <fsvm88@gmail.com>
-Co-developed-by: Fabio Scaccabarozzi <fsvm88@gmail.com>
-Signed-off-by: Fabio Scaccabarozzi <fsvm88@gmail.com>
-Signed-off-by: Melissa Wen <mwen@igalia.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 85f21db6ef24..2c795b867c1c 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -11124,8 +11124,8 @@ dm_get_plane_scale(struct drm_plane_state *plane_state,
- 	int plane_src_w, plane_src_h;
- 
- 	dm_get_oriented_plane_size(plane_state, &plane_src_w, &plane_src_h);
--	*out_plane_scale_w = plane_state->crtc_w * 1000 / plane_src_w;
--	*out_plane_scale_h = plane_state->crtc_h * 1000 / plane_src_h;
-+	*out_plane_scale_w = plane_src_w ? plane_state->crtc_w * 1000 / plane_src_w : 0;
-+	*out_plane_scale_h = plane_src_h ? plane_state->crtc_h * 1000 / plane_src_h : 0;
- }
- 
- /*
--- 
-2.45.2
+> -----Original Message-----
+> From: SHANMUGAM, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>
+> Sent: Thursday, December 12, 2024 6:08 AM
+> To: Siqueira, Rodrigo <Rodrigo.Siqueira@amd.com>; Pillai, Aurabindo
+> <Aurabindo.Pillai@amd.com>
+> Cc: amd-gfx@lists.freedesktop.org; SHANMUGAM, SRINIVASAN
+> <SRINIVASAN.SHANMUGAM@amd.com>; Li, Sun peng (Leo)
+> <Sunpeng.Li@amd.com>; Chung, ChiaHsuan (Tom)
+> <ChiaHsuan.Chung@amd.com>; Li, Roman <Roman.Li@amd.com>; Hung, Alex
+> <Alex.Hung@amd.com>; Wentland, Harry <Harry.Wentland@amd.com>; Hamza
+> Mahfooz <hamza.mahfooz@amd.com>; Dan Carpenter
+> <dan.carpenter@linaro.org>
+> Subject: [PATCH v2] drm/amd/display: Fix NULL pointer dereference in
+> dmub_tracebuffer_show
+>
+> It corrects the issue by checking if 'adev->dm.dmub_srv' is NULL before a=
+ccessing
+> its 'meta_info' member. This ensures that we do not dereference a NULL po=
+inter.
+>
+> Fixes the below:
+>       drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_debugfs.c
+> :917 dmub_tracebuffer_show()
+>       warn: address of 'adev->dm.dmub_srv->meta_info' is non-NULL
+>
+> drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_debugfs.c
+>     901 static int dmub_tracebuffer_show(struct seq_file *m, void *data)
+>     902 {
+>     903         struct amdgpu_device *adev =3D m->private;
+>     904         struct dmub_srv_fb_info *fb_info =3D adev->dm.dmub_fb_inf=
+o;
+>     905         struct dmub_fw_meta_info *fw_meta_info =3D &adev->dm.dmub=
+_srv-
+> >meta_info;
+>                                                          ^^^^^^^^^^^^^^^^=
+^^^^^^^^^^^^^ Even if adev-
+> >dm.dmub_srv is NULL, the address of ->meta_info can't be NULL
+>
+>     906         struct dmub_debugfs_trace_entry *entries;
+>     907         uint8_t *tbuf_base;
+>     908         uint32_t tbuf_size, max_entries, num_entries, first_entry=
+, i;
+>     909
+>     910         if (!fb_info)
+>     911                 return 0;
+>     912
+>     913         tbuf_base =3D (uint8_t *)fb_info-
+> >fb[DMUB_WINDOW_5_TRACEBUFF].cpu_addr;
+>     914         if (!tbuf_base)
+>     915                 return 0;
+>     916
+> --> 917         tbuf_size =3D fw_meta_info ? fw_meta_info->trace_buffer_s=
+ize :
+>                             ^^^^^^^^^^^^ Always non-NULL
+>
+>     918                                    DMUB_TRACE_BUFFER_SIZE;
+>     919         max_entries =3D (tbuf_size - sizeof(struct dmub_debugfs_t=
+race_header)) /
+>     920                       sizeof(struct dmub_debugfs_trace_entry);
+>     921
+>     922         num_entries =3D
+>
+> Fixes: c506f6e03b18 ("drm/amd/display: Make DMCUB tracebuffer debugfs
+> chronological")
+> Cc: Leo Li <sunpeng.li@amd.com>
+> Cc: Tom Chung <chiahsuan.chung@amd.com>
+> Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+> Cc: Roman Li <roman.li@amd.com>
+> Cc: Alex Hung <alex.hung@amd.com>
+> Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+> Cc: Harry Wentland <harry.wentland@amd.com>
+> Cc: Hamza Mahfooz <hamza.mahfooz@amd.com>
+> Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
+> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+> ---
+> v2:
+>  - initially initialize struct dmub_fw_meta_info *fw_meta_info to NULL (D=
+an
+>    Carpenter)
+>
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+> index 11a7ac54f91c..2d31836ecb98 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+> @@ -902,7 +902,7 @@ static int dmub_tracebuffer_show(struct seq_file *m, =
+void
+> *data)  {
+>       struct amdgpu_device *adev =3D m->private;
+>       struct dmub_srv_fb_info *fb_info =3D adev->dm.dmub_fb_info;
+> -     struct dmub_fw_meta_info *fw_meta_info =3D &adev->dm.dmub_srv-
+> >meta_info;
+> +     struct dmub_fw_meta_info *fw_meta_info =3D NULL;
+>       struct dmub_debugfs_trace_entry *entries;
+>       uint8_t *tbuf_base;
+>       uint32_t tbuf_size, max_entries, num_entries, first_entry, i; @@ -9=
+14,6
+> +914,9 @@ static int dmub_tracebuffer_show(struct seq_file *m, void *data=
+)
+>       if (!tbuf_base)
+>               return 0;
+>
+> +     if (adev->dm.dmub_srv)
+> +             fw_meta_info =3D &adev->dm.dmub_srv->meta_info;
+> +
+>       tbuf_size =3D fw_meta_info ? fw_meta_info->trace_buffer_size :
+>                                  DMUB_TRACE_BUFFER_SIZE;
+>       max_entries =3D (tbuf_size - sizeof(struct dmub_debugfs_trace_heade=
+r)) /
+> --
+> 2.34.1
 
