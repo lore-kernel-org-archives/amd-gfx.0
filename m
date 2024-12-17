@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE127E77187
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A79F8E7717F
 	for <amd-gfx@archiver.kernel.org>; Tue, 17 Dec 2024 11:26:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B41210E93B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 54C7A10E938;
 	Tue, 17 Dec 2024 11:26:36 +0000 (UTC)
 Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
- by gabe.freedesktop.org (Postfix) with ESMTP id 4FBED10E82E
+ by gabe.freedesktop.org (Postfix) with ESMTP id 4BD8510E82D
  for <amd-gfx@lists.freedesktop.org>; Tue, 17 Dec 2024 01:17:35 +0000 (UTC)
 Received: from loongson.cn (unknown [113.200.148.30])
- by gateway (Coremail) with SMTP id _____8CxSOE4z2BnI5dXAA--.39576S3;
- Tue, 17 Dec 2024 09:09:12 +0800 (CST)
+ by gateway (Coremail) with SMTP id _____8Cx7642z2BnFZdXAA--.1146S3;
+ Tue, 17 Dec 2024 09:09:10 +0800 (CST)
 Received: from linux.localdomain (unknown [113.200.148.30])
- by front1 (Coremail) with SMTP id qMiowMDxPEcyz2BnXNeFAA--.16436S6;
- Tue, 17 Dec 2024 09:09:11 +0800 (CST)
+ by front1 (Coremail) with SMTP id qMiowMDxPEcyz2BnXNeFAA--.16436S4;
+ Tue, 17 Dec 2024 09:09:09 +0800 (CST)
 From: Tiezhu Yang <yangtiezhu@loongson.cn>
 To: Huacai Chen <chenhuacai@kernel.org>, Josh Poimboeuf <jpoimboe@kernel.org>,
  Peter Zijlstra <peterz@infradead.org>
 Cc: loongarch@lists.linux.dev, amd-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v6 4/9] objtool: Handle unreachable entry of rodata
-Date: Tue, 17 Dec 2024 09:09:00 +0800
-Message-ID: <20241217010905.13054-5-yangtiezhu@loongson.cn>
+Subject: [PATCH v6 2/9] objtool: Handle different entry size of rodata
+Date: Tue, 17 Dec 2024 09:08:58 +0800
+Message-ID: <20241217010905.13054-3-yangtiezhu@loongson.cn>
 X-Mailer: git-send-email 2.42.0
 In-Reply-To: <20241217010905.13054-1-yangtiezhu@loongson.cn>
 References: <20241217010905.13054-1-yangtiezhu@loongson.cn>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: qMiowMDxPEcyz2BnXNeFAA--.16436S6
+X-CM-TRANSID: qMiowMDxPEcyz2BnXNeFAA--.16436S4
 X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
-X-Coremail-Antispam: 1Uk129KBj9xXoW7JFWfCFW8ZF15GF48Kw4DAwc_yoWDtwc_Aa
- 40grn7Jrs8XF4Iy3W0krs5WFy0kan5Wr47Xw17GF1Yga43J3yDuF92kFnIyF9Y9rWSyFsx
- u3s3Ar1fCwnF9osvyTuYvTs0mTUanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUj1kv1TuYvT
- s0mT0YCTnIWjqI5I8CrVACY4xI64kE6c02F40Ex7xfYxn0WfASr-VFAUDa7-sFnT9fnUUI
- cSsGvfJTRUUUb7xYFVCjjxCrM7AC8VAFwI0_Jr0_Gr1l1xkIjI8I6I8E6xAIw20EY4v20x
- vaj40_Wr0E3s1l1IIY67AEw4v_JF0_JFyl8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
- w2x7M28EF7xvwVC0I7IYx2IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
- W8JVWxJwA2z4x0Y4vEx4A2jsIE14v26r4j6F4UM28EF7xvwVC2z280aVCY1x0267AKxVW8
- JVW8Jr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0cIa020Ex4CE44I27wAqx4
- xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v2
- 6r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCF04k20xvY0x0EwI
- xGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480
- Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7
- IYx2IY67AKxVW8JVW5JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k2
- 6cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxV
- AFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07j5l1kUUUUU=
+X-Coremail-Antispam: 1Uk129KBj93XoWxCw4DWw1DJrW3AFy8AFy7Jwc_yoW5KFyUpF
+ srA3yfGr1jgryfJwnxt3W8Wa98Gas7WryIgFZrtry8ZrW7XrnxJr4IvFy5tF10vw4FgayS
+ gFsYgF1UJF4qywcCm3ZEXasCq-sJn29KB7ZKAUJUUUU5529EdanIXcx71UUUUU7KY7ZEXa
+ sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+ 0xBIdaVrnRJUUUk0b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+ IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+ e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+ 0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
+ Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx1l5I
+ 8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1q6rW5McIj6I8E87Iv67AK
+ xVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41l42xK82IYc2Ij64
+ vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8G
+ jcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2I
+ x0cI8IcVAFwI0_Gr0_Xr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK
+ 8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I
+ 0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUcCD7UUUUU
 X-Mailman-Approved-At: Tue, 17 Dec 2024 11:26:25 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,34 +64,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When compiling with Clang on LoongArch, there exists unreachable entry of
-rodata which points to a position after the function return instruction,
-this is generated by compiler to fill the non-existent switch case, just
-skip the entry when parsing the relocation section of rodata.
+In the most cases, the entry size of rodata is 8 bytes because the
+relocation type is 64 bit. There are also 32 bit relocation types,
+the entry size of rodata should be 4 bytes in this case.
+
+Add an arch-specific function arch_reloc_size() to assign the entry
+size of rodata for x86, powerpc and LoongArch.
 
 Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
 ---
- tools/objtool/check.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ tools/objtool/arch/loongarch/decode.c | 11 +++++++++++
+ tools/objtool/arch/powerpc/decode.c   | 15 +++++++++++++++
+ tools/objtool/arch/x86/decode.c       | 13 +++++++++++++
+ tools/objtool/check.c                 |  2 +-
+ tools/objtool/include/objtool/arch.h  |  2 ++
+ 5 files changed, 42 insertions(+), 1 deletion(-)
 
+diff --git a/tools/objtool/arch/loongarch/decode.c b/tools/objtool/arch/loongarch/decode.c
+index 69b66994f2a1..b64205b89f6b 100644
+--- a/tools/objtool/arch/loongarch/decode.c
++++ b/tools/objtool/arch/loongarch/decode.c
+@@ -363,3 +363,14 @@ void arch_initial_func_cfi_state(struct cfi_init_state *state)
+ 	state->cfa.base = CFI_SP;
+ 	state->cfa.offset = 0;
+ }
++
++unsigned int arch_reloc_size(struct reloc *reloc)
++{
++	switch (reloc_type(reloc)) {
++	case R_LARCH_32:
++	case R_LARCH_32_PCREL:
++		return 4;
++	default:
++		return 8;
++	}
++}
+diff --git a/tools/objtool/arch/powerpc/decode.c b/tools/objtool/arch/powerpc/decode.c
+index 53b55690f320..3c95dd74fca0 100644
+--- a/tools/objtool/arch/powerpc/decode.c
++++ b/tools/objtool/arch/powerpc/decode.c
+@@ -106,3 +106,18 @@ void arch_initial_func_cfi_state(struct cfi_init_state *state)
+ 	state->regs[CFI_RA].base = CFI_CFA;
+ 	state->regs[CFI_RA].offset = 0;
+ }
++
++unsigned int arch_reloc_size(struct reloc *reloc)
++{
++	switch (reloc_type(reloc)) {
++	case R_PPC_REL32:
++	case R_PPC64_REL32:
++	case R_PPC_ADDR32:
++	case R_PPC_UADDR32:
++	case R_PPC_PLT32:
++	case R_PPC_PLTREL32:
++		return 4;
++	default:
++		return 8;
++	}
++}
+diff --git a/tools/objtool/arch/x86/decode.c b/tools/objtool/arch/x86/decode.c
+index fe1362c34564..fb9691a34d92 100644
+--- a/tools/objtool/arch/x86/decode.c
++++ b/tools/objtool/arch/x86/decode.c
+@@ -852,3 +852,16 @@ bool arch_is_embedded_insn(struct symbol *sym)
+ 	return !strcmp(sym->name, "retbleed_return_thunk") ||
+ 	       !strcmp(sym->name, "srso_safe_ret");
+ }
++
++unsigned int arch_reloc_size(struct reloc *reloc)
++{
++	switch (reloc_type(reloc)) {
++	case R_X86_64_32:
++	case R_X86_64_32S:
++	case R_X86_64_PC32:
++	case R_X86_64_PLT32:
++		return 4;
++	default:
++		return 8;
++	}
++}
 diff --git a/tools/objtool/check.c b/tools/objtool/check.c
-index cff7416b207e..654cffcf9512 100644
+index f64435ad3514..d8668ae0f599 100644
 --- a/tools/objtool/check.c
 +++ b/tools/objtool/check.c
-@@ -1986,9 +1986,10 @@ static int add_jump_table(struct objtool_file *file, struct instruction *insn,
- 		if (!dest_insn)
+@@ -1968,7 +1968,7 @@ static int add_jump_table(struct objtool_file *file, struct instruction *insn,
  			break;
  
--		/* Make sure the destination is in the same function: */
--		if (!insn_func(dest_insn) || insn_func(dest_insn)->pfunc != pfunc)
--			break;
-+		if (!insn_func(dest_insn) || insn_func(dest_insn)->pfunc != pfunc) {
-+			prev_offset = reloc_offset(reloc);
-+			continue;
-+		}
+ 		/* Make sure the table entries are consecutive: */
+-		if (prev_offset && reloc_offset(reloc) != prev_offset + 8)
++		if (prev_offset && reloc_offset(reloc) != prev_offset + arch_reloc_size(reloc))
+ 			break;
  
- 		alt = malloc(sizeof(*alt));
- 		if (!alt) {
+ 		sym_offset = reloc->sym->offset + reloc_addend(reloc);
+diff --git a/tools/objtool/include/objtool/arch.h b/tools/objtool/include/objtool/arch.h
+index d63b46a19f39..396f7c6c81c0 100644
+--- a/tools/objtool/include/objtool/arch.h
++++ b/tools/objtool/include/objtool/arch.h
+@@ -97,4 +97,6 @@ int arch_rewrite_retpolines(struct objtool_file *file);
+ 
+ bool arch_pc_relative_reloc(struct reloc *reloc);
+ 
++unsigned int arch_reloc_size(struct reloc *reloc);
++
+ #endif /* _ARCH_H */
 -- 
 2.42.0
 
