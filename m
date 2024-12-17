@@ -4,57 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 763C9E77187
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Dec 2024 11:26:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3672E77188
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Dec 2024 11:26:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6361910E924;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6AE2310E925;
 	Tue, 17 Dec 2024 11:26:28 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="p31Y9KGq";
-	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B40D610E3F3;
- Mon, 16 Dec 2024 15:42:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=NshrB6r3ZRNacQ8/Ihm6ny01LxTZ756F2VqKtAIFRf8=; b=p31Y9KGqEJ5D2EqBljznQG1QFh
- 4Qeh1m/NDFW3PF6PzOM6xf2b1NMvxtI1meLMLUB/x0/0WQVl5pSZvBBN9vaYXr4076sVIMR8svoYw
- /RlefwXuJ/IoylcvACOCq5myXqO1A2X/Cx88WMq7Nyb/paaeBsDxiVoi5fqFGB/M0g2SuObfJrt1t
- Dr7nAxe8W506MHMppkIlVjAuXeua4k6Qf7hvF67atqB0CQKKRvB8R+xEpVyhYkJRdSJMBtJLY2e5X
- Ci2psxqcK2k3bgDdig3PxPSQDychc1OgL19he4f6LpPz5/sP4zjfz56ayeUXgRbr47eQJku2AElNp
- Ph5oSorg==;
-Received: from [179.193.1.214] (helo=[192.168.15.100])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1tNDEd-003pln-Bh; Mon, 16 Dec 2024 16:42:15 +0100
-Message-ID: <bbf965fd-5c3e-4c1b-9b1e-cd178aeb1038@igalia.com>
-Date: Mon, 16 Dec 2024 12:42:07 -0300
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 487F110E82C
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Dec 2024 01:17:35 +0000 (UTC)
+Received: from loongson.cn (unknown [113.200.148.30])
+ by gateway (Coremail) with SMTP id _____8DxQK87z2BnLpdXAA--.15890S3;
+ Tue, 17 Dec 2024 09:09:15 +0800 (CST)
+Received: from linux.localdomain (unknown [113.200.148.30])
+ by front1 (Coremail) with SMTP id qMiowMDxPEcyz2BnXNeFAA--.16436S7;
+ Tue, 17 Dec 2024 09:09:12 +0800 (CST)
+From: Tiezhu Yang <yangtiezhu@loongson.cn>
+To: Huacai Chen <chenhuacai@kernel.org>, Josh Poimboeuf <jpoimboe@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>
+Cc: loongarch@lists.linux.dev, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH v6 5/9] objtool/LoongArch: Add support for switch table
+Date: Tue, 17 Dec 2024 09:09:01 +0800
+Message-ID: <20241217010905.13054-6-yangtiezhu@loongson.cn>
+X-Mailer: git-send-email 2.42.0
+In-Reply-To: <20241217010905.13054-1-yangtiezhu@loongson.cn>
+References: <20241217010905.13054-1-yangtiezhu@loongson.cn>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/1] drm/amdgpu: Use device wedged event
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Raag Jadav <raag.jadav@intel.com>, airlied@gmail.com, simona@ffwll.ch,
- lucas.demarchi@intel.com, rodrigo.vivi@intel.com,
- jani.nikula@linux.intel.com, andriy.shevchenko@linux.intel.com,
- lina@asahilina.net, michal.wajdeczko@intel.com
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- himal.prasad.ghimiray@intel.com, aravind.iddamsetty@linux.intel.com,
- anshuman.gupta@intel.com, alexander.deucher@amd.com,
- amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
- Shashank Sharma <shashank.sharma@amd.com>
-References: <20241216150250.38242-1-andrealmeid@igalia.com>
- <20241216150250.38242-2-andrealmeid@igalia.com>
- <127f135d-72f2-47bc-a8af-93add181e7b2@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
-In-Reply-To: <127f135d-72f2-47bc-a8af-93add181e7b2@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: qMiowMDxPEcyz2BnXNeFAA--.16436S7
+X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
+X-Coremail-Antispam: 1Uk129KBj93XoW3GF1DXF4rur4xuw43Cw43XFc_yoWxZw43pF
+ y3C3s8trWYqFyrWr47tF4I9rW3Aw4kWry7Gr9xG34rA343tryFqayavasIkas5GrZ8Ar4I
+ qrW5Kr1xCF4kAFXCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+ sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+ 0xBIdaVrnRJUUUk0b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+ IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+ e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+ 0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
+ Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx1l5I
+ 8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1q6rW5McIj6I8E87Iv67AK
+ xVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41l42xK82IYc2Ij64
+ vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8G
+ jcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2I
+ x0cI8IcVAFwI0_Xr0_Ar1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK
+ 8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I
+ 0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUcCD7UUUUU
 X-Mailman-Approved-At: Tue, 17 Dec 2024 11:26:25 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -70,52 +64,202 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Em 16/12/2024 12:27, Christian König escreveu:
-> Am 16.12.24 um 16:02 schrieb André Almeida:
->> Use DRM's device wedged event to notify userspace that a reset had
->> happened. For now, only use `none` method meant for telemetry
->> capture.
->>
->> In the future we might want to report a recovery method if the reset 
->> didn't
->> succeed.
->>
->> Acked-by: Shashank Sharma <shashank.sharma@amd.com>
->> Signed-off-by: André Almeida <andrealmeid@igalia.com>
->> ---
->> v2: Only report reset if reset succeeded
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++++
->>   1 file changed, 4 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/ 
->> drm/amd/amdgpu/amdgpu_device.c
->> index 96316111300a..b0079d66d9e6 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> @@ -6057,6 +6057,10 @@ int amdgpu_device_gpu_recover(struct 
->> amdgpu_device *adev,
->>           dev_info(adev->dev, "GPU reset end with ret = %d\n", r);
->>       atomic_set(&adev->reset_domain->reset_res, r);
->> +
->> +    if (r)
->> +        drm_dev_wedged_event(adev_to_drm(adev), 
->> DRM_WEDGE_RECOVERY_NONE);
-> 
-> 
-> That was not what I meant. The idea was more like:
-> 
-> drm_dev_wedged_event(adev_to_drm(adev), r ? TBD : DRM_WEDGE_RECOVERY_NONE);
-> 
+The objtool program need to analysis the control flow of each object file
+generated by compiler toolchain, it needs to know all the locations that
+a branch instruction may jump into, if a jump table is used, objtool has
+to correlate the jump instruction with the table.
 
-Ops, I did it wrong indeed, I meant `if (!r)`. Sending a v3 now.
+On x86 (which is the only port supported by objtool before LoongArch),
+there is a relocation type on the jump instruction and directly points
+to the table. But on LoongArch, the relocation is on another kind of
+instruction prior to the jump instruction, and also with scheduling it
+is not very easy to tell the offset of that instruction from the jump
+instruction. Furthermore, because LoongArch has -fsection-anchors (often
+enabled at -O1 or above) the relocation may actually points to a section
+anchor instead of the table itself.
 
-> Regards,
-> Christian.
-> 
-> 
->> +
->>       return r;
->>   }
-> 
+The good news is that after continuous analysis and discussion, at last
+a GCC patch "LoongArch: Add support to annotate tablejump" and a Clang
+patch "[LoongArch] Add options for annotate tablejump" have been merged
+into the upstream mainline, the compiler changes make life much easier
+for switch table support of objtool on LoongArch.
+
+By now, there is an additional section ".discard.tablejump_annotate" to
+store the jump info as pairs of addresses, each pair contains the address
+of jump instruction and the address of jump table.
+
+In order to find switch table, it is easy to parse the relocation section
+".rela.discard.tablejump_annotate" to get table_sec and table_offset, the
+rest process is somehow like x86.
+
+Additionally, it needs to get each table size. When compiling on LoongArch,
+there are unsorted table offsets of rodata if there exist many jump tables,
+it will get the wrong table end and find the wrong table jump destination
+instructions in add_jump_table().
+
+Sort the rodata table offset by parsing ".rela.discard.tablejump_annotate"
+and then get each table size of rodata corresponded with each table jump
+instruction, it is used to check the table end and will break the process
+when parsing ".rela.rodata" to avoid getting the wrong jump destination
+instructions.
+
+Link: https://gcc.gnu.org/git/?p=gcc.git;a=commit;h=0ee028f55640
+Link: https://github.com/llvm/llvm-project/commit/4c2c17756739
+Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
+---
+ tools/objtool/arch/loongarch/special.c | 131 ++++++++++++++++++++++++-
+ 1 file changed, 130 insertions(+), 1 deletion(-)
+
+diff --git a/tools/objtool/arch/loongarch/special.c b/tools/objtool/arch/loongarch/special.c
+index 87230ed570fd..4fa6877d5b2b 100644
+--- a/tools/objtool/arch/loongarch/special.c
++++ b/tools/objtool/arch/loongarch/special.c
+@@ -1,5 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0-or-later
++#include <string.h>
+ #include <objtool/special.h>
++#include <objtool/warn.h>
+ 
+ bool arch_support_alt_relocation(struct special_alt *special_alt,
+ 				 struct instruction *insn,
+@@ -8,9 +10,136 @@ bool arch_support_alt_relocation(struct special_alt *special_alt,
+ 	return false;
+ }
+ 
++struct table_info {
++	struct list_head jump_info;
++	unsigned long insn_offset;
++	unsigned long rodata_offset;
++};
++
++static void get_rodata_table_size_by_table_annotate(struct objtool_file *file,
++						    struct instruction *insn,
++						    unsigned long *table_size)
++{
++	struct section *rsec;
++	struct reloc *reloc;
++	struct list_head table_list;
++	struct table_info *orig_table;
++	struct table_info *next_table;
++	unsigned long tmp_insn_offset;
++	unsigned long tmp_rodata_offset;
++
++	rsec = find_section_by_name(file->elf, ".rela.discard.tablejump_annotate");
++	if (!rsec)
++		return;
++
++	INIT_LIST_HEAD(&table_list);
++
++	for_each_reloc(rsec, reloc) {
++		orig_table = malloc(sizeof(struct table_info));
++		if (!orig_table) {
++			WARN("malloc failed");
++			return;
++		}
++
++		orig_table->insn_offset = reloc->sym->offset + reloc_addend(reloc);
++		reloc++;
++		orig_table->rodata_offset = reloc->sym->offset + reloc_addend(reloc);
++
++		list_add_tail(&orig_table->jump_info, &table_list);
++
++		if (reloc_idx(reloc) + 1 == sec_num_entries(rsec))
++			break;
++	}
++
++	list_for_each_entry(orig_table, &table_list, jump_info) {
++		next_table = list_next_entry(orig_table, jump_info);
++		list_for_each_entry_from(next_table, &table_list, jump_info) {
++			if (next_table->rodata_offset < orig_table->rodata_offset) {
++				tmp_insn_offset = next_table->insn_offset;
++				tmp_rodata_offset = next_table->rodata_offset;
++				next_table->insn_offset = orig_table->insn_offset;
++				next_table->rodata_offset = orig_table->rodata_offset;
++				orig_table->insn_offset = tmp_insn_offset;
++				orig_table->rodata_offset = tmp_rodata_offset;
++			}
++		}
++	}
++
++	list_for_each_entry(orig_table, &table_list, jump_info) {
++		if (insn->offset == orig_table->insn_offset) {
++			next_table = list_next_entry(orig_table, jump_info);
++			if (&next_table->jump_info == &table_list) {
++				*table_size = 0;
++				return;
++			}
++
++			while (next_table->rodata_offset == orig_table->rodata_offset) {
++				next_table = list_next_entry(next_table, jump_info);
++				if (&next_table->jump_info == &table_list) {
++					*table_size = 0;
++					return;
++				}
++			}
++
++			*table_size = next_table->rodata_offset - orig_table->rodata_offset;
++		}
++	}
++}
++
++static struct reloc *find_reloc_by_table_annotate(struct objtool_file *file,
++						  struct instruction *insn,
++						  unsigned long *table_size)
++{
++	struct section *rsec;
++	struct reloc *reloc;
++	unsigned long offset;
++
++	rsec = find_section_by_name(file->elf, ".rela.discard.tablejump_annotate");
++	if (!rsec)
++		return NULL;
++
++	for_each_reloc(rsec, reloc) {
++		if (reloc->sym->sec->rodata)
++			continue;
++
++		if (strcmp(insn->sec->name, reloc->sym->sec->name))
++			continue;
++
++		offset = reloc->sym->offset + reloc_addend(reloc);
++		if (insn->offset == offset) {
++			get_rodata_table_size_by_table_annotate(file, insn, table_size);
++			reloc++;
++			return reloc;
++		}
++	}
++
++	return NULL;
++}
++
+ struct reloc *arch_find_switch_table(struct objtool_file *file,
+ 				     struct instruction *insn,
+ 				     unsigned long *table_size)
+ {
+-	return NULL;
++	struct reloc *annotate_reloc;
++	struct reloc *rodata_reloc;
++	struct section *table_sec;
++	unsigned long table_offset;
++
++	annotate_reloc = find_reloc_by_table_annotate(file, insn, table_size);
++	if (!annotate_reloc)
++		return NULL;
++
++	table_sec = annotate_reloc->sym->sec;
++	table_offset = annotate_reloc->sym->offset + reloc_addend(annotate_reloc);
++
++	/*
++	 * Each table entry has a rela associated with it.  The rela
++	 * should reference text in the same function as the original
++	 * instruction.
++	 */
++	rodata_reloc = find_reloc_by_dest(file->elf, table_sec, table_offset);
++	if (!rodata_reloc)
++		return NULL;
++
++	return rodata_reloc;
+ }
+-- 
+2.42.0
 
