@@ -4,218 +4,160 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 683CEE7717F
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Dec 2024 09:14:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B9FFE7717F
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Dec 2024 09:30:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 045E910E212;
-	Tue, 17 Dec 2024 09:14:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ABCFB10E89F;
+	Tue, 17 Dec 2024 09:30:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="Z6Gnml0N";
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Z6Gnml0N";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xiQGTams";
 	dkim-atps=neutral
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on2061a.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:2614::61a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 53E8710E212;
- Tue, 17 Dec 2024 09:14:54 +0000 (UTC)
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=Z2ik+IkNxUJpKfV0Q//OZs6NEOwZzRxrU7UEMLH+jpwz2ERSw+5kQd1TdZbPGi+xFdYBYprPRVX9g8zgemDZ9gRNPbeAAlbEDrSr5X9pcBrV1oSKMtbWBHBTYMcGUOX5cBGetiRkwW2uH9ACsvn0PX3dzYgcTgm+WoBGjxCGIPvNkG6p0/Qwffj1Kl01raRFouQv6YudX+KdF04ImdHAbL2jZj7+TxoI+vbkZB0pk9lMiE8GUuCLt/XxwxUbzTNNLFB1JIzSsiM76W8Hes6BsLdcqBvia2x0/QWnrK/yIqLLB76DT2C8j16M6dV5OCzLOM4zYRGbYM/2lU0U75kvbQ==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UqMo8vthjX3/BuzK9K7QeA8Ca6xalOYHiwNRe04Ol28=;
- b=HpkVWLs2psl4RxC0A4Vy4RD6G4PJeMgdab/CkopLdAyIIk8jN3kK2p/KMKXz5Pmx1J+YQhi+5POhvTdFYzu5SQv1cd0sLNZwvl2bFD/NQa8avlDLTrv7VW+PuacmVOVBhG2ZtMU1pOIrubhJgtEt/Miy1k7t74QmW3FTW/NcdtIWEo0bewqfrvtP/8NFgobyZhEJtuCIfCryGl6DCThqceN6QyX49PUN6yLw0xin2AmqhKddHPcFO5gtZlcfO/23qylMhgrabrUibym06zLdFnzDNSnNqLJv1kes+XkZSIrkPqJp2wIKSDGJGIRx/aueJsy7vz9ZliKVGFav+gHCrQ==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 63.35.35.123) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=arm.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
- dkim=pass (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
- spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UqMo8vthjX3/BuzK9K7QeA8Ca6xalOYHiwNRe04Ol28=;
- b=Z6Gnml0NsKMblBmNu2lq0ZEWltUFhhGWU0KBgAtN1G8HhGmC9n6NR/07ScVex1JLcrRTBker7ubTm+84Rq837lh3M79zKd96aJo1zApdDVHc8/wkYoom8JBfFcQxxKvCNW7feRevdXeP+lvmTt5gru4o5bi6m6Er8MEA0woLFjg=
-Received: from DU6P191CA0016.EURP191.PROD.OUTLOOK.COM (2603:10a6:10:540::10)
- by DBBPR08MB10673.eurprd08.prod.outlook.com (2603:10a6:10:53d::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8251.22; Tue, 17 Dec
- 2024 09:14:51 +0000
-Received: from DB1PEPF000509F4.eurprd02.prod.outlook.com
- (2603:10a6:10:540:cafe::bb) by DU6P191CA0016.outlook.office365.com
- (2603:10a6:10:540::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8251.21 via Frontend Transport; Tue,
- 17 Dec 2024 09:14:51 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=arm.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
- pr=C
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- DB1PEPF000509F4.mail.protection.outlook.com (10.167.242.150) with
- Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.8251.15
- via Frontend Transport; Tue, 17 Dec 2024 09:14:51 +0000
-Received: ("Tessian outbound 6a902d9511f9:v526");
- Tue, 17 Dec 2024 09:14:51 +0000
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: 9fe237835fa7e90d
-X-TessianGatewayMetadata: 5uN44VSKiPZvnuS7YGLDJQxpJnG7Ko7WIctoEpeKwLAR5IebvLVzz3Ccxe0tZkHQeU3Uhjkl9UrnPpitTSSa+PqohrKQT4IV4rZ75/TZ0EkWgtSmVn/ZwVN7+kPy6cwcshf5a8XtVT2HHh0KgtZIKAH+UJ3bDzYRfiFnXXz1XVN8+h7xWA8Yn8dvrWH6hDKe
-X-CR-MTA-TID: 64aa7808
-Received: from L0c68e304951b.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- D2EBED92-A10C-412A-88E6-15E7659E9B31.1; 
- Tue, 17 Dec 2024 09:14:45 +0000
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id
- L0c68e304951b.1 (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
- Tue, 17 Dec 2024 09:14:45 +0000
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on2052.outbound.protection.outlook.com [40.107.96.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0475010E89F;
+ Tue, 17 Dec 2024 09:30:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=y1g/QNbNA8zGSnxqzhX1q4ItjevTYK4eWrdMnYV+kHcgOjxCYm0hKqcl9vuq3nI6sA/8pgo89mVdyqinvHwJaWSTqew5BJOt1kaK0RhKD/T113WMafcF2vJvrcng+w4piAQqTol95wY6ZURxjT2vwXYvB3luu22qfJOr0/uJNVRpE14tb06I71A5wlSyzFbLXZgKnjkIQNsk+S83FMASzGLUAw9jan138LAAWiyZ4HqUqDXGmCocV4bWgsrR//YsM47ArQv8So2cY1vM/HCIBfEF0khmbLPzRTIfX81l4psmgs0jMkUfBlZk3OSrClmYbGrM5pNxnGen8Bs5usW7pQ==
+ b=fT4JrtB+Rv2aFR5c9Hcke9FOttpJwcE0hTiOZCHxl4+RyozsaUmuBJQxs3sIyOvrpzMy0wSqAZPzTBoNV510UGSJ1uQYNHEMYuudA27E3CZ13KGLPyL9hyYhpi9PsoZXLaZYk4kgyZEFkI4BA6q9EsujFA+1H0hp5MJWuRarrf54wf2YH2uNcNansktpXdo36/tswNcOlN7U0x9D0BSK02UGW9KrZux9jIAgWDzThDdFgqf3xz3xvySia9GBl4HGTJ5DJ/FxLZkgiiupGlnA8mVESHp50LgHtF1VvnBjOSBriWLvXxGP3nmRhASf/rJJ9RO0GmNcs8Oh3J438qFB4Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UqMo8vthjX3/BuzK9K7QeA8Ca6xalOYHiwNRe04Ol28=;
- b=fOhTGOws+tkvc8H6hWeMHVHi/VZzm6ZBlZBCoSrXHMlQ9zJ7HJPr01YmrjfZSMQGk48YoVUh2wGUsaBO49TjBFuIIKnYzD6ERHieKKK+tmFziUcUtPEEmpeCJDj5p2v9UnB7gCQtfqDELm//5RrfgsVLa9azP6G4PtzcRQ/YTQ3+2uAfROjz1W/raRMYNDtQTR84Azw0PqKA+TuY+UjjpjszM7KDxl/fQYMVpLIW/EsmEH9xy/hILkyX2mHYXgOBKeqipcliAhd9oC96Em7OFXH3L3JTc0hCDkMz2kGPJtITobOareuIK57qSzRnGsc5itNs5rgCVKhlGWo5h68uWg==
+ bh=w2jspTWxqTOPlDH5PA7g7UngYTT78bT43ofnmxeAAJQ=;
+ b=oVWczSY6TdvdCbU7FFV1GA+/mCTANXl3QnLaOdk9zJO61ZYyjvDj9sn00wgjDjGVdQDAdSCcWwCWpWL4f/x85j53Us6Zzbhh62953zngeBajkQ237OlMkB1vRmqcWuBLPOJY06QFrL8xKSa/SAxkEnWkQHFVhw6i1ExT8pI9DBqfH5S0NLsCq1EcKOGGEGtxoRucjVqZf2/PInXvWhnzgvrboWkwmfPovVc3a4vjoMOyvydMHxhIf5lJdR2yoXb1uQxPVb9eSQngZGj/+ni/WWAVjLwlGBRVIN5VIxhKbo4inE+ge19HfPW6VaeQ1weLmV1RLQLUXHDvbuoq5JAbgQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UqMo8vthjX3/BuzK9K7QeA8Ca6xalOYHiwNRe04Ol28=;
- b=Z6Gnml0NsKMblBmNu2lq0ZEWltUFhhGWU0KBgAtN1G8HhGmC9n6NR/07ScVex1JLcrRTBker7ubTm+84Rq837lh3M79zKd96aJo1zApdDVHc8/wkYoom8JBfFcQxxKvCNW7feRevdXeP+lvmTt5gru4o5bi6m6Er8MEA0woLFjg=
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-Received: from DU0PR08MB8563.eurprd08.prod.outlook.com (2603:10a6:10:404::17)
- by DB8PR08MB5434.eurprd08.prod.outlook.com (2603:10a6:10:116::20)
+ bh=w2jspTWxqTOPlDH5PA7g7UngYTT78bT43ofnmxeAAJQ=;
+ b=xiQGTamsjoZLhhSFgLfWFRo3DA54k8cwarEZONf5qNE9xGqjN4QsbbYeUPgvmMaUOyAsghP1EyQ5aXSnR0nk5uSkdNR9AhmZvr7xZF2UT2SzZ34LavnH2JQwD21MQSwA4GYS/L4zscNEZa8MmcyCpg+vfAHS4CbnTdj3G5zZHHQ=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SJ0PR12MB5673.namprd12.prod.outlook.com (2603:10b6:a03:42b::13)
+ by CH2PR12MB4117.namprd12.prod.outlook.com (2603:10b6:610:ae::13)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8251.22; Tue, 17 Dec
- 2024 09:14:42 +0000
-Received: from DU0PR08MB8563.eurprd08.prod.outlook.com
- ([fe80::3f5f:95b1:c5ed:1895]) by DU0PR08MB8563.eurprd08.prod.outlook.com
- ([fe80::3f5f:95b1:c5ed:1895%2]) with mapi id 15.20.8251.015; Tue, 17 Dec 2024
- 09:14:42 +0000
-Date: Tue, 17 Dec 2024 09:14:40 +0000
-From: Brian Starkey <brian.starkey@arm.com>
-To: Marek =?utf-8?B?T2zFocOhaw==?= <maraeo@gmail.com>
-Cc: dri-devel <dri-devel@lists.freedesktop.org>, 
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
- ML Mesa-dev <mesa-dev@lists.freedesktop.org>, nd@arm.com
-Subject: Re: [PATCH] drm/fourcc: add LINEAR modifiers with an exact pitch
- alignment
-Message-ID: <uffsfaps6a75zmkyshkwfxgybcslqrnfqqtjzekegdptvwpugc@2ndpcuxyfp3f>
-References: <CAAxE2A5BkF13bFt8_UnuiqPM8W-ZESgmKEjqqGfv=DGzSfJ7aQ@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAAxE2A5BkF13bFt8_UnuiqPM8W-ZESgmKEjqqGfv=DGzSfJ7aQ@mail.gmail.com>
-X-ClientProxiedBy: LO0P265CA0010.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:355::7) To DU0PR08MB8563.eurprd08.prod.outlook.com
- (2603:10a6:10:404::17)
+ 2024 09:30:51 +0000
+Received: from SJ0PR12MB5673.namprd12.prod.outlook.com
+ ([fe80::ec7a:dd71:9d6c:3062]) by SJ0PR12MB5673.namprd12.prod.outlook.com
+ ([fe80::ec7a:dd71:9d6c:3062%4]) with mapi id 15.20.8251.015; Tue, 17 Dec 2024
+ 09:30:51 +0000
+Content-Type: multipart/alternative;
+ boundary="------------M9HVscxx8SuRrqfRAhhdYTcV"
+Message-ID: <b0498534-0aa6-40eb-ad2c-fcac01df828f@amd.com>
+Date: Tue, 17 Dec 2024 10:30:44 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: Make the submission path memory reclaim safe
+To: Matthew Brost <matthew.brost@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: Tvrtko Ursulin <tursulin@igalia.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
+ stable@vger.kernel.org, Danilo Krummrich <dakr@kernel.org>,
+ Philipp Stanner <pstanner@redhat.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Tejun Heo <tj@kernel.org>
+References: <20241113134838.52608-1-tursulin@igalia.com>
+ <e30428ce-a4d1-43e0-89d3-1487f7af2fde@amd.com>
+ <154641d9-be2a-4018-af5e-a57dbffb45d5@igalia.com>
+ <61ad957b-34be-4ee5-944f-261c7a412962@igalia.com>
+ <14e6e7a3-4077-4074-aaae-3be4b6fd071d@amd.com>
+ <0af583a5-85d0-4c33-84e9-3856bde9fb4b@igalia.com>
+ <Z2DFKfqzhlyHOjpd@lstrano-desk.jf.intel.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <Z2DFKfqzhlyHOjpd@lstrano-desk.jf.intel.com>
+X-ClientProxiedBy: FR4P281CA0134.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b9::8) To SJ0PR12MB5673.namprd12.prod.outlook.com
+ (2603:10b6:a03:42b::13)
 MIME-Version: 1.0
-X-MS-TrafficTypeDiagnostic: DU0PR08MB8563:EE_|DB8PR08MB5434:EE_|DB1PEPF000509F4:EE_|DBBPR08MB10673:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1be9e1d7-4c3e-4524-3307-08dd1e7b431d
-x-checkrecipientrouted: true
-NoDisclaimer: true
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR12MB5673:EE_|CH2PR12MB4117:EE_
+X-MS-Office365-Filtering-Correlation-Id: 16399eb1-42c3-410e-e096-08dd1e7d7f6d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;ARA:13230040|1800799024|376014|366016;
-X-Microsoft-Antispam-Message-Info-Original: =?utf-8?B?d2kwK1pqVnAya1VXVlNVdW12WDFCV0tYeTlxa05jbVR5UXpHZEg2WWJZK1F6?=
- =?utf-8?B?a213UEx3cFc5THNiRjE1TE5zeWc2Z0k4NFYwSFNacFRsUjNLVXZDUjFROGtU?=
- =?utf-8?B?Zm9ZUFkrMzBaT212b2t1bllRbC9DdzZXcEpSaWM2R1dpbGlOUkdQSmh5eThP?=
- =?utf-8?B?a0FNUm9tK1c4eDM4alQvSE96VE9NYkxWU0hnc2FvNUR5ZEIrbzlPaFVIM3JY?=
- =?utf-8?B?NHI4YkNMOXlxaXVoNXh3VXpPdllmMGI3aDZDNzI4SFJCZ3pWWmV4dHNVT29i?=
- =?utf-8?B?UlluL1Z2WU54MW45aFZWVmFzTmJqTXZ5TndJWnlDUTFkTnRxc1paT0c2aHJV?=
- =?utf-8?B?Qlo4K3ZCNlJjVy9wMythTjVyWjRpbmpXN2lJWVhRZHhCc1FLMlFSYWJPeE5w?=
- =?utf-8?B?UW8vZEZqNENqSXJUdVBPZGx1UWpBVGZRZkVxYmY0eDYwMjhDNExGQjJmM2R4?=
- =?utf-8?B?a0JnYW5LYjIzSTNjdCtDYXJmYU53Zk8xV1hNMDNNcWh6MEVwV1BhTysrd2Vi?=
- =?utf-8?B?c0lIVm5BOUJCTFQyS2ZJRUZCeFdCaTg0VlFmV1hsb2o3RTdncitvcjhhMmto?=
- =?utf-8?B?c0NSbmltUWNzSkcwWERyVlBnbVdmU1Y5ZWc4Z2M3TEU5UFZOYVlpK3N5eEtJ?=
- =?utf-8?B?bUV6NnV3OUtuN3BWNDFuaXpnejdXYnphNGRDK2R4NHpxQy9SWStQdkU2NENh?=
- =?utf-8?B?K0U5OFlzK0g4d3VFSzMzRS9jSTNNMFVYd0JUZVhuVEFiVDZmd3VsQ3Bid1RX?=
- =?utf-8?B?RjlMdjc0NWI1Y0JsRllaWkJsQW1lMVBZaXhsMFJQNEtDVy9VR2t6bytXTjVh?=
- =?utf-8?B?R242N2RJQkNHa01vUTNYZ1pqUkhiSmIzVWYySFJJNDRMYTBISlFLQnlMdmtl?=
- =?utf-8?B?eGt5U2trYzNCVUpmMVpWVXNFdTVSaHFKUlpwWU5ON0tHVVZmbkFUVGhoaDZU?=
- =?utf-8?B?ZCtrNENyOTVVVUZWaDRpcmV6SStPWGhMMitjSjV4aVZJQkw0WTNYSlh3WEdm?=
- =?utf-8?B?TWdSSEdwc0dpcFhyVTdmV3N1YmhGODBPaWZwNVI2L2pkSEg3UEJmUmdpeEs3?=
- =?utf-8?B?ZXlUb0paRDdmU1YwdUFxSVlORzVsQ2ZwdTlqZHBJMFpIdjgxdDlsck1OUDdS?=
- =?utf-8?B?WFdaZGkxYUJTdkdVUHVnekxPNnFkRDNzUzFlZGxNSWw1WEN3QzY5cjdHY2py?=
- =?utf-8?B?NHQ4b1Rnd3hFUjF6MDZ4VklINHloYUVMV0FzZklBNWp1ZU5FdnFrZk53NmhD?=
- =?utf-8?B?TS9vZ3NaVm56cnlpWHpRaDBFRmllZW56djF6ZnBPN1RlYS8zZnFsQ0xFdWNt?=
- =?utf-8?B?MjJOTE16bDA0ZEhvamllNlFrUVNkSksrQVNJYVVvY0Y0dVdNeHFEQ3gyV3Qv?=
- =?utf-8?B?dkZDNWNuM2xDNXFvUlM0Z2RISlBqTGVmdmh4T01IajNsY2FoaUw0bFFKelJi?=
- =?utf-8?B?Vmg2b3NtNFVocW5kTjZOeit5OXV3VmNuZUZmU1k5c2E4V084ckpPTUlKRitH?=
- =?utf-8?B?ZGZBQi9Kc21VVVNyTEdIRDk3NTA5YWJKOGdpSWRiVXNYd3lJR1F2SXlUQUlt?=
- =?utf-8?B?azBJWkpsQVdNYS9tRWw0Q1A3eGRydDZPSzBNZzV6bWdzdk1QSitEeTdScFlJ?=
- =?utf-8?B?QURRZy83Rmp6VUI1TXNDQVR5ZXJ2Z0Jzai9xVGplelNpZVpqMWJVK0c3WGJI?=
- =?utf-8?B?RmRscCt2OGNGYjA0VWhrazdEcXRXdTNyNWU2UUlrdHZ1USt2WThwamxCUVZP?=
- =?utf-8?B?YnNteEFlZXRIbytvcjJvRFFqQzNSMWVyT1l4QmFDMXc1RTlmR0RzWGMrSjN6?=
- =?utf-8?B?cVR4WUdrZ2o0aGJvUTBRTkN2SkYzRE04eVFUUWd4aDdrZ3BkNGYrWVBEdktz?=
- =?utf-8?Q?n5WCKFc2u0Kxk?=
-X-Forefront-Antispam-Report-Untrusted: CIP:255.255.255.255; CTRY:; LANG:en;
- SCL:1; SRV:; IPV:NLI; SFV:NSPM; H:DU0PR08MB8563.eurprd08.prod.outlook.com;
- PTR:; CAT:NONE; SFS:(13230040)(1800799024)(376014)(366016); DIR:OUT; SFP:1101;
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR08MB5434
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-SkipListedInternetSender: ip=[2603:10a6:10:404::17];
- domain=DU0PR08MB8563.eurprd08.prod.outlook.com
-X-MS-Exchange-Transport-CrossTenantHeadersStripped: DB1PEPF000509F4.eurprd02.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs: 3372a35c-b423-4325-7ed3-08dd1e7b3d7e
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|35042699022|376014|14060799003|1800799024|36860700013;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?L0I0ZGZSQjVTK0dic1pkd1JMeW41bWtoWGZreGVjMDk0WUt3alhzOGYyVGVx?=
- =?utf-8?B?bGFGK3VKOTRmS00wUUc5SlJPSjJWTVA3OXlWYkwzNVZTL0xrQ0EwUGQ2VmpG?=
- =?utf-8?B?TXNkSmswQ0pQR2xXdlRIVXlVRXMvMGtpVU56anRtbzFRaU1BNGVqRTdyMm9T?=
- =?utf-8?B?VEVub0Y2OS8xeVI5b01tV0pZeEZ5Zm5HaTZVQ09MckVjcWtQd0d2SjM2ak1o?=
- =?utf-8?B?ZU1NT2p1VGZXRlZIaHBNR2s4Z2YvcjJtRGFWVkphUU5GV1BxZmRSNlJWYVhW?=
- =?utf-8?B?WmhYam41NE9jTlVtbVNXVWpMMGszRld6NTUrM2tHbzNwUEZEemRSdXJhWm9r?=
- =?utf-8?B?TTJ1SW9Rc0h4NUszeTR5dGc4TW5XNHNVZk9XQWRJengwanQva1NWSnBmdGZs?=
- =?utf-8?B?dGt3T1duZGF0WWs2Y283MmIwZ3RBMWx1WHdpNFhiU002QURieHlORHpyRFlo?=
- =?utf-8?B?QTVaL1dmdG4vY0FyanFnMGJpY1VMS1NiM25JWHJXazBmZTdoTk9qUzU5VG1s?=
- =?utf-8?B?U2cwalh5ODdTaGlNSTJzeWg5RG1FYnpweU9wbUpxRzdCS3lzK3JHdVJBOFBQ?=
- =?utf-8?B?ZHBWZDhmZUYrejZmUm0wRGJHRFRSSUR4YWQ5MDVVd0dEWWR2OE82Sm84WXZI?=
- =?utf-8?B?a3RnZXpFY01MSWp5WjMzVmpMTkE1Yy82K1dueFpvVGpuZHhBRmNhc3RjNUI1?=
- =?utf-8?B?QnVlczB3QlNhc3pnMko4Y2k0emdCdUFTZkkwOVJ4alE0b09RZ1dZNWV3em01?=
- =?utf-8?B?UlN2eHlQeVU3eGFqUDVVT1U1czVxZHRjcjR5TEs4QWEzM05tdGhSWUdvTitZ?=
- =?utf-8?B?ekFUN1NJOC8rY2JSTVNjQ2hLQnZvUk1CNXdmUDI0VkR2R0NmTHlld1pDV296?=
- =?utf-8?B?by9GSi8rRmFkYzlGMmFOY1RSREMyZkQzaFEvcDR3U1VoMlNFRE8vRzlyYzUz?=
- =?utf-8?B?Mncwa1dNRkxlZmtQVVJlbGxCMGUyalBHZGtRWlcvczhCWWpQL29CSzhYYmhw?=
- =?utf-8?B?bVczZFAyUHA2Y1FsOHE2SkZSa3d1aEVjUkI1Z0t0MkUyeDMzQUhoK25SSTRZ?=
- =?utf-8?B?UzlEOCtMRWhTWFgxTzVDd2JNY0JtTHFpUWZNWkIvd1hXQS8yakFDaUY4UnBO?=
- =?utf-8?B?MThPWlRqOXdrbmNlTS9xRnBHU2VTc0NHVHNwQ2ErVEk3Tm1lYmdjSWNpU1Bp?=
- =?utf-8?B?NXg4dXJIeVZyemVVNmFtNUtGbUFNMis5bHlYYWdaZTZqL205eUZrQUdBdFBI?=
- =?utf-8?B?N0xQc1MzMTF5N1VmanZTTDVWUG4zNFYwUjhGTUtRVDVOSFlhV1V0ejNyOWhk?=
- =?utf-8?B?aE00S2RsRGhSNVh5eWNiNG5SRjk3Q3ZiK055c29TL3hrSVp6UG1TdzdJRVg4?=
- =?utf-8?B?Qi9LQ1BOeW1Sb0hOWjg2KytNdnZVYk80Q3pnbGx5MzJvc1ptWGtLS2tvVTVY?=
- =?utf-8?B?L3NPNmZlMDZVNHVUTTVpbHpsUXZwQ3VDcDZkT2lEdjdhazJXRU1vQ2lqbGRR?=
- =?utf-8?B?aGZnWlB2RHFkRVFJdHRZSkZYNHNMNFVMdDMzWS80YU5pRjNtamdGSzFYb2hs?=
- =?utf-8?B?ZTZnYmprTUE4OXNVdkxpcml4TWFzOE9LbWtYZ293YnpKeUJGQjhUbnBra0kz?=
- =?utf-8?B?RE8xMmlKQXpheWliZE85bVhRczlZS1JueTVuYTNHa3Z6Mi9vUXlGQy8zb1hU?=
- =?utf-8?B?SnJHelNzVEZDTm83UE5UT2RLUWhBT2tHeXVITFlBU2tuQmdtNFVSS2MrUXBV?=
- =?utf-8?B?NTlITDk0b2FZSEVXeVRWZU9Fc2ZZWnJFaGdFWmNZTjljbjg2cFB3SUlnL2dN?=
- =?utf-8?B?ajE2NVFRV3NPT3BBaXFCRU1HdVNYeVZ0UXo2NGx2Z1V4dmk3K01jeGZDT0F5?=
- =?utf-8?B?dDZDMEhhbEoreXlTellCYkc0Y2hjcUNyUzhSSzhwOUxTODdFNGx2WjAzWk1p?=
- =?utf-8?B?dC9IbE9DcUVMSlhid09QMzdLd09FaFA3NGhOZWJYL21mOWN0am5rRVhHTVlX?=
- =?utf-8?Q?ZUXoXioYI1TgpkMf5rLCujfXgmzDos=3D?=
-X-Forefront-Antispam-Report: CIP:63.35.35.123; CTRY:IE; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:64aa7808-outbound-1.mta.getcheckrecipient.com;
- PTR:64aa7808-outbound-1.mta.getcheckrecipient.com; CAT:NONE;
- SFS:(13230040)(82310400026)(35042699022)(376014)(14060799003)(1800799024)(36860700013);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Dec 2024 09:14:51.2276 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1be9e1d7-4c3e-4524-3307-08dd1e7b431d
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d; Ip=[63.35.35.123];
- Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource: DB1PEPF000509F4.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR08MB10673
+ ARA:13230040|366016|7416014|376014|1800799024|8096899003; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?Y2dnZXBZaHhXWTc2SHBYMzF6cmg4UXEzeTlDRkVTeDRnTVlYRnByMzFkS2lv?=
+ =?utf-8?B?eG9jV1JKeVdtbGlSb3BUeEt1QmtwS2hIcGNUemQ0b2V3TVNydlVlRTlWa2xE?=
+ =?utf-8?B?Ym1CbkVGM2JHVk1Nc2xlb2NseU5wN0l5bEttTS9mTW1LOThJS2FlQmpRYmI1?=
+ =?utf-8?B?bVF1V3ZTSytvQ29DTkV5MVN1OHZNUlZ5YWtsSjFMWHphNVhpQWZOdUd2NGgz?=
+ =?utf-8?B?WWFnTWJMbU40OGxzbTdRZmFvd1NJZUx3Q3ViamprTHdhc3ZGNUZKQlkxS2t4?=
+ =?utf-8?B?VWZ1WDlkT2FnMjdoYy9NRWNNejRlZ056YUJKa05qa0ZCemtGVWsvR0t4ZUpt?=
+ =?utf-8?B?NCtaMUdIREEycmJodlBtNkczZDZxU0UrQUdsdGdWWmZCSjdBRzMzSXdJSzZj?=
+ =?utf-8?B?T0RSVjdiK1pMckZDUWl0ekNsaGtaWFBsV2lLUzJUYWhUYlhocDR5ak5YZWJx?=
+ =?utf-8?B?d0ovU1djRWJJWDA3ZnBaWnBvQldpdndaMXZ3T3ppbDFNOFd4dk9yU3lPZmFm?=
+ =?utf-8?B?NjhqMk9ibS9KcWU4TkxWZUFYVFFnSm0zRXR4R1ZRQU1QQXgxTzBNZDI4YjBX?=
+ =?utf-8?B?aXE1V3FhM3VWdnFJYVlYTlVJSTBZNU9JQi9VeStnV1FQbTl3R2V2K1JNUFZk?=
+ =?utf-8?B?Q1orN0tXR2UvTmdLVHluNXJnYllFY2tQU2s1UHVZb2Y0VXpZZnZGMEtTRTVC?=
+ =?utf-8?B?eE04ZzNNTnUyUVQ5M2RNaVRzR1ZiRzJzRk5HNEdpaWxxeGxmODNRdmV6azgx?=
+ =?utf-8?B?Zmtid1dvYkdjZ29ZVDUrMm1YaVZwVFdXQ0szRW1YTGxWMENLejJMSXR5SENB?=
+ =?utf-8?B?azhsczJQK3hNV0RDb1MvQW91dDRLNVQxSktsTnhWRkhRTWdCSThrNjh3SDVn?=
+ =?utf-8?B?aVI3a08zT21wTmQzd3plb21hcGk4SnJhUWxWZEVoUGVIdUNqSlBsWWlvSDRw?=
+ =?utf-8?B?OTFsdE55RnZTMmQzMU5laUM4aVFDVmlKUG0rNmIvdXA5WUNjTGVtV0F4a0Rr?=
+ =?utf-8?B?RzBuNHdBakpDUTVoWU5JakhMekdvN0I3cFZYdktsakVQOTd2RXY5ckQ3RUdj?=
+ =?utf-8?B?TDBYdGlDaFg1K1NyWUNWRnF4UGlCMDRNbldOWnQ0aHpaU2dTOVRFeEZITENw?=
+ =?utf-8?B?MUV2SzB5VHJpSGZJQWxCY0l6Mld0LzhvVXFQeE9WMGdwTytycXpzWjRHZm9i?=
+ =?utf-8?B?dGViRXBuaGF3bVVUR1pPc3hqU0hxVDNLMmlwYWlNZ2d5SkFGbFNkcldJZExj?=
+ =?utf-8?B?ei9RVWJSUkZRd3QwdGdBTzdTQVVabFI1WElmeTh0S0R3cVVIM0VacytBa0pk?=
+ =?utf-8?B?MmJZNEcxcmo3eFdFTGNRZlI2c3Bib1dNT2hRTHVtK1c3bDF0R2h0WWRuaXl1?=
+ =?utf-8?B?YndVcFpvTHZOOVp3M1FLYXh1RlB4RzBhakJua3h4cDF0UzlONFA2QUtReG9T?=
+ =?utf-8?B?K2xLc2lWRFJyRkRrSHdxdU5Ta2FKdVcyT2FrZ1VJTUhTR00wcEZXczRaZDA5?=
+ =?utf-8?B?YkFyMXNvSVdTaFpGdUFzK2hIT0FRcnA2UEorb3ErbkxpMGVMY2k2WFdPaHdP?=
+ =?utf-8?B?ZXdEMXIxR0xWMzYrUDJQQ1IwWXhBeDVxalRxbHNNbzZDOUFyNndIKzJ3M1NU?=
+ =?utf-8?B?Uy93cGV4c3hyeG1NR0RXNVVjaTRUbUkxYnFZSTVIQXYvRG9aTFBrK01tWDFo?=
+ =?utf-8?B?c0VSNEZhcnppclp2RWFUd3pRZTdCTVJKTGVNUHFpYzdmaUdaZWVjL1BnMDJX?=
+ =?utf-8?B?MWhvdk5VelQ0a1drU05OcUZjM090WUp3bHFsUGlOcmIvcHJadnVVcmpBVy9P?=
+ =?utf-8?B?TzYzdVo4dmlPS3lsamd5QWdlL2JlVEVxbjFLaGVWbjQ5Unc0M1VrT0VDZUZv?=
+ =?utf-8?Q?K5oW+iXc2ZEQi?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ0PR12MB5673.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(7416014)(376014)(1800799024)(8096899003); DIR:OUT;
+ SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YUl5TElXdVRlZUZtbmxGUjNjcjBObHY5cHRuS1luaWJubWJzWngxZDFvY0tB?=
+ =?utf-8?B?ZVBEV2NBQTJONitjeENTekN1SXBtTkVXbFplQlhBUVFmeDFPS3N2d0hCWEtD?=
+ =?utf-8?B?aWo5L1Rhb2tPeityTlZDOU9XTUcxV3ArOXRTanlXR0s1VlZmQmNBejI3WFNR?=
+ =?utf-8?B?STB1c25hT3VuQXBxY0hHcWx2MG54RzVxeVpTV2sycHUxUGhKV0RONUVXTTVD?=
+ =?utf-8?B?TGRHenA4UnV3UTlRUEFxVTd3b21vSmRGeE53ZUI2L0ZMUmpTRTFsN3VqM2lq?=
+ =?utf-8?B?VmthRysxRjFpWWF3UmFxVFZzNXlZSjFqbEFQSjNmWEJlVmtsVmc1Mi9pVmo1?=
+ =?utf-8?B?SW1vQlo4Vkg4a09tOVpVblAzS01YUmROQ1Z6cm9sMVE5UFlBK2JXOXZLOGNs?=
+ =?utf-8?B?ZFFKSzJxVk85RElKUDBMcW5KOHlkNVdFSHBFR1V0RHVhakdXNU5YQ2oySVBu?=
+ =?utf-8?B?WFVQSUlvZlplakM2WlNnME5tQkRudkpVbCtETStVNFFFWmp3UkpqS0pHZU9R?=
+ =?utf-8?B?TzM3NjVtTGxQZkJHZlpOZ05nSG4rNW5rdEYrWjR3NHVGNTZOeUhneWJKVGh2?=
+ =?utf-8?B?R0RTeWNOOW9WU2t1V2dVNW96T2VFcUNYWnJreHF0QnEvTkRLZnlXZWJvV0tZ?=
+ =?utf-8?B?MC9INlNjWlBiZGE3a1BockFTL3pFRzNxZ2JwaG5PTFVFL3l5SkJ2NjlNL2R2?=
+ =?utf-8?B?Q1pkQVdGS1NqWWVYQlFZcC93VVNMbVFWTFJnYnJlL3lyZjRJQWcwaFF0QUl3?=
+ =?utf-8?B?aUJrNm9HcVJpMjU2S3pPTXFPN05MODVjNnZIYWtMK1RQYk95SWpJSElUQ040?=
+ =?utf-8?B?ak95U0lRSlE4T0c5WW9WVkZqZ3hrcm1sN0ZBVnFUUTRIaEhrUHVyVUJ5eHRY?=
+ =?utf-8?B?YVo4RFhBRmwzYWhwa2M2Z1ZuRVpWSDF1SzZkRnovMTJjc094dS9ObFNJMkt6?=
+ =?utf-8?B?TGpIdXBNdDZhWkJIYTlKN1JRbzBDeVlINEVsMFV5c3gxRCs2S0VWUFd5RU9X?=
+ =?utf-8?B?UmZ0d2RhOFg0ZXlEM251eHdOaWF1T25rN05ZS2dPZjdDV2RqZFBlTlpONGhN?=
+ =?utf-8?B?K3hhSXFCeTdsZy9SajlEaHNHRW1wdHNJbXJJM2haTVBWVlhKWC9mWXQrMmRv?=
+ =?utf-8?B?YUwyd0J3N3dJYTc2endva24wYUgrbS9JeXIyNzZNM0JEcHlGbE0vYjhkVis3?=
+ =?utf-8?B?RkpVOWp5R09HdDg5WkJacytzeUNjN1liL24zekYxT2Fnb0lySTBxd2liT2FR?=
+ =?utf-8?B?ZExoMHJidnp6VzhkRzZMeElrQ0MxUlh5QVN4ZEM2YlBKS2dsWVliL21EWXpn?=
+ =?utf-8?B?clF3K2xITGpYRWhQTkRnYTl0UitkaEUvdm9BY3dXRDhMdk5CMytDeGJ2Szc4?=
+ =?utf-8?B?ODV4S09wNmVEbThyaXIzUjhwRG9oNWFLUENhM2dkUFF6SmVBVGljaHF3WG0z?=
+ =?utf-8?B?bU9RdWZJQW94eW8zUVFrNGgrejRhNTJGaXoyWTZtRE8wVFpWcHlDRjQwMDNi?=
+ =?utf-8?B?V3BwZXhlT2pOVHk0c2didGNBbVZ3ZGFxY3R3dzhGSmVUaTZhMkYyV1hYaFpI?=
+ =?utf-8?B?STV2THRUb0lYeldlYkVPMmxzbGlSemVnMlpneWFkZHhmamliVHpnUkFWUnpx?=
+ =?utf-8?B?ZlBlLzQ5VG1TY1BWdEpOakVod1lwaWgxUk40QXRyUlN1dHQwa1c4d2ZmNVFI?=
+ =?utf-8?B?dndQSzRDamFDcWV5aVJSWHpyZDN2TEFVd3M5VDZIQXNGcWFXbFZ2eEJNdFMz?=
+ =?utf-8?B?ZC9ZTzdoTHVzeHVaTitZNFFSQ01ObHdhM1R3OHpmaDIrdTlTSUk2dHZDN0pK?=
+ =?utf-8?B?dlBMSkZ3L0VuRjdqUFZqWE1CMFlHdlhYd2I5bEVnVWpPejVYNFlSaXBDNTVG?=
+ =?utf-8?B?RVR5TEtvb0c5c0dyQ1lCZ3gzZHltR1c4NW9kVE9ROHhUVCtrR2dJV25mNTNT?=
+ =?utf-8?B?MUNTTXlvWnJJTEdvQnk2UjBVWFZLNUhtT2VnTWRkeXRZMUNMWlJYRGQvVE15?=
+ =?utf-8?B?TTk1M1BNekkzZjBFM3Bma1Bib1MxcmdNcTdzNjZoT0Q4alQyQ3R0MFdMNkxK?=
+ =?utf-8?B?MEZhNmd5cFhkenlPSnlDdU1uSlB2NmdrYkVNVmJHYWx4L012YlluTFduTjRE?=
+ =?utf-8?Q?EZR7GKvSZPYR9S1IT8R8X+zd9?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 16399eb1-42c3-410e-e096-08dd1e7d7f6d
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB5673.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Dec 2024 09:30:51.7456 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7b1PcH//165n8aV/S9F0XXdCpQHT99M+TFsjKY1D9sKtaEm0CBe7yNdv6tusSgWR
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4117
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -230,59 +172,514 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+--------------M9HVscxx8SuRrqfRAhhdYTcV
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Sun, Dec 15, 2024 at 03:53:14PM +0000, Marek Olšák wrote:
-> The comment explains the problem with DRM_FORMAT_MOD_LINEAR.
-> 
-> Signed-off-by: Marek Olšák <marek.olsak@amd.com>
-> 
-> diff --git a/include/uapi/drm/drm_fourcc.h b/include/uapi/drm/drm_fourcc.h
-> index 78abd819fd62e..8ec4163429014 100644
-> --- a/include/uapi/drm/drm_fourcc.h
-> +++ b/include/uapi/drm/drm_fourcc.h
-> @@ -484,9 +484,27 @@ extern "C" {
->   * modifier (e.g. not setting DRM_MODE_FB_MODIFIERS in the DRM_ADDFB2
-> ioctl),
->   * which tells the driver to also take driver-internal information into
-> account
->   * and so might actually result in a tiled framebuffer.
-> + *
-> + * WARNING:
-> + * There are drivers out there that expose DRM_FORMAT_MOD_LINEAR, but only
-> + * support a certain pitch alignment and can't import images with this
-> modifier
-> + * if the pitch alignment isn't exactly the one supported. They can however
-> + * allocate images with this modifier and other drivers can import them
-> only
-> + * if they support the same pitch alignment. Thus, DRM_FORMAT_MOD_LINEAR is
-> + * fundamentically incompatible across devices and is the only modifier
-> that
-> + * has a chance of not working. The PITCH_ALIGN modifiers should be used
-> + * instead.
->   */
->  #define DRM_FORMAT_MOD_LINEAR  fourcc_mod_code(NONE, 0)
-> 
-> +/* Linear layout modifiers with an explicit pitch alignment in bytes.
-> + * Exposing this modifier requires that the pitch alignment is exactly
-> + * the number in the definition.
-> + */
-> +#define DRM_FORMAT_MOD_LINEAR_PITCH_ALIGN_64B fourcc_mod_code(NONE, 1)
+Am 17.12.24 um 01:26 schrieb Matthew Brost:
+> On Fri, Nov 22, 2024 at 02:36:59PM +0000, Tvrtko Ursulin wrote:
+>> [SNIP]
+>>>>>> Do we have system wide workqueues for that? It seems a bit
+>>>>>> overkill that amdgpu has to allocate one on his own.
+>>>>> I wondered the same but did not find any. Only ones I am aware
+>>>>> of are system_wq&co created in workqueue_init_early().
+>>>> Gentle ping on this. I don't have any better ideas that creating a
+>>>> new wq.
+>>> It took me a moment to realize, but I now think this warning message is
+>>> a false positive.
+>>>
+>>> What happens is that the code calls cancel_delayed_work_sync().
+>>>
+>>> If the work item never run because of lack of memory then it can just be
+>>> canceled.
+>>>
+>>> If the work item is running then we will block for it to finish.
+>>>
+> Apologies for the late reply. Alex responded to another thread and CC'd
+> me, which reminded me to reply here.
+>
+> The execution of the non-reclaim worker could have led to a few scenarios:
+>
+> - It might have triggered reclaim through its own memory allocation.
 
-Why do we want this to be a modifier? All (?) of the other modifiers
-describe properties which the producer and consumer need to know in
-order to correctly fill/interpret the data.
+That is unrelated and has nothing todo with WQ_MEM_RECLAIM.
 
-Framebuffers already have a pitch property which tells the
-producer/consumer how to do that for linear buffers.
+What we should do is to make sure that the lockdep annotation covers all 
+workers who play a role in fence signaling.
 
-Modifiers are meant to describe framebuffers, and this pitch alignment
-requirement isn't really a framebuffer property - it's a device
-constraint. It feels out of place to overload modifiers with it.
+> - It could have been running and then context-switched out, with reclaim
+>    being triggered elsewhere in the mean time, pausing the execution of
+>    the non-reclaim worker.
 
-I'm not saying we don't need a way to describe constraints to
-allocators, but I question if modifiers the right mechanism to
-communicate them?
+As far as I know non-reclaim workers are not paused because a reclaim 
+worker is running, that would be really new to me.
 
-Cheers,
--Brian
+What happens is that here (from workqueue.c):
+
+* Workqueue rescuer thread function. There's one rescuer for each * 
+workqueue which has WQ_MEM_RECLAIM set. * * Regular work processing on a 
+pool may block trying to create a new * worker which uses GFP_KERNEL 
+allocation which has slight chance of * developing into deadlock if some 
+works currently on the same queue * need to be processed to satisfy the 
+GFP_KERNEL allocation. This is * the problem rescuer solves.
+
+> In either case, during reclaim, if you wait on a DMA fence that depends
+> on the DRM scheduler worker,and that worker attempts to flush the above
+> non-reclaim worker, it will result in a deadlock.
+
+Well that is only partially correct.
+
+It's true that the worker we wait for can't wait for DMA-fence or do 
+memory allocations who wait for DMA-fences. But WQ_MEM_RECLAIM is not 
+related to any DMA fence annotation.
+
+What happens instead is that the kernel always keeps a kernel thread 
+pre-allocated so that it can guarantee that the worker can start without 
+allocating memory.
+
+As soon as the worker runs there shouldn't be any difference in the 
+handling as far as I know.
+
+> The annotation appears correct to me, and I believe Tvrtko's patch is
+> indeed accurate. For what it's worth, we encountered several similar
+> bugs in Xe that emerged once we added the correct work queue
+> annotations.
+
+I think you mean something different. This is the lockdep annotation for 
+the workers and not WQ_MEM_RECLAIM.
+
+Regards,
+Christian.
+
+>>> There is no need to use WQ_MEM_RECLAIM for the workqueue or do I miss
+>>> something?
+>>>
+>>> If I'm not completely mistaken you stumbled over a bug in the warning
+>>> code instead :)
+>> Hmm your thinking sounds convincing.
+>>
+>> Adding Tejun if he has time to help brainstorm this.
+>>
+> Tejun could likely provide insight into whether my above assessment is
+> correct.
+>
+> Matt
+>
+>> Question is - does check_flush_dependency() need to skip the !WQ_MEM_RECLAIM
+>> flushing WQ_MEM_RECLAIM warning *if* the work is already running *and* it
+>> was called from cancel_delayed_work_sync()?
+>>
+>> Regards,
+>>
+>> Tvrtko
+>>
+>>>>>> Apart from that looks good to me.
+>>>>>>
+>>>>>> Regards,
+>>>>>> Christian.
+>>>>>>
+>>>>>>> Signed-off-by: Tvrtko Ursulin<tvrtko.ursulin@igalia.com>
+>>>>>>> References: 746ae46c1113 ("drm/sched: Mark scheduler
+>>>>>>> work queues with WQ_MEM_RECLAIM")
+>>>>>>> Fixes: a6149f039369 ("drm/sched: Convert drm scheduler
+>>>>>>> to use a work queue rather than kthread")
+>>>>>>> Cc:stable@vger.kernel.org
+>>>>>>> Cc: Matthew Brost<matthew.brost@intel.com>
+>>>>>>> Cc: Danilo Krummrich<dakr@kernel.org>
+>>>>>>> Cc: Philipp Stanner<pstanner@redhat.com>
+>>>>>>> Cc: Alex Deucher<alexander.deucher@amd.com>
+>>>>>>> Cc: Christian König<christian.koenig@amd.com>
+>>>>>>> ---
+>>>>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu.h     |  2 ++
+>>>>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 25
+>>>>>>> +++++++++++++++++++++++++
+>>>>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c |  5 +++--
+>>>>>>>    3 files changed, 30 insertions(+), 2 deletions(-)
+>>>>>>>
+>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>>>>>> index 7645e498faa4..a6aad687537e 100644
+>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>>>>>> @@ -268,6 +268,8 @@ extern int amdgpu_agp;
+>>>>>>>    extern int amdgpu_wbrf;
+>>>>>>> +extern struct workqueue_struct *amdgpu_reclaim_wq;
+>>>>>>> +
+>>>>>>>    #define AMDGPU_VM_MAX_NUM_CTX            4096
+>>>>>>>    #define AMDGPU_SG_THRESHOLD            (256*1024*1024)
+>>>>>>>    #define AMDGPU_WAIT_IDLE_TIMEOUT_IN_MS            3000
+>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>>>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>>>>>>> index 38686203bea6..f5b7172e8042 100644
+>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>>>>>>> @@ -255,6 +255,8 @@ struct amdgpu_watchdog_timer
+>>>>>>> amdgpu_watchdog_timer = {
+>>>>>>>        .period = 0x0, /* default to 0x0 (timeout disable) */
+>>>>>>>    };
+>>>>>>> +struct workqueue_struct *amdgpu_reclaim_wq;
+>>>>>>> +
+>>>>>>>    /**
+>>>>>>>     * DOC: vramlimit (int)
+>>>>>>>     * Restrict the total amount of VRAM in MiB for
+>>>>>>> testing. The default is 0 (Use full VRAM).
+>>>>>>> @@ -2971,6 +2973,21 @@ static struct pci_driver
+>>>>>>> amdgpu_kms_pci_driver = {
+>>>>>>>        .dev_groups = amdgpu_sysfs_groups,
+>>>>>>>    };
+>>>>>>> +static int amdgpu_wq_init(void)
+>>>>>>> +{
+>>>>>>> +    amdgpu_reclaim_wq =
+>>>>>>> +        alloc_workqueue("amdgpu-reclaim", WQ_MEM_RECLAIM, 0);
+>>>>>>> +    if (!amdgpu_reclaim_wq)
+>>>>>>> +        return -ENOMEM;
+>>>>>>> +
+>>>>>>> +    return 0;
+>>>>>>> +}
+>>>>>>> +
+>>>>>>> +static void amdgpu_wq_fini(void)
+>>>>>>> +{
+>>>>>>> +    destroy_workqueue(amdgpu_reclaim_wq);
+>>>>>>> +}
+>>>>>>> +
+>>>>>>>    static int __init amdgpu_init(void)
+>>>>>>>    {
+>>>>>>>        int r;
+>>>>>>> @@ -2978,6 +2995,10 @@ static int __init amdgpu_init(void)
+>>>>>>>        if (drm_firmware_drivers_only())
+>>>>>>>            return -EINVAL;
+>>>>>>> +    r = amdgpu_wq_init();
+>>>>>>> +    if (r)
+>>>>>>> +        goto error_wq;
+>>>>>>> +
+>>>>>>>        r = amdgpu_sync_init();
+>>>>>>>        if (r)
+>>>>>>>            goto error_sync;
+>>>>>>> @@ -3006,6 +3027,9 @@ static int __init amdgpu_init(void)
+>>>>>>>        amdgpu_sync_fini();
+>>>>>>>    error_sync:
+>>>>>>> +    amdgpu_wq_fini();
+>>>>>>> +
+>>>>>>> +error_wq:
+>>>>>>>        return r;
+>>>>>>>    }
+>>>>>>> @@ -3017,6 +3041,7 @@ static void __exit amdgpu_exit(void)
+>>>>>>>        amdgpu_acpi_release();
+>>>>>>>        amdgpu_sync_fini();
+>>>>>>>        amdgpu_fence_slab_fini();
+>>>>>>> +    amdgpu_wq_fini();
+>>>>>>>        mmu_notifier_synchronize();
+>>>>>>>        amdgpu_xcp_drv_release();
+>>>>>>>    }
+>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+>>>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+>>>>>>> index 2f3f09dfb1fd..f8fd71d9382f 100644
+>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+>>>>>>> @@ -790,8 +790,9 @@ void amdgpu_gfx_off_ctrl(struct
+>>>>>>> amdgpu_device *adev, bool enable)
+>>>>>>>                            AMD_IP_BLOCK_TYPE_GFX, true))
+>>>>>>>                        adev->gfx.gfx_off_state = true;
+>>>>>>>                } else {
+>>>>>>> - schedule_delayed_work(&adev->gfx.gfx_off_delay_work,
+>>>>>>> -                          delay);
+>>>>>>> +                queue_delayed_work(amdgpu_reclaim_wq,
+>>>>>>> + &adev->gfx.gfx_off_delay_work,
+>>>>>>> +                           delay);
+>>>>>>>                }
+>>>>>>>            }
+>>>>>>>        } else {
+
+--------------M9HVscxx8SuRrqfRAhhdYTcV
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    Am 17.12.24 um 01:26 schrieb Matthew Brost:<br>
+    <blockquote type="cite" cite="mid:Z2DFKfqzhlyHOjpd@lstrano-desk.jf.intel.com">
+      <pre class="moz-quote-pre" wrap="">On Fri, Nov 22, 2024 at 02:36:59PM +0000, Tvrtko Ursulin wrote:
+</pre>
+      <blockquote type="cite">[SNIP]<span style="white-space: pre-wrap">
+</span>
+        <blockquote type="cite">
+          <blockquote type="cite">
+            <pre class="moz-quote-pre" wrap=""></pre>
+            <blockquote type="cite">
+              <blockquote type="cite">
+                <pre class="moz-quote-pre" wrap="">Do we have system wide workqueues for that? It seems a bit
+overkill that amdgpu has to allocate one on his own.
+</pre>
+              </blockquote>
+              <pre class="moz-quote-pre" wrap="">
+I wondered the same but did not find any. Only ones I am aware
+of are system_wq&amp;co created in workqueue_init_early().
+</pre>
+            </blockquote>
+            <pre class="moz-quote-pre" wrap="">
+Gentle ping on this. I don't have any better ideas that creating a
+new wq.
+</pre>
+          </blockquote>
+          <pre class="moz-quote-pre" wrap="">
+It took me a moment to realize, but I now think this warning message is
+a false positive.
+
+What happens is that the code calls cancel_delayed_work_sync().
+
+If the work item never run because of lack of memory then it can just be
+canceled.
+
+If the work item is running then we will block for it to finish.
+
+</pre>
+        </blockquote>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+Apologies for the late reply. Alex responded to another thread and CC'd
+me, which reminded me to reply here.
+
+The execution of the non-reclaim worker could have led to a few scenarios:
+
+- It might have triggered reclaim through its own memory allocation.</pre>
+    </blockquote>
+    <br>
+    That is unrelated and has nothing todo with WQ_MEM_RECLAIM.<br>
+    <br>
+    What we should do is to make sure that the lockdep annotation covers
+    all workers who play a role in fence signaling.<br>
+    <br>
+    <span style="white-space: pre-wrap">
+</span>
+    <blockquote type="cite" cite="mid:Z2DFKfqzhlyHOjpd@lstrano-desk.jf.intel.com">
+      <pre class="moz-quote-pre" wrap="">- It could have been running and then context-switched out, with reclaim
+  being triggered elsewhere in the mean time, pausing the execution of
+  the non-reclaim worker.</pre>
+    </blockquote>
+    <br>
+    As far as I know non-reclaim workers are not paused because a
+    reclaim worker is running, that would be really new to me.<br>
+    <br>
+    What happens is that here (from workqueue.c):<br>
+    <br>
+    <pre style="box-sizing: inherit; font-family: &quot;Ubuntu Mono&quot;, monospace; font-size: 0.9em; line-height: 1.2; padding: 1em 0px 4em; color: rgb(0, 0, 0); margin: 0px; min-height: 100%; tab-size: 8; white-space: pre; word-spacing: 0px; word-break: normal; overflow-wrap: normal; hyphens: none; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;"><span id="codeline-3414" style="box-sizing: inherit; vertical-align: top; display: block; padding-left: 1em;"><span class="cm" style="box-sizing: inherit; vertical-align: top; color: slategray; font-style: italic;"> * Workqueue rescuer thread function.  There's one rescuer for each</span>
+</span><span id="codeline-3415" style="box-sizing: inherit; vertical-align: top; display: block; padding-left: 1em;"><span class="cm" style="box-sizing: inherit; vertical-align: top; color: slategray; font-style: italic;"> * workqueue which has WQ_MEM_RECLAIM set.</span>
+</span><span id="codeline-3416" style="box-sizing: inherit; vertical-align: top; display: block; padding-left: 1em;"><span class="cm" style="box-sizing: inherit; vertical-align: top; color: slategray; font-style: italic;"> *</span>
+</span><span id="codeline-3417" style="box-sizing: inherit; vertical-align: top; display: block; padding-left: 1em;"><span class="cm" style="box-sizing: inherit; vertical-align: top; color: slategray; font-style: italic;"> * Regular work processing on a pool may block trying to create a new</span>
+</span><span id="codeline-3418" style="box-sizing: inherit; vertical-align: top; display: block; padding-left: 1em;"><span class="cm" style="box-sizing: inherit; vertical-align: top; color: slategray; font-style: italic;"> * worker which uses GFP_KERNEL allocation which has slight chance of</span>
+</span><span id="codeline-3419" style="box-sizing: inherit; vertical-align: top; display: block; padding-left: 1em;"><span class="cm" style="box-sizing: inherit; vertical-align: top; color: slategray; font-style: italic;"> * developing into deadlock if some works currently on the same queue</span>
+</span><span id="codeline-3420" style="box-sizing: inherit; vertical-align: top; display: block; padding-left: 1em;"><span class="cm" style="box-sizing: inherit; vertical-align: top; color: slategray; font-style: italic;"> * need to be processed to satisfy the GFP_KERNEL allocation.  This is</span>
+</span><span id="codeline-3421" style="box-sizing: inherit; vertical-align: top; display: block; padding-left: 1em;"><span class="cm" style="box-sizing: inherit; vertical-align: top; color: slategray; font-style: italic;"> * the problem rescuer solves.</span></span></pre>
+    <blockquote type="cite" cite="mid:Z2DFKfqzhlyHOjpd@lstrano-desk.jf.intel.com">
+      <pre class="moz-quote-pre" wrap="">In either case, during reclaim, if you wait on a DMA fence that depends
+on the DRM scheduler worker,and that worker attempts to flush the above
+non-reclaim worker, it will result in a deadlock.</pre>
+    </blockquote>
+    <br>
+    Well that is only partially correct.<br>
+    <br>
+    It's true that the worker we wait for can't wait for DMA-fence or do
+    memory allocations who wait for DMA-fences. But WQ_MEM_RECLAIM is
+    not related to any DMA fence annotation.<br>
+    <br>
+    What happens instead is that the kernel always keeps a kernel thread
+    pre-allocated so that it can guarantee that the worker can start
+    without allocating memory.<br>
+    <br>
+    As soon as the worker runs there shouldn't be any difference in the
+    handling as far as I know.<br>
+    <br>
+    <blockquote type="cite" cite="mid:Z2DFKfqzhlyHOjpd@lstrano-desk.jf.intel.com">
+      <pre class="moz-quote-pre" wrap="">The annotation appears correct to me, and I believe Tvrtko's patch is
+indeed accurate. For what it's worth, we encountered several similar
+bugs in Xe that emerged once we added the correct work queue
+annotations.</pre>
+    </blockquote>
+    <br>
+    I think you mean something different. This is the lockdep annotation
+    for the workers and not WQ_MEM_RECLAIM.<br>
+    <br>
+    Regards,<br>
+    Christian.<br>
+    <br>
+    <span style="white-space: pre-wrap">
+</span>
+    <blockquote type="cite" cite="mid:Z2DFKfqzhlyHOjpd@lstrano-desk.jf.intel.com">
+      <blockquote type="cite">
+        <blockquote type="cite">
+          <pre class="moz-quote-pre" wrap="">There is no need to use WQ_MEM_RECLAIM for the workqueue or do I miss
+something?
+
+If I'm not completely mistaken you stumbled over a bug in the warning
+code instead :)
+</pre>
+        </blockquote>
+        <pre class="moz-quote-pre" wrap="">
+Hmm your thinking sounds convincing.
+
+Adding Tejun if he has time to help brainstorm this.
+
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+Tejun could likely provide insight into whether my above assessment is
+correct.</pre>
+    </blockquote>
+    <blockquote type="cite" cite="mid:Z2DFKfqzhlyHOjpd@lstrano-desk.jf.intel.com">
+      <pre class="moz-quote-pre" wrap="">
+
+Matt
+
+</pre>
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap="">Question is - does check_flush_dependency() need to skip the !WQ_MEM_RECLAIM
+flushing WQ_MEM_RECLAIM warning *if* the work is already running *and* it
+was called from cancel_delayed_work_sync()?
+
+Regards,
+
+Tvrtko
+
+</pre>
+        <blockquote type="cite">
+          <blockquote type="cite">
+            <blockquote type="cite">
+              <blockquote type="cite">
+                <pre class="moz-quote-pre" wrap="">Apart from that looks good to me.
+
+Regards,
+Christian.
+
+</pre>
+                <blockquote type="cite">
+                  <pre class="moz-quote-pre" wrap="">
+Signed-off-by: Tvrtko Ursulin <a class="moz-txt-link-rfc2396E" href="mailto:tvrtko.ursulin@igalia.com">&lt;tvrtko.ursulin@igalia.com&gt;</a>
+References: 746ae46c1113 (&quot;drm/sched: Mark scheduler
+work queues with WQ_MEM_RECLAIM&quot;)
+Fixes: a6149f039369 (&quot;drm/sched: Convert drm scheduler
+to use a work queue rather than kthread&quot;)
+Cc: <a class="moz-txt-link-abbreviated" href="mailto:stable@vger.kernel.org">stable@vger.kernel.org</a>
+Cc: Matthew Brost <a class="moz-txt-link-rfc2396E" href="mailto:matthew.brost@intel.com">&lt;matthew.brost@intel.com&gt;</a>
+Cc: Danilo Krummrich <a class="moz-txt-link-rfc2396E" href="mailto:dakr@kernel.org">&lt;dakr@kernel.org&gt;</a>
+Cc: Philipp Stanner <a class="moz-txt-link-rfc2396E" href="mailto:pstanner@redhat.com">&lt;pstanner@redhat.com&gt;</a>
+Cc: Alex Deucher <a class="moz-txt-link-rfc2396E" href="mailto:alexander.deucher@amd.com">&lt;alexander.deucher@amd.com&gt;</a>
+Cc: Christian König <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig@amd.com">&lt;christian.koenig@amd.com&gt;</a>
+---
+&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu.h&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 2 ++
+&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 25
++++++++++++++++++++++++++
+&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c |&nbsp; 5 +++--
+&nbsp; 3 files changed, 30 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index 7645e498faa4..a6aad687537e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -268,6 +268,8 @@ extern int amdgpu_agp;
+&nbsp; extern int amdgpu_wbrf;
++extern struct workqueue_struct *amdgpu_reclaim_wq;
++
+&nbsp; #define AMDGPU_VM_MAX_NUM_CTX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4096
+&nbsp; #define AMDGPU_SG_THRESHOLD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (256*1024*1024)
+&nbsp; #define AMDGPU_WAIT_IDLE_TIMEOUT_IN_MS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3000
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 38686203bea6..f5b7172e8042 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -255,6 +255,8 @@ struct amdgpu_watchdog_timer
+amdgpu_watchdog_timer = {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .period = 0x0, /* default to 0x0 (timeout disable) */
+&nbsp; };
++struct workqueue_struct *amdgpu_reclaim_wq;
++
+&nbsp; /**
+&nbsp;&nbsp; * DOC: vramlimit (int)
+&nbsp;&nbsp; * Restrict the total amount of VRAM in MiB for
+testing. The default is 0 (Use full VRAM).
+@@ -2971,6 +2973,21 @@ static struct pci_driver
+amdgpu_kms_pci_driver = {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .dev_groups = amdgpu_sysfs_groups,
+&nbsp; };
++static int amdgpu_wq_init(void)
++{
++&nbsp;&nbsp;&nbsp; amdgpu_reclaim_wq =
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; alloc_workqueue(&quot;amdgpu-reclaim&quot;, WQ_MEM_RECLAIM, 0);
++&nbsp;&nbsp;&nbsp; if (!amdgpu_reclaim_wq)
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -ENOMEM;
++
++&nbsp;&nbsp;&nbsp; return 0;
++}
++
++static void amdgpu_wq_fini(void)
++{
++&nbsp;&nbsp;&nbsp; destroy_workqueue(amdgpu_reclaim_wq);
++}
++
+&nbsp; static int __init amdgpu_init(void)
+&nbsp; {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;
+@@ -2978,6 +2995,10 @@ static int __init amdgpu_init(void)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (drm_firmware_drivers_only())
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;
++&nbsp;&nbsp;&nbsp; r = amdgpu_wq_init();
++&nbsp;&nbsp;&nbsp; if (r)
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto error_wq;
++
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r = amdgpu_sync_init();
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto error_sync;
+@@ -3006,6 +3027,9 @@ static int __init amdgpu_init(void)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_sync_fini();
+&nbsp; error_sync:
++&nbsp;&nbsp;&nbsp; amdgpu_wq_fini();
++
++error_wq:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;
+&nbsp; }
+@@ -3017,6 +3041,7 @@ static void __exit amdgpu_exit(void)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_acpi_release();
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_sync_fini();
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_fence_slab_fini();
++&nbsp;&nbsp;&nbsp; amdgpu_wq_fini();
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mmu_notifier_synchronize();
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_xcp_drv_release();
+&nbsp; }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+index 2f3f09dfb1fd..f8fd71d9382f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+@@ -790,8 +790,9 @@ void amdgpu_gfx_off_ctrl(struct
+amdgpu_device *adev, bool enable)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_IP_BLOCK_TYPE_GFX, true))
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gfx.gfx_off_state = true;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {
+- schedule_delayed_work(&amp;adev-&gt;gfx.gfx_off_delay_work,
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; delay);
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; queue_delayed_work(amdgpu_reclaim_wq,
++ &amp;adev-&gt;gfx.gfx_off_delay_work,
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; delay);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {
+</pre>
+                </blockquote>
+                <pre class="moz-quote-pre" wrap="">
+</pre>
+              </blockquote>
+            </blockquote>
+          </blockquote>
+          <pre class="moz-quote-pre" wrap="">
+</pre>
+        </blockquote>
+      </blockquote>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------M9HVscxx8SuRrqfRAhhdYTcV--
