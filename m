@@ -4,75 +4,177 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2694E7717F
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Dec 2024 21:58:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25958E7717F
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Dec 2024 00:26:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F4D110E7C4;
-	Mon, 16 Dec 2024 21:58:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9CED10E22E;
+	Tue, 17 Dec 2024 00:26:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KOoWtM2e";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mUixRHHR";
 	dkim-atps=neutral
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [IPv6:2a00:1450:4864:20::52e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E28A10E7B5;
- Mon, 16 Dec 2024 21:58:58 +0000 (UTC)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-5d3d69e5b63so521188a12.1; 
- Mon, 16 Dec 2024 13:58:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1734386336; x=1734991136; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=inFtp2zBU4xLUzv5jcR1+e6FyFA1ZEqlF7DqnuaRfss=;
- b=KOoWtM2eXtoi8s/CKIJhFbcK81QMQd+WNrF4QD/pHmR6xUPKRy9AFCw5s2emu8pAHe
- NVp9cS+n/EtcUDZXBSEN1gjommkxqbbyQZj7pt9rqXIb9TEr6AhVRAh+C9o0wS0kbNSZ
- 96cbAxcFkERk8gyteqlOQQorf5eADGzTu/BB2mZJ6rUd1BHKJmzQNMkXZsyS8B5iWMfd
- es4lhYcWUIIZCU/ng3eQv20EysVsLstV01d/dbWPVLwJVW8/n8FX4I8+ncwjKGrwOEs0
- POLs03f/Pd4ihcY1wbBHeM+MUcKfpAeJd4b9swEMHPRWiLxYQMHqf2H8+UMPRihc9OsK
- yOuQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734386336; x=1734991136;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=inFtp2zBU4xLUzv5jcR1+e6FyFA1ZEqlF7DqnuaRfss=;
- b=DiX0yP8mIE2oizxWxrfdCoat5vhcBn8yCVWOUGQA29XKLt6u0gtwKX4TaTcxvvIGz8
- Y5SFSyvqRsClcKjTtreqNdM6/wsGFwtB9NBMXZDpyzQO+hbTpUQd8fWtOUhU6W3mo9yE
- W1SB5PfO92lcZC9zpT+P4uGN5wjEvzRvN71zOupbBo5G2iFaZt4TbsbcXmbqeXIpamji
- gZbllPskBwHTnl6cWkKvZtnyqqjxiqm1jf6rv5FrN9vqV1i++Gra0I67oDRuobZbfh/0
- 9saz5hk5QgHDGocdrnbx+NKBt7nCXtByXB0j5Qt/s667o+kwdGWfqGOFg1vZ9z6QLADj
- 8FrA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUDIvBhO8Dv+1RPywHMA7IlqbLm9TZ6R8svQSq387NdJVdMPj3Q7mduF5ATc06NdOuGT3xJlnzS@lists.freedesktop.org,
- AJvYcCUdyeuz9J2e6qRdHITsB07uHi2r540QxzaArp/S5TE8+2/J2EsmoxMY0XyuafJJt4kNQDmYlgpqoX0=@lists.freedesktop.org,
- AJvYcCX9XnnI6561A4POmqD3XeJXmv+m137H2KkruLBxLmqe9uOHn3NrShwIqNxImo0pTps0xdNGxJtvC+7V@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwqXrd8y/S9CVsE5Brj5okBU3JAp0o8TxGbMuOI5Akpw6jBb8jx
- THHbOwEyERLTQUXWH8nx/7O8cu30TrIcHbxgJUhYHe2HiFKQMvw7xrzPldlKUVANsUT7SDpmUu6
- pK3VG1XTfF4cxLPVP0c3w0WRtz5bBAQ==
-X-Gm-Gg: ASbGncvIW7PkfIdq11I7DfY3nFT6I7VcnILAd5KPWfa6loYydctz3bAzx3Hmxm19hH3
- REsbnnrprmq4ouVwGHQDEBTR60whBCtnMFK4lrJA=
-X-Google-Smtp-Source: AGHT+IHIMaETs5Yi9FBw9DxNQN8Rlw2irkgGkjE/EWKSMqr3RR/x9MKkXY3uHiRjbNUTTANzXjVOMZ0l8iQFmplm4lg=
-X-Received: by 2002:a05:6402:35d2:b0:5d0:ccec:8518 with SMTP id
- 4fb4d7f45d1cf-5d63c3e9a86mr4213111a12.8.1734386336295; Mon, 16 Dec 2024
- 13:58:56 -0800 (PST)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6701E10E068;
+ Tue, 17 Dec 2024 00:26:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1734395194; x=1765931194;
+ h=date:from:to:cc:subject:message-id:references:
+ content-transfer-encoding:in-reply-to:mime-version;
+ bh=S8eF9Plkl4sA+SaU42TOGGCsYn6Ktr+s1nzOXJYQhhA=;
+ b=mUixRHHRhnNSRDhz7ZXWD2e9S9mViW+L6k/+p2v8didmtFOSZCJgtgep
+ 6Phcfw8HFcKBztmOzWFlf8O2NwIkPx1QHjLNhj6uRyPKwfbhoRCs7GVcm
+ XXhN3y+u2sPjpXzYid33eo0lNuI6nBI0E2hr0g8ibA+hMWrzuKSEodfRV
+ QUhAZ9QM9hvUf7vw35qWKOJPNZ6nQtmidFBdTuxEeKjduDW56xxQdE2/v
+ cPAB3IMqNGd75P85ommryfiJy52oVsKzuIWF0KdsNXw2HvIQd/R0Qq4LD
+ z+N9MX0CSqjuJJSzysqgpgOkbUx+M0p+iAvYwGxPjR8oi44XqDu8s251s w==;
+X-CSE-ConnectionGUID: MTiAblt+Tq6B8Y6IHAtyDw==
+X-CSE-MsgGUID: jU8oFTxaRgivHwziIAZZzA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11288"; a="34714797"
+X-IronPort-AV: E=Sophos;i="6.12,240,1728975600"; d="scan'208";a="34714797"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Dec 2024 16:26:32 -0800
+X-CSE-ConnectionGUID: 5kMjbyqUTw+JEAg4EOOGfg==
+X-CSE-MsgGUID: xuxQ0yMLSie8/KCMwj2EkQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.12,240,1728975600"; d="scan'208";a="97142246"
+Received: from orsmsx602.amr.corp.intel.com ([10.22.229.15])
+ by fmviesa006.fm.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
+ 16 Dec 2024 16:26:17 -0800
+Received: from orsmsx601.amr.corp.intel.com (10.22.229.14) by
+ ORSMSX602.amr.corp.intel.com (10.22.229.15) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.44; Mon, 16 Dec 2024 16:26:16 -0800
+Received: from orsedg603.ED.cps.intel.com (10.7.248.4) by
+ orsmsx601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.44 via Frontend Transport; Mon, 16 Dec 2024 16:26:16 -0800
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com (104.47.56.172)
+ by edgegateway.intel.com (134.134.137.100) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.44; Mon, 16 Dec 2024 16:26:16 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NENcBeyHLhn8GePPey3jNh+ofepFKHIi7rnFEqSNFAzwOrvNOxJVTeAxsTCWiezWKmqgt+POFnfKTXscnngKxoyk892pKpj/Hopv40FZ9oYqwVvdmdYuyvQkKTP96V76toS9Jr5rC6a4kvj+sCtKIucZaQHk7i55uQL9kCiJ3s0MHMyhddeeGFogot9stqrO/e09CHsEzz2L9NsTmyJ7CGikQiTQxg1Z6THJHwxnLX0YocDnjemAsC0eDWw5+cY6yoL8YvC4I3BfMiNVn2Fg30jaPqb17eS9DLqwuAibt7b1EKhBxnwGPPuxJzNg+mFxGczeCeCgcqJQ8FLcZc5tHA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6lPtBu/QBTrpzdB4UU4J8xefv+/Zy0CTyKTvHXmkf9o=;
+ b=rZBfNd9dydqAR/GYBHbO0Wx4JaNb+uEge2OVBfZkwVMpQ3tiw0r7Fz9yq4JUMFSM+9exX2DrPPLmA5AUW/N47eAAf2TfbiNyuwet9htKZcwwEtmcTAWJMYRXWv04d6iZ3O7cUPjHun67ElwxFj4Z38hbi7sB1+8lXyPaixBaK8phDbO9GOMCyh6SiL/ieRn77a6bx3ftskM4wERHU49sSaIQeO1jR4wEd7qhIQTUUylOe48ne9O32ArszkHfbGayzJq5sRZKmA7szDHBlPTQD9hoRy4GCulXOXVMM3O2G6HFoT3Pwqst1dKoky72hZktG9THoa3ccp6kfeymVO0R6g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com (2603:10b6:510:212::12)
+ by CO1PR11MB5187.namprd11.prod.outlook.com (2603:10b6:303:94::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8251.22; Tue, 17 Dec
+ 2024 00:25:34 +0000
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::9e94:e21f:e11a:332]) by PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::9e94:e21f:e11a:332%4]) with mapi id 15.20.8251.015; Tue, 17 Dec 2024
+ 00:25:34 +0000
+Date: Mon, 16 Dec 2024 16:26:17 -0800
+From: Matthew Brost <matthew.brost@intel.com>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+CC: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "Tvrtko
+ Ursulin" <tursulin@igalia.com>, <amd-gfx@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <kernel-dev@igalia.com>,
+ <stable@vger.kernel.org>, Danilo Krummrich <dakr@kernel.org>, Philipp Stanner
+ <pstanner@redhat.com>, Alex Deucher <alexander.deucher@amd.com>, Tejun Heo
+ <tj@kernel.org>
+Subject: Re: [PATCH] drm/amdgpu: Make the submission path memory reclaim safe
+Message-ID: <Z2DFKfqzhlyHOjpd@lstrano-desk.jf.intel.com>
+References: <20241113134838.52608-1-tursulin@igalia.com>
+ <e30428ce-a4d1-43e0-89d3-1487f7af2fde@amd.com>
+ <154641d9-be2a-4018-af5e-a57dbffb45d5@igalia.com>
+ <61ad957b-34be-4ee5-944f-261c7a412962@igalia.com>
+ <14e6e7a3-4077-4074-aaae-3be4b6fd071d@amd.com>
+ <0af583a5-85d0-4c33-84e9-3856bde9fb4b@igalia.com>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <0af583a5-85d0-4c33-84e9-3856bde9fb4b@igalia.com>
+X-ClientProxiedBy: MW4PR03CA0042.namprd03.prod.outlook.com
+ (2603:10b6:303:8e::17) To PH7PR11MB6522.namprd11.prod.outlook.com
+ (2603:10b6:510:212::12)
 MIME-Version: 1.0
-References: <CAAxE2A5BkF13bFt8_UnuiqPM8W-ZESgmKEjqqGfv=DGzSfJ7aQ@mail.gmail.com>
- <340ed70a-a576-43c6-86ff-9b58ed513c72@mailbox.org>
- <a42981617e880d48e9614c9ab5a8892f7ae0a315.camel@pengutronix.de>
- <Z2A-1i6YiPSjdUnP@phenom.ffwll.local>
-In-Reply-To: <Z2A-1i6YiPSjdUnP@phenom.ffwll.local>
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-Date: Mon, 16 Dec 2024 16:58:20 -0500
-Message-ID: <CAAxE2A7BnDR4LafUzS-JofF7=jvnMU6osiKx14Ce7mwFjynGbA@mail.gmail.com>
-Subject: Re: [PATCH] drm/fourcc: add LINEAR modifiers with an exact pitch
- alignment
-To: Simona Vetter <simona.vetter@ffwll.ch>
-Cc: Lucas Stach <l.stach@pengutronix.de>,
- =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>, 
- dri-devel <dri-devel@lists.freedesktop.org>, 
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>, 
- ML Mesa-dev <mesa-dev@lists.freedesktop.org>
-Content-Type: multipart/alternative; boundary="0000000000007a72b106296a49f8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR11MB6522:EE_|CO1PR11MB5187:EE_
+X-MS-Office365-Filtering-Correlation-Id: a09c95eb-817b-4b03-5e7b-08dd1e315247
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|7416014|366016|1800799024|7053199007; 
+X-Microsoft-Antispam-Message-Info: =?iso-8859-1?Q?ntteOQkm007CLXVhhLi467xvU3kFF4SvJ5PBNcoTkzD7DmlidMFa81PkzU?=
+ =?iso-8859-1?Q?gyZWpW8PzfXDXZzbVqBSlLYr+geT66/SadbYsnIPDjT45ePQ/wiZ0lgYuo?=
+ =?iso-8859-1?Q?PC1NhNhBZku0hF1wiVTrAErzQWfzSvez2dfqDa5a4HkK6cwClyp8q5F7jp?=
+ =?iso-8859-1?Q?DpsAo4dIN7sZZuu6UVNuP0NcMtTehbzh0O1U5xpCUbokk4ekf3ZFtBt56I?=
+ =?iso-8859-1?Q?9KMtwJnvisjecOr7hYvovLOrOGCIvAKxOvJu6LYCtpraqGC+m0WtlJJfoA?=
+ =?iso-8859-1?Q?VqqHBACEpidgbX+T+CIAcfH0WFCuOo7VZcdYMLq6qPwz1Sw+ctDPUR8gWw?=
+ =?iso-8859-1?Q?6j+Ek/SUtxacvG1BKfiLvxU6OY/Py+9JeNWuc142Nf2FPcBhATq+wp2jX1?=
+ =?iso-8859-1?Q?f0efPGD4ymTqjpS8nh2vRK+p9+cCsyXj3AeEtgpaNRenv3HZ8tEnyTRncG?=
+ =?iso-8859-1?Q?WUa85bWttiLD4YeOlcrg/Xeq1qfBqMmsY3Km0QBNAGurwhgKAiz6ih+poT?=
+ =?iso-8859-1?Q?ae3XYu7PoPOI3220SZ32+LBGsZc+OniZ6SsfOO+Ejs/DCy2PO9rZmxH4vg?=
+ =?iso-8859-1?Q?Cp7QQiHY937XX0NFXzhTskchV873cPAKiO5CFjvB93yh+C9LgcwOPjkWAE?=
+ =?iso-8859-1?Q?EqztH9gufziAO9wXFGxpbHAO5058BSps2Vj0Y79sq4TZ/iJ3l9e9dN+O3+?=
+ =?iso-8859-1?Q?0hE+aZvx97o7pfVh3cPXGgxq8qwXxhrnaYsBPxCFfIgT9KJJUUeq+9peiq?=
+ =?iso-8859-1?Q?XZzyqOz9vPMDKOPP6wl90wxAbejdOE6Tj1U85b3nfXt8a4RULi5WbfxCrO?=
+ =?iso-8859-1?Q?g/MAWjzvECvCHAIEjUx/pVYm40jHB9jyLTBAuX+NZX8+Ps/edFg71am+Y9?=
+ =?iso-8859-1?Q?GC3L4pBIpbwWrlzZ//8O1Ha87vvuy0LwEFCOMn/lGU/YuhSQW/LjF/3O33?=
+ =?iso-8859-1?Q?ReoPe1mu0ISSmcBM4jHPLuXYIYM1Fu8zP6WWwGQR3x5jqduri7m13Httl9?=
+ =?iso-8859-1?Q?81u2b6RjcIztWTrJyLSka9n31CAil9JdRUygKRuASi/tFejbKvQZ8DLZwa?=
+ =?iso-8859-1?Q?SWVi/8xewHmkjQymFDRhylU/jq8NFYLnSVMaas1fBceDB1sEQrF3S12D6V?=
+ =?iso-8859-1?Q?s/gpvmCfOt8KcNAWVTUjisA4hbIC5AgCnh4YCgMd+RGWvF9h0u6WDM1Rk4?=
+ =?iso-8859-1?Q?KTGvc6gHNUPvoBpO1ZujKjPMdnpvxv3mY88VdU68Uu7vk6WzKWu28/6rSh?=
+ =?iso-8859-1?Q?lVEkjeub8s2tiqbMd8JPoeq2p2Tpit7xHHRX06bTAVQWnWV2zabg6rOsjQ?=
+ =?iso-8859-1?Q?3SoefAsU0yLYK16xn3oLwTxpRSs6dEwIwNmC+37Fdrn4DB5APDEcgf0EFX?=
+ =?iso-8859-1?Q?pNtMI1N8cGIMoLEpByfauexvYgc606Mkbfn8R6NNaDL0w+BMufJEdYXnjA?=
+ =?iso-8859-1?Q?BT4JQn+h3VN90gWr?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR11MB6522.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(366016)(1800799024)(7053199007); DIR:OUT;
+ SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?QWqJNx+SDRMR99awDNP0/lA87fJtDXKpZ5wc4hakKhLuQD1Jh1VOSLkHjb?=
+ =?iso-8859-1?Q?69kvxXYgJMY6UF4mdL/a5yp5OGgmwQ/xtOWOpDu4irNl2+XLl+cTrv8boN?=
+ =?iso-8859-1?Q?uSGLoYSYrGqAD+FZ1aW23pOq8NjrwjVakO6htf448xJ/x6jBnJAKY9aAMw?=
+ =?iso-8859-1?Q?q95yUaVBnzseSBDrUGJzHDFn1dS9yGVsQrIJxVWkzgx31T8rkb4gfarOnu?=
+ =?iso-8859-1?Q?Fo4axYyUmsSgVEos5CCCyg99nzTVMkB/I9M2g6qTS3vfE1zBhdHgtzgD87?=
+ =?iso-8859-1?Q?vGSqC3bImDZhPB0WA2aYiMo0aBo6O2Dr6hbSUJozgTZ6nKmGtX4Mo+VWjP?=
+ =?iso-8859-1?Q?k2zvZ954mUFo0tpyiGIjg7F69/HTZpbiX0alwmb+pf+N3o+Slzcww5OQdP?=
+ =?iso-8859-1?Q?L1OlfO7SAaYA3Vtnl1Hf/af/t3jAvMjRlKoLacsHCxujgTtha4ok1ILC9U?=
+ =?iso-8859-1?Q?r2RPD+HRhr7UIFAo24qX36Rc55asHCQ9ZnFuC9wwIXO2q5JFuXunTqKE6d?=
+ =?iso-8859-1?Q?Dwqt8HGmXYEtp4+FN9tUVv0+UJhJ49HUXn36hi3CSGe1lPFueF6sEYziA9?=
+ =?iso-8859-1?Q?F6RS+mZV2xz+Lh8qEVcjkcMw8+lNJX5HyUKNYg+Tzy1rozb6L6Pkl8XHrG?=
+ =?iso-8859-1?Q?KqCyr4zKzB8GEj0hR2F6CKbpDTLDR+KHDlHnJABAGDb/Xd0bHQyc5fLMy6?=
+ =?iso-8859-1?Q?nz9G2E7+5DQX6VVxSe89oLXKcPEeGOjV2axR2Fdtts3RBTDZUAA7Qihzk3?=
+ =?iso-8859-1?Q?QtnApUhaFrszuX4aHPCXusDH2WHXHfNQKk4WN19HcD5E5HnOJw05aObJ53?=
+ =?iso-8859-1?Q?oiAdT01Bx+umq6e5gqBoAIWi6BpTCQNArPyqjQ3IT5gDDCZPFWbDKXuTl8?=
+ =?iso-8859-1?Q?ZnBNlAPg799XyHOlQJk6g/jB1spfx3coZjDmSqGFcZgftN3c6UNXKlApCI?=
+ =?iso-8859-1?Q?RUV4hmlhYFxNcY/jk5Fqz/YI5Tx0tTv9InmJnjLXYtCPUlzqE3G4sXX65n?=
+ =?iso-8859-1?Q?xSK5Lvv3P4mA9FjElsPOrIHtFZKFnXBHa3YrWUZMHjMg/irHtWIUh4nU5L?=
+ =?iso-8859-1?Q?j3PDML56q1vpdRzrnB4LI1Tavg047tX/iGiPCjC1/m/BppOAyb4Eb6YmZC?=
+ =?iso-8859-1?Q?gPWILYfXdrr/fK04WRL5weGq4ON79X3luz0wBfXZQeN1QuzzDGKllp57x3?=
+ =?iso-8859-1?Q?N8yhVQqwZjVG2wD8Iv+iigAZbJc/EylzHZLzuZAcoprU3Oj4c2pMkCZmAR?=
+ =?iso-8859-1?Q?z1KXfpvwhq8n6zgML7GQifDprfiAcRneL4xfprjb2VJYs5NmGFTxkgMsZl?=
+ =?iso-8859-1?Q?GOd0D+ZC2I6UKA4FOS3kO0CEoJTkPGEnrOgkoPo+ppmdy/zWuW7QOenXLU?=
+ =?iso-8859-1?Q?ZlXK55odWc31zs9UlLf0cVYzv74AAYtYIzM84cdH3VMPcLGbCqdkGdMY+u?=
+ =?iso-8859-1?Q?34I0twmKU4n1FTFLaK3yn1rih4ofdxZ0c3bBDFyXa4MWUxBey+L+cAfDio?=
+ =?iso-8859-1?Q?ddzWzKmWf3DnRkFO5AKg031wTpeLv9aaJfS+kYcJOWkTD2jX4u4xMPj/I1?=
+ =?iso-8859-1?Q?gsaV+FQQamANxgrpvPNpMTr6tPWUr95h+ioxPNeHGapvIzISJSY2DPRaVQ?=
+ =?iso-8859-1?Q?Ob6+KW6ePjoah8Ex+pNLPwBP7qfl+LVdcWXAurMA31Fn8wne4GXqz6cA?=
+ =?iso-8859-1?Q?=3D=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: a09c95eb-817b-4b03-5e7b-08dd1e315247
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6522.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Dec 2024 00:25:34.2180 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: kijoe58l+O1ylCFiaXiFqu3rdwgjkZdP/YGAI1sBrEMYjjXZt8ezEgDCERbN/8xJm2DFmskLmaA6BTOWHOwhFg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR11MB5187
+X-OriginatorOrg: intel.com
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,236 +189,240 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---0000000000007a72b106296a49f8
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On Fri, Nov 22, 2024 at 02:36:59PM +0000, Tvrtko Ursulin wrote:
+> 
+> On 22/11/2024 13:46, Christian König wrote:
+> > Am 22.11.24 um 12:34 schrieb Tvrtko Ursulin:
+> > > On 13/11/2024 14:42, Tvrtko Ursulin wrote:
+> > > > On 13/11/2024 14:26, Christian König wrote:
+> > > > > Am 13.11.24 um 14:48 schrieb Tvrtko Ursulin:
+> > > > > > From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> > > > > > 
+> > > > > > As commit 746ae46c1113 ("drm/sched: Mark scheduler work
+> > > > > > queues with WQ_MEM_RECLAIM")
+> > > > > > points out, ever since
+> > > > > > a6149f039369 ("drm/sched: Convert drm scheduler to use a
+> > > > > > work queue rather than kthread"),
+> > > > > > any workqueue flushing done from the job submission path must only
+> > > > > > involve memory reclaim safe workqueues to be safe against reclaim
+> > > > > > deadlocks.
+> > > > > > 
+> > > > > > This is also pointed out by workqueue sanity checks:
+> > > > > > 
+> > > > > >   [ ] workqueue: WQ_MEM_RECLAIM
+> > > > > > sdma0:drm_sched_run_job_work [gpu_sched] is flushing
+> > > > > > !WQ_MEM_RECLAIM
+> > > > > > events:amdgpu_device_delay_enable_gfx_off [amdgpu]
+> > > > > > ...
+> > > > > >   [ ] Workqueue: sdma0 drm_sched_run_job_work [gpu_sched]
+> > > > > > ...
+> > > > > >   [ ] Call Trace:
+> > > > > >   [ ]  <TASK>
+> > > > > > ...
+> > > > > >   [ ]  ? check_flush_dependency+0xf5/0x110
+> > > > > > ...
+> > > > > >   [ ]  cancel_delayed_work_sync+0x6e/0x80
+> > > > > >   [ ]  amdgpu_gfx_off_ctrl+0xab/0x140 [amdgpu]
+> > > > > >   [ ]  amdgpu_ring_alloc+0x40/0x50 [amdgpu]
+> > > > > >   [ ]  amdgpu_ib_schedule+0xf4/0x810 [amdgpu]
+> > > > > >   [ ]  ? drm_sched_run_job_work+0x22c/0x430 [gpu_sched]
+> > > > > >   [ ]  amdgpu_job_run+0xaa/0x1f0 [amdgpu]
+> > > > > >   [ ]  drm_sched_run_job_work+0x257/0x430 [gpu_sched]
+> > > > > >   [ ]  process_one_work+0x217/0x720
+> > > > > > ...
+> > > > > >   [ ]  </TASK>
+> > > > > > 
+> > > > > > Fix this by creating a memory reclaim safe driver
+> > > > > > workqueue and make the
+> > > > > > submission path use it.
+> > > > > 
+> > > > > Oh well, that is a really good catch! I wasn't aware the
+> > > > > workqueues could be blocked by memory reclaim as well.
+> > > > 
+> > > > Only credit I can take is for the habit that I often run with
+> > > > many kernel debugging aids enabled.
+> > > 
+> > > Although this one actually isn't even under "Kernel hacking".
+> > > 
+> > > > > Do we have system wide workqueues for that? It seems a bit
+> > > > > overkill that amdgpu has to allocate one on his own.
+> > > > 
+> > > > I wondered the same but did not find any. Only ones I am aware
+> > > > of are system_wq&co created in workqueue_init_early().
+> > > 
+> > > Gentle ping on this. I don't have any better ideas that creating a
+> > > new wq.
+> > 
+> > It took me a moment to realize, but I now think this warning message is
+> > a false positive.
+> > 
+> > What happens is that the code calls cancel_delayed_work_sync().
+> > 
+> > If the work item never run because of lack of memory then it can just be
+> > canceled.
+> > 
+> > If the work item is running then we will block for it to finish.
+> > 
 
-On Mon, Dec 16, 2024 at 9:53=E2=80=AFAM Simona Vetter <simona.vetter@ffwll.=
-ch>
-wrote:
+Apologies for the late reply. Alex responded to another thread and CC'd
+me, which reminded me to reply here.
 
-> On Mon, Dec 16, 2024 at 11:46:13AM +0100, Lucas Stach wrote:
-> > Am Montag, dem 16.12.2024 um 10:27 +0100 schrieb Michel D=C3=A4nzer:
-> > > On 2024-12-15 21:53, Marek Ol=C5=A1=C3=A1k wrote:
-> > > > The comment explains the problem with DRM_FORMAT_MOD_LINEAR.
-> > > >
-> > > > Signed-off-by: Marek Ol=C5=A1=C3=A1k <marek.olsak@amd.com <mailto:
-> marek.olsak@amd.com>>
-> > > >
-> > > > diff --git a/include/uapi/drm/drm_fourcc.h
-> b/include/uapi/drm/drm_fourcc.h
-> > > > index 78abd819fd62e..8ec4163429014 100644
-> > > > --- a/include/uapi/drm/drm_fourcc.h
-> > > > +++ b/include/uapi/drm/drm_fourcc.h
-> > > > @@ -484,9 +484,27 @@ extern "C" {
-> > > >   * modifier (e.g. not setting DRM_MODE_FB_MODIFIERS in the
-> DRM_ADDFB2 ioctl),
-> > > >   * which tells the driver to also take driver-internal information
-> into account
-> > > >   * and so might actually result in a tiled framebuffer.
-> > > > + *
-> > > > + * WARNING:
-> > > > + * There are drivers out there that expose DRM_FORMAT_MOD_LINEAR,
-> but only
-> > > > + * support a certain pitch alignment and can't import images with
-> this modifier
-> > > > + * if the pitch alignment isn't exactly the one supported. They ca=
-n
-> however
-> > > > + * allocate images with this modifier and other drivers can import
-> them only
-> > > > + * if they support the same pitch alignment. Thus,
-> DRM_FORMAT_MOD_LINEAR is
-> > > > + * fundamentically incompatible across devices and is the only
-> modifier that
-> > > > + * has a chance of not working. The PITCH_ALIGN modifiers should b=
-e
-> used
-> > > > + * instead.
-> > > >   */
-> > > >  #define DRM_FORMAT_MOD_LINEAR  fourcc_mod_code(NONE, 0)
-> > > >
-> > > > +/* Linear layout modifiers with an explicit pitch alignment in
-> bytes.
-> > > > + * Exposing this modifier requires that the pitch alignment is
-> exactly
-> > > > + * the number in the definition.
-> > > > + */
-> > > > +#define DRM_FORMAT_MOD_LINEAR_PITCH_ALIGN_64B fourcc_mod_code(NONE=
-,
-> 1)
-> > >
-> > > It's not clear what you mean by "requires that the pitch alignment is
-> exactly
-> > > the number in the definition", since a pitch which is aligned to 256
-> bytes is
-> > > also aligned to 128 & 64 bytes. Do you mean the pitch must be exactly
-> the width
-> > > rounded up to the next / smallest possible multiple of the specified
-> number of bytes?
-> >
-> > I guess that's the intention here, as some AMD GPUs apparently have
-> > this limitation that they need an exact aligned pitch.
-> >
-> > If we open the can of worms to overhaul the linear modifier, I think it
-> > would make sense to also add modifiers for the more common restriction,
-> > where the pitch needs to be aligned to a specific granule, but the
-> > engine doesn't care if things get overaligned to a multiple of the
-> > granule. Having both sets would probably make it easier for the reader
-> > to see the difference to the exact pitch modifiers proposed in this
-> > patch.
->
-> Yeah I think with linear modifiers that sepcificy alignment limitations w=
-e
-> need to be _extremely_ precise in what exactly is required, and what not.
-> There's all kinds of hilarious stuff that might be incompatible, and if w=
-e
-> don't mind those we're right back to the "everyone agrees on what linear
-> means" falacy.
->
-> So if pitch must be a multiple of 64, but cannot be a multiple of 128
-> (because the hw does not cope with the padding, then that's important).
-> Other things are alignment constraints on the starting point, and any
-> padding you need to add at the bottom (yeah some hw overscans and gets
-> pissed if there's not memory there). So I think it's best to go overboard
-> here with verbosity.
->
-> There's also really funny stuff like power-of-two alignment and things
-> like that, but I guess we'll get there if that's ever needed. That's also
-> why I think we don't need to add all possible linear modifiers from the
-> start, unless there's maybe too much confusion with stuff like "exactly
-> 64b aligned pitch" and "at least 64b aligned pitch, but you can add lots
-> of padding if you feel like".
->
+The execution of the non-reclaim worker could have led to a few scenarios:
 
-Would it be possible and acceptable to require that the offset alignment is
-always 4K and the slice padding is also always 4K to simplify those
-constraints?
+- It might have triggered reclaim through its own memory allocation.
+- It could have been running and then context-switched out, with reclaim
+  being triggered elsewhere in the mean time, pausing the execution of
+  the non-reclaim worker.
 
-Marek
+In either case, during reclaim, if you wait on a DMA fence that depends
+on the DRM scheduler worker, and that worker attempts to flush the above
+non-reclaim worker, it will result in a deadlock.
 
---0000000000007a72b106296a49f8
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+The annotation appears correct to me, and I believe Tvrtko's patch is
+indeed accurate. For what it's worth, we encountered several similar
+bugs in Xe that emerged once we added the correct work queue
+annotations.
 
-<div dir=3D"ltr"><div class=3D"gmail_quote gmail_quote_container"><div dir=
-=3D"ltr" class=3D"gmail_attr">On Mon, Dec 16, 2024 at 9:53=E2=80=AFAM Simon=
-a Vetter &lt;<a href=3D"mailto:simona.vetter@ffwll.ch">simona.vetter@ffwll.=
-ch</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margi=
-n:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex=
-">On Mon, Dec 16, 2024 at 11:46:13AM +0100, Lucas Stach wrote:<br>
-&gt; Am Montag, dem 16.12.2024 um 10:27 +0100 schrieb Michel D=C3=A4nzer:<b=
-r>
-&gt; &gt; On 2024-12-15 21:53, Marek Ol=C5=A1=C3=A1k wrote:<br>
-&gt; &gt; &gt; The comment explains the problem with DRM_FORMAT_MOD_LINEAR.=
-<br>
-&gt; &gt; &gt; =C2=A0 =C2=A0<br>
-&gt; &gt; &gt; Signed-off-by: Marek Ol=C5=A1=C3=A1k &lt;<a href=3D"mailto:m=
-arek.olsak@amd.com" target=3D"_blank">marek.olsak@amd.com</a> &lt;mailto:<a=
- href=3D"mailto:marek.olsak@amd.com" target=3D"_blank">marek.olsak@amd.com<=
-/a>&gt;&gt;<br>
-&gt; &gt; &gt; <br>
-&gt; &gt; &gt; diff --git a/include/uapi/drm/drm_fourcc.h b/include/uapi/dr=
-m/drm_fourcc.h<br>
-&gt; &gt; &gt; index 78abd819fd62e..8ec4163429014 100644<br>
-&gt; &gt; &gt; --- a/include/uapi/drm/drm_fourcc.h<br>
-&gt; &gt; &gt; +++ b/include/uapi/drm/drm_fourcc.h<br>
-&gt; &gt; &gt; @@ -484,9 +484,27 @@ extern &quot;C&quot; {<br>
-&gt; &gt; &gt; =C2=A0 * modifier (e.g. not setting DRM_MODE_FB_MODIFIERS in=
- the DRM_ADDFB2 ioctl),<br>
-&gt; &gt; &gt; =C2=A0 * which tells the driver to also take driver-internal=
- information into account<br>
-&gt; &gt; &gt; =C2=A0 * and so might actually result in a tiled framebuffer=
-.<br>
-&gt; &gt; &gt; + *<br>
-&gt; &gt; &gt; + * WARNING:<br>
-&gt; &gt; &gt; + * There are drivers out there that expose DRM_FORMAT_MOD_L=
-INEAR, but only<br>
-&gt; &gt; &gt; + * support a certain pitch alignment and can&#39;t import i=
-mages with this modifier<br>
-&gt; &gt; &gt; + * if the pitch alignment isn&#39;t exactly the one support=
-ed. They can however<br>
-&gt; &gt; &gt; + * allocate images with this modifier and other drivers can=
- import them only<br>
-&gt; &gt; &gt; + * if they support the same pitch alignment. Thus, DRM_FORM=
-AT_MOD_LINEAR is<br>
-&gt; &gt; &gt; + * fundamentically incompatible across devices and is the o=
-nly modifier that<br>
-&gt; &gt; &gt; + * has a chance of not working. The PITCH_ALIGN modifiers s=
-hould be used<br>
-&gt; &gt; &gt; + * instead.<br>
-&gt; &gt; &gt; =C2=A0 */<br>
-&gt; &gt; &gt; =C2=A0#define DRM_FORMAT_MOD_LINEAR =C2=A0fourcc_mod_code(NO=
-NE, 0)<br>
-&gt; &gt; &gt; =C2=A0<br>
-&gt; &gt; &gt; +/* Linear layout modifiers with an explicit pitch alignment=
- in bytes.<br>
-&gt; &gt; &gt; + * Exposing this modifier requires that the pitch alignment=
- is exactly<br>
-&gt; &gt; &gt; + * the number in the definition.<br>
-&gt; &gt; &gt; + */<br>
-&gt; &gt; &gt; +#define DRM_FORMAT_MOD_LINEAR_PITCH_ALIGN_64B fourcc_mod_co=
-de(NONE, 1)<br>
-&gt; &gt; <br>
-&gt; &gt; It&#39;s not clear what you mean by &quot;requires that the pitch=
- alignment is exactly<br>
-&gt; &gt; the number in the definition&quot;, since a pitch which is aligne=
-d to 256 bytes is<br>
-&gt; &gt; also aligned to 128 &amp; 64 bytes. Do you mean the pitch must be=
- exactly the width<br>
-&gt; &gt; rounded up to the next / smallest possible multiple of the specif=
-ied number of bytes?<br>
-&gt; <br>
-&gt; I guess that&#39;s the intention here, as some AMD GPUs apparently hav=
-e<br>
-&gt; this limitation that they need an exact aligned pitch.<br>
-&gt; <br>
-&gt; If we open the can of worms to overhaul the linear modifier, I think i=
-t<br>
-&gt; would make sense to also add modifiers for the more common restriction=
-,<br>
-&gt; where the pitch needs to be aligned to a specific granule, but the<br>
-&gt; engine doesn&#39;t care if things get overaligned to a multiple of the=
-<br>
-&gt; granule. Having both sets would probably make it easier for the reader=
-<br>
-&gt; to see the difference to the exact pitch modifiers proposed in this<br=
->
-&gt; patch.<br>
-<br>
-Yeah I think with linear modifiers that sepcificy alignment limitations we<=
-br>
-need to be _extremely_ precise in what exactly is required, and what not.<b=
-r>
-There&#39;s all kinds of hilarious stuff that might be incompatible, and if=
- we<br>
-don&#39;t mind those we&#39;re right back to the &quot;everyone agrees on w=
-hat linear<br>
-means&quot; falacy.<br>
-<br>
-So if pitch must be a multiple of 64, but cannot be a multiple of 128<br>
-(because the hw does not cope with the padding, then that&#39;s important).=
-<br>
-Other things are alignment constraints on the starting point, and any<br>
-padding you need to add at the bottom (yeah some hw overscans and gets<br>
-pissed if there&#39;s not memory there). So I think it&#39;s best to go ove=
-rboard<br>
-here with verbosity.<br>
-<br>
-There&#39;s also really funny stuff like power-of-two alignment and things<=
-br>
-like that, but I guess we&#39;ll get there if that&#39;s ever needed. That&=
-#39;s also<br>
-why I think we don&#39;t need to add all possible linear modifiers from the=
-<br>
-start, unless there&#39;s maybe too much confusion with stuff like &quot;ex=
-actly<br>
-64b aligned pitch&quot; and &quot;at least 64b aligned pitch, but you can a=
-dd lots<br>
-of padding if you feel like&quot;.<br></blockquote><div><br></div>Would it =
-be possible and acceptable to require that the offset alignment is always 4=
-K and the slice padding is also always 4K to simplify those constraints?<br=
-></div><div class=3D"gmail_quote gmail_quote_container"><br></div><div clas=
-s=3D"gmail_quote gmail_quote_container">Marek<br></div></div>
+> > There is no need to use WQ_MEM_RECLAIM for the workqueue or do I miss
+> > something?
+> > 
+> > If I'm not completely mistaken you stumbled over a bug in the warning
+> > code instead :)
+> 
+> Hmm your thinking sounds convincing.
+> 
+> Adding Tejun if he has time to help brainstorm this.
+> 
 
---0000000000007a72b106296a49f8--
+Tejun could likely provide insight into whether my above assessment is
+correct.
+
+Matt
+
+> Question is - does check_flush_dependency() need to skip the !WQ_MEM_RECLAIM
+> flushing WQ_MEM_RECLAIM warning *if* the work is already running *and* it
+> was called from cancel_delayed_work_sync()?
+> 
+> Regards,
+> 
+> Tvrtko
+> 
+> > > > > Apart from that looks good to me.
+> > > > > 
+> > > > > Regards,
+> > > > > Christian.
+> > > > > 
+> > > > > > 
+> > > > > > Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> > > > > > References: 746ae46c1113 ("drm/sched: Mark scheduler
+> > > > > > work queues with WQ_MEM_RECLAIM")
+> > > > > > Fixes: a6149f039369 ("drm/sched: Convert drm scheduler
+> > > > > > to use a work queue rather than kthread")
+> > > > > > Cc: stable@vger.kernel.org
+> > > > > > Cc: Matthew Brost <matthew.brost@intel.com>
+> > > > > > Cc: Danilo Krummrich <dakr@kernel.org>
+> > > > > > Cc: Philipp Stanner <pstanner@redhat.com>
+> > > > > > Cc: Alex Deucher <alexander.deucher@amd.com>
+> > > > > > Cc: Christian König <christian.koenig@amd.com>
+> > > > > > ---
+> > > > > >   drivers/gpu/drm/amd/amdgpu/amdgpu.h     |  2 ++
+> > > > > >   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 25
+> > > > > > +++++++++++++++++++++++++
+> > > > > >   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c |  5 +++--
+> > > > > >   3 files changed, 30 insertions(+), 2 deletions(-)
+> > > > > > 
+> > > > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> > > > > > b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> > > > > > index 7645e498faa4..a6aad687537e 100644
+> > > > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> > > > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> > > > > > @@ -268,6 +268,8 @@ extern int amdgpu_agp;
+> > > > > >   extern int amdgpu_wbrf;
+> > > > > > +extern struct workqueue_struct *amdgpu_reclaim_wq;
+> > > > > > +
+> > > > > >   #define AMDGPU_VM_MAX_NUM_CTX            4096
+> > > > > >   #define AMDGPU_SG_THRESHOLD            (256*1024*1024)
+> > > > > >   #define AMDGPU_WAIT_IDLE_TIMEOUT_IN_MS            3000
+> > > > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> > > > > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> > > > > > index 38686203bea6..f5b7172e8042 100644
+> > > > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> > > > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> > > > > > @@ -255,6 +255,8 @@ struct amdgpu_watchdog_timer
+> > > > > > amdgpu_watchdog_timer = {
+> > > > > >       .period = 0x0, /* default to 0x0 (timeout disable) */
+> > > > > >   };
+> > > > > > +struct workqueue_struct *amdgpu_reclaim_wq;
+> > > > > > +
+> > > > > >   /**
+> > > > > >    * DOC: vramlimit (int)
+> > > > > >    * Restrict the total amount of VRAM in MiB for
+> > > > > > testing. The default is 0 (Use full VRAM).
+> > > > > > @@ -2971,6 +2973,21 @@ static struct pci_driver
+> > > > > > amdgpu_kms_pci_driver = {
+> > > > > >       .dev_groups = amdgpu_sysfs_groups,
+> > > > > >   };
+> > > > > > +static int amdgpu_wq_init(void)
+> > > > > > +{
+> > > > > > +    amdgpu_reclaim_wq =
+> > > > > > +        alloc_workqueue("amdgpu-reclaim", WQ_MEM_RECLAIM, 0);
+> > > > > > +    if (!amdgpu_reclaim_wq)
+> > > > > > +        return -ENOMEM;
+> > > > > > +
+> > > > > > +    return 0;
+> > > > > > +}
+> > > > > > +
+> > > > > > +static void amdgpu_wq_fini(void)
+> > > > > > +{
+> > > > > > +    destroy_workqueue(amdgpu_reclaim_wq);
+> > > > > > +}
+> > > > > > +
+> > > > > >   static int __init amdgpu_init(void)
+> > > > > >   {
+> > > > > >       int r;
+> > > > > > @@ -2978,6 +2995,10 @@ static int __init amdgpu_init(void)
+> > > > > >       if (drm_firmware_drivers_only())
+> > > > > >           return -EINVAL;
+> > > > > > +    r = amdgpu_wq_init();
+> > > > > > +    if (r)
+> > > > > > +        goto error_wq;
+> > > > > > +
+> > > > > >       r = amdgpu_sync_init();
+> > > > > >       if (r)
+> > > > > >           goto error_sync;
+> > > > > > @@ -3006,6 +3027,9 @@ static int __init amdgpu_init(void)
+> > > > > >       amdgpu_sync_fini();
+> > > > > >   error_sync:
+> > > > > > +    amdgpu_wq_fini();
+> > > > > > +
+> > > > > > +error_wq:
+> > > > > >       return r;
+> > > > > >   }
+> > > > > > @@ -3017,6 +3041,7 @@ static void __exit amdgpu_exit(void)
+> > > > > >       amdgpu_acpi_release();
+> > > > > >       amdgpu_sync_fini();
+> > > > > >       amdgpu_fence_slab_fini();
+> > > > > > +    amdgpu_wq_fini();
+> > > > > >       mmu_notifier_synchronize();
+> > > > > >       amdgpu_xcp_drv_release();
+> > > > > >   }
+> > > > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> > > > > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> > > > > > index 2f3f09dfb1fd..f8fd71d9382f 100644
+> > > > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> > > > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> > > > > > @@ -790,8 +790,9 @@ void amdgpu_gfx_off_ctrl(struct
+> > > > > > amdgpu_device *adev, bool enable)
+> > > > > >                           AMD_IP_BLOCK_TYPE_GFX, true))
+> > > > > >                       adev->gfx.gfx_off_state = true;
+> > > > > >               } else {
+> > > > > > - schedule_delayed_work(&adev->gfx.gfx_off_delay_work,
+> > > > > > -                          delay);
+> > > > > > +                queue_delayed_work(amdgpu_reclaim_wq,
+> > > > > > + &adev->gfx.gfx_off_delay_work,
+> > > > > > +                           delay);
+> > > > > >               }
+> > > > > >           }
+> > > > > >       } else {
+> > > > > 
+> > 
