@@ -4,53 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C158E7717F
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Dec 2024 11:26:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F7F7E77184
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Dec 2024 11:26:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 312E610E2DD;
-	Tue, 17 Dec 2024 11:26:28 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="VBC7F9dy";
-	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E93D610E1C8;
- Mon, 16 Dec 2024 16:21:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
- In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=ZbebpDFFFNf13wUEwMhbDOAbWmM9tWxfWhhdGNIFxd0=; b=VBC7F9dy65FOnCwO3xcNxaIn2F
- Pg1+qTmL/XcPUQW1nrFUp16n9vNnQHHeKy7qTqiT4ihV/Q+1oefgruzXdEcgf63e7pL8U5zKb/fKy
- RSITB9aHakfYQ1jBksabcbY9LVmN3sIhwOj0y4+zyJ969zv07/cZPITI/A67A1BuwclVN5ThC/320
- 3xkLPUxjRMcrV+ypYldCRTYsCAu6Sq99dHS3Xpx7pTYvJEPyKGyzfxgvtwZLsW/Qrkc5sEIh5xrP6
- WX7YE7KyB6bMbQu8SIJ7gSBzqMukeHUdpatSHUjwd47An1XA12/Mi+4BfWTss3n/5op6/mg66ax2Z
- w2aHnuHQ==;
-Received: from [179.193.1.214] (helo=localhost.localdomain)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1tNDqQ-003qch-0z; Mon, 16 Dec 2024 17:21:18 +0100
-From: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
-To: Raag Jadav <raag.jadav@intel.com>, airlied@gmail.com, simona@ffwll.ch,
- lucas.demarchi@intel.com, rodrigo.vivi@intel.com,
- jani.nikula@linux.intel.com, andriy.shevchenko@linux.intel.com,
- lina@asahilina.net, michal.wajdeczko@intel.com, christian.koenig@amd.com
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- himal.prasad.ghimiray@intel.com, aravind.iddamsetty@linux.intel.com,
- anshuman.gupta@intel.com, alexander.deucher@amd.com,
- andrealmeid@igalia.com, amd-gfx@lists.freedesktop.org,
- kernel-dev@igalia.com, Shashank Sharma <shashank.sharma@amd.com>
-Subject: [PATCH v3 1/1] drm/amdgpu: Use device wedged event
-Date: Mon, 16 Dec 2024 13:21:04 -0300
-Message-ID: <20241216162104.58241-2-andrealmeid@igalia.com>
-X-Mailer: git-send-email 2.47.1
-In-Reply-To: <20241216162104.58241-1-andrealmeid@igalia.com>
-References: <20241216162104.58241-1-andrealmeid@igalia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FB3C10E926;
+	Tue, 17 Dec 2024 11:26:26 +0000 (UTC)
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 434D510E828
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Dec 2024 01:17:35 +0000 (UTC)
+Received: from loongson.cn (unknown [113.200.148.30])
+ by gateway (Coremail) with SMTP id _____8DxmeA8z2BnNpdXAA--.40561S3;
+ Tue, 17 Dec 2024 09:09:16 +0800 (CST)
+Received: from linux.localdomain (unknown [113.200.148.30])
+ by front1 (Coremail) with SMTP id qMiowMDxPEcyz2BnXNeFAA--.16436S8;
+ Tue, 17 Dec 2024 09:09:15 +0800 (CST)
+From: Tiezhu Yang <yangtiezhu@loongson.cn>
+To: Huacai Chen <chenhuacai@kernel.org>, Josh Poimboeuf <jpoimboe@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>
+Cc: loongarch@lists.linux.dev, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH v6 6/9] objtool/LoongArch: Add support for goto table
+Date: Tue, 17 Dec 2024 09:09:02 +0800
+Message-ID: <20241217010905.13054-7-yangtiezhu@loongson.cn>
+X-Mailer: git-send-email 2.42.0
+In-Reply-To: <20241217010905.13054-1-yangtiezhu@loongson.cn>
+References: <20241217010905.13054-1-yangtiezhu@loongson.cn>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: qMiowMDxPEcyz2BnXNeFAA--.16436S8
+X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
+X-Coremail-Antispam: 1Uk129KBj93XoWxCw4rWw18Wr1fWr43Zw43Jwc_yoWrXFy5pF
+ W3C345Kr45ZrWSgr47tay09ryaya1IgFy7JrW7t34fAw43Xr1FyF1SvF9IyFWrCrZ5Jr4I
+ qrs5Kr18CF4DAacCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+ sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+ 0xBIdaVrnRJUUUk0b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+ IYs7xG6rWj6s0DM7CIcVAFz4kK6r106r15M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+ e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+ 0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
+ Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx1l5I
+ 8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1q6rW5McIj6I8E87Iv67AK
+ xVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41l42xK82IYc2Ij64
+ vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8G
+ jcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2I
+ x0cI8IcVAFwI0_Xr0_Ar1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK
+ 8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I
+ 0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUcHUqUUUUU
 X-Mailman-Approved-At: Tue, 17 Dec 2024 11:26:25 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,37 +64,100 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use DRM's device wedged event to notify userspace that a reset had
-happened. For now, only use `none` method meant for telemetry
-capture.
+The objtool program need to analysis the control flow of each object file
+generated by compiler toolchain, it needs to know all the locations that
+a branch instruction may jump into, if a jump table is used, objtool has
+to correlate the jump instruction with the table.
 
-In the future we might want to report a recovery method if the reset didn't
-succeed.
+On x86 (which is the only port supported by objtool before LoongArch),
+there is a relocation type on the jump instruction and directly points
+to the table. But on LoongArch, the relocation is on another kind of
+instruction prior to the jump instruction, and also with scheduling it
+is not very easy to tell the offset of that instruction from the jump
+instruction. Furthermore, because LoongArch has -fsection-anchors (often
+enabled at -O1 or above) the relocation may actually points to a section
+anchor instead of the table itself.
 
-Acked-by: Shashank Sharma <shashank.sharma@amd.com>
-Signed-off-by: André Almeida <andrealmeid@igalia.com>
+For the jump table of switch cases, a GCC patch "LoongArch: Add support
+to annotate tablejump" and a Clang patch "[LoongArch] Add options for
+annotate tablejump" have been merged into the upstream mainline, it can
+parse the additional section ".discard.tablejump_annotate" which stores
+the jump info as pairs of addresses, each pair contains the address of
+jump instruction and the address of jump table.
+
+For the jump table of computed gotos, it is indeed not easy to implement
+in the compiler, especially if there is more than one computed goto in a
+function such as ___bpf_prog_run(). objdump kernel/bpf/core.o shows that
+there are many table jump instructions in ___bpf_prog_run(), but there are
+no relocations on the table jump instructions and to the table directly on
+LoongArch.
+
+Without the help of compiler, in order to figure out the address of goto
+table for the special case of ___bpf_prog_run(), since the instruction
+sequence is relatively single and stable, it makes sense to add a helper
+find_reloc_of_rodata_c_jump_table() to find the relocation which points
+to the section ".rodata..c_jump_table".
+
+If find_reloc_by_table_annotate() failed, it means there is no relocation
+info of switch table address in ".rela.discard.tablejump_annotate", then
+objtool may find the relocation info of goto table ".rodata..c_jump_table"
+with find_reloc_of_rodata_c_jump_table().
+
+Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
 ---
-v3: fix if condition
-v2: Only report reset if reset succedded
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ tools/objtool/arch/loongarch/special.c | 32 ++++++++++++++++++++++++--
+ 1 file changed, 30 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 96316111300a..c8012253ebed 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -6057,6 +6057,10 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
- 		dev_info(adev->dev, "GPU reset end with ret = %d\n", r);
- 
- 	atomic_set(&adev->reset_domain->reset_res, r);
-+
-+	if (!r)
-+		drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE);
-+
- 	return r;
+diff --git a/tools/objtool/arch/loongarch/special.c b/tools/objtool/arch/loongarch/special.c
+index 4fa6877d5b2b..27c6473608f3 100644
+--- a/tools/objtool/arch/loongarch/special.c
++++ b/tools/objtool/arch/loongarch/special.c
+@@ -116,6 +116,30 @@ static struct reloc *find_reloc_by_table_annotate(struct objtool_file *file,
+ 	return NULL;
  }
  
++static struct reloc *find_reloc_of_rodata_c_jump_table(struct section *sec,
++						       unsigned long offset,
++						       unsigned long *table_size)
++{
++	struct section *rsec;
++	struct reloc *reloc;
++
++	rsec = sec->rsec;
++	if (!rsec)
++		return NULL;
++
++	for_each_reloc(rsec, reloc) {
++		if (reloc_offset(reloc) > offset)
++			break;
++
++		if (!strncmp(reloc->sym->sec->name, ".rodata..c_jump_table", 21)) {
++			*table_size = 0;
++			return reloc;
++		}
++	}
++
++	return NULL;
++}
++
+ struct reloc *arch_find_switch_table(struct objtool_file *file,
+ 				     struct instruction *insn,
+ 				     unsigned long *table_size)
+@@ -126,8 +150,12 @@ struct reloc *arch_find_switch_table(struct objtool_file *file,
+ 	unsigned long table_offset;
+ 
+ 	annotate_reloc = find_reloc_by_table_annotate(file, insn, table_size);
+-	if (!annotate_reloc)
+-		return NULL;
++	if (!annotate_reloc) {
++		annotate_reloc = find_reloc_of_rodata_c_jump_table(
++				 insn->sec, insn->offset, table_size);
++		if (!annotate_reloc)
++			return NULL;
++	}
+ 
+ 	table_sec = annotate_reloc->sym->sec;
+ 	table_offset = annotate_reloc->sym->offset + reloc_addend(annotate_reloc);
 -- 
-2.47.1
+2.42.0
 
