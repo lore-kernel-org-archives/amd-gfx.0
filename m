@@ -4,37 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75C1AE77187
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Dec 2024 08:44:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 051F9E77187
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Dec 2024 08:44:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9515E10E44E;
-	Wed, 18 Dec 2024 08:44:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CEFC10EAF1;
+	Wed, 18 Dec 2024 08:44:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="OYU9Glst";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AZ6MiMAB";
 	dkim-atps=neutral
-X-Greylist: delayed 301 seconds by postgrey-1.36 at gabe;
- Wed, 18 Dec 2024 07:08:45 UTC
-Received: from out30-133.freemail.mail.aliyun.com
- (out30-133.freemail.mail.aliyun.com [115.124.30.133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A4F6210E18B
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Dec 2024 07:08:45 +0000 (UTC)
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [IPv6:2a00:1450:4864:20::62a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 296D210E304;
+ Tue, 17 Dec 2024 23:01:07 +0000 (UTC)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-aab6fa3e20eso843877366b.2; 
+ Tue, 17 Dec 2024 15:01:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux.alibaba.com; s=default;
- t=1734505724; h=From:To:Subject:Date:Message-Id:MIME-Version;
- bh=He9K+P2n6BLbj3yv5dcRp+3tzz3/MpDmPnSxCDaPvPw=;
- b=OYU9Glst5MqKyuh5APh/k1SXih9EGdkLdBoP5nFSwQF2LcN+rL4RoTzhIpl+2xqdsdPGeYHyOhif7y5HkeuetC9nVCVlmEjpvUnX3HxVC4DZJFzj9iSO1cu1OPt8bJOBgD7ruOBzl2xlBprV0vyR+V2oeUw5q3yOjUOwU+IvS24=
-Received: from localhost(mailfrom:tianruidong@linux.alibaba.com
- fp:SMTPD_---0WLlha9x_1734505419 cluster:ay36) by smtp.aliyun-inc.com;
- Wed, 18 Dec 2024 15:03:40 +0800
-From: Ruidong Tian <tianruidong@linux.alibaba.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- linux-kernel@vger.kernel.org, Ruidong Tian <tianruidong@linux.alibaba.com>
-Subject: [PATCH] drm/amdgpu: add tracepoint while dump mca bank
-Date: Wed, 18 Dec 2024 15:03:37 +0800
-Message-Id: <20241218070337.70381-1-tianruidong@linux.alibaba.com>
-X-Mailer: git-send-email 2.33.1
+ d=gmail.com; s=20230601; t=1734476465; x=1735081265; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=K2Q+5lZ93c/1180fBGK9dFi80vfh3bKphGjr5C1ObCA=;
+ b=AZ6MiMAB751qfA0J7wk+VKzJOJzXdgL0Z4Tq75tbcLLuNxZs3ZvIpSb3KVux7sZoMo
+ 82O8RpEI7yjHMilv1igCK0NaQnkutWDYxALcGjES8MtzxGxSVbw5obNHDm5SnFuAm3YV
+ NqLkh0NBhxRoOB+IIqlmExzOz2kXw4upeXvGTPlDoTL8Z63VyZ9/XZ0CJ9CRA/daHnEY
+ rj92OEGuZ4NtoRKgz+fGB1San6/uYnlFcmucDmUl8vVFF0Hm+/cy9esqxus8YvjGMlgi
+ 3vSXy8kPHYjZOtUKm4qlzsdjuarbIRk3leziZaL/ozBMtGD3ZJJmPwmxqC7qCt4c4MHe
+ 6e3g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1734476465; x=1735081265;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=K2Q+5lZ93c/1180fBGK9dFi80vfh3bKphGjr5C1ObCA=;
+ b=LOwj0/DUcI0MnSIE91P09dehHnjAuQoFtQIYNFIoYHgEHmSHoS+z2/oIOhWPfTWJJJ
+ dWfx7gXlsHwLX5U93w9Nok3a2yx913LzucxJnCgPxzwNT1v/nlpdoc58Oa5LNgQLFGZ+
+ W/eD20cMSfsjJutGvnJANchwRhBdlIqZgMfcq6lTqjkGF0TeJGDxadiXGMUirFqwaGjg
+ zAF3jVreKOC0kyBJyPKCJTqd90PyXW6CqK4PTQuqz4kEe9Epf8zqNTY+6NWXsHmfpZUW
+ UFe7Ak/PlN607h+ge/Ggu2/5UN6MNlJk7+Cj1biIDv8Psa/bi4s7ZZOQu6UH6COyjRqa
+ ylaA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUjekN9CR7yysym3E829Co4vT9FieOgbROZPBJylpZFEQJ1Qdmwm3DPfznwHgPLwhxGZrm43G21@lists.freedesktop.org,
+ AJvYcCXFA4o/UjAvxezhhY4ykDpxs81slh6m/Ol97XQuqIf5nGxUk5dh/FbZ8Zv75vY7r33A9RXQGLt8to2O@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwV02y6i+gteHr6G3AS0PAI6mfXw3tUaZdFKZRtchYFvpCYpR4J
+ O7+9K/pFIiIdrWJFFW6YzVfMjvKDeyaFYI0M4gvSsNzJZgfDVjsZ
+X-Gm-Gg: ASbGncuxNMTG4RI2929+fqw0qQPAfpCnETY25qy+Z+/hplRaJ3qu3u8r5Kt/J0vXEcH
+ O5/GQgJO4YXcQ4wYaAbIzw2tSEveP7nr+nXjiagRc0nmGJw6IQQMC6Ldp/3GK8SY3xbLYkkJUYx
+ /fDZsfW0MEcyHoXDkfaIqcM6142f10yfTjFFVL+PrbBFG8RqzjzepXW6vbqevMAFYoAEIp+s9Oc
+ BdrDN6b725Tsq0O4DOQk3vrusYmotdzUkJPtTkZWwsi30UBDZu38AEl5PrX1cE3RmY2OegH
+X-Google-Smtp-Source: AGHT+IGDgT1XC/54LMv/yuGZqK7CHwcriAKun+hCdwFovWUgDOgR+DiY5cNn7w+69HSV/VlAf9rmcw==
+X-Received: by 2002:a17:907:2d12:b0:aa6:8d51:8fe2 with SMTP id
+ a640c23a62f3a-aabf48f9900mr33660766b.42.1734476465330; 
+ Tue, 17 Dec 2024 15:01:05 -0800 (PST)
+Received: from localhost (dh207-43-57.xnet.hr. [88.207.43.57])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-aab960065f2sm494726366b.29.2024.12.17.15.01.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 17 Dec 2024 15:01:04 -0800 (PST)
+From: Mirsad Todorovac <mtodorovac69@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ Victor Skvortsov <victor.skvortsov@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Mirsad Todorovac <mtodorovac69@gmail.com>,
+ Chris Mason <clm@fb.com>, Josef Bacik <josef@toxicpanda.com>,
+ David Sterba <dsterba@suse.com>, linux-btrfs@vger.kernel.org
+Subject: [PATCH v1 3/3] btrfs: replace kmalloc() and memcpy() with kmemdup()
+Date: Tue, 17 Dec 2024 23:58:14 +0100
+Message-ID: <20241217225811.2437150-6-mtodorovac69@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20241217225811.2437150-2-mtodorovac69@gmail.com>
+References: <20241217225811.2437150-2-mtodorovac69@gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 18 Dec 2024 08:44:13 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -51,78 +94,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-A user-space program, such as rasdaemon, can capture tracepoint information
-to decode MCA errors, similar to AMD SMCA error.
+The static analyser tool gave the following advice:
 
-Signed-off-by: Ruidong Tian <tianruidong@linux.alibaba.com>
+./fs/btrfs/ioctl.c:4987:9-16: WARNING opportunity for kmemdup
+
+   4986                 if (!iov) {
+ → 4987                         iov = kmalloc(sizeof(struct iovec) * args.iovcnt, GFP_NOFS);
+   4988                         if (!iov) {
+   4989                                 unlock_extent(io_tree, start, lockend, &cached_state);
+   4990                                 btrfs_inode_unlock(inode, BTRFS_ILOCK_SHARED);
+   4991                                 ret = -ENOMEM;
+   4992                                 goto out_acct;
+   4993                         }
+   4994
+ → 4995                         memcpy(iov, iovstack, sizeof(struct iovec) * args.iovcnt);
+   4996                 }
+
+Replacing kmalloc() + memcpy() with kmemdump() doesn't change semantics.
+Original code works without fault, so this is not a bug fix but proposed improvement.
+
+Link: https://lwn.net/Articles/198928/
+Fixes: 34310c442e175 ("btrfs: add io_uring command for encoded reads (ENCODED_READ ioctl)")
+Cc: Chris Mason <clm@fb.com>
+Cc: Josef Bacik <josef@toxicpanda.com>
+Cc: David Sterba <dsterba@suse.com>
+Cc: linux-btrfs@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Signed-off-by: Mirsad Todorovac <mtodorovac69@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c   |  3 +++
- drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h | 31 +++++++++++++++++++++++
- 2 files changed, 34 insertions(+)
+ v1:
+	initial version.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c
-index 3ca03b5e0f91..9daa95365457 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c
-@@ -23,6 +23,7 @@
- #include "amdgpu_ras.h"
- #include "amdgpu.h"
- #include "amdgpu_mca.h"
-+#include "amdgpu_trace.h"
+ fs/btrfs/ioctl.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
+
+diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
+index 3af8bb0c8d75..c2f769334d3c 100644
+--- a/fs/btrfs/ioctl.c
++++ b/fs/btrfs/ioctl.c
+@@ -4984,15 +4984,13 @@ static int btrfs_uring_encoded_read(struct io_uring_cmd *cmd, unsigned int issue
+ 		 * undo this.
+ 		 */
+ 		if (!iov) {
+-			iov = kmalloc(sizeof(struct iovec) * args.iovcnt, GFP_NOFS);
++			iov = kmemdup(iovstack, sizeof(struct iovec) * args.iovcnt, GFP_NOFS);
+ 			if (!iov) {
+ 				unlock_extent(io_tree, start, lockend, &cached_state);
+ 				btrfs_inode_unlock(inode, BTRFS_ILOCK_SHARED);
+ 				ret = -ENOMEM;
+ 				goto out_acct;
+ 			}
+-
+-			memcpy(iov, iovstack, sizeof(struct iovec) * args.iovcnt);
+ 		}
  
- #include "umc/umc_6_7_0_offset.h"
- #include "umc/umc_6_7_0_sh_mask.h"
-@@ -287,6 +288,8 @@ static void amdgpu_mca_smu_mca_bank_dump(struct amdgpu_device *adev, int idx, st
- 		      idx, entry->regs[MCA_REG_IDX_IPID]);
- 	RAS_EVENT_LOG(adev, event_id, HW_ERR "aca entry[%02d].SYND=0x%016llx\n",
- 		      idx, entry->regs[MCA_REG_IDX_SYND]);
-+
-+	trace_amdgpu_mca_bank_dumps(event_id, idx, entry);
- }
- 
- static int amdgpu_mca_smu_get_valid_mca_count(struct amdgpu_device *adev, enum amdgpu_mca_error_type type, uint32_t *count)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
-index 383fce40d4dd..3dee028b3138 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
-@@ -554,6 +554,37 @@ TRACE_EVENT(amdgpu_reset_reg_dumps,
- 		      __entry->value)
- );
- 
-+TRACE_EVENT(amdgpu_mca_bank_dumps,
-+           TP_PROTO(uint64_t event_id, int idx, struct mca_bank_entry *e),
-+           TP_ARGS(event_id, idx, e),
-+           TP_STRUCT__entry(
-+                            __field(uint64_t, event_id)
-+                            __field(int, idx)
-+                            __field(uint64_t, status)
-+                            __field(uint64_t, addr)
-+                            __field(uint64_t, misc0)
-+                            __field(uint64_t, ipid)
-+                            __field(uint64_t, synd)
-+                            ),
-+           TP_fast_assign(
-+                          __entry->event_id = event_id;
-+                          __entry->idx = idx;
-+                          __entry->status = e->regs[MCA_REG_IDX_STATUS];
-+                          __entry->addr = e->regs[MCA_REG_IDX_ADDR];
-+                          __entry->misc0 = e->regs[MCA_REG_IDX_MISC0];
-+                          __entry->ipid = e->regs[MCA_REG_IDX_IPID];
-+                          __entry->synd = e->regs[MCA_REG_IDX_SYND];
-+                          ),
-+           TP_printk("amdgpu mca bank dump: event_id: %lld, idx: %d, STATUS: %016llx, ADDR: %016llx, MISC0: %016llx, IPID: %016llx, SYND: %016llx",
-+                     __entry->event_id,
-+                     __entry->idx,
-+                     __entry->status,
-+                     __entry->addr,
-+                     __entry->misc0,
-+                     __entry->ipid,
-+                     __entry->synd)
-+);
-+
- #undef AMDGPU_JOB_GET_TIMELINE_NAME
- #endif
- 
+ 		count = min_t(u64, iov_iter_count(&iter), disk_io_size);
 -- 
-2.43.5
+2.43.0
 
