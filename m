@@ -4,50 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 419BEE77188
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Dec 2024 19:06:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F02E1E77187
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Dec 2024 19:22:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDC9310E325;
-	Wed, 18 Dec 2024 19:06:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F2E510E436;
+	Wed, 18 Dec 2024 19:22:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SgWujbWq";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZjzZ1cHv";
 	dkim-atps=neutral
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5511C10E325
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Dec 2024 19:06:01 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 588825C641A;
- Wed, 18 Dec 2024 19:05:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC63CC4CECD;
- Wed, 18 Dec 2024 19:05:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1734548760;
- bh=s8I59DHOReFsqMjDpIrOMGgg9VMuysWKuT+LcUwsDFk=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=SgWujbWqNAuI3SetRENzu3S+BO3gUB9sa1jRxD34d6yvxqknjHcKAucgomoYJ7SBH
- FGRGkz2EGrq7brpwim+RJum47chntue6bFx1H5H4nzbuRyCYpxvQJDD85QkxPVBJSB
- X2e8qQX1UzTEspo+UxUCkXXsNCDalteVqlJPGhAoayqAp/0SfrmiT9k/go3KIiUDk2
- SeAACHji472GBvEanhoP5pg01cPpJnv+cnjkzZPNqwJ4x/UcJ7keRyiCCHoUK07W0X
- UZbkeEDEwGtKJbSXOha9ylafMl3eP7EjXk2ASf+rPF3sLuyAL1Q8BLJeVajL0D/rh1
- OUW3K4yqf6QBw==
-Date: Wed, 18 Dec 2024 11:05:58 -0800
-From: Josh Poimboeuf <jpoimboe@kernel.org>
-To: Huacai Chen <chenhuacai@kernel.org>
-Cc: Tiezhu Yang <yangtiezhu@loongson.cn>,
- Peter Zijlstra <peterz@infradead.org>, loongarch@lists.linux.dev,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 9/9] drm/amd/display: Mark dc_fixpt_from_fraction()
- noinline
-Message-ID: <20241218190558.g2hykmjgbny4n5i3@jpoimboe>
+Received: from mail-pl1-x633.google.com (mail-pl1-x633.google.com
+ [IPv6:2607:f8b0:4864:20::633])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B0FF10E436
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Dec 2024 19:22:22 +0000 (UTC)
+Received: by mail-pl1-x633.google.com with SMTP id
+ d9443c01a7336-2161d4b820bso56345ad.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Dec 2024 11:22:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1734549741; x=1735154541; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Palh2vODSDjcUnt/pqSpnYchNicdY/YA1Ypw0pWez0g=;
+ b=ZjzZ1cHvmyJInmIknw+YEb7qVT2nFnqrXcUJFVcPWMCXwT9+3jKNwD4ti4JlS54Pmm
+ 9uTQhh72g2+5GW1eyqicRjXQpddAn4eIcrRSFCTyCKTu/4O8VRv2ozTE44J/xfhCOLTy
+ mM4B54cCuoIluIQjwbGIKKR4uuP5RPYqmNnzyLSwX2rfvigVSioGjx4vaRUvHGB/sjcq
+ dxAFPGvSsMY4hHp5HSPw3CkAoIDoP1uj7c4oVen82QQxD8CQu6Z/p+0vQf6GgIgKZP6K
+ mjj1mX8p7WTOKOwO/8wQRU+pkOIQ7HZHLxm/Qr7il/9WHf9zgleFTCuxKuBKWefJi2S2
+ 0Ngg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1734549741; x=1735154541;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Palh2vODSDjcUnt/pqSpnYchNicdY/YA1Ypw0pWez0g=;
+ b=pLMXdsLl2MYjs24IMjDqm8He7lhavNTlYLiAdL5g4+kBt5wol5SG6X7lsuiZi/vSVs
+ d9hq8KrRRDus5SXbp8NOK1EUojsed4Iz+dKgz9aVCdPynVRVra0dOIP5wr83z7kWHbBb
+ D5ZtXfZsmT8UDPeaQGpArCKMvCgJ33Q99jlpQunvgqlLom5VJ554miOij/+0EzokcHUI
+ yCNL6EZbshajm0m5RXsCk9nSLeYRU77r31j4JXAZB5Hyyq5o7wnn6c3oXeh98D+rYy2A
+ 9Aj4SxFAKk4Z4bciGpMwrZM6QKF9HCsNFk+xpnRhCQsUCqha7pTSm2hx3f720RKs35rh
+ gFKw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWiB0AG3cns5hBklW55yWegS2swfbjhO1JAEsTJgvPGml8N7HF3b3y0W88XNUl6Vd8fr30RrRuV@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwEunN/Oe401RhRC23Y2DYOhrbGng4dtL2SHZe39mk9/7BrqP/I
+ eYNn1r54tRgM6w9DjT7aAH/zTmFR8D+PJYschnBbrb5YBzPtnjnALYjYsijm84xS7j3U6a+kxfB
+ rpav1j+ubilH2P4aYrlsXlhWbtuI=
+X-Gm-Gg: ASbGnctchMBur/KVpUcQFtb43N98+Xv3dtA1+SAKiO41NnsuAbn3Lwn0sWr78nFpAAr
+ Wu7AaJDLnO/0ChnTK5b0FI5/l6IDxnnKe05m5Eg==
+X-Google-Smtp-Source: AGHT+IEIpg8nuy30DHaReYoSwehqMfh7Ie8biuS/Pi2iGxu5VzjCpata6lZJHppkgnWTjhMAybw2JvRFtbE3N6KAhOA=
+X-Received: by 2002:a17:90b:524e:b0:2ee:a00d:2ef8 with SMTP id
+ 98e67ed59e1d1-2f2e9394fd4mr2234046a91.8.1734549741525; Wed, 18 Dec 2024
+ 11:22:21 -0800 (PST)
+MIME-Version: 1.0
 References: <20241217010905.13054-1-yangtiezhu@loongson.cn>
  <20241217015006.30305-1-yangtiezhu@loongson.cn>
  <CAAhV-H4WpcWjrQdkm3Sx4DVbp=2oW9nNGAbNqR4BEmiryrptNQ@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAAhV-H4WpcWjrQdkm3Sx4DVbp=2oW9nNGAbNqR4BEmiryrptNQ@mail.gmail.com>
+ <20241218190558.g2hykmjgbny4n5i3@jpoimboe>
+In-Reply-To: <20241218190558.g2hykmjgbny4n5i3@jpoimboe>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 18 Dec 2024 14:22:10 -0500
+Message-ID: <CADnq5_PFcHzob4poLa86_K4yP5gUT7Ei4Rz5vSUofvZTmB48-g@mail.gmail.com>
+Subject: Re: [PATCH v6 9/9] drm/amd/display: Mark dc_fixpt_from_fraction()
+ noinline
+To: Josh Poimboeuf <jpoimboe@kernel.org>
+Cc: Huacai Chen <chenhuacai@kernel.org>, Tiezhu Yang <yangtiezhu@loongson.cn>, 
+ Peter Zijlstra <peterz@infradead.org>, loongarch@lists.linux.dev, 
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,26 +85,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Dec 18, 2024 at 10:36:00PM +0800, Huacai Chen wrote:
-> Hi, Tiezhu,
-> 
-> On Tue, Dec 17, 2024 at 9:50 AM Tiezhu Yang <yangtiezhu@loongson.cn> wrote:
+On Wed, Dec 18, 2024 at 2:18=E2=80=AFPM Josh Poimboeuf <jpoimboe@kernel.org=
+> wrote:
+>
+> On Wed, Dec 18, 2024 at 10:36:00PM +0800, Huacai Chen wrote:
+> > Hi, Tiezhu,
 > >
-> > When compiling with Clang on LoongArch, there exists the following objtool
-> > warning in drivers/gpu/drm/amd/display/dc/basics/fixpt31_32.o:
-> >
-> >   dc_fixpt_recip() falls through to next function dc_fixpt_sinc()
-> >
-> > This is because dc_fixpt_from_fraction() is inlined in dc_fixpt_recip()
-> > by Clang, given dc_fixpt_from_fraction() is not a simple function, just
-> > mark it noinline to avoid the above issue.
-> I don't know whether drm maintainers can accept this, because it looks
-> like a workaround. Yes, uninline this function "solve" a problem and
-> seems reasonable in this case because the function is "not simple",
-> but from another point of view, you may hide a type of bug.
+> > On Tue, Dec 17, 2024 at 9:50=E2=80=AFAM Tiezhu Yang <yangtiezhu@loongso=
+n.cn> wrote:
+> > >
+> > > When compiling with Clang on LoongArch, there exists the following ob=
+jtool
+> > > warning in drivers/gpu/drm/amd/display/dc/basics/fixpt31_32.o:
+> > >
+> > >   dc_fixpt_recip() falls through to next function dc_fixpt_sinc()
+> > >
+> > > This is because dc_fixpt_from_fraction() is inlined in dc_fixpt_recip=
+()
+> > > by Clang, given dc_fixpt_from_fraction() is not a simple function, ju=
+st
+> > > mark it noinline to avoid the above issue.
+> > I don't know whether drm maintainers can accept this, because it looks
+> > like a workaround. Yes, uninline this function "solve" a problem and
+> > seems reasonable in this case because the function is "not simple",
+> > but from another point of view, you may hide a type of bug.
+>
+> Agreed, it sounds like there's definitely a bug which this patch is
+> papering over.
 
-Agreed, it sounds like there's definitely a bug which this patch is
-papering over.
+Yes, agreed.
 
--- 
-Josh
+Alex
+
+>
+> --
+> Josh
