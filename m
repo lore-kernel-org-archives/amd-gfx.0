@@ -4,49 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46019E77187
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Dec 2024 18:09:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 419BEE77188
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Dec 2024 19:06:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC56110E352;
-	Wed, 18 Dec 2024 18:09:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CDC9310E325;
+	Wed, 18 Dec 2024 19:06:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jmdwTf2R";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SgWujbWq";
 	dkim-atps=neutral
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 068F910E352
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Dec 2024 18:09:02 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5511C10E325
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Dec 2024 19:06:01 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 604B7A4273F;
- Wed, 18 Dec 2024 18:07:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D649C4CECD;
- Wed, 18 Dec 2024 18:09:00 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 588825C641A;
+ Wed, 18 Dec 2024 19:05:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC63CC4CECD;
+ Wed, 18 Dec 2024 19:05:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1734545340;
- bh=MKn7tx70E7Zta8f49WhpOqa+40htXcaNf6+dSCs6yH0=;
+ s=k20201202; t=1734548760;
+ bh=s8I59DHOReFsqMjDpIrOMGgg9VMuysWKuT+LcUwsDFk=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=jmdwTf2RpkGRVnsDOiIEDfmLur/4WprwwADTl2WmEGNVuVKB6uWS/UG6gB4kLRF0y
- dwTD9ntK44qECEyciLVv9ex3hmp01mpEnv8nRjTPPFoQ9U7TgIs2ZSBnRSgNuFmhSp
- hOhuz2N1PwDlKKvKg+RPGOx3PW2H2zeOr3e31BGuMQu3xgCp7+dPbJd2UrdlcWNt28
- hweCI2lbqN0mTlb91Ao0XFEPjUgrTjSnSn0XxdmJMTkTHTFlmH71CM9MqJ+2EDZEGp
- GQVA/DCB7VdraeMNIrmdKwZS9F0s9j/wJnMVtTfWwIkBspOHKmln0m+0dTgISDKNgj
- LfDcRthnvyLiA==
-Date: Wed, 18 Dec 2024 08:08:59 -1000
-From: Tejun Heo <tj@kernel.org>
-To: Matthew Brost <matthew.brost@intel.com>
-Cc: Alex Deucher <alexdeucher@gmail.com>, Chris Rankin <rankincj@gmail.com>,
- Christian Koenig <christian.koenig@amd.com>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org
-Subject: Re: [WARNING][AMDGPU] WQ_MEM_RECLAIM with Radeon RX 6600
-Message-ID: <Z2MPu9oQNdXXhJkc@slm.duckdns.org>
-References: <CAK2bqVJXY2CkR4Od2bj8wnYYfzZCpFYhaiPAcwpw0Uk7zXUVkg@mail.gmail.com>
- <CADnq5_OYjnFhVnQmVLQ7ucSYLm4NZ_wmRnLSOfJQzY33VQZ+EA@mail.gmail.com>
- <Z2DG+OcTIDPBGmdK@lstrano-desk.jf.intel.com>
+ b=SgWujbWqNAuI3SetRENzu3S+BO3gUB9sa1jRxD34d6yvxqknjHcKAucgomoYJ7SBH
+ FGRGkz2EGrq7brpwim+RJum47chntue6bFx1H5H4nzbuRyCYpxvQJDD85QkxPVBJSB
+ X2e8qQX1UzTEspo+UxUCkXXsNCDalteVqlJPGhAoayqAp/0SfrmiT9k/go3KIiUDk2
+ SeAACHji472GBvEanhoP5pg01cPpJnv+cnjkzZPNqwJ4x/UcJ7keRyiCCHoUK07W0X
+ UZbkeEDEwGtKJbSXOha9ylafMl3eP7EjXk2ASf+rPF3sLuyAL1Q8BLJeVajL0D/rh1
+ OUW3K4yqf6QBw==
+Date: Wed, 18 Dec 2024 11:05:58 -0800
+From: Josh Poimboeuf <jpoimboe@kernel.org>
+To: Huacai Chen <chenhuacai@kernel.org>
+Cc: Tiezhu Yang <yangtiezhu@loongson.cn>,
+ Peter Zijlstra <peterz@infradead.org>, loongarch@lists.linux.dev,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 9/9] drm/amd/display: Mark dc_fixpt_from_fraction()
+ noinline
+Message-ID: <20241218190558.g2hykmjgbny4n5i3@jpoimboe>
+References: <20241217010905.13054-1-yangtiezhu@loongson.cn>
+ <20241217015006.30305-1-yangtiezhu@loongson.cn>
+ <CAAhV-H4WpcWjrQdkm3Sx4DVbp=2oW9nNGAbNqR4BEmiryrptNQ@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <Z2DG+OcTIDPBGmdK@lstrano-desk.jf.intel.com>
+In-Reply-To: <CAAhV-H4WpcWjrQdkm3Sx4DVbp=2oW9nNGAbNqR4BEmiryrptNQ@mail.gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,38 +62,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello, sorry about the delay.
-
-On Mon, Dec 16, 2024 at 04:34:00PM -0800, Matthew Brost wrote:
-> > However, after further discussion, I think the warning is actually a
-> > false positive.  See this discussion:
-> > https://lists.freedesktop.org/archives/amd-gfx/2024-November/117349.html
-> > 
-> > From the thread:
-> > "Question is - does check_flush_dependency() need to skip the
-> > !WQ_MEM_RECLAIM flushing WQ_MEM_RECLAIM warning *if* the work is already
-> > running *and* it was called from cancel_delayed_work_sync()?"
-> > 
+On Wed, Dec 18, 2024 at 10:36:00PM +0800, Huacai Chen wrote:
+> Hi, Tiezhu,
 > 
-> See my reply just now [1] — I’m going to have to disagree with AMD's
-> assessment, but I’m not certain.
-> 
-> Again, I believe Tejun is the authority here.
+> On Tue, Dec 17, 2024 at 9:50 AM Tiezhu Yang <yangtiezhu@loongson.cn> wrote:
+> >
+> > When compiling with Clang on LoongArch, there exists the following objtool
+> > warning in drivers/gpu/drm/amd/display/dc/basics/fixpt31_32.o:
+> >
+> >   dc_fixpt_recip() falls through to next function dc_fixpt_sinc()
+> >
+> > This is because dc_fixpt_from_fraction() is inlined in dc_fixpt_recip()
+> > by Clang, given dc_fixpt_from_fraction() is not a simple function, just
+> > mark it noinline to avoid the above issue.
+> I don't know whether drm maintainers can accept this, because it looks
+> like a workaround. Yes, uninline this function "solve" a problem and
+> seems reasonable in this case because the function is "not simple",
+> but from another point of view, you may hide a type of bug.
 
-I think we can skip the warning if the flushing is coming from
-cancel*_work_sync() as flush takes place iff the work item already has a
-worker running - ie. it can't be blocked from lack of memory. Tvrtko, can
-you write up a patch to exclude the condition from check_flush_dependency()?
-I think it can just skip check_flush_dependency() when @from_cancel is set.
-
-Taking a step back, if an actual dependency develops in the future - memory
-reclaim actually blocking on gpu work items, one way to handle that would be
-adding subsystem-wide workqueues so that the rescuer can be shared across
-GPU drivers / devices. As long as they don't depend on each other for making
-forward progress, which they most likely wouldn't, sharing a rescuer across
-them is completely fine.
-
-Thanks.
+Agreed, it sounds like there's definitely a bug which this patch is
+papering over.
 
 -- 
-tejun
+Josh
