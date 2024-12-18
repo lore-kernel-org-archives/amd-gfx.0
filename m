@@ -4,53 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92698E77187
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Dec 2024 08:59:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3CAEE7718A
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Dec 2024 09:44:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 452BB10EB07;
-	Wed, 18 Dec 2024 08:59:09 +0000 (UTC)
-Received: from ms7.webland.ch (ms7.webland.ch [92.43.217.107])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7451210EB07
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Dec 2024 08:59:08 +0000 (UTC)
-Received: from [192.168.1.142] ([213.144.156.170])
- by ms7.webland.ch (12.3.0 build 2 x64) with ASMTP (SSL) id
- 01202412180959062876; Wed, 18 Dec 2024 09:59:06 +0100
-Message-ID: <ad120081-8ad5-4acb-8fbc-51f042fdee63@daenzer.net>
-Date: Wed, 18 Dec 2024 09:59:04 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0BC2A10E30F;
+	Wed, 18 Dec 2024 09:44:26 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="vk3hJD0A";
+	dkim-atps=neutral
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5773F10E24B;
+ Wed, 18 Dec 2024 09:44:23 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4YCpfq19rgz9tPc;
+ Wed, 18 Dec 2024 10:44:19 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1734515059;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Fop8eHOTRMY4TBTOG39Dc+IvevBhBUxCELddBDSsyng=;
+ b=vk3hJD0AILyl+0AQy35//DmkjDjQ4EPw/AtUXl3ryzt4MKxmDDGZRBFtXM2UiSvq/Jw/tV
+ JToEhbXtfWUVs31MQ9+OlzJY9ZLEgVIb+eY5fLjNT/s51SZFZ1v2URgA6QwtswYhB/a3OY
+ 5cqsmRNERiIg7pgHuswt3J+oGbbl44qHyYvh3WM0YSf/hRU1Dkv4f2No+8u8FRNvPWgSr0
+ 986el8z9NzWbX7/SpkYkl7ng8beUuHaAgI3aU5T3nvaHs5v3Rf4l80/f7XT2R/l0WZ7HQt
+ TbXSwFskb2JxmmRqdxHlk3gQ3eJcF0idN66Kv6SI5m7IXCKDKnju0hjFbnRKeg==
+Message-ID: <8dae97c9-9286-451a-8122-b309eb21b2f4@mailbox.org>
+Date: Wed, 18 Dec 2024 10:44:17 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: Handle NULL bo->tbo.resource (again) in
- amdgpu_vm_bo_update
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-References: <20241217172256.3668-1-michel@daenzer.net>
- <5a88367d-22be-45b5-921d-a9985a56357a@amd.com>
-From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>
+Subject: Re: [PATCH] drm/fourcc: add LINEAR modifiers with an exact pitch
+ alignment
+To: Brian Starkey <brian.starkey@arm.com>
+Cc: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
+ ML Mesa-dev <mesa-dev@lists.freedesktop.org>, nd@arm.com
+References: <CAAxE2A5BkF13bFt8_UnuiqPM8W-ZESgmKEjqqGfv=DGzSfJ7aQ@mail.gmail.com>
+ <uffsfaps6a75zmkyshkwfxgybcslqrnfqqtjzekegdptvwpugc@2ndpcuxyfp3f>
+ <c64cb9d8-5ea7-4644-93c8-04a97b758fa0@mailbox.org>
+ <h26quuebhpxwkc3fl4vtfteoqyvingnddgxbnzptfnxfg6xgkd@kkkmeqwplomv>
+From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
 Content-Language: de-CH-frami, en-CA
-Autocrypt: addr=michel@daenzer.net; keydata=
- xsDiBDsehS8RBACbsIQEX31aYSIuEKxEnEX82ezMR8z3LG8ktv1KjyNErUX9Pt7AUC7W3W0b
- LUhu8Le8S2va6hi7GfSAifl0ih3k6Bv1Itzgnd+7ZmSrvCN8yGJaHNQfAevAuEboIb+MaVHo
- 9EMJj4ikOcRZCmQWw7evu/D9uQdtkCnRY9iJiAGxbwCguBHtpoGMxDOINCr5UU6qt+m4O+UD
- /355ohBBzzyh49lTj0kTFKr0Ozd20G2FbcqHgfFL1dc1MPyigej2gLga2osu2QY0ObvAGkOu
- WBi3LTY8Zs8uqFGDC4ZAwMPoFy3yzu3ne6T7d/68rJil0QcdQjzzHi6ekqHuhst4a+/+D23h
- Za8MJBEcdOhRhsaDVGAJSFEQB1qLBACOs0xN+XblejO35gsDSVVk8s+FUUw3TSWJBfZa3Imp
- V2U2tBO4qck+wqbHNfdnU/crrsHahjzBjvk8Up7VoY8oT+z03sal2vXEonS279xN2B92Tttr
- AgwosujguFO/7tvzymWC76rDEwue8TsADE11ErjwaBTs8ZXfnN/uAANgPM0jTWljaGVsIERh
- ZW56ZXIgPG1pY2hlbEBkYWVuemVyLm5ldD7CXgQTEQIAHgUCQFXxJgIbAwYLCQgHAwIDFQID
- AxYCAQIeAQIXgAAKCRBaga+OatuyAIrPAJ9ykonXI3oQcX83N2qzCEStLNW47gCeLWm/QiPY
- jqtGUnnSbyuTQfIySkLOwE0EOx6FRRAEAJZkcvklPwJCgNiw37p0GShKmFGGqf/a3xZZEpjI
- qNxzshFRFneZze4f5LhzbX1/vIm5+ZXsEWympJfZzyCmYPw86QcFxyZflkAxHx9LeD+89Elx
- bw6wT0CcLvSv8ROfU1m8YhGbV6g2zWyLD0/naQGVb8e4FhVKGNY2EEbHgFBrAAMGA/0VktFO
- CxFBdzLQ17RCTwCJ3xpyP4qsLJH0yCoA26rH2zE2RzByhrTFTYZzbFEid3ddGiHOBEL+bO+2
- GNtfiYKmbTkj1tMZJ8L6huKONaVrASFzLvZa2dlc2zja9ZSksKmge5BOTKWgbyepEc5qxSju
- YsYrX5xfLgTZC5abhhztpcJGBBgRAgAGBQI7HoVFAAoJEFqBr45q27IAlscAnjICalDn2zB1
- fXqoOkGsTwElvKa5AJ9FhyKJpysFRcejfdZwrwl9xb4oOg==
-In-Reply-To: <5a88367d-22be-45b5-921d-a9985a56357a@amd.com>
+In-Reply-To: <h26quuebhpxwkc3fl4vtfteoqyvingnddgxbnzptfnxfg6xgkd@kkkmeqwplomv>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CTCH: RefID="str=0001.0A682F16.67628EDA.003C,ss=1,re=0.000,recu=0.000,reip=0.000,cl=1,cld=1,fgs=0";
- Spam="Unknown"; VOD="Unknown"
+X-MBO-RS-META: 45ueczqnrkz58p6in8unteqm5x3rehfp
+X-MBO-RS-ID: 1266e0373c64f166735
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,30 +68,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2024-12-18 09:32, Christian König wrote:
-> Am 17.12.24 um 18:22 schrieb Michel Dänzer:
->> From: Michel Dänzer <mdaenzer@redhat.com>
+On 2024-12-17 12:03, Brian Starkey wrote:
+> On Tue, Dec 17, 2024 at 11:13:05AM +0000, Michel Dänzer wrote:
+>> On 2024-12-17 10:14, Brian Starkey wrote:
 >>
->> Third time's the charm, I hope?
+>>> Modifiers are meant to describe framebuffers, and this pitch alignment
+>>> requirement isn't really a framebuffer property - it's a device
+>>> constraint. It feels out of place to overload modifiers with it.
+
+FWIW, KMS framebuffers aren't the only use case for sharing buffers between devices.
+
+
+>>> I'm not saying we don't need a way to describe constraints to
+>>> allocators, but I question if modifiers the right mechanism to
+>>> communicate them?
+>> While I agree with your concern in general, AFAIK there's no other
+>> solution for this even on the horizon, after years of talking about
+>> it. The solution proposed here seems like an acceptable stop gap,
+>> assuming it won't result in a gazillion linear modifiers.
 > 
-> More like the twenties.
-
-The reference is to it being the third time in amdgpu_vm_bo_update.
-
-
->> Fixes: d3116756a710 ("drm/ttm: rename bo->mem and make it a pointer")
+> UAPI is baked forever, so it's worth being a little wary IMO.
 > 
-> Please double check if that code wasn't introduced later than this patch.
-
-Checked before adding this to the commit log and double-checked, d3116756a710 modified this code, no other commit has touched it since.
-
-
->> Issue: https://gitlab.freedesktop.org/drm/amd/-/issues/3837
->> Signed-off-by: Michel Dänzer <mdaenzer@redhat.com>
+> This sets a precedent for describing constraints via modifiers. The
+> reason no other proposal is on the horizon is because describing the
+> plethora of constraints across devices is a hard problem; and the
+> answer so far has been "userspace needs to know" (à la Android's
+> gralloc).
 > 
-> Reviewed-by: Christian König <christian.koenig@amd.com>
+> If we start down the road of describing constraints with modifiers, I
+> fear we'll end up in a mess. The full enumeration of modifiers is
+> already horrendous for parameterized types, please let's not
+> combinatorially multiply those by constraints.
 
-Thanks!
+I agree there's a slippery slope.
+
+That said, linear buffers are special in that they're the only possibility which can work for sharing buffers between devices in many cases, in particular when the devices are from different vendors or even different generations from the same vendor.
+
+So as long as device vendors don't get too creative with their linear pitch alignment restrictions, it still seems like this might be workable stop-gap solution for that specific purpose alone, until a better solution for handling constraints arrives.
+
+
+> P.S. "is the only modifier that has a chance of not working" is
+> fundamentally false.
+
+My reading of that part of the comment is that pitch alignment shouldn't be an issue with non-linear modifiers, since the constraints for pitch should be part of the modifier definition. Maybe that could be clarified in the comment.
 
 
 -- 
