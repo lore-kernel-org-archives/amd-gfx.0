@@ -4,59 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7FB8E77187
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Dec 2024 14:36:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FAC7E77187
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Dec 2024 14:48:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6921110E323;
-	Wed, 18 Dec 2024 14:36:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47BD510EBBD;
+	Wed, 18 Dec 2024 14:48:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oJCGs4Yz";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Tms+Lhx3";
 	dkim-atps=neutral
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1047410E323
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Dec 2024 14:36:14 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 2B4F35C629B
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Dec 2024 14:35:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5033C4CECE
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Dec 2024 14:36:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1734532572;
- bh=9n0ZAjSAIhk9F622B8IToa4qtHVMNl9mwzIDA2TI+7k=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=oJCGs4YzbcTcFVKmU3XFHzvQVR68fBsTxpeAJV9lZb7eTdjNIVA6BQcWBrY1t673i
- dvHWg0AgSjOdYqxDZ3ktuaitcxSMduGGs+cSMYqZJqCn8vzFsznDrRgZamTD/eJ8Zj
- VQr6q5j9cu6BpmdP99+KuOSFqIRVp/aRFZlkrgT96XzX9olRwpwOK4qxvGfIIAS80g
- LlnKOBrI3qOjCDj/2KyyFBkajJHez/w8zbB8x2aIzxMfwHowwpKSSxHV9U1pObZYRM
- DE3rNPOLNMFOjQ6Fb01zRwrL7vfgMLVtfipcS7OqXc8N4BFfXb/yyXdcJ4x1/W0TFN
- tJTYxwUl0JFJw==
-Received: by mail-ej1-f41.google.com with SMTP id
- a640c23a62f3a-aa5f1909d6fso1087836166b.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Dec 2024 06:36:12 -0800 (PST)
+Received: from mail-pj1-x102b.google.com (mail-pj1-x102b.google.com
+ [IPv6:2607:f8b0:4864:20::102b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D64E10EBB9;
+ Wed, 18 Dec 2024 14:47:59 +0000 (UTC)
+Received: by mail-pj1-x102b.google.com with SMTP id
+ 98e67ed59e1d1-2ee8ecb721dso1096773a91.3; 
+ Wed, 18 Dec 2024 06:47:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1734533278; x=1735138078; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=3vOfnVaPkrWafVbUpqL+HmE1DU2SWTTSltwmz9VD16Q=;
+ b=Tms+Lhx3M8tw2DKgORkc1EVW79OlTubuCQ6I0IyPp1mNwj++5v/sqa/RECp4hExX/2
+ UQPhnzP6H+Pq8V+cBIHrRNjGxdDkeQRhavKxP2CkgkQ8tEz5Wk8/8qSsjQ319fXFq0Bk
+ 4gADOqy93sJFYUgI1WicXnzHw2OsyM/m5IzIIetFRFq7QHgJVx8y1Jv0oV7UKyHH2AaE
+ ZIT2eB53Nky4IoKkiqCT9Sa0rSOeB/OJ9USGex25s04YaEZtBRgpGogHCjRWSnz76Zq6
+ vi8PvBe8XeOJ2zRZDTAxthdT6/7qiTw1rT0la+XJywR1dI9utVjOD3IUKJN/CXwC9B3d
+ 141Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1734533278; x=1735138078;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=3vOfnVaPkrWafVbUpqL+HmE1DU2SWTTSltwmz9VD16Q=;
+ b=CaD04ykP9bGAsp4Uvp73+6Syb8qBZmjhbIzpcCHSrm2rnW6ID5FIJVCnu5lgmGvcev
+ LRvigprwQOuau6W4IDY8xcMyRYxJiDrkNpzwqCV1F3Mx9MlPDmCv8LnR6NUNzuXfnt7N
+ O7tSqHQoK+WoyvjeWueJ1kboIeFgZvd66qPWyiqCUQCaiT1/rFJO1KRAx0n7GSvHFKeC
+ ++NeEkOFhJIdsAvQsFQnxZ8qMz0mqiCGJKzKgWs9+7Rh61yK0i3GvGoBJWxKuxf1jPvH
+ aS5ECHukuv8RbvhsSM1+J9RXy0C5aLcGOarZDHC60nH7SRucIg5XAYHKnRIXAP//VxqR
+ i4jA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXIm6V9UoTfgLNrSoI/vcrkhkNCVhgmG4VaB0HUFthfMAcaS1GTsKF1NaoQVSjSYrWb5NsARkOU@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwrmSH6rl7sp+/fZTzk6KfAN+kw+OhO0Lvm2wioxOrvlnqdZ8uN
- pqqylk654mZDuQH2VSP30NhVC8+f488m2nq/WparQVT4/+ZNw0BTFZfOKqi08akVwMcXNDUV26I
- tYfyS493K0y8hSG3ERgPvYQwgiwU=
-X-Google-Smtp-Source: AGHT+IGH+ozXywB34VYVSAamVS+ZjQCypQ05xEGjN0SqCkq8/WyDDyS7rVXnhhMxnJivZ7v/JZDxOROVB65JAzdxhVI=
-X-Received: by 2002:a17:906:328d:b0:aa6:1e9a:e45a with SMTP id
- a640c23a62f3a-aabf48c67c5mr231921266b.46.1734532571420; Wed, 18 Dec 2024
- 06:36:11 -0800 (PST)
+ AJvYcCV6iUIVikv7gBn63wvPUuPzVkikEtqvUM1xYmr/gRnckJCKsS5Xt+iDfkexQIHbmzFZkwOgcYzM@lists.freedesktop.org,
+ AJvYcCWYQyhZvfyfxM9rtT5p9XXrxO3UwFhQQzvERuVEbhnmTN4VDXSz2h9KPjmp5dWMZSkguB91ObJq/vER@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzbVABufF29Whjcu/z/X8zyh/hWN+sLtwTVNOMG0cGH0MS7I9ue
+ M5QGzDSjckQRkYEQ/8To0e6NK/iPXoBlxU1RrIBDgDDKVqsDhsVNY1vjr355YLkYrLxQWBAAyxR
+ MfrMuGIkEKinrEza1yMDv8S3iTWw=
+X-Gm-Gg: ASbGnctRF8pzFGmI01JqB1vdB5ovsUh60AywV2uUWWiW78MRCis0K1cuZDhntGcwag7
+ e74grEMw+4DoofH/cRANNrMqmn9I0es6vfyzkFA==
+X-Google-Smtp-Source: AGHT+IGqs69JMyhLgTfABkHUjIAhI9t2c//hUCr+R17bYCrJ5yiT4wdnOe27SzcTjmYGssfprd1lrOT02OuDNE6ZXSo=
+X-Received: by 2002:a17:90b:5245:b0:2ee:b665:12c2 with SMTP id
+ 98e67ed59e1d1-2f2e91be5b8mr1690090a91.2.1734533278544; Wed, 18 Dec 2024
+ 06:47:58 -0800 (PST)
 MIME-Version: 1.0
-References: <20241217010905.13054-1-yangtiezhu@loongson.cn>
- <20241217015006.30305-1-yangtiezhu@loongson.cn>
-In-Reply-To: <20241217015006.30305-1-yangtiezhu@loongson.cn>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Wed, 18 Dec 2024 22:36:00 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H4WpcWjrQdkm3Sx4DVbp=2oW9nNGAbNqR4BEmiryrptNQ@mail.gmail.com>
-Message-ID: <CAAhV-H4WpcWjrQdkm3Sx4DVbp=2oW9nNGAbNqR4BEmiryrptNQ@mail.gmail.com>
-Subject: Re: [PATCH v6 9/9] drm/amd/display: Mark dc_fixpt_from_fraction()
- noinline
-To: Tiezhu Yang <yangtiezhu@loongson.cn>
-Cc: Josh Poimboeuf <jpoimboe@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- loongarch@lists.linux.dev, 
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20241217225811.2437150-2-mtodorovac69@gmail.com>
+ <2a061534-7780-40a7-b058-98d1fc16915b@amd.com>
+In-Reply-To: <2a061534-7780-40a7-b058-98d1fc16915b@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 18 Dec 2024 09:47:47 -0500
+Message-ID: <CADnq5_OuDekGg7FspcsC1Lh-ZYEt5Vq8T046tqcJ1wRBeuL4ww@mail.gmail.com>
+Subject: Re: [PATCH v1 1/3] drm/admgpu: replace kmalloc() and memcpy() with
+ kmemdup()
+To: "Lazar, Lijo" <lijo.lazar@amd.com>
+Cc: Mirsad Todorovac <mtodorovac69@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>, 
+ Victor Skvortsov <victor.skvortsov@amd.com>, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Zhigang Luo <Zhigang.Luo@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>, 
+ Yunxiang Li <Yunxiang.Li@amd.com>, Jack Xiao <Jack.Xiao@amd.com>, 
+ Vignesh Chander <Vignesh.Chander@amd.com>,
+ Danijel Slivka <danijel.slivka@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -73,51 +92,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi, Tiezhu,
+Applied.  Thanks!
 
-On Tue, Dec 17, 2024 at 9:50=E2=80=AFAM Tiezhu Yang <yangtiezhu@loongson.cn=
-> wrote:
->
-> When compiling with Clang on LoongArch, there exists the following objtoo=
-l
-> warning in drivers/gpu/drm/amd/display/dc/basics/fixpt31_32.o:
->
->   dc_fixpt_recip() falls through to next function dc_fixpt_sinc()
->
-> This is because dc_fixpt_from_fraction() is inlined in dc_fixpt_recip()
-> by Clang, given dc_fixpt_from_fraction() is not a simple function, just
-> mark it noinline to avoid the above issue.
-I don't know whether drm maintainers can accept this, because it looks
-like a workaround. Yes, uninline this function "solve" a problem and
-seems reasonable in this case because the function is "not simple",
-but from another point of view, you may hide a type of bug.
+Alex
 
-
-Huacai
-
+On Wed, Dec 18, 2024 at 3:03=E2=80=AFAM Lazar, Lijo <lijo.lazar@amd.com> wr=
+ote:
 >
-> Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
-> ---
->  drivers/gpu/drm/amd/display/dc/basics/fixpt31_32.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/basics/fixpt31_32.c b/drivers=
-/gpu/drm/amd/display/dc/basics/fixpt31_32.c
-> index 88d3f9d7dd55..b40c6a21460d 100644
-> --- a/drivers/gpu/drm/amd/display/dc/basics/fixpt31_32.c
-> +++ b/drivers/gpu/drm/amd/display/dc/basics/fixpt31_32.c
-> @@ -68,7 +68,7 @@ static inline unsigned long long complete_integer_divis=
-ion_u64(
->  #define GET_FRACTIONAL_PART(x) \
->         (FRACTIONAL_PART_MASK & (x))
 >
-> -struct fixed31_32 dc_fixpt_from_fraction(long long numerator, long long =
-denominator)
-> +noinline struct fixed31_32 dc_fixpt_from_fraction(long long numerator, l=
-ong long denominator)
->  {
->         struct fixed31_32 res;
+> On 12/18/2024 4:28 AM, Mirsad Todorovac wrote:
+> > The static analyser tool gave the following advice:
+> >
+> > ./drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c:1266:7-14: WARNING opportuni=
+ty for kmemdup
+> >
+> >  =E2=86=92 1266         tmp =3D kmalloc(used_size, GFP_KERNEL);
+> >    1267         if (!tmp)
+> >    1268                 return -ENOMEM;
+> >    1269
+> >  =E2=86=92 1270         memcpy(tmp, &host_telemetry->body.error_count, =
+used_size);
+> >
+> > Replacing kmalloc() + memcpy() with kmemdump() doesn't change semantics=
+.
+> > Original code works without fault, so this is not a bug fix but propose=
+d improvement.
+> >
+> > Link: https://lwn.net/Articles/198928/
+> > Fixes: 84a2947ecc85c ("drm/amdgpu: Implement virt req_ras_err_count")
+> > Cc: Alex Deucher <alexander.deucher@amd.com>
+> > Cc: "Christian K=C3=B6nig" <christian.koenig@amd.com>
+> > Cc: Xinhui Pan <Xinhui.Pan@amd.com>
+> > Cc: David Airlie <airlied@gmail.com>
+> > Cc: Simona Vetter <simona@ffwll.ch>
+> > Cc: Zhigang Luo <Zhigang.Luo@amd.com>
+> > Cc: Victor Skvortsov <victor.skvortsov@amd.com>
+> > Cc: Hawking Zhang <Hawking.Zhang@amd.com>
+> > Cc: Lijo Lazar <lijo.lazar@amd.com>
+> > Cc: Yunxiang Li <Yunxiang.Li@amd.com>
+> > Cc: Jack Xiao <Jack.Xiao@amd.com>
+> > Cc: Vignesh Chander <Vignesh.Chander@amd.com>
+> > Cc: Danijel Slivka <danijel.slivka@amd.com>
+> > Cc: amd-gfx@lists.freedesktop.org
+> > Cc: dri-devel@lists.freedesktop.org
+> > Cc: linux-kernel@vger.kernel.org
+> > Signed-off-by: Mirsad Todorovac <mtodorovac69@gmail.com>
 >
-> --
-> 2.42.0
+> Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+>
+> Thanks,
+> Lijo
+>
+> > ---
+> >  v1:
+> >       initial version.
+> >
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c | 4 +---
+> >  1 file changed, 1 insertion(+), 3 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_virt.c
+> > index c704e9803e11..0af469ec6fcc 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> > @@ -1263,12 +1263,10 @@ static int amdgpu_virt_cache_host_error_counts(=
+struct amdgpu_device *adev,
+> >       if (used_size > (AMD_SRIOV_RAS_TELEMETRY_SIZE_KB << 10))
+> >               return 0;
+> >
+> > -     tmp =3D kmalloc(used_size, GFP_KERNEL);
+> > +     tmp =3D kmemdup(&host_telemetry->body.error_count, used_size, GFP=
+_KERNEL);
+> >       if (!tmp)
+> >               return -ENOMEM;
+> >
+> > -     memcpy(tmp, &host_telemetry->body.error_count, used_size);
+> > -
+> >       if (checksum !=3D amd_sriov_msg_checksum(tmp, used_size, 0, 0))
+> >               goto out;
+> >
 >
