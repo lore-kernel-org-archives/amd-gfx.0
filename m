@@ -4,51 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3925EE77184
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Dec 2024 16:15:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50EA6E77184
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Dec 2024 17:12:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D686610ED38;
-	Thu, 19 Dec 2024 16:15:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E464B10E280;
+	Thu, 19 Dec 2024 17:12:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="j3MQm17k";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="M8VHGVs4";
 	dkim-atps=neutral
 Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F030A10ED38;
- Thu, 19 Dec 2024 16:15:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0C9910E280;
+ Thu, 19 Dec 2024 17:12:46 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 5C0E3A41D81;
- Thu, 19 Dec 2024 16:13:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FBC5C4CECE;
- Thu, 19 Dec 2024 16:15:27 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id 59A98A427EF;
+ Thu, 19 Dec 2024 17:10:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63AADC4CECE;
+ Thu, 19 Dec 2024 17:12:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1734624927;
- bh=o+xdoDzhAyW5Kcho4dZEyqpLXH34N9lPGzm1TKuiaC8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=j3MQm17kEMix4Lu1GVlZUUMFVLTUwqQcryIcm/qtFm2NNM8U/4vjVW03G+K+mEc9e
- NJ/EiQFkP0vHzEvUmdIaatL7C3LG+qtBcOpUJKHo+RB2lQ7u9jYjbZC+wT9bS5/N/L
- sI41ETeoLeRw+LFIuNc/aaaZkkBki9QgIYBHIC57pI0Ac8t3iSkTxaW63CQXfo4T6S
- poHClpo1e1tjtFTRzNq8l23DHgQEH7+8kXiqbhaT5HLM//BkOloifH5J0G7l59gw0u
- IdCLgAKdThueSRZKE3Ela/25Y124mYNGTboIcgkzE7yatR6bGQR8++aqeB7kOLopBg
- 54Zf4Qfs1ofFw==
-Date: Thu, 19 Dec 2024 06:15:26 -1000
-From: Tejun Heo <tj@kernel.org>
-To: Tvrtko Ursulin <tursulin@igalia.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- kernel-dev@igalia.com, linux-kernel@vger.kernel.org,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Peter Zijlstra <peterz@infradead.org>,
- Lai Jiangshan <jiangshanlai@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Matthew Brost <matthew.brost@intel.com>, stable@vger.kernel.org
-Subject: Re: [PATCH] workqueue: Do not warn when cancelling WQ_MEM_RECLAIM
- work from !WQ_MEM_RECLAIM worker
-Message-ID: <Z2RGnlAUB4vsXYCi@slm.duckdns.org>
-References: <20241219093030.52080-1-tursulin@igalia.com>
+ s=k20201202; t=1734628364;
+ bh=MpqPn06almC1w7AKhIWoa4Ja+d2HKNexfyEQuKVEwGA=;
+ h=From:Date:Subject:To:Cc:From;
+ b=M8VHGVs4H5v7Nfk8+7GME1RH4pX2cA6x5VJArmiYYpUzRuKMn384x8RKEFjFUZlZU
+ wUnXWhGZ2LA8mEik95iGWk18wEjnjQn1nPsjHW1IodC10G/GD2SjqoRTirExpWD87F
+ V2MJrjB95v9z1eUtmnUTHUJlJGR+ITe8/Q2Xn50jNCW2HSctPxr9JUiUIfib0W5rVE
+ bQoIQMlpiAGxDEnCJddOFFl6CuBKMpYEkqBys63PYObgYuIV9YIQsfc4sqaP2ksQ+j
+ TqnCvgaCSnmiaJjc7AV1+r47NEQwNpqryQdm60gk8nlQmosuNILzYhIeDmXvctwGrK
+ u5xPk2TUZNQFA==
+From: Nathan Chancellor <nathan@kernel.org>
+Date: Thu, 19 Dec 2024 10:12:31 -0700
+Subject: [PATCH] drm/amd/display: Disable -Wenum-float-conversion for
+ dml2_dpmm_dcn4.c
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20241219093030.52080-1-tursulin@igalia.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20241219-amdgpu-fix-enum-float-conversion-again-again-v1-1-ef2c619724b1@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAP5TZGcC/zWNQQrDIBBFrxJmnYEqbYq9SsliqqMZaDRoDIGQu
+ 9cWuvnwFu/9Awpn4QKP7oDMmxRJsYHqO7ATxcAorjHoi74qrQzS7MJS0cuOHOuM/p1oRZvixvk
+ rIwWS/9qXd0bdjL8PDlpyydzE391zPM8PilMQuH4AAAA=
+X-Change-ID: 20241219-amdgpu-fix-enum-float-conversion-again-again-cbfd9159f76d
+To: Chaitanya Dhere <chaitanya.dhere@amd.com>, Jun Lei <jun.lei@amd.com>, 
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Xinhui Pan <Xinhui.Pan@amd.com>, Austin Zheng <Austin.Zheng@amd.com>
+Cc: Dillon Varone <dillon.varone@amd.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, llvm@lists.linux.dev, 
+ patches@lists.linux.dev, Nathan Chancellor <nathan@kernel.org>
+X-Mailer: b4 0.15-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2673; i=nathan@kernel.org;
+ h=from:subject:message-id; bh=MpqPn06almC1w7AKhIWoa4Ja+d2HKNexfyEQuKVEwGA=;
+ b=owGbwMvMwCUmm602sfCA1DTG02pJDOkpIZx5PxTOzXhyjTvigruC+UJfYYdX9hu+FZelS8o0/
+ uoxz53RUcrCIMbFICumyFL9WPW4oeGcs4w3Tk2CmcPKBDKEgYtTACbyfw7D/7J75sm3tx6b9ts1
+ Vpz//doP6hqmUZpFexgvvq056L/tcwDDP+NGvzVRfxNSHHZbzV/soVIk4jpPUO4aB6eZw+q9jGm
+ 3OQA=
+X-Developer-Key: i=nathan@kernel.org; a=openpgp;
+ fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,58 +75,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Dec 19, 2024 at 09:30:30AM +0000, Tvrtko Ursulin wrote:
-> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> 
-> After commit
-> 746ae46c1113 ("drm/sched: Mark scheduler work queues with WQ_MEM_RECLAIM")
-> amdgpu started seeing the following warning:
-> 
->  [ ] workqueue: WQ_MEM_RECLAIM sdma0:drm_sched_run_job_work [gpu_sched] is flushing !WQ_MEM_RECLAIM events:amdgpu_device_delay_enable_gfx_off [amdgpu]
-> ...
->  [ ] Workqueue: sdma0 drm_sched_run_job_work [gpu_sched]
-> ...
->  [ ] Call Trace:
->  [ ]  <TASK>
-> ...
->  [ ]  ? check_flush_dependency+0xf5/0x110
-> ...
->  [ ]  cancel_delayed_work_sync+0x6e/0x80
->  [ ]  amdgpu_gfx_off_ctrl+0xab/0x140 [amdgpu]
->  [ ]  amdgpu_ring_alloc+0x40/0x50 [amdgpu]
->  [ ]  amdgpu_ib_schedule+0xf4/0x810 [amdgpu]
->  [ ]  ? drm_sched_run_job_work+0x22c/0x430 [gpu_sched]
->  [ ]  amdgpu_job_run+0xaa/0x1f0 [amdgpu]
->  [ ]  drm_sched_run_job_work+0x257/0x430 [gpu_sched]
->  [ ]  process_one_work+0x217/0x720
-> ...
->  [ ]  </TASK>
-> 
-> The intent of the verifcation done in check_flush_depedency is to ensure
-> forward progress during memory reclaim, by flagging cases when either a
-> memory reclaim process, or a memory reclaim work item is flushed from a
-> context not marked as memory reclaim safe.
-> 
-> This is correct when flushing, but when called from the
-> cancel(_delayed)_work_sync() paths it is a false positive because work is
-> either already running, or will not be running at all. Therefore
-> cancelling it is safe and we can relax the warning criteria by letting the
-> helper know of the calling context.
-> 
-> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> Fixes: fca839c00a12 ("workqueue: warn if memory reclaim tries to flush !WQ_MEM_RECLAIM workqueue")
-> References: 746ae46c1113 ("drm/sched: Mark scheduler work queues with WQ_MEM_RECLAIM")
-> Cc: Tejun Heo <tj@kernel.org>
-> Cc: Peter Zijlstra <peterz@infradead.org>
-> Cc: Lai Jiangshan <jiangshanlai@gmail.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Christian König <christian.koenig@amd.com
-> Cc: Matthew Brost <matthew.brost@intel.com>
-> Cc: <stable@vger.kernel.org> # v4.5+
+Commit be4e3509314a ("drm/amd/display: DML21 Reintegration For Various
+Fixes") blew away commit fdedd77b0eb3 ("drm/amd/display: Reapply
+2fde4fdddc1f"), which itself was a reapplication for the same reason,
+which results in that compiler warning returning:
 
-Applied to wq/for-6.13-fixes.
+  drivers/gpu/drm/amd/amdgpu/../display/dc/dml2/dml21/src/dml2_dpmm/dml2_dpmm_dcn4.c:215:58: error: arithmetic between enumeration type 'enum dentist_divider_range' and floating-point type 'double' [-Werror,-Wenum-float-conversion]
+    215 |         divider = (unsigned int)(DFS_DIVIDER_RANGE_SCALE_FACTOR * (vco_freq_khz / clock_khz));
+        |                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Thanks.
+Just disable the warning for the whole file via Makefile to avoid having
+to reapply the same fix every time the code syncs from wherever it is
+actually maintained.
 
+Fixes: be4e3509314a ("drm/amd/display: DML21 Reintegration For Various Fixes")
+Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+---
+If you would prefer reapplying the local fix, feel free to do so, but I
+would like for it to be in the upstream source so it does not have to
+keep being applied.
+---
+ drivers/gpu/drm/amd/display/dc/dml2/Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2/Makefile b/drivers/gpu/drm/amd/display/dc/dml2/Makefile
+index d9c27ebe12ee08d6330eb199cd8ca9c8489fa5b2..5c0f93644c5d43c8a0bc12713fc400712d8de50b 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/dml2/Makefile
+@@ -78,7 +78,7 @@ CFLAGS_$(AMDDALPATH)/dc/dml2/dml21/src/dml2_top/dml2_top_soc15.o := $(dml2_ccfla
+ CFLAGS_$(AMDDALPATH)/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4.o := $(dml2_ccflags)
+ CFLAGS_$(AMDDALPATH)/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.o := $(dml2_ccflags) $(frame_warn_flag)
+ CFLAGS_$(AMDDALPATH)/dc/dml2/dml21/src/dml2_core/dml2_core_factory.o := $(dml2_ccflags)
+-CFLAGS_$(AMDDALPATH)/dc/dml2/dml21/src/dml2_dpmm/dml2_dpmm_dcn4.o := $(dml2_ccflags)
++CFLAGS_$(AMDDALPATH)/dc/dml2/dml21/src/dml2_dpmm/dml2_dpmm_dcn4.o := $(dml2_ccflags) $(call cc-disable-warning,enum-float-conversion)
+ CFLAGS_$(AMDDALPATH)/dc/dml2/dml21/src/dml2_dpmm/dml2_dpmm_factory.o := $(dml2_ccflags)
+ CFLAGS_$(AMDDALPATH)/dc/dml2/dml21/src/dml2_mcg/dml2_mcg_dcn4.o := $(dml2_ccflags)
+ CFLAGS_$(AMDDALPATH)/dc/dml2/dml21/src/dml2_mcg/dml2_mcg_factory.o := $(dml2_ccflags)
+
+---
+base-commit: 695c2c745e5dff201b75da8a1d237ce403600d04
+change-id: 20241219-amdgpu-fix-enum-float-conversion-again-again-cbfd9159f76d
+
+Best regards,
 -- 
-tejun
+Nathan Chancellor <nathan@kernel.org>
+
