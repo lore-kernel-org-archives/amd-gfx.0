@@ -4,88 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BA92E7718B
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Dec 2024 14:17:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6371E77184
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Dec 2024 14:17:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC19E10E5A6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5FF0410E4B0;
 	Thu, 19 Dec 2024 14:17:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HMLl7Dcu";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Faupaq5v";
 	dkim-atps=neutral
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [IPv6:2a00:1450:4864:20::62f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B083310EC2A;
- Wed, 18 Dec 2024 17:04:58 +0000 (UTC)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-aabfb33aff8so128609266b.0; 
- Wed, 18 Dec 2024 09:04:58 -0800 (PST)
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [IPv6:2a00:1450:4864:20::32f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5094710E158;
+ Thu, 19 Dec 2024 12:32:37 +0000 (UTC)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-4361a50e337so5254345e9.0; 
+ Thu, 19 Dec 2024 04:32:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1734541497; x=1735146297; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=O9h31TDmJEfXzLmI8JagrSx6Gp6jjuEe99oznl0Cmdc=;
- b=HMLl7DcuHGl1J4ftuwVtOqd4rqCAOBA3xPbQqG3RDT8lcd8aYOOceD8VT2ZgF+gka2
- H44Y9nfF1FCo8im/Tf+ZE2jydneemAqNFDBPpALTjPygrieteoEdUSB0jw0Eug6I0DXM
- XK16ti/gw/yKPPgGepvUALeYjDSi9mgf5sDFP6425NHgORf8+sYX8ANOEl66c3e53Ffc
- OqTOdWJpSnxMvj6+jFAqeB+iZdViBsbiBRBjnuDdaEt8CYt8f6VFPKj5wqeFddKuahn/
- j6+R2WaGp/fO8lE6S4+DwVoo9QF0vEjSYY2p9HBxARWJmrGDbFoYVYLK4NzrX65qgHM/
- OK9w==
+ d=gmail.com; s=20230601; t=1734611556; x=1735216356; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=7uOMmOxTuC9inC7UAGuj5K8CgVJVzatCr2SxuceBbgc=;
+ b=Faupaq5vxWbw46eIOBxY1+9dTAYCdlHyzsXVESv2QbRa7gY9uDK8HHQNAkJXm8/vh7
+ p7RdiETzEOLr7lEMkKIwIrIAXzSg/CkAXV8RSQNSeB7+IJA8EyYYwmHas9bA19Awm88U
+ acqbX0SeWhsEvA/1RD/h3CGs2brhW7PQD8+BT9jCMeuv0zct0AZcDWdLrAFRZCV/oUcj
+ PMyllWGHqzS03aXrIQMPPRApVhNMgbBN3VaieeadZh+MGRCCFdA1S+a2jm8AHxp0sWnX
+ k1s3NL+BeW7hHMB6GDAZwG5en2Cs6yIemLCJQRwwejNveOTEgpoY++v5UOBWzFPLjK9y
+ Vl9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734541497; x=1735146297;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=O9h31TDmJEfXzLmI8JagrSx6Gp6jjuEe99oznl0Cmdc=;
- b=S1E988FEb/PaPpnMqoWzG0lJ2V07TDgG00R9I6Rgyz50PZCSzkWAOlJxvamHVpj3eg
- mFkoCXaf22GkIoJQxkWU84s3sOfFQ9BAHk0xNpm6+Y91dZBaL+CVyWTOo1Wx7seAzgf5
- vCRsZPWEiN523NiAUxcgoB3LQ2ZwnegNfbmjj0Gqj2Av6CZQ1uMBfoxFpZI/YlQbpRfF
- M3ZXyEO/2gqx3zplbO/Z21oS+zHe1DrzUpY9E6v+1lMBYKCIcqxLUrnOCPr08HxM2RAg
- 6Ecy1eBj87mYJxRXZnXzfl9NkZpGNcULMy3yim3/I20LzJszizd3yAOIAUC8UEGk+Ikn
- cb6Q==
+ d=1e100.net; s=20230601; t=1734611556; x=1735216356;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=7uOMmOxTuC9inC7UAGuj5K8CgVJVzatCr2SxuceBbgc=;
+ b=cXa+I5t2RzRQMPr4vG9pwoara9rd0T4ReyQN+e27MBZSOe4Ec45awyCfEaMnlC3GSO
+ moEIS/dGjITDep2+OwBU8H2fDlFL3eUN4gpnkaDNZps0ZTuHupzjyDQyN3he8ckjT/vE
+ MyMQLjA3QtbxPPbW0adjZGJkBXgHd8dC32UAsZayyQPyto2Scl8JUVbPGUlWNYqOQi7I
+ nK8LRqtGHUv3pLjX9nGktC62qa138jW7taTCZeNuhFiGDZm72l1qldYOOEfOMFgi9G9G
+ IPUxhx82FxrB6ePRbINPw39bsRkY5yvOVc9r+9Y0SEKxrHdjjNPz9h1eVAoUvPHB95jO
+ 7srg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUdwamJHV0PAP6+3lRhp63b8bweGOsi5b0YKrVTQmCsnpOFqpr1y3JxYGmBy9LXfvPztNskOzAt@lists.freedesktop.org,
- AJvYcCWuwq3vXiXHcPXEvo3TIeiXsOk6ctBTEXZMsSMWfDhu9ZwKgI1HImbk23Di+ItMyyMiNPJkTVrPCmZM@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxYr0WLu5tRvCSj9sjtsfIKN9BoDu1T1/Zp3SrQC9V8JXCx5aAj
- Pu5GUdz3uJ7/d3vrWdl+H4m9WLcbvd0p5+Ov/PYc79y6HpVET/PL
-X-Gm-Gg: ASbGncuMDXynsJy1T0/WC6Ev+WoMtjtJlTcR2lVApKM9QokUdA+56F7fPivvNgSepo+
- Sfr12P3EVhg2yI6/GvKRY3s6M6IlphP1CILTuRjmpAcSVuit0F4CWi2oGMJT8a6cTv/MipmWy0/
- qkj66Z98p6YyAe526Ud+YO1OVDidqC2cpcEfpP0CDLNVFVvYK5TPsxGXZ0/uvwcvRAItiGp+GR1
- MNEbvh7J29ta6BVg04uVkhUq5GIxWchHl4he1ph38xHfqw9ggafD5DYX/6fbNsg/+9D0Ijpj8Kr
- iRXMtQ==
-X-Google-Smtp-Source: AGHT+IHvMJdo2YuwAJK4IzVo/6bAOk5K0/SxZO/UXu9/V6Y93MfRo8ti3kWFfUdw7eoMODvnJCfqHQ==
-X-Received: by 2002:a17:907:7716:b0:aab:ef03:6d46 with SMTP id
- a640c23a62f3a-aac08112b74mr5226866b.4.1734541496716; 
- Wed, 18 Dec 2024 09:04:56 -0800 (PST)
-Received: from [192.168.178.20] (dh207-43-57.xnet.hr. [88.207.43.57])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aab963913edsm575357366b.168.2024.12.18.09.04.51
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 18 Dec 2024 09:04:56 -0800 (PST)
-Message-ID: <35055563-5280-4f57-ad9c-27f47d94f54a@gmail.com>
-Date: Wed, 18 Dec 2024 18:03:48 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 3/3] btrfs: replace kmalloc() and memcpy() with
- kmemdup()
-To: Mark Harmstone <maharmstone@meta.com>,
+ AJvYcCVlN5MNp1p4kBs/9l+JUnFQO5izf8Ot2e7w2BG5S/mL8QU7Rh8hQ1Q1Wsbc/6ejFvuYEuJsLOw+MJyn@lists.freedesktop.org,
+ AJvYcCW4i0a00Lh/7DtBuxGe5loLXmZlOhvoBVX4P7Yth1S98QcglvG44h7NeWZOVql8sGeoSYryf+CP@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwtciijZJ31A1BUw500ZIplBs1eIQLzAmPU9hnAgfy3yNDcuNKj
+ Kp/61iFKuMc1aIHiwbKE5OreKHFVCIJnWJOUuSqmzsZVJP56Fbdq
+X-Gm-Gg: ASbGncsV3zX1rmINX4rGvMT+g7wIQNsQG5leUl97ynh15VqBkltDrzbYJVHqLJCpuCq
+ nfr/+QC/7RQIqVaqEHNBe2KoMHSrTbMc79Vtt/L6u87fM4OyrvsQYzVWddwP9I7xHoKwajONlNe
+ cO2HDnAf9Ci8hTcSEtV7aa8HFNTGKUHXdb4/GQXPqWwrgr246hf6gfJHAdn9xQIE3yXBn6CVm0g
+ wZV60L5OKFBaAHhIc8K7FwTnPFlO3Z5ooJKS/Yx9jTuNEDMzprWzS2p3g==
+X-Google-Smtp-Source: AGHT+IHJaWy4Syj1FDqmmodsg0qce4bbV8C9mjEYRpvZWrWVy6MDcpPigtdiqfpwr/3HujPnW6Dr1w==
+X-Received: by 2002:a05:600c:350a:b0:434:f7e3:bfa8 with SMTP id
+ 5b1f17b1804b1-4365cbbc5c5mr23736705e9.33.1734611555485; 
+ Thu, 19 Dec 2024 04:32:35 -0800 (PST)
+Received: from localhost ([194.120.133.23]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43661289e0fsm17105165e9.39.2024.12.19.04.32.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 19 Dec 2024 04:32:35 -0800 (PST)
+From: Colin Ian King <colin.i.king@gmail.com>
+To: Chaitanya Dhere <chaitanya.dhere@amd.com>, Jun Lei <jun.lei@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>,
- Victor Skvortsov <victor.skvortsov@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Chris Mason <clm@meta.com>,
- Josef Bacik <josef@toxicpanda.com>, David Sterba <dsterba@suse.com>,
- "linux-btrfs@vger.kernel.org" <linux-btrfs@vger.kernel.org>
-References: <20241217225811.2437150-2-mtodorovac69@gmail.com>
- <20241217225811.2437150-6-mtodorovac69@gmail.com>
- <2b4d265c-0efe-43b4-890e-dbab59d9d7b0@meta.com>
-Content-Language: en-US
-From: Mirsad Todorovac <mtodorovac69@gmail.com>
-In-Reply-To: <2b4d265c-0efe-43b4-890e-dbab59d9d7b0@meta.com>
-Content-Type: text/plain; charset=UTF-8
+ Simona Vetter <simona@ffwll.ch>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: kernel-janitors@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH][next] drm/amd/display: Fix spelling mistake "tolarance" ->
+ "tolerance"
+Date: Thu, 19 Dec 2024 12:32:33 +0000
+Message-ID: <20241219123233.404925-1-colin.i.king@gmail.com>
+X-Mailer: git-send-email 2.45.2
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 19 Dec 2024 14:17:44 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -102,75 +92,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+There is a spelling mistake in a dml2_printf message. Fix it.
 
-Yes, I see you have the prior work and I have duplicated your work.
+Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
+---
+ .../display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c  | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Apology for the inconvenience.
-
-Best regards,
-Mirsad Todorovac
-
-On 12/18/24 11:32, Mark Harmstone wrote:
-> There's a fix for this already in the for-next branch:
-> https://github.com/btrfs/linux/commit/1a287050962c6847fa4918d6b2a0f4cee35c6943
-> 
-> On 17/12/24 22:58, Mirsad Todorovac wrote:
->>>
->> The static analyser tool gave the following advice:
->>
->> ./fs/btrfs/ioctl.c:4987:9-16: WARNING opportunity for kmemdup
->>
->>     4986                 if (!iov) {
->>   → 4987                         iov = kmalloc(sizeof(struct iovec) * args.iovcnt, GFP_NOFS);
->>     4988                         if (!iov) {
->>     4989                                 unlock_extent(io_tree, start, lockend, &cached_state);
->>     4990                                 btrfs_inode_unlock(inode, BTRFS_ILOCK_SHARED);
->>     4991                                 ret = -ENOMEM;
->>     4992                                 goto out_acct;
->>     4993                         }
->>     4994
->>   → 4995                         memcpy(iov, iovstack, sizeof(struct iovec) * args.iovcnt);
->>     4996                 }
->>
->> Replacing kmalloc() + memcpy() with kmemdump() doesn't change semantics.
->> Original code works without fault, so this is not a bug fix but proposed improvement.
->>
->> Link: https://urldefense.com/v3/__https://lwn.net/Articles/198928/__;!!Bt8RZUm9aw!4OVzQmIUbyH-UGdUwMAL582hR4Q-7HN2fn9IpyxeA1T8qrcC8RdBVz4xuL4m35_kksUllAi6OmdbRehcFpwfHw$
->> Fixes: 34310c442e175 ("btrfs: add io_uring command for encoded reads (ENCODED_READ ioctl)")
->> Cc: Chris Mason <clm@fb.com>
->> Cc: Josef Bacik <josef@toxicpanda.com>
->> Cc: David Sterba <dsterba@suse.com>
->> Cc: linux-btrfs@vger.kernel.org
->> Cc: linux-kernel@vger.kernel.org
->> Signed-off-by: Mirsad Todorovac <mtodorovac69@gmail.com>
->> ---
->>   v1:
->> 	initial version.
->>
->>   fs/btrfs/ioctl.c | 4 +---
->>   1 file changed, 1 insertion(+), 3 deletions(-)
->>
->> diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
->> index 3af8bb0c8d75..c2f769334d3c 100644
->> --- a/fs/btrfs/ioctl.c
->> +++ b/fs/btrfs/ioctl.c
->> @@ -4984,15 +4984,13 @@ static int btrfs_uring_encoded_read(struct io_uring_cmd *cmd, unsigned int issue
->>   		 * undo this.
->>   		 */
->>   		if (!iov) {
->> -			iov = kmalloc(sizeof(struct iovec) * args.iovcnt, GFP_NOFS);
->> +			iov = kmemdup(iovstack, sizeof(struct iovec) * args.iovcnt, GFP_NOFS);
->>   			if (!iov) {
->>   				unlock_extent(io_tree, start, lockend, &cached_state);
->>   				btrfs_inode_unlock(inode, BTRFS_ILOCK_SHARED);
->>   				ret = -ENOMEM;
->>   				goto out_acct;
->>   			}
->> -
->> -			memcpy(iov, iovstack, sizeof(struct iovec) * args.iovcnt);
->>   		}
->>   
->>   		count = min_t(u64, iov_iter_count(&iter), disk_io_size);
-> 
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
+index b9ec243cf9ba..774c7692d416 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
+@@ -8561,7 +8561,7 @@ static bool dml_core_mode_support(struct dml2_core_calcs_mode_support_ex *in_out
+ 	dml2_printf("DML::%s: mode_lib->ms.DCFCLK = %f\n", __func__, mode_lib->ms.DCFCLK);
+ 	dml2_printf("DML::%s: mode_lib->ms.FabricClock = %f\n", __func__, mode_lib->ms.FabricClock);
+ 	dml2_printf("DML::%s: mode_lib->ms.uclk_freq_mhz = %f\n", __func__, mode_lib->ms.uclk_freq_mhz);
+-	dml2_printf("DML::%s: urgent latency tolarance = %f\n", __func__, ((mode_lib->ip.rob_buffer_size_kbytes - mode_lib->ip.pixel_chunk_size_kbytes) * 1024 / (mode_lib->ms.DCFCLK * mode_lib->soc.return_bus_width_bytes)));
++	dml2_printf("DML::%s: urgent latency tolerance = %f\n", __func__, ((mode_lib->ip.rob_buffer_size_kbytes - mode_lib->ip.pixel_chunk_size_kbytes) * 1024 / (mode_lib->ms.DCFCLK * mode_lib->soc.return_bus_width_bytes)));
+ #endif
+ 
+ 	mode_lib->ms.support.OutstandingRequestsSupport = true;
+-- 
+2.45.2
 
