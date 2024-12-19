@@ -4,63 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50EA6E77184
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Dec 2024 17:12:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D1A3E77184
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Dec 2024 18:03:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E464B10E280;
-	Thu, 19 Dec 2024 17:12:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C812210ED7B;
+	Thu, 19 Dec 2024 18:03:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="M8VHGVs4";
+	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="HOwgFisF";
 	dkim-atps=neutral
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A0C9910E280;
- Thu, 19 Dec 2024 17:12:46 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 59A98A427EF;
- Thu, 19 Dec 2024 17:10:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63AADC4CECE;
- Thu, 19 Dec 2024 17:12:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1734628364;
- bh=MpqPn06almC1w7AKhIWoa4Ja+d2HKNexfyEQuKVEwGA=;
- h=From:Date:Subject:To:Cc:From;
- b=M8VHGVs4H5v7Nfk8+7GME1RH4pX2cA6x5VJArmiYYpUzRuKMn384x8RKEFjFUZlZU
- wUnXWhGZ2LA8mEik95iGWk18wEjnjQn1nPsjHW1IodC10G/GD2SjqoRTirExpWD87F
- V2MJrjB95v9z1eUtmnUTHUJlJGR+ITe8/Q2Xn50jNCW2HSctPxr9JUiUIfib0W5rVE
- bQoIQMlpiAGxDEnCJddOFFl6CuBKMpYEkqBys63PYObgYuIV9YIQsfc4sqaP2ksQ+j
- TqnCvgaCSnmiaJjc7AV1+r47NEQwNpqryQdm60gk8nlQmosuNILzYhIeDmXvctwGrK
- u5xPk2TUZNQFA==
-From: Nathan Chancellor <nathan@kernel.org>
-Date: Thu, 19 Dec 2024 10:12:31 -0700
-Subject: [PATCH] drm/amd/display: Disable -Wenum-float-conversion for
- dml2_dpmm_dcn4.c
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [IPv6:2a00:1450:4864:20::32a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A4C0710ED86
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Dec 2024 18:03:30 +0000 (UTC)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-4361f796586so11995035e9.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Dec 2024 10:03:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ffwll.ch; s=google; t=1734631409; x=1735236209; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=wj6fKybvhpdLo8S03Sc82p7qiE0cE5iZZNXR/q2KG50=;
+ b=HOwgFisFIA47lT2WjGJ4Sm2fAmboJy/MJmXfMDdW4Wa/fEp7rPqRg7498J+F9/lC4T
+ p7elj2AOcGnaScen/CzsQ2Xpat3OYJ9IpQJOccXF/zSXW6b07xgaDk8HqKXgQucql+PW
+ COoijK74NW7FuhWVD1p2+IkXMGOjyIKBcaFRI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1734631409; x=1735236209;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=wj6fKybvhpdLo8S03Sc82p7qiE0cE5iZZNXR/q2KG50=;
+ b=WIdnBH/nH6dop7U6bJHHV1dmxj87xXoqJX7bVX2zrFaXrnVNMXePWPafchMANd7vsc
+ LNbFq7WJia8fyl4S3eXaEwoUl4G4wg6sBqSFwUnPSLdDu2pASE1e01nySH0S0esQnB1B
+ BI6XTYFEBMNaCT5grvDZtbB610icAWHTzDboGey2c0X5qnS4YbW0z7KmfO23ACFM6h/m
+ oSrpJymQp8FL3PDMiq5+M2deqOBm/t0DM9+r06evy6coNWwFefpKlXy0YYRcBOkokVzN
+ Z7ICvmUVEKF2jRzAFJgiOLgpw5B6fyUgvztJrpu02YB++lcqA2DGkAtjj6eqnwMpmes8
+ jvpw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCW8QedEpPXXU3pU+amBX4T9QB1Isy07NbHXHUBw9K+co8tGXwNo1+Ta7LLMWBLhI9WFrl+XPI7S@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw/4rPJ6D6YX27CTZXKVgsVT2y7mWB+OkSw76GhimUcfPCDRBs6
+ C59DVcnRBOJ1AYWkdDQLbysev9JU+x/ML8vLZ3oex28Wsre9aOOzBuyMTM+2RBQ=
+X-Gm-Gg: ASbGnctpxeRKSE5K138K/10IkgCJAoteKDJxbBxMbhiY9Yg5SbfFTabD+EcsgzqTLOs
+ vqmZyIqwcwyqhHI9BJa0FjI/gnypg2M2vWPMFzl7PHl0Wdzc+7cPhNG7v8fz8rOwasKPjWCaE0q
+ PsAN3ixXhHeROlpbWxQsato0sXwOWuLKqx1SZJbpxeP/2el3BDhOBd8vYlAWa9Bo3Nn2IpZns5s
+ l22AkSLltAPZZOWRJqdB0k0ljEYs2HCQxtOYkkeEtnpwkzupu/OI7Esq8+KDlNjuvAw
+X-Google-Smtp-Source: AGHT+IFKEJdmGgm6Veb+9/tSj+uVDABACLdWgALXb2yDU5/KP1uI3+AxmFUe7k6w9BBfbvbE2dUKkA==
+X-Received: by 2002:a5d:5e09:0:b0:385:f909:eb2c with SMTP id
+ ffacd0b85a97d-38a223f7548mr31845f8f.38.1734631408916; 
+ Thu, 19 Dec 2024 10:03:28 -0800 (PST)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:5485:d4b2:c087:b497])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38a1c89e126sm2049240f8f.65.2024.12.19.10.03.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 19 Dec 2024 10:03:28 -0800 (PST)
+Date: Thu, 19 Dec 2024 19:03:26 +0100
+From: Simona Vetter <simona.vetter@ffwll.ch>
+To: Daniel Stone <daniel@fooishbar.org>
+Cc: Brian Starkey <brian.starkey@arm.com>,
+ Simona Vetter <simona.vetter@ffwll.ch>,
+ Michel =?iso-8859-1?Q?D=E4nzer?= <michel.daenzer@mailbox.org>,
+ Marek =?utf-8?B?T2zFocOhaw==?= <maraeo@gmail.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
+ ML Mesa-dev <mesa-dev@lists.freedesktop.org>, nd@arm.com
+Subject: Re: [PATCH] drm/fourcc: add LINEAR modifiers with an exact pitch
+ alignment
+Message-ID: <Z2Rf7mpSuzZ0ObmT@phenom.ffwll.local>
+References: <CAAxE2A5BkF13bFt8_UnuiqPM8W-ZESgmKEjqqGfv=DGzSfJ7aQ@mail.gmail.com>
+ <uffsfaps6a75zmkyshkwfxgybcslqrnfqqtjzekegdptvwpugc@2ndpcuxyfp3f>
+ <c64cb9d8-5ea7-4644-93c8-04a97b758fa0@mailbox.org>
+ <h26quuebhpxwkc3fl4vtfteoqyvingnddgxbnzptfnxfg6xgkd@kkkmeqwplomv>
+ <8dae97c9-9286-451a-8122-b309eb21b2f4@mailbox.org>
+ <Z2Ki-lQH4Fbch6RO@phenom.ffwll.local>
+ <q45c43j5kwwvemec7mcs4kqzt54pa3nz3jlhkcky2v63s2vfie@him4q253uw4p>
+ <CAPj87rMFJ0JRvsKqZUsw_EGrFWr1VLO4Ne2w_bZ5cH+gs_d=og@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20241219-amdgpu-fix-enum-float-conversion-again-again-v1-1-ef2c619724b1@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAP5TZGcC/zWNQQrDIBBFrxJmnYEqbYq9SsliqqMZaDRoDIGQu
- 9cWuvnwFu/9Awpn4QKP7oDMmxRJsYHqO7ATxcAorjHoi74qrQzS7MJS0cuOHOuM/p1oRZvixvk
- rIwWS/9qXd0bdjL8PDlpyydzE391zPM8PilMQuH4AAAA=
-X-Change-ID: 20241219-amdgpu-fix-enum-float-conversion-again-again-cbfd9159f76d
-To: Chaitanya Dhere <chaitanya.dhere@amd.com>, Jun Lei <jun.lei@amd.com>, 
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Xinhui Pan <Xinhui.Pan@amd.com>, Austin Zheng <Austin.Zheng@amd.com>
-Cc: Dillon Varone <dillon.varone@amd.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, llvm@lists.linux.dev, 
- patches@lists.linux.dev, Nathan Chancellor <nathan@kernel.org>
-X-Mailer: b4 0.15-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2673; i=nathan@kernel.org;
- h=from:subject:message-id; bh=MpqPn06almC1w7AKhIWoa4Ja+d2HKNexfyEQuKVEwGA=;
- b=owGbwMvMwCUmm602sfCA1DTG02pJDOkpIZx5PxTOzXhyjTvigruC+UJfYYdX9hu+FZelS8o0/
- uoxz53RUcrCIMbFICumyFL9WPW4oeGcs4w3Tk2CmcPKBDKEgYtTACbyfw7D/7J75sm3tx6b9ts1
- Vpz//doP6hqmUZpFexgvvq056L/tcwDDP+NGvzVRfxNSHHZbzV/soVIk4jpPUO4aB6eZw+q9jGm
- 3OQA=
-X-Developer-Key: i=nathan@kernel.org; a=openpgp;
- fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAPj87rMFJ0JRvsKqZUsw_EGrFWr1VLO4Ne2w_bZ5cH+gs_d=og@mail.gmail.com>
+X-Operating-System: Linux phenom 6.12.3-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,48 +96,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Commit be4e3509314a ("drm/amd/display: DML21 Reintegration For Various
-Fixes") blew away commit fdedd77b0eb3 ("drm/amd/display: Reapply
-2fde4fdddc1f"), which itself was a reapplication for the same reason,
-which results in that compiler warning returning:
+On Thu, Dec 19, 2024 at 09:02:27AM +0000, Daniel Stone wrote:
+> On Wed, 18 Dec 2024 at 10:32, Brian Starkey <brian.starkey@arm.com> wrote:
+> > On Wed, Dec 18, 2024 at 11:24:58AM +0000, Simona Vetter wrote:
+> > > For that reason I think linear modifiers with explicit pitch/size
+> > > alignment constraints is a sound concept and fits into how modifiers work
+> > > overall.
+> >
+> > Could we make it (more) clear that pitch alignment is a "special"
+> > constraint (in that it's really a description of the buffer layout),
+> > and that constraints in-general shouldn't be exposed via modifiers?
+> 
+> It's still worryingly common to see requirements for contiguous
+> allocation, if for no other reason than we'll all be stuck with
+> Freescale/NXP i.MX6 for a long time to come. Would that be in scope
+> for expressing constraints via modifiers as well, and if so, should we
+> be trying to use feature bits to express this?
+> 
+> How this would be used in practice is also way too underdocumented. We
+> need to document that exact-round-up 64b is more restrictive than
+> any-multiple-of 64b is more restrictive than 'classic' linear. We need
+> to document what people should advertise - if we were starting from
+> scratch, the clear answer would be that anything which doesn't care
+> should advertise all three, anything advertising any-multiple-of
+> should also advertise exact-round-up, etc.
+> 
+> But we're not starting from scratch, and since linear is 'special',
+> userspace already has explicit knowledge of it. So AMD is going to
+> have to advertise LINEAR forever, because media frameworks know about
+> DRM_FORMAT_MOD_LINEAR and pass that around explicitly when they know
+> that the buffer is linear. That and not breaking older userspace
+> running in containers or as part of a bisect or whatever.
+> 
+> There's also the question of what e.g. gbm_bo_get_modifier() should
+> return. Again, if we were starting from scratch, most restrictive
+> would make sense. But we're not, so I think it has to return LINEAR
+> for maximum compatibility (because modifiers can't be morphed into
+> other ones for fun), which further cements that we're not removing
+> LINEAR.
+> 
+> And how should allocators determine what to go for? Given that, I
+> think the only sensible semantics are, when only LINEAR has been
+> passed, to pick the most restrictive set possible; when LINEAR
+> variants have been passed as well as LINEAR, to act as if LINEAR were
+> not passed at all.
 
-  drivers/gpu/drm/amd/amdgpu/../display/dc/dml2/dml21/src/dml2_dpmm/dml2_dpmm_dcn4.c:215:58: error: arithmetic between enumeration type 'enum dentist_divider_range' and floating-point type 'double' [-Werror,-Wenum-float-conversion]
-    215 |         divider = (unsigned int)(DFS_DIVIDER_RANGE_SCALE_FACTOR * (vco_freq_khz / clock_khz));
-        |                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~
+Yeah I think this makes sense, and we'd need to add that to the kerneldoc
+about how drivers/apps/frameworks need to work with variants of LINEAR.
 
-Just disable the warning for the whole file via Makefile to avoid having
-to reapply the same fix every time the code syncs from wherever it is
-actually maintained.
-
-Fixes: be4e3509314a ("drm/amd/display: DML21 Reintegration For Various Fixes")
-Signed-off-by: Nathan Chancellor <nathan@kernel.org>
----
-If you would prefer reapplying the local fix, feel free to do so, but I
-would like for it to be in the upstream source so it does not have to
-keep being applied.
----
- drivers/gpu/drm/amd/display/dc/dml2/Makefile | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/Makefile b/drivers/gpu/drm/amd/display/dc/dml2/Makefile
-index d9c27ebe12ee08d6330eb199cd8ca9c8489fa5b2..5c0f93644c5d43c8a0bc12713fc400712d8de50b 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/Makefile
-@@ -78,7 +78,7 @@ CFLAGS_$(AMDDALPATH)/dc/dml2/dml21/src/dml2_top/dml2_top_soc15.o := $(dml2_ccfla
- CFLAGS_$(AMDDALPATH)/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4.o := $(dml2_ccflags)
- CFLAGS_$(AMDDALPATH)/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.o := $(dml2_ccflags) $(frame_warn_flag)
- CFLAGS_$(AMDDALPATH)/dc/dml2/dml21/src/dml2_core/dml2_core_factory.o := $(dml2_ccflags)
--CFLAGS_$(AMDDALPATH)/dc/dml2/dml21/src/dml2_dpmm/dml2_dpmm_dcn4.o := $(dml2_ccflags)
-+CFLAGS_$(AMDDALPATH)/dc/dml2/dml21/src/dml2_dpmm/dml2_dpmm_dcn4.o := $(dml2_ccflags) $(call cc-disable-warning,enum-float-conversion)
- CFLAGS_$(AMDDALPATH)/dc/dml2/dml21/src/dml2_dpmm/dml2_dpmm_factory.o := $(dml2_ccflags)
- CFLAGS_$(AMDDALPATH)/dc/dml2/dml21/src/dml2_mcg/dml2_mcg_dcn4.o := $(dml2_ccflags)
- CFLAGS_$(AMDDALPATH)/dc/dml2/dml21/src/dml2_mcg/dml2_mcg_factory.o := $(dml2_ccflags)
-
----
-base-commit: 695c2c745e5dff201b75da8a1d237ce403600d04
-change-id: 20241219-amdgpu-fix-enum-float-conversion-again-again-cbfd9159f76d
-
-Best regards,
+Just deprecating LINEAR does indeed not work. The same way it was really
+hard slow crawl (and we're still not there everywhere, if you include
+stuff like bare metal Xorg) trying to retire the implied modifier. Maybe,
+in an extremely bright future were all relevant drivers advertise a full
+set of LINEAR variants, and all frameworks understand them, we'll get
+there. But if AMD is the one special case that really needs this I don't
+think it's realistic to plan for that, and what Daniel describe above
+looks like the future we're stuck to.
+-Sima
 -- 
-Nathan Chancellor <nathan@kernel.org>
-
+Simona Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
