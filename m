@@ -4,60 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C77FBE77188
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Dec 2024 08:20:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F8FFE77188
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Dec 2024 10:35:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 607D710E103;
-	Fri, 20 Dec 2024 08:20:40 +0000 (UTC)
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
- by gabe.freedesktop.org (Postfix) with ESMTP id B1D7E10EE94
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Dec 2024 05:02:25 +0000 (UTC)
-Received: from loongson.cn (unknown [113.200.148.30])
- by gateway (Coremail) with SMTP id _____8Dxfa9c+mRnPdlYAA--.19328S3;
- Fri, 20 Dec 2024 13:02:20 +0800 (CST)
-Received: from [10.130.0.149] (unknown [113.200.148.30])
- by front1 (Coremail) with SMTP id qMiowMCxbcda+mRnGTADAA--.18880S3;
- Fri, 20 Dec 2024 13:02:18 +0800 (CST)
-Subject: Re: [PATCH v6 9/9] drm/amd/display: Mark dc_fixpt_from_fraction()
- noinline
-To: Alex Deucher <alexdeucher@gmail.com>, Josh Poimboeuf <jpoimboe@kernel.org>
-References: <20241217010905.13054-1-yangtiezhu@loongson.cn>
- <20241217015006.30305-1-yangtiezhu@loongson.cn>
- <CAAhV-H4WpcWjrQdkm3Sx4DVbp=2oW9nNGAbNqR4BEmiryrptNQ@mail.gmail.com>
- <20241218190558.g2hykmjgbny4n5i3@jpoimboe>
- <CADnq5_PFcHzob4poLa86_K4yP5gUT7Ei4Rz5vSUofvZTmB48-g@mail.gmail.com>
-Cc: Huacai Chen <chenhuacai@kernel.org>, Peter Zijlstra
- <peterz@infradead.org>, loongarch@lists.linux.dev,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-From: Tiezhu Yang <yangtiezhu@loongson.cn>
-Message-ID: <4bace457-cc26-13a3-bc90-ad6ad12bc2ed@loongson.cn>
-Date: Fri, 20 Dec 2024 13:02:18 +0800
-User-Agent: Mozilla/5.0 (X11; Linux mips64; rv:45.0) Gecko/20100101
- Thunderbird/45.4.0
-MIME-Version: 1.0
-In-Reply-To: <CADnq5_PFcHzob4poLa86_K4yP5gUT7Ei4Rz5vSUofvZTmB48-g@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+	by gabe.freedesktop.org (Postfix) with ESMTP id F31BC10E159;
+	Fri, 20 Dec 2024 10:35:13 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="mK1tZJip";
+	dkim-atps=neutral
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2078.outbound.protection.outlook.com [40.107.220.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6FC0D10E159
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Dec 2024 10:35:13 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fdaV2FKtR90ctYdGX8Lkjun4i5XvNoIJ7dQ9YyqvXGTvzmsHhWYbV4w+CYnNHVROMD966kPk+jRvmPJBRFADKA/YUAKce+x2Dv+jZMPUdjB0cyM+EgZVTSgQ0bxWXrtC3en038rD0kOcGHqIHHOboZopa9+4KyofKO/dwG0V2R2QxC7LWamZ6B7QYyH+kLhvcMZd8Vhh0FzzkwtTqKf5JwwGixKChaxsUidG+7rF5nQphQoa2aUHbZVjvoSSGcPHscxOisdqcL4XOUdXvCP1f0C/KULVPR8SvUIwC79uBdKHjWNlLTRK8JE2U+ktpahc5k/ozT4xTE4ZscjIsbK6HA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3+BU9LICIEAJ7HV7TQNW2SNz3u+2v/Y2vaaTXBtTPo8=;
+ b=ZxPSMAv55rGy7B6pn585tknU4PkfDL/wtTbW3ZVBuZqEOZ8CAr8OUBAXFvttfKXZGHg02JA0+fn9P5IZDF4E0AwFaySJc+lFaHCfVq+NkBTHyzE90wDzh582O30fMyLgiT2z4qQHmWXIAOMd4ygvqfkenj1ZqxWdUQ3me98xHOxHpF25FlDxzpUHIIEw9mmg82DTLmMtt+0KWUdqfzqFlMlhmv1RbSmhtLv+0Q+P8FqxaaQI17CCImdaWvVUcEEc1AM1JRf+6vSz9JAUSa9H3biiVBjQPLyat19r8Jb+vEJnXwrkpu67GJ860DcdN/EvfmG4MHW/EQXiGCz1F7d/3g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3+BU9LICIEAJ7HV7TQNW2SNz3u+2v/Y2vaaTXBtTPo8=;
+ b=mK1tZJipPe90bb8oAEotlWR/04vLUcm4vUioK070RkT2WnhAiopBOZv/oMShu+0WCS1vTiIUgELWbTZpU5Za5qeUIdEjb+ZpjHNeY3egus6u4BRx3n9o+UDi/Xe+cVpXUQbyDJTyLu2NNHAW2C8diyK2Oy2elU9goT0dvtBfD/8=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH8PR12MB7301.namprd12.prod.outlook.com (2603:10b6:510:222::12)
+ by CH3PR12MB9124.namprd12.prod.outlook.com (2603:10b6:610:1a7::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8272.16; Fri, 20 Dec
+ 2024 10:35:05 +0000
+Received: from PH8PR12MB7301.namprd12.prod.outlook.com
+ ([fe80::a929:e8eb:ef22:6350]) by PH8PR12MB7301.namprd12.prod.outlook.com
+ ([fe80::a929:e8eb:ef22:6350%7]) with mapi id 15.20.8272.005; Fri, 20 Dec 2024
+ 10:35:05 +0000
+Message-ID: <b4acfc3c-5d91-4b94-8d7f-e653cebc5bbe@amd.com>
+Date: Fri, 20 Dec 2024 16:04:54 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/3] drm/amdgpu: Fix out-of-bounds issue in user fence
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com
+References: <20241219103824.630689-1-Arunpravin.PaneerSelvam@amd.com>
+ <22a8d1c2-712c-4c16-a296-81fe342bdfde@amd.com>
+Content-Language: en-US
+From: "Paneer Selvam, Arunpravin" <arunpravin.paneerselvam@amd.com>
+In-Reply-To: <22a8d1c2-712c-4c16-a296-81fe342bdfde@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: qMiowMCxbcda+mRnGTADAA--.18880S3
-X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
-X-Coremail-Antispam: 1Uk129KBj9fXoW3CF13Cw18GrWfWFy3uFykZwc_yoW8GF15Xo
- W5Z34YqF4xGryDWF9a9ryUJr4kZa18ZFn7tFn3XwnxGFn8XFW8Xr15uw18Ka1SgF45Xay7
- Cay7tr45A3WjkFn7l-sFpf9Il3svdjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8wcxFpf
- 9Il3svdxBIdaVrn0xqx4xG64xvF2IEw4CE5I8CrVC2j2Jv73VFW2AGmfu7bjvjm3AaLaJ3
- UjIYCTnIWjp_UUUY47kC6x804xWl14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI
- 8IcIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xG
- Y2AK021l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14
- v26r1j6r4UM28EF7xvwVC2z280aVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVCY1x0267AK
- xVW8Jr0_Cr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx
- 1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv
- 67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7I2V7IY0VAS07
- AlzVAYIcxG8wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02
- F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw
- 1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7Cj
- xVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r
- 1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU1CP
- fJUUUUU==
-X-Mailman-Approved-At: Fri, 20 Dec 2024 08:20:39 +0000
+X-ClientProxiedBy: PN3PR01CA0124.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:96::12) To PH8PR12MB7301.namprd12.prod.outlook.com
+ (2603:10b6:510:222::12)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH8PR12MB7301:EE_|CH3PR12MB9124:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6218ee73-4238-45ca-ef48-08dd20e1f785
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?REZESmFXdFNNbVRGQzdSa3orS2Zpa0xLamNaRUJWdlpGODFKTjgwLzYwb0gw?=
+ =?utf-8?B?TEJNdXVTWVpLSjlpWHJxQjFoU2xvbFd0ZDR6bnl5V0V4T0o0Y1hvMnZSdGFh?=
+ =?utf-8?B?bUJKNWg4MllLdHE4VU1SMmxjbHNCWk1zbnFkYzRaNjcyYlhoMjd6SjBlVENj?=
+ =?utf-8?B?cDdEYzhxbjZpOGVZalZnK1ZGdFBaOFdiMHNoazl3T1Irby9NTVhwMnVTcXFo?=
+ =?utf-8?B?UXBKb25ITk1TZFJPN2ZiVUFPaDdnYXphUFpZWlJCNzFaZnlVZmE1MnZlRFFM?=
+ =?utf-8?B?WmVFbXdTV0xoMXNDTk5aVVAxVExPZ2NyZjB6THhMa3pKa0d3Sk14cktoOXFr?=
+ =?utf-8?B?TzhleitVMklkOWZpblB3UTEzS3pLVDRlejBsYXY5eUdpWFZtUU1sbThhMlN2?=
+ =?utf-8?B?SUEzMkx2N1BZck9lbXdXMVR5WTlvNlErUW1BSHIvOGx3dnh2QnFuREk1NWJK?=
+ =?utf-8?B?Znh5SFAyMlJQSWxPNHZ5QjVUNm02VGJhWGZac2RxRngrQ2w4TmhKK0J2cmsz?=
+ =?utf-8?B?U2J1eTRqUEEvRSt1MGV4akNPck94VzZlV3huUE5TWkRpVjZCTkVlQUxvL2Z5?=
+ =?utf-8?B?VTQ5WTd5bU4vWFZUWmRuSjFnNFZOWm1qVUxDaEZLaWV0L2hzc2FWSnhpS1Mw?=
+ =?utf-8?B?MVNsYkhqZ2k0bWROVUdLb2UzRzZuMXJkRldCbXRlL0d6NEVUSkZCazlsMkJv?=
+ =?utf-8?B?TXNQNU1mRWdVa2xKUHdwQTRTMk0reEozRFdSbGs0Tit5K29PbjVwUFBOeXJa?=
+ =?utf-8?B?Zm5wZE40WXFIS3Y5OVNOQnZhOWlJUmZIQ01OaUozb28vMjdpblgrbjVadmpV?=
+ =?utf-8?B?ZXJEbk10MzAvTDVSTWppOVUwdUdXdTBDOWhZRUl0UFV6d05wcXlNTlFLMEE3?=
+ =?utf-8?B?LzZDbVAxeTNxQ0hoZS9Jc0FGU3FueElHOUlTZDNCTE1DNkVXRUtlQ21oMmZj?=
+ =?utf-8?B?aFNnRnhhckJFNVU0ekEzaWFVOHEzQjRBejBWV2IyRDZ4KzE0czI2eUhTWmZK?=
+ =?utf-8?B?UnVCWU1XbDJDRE9vR1UwdU82bHR0R3BDVm5vVUZmTDhHRldwRkNydGhpOVpO?=
+ =?utf-8?B?cDdZZnpTclQxVjh4Nkp1N2o4V1VuaHMxSkNtcEFFNU1CRnlmR1ZvUnpWVUdh?=
+ =?utf-8?B?eHBFQzhqNlRENytwRUtvcFRCYXFUajNWMHJLd3lrNmRnUk1STWZGSWgwZVI2?=
+ =?utf-8?B?QzBFaFBWM1pWd29rTFZYeTB1d0p1Q3c0NzZNbkF5ZFpEMTNkVDJDNzcwRTVa?=
+ =?utf-8?B?dmVKbVdmd3lNVEZudXlrSS9tTmV0Mk9wd01ncEtwbnhKWUZERS9scHNuaHJz?=
+ =?utf-8?B?c0RybDNFM3JZTUY2Z0JBSmtvNWlMdXNFM2hXYlVpZG9IYXBWYjgzNVlGV2dr?=
+ =?utf-8?B?OEM2MkRsTFViaElzVzZhZEpLZCt4S0U2UVBNTDNmbm1LWWg0d3MxRDQ5eFNa?=
+ =?utf-8?B?ZmZIWnVDdlJVT3dNbXl5MHFtWkE3Mlp6a3hKNWpkYS9TYzhJbFNQMUJXM0Uv?=
+ =?utf-8?B?VmJ5SkJmbDdLSEpUSVpNQ25IdWZ5eENWL3RPUlc2Ykl3S1VOSlI1aExqTkZS?=
+ =?utf-8?B?NXZtci9sVUNVc2RoeUwwNDRvNWhLVTFKS3dKREtHdlBIc0lEMTlJaE41ai9Q?=
+ =?utf-8?B?dlViU0gyZGtCRXFsWXRqbFVxZzFHWjZzN1prWFpCNzMzbGV1dG4wcEkrMStV?=
+ =?utf-8?B?OFJ1TnFxdEoxcmE3Rll1UVZkZXVtc2hkc09ZakZWTUY3NTVjNzhUVlkvOTcy?=
+ =?utf-8?B?NS9EUTduRzhQbFZ5OGJ2eUtTTHF5VW9Zc0l3dVliaHQrVFp0QnRwQTJnNGtI?=
+ =?utf-8?B?VzRXNVdpRVNlMmR5bVhvNmd1am9EV1MyT1pxWWRERjdhQ1NXZXhGeDZka0V6?=
+ =?utf-8?Q?Jltofj4hNADMq?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH8PR12MB7301.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S0xkNlY5cVVIaTdaTFVxTytBM1pYd0VmWHYvY1RkUE9EbHdMUVg1N0MrNlFx?=
+ =?utf-8?B?bC84cUNEdy81cUQvdHRvK2Z5cytyMGhtd3RybFhhQ3QyaU5qb0ljT3IyRTBP?=
+ =?utf-8?B?K3EwMHV0aHpLaDBzbHVjcHViSkQvSXVET0haVzBsNFI2SEdBU2xwOUhMUEN5?=
+ =?utf-8?B?cEM3MnpVdFpYQkVDalZrTUMwTmVnQVZpYm43eUJ5QWJVMCtCamJ0QzdxbVEv?=
+ =?utf-8?B?enRBZzBtZXVWVzVkbEhWNlFTNE9pZTVEb0tBVlZ6S01HbGJyVmlVQ3NRRE9m?=
+ =?utf-8?B?RUU4ZWRNdVk3T0RZd3ZSMVJuRDYyRWZEemo3L0N1SGI0L3NveDE2SmZJUU1u?=
+ =?utf-8?B?MGY0c0lSQnIyNjlYUkdqR3ZzeWljVGVJMG8rUGVzUDJvb2ZtOXJvZFBhZTgx?=
+ =?utf-8?B?aXlIZEhTUGJFOUs4dWowNE9TdHhNSCtGRUVFU2FpcnhSbXNGVGFkQjViUFA3?=
+ =?utf-8?B?SGl4cmRmSXFIcmxmeWFSeG9WU0tLVVNLbXBEL1h1V3pMbnhHdyt3RzJxbmVV?=
+ =?utf-8?B?TzBrMGROeXdSR053OWtrSC9pSll4UU45TWw2SE8xaWQzL1Y1aUxzTFZobUtp?=
+ =?utf-8?B?NHhrK2dHODZBQ3ZRV2Q4cWQ1cGsyYjBMSzExcklRSjhvditMSUlzYkI3NG4x?=
+ =?utf-8?B?bjZaeUVBZ3NNQ3hYOHR0MUIzY09nUy8zeDVUbVdXRVM0MjMxeGdxWks3VUlr?=
+ =?utf-8?B?Y0plWmR5cDNrY1Y2d014bHhmUHIraktPVVdVbktDZjNIWVpVcFlkSXBucEJ3?=
+ =?utf-8?B?b0hJZ09CSGVxYlVrMGxDNVpKU1pZZUxWNkFOK1J3VStnMGZhYWM3L3daY2hV?=
+ =?utf-8?B?ZXlyQ1lWS2VHWjdjcXdrcGh3MzZmMkU4elhRejlIc0VnM1VRRlcza085bzRS?=
+ =?utf-8?B?c0M4eXJuU21QUEtsV1RYU3g2cDArS041WTd6bDl1NXlXOTJnQzh4akhkcHVF?=
+ =?utf-8?B?bHRtNWdTOE9xRFZodTQ5RXZ3ekZXRk1oa3hISHl3NlJDNS83cTNENVhITEdW?=
+ =?utf-8?B?MmlEeWR5Z2ppcGtjR05zdFk3ekVndU94MkFWVVhjc0UvSE5tOEgwWVhpTTk1?=
+ =?utf-8?B?OWVVZWVkS2o0ZTRXVU53YjhNU3EraS9IVEJmeUJqOW5vZFc3bUt2cHZGenYw?=
+ =?utf-8?B?SnQrZ1hYTWppUEZjRWg4OHFpZURnZHRRaHRjOEZzRXhqQitxUkxzTVI1U0o1?=
+ =?utf-8?B?ZDlXTWZ2V3YwSThEVjZ5SGFrUjBkajY4c2VQdGZrQStnMVlFRHEveENCRlJa?=
+ =?utf-8?B?SVFwNE9SL0kza1dUdkZwWGdOQk1kbk9Ic2ZYUE9XY1ZHRDVXYUJaZVhPMi9Q?=
+ =?utf-8?B?d0pXbHJZbDNyMW03NHdJTnhSRSs5eWRTUXBDSE5WVzU0aWVkamg2Y01LVDdK?=
+ =?utf-8?B?MEc2TnZ1eUVyaUdRQTBWSzAyQjQvbGo0UCtIdjZsajdwcEdhUmZOWHYxVjFR?=
+ =?utf-8?B?U1pzREF1N0tXV216dGpKVWNiL2JhelI2WjlWaTB2ZjVaTnlQaVo0VVBtWWVD?=
+ =?utf-8?B?TC8yYm11SXZSNnYzN0Jvdy9mQ2pWd2V4emZzdzIrMEM1ZHFWajB2SERLS3JD?=
+ =?utf-8?B?eWxzNlpVc3FvZ1R1YXhlQUxVRkx2SVUzbG9pQlVtSFhSUTFTQzNZM2NJUHVH?=
+ =?utf-8?B?dDR2eVZsUUVEV09KZ044THhTTlBBUUk5YVBGMUFUQ1JGWHNzS1lUZ2NjZmVt?=
+ =?utf-8?B?L2NCTVgxMXpycXVLakZoTWc0MDQzdExlTG8vRzFzcmVYQVdOdVd1R1BuQVo4?=
+ =?utf-8?B?OVhuZmRaQ2JtYU5pOFM1anIwTy91eGpqbW0vNDdTMnVsWEM5ZkdBaER4MEdl?=
+ =?utf-8?B?djd6Z2lIcDVDNHg2bmMzdXlHR1NHTGw5NEVmbXl5WWFoanZCOGZJV1dGSGE2?=
+ =?utf-8?B?eUZaNmZVSXdrRFd6c0ZmRGlqeWxyREU1TE1mQnl1TmhNa0FONmhTOVZXU3Bm?=
+ =?utf-8?B?T3R0dlFVU3ZNNTNSUElyWkJUcHJoZW5ETEFDSzZvSWlHd09JTkYrZWdsc0lV?=
+ =?utf-8?B?TEluTC9nZWZIVEtkNXhINHUrZEx5QlpNTGJlaUt0aDI1T3RKZm5lNnkxUjRK?=
+ =?utf-8?B?SGxpQmhhVklBSUo0ZDQxVU9MMThTVlkxWEV6YW4yV3RIZkxQWmR4QzQwcVJm?=
+ =?utf-8?Q?egYgnbOZKBwpyykRhH+f3ZGyj?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6218ee73-4238-45ca-ef48-08dd20e1f785
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7301.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Dec 2024 10:35:05.2250 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: yqYVcsA+q5dEMJG5eJcfIymzhYVp3TPBF98aJC6+jrRPmNAGSq+4JTcn7M3b4ALhu36xChPStgTFi8ZM4HNKoQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9124
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,452 +161,207 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 12/19/2024 03:22 AM, Alex Deucher wrote:
-> On Wed, Dec 18, 2024 at 2:18 PM Josh Poimboeuf <jpoimboe@kernel.org> wrote:
->>
->> On Wed, Dec 18, 2024 at 10:36:00PM +0800, Huacai Chen wrote:
->>> Hi, Tiezhu,
->>>
->>> On Tue, Dec 17, 2024 at 9:50 AM Tiezhu Yang <yangtiezhu@loongson.cn> wrote:
->>>>
->>>> When compiling with Clang on LoongArch, there exists the following objtool
->>>> warning in drivers/gpu/drm/amd/display/dc/basics/fixpt31_32.o:
->>>>
->>>>   dc_fixpt_recip() falls through to next function dc_fixpt_sinc()
->>>>
->>>> This is because dc_fixpt_from_fraction() is inlined in dc_fixpt_recip()
->>>> by Clang, given dc_fixpt_from_fraction() is not a simple function, just
->>>> mark it noinline to avoid the above issue.
->>> I don't know whether drm maintainers can accept this, because it looks
->>> like a workaround. Yes, uninline this function "solve" a problem and
->>> seems reasonable in this case because the function is "not simple",
->>> but from another point of view, you may hide a type of bug.
->>
->> Agreed, it sounds like there's definitely a bug which this patch is
->> papering over.
+Hi Christian,
+
+
+On 12/19/2024 4:11 PM, Christian König wrote:
 >
-> Yes, agreed.
+>
+> Am 19.12.24 um 11:38 schrieb Arunpravin Paneer Selvam:
+>> Fix out-of-bounds issue in userq fence create when
+>> accessing the userq xa structure. Added a lock to
+>> protect the race condition.
+>>
+>> v2:(Christian)
+>>    - Acquire xa lock only for the xa_for_each blocks and
+>>      not for the kvmalloc_array() memory allocation part.
+>>
+>> v3:
+>>    - Replacing the kvmalloc_array() storage with xa_alloc()
+>>      solves the problem.
+>>
+>> BUG: KASAN: slab-out-of-bounds in 
+>> amdgpu_userq_fence_create+0x726/0x880 [amdgpu]
+>> [  +0.000006] Call Trace:
+>> [  +0.000005]  <TASK>
+>> [  +0.000005]  dump_stack_lvl+0x6c/0x90
+>> [  +0.000011]  print_report+0xc4/0x5e0
+>> [  +0.000009]  ? srso_return_thunk+0x5/0x5f
+>> [  +0.000008]  ? kasan_complete_mode_report_info+0x26/0x1d0
+>> [  +0.000007]  ? amdgpu_userq_fence_create+0x726/0x880 [amdgpu]
+>> [  +0.000405]  kasan_report+0xdf/0x120
+>> [  +0.000009]  ? amdgpu_userq_fence_create+0x726/0x880 [amdgpu]
+>> [  +0.000405]  __asan_report_store8_noabort+0x17/0x20
+>> [  +0.000007]  amdgpu_userq_fence_create+0x726/0x880 [amdgpu]
+>> [  +0.000406]  ? __pfx_amdgpu_userq_fence_create+0x10/0x10 [amdgpu]
+>> [  +0.000408]  ? srso_return_thunk+0x5/0x5f
+>> [  +0.000008]  ? ttm_resource_move_to_lru_tail+0x235/0x4f0 [ttm]
+>> [  +0.000013]  ? srso_return_thunk+0x5/0x5f
+>> [  +0.000008]  amdgpu_userq_signal_ioctl+0xd29/0x1c70 [amdgpu]
+>> [  +0.000412]  ? __pfx_amdgpu_userq_signal_ioctl+0x10/0x10 [amdgpu]
+>> [  +0.000404]  ? try_to_wake_up+0x165/0x1840
+>> [  +0.000010]  ? __pfx_futex_wake_mark+0x10/0x10
+>> [  +0.000011]  drm_ioctl_kernel+0x178/0x2f0 [drm]
+>> [  +0.000050]  ? __pfx_amdgpu_userq_signal_ioctl+0x10/0x10 [amdgpu]
+>> [  +0.000404]  ? __pfx_drm_ioctl_kernel+0x10/0x10 [drm]
+>> [  +0.000043]  ? __kasan_check_read+0x11/0x20
+>> [  +0.000007]  ? srso_return_thunk+0x5/0x5f
+>> [  +0.000007]  ? __kasan_check_write+0x14/0x20
+>> [  +0.000008]  drm_ioctl+0x513/0xd20 [drm]
+>> [  +0.000040]  ? __pfx_amdgpu_userq_signal_ioctl+0x10/0x10 [amdgpu]
+>> [  +0.000407]  ? __pfx_drm_ioctl+0x10/0x10 [drm]
+>> [  +0.000044]  ? srso_return_thunk+0x5/0x5f
+>> [  +0.000007]  ? _raw_spin_lock_irqsave+0x99/0x100
+>> [  +0.000007]  ? __pfx__raw_spin_lock_irqsave+0x10/0x10
+>> [  +0.000006]  ? __rseq_handle_notify_resume+0x188/0xc30
+>> [  +0.000008]  ? srso_return_thunk+0x5/0x5f
+>> [  +0.000008]  ? srso_return_thunk+0x5/0x5f
+>> [  +0.000006]  ? _raw_spin_unlock_irqrestore+0x27/0x50
+>> [  +0.000010]  amdgpu_drm_ioctl+0xcd/0x1d0 [amdgpu]
+>> [  +0.000388]  __x64_sys_ioctl+0x135/0x1b0
+>> [  +0.000009]  x64_sys_call+0x1205/0x20d0
+>> [  +0.000007]  do_syscall_64+0x4d/0x120
+>> [  +0.000008]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+>> [  +0.000007] RIP: 0033:0x7f7c3d31a94f
+>>
+>> Signed-off-by: Arunpravin Paneer Selvam 
+>> <Arunpravin.PaneerSelvam@amd.com>
+>> ---
+>>   .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   | 43 +++++++------------
+>>   .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.h   |  3 +-
+>>   2 files changed, 17 insertions(+), 29 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c 
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+>> index 2e7271362ace..4289bed6c1f7 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+>> @@ -122,10 +122,11 @@ int amdgpu_userq_fence_driver_alloc(struct 
+>> amdgpu_device *adev,
+>>     void amdgpu_userq_fence_driver_process(struct 
+>> amdgpu_userq_fence_driver *fence_drv)
+>>   {
+>> +    struct amdgpu_userq_fence_driver *stored_fence_drv;
+>>       struct amdgpu_userq_fence *userq_fence, *tmp;
+>>       struct dma_fence *fence;
+>> +    unsigned long index;
+>>       u64 rptr;
+>> -    int i;
+>>         if (!fence_drv)
+>>           return;
+>> @@ -141,8 +142,8 @@ void amdgpu_userq_fence_driver_process(struct 
+>> amdgpu_userq_fence_driver *fence_d
+>>             dma_fence_signal(fence);
+>>   -        for (i = 0; i < userq_fence->fence_drv_array_count; i++)
+>> - amdgpu_userq_fence_driver_put(userq_fence->fence_drv_array[i]);
+>> +        xa_for_each(&userq_fence->fence_drv_xa, index, 
+>> stored_fence_drv)
+>> +            amdgpu_userq_fence_driver_put(stored_fence_drv);
+>>             list_del(&userq_fence->link);
+>>           dma_fence_put(fence);
+>> @@ -221,34 +222,24 @@ int amdgpu_userq_fence_create(struct 
+>> amdgpu_usermode_queue *userq,
+>>       dma_fence_init(fence, &amdgpu_userq_fence_ops, &userq_fence->lock,
+>>                  fence_drv->context, seq);
+>>   +    xa_init_flags(&userq_fence->fence_drv_xa, XA_FLAGS_ALLOC);
+>> +
+>>       amdgpu_userq_fence_driver_get(fence_drv);
+>>       dma_fence_get(fence);
+>>         if (!xa_empty(&userq->fence_drv_xa)) {
+>>           struct amdgpu_userq_fence_driver *stored_fence_drv;
+>> -        unsigned long index, count = 0;
+>> -        int i = 0;
+>> -
+>> -        xa_for_each(&userq->fence_drv_xa, index, stored_fence_drv)
+>> -            count++;
+>> -
+>> -        userq_fence->fence_drv_array =
+>> -            kvmalloc_array(count,
+>> -                       sizeof(struct amdgpu_userq_fence_driver *),
+>> -                       GFP_KERNEL);
+>> -
+>> -        if (userq_fence->fence_drv_array) {
+>> -            xa_for_each(&userq->fence_drv_xa, index, 
+>> stored_fence_drv) {
+>> -                userq_fence->fence_drv_array[i] = stored_fence_drv;
+>> -                xa_erase(&userq->fence_drv_xa, index);
+>> -                i++;
+>> -            }
+>> +        unsigned long index_uq;
+>> +        u32 index_uf;
+>> +        int err;
+>> +
+>> +        xa_for_each(&userq->fence_drv_xa, index_uq, stored_fence_drv) {
+>> +            err = xa_alloc_irq(&userq_fence->fence_drv_xa, &index_uf,
+>> +                       stored_fence_drv, xa_limit_32b, GFP_KERNEL);
+>
+> That is even worse than what was discussed before. Now you have two 
+> XAs and the second is incorrectly using GFP_KERNEL.
 
-Additional Info:
+I think the problem here is, the WAIT IOCTL updates the 
+userq->fence_drv_xa entries between the 2 xa_for_each blocks
+exactly at kvmalloc_array memory allocation. Though, we are locking the 
+first and second xa_for_each blocks and having the
+GFP_ATOMIC in place didnt help to resolve the problem.
 
-In order to avoid the effect of this series, I tested with kernel
-6.13-rc3 without this series again.
+For example,
+kvmalloc_array() is allocating the memory for the count value(say 5) and 
+before we acquire the second
+xa_for_each block lock, the count modified to (say 7) by the WAIT IOCTL 
+xa_alloc() function (by acquiring the same lock),
+and we would be iterating for the new count. But the memory allocated 
+would be for 5 entries.
 
---------------------------------------------------------------------------
-Here are the test result.
+xa_lock()
+first xa_for_each block to count the entries
+xa_unlock()
 
-1. For LoongArch
+kvmalloc_array allocates for count 5
 
-"dc_fixpt_recip() falls through to next function dc_fixpt_sinc()"
-objtool warning only appears compiled with the latest mainline LLVM,
-there is no this issue compiled with the latest release version such
-as LLVM 19.1.6.
-
-(1) objdump info with LLVM release version 19.1.6:
-
-$ clang --version | head -1
-clang version 19.1.6
-
-There is an jump instruction "b" at the end of dc_fixpt_recip(), it
-maybe jumps to a position and then steps to the return instruction, so
-there is no "falls through" objtool warning.
-
-0000000000000200 <dc_fixpt_recip>:
-      200:       40009480        beqz            $a0, 148        # 294 
-<dc_fixpt_recip+0x94>
-      204:       0049fc85        srai.d          $a1, $a0, 0x3f
-      208:       00159486        xor             $a2, $a0, $a1
-      20c:       001194c5        sub.d           $a1, $a2, $a1
-      210:       03800007        ori             $a3, $zero, 0x0
-      214:       16000027        lu32i.d         $a3, 1
-      218:       002314e6        div.du          $a2, $a3, $a1
-      21c:       001d94c8        mul.d           $a4, $a2, $a1
-      220:       0011a0e9        sub.d           $a5, $a3, $a4
-      224:       02bf8008        addi.w          $a4, $zero, -32
-      228:       03400000        andi            $zero, $zero, 0x0
-      22c:       03400000        andi            $zero, $zero, 0x0
-      230:       00410529        slli.d          $a5, $a5, 0x1
-      234:       004104c6        slli.d          $a2, $a2, 0x1
-      238:       0012952a        sltu            $a6, $a5, $a1
-      23c:       03c0054a        xori            $a6, $a6, 0x1
-      240:       001328ab        maskeqz         $a7, $a1, $a6
-      244:       0011ad29        sub.d           $a5, $a5, $a7
-      248:       00df0108        bstrpick.d      $a4, $a4, 0x1f, 0x0
-      24c:       02c00508        addi.d          $a4, $a4, 1
-      250:       00149d0b        and             $a7, $a4, $a3
-      254:       001528c6        or              $a2, $a2, $a6
-      258:       43ffd97f        beqz            $a7, -40        # 230 
-<dc_fixpt_recip+0x30>
-      25c:       00410527        slli.d          $a3, $a5, 0x1
-      260:       001294e5        sltu            $a1, $a3, $a1
-      264:       03c004a5        xori            $a1, $a1, 0x1
-      268:       02bffc07        addi.w          $a3, $zero, -1
-      26c:       031ffce7        lu52i.d         $a3, $a3, 2047
-      270:       00159ca7        xor             $a3, $a1, $a3
-      274:       680030e6        bltu            $a3, $a2, 48    # 2a4 
-<dc_fixpt_recip+0xa4>
-      278:       001094c5        add.d           $a1, $a2, $a1
-      27c:       00119406        sub.d           $a2, $zero, $a1
-      280:       02000084        slti            $a0, $a0, 0
-      284:       001390a5        masknez         $a1, $a1, $a0
-      288:       001310c4        maskeqz         $a0, $a2, $a0
-      28c:       00151484        or              $a0, $a0, $a1
-      290:       4c000020        jirl            $zero, $ra, 0
-      294:       00150005        or              $a1, $zero, $zero
-      298:       002a0001        break           0x1
-      29c:       002a0001        break           0x1
-      2a0:       53ff73ff        b               -144    # 210 
-<dc_fixpt_recip+0x10>
-      2a4:       002a0001        break           0x1
-      2a8:       53ffd3ff        b               -48     # 278 
-<dc_fixpt_recip+0x78>
-      2ac:       03400000        andi            $zero, $zero, 0x0
-      2b0:       03400000        andi            $zero, $zero, 0x0
-      2b4:       03400000        andi            $zero, $zero, 0x0
-      2b8:       03400000        andi            $zero, $zero, 0x0
-      2bc:       03400000        andi            $zero, $zero, 0x0
-
-00000000000002c0 <dc_fixpt_sinc>:
-      2c0:       0049fc85        srai.d          $a1, $a0, 0x3f
-      2c4:       00159486        xor             $a2, $a0, $a1
-      2c8:       1490fda7        lu12i.w         $a3, 296941
-      2cc:       039444e7        ori             $a3, $a3, 0x511
-      2d0:       001194c6        sub.d           $a2, $a2, $a1
-      2d4:       001500e5        or              $a1, $a3, $zero
-      2d8:       160000c5        lu32i.d         $a1, 6
-      2dc:       001500c9        or              $a5, $a2, $zero
-      2e0:       00150088        or              $a4, $a0, $zero
-      2e4:       6000a8c5        blt             $a2, $a1, 168   # 38c 
-<dc_fixpt_sinc+0xcc>
-
-(2) objdump info with LLVM mainline version 20.0.0git:
-
-$ clang --version | head -1
-clang version 20.0.0git (https://github.com/llvm/llvm-project.git 
-8daf4f16fa08b5d876e98108721dd1743a360326)
-
-There is "break" instruction at the end of dc_fixpt_recip(), its offset
-is "2a0", this "break" instruction is not dead end due to the offset
-"2a4" is in the relocation section '.rela.discard.reachable', that is
-to say, dc_fixpt_recip() doesn't end with a return instruction or an
-unconditional jump, so objtool determined that the function can fall
-through into the next function, thus there is "falls through" objtool
-warning.
-
-0000000000000200 <dc_fixpt_recip>:
-      200:       40009c80        beqz            $a0, 156        # 29c 
-<dc_fixpt_recip+0x9c>
-      204:       0049fc85        srai.d          $a1, $a0, 0x3f
-      208:       00159486        xor             $a2, $a0, $a1
-      20c:       001194c5        sub.d           $a1, $a2, $a1
-      210:       03800007        ori             $a3, $zero, 0x0
-      214:       16000027        lu32i.d         $a3, 1
-      218:       002314e6        div.du          $a2, $a3, $a1
-      21c:       001d94c8        mul.d           $a4, $a2, $a1
-      220:       0011a0e9        sub.d           $a5, $a3, $a4
-      224:       02bf8008        addi.w          $a4, $zero, -32
-      228:       03400000        andi            $zero, $zero, 0x0
-      22c:       03400000        andi            $zero, $zero, 0x0
-      230:       00410529        slli.d          $a5, $a5, 0x1
-      234:       004104c6        slli.d          $a2, $a2, 0x1
-      238:       0012952a        sltu            $a6, $a5, $a1
-      23c:       03c0054a        xori            $a6, $a6, 0x1
-      240:       001328ab        maskeqz         $a7, $a1, $a6
-      244:       0011ad29        sub.d           $a5, $a5, $a7
-      248:       00df0108        bstrpick.d      $a4, $a4, 0x1f, 0x0
-      24c:       02c00508        addi.d          $a4, $a4, 1
-      250:       00149d0b        and             $a7, $a4, $a3
-      254:       001528c6        or              $a2, $a2, $a6
-      258:       43ffd97f        beqz            $a7, -40        # 230 
-<dc_fixpt_recip+0x30>
-      25c:       00410527        slli.d          $a3, $a5, 0x1
-      260:       001294e5        sltu            $a1, $a3, $a1
-      264:       03c004a5        xori            $a1, $a1, 0x1
-      268:       02bffc07        addi.w          $a3, $zero, -1
-      26c:       031ffce7        lu52i.d         $a3, $a3, 2047
-      270:       00159ca7        xor             $a3, $a1, $a3
-      274:       680020e6        bltu            $a3, $a2, 32    # 294 
-<dc_fixpt_recip+0x94>
-      278:       001094c5        add.d           $a1, $a2, $a1
-      27c:       00119406        sub.d           $a2, $zero, $a1
-      280:       02000084        slti            $a0, $a0, 0
-      284:       001390a5        masknez         $a1, $a1, $a0
-      288:       001310c4        maskeqz         $a0, $a2, $a0
-      28c:       00151484        or              $a0, $a0, $a1
-      290:       4c000020        jirl            $zero, $ra, 0
-      294:       002a0001        break           0x1
-      298:       53ffe3ff        b               -32     # 278 
-<dc_fixpt_recip+0x78>
-      29c:       002a0001        break           0x1
-      2a0:       002a0001        break           0x1
-      2a4:       03400000        andi            $zero, $zero, 0x0
-      2a8:       03400000        andi            $zero, $zero, 0x0
-      2ac:       03400000        andi            $zero, $zero, 0x0
-      2b0:       03400000        andi            $zero, $zero, 0x0
-      2b4:       03400000        andi            $zero, $zero, 0x0
-      2b8:       03400000        andi            $zero, $zero, 0x0
-      2bc:       03400000        andi            $zero, $zero, 0x0
-
-00000000000002c0 <dc_fixpt_sinc>:
-      2c0:       0049fc85        srai.d          $a1, $a0, 0x3f
-      2c4:       00159486        xor             $a2, $a0, $a1
-      2c8:       001194c6        sub.d           $a2, $a2, $a1
-      2cc:       1490fda5        lu12i.w         $a1, 296941
-      2d0:       039444a5        ori             $a1, $a1, 0x511
-      2d4:       160000c5        lu32i.d         $a1, 6
-      2d8:       001500c7        or              $a3, $a2, $zero
-      2dc:       00150088        or              $a4, $a0, $zero
-      2e0:       600090c5        blt             $a2, $a1, 144   # 370 
-<dc_fixpt_sinc+0xb0>
-
-2. For x86
-
-I tested with LLVM 19.1.6 and the latest mainline LLVM, the test result
-is same with LoongArch.
-
-(1) objdump info with LLVM release version 19.1.6:
-
-$ clang --version | head -1
-clang version 19.1.6
-
-There is an jump instruction "jmp" at the end of dc_fixpt_recip(), it
-maybe jumps to a position and then steps to the return instruction, so
-there is no "falls through" objtool warning.
-
-0000000000000290 <dc_fixpt_recip>:
-      290:       f3 0f 1e fa             endbr64
-      294:       e8 00 00 00 00          call   299 <dc_fixpt_recip+0x9>
-      299:       48 85 ff                test   %rdi,%rdi
-      29c:       0f 84 a8 00 00 00       je     34a <dc_fixpt_recip+0xba>
-      2a2:       48 89 f9                mov    %rdi,%rcx
-      2a5:       48 f7 d9                neg    %rcx
-      2a8:       48 0f 48 cf             cmovs  %rdi,%rcx
-      2ac:       53                      push   %rbx
-      2ad:       48 b8 00 00 00 00 01    movabs $0x100000000,%rax
-      2b4:       00 00 00
-      2b7:       31 d2                   xor    %edx,%edx
-      2b9:       48 f7 f1                div    %rcx
-      2bc:       be e0 ff ff ff          mov    $0xffffffe0,%esi
-      2c1:       eb 1b                   jmp    2de <dc_fixpt_recip+0x4e>
-      2c3:       45 88 c8                mov    %r9b,%r8b
-      2c6:       4d 01 c0                add    %r8,%r8
-      2c9:       4d 8d 04 80             lea    (%r8,%rax,4),%r8
-      2cd:       48 29 da                sub    %rbx,%rdx
-      2d0:       45 88 da                mov    %r11b,%r10b
-      2d3:       4c 89 d0                mov    %r10,%rax
-      2d6:       4c 09 c0                or     %r8,%rax
-      2d9:       83 c6 02                add    $0x2,%esi
-      2dc:       74 31                   je     30f <dc_fixpt_recip+0x7f>
-      2de:       48 01 d2                add    %rdx,%rdx
-      2e1:       45 31 c0                xor    %r8d,%r8d
-      2e4:       41 ba 00 00 00 00       mov    $0x0,%r10d
-      2ea:       48 39 ca                cmp    %rcx,%rdx
-      2ed:       41 0f 93 c1             setae  %r9b
-      2f1:       72 03                   jb     2f6 <dc_fixpt_recip+0x66>
-      2f3:       49 89 ca                mov    %rcx,%r10
-      2f6:       4c 29 d2                sub    %r10,%rdx
-      2f9:       48 01 d2                add    %rdx,%rdx
-      2fc:       45 31 d2                xor    %r10d,%r10d
-      2ff:       48 89 cb                mov    %rcx,%rbx
-      302:       48 39 ca                cmp    %rcx,%rdx
-      305:       41 0f 93 c3             setae  %r11b
-      309:       73 b8                   jae    2c3 <dc_fixpt_recip+0x33>
-      30b:       31 db                   xor    %ebx,%ebx
-      30d:       eb b4                   jmp    2c3 <dc_fixpt_recip+0x33>
-      30f:       48 01 d2                add    %rdx,%rdx
-      312:       48 be fe ff ff ff ff    movabs $0x7ffffffffffffffe,%rsi
-      319:       ff ff 7f
-      31c:       4c 8d 46 01             lea    0x1(%rsi),%r8
-      320:       48 39 ca                cmp    %rcx,%rdx
-      323:       4c 0f 43 c6             cmovae %rsi,%r8
-      327:       4c 39 c0                cmp    %r8,%rax
-      32a:       77 29                   ja     355 <dc_fixpt_recip+0xc5>
-      32c:       48 39 ca                cmp    %rcx,%rdx
-      32f:       48 83 d8 ff             sbb    $0xffffffffffffffff,%rax
-      333:       48 89 c1                mov    %rax,%rcx
-      336:       48 f7 d9                neg    %rcx
-      339:       48 85 ff                test   %rdi,%rdi
-      33c:       48 0f 49 c8             cmovns %rax,%rcx
-      340:       48 89 c8                mov    %rcx,%rax
-      343:       5b                      pop    %rbx
-      344:       2e e9 00 00 00 00       cs jmp 34a <dc_fixpt_recip+0xba>
-      34a:       0f 0b                   ud2
-      34c:       0f 0b                   ud2
-      34e:       31 c9                   xor    %ecx,%ecx
-      350:       e9 57 ff ff ff          jmp    2ac <dc_fixpt_recip+0x1c>
-      355:       0f 0b                   ud2
-      357:       eb d3                   jmp    32c <dc_fixpt_recip+0x9c>
-      359:       0f 1f 80 00 00 00 00    nopl   0x0(%rax)
-
-0000000000000360 <.Ltmp40>:
-      360:       90                      nop
-      361:       90                      nop
-      362:       90                      nop
-      363:       90                      nop
-      364:       90                      nop
-      365:       90                      nop
-      366:       90                      nop
-      367:       90                      nop
-      368:       90                      nop
-      369:       90                      nop
-      36a:       90                      nop
-      36b:       90                      nop
-      36c:       90                      nop
-      36d:       90                      nop
-      36e:       90                      nop
-      36f:       90                      nop
-
-0000000000000370 <dc_fixpt_sinc>:
-      370:       f3 0f 1e fa             endbr64
-      374:       e8 00 00 00 00          call   379 <dc_fixpt_sinc+0x9>
-
-(2) objdump info with LLVM mainline version 20.0.0git:
-
-$ clang --version | head -1
-clang version 20.0.0git (https://github.com/llvm/llvm-project.git 
-8daf4f16fa08b5d876e98108721dd1743a360326)
-
-There is "ud2" instruction at the end of dc_fixpt_recip(), its offset
-is "350", this "ud2" instruction is not dead end due to the offset "352"
-is in the relocation section '.rela.discard.reachable', that is to say,
-dc_fixpt_recip() doesn't end with a return instruction or an
-unconditional jump, so objtool determined that the function can fall
-through into the next function, thus there is "falls through" objtool
-warning.
-
-0000000000000290 <dc_fixpt_recip>:
-      290:       f3 0f 1e fa             endbr64
-      294:       e8 00 00 00 00          call   299 <dc_fixpt_recip+0x9>
-      299:       48 85 ff                test   %rdi,%rdi
-      29c:       0f 84 ac 00 00 00       je     34e <dc_fixpt_recip+0xbe>
-      2a2:       53                      push   %rbx
-      2a3:       48 89 f9                mov    %rdi,%rcx
-      2a6:       48 f7 d9                neg    %rcx
-      2a9:       48 0f 48 cf             cmovs  %rdi,%rcx
-      2ad:       48 b8 00 00 00 00 01    movabs $0x100000000,%rax
-      2b4:       00 00 00
-      2b7:       31 d2                   xor    %edx,%edx
-      2b9:       48 f7 f1                div    %rcx
-      2bc:       be e0 ff ff ff          mov    $0xffffffe0,%esi
-      2c1:       eb 1b                   jmp    2de <dc_fixpt_recip+0x4e>
-      2c3:       45 88 c8                mov    %r9b,%r8b
-      2c6:       4d 01 c0                add    %r8,%r8
-      2c9:       4d 8d 04 80             lea    (%r8,%rax,4),%r8
-      2cd:       48 29 da                sub    %rbx,%rdx
-      2d0:       45 88 da                mov    %r11b,%r10b
-      2d3:       4c 89 d0                mov    %r10,%rax
-      2d6:       4c 09 c0                or     %r8,%rax
-      2d9:       83 c6 02                add    $0x2,%esi
-      2dc:       74 31                   je     30f <dc_fixpt_recip+0x7f>
-      2de:       48 01 d2                add    %rdx,%rdx
-      2e1:       45 31 c0                xor    %r8d,%r8d
-      2e4:       41 ba 00 00 00 00       mov    $0x0,%r10d
-      2ea:       48 39 ca                cmp    %rcx,%rdx
-      2ed:       41 0f 93 c1             setae  %r9b
-      2f1:       72 03                   jb     2f6 <dc_fixpt_recip+0x66>
-      2f3:       49 89 ca                mov    %rcx,%r10
-      2f6:       4c 29 d2                sub    %r10,%rdx
-      2f9:       48 01 d2                add    %rdx,%rdx
-      2fc:       45 31 d2                xor    %r10d,%r10d
-      2ff:       48 89 cb                mov    %rcx,%rbx
-      302:       48 39 ca                cmp    %rcx,%rdx
-      305:       41 0f 93 c3             setae  %r11b
-      309:       73 b8                   jae    2c3 <dc_fixpt_recip+0x33>
-      30b:       31 db                   xor    %ebx,%ebx
-      30d:       eb b4                   jmp    2c3 <dc_fixpt_recip+0x33>
-      30f:       48 01 d2                add    %rdx,%rdx
-      312:       48 be fe ff ff ff ff    movabs $0x7ffffffffffffffe,%rsi
-      319:       ff ff 7f
-      31c:       4c 8d 46 01             lea    0x1(%rsi),%r8
-      320:       48 39 ca                cmp    %rcx,%rdx
-      323:       4c 0f 43 c6             cmovae %rsi,%r8
-      327:       4c 39 c0                cmp    %r8,%rax
-      32a:       77 1e                   ja     34a <dc_fixpt_recip+0xba>
-      32c:       48 39 ca                cmp    %rcx,%rdx
-      32f:       48 83 d8 ff             sbb    $0xffffffffffffffff,%rax
-      333:       48 89 c1                mov    %rax,%rcx
-      336:       48 f7 d9                neg    %rcx
-      339:       48 85 ff                test   %rdi,%rdi
-      33c:       48 0f 49 c8             cmovns %rax,%rcx
-      340:       48 89 c8                mov    %rcx,%rax
-      343:       5b                      pop    %rbx
-      344:       2e e9 00 00 00 00       cs jmp 34a <dc_fixpt_recip+0xba>
-      34a:       0f 0b                   ud2
-      34c:       eb de                   jmp    32c <dc_fixpt_recip+0x9c>
-      34e:       0f 0b                   ud2
-      350:       0f 0b                   ud2
-      352:       66 66 66 66 66 2e 0f    data16 data16 data16 data16 cs 
-nopw 0x0(%rax,%rax,1)
-      359:       1f 84 00 00 00 00 00
-
-0000000000000360 <.Ltmp40>:
-      360:       90                      nop
-      361:       90                      nop
-      362:       90                      nop
-      363:       90                      nop
-      364:       90                      nop
-      365:       90                      nop
-      366:       90                      nop
-      367:       90                      nop
-      368:       90                      nop
-      369:       90                      nop
-      36a:       90                      nop
-      36b:       90                      nop
-      36c:       90                      nop
-      36d:       90                      nop
-      36e:       90                      nop
-      36f:       90                      nop
-
-0000000000000370 <dc_fixpt_sinc>:
-      370:       f3 0f 1e fa             endbr64
-      374:       e8 00 00 00 00          call   379 <dc_fixpt_sinc+0x9>
---------------------------------------------------------------------------
-
-In my opinion, if there is a bug, then it is a generic rather than
-arch-specific bug.
-
-The root cause is related with LLVM or Linux kernel? I am not sure
-because objtool only checks the object info and reports the warning
-"falls through" if the check conditions are true.
-
-tools/objtool/check.c
-static int validate_branch(struct objtool_file *file, struct symbol *func,
-                            struct instruction *insn, struct insn_state 
-state)
-{
-         struct alternative *alt;
-         struct instruction *next_insn, *prev_insn = NULL;
-         struct section *sec;
-         u8 visited;
-         int ret;
-
-         sec = insn->sec;
-
-         while (1) {
-                 next_insn = next_insn_to_validate(file, insn);
-
-                 if (func && insn_func(insn) && func != 
-insn_func(insn)->pfunc) {
-                         /* Ignore KCFI type preambles, which always 
-fall through */
-                         if (!strncmp(func->name, "__cfi_", 6) ||
-                             !strncmp(func->name, "__pfx_", 6))
-                                 return 0;
-
-                         WARN("%s() falls through to next function %s()",
-                              func->name, insn_func(insn)->name);
-                         return 1;
-                 }
-         ...
-}
-
-How to silence the warning when compiling with the latest mainline
-LLVM with a proper way? Modify LLVM code or tools/objtool/check.c
-or drivers/gpu/drm/amd/display/dc/basics/fixpt31_32.c?
-
-Anyway, I think this patch can be independent of this series and can
-be sent separately after the "real bug" is fixed, please ignore it now.
+xa_lock()
+second xa_for_each block to move the entries to allocated memory
+here the count increased to 7
+xa_unlock
 
 Thanks,
-Tiezhu
+Arun.
+>
+> Regards,
+> Christian.
+>
+>> +            if (err)
+>> +                return err;
+>>           }
+>> -
+>> -        userq_fence->fence_drv_array_count = i;
+>> -    } else {
+>> -        userq_fence->fence_drv_array = NULL;
+>> -        userq_fence->fence_drv_array_count = 0;
+>> +        xa_destroy(&userq->fence_drv_xa);
+>>       }
+>>         /* Check if hardware has already processed the job */
+>> @@ -300,8 +291,6 @@ static void amdgpu_userq_fence_free(struct 
+>> rcu_head *rcu)
+>>         /* Release the fence driver reference */
+>>       amdgpu_userq_fence_driver_put(fence_drv);
+>> -
+>> -    kvfree(userq_fence->fence_drv_array);
+>>       kmem_cache_free(amdgpu_userq_fence_slab, userq_fence);
+>>   }
+>>   diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.h 
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.h
+>> index f1a90840ac1f..3283e5573d10 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.h
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.h
+>> @@ -37,9 +37,8 @@ struct amdgpu_userq_fence {
+>>        */
+>>       spinlock_t lock;
+>>       struct list_head link;
+>> -    unsigned long fence_drv_array_count;
+>> +    struct xarray fence_drv_xa;
+>>       struct amdgpu_userq_fence_driver *fence_drv;
+>> -    struct amdgpu_userq_fence_driver **fence_drv_array;
+>>   };
+>>     struct amdgpu_userq_fence_driver {
+>
 
