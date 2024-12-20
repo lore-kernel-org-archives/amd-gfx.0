@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19941E7718B
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Dec 2024 21:51:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8371E7718F
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Dec 2024 21:51:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A624F10F080;
-	Fri, 20 Dec 2024 21:51:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 160B410F088;
+	Fri, 20 Dec 2024 21:51:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="O3I3hXXx";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="IjGTVMZh";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2084.outbound.protection.outlook.com [40.107.93.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C3DA10F07B
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Dec 2024 21:51:24 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2049.outbound.protection.outlook.com [40.107.94.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 989BE10F07C
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Dec 2024 21:51:25 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nsvqAbGRMf7ZIWgO4yD3SRy/OndX0TFERiT9IiLwLE3uEMdfp1d467Dz/e+9lgeYO8z1WPN3A7fRWeT0BYcQS+i3kuorKe9GF26qX+l8/R+rZE3EcjvZhvlDlCgXb8CtAKf0WJoRMLqR2OVxEA2w8ceuzaVRinasfHf0OLJwKo0D5nWFwDBJ7x5jqP4qloqIRclrpWCxDKYYUx64yI47+r2twMCQGTd/37fLIxtICfPY5Eio1OhvIGwlFglmlCS8iSTcgs5ijvtvD+J0uFKBPlpIDZuZ72va6JyjLoT+/09IbysV9ylWOdc/T0heQ2EwAwEI3gI/YuotVMgwfTjOCg==
+ b=ug59umO7DueGyd8i7O5yv9CBgn1Kg27XQ8m6ITDFIObZvgfb+agLEQWJ0II7WXzjIClOEDTCNRMSG1zz9qWs2JcC6JtAoBNd9WoLEEmk7Hfk0vRIJ5dktLOzrmgeu5+n6ClW11z+4xn+FcyS0PrcHQz+FiHgA4B87K5oW/knRtte9sf5xcBVescDgJcNrE++8AGCZEMoDIoqgvR7gmw5cd4uiNZ/j5lL02DWxh2KNVulFAnwb4G8II3UPq4myM+Dk1V/5PQ/+6asLTdDyoyHk5Cb9rKBCz+FyCmtxnvZhzwTWz6VLwf6FVzee4IFg1AGKCP2UTptZ8ucIx5IQt0jow==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4qTvAtahtPNqYWQrIn95psqhmWwFh5xCPA5ynxPpekU=;
- b=AREN/pDttsFP8ziwrDWB/+zvz26WXC5tE7CzlBsEgb78cLnPhlct97G+LptMAZ1ifasx5fSqRAO75CGMSrcsXAipGqml/zzMQZ7YEgbuhFWIO2G8uE2+TCUDayTHvPusK/6cHKLJDEqZqoSaRvKjj04sz08a+GmksCbTt6lCggd22Lih5wuirrF2pOleCcgzNpWMM72PwDvkuSvk4v+frhTl2d4msVd+70vgnJCKd5DiO/nomojHJf/D8GaiaKRcO02uIL1gJYZANqOR22vBYfq39lT1x3/NlSar8mTbCdcjbZNgWOngoz7lxMNP44d2ETPdbe+gpggcK9UuN9D8lA==
+ bh=5DYqMxl5LoSJcEuGrKqdODRxblGAVIkW0OHOLS5lsDI=;
+ b=NXHctkKfCpYc/+n4DOGncwJYjJk5+L+qXNkUO/974NsNfe3pm4RUhT8BG4qcUindGYqY+/1CCcCNHKN4GCVJthmZ80iwhUINaoKtTv22j01qIYAnC3OGuIAcfNBN9G+ob4GrncuFrrZFt7+gharHNM8EMraxQ7eNDrHe/ObuBSUig2NijiqO7ySH9yMjWRA67QiFad1qfsv0v7SWKoyYrWNhwyPkt3+eQRG1yH6FcF7vpoTYy3OfcJWJHxA3cXMIp41HvuUGbGTe3f7fNHOOF2leFnshH4vXcpcyaGCQNB3pS4aorSMDGwnHE4QoeGQSZeBW/7uGmCsX5/ZE74j1nA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4qTvAtahtPNqYWQrIn95psqhmWwFh5xCPA5ynxPpekU=;
- b=O3I3hXXxmEL6x1RBAfwLKE/nF5lzGDN/pGNCEJES/bcfIaFT+0HKHbB0wd4pK3M9lkLOtcRh3uvHHA8rMv1Fgd8a6bScgVv3zA4KA47yneG+7BCsDgkAf463iXFWsvMX0VsEeixc0LKwPHrXusJxSZIq8DVBvHvUcjnMRwUiDfI=
-Received: from MW4PR03CA0172.namprd03.prod.outlook.com (2603:10b6:303:8d::27)
- by SA0PR12MB7075.namprd12.prod.outlook.com (2603:10b6:806:2d5::14)
+ bh=5DYqMxl5LoSJcEuGrKqdODRxblGAVIkW0OHOLS5lsDI=;
+ b=IjGTVMZhUroVG+v4ozhABUpy9+MQmSdEPXwkgn0HId2Mm76Wi0XulIYPXCnHrJ01MqoH6ohvleTIqM71Z87l199hA4fU2PwOHUPcd8s6iWejCmKpfSR0a6od1Y61iVBmNb6c0FuFI3pw5a2FbbnsoUZiwgRPnFidErAZj1n2U+c=
+Received: from MW4PR03CA0165.namprd03.prod.outlook.com (2603:10b6:303:8d::20)
+ by IA1PR12MB8556.namprd12.prod.outlook.com (2603:10b6:208:452::8)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8272.16; Fri, 20 Dec
- 2024 21:51:20 +0000
+ 2024 21:51:22 +0000
 Received: from SJ5PEPF000001EB.namprd05.prod.outlook.com
- (2603:10b6:303:8d:cafe::49) by MW4PR03CA0172.outlook.office365.com
- (2603:10b6:303:8d::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8251.21 via Frontend Transport; Fri,
- 20 Dec 2024 21:51:20 +0000
+ (2603:10b6:303:8d:cafe::87) by MW4PR03CA0165.outlook.office365.com
+ (2603:10b6:303:8d::20) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8251.23 via Frontend Transport; Fri,
+ 20 Dec 2024 21:51:22 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,18 +50,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  SJ5PEPF000001EB.mail.protection.outlook.com (10.167.242.199) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8251.15 via Frontend Transport; Fri, 20 Dec 2024 21:51:19 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
+ 15.20.8251.15 via Frontend Transport; Fri, 20 Dec 2024 21:51:21 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 20 Dec
- 2024 15:51:18 -0600
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ 2024 15:51:20 -0600
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 20 Dec
- 2024 15:51:17 -0600
+ 2024 15:51:20 -0600
 Received: from roman-vdev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Fri, 20 Dec 2024 15:51:17 -0600
+ Transport; Fri, 20 Dec 2024 15:51:20 -0600
 From: <Roman.Li@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -69,68 +69,65 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>, Wayne Lin
  <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, Fangzhi Zuo
  <jerry.zuo@amd.com>, Zaeem Mohamed <zaeem.mohamed@amd.com>, Solomon Chiu
- <solomon.chiu@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>, "Karthi
- Kandasamy" <karthi.kandasamy@amd.com>, Alvin Lee <alvin.lee2@amd.com>
-Subject: [PATCH 17/28] drm/amd/display: Ensure correct GFX tiling info passed
- to DML
-Date: Fri, 20 Dec 2024 16:48:44 -0500
-Message-ID: <20241220214855.2608618-18-Roman.Li@amd.com>
+ <solomon.chiu@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>
+Subject: [PATCH 21/28] drm/amd/display: Fix PSR-SU not support but still call
+ the amdgpu_dm_psr_enable
+Date: Fri, 20 Dec 2024 16:48:48 -0500
+Message-ID: <20241220214855.2608618-22-Roman.Li@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20241220214855.2608618-1-Roman.Li@amd.com>
 References: <20241220214855.2608618-1-Roman.Li@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-Received-SPF: None (SATLEXMB05.amd.com: Roman.Li@amd.com does not designate
- permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001EB:EE_|SA0PR12MB7075:EE_
-X-MS-Office365-Filtering-Correlation-Id: 06d933d9-a719-44d4-c5e2-08dd2140702e
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001EB:EE_|IA1PR12MB8556:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8b8ce252-8163-4ffd-7d2f-08dd21407169
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|376014|82310400026|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?KwJn/2HA2XaJgeAPVq9Y8D/G3t4fNCl4WvtzZgGVw7Y2KfiHjZH0EDVLR0xW?=
- =?us-ascii?Q?QbZSX5yYClzVIfAdPc5dwfXQLQOS34r1p7a5/IH0SHURcMDe/VSBebr1Nh6B?=
- =?us-ascii?Q?wZNwVMTssUlqU6tUd/b+mOUimCbliMdFGjbzpcWy0E3JpGXi4maVAoahkmVM?=
- =?us-ascii?Q?MRCP8m1fXL+dehcXjnVR5YkkxrAAdTN4FgPaJqPn9N6TgoPRW5JUZlyigUfR?=
- =?us-ascii?Q?nYBeYxjGVT0DTjt9OMYI4UVXlLGZ6Ezq6jRbRv0PvRyxM1kgHPkovcR/Rmin?=
- =?us-ascii?Q?J5w3LZufD6Cg3TEpooU4pJLEPwFjJHDkmExe3y14JRUvnaNiT7e8hQUe86bk?=
- =?us-ascii?Q?mzTtjlo1CBmCKHle/UaDYLuoCUOOggyEJwyuYYXltLLAp1d/zjyJT30lz34F?=
- =?us-ascii?Q?dt+4d/YoLBtRSShzThyUMgqTxGsK7g0PoAiiIc80K/1jaPNQjsCSVdKi2OUJ?=
- =?us-ascii?Q?cYdJlI2g4TScroYueHOrPtocbjl2B+St1yZflXW4t1JCDOiv7mSHnpsrFDgi?=
- =?us-ascii?Q?AiOIa5wtMYG1/TqzkZlFm4BEQyCdFzPgOy3oEN6fxgLIxS1bMNnySLCaBqiA?=
- =?us-ascii?Q?rEemVgSuCkb/xiyumv8NAliF14Zfp25gyzrnaYHeFzrUFI8sCxMU5CVuuobp?=
- =?us-ascii?Q?S+De9Gp8Aka7owesrqgNLGTRqg1JEWIt2DOZlbQGr2p1Gz29qQY4bIbk08T3?=
- =?us-ascii?Q?BBOWDQelA5cm1ZQliou/2xh9ppzFsCRJ5etPWn9GnLtXl1/9UkNphxhSPZbS?=
- =?us-ascii?Q?IQR5/ie/V3f2Dp1jl6M2UFvG5Iy5gcUoG254TVv/KWehDNHPIKLtWUYdf1XU?=
- =?us-ascii?Q?rjgnBKKQkDR9w4apqYV0RVPHTvuI0doLKk+idFcYtv+Dj7LhoMe/8a5jpyfG?=
- =?us-ascii?Q?oakLdXplFMSFeGIHwSu2JA9vNRqblUl+J8Z7VMwOgOYYax+M6H8FO5TN7lNP?=
- =?us-ascii?Q?E6IZ1J11+8zzWbDJLs+q/CMB/7K5DrRqBTLQr16K4MVeP6pBECa/I/+Zhc9R?=
- =?us-ascii?Q?WAQxk7BVR7uhxbqfItw8L1jKNLnS3DJzQdSos+RxY3xlWvuoo6IST1t+Jt3c?=
- =?us-ascii?Q?vE+96Q37ykoB4J2dI+L4blGZXz0SpJJdXwj4C978GQ3MAxt628i0HqmKSXOq?=
- =?us-ascii?Q?QnmSNuiG4c4DNNBFtnCG14yQsM6U9UU+Tod3k/Os6IguMYvK7dCXSD5dF9EV?=
- =?us-ascii?Q?Lmi149sBjAaRPjp/dgQsF0maPxqdkQKhNKBOeFkAK928hNEAdmB54rEob59m?=
- =?us-ascii?Q?a4DZnp3VfWKiTC7BXWY2bMqMTfy7ZWeUWqz0HznQAlUxiaN5hlwLnXMrTG2k?=
- =?us-ascii?Q?AVkoukZlU3sHZYxvH3PPlpufnH1lOfgTeB/eg7tcGGWUr25CnX2cTfPhvlEf?=
- =?us-ascii?Q?R+qke63CsHzz2xWp08g/NqjjRh+Ks9onAjz+v8lWr8Xma7o5qVN3yXI4B6Ek?=
- =?us-ascii?Q?/UV3WIp930y3eymX+CEP0d2knxWoAqWGqWQwHP53MmYE5+5ZJsvcKIx/pl2e?=
- =?us-ascii?Q?Ils3663hQAMq22I=3D?=
+ ARA:13230040|36860700013|376014|82310400026|1800799024|30052699003; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?BTkoGOuwYTV+Wh6Oxx3CkUH6WpB2NvToeNUtfIpIaDZirjQJFaGloeqeqlzZ?=
+ =?us-ascii?Q?ZihW1/zmKB4Z4uKgE/tuirKw82wkthi5Z3wF2B0m1ApfOpUHDcjW33bx2okr?=
+ =?us-ascii?Q?8B7Nbx3a4hi4ZENr5EzxcJBippVrCyW9V8Al62UZLuYx2m+gVr5SIlfVJNFG?=
+ =?us-ascii?Q?VwZU5NYCOeo+l5A43oV1Urji9dYo1d0ZqeWPsJ31RBKVSA5jtAnzlenRWcBZ?=
+ =?us-ascii?Q?qrUzbUT6/C9/4dTy2i3HxotYdXtbeKHsm8WHz/JXIzmldZqYfHWpE25c3/t+?=
+ =?us-ascii?Q?oUaHr3G6hC7ViQsg8pUEyQcFmk6s7bG9TDcxp7XdnM8Hqrx7eRrSBGaM86NB?=
+ =?us-ascii?Q?0jOhDZDsnPKJhcOXtGZ3dttrTyDYfA/U/M/zD+OtMO18S1rrhW6Wa8fLpfFy?=
+ =?us-ascii?Q?3OzeBCBbJVdOEPvmDsPgKY4KwWX3R2jQByU7Bbt8/PBklbsYjV0e0hrH48NC?=
+ =?us-ascii?Q?tPdb03kKg3pA+17dzBs+EAQ1xj3hUh2scu1kp2ZglmkDET5eWc3Nz+51KnE/?=
+ =?us-ascii?Q?jQMOzNUKKINPrz1ZGmsoQ+A4jgmtlghF9Fc5hnFTxFoZ2P3s7d0fhKaiHxhM?=
+ =?us-ascii?Q?Xf06bcX/puVEq0zZgMzVf/pFLYVolpFeYWrGNWzOadXbHvLj07qgdLukAaeU?=
+ =?us-ascii?Q?xBepPuWZGGGsgS+iznsFL+ew3k3GeKWzW1/NzkkeloCcBtq9bZbXxuxM0vQV?=
+ =?us-ascii?Q?Selgei6rzzDdDtBmqtkMOx9cuEbptVBSXyLSrrZrJJ4uRkYLYKoVJIq8C/kg?=
+ =?us-ascii?Q?/BvgO0ERuFugubZfbD8quz4fi9NQ8uJmfCIlc37/SsxD6omu9BaO+2mzmimY?=
+ =?us-ascii?Q?4tWSf7Xs8BjgHIiW+YscD89E8GWvcY0rTnuTJoGUBNPLt5LcvJfgx/evN81f?=
+ =?us-ascii?Q?pliQctd4HMba4plukXE0Il6Kd2cg89jifFYnWTTBxoYj4cHBEgbSJQD+ZY/P?=
+ =?us-ascii?Q?vl7UN+Vw+HydxS0B0T43D9vNGnJNKRoqhZKbLgJ28i6tGuUiD7g2VAsXblJj?=
+ =?us-ascii?Q?0RrgYMLZYCpXDneNFsAdaN/AZ1e/2fOBIVrEz+WneETdNVT6f4NeY3Y2k4RX?=
+ =?us-ascii?Q?fRGq7PBz0ywRkKIPmXCCvhxt6/HYcC1832ln1O+tAY8WMSLQ+wKBRH7BXb9f?=
+ =?us-ascii?Q?qrdnGpM2YKcWt/QCrbvayyPeNnjq9DmP4KPdNbhEjvstXRoctTdEoOOzO2Eq?=
+ =?us-ascii?Q?Qry3PALu1OlWqR+kbAu037qX/KNenC+H1iqIuZL5+dC0SzBb22DYmztUUI1Q?=
+ =?us-ascii?Q?eMn8s8ZKEAw3dhz5zD+GdyfSOpiqSg+tjSLbLcCHsVT+YSR9YXWAkAVDsGMG?=
+ =?us-ascii?Q?FqtYmFwL1s4el9UjgwcIpY4VOR9L5FZMuqhjsKwuvAB88yuYF2C4TjR344/J?=
+ =?us-ascii?Q?/X0ggNhYztpAdpMcN631pWw4wX/X71r9oHc4SEXNGQiOCDZ5bRC1ytkuS5kB?=
+ =?us-ascii?Q?dEQsyxAoxLjaLSG7Ykkjl0iVJmzdJAN5z1AldIE0D+4TR+AFKfZkV90iN0Zk?=
+ =?us-ascii?Q?hUljGGjN70a/gl8=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(376014)(82310400026)(1800799024); DIR:OUT;
- SFP:1101; 
+ SFS:(13230040)(36860700013)(376014)(82310400026)(1800799024)(30052699003);
+ DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Dec 2024 21:51:19.8809 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 06d933d9-a719-44d4-c5e2-08dd2140702e
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Dec 2024 21:51:21.9434 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8b8ce252-8163-4ffd-7d2f-08dd21407169
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001EB.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB7075
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8556
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,159 +142,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Karthi Kandasamy <karthi.kandasamy@amd.com>
+From: Tom Chung <chiahsuan.chung@amd.com>
 
 [Why]
-To ensure DML validation receives the correct tiling information,
-such as swizzle mode or array mode, based on the active GFX format
+The enum DC_PSR_VERSION_SU_1 of psr_version is 1 and
+DC_PSR_VERSION_UNSUPPORTED is 0xFFFFFFFF.
+
+The original code may has chance trigger the amdgpu_dm_psr_enable()
+while psr version is set to DC_PSR_VERSION_UNSUPPORTED.
 
 [How]
-- For new GFX format passed swizzle_mode to DML.
-- For legacy GFX format passed array_mode to DML.
-- Dynamically determined the appropriate tiling info based on the
-  active GFX format.
+Modify the condition to psr->psr_version == DC_PSR_VERSION_SU_1
 
-[Description]
-This commit ensures that the correct GFX tiling information is passed
-to DML. Depending on the active GFX format, the appropriate tiling info
-is passed to DML. This change accommodates the different GFX formats
-supported by latest platforms, ensuring compatibility and proper
-DML validation.
-
-Reviewed-by: Alvin Lee <alvin.lee2@amd.com>
-Signed-off-by: Karthi Kandasamy <karthi.kandasamy@amd.com>
+Reviewed-by: Sun peng Li <sunpeng.li@amd.com>
+Signed-off-by: Tom Chung <chiahsuan.chung@amd.com>
 Signed-off-by: Roman Li <roman.li@amd.com>
 Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 ---
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c  |  3 +++
- .../dc/dml2/dml21/dml21_translation_helper.c     | 16 +++++++++++++---
- .../display/dc/resource/dcn35/dcn35_resource.c   |  9 ++++++++-
- .../display/dc/resource/dcn35/dcn35_resource.h   |  1 +
- .../display/dc/resource/dcn351/dcn351_resource.c |  2 +-
- .../display/dc/resource/dcn401/dcn401_resource.c |  1 +
- 6 files changed, 27 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-index db8c55cc865e..774cc3f4f3fd 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-@@ -190,6 +190,7 @@ static void amdgpu_dm_plane_fill_gfx8_tiling_info_from_flags(struct dc_tiling_in
- 		tile_split = AMDGPU_TILING_GET(tiling_flags, TILE_SPLIT);
- 		num_banks = AMDGPU_TILING_GET(tiling_flags, NUM_BANKS);
- 
-+		tiling_info->gfxversion = DcGfxVersion8;
- 		/* XXX fix me for VI */
- 		tiling_info->gfx8.num_banks = num_banks;
- 		tiling_info->gfx8.array_mode =
-@@ -317,6 +318,7 @@ static int amdgpu_dm_plane_fill_gfx9_plane_attributes_from_modifiers(struct amdg
- 
- 	amdgpu_dm_plane_fill_gfx9_tiling_info_from_modifier(adev, tiling_info, modifier);
- 	tiling_info->gfx9.swizzle = amdgpu_dm_plane_modifier_gfx9_swizzle_mode(modifier);
-+	tiling_info->gfxversion = DcGfxVersion9;
- 
- 	if (amdgpu_dm_plane_modifier_has_dcc(modifier)) {
- 		uint64_t dcc_address = afb->address + afb->base.offsets[1];
-@@ -369,6 +371,7 @@ static int amdgpu_dm_plane_fill_gfx12_plane_attributes_from_modifiers(struct amd
- 	amdgpu_dm_plane_fill_gfx9_tiling_info_from_device(adev, tiling_info);
- 
- 	tiling_info->gfx9.swizzle = amdgpu_dm_plane_modifier_gfx9_swizzle_mode(modifier);
-+	tiling_info->gfxversion = DcGfxAddr3;
- 
- 	if (amdgpu_dm_plane_modifier_has_dcc(modifier)) {
- 		int max_compressed_block = AMD_FMT_MOD_GET(DCC_MAX_COMPRESSED_BLOCK, modifier);
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_translation_helper.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_translation_helper.c
-index efb099905496..47a8c770794b 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_translation_helper.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/dml21_translation_helper.c
-@@ -721,11 +721,21 @@ static void populate_dml21_surface_config_from_plane_state(
- 	surface->dcc.informative.fraction_of_zero_size_request_plane1 = plane_state->dcc.independent_64b_blks_c;
- 	surface->dcc.plane0.pitch = plane_state->dcc.meta_pitch;
- 	surface->dcc.plane1.pitch = plane_state->dcc.meta_pitch_c;
--	if (in_dc->ctx->dce_version < DCN_VERSION_4_01) {
--		/* needed for N-1 testing */
-+
-+	// Update swizzle / array mode based on the gfx_format
-+	switch (plane_state->tiling_info.gfxversion) {
-+	case DcGfxVersion7:
-+	case DcGfxVersion8:
-+		// Placeholder for programming the array_mode
-+		break;
-+	case DcGfxVersion9:
-+	case DcGfxVersion10:
-+	case DcGfxVersion11:
- 		surface->tiling = gfx9_to_dml2_swizzle_mode(plane_state->tiling_info.gfx9.swizzle);
--	} else {
-+		break;
-+	case DcGfxAddr3:
- 		surface->tiling = gfx_addr3_to_dml2_swizzle_mode(plane_state->tiling_info.gfx_addr3.swizzle);
-+		break;
- 	}
- }
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
-index 89e2adcf2a28..b878b60feff9 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
-@@ -1752,6 +1752,13 @@ static bool dcn35_validate_bandwidth(struct dc *dc,
- 	return out;
- }
- 
-+enum dc_status dcn35_patch_unknown_plane_state(struct dc_plane_state *plane_state)
-+{
-+	plane_state->tiling_info.gfxversion = DcGfxVersion9;
-+	dcn20_patch_unknown_plane_state(plane_state);
-+	return DC_OK;
-+}
-+
- 
- static struct resource_funcs dcn35_res_pool_funcs = {
- 	.destroy = dcn35_destroy_resource_pool,
-@@ -1775,7 +1782,7 @@ static struct resource_funcs dcn35_res_pool_funcs = {
- 	.acquire_post_bldn_3dlut = dcn30_acquire_post_bldn_3dlut,
- 	.release_post_bldn_3dlut = dcn30_release_post_bldn_3dlut,
- 	.update_bw_bounding_box = dcn35_update_bw_bounding_box_fpu,
--	.patch_unknown_plane_state = dcn20_patch_unknown_plane_state,
-+	.patch_unknown_plane_state = dcn35_patch_unknown_plane_state,
- 	.get_panel_config_defaults = dcn35_get_panel_config_defaults,
- 	.get_preferred_eng_id_dpia = dcn35_get_preferred_eng_id_dpia,
- 	.get_det_buffer_size = dcn31_get_det_buffer_size,
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.h b/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.h
-index f97bb4cb3761..9d03a55d90cf 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.h
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.h
-@@ -35,6 +35,7 @@
- 
- extern struct _vcs_dpi_ip_params_st dcn3_5_ip;
- extern struct _vcs_dpi_soc_bounding_box_st dcn3_5_soc;
-+enum dc_status dcn35_patch_unknown_plane_state(struct dc_plane_state *plane_state);
- 
- struct dcn35_resource_pool {
- 	struct resource_pool base;
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
-index 263a37c1cd3a..16abd3ae8684 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
-@@ -1754,7 +1754,7 @@ static struct resource_funcs dcn351_res_pool_funcs = {
- 	.acquire_post_bldn_3dlut = dcn30_acquire_post_bldn_3dlut,
- 	.release_post_bldn_3dlut = dcn30_release_post_bldn_3dlut,
- 	.update_bw_bounding_box = dcn351_update_bw_bounding_box_fpu,
--	.patch_unknown_plane_state = dcn20_patch_unknown_plane_state,
-+	.patch_unknown_plane_state = dcn35_patch_unknown_plane_state,
- 	.get_panel_config_defaults = dcn35_get_panel_config_defaults,
- 	.get_preferred_eng_id_dpia = dcn351_get_preferred_eng_id_dpia,
- 	.get_det_buffer_size = dcn31_get_det_buffer_size,
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
-index 09f5b8b40791..d75f8da63e10 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
-@@ -1609,6 +1609,7 @@ static void dcn401_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *b
- 
- enum dc_status dcn401_patch_unknown_plane_state(struct dc_plane_state *plane_state)
- {
-+	plane_state->tiling_info.gfxversion = DcGfxAddr3;
- 	plane_state->tiling_info.gfx_addr3.swizzle = DC_ADDR3_SW_64KB_2D;
- 	return DC_OK;
- }
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index a5fbbee955a2..a579c11b4324 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -8962,7 +8962,7 @@ static void amdgpu_dm_enable_self_refresh(struct amdgpu_crtc *acrtc_attach,
+ 		    (current_ts - psr->psr_dirty_rects_change_timestamp_ns) > 500000000) {
+ 			if (pr->replay_feature_enabled && !pr->replay_allow_active)
+ 				amdgpu_dm_replay_enable(acrtc_state->stream, true);
+-			if (psr->psr_version >= DC_PSR_VERSION_SU_1 &&
++			if (psr->psr_version == DC_PSR_VERSION_SU_1 &&
+ 			    !psr->psr_allow_active && !aconn->disallow_edp_enter_psr)
+ 				amdgpu_dm_psr_enable(acrtc_state->stream);
+ 		}
 -- 
 2.34.1
 
