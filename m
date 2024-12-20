@@ -4,58 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66A13E77188
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Dec 2024 14:25:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CA1CE77188
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Dec 2024 15:24:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A33510E38C;
-	Fri, 20 Dec 2024 14:25:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8999A10EFED;
+	Fri, 20 Dec 2024 15:24:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="U1YqOaww";
+	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="a9UT4Y0Q";
 	dkim-atps=neutral
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [IPv6:2a00:1450:4864:20::52c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 138EC10E38C;
- Fri, 20 Dec 2024 14:25:38 +0000 (UTC)
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-5d3d69e5b63so284571a12.1; 
- Fri, 20 Dec 2024 06:25:37 -0800 (PST)
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [IPv6:2a00:1450:4864:20::430])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8545810E4DF
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Dec 2024 15:24:46 +0000 (UTC)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-388cae9eb9fso1228274f8f.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Dec 2024 07:24:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1734704736; x=1735309536; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=oW8Yx4GvJ17pe4zJBq56RpWHLJJBmzwKnHD3q58YDlY=;
- b=U1YqOawwbosz1Ymufh+pHUrWGixhm8Es6JEM2/8TSJ3/gZ6zlze6yGJg8YzTtYQLaP
- p5Wxxpb/z72HcW0Q8jhLuui/NQhMHMUBx697xC+nrT1aEbarU1EsaSUdGLvnBFpay/qu
- NYOBdeJzA8qK5JWR5s6m3nqcmKd5Yb1p4cI4TGjfVpzjQFHNmVPkjghuuS1MRtG+gos3
- VXAJ1sqReMkSHRWBSgDan11XhACmpF/fmH+RmioJ3l5fKwDtmB2m4HQiI8HdhMlHgm1+
- kjxsD41QF4/RVaMhO4jr/sJBy3p4oDvxBRQ1+2cU9ffM2xLN9d2etcfUE17hMWcYVBtZ
- 5iVg==
+ d=ffwll.ch; s=google; t=1734708285; x=1735313085; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=wkAvDgDciEvC+xZ+jSk8aQQ0//liLUg2T4crIemtaeQ=;
+ b=a9UT4Y0QmusKEJnoU+IizoJ3kjTipNHk8S/UDUhWi88StsFyvJNgS3RisszMyJtGy6
+ P+jxDAa/0FRXDAdwfYq1JH0OpJb1Q3urRqZ95hEbIDtXgrpv2OPwLXV+CFOav2gO9v8K
+ tdbFXkWRRjA32JTPlcaAhFWaIh5CvWDt+MUK4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1734704736; x=1735309536;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=oW8Yx4GvJ17pe4zJBq56RpWHLJJBmzwKnHD3q58YDlY=;
- b=cemWorSwWo6bHl28xLHC1qFmSpQbibwsCN+m9LqDsQnnB4xuNxqPJQpaIukWF40RgQ
- jTRFal5hc5KuIb3tWOEENRFAh68da7pmOyfK2KKSB7q9hIevARgWVSId4QVW1Aax9pQO
- hNhI6JRTm0i1SAn0yT0Ki4WQQ56sGYjDXdXedKDvdsCdpox4qaeW15CNHrNuwVXKmul0
- 5Rziw9ykX+G8u0HIVMF371EUxzUgWa65msIWR6oUjyENvz7gx5aQSspE3HLvmPjOSgzL
- new/fluZPGMhWnGspLrwmJYwe8gUvU08Sw/CtWiKL2w979Tr4h0/jsAzgvQoh22FK8Up
- t+vg==
+ d=1e100.net; s=20230601; t=1734708285; x=1735313085;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=wkAvDgDciEvC+xZ+jSk8aQQ0//liLUg2T4crIemtaeQ=;
+ b=UdqSPG+CQ/xroweHczou8LLYfuJabX6wYhsoSNWVObtIo51unWD1dYfSVeJAxL6q1R
+ XVePpgpBB0kbOkq/4AVZLwNfiRyOUgRUg0V6itVOOnelfKwfo/Ksdug6GBGqzg4GLEW8
+ u2s7+occlmnXg72PeA7q8+LPVccvcoG1q+LncOceq37eXbye60NOXrrSnmIDXbbj4lc7
+ WJ0nii5jDoodMNzRcg4b8JtfSmq+3QE4VsaEbd2eDpxW0S+Q9FGN/BoKtWSjSxMWcTWy
+ FGEi/P2JiiGfJrHXhlZfJKxlBA5I+hQJMORedRJOh2imVbMGdgHRrkIJApsuR5V9DPYb
+ VFew==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUTmd7Ti0uyRp7pSZ+vkKYepQcrEVz75bTJZsPVhaFKl3f8QKrS143KLIpCZGHrUhC7FHRWacnOtJMZ@lists.freedesktop.org,
- AJvYcCWDf06A2LopLukq2spmzI1xr+20H9hgbU/+vsSOdGnLOn+t83MuQcjv+GGFe5webdInwQnh5CE9@lists.freedesktop.org,
- AJvYcCXSRbcXlmATW49lfuhLTplml+uFFF5iNXOem7xF9QnkJHT/GZT/B2YyNJqLnvmCoPZQrcZuwZX2W4s=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxwjIxrl6yHMi91+NVgvAHKX7Mx3b+8Pr7CllEv2o3i4myLCsZ7
- xdbV1I2SmAcNcLpf1gbTpw8jKrN/kz+uz3kpmPsxj8i4eTVjIaSa2bTGChZHPlvaFelNlyU6vxp
- a8PYpMjg406CugcNITvGdt7n1ymlCFQ==
-X-Gm-Gg: ASbGnctV0hVRtdKgf/dJ8S7pWeyjYsdVXpQhcyPU0QhA0+O2fl548QTHmjSzMVlRCYF
- 3AItSB03ENjRwMpucBS1xgvjWOmSPDsphDglVuvvi
-X-Google-Smtp-Source: AGHT+IH/lcPM376/rfg8KhebaerOuj8LAx1NxEwjVXaCO8RYHN8NRR6/5SK3Cb3QuG/yCBy8EQPDoo8IC6zqeUmm6V8=
-X-Received: by 2002:a05:6402:5246:b0:5d2:d72a:7803 with SMTP id
- 4fb4d7f45d1cf-5d81dd83c73mr1047222a12.4.1734704736234; Fri, 20 Dec 2024
- 06:25:36 -0800 (PST)
-MIME-Version: 1.0
+ AJvYcCXNvT387CvhQnGl3MwoKaD5r4N28hSLKvK+JSEKxPNcSZisVMZv6SRYsNsdbYDIUvtmLYX9+cuN@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzzVEFH3/ElNgT1TKw7wYLVwuwRL5Ufg9pdmEcR6UXQ1NaVh1Qp
+ YUwi+7GAx3pbGwDcWPForqYIzl6nucwRj/plcVksjcK9kraIj2fKq5HgSnPOHVM=
+X-Gm-Gg: ASbGncvPJa8Yiq4AZmGVcocgpZKHFYtv1ywYB7SIoKc/EkpxyWUSUCpprLrgFMW8RTN
+ 7TkBOTF86DoKAhgkXEjND8iorm07dk4Xi+FF3jZ46oQ4ihDSL77YNV9tvrptYhTbNOcnq/1fatW
+ Zh/Us3Sdq6gXppG3gDbFIMV/E5xR8uIkFXFJZmtRp/Q6JRW4mt43zWikXQb8QdBatLnCs4Ve/lD
+ Juvv2IXXZ/v/3+qQzyFyL/0xTzu6d53vEKWZgclE8mrsrJG0XWeCb3vKbwsu6kqeu5K
+X-Google-Smtp-Source: AGHT+IEGfHgFo11olpo8hGr1wp+wToYVIUekn8l0A7B0qIcvxSYXFPdt7rKBuVQqrXYMcGOcT66poQ==
+X-Received: by 2002:a05:6000:4029:b0:386:41bd:53a3 with SMTP id
+ ffacd0b85a97d-38a224083afmr3120496f8f.50.1734708284754; 
+ Fri, 20 Dec 2024 07:24:44 -0800 (PST)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:5485:d4b2:c087:b497])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38a1c8474b6sm4292325f8f.51.2024.12.20.07.24.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 20 Dec 2024 07:24:44 -0800 (PST)
+Date: Fri, 20 Dec 2024 16:24:42 +0100
+From: Simona Vetter <simona.vetter@ffwll.ch>
+To: Michel =?iso-8859-1?Q?D=E4nzer?= <michel.daenzer@mailbox.org>
+Cc: Daniel Stone <daniel@fooishbar.org>, Brian Starkey <brian.starkey@arm.com>,
+ Simona Vetter <simona.vetter@ffwll.ch>,
+ Marek =?utf-8?B?T2zFocOhaw==?= <maraeo@gmail.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
+ ML Mesa-dev <mesa-dev@lists.freedesktop.org>, nd@arm.com
+Subject: Re: [PATCH] drm/fourcc: add LINEAR modifiers with an exact pitch
+ alignment
+Message-ID: <Z2WMOmPCYajdtAeN@phenom.ffwll.local>
 References: <CAAxE2A5BkF13bFt8_UnuiqPM8W-ZESgmKEjqqGfv=DGzSfJ7aQ@mail.gmail.com>
  <uffsfaps6a75zmkyshkwfxgybcslqrnfqqtjzekegdptvwpugc@2ndpcuxyfp3f>
  <c64cb9d8-5ea7-4644-93c8-04a97b758fa0@mailbox.org>
@@ -63,23 +76,14 @@ References: <CAAxE2A5BkF13bFt8_UnuiqPM8W-ZESgmKEjqqGfv=DGzSfJ7aQ@mail.gmail.com>
  <8dae97c9-9286-451a-8122-b309eb21b2f4@mailbox.org>
  <Z2Ki-lQH4Fbch6RO@phenom.ffwll.local>
  <q45c43j5kwwvemec7mcs4kqzt54pa3nz3jlhkcky2v63s2vfie@him4q253uw4p>
- <CAAxE2A5+=QVAFXXCbe3qEgY-Mzb-5XW73CYdANEO+N_xA+ivaw@mail.gmail.com>
- <zfjnuz2pfg7j2g2zrbt5ryde223plzr4rdyk4f4ans5znicw3l@kbebotesmobf>
- <CAAxE2A6u4Ee=yBJHo9uKr0Be8Ta3MwSxvt79GcbF8D0R952_FQ@mail.gmail.com>
- <nlcq3xjef3mapwumuelnspinmgucersb5gazk2p7yxqv5aops7@t3p2e4sze75b>
-In-Reply-To: <nlcq3xjef3mapwumuelnspinmgucersb5gazk2p7yxqv5aops7@t3p2e4sze75b>
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-Date: Fri, 20 Dec 2024 09:24:59 -0500
-Message-ID: <CAAxE2A77DVSWM0vOZcBSmM+1sbt2kOdCC7SRDMRpeBPsW_J2Vg@mail.gmail.com>
-Subject: Re: [PATCH] drm/fourcc: add LINEAR modifiers with an exact pitch
- alignment
-To: Brian Starkey <brian.starkey@arm.com>
-Cc: Simona Vetter <simona.vetter@ffwll.ch>,
- =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>, 
- dri-devel <dri-devel@lists.freedesktop.org>, 
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>, 
- ML Mesa-dev <mesa-dev@lists.freedesktop.org>, nd@arm.com
-Content-Type: multipart/alternative; boundary="00000000000097f93e0629b46bf4"
+ <CAPj87rMFJ0JRvsKqZUsw_EGrFWr1VLO4Ne2w_bZ5cH+gs_d=og@mail.gmail.com>
+ <688f69c5-a7b7-46eb-89ef-379c3f5c7632@mailbox.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <688f69c5-a7b7-46eb-89ef-379c3f5c7632@mailbox.org>
+X-Operating-System: Linux phenom 6.12.3-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,68 +98,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---00000000000097f93e0629b46bf4
-Content-Type: text/plain; charset="UTF-8"
+On Thu, Dec 19, 2024 at 05:09:33PM +0100, Michel Dänzer wrote:
+> On 2024-12-19 10:02, Daniel Stone wrote:
+> > 
+> > How this would be used in practice is also way too underdocumented. We
+> > need to document that exact-round-up 64b is more restrictive than
+> > any-multiple-of 64b is more restrictive than 'classic' linear. We need
+> > to document what people should advertise - if we were starting from
+> > scratch, the clear answer would be that anything which doesn't care
+> > should advertise all three, anything advertising any-multiple-of
+> > should also advertise exact-round-up, etc.
+> > 
+> > But we're not starting from scratch, and since linear is 'special',
+> > userspace already has explicit knowledge of it. So AMD is going to
+> > have to advertise LINEAR forever, because media frameworks know about
+> > DRM_FORMAT_MOD_LINEAR and pass that around explicitly when they know
+> > that the buffer is linear. That and not breaking older userspace
+> > running in containers or as part of a bisect or whatever.
+> > 
+> > There's also the question of what e.g. gbm_bo_get_modifier() should
+> > return. Again, if we were starting from scratch, most restrictive
+> > would make sense. But we're not, so I think it has to return LINEAR
+> > for maximum compatibility (because modifiers can't be morphed into
+> > other ones for fun), which further cements that we're not removing
+> > LINEAR.
+> > 
+> > And how should allocators determine what to go for? Given that, I
+> > think the only sensible semantics are, when only LINEAR has been
+> > passed, to pick the most restrictive set possible; when LINEAR
+> > variants have been passed as well as LINEAR, to act as if LINEAR were
+> > not passed at all.
+> 
+> These are all very good points, which call for stricter-than-usual
+> application of the "new UAPI requires corresponding user-space patches"
+> rule:
+> 
+> * Patches adding support for the new modifiers in Mesa (and kernel)
+> drivers for at least two separate vendors
 
->
->  * Modifiers must uniquely encode buffer layout. In other words, a buffer
-> must
->  * match only a single modifier.
->
+I think this is too strict? At least I could come up with other scenarios
+where we'd need a new linear variant:
+- one driver, but two different devices that happen to have incompatible
+  linear requirements which break and get fixed with the new linear mode.
+- one driver, one device, but non-driver userspace allocates the linear
+  buffer somewhere else (e.g. from dma-buf heaps) and gets pitch
+  constraints wrong
 
-That sentence is misleading and impossible to meet. Specifications are
-sometimes changed to reflect the overwhelming reality. Multiple modifiers
-can represent identical layouts - they already do between vendors, between
-generations of the same vendor, and accidentally even between chips of the
-same generation. Modifiers have already become 64-bit structures of
-bitfields with currently 2^16 possible modifiers for some vendors, and
-possibly exceeding 100k for all vendors combined. Encoding all linear
-constraints into the 64 bits is one option. It needs more thought, but
-encoding at least some constraints in the modifier is not totally off the
-table.
+> * Patches adding support in at least one non-Mesa user-space component,
+> e.g. a Wayland compositor which has code using the existing linear
+> modifier (e.g. mutter)
 
-The semi-functional LINEAR modifier needs to go. The idea of modifiers is
-that nobody should have to expose one that is unsupported to keep things
-working for a subset of apps. If the LINEAR modifier is a requirement
-everywhere because of apps, and even drivers that can't support it must
-expose it, that's a problem. It causes GBM/EGL to fail to import a DMABUF
-for a random reason and it can't be prevented without, say, looking at PCI
-IDs. If that happened for any other API, it would be considered unusable.
-We can either fix it (by replacing/deprecating/removing LINEAR) or abandon
-modifiers and replace them with something that works.
+This also feels a bit too strict, since I think what Daniel proposed is
+that drivers do the special LINEAR handling when there are variants
+present in the list of compatible modifiers for an alloation. Hence I
+don't think compositor patches are necessarily required, but we definitely
+need to test to make sure it actually works and there's not surprises.
 
-Marek
+The exception is of course when non-mesa userspace allocates/sizes the
+buffer itself (maybe for an soc where the display is separate and the gpu
+has stricter stride constraints than the display).
 
---00000000000097f93e0629b46bf4
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+> Ideally also describe a specific multi-vendor scenario which can't work
+> with the existing linear modifier, and validate that it works with the
+> new ones.
 
-<div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_quot=
-e"><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bord=
-er-left:1px solid rgb(204,204,204);padding-left:1ex">=C2=A0* Modifiers must=
- uniquely encode buffer layout. In other words, a buffer must<br>
-=C2=A0* match only a single modifier.<br></blockquote><div><br></div>That s=
-entence is misleading and impossible to meet. Specifications are sometimes =
-changed to reflect the overwhelming reality. Multiple modifiers can represe=
-nt identical layouts - they already do between vendors, between generations=
- of the same vendor, and accidentally even between chips of the same genera=
-tion. Modifiers have already become 64-bit structures of bitfields with cur=
-rently 2^16 possible modifiers for some vendors, and possibly exceeding 100=
-k for all vendors combined. Encoding all linear constraints into the 64 bit=
-s is one option. It needs more thought, but encoding at least some constrai=
-nts in the modifier is not totally off the table.</div><div class=3D"gmail_=
-quote"><br></div><div class=3D"gmail_quote">The semi-functional LINEAR modi=
-fier needs to go. The idea of modifiers is that nobody should have to expos=
-e one that is unsupported to keep things working for a subset of apps. If t=
-he LINEAR modifier is a requirement everywhere because of apps, and even dr=
-ivers that can&#39;t support it must expose it, that&#39;s a problem. It ca=
-uses GBM/EGL to fail to import a DMABUF for a random reason and it can&#39;=
-t be prevented without, say, looking at PCI IDs. If that happened for any o=
-ther API, it would be considered unusable. We can either fix it (by replaci=
-ng/deprecating/removing LINEAR) or abandon modifiers and replace them with =
-something that works.<br></div><div class=3D"gmail_quote"><br></div><div cl=
-ass=3D"gmail_quote">Marek<br></div></div>
-</div>
-</div>
+I think that's really the crucial part, because adding modifiers without
+an actual use-case that they fix is just asking for more future trouble I
+think.
+-Sima
 
---00000000000097f93e0629b46bf4--
+> 
+> 
+> -- 
+> Earthling Michel Dänzer       \        GNOME / Xwayland / Mesa developer
+> https://redhat.com             \               Libre software enthusiast
+
+-- 
+Simona Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
