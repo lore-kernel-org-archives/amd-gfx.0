@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 775B0E7718C
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Dec 2024 21:51:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 811D0E7718B
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Dec 2024 21:51:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2391F10F084;
-	Fri, 20 Dec 2024 21:51:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3302910F087;
+	Fri, 20 Dec 2024 21:51:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="H+s1Y4rn";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4IwbrEbi";
 	dkim-atps=neutral
 Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2053.outbound.protection.outlook.com [40.107.220.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 20DE310F081
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Dec 2024 21:51:36 +0000 (UTC)
+ (mail-co1nam11on2062f.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:2416::62f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8872710F087
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Dec 2024 21:51:37 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=n/iG34HSsG5Man2ak8FkvW+vFyqDrp2Fx88ncEDCYCPi8Bq/2kxBTQIiHmF7RybZ8cgXjFjx4u3Z/Fmd836x5KSXlvEkU+J1I6XQc0gKYvJ3GYEX/1PR91wGv7m8Z/B23RfkPddYayyn7yjGu3VDTiDePE3jTw29nnvuGEkWPBHA6JtByHEpcOZ0pdWcwlpf57vzbR0uK8YJbmZWB0eXo3XtDHBZMidDntwZRP7Bz8kpJA4sfLA6v1WiDNEYx+3LowlPWFt0beslow5XU8DthrohpZRYauOxW3GHv3xU/aphiHQt2Tpf0KaPhIOgpHChazeyWgGdx+0P2VBZvPHhYw==
+ b=NzXQgRmj31bfnQ6yT4NHiXdorsxXiUTS0vzlV4SdkIPSCqOXHk6UOyvexV3orOpeciUVS+nH51PwMfOCkleErVoZ2zbXYyMMcAA0JQ9s4Jhs2Rod2bzFYebGMiWBTfFiqkbKPGhAWTmKX64g/a9lgvhj4XSXxWwnvGgPBFXBK2BVb+1Jkm0x/fEQAzXfpiEQu2H1dpSMQZh47RbhcEwEO9iV4Bxmr+ZMVC/01D7J67rgIrZ2URedGce0I526GL9U8sjQMp8lfvyuD4yFAPM78AKbc+bk0aIW0iccXuhcCA2TU357m9RFflzv2bUovAlcAFrgXwg7jDgy6iW6EMC9Eg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iiKteatrjQUz1MdhC62ES/cF349IrbTSz4+11zG4e+0=;
- b=CvtqznzN1IIIdw7opQw52/hOlqoVeHsI9SoNmWsRu0P+onxVGukuqm+YwWl1BPzqYkOBgBaxcsJJ/onEsKhW3ymapTWtbVcxZMrGLpzR82eYKzxjqYSAHsDHNBXkFVvJi8n8H/uQv/sOkSHTZA1cmDRSyNx3ynoBQ3dfa5YObCfjJ5HiVnEon6MloTcT6KocsAC6q2PkYuCfR7jIt6FRwvOKIPXwp+pfjdBzAdMMlRa7xm+RTG7F0xP48Xed1H+KXegzLBXd60+lvDPXjBsQfy9xHueDfhnTKTH08Ngc9ZCtSeAg2XOXrAEEfEcTwtEFgPAwJB0jdSrmUQM3OpIuFQ==
+ bh=Nbt7QVS9+FkEho2sBGpPZ2qfA93KBMCfzrFx2PPwysU=;
+ b=wQbNyvdHCml4aN89Qz0MX7OJw8K/7W44/PDjuPyQDOty4CvaEkhk44SDa/4RipKWGWvw/yEpdnn66Iha+R4DDeijZLbCl0+galX09UqrbkzGx3sqtLwh2pPE9h0dPoGdwiJFLac+LAdTHknJ8jCeP4Aj+EqQZ+uS7bo3YmZJPw20DI3i+9u91ryrOsyahdRpyuGLYfg5MnSBmzrAQB4AgzzqbwgAtqYK21ZB7qU0JNdh8jTe70gOgFI0Xdz+O+0ksPAbjnGX+cAC3sXloJQuaO5611NIPq96mk9fUMkydnymefpA6HyE+LFQz+cxxnt1jMRf33W/B60nzX6SEgJ/8Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iiKteatrjQUz1MdhC62ES/cF349IrbTSz4+11zG4e+0=;
- b=H+s1Y4rn3R5oVIXqkrI0z/ekuemC+0ri38RFXkmBfdU31Ts0XR4nRPLeL0vfqR/oYAqHCi80Iq/mp5aH4Nr1mDhwzMY2P8zfvb2MQzi+WkhjPIsX1lGPSavyzYAm9w10W2TsKU3hUbSuCvtSE5j/jT2GwHbE8Efm/hscwWXK+zg=
-Received: from SJ0PR13CA0120.namprd13.prod.outlook.com (2603:10b6:a03:2c5::35)
- by SA0PR12MB4494.namprd12.prod.outlook.com (2603:10b6:806:94::20)
+ bh=Nbt7QVS9+FkEho2sBGpPZ2qfA93KBMCfzrFx2PPwysU=;
+ b=4IwbrEbiFbJ+iQ66fCCLBkyYmxB4KFQZHKztc1nte1pXcwkUPS5qpMkLwT9B85y7KRJvmF/Eyf8CtCq02lrS5bPsnCfeNHhzfnwqDQ09qNpcTtElId4dHMzyjKVuZA5okWLQ0XXfBbH6N30V/1ya4mPMkfQGyAIblMPYV832Mp4=
+Received: from SJ0PR13CA0091.namprd13.prod.outlook.com (2603:10b6:a03:2c5::6)
+ by SJ2PR12MB8783.namprd12.prod.outlook.com (2603:10b6:a03:4d0::19)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8272.16; Fri, 20 Dec
  2024 21:51:30 +0000
 Received: from CO1PEPF000075EE.namprd03.prod.outlook.com
- (2603:10b6:a03:2c5:cafe::6d) by SJ0PR13CA0120.outlook.office365.com
- (2603:10b6:a03:2c5::35) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:a03:2c5:cafe::f3) by SJ0PR13CA0091.outlook.office365.com
+ (2603:10b6:a03:2c5::6) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.8272.12 via Frontend Transport; Fri,
- 20 Dec 2024 21:51:29 +0000
+ 20 Dec 2024 21:51:30 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,14 +51,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
  CO1PEPF000075EE.mail.protection.outlook.com (10.167.249.37) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8251.15 via Frontend Transport; Fri, 20 Dec 2024 21:51:29 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
+ 15.20.8251.15 via Frontend Transport; Fri, 20 Dec 2024 21:51:30 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 20 Dec
- 2024 15:51:28 -0600
+ 2024 15:51:29 -0600
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 20 Dec
+ 2024 15:51:29 -0600
 Received: from roman-vdev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Fri, 20 Dec 2024 15:51:27 -0600
+ Transport; Fri, 20 Dec 2024 15:51:28 -0600
 From: <Roman.Li@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -65,67 +70,66 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>, Wayne Lin
  <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, Fangzhi Zuo
  <jerry.zuo@amd.com>, Zaeem Mohamed <zaeem.mohamed@amd.com>, Solomon Chiu
- <solomon.chiu@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>, Samson Tam
- <Samson.Tam@amd.com>, Navid Assadian <navid.assadian@amd.com>
-Subject: [PATCH 25/28] drm/amd/display: Clean up SPL code
-Date: Fri, 20 Dec 2024 16:48:52 -0500
-Message-ID: <20241220214855.2608618-26-Roman.Li@amd.com>
+ <solomon.chiu@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>, "Iswara
+ Nagulendran" <Iswara.Nagulendran@amd.com>, Harry Vanzylldejong
+ <harry.vanzylldejong@amd.com>
+Subject: [PATCH 26/28] drm/amd/display: Add VC for VESA Aux Backlight Control
+Date: Fri, 20 Dec 2024 16:48:53 -0500
+Message-ID: <20241220214855.2608618-27-Roman.Li@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20241220214855.2608618-1-Roman.Li@amd.com>
 References: <20241220214855.2608618-1-Roman.Li@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-Received-SPF: None (SATLEXMB03.amd.com: Roman.Li@amd.com does not designate
- permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000075EE:EE_|SA0PR12MB4494:EE_
-X-MS-Office365-Filtering-Correlation-Id: 68259c22-dd55-4516-1564-08dd214075df
+X-MS-TrafficTypeDiagnostic: CO1PEPF000075EE:EE_|SJ2PR12MB8783:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6ea578ee-13fb-43fc-22b7-08dd2140766e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|82310400026|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?F61AAjncJ/nPTmXs/UqrGNXgWMpx3BiNTfBF3D79D1SEp7LLYISa81zXnRQo?=
- =?us-ascii?Q?e9SpHGl5BUMZXdplaeXJvp1PE3EZtRBpaZRlFys3YD6vqaCnlWpgpVcAv3as?=
- =?us-ascii?Q?tRVIUOno6kb9mGPZluNm6VDG58wvi2ivQx8z08Cl6iYgEr5bswxXbqE/oY4t?=
- =?us-ascii?Q?KFc7wnn3kslg7Ibv21Hk1AYT50MgowAcy3NhjPrGEHXTMxdHeiIX5sgB8Cjz?=
- =?us-ascii?Q?uxka0m39oEQW9edXWWul6ILFjtdUtcIOoPJVpgcl9meZ5AgowjH2/ChcJYzD?=
- =?us-ascii?Q?MRuMQT7vYS/ixM7YaGn5b/uTKBCiRVrcfX8WDrfSVMgwRgfHtSabSQs6eOJT?=
- =?us-ascii?Q?e/x6ijtYbQTAJBOvRpxPLwqlXI+BWzJHchYHy50wBnC2Uv8+niKGqEhKjQxo?=
- =?us-ascii?Q?sbMnjRzj2kTPndxhSAoVjVEBrprazimbsTsWhht2gocUCDU4HDCCycONHBbA?=
- =?us-ascii?Q?XQFdJO7vYifPhWZIomsKEEVfC63jFuSPoVtFQl5D2C7LcFhF68HfTZmlZk2i?=
- =?us-ascii?Q?Oy6g62HeCL48G3rtLJDYOA1rdK3v9u1xD8cfNGInSzw+5qFZQmqdtAZlCCm+?=
- =?us-ascii?Q?WY9z1uZHqMVAVS1FhL413brqYHNwHjqyDP77Duam3EcZCjiUFJzIacXHlDU5?=
- =?us-ascii?Q?LWPSd5aheEW7CgMbKCCopEvTKxEQkseTYn5Ilp9NZ6Jl7Dm+ADu2ca1HjRhz?=
- =?us-ascii?Q?s0OWpL8zUShB3OJUZTluduPfmT12MgvihuT5nr+8WF9SRPnQRxqLxn2kK3j6?=
- =?us-ascii?Q?9Wf556bSBr4JInCQ7oP4RZ6fRiqMpHvXVuC1odUyEbTOwPBbQSrVgMalg5wr?=
- =?us-ascii?Q?Ii2A+MmISFrIKuTipuTPykiSRxI+vxcgJUS1jppXLhtiD0uxVH32T4v+VEdH?=
- =?us-ascii?Q?AVXjrO+5rhe1fUwrrB3AXhjkBAAe2oN9oNcxSWGPMe4CI6/hAL5wpjhV4Xex?=
- =?us-ascii?Q?JTc2NL2gcw17/yzu7vRh4xXVUtlK1tDoPFceMd6cA251gqqO+7BTI38MNoUb?=
- =?us-ascii?Q?mv1/YkbTe4E2aAKws58ihDbgVpW16J7WQEC3V0SRJRQRiGoR/UaGuI6SY3F1?=
- =?us-ascii?Q?8RgSUL9+tgyOgXSD/t2Cwaru95hr4mfS/QlTSPaBcRrgR5jx54c7QsqPtHEC?=
- =?us-ascii?Q?ULJ7pKBYjzIUs9K+zSj8Hz4PrjzrHEGzjbortRH1SoyzhJDXhLcd3NLBC60E?=
- =?us-ascii?Q?RVqUvwEWsgBqADSadiTUB4gvXy4XaaxYPaHwwU8Yyb6nSdwFYkYowGCKBjlV?=
- =?us-ascii?Q?jUvdUibC3+v6BJ9ynEjlWOgEOJgjMZclk9Xob58695/LgwshzoJp394zLPSH?=
- =?us-ascii?Q?aSncTn4Rif8LVnCoYFl0AufMPctti/O20VWeWNWWXygdKx94071Hf+aCGnql?=
- =?us-ascii?Q?GMcZXXfMXPRcTYesKKq1MAGEbjxv1U8Mo2BFpgmA7bIeGoPVD4Kl4Tf2kJ0b?=
- =?us-ascii?Q?U3/mmvEjCdNT4H245/GAPnSCeDGmOUnYo8kXMrJbThoOwYUcwyiC0dzulT0Y?=
- =?us-ascii?Q?Wm6mu670C/ax5Jc=3D?=
+ ARA:13230040|376014|82310400026|1800799024|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?0evY0O9oEb3y+14zN2IQIMkXF/EpX8S/0J8m+9031O95rqlmQdtQPEW9pTXc?=
+ =?us-ascii?Q?bBQexfQ+cHkuQ6lDN9cFJ1aXbhE8WtesQ0zX0ofzkoHtmOW03cYWahmmraJc?=
+ =?us-ascii?Q?m7am4t3T2vjCNq/kEeI5GuxYxKp1oI8AHVBCPBF/ptA8hFxIOADkbtilH3tR?=
+ =?us-ascii?Q?LFPMHL8QbLF31IhqubdYJMyxTFXzzUDdbkwPZqmmFNuVkpWyTZdxCNW3di6/?=
+ =?us-ascii?Q?OrmwkBjHolElO5Al6KpoaZVVcbVNzU239O+UzDT3lHC2QF3cNjzg5Q2Ux9tq?=
+ =?us-ascii?Q?ZS6G4ftPrVnSkA/wDpAKEpvQRX3ZWP2QCyoGvoO40xFoRwlltumBg3Go/1o8?=
+ =?us-ascii?Q?WTc/wrWRFyL4TIt8Wjh73lVbmIWkRKcJozk20UY+ygk7j+VRV/j0QnGjLSjF?=
+ =?us-ascii?Q?9Gpz30Yj7PJl1f8i1ntEywi5DJ73Vact6kHItNWRDPWZG2O39q++tRW6Pk0Q?=
+ =?us-ascii?Q?8mYJKV2zxwmZFIsrt6v3sqS2/ZW/lozU5kwPakYBj42qV1UECtKZ3sQzJroS?=
+ =?us-ascii?Q?FgpHvlGpOf3pHC75uL1y5fX2VH4rzLQgY+o6tInFFoYyN086Chzv3KwEJ3g+?=
+ =?us-ascii?Q?HXTsago9+eun6iEpeEEXxto0fKDFZQZAWdp5zt34Yv7k5N1/jt9PdRkKKW09?=
+ =?us-ascii?Q?0Hyb0mlt51miEG17H8NWMdYELbrVveDjYPpvZhVMweSrfUsYRT3o5T9JNLzd?=
+ =?us-ascii?Q?YoF1pifKUWrv4CDuUn34YX9Yfu2dsi6IcgKc7O3M/QyYsnzhisEoNzC0Wcrk?=
+ =?us-ascii?Q?gcBDX6NL5b7j85QYdctOMR+oRXq3SjNek3/XJl2XuK0VTohj8eD6n/q7a3H4?=
+ =?us-ascii?Q?OET8T1sgnNTYPB0d5ZlRGOswdHVXR8GwafDT/YJ9v4ntZf5G/A6B39dU/S9n?=
+ =?us-ascii?Q?VVBpW6dPSYHvxaxpI08GpPA6X83Yam99eU/+vYurmp0YlA6GTKjHrEGq0/Al?=
+ =?us-ascii?Q?cXXR1FYmE0GMfqETElrf+d9bGma6p+HiGC6gLqqrwFObYZ7FmxwQfOXXC83k?=
+ =?us-ascii?Q?DELe7rt6kEFZzpXLkf3fKik/3+PD8ZPHB70fLUrr/ZeMSAlv+jA+GVyTvgLC?=
+ =?us-ascii?Q?oCShreL4UVytLvd9iaQU0JOSLc2W1uNWtpcyArw7reUP7d90FZ67VhqEZ30w?=
+ =?us-ascii?Q?TkbkIo1A7l/XG/+qFwAdOnqDjm+jSkeHlcypSLvgGtO1/L2RmMbJn79DPmMl?=
+ =?us-ascii?Q?qw/vD/tWeKMxX62NiNe0kl1LmkNwgkIXKr97zNxarkjZRioquulbNqUd2X3H?=
+ =?us-ascii?Q?GoDa5YR/6BE/7quqKonDaWguUxJE5WdFOfQPBCwoLblpcbsEhK0otpWToiS1?=
+ =?us-ascii?Q?4AReDtfOcXjClK1ij+C+gOkbV4zG8xh9XDtiPo68Ua7RqGXAcojEl3AOZknz?=
+ =?us-ascii?Q?iEQL0k7IEGEZA2H5I5tsne8LMgvTSQ2Gnet95YLb3AyLA33+NSlwFNbxxyhN?=
+ =?us-ascii?Q?gQo7bq5g99sCElW/oj+4yfhjkC7aVjzqqkZXRHX75+dY4sy5YsIUnmLehz4H?=
+ =?us-ascii?Q?UaekaOA7z75jnv0=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(82310400026)(36860700013); DIR:OUT;
+ SFS:(13230040)(376014)(82310400026)(1800799024)(36860700013); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Dec 2024 21:51:29.3937 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 68259c22-dd55-4516-1564-08dd214075df
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Dec 2024 21:51:30.3468 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6ea578ee-13fb-43fc-22b7-08dd2140766e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000075EE.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4494
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8783
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,162 +144,131 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Samson Tam <Samson.Tam@amd.com>
+From: Iswara Nagulendran <Iswara.Nagulendran@amd.com>
 
-[Why & How]
-Use helper functions for checking formats
-Apply cositing offset in rotation case
+[WHY]
+There is no way to distinguish
+the static backlight control type
+being used and the VABC support
+without the use of a debugger or
+reading DPCD registers.
 
-Reviewed-by: Navid Assadian <navid.assadian@amd.com>
-Signed-off-by: Samson Tam <Samson.Tam@amd.com>
+[HOW]
+Add Visual Confirm support
+for VESA Aux-based Backlight Control.
+
+Reviewed-by: Harry Vanzylldejong <harry.vanzylldejong@amd.com>
+Signed-off-by: Iswara Nagulendran <Iswara.Nagulendran@amd.com>
 Signed-off-by: Roman Li <roman.li@amd.com>
 Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/spl/dc_spl.c | 88 ++++++++++-----------
- 1 file changed, 43 insertions(+), 45 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc.c      |  2 +
+ .../drm/amd/display/dc/core/dc_hw_sequencer.c | 38 +++++++++++++++++++
+ drivers/gpu/drm/amd/display/dc/dc.h           |  1 +
+ .../drm/amd/display/dc/hwss/hw_sequencer.h    |  6 +--
+ 4 files changed, 44 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/spl/dc_spl.c b/drivers/gpu/drm/amd/display/dc/spl/dc_spl.c
-index a7f36b5c53d1..38a9a0d68058 100644
---- a/drivers/gpu/drm/amd/display/dc/spl/dc_spl.c
-+++ b/drivers/gpu/drm/amd/display/dc/spl/dc_spl.c
-@@ -11,6 +11,41 @@
- #define IDENTITY_RATIO(ratio) (spl_fixpt_u2d19(ratio) == (1 << 19))
- #define MIN_VIEWPORT_SIZE 12
- 
-+static bool spl_is_yuv420(enum spl_pixel_format format)
-+{
-+	if ((format >= SPL_PIXEL_FORMAT_420BPP8) &&
-+		(format <= SPL_PIXEL_FORMAT_420BPP10))
-+		return true;
-+
-+	return false;
-+}
-+
-+static bool spl_is_rgb8(enum spl_pixel_format format)
-+{
-+	if (format == SPL_PIXEL_FORMAT_ARGB8888)
-+		return true;
-+
-+	return false;
-+}
-+
-+static bool spl_is_video_format(enum spl_pixel_format format)
-+{
-+	if (format >= SPL_PIXEL_FORMAT_VIDEO_BEGIN
-+		&& format <= SPL_PIXEL_FORMAT_VIDEO_END)
-+		return true;
-+	else
-+		return false;
-+}
-+
-+static bool spl_is_subsampled_format(enum spl_pixel_format format)
-+{
-+	if (format >= SPL_PIXEL_FORMAT_SUBSAMPLED_BEGIN
-+		&& format <= SPL_PIXEL_FORMAT_SUBSAMPLED_END)
-+		return true;
-+	else
-+		return false;
-+}
-+
- static struct spl_rect intersect_rec(const struct spl_rect *r0, const struct spl_rect *r1)
- {
- 	struct spl_rect rec;
-@@ -408,8 +443,7 @@ static void spl_calculate_scaling_ratios(struct spl_in *spl_in,
- 	spl_scratch->scl_data.ratios.horz_c = spl_scratch->scl_data.ratios.horz;
- 	spl_scratch->scl_data.ratios.vert_c = spl_scratch->scl_data.ratios.vert;
- 
--	if (spl_in->basic_in.format == SPL_PIXEL_FORMAT_420BPP8
--			|| spl_in->basic_in.format == SPL_PIXEL_FORMAT_420BPP10) {
-+	if (spl_is_yuv420(spl_in->basic_in.format)) {
- 		spl_scratch->scl_data.ratios.horz_c.value /= 2;
- 		spl_scratch->scl_data.ratios.vert_c.value /= 2;
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 4742a4ad19bd..12839fa3682d 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -1236,6 +1236,8 @@ static void dc_update_visual_confirm_color(struct dc *dc, struct dc_state *conte
+ 				get_mclk_switch_visual_confirm_color(pipe_ctx, &(pipe_ctx->visual_confirm_color));
+ 			else if (dc->debug.visual_confirm == VISUAL_CONFIRM_FAMS2)
+ 				get_fams2_visual_confirm_color(dc, context, pipe_ctx, &(pipe_ctx->visual_confirm_color));
++			else if (dc->debug.visual_confirm == VISUAL_CONFIRM_VABC)
++				get_vabc_visual_confirm_color(pipe_ctx, &(pipe_ctx->visual_confirm_color));
+ 		}
  	}
-@@ -546,41 +580,6 @@ static void spl_calculate_init_and_vp(bool flip_scan_dir,
- 		*vp_offset = src_size - *vp_offset - *vp_size;
+ }
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
+index 252af83e34a5..6eb9bae3af91 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
+@@ -425,6 +425,44 @@ void get_hdr_visual_confirm_color(
+ 	}
  }
  
--static bool spl_is_yuv420(enum spl_pixel_format format)
--{
--	if ((format >= SPL_PIXEL_FORMAT_420BPP8) &&
--		(format <= SPL_PIXEL_FORMAT_420BPP10))
--		return true;
--
--	return false;
--}
--
--static bool spl_is_rgb8(enum spl_pixel_format format)
--{
--	if (format == SPL_PIXEL_FORMAT_ARGB8888)
--		return true;
--
--	return false;
--}
--
--static bool spl_is_video_format(enum spl_pixel_format format)
--{
--	if (format >= SPL_PIXEL_FORMAT_VIDEO_BEGIN
--			&& format <= SPL_PIXEL_FORMAT_VIDEO_END)
--		return true;
--	else
--		return false;
--}
--
--static bool spl_is_subsampled_format(enum spl_pixel_format format)
--{
--	if (format >= SPL_PIXEL_FORMAT_SUBSAMPLED_BEGIN
--			&& format <= SPL_PIXEL_FORMAT_SUBSAMPLED_END)
--		return true;
--	else
--		return false;
--}
--
- /*Calculate inits and viewport */
- static void spl_calculate_inits_and_viewports(struct spl_in *spl_in,
- 		struct spl_scratch *spl_scratch)
-@@ -591,8 +590,7 @@ static void spl_calculate_inits_and_viewports(struct spl_in *spl_in,
- 	struct spl_rect recout_clip_in_recout_dst;
- 	struct spl_rect overlap_in_active_timing;
- 	struct spl_rect odm_slice = calculate_odm_slice_in_timing_active(spl_in);
--	int vpc_div = (spl_in->basic_in.format == SPL_PIXEL_FORMAT_420BPP8
--			|| spl_in->basic_in.format == SPL_PIXEL_FORMAT_420BPP10) ? 2 : 1;
-+	int vpc_div = spl_is_subsampled_format(spl_in->basic_in.format) ? 2 : 1;
- 	bool orthogonal_rotation, flip_vert_scan_dir, flip_horz_scan_dir;
- 	struct spl_fixed31_32 init_adj_h = spl_fixpt_zero;
- 	struct spl_fixed31_32 init_adj_v = spl_fixpt_zero;
-@@ -620,11 +618,6 @@ static void spl_calculate_inits_and_viewports(struct spl_in *spl_in,
- 			&flip_vert_scan_dir,
- 			&flip_horz_scan_dir);
- 
--	if (orthogonal_rotation) {
--		spl_swap(src.width, src.height);
--		spl_swap(flip_vert_scan_dir, flip_horz_scan_dir);
--	}
--
- 	if (spl_is_subsampled_format(spl_in->basic_in.format)) {
- 		/* this gives the direction of the cositing (negative will move
- 		 * left, right otherwise)
-@@ -647,7 +640,12 @@ static void spl_calculate_inits_and_viewports(struct spl_in *spl_in,
- 			init_adj_v = spl_fixpt_zero;
- 			break;
- 		}
++/* Visual Confirm color definition for VABC */
++void get_vabc_visual_confirm_color(
++	struct pipe_ctx *pipe_ctx,
++	struct tg_color *color)
++{
++	uint32_t color_value = MAX_TG_COLOR_VALUE;
++	struct dc_link *edp_link = NULL;
++
++	if (pipe_ctx && pipe_ctx->stream && pipe_ctx->stream->link) {
++		if (pipe_ctx->stream->link->connector_signal == SIGNAL_TYPE_EDP)
++			edp_link = pipe_ctx->stream->link;
 +	}
++
++	if (edp_link) {
++		switch (edp_link->backlight_control_type) {
++		case BACKLIGHT_CONTROL_PWM:
++			color->color_r_cr = color_value;
++			color->color_g_y = 0;
++			color->color_b_cb = 0;
++			break;
++		case BACKLIGHT_CONTROL_AMD_AUX:
++			color->color_r_cr = 0;
++			color->color_g_y = color_value;
++			color->color_b_cb = 0;
++			break;
++		case BACKLIGHT_CONTROL_VESA_AUX:
++			color->color_r_cr = 0;
++			color->color_g_y = 0;
++			color->color_b_cb = color_value;
++			break;
++		}
++	} else {
++		color->color_r_cr = 0;
++		color->color_g_y = 0;
++		color->color_b_cb = 0;
++	}
++}
++
+ void get_subvp_visual_confirm_color(
+ 		struct pipe_ctx *pipe_ctx,
+ 		struct tg_color *color)
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index 063f853160d0..23a6d56d0798 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -489,6 +489,7 @@ enum visual_confirm {
+ 	VISUAL_CONFIRM_MCLK_SWITCH = 16,
+ 	VISUAL_CONFIRM_FAMS2 = 19,
+ 	VISUAL_CONFIRM_HW_CURSOR = 20,
++	VISUAL_CONFIRM_VABC = 21,
+ };
  
-+	if (orthogonal_rotation) {
-+		spl_swap(src.width, src.height);
-+		spl_swap(flip_vert_scan_dir, flip_horz_scan_dir);
-+		spl_swap(init_adj_h, init_adj_v);
- 	}
+ enum dc_psr_power_opts {
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
+index a5bb10d7b160..98d85c7ab3fa 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
++++ b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
+@@ -194,7 +194,6 @@ enum block_sequence_func {
+ 	DMUB_SUBVP_SAVE_SURF_ADDR,
+ 	HUBP_WAIT_FOR_DCC_META_PROP,
+ 	DMUB_FAMS2_GLOBAL_CONTROL_LOCK_FAST,
+-
+ };
  
- 	spl_calculate_init_and_vp(
-@@ -1600,7 +1598,7 @@ static void spl_set_easf_data(struct spl_scratch *spl_scratch, struct spl_out *s
- 			0x0;	// fp1.5.10, C3 coefficient
- 	}
- 
--	if (spl_is_video_format(format)) { /* TODO: 0 = RGB, 1 = YUV */
-+	if (spl_is_subsampled_format(format)) { /* TODO: 0 = RGB, 1 = YUV */
- 		dscl_prog_data->easf_matrix_mode = 1;
- 		/*
- 		 * 2-bit, BF3 chroma mode correction calculation mode
+ struct block_sequence {
+@@ -485,11 +484,12 @@ void get_hdr_visual_confirm_color(
+ void get_mpctree_visual_confirm_color(
+ 		struct pipe_ctx *pipe_ctx,
+ 		struct tg_color *color);
+-
++void get_vabc_visual_confirm_color(
++	struct pipe_ctx *pipe_ctx,
++	struct tg_color *color);
+ void get_subvp_visual_confirm_color(
+ 	struct pipe_ctx *pipe_ctx,
+ 	struct tg_color *color);
+-
+ void get_fams2_visual_confirm_color(
+ 	struct dc *dc,
+ 	struct dc_state *context,
 -- 
 2.34.1
 
