@@ -4,60 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C7FFE7718C
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Dec 2024 13:32:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46D93E7718C
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Dec 2024 14:07:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED93010E381;
-	Fri, 20 Dec 2024 13:32:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E418C10E398;
+	Fri, 20 Dec 2024 14:07:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="MeJKyyge";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="kUHUJbdK";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C0A3310E139;
- Fri, 20 Dec 2024 13:32:29 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E11410E076;
+ Fri, 20 Dec 2024 14:07:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1734701549; x=1766237549;
+ t=1734703654; x=1766239654;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:content-transfer-encoding:in-reply-to;
- bh=B17NPmKnJjDUdHtU7hxyN48I7d4XrJFbwTdI0khAxYs=;
- b=MeJKyygeXAyq4VmJJqAlgV6qagpt/c15b4bzGcr+Ddf/EblHLPxXt3ZA
- BBIznvBELxnKQ0lzYwCxqMifCJY279HxBJe3RdyBndEym7m8cg1rVExAE
- xcrWtJotOkUygaXdFSshxnLHMTsAYpZ/3eUZlQd1I9Kji94gZS8A4EoI9
- GQ325xa8+zTFN5pqD+ARHSajatLn4ntgCeoTmLL4m8nR0LOBN3JufR0jC
- z/6pUoN/dAecBWeiEullWfNwMyKiU4NlI87ycvu7kdZBCGGjR7iwHmcd3
- twa2hLuMgLhgVHicXjgLFn4YrlWiAitoVkBmTujaFjaznGE81cZe9iJKs A==;
-X-CSE-ConnectionGUID: xdR1Q8/wQpahum5nxSGxBg==
-X-CSE-MsgGUID: EFoLXxiUS96RAob6Tf9vyg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11292"; a="35140871"
-X-IronPort-AV: E=Sophos;i="6.12,250,1728975600"; d="scan'208";a="35140871"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Dec 2024 05:32:28 -0800
-X-CSE-ConnectionGUID: YrDvBIrHTru1buzcwTr2Lw==
-X-CSE-MsgGUID: 3C0/LQ10SIyZCXD+mQUPKw==
+ bh=iri6H3nmdhP6/8IE99rvnbXZ3uixxk5Q0ccMzHM9kxY=;
+ b=kUHUJbdKo+JUpVTKaQvt1/YZQVZHqnvE9BzryjrKOLgUz/l6mWPjjy9J
+ EFdxpLXpfOawaC0BSkul0JfEnuOLVoyflS05Ss9Ay1l+xMG8xDBOOuefl
+ q2wR33wTBpkkR5f/BZY2FiPr94lK9NPIdqR2pyw8NjeHgQyCBbdtXrRCJ
+ V7L3WeNiFaBqbfBfqLImdRqGPQCHalH5pZqsIn6M4MDPmbRCA6gV3uNBy
+ hAOarlfaTreAEqtOxFqHYHHTtgXM0pnyAVFaZsmv8lNo1wETptTaKumaZ
+ PYhismCmK93DjsNGeanVJd+5tSOLKNcer5Yjb17DFJMWlP7WAH47ELI9M g==;
+X-CSE-ConnectionGUID: iR3H0qxWTzCm8+NSlFu3/Q==
+X-CSE-MsgGUID: uo3744O2RlybXT+FONwhEg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11292"; a="38936299"
+X-IronPort-AV: E=Sophos;i="6.12,250,1728975600"; d="scan'208";a="38936299"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Dec 2024 06:07:33 -0800
+X-CSE-ConnectionGUID: pl7KR/3FSV682XCpZDutGg==
+X-CSE-MsgGUID: e0vfaQZmTfClFJZ4RroT5g==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="121789477"
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="99346134"
 Received: from lkp-server01.sh.intel.com (HELO a46f226878e0) ([10.239.97.150])
- by fmviesa002.fm.intel.com with ESMTP; 20 Dec 2024 05:32:24 -0800
+ by orviesa008.jf.intel.com with ESMTP; 20 Dec 2024 06:07:29 -0800
 Received: from kbuild by a46f226878e0 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1tOd78-0001BX-21;
- Fri, 20 Dec 2024 13:32:22 +0000
-Date: Fri, 20 Dec 2024 21:31:31 +0800
+ (envelope-from <lkp@intel.com>) id 1tOdf4-0001Cx-2A;
+ Fri, 20 Dec 2024 14:07:26 +0000
+Date: Fri, 20 Dec 2024 22:06:33 +0800
 From: kernel test robot <lkp@intel.com>
 To: =?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>,
  Raag Jadav <raag.jadav@intel.com>, airlied@gmail.com,
  simona@ffwll.ch, lucas.demarchi@intel.com, rodrigo.vivi@intel.com,
  jani.nikula@linux.intel.com, andriy.shevchenko@linux.intel.com,
  lina@asahilina.net, michal.wajdeczko@intel.com, christian.koenig@amd.com
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- himal.prasad.ghimiray@intel.com, aravind.iddamsetty@linux.intel.com,
- anshuman.gupta@intel.com, alexander.deucher@amd.com,
- andrealmeid@igalia.com, amd-gfx@lists.freedesktop.org,
- kernel-dev@igalia.com
+Cc: oe-kbuild-all@lists.linux.dev, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, himal.prasad.ghimiray@intel.com,
+ aravind.iddamsetty@linux.intel.com, anshuman.gupta@intel.com,
+ alexander.deucher@amd.com, andrealmeid@igalia.com,
+ amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com
 Subject: Re: [PATCH 1/1] drm/amdgpu: Use device wedged event
-Message-ID: <202412202104.IwpOz5t5-lkp@intel.com>
+Message-ID: <202412202144.SalviKDh-lkp@intel.com>
 References: <20241212190909.28559-2-andrealmeid@igalia.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
@@ -83,7 +82,7 @@ Hi André,
 kernel test robot noticed the following build errors:
 
 [auto build test ERROR on linus/master]
-[also build test ERROR on v6.13-rc3 next-20241220]
+[also build test ERROR on drm-intel/for-linux-next drm-intel/for-linux-next-fixes drm-tip/drm-tip v6.13-rc3 next-20241220]
 [If your patch is applied to the wrong git tree, kindly drop us a note.
 And when submitting patch, we suggest to use '--base' as documented in
 https://git-scm.com/docs/git-format-patch#_base_tree_information]
@@ -92,31 +91,26 @@ url:    https://github.com/intel-lab-lkp/linux/commits/Andr-Almeida/drm-amdgpu-U
 base:   linus/master
 patch link:    https://lore.kernel.org/r/20241212190909.28559-2-andrealmeid%40igalia.com
 patch subject: [PATCH 1/1] drm/amdgpu: Use device wedged event
-config: arm-randconfig-001-20241220 (https://download.01.org/0day-ci/archive/20241220/202412202104.IwpOz5t5-lkp@intel.com/config)
-compiler: clang version 19.1.3 (https://github.com/llvm/llvm-project ab51eccf88f5321e7c60591c5546b254b6afab99)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20241220/202412202104.IwpOz5t5-lkp@intel.com/reproduce)
+config: s390-randconfig-001-20241220 (https://download.01.org/0day-ci/archive/20241220/202412202144.SalviKDh-lkp@intel.com/config)
+compiler: s390-linux-gcc (GCC) 14.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20241220/202412202144.SalviKDh-lkp@intel.com/reproduce)
 
 If you fix the issue in a separate patch/commit (i.e. not just a new version of
 the same patch/commit), kindly add following tags
 | Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202412202104.IwpOz5t5-lkp@intel.com/
+| Closes: https://lore.kernel.org/oe-kbuild-all/202412202144.SalviKDh-lkp@intel.com/
 
 All errors (new ones prefixed by >>):
 
-   In file included from drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:35:
-   In file included from include/linux/iommu.h:10:
-   In file included from include/linux/scatterlist.h:8:
-   In file included from include/linux/mm.h:2223:
-   include/linux/vmstat.h:518:36: warning: arithmetic between different enumeration types ('enum node_stat_item' and 'enum lru_list') [-Wenum-enum-conversion]
-     518 |         return node_stat_name(NR_LRU_BASE + lru) + 3; // skip "nr_"
-         |                               ~~~~~~~~~~~ ^ ~~~
->> drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:6061:2: error: call to undeclared function 'drm_dev_wedged_event'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c: In function 'amdgpu_device_gpu_recover':
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:6061:9: error: implicit declaration of function 'drm_dev_wedged_event' [-Wimplicit-function-declaration]
     6061 |         drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE);
-         |         ^
->> drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:6061:42: error: use of undeclared identifier 'DRM_WEDGE_RECOVERY_NONE'
+         |         ^~~~~~~~~~~~~~~~~~~~
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:6061:49: error: 'DRM_WEDGE_RECOVERY_NONE' undeclared (first use in this function); did you mean 'DRM_MODE_ENCODER_NONE'?
     6061 |         drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE);
-         |                                                 ^
-   1 warning and 2 errors generated.
+         |                                                 ^~~~~~~~~~~~~~~~~~~~~~~
+         |                                                 DRM_MODE_ENCODER_NONE
+   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:6061:49: note: each undeclared identifier is reported only once for each function it appears in
 
 
 vim +/drm_dev_wedged_event +6061 drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
