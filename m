@@ -4,65 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 811D0E7718B
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Dec 2024 21:51:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23260E77188
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Dec 2024 21:51:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3302910F087;
-	Fri, 20 Dec 2024 21:51:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C5FEA10F086;
+	Fri, 20 Dec 2024 21:51:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4IwbrEbi";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="452j5AeH";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2062f.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:2416::62f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8872710F087
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Dec 2024 21:51:37 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2070.outbound.protection.outlook.com [40.107.243.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3308F10F089
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Dec 2024 21:51:42 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NzXQgRmj31bfnQ6yT4NHiXdorsxXiUTS0vzlV4SdkIPSCqOXHk6UOyvexV3orOpeciUVS+nH51PwMfOCkleErVoZ2zbXYyMMcAA0JQ9s4Jhs2Rod2bzFYebGMiWBTfFiqkbKPGhAWTmKX64g/a9lgvhj4XSXxWwnvGgPBFXBK2BVb+1Jkm0x/fEQAzXfpiEQu2H1dpSMQZh47RbhcEwEO9iV4Bxmr+ZMVC/01D7J67rgIrZ2URedGce0I526GL9U8sjQMp8lfvyuD4yFAPM78AKbc+bk0aIW0iccXuhcCA2TU357m9RFflzv2bUovAlcAFrgXwg7jDgy6iW6EMC9Eg==
+ b=ZBiQ2oxCun/VtNphl1xckvKLX7DFdSJFjA6W60/Es+isMik0k8W/6UpkDrUN+I5iwX4Qptv2MLwaMQrk193BxylrE6LxMdvtu7t2hq/M73Ksdnlr7nx4S7/Rh5scCEB9c6/dcRhHsKSV6Zzs71Ux/y6MA2Kd/UdC7WokkKnS3OA2A0hmLjunC4eeMGDEnv7Rdf3seBK/NTzOUAbtMU1HQl9XYsssbv6221yj+zBw31NdcWXx15RW075fGS40x1iwnq9YUoVDZxNWJ5PmC72vv4gPWy78zyU1Tk6lgi/CsigG88u8WPFeRDKRPf3NRmXSXJUERtge0tggayIuLcF67w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Nbt7QVS9+FkEho2sBGpPZ2qfA93KBMCfzrFx2PPwysU=;
- b=wQbNyvdHCml4aN89Qz0MX7OJw8K/7W44/PDjuPyQDOty4CvaEkhk44SDa/4RipKWGWvw/yEpdnn66Iha+R4DDeijZLbCl0+galX09UqrbkzGx3sqtLwh2pPE9h0dPoGdwiJFLac+LAdTHknJ8jCeP4Aj+EqQZ+uS7bo3YmZJPw20DI3i+9u91ryrOsyahdRpyuGLYfg5MnSBmzrAQB4AgzzqbwgAtqYK21ZB7qU0JNdh8jTe70gOgFI0Xdz+O+0ksPAbjnGX+cAC3sXloJQuaO5611NIPq96mk9fUMkydnymefpA6HyE+LFQz+cxxnt1jMRf33W/B60nzX6SEgJ/8Q==
+ bh=lGLyAp6g0TLsazF6UiIJRa2zlw0rnHPCb4w1O3buVCk=;
+ b=GP9hXwdyYY0KLxgRue6pHU9/nxh/xfmgd9zO/K3g7moFGywb30d/pSP3faFqq1AR5uZypEoMsSnhrqV2+p7IAGtghxLD4NE8hT9wx+cjO0ihbpjKCDsxT4WZiX9cDwfYn5gxR7GyUErUsJcwz0z8hmbU2ZUaS4t9SumEsiB1SeJv23f9E+jwAGnKg+EMixvNfQgs6pSaWxwkAPJ8y3amoeVckI/vLKl9Op0ZVcGOvAo6r/eyUZbbJU2mIoW7k0Os0T0KV88IaFNRSQX8xM4hAXiCu9SZNoKQ7fNvc6lcWchw8smTifb9k9a64vypaeY+A/IK6barNls9RGLiEMPOOw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Nbt7QVS9+FkEho2sBGpPZ2qfA93KBMCfzrFx2PPwysU=;
- b=4IwbrEbiFbJ+iQ66fCCLBkyYmxB4KFQZHKztc1nte1pXcwkUPS5qpMkLwT9B85y7KRJvmF/Eyf8CtCq02lrS5bPsnCfeNHhzfnwqDQ09qNpcTtElId4dHMzyjKVuZA5okWLQ0XXfBbH6N30V/1ya4mPMkfQGyAIblMPYV832Mp4=
-Received: from SJ0PR13CA0091.namprd13.prod.outlook.com (2603:10b6:a03:2c5::6)
- by SJ2PR12MB8783.namprd12.prod.outlook.com (2603:10b6:a03:4d0::19)
+ bh=lGLyAp6g0TLsazF6UiIJRa2zlw0rnHPCb4w1O3buVCk=;
+ b=452j5AeHk6Jghz0jWrmgzde5uWgsywBpeAbdAhPc9RkfEfaDJvOn+ezsnv5rB9av/HDliT7m69cklM71cQjeaj1cR6xHGOkCYot8Bl5z4JaAzjoDAv8fWbycAKUo/ns6R4g58CXgcxDoESj+dMZbBHLdrfFxZMCLVXNZtI5lVlY=
+Received: from MW4PR04CA0267.namprd04.prod.outlook.com (2603:10b6:303:88::32)
+ by SA1PR12MB8142.namprd12.prod.outlook.com (2603:10b6:806:334::5)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8272.16; Fri, 20 Dec
- 2024 21:51:30 +0000
-Received: from CO1PEPF000075EE.namprd03.prod.outlook.com
- (2603:10b6:a03:2c5:cafe::f3) by SJ0PR13CA0091.outlook.office365.com
- (2603:10b6:a03:2c5::6) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8272.12 via Frontend Transport; Fri,
- 20 Dec 2024 21:51:30 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8272.14; Fri, 20 Dec
+ 2024 21:51:38 +0000
+Received: from SJ5PEPF000001E8.namprd05.prod.outlook.com
+ (2603:10b6:303:88:cafe::1) by MW4PR04CA0267.outlook.office365.com
+ (2603:10b6:303:88::32) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8251.24 via Frontend Transport; Fri,
+ 20 Dec 2024 21:51:37 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CO1PEPF000075EE.mail.protection.outlook.com (10.167.249.37) with Microsoft
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SJ5PEPF000001E8.mail.protection.outlook.com (10.167.242.196) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8251.15 via Frontend Transport; Fri, 20 Dec 2024 21:51:30 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.8251.15 via Frontend Transport; Fri, 20 Dec 2024 21:51:37 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 20 Dec
- 2024 15:51:29 -0600
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 20 Dec
- 2024 15:51:29 -0600
+ 2024 15:51:34 -0600
 Received: from roman-vdev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Fri, 20 Dec 2024 15:51:28 -0600
+ Transport; Fri, 20 Dec 2024 15:51:29 -0600
 From: <Roman.Li@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -70,66 +65,68 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>, Wayne Lin
  <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, Fangzhi Zuo
  <jerry.zuo@amd.com>, Zaeem Mohamed <zaeem.mohamed@amd.com>, Solomon Chiu
- <solomon.chiu@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>, "Iswara
- Nagulendran" <Iswara.Nagulendran@amd.com>, Harry Vanzylldejong
- <harry.vanzylldejong@amd.com>
-Subject: [PATCH 26/28] drm/amd/display: Add VC for VESA Aux Backlight Control
-Date: Fri, 20 Dec 2024 16:48:53 -0500
-Message-ID: <20241220214855.2608618-27-Roman.Li@amd.com>
+ <solomon.chiu@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>, Wayne Lin
+ <Wayne.Lin@amd.com>, HaoPing Liu <haoping.liu@amd.com>
+Subject: [PATCH 27/28] drm/amd/display: Extend capability to get multiple ROI
+ CRCs
+Date: Fri, 20 Dec 2024 16:48:54 -0500
+Message-ID: <20241220214855.2608618-28-Roman.Li@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20241220214855.2608618-1-Roman.Li@amd.com>
 References: <20241220214855.2608618-1-Roman.Li@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
+Received-SPF: None (SATLEXMB04.amd.com: Roman.Li@amd.com does not designate
+ permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000075EE:EE_|SJ2PR12MB8783:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6ea578ee-13fb-43fc-22b7-08dd2140766e
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001E8:EE_|SA1PR12MB8142:EE_
+X-MS-Office365-Filtering-Correlation-Id: 913334fc-6251-4493-3cd4-08dd21407a84
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|1800799024|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?0evY0O9oEb3y+14zN2IQIMkXF/EpX8S/0J8m+9031O95rqlmQdtQPEW9pTXc?=
- =?us-ascii?Q?bBQexfQ+cHkuQ6lDN9cFJ1aXbhE8WtesQ0zX0ofzkoHtmOW03cYWahmmraJc?=
- =?us-ascii?Q?m7am4t3T2vjCNq/kEeI5GuxYxKp1oI8AHVBCPBF/ptA8hFxIOADkbtilH3tR?=
- =?us-ascii?Q?LFPMHL8QbLF31IhqubdYJMyxTFXzzUDdbkwPZqmmFNuVkpWyTZdxCNW3di6/?=
- =?us-ascii?Q?OrmwkBjHolElO5Al6KpoaZVVcbVNzU239O+UzDT3lHC2QF3cNjzg5Q2Ux9tq?=
- =?us-ascii?Q?ZS6G4ftPrVnSkA/wDpAKEpvQRX3ZWP2QCyoGvoO40xFoRwlltumBg3Go/1o8?=
- =?us-ascii?Q?WTc/wrWRFyL4TIt8Wjh73lVbmIWkRKcJozk20UY+ygk7j+VRV/j0QnGjLSjF?=
- =?us-ascii?Q?9Gpz30Yj7PJl1f8i1ntEywi5DJ73Vact6kHItNWRDPWZG2O39q++tRW6Pk0Q?=
- =?us-ascii?Q?8mYJKV2zxwmZFIsrt6v3sqS2/ZW/lozU5kwPakYBj42qV1UECtKZ3sQzJroS?=
- =?us-ascii?Q?FgpHvlGpOf3pHC75uL1y5fX2VH4rzLQgY+o6tInFFoYyN086Chzv3KwEJ3g+?=
- =?us-ascii?Q?HXTsago9+eun6iEpeEEXxto0fKDFZQZAWdp5zt34Yv7k5N1/jt9PdRkKKW09?=
- =?us-ascii?Q?0Hyb0mlt51miEG17H8NWMdYELbrVveDjYPpvZhVMweSrfUsYRT3o5T9JNLzd?=
- =?us-ascii?Q?YoF1pifKUWrv4CDuUn34YX9Yfu2dsi6IcgKc7O3M/QyYsnzhisEoNzC0Wcrk?=
- =?us-ascii?Q?gcBDX6NL5b7j85QYdctOMR+oRXq3SjNek3/XJl2XuK0VTohj8eD6n/q7a3H4?=
- =?us-ascii?Q?OET8T1sgnNTYPB0d5ZlRGOswdHVXR8GwafDT/YJ9v4ntZf5G/A6B39dU/S9n?=
- =?us-ascii?Q?VVBpW6dPSYHvxaxpI08GpPA6X83Yam99eU/+vYurmp0YlA6GTKjHrEGq0/Al?=
- =?us-ascii?Q?cXXR1FYmE0GMfqETElrf+d9bGma6p+HiGC6gLqqrwFObYZ7FmxwQfOXXC83k?=
- =?us-ascii?Q?DELe7rt6kEFZzpXLkf3fKik/3+PD8ZPHB70fLUrr/ZeMSAlv+jA+GVyTvgLC?=
- =?us-ascii?Q?oCShreL4UVytLvd9iaQU0JOSLc2W1uNWtpcyArw7reUP7d90FZ67VhqEZ30w?=
- =?us-ascii?Q?TkbkIo1A7l/XG/+qFwAdOnqDjm+jSkeHlcypSLvgGtO1/L2RmMbJn79DPmMl?=
- =?us-ascii?Q?qw/vD/tWeKMxX62NiNe0kl1LmkNwgkIXKr97zNxarkjZRioquulbNqUd2X3H?=
- =?us-ascii?Q?GoDa5YR/6BE/7quqKonDaWguUxJE5WdFOfQPBCwoLblpcbsEhK0otpWToiS1?=
- =?us-ascii?Q?4AReDtfOcXjClK1ij+C+gOkbV4zG8xh9XDtiPo68Ua7RqGXAcojEl3AOZknz?=
- =?us-ascii?Q?iEQL0k7IEGEZA2H5I5tsne8LMgvTSQ2Gnet95YLb3AyLA33+NSlwFNbxxyhN?=
- =?us-ascii?Q?gQo7bq5g99sCElW/oj+4yfhjkC7aVjzqqkZXRHX75+dY4sy5YsIUnmLehz4H?=
- =?us-ascii?Q?UaekaOA7z75jnv0=3D?=
+ ARA:13230040|82310400026|1800799024|376014|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?5/eZ7l410jFZDjfnTQiERKePsvE5c8VO1WJRqZmDykh5kDe7E+zurTpy2xqe?=
+ =?us-ascii?Q?hTAgfzn4QqCF/jvmyHT5mLpktggN87V3b8wgU2q5IF4YPLdZFwVm981KACOc?=
+ =?us-ascii?Q?fwCGnYmIRk94XF2HUetKGaP2E5NNf0bvGnPKmdHvlSHrxKqZimxPOzQrz/A4?=
+ =?us-ascii?Q?+BZ8/6IVCTF1g7kK3CsbJfd8N9YER7gOD64uszIg8yiv5dTNfHtI0AlnjPDU?=
+ =?us-ascii?Q?Ca1MoBJGilT2GpJAVoYPlb+zivLYqyPF0NGZYC7Xwbp6iLium1nKJZJ3piZZ?=
+ =?us-ascii?Q?9e9av86Au+w5JzcHPiUE4amiUFYUWKrpVbS14JOllQdYmodRCKKyVoDGdqfH?=
+ =?us-ascii?Q?FDhwReeTSeygkYCGIQsVot5ABB2XVr8GhQWmItm0NhGjrdF0TcP+v2Nbrzzm?=
+ =?us-ascii?Q?hQJ2d8WYdIamW3hkyWdZ8NjFi7RRf90N/8kmWQG6XuCQYVdhFYWcK4VBMypL?=
+ =?us-ascii?Q?rVssnxRXGQ78k39YJy8AyN9z6j5Qw707j2PrzhuQLb4yymwaaWEVGET3HQ8q?=
+ =?us-ascii?Q?UmmeGmLjfLpv5L5g0bKK5UoNpdJQYMbrAtoWpB6jC2dNDK6IOnly0xBxVzdX?=
+ =?us-ascii?Q?qHIALHfztPOX89K+ktLi51c4dwbQd4DakGZ+TWGLY89x3QsG5r8JASQr10kD?=
+ =?us-ascii?Q?Q+U1rfuothE2HbFAsGcMx3djZLLl/ZUI2ZJuQLz52Dxvb7E9QGABKLBR+Z48?=
+ =?us-ascii?Q?JCwXOpZNG2Qm906ZG8vRFXnjlEOf+K4GHrK1nl5k1A9Tu/eTgSO0DFFulwmf?=
+ =?us-ascii?Q?2UwJR2OFKhQ25BmxypATD49zYxZDY0Y8AOUfBkKiAkI4Xd1S6hh8MCE7BCsF?=
+ =?us-ascii?Q?/Jw3V7BqCmmZHJ9KO2rhONmXWUJ+IOy98vEW3z2ph736/LYPEx1igaEJqfKa?=
+ =?us-ascii?Q?ia/300zvECEzcOflodtDTHLtWLvdHbTIM6luhsuiatqOnne9bBoEU+A9Hm7N?=
+ =?us-ascii?Q?BvtTnUsvMRw1XCpsxjDtja8BhQt/5JB9R2lwJmxrJbWGQDG8mHgeDD+4AuK+?=
+ =?us-ascii?Q?tNvbpFWi5/3i3Txzr8Lf2V7Bjh7fCSRDfztcTch9TbqQz3qcFFPaPOuR7Ys4?=
+ =?us-ascii?Q?qTCUxL8vHFtpGld8vM2SMqGFJ1wABBThACxPnwDJAJnyWUvph2bg84gOkkIA?=
+ =?us-ascii?Q?eYnLybi2jNChdQXTLI5UEe9Qstcnlv7dVml8Q5ZSbla8xNrE06xmmt1lvWRv?=
+ =?us-ascii?Q?MPhvk8tOt2pfIgGGArcf/blMdWA1KRv+zXvqchPlwNcacxNJh39BU3A7zE79?=
+ =?us-ascii?Q?5dkIrTAe2ZtOLTJPkLRPfbrlfvM2S0xommdQsNnx+1+Ey7PtnUOY4y6D99VH?=
+ =?us-ascii?Q?RSpe9VEvP9yX2LuFiCCj9/YP9Hz6hBFszrAurF+QIwDkB3YcrMLpJZ+JdO+v?=
+ =?us-ascii?Q?ttO7UO+UyqUnTHH6Gmus1j22dOlphZAHxmPgOQveIqxBxUDFHTvhkHy+9TYr?=
+ =?us-ascii?Q?TKx8s0G9G99I2+xeCoquFhbK3uZob5Y+YVye2UYhKj1CmU1qQ1OBOMeOzTGB?=
+ =?us-ascii?Q?B+TGC7BGsoLqsRU=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(1800799024)(36860700013); DIR:OUT;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(376014)(36860700013); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Dec 2024 21:51:30.3468 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6ea578ee-13fb-43fc-22b7-08dd2140766e
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Dec 2024 21:51:37.2026 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 913334fc-6251-4493-3cd4-08dd21407a84
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000075EE.namprd03.prod.outlook.com
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001E8.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8783
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8142
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,131 +141,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Iswara Nagulendran <Iswara.Nagulendran@amd.com>
+From: Wayne Lin <Wayne.Lin@amd.com>
 
-[WHY]
-There is no way to distinguish
-the static backlight control type
-being used and the VABC support
-without the use of a debugger or
-reading DPCD registers.
+[Why & How]
+We already extend our dm, dc and dmub to support setting of multiple CRC
+instances, now extend the capability to return back the ROI/CRC pair result
+from psp by specifying activated ROI instances.
 
-[HOW]
-Add Visual Confirm support
-for VESA Aux-based Backlight Control.
-
-Reviewed-by: Harry Vanzylldejong <harry.vanzylldejong@amd.com>
-Signed-off-by: Iswara Nagulendran <Iswara.Nagulendran@amd.com>
+Reviewed-by: HaoPing Liu <haoping.liu@amd.com>
+Signed-off-by: Wayne Lin <Wayne.Lin@amd.com>
 Signed-off-by: Roman Li <roman.li@amd.com>
 Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc.c      |  2 +
- .../drm/amd/display/dc/core/dc_hw_sequencer.c | 38 +++++++++++++++++++
- drivers/gpu/drm/amd/display/dc/dc.h           |  1 +
- .../drm/amd/display/dc/hwss/hw_sequencer.h    |  6 +--
- 4 files changed, 44 insertions(+), 3 deletions(-)
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c | 36 +++++++++++++++----
+ 1 file changed, 29 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 4742a4ad19bd..12839fa3682d 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -1236,6 +1236,8 @@ static void dc_update_visual_confirm_color(struct dc *dc, struct dc_state *conte
- 				get_mclk_switch_visual_confirm_color(pipe_ctx, &(pipe_ctx->visual_confirm_color));
- 			else if (dc->debug.visual_confirm == VISUAL_CONFIRM_FAMS2)
- 				get_fams2_visual_confirm_color(dc, context, pipe_ctx, &(pipe_ctx->visual_confirm_color));
-+			else if (dc->debug.visual_confirm == VISUAL_CONFIRM_VABC)
-+				get_vabc_visual_confirm_color(pipe_ctx, &(pipe_ctx->visual_confirm_color));
- 		}
- 	}
- }
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-index 252af83e34a5..6eb9bae3af91 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-@@ -425,6 +425,44 @@ void get_hdr_visual_confirm_color(
- 	}
- }
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
+index a13cc6e67006..7c15082c92ed 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
+@@ -343,7 +343,11 @@ static void amdgpu_dm_crtc_notify_ta_to_read(struct work_struct *work)
+ 	struct amdgpu_dm_connector *aconnector;
+ 	uint8_t phy_inst;
+ 	struct amdgpu_display_manager *dm;
++	struct crc_data crc_cpy[MAX_CRC_WINDOW_NUM];
++	unsigned long flags;
++	uint8_t roi_idx = 0;
+ 	int ret;
++	int i;
  
-+/* Visual Confirm color definition for VABC */
-+void get_vabc_visual_confirm_color(
-+	struct pipe_ctx *pipe_ctx,
-+	struct tg_color *color)
-+{
-+	uint32_t color_value = MAX_TG_COLOR_VALUE;
-+	struct dc_link *edp_link = NULL;
+ 	crtc_ctx = container_of(work, struct secure_display_crtc_context, notify_ta_work);
+ 	crtc = crtc_ctx->crtc;
+@@ -372,18 +376,36 @@ static void amdgpu_dm_crtc_notify_ta_to_read(struct work_struct *work)
+ 	}
+ 	mutex_unlock(&crtc->dev->mode_config.mutex);
+ 
++	spin_lock_irqsave(&crtc->dev->event_lock, flags);
++	memcpy(crc_cpy, crtc_ctx->crc_info.crc, sizeof(struct crc_data) * MAX_CRC_WINDOW_NUM);
++	spin_unlock_irqrestore(&crtc->dev->event_lock, flags);
 +
-+	if (pipe_ctx && pipe_ctx->stream && pipe_ctx->stream->link) {
-+		if (pipe_ctx->stream->link->connector_signal == SIGNAL_TYPE_EDP)
-+			edp_link = pipe_ctx->stream->link;
-+	}
+ 	/* need lock for multiple crtcs to use the command buffer */
+ 	mutex_lock(&psp->securedisplay_context.mutex);
+-
+-	psp_prep_securedisplay_cmd_buf(psp, &securedisplay_cmd,
+-						TA_SECUREDISPLAY_COMMAND__SEND_ROI_CRC);
+-
+-	securedisplay_cmd->securedisplay_in_message.send_roi_crc.phy_id = phy_inst;
+-
+ 	/* PSP TA is expected to finish data transmission over I2C within current frame,
+ 	 * even there are up to 4 crtcs request to send in this frame.
+ 	 */
+-	ret = psp_securedisplay_invoke(psp, TA_SECUREDISPLAY_COMMAND__SEND_ROI_CRC);
++	if (dm->secure_display_ctx.support_mul_roi) {
++		psp_prep_securedisplay_cmd_buf(psp, &securedisplay_cmd,
++							TA_SECUREDISPLAY_COMMAND__SEND_ROI_CRC_V2);
 +
-+	if (edp_link) {
-+		switch (edp_link->backlight_control_type) {
-+		case BACKLIGHT_CONTROL_PWM:
-+			color->color_r_cr = color_value;
-+			color->color_g_y = 0;
-+			color->color_b_cb = 0;
-+			break;
-+		case BACKLIGHT_CONTROL_AMD_AUX:
-+			color->color_r_cr = 0;
-+			color->color_g_y = color_value;
-+			color->color_b_cb = 0;
-+			break;
-+		case BACKLIGHT_CONTROL_VESA_AUX:
-+			color->color_r_cr = 0;
-+			color->color_g_y = 0;
-+			color->color_b_cb = color_value;
-+			break;
++		securedisplay_cmd->securedisplay_in_message.send_roi_crc_v2.phy_id = phy_inst;
++
++		for (i = 0; i < MAX_CRC_WINDOW_NUM; i++) {
++			if (crc_cpy[i].crc_ready)
++				roi_idx |= 1 << i;
 +		}
-+	} else {
-+		color->color_r_cr = 0;
-+		color->color_g_y = 0;
-+		color->color_b_cb = 0;
-+	}
-+}
++		securedisplay_cmd->securedisplay_in_message.send_roi_crc_v2.roi_idx = roi_idx;
 +
- void get_subvp_visual_confirm_color(
- 		struct pipe_ctx *pipe_ctx,
- 		struct tg_color *color)
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index 063f853160d0..23a6d56d0798 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -489,6 +489,7 @@ enum visual_confirm {
- 	VISUAL_CONFIRM_MCLK_SWITCH = 16,
- 	VISUAL_CONFIRM_FAMS2 = 19,
- 	VISUAL_CONFIRM_HW_CURSOR = 20,
-+	VISUAL_CONFIRM_VABC = 21,
- };
++		ret = psp_securedisplay_invoke(psp, TA_SECUREDISPLAY_COMMAND__SEND_ROI_CRC_V2);
++	} else {
++		psp_prep_securedisplay_cmd_buf(psp, &securedisplay_cmd,
++							TA_SECUREDISPLAY_COMMAND__SEND_ROI_CRC);
++
++		securedisplay_cmd->securedisplay_in_message.send_roi_crc.phy_id = phy_inst;
++
++		ret = psp_securedisplay_invoke(psp, TA_SECUREDISPLAY_COMMAND__SEND_ROI_CRC);
++	}
  
- enum dc_psr_power_opts {
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
-index a5bb10d7b160..98d85c7ab3fa 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
-@@ -194,7 +194,6 @@ enum block_sequence_func {
- 	DMUB_SUBVP_SAVE_SURF_ADDR,
- 	HUBP_WAIT_FOR_DCC_META_PROP,
- 	DMUB_FAMS2_GLOBAL_CONTROL_LOCK_FAST,
--
- };
- 
- struct block_sequence {
-@@ -485,11 +484,12 @@ void get_hdr_visual_confirm_color(
- void get_mpctree_visual_confirm_color(
- 		struct pipe_ctx *pipe_ctx,
- 		struct tg_color *color);
--
-+void get_vabc_visual_confirm_color(
-+	struct pipe_ctx *pipe_ctx,
-+	struct tg_color *color);
- void get_subvp_visual_confirm_color(
- 	struct pipe_ctx *pipe_ctx,
- 	struct tg_color *color);
--
- void get_fams2_visual_confirm_color(
- 	struct dc *dc,
- 	struct dc_state *context,
+ 	if (!ret) {
+ 		if (securedisplay_cmd->status != TA_SECUREDISPLAY_STATUS__SUCCESS)
 -- 
 2.34.1
 
