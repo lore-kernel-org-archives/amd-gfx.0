@@ -4,151 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FB94E7718B
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Dec 2024 05:02:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C77FBE77188
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Dec 2024 08:20:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5957D10EE9C;
-	Fri, 20 Dec 2024 05:02:37 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="SX3DxPap";
-	dkim-atps=neutral
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2043.outbound.protection.outlook.com [40.107.96.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E2B010EE94;
- Fri, 20 Dec 2024 05:02:36 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ecpQAkohY1alySWnLVxrZMoksGokdz4wHygxWkCM2pAh9nJtsm4LddcLTic7jDrTohb3CWhQbr+tigXn5bGjlIxijtik/2bGd7qXejAHyfF/z8IvGrs2KNB2+K24bs5FbL9KEQ0qtekxh35UFVmhtbXrQ8VK+dOaGOVh+FbVYuXVWdqTOIHkTzAU0R2+kKCDZzazYCGW3DhzaMAoS5C0u4aZSPUSHJi4iW4liV5wYz1JNGGxm7H4DefBDFkzDCfOylPAKn23LTclTfzBtseJRvh8jSnL8EqONJpFgnTY6HWhltfqVGx9tG/ri88gI+7d7b9bHAb3xUrByrS7wApirQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8iTc/RhDNUDPjaN5HCCyQTcOtWapU5VV127OmucGJVE=;
- b=DMc49nk2GUUdhKCRUPF0HNWXbvWjI98mTJlj9jqGNQlme3lt8c5G2hic5mBZqMHXmIKI+FTiWcyCkAR+zSIx14kPi2zwwYnMJtstyRD/t/zHHS/cb8OvPC4fybnz5UC+MiO/ZdMUsxg1j40BmLn3nG9/DQrD5KJLWDkUJfvU8FuVOuxZwgdYdFAHyNmt2jH9Z19kE7KC4u2b3g5JVwWgv9gm3V+2Ka6Rpc3GtOPzJsW3lNxpqjPNQKXWOSsRNGC3Y0z5soRHDT4v2Mw4vw8X+Q/Ttx+3qlcJOOPXXyQe1uf1OrMgop+zkaEHwIgzZUE0e/D+dvwAcmciF7a7Xwx1lA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8iTc/RhDNUDPjaN5HCCyQTcOtWapU5VV127OmucGJVE=;
- b=SX3DxPapYom9Eko7mbXJ0+FcwDWmFJjX0ws60EYhnh+dhyu0O48qDO0/u+HOaDUEoA8fyDWDBUIMqm9y/mUNVFSKMsmsQwyYxTgcuKIUGQht4h5R5kVl5ijuM0ZwYBDyq+NoOZnJh7cI5CQM4o6Ew9RnpYCIjJzLBQJbcqrmqaQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
- by DM4PR12MB8523.namprd12.prod.outlook.com (2603:10b6:8:18e::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8272.15; Fri, 20 Dec
- 2024 05:02:34 +0000
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2ed6:28e6:241e:7fc1]) by DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2ed6:28e6:241e:7fc1%3]) with mapi id 15.20.8272.005; Fri, 20 Dec 2024
- 05:02:34 +0000
-Message-ID: <94b94e92-3c75-4707-b262-20a6a316ece5@amd.com>
-Date: Thu, 19 Dec 2024 22:02:31 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 41/44] drm/colorop: allow non-bypass colorops
-To: Louis Chauvet <louis.chauvet@bootlin.com>,
- Harry Wentland <harry.wentland@amd.com>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- wayland-devel@lists.freedesktop.org
-References: <20241003200129.1732122-1-harry.wentland@amd.com>
- <20241003200129.1732122-42-harry.wentland@amd.com>
- <Zv_U3h146lThx__w@louis-chauvet-laptop>
-Content-Language: en-US
-From: Alex Hung <alex.hung@amd.com>
-In-Reply-To: <Zv_U3h146lThx__w@louis-chauvet-laptop>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQZPR01CA0061.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:88::22) To DM4PR12MB8476.namprd12.prod.outlook.com
- (2603:10b6:8:17e::15)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 607D710E103;
+	Fri, 20 Dec 2024 08:20:40 +0000 (UTC)
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+ by gabe.freedesktop.org (Postfix) with ESMTP id B1D7E10EE94
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Dec 2024 05:02:25 +0000 (UTC)
+Received: from loongson.cn (unknown [113.200.148.30])
+ by gateway (Coremail) with SMTP id _____8Dxfa9c+mRnPdlYAA--.19328S3;
+ Fri, 20 Dec 2024 13:02:20 +0800 (CST)
+Received: from [10.130.0.149] (unknown [113.200.148.30])
+ by front1 (Coremail) with SMTP id qMiowMCxbcda+mRnGTADAA--.18880S3;
+ Fri, 20 Dec 2024 13:02:18 +0800 (CST)
+Subject: Re: [PATCH v6 9/9] drm/amd/display: Mark dc_fixpt_from_fraction()
+ noinline
+To: Alex Deucher <alexdeucher@gmail.com>, Josh Poimboeuf <jpoimboe@kernel.org>
+References: <20241217010905.13054-1-yangtiezhu@loongson.cn>
+ <20241217015006.30305-1-yangtiezhu@loongson.cn>
+ <CAAhV-H4WpcWjrQdkm3Sx4DVbp=2oW9nNGAbNqR4BEmiryrptNQ@mail.gmail.com>
+ <20241218190558.g2hykmjgbny4n5i3@jpoimboe>
+ <CADnq5_PFcHzob4poLa86_K4yP5gUT7Ei4Rz5vSUofvZTmB48-g@mail.gmail.com>
+Cc: Huacai Chen <chenhuacai@kernel.org>, Peter Zijlstra
+ <peterz@infradead.org>, loongarch@lists.linux.dev,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+From: Tiezhu Yang <yangtiezhu@loongson.cn>
+Message-ID: <4bace457-cc26-13a3-bc90-ad6ad12bc2ed@loongson.cn>
+Date: Fri, 20 Dec 2024 13:02:18 +0800
+User-Agent: Mozilla/5.0 (X11; Linux mips64; rv:45.0) Gecko/20100101
+ Thunderbird/45.4.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|DM4PR12MB8523:EE_
-X-MS-Office365-Filtering-Correlation-Id: ff99c531-e829-4cdd-e2f2-08dd20b383e3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?b3lzWkRaeFhYSHZXNXhldzFWbzFUU1JKbElOZ05udXNTSHpSYyt4SUlIclZm?=
- =?utf-8?B?QmQ4aytHcWxRRW9UM1hpMFhFUkp5MEN1bHpsRy9XSU5kVmpRT014bDVqRFJz?=
- =?utf-8?B?aXlseWM3UVJZN0FoSUxsWFpJWXNWdlp0amxXaTJpY0l2MnFVcDBIaS9CQzFt?=
- =?utf-8?B?MFlZNlV0YTgwYVNYckpTT0RvZzZEbkRxUDFybkpONjFFQVE4YVhpVkI5clFZ?=
- =?utf-8?B?aldyY1Y1MGNETTZQTzhlaCtQek44KzBjUVFsQXpjbTdBVWpkMGJ3SEhHdVBh?=
- =?utf-8?B?YjlFWUNweUorSnFWd1Q4bFppOFh1bnd4L2huVW9wK1VreE16amdOUzR6NnNW?=
- =?utf-8?B?SENXK014UVp4VTdrTGNJY21QWEM4dENISGFIc3RuNEdXeFEzUWhhdThCd2hB?=
- =?utf-8?B?MHQ1K3QveWpXU09Ta3lKR2NWWFlLU2hnSGVpWG9UekloRmgzUmxTZk52WXZL?=
- =?utf-8?B?c1VYZkpqZ2tZSXFxRlJWRU5XYUZoMjMvem1od1JKMTN6Z1R3d0krT0UvMmV4?=
- =?utf-8?B?cHF0Wmxxdkd3SHdiNTFFUXZscG50TkNFbHBRYnZEUlNNYVRlZmxvREtxVVhB?=
- =?utf-8?B?RStDem9uWUdRTStIVlFPa0Jiako1WjkxWVAxeGQvbEtYMGRoazlJMnRWWnRG?=
- =?utf-8?B?NkJxbjd6SXF4MDlxdFI5TjV1UmJIeTBzMXpOTHNDNTd2NVljM3V4WmRUcGRP?=
- =?utf-8?B?TjNGNS8zblRJS2ZPQmpzMzd2K1hHZW05eEV5T0g1NExoN05YOGVXTnp1Mk9J?=
- =?utf-8?B?WG9ZUW1vSVVyZHAyL1FRbnk2dmhSQjc2MkhjZ3hEWEczZmkra1FqVFREOG4z?=
- =?utf-8?B?UnAyT1ltbXNzRUhNNXJZejBSRXpSZ0x6Y3AyNEZMQ3VVTFdVcktjZnVrKzJ4?=
- =?utf-8?B?T1hqSDUxbk9XZit5Nnl0R1BETXhFRy84T2laelY0N2txSm5zQmVCdlRlb3Vw?=
- =?utf-8?B?QVdjVHV0aXNleUVXSm1IRnZsL1FJeGhJbXJWYnBjc3RWbThsaDVuYUEwQUF3?=
- =?utf-8?B?SXArTVlQUjlVZnBmT25JTHhsV0RYY25FdFJQc0pVc0d2azFmTmVENHJ6ZDJW?=
- =?utf-8?B?UTRxVXAzWUhybXo5WHMvUHNJcWMrWWlabHdNaEIzTmFOTWVpWDJLK0pBOXJF?=
- =?utf-8?B?Znd4RmluNUFyNTFoeUlMS1NBd2Y1SkEwUE92TnQ5cjlNUzVSejhjR3oxeGlL?=
- =?utf-8?B?RlBETTJVY0tYYURoNTJaU1lrN3haamxwbzM1MDdYWHd3OUpvOStoQUExdE9k?=
- =?utf-8?B?dkYvdW41Sy9XUUppODVacUltQndHemJOdU8wNW9CR1haemRQNDRpUGM4aVkr?=
- =?utf-8?B?YzJmUkhuWmxGMGJKbk1qNC8wR0tqWkd1dEJyd1p2WnBSRVdoeUtJaGh2UzJF?=
- =?utf-8?B?amtnbkdndG9KckdzOFVsZUkzZjQ2VjZwM1JJMmx2aSt3dlcvcy82MmNSQmx4?=
- =?utf-8?B?VHNHWU5sUmlFU3BXWis4WWEzTUdia0NIODVhbEZuclAvc05Vajg2OERRMkNn?=
- =?utf-8?B?L2FVTFFLdDNFbFJHUUtkUTBwdm10K2M3NDZkSWdlRmtJUlBXSk0yMGgyL1R3?=
- =?utf-8?B?YmRLQnRDYVdoekNzb0tOQWhBL21GWEk1QWxjTFVmVm9QTFV4RkptdU9LZjcw?=
- =?utf-8?B?Z2ZEdFpPeGJJNnZLY0puMzJkdG9qNHdBRFlvSVhKc2hkRFZPQmx1TEwvUUtS?=
- =?utf-8?B?d1R5c3Y2UVN1dmVGOWNNT1ZaYjFpSFZNbDNCY1pORTZXTXB6MkdwR2YrYVpX?=
- =?utf-8?B?UzgxRDJkN3lRVStqN0R4cTZ0ZWJWOEdpL0VxcnJoVWxuWkZtYWZGYXdHdGVW?=
- =?utf-8?B?UEhCRnVXTnVjZG4yRGtkSnMwNWxuZ214VTcxR3JZNmpTNmJ2aEQyVDhzSmpB?=
- =?utf-8?Q?xAPWc91Yf4NPB?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?a2dQakxvU2dlZ0VjcnRwMCtEdVNhWE9hMksxellNampOTm5oSUpJSGZrbUtj?=
- =?utf-8?B?a1o4MjAvMGtrUmh0M2EzeC90amRxU2dCQjFYbFJtTDRqS0tFaWFxaTFlL284?=
- =?utf-8?B?U1VLVk0xcVk4N09QczF1QVk4d0trdUM0WFlXdlFRTVUrdDRpSWM5OE8yVkZW?=
- =?utf-8?B?ckRJUkprV2locHBab0FMcW9ycnBQdlpLbjdBYmpQWi9jZ2pHd1B6RDVvYVhS?=
- =?utf-8?B?OThCcDBhS1J3dmI4Rk90UkFSOWRNcitaQ2FPaXNPNWZYcVJUY3piL0VSK0VZ?=
- =?utf-8?B?RWNvS01wbnc4NEFQZ1hyR2VWdFZ1L0hjYjFCNzlDUFJ6dGRKYnBmWEUvd2hJ?=
- =?utf-8?B?b054T3lOYW5UQnNwNndLNkx5LytlTENiOHFpQndWSUM1VExOZHVsclJxaktP?=
- =?utf-8?B?WUMzZEg2SkJjYVFYQXpMVTZoZjhsMVAwcXViZ3Vla2pESWFxaUlJMXVRYzl3?=
- =?utf-8?B?MTl4VW5ZVlczazVEVTlEOFJqcWQ1WXJnbTJLTXZsK0N2bi9QVllneWlCQ0VJ?=
- =?utf-8?B?RjJsREw4RFZ3QVVUMThkK0o2cWZtTU1xS25ybWdPSDdJa0dCS2VDMDJiS0NK?=
- =?utf-8?B?b3h3YzUyREhYR214V3ZNenVHSjV6c1BtMHBuelR0OUtVTFhzTzBJVDAzYkZa?=
- =?utf-8?B?NHlEOFV1U1BreU9zZ24rVlZ4dU9zdHlpbWwyZVpBd2g0RUxiMEFFUGpOSUJi?=
- =?utf-8?B?M3dMK1A4UTBYM2YvVzlRUmdOUGVvQWhGeEY2QW80WmlXY2NFSWZweDR6UThY?=
- =?utf-8?B?TjBQbC9mVGN3ZXI5dWJ4MHhiL2RWWnBrTTBIOWVxWGJvSU5rb0dVbkp0eHcv?=
- =?utf-8?B?U1JzQ3d6R0lWZUJCUTB6blhrcm1NRlVHQVRJbVRKelNKQVYwQTdoZnl6RWFW?=
- =?utf-8?B?Tkk4VG41NUhrM2N4TnRvc3MyWTZNR1kwb0RjNnZNT0puV1ZtMnFLNmNSMnFv?=
- =?utf-8?B?MnJzS1h6VFh0MjJQaGZuT2ZkYUdob1BXTldLSCtuTEhIMDZEeTBGUTloQXJ1?=
- =?utf-8?B?Q2dMVVlwa3Mwd2xmYlhDd1VVdFlDa1BsYWs2WE1XejZ6UjhubS9tZFMwSkVa?=
- =?utf-8?B?R0owREgvZVlUNXl4bUNCYlkrTGFWd3VTMUg4N1NiZHRqZ2k5aEs5SGk4UFVZ?=
- =?utf-8?B?RnNOeWFub3Bodm1sT2ZnVWdERzg0Uk5GNGlJL0lEVEo2RzdSUnJOcm1taC9W?=
- =?utf-8?B?KzVaM2o1Qlp3Z3k2RzZjSlNzVjVCK09FVDlkcVZsNkZWb2NjTmdNbCthbEI1?=
- =?utf-8?B?ZWgyL3pBSElvaWYwTDB6eEdPOFFrdjQyaW8ydHVTbUw4ZTh0c3RYVWJxUW5y?=
- =?utf-8?B?MEVjUTlYakpQSjZrWmlManhyK013TXZ5R2I0dGlmYjRMU1pscHRQdnBmckJh?=
- =?utf-8?B?OC91RG1BeEk1RzJZL1JzQStRTC9QVThmbkpwa0NyZFNSZ3Y2Q0JVT3lJMCsr?=
- =?utf-8?B?TFNIN0F5ZE9QWCs5MENFOS82TjZDNlBGRm1xRnN1dHNDc3M5VVIzekZBKzdt?=
- =?utf-8?B?a3l6bktIcXRUMlZuZlladlIzZnlmb0tPL2M2QjAvVGpsZWE0QXFhTVFvRE1l?=
- =?utf-8?B?bnExaDRlTHplUk9VdHFubjMrOXNrM2MxV1dMNGNBakJ6MTdVSjFkc2t3U1JG?=
- =?utf-8?B?TTRKRG8rbWxLRkxiVnI3SlJDRnQ4VUF6UzdUckJ2RURXTHdIUHZyRE02VG9T?=
- =?utf-8?B?dk1rd3FPeFdXRC9SZUlHQjhlWDRwVGIydllSQkVWalB4Rkd0bE1vLzV2RVJw?=
- =?utf-8?B?NlM2SkhtVzNEMFRxVVUxTE5iejNHaUttWXExejZLeHdvMStRQUg4R2M4ZzRs?=
- =?utf-8?B?RWt4UDl1VDgzakxuWGRTM3ZaR3BvbmF5UzRwQUhsWDBHdjFTNjNCVGl6VnhC?=
- =?utf-8?B?Zy9Tdk1kVW4rbGJYZThOVFlORXoxUERiSkFRTnVyMU15d0kwRTE0K29nUXUy?=
- =?utf-8?B?K3RMditJVU1zcytWbzg5ems1c2RFalphWWxQNmpJY09jamo0TFJpaThOM1hN?=
- =?utf-8?B?RG1uTTkyZzExOW9tZmpXcUE1bTdqYkJmd0tlQVpDdUZEZS9IeUQyemZTdC9x?=
- =?utf-8?B?djk0YmNOMlJ0QWE1Q3IyUVlCQ2s5TUorYnlPc25HWS91YmhudSsvalhRN3Q0?=
- =?utf-8?Q?d7Sqy7nvJaDdzGl8dRIQWojHq?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ff99c531-e829-4cdd-e2f2-08dd20b383e3
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Dec 2024 05:02:34.1552 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AybnLoYTaqQCBfDwQbFfGPPeqDVWCGHReIVOUcVyro7AiTx4HzbtBZXP15cjB3yST/nJeWBTs1Rge4HdpK4iRQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB8523
+In-Reply-To: <CADnq5_PFcHzob4poLa86_K4yP5gUT7Ei4Rz5vSUofvZTmB48-g@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: qMiowMCxbcda+mRnGTADAA--.18880S3
+X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
+X-Coremail-Antispam: 1Uk129KBj9fXoW3CF13Cw18GrWfWFy3uFykZwc_yoW8GF15Xo
+ W5Z34YqF4xGryDWF9a9ryUJr4kZa18ZFn7tFn3XwnxGFn8XFW8Xr15uw18Ka1SgF45Xay7
+ Cay7tr45A3WjkFn7l-sFpf9Il3svdjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8wcxFpf
+ 9Il3svdxBIdaVrn0xqx4xG64xvF2IEw4CE5I8CrVC2j2Jv73VFW2AGmfu7bjvjm3AaLaJ3
+ UjIYCTnIWjp_UUUY47kC6x804xWl14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI
+ 8IcIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xG
+ Y2AK021l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14
+ v26r1j6r4UM28EF7xvwVC2z280aVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVCY1x0267AK
+ xVW8Jr0_Cr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx
+ 1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv
+ 67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7I2V7IY0VAS07
+ AlzVAYIcxG8wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02
+ F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw
+ 1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7Cj
+ xVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r
+ 1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU1CP
+ fJUUUUU==
+X-Mailman-Approved-At: Fri, 20 Dec 2024 08:20:39 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -163,107 +72,452 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-
-On 10/4/24 05:43, Louis Chauvet wrote:
-> On 03/10/24 - 16:01, Harry Wentland wrote:
->> Not all HW will be able to do bypass on all color
->> operations. Introduce an 'allow_bypass' boolean for
->> all colorop init functions and only create the BYPASS
->> property when it's true.
+On 12/19/2024 03:22 AM, Alex Deucher wrote:
+> On Wed, Dec 18, 2024 at 2:18 PM Josh Poimboeuf <jpoimboe@kernel.org> wrote:
 >>
->> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
->> ---
->>   .../amd/display/amdgpu_dm/amdgpu_dm_colorop.c | 22 +++++---
->>   drivers/gpu/drm/drm_atomic.c                  |  3 +-
->>   drivers/gpu/drm/drm_colorop.c                 | 51 ++++++++++++-------
->>   drivers/gpu/drm/vkms/vkms_colorop.c           |  8 +--
->>   include/drm/drm_colorop.h                     | 10 ++--
->>   5 files changed, 60 insertions(+), 34 deletions(-)
+>> On Wed, Dec 18, 2024 at 10:36:00PM +0800, Huacai Chen wrote:
+>>> Hi, Tiezhu,
+>>>
+>>> On Tue, Dec 17, 2024 at 9:50 AM Tiezhu Yang <yangtiezhu@loongson.cn> wrote:
+>>>>
+>>>> When compiling with Clang on LoongArch, there exists the following objtool
+>>>> warning in drivers/gpu/drm/amd/display/dc/basics/fixpt31_32.o:
+>>>>
+>>>>   dc_fixpt_recip() falls through to next function dc_fixpt_sinc()
+>>>>
+>>>> This is because dc_fixpt_from_fraction() is inlined in dc_fixpt_recip()
+>>>> by Clang, given dc_fixpt_from_fraction() is not a simple function, just
+>>>> mark it noinline to avoid the above issue.
+>>> I don't know whether drm maintainers can accept this, because it looks
+>>> like a workaround. Yes, uninline this function "solve" a problem and
+>>> seems reasonable in this case because the function is "not simple",
+>>> but from another point of view, you may hide a type of bug.
 >>
-> 
-> [...]
-> 
->> --- a/drivers/gpu/drm/vkms/vkms_colorop.c
->> +++ b/drivers/gpu/drm/vkms/vkms_colorop.c
->> @@ -31,7 +31,7 @@ static int vkms_initialize_color_pipeline(struct drm_plane *plane, struct drm_pr
->>   		goto cleanup;
->>   	}
->>   
->> -	ret = drm_colorop_curve_1d_init(dev, ops[i], plane, supported_tfs);
->> +	ret = drm_colorop_curve_1d_init(dev, ops[i], plane, supported_tfs, true);
->>   	if (ret)
->>   		goto cleanup;
->>   
->> @@ -48,7 +48,7 @@ static int vkms_initialize_color_pipeline(struct drm_plane *plane, struct drm_pr
->>   		goto cleanup;
->>   	}
->>   
->> -	ret = drm_colorop_ctm_3x4_init(dev, ops[i], plane);
->> +	ret = drm_colorop_ctm_3x4_init(dev, ops[i], plane, true);
->>   	if (ret)
->>   		goto cleanup;
->>   
->> @@ -64,7 +64,7 @@ static int vkms_initialize_color_pipeline(struct drm_plane *plane, struct drm_pr
->>   		goto cleanup;
->>   	}
->>   
->> -	ret = drm_colorop_ctm_3x4_init(dev, ops[i], plane);
->> +	ret = drm_colorop_ctm_3x4_init(dev, ops[i], plane, true);
->>   	if (ret)
->>   		goto cleanup;
->>   
->> @@ -80,7 +80,7 @@ static int vkms_initialize_color_pipeline(struct drm_plane *plane, struct drm_pr
->>   		goto cleanup;
->>   	}
->>   
->> -	ret = drm_colorop_curve_1d_init(dev, ops[i], plane, supported_tfs);
->> +	ret = drm_colorop_curve_1d_init(dev, ops[i], plane, supported_tfs, true);
->>   	if (ret)
->>   		goto cleanup;
-> 
-> You allow the bypass here, but you forgot to add a check in apply_colorop
-> to bypass the colorop when this is set. It seems to be the case in the AMD
-> driver too. Or maybe you wanted to pass false in "allow_bypass"?
+>> Agreed, it sounds like there's definitely a bug which this patch is
+>> papering over.
+>
+> Yes, agreed.
 
+Additional Info:
 
-The bypass is used in each color transform. For example, it is used in 
-pre_blend_color_transform() of vkms_composer.c, before calling 
-apply_colorop().
+In order to avoid the effect of this series, I tested with kernel
+6.13-rc3 without this series again.
 
-Similarly, it is checked before calling each color transformation in 
-amdgpu_dm_color.c, such as __set_colorop_in_tf_1d_curve(), 
-__set_dm_plane_colorop_3x4_matrix() and etc.
+--------------------------------------------------------------------------
+Here are the test result.
 
+1. For LoongArch
 
-> 
->>   
->> diff --git a/include/drm/drm_colorop.h b/include/drm/drm_colorop.h
->> index d3a00296973d..b8c1c4da3444 100644
->> --- a/include/drm/drm_colorop.h
->> +++ b/include/drm/drm_colorop.h
->> @@ -333,14 +333,16 @@ static inline struct drm_colorop *drm_colorop_find(struct drm_device *dev,
->>   }
->>   
->>   int drm_colorop_curve_1d_init(struct drm_device *dev, struct drm_colorop *colorop,
->> -			      struct drm_plane *plane, u64 supported_tfs);
->> +			      struct drm_plane *plane, u64 supported_tfs,
->> +			      bool allow_bypass);
->>   int drm_colorop_curve_1d_lut_init(struct drm_device *dev, struct drm_colorop *colorop,
->>   				  struct drm_plane *plane, uint32_t lut_size,
->> -				  enum drm_colorop_lut1d_interpolation_type lut1d_interpolation);
->> +				  enum drm_colorop_lut1d_interpolation_type lut1d_interpolation,
->> +				  bool allow_bypass);
->>   int drm_colorop_ctm_3x4_init(struct drm_device *dev, struct drm_colorop *colorop,
->> -			     struct drm_plane *plane);
->> +			     struct drm_plane *plane, bool allow_bypass);
->>   int drm_colorop_mult_init(struct drm_device *dev, struct drm_colorop *colorop,
->> -			      struct drm_plane *plane);
->> +			      struct drm_plane *plane, bool allow_bypass);
->>   
->>   struct drm_colorop_state *
->>   drm_atomic_helper_colorop_duplicate_state(struct drm_colorop *colorop);
->> -- 
->> 2.46.2
->>
+"dc_fixpt_recip() falls through to next function dc_fixpt_sinc()"
+objtool warning only appears compiled with the latest mainline LLVM,
+there is no this issue compiled with the latest release version such
+as LLVM 19.1.6.
+
+(1) objdump info with LLVM release version 19.1.6:
+
+$ clang --version | head -1
+clang version 19.1.6
+
+There is an jump instruction "b" at the end of dc_fixpt_recip(), it
+maybe jumps to a position and then steps to the return instruction, so
+there is no "falls through" objtool warning.
+
+0000000000000200 <dc_fixpt_recip>:
+      200:       40009480        beqz            $a0, 148        # 294 
+<dc_fixpt_recip+0x94>
+      204:       0049fc85        srai.d          $a1, $a0, 0x3f
+      208:       00159486        xor             $a2, $a0, $a1
+      20c:       001194c5        sub.d           $a1, $a2, $a1
+      210:       03800007        ori             $a3, $zero, 0x0
+      214:       16000027        lu32i.d         $a3, 1
+      218:       002314e6        div.du          $a2, $a3, $a1
+      21c:       001d94c8        mul.d           $a4, $a2, $a1
+      220:       0011a0e9        sub.d           $a5, $a3, $a4
+      224:       02bf8008        addi.w          $a4, $zero, -32
+      228:       03400000        andi            $zero, $zero, 0x0
+      22c:       03400000        andi            $zero, $zero, 0x0
+      230:       00410529        slli.d          $a5, $a5, 0x1
+      234:       004104c6        slli.d          $a2, $a2, 0x1
+      238:       0012952a        sltu            $a6, $a5, $a1
+      23c:       03c0054a        xori            $a6, $a6, 0x1
+      240:       001328ab        maskeqz         $a7, $a1, $a6
+      244:       0011ad29        sub.d           $a5, $a5, $a7
+      248:       00df0108        bstrpick.d      $a4, $a4, 0x1f, 0x0
+      24c:       02c00508        addi.d          $a4, $a4, 1
+      250:       00149d0b        and             $a7, $a4, $a3
+      254:       001528c6        or              $a2, $a2, $a6
+      258:       43ffd97f        beqz            $a7, -40        # 230 
+<dc_fixpt_recip+0x30>
+      25c:       00410527        slli.d          $a3, $a5, 0x1
+      260:       001294e5        sltu            $a1, $a3, $a1
+      264:       03c004a5        xori            $a1, $a1, 0x1
+      268:       02bffc07        addi.w          $a3, $zero, -1
+      26c:       031ffce7        lu52i.d         $a3, $a3, 2047
+      270:       00159ca7        xor             $a3, $a1, $a3
+      274:       680030e6        bltu            $a3, $a2, 48    # 2a4 
+<dc_fixpt_recip+0xa4>
+      278:       001094c5        add.d           $a1, $a2, $a1
+      27c:       00119406        sub.d           $a2, $zero, $a1
+      280:       02000084        slti            $a0, $a0, 0
+      284:       001390a5        masknez         $a1, $a1, $a0
+      288:       001310c4        maskeqz         $a0, $a2, $a0
+      28c:       00151484        or              $a0, $a0, $a1
+      290:       4c000020        jirl            $zero, $ra, 0
+      294:       00150005        or              $a1, $zero, $zero
+      298:       002a0001        break           0x1
+      29c:       002a0001        break           0x1
+      2a0:       53ff73ff        b               -144    # 210 
+<dc_fixpt_recip+0x10>
+      2a4:       002a0001        break           0x1
+      2a8:       53ffd3ff        b               -48     # 278 
+<dc_fixpt_recip+0x78>
+      2ac:       03400000        andi            $zero, $zero, 0x0
+      2b0:       03400000        andi            $zero, $zero, 0x0
+      2b4:       03400000        andi            $zero, $zero, 0x0
+      2b8:       03400000        andi            $zero, $zero, 0x0
+      2bc:       03400000        andi            $zero, $zero, 0x0
+
+00000000000002c0 <dc_fixpt_sinc>:
+      2c0:       0049fc85        srai.d          $a1, $a0, 0x3f
+      2c4:       00159486        xor             $a2, $a0, $a1
+      2c8:       1490fda7        lu12i.w         $a3, 296941
+      2cc:       039444e7        ori             $a3, $a3, 0x511
+      2d0:       001194c6        sub.d           $a2, $a2, $a1
+      2d4:       001500e5        or              $a1, $a3, $zero
+      2d8:       160000c5        lu32i.d         $a1, 6
+      2dc:       001500c9        or              $a5, $a2, $zero
+      2e0:       00150088        or              $a4, $a0, $zero
+      2e4:       6000a8c5        blt             $a2, $a1, 168   # 38c 
+<dc_fixpt_sinc+0xcc>
+
+(2) objdump info with LLVM mainline version 20.0.0git:
+
+$ clang --version | head -1
+clang version 20.0.0git (https://github.com/llvm/llvm-project.git 
+8daf4f16fa08b5d876e98108721dd1743a360326)
+
+There is "break" instruction at the end of dc_fixpt_recip(), its offset
+is "2a0", this "break" instruction is not dead end due to the offset
+"2a4" is in the relocation section '.rela.discard.reachable', that is
+to say, dc_fixpt_recip() doesn't end with a return instruction or an
+unconditional jump, so objtool determined that the function can fall
+through into the next function, thus there is "falls through" objtool
+warning.
+
+0000000000000200 <dc_fixpt_recip>:
+      200:       40009c80        beqz            $a0, 156        # 29c 
+<dc_fixpt_recip+0x9c>
+      204:       0049fc85        srai.d          $a1, $a0, 0x3f
+      208:       00159486        xor             $a2, $a0, $a1
+      20c:       001194c5        sub.d           $a1, $a2, $a1
+      210:       03800007        ori             $a3, $zero, 0x0
+      214:       16000027        lu32i.d         $a3, 1
+      218:       002314e6        div.du          $a2, $a3, $a1
+      21c:       001d94c8        mul.d           $a4, $a2, $a1
+      220:       0011a0e9        sub.d           $a5, $a3, $a4
+      224:       02bf8008        addi.w          $a4, $zero, -32
+      228:       03400000        andi            $zero, $zero, 0x0
+      22c:       03400000        andi            $zero, $zero, 0x0
+      230:       00410529        slli.d          $a5, $a5, 0x1
+      234:       004104c6        slli.d          $a2, $a2, 0x1
+      238:       0012952a        sltu            $a6, $a5, $a1
+      23c:       03c0054a        xori            $a6, $a6, 0x1
+      240:       001328ab        maskeqz         $a7, $a1, $a6
+      244:       0011ad29        sub.d           $a5, $a5, $a7
+      248:       00df0108        bstrpick.d      $a4, $a4, 0x1f, 0x0
+      24c:       02c00508        addi.d          $a4, $a4, 1
+      250:       00149d0b        and             $a7, $a4, $a3
+      254:       001528c6        or              $a2, $a2, $a6
+      258:       43ffd97f        beqz            $a7, -40        # 230 
+<dc_fixpt_recip+0x30>
+      25c:       00410527        slli.d          $a3, $a5, 0x1
+      260:       001294e5        sltu            $a1, $a3, $a1
+      264:       03c004a5        xori            $a1, $a1, 0x1
+      268:       02bffc07        addi.w          $a3, $zero, -1
+      26c:       031ffce7        lu52i.d         $a3, $a3, 2047
+      270:       00159ca7        xor             $a3, $a1, $a3
+      274:       680020e6        bltu            $a3, $a2, 32    # 294 
+<dc_fixpt_recip+0x94>
+      278:       001094c5        add.d           $a1, $a2, $a1
+      27c:       00119406        sub.d           $a2, $zero, $a1
+      280:       02000084        slti            $a0, $a0, 0
+      284:       001390a5        masknez         $a1, $a1, $a0
+      288:       001310c4        maskeqz         $a0, $a2, $a0
+      28c:       00151484        or              $a0, $a0, $a1
+      290:       4c000020        jirl            $zero, $ra, 0
+      294:       002a0001        break           0x1
+      298:       53ffe3ff        b               -32     # 278 
+<dc_fixpt_recip+0x78>
+      29c:       002a0001        break           0x1
+      2a0:       002a0001        break           0x1
+      2a4:       03400000        andi            $zero, $zero, 0x0
+      2a8:       03400000        andi            $zero, $zero, 0x0
+      2ac:       03400000        andi            $zero, $zero, 0x0
+      2b0:       03400000        andi            $zero, $zero, 0x0
+      2b4:       03400000        andi            $zero, $zero, 0x0
+      2b8:       03400000        andi            $zero, $zero, 0x0
+      2bc:       03400000        andi            $zero, $zero, 0x0
+
+00000000000002c0 <dc_fixpt_sinc>:
+      2c0:       0049fc85        srai.d          $a1, $a0, 0x3f
+      2c4:       00159486        xor             $a2, $a0, $a1
+      2c8:       001194c6        sub.d           $a2, $a2, $a1
+      2cc:       1490fda5        lu12i.w         $a1, 296941
+      2d0:       039444a5        ori             $a1, $a1, 0x511
+      2d4:       160000c5        lu32i.d         $a1, 6
+      2d8:       001500c7        or              $a3, $a2, $zero
+      2dc:       00150088        or              $a4, $a0, $zero
+      2e0:       600090c5        blt             $a2, $a1, 144   # 370 
+<dc_fixpt_sinc+0xb0>
+
+2. For x86
+
+I tested with LLVM 19.1.6 and the latest mainline LLVM, the test result
+is same with LoongArch.
+
+(1) objdump info with LLVM release version 19.1.6:
+
+$ clang --version | head -1
+clang version 19.1.6
+
+There is an jump instruction "jmp" at the end of dc_fixpt_recip(), it
+maybe jumps to a position and then steps to the return instruction, so
+there is no "falls through" objtool warning.
+
+0000000000000290 <dc_fixpt_recip>:
+      290:       f3 0f 1e fa             endbr64
+      294:       e8 00 00 00 00          call   299 <dc_fixpt_recip+0x9>
+      299:       48 85 ff                test   %rdi,%rdi
+      29c:       0f 84 a8 00 00 00       je     34a <dc_fixpt_recip+0xba>
+      2a2:       48 89 f9                mov    %rdi,%rcx
+      2a5:       48 f7 d9                neg    %rcx
+      2a8:       48 0f 48 cf             cmovs  %rdi,%rcx
+      2ac:       53                      push   %rbx
+      2ad:       48 b8 00 00 00 00 01    movabs $0x100000000,%rax
+      2b4:       00 00 00
+      2b7:       31 d2                   xor    %edx,%edx
+      2b9:       48 f7 f1                div    %rcx
+      2bc:       be e0 ff ff ff          mov    $0xffffffe0,%esi
+      2c1:       eb 1b                   jmp    2de <dc_fixpt_recip+0x4e>
+      2c3:       45 88 c8                mov    %r9b,%r8b
+      2c6:       4d 01 c0                add    %r8,%r8
+      2c9:       4d 8d 04 80             lea    (%r8,%rax,4),%r8
+      2cd:       48 29 da                sub    %rbx,%rdx
+      2d0:       45 88 da                mov    %r11b,%r10b
+      2d3:       4c 89 d0                mov    %r10,%rax
+      2d6:       4c 09 c0                or     %r8,%rax
+      2d9:       83 c6 02                add    $0x2,%esi
+      2dc:       74 31                   je     30f <dc_fixpt_recip+0x7f>
+      2de:       48 01 d2                add    %rdx,%rdx
+      2e1:       45 31 c0                xor    %r8d,%r8d
+      2e4:       41 ba 00 00 00 00       mov    $0x0,%r10d
+      2ea:       48 39 ca                cmp    %rcx,%rdx
+      2ed:       41 0f 93 c1             setae  %r9b
+      2f1:       72 03                   jb     2f6 <dc_fixpt_recip+0x66>
+      2f3:       49 89 ca                mov    %rcx,%r10
+      2f6:       4c 29 d2                sub    %r10,%rdx
+      2f9:       48 01 d2                add    %rdx,%rdx
+      2fc:       45 31 d2                xor    %r10d,%r10d
+      2ff:       48 89 cb                mov    %rcx,%rbx
+      302:       48 39 ca                cmp    %rcx,%rdx
+      305:       41 0f 93 c3             setae  %r11b
+      309:       73 b8                   jae    2c3 <dc_fixpt_recip+0x33>
+      30b:       31 db                   xor    %ebx,%ebx
+      30d:       eb b4                   jmp    2c3 <dc_fixpt_recip+0x33>
+      30f:       48 01 d2                add    %rdx,%rdx
+      312:       48 be fe ff ff ff ff    movabs $0x7ffffffffffffffe,%rsi
+      319:       ff ff 7f
+      31c:       4c 8d 46 01             lea    0x1(%rsi),%r8
+      320:       48 39 ca                cmp    %rcx,%rdx
+      323:       4c 0f 43 c6             cmovae %rsi,%r8
+      327:       4c 39 c0                cmp    %r8,%rax
+      32a:       77 29                   ja     355 <dc_fixpt_recip+0xc5>
+      32c:       48 39 ca                cmp    %rcx,%rdx
+      32f:       48 83 d8 ff             sbb    $0xffffffffffffffff,%rax
+      333:       48 89 c1                mov    %rax,%rcx
+      336:       48 f7 d9                neg    %rcx
+      339:       48 85 ff                test   %rdi,%rdi
+      33c:       48 0f 49 c8             cmovns %rax,%rcx
+      340:       48 89 c8                mov    %rcx,%rax
+      343:       5b                      pop    %rbx
+      344:       2e e9 00 00 00 00       cs jmp 34a <dc_fixpt_recip+0xba>
+      34a:       0f 0b                   ud2
+      34c:       0f 0b                   ud2
+      34e:       31 c9                   xor    %ecx,%ecx
+      350:       e9 57 ff ff ff          jmp    2ac <dc_fixpt_recip+0x1c>
+      355:       0f 0b                   ud2
+      357:       eb d3                   jmp    32c <dc_fixpt_recip+0x9c>
+      359:       0f 1f 80 00 00 00 00    nopl   0x0(%rax)
+
+0000000000000360 <.Ltmp40>:
+      360:       90                      nop
+      361:       90                      nop
+      362:       90                      nop
+      363:       90                      nop
+      364:       90                      nop
+      365:       90                      nop
+      366:       90                      nop
+      367:       90                      nop
+      368:       90                      nop
+      369:       90                      nop
+      36a:       90                      nop
+      36b:       90                      nop
+      36c:       90                      nop
+      36d:       90                      nop
+      36e:       90                      nop
+      36f:       90                      nop
+
+0000000000000370 <dc_fixpt_sinc>:
+      370:       f3 0f 1e fa             endbr64
+      374:       e8 00 00 00 00          call   379 <dc_fixpt_sinc+0x9>
+
+(2) objdump info with LLVM mainline version 20.0.0git:
+
+$ clang --version | head -1
+clang version 20.0.0git (https://github.com/llvm/llvm-project.git 
+8daf4f16fa08b5d876e98108721dd1743a360326)
+
+There is "ud2" instruction at the end of dc_fixpt_recip(), its offset
+is "350", this "ud2" instruction is not dead end due to the offset "352"
+is in the relocation section '.rela.discard.reachable', that is to say,
+dc_fixpt_recip() doesn't end with a return instruction or an
+unconditional jump, so objtool determined that the function can fall
+through into the next function, thus there is "falls through" objtool
+warning.
+
+0000000000000290 <dc_fixpt_recip>:
+      290:       f3 0f 1e fa             endbr64
+      294:       e8 00 00 00 00          call   299 <dc_fixpt_recip+0x9>
+      299:       48 85 ff                test   %rdi,%rdi
+      29c:       0f 84 ac 00 00 00       je     34e <dc_fixpt_recip+0xbe>
+      2a2:       53                      push   %rbx
+      2a3:       48 89 f9                mov    %rdi,%rcx
+      2a6:       48 f7 d9                neg    %rcx
+      2a9:       48 0f 48 cf             cmovs  %rdi,%rcx
+      2ad:       48 b8 00 00 00 00 01    movabs $0x100000000,%rax
+      2b4:       00 00 00
+      2b7:       31 d2                   xor    %edx,%edx
+      2b9:       48 f7 f1                div    %rcx
+      2bc:       be e0 ff ff ff          mov    $0xffffffe0,%esi
+      2c1:       eb 1b                   jmp    2de <dc_fixpt_recip+0x4e>
+      2c3:       45 88 c8                mov    %r9b,%r8b
+      2c6:       4d 01 c0                add    %r8,%r8
+      2c9:       4d 8d 04 80             lea    (%r8,%rax,4),%r8
+      2cd:       48 29 da                sub    %rbx,%rdx
+      2d0:       45 88 da                mov    %r11b,%r10b
+      2d3:       4c 89 d0                mov    %r10,%rax
+      2d6:       4c 09 c0                or     %r8,%rax
+      2d9:       83 c6 02                add    $0x2,%esi
+      2dc:       74 31                   je     30f <dc_fixpt_recip+0x7f>
+      2de:       48 01 d2                add    %rdx,%rdx
+      2e1:       45 31 c0                xor    %r8d,%r8d
+      2e4:       41 ba 00 00 00 00       mov    $0x0,%r10d
+      2ea:       48 39 ca                cmp    %rcx,%rdx
+      2ed:       41 0f 93 c1             setae  %r9b
+      2f1:       72 03                   jb     2f6 <dc_fixpt_recip+0x66>
+      2f3:       49 89 ca                mov    %rcx,%r10
+      2f6:       4c 29 d2                sub    %r10,%rdx
+      2f9:       48 01 d2                add    %rdx,%rdx
+      2fc:       45 31 d2                xor    %r10d,%r10d
+      2ff:       48 89 cb                mov    %rcx,%rbx
+      302:       48 39 ca                cmp    %rcx,%rdx
+      305:       41 0f 93 c3             setae  %r11b
+      309:       73 b8                   jae    2c3 <dc_fixpt_recip+0x33>
+      30b:       31 db                   xor    %ebx,%ebx
+      30d:       eb b4                   jmp    2c3 <dc_fixpt_recip+0x33>
+      30f:       48 01 d2                add    %rdx,%rdx
+      312:       48 be fe ff ff ff ff    movabs $0x7ffffffffffffffe,%rsi
+      319:       ff ff 7f
+      31c:       4c 8d 46 01             lea    0x1(%rsi),%r8
+      320:       48 39 ca                cmp    %rcx,%rdx
+      323:       4c 0f 43 c6             cmovae %rsi,%r8
+      327:       4c 39 c0                cmp    %r8,%rax
+      32a:       77 1e                   ja     34a <dc_fixpt_recip+0xba>
+      32c:       48 39 ca                cmp    %rcx,%rdx
+      32f:       48 83 d8 ff             sbb    $0xffffffffffffffff,%rax
+      333:       48 89 c1                mov    %rax,%rcx
+      336:       48 f7 d9                neg    %rcx
+      339:       48 85 ff                test   %rdi,%rdi
+      33c:       48 0f 49 c8             cmovns %rax,%rcx
+      340:       48 89 c8                mov    %rcx,%rax
+      343:       5b                      pop    %rbx
+      344:       2e e9 00 00 00 00       cs jmp 34a <dc_fixpt_recip+0xba>
+      34a:       0f 0b                   ud2
+      34c:       eb de                   jmp    32c <dc_fixpt_recip+0x9c>
+      34e:       0f 0b                   ud2
+      350:       0f 0b                   ud2
+      352:       66 66 66 66 66 2e 0f    data16 data16 data16 data16 cs 
+nopw 0x0(%rax,%rax,1)
+      359:       1f 84 00 00 00 00 00
+
+0000000000000360 <.Ltmp40>:
+      360:       90                      nop
+      361:       90                      nop
+      362:       90                      nop
+      363:       90                      nop
+      364:       90                      nop
+      365:       90                      nop
+      366:       90                      nop
+      367:       90                      nop
+      368:       90                      nop
+      369:       90                      nop
+      36a:       90                      nop
+      36b:       90                      nop
+      36c:       90                      nop
+      36d:       90                      nop
+      36e:       90                      nop
+      36f:       90                      nop
+
+0000000000000370 <dc_fixpt_sinc>:
+      370:       f3 0f 1e fa             endbr64
+      374:       e8 00 00 00 00          call   379 <dc_fixpt_sinc+0x9>
+--------------------------------------------------------------------------
+
+In my opinion, if there is a bug, then it is a generic rather than
+arch-specific bug.
+
+The root cause is related with LLVM or Linux kernel? I am not sure
+because objtool only checks the object info and reports the warning
+"falls through" if the check conditions are true.
+
+tools/objtool/check.c
+static int validate_branch(struct objtool_file *file, struct symbol *func,
+                            struct instruction *insn, struct insn_state 
+state)
+{
+         struct alternative *alt;
+         struct instruction *next_insn, *prev_insn = NULL;
+         struct section *sec;
+         u8 visited;
+         int ret;
+
+         sec = insn->sec;
+
+         while (1) {
+                 next_insn = next_insn_to_validate(file, insn);
+
+                 if (func && insn_func(insn) && func != 
+insn_func(insn)->pfunc) {
+                         /* Ignore KCFI type preambles, which always 
+fall through */
+                         if (!strncmp(func->name, "__cfi_", 6) ||
+                             !strncmp(func->name, "__pfx_", 6))
+                                 return 0;
+
+                         WARN("%s() falls through to next function %s()",
+                              func->name, insn_func(insn)->name);
+                         return 1;
+                 }
+         ...
+}
+
+How to silence the warning when compiling with the latest mainline
+LLVM with a proper way? Modify LLVM code or tools/objtool/check.c
+or drivers/gpu/drm/amd/display/dc/basics/fixpt31_32.c?
+
+Anyway, I think this patch can be independent of this series and can
+be sent separately after the "real bug" is fixed, please ignore it now.
+
+Thanks,
+Tiezhu
 
