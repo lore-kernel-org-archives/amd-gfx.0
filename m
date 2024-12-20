@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6DB6E77188
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Dec 2024 17:11:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 601A0E7718B
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Dec 2024 17:12:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 48F3610E3AD;
-	Fri, 20 Dec 2024 17:11:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0711410EFE6;
+	Fri, 20 Dec 2024 17:12:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TZHMPE5B";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lbrNWuI1";
 	dkim-atps=neutral
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1FC2A10E3AD;
- Fri, 20 Dec 2024 17:11:45 +0000 (UTC)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9DA9D10EFE6;
+ Fri, 20 Dec 2024 17:12:47 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 5049D5C67D5;
- Fri, 20 Dec 2024 17:11:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC977C4CED7;
- Fri, 20 Dec 2024 17:11:42 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id 56341A42169;
+ Fri, 20 Dec 2024 17:10:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CE4AC4CED7;
+ Fri, 20 Dec 2024 17:12:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1734714704;
- bh=LusfN/+kZ7Vzl/cO6zVyV4mjfn3wRygLgDX6IiEdXjI=;
+ s=k20201202; t=1734714766;
+ bh=0quJlJrytXMoCnAhb0nScBGYZhFX18a2z8dNjVm4MsE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=TZHMPE5BPc958MPOgn77c7Yg/ei3nHRYRALOKjGUcCia/6blIgHW/+JU2PN6veTfV
- tOnttmoOfLEo7DBjrF+3347zsgvhc0K7j1snMtyCK0PnlCWJRGNTI3ynkyajdtSwVQ
- RppT06o2TvrwR1kA9ToNBICM/GTDcgnCEfS6yz7naZ+SiekzDOV6o2D+gMZdzEuDnE
- W8UXNCcUYRIbaMdLnd1cSUDx1qfRwaGMHXzH9JOoAU2ZnDhIas0ls4sI1DPitWO+QN
- lMka7n3VP3y01YTpMMN1NpiAI+tCpZ2H5ey7f7oSyhVmNRfFasvXpwrDUL0qdDl13L
- Q+L85EB+ezhaA==
+ b=lbrNWuI1ohsgvNIAkBEu/R69J2R/1LmKWpnHLn8AskIsAJI00kRTYD91QDOuVR6Zg
+ ba79C2eZoMcT7F9rN1ce5TMqApsrdUsDxjLLjkBqbeCLEJC5pHwXRud9eCSRzAM3ha
+ jNhkI1DyuZte/6Ij8057pcoJGtnzBgRtCrUJ88+/kcG1nRTYE+6tyxZ6NIW1f4A/N2
+ hXTrgHAfSVMDvzk06pPi3T/kZh5MpUI1CNc5kAwFP97d0u6GOYoKfL2cWoMIIalwTJ
+ gd0Wsn8SzMtiXEFvZClrc1bRmYZ4vOIWENW1sIcbKuLcXsjrASrBXFoEA71ZuZDKfc
+ 1dT1+FICLxpeA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
@@ -38,17 +38,17 @@ Cc: Prike Liang <Prike.Liang@amd.com>, Felix Kuehling <felix.kuehling@amd.com>,
  Felix.Kuehling@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
  airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.12 06/29] drm/amdkfd: Correct the migration DMA map
+Subject: [PATCH AUTOSEL 6.6 03/16] drm/amdkfd: Correct the migration DMA map
  direction
-Date: Fri, 20 Dec 2024 12:11:07 -0500
-Message-Id: <20241220171130.511389-6-sashal@kernel.org>
+Date: Fri, 20 Dec 2024 12:12:27 -0500
+Message-Id: <20241220171240.511904-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20241220171130.511389-1-sashal@kernel.org>
-References: <20241220171130.511389-1-sashal@kernel.org>
+In-Reply-To: <20241220171240.511904-1-sashal@kernel.org>
+References: <20241220171240.511904-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.12.6
+X-stable-base: Linux 6.6.67
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -189,10 +189,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
 
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd=
 /amdkfd/kfd_migrate.c
-index 8ee3d07ffbdf..f31e9fbf634a 100644
+index 3263b5fa182d..f99e3b812ee4 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-@@ -306,7 +306,7 @@ svm_migrate_copy_to_vram(struct kfd_node *node, struct =
+@@ -319,7 +319,7 @@ svm_migrate_copy_to_vram(struct kfd_node *node, struct =
 svm_range *prange,
  		spage =3D migrate_pfn_to_page(migrate->src[i]);
  		if (spage && !is_zone_device_page(spage)) {
@@ -202,7 +202,7 @@ svm_range *prange,
  			r =3D dma_mapping_error(dev, src[i]);
  			if (r) {
  				dev_err(dev, "%s: fail %d dma_map_page\n",
-@@ -630,7 +630,7 @@ svm_migrate_copy_to_ram(struct amdgpu_device *adev, str=
+@@ -634,7 +634,7 @@ svm_migrate_copy_to_ram(struct amdgpu_device *adev, str=
 uct svm_range *prange,
  			goto out_oom;
  		}
