@@ -4,53 +4,132 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B573CE77188
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Dec 2024 17:13:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CB5CE77188
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Dec 2024 21:50:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5ECCA10EFE2;
-	Fri, 20 Dec 2024 17:13:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1381310E042;
+	Fri, 20 Dec 2024 21:50:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QvYkDejZ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="F8YnSzVs";
 	dkim-atps=neutral
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9433E10E4C4;
- Fri, 20 Dec 2024 17:13:52 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 12DB85C5406;
- Fri, 20 Dec 2024 17:13:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 557D6C4CED7;
- Fri, 20 Dec 2024 17:13:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1734714831;
- bh=x4TNFlqF6ZourAC+RfwdGvmEgPvrIR0c5+u7ZrAvqBg=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=QvYkDejZ2TbrvGU/I5xqmjLoropbD3GCjQ35qby6mohkmY3b1e2uJTIOUykCbRpfh
- glgWwEpXNITvWxtO16ylCpRYqoPsbpqH0jbFja1chHcRy4aE1QNifyFkIJtuQAOSMi
- idCIzYx3fsT6ZfIrUBw8jtPQxyvNdLMnzZlr96QB2/oO+LFbI17tS2HLL7HLgdjQax
- TwtiNLRZVZHUTGbcfVls6mH6NcLBKVNUfAxeiBDz/xSiyjG4d8lNromnLOOvqUh784
- +kzWAF6XGUkxMXDRnw2gd81+CWw08iKAT3zRPGQiSEfSFuwTcnmgwo2NxmetiE0DCk
- vMZdgPMPvs0/A==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Cc: Prike Liang <Prike.Liang@amd.com>, Felix Kuehling <felix.kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- Felix.Kuehling@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 5.15 2/9] drm/amdkfd: Correct the migration DMA map
- direction
-Date: Fri, 20 Dec 2024 12:13:40 -0500
-Message-Id: <20241220171347.512287-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20241220171347.512287-1-sashal@kernel.org>
-References: <20241220171347.512287-1-sashal@kernel.org>
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on2051.outbound.protection.outlook.com [40.107.96.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A592D10E042
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Dec 2024 21:50:51 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=FM1oEawcx0HXXd/hPIIjVytZ0JamD2F4uzrNdQZjsKUEo2QvN2u6eS1EFoq3WJzC5jAratDfOZw8w3BVbXynmmM0e3R4VkCFJBaRIlFe1Ylee8QSTBqtjfULLMbmYx76/Dx6K5GNb6DQzAIBJzdbOa8V4yMKL/PJ6B0ziz7VGwAlcCdyzhQsmeEXOS5WMBFPCz1ZOyi4vwFu6gIb/TRe2d3gjJGH0Q7Kyw7G9nLLTuuIYpzuRinpqBnWV7xo1wfIf0Cp1zsXVHgDTRNmYoZU/BR0JAPXRRQJPNYBlfWAhnah33FkBqu6SXYekBxe6lmEd6IwzW7BmzR+rtGooDDOnA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tNHNepo0so4ibqBTEdly3euK695OYh7VaGfepQ/h0aY=;
+ b=rCAtt8gzwJZZSAMrOs+2p6IfGlVciaa2N44dtCUEFbQJeXO3e2zJrOqqMdAMj8WbATEAkcwBM5rpfBcCgfesS6SBls+BKSpyar6XAha4g3lOMGi1NQRb89nOG2B6zpBrpQ6jGAiE1xDG2TSA9XfwgVZD0se9THL+m+ntPtkZsN+/j8ujLryq/uBxN6qrYhtIVXkfr5ZJu7z2oy7XItfJYn1yrAiCmjHLgd/lTDzBD0gIKgmnIiufYX1/A17NNmZN30vDDFxoXq5XvRSi1JgVV86M+u1hWI9CqLZwfTck1/zB9ZlwGfHaAbNREziLoFvKJIxp+GD6uf2gYCmqj0VoTw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tNHNepo0so4ibqBTEdly3euK695OYh7VaGfepQ/h0aY=;
+ b=F8YnSzVsDdeLLXcHLaNrcXgVEebwjC/V1v82ME+fwatVqoE8746lnYLt1WWE/IBo4fN80qKcVctAKZzvJbK+xzc3jGtst8GN/dgmwUwBVORqu3nP/pkkXe/L7QhLQEJgfGUlH/MTjNj8DxRBN23NE9MOt75OHtgzXEoGJCwhofs=
+Received: from MW4PR03CA0025.namprd03.prod.outlook.com (2603:10b6:303:8f::30)
+ by MW4PR12MB6684.namprd12.prod.outlook.com (2603:10b6:303:1ee::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8272.14; Fri, 20 Dec
+ 2024 21:50:48 +0000
+Received: from SJ5PEPF000001EC.namprd05.prod.outlook.com
+ (2603:10b6:303:8f:cafe::bf) by MW4PR03CA0025.outlook.office365.com
+ (2603:10b6:303:8f::30) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8251.24 via Frontend Transport; Fri,
+ 20 Dec 2024 21:50:48 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SJ5PEPF000001EC.mail.protection.outlook.com (10.167.242.200) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8251.15 via Frontend Transport; Fri, 20 Dec 2024 21:50:47 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 20 Dec
+ 2024 15:50:47 -0600
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 20 Dec
+ 2024 15:50:47 -0600
+Received: from roman-vdev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Fri, 20 Dec 2024 15:50:46 -0600
+From: <Roman.Li@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <rodrigo.siqueira@amd.com>, Aurabindo Pillai
+ <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>, Wayne Lin
+ <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, Fangzhi Zuo
+ <jerry.zuo@amd.com>, Zaeem Mohamed <zaeem.mohamed@amd.com>, Solomon Chiu
+ <solomon.chiu@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>, Yihan Zhu
+ <Yihan.Zhu@amd.com>, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ Duncan Ma <duncan.ma@amd.com>
+Subject: [PATCH 01/28] drm/amd/display: update sequential pg logic DCN35
+Date: Fri, 20 Dec 2024 16:48:28 -0500
+Message-ID: <20241220214855.2608618-2-Roman.Li@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20241220214855.2608618-1-Roman.Li@amd.com>
+References: <20241220214855.2608618-1-Roman.Li@amd.com>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 5.15.175
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB05.amd.com: Roman.Li@amd.com does not designate
+ permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001EC:EE_|MW4PR12MB6684:EE_
+X-MS-Office365-Filtering-Correlation-Id: e314a28f-2d2a-4891-39f2-08dd21405d26
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|1800799024|376014|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?otc4AdafAxvGVg+SDRcIwUxFn/K/kQ0PQd3KDQ81SXIHWK+eyYzgMzCBBsmK?=
+ =?us-ascii?Q?XTGvyHdX2rG89LYg+Vc+IULJ2UbonAY8UBcWFoEicdSYmJ4BbYR3YReKVIyK?=
+ =?us-ascii?Q?CQggVQy/ni3S2nlRN3Zl+egxSpJ9X1OE5vLzcwj3Cmfavu+As806neUCpOcI?=
+ =?us-ascii?Q?i1W9oQxd7Yw3lzJW+M8OwItHykLwlBAER6WtEmHXN3NrdOxheibq2P1TaZRL?=
+ =?us-ascii?Q?ypQ7BCwcocu27l3arrZ3i5NbFdej9bOYEIavYfbYIajbMdpHcgx4M/k3UGBo?=
+ =?us-ascii?Q?LcuJ6PdyU5L8+wFoqQtqYWZr1qEA7ZX7kDINH2sVm5Rtfh8KB01uaI74Dfi7?=
+ =?us-ascii?Q?LgjDm/UfK42zjgl/5rE7hLLyAKlXzOyh6jAh5ke9AeOkUAWfue/CeILpyfhH?=
+ =?us-ascii?Q?EAupIOrxCfBrtruuS9k5KKJ8Y6ig9X/87IhTypeY8Rh+GFBuxOvFs0lj4o5o?=
+ =?us-ascii?Q?eBlBDyBggeK/jw8FaEv/Q+ukkwKS6SQCnOh3KO+yO1DM1aKAHJvWV9CXYlmd?=
+ =?us-ascii?Q?Ibl2w7j+PsjjC2WDQ1vn9LCY8eQk8TGJoqxnLxYXGSwV9/Kbt6a/+UcsaNyo?=
+ =?us-ascii?Q?nk6+NhltN7Dy2cOF/lNrsrsrM0CPsqUh1OpoUlmOiJ303tnv9vd+MVNJaf9I?=
+ =?us-ascii?Q?4Aavn2vmW9EoAFXcfS8vx+Ow1mtQV10HdceNOBSj25K3NP6fvEOqPyyO5eAA?=
+ =?us-ascii?Q?xUsuW69qMcuHQYe0tirYZRXGejTJNZi7lyjNXpn4WxDyDOsEFhZH/+56dd/S?=
+ =?us-ascii?Q?4qlzFKpFns0QRofamjIBUvfdOOl73OHNpqjNqXXGVD/CDq+T9Qv72Bqr+Gyh?=
+ =?us-ascii?Q?6xIx8aVOJjEOfoO+EUelTrZXCg6xLfe95UO53wlGlF1lNHC7ew8RyAvFlQaT?=
+ =?us-ascii?Q?T80VO4yKqQjIakfnxsyx3UkHe1yVSSEcfqClDokgyMlLV3D9Sl7HK1vX5AMI?=
+ =?us-ascii?Q?x2ZqvqwRkjhLakkome9/4XuVzgXbO6ns9owOaDgSqdjwU2BTJvuAkd6DxRr/?=
+ =?us-ascii?Q?DvYotS2ZsBOMOw2QaG9mjOkVJYc3DvTy6gEGf9pSVONSdrwEjeoj+/JAg3JE?=
+ =?us-ascii?Q?wEwZungSORlMAyCr3RtfUa3yP5zZHg9JCRke0g7mp+eGLe9k+S1S7XvisCh7?=
+ =?us-ascii?Q?gdwCQsftsPoTJ1nvJWM8kx7FO1V+IiVwaYcZMFir7YnAKucGOSikDGQ++y+b?=
+ =?us-ascii?Q?ZF3MrzBigqhMNjuSdc1r8Zd2cP8gmbHvxwU737zAja/XvEBP1hoFdLVIdyFN?=
+ =?us-ascii?Q?vMQso8TnCTCleQgMqvqi2f+VaJSpaU9kGr3pxSJs7+2sMDeAXVykEFBSWXfL?=
+ =?us-ascii?Q?Tap6DpQfS59NA3kYDsUw7D7dCuqdLu1r6RyEw7THQsVYV/NrJzmVjHcJyKpk?=
+ =?us-ascii?Q?5flgD5/Q2mOQ/sUaMkfT6fh2Apg9pHlolNg79IlYHpzEPHFTVj9+83P9p3+F?=
+ =?us-ascii?Q?vmgVXnjahyfP1stqKXZ271srL4dSJaz3bR+/fCxBYE016SBAFc/V7A=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(376014)(36860700013); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Dec 2024 21:50:47.9950 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e314a28f-2d2a-4891-39f2-08dd21405d26
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001EC.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6684
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,154 +144,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Prike Liang <Prike.Liang@amd.com>
+From: Yihan Zhu <Yihan.Zhu@amd.com>
 
-[ Upstream commit 5c3de6b02d38eb9386edf50490e050bb44398e40 ]
+[WHY & HOW]
+No check for HUBP/DPP power gating when DSC instance is still running. Avoid HUBP/DPP to
+power gate when corresponding DSC block is still running in the power gating calculation.
 
-The SVM DMA device map direction should be set the same as
-the DMA unmap setting, otherwise the DMA core will report
-the following warning.
-
-Before finialize this solution, there're some discussion on
-the DMA mapping type(stream-based or coherent) in this KFD
-migration case, followed by https://lore.kernel.org/all/04d4ab32
--45a1-4b88-86ee-fb0f35a0ca40@amd.com/T/.
-
-As there's no dma_sync_single_for_*() in the DMA buffer accessed
-that because this migration operation should be sync properly and
-automatically. Give that there's might not be a performance problem
-in various cache sync policy of DMA sync. Therefore, in order to
-simplify the DMA direction setting alignment, let's set the DMA map
-direction as BIDIRECTIONAL.
-
-[  150.834218] WARNING: CPU: 8 PID: 1812 at kernel/dma/debug.c:1028 check_u=
-nmap+0x1cc/0x930
-[  150.834225] Modules linked in: amdgpu(OE) amdxcp drm_exec(OE) gpu_sched =
-drm_buddy(OE) drm_ttm_helper(OE) ttm(OE) drm_suballoc_helper(OE) drm_displa=
-y_helper(OE) drm_kms_helper(OE) i2c_algo_bit rpcsec_gss_krb5 auth_rpcgss nf=
-sv4 nfs lockd grace netfs xt_conntrack xt_MASQUERADE nf_conntrack_netlink x=
-frm_user xfrm_algo iptable_nat xt_addrtype iptable_filter br_netfilter nvme=
-_fabrics overlay nfnetlink_cttimeout nfnetlink openvswitch nsh nf_conncount=
- nf_nat nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 libcrc32c bridge stp llc=
- sch_fq_codel intel_rapl_msr amd_atl intel_rapl_common snd_hda_codec_realte=
-k snd_hda_codec_generic snd_hda_scodec_component snd_hda_codec_hdmi snd_hda=
-_intel snd_intel_dspcfg edac_mce_amd snd_pci_acp6x snd_hda_codec snd_acp_co=
-nfig snd_hda_core snd_hwdep snd_soc_acpi kvm_amd sunrpc snd_pcm kvm binfmt_=
-misc snd_seq_midi crct10dif_pclmul snd_seq_midi_event ghash_clmulni_intel s=
-ha512_ssse3 snd_rawmidi nls_iso8859_1 sha256_ssse3 sha1_ssse3 snd_seq aesni=
-_intel snd_seq_device crypto_simd snd_timer cryptd input_leds
-[  150.834310]  wmi_bmof serio_raw k10temp rapl snd sp5100_tco ipmi_devintf=
- soundcore ccp ipmi_msghandler cm32181 industrialio mac_hid msr parport_pc =
-ppdev lp parport efi_pstore drm(OE) ip_tables x_tables pci_stub crc32_pclmu=
-l nvme ahci libahci i2c_piix4 r8169 nvme_core i2c_designware_pci realtek i2=
-c_ccgx_ucsi video wmi hid_generic cdc_ether usbnet usbhid hid r8152 mii
-[  150.834354] CPU: 8 PID: 1812 Comm: rocrtst64 Tainted: G           OE    =
-  6.10.0-custom #492
-[  150.834358] Hardware name: AMD Majolica-RN/Majolica-RN, BIOS RMJ1009A 06=
-/13/2021
-[  150.834360] RIP: 0010:check_unmap+0x1cc/0x930
-[  150.834363] Code: c0 4c 89 4d c8 e8 34 bf 86 00 4c 8b 4d c8 4c 8b 45 c0 =
-48 8b 4d b8 48 89 c6 41 57 4c 89 ea 48 c7 c7 80 49 b4 84 e8 b4 81 f3 ff <0f=
-> 0b 48 c7 c7 04 83 ac 84 e8 76 ba fc ff 41 8b 76 4c 49 8d 7e 50
-[  150.834365] RSP: 0018:ffffaac5023739e0 EFLAGS: 00010086
-[  150.834368] RAX: 0000000000000000 RBX: ffffffff8566a2e0 RCX: 00000000000=
-00027
-[  150.834370] RDX: ffff8f6a8f621688 RSI: 0000000000000001 RDI: ffff8f6a8f6=
-21680
-[  150.834372] RBP: ffffaac502373a30 R08: 00000000000000c9 R09: ffffaac5023=
-73850
-[  150.834373] R10: ffffaac502373848 R11: ffffffff84f46328 R12: ffffaac5023=
-73a40
-[  150.834375] R13: ffff8f6741045330 R14: ffff8f6741a77700 R15: ffffffff84a=
-c831b
-[  150.834377] FS:  00007faf0fc94c00(0000) GS:ffff8f6a8f600000(0000) knlGS:=
-0000000000000000
-[  150.834379] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[  150.834381] CR2: 00007faf0b600020 CR3: 000000010a52e000 CR4: 00000000003=
-50ef0
-[  150.834383] Call Trace:
-[  150.834385]  <TASK>
-[  150.834387]  ? show_regs+0x6d/0x80
-[  150.834393]  ? __warn+0x8c/0x140
-[  150.834397]  ? check_unmap+0x1cc/0x930
-[  150.834400]  ? report_bug+0x193/0x1a0
-[  150.834406]  ? handle_bug+0x46/0x80
-[  150.834410]  ? exc_invalid_op+0x1d/0x80
-[  150.834413]  ? asm_exc_invalid_op+0x1f/0x30
-[  150.834420]  ? check_unmap+0x1cc/0x930
-[  150.834425]  debug_dma_unmap_page+0x86/0x90
-[  150.834431]  ? srso_return_thunk+0x5/0x5f
-[  150.834435]  ? rmap_walk+0x28/0x50
-[  150.834438]  ? srso_return_thunk+0x5/0x5f
-[  150.834441]  ? remove_migration_ptes+0x79/0x80
-[  150.834445]  ? srso_return_thunk+0x5/0x5f
-[  150.834448]  dma_unmap_page_attrs+0xfa/0x1d0
-[  150.834453]  svm_range_dma_unmap_dev+0x8a/0xf0 [amdgpu]
-[  150.834710]  svm_migrate_ram_to_vram+0x361/0x740 [amdgpu]
-[  150.834914]  svm_migrate_to_vram+0xa8/0xe0 [amdgpu]
-[  150.835111]  svm_range_set_attr+0xff2/0x1450 [amdgpu]
-[  150.835311]  svm_ioctl+0x4a/0x50 [amdgpu]
-[  150.835510]  kfd_ioctl_svm+0x54/0x90 [amdgpu]
-[  150.835701]  kfd_ioctl+0x3c2/0x530 [amdgpu]
-[  150.835888]  ? __pfx_kfd_ioctl_svm+0x10/0x10 [amdgpu]
-[  150.836075]  ? srso_return_thunk+0x5/0x5f
-[  150.836080]  ? tomoyo_file_ioctl+0x20/0x30
-[  150.836086]  __x64_sys_ioctl+0x9c/0xd0
-[  150.836091]  x64_sys_call+0x1219/0x20d0
-[  150.836095]  do_syscall_64+0x51/0x120
-[  150.836098]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
-[  150.836102] RIP: 0033:0x7faf0f11a94f
-[  150.836105] Code: 00 48 89 44 24 18 31 c0 48 8d 44 24 60 c7 04 24 10 00 =
-00 00 48 89 44 24 08 48 8d 44 24 20 48 89 44 24 10 b8 10 00 00 00 0f 05 <41=
-> 89 c0 3d 00 f0 ff ff 77 1f 48 8b 44 24 18 64 48 2b 04 25 28 00
-[  150.836107] RSP: 002b:00007ffeced26bc0 EFLAGS: 00000246 ORIG_RAX: 000000=
-0000000010
-[  150.836110] RAX: ffffffffffffffda RBX: 000055c683528fb0 RCX: 00007faf0f1=
-1a94f
-[  150.836112] RDX: 00007ffeced26c60 RSI: 00000000c0484b20 RDI: 00000000000=
-00003
-[  150.836114] RBP: 00007ffeced26c50 R08: 0000000000000000 R09: 00000000000=
-00001
-[  150.836115] R10: 0000000000000032 R11: 0000000000000246 R12: 000055c6835=
-28bd0
-[  150.836117] R13: 0000000000000000 R14: 0000000000000021 R15: 00000000000=
-00000
-[  150.836122]  </TASK>
-[  150.836124] ---[ end trace 0000000000000000 ]---
-
-Signed-off-by: Prike Liang <Prike.Liang@amd.com>
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Reviewed-by: Duncan Ma <duncan.ma@amd.com>
+Signed-off-by: Yihan Zhu <Yihan.Zhu@amd.com>
+Signed-off-by: Roman Li <roman.li@amd.com>
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd=
-/amdkfd/kfd_migrate.c
-index 131d98c600ee..013749cd3ae2 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-@@ -302,7 +302,7 @@ svm_migrate_copy_to_vram(struct amdgpu_device *adev, st=
-ruct svm_range *prange,
- 			migrate->dst[i] =3D migrate_pfn(migrate->dst[i]);
- 			migrate->dst[i] |=3D MIGRATE_PFN_LOCKED;
- 			src[i] =3D dma_map_page(dev, spage, 0, PAGE_SIZE,
--					      DMA_TO_DEVICE);
-+					      DMA_BIDIRECTIONAL);
- 			r =3D dma_mapping_error(dev, src[i]);
- 			if (r) {
- 				pr_debug("failed %d dma_map_page\n", r);
-@@ -569,7 +569,7 @@ svm_migrate_copy_to_ram(struct amdgpu_device *adev, str=
-uct svm_range *prange,
- 			goto out_oom;
- 		}
-=20
--		dst[i] =3D dma_map_page(dev, dpage, 0, PAGE_SIZE, DMA_FROM_DEVICE);
-+		dst[i] =3D dma_map_page(dev, dpage, 0, PAGE_SIZE, DMA_BIDIRECTIONAL);
- 		r =3D dma_mapping_error(dev, dst[i]);
- 		if (r) {
- 			pr_debug("failed %d dma_map_page\n", r);
---=20
-2.39.5
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
+index d5f76cc69c73..8207fea4f99a 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
+@@ -1032,8 +1032,13 @@ void dcn35_calc_blocks_to_gate(struct dc *dc, struct dc_state *context,
+ 		if (pipe_ctx->plane_res.dpp || pipe_ctx->stream_res.opp)
+ 			update_state->pg_pipe_res_update[PG_MPCC][pipe_ctx->plane_res.mpcc_inst] = false;
+ 
+-		if (pipe_ctx->stream_res.dsc)
++		if (pipe_ctx->stream_res.dsc) {
+ 			update_state->pg_pipe_res_update[PG_DSC][pipe_ctx->stream_res.dsc->inst] = false;
++			if (dc->caps.sequential_ono) {
++				update_state->pg_pipe_res_update[PG_HUBP][pipe_ctx->stream_res.dsc->inst] = false;
++				update_state->pg_pipe_res_update[PG_DPP][pipe_ctx->stream_res.dsc->inst] = false;
++			}
++		}
+ 
+ 		if (pipe_ctx->stream_res.opp)
+ 			update_state->pg_pipe_res_update[PG_OPP][pipe_ctx->stream_res.opp->inst] = false;
+-- 
+2.34.1
 
