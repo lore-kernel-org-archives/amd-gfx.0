@@ -4,151 +4,229 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B8FAE77188
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Dec 2024 10:45:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 001F3E7718B
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Dec 2024 11:31:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D05B510E11F;
-	Fri, 20 Dec 2024 10:45:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C7BEF10E2C7;
+	Fri, 20 Dec 2024 11:31:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="45OCW8+z";
+	dkim=pass (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="k7pjikC+";
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="k7pjikC+";
 	dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2084.outbound.protection.outlook.com [40.107.244.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E3A710E11F
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Dec 2024 10:45:12 +0000 (UTC)
+Received: from EUR03-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur03on2046.outbound.protection.outlook.com [40.107.103.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B227A10E14B;
+ Fri, 20 Dec 2024 11:31:18 +0000 (UTC)
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=Z7aQ47+h+vRUkPp/9CQChn4mPmjJU4EqC0RBg1exFMSH0I4PfeB/Ky6CxYEsuGtHwOs9JL/hZmTRAylC3PiPIJm9g3uwRtoD38T8dNZf8la4HEcIxlFlYVhKmAdoS0oKrIHl0RXsxM+knuvCniH9Jx8IU6ocUj1pDWD4IoksdiEjAWAEEtmyOUgqQe7RX1+4z2D6O7WbytVahxCbB+sPI6SJYs3EJnSMi5ewsI/FQHzS6k09+CaweBwIE+ig8FTaT1NLnPESEW/Ne7VjOR/qiJusokkeyuzsyWYK/oNP+N1wV+ZhgdKUXtVPt6LlrGspaTeo0xhaoZ08WEqH7ZoqLA==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qf74j4Qumu2VBzGvL7IgPv8PEwZyQcJhu+TtLwo+05s=;
+ b=KelNTpgLdkfUF8XzcyPBNIYi1oOlroBVgh7QP+pPzk07ADyzzFErR85/vb8n/LmBveVSTpZr1xajP5C+6F0lLRIIOBx5d4Wf54Ub0QcbvCywq8T3f+kq9QQXa2Y4eksaKRKce38rtHQ0T7nC6I45YjHbHan/tkmSOSxCOOiCVHDHCpnV2Ghz/j6AshPn0h3FD9buJlGViRHFO1kg1wJalwgl3zsqcX4a8br38DiYAU1g9ptPxq0ZOMEUjWh+gEN6KOjPyStn349TIoA11zopZM2IOph8wsou65xZ+gSS/qmtwCEaeO3qA1Rqia7EccIKesKKSMldeoQ5hj0lY5kLvg==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 63.35.35.123) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=arm.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
+ dkim=pass (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qf74j4Qumu2VBzGvL7IgPv8PEwZyQcJhu+TtLwo+05s=;
+ b=k7pjikC+RBsMClINodnVFVgepTA4+DT3oORkxNzWwKstaUpU7P/re5+qm5jflxeXNg7sz1Vu4qjGI058tqWeUTDk1Duave85aagUHuDijlkDeSDbE0NDwSAv4fSM9iSg7MEeeKdV+JwXtPN+DgzoSewkYhhpbGXBiWycXm2a2N8=
+Received: from PAZP264CA0127.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:1f8::18)
+ by DB4PR08MB9238.eurprd08.prod.outlook.com (2603:10a6:10:3fa::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8272.16; Fri, 20 Dec
+ 2024 11:31:08 +0000
+Received: from AM4PEPF00025F9B.EURPRD83.prod.outlook.com
+ (2603:10a6:102:1f8:cafe::ea) by PAZP264CA0127.outlook.office365.com
+ (2603:10a6:102:1f8::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8251.25 via Frontend Transport; Fri,
+ 20 Dec 2024 11:31:08 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+ pr=C
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ AM4PEPF00025F9B.mail.protection.outlook.com (10.167.16.10) with
+ Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.8293.6
+ via Frontend Transport; Fri, 20 Dec 2024 11:31:08 +0000
+Received: ("Tessian outbound b519d6c64997:v528");
+ Fri, 20 Dec 2024 11:31:07 +0000
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: 955bcec4b41cf0b0
+X-TessianGatewayMetadata: J+d5NJ49mrYUMER9RoMsDT//ENJ5j2N+Pc+Om8gbn2dHJoFB2jmRk33ww0jJrgk1D5o1FGAFKHq6Xk2mOMUQxJ0QvfVbqT3XWt2FV0jTD3o0zhkEdW4FdaeQ2Ylm9B5IrZ0XonwyPrahCvOg39GNgamYYv3mmzIUQ5vcvN1kfBNnQnGUNLhLBWvgDN47x+Ez
+X-CR-MTA-TID: 64aa7808
+Received: from L7bc83dacc6d3.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 206CDB5E-AA2F-4844-AE01-8E34095A3596.1; 
+ Fri, 20 Dec 2024 11:31:01 +0000
+Received: from DB3PR0202CU003.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id
+ L7bc83dacc6d3.1 (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+ Fri, 20 Dec 2024 11:31:01 +0000
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=x6pMfEAdNMk1iM28m5n2FMFfqtGSQSaQ++KqqT5dgUeG2dghCDkqbhn4Hbzr/vVZnlukbhlCJwaubjihVBG/vAtvPrFPr30SoW0QVUgy7g27HwBAZmy5tRXb6cvui3lsl3+sSZDjXbavHVX/VvhqSuXcxW6Ye1bgklpgzCK1EqUqjhWrxfuLSc0t8g9niHo6VnPIXq5Sdjc+1Ax0qDjkxGKfuQt4JkPfWrCYDWiUjHxPliAzMYgGLX8j/UG3ufTwYdW/2K9+YCJZGNphiHsyfQfQd/1i83NpIyqSAqhgdFsLfZxt1fxv3+cq3nuOmxWfRJIfs2ujLj75DJXSOR2ImQ==
+ b=Mdw/eylD7o2vTuPy5Vzlmpj1IYVpZxcuiS7ZT71l32oTRa0/CeOlvMfTejKlAUMh2PdCrLgC2kMnM18p9vTQMrIpgMxE3/tMsyZAlsVkjuIWtTEUuL1UiPO3w4eWwQrWuU0QPReEOSu8ZKImDrxmTKk4+vwe3eq23WQ5qWSAOjI4Ln6HWTk2+3kfjAyiOwcjzWEDv3NeEQ9v9JAnzf5MKLP0Q2rwitYU67UyOFBEfxRBXVTcychHhw0ZAsK6AT/C7T9qAqSfc/FxFbNHLZXyj0Hm6W0jjH3VLPJZ/XmQ3I1+Qmpm1cmUTqpUGre9j4ErqVIDsHK/lzIVkaYbmaIxUg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FyY1kySaABHw6DLVwIIfrQU6SETAwlRVQBjcURhRptw=;
- b=ECR3OQD80t80O2UWUXd8XJYH65HYU/WYRCRmXZXD6L4woCn1n6MmxQwuDTAkEwDapLH6zj4UyORwOjtzuQBL/yJuirXnJ+vQtqkBOQqD402oh6EsParCQE1po3LG3PqeNKwrFBKM72NMcYu2CUJI2rCiStYZ4tIWhCI8hGsBQ1YwB7XwfLtpbWxgzvA3/AO3TEQ8sX5RQvN4kFekdsY1Lna1PI3qgHBEmpS81sdATPnGcALZvB8ndMrZYVdFkANfKKwyOMOg0DTFLa6QlUdUs9hqj7HlB0TP05clXPIY40R86PZ/+Th3We9r+XqWNfTlaPKCDzkNLpnYHwHJiqxISA==
+ bh=qf74j4Qumu2VBzGvL7IgPv8PEwZyQcJhu+TtLwo+05s=;
+ b=mU5NTLJBxkVj/bz9b0HOm1TrY1oVWGYXkVI8xMmapdFWKuHQTdKgJJPPY0lMTxeGipgMZ3norOhUBVZ8KyIh3AwL/7LD6eo2Oj8KO5OwLoNYgBnIF2OcjmDNcSLRrqknpMGvQQfqETEsJL+5ACicTgetoiidEz1XbbWmiFh1l2F8D1liZ1We0u4k2RJbnR8ukMmgRqzmXWzcDclQtTSdoCrfyrRYmvPgTuCCum2ghgzS1b85jwac2ecCUjuKe2HQYZuBcg23kmvojAvG2wrq+XNB0aCEtof0I3EhMxNR1Zy76nzuLNkBOC6JV8ttjsjcPcUve20dOSNo0Tc/QtFQSg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FyY1kySaABHw6DLVwIIfrQU6SETAwlRVQBjcURhRptw=;
- b=45OCW8+zF+AvpuNbjuXHeByby4t8zRIscYIib+vExWkDpN926BCZae9PNPLiIe6/fheaE+RHNBvaccjYj7/dchWD9bwpA/kWIQkDxsMkJqpBVjroftauKgMUPpgDr63ZmXvf9VTFfPEqGEOwQHr8/WOqaJ/KckwJdLnQx+Yispg=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH8PR12MB7301.namprd12.prod.outlook.com (2603:10b6:510:222::12)
- by DS0PR12MB7511.namprd12.prod.outlook.com (2603:10b6:8:139::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8272.16; Fri, 20 Dec
- 2024 10:45:09 +0000
-Received: from PH8PR12MB7301.namprd12.prod.outlook.com
- ([fe80::a929:e8eb:ef22:6350]) by PH8PR12MB7301.namprd12.prod.outlook.com
- ([fe80::a929:e8eb:ef22:6350%7]) with mapi id 15.20.8272.005; Fri, 20 Dec 2024
- 10:45:09 +0000
-Message-ID: <a9e2b6de-9785-4de4-8ab9-57d0aef82746@amd.com>
-Date: Fri, 20 Dec 2024 16:15:03 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/3] drm/amdgpu: Fix out-of-bounds issue in user fence
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com
-References: <20241219103824.630689-1-Arunpravin.PaneerSelvam@amd.com>
- <22a8d1c2-712c-4c16-a296-81fe342bdfde@amd.com>
- <b4acfc3c-5d91-4b94-8d7f-e653cebc5bbe@amd.com>
- <55e1d859-b614-442c-b0f8-92ed3f7cddf6@amd.com>
-Content-Language: en-US
-From: "Paneer Selvam, Arunpravin" <arunpravin.paneerselvam@amd.com>
-In-Reply-To: <55e1d859-b614-442c-b0f8-92ed3f7cddf6@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ bh=qf74j4Qumu2VBzGvL7IgPv8PEwZyQcJhu+TtLwo+05s=;
+ b=k7pjikC+RBsMClINodnVFVgepTA4+DT3oORkxNzWwKstaUpU7P/re5+qm5jflxeXNg7sz1Vu4qjGI058tqWeUTDk1Duave85aagUHuDijlkDeSDbE0NDwSAv4fSM9iSg7MEeeKdV+JwXtPN+DgzoSewkYhhpbGXBiWycXm2a2N8=
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+Received: from DU0PR08MB8563.eurprd08.prod.outlook.com (2603:10a6:10:404::17)
+ by FRZPR08MB10951.eurprd08.prod.outlook.com (2603:10a6:d10:136::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8272.14; Fri, 20 Dec
+ 2024 11:30:59 +0000
+Received: from DU0PR08MB8563.eurprd08.prod.outlook.com
+ ([fe80::3f5f:95b1:c5ed:1895]) by DU0PR08MB8563.eurprd08.prod.outlook.com
+ ([fe80::3f5f:95b1:c5ed:1895%2]) with mapi id 15.20.8272.005; Fri, 20 Dec 2024
+ 11:30:59 +0000
+Date: Fri, 20 Dec 2024 11:30:57 +0000
+From: Brian Starkey <brian.starkey@arm.com>
+To: Marek =?utf-8?B?T2zFocOhaw==?= <maraeo@gmail.com>
+Cc: Simona Vetter <simona.vetter@ffwll.ch>, 
+ Michel =?utf-8?Q?D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>, 
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
+ ML Mesa-dev <mesa-dev@lists.freedesktop.org>, nd@arm.com
+Subject: Re: [PATCH] drm/fourcc: add LINEAR modifiers with an exact pitch
+ alignment
+Message-ID: <nlcq3xjef3mapwumuelnspinmgucersb5gazk2p7yxqv5aops7@t3p2e4sze75b>
+References: <CAAxE2A5BkF13bFt8_UnuiqPM8W-ZESgmKEjqqGfv=DGzSfJ7aQ@mail.gmail.com>
+ <uffsfaps6a75zmkyshkwfxgybcslqrnfqqtjzekegdptvwpugc@2ndpcuxyfp3f>
+ <c64cb9d8-5ea7-4644-93c8-04a97b758fa0@mailbox.org>
+ <h26quuebhpxwkc3fl4vtfteoqyvingnddgxbnzptfnxfg6xgkd@kkkmeqwplomv>
+ <8dae97c9-9286-451a-8122-b309eb21b2f4@mailbox.org>
+ <Z2Ki-lQH4Fbch6RO@phenom.ffwll.local>
+ <q45c43j5kwwvemec7mcs4kqzt54pa3nz3jlhkcky2v63s2vfie@him4q253uw4p>
+ <CAAxE2A5+=QVAFXXCbe3qEgY-Mzb-5XW73CYdANEO+N_xA+ivaw@mail.gmail.com>
+ <zfjnuz2pfg7j2g2zrbt5ryde223plzr4rdyk4f4ans5znicw3l@kbebotesmobf>
+ <CAAxE2A6u4Ee=yBJHo9uKr0Be8Ta3MwSxvt79GcbF8D0R952_FQ@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN2PR01CA0236.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:eb::20) To PH8PR12MB7301.namprd12.prod.outlook.com
- (2603:10b6:510:222::12)
+In-Reply-To: <CAAxE2A6u4Ee=yBJHo9uKr0Be8Ta3MwSxvt79GcbF8D0R952_FQ@mail.gmail.com>
+X-ClientProxiedBy: LO2P265CA0381.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:a3::33) To DU0PR08MB8563.eurprd08.prod.outlook.com
+ (2603:10a6:10:404::17)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB7301:EE_|DS0PR12MB7511:EE_
-X-MS-Office365-Filtering-Correlation-Id: a2532a04-5291-407f-a492-08dd20e35fbc
+X-MS-TrafficTypeDiagnostic: DU0PR08MB8563:EE_|FRZPR08MB10951:EE_|AM4PEPF00025F9B:EE_|DB4PR08MB9238:EE_
+X-MS-Office365-Filtering-Correlation-Id: b12de47a-1bb2-4c64-d624-08dd20e9cc40
+x-checkrecipientrouted: true
+NoDisclaimer: true
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?WXcrOGlNMVdROXM3QVFkdFFFZkM4UWptTG8rRmlYNnlQd1B2RDlxS2FOQlhl?=
- =?utf-8?B?UjN0alVXVUJ6Z040c05aQ0FwS2FMRExrajBjbFBDeFM4WjRXaC9nZ29tNDlB?=
- =?utf-8?B?dGxDeTdUcndFVzRXWkFoK0xJV0VzS0lGMjNoM0lMZ1lOL2hqR3NhNDc4UmpG?=
- =?utf-8?B?cTBCdHQ5Rms5RHcxeVhoMlNycGUrTTBtSFhJOElLQ2VmTmpQNDU4Ykc2ZVha?=
- =?utf-8?B?K2xYdGNzQUJuOFVCRG9OOTZDZGhKOEh2SHFOaUhCRlRPY0Jlb05KNzhhYnk5?=
- =?utf-8?B?UG9Sd1ppaW5SQUVuWUxHdzBJOEp4eFNuSkYvVHhpalhXMkxTV3hObWQ2cnNx?=
- =?utf-8?B?dnFvQjdwUVplQkFwbEpMZmR4eFhqNG1FaXYrZzA0NVZaTmV1VlpVZjdmMHNx?=
- =?utf-8?B?UWdJUm5jMDNHRmE4ZVJaZU5xRXhVWldONWV6Z1NjR1k3Q1JRMEYra2c1UGpp?=
- =?utf-8?B?aWZVYUFTYVloc3hHRW5lU1NjdUdNYjNJNXFpUzdEQXVXdDU1RHM2U0R1R3J6?=
- =?utf-8?B?VFJsQXJxSHNjdTMrZlBuMDJVRC9wbTJLcC9EQklWRmQvSkVkNGwzaU8zMFFw?=
- =?utf-8?B?SzJMcWgwU1pGYmY0dkJsMlRHejJka09DWDNTUHY2OWZxbVY3ZG54RDZ3U1Y0?=
- =?utf-8?B?WkVmamttZmlKaWJmTzJoaGgxMmtON1ZRak1TR1BycDcxQjYvanpER1QrQzBj?=
- =?utf-8?B?OFdsU0RiNVc5RkxrdHdFTkt2b1V2anZVNllMcTVxSUptQ04rSGp5QzBRNVJ4?=
- =?utf-8?B?N043VjlscmNYNXFIY2phUjJrTmNOUWR5MTRvQUlDNnNyM2h0c3loZTlpc1ds?=
- =?utf-8?B?WllvMnp2a0xXL3FDcnRhcC9zaitPYUdyZDlETUdLOEhlNkNEbGRRa1F2cklh?=
- =?utf-8?B?b1dSL0hqVEZEazZveGpKMVhoWnNnRGduenhPU1RqNGk2MXlLb2lTMldqQXJ1?=
- =?utf-8?B?dERVV0ZObTlJQllxSFlkN0k2QnpIend1elhaZ3BnZ2k2Z1o3WUF4ck9MOFJL?=
- =?utf-8?B?L0NqbTFxYmxVbnJxQ1pQczZ5ZE15RCtTdUFDZlVtY21UNXZQd01CemNYM0Nl?=
- =?utf-8?B?MnMwTy9XaWZScHBBN2xXUk1zMWlGY09MZTdrQjc4NEJnYkl4VE1CaVJDUnkz?=
- =?utf-8?B?VkxqVWhwRnNrSDNpek5qU21jWUd6WDFJcnZYcTZHeS8xQkljc2xDYlRxS3FR?=
- =?utf-8?B?YThQZEo1OUFZWVBDQ2FhbmJxTHFSZGUzS1dvODRwQXlPdkJjVk9aaUtvemRt?=
- =?utf-8?B?eVBGUzc1UTZUN09BN1g3Smp2em4xa3Z5MjNvbERrOVY0TytFZnNsbi9vd3Zm?=
- =?utf-8?B?M2NoOHhTc3djZGt1U2d4dlhvWEVISTRMMzVaU0Y5SnhIbzFnTThBY0xQdGZW?=
- =?utf-8?B?L3JrNlVON2lGSTlRMDhHNXRKc1NuT1FUUXNUMVhlRzBwM1o2blVGbEVBbmVG?=
- =?utf-8?B?d2p4YTBtZkhLdTkzaEM5NnEybFdVVU40SEJsZCs3RVRVMWwrNXpYY0lRZUF3?=
- =?utf-8?B?Z3k1SmlvdE42TWJ3UEdLcjVDbmcwVVNVSFdNVUtMWGtXbmtGNWZMaWtOUnp5?=
- =?utf-8?B?T0NMVnFidEE3UGgvS0ZKdTdYT2VKMTBpRzVPR3BDSDVSRFhQZDh4MnkvT0Zv?=
- =?utf-8?B?ZzFTZkhmS3pxMWFQbVkwbWVHRXFVSTNHb0Q5dHc2RHdDWWE2azAvR29KSjVV?=
- =?utf-8?B?cndhTTBzRFVMNFFCVVphdERONkZnUDZLc3Rla1JVUS8wUnM0YnhUOE5mOXNj?=
- =?utf-8?B?aUR3MnBMNEQ4dENhZnVvL2VTWWk1ZjNZQmd0c3JRbUQ1QU1uVGtDb2l2dTBv?=
- =?utf-8?B?Zkhsb1Y3b0crWnhobXJ5eWJqWERoZVpadExoL3BsdGMzNXpqbXI2SjV1OGJJ?=
- =?utf-8?Q?/DsqZYF+A/DxD?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH8PR12MB7301.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SXhpUkVIVElUSkQ3akFKS2tSNk4vQmtRMUlIYUVQdzdmYjZJZlZRMmYyM3RZ?=
- =?utf-8?B?TVEyYVR4ZS81VldIS1BrcHA3U1lGZCttTVlDNFJheU5FR253RVgwemFwWXFr?=
- =?utf-8?B?WVZNQmVENXFEQlkwVDFnV2haWVNWOU5aeDhpbVpVY0Zpa3RHNnNmNVk1Y21V?=
- =?utf-8?B?MU9Wbkw5WSt1alBBN2RsV3ExRndoWHhxV2pTRU9ZUVdFSjBzbWhSTEM0VEFv?=
- =?utf-8?B?Y1dYSFlDbjd1SjQrNDl2TmVHdHFlVEltd2hlVjFGVmlDbW1vbkNmVGhSMXV0?=
- =?utf-8?B?a3lDN25iRTQ0SWFkdk42ZWh6Z0I3VFZTS3JBcFlzYmUzTmN3YVE5eVpYU0F6?=
- =?utf-8?B?VnNmSTVTQkhvOEJDQ3ZHMVhzRGVvK2k3dmZKS1NjYXVuK25rWWJKc3BzVU05?=
- =?utf-8?B?enVtTnVXeVo4YWpVOTBqVUVuR25nZ2RydUJGK2gzL095cFNTQzNkYnkwdkxJ?=
- =?utf-8?B?NmxiZXlSRis5eGc4TytEOHJSSHNZem5sT2diRElNUEVTTDJJd3FUVVdaNHMy?=
- =?utf-8?B?bmcwV0wrUmlQWGtBdENVb3hnZlR4a0RRSUk3SUlHNERRcWF4QkZWYVNMT2V6?=
- =?utf-8?B?bjdNZWswc2tkMFZXNFBvOE5qdUpQT2JRN29WVURoaHByekh1S29PN2d2d3Zs?=
- =?utf-8?B?anU1cG1hSWQxY3owTjdUZWI4Z0FLclhyQklxTk83Y3JiOGpzeURKa0p2V3VB?=
- =?utf-8?B?WEpNRlBBRlNvTTF0ZWdwUlVQYWxjaUF6eWxXMSttZTNwcmxOMFplWUJ5SDNo?=
- =?utf-8?B?K0lEcDFJTFMyNFFRL3V5UDVUcjZsQWdRdFRETWlTcWxtL1poanh0ZUkxTTJQ?=
- =?utf-8?B?RXE0VmZlMWlPVWlIVHJ5N3BTNmY3czR2TjYwNTAwYXE4UVVvWVNJRGFrOFBs?=
- =?utf-8?B?WGVvelc5M3VhQWtvOHRxYUxkSUJGR1loa0hXeFpKcS9NVVA4UmZUMjc4Uk5p?=
- =?utf-8?B?a3ptVUpuUU04THhMV1pvemdqUGtoaC9IN0xPSUc4ZUp4cnN6bnBuc0JKa2h5?=
- =?utf-8?B?S0I4aFdBVlEwQUs1L0F5c3o3WlRFcENVY0VDa3NTT1lvYU4wMFNRUnBkQkhp?=
- =?utf-8?B?ZlJJYk9pc2d6eVprREVHblNLK3VFZllYbkpNbmlWaVhxTkhoV0d6N3BrUXgv?=
- =?utf-8?B?VVRlNzc3WUE5cnlWOStvZEtSU2VKSSt3MDIyclZXL2FXZ2wzVVN5dy9iUGJD?=
- =?utf-8?B?K3o2YWR1MGdTa3RDMWZrNFVlblpEaVlsWUFCbnBwcnptSHNMaWdYOVJjWFZz?=
- =?utf-8?B?YkJnNGM0ajJoL2xQTzJqWXhEazRnY2VXN3JCNDdvY096NjVRZ294L2srRzl0?=
- =?utf-8?B?WU5RQjZnS0VkaC9RUVdSK3k3Sm9HT2dHRGNseHhKZnczYTJIcE1xYmk2d1Vo?=
- =?utf-8?B?WXJ5SjVQYXREK1J5YzdZMFNGZGRBWU5EYUd2d1FuZ1laZ2JFNjJPZnpGT09F?=
- =?utf-8?B?d3BRZnIzckRNR0MreWpRa0RQakpWSnVQYlVWUkNJdWlaY1hqcm5MQy9hdnRN?=
- =?utf-8?B?TElsWEpnWWxPd2VnYkJ2M0l5TWt5VEV0K1dGQTdlbHRqcW40WHkwSytBOUY4?=
- =?utf-8?B?ZGpNWVFTd3ZkdHV3N1QwRlBNeVlBeHdSR0xFais4dHUwYzcyYXJKNW1GckEr?=
- =?utf-8?B?R0lKaVZ1ZXhHeFI5U3lqSGlpV0FBNWMwMnVhSDJYdm1QVnk5V0FvK2ZGOHFx?=
- =?utf-8?B?UmZQM1E5UHd1NWRlQTh1ZFVGZEx6dVhyV20zVW5Zckx3cVJYU1FPdG5qZDYw?=
- =?utf-8?B?NHAwYWRBc0hGdEhkVlRWdGtCYVNaSk1DamVxcFpqejJrZzRVYkx4dnF1Mjhs?=
- =?utf-8?B?ZElGVnlYSmJKMk13R1VkZk5ydWloQ2NNby9YVHVJL3lLUnVNOEJVNzR6UXFo?=
- =?utf-8?B?cnp4d2l6emJ2dVdyWFNIRi95R284SFFtZVpDQTlXZHZVRnAyR2s5dUtYSjdh?=
- =?utf-8?B?bFBUM3I3Z3RGYTdScWtoVXlaN3lBRHJvdkorYzVCV29FUnI3WGo3L1pVcXV0?=
- =?utf-8?B?enR6MEFDajQyS0h6YVhtcDA5bTg2MEdzb2k0cWFya2FMaWRZdnQ2NXRveVJU?=
- =?utf-8?B?VklPVnVwbFhIMWE2N2F4ai9tbm9OL010dmRVNzZxb1pNNUJ5alF0eCtvZlpN?=
- =?utf-8?Q?SOkH1X5P16LgMhtHiTIdDB+iR?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a2532a04-5291-407f-a492-08dd20e35fbc
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7301.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Dec 2024 10:45:09.5537 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: D+zvV9opuV9e1zn3la1ZtSZb2FguYsDyd+hL7bYeFikZxu7AQQmj1PVFxvJc4QmJuSnzgdfnP5SUEOLvcrrIMw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7511
+X-Microsoft-Antispam-Untrusted: BCL:0;ARA:13230040|1800799024|376014|366016;
+X-Microsoft-Antispam-Message-Info-Original: =?utf-8?B?UVM5Kzc1TGsvalhFcm5NVmx5SkYyYXhvUjBWSVNudGtOUUdIVkVrTWhtS3Jq?=
+ =?utf-8?B?MDdZUHhJaWprR0o4SEZYeFBlUG1lL2luZFZvMGlSKzl3LzlNeVl6NUNhbGo3?=
+ =?utf-8?B?ZXZsb3oxTXpjcDNJSU9XRHloNWd6dm03VnFYbmNYN2V4M0pGWFFqM2Zjb251?=
+ =?utf-8?B?cHdtK2Fud2ZZSUswRkgvZjlqYlVqUm5hLzV6R0p0VWt4RXpFQjZPTWI3WXBY?=
+ =?utf-8?B?dis4QUlYMXZIMTllUnd3NXhxVks0QzFtWUVrZEdObzdjdGNZQmRZZHcxK3Ay?=
+ =?utf-8?B?bVhWNExVSlhEMkdpci9pb3NicGdiNWxDOWFWZWxEYkZnSi8vdTZva2d0OWts?=
+ =?utf-8?B?SGNFaEhOVXYybFVCS3l4YStGSk1wVzUrREU5bmZRSU56WW8xb0VLRlMxZGxx?=
+ =?utf-8?B?TlZZUHQxRGZHMi9PZ21Ga2ZMWDdJTDk3eXRLazEzeUdLYUpWMG5qaUo5RzRT?=
+ =?utf-8?B?Sjl5UWJVWlVBR3ZpblBIOHdkMS9BQldIMmVvUDl5UnR1VkdkdlVLSU5uN2pk?=
+ =?utf-8?B?QkJqZ1A4Y1Z3YytJUmZOekZqUmx0V3Q1cWpURzRPajlBZHR4allrMHRnNjlx?=
+ =?utf-8?B?TmUrRnZCeHFIaFN0UVpPUENPYXpLTDNQeTlOcUUydlg3b0p1UGZqRjRpdHRZ?=
+ =?utf-8?B?emtOMUx3SGtCbXZjZWlmYlR1T2FFeXljSHoxV01qVWIwekVpL2ZNelVjNDNG?=
+ =?utf-8?B?VXZpcytxdEgrZ0Q1WkhNYlpMUlRVZkFoVWFNS2hUdU8zNTNUZGJoNDA2MGZr?=
+ =?utf-8?B?RG5KQjNLRko1WHZNUndJZDh0ODVqTWNPdVpsUnRNdDJXWXJoVlhCVjRKWjB6?=
+ =?utf-8?B?QVd6eS9pV1Qrd01QNGREQWxGQTR5RSsydkd2djFNUUJDdjM2cjZGc3RPREE5?=
+ =?utf-8?B?OGNSQ052VzB4RkQzeEFYdlNPZks0UmRBV1R6U2hVQUZjNUxRcmNFbTFDWnBC?=
+ =?utf-8?B?dVdvSWd3SUhvMTN3U2tYWE0yUDlKWXJrOTZ4bSs5S21OamRXMXNXU3lkMW84?=
+ =?utf-8?B?amlzL3owVmY0L0lqaVpDdVBBa0k2SHpwM00zK29RNG1KOFBVYWdHT2NtZ3Br?=
+ =?utf-8?B?SGRrNWpTbWFyVVdrdEZBcnlsemZtK3RZdGl5L3NmcWZ2S2RMeFdKbUZQaVVI?=
+ =?utf-8?B?YmRmcXJkQ2UyOXFOaVMzNDBVczhNMXVZcjFDd2k3VmJTYzhMQUJlWXZ3UW43?=
+ =?utf-8?B?V2hhSzYyeFp1MWtIWjhMeW9HUFFYRFFsYll1cVFSRVlLdGJFcVRuRThFQ0dv?=
+ =?utf-8?B?c2xITFNob3hVUkR1bzVlRlQveEJ2cGVHa21mWWszdnlpL2tDdjRoc2hnMlJO?=
+ =?utf-8?B?Vzk0ZGVES3FIV2JzRlJabEVyL2xWUkp6a3hMTExWQldjOEFMd0ltbFNoYWZ3?=
+ =?utf-8?B?ZEs2N0NjY2U4bG1PUEV1YitINjVwbEgxYUVWVzgxcDlpWGw1YVhoTTBFNGtI?=
+ =?utf-8?B?ZzhBRis1bXp3eUE5WUp6cXJrVnRLT2F0eThqMEVjWURnMHlmWjhyWVVGeUpr?=
+ =?utf-8?B?WDhLdEVLdVNReTZUOTE3TDVFUGpMTWYxOW10YlRtOFNmbTBuVnlmT1o2Q0Nn?=
+ =?utf-8?B?aVJXUTQwVEdUMGdKRy8rbDRCcWx0UGtTdTdFZWpGUWo3MUtDYkIrV3pFKzVy?=
+ =?utf-8?B?bEtlL1NaNnBvRzltK0REQlhTb0tidnN2ZmtPRnlvWE9Vb3hsaWhkUFpndzBp?=
+ =?utf-8?B?QjF0RHMrQWN0K1RjeTB5c09yUXREbENxMnNJbDFXbE44L3VqbGtLSXRmZTFl?=
+ =?utf-8?B?L095TDBoMzRER250YlpUMy90R0ZBKzFWT05XU1ZRQ1pXNnAzTmJnMjAzQ0Q5?=
+ =?utf-8?B?ZThpRE44bThwQnlxSTJIVUNNazNUcVZ6Q1FndFpnNm5PK0I3Uk1QUks5TE8r?=
+ =?utf-8?Q?w1Y3B0g+Cu5CL?=
+X-Forefront-Antispam-Report-Untrusted: CIP:255.255.255.255; CTRY:; LANG:en;
+ SCL:1; SRV:; IPV:NLI; SFV:NSPM; H:DU0PR08MB8563.eurprd08.prod.outlook.com;
+ PTR:; CAT:NONE; SFS:(13230040)(1800799024)(376014)(366016); DIR:OUT; SFP:1101;
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: FRZPR08MB10951
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-SkipListedInternetSender: ip=[2603:10a6:10:404::17];
+ domain=DU0PR08MB8563.eurprd08.prod.outlook.com
+X-MS-Exchange-Transport-CrossTenantHeadersStripped: AM4PEPF00025F9B.EURPRD83.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs: 19bab84c-f532-4b6d-7048-08dd20e9c70c
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|35042699022|1800799024|82310400026|376014|14060799003|36860700013;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?TFJRK2FRbE42WkxkNFV6bmEyc2NvN0ZXOEJiVkZPSWIxeW5WVWJQaWpEZ240?=
+ =?utf-8?B?MjYwTWxTVUdJUUdWZ3hUUVRrVEJBODgzczJyWTNkdjJ1VEV4clFPeTFyQzVs?=
+ =?utf-8?B?aURTWDhzMEhaY0pZdS92YXhYMU5XbzYxazBlRUI3dm1vWGhuUEg5enp4dWVB?=
+ =?utf-8?B?Mmo5bDRkbmNaTXEwajloblMzZktPSmFDQ0MraC9lZ0F3NDN4ZmhTK3hXRXBh?=
+ =?utf-8?B?V0JsODN0cm1xME9RTzdWNWZxMHo2Y05kMXA3T0h6VGVwUURVVXQ2aW1TZzJI?=
+ =?utf-8?B?alY4RzF4V2lMQWRtSm5YS092Rk44ODBwSVZFMjYvNXR4VlZsYXJDUS9PdFFp?=
+ =?utf-8?B?WElQT0N4VENKaU1hMktMZ2RSYWVjZFFQbFFpcVVaVnVNU05qcnp0K3NFWkow?=
+ =?utf-8?B?NENyREgwcWcydGpBRC9tbnlrU09CSnJvVVVUNHg4RktQSDdhK3U5YTlQQ0FO?=
+ =?utf-8?B?V3V3cnR3dU9DN25reGxrdHNXT2ZJeG5ZR2l5NzJwVGRaTDFxalR4cS9CeW9L?=
+ =?utf-8?B?TXRBZnNyVXJDMVFiSTNaSVNNUUt1c0JRN1NPN2JocVZ6ZkxwVlREcVJrb2o0?=
+ =?utf-8?B?cFB4TG1yS2ZpUmtyaVRib2piK0pEL2Nidm9Demt3Mi9iempNU2lVUm9YOUJq?=
+ =?utf-8?B?RVZmRHNlT3lyektXZ2MvT285RkFlcXVhWDJIOUNrQUpwNUxqb3plcmR4V3Y4?=
+ =?utf-8?B?Zlh0bzA5d1dHWVZGMTA5ZUxPcXBoZVhJMG5QQXZpOUJIWlBXNUdVOXFJaCtF?=
+ =?utf-8?B?Ym44dnVHQ1RJM0FGMlBBbmFGYWFXdWRkSkZzV0pSam0veU9uSWpRSXhybDZT?=
+ =?utf-8?B?b1Z3dmxYc3k4K05TVjkwMmxneVVZaXYwekFrR2lSU3p5dVczWGcvSnk1cDhh?=
+ =?utf-8?B?U0pFZU1OOEZuZVNDZmtNSEdNVEhGV0x0WExkdDdwVXUyRnpod0hIUVZkYjRL?=
+ =?utf-8?B?WGVLMTZOUUc5TGh4elFIdFlKanhjVW02SkpWbUtSRjZ3TzVKSG9VNzdFcG5T?=
+ =?utf-8?B?dTV5eUZxcnhFZVE1YWhER05ZQWNTTG5uQTJ0bFNLR1hTMU9wL2lBbGZyY1o0?=
+ =?utf-8?B?RDZJdzNSUTQ3dGRNME9TSXVtWXVLSUZ0blhyNFBtRjNhZ3p4T2FQSkl5VlN5?=
+ =?utf-8?B?SWpabVNVSWxSa0M0SWJFRWhET3NoOVA5ZE55NElUVkFXWW42bExraDlBa2Mr?=
+ =?utf-8?B?V3J5RkZmNk94eFpPVGhEbVJOOU9OR2Z3cTk1cWU1VG9wYnJjTEphYktJdEFn?=
+ =?utf-8?B?SDBuTnRoWkpiVjJGT05xUHRaZEJMejEvNTRuTGhMTEJ4S1hBNUZIQ3NBYmVU?=
+ =?utf-8?B?NUdLVHFlbHlndzM5SWd6cWV2U3BjTjdDOGVHNlhPUWNQcGJpeXBJUXpDaEM3?=
+ =?utf-8?B?WkhNNGFhTWhneGtwRmNVTU82c3hzZHgyK20xQkZUMEJoa3IwYjNTeGR3enZp?=
+ =?utf-8?B?RGI1b0trQkJ1bmZPZnZ6dGN2Rk1XKzc3RU54elU4M3RlYW1BeDRYWEh0K243?=
+ =?utf-8?B?MWU5RmNyV04xVFFmRGRqU0JYSW04Q0pxQlNkbU56anErVXY3VlN5VHhZRmkv?=
+ =?utf-8?B?TWFvZ2FjQUxFUDZSdWxwOXNxMDVqY1FvRThVS2ZWeVIrK2pGU0VNcXJoeEJZ?=
+ =?utf-8?B?Y1B1eHZpeGtJSFJsRjN2YkVCdHV5UlNZcmpGMXZ5U2ZIbXV6VUlTRXFtdzlQ?=
+ =?utf-8?B?c21xOGZhMHg0a0ZrRVFPd1lteHhKTkl3TGY4eVliLzlWZUxBdjVMTHFuUmJK?=
+ =?utf-8?B?V29makRRMXFOd0RLUkVqaUZiVTRRWmxOTmtReERpUEJwREE0eWFkc1EvUzlk?=
+ =?utf-8?B?a29jTVZMSnJwc2NyWE9GSTJGaXNXNmo1cU13MEVVZ2c3U1lUQmRSbzRtaTJD?=
+ =?utf-8?B?VVRDd0JwRUl3R2xlZWxTVURGdTdkdHFLNGlTMEIzeGdXQXBrb3g1OU4rejNL?=
+ =?utf-8?B?aXp2UEQ0bmZ2bUJhMU8vNnRYelJ4KzQ5bjdUUTFLTllmaktaTnc3TFNuZ1BE?=
+ =?utf-8?B?RFRXR3A5SDlWanh0MUlxVlFNQitHemRWYWQ0UHRtVHZhR3YxN01YcEFkMVJQ?=
+ =?utf-8?Q?+PgKxJ?=
+X-Forefront-Antispam-Report: CIP:63.35.35.123; CTRY:IE; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:64aa7808-outbound-1.mta.getcheckrecipient.com;
+ PTR:64aa7808-outbound-1.mta.getcheckrecipient.com; CAT:NONE;
+ SFS:(13230040)(35042699022)(1800799024)(82310400026)(376014)(14060799003)(36860700013);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Dec 2024 11:31:08.1185 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b12de47a-1bb2-4c64-d624-08dd20e9cc40
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d; Ip=[63.35.35.123];
+ Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource: AM4PEPF00025F9B.EURPRD83.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB4PR08MB9238
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -163,237 +241,185 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+This is getting long, so tl;dr:
 
+ - Pitch alignment *by itself* is manageable.
+ - Adding constraints in modifiers quickly leads to combinatorial
+   explosion.
+ - drm_fourcc.h explicitly says "it's incorrect to encode pitch
+   alignment in a modifier", for all the reasons Daniel raised. That
+   needs addressing.
 
+On Thu, Dec 19, 2024 at 07:33:07PM +0000, Marek Olšák wrote:
+> On Thu, Dec 19, 2024 at 5:32 AM Brian Starkey <brian.starkey@arm.com> wrote:
+> 
+> > On Wed, Dec 18, 2024 at 09:53:56PM +0000, Marek Olšák wrote:
+> 
+> The pitch doesn't always describe the layout. In practice, the pitch has no
+> effect on any tiled layouts (on AMD), and it also has no effect on linear
+> layouts if the pitch must be equal to a specifically rounded up width. In
+> that case, the only function of the pitch is to reject importing a DMABUF
+> if it's incorrect with respect to the width. In other cases, the pitch is a
+> parameter of the modifier (i.e. the pitch augments the layout, so the
+> layout is described by {modifier, width, height, bpp, pitch} instead of
+> just {modifier, width, height, bpp}).
 
-On 12/20/2024 4:08 PM, Christian König wrote:
-> Hi Arun,
->
-> Am 20.12.24 um 11:34 schrieb Paneer Selvam, Arunpravin:
->> Hi Christian,
->>
->>
->> On 12/19/2024 4:11 PM, Christian König wrote:
->>>
->>>
->>> Am 19.12.24 um 11:38 schrieb Arunpravin Paneer Selvam:
->>>> Fix out-of-bounds issue in userq fence create when
->>>> accessing the userq xa structure. Added a lock to
->>>> protect the race condition.
->>>>
->>>> v2:(Christian)
->>>>    - Acquire xa lock only for the xa_for_each blocks and
->>>>      not for the kvmalloc_array() memory allocation part.
->>>>
->>>> v3:
->>>>    - Replacing the kvmalloc_array() storage with xa_alloc()
->>>>      solves the problem.
->>>>
->>>> BUG: KASAN: slab-out-of-bounds in 
->>>> amdgpu_userq_fence_create+0x726/0x880 [amdgpu]
->>>> [  +0.000006] Call Trace:
->>>> [  +0.000005]  <TASK>
->>>> [  +0.000005]  dump_stack_lvl+0x6c/0x90
->>>> [  +0.000011]  print_report+0xc4/0x5e0
->>>> [  +0.000009]  ? srso_return_thunk+0x5/0x5f
->>>> [  +0.000008]  ? kasan_complete_mode_report_info+0x26/0x1d0
->>>> [  +0.000007]  ? amdgpu_userq_fence_create+0x726/0x880 [amdgpu]
->>>> [  +0.000405]  kasan_report+0xdf/0x120
->>>> [  +0.000009]  ? amdgpu_userq_fence_create+0x726/0x880 [amdgpu]
->>>> [  +0.000405]  __asan_report_store8_noabort+0x17/0x20
->>>> [  +0.000007]  amdgpu_userq_fence_create+0x726/0x880 [amdgpu]
->>>> [  +0.000406]  ? __pfx_amdgpu_userq_fence_create+0x10/0x10 [amdgpu]
->>>> [  +0.000408]  ? srso_return_thunk+0x5/0x5f
->>>> [  +0.000008]  ? ttm_resource_move_to_lru_tail+0x235/0x4f0 [ttm]
->>>> [  +0.000013]  ? srso_return_thunk+0x5/0x5f
->>>> [  +0.000008]  amdgpu_userq_signal_ioctl+0xd29/0x1c70 [amdgpu]
->>>> [  +0.000412]  ? __pfx_amdgpu_userq_signal_ioctl+0x10/0x10 [amdgpu]
->>>> [  +0.000404]  ? try_to_wake_up+0x165/0x1840
->>>> [  +0.000010]  ? __pfx_futex_wake_mark+0x10/0x10
->>>> [  +0.000011]  drm_ioctl_kernel+0x178/0x2f0 [drm]
->>>> [  +0.000050]  ? __pfx_amdgpu_userq_signal_ioctl+0x10/0x10 [amdgpu]
->>>> [  +0.000404]  ? __pfx_drm_ioctl_kernel+0x10/0x10 [drm]
->>>> [  +0.000043]  ? __kasan_check_read+0x11/0x20
->>>> [  +0.000007]  ? srso_return_thunk+0x5/0x5f
->>>> [  +0.000007]  ? __kasan_check_write+0x14/0x20
->>>> [  +0.000008]  drm_ioctl+0x513/0xd20 [drm]
->>>> [  +0.000040]  ? __pfx_amdgpu_userq_signal_ioctl+0x10/0x10 [amdgpu]
->>>> [  +0.000407]  ? __pfx_drm_ioctl+0x10/0x10 [drm]
->>>> [  +0.000044]  ? srso_return_thunk+0x5/0x5f
->>>> [  +0.000007]  ? _raw_spin_lock_irqsave+0x99/0x100
->>>> [  +0.000007]  ? __pfx__raw_spin_lock_irqsave+0x10/0x10
->>>> [  +0.000006]  ? __rseq_handle_notify_resume+0x188/0xc30
->>>> [  +0.000008]  ? srso_return_thunk+0x5/0x5f
->>>> [  +0.000008]  ? srso_return_thunk+0x5/0x5f
->>>> [  +0.000006]  ? _raw_spin_unlock_irqrestore+0x27/0x50
->>>> [  +0.000010]  amdgpu_drm_ioctl+0xcd/0x1d0 [amdgpu]
->>>> [  +0.000388]  __x64_sys_ioctl+0x135/0x1b0
->>>> [  +0.000009]  x64_sys_call+0x1205/0x20d0
->>>> [  +0.000007]  do_syscall_64+0x4d/0x120
->>>> [  +0.000008]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
->>>> [  +0.000007] RIP: 0033:0x7f7c3d31a94f
->>>>
->>>> Signed-off-by: Arunpravin Paneer Selvam 
->>>> <Arunpravin.PaneerSelvam@amd.com>
->>>> ---
->>>>   .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   | 43 
->>>> +++++++------------
->>>>   .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.h   |  3 +-
->>>>   2 files changed, 17 insertions(+), 29 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c 
->>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
->>>> index 2e7271362ace..4289bed6c1f7 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
->>>> @@ -122,10 +122,11 @@ int amdgpu_userq_fence_driver_alloc(struct 
->>>> amdgpu_device *adev,
->>>>     void amdgpu_userq_fence_driver_process(struct 
->>>> amdgpu_userq_fence_driver *fence_drv)
->>>>   {
->>>> +    struct amdgpu_userq_fence_driver *stored_fence_drv;
->>>>       struct amdgpu_userq_fence *userq_fence, *tmp;
->>>>       struct dma_fence *fence;
->>>> +    unsigned long index;
->>>>       u64 rptr;
->>>> -    int i;
->>>>         if (!fence_drv)
->>>>           return;
->>>> @@ -141,8 +142,8 @@ void amdgpu_userq_fence_driver_process(struct 
->>>> amdgpu_userq_fence_driver *fence_d
->>>>             dma_fence_signal(fence);
->>>>   -        for (i = 0; i < userq_fence->fence_drv_array_count; i++)
->>>> - amdgpu_userq_fence_driver_put(userq_fence->fence_drv_array[i]);
->>>> +        xa_for_each(&userq_fence->fence_drv_xa, index, 
->>>> stored_fence_drv)
->>>> + amdgpu_userq_fence_driver_put(stored_fence_drv);
->>>>             list_del(&userq_fence->link);
->>>>           dma_fence_put(fence);
->>>> @@ -221,34 +222,24 @@ int amdgpu_userq_fence_create(struct 
->>>> amdgpu_usermode_queue *userq,
->>>>       dma_fence_init(fence, &amdgpu_userq_fence_ops, 
->>>> &userq_fence->lock,
->>>>                  fence_drv->context, seq);
->>>>   +    xa_init_flags(&userq_fence->fence_drv_xa, XA_FLAGS_ALLOC);
->>>> +
->>>>       amdgpu_userq_fence_driver_get(fence_drv);
->>>>       dma_fence_get(fence);
->>>>         if (!xa_empty(&userq->fence_drv_xa)) {
->>>>           struct amdgpu_userq_fence_driver *stored_fence_drv;
->>>> -        unsigned long index, count = 0;
->>>> -        int i = 0;
->>>> -
->>>> -        xa_for_each(&userq->fence_drv_xa, index, stored_fence_drv)
->>>> -            count++;
->>>> -
->>>> -        userq_fence->fence_drv_array =
->>>> -            kvmalloc_array(count,
->>>> -                       sizeof(struct amdgpu_userq_fence_driver *),
->>>> -                       GFP_KERNEL);
->>>> -
->>>> -        if (userq_fence->fence_drv_array) {
->>>> -            xa_for_each(&userq->fence_drv_xa, index, 
->>>> stored_fence_drv) {
->>>> -                userq_fence->fence_drv_array[i] = stored_fence_drv;
->>>> -                xa_erase(&userq->fence_drv_xa, index);
->>>> -                i++;
->>>> -            }
->>>> +        unsigned long index_uq;
->>>> +        u32 index_uf;
->>>> +        int err;
->>>> +
->>>> +        xa_for_each(&userq->fence_drv_xa, index_uq, 
->>>> stored_fence_drv) {
->>>> +            err = xa_alloc_irq(&userq_fence->fence_drv_xa, &index_uf,
->>>> +                       stored_fence_drv, xa_limit_32b, GFP_KERNEL);
->>>
->>> That is even worse than what was discussed before. Now you have two 
->>> XAs and the second is incorrectly using GFP_KERNEL.
->>
->> I think the problem here is, the WAIT IOCTL updates the 
->> userq->fence_drv_xa entries between the 2 xa_for_each blocks
->> exactly at kvmalloc_array memory allocation. Though, we are locking 
->> the first and second xa_for_each blocks and having the
->> GFP_ATOMIC in place didnt help to resolve the problem.
->
-> Yeah, I agree on the problem. But I don't understand why using 
-> GFP_ATOMIC didn't solved the issue.
->
->>
->> For example,
->> kvmalloc_array() is allocating the memory for the count value(say 5) 
->> and before we acquire the second
->> xa_for_each block lock, the count modified to (say 7) by the WAIT 
->> IOCTL xa_alloc() function (by acquiring the same lock),
->> and we would be iterating for the new count. But the memory allocated 
->> would be for 5 entries.
->>
->> xa_lock()
->> first xa_for_each block to count the entries
->> xa_unlock()
->
-> When you use GFP_ATOMIC you can drop this xa_unlock().
->
->>
->> kvmalloc_array allocates for count 5
->>
->> xa_lock()
->
-> And that xa_lock() and so make sure that the xa isn't modified in 
-> between.
-Got it. Thanks!
+I'm only talking about LINEAR here.
 
-Regards,
-Arun.
->
-> Regards,
-> Christian.
->
->> second xa_for_each block to move the entries to allocated memory
->> here the count increased to 7
->> xa_unlock
->>
->> Thanks,
->> Arun.
->>>
->>> Regards,
->>> Christian.
->>>
->>>> +            if (err)
->>>> +                return err;
->>>>           }
->>>> -
->>>> -        userq_fence->fence_drv_array_count = i;
->>>> -    } else {
->>>> -        userq_fence->fence_drv_array = NULL;
->>>> -        userq_fence->fence_drv_array_count = 0;
->>>> +        xa_destroy(&userq->fence_drv_xa);
->>>>       }
->>>>         /* Check if hardware has already processed the job */
->>>> @@ -300,8 +291,6 @@ static void amdgpu_userq_fence_free(struct 
->>>> rcu_head *rcu)
->>>>         /* Release the fence driver reference */
->>>>       amdgpu_userq_fence_driver_put(fence_drv);
->>>> -
->>>> -    kvfree(userq_fence->fence_drv_array);
->>>>       kmem_cache_free(amdgpu_userq_fence_slab, userq_fence);
->>>>   }
->>>>   diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.h 
->>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.h
->>>> index f1a90840ac1f..3283e5573d10 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.h
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.h
->>>> @@ -37,9 +37,8 @@ struct amdgpu_userq_fence {
->>>>        */
->>>>       spinlock_t lock;
->>>>       struct list_head link;
->>>> -    unsigned long fence_drv_array_count;
->>>> +    struct xarray fence_drv_xa;
->>>>       struct amdgpu_userq_fence_driver *fence_drv;
->>>> -    struct amdgpu_userq_fence_driver **fence_drv_array;
->>>>   };
->>>>     struct amdgpu_userq_fence_driver {
->>>
->>
->
+The ALIGN modifier tells an allocator what values of pitch are
+acceptable, but it doesn't add any information about the buffer layout
+which isn't already communicated by {format, width, height, bpp,
+pitch}.
 
+The AMD driver doesn't need the ALIGN modifier to determine if a
+buffer is valid, it can do it entirely based on {format, width,
+height, bpp, pitch}.
+
+These two buffers are identical, and a driver which accepts one should
+accept both:
+
+{
+   .format = DRM_FORMAT_XRGB8888,
+   .width = 64,
+   .height = 64,
+   .pitch = 256,
+   .modifier = DRM_FORMAT_MOD_LINEAR,
+}
+
+{
+   .format = DRM_FORMAT_XRGB8888,
+   .width = 64,
+   .height = 64,
+   .pitch = 256,
+   .modifier = DRM_FORMAT_MOD_LINEAR_PITCH_ALIGN_256B,
+}
+
+This new modifier is a clear and direct violation of the comment in
+drm_fourcc.h:
+
+ * Modifiers must uniquely encode buffer layout. In other words, a buffer must
+ * match only a single modifier. A modifier must not be a subset of layouts of
+ * another modifier. For instance, it's incorrect to encode pitch alignment in
+ * a modifier: a buffer may match a 64-pixel aligned modifier and a 32-pixel
+ * aligned modifier. That said, modifiers can have implicit minimal
+ * requirements.
+
+I assume the argument here is this doesn't apply in this case because
+we're deprecating LINEAR / the current LINEAR definition is wrong; but
+it smells bad - it implies that this isn't the right API.
+
+> 
+> >
+> > There _is_ a problem with having a million modifiers. The opaque set
+> > intersection means that all authors from all vendors need to expose
+> > the correct sets. The harder that is to do, the less likely things are
+> > to work.
+> >
+> 
+> No, exposing the correct set is never required. You only expose your set,
+> and then also expose those modifiers where you need interop. Interop
+> between every pair of devices is generally unsupported (since LINEAR
+> between devices is practically unsupported).
+> 
+
+How do I know where I need interop?
+
+> 
+> >
+> > Look at GENERIC_16_16_TILE. We spotted that our layout was the same as
+> > something already defined under SAMSUNG. If there were a million
+> > modifiers, we wouldn't be able to spot that commonality, and you'd end
+> > up with disjoint sets even when you have layouts in common.
+> >
+> 
+> This is unrelated.
+
+More modifiers makes maintenance of the list harder. That seems
+entirely relevant in light of the combinatorial explosion I described
+below.
+
+> 
+> >
+> > For this specific case of pitch alignment it seems like the consensus
+> > is we should add a modifier, but I still strongly disagree that
+> > modifiers are the right place in-general for trying to describe device
+> > buffer usage constraints.
+> >
+> > I'm worried that adding these alignment constraints without any
+> > statement on future intention pushes us down the slippery slope, and
+> > it's *very* slippery.
+> >
+> > Up-thread you mentioned offset alignment. If we start putting that in
+> > modifiers then we have:
+> >
+> > * Pitch alignment
+> >   * Arbitrary, 1 byte
+> >   * At least 16 byte aligned, arbitrary padding (Arm needs this)
+> >   * Exactly the next 64 bytes (AMD?)
+> > * Offset alignment
+> >   * Arbitrary, 1 byte
+> >   * You mentioned 4096 bytes (AMD?)
+> >   * Arm needs 16, 8, 4 or 2 bytes, depending on format. Oh and it's
+> >     different for the chroma plane of planar YUV too, so it's more
+> >     like 16, 8, 4, 2, 2Y_1CbCr
+> >
+> > We would need a new modifier value for each *combination* of
+> > constraints, so 3 (pitch) * 7 (offset) gives 21 new LINEAR modifiers
+> > which need defining, and a device with no pitch/offset constraints
+> > needs to expose *all* of them to make sure it can interop with an
+> > Arm/AMD device.
+> >
+> 
+> No, it's not needed to expose all of them. Again, you just expose what you
+> need to interop with.
+
+How does a driver developer know what they need to interop with? I
+want my display controller driver to work with any GPU.
+
+It needs to expose PITCH_ALIGN_16B (the actual HW capability),
+PITCH_ALIGN_256B (so it can interop with AMD) and any other values
+which are >16B and aligned to 16B for interop with any other
+producer. i.e. "all of them".
+
+That's manageable for PITCH_ALIGN. It's not manageable if we start
+adding other constraints to modifiers.
+
+> 
+> We know that the LINEAR modifier doesn't work with 1B pitch and offset
+> alignment pretty much everywhere. What are you going to do about it?
+
+Have an allocator use some "reasonable" pitch alignment (I think we
+default to 64 bytes for RGB), and allocate well-aligned buffers. If
+"reasonable" is 256B, use that. Better is to have userspace allocator
+which knows the devices in the system, knows the buffer usage, and
+allocates accordingly.
+
+"How does it know?" --> The allocator just codes in what it needs to
+interop with, obviously ;-)
+I'd definitely rather bake that interop list in userspace than kernel
+drivers.
+
+I think it would be great to have a kernel interface to help
+allocators "know". I don't think `IN_FORMATS` should be that
+interface.
+
+Cheers,
+-Brian
+
+> 
+> Perhaps the solution is what Intel has done to interop with AMD: Intel's
+> image allocator was changed to align the linear pitch to 256B. We can
+> demand that all drivers must align the pitch to 256B in their allocators
+> too. If they don't want to do it, they will likely be forced to do it by
+> their management, which is likely why Intel did it. Is that the future we
+> want? It's already happening.
+> 
+> Minimum alignment requirements (for AMD):
+> * Offset: 256B
+> * Pitch: 128B or 256B (only minimum or any multiple - different chips have
+> different limits)
+> * Slice size alignment: 256B
+> * Contiguous pages (not visible to uAPI since the kernel can reallocate to
+> enforce this constraint when needed)
+> 
+> Marek
