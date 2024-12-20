@@ -4,65 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46D93E7718C
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Dec 2024 14:07:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33DB7E77188
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Dec 2024 14:15:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E418C10E398;
-	Fri, 20 Dec 2024 14:07:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECD0D10E389;
+	Fri, 20 Dec 2024 14:15:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="kUHUJbdK";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="g+cG5POY";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E11410E076;
- Fri, 20 Dec 2024 14:07:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1734703654; x=1766239654;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=iri6H3nmdhP6/8IE99rvnbXZ3uixxk5Q0ccMzHM9kxY=;
- b=kUHUJbdKo+JUpVTKaQvt1/YZQVZHqnvE9BzryjrKOLgUz/l6mWPjjy9J
- EFdxpLXpfOawaC0BSkul0JfEnuOLVoyflS05Ss9Ay1l+xMG8xDBOOuefl
- q2wR33wTBpkkR5f/BZY2FiPr94lK9NPIdqR2pyw8NjeHgQyCBbdtXrRCJ
- V7L3WeNiFaBqbfBfqLImdRqGPQCHalH5pZqsIn6M4MDPmbRCA6gV3uNBy
- hAOarlfaTreAEqtOxFqHYHHTtgXM0pnyAVFaZsmv8lNo1wETptTaKumaZ
- PYhismCmK93DjsNGeanVJd+5tSOLKNcer5Yjb17DFJMWlP7WAH47ELI9M g==;
-X-CSE-ConnectionGUID: iR3H0qxWTzCm8+NSlFu3/Q==
-X-CSE-MsgGUID: uo3744O2RlybXT+FONwhEg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11292"; a="38936299"
-X-IronPort-AV: E=Sophos;i="6.12,250,1728975600"; d="scan'208";a="38936299"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Dec 2024 06:07:33 -0800
-X-CSE-ConnectionGUID: pl7KR/3FSV682XCpZDutGg==
-X-CSE-MsgGUID: e0vfaQZmTfClFJZ4RroT5g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="99346134"
-Received: from lkp-server01.sh.intel.com (HELO a46f226878e0) ([10.239.97.150])
- by orviesa008.jf.intel.com with ESMTP; 20 Dec 2024 06:07:29 -0800
-Received: from kbuild by a46f226878e0 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1tOdf4-0001Cx-2A;
- Fri, 20 Dec 2024 14:07:26 +0000
-Date: Fri, 20 Dec 2024 22:06:33 +0800
-From: kernel test robot <lkp@intel.com>
-To: =?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>,
- Raag Jadav <raag.jadav@intel.com>, airlied@gmail.com,
- simona@ffwll.ch, lucas.demarchi@intel.com, rodrigo.vivi@intel.com,
- jani.nikula@linux.intel.com, andriy.shevchenko@linux.intel.com,
- lina@asahilina.net, michal.wajdeczko@intel.com, christian.koenig@amd.com
-Cc: oe-kbuild-all@lists.linux.dev, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, himal.prasad.ghimiray@intel.com,
- aravind.iddamsetty@linux.intel.com, anshuman.gupta@intel.com,
- alexander.deucher@amd.com, andrealmeid@igalia.com,
- amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com
-Subject: Re: [PATCH 1/1] drm/amdgpu: Use device wedged event
-Message-ID: <202412202144.SalviKDh-lkp@intel.com>
-References: <20241212190909.28559-2-andrealmeid@igalia.com>
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C4AF110E131
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Dec 2024 10:31:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description;
+ bh=nMeZGQ+3kWPIPYP6wpoaQAymOrYo8lqxNQuWkBMJcVE=; b=g+cG5POYdEgx3EfUeE3AxWzMcT
+ GjYFC2para1RsxL8TpfbSBOd2O9ufLidLrYN5s2MxZa1qm26WycSTu/BkZvjbc2zeTMdZNNOAdPdk
+ UE5dJfu1RTkL6Q4oGSZaZEtxLSo0si4SObhQ4dV2ged36zt6wXGOP0TN0IHibnzLslhELd/fx00/O
+ K8nkxx60b6Q/BjFs3BItwfv67xOp76nU9dVCtcyH8ff4ImSxFmrOoq041fHef2t6WKjsGP2vpAb6O
+ 7m895gTjOufnY8vK/Nrd/wNIFhCuVPdsr8QUI2kl3TXZ4/i7deWOtRGuXMl67h8hGSgHrM2AkzcBt
+ v0CMzxtQ==;
+Received: from 77-249-17-89.cable.dynamic.v4.ziggo.nl ([77.249.17.89]
+ helo=noisy.programming.kicks-ass.net)
+ by casper.infradead.org with esmtpsa (Exim 4.98 #2 (Red Hat Linux))
+ id 1tOaHc-00000000BBw-23nM; Fri, 20 Dec 2024 10:31:00 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+ id 3B6FD3003FF; Fri, 20 Dec 2024 11:31:00 +0100 (CET)
+Date: Fri, 20 Dec 2024 11:31:00 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Tiezhu Yang <yangtiezhu@loongson.cn>
+Cc: Alex Deucher <alexdeucher@gmail.com>, Josh Poimboeuf <jpoimboe@kernel.org>,
+ Huacai Chen <chenhuacai@kernel.org>, loongarch@lists.linux.dev,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Nick Desaulniers <ndesaulniers@google.com>, nathan@kernel.org,
+ llvm@lists.linux.dev
+Subject: Re: [PATCH v6 9/9] drm/amd/display: Mark dc_fixpt_from_fraction()
+ noinline
+Message-ID: <20241220103100.GB17537@noisy.programming.kicks-ass.net>
+References: <20241217010905.13054-1-yangtiezhu@loongson.cn>
+ <20241217015006.30305-1-yangtiezhu@loongson.cn>
+ <CAAhV-H4WpcWjrQdkm3Sx4DVbp=2oW9nNGAbNqR4BEmiryrptNQ@mail.gmail.com>
+ <20241218190558.g2hykmjgbny4n5i3@jpoimboe>
+ <CADnq5_PFcHzob4poLa86_K4yP5gUT7Ei4Rz5vSUofvZTmB48-g@mail.gmail.com>
+ <4bace457-cc26-13a3-bc90-ad6ad12bc2ed@loongson.cn>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20241212190909.28559-2-andrealmeid@igalia.com>
+In-Reply-To: <4bace457-cc26-13a3-bc90-ad6ad12bc2ed@loongson.cn>
+X-Mailman-Approved-At: Fri, 20 Dec 2024 14:15:36 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,317 +67,194 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi André,
+On Fri, Dec 20, 2024 at 01:02:18PM +0800, Tiezhu Yang wrote:
 
-kernel test robot noticed the following build errors:
+> 2. For x86
+> 
+> I tested with LLVM 19.1.6 and the latest mainline LLVM, the test result
+> is same with LoongArch.
 
-[auto build test ERROR on linus/master]
-[also build test ERROR on drm-intel/for-linux-next drm-intel/for-linux-next-fixes drm-tip/drm-tip v6.13-rc3 next-20241220]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Debian's clang-19 is 19.1.5.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Andr-Almeida/drm-amdgpu-Use-device-wedged-event/20241213-031134
-base:   linus/master
-patch link:    https://lore.kernel.org/r/20241212190909.28559-2-andrealmeid%40igalia.com
-patch subject: [PATCH 1/1] drm/amdgpu: Use device wedged event
-config: s390-randconfig-001-20241220 (https://download.01.org/0day-ci/archive/20241220/202412202144.SalviKDh-lkp@intel.com/config)
-compiler: s390-linux-gcc (GCC) 14.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20241220/202412202144.SalviKDh-lkp@intel.com/reproduce)
+> (1) objdump info with LLVM release version 19.1.6:
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202412202144.SalviKDh-lkp@intel.com/
+Please always use -r, that's ever so much more readable.
 
-All errors (new ones prefixed by >>):
+> $ clang --version | head -1
+> clang version 19.1.6
+> 
+> There is an jump instruction "jmp" at the end of dc_fixpt_recip(), it
+> maybe jumps to a position and then steps to the return instruction, so
+> there is no "falls through" objtool warning.
+> 
+> 0000000000000290 <dc_fixpt_recip>:
+>      290:       f3 0f 1e fa             endbr64
+>      294:       e8 00 00 00 00          call   299 <dc_fixpt_recip+0x9>
+>      299:       48 85 ff                test   %rdi,%rdi
+>      29c:       0f 84 a8 00 00 00       je     34a <dc_fixpt_recip+0xba>
+>      2a2:       48 89 f9                mov    %rdi,%rcx
+>      2a5:       48 f7 d9                neg    %rcx
+>      2a8:       48 0f 48 cf             cmovs  %rdi,%rcx
+>      2ac:       53                      push   %rbx
+>      2ad:       48 b8 00 00 00 00 01    movabs $0x100000000,%rax
+>      2b4:       00 00 00
+>      2b7:       31 d2                   xor    %edx,%edx
+>      2b9:       48 f7 f1                div    %rcx
+>      2bc:       be e0 ff ff ff          mov    $0xffffffe0,%esi
+>      2c1:       eb 1b                   jmp    2de <dc_fixpt_recip+0x4e>
+>      2c3:       45 88 c8                mov    %r9b,%r8b
+>      2c6:       4d 01 c0                add    %r8,%r8
+>      2c9:       4d 8d 04 80             lea    (%r8,%rax,4),%r8
+>      2cd:       48 29 da                sub    %rbx,%rdx
+>      2d0:       45 88 da                mov    %r11b,%r10b
+>      2d3:       4c 89 d0                mov    %r10,%rax
+>      2d6:       4c 09 c0                or     %r8,%rax
+>      2d9:       83 c6 02                add    $0x2,%esi
+>      2dc:       74 31                   je     30f <dc_fixpt_recip+0x7f>
+>      2de:       48 01 d2                add    %rdx,%rdx
+>      2e1:       45 31 c0                xor    %r8d,%r8d
+>      2e4:       41 ba 00 00 00 00       mov    $0x0,%r10d
+>      2ea:       48 39 ca                cmp    %rcx,%rdx
+>      2ed:       41 0f 93 c1             setae  %r9b
+>      2f1:       72 03                   jb     2f6 <dc_fixpt_recip+0x66>
+>      2f3:       49 89 ca                mov    %rcx,%r10
+>      2f6:       4c 29 d2                sub    %r10,%rdx
+>      2f9:       48 01 d2                add    %rdx,%rdx
+>      2fc:       45 31 d2                xor    %r10d,%r10d
+>      2ff:       48 89 cb                mov    %rcx,%rbx
+>      302:       48 39 ca                cmp    %rcx,%rdx
+>      305:       41 0f 93 c3             setae  %r11b
+>      309:       73 b8                   jae    2c3 <dc_fixpt_recip+0x33>
+>      30b:       31 db                   xor    %ebx,%ebx
+>      30d:       eb b4                   jmp    2c3 <dc_fixpt_recip+0x33>
+>      30f:       48 01 d2                add    %rdx,%rdx
+>      312:       48 be fe ff ff ff ff    movabs $0x7ffffffffffffffe,%rsi
+>      319:       ff ff 7f
+>      31c:       4c 8d 46 01             lea    0x1(%rsi),%r8
+>      320:       48 39 ca                cmp    %rcx,%rdx
+>      323:       4c 0f 43 c6             cmovae %rsi,%r8
+>      327:       4c 39 c0                cmp    %r8,%rax
+>      32a:       77 29                   ja     355 <dc_fixpt_recip+0xc5>
+>      32c:       48 39 ca                cmp    %rcx,%rdx
+>      32f:       48 83 d8 ff             sbb    $0xffffffffffffffff,%rax
+>      333:       48 89 c1                mov    %rax,%rcx
+>      336:       48 f7 d9                neg    %rcx
+>      339:       48 85 ff                test   %rdi,%rdi
+>      33c:       48 0f 49 c8             cmovns %rax,%rcx
+>      340:       48 89 c8                mov    %rcx,%rax
+>      343:       5b                      pop    %rbx
+>      344:       2e e9 00 00 00 00       cs jmp 34a <dc_fixpt_recip+0xba>
+>      34a:       0f 0b                   ud2
+>      34c:       0f 0b                   ud2
+>      34e:       31 c9                   xor    %ecx,%ecx
+>      350:       e9 57 ff ff ff          jmp    2ac <dc_fixpt_recip+0x1c>
+>      355:       0f 0b                   ud2
+>      357:       eb d3                   jmp    32c <dc_fixpt_recip+0x9c>
+>      359:       0f 1f 80 00 00 00 00    nopl   0x0(%rax)
 
-   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c: In function 'amdgpu_device_gpu_recover':
->> drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:6061:9: error: implicit declaration of function 'drm_dev_wedged_event' [-Wimplicit-function-declaration]
-    6061 |         drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE);
-         |         ^~~~~~~~~~~~~~~~~~~~
->> drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:6061:49: error: 'DRM_WEDGE_RECOVERY_NONE' undeclared (first use in this function); did you mean 'DRM_MODE_ENCODER_NONE'?
-    6061 |         drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE);
-         |                                                 ^~~~~~~~~~~~~~~~~~~~~~~
-         |                                                 DRM_MODE_ENCODER_NONE
-   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:6061:49: note: each undeclared identifier is reported only once for each function it appears in
+I had to puzzle a bit to get that double ud2 -- not all configs do that.
 
+Also, curse the DRM Makefiles, you can't do:
 
-vim +/drm_dev_wedged_event +6061 drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+  make drivers/gpu/drm/amd/display/dc/basics/fixpt31_32.s
 
-  5794	
-  5795	/**
-  5796	 * amdgpu_device_gpu_recover - reset the asic and recover scheduler
-  5797	 *
-  5798	 * @adev: amdgpu_device pointer
-  5799	 * @job: which job trigger hang
-  5800	 * @reset_context: amdgpu reset context pointer
-  5801	 *
-  5802	 * Attempt to reset the GPU if it has hung (all asics).
-  5803	 * Attempt to do soft-reset or full-reset and reinitialize Asic
-  5804	 * Returns 0 for success or an error on failure.
-  5805	 */
-  5806	
-  5807	int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
-  5808				      struct amdgpu_job *job,
-  5809				      struct amdgpu_reset_context *reset_context)
-  5810	{
-  5811		struct list_head device_list, *device_list_handle =  NULL;
-  5812		bool job_signaled = false;
-  5813		struct amdgpu_hive_info *hive = NULL;
-  5814		struct amdgpu_device *tmp_adev = NULL;
-  5815		int i, r = 0;
-  5816		bool need_emergency_restart = false;
-  5817		bool audio_suspended = false;
-  5818		int retry_limit = AMDGPU_MAX_RETRY_LIMIT;
-  5819	
-  5820		/*
-  5821		 * Special case: RAS triggered and full reset isn't supported
-  5822		 */
-  5823		need_emergency_restart = amdgpu_ras_need_emergency_restart(adev);
-  5824	
-  5825		/*
-  5826		 * Flush RAM to disk so that after reboot
-  5827		 * the user can read log and see why the system rebooted.
-  5828		 */
-  5829		if (need_emergency_restart && amdgpu_ras_get_context(adev) &&
-  5830			amdgpu_ras_get_context(adev)->reboot) {
-  5831			DRM_WARN("Emergency reboot.");
-  5832	
-  5833			ksys_sync_helper();
-  5834			emergency_restart();
-  5835		}
-  5836	
-  5837		dev_info(adev->dev, "GPU %s begin!\n",
-  5838			need_emergency_restart ? "jobs stop":"reset");
-  5839	
-  5840		if (!amdgpu_sriov_vf(adev))
-  5841			hive = amdgpu_get_xgmi_hive(adev);
-  5842		if (hive)
-  5843			mutex_lock(&hive->hive_lock);
-  5844	
-  5845		reset_context->job = job;
-  5846		reset_context->hive = hive;
-  5847		/*
-  5848		 * Build list of devices to reset.
-  5849		 * In case we are in XGMI hive mode, resort the device list
-  5850		 * to put adev in the 1st position.
-  5851		 */
-  5852		INIT_LIST_HEAD(&device_list);
-  5853		if (!amdgpu_sriov_vf(adev) && (adev->gmc.xgmi.num_physical_nodes > 1) && hive) {
-  5854			list_for_each_entry(tmp_adev, &hive->device_list, gmc.xgmi.head) {
-  5855				list_add_tail(&tmp_adev->reset_list, &device_list);
-  5856				if (adev->shutdown)
-  5857					tmp_adev->shutdown = true;
-  5858			}
-  5859			if (!list_is_first(&adev->reset_list, &device_list))
-  5860				list_rotate_to_front(&adev->reset_list, &device_list);
-  5861			device_list_handle = &device_list;
-  5862		} else {
-  5863			list_add_tail(&adev->reset_list, &device_list);
-  5864			device_list_handle = &device_list;
-  5865		}
-  5866	
-  5867		if (!amdgpu_sriov_vf(adev)) {
-  5868			r = amdgpu_device_health_check(device_list_handle);
-  5869			if (r)
-  5870				goto end_reset;
-  5871		}
-  5872	
-  5873		/* We need to lock reset domain only once both for XGMI and single device */
-  5874		tmp_adev = list_first_entry(device_list_handle, struct amdgpu_device,
-  5875					    reset_list);
-  5876		amdgpu_device_lock_reset_domain(tmp_adev->reset_domain);
-  5877	
-  5878		/* block all schedulers and reset given job's ring */
-  5879		list_for_each_entry(tmp_adev, device_list_handle, reset_list) {
-  5880	
-  5881			amdgpu_device_set_mp1_state(tmp_adev);
-  5882	
-  5883			/*
-  5884			 * Try to put the audio codec into suspend state
-  5885			 * before gpu reset started.
-  5886			 *
-  5887			 * Due to the power domain of the graphics device
-  5888			 * is shared with AZ power domain. Without this,
-  5889			 * we may change the audio hardware from behind
-  5890			 * the audio driver's back. That will trigger
-  5891			 * some audio codec errors.
-  5892			 */
-  5893			if (!amdgpu_device_suspend_display_audio(tmp_adev))
-  5894				audio_suspended = true;
-  5895	
-  5896			amdgpu_ras_set_error_query_ready(tmp_adev, false);
-  5897	
-  5898			cancel_delayed_work_sync(&tmp_adev->delayed_init_work);
-  5899	
-  5900			amdgpu_amdkfd_pre_reset(tmp_adev, reset_context);
-  5901	
-  5902			/*
-  5903			 * Mark these ASICs to be reseted as untracked first
-  5904			 * And add them back after reset completed
-  5905			 */
-  5906			amdgpu_unregister_gpu_instance(tmp_adev);
-  5907	
-  5908			drm_client_dev_suspend(adev_to_drm(tmp_adev), false);
-  5909	
-  5910			/* disable ras on ALL IPs */
-  5911			if (!need_emergency_restart &&
-  5912			      amdgpu_device_ip_need_full_reset(tmp_adev))
-  5913				amdgpu_ras_suspend(tmp_adev);
-  5914	
-  5915			for (i = 0; i < AMDGPU_MAX_RINGS; ++i) {
-  5916				struct amdgpu_ring *ring = tmp_adev->rings[i];
-  5917	
-  5918				if (!amdgpu_ring_sched_ready(ring))
-  5919					continue;
-  5920	
-  5921				drm_sched_stop(&ring->sched, job ? &job->base : NULL);
-  5922	
-  5923				if (need_emergency_restart)
-  5924					amdgpu_job_stop_all_jobs_on_sched(&ring->sched);
-  5925			}
-  5926			atomic_inc(&tmp_adev->gpu_reset_counter);
-  5927		}
-  5928	
-  5929		if (need_emergency_restart)
-  5930			goto skip_sched_resume;
-  5931	
-  5932		/*
-  5933		 * Must check guilty signal here since after this point all old
-  5934		 * HW fences are force signaled.
-  5935		 *
-  5936		 * job->base holds a reference to parent fence
-  5937		 */
-  5938		if (job && dma_fence_is_signaled(&job->hw_fence)) {
-  5939			job_signaled = true;
-  5940			dev_info(adev->dev, "Guilty job already signaled, skipping HW reset");
-  5941			goto skip_hw_reset;
-  5942		}
-  5943	
-  5944	retry:	/* Rest of adevs pre asic reset from XGMI hive. */
-  5945		list_for_each_entry(tmp_adev, device_list_handle, reset_list) {
-  5946			r = amdgpu_device_pre_asic_reset(tmp_adev, reset_context);
-  5947			/*TODO Should we stop ?*/
-  5948			if (r) {
-  5949				dev_err(tmp_adev->dev, "GPU pre asic reset failed with err, %d for drm dev, %s ",
-  5950					  r, adev_to_drm(tmp_adev)->unique);
-  5951				tmp_adev->asic_reset_res = r;
-  5952			}
-  5953		}
-  5954	
-  5955		/* Actual ASIC resets if needed.*/
-  5956		/* Host driver will handle XGMI hive reset for SRIOV */
-  5957		if (amdgpu_sriov_vf(adev)) {
-  5958			if (amdgpu_ras_get_fed_status(adev) || amdgpu_virt_rcvd_ras_interrupt(adev)) {
-  5959				dev_dbg(adev->dev, "Detected RAS error, wait for FLR completion\n");
-  5960				amdgpu_ras_set_fed(adev, true);
-  5961				set_bit(AMDGPU_HOST_FLR, &reset_context->flags);
-  5962			}
-  5963	
-  5964			r = amdgpu_device_reset_sriov(adev, reset_context);
-  5965			if (AMDGPU_RETRY_SRIOV_RESET(r) && (retry_limit--) > 0) {
-  5966				amdgpu_virt_release_full_gpu(adev, true);
-  5967				goto retry;
-  5968			}
-  5969			if (r)
-  5970				adev->asic_reset_res = r;
-  5971		} else {
-  5972			r = amdgpu_do_asic_reset(device_list_handle, reset_context);
-  5973			if (r && r == -EAGAIN)
-  5974				goto retry;
-  5975		}
-  5976	
-  5977		list_for_each_entry(tmp_adev, device_list_handle, reset_list) {
-  5978			/*
-  5979			 * Drop any pending non scheduler resets queued before reset is done.
-  5980			 * Any reset scheduled after this point would be valid. Scheduler resets
-  5981			 * were already dropped during drm_sched_stop and no new ones can come
-  5982			 * in before drm_sched_start.
-  5983			 */
-  5984			amdgpu_device_stop_pending_resets(tmp_adev);
-  5985		}
-  5986	
-  5987	skip_hw_reset:
-  5988	
-  5989		/* Post ASIC reset for all devs .*/
-  5990		list_for_each_entry(tmp_adev, device_list_handle, reset_list) {
-  5991	
-  5992			for (i = 0; i < AMDGPU_MAX_RINGS; ++i) {
-  5993				struct amdgpu_ring *ring = tmp_adev->rings[i];
-  5994	
-  5995				if (!amdgpu_ring_sched_ready(ring))
-  5996					continue;
-  5997	
-  5998				drm_sched_start(&ring->sched, 0);
-  5999			}
-  6000	
-  6001			if (!drm_drv_uses_atomic_modeset(adev_to_drm(tmp_adev)) && !job_signaled)
-  6002				drm_helper_resume_force_mode(adev_to_drm(tmp_adev));
-  6003	
-  6004			if (tmp_adev->asic_reset_res)
-  6005				r = tmp_adev->asic_reset_res;
-  6006	
-  6007			tmp_adev->asic_reset_res = 0;
-  6008	
-  6009			if (r) {
-  6010				/* bad news, how to tell it to userspace ?
-  6011				 * for ras error, we should report GPU bad status instead of
-  6012				 * reset failure
-  6013				 */
-  6014				if (reset_context->src != AMDGPU_RESET_SRC_RAS ||
-  6015				    !amdgpu_ras_eeprom_check_err_threshold(tmp_adev))
-  6016					dev_info(tmp_adev->dev, "GPU reset(%d) failed\n",
-  6017						atomic_read(&tmp_adev->gpu_reset_counter));
-  6018				amdgpu_vf_error_put(tmp_adev, AMDGIM_ERROR_VF_GPU_RESET_FAIL, 0, r);
-  6019			} else {
-  6020				dev_info(tmp_adev->dev, "GPU reset(%d) succeeded!\n", atomic_read(&tmp_adev->gpu_reset_counter));
-  6021				if (amdgpu_acpi_smart_shift_update(adev_to_drm(tmp_adev), AMDGPU_SS_DEV_D0))
-  6022					DRM_WARN("smart shift update failed\n");
-  6023			}
-  6024		}
-  6025	
-  6026	skip_sched_resume:
-  6027		list_for_each_entry(tmp_adev, device_list_handle, reset_list) {
-  6028			/* unlock kfd: SRIOV would do it separately */
-  6029			if (!need_emergency_restart && !amdgpu_sriov_vf(tmp_adev))
-  6030				amdgpu_amdkfd_post_reset(tmp_adev);
-  6031	
-  6032			/* kfd_post_reset will do nothing if kfd device is not initialized,
-  6033			 * need to bring up kfd here if it's not be initialized before
-  6034			 */
-  6035			if (!adev->kfd.init_complete)
-  6036				amdgpu_amdkfd_device_init(adev);
-  6037	
-  6038			if (audio_suspended)
-  6039				amdgpu_device_resume_display_audio(tmp_adev);
-  6040	
-  6041			amdgpu_device_unset_mp1_state(tmp_adev);
-  6042	
-  6043			amdgpu_ras_set_error_query_ready(tmp_adev, true);
-  6044		}
-  6045	
-  6046		tmp_adev = list_first_entry(device_list_handle, struct amdgpu_device,
-  6047						    reset_list);
-  6048		amdgpu_device_unlock_reset_domain(tmp_adev->reset_domain);
-  6049	
-  6050	end_reset:
-  6051		if (hive) {
-  6052			mutex_unlock(&hive->hive_lock);
-  6053			amdgpu_put_xgmi_hive(hive);
-  6054		}
-  6055	
-  6056		if (r)
-  6057			dev_info(adev->dev, "GPU reset end with ret = %d\n", r);
-  6058	
-  6059		atomic_set(&adev->reset_domain->reset_res, r);
-  6060	
-> 6061		drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE);
-  6062	
-  6063		return r;
-  6064	}
-  6065	
+:-(
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+They are the two ASSERT()s on line 217 and 54 respectively. They end up
+asserting the same value twice, so that makes sense.
+
+> $ clang --version | head -1
+> clang version 20.0.0git (https://github.com/llvm/llvm-project.git
+> 8daf4f16fa08b5d876e98108721dd1743a360326)
+
+So I didn't have a recent build at hand.. so I've not validated the
+below.
+
+> There is "ud2" instruction at the end of dc_fixpt_recip(), its offset
+> is "350", this "ud2" instruction is not dead end due to the offset "352"
+> is in the relocation section '.rela.discard.reachable', that is to say,
+> dc_fixpt_recip() doesn't end with a return instruction or an
+> unconditional jump, so objtool determined that the function can fall
+> through into the next function, thus there is "falls through" objtool
+> warning.
+> 
+> 0000000000000290 <dc_fixpt_recip>:
+>      290:       f3 0f 1e fa             endbr64
+>      294:       e8 00 00 00 00          call   299 <dc_fixpt_recip+0x9>
+>      299:       48 85 ff                test   %rdi,%rdi
+>      29c:       0f 84 ac 00 00 00       je     34e <dc_fixpt_recip+0xbe>
+>      2a2:       53                      push   %rbx
+>      2a3:       48 89 f9                mov    %rdi,%rcx
+>      2a6:       48 f7 d9                neg    %rcx
+>      2a9:       48 0f 48 cf             cmovs  %rdi,%rcx
+>      2ad:       48 b8 00 00 00 00 01    movabs $0x100000000,%rax
+>      2b4:       00 00 00
+>      2b7:       31 d2                   xor    %edx,%edx
+>      2b9:       48 f7 f1                div    %rcx
+>      2bc:       be e0 ff ff ff          mov    $0xffffffe0,%esi
+>      2c1:       eb 1b                   jmp    2de <dc_fixpt_recip+0x4e>
+>      2c3:       45 88 c8                mov    %r9b,%r8b
+>      2c6:       4d 01 c0                add    %r8,%r8
+>      2c9:       4d 8d 04 80             lea    (%r8,%rax,4),%r8
+>      2cd:       48 29 da                sub    %rbx,%rdx
+>      2d0:       45 88 da                mov    %r11b,%r10b
+>      2d3:       4c 89 d0                mov    %r10,%rax
+>      2d6:       4c 09 c0                or     %r8,%rax
+>      2d9:       83 c6 02                add    $0x2,%esi
+>      2dc:       74 31                   je     30f <dc_fixpt_recip+0x7f>
+>      2de:       48 01 d2                add    %rdx,%rdx
+>      2e1:       45 31 c0                xor    %r8d,%r8d
+>      2e4:       41 ba 00 00 00 00       mov    $0x0,%r10d
+>      2ea:       48 39 ca                cmp    %rcx,%rdx
+>      2ed:       41 0f 93 c1             setae  %r9b
+>      2f1:       72 03                   jb     2f6 <dc_fixpt_recip+0x66>
+>      2f3:       49 89 ca                mov    %rcx,%r10
+>      2f6:       4c 29 d2                sub    %r10,%rdx
+>      2f9:       48 01 d2                add    %rdx,%rdx
+>      2fc:       45 31 d2                xor    %r10d,%r10d
+>      2ff:       48 89 cb                mov    %rcx,%rbx
+>      302:       48 39 ca                cmp    %rcx,%rdx
+>      305:       41 0f 93 c3             setae  %r11b
+>      309:       73 b8                   jae    2c3 <dc_fixpt_recip+0x33>
+>      30b:       31 db                   xor    %ebx,%ebx
+>      30d:       eb b4                   jmp    2c3 <dc_fixpt_recip+0x33>
+>      30f:       48 01 d2                add    %rdx,%rdx
+>      312:       48 be fe ff ff ff ff    movabs $0x7ffffffffffffffe,%rsi
+>      319:       ff ff 7f
+>      31c:       4c 8d 46 01             lea    0x1(%rsi),%r8
+>      320:       48 39 ca                cmp    %rcx,%rdx
+>      323:       4c 0f 43 c6             cmovae %rsi,%r8
+>      327:       4c 39 c0                cmp    %r8,%rax
+>      32a:       77 1e                   ja     34a <dc_fixpt_recip+0xba>
+>      32c:       48 39 ca                cmp    %rcx,%rdx
+>      32f:       48 83 d8 ff             sbb    $0xffffffffffffffff,%rax
+>      333:       48 89 c1                mov    %rax,%rcx
+>      336:       48 f7 d9                neg    %rcx
+>      339:       48 85 ff                test   %rdi,%rdi
+>      33c:       48 0f 49 c8             cmovns %rax,%rcx
+>      340:       48 89 c8                mov    %rcx,%rax
+>      343:       5b                      pop    %rbx
+>      344:       2e e9 00 00 00 00       cs jmp 34a <dc_fixpt_recip+0xba>
+>      34a:       0f 0b                   ud2
+>      34c:       eb de                   jmp    32c <dc_fixpt_recip+0x9c>
+>      34e:       0f 0b                   ud2
+>      350:       0f 0b                   ud2
+>      352:       66 66 66 66 66 2e 0f    data16 data16 data16 data16 cs nopw
+> 0x0(%rax,%rax,1)
+>      359:       1f 84 00 00 00 00 00
+
+If you put them size-by-side, you'll see it's more or less the same
+code-gen (trivial differences), but now it just stops code-gen, where
+previously it would continue.
+
+So this really is a compiler problem, this needs no annotation, it's
+straight up broken.
+
+Now, the thing is, these ASSERT()s are checking for divide-by-zero, I
+suspect clang figured that out and invokes UB on us and just stops
+code-gen.
+
+Nathan, Nick, don't we have a compiler flag that forces __builtin_trap()
+whenever clang pulls something like this? I think UBSAN does this, but
+we really shouldn't pull in the whole of that for sanity.
+
