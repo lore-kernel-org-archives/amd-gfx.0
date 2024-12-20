@@ -4,152 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9292E77188
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Dec 2024 12:55:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C7FFE7718C
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Dec 2024 13:32:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9569010E12A;
-	Fri, 20 Dec 2024 12:55:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED93010E381;
+	Fri, 20 Dec 2024 13:32:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="R3usjp8W";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="MeJKyyge";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2061d.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:2415::61d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B1BFC10E12A;
- Fri, 20 Dec 2024 12:55:01 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=osbwQn5Js013Z1Bw6Y/jsl/30r0I8IEeuG5mCxiBLegpC4QPZtmELB1vgXh/b6i7HPzV3c7qOBS0CWVdo65LlQOr3QtgKwXIV3r6xEpEz1UZg1nSSllhmyqz0bsgotM4po3XUZEX9Zr/Qg5PEbfwT2BW4CWKXzyszS/5tPPgmVA+/yohCOB0G5TKdjWEl9TeOJoPCp1ckDTfirtQpzW+3LkkQUkJDcgQ+uH1ddKs+dHdaOetRDrxxmTCLcNC86TvXnOy8pVAHjGJyZREcpxcNpkd5xoldaebSdrvPVvnyktILWSy2KRdzg6PMUQ0zpKd1ud3U0P9r+ohctvRQtR/AA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fyWuWCKGuU9hj7KG5JzXJzDQakBJm0pQmykTH66Zb2Q=;
- b=uMAyiN6n39m1+yd2d3B06sFfppTW29kzw69CnItpDFRGu53ljJ7LhAEizq5Hi5igrLagJbvnlFfmIaaoJP/ZHF5cEu66ibaPclGC6X1m8VApvSye2bflUOIDuITJkAYmWgzNhToYtCHWmT8hdUjJQHTh4ebGAUL2M/aNNPpfW5jDZaqF3yij8Ov+HzvS7xD6ANG2Ur7T33IYBBv5oXCb4ojQWW1gr66AYhyArF0NxWEOlUIdPCMLBXwTPmXmvEYz9ipKgLa/4vHPwfouC1xjRQf478HzQCgkpjJ5tn5XbajBGC3VRJH+L9w1/DFdH3LDhqYx3vuRXnWrjtiPxluFVA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fyWuWCKGuU9hj7KG5JzXJzDQakBJm0pQmykTH66Zb2Q=;
- b=R3usjp8Wj976uJ3LKG+Msfpc7EuAh7v5TcYoKN+PUaCsoYgSHL4+cYWRqpOKl/W/4wmCGGtuN3/DW1JAY1FwneAJKDJ4yNG34JNaKSyMcsN42JdLeZjxz6ufYdtdOIRNSZpOUTmseLZv6AhaRR+rwPyewxqZBc6N+qxE32/NhP8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH8PR12MB7301.namprd12.prod.outlook.com (2603:10b6:510:222::12)
- by SA1PR12MB8118.namprd12.prod.outlook.com (2603:10b6:806:333::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8272.13; Fri, 20 Dec
- 2024 12:54:59 +0000
-Received: from PH8PR12MB7301.namprd12.prod.outlook.com
- ([fe80::a929:e8eb:ef22:6350]) by PH8PR12MB7301.namprd12.prod.outlook.com
- ([fe80::a929:e8eb:ef22:6350%7]) with mapi id 15.20.8272.005; Fri, 20 Dec 2024
- 12:54:59 +0000
-Message-ID: <8ffa9abc-94ae-4622-916e-947ac73402f9@amd.com>
-Date: Fri, 20 Dec 2024 18:24:52 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/buddy: Add a testcase to verify the multiroot fini
-To: Matthew Auld <matthew.auld@intel.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Cc: christian.koenig@amd.com, alexander.deucher@amd.com,
- "Lin . Cao" <lincao12@amd.com>
-References: <20241216130735.314298-1-Arunpravin.PaneerSelvam@amd.com>
- <20241216130735.314298-2-Arunpravin.PaneerSelvam@amd.com>
- <e26daaa7-253a-4753-a5a8-f8f0c045c583@intel.com>
-Content-Language: en-US
-From: "Paneer Selvam, Arunpravin" <arunpravin.paneerselvam@amd.com>
-In-Reply-To: <e26daaa7-253a-4753-a5a8-f8f0c045c583@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN3PR01CA0019.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:97::10) To PH8PR12MB7301.namprd12.prod.outlook.com
- (2603:10b6:510:222::12)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C0A3310E139;
+ Fri, 20 Dec 2024 13:32:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1734701549; x=1766237549;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=B17NPmKnJjDUdHtU7hxyN48I7d4XrJFbwTdI0khAxYs=;
+ b=MeJKyygeXAyq4VmJJqAlgV6qagpt/c15b4bzGcr+Ddf/EblHLPxXt3ZA
+ BBIznvBELxnKQ0lzYwCxqMifCJY279HxBJe3RdyBndEym7m8cg1rVExAE
+ xcrWtJotOkUygaXdFSshxnLHMTsAYpZ/3eUZlQd1I9Kji94gZS8A4EoI9
+ GQ325xa8+zTFN5pqD+ARHSajatLn4ntgCeoTmLL4m8nR0LOBN3JufR0jC
+ z/6pUoN/dAecBWeiEullWfNwMyKiU4NlI87ycvu7kdZBCGGjR7iwHmcd3
+ twa2hLuMgLhgVHicXjgLFn4YrlWiAitoVkBmTujaFjaznGE81cZe9iJKs A==;
+X-CSE-ConnectionGUID: xdR1Q8/wQpahum5nxSGxBg==
+X-CSE-MsgGUID: EFoLXxiUS96RAob6Tf9vyg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11292"; a="35140871"
+X-IronPort-AV: E=Sophos;i="6.12,250,1728975600"; d="scan'208";a="35140871"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Dec 2024 05:32:28 -0800
+X-CSE-ConnectionGUID: YrDvBIrHTru1buzcwTr2Lw==
+X-CSE-MsgGUID: 3C0/LQ10SIyZCXD+mQUPKw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="121789477"
+Received: from lkp-server01.sh.intel.com (HELO a46f226878e0) ([10.239.97.150])
+ by fmviesa002.fm.intel.com with ESMTP; 20 Dec 2024 05:32:24 -0800
+Received: from kbuild by a46f226878e0 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1tOd78-0001BX-21;
+ Fri, 20 Dec 2024 13:32:22 +0000
+Date: Fri, 20 Dec 2024 21:31:31 +0800
+From: kernel test robot <lkp@intel.com>
+To: =?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>,
+ Raag Jadav <raag.jadav@intel.com>, airlied@gmail.com,
+ simona@ffwll.ch, lucas.demarchi@intel.com, rodrigo.vivi@intel.com,
+ jani.nikula@linux.intel.com, andriy.shevchenko@linux.intel.com,
+ lina@asahilina.net, michal.wajdeczko@intel.com, christian.koenig@amd.com
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ himal.prasad.ghimiray@intel.com, aravind.iddamsetty@linux.intel.com,
+ anshuman.gupta@intel.com, alexander.deucher@amd.com,
+ andrealmeid@igalia.com, amd-gfx@lists.freedesktop.org,
+ kernel-dev@igalia.com
+Subject: Re: [PATCH 1/1] drm/amdgpu: Use device wedged event
+Message-ID: <202412202104.IwpOz5t5-lkp@intel.com>
+References: <20241212190909.28559-2-andrealmeid@igalia.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB7301:EE_|SA1PR12MB8118:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8bdd467b-eee2-4dfd-86fd-08dd20f5828c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?L280NDJBWmJSYkhvVDRqSUtkRXRNMEdZbnN3dVdwM3JMdWt3T0VvVC9nOGFq?=
- =?utf-8?B?bWVsa0o0OXFrczBsNm9oenhFMVJCblg5RHRXL005SlBpVVEzd1Flc3hhak9U?=
- =?utf-8?B?cW8wTDdsMFlSUlBHeC9WM0t3TkdPTWZPMWxCc2RPVXNhOGt3T0w0cGFIS1ZF?=
- =?utf-8?B?ckE1TnBBZldWMWxHbXRmYUszRWpDSWpnY3B4UjRPT2I3YVI5Zm5LVHdlbWd6?=
- =?utf-8?B?N0VVSmM4aVlMS2ZweVU4UHl2WmpDZzhKWnJ3a3g3M1VULzVRa1laSjFNc1Ja?=
- =?utf-8?B?L0FlbzZlN0JxYVI5dk1rOUdUajBQYkdmczJSb0NjRzhlOXhIcHh1Ti9OMFha?=
- =?utf-8?B?aGpzdE9ZZzFFZWNHWHZKKzJHSFh4VzRnaStETk1XTG1HMi9Vd1kzUjlkaGFo?=
- =?utf-8?B?ZVZmcmovWDF1Tzh2UUEyMTVSNTM2LzEreWZJSFQwRlMyc1lmZVRxV1V3TjVU?=
- =?utf-8?B?REQzUG5jWE0xVVBtWmRtL0JFa0VHSGx1T0VhcTB4bElJVnhmdEVSSDZPS1hl?=
- =?utf-8?B?UGlyekdIODRwNGNCTUVGRkNJRTM1aWo3bnpNOGlkN2o4Sy9UdkJONFVMNnZQ?=
- =?utf-8?B?NnJwVTlSYmFEenJuNi9nVW0rckRid0lZZDhnVlpGV1FCWUlvMFF0ajVrZXhD?=
- =?utf-8?B?aS9mNW55VjRNaFJ1ejRURzlpWEg1cDNQdmd4RXBrU2RRaUp6VmRRdTN4R1Rq?=
- =?utf-8?B?M0psalFCNm5Ga0tRUVVoZEk0RFQwbGV0VkNIaFlQMk82WWVQaGhOVGNaaHFM?=
- =?utf-8?B?cjNTQ2dFOWluTk5hQUFOZVpvSjlLWnliL1ptTTZaN1F1SzdWb29zR2k3eElE?=
- =?utf-8?B?OTJvMStvVy91bzlRWC9ONE9uL2VvdC9oLzNzZFVkdGFhbk03VEFSTGVidklu?=
- =?utf-8?B?T3lLMThOT2M3TFFWNms1bGtxSmlrWXVnMERCTzVDcXlKUzJpQ0dUbVhTRVN6?=
- =?utf-8?B?NEZBTTlvV09CRVRYWE5BR1IwcHFnaEd4cnF0WmE0RkxlSVEySzBidTRvYlZW?=
- =?utf-8?B?QzJCdXhMRkV6S2ExUFJELytWZDNEMWFxM2lKOGFnTVdzSStUWHBDaWgxQk83?=
- =?utf-8?B?SzVVQnBBdldsL20yREI5VFNyOTN5TTBVanJxQXFYd01VL28xRGxod2FLSVRT?=
- =?utf-8?B?TEI0WkJKaXYxNDVmLzV1cjVaOGFVNVVCMXJRR0NWcUl5eG84OTNubS84bVhX?=
- =?utf-8?B?M1BGV0FaalduaTkwb214UzE1eTB6WHNJaFB4SWFwTk11U3hveDhNWDZPYngw?=
- =?utf-8?B?TTByOTZnSGpTcElXTTcxTEptOEQ4VXI3VFovU256allsc3k3MXVpZlBleC9G?=
- =?utf-8?B?SHd5NFlqdEl4Nk9iMnVBa0tKd2d1Wk54dHF0ck81NkxUU3BwcUNVbHlYeVVz?=
- =?utf-8?B?d0VPRzZoNkRPL3NReTBpWW9oeXJ3QU1tRFQ3cHUxQVNDYlY4K1dsL3pnLzF6?=
- =?utf-8?B?RUx4SU10NE13SlN3eDVnU3hiYzN6WnpoRjZrNkZOTm5mS3ZMQWlTenFGK1VJ?=
- =?utf-8?B?RmxHYTgwQ3dSYXlMZ2xGZ1ZyR1p3aWdqbDhWQXNyeHEwUThQRjZCS0k5SjB2?=
- =?utf-8?B?OTUvT2hERGNRRTN4QUt4MVhVUk1KTktNaEVzcnE1VHVKTWNEL0RTTTJMTFpo?=
- =?utf-8?B?NHV2ZW9hQTRvR3NqWnJlYnltUEdtL0xVUG9lS1lJZnNGNUNhSEl4NEI1V010?=
- =?utf-8?B?VTdjVGxqOGc3SitPV2tobERZKytYQ2hSdk1FQmtIZWVGdGFCVHZINm9qRG9P?=
- =?utf-8?B?TWxYMEFRWDVnQWtkYk5xUnJzSmVMYlM2VUx1SG5lVGViclBlVnZ0bG5JV3lK?=
- =?utf-8?B?eDloMHB4ejMwUzNLczBNMENwK3dmcjBvYmllWWJWbWsvVzNHejVXVW9QQjkx?=
- =?utf-8?Q?7bsaEKYOZLZ+U?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH8PR12MB7301.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dldWR2pRWVVPa1JDWllvQWR2T1RmYXBVYUJyQmg5dnFweFVNSi9ndEU5OVhP?=
- =?utf-8?B?VW5pWnZPL1RhSkRUaGlMeC9VYm5XcGMrcEV3RnJvYzlwNG5FdWQ3NEx1RDBu?=
- =?utf-8?B?dDN3WmhkbWJ4YkdvMmpLWXNwTEM0ME1jVkNhL0YzUlVBZmkyUEp2UzRIdVVk?=
- =?utf-8?B?S0tFVHdLR1k1dlR1dTZSUHprbHhXQ1lzN0w5NDkyQ0tpNGdjanpVeTBVU0Vy?=
- =?utf-8?B?WnU1MEFGU283c0FEK2tvMjhObEc0bFRQTkt3a1YyWGFlZzkyQWJBdW5SbkpO?=
- =?utf-8?B?T0hRc3ZNRDgvQjVxeFUwOWs0WkxGUGFTeWJJaCtVVHU1NHR6N29KYzBqdWJE?=
- =?utf-8?B?Lzcwc0ZJQVF4V2JMbmNBK0lraVl6L3FGdFgrVFRwV3poZFhSQ0dpaVBDdE9p?=
- =?utf-8?B?UTB0UlZCSGU0eWlJUHVZbmN0MWltaDgyK3p1RHpVUFo1UmpGc0RkalZVMzNo?=
- =?utf-8?B?MFg2bWR1T2dJUlJiN25TN255cXlFUUhnTlZWUXF5YVFnNjBvSEcyTE91VENr?=
- =?utf-8?B?UXlCZUpHajBxVUNaMGwxZzVtekJwaVhBdUFkbG9VcVVyUTE3SDduLzFEZldE?=
- =?utf-8?B?VlJtaXRSdFhlUUNpU1dtejNjaE5rNjd2ckZyN0FNWFVNVWpLa1lya0YyT0RN?=
- =?utf-8?B?SlFyMFhuR0lXdytSQkpFVmEzdzJnZ2QyVWVNM0RjOFJPeWlpbnE2SHZhRFE1?=
- =?utf-8?B?UDA0MGdhUW00RnYwU2M5b2pkRWM1a1lvWkhDcVdJbW1oVTFkL081Mzd0UUNi?=
- =?utf-8?B?bkRUZVBTcTE2ZmF5L3d6Uk1nZ3FISWw0NFc4bEJqUGdBdXFodXBBL1BVcmVs?=
- =?utf-8?B?bS92SFYwUVdsenRoNUtWb1lPZ3ZlWGNLaFVXZ2dZeis5OCt3S2kxYi9kM0tx?=
- =?utf-8?B?K0RVK3c0OXpUcyt4aHF1WCtveVAwOWpVWGVKUWlDdjZqTlhlcjJtcEJFekpY?=
- =?utf-8?B?SWd0U0VteHpIMkx5SUdrNEdoQ1liM1lsaklLa01KRkVwYWYwS0dVNE03cmRS?=
- =?utf-8?B?T0FFYnoyRTNsbHJaeGNKK1NqUHM2ZWlwMTg5T1RWdE1ldWRHUC8yVk5Fc2xE?=
- =?utf-8?B?U1BGKzc0M2E1UHN0TUR2dmV2RVE2WElPcVlGRm56VTd3NWJzM25zN1JLV3M0?=
- =?utf-8?B?T0x1RHp1N2ltMFdwNjRaZkNCVUo0cjh1SFFoTkh5VXZ3N0UxemtNWkhJdGlw?=
- =?utf-8?B?MUFoRVhMZng4WERseVpBRUUwZ2s3b21QanNjMjFFNjJEc0hpNVEvZSt6NEZ5?=
- =?utf-8?B?YWZPNkV6YVVzSkwvSTVRalRtUU1mUFN1WCtXZUJ4RDNNQVlXd2lzTEU1emxs?=
- =?utf-8?B?N2hSekFWVzJYUENWY2F5MHVDV2hCZUFTak9Bck5INnJBNWhFWkt6eS9tc25N?=
- =?utf-8?B?WEtFYjVvekpxb3BMcWlYYmplenk1SkxhVGVOcmpsSE5TV3RvU0lrSlM0aFA0?=
- =?utf-8?B?MjdaTVF3S1JvSDJOa0dDdnVSaGF5WnhVUzhKcFY0TTJqQU42dys2S0hhRmZz?=
- =?utf-8?B?ZHpBby9PRXlhSy92L2tGUTZsajZod0czZ3FzYVFjb05jM3VVdExBY0dTUUdN?=
- =?utf-8?B?MjZHWGY3cFRLWHZjREZFQXlBMjM5ajdxTUltNko1eDRsdjFQU3p2Z1BwbUp3?=
- =?utf-8?B?cHh2TWdjditoUkNmaitzejZCY1ZIOGtROU5tUTRhMVdKcXlIYnZxN1EyQjJY?=
- =?utf-8?B?VkhzTkplTnEzN04yTDdWWjVVbURrd3pLd01aQlUvVWVjb24rdUtoVXJVVDhK?=
- =?utf-8?B?a3lQa1JwMGdCR2Z1YXlmazV2L1Q0SHhweE90UitIL0hNcThjaTRZRzZwN2NN?=
- =?utf-8?B?eEJzSDZGL25pUnl6VVJib1c4R01YUDJneEJKMGJpVXkya3kyMmZPVEJzZ1Ns?=
- =?utf-8?B?S2VGRG5FbUNHYjlkeWFmd1Voc3Q0a3l1M1JqYTliK0llV05zUERIR3VjM2d5?=
- =?utf-8?B?VjdYaGZEUHZScXRFTCtLWkViZXV2T2kwUElkZXJ0MGVQMUFDYkE2cjdEQWkv?=
- =?utf-8?B?U2o5RUc3bTduNU9EV3ZJeS9oUmMwVE5YdkYwNXBLZFNQUnZIMDE0ZzllaXRl?=
- =?utf-8?B?M3VDV1NMZ0RyRUduWmxHZUtFK0JhTmRNbm9qb2Q3dUl5ZXdGaXU2RG9SbDZI?=
- =?utf-8?Q?5JpgCwNSDJfCWPnVlqqndkVQm?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8bdd467b-eee2-4dfd-86fd-08dd20f5828c
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7301.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Dec 2024 12:54:58.9223 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: oaAEwUvvZd4DKzsCyz6IDCuIAfh4EvmMp0Mx7cPzktoU2CuSX4ag8rkl9W107xcj63TSPlqW+3FRPpaG34nwrQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8118
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20241212190909.28559-2-andrealmeid@igalia.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -164,172 +78,322 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Matthew,
+Hi Andr�,
+
+kernel test robot noticed the following build errors:
+
+[auto build test ERROR on linus/master]
+[also build test ERROR on v6.13-rc3 next-20241220]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Andr-Almeida/drm-amdgpu-Use-device-wedged-event/20241213-031134
+base:   linus/master
+patch link:    https://lore.kernel.org/r/20241212190909.28559-2-andrealmeid%40igalia.com
+patch subject: [PATCH 1/1] drm/amdgpu: Use device wedged event
+config: arm-randconfig-001-20241220 (https://download.01.org/0day-ci/archive/20241220/202412202104.IwpOz5t5-lkp@intel.com/config)
+compiler: clang version 19.1.3 (https://github.com/llvm/llvm-project ab51eccf88f5321e7c60591c5546b254b6afab99)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20241220/202412202104.IwpOz5t5-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202412202104.IwpOz5t5-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   In file included from drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:35:
+   In file included from include/linux/iommu.h:10:
+   In file included from include/linux/scatterlist.h:8:
+   In file included from include/linux/mm.h:2223:
+   include/linux/vmstat.h:518:36: warning: arithmetic between different enumeration types ('enum node_stat_item' and 'enum lru_list') [-Wenum-enum-conversion]
+     518 |         return node_stat_name(NR_LRU_BASE + lru) + 3; // skip "nr_"
+         |                               ~~~~~~~~~~~ ^ ~~~
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:6061:2: error: call to undeclared function 'drm_dev_wedged_event'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+    6061 |         drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE);
+         |         ^
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:6061:42: error: use of undeclared identifier 'DRM_WEDGE_RECOVERY_NONE'
+    6061 |         drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE);
+         |                                                 ^
+   1 warning and 2 errors generated.
 
 
-On 12/16/2024 11:52 PM, Matthew Auld wrote:
-> On 16/12/2024 13:07, Arunpravin Paneer Selvam wrote:
->> - Added a testcase to verify the multiroot force merge fini.
->> - Added a new field in_use to track the mm freed status.
->>
->> Signed-off-by: Arunpravin Paneer Selvam 
->> <Arunpravin.PaneerSelvam@amd.com>
->> Signed-off-by: Lin.Cao <lincao12@amd.com>
->> ---
->>   drivers/gpu/drm/drm_buddy.c            | 20 ++++++++++++++++-
->>   drivers/gpu/drm/tests/drm_buddy_test.c | 30 ++++++++++++++++++--------
->>   include/drm/drm_buddy.h                |  2 ++
->>   3 files changed, 42 insertions(+), 10 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
->> index ca42e6081d27..39ce918b3a65 100644
->> --- a/drivers/gpu/drm/drm_buddy.c
->> +++ b/drivers/gpu/drm/drm_buddy.c
->> @@ -102,6 +102,18 @@ static inline bool contains(u64 s1, u64 e1, u64 
->> s2, u64 e2)
->>       return s1 <= s2 && e1 >= e2;
->>   }
->>   +static bool is_roots_freed(struct drm_buddy *mm)
->> +{
->> +    int i;
->> +
->> +    for (i = 0; i < mm->n_roots; ++i) {
->> +        if (!drm_buddy_block_is_free(mm->roots[i]))
->> +            return false;
->> +    }
->> +
->> +    return true;
->> +}
->> +
->>   static struct drm_buddy_block *
->>   __get_buddy(struct drm_buddy_block *block)
->>   {
->> @@ -303,6 +315,8 @@ int drm_buddy_init(struct drm_buddy *mm, u64 
->> size, u64 chunk_size)
->>           i++;
->>       } while (size);
->>   +    mm->in_use = true;
->> +
->>       return 0;
->>     out_free_roots:
->> @@ -335,13 +349,17 @@ void drm_buddy_fini(struct drm_buddy *mm)
->>           start = drm_buddy_block_offset(mm->roots[i]);
->>           __force_merge(mm, start, start + size, order);
->>   -        WARN_ON(!drm_buddy_block_is_free(mm->roots[i]));
->
-> So does this warn not pop? Or it does but kunit ignores it or something?
-WARN does pop but there is no interface to detect this warning by the KUNIT.
->
->>           drm_block_free(mm, mm->roots[i]);
->>             root_size = mm->chunk_size << order;
->>           size -= root_size;
->>       }
->>   +    mm->in_use = false;
->> +
->> +    if (WARN_ON(!is_roots_freed(mm)))
->
-> This looks like UAF under normal operation, since each root pointer 
-> within mm->roots is already gone.
->
-> How about something like this:
->
-> + #include <kunit/test-bug.h>
-> +
->  #include <linux/kmemleak.h>
->  #include <linux/module.h>
->  #include <linux/sizes.h>
-> @@ -335,7 +337,9 @@ void drm_buddy_fini(struct drm_buddy *mm)
->                 start = drm_buddy_block_offset(mm->roots[i]);
->                 __force_merge(mm, start, start + size, order);
->
-> - WARN_ON(!drm_buddy_block_is_free(mm->roots[i]));
-> +               if (WARN_ON(!drm_buddy_block_is_free(mm->roots[i])))
-> +                       kunit_fail_current_test("buddy_fini() root");
-> +
->                 drm_block_free(mm, mm->roots[i]);
->
->                 root_size = mm->chunk_size << order;
->
-> And then also drop the in_use stuff. As a follow up could do that for 
-> all warnings in this file that don't result in error being returned to 
-> the caller...
->
->> +        mm->in_use = true;
->> +
->>       WARN_ON(mm->avail != mm->size);
->
-> ...like this one.
-Good idea, we need this from test case perspective, I will make changes 
-and send the next version.
+vim +/drm_dev_wedged_event +6061 drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
 
-Regards,
-Arun.
->
-> >   >       kfree(mm->roots);
->> diff --git a/drivers/gpu/drm/tests/drm_buddy_test.c 
->> b/drivers/gpu/drm/tests/drm_buddy_test.c
->> index 9662c949d0e3..694b058ddd6d 100644
->> --- a/drivers/gpu/drm/tests/drm_buddy_test.c
->> +++ b/drivers/gpu/drm/tests/drm_buddy_test.c
->> @@ -385,19 +385,31 @@ static void drm_test_buddy_alloc_clear(struct 
->> kunit *test)
->>       drm_buddy_fini(&mm);
->>         /*
->> -     * Create a new mm with a non power-of-two size. Allocate a 
->> random size, free as
->> -     * cleared and then call fini. This will ensure the multi-root 
->> force merge during
->> -     * fini.
->> +     * Create a new mm with a non power-of-two size. Allocate a 
->> random size from each
->> +     * root, free as cleared and then call fini. This will ensure 
->> the multi-root
->> +     * force merge during fini.
->>        */
->> -    mm_size = 12 * SZ_4K;
->> -    size = max(round_up(prandom_u32_state(&prng) % mm_size, ps), ps);
->> +    mm_size = (SZ_4K << max_order) + (SZ_4K << (max_order - 2));
->> +
->>       KUNIT_EXPECT_FALSE(test, drm_buddy_init(&mm, mm_size, ps));
->> -    KUNIT_ASSERT_FALSE_MSG(test, drm_buddy_alloc_blocks(&mm, 0, 
->> mm_size,
->> -                                size, ps, &allocated,
->> -                                DRM_BUDDY_TOPDOWN_ALLOCATION),
->> -                "buddy_alloc hit an error size=%u\n", size);
->> +    KUNIT_EXPECT_EQ(test, mm.max_order, max_order);
->> +    KUNIT_ASSERT_FALSE_MSG(test, drm_buddy_alloc_blocks(&mm, 0, 
->> SZ_4K << max_order,
->> +                                4 * ps, ps, &allocated,
->> +                                DRM_BUDDY_RANGE_ALLOCATION),
->> +                "buddy_alloc hit an error size=%lu\n", 4 * ps);
->> +    drm_buddy_free_list(&mm, &allocated, DRM_BUDDY_CLEARED);
->> +    KUNIT_ASSERT_FALSE_MSG(test, drm_buddy_alloc_blocks(&mm, 0, 
->> SZ_4K << max_order,
->> +                                2 * ps, ps, &allocated,
->> +                                DRM_BUDDY_CLEAR_ALLOCATION),
->> +                "buddy_alloc hit an error size=%lu\n", 2 * ps);
->> +    drm_buddy_free_list(&mm, &allocated, DRM_BUDDY_CLEARED);
->> +    KUNIT_ASSERT_FALSE_MSG(test, drm_buddy_alloc_blocks(&mm, SZ_4K 
->> << max_order, mm_size,
->> +                                ps, ps, &allocated,
->> +                                DRM_BUDDY_RANGE_ALLOCATION),
->> +                "buddy_alloc hit an error size=%lu\n", ps);
->>       drm_buddy_free_list(&mm, &allocated, DRM_BUDDY_CLEARED);
->>       drm_buddy_fini(&mm);
->> +    KUNIT_EXPECT_EQ(test, mm.in_use, false);
->>   }
->>     static void drm_test_buddy_alloc_contiguous(struct kunit *test)
->> diff --git a/include/drm/drm_buddy.h b/include/drm/drm_buddy.h
->> index 9689a7c5dd36..d692d831ffdd 100644
->> --- a/include/drm/drm_buddy.h
->> +++ b/include/drm/drm_buddy.h
->> @@ -86,6 +86,8 @@ struct drm_buddy {
->>       unsigned int n_roots;
->>       unsigned int max_order;
->>   +    bool in_use;
->> +
->>       /* Must be at least SZ_4K */
->>       u64 chunk_size;
->>       u64 size;
->
+  5794	
+  5795	/**
+  5796	 * amdgpu_device_gpu_recover - reset the asic and recover scheduler
+  5797	 *
+  5798	 * @adev: amdgpu_device pointer
+  5799	 * @job: which job trigger hang
+  5800	 * @reset_context: amdgpu reset context pointer
+  5801	 *
+  5802	 * Attempt to reset the GPU if it has hung (all asics).
+  5803	 * Attempt to do soft-reset or full-reset and reinitialize Asic
+  5804	 * Returns 0 for success or an error on failure.
+  5805	 */
+  5806	
+  5807	int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+  5808				      struct amdgpu_job *job,
+  5809				      struct amdgpu_reset_context *reset_context)
+  5810	{
+  5811		struct list_head device_list, *device_list_handle =  NULL;
+  5812		bool job_signaled = false;
+  5813		struct amdgpu_hive_info *hive = NULL;
+  5814		struct amdgpu_device *tmp_adev = NULL;
+  5815		int i, r = 0;
+  5816		bool need_emergency_restart = false;
+  5817		bool audio_suspended = false;
+  5818		int retry_limit = AMDGPU_MAX_RETRY_LIMIT;
+  5819	
+  5820		/*
+  5821		 * Special case: RAS triggered and full reset isn't supported
+  5822		 */
+  5823		need_emergency_restart = amdgpu_ras_need_emergency_restart(adev);
+  5824	
+  5825		/*
+  5826		 * Flush RAM to disk so that after reboot
+  5827		 * the user can read log and see why the system rebooted.
+  5828		 */
+  5829		if (need_emergency_restart && amdgpu_ras_get_context(adev) &&
+  5830			amdgpu_ras_get_context(adev)->reboot) {
+  5831			DRM_WARN("Emergency reboot.");
+  5832	
+  5833			ksys_sync_helper();
+  5834			emergency_restart();
+  5835		}
+  5836	
+  5837		dev_info(adev->dev, "GPU %s begin!\n",
+  5838			need_emergency_restart ? "jobs stop":"reset");
+  5839	
+  5840		if (!amdgpu_sriov_vf(adev))
+  5841			hive = amdgpu_get_xgmi_hive(adev);
+  5842		if (hive)
+  5843			mutex_lock(&hive->hive_lock);
+  5844	
+  5845		reset_context->job = job;
+  5846		reset_context->hive = hive;
+  5847		/*
+  5848		 * Build list of devices to reset.
+  5849		 * In case we are in XGMI hive mode, resort the device list
+  5850		 * to put adev in the 1st position.
+  5851		 */
+  5852		INIT_LIST_HEAD(&device_list);
+  5853		if (!amdgpu_sriov_vf(adev) && (adev->gmc.xgmi.num_physical_nodes > 1) && hive) {
+  5854			list_for_each_entry(tmp_adev, &hive->device_list, gmc.xgmi.head) {
+  5855				list_add_tail(&tmp_adev->reset_list, &device_list);
+  5856				if (adev->shutdown)
+  5857					tmp_adev->shutdown = true;
+  5858			}
+  5859			if (!list_is_first(&adev->reset_list, &device_list))
+  5860				list_rotate_to_front(&adev->reset_list, &device_list);
+  5861			device_list_handle = &device_list;
+  5862		} else {
+  5863			list_add_tail(&adev->reset_list, &device_list);
+  5864			device_list_handle = &device_list;
+  5865		}
+  5866	
+  5867		if (!amdgpu_sriov_vf(adev)) {
+  5868			r = amdgpu_device_health_check(device_list_handle);
+  5869			if (r)
+  5870				goto end_reset;
+  5871		}
+  5872	
+  5873		/* We need to lock reset domain only once both for XGMI and single device */
+  5874		tmp_adev = list_first_entry(device_list_handle, struct amdgpu_device,
+  5875					    reset_list);
+  5876		amdgpu_device_lock_reset_domain(tmp_adev->reset_domain);
+  5877	
+  5878		/* block all schedulers and reset given job's ring */
+  5879		list_for_each_entry(tmp_adev, device_list_handle, reset_list) {
+  5880	
+  5881			amdgpu_device_set_mp1_state(tmp_adev);
+  5882	
+  5883			/*
+  5884			 * Try to put the audio codec into suspend state
+  5885			 * before gpu reset started.
+  5886			 *
+  5887			 * Due to the power domain of the graphics device
+  5888			 * is shared with AZ power domain. Without this,
+  5889			 * we may change the audio hardware from behind
+  5890			 * the audio driver's back. That will trigger
+  5891			 * some audio codec errors.
+  5892			 */
+  5893			if (!amdgpu_device_suspend_display_audio(tmp_adev))
+  5894				audio_suspended = true;
+  5895	
+  5896			amdgpu_ras_set_error_query_ready(tmp_adev, false);
+  5897	
+  5898			cancel_delayed_work_sync(&tmp_adev->delayed_init_work);
+  5899	
+  5900			amdgpu_amdkfd_pre_reset(tmp_adev, reset_context);
+  5901	
+  5902			/*
+  5903			 * Mark these ASICs to be reseted as untracked first
+  5904			 * And add them back after reset completed
+  5905			 */
+  5906			amdgpu_unregister_gpu_instance(tmp_adev);
+  5907	
+  5908			drm_client_dev_suspend(adev_to_drm(tmp_adev), false);
+  5909	
+  5910			/* disable ras on ALL IPs */
+  5911			if (!need_emergency_restart &&
+  5912			      amdgpu_device_ip_need_full_reset(tmp_adev))
+  5913				amdgpu_ras_suspend(tmp_adev);
+  5914	
+  5915			for (i = 0; i < AMDGPU_MAX_RINGS; ++i) {
+  5916				struct amdgpu_ring *ring = tmp_adev->rings[i];
+  5917	
+  5918				if (!amdgpu_ring_sched_ready(ring))
+  5919					continue;
+  5920	
+  5921				drm_sched_stop(&ring->sched, job ? &job->base : NULL);
+  5922	
+  5923				if (need_emergency_restart)
+  5924					amdgpu_job_stop_all_jobs_on_sched(&ring->sched);
+  5925			}
+  5926			atomic_inc(&tmp_adev->gpu_reset_counter);
+  5927		}
+  5928	
+  5929		if (need_emergency_restart)
+  5930			goto skip_sched_resume;
+  5931	
+  5932		/*
+  5933		 * Must check guilty signal here since after this point all old
+  5934		 * HW fences are force signaled.
+  5935		 *
+  5936		 * job->base holds a reference to parent fence
+  5937		 */
+  5938		if (job && dma_fence_is_signaled(&job->hw_fence)) {
+  5939			job_signaled = true;
+  5940			dev_info(adev->dev, "Guilty job already signaled, skipping HW reset");
+  5941			goto skip_hw_reset;
+  5942		}
+  5943	
+  5944	retry:	/* Rest of adevs pre asic reset from XGMI hive. */
+  5945		list_for_each_entry(tmp_adev, device_list_handle, reset_list) {
+  5946			r = amdgpu_device_pre_asic_reset(tmp_adev, reset_context);
+  5947			/*TODO Should we stop ?*/
+  5948			if (r) {
+  5949				dev_err(tmp_adev->dev, "GPU pre asic reset failed with err, %d for drm dev, %s ",
+  5950					  r, adev_to_drm(tmp_adev)->unique);
+  5951				tmp_adev->asic_reset_res = r;
+  5952			}
+  5953		}
+  5954	
+  5955		/* Actual ASIC resets if needed.*/
+  5956		/* Host driver will handle XGMI hive reset for SRIOV */
+  5957		if (amdgpu_sriov_vf(adev)) {
+  5958			if (amdgpu_ras_get_fed_status(adev) || amdgpu_virt_rcvd_ras_interrupt(adev)) {
+  5959				dev_dbg(adev->dev, "Detected RAS error, wait for FLR completion\n");
+  5960				amdgpu_ras_set_fed(adev, true);
+  5961				set_bit(AMDGPU_HOST_FLR, &reset_context->flags);
+  5962			}
+  5963	
+  5964			r = amdgpu_device_reset_sriov(adev, reset_context);
+  5965			if (AMDGPU_RETRY_SRIOV_RESET(r) && (retry_limit--) > 0) {
+  5966				amdgpu_virt_release_full_gpu(adev, true);
+  5967				goto retry;
+  5968			}
+  5969			if (r)
+  5970				adev->asic_reset_res = r;
+  5971		} else {
+  5972			r = amdgpu_do_asic_reset(device_list_handle, reset_context);
+  5973			if (r && r == -EAGAIN)
+  5974				goto retry;
+  5975		}
+  5976	
+  5977		list_for_each_entry(tmp_adev, device_list_handle, reset_list) {
+  5978			/*
+  5979			 * Drop any pending non scheduler resets queued before reset is done.
+  5980			 * Any reset scheduled after this point would be valid. Scheduler resets
+  5981			 * were already dropped during drm_sched_stop and no new ones can come
+  5982			 * in before drm_sched_start.
+  5983			 */
+  5984			amdgpu_device_stop_pending_resets(tmp_adev);
+  5985		}
+  5986	
+  5987	skip_hw_reset:
+  5988	
+  5989		/* Post ASIC reset for all devs .*/
+  5990		list_for_each_entry(tmp_adev, device_list_handle, reset_list) {
+  5991	
+  5992			for (i = 0; i < AMDGPU_MAX_RINGS; ++i) {
+  5993				struct amdgpu_ring *ring = tmp_adev->rings[i];
+  5994	
+  5995				if (!amdgpu_ring_sched_ready(ring))
+  5996					continue;
+  5997	
+  5998				drm_sched_start(&ring->sched, 0);
+  5999			}
+  6000	
+  6001			if (!drm_drv_uses_atomic_modeset(adev_to_drm(tmp_adev)) && !job_signaled)
+  6002				drm_helper_resume_force_mode(adev_to_drm(tmp_adev));
+  6003	
+  6004			if (tmp_adev->asic_reset_res)
+  6005				r = tmp_adev->asic_reset_res;
+  6006	
+  6007			tmp_adev->asic_reset_res = 0;
+  6008	
+  6009			if (r) {
+  6010				/* bad news, how to tell it to userspace ?
+  6011				 * for ras error, we should report GPU bad status instead of
+  6012				 * reset failure
+  6013				 */
+  6014				if (reset_context->src != AMDGPU_RESET_SRC_RAS ||
+  6015				    !amdgpu_ras_eeprom_check_err_threshold(tmp_adev))
+  6016					dev_info(tmp_adev->dev, "GPU reset(%d) failed\n",
+  6017						atomic_read(&tmp_adev->gpu_reset_counter));
+  6018				amdgpu_vf_error_put(tmp_adev, AMDGIM_ERROR_VF_GPU_RESET_FAIL, 0, r);
+  6019			} else {
+  6020				dev_info(tmp_adev->dev, "GPU reset(%d) succeeded!\n", atomic_read(&tmp_adev->gpu_reset_counter));
+  6021				if (amdgpu_acpi_smart_shift_update(adev_to_drm(tmp_adev), AMDGPU_SS_DEV_D0))
+  6022					DRM_WARN("smart shift update failed\n");
+  6023			}
+  6024		}
+  6025	
+  6026	skip_sched_resume:
+  6027		list_for_each_entry(tmp_adev, device_list_handle, reset_list) {
+  6028			/* unlock kfd: SRIOV would do it separately */
+  6029			if (!need_emergency_restart && !amdgpu_sriov_vf(tmp_adev))
+  6030				amdgpu_amdkfd_post_reset(tmp_adev);
+  6031	
+  6032			/* kfd_post_reset will do nothing if kfd device is not initialized,
+  6033			 * need to bring up kfd here if it's not be initialized before
+  6034			 */
+  6035			if (!adev->kfd.init_complete)
+  6036				amdgpu_amdkfd_device_init(adev);
+  6037	
+  6038			if (audio_suspended)
+  6039				amdgpu_device_resume_display_audio(tmp_adev);
+  6040	
+  6041			amdgpu_device_unset_mp1_state(tmp_adev);
+  6042	
+  6043			amdgpu_ras_set_error_query_ready(tmp_adev, true);
+  6044		}
+  6045	
+  6046		tmp_adev = list_first_entry(device_list_handle, struct amdgpu_device,
+  6047						    reset_list);
+  6048		amdgpu_device_unlock_reset_domain(tmp_adev->reset_domain);
+  6049	
+  6050	end_reset:
+  6051		if (hive) {
+  6052			mutex_unlock(&hive->hive_lock);
+  6053			amdgpu_put_xgmi_hive(hive);
+  6054		}
+  6055	
+  6056		if (r)
+  6057			dev_info(adev->dev, "GPU reset end with ret = %d\n", r);
+  6058	
+  6059		atomic_set(&adev->reset_domain->reset_res, r);
+  6060	
+> 6061		drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE);
+  6062	
+  6063		return r;
+  6064	}
+  6065	
 
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
