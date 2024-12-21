@@ -4,58 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C278E7718B
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7DF1E7718D
 	for <amd-gfx@archiver.kernel.org>; Mon, 23 Dec 2024 08:56:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E1F1C10E422;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F3C2210E427;
 	Mon, 23 Dec 2024 08:56:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=xry111.site header.i=@xry111.site header.b="PlO8lUo6";
+	dkim=pass (2048-bit key; unprotected) header.d=svmhdvn.name header.i=@svmhdvn.name header.b="trl652hQ";
 	dkim-atps=neutral
-X-Greylist: delayed 438 seconds by postgrey-1.36 at gabe;
- Sat, 21 Dec 2024 07:47:37 UTC
-Received: from xry111.site (xry111.site [89.208.246.23])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2386210E18D
- for <amd-gfx@lists.freedesktop.org>; Sat, 21 Dec 2024 07:47:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=xry111.site;
- s=default; t=1734766817;
- bh=qRqAXKm2HRVn9eGyJUn2NuNThJt4E57rt97nhcHUOpI=;
- h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
- b=PlO8lUo6Puxwx7/wEJVnN7NM1NK7/khxtONLqm9gWj490s7zIL6zxJbgEPRcGx6VV
- a90P4x2VIoeSJcZT1J4yAasJOBLqO1stvf9lRZcEsQUsJhHu2s2/+VL23JFrUaP4Co
- u+GcBhfWLcOdxUUkikqYnv6dJYRU8eAkTRVK6swQ=
-Received: from [192.168.124.9] (unknown [113.200.174.52])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature ECDSA (secp384r1)
- server-digest SHA384) (Client did not present a certificate)
- (Authenticated sender: xry111@xry111.site)
- by xry111.site (Postfix) with ESMTPSA id E0FC967827;
- Sat, 21 Dec 2024 02:40:14 -0500 (EST)
-Message-ID: <05cdb3b4c9bddf25f7b839229b635d2dec5140a4.camel@xry111.site>
-Subject: Re: [PATCH v6 9/9] drm/amd/display: Mark dc_fixpt_from_fraction()
- noinline
-From: Xi Ruoyao <xry111@xry111.site>
-To: Nathan Chancellor <nathan@kernel.org>, Peter Zijlstra
- <peterz@infradead.org>
-Cc: Tiezhu Yang <yangtiezhu@loongson.cn>, Alex Deucher
- <alexdeucher@gmail.com>,  Josh Poimboeuf <jpoimboe@kernel.org>, Huacai Chen
- <chenhuacai@kernel.org>, loongarch@lists.linux.dev, 
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, Nick
- Desaulniers	 <ndesaulniers@google.com>, llvm@lists.linux.dev
-Date: Sat, 21 Dec 2024 15:40:12 +0800
-In-Reply-To: <20241220223403.GA2605890@ax162>
-References: <20241217010905.13054-1-yangtiezhu@loongson.cn>
- <20241217015006.30305-1-yangtiezhu@loongson.cn>
- <CAAhV-H4WpcWjrQdkm3Sx4DVbp=2oW9nNGAbNqR4BEmiryrptNQ@mail.gmail.com>
- <20241218190558.g2hykmjgbny4n5i3@jpoimboe>
- <CADnq5_PFcHzob4poLa86_K4yP5gUT7Ei4Rz5vSUofvZTmB48-g@mail.gmail.com>
- <4bace457-cc26-13a3-bc90-ad6ad12bc2ed@loongson.cn>
- <20241220103100.GB17537@noisy.programming.kicks-ass.net>
- <20241220223403.GA2605890@ax162>
-Content-Type: text/plain; charset="UTF-8"
+X-Greylist: delayed 396 seconds by postgrey-1.36 at gabe;
+ Sat, 21 Dec 2024 22:42:19 UTC
+Received: from diary.svmhdvn.name (diary.svmhdvn.name [174.136.98.26])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9BAD310E06D
+ for <amd-gfx@lists.freedesktop.org>; Sat, 21 Dec 2024 22:42:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=svmhdvn.name;
+ s=diary1; t=1734820548;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=h9vROm/ucFrO1Zn4KeEKv/82NzYWKSb+97vYad00O+U=;
+ b=trl652hQOgNnOU5zQ6CZeRa2MYaQA3yT9JHZ+kaD5IU5bLnPZ/rD2U/ES0YvhKijfUQLdV
+ UG9LahF9SPPDaX94egagfw0Rps/YtczC24pZCjpocYdf9cX0SjhqZ4CNPTVLvw0Fhc/+Lc
+ 5QQpA3PSiG+VY+oi2cvHY/QLDRVun0GEgfXQVafTQWQ6WqYXihLF1oLmQ9D5rqYQ/hifDT
+ iJWGIaMxgzCeoNrTUOGOG1bb+vm2ykjhfpg2j2lt17d+lFaS1lhQix1OSLuhr94Yn4ZtuN
+ CWs3JJ4fVV1i4e2kPREX2ZvASlvlac5fwfpeStNJzdc7e/fAh7R8cPJkkZm2RQ==
+Received: by diary.svmhdvn.name (OpenSMTPD) with ESMTPSA id 5ec79cca
+ (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO); 
+ Sat, 21 Dec 2024 22:35:46 +0000 (UTC)
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.54.2 
-MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 21 Dec 2024 17:35:37 -0500
+Message-Id: <D6HQK0PSRVBC.XEUGZC9N1O5K@svmhdvn.name>
+Subject: [REGRESSION] amdgpu: thinkpad e495 backlight brightness resets
+ after suspend
+Cc: <regressions@lists.linux.dev>, <stable@vger.kernel.org>,
+ <amd-gfx@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <Xinhui.Pan@amd.com>, <christian.koenig@amd.com>
+From: "Siva Mahadevan" <me@svmhdvn.name>
+To: <alexander.deucher@amd.com>
+X-Mailer: aerc 0.18.2
 X-Mailman-Approved-At: Mon, 23 Dec 2024 08:56:35 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -71,32 +59,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 2024-12-20 at 15:34 -0700, Nathan Chancellor wrote:
-> > Now, the thing is, these ASSERT()s are checking for divide-by-zero, I
-> > suspect clang figured that out and invokes UB on us and just stops
-> > code-gen.
->=20
-> Yeah, I think your analysis is spot on, as this was introduced by a
-> change in clang from a few months ago according to my bisect:
->=20
-> https://github.com/llvm/llvm-project/commit/37932643abab699e8bb1def08b7eb=
-4eae7ff1448
->=20
-> Since the ASSERT does not do anything to prevent the divide by zero (it
-> just flags it with WARN_ON) and the rest of the code doesn't either, I
-> assume that the codegen stops as soon as it encounters the unreachable
-> that change created from the path where divide by zero would occur via
->=20
-> =C2=A0 dc_fixpt_recip() ->
-> =C2=A0=C2=A0=C2=A0 dc_fixpt_from_fraction() ->
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 complete_integer_division_u64() ->
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 div64_u64_rem()
->=20
-> Shouldn't callers of division functions harden them against dividing by
-> zero?
+#regzbot introduced: 99a02eab8
 
-Yes I think it'd be the correct solution.
+Observed behaviour:
+linux-stable v6.12.5 has a regression on my thinkpad e495 where
+suspend/resume of the laptop results in my backlight brightness settings
+to be reset to some very high value. After resume, I'm able to increase
+brightness further until max brightness, but I'm not able to decrease it
+anymore.
 
---=20
-Xi Ruoyao <xry111@xry111.site>
-School of Aerospace Science and Technology, Xidian University
+Behaviour prior to regression:
+linux-stable v6.12.4 correctly maintains the same brightness setting on
+the backlight that was set prior to suspend/resume.
+
+Notes:
+I bisected this issue between v6.12.4 and v6.12.5 to commit 99a02eab8
+titled "drm/amdgpu: rework resume handling for display (v2)".
+
+Hardware:
+* lenovo thinkpad e495
+* AMD Ryzen 5 3500U with Radeon Vega Mobile Gfx
+* VGA compatible controller: Advanced Micro Devices, Inc. [AMD/ATI]
+  Picasso/Raven 2 [Radeon Vega Series / Radeon Vega Mobile Series]
+  (rev c2)
