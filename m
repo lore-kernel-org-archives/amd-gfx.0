@@ -4,46 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7DF1E7718D
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Dec 2024 08:56:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B06A3E77190
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Dec 2024 08:56:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3C2210E427;
-	Mon, 23 Dec 2024 08:56:35 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=svmhdvn.name header.i=@svmhdvn.name header.b="trl652hQ";
-	dkim-atps=neutral
-X-Greylist: delayed 396 seconds by postgrey-1.36 at gabe;
- Sat, 21 Dec 2024 22:42:19 UTC
-Received: from diary.svmhdvn.name (diary.svmhdvn.name [174.136.98.26])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9BAD310E06D
- for <amd-gfx@lists.freedesktop.org>; Sat, 21 Dec 2024 22:42:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=svmhdvn.name;
- s=diary1; t=1734820548;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=h9vROm/ucFrO1Zn4KeEKv/82NzYWKSb+97vYad00O+U=;
- b=trl652hQOgNnOU5zQ6CZeRa2MYaQA3yT9JHZ+kaD5IU5bLnPZ/rD2U/ES0YvhKijfUQLdV
- UG9LahF9SPPDaX94egagfw0Rps/YtczC24pZCjpocYdf9cX0SjhqZ4CNPTVLvw0Fhc/+Lc
- 5QQpA3PSiG+VY+oi2cvHY/QLDRVun0GEgfXQVafTQWQ6WqYXihLF1oLmQ9D5rqYQ/hifDT
- iJWGIaMxgzCeoNrTUOGOG1bb+vm2ykjhfpg2j2lt17d+lFaS1lhQix1OSLuhr94Yn4ZtuN
- CWs3JJ4fVV1i4e2kPREX2ZvASlvlac5fwfpeStNJzdc7e/fAh7R8cPJkkZm2RQ==
-Received: by diary.svmhdvn.name (OpenSMTPD) with ESMTPSA id 5ec79cca
- (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO); 
- Sat, 21 Dec 2024 22:35:46 +0000 (UTC)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 21 Dec 2024 17:35:37 -0500
-Message-Id: <D6HQK0PSRVBC.XEUGZC9N1O5K@svmhdvn.name>
-Subject: [REGRESSION] amdgpu: thinkpad e495 backlight brightness resets
- after suspend
-Cc: <regressions@lists.linux.dev>, <stable@vger.kernel.org>,
- <amd-gfx@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <Xinhui.Pan@amd.com>, <christian.koenig@amd.com>
-From: "Siva Mahadevan" <me@svmhdvn.name>
-To: <alexander.deucher@amd.com>
-X-Mailer: aerc 0.18.2
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E91B10E467;
+	Mon, 23 Dec 2024 08:56:38 +0000 (UTC)
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 2D75110E0CC
+ for <amd-gfx@lists.freedesktop.org>; Sun, 22 Dec 2024 04:27:52 +0000 (UTC)
+Received: from loongson.cn (unknown [113.200.148.30])
+ by gateway (Coremail) with SMTP id _____8CxC+JGlWdnk15ZAA--.44085S3;
+ Sun, 22 Dec 2024 12:27:50 +0800 (CST)
+Received: from [10.130.0.149] (unknown [113.200.148.30])
+ by front1 (Coremail) with SMTP id qMiowMBxReRDlWdnEC0FAA--.29113S3;
+ Sun, 22 Dec 2024 12:27:47 +0800 (CST)
+Subject: Re: [PATCH v6 9/9] drm/amd/display: Mark dc_fixpt_from_fraction()
+ noinline
+To: Xi Ruoyao <xry111@xry111.site>, Nathan Chancellor <nathan@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>
+References: <20241217010905.13054-1-yangtiezhu@loongson.cn>
+ <20241217015006.30305-1-yangtiezhu@loongson.cn>
+ <CAAhV-H4WpcWjrQdkm3Sx4DVbp=2oW9nNGAbNqR4BEmiryrptNQ@mail.gmail.com>
+ <20241218190558.g2hykmjgbny4n5i3@jpoimboe>
+ <CADnq5_PFcHzob4poLa86_K4yP5gUT7Ei4Rz5vSUofvZTmB48-g@mail.gmail.com>
+ <4bace457-cc26-13a3-bc90-ad6ad12bc2ed@loongson.cn>
+ <20241220103100.GB17537@noisy.programming.kicks-ass.net>
+ <20241220223403.GA2605890@ax162>
+ <05cdb3b4c9bddf25f7b839229b635d2dec5140a4.camel@xry111.site>
+Cc: Alex Deucher <alexdeucher@gmail.com>, Josh Poimboeuf
+ <jpoimboe@kernel.org>, Huacai Chen <chenhuacai@kernel.org>,
+ loongarch@lists.linux.dev, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Nick Desaulniers <ndesaulniers@google.com>,
+ llvm@lists.linux.dev
+From: Tiezhu Yang <yangtiezhu@loongson.cn>
+Message-ID: <bc35fddc-498a-cc58-b6a1-f5234a4f6d0d@loongson.cn>
+Date: Sun, 22 Dec 2024 12:27:47 +0800
+User-Agent: Mozilla/5.0 (X11; Linux mips64; rv:45.0) Gecko/20100101
+ Thunderbird/45.4.0
+MIME-Version: 1.0
+In-Reply-To: <05cdb3b4c9bddf25f7b839229b635d2dec5140a4.camel@xry111.site>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID: qMiowMBxReRDlWdnEC0FAA--.29113S3
+X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
+X-Coremail-Antispam: 1Uk129KBj93XoW7CFWfJryDGr13JF18Wr1kXrc_yoW5Jr1kpF
+ 4rJFyUGrWDXFySvFZFkw15Xa93A3yfJr4kGFyrur1rAa47AanY9rs3t3WkJayakr42yr40
+ va98KFyqyF4qyFcCm3ZEXasCq-sJn29KB7ZKAUJUUUU5529EdanIXcx71UUUUU7KY7ZEXa
+ sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+ 0xBIdaVrnRJUUUv0b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+ IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+ e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+ 0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
+ Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx1l5I
+ 8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17McIj6I8E87Iv67AK
+ xVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7I2V7IY0VAS07AlzV
+ AYIcxG8wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E
+ 14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIx
+ kGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAF
+ wI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r
+ 4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU8zwZ7UU
+ UUU==
 X-Mailman-Approved-At: Mon, 23 Dec 2024 08:56:35 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -59,26 +79,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-#regzbot introduced: 99a02eab8
+On 12/21/2024 03:40 PM, Xi Ruoyao wrote:
+> On Fri, 2024-12-20 at 15:34 -0700, Nathan Chancellor wrote:
+>>> Now, the thing is, these ASSERT()s are checking for divide-by-zero, I
+>>> suspect clang figured that out and invokes UB on us and just stops
+>>> code-gen.
+>>
+>> Yeah, I think your analysis is spot on, as this was introduced by a
+>> change in clang from a few months ago according to my bisect:
+>>
+>> https://github.com/llvm/llvm-project/commit/37932643abab699e8bb1def08b7eb4eae7ff1448
+>>
+>> Since the ASSERT does not do anything to prevent the divide by zero (it
+>> just flags it with WARN_ON) and the rest of the code doesn't either, I
+>> assume that the codegen stops as soon as it encounters the unreachable
+>> that change created from the path where divide by zero would occur via
+>>
+>>   dc_fixpt_recip() ->
+>>     dc_fixpt_from_fraction() ->
+>>       complete_integer_division_u64() ->
+>>         div64_u64_rem()
+>>
+>> Shouldn't callers of division functions harden them against dividing by
+>> zero?
+>
+> Yes I think it'd be the correct solution.
 
-Observed behaviour:
-linux-stable v6.12.5 has a regression on my thinkpad e495 where
-suspend/resume of the laptop results in my backlight brightness settings
-to be reset to some very high value. After resume, I'm able to increase
-brightness further until max brightness, but I'm not able to decrease it
-anymore.
+Thank you all. Do you mean like this?
 
-Behaviour prior to regression:
-linux-stable v6.12.4 correctly maintains the same brightness setting on
-the backlight that was set prior to suspend/resume.
+--- >8 ---
 
-Notes:
-I bisected this issue between v6.12.4 and v6.12.5 to commit 99a02eab8
-titled "drm/amdgpu: rework resume handling for display (v2)".
+diff --git a/drivers/gpu/drm/amd/display/dc/basics/fixpt31_32.c 
+b/drivers/gpu/drm/amd/display/dc/basics/fixpt31_32.c
+index 88d3f9d7dd55..848d8e67304a 100644
+--- a/drivers/gpu/drm/amd/display/dc/basics/fixpt31_32.c
++++ b/drivers/gpu/drm/amd/display/dc/basics/fixpt31_32.c
+@@ -79,11 +79,13 @@ struct fixed31_32 dc_fixpt_from_fraction(long long 
+numerator, long long denomina
+         unsigned long long arg2_value = arg2_negative ? -denominator : 
+denominator;
 
-Hardware:
-* lenovo thinkpad e495
-* AMD Ryzen 5 3500U with Radeon Vega Mobile Gfx
-* VGA compatible controller: Advanced Micro Devices, Inc. [AMD/ATI]
-  Picasso/Raven 2 [Radeon Vega Series / Radeon Vega Mobile Series]
-  (rev c2)
+         unsigned long long remainder;
++       unsigned long long res_value;
+
+         /* determine integer part */
+
+-       unsigned long long res_value = complete_integer_division_u64(
+-               arg1_value, arg2_value, &remainder);
++       ASSERT(arg2_value);
++
++       res_value = complete_integer_division_u64(arg1_value, 
+arg2_value, &remainder);
+
+         ASSERT(res_value <= LONG_MAX);
+
+@@ -214,8 +216,6 @@ struct fixed31_32 dc_fixpt_recip(struct fixed31_32 arg)
+          * Good idea to use Newton's method
+          */
+
+-       ASSERT(arg.value);
+-
+         return dc_fixpt_from_fraction(
+                 dc_fixpt_one.value,
+                 arg.value);
+
+With the above changes, there is no "falls through" objtool warning
+compiled with both clang 19 and the latest mainline clang 20.
+
+If you are OK with it, I will send a separate formal patch to handle
+this issue after doing some more testing.
+
+Thanks,
+Tiezhu
+
