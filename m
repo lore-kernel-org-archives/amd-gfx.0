@@ -4,67 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B06A3E77190
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Dec 2024 08:56:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61DBDE7718B
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Dec 2024 14:29:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E91B10E467;
-	Mon, 23 Dec 2024 08:56:38 +0000 (UTC)
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
- by gabe.freedesktop.org (Postfix) with ESMTP id 2D75110E0CC
- for <amd-gfx@lists.freedesktop.org>; Sun, 22 Dec 2024 04:27:52 +0000 (UTC)
-Received: from loongson.cn (unknown [113.200.148.30])
- by gateway (Coremail) with SMTP id _____8CxC+JGlWdnk15ZAA--.44085S3;
- Sun, 22 Dec 2024 12:27:50 +0800 (CST)
-Received: from [10.130.0.149] (unknown [113.200.148.30])
- by front1 (Coremail) with SMTP id qMiowMBxReRDlWdnEC0FAA--.29113S3;
- Sun, 22 Dec 2024 12:27:47 +0800 (CST)
-Subject: Re: [PATCH v6 9/9] drm/amd/display: Mark dc_fixpt_from_fraction()
- noinline
-To: Xi Ruoyao <xry111@xry111.site>, Nathan Chancellor <nathan@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>
-References: <20241217010905.13054-1-yangtiezhu@loongson.cn>
- <20241217015006.30305-1-yangtiezhu@loongson.cn>
- <CAAhV-H4WpcWjrQdkm3Sx4DVbp=2oW9nNGAbNqR4BEmiryrptNQ@mail.gmail.com>
- <20241218190558.g2hykmjgbny4n5i3@jpoimboe>
- <CADnq5_PFcHzob4poLa86_K4yP5gUT7Ei4Rz5vSUofvZTmB48-g@mail.gmail.com>
- <4bace457-cc26-13a3-bc90-ad6ad12bc2ed@loongson.cn>
- <20241220103100.GB17537@noisy.programming.kicks-ass.net>
- <20241220223403.GA2605890@ax162>
- <05cdb3b4c9bddf25f7b839229b635d2dec5140a4.camel@xry111.site>
-Cc: Alex Deucher <alexdeucher@gmail.com>, Josh Poimboeuf
- <jpoimboe@kernel.org>, Huacai Chen <chenhuacai@kernel.org>,
- loongarch@lists.linux.dev, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Nick Desaulniers <ndesaulniers@google.com>,
- llvm@lists.linux.dev
-From: Tiezhu Yang <yangtiezhu@loongson.cn>
-Message-ID: <bc35fddc-498a-cc58-b6a1-f5234a4f6d0d@loongson.cn>
-Date: Sun, 22 Dec 2024 12:27:47 +0800
-User-Agent: Mozilla/5.0 (X11; Linux mips64; rv:45.0) Gecko/20100101
- Thunderbird/45.4.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id F362F10E267;
+	Mon, 23 Dec 2024 14:29:57 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="iipFqhfp";
+	dkim-atps=neutral
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on20617.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:2418::617])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B45810E267
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Dec 2024 14:29:57 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qpYc81bYJSG06lFQiquw/KabZLejhtsPtu4gWKPvR73s7DkQg4m4ngEi08+DV8AC+c5oHNaxyXxfVoyUHuBqGknmvViWHyUE9/XKAbCujf1kno5zL1KoYadcMJ3/ZMQL6mYOpJs7I7CQm4KIu2Py4pjzsOjikz/KWtpLr1wcLd9hSmi+VZxP5Vv8/VXboed/O216PT42UyiSlZkeIXSMPZltKWyIS5BNRR6BL38BH3iCaoRNOoYpIzxypKhVx3jJinRqvihuKsSVBqmAcQjn5rVVBjBmlpqOCgeDF6i3aTV4mJlGJTPjCv2V73lZrLBykYni/wXHRVyPXb9Yewf5ug==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=f6Y7diUuYYOjaEbLYmCXr2XAE4GwjT3lw7i5bwc1/I8=;
+ b=WonuU1LdY1lqW7Jbc66I4I49pjIbGbgBIzQlEjrQ5KJ5M9EfwgMOPO7zjj61qId3uWjuoXdgNkHgAZGdFNMdz4YUTlQPM1ZzGff4iIE14wJ6JOlSq0H7195omX7oWLyFb0u8VTNOxcPo9ctmhyI5gXalU9au5Vrj8yWwAPLfdJsge+J3y0Men43+gj3yD3HIY5JnlWLwJLcXbiEwxAErzzmbdoAQR006DNBgOED3pnWAZa2u/r4hB+6qFllqIGL3wdOo9ktSv9FfEUii5WmvqQRSkc9OrCUtMJC5mNRYvv9TzjDfub2O4jbY4Jvdv3c85wl49S/kdmazxmiJ2CrCMg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=f6Y7diUuYYOjaEbLYmCXr2XAE4GwjT3lw7i5bwc1/I8=;
+ b=iipFqhfpogWbUry/FhcQFId7eU5QG4U8bSlAPyc7kZeWoVd5reVD+D9xmtjOM++FybouSg/ZJnSZxYp81z7bz0oRsI8GdG8+R2Oh/QgjRY/r4BW0/45gKdnLbYAXHxMN2KRveTnS1Q1LKWVHKmFpt7t3j51+spZs6mYMKW7LtN4=
+Received: from MN2PR22CA0007.namprd22.prod.outlook.com (2603:10b6:208:238::12)
+ by IA0PR12MB8695.namprd12.prod.outlook.com (2603:10b6:208:485::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8272.20; Mon, 23 Dec
+ 2024 14:29:50 +0000
+Received: from BN1PEPF00006000.namprd05.prod.outlook.com
+ (2603:10b6:208:238:cafe::e4) by MN2PR22CA0007.outlook.office365.com
+ (2603:10b6:208:238::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8272.19 via Frontend Transport; Mon,
+ 23 Dec 2024 14:29:50 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN1PEPF00006000.mail.protection.outlook.com (10.167.243.232) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8293.12 via Frontend Transport; Mon, 23 Dec 2024 14:29:49 +0000
+Received: from krussell.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 23 Dec
+ 2024 08:29:49 -0600
+From: Kent Russell <kent.russell@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Jiang Liu <gerry@linux.alibaba.com>, Kent Russell <kent.russell@amd.com>
+Subject: [PATCH] amdgpu: tear down ttm range manager for doorbell in
+ amdgpu_ttm_fini()
+Date: Mon, 23 Dec 2024 09:29:39 -0500
+Message-ID: <20241223142939.819712-1-kent.russell@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-In-Reply-To: <05cdb3b4c9bddf25f7b839229b635d2dec5140a4.camel@xry111.site>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID: qMiowMBxReRDlWdnEC0FAA--.29113S3
-X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
-X-Coremail-Antispam: 1Uk129KBj93XoW7CFWfJryDGr13JF18Wr1kXrc_yoW5Jr1kpF
- 4rJFyUGrWDXFySvFZFkw15Xa93A3yfJr4kGFyrur1rAa47AanY9rs3t3WkJayakr42yr40
- va98KFyqyF4qyFcCm3ZEXasCq-sJn29KB7ZKAUJUUUU5529EdanIXcx71UUUUU7KY7ZEXa
- sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
- 0xBIdaVrnRJUUUv0b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
- IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
- e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
- 0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
- Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx1l5I
- 8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17McIj6I8E87Iv67AK
- xVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7I2V7IY0VAS07AlzV
- AYIcxG8wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E
- 14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIx
- kGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAF
- wI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r
- 4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU8zwZ7UU
- UUU==
-X-Mailman-Approved-At: Mon, 23 Dec 2024 08:56:35 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF00006000:EE_|IA0PR12MB8695:EE_
+X-MS-Office365-Filtering-Correlation-Id: 37612a6f-2694-4427-ec90-08dd235e4200
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|1800799024|376014|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?TpRSnaITru1DrSRnU1tval8IzRKZOd4XdB0g29osXwnnz3NXMRTXs6x/84yP?=
+ =?us-ascii?Q?CN2BvX6S4LtQHv871oJErWdx0+0WWwP5BDM7M/K+lzor7GKYsA3mUGPcrQBL?=
+ =?us-ascii?Q?1/XDgvyUoJX7MeUKAAosSP5c85irw115YVccsL3Jjn0d9jNiZV9FMak1AfI3?=
+ =?us-ascii?Q?m8s8fSEQj70Q4w0EGq03iytzKD6xiAIRPP07wPxhAoYe9bzcJ749jTyDZBGD?=
+ =?us-ascii?Q?JbNwoLuJL/sPBIJLOtUSZXPPGZpD/m1BbYZyvQuyMdK/dftM2hIiyGV/nmBg?=
+ =?us-ascii?Q?j6W/DQJrk0i/XKTzIFRQWf5Km+9t7FWXDSOv7aWBCabYYHfpLD+Id1qH+PkV?=
+ =?us-ascii?Q?uqF8j+iatL0dWBFJAhTuHUzD3OnKJw6+ElviHeQW95IC7z5f3vBHznWFOLFz?=
+ =?us-ascii?Q?g10tv1sbs2vD9tBkYzK0WeStO5NxEw5c88ChJ6cI9DG8eq/KbgBvPmvAZ54b?=
+ =?us-ascii?Q?bFFOt4xrfSUVLnE2G9GNLdEcQI7W6q91hTTWehT745PyzwYnqA9aGH0mSYgw?=
+ =?us-ascii?Q?SoGRibP1hMwRrZXfX5HbfP1JONvj8CKlexMPiRHWeLV4KQvIfMr68Ge+Gt6u?=
+ =?us-ascii?Q?BcdfVhxwoiFj8MxKPQHrkdv4qTAIWIsiY8YRWS37zJC1i8m8Fpc1ZszuK0QF?=
+ =?us-ascii?Q?ZO9q3zfAYuOTz01oKFW+DLfYpMKhSGFtbheuHxMVZjRK7+Dj7Qz5TSl9KHbd?=
+ =?us-ascii?Q?bUuGvKfQCVWHJmSI5a29ezXfYantVB89CKIEwRh2gd3JMswDmI70YWWqm5+C?=
+ =?us-ascii?Q?gEEI+u+TXYhpnDkgvs89ZuOVRmYMzl6WWAm4dzjwEya636ijwsFA8eW6Ljj0?=
+ =?us-ascii?Q?6LKN3HFl+TX/OB0oyHWLjrmA6m5sCJLNpB0CLe/+FcolRLIjl5bde+ohQ+Yq?=
+ =?us-ascii?Q?VfRYuE0eRfn+hVJ/6+Fb+Gh7ioPvApMyMrayTX54VKZ+cgqVZRTjx4L9zznr?=
+ =?us-ascii?Q?YC1L4s7hqnh6e2pWiMsRs6ftQHEEQEk3mzOlQrpu6ajAEhJcvmlnK7+jKqzj?=
+ =?us-ascii?Q?GTK5oXYGv4pUbMiLJ92iCzSKjqHUTMMjB5eFKLf3O8EFEt9gN9S26Fnc5LeV?=
+ =?us-ascii?Q?r22Jkeo0s3CR/JehRxc51oIm9CJdldozB1r0S5S6YvhmAe/66P1L5MgKkwZ3?=
+ =?us-ascii?Q?zrxorDALhjMepBPObCNKeu4bMGe2Xc9zemairb0+qL6xbeRlBPngb+wj9sIb?=
+ =?us-ascii?Q?FnX2jsRnHjM0OZlAQeyI4hk+dW6Nu1mYwZn0lZkxHybG+HvDifwFUPMI9T0G?=
+ =?us-ascii?Q?9sYKqMPHT28fRvTjpZl1yV6zmeaD+Uphd1scQ/lU8ASjdHTWB9W/PeGa3aj1?=
+ =?us-ascii?Q?W7vKjSGvxOQcSOe6LkgnsVapcDOitWWmmp6/491Pbh2F1H7SHACrN+pjA/o0?=
+ =?us-ascii?Q?/tiOaB9MhjbTWOtL/RCfXtu4ZIFvmKXFNahgbrK11WVCfieqQ+PetQdqMKNl?=
+ =?us-ascii?Q?aAj4sHFzMPIofAWdoelUVPUNflBkgPkvNjbULw6U30iq8B2aWjNsFILUdJP+?=
+ =?us-ascii?Q?rpdNRypias1Rpkk=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(376014)(36860700013); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Dec 2024 14:29:49.7108 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 37612a6f-2694-4427-ec90-08dd235e4200
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00006000.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8695
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,76 +132,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 12/21/2024 03:40 PM, Xi Ruoyao wrote:
-> On Fri, 2024-12-20 at 15:34 -0700, Nathan Chancellor wrote:
->>> Now, the thing is, these ASSERT()s are checking for divide-by-zero, I
->>> suspect clang figured that out and invokes UB on us and just stops
->>> code-gen.
->>
->> Yeah, I think your analysis is spot on, as this was introduced by a
->> change in clang from a few months ago according to my bisect:
->>
->> https://github.com/llvm/llvm-project/commit/37932643abab699e8bb1def08b7eb4eae7ff1448
->>
->> Since the ASSERT does not do anything to prevent the divide by zero (it
->> just flags it with WARN_ON) and the rest of the code doesn't either, I
->> assume that the codegen stops as soon as it encounters the unreachable
->> that change created from the path where divide by zero would occur via
->>
->>   dc_fixpt_recip() ->
->>     dc_fixpt_from_fraction() ->
->>       complete_integer_division_u64() ->
->>         div64_u64_rem()
->>
->> Shouldn't callers of division functions harden them against dividing by
->> zero?
->
-> Yes I think it'd be the correct solution.
+From: Jiang Liu <gerry@linux.alibaba.com>
 
-Thank you all. Do you mean like this?
+Tear down ttm range manager for doorbell in function amdgpu_ttm_fini(),
+to avoid memory leakage.
 
---- >8 ---
+Signed-off-by: Jiang Liu <gerry@linux.alibaba.com>
+Signed-off-by: Kent Russell <kent.russell@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/basics/fixpt31_32.c 
-b/drivers/gpu/drm/amd/display/dc/basics/fixpt31_32.c
-index 88d3f9d7dd55..848d8e67304a 100644
---- a/drivers/gpu/drm/amd/display/dc/basics/fixpt31_32.c
-+++ b/drivers/gpu/drm/amd/display/dc/basics/fixpt31_32.c
-@@ -79,11 +79,13 @@ struct fixed31_32 dc_fixpt_from_fraction(long long 
-numerator, long long denomina
-         unsigned long long arg2_value = arg2_negative ? -denominator : 
-denominator;
-
-         unsigned long long remainder;
-+       unsigned long long res_value;
-
-         /* determine integer part */
-
--       unsigned long long res_value = complete_integer_division_u64(
--               arg1_value, arg2_value, &remainder);
-+       ASSERT(arg2_value);
-+
-+       res_value = complete_integer_division_u64(arg1_value, 
-arg2_value, &remainder);
-
-         ASSERT(res_value <= LONG_MAX);
-
-@@ -214,8 +216,6 @@ struct fixed31_32 dc_fixpt_recip(struct fixed31_32 arg)
-          * Good idea to use Newton's method
-          */
-
--       ASSERT(arg.value);
--
-         return dc_fixpt_from_fraction(
-                 dc_fixpt_one.value,
-                 arg.value);
-
-With the above changes, there is no "falls through" objtool warning
-compiled with both clang 19 and the latest mainline clang 20.
-
-If you are OK with it, I will send a separate formal patch to handle
-this issue after doing some more testing.
-
-Thanks,
-Tiezhu
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 9ff6cfacfd34..e6fc89440210 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -2066,6 +2066,7 @@ void amdgpu_ttm_fini(struct amdgpu_device *adev)
+ 	ttm_range_man_fini(&adev->mman.bdev, AMDGPU_PL_GDS);
+ 	ttm_range_man_fini(&adev->mman.bdev, AMDGPU_PL_GWS);
+ 	ttm_range_man_fini(&adev->mman.bdev, AMDGPU_PL_OA);
++	ttm_range_man_fini(&adev->mman.bdev, AMDGPU_PL_DOORBELL);
+ 	ttm_device_fini(&adev->mman.bdev);
+ 	adev->mman.initialized = false;
+ 	DRM_INFO("amdgpu: ttm finalized\n");
+-- 
+2.43.0
 
