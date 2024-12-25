@@ -4,122 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3FA8E7718E
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Dec 2024 08:33:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D9AAE77188
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Dec 2024 09:00:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 686D010E7D0;
-	Thu, 26 Dec 2024 08:33:27 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="N8ZhhRcy";
-	dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2060.outbound.protection.outlook.com [40.107.244.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B6EE410E7CF
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Dec 2024 08:33:25 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Z80HlVqxOzi2ZWZLYlfQ4YIHoHmMbgA57p3NW1ttu9FzCid2STt35FefxEPxExlH88zqd09H/D+2f7B/9GT2QsW51tuskXxWdABmU4r+4pf4Mq6gNcwbllSQwrz1O8amKAK0kjlg5b/ti8R9cCU3fALf7Jdeqr/Z/CrvYeYNWiy2C+2lesGtLCNypfFYw7oI7uwVS841elXRBxHdbro/vbmxGWmaLhe/9LYbLvzZGTYkqoGG8fxA04F31HJbpgTpb7vMJEdaTDAHea0yI58G6G0NJEmV4OJeex08W7zWYyfEsnpaF1iUPTIW/BMLFz52BcVF5TzQYBojwk9FWlgxhA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BgR7hbd/E7fegE4s6AIJJFhJzFnQLMLOPv93zvLI/0I=;
- b=bhBWOIRBaQ3/yebzgO9fGSSRHveF4w2b0bObg43sD5ilG4hf2RP6EvYtnXMJZtq56aooiLTXgTRNO16RCg4hdjY5KC/TmM50baNpDcpzTKm3kPiX/uDyOKhff+52lbQfmMDo85TwzOMg4POedkgoCptX4pg60jgZxd1i0Y6Zp4kz5v644OG15vt6qPCaT1BMpXjmlFUSZAgQ+6/q3IiK5L6D2FJwPVPAy5OPvEA9seAMu1wqZttB9ol9Pu4VNYdNBX11D6WIks7YYbCc8BoGL3+cSUgcc8o1NxAdH2VXSxB8HaOUWru8gP2Hq5EEebxkTjmQTHdvr7Jpjq2PqhYRog==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BgR7hbd/E7fegE4s6AIJJFhJzFnQLMLOPv93zvLI/0I=;
- b=N8ZhhRcyJixDNdXt7XdHq1WSviKrKpN4firWP4cUcUy+1L9hCEsorxYQkLFutE0C4Fdr7CipquLFrTl4rbQbDbs4VW/Ekrp5+dZWUxzi489HgQEs1QE9uRhTx9AqYJlIg/iUyocSg7jAYkHmd8cWpHFaavNzuJf9ZGRZgrrgReY=
-Received: from SJ0PR05CA0157.namprd05.prod.outlook.com (2603:10b6:a03:339::12)
- by SJ0PR12MB6712.namprd12.prod.outlook.com (2603:10b6:a03:44e::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8293.14; Thu, 26 Dec
- 2024 08:33:18 +0000
-Received: from SJ5PEPF000001D4.namprd05.prod.outlook.com
- (2603:10b6:a03:339:cafe::3e) by SJ0PR05CA0157.outlook.office365.com
- (2603:10b6:a03:339::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8293.15 via Frontend Transport; Thu,
- 26 Dec 2024 08:33:18 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ5PEPF000001D4.mail.protection.outlook.com (10.167.242.56) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8293.12 via Frontend Transport; Thu, 26 Dec 2024 08:33:18 +0000
-Received: from asad-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 26 Dec
- 2024 02:33:15 -0600
-From: Asad Kamal <asad.kamal@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <lijo.lazar@amd.com>
-CC: <le.ma@amd.com>, <hawking.zhang@amd.com>, <shiwu.zhang@amd.com>,
- <Asad.Kamal@amd.com>, <charis.poag@amd.com>, <donald.cheung@amd.com>,
- <sepehr.khatir@amd.com>, <daniel.oliveira@amd.com>
-Subject: [PATCH v3 2/2] drm/amd/pm: Fill max mem bw & total app clk counter
-Date: Thu, 26 Dec 2024 16:32:59 +0800
-Message-ID: <20241226083259.2670687-2-asad.kamal@amd.com>
-X-Mailer: git-send-email 2.46.0
-In-Reply-To: <20241226083259.2670687-1-asad.kamal@amd.com>
-References: <20241226083259.2670687-1-asad.kamal@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBDEC10E056;
+	Thu, 26 Dec 2024 09:00:11 +0000 (UTC)
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 7284610E10A
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Dec 2024 09:44:03 +0000 (UTC)
+Received: from loongson.cn (unknown [113.200.148.30])
+ by gateway (Coremail) with SMTP id _____8DxmeDb02tnTFFaAA--.46919S3;
+ Wed, 25 Dec 2024 17:43:55 +0800 (CST)
+Received: from [10.130.0.149] (unknown [113.200.148.30])
+ by front1 (Coremail) with SMTP id qMiowMBxzsXa02tn5bcIAA--.37718S3;
+ Wed, 25 Dec 2024 17:43:54 +0800 (CST)
+Subject: Re: [PATCH v6 9/9] drm/amd/display: Mark dc_fixpt_from_fraction()
+ noinline
+To: Nathan Chancellor <nathan@kernel.org>
+References: <20241217010905.13054-1-yangtiezhu@loongson.cn>
+ <20241217015006.30305-1-yangtiezhu@loongson.cn>
+ <CAAhV-H4WpcWjrQdkm3Sx4DVbp=2oW9nNGAbNqR4BEmiryrptNQ@mail.gmail.com>
+ <20241218190558.g2hykmjgbny4n5i3@jpoimboe>
+ <CADnq5_PFcHzob4poLa86_K4yP5gUT7Ei4Rz5vSUofvZTmB48-g@mail.gmail.com>
+ <4bace457-cc26-13a3-bc90-ad6ad12bc2ed@loongson.cn>
+ <20241220103100.GB17537@noisy.programming.kicks-ass.net>
+ <20241220223403.GA2605890@ax162>
+ <05cdb3b4c9bddf25f7b839229b635d2dec5140a4.camel@xry111.site>
+ <bc35fddc-498a-cc58-b6a1-f5234a4f6d0d@loongson.cn>
+ <20241223214645.GB1188382@ax162>
+Cc: Xi Ruoyao <xry111@xry111.site>, Peter Zijlstra <peterz@infradead.org>,
+ Alex Deucher <alexdeucher@gmail.com>, Josh Poimboeuf <jpoimboe@kernel.org>,
+ Huacai Chen <chenhuacai@kernel.org>, loongarch@lists.linux.dev,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Nick Desaulniers <ndesaulniers@google.com>, llvm@lists.linux.dev
+From: Tiezhu Yang <yangtiezhu@loongson.cn>
+Message-ID: <73c297f1-05a7-e786-557c-b267b125b6d5@loongson.cn>
+Date: Wed, 25 Dec 2024 17:43:54 +0800
+User-Agent: Mozilla/5.0 (X11; Linux mips64; rv:45.0) Gecko/20100101
+ Thunderbird/45.4.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D4:EE_|SJ0PR12MB6712:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3ba39473-97d0-418b-c432-08dd2587f312
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|82310400026|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?JkAtxxJfw9JtCPF4fc/utyZZs3nxu5Io6i1pnmnzKRbNeSMmshZqBgrUIOsr?=
- =?us-ascii?Q?vQcZCr9vdCiF8VQIiRahHWQz6Pt2runxeik3aS0OzKiSSSHj33Sre4J28mPF?=
- =?us-ascii?Q?js9I4EpzJkMaFtQSVaCer0hcZRxGqXpl48AnhcQ7oxbkyXtF3JpI8YZTUUWu?=
- =?us-ascii?Q?X1DfHwMRYbkrG1GZQdlLmpAwBxvzBPLeRisChJ5DUqrlooAnJpJbRjpaK0OG?=
- =?us-ascii?Q?oaY3G8EC42FM4kCQMdNXTqfrT6KLsGBOKDzdgHwsJgyNIY3ANfCvaAwEK/Ky?=
- =?us-ascii?Q?9FZGLQiBJKBBYZTjX2hiKjmdwoGpdL85P3LyCqMYJ9VBRal1lcqg+6fYH4yC?=
- =?us-ascii?Q?r0HVtqzKIhASp8LCw5CsJ1tgS03jysHXUXISN8G4AsAwYZphVXaW4pYW1EuN?=
- =?us-ascii?Q?nibInd2rWtZYkiJWktyU/bG+o/mLg4oN/eiEP8BpBFq82Npe5X76arbkZ/CV?=
- =?us-ascii?Q?9K0aJNtkAwzrlBN9Jvy538LRMFJxyDe8k6t8MpWKI5xNO6rlCL20Qct39KO/?=
- =?us-ascii?Q?13jl/UEh0uYiFv70kXr99TbXI5MVJySZYGtHx1ZK1c3etknSw1mQVhxYYI+z?=
- =?us-ascii?Q?QwebP5qpO5kZQm76j8h3ncUf9QfJPYP/6jr/YTiJnC9RmX36rs8d783nbr2n?=
- =?us-ascii?Q?L/1J1v6gc/crSzYHHgJrFmKKAGqijSEy0LbXRQi4ov+RqWrrWTdWS7MP3xak?=
- =?us-ascii?Q?zkhd27pNhtPDR/4B7yIgMo5rMd+7tnhfTsi80x0A3lGyw5PlcxaRRKwVKIdo?=
- =?us-ascii?Q?eRoy7EsfmI7xfEDN7ztxr2dGmmcQu8+9tJmsp9pvIgfkRlzTyvKMiaM2aeNu?=
- =?us-ascii?Q?sCflhqop4qeVW889UpFeVMdabfxiFGQYSjyF6G1/iddaTmN+OPA7Z2ccYi0z?=
- =?us-ascii?Q?pHvfmxD3s9oAKcD+5L2bOm9HUOuNFPDygahK6DDUZWLp6+KKOU0fv3DIP3/Q?=
- =?us-ascii?Q?Ms1gUOxmNgHSoizZW8q4mHIqQsT32EN3rYc4Xi3hda7BjejUPyN0MwhKUJtP?=
- =?us-ascii?Q?p9pcn5MAzLgwSrLAOJHsGQOouVLqMRYK0LqP/H9A0BB4ALXQYrMQNkAuvsuo?=
- =?us-ascii?Q?qCvMm+VQauBoPNFgYLWISiDVm4dNufj3S/Vamyz1WxmEBh1oA+6lPSsM5X5w?=
- =?us-ascii?Q?vJFStEL1ceoi3tLeVlJEfdCEPAc9+FOzoEOwoRoSz/N898SkMIKFpqS2HEI9?=
- =?us-ascii?Q?LNEWnr768IVICBbM+QAqt7Au+2A34qErQYtpsY3SOyh/NMIflPgpLKJ+zJeY?=
- =?us-ascii?Q?dHc8baUsf2XtHlc1r/15s8EVfHl+1XOzdKgvz4nN4Kdx0hNjnmi6uX8BAvtF?=
- =?us-ascii?Q?hl+cmGlWdAffnEk5/ydNp6bm5+d/4ETTAFdb0km/EDdwUSeUcAtzruV8DdIS?=
- =?us-ascii?Q?xapQOjS6mkHP00mYh5jdMemuQHWmjX8ysZLRDWvsvaW56WOQbJLdaHVabc5K?=
- =?us-ascii?Q?nuM/VYHbExlIolMff3aH9WJzpuyvU++6vggEcZj2VTfiLaOPfoMfK6z5OGQO?=
- =?us-ascii?Q?x8LnEyuQwE9NgTQ=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(82310400026)(36860700013); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Dec 2024 08:33:18.4290 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3ba39473-97d0-418b-c432-08dd2587f312
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001D4.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6712
+In-Reply-To: <20241223214645.GB1188382@ax162>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID: qMiowMBxzsXa02tn5bcIAA--.37718S3
+X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
+X-Coremail-Antispam: 1Uk129KBj93XoW7Ww4UJF4DZw1fZFy5ZF47Awc_yoW5JF45pa
+ yfKF98Zr1DAF4xtasrGw18WFW3Aa4fGF40gF15C395u347AFn8urWfJF1kGrW3Gry7AF4a
+ qF4DKrWUJF1qyFXCm3ZEXasCq-sJn29KB7ZKAUJUUUU5529EdanIXcx71UUUUU7KY7ZEXa
+ sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+ 0xBIdaVrnRJUUUv2b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+ IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+ e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+ 0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
+ xVW8Jr0_Cr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx
+ 1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17McIj6I8E87Iv
+ 67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7I2V7IY0VAS07
+ AlzVAYIcxG8wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02
+ F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GF
+ ylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7Cj
+ xVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r
+ 1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU8zw
+ Z7UUUUU==
+X-Mailman-Approved-At: Thu, 26 Dec 2024 09:00:11 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,66 +80,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fill max memory bandwidth and total app clock counter to metrics v1_7
+On 12/24/2024 05:46 AM, Nathan Chancellor wrote:
+> On Sun, Dec 22, 2024 at 12:27:47PM +0800, Tiezhu Yang wrote:
 
-v2: Remove unnecessary check
+...
 
-v3: Add app clock counter support for apu
+>> With the above changes, there is no "falls through" objtool warning
+>> compiled with both clang 19 and the latest mainline clang 20.
+>
+> I am somewhat surprised that changes anything because the ASSERT is not
+> stopping control flow so I would expect the same problem as before. I
+> guess it does not happen perhaps due to inlining differences? I looked
 
-Signed-off-by: Asad Kamal <asad.kamal@amd.com>
-Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
----
- .../drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c  | 23 +++++++++++++++++++
- 1 file changed, 23 insertions(+)
+It is weird and I think it is not the correct way.
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-index b8aeadfc9ac8..8ab30b2f7119 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-@@ -119,6 +119,21 @@ static inline bool smu_v13_0_6_is_other_end_count_available(struct smu_context *
- 	}
- }
- 
-+static inline bool smu_v13_0_6_is_blw_host_limit_available(struct smu_context *smu)
-+{
-+	if (smu->adev->flags & AMD_IS_APU)
-+		return smu->smc_fw_version >= 0x04556F00;
-+
-+	switch (amdgpu_ip_version(smu->adev, MP1_HWIP, 0)) {
-+	case IP_VERSION(13, 0, 6):
-+		return smu->smc_fw_version >= 0x557900;
-+	case IP_VERSION(13, 0, 14):
-+		return smu->smc_fw_version >= 0x05551000;
-+	default:
-+		return false;
-+	}
-+}
-+
- struct mca_bank_ipid {
- 	enum amdgpu_mca_ip ip;
- 	uint16_t hwid;
-@@ -2359,6 +2374,9 @@ static ssize_t smu_v13_0_6_get_gpu_metrics(struct smu_context *smu, void **table
- 	gpu_metrics->average_umc_activity =
- 		SMUQ10_ROUND(GET_METRIC_FIELD(DramBandwidthUtilization, flag));
- 
-+	gpu_metrics->mem_max_bandwidth =
-+		SMUQ10_ROUND(GET_METRIC_FIELD(MaxDramBandwidth, flag));
-+
- 	gpu_metrics->curr_socket_power =
- 		SMUQ10_ROUND(GET_METRIC_FIELD(SocketPower, flag));
- 	/* Energy counter reported in 15.259uJ (2^-16) units */
-@@ -2497,6 +2515,11 @@ static ssize_t smu_v13_0_6_get_gpu_metrics(struct smu_context *smu, void **table
- 					SMUQ10_ROUND(metrics_x->GfxBusy[inst]);
- 				gpu_metrics->xcp_stats[i].gfx_busy_acc[idx] =
- 					SMUQ10_ROUND(metrics_x->GfxBusyAcc[inst]);
-+
-+				if (smu_v13_0_6_is_blw_host_limit_available(smu))
-+					gpu_metrics->xcp_stats[i].gfx_below_host_limit_acc[idx] =
-+						SMUQ10_ROUND(metrics_x->GfxclkBelowHostLimitAcc
-+								[inst]);
- 				idx++;
- 			}
- 		}
--- 
-2.46.0
+> at this code briefly when I sent my initial message and I was not sure
+> where such a check should exist. It does not look like these functions
+> really do any sort of error handling.
+>
+>> If you are OK with it, I will send a separate formal patch to handle
+>> this issue after doing some more testing.
+>
+> It may still be worth doing this to get some initial thoughts from the
+> AMD DRM folks.
+
+I think the correct way is:
+
+Keep the current ASSERT for the aim of debugging, just add BUG() to
+stop control flow if the divisor is zero.
+
+--- >8 ---
+
+diff --git a/drivers/gpu/drm/amd/display/dc/basics/fixpt31_32.c 
+b/drivers/gpu/drm/amd/display/dc/basics/fixpt31_32.c
+index 88d3f9d7dd55..e15391e36b40 100644
+--- a/drivers/gpu/drm/amd/display/dc/basics/fixpt31_32.c
++++ b/drivers/gpu/drm/amd/display/dc/basics/fixpt31_32.c
+@@ -52,6 +52,7 @@ static inline unsigned long long 
+complete_integer_division_u64(
+         unsigned long long result;
+
+         ASSERT(divisor);
++       BUG_ON(!divisor);
+
+         result = div64_u64_rem(dividend, divisor, remainder);
+
+diff --git a/drivers/gpu/drm/amd/display/dc/spl/spl_fixpt31_32.c 
+b/drivers/gpu/drm/amd/display/dc/spl/spl_fixpt31_32.c
+index 131f1e3949d3..ce2036950808 100644
+--- a/drivers/gpu/drm/amd/display/dc/spl/spl_fixpt31_32.c
++++ b/drivers/gpu/drm/amd/display/dc/spl/spl_fixpt31_32.c
+@@ -30,6 +30,7 @@ static inline unsigned long long 
+spl_complete_integer_division_u64(
+         unsigned long long result;
+
+         SPL_ASSERT(divisor);
++       BUG_ON(!divisor);
+
+         result = spl_div64_u64_rem(dividend, divisor, remainder);
+
+It looks reasonable and works well both on x86 and LoongArch, there are
+no the following objtool warnings:
+
+   dc_fixpt_recip() falls through to next function dc_fixpt_sinc()
+   spl_fixpt_recip() falls through to next function spl_fixpt_sinc()
+
+If no more comments, I will send a separate formal patch for your
+review in the next week.
+
+Thanks,
+Tiezhu
 
