@@ -4,75 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EEE9E7718F
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Dec 2024 09:00:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DCA5E7718E
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Dec 2024 09:00:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9F8A10E7BD;
-	Thu, 26 Dec 2024 09:00:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 01C2310E7E1;
+	Thu, 26 Dec 2024 09:00:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NcGZrvQH";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SZ4ipnVS";
 	dkim-atps=neutral
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [IPv6:2a00:1450:4864:20::433])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 29ACC10E653
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Dec 2024 01:27:31 +0000 (UTC)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-385ddcfc97bso5230327f8f.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Dec 2024 17:27:31 -0800 (PST)
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [IPv6:2a00:1450:4864:20::531])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC06510E5E7
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Dec 2024 23:09:55 +0000 (UTC)
+Received: by mail-ed1-x531.google.com with SMTP id
+ 4fb4d7f45d1cf-5d3ea065b79so8930200a12.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Dec 2024 15:09:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1735176449; x=1735781249; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=w+1gJ6KVd4d91QuBEx/cbFE3H0/ijnRtOxNNQIBNOxI=;
- b=NcGZrvQHj14+w3DqqHzQaXhlBBJa+J6nHr1nLwJrxYklhydKRZktkM2QtZXGgsfLzi
- 6t1sXXHc6xs/xOAj5N/SqAor+m+422Wqm3oopPMkuirrArP29vnlO53gShiYHi5NdbN2
- unF9y07dF6pX9XnJWvGwZ6TjR4evdRZLZTJgYdUuNOvV01eFEJuDmyiRv6EDcV/syosG
- IDfRa61kTMl37q+DPFRYiXi96lMTHHmnNTTiT0xSqBSQt0oSVkz70t5D19/Y8zMV1Hwa
- 9scy9UfFJL4fHjcgb/E5IxuGjrA1xuZTyB3+l8r8JK3eKwXzALwHvzKqpP8UtR9Olrvy
- JEKw==
+ d=gmail.com; s=20230601; t=1735168194; x=1735772994; darn=lists.freedesktop.org;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=c9v+px78eG66InOEEBnkMK4cXXwgTr2T0JPbH4BNA8E=;
+ b=SZ4ipnVSiI8zDR2iKOuUEQItLNSpUdMl4WuAESUVsnfUum+6E1vVfEV8DRlnKAuTMT
+ xlgHUHSZG5UZGZkjyPFvDaiz61b3zpNqIsCb9ATvejGfCdb0rSoJkHKJWepKwWJu5n7c
+ MxFkdm2fTDFIXXUiNswWs+CnmbSvca40NGiF1JYeUPM6DkzytShG8/6Xl355fh2/LfSm
+ 8/QGJeBdOqfSJsoo3b8CfdgdE2HQPV62mMsUzlxrpz4XEJ20T4krLzRs87x5R7V556of
+ HSQomOiJHEMceLMkyYd4qjMF68+xvWqAu6g4+NZL/ziOkUf4eLee8NcFql2QLOHyIV71
+ i7hQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1735176449; x=1735781249;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=w+1gJ6KVd4d91QuBEx/cbFE3H0/ijnRtOxNNQIBNOxI=;
- b=xGAlCJxNb145ZlaUnMYj8g5NaYbJ7wzdV1olqM03jmtSqps0T5xckKykHL7s8rWtS0
- 8QvLIISrRFNbkduKLRmxgo6K9jJgYmoVks1qnAyXmvXaKNcT3msmXVp8rdi4Av66SUDo
- i4woqFS2S8LybSHUwZCNvUFOa4yf15kn4+Rmo6vEQIM0zNJo6nGFhAuBrLBZBc8bDJHr
- Pia6IIOmDeprL7PQd/TufZZIqjmlQ3SyBLEt4VLk2aRvzjri0/eNw3t2JflqajcYdLPG
- RNmrFc765wmQVv4a1pKD0FVCD4M8CwaIJS8U0zsEemX2msKd8AtXgleSR2tl0sZa4Nju
- Yu9A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUKB7xTWvK380u+H63eg/MJkGw1Hj8iHQhhsGT0WeMBNDZ1aFG3diDssjgWoQcczbwmnO7VnwD8@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxGWdbrC13SV0qaYCANLnDs1Sw3uWgXGprGdDthq1INz5sVc9G2
- vwsYYODtKt68vopVV7/f6lB6euKcmAQMy7q6u+z4QU9HeNkM0UhS
-X-Gm-Gg: ASbGncsBgvMm+wcCzck/s4nWAMMZOZMhqt0PtYjVPe6Rg7JEgup2+lxtbhdCwX3VfEv
- s+tzglEzDsQiqaXKCLsVPC/ihAeKNrcq0aKIeAY5lCWZR4eA0pAK9IjaLa+S/pv3pTdjSkhjRzo
- wwMUd8iHupr3JupAp+jpEXBVj1wHSRYVRWsme9fPKV5v69LjqAYeSr5pwiNMcbBwS+gFbmq9pr+
- VzA/ws93q18Z7vUXuwFvEmQ8R7wdMew0CKlM7x2nJ7sATi+YHlqORIzrvny4mA=
-X-Google-Smtp-Source: AGHT+IEhKxgf4hIQTI+Klr0apBS3ueanh/tTSMf0cm7MR8jqtmgAC2JCW+Dv1tvv1AYLHnhwnZnAgg==
-X-Received: by 2002:a5d:47c3:0:b0:385:e35e:9da8 with SMTP id
- ffacd0b85a97d-38a221f69e0mr18547954f8f.18.1735176449451; 
- Wed, 25 Dec 2024 17:27:29 -0800 (PST)
+ d=1e100.net; s=20230601; t=1735168194; x=1735772994;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=c9v+px78eG66InOEEBnkMK4cXXwgTr2T0JPbH4BNA8E=;
+ b=Z+q0tIExXG2PenT0laTlAB8zuqRuzUze4c9xaZDm8Re0C83Ea3Ypqj8uuWTIkl85ti
+ VFJ9hXtrvmkjTamHucFAwlYIH/pO3JafAXnOSzr6dgKGf/kPUypZa7fD/NBgv3PDRjMO
+ M8WIPQujH154BRiSiYUCLQk8VcRQxYxiRsmg5SDaMqdRfWXiTIN6N5peF0BzEM426XcG
+ oDD+cb31K2ZdXy6Og7gNGDsU6Oa+FfWAA/rLS9Lo3eyKLh3mNa3/UrSuZXy8lKA7NLiA
+ +BftiwHesKz8OTnTBWQ0q44xaHnO+DkzcAd4WvcNjPPNSWdueY7Y0BVvYMbEHca10C9E
+ LIcw==
+X-Gm-Message-State: AOJu0Yy5/gftalZ4o1ZumxkavKTCADX9gOzEjnz0sbyUlCi/7nQ99pNQ
+ aPHzCvl/KXmb8cpgOguhTTWJFNrXLq+10EOXsYUmJdlyMbioxidO
+X-Gm-Gg: ASbGncsMDfR1p2iJcmtWZRyZExS347kgNaPYR6JwlFHHwB+l1lBlxB28SUMIf12LhBX
+ z4O8B4RiGnzwaRO9//OkkFVxClKFA6OcMeuZxGomIg/V8hk8qDPBhOpPnj/w7Nt3UQfoLMQNh9T
+ WMJZVBgJhHOcZJ2TMkOVB+KFTJk1Ce3PRqpKXpeM1HmJAKTTApFhpQuobceId+/8/UzSIJguTzr
+ 5vyWwDq0iKR9MXz1vyJeyeD6i1zbQjcZGBJK7FCn1av5yg5H7eBWZ3O1TszpzA=
+X-Google-Smtp-Source: AGHT+IFmA+25Ix88Cs6aGxcufnGYvRlbbn3zhK/hJN7bbVC8PbiIb0lazhzgSE8YiH5F8BHuqE5i5g==
+X-Received: by 2002:a05:6402:50d0:b0:5d1:1f1:a283 with SMTP id
+ 4fb4d7f45d1cf-5d81dd849efmr17082749a12.4.1735168193836; 
+ Wed, 25 Dec 2024 15:09:53 -0800 (PST)
 Received: from debian.local ([31.94.62.22]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43661219611sm218332885e9.23.2024.12.25.17.27.28
+ 4fb4d7f45d1cf-5d80678c8dbsm8065745a12.40.2024.12.25.15.09.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Dec 2024 17:27:29 -0800 (PST)
-Date: Thu, 26 Dec 2024 01:27:25 +0000
+ Wed, 25 Dec 2024 15:09:52 -0800 (PST)
+Date: Wed, 25 Dec 2024 23:09:49 +0000
 From: Chris Bainbridge <chris.bainbridge@gmail.com>
-To: Tobias Jakobi <tjakobi@math.uni-bielefeld.de>
-Cc: Mario Limonciello <mario.limonciello@amd.com>,
- amd-gfx@lists.freedesktop.org, alex.hung@amd.com,
- regressions@lists.linux.dev, rafael@kernel.org, lenb@kernel.org,
- linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/amd: Fix random crashes due to bad kfree
-Message-ID: <Z2yw_eJwR5ih1Npr@debian.local>
-References: <Z2yQvTyg_MWwrlj3@debian.local>
- <b98f2fa5-fbe8-4958-bf20-fa5d28c5a38b@math.uni-bielefeld.de>
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, alex.hung@amd.com,
+ regressions@lists.linux.dev, tjakobi@math.uni-bielefeld.de,
+ rafael@kernel.org, lenb@kernel.org, linux-acpi@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/amd: Fix random crashes due to bad kfree
+Message-ID: <Z2yQvTyg_MWwrlj3@debian.local>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <b98f2fa5-fbe8-4958-bf20-fa5d28c5a38b@math.uni-bielefeld.de>
 X-Mailman-Approved-At: Thu, 26 Dec 2024 09:00:11 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,46 +82,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Dec 26, 2024 at 12:19:02AM +0100, Tobias Jakobi wrote:
-> Hi Chris!
-> 
-> On 12/26/24 00:09, Chris Bainbridge wrote:
-> 
-> > Commit c6a837088bed ("drm/amd/display: Fetch the EDID from _DDC if
-> > available for eDP") added function dm_helpers_probe_acpi_edid, which
-> > fetches the EDID from the BIOS by calling acpi_video_get_edid.
-> > acpi_video_get_edid returns a pointer to the EDID, but this pointer does
-> > not originate from kmalloc - it is actually the internal "pointer" field
-> > from an acpi_buffer struct (which did come from kmalloc).
-> > dm_helpers_probe_acpi_edid then attempts to kfree the EDID pointer,
-> > resulting in memory corruption which leads to random, intermittent
-> > crashes (e.g. 4% of boots will fail with some Oops).
-> > 
-> > Fix this by allocating a new array (which can be safely freed) for the
-> > EDID data in acpi_video_get_edid, and correctly freeing the acpi_buffer.
-> 
-> Hmm, maybe I'm missing something here. But shouldn't it suffice to just
-> remove the kfree call in dm_helpers_probe_acpi_edid()?
+Commit c6a837088bed ("drm/amd/display: Fetch the EDID from _DDC if
+available for eDP") added function dm_helpers_probe_acpi_edid, which
+fetches the EDID from the BIOS by calling acpi_video_get_edid.
+acpi_video_get_edid returns a pointer to the EDID, but this pointer does
+not originate from kmalloc - it is actually the internal "pointer" field
+from an acpi_buffer struct (which did come from kmalloc).
+dm_helpers_probe_acpi_edid then attempts to kfree the EDID pointer,
+resulting in memory corruption which leads to random, intermittent
+crashes (e.g. 4% of boots will fail with some Oops).
 
-Yes, that would work to fix the bad kfree, but there would be a small
-memory leak of the acpi_buffer struct. It's not a huge problem since
-this code is rarely run, and the Nouveau code has never tried to free
-the edid buffer and apparently nobody noticed, but it would be better to
-do the correct thing.
+Fix this by allocating a new array (which can be safely freed) for the
+EDID data in acpi_video_get_edid, and correctly freeing the acpi_buffer.
 
-One other curiosity is this comment in the code that allocates the
-memory:
+The only other caller of acpi_video_get_edid is nouveau_acpi_edid:
+remove the extraneous kmemdup here as the EDID data is now copied in
+acpi_video_get_edid.
 
-case ACPI_ALLOCATE_BUFFER:
-	/*
-	 * Allocate a new buffer. We directectly call acpi_os_allocate here to
-	 * purposefully bypass the (optionally enabled) internal allocation
-	 * tracking mechanism since we only want to track internal
-	 * allocations. Note: The caller should use acpi_os_free to free this
-	 * buffer created via ACPI_ALLOCATE_BUFFER.
-	 */
+Signed-off-by: Chris Bainbridge <chris.bainbridge@gmail.com>
+Fixes: c6a837088bed ("drm/amd/display: Fetch the EDID from _DDC if available for eDP")
+---
+ drivers/acpi/acpi_video.c              | 3 ++-
+ drivers/gpu/drm/nouveau/nouveau_acpi.c | 2 +-
+ 2 files changed, 3 insertions(+), 2 deletions(-)
 
-Which makes me wonder if all the calls to kfree on acpi_buffer structs
-with ACPI_ALLOCATE_BUFFER in acpi_video.c should actually be calls to
-acpi_os_free instead? I used kfree just for consistency with the
-existing code.
+diff --git a/drivers/acpi/acpi_video.c b/drivers/acpi/acpi_video.c
+index 8274a17872ed..151d1d534264 100644
+--- a/drivers/acpi/acpi_video.c
++++ b/drivers/acpi/acpi_video.c
+@@ -1485,7 +1485,8 @@ int acpi_video_get_edid(struct acpi_device *device, int type, int device_id,
+ 		if (!length)
+ 			continue;
+ 
+-		*edid = buffer->buffer.pointer;
++		*edid = kmemdup(buffer->buffer.pointer, length, GFP_KERNEL);
++		kfree(buffer);
+ 		return length;
+ 	}
+ 
+diff --git a/drivers/gpu/drm/nouveau/nouveau_acpi.c b/drivers/gpu/drm/nouveau/nouveau_acpi.c
+index 8f0c69aad248..21b56cc7605c 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_acpi.c
++++ b/drivers/gpu/drm/nouveau/nouveau_acpi.c
+@@ -384,7 +384,7 @@ nouveau_acpi_edid(struct drm_device *dev, struct drm_connector *connector)
+ 	if (ret < 0)
+ 		return NULL;
+ 
+-	return kmemdup(edid, EDID_LENGTH, GFP_KERNEL);
++	return edid;
+ }
+ 
+ bool nouveau_acpi_video_backlight_use_native(void)
+-- 
+2.39.5
+
