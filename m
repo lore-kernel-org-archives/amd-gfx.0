@@ -4,144 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26DC1E77188
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Dec 2024 01:59:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BE41E7718E
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Dec 2024 07:35:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8794310E034;
-	Wed, 25 Dec 2024 01:59:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7724910E0EC;
+	Wed, 25 Dec 2024 07:35:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="aN4wghyy";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Hn+57MVr";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on20604.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:2009::604])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB61F10E034
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Dec 2024 01:59:38 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=T/qh5KE0RSkXH9flDpiIYCrHVZfn8R8yTiHOruZ5HYm4rcZ5Of5fSkMssveWeZ3XgkmFCmXj+8nXvlAjJtjLFx1iDzN8qkmLwanNDwx2ubFbq/urabjdOTdDXPBhUBT+aSGaaU3y4r5TSv2O/PSDUcjoGRnjAIcK8ntMvR0jV4/zr63AWPTwrXpHYm+dYf2joUJzOup96fFYS4BZAe0rJ5H84V0RkdVVSzbt+l+9aiGG3ef49cWA6l7lIKZZRJAse/M0bn4q7xQiDpO6HO0FA7BQhCJFT1/Iux0lAjbOrdZiOjAz7t0ohShahdKo2SFbTdMUEincDTLWQEyRxuv2BQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9B2A1o3k1bm/BMdpwVYlW7ZvVX+Rx5djAofy76Z9U4c=;
- b=Cy1Dk21Zg35UOD3vYnTOhXYtuCTx+2XZcIiKSuaSr8L7aaexVCrPJ8voexFazh2Fcwwcd2zm0Gl9IvCxkN8XTVKsgQPDPe9pwz6buiLhtD0iyha3xLuVVK0eMkFZ2TZLR+WOfspGSfDtdHbN3qkhttsK6/8p5dlUUQBansX0A51B8kyu0y0nXzD/x/WEQFldLDV2sT3i4GJW7fC0uVGU+McvGsiDgvQYHsDGprVHGYjeaK/pTJ11ZANdAfq1fSIl3Pvc8rsH/A5urpptaZzEm0NTaPup269ZzjC4MZUyMSYASpXxEdpJMZsiNJ+MOMKuGr+TW+UzW3YJzFxNqOY5Ww==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9B2A1o3k1bm/BMdpwVYlW7ZvVX+Rx5djAofy76Z9U4c=;
- b=aN4wghyy2jMNg760MDBu7ya2sUgm+GxTk/Sm/IPCaew7r0cPsHEgJ5T/DJWfO+LWfajLnNecRB9YEqlP85++GcWm04TRxcIPGKOGmA1aYQvQSUea4er3lbwwfJBfdkxhbh4gZz/SnFXehfRO9wXe4BRg+G/VDT2pDsrFYrtarb8=
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
- by MN0PR12MB6031.namprd12.prod.outlook.com (2603:10b6:208:3cd::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8272.21; Wed, 25 Dec
- 2024 01:59:23 +0000
-Received: from BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::c593:f43d:c798:e009]) by BN9PR12MB5257.namprd12.prod.outlook.com
- ([fe80::c593:f43d:c798:e009%7]) with mapi id 15.20.8272.013; Wed, 25 Dec 2024
- 01:59:23 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Feng, Yuan" <Yuan.Feng@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Feng, Yuan" <Yuan.Feng@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: Fix for MEC SJT FW Load Fail on VF
-Thread-Topic: [PATCH] drm/amdgpu: Fix for MEC SJT FW Load Fail on VF
-Thread-Index: AQHbSq26SoGiWQU/M0SR0SLlrNdz7LL2S3bg
-Date: Wed, 25 Dec 2024 01:59:23 +0000
-Message-ID: <BN9PR12MB52575349DCB4839C252DC9F5FC0C2@BN9PR12MB5257.namprd12.prod.outlook.com>
-References: <20241210024459.2993-1-yfeng1@amd.com>
-In-Reply-To: <20241210024459.2993-1-yfeng1@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=20ea1cf2-319f-409e-beb6-e18cb2de4f4f;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution Only;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2024-12-25T01:57:53Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|MN0PR12MB6031:EE_
-x-ms-office365-filtering-correlation-id: c4c69205-61d2-4408-0706-08dd2487c114
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|7053199007|38070700018; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?Xj+hMqInejtknWb4sNgUtB8DZ9iE9g4LIkFtL5aDhBXd1jEj9plmJxQH6ZVE?=
- =?us-ascii?Q?AyQSaF5poDYFDnWnczeJOMcb+8+plm2LJZtkC9v4qwwZKDP8HYhxbawHOveN?=
- =?us-ascii?Q?MKM542ACl7QuxsFNB9RPVFO9FzMDwVxEyCatZsi9peH/ecsm9UyiqJESqvpP?=
- =?us-ascii?Q?yPIaQG3PfFEFI2Ql7Rqfmm7GwIxxXljElXnGBorBcaP4iNmvRj0zapd/yP35?=
- =?us-ascii?Q?+JaWifmtNkjyRJT6K9fGSL4rZBDQrd7gJbxMzdvxVLSS7NO11z66GLYz+F6I?=
- =?us-ascii?Q?/ZPDThSMNjnZnDmJ4vgmynV/cs/n7bsdhmKMqgqJob8rx/zwYRPFdVVyH+WB?=
- =?us-ascii?Q?jCSW92lMvTuNH6PdP03XnN1u0Bxb59brCUOG3yxjMszW1TsXuL+25CZqeOkl?=
- =?us-ascii?Q?Ak07FWYel66L69u16Jsw4cygu9DzDk10rjNWqiVeXmTOzSCudCsd7n7M5J1H?=
- =?us-ascii?Q?AaFGd0uJL7aNJ+QPJsA4frL0blZjziaQ2/SMhOOKPgYOZ+/ItttSSZ/0Mq2s?=
- =?us-ascii?Q?Cni21KCPdmLdE2mpcXTj2iCjy4a9lhU3F2flI7edrEpPr0jjdLGJWUXajL11?=
- =?us-ascii?Q?pBFjKn1illcf9BxYXii81X4/9BfvQjjx0tyb45Wdvi7PTfBTW3PWYbwxqYDb?=
- =?us-ascii?Q?J7EF3g8rGxRpXiNSgmSKGUC/zDwsE7MTk+se6b4SHa0A24CpYuyFF+gviC2e?=
- =?us-ascii?Q?/XQ22K4E2y/Yd/B8f+WAHub+61iZESGqYKNrBM+pY+gyJ9kq94iToRJj1LFo?=
- =?us-ascii?Q?OsUKgfwEoMiAyLHFd+ckGe/OUpwwuRUKTzXattHZ9XHRwL2yMq993WzbO5wJ?=
- =?us-ascii?Q?ke4pI/yDuGuxDfAPYCqDsCtNY3ns574BlJ/sprpXh/GKjpHAny49mhcz6vuN?=
- =?us-ascii?Q?JNoYAmRoUBgU/RLHM2qIBJnT1ees4AoN4XU9pr0iG9yEOvhG4Grqbm15ULFI?=
- =?us-ascii?Q?n9RRlgz8Kox9vWWBd/28XEvhRK5aMv7rmFQICQttOhZWUyT64ofEsXdfjInY?=
- =?us-ascii?Q?tnqbrraiP+QH47OQNHnhCcG5lslMwbWMoJ70Xzq1xVrsr+kN87cf7SM8heEw?=
- =?us-ascii?Q?9mioWOE/2hgqwgn5PbmtMQz97Zi6atFrM7B2z5LiMIJ6DCmEjbeOw0fw54E0?=
- =?us-ascii?Q?YqztSYzeofJ1MIb4UPZgIAtStXOYnNJspnANg32wtFRhgP8gas1OVn5t+cg0?=
- =?us-ascii?Q?5qRs1DmTmOlSfC3NSHkSSGRWQMOuhalWL+aiftI8oWE+m4PwsAyhwwB5dR7Y?=
- =?us-ascii?Q?/iMEtR1kfP9yGCVk7P6xFet3R291w8YyUiuk2MR0jsSrGIvbB4VrMxq1JSpv?=
- =?us-ascii?Q?lichPegqISjAn8shDi9VRe0kgVsGOs2m/djI26owFaXU3ACb6Dac434XgtYn?=
- =?us-ascii?Q?KX88irY5uax+EjOT0qQ1tybyNI/1DPQVMPdxTnlPMIcLwm0Sr9/Fj5cGqOI4?=
- =?us-ascii?Q?s9ep43CJT8uvT7AWcVJyJFOAAMa+rWN7?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(7053199007)(38070700018); DIR:OUT;
- SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?C6qLCE32TxAda9ELo+m9+wbj2oDx/6l6i5trNbtqh87lZkgFjm3QUYeKmRrY?=
- =?us-ascii?Q?zJYIbHWVJ4gqSi3AS+Wq0j2q4XIqyeMHFVcecqU86yw/pMVdS5i1LKMvBVw8?=
- =?us-ascii?Q?kSDsoX55lkRTD61g6owd/8YV+oLe2ULAJADiyAVryylaCg+P5KjNxUrgqfVs?=
- =?us-ascii?Q?xoJZtSKdWF4dXshlFo2UqR8TJ51EYpcP0OaujJE7brlNtx7DUDoztcJQhinj?=
- =?us-ascii?Q?3c91cAM00kLZroo/WOOMTCEJ0GoIBFq/r4B25Uch1PuVcKsqNOuS20XD9p+G?=
- =?us-ascii?Q?RqfInDIZvlDf7FFBvHBSyfe2arl43vhi4jGFhlLIEGJEn0uKg8uQbu7BkndC?=
- =?us-ascii?Q?z00XuuPkRvkeCfHCZqMqXHI6fwaeInkz4Ch0Z7hR+AyMxXuWxi69sLmEam+p?=
- =?us-ascii?Q?U9OlNGH/cWx3T1vmWPibFc92njOX75J9S9gBJEWai/DBtlAmlIv2xYwpVX4/?=
- =?us-ascii?Q?gf8W0tftvogF2oZBBbyK4AVNZ5zzkyuClCrwEId1U8Fq1QTHwvupNRxfKNZQ?=
- =?us-ascii?Q?WMIJRUu4i9C8Nm4d7XZCUIniKsvp6IcNgCI+810Zc8zT/qGnFj43gI2V2ggJ?=
- =?us-ascii?Q?NTUS4TVsjBFHECqjCKJk+w/6VYxTliU8xqsQjkpt3Q+xJDEVshieO6ezY1Tb?=
- =?us-ascii?Q?LYBFd4n9khT9MH/LYZmviv5vQI9/gH/10EmPrDRyuxncDYhKNAUVl3TyeIJu?=
- =?us-ascii?Q?kN9FxpUN6I5tS1o1/ouyU7+kZh1a5CAKvKTU0oVqgA2aVtmGxOitAK5nwp4j?=
- =?us-ascii?Q?KgIxNxOSjMPpCGDJ41XguZURV4H3QLuir9/UMc7YJscAgjrByBmApnOXbab+?=
- =?us-ascii?Q?MgWeOjYehnj0Ux+x7SoaQFOltWiq+fslJBlW5nwTcia2z9GV+g1c3eBuS+H/?=
- =?us-ascii?Q?MeinqcftyG5NUa1eS8mep0WeoLRnPbTSaYuHl+Z+PsaBjuoaQsbh3Mz8kZaE?=
- =?us-ascii?Q?KtsvJ0sQYxAEwsnfacLPtvNySfm837rT7HzDc3LCBW/sOd9yaHfULvCog6qc?=
- =?us-ascii?Q?owKe7FT8eLShGx0h9da+cNzxqT14uSjF48DXPPG3z5+SHVFH322zFSjFqvn+?=
- =?us-ascii?Q?LJnvzd5e+iovYzCQEVsl1kDBBvvsJa4eyL57LhyRacyr7guaz5ha2DCT76h8?=
- =?us-ascii?Q?SdeaiEE41S+7SA5CKSFpy1jVRkAZcESqSQgowIUQUKkD9Hw7RKuIhqO78YRN?=
- =?us-ascii?Q?tnriyLpXfO9e+x5rH8Or5QxnWfXoHw2bI15aif0IWg+tmp8atL/JhcJaES/5?=
- =?us-ascii?Q?ACdiC93z5VIBIYCkLFJKh07hranWSr/IfD51fQLu4s1PrF4jq5mFrl1T14e7?=
- =?us-ascii?Q?dYW9zTUwI3680YApxsH/IYfsJHA0NdJ6Zkov6aSQT0YXiWAHHXoyEFzG+qN4?=
- =?us-ascii?Q?XJDUk6APVVozAi5n2Ih817w0E8zNaNDpdEJCQ5/xO25NP+Yn26cfxycPzbVL?=
- =?us-ascii?Q?R8fiYiV7zdrj1w8r7lomgbszwWv4oxPFE0wKNANtXAuYOShM6Kk3sGKxw6KW?=
- =?us-ascii?Q?XEIxZAzfqIGchgFCdZARvmDLHw1yylXFM9y9gogajWqN/Oflnvcpr4wHRdsA?=
- =?us-ascii?Q?tSC58zWR5eZYqp/vUF0=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [IPv6:2a00:1450:4864:20::529])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E580A10E0CD;
+ Wed, 25 Dec 2024 07:35:09 +0000 (UTC)
+Received: by mail-ed1-x529.google.com with SMTP id
+ 4fb4d7f45d1cf-5d3be7f663cso892803a12.2; 
+ Tue, 24 Dec 2024 23:35:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1735112108; x=1735716908; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=NozdPU9WE8gkOsgXIL/+e7JEcFhXpiOnm7JfEr4/eHw=;
+ b=Hn+57MVrNUfffeB2tOhxMRL+3Drf1foy2aheaFlbh81iEGj1KHovYAalMZ+R4lOHng
+ ZJmoKFi4XaA/pTTRIbGNX+qNqQuxRZp7Or0EaAYZVds648Nu5hFHlwoqnOhgDY0IiXGd
+ 8TNNF3PX3uX+jPWYigKeoJyPA2pBi12uHI3F6+nBG9ob0XzDWAX/i7qy+glOqyhdrb3t
+ fm5QxWOE0gFlV5+NmThFDPBwpQvv23LSKWilcyELhG8QvfKo1A3LwwEvIviaZHm4pYw9
+ Io+xL/z23t82a1zKjAbCe1aUdiLqYLpawmNhjdDSHl+3zbVftyqQrxoiiuFEdaitjPfa
+ n8mg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1735112108; x=1735716908;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=NozdPU9WE8gkOsgXIL/+e7JEcFhXpiOnm7JfEr4/eHw=;
+ b=hv4CZT7jtPyc71BVEEXbg6U/hqEXU1lGjH1OZDxaAiMas4t4qfTT9X1n1BqL3MeX2B
+ 0coBep2xkRCKCw2PSaM7+L48YayLiSzg/h3NRn0paK8ejHl5ZVJwr2QzM4elU2OumIn2
+ 39rNoDiuNEYoYth97/idZM1Tu1oadqkuWHUOdF0Yii2nI9HfUKHIfBANVzMF2+iu/I7E
+ Grb4zlYndIVvEhv+UC7IhUAwr3Tw30n96xtnusI9MhOLuZidwA+sQBZJUdzwkT8ebB0k
+ m2tl0xsBEM/AyhrJS7uQQJ3W19K6JDAFWZczbTt6VXMnk4unL1d83t3t9RW8f3jB3L0P
+ d6Mw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUw3yHfvb3WBBfZeyA94zLfmytqVpJDzprPppCOHQtZBLCHBFqiTQWxkspaTAjIjbXPWKMiWLOOdUs=@lists.freedesktop.org,
+ AJvYcCVN+4enxIxi4797zoYVmvtoQktOLgHyNpLN5SQE1wk+K1LK/xqyeAAmHgUYuCa9NimDyssFdnwLeIkp@lists.freedesktop.org,
+ AJvYcCWb+nAt3Wqg3c2yXj9PtEmbphZZ/+L0JgR3nYZn9B7Wp/Ejfe8LoZRNFeQXG17rZpv1dtNJwBhH@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxZkiMVVh6CbSBsoGc2hW0WR9sjCKwpbk1SjfW13uCyjLuU16Ow
+ cfcXCeP8SE4tjaZQr2/yrb1br2qIbVIr1e1U4NVBnUfTbqsEMcfi8IocGngFryWcSxP1+RkIary
+ 8eF6Ntz+vvSji3oXoG0wsJv2oNgk=
+X-Gm-Gg: ASbGncvLMKFrXY560M3kFilP2OH1hHHD6MEaH7eDvaiH4mFYN8Q4BfGN4ABpECOpO/S
+ LC4XScKot75rVizW++nmcXbdvEO+xnNOtOVYY8Zpm
+X-Google-Smtp-Source: AGHT+IHf4Xy8P0wB8do/b9cOtwlZp6Q43FFMrx/bbGY7zQ52NCkGeFBg9K+d7evdZGbDi7Kc9RxrkowydFFp9ATe+98=
+X-Received: by 2002:a05:6402:274e:b0:5d0:b7c5:c406 with SMTP id
+ 4fb4d7f45d1cf-5d81dd85ad9mr6582060a12.1.1735112108161; Tue, 24 Dec 2024
+ 23:35:08 -0800 (PST)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c4c69205-61d2-4408-0706-08dd2487c114
-X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Dec 2024 01:59:23.4536 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: TrTcZl9tiqqqfUgdCIqpUYKW2ql/mvTL7vtuaAuEZ6uF7jwqcvty522LhmsaP6NfXu5IIxJXRtZTJiMzJbsUQg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6031
+References: <CAAxE2A5BkF13bFt8_UnuiqPM8W-ZESgmKEjqqGfv=DGzSfJ7aQ@mail.gmail.com>
+ <uffsfaps6a75zmkyshkwfxgybcslqrnfqqtjzekegdptvwpugc@2ndpcuxyfp3f>
+ <c64cb9d8-5ea7-4644-93c8-04a97b758fa0@mailbox.org>
+ <h26quuebhpxwkc3fl4vtfteoqyvingnddgxbnzptfnxfg6xgkd@kkkmeqwplomv>
+ <8dae97c9-9286-451a-8122-b309eb21b2f4@mailbox.org>
+ <Z2Ki-lQH4Fbch6RO@phenom.ffwll.local>
+ <q45c43j5kwwvemec7mcs4kqzt54pa3nz3jlhkcky2v63s2vfie@him4q253uw4p>
+ <CAPj87rMFJ0JRvsKqZUsw_EGrFWr1VLO4Ne2w_bZ5cH+gs_d=og@mail.gmail.com>
+ <688f69c5-a7b7-46eb-89ef-379c3f5c7632@mailbox.org>
+ <Z2WMOmPCYajdtAeN@phenom.ffwll.local>
+In-Reply-To: <Z2WMOmPCYajdtAeN@phenom.ffwll.local>
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
+Date: Wed, 25 Dec 2024 02:34:31 -0500
+Message-ID: <CAAxE2A5-u8KwBfxnhpX_Re9M-rt+=Bo8f0vdtJMhBaGjO7zRtg@mail.gmail.com>
+Subject: Re: [PATCH] drm/fourcc: add LINEAR modifiers with an exact pitch
+ alignment
+To: Simona Vetter <simona.vetter@ffwll.ch>
+Cc: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>, 
+ Daniel Stone <daniel@fooishbar.org>, Brian Starkey <brian.starkey@arm.com>, 
+ dri-devel <dri-devel@lists.freedesktop.org>, 
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>, 
+ ML Mesa-dev <mesa-dev@lists.freedesktop.org>, nd@arm.com
+Content-Type: multipart/alternative; boundary="000000000000da5bca062a13447a"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,54 +93,216 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - AMD Internal Distribution Only]
+--000000000000da5bca062a13447a
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+On Fri, Dec 20, 2024 at 10:24=E2=80=AFAM Simona Vetter <simona.vetter@ffwll=
+.ch>
+wrote:
 
-Regards,
-Hawking
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Yuan Fen=
-g
-Sent: Monday, December 9, 2024 21:45
-To: amd-gfx@lists.freedesktop.org
-Cc: Feng, Yuan <Yuan.Feng@amd.com>
-Subject: [PATCH] drm/amdgpu: Fix for MEC SJT FW Load Fail on VF
+> On Thu, Dec 19, 2024 at 05:09:33PM +0100, Michel D=C3=A4nzer wrote:
+> > On 2024-12-19 10:02, Daniel Stone wrote:
+> > >
+> > > How this would be used in practice is also way too underdocumented. W=
+e
+> > > need to document that exact-round-up 64b is more restrictive than
+> > > any-multiple-of 64b is more restrictive than 'classic' linear. We nee=
+d
+> > > to document what people should advertise - if we were starting from
+> > > scratch, the clear answer would be that anything which doesn't care
+> > > should advertise all three, anything advertising any-multiple-of
+> > > should also advertise exact-round-up, etc.
+> > >
+> > > But we're not starting from scratch, and since linear is 'special',
+> > > userspace already has explicit knowledge of it. So AMD is going to
+> > > have to advertise LINEAR forever, because media frameworks know about
+> > > DRM_FORMAT_MOD_LINEAR and pass that around explicitly when they know
+> > > that the buffer is linear. That and not breaking older userspace
+> > > running in containers or as part of a bisect or whatever.
+> > >
+> > > There's also the question of what e.g. gbm_bo_get_modifier() should
+> > > return. Again, if we were starting from scratch, most restrictive
+> > > would make sense. But we're not, so I think it has to return LINEAR
+> > > for maximum compatibility (because modifiers can't be morphed into
+> > > other ones for fun), which further cements that we're not removing
+> > > LINEAR.
+> > >
+> > > And how should allocators determine what to go for? Given that, I
+> > > think the only sensible semantics are, when only LINEAR has been
+> > > passed, to pick the most restrictive set possible; when LINEAR
+> > > variants have been passed as well as LINEAR, to act as if LINEAR were
+> > > not passed at all.
+> >
+> > These are all very good points, which call for stricter-than-usual
+> > application of the "new UAPI requires corresponding user-space patches"
+> > rule:
+> >
+> > * Patches adding support for the new modifiers in Mesa (and kernel)
+> > drivers for at least two separate vendors
+>
+> I think this is too strict? At least I could come up with other scenarios
+> where we'd need a new linear variant:
+> - one driver, but two different devices that happen to have incompatible
+>   linear requirements which break and get fixed with the new linear mode.
+> - one driver, one device, but non-driver userspace allocates the linear
+>   buffer somewhere else (e.g. from dma-buf heaps) and gets pitch
+>   constraints wrong
+>
+> > * Patches adding support in at least one non-Mesa user-space component,
+> > e.g. a Wayland compositor which has code using the existing linear
+> > modifier (e.g. mutter)
+>
+> This also feels a bit too strict, since I think what Daniel proposed is
+> that drivers do the special LINEAR handling when there are variants
+> present in the list of compatible modifiers for an alloation. Hence I
+> don't think compositor patches are necessarily required, but we definitel=
+y
+> need to test to make sure it actually works and there's not surprises.
+>
+> The exception is of course when non-mesa userspace allocates/sizes the
+> buffer itself (maybe for an soc where the display is separate and the gpu
+> has stricter stride constraints than the display).
+>
+> > Ideally also describe a specific multi-vendor scenario which can't work
+> > with the existing linear modifier, and validate that it works with the
+> > new ones.
+>
+> I think that's really the crucial part, because adding modifiers without
+> an actual use-case that they fix is just asking for more future trouble I
+> think.
+>
 
-From: yfeng1 <yfeng1@amd.com>
+It won't always "work" with the new linear modifiers, but when it fails, it
+will fail in a manner that is debuggable, understandable, and explainable
+by non-driver developers, such as getting 0 common modifiers between 2
+devices. For example, the GUI can report to a user that DRI_PRIME failed
+because there are no common modifiers between the 2 devices, which is
+better than failing with an unqueriable difficult-to-handle reason
+(rejected pitch) or continuing with corruption (invalid pitch) or hangs
+(invalid pitch causing buffer overrun and corrupting shader binaries next
+to it).
 
-Users might switch to ROCM build does not include MEC SJT FW and driver nee=
-ds to consider this case.
+Marek
 
-Signed-of-yfeng1 <yfeng1@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+--000000000000da5bca062a13447a
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/=
-amdgpu/gfx_v9_4_3.c
-index cc038f300a56..5e6c1aab2e83 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-@@ -579,10 +579,15 @@ static int gfx_v9_4_3_init_cp_compute_microcode(struc=
-t amdgpu_device *adev,  {
-        int err;
+<div dir=3D"ltr"><div class=3D"gmail_quote gmail_quote_container"><div dir=
+=3D"ltr" class=3D"gmail_attr">On Fri, Dec 20, 2024 at 10:24=E2=80=AFAM Simo=
+na Vetter &lt;<a href=3D"mailto:simona.vetter@ffwll.ch">simona.vetter@ffwll=
+.ch</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"marg=
+in:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1e=
+x">On Thu, Dec 19, 2024 at 05:09:33PM +0100, Michel D=C3=A4nzer wrote:<br>
+&gt; On 2024-12-19 10:02, Daniel Stone wrote:<br>
+&gt; &gt; <br>
+&gt; &gt; How this would be used in practice is also way too underdocumente=
+d. We<br>
+&gt; &gt; need to document that exact-round-up 64b is more restrictive than=
+<br>
+&gt; &gt; any-multiple-of 64b is more restrictive than &#39;classic&#39; li=
+near. We need<br>
+&gt; &gt; to document what people should advertise - if we were starting fr=
+om<br>
+&gt; &gt; scratch, the clear answer would be that anything which doesn&#39;=
+t care<br>
+&gt; &gt; should advertise all three, anything advertising any-multiple-of<=
+br>
+&gt; &gt; should also advertise exact-round-up, etc.<br>
+&gt; &gt; <br>
+&gt; &gt; But we&#39;re not starting from scratch, and since linear is &#39=
+;special&#39;,<br>
+&gt; &gt; userspace already has explicit knowledge of it. So AMD is going t=
+o<br>
+&gt; &gt; have to advertise LINEAR forever, because media frameworks know a=
+bout<br>
+&gt; &gt; DRM_FORMAT_MOD_LINEAR and pass that around explicitly when they k=
+now<br>
+&gt; &gt; that the buffer is linear. That and not breaking older userspace<=
+br>
+&gt; &gt; running in containers or as part of a bisect or whatever.<br>
+&gt; &gt; <br>
+&gt; &gt; There&#39;s also the question of what e.g. gbm_bo_get_modifier() =
+should<br>
+&gt; &gt; return. Again, if we were starting from scratch, most restrictive=
+<br>
+&gt; &gt; would make sense. But we&#39;re not, so I think it has to return =
+LINEAR<br>
+&gt; &gt; for maximum compatibility (because modifiers can&#39;t be morphed=
+ into<br>
+&gt; &gt; other ones for fun), which further cements that we&#39;re not rem=
+oving<br>
+&gt; &gt; LINEAR.<br>
+&gt; &gt; <br>
+&gt; &gt; And how should allocators determine what to go for? Given that, I=
+<br>
+&gt; &gt; think the only sensible semantics are, when only LINEAR has been<=
+br>
+&gt; &gt; passed, to pick the most restrictive set possible; when LINEAR<br=
+>
+&gt; &gt; variants have been passed as well as LINEAR, to act as if LINEAR =
+were<br>
+&gt; &gt; not passed at all.<br>
+&gt; <br>
+&gt; These are all very good points, which call for stricter-than-usual<br>
+&gt; application of the &quot;new UAPI requires corresponding user-space pa=
+tches&quot;<br>
+&gt; rule:<br>
+&gt; <br>
+&gt; * Patches adding support for the new modifiers in Mesa (and kernel)<br=
+>
+&gt; drivers for at least two separate vendors<br>
+<br>
+I think this is too strict? At least I could come up with other scenarios<b=
+r>
+where we&#39;d need a new linear variant:<br>
+- one driver, but two different devices that happen to have incompatible<br=
+>
+=C2=A0 linear requirements which break and get fixed with the new linear mo=
+de.<br>
+- one driver, one device, but non-driver userspace allocates the linear<br>
+=C2=A0 buffer somewhere else (e.g. from dma-buf heaps) and gets pitch<br>
+=C2=A0 constraints wrong<br>
+<br>
+&gt; * Patches adding support in at least one non-Mesa user-space component=
+,<br>
+&gt; e.g. a Wayland compositor which has code using the existing linear<br>
+&gt; modifier (e.g. mutter)<br>
+<br>
+This also feels a bit too strict, since I think what Daniel proposed is<br>
+that drivers do the special LINEAR handling when there are variants<br>
+present in the list of compatible modifiers for an alloation. Hence I<br>
+don&#39;t think compositor patches are necessarily required, but we definit=
+ely<br>
+need to test to make sure it actually works and there&#39;s not surprises.<=
+br>
+<br>
+The exception is of course when non-mesa userspace allocates/sizes the<br>
+buffer itself (maybe for an soc where the display is separate and the gpu<b=
+r>
+has stricter stride constraints than the display).<br>
+<br>
+&gt; Ideally also describe a specific multi-vendor scenario which can&#39;t=
+ work<br>
+&gt; with the existing linear modifier, and validate that it works with the=
+<br>
+&gt; new ones.<br>
+<br>
+I think that&#39;s really the crucial part, because adding modifiers withou=
+t<br>
+an actual use-case that they fix is just asking for more future trouble I<b=
+r>
+think.<br></blockquote><div><br></div>It won&#39;t always &quot;work&quot; =
+with the new linear modifiers, but when it fails, it will fail in a manner =
+that is debuggable, understandable, and explainable by non-driver developer=
+s, such as getting 0 common modifiers between 2 devices. For example, the G=
+UI can report to a user that DRI_PRIME failed because there are no common m=
+odifiers between the 2 devices, which is better than failing with an=C2=A0u=
+nqueriable difficult-to-handle reason (rejected pitch) or continuing with c=
+orruption (invalid pitch) or hangs (invalid pitch causing buffer overrun an=
+d corrupting shader binaries next to it).<br></div><div class=3D"gmail_quot=
+e gmail_quote_container"><br></div><div class=3D"gmail_quote gmail_quote_co=
+ntainer">Marek<br></div></div>
 
--       if (amdgpu_sriov_vf(adev))
-+       if (amdgpu_sriov_vf(adev)) {
-                err =3D amdgpu_ucode_request(adev, &adev->gfx.mec_fw,
-                                           AMDGPU_UCODE_REQUIRED,
-                                           "amdgpu/%s_sjt_mec.bin", chip_na=
-me);
-+               if (err)
-+                       err =3D amdgpu_ucode_request(adev, &adev->gfx.mec_f=
-w,
-+                                          AMDGPU_UCODE_REQUIRED,
-+                                          "amdgpu/%s_mec.bin", chip_name);
-+       }
-        else
-                err =3D amdgpu_ucode_request(adev, &adev->gfx.mec_fw,
-                                           AMDGPU_UCODE_REQUIRED,
---
-2.34.1
-
+--000000000000da5bca062a13447a--
