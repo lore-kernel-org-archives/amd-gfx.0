@@ -4,67 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D9AAE77188
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Dec 2024 09:00:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EEE9E7718F
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Dec 2024 09:00:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EBDEC10E056;
-	Thu, 26 Dec 2024 09:00:11 +0000 (UTC)
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
- by gabe.freedesktop.org (Postfix) with ESMTP id 7284610E10A
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Dec 2024 09:44:03 +0000 (UTC)
-Received: from loongson.cn (unknown [113.200.148.30])
- by gateway (Coremail) with SMTP id _____8DxmeDb02tnTFFaAA--.46919S3;
- Wed, 25 Dec 2024 17:43:55 +0800 (CST)
-Received: from [10.130.0.149] (unknown [113.200.148.30])
- by front1 (Coremail) with SMTP id qMiowMBxzsXa02tn5bcIAA--.37718S3;
- Wed, 25 Dec 2024 17:43:54 +0800 (CST)
-Subject: Re: [PATCH v6 9/9] drm/amd/display: Mark dc_fixpt_from_fraction()
- noinline
-To: Nathan Chancellor <nathan@kernel.org>
-References: <20241217010905.13054-1-yangtiezhu@loongson.cn>
- <20241217015006.30305-1-yangtiezhu@loongson.cn>
- <CAAhV-H4WpcWjrQdkm3Sx4DVbp=2oW9nNGAbNqR4BEmiryrptNQ@mail.gmail.com>
- <20241218190558.g2hykmjgbny4n5i3@jpoimboe>
- <CADnq5_PFcHzob4poLa86_K4yP5gUT7Ei4Rz5vSUofvZTmB48-g@mail.gmail.com>
- <4bace457-cc26-13a3-bc90-ad6ad12bc2ed@loongson.cn>
- <20241220103100.GB17537@noisy.programming.kicks-ass.net>
- <20241220223403.GA2605890@ax162>
- <05cdb3b4c9bddf25f7b839229b635d2dec5140a4.camel@xry111.site>
- <bc35fddc-498a-cc58-b6a1-f5234a4f6d0d@loongson.cn>
- <20241223214645.GB1188382@ax162>
-Cc: Xi Ruoyao <xry111@xry111.site>, Peter Zijlstra <peterz@infradead.org>,
- Alex Deucher <alexdeucher@gmail.com>, Josh Poimboeuf <jpoimboe@kernel.org>,
- Huacai Chen <chenhuacai@kernel.org>, loongarch@lists.linux.dev,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Nick Desaulniers <ndesaulniers@google.com>, llvm@lists.linux.dev
-From: Tiezhu Yang <yangtiezhu@loongson.cn>
-Message-ID: <73c297f1-05a7-e786-557c-b267b125b6d5@loongson.cn>
-Date: Wed, 25 Dec 2024 17:43:54 +0800
-User-Agent: Mozilla/5.0 (X11; Linux mips64; rv:45.0) Gecko/20100101
- Thunderbird/45.4.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9F8A10E7BD;
+	Thu, 26 Dec 2024 09:00:12 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NcGZrvQH";
+	dkim-atps=neutral
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [IPv6:2a00:1450:4864:20::433])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 29ACC10E653
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Dec 2024 01:27:31 +0000 (UTC)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-385ddcfc97bso5230327f8f.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Dec 2024 17:27:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1735176449; x=1735781249; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=w+1gJ6KVd4d91QuBEx/cbFE3H0/ijnRtOxNNQIBNOxI=;
+ b=NcGZrvQHj14+w3DqqHzQaXhlBBJa+J6nHr1nLwJrxYklhydKRZktkM2QtZXGgsfLzi
+ 6t1sXXHc6xs/xOAj5N/SqAor+m+422Wqm3oopPMkuirrArP29vnlO53gShiYHi5NdbN2
+ unF9y07dF6pX9XnJWvGwZ6TjR4evdRZLZTJgYdUuNOvV01eFEJuDmyiRv6EDcV/syosG
+ IDfRa61kTMl37q+DPFRYiXi96lMTHHmnNTTiT0xSqBSQt0oSVkz70t5D19/Y8zMV1Hwa
+ 9scy9UfFJL4fHjcgb/E5IxuGjrA1xuZTyB3+l8r8JK3eKwXzALwHvzKqpP8UtR9Olrvy
+ JEKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1735176449; x=1735781249;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=w+1gJ6KVd4d91QuBEx/cbFE3H0/ijnRtOxNNQIBNOxI=;
+ b=xGAlCJxNb145ZlaUnMYj8g5NaYbJ7wzdV1olqM03jmtSqps0T5xckKykHL7s8rWtS0
+ 8QvLIISrRFNbkduKLRmxgo6K9jJgYmoVks1qnAyXmvXaKNcT3msmXVp8rdi4Av66SUDo
+ i4woqFS2S8LybSHUwZCNvUFOa4yf15kn4+Rmo6vEQIM0zNJo6nGFhAuBrLBZBc8bDJHr
+ Pia6IIOmDeprL7PQd/TufZZIqjmlQ3SyBLEt4VLk2aRvzjri0/eNw3t2JflqajcYdLPG
+ RNmrFc765wmQVv4a1pKD0FVCD4M8CwaIJS8U0zsEemX2msKd8AtXgleSR2tl0sZa4Nju
+ Yu9A==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUKB7xTWvK380u+H63eg/MJkGw1Hj8iHQhhsGT0WeMBNDZ1aFG3diDssjgWoQcczbwmnO7VnwD8@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxGWdbrC13SV0qaYCANLnDs1Sw3uWgXGprGdDthq1INz5sVc9G2
+ vwsYYODtKt68vopVV7/f6lB6euKcmAQMy7q6u+z4QU9HeNkM0UhS
+X-Gm-Gg: ASbGncsBgvMm+wcCzck/s4nWAMMZOZMhqt0PtYjVPe6Rg7JEgup2+lxtbhdCwX3VfEv
+ s+tzglEzDsQiqaXKCLsVPC/ihAeKNrcq0aKIeAY5lCWZR4eA0pAK9IjaLa+S/pv3pTdjSkhjRzo
+ wwMUd8iHupr3JupAp+jpEXBVj1wHSRYVRWsme9fPKV5v69LjqAYeSr5pwiNMcbBwS+gFbmq9pr+
+ VzA/ws93q18Z7vUXuwFvEmQ8R7wdMew0CKlM7x2nJ7sATi+YHlqORIzrvny4mA=
+X-Google-Smtp-Source: AGHT+IEhKxgf4hIQTI+Klr0apBS3ueanh/tTSMf0cm7MR8jqtmgAC2JCW+Dv1tvv1AYLHnhwnZnAgg==
+X-Received: by 2002:a5d:47c3:0:b0:385:e35e:9da8 with SMTP id
+ ffacd0b85a97d-38a221f69e0mr18547954f8f.18.1735176449451; 
+ Wed, 25 Dec 2024 17:27:29 -0800 (PST)
+Received: from debian.local ([31.94.62.22]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-43661219611sm218332885e9.23.2024.12.25.17.27.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 25 Dec 2024 17:27:29 -0800 (PST)
+Date: Thu, 26 Dec 2024 01:27:25 +0000
+From: Chris Bainbridge <chris.bainbridge@gmail.com>
+To: Tobias Jakobi <tjakobi@math.uni-bielefeld.de>
+Cc: Mario Limonciello <mario.limonciello@amd.com>,
+ amd-gfx@lists.freedesktop.org, alex.hung@amd.com,
+ regressions@lists.linux.dev, rafael@kernel.org, lenb@kernel.org,
+ linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/amd: Fix random crashes due to bad kfree
+Message-ID: <Z2yw_eJwR5ih1Npr@debian.local>
+References: <Z2yQvTyg_MWwrlj3@debian.local>
+ <b98f2fa5-fbe8-4958-bf20-fa5d28c5a38b@math.uni-bielefeld.de>
 MIME-Version: 1.0
-In-Reply-To: <20241223214645.GB1188382@ax162>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID: qMiowMBxzsXa02tn5bcIAA--.37718S3
-X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
-X-Coremail-Antispam: 1Uk129KBj93XoW7Ww4UJF4DZw1fZFy5ZF47Awc_yoW5JF45pa
- yfKF98Zr1DAF4xtasrGw18WFW3Aa4fGF40gF15C395u347AFn8urWfJF1kGrW3Gry7AF4a
- qF4DKrWUJF1qyFXCm3ZEXasCq-sJn29KB7ZKAUJUUUU5529EdanIXcx71UUUUU7KY7ZEXa
- sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
- 0xBIdaVrnRJUUUv2b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
- IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
- e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
- 0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
- xVW8Jr0_Cr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx
- 1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17McIj6I8E87Iv
- 67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7I2V7IY0VAS07
- AlzVAYIcxG8wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02
- F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GF
- ylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7Cj
- xVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r
- 1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU8zw
- Z7UUUUU==
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <b98f2fa5-fbe8-4958-bf20-fa5d28c5a38b@math.uni-bielefeld.de>
 X-Mailman-Approved-At: Thu, 26 Dec 2024 09:00:11 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -80,74 +88,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 12/24/2024 05:46 AM, Nathan Chancellor wrote:
-> On Sun, Dec 22, 2024 at 12:27:47PM +0800, Tiezhu Yang wrote:
+On Thu, Dec 26, 2024 at 12:19:02AM +0100, Tobias Jakobi wrote:
+> Hi Chris!
+> 
+> On 12/26/24 00:09, Chris Bainbridge wrote:
+> 
+> > Commit c6a837088bed ("drm/amd/display: Fetch the EDID from _DDC if
+> > available for eDP") added function dm_helpers_probe_acpi_edid, which
+> > fetches the EDID from the BIOS by calling acpi_video_get_edid.
+> > acpi_video_get_edid returns a pointer to the EDID, but this pointer does
+> > not originate from kmalloc - it is actually the internal "pointer" field
+> > from an acpi_buffer struct (which did come from kmalloc).
+> > dm_helpers_probe_acpi_edid then attempts to kfree the EDID pointer,
+> > resulting in memory corruption which leads to random, intermittent
+> > crashes (e.g. 4% of boots will fail with some Oops).
+> > 
+> > Fix this by allocating a new array (which can be safely freed) for the
+> > EDID data in acpi_video_get_edid, and correctly freeing the acpi_buffer.
+> 
+> Hmm, maybe I'm missing something here. But shouldn't it suffice to just
+> remove the kfree call in dm_helpers_probe_acpi_edid()?
 
-...
+Yes, that would work to fix the bad kfree, but there would be a small
+memory leak of the acpi_buffer struct. It's not a huge problem since
+this code is rarely run, and the Nouveau code has never tried to free
+the edid buffer and apparently nobody noticed, but it would be better to
+do the correct thing.
 
->> With the above changes, there is no "falls through" objtool warning
->> compiled with both clang 19 and the latest mainline clang 20.
->
-> I am somewhat surprised that changes anything because the ASSERT is not
-> stopping control flow so I would expect the same problem as before. I
-> guess it does not happen perhaps due to inlining differences? I looked
+One other curiosity is this comment in the code that allocates the
+memory:
 
-It is weird and I think it is not the correct way.
+case ACPI_ALLOCATE_BUFFER:
+	/*
+	 * Allocate a new buffer. We directectly call acpi_os_allocate here to
+	 * purposefully bypass the (optionally enabled) internal allocation
+	 * tracking mechanism since we only want to track internal
+	 * allocations. Note: The caller should use acpi_os_free to free this
+	 * buffer created via ACPI_ALLOCATE_BUFFER.
+	 */
 
-> at this code briefly when I sent my initial message and I was not sure
-> where such a check should exist. It does not look like these functions
-> really do any sort of error handling.
->
->> If you are OK with it, I will send a separate formal patch to handle
->> this issue after doing some more testing.
->
-> It may still be worth doing this to get some initial thoughts from the
-> AMD DRM folks.
-
-I think the correct way is:
-
-Keep the current ASSERT for the aim of debugging, just add BUG() to
-stop control flow if the divisor is zero.
-
---- >8 ---
-
-diff --git a/drivers/gpu/drm/amd/display/dc/basics/fixpt31_32.c 
-b/drivers/gpu/drm/amd/display/dc/basics/fixpt31_32.c
-index 88d3f9d7dd55..e15391e36b40 100644
---- a/drivers/gpu/drm/amd/display/dc/basics/fixpt31_32.c
-+++ b/drivers/gpu/drm/amd/display/dc/basics/fixpt31_32.c
-@@ -52,6 +52,7 @@ static inline unsigned long long 
-complete_integer_division_u64(
-         unsigned long long result;
-
-         ASSERT(divisor);
-+       BUG_ON(!divisor);
-
-         result = div64_u64_rem(dividend, divisor, remainder);
-
-diff --git a/drivers/gpu/drm/amd/display/dc/spl/spl_fixpt31_32.c 
-b/drivers/gpu/drm/amd/display/dc/spl/spl_fixpt31_32.c
-index 131f1e3949d3..ce2036950808 100644
---- a/drivers/gpu/drm/amd/display/dc/spl/spl_fixpt31_32.c
-+++ b/drivers/gpu/drm/amd/display/dc/spl/spl_fixpt31_32.c
-@@ -30,6 +30,7 @@ static inline unsigned long long 
-spl_complete_integer_division_u64(
-         unsigned long long result;
-
-         SPL_ASSERT(divisor);
-+       BUG_ON(!divisor);
-
-         result = spl_div64_u64_rem(dividend, divisor, remainder);
-
-It looks reasonable and works well both on x86 and LoongArch, there are
-no the following objtool warnings:
-
-   dc_fixpt_recip() falls through to next function dc_fixpt_sinc()
-   spl_fixpt_recip() falls through to next function spl_fixpt_sinc()
-
-If no more comments, I will send a separate formal patch for your
-review in the next week.
-
-Thanks,
-Tiezhu
-
+Which makes me wonder if all the calls to kfree on acpi_buffer structs
+with ACPI_ALLOCATE_BUFFER in acpi_video.c should actually be calls to
+acpi_os_free instead? I used kfree just for consistency with the
+existing code.
