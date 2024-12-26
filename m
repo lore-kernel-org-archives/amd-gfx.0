@@ -4,36 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E79A2E7718F
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Dec 2024 07:41:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BD5FE7718B
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Dec 2024 07:41:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9186D10E186;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E313A10E18F;
 	Fri, 27 Dec 2024 07:41:14 +0000 (UTC)
 Received: from smtp1.math.uni-bielefeld.de (smtp1.math.uni-bielefeld.de
  [129.70.45.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E6A010E00C
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Dec 2024 12:29:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 78CF110E032
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Dec 2024 12:27:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=math.uni-bielefeld.de; s=default; t=1735216155;
- bh=HgPTb3LOTRkHnpcTm/hPvSnOhZx/f+9kcrrTOI1ni20=;
- h=Date:From:Subject:To:Cc:References:In-Reply-To:From;
- b=fdjEFYpxCIe6/bpy3Wr6m2faS/mi5snJ2rWO8nUJulcEch5K5TBCYRJ0g5vmhMS7U
- AxN/KMVKuQ6KBQtpxyqoktOac4CUN3gx/OXqejYtBVF9PGBPbwpFqvk/4ooANeunOn
- 6YDgJYb+WXFJlDVdmQ7s9+5ameh7DhfpJymHeo43ihHdSNck/qSdv7yKBZeqNYCFDE
- t2UKveihHIBEdzKBqKhYLbzuR5UXTHJZy1BTkgCtWLirT44T5MEYrzsALA4Ba7pQ1+
- S1zdEGer9BVVHr2ffWlpgEjI+nMFDDU5bhc94Wjn5EtdLCsh4Qq+2DPDkHXGaAwvfM
- aU3IWk5arDd9w==
+ d=math.uni-bielefeld.de; s=default; t=1735216061;
+ bh=2v4VbNncfxZ5MKZk/LwLC67uTGFNDKhGHRQAjlBGqLQ=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=qa7EVnRxkMB9x9Iy4SoaDSfZrnN0q8dQrY037BFcEcVkbu9WfhLgZbhFLQBhGEHdj
+ pgbM41LBNeo0U9pILfHSJrFotzmfJKV1GUXCkyqowTuNaLMI5zo9RihgXJzVV05t61
+ nirXCr+3awAh0GFvihOX+c3U6GVz1aMSSAORMj9ZiC0aow9NUDWU6cldgTCktEhe3m
+ nwFXk8m0xnuxuQXMp9RHkKuKz1xTIEzNXO/1dakuGfHuPsubw3bQ+JFG+cNhiR8coW
+ fsual+RwZeY+UB05U9utG/9VnDC1moeujBq35dLdU9NKgESxoLrbNMRajisPy+zFxZ
+ iow9WCWnx1lTw==
 Received: from [192.168.2.10] (58-32-133-N4.customer.vsm.sh [170.133.32.58])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (Client did not present a certificate)
- by smtp1.math.uni-bielefeld.de (Postfix) with ESMTPSA id 8C772206CD;
- Thu, 26 Dec 2024 13:29:15 +0100 (CET)
-Message-ID: <319c2913-78fa-4b35-828e-7d4d1d691a93@math.uni-bielefeld.de>
-Date: Thu, 26 Dec 2024 13:29:15 +0100
+ by smtp1.math.uni-bielefeld.de (Postfix) with ESMTPSA id D6315206CD;
+ Thu, 26 Dec 2024 13:27:40 +0100 (CET)
+Content-Type: multipart/alternative;
+ boundary="------------AKH0rn78d0j7Tm9CpWQxpHLK"
+Message-ID: <0117fb18-610d-4761-b7e1-3b479376e9ba@math.uni-bielefeld.de>
+Date: Thu, 26 Dec 2024 13:27:37 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Tobias Jakobi <tjakobi@math.uni-bielefeld.de>
 Subject: Re: [PATCH] drm/amd: Fix random crashes due to bad kfree
 To: Chris Bainbridge <chris.bainbridge@gmail.com>
 Cc: Mario Limonciello <mario.limonciello@amd.com>,
@@ -44,6 +45,7 @@ References: <Z2yQvTyg_MWwrlj3@debian.local>
  <b98f2fa5-fbe8-4958-bf20-fa5d28c5a38b@math.uni-bielefeld.de>
  <Z2yw_eJwR5ih1Npr@debian.local>
 Content-Language: en-US
+From: Tobias Jakobi <tjakobi@math.uni-bielefeld.de>
 Autocrypt: addr=tjakobi@math.uni-bielefeld.de; keydata=
  xsFNBFZhiNQBEAC5wiHN+jpZllNh3qv6Ni+32m4begD1A51ezJGHvubpy04S7noJ3BZvGeMf
  VBgp0ap0dtF3LHHKb5DRhakxU95jv3aIgVZCPztsZP7HLwwwdfI56PAy3r8IyvMxgokYZczM
@@ -89,8 +91,6 @@ Autocrypt: addr=tjakobi@math.uni-bielefeld.de; keydata=
  5jyYIbLNVBjZKDXq8pN13q6/M9q8MAD2qO3VvMjyEkzypg4qB76YLoiWtsanpUBrp9bYQXQ5
  JRHWPGCL3BhOxQ==
 In-Reply-To: <Z2yw_eJwR5ih1Npr@debian.local>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Fri, 27 Dec 2024 07:41:13 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -105,6 +105,11 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
+
+This is a multi-part message in MIME format.
+--------------AKH0rn78d0j7Tm9CpWQxpHLK
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
 On 12/26/24 02:27, Chris Bainbridge wrote:
 
@@ -162,3 +167,87 @@ Just my two cents :-D
 With best wishes,
 Tobias
 
+--------------AKH0rn78d0j7Tm9CpWQxpHLK
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p>On 12/26/24 02:27, Chris Bainbridge wrote:</p>
+    <blockquote type="cite" cite="mid:Z2yw_eJwR5ih1Npr@debian.local">
+      <pre wrap="" class="moz-quote-pre">On Thu, Dec 26, 2024 at 12:19:02AM +0100, Tobias Jakobi wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">Hi Chris!
+
+On 12/26/24 00:09, Chris Bainbridge wrote:
+
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">Commit c6a837088bed ("drm/amd/display: Fetch the EDID from _DDC if
+available for eDP") added function dm_helpers_probe_acpi_edid, which
+fetches the EDID from the BIOS by calling acpi_video_get_edid.
+acpi_video_get_edid returns a pointer to the EDID, but this pointer does
+not originate from kmalloc - it is actually the internal "pointer" field
+from an acpi_buffer struct (which did come from kmalloc).
+dm_helpers_probe_acpi_edid then attempts to kfree the EDID pointer,
+resulting in memory corruption which leads to random, intermittent
+crashes (e.g. 4% of boots will fail with some Oops).
+
+Fix this by allocating a new array (which can be safely freed) for the
+EDID data in acpi_video_get_edid, and correctly freeing the acpi_buffer.
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+Hmm, maybe I'm missing something here. But shouldn't it suffice to just
+remove the kfree call in dm_helpers_probe_acpi_edid()?
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Yes, that would work to fix the bad kfree, but there would be a small
+memory leak of the acpi_buffer struct. It's not a huge problem since
+this code is rarely run, and the Nouveau code has never tried to free
+the edid buffer and apparently nobody noticed, but it would be better to
+do the correct thing.</pre>
+    </blockquote>
+    <p>OK, thanks for explaining. I didn't immediately understand that
+      something was leaking memory. Only that we were freeing something
+      that we are not supposed to free.<br>
+    </p>
+    <p><span style="white-space: pre-wrap">
+</span></p>
+    <blockquote type="cite" cite="mid:Z2yw_eJwR5ih1Npr@debian.local">
+      <pre wrap="" class="moz-quote-pre">One other curiosity is this comment in the code that allocates the
+memory:
+
+case ACPI_ALLOCATE_BUFFER:
+	/*
+	 * Allocate a new buffer. We directectly call acpi_os_allocate here to
+	 * purposefully bypass the (optionally enabled) internal allocation
+	 * tracking mechanism since we only want to track internal
+	 * allocations. Note: The caller should use acpi_os_free to free this
+	 * buffer created via ACPI_ALLOCATE_BUFFER.
+	 */
+
+Which makes me wonder if all the calls to kfree on acpi_buffer structs
+with ACPI_ALLOCATE_BUFFER in acpi_video.c should actually be calls to
+acpi_os_free instead? I used kfree just for consistency with the
+existing code.
+</pre>
+    </blockquote>
+    <p>Wouldn't it make more sense to do the memdup handling in
+      acpi_video_device_EDID()? This way you have both alloc and free in
+      the same function. But I'm no expert when it comes to the ACPI
+      kernel code. Just my two cents :-D</p>
+    <p>With best wishes,<br>
+      Tobias<br>
+      <br>
+    </p>
+  </body>
+</html>
+
+--------------AKH0rn78d0j7Tm9CpWQxpHLK--
