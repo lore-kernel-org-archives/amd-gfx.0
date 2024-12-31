@@ -4,64 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBEEFE77188
-	for <amd-gfx@archiver.kernel.org>; Tue, 31 Dec 2024 08:45:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EECE1E77188
+	for <amd-gfx@archiver.kernel.org>; Tue, 31 Dec 2024 10:35:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5359410E606;
-	Tue, 31 Dec 2024 08:45:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5566710E63D;
+	Tue, 31 Dec 2024 10:35:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fp05W0HM";
+	dkim=pass (2048-bit key; unprotected) header.d=rivosinc-com.20230601.gappssmtp.com header.i=@rivosinc-com.20230601.gappssmtp.com header.b="lnjwa/gO";
 	dkim-atps=neutral
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C284910E606
- for <amd-gfx@lists.freedesktop.org>; Tue, 31 Dec 2024 08:45:51 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 8FD08A40139
- for <amd-gfx@lists.freedesktop.org>; Tue, 31 Dec 2024 08:44:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACC85C4CED6
- for <amd-gfx@lists.freedesktop.org>; Tue, 31 Dec 2024 08:45:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1735634750;
- bh=C+UQz/nc6bBAYUdBdips7Iqq3f5dlWZNk33voQGhfVU=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=fp05W0HMGGyveouJg3wGMHMI9Wsq734JOjrx0/GykjO/97ctetpRKzruE2CI9Gmxb
- yVflswyCuQmhVgm+HRISNRIZ/vjdnfEs431tcr1TBB3OK361A5WlCNAO4GDwxbKD/V
- JFNjuIxtAkxpv0H6FyQyQUGK41nt61YX0ybtGiGAsgm+C6e3o6+hVd0v8J6SIumaKR
- tVpyA2GarG3J7EJzsZzE02DymaTA4aHwPN+IIx9+nqdFpoep/toyNuIQT0/yfKe7Mh
- W9fcawsR638ejjkmExcNgnL52VVNHyvFx8gY6dhSjmAZ1+GC8ewhmVhb1K4cn9La8C
- XLPkMW0HYGWVA==
-Received: by mail-ej1-f42.google.com with SMTP id
- a640c23a62f3a-aa69107179cso1619634966b.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 31 Dec 2024 00:45:50 -0800 (PST)
-X-Forwarded-Encrypted: i=1;
- AJvYcCU5QLTQylLNj+Ic5jsC2vUKuZIv6XBX/WYefDPKE5gKMHcc9qBsveIMH6Aly4hTCNDkWibMhO9S@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwQJfk960f4pu/orB5Q9NcG/Dc9rM7cmdzCElkQ3jizqmES1IDd
- 2I0XOj6QHzPoDntbtYos5FZ1ZCk/yOLKFh9GTN4P31nU1UAhxNYhUY+CKlO9jHeRQsPKzXk+nAQ
- mRO0R0D4xFuHGJaQbEQlBOhZxd34=
-X-Google-Smtp-Source: AGHT+IG84TtjHESOMq9FoZL4Pm5fRrf90fimurFofMW2Rx/qHlRyMup3BnauOQooZDKmpdYvvoXRRGP3rPsuokeyEtU=
-X-Received: by 2002:a17:907:7284:b0:aa6:8430:cb02 with SMTP id
- a640c23a62f3a-aac3397d1ccmr3489379866b.61.1735634749256; Tue, 31 Dec 2024
- 00:45:49 -0800 (PST)
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
+ [209.85.214.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A2BA10E59F
+ for <amd-gfx@lists.freedesktop.org>; Tue, 31 Dec 2024 00:38:15 +0000 (UTC)
+Received: by mail-pl1-f172.google.com with SMTP id
+ d9443c01a7336-21636268e43so30730125ad.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 30 Dec 2024 16:38:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=rivosinc-com.20230601.gappssmtp.com; s=20230601; t=1735605435; x=1736210235;
+ darn=lists.freedesktop.org; 
+ h=to:from:cc:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:to:cc:subject:date:message-id:reply-to;
+ bh=F2yAYYBK5Idg3mVjplhEp+hgexJeLdI0/aBpgj88mUU=;
+ b=lnjwa/gO9ItPzAo7fwl7CnAmvmFWGyqUcPbbLMprQEaoW67Nahb/KwWbSHvLArpmmV
+ UMkWD8RiyB1qT9EGsz4kQTZhgAlZMYFduVCLnhic8NTByAxav9yy1R0btdtnMMNgH8RN
+ QpRAIqQuKM2ui4gr/I6um7uIfj8Z9/I558bpjl7+PIU/1vs8KU0WybgYHOoA/syRh2wU
+ +OpIerXDxIqGUEOlEDRnNaKZHgpHiMLniVW08mRGfOw7KzaIU2E0WpjhN3/kHoANeeUP
+ etWuFEHypPP6wzgrTmby91seUGWCvM34JkUEydUp4/LgX5jdrKRSDk/aDp0EPrpw4pRW
+ JH4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1735605435; x=1736210235;
+ h=to:from:cc:content-transfer-encoding:mime-version:message-id:date
+ :subject:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=F2yAYYBK5Idg3mVjplhEp+hgexJeLdI0/aBpgj88mUU=;
+ b=eUMQ8nRsyQIquA8P8jRqH16KWzU3PFJNs9NFDRPJ7Ol1RkYGuWJtql/w8gX9Wxb242
+ l+sOeawmrWeZb3b/6pYiWs/xLOKsLCUj4uWHiBQ+amB8GW1TtzqYRmdYPQ9jS5H2Gis9
+ jzseq6fQT5WBvtxCaoQ1CAyZIWgLEYj/Thgq5DvwsLaQYDYNW/Mc70h7XBwzS+1G+VLv
+ LVFXNMAI2mlG3aC3Lf9Iq1cCMNNK6jrtSodOIpZ87wLGtzdlo+8OAHOBCNG1TYfAts1H
+ gZa2vNyO0qQro+6p1k0t6Fa7lWLxqJjO6CaRMy18flA3LjA91h8zAVTCaWnYKVHBklXd
+ cp3w==
+X-Gm-Message-State: AOJu0YwUcT80XkWPLpp8IoJKuScRw4DR7Lhz6SfRcthXZstLm53MSQ+r
+ yoib37VLn10PjaNRgCFjl39GMaC5zrhfhLM/Wri00NrRgSKrhuKLzNX3NupUYn+NNfpWBuILQr7
+ b
+X-Gm-Gg: ASbGnctSpwi6HTUcX2jbjir9KJ6Bk+abvNO0I0JKMjwdn+J9tla5+aNiry91Obs+pDB
+ BrRLswf+LZFPr3/HIVGGpExTuBfhlOfA8YAOYqGx5UoVh+JqyOAlsElLDMEN3MgLBDvAzdMWU+E
+ /qqTCp37cbygW52UESGIViRRrTQpsGr0RKpu22YBqFYO4BDTcclOzXaI5B/BtAct2O5JAxNxjKV
+ G7dSiqIBzGeyux00XnqjmpqWFOyrPobBn0dO327ZDtLkw0e2qI=
+X-Google-Smtp-Source: AGHT+IE/AWOTszHUHtDpafE3qaXtf5KGoLf4JTW95pN+XrZuZ58jSfDBFbstrD9PLNosWr8Nde4ntQ==
+X-Received: by 2002:a17:902:e886:b0:216:5e6e:68cb with SMTP id
+ d9443c01a7336-219e6e9fd95mr561177575ad.16.1735603603622; 
+ Mon, 30 Dec 2024 16:06:43 -0800 (PST)
+Received: from localhost ([50.145.13.30]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-219dc964a8bsm183765495ad.8.2024.12.30.16.06.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 30 Dec 2024 16:06:39 -0800 (PST)
+Subject: [PATCH] drm/amd/display: Increase frame-larger-than warning limit for
+ DCN401
+Date: Mon, 30 Dec 2024 16:02:58 -0800
+Message-ID: <20241231000257.8533-2-palmer@rivosinc.com>
+X-Mailer: git-send-email 2.45.1
 MIME-Version: 1.0
-References: <20241231072806.4936-1-yangtiezhu@loongson.cn>
-In-Reply-To: <20241231072806.4936-1-yangtiezhu@loongson.cn>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Tue, 31 Dec 2024 16:45:37 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H7WyFqw4FDnMHN=AFOBvzSXDC+OWhjwrej1SFVat9E_xw@mail.gmail.com>
-Message-ID: <CAAhV-H7WyFqw4FDnMHN=AFOBvzSXDC+OWhjwrej1SFVat9E_xw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Harden callers of division functions
-To: Tiezhu Yang <yangtiezhu@loongson.cn>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Xinhui Pan <Xinhui.Pan@amd.com>, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Nathan Chancellor <nathan@kernel.org>, 
- Josh Poimboeuf <jpoimboe@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- loongarch@lists.linux.dev, 
- amd-gfx@lists.freedesktop.org, llvm@lists.linux.dev, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Cc: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, 
+ simona@ffwll.ch, hamza.mahfooz@amd.com, aurabindo.pillai@amd.com,
+ wayne.lin@amd.com, Palmer Dabbelt <palmer@rivosinc.com>, moadhuri@amd.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+From: Palmer Dabbelt <palmer@rivosinc.com>
+To: amd-gfx@lists.freedesktop.org
+X-Mailman-Approved-At: Tue, 31 Dec 2024 10:35:23 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,85 +89,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi, Tiezhu,
+From: Palmer Dabbelt <palmer@rivosinc.com>
 
-On Tue, Dec 31, 2024 at 3:28=E2=80=AFPM Tiezhu Yang <yangtiezhu@loongson.cn=
-> wrote:
->
-> There are objtool warnings compiled with the latest mainline LLVM:
->
->   dc_fixpt_recip() falls through to next function dc_fixpt_sinc()
->   spl_fixpt_recip() falls through to next function spl_fixpt_sinc()
->
-> Here are the call paths:
->
->   dc_fixpt_recip()
->     dc_fixpt_from_fraction()
->       complete_integer_division_u64()
->         div64_u64_rem()
->
->   spl_fixpt_recip()
->     spl_fixpt_from_fraction()
->       spl_complete_integer_division_u64()
->         spl_div64_u64_rem()
->
-> This was introduced by a change in Clang from a few months:
->
->   [SimplifyCFG] Deduce paths unreachable if they cause div/rem UB)
->   https://github.com/llvm/llvm-project/commit/37932643abab
->
-> Since the ASSERT does not do anything to prevent the divide by zero
-> (just flags it with WARN_ON) and the rest of the code doesn't either,
-> the callers of division functions should harden them against dividing
-> by zero to avoid undefined behavior.
->
-> Keep the current ASSERT for the aim of debugging, just add BUG() to
-> stop control flow if the divisior is zero.
->
-> Suggested-by: Nathan Chancellor <nathan@kernel.org>
-> Suggested-by: Xi Ruoyao <xry111@xry111.site>
-> Suggested-by: Rui Wang <wangrui@loongson.cn>
-> Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
-> Link: https://lore.kernel.org/lkml/20241220223403.GA2605890@ax162/
-> ---
->  drivers/gpu/drm/amd/display/dc/basics/fixpt31_32.c  | 1 +
->  drivers/gpu/drm/amd/display/dc/spl/spl_fixpt31_32.c | 1 +
->  2 files changed, 2 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/basics/fixpt31_32.c b/drivers=
-/gpu/drm/amd/display/dc/basics/fixpt31_32.c
-> index 88d3f9d7dd55..e15391e36b40 100644
-> --- a/drivers/gpu/drm/amd/display/dc/basics/fixpt31_32.c
-> +++ b/drivers/gpu/drm/amd/display/dc/basics/fixpt31_32.c
-> @@ -52,6 +52,7 @@ static inline unsigned long long complete_integer_divis=
-ion_u64(
->         unsigned long long result;
->
->         ASSERT(divisor);
-> +       BUG_ON(!divisor);
-ASSERT() calls WARN(), so the warning message will print twice, but I
-don't have a better suggestion. :)
+Without this I get
 
-Huacai
+  CC [M]  drivers/gpu/drm/amd/amdgpu/../display/dc/resource/dcn401/dcn401_resource.o
+drivers/gpu/drm/amd/amdgpu/../display/dc/resource/dcn401/dcn401_resource.c: In function ‘dcn401_dpp_create’:
+drivers/gpu/drm/amd/amdgpu/../display/dc/resource/dcn401/dcn401_resource.c:936:1: error: the frame size of 2720 bytes is larger than 2048 bytes [-Werror=frame-larger-than=]
+  936 | }
+      | ^
 
->
->         result =3D div64_u64_rem(dividend, divisor, remainder);
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/spl/spl_fixpt31_32.c b/driver=
-s/gpu/drm/amd/display/dc/spl/spl_fixpt31_32.c
-> index 131f1e3949d3..ce2036950808 100644
-> --- a/drivers/gpu/drm/amd/display/dc/spl/spl_fixpt31_32.c
-> +++ b/drivers/gpu/drm/amd/display/dc/spl/spl_fixpt31_32.c
-> @@ -30,6 +30,7 @@ static inline unsigned long long spl_complete_integer_d=
-ivision_u64(
->         unsigned long long result;
->
->         SPL_ASSERT(divisor);
-> +       BUG_ON(!divisor);
->
->         result =3D spl_div64_u64_rem(dividend, divisor, remainder);
->
-> --
-> 2.42.0
->
->
+when building for RISC-V/allmodconfig.
+
+Signed-off-by: Palmer Dabbelt <palmer@rivosinc.com>
+---
+ drivers/gpu/drm/amd/display/dc/resource/Makefile | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/Makefile b/drivers/gpu/drm/amd/display/dc/resource/Makefile
+index 09320344d8e9..c2700a184f06 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/resource/Makefile
+@@ -22,6 +22,13 @@
+ # Makefile for the 'resource' sub-component of DAL.
+ #
+ 
++ifneq ($(CONFIG_FRAME_WARN),0)
++ifeq ($(filter y,$(CONFIG_KASAN)$(CONFIG_KCSAN)),y)
++frame_warn_flag := -Wframe-larger-than=4096
++else
++frame_warn_flag := -Wframe-larger-than=3072
++endif
++endif
+ 
+ ###############################################################################
+ #  DCE
+@@ -203,5 +210,6 @@ RESOURCE_DCN401 = dcn401_resource.o
+ AMD_DAL_RESOURCE_DCN401 = $(addprefix $(AMDDALPATH)/dc/resource/dcn401/,$(RESOURCE_DCN401))
+ 
+ AMD_DISPLAY_FILES += $(AMD_DAL_RESOURCE_DCN401)
++CFLAGS_$(AMD_DAL_RESOURCE_DCN401) := $(frame_warn_flag)
+ 
+ endif
+-- 
+2.45.1
+
