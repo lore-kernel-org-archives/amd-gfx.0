@@ -4,151 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81EA7E77188
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 Jan 2025 14:12:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39CC1E77188
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Jan 2025 14:24:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C01910E30A;
-	Thu,  2 Jan 2025 14:12:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 953D210E70C;
+	Thu,  2 Jan 2025 14:24:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="lTML897h";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="m5dNi5z+";
 	dkim-atps=neutral
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2068.outbound.protection.outlook.com [40.107.243.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47DBA10E30A;
- Thu,  2 Jan 2025 14:12:28 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PFpthS2DllDWUFltPqk4QM6zHm43eub3TgJuhkBniY47qbzXl+iGfpwlbLPXoRZRG8ss1DPnAjVrRBConuPJGkbLTDm57LMrU547Y2Tix9AQNaLudSTT/ajcvW5e634ocZBkjNWfKZuXZussoOtktUMbvSRHjTcwvaLSqAdCGSEAp6qMfUrb44mqsVzJ4lZQ/CmfhA1k5LaSBq/9YI3MKiVCjRKMBipe7Oy0/1YVlwNqtO4dzNEoL14HHPyE1vtQqV6XpCojn7NX7zt6acEv3ve2eNVrpLnqwHxDacpRCy1DicdITnmxIcrt0fYmLSpQvErqgDhEI324LpqnppdLcg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BziGl1j9qbSYT3lGK8ciA85QrZyj/87ZhPIpDI9A6FA=;
- b=MnlTNEmmnzH9i5HhcRhqWnTv2t1nkNXRwq/0uVFDFYwb3ZjZAY1KXT/LzZddwYbOKsA3hzjZInlnkimVTw82THww/dZVNsx/wP/BLQ2UCSTpbbFvRzdpLZxOISKW27u8rC2V7OmvotxFJoEpQgtOl4DQJP6MofTekgPtt7kD7K7clsdYEb+X2tfqJpYFHKAX8NplHm8DmleLe28MBsqb3gKMhAKCiGvKRia0WUxeykyQXKxf35nl0QBvPogn8UbBiePk/OKeypvAIHkwayHSnK/7Gc1Hc2Op/n4csK83wjPcgEGX6w6Zt0MXMk8dqrx8nIUDjNt+9fes5oM0s7k/XQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BziGl1j9qbSYT3lGK8ciA85QrZyj/87ZhPIpDI9A6FA=;
- b=lTML897hKOtIabt449rYaJzVncGdUJyLTAnvqvm3lkasLHQDHolX8omwzcIUl6XLq5CF6bfj5kzcnxMo9Uad04QgCKXdf8uURzQF2zK2jtzjtHoAIccclN6au31zc5dHDLr7LeisDhgnptjFnNQaEOTyV2lM+GF4qpUiP490E9o=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MW4PR12MB5667.namprd12.prod.outlook.com (2603:10b6:303:18a::10)
- by BL1PR12MB5899.namprd12.prod.outlook.com (2603:10b6:208:397::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8314.12; Thu, 2 Jan
- 2025 14:12:20 +0000
-Received: from MW4PR12MB5667.namprd12.prod.outlook.com
- ([fe80::6216:e70a:9c8b:7abb]) by MW4PR12MB5667.namprd12.prod.outlook.com
- ([fe80::6216:e70a:9c8b:7abb%2]) with mapi id 15.20.8314.012; Thu, 2 Jan 2025
- 14:12:20 +0000
-Message-ID: <3c9bd4c3-80cb-4c9f-9658-64283789599c@amd.com>
-Date: Thu, 2 Jan 2025 15:12:15 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: Add null pointer check before task_info get
- and put
-To: Lu Yao <yaolu@kylinos.cn>, alexander.deucher@amd.com,
- christian.koenig@amd.com, Xinhui.Pan@amd.com
-Cc: felix.kuehling@amd.com, tvrtko.ursulin@igalia.com, zhenguo.yin@amd.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20250101015830.63570-1-yaolu@kylinos.cn>
-Content-Language: en-US
-From: "Sharma, Shashank" <shashank.sharma@amd.com>
-In-Reply-To: <20250101015830.63570-1-yaolu@kylinos.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0179.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a0::16) To MW4PR12MB5667.namprd12.prod.outlook.com
- (2603:10b6:303:18a::10)
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com
+ [209.85.218.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8074710E70F
+ for <amd-gfx@lists.freedesktop.org>; Thu,  2 Jan 2025 14:24:12 +0000 (UTC)
+Received: by mail-ej1-f42.google.com with SMTP id
+ a640c23a62f3a-aaf0f1adef8so896446766b.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 02 Jan 2025 06:24:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1735827791; x=1736432591; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=yUSBxkBwRkI/2U1jvfLlUre3uNRl11HxX5Np0hdrVA0=;
+ b=m5dNi5z+YSp9tSQJdQRVqcBFB3cgVGnSpLfyn4QftxjuHOOs3bluhN6/MF6wFAP5y/
+ osbYQmBmazNpMuVvWMaPnnUb0PUebAp0VjMP9XeN7YHlNlVI6ZH9dIKZJPJ7b7Ry28KB
+ 4BT6WpwEKtV2Le3lV4JWkXJLo7VHDCgItiZ7YfIto2eBr06RwHCxX5rGGUOsODP24Nq9
+ EdjWXpjnFDE3rcvcr2nU4FQOKs+rEM4qeHzRNMs7bnQPs+plMQ5o7HAgoFnnZf8aIR53
+ RI63ZZkFV7I3ELEPxieSDZznLMAnMkNmCb8De5X/cCuq59ntz2w3dJVMVscPWzTcjyOc
+ PEww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1735827791; x=1736432591;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=yUSBxkBwRkI/2U1jvfLlUre3uNRl11HxX5Np0hdrVA0=;
+ b=VQufcheNZQOsDMPV6DYZGvHgBhJJazbSLWLSLDh9ihm2/TtQRwn/dKNF3kcU1A0VbU
+ 2ojmRLpc04PPrSaz0RS/4ylisrMRAMJnOb2JPspzFF48hhe5eDQMP+ghD0k6hbc13JLq
+ qOYzVQNqH/tWB2SgEWWfY8ZnRzrFAqBQKfkbu1uySfCkHsfe5Bv2O29UxEKU9ARzjVvO
+ ZEnIB0en/syAlodT08/ZH7eDLSDWrz6xhoJ0vUxRDHCRTVDh8VISURVWov3OUEgkDOvU
+ P9SN7Mj5Z4Z5pvaG59SdAjL9hR2V+UCT5EPSl/QtoMIboMokT0TMtgx5FaUhsniOzA0w
+ QxCQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUK7aSYpk16+BxS4A0FKcMmPfKIHr5NB8nrH68+wG6Lmyxr0hEbMYsVl1UpDKClMw38iG4TRexN@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzJVyjNlubR5FbHVOW7YfiWn/rNYftASo8hk/zcUQwsXzUjqCXh
+ GApZ8p+TaETUqZCKzt2RqTblg8Goiql7YsZuM/yBc5mGtFDj/svvBRdUyg==
+X-Gm-Gg: ASbGncuwqwonm+ZT4dRxK2z8bD+gRwWqNVY+X8heLAb0c3NFlDU+on6QOX3vKhEjBEG
+ qRw8RREmpGGpWHw7SACYat6xPiy/T3veC0a/aZiS+sJsDHjjPBxECdA/5A7AI0LzqCkEBFEsgmr
+ obqWMCAWLg3xUDNw4a2zW8TxJWVJBf6UGBRJbgmkyKr3JTaPrjBnvoYvoufZ8oo4p9vCvAtoN4k
+ uEFULwR1n7/9IBRKbz9XUWTp3lKXcpxqHgayWRgoMhh4RztoCCOsB4JaSBt4SlE1Q9/ge4iH1Ta
+ jI/UNKFi3A==
+X-Google-Smtp-Source: AGHT+IFmRg0sLraSdcm/krlSVt9qnfU/jaabaxTJiYhsk5X8jO5Zo7u/mQv7+Iz+uMpl+nar9h6czA==
+X-Received: by 2002:a5d:64a5:0:b0:388:e2a6:ba81 with SMTP id
+ ffacd0b85a97d-38a223f72f6mr32994216f8f.47.1735826149807; 
+ Thu, 02 Jan 2025 05:55:49 -0800 (PST)
+Received: from [10.254.108.83] (munvpn.amd.com. [165.204.72.6])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4366127c4d7sm452278185e9.34.2025.01.02.05.55.48
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 02 Jan 2025 05:55:49 -0800 (PST)
+Message-ID: <5b3b2fa0-cbf8-41e4-b6ab-b66996b94de2@gmail.com>
+Date: Thu, 2 Jan 2025 14:55:47 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB5667:EE_|BL1PR12MB5899:EE_
-X-MS-Office365-Filtering-Correlation-Id: 73aaea28-7fef-4d45-4f9a-08dd2b37788e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016|7053199007;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?VEVOVXZmaEYzeGVoR1oxM0cwSEVVZzc3VVdPeDF6ZVRnNWx4aitzTkxtaEJs?=
- =?utf-8?B?RTc5aEhVanFOZnJyaGpqamhYRjJTM2RpRzdRSWc2YWw0ckIrMU1jbTh2RFNr?=
- =?utf-8?B?NW95cDZ3RmI2UGdKeml6MzllUHFYSUY1ZU9sa2NWMzQ2d09DVk9rVFpaUHUv?=
- =?utf-8?B?T28raHYwTHJOa2trSVlmelF4OEkrZ1ZyOHdFM0lTeSsxK3F2NGZCTWxETjFo?=
- =?utf-8?B?YjA4N2tXZk4vU1FXMXlUWjhUYm5tT2lGQlJKcmhKYzBoRE1jdUljRndzTDV0?=
- =?utf-8?B?YkZZYkh1R0cxd2YzU2x5RmhPQkloc3VhS05GZnBmc1BmeE5HZzZLR1QyczlI?=
- =?utf-8?B?RzR1TVVFWWlSNHdFUzBSdGhFOVdMK0JWQW16dllLM3B3Mk5FS1grSStlMXRR?=
- =?utf-8?B?dGFFN2dlSUgzZllnRkNJUnlvcGhyZGZNTjhDSXBXZkdGVXBubDcyY3JLa2U4?=
- =?utf-8?B?b0dEa2lSdzRwS3loRkFEQ3lleU1ZcWJsWXhjT254dmgvWm02ajFtQUU1Vms2?=
- =?utf-8?B?M21ENHYyUVBjKzlPQjl0RkZXakx2eFhXSnFyZ0pRKzg3SUxIRDJYV0ZieDJW?=
- =?utf-8?B?TG43NTcrajJnNG1QVmxvTEc1SmE5dWhKM0hMRjhYbk15SmMxUk0wWTZsWnZn?=
- =?utf-8?B?NzdBbGNPVnN5TkpYNnAvWEZTcld1bCtrZUc5Q2ZCSjRVdkdFcUNpcW1zeitw?=
- =?utf-8?B?RTZJWHpPVTE4L3EwZGRLRHhEOWk2c0JzekVVUkN0S29lN0NuVS8wSDVhc3dM?=
- =?utf-8?B?WGFiWUN1WXhWbjgwYitvYTdLWXpaaHV5ZWFLTlRmNGx1Yi9mTm9RWHFwcDhX?=
- =?utf-8?B?eXBGTHUxWHpBTjN6SjNkQ2ZneGpiY3VoNFZCRVM5aWtGZlhQVmJJRzhNUU5v?=
- =?utf-8?B?MHhycERIR0MxRkszT3BwazRhcWlKREZCSmhZaXdSTmNxejk2Tlpsd0c4RzJU?=
- =?utf-8?B?dFNzZW1GTGloNUVsL0RrS2s5aFJlZkwrZlBFakFMdmtVYm9wQUdOQlc5U2pN?=
- =?utf-8?B?UnZBd0U2VmxSbmlCTThnNVE2TUN6eVVpdFloVFZmeDBXcEJ0cWtzU3N4bkRL?=
- =?utf-8?B?bnZSU2l4S0VONkJ3aEpqUGFHNTdPQ1AzYnNpbFBHYlhPN3hnNW5pbzR3V3dY?=
- =?utf-8?B?ZzFjSmRPVndtaTF2a3FVekNJcmNaeTYyVkVwNXlwQzFLZXBaTk5LV3I4ZW0y?=
- =?utf-8?B?dThQOWpMbGo3anNEb09kVm10SWNYNEpEd016WGRncHJCYk5Bdk1YUlVUWGZr?=
- =?utf-8?B?cTdvcVBrNHZiNlQ4Z3ZIZFc4Y0hlTzV6NFh5TmY2M0Z2NGNUWmlTc1lCV2Fx?=
- =?utf-8?B?RGhHTjNTMUZwQ1hXa1ZUV01MNFZubWV4TmJZWjdEeTBVZFNGVDRqTjFGbHBF?=
- =?utf-8?B?M0pHQ3dEbWlUek01eGxOeFdLeEJ5dUM4N0d4VFcwZzlaOWcxN1hsZkIyRGsy?=
- =?utf-8?B?MFZFY2VmYVVyZUlHelJBRUtsQ0hmVS8yVytiN1JxRGRFVWVheXNrTGtqcHpy?=
- =?utf-8?B?em9ub2cxZmhDcWVSdnJZK2h0RlBoeFlONzhHaFhkYUJaY3lpNE5UTHdqc0ov?=
- =?utf-8?B?NWRjL21ndm9RYzFMSU5VNFpOU0Z5S2xEY01pQ0gxN2xSN2d1cm9OLzRUNzFT?=
- =?utf-8?B?ak9yTlBYV0F6UTJhTEVKOEhUcms4TVBiY1FJWGZ6VHdxcldqazJDWlB6amFL?=
- =?utf-8?B?VENoeXVBdWNQaE11Q0RnZWFBU083MXMzSS9WNUozenhoek9nOVc2YTJHeXhO?=
- =?utf-8?B?ZGNGbEp1d3B1UEkxN2RlOFlSVlRFL2U0azBOV1FJdGRWU1Y1dFE3alk1RTls?=
- =?utf-8?B?eWVqNmtVRU5wWXY3VHV6Vi9tOEx1ZnZzNzFabGpKdXBXWHNlaFN2VjB3K21Y?=
- =?utf-8?Q?igwplNVHmwnxA?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB5667.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(7053199007); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VDdGaHBNTkNtOE9YOGp4T1VhdlRTMGlzZjBNNktPUTh6UmRRY0lENzJkUkty?=
- =?utf-8?B?OXcvWDZReWlXMUE2OGVadFRJdFAyYTdOUTFRbGgrSFhGbTBsUURUd3Q5K0Nr?=
- =?utf-8?B?Y3hTOUZOeC9pZ203elIwZXlxQkgxRlJHK29pWXJWMUoyT1JyOGJxTTVuTS9H?=
- =?utf-8?B?a09LR1VqdExoSXBqYVUrSXRMa09WRG5ZU2tFR2dmbmd4M3VqOWxvWmNyK20w?=
- =?utf-8?B?T3h1RDZ0YWUxbVA4bUpxblgvTnRhbGk2dWd6aUJQZHM2VlZRSzBkVkxNWEsw?=
- =?utf-8?B?K2syUmF2MzZuc1diMVp1WnRxbWxmek5VQlJHejlFQ0ZDMjFuTHh0aXYyYVVS?=
- =?utf-8?B?YUtkZXBydnhDanhGbGNkMVdBKzBhTDFmek5MVVBiekFqREwrUTlVMlNLdDIx?=
- =?utf-8?B?MG02STBSMU5qSXpNRTlid0l0aWQwaUJkM3J4UXZuMEM2c0RTV2F1SmJSUHpG?=
- =?utf-8?B?Wk5sOU8zeExpN09zdHdmWFcrTDFqSE4zZHhpQXRQaTRvbjNUK2lSSmhXbTlo?=
- =?utf-8?B?QnZ4Y3RXWGhoTkZUL050ZStIK29aUmpuMXVlNEhNdkZqWnVocVlVU1Z4Z1R5?=
- =?utf-8?B?bWdyeEc5U2ZWNlpjcjRod2tTLzlxdU0zTnZ2QTJ6T2Q2Rkl6dHVad1E1UzVS?=
- =?utf-8?B?SDBrS3B0WGVkSmtjWmV1SXZ6R3ViRTkyMnowbk9xVlNaOERtTDB6YXNja25R?=
- =?utf-8?B?SUcrOElKQlpnbm9nc2xvbVRlWkZ2d2lNeks5WkdET2ZpMjc1eWRyVVhjaXFQ?=
- =?utf-8?B?azBBaEVwajdnK3FONzluUWxMd0h0dk1MaFk5UEJrS2pxTFdZK3c1dVpRWGpp?=
- =?utf-8?B?Umw4REp5V2RtdWlmODBhYXk3OXBmZzUxUHZEeEZRNjY4dWwycFM4RStVdlQz?=
- =?utf-8?B?SDZveVVtUHFCRDJYTk1mY2J0ZlN4OEM1MG5kVklHby83MHZDcVV4SEl0T1lp?=
- =?utf-8?B?eE8vZVlSN245V2JQQUhxcmQreDRueDFYY0tlQmNjcWZIaDVSeDZZS3RibXpY?=
- =?utf-8?B?cFowZzlaQmpVQUFZOTRaTDI3WFgrYnVTelpLRjdjVjVBaGZBOFdDVTlkcXdy?=
- =?utf-8?B?Q3ZPNXkzSVdOcS9mMTRiR2NlSllVSmlPVDVUKzhwbFZWOVFKaFdMTHJNS005?=
- =?utf-8?B?VGRQclVBcFViUkdyTW9zeU5wSUNISnRKVXA3Y2Q4anBILzVmWjRLYnpTWW85?=
- =?utf-8?B?S0NSOE9mNHdOTFpuNnFrcGZkdUxJYlJFbTJYMkJmMkZVcDlPZjVyR2RXY3hj?=
- =?utf-8?B?TFAzdnFYcmJYWXV4WGltSHZJKzRMRE5IakZIeWR1eTdUMEZKajVlV05CYkk0?=
- =?utf-8?B?ZVBJQ0lXZ1VqL1Z6QllTK0NsL0dpMmFJMWZrYzlOUGxzQnFkb2kvUFgwN1dQ?=
- =?utf-8?B?ci9WdDJHbHhBLzJxVjhCUjBaNmduWkl6RVBxUVdWQjRINzVraGtRQVFyNWF4?=
- =?utf-8?B?WVhWS1RwcG5lTzlXbmVDWTV4S2RNeXQweG5kZVRoT3lxYzNxTG15aUI4UDd5?=
- =?utf-8?B?UGQ1ajA4NjFhR2F1Q0Nyd3JNMzJ6TEFuL3lZM1BlZVkzT3F0NEVJQ2YwTFFt?=
- =?utf-8?B?NWpHQzhLYUM5bEc0S0I1b00vc0M4d1VGRFhwdFl2UmUxZ2dFUUtHL1BmUUpr?=
- =?utf-8?B?SjFQQnl2eFVZUTlKcVJObFpVTmdTbDRMdWZuUFBQREtPeGhzRGJqTHdhUFFy?=
- =?utf-8?B?Z1lpQ0J5UmtPOHRrems5Qk9iaGZUY3Bndnlydit2ZURESUtHd1BnS2NBVGdz?=
- =?utf-8?B?cGtSQkcrSmNjUEdEVndBc2NReWFET1JCRUkwdkMybTR1SFdVWXRLTzU4NjRE?=
- =?utf-8?B?TWRGN1lNWTVtS1Z1VUZ0ZFVTV0RKUnVJM3hSbEVzSkw5NDNLdmZqMmFYTlla?=
- =?utf-8?B?RDlqNnhidnM4ejVyVzgzOHlOcUoyeUx6WnFLNGMxV1BoZEg0QW9uR3lJVHhD?=
- =?utf-8?B?cTFvRFhKd1RwbEc4RkZ4eEpON0ozaUQ5dEw0R1NDVmFEMTE3bnRQZlZtaEQ1?=
- =?utf-8?B?N01COHVNTTlBeFJyM1JmQ1lBbjQybmgzWkltWnVnVDNEb1BEMnBXUlNVY1ZF?=
- =?utf-8?B?T2szMi9wdGZERkFtOExESDA1T0RHZGQ0WFY0a3dTMXRKUUlUb0Z2a2hPaElT?=
- =?utf-8?Q?KogBDpPpMYhz2sMOo1MqKdNq9?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 73aaea28-7fef-4d45-4f9a-08dd2b37788e
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB5667.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jan 2025 14:12:20.4950 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: EyOPsLyvSuw1/+g7wycS+1pOQp2sbt9RticdWf0AvhR1inY17SugB5eDJKJlPL6gRb3p2IgtJ9SizIHEE6exHQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5899
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 09/12] drm/amdgpu: Optimise amdgpu_ring_write()
+To: Tvrtko Ursulin <tursulin@igalia.com>, amd-gfx@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Sunil Khatri <sunil.khatri@amd.com>
+References: <20241227111938.22974-1-tursulin@igalia.com>
+ <20241227111938.22974-10-tursulin@igalia.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20241227111938.22974-10-tursulin@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -163,44 +91,349 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Lgtm, Reviewed-by: Shashank Sharma <shashank.sharma@amd.com>
-
-
-Regards
-
-Shashank
-
-On 01/01/2025 02:58, Lu Yao wrote:
-> This patch add null pointer check for amdgpu_vm_put_task_info and
-> amdgpu_vm_get_task_info_vm, because there is only a warning if create
-> task_info failed in amdgpu_vm_init.
+Am 27.12.24 um 12:19 schrieb Tvrtko Ursulin:
+> From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 >
-> Fixes: b8f67b9ddf4f ("drm/amdgpu: change vm->task_info handling")
-> Signed-off-by: Lu Yao <yaolu@kylinos.cn>
+> There are more than 2000 calls to amdgpu_ring_write() in the driver and
+> the majority is multiple sequential calls which the compiler cannot
+> optimise much.
+>
+> Lets make this helper variadic via some pre-processor magic which allows
+> merging those sequential calls and in turn enables the compiler to emit
+> much less code.
+
+I've played around with the same idea before abandoning it for this 
+patch here: 
+https://lore.kernel.org/all/20241008181134.1350-2-christian.koenig@amd.com/
+
+Basically we don't need to update count_dw nor mask the WPTR which has 
+the same effect as this optimization here and far less code change.
+
+The problem is that some code for Polaris HW generations seem to use the 
+WPTR or count_dw directly for some calculation. I didn't had time to 
+clean that up and push the resulting change.
+
+Regards,
+Christian.
+
+>
+> If we then would convert some call sites to use this macro, lets see on
+> the example of amdgpu_vce_ring_emit_ib(), what results that would bring.
+> Before (but after the wptr local caching, before it is even worse):
+>
+>    173c39:       48 89 f8                mov    %rdi,%rax
+>    173c3c:       48 89 d1                mov    %rdx,%rcx
+>    173c3f:       48 8b 97 c8 01 00 00    mov    0x1c8(%rdi),%rdx
+>    173c46:       48 8b b0 a8 01 00 00    mov    0x1a8(%rax),%rsi
+>    173c4d:       89 d7                   mov    %edx,%edi
+>    173c4f:       23 b8 f8 01 00 00       and    0x1f8(%rax),%edi
+>    173c55:       48 83 c2 01             add    $0x1,%rdx
+>    173c59:       c7 04 be 02 00 00 00    movl   $0x2,(%rsi,%rdi,4)
+>    173c60:       48 23 90 f0 01 00 00    and    0x1f0(%rax),%rdx
+>    173c67:       48 89 90 c8 01 00 00    mov    %rdx,0x1c8(%rax)
+>    173c6e:       48 8b b0 a8 01 00 00    mov    0x1a8(%rax),%rsi
+>    173c75:       89 d7                   mov    %edx,%edi
+>    173c77:       48 83 c2 01             add    $0x1,%rdx
+>    173c7b:       83 a8 e0 01 00 00 01    subl   $0x1,0x1e0(%rax)
+>    173c82:       4c 8b 41 10             mov    0x10(%rcx),%r8
+>    173c86:       23 b8 f8 01 00 00       and    0x1f8(%rax),%edi
+>    173c8c:       44 89 04 be             mov    %r8d,(%rsi,%rdi,4)
+>    173c90:       48 23 90 f0 01 00 00    and    0x1f0(%rax),%rdx
+>    173c97:       48 89 90 c8 01 00 00    mov    %rdx,0x1c8(%rax)
+>    173c9e:       48 8b b0 a8 01 00 00    mov    0x1a8(%rax),%rsi
+>    173ca5:       89 d7                   mov    %edx,%edi
+>    173ca7:       48 83 c2 01             add    $0x1,%rdx
+>    173cab:       83 a8 e0 01 00 00 01    subl   $0x1,0x1e0(%rax)
+>    173cb2:       44 8b 41 14             mov    0x14(%rcx),%r8d
+>    173cb6:       23 b8 f8 01 00 00       and    0x1f8(%rax),%edi
+>    173cbc:       44 89 04 be             mov    %r8d,(%rsi,%rdi,4)
+>    173cc0:       48 23 90 f0 01 00 00    and    0x1f0(%rax),%rdx
+>    173cc7:       48 89 90 c8 01 00 00    mov    %rdx,0x1c8(%rax)
+>    173cce:       89 d6                   mov    %edx,%esi
+>    173cd0:       23 b0 f8 01 00 00       and    0x1f8(%rax),%esi
+>    173cd6:       48 83 c2 01             add    $0x1,%rdx
+>    173cda:       83 a8 e0 01 00 00 01    subl   $0x1,0x1e0(%rax)
+>    173ce1:       8b 79 08                mov    0x8(%rcx),%edi
+>    173ce4:       48 8b 88 a8 01 00 00    mov    0x1a8(%rax),%rcx
+>    173ceb:       89 3c b1                mov    %edi,(%rcx,%rsi,4)
+>    173cee:       48 23 90 f0 01 00 00    and    0x1f0(%rax),%rdx
+>    173cf5:       83 a8 e0 01 00 00 01    subl   $0x1,0x1e0(%rax)
+>    173cfc:       48 89 90 c8 01 00 00    mov    %rdx,0x1c8(%rax)
+>    173d03:       c3                      ret
+>
+> And after:
+>
+>      1579:       48 89 f8                mov    %rdi,%rax
+>      157c:       44 8b 4a 08             mov    0x8(%rdx),%r9d
+>      1580:       48 8b 7a 10             mov    0x10(%rdx),%rdi
+>      1584:       48 8b 90 c8 01 00 00    mov    0x1c8(%rax),%rdx
+>      158b:       8b b0 f8 01 00 00       mov    0x1f8(%rax),%esi
+>      1591:       48 8b 88 a8 01 00 00    mov    0x1a8(%rax),%rcx
+>      1598:       49 89 d0                mov    %rdx,%r8
+>      159b:       49 21 f0                and    %rsi,%r8
+>      159e:       42 c7 04 81 02 00 00    movl   $0x2,(%rcx,%r8,4)
+>      15a5:       00
+>      15a6:       4c 8d 42 01             lea    0x1(%rdx),%r8
+>      15aa:       49 21 f0                and    %rsi,%r8
+>      15ad:       42 89 3c 81             mov    %edi,(%rcx,%r8,4)
+>      15b1:       4c 8d 42 02             lea    0x2(%rdx),%r8
+>      15b5:       48 c1 ef 20             shr    $0x20,%rdi
+>      15b9:       49 21 f0                and    %rsi,%r8
+>      15bc:       42 89 3c 81             mov    %edi,(%rcx,%r8,4)
+>      15c0:       48 8d 7a 03             lea    0x3(%rdx),%rdi
+>      15c4:       48 83 c2 04             add    $0x4,%rdx
+>      15c8:       48 21 fe                and    %rdi,%rsi
+>      15cb:       44 89 0c b1             mov    %r9d,(%rcx,%rsi,4)
+>      15cf:       48 23 90 f0 01 00 00    and    0x1f0(%rax),%rdx
+>      15d6:       83 a8 e0 01 00 00 04    subl   $0x4,0x1e0(%rax)
+>      15dd:       48 89 90 c8 01 00 00    mov    %rdx,0x1c8(%rax)
+>      15e4:       c3                      ret
+>
+> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> Cc: Christian König <christian.koenig@amd.com>
+> Cc: Sunil Khatri <sunil.khatri@amd.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 5 +++--
->   1 file changed, 3 insertions(+), 2 deletions(-)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h | 222 ++++++++++++++++++++++-
+>   1 file changed, 220 insertions(+), 2 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> index c9c48b782ec1..65edd74bd944 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -2336,7 +2336,8 @@ amdgpu_vm_get_vm_from_pasid(struct amdgpu_device *adev, u32 pasid)
->    */
->   void amdgpu_vm_put_task_info(struct amdgpu_task_info *task_info)
->   {
-> -	kref_put(&task_info->refcount, amdgpu_vm_destroy_task_info);
-> +	if (task_info)
-> +		kref_put(&task_info->refcount, amdgpu_vm_destroy_task_info);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> index b57951d8c997..4f467864ed09 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> @@ -383,15 +383,233 @@ static inline void amdgpu_ring_clear_ring(struct amdgpu_ring *ring)
+>   	memset32(ring->ring, ring->funcs->nop, ring->buf_mask + 1);
 >   }
 >   
->   /**
-> @@ -2352,7 +2353,7 @@ amdgpu_vm_get_task_info_vm(struct amdgpu_vm *vm)
+> -static inline void amdgpu_ring_write(struct amdgpu_ring *ring, uint32_t v)
+> +static inline void
+> +amdgpu_ring_write1(struct amdgpu_ring *ring,
+> +		   u32 v1)
 >   {
->   	struct amdgpu_task_info *ti = NULL;
+> +	const u32 buf_mask = ring->buf_mask;
+>   	u64 wptr = ring->wptr;
 >   
-> -	if (vm) {
-> +	if (vm && vm->task_info) {
->   		ti = vm->task_info;
->   		kref_get(&vm->task_info->refcount);
->   	}
+> -	ring->ring[wptr++ & ring->buf_mask] = v;
+> +	ring->ring[wptr++ & buf_mask] = v1;
+>   	ring->wptr = wptr & ring->ptr_mask;
+>   	ring->count_dw--;
+>   }
+>   
+> +static inline void
+> +amdgpu_ring_write2(struct amdgpu_ring *ring,
+> +		   u32 v1, u32 v2)
+> +{
+> +	const u32 buf_mask = ring->buf_mask;
+> +	u64 wptr = ring->wptr;
+> +	u32 *r = ring->ring;
+> +
+> +	r[wptr++ & buf_mask] = v1;
+> +	r[wptr++ & buf_mask] = v2;
+> +
+> +	ring->wptr = wptr & ring->ptr_mask;
+> +	ring->count_dw -= 2;
+> +}
+> +
+> +static inline void
+> +amdgpu_ring_write3(struct amdgpu_ring *ring,
+> +		   u32 v1, u32 v2, u32 v3)
+> +{
+> +	const u32 buf_mask = ring->buf_mask;
+> +	u64 wptr = ring->wptr;
+> +	u32 *r = ring->ring;
+> +
+> +	r[wptr++ & buf_mask] = v1;
+> +	r[wptr++ & buf_mask] = v2;
+> +	r[wptr++ & buf_mask] = v3;
+> +
+> +	ring->wptr = wptr & ring->ptr_mask;
+> +	ring->count_dw -= 3;
+> +}
+> +
+> +static inline void
+> +amdgpu_ring_write4(struct amdgpu_ring *ring,
+> +		   u32 v1, u32 v2, u32 v3, u32 v4)
+> +{
+> +	const u32 buf_mask = ring->buf_mask;
+> +	u64 wptr = ring->wptr;
+> +	u32 *r = ring->ring;
+> +
+> +	r[wptr++ & buf_mask] = v1;
+> +	r[wptr++ & buf_mask] = v2;
+> +	r[wptr++ & buf_mask] = v3;
+> +	r[wptr++ & buf_mask] = v4;
+> +
+> +	ring->wptr = wptr & ring->ptr_mask;
+> +	ring->count_dw -= 4;
+> +}
+> +
+> +static inline void
+> +amdgpu_ring_write5(struct amdgpu_ring *ring,
+> +		   u32 v1, u32 v2, u32 v3, u32 v4, u32 v5)
+> +{
+> +	const u32 buf_mask = ring->buf_mask;
+> +	u64 wptr = ring->wptr;
+> +	u32 *r = ring->ring;
+> +
+> +	r[wptr++ & buf_mask] = v1;
+> +	r[wptr++ & buf_mask] = v2;
+> +	r[wptr++ & buf_mask] = v3;
+> +	r[wptr++ & buf_mask] = v4;
+> +	r[wptr++ & buf_mask] = v5;
+> +
+> +	ring->wptr = wptr & ring->ptr_mask;
+> +	ring->count_dw -= 5;
+> +}
+> +
+> +static inline void
+> +amdgpu_ring_write6(struct amdgpu_ring *ring,
+> +		   u32 v1, u32 v2, u32 v3, u32 v4, u32 v5, u32 v6)
+> +{
+> +	const u32 buf_mask = ring->buf_mask;
+> +	u64 wptr = ring->wptr;
+> +	u32 *r = ring->ring;
+> +
+> +	r[wptr++ & buf_mask] = v1;
+> +	r[wptr++ & buf_mask] = v2;
+> +	r[wptr++ & buf_mask] = v3;
+> +	r[wptr++ & buf_mask] = v4;
+> +	r[wptr++ & buf_mask] = v5;
+> +	r[wptr++ & buf_mask] = v6;
+> +
+> +	ring->wptr = wptr & ring->ptr_mask;
+> +	ring->count_dw -= 6;
+> +}
+> +
+> +static inline void
+> +amdgpu_ring_write7(struct amdgpu_ring *ring,
+> +		   u32 v1, u32 v2, u32 v3, u32 v4, u32 v5, u32 v6, u32 v7)
+> +{
+> +	const u32 buf_mask = ring->buf_mask;
+> +	u64 wptr = ring->wptr;
+> +	u32 *r = ring->ring;
+> +
+> +	r[wptr++ & buf_mask] = v1;
+> +	r[wptr++ & buf_mask] = v2;
+> +	r[wptr++ & buf_mask] = v3;
+> +	r[wptr++ & buf_mask] = v4;
+> +	r[wptr++ & buf_mask] = v5;
+> +	r[wptr++ & buf_mask] = v6;
+> +	r[wptr++ & buf_mask] = v7;
+> +
+> +	ring->wptr = wptr & ring->ptr_mask;
+> +	ring->count_dw -= 7;
+> +}
+> +
+> +static inline void
+> +amdgpu_ring_write8(struct amdgpu_ring *ring,
+> +		   u32 v1, u32 v2, u32 v3, u32 v4, u32 v5, u32 v6, u32 v7,
+> +		   u32 v8)
+> +{
+> +	const u32 buf_mask = ring->buf_mask;
+> +	u64 wptr = ring->wptr;
+> +	u32 *r = ring->ring;
+> +
+> +	r[wptr++ & buf_mask] = v1;
+> +	r[wptr++ & buf_mask] = v2;
+> +	r[wptr++ & buf_mask] = v3;
+> +	r[wptr++ & buf_mask] = v4;
+> +	r[wptr++ & buf_mask] = v5;
+> +	r[wptr++ & buf_mask] = v6;
+> +	r[wptr++ & buf_mask] = v7;
+> +	r[wptr++ & buf_mask] = v8;
+> +
+> +	ring->wptr = wptr & ring->ptr_mask;
+> +	ring->count_dw -= 8;
+> +}
+> +
+> +static inline void
+> +amdgpu_ring_write9(struct amdgpu_ring *ring,
+> +		   u32 v1, u32 v2, u32 v3, u32 v4, u32 v5, u32 v6, u32 v7,
+> +		   u32 v8, u32 v9)
+> +{
+> +	const u32 buf_mask = ring->buf_mask;
+> +	u64 wptr = ring->wptr;
+> +	u32 *r = ring->ring;
+> +
+> +	r[wptr++ & buf_mask] = v1;
+> +	r[wptr++ & buf_mask] = v2;
+> +	r[wptr++ & buf_mask] = v3;
+> +	r[wptr++ & buf_mask] = v4;
+> +	r[wptr++ & buf_mask] = v5;
+> +	r[wptr++ & buf_mask] = v6;
+> +	r[wptr++ & buf_mask] = v7;
+> +	r[wptr++ & buf_mask] = v8;
+> +	r[wptr++ & buf_mask] = v9;
+> +
+> +	ring->wptr = wptr & ring->ptr_mask;
+> +	ring->count_dw -= 9;
+> +}
+> +
+> +static inline void
+> +amdgpu_ring_write10(struct amdgpu_ring *ring,
+> +		   u32 v1, u32 v2, u32 v3, u32 v4, u32 v5, u32 v6, u32 v7,
+> +		   u32 v8, u32 v9, u32 v10)
+> +{
+> +	const u32 buf_mask = ring->buf_mask;
+> +	u64 wptr = ring->wptr;
+> +	u32 *r = ring->ring;
+> +
+> +	r[wptr++ & buf_mask] = v1;
+> +	r[wptr++ & buf_mask] = v2;
+> +	r[wptr++ & buf_mask] = v3;
+> +	r[wptr++ & buf_mask] = v4;
+> +	r[wptr++ & buf_mask] = v5;
+> +	r[wptr++ & buf_mask] = v6;
+> +	r[wptr++ & buf_mask] = v7;
+> +	r[wptr++ & buf_mask] = v8;
+> +	r[wptr++ & buf_mask] = v9;
+> +	r[wptr++ & buf_mask] = v10;
+> +
+> +	ring->wptr = wptr & ring->ptr_mask;
+> +	ring->count_dw -= 10;
+> +}
+> +
+> +static inline void
+> +amdgpu_ring_write11(struct amdgpu_ring *ring,
+> +		   u32 v1, u32 v2, u32 v3, u32 v4, u32 v5, u32 v6, u32 v7,
+> +		   u32 v8, u32 v9, u32 v10, u32 v11)
+> +{
+> +	const u32 buf_mask = ring->buf_mask;
+> +	u64 wptr = ring->wptr;
+> +	u32 *r = ring->ring;
+> +
+> +	r[wptr++ & buf_mask] = v1;
+> +	r[wptr++ & buf_mask] = v2;
+> +	r[wptr++ & buf_mask] = v3;
+> +	r[wptr++ & buf_mask] = v4;
+> +	r[wptr++ & buf_mask] = v5;
+> +	r[wptr++ & buf_mask] = v6;
+> +	r[wptr++ & buf_mask] = v7;
+> +	r[wptr++ & buf_mask] = v8;
+> +	r[wptr++ & buf_mask] = v9;
+> +	r[wptr++ & buf_mask] = v10;
+> +	r[wptr++ & buf_mask] = v11;
+> +
+> +	ring->wptr = wptr & ring->ptr_mask;
+> +	ring->count_dw -= 11;
+> +}
+> +
+> +#define AMDGPU_RING_WRITE(_1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, NAME, ...) NAME
+> +#define amdgpu_ring_write(...) \
+> +	AMDGPU_RING_WRITE(__VA_ARGS__, \
+> +			  amdgpu_ring_write11, \
+> +			  amdgpu_ring_write10, \
+> +			  amdgpu_ring_write9, \
+> +			  amdgpu_ring_write8, \
+> +			  amdgpu_ring_write7, \
+> +			  amdgpu_ring_write6, \
+> +			  amdgpu_ring_write5, \
+> +			  amdgpu_ring_write4, \
+> +			  amdgpu_ring_write3, \
+> +			  amdgpu_ring_write2, \
+> +			  amdgpu_ring_write1, \
+> +			  NULL)(__VA_ARGS__)
+> +
+>   static inline void amdgpu_ring_write_multiple(struct amdgpu_ring *ring,
+>   					      void *src, int count_dw)
+>   {
+
