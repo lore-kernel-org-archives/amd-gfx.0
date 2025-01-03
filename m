@@ -4,118 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7D01E7718F
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jan 2025 20:40:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9C7EE77188
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jan 2025 21:52:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 51A7210E435;
-	Fri,  3 Jan 2025 20:40:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E4E710E43C;
+	Fri,  3 Jan 2025 21:52:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="nOg03YvK";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="lKNx+bwm";
 	dkim-atps=neutral
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2051.outbound.protection.outlook.com [40.107.243.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A82FC10E435
- for <amd-gfx@lists.freedesktop.org>; Fri,  3 Jan 2025 20:40:17 +0000 (UTC)
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on2042.outbound.protection.outlook.com [40.107.102.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 92EAF10E43C
+ for <amd-gfx@lists.freedesktop.org>; Fri,  3 Jan 2025 21:52:05 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tdfkWslhSz7zrD1LOLgyhTH8RYHSOaYi24HQ2ea3ICNu7gXqpEAN7llaJbwsATPQYadHlU0QMOhB01JSAMSlj7a9+vcdWF6Zs5UsuQSWJZL3YoGESOYz085qAfISZ/+t4UDrgZfi7+KS+YpmUhZrAy1N6IdunnLIawPptVeZdxirHZmjAhHclmHC8hJbSjIuiZXGCJjcUWtENRdg73c3Y/GRe04KKL5zfzW7UqZWXk8Dw4qxg6uDcqiI9kfZa9kv28bTU8iO7h486TvJCxqpWuFK/uPotm/9ZJmChx8S06BMfdp87rtWg4DxSfZWXfOLEi4J+/b1o8PXFlcGgTUmyA==
+ b=M2Kkke3Z5darEiXjrRYEollI0iVvBmjpidj4Q6MjgEc8Vu8Qlhs0mL6gV0F2+mTEXNWKHXTQJGvjd/ruJLYZguszlz3hL+zT7DNIKicznZsA3wX0TM6iIUKwuwpm6OWt6F+iIY0a7M9ZGe+VeNkBxeHNyy4+EYX0kFhoPBe+0lZcW3mYXWAn4rx/1rs9ZYO73/KYi+Bm8t/FvfaEJM2veiWiCYn1ODJEK01e7nG6zTL4zO5TVGCKjvK+J/BjobAwKRocTeaaIb/CEn/DpJpJCnLogAd0OQtHxCHOB/3Qh1Q6d6KXQGTlXqd2Z6VPlU3Gl5ppHBJ0JYvzNGZnFhcJuQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WCdmEpEP66yGrVU1pGiOl0nwAjNh99IMbAVorewRVEY=;
- b=aRBrCbSfgECEvK/VIHYrq8Oac6pzyfV0UuuFdaGv8EUySaOW7bgnuEipYgQ4bX25n0YAM4GYdDuwvKppZr+q5VC6Q2wZKCfr3hchbuh+qsVlZ3qhrQOfdW/WjOKb+mYIVDEjnqGfSDRGsBA8coc+r9WhBsY5EkYsgkgR+JIbHYV7obtG+7fhtKXMn9paXn6AqV9MjebJl/hnlxC6njqUO83fXCPEH1N8f2T1vF0Opr+N9zCxHbv2dAeOhJFu8Ffx68EPUWiUcz/w/BhgIRKWFYZATqWfrytQ7T7v2uuEpPpQb10DeT/wmh/f+NHLWp1fYzb+VMxklKUcAp0LOdif4g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=wOc2um/5NQcFegeSq7gYZ3t0J3fwfukRvG+LhKxLwYg=;
+ b=V5S1XbnPChUuFfIsqrctsL0ove+G5Y3V790KDUWulduc4UZqiqhgFu3H/t4fiXG4pofeoNtgUMl2g/v87XXqmbg0DsOeNt37mlrLvNgzXJ818lxjc8o5pXUTNYPmCtZNbWRZEXBCGAy4zerUTldbrQjTJl9Tv2E1Ea2Da9SCmy2XJPWkvBBgpK3OBTZlSp/0nbdy+kYrxFXW3rFBEaA/HELeSB1ZwnKhxnqK1pYb2/2zE1ZeikCOJPF4O5KbypgvzR1UxgQbutY198/D1a3w6oXtRRrF2ZAHPePo4HxKG3nbnzVewJ1/S1ygAYYVmByPqRpag22g2fgughR6raPupA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WCdmEpEP66yGrVU1pGiOl0nwAjNh99IMbAVorewRVEY=;
- b=nOg03YvKkHrhAX57Wnc7B5+jBhn/RIv/cNsc6CvOaeM5PlYmi7m3tEBahsb3DF6xqUEuTwuAUfM371N+t53WJ/5uZ2+wCi7ZZu8WT17INeLChqO4cuFwojmgT/SJWvFlvckAv7kSnKlzKFgdtaSj6jIFEFbNo8y9CS+ePmE+LdE=
-Received: from MN2PR20CA0044.namprd20.prod.outlook.com (2603:10b6:208:235::13)
- by CY8PR12MB7244.namprd12.prod.outlook.com (2603:10b6:930:57::15)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=wOc2um/5NQcFegeSq7gYZ3t0J3fwfukRvG+LhKxLwYg=;
+ b=lKNx+bwmegcV/+gndmnDtCiJo0iQOw/7uHqag4PPgEif0UuBohFNZ1611fXecN4VLT5BQ+c/k/QGATPXm4ojZ7xv34Z3JYaYUEl1akOXOQFGee+n07tYIzQcs0WCB0tnhRK1qstTI0IxqYjqGxQ+14Q5Sgl3xfEBZJl3quQYqX4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
+ by MW6PR12MB8707.namprd12.prod.outlook.com (2603:10b6:303:241::5) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8314.13; Fri, 3 Jan
- 2025 20:40:09 +0000
-Received: from BN3PEPF0000B36D.namprd21.prod.outlook.com
- (2603:10b6:208:235:cafe::f3) by MN2PR20CA0044.outlook.office365.com
- (2603:10b6:208:235::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8314.14 via Frontend Transport; Fri,
- 3 Jan 2025 20:40:08 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN3PEPF0000B36D.mail.protection.outlook.com (10.167.243.164) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8356.0 via Frontend Transport; Fri, 3 Jan 2025 20:40:08 +0000
-Received: from amartin-dev-ubuntu.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Fri, 3 Jan 2025 14:40:07 -0600
-From: Andrew Martin <Andrew.Martin@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <kent.russell@amd.com>, Andrew Martin <Andrew.Martin@amd.com>
-Subject: [PATCH v4] drm/amdkfd: Uninitialized and Unused variables
-Date: Fri, 3 Jan 2025 15:39:50 -0500
-Message-ID: <20250103203950.1470013-1-Andrew.Martin@amd.com>
-X-Mailer: git-send-email 2.43.0
+ 2025 21:37:34 +0000
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::1c2f:5c82:2d9c:6062]) by CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::1c2f:5c82:2d9c:6062%4]) with mapi id 15.20.8314.011; Fri, 3 Jan 2025
+ 21:37:34 +0000
+Message-ID: <bc8ff41b-b5cf-445a-9d93-39f0cc1121e0@amd.com>
+Date: Fri, 3 Jan 2025 16:37:31 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display: add CEC notifier to amdgpu driver
+To: Kun Liu <Kun.Liu2@amd.com>, amd-gfx@lists.freedesktop.org,
+ aurabindo.pillai@amd.com
+Cc: Mario.Limonciello@amd.com, Alexander.Deucher@amd.com,
+ richardqi.liang@amd.com
+References: <20241230081501.93823-1-Kun.Liu2@amd.com>
+Content-Language: en-US
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <20241230081501.93823-1-Kun.Liu2@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YT4PR01CA0444.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:10d::26) To CO6PR12MB5427.namprd12.prod.outlook.com
+ (2603:10b6:5:358::13)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B36D:EE_|CY8PR12MB7244:EE_
-X-MS-Office365-Filtering-Correlation-Id: 63aa0827-d4a3-45b1-44ab-08dd2c36cfeb
+X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|MW6PR12MB8707:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3825e441-d816-4dea-16bd-08dd2c3ed586
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|36860700013|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?Nvz48FZHp5iPkEKhUe8IOF0O8YVatroXh22FqsUebS+X2eKLOvp/kUsAUSx/?=
- =?us-ascii?Q?YoTXqkqqcDr7L5hrZDMxObqeoIf+KRB9bWA32ay+Ou4+QJWhSxAm5oryhh9z?=
- =?us-ascii?Q?vumc168cK7x1omcG7XzthDLfEO+yzbv99A8ORRLY22gY3OQvdQiLONz5NKa/?=
- =?us-ascii?Q?zc7b3jAiIQ1n3+QUa3FtwG+QDcRbfEy9LXAOIDVbAME9XPE7aT7oqf8NJwA/?=
- =?us-ascii?Q?QbECNaBMYGZAEDBekEqzF/LH2aweCAf0rJyPORWIeo7/Xjtg+f7A9BX2quzR?=
- =?us-ascii?Q?D8IxGAebYw42sZueZAgt9/Ep9OLLOEpi9gozU2w4xivRg0MJyZd7TNguEG6V?=
- =?us-ascii?Q?XnSXjXBYrMO5RcHATssXNbxHnDzTwv4aMiaULwcGyvd2p1jbevpAu4j4IZg8?=
- =?us-ascii?Q?/cs4QHXsbG4R3HdLqmrc79EYyleNkkQyG1tYiSMeaciSxYyZcekmKc2kOKQE?=
- =?us-ascii?Q?l7liyEgSgTVkaajQJbKeBN9KZXYqdWP0ogLoPkSsd0GpHHv1lQBlq5BMd+6+?=
- =?us-ascii?Q?Dbtf8qXTXQo0Gn1GYY+EWJQ2PaEdDBbl7eLJuWgAdo5YfMwBht4GWYDWn0I0?=
- =?us-ascii?Q?mqivyPxwEKsmeRh6TsHkwwsxVqBxrEU1yiggpeMQa5HEjTDFCPH/QceKmAmW?=
- =?us-ascii?Q?22Dvxx3vg/KvjsjNQ7ilPgX+PNjusa+Y9HHFzIUI8cEERZGlSCcEAPnPlXaa?=
- =?us-ascii?Q?X3DJHKof/hJKzOJe2/F+4Vwwz8unKqb4CAQwx+/+QJdJbV4OYtGpF+tzQjOk?=
- =?us-ascii?Q?jwHvygCQ3oO31RQyazNcNBajEssVLMkCGX86IGjSxaH2jcCTKYNyNaa74GFc?=
- =?us-ascii?Q?PXfn74AiJfKj+FloROM6nNMoNnHD6VwbfZduZqZ5hyj478LsZC2mbHnw33In?=
- =?us-ascii?Q?HOVTN8px3zGvdDXK2wpbKpKwQDlfSuxxaHuPaxiAhl72A6LTdX1A2cuq9DA7?=
- =?us-ascii?Q?2jvEvlqP3Ig8Ec5+Ch2mBNeLYKgPxgZNtNZPSOi3HfAn/5EOBiDWNd3miQpF?=
- =?us-ascii?Q?LOx+JK1eT0xNLBjAGqBytCvGJrOoiIhxq4RlCUGjQ7KLkI+EvwSewzNWLFkI?=
- =?us-ascii?Q?oth3Zaqm5XWgji54C/v8HU2Np12DUTI5dimbom+vv3yScplVZxhZDg86bHXO?=
- =?us-ascii?Q?E13nnjWKLAjhCXHWICHkf86QjxcdZ01RL5AiiPVfe2FadClOEiIFkezkBcCm?=
- =?us-ascii?Q?NzbJjHaYYv/zN5Yt/9z4YIWLzOWpu5N0EnPwKrnzkFJXtn7bBFW+q4OnU21r?=
- =?us-ascii?Q?XKqlswpHwCFxoLiSCZ8pGLluEMRPtija1yTXgHJ61L12Xh+1/x+UMX3MOdj+?=
- =?us-ascii?Q?VXT70YjzG2nkLKp55Vy9CxUKt7oiI9bPUgWG5glImmJKqy/YB7mHSMpVoon0?=
- =?us-ascii?Q?vs7nE5my7c0dacwpM1V85XHbMLmH10eeLq5IPBUFMthGvFSAhC25xhzQW5ba?=
- =?us-ascii?Q?Ak2Qby80CHFat6oBai8OxgSUgpq0TDzNbnU/K85CQ2+gJdhNnDKpE3Dx/TPk?=
- =?us-ascii?Q?VK5ZB4mPCnXPv+Q=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(36860700013)(82310400026); DIR:OUT;
- SFP:1101; 
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?amdBMzVTVU9OdG9JanYvN0YzU3Z3K09XYzQrSTVDaWtZTlJ2M1VEUkNxeDBj?=
+ =?utf-8?B?b3JhWGRwU094WE5lbWFrZ0thdGFpYld3T2FYN0ZOY3E2VmJNUHlraXlGZnZP?=
+ =?utf-8?B?VkdmWm9sT2lYSkhqcFJxSFpqRklhai9rMmRwRm9aYlZKK3RYSGpJdURYZVBh?=
+ =?utf-8?B?TkYvZ0xuRWt3TVg5eWxpTnJobTRYSjF5bFJXcTREcTFCYnVXUnpVZUEzdFdK?=
+ =?utf-8?B?UC9DYjlFbktQUlZTTjc5SklOMlhqNFdzUmdub2I5aDMrSlpDblJ6YTZ6SWMx?=
+ =?utf-8?B?Sm1zQlJpa2xTYk9NU3ZEK1FZdEhLUkp5WUZnN0VhdTVLbmo2NzI0a1BVbENi?=
+ =?utf-8?B?V0R1NitHWExWQ2xvNlIvekpuUEwzSmpYaHhtaVNEL1JHbzE4bXYvUnBnQ2pO?=
+ =?utf-8?B?eXJnNVgzMUJSTDRic0NBdGJxaS9ZM0UrM0pGelZNS09FZ2o1dEZ3Z2NyRGFD?=
+ =?utf-8?B?R3BZek1hMk1TL25SVUNvMU5JOTdZMHU1YUJuUWVhQ2RRUys0M1hJWjNWZWhI?=
+ =?utf-8?B?QXBDTG5sZEtwaFNMaEFkem4vVCtwd2duWVJxUENqUmJJbzlFTG0rUkM0YTJu?=
+ =?utf-8?B?dnMwRnZmdDg1OUR3Vm9MWGMvQUdHVXVaUHhjYXAzekNjQVdmV0hOeE8wbWdi?=
+ =?utf-8?B?NHBnVE9sbVVNRVBLenZvUFhhRHNsM0YyYVI5c0kwUHVKRVgzaHBZeisrTjUz?=
+ =?utf-8?B?alNjdW8rNFhobDVhNUxxZUYzSmZhOUJiSWVKS1U3dlhiSVY3TnVXQWVlMi9r?=
+ =?utf-8?B?WDZOYkViWWw1bTg0SWpaLytFZjdLd3lnMmJIQmp4N25ieUZ0VlpiSDd6MDY5?=
+ =?utf-8?B?OU41NmN5a0RWQmtkOHp3bDF6dGd4NkpRM1FnaVJTMmgvM0Fub3VIbkwyTDhM?=
+ =?utf-8?B?M0Q2UzRTZmwvRi9ySlE2b1R0Nlo4djIyWXVBRk8wZmRQV0lCZVdLZGpYWG1o?=
+ =?utf-8?B?UXBEQmc0L3FNcTJLK3hCeHRBMEhWZDFBNmlmM3ROZ0krV3ZmZkdPWmtMRVFq?=
+ =?utf-8?B?aC9KaEJ2dmo1YmZERG4xWHNmZ3JDT25ZSk42MXQyVW9heXNrTXZZSDhIWTZn?=
+ =?utf-8?B?RldzUDJxUmU3ZkhEWDhGS084NEE0N2RCWVVUWU5ZME1mU1VTL3RLaWE3YnJM?=
+ =?utf-8?B?bEpzaGQzN0p6YXdjbEdNSkxlQW5nZzFtTXJmUjhiSmZVaHh5VU9SSmNrd0Nq?=
+ =?utf-8?B?NEc5VnZTT1lsZHRxU2JpQlRnWFZWV2dwR2EybS9rZTRkUEZ3TnJPZnR1YTBk?=
+ =?utf-8?B?N0pKMTZYN0J1bDFhWFlsdklsOFNVc0xZMndRUnNuWmxzNUQwMDVjMUducGZl?=
+ =?utf-8?B?VjA5OE1IREw3ZFh1TitYYVRtVUQ0cC9JR2d0ZzFhVFVKM0F4VmozSmJOTCtx?=
+ =?utf-8?B?eStLb2E3c3lPb09NRURnQ3h5Q0ZIZXViVDVqSnVKVlNrbVdRdDlDalRZOHpi?=
+ =?utf-8?B?bDU5ZytVL29LbEpJUFA2cmpOczhmNWFtcDcwUzM2SjMvWjNwVVpsQ25iZVNv?=
+ =?utf-8?B?RGp1MXVLNVp1blM0c2FyWkZwai9UZEVQaE5KRU9TRGFIQ1ZjWGY4WEpqV0ts?=
+ =?utf-8?B?cUJoVjJtZW1ZSm4vU2YvMjNFUWFqeis4dHI4SmxMa3NNdzg3M2pCYkUvZkJw?=
+ =?utf-8?B?bU5xVU1uV1dJOUdFRWlQWS9IbXBGZzkyTVM5bTY0ZExaWFltWnFlLzZvb2Nq?=
+ =?utf-8?B?WHlHaTMvU0VTZkpCM0xTaG84ZUN5VzNBZFl5UTFnVnQ2NzY1Z21ncTZSUkJG?=
+ =?utf-8?B?UFJwRy9WYTZudE5tSmErd0xoWHZJZ0VBd1JFYnVodTZRM3p2enFYRWxJVkl5?=
+ =?utf-8?B?R1BCTnFINU9YKytDNWwvQjFDY2VWUHZDNnQ5SEpyRTRWZVpEWGdLK3kxSU1u?=
+ =?utf-8?Q?qQyZ8Wxd1kFe4?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UEMzajdRd3Y0MWFzTFJoazQ0c0J3Qk1waUNHdGlaYndTTThzL0pvZkdvSGRC?=
+ =?utf-8?B?WENFc0V5WndJWCtXUmV6VnpJQll6cjFsVDEwVWl2MkxhY21JdWZoYjgvWDZt?=
+ =?utf-8?B?cFgwTUtXcStwTHpGSk5sRDVPemVJUE9vc1d1Tkk5UmtXSHY1TkF6TEV1T0d2?=
+ =?utf-8?B?MVRBRWFNVGV3M3Z5V2p5MndpZU5wblpwSjBUTzlXTXByOVk2b3M3ZXloNGtm?=
+ =?utf-8?B?dGdzR1VkakJJSDd1djNEZFJ2VjkyaS9PdW5zSzQvZ2s2S2lFdFE4cTBWdThz?=
+ =?utf-8?B?ZzdwSEF4cUVlRW1ORy9wSXRUZzl0QnVMaWErNVcxNmdZM2xZMFNvem4rY3Ev?=
+ =?utf-8?B?SUNwMVFaQlI5U2VWVUtmdEdmMHF4MW4veklkYkJ0N0tCYUZtL3dkM2x0L3Bo?=
+ =?utf-8?B?QXluaElva0hUUGp4WjJick5kekVGL3NvWkVmNmI3RWZGUGtpL2lRblVBZmxR?=
+ =?utf-8?B?MGRRYUFFam5GUW14bWlDMHBOWFZDTitoZlFFb3FSS2hBM2hTZTRxckJ1Z3Bo?=
+ =?utf-8?B?SnZBN0Vzb3hFMmdGSUN6bTNBVTZSb2YvREJJd1dqeENLNC9KVGsrKys0YytQ?=
+ =?utf-8?B?bzJkV1hMS2t6OStjVDVTY3FPSk9KMDdHcW1PdFRwTzJqT1YvTWxpS0JYdVZW?=
+ =?utf-8?B?M2pOanBTMEE1NFRUNmE1b3BIZG9CaU96QmZwcmRsVE55SnV3eEgxSEVGRHE4?=
+ =?utf-8?B?bnh5WksvL1pKUmlNZWc4ZTV2Y1ZOVHhLUzFCZUU1K28reGd2K29jMDEycndI?=
+ =?utf-8?B?Q3JINjNWVVk3ZXlQMlVEbXJObnZPUEsvSWFBaEZPVnk1KzNVVC9sZE9oTTZJ?=
+ =?utf-8?B?eDFoZ1pjUXd0aVlCcnQvSTlTTGgxQkhHRzFpWDRkOVdsRCtvKzlQMUNDeVBX?=
+ =?utf-8?B?UVdmUVNlZVc1TGhFc0s5K0kzR1dRK0V4UEpxZkhUZkdrNXpQVjNMZnhSR2xU?=
+ =?utf-8?B?ZWFvb0ZKYWdnbUpva1JlREJPRWRLRW5qcVI5UThTL3dQM1JFdXU4YkdvaTU2?=
+ =?utf-8?B?amZCNHFhdG5IdkRnWmp2d1JiRjNwMTRBRGFoamVVUzdKVGxPem8yTDNhRUNx?=
+ =?utf-8?B?OTAxZitzaW9HdDFVUGxnM1Q3QXQreWJKYUtGcnZaNVVtRUtNR1dCcXdvWmhD?=
+ =?utf-8?B?dGd4VThpaXdtOGNnRzM4Nml1d3RnZTVvV04rek1Hc1ljVEgvRTdvbWJIWlRO?=
+ =?utf-8?B?YWU3YTV2NDJGN05VeVUrL2theXl3MGtCTnRCdnhMZW1LZFJMUFRpMTQ0UGR3?=
+ =?utf-8?B?cHpPSktsSjNydXBLWldkN0RpZ0hJZEFlNUR4VldyWk9yT3AzUFduNDVJTDZU?=
+ =?utf-8?B?ODBBK1RhRjA2eFRCWFhuTnhhN0luSFA3ditnN0VFUExncWJTSlFCZ3Qvc1RN?=
+ =?utf-8?B?cUVGbjVaVmpsL2NlWjJRa1NhYUdSQ3BGdHM5RHh2RUczV1VrOFJHTndiUUdR?=
+ =?utf-8?B?TGd2NzJhNVlNNWdXeG8wRDRrd3Q2c1gxdk93dWxJTUJRN1NxamlxZ1ZiRkRL?=
+ =?utf-8?B?YVRSQUxyK1Uzelp4UGJROWpXaDNqVU52VUd1YzFhVitVa1M0ZmZwS2s0dHpm?=
+ =?utf-8?B?YWpTZFdtbXdLcGJKQTF3TjZPWjU0dTV3RXdhQ04zbXBGcmhsWFBRVTJLZlph?=
+ =?utf-8?B?UzdWUkFFRXBZV0dZMFU4Y0pBdnVvR2hCQ1h1RVRwdXZJVWVwVlhKTkRLZkNs?=
+ =?utf-8?B?VzBTaVhJekxTZkVIQkZhaHhLNXB6MDV1dVRSdTVncVVJQlJEYm1wMXdRa3FH?=
+ =?utf-8?B?RTNWOWdZV0RydEdnZzE0QjJzS2taWW9yMkRMZjFvNFhkdVl1ejRoalFXalZ5?=
+ =?utf-8?B?N2J4eG5HSmJBMDNMMXhBQ0VmOWRaWnNqZGF3YUNWcUR0Tk01aSs1RVlYVVVD?=
+ =?utf-8?B?TTJiYVlVQ2pYc01uUjJreGtVL2h2T0M4MTUzUjBpOTBad2ZmZjhLVjByOFRS?=
+ =?utf-8?B?NnJTYXlORWJBaFNJSW40SGo3OGU1UDVZcTh1NzNCNEh6citrUklZcEJLQ1or?=
+ =?utf-8?B?dzBJK29odlFkeEQvSElmSzFPTjVHVy90TGhjRE1iMXJJLzUvN0VyaUgxdGdM?=
+ =?utf-8?B?ZUR4Qy9HYjJWdm1hMmJ5Mjd6eExSbDVuaDVVUEY5K1hwNzlzSWNNck5EZWRs?=
+ =?utf-8?Q?Lc5fvH7bqniFVdiJW7CuxU1gF?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jan 2025 20:40:08.4011 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 63aa0827-d4a3-45b1-44ab-08dd2c36cfeb
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3825e441-d816-4dea-16bd-08dd2c3ed586
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jan 2025 21:37:34.0424 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B36D.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7244
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Elb+QTdYuDwhQSE7wcvmzhx5CzhUufGfVaiL5D//qadUh7EkcNn9g3te3j5KmKz3UeMNH6pUkmua6h+iRo72KA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8707
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,255 +161,336 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This patch initialized key variables and removed unused ones.
 
-Signed-off-by: Andrew Martin <Andrew.Martin@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      |  8 ++--
- drivers/gpu/drm/amd/amdkfd/kfd_device.c       |  2 +-
- .../drm/amd/amdkfd/kfd_device_queue_manager.c | 38 ++++++++-----------
- .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c   |  8 ++--
- .../drm/amd/amdkfd/kfd_packet_manager_vi.c    |  1 -
- 5 files changed, 24 insertions(+), 33 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 065d87841459..cf2dc2c23d2a 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -1496,12 +1496,12 @@ static int kfd_ioctl_get_dmabuf_info(struct file *filep,
- {
- 	struct kfd_ioctl_get_dmabuf_info_args *args = data;
- 	struct kfd_node *dev = NULL;
--	struct amdgpu_device *dmabuf_adev;
-+	struct amdgpu_device *dmabuf_adev = NULL;
- 	void *metadata_buffer = NULL;
--	uint32_t flags;
--	int8_t xcp_id;
-+	uint32_t flags = 0;
-+	int8_t xcp_id = 0;
- 	unsigned int i;
--	int r;
-+	int r = 0;
- 
- 	/* Find a KFD GPU device that supports the get_dmabuf_info query */
- 	for (i = 0; kfd_topology_enum_kfd_devices(i, &dev) == 0; i++)
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-index a29374c86405..5af5b9baa894 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-@@ -1038,7 +1038,7 @@ void kgd2kfd_suspend(struct kfd_dev *kfd, bool run_pm)
- 
- int kgd2kfd_resume(struct kfd_dev *kfd, bool run_pm)
- {
--	int ret, i;
-+	int ret = 0, i;
- 
- 	if (!kfd->init_complete)
- 		return 0;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index 1405e8affd48..23673065c7f6 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -199,7 +199,7 @@ static int add_queue_mes(struct device_queue_manager *dqm, struct queue *q,
- 	struct amdgpu_device *adev = (struct amdgpu_device *)dqm->dev->adev;
- 	struct kfd_process_device *pdd = qpd_to_pdd(qpd);
- 	struct mes_add_queue_input queue_input;
--	int r, queue_type;
-+	int r = 0, queue_type;
- 	uint64_t wptr_addr_off;
- 
- 	if (!dqm->sched_running || dqm->sched_halt)
-@@ -284,7 +284,7 @@ static int remove_queue_mes(struct device_queue_manager *dqm, struct queue *q,
- 			struct qcm_process_device *qpd)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)dqm->dev->adev;
--	int r;
-+	int r = 0;
- 	struct mes_remove_queue_input queue_input;
- 
- 	if (!dqm->sched_running || dqm->sched_halt)
-@@ -634,7 +634,7 @@ static int create_queue_nocpsch(struct device_queue_manager *dqm,
- 				const void *restore_mqd, const void *restore_ctl_stack)
- {
- 	struct mqd_manager *mqd_mgr;
--	int retval;
-+	int retval = 0;
- 
- 	dqm_lock(dqm);
- 
-@@ -862,11 +862,9 @@ static int destroy_queue_nocpsch_locked(struct device_queue_manager *dqm,
- 				struct qcm_process_device *qpd,
- 				struct queue *q)
- {
--	int retval;
--	struct mqd_manager *mqd_mgr;
--
--	mqd_mgr = dqm->mqd_mgrs[get_mqd_type_from_queue_type(
--			q->properties.type)];
-+	int retval = 0;
-+	struct mqd_manager *mqd_mgr =
-+	  dqm->mqd_mgrs[get_mqd_type_from_queue_type(q->properties.type)];
- 
- 	if (q->properties.type == KFD_QUEUE_TYPE_COMPUTE)
- 		deallocate_hqd(dqm, q);
-@@ -921,7 +919,7 @@ static int destroy_queue_nocpsch(struct device_queue_manager *dqm,
- 				struct qcm_process_device *qpd,
- 				struct queue *q)
- {
--	int retval;
-+	int retval = 0;
- 	uint64_t sdma_val = 0;
- 	struct device *dev = dqm->dev->adev->dev;
- 	struct kfd_process_device *pdd = qpd_to_pdd(qpd);
-@@ -1150,7 +1148,7 @@ static int evict_process_queues_nocpsch(struct device_queue_manager *dqm,
- 	struct queue *q;
- 	struct mqd_manager *mqd_mgr;
- 	struct kfd_process_device *pdd;
--	int retval, ret = 0;
-+	int retval = 0, ret = 0;
- 
- 	dqm_lock(dqm);
- 	if (qpd->evicted++ > 0) /* already evicted, do nothing */
-@@ -1260,7 +1258,7 @@ static int restore_process_queues_nocpsch(struct device_queue_manager *dqm,
- 	struct kfd_process_device *pdd;
- 	uint64_t pd_base;
- 	uint64_t eviction_duration;
--	int retval, ret = 0;
-+	int retval = 0, ret = 0;
- 
- 	pdd = qpd_to_pdd(qpd);
- 	/* Retrieve PD base */
-@@ -1437,13 +1435,12 @@ static int register_process(struct device_queue_manager *dqm,
- static int unregister_process(struct device_queue_manager *dqm,
- 					struct qcm_process_device *qpd)
- {
--	int retval;
-+	int retval = 0;
- 	struct device_process_node *cur, *next;
- 
- 	pr_debug("qpd->queues_list is %s\n",
- 			list_empty(&qpd->queues_list) ? "empty" : "not empty");
- 
--	retval = 0;
- 	dqm_lock(dqm);
- 
- 	list_for_each_entry_safe(cur, next, &dqm->queues, list) {
-@@ -1473,7 +1470,7 @@ set_pasid_vmid_mapping(struct device_queue_manager *dqm, u32 pasid,
- 			unsigned int vmid)
- {
- 	uint32_t xcc_mask = dqm->dev->xcc_mask;
--	int xcc_id, ret;
-+	int xcc_id, ret = 0;
- 
- 	for_each_inst(xcc_id, xcc_mask) {
- 		ret = dqm->dev->kfd2kgd->set_pasid_vmid_mapping(
-@@ -1827,8 +1824,6 @@ static int start_cpsch(struct device_queue_manager *dqm)
- 	struct device *dev = dqm->dev->adev->dev;
- 	int retval, num_hw_queue_slots;
- 
--	retval = 0;
--
- 	dqm_lock(dqm);
- 
- 	if (!dqm->dev->kfd->shared_resources.enable_mes) {
-@@ -1988,7 +1983,7 @@ static int create_queue_cpsch(struct device_queue_manager *dqm, struct queue *q,
- 			const struct kfd_criu_queue_priv_data *qd,
- 			const void *restore_mqd, const void *restore_ctl_stack)
- {
--	int retval;
-+	int retval = 0;
- 	struct mqd_manager *mqd_mgr;
- 
- 	if (dqm->total_queue_count >= max_num_of_queues_per_device) {
-@@ -2282,8 +2277,8 @@ static int unmap_queues_cpsch(struct device_queue_manager *dqm,
- 				bool reset)
- {
- 	struct device *dev = dqm->dev->adev->dev;
--	struct mqd_manager *mqd_mgr;
--	int retval;
-+	struct mqd_manager *mqd_mgr = NULL;
-+	int retval = 0;
- 
- 	if (!dqm->sched_running)
- 		return 0;
-@@ -2705,7 +2700,7 @@ static int checkpoint_mqd(struct device_queue_manager *dqm,
- static int process_termination_cpsch(struct device_queue_manager *dqm,
- 		struct qcm_process_device *qpd)
- {
--	int retval;
-+	int retval = 0;
- 	struct queue *q;
- 	struct device *dev = dqm->dev->adev->dev;
- 	struct kernel_queue *kq, *kq_next;
-@@ -2715,8 +2710,6 @@ static int process_termination_cpsch(struct device_queue_manager *dqm,
- 		KFD_UNMAP_QUEUES_FILTER_DYNAMIC_QUEUES;
- 	bool found = false;
- 
--	retval = 0;
--
- 	dqm_lock(dqm);
- 
- 	/* Clean all kernel queues */
-@@ -3439,7 +3432,6 @@ int suspend_queues(struct kfd_process *p,
- 					else
- 						per_device_suspended++;
- 				} else if (err != -EBUSY) {
--					r = err;
- 					queue_ids[q_idx] |= KFD_DBG_QUEUE_ERROR_MASK;
- 					break;
- 				}
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-index ff417d5361c4..55fc98358999 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-@@ -571,7 +571,7 @@ static int hiq_load_mqd_kiq_v9_4_3(struct mqd_manager *mm, void *mqd,
- 			struct queue_properties *p, struct mm_struct *mms)
- {
- 	uint32_t xcc_mask = mm->dev->xcc_mask;
--	int xcc_id, err, inst = 0;
-+	int xcc_id, err = 0, inst = 0;
- 	void *xcc_mqd;
- 	uint64_t hiq_mqd_size = kfd_hiq_mqd_stride(mm->dev);
- 
-@@ -595,7 +595,7 @@ static int destroy_hiq_mqd_v9_4_3(struct mqd_manager *mm, void *mqd,
- 			uint32_t pipe_id, uint32_t queue_id)
- {
- 	uint32_t xcc_mask = mm->dev->xcc_mask;
--	int xcc_id, err, inst = 0;
-+	int xcc_id, err = 0, inst = 0;
- 	uint64_t hiq_mqd_size = kfd_hiq_mqd_stride(mm->dev);
- 	struct v9_mqd *m;
- 	u32 doorbell_off;
-@@ -751,7 +751,7 @@ static int destroy_mqd_v9_4_3(struct mqd_manager *mm, void *mqd,
- 		   uint32_t pipe_id, uint32_t queue_id)
- {
- 	uint32_t xcc_mask = mm->dev->xcc_mask;
--	int xcc_id, err, inst = 0;
-+	int xcc_id, err = 0, inst = 0;
- 	void *xcc_mqd;
- 	struct v9_mqd *m;
- 	uint64_t mqd_offset;
-@@ -781,7 +781,7 @@ static int load_mqd_v9_4_3(struct mqd_manager *mm, void *mqd,
- 	/* AQL write pointer counts in 64B packets, PM4/CP counts in dwords. */
- 	uint32_t wptr_shift = (p->format == KFD_QUEUE_FORMAT_AQL ? 4 : 0);
- 	uint32_t xcc_mask = mm->dev->xcc_mask;
--	int xcc_id, err, inst = 0;
-+	int xcc_id, err = 0, inst = 0;
- 	void *xcc_mqd;
- 	uint64_t mqd_stride_size = mm->mqd_stride(mm, p);
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_vi.c b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_vi.c
-index c1199d06d131..cf803aed5069 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_vi.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_vi.c
-@@ -173,7 +173,6 @@ static int pm_map_queues_vi(struct packet_manager *pm, uint32_t *buffer,
- 	case KFD_QUEUE_TYPE_SDMA_XGMI:
- 		packet->bitfields2.engine_sel = q->properties.sdma_engine_id +
- 				engine_sel__mes_map_queues__sdma0_vi;
--		use_static = false; /* no static queues under SDMA */
- 		break;
- 	default:
- 		WARN(1, "queue type %d", q->properties.type);
--- 
-2.43.0
+On 2024-12-30 03:15, Kun Liu wrote:
+> This patch adds the cec_notifier feature to amdgpu driver.
+> The changes will allow amdgpu driver code to notify EDID
+> and HPD changes to an eventual CEC adapter.
+> 
+> Signed-off-by: Kun Liu <Kun.Liu2@amd.com>
+> ---
+>  drivers/gpu/drm/amd/display/Kconfig           |  2 +
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 82 +++++++++++++++++++
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  4 +
+>  .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 66 ++++++++++++++-
+>  drivers/gpu/drm/amd/include/amd_shared.h      |  5 ++
+>  5 files changed, 158 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/Kconfig b/drivers/gpu/drm/amd/display/Kconfig
+> index 11e3f2f3b1..abd3b65643 100644
+> --- a/drivers/gpu/drm/amd/display/Kconfig
+> +++ b/drivers/gpu/drm/amd/display/Kconfig
+> @@ -8,6 +8,8 @@ config DRM_AMD_DC
+>  	bool "AMD DC - Enable new display engine"
+>  	default y
+>  	depends on BROKEN || !CC_IS_CLANG || ARM64 || LOONGARCH || RISCV || SPARC64 || X86_64
+> +	select CEC_CORE
+> +	select CEC_NOTIFIER
+>  	select SND_HDA_COMPONENT if SND_HDA_CORE
+>  	# !CC_IS_CLANG: https://github.com/ClangBuiltLinux/linux/issues/1752
+>  	select DRM_AMD_DC_FP if ARCH_HAS_KERNEL_FPU_SUPPORT && !(CC_IS_CLANG && (ARM64 || LOONGARCH || RISCV))
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 85f21db6ef..3bd93cc14f 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -97,6 +97,7 @@
+>  #include <drm/drm_audio_component.h>
+>  #include <drm/drm_gem_atomic_helper.h>
+>  
+> +#include <media/cec-notifier.h>
+>  #include <acpi/video.h>
+>  
+>  #include "ivsrcid/dcn/irqsrcs_dcn_1_0.h"
+> @@ -2746,6 +2747,54 @@ static void resume_mst_branch_status(struct drm_dp_mst_topology_mgr *mgr)
+>  	mutex_unlock(&mgr->lock);
+>  }
+>  
+> +static void hdmi_cec_unset_edid(struct amdgpu_dm_connector *aconnector)
+> +{
+> +	struct drm_device *ddev = aconnector->base.dev;
+> +	struct cec_notifier *n = aconnector->notifier;
+> +
+> +	if (!n) {
+> +		drm_dbg(ddev, "failed to unset edid\n");
+
+If I read this right this function and the set_edid one
+below will be called on all connectors, not just HDMI ones,
+and will spam this log to dmesg. I recommend we drop the
+debug print here, or, at minimum, combine it with a check
+for connector type.
+
+> +		return;
+> +	}
+> +
+> +	cec_notifier_phys_addr_invalidate(n);
+> +}
+> +
+> +static void hdmi_cec_set_edid(struct amdgpu_dm_connector *aconnector)
+> +{
+> +	struct drm_connector *connector = &aconnector->base;
+> +	struct drm_device *ddev = aconnector->base.dev;
+> +	struct cec_notifier *n = aconnector->notifier;
+> +
+> +	if (!n) {
+> +		drm_dbg(ddev, "failed to set edid\n");
+> +		return;
+> +	}
+> +
+> +	cec_notifier_set_phys_addr(n,
+> +			connector->display_info.source_physical_address);
+> +}
+> +
+> +static void s3_handle_hdmi_cec(struct drm_device *ddev, bool suspend)
+> +{
+> +	struct amdgpu_dm_connector *aconnector;
+> +	struct drm_connector *connector;
+> +	struct drm_connector_list_iter conn_iter;
+> +
+> +	drm_connector_list_iter_begin(ddev, &conn_iter);
+> +	drm_for_each_connector_iter(connector, &conn_iter) {
+> +		if (connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
+> +			continue;
+> +
+> +		aconnector = to_amdgpu_dm_connector(connector);
+> +		if (suspend)
+> +			hdmi_cec_unset_edid(aconnector);
+> +		else
+> +			hdmi_cec_set_edid(aconnector);
+> +	}
+> +	drm_connector_list_iter_end(&conn_iter);
+> +}
+> +
+>  static void s3_handle_mst(struct drm_device *dev, bool suspend)
+>  {
+>  	struct amdgpu_dm_connector *aconnector;
+> @@ -3017,6 +3066,8 @@ static int dm_suspend(struct amdgpu_ip_block *ip_block)
+>  	if (IS_ERR(adev->dm.cached_state))
+>  		return PTR_ERR(adev->dm.cached_state);
+>  
+> +	s3_handle_hdmi_cec(adev_to_drm(adev), true);
+> +
+>  	s3_handle_mst(adev_to_drm(adev), true);
+>  
+>  	amdgpu_dm_irq_suspend(adev);
+> @@ -3289,6 +3340,8 @@ static int dm_resume(struct amdgpu_ip_block *ip_block)
+>  	 */
+>  	amdgpu_dm_irq_resume_early(adev);
+>  
+> +	s3_handle_hdmi_cec(ddev, false);
+> +
+>  	/* On resume we need to rewrite the MSTM control bits to enable MST*/
+>  	s3_handle_mst(ddev, false);
+>  
+> @@ -3598,6 +3651,7 @@ void amdgpu_dm_update_connector_after_detect(
+>  		dc_sink_retain(aconnector->dc_sink);
+>  		if (sink->dc_edid.length == 0) {
+>  			aconnector->drm_edid = NULL;
+> +			hdmi_cec_unset_edid(aconnector);
+>  			if (aconnector->dc_link->aux_mode) {
+>  				drm_dp_cec_unset_edid(&aconnector->dm_dp_aux.aux);
+>  			}
+> @@ -3607,6 +3661,7 @@ void amdgpu_dm_update_connector_after_detect(
+>  			aconnector->drm_edid = drm_edid_alloc(edid, sink->dc_edid.length);
+>  			drm_edid_connector_update(connector, aconnector->drm_edid);
+>  
+> +			hdmi_cec_set_edid(aconnector);
+>  			if (aconnector->dc_link->aux_mode)
+>  				drm_dp_cec_attach(&aconnector->dm_dp_aux.aux,
+>  						  connector->display_info.source_physical_address);
+> @@ -3623,6 +3678,7 @@ void amdgpu_dm_update_connector_after_detect(
+>  		amdgpu_dm_update_freesync_caps(connector, aconnector->drm_edid);
+>  		update_connector_ext_caps(aconnector);
+>  	} else {
+> +		hdmi_cec_unset_edid(aconnector);
+>  		drm_dp_cec_unset_edid(&aconnector->dm_dp_aux.aux);
+>  		amdgpu_dm_update_freesync_caps(connector, NULL);
+>  		aconnector->num_modes = 0;
+> @@ -7042,6 +7098,7 @@ static void amdgpu_dm_connector_unregister(struct drm_connector *connector)
+>  	if (amdgpu_dm_should_create_sysfs(amdgpu_dm_connector))
+>  		sysfs_remove_group(&connector->kdev->kobj, &amdgpu_group);
+>  
+> +	cec_notifier_conn_unregister(amdgpu_dm_connector->notifier);
+>  	drm_dp_aux_unregister(&amdgpu_dm_connector->dm_dp_aux.aux);
+>  }
+>  
+> @@ -8278,6 +8335,27 @@ create_i2c(struct ddc_service *ddc_service,
+>  	return i2c;
+>  }
+>  
+> +int amdgpu_dm_initialize_hdmi_connector(struct amdgpu_dm_connector *aconnector)
+> +{
+> +	struct cec_connector_info conn_info;
+> +	struct drm_device *ddev = aconnector->base.dev;
+> +	struct device *hdmi_dev = ddev->dev;
+> +
+> +	if (amdgpu_dc_debug_mask & DC_DISABLE_HDMI_CEC) {
+> +		drm_info(ddev, "HDMI-CEC feature masked\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	cec_fill_conn_info_from_drm(&conn_info, &aconnector->base);
+> +	aconnector->notifier =
+> +		cec_notifier_conn_register(hdmi_dev, NULL, &conn_info);
+> +	if (!aconnector->notifier) {
+> +		drm_err(ddev, "Failed to create cec notifier\n");
+> +		return -ENOMEM;
+> +	}
+> +
+> +	return 0;
+> +}
+>  
+>  /*
+>   * Note: this function assumes that dc_link_detect() was called for the
+> @@ -8341,6 +8419,10 @@ static int amdgpu_dm_connector_init(struct amdgpu_display_manager *dm,
+>  	drm_connector_attach_encoder(
+>  		&aconnector->base, &aencoder->base);
+>  
+> +	if (connector_type == DRM_MODE_CONNECTOR_HDMIA
+> +		|| connector_type == DRM_MODE_CONNECTOR_HDMIB)
+> +		amdgpu_dm_initialize_hdmi_connector(aconnector);
+> +
+>  	if (connector_type == DRM_MODE_CONNECTOR_DisplayPort
+>  		|| connector_type == DRM_MODE_CONNECTOR_eDP)
+>  		amdgpu_dm_initialize_dp_connector(dm, aconnector, link->link_index);
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> index 6464a83783..4c1942652b 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> @@ -671,6 +671,8 @@ struct amdgpu_dm_connector {
+>  	uint32_t connector_id;
+>  	int bl_idx;
+>  
+> +	struct cec_notifier *notifier;
+> +
+>  	/* we need to mind the EDID between detect
+>  	   and get modes due to analog/digital/tvencoder */
+>  	const struct drm_edid *drm_edid;
+> @@ -1010,4 +1012,6 @@ void dm_free_gpu_mem(struct amdgpu_device *adev,
+>  
+>  bool amdgpu_dm_is_headless(struct amdgpu_device *adev);
+>  
+> +int amdgpu_dm_initialize_hdmi_connector(struct amdgpu_dm_connector *aconnector);
+> +
+>  #endif /* __AMDGPU_DM_H__ */
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+> index 6a97bb2d91..922f329175 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+> @@ -25,6 +25,7 @@
+>  
+>  #include <linux/string_helpers.h>
+>  #include <linux/uaccess.h>
+> +#include <media/cec-notifier.h>
+>  
+>  #include "dc.h"
+>  #include "amdgpu.h"
+> @@ -2825,6 +2826,67 @@ static int is_dpia_link_show(struct seq_file *m, void *data)
+>  	return 0;
+>  }
+>  
+> +/*
+> + * function description: Read out the HDMI-CEC feature status
+> + *
+> + * Example usage:
+> + * cat /sys/kernel/debug/dri/0/HDMI-A-1/hdmi_cec_state
+> + */
+> +static int hdmi_cec_state_show(struct seq_file *m, void *data)
+> +{
+> +	struct drm_connector *connector = m->private;
+> +	struct amdgpu_dm_connector *aconnector = to_amdgpu_dm_connector(connector);
+> +
+> +	seq_printf(m, "%s:%d\n", connector->name, connector->base.id);
+> +	seq_printf(m, "HDMI-CEC status: %d\n", aconnector->notifier ? 1:0);
+> +
+> +	return 0;
+> +}
+> +
+> +/*
+> + * function: Enable/Disable HDMI-CEC feature from driver side
+> + *
+> + * Example usage:
+> + * echo 1 > /sys/kernel/debug/dri/0/HDMI-A-1/hdmi_cec_state
+> + * echo 0 > /sys/kernel/debug/dri/0/HDMI-A-1/hdmi_cec_state
+> + */
+> +static ssize_t hdmi_cec_state_write(struct file *f, const char __user *buf,
+> +				     size_t size, loff_t *pos)
+> +{
+> +	char tmp[2];
+> +	int ret;
+> +	struct amdgpu_dm_connector *aconnector = file_inode(f)->i_private;
+> +	struct drm_connector *dconn = &aconnector->base;
+> +	struct drm_device *ddev = aconnector->base.dev;
+> +
+> +	if (size == 0)
+> +		return -EINVAL;
+> +
+> +	if (copy_from_user(tmp, buf, 1)) {
+> +		drm_dbg_driver(ddev, "Failed to copy user data !\n");
+> +		return -EFAULT;
+> +	}
+> +
+> +	switch (tmp[0]) {
+> +	case '0':
+> +		cec_notifier_conn_unregister(aconnector->notifier);
+> +		aconnector->notifier = NULL;
+> +		break;
+> +	case '1':
+> +		ret = amdgpu_dm_initialize_hdmi_connector(aconnector);
+> +		if (ret)
+> +			return ret;
+> +		cec_notifier_set_phys_addr(aconnector->notifier,
+> +				dconn->display_info.source_physical_address);
+
+Would it be better to call hdmi_cec_set_edid to
+consolidate the codepaths?
+
+Harry
+
+> +		break;
+> +	default:
+> +		drm_dbg_driver(ddev, "Unsupported param\n");
+> +		break;
+> +	}
+> +
+> +	return size;
+> +}
+> +
+>  DEFINE_SHOW_ATTRIBUTE(dp_dsc_fec_support);
+>  DEFINE_SHOW_ATTRIBUTE(dmub_fw_state);
+>  DEFINE_SHOW_ATTRIBUTE(dmub_tracebuffer);
+> @@ -2837,6 +2899,7 @@ DEFINE_SHOW_ATTRIBUTE(psr_capability);
+>  DEFINE_SHOW_ATTRIBUTE(dp_is_mst_connector);
+>  DEFINE_SHOW_ATTRIBUTE(dp_mst_progress_status);
+>  DEFINE_SHOW_ATTRIBUTE(is_dpia_link);
+> +DEFINE_SHOW_STORE_ATTRIBUTE(hdmi_cec_state);
+>  
+>  static const struct file_operations dp_dsc_clock_en_debugfs_fops = {
+>  	.owner = THIS_MODULE,
+> @@ -2972,7 +3035,8 @@ static const struct {
+>  	char *name;
+>  	const struct file_operations *fops;
+>  } hdmi_debugfs_entries[] = {
+> -		{"hdcp_sink_capability", &hdcp_sink_capability_fops}
+> +		{"hdcp_sink_capability", &hdcp_sink_capability_fops},
+> +		{"hdmi_cec_state", &hdmi_cec_state_fops}
+>  };
+>  
+>  /*
+> diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/amd/include/amd_shared.h
+> index 98d9e840b0..05bdb4e020 100644
+> --- a/drivers/gpu/drm/amd/include/amd_shared.h
+> +++ b/drivers/gpu/drm/amd/include/amd_shared.h
+> @@ -344,6 +344,11 @@ enum DC_DEBUG_MASK {
+>  	 * eDP display from ACPI _DDC method.
+>  	 */
+>  	DC_DISABLE_ACPI_EDID = 0x8000,
+> +
+> +	/*
+> +	 * @DC_DISABLE_HDMI_CEC: If set, disable HDMI-CEC feature in amdgpu driver.
+> +	 */
+> +	DC_DISABLE_HDMI_CEC = 0x10000,
+>  };
+>  
+>  enum amd_dpm_forced_level;
 
