@@ -4,172 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6113AE77188
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jan 2025 08:21:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40FB3E77198
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Jan 2025 10:12:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 019E110E258;
-	Fri,  3 Jan 2025 08:21:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A55E910E860;
+	Fri,  3 Jan 2025 10:12:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="NN+sbVcu";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="gfXOM9y5";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2060.outbound.protection.outlook.com [40.107.220.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 256FA10E258;
- Fri,  3 Jan 2025 08:21:50 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tLg3fV60WiIrLOtpF02tO6PzvM8Gt7KRpXoiYf0bXnHWORz3u2HaaWTW+yBQidk0qdt8a6LJtUfaRgGSPNpBDN6dOq+kWMK18B/O2I4RxQnhDCpHh94YLWEuARD+WMXPVhU/VhYuVQpzLCnDyvHkFwUJ0PrSglLL6cZHap5vLI6N24WN57cHRm3vcN06Dm6oT6qgozjJtco3J813CAbhDg+I994sUdHLwgpVJRg7NZi5udSUr1gQMPj+Ffq1o8ZwLixlgU8FMovho9RCnJFdmokte5D1RV9hg67ILOIpGIP7oYPwVdfzQ61Wx1jC0d8t+WzX0Nwj9x6W4P+g/7P9nA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CF4ozrqdjnpxrzX1l6fQdw9SyHJfKbtVwZo8tt0q3y8=;
- b=sMb8ieMNgtbP4w+IQq6SNkqccoIG1hx0eW8hf9NbnNtMLjHiVqZud95MMJHPWce4H0x2n000PsY80tsI+75KgpLdWI3kVEn2v/tYjIUnvHc498tKP8a5p+tWZdfKL7QP5PDA2oa3yP8mKf6D+irEHh0F7neZL0HyepUipFGbtbc4x9AQiRGzDAZjSJU0dK+jED0zcOmatTrHJf/LAJtROnrjn50gGwPYzgvJqFsLDy1jllFV3Sfo9BudWPUwBqv/a91IOiznRE4fhBbG684HlRfjn0yZ44SO9Vdr4K6WuBcQlT70a6k4MbEweak99uX3+5GqJZxXbp5e/bb5fHIx8A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CF4ozrqdjnpxrzX1l6fQdw9SyHJfKbtVwZo8tt0q3y8=;
- b=NN+sbVcuLXdUgnZeirY2C0/kHE3GWjt4g/+PfvWXjzrX8yccoxckrFbsMF8EqL49TRyOXgzkUhjw/US+xUD2YMYjIbkk5LHj9a94upQoAOGDzcPqalgVS0pwpWiklSI7dELxyjnHs6m2azOdIZ9l86FLfcWz1QK+PkLy3tuw4B0=
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DM4PR12MB8558.namprd12.prod.outlook.com (2603:10b6:8:187::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8314.12; Fri, 3 Jan
- 2025 08:21:43 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%5]) with mapi id 15.20.8314.013; Fri, 3 Jan 2025
- 08:21:43 +0000
-From: "Koenig, Christian" <Christian.Koenig@amd.com>
-To: Shuai Xue <xueshuai@linux.alibaba.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- "airlied@gmail.com" <airlied@gmail.com>, "simona@ffwll.ch" <simona@ffwll.ch>, 
- "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Ma, Le" <Le.Ma@amd.com>,
- "hamza.mahfooz@amd.com" <hamza.mahfooz@amd.com>, "tzimmermann@suse.de"
- <tzimmermann@suse.de>, "Liu, Shaoyun" <Shaoyun.Liu@amd.com>,
- "Jun.Ma2@amd.com" <Jun.Ma2@amd.com>
-CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "tianruidong@linux.alibaba.com" <tianruidong@linux.alibaba.com>
-Subject: AW: [PATCH] drm/amdgpu: Enable runtime modification of gpu_recovery
- parameter with validation
-Thread-Topic: [PATCH] drm/amdgpu: Enable runtime modification of gpu_recovery
- parameter with validation
-Thread-Index: AQHbWPJX0oNhYqXiNEeOaORZfn2CrrL9qdcAgADT+4CABj9iHQ==
-Date: Fri, 3 Jan 2025 08:21:43 +0000
-Message-ID: <PH7PR12MB5685C307737F826039EEE48583152@PH7PR12MB5685.namprd12.prod.outlook.com>
-References: <20241228063245.61874-1-xueshuai@linux.alibaba.com>
- <563b1797-5524-44c5-89b0-754f245e6b8f@amd.com>
- <63938ba2-dcb5-456f-bf82-bd8c893549c0@linux.alibaba.com>
-In-Reply-To: <63938ba2-dcb5-456f-bf82-bd8c893549c0@linux.alibaba.com>
-Accept-Language: de-DE, en-US
-Content-Language: de-DE
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-01-03T08:21:42.969Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution
- Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard; 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH7PR12MB5685:EE_|DM4PR12MB8558:EE_
-x-ms-office365-filtering-correlation-id: afea4dcd-5cc2-4587-9548-08dd2bcfa80c
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|921020|38070700018|7053199007; 
-x-microsoft-antispam-message-info: =?utf-8?B?THh4a0Z5UHdBV3QzaXlQbnJzSmx2U3A0ZWNHK2lILzB6Zjhqa21nTDVWNUJq?=
- =?utf-8?B?UktQN2hFa21ZRk11MXh3MlJmMm9IUXdiM0N3aGx2NFdiY1NKcGo0TkxnNnJj?=
- =?utf-8?B?NC8rRStHclZWT2Y0dHVwY1licXE5ckxQcFQ4SGZUbVJGK1daYmV4aFZ4N1Ar?=
- =?utf-8?B?b2NPWDVaVlJCb1dVVWhKVkRzYTA0WmpINlZnVWtwSDRDbVVpdXVXTnRyM0tl?=
- =?utf-8?B?dURZa2Rkc0xoUFhGa0NsenRKNGFOK0lISGx0QzA0WXppbFJZOVlmVXpPSFh6?=
- =?utf-8?B?VU01czEweXBqSjdWYTNPK2crTkJ4RHdaUmJuckNwSnhxQUhjVUZTRCsrcGhI?=
- =?utf-8?B?NnlJZ2hMc0VzMW5SNVJQcThHR040cXkzVjd1QWVFaExUNWpQcHRqOFZaRHlI?=
- =?utf-8?B?WnRsMEF6dFFLeFRqNVFjVTNHZnJBQVV6MmNIR3pDS1REdUsxemxvNmhwU3B1?=
- =?utf-8?B?eGgyRSs0d0lxYTlHckdHZVlwYVRXaGd4TUpGalExYkVLL0FhTTlOWm1IdEdB?=
- =?utf-8?B?OE5wQkFESVMyKzRuSXhjVUs5bG1jMm9SWlNZTWNzZXlVRStldHZLRUZlS29F?=
- =?utf-8?B?bXRqTVlEdEpoQXlPKzlTaGZnZDFkSmhKbW9mU01jcm5wNDU1RStpWVJsRXVo?=
- =?utf-8?B?NTZ1RWtyd0xaRnllQ09FUHdLdi8vd3dFbk9mcy9COThDSDYvaXE2d09SY2VQ?=
- =?utf-8?B?YWhQbkt3TVJ0T3pNR0oxSUdmN20xOE9GbUsrbUIxQXcvaGQwSVRTVmIzREtX?=
- =?utf-8?B?UXlLSnhWUkpUUWVQVVlRblNXN3RhRUIzc1R4L09Dd2NkMmFEQ1NKZEdDd3Fx?=
- =?utf-8?B?L2RRRTRhd0xLSWxFdUFBSGR4UWJtVE5DWjN5VlNxODlKZXB4cC9qTzlBdTJS?=
- =?utf-8?B?TTlMYnFYWnEwdU43VW1CZ3B3NTlWdlZrMlF2dHZoblJDRTdieGxMaUJpWmdN?=
- =?utf-8?B?MVVoSlFpRG9haWdpS1M4SVpsbmpBejUvQlJuVHVnZGRGM3g2NUl5dy84NWxl?=
- =?utf-8?B?eHc3SnpBUnlETFkxUDB5em9MOUYxeExJOC8rOVJySlovK0lPeWl5ejVYczJK?=
- =?utf-8?B?UlFPb2V5N3c1eGZUL01ZMHdDQkZaMmNoTjhSZlRLb08zM0FkUkVEQzJLejhU?=
- =?utf-8?B?K1pSdVdqZjVTMFEweWYwNm1IcjdYaHRWeUpMSENJakVudS9BRDZIQVpCVTdF?=
- =?utf-8?B?QTdQZWk4QlFqSXpkWm5XS2tHQzlqUURFcXBGYW9vVDFoREdvWjBaOUM2NmJv?=
- =?utf-8?B?b1cwdHQ1WE45Y3ZYUVpIcHB4cFNIU2NPS1laazRWaWZvMGQ1Y21wZjRZMm50?=
- =?utf-8?B?VnNlNEJneVo0ZEtQdDVHUk00a2RuSjdlSC8wNWZ2THVYOEJ0cmRIUEZYaWF6?=
- =?utf-8?B?T1ExZnF3ZzRsV0R6aDNwdkVZbThWU3YvZ1B4dWhUY0NQVjZxd09RWTUyQnNB?=
- =?utf-8?B?OGN1bVNWR3AwSHJKbEZtSGdXT1dsMVdWNGZJeGp3dytjYWh3Q2NuWVFvVGlI?=
- =?utf-8?B?OWtwOVZPUTQ5RHdSekVnT29vN0lSbGVCbGRKR3RPcEttM0RSbGNSN0dwYUJ1?=
- =?utf-8?B?WDF5WFh2QUg3SWprN1Ava3I0WmlHLzFMZ1BDelZIQVBBM1BkL3VmYUhRKy9M?=
- =?utf-8?B?U3R4SkxMYkM1YWpSVldFd3pSTmFyd05qS01lMkRoNzFNb2FJdkJPVnMyVGlG?=
- =?utf-8?B?NWRWQlJ4QmZKYW96WDFPd0s1RzVSQ0RFbTFmbFgxOVBtQXVsTXBFa0YrZzFm?=
- =?utf-8?B?M2Y4bUtqdDRkeTByd3oySHM3eUZqZkFMR0JtckVJWHg4RG95TlJvZHFpUFht?=
- =?utf-8?B?TWFicVRCVHNidTZwN3ZVMVNWaER5cENvL2ZnK3FKOUhiRmJRV2p3b1NZR1Ez?=
- =?utf-8?B?cFEySjR4Q2NhS3hpWERoRUlDZjd2Mm5YbmNjSDRTeTQ0Y2xqb0V3RlFjY2dv?=
- =?utf-8?B?cTZyYTBOUE9QZXhSQ0JiZGtPaXRac2tkMDRFMGR5ZTRWMG93T2h0b2IydnFB?=
- =?utf-8?B?MUh4YmVGWHpRPT0=?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(921020)(38070700018)(7053199007);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?MCt0KzhSY1VDZHZ5cXdseHg0RFpVWlVpejhmMjV5cjE3N0xLRzl1TGZIblhh?=
- =?utf-8?B?ek5hR2pIWWNMSEJjc2p5SjYvZkU0Y3lLQ1FkSWMrNFhrTnpmSW5QdUhtOURV?=
- =?utf-8?B?QldWVTNTd2NCRHN1dTF4Q3VSRDRGVVczWHh1dWwwS1ZhaHFhajlIZjdMYngw?=
- =?utf-8?B?MGQxOGlnTC9yc2pRRThhdWpmM3pETDlKWmlPU2VwbWUyWGFQS3ZGZkxuWmZ5?=
- =?utf-8?B?MkY4MHZvYi9YK0FoUFY4RVRteFpaeW1UbHpoclpwMUJyKzhOU3RZVnZjUkpz?=
- =?utf-8?B?RlVxVnkxL0g0OTN4MTdLY3NYOUJTR09vKzR0UmZwWkRsdnZNQ25wYURlU2F1?=
- =?utf-8?B?MmFOMVllSlF3ZHNlbFFmbTJ1TGQ2OWM5ZXdtdzJhcXkyQVlWSlNyMmtsaFVC?=
- =?utf-8?B?YklXUll4K1hGYW5FT0YvaGtCWllOYmpkcXNwN2JYR3FyT3hqSWdTbzVaamtL?=
- =?utf-8?B?QWFnMzl6dHRkTzJodVh4anBkWnp6aWtKTFNZL0FIOUVaaGVDSEtON3ZneHQr?=
- =?utf-8?B?czFpbHZwcGxJeFBSeVQvMHA1bTNZOXdYeWlyNVhPSWQ4S0xGaEhBeGsydzkx?=
- =?utf-8?B?OFFVcTRidlVZZVRNaDR3MS9SdmFJNWxzMjB0ZjhhVTErUzZDaXpUSUpGc0hC?=
- =?utf-8?B?NVNKSWtiUFk1N0dJKzRpRFQwVGVGMWw0ZGoxMENPSDhib3l5dkxtRWN6VmYr?=
- =?utf-8?B?Nml3ZWs2aUdwSmFyRUtBNVNoM0FibFc3L2xwWk45NVZmeEtjU01FSk1kKytM?=
- =?utf-8?B?RU4yUVh4OU1vTnVDYzVKL0Z6WWtrRUR2WFlISUZSSitVVFNHaVV2VHZtU2Rm?=
- =?utf-8?B?S3ZHcFJPNFBwazcrSkhlTEYyWEZrR0hlY1g4b2xmZ1hBK3pxejVHZWpmZWhk?=
- =?utf-8?B?SEtaL3dBU1ozUHMwenNBb084QXljVlZxZk4ybXV0R3VLWG9KNTZtdzZ1RXVx?=
- =?utf-8?B?d2F2RkNhTCtvRVlwcVRrYkUvN0pIWUdjd2ZQWjZ5cHd6WWFkczhjZlBpM2FF?=
- =?utf-8?B?QTlzaElVdVhBVmhkSnh0ZjZKb0NhU3dNOW5PaVJJOEZNTmdpM1pvSDhNd0dE?=
- =?utf-8?B?ZFdFWnU0aTh3bG1ZcTFJV1JBKysxSDRDL2dhQkFJZm5oSkt2TUtJQVdjL0Q0?=
- =?utf-8?B?MkZST09pd0Rydm5jKzJKVVdhTlhTQS85Rm9xekFGZkw2bndzbGRQN3BHaldZ?=
- =?utf-8?B?T2ZwSnRXbzdDZ21SK3RnL2hNNDdWeDh0YlYvRGQrbWN4VWNUd20reGlOcnJn?=
- =?utf-8?B?SUQ4V1hkQVBleDkzQ1VPRE5DVnltNUJSNVBzOENTbWJOY2h3WWVKem5OMFhI?=
- =?utf-8?B?cVVNczZnbzB0RDJoSlhEWlhmRjBCSXZyOVo0V25qMERyVVdZZ3FJNGpxRmt6?=
- =?utf-8?B?UThDNVZMajVvZnRUY1h5cnVNY00yUXhNalVYVFJVZjhkOGdKelA2NnVQNllG?=
- =?utf-8?B?Sml1VzlzZzFsZlk3dm9JMCt3NjZiZnNSTlV1Yy9qTGxOSHhCUXdZcUFkWXp2?=
- =?utf-8?B?WTNFdVMzSGx3aEtud0ZlbXA1bXFBQjRyc0tobThDU1k2Q2FZYjdRdHl6MlBn?=
- =?utf-8?B?eFhudjVqZXl2a0tjRlF6S3ZKcCswTEdlVmFpQ3hXQld3Wm5qMFJTTjVtdWRH?=
- =?utf-8?B?YU1uSCtHVjUwUmdjRUxUSk1TZEV0WnhwRjdFSTFrUGZyTnNBdHkyWXBRaDZa?=
- =?utf-8?B?cTlJcEJEMTQxdGZzdnZ2Ly9pQW4xV2E0QjdWYUlud1dEQVlhQnByWUFoQnNJ?=
- =?utf-8?B?UUt0U25hcjVOVG9lOWtTN2dWUUJkZ0JtMURoMmZSZG91U2F6bGxsSXVwaVdG?=
- =?utf-8?B?bndiY3lHbXoxeFNaeEVrbk1lazdoWUNWUDJLUmtxNnhOa1B6b3d4WVc3ZVk4?=
- =?utf-8?B?aHJUdjErS09kMk1MNFN4UHJaT1owNGxGdGxCYUcrWjZ6andsM2VWOEJuUDY3?=
- =?utf-8?B?V1hoNktrMEJ1bWRTcXhEV1N2SGlMeWhaUllkclpzWElOTS81WHZ2ZFpnenhL?=
- =?utf-8?B?Q2RWRkZtdktXT0tCWkJMcnZmTlhoY25GVEZkODl2a1hscllFakhjTHRLNmVN?=
- =?utf-8?B?V0VIMTVVNzVFc05hVzArUUV1dDE0SkQzcDZHU3plU2VITWlSM0ZJRllldUQx?=
- =?utf-8?Q?iVlM=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: afea4dcd-5cc2-4587-9548-08dd2bcfa80c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Jan 2025 08:21:43.3810 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: fa6FaWARlYO9+7OKVCc7uRnKFWLy/A3HWYU4ppGW51CGs70fSACwowqsyTCf6Zfp
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB8558
+Received: from out30-133.freemail.mail.aliyun.com
+ (out30-133.freemail.mail.aliyun.com [115.124.30.133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B525310E05E
+ for <amd-gfx@lists.freedesktop.org>; Fri,  3 Jan 2025 05:55:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linux.alibaba.com; s=default;
+ t=1735883740; h=From:Message-Id:Content-Type:Mime-Version:Subject:Date:To;
+ bh=fV2K0ayFtMT4eO/PYz1+R3gJsxofVPpcP9607G4zQY4=;
+ b=gfXOM9y5e8589o1YoRZFhvBb9F0Vwe8HGjgol7CqONGyqY9dQG0DRwku4IzonYxEobd01ymOQmV8Dnnhu6vlIUjBJRvhMxfkhLEMY1ANPGhLPTDp4ibylzZMOgbPIUWGA4czKAPdIj9gwliBis2IpwWfR3EFl8UuM2I79zPrcC0=
+Received: from smtpclient.apple(mailfrom:gerry@linux.alibaba.com
+ fp:SMTPD_---0WMsDQ8D_1735883737 cluster:ay36) by smtp.aliyun-inc.com;
+ Fri, 03 Jan 2025 13:55:38 +0800
+From: Gerry Liu <gerry@linux.alibaba.com>
+Message-Id: <DFEBAA6C-D1D8-42BD-8934-58011EBDBFF4@linux.alibaba.com>
+Content-Type: multipart/alternative;
+ boundary="Apple-Mail=_3294AA66-823A-405F-B922-EB7CA157E41D"
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3696.120.41.1.1\))
+Subject: Re: [PATCH 2/6] amdgpu: fix invalid memory access in
+ kfd_cleanup_nodes()
+Date: Fri, 3 Jan 2025 13:55:36 +0800
+In-Reply-To: <c7a76b1e-fabb-47be-8408-4505ddc1296f@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, kent.russell@amd.com,
+ shuox.liu@linux.alibaba.com
+To: "Chen, Xiaogang" <xiaogang.chen@amd.com>
+References: <cover.1735795671.git.gerry@linux.alibaba.com>
+ <7aace7d239b729340e311ad6e08a14f60b87a361.1735795671.git.gerry@linux.alibaba.com>
+ <b835ec1b-f40b-4abb-8267-934a0e497415@amd.com>
+ <3CAD4155-244E-44EC-9EC4-D441E17DBEA2@linux.alibaba.com>
+ <c7a76b1e-fabb-47be-8408-4505ddc1296f@amd.com>
+X-Mailer: Apple Mail (2.3696.120.41.1.1)
+X-Mailman-Approved-At: Fri, 03 Jan 2025 10:12:56 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -184,142 +57,415 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEFNRCBJbnRlcm5hbCBEaXN0cmlidXRpb24gT25seV0N
-Cg0KSGkgU2h1YWksDQoNCnNldHRpbmcgZ3B1X3JlY292ZXJ5PTAgaXMgbm90IGV2ZW4gcmVtb3Rl
-bHkgcmVsYXRlZCB0byBSQVMuIElmIHRoYXQgb3B0aW9uIGFmZmVjdHMgUkFTIGJlaGF2aW9yIGlu
-IGFueSB3YXkgdGhlbiB0aGF0IGlzIGEgYnVnLg0KDQpUaGUgcHVycG9zZSBvZiBzZXR0aW5nIGdw
-dV9yZWNvdmVyeT0wIGlzIHRvIGRpc2FibGUgcmVzZXRzIGFmdGVyIGEgc3VibWlzc2lvbiB0aW1l
-b3V0IG1vc3QgbGlrZWx5IGNhdXNlZCBieSBhbiB1bnJlY292ZXJhYmxlIEhXIGVycm9yLg0KDQpU
-aGlzIGlzIG5lY2Vzc2FyeSBmb3IgSlRBRyBkZWJ1Z2dpbmcgaW4gb3VyIGxhYnMgZHVyaW5nIEhX
-IGJyaW5ndXAgYW5kIHNob3VsZCAqTkVWRVIqIGJlIHVzZWQgb24gYW55IHByb2R1Y3Rpb24gc3lz
-dGVtLg0KDQpXZSBhbHJlYWR5IGRpc2N1c3NlZCB3aXRoIHVwc3RyZWFtIG1haW50YWluZXJzIHRo
-YXQgd2Ugc2hvdWxkIHByb2JhYmx5IG1hcmsgdGhlIGtlcm5lbCBhcyB0YWludGVkIHRvIGluZGlj
-YXRlIHRoYXQgaXQgbWlnaHQgYmUgaW4gYW4gdW5yZWxpYWJsZSBIVyBzdGF0ZS4gSSB3aWxsIHB1
-c2ggZm9yIHRoaXMgbm93IHNpbmNlIHRoZXJlIHNlZW1zIHRvIGJlIGEgYmlnIG1pc3VuZGVyc3Rh
-bmRpbmcgd2hhdCB0aGlzIG9wdGlvbiBkb2VzLg0KDQpSZWdhcmRzLA0KQ2hyaXN0aWFuLg0KDQpf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQpWb246IFNodWFpIFh1ZSA8
-eHVlc2h1YWlAbGludXguYWxpYmFiYS5jb20+DQpHZXNlbmRldDogTW9udGFnLCAzMC4gRGV6ZW1i
-ZXIgMjAyNCAwOTo1MA0KQW46IEtvZW5pZywgQ2hyaXN0aWFuOyBEZXVjaGVyLCBBbGV4YW5kZXI7
-IFBhbiwgWGluaHVpOyBhaXJsaWVkQGdtYWlsLmNvbTsgc2ltb25hQGZmd2xsLmNoOyBMYXphciwg
-TGlqbzsgTWEsIExlOyBoYW16YS5tYWhmb296QGFtZC5jb207IHR6aW1tZXJtYW5uQHN1c2UuZGU7
-IExpdSwgU2hhb3l1bjsgSnVuLk1hMkBhbWQuY29tDQpDYzogYW1kLWdmeEBsaXN0cy5mcmVlZGVz
-a3RvcC5vcmc7IGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmc7IGxpbnV4LWtlcm5lbEB2
-Z2VyLmtlcm5lbC5vcmc7IHRpYW5ydWlkb25nQGxpbnV4LmFsaWJhYmEuY29tDQpCZXRyZWZmOiBS
-ZTogW1BBVENIXSBkcm0vYW1kZ3B1OiBFbmFibGUgcnVudGltZSBtb2RpZmljYXRpb24gb2YgZ3B1
-X3JlY292ZXJ5IHBhcmFtZXRlciB3aXRoIHZhbGlkYXRpb24NCg0KDQoNCuWcqCAyMDI0LzEyLzMw
-IDA0OjExLCBDaHJpc3RpYW4gS8O2bmlnIOWGmemBkzoNCj4gQW0gMjguMTIuMjQgdW0gMDc6MzIg
-c2NocmllYiBTaHVhaSBYdWU6DQo+PiBJdCdzIG9ic2VydmVkIHRoYXQgbW9zdCBHUFUgam9icyB1
-dGlsaXplIGxlc3MgdGhhbiBvbmUgc2VydmVyLCB0eXBpY2FsbHkNCj4+IHdpdGggZWFjaCBHUFUg
-YmVpbmcgdXNlZCBieSBhbiBpbmRlcGVuZGVudCBqb2IuIElmIGEgam9iIGNvbnN1bWVkIHBvaXNv
-bmVkDQo+PiBkYXRhLCBhIFNJR0JVUyBzaWduYWwgd2lsbCBiZSBzZW50IHRvIHRlcm1pbmF0ZSBp
-dC4gTWVhbndoaWxlLCB0aGUNCj4+IGdwdV9yZWNvdmVyeSBwYXJhbWV0ZXIgaXMgc2V0IHRvIC0x
-IGJ5IGRlZmF1bHQsIHRoZSBhbWRncHUgZHJpdmVyIHJlc2V0cw0KPj4gYWxsIEdQVXMgb24gdGhl
-IHNlcnZlci4gQXMgYSByZXN1bHQsIGFsbCBqb2JzIGFyZSB0ZXJtaW5hdGVkLiBTZXR0aW5nDQo+
-PiBncHVfcmVjb3ZlcnkgdG8gMCBwcm92aWRlcyBhbiBvcHBvcnR1bml0eSB0byBwcmVlbXB0aXZl
-bHkgZXZhY3VhdGUgb3RoZXINCj4+IGpvYnMgYW5kIHN1YnNlcXVlbnRseSBtYW51YWxseSByZXNl
-dCBhbGwgR1BVcy4NCj4NCj4gKkJJRyogTkFLIHRvIHRoaXMgd2hvbGUgYXBwcm9hY2ghDQo+DQo+
-IFNldHRpbmcgZ3B1X3JlY292ZXJ5IHRvIDAgaW4gYSBwcm9kdWN0aW9uIGVudmlyb25tZW50IGlz
-ICpOT1QqIHN1cHBvcnRlZCBhdCBhbGwgYW5kIHNob3VsZCBuZXZlciBiZSBkb25lLg0KPg0KPiBU
-aGlzIGlzIGEgcHVyZSBkZWJ1Z2dpbmcgZmVhdHVyZSBmb3IgSlRBRyBkZWJ1Z2dpbmcgYW5kIGNh
-biByZXN1bHQgaW4gcmFuZG9tIGNyYXNoZXMgYW5kL29yIGNvbXByb21pc2VkIGRhdGEuDQo+DQo+
-IFBsZWFzZSBkb24ndCB0ZWxsIG1lIHRoYXQgeW91IHRyaWVkIHRvIHVzZSB0aGlzIGluIGEgcHJv
-ZHVjdGlvbiBlbnZpcm9ubWVudC4NCj4NCj4gUmVnYXJkcywNCj4gQ2hyaXN0aWFuLg0KDQpIaSwg
-Q2hyaXN0aWFuLA0KDQpUaGFuayB5b3UgZm9yIHlvdXIgcXVpY2sgcmVwbHkuDQoNCldoZW4gYW4g
-YXBwbGljYXRpb24gZW5jb3VudGVycyB1bmNvcnJlY3RlZCBlcnJvciwgaXQgd2lsbCBiZSB0ZXJt
-aW5hdGUgYnkgYQ0KU0lHQlVTIHNpZ25hbC4gVGhlIHJlbGF0ZWQgYmFkIHBhZ2VzIGFyZSByZXRp
-cmVkLiBJIGRpZCBub3QgZmlndXJlIHdoeQ0KZ3B1X3JlY292ZXJ5PTAgY2FuIHJlc3VsdCBpbiBy
-YW5kb20gY3Jhc2hlcyBhbmQvb3IgY29tcHJvbWlzZWQgZGF0YS4NCg0KSSB0ZXN0IHdpdGggZXJy
-b3IgaW5qZWN0aW9uIGluIG15IGRldiBlbnZpcm9tZW50Og0KDQoxLiBsb2FkIGRyaXZlciB3aXRo
-IGdwdV9yZWNvdmVyeT0wDQojY2F0IC9zeXMvYnVzL3BjaS9kcml2ZXJzL2FtZGdwdS9tb2R1bGUv
-cGFyYW1ldGVycy9ncHVfcmVjb3ZlcnkNCjANCg0KMi4gaW5qZWN0IGEgVW5jb3JyZWN0YWJsZSBF
-Q0MgZXJyb3IgdG8gVU1DDQojc3VkbyBhbWRncHVyYXMgLWQgMCAtYiAyIC10IDgNClBvaXNvbiBp
-bmplY3QsIGxvZ2ljYWwgYWRkcjoweDdmMmI0OTVmOTAwMCBwaHlzaWNhbCBhZGRyOjB4MjdmNWQ0
-YjAwMCB2bWlkOjUNCkJ1cyBlcnJvcg0KDQozLiBHUFUgMDAwMDowYTowMC4wIHJlcG9ydHMgZXJy
-b3IgYWRkcmVzcyB3aXRoIFBBDQojZG1lc2cgfCBncmVwIDI3ZjUNCls0MjQ0NDMuMTc0MTU0XSBh
-bWRncHUgMDAwMDowYTowMC4wOiBhbWRncHU6IEVycm9yIEFkZHJlc3MoUEEpOjB4MjdmNWQ0MzA4
-MCBSb3c6MHgxZmQ3IENvbDoweDAgIEJhbms6MHhhIENoYW5uZWw6MHgzMA0KWzQyNDQ0My4xNzQx
-NTZdIGFtZGdwdSAwMDAwOjBhOjAwLjA6IGFtZGdwdTogRXJyb3IgQWRkcmVzcyhQQSk6MHgyN2Y1
-ZDRiMDgwIFJvdzoweDFmZDcgQ29sOjB4NCAgQmFuazoweGEgQ2hhbm5lbDoweDMwDQpbNDI0NDQz
-LjE3NDE1OF0gYW1kZ3B1IDAwMDA6MGE6MDAuMDogYW1kZ3B1OiBFcnJvciBBZGRyZXNzKFBBKTow
-eDI3ZjVkNTMwODAgUm93OjB4MWZkNyBDb2w6MHg4ICBCYW5rOjB4YSBDaGFubmVsOjB4MzANCls0
-MjQ0NDMuMTc0MTYwXSBhbWRncHUgMDAwMDowYTowMC4wOiBhbWRncHU6IEVycm9yIEFkZHJlc3Mo
-UEEpOjB4MjdmNWQ1YjA4MCBSb3c6MHgxZmQ3IENvbDoweGMgIEJhbms6MHhhIENoYW5uZWw6MHgz
-MA0KWzQyNDQ0My4xNzQxNjJdIGFtZGdwdSAwMDAwOjBhOjAwLjA6IGFtZGdwdTogRXJyb3IgQWRk
-cmVzcyhQQSk6MHgyN2Y1ZjQzMDgwIFJvdzoweDFmZDcgQ29sOjB4MTAgQmFuazoweGEgQ2hhbm5l
-bDoweDMwDQpbNDI0NDQzLjE3NDE2OV0gYW1kZ3B1IDAwMDA6MGE6MDAuMDogYW1kZ3B1OiBFcnJv
-ciBBZGRyZXNzKFBBKToweDI3ZjVmNGIwODAgUm93OjB4MWZkNyBDb2w6MHgxNCBCYW5rOjB4YSBD
-aGFubmVsOjB4MzANCls0MjQ0NDMuMTc0MTcyXSBhbWRncHUgMDAwMDowYTowMC4wOiBhbWRncHU6
-IEVycm9yIEFkZHJlc3MoUEEpOjB4MjdmNWY1MzA4MCBSb3c6MHgxZmQ3IENvbDoweDE4IEJhbms6
-MHhhIENoYW5uZWw6MHgzMA0KWzQyNDQ0My4xNzQxNzRdIGFtZGdwdSAwMDAwOjBhOjAwLjA6IGFt
-ZGdwdTogRXJyb3IgQWRkcmVzcyhQQSk6MHgyN2Y1ZjViMDgwIFJvdzoweDFmZDcgQ29sOjB4MWMg
-QmFuazoweGEgQ2hhbm5lbDoweDMwDQoNCjQuIEFsbCB0aGUgcmVsYXRlZCBiYWQgcGFnZXMgYXJl
-IEFNREdQVV9SQVNfUkVUSVJFX1BBR0VfUkVTRVJWRUQuDQojY2F0IC9zeXMvZGV2aWNlcy9wY2kw
-MDAwOjA1LzAwMDA6MDU6MDEuMC8wMDAwOjA2OjAwLjAvMDAwMDowNzowMC4wLzAwMDA6MDg6MDAu
-MC8wMDAwOjA5OjAwLjAvMDAwMDowYTowMC4wL3Jhcy9ncHVfdnJhbV9iYWRfcGFnZXMgfCBncmVw
-IDI3ZjUNCjB4MDI3ZjVkNDMgOiAweDAwMDAxMDAwIDogUg0KMHgwMjdmNWQ0YiA6IDB4MDAwMDEw
-MDAgOiBSDQoweDAyN2Y1ZDUzIDogMHgwMDAwMTAwMCA6IFINCjB4MDI3ZjVkNWIgOiAweDAwMDAx
-MDAwIDogUg0KMHgwMjdmNWY0MyA6IDB4MDAwMDEwMDAgOiBSDQoweDAyN2Y1ZjRiIDogMHgwMDAw
-MTAwMCA6IFINCjB4MDI3ZjVmNTMgOiAweDAwMDAxMDAwIDogUg0KMHgwMjdmNWY1YiA6IDB4MDAw
-MDEwMDAgOiBSDQoNCkFGQUlLLCB0aGUgcmVzZXJ2ZWQgYmFkIHBhZ2VzIHdpbGwgbm90IGJlIHVz
-ZWQgYW55IG1vcmUuICBQbGVhc2UgY29ycmVjdCBtZSBpZg0KSSBtaXNzZWQgYW55dGhpbmcuDQoN
-CkRSQU0gRUNDIGlzc3VlcyBhcmUgdGhlIG1vc3QgY29tbW9uIHByb2JsZW1zLiBXaGVuIGl0IG9j
-Y3VycywgdGhlIGtlcm5lbCB3aWxsDQphdHRlbXB0IHRvIGhhcmQtb2ZmbGluZSB0aGUgcGFnZSwg
-YnkgdHJ5aW5nIHRvIHVubWFwIHRoZSBwYWdlIG9yIGtpbGxpbmcgYW55DQpvd25lciwgb3IgdHJp
-Z2dlcmluZyBJTyBlcnJvcnMgaWYgbmVlZGVkLg0KDQpFQ0MgZXJyb3IgaXMgYWxzbyBjb21tb24g
-Zm9yIEhCTSBhbmQgZXJyb3IgaXNvbGF0aW9uIGZyb20gZWFjaCB1c2VyJ3Mgam9iIGlzIGENCmJh
-c2ljIHJlcXVpcmVtZW50IGluIHB1YmxpYyBjbG91ZC4gRm9yIE5WSURJQSBHUFUsIGEgRUNDIGVy
-cm9yIGNvdWxkIGJlDQpjb250YWluZWQgdG8gYSBwcm9jZXNzLg0KDQo+IFhJRCA5NDogQ29udGFp
-bmVkIEVDQyBlcnJvcg0KPiBYSUQgOTU6IFVuQ29udGFpbmVkIEVDQyBlcnJvcg0KPg0KPiBGb3Ig
-WGlkIDk0LCB0aGVzZSBlcnJvcnMgYXJlIGNvbnRhaW5lZCB0byBvbmUgYXBwbGljYXRpb24sIGFu
-ZCB0aGUgYXBwbGljYXRpb24NCj4gdGhhdCBlbmNvdW50ZXJlZCB0aGlzIGVycm9yIG11c3QgYmUg
-cmVzdGFydGVkLiBBbGwgb3RoZXIgYXBwbGljYXRpb25zIHJ1bm5pbmcNCj4gYXQgdGhlIHRpbWUg
-b2YgdGhlIFhpZCBhcmUgdW5hZmZlY3RlZC4gSXQgaXMgcmVjb21tZW5kZWQgdG8gcmVzZXQgdGhl
-IEdQVSB3aGVuDQo+IGNvbnZlbmllbnQuIEFwcGxpY2F0aW9ucyBjYW4gY29udGludWUgdG8gYmUg
-cnVuIHVudGlsIHRoZSByZXNldCBjYW4gYmUNCj4gcGVyZm9ybWVkLg0KPg0KPiBGb3IgWGlkIDk1
-LCB0aGVzZSBlcnJvcnMgYWZmZWN0IG11bHRpcGxlIGFwcGxpY2F0aW9ucywgYW5kIHRoZSBhZmZl
-Y3RlZCBHUFUNCj4gbXVzdCBiZSByZXNldCBiZWZvcmUgYXBwbGljYXRpb25zIGNhbiByZXN0YXJ0
-Lg0KPg0KPiBodHRwczovL2RvY3MubnZpZGlhLmNvbS9kZXBsb3kveGlkLWVycm9ycy8NCg0KRG9l
-cyBBTUQgR1BVIHByb3ZpZGUgYSBzaW1pbGFyIHdheSB0byBhY2hpZXZlIGVycm9yIGlzb2xhdGlv
-biByZXF1aXJlbWVudD8NCg0KQmVzdCBSZWdhcmRzLA0KU2h1YWkNCg0KPg0KPj4gICBIb3dldmVy
-LCB0aGlzIHBhcmFtZXRlciBpcw0KPj4gcmVhZC1vbmx5LCBuZWNlc3NpdGF0aW5nIGNvcnJlY3Qg
-c2V0dGluZ3MgYXQgZHJpdmVyIGxvYWQuIEFuZCByZWxvYWRpbmcgdGhlDQo+PiBHUFUgZHJpdmVy
-IGluIGEgcHJvZHVjdGlvbiBlbnZpcm9ubWVudCBjYW4gYmUgY2hhbGxlbmdpbmcgZHVlIHRvIHJl
-ZmVyZW5jZQ0KPj4gY291bnRzIG1haW50YWluZWQgYnkgdmFyaW91cyBtb25pdG9yaW5nIHNlcnZp
-Y2VzLg0KPj4NCj4+IFNldCB0aGUgZ3B1X3JlY292ZXJ5IHBhcmFtZXRlciB3aXRoIHJlYWQtd3Jp
-dGUgcGVybWlzc2lvbiB0byBlbmFibGUgcnVudGltZQ0KPj4gbW9kaWZpY2F0aW9uLiBJdCB3aWxs
-IGVuYWJsZXMgdXNlcnMgdG8gZHluYW1pY2FsbHkgbWFuYWdlIEdQVSByZWNvdmVyeQ0KPj4gbWVj
-aGFuaXNtcyBiYXNlZCBvbiByZWFsLXRpbWUgcmVxdWlyZW1lbnRzIG9yIGNvbmRpdGlvbnMuDQo+
-Pg0KPj4gU2lnbmVkLW9mZi1ieTogU2h1YWkgWHVlIDx4dWVzaHVhaUBsaW51eC5hbGliYWJhLmNv
-bT4NCj4+IC0tLQ0KPj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMg
-fCAyNiArKysrKysrKysrKysrKysrKysrKysrKystDQo+PiAgIDEgZmlsZSBjaGFuZ2VkLCAyNSBp
-bnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pDQo+Pg0KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV9kcnYuYw0KPj4gaW5kZXggMzg2ODYyMDNiZWE2Li4wM2RkOTAyZTFjZWMgMTAw
-NjQ0DQo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMNCj4+
-ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYw0KPj4gQEAgLTU2
-MywxMiArNTYzLDM2IEBAIG1vZHVsZV9wYXJhbV9uYW1lZChsYnB3LCBhbWRncHVfbGJwdywgaW50
-LCAwNDQ0KTsNCj4+ICAgTU9EVUxFX1BBUk1fREVTQyhjb21wdXRlX211bHRpcGlwZSwgIkZvcmNl
-IGNvbXB1dGUgcXVldWVzIHRvIGJlIHNwcmVhZCBhY3Jvc3MgcGlwZXMgKDEgPSBlbmFibGUsIDAg
-PSBkaXNhYmxlLCAtMSA9IGF1dG8pIik7DQo+PiAgIG1vZHVsZV9wYXJhbV9uYW1lZChjb21wdXRl
-X211bHRpcGlwZSwgYW1kZ3B1X2NvbXB1dGVfbXVsdGlwaXBlLCBpbnQsIDA0NDQpOw0KPj4gK3N0
-YXRpYyBpbnQgYW1kZ3B1X3NldF9ncHVfcmVjb3ZlcnkoY29uc3QgY2hhciAqYnVmLA0KPj4gKyAg
-ICAgICAgICAgICAgICAgICBjb25zdCBzdHJ1Y3Qga2VybmVsX3BhcmFtICprcCkNCj4+ICt7DQo+
-PiArICAgIHVuc2lnbmVkIGxvbmcgdmFsOw0KPj4gKyAgICBpbnQgcmV0Ow0KPj4gKw0KPj4gKyAg
-ICByZXQgPSBrc3RydG9sKGJ1ZiwgMTAsICZ2YWwpOw0KPj4gKyAgICBpZiAocmV0IDwgMCkNCj4+
-ICsgICAgICAgIHJldHVybiByZXQ7DQo+PiArDQo+PiArICAgIGlmICh2YWwgIT0gMSAmJiB2YWwg
-IT0gMCAmJiB2YWwgIT0gLTEpIHsNCj4+ICsgICAgICAgIHByX2VycigiSW52YWxpZCB2YWx1ZSBm
-b3IgZ3B1X3JlY292ZXJ5OiAlbGQsIGV4Y2VwdGVkIDAsMSwtMVxuIiwNCj4+ICsgICAgICAgICAg
-ICAgICB2YWwpOw0KPj4gKyAgICAgICAgcmV0dXJuIC1FSU5WQUw7DQo+PiArICAgIH0NCj4+ICsN
-Cj4+ICsgICAgcmV0dXJuIHBhcmFtX3NldF9pbnQoYnVmLCBrcCk7DQo+PiArfQ0KPj4gKw0KPj4g
-K3N0YXRpYyBjb25zdCBzdHJ1Y3Qga2VybmVsX3BhcmFtX29wcyBhbWRncHVfZ3B1X3JlY292ZXJ5
-X29wcyA9IHsNCj4+ICsgICAgLnNldCA9IGFtZGdwdV9zZXRfZ3B1X3JlY292ZXJ5LA0KPj4gKyAg
-ICAuZ2V0ID0gcGFyYW1fZ2V0X2ludCwNCj4+ICt9Ow0KPj4gKw0KPj4gICAvKioNCj4+ICAgICog
-RE9DOiBncHVfcmVjb3ZlcnkgKGludCkNCj4+ICAgICogU2V0IHRvIGVuYWJsZSBHUFUgcmVjb3Zl
-cnkgbWVjaGFuaXNtICgxID0gZW5hYmxlLCAwID0gZGlzYWJsZSkuIFRoZSBkZWZhdWx0IGlzIC0x
-IChhdXRvLCBkaXNhYmxlZCBleGNlcHQgU1JJT1YpLg0KPj4gICAgKi8NCj4+ICAgTU9EVUxFX1BB
-Uk1fREVTQyhncHVfcmVjb3ZlcnksICJFbmFibGUgR1BVIHJlY292ZXJ5IG1lY2hhbmlzbSwgKDEg
-PSBlbmFibGUsIDAgPSBkaXNhYmxlLCAtMSA9IGF1dG8pIik7DQo+PiAtbW9kdWxlX3BhcmFtX25h
-bWVkKGdwdV9yZWNvdmVyeSwgYW1kZ3B1X2dwdV9yZWNvdmVyeSwgaW50LCAwNDQ0KTsNCj4+ICtt
-b2R1bGVfcGFyYW1fY2IoZ3B1X3JlY292ZXJ5LCAmYW1kZ3B1X2dwdV9yZWNvdmVyeV9vcHMsICZh
-bWRncHVfZ3B1X3JlY292ZXJ5LCAwNjQ0KTsNCj4+ICAgLyoqDQo+PiAgICAqIERPQzogZW11X21v
-ZGUgKGludCkNCg==
+
+--Apple-Mail=_3294AA66-823A-405F-B922-EB7CA157E41D
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=utf-8
+
+
+
+> 2025=E5=B9=B41=E6=9C=883=E6=97=A5 13:44=EF=BC=8CChen, Xiaogang =
+<xiaogang.chen@amd.com> =E5=86=99=E9=81=93=EF=BC=9A
+>=20
+>=20
+>=20
+> On 1/2/2025 8:22 PM, Gerry Liu wrote:
+>>=20
+>>=20
+>>> 2025=E5=B9=B41=E6=9C=883=E6=97=A5 07:08=EF=BC=8CChen, Xiaogang =
+<xiaogang.chen@amd.com <mailto:xiaogang.chen@amd.com>> =E5=86=99=E9=81=93=EF=
+=BC=9A
+>>>=20
+>>>=20
+>>>=20
+>>> On 1/1/2025 11:36 PM, Jiang Liu wrote:
+>>>> On error recover path during device probe, it may trigger invalid
+>>>> memory access as below:
+>>>> 024-12-25 12:00:53 [ 2703.773040] general protection fault, =
+probably for non-canonical address 0x52445f4749464e4f: 0000 [#1] SMP =
+NOPTI
+>>>> 2024-12-25 12:00:53 [ 2703.785199] CPU: 157 PID: 151951 Comm: rmmod =
+Kdump: loaded Tainted: G        W  OE     5.10.134-17.2.al8.x86_64 #1
+>>>> 2024-12-25 12:00:53 [ 2703.797515] Hardware name: Alibaba Alibaba =
+Cloud ECS/Alibaba Cloud ECS, BIOS 3.0.ES.AL.P.087.05 04/07/2024
+>>>> 2024-12-25 12:00:53 [ 2703.809188] RIP: =
+0010:kgd2kfd_device_exit+0x6/0x60 [amdgpu]
+>>>> 2024-12-25 12:00:53 [ 2703.816136] Code: ff 48 c7 83 38 01 00 00 80 =
+45 e4 c0 c7 83 40 01 00 00 08 0f 00 00 e9 cd fa ff ff 66 0f 1f 84 00 00 =
+00 00 00 0f
+>>>> 1f 44 00 00 55 <80> bf 28 01 00 00 00 48 89 fd 75 09 48 89 ef 5d e9 =
+65 df 9d f4 8b
+>>>> 2024-12-25 12:00:54 [ 2703.838622] RSP: 0018:ffffb5313df07e10 =
+EFLAGS: 00010202
+>>>> 2024-12-25 12:00:54 [ 2703.845216] RAX: 0000000000000000 RBX: =
+ffff97ad689a3ff0 RCX: 0000000080400014
+>>>> 2024-12-25 12:00:54 [ 2703.853935] RDX: 0000000080400015 RSI: =
+ffff97ad627e93d8 RDI: 52445f4749464e4f
+>>>> 2024-12-25 12:00:54 [ 2703.862652] RBP: ffff97ad689a3ff0 R08: =
+0000000000000000 R09: ffffffffb5814c00
+>>>> 2024-12-25 12:00:54 [ 2703.871368] R10: ffff97ad627e9280 R11: =
+0000000000000001 R12: ffffb5313df07e98
+>>>> 2024-12-25 12:00:54 [ 2703.880068] R13: ffff97ad689a1810 R14: =
+0000000000000001 R15: 0000000000000000
+>>>> 2024-12-25 12:00:54 [ 2703.888768] FS:  00007fa4db81e740(0000) =
+GS:ffff98a93ec80000(0000) knlGS:0000000000000000
+>>>> 2024-12-25 12:00:54 [ 2703.898547] CS:  0010 DS: 0000 ES: 0000 CR0: =
+0000000080050033
+>>>> 2024-12-25 12:00:54 [ 2703.905684] CR2: 00007f4502deca00 CR3: =
+000001008fc50001 CR4: 0000000002770ee0
+>>>> 2024-12-25 12:00:54 [ 2703.914382] DR0: 0000000000000000 DR1: =
+0000000000000000 DR2: 0000000000000000
+>>>> 2024-12-25 12:00:54 [ 2703.923066] DR3: 0000000000000000 DR6: =
+00000000fffe07f0 DR7: 0000000000000400
+>>>> 2024-12-25 12:00:54 [ 2703.931746] PKRU: 55555554
+>>>> 2024-12-25 12:00:54 [ 2703.935444] Call Trace:
+>>>> 2024-12-25 12:00:54 [ 2703.938962]  =
+amdgpu_amdkfd_device_fini_sw+0x1a/0x40 [amdgpu]
+>>>> 2024-12-25 12:00:54 [ 2703.946080]  =
+amdgpu_device_ip_fini.isra.0+0x3d/0x1b0 [amdgpu]
+>>>> 2024-12-25 12:00:54 [ 2703.953278]  =
+amdgpu_device_fini_sw+0x2a/0x240 [amdgpu]
+>>>> 2024-12-25 12:00:54 [ 2703.959789]  =
+amdgpu_driver_release_kms+0x12/0x30 [amdgpu]
+>>>> 2024-12-25 12:00:54 [ 2703.966501]  =
+devm_drm_dev_init_release+0x42/0x70 [drm]
+>>>> 2024-12-25 12:00:54 [ 2703.972891]  release_nodes+0x6e/0xb0
+>>>> 2024-12-25 12:00:54 [ 2703.977522]  =
+amdgpu_xcp_drv_release+0x38/0x80 [amdxcp]
+>>>> 2024-12-25 12:00:54 [ 2703.983906]  =
+__do_sys_delete_module.constprop.0+0x138/0x2a0
+>>>> 2024-12-25 12:00:54 [ 2703.990775]  ? =
+exit_to_user_mode_loop+0xd6/0x120
+>>>> 2024-12-25 12:00:54 [ 2703.996563]  do_syscall_64+0x2e/0x50
+>>>> 2024-12-25 12:00:54 [ 2704.001166]  =
+entry_SYSCALL_64_after_hwframe+0x62/0xc7
+>>>> 2024-12-25 12:00:54 [ 2704.007432] RIP: 0033:0x7fa4db2620cb
+>>>> 2024-12-25 12:00:54 [ 2704.012025] Code: 73 01 c3 48 8b 0d a5 6d 19 =
+00 f7 d8 64 89 01 48 83 c8 ff c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f =
+1e fa b8 b0
+>>>> 00 00 00 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d 75 6d 19 00 f7 =
+d8 64 89 01 48
+>>>>=20
+>>>> Signed-off-by: Jiang Liu <gerry@linux.alibaba.com> =
+<mailto:gerry@linux.alibaba.com>
+>>>> ---
+>>>>  drivers/gpu/drm/amd/amdkfd/kfd_device.c | 7 ++++++-
+>>>>  1 file changed, 6 insertions(+), 1 deletion(-)
+>>>>=20
+>>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c =
+b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+>>>> index b6c5ffd4630b..58c1b5fcf785 100644
+>>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+>>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+>>>> @@ -663,6 +663,8 @@ static void kfd_cleanup_nodes(struct kfd_dev =
+*kfd, unsigned int num_nodes)
+>>>> =20
+>>>>  	for (i =3D 0; i < num_nodes; i++) {
+>>>>  		knode =3D kfd->nodes[i];
+>>>> +		if (!knode)
+>>>> +			continue;
+>>> I wonder how knode can be null here? kfd_cleanup_nodes is called by =
+kgd2kfd_device_exit under condition if (kfd->init_complete). =
+kfd->init_complete is true only after all kfd node got initialized at =
+kgd2kfd_device_init. If kfd driver init fail  kfd->init_complete would =
+be false, then kfd_cleanup_node would not get called.
+>>>=20
+>> Hi Xiaogang,
+>> 	It may get triggered on error handling path of =
+=E2=80=98kid2kfd_device_init()`, when it jump to label =
+`node_alloc_error` and=20
+>> then call `kfd_cleanup_nodes()`.
+>>=20
+> If it was the case kzalloc failed. That means there is no memory =
+available even to allocate struct kfd_node. =46rom the backtrace the  =
+general protection fault happened at=20
+>=20
+> RIP: 0010:kgd2kfd_device_exit+0x6/0x60 [amdgpu]
+>=20
+> It happened during driver module got released, not init time. I do not =
+see how the patch is related to the issue you talked.
+Aha, it=E2=80=99s caused by another bug which got fixed by "[PATCH 4/6] =
+amdgpu: fix use after free bug related to =
+amdgpu_driver_release_kms()=E2=80=9D.
+Without the fix in "[PATCH 4/6] amdgpu: fix use after free bug related =
+to amdgpu_driver_release_kms()=E2=80=9D, kgd2kfd_device_exit() will got =
+called
+twice in case of device probe failure. I caused me some time to figure =
+out the double free issue.
+Actually we should reset kfd->init_completed to false in function =
+kgd2kfd_device_exit().
+
+>=20
+> Regards
+> Xiaogang
+>=20
+>=20
+>=20
+>> Thanks,
+>> Gerry
+>>=20
+>>>=20
+>>> Regards
+>>>=20
+>>> Xiaogang
+>>>=20
+>>>>  		device_queue_manager_uninit(knode->dqm);
+>>>>  		kfd_interrupt_exit(knode);
+>>>>  		kfd_topology_remove_device(knode);
+>>>> @@ -954,7 +956,10 @@ void kgd2kfd_device_exit(struct kfd_dev *kfd)
+>>>>  		kfd_doorbell_fini(kfd);
+>>>>  		ida_destroy(&kfd->doorbell_ida);
+>>>>  		kfd_gtt_sa_fini(kfd);
+>>>> -		amdgpu_amdkfd_free_gtt_mem(kfd->adev, &kfd->gtt_mem);
+>>>> +		if (kfd->gtt_mem) {
+>>>> +			amdgpu_amdkfd_free_gtt_mem(kfd->adev, =
+&kfd->gtt_mem);
+>>>> +			kfd->gtt_mem =3D NULL;
+>>>> +		}
+>>>>  	}
+>>>> =20
+>>>>  	kfree(kfd);
+>>=20
+
+
+--Apple-Mail=_3294AA66-823A-405F-B922-EB7CA157E41D
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html;
+	charset=utf-8
+
+<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html; =
+charset=3Dutf-8"></head><body style=3D"word-wrap: break-word; =
+-webkit-nbsp-mode: space; line-break: after-white-space;" class=3D""><br =
+class=3D""><div><br class=3D""><blockquote type=3D"cite" class=3D""><div =
+class=3D"">2025=E5=B9=B41=E6=9C=883=E6=97=A5 13:44=EF=BC=8CChen, =
+Xiaogang &lt;<a href=3D"mailto:xiaogang.chen@amd.com" =
+class=3D"">xiaogang.chen@amd.com</a>&gt; =E5=86=99=E9=81=93=EF=BC=9A</div>=
+<br class=3D"Apple-interchange-newline"><div class=3D"">
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8" =
+class=3D"">
+ =20
+  <div class=3D""><p class=3D""><br class=3D"">
+    </p>
+    <div class=3D"moz-cite-prefix">On 1/2/2025 8:22 PM, Gerry Liu =
+wrote:<br class=3D"">
+    </div>
+    <blockquote type=3D"cite" =
+cite=3D"mid:3CAD4155-244E-44EC-9EC4-D441E17DBEA2@linux.alibaba.com" =
+class=3D"">
+     =20
+      <br class=3D"">
+      <div class=3D""><br class=3D"">
+        <blockquote type=3D"cite" class=3D"">
+          <div class=3D"">2025=E5=B9=B41=E6=9C=883=E6=97=A5 =
+07:08=EF=BC=8CChen, Xiaogang &lt;<a href=3D"mailto:xiaogang.chen@amd.com" =
+class=3D"moz-txt-link-freetext" =
+moz-do-not-send=3D"true">xiaogang.chen@amd.com</a>&gt;
+            =E5=86=99=E9=81=93=EF=BC=9A</div>
+          <br class=3D"Apple-interchange-newline">
+          <div class=3D"">
+            <div class=3D""><p class=3D""><br class=3D"">
+              </p>
+              <div class=3D"moz-cite-prefix">On 1/1/2025 11:36 PM, Jiang
+                Liu wrote:<br class=3D"">
+              </div>
+              <blockquote type=3D"cite" =
+cite=3D"mid:7aace7d239b729340e311ad6e08a14f60b87a361.1735795671.git.gerry@=
+linux.alibaba.com" class=3D"">
+                <pre wrap=3D"" class=3D"moz-quote-pre">On error recover =
+path during device probe, it may trigger invalid
+memory access as below:
+024-12-25 12:00:53 [ 2703.773040] general protection fault, probably for =
+non-canonical address 0x52445f4749464e4f: 0000 [#1] SMP NOPTI
+2024-12-25 12:00:53 [ 2703.785199] CPU: 157 PID: 151951 Comm: rmmod =
+Kdump: loaded Tainted: G        W  OE     5.10.134-17.2.al8.x86_64 #1
+2024-12-25 12:00:53 [ 2703.797515] Hardware name: Alibaba Alibaba Cloud =
+ECS/Alibaba Cloud ECS, BIOS 3.0.ES.AL.P.087.05 04/07/2024
+2024-12-25 12:00:53 [ 2703.809188] RIP: =
+0010:kgd2kfd_device_exit+0x6/0x60 [amdgpu]
+2024-12-25 12:00:53 [ 2703.816136] Code: ff 48 c7 83 38 01 00 00 80 45 =
+e4 c0 c7 83 40 01 00 00 08 0f 00 00 e9 cd fa ff ff 66 0f 1f 84 00 00 00 =
+00 00 0f
+1f 44 00 00 55 &lt;80&gt; bf 28 01 00 00 00 48 89 fd 75 09 48 89 ef 5d =
+e9 65 df 9d f4 8b
+2024-12-25 12:00:54 [ 2703.838622] RSP: 0018:ffffb5313df07e10 EFLAGS: =
+00010202
+2024-12-25 12:00:54 [ 2703.845216] RAX: 0000000000000000 RBX: =
+ffff97ad689a3ff0 RCX: 0000000080400014
+2024-12-25 12:00:54 [ 2703.853935] RDX: 0000000080400015 RSI: =
+ffff97ad627e93d8 RDI: 52445f4749464e4f
+2024-12-25 12:00:54 [ 2703.862652] RBP: ffff97ad689a3ff0 R08: =
+0000000000000000 R09: ffffffffb5814c00
+2024-12-25 12:00:54 [ 2703.871368] R10: ffff97ad627e9280 R11: =
+0000000000000001 R12: ffffb5313df07e98
+2024-12-25 12:00:54 [ 2703.880068] R13: ffff97ad689a1810 R14: =
+0000000000000001 R15: 0000000000000000
+2024-12-25 12:00:54 [ 2703.888768] FS:  00007fa4db81e740(0000) =
+GS:ffff98a93ec80000(0000) knlGS:0000000000000000
+2024-12-25 12:00:54 [ 2703.898547] CS:  0010 DS: 0000 ES: 0000 CR0: =
+0000000080050033
+2024-12-25 12:00:54 [ 2703.905684] CR2: 00007f4502deca00 CR3: =
+000001008fc50001 CR4: 0000000002770ee0
+2024-12-25 12:00:54 [ 2703.914382] DR0: 0000000000000000 DR1: =
+0000000000000000 DR2: 0000000000000000
+2024-12-25 12:00:54 [ 2703.923066] DR3: 0000000000000000 DR6: =
+00000000fffe07f0 DR7: 0000000000000400
+2024-12-25 12:00:54 [ 2703.931746] PKRU: 55555554
+2024-12-25 12:00:54 [ 2703.935444] Call Trace:
+2024-12-25 12:00:54 [ 2703.938962]  =
+amdgpu_amdkfd_device_fini_sw+0x1a/0x40 [amdgpu]
+2024-12-25 12:00:54 [ 2703.946080]  =
+amdgpu_device_ip_fini.isra.0+0x3d/0x1b0 [amdgpu]
+2024-12-25 12:00:54 [ 2703.953278]  amdgpu_device_fini_sw+0x2a/0x240 =
+[amdgpu]
+2024-12-25 12:00:54 [ 2703.959789]  amdgpu_driver_release_kms+0x12/0x30 =
+[amdgpu]
+2024-12-25 12:00:54 [ 2703.966501]  devm_drm_dev_init_release+0x42/0x70 =
+[drm]
+2024-12-25 12:00:54 [ 2703.972891]  release_nodes+0x6e/0xb0
+2024-12-25 12:00:54 [ 2703.977522]  amdgpu_xcp_drv_release+0x38/0x80 =
+[amdxcp]
+2024-12-25 12:00:54 [ 2703.983906]  =
+__do_sys_delete_module.constprop.0+0x138/0x2a0
+2024-12-25 12:00:54 [ 2703.990775]  ? exit_to_user_mode_loop+0xd6/0x120
+2024-12-25 12:00:54 [ 2703.996563]  do_syscall_64+0x2e/0x50
+2024-12-25 12:00:54 [ 2704.001166]  =
+entry_SYSCALL_64_after_hwframe+0x62/0xc7
+2024-12-25 12:00:54 [ 2704.007432] RIP: 0033:0x7fa4db2620cb
+2024-12-25 12:00:54 [ 2704.012025] Code: 73 01 c3 48 8b 0d a5 6d 19 00 =
+f7 d8 64 89 01 48 83 c8 ff c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e =
+fa b8 b0
+00 00 00 0f 05 &lt;48&gt; 3d 01 f0 ff ff 73 01 c3 48 8b 0d 75 6d 19 00 =
+f7 d8 64 89 01 48
+
+Signed-off-by: Jiang Liu <a class=3D"moz-txt-link-rfc2396E" =
+href=3D"mailto:gerry@linux.alibaba.com" =
+moz-do-not-send=3D"true">&lt;gerry@linux.alibaba.com&gt;</a>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_device.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c =
+b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+index b6c5ffd4630b..58c1b5fcf785 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+@@ -663,6 +663,8 @@ static void kfd_cleanup_nodes(struct kfd_dev *kfd, =
+unsigned int num_nodes)
+=20
+ 	for (i =3D 0; i &lt; num_nodes; i++) {
+ 		knode =3D kfd-&gt;nodes[i];
++		if (!knode)
++			continue;</pre>
+              </blockquote><p class=3D"">I wonder how knode can be null =
+here? <span style=3D"white-space: pre-wrap" =
+class=3D"">kfd_cleanup_nodes</span>
+                is called by kgd2kfd_device_exit under condition if
+                (kfd-&gt;init_complete). kfd-&gt;init_complete is true
+                only after all kfd node got initialized at
+                kgd2kfd_device_init. If kfd driver init fail&nbsp;
+                kfd-&gt;init_complete would be false, then <span =
+style=3D"white-space: pre-wrap" class=3D"">kfd_cleanup_node would not =
+get called.</span></p>
+            </div>
+          </div>
+        </blockquote>
+        <div class=3D"">Hi Xiaogang,</div>
+        <div class=3D""><span class=3D"Apple-tab-span" =
+style=3D"white-space:pre">	</span>It
+          may get triggered on error handling path of
+          =E2=80=98kid2kfd_device_init()`, when it jump to label
+          `node_alloc_error` and&nbsp;</div>
+        <div class=3D"">then call `kfd_cleanup_nodes()`.</div>
+        <div class=3D""><br class=3D"">
+        </div>
+      </div>
+    </blockquote><p class=3D"">If it was the case kzalloc failed. That =
+means there is no memory
+      available even to allocate struct kfd_node. =46rom the backtrace =
+the
+      <span style=3D"white-space: pre-wrap" class=3D"">general =
+protection fault happened at </span></p>
+    <pre wrap=3D"" class=3D"moz-quote-pre">RIP: =
+0010:kgd2kfd_device_exit+0x6/0x60 [amdgpu]
+
+It happened during driver module got released, not init time. I do not =
+see how the patch is related to the issue you talked.
+</pre></div></div></blockquote><div>Aha, it=E2=80=99s caused by another =
+bug which got fixed by "<font face=3D"PingFang SC" class=3D""><span =
+style=3D"color: rgba(0, 0, 0, 0.85);" class=3D"">[PATCH 4/6] amdgpu: fix =
+use after free bug related to amdgpu_driver_release_kms()</span><span =
+style=3D"caret-color: rgba(0, 0, 0, 0.85); color: rgba(0, 0, 0, 0.85);" =
+class=3D"">=E2=80=9D</span><span style=3D"color: rgba(0, 0, 0, 0.85);" =
+class=3D"">.</span></font></div><div><span style=3D"font-family: =
+&quot;PingFang SC&quot;; color: rgba(0, 0, 0, 0.85);" class=3D"">Without =
+the fix in "[PATCH 4/6] amdgpu: fix use after free bug related to =
+amdgpu_driver_release_kms()</span><span style=3D"font-family: =
+&quot;PingFang SC&quot;; caret-color: rgba(0, 0, 0, 0.85); color: =
+rgba(0, 0, 0, 0.85);" class=3D"">=E2=80=9D</span><span style=3D"color: =
+rgba(0, 0, 0, 0.85);" class=3D""><font face=3D"PingFang SC" class=3D"">, =
+kgd2kfd_device_exit() will got called</font></span></div><div><font =
+face=3D"PingFang SC" class=3D""><span style=3D"caret-color: rgba(0, 0, =
+0, 0.85); color: rgba(0, 0, 0, 0.85);" class=3D"">twice</span><span =
+style=3D"color: rgba(0, 0, 0, 0.85);" class=3D"">&nbsp;in case of device =
+probe failure. I caused me some time to figure out the double free =
+issue.</span></font></div><div><span style=3D"color: rgba(0, 0, 0, =
+0.85);" class=3D""><font face=3D"PingFang SC" class=3D"">Actually we =
+should reset kfd-&gt;init_completed to false in function =
+kgd2kfd_device_exit().</font></span></div><div><br =
+class=3D""></div><blockquote type=3D"cite" class=3D""><div class=3D""><div=
+ class=3D""><pre wrap=3D"" class=3D"moz-quote-pre">
+Regards
+Xiaogang
+
+
+</pre><div class=3D""><br class=3D"webkit-block-placeholder"></div>
+    <blockquote type=3D"cite" =
+cite=3D"mid:3CAD4155-244E-44EC-9EC4-D441E17DBEA2@linux.alibaba.com" =
+class=3D"">
+      <div class=3D"">
+        <div class=3D"">Thanks,</div>
+        <div class=3D"">Gerry</div>
+        <br class=3D"">
+        <blockquote type=3D"cite" class=3D"">
+          <div class=3D"">
+            <div class=3D"">
+              <div class=3D""><br class=3D"webkit-block-placeholder">
+              </div><p class=3D""><span style=3D"white-space: pre-wrap" =
+class=3D"">Regards</span></p><p class=3D""><span style=3D"white-space: =
+pre-wrap" class=3D"">Xiaogang
+</span></p>
+              <blockquote type=3D"cite" =
+cite=3D"mid:7aace7d239b729340e311ad6e08a14f60b87a361.1735795671.git.gerry@=
+linux.alibaba.com" class=3D"">
+                <pre wrap=3D"" class=3D"moz-quote-pre"> 		=
+device_queue_manager_uninit(knode-&gt;dqm);
+ 		kfd_interrupt_exit(knode);
+ 		kfd_topology_remove_device(knode);
+@@ -954,7 +956,10 @@ void kgd2kfd_device_exit(struct kfd_dev *kfd)
+ 		kfd_doorbell_fini(kfd);
+ 		ida_destroy(&amp;kfd-&gt;doorbell_ida);
+ 		kfd_gtt_sa_fini(kfd);
+-		amdgpu_amdkfd_free_gtt_mem(kfd-&gt;adev, =
+&amp;kfd-&gt;gtt_mem);
++		if (kfd-&gt;gtt_mem) {
++			amdgpu_amdkfd_free_gtt_mem(kfd-&gt;adev, =
+&amp;kfd-&gt;gtt_mem);
++			kfd-&gt;gtt_mem =3D NULL;
++		}
+ 	}
+=20
+ 	kfree(kfd);
+</pre>
+              </blockquote>
+            </div>
+          </div>
+        </blockquote>
+      </div>
+      <br class=3D"">
+    </blockquote>
+  </div>
+
+</div></blockquote></div><br class=3D""></body></html>=
+
+--Apple-Mail=_3294AA66-823A-405F-B922-EB7CA157E41D--
