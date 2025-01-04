@@ -4,149 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFDB2E77188
-	for <amd-gfx@archiver.kernel.org>; Sat,  4 Jan 2025 00:10:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0192E77188
+	for <amd-gfx@archiver.kernel.org>; Sat,  4 Jan 2025 06:02:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 50CCA10E974;
-	Sat,  4 Jan 2025 00:10:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 621D210E0BB;
+	Sat,  4 Jan 2025 06:02:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="VTABPapG";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="EyOCwvup";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2065.outbound.protection.outlook.com [40.107.236.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 459B210E974
- for <amd-gfx@lists.freedesktop.org>; Sat,  4 Jan 2025 00:10:32 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2063.outbound.protection.outlook.com [40.107.243.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9BAFC10E0BB
+ for <amd-gfx@lists.freedesktop.org>; Sat,  4 Jan 2025 06:02:33 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gQEWEEI+lsvZC8pt3pGn29PD7jumMJFsXCWWGnnq5BMM7fePNmBBsiLZMakCJEkOSKizWdagxG/QSicJcVC8jm0sdoGqtoBoAPz2topnzjBWcR7QcFE6aFHgqRsH982mznFmYkt7QCP4YlT+T+7nzxmORgSHkwZ2KZkGd/iOvPc7JPPg3xDiVn72WF4ZyY9nhbZSxi2ugZFLAVM8Lz5zaxyABrx8BZrgjqQm19Gmg3JhfXx81UKteNtsfgdFCQY3tI0k+rn9EDq7H/91dSB2sQpOOitKLBLBEBGrt2PxJ/xP+rMJA4w7elSME8+EdFG7d1MNwKULBqcLkjnUnaxwfA==
+ b=CJtt1pvNmzVV/qE2qPZWOdtwrFQsGldMOj0Lc6xzztMD2m917Slep/+CIHtXVY5wparLU9VbvPqJxueKo4iRHOPYLOc+SXq2s7pgMzbmNwbSz7nW/xY3r87gUHoL9eaS9Qh7dK2eSC25UvAvMkt3um6dh5x3jZcLBHq2gP0kd6gvqDjtyXV1PiVe0S4hp6Tl7k/ZTUTK5lxNOz4ZEVfbmuscVT7KyH/tucFZTL9p8hrp44fFnIYQXbxlOrivKBw6/YxoctWxEImhRsKT7kb5h3HgMmpZPXtSmOnIKsXNHx6bAsUcS3B9Y4zoOTcTlayx5TZvM3wzO0CDizdYNX5ReQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/bQrxsxy8U/knmj6opDC7lo+9LoWw7ZPe+e05jFgvvk=;
- b=GsxjwLa1MK+cYQdUpHFFWV/Up2ciCxJEptcQ2cc0owTEUkjo4+0OtwwF8QBgCUuQ0Kv/I6k2P6CpP8yJcJBNURS69PI6GQJkaPXchS5TtRpHb0dv16/rqxny+giqid1ECZhZYuB0IwwO0tVX/FRVB5l0/xUGwojfRhZPORgexJhOynA7ZI1Ex82zXqFjricgSWxxLK6waw1YnXQEevVosgrnNYyuFQ83EVbBKLWF3TSriucUPdu2vFs3ujev+Rypge5elvLmvZpIbWxg0HgMeprVGMEuPR3fX9e+QWYH1H4xjbRMs6reGVpF88G9y4eAgbE4wxCQGa4vLuhhvRJ8WQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=j9JTV7xU78BsKQfS9oRmf5svZ/hUKJNHpVJIskQMcFY=;
+ b=VE8iXxTt+qMljIdkcBj2uhnFjjKxfjOE9+CtSr4B9jfkfPirNloyG1wR4ZfgzcAbeUw8ALc8dPbfDKbtZpXS89rylmp9hZ8SRVHYRS5DEHvKbeuEeHomo4cigInyHOFbP1UnXlcorlSuJKWplOSIrwYjDxMTED+C2130yq4Jqxm5fvYMkt8Q56YncZZVUpRf77DXJPCpgXmyRI1WCAJBfYDfxwM9Fi+BA9W7xna6jn4x4pFdl6RvXTU+yV2F9yoqcs/7t+ghry2sUBFjDSNuQmBTtUrcdjjDYWvIAyZUNDQoruZyDHrpASBi52MkjPa8WjsId+EqWAf0RgbtfP6e+Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/bQrxsxy8U/knmj6opDC7lo+9LoWw7ZPe+e05jFgvvk=;
- b=VTABPapGZ89r3uYaNstmjz+5khMrHT89FZvaP7Lm+UQ3+t6KqYOtDAXFaF6C0Fuy4mn1FTYSl14cL6aY4OBmP71tiF9zzSEiVaNEPUxcPrwOioF2EdhNDTiup8O+yZwPHQyna9jR4oMf1zVFrLRVkd/RVtTsHCVue8HqQgAW8GE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
- by CH3PR12MB7690.namprd12.prod.outlook.com (2603:10b6:610:14e::20)
+ bh=j9JTV7xU78BsKQfS9oRmf5svZ/hUKJNHpVJIskQMcFY=;
+ b=EyOCwvupRKXX6UPxfjns8qyL1BY8zwpwZYDV8DEjV6JzPuAS1BZ1Zo5sjSwsbz/+MC3Tv3joW6dELYZFRAjyVgYua6i2xCETHTaU64ykKurNPbQk5SH+tZZw2/9lGq2qWdLluuOJwDdCpk2Ku/zYKtCIYMLNhi4nyvPyuR73gLU=
+Received: from BL1PR13CA0066.namprd13.prod.outlook.com (2603:10b6:208:2b8::11)
+ by IA1PR12MB6409.namprd12.prod.outlook.com (2603:10b6:208:38b::7)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8314.14; Sat, 4 Jan
- 2025 00:10:25 +0000
-Received: from BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::9269:317f:e85:cf81]) by BN9PR12MB5115.namprd12.prod.outlook.com
- ([fe80::9269:317f:e85:cf81%4]) with mapi id 15.20.8314.013; Sat, 4 Jan 2025
- 00:10:25 +0000
-Message-ID: <002da1de-e1e8-488f-9189-3390219a7140@amd.com>
-Date: Fri, 3 Jan 2025 19:10:23 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] drm/amdkfd: Have kfd driver use same PASID values from
- graphic driver
-To: "Xiaogang.Chen" <xiaogang.chen@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: christian.koenig@amd.com, jonathan.kim@amd.com
-References: <20241203180309.192263-1-xiaogang.chen@amd.com>
-Content-Language: en-US
-From: Felix Kuehling <felix.kuehling@amd.com>
-Organization: AMD Inc.
-In-Reply-To: <20241203180309.192263-1-xiaogang.chen@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQBPR0101CA0318.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:6c::8) To BN9PR12MB5115.namprd12.prod.outlook.com
- (2603:10b6:408:118::14)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8314.13; Sat, 4 Jan
+ 2025 06:02:25 +0000
+Received: from BL02EPF0002992B.namprd02.prod.outlook.com
+ (2603:10b6:208:2b8:cafe::a0) by BL1PR13CA0066.outlook.office365.com
+ (2603:10b6:208:2b8::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8335.6 via Frontend Transport; Sat, 4
+ Jan 2025 06:02:25 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL02EPF0002992B.mail.protection.outlook.com (10.167.249.56) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8335.7 via Frontend Transport; Sat, 4 Jan 2025 06:02:25 +0000
+Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39; Sat, 4 Jan 2025 00:02:23 -0600
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
+ Deucher" <alexander.deucher@amd.com>
+CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
+ <srinivasan.shanmugam@amd.com>
+Subject: [PATCH] drm/amdgpu: Fix Circular Locking Dependency in AMDGPU GFX
+ Isolation
+Date: Sat, 4 Jan 2025 11:32:09 +0530
+Message-ID: <20250104060209.3628441-1-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|CH3PR12MB7690:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5529556e-c7bb-4518-6c91-08dd2c543004
+X-MS-TrafficTypeDiagnostic: BL02EPF0002992B:EE_|IA1PR12MB6409:EE_
+X-MS-Office365-Filtering-Correlation-Id: 26b53020-69e0-47b3-f765-08dd2c855ccc
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?RloyK0Z0eDlEZ2NER1VQeUFaWEErc29KTTFEOWIrU1hPZS85dXJtSldXNnRH?=
- =?utf-8?B?U3BRS0NFN2NlWVBoeVI2N29lTFB2L2paTGNyY3Q1eEVKek4zN2dmY2dkVDVR?=
- =?utf-8?B?TDMwL2t6aE1wSW9hb1RZc01RdlpxUFRZVjFxVSs0dVhsZlVHTWJtNlZTZVZX?=
- =?utf-8?B?SzhTRUJTMEQvMklpb0p0L1d3Ky9MR2JUZ1NkS1oralFKWUE1cGNJK3h3aG5O?=
- =?utf-8?B?cUcvV25oR1pOdkg2cUlaOGo3TVZBa3RHRGlZZFEvZDAzclVvOWJWUTl1bVdo?=
- =?utf-8?B?eWs2REVjenlURGtTNW9ZV1g3SEo0OW5DMGExNTI1ckgyY0RSNzdOVElZY08r?=
- =?utf-8?B?a0IyaCtaTGgxK3RYT3hXM0ZtbWJIRVFRTUpTaEhaTlN1dDh6b09CLzNoT0ds?=
- =?utf-8?B?L3hkbXYyQnpYYXpWSFkxTEg0c2hHL2tXYmFqUUdkcGtlajlzdFYxSFJWcUYw?=
- =?utf-8?B?MGVQcGphNHN5UE01SStrUUFMbVhLRGVzdEhCSmhLcC9sTnZhaVM5WjhxbFQ4?=
- =?utf-8?B?L2NsL3BoeUdvOFhhN0FyQUc0TGJDUytKSjNTb3g4RS9SZDlzaCtvMlFvZGli?=
- =?utf-8?B?cCtjZW5WTStEUEZJcUU0Tisway93amE4blZha0JwdWg5bVA3T1U1NDE4amx6?=
- =?utf-8?B?SEdZdU9hd0tZY2dVakZ4aE5NckhSZEdoMkIxSnY5SDBDWThpRVR5TTlhWDVt?=
- =?utf-8?B?U210WlZzc3dKNTFiblliakRWM1daVVJkN1EyR1VQcXNGK09DSjJBWkZEeHJ5?=
- =?utf-8?B?THY2WkN1ckg5NkoyOHU4c0Z1Q1BYNnIyYTBDeVdDSWlUaWYxeWJrekE4R3dQ?=
- =?utf-8?B?NHZ6cE56SnVWV2NKaXo0TzJZbExEbnBlR1VGWEhQS215a29IQUk1eFVQNU1T?=
- =?utf-8?B?VGxybnJBUlFIQ2hPclFZRmpKZGxyTlNVWHNxSEtjd1M3QWxwMEdDRkgzZ2tU?=
- =?utf-8?B?NkJIL3ZBS3EvSVN1RDZ4ZWRCYXVRenVOZHdyRDcvUE16dVNxVzhZOS82d09D?=
- =?utf-8?B?ODRiTkZSOWdqeGV6VDk0ZkNYelVqUzlCQlZMZHE0YTRKanVPSzRtNEozR0E1?=
- =?utf-8?B?YlcxVEErVllvTWxkWUpoNUVpV0JoODhQTkFPRm9PVWVhcENPTVJHcjNxYWll?=
- =?utf-8?B?bWp5ajMzOWwzMVAwbU5Cc0VLOVpzQmJLc21CVzRFQVhleFVVS2w2bERaeGIw?=
- =?utf-8?B?V1dYRit1eERJWnRGSWdhaGhrczlPWEtoK3Z0L1ZyVDNWbXliTjZOQWVxTURl?=
- =?utf-8?B?V3VCRW1iUUkvR1pMZk01MDQ0a0JxM3ZpakEwU2VYclZWZkZFU2V3eSs3MmpF?=
- =?utf-8?B?WWl0MGJpcGFOK3RZK3NaMnFCWUZmaHFaVVY0RWZWcDJFc3lZbXZVemNnVmlH?=
- =?utf-8?B?Z245UHdYNXZ5a1FDN1RpMVlFZDB1SVU4UnVZV2pZTmhzdnI3dUxLK1gxMlQ4?=
- =?utf-8?B?ZlV6ckJ0Q0lTRmxIOEcxaldmQ0lYSU43d1FJSkh0TjZINkhyVitaMldlWmNO?=
- =?utf-8?B?Qi9EdlEzYlZTS1lpUzZ2N2E2VFI0SzlpUFhsQ3ZTNTEwYmNXTjh0QllnSXpI?=
- =?utf-8?B?MnQ5cnpsTzR3RVhMcGVLelE4TUxkb3Q2Rmlsckp4SURGeVVtdDBRUXpnelF0?=
- =?utf-8?B?bkg0S3lBWEcxa1R3c3BqWFdwUnJBeXpyY3BWR3N6akIzMUs4R01BTkxubGU0?=
- =?utf-8?B?MjAyV0hiYVBYcDZKVHIzTThTWm9nbDlXYUtEdHJPNWFBWXd0QWhUcXJ4WDhM?=
- =?utf-8?B?TERRUitnZ1FQUk0wV0dBNEZ1OHZBZ0lKektEQjZYcGRIdjVaakJFRytvdjFM?=
- =?utf-8?B?eStGUm1acVk3K091YkVTMDUvdXRoT0I2TG5ZRW5TaTZEcmg2a2taR0RTTTVm?=
- =?utf-8?Q?MrOikTJu0Lw45?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OXJYdFFjK01ZVE5Dd1BUV0o0V01QL0YvTVZWVm9zQjEyNm0wVGVHSnJURGdH?=
- =?utf-8?B?RE10SzlnMGVUeWJZT3ZkVy9OOGRFMVZYVDl2OVFEeGlkS0JlUk5XcVM4MWdZ?=
- =?utf-8?B?QXZ0eUM3bkNNblY4a3lTbDZXWEwwZkZweVNxN2dYUWtqMFNhcGpWY1NqZ09j?=
- =?utf-8?B?R1BSWnhmSUROaWprbVBQaXZNdEl1OFJONjNvQy8vc25jT0pEYXpqbldWUktW?=
- =?utf-8?B?U2ptMTV2Ri9QNlpGNXROVjFSYlNzMkJMa0RPUlYyL3dmWHJhemVZWmdHb201?=
- =?utf-8?B?a2l6L2F5dmJraW96ZUJvSjBzL2dNOXpWYWFUdWZZRDVBN0MvQVNhYzh0QzNP?=
- =?utf-8?B?NDVkSkxVUXFNRVJFdXdRVU8yTTMra0QvUmkvNE5uWTlrVm1kWk1ySytKaXUw?=
- =?utf-8?B?ZGhKdGl3b3duVWNhUWlmM1l3aCtoMFhOZE5lL3o3WTNUOEdLWllhOEs2SnRj?=
- =?utf-8?B?dVpzT3FvajJUdThxdDJ3SVZBQmpqWGhCTEltSjZmbFBwTnVnMHE2UEZXSnFx?=
- =?utf-8?B?bVVmUkxnU05UUkVkcE1kWUJjRjhubTQ4RlF0b0F6UHQrT3RpckMyUW83Rk5n?=
- =?utf-8?B?M0NJSlpWc3hSSEtNRGhWbDd0VFdQbG04U05EQ08wTFlPVXZibjNrTXdOZzl6?=
- =?utf-8?B?ZjN3RmlyMk8xVmJGblNiVnRyam1Idm9tNjNPQjlacUwveGgvcFhRRDREbWhl?=
- =?utf-8?B?YmdKemV2dTZhTmZSNEhDK0JmSm5yK2V4TlQ3Z3F0VWkzRDE3ZGdDZTB6T0pH?=
- =?utf-8?B?UWE0V3FMVWJPNkpyT0Y3SExKc0c1OHVVVDkyR1ZONVZUOWJDdGtOMkp6dUFw?=
- =?utf-8?B?aVplVUI5Ri9iZHZJekFJMVk4am5UZUJMZ2F0bXRYeFZVT1pBRGN5dFJYWWRp?=
- =?utf-8?B?RS9SeU1KMEwwQ2N2RXNDaWFBMStsd01JemR1RWxMQmd0U0ZxMWxJbjBYRVF1?=
- =?utf-8?B?TFN0NDNkK3lVVXZFTll6azFtbWtWd0QzL0VZSHFwMXEwTTJPY1QyUlc1NTFs?=
- =?utf-8?B?QTFqRzAxOXdWZGlFV3h4eE52UzJkSHJscENzb0taOUFIQ3JkQ1IycU9Ld0xL?=
- =?utf-8?B?TkhtZHZyQXJVQXQ5aTNqSERwVk9xdjZ6blIzWTdiY2Qwa012ZjZzdE5YY2Ft?=
- =?utf-8?B?bkZGQUdaU3BKQmJWb3o2UlFDVCtRNXdNNXJzbC9CbjcvOEFSMUtxdm9pUVZB?=
- =?utf-8?B?TGVhTVFJcndNZUZHMUZqZEwrQnV6KzRMYnczelR2L3NPWmc5WVZMMGFhQUl6?=
- =?utf-8?B?VEtUV2ZPWVlwOTZVUzhBRmNHWGtYN011SXppeUgreEl5dzloUWJtaFZWNU41?=
- =?utf-8?B?ZENsQVhKaVpBMSszOU5OWGk4VzhYend3SzdIQjlHUmswbjV0MmVZeEpPVExR?=
- =?utf-8?B?RVhtQjRzTGhWdlV4MXMzbEljWHg2S2w4S0pXRXdIMnVpbW1yODc4amR0UjFz?=
- =?utf-8?B?TTRyQURGWUthVitRdndibmpYVm5oZWFCRUNSTGRFanJ4Q1Biam5vOVU5dTFt?=
- =?utf-8?B?OS9kMDcrZGllQjZwcEkyNUtON0w1cmF6aU1BWVJPS3E3U3NBRkxjOUJzQ0J1?=
- =?utf-8?B?a2NodUVLVkxUanJQaUpSSW1GYis1N0EzYjRXN0pRK2V5QjNSakdlWExoQndN?=
- =?utf-8?B?UmZQK3pjUE5nWkJRQlo3bHdkMHdOZzg2V09KRjVRb2hGV3YrZkF2L1JIbzc0?=
- =?utf-8?B?VzhVVDZEMDdnQUhzaEpkZ3EyWHBvSjRrQnBVUUQ3LzJkR0lFc0Z2WGp6b1FO?=
- =?utf-8?B?cXI4T1hhUC93dzlTNm5abmUxMndUV0lZMnlzNDF5SlBZUHFvOVVVclFidlRH?=
- =?utf-8?B?SkhRenNVeUZOMmRsNGtFSGZWUm9nbjRwNDhCQkRmdTgrR1RHVzIrRjVOb2xU?=
- =?utf-8?B?bEx2eVpDU1ZaUDN4VFZZUzArNE8rdkZDdWxHWGdtN21aUkRZbnVicjFzSDRl?=
- =?utf-8?B?UXF3Mm5DUkNWMW5rNWh5K1lqRmNXaEpveTF4KzNYZ015NHFOSjN1V1dyRnc2?=
- =?utf-8?B?RUpzcFA3bnNwM0c1YnYrOWdhaCtIbC8wdUxpdTdSRWxrT1NPemszVkxVd0Ix?=
- =?utf-8?B?emV3YWluUlgyR2huN0s0RkthbFdETWcrdmdINGt5bDZFRmtvdlpGSGxqSFRD?=
- =?utf-8?Q?BqSUtUHaC3GIsujFK/Y0TEeTx?=
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|36860700013|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?MVkxMmxlWGk1bU1BdU84VGRjc05ZWHJSWm5ScEJTL3lKOFJ0VG13YU11eHl0?=
+ =?utf-8?B?MFM5UEZxeXBQbm1Tb1o5aTgyQUFxQlhqRWgyMUNIZ1RTaU1DMXh2bThOU0Rx?=
+ =?utf-8?B?a05QN1pMNzVCN3ZJaEVPQ1J4d1FrRHVsaEVnb094cENqbE5lbUZvU2pxL2Zl?=
+ =?utf-8?B?U0FOcFNXa0xlb3JjbXRodGhSOUtldkZzUEZsU1FQQ1h0U0kyRlZtN0VTcjlI?=
+ =?utf-8?B?OEQ1UElxUzhKMGxFNU1IRnFoOHVIVlI3UnRtRms3VFEyNnJ0UkJvdjFia1lo?=
+ =?utf-8?B?ejU0U2NqYk43TWFwMlJwc1lldlNralMyQVN2bzRpMDg5TUhoYVZCOXF5cHlR?=
+ =?utf-8?B?MEZscStmSmR0MEZCVy9LNXk1STBxVk5jbFVhbUx4MllyakpVUEU4ODZRcFo2?=
+ =?utf-8?B?WDcwUFRtZVFRUVR5eWMyRGxBd0FzK0ZYYWRxSyszVmxIU2JPOFQzK2pYRnpp?=
+ =?utf-8?B?RTA1QkVpZG1Yd1BhS1BkRi9qL2lYVzQ2b3VEYUxzbU9UMnQzeHBWUVRmU3dT?=
+ =?utf-8?B?RzBaSWZaUk9zclRDbzVDNjUrOUZkdDNFV0ZuTVNZaEd3TDV4Qk80MEd1blVj?=
+ =?utf-8?B?OUhqYmUzTmZVaGcyT1FoLzM3eTIvZG4xZWVyeTdScG14UUFaeHpjVXpIZGdJ?=
+ =?utf-8?B?cWFDZGF4cExzQ29LbGUvUUxEcFd3WjhHRSs5L2Y0Y2EyckJhbGl5RjUvTHFJ?=
+ =?utf-8?B?UHpRSnpJTUxXWFZYb052Ykp3bXlDYlhHbE90ZmQ2N0JrSkNta1Y3QjFNV1JO?=
+ =?utf-8?B?bmZCOGw3RGRGRng3NTJ2eDYvQVlFeE12T3gyVFZtUkhBWE9DcWx1MVZVR3pK?=
+ =?utf-8?B?OENBbWNWQnFZVlcxTXR1NXh5ZWh0cDlWUmJEdSt0ZmJyYjFhZUJxamdSdlJx?=
+ =?utf-8?B?bXdjOExRRUtyYXEzcFZEL2llT2NQcW94ekRkdThSYzZjR1d4VnY1OFVyaHBV?=
+ =?utf-8?B?Z0NPZkpQSzhZTWxuNlM4MDBjcG1mWE0rV2ZBMkE1RDJMK1pHUkcwYmc2U1Qr?=
+ =?utf-8?B?RVZvYnoyNCtsc3RUWWlSVHcrMGdEWWxsdURJZVkxOW5jNzZvbkVSNC8xdSt6?=
+ =?utf-8?B?NVo5bytEUmVGajIxRVJ2VmpsYXlEaUpodVNiMGFVSEZZTjJMY0JYVFNpTll5?=
+ =?utf-8?B?UkVmOFprWlN4TGhKTkR3SU0rVnRJVnZHWlc0VU9zZmxLbHVqVi80b1NQQ2JO?=
+ =?utf-8?B?eUJaTVU3MG9nMmVTMG1EOTJZRSt5TXg2MlBxMzNFK1pESG1TMjY2S3hIREFY?=
+ =?utf-8?B?K0JiTFNrK1g5OE9IMWpyMEVqZGl0V1RFbDluYXNxY3VQckgxK01EdHRqcDFp?=
+ =?utf-8?B?VG9GUkNpSFZnejkzRUNiektoNVFHWkl1QWFEaGRWdUxrMHo5cUw5SHc0Uy9J?=
+ =?utf-8?B?L2RWRndaUnJzSzFXdUNDSzZPKzFEWlRoTjQxZ3B6Sk1HcHdJWnQwSDV1a0VW?=
+ =?utf-8?B?Y0V3UHVnOUtORDVDam4wdTRudjM2K2YvVVJLRnpOdlE1WG9ZWGlhNC9vZmxP?=
+ =?utf-8?B?MXI4dGJMNDJacHQxdlBTY2svQk9MZU12cnpxaTh0cFBxWEVodGZGOHAzLzdK?=
+ =?utf-8?B?SjAvNWQvcUVESyt5LzhmSkpQbzdmY01vQ1NsUXdSR2htaEk5d05GOHoycDR4?=
+ =?utf-8?B?WEhROWJtVm5GMkdTL0FlVWRCczdINkUzNFJEUzQ3ZFN0M1JLQW40VHc2dXls?=
+ =?utf-8?B?RSs5dzVwUndTR2wxcmRDQWRGU3pOK3o1KzRzbk81bVdnUG1kdkJFMmZ3SkdR?=
+ =?utf-8?B?TUpkd1JRdEFhMm1SOE04Vi9Od3MwQUJmQXRtK1VzVlVVZDlyRitDeTB5aXFG?=
+ =?utf-8?B?MFlhdVFkcisybDluSE9Uc2FuWU1Bemt6c2grZFE2S082cWFSMjdBTGsrQ3Js?=
+ =?utf-8?B?emQyMUZhV0pIbk8yWE1xajV3dG1mK0lVQm9GRXEveWNKenE3bFRhSis3eU5I?=
+ =?utf-8?B?SEhjcnoxaVRCY21JNC9Oc2padS9qNlU5cG1lbHd4SmdrbFM1Y05vcmJUdkU4?=
+ =?utf-8?Q?JzI5RgDBi6C9hyKb1w7szdfzZfa0Lo=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5529556e-c7bb-4518-6c91-08dd2c543004
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jan 2025 00:10:25.2584 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jan 2025 06:02:25.5062 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 26b53020-69e0-47b3-f765-08dd2c855ccc
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hXr1E6VcBVjoYKz2gHbFinZiEV/cvgmXRtmm1bx7kArlF6IPTXjCV2FOu8awPFWR1J8dj3xVkvJ6/wfcI0VOaA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7690
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0002992B.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6409
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,1125 +141,186 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+This commit addresses a circular locking dependency issue within the GFX
+isolation mechanism. The problem was identified by a warning indicating
+a potential deadlock due to inconsistent lock acquisition order.
 
-On 2024-12-03 13:03, Xiaogang.Chen wrote:
-> From: Xiaogang Chen <xiaogang.chen@amd.com>
->
-> Current kfd driver has its own PASID value for a kfd process and uses it to
-> locate vm at interrupt handler or mapping between kfd process and vm. That
-> design is not working when a physical gpu device has multiple spatial
-> partitions, ex: adev in CPX mode. This patch has kfd driver use same pasid
-> values that graphic driver generated which is per vm per pasid.
->
-> These pasid values are passed to fw/hardware. We do not need change interrupt
-> handler though more pasid values are used. Also, pasid values at log are
-> replaced by user process pid; pasid values are not exposed to user. Users see
-> their process pids that have meaning in user space.
->
-> Signed-off-by: Xiaogang Chen <xiaogang.chen@amd.com>
+- The `amdgpu_gfx_enforce_isolation_ring_begin_use` and
+  `amdgpu_gfx_enforce_isolation_ring_end_use` functions previously
+  acquired `enforce_isolation_mutex` and called `amdgpu_gfx_kfd_sch_ctrl`,
+  leading to potential deadlocks. ie., If `amdgpu_gfx_kfd_sch_ctrl` is
+  called while `enforce_isolation_mutex` is held, and
+  `amdgpu_gfx_enforce_isolation_handler` is called while `kfd_sch_mutex` is
+  held, it can create a circular dependency.
 
-I found one more reference leak and a few more nit-picks. See inline. 
-Other than that, I think this looks good.
+Solution:
+- Removed the acquisition of `enforce_isolation_mutex` in
+  `amdgpu_gfx_enforce_isolation_ring_begin_use` and
+  `amdgpu_gfx_enforce_isolation_ring_end_use`.
+- This change ensures that locks are acquired in a consistent order,
+  preventing the circular dependency and potential deadlock.
 
+By ensuring consistent lock usage, this fix resolves the issue:
 
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |   3 +-
->   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |  21 ----
->   .../gpu/drm/amd/amdkfd/cik_event_interrupt.c  |  14 ++-
->   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      |  25 ++--
->   drivers/gpu/drm/amd/amdkfd/kfd_debug.c        |  14 +--
->   .../drm/amd/amdkfd/kfd_device_queue_manager.c |  77 ++++++------
->   drivers/gpu/drm/amd/amdkfd/kfd_events.c       |  43 ++++---
->   .../gpu/drm/amd/amdkfd/kfd_int_process_v11.c  |   2 +-
->   .../gpu/drm/amd/amdkfd/kfd_int_process_v9.c   |   2 +-
->   .../drm/amd/amdkfd/kfd_packet_manager_v9.c    |   4 +-
->   .../drm/amd/amdkfd/kfd_packet_manager_vi.c    |   3 +-
->   drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  11 +-
->   drivers/gpu/drm/amd/amdkfd/kfd_process.c      | 115 +++++++++++-------
->   .../amd/amdkfd/kfd_process_queue_manager.c    |  10 +-
->   drivers/gpu/drm/amd/amdkfd/kfd_svm.c          |  19 +--
->   15 files changed, 191 insertions(+), 172 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-> index 4b80ad860639..c1bc77f5bea4 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-> @@ -47,6 +47,7 @@ enum TLB_FLUSH_TYPE {
->   };
->   
->   struct amdgpu_device;
-> +struct kfd_process_device;
->   struct amdgpu_reset_context;
->   
->   enum kfd_mem_attachment_type {
-> @@ -299,8 +300,6 @@ bool amdgpu_amdkfd_compute_active(struct amdgpu_device *adev, uint32_t node_id);
->   	(&((struct amdgpu_fpriv *)					\
->   		((struct drm_file *)(drm_priv))->driver_priv)->vm)
->   
-> -int amdgpu_amdkfd_gpuvm_set_vm_pasid(struct amdgpu_device *adev,
-> -				     struct amdgpu_vm *avm, u32 pasid);
->   int amdgpu_amdkfd_gpuvm_acquire_process_vm(struct amdgpu_device *adev,
->   					struct amdgpu_vm *avm,
->   					void **process_info,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> index f30548f4c3b3..08a97f1b7ebd 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> @@ -1529,27 +1529,6 @@ static void amdgpu_amdkfd_gpuvm_unpin_bo(struct amdgpu_bo *bo)
->   	amdgpu_bo_unreserve(bo);
->   }
->   
-> -int amdgpu_amdkfd_gpuvm_set_vm_pasid(struct amdgpu_device *adev,
-> -				     struct amdgpu_vm *avm, u32 pasid)
-> -
-> -{
-> -	int ret;
-> -
-> -	/* Free the original amdgpu allocated pasid,
-> -	 * will be replaced with kfd allocated pasid.
-> -	 */
-> -	if (avm->pasid) {
-> -		amdgpu_pasid_free(avm->pasid);
-> -		amdgpu_vm_set_pasid(adev, avm, 0);
-> -	}
-> -
-> -	ret = amdgpu_vm_set_pasid(adev, avm, pasid);
-> -	if (ret)
-> -		return ret;
-> -
-> -	return 0;
-> -}
-> -
->   int amdgpu_amdkfd_gpuvm_acquire_process_vm(struct amdgpu_device *adev,
->   					   struct amdgpu_vm *avm,
->   					   void **process_info,
-> diff --git a/drivers/gpu/drm/amd/amdkfd/cik_event_interrupt.c b/drivers/gpu/drm/amd/amdkfd/cik_event_interrupt.c
-> index 795382b55e0a..b6efe7437e55 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/cik_event_interrupt.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/cik_event_interrupt.c
-> @@ -107,10 +107,16 @@ static void cik_event_interrupt_wq(struct kfd_node *dev,
->   		kfd_signal_hw_exception_event(pasid);
->   	else if (ihre->source_id == CIK_INTSRC_GFX_PAGE_INV_FAULT ||
->   		ihre->source_id == CIK_INTSRC_GFX_MEM_PROT_FAULT) {
-> +		struct kfd_process_device *pdd;
->   		struct kfd_vm_fault_info info;
-> +		struct kfd_process *p;
->   
->   		kfd_smi_event_update_vmfault(dev, pasid);
-> -		kfd_dqm_evict_pasid(dev->dqm, pasid);
-> +		p = kfd_lookup_process_by_pasid(pasid, &pdd);
-> +		if (!pdd)
+[  606.297333] ======================================================
+[  606.297343] WARNING: possible circular locking dependency detected
+[  606.297353] 6.10.0-amd-mlkd-610-311224-lof #19 Tainted: G           OE
+[  606.297365] ------------------------------------------------------
+[  606.297375] kworker/u96:3/3825 is trying to acquire lock:
+[  606.297385] ffff9aa64e431cb8 ((work_completion)(&(&adev->gfx.enforce_isolation[i].work)->work)){+.+.}-{0:0}, at: __flush_work+0x232/0x610
+[  606.297413]
+               but task is already holding lock:
+[  606.297423] ffff9aa64e432338 (&adev->gfx.kfd_sch_mutex){+.+.}-{3:3}, at: amdgpu_gfx_kfd_sch_ctrl+0x51/0x4d0 [amdgpu]
+[  606.297725]
+               which lock already depends on the new lock.
 
-You're relying on kfd_lookup_process_by_pasid to initialize pdd to NULL 
-here in the error case. It would be safer (and easier for static 
-checkers) if you initialized pdd to NULL in its declaration.
+[  606.297738]
+               the existing dependency chain (in reverse order) is:
+[  606.297749]
+               -> #2 (&adev->gfx.kfd_sch_mutex){+.+.}-{3:3}:
+[  606.297765]        __mutex_lock+0x85/0x930
+[  606.297776]        mutex_lock_nested+0x1b/0x30
+[  606.297786]        amdgpu_gfx_kfd_sch_ctrl+0x51/0x4d0 [amdgpu]
+[  606.298007]        amdgpu_gfx_enforce_isolation_ring_begin_use+0x2a4/0x5d0 [amdgpu]
+[  606.298225]        amdgpu_ring_alloc+0x48/0x70 [amdgpu]
+[  606.298412]        amdgpu_ib_schedule+0x176/0x8a0 [amdgpu]
+[  606.298603]        amdgpu_job_run+0xac/0x1e0 [amdgpu]
+[  606.298866]        drm_sched_run_job_work+0x24f/0x430 [gpu_sched]
+[  606.298880]        process_one_work+0x21e/0x680
+[  606.298890]        worker_thread+0x190/0x350
+[  606.298899]        kthread+0xe7/0x120
+[  606.298908]        ret_from_fork+0x3c/0x60
+[  606.298919]        ret_from_fork_asm+0x1a/0x30
+[  606.298929]
+               -> #1 (&adev->enforce_isolation_mutex){+.+.}-{3:3}:
+[  606.298947]        __mutex_lock+0x85/0x930
+[  606.298956]        mutex_lock_nested+0x1b/0x30
+[  606.298966]        amdgpu_gfx_enforce_isolation_handler+0x87/0x370 [amdgpu]
+[  606.299190]        process_one_work+0x21e/0x680
+[  606.299199]        worker_thread+0x190/0x350
+[  606.299208]        kthread+0xe7/0x120
+[  606.299217]        ret_from_fork+0x3c/0x60
+[  606.299227]        ret_from_fork_asm+0x1a/0x30
+[  606.299236]
+               -> #0 ((work_completion)(&(&adev->gfx.enforce_isolation[i].work)->work)){+.+.}-{0:0}:
+[  606.299257]        __lock_acquire+0x16f9/0x2810
+[  606.299267]        lock_acquire+0xd1/0x300
+[  606.299276]        __flush_work+0x250/0x610
+[  606.299286]        cancel_delayed_work_sync+0x71/0x80
+[  606.299296]        amdgpu_gfx_kfd_sch_ctrl+0x287/0x4d0 [amdgpu]
+[  606.299509]        amdgpu_gfx_enforce_isolation_ring_begin_use+0x2a4/0x5d0 [amdgpu]
+[  606.299723]        amdgpu_ring_alloc+0x48/0x70 [amdgpu]
+[  606.299909]        amdgpu_ib_schedule+0x176/0x8a0 [amdgpu]
+[  606.300101]        amdgpu_job_run+0xac/0x1e0 [amdgpu]
+[  606.300355]        drm_sched_run_job_work+0x24f/0x430 [gpu_sched]
+[  606.300369]        process_one_work+0x21e/0x680
+[  606.300378]        worker_thread+0x190/0x350
+[  606.300387]        kthread+0xe7/0x120
+[  606.300396]        ret_from_fork+0x3c/0x60
+[  606.300406]        ret_from_fork_asm+0x1a/0x30
+[  606.300416]
+               other info that might help us debug this:
 
+[  606.300428] Chain exists of:
+                 (work_completion)(&(&adev->gfx.enforce_isolation[i].work)->work) --> &adev->enforce_isolation_mutex --> &adev->gfx.kfd_sch_mutex
 
-> +			return;
-> +
-> +		kfd_evict_process_device(pdd);
->   
->   		memset(&info, 0, sizeof(info));
->   		amdgpu_amdkfd_gpuvm_get_vm_fault_info(dev->adev, &info);
-> @@ -118,9 +124,11 @@ static void cik_event_interrupt_wq(struct kfd_node *dev,
->   			return;
+[  606.300458]  Possible unsafe locking scenario:
 
-This return leaks the process reference count.
+[  606.300468]        CPU0                    CPU1
+[  606.300476]        ----                    ----
+[  606.300484]   lock(&adev->gfx.kfd_sch_mutex);
+[  606.300494]                                lock(&adev->enforce_isolation_mutex);
+[  606.300508]                                lock(&adev->gfx.kfd_sch_mutex);
+[  606.300521]   lock((work_completion)(&(&adev->gfx.enforce_isolation[i].work)->work));
+[  606.300536]
+                *** DEADLOCK ***
 
+[  606.300546] 5 locks held by kworker/u96:3/3825:
+[  606.300555]  #0: ffff9aa5aa1f5d58 ((wq_completion)comp_1.1.0){+.+.}-{0:0}, at: process_one_work+0x3f5/0x680
+[  606.300577]  #1: ffffaa53c3c97e40 ((work_completion)(&sched->work_run_job)){+.+.}-{0:0}, at: process_one_work+0x1d6/0x680
+[  606.300600]  #2: ffff9aa64e463c98 (&adev->enforce_isolation_mutex){+.+.}-{3:3}, at: amdgpu_gfx_enforce_isolation_ring_begin_use+0x1c3/0x5d0 [amdgpu]
+[  606.300837]  #3: ffff9aa64e432338 (&adev->gfx.kfd_sch_mutex){+.+.}-{3:3}, at: amdgpu_gfx_kfd_sch_ctrl+0x51/0x4d0 [amdgpu]
+[  606.301062]  #4: ffffffff8c1a5660 (rcu_read_lock){....}-{1:2}, at: __flush_work+0x70/0x610
+[  606.301083]
+               stack backtrace:
+[  606.301092] CPU: 14 PID: 3825 Comm: kworker/u96:3 Tainted: G           OE      6.10.0-amd-mlkd-610-311224-lof #19
+[  606.301109] Hardware name: Gigabyte Technology Co., Ltd. X570S GAMING X/X570S GAMING X, BIOS F7 03/22/2024
+[  606.301124] Workqueue: comp_1.1.0 drm_sched_run_job_work [gpu_sched]
+[  606.301140] Call Trace:
+[  606.301146]  <TASK>
+[  606.301154]  dump_stack_lvl+0x9b/0xf0
+[  606.301166]  dump_stack+0x10/0x20
+[  606.301175]  print_circular_bug+0x26c/0x340
+[  606.301187]  check_noncircular+0x157/0x170
+[  606.301197]  ? register_lock_class+0x48/0x490
+[  606.301213]  __lock_acquire+0x16f9/0x2810
+[  606.301230]  lock_acquire+0xd1/0x300
+[  606.301239]  ? __flush_work+0x232/0x610
+[  606.301250]  ? srso_alias_return_thunk+0x5/0xfbef5
+[  606.301261]  ? mark_held_locks+0x54/0x90
+[  606.301274]  ? __flush_work+0x232/0x610
+[  606.301284]  __flush_work+0x250/0x610
+[  606.301293]  ? __flush_work+0x232/0x610
+[  606.301305]  ? __pfx_wq_barrier_func+0x10/0x10
+[  606.301318]  ? mark_held_locks+0x54/0x90
+[  606.301331]  ? srso_alias_return_thunk+0x5/0xfbef5
+[  606.301345]  cancel_delayed_work_sync+0x71/0x80
+[  606.301356]  amdgpu_gfx_kfd_sch_ctrl+0x287/0x4d0 [amdgpu]
+[  606.301661]  amdgpu_gfx_enforce_isolation_ring_begin_use+0x2a4/0x5d0 [amdgpu]
+[  606.302050]  ? srso_alias_return_thunk+0x5/0xfbef5
+[  606.302069]  amdgpu_ring_alloc+0x48/0x70 [amdgpu]
+[  606.302452]  amdgpu_ib_schedule+0x176/0x8a0 [amdgpu]
+[  606.302862]  ? drm_sched_entity_error+0x82/0x190 [gpu_sched]
+[  606.302890]  amdgpu_job_run+0xac/0x1e0 [amdgpu]
+[  606.303366]  drm_sched_run_job_work+0x24f/0x430 [gpu_sched]
+[  606.303388]  process_one_work+0x21e/0x680
+[  606.303409]  worker_thread+0x190/0x350
+[  606.303424]  ? __pfx_worker_thread+0x10/0x10
+[  606.303437]  kthread+0xe7/0x120
+[  606.303449]  ? __pfx_kthread+0x10/0x10
+[  606.303463]  ret_from_fork+0x3c/0x60
+[  606.303476]  ? __pfx_kthread+0x10/0x10
+[  606.303489]  ret_from_fork_asm+0x1a/0x30
+[  606.303512]  </TASK>
 
->   
->   		if (info.vmid == vmid)
-> -			kfd_signal_vm_fault_event(dev, pasid, &info, NULL);
-> +			kfd_signal_vm_fault_event(pdd, &info, NULL);
->   		else
-> -			kfd_signal_vm_fault_event(dev, pasid, NULL, NULL);
-> +			kfd_signal_vm_fault_event(pdd, &info, NULL);
-> +
-> +		kfd_unref_process(p);
->   	}
->   }
->   
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> index 065d87841459..8b1fd8e7452b 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> @@ -155,8 +155,8 @@ static int kfd_open(struct inode *inode, struct file *filep)
->   	/* filep now owns the reference returned by kfd_create_process */
->   	filep->private_data = process;
->   
-> -	dev_dbg(kfd_device, "process %d opened, compat mode (32 bit) - %d\n",
-> -		process->pasid, process->is_32bit_user_mode);
-> +	dev_dbg(kfd_device, "process pid %d opened kfd node, compat mode (32 bit) - %d\n",
-> +		(int)process->lead_thread->pid, process->is_32bit_user_mode);
+Fixes: afefd6f24502 ("drm/amdgpu: Implement Enforce Isolation Handler for KGD/KFD serialization")
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 4 ----
+ 1 file changed, 4 deletions(-)
 
-Why do you need to cast pid to int? It uses pid_t, which is defined as 
-__kernel_pid_t, which in turn should be int. More of the same below ...
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+index 6d5d81f0dc4e..89f7c89d1392 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+@@ -2069,12 +2069,10 @@ void amdgpu_gfx_enforce_isolation_ring_begin_use(struct amdgpu_ring *ring)
+ 	/* Don't submit more work until KFD has had some time */
+ 	amdgpu_gfx_enforce_isolation_wait_for_kfd(adev, idx);
+ 
+-	mutex_lock(&adev->enforce_isolation_mutex);
+ 	if (adev->enforce_isolation[idx]) {
+ 		if (adev->kfd.init_complete)
+ 			amdgpu_gfx_kfd_sch_ctrl(adev, idx, false);
+ 	}
+-	mutex_unlock(&adev->enforce_isolation_mutex);
+ }
+ 
+ /**
+@@ -2102,12 +2100,10 @@ void amdgpu_gfx_enforce_isolation_ring_end_use(struct amdgpu_ring *ring)
+ 	if (idx >= MAX_XCP)
+ 		return;
+ 
+-	mutex_lock(&adev->enforce_isolation_mutex);
+ 	if (adev->enforce_isolation[idx]) {
+ 		if (adev->kfd.init_complete)
+ 			amdgpu_gfx_kfd_sch_ctrl(adev, idx, true);
+ 	}
+-	mutex_unlock(&adev->enforce_isolation_mutex);
+ }
+ 
+ /*
+-- 
+2.34.1
 
-
->   
->   	return 0;
->   }
-> @@ -361,8 +361,8 @@ static int kfd_ioctl_create_queue(struct file *filep, struct kfd_process *p,
->   		goto err_acquire_queue_buf;
->   	}
->   
-> -	pr_debug("Creating queue for PASID 0x%x on gpu 0x%x\n",
-> -			p->pasid,
-> +	pr_debug("Creating queue for process pid 0x%x on gpu 0x%x\n",
-> +			(int)p->lead_thread->pid,
->   			dev->id);
->   
->   	err = pqm_create_queue(&p->pqm, dev, &q_properties, &queue_id,
-> @@ -415,9 +415,9 @@ static int kfd_ioctl_destroy_queue(struct file *filp, struct kfd_process *p,
->   	int retval;
->   	struct kfd_ioctl_destroy_queue_args *args = data;
->   
-> -	pr_debug("Destroying queue id %d for pasid 0x%x\n",
-> +	pr_debug("Destroying queue id %d for process pid 0x%x\n",
->   				args->queue_id,
-> -				p->pasid);
-> +				(int)p->lead_thread->pid);
->   
->   	mutex_lock(&p->mutex);
->   
-> @@ -468,8 +468,8 @@ static int kfd_ioctl_update_queue(struct file *filp, struct kfd_process *p,
->   	properties.pm4_target_xcc = (args->queue_percentage >> 8) & 0xFF;
->   	properties.priority = args->queue_priority;
->   
-> -	pr_debug("Updating queue id %d for pasid 0x%x\n",
-> -			args->queue_id, p->pasid);
-> +	pr_debug("Updating queue id %d for process pid 0x%x\n",
-> +			args->queue_id, (int)p->lead_thread->pid);
->   
->   	mutex_lock(&p->mutex);
->   
-> @@ -695,7 +695,7 @@ static int kfd_ioctl_get_process_apertures(struct file *filp,
->   	struct kfd_process_device_apertures *pAperture;
->   	int i;
->   
-> -	dev_dbg(kfd_device, "get apertures for PASID 0x%x", p->pasid);
-> +	dev_dbg(kfd_device, "get apertures for process pid 0x%x", (int)p->lead_thread->pid);
->   
->   	args->num_of_nodes = 0;
->   
-> @@ -747,7 +747,8 @@ static int kfd_ioctl_get_process_apertures_new(struct file *filp,
->   	int ret;
->   	int i;
->   
-> -	dev_dbg(kfd_device, "get apertures for PASID 0x%x", p->pasid);
-> +	dev_dbg(kfd_device, "get apertures for process pid 0x%x",
-> +			(int)p->lead_thread->pid);
->   
->   	if (args->num_of_nodes == 0) {
->   		/* Return number of nodes, so that user space can alloacate
-> @@ -3365,12 +3366,12 @@ static int kfd_mmio_mmap(struct kfd_node *dev, struct kfd_process *process,
->   
->   	vma->vm_page_prot = pgprot_noncached(vma->vm_page_prot);
->   
-> -	pr_debug("pasid 0x%x mapping mmio page\n"
-> +	pr_debug("process pid 0x%x mapping mmio page\n"
->   		 "     target user address == 0x%08llX\n"
->   		 "     physical address    == 0x%08llX\n"
->   		 "     vm_flags            == 0x%04lX\n"
->   		 "     size                == 0x%04lX\n",
-> -		 process->pasid, (unsigned long long) vma->vm_start,
-> +		 (int)process->lead_thread->pid, (unsigned long long) vma->vm_start,
->   		 address, vma->vm_flags, PAGE_SIZE);
->   
->   	return io_remap_pfn_range(vma,
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-> index 312dfa84f29f..e96e3895056e 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
-> @@ -204,11 +204,12 @@ bool kfd_set_dbg_ev_from_interrupt(struct kfd_node *dev,
->   				   size_t exception_data_size)
->   {
->   	struct kfd_process *p;
-> +	struct kfd_process_device *pdd;
->   	bool signaled_to_debugger_or_runtime = false;
->   
-> -	p = kfd_lookup_process_by_pasid(pasid);
-> +	p = kfd_lookup_process_by_pasid(pasid, &pdd);
->   
-> -	if (!p)
-> +	if (!pdd)
-
-This again depends on kfd_lookup_process_by_pasid initializing pdd to 
-NULL in the error case, which is not obvious without looking up the 
-implementation in another file. It would be safer and easier to 
-static-check, if you NULL-initialized pdd in the declaration above.
-
-
->   		return false;
->   
->   	if (!kfd_dbg_ev_raise(trap_mask, p, dev, doorbell_id, true,
-> @@ -238,9 +239,8 @@ bool kfd_set_dbg_ev_from_interrupt(struct kfd_node *dev,
->   
->   			mutex_unlock(&p->mutex);
->   		} else if (trap_mask & KFD_EC_MASK(EC_DEVICE_MEMORY_VIOLATION)) {
-> -			kfd_dqm_evict_pasid(dev->dqm, p->pasid);
-> -			kfd_signal_vm_fault_event(dev, p->pasid, NULL,
-> -							exception_data);
-> +			kfd_evict_process_device(pdd);
-> +			kfd_signal_vm_fault_event(pdd, NULL, exception_data);
->   
->   			signaled_to_debugger_or_runtime = true;
->   		}
-> @@ -276,8 +276,8 @@ int kfd_dbg_send_exception_to_runtime(struct kfd_process *p,
->   		data = (struct kfd_hsa_memory_exception_data *)
->   						pdd->vm_fault_exc_data;
->   
-> -		kfd_dqm_evict_pasid(pdd->dev->dqm, p->pasid);
-> -		kfd_signal_vm_fault_event(pdd->dev, p->pasid, NULL, data);
-> +		kfd_evict_process_device(pdd);
-> +		kfd_signal_vm_fault_event(pdd, NULL, data);
->   		error_reason &= ~KFD_EC_MASK(EC_DEVICE_MEMORY_VIOLATION);
->   	}
->   
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> index c79fe9069e22..22a807718fd4 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> @@ -208,7 +208,7 @@ static int add_queue_mes(struct device_queue_manager *dqm, struct queue *q,
->   		return -EIO;
->   
->   	memset(&queue_input, 0x0, sizeof(struct mes_add_queue_input));
-> -	queue_input.process_id = qpd->pqm->process->pasid;
-> +	queue_input.process_id = pdd->pasid;
->   	queue_input.page_table_base_addr =  qpd->page_table_base;
->   	queue_input.process_va_start = 0;
->   	queue_input.process_va_end = adev->vm_manager.max_pfn - 1;
-> @@ -527,6 +527,7 @@ static int allocate_vmid(struct device_queue_manager *dqm,
->   			struct qcm_process_device *qpd,
->   			struct queue *q)
->   {
-> +	struct kfd_process_device *pdd = qpd_to_pdd(qpd);
->   	struct device *dev = dqm->dev->adev->dev;
->   	int allocated_vmid = -1, i;
->   
-> @@ -545,9 +546,9 @@ static int allocate_vmid(struct device_queue_manager *dqm,
->   
->   	pr_debug("vmid allocated: %d\n", allocated_vmid);
->   
-> -	dqm->vmid_pasid[allocated_vmid] = q->process->pasid;
-> +	dqm->vmid_pasid[allocated_vmid] = pdd->pasid;
->   
-> -	set_pasid_vmid_mapping(dqm, q->process->pasid, allocated_vmid);
-> +	set_pasid_vmid_mapping(dqm, pdd->pasid, allocated_vmid);
->   
->   	qpd->vmid = allocated_vmid;
->   	q->properties.vmid = allocated_vmid;
-> @@ -799,6 +800,11 @@ static int dbgdev_wave_reset_wavefronts(struct kfd_node *dev, struct kfd_process
->   		return -EOPNOTSUPP;
->   	}
->   
-> +	/* taking the VMID for that process on the safe way using PDD */
-> +	pdd = kfd_get_process_device_data(dev, p);
-> +	if (!pdd)
-> +		return -EFAULT;
-> +
->   	/* Scan all registers in the range ATC_VMID8_PASID_MAPPING ..
->   	 * ATC_VMID15_PASID_MAPPING
->   	 * to check which VMID the current process is mapped to.
-> @@ -808,23 +814,19 @@ static int dbgdev_wave_reset_wavefronts(struct kfd_node *dev, struct kfd_process
->   		status = dev->kfd2kgd->get_atc_vmid_pasid_mapping_info
->   				(dev->adev, vmid, &queried_pasid);
->   
-> -		if (status && queried_pasid == p->pasid) {
-> -			pr_debug("Killing wave fronts of vmid %d and pasid 0x%x\n",
-> -					vmid, p->pasid);
-> +		if (status && queried_pasid == pdd->pasid) {
-> +			pr_debug("Killing wave fronts of vmid %d and process pid 0x%x\n",
-> +				 vmid, p->lead_thread->pid);
->   			break;
->   		}
->   	}
->   
->   	if (vmid > last_vmid_to_scan) {
-> -		dev_err(dev->adev->dev, "Didn't find vmid for pasid 0x%x\n", p->pasid);
-> +		dev_err(dev->adev->dev, "Didn't find vmid for process pid 0x%x\n",
-> +			p->lead_thread->pid);
->   		return -EFAULT;
->   	}
->   
-> -	/* taking the VMID for that process on the safe way using PDD */
-> -	pdd = kfd_get_process_device_data(dev, p);
-> -	if (!pdd)
-> -		return -EFAULT;
-> -
->   	reg_gfx_index.bits.sh_broadcast_writes = 1;
->   	reg_gfx_index.bits.se_broadcast_writes = 1;
->   	reg_gfx_index.bits.instance_broadcast_writes = 1;
-> @@ -1060,8 +1062,8 @@ static int suspend_single_queue(struct device_queue_manager *dqm,
->   	if (q->properties.is_suspended)
->   		return 0;
->   
-> -	pr_debug("Suspending PASID %u queue [%i]\n",
-> -			pdd->process->pasid,
-> +	pr_debug("Suspending process pid %u queue [%i]\n",
-> +			pdd->process->lead_thread->pid,
->   			q->properties.queue_id);
->   
->   	is_new = q->properties.exception_status & KFD_EC_MASK(EC_QUEUE_NEW);
-> @@ -1108,8 +1110,8 @@ static int resume_single_queue(struct device_queue_manager *dqm,
->   
->   	pdd = qpd_to_pdd(qpd);
->   
-> -	pr_debug("Restoring from suspend PASID %u queue [%i]\n",
-> -			    pdd->process->pasid,
-> +	pr_debug("Restoring from suspend process pid %u queue [%i]\n",
-> +			    pdd->process->lead_thread->pid,
->   			    q->properties.queue_id);
->   
->   	q->properties.is_suspended = false;
-> @@ -1142,8 +1144,8 @@ static int evict_process_queues_nocpsch(struct device_queue_manager *dqm,
->   		goto out;
->   
->   	pdd = qpd_to_pdd(qpd);
-> -	pr_debug_ratelimited("Evicting PASID 0x%x queues\n",
-> -			    pdd->process->pasid);
-> +	pr_debug_ratelimited("Evicting process pid 0x%x queues\n",
-> +			    pdd->process->lead_thread->pid);
->   
->   	pdd->last_evict_timestamp = get_jiffies_64();
->   	/* Mark all queues as evicted. Deactivate all active queues on
-> @@ -1200,8 +1202,8 @@ static int evict_process_queues_cpsch(struct device_queue_manager *dqm,
->   	if (!pdd->drm_priv)
->   		goto out;
->   
-> -	pr_debug_ratelimited("Evicting PASID 0x%x queues\n",
-> -			    pdd->process->pasid);
-> +	pr_debug_ratelimited("Evicting process pid 0x%x queues\n",
-> +			    pdd->process->lead_thread->pid);
->   
->   	/* Mark all queues as evicted. Deactivate all active queues on
->   	 * the qpd.
-> @@ -1259,8 +1261,8 @@ static int restore_process_queues_nocpsch(struct device_queue_manager *dqm,
->   		goto out;
->   	}
->   
-> -	pr_debug_ratelimited("Restoring PASID 0x%x queues\n",
-> -			    pdd->process->pasid);
-> +	pr_debug_ratelimited("Restoring process pid 0x%x queues\n",
-> +			    pdd->process->lead_thread->pid);
->   
->   	/* Update PD Base in QPD */
->   	qpd->page_table_base = pd_base;
-> @@ -1343,8 +1345,8 @@ static int restore_process_queues_cpsch(struct device_queue_manager *dqm,
->   	if (!pdd->drm_priv)
->   		goto vm_not_acquired;
->   
-> -	pr_debug_ratelimited("Restoring PASID 0x%x queues\n",
-> -			    pdd->process->pasid);
-> +	pr_debug_ratelimited("Restoring process pid 0x%x queues\n",
-> +			     pdd->process->lead_thread->pid);
->   
->   	/* Update PD Base in QPD */
->   	qpd->page_table_base = amdgpu_amdkfd_gpuvm_get_process_page_dir(pdd->drm_priv);
-> @@ -2136,7 +2138,7 @@ static void set_queue_as_reset(struct device_queue_manager *dqm, struct queue *q
->   	struct kfd_process_device *pdd = qpd_to_pdd(qpd);
->   
->   	dev_err(dqm->dev->adev->dev, "queue id 0x%0x at pasid 0x%0x is reset\n",
-> -		q->properties.queue_id, q->process->pasid);
-> +		q->properties.queue_id, pdd->process->lead_thread->pid);
->   
->   	pdd->has_reset_queue = true;
->   	if (q->properties.is_active) {
-> @@ -2970,19 +2972,18 @@ void device_queue_manager_uninit(struct device_queue_manager *dqm)
->   int kfd_dqm_suspend_bad_queue_mes(struct kfd_node *knode, u32 pasid, u32 doorbell_id)
->   {
->   	struct kfd_process_device *pdd;
-> -	struct kfd_process *p = kfd_lookup_process_by_pasid(pasid);
-> +	struct kfd_process *p = kfd_lookup_process_by_pasid(pasid, &pdd);
->   	struct device_queue_manager *dqm = knode->dqm;
->   	struct device *dev = dqm->dev->adev->dev;
->   	struct qcm_process_device *qpd;
->   	struct queue *q = NULL;
->   	int ret = 0;
->   
-> -	if (!p)
-> +	if (!pdd)
-
-Same as above.
-
-
->   		return -EINVAL;
->   
->   	dqm_lock(dqm);
->   
-> -	pdd = kfd_get_process_device_data(dqm->dev, p);
->   	if (pdd) {
->   		qpd = &pdd->qpd;
->   
-> @@ -3015,6 +3016,7 @@ int kfd_dqm_suspend_bad_queue_mes(struct kfd_node *knode, u32 pasid, u32 doorbel
->   
->   out:
->   	dqm_unlock(dqm);
-> +	kfd_unref_process(p);
-
-Ah, this was a bug in the existing code. Maybe fix that in a separate 
-patch that goes before this one.
-
-
->   	return ret;
->   }
->   
-> @@ -3056,24 +3058,23 @@ static int kfd_dqm_evict_pasid_mes(struct device_queue_manager *dqm,
->   	return ret;
->   }
->   
-> -int kfd_dqm_evict_pasid(struct device_queue_manager *dqm, u32 pasid)
-> +int kfd_evict_process_device(struct kfd_process_device *pdd)
->   {
-> -	struct kfd_process_device *pdd;
-> -	struct kfd_process *p = kfd_lookup_process_by_pasid(pasid);
-> +	struct device_queue_manager *dqm;
-> +	struct kfd_process *p;
->   	int ret = 0;
->   
-> -	if (!p)
-> +	p = pdd->process;
-> +	dqm = pdd->dev->dqm;
-> +	if (!p || !dqm)
-
-I think these checks are unnecessary. A pdd without a process or a 
-device without a queue manager would be some serious bug somewhere else. 
-You could just let that cause a kernel oops.
-
-
->   		return -EINVAL;
-> +
->   	WARN(debug_evictions, "Evicting pid %d", p->lead_thread->pid);
-> -	pdd = kfd_get_process_device_data(dqm->dev, p);
-> -	if (pdd) {
-> -		if (dqm->dev->kfd->shared_resources.enable_mes)
-> +
-> +	if (dqm->dev->kfd->shared_resources.enable_mes)
->   			ret = kfd_dqm_evict_pasid_mes(dqm, &pdd->qpd);
->   		else
->   			ret = dqm->ops.evict_process_queues(dqm, &pdd->qpd);
-
-Please fix the indentation here.
-
-
-> -	}
-> -
-> -	kfd_unref_process(p);
->   
->   	return ret;
->   }
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-> index ea3792249209..f1a0562c4ca8 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-> @@ -727,7 +727,7 @@ void kfd_signal_event_interrupt(u32 pasid, uint32_t partial_id,
->   	 * to process context, kfd_process could attempt to exit while we are
->   	 * running so the lookup function increments the process ref count.
->   	 */
-> -	struct kfd_process *p = kfd_lookup_process_by_pasid(pasid);
-> +	struct kfd_process *p = kfd_lookup_process_by_pasid(pasid, NULL);
->   
->   	if (!p)
->   		return; /* Presumably process exited. */
-> @@ -1128,8 +1128,8 @@ static void lookup_events_by_type_and_signal(struct kfd_process *p,
->   
->   	if (type == KFD_EVENT_TYPE_MEMORY) {
->   		dev_warn(kfd_device,
-> -			"Sending SIGSEGV to process %d (pasid 0x%x)",
-> -				p->lead_thread->pid, p->pasid);
-> +			"Sending SIGSEGV to process pid %d",
-> +				p->lead_thread->pid);
->   		send_sig(SIGSEGV, p->lead_thread, 0);
->   	}
->   
-> @@ -1137,13 +1137,13 @@ static void lookup_events_by_type_and_signal(struct kfd_process *p,
->   	if (send_signal) {
->   		if (send_sigterm) {
->   			dev_warn(kfd_device,
-> -				"Sending SIGTERM to process %d (pasid 0x%x)",
-> -					p->lead_thread->pid, p->pasid);
-> +				"Sending SIGTERM to process pid %d",
-> +					p->lead_thread->pid);
->   			send_sig(SIGTERM, p->lead_thread, 0);
->   		} else {
->   			dev_err(kfd_device,
-> -				"Process %d (pasid 0x%x) got unhandled exception",
-> -				p->lead_thread->pid, p->pasid);
-> +				"Process pid %d got unhandled exception",
-> +				p->lead_thread->pid);
->   		}
->   	}
->   
-> @@ -1157,7 +1157,7 @@ void kfd_signal_hw_exception_event(u32 pasid)
->   	 * to process context, kfd_process could attempt to exit while we are
->   	 * running so the lookup function increments the process ref count.
->   	 */
-> -	struct kfd_process *p = kfd_lookup_process_by_pasid(pasid);
-> +	struct kfd_process *p = kfd_lookup_process_by_pasid(pasid, NULL);
->   
->   	if (!p)
->   		return; /* Presumably process exited. */
-> @@ -1166,22 +1166,20 @@ void kfd_signal_hw_exception_event(u32 pasid)
->   	kfd_unref_process(p);
->   }
->   
-> -void kfd_signal_vm_fault_event(struct kfd_node *dev, u32 pasid,
-> +void kfd_signal_vm_fault_event(struct kfd_process_device * pdd,
-
-No space between * and pdd.
-
-
->   				struct kfd_vm_fault_info *info,
->   				struct kfd_hsa_memory_exception_data *data)
->   {
->   	struct kfd_event *ev;
->   	uint32_t id;
-> -	struct kfd_process *p = kfd_lookup_process_by_pasid(pasid);
-> +	struct kfd_process *p = pdd->process;
->   	struct kfd_hsa_memory_exception_data memory_exception_data;
->   	int user_gpu_id;
->   
-> -	if (!p)
-> -		return; /* Presumably process exited. */
-> -
-> -	user_gpu_id = kfd_process_get_user_gpu_id(p, dev->id);
-> +	user_gpu_id = kfd_process_get_user_gpu_id(p, pdd->dev->id);
->   	if (unlikely(user_gpu_id == -EINVAL)) {
-> -		WARN_ONCE(1, "Could not get user_gpu_id from dev->id:%x\n", dev->id);
-> +		WARN_ONCE(1, "Could not get user_gpu_id from dev->id:%x\n",
-> +			  pdd->dev->id);
->   		return;
->   	}
->   
-> @@ -1218,7 +1216,6 @@ void kfd_signal_vm_fault_event(struct kfd_node *dev, u32 pasid,
->   		}
->   
->   	rcu_read_unlock();
-> -	kfd_unref_process(p);
->   }
->   
->   void kfd_signal_reset_event(struct kfd_node *dev)
-> @@ -1253,7 +1250,8 @@ void kfd_signal_reset_event(struct kfd_node *dev)
->   		}
->   
->   		if (unlikely(!pdd)) {
-> -			WARN_ONCE(1, "Could not get device data from pasid:0x%x\n", p->pasid);
-> +			WARN_ONCE(1, "Could not get device data from process pid:0x%x\n",
-> +				  p->lead_thread->pid);
->   			continue;
->   		}
->   
-> @@ -1262,8 +1260,15 @@ void kfd_signal_reset_event(struct kfd_node *dev)
->   
->   		if (dev->dqm->detect_hang_count) {
->   			struct amdgpu_task_info *ti;
-> +			struct amdgpu_fpriv *drv_priv;
-> +
-> +			if (unlikely(amdgpu_file_to_fpriv(pdd->drm_file, &drv_priv))) {
-> +				WARN_ONCE(1, "Could not get vm for device %x from pid:0x%x\n",
-> +					  dev->id, p->lead_thread->pid);
-> +				continue;
-> +			}
->   
-> -			ti = amdgpu_vm_get_task_info_pasid(dev->adev, p->pasid);
-> +			ti = amdgpu_vm_get_task_info_vm(&drv_priv->vm);
->   			if (ti) {
->   				dev_err(dev->adev->dev,
->   					"Queues reset on process %s tid %d thread %s pid %d\n",
-> @@ -1300,7 +1305,7 @@ void kfd_signal_reset_event(struct kfd_node *dev)
->   
->   void kfd_signal_poison_consumed_event(struct kfd_node *dev, u32 pasid)
->   {
-> -	struct kfd_process *p = kfd_lookup_process_by_pasid(pasid);
-> +	struct kfd_process *p = kfd_lookup_process_by_pasid(pasid, NULL);
->   	struct kfd_hsa_memory_exception_data memory_exception_data;
->   	struct kfd_hsa_hw_exception_data hw_exception_data;
->   	struct kfd_event *ev;
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v11.c b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v11.c
-> index b3f988b275a8..c5f97e6e36ff 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v11.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v11.c
-> @@ -194,7 +194,7 @@ static void event_interrupt_poison_consumption_v11(struct kfd_node *dev,
->   	enum amdgpu_ras_block block = 0;
->   	int ret = -EINVAL;
->   	uint32_t reset = 0;
-> -	struct kfd_process *p = kfd_lookup_process_by_pasid(pasid);
-> +	struct kfd_process *p = kfd_lookup_process_by_pasid(pasid, NULL);
->   
->   	if (!p)
->   		return;
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-> index 0cb5c582ce7d..b8a91bf4ef30 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-> @@ -146,7 +146,7 @@ static void event_interrupt_poison_consumption_v9(struct kfd_node *dev,
->   {
->   	enum amdgpu_ras_block block = 0;
->   	uint32_t reset = 0;
-> -	struct kfd_process *p = kfd_lookup_process_by_pasid(pasid);
-> +	struct kfd_process *p = kfd_lookup_process_by_pasid(pasid, NULL);
->   	enum ras_event_type type = RAS_EVENT_TYPE_POISON_CONSUMPTION;
->   	u64 event_id;
->   	int old_poison, ret;
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
-> index 1f9f5bfeaf86..d56525201155 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
-> @@ -47,7 +47,7 @@ static int pm_map_process_v9(struct packet_manager *pm,
->   		packet->bitfields2.exec_cleaner_shader = 1;
->   	packet->bitfields2.diq_enable = (qpd->is_debug) ? 1 : 0;
->   	packet->bitfields2.process_quantum = 10;
-> -	packet->bitfields2.pasid = qpd->pqm->process->pasid;
-> +	packet->bitfields2.pasid = pdd->pasid;
->   	packet->bitfields14.gds_size = qpd->gds_size & 0x3F;
->   	packet->bitfields14.gds_size_hi = (qpd->gds_size >> 6) & 0xF;
->   	packet->bitfields14.num_gws = (qpd->mapped_gws_queue) ? qpd->num_gws : 0;
-> @@ -106,7 +106,7 @@ static int pm_map_process_aldebaran(struct packet_manager *pm,
->   		packet->bitfields2.exec_cleaner_shader = 1;
->   	packet->bitfields2.diq_enable = (qpd->is_debug) ? 1 : 0;
->   	packet->bitfields2.process_quantum = 10;
-> -	packet->bitfields2.pasid = qpd->pqm->process->pasid;
-> +	packet->bitfields2.pasid = pdd->pasid;
->   	packet->bitfields14.gds_size = qpd->gds_size & 0x3F;
->   	packet->bitfields14.gds_size_hi = (qpd->gds_size >> 6) & 0xF;
->   	packet->bitfields14.num_gws = (qpd->mapped_gws_queue) ? qpd->num_gws : 0;
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_vi.c b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_vi.c
-> index c1199d06d131..347c86e1c378 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_vi.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_vi.c
-> @@ -42,6 +42,7 @@ unsigned int pm_build_pm4_header(unsigned int opcode, size_t packet_size)
->   static int pm_map_process_vi(struct packet_manager *pm, uint32_t *buffer,
->   				struct qcm_process_device *qpd)
->   {
-> +	struct kfd_process_device *pdd = qpd_to_pdd(qpd);
->   	struct pm4_mes_map_process *packet;
->   
->   	packet = (struct pm4_mes_map_process *)buffer;
-> @@ -52,7 +53,7 @@ static int pm_map_process_vi(struct packet_manager *pm, uint32_t *buffer,
->   					sizeof(struct pm4_mes_map_process));
->   	packet->bitfields2.diq_enable = (qpd->is_debug) ? 1 : 0;
->   	packet->bitfields2.process_quantum = 10;
-> -	packet->bitfields2.pasid = qpd->pqm->process->pasid;
-> +	packet->bitfields2.pasid = pdd->pasid;
->   	packet->bitfields3.page_table_base = qpd->page_table_base;
->   	packet->bitfields10.gds_size = qpd->gds_size;
->   	packet->bitfields10.num_gws = qpd->num_gws;
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> index 9e5ca0b93b2a..b6aba42d1f6b 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> @@ -849,6 +849,8 @@ struct kfd_process_device {
->   
->   	/* Tracks queue reset status */
->   	bool has_reset_queue;
-> +
-> +	u32 pasid;
->   };
->   
->   #define qpd_to_pdd(x) container_of(x, struct kfd_process_device, qpd)
-> @@ -908,8 +910,6 @@ struct kfd_process {
->   	/* We want to receive a notification when the mm_struct is destroyed */
->   	struct mmu_notifier mmu_notifier;
->   
-> -	u32 pasid;
-> -
->   	/*
->   	 * Array of kfd_process_device pointers,
->   	 * one for each device the process is using.
-> @@ -1034,7 +1034,8 @@ void kfd_process_destroy_wq(void);
->   void kfd_cleanup_processes(void);
->   struct kfd_process *kfd_create_process(struct task_struct *thread);
->   struct kfd_process *kfd_get_process(const struct task_struct *task);
-> -struct kfd_process *kfd_lookup_process_by_pasid(u32 pasid);
-> +struct kfd_process *kfd_lookup_process_by_pasid(u32 pasid,
-> +						 struct kfd_process_device **pdd);
->   struct kfd_process *kfd_lookup_process_by_mm(const struct mm_struct *mm);
->   
->   int kfd_process_gpuidx_from_gpuid(struct kfd_process *p, uint32_t gpu_id);
-> @@ -1331,7 +1332,7 @@ void device_queue_manager_uninit(struct device_queue_manager *dqm);
->   struct kernel_queue *kernel_queue_init(struct kfd_node *dev,
->   					enum kfd_queue_type type);
->   void kernel_queue_uninit(struct kernel_queue *kq);
-> -int kfd_dqm_evict_pasid(struct device_queue_manager *dqm, u32 pasid);
-> +int kfd_evict_process_device(struct kfd_process_device *pdd);
->   int kfd_dqm_suspend_bad_queue_mes(struct kfd_node *knode, u32 pasid, u32 doorbell_id);
->   
->   /* Process Queue Manager */
-> @@ -1486,7 +1487,7 @@ int kfd_event_create(struct file *devkfd, struct kfd_process *p,
->   int kfd_get_num_events(struct kfd_process *p);
->   int kfd_event_destroy(struct kfd_process *p, uint32_t event_id);
->   
-> -void kfd_signal_vm_fault_event(struct kfd_node *dev, u32 pasid,
-> +void kfd_signal_vm_fault_event(struct kfd_process_device * pdd,
-
-No space between * and pdd.
-
-
-Regards,
-   Felix
-
-
->   				struct kfd_vm_fault_info *info,
->   				struct kfd_hsa_memory_exception_data *data);
->   
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> index 87cd52cf4ee9..de963b8b2e09 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> @@ -282,8 +282,8 @@ static int kfd_get_cu_occupancy(struct attribute *attr, char *buffer)
->   	cu_cnt = 0;
->   	proc = pdd->process;
->   	if (pdd->qpd.queue_count == 0) {
-> -		pr_debug("Gpu-Id: %d has no active queues for process %d\n",
-> -			 dev->id, proc->pasid);
-> +		pr_debug("Gpu-Id: %d has no active queues for process pid %d\n",
-> +			 dev->id, (int)proc->lead_thread->pid);
->   		return snprintf(buffer, PAGE_SIZE, "%d\n", cu_cnt);
->   	}
->   
-> @@ -327,12 +327,9 @@ static int kfd_get_cu_occupancy(struct attribute *attr, char *buffer)
->   static ssize_t kfd_procfs_show(struct kobject *kobj, struct attribute *attr,
->   			       char *buffer)
->   {
-> -	if (strcmp(attr->name, "pasid") == 0) {
-> -		struct kfd_process *p = container_of(attr, struct kfd_process,
-> -						     attr_pasid);
-> -
-> -		return snprintf(buffer, PAGE_SIZE, "%d\n", p->pasid);
-> -	} else if (strncmp(attr->name, "vram_", 5) == 0) {
-> +	if (strcmp(attr->name, "pasid") == 0)
-> +		return snprintf(buffer, PAGE_SIZE, "%d\n", 0);
-> +	else if (strncmp(attr->name, "vram_", 5) == 0) {
->   		struct kfd_process_device *pdd = container_of(attr, struct kfd_process_device,
->   							      attr_vram);
->   		return snprintf(buffer, PAGE_SIZE, "%llu\n", atomic64_read(&pdd->vram_usage));
-> @@ -1056,8 +1053,8 @@ static void kfd_process_destroy_pdds(struct kfd_process *p)
->   	for (i = 0; i < p->n_pdds; i++) {
->   		struct kfd_process_device *pdd = p->pdds[i];
->   
-> -		pr_debug("Releasing pdd (topology id %d) for process (pasid 0x%x)\n",
-> -				pdd->dev->id, p->pasid);
-> +		pr_debug("Releasing pdd (topology id %d, for pid 0x%0x)\n",
-> +			 pdd->dev->id, (int)p->lead_thread->pid);
->   
->   		kfd_process_device_destroy_cwsr_dgpu(pdd);
->   		kfd_process_device_destroy_ib_mem(pdd);
-> @@ -1172,7 +1169,6 @@ static void kfd_process_wq_release(struct work_struct *work)
->   
->   	kfd_event_free_process(p);
->   
-> -	kfd_pasid_free(p->pasid);
->   	mutex_destroy(&p->mutex);
->   
->   	put_task_struct(p->lead_thread);
-> @@ -1523,12 +1519,6 @@ static struct kfd_process *create_process(const struct task_struct *thread)
->   	atomic_set(&process->debugged_process_count, 0);
->   	sema_init(&process->runtime_enable_sema, 0);
->   
-> -	process->pasid = kfd_pasid_alloc();
-> -	if (process->pasid == 0) {
-> -		err = -ENOSPC;
-> -		goto err_alloc_pasid;
-> -	}
-> -
->   	err = pqm_init(&process->pqm, process);
->   	if (err != 0)
->   		goto err_process_pqm_init;
-> @@ -1582,8 +1572,6 @@ static struct kfd_process *create_process(const struct task_struct *thread)
->   err_init_apertures:
->   	pqm_uninit(&process->pqm);
->   err_process_pqm_init:
-> -	kfd_pasid_free(process->pasid);
-> -err_alloc_pasid:
->   	kfd_event_free_process(process);
->   err_event_init:
->   	mutex_destroy(&process->mutex);
-> @@ -1722,15 +1710,18 @@ int kfd_process_device_init_vm(struct kfd_process_device *pdd,
->   	if (ret)
->   		goto err_init_cwsr;
->   
-> -	ret = amdgpu_amdkfd_gpuvm_set_vm_pasid(dev->adev, avm, p->pasid);
-> -	if (ret)
-> -		goto err_set_pasid;
-> +	if (unlikely(!avm->pasid)) {
-> +		dev_warn(pdd->dev->adev->dev, "WARN: vm %p has no pasid associated",
-> +			 avm);
-> +		goto err_get_pasid;
-> +	}
->   
-> +	pdd->pasid = avm->pasid;
->   	pdd->drm_file = drm_file;
->   
->   	return 0;
->   
-> -err_set_pasid:
-> +err_get_pasid:
->   	kfd_process_device_destroy_cwsr_dgpu(pdd);
->   err_init_cwsr:
->   	kfd_process_device_destroy_ib_mem(pdd);
-> @@ -1816,25 +1807,53 @@ void kfd_process_device_remove_obj_handle(struct kfd_process_device *pdd,
->   		idr_remove(&pdd->alloc_idr, handle);
->   }
->   
-> -/* This increments the process->ref counter. */
-> -struct kfd_process *kfd_lookup_process_by_pasid(u32 pasid)
-> +static struct kfd_process_device *kfd_lookup_process_device_by_pasid(u32 pasid)
->   {
-> -	struct kfd_process *p, *ret_p = NULL;
-> -	unsigned int temp;
->   
-> -	int idx = srcu_read_lock(&kfd_processes_srcu);
-> +	struct kfd_process_device *ret_p = NULL;
-> +	struct kfd_process *p;
-> +	unsigned int temp;
-> +	int i;
->   
->   	hash_for_each_rcu(kfd_processes_table, temp, p, kfd_processes) {
-> -		if (p->pasid == pasid) {
-> -			kref_get(&p->ref);
-> -			ret_p = p;
-> -			break;
-> +		for (i = 0; i < p->n_pdds; i++) {
-> +			if (p->pdds[i]->pasid == pasid) {
-> +				ret_p = p->pdds[i];
-> +				break;
-> +			}
->   		}
-> +		if (ret_p)
-> +			break;
-> +	}
-> +
-> +	return ret_p;
-> +
-> +}
-> +
-> +/* This increments the process->ref counter. */
-> +struct kfd_process *kfd_lookup_process_by_pasid(u32 pasid,
-> +						 struct kfd_process_device **pdd)
-> +{
-> +	struct kfd_process_device *ret_p;
-> +
-> +	int idx = srcu_read_lock(&kfd_processes_srcu);
-> +
-> +	ret_p = kfd_lookup_process_device_by_pasid(pasid);
-> +	if (ret_p) {
-> +		if (pdd)
-> +			*pdd = ret_p;
-> +		kref_get(&ret_p->process->ref);
-> +
-> +		srcu_read_unlock(&kfd_processes_srcu, idx);
-> +		return ret_p->process;
->   	}
->   
->   	srcu_read_unlock(&kfd_processes_srcu, idx);
->   
-> -	return ret_p;
-> +	if (pdd)
-> +		*pdd = NULL;
-> +
-> +	return NULL;
->   }
->   
->   /* This increments the process->ref counter. */
-> @@ -1990,7 +2009,7 @@ static void evict_process_worker(struct work_struct *work)
->   	 */
->   	p = container_of(dwork, struct kfd_process, eviction_work);
->   
-> -	pr_debug("Started evicting pasid 0x%x\n", p->pasid);
-> +	pr_debug("Started evicting process pid 0x%x\n", (int)p->lead_thread->pid);
->   	ret = kfd_process_evict_queues(p, KFD_QUEUE_EVICTION_TRIGGER_TTM);
->   	if (!ret) {
->   		/* If another thread already signaled the eviction fence,
-> @@ -2002,9 +2021,9 @@ static void evict_process_worker(struct work_struct *work)
->   				     msecs_to_jiffies(PROCESS_RESTORE_TIME_MS)))
->   			kfd_process_restore_queues(p);
->   
-> -		pr_debug("Finished evicting pasid 0x%x\n", p->pasid);
-> +		pr_debug("Finished evicting process pid 0x%x\n", (int)p->lead_thread->pid);
->   	} else
-> -		pr_err("Failed to evict queues of pasid 0x%x\n", p->pasid);
-> +		pr_err("Failed to evict queues of process pid 0x%x\n", (int)p->lead_thread->pid);
->   }
->   
->   static int restore_process_helper(struct kfd_process *p)
-> @@ -2021,9 +2040,11 @@ static int restore_process_helper(struct kfd_process *p)
->   
->   	ret = kfd_process_restore_queues(p);
->   	if (!ret)
-> -		pr_debug("Finished restoring pasid 0x%x\n", p->pasid);
-> +		pr_debug("Finished restoring process pid 0x%x\n",
-> +			 (int)p->lead_thread->pid);
->   	else
-> -		pr_err("Failed to restore queues of pasid 0x%x\n", p->pasid);
-> +		pr_err("Failed to restore queues of process pid 0x%x\n",
-> +			(int)p->lead_thread->pid);
->   
->   	return ret;
->   }
-> @@ -2040,7 +2061,7 @@ static void restore_process_worker(struct work_struct *work)
->   	 * lifetime of this thread, kfd_process p will be valid
->   	 */
->   	p = container_of(dwork, struct kfd_process, restore_work);
-> -	pr_debug("Started restoring pasid 0x%x\n", p->pasid);
-> +	pr_debug("Started restoring process pasid 0x%x\n", (int)p->lead_thread->pid);
->   
->   	/* Setting last_restore_timestamp before successful restoration.
->   	 * Otherwise this would have to be set by KGD (restore_process_bos)
-> @@ -2056,8 +2077,8 @@ static void restore_process_worker(struct work_struct *work)
->   
->   	ret = restore_process_helper(p);
->   	if (ret) {
-> -		pr_debug("Failed to restore BOs of pasid 0x%x, retry after %d ms\n",
-> -			 p->pasid, PROCESS_BACK_OFF_TIME_MS);
-> +		pr_debug("Failed to restore BOs of process pid 0x%x, retry after %d ms\n",
-> +			 (int)p->lead_thread->pid, PROCESS_BACK_OFF_TIME_MS);
->   		if (mod_delayed_work(kfd_restore_wq, &p->restore_work,
->   				     msecs_to_jiffies(PROCESS_RESTORE_TIME_MS)))
->   			kfd_process_restore_queues(p);
-> @@ -2073,7 +2094,7 @@ void kfd_suspend_all_processes(void)
->   	WARN(debug_evictions, "Evicting all processes");
->   	hash_for_each_rcu(kfd_processes_table, temp, p, kfd_processes) {
->   		if (kfd_process_evict_queues(p, KFD_QUEUE_EVICTION_TRIGGER_SUSPEND))
-> -			pr_err("Failed to suspend process 0x%x\n", p->pasid);
-> +			pr_err("Failed to suspend process pid 0x%x\n", (int)p->lead_thread->pid);
->   		signal_eviction_fence(p);
->   	}
->   	srcu_read_unlock(&kfd_processes_srcu, idx);
-> @@ -2087,8 +2108,8 @@ int kfd_resume_all_processes(void)
->   
->   	hash_for_each_rcu(kfd_processes_table, temp, p, kfd_processes) {
->   		if (restore_process_helper(p)) {
-> -			pr_err("Restore process %d failed during resume\n",
-> -			       p->pasid);
-> +			pr_err("Restore process pid %d failed during resume\n",
-> +			       (int)p->lead_thread->pid);
->   			ret = -EFAULT;
->   		}
->   	}
-> @@ -2143,7 +2164,7 @@ int kfd_process_drain_interrupts(struct kfd_process_device *pdd)
->   	memset(irq_drain_fence, 0, sizeof(irq_drain_fence));
->   	irq_drain_fence[0] = (KFD_IRQ_FENCE_SOURCEID << 8) |
->   							KFD_IRQ_FENCE_CLIENTID;
-> -	irq_drain_fence[3] = pdd->process->pasid;
-> +	irq_drain_fence[3] = pdd->pasid;
->   
->   	/*
->   	 * For GFX 9.4.3, send the NodeId also in IH cookie DW[3]
-> @@ -2173,7 +2194,7 @@ void kfd_process_close_interrupt_drain(unsigned int pasid)
->   {
->   	struct kfd_process *p;
->   
-> -	p = kfd_lookup_process_by_pasid(pasid);
-> +	p = kfd_lookup_process_by_pasid(pasid, NULL);
->   
->   	if (!p)
->   		return;
-> @@ -2295,7 +2316,7 @@ int kfd_debugfs_mqds_by_process(struct seq_file *m, void *data)
->   
->   	hash_for_each_rcu(kfd_processes_table, temp, p, kfd_processes) {
->   		seq_printf(m, "Process %d PASID 0x%x:\n",
-> -			   p->lead_thread->tgid, p->pasid);
-> +			   p->lead_thread->tgid, (int)p->lead_thread->pid);
->   
->   		mutex_lock(&p->mutex);
->   		r = pqm_debugfs_mqds(m, &p->pqm);
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-> index c76db22a1000..1f98c16e0fe9 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-> @@ -69,8 +69,8 @@ static int find_available_queue_slot(struct process_queue_manager *pqm,
->   	pr_debug("The new slot id %lu\n", found);
->   
->   	if (found >= KFD_MAX_NUM_OF_QUEUES_PER_PROCESS) {
-> -		pr_info("Cannot open more queues for process with pasid 0x%x\n",
-> -				pqm->process->pasid);
-> +		pr_info("Cannot open more queues for process with pid 0x%x\n",
-> +			pqm->process->lead_thread->pid);
->   		return -ENOMEM;
->   	}
->   
-> @@ -425,8 +425,8 @@ int pqm_create_queue(struct process_queue_manager *pqm,
->   	}
->   
->   	if (retval != 0) {
-> -		pr_err("Pasid 0x%x DQM create queue type %d failed. ret %d\n",
-> -			pqm->process->pasid, type, retval);
-> +		pr_err("process pid 0x%x DQM create queue type %d failed. ret %d\n",
-> +			pqm->process->lead_thread->pid, type, retval);
->   		goto err_create_queue;
->   	}
->   
-> @@ -520,7 +520,7 @@ int pqm_destroy_queue(struct process_queue_manager *pqm, unsigned int qid)
->   		retval = dqm->ops.destroy_queue(dqm, &pdd->qpd, pqn->q);
->   		if (retval) {
->   			pr_err("Pasid 0x%x destroy queue %d failed, ret %d\n",
-> -				pqm->process->pasid,
-> +				pdd->pasid,
->   				pqn->q->properties.queue_id, retval);
->   			if (retval != -ETIME)
->   				goto err_destroy_queue;
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> index 3e2911895c74..a443c5d8ae1d 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-> @@ -563,7 +563,8 @@ svm_range_vram_node_new(struct kfd_node *node, struct svm_range *prange,
->   	int r;
->   
->   	p = container_of(prange->svms, struct kfd_process, svms);
-> -	pr_debug("pasid: %x svms 0x%p [0x%lx 0x%lx]\n", p->pasid, prange->svms,
-> +	pr_debug("process pid: %x svms 0x%p [0x%lx 0x%lx]\n",
-> +		 (int)p->lead_thread->pid, prange->svms,
->   		 prange->start, prange->last);
->   
->   	if (svm_range_validate_svm_bo(node, prange))
-> @@ -2969,7 +2970,7 @@ svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
->   		return -EFAULT;
->   	}
->   
-> -	p = kfd_lookup_process_by_pasid(pasid);
-> +	p = kfd_lookup_process_by_pasid(pasid, NULL);
->   	if (!p) {
->   		pr_debug("kfd process not founded pasid 0x%x\n", pasid);
->   		return 0;
-> @@ -3232,7 +3233,8 @@ void svm_range_list_fini(struct kfd_process *p)
->   	struct svm_range *prange;
->   	struct svm_range *next;
->   
-> -	pr_debug("pasid 0x%x svms 0x%p\n", p->pasid, &p->svms);
-> +	pr_debug("process pid 0x%x svms 0x%p\n", (int)p->lead_thread->pid,
-> +		 &p->svms);
->   
->   	cancel_delayed_work_sync(&p->svms.restore_work);
->   
-> @@ -3255,7 +3257,8 @@ void svm_range_list_fini(struct kfd_process *p)
->   
->   	mutex_destroy(&p->svms.lock);
->   
-> -	pr_debug("pasid 0x%x svms 0x%p done\n", p->pasid, &p->svms);
-> +	pr_debug("process pid 0x%x svms 0x%p done\n",
-> +		(int)p->lead_thread->pid, &p->svms);
->   }
->   
->   int svm_range_list_init(struct kfd_process *p)
-> @@ -3618,8 +3621,8 @@ svm_range_set_attr(struct kfd_process *p, struct mm_struct *mm,
->   	bool flush_tlb;
->   	int r, ret = 0;
->   
-> -	pr_debug("pasid 0x%x svms 0x%p [0x%llx 0x%llx] pages 0x%llx\n",
-> -		 p->pasid, &p->svms, start, start + size - 1, size);
-> +	pr_debug("process pid 0x%x svms 0x%p [0x%llx 0x%llx] pages 0x%llx\n",
-> +		 (int)p->lead_thread->pid, &p->svms, start, start + size - 1, size);
->   
->   	r = svm_range_check_attr(p, nattr, attrs);
->   	if (r)
-> @@ -3727,8 +3730,8 @@ svm_range_set_attr(struct kfd_process *p, struct mm_struct *mm,
->   out:
->   	mutex_unlock(&process_info->lock);
->   
-> -	pr_debug("pasid 0x%x svms 0x%p [0x%llx 0x%llx] done, r=%d\n", p->pasid,
-> -		 &p->svms, start, start + size - 1, r);
-> +	pr_debug("process pid 0x%x svms 0x%p [0x%llx 0x%llx] done, r=%d\n",
-> +		 (int)p->lead_thread->pid, &p->svms, start, start + size - 1, r);
->   
->   	return ret ? ret : r;
->   }
