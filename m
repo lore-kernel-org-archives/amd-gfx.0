@@ -4,40 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83784E77198
-	for <amd-gfx@archiver.kernel.org>; Sun,  5 Jan 2025 16:40:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 847A6E77199
+	for <amd-gfx@archiver.kernel.org>; Sun,  5 Jan 2025 22:48:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C077810E50B;
-	Sun,  5 Jan 2025 16:40:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A481F10E53B;
+	Sun,  5 Jan 2025 22:48:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="QXxCywLL";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="yC6Mic2E";
 	dkim-atps=neutral
-Received: from out30-97.freemail.mail.aliyun.com
- (out30-97.freemail.mail.aliyun.com [115.124.30.97])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0685D10E4D2
- for <amd-gfx@lists.freedesktop.org>; Sun,  5 Jan 2025 02:45:41 +0000 (UTC)
+Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com
+ [209.85.208.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD13F10E539
+ for <amd-gfx@lists.freedesktop.org>; Sun,  5 Jan 2025 22:48:12 +0000 (UTC)
+Received: by mail-lj1-f171.google.com with SMTP id
+ 38308e7fff4ca-30225b2586cso156467001fa.0
+ for <amd-gfx@lists.freedesktop.org>; Sun, 05 Jan 2025 14:48:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux.alibaba.com; s=default;
- t=1736045140; h=From:To:Subject:Date:Message-ID:MIME-Version;
- bh=EnHmzzENo1WrioIhAEUDROS36E+qVDU3skHnOPegSdE=;
- b=QXxCywLLIj8kf+5qqI15Nbl65KQp1E0EkOjFZbH2yrTbQWdmlp3wUrsbw0K+1OTaB1fcDZ93pXEXWCSPBPNKnogTpNetSM/kifBdQaSNSErsl4QVG9sKrEoeVLJUKjaIj2Q7zOWcZgjgESnR3easYo/FEHj+DGVNd7Ye5IOQtNw=
-Received: from i32d02263.sqa.eu95.tbsite.net(mailfrom:gerry@linux.alibaba.com
- fp:SMTPD_---0WMx9YBO_1736045139 cluster:ay36) by smtp.aliyun-inc.com;
- Sun, 05 Jan 2025 10:45:39 +0800
-From: Jiang Liu <gerry@linux.alibaba.com>
-To: amd-gfx@lists.freedesktop.org, xiaogang.chen@amd.com, lijo.lazar@amd.com,
- Kent.Russell@amd.com, shuox.liu@linux.alibaba.com
-Cc: Jiang Liu <gerry@linux.alibaba.com>
-Subject: [PATCH v2 4/6] amdgpu: fix use after free bug related to
- amdgpu_driver_release_kms()
-Date: Sun,  5 Jan 2025 10:45:32 +0800
-Message-ID: <d097f02c25ff44fced59b10ac72587f304a6637f.1736044362.git.gerry@linux.alibaba.com>
-X-Mailer: git-send-email 2.43.5
-In-Reply-To: <cover.1736044362.git.gerry@linux.alibaba.com>
-References: <cover.1736044362.git.gerry@linux.alibaba.com>
+ d=linaro.org; s=google; t=1736117231; x=1736722031; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=TUw/Qsx3e/Vb/fGVkhPXMOTG1JvaasLeNnFxwC0uDdk=;
+ b=yC6Mic2EV+J8j662CQspmHBUEsapOVExxSGuhK/p60JZUMsktd+XgMInzZqk6bZDoE
+ f94yneR9YgoNaWY5lbzcIV2Rw0rD3cjBb5ZUowQVDWjsjnZuHEa5S1Zcd3WynZeID43d
+ awLP+wiHKBB+fZAcTsg7OeqZNsnimAvBC/eYZvZbqKbTkXDJCYAx9DFfFb5me5VxjKQP
+ NXIaK1BginFoyCsj+WFZPL4S3WP0w2RgUTt6Jo5B64VmRgbdusMBCKyK+n28IQUnojVR
+ EJtaRTHlzbIZn4VyHlxVHPGYIgGNYPXbfLZp/eYYiwt7QbFHaLeaF6bc6LjA5rRSGsrE
+ kEbw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1736117231; x=1736722031;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=TUw/Qsx3e/Vb/fGVkhPXMOTG1JvaasLeNnFxwC0uDdk=;
+ b=gKNMvLr+I0dzWFntSe2CZohGWFRSIA+6Ucic9h6B3wdfeJT9DElPsfsn+9S5+IK+eY
+ AZ7jpUU4vwiaiD+aDSGqKNB64Rsy9MkJa4kYb/4+R5Th2ZslLv210uqPyBk/i9MhJNAn
+ zg/ze6huwx8+IogBklfrX/KH1uA1/VI4jP7+SuQRwXb7GShdF9o0U6DM4GCP/gdxLWJg
+ OWTk4ILB+TbgkMXqLIZC5Q/P4TmAiWQfqq/lGklzUQiTWtV1OyL+sKzUdUnt7vKLyAMm
+ FZuJAxqhpX6kDwcHZNYYbtzHkZ8yeIQh3irmL82DeBerom4KaldXA9nrN43Xz4Y6L4F/
+ EGaQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXxIwXy9fDo2fF3uOmSfY3xOY+vKqPu1WebEhXYQGRO9XyPaWu/serVZien3mfvuPqfTwNbBr6k@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx/Gx8VQL6W4a+NXl9m5ndrSTOO3PeoF4ksWW4adY07PCybflx/
+ 98vjpw68J51Op1kNyEfAmacEpw0XwfVeBKZFSULN6DJdS0ZYKekSSP0jyzNLzZ4=
+X-Gm-Gg: ASbGnctQiTVbLy8aV28lKK5hfNhtKwgVpRCNNFNwFwMg1nw6jXYOhF0vKKgkygdQhBD
+ PgqxyZ4Qi1nf6fNNvz2UK/TaQvoYgskTEvnPkA7gWzyl9XZ5hb/bDs4xP09Xtji7fsBuNq2RgJs
+ DD626LSryn7JEH01XHxlus0OwZI1zu7rMag8C8dCpLdSbJ87Kv7ThIrPXIRivB4KcQ1wUF8HQFt
+ JpXzKi/TohRJCcmfvzyh0fKav0y91kuiRXe8LiWLLKIq0IJjVmODGy7wNth+Sbaw7SWWDx1t4vF
+ jZvgrb18V7vcCvezdBJWz45zNf2BxXNIT+4W
+X-Google-Smtp-Source: AGHT+IGdeC3kJKQByRSkP8PFuxEiAQLE0VDeCxWNLmf8WlobNvqOtqUKt3Qejko5pkmOL0gzpID7uQ==
+X-Received: by 2002:a2e:a78a:0:b0:302:4a8f:428b with SMTP id
+ 38308e7fff4ca-304583eca3fmr125244721fa.15.1736117231020; 
+ Sun, 05 Jan 2025 14:47:11 -0800 (PST)
+Received: from eriador.lumag.spb.ru
+ (2001-14ba-a0c3-3a00--7a1.rev.dnainternet.fi. [2001:14ba:a0c3:3a00::7a1])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-3045b09669csm54711531fa.120.2025.01.05.14.47.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 05 Jan 2025 14:47:09 -0800 (PST)
+Date: Mon, 6 Jan 2025 00:47:07 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Karol Herbst <kherbst@redhat.com>, Lyude Paul <lyude@redhat.com>, 
+ Danilo Krummrich <dakr@redhat.com>, Harry Wentland <harry.wentland@amd.com>, 
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
+ Xinhui Pan <Xinhui.Pan@amd.com>, Alain Volmat <alain.volmat@foss.st.com>, 
+ Raphael Gallais-Pou <rgallaispou@gmail.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Peter Senna Tschudin <peter.senna@gmail.com>, Ian Ray <ian.ray@ge.com>, 
+ Martyn Welch <martyn.welch@collabora.co.uk>, Inki Dae <inki.dae@samsung.com>, 
+ Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
+ Stefan Agner <stefan@agner.ch>, Alison Wang <alison.wang@nxp.com>, 
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, 
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ Dave Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>, 
+ Sandy Huang <hjc@rock-chips.com>,
+ Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, Chen-Yu Tsai <wens@csie.org>, 
+ Samuel Holland <samuel@sholland.org>, Thierry Reding <thierry.reding@gmail.com>,
+ Mikko Perttunen <mperttunen@nvidia.com>, Jonathan Hunter <jonathanh@nvidia.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>, 
+ Chia-I Wu <olvaffe@gmail.com>, Zack Rusin <zack.rusin@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ nouveau@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
+ linux-samsung-soc@vger.kernel.org, imx@lists.linux.dev,
+ linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, virtualization@lists.linux.dev, 
+ spice-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, linux-tegra@vger.kernel.org,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+ Jani Nikula <jani.nikula@intel.com>
+Subject: Re: [PATCH v2 0/5] drm/connector: make mode_valid() callback accept
+ const mode pointer
+Message-ID: <76ho36jqcraehnsgpjralpye52w7ryshhgizekn4qqfsikiojd@3yyorbvjkc7b>
+References: <20241214-drm-connector-mode-valid-const-v2-0-4f9498a4c822@linaro.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Sun, 05 Jan 2025 16:40:26 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20241214-drm-connector-mode-valid-const-v2-0-4f9498a4c822@linaro.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,60 +140,125 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-If some GPU device failed to probe, `rmmod amdgpu` will trigger a use
-after free bug related to amdgpu_driver_release_kms() as:
-2024-12-26 16:17:45 [16002.085540] BUG: kernel NULL pointer dereference, address: 0000000000000000
-2024-12-26 16:17:45 [16002.093792] #PF: supervisor read access in kernel mode
-2024-12-26 16:17:45 [16002.099993] #PF: error_code(0x0000) - not-present page
-2024-12-26 16:17:45 [16002.106188] PGD 0 P4D 0
-2024-12-26 16:17:45 [16002.109464] Oops: Oops: 0000 [#1] PREEMPT SMP NOPTI
-2024-12-26 16:17:45 [16002.115372] CPU: 2 PID: 14375 Comm: rmmod Kdump: loaded Tainted: G        W   E      6.10.0+ #2
-2024-12-26 16:17:45 [16002.125577] Hardware name: Alibaba Alibaba Cloud ECS/Alibaba Cloud ECS, BIOS 3.0.ES.AL.P.087.05 04/07/2024
-2024-12-26 16:17:45 [16002.136858] RIP: 0010:drm_sched_fini+0x3f/0xe0 [gpu_sched]
-2024-12-26 16:17:45 [16002.143463] Code: 60 c6 87 be 00 00 00 01 e8 ce e0 90 d8 48 8d bb 80 00 00 00 e8 c2 e0 90 d8 8b 43 20 85 c0 74 51 45 31 e4 48 8b
-43 28 4d 63 ec <4a> 8b 2c e8 48 89 ef e8 f5 0e 59 d9 48 8b 45 10 48 8d 55 10 48 39
-2024-12-26 16:17:45 [16002.164992] RSP: 0018:ffffb570dbbb7da8 EFLAGS: 00010246
-2024-12-26 16:17:45 [16002.171316] RAX: 0000000000000000 RBX: ffff96b0fdadc878 RCX: 0000000000000000
-2024-12-26 16:17:46 [16002.179784] RDX: 000fffffffe00000 RSI: 0000000000000000 RDI: ffff96b0fdadc8f8
-2024-12-26 16:17:46 [16002.188252] RBP: ffff96b0fdadc800 R08: ffff97abbd035040 R09: ffffffff9ac52540
-2024-12-26 16:17:46 [16002.196722] R10: 0000000000000000 R11: 0000000000000000 R12: 0000000000000000
-2024-12-26 16:17:46 [16002.205179] R13: 0000000000000000 R14: ffff96b0fdadfc00 R15: 0000000000000000
-2024-12-26 16:17:46 [16002.213648] FS:  00007f2737000740(0000) GS:ffff97abbd100000(0000) knlGS:0000000000000000
-2024-12-26 16:17:46 [16002.223189] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-2024-12-26 16:17:46 [16002.230103] CR2: 0000000000000000 CR3: 000000011be3a005 CR4: 0000000000f70ef0
-2024-12-26 16:17:46 [16002.238581] DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
-2024-12-26 16:17:46 [16002.247053] DR3: 0000000000000000 DR6: 00000000fffe07f0 DR7: 0000000000000400
-e024se+0x3c/0x90 [amdxcp]
-2024-12-26 16:17:46 [16002.337645]  __do_sys_delete_module.constprop.0+0x176/0x310
-2024-12-26 16:17:46 [16002.344324]  do_syscall_64+0x5d/0x170
-2024-12-26 16:17:46 [16002.348858]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
-2024-12-26 16:17:46 [16002.354956] RIP: 0033:0x7f2736a620cb-12-26
+On Sat, Dec 14, 2024 at 03:37:04PM +0200, Dmitry Baryshkov wrote:
+> While working on the generic mode_valid() implementation for the HDMI
+> Connector framework I noticed that unlike other DRM objects
+> drm_connector accepts non-const pointer to struct drm_display_mode,
+> while obviously mode_valid() isn't expected to modify the argument.
+> 
+> Mass-change the DRM framework code to pass const argument to that
+> callback.
+> 
+> The series has been compile-tested with defconfig for x86-64, arm and
+> arm64.
+> 
+> Note: yes, I understand that this change might be hard to review and
+> merge. The only viable option that I foresee is to add new callback,
+> having the const argument and migrate drivers into using it one by one.
 
-Fix it by unplugging xcp drm devices when failed to probe GPU devices.
+Colleagues, I'd like to graciously ping regarding this series. Should it
+be merged as is (possibly requiring more R-B's)? Or should I rework it
+adding something like .mode_valid_new() callback which takes const
+argument?
 
-Signed-off-by: Jiang Liu <gerry@linux.alibaba.com>
-Tested-by: Shuo Liu <shuox.liu@linux.alibaba.com>
-Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+> Changes in v2:
+> - Rebased on top of linux-next
+> - Replaced 'accept const argument' with 'take a const arugment'
+>   (Laurent)
+> - Link to v1: https://lore.kernel.org/r/20241115-drm-connector-mode-valid-const-v1-0-b1b523156f71@linaro.org
+> 
+> ---
+> Dmitry Baryshkov (5):
+>       drm/encoder_slave: make mode_valid accept const struct drm_display_mode
+>       drm/amdgpu: don't change mode in amdgpu_dm_connector_mode_valid()
+>       drm/sti: hda: pass const struct drm_display_mode* to hda_get_mode_idx()
+>       drm/connector: make mode_valid_ctx take a const struct drm_display_mode
+>       drm/connector: make mode_valid take a const struct drm_display_mode
+> 
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c           |  8 ++++----
+>  drivers/gpu/drm/amd/amdgpu/atombios_dp.c                 |  2 +-
+>  drivers/gpu/drm/amd/amdgpu/atombios_dp.h                 |  2 +-
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c        | 12 +++++++++---
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h        |  2 +-
+>  drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c |  2 +-
+>  drivers/gpu/drm/arm/malidp_mw.c                          |  2 +-
+>  drivers/gpu/drm/bridge/adv7511/adv7511_drv.c             |  2 +-
+>  drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c      |  2 +-
+>  drivers/gpu/drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c |  7 -------
+>  drivers/gpu/drm/display/drm_bridge_connector.c           |  2 +-
+>  drivers/gpu/drm/display/drm_hdmi_state_helper.c          |  2 +-
+>  drivers/gpu/drm/drm_crtc_helper_internal.h               |  2 +-
+>  drivers/gpu/drm/drm_probe_helper.c                       |  2 +-
+>  drivers/gpu/drm/exynos/exynos_hdmi.c                     |  2 +-
+>  drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_rgb.c                |  2 +-
+>  drivers/gpu/drm/gma500/cdv_intel_crt.c                   |  2 +-
+>  drivers/gpu/drm/gma500/cdv_intel_dp.c                    |  2 +-
+>  drivers/gpu/drm/gma500/cdv_intel_hdmi.c                  |  2 +-
+>  drivers/gpu/drm/gma500/cdv_intel_lvds.c                  |  2 +-
+>  drivers/gpu/drm/gma500/oaktrail_hdmi.c                   |  2 +-
+>  drivers/gpu/drm/gma500/psb_intel_drv.h                   |  2 +-
+>  drivers/gpu/drm/gma500/psb_intel_lvds.c                  |  2 +-
+>  drivers/gpu/drm/gma500/psb_intel_sdvo.c                  |  2 +-
+>  drivers/gpu/drm/i2c/ch7006_drv.c                         |  2 +-
+>  drivers/gpu/drm/i2c/sil164_drv.c                         |  2 +-
+>  drivers/gpu/drm/i915/display/dvo_ch7017.c                |  2 +-
+>  drivers/gpu/drm/i915/display/dvo_ch7xxx.c                |  2 +-
+>  drivers/gpu/drm/i915/display/dvo_ivch.c                  |  2 +-
+>  drivers/gpu/drm/i915/display/dvo_ns2501.c                |  2 +-
+>  drivers/gpu/drm/i915/display/dvo_sil164.c                |  2 +-
+>  drivers/gpu/drm/i915/display/dvo_tfp410.c                |  2 +-
+>  drivers/gpu/drm/i915/display/icl_dsi.c                   |  2 +-
+>  drivers/gpu/drm/i915/display/intel_crt.c                 |  2 +-
+>  drivers/gpu/drm/i915/display/intel_dp.c                  |  2 +-
+>  drivers/gpu/drm/i915/display/intel_dp_mst.c              |  2 +-
+>  drivers/gpu/drm/i915/display/intel_dsi.c                 |  2 +-
+>  drivers/gpu/drm/i915/display/intel_dsi.h                 |  2 +-
+>  drivers/gpu/drm/i915/display/intel_dvo.c                 |  2 +-
+>  drivers/gpu/drm/i915/display/intel_dvo_dev.h             |  2 +-
+>  drivers/gpu/drm/i915/display/intel_hdmi.c                |  2 +-
+>  drivers/gpu/drm/i915/display/intel_lvds.c                |  2 +-
+>  drivers/gpu/drm/i915/display/intel_sdvo.c                |  2 +-
+>  drivers/gpu/drm/i915/display/intel_tv.c                  |  2 +-
+>  drivers/gpu/drm/i915/display/vlv_dsi.c                   |  2 +-
+>  drivers/gpu/drm/imx/ipuv3/imx-tve.c                      |  2 +-
+>  drivers/gpu/drm/msm/disp/mdp4/mdp4_lvds_connector.c      |  2 +-
+>  drivers/gpu/drm/nouveau/dispnv04/tvnv17.c                |  2 +-
+>  drivers/gpu/drm/nouveau/dispnv50/disp.c                  |  2 +-
+>  drivers/gpu/drm/nouveau/nouveau_connector.c              |  2 +-
+>  drivers/gpu/drm/qxl/qxl_display.c                        |  2 +-
+>  drivers/gpu/drm/radeon/atombios_dp.c                     |  2 +-
+>  drivers/gpu/drm/radeon/radeon_connectors.c               | 10 +++++-----
+>  drivers/gpu/drm/radeon/radeon_mode.h                     |  2 +-
+>  drivers/gpu/drm/rockchip/cdn-dp-core.c                   |  2 +-
+>  drivers/gpu/drm/rockchip/inno_hdmi.c                     |  4 ++--
+>  drivers/gpu/drm/rockchip/rk3066_hdmi.c                   |  2 +-
+>  drivers/gpu/drm/sti/sti_dvo.c                            |  2 +-
+>  drivers/gpu/drm/sti/sti_hda.c                            | 12 ++++++------
+>  drivers/gpu/drm/sti/sti_hdmi.c                           |  2 +-
+>  drivers/gpu/drm/tegra/dsi.c                              |  2 +-
+>  drivers/gpu/drm/tegra/hdmi.c                             |  2 +-
+>  drivers/gpu/drm/tegra/sor.c                              |  2 +-
+>  drivers/gpu/drm/vc4/vc4_txp.c                            |  2 +-
+>  drivers/gpu/drm/virtio/virtgpu_display.c                 |  2 +-
+>  drivers/gpu/drm/vmwgfx/vmwgfx_kms.c                      |  2 +-
+>  drivers/gpu/drm/vmwgfx/vmwgfx_kms.h                      |  2 +-
+>  drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c                     |  2 +-
+>  include/drm/display/drm_hdmi_state_helper.h              |  2 +-
+>  include/drm/drm_encoder_slave.h                          |  2 +-
+>  include/drm/drm_modeset_helper_vtables.h                 |  4 ++--
+>  71 files changed, 92 insertions(+), 93 deletions(-)
+> ---
+> base-commit: 4176cf5c5651c33769de83bb61b0287f4ec7719f
+> change-id: 20241115-drm-connector-mode-valid-const-ae3db0ef6cb7
+> 
+> Best regards,
+> -- 
+> Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> 
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index d2a046736edd..9ebc0d47d1cb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -165,8 +165,10 @@ int amdgpu_driver_load_kms(struct amdgpu_device *adev, unsigned long flags)
- 		DRM_WARN("smart shift update failed\n");
- 
- out:
--	if (r)
-+	if (r) {
-+		amdgpu_xcp_dev_unplug(adev);
- 		amdgpu_driver_unload_kms(dev);
-+	}
- 
- 	return r;
- }
 -- 
-2.43.5
-
+With best wishes
+Dmitry
