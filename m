@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9365E7719B
-	for <amd-gfx@archiver.kernel.org>; Sun,  5 Jan 2025 16:40:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4867AE77199
+	for <amd-gfx@archiver.kernel.org>; Sun,  5 Jan 2025 16:40:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC70710E153;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF7A810E289;
 	Sun,  5 Jan 2025 16:40:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="ykA6TwSz";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="l0TTrS1Q";
 	dkim-atps=neutral
-Received: from out30-112.freemail.mail.aliyun.com
- (out30-112.freemail.mail.aliyun.com [115.124.30.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 70A7010E4CA
- for <amd-gfx@lists.freedesktop.org>; Sun,  5 Jan 2025 02:45:43 +0000 (UTC)
+Received: from out30-100.freemail.mail.aliyun.com
+ (out30-100.freemail.mail.aliyun.com [115.124.30.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 084A110E057
+ for <amd-gfx@lists.freedesktop.org>; Sun,  5 Jan 2025 05:22:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=linux.alibaba.com; s=default;
- t=1736045141; h=From:To:Subject:Date:Message-ID:MIME-Version;
- bh=Jx5PzYEjmdUeWX/zhNSxJrKq906S64oP7fUHHUBatho=;
- b=ykA6TwSzduKafQbBZ0VJIPJ9jv6ZlwnyQVLI3jKol4lfpH/QdPRDQs6Is0MT6AQ+jeb5Ft9lyul0WaKiVjxzuPb6ZKr75d9qebIdBErrsHtBfNhBof206+w43fxPpbgUzx4MQhqGT/OgHr2md47Kouh9uCVnpB1viW81Anpxplc=
-Received: from i32d02263.sqa.eu95.tbsite.net(mailfrom:gerry@linux.alibaba.com
- fp:SMTPD_---0WMx9YBb_1736045140 cluster:ay36) by smtp.aliyun-inc.com;
- Sun, 05 Jan 2025 10:45:40 +0800
-From: Jiang Liu <gerry@linux.alibaba.com>
-To: amd-gfx@lists.freedesktop.org, xiaogang.chen@amd.com, lijo.lazar@amd.com,
- Kent.Russell@amd.com, shuox.liu@linux.alibaba.com
-Cc: Jiang Liu <gerry@linux.alibaba.com>
-Subject: [PATCH v2 6/6] amdgpu: get rid of false warnings caused by
- amdgpu_irq_put()
-Date: Sun,  5 Jan 2025 10:45:34 +0800
-Message-ID: <df50ff31e784c3e445100d58c6b98aa4f208bcf2.1736044362.git.gerry@linux.alibaba.com>
-X-Mailer: git-send-email 2.43.5
-In-Reply-To: <cover.1736044362.git.gerry@linux.alibaba.com>
+ t=1736054542; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type;
+ bh=Wljkv1GsVHfF2eKoBazJ8rmswBvsObUQp71Pkdhcj1g=;
+ b=l0TTrS1QumuRTRYhSHbOGlXHgPZq3B83eORYaZ2KkqYchUIqBzt3rV2UX8ENl44HVn/3GU3NErKMKwYjYE1s8hBg1BGf3po6pPyQpqWMbE+oqWHwq95010laOG4Z08/N6TScthJuijYziLuWbrge3rN15p7w6W5mL8ccSuOlxbo=
+Received: from localhost(mailfrom:shuox.liu@linux.alibaba.com
+ fp:SMTPD_---0WMxtq9N_1736054540 cluster:ay36) by smtp.aliyun-inc.com;
+ Sun, 05 Jan 2025 13:22:21 +0800
+Date: Sun, 5 Jan 2025 13:22:20 +0800
+From: Shuo Liu <shuox.liu@linux.alibaba.com>
+To: Jiang Liu <gerry@linux.alibaba.com>
+Cc: amd-gfx@lists.freedesktop.org, xiaogang.chen@amd.com,
+ lijo.lazar@amd.com, Kent.Russell@amd.com
+Subject: Re: [PATCH v2 1/6] amdgpu: fix possible resource leakage in
+ kfd_cleanup_nodes()
+Message-ID: <Z3oXDBgDvgbVpdpX@shuo-ali-mbp.local>
 References: <cover.1736044362.git.gerry@linux.alibaba.com>
+ <70f5963233c8a34354ec8a9efebc3a7b4c7940d4.1736044362.git.gerry@linux.alibaba.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <70f5963233c8a34354ec8a9efebc3a7b4c7940d4.1736044362.git.gerry@linux.alibaba.com>
 X-Mailman-Approved-At: Sun, 05 Jan 2025 16:40:26 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -52,94 +53,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-If error happens before amdgpu_fence_driver_hw_init() gets called during
-device probe, it will trigger a false warning in amdgpu_irq_put() as
-below:
-[ 1209.300996] ------------[ cut here ]------------
-[ 1209.301061] WARNING: CPU: 48 PID: 293 at /tmp/amd.Rc9jFrl7/amd/amdgpu/amdgpu_irq.c:633 amdgpu_irq_put+0x45/0x70 [amdgpu]
-[ 1209.301062] Modules linked in: ...
-[ 1209.301093] CPU: 48 PID: 293 Comm: kworker/48:1 Kdump: loaded Tainted: G        W  OE     5.10.134-17.2.al8.x86_64 #1
-[ 1209.301094] Hardware name: Alibaba Alibaba Cloud ECS/Alibaba Cloud ECS, BIOS 3.0.ES.AL.P.087.05 04/07/2024
-[ 1209.301095] Workqueue: events work_for_cpu_fn
-[ 1209.301159] RIP: 0010:amdgpu_irq_put+0x45/0x70 [amdgpu]
-[ 1209.301160] Code: 48 8b 4e 10 48 83 39 00 74 2c 89 d1 48 8d 04 88 8b 08 85 c9 74 14 f0 ff 08 b8 00 00 00 00 74 05 c3 cc cc cc cc e9 8b fd ff ff <0f> 0b b8 ea ff ff ff c3 cc cc cc cc b8 ea ff ff ff c3 cc cc cc cc
-[ 1209.301162] RSP: 0018:ffffb08a99c8fd88 EFLAGS: 00010246
-[ 1209.301162] RAX: ffff9efe1bcbf500 RBX: ffff9efe1cc3e400 RCX: 0000000000000000
-[ 1209.301163] RDX: 0000000000000000 RSI: ffff9efe1cc3b108 RDI: ffff9efe1cc00000
-[ 1209.301163] RBP: ffff9efe1cc10818 R08: 0000000000000001 R09: 000000000000000d
-[ 1209.301164] R10: ffffb08a99c8fb48 R11: ffffffffa2068018 R12: ffff9efe1cc109d0
-[ 1209.301164] R13: ffff9efe1cc00010 R14: ffff9efe1cc00000 R15: ffff9efe1cc3b108
-[ 1209.301165] FS:  0000000000000000(0000) GS:ffff9ff9fce00000(0000) knlGS:0000000000000000
-[ 1209.301165] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[ 1209.301165] CR2: 00007fd0f6e860d0 CR3: 0000010092baa003 CR4: 0000000002770ee0
-[ 1209.301166] DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
-[ 1209.301166] DR3: 0000000000000000 DR6: 00000000fffe07f0 DR7: 0000000000000400
-[ 1209.301167] PKRU: 55555554
-[ 1209.301167] Call Trace:
-[ 1209.301225]  amdgpu_fence_driver_hw_fini+0xda/0x110 [amdgpu]
-[ 1209.301284]  amdgpu_device_fini_hw+0xaf/0x200 [amdgpu]
-[ 1209.301342]  amdgpu_driver_load_kms+0x7f/0xc0 [amdgpu]
-[ 1209.301400]  amdgpu_pci_probe+0x1cd/0x4a0 [amdgpu]
-[ 1209.301401]  local_pci_probe+0x40/0xa0
-[ 1209.301402]  work_for_cpu_fn+0x13/0x20
-[ 1209.301403]  process_one_work+0x1ad/0x380
-[ 1209.301404]  worker_thread+0x1c8/0x310
-[ 1209.301405]  ? process_one_work+0x380/0x380
-[ 1209.301406]  kthread+0x118/0x140
-[ 1209.301407]  ? __kthread_bind_mask+0x60/0x60
-[ 1209.301408]  ret_from_fork+0x1f/0x30
-[ 1209.301410] ---[ end trace 733f120fe2ab13e5 ]---
-[ 1209.301418] ------------[ cut here ]------------
+Hi Gerry,
 
-Signed-off-by: Jiang Liu <gerry@linux.alibaba.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 9 +++++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h  | 1 +
- 2 files changed, 8 insertions(+), 2 deletions(-)
+On Sun  5.Jan'25 at 10:45:29 +0800, Jiang Liu wrote:
+>Fix possible resource leakage on error recovery path in function
+>kgd2kfd_device_init().
+>
+>Signed-off-by: Jiang Liu <gerry@linux.alibaba.com>
+>---
+> drivers/gpu/drm/amd/amdkfd/kfd_device.c | 9 +++++----
+> 1 file changed, 5 insertions(+), 4 deletions(-)
+>
+>diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+>index a29374c86405..fa5054940486 100644
+>--- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+>+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+>@@ -898,15 +898,15 @@ bool kgd2kfd_device_init(struct kfd_dev *kfd,
+> 		if (kfd->adev->xcp_mgr)
+> 			kfd_setup_interrupt_bitmap(node, i);
+>
+>+		spin_lock_init(&node->watch_points_lock);
+>+
+>+		kfd->nodes[i] = node;
+>+
+> 		/* Initialize the KFD node */
+> 		if (kfd_init_node(node)) {
+> 			dev_err(kfd_device, "Error initializing KFD node\n");
+> 			goto node_init_error;
+> 		}
+>-
+>-		spin_lock_init(&node->watch_points_lock);
+>-
+>-		kfd->nodes[i] = node;
+> 	}
+>
+> 	svm_range_set_max_pages(kfd->adev);
+>@@ -921,6 +921,7 @@ bool kgd2kfd_device_init(struct kfd_dev *kfd,
+> 	goto out;
+>
+> node_init_error:
+>+	i++;
+The err cleanup path can release node itself. So the following
+kfd_cleanup_nodes() may do a double free? 
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-index b5e87b515139..0e41a535e05f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-@@ -614,9 +614,11 @@ void amdgpu_fence_driver_hw_fini(struct amdgpu_device *adev)
- 
- 		if (!drm_dev_is_unplugged(adev_to_drm(adev)) &&
- 		    ring->fence_drv.irq_src &&
--		    amdgpu_fence_need_ring_interrupt_restore(ring))
-+		    ring->fence_drv.irq_enabled) {
- 			amdgpu_irq_put(adev, ring->fence_drv.irq_src,
- 				       ring->fence_drv.irq_type);
-+		        ring->fence_drv.irq_enabled = false;
-+		}
- 
- 		del_timer_sync(&ring->fence_drv.fallback_timer);
- 	}
-@@ -693,9 +695,12 @@ void amdgpu_fence_driver_hw_init(struct amdgpu_device *adev)
- 
- 		/* enable the interrupt */
- 		if (ring->fence_drv.irq_src &&
--		    amdgpu_fence_need_ring_interrupt_restore(ring))
-+		    !ring->fence_drv.irq_enabled &&
-+		    amdgpu_fence_need_ring_interrupt_restore(ring)) {
- 			amdgpu_irq_get(adev, ring->fence_drv.irq_src,
- 				       ring->fence_drv.irq_type);
-+		        ring->fence_drv.irq_enabled = true;
-+		}
- 	}
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-index dee5a1b4e572..959d474a0516 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-@@ -118,6 +118,7 @@ struct amdgpu_fence_driver {
- 	uint32_t			sync_seq;
- 	atomic_t			last_seq;
- 	bool				initialized;
-+	bool				irq_enabled;
- 	struct amdgpu_irq_src		*irq_src;
- 	unsigned			irq_type;
- 	struct timer_list		fallback_timer;
--- 
-2.43.5
-
+> node_alloc_error:
+> 	kfd_cleanup_nodes(kfd, i);
+> 	kfd_doorbell_fini(kfd);
+shuo
