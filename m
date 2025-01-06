@@ -4,20 +4,20 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12D64E77188
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D23C9E77199
 	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jan 2025 14:12:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B637410E67F;
-	Mon,  6 Jan 2025 14:12:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F1C410E681;
+	Mon,  6 Jan 2025 14:12:57 +0000 (UTC)
 Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
- by gabe.freedesktop.org (Postfix) with ESMTP id BF12910E5CB
- for <amd-gfx@lists.freedesktop.org>; Mon,  6 Jan 2025 09:01:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id A47A810E5C0
+ for <amd-gfx@lists.freedesktop.org>; Mon,  6 Jan 2025 08:58:07 +0000 (UTC)
 Received: from loongson.cn (unknown [113.200.148.30])
- by gateway (Coremail) with SMTP id _____8Axfazfm3tnwo5eAA--.540S3;
- Mon, 06 Jan 2025 17:01:19 +0800 (CST)
+ by gateway (Coremail) with SMTP id _____8CxG6wbm3tnZI5eAA--.538S3;
+ Mon, 06 Jan 2025 16:58:03 +0800 (CST)
 Received: from linux.localdomain (unknown [113.200.148.30])
- by front1 (Coremail) with SMTP id qMiowMDx_8fTm3tn2UgWAA--.31746S2;
- Mon, 06 Jan 2025 17:01:07 +0800 (CST)
+ by front1 (Coremail) with SMTP id qMiowMBx38cUm3tnFUgWAA--.30775S2;
+ Mon, 06 Jan 2025 16:57:57 +0800 (CST)
 From: Tiezhu Yang <yangtiezhu@loongson.cn>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -28,34 +28,32 @@ Cc: Nathan Chancellor <nathan@kernel.org>,
  Peter Zijlstra <peterz@infradead.org>, loongarch@lists.linux.dev,
  amd-gfx@lists.freedesktop.org, llvm@lists.linux.dev,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v2 2/5] drm/amd/display: Replace SPL_ASSERT() with
- SPL_ASSERT_WARN()
-Date: Mon,  6 Jan 2025 17:01:06 +0800
-Message-ID: <20250106090106.4683-1-yangtiezhu@loongson.cn>
+Subject: [PATCH v2 0/5] drm/amd/display: Stop control flow if the divisior is
+ zero
+Date: Mon,  6 Jan 2025 16:57:55 +0800
+Message-ID: <20250106085755.3268-1-yangtiezhu@loongson.cn>
 X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20250106085755.3268-1-yangtiezhu@loongson.cn>
-References: <20250106085755.3268-1-yangtiezhu@loongson.cn>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: qMiowMDx_8fTm3tn2UgWAA--.31746S2
+X-CM-TRANSID: qMiowMBx38cUm3tnFUgWAA--.30775S2
 X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
-X-Coremail-Antispam: 1Uk129KBj93XoWfGrW8KFyxZrWfZFyfuF43CFX_yoWkAr4xpa
- 1fJry8ZF4jqayvqFZrW34UuF93Ja4rtrW2q3Z3W3ykWa4xCw15Ja9rtrs3Ar4UCr9xAa47
- AFyFgrWUKayktwcCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
- sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
- 0xBIdaVrnRJUUUBIb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
- IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
- e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
- 0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
- xVW8Jr0_Cr1UM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07
- AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWU
- tVWrXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7V
- AKI48JMxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY
- 6r1j6r4UMxCIbckI1I0E14v26r1Y6r17MI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7
- xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xII
- jxv20xvE14v26r4j6ryUMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw2
- 0EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x02
- 67AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8EPfPUUUUU==
+X-Coremail-Antispam: 1Uk129KBj9fXoW3tFWrCw15Cw4xCryxWw4fCrX_yoW8JF4DCo
+ Z7Cr43WryDJ343Casrur17JrWfKr13KrZ7u3W0qF1qq3ZrXF18JF1Fgr48KF4vyr43JFn7
+ uF17XrZ5Jry7K3Wrl-sFpf9Il3svdjkaLaAFLSUrUUUUbb8apTn2vfkv8UJUUUU8wcxFpf
+ 9Il3svdxBIdaVrn0xqx4xG64xvF2IEw4CE5I8CrVC2j2Jv73VFW2AGmfu7bjvjm3AaLaJ3
+ UjIYCTnIWjp_UUUYI7kC6x804xWl14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI
+ 8IcIk0rVWrJVCq3wAFIxvE14AKwVWUXVWUAwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xG
+ Y2AK021l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14
+ v26r4j6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAF
+ wI0_Gr1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYIkI8VC2zVCFFI
+ 0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUXVWUAwAv7VC2z280
+ aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxkF7I0En4
+ kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E
+ 5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtV
+ W8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY
+ 1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI
+ 0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjxU
+ 2BT5DUUUU
 X-Mailman-Approved-At: Mon, 06 Jan 2025 14:12:56 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -71,293 +69,233 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-SPL_ASSERT() is actually SPL_ASSERT_WARN() according to the macro
-definition in drivers/gpu/drm/amd/display/dc/spl/spl_debug.h, just
-replace the macro name SPL_ASSERT() with explicit SPL_ASSERT_WARN()
-to avoid ambiguous.
+As far as I can tell, with the current existing macro definitions, there
+is no better way to do the minimal and proper changes to stop the control
+flow if the divisior is zero.
 
-Here is the one-line script:
+In order to keep the current ability for the aim of debugging and avoid
+printing the warning message twice, it is better to only use ASSERT_BUG()
+and SPL_ASSERT_BUG() directly after doing the following four steps:
 
-  sed -i "s/\<SPL_ASSERT\>/SPL_ASSERT_WARN/g" `grep SPL_ASSERT -rwl drivers/gpu/drm/amd/display`
+(1) Replace ASSERT() with ASSERT_WARN()
+(2) Replace SPL_ASSERT() with SPL_ASSERT_WARN()
+(3) Add ASSERT_BUG() macro definition
+(4) Add SPL_ASSERT_BUG() macro definition
 
-This is in preparation to add SPL_ASSERT_BUG() in later patch to harden
-the callers of division functions, no functional change intended.
+This version is based on 6.13-rc6, tested on x86 and LoongArch.
 
-Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
----
- drivers/gpu/drm/amd/display/dc/spl/dc_spl.c   | 12 +++----
- .../gpu/drm/amd/display/dc/spl/spl_debug.h    |  6 ++--
- .../drm/amd/display/dc/spl/spl_fixpt31_32.c   | 32 +++++++++----------
- .../drm/amd/display/dc/spl/spl_fixpt31_32.h   | 12 +++----
- 4 files changed, 31 insertions(+), 31 deletions(-)
+Tiezhu Yang (5):
+  drm/amd/display: Replace ASSERT() with ASSERT_WARN()
+  drm/amd/display: Replace SPL_ASSERT() with SPL_ASSERT_WARN()
+  drm/amd/display: Add ASSERT_BUG() macro definition
+  drm/amd/display: Add SPL_ASSERT_BUG() macro definition
+  drm/amd/display: Harden callers of division functions
 
-diff --git a/drivers/gpu/drm/amd/display/dc/spl/dc_spl.c b/drivers/gpu/drm/amd/display/dc/spl/dc_spl.c
-index 73a65913cb12..664343102f46 100644
---- a/drivers/gpu/drm/amd/display/dc/spl/dc_spl.c
-+++ b/drivers/gpu/drm/amd/display/dc/spl/dc_spl.c
-@@ -146,7 +146,7 @@ static struct spl_rect calculate_mpc_slice_in_timing_active(
- 	mpc_rec.x = plane_clip_rec->x + mpc_rec.width * mpc_slice_idx;
- 	mpc_rec.height = plane_clip_rec->height;
- 	mpc_rec.y = plane_clip_rec->y;
--	SPL_ASSERT(mpc_slice_count == 1 ||
-+	SPL_ASSERT_WARN(mpc_slice_count == 1 ||
- 			spl_in->basic_out.view_format != SPL_VIEW_3D_SIDE_BY_SIDE ||
- 			mpc_rec.width % 2 == 0);
- 
-@@ -159,7 +159,7 @@ static struct spl_rect calculate_mpc_slice_in_timing_active(
- 	}
- 
- 	if (spl_in->basic_out.view_format == SPL_VIEW_3D_TOP_AND_BOTTOM) {
--		SPL_ASSERT(mpc_rec.height % 2 == 0);
-+		SPL_ASSERT_WARN(mpc_rec.height % 2 == 0);
- 		mpc_rec.height /= 2;
- 	}
- 	return mpc_rec;
-@@ -666,7 +666,7 @@ static void spl_calculate_inits_and_viewports(struct spl_in *spl_in,
- 	}
- 	spl_scratch->scl_data.viewport.x += src.x;
- 	spl_scratch->scl_data.viewport.y += src.y;
--	SPL_ASSERT(src.x % vpc_div == 0 && src.y % vpc_div == 0);
-+	SPL_ASSERT_WARN(src.x % vpc_div == 0 && src.y % vpc_div == 0);
- 	spl_scratch->scl_data.viewport_c.x += src.x / vpc_div;
- 	spl_scratch->scl_data.viewport_c.y += src.y / vpc_div;
- }
-@@ -679,7 +679,7 @@ static void spl_handle_3d_recout(struct spl_in *spl_in, struct spl_rect *recout)
- 	 * This may break with rotation, good thing we aren't mixing hw rotation and 3d
- 	 */
- 	if (spl_in->basic_in.mpc_combine_v) {
--		SPL_ASSERT(spl_in->basic_in.rotation == SPL_ROTATION_ANGLE_0 ||
-+		SPL_ASSERT_WARN(spl_in->basic_in.rotation == SPL_ROTATION_ANGLE_0 ||
- 			(spl_in->basic_out.view_format != SPL_VIEW_3D_TOP_AND_BOTTOM &&
- 					spl_in->basic_out.view_format != SPL_VIEW_3D_SIDE_BY_SIDE));
- 		if (spl_in->basic_out.view_format == SPL_VIEW_3D_TOP_AND_BOTTOM)
-@@ -1052,7 +1052,7 @@ static bool spl_get_optimal_number_of_taps(
- 				*enable_easf_v = true;
- 				*enable_easf_h = true;
- 			}
--			SPL_ASSERT((spl_scratch->scl_data.taps.v_taps > 1) &&
-+			SPL_ASSERT_WARN((spl_scratch->scl_data.taps.v_taps > 1) &&
- 				(spl_scratch->scl_data.taps.v_taps_c > 1));
- 		} else { /* RGB */
- 			if (spl_scratch->scl_data.taps.h_taps <= 3) {
-@@ -1065,7 +1065,7 @@ static bool spl_get_optimal_number_of_taps(
- 				*enable_easf_v = true;
- 				*enable_easf_h = true;
- 			}
--			SPL_ASSERT(spl_scratch->scl_data.taps.v_taps > 1);
-+			SPL_ASSERT_WARN(spl_scratch->scl_data.taps.v_taps > 1);
- 		}
- 	} else {
- 		*enable_easf_v = false;
-diff --git a/drivers/gpu/drm/amd/display/dc/spl/spl_debug.h b/drivers/gpu/drm/amd/display/dc/spl/spl_debug.h
-index a6f6132df241..f01c932d550d 100644
---- a/drivers/gpu/drm/amd/display/dc/spl/spl_debug.h
-+++ b/drivers/gpu/drm/amd/display/dc/spl/spl_debug.h
-@@ -20,11 +20,11 @@
- #endif /* CONFIG_HAVE_KGDB || CONFIG_KGDB */
- 
- #if defined(CONFIG_DEBUG_KERNEL_DC)
--#define SPL_ASSERT(expr) SPL_ASSERT_CRITICAL(expr)
-+#define SPL_ASSERT_WARN(expr) SPL_ASSERT_CRITICAL(expr)
- #else
--#define SPL_ASSERT(expr) WARN_ON(!(expr))
-+#define SPL_ASSERT_WARN(expr) WARN_ON(!(expr))
- #endif /* CONFIG_DEBUG_KERNEL_DC */
- 
--#define SPL_BREAK_TO_DEBUGGER() SPL_ASSERT(0)
-+#define SPL_BREAK_TO_DEBUGGER() SPL_ASSERT_WARN(0)
- 
- #endif  // SPL_DEBUG_H
-diff --git a/drivers/gpu/drm/amd/display/dc/spl/spl_fixpt31_32.c b/drivers/gpu/drm/amd/display/dc/spl/spl_fixpt31_32.c
-index 131f1e3949d3..07a5c09b250e 100644
---- a/drivers/gpu/drm/amd/display/dc/spl/spl_fixpt31_32.c
-+++ b/drivers/gpu/drm/amd/display/dc/spl/spl_fixpt31_32.c
-@@ -29,7 +29,7 @@ static inline unsigned long long spl_complete_integer_division_u64(
- {
- 	unsigned long long result;
- 
--	SPL_ASSERT(divisor);
-+	SPL_ASSERT_WARN(divisor);
- 
- 	result = spl_div64_u64_rem(dividend, divisor, remainder);
- 
-@@ -63,7 +63,7 @@ struct spl_fixed31_32 spl_fixpt_from_fraction(long long numerator, long long den
- 	unsigned long long res_value = spl_complete_integer_division_u64(
- 		arg1_value, arg2_value, &remainder);
- 
--	SPL_ASSERT(res_value <= (unsigned long long)LONG_MAX);
-+	SPL_ASSERT_WARN(res_value <= (unsigned long long)LONG_MAX);
- 
- 	/* determine fractional part */
- 	{
-@@ -85,7 +85,7 @@ struct spl_fixed31_32 spl_fixpt_from_fraction(long long numerator, long long den
- 	{
- 		unsigned long long summand = (remainder << 1) >= arg2_value;
- 
--		SPL_ASSERT(res_value <= (unsigned long long)LLONG_MAX - summand);
-+		SPL_ASSERT_WARN(res_value <= (unsigned long long)LLONG_MAX - summand);
- 
- 		res_value += summand;
- 	}
-@@ -118,19 +118,19 @@ struct spl_fixed31_32 spl_fixpt_mul(struct spl_fixed31_32 arg1, struct spl_fixed
- 
- 	res.value = arg1_int * arg2_int;
- 
--	SPL_ASSERT(res.value <= (long long)LONG_MAX);
-+	SPL_ASSERT_WARN(res.value <= (long long)LONG_MAX);
- 
- 	res.value <<= FIXED31_32_BITS_PER_FRACTIONAL_PART;
- 
- 	tmp = arg1_int * arg2_fra;
- 
--	SPL_ASSERT(tmp <= (unsigned long long)(LLONG_MAX - res.value));
-+	SPL_ASSERT_WARN(tmp <= (unsigned long long)(LLONG_MAX - res.value));
- 
- 	res.value += tmp;
- 
- 	tmp = arg2_int * arg1_fra;
- 
--	SPL_ASSERT(tmp <= (unsigned long long)(LLONG_MAX - res.value));
-+	SPL_ASSERT_WARN(tmp <= (unsigned long long)(LLONG_MAX - res.value));
- 
- 	res.value += tmp;
- 
-@@ -139,7 +139,7 @@ struct spl_fixed31_32 spl_fixpt_mul(struct spl_fixed31_32 arg1, struct spl_fixed
- 	tmp = (tmp >> FIXED31_32_BITS_PER_FRACTIONAL_PART) +
- 		(tmp >= (unsigned long long)spl_fixpt_half.value);
- 
--	SPL_ASSERT(tmp <= (unsigned long long)(LLONG_MAX - res.value));
-+	SPL_ASSERT_WARN(tmp <= (unsigned long long)(LLONG_MAX - res.value));
- 
- 	res.value += tmp;
- 
-@@ -163,17 +163,17 @@ struct spl_fixed31_32 spl_fixpt_sqr(struct spl_fixed31_32 arg)
- 
- 	res.value = arg_int * arg_int;
- 
--	SPL_ASSERT(res.value <= (long long)LONG_MAX);
-+	SPL_ASSERT_WARN(res.value <= (long long)LONG_MAX);
- 
- 	res.value <<= FIXED31_32_BITS_PER_FRACTIONAL_PART;
- 
- 	tmp = arg_int * arg_fra;
- 
--	SPL_ASSERT(tmp <= (unsigned long long)(LLONG_MAX - res.value));
-+	SPL_ASSERT_WARN(tmp <= (unsigned long long)(LLONG_MAX - res.value));
- 
- 	res.value += tmp;
- 
--	SPL_ASSERT(tmp <= (unsigned long long)(LLONG_MAX - res.value));
-+	SPL_ASSERT_WARN(tmp <= (unsigned long long)(LLONG_MAX - res.value));
- 
- 	res.value += tmp;
- 
-@@ -182,7 +182,7 @@ struct spl_fixed31_32 spl_fixpt_sqr(struct spl_fixed31_32 arg)
- 	tmp = (tmp >> FIXED31_32_BITS_PER_FRACTIONAL_PART) +
- 		(tmp >= (unsigned long long)spl_fixpt_half.value);
- 
--	SPL_ASSERT(tmp <= (unsigned long long)(LLONG_MAX - res.value));
-+	SPL_ASSERT_WARN(tmp <= (unsigned long long)(LLONG_MAX - res.value));
- 
- 	res.value += tmp;
- 
-@@ -196,7 +196,7 @@ struct spl_fixed31_32 spl_fixpt_recip(struct spl_fixed31_32 arg)
- 	 * Good idea to use Newton's method
- 	 */
- 
--	SPL_ASSERT(arg.value);
-+	SPL_ASSERT_WARN(arg.value);
- 
- 	return spl_fixpt_from_fraction(
- 		spl_fixpt_one.value,
-@@ -295,7 +295,7 @@ static struct spl_fixed31_32 spl_fixed31_32_exp_from_taylor_series(struct spl_fi
- 		n + 1);
- 	/* TODO find correct res */
- 
--	SPL_ASSERT(spl_fixpt_lt(arg, spl_fixpt_one));
-+	SPL_ASSERT_WARN(spl_fixpt_lt(arg, spl_fixpt_one));
- 
- 	do
- 		res = spl_fixpt_add(
-@@ -337,9 +337,9 @@ struct spl_fixed31_32 spl_fixpt_exp(struct spl_fixed31_32 arg)
- 				spl_fixpt_ln2,
- 				m));
- 
--		SPL_ASSERT(m != 0);
-+		SPL_ASSERT_WARN(m != 0);
- 
--		SPL_ASSERT(spl_fixpt_lt(
-+		SPL_ASSERT_WARN(spl_fixpt_lt(
- 			spl_fixpt_abs(r),
- 			spl_fixpt_one));
- 
-@@ -364,7 +364,7 @@ struct spl_fixed31_32 spl_fixpt_log(struct spl_fixed31_32 arg)
- 
- 	struct spl_fixed31_32 error;
- 
--	SPL_ASSERT(arg.value > 0);
-+	SPL_ASSERT_WARN(arg.value > 0);
- 	/* TODO if arg is negative, return NaN */
- 	/* TODO if arg is zero, return -INF */
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/spl/spl_fixpt31_32.h b/drivers/gpu/drm/amd/display/dc/spl/spl_fixpt31_32.h
-index ed2647f9a099..b285f4397f07 100644
---- a/drivers/gpu/drm/amd/display/dc/spl/spl_fixpt31_32.h
-+++ b/drivers/gpu/drm/amd/display/dc/spl/spl_fixpt31_32.h
-@@ -191,7 +191,7 @@ static inline struct spl_fixed31_32 spl_fixpt_clamp(
-  */
- static inline struct spl_fixed31_32 spl_fixpt_shl(struct spl_fixed31_32 arg, unsigned char shift)
- {
--	SPL_ASSERT(((arg.value >= 0) && (arg.value <= LLONG_MAX >> shift)) ||
-+	SPL_ASSERT_WARN(((arg.value >= 0) && (arg.value <= LLONG_MAX >> shift)) ||
- 		((arg.value < 0) && (arg.value >= ~(LLONG_MAX >> shift))));
- 
- 	arg.value = arg.value << shift;
-@@ -228,7 +228,7 @@ static inline struct spl_fixed31_32 spl_fixpt_add(struct spl_fixed31_32 arg1, st
- {
- 	struct spl_fixed31_32 res;
- 
--	SPL_ASSERT(((arg1.value >= 0) && (LLONG_MAX - arg1.value >= arg2.value)) ||
-+	SPL_ASSERT_WARN(((arg1.value >= 0) && (LLONG_MAX - arg1.value >= arg2.value)) ||
- 		((arg1.value < 0) && (LLONG_MIN - arg1.value <= arg2.value)));
- 
- 	res.value = arg1.value + arg2.value;
-@@ -253,7 +253,7 @@ static inline struct spl_fixed31_32 spl_fixpt_sub(struct spl_fixed31_32 arg1, st
- {
- 	struct spl_fixed31_32 res;
- 
--	SPL_ASSERT(((arg2.value >= 0) && (LLONG_MIN + arg2.value <= arg1.value)) ||
-+	SPL_ASSERT_WARN(((arg2.value >= 0) && (LLONG_MIN + arg2.value <= arg1.value)) ||
- 		((arg2.value < 0) && (LLONG_MAX + arg2.value >= arg1.value)));
- 
- 	res.value = arg1.value - arg2.value;
-@@ -445,7 +445,7 @@ static inline int spl_fixpt_round(struct spl_fixed31_32 arg)
- 
- 	const long long summand = spl_fixpt_half.value;
- 
--	SPL_ASSERT(LLONG_MAX - (long long)arg_value >= summand);
-+	SPL_ASSERT_WARN(LLONG_MAX - (long long)arg_value >= summand);
- 
- 	arg_value += summand;
- 
-@@ -466,7 +466,7 @@ static inline int spl_fixpt_ceil(struct spl_fixed31_32 arg)
- 	const long long summand = spl_fixpt_one.value -
- 		spl_fixpt_epsilon.value;
- 
--	SPL_ASSERT(LLONG_MAX - (long long)arg_value >= summand);
-+	SPL_ASSERT_WARN(LLONG_MAX - (long long)arg_value >= summand);
- 
- 	arg_value += summand;
- 
-@@ -501,7 +501,7 @@ static inline struct spl_fixed31_32 spl_fixpt_truncate(struct spl_fixed31_32 arg
- 	bool negative = arg.value < 0;
- 
- 	if (frac_bits >= FIXED31_32_BITS_PER_FRACTIONAL_PART) {
--		SPL_ASSERT(frac_bits == FIXED31_32_BITS_PER_FRACTIONAL_PART);
-+		SPL_ASSERT_WARN(frac_bits == FIXED31_32_BITS_PER_FRACTIONAL_PART);
- 		return arg;
- 	}
- 
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  4 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_color.c   |  8 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |  2 +-
+ .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  2 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   |  2 +-
+ .../gpu/drm/amd/display/amdgpu_dm/dc_fpu.c    |  2 +-
+ .../gpu/drm/amd/display/dc/basics/bw_fixed.c  | 18 ++---
+ .../gpu/drm/amd/display/dc/basics/dce_calcs.c |  2 +-
+ .../drm/amd/display/dc/basics/fixpt31_32.c    | 28 +++----
+ .../drm/amd/display/dc/bios/bios_parser2.c    |  6 +-
+ .../amd/display/dc/bios/bios_parser_common.c  |  2 +-
+ .../gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c  |  2 +-
+ .../display/dc/clk_mgr/dce100/dce_clk_mgr.c   |  4 +-
+ .../dc/clk_mgr/dce110/dce110_clk_mgr.c        |  4 +-
+ .../display/dc/clk_mgr/dcn10/rv1_clk_mgr.c    |  2 +-
+ .../dc/clk_mgr/dcn10/rv1_clk_mgr_vbios_smu.c  |  2 +-
+ .../amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c |  8 +-
+ .../dc/clk_mgr/dcn21/rn_clk_mgr_vbios_smu.c   |  6 +-
+ .../display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c  |  2 +-
+ .../display/dc/clk_mgr/dcn301/dcn301_smu.c    |  2 +-
+ .../display/dc/clk_mgr/dcn301/vg_clk_mgr.c    | 10 +--
+ .../display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c  | 12 +--
+ .../amd/display/dc/clk_mgr/dcn31/dcn31_smu.c  |  4 +-
+ .../dc/clk_mgr/dcn314/dcn314_clk_mgr.c        | 14 ++--
+ .../display/dc/clk_mgr/dcn314/dcn314_smu.c    |  4 +-
+ .../dc/clk_mgr/dcn315/dcn315_clk_mgr.c        | 14 ++--
+ .../display/dc/clk_mgr/dcn315/dcn315_smu.c    |  2 +-
+ .../dc/clk_mgr/dcn316/dcn316_clk_mgr.c        | 12 +--
+ .../display/dc/clk_mgr/dcn316/dcn316_smu.c    |  2 +-
+ .../display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c  |  2 +-
+ .../display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c  | 18 ++---
+ .../amd/display/dc/clk_mgr/dcn35/dcn35_smu.c  |  6 +-
+ .../dc/clk_mgr/dcn401/dcn401_clk_mgr.c        | 10 +--
+ drivers/gpu/drm/amd/display/dc/core/dc.c      | 24 +++---
+ .../drm/amd/display/dc/core/dc_hw_sequencer.c |  4 +-
+ .../drm/amd/display/dc/core/dc_link_enc_cfg.c | 12 +--
+ .../gpu/drm/amd/display/dc/core/dc_resource.c | 62 ++++++++--------
+ drivers/gpu/drm/amd/display/dc/core/dc_stat.c |  4 +-
+ .../gpu/drm/amd/display/dc/core/dc_stream.c   |  2 +-
+ .../gpu/drm/amd/display/dc/core/dc_surface.c  |  2 +-
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c  |  6 +-
+ drivers/gpu/drm/amd/display/dc/dc_helper.c    |  8 +-
+ .../amd/display/dc/dccg/dcn20/dcn20_dccg.c    |  2 +-
+ .../amd/display/dc/dccg/dcn31/dcn31_dccg.c    |  2 +-
+ .../amd/display/dc/dccg/dcn35/dcn35_dccg.c    |  4 +-
+ .../amd/display/dc/dccg/dcn401/dcn401_dccg.c  |  2 +-
+ .../gpu/drm/amd/display/dc/dce/dce_audio.c    |  6 +-
+ .../gpu/drm/amd/display/dc/dce/dce_clk_mgr.c  |  8 +-
+ .../drm/amd/display/dc/dce/dce_clock_source.c |  2 +-
+ drivers/gpu/drm/amd/display/dc/dce/dce_dmcu.c |  2 +-
+ .../gpu/drm/amd/display/dc/dce/dce_i2c_sw.c   |  2 +-
+ drivers/gpu/drm/amd/display/dc/dce/dce_ipp.c  |  4 +-
+ .../drm/amd/display/dc/dce/dce_link_encoder.c |  8 +-
+ .../drm/amd/display/dc/dce/dce_mem_input.c    |  6 +-
+ .../amd/display/dc/dce/dce_stream_encoder.c   | 10 +--
+ .../drm/amd/display/dc/dce/dce_transform.c    |  8 +-
+ drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c |  4 +-
+ .../gpu/drm/amd/display/dc/dce/dmub_replay.c  |  4 +-
+ .../dc/dce110/dce110_timing_generator.c       |  2 +-
+ .../amd/display/dc/dce60/dce60_hw_sequencer.c |  2 +-
+ .../drm/amd/display/dc/dce60/dce60_resource.c |  2 +-
+ .../gpu/drm/amd/display/dc/dcn20/dcn20_vmid.c |  2 +-
+ .../amd/display/dc/dcn21/dcn21_link_encoder.c |  4 +-
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_afmt.c |  2 +-
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_vpg.c  |  2 +-
+ .../gpu/drm/amd/display/dc/dcn31/dcn31_apg.c  |  2 +-
+ .../amd/display/dc/dcn31/dcn31_panel_cntl.c   |  2 +-
+ .../display/dc/dio/dcn10/dcn10_link_encoder.c |  4 +-
+ .../dc/dio/dcn10/dcn10_stream_encoder.c       |  8 +-
+ .../dc/dio/dcn20/dcn20_stream_encoder.c       |  4 +-
+ .../dc/dio/dcn30/dcn30_dio_stream_encoder.c   | 16 ++--
+ .../dc/dio/dcn314/dcn314_dio_stream_encoder.c |  6 +-
+ .../dc/dio/dcn32/dcn32_dio_stream_encoder.c   |  6 +-
+ .../dc/dio/dcn35/dcn35_dio_stream_encoder.c   |  8 +-
+ .../dc/dio/dcn401/dcn401_dio_stream_encoder.c |  8 +-
+ drivers/gpu/drm/amd/display/dc/dm_services.h  |  2 +-
+ .../amd/display/dc/dml/calcs/dcn_calc_math.c  |  6 +-
+ .../drm/amd/display/dc/dml/calcs/dcn_calcs.c  | 18 ++---
+ .../drm/amd/display/dc/dml/dcn10/dcn10_fpu.c  |  2 +-
+ .../drm/amd/display/dc/dml/dcn20/dcn20_fpu.c  | 14 ++--
+ .../dc/dml/dcn20/display_mode_vba_20.c        |  2 +-
+ .../dc/dml/dcn20/display_mode_vba_20v2.c      |  2 +-
+ .../dc/dml/dcn20/display_rq_dlg_calc_20.c     | 54 +++++++-------
+ .../dc/dml/dcn20/display_rq_dlg_calc_20v2.c   | 54 +++++++-------
+ .../dc/dml/dcn21/display_mode_vba_21.c        |  2 +-
+ .../dc/dml/dcn21/display_rq_dlg_calc_21.c     | 54 +++++++-------
+ .../drm/amd/display/dc/dml/dcn30/dcn30_fpu.c  |  4 +-
+ .../dc/dml/dcn30/display_mode_vba_30.c        |  4 +-
+ .../dc/dml/dcn30/display_rq_dlg_calc_30.c     | 56 +++++++-------
+ .../amd/display/dc/dml/dcn301/dcn301_fpu.c    |  6 +-
+ .../amd/display/dc/dml/dcn302/dcn302_fpu.c    |  2 +-
+ .../amd/display/dc/dml/dcn303/dcn303_fpu.c    |  2 +-
+ .../drm/amd/display/dc/dml/dcn31/dcn31_fpu.c  |  6 +-
+ .../dc/dml/dcn31/display_mode_vba_31.c        |  4 +-
+ .../dc/dml/dcn31/display_rq_dlg_calc_31.c     | 50 ++++++-------
+ .../amd/display/dc/dml/dcn314/dcn314_fpu.c    |  6 +-
+ .../dc/dml/dcn314/display_mode_vba_314.c      |  4 +-
+ .../dc/dml/dcn314/display_rq_dlg_calc_314.c   | 50 ++++++-------
+ .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.c  | 32 ++++----
+ .../dc/dml/dcn32/display_rq_dlg_calc_32.c     | 58 +++++++--------
+ .../amd/display/dc/dml/dcn321/dcn321_fpu.c    |  2 +-
+ .../drm/amd/display/dc/dml/dcn35/dcn35_fpu.c  |  4 +-
+ .../amd/display/dc/dml/dcn351/dcn351_fpu.c    |  4 +-
+ .../drm/amd/display/dc/dml/display_mode_vba.c | 12 +--
+ .../display/dc/dml/dml1_display_rq_dlg_calc.c | 74 +++++++++----------
+ .../amd/display/dc/dml2/display_mode_core.c   | 14 ++--
+ .../amd/display/dc/dml2/display_mode_util.c   | 12 +--
+ .../dc/dml2/dml21/dml21_translation_helper.c  | 10 +--
+ .../amd/display/dc/dml2/dml21/dml21_utils.c   |  8 +-
+ .../amd/display/dc/dml2/dml21/dml21_wrapper.c |  8 +-
+ .../lib_float_math.c                          |  4 +-
+ .../dc/dml2/dml21/src/inc/dml2_debug.c        |  2 +-
+ .../display/dc/dml2/dml2_dc_resource_mgmt.c   | 50 ++++++-------
+ .../gpu/drm/amd/display/dc/dml2/dml2_policy.c |  2 +-
+ .../display/dc/dml2/dml2_translation_helper.c | 10 +--
+ .../gpu/drm/amd/display/dc/dml2/dml2_utils.c  |  6 +-
+ .../drm/amd/display/dc/dml2/dml2_wrapper.c    | 10 +--
+ .../display/dc/dml2/dml_display_rq_dlg_calc.c | 62 ++++++++--------
+ .../amd/display/dc/dpp/dcn10/dcn10_dpp_dscl.c |  4 +-
+ .../drm/amd/display/dc/dpp/dcn30/dcn30_dpp.c  |  8 +-
+ .../display/dc/dpp/dcn401/dcn401_dpp_dscl.c   |  4 +-
+ drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c   |  4 +-
+ .../drm/amd/display/dc/dsc/dcn20/dcn20_dsc.c  | 24 +++---
+ .../drm/amd/display/dc/dsc/dcn35/dcn35_dsc.c  |  2 +-
+ .../amd/display/dc/dsc/dcn401/dcn401_dsc.c    |  4 +-
+ drivers/gpu/drm/amd/display/dc/gpio/hw_gpio.c |  2 +-
+ .../dc/hpo/dcn31/dcn31_hpo_dp_link_encoder.c  |  6 +-
+ .../hpo/dcn31/dcn31_hpo_dp_stream_encoder.c   |  4 +-
+ .../dc/hpo/dcn32/dcn32_hpo_dp_link_encoder.c  |  2 +-
+ .../display/dc/hubbub/dcn10/dcn10_hubbub.c    |  4 +-
+ .../display/dc/hubbub/dcn20/dcn20_hubbub.c    |  6 +-
+ .../display/dc/hubbub/dcn31/dcn31_hubbub.c    |  8 +-
+ .../display/dc/hubbub/dcn32/dcn32_hubbub.c    |  8 +-
+ .../display/dc/hubbub/dcn35/dcn35_hubbub.c    |  8 +-
+ .../display/dc/hubbub/dcn401/dcn401_hubbub.c  | 10 +--
+ .../amd/display/dc/hubp/dcn10/dcn10_hubp.c    |  4 +-
+ .../amd/display/dc/hubp/dcn20/dcn20_hubp.c    |  4 +-
+ .../amd/display/dc/hubp/dcn401/dcn401_hubp.c  |  8 +-
+ .../amd/display/dc/hwss/dce110/dce110_hwseq.c |  8 +-
+ .../amd/display/dc/hwss/dcn10/dcn10_hwseq.c   |  8 +-
+ .../amd/display/dc/hwss/dcn20/dcn20_hwseq.c   | 22 +++---
+ .../amd/display/dc/hwss/dcn201/dcn201_hwseq.c |  4 +-
+ .../amd/display/dc/hwss/dcn30/dcn30_hwseq.c   | 24 +++---
+ .../amd/display/dc/hwss/dcn31/dcn31_hwseq.c   |  4 +-
+ .../amd/display/dc/hwss/dcn314/dcn314_hwseq.c | 10 +--
+ .../amd/display/dc/hwss/dcn32/dcn32_hwseq.c   | 18 ++---
+ .../amd/display/dc/hwss/dcn35/dcn35_hwseq.c   | 10 +--
+ .../amd/display/dc/hwss/dcn401/dcn401_hwseq.c |  6 +-
+ .../gpu/drm/amd/display/dc/irq/irq_service.c  |  4 +-
+ .../display/dc/link/accessories/link_dp_cts.c |  4 +-
+ .../amd/display/dc/link/hwss/link_hwss_dio.c  |  2 +-
+ .../amd/display/dc/link/hwss/link_hwss_dpia.c |  2 +-
+ .../drm/amd/display/dc/link/link_detection.c  |  4 +-
+ .../gpu/drm/amd/display/dc/link/link_dpms.c   | 26 +++----
+ .../dc/link/protocols/link_dp_capability.c    | 12 +--
+ .../display/dc/link/protocols/link_dp_phy.c   |  4 +-
+ .../dc/link/protocols/link_dp_training.c      | 14 ++--
+ .../link/protocols/link_dp_training_8b_10b.c  |  2 +-
+ .../dc/link/protocols/link_dp_training_dpia.c |  4 +-
+ .../link_dp_training_fixed_vs_pe_retimer.c    |  4 +-
+ .../amd/display/dc/link/protocols/link_dpcd.c |  2 +-
+ .../link/protocols/link_edp_panel_control.c   |  6 +-
+ .../amd/display/dc/link/protocols/link_hpd.c  |  2 +-
+ .../drm/amd/display/dc/mpc/dcn10/dcn10_mpc.c  | 16 ++--
+ .../drm/amd/display/dc/mpc/dcn20/dcn20_mpc.c  | 14 ++--
+ .../drm/amd/display/dc/opp/dcn20/dcn20_opp.c  |  2 +-
+ .../amd/display/dc/optc/dcn10/dcn10_optc.c    |  2 +-
+ .../amd/display/dc/optc/dcn20/dcn20_optc.c    |  2 +-
+ .../amd/display/dc/optc/dcn201/dcn201_optc.c  |  2 +-
+ .../amd/display/dc/optc/dcn30/dcn30_optc.c    |  2 +-
+ .../amd/display/dc/optc/dcn31/dcn31_optc.c    |  2 +-
+ .../amd/display/dc/optc/dcn35/dcn35_optc.c    |  2 +-
+ .../amd/display/dc/optc/dcn401/dcn401_optc.c  |  4 +-
+ drivers/gpu/drm/amd/display/dc/os_types.h     |  7 +-
+ .../dc/resource/dce100/dce100_resource.c      |  2 +-
+ .../dc/resource/dce110/dce110_resource.c      |  2 +-
+ .../dc/resource/dce112/dce112_resource.c      |  2 +-
+ .../dc/resource/dce120/dce120_resource.c      |  2 +-
+ .../dc/resource/dce80/dce80_resource.c        |  2 +-
+ .../dc/resource/dcn10/dcn10_resource.c        |  4 +-
+ .../dc/resource/dcn20/dcn20_resource.c        | 30 ++++----
+ .../dc/resource/dcn201/dcn201_resource.c      |  2 +-
+ .../dc/resource/dcn21/dcn21_resource.c        | 12 +--
+ .../dc/resource/dcn30/dcn30_resource.c        | 26 +++----
+ .../dc/resource/dcn31/dcn31_resource.c        |  4 +-
+ .../dc/resource/dcn314/dcn314_resource.c      |  2 +-
+ .../dc/resource/dcn315/dcn315_resource.c      |  4 +-
+ .../dc/resource/dcn316/dcn316_resource.c      |  6 +-
+ .../dc/resource/dcn32/dcn32_resource.c        | 20 ++---
+ .../dc/resource/dcn321/dcn321_resource.c      |  6 +-
+ .../dc/resource/dcn35/dcn35_resource.c        |  2 +-
+ .../dc/resource/dcn351/dcn351_resource.c      |  2 +-
+ .../dc/resource/dcn401/dcn401_resource.c      |  6 +-
+ drivers/gpu/drm/amd/display/dc/spl/dc_spl.c   | 12 +--
+ .../gpu/drm/amd/display/dc/spl/spl_debug.h    | 15 +++-
+ .../drm/amd/display/dc/spl/spl_fixpt31_32.c   | 32 ++++----
+ .../drm/amd/display/dc/spl/spl_fixpt31_32.h   | 12 +--
+ .../gpu/drm/amd/display/dmub/src/dmub_srv.c   |  4 +-
+ .../gpu/drm/amd/display/include/fixed31_32.h  | 12 +--
+ .../amd/display/modules/color/color_gamma.c   |  2 +-
+ .../amd/display/modules/freesync/freesync.c   |  4 +-
+ .../amd/display/modules/power/power_helpers.c |  8 +-
+ .../gpu/drm/amd/display/modules/vmid/vmid.c   |  2 +-
+ 203 files changed, 961 insertions(+), 947 deletions(-)
+
 -- 
 2.42.0
 
