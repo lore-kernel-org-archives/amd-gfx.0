@@ -4,128 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CCB7E77198
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jan 2025 12:58:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12D64E77188
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jan 2025 14:12:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C88E10E66A;
-	Mon,  6 Jan 2025 12:58:32 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="QzCES/5b";
-	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2077.outbound.protection.outlook.com [40.107.92.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A73B10E66A
- for <amd-gfx@lists.freedesktop.org>; Mon,  6 Jan 2025 12:58:31 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OEp5U43Yi6yTIyhNirTvJgw7Jt5SMBOc6NKXv3af/6hKcb+3yzPjrEbcxLeKOvzoEdwNFNyT/BDvmxAOijw0QwbqEZA19S2NegRY444mbfZ4Yw/NuY4wdjZifyJD3iXVtwduITXBtPAW60rmVXQJEoXR4c6MfGLPrj9E5rfP84V/qTPq9YS87vWAOxvWFzqM0Dzs63a25L/gze5E1d0wJAA0W3wzur7ttU9eWKBks3fkN1nQMvahA9YPTbI6YffxvnzAeM6SPX3vOhVeqn0IyXrVuB5jj03d46URNjCGV85W1/RuJYY2HokF+DppZ2egt992RMPUg6tcAPZrUlvxfA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yrvODDOgSNoXLj3Mf6jTFUU7ws1b9NrQuWqTuYmFqkU=;
- b=kA4Y/8h+G3drez+OkaB98IbCKbF9xatoMkH33pOAsHkeelx47xTQ8dSvf/7bIi53CtQoyiH2VtoTs0jB3vND9uGKTNIVA9bo4J/xL9+lUMQK/iUbiGqqcDjR5lP5Pozk1SWFaUPNqaI1Yn/83uUlIj8MQpf9/v3JUH7pdu1UTraZ5EmuqUaxx/chCVxM264QkN0acpQPRCVpjPLEwhZNAYta4C2vdUF1PnkV0eN8gsRtahx7uSspVXAPtoWQGI9EvSiM7zBWqi4Fm73IYZvghjuj0yIyewfySExbhDNIsY8BJIvp2fXNYB6+LFeHle7aZLm7oDV8VYFeUL25NrLtzQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yrvODDOgSNoXLj3Mf6jTFUU7ws1b9NrQuWqTuYmFqkU=;
- b=QzCES/5btM6Rilvn7ixTOrEmLkVMAlOj1p7y1rU3HaxUt4P9G65Lv4tj405HIMVhOccNJ7VlUp2HelrZK5lkXeMW2C100SSE2MGEWeWbhqLGTfSWjddXawuvPF21dkj5QqygmJVIPEvabzQLSyWfIuT7vZ5AsISQVGdp7DmV/1k=
-Received: from CH2PR20CA0013.namprd20.prod.outlook.com (2603:10b6:610:58::23)
- by SJ2PR12MB9191.namprd12.prod.outlook.com (2603:10b6:a03:55a::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8314.17; Mon, 6 Jan
- 2025 12:43:54 +0000
-Received: from CH3PEPF00000009.namprd04.prod.outlook.com
- (2603:10b6:610:58:cafe::77) by CH2PR20CA0013.outlook.office365.com
- (2603:10b6:610:58::23) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8314.17 via Frontend Transport; Mon,
- 6 Jan 2025 12:43:54 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CH3PEPF00000009.mail.protection.outlook.com (10.167.244.36) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8335.7 via Frontend Transport; Mon, 6 Jan 2025 12:43:54 +0000
-Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Mon, 6 Jan 2025 06:43:51 -0600
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
- Deucher" <alexander.deucher@amd.com>
-CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
- <srinivasan.shanmugam@amd.com>
-Subject: [PATCH] drm/amdgpu: Added Debug Logging for Process Isolation
-Date: Mon, 6 Jan 2025 18:13:30 +0530
-Message-ID: <20250106124330.328941-1-srinivasan.shanmugam@amd.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id B637410E67F;
+	Mon,  6 Jan 2025 14:12:56 +0000 (UTC)
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+ by gabe.freedesktop.org (Postfix) with ESMTP id BF12910E5CB
+ for <amd-gfx@lists.freedesktop.org>; Mon,  6 Jan 2025 09:01:20 +0000 (UTC)
+Received: from loongson.cn (unknown [113.200.148.30])
+ by gateway (Coremail) with SMTP id _____8Axfazfm3tnwo5eAA--.540S3;
+ Mon, 06 Jan 2025 17:01:19 +0800 (CST)
+Received: from linux.localdomain (unknown [113.200.148.30])
+ by front1 (Coremail) with SMTP id qMiowMDx_8fTm3tn2UgWAA--.31746S2;
+ Mon, 06 Jan 2025 17:01:07 +0800 (CST)
+From: Tiezhu Yang <yangtiezhu@loongson.cn>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Xinhui Pan <Xinhui.Pan@amd.com>, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Cc: Nathan Chancellor <nathan@kernel.org>,
+ Josh Poimboeuf <jpoimboe@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>, loongarch@lists.linux.dev,
+ amd-gfx@lists.freedesktop.org, llvm@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH v2 2/5] drm/amd/display: Replace SPL_ASSERT() with
+ SPL_ASSERT_WARN()
+Date: Mon,  6 Jan 2025 17:01:06 +0800
+Message-ID: <20250106090106.4683-1-yangtiezhu@loongson.cn>
+X-Mailer: git-send-email 2.42.0
+In-Reply-To: <20250106085755.3268-1-yangtiezhu@loongson.cn>
+References: <20250106085755.3268-1-yangtiezhu@loongson.cn>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF00000009:EE_|SJ2PR12MB9191:EE_
-X-MS-Office365-Filtering-Correlation-Id: f538b13a-9ae3-49bc-5287-08dd2e4fc785
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|30052699003|36860700013|1800799024|376014; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?S2tQbmVWNlJLdXBmOHN1di85UThTSnZrQ1BPbHlITTZHcS9jdWZwWkM2bkZX?=
- =?utf-8?B?aUdITzB5cDFjWWE1OHNvZXE5cXdsRU5iL3dHVG1IYnN2cmw4K2d6MFBLeE1w?=
- =?utf-8?B?aW9GQ2JpbFNVSzhGNmE5VVRXTDBZbVZnR2VZRm9adCt0WmhieUJOOHBCekxB?=
- =?utf-8?B?SVI0YVhSZVB0RlhZZDJrRlVzeDI2VkNUMWFKU1pPMG4xOFRSN0c3YXFLT2VR?=
- =?utf-8?B?MHEwM21LZ0gyeHAyWjl2dHplUy9GTHVveHYxSTdZcDJYcHozaG1nM0loUHVo?=
- =?utf-8?B?cytac3Rva3M3SW1KWmFBUCtPVEZ5bU44S1BSYlRDWC9VSVhkWXdaK1U2dm9u?=
- =?utf-8?B?VGFtL21IL2prTTRYbDJ0SWE2amZnNkNxL1g0SnkyMEJEUksrTUMrZWplTXNZ?=
- =?utf-8?B?ZWtQUkVyMTgxNTdHV2p4U1pvdnBHSEtCcnRXb09QUndEOCtQL3dxSkx1SVdU?=
- =?utf-8?B?dDFsMWpZYUhaK3JpTzNtWlFvZTE5ZG1kdURiZzZweTBOdWF1Zmw0aGVLdnFn?=
- =?utf-8?B?dTVEVStIV3NDcnNPVXJJRzdKTGpBRVlwNndmN2hEelN2NnZ0a0pRSjdzeHNY?=
- =?utf-8?B?ckpBNStrMlNOZ1J2K29rbG5IZU0wMUhySnpoQmVCNkhtMFJ2UlB2dW5ZcVYr?=
- =?utf-8?B?OVAvcjBETVJzd2NTWXZUWnlLTDhOSDEyREVKdEludFlpejlyVmR3U1hWWURw?=
- =?utf-8?B?bnJPVy9KKzV3cHRpSGtmMkpaZzd5KzdoV0FwdkJPMDJJUnhWSmN4aklVamtz?=
- =?utf-8?B?cmlPNVIvbUM4YmR2MXpNbm5rTE9rUHN5bDY5THU4UGxrUDR1Sy9iZUpSOG56?=
- =?utf-8?B?R1FERTV5NnM4RGFEVEFRVDlGQ2dieEU5NU1KcnlOUVFoYUlUSEhoZ1JRMkZo?=
- =?utf-8?B?ZlZxaUE1N3NRRlFyVjZtTTlrMXpMMVJSbzMzdzBOcEI2M2lRZjFGRVNKcGFa?=
- =?utf-8?B?cklZUGszaEREN0VqTGlKMUd1bnJuOXh5Y1BVK0UyL1JReFdPTDZhazFyWEta?=
- =?utf-8?B?OTBNMk16eWhxcFYxclAzTEdPMXNBRGpGanRxSUpKc3BWVTVaZlpYdTVEV3Ba?=
- =?utf-8?B?d01CTmErTU5ubFNjT1NtOUJYcVNVeWkvVk8zNUtCeTVTV3VHaXRPTnVadERy?=
- =?utf-8?B?L1pIUHpKV3l3YXN3S2NMdTl0bTRlTVV3UTFieGQ4dG5QV3NCZGZNdUV1cEVH?=
- =?utf-8?B?NUtBR01tUkx6WW5YWVhDWTNjY29MUzRlYzkwNE9jWWhCYnV2anhBOUV4ZWwy?=
- =?utf-8?B?S0lpWXROZTRRL0JYTXIyc0VVMTN2RjkvbytZK2RVZFNYdVlSU21WSGx6ZVQw?=
- =?utf-8?B?dE9VNTdoTjluWHdqaGFMZC9pdjdiZ3NQK0pXVkhHR3VjQVJwUjRTUnpSNnR2?=
- =?utf-8?B?bkFBcUFGZ0RiTkhtREJ0VkxCYURJd01Gd09xOVU0cGFrWW5weXdldVFUbmJi?=
- =?utf-8?B?YzltVkxXQXZXNHkwdGhaZEtWaGgwenVmb25aWWFQdnpHSWZranNqb21QdC81?=
- =?utf-8?B?Y0s1cElEa2xaeUtmRmpaOE1DVzFFU0xjb2hBNGpGT0xHLzFKY29YeWJKSFpB?=
- =?utf-8?B?elptajJTNm1Ic2dQU3RDSGdRNWdjelI5LzFaSFgraUQ1NGFRNUU2dGFMMUF4?=
- =?utf-8?B?eDMrckp1ekIrVkpnbjNVSzBNRUlQeHRFK3NBWStGUU9qeENFZnY3NVdSTDlM?=
- =?utf-8?B?QXJLblJYdm83aDhwdEEwNlVJYzBhZEdyQ1h4MzArSFdCcVB6dkVTdHdmYUVC?=
- =?utf-8?B?VmZ1VlRCaXFSdSt5bFd6a040SlRDVkFCRTYyTjNhb3FPTWI2TEtXeFhRMGF3?=
- =?utf-8?B?WnE1cWtFRUxRam5NTmYyMFBRbDgrUmJyVzdEVklaVHNzK09rREtSQTBPa0Ex?=
- =?utf-8?B?WDkybThLVDVuVUhBTEJySDlSK2FCSGVScG1JdWV3bCtiREV2U1JiMHNrQmdB?=
- =?utf-8?B?WkQxK0tScXRvYi9KN3dFM2NML0paMTYxNW5vZlAzZnRTWmMzSk1Ka1NYR1ZF?=
- =?utf-8?Q?LAUzZbFVheosj7L4KIWiEPD62VVju4=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(30052699003)(36860700013)(1800799024)(376014);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jan 2025 12:43:54.0238 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f538b13a-9ae3-49bc-5287-08dd2e4fc785
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF00000009.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9191
+X-CM-TRANSID: qMiowMDx_8fTm3tn2UgWAA--.31746S2
+X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
+X-Coremail-Antispam: 1Uk129KBj93XoWfGrW8KFyxZrWfZFyfuF43CFX_yoWkAr4xpa
+ 1fJry8ZF4jqayvqFZrW34UuF93Ja4rtrW2q3Z3W3ykWa4xCw15Ja9rtrs3Ar4UCr9xAa47
+ AFyFgrWUKayktwcCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
+ sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+ 0xBIdaVrnRJUUUBIb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+ IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+ e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+ 0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
+ xVW8Jr0_Cr1UM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07
+ AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWU
+ tVWrXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7V
+ AKI48JMxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY
+ 6r1j6r4UMxCIbckI1I0E14v26r1Y6r17MI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7
+ xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xII
+ jxv20xvE14v26r4j6ryUMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw2
+ 0EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x02
+ 67AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8EPfPUUUUU==
+X-Mailman-Approved-At: Mon, 06 Jan 2025 14:12:56 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,151 +71,293 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Added debug logging to provide insights into KGD/KFD scheduling, cleaner
-shader emission, and isolation processes.
+SPL_ASSERT() is actually SPL_ASSERT_WARN() according to the macro
+definition in drivers/gpu/drm/amd/display/dc/spl/spl_debug.h, just
+replace the macro name SPL_ASSERT() with explicit SPL_ASSERT_WARN()
+to avoid ambiguous.
 
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Here is the one-line script:
+
+  sed -i "s/\<SPL_ASSERT\>/SPL_ASSERT_WARN/g" `grep SPL_ASSERT -rwl drivers/gpu/drm/amd/display`
+
+This is in preparation to add SPL_ASSERT_BUG() in later patch to harden
+the callers of division functions, no functional change intended.
+
+Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 30 +++++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c  |  5 ++++-
- 2 files changed, 34 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/spl/dc_spl.c   | 12 +++----
+ .../gpu/drm/amd/display/dc/spl/spl_debug.h    |  6 ++--
+ .../drm/amd/display/dc/spl/spl_fixpt31_32.c   | 32 +++++++++----------
+ .../drm/amd/display/dc/spl/spl_fixpt31_32.h   | 12 +++----
+ 4 files changed, 31 insertions(+), 31 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-index 89f7c89d1392..ef985a7bda1a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-@@ -1912,16 +1912,19 @@ static void amdgpu_gfx_kfd_sch_ctrl(struct amdgpu_device *adev, u32 idx,
+diff --git a/drivers/gpu/drm/amd/display/dc/spl/dc_spl.c b/drivers/gpu/drm/amd/display/dc/spl/dc_spl.c
+index 73a65913cb12..664343102f46 100644
+--- a/drivers/gpu/drm/amd/display/dc/spl/dc_spl.c
++++ b/drivers/gpu/drm/amd/display/dc/spl/dc_spl.c
+@@ -146,7 +146,7 @@ static struct spl_rect calculate_mpc_slice_in_timing_active(
+ 	mpc_rec.x = plane_clip_rec->x + mpc_rec.width * mpc_slice_idx;
+ 	mpc_rec.height = plane_clip_rec->height;
+ 	mpc_rec.y = plane_clip_rec->y;
+-	SPL_ASSERT(mpc_slice_count == 1 ||
++	SPL_ASSERT_WARN(mpc_slice_count == 1 ||
+ 			spl_in->basic_out.view_format != SPL_VIEW_3D_SIDE_BY_SIDE ||
+ 			mpc_rec.width % 2 == 0);
  
- 		adev->gfx.kfd_sch_req_count[idx]--;
+@@ -159,7 +159,7 @@ static struct spl_rect calculate_mpc_slice_in_timing_active(
+ 	}
  
-+		dev_dbg(adev->dev, "%s: Enabling KFD scheduler for idx: %u\n", __func__, idx);
- 		if (adev->gfx.kfd_sch_req_count[idx] == 0 &&
- 		    adev->gfx.kfd_sch_inactive[idx]) {
- 			schedule_delayed_work(&adev->gfx.enforce_isolation[idx].work,
- 					      msecs_to_jiffies(adev->gfx.enforce_isolation_time[idx]));
+ 	if (spl_in->basic_out.view_format == SPL_VIEW_3D_TOP_AND_BOTTOM) {
+-		SPL_ASSERT(mpc_rec.height % 2 == 0);
++		SPL_ASSERT_WARN(mpc_rec.height % 2 == 0);
+ 		mpc_rec.height /= 2;
+ 	}
+ 	return mpc_rec;
+@@ -666,7 +666,7 @@ static void spl_calculate_inits_and_viewports(struct spl_in *spl_in,
+ 	}
+ 	spl_scratch->scl_data.viewport.x += src.x;
+ 	spl_scratch->scl_data.viewport.y += src.y;
+-	SPL_ASSERT(src.x % vpc_div == 0 && src.y % vpc_div == 0);
++	SPL_ASSERT_WARN(src.x % vpc_div == 0 && src.y % vpc_div == 0);
+ 	spl_scratch->scl_data.viewport_c.x += src.x / vpc_div;
+ 	spl_scratch->scl_data.viewport_c.y += src.y / vpc_div;
+ }
+@@ -679,7 +679,7 @@ static void spl_handle_3d_recout(struct spl_in *spl_in, struct spl_rect *recout)
+ 	 * This may break with rotation, good thing we aren't mixing hw rotation and 3d
+ 	 */
+ 	if (spl_in->basic_in.mpc_combine_v) {
+-		SPL_ASSERT(spl_in->basic_in.rotation == SPL_ROTATION_ANGLE_0 ||
++		SPL_ASSERT_WARN(spl_in->basic_in.rotation == SPL_ROTATION_ANGLE_0 ||
+ 			(spl_in->basic_out.view_format != SPL_VIEW_3D_TOP_AND_BOTTOM &&
+ 					spl_in->basic_out.view_format != SPL_VIEW_3D_SIDE_BY_SIDE));
+ 		if (spl_in->basic_out.view_format == SPL_VIEW_3D_TOP_AND_BOTTOM)
+@@ -1052,7 +1052,7 @@ static bool spl_get_optimal_number_of_taps(
+ 				*enable_easf_v = true;
+ 				*enable_easf_h = true;
+ 			}
+-			SPL_ASSERT((spl_scratch->scl_data.taps.v_taps > 1) &&
++			SPL_ASSERT_WARN((spl_scratch->scl_data.taps.v_taps > 1) &&
+ 				(spl_scratch->scl_data.taps.v_taps_c > 1));
+ 		} else { /* RGB */
+ 			if (spl_scratch->scl_data.taps.h_taps <= 3) {
+@@ -1065,7 +1065,7 @@ static bool spl_get_optimal_number_of_taps(
+ 				*enable_easf_v = true;
+ 				*enable_easf_h = true;
+ 			}
+-			SPL_ASSERT(spl_scratch->scl_data.taps.v_taps > 1);
++			SPL_ASSERT_WARN(spl_scratch->scl_data.taps.v_taps > 1);
  		}
  	} else {
-+		dev_dbg(adev->dev, "%s: Disabling KFD scheduler for idx: %u\n", __func__, idx);
- 		if (adev->gfx.kfd_sch_req_count[idx] == 0) {
- 			cancel_delayed_work_sync(&adev->gfx.enforce_isolation[idx].work);
- 			if (!adev->gfx.kfd_sch_inactive[idx]) {
- 				amdgpu_amdkfd_stop_sched(adev, idx);
-+				dev_dbg(adev->dev, "%s: KFD stopped\n", __func__);
- 				adev->gfx.kfd_sch_inactive[idx] = true;
- 			}
- 		}
-@@ -1960,7 +1963,12 @@ void amdgpu_gfx_enforce_isolation_handler(struct work_struct *work)
- 	if (idx >= MAX_XCP)
- 		return;
+ 		*enable_easf_v = false;
+diff --git a/drivers/gpu/drm/amd/display/dc/spl/spl_debug.h b/drivers/gpu/drm/amd/display/dc/spl/spl_debug.h
+index a6f6132df241..f01c932d550d 100644
+--- a/drivers/gpu/drm/amd/display/dc/spl/spl_debug.h
++++ b/drivers/gpu/drm/amd/display/dc/spl/spl_debug.h
+@@ -20,11 +20,11 @@
+ #endif /* CONFIG_HAVE_KGDB || CONFIG_KGDB */
  
-+	dev_dbg(adev->dev, "%s: Starting enforce isolation handler for idx: %u\n",
-+		__func__, idx);
-+
- 	mutex_lock(&adev->enforce_isolation_mutex);
-+	dev_dbg(adev->dev, "%s: Processing fences for idx: %u. Checking GFX and Compute rings.\n",
-+		__func__, idx);
- 	for (i = 0; i < AMDGPU_MAX_GFX_RINGS; ++i) {
- 		if (isolation_work->xcp_id == adev->gfx.gfx_ring[i].xcp_id)
- 			fences += amdgpu_fence_count_emitted(&adev->gfx.gfx_ring[i]);
-@@ -1969,16 +1977,23 @@ void amdgpu_gfx_enforce_isolation_handler(struct work_struct *work)
- 		if (isolation_work->xcp_id == adev->gfx.compute_ring[i].xcp_id)
- 			fences += amdgpu_fence_count_emitted(&adev->gfx.compute_ring[i]);
+ #if defined(CONFIG_DEBUG_KERNEL_DC)
+-#define SPL_ASSERT(expr) SPL_ASSERT_CRITICAL(expr)
++#define SPL_ASSERT_WARN(expr) SPL_ASSERT_CRITICAL(expr)
+ #else
+-#define SPL_ASSERT(expr) WARN_ON(!(expr))
++#define SPL_ASSERT_WARN(expr) WARN_ON(!(expr))
+ #endif /* CONFIG_DEBUG_KERNEL_DC */
+ 
+-#define SPL_BREAK_TO_DEBUGGER() SPL_ASSERT(0)
++#define SPL_BREAK_TO_DEBUGGER() SPL_ASSERT_WARN(0)
+ 
+ #endif  // SPL_DEBUG_H
+diff --git a/drivers/gpu/drm/amd/display/dc/spl/spl_fixpt31_32.c b/drivers/gpu/drm/amd/display/dc/spl/spl_fixpt31_32.c
+index 131f1e3949d3..07a5c09b250e 100644
+--- a/drivers/gpu/drm/amd/display/dc/spl/spl_fixpt31_32.c
++++ b/drivers/gpu/drm/amd/display/dc/spl/spl_fixpt31_32.c
+@@ -29,7 +29,7 @@ static inline unsigned long long spl_complete_integer_division_u64(
+ {
+ 	unsigned long long result;
+ 
+-	SPL_ASSERT(divisor);
++	SPL_ASSERT_WARN(divisor);
+ 
+ 	result = spl_div64_u64_rem(dividend, divisor, remainder);
+ 
+@@ -63,7 +63,7 @@ struct spl_fixed31_32 spl_fixpt_from_fraction(long long numerator, long long den
+ 	unsigned long long res_value = spl_complete_integer_division_u64(
+ 		arg1_value, arg2_value, &remainder);
+ 
+-	SPL_ASSERT(res_value <= (unsigned long long)LONG_MAX);
++	SPL_ASSERT_WARN(res_value <= (unsigned long long)LONG_MAX);
+ 
+ 	/* determine fractional part */
+ 	{
+@@ -85,7 +85,7 @@ struct spl_fixed31_32 spl_fixpt_from_fraction(long long numerator, long long den
+ 	{
+ 		unsigned long long summand = (remainder << 1) >= arg2_value;
+ 
+-		SPL_ASSERT(res_value <= (unsigned long long)LLONG_MAX - summand);
++		SPL_ASSERT_WARN(res_value <= (unsigned long long)LLONG_MAX - summand);
+ 
+ 		res_value += summand;
  	}
-+	dev_dbg(adev->dev, "%s: Total fences processed for idx: %u: %u\n",
-+		__func__, idx, fences);
- 	if (fences) {
-+		dev_dbg(adev->dev, "%s: Fences detected for idx: %u, scheduling delayed work\n",
-+			__func__, idx);
- 		/* we've already had our timeslice, so let's wrap this up */
- 		schedule_delayed_work(&adev->gfx.enforce_isolation[idx].work,
- 				      msecs_to_jiffies(1));
- 	} else {
-+		dev_dbg(adev->dev, "%s: No fences detected for idx: %u, no delayed work scheduled\n",
-+			__func__, idx);
- 		/* Tell KFD to resume the runqueue */
- 		if (adev->kfd.init_complete) {
- 			WARN_ON_ONCE(!adev->gfx.kfd_sch_inactive[idx]);
- 			WARN_ON_ONCE(adev->gfx.kfd_sch_req_count[idx]);
- 				amdgpu_amdkfd_start_sched(adev, idx);
-+				dev_dbg(adev->dev, "%s: KFD started\n", __func__);
- 				adev->gfx.kfd_sch_inactive[idx] = false;
- 		}
+@@ -118,19 +118,19 @@ struct spl_fixed31_32 spl_fixpt_mul(struct spl_fixed31_32 arg1, struct spl_fixed
+ 
+ 	res.value = arg1_int * arg2_int;
+ 
+-	SPL_ASSERT(res.value <= (long long)LONG_MAX);
++	SPL_ASSERT_WARN(res.value <= (long long)LONG_MAX);
+ 
+ 	res.value <<= FIXED31_32_BITS_PER_FRACTIONAL_PART;
+ 
+ 	tmp = arg1_int * arg2_fra;
+ 
+-	SPL_ASSERT(tmp <= (unsigned long long)(LLONG_MAX - res.value));
++	SPL_ASSERT_WARN(tmp <= (unsigned long long)(LLONG_MAX - res.value));
+ 
+ 	res.value += tmp;
+ 
+ 	tmp = arg2_int * arg1_fra;
+ 
+-	SPL_ASSERT(tmp <= (unsigned long long)(LLONG_MAX - res.value));
++	SPL_ASSERT_WARN(tmp <= (unsigned long long)(LLONG_MAX - res.value));
+ 
+ 	res.value += tmp;
+ 
+@@ -139,7 +139,7 @@ struct spl_fixed31_32 spl_fixpt_mul(struct spl_fixed31_32 arg1, struct spl_fixed
+ 	tmp = (tmp >> FIXED31_32_BITS_PER_FRACTIONAL_PART) +
+ 		(tmp >= (unsigned long long)spl_fixpt_half.value);
+ 
+-	SPL_ASSERT(tmp <= (unsigned long long)(LLONG_MAX - res.value));
++	SPL_ASSERT_WARN(tmp <= (unsigned long long)(LLONG_MAX - res.value));
+ 
+ 	res.value += tmp;
+ 
+@@ -163,17 +163,17 @@ struct spl_fixed31_32 spl_fixpt_sqr(struct spl_fixed31_32 arg)
+ 
+ 	res.value = arg_int * arg_int;
+ 
+-	SPL_ASSERT(res.value <= (long long)LONG_MAX);
++	SPL_ASSERT_WARN(res.value <= (long long)LONG_MAX);
+ 
+ 	res.value <<= FIXED31_32_BITS_PER_FRACTIONAL_PART;
+ 
+ 	tmp = arg_int * arg_fra;
+ 
+-	SPL_ASSERT(tmp <= (unsigned long long)(LLONG_MAX - res.value));
++	SPL_ASSERT_WARN(tmp <= (unsigned long long)(LLONG_MAX - res.value));
+ 
+ 	res.value += tmp;
+ 
+-	SPL_ASSERT(tmp <= (unsigned long long)(LLONG_MAX - res.value));
++	SPL_ASSERT_WARN(tmp <= (unsigned long long)(LLONG_MAX - res.value));
+ 
+ 	res.value += tmp;
+ 
+@@ -182,7 +182,7 @@ struct spl_fixed31_32 spl_fixpt_sqr(struct spl_fixed31_32 arg)
+ 	tmp = (tmp >> FIXED31_32_BITS_PER_FRACTIONAL_PART) +
+ 		(tmp >= (unsigned long long)spl_fixpt_half.value);
+ 
+-	SPL_ASSERT(tmp <= (unsigned long long)(LLONG_MAX - res.value));
++	SPL_ASSERT_WARN(tmp <= (unsigned long long)(LLONG_MAX - res.value));
+ 
+ 	res.value += tmp;
+ 
+@@ -196,7 +196,7 @@ struct spl_fixed31_32 spl_fixpt_recip(struct spl_fixed31_32 arg)
+ 	 * Good idea to use Newton's method
+ 	 */
+ 
+-	SPL_ASSERT(arg.value);
++	SPL_ASSERT_WARN(arg.value);
+ 
+ 	return spl_fixpt_from_fraction(
+ 		spl_fixpt_one.value,
+@@ -295,7 +295,7 @@ static struct spl_fixed31_32 spl_fixed31_32_exp_from_taylor_series(struct spl_fi
+ 		n + 1);
+ 	/* TODO find correct res */
+ 
+-	SPL_ASSERT(spl_fixpt_lt(arg, spl_fixpt_one));
++	SPL_ASSERT_WARN(spl_fixpt_lt(arg, spl_fixpt_one));
+ 
+ 	do
+ 		res = spl_fixpt_add(
+@@ -337,9 +337,9 @@ struct spl_fixed31_32 spl_fixpt_exp(struct spl_fixed31_32 arg)
+ 				spl_fixpt_ln2,
+ 				m));
+ 
+-		SPL_ASSERT(m != 0);
++		SPL_ASSERT_WARN(m != 0);
+ 
+-		SPL_ASSERT(spl_fixpt_lt(
++		SPL_ASSERT_WARN(spl_fixpt_lt(
+ 			spl_fixpt_abs(r),
+ 			spl_fixpt_one));
+ 
+@@ -364,7 +364,7 @@ struct spl_fixed31_32 spl_fixpt_log(struct spl_fixed31_32 arg)
+ 
+ 	struct spl_fixed31_32 error;
+ 
+-	SPL_ASSERT(arg.value > 0);
++	SPL_ASSERT_WARN(arg.value > 0);
+ 	/* TODO if arg is negative, return NaN */
+ 	/* TODO if arg is zero, return -INF */
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/spl/spl_fixpt31_32.h b/drivers/gpu/drm/amd/display/dc/spl/spl_fixpt31_32.h
+index ed2647f9a099..b285f4397f07 100644
+--- a/drivers/gpu/drm/amd/display/dc/spl/spl_fixpt31_32.h
++++ b/drivers/gpu/drm/amd/display/dc/spl/spl_fixpt31_32.h
+@@ -191,7 +191,7 @@ static inline struct spl_fixed31_32 spl_fixpt_clamp(
+  */
+ static inline struct spl_fixed31_32 spl_fixpt_shl(struct spl_fixed31_32 arg, unsigned char shift)
+ {
+-	SPL_ASSERT(((arg.value >= 0) && (arg.value <= LLONG_MAX >> shift)) ||
++	SPL_ASSERT_WARN(((arg.value >= 0) && (arg.value <= LLONG_MAX >> shift)) ||
+ 		((arg.value < 0) && (arg.value >= ~(LLONG_MAX >> shift))));
+ 
+ 	arg.value = arg.value << shift;
+@@ -228,7 +228,7 @@ static inline struct spl_fixed31_32 spl_fixpt_add(struct spl_fixed31_32 arg1, st
+ {
+ 	struct spl_fixed31_32 res;
+ 
+-	SPL_ASSERT(((arg1.value >= 0) && (LLONG_MAX - arg1.value >= arg2.value)) ||
++	SPL_ASSERT_WARN(((arg1.value >= 0) && (LLONG_MAX - arg1.value >= arg2.value)) ||
+ 		((arg1.value < 0) && (LLONG_MIN - arg1.value <= arg2.value)));
+ 
+ 	res.value = arg1.value + arg2.value;
+@@ -253,7 +253,7 @@ static inline struct spl_fixed31_32 spl_fixpt_sub(struct spl_fixed31_32 arg1, st
+ {
+ 	struct spl_fixed31_32 res;
+ 
+-	SPL_ASSERT(((arg2.value >= 0) && (LLONG_MIN + arg2.value <= arg1.value)) ||
++	SPL_ASSERT_WARN(((arg2.value >= 0) && (LLONG_MIN + arg2.value <= arg1.value)) ||
+ 		((arg2.value < 0) && (LLONG_MAX + arg2.value >= arg1.value)));
+ 
+ 	res.value = arg1.value - arg2.value;
+@@ -445,7 +445,7 @@ static inline int spl_fixpt_round(struct spl_fixed31_32 arg)
+ 
+ 	const long long summand = spl_fixpt_half.value;
+ 
+-	SPL_ASSERT(LLONG_MAX - (long long)arg_value >= summand);
++	SPL_ASSERT_WARN(LLONG_MAX - (long long)arg_value >= summand);
+ 
+ 	arg_value += summand;
+ 
+@@ -466,7 +466,7 @@ static inline int spl_fixpt_ceil(struct spl_fixed31_32 arg)
+ 	const long long summand = spl_fixpt_one.value -
+ 		spl_fixpt_epsilon.value;
+ 
+-	SPL_ASSERT(LLONG_MAX - (long long)arg_value >= summand);
++	SPL_ASSERT_WARN(LLONG_MAX - (long long)arg_value >= summand);
+ 
+ 	arg_value += summand;
+ 
+@@ -501,7 +501,7 @@ static inline struct spl_fixed31_32 spl_fixpt_truncate(struct spl_fixed31_32 arg
+ 	bool negative = arg.value < 0;
+ 
+ 	if (frac_bits >= FIXED31_32_BITS_PER_FRACTIONAL_PART) {
+-		SPL_ASSERT(frac_bits == FIXED31_32_BITS_PER_FRACTIONAL_PART);
++		SPL_ASSERT_WARN(frac_bits == FIXED31_32_BITS_PER_FRACTIONAL_PART);
+ 		return arg;
  	}
-@@ -2009,6 +2024,8 @@ amdgpu_gfx_enforce_isolation_wait_for_kfd(struct amdgpu_device *adev,
- 		if (!adev->gfx.enforce_isolation_jiffies[idx]) {
- 			adev->gfx.enforce_isolation_jiffies[idx] = jiffies;
- 			adev->gfx.enforce_isolation_time[idx] =	GFX_SLICE_PERIOD_MS;
-+			dev_dbg(adev->dev, "%s: Initializing time slice for idx: %u. Setting start time and duration for fair GPU access between KGD and KFD. Initial jiffies: %lu, Time slice: %u ms\n",
-+				__func__, idx, jiffies, GFX_SLICE_PERIOD_MS);
- 		}
- 		/* Make sure KFD gets a chance to run */
- 		if (amdgpu_amdkfd_compute_active(adev, idx)) {
-@@ -2020,19 +2037,28 @@ amdgpu_gfx_enforce_isolation_wait_for_kfd(struct amdgpu_device *adev,
- 					wait = true;
- 					/* reset the timer period */
- 					adev->gfx.enforce_isolation_time[idx] =	GFX_SLICE_PERIOD_MS;
-+					dev_dbg(adev->dev, "%s: Time slice expired for idx: %u. Allowing KGD to finish its work before KFD resumes. Resetting time slice to %u ms\n",
-+						__func__, idx, GFX_SLICE_PERIOD_MS);
- 				} else {
- 					/* set the timer period to what's left in our time slice */
- 					adev->gfx.enforce_isolation_time[idx] =
- 						GFX_SLICE_PERIOD_MS - jiffies_to_msecs(cjiffies);
-+					dev_dbg(adev->dev, "%s: Adjusting remaining time slice for idx: %u. KFD can use the GPU for %lu more ms\n",
-+						__func__, idx,
-+						adev->gfx.enforce_isolation_time[idx]);
- 				}
- 			} else {
- 				/* if jiffies wrap around we will just wait a little longer */
- 				adev->gfx.enforce_isolation_jiffies[idx] = jiffies;
-+				dev_dbg(adev->dev, "%s: Jiffies reset for idx: %u. Starting new time slice to ensure fair GPU access between KGD and KFD. New jiffies: %lu\n",
-+					__func__, idx, jiffies);
- 			}
- 		} else {
- 			/* if there is no KFD work, then set the full slice period */
- 			adev->gfx.enforce_isolation_jiffies[idx] = jiffies;
- 			adev->gfx.enforce_isolation_time[idx] = GFX_SLICE_PERIOD_MS;
-+			dev_dbg(adev->dev, "%s: No KFD work for idx: %u. Setting full slice period to %u ms\n",
-+				__func__, idx, GFX_SLICE_PERIOD_MS);
- 		}
- 	}
- 	mutex_unlock(&adev->enforce_isolation_mutex);
-@@ -2055,6 +2081,8 @@ void amdgpu_gfx_enforce_isolation_ring_begin_use(struct amdgpu_ring *ring)
- 	struct amdgpu_device *adev = ring->adev;
- 	u32 idx;
  
-+	dev_dbg(adev->dev, "%s: begin_use\n", __func__);
-+
- 	if (!adev->gfx.enable_cleaner_shader)
- 		return;
- 
-@@ -2089,6 +2117,8 @@ void amdgpu_gfx_enforce_isolation_ring_end_use(struct amdgpu_ring *ring)
- 	struct amdgpu_device *adev = ring->adev;
- 	u32 idx;
- 
-+	dev_dbg(adev->dev, "%s: end_use\n", __func__);
-+
- 	if (!adev->gfx.enable_cleaner_shader)
- 		return;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index c9c48b782ec1..06b527388402 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -688,8 +688,11 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
- 
- 	if (adev->gfx.enable_cleaner_shader &&
- 	    ring->funcs->emit_cleaner_shader &&
--	    job->enforce_isolation)
-+	    job->enforce_isolation) {
-+		dev_dbg(ring->adev->dev, "%s: Emitting cleaner shader for ring: %s\n",
-+			__func__, ring->name);
- 		ring->funcs->emit_cleaner_shader(ring);
-+	}
- 
- 	if (vm_flush_needed) {
- 		trace_amdgpu_vm_flush(ring, job->vmid, job->vm_pd_addr);
 -- 
-2.34.1
+2.42.0
 
