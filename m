@@ -4,33 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAC52E77188
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jan 2025 08:41:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 381DAE77199
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jan 2025 08:41:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8683710E5B9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C94AD10E5BA;
 	Mon,  6 Jan 2025 08:41:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=panix.com header.i=@panix.com header.b="Fi2UU51g";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=panix.com header.i=@panix.com header.b="W/aAM+2j";
 	dkim-atps=neutral
-X-Greylist: delayed 711 seconds by postgrey-1.36 at gabe;
- Mon, 06 Jan 2025 04:31:34 UTC
+Received: from l2mail1.panix.com (l2mail1.panix.com [166.84.1.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D560710E141
+ for <amd-gfx@lists.freedesktop.org>; Mon,  6 Jan 2025 04:35:53 +0000 (UTC)
 Received: from mailbackend.panix.com (mailbackend.panix.com [166.84.1.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E1C710E1E1
- for <amd-gfx@lists.freedesktop.org>; Mon,  6 Jan 2025 04:31:34 +0000 (UTC)
-Received: from panix2.panix.com (panix2.panix.com [166.84.1.2])
- by mailbackend.panix.com (Postfix) with ESMTP id 4YRLq93lF6z45Hg;
- Sun,  5 Jan 2025 23:31:33 -0500 (EST)
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (1024 bits) server-digest SHA256)
+ (No client certificate requested)
+ by l2mail1.panix.com (Postfix) with ESMTPS id 4YRLZ510knzDRP
+ for <amd-gfx@lists.freedesktop.org>; Sun,  5 Jan 2025 23:20:13 -0500 (EST)
+Received: from panix3.panix.com (panix3.panix.com [166.84.1.3])
+ by mailbackend.panix.com (Postfix) with ESMTP id 4YRLYT55sMz458J;
+ Sun,  5 Jan 2025 23:19:41 -0500 (EST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=panix.com; s=panix;
- t=1736137893; bh=6qHr8IEARPNhqSU1wZBWFqlZVqZ63jCI8dv0qaCgp3c=;
+ t=1736137181; bh=r3dtWKXRz1KNKZxrk6TB1OlhYKVUIYZOxvLK32sjf9s=;
  h=Date:To:Cc:Subject:References:In-Reply-To:From;
- b=Fi2UU51g5Rf4hWPRSEi2OcfjSIJJ9bIAyiL9QpQoJiVrrlnCzaAqE5TRGYkn4R8Zg
- yf08mo2eTtmmTbzFyDSI/KOcY/5rz5KnLo3SqtAj7WZa26+Z8jkjlgsIjCalGr2FP+
- bWHBbFdwT5Tcs3EiJdpG0PMuIaeshIXSsjeF1jdE=
-Received: by panix2.panix.com (Postfix, from userid 19171)
- id 4YRLq93qSpz1ZSy; Sun,  5 Jan 2025 23:31:33 -0500 (EST)
-Date: Mon, 06 Jan 2025 04:31:33 +0000
+ b=W/aAM+2jDx7/02ZGeiMmVADfC4U6mLxz0CwzzYdqtd759C5HV2BN9i90NNFduZr15
+ h0r+au5KB0ThOjn7OdITMOhSk3EowKkXvfIw3WbrtOARn22rXp6VVx1rCTG4OmLkko
+ NVe8+iLotN8HEtVsfoeWwkIuHdf3Dda9/9cbOZyA=
+Received: by panix3.panix.com (Postfix, from userid 19171)
+ id 4YRLYT4ft9z1QXM; Sun,  5 Jan 2025 23:19:41 -0500 (EST)
+Date: Mon, 06 Jan 2025 04:19:41 +0000
 To: me@svmhdvn.name, alexdeucher@gmail.com
-Cc: pa@panix.com, Xinhui.Pan@amd.com, stable@vger.kernel.org,
+Cc: Xinhui.Pan@amd.com, stable@vger.kernel.org,
  regressions@lists.linux.dev, linux-kernel@vger.kernel.org,
  christian.koenig@amd.com, amd-gfx@lists.freedesktop.org,
  alexander.deucher@amd.com
@@ -43,7 +47,7 @@ User-Agent: nail 11.25 7/29/05
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
-Message-Id: <4YRLq93qSpz1ZSy@panix2.panix.com>
+Message-Id: <4YRLYT4ft9z1QXM@panix3.panix.com>
 From: Pierre Asselin <pa@panix.com>
 X-Mailman-Approved-At: Mon, 06 Jan 2025 08:41:41 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -98,21 +102,4 @@ Alex Deucher <alexdeucher@gmail.com> wrote:
 > Thanks,
 >
 > Alex
-
-Alex, Siva: I see the same thing on 6.6.69 .
-Hardware:
-  HP EliteBook 745 G6
-  VGA compatible controller: Advanced Micro Devices, Inc. [AMD/ATI]
-  Picasso/Raven 2 [Radeon Vega Series / Radeon Vega Mobile Series] (rev d1)
-
-It bisects to 2daba7d857e48035d71cdd95964350b6d0d51545 .
-Upstream commit is 73dae652dcac776296890da215ee7dec357a1032 ,
-same as in Siva's case.
-
-I'll see if I can create an account at gitlab and file an issue.
-
-I can test patches, preferably off a mainline kernel.
-Otherwise, I'll need hand holding with git.
-
---Pierre Asselin <pa@panix.com>
 
