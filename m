@@ -4,120 +4,104 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB3AFE77199
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jan 2025 10:53:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3D73E77199
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jan 2025 12:10:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6561010E614;
-	Mon,  6 Jan 2025 10:53:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 65E2610E645;
+	Mon,  6 Jan 2025 12:10:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="cJmiIEnh";
+	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="aitFdeDr";
 	dkim-atps=neutral
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2075.outbound.protection.outlook.com [40.107.94.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC7F510E614
- for <amd-gfx@lists.freedesktop.org>; Mon,  6 Jan 2025 10:53:04 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YCIy5Tfv25O2E/ZE8M3ovhTGtahxf8skXUCaM2X8UXbmiOplcbcN9VQIG5jkYOatLttHTbJfw65dyKfokao0CgZNWRFiMvNB8VYQhoS6E9PxR1E9j7AQfYkAOWfAQY79x3MPCmyYrfjHNWsi/ST8/BsDuJ0rlCan7dT/1kP00866RNIQAT88a+3eKNN4QQP/gdoIRmOk8umVlKzNE2G5fmch3HUkbd+hHnYN+ieGUkvzt+3vxbOpcqkMlRROu4aBw5KbA5KW6HqS53YGFvnZ5wIR8pMvl2P4XhjiHcoohTnLaL/MXZ2YP5LMN82lAwXRA+OtMq1K7cxEZ4XPdZxw8g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8WFSwp2dVCKK3BK1NVg11lVMR+K1VefqoucnMoXXSlE=;
- b=oNa0LZZvZddQcli1fJhDex33OKfoBwonWHajQkm7xgzjIKBaE1CtbhVdE41AyNb+Z9k93RzZcGfV9USsYlUyG3Z5M+SlIfMZZGx0tKB1i+ApsUtiKxd2p59kwMAb3Ygu82Tf5fXvO5SDNDI0L8Wwr9HcvRAXhTPdchZ+US6ub0io+iHH2C9jsXd3g5x5Lc/CW09UAVEW0V/0jEGgN/1nADD7VQpnTNE2AL5vJRqTA8N1hAiO/fCn4fEttz0rdVDdagpwhqeihnAXZgJ0G4P/Aw11IkIWvh8yWXjDFRFgEtTpr/m8U1udUW6otGXJotfdTDZR1eWF0JhrUJf3LA1cuQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8WFSwp2dVCKK3BK1NVg11lVMR+K1VefqoucnMoXXSlE=;
- b=cJmiIEnhTN4L7mIniyeJ9hHbYacIsFJmVYXHU5kgBmsZuquFV2OllNs1AH1/2heepJVJaC7R9JqgLlsODo+JQ32mRfF7rDoylGahB16KH2Z8q0xyi5LFqw0rACayvB7YaegTell5IkGIcLhEEg+Iq2IOyS2UhlJlh3f4ve6P6I0=
-Received: from BL1P221CA0019.NAMP221.PROD.OUTLOOK.COM (2603:10b6:208:2c5::20)
- by CH3PR12MB8331.namprd12.prod.outlook.com (2603:10b6:610:12f::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8314.17; Mon, 6 Jan
- 2025 10:52:43 +0000
-Received: from BN2PEPF000055DF.namprd21.prod.outlook.com
- (2603:10b6:208:2c5:cafe::aa) by BL1P221CA0019.outlook.office365.com
- (2603:10b6:208:2c5::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8314.17 via Frontend Transport; Mon,
- 6 Jan 2025 10:52:43 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN2PEPF000055DF.mail.protection.outlook.com (10.167.245.9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8356.0 via Frontend Transport; Mon, 6 Jan 2025 10:52:43 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 6 Jan
- 2025 04:52:42 -0600
-Received: from victor-x86-02.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Mon, 6 Jan 2025 04:52:41 -0600
-From: Victor Zhao <Victor.Zhao@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Victor Zhao <Victor.Zhao@amd.com>
-Subject: [PATCH] drm/amdgpu: fill the ucode bo during psp resume for SRIOV
-Date: Mon, 6 Jan 2025 18:52:28 +0800
-Message-ID: <20250106105228.2121987-1-Victor.Zhao@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
+ [209.85.221.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3AFEA10E645
+ for <amd-gfx@lists.freedesktop.org>; Mon,  6 Jan 2025 12:10:46 +0000 (UTC)
+Received: by mail-wr1-f52.google.com with SMTP id
+ ffacd0b85a97d-385e06af753so7154273f8f.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 06 Jan 2025 04:10:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ffwll.ch; s=google; t=1736165385; x=1736770185; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:mail-followup-to:message-id:subject:cc:to
+ :from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=/wpblTXM+tkte1zkV+yC99FV1/1wc5XXhRN5oQXKjy0=;
+ b=aitFdeDr7c76DnZPztNqtWHm43Mxz/Gz2PkcjQmD9h9d5ghwmZx+qBKF66tMOVsOfY
+ qX5gr0SioatoI15LOsctq+E9t+5ZpkZG/zLcYYIg7OA0z8wI0DyxSy1VVFzjvHwvzv+2
+ ang+nLWtlwvLBWNF5VZ7DpmtnUtvMQ9zyNTqo=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1736165385; x=1736770185;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:mail-followup-to:message-id:subject:cc:to
+ :from:date:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=/wpblTXM+tkte1zkV+yC99FV1/1wc5XXhRN5oQXKjy0=;
+ b=HTzk0DEsnU3y6OmvEZdyeYer4QvR49h1oJpZ/NhtT7cyQ2jdNgQVDv2SJSnEsyLc90
+ WZO054PPkUhKgnfQRSBwLWehDl10tv7baUr1Az/k2wiGAA4oZlpH9brqAL4iRNWm3Oda
+ oacJz9cQLEOYuCSy8ywTVEfulys24OqsxtM4bcFfi6SjN0BT22OiSNNDR7Nf+sHUJS78
+ BGBj17tO1zkTdTKFwMRQh/QYrJHFFo20q4GRVd8btRalobwGTjOfy1U4H70VwGG3zjfN
+ qZgyvvfnZ6ubwUyBH7s6IdaxrWTdp0p9u6bzmdl9bdUeUmoQj6ZLmpj2x7I9vAcbMoZk
+ MqwQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVQ1SNDJrVuHHikmEinOQam5olI+jQHLigRsUVClp7wZD7rnXTikcoeKsJ4caF6TN8SlDAnreRH@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyQOhvaEGkOKL81BiIYE25EoDTSi+OJyTxCf/tvHN2147PZDHGb
+ Y5CkSrD5wbZ+Eh1mQ6UH2p88cqALDg7QuZDpBsfh68fOMQqPnvRkHSJ067H/RiQ=
+X-Gm-Gg: ASbGnctiS3sxzkNtHVdo/htMBA/z+ZOD6womK9L0jzqIds22xP4Un1LcCAfpSY7+iBD
+ VKxtiKUA/KXazjtvD9iwdydIbbp0w/VA9Vo7AAAEu6WfZwtxaeFJlcPmoUhjwsZFETKa5Ii7t/q
+ U0G/4r/QR+WM+jVMzqk62ap3PoaxkK9YVwW/VtJmE++n0edV3WFoG3ii7IX29I2/Il5HF9XWAj6
+ vESsCWPcFp0R4UHbCOxgACkGdNZfWXDrPDGbvpypflmjkTWPQ8pPuTHNUZ0nGWwnLrO
+X-Google-Smtp-Source: AGHT+IHbxiWaimlaGPVmajrYmxLsmCTkaY9zAv/stIix6Ypl8w8OF0YwwBb0jDTrhNOIK65LSAyLbg==
+X-Received: by 2002:a5d:59ab:0:b0:385:ed20:3be2 with SMTP id
+ ffacd0b85a97d-38a223fd422mr52329235f8f.48.1736165384648; 
+ Mon, 06 Jan 2025 04:09:44 -0800 (PST)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:5485:d4b2:c087:b497])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38a1c8ace0esm47017974f8f.106.2025.01.06.04.09.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 06 Jan 2025 04:09:44 -0800 (PST)
+Date: Mon, 6 Jan 2025 13:09:42 +0100
+From: Simona Vetter <simona.vetter@ffwll.ch>
+To: "Koenig, Christian" <Christian.Koenig@amd.com>
+Cc: Shuai Xue <xueshuai@linux.alibaba.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ "airlied@gmail.com" <airlied@gmail.com>,
+ "simona@ffwll.ch" <simona@ffwll.ch>,
+ "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Ma, Le" <Le.Ma@amd.com>,
+ "hamza.mahfooz@amd.com" <hamza.mahfooz@amd.com>,
+ "tzimmermann@suse.de" <tzimmermann@suse.de>,
+ "Liu, Shaoyun" <Shaoyun.Liu@amd.com>, "Jun.Ma2@amd.com" <Jun.Ma2@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "tianruidong@linux.alibaba.com" <tianruidong@linux.alibaba.com>
+Subject: Re: AW: [PATCH] drm/amdgpu: Enable runtime modification of
+ gpu_recovery parameter with validation
+Message-ID: <Z3vIBq1eTxJcDOyc@phenom.ffwll.local>
+Mail-Followup-To: "Koenig, Christian" <Christian.Koenig@amd.com>,
+ Shuai Xue <xueshuai@linux.alibaba.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ "airlied@gmail.com" <airlied@gmail.com>,
+ "simona@ffwll.ch" <simona@ffwll.ch>,
+ "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Ma, Le" <Le.Ma@amd.com>,
+ "hamza.mahfooz@amd.com" <hamza.mahfooz@amd.com>,
+ "tzimmermann@suse.de" <tzimmermann@suse.de>,
+ "Liu, Shaoyun" <Shaoyun.Liu@amd.com>,
+ "Jun.Ma2@amd.com" <Jun.Ma2@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "tianruidong@linux.alibaba.com" <tianruidong@linux.alibaba.com>
+References: <20241228063245.61874-1-xueshuai@linux.alibaba.com>
+ <563b1797-5524-44c5-89b0-754f245e6b8f@amd.com>
+ <63938ba2-dcb5-456f-bf82-bd8c893549c0@linux.alibaba.com>
+ <PH7PR12MB5685C307737F826039EEE48583152@PH7PR12MB5685.namprd12.prod.outlook.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Received-SPF: None (SATLEXMB03.amd.com: Victor.Zhao@amd.com does not designate
- permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000055DF:EE_|CH3PR12MB8331:EE_
-X-MS-Office365-Filtering-Correlation-Id: a1f8a8e2-11c6-48de-9528-08dd2e403f74
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|36860700013|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?ezH2bTO9sjHj4LnHLzabMIZrfJu8Bjo0YfhrVVNXu65DTtbjyKNBSZyNVi56?=
- =?us-ascii?Q?CtDif6lc6Q7HCtZrj3erzpdDxbDAs/BRmmNfA3xxNdnx65jvkE6U7Eesfika?=
- =?us-ascii?Q?KViC77e3LiejqtfmEvSbavt9qpUbHd6ju6qAmXiSwWLqaeCJNFXLo4yB5OL8?=
- =?us-ascii?Q?cpVwbdGMw5aUR3CXL+UNC9xNYnpNWbwNjAoY/ZHlVTQirH5eLNno8WXNVbYO?=
- =?us-ascii?Q?3tobBSzBbJsBMI46I9V+M0bNa9+zdiGM/B8tFMnm2gGt3VjNS2C0gw3WEkr/?=
- =?us-ascii?Q?mSOUQdusXt6XzN2tTrOfMTAuQ918X7Sieukh7WpeGhZUBE0GkD43Ld3nh4l1?=
- =?us-ascii?Q?0Yw2OzMLsVa0ounkCJA/d3YA7oAvOXisp1XeVdURJ25LuIzmo5xEWPnf0Phu?=
- =?us-ascii?Q?v3BR0lrGJDjcM2h8UoTwvP9DURku9ISBJ3/z62f57oLPdjkFiAIaWSUTGnmT?=
- =?us-ascii?Q?LJMbWWhdtU2PnDqxoYgyvHwHQFVjmSAHHpUFgpPMYlSUFV4oGZaRnFCT21WX?=
- =?us-ascii?Q?BLgiomHc2o5XBHEXVKs/mjiVdVKUFpGfajvOao8iQJwfYJDSq01Z8pn3vMSJ?=
- =?us-ascii?Q?daFK0tRDTnJNbhUHrfzLrCKZoEl6axxy3avrXpvxsP/6wR0hUdXYlco8An1p?=
- =?us-ascii?Q?Q4PBQmyOkE5bxHdeXRwEA01jsowuScI3yHrFcfN/kcARCqyZ4jL4u1W9DvsN?=
- =?us-ascii?Q?q4cZKufdZfesow8YrK/8Z9gMBJ4hnE07F+4QAcQ794CwfcEv7aLmTauu9Qs0?=
- =?us-ascii?Q?JhmzT1IxaRgq0T6lWER+eXu/ovdc/nxJ2m6G7ZK0bJkVUYVuvQd/ZZLKbzba?=
- =?us-ascii?Q?s33iOgM1D2/K4C+O6f35jFe9XNE9B/6vZGsTAZu1XOcZQwyDVNpokVAPTTu7?=
- =?us-ascii?Q?th82eCP+4ekeUYXtc6yLtPRzIPm36lTKgpUHJQiRu+x95/+9FZ+A3S5u3JxW?=
- =?us-ascii?Q?2L8eiGkdgFw9j7T9T46vwmHdgICnMfVsPRCXmkwwlW78am7GND86S9qShdEz?=
- =?us-ascii?Q?SG7mNelsse2PSwQwWiSXl31LQPk6MGqervwv1X2ajHOGNaFzqd7lc6YV/kg9?=
- =?us-ascii?Q?7qccsx208Z4lvvmwFMFdwWvaRACS0kvF5rMqIOOXf4mcXe7v21ElXAKqf6zD?=
- =?us-ascii?Q?4zi0t5dFWIeoltMc92ADyM8HDFrJ5nbscdUp9d9JjCmYy4o/TD5BMChD5/6L?=
- =?us-ascii?Q?u/pepTYcUvCfF4y6pDdT3h/GD3INqW5tyXkRc9C66SOK9BTg/oeVlQQfXcPR?=
- =?us-ascii?Q?VINunCYZbV0zaAWq6gkMljnKkArRqy7q9zQRdMBOX3nxuf/m5HeRFhPHyU43?=
- =?us-ascii?Q?WU0WN0QAKRt6BR606Jc3j6OA5FLHvFT13GI3Er1eD5LYdNQr4rmZZwlg+VhC?=
- =?us-ascii?Q?htEC5o8HvvjRvIwNya3bGayoXstj0mEr5emHa1UNbFOuAnFu+Trl7n5BsRAb?=
- =?us-ascii?Q?qHKeurO6iFO1pHel3KzpB7gCn4nxB/hDrDWNo9161FRZb7pVCoLeibGUmMph?=
- =?us-ascii?Q?DsECBa69qElpQdY=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jan 2025 10:52:43.3243 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a1f8a8e2-11c6-48de-9528-08dd2e403f74
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000055DF.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8331
+In-Reply-To: <PH7PR12MB5685C307737F826039EEE48583152@PH7PR12MB5685.namprd12.prod.outlook.com>
+X-Operating-System: Linux phenom 6.12.3-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,29 +116,194 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-refill the ucode bo during psp resume for SRIOV, otherwise ucode load
-will fail after VM hibernation and fb clean.
+On Fri, Jan 03, 2025 at 08:21:43AM +0000, Koenig, Christian wrote:
+> [AMD Official Use Only - AMD Internal Distribution Only]
+> 
+> Hi Shuai,
+> 
+> setting gpu_recovery=0 is not even remotely related to RAS. If that
+> option affects RAS behavior in any way then that is a bug.
+> 
+> The purpose of setting gpu_recovery=0 is to disable resets after a
+> submission timeout most likely caused by an unrecoverable HW error.
+> 
+> This is necessary for JTAG debugging in our labs during HW bringup and
+> should *NEVER* be used on any production system.
+> 
+> We already discussed with upstream maintainers that we should probably
+> mark the kernel as tainted to indicate that it might be in an unreliable
+> HW state. I will push for this now since there seems to be a big
+> misunderstanding what this option does.
 
-Signed-off-by: Victor Zhao <Victor.Zhao@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 4 ++++
- 1 file changed, 4 insertions(+)
+module_param_unsafe and friends really should be the default for module
+options really, since generally they're just for debugging and other
+hacks. With multiple gpus you can't control options per-device with module
+options in a reasonable way, so that's all no-go. So might want to go
+large-scale relabelling module options while you're at it.
+-Sima
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index 010c038b33ab..97fdd93c3ae3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -3148,6 +3148,10 @@ static int psp_resume(struct amdgpu_ip_block *ip_block)
- 
- 	mutex_lock(&adev->firmware.mutex);
- 
-+	ret = amdgpu_ucode_init_bo(adev);
-+	if (ret)
-+		goto failed;
-+
- 	ret = psp_hw_start(psp);
- 	if (ret)
- 		goto failed;
+> 
+> Regards,
+> Christian.
+> 
+> ________________________________________
+> Von: Shuai Xue <xueshuai@linux.alibaba.com>
+> Gesendet: Montag, 30. Dezember 2024 09:50
+> An: Koenig, Christian; Deucher, Alexander; Pan, Xinhui; airlied@gmail.com; simona@ffwll.ch; Lazar, Lijo; Ma, Le; hamza.mahfooz@amd.com; tzimmermann@suse.de; Liu, Shaoyun; Jun.Ma2@amd.com
+> Cc: amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org; linux-kernel@vger.kernel.org; tianruidong@linux.alibaba.com
+> Betreff: Re: [PATCH] drm/amdgpu: Enable runtime modification of gpu_recovery parameter with validation
+> 
+> 
+> 
+> 在 2024/12/30 04:11, Christian König 写道:
+> > Am 28.12.24 um 07:32 schrieb Shuai Xue:
+> >> It's observed that most GPU jobs utilize less than one server, typically
+> >> with each GPU being used by an independent job. If a job consumed poisoned
+> >> data, a SIGBUS signal will be sent to terminate it. Meanwhile, the
+> >> gpu_recovery parameter is set to -1 by default, the amdgpu driver resets
+> >> all GPUs on the server. As a result, all jobs are terminated. Setting
+> >> gpu_recovery to 0 provides an opportunity to preemptively evacuate other
+> >> jobs and subsequently manually reset all GPUs.
+> >
+> > *BIG* NAK to this whole approach!
+> >
+> > Setting gpu_recovery to 0 in a production environment is *NOT* supported at all and should never be done.
+> >
+> > This is a pure debugging feature for JTAG debugging and can result in random crashes and/or compromised data.
+> >
+> > Please don't tell me that you tried to use this in a production environment.
+> >
+> > Regards,
+> > Christian.
+> 
+> Hi, Christian,
+> 
+> Thank you for your quick reply.
+> 
+> When an application encounters uncorrected error, it will be terminate by a
+> SIGBUS signal. The related bad pages are retired. I did not figure why
+> gpu_recovery=0 can result in random crashes and/or compromised data.
+> 
+> I test with error injection in my dev enviroment:
+> 
+> 1. load driver with gpu_recovery=0
+> #cat /sys/bus/pci/drivers/amdgpu/module/parameters/gpu_recovery
+> 0
+> 
+> 2. inject a Uncorrectable ECC error to UMC
+> #sudo amdgpuras -d 0 -b 2 -t 8
+> Poison inject, logical addr:0x7f2b495f9000 physical addr:0x27f5d4b000 vmid:5
+> Bus error
+> 
+> 3. GPU 0000:0a:00.0 reports error address with PA
+> #dmesg | grep 27f5
+> [424443.174154] amdgpu 0000:0a:00.0: amdgpu: Error Address(PA):0x27f5d43080 Row:0x1fd7 Col:0x0  Bank:0xa Channel:0x30
+> [424443.174156] amdgpu 0000:0a:00.0: amdgpu: Error Address(PA):0x27f5d4b080 Row:0x1fd7 Col:0x4  Bank:0xa Channel:0x30
+> [424443.174158] amdgpu 0000:0a:00.0: amdgpu: Error Address(PA):0x27f5d53080 Row:0x1fd7 Col:0x8  Bank:0xa Channel:0x30
+> [424443.174160] amdgpu 0000:0a:00.0: amdgpu: Error Address(PA):0x27f5d5b080 Row:0x1fd7 Col:0xc  Bank:0xa Channel:0x30
+> [424443.174162] amdgpu 0000:0a:00.0: amdgpu: Error Address(PA):0x27f5f43080 Row:0x1fd7 Col:0x10 Bank:0xa Channel:0x30
+> [424443.174169] amdgpu 0000:0a:00.0: amdgpu: Error Address(PA):0x27f5f4b080 Row:0x1fd7 Col:0x14 Bank:0xa Channel:0x30
+> [424443.174172] amdgpu 0000:0a:00.0: amdgpu: Error Address(PA):0x27f5f53080 Row:0x1fd7 Col:0x18 Bank:0xa Channel:0x30
+> [424443.174174] amdgpu 0000:0a:00.0: amdgpu: Error Address(PA):0x27f5f5b080 Row:0x1fd7 Col:0x1c Bank:0xa Channel:0x30
+> 
+> 4. All the related bad pages are AMDGPU_RAS_RETIRE_PAGE_RESERVED.
+> #cat /sys/devices/pci0000:05/0000:05:01.0/0000:06:00.0/0000:07:00.0/0000:08:00.0/0000:09:00.0/0000:0a:00.0/ras/gpu_vram_bad_pages | grep 27f5
+> 0x027f5d43 : 0x00001000 : R
+> 0x027f5d4b : 0x00001000 : R
+> 0x027f5d53 : 0x00001000 : R
+> 0x027f5d5b : 0x00001000 : R
+> 0x027f5f43 : 0x00001000 : R
+> 0x027f5f4b : 0x00001000 : R
+> 0x027f5f53 : 0x00001000 : R
+> 0x027f5f5b : 0x00001000 : R
+> 
+> AFAIK, the reserved bad pages will not be used any more.  Please correct me if
+> I missed anything.
+> 
+> DRAM ECC issues are the most common problems. When it occurs, the kernel will
+> attempt to hard-offline the page, by trying to unmap the page or killing any
+> owner, or triggering IO errors if needed.
+> 
+> ECC error is also common for HBM and error isolation from each user's job is a
+> basic requirement in public cloud. For NVIDIA GPU, a ECC error could be
+> contained to a process.
+> 
+> > XID 94: Contained ECC error
+> > XID 95: UnContained ECC error
+> >
+> > For Xid 94, these errors are contained to one application, and the application
+> > that encountered this error must be restarted. All other applications running
+> > at the time of the Xid are unaffected. It is recommended to reset the GPU when
+> > convenient. Applications can continue to be run until the reset can be
+> > performed.
+> >
+> > For Xid 95, these errors affect multiple applications, and the affected GPU
+> > must be reset before applications can restart.
+> >
+> > https://docs.nvidia.com/deploy/xid-errors/
+> 
+> Does AMD GPU provide a similar way to achieve error isolation requirement?
+> 
+> Best Regards,
+> Shuai
+> 
+> >
+> >>   However, this parameter is
+> >> read-only, necessitating correct settings at driver load. And reloading the
+> >> GPU driver in a production environment can be challenging due to reference
+> >> counts maintained by various monitoring services.
+> >>
+> >> Set the gpu_recovery parameter with read-write permission to enable runtime
+> >> modification. It will enables users to dynamically manage GPU recovery
+> >> mechanisms based on real-time requirements or conditions.
+> >>
+> >> Signed-off-by: Shuai Xue <xueshuai@linux.alibaba.com>
+> >> ---
+> >>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 26 ++++++++++++++++++++++++-
+> >>   1 file changed, 25 insertions(+), 1 deletion(-)
+> >>
+> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> >> index 38686203bea6..03dd902e1cec 100644
+> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> >> @@ -563,12 +563,36 @@ module_param_named(lbpw, amdgpu_lbpw, int, 0444);
+> >>   MODULE_PARM_DESC(compute_multipipe, "Force compute queues to be spread across pipes (1 = enable, 0 = disable, -1 = auto)");
+> >>   module_param_named(compute_multipipe, amdgpu_compute_multipipe, int, 0444);
+> >> +static int amdgpu_set_gpu_recovery(const char *buf,
+> >> +                   const struct kernel_param *kp)
+> >> +{
+> >> +    unsigned long val;
+> >> +    int ret;
+> >> +
+> >> +    ret = kstrtol(buf, 10, &val);
+> >> +    if (ret < 0)
+> >> +        return ret;
+> >> +
+> >> +    if (val != 1 && val != 0 && val != -1) {
+> >> +        pr_err("Invalid value for gpu_recovery: %ld, excepted 0,1,-1\n",
+> >> +               val);
+> >> +        return -EINVAL;
+> >> +    }
+> >> +
+> >> +    return param_set_int(buf, kp);
+> >> +}
+> >> +
+> >> +static const struct kernel_param_ops amdgpu_gpu_recovery_ops = {
+> >> +    .set = amdgpu_set_gpu_recovery,
+> >> +    .get = param_get_int,
+> >> +};
+> >> +
+> >>   /**
+> >>    * DOC: gpu_recovery (int)
+> >>    * Set to enable GPU recovery mechanism (1 = enable, 0 = disable). The default is -1 (auto, disabled except SRIOV).
+> >>    */
+> >>   MODULE_PARM_DESC(gpu_recovery, "Enable GPU recovery mechanism, (1 = enable, 0 = disable, -1 = auto)");
+> >> -module_param_named(gpu_recovery, amdgpu_gpu_recovery, int, 0444);
+> >> +module_param_cb(gpu_recovery, &amdgpu_gpu_recovery_ops, &amdgpu_gpu_recovery, 0644);
+> >>   /**
+> >>    * DOC: emu_mode (int)
+
 -- 
-2.34.1
-
+Simona Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
