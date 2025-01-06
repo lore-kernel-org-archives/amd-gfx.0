@@ -4,147 +4,155 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94EB1E77197
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jan 2025 03:03:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 523A6E77197
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Jan 2025 03:30:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 490B689496;
-	Mon,  6 Jan 2025 03:03:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F13D710E068;
+	Mon,  6 Jan 2025 03:30:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="po5H/C2L";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qB8/v8HY";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2066.outbound.protection.outlook.com [40.107.223.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA58F89496
- for <amd-gfx@lists.freedesktop.org>; Mon,  6 Jan 2025 03:03:56 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2074.outbound.protection.outlook.com [40.107.237.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3115C10E068
+ for <amd-gfx@lists.freedesktop.org>; Mon,  6 Jan 2025 03:30:37 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pAtYOxepv1IK5pxVg2WIrAC/Woew3yID0XC01/cNsc3XVszuGa2gRMN8T9/0OUBSjOU3gpvVjMureTOo1XZ4qhUMUqZow0Nm/AeOTJF1zicQdm2lRIREncdTKGOlmLnamYiBneCYG2kwPnVzpB6797ljdoNTDs0XCeMwc8nEZ83/scwZj+GVqwZIIQW/sNeauc2YpEpuk2SxD5Uvjdiw4WnrRHmeIqPCSEKMItRz41TcZSg3GwqusbTB7QmaN62g4pswOA3m0IMCWNIGd+XiSScHGF+RQlGvNyTljQ7lVPd2Ky0njSHP0C2bT5zeQeJttCqYvMXp5TnTHAihlfC/eg==
+ b=XPDIJvK5TyGvqsDFVjx+IH4L0YR1usNXI93sDdv6SezbUNnaPfw/wz6OhykvA8KnStH1IWoSxvsNxxef4vmlSUntH34CObAnWZoivaZEkQCeeVIajuy5okGnw/au2w5vMVTBifG9JNHBiikzaWvhFoDI+JI6i0OiLneU842PW1ge8XFdxFYHVnPHvHKRUTZi16ZovqM4V+JRgJXf4VUNAQXNOiqrW8Qas8wNWG+qzeJon9hZFPfdA9duO3Ev5G4Km1PGKR4iDNqISbaUK30RBR5Ih+wr4Ljh6sE3y1aTuwGb0HwRHP8O+/zA+wKsmYgoCC7dSqQedyjuaf22+eOiqQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=q8dhXFSuC98hBlPifAlchvqqG+8jcYxh/Ab+zJB8Gs4=;
- b=DVtlfV542u+xm7U0rcU+wJtIPSbDYS9MeXnTQVIK3m/fi1kLqc85R61IXAndPeLK00qXCXp8nBibI6iQ2YqxAhuRqKVlOR46yfeXJb0d7Uuoq4g52y9ZluUnw51MCQR2GHX7sK/K28REMl+y+2zMUzg9s15/bQTYpFSQ6HWi+WZ6NDgkXS9gkvhdPfSCHY0riCYl6d8tRdumB+SAgz0RYdRpQlSfMJM428/vFi6ihR2r7bibJdz6YsXJp5fJKVhVOUHY/WHBX13YnWXOjwd4k/vd3uldy3IagEfrKJO3oF4T4TzQfYEwfJJr2uZ7iyaRe3bjRRXKEozOTcRFhBAarw==
+ bh=UeNzdLtf8iyMuJ4cZiVbRPXMpL8AgQzoPlEOiHnaES8=;
+ b=arxKtdN23jCnJcoFZxd7CxqyWdkP34RJGqEofPKReHwswoSv+IXJqg+p5bawmM3jKFSI1kohXCWBSAQYg0CC32Z9JIp1FdUx06/VIYZ8IKC0TXR6C+jzBz7jVTXds5Ma0AIGTsljrB9nkNsAryVpxC9f6K/uwOwzYW32zHFDh8uQ4YyUNz/BOWwuUi/GbKC3R/AEcvph0CojcZFa+24Y61BDSROS6LtYvTnYhSu5uy7jvnytHW62AUW0C5knwNrJO0mMvQGR/RK6DtDLJv3gZsRqLF6Xm0OC9EWJxI+AmL7nWTyQ1VDoePWYNuh/719YrVEBCfGwV9q2Q7pZPm302Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=q8dhXFSuC98hBlPifAlchvqqG+8jcYxh/Ab+zJB8Gs4=;
- b=po5H/C2LztzHHLwH0UBYK07gWFnxDIeksoNYvy/VMsJfoffvuL+60REMpaoJtuurxyMM86rkszBRFinsCyGaW9Y4UtxJo+L6V+j0U/VgU62M5CIwqNufT/L734quSQ0owTTj+ghzl0I5DCLcOuc3vLqAU8X1te6mf9vSLyEs2tw=
+ bh=UeNzdLtf8iyMuJ4cZiVbRPXMpL8AgQzoPlEOiHnaES8=;
+ b=qB8/v8HYCzMT66YjdncpZvrtdG3AJcWLjdK0hDuQdf6e6yoFDZYOFU3URhrxxI6gLI+YWA8FGu5rvce1/EbjUcS0Q2YuR/Q/9AMFca9WGVx5LxoroK7MlzxogHz5/5ibfjQZAQWj907MBxn7TFnKeEDRMDtPcOyt78GyBw7hgnM=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from DS7PR12MB6095.namprd12.prod.outlook.com (2603:10b6:8:9c::19) by
- CH3PR12MB8909.namprd12.prod.outlook.com (2603:10b6:610:179::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8314.17; Mon, 6 Jan
- 2025 03:03:37 +0000
+ DS0PR12MB8528.namprd12.prod.outlook.com (2603:10b6:8:160::6) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.8314.17; Mon, 6 Jan 2025 03:30:31 +0000
 Received: from DS7PR12MB6095.namprd12.prod.outlook.com
  ([fe80::c48a:6eaf:96b0:8405]) by DS7PR12MB6095.namprd12.prod.outlook.com
  ([fe80::c48a:6eaf:96b0:8405%5]) with mapi id 15.20.8293.000; Mon, 6 Jan 2025
- 03:03:36 +0000
-Message-ID: <dbef9084-4939-4400-82b2-529d12718703@amd.com>
-Date: Sun, 5 Jan 2025 21:03:34 -0600
+ 03:30:31 +0000
+Message-ID: <54a874f7-c220-40eb-afe5-ff9b9269c895@amd.com>
+Date: Sun, 5 Jan 2025 21:30:29 -0600
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: add CEC notifier to amdgpu driver
-To: Kun Liu <Kun.Liu2@amd.com>, amd-gfx@lists.freedesktop.org,
- harry.wentland@amd.com, aurabindo.pillai@amd.com
-Cc: Alexander.Deucher@amd.com, richardqi.liang@amd.com
-References: <20241230081501.93823-1-Kun.Liu2@amd.com>
+Subject: Re: amdgpu 4k@120Hz / HDMI 2.1
+To: Mischa Baars <mjbaars1977.backup@gmail.com>,
+ amd-gfx@lists.freedesktop.org, platform-driver-x86@vger.kernel.org
+References: <CA+b5WFEXPJ==vruf-6DHrhS7j3pnTaj_EQE08BimxqyaNvktQQ@mail.gmail.com>
+ <d1028755-6a7a-4db4-bd4b-e5a2d682af61@amd.com>
+ <CA+b5WFFa4hMeGnN0J2xd=FpU2Cxe_AjapWBpTFjfNhzUSOUAzA@mail.gmail.com>
+ <0281e6f7-4ccd-4369-9182-d1580c9e6bc5@amd.com>
+ <CA+b5WFEv1Qj3NYcwXaZz1EYW9omj7FmB8FdSKZnixsMNoi1+DQ@mail.gmail.com>
+ <ddd7bf09-31aa-4e4a-93ea-b1336ced8578@amd.com>
+ <CA+b5WFGDstoJTjgaT+hm4r-78zup1pLa2Ada7PqbTY=wCutSbA@mail.gmail.com>
+ <98b3392f-2860-4a32-a769-b4dcd3f5dbbe@amd.com>
+ <CA+b5WFGkDJhpRRywQLx2okttXGasBu6K8ScLZyakKrk1+FZWAw@mail.gmail.com>
 Content-Language: en-US
 From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <20241230081501.93823-1-Kun.Liu2@amd.com>
+In-Reply-To: <CA+b5WFGkDJhpRRywQLx2okttXGasBu6K8ScLZyakKrk1+FZWAw@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SA1PR03CA0006.namprd03.prod.outlook.com
- (2603:10b6:806:2d3::19) To DS7PR12MB6095.namprd12.prod.outlook.com
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SN7PR04CA0162.namprd04.prod.outlook.com
+ (2603:10b6:806:125::17) To DS7PR12MB6095.namprd12.prod.outlook.com
  (2603:10b6:8:9c::19)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS7PR12MB6095:EE_|CH3PR12MB8909:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6e572d06-434c-46ad-49bf-08dd2dfeb62c
+X-MS-TrafficTypeDiagnostic: DS7PR12MB6095:EE_|DS0PR12MB8528:EE_
+X-MS-Office365-Filtering-Correlation-Id: 954676a5-5331-46f2-e431-08dd2e0278eb
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?bVl1dk5TNVdIcHhaRzFxTVoxUS9RMjRTeW5MbTdBZmtBMGpwTmRpbXArQTZs?=
- =?utf-8?B?MEFGNUZDOTBGZFBrSUU4RGdIR05yWkUxQVQrdElKYmdnZUM1dmVSVnpzdmpZ?=
- =?utf-8?B?OTRwejhuc0xTREFwdVBlSUpXUEpwY09WdmhEb0VQVjV5Y3UrRzZvSncyS1k0?=
- =?utf-8?B?WWtoZnFYNEE2YjlFd2Q5VEdBbWY0NVdNc2dUc1BOcXgrcTVaUXRPSnF3a3do?=
- =?utf-8?B?UHlQd2g4aDVzaG1wc2I5QVpsY25SeWhoQ1Q1c1RrdTBMY3JNWVRtWTdUeDI0?=
- =?utf-8?B?MzhrVS9XT2tOWSsxa1NvZmJTM2ZWU0M0dEZSSmhTd0VQR1JHWkNvSWJCcnor?=
- =?utf-8?B?OWxPMjhyQW9VZ25iUFgvSTNCcjRWN0VvQVdrM3pHK1lMVVVDNjNtNUdOWXNo?=
- =?utf-8?B?YjVHNFAvditEQUl6QmRDdVJsMXcwZTkxWkVseDNDaFlFVFRMbmNQZ3NlK1U5?=
- =?utf-8?B?bFRkQ1RYMEZveUdZREExV3hEZE1zMFV2elQ5dTAvQzFaQUFBemRYVlR0eFVy?=
- =?utf-8?B?Q2tTTzB5Z2h2RmczVHIrYnB0RnI0bEZKYkFaK2NVM3hybUNpa0o3WHJMaDhL?=
- =?utf-8?B?MERld3ZOdkROQVVQenBiY3RqTDh3c0tNb1I5ZU85c1JCbGwxUVJMQmJEU0FS?=
- =?utf-8?B?OTNzYnlxVjdNQ0QvVWZMWWY3VVJIeG0xdWhFbkY2b3JoRGswSThlVkM3czA2?=
- =?utf-8?B?ektIVHNXL0MxYnErUmFJTzN6SG1KNXFWZUlya0hwdGdXRDhvT2UxbkMwRWdu?=
- =?utf-8?B?Nm5xbXdqeHZjajhmSDg4Q1k3QXowalh4dVQwdDZTTSs2alJFM08ydC9jRm8z?=
- =?utf-8?B?YlJrbWQ5VFdnT2dMRklzMUhuazl1cktOQm0zbURwc1dZZ1dKdk9Wd0ErOUR6?=
- =?utf-8?B?MmlJVTQyVW02TFRKaVB1RWgvOWt5V1hyL2VUTElwcWcrVnJhQ1I1SzFQTVV6?=
- =?utf-8?B?cUprOEM2R2JrSGNBaElIRnVmckpRTHlTSDFmZzhLQWowdGNqTVNqa2FPVjYy?=
- =?utf-8?B?YVBGZFp1ekQvVVlTZk50bERZbzRsT3paS0xNWFdrWGhhOWV6ajcraXZpbDht?=
- =?utf-8?B?UmY4bXZ1b0x1MHBZUnMxYXdZRGU5WDFlK3NlV0VGM2RZT1VKRVkrQ3lSVzY3?=
- =?utf-8?B?ZnpjQmI2WTNnSlNhbTU0UisyQU9objN1LzVPR2s5NHk0ZkQ4azlhTmkxa1pu?=
- =?utf-8?B?MnRnWFVEZnFIaDI4TlI2RDVHT2h2OEFBTnQrY1VMbklyb0M4aGFoL0FFczZv?=
- =?utf-8?B?YnV3Z2Faam9jYllNZWNPU2lGSHlpRm1LSFdVQ0I1aFZMR2NQZWIzbFUxSWxR?=
- =?utf-8?B?Mk5XTkNTbTFOZGoxVnNQVmJCU0pRd1ZJeFNhTXlMRnBBSE5vc1JVaUZJY0V1?=
- =?utf-8?B?TU1rcEN1WGRZQyt5SlUzNkFyNmJoTEtpOVZPc3JjV1ZMT1pqVWJXVEl5bVFm?=
- =?utf-8?B?cW5XdVpmTjNhSTRJWjk3dDd4LzAzTUNpZjJYU2RKK3liT1kxMVJSS0dqQ1lS?=
- =?utf-8?B?WS9ZeUtyTHorU2V6SHY1VjJqR2F3eGpseUVFS0hsanZ2MmxVTXJheSsyQzEw?=
- =?utf-8?B?RmtVaklhV0xlOWlZTUZvU3dOZ3RlQkJUV0tpMUFQYjVoYU9DakZBL3puOTk4?=
- =?utf-8?B?TGlwbXVSVFRFNGNodHlpY0tEeDlyVDVnL1ZUVW83bkxUUnU4YmtCMkczWkkx?=
- =?utf-8?B?NVlEam9VTVNrU0VYTmpTaDIwbHNKOW5mbVRhVTQ0YU4zVjNPMVQ5T3pvZmJO?=
- =?utf-8?B?NGk5eXNGVmxoNWNweVROZzRIWWNMc3dqRlFPVm1SQUJBSCtzamJrN3FGVytn?=
- =?utf-8?B?OHp2Z2dyRmt3dU80enloQT09?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?SERYMGM5SFhtRmI1SEErV1oyZ1NTNEMzZnRLYlB5cmxabTVYK2hEekZibWRC?=
+ =?utf-8?B?SER6K3ZlVTlQMm4vbzRCSis3OFo1MUY0c0doQ3B3dHkvOW1LY3BmQUZVWkI3?=
+ =?utf-8?B?U05oLzd3MzRmcU1SNzdyb1d1eG8vWGozUUNpZysyN1cxNUVBL25GTUdoMWpB?=
+ =?utf-8?B?TW9rYlU4WjJ3U1pyVGVDUkxZd25DWG5VSG5EdDdTelZrS1NZU2w2T3NFajVZ?=
+ =?utf-8?B?TWwzVjAvQUlIRWhCbWN0d2FvQkw5YklMUWhLaXFCYS9LVXQwM0FsN0pzYkQ5?=
+ =?utf-8?B?Y3lMMXovaWMvRXNTYW5rUVhpRmRJVFZxM05iSFo2S1kwS04xUVk1TmRha1ps?=
+ =?utf-8?B?dEZ2cDRuaWNqbXJ2a3hHZjNyN09zNHZrU01ZdzExVkcrd0VaSG40RVZFRDRz?=
+ =?utf-8?B?QTV0VXNNTjhyMFRkcnZJanhUZ2RYcVFxaDZpbjdaRmx1Uy9FWWpxcTdkZ3dh?=
+ =?utf-8?B?VWppNUkrc1BHbThRNk1NcGZremVHRjVtN1VqUDc3MGlnVUxLSlQweHZTQWlV?=
+ =?utf-8?B?MFFtcU5kdXM1NXlOQms4b3k0SjZQdWpIdWhyZ0wrRjMya1NIbWxNV2p6cGhT?=
+ =?utf-8?B?anVJU3ZnSHZyS2VIcDgvTHV4RGlKR0xHOEJNT2xIMTdzbytWVm9pRUowMzlu?=
+ =?utf-8?B?dFdlQ24zRWVKMG5TQlQxcnpSL000aXRVRTI2V3FVNzBWQlhxbm9Rd0JsRkg1?=
+ =?utf-8?B?MVZxcnRCVUE0cndPMzMrTktIT3ZOcjZyUXBoR0o2a0dlTWt3cWthQWNoTkFo?=
+ =?utf-8?B?dWxoU0FCQXhIdlBsZ2R0ZXEvKzZkU2NKRUE3alh0QTVGRWlrUXZmSjAxeERD?=
+ =?utf-8?B?NDBBeUhkTEp5V01tMExoblA5SWZhcVZ0U0ttbjBZcTVwOEVXOVJtdkM1SlVN?=
+ =?utf-8?B?cEk0NnpXR21iTTBOTEJLNDNhNHpyL2Y4N014V01MWkt3MDJLOGlSd001NnBO?=
+ =?utf-8?B?d2ZPVzJyNU11WGRlR0ozSXM0NkFVVkt2K1hjbk5vbkFLUlBWZ25jSnJFRVFm?=
+ =?utf-8?B?MmxJV3lXSldBbmhYcHZycDNqakZEc05jOVRVRXJLcCtqWEtqZHc0UFpkbjV0?=
+ =?utf-8?B?VW1OdEl3WlFoR1NJZnVUMlA0RmZnd0VCa0hTSVUwckY3WDRRTE11dGdzL0Zm?=
+ =?utf-8?B?RmR6MWRQZ1hWRXRFbEZFcXFxUXdRei9MYWZKUmJ5S0tNVWVjb2NyMm1WcGNN?=
+ =?utf-8?B?VGVMQ1I4bWNETW1CbkY4VnBNVXBxdXg3bTdMS3g4Y25IZm1BWWozRUptdjZx?=
+ =?utf-8?B?RjAweGVFMSszNE5SM3FBelJtN0VGQnBCaytIeUE2ME8zclI3bVF2OVkzT3RO?=
+ =?utf-8?B?ZFVEcDVvRVF3UkNGRmZSTVg1SXRKc2tkOWwxUmx5SkpOcmxmZGI3QWtzQ0sz?=
+ =?utf-8?B?OU5vZlJXTGludnBHSURZeDJwaDdUbEZyZVZubUZVTmZnZVRGREVKU0h0Yyto?=
+ =?utf-8?B?VHdsNGlzaU9ablpEZE9jQmsvSmlOdG9OZTJvUVkrdnRDUlJLQkU5blVuRWQ4?=
+ =?utf-8?B?RFJDRm1pdnFwOXJTdHd5MThZbnNFTzNPaUVLTHZZbkpGWktqMjEyRXUrcWYy?=
+ =?utf-8?B?WkxLWndTck9NWVlIU3NzZW1vKy9QaE8zRGQ2bDd2eW9aYnZLekx5TS9QQ1pS?=
+ =?utf-8?B?K2RQeE5pbjEyZXgvd0RXZHE3MjNlbnlrV3NzQkpwWUk5cHpTVWZ3d3lCakNW?=
+ =?utf-8?B?RTJPRmJIMXVsQS9jMjQxU1VhbmNqR0xUQjQ0NDJKOVdvNzR2WmZqQWZuZFlF?=
+ =?utf-8?B?Ylk1UU1EOGNtSmsvUVArTytMSTVCVWlRSVVsSTgyMWl0aGdVTzdmOHRYS2Rl?=
+ =?utf-8?B?blN3NE9iclFXMnhlWGFSdFVLWGM4cnVSQlJyZHFzY0JEblliRTBYU1RxdllG?=
+ =?utf-8?Q?TgHGFgsQwZc0e?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DS7PR12MB6095.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024); DIR:OUT; SFP:1101; 
+ SFS:(13230040)(1800799024)(366016)(376014); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?L2l4b240Unk4ZGdqOW9oc0xmZ1EvVzR4M0hYajBlWFZZUGtZM2ljUUtxOGM5?=
- =?utf-8?B?RzFCcmxwd1QrQlNNVVRYcWoxQjNiNXczVHRrYkpaOTVSSjlIOTNaSzhseVdG?=
- =?utf-8?B?N0k1c3VtNTNkb3pJa1JldSs5Tm12TjhwZVU3V0pOYnFjMzdyUXdkNC8ybGVJ?=
- =?utf-8?B?RHhidmJYYkxOUXhEaU1vNTN3M1FJZDlrd3NXZWl0eWVWZUVuQU13a2J1K01V?=
- =?utf-8?B?RjdZTTdqMkw5UkdNVTNpci9BaFpFT2JrQzhvV1RXOTErQkxuRGQzK25sZ0RB?=
- =?utf-8?B?UDZmcHE1dXVOdTFJOWU1ZGNCVlJsMzBac0syM3dMcHlIVzd0WGlEWjFzcjVS?=
- =?utf-8?B?WFRYc1YzanZPMWoyM2l5dUtBY0o3THVBY05DME0wbmtlRE1vUTNpdlcvKzB1?=
- =?utf-8?B?ekNKZjVLUEhHazUxNFhUL0YvTTloNXE2NW9pem9UVmtzd01UQnBwbG9PZ2Vz?=
- =?utf-8?B?UEZteGpMSWh4U3R5RU5MR3JjMjhtemR1aVVhMnNkRjVKTUE1ZFdQTlF5cXFQ?=
- =?utf-8?B?NTdSbisvRmIrQVVIUHVodzMzbU9abW1ybit2V0N6MFkyL3ZmUlBpYjNJUU44?=
- =?utf-8?B?bU13QlBQRGphTE9TaU1hdE9IVERQdCtST0tnUTkrSy9McTVlUmdHempZZ24v?=
- =?utf-8?B?SjVRNzE2YVQ1NU5TU3FMLytaemxnU3Z1WU9EcGN6WnVERkNBN3RjWUYxM2R2?=
- =?utf-8?B?M2IxVzFyQTNzNUwxV1hmUGw1S1VSYW16RGNGMDcyZWhlajV0azlYR2R2WE5W?=
- =?utf-8?B?TitBUjVPNFhsc1oySVBvcWxTSTlLbHJRZTBxUFhPNUFZZXBzNno5MllCVUZC?=
- =?utf-8?B?TXp6dzdrVWJFT2VLcHdoN05rV21VcDdheGZYZ0xUb05qbklqUzJNbWRzRHJv?=
- =?utf-8?B?MUs2QUk4VTVpdDJBNmNjN3A0WXh4TFNmTTdvcFBOVE5EN3JYQXpITzlEZVN2?=
- =?utf-8?B?OXFvSG0wdGxTRkE4eHFtVDQ3RFRKQ01mREVNSGJ0aFY4WmJXeUpnd2VkTkVC?=
- =?utf-8?B?cTJ5WTZTV2lPT3NidXVpWEE3N0d1Z2tZU2pxSHJUeTdpdTE4cUcwR1cyVkxC?=
- =?utf-8?B?RVdlQmRTcmZhc3hVUkRGam5yUzkzTGxwUGViZERRUW56QW5Pa1JmNXV4Y2J0?=
- =?utf-8?B?dmI5VWRGL3pMSlVEU3lhbVR2bWh3bS96T2x2NjZhUHFyeDdoazVNT0FKT2FR?=
- =?utf-8?B?ZmVJWms3WTI2d0tvdVRTeUJoMFAzUjVaYmJieGVKWVcwOFl0S0xabVVDUVhC?=
- =?utf-8?B?TUVtSXd6cU5kYmFFUjZidy85M0dwZ3krbEdTUXIza0pCaHU3TmZEYmhkSGRl?=
- =?utf-8?B?ZkhTR3FwOUNKY0VCc2hOUFBrNXY1OHl1VnZabDhwd095K2FPc0JPamF6Q2R2?=
- =?utf-8?B?STNHc0ZoaXl2Vko3TS91WklpTE9YOW1mekFvQ2ZzWmJaMG00ckhTaktSYy9K?=
- =?utf-8?B?TzZzMXI0TWErUmZkcCtZVXJCc01oakQ3blV4ZkVKeUxZdkpteTExWTQybk9O?=
- =?utf-8?B?Vm1EZVk1cE9kbHI1aVRqTDNFejhqN0pQU093Rk1qVGwwMWszVlFRa2dmSklo?=
- =?utf-8?B?Mm4rZ3JZK0pFNW9YaC8vWlB6Z0hEYmw2V1A0UWlTRGNJYlA5QzNZeVYyelRN?=
- =?utf-8?B?enh2MU5rQ3VjYU52L3pIc2hRaVNNeHQ5cjRBeGoxd0VaL2VNaExtb3VTeEg5?=
- =?utf-8?B?YkszZTY2SStVZW0vK3VUbnNMOEg4d0dLTENrUmI3TGJnZkc5dVR1QTFzZVNx?=
- =?utf-8?B?eWF1RFYvbVBrK1lRaENOTzhnbis2VWJwcW01ZUR6V2hjcVUwMVBFamFPbFFo?=
- =?utf-8?B?Z21XZG1ydy9RdVN2U0tiZDVSOVdwYTgzMUMrSEpoMDFucTdyc014dkg3RXNL?=
- =?utf-8?B?bGNCU1U5RTUvSnZTZDJSTUZmcW8yL2lkaWVhOFZJYm1BYUEvYkxJWFRPVjBQ?=
- =?utf-8?B?N2g1WXREbnhqa3ZzSEljTjlzUzF5M3RoeVMzR1pPTkFETlNQUk5zMnVxcExS?=
- =?utf-8?B?ZU5VOGYvcVltUyt6dm91SUhWT2dRU2ZTb0JDdUR6ZGpnb083dEtCWE9uV2Ft?=
- =?utf-8?B?YlYwRnlYRXBFNGRYdXVMa21TZ1krZEp4aXRBY0ttbXNPUDN4OEZ2eENzelBo?=
- =?utf-8?Q?CS5TVuPhMDB1ZnQ5hL9ZY9O8m?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?L2gwZ0JXL2dsM2F4Rmt3Z2Y1LzIveUIyM2JKYXg3M0R0TmVGcXZPS0pFNVZL?=
+ =?utf-8?B?SWdVMGNNRDNLNjZmNzRoSXVaNG04dnhCSVBMSXpBUXZER1I0Y2h6U2tpcEJP?=
+ =?utf-8?B?b20zWGt5OHBWelVmYzJEeWpIcTQ4MldicEYydUR3MHc0T3RkSWZnZ1doNTh5?=
+ =?utf-8?B?bVRNYk5TWVVxL0dzYmlteEliZkNNcEVDQVFkOUZtTmFrS1hoS212bkZsdDlW?=
+ =?utf-8?B?bkZ6em1MNGhid1o2MTZuR0NlWEpDNmtDeHd1Q3U0Q2tpUzd1K3pYT0E3OEZP?=
+ =?utf-8?B?VG0rUWtyWXVjWk1NT0xHNTU2aFNzZFoyaFN5MDd6Rk5WMmI4bWV4ckRSYXQx?=
+ =?utf-8?B?WURzRCs3UWtjYTZ5K3pJKzZyWERvUlJ0WjFKbUxESFpSUWdNK1B5Yk5nYzda?=
+ =?utf-8?B?SUNZb0ZTWWNCbXg4Zm1CbjBkbnltNWVQYnprSVVoRVhzUXlQNXk3VWpPNWJE?=
+ =?utf-8?B?bmxxYzg5QThYUWRwR1JPT3h2dGN1RmFwVWZtSFYzNDR5VzVCZlA5V29KckVu?=
+ =?utf-8?B?SElNeUY2Q2kweERHeEl2emIxTHdIeEd2bkdxSUVCQkJid2VJZUJ6cEFGbWUz?=
+ =?utf-8?B?bElXb05WNEVrL1kwaW84eElNcGJJK3RHNy9PZnI3ZkQ1bFRnTC9ndGZ3QlNr?=
+ =?utf-8?B?WFg5aVVxUVhjeE83SnJqTDJyYllNNmVMbTBJck40UXVRVmIwbkFUc3NaYWln?=
+ =?utf-8?B?cys3OUpKL0puMFc0eFg2c2l6cHkzdE1iYldqMkxQOFVVYXcwZG4wUkFMSCsv?=
+ =?utf-8?B?TDEwM3hOWTR2OHJLakptbFlmZjdXeG5RVENEVUU2Sk1sRXdiVlVZcXdUNnhG?=
+ =?utf-8?B?b2ZkNk9mSkp6UXFya2pLSUdudWFHMEl0MnYzOFdibkhENWs4aHd2YW9lUmgz?=
+ =?utf-8?B?NHFoYXlET25kekFpMklFcnFVckczZjlCQWo5QW9BUnBQMFFZUUlSWFltTklY?=
+ =?utf-8?B?RDhaa2FvTTFUOTkxK0lBOVREcDlxK014MFpXYTNzeGZ0RHMxaUhJRkZhNTNF?=
+ =?utf-8?B?VHN0eVhtNGJBQ3lLYlA4NU12Vi93cFMvRlZ2b2V0djZvM042SVIvVjhQQjdZ?=
+ =?utf-8?B?b3Q3MmpnaTl5ZFlGM3dTdmF4SzZuSGwvdEF2dHNvMldER3Eya2pITEtZT0Zx?=
+ =?utf-8?B?MHFxQkxaWFBSMWVnWS8rT1RBaitnZGk2aU5EZUNQUG1lSE5kUWlLNGZHT0Ev?=
+ =?utf-8?B?NVpWMFQ4Y0hpbEpIeTAxUFRrSUtuaHFGNVZzVVZFYXRQYTA3a3ZCSFpRVXBP?=
+ =?utf-8?B?Skxab2N4Q2MzSjVRTVl1aVRJOWljTXN4SitmS0VmaDViWUZNM0VMVmJXZ3BH?=
+ =?utf-8?B?TUU1ZjBneit4K21zM1ZYTFU1WXFpWE1hb0d5TWpLQ2ZIK0wzclJTS0U0bkx0?=
+ =?utf-8?B?ZGFqT3JtcVNnSFloMHJYWFJHY2VvcEFlK1FZS1J5eW50MmR2NVpmOC9IM1hU?=
+ =?utf-8?B?R0lMend1QzBMODV5M0FJZ2VDcy93ZWtoSkJqcGtJdHhQMHpTWmV4TyttMFd0?=
+ =?utf-8?B?RmhBWUhBSGc0TWxoSDhJRlpIQ3VnTndHU1grUWlBR0N5dFFTQ2N1akkvNjZq?=
+ =?utf-8?B?azA3WVkzMjdLaFM1WU10VVdCU3l3TFZDQzJScjVpdFRXbGs0VThOaGxaRHVr?=
+ =?utf-8?B?REp2T2FVZDR2Unc3YVJrbkxWS2tkbGJ2ekJQdzN3OVV1RFNXNDdiQVdFVEUr?=
+ =?utf-8?B?MGpkcGJZWHE2cXprcSszTHdGQUFpVkIwRlRuZUh3V3JwcWRJeHJ2MXQvbjMz?=
+ =?utf-8?B?TEVhaXNwZFlJR1lyVWw4S3FYOFVucUJ6aVp0K3pSam9vU2hhWEx5ajYvaFRX?=
+ =?utf-8?B?d3NCd08vWVdtVzFncnQ3anBjOW15cldrV3IxS2M5WFBBaTA3OFg4cVQxajQ2?=
+ =?utf-8?B?dURVcFpKeDVYTzdTSENsL08vUkNWY1VHeWdieXp2aFBuWEllMkJQaysrbkhW?=
+ =?utf-8?B?VGthNmFhaG9TL3g5Lyt0aHpod1BiNDg4Q0VvUGRHZW12OUpiR0I0ZnpuRmJO?=
+ =?utf-8?B?Szg4S3RoNS94WS84ZFNaOHBEQ08xTStnbE5PUWhWV0oxbzJ4d1NYS2FnV21h?=
+ =?utf-8?B?d0d2OFV1aGk3SFZ3eER4dDY1SkVnZmJjMXREUUpVb3Q1dkhLdmwzWGRHcmNU?=
+ =?utf-8?Q?mDJ+5eUir/ruJM/tDjn43Akdc?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6e572d06-434c-46ad-49bf-08dd2dfeb62c
+X-MS-Exchange-CrossTenant-Network-Message-Id: 954676a5-5331-46f2-e431-08dd2e0278eb
 X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB6095.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jan 2025 03:03:35.9392 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jan 2025 03:30:31.1416 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Bhe+IXD8zkRUs/R203hof285YqpxKVSuZw6a6DgSW2KRLYMpfktl+G77AJX56AOlo8wOElbT8MYGVoC7nTpfdg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8909
+X-MS-Exchange-CrossTenant-UserPrincipalName: bEUM1ZJa4GJssaXHuKM2B2jRF+f1xkskRvuiK2GWq7/cvMtXEhQ/NdV3xni7nwRRKK3unQZc1CcGQ2rvOmX1RA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8528
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,370 +167,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 12/30/2024 02:15, Kun Liu wrote:
-> This patch adds the cec_notifier feature to amdgpu driver.
-> The changes will allow amdgpu driver code to notify EDID
-> and HPD changes to an eventual CEC adapter.
+On 12/31/2024 06:42, Mischa Baars wrote:
+> Hi Mario,
 > 
-> Signed-off-by: Kun Liu <Kun.Liu2@amd.com>
-> ---
->   drivers/gpu/drm/amd/display/Kconfig           |  2 +
->   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 82 +++++++++++++++++++
->   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  4 +
->   .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 66 ++++++++++++++-
->   drivers/gpu/drm/amd/include/amd_shared.h      |  5 ++
->   5 files changed, 158 insertions(+), 1 deletion(-)
+> Although unconfirmed by their website, the rumour goes that the HDMI
+> Forum will release a 2.2 specification somewhere in Januari. Do you
+> think that an open source 2.1 implementation will be allowed soon
+> after?
+
+When new specifications are made available it's not like the old one 
+suddenly becomes "open", so I don't see any reason that a new 
+specification would change anything.
+
 > 
-> diff --git a/drivers/gpu/drm/amd/display/Kconfig b/drivers/gpu/drm/amd/display/Kconfig
-> index 11e3f2f3b1..abd3b65643 100644
-> --- a/drivers/gpu/drm/amd/display/Kconfig
-> +++ b/drivers/gpu/drm/amd/display/Kconfig
-> @@ -8,6 +8,8 @@ config DRM_AMD_DC
->   	bool "AMD DC - Enable new display engine"
->   	default y
->   	depends on BROKEN || !CC_IS_CLANG || ARM64 || LOONGARCH || RISCV || SPARC64 || X86_64
-> +	select CEC_CORE
-> +	select CEC_NOTIFIER
->   	select SND_HDA_COMPONENT if SND_HDA_CORE
->   	# !CC_IS_CLANG: https://github.com/ClangBuiltLinux/linux/issues/1752
->   	select DRM_AMD_DC_FP if ARCH_HAS_KERNEL_FPU_SUPPORT && !(CC_IS_CLANG && (ARM64 || LOONGARCH || RISCV))
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 85f21db6ef..3bd93cc14f 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -97,6 +97,7 @@
->   #include <drm/drm_audio_component.h>
->   #include <drm/drm_gem_atomic_helper.h>
->   
-> +#include <media/cec-notifier.h>
->   #include <acpi/video.h>
->   
->   #include "ivsrcid/dcn/irqsrcs_dcn_1_0.h"
-> @@ -2746,6 +2747,54 @@ static void resume_mst_branch_status(struct drm_dp_mst_topology_mgr *mgr)
->   	mutex_unlock(&mgr->lock);
->   }
->   
-> +static void hdmi_cec_unset_edid(struct amdgpu_dm_connector *aconnector)
-> +{
-> +	struct drm_device *ddev = aconnector->base.dev;
-> +	struct cec_notifier *n = aconnector->notifier;
-> +
-> +	if (!n) {
-> +		drm_dbg(ddev, "failed to unset edid\n");
-> +		return;
-> +	}
-> +
-> +	cec_notifier_phys_addr_invalidate(n);
-> +}
-> +
-> +static void hdmi_cec_set_edid(struct amdgpu_dm_connector *aconnector)
-> +{
-> +	struct drm_connector *connector = &aconnector->base;
-> +	struct drm_device *ddev = aconnector->base.dev;
-> +	struct cec_notifier *n = aconnector->notifier;
-> +
-> +	if (!n) {
-> +		drm_dbg(ddev, "failed to set edid\n");
-> +		return;
-> +	}
-> +
-> +	cec_notifier_set_phys_addr(n,
-> +			connector->display_info.source_physical_address);
-> +}
-> +
-> +static void s3_handle_hdmi_cec(struct drm_device *ddev, bool suspend)
-> +{
-> +	struct amdgpu_dm_connector *aconnector;
-> +	struct drm_connector *connector;
-> +	struct drm_connector_list_iter conn_iter;
-> +
-> +	drm_connector_list_iter_begin(ddev, &conn_iter);
-> +	drm_for_each_connector_iter(connector, &conn_iter) {
-> +		if (connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
-> +			continue;
-> +
-> +		aconnector = to_amdgpu_dm_connector(connector);
-> +		if (suspend)
-> +			hdmi_cec_unset_edid(aconnector);
-> +		else
-> +			hdmi_cec_set_edid(aconnector);
-> +	}
-> +	drm_connector_list_iter_end(&conn_iter);
-> +}
-> +
->   static void s3_handle_mst(struct drm_device *dev, bool suspend)
->   {
->   	struct amdgpu_dm_connector *aconnector;
-> @@ -3017,6 +3066,8 @@ static int dm_suspend(struct amdgpu_ip_block *ip_block)
->   	if (IS_ERR(adev->dm.cached_state))
->   		return PTR_ERR(adev->dm.cached_state);
->   
-> +	s3_handle_hdmi_cec(adev_to_drm(adev), true);
-> +
->   	s3_handle_mst(adev_to_drm(adev), true);
->   
->   	amdgpu_dm_irq_suspend(adev);
-> @@ -3289,6 +3340,8 @@ static int dm_resume(struct amdgpu_ip_block *ip_block)
->   	 */
->   	amdgpu_dm_irq_resume_early(adev);
->   
-> +	s3_handle_hdmi_cec(ddev, false);
-> +
->   	/* On resume we need to rewrite the MSTM control bits to enable MST*/
->   	s3_handle_mst(ddev, false);
->   
-> @@ -3598,6 +3651,7 @@ void amdgpu_dm_update_connector_after_detect(
->   		dc_sink_retain(aconnector->dc_sink);
->   		if (sink->dc_edid.length == 0) {
->   			aconnector->drm_edid = NULL;
-> +			hdmi_cec_unset_edid(aconnector);
->   			if (aconnector->dc_link->aux_mode) {
->   				drm_dp_cec_unset_edid(&aconnector->dm_dp_aux.aux);
->   			}
-> @@ -3607,6 +3661,7 @@ void amdgpu_dm_update_connector_after_detect(
->   			aconnector->drm_edid = drm_edid_alloc(edid, sink->dc_edid.length);
->   			drm_edid_connector_update(connector, aconnector->drm_edid);
->   
-> +			hdmi_cec_set_edid(aconnector);
->   			if (aconnector->dc_link->aux_mode)
->   				drm_dp_cec_attach(&aconnector->dm_dp_aux.aux,
->   						  connector->display_info.source_physical_address);
-> @@ -3623,6 +3678,7 @@ void amdgpu_dm_update_connector_after_detect(
->   		amdgpu_dm_update_freesync_caps(connector, aconnector->drm_edid);
->   		update_connector_ext_caps(aconnector);
->   	} else {
-> +		hdmi_cec_unset_edid(aconnector);
->   		drm_dp_cec_unset_edid(&aconnector->dm_dp_aux.aux);
->   		amdgpu_dm_update_freesync_caps(connector, NULL);
->   		aconnector->num_modes = 0;
-> @@ -7042,6 +7098,7 @@ static void amdgpu_dm_connector_unregister(struct drm_connector *connector)
->   	if (amdgpu_dm_should_create_sysfs(amdgpu_dm_connector))
->   		sysfs_remove_group(&connector->kdev->kobj, &amdgpu_group);
->   
-> +	cec_notifier_conn_unregister(amdgpu_dm_connector->notifier);
->   	drm_dp_aux_unregister(&amdgpu_dm_connector->dm_dp_aux.aux);
->   }
->   
-> @@ -8278,6 +8335,27 @@ create_i2c(struct ddc_service *ddc_service,
->   	return i2c;
->   }
->   
-> +int amdgpu_dm_initialize_hdmi_connector(struct amdgpu_dm_connector *aconnector)
-> +{
-> +	struct cec_connector_info conn_info;
-> +	struct drm_device *ddev = aconnector->base.dev;
-> +	struct device *hdmi_dev = ddev->dev;
-> +
-> +	if (amdgpu_dc_debug_mask & DC_DISABLE_HDMI_CEC) {
-> +		drm_info(ddev, "HDMI-CEC feature masked\n");
-> +		return -EINVAL;
-> +	}
-> +
-> +	cec_fill_conn_info_from_drm(&conn_info, &aconnector->base);
-> +	aconnector->notifier =
-> +		cec_notifier_conn_register(hdmi_dev, NULL, &conn_info);
-> +	if (!aconnector->notifier) {
-> +		drm_err(ddev, "Failed to create cec notifier\n");
-> +		return -ENOMEM;
-> +	}
-> +
-> +	return 0;
-> +}
->   
->   /*
->    * Note: this function assumes that dc_link_detect() was called for the
-> @@ -8341,6 +8419,10 @@ static int amdgpu_dm_connector_init(struct amdgpu_display_manager *dm,
->   	drm_connector_attach_encoder(
->   		&aconnector->base, &aencoder->base);
->   
-> +	if (connector_type == DRM_MODE_CONNECTOR_HDMIA
-> +		|| connector_type == DRM_MODE_CONNECTOR_HDMIB)
-> +		amdgpu_dm_initialize_hdmi_connector(aconnector);
-> +
->   	if (connector_type == DRM_MODE_CONNECTOR_DisplayPort
->   		|| connector_type == DRM_MODE_CONNECTOR_eDP)
->   		amdgpu_dm_initialize_dp_connector(dm, aconnector, link->link_index);
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> index 6464a83783..4c1942652b 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> @@ -671,6 +671,8 @@ struct amdgpu_dm_connector {
->   	uint32_t connector_id;
->   	int bl_idx;
->   
-> +	struct cec_notifier *notifier;
-> +
->   	/* we need to mind the EDID between detect
->   	   and get modes due to analog/digital/tvencoder */
->   	const struct drm_edid *drm_edid;
-> @@ -1010,4 +1012,6 @@ void dm_free_gpu_mem(struct amdgpu_device *adev,
->   
->   bool amdgpu_dm_is_headless(struct amdgpu_device *adev);
->   
-> +int amdgpu_dm_initialize_hdmi_connector(struct amdgpu_dm_connector *aconnector);
-> +
->   #endif /* __AMDGPU_DM_H__ */
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-> index 6a97bb2d91..922f329175 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-> @@ -25,6 +25,7 @@
->   
->   #include <linux/string_helpers.h>
->   #include <linux/uaccess.h>
-> +#include <media/cec-notifier.h>
->   
->   #include "dc.h"
->   #include "amdgpu.h"
-> @@ -2825,6 +2826,67 @@ static int is_dpia_link_show(struct seq_file *m, void *data)
->   	return 0;
->   }
->   
-> +/*
-
-I would make this kerneldoc (IE /**)
-
-> + * function description: Read out the HDMI-CEC feature status
-When converting it to kerneldoc format make sure you follow all the 
-other syntax.
-
-IE
-
-hdmi_cec_state_show: Read out the HDMI-CEC feature status
-@m: sequence file
-@data: unused
-
-Returns: 0 on success, error on failure
-
-> + *
-> + * Example usage:
-> + * cat /sys/kernel/debug/dri/0/HDMI-A-1/hdmi_cec_state
-> + */
-> +static int hdmi_cec_state_show(struct seq_file *m, void *data)
-> +{
-> +	struct drm_connector *connector = m->private;
-> +	struct amdgpu_dm_connector *aconnector = to_amdgpu_dm_connector(connector);
-> +
-> +	seq_printf(m, "%s:%d\n", connector->name, connector->base.id);
-> +	seq_printf(m, "HDMI-CEC status: %d\n", aconnector->notifier ? 1:0);
-> +
-> +	return 0;
-> +}
-> +
-> +/*
-
-I would make this kerneldoc (IE /**)
-
-> + * function: Enable/Disable HDMI-CEC feature from driver side
-> + *
-
-When converting it to kerneldoc format make sure you follow all the 
-other syntax.
-
-IE
-
-hdmi_cec_state_write: Enable/Disable HDMI-CEC feature from driver side
-@f: file
-@buf: buffer from userspace
-@size: size of buffer from userpsace
-@pos: position in the buffer from userspace
-
-Returns: size on success, error code on failure
-
-> + * Example usage:
-> + * echo 1 > /sys/kernel/debug/dri/0/HDMI-A-1/hdmi_cec_state
-> + * echo 0 > /sys/kernel/debug/dri/0/HDMI-A-1/hdmi_cec_state
-> + */
-
-So by exposing this to debugfs you potentially introduce a case that a 
-user could call enable on an already enabled device or disable on an 
-already disabled device.
-
-I think this is generally not something we want to allow.  Perhaps could 
-you check for
-
-'aconnector->notifier' being already set in the "1" case and already 
-being "NULL" in the "0" case and return -EINVAL?
-
-> +static ssize_t hdmi_cec_state_write(struct file *f, const char __user *buf,
-> +				     size_t size, loff_t *pos)
-> +{
-> +	char tmp[2];
-> +	int ret;
-> +	struct amdgpu_dm_connector *aconnector = file_inode(f)->i_private;
-> +	struct drm_connector *dconn = &aconnector->base;
-> +	struct drm_device *ddev = aconnector->base.dev;
-> +
-> +	if (size == 0)
-> +		return -EINVAL;
-> +
-> +	if (copy_from_user(tmp, buf, 1)) {
-> +		drm_dbg_driver(ddev, "Failed to copy user data !\n");
-> +		return -EFAULT;
-> +	}
-> +
-> +	switch (tmp[0]) {
-
-What do you think about using kstrtobool() instead?  Then you could 
-support a variety of inputs that people generally use for boolean stuff.
-
-> +	case '0':
-> +		cec_notifier_conn_unregister(aconnector->notifier);
-> +		aconnector->notifier = NULL;
-> +		break;
-> +	case '1':
-> +		ret = amdgpu_dm_initialize_hdmi_connector(aconnector);
-> +		if (ret)
-> +			return ret;
-> +		cec_notifier_set_phys_addr(aconnector->notifier,
-> +				dconn->display_info.source_physical_address);
-> +		break;
-> +	default:
-> +		drm_dbg_driver(ddev, "Unsupported param\n");
-> +		break;
-
-Shouldn't you be returning an error code here for the default case?
-
-> +	}
-> +
-> +	return size;
-> +}
-> +
->   DEFINE_SHOW_ATTRIBUTE(dp_dsc_fec_support);
->   DEFINE_SHOW_ATTRIBUTE(dmub_fw_state);
->   DEFINE_SHOW_ATTRIBUTE(dmub_tracebuffer);
-> @@ -2837,6 +2899,7 @@ DEFINE_SHOW_ATTRIBUTE(psr_capability);
->   DEFINE_SHOW_ATTRIBUTE(dp_is_mst_connector);
->   DEFINE_SHOW_ATTRIBUTE(dp_mst_progress_status);
->   DEFINE_SHOW_ATTRIBUTE(is_dpia_link);
-> +DEFINE_SHOW_STORE_ATTRIBUTE(hdmi_cec_state);
->   
->   static const struct file_operations dp_dsc_clock_en_debugfs_fops = {
->   	.owner = THIS_MODULE,
-> @@ -2972,7 +3035,8 @@ static const struct {
->   	char *name;
->   	const struct file_operations *fops;
->   } hdmi_debugfs_entries[] = {
-> -		{"hdcp_sink_capability", &hdcp_sink_capability_fops}
-> +		{"hdcp_sink_capability", &hdcp_sink_capability_fops},
-> +		{"hdmi_cec_state", &hdmi_cec_state_fops}
->   };
->   
->   /*
-> diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/amd/include/amd_shared.h
-> index 98d9e840b0..05bdb4e020 100644
-> --- a/drivers/gpu/drm/amd/include/amd_shared.h
-> +++ b/drivers/gpu/drm/amd/include/amd_shared.h
-> @@ -344,6 +344,11 @@ enum DC_DEBUG_MASK {
->   	 * eDP display from ACPI _DDC method.
->   	 */
->   	DC_DISABLE_ACPI_EDID = 0x8000,
-> +
-> +	/*
-> +	 * @DC_DISABLE_HDMI_CEC: If set, disable HDMI-CEC feature in amdgpu driver.
-> +	 */
-> +	DC_DISABLE_HDMI_CEC = 0x10000,
->   };
->   
->   enum amd_dpm_forced_level;
+> In the meantime I also checked the framerate synchronization through
+> glxgears at different resolutions and framerates. This does function
+> as expected. Although I haven't yet inspected the glxgears source
+> codes in detail, the OpenGL double buffering must be functional up to
+> some level. This means that the problem must be confined to GTK and
+> the GtkGLArea widget. Using GDK_BACKEND=x11 I do get a double buffered
+> context, but the default buffer does not alternate between GL_FRONT
+> and GL_BACK.
+> 
+> Enjoy new year's eve!
+> 
+> Regards,
+> Mischa.
+> 
+> On Wed, Oct 23, 2024 at 6:16 PM Mario Limonciello
+> <mario.limonciello@amd.com> wrote:
+>>
+>> On 10/23/2024 11:12, Mischa Baars wrote:
+>>>> I certainly don't have a crystal ball, but I try to avoid saying things
+>>>> like "never" or "for sure" in non-ephemeral contexts like mailing lists.
+>>>
+>>> I understand. I'll concentrate on different aspects of testing the
+>>> connection with this TV, like gdk_monitor_get_description(...) doesn't
+>>> return a valid description when the application is started with
+>>> GDK_BACKEND=x11. I also have less trivial questions about the ancient
+>>> and seemingly long forgotten concept of page flipping. I'll think of
+>>> something to do.
+>>>
+>>> Thank you for your help.
+>>>
+>>
+>> OK, If you have more questions about other things that come up along the
+>> way feel free to raise them on amd-gfx.
+>>
+>>
 
