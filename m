@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C936E77197
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jan 2025 15:29:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DF0BE77197
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jan 2025 15:29:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB4B010E70C;
-	Tue,  7 Jan 2025 15:29:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B3A910E1AE;
+	Tue,  7 Jan 2025 15:29:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="mpGBQeqP";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="D3e6Si2Y";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2056.outbound.protection.outlook.com [40.107.92.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D5EAA10E1AE
- for <amd-gfx@lists.freedesktop.org>; Tue,  7 Jan 2025 15:29:10 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2074.outbound.protection.outlook.com [40.107.237.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 86AA810E1AE
+ for <amd-gfx@lists.freedesktop.org>; Tue,  7 Jan 2025 15:29:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DlvCtBEAQZ8Zk7lJ1ZxvWCPjx4LRo0GM7nxfjbd4vFhZwyTjDZ31ky7bOxksvqakKqFoL022gnBrq3kAhhhumam5tzeJxEJRlLqi8GjkjmquDNJSu7NGBAXHR3Z9Ogc1qEP3nhC3X/XEboJ7/nyrNcIVSvxGQVMs0wTcOWYMEnPWG0lTaWucPU4EcROfm32PyeQxosBcwxMz+IANdq1nkbcGuLtZh3coS1ZD4qKn16ZNs+Ln2ED9WW4W/mvTSi+i11xt3oe0srAX0JZQQESzk0OShByggcslFwSw8Tdzvp9cWKd2Rm+1oTith8iGOmlSyjHJ4E559TCmp4Hftv7ejA==
+ b=bsL7+gyyh+YUotWRdbELph0IgSGTKEgbGmQD7FYilMk5pkL/ChlgQNdUfN6RMJI7A8yMbeYqEWFyosCTiwduVWhmg4JstHlRohUEmu9KNtySHiCXLEYVMSQqMwBXiifXhJ318YzfPHZDwpPFJWvosEMRGx2aH8V3wF+r/6aKP1XhBKgebXsJXp0+xDAnBwRcVTR+UPRMiBSVcjFv6VQ+bSfhFC3p4A21Br9CTVdpsIyIkWiulJN/S+91MVpQ+VnQ824UP91g/OGgN9F9roaqgww3cFbIMGx9/FBjPaa7+gZ6XmYzm9JsY4IY5Ydm5YXLApdjcP2kOxtAtrgD1O7zPw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9nwMU0SyupjUd5H0k4+nnseaP7eFceFpMB9USvN64GY=;
- b=X3+18trsovC6i33CYz0vdGd6hylfrTgdL/8q4AWWs7t+37FRe2tcgmvGHo9XulFR16bXjFhXocUXc7hFwywDhW7xjCsB3jMbWUXshaL3MFKRj7YGCJlme8xc3qMbTL/KgrHMLRI1rCHUqxLZ0mKG+X+6viqp2L2sixxYKI72elpYDJI1O6x1AugeRLUUvDyRQks5nkePgNbOsEH0Bu7iPnCzeW3zjmF6eqLoynounC/BCeFbnzeY6OIGORqx/WKrSK9RKTbvRv4KXBdEJp5X1QVTofn4+u8qfFhELQ/62qhxhfd6N/rw5W5LJhsS55QkaXwfIEroclOQJ38uLvM5wg==
+ bh=oovMY+XUedu9JLHDrdBJHrwagSkhSyFCUrGknYudeBg=;
+ b=ahAiycxfySeMOn5+uzk5hR7wCF/ut0CQjPYrMij/n2Szu2oiezR7u/MzGUnlBbh5T6HkeU21v9A2S1aQ+Xsw37gwuK1e9iMcLO7hH2Vrk2p/WuawqZ0QWQRcSxsUMZH/Ck6s+qNZgKlffXRMtoVUKTr+V0iik4tfs9Ef9DpzHlu4/yta4auijKraae0sPSC4svCgP34IlTPhv1zkyxnti+dPIT9lf9tITvzWZNex2OmkkVHYfRZdIT4kkdMloKimKotpaiiE42gpO9C23zMjlrdicoBKRaCMdKBjhMLGzWkpcDsGNvN910QzOpI0O7DF9TR44JuhWoSbPUIXjskoRQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9nwMU0SyupjUd5H0k4+nnseaP7eFceFpMB9USvN64GY=;
- b=mpGBQeqP14YRHHlMU0aKoflxXANsQH25bPZ6OAEdyg6ehWVbGdJAtc7SlT9uudk4ppw8bEh9PYtMFofFJOJi14Aiwc+rbe3GxteZUwCOPEBuX6oZLMZKcm4FRIXgzT4K45io2JK9EWE9efTOkxRWtDYA7IKFc1qmOzZCbFtI0tk=
-Received: from SJ0PR13CA0215.namprd13.prod.outlook.com (2603:10b6:a03:2c1::10)
- by MN0PR12MB6293.namprd12.prod.outlook.com (2603:10b6:208:3c2::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8314.17; Tue, 7 Jan
- 2025 15:29:04 +0000
-Received: from SN1PEPF000252A4.namprd05.prod.outlook.com
- (2603:10b6:a03:2c1:cafe::82) by SJ0PR13CA0215.outlook.office365.com
- (2603:10b6:a03:2c1::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8335.10 via Frontend Transport; Tue,
- 7 Jan 2025 15:29:03 +0000
+ bh=oovMY+XUedu9JLHDrdBJHrwagSkhSyFCUrGknYudeBg=;
+ b=D3e6Si2YnU5ivP6jIPkLkNl4zVx5tW7QlYjK1+A/kuILbPA1LkcLRE421XrZggLLA+lbZLMt8wvJJMFY/dZd2QXxG07+VkE3Mu3SYFSrAsFxRwGZO39SKmz0ZF+1XmpmaKqab1gk/VN3/ZQ1mw0gNgWShq6Wgd38S5hlyjKJ6Xc=
+Received: from MW4P222CA0002.NAMP222.PROD.OUTLOOK.COM (2603:10b6:303:114::7)
+ by PH0PR12MB8049.namprd12.prod.outlook.com (2603:10b6:510:28f::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8335.10; Tue, 7 Jan
+ 2025 15:29:11 +0000
+Received: from CO1PEPF000044EE.namprd05.prod.outlook.com
+ (2603:10b6:303:114:cafe::42) by MW4P222CA0002.outlook.office365.com
+ (2603:10b6:303:114::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8314.16 via Frontend Transport; Tue,
+ 7 Jan 2025 15:29:11 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SN1PEPF000252A4.mail.protection.outlook.com (10.167.242.11) with Microsoft
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CO1PEPF000044EE.mail.protection.outlook.com (10.167.241.68) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8335.7 via Frontend Transport; Tue, 7 Jan 2025 15:29:03 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.8335.7 via Frontend Transport; Tue, 7 Jan 2025 15:29:11 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 7 Jan
- 2025 09:29:02 -0600
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ 2025 09:29:10 -0600
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 7 Jan
- 2025 09:29:02 -0600
+ 2025 09:29:10 -0600
 Received: from tom-r5.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Tue, 7 Jan 2025 09:28:59 -0600
+ Transport; Tue, 7 Jan 2025 09:29:06 -0600
 From: Tom Chung <chiahsuan.chung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -69,62 +69,67 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>, Wayne Lin
  <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, Fangzhi Zuo
  <jerry.zuo@amd.com>, Zaeem Mohamed <zaeem.mohamed@amd.com>, Solomon Chiu
- <solomon.chiu@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>
-Subject: [PATCH 00/24] DC Patches Jan 13 2025
-Date: Tue, 7 Jan 2025 23:28:31 +0800
-Message-ID: <20250107152855.2953302-1-chiahsuan.chung@amd.com>
+ <solomon.chiu@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>, Sung Lee
+ <Sung.Lee@amd.com>, Alvin Lee <alvin.lee2@amd.com>
+Subject: [PATCH 02/24] drm/amd/display: Log Hard Min Clocks and Phantom Pipe
+ Status
+Date: Tue, 7 Jan 2025 23:28:33 +0800
+Message-ID: <20250107152855.2953302-3-chiahsuan.chung@amd.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20250107152855.2953302-1-chiahsuan.chung@amd.com>
+References: <20250107152855.2953302-1-chiahsuan.chung@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
+Received-SPF: None (SATLEXMB05.amd.com: chiahsuan.chung@amd.com does not
+ designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF000252A4:EE_|MN0PR12MB6293:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0c6172e0-9cc0-4993-9e57-08dd2f300460
+X-MS-TrafficTypeDiagnostic: CO1PEPF000044EE:EE_|PH0PR12MB8049:EE_
+X-MS-Office365-Filtering-Correlation-Id: 44e331d8-f0e7-4f12-6454-08dd2f300919
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|30052699003|1800799024|376014|36860700013|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?j14osf5OH0Hv6I10eQ2OL/l86UxclTSYDKj3+0grbzDixn2UV7iwL0tWym76?=
- =?us-ascii?Q?+6Sfxt2ckuLTJ+wwwLW8lV5dNsco2/ozgtpA594qzMjboq/aZjUxjTHQj9jy?=
- =?us-ascii?Q?Vi+GGPOJHoR8smv3bl0PSUxRiYXFUQqx30LX4o7oHrf+wRJ3L3c6QCxF41D8?=
- =?us-ascii?Q?UfVAgIooYCcJ5XwDBBrNSt6W4k+VcsGA2SS1iaePwIAPg2vpAGBQn5PeQd8I?=
- =?us-ascii?Q?qQgQ7kdpC2KaP8S2AQRVQ5zWALYUclBqQ5BKFJ57l7tl0XqLtweDmrxb1SU3?=
- =?us-ascii?Q?YLFBr3wG6rcZdbBrQG17Cdi0klZwSwvt+pL2pWhxoNmll6ew3kOpS2m5PbJ9?=
- =?us-ascii?Q?EUtxnt9ata4zOjZXBwgOdchdfA+qEvnDJW9svmUkLxS3WjI4zmpSMQhqQRQq?=
- =?us-ascii?Q?GCIJfrMb2KxJTRHjpf+vB5Ylpw8VuMW9DLwMRdPmAI3XAW0/Fl9Qt10G/tGB?=
- =?us-ascii?Q?q6r7579KKO3tIt1E/FToY2NijMvCCOpw43EkN307Y03dcaI1mCQX4dmHsmBq?=
- =?us-ascii?Q?Y9W0R7w7TRqtiyyyMBtfVo819pMASgxO9AHYHnkSF5O9NyNGDTt7bzWtSnUA?=
- =?us-ascii?Q?nJ3tLRg7J7iCSk9gOoJk6zuK/dP8ATyhz+7ZLnjxzhjpXx6GHjQ+NlRQoRUL?=
- =?us-ascii?Q?uuFCtPTJAWSM/ItfxiMpMp3MG3UBuMSH8o1+KnoxcCMEgJq3A7ZlBOcOUjUm?=
- =?us-ascii?Q?nIEHcOTUPMDMdR/lqFoYWKlT5y14mFCeA63uJmJ9RPARqyX4rwaOuLY3AlS9?=
- =?us-ascii?Q?JMfXsP2Sio6AWRBsc5JSKXkSLXPLVcK6d5VzfMplplVD7dnDYKA2lqehZ+IU?=
- =?us-ascii?Q?oVXqpS3we39D6jtd9w7X7M3rLHfygvvDPkcVWIFW2+/EI35fzAx6VGpxpUyn?=
- =?us-ascii?Q?bs3iK0Z75jKBtcbRn9C3kBwsui4QzaVAa6pL8F8ZXzF2AYZbsJIcwwwu7sxj?=
- =?us-ascii?Q?tDCi/zGFf3UhuVmDaU3V8YOO/kdnwJboj4r5ZA7ONQpzsWXp7tfDiDuuj0ji?=
- =?us-ascii?Q?EI+/LtaO8B1+oTMkUPUl+05bcOji1YBnMsF38pGgA6LqJCviBbmaRSnGwPi+?=
- =?us-ascii?Q?fmRzE6EndiJT4GVA4ytER/nZROWtTsZ/E483Fc0gam2zFF2XEITVXhyugbxd?=
- =?us-ascii?Q?5yXcUD1MaqWXC7cwXWjVfrj8MkLBhgxm+5eWtxPsLcl2U+j8TA9aw3DaStc8?=
- =?us-ascii?Q?CqpNiwU5ZuD1ULNNlmMylPeh4YpYHQvrt1zxkpr5CvJz4M0hn0kbvwZMQXUM?=
- =?us-ascii?Q?57+sRS+VHElUwKKk+tBHWeDI7TTSolQQUzqga/8FaQFb6GZl506Yc1ZGxvWb?=
- =?us-ascii?Q?qKa66L/izVw7gJ5x5zrIuTFI3lYDXjsiBGx0eQCZslyBcK97MXt+azcK7Ubl?=
- =?us-ascii?Q?gXiLJGH+/P1cdwgQ4Xakr1ZJJmJBz4Z7i9W63ErpAfIqWddzrcoUhSP2IgkQ?=
- =?us-ascii?Q?Opx/EIjPJZ1eKP/H6EhQDR2aa2gh1nneFlojH5MSugLtP+qx4m97mSWqkraf?=
- =?us-ascii?Q?/qhpCV0e0Y2LG6o=3D?=
+ ARA:13230040|36860700013|82310400026|376014|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?iGDPUVx4EpYuJjZ288cRpbmvU4Pbf3V4ExmpcXOQOh/mFUeyh1u50L3KIb0b?=
+ =?us-ascii?Q?lwzODF5WELEeKNAYp9N9RHNYashMRTARUS3CWnIkdn7WomBtZc0gGWXqvXU2?=
+ =?us-ascii?Q?YQEpcJ02lbEghSI4/yiA/9y71xddXMA0t0vhpmohu6+6L8iFIWdI7K97NQei?=
+ =?us-ascii?Q?1PGkC8DB2thOQymvE3PSYubHjKY6fjyGK9Z1tmbO5oaNHF09Viw4vHqe2LRr?=
+ =?us-ascii?Q?iSPJ5m2dDg/mK9G3HyzYoYviXGeEHaDSXr9r5espbVg7NQXrocv6nKRrDlqB?=
+ =?us-ascii?Q?NxxwiKOtoDYQm2aCudvcUWamWLQagG4vehi3jF+G0fZPb/3vR7wluLhgC/Xo?=
+ =?us-ascii?Q?M9mqsp9X8ll57NXoNbmKCI4cw6x/e0jMU4ggmyHyLc7hRAxThWuNJU0QxyOY?=
+ =?us-ascii?Q?a3FYzFREx1ytudcAq1aNjWHF2C98ipnXwfXgW2GdF89+tu8B9/WTUAkX14v7?=
+ =?us-ascii?Q?u9QgePn42+8g1fM1mL3SZFXx/Dq1Sx8dd1MxHKNYVdLQdFvRtx27wNCmdOWf?=
+ =?us-ascii?Q?BJWFlfIKb0ZeD77BTO6XTDA/0X8LRvoPhAZHvREEC6wZjVXd2ZsywaXCcRSI?=
+ =?us-ascii?Q?ylGPevxOA4UH1Tw8fQEfGBhzYngNoZHusNUe5nKepeHojdWhyTt3ERZjZ2VX?=
+ =?us-ascii?Q?3kMnSVFvSrQK3I+em1SZOwyxaT+BDQBloOyZQ36vh6qB7uF1RpAfSyOWg3Fa?=
+ =?us-ascii?Q?ekQk73BSBA9G6NydykokyWZR8dbCJeik9V8Rpil+bHhvJoCE9EAhneeBRp00?=
+ =?us-ascii?Q?ym2LstGfWLekpCEsx/NPJeyS4mN7GSy4dLGZ5N9jc1+YwFi8GZZxJ2/XiqBI?=
+ =?us-ascii?Q?gy8ZpIW3gKvnekr62kHpkSQKIl6bM8PbCkBiH13UtLJDEo+VfMXcFvFqPmIH?=
+ =?us-ascii?Q?mBHGABxG0a6/RR6BP6wwnM48xkQ74gnmK6880JDb+hur8/eteqC1tar8uAzD?=
+ =?us-ascii?Q?2oD/WvICdt3kSx6y1kVzZ8xJXvCGQs6MDnRnnHNC7SvnDtuIRpT1dbgupU3L?=
+ =?us-ascii?Q?TeJ+GE27NAYE+D5irgWx4+Pr7aF0393/694W7CnAYGNRkSVajAj7/++LsOIv?=
+ =?us-ascii?Q?shRanG658xG2ll438QaT4leBboqT0d/EEBm7lqNImAzXcItdsF1+CgabyNes?=
+ =?us-ascii?Q?G21nPoY1KndvmO5taKWID+DZCdF311x/vNQDJ8NoLR1nIPygZcp+guSETAQh?=
+ =?us-ascii?Q?tvgEGRgMac2H+Q+H6MChPEYk9wuMDg+WX1F+YFJcYNl5mglUUIMn7SBpAU2D?=
+ =?us-ascii?Q?M/7nXWxPJtF1sJSu+tAVe116iZ4Pxo12zJ48ns7gUg5iZ+rW+JIGaE3pqQqA?=
+ =?us-ascii?Q?O3LuQ5IMSgjXi0Q1pF7oTkm6/blQzh5vz6Y6dxrxbKW7D/XU2caG1v4NxDtq?=
+ =?us-ascii?Q?0C6TGa0e9ewPqrNctituKGgTE15V4ZQcjvnNFwBiC2rEiJgxpWPgiQc9a1M9?=
+ =?us-ascii?Q?DoeHcFcqzRYqRvvdyGs4LIp4dA5PLAMcu7Q7yJg08D3mPpa/dZZHCQ=3D=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(30052699003)(1800799024)(376014)(36860700013)(82310400026);
- DIR:OUT; SFP:1101; 
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(82310400026)(376014)(1800799024); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jan 2025 15:29:03.4229 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0c6172e0-9cc0-4993-9e57-08dd2f300460
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jan 2025 15:29:11.2354 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 44e331d8-f0e7-4f12-6454-08dd2f300919
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF000252A4.namprd05.prod.outlook.com
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000044EE.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6293
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8049
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,176 +144,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This DC patchset brings improvements in multiple areas. In summary, we highlight:
+From: Sung Lee <Sung.Lee@amd.com>
 
-- Add some feature for secure display
-- Add replay desync error count tracking and reset
-- Update chip_cap defines and usage
-- Remove unnecessary eDP power down
-- Fix some stuttering/corruption issue on PSR panel
-- Cleanup and refactoring DML2.1
+[WHY]
+On entering/exiting idle power, certain parameters would be
+very useful to know for power profiling purposes.
 
-Cc: Daniel Wheeler <daniel.wheeler@amd.com>
+[HOW]
+This commit adds certain hard min clocks and pipe types
+to log output on idle optimization enter/exit.
 
+Reviewed-by: Alvin Lee <alvin.lee2@amd.com>
+Signed-off-by: Sung Lee <Sung.Lee@amd.com>
+Signed-off-by: Tom Chung <chiahsuan.chung@amd.com>
+---
+ .../dc/clk_mgr/dcn401/dcn401_clk_mgr.c        | 16 ++++++++++++++
+ drivers/gpu/drm/amd/display/dc/core/dc.c      | 22 +++++++++++++++++++
+ .../gpu/drm/amd/display/dc/inc/hw/clk_mgr.h   |  3 +++
+ 3 files changed, 41 insertions(+)
 
-Alex Hung (1):
-  drm/amd/display: Initialize denominator defaults to 1
-
-Austin Zheng (1):
-  drm/amd/display: Apply DML21 Patches
-
-Charlene Liu (1):
-  drm/amd/display: avoid reset DTBCLK at clock init
-
-Dennis Chan (1):
-  drm/amd/display: Revised for Replay Pseudo vblank control
-
-Dillon Varone (1):
-  drm/amd/display: Add SMU interface to get UMC count for dcn401
-
-Gabe Teeger (1):
-  drm/amd/display: Limit Scaling Ratio on DCN3.01
-
-Jack Chang (1):
-  drm/amd/display: Add replay desync error count tracking and reset
-    functionality
-
-Karthi Kandasamy (1):
-  drm/amd/display: Remove unused read_ono_state function from Hwss
-    module
-
-Leo Li (2):
-  drm/amd/display: Do not wait for PSR disable on vbl enable
-  drm/amd/display: Do not elevate mem_type change to full update
-
-Michael Strauss (1):
-  drm/amd/display: Update chip_cap defines and usage
-
-Nicholas Susanto (1):
-  Revert "drm/amd/display: Enable urgent latency adjustments for DCN35"
-
-Peichen Huang (1):
-  drm/amd/display: improve dpia pre-train
-
-Rafal Ostrowski (1):
-  drm/amd/display: DML2.1 Post-Si Cleanup
-
-Robin Chen (1):
-  drm/amd/display: Add a new flag for replay low hz
-
-Ryan Seto (1):
-  drm/amd/display: 3.2.316
-
-Sung Lee (1):
-  drm/amd/display: Log Hard Min Clocks and Phantom Pipe Status
-
-Taimur Hassan (1):
-  drm/amd/display: [FW Promotion] Release 0.0.248.0
-
-Tom Chung (1):
-  drm/amd/display: Use HW lock mgr for PSR1
-
-Wayne Lin (4):
-  drm/amd/display: Validate mdoe under MST LCT=1 case as well
-  drm/amd/display: Reduce accessing remote DPCD overhead
-  drm/amd/display: Add support to configure CRC window on specific CRC
-    instance
-  drm/amd/display: Extend secure display to support DisplayCRC mode
-
-Yiling Chen (1):
-  drm/amd/display: Remove unnecessary eDP power down
-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  33 +-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   2 +
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c |  83 +-
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_crc.h |   9 +
- .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |   2 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c |   2 +-
- .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  48 +-
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c |  35 +-
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_psr.h |   3 +-
- .../drm/amd/display/dc/bios/bios_parser2.c    |   9 +-
- .../display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c  |  18 +-
- .../amd/display/dc/clk_mgr/dcn401/dalsmc.h    |   4 +-
- .../dc/clk_mgr/dcn401/dcn401_clk_mgr.c        |  25 +
- .../clk_mgr/dcn401/dcn401_clk_mgr_smu_msg.c   |  14 +
- .../clk_mgr/dcn401/dcn401_clk_mgr_smu_msg.h   |   1 +
- drivers/gpu/drm/amd/display/dc/core/dc.c      |  33 +-
- .../gpu/drm/amd/display/dc/core/dc_resource.c |  16 +-
- drivers/gpu/drm/amd/display/dc/dc.h           |   2 +-
- drivers/gpu/drm/amd/display/dc/dc_stream.h    |   4 +-
- drivers/gpu/drm/amd/display/dc/dc_types.h     |   8 +-
- .../drm/amd/display/dc/dce/dmub_hw_lock_mgr.c |   3 +-
- .../dc/dce110/dce110_timing_generator.c       | 169 ++--
- .../dc/dce120/dce120_timing_generator.c       |  90 +-
- .../dc/dio/dcn31/dcn31_dio_link_encoder.c     |   5 +-
- .../drm/amd/display/dc/dml/dcn35/dcn35_fpu.c  |   4 +-
- .../dc/dml2/dml21/dml21_translation_helper.c  |  86 +-
- .../dc/dml2/dml21/dml21_translation_helper.h  |   2 -
- .../amd/display/dc/dml2/dml21/dml21_utils.c   | 129 +--
- .../amd/display/dc/dml2/dml21/dml21_utils.h   |   8 +-
- .../amd/display/dc/dml2/dml21/dml21_wrapper.c |   8 -
- .../dml21/inc/bounding_boxes/dcn3_soc_bb.h    | 401 ---------
- .../src/dml2_core/dml2_core_dcn4_calcs.c      | 111 ++-
- .../src/dml2_core/dml2_core_shared_types.h    |   6 +-
- .../dml21/src/dml2_core/dml2_core_utils.c     |   2 +-
- .../dml2/dml21/src/dml2_pmo/dml2_pmo_dcn3.c   |   6 +-
- .../dml21/src/dml2_pmo/dml2_pmo_dcn4_fams2.c  |  10 +-
- .../dml21/src/dml2_top/dml2_top_interfaces.c  |   1 -
- .../dml2/dml21/src/dml2_top/dml2_top_legacy.c |   6 +
- .../dml2/dml21/src/dml2_top/dml2_top_soc15.c  |   1 +
- .../dml2/dml21/src/dml2_top/dml2_top_soc15.h  |   1 +
- .../src/inc/dml2_internal_shared_types.h      |   2 -
- .../drm/amd/display/dc/dml2/dml2_wrapper.c    |  14 +-
- .../amd/display/dc/hubp/dcn401/dcn401_hubp.c  |  92 +-
- .../amd/display/dc/hubp/dcn401/dcn401_hubp.h  |  35 +-
- .../amd/display/dc/hwss/dcn20/dcn20_hwseq.c   | 257 +++---
- .../amd/display/dc/hwss/dcn20/dcn20_hwseq.h   |  17 +-
- .../amd/display/dc/hwss/dcn32/dcn32_hwseq.c   |  12 +-
- .../amd/display/dc/hwss/dcn35/dcn35_init.c    |   4 +
- .../amd/display/dc/hwss/dcn401/dcn401_hwseq.c | 831 ++++++++++++++++--
- .../amd/display/dc/hwss/dcn401/dcn401_hwseq.h |  11 +-
- .../amd/display/dc/hwss/dcn401/dcn401_init.c  |  10 +-
- .../drm/amd/display/dc/hwss/hw_sequencer.h    |  12 +
- .../gpu/drm/amd/display/dc/inc/core_types.h   |   2 +
- .../gpu/drm/amd/display/dc/inc/hw/clk_mgr.h   |   3 +
- drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h  |  11 +
- .../amd/display/dc/inc/hw/timing_generator.h  |   3 +
- .../display/dc/link/accessories/link_dp_cts.c |   4 +-
- .../hwss/link_hwss_dio_fixed_vs_pe_retimer.c  |   2 +-
- .../gpu/drm/amd/display/dc/link/link_dpms.c   |  23 +-
- .../drm/amd/display/dc/link/link_factory.c    |   2 +-
- .../amd/display/dc/link/protocols/link_ddc.c  |   2 +-
- .../dc/link/protocols/link_dp_capability.c    |  10 +-
- .../dc/link/protocols/link_dp_irq_handler.c   |   3 +
- .../display/dc/link/protocols/link_dp_phy.c   |   2 +-
- .../dc/link/protocols/link_dp_training.c      |   4 +-
- .../amd/display/dc/optc/dcn10/dcn10_optc.c    |  87 +-
- .../amd/display/dc/optc/dcn35/dcn35_optc.c    | 101 ++-
- .../dc/resource/dcn10/dcn10_resource.c        |   8 +-
- .../dc/resource/dcn10/dcn10_resource.h        |   1 +
- .../dc/resource/dcn20/dcn20_resource.c        |   3 +-
- .../dc/resource/dcn201/dcn201_resource.c      |   3 +-
- .../dc/resource/dcn21/dcn21_resource.c        |   1 +
- .../dc/resource/dcn30/dcn30_resource.c        |   1 +
- .../dc/resource/dcn301/dcn301_resource.c      |  11 +-
- .../dc/resource/dcn302/dcn302_resource.c      |   1 +
- .../dc/resource/dcn303/dcn303_resource.c      |   1 +
- .../dc/resource/dcn31/dcn31_resource.c        |   1 +
- .../dc/resource/dcn314/dcn314_resource.c      |   1 +
- .../dc/resource/dcn315/dcn315_resource.c      |   1 +
- .../dc/resource/dcn316/dcn316_resource.c      |   1 +
- .../dc/resource/dcn32/dcn32_resource.c        |   1 +
- .../dc/resource/dcn321/dcn321_resource.c      |   1 +
- .../dc/resource/dcn35/dcn35_resource.c        |   1 +
- .../dc/resource/dcn351/dcn351_resource.c      |   1 +
- .../dc/resource/dcn401/dcn401_resource.c      |  54 +-
- .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   |  15 +-
- .../amd/display/modules/power/power_helpers.c |   9 +-
- .../amd/display/modules/power/power_helpers.h |   3 +-
- 88 files changed, 1891 insertions(+), 1184 deletions(-)
- delete mode 100644 drivers/gpu/drm/amd/display/dc/dml2/dml21/inc/bounding_boxes/dcn3_soc_bb.h
-
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn401/dcn401_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn401/dcn401_clk_mgr.c
+index e4360cd6b373..204ebdd99415 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn401/dcn401_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn401/dcn401_clk_mgr.c
+@@ -1345,6 +1345,20 @@ static void dcn401_set_hard_min_memclk(struct clk_mgr *clk_mgr_base, bool curren
+ 	dcn401_execute_block_sequence(clk_mgr_base,	num_steps);
+ }
+ 
++static int dcn401_get_hard_min_memclk(struct clk_mgr *clk_mgr_base)
++{
++	struct clk_mgr_internal *clk_mgr = TO_CLK_MGR_INTERNAL(clk_mgr_base);
++
++	return clk_mgr->base.ctx->dc->current_state->bw_ctx.bw.dcn.clk.dramclk_khz;
++}
++
++static int dcn401_get_hard_min_fclk(struct clk_mgr *clk_mgr_base)
++{
++	struct clk_mgr_internal *clk_mgr = TO_CLK_MGR_INTERNAL(clk_mgr_base);
++
++	return clk_mgr->base.ctx->dc->current_state->bw_ctx.bw.dcn.clk.fclk_khz;
++}
++
+ /* Get current memclk states, update bounding box */
+ static void dcn401_get_memclk_states_from_smu(struct clk_mgr *clk_mgr_base)
+ {
+@@ -1478,6 +1492,8 @@ static struct clk_mgr_funcs dcn401_funcs = {
+ 		.enable_pme_wa = dcn401_enable_pme_wa,
+ 		.is_smu_present = dcn401_is_smu_present,
+ 		.get_dispclk_from_dentist = dcn401_get_dispclk_from_dentist,
++		.get_hard_min_memclk = dcn401_get_hard_min_memclk,
++		.get_hard_min_fclk = dcn401_get_hard_min_fclk,
+ };
+ 
+ struct clk_mgr_internal *dcn401_clk_mgr_construct(
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 76c36374de67..cb6293d8ba77 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -5507,6 +5507,11 @@ bool dc_set_ips_disable(struct dc *dc, unsigned int disable_ips)
+ 
+ void dc_allow_idle_optimizations_internal(struct dc *dc, bool allow, char const *caller_name)
+ {
++	int idle_fclk_khz = 0, idle_dramclk_khz = 0, i = 0;
++	enum mall_stream_type subvp_pipe_type[MAX_PIPES] = {0};
++	struct pipe_ctx *pipe = NULL;
++	struct dc_state *context = dc->current_state;
++
+ 	if (dc->debug.disable_idle_power_optimizations) {
+ 		DC_LOG_DEBUG("%s: disabled\n", __func__);
+ 		return;
+@@ -5531,6 +5536,23 @@ void dc_allow_idle_optimizations_internal(struct dc *dc, bool allow, char const
+ 		dc->idle_optimizations_allowed = allow;
+ 		DC_LOG_DEBUG("%s: %s\n", __func__, allow ? "enabled" : "disabled");
+ 	}
++
++	// log idle clocks and sub vp pipe types at idle optimization time
++	if (dc->clk_mgr != NULL && dc->clk_mgr->funcs->get_hard_min_fclk)
++		idle_fclk_khz = dc->clk_mgr->funcs->get_hard_min_fclk(dc->clk_mgr);
++
++	if (dc->clk_mgr != NULL && dc->clk_mgr->funcs->get_hard_min_memclk)
++		idle_dramclk_khz = dc->clk_mgr->funcs->get_hard_min_memclk(dc->clk_mgr);
++
++	for (i = 0; i < dc->res_pool->pipe_count; i++) {
++		pipe = &context->res_ctx.pipe_ctx[i];
++		subvp_pipe_type[i] = dc_state_get_pipe_subvp_type(context, pipe);
++	}
++
++	DC_LOG_DC("%s: allow_idle=%d\n HardMinUClk_Khz=%d HardMinDramclk_Khz=%d\n Pipe_0=%d Pipe_1=%d Pipe_2=%d Pipe_3=%d Pipe_4=%d Pipe_5=%d (caller=%s)\n",
++			__func__, allow, idle_fclk_khz, idle_dramclk_khz, subvp_pipe_type[0], subvp_pipe_type[1], subvp_pipe_type[2],
++			subvp_pipe_type[3], subvp_pipe_type[4], subvp_pipe_type[5], caller_name);
++
+ }
+ 
+ void dc_exit_ips_for_hw_access_internal(struct dc *dc, const char *caller_name)
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr.h b/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr.h
+index 2d06067ff36d..c14d64687a3d 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr.h
+@@ -306,6 +306,9 @@ struct clk_mgr_funcs {
+ 	 */
+ 	void (*set_hard_min_memclk)(struct clk_mgr *clk_mgr, bool current_mode);
+ 
++	int (*get_hard_min_memclk)(struct clk_mgr *clk_mgr);
++	int (*get_hard_min_fclk)(struct clk_mgr *clk_mgr);
++
+ 	/* Send message to PMFW to set hard max memclk frequency to highest DPM */
+ 	void (*set_hard_max_memclk)(struct clk_mgr *clk_mgr);
+ 
 -- 
 2.34.1
 
