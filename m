@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E80AE77197
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jan 2025 15:30:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 945BDE77197
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jan 2025 15:31:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3176210EB13;
-	Tue,  7 Jan 2025 15:30:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 474E610EB12;
+	Tue,  7 Jan 2025 15:31:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="AKutmsjB";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="So6D9dQF";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2057.outbound.protection.outlook.com [40.107.236.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7897510EB0F
- for <amd-gfx@lists.freedesktop.org>; Tue,  7 Jan 2025 15:30:51 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2071.outbound.protection.outlook.com [40.107.237.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 22B3210EB12
+ for <amd-gfx@lists.freedesktop.org>; Tue,  7 Jan 2025 15:31:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FLI/XHqmKSKpAD8+jwR3YNTuhPzP7ecjP06oBox1GTL3HDs6U+kUc05tq8qG/dG5eoPvzQWX3hDptKlMLc9i0AhubN94kxbwh/yCmcun95OtxUZDsugWeYh8b5rnGxCiCWRkYVOU9YDx6p+8fjZEjmwTn733qwod8jhRNZ21kSG2XkSiSCtuT+pSl+9dZeM9FHTOya54TkecQbNXqX6TYE6m7prlHFERvJgCbI3/wd8VCEW5mvXqyAwG23FAGsKuFwxW97LxFoxZZ79oH+6nRNnTuhp5bhX1oZ0xwk0OveBdY9s3awh1IfAWIdRr0oYTp68j2S/zarDEAjxYnww+3Q==
+ b=I6jxOb7CbQ2gr+IdCZoudTkGL6ChJvnzB+X7+u3/dgYScKxkm1fzgaf1yS8X6GzLemdi2a0O1mMk1D/R1rihEXiIqSb711oQEMEa9En50X3/Otmg0oi3e/duO5lVBOe3gOJM4zOdUSkwA1NppNUgtHSpLBp8my/aO0V4dnN+Vs5aqNI52KlKnHwHH4h60b8EshnmWbMIA7ywg0EaKB0SV6wfL53sI22iL6mEP+h5chKbRtCBCmIoSOQlIOMDFU3wPrW3aCrnMYK981EMhwU3Sclrhu6qAS4MHYtBCB5Y2QdGpSjf6cIqPnRyNCnAfe68Qv04qLMQLsRD3eZ99EhRyw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=F6vKjqeFttJWTOw4TRAX+IbWtAArqSB09USci1aKVJA=;
- b=Wr8pew+u+swVggBfRWrrNLFGE9D0dJBgesBEHIH6sDl2Nw1fn1uRhSd0GT7PcEMLNkLu/lh5ZF11X4pCONKrT04HrNcXSzBOBoH14vT2CgKH17eso6TAMHl1X2t9ZFN1niwKje4exsGvyU586DUoN8e6L/I9qrvLz2qcK0mYno4V3tfEEf8GduHQ6kblnfc/2ElB9G5yG08bQDBYnkZwO8YSKpnkfQTb4EJCb37ELuKpSpZFBAO0hekLsRWcGse0BJ5WJ2nzUtwfIC7S5UgRwq6arx73z+3fTdFmlm08sbq6z+vCMzX3SOvjexDfdnm9e8YC1xIf3v7HHrOKrx9xrQ==
+ bh=SC+HuQGxOT5a5xk/1kg6+lAW8VMxgz/eTVo3PiOLVPM=;
+ b=IcdVbnqOZHAtkEqS2GMH6nu+JDST1tIx/6XbYReqaCP4Qs8ugyxtlzWi5LFci6om1X3Dy/oT/PTO3GY5QEC3D8YrfvexeYjE8dhnk5RnMons3Ei+l2LTm1nZpCXS/QZeav38/80uhJGNOPxIFJmtTbqSJeEGxre98Jyc8k9HEfTnaXqEwd7z6d0H+sczsWdSeVQsbKaeKorCp2LNpR1CIDxOM6Q3o4KR2444FHV1SKbHyTJBtgxDn4ajf1Ra/SEH8qdL65sVbJPgBwEC+cP2HgkXm9I/MKDZMicbMVdFJqlJpCBsrQZRnW0yySYhotN7f+LjAGO3jVIEH399H3l+DA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=F6vKjqeFttJWTOw4TRAX+IbWtAArqSB09USci1aKVJA=;
- b=AKutmsjBP7LQwg5wT+lEGRlbvQh+2ET5os66j3Z5WkOKLQDPE/GCz1hjXF2rVbMmPUc1Vb9+PDsFGNQIBGjPTHBcBY7l91Q2JNMoEwZJqss+QSDmsD79p8VfvyytLsaxH0AFR6/nWaGoCzB00Hh+v0nSJLSa7rKjWBWMlhaLzKw=
-Received: from BL1P221CA0028.NAMP221.PROD.OUTLOOK.COM (2603:10b6:208:2c5::18)
- by DS7PR12MB8204.namprd12.prod.outlook.com (2603:10b6:8:e1::9) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.8314.17; Tue, 7 Jan 2025 15:30:48 +0000
-Received: from BL02EPF00021F6F.namprd02.prod.outlook.com
- (2603:10b6:208:2c5:cafe::56) by BL1P221CA0028.outlook.office365.com
- (2603:10b6:208:2c5::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8335.10 via Frontend Transport; Tue,
- 7 Jan 2025 15:30:48 +0000
+ bh=SC+HuQGxOT5a5xk/1kg6+lAW8VMxgz/eTVo3PiOLVPM=;
+ b=So6D9dQFqkPyp+qAneKal7+7hclNhdPvrCChu9lGQNoNpz5IbV9+4DCMDhDNJhlUefkjTAhzkH/5nky8ocJ6l05G26CjaOb57RQu0U+1YqiDQsRGoLWGkiaFw3gdqBdyr5pXMouUWq5lBLMb90k29+z2YYRYQle8oA+/mf6/XTw=
+Received: from BN0PR04CA0153.namprd04.prod.outlook.com (2603:10b6:408:eb::8)
+ by SN7PR12MB6982.namprd12.prod.outlook.com (2603:10b6:806:262::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8314.17; Tue, 7 Jan
+ 2025 15:30:57 +0000
+Received: from BL02EPF00021F6D.namprd02.prod.outlook.com
+ (2603:10b6:408:eb:cafe::e5) by BN0PR04CA0153.outlook.office365.com
+ (2603:10b6:408:eb::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8314.18 via Frontend Transport; Tue,
+ 7 Jan 2025 15:30:56 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,20 +48,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF00021F6F.mail.protection.outlook.com (10.167.249.11) with Microsoft
+ BL02EPF00021F6D.mail.protection.outlook.com (10.167.249.9) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8335.7 via Frontend Transport; Tue, 7 Jan 2025 15:30:48 +0000
+ 15.20.8335.7 via Frontend Transport; Tue, 7 Jan 2025 15:30:56 +0000
 Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 7 Jan
- 2025 09:30:48 -0600
+ 2025 09:30:56 -0600
 Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
  (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 7 Jan
- 2025 09:30:47 -0600
+ 2025 09:30:55 -0600
 Received: from tom-r5.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Tue, 7 Jan 2025 09:30:44 -0600
+ Transport; Tue, 7 Jan 2025 09:30:52 -0600
 From: Tom Chung <chiahsuan.chung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -69,12 +69,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>, Wayne Lin
  <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, Fangzhi Zuo
  <jerry.zuo@amd.com>, Zaeem Mohamed <zaeem.mohamed@amd.com>, Solomon Chiu
- <solomon.chiu@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>, "Peichen
- Huang" <PeiChen.Huang@amd.com>, Wenjing Liu <wenjing.liu@amd.com>,
- Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>
-Subject: [PATCH 22/24] drm/amd/display: improve dpia pre-train
-Date: Tue, 7 Jan 2025 23:28:53 +0800
-Message-ID: <20250107152855.2953302-23-chiahsuan.chung@amd.com>
+ <solomon.chiu@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>, Ryan Seto
+ <ryanseto@amd.com>, Martin Leung <martin.leung@amd.com>
+Subject: [PATCH 24/24] drm/amd/display: 3.2.316
+Date: Tue, 7 Jan 2025 23:28:55 +0800
+Message-ID: <20250107152855.2953302-25-chiahsuan.chung@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250107152855.2953302-1-chiahsuan.chung@amd.com>
 References: <20250107152855.2953302-1-chiahsuan.chung@amd.com>
@@ -83,51 +82,52 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF00021F6F:EE_|DS7PR12MB8204:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3be5630a-5484-4e0e-0190-08dd2f30431b
+X-MS-TrafficTypeDiagnostic: BL02EPF00021F6D:EE_|SN7PR12MB6982:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7a39d866-f9e0-46c4-5f70-08dd2f3047f5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|376014|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?YGNHfDxzfolJN+7rBfUrnHnXM0yVLI9+ekfH32ZHNb0P4I3K5VxV0lX4M403?=
- =?us-ascii?Q?1/eyeUG/IHZBJdIV6hVOPZcEKRnr3NxyqQvH9hl/089LWlw6eYN/chyVVnnJ?=
- =?us-ascii?Q?Hbgwa30qvt6FEYeutDU9tm8c34Wv1em2sX6281APwLl8dYbaeegbFNsVRCx2?=
- =?us-ascii?Q?tL9e4H4MeyEjByPFvok91fTwTr94q5t/uhtUa/c/Z0anMo77GXPrtkZUea0Y?=
- =?us-ascii?Q?UmILn7Vw5Q4uqt1NT368MzRbAgVb/+5YO+INdJ6sNsRMu/I+hj5ZWpqhJcRC?=
- =?us-ascii?Q?/M4n7m91yY/G7Uh/brD83rVBWjOAbAJDoqH/EHFlQrPN3Ixv1KX7OC2ZX+Qs?=
- =?us-ascii?Q?LZX2p6VmJNJzl7FDOuqYqr0nPV2byfbSse8V2QxBkeFrycwfmq4VVO/n6rZT?=
- =?us-ascii?Q?8UzFSoqtRNhQh8/MNcU0cAXiEUA6BX8tlhClwd9mP/wxVPpwZTOLuo7aysGG?=
- =?us-ascii?Q?yroqh8GjJs1MUo+xGmxCYfKWTAyXorWaGXdWKEczE0tRMsVbEtUyf8a3g/8o?=
- =?us-ascii?Q?08gd0Xq3w2PvTWO+kgXLkoNgb05erX7Fh6iIWx0YSM9yFL8CXeAbR6gCGvdk?=
- =?us-ascii?Q?63ErNCgKFcrT8Z6Z+GfDMtce5K277/vB5rITbxI2nwTYIQ7JOdg9zzTqA0Nd?=
- =?us-ascii?Q?VbCSgYIUgZgY2T7N4xnG8OQ0uTcupIu7PsJCjv8bF3Y3SMRDLQnIPXH0n6J4?=
- =?us-ascii?Q?xVooLaBlVx69JJdlOc0eMDAkU30hqI+z3IL6GcG5SOpuw3vVIXaQha3XxNaF?=
- =?us-ascii?Q?CD4a8lMdJ9KtYoGb88EGvdEpyCB7xoJo2OC6ixaHo+pLMu+4qP20L/TUC4iR?=
- =?us-ascii?Q?yFMmzodCpJsJraMEdnhRssntMT5Df81yUjAXVZ8ptP1+nFEFoCdFHwM0Iwyj?=
- =?us-ascii?Q?y5NzdJTmJ6psKmjGGcr1vdsSUz7b6n0jtIWvwKmak/9ejlpR5TYyu8T8kQGB?=
- =?us-ascii?Q?A+gwUAd9+cs80wBAk+07ySiT7P1nQtxpg4TNiCRfHlmSL8yAvjSiuDemeykz?=
- =?us-ascii?Q?Gr/HeFIspCcDVWUUO2QAShDlIO39wMhka8Wt0lfrmEYj85ttVS3DSxrbyaxP?=
- =?us-ascii?Q?oRlybCI1rq85HdA+F8miMr1RLHJZzLnKPPOmXQRqm9mGvKmhCvAIQI7CePrM?=
- =?us-ascii?Q?hKrE5tF0JX3X6mnFz+n8NcmlU6cYYB/moP/ZqPYguxNIT80etgpmyXyC3Zwl?=
- =?us-ascii?Q?o6yyw5HJifQSMiKTegFOUE+jDh9OrQiXwBAT/zLj58teJfOcq5AqYeBzXXEm?=
- =?us-ascii?Q?EsTNPWf9CnjKrTDUtr9KKOp6xdAzfxm/SPRtGVljKwPpwDNwW/VrbeaKT9je?=
- =?us-ascii?Q?zb9AwI6Pbw0mY1UD5WfeevwANGx4eqr6lXmOT0boBgkcwYpNqm05DXGrzgaE?=
- =?us-ascii?Q?dg6auqf0dvTt9iMS8kE4BCug458L5CtLXN50bzCWJI1pKYYkrvLEu7/aNprt?=
- =?us-ascii?Q?w00QJwj2lM0F3Tt7bdL9zBjeegwcwHf0xZRSMd1ZQAFIrjevFwX22g=3D=3D?=
+ ARA:13230040|82310400026|36860700013|376014|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?tSZoNGla78VZTVMKJAJiOpSFSTvVKyy/FWogLV0WXFaIytP8ohUBxJXBGEUf?=
+ =?us-ascii?Q?92dzFg9JSZrS26q+/FSJnFcaRVlHRy9UDjSsQI4NxpXLix/Q+hjKR7G4Npby?=
+ =?us-ascii?Q?0e26b2UQSC80zig/5cRtYhivmkajvYLF3IaVu4VQxCiozBLFFvAmsOluMSdD?=
+ =?us-ascii?Q?+finZ8qwvamt41HkxOkvLFHIAb5nlHuQYa0sTwujEPz8K6akF48vjboNAxZF?=
+ =?us-ascii?Q?I+nrjaZKONBccuHMx9bT8mxi2PsjQ9Arj90+Nf05uGI7mvLkdJKvtYOBu+Ex?=
+ =?us-ascii?Q?KQfWfyLjU7bz+Gfb6pc0WilljoNLr7eLwHBkOEEynsVMTiYUMovGOYqSWwGZ?=
+ =?us-ascii?Q?rDfdMRC3uZnCXY4d/zWtTxbDymX+TAt6ilQ+IOD8SLaPcxasOnao13N0qbbT?=
+ =?us-ascii?Q?81o5LQxaCIS1Sna/lTTgwje9a0xZWclOKvyFIk3vSRl8hTguIAy4eelQnVfO?=
+ =?us-ascii?Q?UupDnIAgaoh1CnLlBSde8y3nvStm624X5/e7aAQcU6hJmFM6DoLAeGFpRH4l?=
+ =?us-ascii?Q?XX0RX/zmXDLHgxiCP5r8UQDg6fl4KCKtmOvtXm9D/FxDRcaCf0DoVd+SKlF1?=
+ =?us-ascii?Q?efKrVMBc/JOfk7TWrDzhH0rUe9QA4ihE4gcf8VYL91F2+0NHy1Zz8OJWMOE0?=
+ =?us-ascii?Q?yK+8vFcv4Dxz1bFH1p7lzI23GpTkr0HSdpjJOYapaB+B0SQB0+iJ+xQJKu7B?=
+ =?us-ascii?Q?qlAAufcgB1yPg64u6OSnGQFlQ9q8fMbVsIE9MKEFuoil/84vLHilgsoHGO5J?=
+ =?us-ascii?Q?w6zh5CBT1WGY/GLl5UT68Ub4OrDsO1rl9GNmdBbMx3pdrYyfARsuTlBduUXk?=
+ =?us-ascii?Q?kvT/smkATUO4q0zyX3fO5JdEv7kT0hPUIOuj5B+EwBfz3ac0TC75CdyafspF?=
+ =?us-ascii?Q?93lOvKS0FRkRmZNTEnYV9XSu+nNId23Um6fH8WpKENK8duJ2xDmvR2bodb8w?=
+ =?us-ascii?Q?MJXCOXnNTXyQeOf9MCtV/Lp4Dm0HyLESk3QmBhVglLvHPPe8zUp5lw4cKRbj?=
+ =?us-ascii?Q?/w1sL9T0nQrWNBeJ+uAntw8ErCqtF7bqyQLOg9P3/GNDaQ19Omq69eazD8GZ?=
+ =?us-ascii?Q?sbnlfvMJyKTiw3uNS9asN/4+xrEFV5vwqMO8Ig17WnRDTtF2xxfbnVv13ALy?=
+ =?us-ascii?Q?ffxj5lwYbWj81tocBV4z+3ufcIS940TqOaTh3MOLQMWuvJPdjFkOg4A2yebY?=
+ =?us-ascii?Q?L8B3S2R5QzBrbk7HLbgxSF4etMOY64TJYfREDVGBfrEitncVwrCzBKMcSAu/?=
+ =?us-ascii?Q?k/3O1Xb+bOZ552Gt9BXi1SGPCZ08CVBdbNfBvpTd7cHTrEqjMpmFDh0ADaSq?=
+ =?us-ascii?Q?OrBQcqS7WzJUmhlinKyOl6qyCR0BFQOUBjsgZMIBSnuli1izNE2Q5wBLaxH7?=
+ =?us-ascii?Q?daImAhO4pQ3hurGRlX7hTkqkr6IzFHXsODY2KIbP9gKxghflbocsiI3tU6PL?=
+ =?us-ascii?Q?t1qDuuVYbQ0i6Fb5P599G2DqniLNPdGlCVnckqtVECj6w2hzLT+C8mesQAvT?=
+ =?us-ascii?Q?pTpWSsBRMfFO1Dc=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(376014)(36860700013); DIR:OUT;
+ SFS:(13230040)(82310400026)(36860700013)(376014)(1800799024); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jan 2025 15:30:48.6476 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3be5630a-5484-4e0e-0190-08dd2f30431b
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jan 2025 15:30:56.7583 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7a39d866-f9e0-46c4-5f70-08dd2f3047f5
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF00021F6F.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF00021F6D.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8204
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6982
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,83 +142,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Peichen Huang <PeiChen.Huang@amd.com>
+From: Ryan Seto <ryanseto@amd.com>
 
-[WHY]
-We see unstable DP LL 4.2.1.3 test result with dpia pre-train. It is
-because the outbox interrupt mechanism can not handle HPD
-immediately and require some improvement.
+This version brings along following fixes:
+- Add some feature for secure display
+- Add replay desync error count tracking and reset
+- Update chip_cap defines and usage
+- Remove unnecessary eDP power down
+- Fix some stuttering/corruption issue on PSR panel
+- Cleanup and refactoring DML2.1
 
-[HOW]
-1. not enable link if hpd_pending is true.
-2. abort pre-train if training failed and hpd_pending is true.
-3. check if 2 lane supported when it is alt mode
-
-Reviewed-by: Wenjing Liu <wenjing.liu@amd.com>
-Reviewed-by: Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>
-Signed-off-by: Peichen Huang <PeiChen.Huang@amd.com>
+Acked-by: Wayne Lin <wayne.lin@amd.com>
+Reviewed-by: Martin Leung <martin.leung@amd.com>
+Signed-off-by: Ryan Seto <ryanseto@amd.com>
 Signed-off-by: Tom Chung <chiahsuan.chung@amd.com>
 ---
- .../amd/display/dc/dio/dcn31/dcn31_dio_link_encoder.c    | 5 +++--
- drivers/gpu/drm/amd/display/dc/link/link_dpms.c          | 9 +++++++++
- .../amd/display/dc/link/protocols/link_dp_capability.c   | 8 ++++++++
- 3 files changed, 20 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dc.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dio/dcn31/dcn31_dio_link_encoder.c b/drivers/gpu/drm/amd/display/dc/dio/dcn31/dcn31_dio_link_encoder.c
-index b2cea59ba5d4..9a92f73d5b7f 100644
---- a/drivers/gpu/drm/amd/display/dc/dio/dcn31/dcn31_dio_link_encoder.c
-+++ b/drivers/gpu/drm/amd/display/dc/dio/dcn31/dcn31_dio_link_encoder.c
-@@ -653,8 +653,9 @@ void dcn31_link_encoder_get_max_link_cap(struct link_encoder *enc, struct dc_lin
- 		if (!query_dp_alt_from_dmub(enc, &cmd))
- 			return;
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index 5fb15c6315a4..053481ab69ef 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -55,7 +55,7 @@ struct aux_payload;
+ struct set_config_cmd_payload;
+ struct dmub_notification;
  
--		if (cmd.query_dp_alt.data.is_usb &&
--		    cmd.query_dp_alt.data.is_dp4 == 0)
-+		if (cmd.query_dp_alt.data.is_dp_alt_disable == 0 &&
-+				cmd.query_dp_alt.data.is_usb &&
-+				cmd.query_dp_alt.data.is_dp4 == 0)
- 			link_settings->lane_count = MIN(LANE_COUNT_TWO, link_settings->lane_count);
+-#define DC_VER "3.2.315"
++#define DC_VER "3.2.316"
  
- 		return;
-diff --git a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-index b8cfeb98e229..ec7de9c01fab 100644
---- a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-@@ -2548,6 +2548,15 @@ void link_set_dpms_on(
- 	if (pipe_ctx->stream->dpms_off)
- 		return;
- 
-+	/* For Dp tunneling link, a pending HPD means that we have a race condition between processing
-+	 * current link and processing the pending HPD. If we enable the link now, we may end up with a
-+	 * link that is not actually connected to a sink. So we skip enabling the link in this case.
-+	 */
-+	if (link->ep_type == DISPLAY_ENDPOINT_USB4_DPIA && link->is_hpd_pending) {
-+		DC_LOG_DEBUG("%s, Link%d HPD is pending, not enable it.\n", __func__, link->link_index);
-+		return;
-+	}
-+
- 	/* Have to setup DSC before DIG FE and BE are connected (which happens before the
- 	 * link training). This is to make sure the bandwidth sent to DIG BE won't be
- 	 * bigger than what the link and/or DIG BE can handle. VBID[6]/CompressedStream_flag
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-index d0fbf9c44a29..44c3023a7731 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-@@ -2312,6 +2312,14 @@ bool dp_verify_link_cap_with_retries(
- 		} else {
- 			link->verified_link_cap = last_verified_link_cap;
- 		}
-+
-+		/* For Dp tunneling link, a pending HPD means that we have a race condition between processing
-+		 * current link and processing the pending HPD. Since the training is failed, we should just brak
-+		 * the loop so that we have chance to process the pending HPD.
-+		 */
-+		if (link->ep_type == DISPLAY_ENDPOINT_USB4_DPIA && link->is_hpd_pending)
-+			break;
-+
- 		fsleep(10 * 1000);
- 	}
- 
+ #define MAX_SURFACES 4
+ #define MAX_PLANES 6
 -- 
 2.34.1
 
