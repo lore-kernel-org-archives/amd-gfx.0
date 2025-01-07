@@ -4,153 +4,151 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E930CE77197
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jan 2025 22:29:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43069E77197
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jan 2025 22:45:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 962F410E26D;
-	Tue,  7 Jan 2025 22:29:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D5B1710E3F9;
+	Tue,  7 Jan 2025 22:45:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="dYs7BPC6";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="bIOFPWp0";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2085.outbound.protection.outlook.com [40.107.220.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6203810E26D
- for <amd-gfx@lists.freedesktop.org>; Tue,  7 Jan 2025 22:29:43 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2055.outbound.protection.outlook.com [40.107.100.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E037510E3F9
+ for <amd-gfx@lists.freedesktop.org>; Tue,  7 Jan 2025 22:45:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Br9KtisIBXTRrizzYBGsI0hskf7mgvEMt3MLA073DLJD1BrMOeqaV8DTP1djOS3H/ZPWnjAkbBH1UZRxxbTiXmbOP+hQGKyOElH9KEgZ5zw8vJB8eVCseafHqEQy9S2MmZf9EltD3DSdY48AfM38cf0sswqmkiz6ZMz7vbVNICIHGJU69LdBhfFoo6eVbeu3zPLnj6WOKDRIpa6+BFj6vDiE3WMJZHDXr7wtnnI5fCz2Ixi3nzaV3jAHE8uHyIKLFcPNnJYirDSbOUSjw+NP5bqbQTSx4jtha7z1V4u2sCTBPuT4LLzONvFQTWkaHiKTMlgL031+40TVHsb9Ti0L/Q==
+ b=S9KWfhNBdT89AEQYV8jdEWNjJHo3zV2wG8tMN1hVnNWvaESFD+QCMEOgi5AoxPR03X32k2MOkOEzdzNovhVDZchlkHX8py1pUfKqWpM8nsWDpI1Gg4BoEYmFCDg2mrcM7+5YB1iV9XHw5r/1jGC1TKokJPYBn1Z3gDGYiwwBkMhKyV/FpGJjSGaF1nW4X/RCbVwZ+BetTfUv71Rh319JUxaBv0YP7cVs9p6bsIQ1jB5wTF43ZG9H4gZxmr8ZILM06htPEGoKG48H18INcSuyEWFD+809oIMmnOJlhN/SZdHt2LFaz/0ne9oB29NJba56TkvHjbyAwET58/9rkDK+kg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jncaR2LLE7gTEsXLwkaAUSZLd8Ap/btj+tA0Y7KGTzs=;
- b=daz8JP+Jw7T0PoDkYfB0WMneIQdyI7+G9/6Q1H/wXH3ACgTB4ieKPVqC2wXRT7iRNw+u1VTSVQfZq2CNQp0P1cKvh8CLyBXfaO6nez1QygQzDec9E+NdJmUclzeGbuo3SDmOsP9nFwFls8hnuEBU07vqCUuCOMteedO/fmI9KuMZU8StwwvWF5MQNomLGA+KnUFfYK/HC7PkO1vc2pqzJYZ7YL9dUKBBoujyG7p42ZZTRrXmx1DjOgRDVmbZONohtNtNWEqz88feLfAK+Kdryzl/QKfjiUSHRu8fk/qqp6inpJIPARjgfm6mXlrVWbesliT3TVVQEvv9YP7wV66OXA==
+ bh=ERZz3p7K42RlA/sqFDQpv4EOGrL7GmW2Y8mubbulhOc=;
+ b=uDZ04+E216Sok/1pdj+p21rp0ZnEHpEkjjjv1iRAxINIHSx4IPpNn+1bHS4+gcqSCkjMQZQ/RxWPDl1aGWFGRaxHDY8gqo+TeJeT5JYVaF/NBOZWkXZl98yARhg3Nh8VYnKTzhGHDEbgH/6sVEjwXbgMMj/905RATko59FwJGVOUkVMsXLfWvluM5c2C+acLMwutretLxHq4lOeNE7FMdpVz+WlWmu4p3PD+edav9w3UYQruLz0dhpP8U1fzFyGMe+HqLPwbS4x7LHmi3EHGL7aYbGn7pDdgsmsIUP2gN7NJvwhuU0W35HdV4ldd458yKCsVoaLgkR9VePRzesyWJw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jncaR2LLE7gTEsXLwkaAUSZLd8Ap/btj+tA0Y7KGTzs=;
- b=dYs7BPC6jacyG6RZAT4mQWJjuAcm1/LVppSqyilrGpOI72OZu1UipjCuRpkck69ELVZsznryB4ch3zcP4mW9IThC6pFazvR2rDmyvQNaEVVkLqph9Ypde8WAQkvqFU3gqa8ayATQq9YjL3gqtwPae8I4gqHlXILjY1UhYHjuZ9A=
+ bh=ERZz3p7K42RlA/sqFDQpv4EOGrL7GmW2Y8mubbulhOc=;
+ b=bIOFPWp0ANWPcEuam+KBJwjrdmpKmze+/gqtiF6h/KZtmj2rUDLq/a9eU0xcZEcktK2GKwG83Zw6QJcaf3BxLldTE5JY4H4faLjgMLthDp3gHqorxMo7WriFXnmD31Z6EMYx29nlI3/FzumFwe97u6emnzKT9946e171DLTfjqo=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB6566.namprd12.prod.outlook.com (2603:10b6:8:8d::16) by
- DS7PR12MB5909.namprd12.prod.outlook.com (2603:10b6:8:7a::10) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.8314.17; Tue, 7 Jan 2025 22:29:36 +0000
-Received: from DM4PR12MB6566.namprd12.prod.outlook.com
- ([fe80::31b:5d31:8ba6:abd7]) by DM4PR12MB6566.namprd12.prod.outlook.com
- ([fe80::31b:5d31:8ba6:abd7%4]) with mapi id 15.20.8314.015; Tue, 7 Jan 2025
- 22:29:36 +0000
-Content-Type: multipart/alternative;
- boundary="------------k2bsbz0EKTxUKZgS131FIMF0"
-Message-ID: <879987db-3e59-488e-bcd5-ed844837095e@amd.com>
-Date: Tue, 7 Jan 2025 16:29:35 -0600
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by DM4PR12MB6039.namprd12.prod.outlook.com (2603:10b6:8:aa::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8314.17; Tue, 7 Jan
+ 2025 22:45:37 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::9269:317f:e85:cf81]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::9269:317f:e85:cf81%4]) with mapi id 15.20.8314.018; Tue, 7 Jan 2025
+ 22:45:37 +0000
+Message-ID: <c1643df8-f7e7-4aca-a193-17c528a1f9af@amd.com>
+Date: Tue, 7 Jan 2025 17:45:35 -0500
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] drm/amdkfd: Fix partial migrate issue
-To: Philip Yang <yangp@amd.com>, "Deng, Emily" <Emily.Deng@amd.com>,
+To: "Deng, Emily" <Emily.Deng@amd.com>,
  "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 References: <20250103000644.1398643-1-Emily.Deng@amd.com>
- <40e6b31e-c77b-4d89-a051-215eb4ddff46@amd.com>
- <PH0PR12MB5417A0CED996D52E33D234B98F112@PH0PR12MB5417.namprd12.prod.outlook.com>
- <19fac85c-0110-4a3d-a3ee-c539afd518c5@amd.com>
- <64af2e0d-c3ee-9a51-70aa-215bc128a55d@amd.com>
+ <4af83c37-0a9b-4b15-bfdd-6b8511b93a36@amd.com>
+ <PH0PR12MB5417768A1EAFBB5BCFFC85BD8F102@PH0PR12MB5417.namprd12.prod.outlook.com>
+ <3d7d3dd9-6c0b-4377-a131-75952d85a90f@amd.com>
+ <PH0PR12MB541710CC0F24A33348528E718F112@PH0PR12MB5417.namprd12.prod.outlook.com>
 Content-Language: en-US
-From: "Chen, Xiaogang" <xiaogang.chen@amd.com>
-In-Reply-To: <64af2e0d-c3ee-9a51-70aa-215bc128a55d@amd.com>
-X-ClientProxiedBy: SA9PR13CA0165.namprd13.prod.outlook.com
- (2603:10b6:806:28::20) To DM4PR12MB6566.namprd12.prod.outlook.com
- (2603:10b6:8:8d::16)
+From: Felix Kuehling <felix.kuehling@amd.com>
+Organization: AMD Inc.
+In-Reply-To: <PH0PR12MB541710CC0F24A33348528E718F112@PH0PR12MB5417.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YQBPR0101CA0140.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:e::13) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB6566:EE_|DS7PR12MB5909:EE_
-X-MS-Office365-Filtering-Correlation-Id: 646c3207-ecba-4b6f-3453-08dd2f6ac487
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|DM4PR12MB6039:EE_
+X-MS-Office365-Filtering-Correlation-Id: ea78e8d2-26b0-419a-7443-08dd2f6d0121
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|8096899003|7053199007; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?YUVVcm1ZRnJoTnN4VzgyVEdFc3JxeVkyODNOazUvZHV4Q2ZObnYrKzR5dDdY?=
- =?utf-8?B?NkhrSEZ1Mmxwb01VY1kzQTFNcUlOZWxJNTVUVHlrVFZNTSsrbllmeENaNUov?=
- =?utf-8?B?ZHBCb2VNS2swWjNVSEF6Z1lyV1dDazI5MFhJaXl3Ym53eGlyOGdkaVhiNCtR?=
- =?utf-8?B?V1lkZUNqdHBMalpwUGZTNWpiV1loVGE3N2hDUk1SNFZOOEpFd2orRzVTdnd0?=
- =?utf-8?B?QzRsWm1tY3d4UFIvUUFhNDEvdUQxYnNlZmlYYVpzdXQ1U0ZWaENxVE51N0Q2?=
- =?utf-8?B?ZEdQaDZPMDdsekxSUTVHQXBjNzRuai9YdEVVS0JkL0RSbVBMdmc3amQ3TTY2?=
- =?utf-8?B?aTQ1M29MQ0YwZSttQkJKemlFMTk5d0tMelhQb3FqTmRMRUF3VzZiZEowdVZU?=
- =?utf-8?B?ZUdzTUNnY21oS0c4a1hQTDhDdUhPOTdyNTl3ZVNNQjU4Z1IySzNPQTJ2cDZu?=
- =?utf-8?B?Q2NFVVUvZFptaGRDRTNaQ01HeE1EM0MvT0wyQkhaaG03eWxPSGp5NmM2RFNt?=
- =?utf-8?B?MHh0N1A3WlZ6bXU1WkNQdGNYRVNOM3VPNkova1Nqa2RGYmxIeGY3L0xQRC9n?=
- =?utf-8?B?MjVwczhiSldseHhreVp5YWxYMjVWc1k4em1GcjB3VzdFT0xnRldBa3BWUW0y?=
- =?utf-8?B?TzYwakVpMVlibkhHRFZKZy9qM0w2THZ1NWtHQlQ3QkFYQ1ErRVhmenVuMUQw?=
- =?utf-8?B?MmRZYzlqWHpBbWt5Z1NIVG5SR1dLb0NhTlIzNG5BN3lvc3hRV21mUDRrWGN2?=
- =?utf-8?B?WTBSdDlrL0VZSkJqOXg2NDl1bDFzKzN6WFhRSUhVRWp0azZlMHdBMS9ybytz?=
- =?utf-8?B?aG8vMWp1Y0pSdTVJdmpqaEExbVZDUGJ0NjZvRVN4d2h3SEMzeVo2R09vRnAy?=
- =?utf-8?B?SFlJR0NmN0RDZ29mYm5wUFN2Y1FEQi9QTE00WW15eTMwK211WEEvOU9MNmtE?=
- =?utf-8?B?b0YwRHBYS3l4dlc0ckFKMjdwZklnR21BTkloYTVhNE0vcUt6WlUzU2RiMkFi?=
- =?utf-8?B?WEZiZXQxVExvOEdjVlZUTlM5L1ZCSnhRbTJYcllvQTUvVmszTnZJTlVEUDF3?=
- =?utf-8?B?Ym14bUY2d3h0cFgzTjR2Yml3MUEwYnJ1OFI1QjVCTkRiTDVSeFY5VXBzU0Js?=
- =?utf-8?B?aXlXSTVLOThuL3JDOXQ3UFVuMVh3OHNSaEtaQmxIRzFmNU5hY1hVcUFtdjQ5?=
- =?utf-8?B?Y2RJaWZDdW0yNmw5am42ZndFQlBkN3lLZkJHZXdXVStiTkRxNGp2M3FkVXBI?=
- =?utf-8?B?VkhkZVpoenp4QWFLNldkWFdUVVZ2TlNoelR2ekcxbzduVDNwTVFxVDlXS3Bk?=
- =?utf-8?B?MURSbGNreXh6bnBFR1RtMm5ZU1FnREJha2NhS21FTjJiQXlVMXJYODA2VkFy?=
- =?utf-8?B?eENvNDZtNFMySWxRenNaWE9vOVY4TFJkaUt2Y0E3NXBua3IvMkY0L1ZYVHJ3?=
- =?utf-8?B?bUJJNGpqUU1jZXQveE9LVWpCQWFtRUhDOXJlRW1aeXgrSlFocWc1YllwaXJy?=
- =?utf-8?B?MzVtR1RPZ1hiWW5uOTFwVXpnb092ZFNoZHNaTVVzODNlbmNnNmtjRzJ1TThU?=
- =?utf-8?B?c2FpSVA1c3hSRnpYQlo0NjJnQjBrUTI2TlpucDREL0YzNFJOUTJMTUNtQm9v?=
- =?utf-8?B?QnVDR1hRWHRURzlYcG9HQXkvWGtXcHRXcndCSkVIZ3N1T2l6alFmcU16Ym1i?=
- =?utf-8?B?a2RFMEJBKzcza01Zc2JUV2QrdjNDdktJUis1bG5RVTVoa1BVbmlycER4Mm53?=
- =?utf-8?B?R0pQZWpvYnJkNDh3Z0pSaGViZGlib0ZLZHVDdys2WHdMZ2p0OW9tbkZUZmhQ?=
- =?utf-8?B?WWdlTzA5UDJ1cjlrU2JiamRha2xtclJmaTkxdEI1WUY2SGRTcUZzZ0puNVF4?=
- =?utf-8?Q?VTkP/WggvoioW?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024|7053199007;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?aVNtUG5kRlA5cWJ4aG95WjVONzByZmtUZDhXTkJlNnZzRUk5WG5aUlhzZURD?=
+ =?utf-8?B?cG91cWdTQ0txMnFYYUtoVHFZMll5eklqVnl6MTAvY1hTZXBjNDVHVzl3bVhG?=
+ =?utf-8?B?T2RqMktJdml2c1F2NHU0a3RLVUUxRURNRmljcXp4a3F3TXBrb3VkUmF1Ly8v?=
+ =?utf-8?B?TVJOR3dudUFyKzJtKzM4VFllR2JudUVaZHlsY01YdVpsUVpLcmptWFlYblJs?=
+ =?utf-8?B?akhCcHZFaVV2bnJSUnVEZ09WWElmRFVkVU5ZZlBGdFBkTjNnejZwMU1rMmVE?=
+ =?utf-8?B?NHNrTGJVSnNhUzQ5bjJuY2pnc3ZENTRqVVhvQlhBNTB0MWNDRzduM3hsSVJQ?=
+ =?utf-8?B?SEtUR2UrQS9LSTVjZjg2ZUlQaHBHY2Evay9yclM1TVBoRkthbXU2cFViY0Fv?=
+ =?utf-8?B?cU5ZQk95UDgrRkx0ZThnZTI0SHloK0VFQ0ROUjh1N3lNbVFNUHUxV1E3eW1S?=
+ =?utf-8?B?NEpDQWMrTC8xYTVhZ1dEcmZLQlZxZjY0bE84RFlMak9nM0lZbUhONFd3bDJY?=
+ =?utf-8?B?ZFd1RHRjU2gwMG04em1kMzU3NytUdUtYUGQ0bU1ZZWx6aEN2TElOTUpna3Jm?=
+ =?utf-8?B?T0taV2tzbThUa1owVTB6WXlxSzJpazB1eTFhMTFiY09UaFluTXYyU0Q4TXRR?=
+ =?utf-8?B?SVpNWjNTL0tNOVg0OEpNc1dnQ2xoNi82VFFtMEFhSUptbERxblovNzFSSWRa?=
+ =?utf-8?B?Tk42WmpSdTVqcWREZnpjR2ozT1F5OTl6RFA0aWJOMFNtT3VPMjFZUGVCM0g3?=
+ =?utf-8?B?VjVZMXJFQkdIVWFRSytDaTNxdjhucWRwbjlMcVdMZ3o3WXhnUE51QXBhdWxn?=
+ =?utf-8?B?OTdtM1Y2TEkwQzdFSHJwZnliTURUeFNRa0Z3K0xFbnptM1BkNlRLQmpSNzBV?=
+ =?utf-8?B?ZnRZOWtjQmh3TE52RjhEczBFMzY4ME9hY1JEcmw1aHJMOXRNMXlta3dWb1p3?=
+ =?utf-8?B?NS9pczFyTlJSV1lYbE5zSk55WkR0WlR4ZDZ6Yi9MTkdKWW9GTVlRZk9HMWpU?=
+ =?utf-8?B?dDFrUFBjcXJvTUp2Y0NmRjROczNmbXZzZDdLMWNDSStlWG96ZmVOc3dkd2RV?=
+ =?utf-8?B?eHZaVjZQdWc5OWdKUmlKcVZpcVpWK3FWVWlleEs5RW1CQWhidDBma1VhRjBS?=
+ =?utf-8?B?SlVEM2hGcUd1UmYrNjZHSnFYQmt2M0JpWWJJVmQxb0xqZEMvV2dTcUNGMDg3?=
+ =?utf-8?B?cjVBaGd1aTFPTElJQmNTYTFJUDduNDZmTXR5cExiWkVTSnM0RXNGbnZhRnZQ?=
+ =?utf-8?B?OW94ZktCdkEyN3llTnpvTmJLay9kdUFnVVBjc05LcUlScHd3ZzdHVHQrN2NW?=
+ =?utf-8?B?TVI0ZENKaUJqVHFHMzJSeS93Mkh6cG1xdyt1NnJEcHVUc1dFLzZBZ2k1c0h3?=
+ =?utf-8?B?M0FZVWdob1hUSHJHOEYxMHBsL0VmOHEwYVkxN0pWL1Y1a1dwbWJLdGhlZjRa?=
+ =?utf-8?B?RUlHeVk1MHIrMnZCSlRjSHJBVzVuZTFFbjE2Lyt0bkJ5VllDNytEbTFlWStD?=
+ =?utf-8?B?R1ZDVElCZms3b01OdTNSL0RLS21QN0NZNFFXRDU3L003MmdJa25KNEpiOTRW?=
+ =?utf-8?B?emFOamI5Nm4wcCtWQjV6b0ErUDBKMm5SR0pUcDJEU24xMGxrN3o1MUk4V2Rp?=
+ =?utf-8?B?YjA5R2tkdTc5ejVjbExYdGpHZHJGZmdyS2Y2WHZSMDNNVGFLV0dxaXNkbEFu?=
+ =?utf-8?B?S0Q4b2VQR0czekQ4Y2VaYmowaExDdkJldkdERldDTVgvSEhWS1BJYmwrZU04?=
+ =?utf-8?B?dFVsa3dSMHBnNU0vVmt1N1lvZzAyb3pQRElGR3NsOE5XVWxiM1BLWnNMdi9r?=
+ =?utf-8?B?aHhSNFk5VXB2VlpVRXJMQT09?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB6566.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(8096899003)(7053199007); DIR:OUT;
- SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(7053199007); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eHBZUldNSHBRWERKOWgybE1XZ0tsdnllVzZYL2JZR0t0dVNWL1pnNWxYNklV?=
- =?utf-8?B?UTlkTFk1cTJ3SlNwbC8raXVHOG4yWE55bU1ZZU1GamNNWGNjK2tLa0FBYVd5?=
- =?utf-8?B?NnkxMWVKMGdhTmFXQy9vL1JzSnAxSDd6eDlpUFVGT3cvRDVFUVlLWjdxTjlw?=
- =?utf-8?B?YzROdUpnVTRyS0tGbHJmMFhjSXpadk43c09XUzI1alAxaWlGcE5TajdlV3Ro?=
- =?utf-8?B?b2pSM3NML3ZYdlFka1JheGl4S2ZjcldkdFBKeCtpdG5YZmdET2xwUlU2RFpJ?=
- =?utf-8?B?b1lSekRKd3ViV2hrNHhQWlZ3eWhBdzNvZkI0K2lNakZ0RnQ2aERTQUN1ZEdO?=
- =?utf-8?B?QzFFZFRJOFkvVzl1SGFrSTV5QnE2UUpOSmhHVHB4VEcrQ2JPOUI2TExlRklm?=
- =?utf-8?B?QUFtSkpXQms5NXNQVW02MHVBRll1aWdiTUFvZ09hZjdvK1l1WjlnSjFKNkRZ?=
- =?utf-8?B?V0tFMDRjdG1CM2todStUakpBUWY1ZjJhRDViZ0syR25hVzlDeSsxbE5EeWRB?=
- =?utf-8?B?RkQ1VnRFSHZkV2VCbWZFaVVMdjU4ejk1TGFSaXhkVUswdDFMdjNNNXlOcDRZ?=
- =?utf-8?B?d0FjZzVQWEtZdi8zMWxINmpxbkM3cWVBLzNSdlpxR0UyOHdxU0Y2MlJ3YndP?=
- =?utf-8?B?eTAremwwSDBwVmx5Q29LQmV4cGZSKzJzK0Z5cVFKU3Ezb2dmdlZScFdBcnkx?=
- =?utf-8?B?akNGVTlpRXFaMTVBUzcrTmZIc3IxR3ZWenRWMTRVd3d6Qi9Jc0NxK0JFNGJ0?=
- =?utf-8?B?Sm1GM1I2WWpOQ2Q0ZW5RU2hGbGhwTVVPR3B3Q2w5QlYzbit4cy9XRFJ6S1VO?=
- =?utf-8?B?YWZuYjU3NjhYVFA5Rm9ycjd6djI4QXAwb1RCLzZzcGcrUjJqTlhyTEFkeHha?=
- =?utf-8?B?TFlEeXZla2I4dk5XWVZUY1R6eWtGTFJkdUdJNEJLalhPR3BhN1IyUHZIY0hy?=
- =?utf-8?B?WUlacXArTUx2U28yY1IyS3hzeFNrbjFNaGptK1NwcmNDUGVmQXorVG52YzRx?=
- =?utf-8?B?ZTFvQ2JNNjMrQkhHdE5TTlFQTmlVejNFN1RDRFBGU291VjZ1bDEwOXd3NnVy?=
- =?utf-8?B?dEIzTlloT3crZUNGNXlnQ0k2SlA2Y2VHRVlZT0tLZVJTRDk3ZHdHRHVLZUxo?=
- =?utf-8?B?bjd3bFY1WEZFc2EraWREdVFIVlovRFlJdTZ6ejdRdDFPbjY2Rmh4YlRJeVJD?=
- =?utf-8?B?aGZablNZdVVwamRjRFNxZ1NQM3k0TGh1eThFeE1WUzFsSHVRd2J5SStUQ2R1?=
- =?utf-8?B?MFFPYzB6MzNKb0VrQ2ZaVmgwSXVXSVNVejFEOU5acjI0dnlYNjN5K1V3Vktz?=
- =?utf-8?B?ZUVOQlV4eEpZRWtJT254dHZLeXBkaW9BR1QwUWJ4U0crZXlXSm5hdDBxVGRR?=
- =?utf-8?B?VElaanRxMTN3ZW5MQmk0TE9ralBuM0psM0J2S0g5cHFSWVJHMnhOOHBiVFpI?=
- =?utf-8?B?N2JOSDJFREFqaFhuWERTU2ZQZUpCclhXTDRzdjVJMTRwd1pGUUFyejhIUytK?=
- =?utf-8?B?ZHJJMklpZklrNlZQM0VNUzMrdmVUTlBqekN2UlBrWllRUGh3SkxwcERvWmd6?=
- =?utf-8?B?ZUhrelF5QjFKWVAwb096NFFZUkViL3poTU5NSzdQL1k1UnNhdHpxT28wREcx?=
- =?utf-8?B?NnRtOWtaOStsS2VaU0loZHZNSFJ1K2ZiTi9DSEdjVkZOWkllWklQU1Bkc2lQ?=
- =?utf-8?B?eXlua3hGQjNtUlkyazVReERUbmtBalB2WWhaNDcvUnJqMnpRdnlIanFiYitO?=
- =?utf-8?B?cnlCNWtFZWwvTkk2Z2RkL3dCdmNubHgwQjBwV2NPemRUbnk0SXVMTndvbWpL?=
- =?utf-8?B?VlJuZXM0aVRZczFGdWpES25ZSG5SMU5JLy9xV1RUWXo4cmFzUkZ4UGF1aXlQ?=
- =?utf-8?B?MHU0TkVBdWVkck16UjhFS1hTMTE5WDZmVkFiTXp5S3ZQMXZnTks5L0dOdG1T?=
- =?utf-8?B?ZkNKQlN4KzhZRUZoNzRpbVJJZG55cThYVnIvQnBpR1pZVmY4Rnd2UU5Zd0Y2?=
- =?utf-8?B?dVVjRkk3UEdIbXVEOHhKYjU3aDdWM1hsUHBuaGlxVCtxdmtVQXN4R2Z1Zkp3?=
- =?utf-8?B?RW9sL3JvMDNYOWZaUXd4ZlNSQzN5b0NFMjRpWUtkSzlVdy9rZ1VuTVFDcjd1?=
- =?utf-8?Q?f7aM=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NHJTNVpFMjIyVWJ0aE1UM0Y4S1ZKaE81REtydjFBTm5BUG1zbDlxcndlOS9w?=
+ =?utf-8?B?aXA0L04ydi9uTGl5Lys5VHZDdTdMbkFVQVo2VVpnVDU4K0VNcC96eWhCb2cy?=
+ =?utf-8?B?WmZteFIyOVNYSGVna3FTb1BQYnFEM2sxSXluODFucE1NNXNtZ2JQcG1KSmtl?=
+ =?utf-8?B?cjVjNzNXR0FSZmlDZzQvUitIWkVFUGt0T3pCYzBRZ2UzZm5rN1hQUTh4c1E5?=
+ =?utf-8?B?NTBuN0o1Ym9zbmM5UmVBZE1xaGxuKzNpbXFVeDRPNEsvYVl1b1pYUHRKaSti?=
+ =?utf-8?B?MG1KUFdLbVVaclA5VTdLYlF2THJmMXNubERYNVkxN2tkMlJYN0RHZHlMZkI4?=
+ =?utf-8?B?QXZGRjRobEZ5ZkladElnT01HL2ZsUUtkaW5uNXBVV0dFWXUvSlBIWHlEUnpX?=
+ =?utf-8?B?RzRiS2NQV2hNaHUrQVVRdVhIalkza1F0TlozZmpNSUZQWWIzNWtycTk1K0s1?=
+ =?utf-8?B?eXVOczNDZzJNdGdJRFduZElYMHBDcWoxL2kySVE0akVwSWw3QVd3THpvZWI4?=
+ =?utf-8?B?dXRFaWpTSERHcWlxZ2VwVEFjMFQvdzVyYjhTQUs0RVRjYyt6c3h3MldPQnNW?=
+ =?utf-8?B?c2VZQlZOUnZuVlFZUkJlblR3S3lhTE0yS050WExjbHRpN2ZKTjdCOW00b2cz?=
+ =?utf-8?B?WUhMWDdWTlI3RFd1RmRydlB4S3BFd21nN05pUEpwUFIxTTJONVZsV0VPRThG?=
+ =?utf-8?B?MzJmUWN0Z1RXYkxDbmJ2TU5KcmZHVVhPaEhuV3hub09oeUU3emhJODhjSVVo?=
+ =?utf-8?B?ZzF2bHh3ZTd1Tll0QlNsYThnUVJrVjdKY2lUdmdaNEZZTTVPaFA0YzhXOEVZ?=
+ =?utf-8?B?Q0VnTTNrVWxjS3lkMHI5aEZ4VDdoWHF6eFhUQlFNcHdMVEx1TTBsRVBQaFlF?=
+ =?utf-8?B?SjlOdXJyT0NJZTE5VzZzTVZwemJGeXdDRmxJdnh3VEZlK0luakE1cFJEYi9s?=
+ =?utf-8?B?Q3g0SUZ4czhZSXllVWlWb05wV2tGV0s3OFNaSjBUdWV4L0QzaVppVUlNQ0U4?=
+ =?utf-8?B?L0JscjM3UXFkN2ljSmQzUlQrT08zbjdlcmZNVXF1TkpxMlJaSnZqbXBSSHBz?=
+ =?utf-8?B?WWpubW9lUURJRVkrc211aFZ4dWEySmdSak92SlJLbWRBMjlFcXhRWEg5cFBP?=
+ =?utf-8?B?TEg5b1FpL21qL2hkbnZBMWJEc3gyYnUzeDNJSXgrdUEwRGMzVThRR3phMUhY?=
+ =?utf-8?B?a3IvWG9XU1dCM2NHOVhLaXV6cUlvMWJKdjZXcFpET2wveHFrajJ3dDUvVUZq?=
+ =?utf-8?B?RjFjTDVud0hKUlBQeUt5TFpWYXFRVXdsZklTSHhkRHZCeVU4WFFVeG1sQlJG?=
+ =?utf-8?B?dG9iMlNselp6ZTdrRU82V2N2eEhWMWpNMHgvY1gySWVuNUJObHZ0SkdJKzhZ?=
+ =?utf-8?B?N3hwZDFsb00yOVpjcVdOTjErV2dGOE80TjBJd01rMFhxZWlORVkwWjA5a0VD?=
+ =?utf-8?B?c2JlazI2VDJBV1h3ZmtIWmJYenJwRDV4d3UvSi9lSnJ3NVQ4ZXhEcHhjamZH?=
+ =?utf-8?B?TUc5aUZ1bUlmejZCNUJMeWR2YXp6RzlkaDZSYlUvVTdZNTd5QkVNb1IxNi9G?=
+ =?utf-8?B?UWMvZWh5MlhIKzdFQmdEZXNUb3JVaE5WWm94c1M5Z21lTzJnTXhMaFRvc3o1?=
+ =?utf-8?B?R0Z5d2d5MnpaOXMweUF3QW8wVlVPNkZBdng5bFpmMThqUHZtLy9vNVBndGxJ?=
+ =?utf-8?B?MHBQN3hWNTZDbGdVMkQrcGV2YjZieFNwVmtPOHo5RU44UnFxNHRsTzlxZUZx?=
+ =?utf-8?B?NEdWQy9TVVBYbEJoSUw4VW85WVJzdStqa3FFYXZyRlBSZ2xGcHpIN3k5YTYx?=
+ =?utf-8?B?djlCaWtCVWNheW40RkRxdFlTNnBWZkhBdEx2Tk1sa1BNTXN1OFdEdjljdEdO?=
+ =?utf-8?B?Q0I4QW0zYkJSRDBPeUtiSEU4cFBVZ1ZOeWFUYnhoZ21ub1ZWNlhRU084bjZQ?=
+ =?utf-8?B?bkppYlRrUEZNNFRaYTlwa29lbTZ6RzBTVUkwSTZmMEhDWHBZbU82SDAwQkNO?=
+ =?utf-8?B?R1ZMTG8ycXFJVSt1Y2Y4WlQyVGZBYytvUVFnMWlYM0FPQkdzOTY2UFFqUDdB?=
+ =?utf-8?B?M1RMNzMrQTZWTE1BZTFaeWVWbGxNYkViQzlTdG14dkFjOURPa1RUWm90WlJO?=
+ =?utf-8?Q?ZMPzEvbiXFHE84Muf7xUDAO7o?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 646c3207-ecba-4b6f-3453-08dd2f6ac487
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6566.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ea78e8d2-26b0-419a-7443-08dd2f6d0121
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jan 2025 22:29:36.8512 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jan 2025 22:45:37.5147 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gzCvXGFADyLRO/lzisGFY/qTaR4tZj98XDa5YWpBtdjV2nKdUutp2VxzkN80zYRv
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5909
+X-MS-Exchange-CrossTenant-UserPrincipalName: hvJAm4VEkJqcX4j66PfV6nVxo0YgatI6IkK66Rb2mRIKdIZax9RPsgZmz2aqu8Rz9O8XA/15VJ0Zfn902DPV8A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6039
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -165,395 +163,117 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------k2bsbz0EKTxUKZgS131FIMF0
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
-
-On 1/7/2025 2:44 PM, Philip Yang wrote:
+On 2025-01-06 21:10, Deng, Emily wrote:
+> [AMD Official Use Only - AMD Internal Distribution Only]
 >
->
-> On 2025-01-07 10:50, Chen, Xiaogang wrote:
+>> -----Original Message-----
+>> From: Kuehling, Felix <Felix.Kuehling@amd.com>
+>> Sent: Tuesday, January 7, 2025 4:53 AM
+>> To: Deng, Emily <Emily.Deng@amd.com>; amd-gfx@lists.freedesktop.org
+>> Subject: Re: [PATCH] drm/amdkfd: Fix partial migrate issue
 >>
 >>
->> On 1/6/2025 8:02 PM, Deng, Emily wrote:
->>>
+>> On 2025-01-05 20:45, Deng, Emily wrote:
 >>> [AMD Official Use Only - AMD Internal Distribution Only]
 >>>
->>>
->>> *From:*Chen, Xiaogang <Xiaogang.Chen@amd.com>
->>> *Sent:* Monday, January 6, 2025 11:27 PM
->>> *To:* Deng, Emily <Emily.Deng@amd.com>; amd-gfx@lists.freedesktop.org
->>> *Subject:* Re: [PATCH] drm/amdkfd: Fix partial migrate issue
->>>
->>> On 1/2/2025 6:06 PM, Emily Deng wrote:
->>>
->>>     For partial migrate from ram to vram, the migrate->cpages is not
->>>
->>>     equal to migrate->npages, should use migrate->npages to check all needed
->>>
->>>     migrate pages which could be copied or not.
->>>
->>>     And only need to set those pages could be migrated to migrate->dst[i], or
->>>
->>>     the migrate_vma_pages will migrate the wrong pages based on the migrate->dst[i].
->>>
->>>     Signed-off-by: Emily Deng<Emily.Deng@amd.com> <mailto:Emily.Deng@amd.com>
->>>
->>>     ---
->>>
->>>       drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 8 ++++----
->>>
->>>       1 file changed, 4 insertions(+), 4 deletions(-)
->>>
->>>     diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
->>>
->>>     index 4b275937d05e..5c96c2d425e3 100644
->>>
->>>     --- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
->>>
->>>     +++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
->>>
->>>     @@ -278,7 +278,7 @@ svm_migrate_copy_to_vram(struct kfd_node *node, struct svm_range *prange,
->>>
->>>                               struct migrate_vma *migrate, struct dma_fence **mfence,
->>>
->>>                               dma_addr_t *scratch, uint64_t ttm_res_offset)
->>>
->>>       {
->>>
->>>     -       uint64_t npages = migrate->cpages;
->>>
->>>     +       uint64_t npages = migrate->npages;
->>>
->>> I agree this part.
->>>
->>>              struct amdgpu_device *adev = node->adev;
->>>
->>>              struct device *dev = adev->dev;
->>>
->>>              struct amdgpu_res_cursor cursor;
->>>
->>>     @@ -299,9 +299,6 @@ svm_migrate_copy_to_vram(struct kfd_node *node, struct svm_range *prange,
->>>
->>>                      struct page *spage;
->>>
->>>       
->>>
->>>                      dst[i] = cursor.start + (j << PAGE_SHIFT);
->>>
->>>     -               migrate->dst[i] = svm_migrate_addr_to_pfn(adev, dst[i]);
->>>
->>>     -        svm_migrate_get_vram_page(prange, migrate->dst[i]);
->>>
->>>     -               migrate->dst[i] = migrate_pfn(migrate->dst[i]);
->>>
->>>       
->>>
->>>                      spage = migrate_pfn_to_page(migrate->src[i]);
->>>
->>>                      if (spage && !is_zone_device_page(spage)) {
->>>
->>>     @@ -345,6 +342,9 @@ svm_migrate_copy_to_vram(struct kfd_node *node, struct svm_range *prange,
->>>
->>>                      } else {
->>>
->>>                              j++;
->>>
->>>                      }
->>>
->>>     +               migrate->dst[i] = svm_migrate_addr_to_pfn(adev, dst[i]);
->>>
->>>     +        svm_migrate_get_vram_page(prange, migrate->dst[i]);
->>>
->>>     +               migrate->dst[i] = migrate_pfn(migrate->dst[i]);
->>>
->>> I think what current code misses here is that migrate->dst[i] should 
->>> match migrate->src[i]: migrate->dst[i](vram page) got set for page 
->>> that will be migrated from system ram, otherwise migrate->dst[i] 
->>> should be zero. Your change makes migrates->dst[i] not set though 
->>> its page has been migrated by svm_migrate_copy_memory_gart for the 
->>> case that cpages != npages, because you set migrate->dst[i] at end 
->>> of loop and use 'continue' after migration.
->>>
->>> The page migration happens at svm_migrate_copy_memory_gart, not 
->>> migrate_vma_pages that migrates struct page meta-data from source 
->>> struct page to destination struct page and has mmu notification.
->>>
->>> Regards
->>>
->>> Xiaogang
->>>
->>> The migrate->dst[i] default value is 0. The purpose of the change is 
->>> to match the migrate->dst[i] and migrate->src[i]. And for 
->>> svm_migrate_copy_to_vram, it only will call 
->>> svm_migrate_copy_memory_gart to copy those pages which need to be 
->>> migrated, for those don’t need migrate pages, it won’t call 
->>> svm_migrate_copy_memory_gart.
->>>
->> Yes, the issue here is we need match migrate->dst[i] and 
->> migrate->src[i]: migrate->dst[i] need be set only when its 
->> correspondent migrate->src[i] page will be migrated or the src page 
->> has dma address setup by dma_map_page. Then why not set 
->> migrate->dst[i] at same time when have dma_map_page for src page?
+>>>> -----Original Message-----
+>>>> From: Kuehling, Felix <Felix.Kuehling@amd.com>
+>>>> Sent: Saturday, January 4, 2025 7:10 AM
+>>>> To: Deng, Emily <Emily.Deng@amd.com>; amd-gfx@lists.freedesktop.org
+>>>> Subject: Re: [PATCH] drm/amdkfd: Fix partial migrate issue
+>>>>
+>>>>
+>>>> On 2025-01-02 19:06, Emily Deng wrote:
+>>>>> For partial migrate from ram to vram, the migrate->cpages is not
+>>>>> equal to migrate->npages, should use migrate->npages to check all
+>>>>> needed migrate pages which could be copied or not.
+>>>>>
+>>>>> And only need to set those pages could be migrated to
+>>>>> migrate->dst[i], or the migrate_vma_pages will migrate the wrong
+>>>>> pages based on the migrate- dst[i].
+>>>>>
+>>>>> Signed-off-by: Emily Deng <Emily.Deng@amd.com>
+>>>> Good catch. But I think it's still not quite right. See inline.
+>>>>
+>>>>
+>>>>> ---
+>>>>>     drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 8 ++++----
+>>>>>     1 file changed, 4 insertions(+), 4 deletions(-)
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+>>>>> b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+>>>>> index 4b275937d05e..5c96c2d425e3 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+>>>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+>>>>> @@ -278,7 +278,7 @@ svm_migrate_copy_to_vram(struct kfd_node *node,
+>>>>> struct
+>>>> svm_range *prange,
+>>>>>                         struct migrate_vma *migrate, struct dma_fence **mfence,
+>>>>>                         dma_addr_t *scratch, uint64_t ttm_res_offset)
+>>>>>     {
+>>>>> -    uint64_t npages = migrate->cpages;
+>>>>> +    uint64_t npages = migrate->npages;
+>>>>>        struct amdgpu_device *adev = node->adev;
+>>>>>        struct device *dev = adev->dev;
+>>>>>        struct amdgpu_res_cursor cursor; @@ -299,9 +299,6 @@
+>>>>> svm_migrate_copy_to_vram(struct kfd_node *node, struct
+>>>> svm_range *prange,
+>>>>>                struct page *spage;
+>>>>>
+>>>>>                dst[i] = cursor.start + (j << PAGE_SHIFT);
+>>>>> -            migrate->dst[i] = svm_migrate_addr_to_pfn(adev, dst[i]);
+>>>>> -            svm_migrate_get_vram_page(prange, migrate->dst[i]);
+>>>>> -            migrate->dst[i] = migrate_pfn(migrate->dst[i]);
+>>>>>
+>>>>>                spage = migrate_pfn_to_page(migrate->src[i]);
+>>>>>                if (spage && !is_zone_device_page(spage)) {
+>>>> We should also check (migrate->src[i] & MIGRATE_PFN_MIGRATE) to catch
+>>>> only the pages that are ready to migrate (i.e. not already in device
+>>>> memory and not pinned by someone else).
+>>>>
+>>>> Regards,
+>>>>     Felix
+>>>> The code " if (spage && !is_zone_device_page(spage)) {" is already checked
+>> whether the page could be migrated or not. Because after called migrate_vma_setup,
+>> for those pages couldn't be migrated it will be set to NULL.
 >>
-> yes, agree, I will reply the v2 patch with this change.
+>> The page may be non-NULL. If the MIGRATE_PFN_MIGRATE is not set, the page
+>> could not be collected for migration by migrate_vma_setup and it should not be
+>> migrated. See
+>> https://elixir.bootlin.com/linux/v6.12.6/source/mm/migrate_device.c#L470
 >>
->> That way will simplify the logic and not need use amdgpu_res_next to 
->> jump vram cursor.
->>
-> if spage is not contiguous or dst is the last page of cursor (vram 
-> address is not contiguous), we need setup sdma copy and then call 
-> amdgpu_res_next to update cursor->start.
->
-I think we only need use amdgpu_res_nex at one place where update 
-migrate->dst[i] together with dma_map_page for src page, but need to 
-remember the jump between two dma_map_page to adapt to cursor->start update.
+>> Regards,
+>>    Felix
+> Sorry, don't understand clearly. If a page couldn't be migrated, the src should be set NULL, if not, I think it is the migrate_vma_collect's bug. So could you point which code path
+> it will not be NULL.
 
-Regards
+Looks like I misread the documentation. I thought there could be cases 
+where a valid page would have the MIGRATE_PFN_MIGRATE flag unset. But I 
+can't find that in the code in mm/migrate_device.c. In the cases where a 
+page cannot be collected, the src entry will be 0. The only case I see 
+where the MIGRATE_PFN_MIGRATE flag is significant is in cases where host 
+memory was not allocated yet (PFN is 0) but the migration can allocate 
+0-initialized device memory for it.
 
-Xiaogang
+Regards,
+   Felix
 
-> Regards,
->
-> Philip
->
->> Regards
->>
->> Xiaogang
->>
->>>              }
+
+>>> Emily Deng
+>>> Best Wishes
 >>>
->>>       
 >>>
->>>              r = svm_migrate_copy_memory_gart(adev, src + i - j, dst + i - j, j,
->>>
---------------k2bsbz0EKTxUKZgS131FIMF0
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 1/7/2025 2:44 PM, Philip Yang wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:64af2e0d-c3ee-9a51-70aa-215bc128a55d@amd.com">
-      
-      <p><br>
-      </p>
-      <div class="moz-cite-prefix">On 2025-01-07 10:50, Chen, Xiaogang
-        wrote:<br>
-      </div>
-      <blockquote type="cite" cite="mid:19fac85c-0110-4a3d-a3ee-c539afd518c5@amd.com">
-        <p><br>
-        </p>
-        <div class="moz-cite-prefix">On 1/6/2025 8:02 PM, Deng, Emily
-          wrote:<br>
-        </div>
-        <blockquote type="cite" cite="mid:PH0PR12MB5417A0CED996D52E33D234B98F112@PH0PR12MB5417.namprd12.prod.outlook.com">
-          <meta name="Generator" content="Microsoft Word 15 (filtered
-          medium)">
-          <style>@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}@font-face
-	{font-family:DengXian;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}@font-face
-	{font-family:Aptos;}@font-face
-	{font-family:"\@DengXian";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}@font-face
-	{font-family:Consolas;
-	panose-1:2 11 6 9 2 2 4 3 2 4;}p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	font-size:12.0pt;
-	font-family:"Aptos",sans-serif;}a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:blue;
-	text-decoration:underline;}pre
-	{mso-style-priority:99;
-	mso-style-link:"HTML Preformatted Char";
-	margin:0in;
-	font-size:10.0pt;
-	font-family:"Courier New";}span.HTMLPreformattedChar
-	{mso-style-name:"HTML Preformatted Char";
-	mso-style-priority:99;
-	mso-style-link:"HTML Preformatted";
-	font-family:Consolas;}span.EmailStyle21
-	{mso-style-type:personal-reply;
-	font-family:"Arial",sans-serif;
-	color:windowtext;}.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;
-	mso-ligatures:none;}div.WordSection1
-	{page:WordSection1;}</style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext="edit" spidmax="1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext="edit">
-<o:idmap v:ext="edit" data="1" />
-</o:shapelayout></xml><![endif]-->
-          <p style="font-family:Calibri;font-size:10pt;color:#0000FF;margin:5pt;font-style:normal;font-weight:normal;text-decoration:none;" align="Left"> [AMD Official Use Only - AMD Internal
-            Distribution Only]<br>
-          </p>
-          <br>
-          <div>
-            <div class="WordSection1">
-              <p class="MsoNormal"><span style="font-size:11.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
-              <p class="MsoNormal"><span style="font-size:11.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
-              <div style="border:none;border-left:solid blue
-              1.5pt;padding:0in 0in 0in 4.0pt">
-                <div>
-                  <div style="border:none;border-top:solid #E1E1E1
-                  1.0pt;padding:3.0pt 0in 0in 0in">
-                    <p class="MsoNormal"><b><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif">From:</span></b><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif">
-                        Chen, Xiaogang <a class="moz-txt-link-rfc2396E" href="mailto:Xiaogang.Chen@amd.com" moz-do-not-send="true">&lt;Xiaogang.Chen@amd.com&gt;</a>
-                        <br>
-                        <b>Sent:</b> Monday, January 6, 2025 11:27 PM<br>
-                        <b>To:</b> Deng, Emily <a class="moz-txt-link-rfc2396E" href="mailto:Emily.Deng@amd.com" moz-do-not-send="true">&lt;Emily.Deng@amd.com&gt;</a>;
-                        <a class="moz-txt-link-abbreviated moz-txt-link-freetext" href="mailto:amd-gfx@lists.freedesktop.org" moz-do-not-send="true">amd-gfx@lists.freedesktop.org</a><br>
-                        <b>Subject:</b> Re: [PATCH] drm/amdkfd: Fix
-                        partial migrate issue<o:p></o:p></span></p>
-                  </div>
-                </div>
-                <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
-                <p><o:p>&nbsp;</o:p></p>
-                <div>
-                  <p class="MsoNormal">On 1/2/2025 6:06 PM, Emily Deng
-                    wrote:<o:p></o:p></p>
-                </div>
-                <blockquote style="margin-top:5.0pt;margin-bottom:5.0pt">
-                  <pre>For partial migrate from ram to vram, the migrate-&gt;cpages is not<o:p></o:p></pre>
-                  <pre>equal to migrate-&gt;npages, should use migrate-&gt;npages to check all needed<o:p></o:p></pre>
-                  <pre>migrate pages which could be copied or not.<o:p></o:p></pre>
-                  <pre><o:p>&nbsp;</o:p></pre>
-                  <pre>And only need to set those pages could be migrated to migrate-&gt;dst[i], or<o:p></o:p></pre>
-                  <pre>the migrate_vma_pages will migrate the wrong pages based on the migrate-&gt;dst[i].<o:p></o:p></pre>
-                  <pre><o:p>&nbsp;</o:p></pre>
-                  <pre>Signed-off-by: Emily Deng <a href="mailto:Emily.Deng@amd.com" moz-do-not-send="true">&lt;Emily.Deng@amd.com&gt;</a><o:p></o:p></pre>
-                  <pre>---<o:p></o:p></pre>
-                  <pre> drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 8 ++++----<o:p></o:p></pre>
-                  <pre> 1 file changed, 4 insertions(+), 4 deletions(-)<o:p></o:p></pre>
-                  <pre><o:p>&nbsp;</o:p></pre>
-                  <pre>diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c<o:p></o:p></pre>
-                  <pre>index 4b275937d05e..5c96c2d425e3 100644<o:p></o:p></pre>
-                  <pre>--- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c<o:p></o:p></pre>
-                  <pre>+++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c<o:p></o:p></pre>
-                  <pre>@@ -278,7 +278,7 @@ svm_migrate_copy_to_vram(struct kfd_node *node, struct svm_range *prange,<o:p></o:p></pre>
-                  <pre> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;struct migrate_vma *migrate, struct dma_fence **mfence,<o:p></o:p></pre>
-                  <pre> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;dma_addr_t *scratch, uint64_t ttm_res_offset)<o:p></o:p></pre>
-                  <pre> {<o:p></o:p></pre>
-                  <pre>-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t npages = migrate-&gt;cpages;<o:p></o:p></pre>
-                  <pre>+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t npages = migrate-&gt;npages;<o:p></o:p></pre>
-                </blockquote>
-                <p class="MsoNormal">I agree this part.<br>
-                  <br>
-                  <o:p></o:p></p>
-                <blockquote style="margin-top:5.0pt;margin-bottom:5.0pt">
-                  <pre><o:p>&nbsp;</o:p></pre>
-                  <pre> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev = node-&gt;adev;<o:p></o:p></pre>
-                  <pre> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct device *dev = adev-&gt;dev;<o:p></o:p></pre>
-                  <pre> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_res_cursor cursor;<o:p></o:p></pre>
-                  <pre>@@ -299,9 +299,6 @@ svm_migrate_copy_to_vram(struct kfd_node *node, struct svm_range *prange,<o:p></o:p></pre>
-                  <pre> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct page *spage;<o:p></o:p></pre>
-                  <pre> <o:p></o:p></pre>
-                  <pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dst[i] = cursor.start + (j &lt;&lt; PAGE_SHIFT);<o:p></o:p></pre>
-                  <pre>-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; migrate-&gt;dst[i] = svm_migrate_addr_to_pfn(adev, dst[i]);<o:p></o:p></pre>
-                  <pre>-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  svm_migrate_get_vram_page(prange, migrate-&gt;dst[i]);<o:p></o:p></pre>
-                  <pre>-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; migrate-&gt;dst[i] = migrate_pfn(migrate-&gt;dst[i]);<o:p></o:p></pre>
-                  <pre> <o:p></o:p></pre>
-                  <pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; spage = migrate_pfn_to_page(migrate-&gt;src[i]);<o:p></o:p></pre>
-                  <pre> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (spage &amp;&amp; !is_zone_device_page(spage)) {<o:p></o:p></pre>
-                  <pre>@@ -345,6 +342,9 @@ svm_migrate_copy_to_vram(struct kfd_node *node, struct svm_range *prange,<o:p></o:p></pre>
-                  <pre> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<o:p></o:p></pre>
-                  <pre> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; j++;<o:p></o:p></pre>
-                  <pre> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<o:p></o:p></pre>
-                  <pre>+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; migrate-&gt;dst[i] = svm_migrate_addr_to_pfn(adev, dst[i]);<o:p></o:p></pre>
-                  <pre>+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  svm_migrate_get_vram_page(prange, migrate-&gt;dst[i]);<o:p></o:p></pre>
-                  <pre>+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; migrate-&gt;dst[i] = migrate_pfn(migrate-&gt;dst[i]);<o:p></o:p></pre>
-                </blockquote>
-                <p>I think what current code misses here is that
-                  migrate-&gt;dst[i] should match migrate-&gt;src[i]:
-                  migrate-&gt;dst[i](vram page) got set for page that
-                  will be migrated from system ram, otherwise
-                  migrate-&gt;dst[i] should be zero. Your change makes
-                  migrates-&gt;dst[i] not set though its page has been
-                  migrated by svm_migrate_copy_memory_gart for the case
-                  that cpages != npages, because you set
-                  migrate-&gt;dst[i] at end of loop and use 'continue'
-                  after migration.<o:p></o:p></p>
-                <p>The page migration happens at
-                  svm_migrate_copy_memory_gart, not migrate_vma_pages
-                  that migrates struct page meta-data from source struct
-                  page to destination struct page and has mmu
-                  notification.<o:p></o:p></p>
-                <p>Regards<o:p></o:p></p>
-                <p>Xiaogang<o:p></o:p></p>
-                <p><span style="font-size:11.0pt;font-family:&quot;Arial&quot;,sans-serif">The </span>migrate-&gt;dst[i]
-                  default value is 0. The purpose of the change is to
-                  match the migrate-&gt;dst[i] and migrate-&gt;src[i].
-                  And for svm_migrate_copy_to_vram, it only will call
-                  svm_migrate_copy_memory_gart to copy those pages which
-                  need to be migrated, for those don’t need migrate
-                  pages, it won’t call svm_migrate_copy_memory_gart.</p>
-              </div>
-            </div>
-          </div>
-        </blockquote>
-        <p>Yes, the issue here is we need match migrate-&gt;dst[i] and
-          migrate-&gt;src[i]: migrate-&gt;dst[i] need be set only when
-          its correspondent migrate-&gt;src[i] page will be migrated or
-          the src page has dma address setup by dma_map_page. Then why
-          not set migrate-&gt;dst[i] at same time when have dma_map_page
-          for src page?</p>
-      </blockquote>
-      yes, agree, I will reply the v2 patch with this change.<br>
-      <blockquote type="cite" cite="mid:19fac85c-0110-4a3d-a3ee-c539afd518c5@amd.com">
-        <p> That way will simplify the logic and not need use
-          amdgpu_res_next to jump vram cursor. <br>
-        </p>
-      </blockquote>
-      <p>if spage is not contiguous or dst is the last page of cursor
-        (vram address is not contiguous), we need setup sdma copy and
-        then call amdgpu_res_next to update cursor-&gt;start.</p>
-    </blockquote>
-    <p>I think we only need use amdgpu_res_nex at one place where update
-      migrate-&gt;dst[i] together with dma_map_page for src page, but
-      need to remember the jump between two dma_map_page to adapt to
-      cursor-&gt;start update.</p>
-    <p>Regards</p>
-    <p>Xiaogang<br>
-    </p>
-    <blockquote type="cite" cite="mid:64af2e0d-c3ee-9a51-70aa-215bc128a55d@amd.com">
-      <p>Regards,</p>
-      <p>Philip<br>
-      </p>
-      <blockquote type="cite" cite="mid:19fac85c-0110-4a3d-a3ee-c539afd518c5@amd.com">
-        <p> </p>
-        <p>Regards</p>
-        <p>Xiaogang<br>
-        </p>
-        <blockquote type="cite" cite="mid:PH0PR12MB5417A0CED996D52E33D234B98F112@PH0PR12MB5417.namprd12.prod.outlook.com">
-          <div>
-            <div class="WordSection1">
-              <div style="border:none;border-left:solid blue
-              1.5pt;padding:0in 0in 0in 4.0pt">
-                <p><o:p></o:p></p>
-                <blockquote style="margin-top:5.0pt;margin-bottom:5.0pt">
-                  <pre><o:p>&nbsp;</o:p></pre>
-                  <pre> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<o:p></o:p></pre>
-                  <pre> <o:p></o:p></pre>
-                  <pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r = svm_migrate_copy_memory_gart(adev, src + i - j, dst + i - j, j,<o:p></o:p></pre>
-                </blockquote>
-              </div>
-            </div>
-          </div>
-        </blockquote>
-      </blockquote>
-    </blockquote>
-  </body>
-</html>
-
---------------k2bsbz0EKTxUKZgS131FIMF0--
+>>>>> @@ -345,6 +342,9 @@ svm_migrate_copy_to_vram(struct kfd_node *node,
+>>>>> struct
+>>>> svm_range *prange,
+>>>>>                } else {
+>>>>>                        j++;
+>>>>>                }
+>>>>> +            migrate->dst[i] = svm_migrate_addr_to_pfn(adev, dst[i]);
+>>>>> +            svm_migrate_get_vram_page(prange, migrate->dst[i]);
+>>>>> +            migrate->dst[i] = migrate_pfn(migrate->dst[i]);
+>>>>>        }
+>>>>>
+>>>>>        r = svm_migrate_copy_memory_gart(adev, src + i - j, dst + i -
+>>>>> j, j,
