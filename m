@@ -4,148 +4,160 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBB21E77188
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jan 2025 00:20:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6427BE77188
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jan 2025 02:02:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A5B289B01;
-	Tue,  7 Jan 2025 00:20:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DBA7010E13D;
+	Tue,  7 Jan 2025 02:02:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ztwtFVgX";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="TChtC9XH";
 	dkim-atps=neutral
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2080.outbound.protection.outlook.com [40.107.102.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D01689B01
- for <amd-gfx@lists.freedesktop.org>; Tue,  7 Jan 2025 00:20:34 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2070.outbound.protection.outlook.com [40.107.93.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA75310E13D
+ for <amd-gfx@lists.freedesktop.org>; Tue,  7 Jan 2025 02:02:08 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Nz8Sd+umbb21svIL5+l4z30vi/VSYkiTfFce5XrW9/MLNsd7KplvQYYSweni1n8S1Tngh+k5FeH7PeUK+lobnk4/6UMqem0yC5Yk/gLtvdOE0Uj1TX42oS4IRyZtwKDmhwb9tqssFMD7F3jCBfdxYdli6j/AcM1GJhYuSNmLrOb7GEwyMRx1S9YddA4U9gp5jlHWyYr2jdf+jXm7mrN+Q7geBeKwUs1bRY8f60fakt0+2KJXSZiRh11zcK5EXdWejZb3VSvaNz2R8hc+MX18733L7MGIZ39HzPZfIt5WFzZbOx0SSx6vJY7OPjr9rW7j0qLDj3dbGDj35PNZUytT0A==
+ b=cJcbXI4ujxQShsUbdA0zsks1+Ruqi2pAWEjX9kU5HmIMeUPv8riqtp27MEoIHV/eWtOX4D6Koq1kiAgAOQ2UiKRrEIDPEVDK/yUEw2xS7pHI+h+Lgy3ShnKAhH26kTKo1AVMtub9k1VIqdXlcPMcefBsmkhIpg45Ysmi1Yxj0th19sjnjTK2NppuUB0C6UiDAqdNUNQNNA9UUJeiEZV4QrTwUqlkRqJJ8kaBYBoL8SH7Bnt1+gcZPjHgAEiFLvtMDkcK6ryYiYLtXraqhIXm11BgfvVolhXtTYi8q6G3jpkgmwZtyj9zlqpZdpVVwet44mP3KbWHvK8Mw9uefP6KwQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qEbP07/2ZNeAatqNAN5dDeIz2pfYiz/XYd0gnMCkomI=;
- b=jR9dq4ZK24Rr4f8hbgLV6lf09l4WmlaE1/wIoDP1maBMpWFaBgnuEdsdgVwhuoqTUMserfqfMst+nKjF/Fxch1A3vWCKIlZ/I5TRodnW4zQswcdUJaCZq+tZmXkcFV8B/v4pR0en7h0m5eJ/mHEiu0jwq6HqQ4rRmoc45Mu4HHbQxjUJYbRG3rM/WxFjHF1zZsl1uFt2LVhk5Tq1sa9DV3xiA3B4vc00wHOt0ju/OoNV3GQJl14ub1C8kFxxZNFp0Kf4pU/715lrQfRLIekd0s+gBYPRNYLLZxJUJ008Jq32l/nHYgtgpZysTU1Ujkoojywj1ItSrHcEVBA7G/Mbjg==
+ bh=BBvYWlBIWyw2RanE/jsALQKOSDENbXMS54N/zEsDaDg=;
+ b=Wfn+ULOlMyruoDhHjS1SQ23qMJlWYfgEkQXwInBAn27xnIiunWNK3wwi9Oq0btk+jVDEg/tZo/I976haxlfGKgHaH+RXccNm4sI7umIcauhZxwnVfvdjg/8DUTvSD72KR6CkHLwYVSCcvZXS3xxFMGZ5rlO6AiakKnYosDtxdvUETDOxIJ8KhLgET2+5n79IGGm9PH97SfGHWqmhEV7eHSPQgmZbWduKCum67Gys9O1tUBcRYRLxtIXNYmyflfjTCJ1YKUYVt2YnIU9MkRPY6QzD6pBzfbgkHXlw7JYXNGCAEkhiS7UVZIlUIwsuDZjgB7hWKUiojRRU4wv9Rwi6PQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qEbP07/2ZNeAatqNAN5dDeIz2pfYiz/XYd0gnMCkomI=;
- b=ztwtFVgXNF0mzavhk7G4DKnurQtHlq67ZvYuIUVGx2Z45u99kTWdVqYkLa9zIxJtFjPmiFLSDv7u7OY/01jwPHK8TQfFehdrWDEDajhgYioOBqwZ+8XpXQrKMGxCDX3vBroDJHzlMRDSuYWIPIkUDTM5YD474QM5gR8MzK0Fj6o=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB6566.namprd12.prod.outlook.com (2603:10b6:8:8d::16) by
- BY1PR12MB8448.namprd12.prod.outlook.com (2603:10b6:a03:534::15) with
+ bh=BBvYWlBIWyw2RanE/jsALQKOSDENbXMS54N/zEsDaDg=;
+ b=TChtC9XHhzVGBn8H5BSCVQru5wc50LvCNvG2ZRsEmo0mHEzGxOJo2TLgVimrk2GTNJHD7yYCdN11rMOLCRaH4/S6KQDiIMRJJ/yqHYNv6FZCB+jU5r+wBOMnREtF5mcqibCo9Bm58aL3yjSppwGsFZzUvnQhQagMXzCA2HRuu4w=
+Received: from PH0PR12MB5417.namprd12.prod.outlook.com (2603:10b6:510:e1::10)
+ by DM6PR12MB4356.namprd12.prod.outlook.com (2603:10b6:5:2aa::8) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8314.17; Tue, 7 Jan
- 2025 00:20:28 +0000
-Received: from DM4PR12MB6566.namprd12.prod.outlook.com
- ([fe80::31b:5d31:8ba6:abd7]) by DM4PR12MB6566.namprd12.prod.outlook.com
- ([fe80::31b:5d31:8ba6:abd7%4]) with mapi id 15.20.8314.015; Tue, 7 Jan 2025
- 00:20:28 +0000
-Content-Type: multipart/alternative;
- boundary="------------aD0ekUI74IBpPXxXKjlCyYQ8"
-Message-ID: <604bd35e-1714-4764-898d-f4a30c6e39d3@amd.com>
-Date: Mon, 6 Jan 2025 18:20:25 -0600
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdkfd: Fix partial migrate issue
-To: Philip Yang <yangp@amd.com>, Emily Deng <Emily.Deng@amd.com>,
- amd-gfx@lists.freedesktop.org
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8314.18; Tue, 7 Jan
+ 2025 02:02:06 +0000
+Received: from PH0PR12MB5417.namprd12.prod.outlook.com
+ ([fe80::de07:ec43:e847:2f50]) by PH0PR12MB5417.namprd12.prod.outlook.com
+ ([fe80::de07:ec43:e847:2f50%5]) with mapi id 15.20.8314.015; Tue, 7 Jan 2025
+ 02:02:06 +0000
+From: "Deng, Emily" <Emily.Deng@amd.com>
+To: "Chen, Xiaogang" <Xiaogang.Chen@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdkfd: Fix partial migrate issue
+Thread-Topic: [PATCH] drm/amdkfd: Fix partial migrate issue
+Thread-Index: AQHbXXNmg3btm0VQfE6EJOJsqvbedLMJ4/IAgACveVA=
+Date: Tue, 7 Jan 2025 02:02:06 +0000
+Message-ID: <PH0PR12MB5417A0CED996D52E33D234B98F112@PH0PR12MB5417.namprd12.prod.outlook.com>
 References: <20250103000644.1398643-1-Emily.Deng@amd.com>
- <4db6b354-56e6-3d2e-0da9-bfd1943320af@amd.com>
+ <40e6b31e-c77b-4d89-a051-215eb4ddff46@amd.com>
+In-Reply-To: <40e6b31e-c77b-4d89-a051-215eb4ddff46@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: "Chen, Xiaogang" <xiaogang.chen@amd.com>
-In-Reply-To: <4db6b354-56e6-3d2e-0da9-bfd1943320af@amd.com>
-X-ClientProxiedBy: SA9PR13CA0105.namprd13.prod.outlook.com
- (2603:10b6:806:24::20) To DM4PR12MB6566.namprd12.prod.outlook.com
- (2603:10b6:8:8d::16)
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=752ba48e-b6f2-4deb-ae44-d8eaf6855b59;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution Only;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-01-07T01:55:00Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH0PR12MB5417:EE_|DM6PR12MB4356:EE_
+x-ms-office365-filtering-correlation-id: 963c4842-8469-4abe-76bb-08dd2ebf495f
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|1800799024|376014|8096899003|7053199007|38070700018; 
+x-microsoft-antispam-message-info: =?utf-8?B?cXM2dzFKRk9rcDEzOFBnNGdPRlgxa2cxSnpHVlJVQTNJV0ZFV2Rxd3NHdUx6?=
+ =?utf-8?B?SHp5bTQzczVLbkdrQ2RLUEJYMm4ySU4vOWhya3hpa1VEYk1ZWVAzVDRoNkVa?=
+ =?utf-8?B?RktOc3EvZmMrYkdSUkx4bGNJSitmazZicTk5czlKZGpqUEJzSW40NFRUUmU3?=
+ =?utf-8?B?clQ4K3NGMTdZNUJPU2dZZTl4RVByN1ZVcCtsdHZTcUk3d0prWTRBTzI5NnZS?=
+ =?utf-8?B?Rmo0ZnJNNzB5ejg2NVdRTVF2MldHTkg2bW5mL2YrNk1WS29uSG1CRjh3WUVV?=
+ =?utf-8?B?Z1RWS2JtNUc1NnF4Yk9kbzZmRGMydGVtblpUZ0x1NDZ1cUJ5cDdVU1pWMFRV?=
+ =?utf-8?B?TENsbHViOGFhMTdPR1hXdHZ1QWQ4SW96cFpKOFl0L0k4bVhtZ2FEQytQQWoy?=
+ =?utf-8?B?ZHc0NWtuenNsQ0Nici9OSDBJQ3NsbkhjcDJySXI0S2JENitOVTRLMGZYZE1w?=
+ =?utf-8?B?OFVuYXRHczNscFlNMnVmOWliQ3BUTUlqbDdWdi93ZVpqRStxc2htaWpySSt2?=
+ =?utf-8?B?VnpuZkxoSlpMaWZvRnpnaTFlUjlqL0NPWFJ0ZmpuRFVOak10cjYvblk1Qmkr?=
+ =?utf-8?B?M0hscFBmcyt4TVg5M0RpMzZtZGZEeDh4SThkSktKUVNrTmtJQU9kNU1XRkhJ?=
+ =?utf-8?B?dEV3WjdpM3dpRjNjOS9jcFpPUTJjY1BRQ25tL211QU10bGJ4ekMwb1NDam5r?=
+ =?utf-8?B?YUFSMnRkVnluSWlsTmtGbWlrUjFJSysraVlJaEE1WGRuRjB3K1pocU5GaVB3?=
+ =?utf-8?B?RW1Mbm5HMGwvS290SzBibkhFM2pRUTBUV3EvZTRBUG1HVHZYVmNWemhaQmNo?=
+ =?utf-8?B?eC9kUG5sWGYwbUU3aWpkaFZHNHZCUjRienRRTEV1ekpqYmI0MCtEamo3SXRn?=
+ =?utf-8?B?YWRFWFlERENHc0licUZmK0RGU3EyWmx4eXkzbllVbGw3Nnloak81MVBLcVk3?=
+ =?utf-8?B?aXAwaE1GbEs5TXFhaHNPWHFQeW4yN3ZVSS9GT1BFMWU5MEhQWXRRVU9kVlBF?=
+ =?utf-8?B?dEtDbm16SHkrTDQrUnNuc21iSjVsc2l3RjlwdDF1a2pxSlhjUVJ0ekJ2MmZX?=
+ =?utf-8?B?MFR0OFJucUZpcWFaVUpuYUwyKzRkeEVJdVQ1SE9aMW5yaEVicUtWUkYrT1Bu?=
+ =?utf-8?B?ekxXaUpub0lkaGJ3algyejh6azVUK1RQT1o1RW94Znl6cVVBMVpwVlpVRU9l?=
+ =?utf-8?B?bDNmSm5HMG0xbGhyVE5zYmNVTXhKUTg4dStQTGV5T3NmTXB2T3p3aXlLY0tX?=
+ =?utf-8?B?Wml6cEZBYkM2cnZnMk5sYUR5b2ZFbVMrNEx3VjZQTDNMQzhhNTZtYkszVXQ4?=
+ =?utf-8?B?bW55dWp6alhDRXJGRnZ1cmh0VzExOFgvOGtEcDlaNm41TkhDRkJGbWNURG8y?=
+ =?utf-8?B?a1M4Um1kRGE5NmJXajZzZHc2NDRCQXNXSUkvVWFJUXZzTVBJOGRBalA2QVlF?=
+ =?utf-8?B?SmttQ1loR2prYzFnNFk3ditrajNPdS81NGxCY05IanhGLzdRM2tzb2ZvSjkw?=
+ =?utf-8?B?TE90K0RkeDlqdkhFaEU3aHZ2Z1lCbUpTZlJzZWtUbCtCU0oxR3d4QUNQUWdH?=
+ =?utf-8?B?ZWNuS0hmVWErSEtXUHpOM2ZlRUtqTjdnSzZkelBpUk1rMnlJcHovVks2bTRB?=
+ =?utf-8?B?VG1BZzMzMjRVMi9VenRtVGRtNHh1QTljUWZvR2FrMURqeVV1ZFRZZE1Vd3po?=
+ =?utf-8?B?dUJlM2xxZVp5OGRiZ3ZvcUVKQ0tEMkl3SVFoQVp1R3FENURTckk4TmlwZ2J4?=
+ =?utf-8?B?MEJqUlNwcjRGREVuenlUSEZ6c1BJVFYvT2xQM3lUOGg4MWxTVndzRktIMytt?=
+ =?utf-8?B?SmpDcjM5enpRNU9mdFdGM2lzdVZ1T1VKRnNoMmtCSWg2RVVCQitiamdJbVdX?=
+ =?utf-8?B?Q1E3eDloQzA1RXhKNWxyNEFUdmc1SjZPa0FjUHRiUFIxRnNTYXhmeExMdis4?=
+ =?utf-8?Q?k8OkLcty57Ql8ldPT3lgs4ut49U2Knpq?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH0PR12MB5417.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(8096899003)(7053199007)(38070700018);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?NUorOVVOcmFtS3ZlSURSdVc2WWNvbUJrRCtBZUlndlc2eWVHclFKc1kwQmdX?=
+ =?utf-8?B?QUk2OVJDeTlZZmNybEQ2QktzOFRuWTFHQjJqRUVWZVdhTnFSaGEyRFZRUUQ0?=
+ =?utf-8?B?Mjlpc3BjUWhSVkR6RURlaSsxNSsvSG1vemlYKzhYcTEwSEFiUDNEVEVzWUdh?=
+ =?utf-8?B?djhMVGRiYVVOMEtUNTB5NHZ1R0dwSUUxU0h5TUdLOGdZdXByMExSdUtBZlMw?=
+ =?utf-8?B?VkE1VXdtTmlzM2N1c1kxS2cvUFYrd2hXVVJGOEcxbjlnd1p3WEExaGNTeWtD?=
+ =?utf-8?B?b2M4Vk1JSDVtNFR0TFcwUFNpUnRacW9oUGlWVXZRTGFKM0ZjUlFnT09EeVZj?=
+ =?utf-8?B?WEtRaGovTmprNGxnallaZkNLMi9OQjR6SENWYTAwd05FaHhhKzY2QlN0UHJ6?=
+ =?utf-8?B?L2Zvb3B1bmtOSU1vSE4reW41S09oVVA1WGp2dC8yS0hFUzZGNjJ6STMzeGFv?=
+ =?utf-8?B?TWFVTy8vbXRpVXdlWUVYRndkU0tIL2ZlQnVBNWRuRDNpK21OMHUyeUdkNnpl?=
+ =?utf-8?B?TjF6SDI0VFcybzRaUTM2K2lnZnREcnBQR1pvYkJld2NwcnhUaytrbTV3N1lC?=
+ =?utf-8?B?d3BUa0FycmJUOEVYSVVEcG9iZjQxM2lKWldqT1UvQ3UvTVRUOGdwRWxZZkJk?=
+ =?utf-8?B?REN6WWtHSHNGN2JZZ1Z3Sll4TTlINllLQllabzMrVnJEdERCTjlER1dqdzcw?=
+ =?utf-8?B?WFhHYklUVFowMmxNdVVjMnhRajMva2J2Y09DbGo4ODZibGkzV3B6Y1FFWGVZ?=
+ =?utf-8?B?Qjl3cy9GVjY4dEJqRjVWeHpMbnBhOWNLeVVtVzJDc05Ucitndkt4b0tsc1h4?=
+ =?utf-8?B?cEdhQmZOTEgvQXJsRExBaXBjbEZEOThtbFVGUFlyZjhncEpJZHZJalVqYTd3?=
+ =?utf-8?B?bTJUVzJFSzZkT2VWUm8xbEQ1ZDF4VUp1WHNna3g2SFBkM3J5bGVDNXVEUXlo?=
+ =?utf-8?B?bitkUksrV0RMZ0hMd0M2MElqVmU2cWl2bGs5dEljQjZzeUNORytqV0R5Y0xJ?=
+ =?utf-8?B?MWdUUlMxSi9nSEI2NU05UmdTMGxPSitUTWhXK1pyVmN1V214ZWlCb0UzaGhw?=
+ =?utf-8?B?YjFlOFJLVDJNS2NOR3B6MTJDTW11RHFBSDFUU1NsVjlGRE9iSmwrY0JMd2F2?=
+ =?utf-8?B?Tk4wMWJYaGVQRnBZYmhZam1mcDZXcmtOZm83RkdiTkNtWDJ6RElEZ2lBSlVl?=
+ =?utf-8?B?ZHJpK0pKRW5WR1d4Vmp3eS9FbWJNUzZYQkN2Y2JBMDVGdTFkWUN5NkZ2UWI0?=
+ =?utf-8?B?aUsvMHhOOXRRU1h0NmxkUmhiZzdvbEw3cHNwVDhDSEwvZ2I4MUhKaFhDYVJk?=
+ =?utf-8?B?b1lZUlkrd3FubGh4YmM0dFZEa0l3eUdid1RIdmQvMTlnaGxvR1dTQmxrOE91?=
+ =?utf-8?B?TW5oSlkveUxYY1ZxUVA3WllPMGR3aG5lZEVrazZvQjZNUkNBb0lKbUI4QlVq?=
+ =?utf-8?B?Q3VWQVFNR0NtOWROb1NUSmFMam9LcmJwUjBDVTdRa01ZRzViaFdVY24wc2hs?=
+ =?utf-8?B?YXZqME1kK2NVSUczY24yaitIc3pXTlpZQWltcDh2YVVLVmE4TnV5bTVTOUUz?=
+ =?utf-8?B?ckM1Q2lDRFBQYVVtZ2dlNjNzR2xnYnZCR3dvREw4clNZc3VvMGppb1FuUTJB?=
+ =?utf-8?B?MmxGUnJjNjNNbUZnVWNzczlYQnNpQm14Y3hUWHFkODlWTjVQblkzdkdCRm9M?=
+ =?utf-8?B?N2RRRmRPaUtqOGwrRUpXTnBqRHZjalZiMEJKd0U4d1ZLaTN2ZFo1WFdaSVJS?=
+ =?utf-8?B?c3FKcnN6VHFKdmdMRnZOV1luQU9aQjd5bWVRQng5dUM2WEJELzVodFpVUVRh?=
+ =?utf-8?B?SStadEI4SnFpejBpV0IwaEhlczNhWnF6OVV6VVJIMVQvdXBnM2tqMk9LNy9U?=
+ =?utf-8?B?OHVFRUdJQ3QvbU91aUZmWmRSZVlCYU1wTnpwV24yem50VFF1ZXZocHNUTUU3?=
+ =?utf-8?B?TkUwdW5pamsyUUg0SjhTbUhDTmtPTGhVcEVicjdzLzV3Vk9JcnZEdXFacFhB?=
+ =?utf-8?B?M1FVTWU1ODNwRXhuM2JnTUhoRWo0NWpPSzc2TDM4cytHcTloaWpuMkFuVDBH?=
+ =?utf-8?B?S1FKcGlyZ1dXdjB2Z0RVMTJGU0dONFVaRG92NC9IVHJUMDdSbXB5VmxYa2xk?=
+ =?utf-8?Q?KE1g=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_PH0PR12MB5417A0CED996D52E33D234B98F112PH0PR12MB5417namp_"
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB6566:EE_|BY1PR12MB8448:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8ca1fb1b-54e0-4339-7c99-08dd2eb116a5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024|8096899003;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?M1BaY3pHbnBVUjNhN1FHdVQ1UnRFeGU0Q2hQWkpoV0JsVFc2Vkt2WWJvRGYx?=
- =?utf-8?B?S0sxcFdra1NqSHN1cUxGb3VXbE9CSzZuUmQ3YWFDd2pRbmlHNXppdGpuSWJs?=
- =?utf-8?B?VkxXL2lqWU41QTFyUzNOZU9EZG8xc1lDdHU2aFNkemdZZk5QUlp3aFI5SzN4?=
- =?utf-8?B?RXZ4aEs0YnVKWjh2TitRZGV1NFRGbEFTZ20vSG5neXBpY0g4NWQ0dmtlR1BG?=
- =?utf-8?B?SUdqT1VmbGcwdDJkem04b1I2UVhhalJkMEtia1VGSXU2TUZnMW4vSTdVM0l1?=
- =?utf-8?B?Nkx4M2RsbU1BYS9wY1l5RHU5dVFnLzVRa0tCaUFjSDVnU2lhbU40MEdGNUlt?=
- =?utf-8?B?KzBJb2VEUVpxOEpQRmNRWWVoYk1WMnhkRnNONDl4L0ZPbkNsOE1wU1oxTkk0?=
- =?utf-8?B?cXh2bkVnY0hFeTBmcE1ZZE1ISWFQTXhhUklzbUYrVkw0bzJpREdUbU96bmgr?=
- =?utf-8?B?YWRZZ1JiTWd0cjNEdmYyMldqN200bVgxek5jU2JyZGlNRHV3S3NsZDlqTUpB?=
- =?utf-8?B?a25OZUgwaFlMZnNwOVR0dGZCQTN6aUY2eUtFMThBOFVxOUpZbGNpVFpxL3Q5?=
- =?utf-8?B?ejJFQTlla1FrV21kTlQvQ3lqdUNXSm1ybmsvUE5rOWtGdEl6VGVlZnVrWWpw?=
- =?utf-8?B?OHpla013L2JoL0k0Nno4MVVuREJBS1N3MVZZazR1ajRYTXBkbWpBczIrblpS?=
- =?utf-8?B?ZVN4d2djUTFVVmVNS3F4QWlScHF3cko5VHBsMVdHcHZSN1I2Ykw2cWJFa2wz?=
- =?utf-8?B?aHVXWG45QjJveWt6Zkd6cm5pUGVOYXgrNmNFZXRqS1l5TzA5RHdJdGdMTlVW?=
- =?utf-8?B?bHNnenFlV0t5SFp6a3VpMXFVSFNDTzJYM1VqTUgwUUd0KzZHVVpwOHdpcHJM?=
- =?utf-8?B?K3krczdlNHp6Z0NuUUVpV1loeHlaTmJJUXVBdjZ0Vnc0RnZ2bXB3NzBJckpy?=
- =?utf-8?B?d2Jxakpod0Y0dHB0Y1lzUWtMeW10dUFRcDUxRk5nc0F6bG1LR04vUkFFbk1s?=
- =?utf-8?B?cjVsUE1Gd3QyZlBoME4xaVVLV3RMOGVJOStVY1VNK0hoSXk0NmZPRmFGOVZi?=
- =?utf-8?B?TGNXT1AxSVdWbUdld1V1VmpZVm9yeGhueVRTVmRSYk05aXczLzZ4d2t3VVdK?=
- =?utf-8?B?dkNyLzlEMlBNNVZMT0ZkcGJXKzNacmhuZTYyZnMvMU1IR3ZqWmFXemxwNnFY?=
- =?utf-8?B?YU1weUNwMEM4Kzd4S1hpV1doQmtrZExjL0ZVaDBlLzhObUlzbjlCQWVkZERK?=
- =?utf-8?B?NWI1cTUwYTVLeEpaQkNsenRVTlN1OGMreDU1ckFlSkY1cE42ZlJoSnpHcG42?=
- =?utf-8?B?Y2RycllIY1ViMyt4TjQ2TGcvQ0RQS0p6N1ZnS0hkUEErWTJzaEs1YmlFOTN6?=
- =?utf-8?B?ejIySGhiR1JGcHhGRXRpQTlSaUJFaFFTYkUzdlpMZmlmT0dOTXpwL3JNL0Vx?=
- =?utf-8?B?eU5DZGlHc2NQbTJQb21mTEliYXp1LzFkc3ZoTWRIQ05KTEZNZkNPenMwem5O?=
- =?utf-8?B?d2hPVEU1OUNGUFYxbTEvc0YvR2xZdWxhZ1JNVTZNOGRxN3pjcm1UcmtQVzAx?=
- =?utf-8?B?dEdtaEh0dUpIb3hIaWNGMXZ5c1FaeGpxY09hcWxmbFR3bUVvclVCbnNsUlV0?=
- =?utf-8?B?cXNVcm1JTlgzWGYwT1JFMGV4c1BaQ2dvZGtDdHIzdjBRWnN0VWFtUmtGRm9s?=
- =?utf-8?B?WUxVOVVkbFc1RlR6aTNvbjZIT1FZWCtvaGI5MDZXNitQUUs4R1haaUtWTCt3?=
- =?utf-8?B?RzNmZUJkbWRYL1pkVGkzSlNvQjdWbTRxU0ZyUlhsejJEQ0NaTC96Y21mM2l1?=
- =?utf-8?B?d0xqaTdoaWhNYU80RW1wQTFUc21sblBVUU1xVUgrOW5QN2k5MU1oT091eGVX?=
- =?utf-8?Q?IY6KT/lhuFjqb?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB6566.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(8096899003); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?b1hnZDRoTHZuUitwU3B3N25oSTJhcjZSSVNlYU9SdmJRQmttOE1UNW9OVGJh?=
- =?utf-8?B?V0s0N2tWNHhsU2hVd2xXeE5KUjZTeXphVzhlaHg5eGRhbGZjQ2o1UHNybmFP?=
- =?utf-8?B?QURmcEJ1R09VeERuODc1WjlCR1RSeTVsRStWV1NScGtKaG02UlVCSk12SStY?=
- =?utf-8?B?YTRpL2JDUSsrZ2ZndTBTZTNXUjV5OURZcGMvQ1JDeVNKMjhOY2prS2ZwclRG?=
- =?utf-8?B?WlNjVW92QzhBc2hkdTBVSEI0dVJ1eEhkUU9IaEFvK3RhY3U5WkpSRzduWXla?=
- =?utf-8?B?TmRGOUhSdGhEOGgxNWdLRExnemM0djE3dG5FMGxaU2RzQkRxbWVQSFNBVWdr?=
- =?utf-8?B?UTlPbFFGcDJVWnlFbWNCcnNmaTBXYUoyYWczZE1mUFBzNzlLUWlWbHp0bi9L?=
- =?utf-8?B?ME04c01rYUNya2lIck4rcTQxdnREVllPQ2NuZDdpTk12cmx2TDYyZTJNM2JP?=
- =?utf-8?B?dklyYmdBeWd5NVNPWG1YTWlMVHQySjcrZm1uYlJ3c09zWjBkbFJ6OFNCaFRB?=
- =?utf-8?B?UjBTV1VMYXVEVU9QMm84YzZQTFdxTVFySWhveGxhVW04dDdLZW5ZcExwNm5M?=
- =?utf-8?B?NEpNYU1zeHFJbEVrWVVzMHQ0OC9HUzdOdHVoZmpFc0NmWHpPOWViMlRNNE10?=
- =?utf-8?B?cVdMQ0RUUk1ZdzFRa216YndMNmFhRzc5aWtBK0R2VDBaZzZPenUxYnZsY1lI?=
- =?utf-8?B?NG1KNEFyZjBtM1hIZmNRdFJXVld5MllNekJSVW5QSlAxcDJCT1hMMUdxSFpS?=
- =?utf-8?B?Nlh0ZVNvRkI5ZjFDN0psdU9vd21aeU9DSWVUcjZ4WGNPZGhQR3BWY3hjcHE2?=
- =?utf-8?B?bEd4RFVBQU9sd2IxNXlGRXlpbU9XbElacFlQS1k3OWo1eC9LeDVqS3dFYkJP?=
- =?utf-8?B?UHpyL1FjZjFWQVpibmFYQlIvM09xdkQ3c3F0ZGoxR2IvMytma05iMDUvRTBt?=
- =?utf-8?B?ZzBtOXRSNnErQTRJLzExRjJzMmlCN2JDalFpWFJNZ0RneFcxVFZERTdhVlR6?=
- =?utf-8?B?L3lVbEtJTGV1RS9JODhxeEFzQ2NpcTNMMERjbnBWRjc1WEh6b0RlbTIyaTdP?=
- =?utf-8?B?Z1hVYzNMNmtJWnArQjlPbDVQRG9aa0prK250aUNqTFU2cDlXTWdmejVSREl2?=
- =?utf-8?B?aFFwU2VQdGtORDRYYUNDSkEwcjdlMFUxMW9zZk1URnJScnp0aERRandqdDd4?=
- =?utf-8?B?RlM3SE50aXJxVmREWGNsVithdmN1RzArZUltd2tTQkZlUTlSdVBUUlJzVy9C?=
- =?utf-8?B?ZkUvYk00VitVbkNucFBFQTVVUG52YjBkYllnaS9PajBBUHBBREVkNElaOWZh?=
- =?utf-8?B?UklPZ2s0WGpDbGNFQ0hHNXp3RXNzNzI2T3I3OUdOTW5pUU5tdU1zRVlVM29n?=
- =?utf-8?B?M29NRmRJV25IaVkrZlVnZDFlVWtXMU5WZCsraGZMU2VtWEs3akFla0tWR3lh?=
- =?utf-8?B?clVRV1pDZ3BjUDgwU0pvaGM3MER6ZEJ3eGR5YXA0U0szanRmNTE1R2NhVGVM?=
- =?utf-8?B?RlZ4ZXdnWDROMFkrLzE3K2FSd0RUalZrZy9xQkFzdUhDemdOV0NLeWdsK1J4?=
- =?utf-8?B?L0VxWTMxVU9zUGt5Y2NMTFpLL0lvRGdFa2U5VHBSb252dnZOZWQvQVVuQU5B?=
- =?utf-8?B?UHJXbkU4Sks4NGtxTittWnB4QzMzTXpYeVJuY2twd3BVcGNNOTZ5MSs5SHNh?=
- =?utf-8?B?SklGS0ZMME5LTFdiK3o0QUxMemE3bm1Fb1lWMGhRL2NFaWFGUDJUSGFGclBT?=
- =?utf-8?B?TzBadTFOVVNoN2h2UXNVTFlhK1lSZG9qR1QyZWp6MDdHUFV6akFEVVhVSGpW?=
- =?utf-8?B?YkZjY1lReEt2NFFsWFp1eHN5QWVLNmpUcVppSnpWR2NYM3FCb2I4angvVHpO?=
- =?utf-8?B?WTRNajBoWDVSemlycm53OXA2SXJ5SDNkQ3dDUzI2NENxdGg1dlBleWJxNStB?=
- =?utf-8?B?ZUhIVkF3UlNuWVpyNHNqWW9pNjhGbzI5QjhjRW1YZHBYT09PRjZnSERxQ3ZZ?=
- =?utf-8?B?c2RSTzFCcU1MK3lGKytXUXYyZ0E0UkZEQUJFblA3QTZkNHBLRTJvR3A4a0hs?=
- =?utf-8?B?ZEZnTzduaWpib0JpY1FuaUJSUVNTOXJvRWxTOFBrNFg3SUprVVpPczNnQ3Rm?=
- =?utf-8?Q?BQmU=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8ca1fb1b-54e0-4339-7c99-08dd2eb116a5
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6566.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jan 2025 00:20:28.2190 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: UlNT3TYWMwGqBfYBl076hNtGD3fPDgPNULOD7xMkDv0XaavCG9ykCx9NTGemPipX
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY1PR12MB8448
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5417.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 963c4842-8469-4abe-76bb-08dd2ebf495f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Jan 2025 02:02:06.0680 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: o0JzHH5+fimu6KN+HoS8NrQ9TdZU2+gPVIqn7G710BLIRUgFCjlME7RS7BWMw0B5
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4356
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,402 +172,247 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------aD0ekUI74IBpPXxXKjlCyYQ8
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+--_000_PH0PR12MB5417A0CED996D52E33D234B98F112PH0PR12MB5417namp_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
+W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEFNRCBJbnRlcm5hbCBEaXN0cmlidXRpb24gT25seV0N
+Cg0KDQoNCkZyb206IENoZW4sIFhpYW9nYW5nIDxYaWFvZ2FuZy5DaGVuQGFtZC5jb20+DQpTZW50
+OiBNb25kYXksIEphbnVhcnkgNiwgMjAyNSAxMToyNyBQTQ0KVG86IERlbmcsIEVtaWx5IDxFbWls
+eS5EZW5nQGFtZC5jb20+OyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KU3ViamVjdDog
+UmU6IFtQQVRDSF0gZHJtL2FtZGtmZDogRml4IHBhcnRpYWwgbWlncmF0ZSBpc3N1ZQ0KDQoNCg0K
+T24gMS8yLzIwMjUgNjowNiBQTSwgRW1pbHkgRGVuZyB3cm90ZToNCg0KRm9yIHBhcnRpYWwgbWln
+cmF0ZSBmcm9tIHJhbSB0byB2cmFtLCB0aGUgbWlncmF0ZS0+Y3BhZ2VzIGlzIG5vdA0KDQplcXVh
+bCB0byBtaWdyYXRlLT5ucGFnZXMsIHNob3VsZCB1c2UgbWlncmF0ZS0+bnBhZ2VzIHRvIGNoZWNr
+IGFsbCBuZWVkZWQNCg0KbWlncmF0ZSBwYWdlcyB3aGljaCBjb3VsZCBiZSBjb3BpZWQgb3Igbm90
+Lg0KDQoNCg0KQW5kIG9ubHkgbmVlZCB0byBzZXQgdGhvc2UgcGFnZXMgY291bGQgYmUgbWlncmF0
+ZWQgdG8gbWlncmF0ZS0+ZHN0W2ldLCBvcg0KDQp0aGUgbWlncmF0ZV92bWFfcGFnZXMgd2lsbCBt
+aWdyYXRlIHRoZSB3cm9uZyBwYWdlcyBiYXNlZCBvbiB0aGUgbWlncmF0ZS0+ZHN0W2ldLg0KDQoN
+Cg0KU2lnbmVkLW9mZi1ieTogRW1pbHkgRGVuZyA8RW1pbHkuRGVuZ0BhbWQuY29tPjxtYWlsdG86
+RW1pbHkuRGVuZ0BhbWQuY29tPg0KDQotLS0NCg0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2Zk
+L2tmZF9taWdyYXRlLmMgfCA4ICsrKystLS0tDQoNCiAxIGZpbGUgY2hhbmdlZCwgNCBpbnNlcnRp
+b25zKCspLCA0IGRlbGV0aW9ucygtKQ0KDQoNCg0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1ka2ZkL2tmZF9taWdyYXRlLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9r
+ZmRfbWlncmF0ZS5jDQoNCmluZGV4IDRiMjc1OTM3ZDA1ZS4uNWM5NmMyZDQyNWUzIDEwMDY0NA0K
+DQotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfbWlncmF0ZS5jDQoNCisrKyBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9taWdyYXRlLmMNCg0KQEAgLTI3OCw3ICsy
+NzgsNyBAQCBzdm1fbWlncmF0ZV9jb3B5X3RvX3ZyYW0oc3RydWN0IGtmZF9ub2RlICpub2RlLCBz
+dHJ1Y3Qgc3ZtX3JhbmdlICpwcmFuZ2UsDQoNCiAgICAgICAgICAgICAgICAgICAgICAgICBzdHJ1
+Y3QgbWlncmF0ZV92bWEgKm1pZ3JhdGUsIHN0cnVjdCBkbWFfZmVuY2UgKiptZmVuY2UsDQoNCiAg
+ICAgICAgICAgICAgICAgICAgICAgICBkbWFfYWRkcl90ICpzY3JhdGNoLCB1aW50NjRfdCB0dG1f
+cmVzX29mZnNldCkNCg0KIHsNCg0KLSAgICAgICB1aW50NjRfdCBucGFnZXMgPSBtaWdyYXRlLT5j
+cGFnZXM7DQoNCisgICAgICAgdWludDY0X3QgbnBhZ2VzID0gbWlncmF0ZS0+bnBhZ2VzOw0KSSBh
+Z3JlZSB0aGlzIHBhcnQuDQoNCg0KDQoNCiAgICAgICAgc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFk
+ZXYgPSBub2RlLT5hZGV2Ow0KDQogICAgICAgIHN0cnVjdCBkZXZpY2UgKmRldiA9IGFkZXYtPmRl
+djsNCg0KICAgICAgICBzdHJ1Y3QgYW1kZ3B1X3Jlc19jdXJzb3IgY3Vyc29yOw0KDQpAQCAtMjk5
+LDkgKzI5OSw2IEBAIHN2bV9taWdyYXRlX2NvcHlfdG9fdnJhbShzdHJ1Y3Qga2ZkX25vZGUgKm5v
+ZGUsIHN0cnVjdCBzdm1fcmFuZ2UgKnByYW5nZSwNCg0KICAgICAgICAgICAgICAgIHN0cnVjdCBw
+YWdlICpzcGFnZTsNCg0KDQoNCiAgICAgICAgICAgICAgICBkc3RbaV0gPSBjdXJzb3Iuc3RhcnQg
+KyAoaiA8PCBQQUdFX1NISUZUKTsNCg0KLSAgICAgICAgICAgICAgIG1pZ3JhdGUtPmRzdFtpXSA9
+IHN2bV9taWdyYXRlX2FkZHJfdG9fcGZuKGFkZXYsIGRzdFtpXSk7DQoNCi0gICAgICAgIHN2bV9t
+aWdyYXRlX2dldF92cmFtX3BhZ2UocHJhbmdlLCBtaWdyYXRlLT5kc3RbaV0pOw0KDQotICAgICAg
+ICAgICAgICAgbWlncmF0ZS0+ZHN0W2ldID0gbWlncmF0ZV9wZm4obWlncmF0ZS0+ZHN0W2ldKTsN
+Cg0KDQoNCiAgICAgICAgICAgICAgICBzcGFnZSA9IG1pZ3JhdGVfcGZuX3RvX3BhZ2UobWlncmF0
+ZS0+c3JjW2ldKTsNCg0KICAgICAgICAgICAgICAgIGlmIChzcGFnZSAmJiAhaXNfem9uZV9kZXZp
+Y2VfcGFnZShzcGFnZSkpIHsNCg0KQEAgLTM0NSw2ICszNDIsOSBAQCBzdm1fbWlncmF0ZV9jb3B5
+X3RvX3ZyYW0oc3RydWN0IGtmZF9ub2RlICpub2RlLCBzdHJ1Y3Qgc3ZtX3JhbmdlICpwcmFuZ2Us
+DQoNCiAgICAgICAgICAgICAgICB9IGVsc2Ugew0KDQogICAgICAgICAgICAgICAgICAgICAgICBq
+Kys7DQoNCiAgICAgICAgICAgICAgICB9DQoNCisgICAgICAgICAgICAgICBtaWdyYXRlLT5kc3Rb
+aV0gPSBzdm1fbWlncmF0ZV9hZGRyX3RvX3BmbihhZGV2LCBkc3RbaV0pOw0KDQorICAgICAgICBz
+dm1fbWlncmF0ZV9nZXRfdnJhbV9wYWdlKHByYW5nZSwgbWlncmF0ZS0+ZHN0W2ldKTsNCg0KKyAg
+ICAgICAgICAgICAgIG1pZ3JhdGUtPmRzdFtpXSA9IG1pZ3JhdGVfcGZuKG1pZ3JhdGUtPmRzdFtp
+XSk7DQoNCkkgdGhpbmsgd2hhdCBjdXJyZW50IGNvZGUgbWlzc2VzIGhlcmUgaXMgdGhhdCBtaWdy
+YXRlLT5kc3RbaV0gc2hvdWxkIG1hdGNoIG1pZ3JhdGUtPnNyY1tpXTogbWlncmF0ZS0+ZHN0W2ld
+KHZyYW0gcGFnZSkgZ290IHNldCBmb3IgcGFnZSB0aGF0IHdpbGwgYmUgbWlncmF0ZWQgZnJvbSBz
+eXN0ZW0gcmFtLCBvdGhlcndpc2UgbWlncmF0ZS0+ZHN0W2ldIHNob3VsZCBiZSB6ZXJvLiBZb3Vy
+IGNoYW5nZSBtYWtlcyBtaWdyYXRlcy0+ZHN0W2ldIG5vdCBzZXQgdGhvdWdoIGl0cyBwYWdlIGhh
+cyBiZWVuIG1pZ3JhdGVkIGJ5IHN2bV9taWdyYXRlX2NvcHlfbWVtb3J5X2dhcnQgZm9yIHRoZSBj
+YXNlIHRoYXQgY3BhZ2VzICE9IG5wYWdlcywgYmVjYXVzZSB5b3Ugc2V0IG1pZ3JhdGUtPmRzdFtp
+XSBhdCBlbmQgb2YgbG9vcCBhbmQgdXNlICdjb250aW51ZScgYWZ0ZXIgbWlncmF0aW9uLg0KDQpU
+aGUgcGFnZSBtaWdyYXRpb24gaGFwcGVucyBhdCBzdm1fbWlncmF0ZV9jb3B5X21lbW9yeV9nYXJ0
+LCBub3QgbWlncmF0ZV92bWFfcGFnZXMgdGhhdCBtaWdyYXRlcyBzdHJ1Y3QgcGFnZSBtZXRhLWRh
+dGEgZnJvbSBzb3VyY2Ugc3RydWN0IHBhZ2UgdG8gZGVzdGluYXRpb24gc3RydWN0IHBhZ2UgYW5k
+IGhhcyBtbXUgbm90aWZpY2F0aW9uLg0KDQpSZWdhcmRzDQoNClhpYW9nYW5nDQoNClRoZSBtaWdy
+YXRlLT5kc3RbaV0gZGVmYXVsdCB2YWx1ZSBpcyAwLiBUaGUgcHVycG9zZSBvZiB0aGUgY2hhbmdl
+IGlzIHRvIG1hdGNoIHRoZSBtaWdyYXRlLT5kc3RbaV0gYW5kIG1pZ3JhdGUtPnNyY1tpXS4gQW5k
+IGZvciBzdm1fbWlncmF0ZV9jb3B5X3RvX3ZyYW0sIGl0IG9ubHkgd2lsbCBjYWxsIHN2bV9taWdy
+YXRlX2NvcHlfbWVtb3J5X2dhcnQgdG8gY29weSB0aG9zZSBwYWdlcyB3aGljaCBuZWVkIHRvIGJl
+IG1pZ3JhdGVkLCBmb3IgdGhvc2UgZG9u4oCZdCBuZWVkIG1pZ3JhdGUgcGFnZXMsIGl0IHdvbuKA
+mXQgY2FsbCBzdm1fbWlncmF0ZV9jb3B5X21lbW9yeV9nYXJ0Lg0KDQoNCg0KICAgICAgICB9DQoN
+Cg0KDQogICAgICAgIHIgPSBzdm1fbWlncmF0ZV9jb3B5X21lbW9yeV9nYXJ0KGFkZXYsIHNyYyAr
+IGkgLSBqLCBkc3QgKyBpIC0gaiwgaiwNCg==
 
-On 1/6/2025 5:50 PM, Philip Yang wrote:
->
->
-> On 2025-01-02 19:06, Emily Deng wrote:
->> For partial migrate from ram to vram, the migrate->cpages is not
->> equal to migrate->npages, should use migrate->npages to check all needed
->> migrate pages which could be copied or not.
->>
->> And only need to set those pages could be migrated to migrate->dst[i], or
->> the migrate_vma_pages will migrate the wrong pages based on the migrate->dst[i].
->>
->> Signed-off-by: Emily Deng<Emily.Deng@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 8 ++++----
->>   1 file changed, 4 insertions(+), 4 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
->> index 4b275937d05e..5c96c2d425e3 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
->> @@ -278,7 +278,7 @@ svm_migrate_copy_to_vram(struct kfd_node *node, struct svm_range *prange,
->>   			 struct migrate_vma *migrate, struct dma_fence **mfence,
->>   			 dma_addr_t *scratch, uint64_t ttm_res_offset)
->>   {
->> -	uint64_t npages = migrate->cpages;
->> +	uint64_t npages = migrate->npages;
->
-> As partial migration size is based on prange granularity, by default 
-> 2MB, maybe always migrate->cpages equal to migrate->npages, that's why 
-> we didn't trigger this bug. Wondering how do you catch this bug? This 
-> bug will leak svm_bo too, as svm_migrate_get_vram_page reference 
-> counter is incorrect.
->
-The commit message is somehow confusing. It is not partial migration 
-from page fault recovery. It is the case that migrate->cpages != 
-migrate->npages after migrate_vma_setup due to some pages cannot be 
-moved for some reasons. For that only part of src pages can be migrated. 
-Ex: some system ram pages got locked by kernel. Usually this case does 
-not happen during normal tests.
+--_000_PH0PR12MB5417A0CED996D52E33D234B98F112PH0PR12MB5417namp_
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Regards
+PGh0bWwgeG1sbnM6dj0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTp2bWwiIHhtbG5zOm89InVy
+bjpzY2hlbWFzLW1pY3Jvc29mdC1jb206b2ZmaWNlOm9mZmljZSIgeG1sbnM6dz0idXJuOnNjaGVt
+YXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6d29yZCIgeG1sbnM6bT0iaHR0cDovL3NjaGVtYXMubWlj
+cm9zb2Z0LmNvbS9vZmZpY2UvMjAwNC8xMi9vbW1sIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcv
+VFIvUkVDLWh0bWw0MCI+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIg
+Y29udGVudD0idGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRv
+ciIgY29udGVudD0iTWljcm9zb2Z0IFdvcmQgMTUgKGZpbHRlcmVkIG1lZGl1bSkiPg0KPHN0eWxl
+PjwhLS0NCi8qIEZvbnQgRGVmaW5pdGlvbnMgKi8NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6
+IkNhbWJyaWEgTWF0aCI7DQoJcGFub3NlLTE6MiA0IDUgMyA1IDQgNiAzIDIgNDt9DQpAZm9udC1m
+YWNlDQoJe2ZvbnQtZmFtaWx5OkRlbmdYaWFuOw0KCXBhbm9zZS0xOjIgMSA2IDAgMyAxIDEgMSAx
+IDE7fQ0KQGZvbnQtZmFjZQ0KCXtmb250LWZhbWlseTpDYWxpYnJpOw0KCXBhbm9zZS0xOjIgMTUg
+NSAyIDIgMiA0IDMgMiA0O30NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6QXB0b3M7fQ0KQGZv
+bnQtZmFjZQ0KCXtmb250LWZhbWlseToiXEBEZW5nWGlhbiI7DQoJcGFub3NlLTE6MiAxIDYgMCAz
+IDEgMSAxIDEgMTt9DQpAZm9udC1mYWNlDQoJe2ZvbnQtZmFtaWx5OkNvbnNvbGFzOw0KCXBhbm9z
+ZS0xOjIgMTEgNiA5IDIgMiA0IDMgMiA0O30NCi8qIFN0eWxlIERlZmluaXRpb25zICovDQpwLk1z
+b05vcm1hbCwgbGkuTXNvTm9ybWFsLCBkaXYuTXNvTm9ybWFsDQoJe21hcmdpbjowaW47DQoJZm9u
+dC1zaXplOjEyLjBwdDsNCglmb250LWZhbWlseToiQXB0b3MiLHNhbnMtc2VyaWY7fQ0KYTpsaW5r
+LCBzcGFuLk1zb0h5cGVybGluaw0KCXttc28tc3R5bGUtcHJpb3JpdHk6OTk7DQoJY29sb3I6Ymx1
+ZTsNCgl0ZXh0LWRlY29yYXRpb246dW5kZXJsaW5lO30NCnByZQ0KCXttc28tc3R5bGUtcHJpb3Jp
+dHk6OTk7DQoJbXNvLXN0eWxlLWxpbms6IkhUTUwgUHJlZm9ybWF0dGVkIENoYXIiOw0KCW1hcmdp
+bjowaW47DQoJZm9udC1zaXplOjEwLjBwdDsNCglmb250LWZhbWlseToiQ291cmllciBOZXciO30N
+CnNwYW4uSFRNTFByZWZvcm1hdHRlZENoYXINCgl7bXNvLXN0eWxlLW5hbWU6IkhUTUwgUHJlZm9y
+bWF0dGVkIENoYXIiOw0KCW1zby1zdHlsZS1wcmlvcml0eTo5OTsNCgltc28tc3R5bGUtbGluazoi
+SFRNTCBQcmVmb3JtYXR0ZWQiOw0KCWZvbnQtZmFtaWx5OkNvbnNvbGFzO30NCnNwYW4uRW1haWxT
+dHlsZTIxDQoJe21zby1zdHlsZS10eXBlOnBlcnNvbmFsLXJlcGx5Ow0KCWZvbnQtZmFtaWx5OiJB
+cmlhbCIsc2Fucy1zZXJpZjsNCgljb2xvcjp3aW5kb3d0ZXh0O30NCi5Nc29DaHBEZWZhdWx0DQoJ
+e21zby1zdHlsZS10eXBlOmV4cG9ydC1vbmx5Ow0KCWZvbnQtc2l6ZToxMC4wcHQ7DQoJbXNvLWxp
+Z2F0dXJlczpub25lO30NCkBwYWdlIFdvcmRTZWN0aW9uMQ0KCXtzaXplOjguNWluIDExLjBpbjsN
+CgltYXJnaW46MS4waW4gMS4waW4gMS4waW4gMS4waW47fQ0KZGl2LldvcmRTZWN0aW9uMQ0KCXtw
+YWdlOldvcmRTZWN0aW9uMTt9DQotLT48L3N0eWxlPjwhLS1baWYgZ3RlIG1zbyA5XT48eG1sPg0K
+PG86c2hhcGVkZWZhdWx0cyB2OmV4dD0iZWRpdCIgc3BpZG1heD0iMTAyNiIgLz4NCjwveG1sPjwh
+W2VuZGlmXS0tPjwhLS1baWYgZ3RlIG1zbyA5XT48eG1sPg0KPG86c2hhcGVsYXlvdXQgdjpleHQ9
+ImVkaXQiPg0KPG86aWRtYXAgdjpleHQ9ImVkaXQiIGRhdGE9IjEiIC8+DQo8L286c2hhcGVsYXlv
+dXQ+PC94bWw+PCFbZW5kaWZdLS0+DQo8L2hlYWQ+DQo8Ym9keSBsYW5nPSJFTi1VUyIgbGluaz0i
+Ymx1ZSIgdmxpbms9InB1cnBsZSIgc3R5bGU9IndvcmQtd3JhcDpicmVhay13b3JkIj4NCjxwIHN0
+eWxlPSJmb250LWZhbWlseTpDYWxpYnJpO2ZvbnQtc2l6ZToxMHB0O2NvbG9yOiMwMDAwRkY7bWFy
+Z2luOjVwdDtmb250LXN0eWxlOm5vcm1hbDtmb250LXdlaWdodDpub3JtYWw7dGV4dC1kZWNvcmF0
+aW9uOm5vbmU7IiBhbGlnbj0iTGVmdCI+DQpbQU1EIE9mZmljaWFsIFVzZSBPbmx5IC0gQU1EIElu
+dGVybmFsIERpc3RyaWJ1dGlvbiBPbmx5XTxicj4NCjwvcD4NCjxicj4NCjxkaXY+DQo8ZGl2IGNs
+YXNzPSJXb3JkU2VjdGlvbjEiPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZv
+bnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7QXJpYWwmcXVvdDssc2Fucy1zZXJpZiI+
+PG86cD4mbmJzcDs8L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4g
+c3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7QXJpYWwmcXVvdDssc2Fu
+cy1zZXJpZiI+PG86cD4mbmJzcDs8L286cD48L3NwYW4+PC9wPg0KPGRpdiBzdHlsZT0iYm9yZGVy
+Om5vbmU7Ym9yZGVyLWxlZnQ6c29saWQgYmx1ZSAxLjVwdDtwYWRkaW5nOjBpbiAwaW4gMGluIDQu
+MHB0Ij4NCjxkaXY+DQo8ZGl2IHN0eWxlPSJib3JkZXI6bm9uZTtib3JkZXItdG9wOnNvbGlkICNF
+MUUxRTEgMS4wcHQ7cGFkZGluZzozLjBwdCAwaW4gMGluIDBpbiI+DQo8cCBjbGFzcz0iTXNvTm9y
+bWFsIj48Yj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWlseTomcXVvdDtD
+YWxpYnJpJnF1b3Q7LHNhbnMtc2VyaWYiPkZyb206PC9zcGFuPjwvYj48c3BhbiBzdHlsZT0iZm9u
+dC1zaXplOjExLjBwdDtmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LHNhbnMtc2VyaWYi
+PiBDaGVuLCBYaWFvZ2FuZyAmbHQ7WGlhb2dhbmcuQ2hlbkBhbWQuY29tJmd0Ow0KPGJyPg0KPGI+
+U2VudDo8L2I+IE1vbmRheSwgSmFudWFyeSA2LCAyMDI1IDExOjI3IFBNPGJyPg0KPGI+VG86PC9i
+PiBEZW5nLCBFbWlseSAmbHQ7RW1pbHkuRGVuZ0BhbWQuY29tJmd0OzsgYW1kLWdmeEBsaXN0cy5m
+cmVlZGVza3RvcC5vcmc8YnI+DQo8Yj5TdWJqZWN0OjwvYj4gUmU6IFtQQVRDSF0gZHJtL2FtZGtm
+ZDogRml4IHBhcnRpYWwgbWlncmF0ZSBpc3N1ZTxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjwvZGl2
+Pg0KPC9kaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjxw
+PjxvOnA+Jm5ic3A7PC9vOnA+PC9wPg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPk9uIDEv
+Mi8yMDI1IDY6MDYgUE0sIEVtaWx5IERlbmcgd3JvdGU6PG86cD48L286cD48L3A+DQo8L2Rpdj4N
+CjxibG9ja3F1b3RlIHN0eWxlPSJtYXJnaW4tdG9wOjUuMHB0O21hcmdpbi1ib3R0b206NS4wcHQi
+Pg0KPHByZT5Gb3IgcGFydGlhbCBtaWdyYXRlIGZyb20gcmFtIHRvIHZyYW0sIHRoZSBtaWdyYXRl
+LSZndDtjcGFnZXMgaXMgbm90PG86cD48L286cD48L3ByZT4NCjxwcmU+ZXF1YWwgdG8gbWlncmF0
+ZS0mZ3Q7bnBhZ2VzLCBzaG91bGQgdXNlIG1pZ3JhdGUtJmd0O25wYWdlcyB0byBjaGVjayBhbGwg
+bmVlZGVkPG86cD48L286cD48L3ByZT4NCjxwcmU+bWlncmF0ZSBwYWdlcyB3aGljaCBjb3VsZCBi
+ZSBjb3BpZWQgb3Igbm90LjxvOnA+PC9vOnA+PC9wcmU+DQo8cHJlPjxvOnA+Jm5ic3A7PC9vOnA+
+PC9wcmU+DQo8cHJlPkFuZCBvbmx5IG5lZWQgdG8gc2V0IHRob3NlIHBhZ2VzIGNvdWxkIGJlIG1p
+Z3JhdGVkIHRvIG1pZ3JhdGUtJmd0O2RzdFtpXSwgb3I8bzpwPjwvbzpwPjwvcHJlPg0KPHByZT50
+aGUgbWlncmF0ZV92bWFfcGFnZXMgd2lsbCBtaWdyYXRlIHRoZSB3cm9uZyBwYWdlcyBiYXNlZCBv
+biB0aGUgbWlncmF0ZS0mZ3Q7ZHN0W2ldLjxvOnA+PC9vOnA+PC9wcmU+DQo8cHJlPjxvOnA+Jm5i
+c3A7PC9vOnA+PC9wcmU+DQo8cHJlPlNpZ25lZC1vZmYtYnk6IEVtaWx5IERlbmcgPGEgaHJlZj0i
+bWFpbHRvOkVtaWx5LkRlbmdAYW1kLmNvbSI+Jmx0O0VtaWx5LkRlbmdAYW1kLmNvbSZndDs8L2E+
+PG86cD48L286cD48L3ByZT4NCjxwcmU+LS0tPG86cD48L286cD48L3ByZT4NCjxwcmU+IGRyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9taWdyYXRlLmMgfCA4ICsrKystLS0tPG86cD48L286
+cD48L3ByZT4NCjxwcmU+IDEgZmlsZSBjaGFuZ2VkLCA0IGluc2VydGlvbnMoKyksIDQgZGVsZXRp
+b25zKC0pPG86cD48L286cD48L3ByZT4NCjxwcmU+PG86cD4mbmJzcDs8L286cD48L3ByZT4NCjxw
+cmU+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9taWdyYXRlLmMg
+Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfbWlncmF0ZS5jPG86cD48L286cD48L3By
+ZT4NCjxwcmU+aW5kZXggNGIyNzU5MzdkMDVlLi41Yzk2YzJkNDI1ZTMgMTAwNjQ0PG86cD48L286
+cD48L3ByZT4NCjxwcmU+LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX21pZ3Jh
+dGUuYzxvOnA+PC9vOnA+PC9wcmU+DQo8cHJlPisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+a2ZkL2tmZF9taWdyYXRlLmM8bzpwPjwvbzpwPjwvcHJlPg0KPHByZT5AQCAtMjc4LDcgKzI3OCw3
+IEBAIHN2bV9taWdyYXRlX2NvcHlfdG9fdnJhbShzdHJ1Y3Qga2ZkX25vZGUgKm5vZGUsIHN0cnVj
+dCBzdm1fcmFuZ2UgKnByYW5nZSw8bzpwPjwvbzpwPjwvcHJlPg0KPHByZT4gJm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7ICZuYnNwO3N0cnVjdCBtaWdyYXRlX3ZtYSAqbWlncmF0ZSwgc3RydWN0IGRtYV9mZW5j
+ZSAqKm1mZW5jZSw8bzpwPjwvbzpwPjwvcHJlPg0KPHByZT4gJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7ICZu
+YnNwO2RtYV9hZGRyX3QgKnNjcmF0Y2gsIHVpbnQ2NF90IHR0bV9yZXNfb2Zmc2V0KTxvOnA+PC9v
+OnA+PC9wcmU+DQo8cHJlPiB7PG86cD48L286cD48L3ByZT4NCjxwcmU+LSZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyB1aW50NjRfdCBucGFnZXMgPSBtaWdyYXRlLSZndDtjcGFn
+ZXM7PG86cD48L286cD48L3ByZT4NCjxwcmU+KyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyB1aW50NjRfdCBucGFnZXMgPSBtaWdyYXRlLSZndDtucGFnZXM7PG86cD48L286cD48
+L3ByZT4NCjwvYmxvY2txdW90ZT4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPkkgYWdyZWUgdGhpcyBw
+YXJ0Ljxicj4NCjxicj4NCjxvOnA+PC9vOnA+PC9wPg0KPGJsb2NrcXVvdGUgc3R5bGU9Im1hcmdp
+bi10b3A6NS4wcHQ7bWFyZ2luLWJvdHRvbTo1LjBwdCI+DQo8cHJlPjxvOnA+Jm5ic3A7PC9vOnA+
+PC9wcmU+DQo8cHJlPiAmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgc3RydWN0
+IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSBub2RlLSZndDthZGV2OzxvOnA+PC9vOnA+PC9wcmU+DQo8
+cHJlPiAmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgc3RydWN0IGRldmljZSAq
+ZGV2ID0gYWRldi0mZ3Q7ZGV2OzxvOnA+PC9vOnA+PC9wcmU+DQo8cHJlPiAmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgc3RydWN0IGFtZGdwdV9yZXNfY3Vyc29yIGN1cnNvcjs8
+bzpwPjwvbzpwPjwvcHJlPg0KPHByZT5AQCAtMjk5LDkgKzI5OSw2IEBAIHN2bV9taWdyYXRlX2Nv
+cHlfdG9fdnJhbShzdHJ1Y3Qga2ZkX25vZGUgKm5vZGUsIHN0cnVjdCBzdm1fcmFuZ2UgKnByYW5n
+ZSw8bzpwPjwvbzpwPjwvcHJlPg0KPHByZT4gJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IHN0
+cnVjdCBwYWdlICpzcGFnZTs8bzpwPjwvbzpwPjwvcHJlPg0KPHByZT4gPG86cD48L286cD48L3By
+ZT4NCjxwcmU+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IGRzdFtpXSA9IGN1cnNv
+ci5zdGFydCArIChqICZsdDsmbHQ7IFBBR0VfU0hJRlQpOzxvOnA+PC9vOnA+PC9wcmU+DQo8cHJl
+Pi0mbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgbWlncmF0ZS0mZ3Q7ZHN0W2ldID0gc3ZtX21p
+Z3JhdGVfYWRkcl90b19wZm4oYWRldiwgZHN0W2ldKTs8bzpwPjwvbzpwPjwvcHJlPg0KPHByZT4t
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7ICBzdm1fbWlncmF0ZV9nZXRfdnJh
+bV9wYWdlKHByYW5nZSwgbWlncmF0ZS0mZ3Q7ZHN0W2ldKTs8bzpwPjwvbzpwPjwvcHJlPg0KPHBy
+ZT4tJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IG1pZ3JhdGUtJmd0O2RzdFtpXSA9IG1pZ3Jh
+dGVfcGZuKG1pZ3JhdGUtJmd0O2RzdFtpXSk7PG86cD48L286cD48L3ByZT4NCjxwcmU+IDxvOnA+
+PC9vOnA+PC9wcmU+DQo8cHJlPiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBzcGFn
+ZSA9IG1pZ3JhdGVfcGZuX3RvX3BhZ2UobWlncmF0ZS0mZ3Q7c3JjW2ldKTs8bzpwPjwvbzpwPjwv
+cHJlPg0KPHByZT4gJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IGlmIChzcGFnZSAmYW1wOyZh
+bXA7ICFpc196b25lX2RldmljZV9wYWdlKHNwYWdlKSkgezxvOnA+PC9vOnA+PC9wcmU+DQo8cHJl
+PkBAIC0zNDUsNiArMzQyLDkgQEAgc3ZtX21pZ3JhdGVfY29weV90b192cmFtKHN0cnVjdCBrZmRf
+bm9kZSAqbm9kZSwgc3RydWN0IHN2bV9yYW5nZSAqcHJhbmdlLDxvOnA+PC9vOnA+PC9wcmU+DQo8
+cHJlPiAmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgfSBlbHNlIHs8bzpwPjwvbzpwPjwvcHJl
+Pg0KPHByZT4gJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IGorKzs8bzpwPjwvbzpwPjwvcHJlPg0KPHByZT4g
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IH08bzpwPjwvbzpwPjwvcHJlPg0KPHByZT4rJm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IG1pZ3JhdGUtJmd0O2RzdFtpXSA9IHN2bV9taWdyYXRl
+X2FkZHJfdG9fcGZuKGFkZXYsIGRzdFtpXSk7PG86cD48L286cD48L3ByZT4NCjxwcmU+KyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyAgc3ZtX21pZ3JhdGVfZ2V0X3ZyYW1fcGFn
+ZShwcmFuZ2UsIG1pZ3JhdGUtJmd0O2RzdFtpXSk7PG86cD48L286cD48L3ByZT4NCjxwcmU+KyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBtaWdyYXRlLSZndDtkc3RbaV0gPSBtaWdyYXRlX3Bm
+bihtaWdyYXRlLSZndDtkc3RbaV0pOzxvOnA+PC9vOnA+PC9wcmU+DQo8L2Jsb2NrcXVvdGU+DQo8
+cD5JIHRoaW5rIHdoYXQgY3VycmVudCBjb2RlIG1pc3NlcyBoZXJlIGlzIHRoYXQgbWlncmF0ZS0m
+Z3Q7ZHN0W2ldIHNob3VsZCBtYXRjaCBtaWdyYXRlLSZndDtzcmNbaV06IG1pZ3JhdGUtJmd0O2Rz
+dFtpXSh2cmFtIHBhZ2UpIGdvdCBzZXQgZm9yIHBhZ2UgdGhhdCB3aWxsIGJlIG1pZ3JhdGVkIGZy
+b20gc3lzdGVtIHJhbSwgb3RoZXJ3aXNlIG1pZ3JhdGUtJmd0O2RzdFtpXSBzaG91bGQgYmUgemVy
+by4gWW91ciBjaGFuZ2UgbWFrZXMgbWlncmF0ZXMtJmd0O2RzdFtpXSBub3QNCiBzZXQgdGhvdWdo
+IGl0cyBwYWdlIGhhcyBiZWVuIG1pZ3JhdGVkIGJ5IHN2bV9taWdyYXRlX2NvcHlfbWVtb3J5X2dh
+cnQgZm9yIHRoZSBjYXNlIHRoYXQgY3BhZ2VzICE9IG5wYWdlcywgYmVjYXVzZSB5b3Ugc2V0IG1p
+Z3JhdGUtJmd0O2RzdFtpXSBhdCBlbmQgb2YgbG9vcCBhbmQgdXNlICdjb250aW51ZScgYWZ0ZXIg
+bWlncmF0aW9uLjxvOnA+PC9vOnA+PC9wPg0KPHA+VGhlIHBhZ2UgbWlncmF0aW9uIGhhcHBlbnMg
+YXQgc3ZtX21pZ3JhdGVfY29weV9tZW1vcnlfZ2FydCwgbm90IG1pZ3JhdGVfdm1hX3BhZ2VzIHRo
+YXQgbWlncmF0ZXMgc3RydWN0IHBhZ2UgbWV0YS1kYXRhIGZyb20gc291cmNlIHN0cnVjdCBwYWdl
+IHRvIGRlc3RpbmF0aW9uIHN0cnVjdCBwYWdlIGFuZCBoYXMgbW11IG5vdGlmaWNhdGlvbi48bzpw
+PjwvbzpwPjwvcD4NCjxwPlJlZ2FyZHM8bzpwPjwvbzpwPjwvcD4NCjxwPlhpYW9nYW5nPG86cD48
+L286cD48L3A+DQo8cD48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWlseTom
+cXVvdDtBcmlhbCZxdW90OyxzYW5zLXNlcmlmIj5UaGUgPC9zcGFuPm1pZ3JhdGUtJmd0O2RzdFtp
+XSBkZWZhdWx0IHZhbHVlIGlzIDAuIFRoZSBwdXJwb3NlIG9mIHRoZSBjaGFuZ2UgaXMgdG8gbWF0
+Y2ggdGhlIG1pZ3JhdGUtJmd0O2RzdFtpXSBhbmQgbWlncmF0ZS0mZ3Q7c3JjW2ldLiBBbmQgZm9y
+IHN2bV9taWdyYXRlX2NvcHlfdG9fdnJhbSwgaXQgb25seSB3aWxsIGNhbGwgc3ZtX21pZ3JhdGVf
+Y29weV9tZW1vcnlfZ2FydA0KIHRvIGNvcHkgdGhvc2UgcGFnZXMgd2hpY2ggbmVlZCB0byBiZSBt
+aWdyYXRlZCwgZm9yIHRob3NlIGRvbuKAmXQgbmVlZCBtaWdyYXRlIHBhZ2VzLCBpdCB3b27igJl0
+IGNhbGwgc3ZtX21pZ3JhdGVfY29weV9tZW1vcnlfZ2FydC48bzpwPjwvbzpwPjwvcD4NCjxibG9j
+a3F1b3RlIHN0eWxlPSJtYXJnaW4tdG9wOjUuMHB0O21hcmdpbi1ib3R0b206NS4wcHQiPg0KPHBy
+ZT48bzpwPiZuYnNwOzwvbzpwPjwvcHJlPg0KPHByZT4gJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7IH08bzpwPjwvbzpwPjwvcHJlPg0KPHByZT4gPG86cD48L286cD48L3ByZT4N
+CjxwcmU+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IHIgPSBzdm1f
+bWlncmF0ZV9jb3B5X21lbW9yeV9nYXJ0KGFkZXYsIHNyYyArIGkgLSBqLCBkc3QgKyBpIC0gaiwg
+aiw8bzpwPjwvbzpwPjwvcHJlPg0KPC9ibG9ja3F1b3RlPg0KPC9kaXY+DQo8L2Rpdj4NCjwvZGl2
+Pg0KPC9ib2R5Pg0KPC9odG1sPg0K
 
-Xiaogang
-
->>   	struct amdgpu_device *adev = node->adev;
->>   	struct device *dev = adev->dev;
->>   	struct amdgpu_res_cursor cursor;
->> @@ -299,9 +299,6 @@ svm_migrate_copy_to_vram(struct kfd_node *node, struct svm_range *prange,
->>   		struct page *spage;
->>   
->>   		dst[i] = cursor.start + (j << PAGE_SHIFT);
->> -		migrate->dst[i] = svm_migrate_addr_to_pfn(adev, dst[i]);
->> -		svm_migrate_get_vram_page(prange, migrate->dst[i]);
->> -		migrate->dst[i] = migrate_pfn(migrate->dst[i]);
->>   
->>   		spage = migrate_pfn_to_page(migrate->src[i]);
->>   		if (spage && !is_zone_device_page(spage)) {
->> @@ -345,6 +342,9 @@ svm_migrate_copy_to_vram(struct kfd_node *node, struct svm_range *prange,
->>   		} else {
->>   			j++;
->>   		}
->> +		migrate->dst[i] = svm_migrate_addr_to_pfn(adev, dst[i]);
->> +		svm_migrate_get_vram_page(prange, migrate->dst[i]);
->> +		migrate->dst[i] = migrate_pfn(migrate->dst[i]);
->
-> This should move forward, to handle the corner case to migrate 1 page 
-> to the last page of VRAM res cursor.
->
-> Please check this change, to add mpages accounting to break the loop 
-> earlier.
->
-> -       uint64_t npages = migrate->cpages;
-> +       uint64_t npages = migrate->npages;
->         struct amdgpu_device *adev = node->adev;
->         struct device *dev = adev->dev;
->         struct amdgpu_res_cursor cursor;
-> +       uint64_t mpages = 0;
->         dma_addr_t *src;
->         uint64_t *dst;
->         uint64_t i, j;
-> @@ -295,14 +296,9 @@ svm_migrate_copy_to_vram(struct kfd_node *node, 
-> struct svm_range *prange,
->
->         amdgpu_res_first(prange->ttm_res, ttm_res_offset,
->                          npages << PAGE_SHIFT, &cursor);
-> -       for (i = j = 0; i < npages; i++) {
-> +       for (i = j = 0; i < npages && mpages < migrate->cpages; i++) {
->                 struct page *spage;
->
-> -               dst[i] = cursor.start + (j << PAGE_SHIFT);
-> -               migrate->dst[i] = svm_migrate_addr_to_pfn(adev, dst[i]);
-> -               svm_migrate_get_vram_page(prange, migrate->dst[i]);
-> -               migrate->dst[i] = migrate_pfn(migrate->dst[i]);
-> -
->                 spage = migrate_pfn_to_page(migrate->src[i]);
->                 if (spage && !is_zone_device_page(spage)) {
->                         src[i] = dma_map_page(dev, spage, 0, PAGE_SIZE,
-> @@ -322,6 +318,7 @@ svm_migrate_copy_to_vram(struct kfd_node *node, 
-> struct svm_range *prange,
->                                                 mfence);
->                                 if (r)
->                                         goto out_free_vram_pages;
-> +                               mpages += j;
->                                 amdgpu_res_next(&cursor, (j + 1) << 
-> PAGE_SHIFT);
->                                 j = 0;
->                         } else {
-> @@ -333,6 +330,11 @@ svm_migrate_copy_to_vram(struct kfd_node *node, 
-> struct svm_range *prange,
->                 pr_debug_ratelimited("dma mapping src to 0x%llx, pfn 
-> 0x%lx\n",
->                                      src[i] >> PAGE_SHIFT, 
-> page_to_pfn(spage));
->
-> +               dst[i] = cursor.start + (j << PAGE_SHIFT);
-> +               migrate->dst[i] = svm_migrate_addr_to_pfn(adev, dst[i]);
-> +               svm_migrate_get_vram_page(prange, migrate->dst[i]);
-> +               migrate->dst[i] = migrate_pfn(migrate->dst[i]);
-> +
->                 if (j >= (cursor.size >> PAGE_SHIFT) - 1 && i < npages 
-> - 1) {
->                         r = svm_migrate_copy_memory_gart(adev, src + i 
-> - j,
->                                                          dst + i - j, 
-> j + 1,
-> @@ -340,6 +342,7 @@ svm_migrate_copy_to_vram(struct kfd_node *node, 
-> struct svm_range *prange,
-> mfence);
->                         if (r)
->                                 goto out_free_vram_pages;
-> +                       mpages += j + 1;
->                         amdgpu_res_next(&cursor, (j + 1) * PAGE_SIZE);
->                         j = 0;
->                 } else {
-> (END)
-> @@ -322,6 +318,7 @@ svm_migrate_copy_to_vram(struct kfd_node *node, 
-> struct svm_range *prange,
->                                                 mfence);
->                                 if (r)
->                                         goto out_free_vram_pages;
-> +                               mpages += j;
->                                 amdgpu_res_next(&cursor, (j + 1) << 
-> PAGE_SHIFT);
->                                 j = 0;
->                         } else {
-> @@ -333,6 +330,11 @@ svm_migrate_copy_to_vram(struct kfd_node *node, 
-> struct svm_range *prange,
->                 pr_debug_ratelimited("dma mapping src to 0x%llx, pfn 
-> 0x%lx\n",
->                                      src[i] >> PAGE_SHIFT, 
-> page_to_pfn(spage));
->
-> +               dst[i] = cursor.start + (j << PAGE_SHIFT);
-> +               migrate->dst[i] = svm_migrate_addr_to_pfn(adev, dst[i]);
-> +               svm_migrate_get_vram_page(prange, migrate->dst[i]);
-> +               migrate->dst[i] = migrate_pfn(migrate->dst[i]);
-> +
->                 if (j >= (cursor.size >> PAGE_SHIFT) - 1 && i < npages 
-> - 1) {
->                         r = svm_migrate_copy_memory_gart(adev, src + i 
-> - j,
->                                                          dst + i - j, 
-> j + 1,
-> @@ -340,6 +342,7 @@ svm_migrate_copy_to_vram(struct kfd_node *node, 
-> struct svm_range *prange,
-> mfence);
->                         if (r)
->                                 goto out_free_vram_pages;
-> +                       mpages += j + 1;
->                         amdgpu_res_next(&cursor, (j + 1) * PAGE_SIZE);
->                         j = 0;
->                 } else {
->
->>   	}
->>   
->>   	r = svm_migrate_copy_memory_gart(adev, src + i - j, dst + i - j, j,
---------------aD0ekUI74IBpPXxXKjlCyYQ8
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 1/6/2025 5:50 PM, Philip Yang wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:4db6b354-56e6-3d2e-0da9-bfd1943320af@amd.com">
-      
-      <p><br>
-      </p>
-      <div class="moz-cite-prefix">On 2025-01-02 19:06, Emily Deng
-        wrote:<br>
-      </div>
-      <blockquote type="cite" cite="mid:20250103000644.1398643-1-Emily.Deng@amd.com">
-        <pre class="moz-quote-pre" wrap="">For partial migrate from ram to vram, the migrate-&gt;cpages is not
-equal to migrate-&gt;npages, should use migrate-&gt;npages to check all needed
-migrate pages which could be copied or not.
-
-And only need to set those pages could be migrated to migrate-&gt;dst[i], or
-the migrate_vma_pages will migrate the wrong pages based on the migrate-&gt;dst[i].
-
-Signed-off-by: Emily Deng <a class="moz-txt-link-rfc2396E" href="mailto:Emily.Deng@amd.com" moz-do-not-send="true">&lt;Emily.Deng@amd.com&gt;</a>
----
- drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-index 4b275937d05e..5c96c2d425e3 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-@@ -278,7 +278,7 @@ svm_migrate_copy_to_vram(struct kfd_node *node, struct svm_range *prange,
- 			 struct migrate_vma *migrate, struct dma_fence **mfence,
- 			 dma_addr_t *scratch, uint64_t ttm_res_offset)
- {
--	uint64_t npages = migrate-&gt;cpages;
-+	uint64_t npages = migrate-&gt;npages;</pre>
-      </blockquote>
-      <p>As partial migration size is based on prange granularity, by
-        default 2MB, maybe always migrate-&gt;cpages equal to
-        migrate-&gt;npages, that's why we didn't trigger this bug.
-        Wondering how do you catch this bug? This bug will leak svm_bo
-        too, as svm_migrate_get_vram_page reference counter is
-        incorrect.<br>
-      </p>
-    </blockquote>
-    <p>The commit message is somehow confusing. It is not partial
-      migration from page fault recovery. It is the case that <span style="white-space: pre-wrap">migrate-&gt;cpages != </span><span style="white-space: pre-wrap">migrate-&gt;npages after migrate_vma_setup due to some pages cannot be moved for some reasons. For that only part of src pages can be migrated.  Ex: some system ram pages got locked  by kernel. Usually this case does not happen during normal tests.</span></p>
-    <p><span style="white-space: pre-wrap">Regards</span></p>
-    <p><span style="white-space: pre-wrap">Xiaogang
-</span></p>
-    <blockquote type="cite" cite="mid:4db6b354-56e6-3d2e-0da9-bfd1943320af@amd.com">
-      <p> </p>
-      <blockquote type="cite" cite="mid:20250103000644.1398643-1-Emily.Deng@amd.com">
-        <pre class="moz-quote-pre" wrap=""> 	struct amdgpu_device *adev = node-&gt;adev;
- 	struct device *dev = adev-&gt;dev;
- 	struct amdgpu_res_cursor cursor;
-@@ -299,9 +299,6 @@ svm_migrate_copy_to_vram(struct kfd_node *node, struct svm_range *prange,
- 		struct page *spage;
- 
- 		dst[i] = cursor.start + (j &lt;&lt; PAGE_SHIFT);
--		migrate-&gt;dst[i] = svm_migrate_addr_to_pfn(adev, dst[i]);
--		svm_migrate_get_vram_page(prange, migrate-&gt;dst[i]);
--		migrate-&gt;dst[i] = migrate_pfn(migrate-&gt;dst[i]);
- 
- 		spage = migrate_pfn_to_page(migrate-&gt;src[i]);
- 		if (spage &amp;&amp; !is_zone_device_page(spage)) {
-@@ -345,6 +342,9 @@ svm_migrate_copy_to_vram(struct kfd_node *node, struct svm_range *prange,
- 		} else {
- 			j++;
- 		}
-+		migrate-&gt;dst[i] = svm_migrate_addr_to_pfn(adev, dst[i]);
-+		svm_migrate_get_vram_page(prange, migrate-&gt;dst[i]);
-+		migrate-&gt;dst[i] = migrate_pfn(migrate-&gt;dst[i]);</pre>
-      </blockquote>
-      <p>This should move forward, to handle the corner case to migrate
-        1 page to the last page of VRAM res cursor.</p>
-      <p>Please check this change, to add mpages accounting to break the
-        loop earlier. <br>
-      </p>
-      <p>-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t npages = migrate-&gt;cpages;<br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t npages = migrate-&gt;npages;<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev = node-&gt;adev;<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct device *dev = adev-&gt;dev;<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_res_cursor cursor;<br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t mpages = 0;<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dma_addr_t *src;<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t *dst;<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t i, j;<br>
-        @@ -295,14 +296,9 @@ svm_migrate_copy_to_vram(struct kfd_node
-        *node, struct svm_range *prange,<br>
-        &nbsp;<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_res_first(prange-&gt;ttm_res, ttm_res_offset,<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; npages &lt;&lt; PAGE_SHIFT,
-        &amp;cursor);<br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i = j = 0; i &lt; npages; i++) {<br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i = j = 0; i &lt; npages &amp;&amp; mpages &lt;
-        migrate-&gt;cpages; i++) {<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct page *spage;<br>
-        &nbsp;<br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dst[i] = cursor.start + (j &lt;&lt; PAGE_SHIFT);<br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; migrate-&gt;dst[i] =
-        svm_migrate_addr_to_pfn(adev, dst[i]);<br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; svm_migrate_get_vram_page(prange,
-        migrate-&gt;dst[i]);<br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; migrate-&gt;dst[i] =
-        migrate_pfn(migrate-&gt;dst[i]);<br>
-        -<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; spage = migrate_pfn_to_page(migrate-&gt;src[i]);<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (spage &amp;&amp;
-        !is_zone_device_page(spage)) {<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; src[i] = dma_map_page(dev, spage, 0,
-        PAGE_SIZE,<br>
-        @@ -322,6 +318,7 @@ svm_migrate_copy_to_vram(struct kfd_node
-        *node, struct svm_range *prange,<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mfence);<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto
-        out_free_vram_pages;<br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mpages += j;<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_res_next(&amp;cursor, (j
-        + 1) &lt;&lt; PAGE_SHIFT);<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; j = 0;<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
-        @@ -333,6 +330,11 @@ svm_migrate_copy_to_vram(struct kfd_node
-        *node, struct svm_range *prange,<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_debug_ratelimited(&quot;dma mapping src to 0x%llx,
-        pfn 0x%lx\n&quot;,<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; src[i] &gt;&gt; PAGE_SHIFT,
-        page_to_pfn(spage));<br>
-        &nbsp;<br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dst[i] = cursor.start + (j &lt;&lt; PAGE_SHIFT);<br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; migrate-&gt;dst[i] =
-        svm_migrate_addr_to_pfn(adev, dst[i]);<br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; svm_migrate_get_vram_page(prange,
-        migrate-&gt;dst[i]);<br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; migrate-&gt;dst[i] =
-        migrate_pfn(migrate-&gt;dst[i]);<br>
-        +<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (j &gt;= (cursor.size &gt;&gt; PAGE_SHIFT) -
-        1 &amp;&amp; i &lt; npages - 1) {<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r = svm_migrate_copy_memory_gart(adev,
-        src + i - j,<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dst + i
-        - j, j + 1,<br>
-        @@ -340,6 +342,7 @@ svm_migrate_copy_to_vram(struct kfd_node
-        *node, struct svm_range *prange,<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        mfence);<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto out_free_vram_pages;<br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mpages += j + 1;<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_res_next(&amp;cursor, (j + 1) *
-        PAGE_SIZE);<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; j = 0;<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
-        (END)<br>
-        @@ -322,6 +318,7 @@ svm_migrate_copy_to_vram(struct kfd_node
-        *node, struct svm_range *prange,<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mfence);<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto
-        out_free_vram_pages;<br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mpages += j;<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_res_next(&amp;cursor, (j
-        + 1) &lt;&lt; PAGE_SHIFT);<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; j = 0;<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
-        @@ -333,6 +330,11 @@ svm_migrate_copy_to_vram(struct kfd_node
-        *node, struct svm_range *prange,<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_debug_ratelimited(&quot;dma mapping src to 0x%llx,
-        pfn 0x%lx\n&quot;,<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; src[i] &gt;&gt; PAGE_SHIFT,
-        page_to_pfn(spage));<br>
-        &nbsp;<br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dst[i] = cursor.start + (j &lt;&lt; PAGE_SHIFT);<br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; migrate-&gt;dst[i] =
-        svm_migrate_addr_to_pfn(adev, dst[i]);<br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; svm_migrate_get_vram_page(prange,
-        migrate-&gt;dst[i]);<br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; migrate-&gt;dst[i] =
-        migrate_pfn(migrate-&gt;dst[i]);<br>
-        +<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (j &gt;= (cursor.size &gt;&gt; PAGE_SHIFT) -
-        1 &amp;&amp; i &lt; npages - 1) {<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r = svm_migrate_copy_memory_gart(adev,
-        src + i - j,<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dst + i
-        - j, j + 1,<br>
-        @@ -340,6 +342,7 @@ svm_migrate_copy_to_vram(struct kfd_node
-        *node, struct svm_range *prange,<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        mfence);<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto out_free_vram_pages;<br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mpages += j + 1;<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_res_next(&amp;cursor, (j + 1) *
-        PAGE_SIZE);<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; j = 0;<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
-        <br>
-      </p>
-      <blockquote type="cite" cite="mid:20250103000644.1398643-1-Emily.Deng@amd.com">
-        <pre class="moz-quote-pre" wrap=""> 	}
- 
- 	r = svm_migrate_copy_memory_gart(adev, src + i - j, dst + i - j, j,
-</pre>
-      </blockquote>
-    </blockquote>
-  </body>
-</html>
-
---------------aD0ekUI74IBpPXxXKjlCyYQ8--
+--_000_PH0PR12MB5417A0CED996D52E33D234B98F112PH0PR12MB5417namp_--
