@@ -4,131 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE7DBE77197
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jan 2025 15:46:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7570EE77197
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jan 2025 15:51:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64AD110EB26;
-	Tue,  7 Jan 2025 15:46:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2736310E726;
+	Tue,  7 Jan 2025 15:51:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="PibcdD+P";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WKEX5K1w";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2040.outbound.protection.outlook.com [40.107.220.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4727F10EB22
- for <amd-gfx@lists.freedesktop.org>; Tue,  7 Jan 2025 15:46:37 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KHuFLkU97F6cf6Iew58JC1cyDglKpy5GNXxKXccxOQb0LUXTRPujyd+ueZcQjUtk1tGg1DpDbmbR9m2D3kYJIUdkfBVKij+oqdptaWnsNRU90EeOpDRD2YYlZxZ8PGv+2Sw69ooKyBhTtmSRF8RgbyB7aVo+igTkgyMGeIJyHHIpxhkXWqCCCzkGzJnz22BeLn9/v9d8Y0Fes5a3Q2uwJqWZJxWpGiQNET9cIjES+nqVsV5rsDW4NE68d1iMPsY5ZEoXrGcHhzVKsdwxcKF+86f7JrFK/hcfJN/I6ClO+clyro1X7ZjI3GL/UHG/x1iOIUULzSIVZ7WMxzSygr3lsg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JQMG3YR8xlVG/hw8ysaQP/VOx5CayJSWrCdeESu+Acg=;
- b=K3oDQrllz8jDPZZm7qyG73mXqICQj1iNFFMs6IxGj+MUIJa7JQOh+KcBXamQpDSkjYzFN5MU40yoiNCocuWj86A9teZcuoBG5NvMgHXcIRDTMda/casCa8GYrmKabewqoq/FY+CWJtlmjuiNOWrvuhLkuPFVp8FGPb9IKR8GkkRhpvXVxxQFL4qGXllDNg8Jf2Qdcy9FFyfszU6Kl+BYxWWpCf2fHvH7gFQehcc+656PUFMvr813QxaWIiwklCXhY/NTReIYM6gIBxIZmxYshUaHJu6qPXrwGN5a7f8As2XAJ5V2RWXhI+sBu8KzHrP9j0kP7B5EjGQglcqRBOUTlQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JQMG3YR8xlVG/hw8ysaQP/VOx5CayJSWrCdeESu+Acg=;
- b=PibcdD+PfxAlIyHN+1j7IdZTC6bJjibwkI3u9gsIylzoUoAF/5gx9izL/aWbVCQNbqezSkeVHsgJv9qDYjPp8r4kMCKrzlgNnJpzT1Wh0onbXB97fXoR0nH8j7r7QCc1RQIy8F6ifsvSRG9b788rU0hJtt8s9PvnMVTbASLT+vU=
-Received: from BN9PR03CA0291.namprd03.prod.outlook.com (2603:10b6:408:f5::26)
- by PH7PR12MB7020.namprd12.prod.outlook.com (2603:10b6:510:1ba::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8314.17; Tue, 7 Jan
- 2025 15:30:41 +0000
-Received: from BL02EPF00021F69.namprd02.prod.outlook.com
- (2603:10b6:408:f5:cafe::5b) by BN9PR03CA0291.outlook.office365.com
- (2603:10b6:408:f5::26) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8314.16 via Frontend Transport; Tue,
- 7 Jan 2025 15:30:40 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF00021F69.mail.protection.outlook.com (10.167.249.5) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8335.7 via Frontend Transport; Tue, 7 Jan 2025 15:30:40 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 7 Jan
- 2025 09:30:40 -0600
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 7 Jan
- 2025 09:30:39 -0600
-Received: from tom-r5.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Tue, 7 Jan 2025 09:30:37 -0600
-From: Tom Chung <chiahsuan.chung@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <rodrigo.siqueira@amd.com>, Aurabindo Pillai
- <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>, Wayne Lin
- <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, Fangzhi Zuo
- <jerry.zuo@amd.com>, Zaeem Mohamed <zaeem.mohamed@amd.com>, Solomon Chiu
- <solomon.chiu@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>
-Subject: [PATCH 20/24] drm/amd/display: Use HW lock mgr for PSR1
-Date: Tue, 7 Jan 2025 23:28:51 +0800
-Message-ID: <20250107152855.2953302-21-chiahsuan.chung@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250107152855.2953302-1-chiahsuan.chung@amd.com>
-References: <20250107152855.2953302-1-chiahsuan.chung@amd.com>
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
+ [209.85.214.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB86B10E726
+ for <amd-gfx@lists.freedesktop.org>; Tue,  7 Jan 2025 15:51:45 +0000 (UTC)
+Received: by mail-pl1-f174.google.com with SMTP id
+ d9443c01a7336-216325f516fso23545195ad.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 07 Jan 2025 07:51:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1736265045; x=1736869845; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=AInTbU+Vlp3N8mfzPrdYC59na1FEoFojJntCH6//oUM=;
+ b=WKEX5K1w9culVLJLJJzAQn0T52w6M/CSS8LmXkfFksSlUSbpizaj7R0gypbj2Gyd4Y
+ J266vHwPFkUfZ3mS8roeWdMyCX9ItcHmMpUM38cK+kH15bS/sab42r2BFgU2hAW5yIyU
+ DGzfdTUgmOA/5gPofgKyGChWEXscNxm6qrzCFwBbQ3hb2qPF6ErWhS+6CLCVGToy0cp4
+ FBoZwcHHh0eE+CIj9tWvhb1FDMzHKQrH6QCL7bx9zfQGRoqigExzyNWyo6VwJJ7jKQVf
+ BW+RbtPLR/1i0m6vVXAIbZChi5M53xsUXg/1EDQK2FgATJrZefefnNjhuH1GkqCunp2n
+ J57w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1736265045; x=1736869845;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=AInTbU+Vlp3N8mfzPrdYC59na1FEoFojJntCH6//oUM=;
+ b=v5x3iCpPHlgJRuHHMLUouzOpQ5ZTq9bUv6AuEaKldaN0nxMllhLeODl6qcNRpNBQsT
+ jtnLomnBti3XRzuAsfmQsemZa1rFD/afX9RQ388p8VqktFSOxhMHsvMT0HgXjOedOV3z
+ Y07p7pZzJenjhIzPUAlImhyIFBQbZkFlBZX5Fxy6tHPxm3u0F4DaYo6TMbCNoU3aM/hT
+ 0BXEHf8LiL98P0IQF7Nranhsjr6deWswjbsiXmplgZGS6MeTxYlZG572HNvKzmG7OXl4
+ m6CkDjRvMkuBj6BQ7uocv+3XKCB0TxaDdBnwqGPHJje66m8qP2YVP/i37wma5mQ1NBJy
+ D4hg==
+X-Gm-Message-State: AOJu0Yz1bC7y785sHVnRtVnxDDp/uVUm3J8qUiJWK6a4O1A7/EVS8aUj
+ g8ObCxYX3i6VHzqmpNr3lgpqmflAzIzBHtSRzYb2srio+wNRsQGWvYE3SMNXroGqZBnJacbzqwd
+ 5BKYZCUDjtoflNjjjsqCAUTJz2+Sos0Ry
+X-Gm-Gg: ASbGncueY3AK9cg+fNU4dH8JLz8nKhaJoWOK8buGNfdENr5kYldqgdhDx44dVR8EsO5
+ OfDJnT9nnNDP5srIb3Kb/UBIm3BrlYe5UOeihLQ==
+X-Google-Smtp-Source: AGHT+IGkCGzIJTTg1H5VBHEB8RNIZON4pzR+jdNYK4AuBHam0CH/eS39NkvHrsj/OaqjF4qOiGmHJ6GqzK7ZjPHokd8=
+X-Received: by 2002:a17:90a:d60d:b0:2ee:e518:c1d4 with SMTP id
+ 98e67ed59e1d1-2f452dec107mr34852988a91.1.1736264547935; Tue, 07 Jan 2025
+ 07:42:27 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Received-SPF: None (SATLEXMB05.amd.com: chiahsuan.chung@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF00021F69:EE_|PH7PR12MB7020:EE_
-X-MS-Office365-Filtering-Correlation-Id: 20bd8dc1-f76f-4e40-8eac-08dd2f303e5e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|82310400026|376014|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?y1lU+/Onsmg0/MNN6dYAuB+ebDrJTWKXpFph4KvLI/g6EXjVGNKaDP+dSqMh?=
- =?us-ascii?Q?RBzxqOHZv+Uy1yVJID3w0LbQaxEOfU6syfaAdPUvfYRWh5X6PGMDZ/Iz4Clu?=
- =?us-ascii?Q?lYPGH1+aUp1/V7Or0PUu3SKkYiGnkrLKll7LPwufa9YF2L27mKCHuhSTxjwl?=
- =?us-ascii?Q?nONzIQ/L7iUb4YEgNDx9LDqhz1b84dyO7t45UPs0Jf1ym6lxvM4fB/jKUipx?=
- =?us-ascii?Q?vyynIqJRjrHttRWZW06KVHlTdfa63EM9z6E6iCsV1V1jcd009PWCafqH1iHA?=
- =?us-ascii?Q?jk3SX7Q8RO92KJsKzSf+2MH5NGRJYsrKQplUSOp1j1JVRTQ846z/a8LJhHV6?=
- =?us-ascii?Q?IgfPq30erfPijRjzhoqj4CJxbevx7ay36sBkcGM4jAMmPuiE3HmRt6ee3pQ+?=
- =?us-ascii?Q?HMIAcjFrS2pxTBZi9MUW3VQyZ4pRUjn9YN4H8vDd1HyZTBFMIlP9C35zuJUL?=
- =?us-ascii?Q?jgMeRiQWzxdmdPCHN3zuQEAR3GyqQ5kakSS9RvtBVHCz4sMFqC/8zJDk6GUt?=
- =?us-ascii?Q?noZxCTC5b1FPvMoH/8nViFNOxwcfjkz+we4DEBvdNrXI5r+wAg0YiSpxaPw2?=
- =?us-ascii?Q?FuZKNEAOmgEHhepzPbzHS0BrKvgJz3aahK3GgfKf9oyZt5Na5Jtsce5z4e7Q?=
- =?us-ascii?Q?arVfwdVYXVY7c8cTxUzz4kJPXLwCJuD7SoVMoYeDB7/aD8rSQzexrUqOUqn7?=
- =?us-ascii?Q?tftJ0jH97JqH19BsH3AxYg9yKvsxcWQfnixCgSpMZWssbbK84WTT8Dzg8AJN?=
- =?us-ascii?Q?da8b5mDRDzBgcAw/For5x2Jfi7iDRwzOUDrlZFwPL0MbHIba7kmveoURkPLt?=
- =?us-ascii?Q?EkZj1daOzVNiY4b88OM3H4fjSfBJYVBE1qK5LjWYuChDesDvaYgiM1lm7F4X?=
- =?us-ascii?Q?Y6N3oGToD/y0R9/noqTLbhAnZIikENXSDtoY33z/kFh1NgpdBi1PLW/+6M8O?=
- =?us-ascii?Q?TD5Ex+NFb1Z1ATLmNcPnr4aVgyr00uIUQNNCQ+WgzQ1Jje2wJ0zN5pI9nfuV?=
- =?us-ascii?Q?TqY9XVoah5r17KVQM2QfXNMFkRZz6rr7nqjqdlduTOXJikIXwEJ48YU8ZYkQ?=
- =?us-ascii?Q?7R2IhwE0NWrP3UbXpUW1QkvAT3s5gaSlvdSvuZ2XbA6TrESP14OXFgjYO1wj?=
- =?us-ascii?Q?R2oIb7FxwjpcpLVfI4qHOVNXW/XmFO6ADOC/w2THBgDSd8L3NmlNPpfa75X1?=
- =?us-ascii?Q?yLt9nOwnO0ZZD8JMvuahzK1ej8EfnvDKZMGvBu3HLaZTYPlT/7e6B+a6U0D9?=
- =?us-ascii?Q?X8iwCyuE5J45dv6RyY0qq/x8Lnai7ZJLPPJ07kLMdMz6VR2v93zG8ZV7FyzF?=
- =?us-ascii?Q?qfiBujGdbXI4nh4Iw7y3FpJWv0hOlc37ouT0huvrGNoNYJaAvgM4UqblH+oH?=
- =?us-ascii?Q?elMcE7Jiw461ZuGRDLRL/25loPS8+q0iPGEP4QwrmsHYP6U3mfZoUByG9QNl?=
- =?us-ascii?Q?GkZeWHSiyi0q2+Jbzh15QtTsrbvIdr7lQd2tVvViOEuzUyKu6j8Itlv9Wp3T?=
- =?us-ascii?Q?btjrLx1imLIbsps=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(82310400026)(376014)(1800799024); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jan 2025 15:30:40.7173 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 20bd8dc1-f76f-4e40-8eac-08dd2f303e5e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF00021F69.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7020
+References: <20250106105228.2121987-1-Victor.Zhao@amd.com>
+In-Reply-To: <20250106105228.2121987-1-Victor.Zhao@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 7 Jan 2025 10:42:16 -0500
+Message-ID: <CADnq5_MWWkp29C3Nii6P95BQHfJG7ZWatxL=s4TWT2V96KvVsw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: fill the ucode bo during psp resume for SRIOV
+To: Victor Zhao <Victor.Zhao@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,33 +77,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Why]
-Without the dmub hw lock, it may cause the lock timeout issue
-while do modeset on PSR1 eDP panel.
+On Mon, Jan 6, 2025 at 6:12=E2=80=AFAM Victor Zhao <Victor.Zhao@amd.com> wr=
+ote:
+>
+> refill the ucode bo during psp resume for SRIOV, otherwise ucode load
+> will fail after VM hibernation and fb clean.
 
-[How]
-Allow dmub hw lock for PSR1.
+Please drop the comment above amdgpu_ucode_init_bo() in psp_hw_init()
+since it is no longer true.  WIth that fixed, the patch is:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-Reviewed-by: Sun peng Li <sunpeng.li@amd.com>
-Signed-off-by: Tom Chung <chiahsuan.chung@amd.com>
----
- drivers/gpu/drm/amd/display/dc/dce/dmub_hw_lock_mgr.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dmub_hw_lock_mgr.c b/drivers/gpu/drm/amd/display/dc/dce/dmub_hw_lock_mgr.c
-index bf636b28e3e1..5bb8b78bf250 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dmub_hw_lock_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dmub_hw_lock_mgr.c
-@@ -63,7 +63,8 @@ void dmub_hw_lock_mgr_inbox0_cmd(struct dc_dmub_srv *dmub_srv,
- 
- bool should_use_dmub_lock(struct dc_link *link)
- {
--	if (link->psr_settings.psr_version == DC_PSR_VERSION_SU_1)
-+	if (link->psr_settings.psr_version == DC_PSR_VERSION_SU_1 ||
-+	    link->psr_settings.psr_version == DC_PSR_VERSION_1)
- 		return true;
- 
- 	if (link->replay_settings.replay_feature_enabled)
--- 
-2.34.1
-
+>
+> Signed-off-by: Victor Zhao <Victor.Zhao@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_psp.c
+> index 010c038b33ab..97fdd93c3ae3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> @@ -3148,6 +3148,10 @@ static int psp_resume(struct amdgpu_ip_block *ip_b=
+lock)
+>
+>         mutex_lock(&adev->firmware.mutex);
+>
+> +       ret =3D amdgpu_ucode_init_bo(adev);
+> +       if (ret)
+> +               goto failed;
+> +
+>         ret =3D psp_hw_start(psp);
+>         if (ret)
+>                 goto failed;
+> --
+> 2.34.1
+>
