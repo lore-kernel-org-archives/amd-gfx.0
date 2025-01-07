@@ -4,150 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C15CE77197
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jan 2025 17:15:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B515FE77198
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jan 2025 18:06:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D84B510E743;
-	Tue,  7 Jan 2025 17:15:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6088110E1A4;
+	Tue,  7 Jan 2025 18:06:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="zeoyJ4xv";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Wi6O8IlN";
 	dkim-atps=neutral
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on2057.outbound.protection.outlook.com [40.107.100.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BFEA710E743
- for <amd-gfx@lists.freedesktop.org>; Tue,  7 Jan 2025 17:15:22 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Th2BsHXjgUHg2xOC7eLHiYmdC/xRAP86W6bXwC+VowVmFG+TylQs6L16pyyX9B/EsCqrw8WMRBnehFj66+1p1MQyoV0drYdUj9z3H8qPS8smmu+GS/nHQzl/gOe4FP3HC5yxg348l6euf4YwbcnRI6zwu4dvH+ExNFFsOuJgeXUrLbD6ehWwFVzRLNWa9FChDaC0QbdsKN1AfZX9ZLUPVsdYTAPGDCBEjFDUbv6yquCk7t/wytW9V+x3ixcBHzEFuaqy4qjv04n5LWM3CqVhoOdH7fHhp1ews2dExvcmMeMSrJ98JFKJzscbjamO4P0HgVlzcSFUNNa++1KhucsLTQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=h0oeLKFOSMvzPVCR6PKO85rhYJ1r3OXpjfpwbCva/I0=;
- b=AxGWiVcWRvBGDHNmHuqyljX6ESoGmweGkwf8BkfgkaeKH/htDBXUTpM8/rGTL4BMOjm8tRFQan5tlkvXRCgQP/gioZD6GoTGBUkd13zsKIEhfv+SORJGI8oAl6tNuVX4L2w52SgLk6M9XM3irx3kSVhRg3zHTeRfu1y0oGradsn4uiY/et2HjbgogOYRzC8T4WJRILwpyyajS3IURVsiIZDaRp4QWpOZcQlKxkk0iTwgkL+/I6VGkQlTdDTYD3MV8/2Io/vaZrByDrcyqYR9j7dkfjhP8XBgXO2gHNoW4QPY/+gyjeaPOzqV1O8X7YgujFiWOfYV1bVZq1BEFW16sg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=h0oeLKFOSMvzPVCR6PKO85rhYJ1r3OXpjfpwbCva/I0=;
- b=zeoyJ4xv8mkJ8V3hzZBmHUCtAgnx/9x4AobBNRH5PnIsWfreAoFffGKprBcQm0fuFjiaKNcqGKvzfKupha6VzcYCbZGuJS3skzbx172CQjtviz83R9gWP9yIvwt2cZnEHE+laGRvWyWLY2V7gFkRB9t4Lp8xsnjGcF6SKobAUic=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CY5PR12MB6108.namprd12.prod.outlook.com (2603:10b6:930:27::15)
- by PH7PR12MB7114.namprd12.prod.outlook.com (2603:10b6:510:1ed::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8293.15; Tue, 7 Jan
- 2025 16:59:56 +0000
-Received: from CY5PR12MB6108.namprd12.prod.outlook.com
- ([fe80::46e5:5b51:72c3:3754]) by CY5PR12MB6108.namprd12.prod.outlook.com
- ([fe80::46e5:5b51:72c3:3754%6]) with mapi id 15.20.8293.000; Tue, 7 Jan 2025
- 16:59:56 +0000
-Message-ID: <b9b8ea58-1e06-4743-9b6c-7b29eeaff0d2@amd.com>
-Date: Tue, 7 Jan 2025 10:59:54 -0600
-User-Agent: Mozilla Thunderbird
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4525610E1A4
+ for <amd-gfx@lists.freedesktop.org>; Tue,  7 Jan 2025 18:06:47 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 6B309A41B39
+ for <amd-gfx@lists.freedesktop.org>; Tue,  7 Jan 2025 18:04:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE227C4CEE5
+ for <amd-gfx@lists.freedesktop.org>; Tue,  7 Jan 2025 18:06:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1736273205;
+ bh=qH3iaPc3xYhUIjEj3FoNIbTteiXJFoRC28nJ8gnXI1c=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=Wi6O8IlNYQeCFyJktjQZVYtTtJxXTTxBB3LXil5RqleDoI72sHzpKceDQfDTHIDnf
+ 0mMAzT6ndgjSBRxkKMLWU+8DTiivsF+sFGcItW8aSd2MpIfgv0eYtqOJ+XoumSCPSV
+ UYWQb4lDIGOpfhxJl+tCNNGgR1GbLBXk6b6B/16biLFmfHYkp75im+q05Alibb1bk5
+ xmbj0lf1iFP54QI3ado2fjm5mZxCsVoD+0MBBKDBXDIKQVMeJVkQOlUFbzQ6RA9Iij
+ 5xl58bYrqzI0V1HgjTWBmiFR2BGpufg5ahZ1kPidvwG9oa3+xxTmEJDBgjxGRK8IWh
+ oLcsf+O9Cd0NQ==
+Received: by mail-oa1-f41.google.com with SMTP id
+ 586e51a60fabf-29f87f1152cso7548791fac.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 07 Jan 2025 10:06:45 -0800 (PST)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWAbedQrtvufAe0/iHW3QY26+B5tMBG5KW/mwVfPQI/fALIoC1AC+3e6tob1R3BnhDvX5TyIeZf@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxCeJsV/5Evq88EApnLfEbGYU8rDFmsqa4ZiEQnTcS/zSx1pYNf
+ X3TCRF9PYnqlc7O9+nmuvC4AUFvnJGylgzBJnmt3h6/nkWZBd5J+vB/knNslx0eh2nPJPi+94ws
+ cx97YSxj/gKZiSQ0Uv7mc5zXzjdw=
+X-Google-Smtp-Source: AGHT+IG1NHJhEJz1E0ET76oxQrww1eXON879XyPLOolOWfKwB31uUDyaOy8XXeIOxtzd5NgCo8HnCddLN+jryBZWSsw=
+X-Received: by 2002:a05:6871:5e10:b0:29e:32f2:cd4d with SMTP id
+ 586e51a60fabf-2a7fafda73fmr35789737fac.2.1736273204981; Tue, 07 Jan 2025
+ 10:06:44 -0800 (PST)
+MIME-Version: 1.0
+References: <Z2yQvTyg_MWwrlj3@debian.local>
+ <b98f2fa5-fbe8-4958-bf20-fa5d28c5a38b@math.uni-bielefeld.de>
+ <Z2yw_eJwR5ih1Npr@debian.local>
+In-Reply-To: <Z2yw_eJwR5ih1Npr@debian.local>
+From: "Rafael J. Wysocki" <rafael@kernel.org>
+Date: Tue, 7 Jan 2025 19:06:33 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0i=ap+w4QZ8f2DsaHY6D=XUEuSNjyQ-2_=DGOLfZjdn+w@mail.gmail.com>
+X-Gm-Features: AbW1kvbSjSNE-bEgLl-tfpxMU20u1L2jkdssynIbWEcaoblc3eEMeR8l-j1XXf0
+Message-ID: <CAJZ5v0i=ap+w4QZ8f2DsaHY6D=XUEuSNjyQ-2_=DGOLfZjdn+w@mail.gmail.com>
 Subject: Re: [PATCH] drm/amd: Fix random crashes due to bad kfree
 To: Chris Bainbridge <chris.bainbridge@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, alex.hung@amd.com,
- regressions@lists.linux.dev, tjakobi@math.uni-bielefeld.de, lenb@kernel.org,
- linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org,
- "Rafael J. Wysocki" <rafael@kernel.org>
-References: <Z2yQvTyg_MWwrlj3@debian.local>
-Content-Language: en-US
-From: "Limonciello, Mario" <mario.limonciello@amd.com>
-In-Reply-To: <Z2yQvTyg_MWwrlj3@debian.local>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SA9PR13CA0174.namprd13.prod.outlook.com
- (2603:10b6:806:28::29) To CY5PR12MB6108.namprd12.prod.outlook.com
- (2603:10b6:930:27::15)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY5PR12MB6108:EE_|PH7PR12MB7114:EE_
-X-MS-Office365-Filtering-Correlation-Id: fd7b27b6-be44-477e-cac6-08dd2f3cb65a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024|7053199007;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?SmIrQStsVkZiM3FzenFGQlFMZWZ2WnRsb1Y3QVVKdGI5Qng5bGlQUmJLR3RH?=
- =?utf-8?B?VlB4dUg2NGN0bWhuWlJuSWVuRzlaZFhwWmhFWHVBNDdobTYzMXJmaUh3djJt?=
- =?utf-8?B?WjBMT1p6QlRIV29OWTh3dU5uOGI1Wmo1Vk9zeFltTWpud2ZsRFlLSGxPcFY3?=
- =?utf-8?B?ZFRnUHVYZmNqOXh4SmNhamZTR3BCd0ZUYm1NallqemFVbUQzOWQrT2xqK3Q4?=
- =?utf-8?B?b1B6L0JZUlZXTDE1bFpWUHFHcStjUmVTZUFEMDRnY0dCN2l6WktLZUlJZStO?=
- =?utf-8?B?ZXV5SExpYUZ6Z08yVFNoUWYyemtIRW5zdkhNN3JUdEhtVXlBaTRuVHBDUys0?=
- =?utf-8?B?TGEwM1N4ZmRFUU1GRHYzcjV1SWRZZThYcHhkQ0ovZVlheWQvd2grNitUSjRw?=
- =?utf-8?B?d2tKRUZwTnhlVjIzRTIxQ1JwMXFTWDdWL3ZyTENQT2ZlTlRNQ2liYXd4OURP?=
- =?utf-8?B?SnFwVG9qSlhhZ25NVTVzY3piSXhDMWNVd0s1Z1pnOGRhQ2dtQytxajBRTTJp?=
- =?utf-8?B?OGFZVVJkc0N1OS9aOVBIN3dNa05HOS9pNXZKc0t2OGE3MTBLQWlDL2ZoaHdY?=
- =?utf-8?B?UjgxSHp3Ym5mUkNJNHJGQzFjNEQwbWFaQjRnUGFiVFpkajRXOC9oRG5TVFFL?=
- =?utf-8?B?YWgxU2xQM2VoQWwrUVZjWDJOQ3hoT2h3dTdmL0ptS0JqRTJmNS9GNnEyWXNi?=
- =?utf-8?B?VVJ6ZUQ2UlVUZXhIWTR0VVlrcGNUZG42OWMzbkVaSHFVa0draTlnMXdBMGJi?=
- =?utf-8?B?ZDJ4bWV1SW1WaXFrUDJ2SG1RQXFsNTFFY3hMSFJteDJHOHVlQmhpczcwVUlM?=
- =?utf-8?B?bHF3UXQrbmUrUkU3Z2YwUlIwMWo0cTExbnVqbDRyNXFGVEg4eisvYjFWdlll?=
- =?utf-8?B?V0UvanFnS011cnREVmx3b1cybUZWOGwvWmlMTU5iTkFwT2srRy84ODQ5bVVj?=
- =?utf-8?B?VlNVTGlYdUZ1endva0JiU0gvSDRPR25BUm5ld3MyLzRJNDNFOFhuMmkwN2tM?=
- =?utf-8?B?YjJIenRhbnhvNHk0Z2lUL050c01pb096azIyOUtYWURhOUpnRm1BblRvTzYv?=
- =?utf-8?B?NVJuZHcvbVViOEtqc2pUQm9UV1pkT1M0ZGI4UTZYU0xZS0JFNDVIWC9kR2xy?=
- =?utf-8?B?blBRREZRUS9QbVE5ajQ4Ni9CWUM2dmk1Q3k1bXg3Z25uaVVINVpOVTRzQnpW?=
- =?utf-8?B?NGk5QU40V3hZaVBrekpmTU5TNFVGV0F3Nkt0WUhNaW1wMmlkUVBFUGVLRDRi?=
- =?utf-8?B?b3paNDZGMEpUL1UxZ3pXUWUxSDl3c2o0Q3lzdGlXRUpIWDhUbnc5ZUJweHdq?=
- =?utf-8?B?OFc3di9obXVJNjJObkgyMnB6TVpsd0s1R2FFR1NHV29mVkJGUngxZ1lhZGpR?=
- =?utf-8?B?cFR1b0JUc0YzMDNPTWN3Z1FmdVlacXJ5ZjA1MGFJdVBMZEFaRnY2MHYvdVBY?=
- =?utf-8?B?WUJzdFdrdEt4S2c4T2hyTE12S3hsdnhFdUYyd1YyOXcxL0Nwc3BuSSs2eVln?=
- =?utf-8?B?a0s4OVlBak01MFlRaFU2aWJtUHdINlFTOUUrZ1hqcmZsa054R0ZLR0dUWDc1?=
- =?utf-8?B?Y2JnUDBaaGdsWVpkMEFXQW02Yitwd25vbE5zeTRxdjlkUGFBbVFXY0lFZ1da?=
- =?utf-8?B?V0MzL3hYUi9TRzhuWHBCVFVVMTB6WlJGbTd6UGwrY1E4T3liY1NNYzFDWUE0?=
- =?utf-8?B?Y055REIzMGQ1UkpNVVM2TXZlbm5HVVA4WmY4Y3JwWDV2bHNqakFaT3ZVWUVS?=
- =?utf-8?B?a0YrcUlNdTNic3lUMHp1eitISkdjT1pqcnFtWVN4MUxQZDVEWFgwUm55UFpZ?=
- =?utf-8?B?L0FzSUFTQXJWZ1Nzb2NlMWFCb0NldFc3OGtWcXFlRFlXVGxFZnF2bWE2ME56?=
- =?utf-8?Q?S0LsGl1N44mO2?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY5PR12MB6108.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(7053199007); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QnEwdUlDVjQvOUZlS0VPc2tHRTBJMTdTZytzcFM1MmRUWG9tN1dhSkpFZVpi?=
- =?utf-8?B?UzEydlovcGhUa2tWS2xwaG5kc0FUVWdwdUpRYU9EM0RUQlN0UlR4UXB3Tmdh?=
- =?utf-8?B?aUtkV2N6ak1xMzhmZVZkK25ybS9KNDJhd0s5WXdrODcvQllZUDBpdWlVSjR1?=
- =?utf-8?B?TFFSamR3cStNdVdveEh0Q3ZJamtyNk9jbEpSUkwzek9lZjloNlR6S2lWT3Ni?=
- =?utf-8?B?VEUwWE40aUlqWGlXTmo1eVMvYUR1cHJYN1R6ekNRem95NVBXNi9OZEtGdE9q?=
- =?utf-8?B?b3hkUUduUGVqOUN6ZFpHTkpFTjFGaFg1MGZjemg1UnZHeWFrL1ZQenJQUkJa?=
- =?utf-8?B?ZFZGZGhQRTBTRFNKMjlOSnpDb0pDRzZvS0JrMnkweUFQUVhmMENLL2sycGJL?=
- =?utf-8?B?dG5oejFZcDB5bW1EaDZud2NrNDBpTk5jZXlhM1k5RkU1R2FiaHR2NmxlYmxD?=
- =?utf-8?B?eEcva2RjQ1k3S0pIT0UxR0xidTErQnBKSUtHRE1TaEtDdGNTM2F0cUJFY2Qy?=
- =?utf-8?B?RWsxaXhJUm1DRHByTFNRdTBHaTBJOGhITHUwQU9YVWJvbHBOTzI0aTRRbjhV?=
- =?utf-8?B?RWplS2h1cEFPTkpuRGdndnkzQWdlaUlJVk5rMUtZS3FueEdrR0daZlBXbytr?=
- =?utf-8?B?bmcxekNoVVBVdncvS0NKY0FWWGhYUmpGTUprYTBjbkMzdDVRQVhIZnR1Tk9j?=
- =?utf-8?B?aTNSejhzc1h5bk1rSHVLeUNjczNBUVYvZDhKMklVWitJd3d4MW5WYlhPQ0dq?=
- =?utf-8?B?eUtOcWVRY2FSR0ZHWTc2NXhrdGd5L0pQajEwdjVKYWIxcFA0VHFjeEt4emV2?=
- =?utf-8?B?ckhzbUowSldybjRmL3V4Nk8ycHM2OXlrQWtweVZyTjJzY2dYYUUzVHRKODlS?=
- =?utf-8?B?T1NWcnNCYW90Ni9xRVZkeUNOUDZ3OEFTekM3TzhtMUVRclNWc250RGxwNUQ4?=
- =?utf-8?B?Z3gwL3d3WkVmeGxVWnBqeithN0o1VktWV1pwYUNObENkNWQ3MmQvU29zY0pi?=
- =?utf-8?B?M2NYSjFCVzR1Tmt5SVkxRmJBNzNWY0JtSFFFZE1oNmJTSnN3NVRaQ0czOENo?=
- =?utf-8?B?eUlqbHVZa1VtaEMzc25nNHZlSUpWNW0rYTVha1o1ejhsTDI5VmdKMTVJblNo?=
- =?utf-8?B?clk1cTBWcmxPYlNKcUFYVjhzZU5wMnhFb0FJb2NLb1dhR1NLdHAvbGk4cDRX?=
- =?utf-8?B?dTNTd3FaWW9mSHV2TjdiVGQ5TVlJbElCemxkQkR6cEFwZHZ6cGNCaXAwNUc5?=
- =?utf-8?B?OHAwTE5pZVlJbWFwVkh2Z1ZlaXRhbXlSVmlUUmVuSnhPYkt6WDkzTUoyTGFt?=
- =?utf-8?B?U1Q3MjR2Zy9mRHY0NDJqejZhUzVYTFFvN1FiT29rbUtGY0xxQlVrMy9mRFZj?=
- =?utf-8?B?MU1ZYU5UNFB2UW0rU1BDakRablZuaE5VVkl4YnJKSnJteERCZkFxTmtsRTZR?=
- =?utf-8?B?dFBVc3JOTzZ6cFkrY2F1YWwzZEFoekNERkJGdHYrWDY5dVRpN0crK3N5TDYx?=
- =?utf-8?B?eU1uc2s3KzhmUDcySlhrenI0cUl2S2FpeWxsSUJUTHhlQ1phMHl1ejdZRk5L?=
- =?utf-8?B?eStJUnYvaUZJOEVLbVdMbHMrVTZRVTRLaE1zaVM3MFFYVTRJY3lrSDlLb01w?=
- =?utf-8?B?RGoxRFI5UU9JejhMWjFzUE0weUJKbTJqV2JWNG9DVURaeVNFVWd3UjlKdDg4?=
- =?utf-8?B?Yk1hbzlMaDFrSkVncDJOWGlmR3ZqVjdFc1Rwdi9wbzNyNE9POEJqUThOQXJL?=
- =?utf-8?B?OXJCMmxHb1M0cXZJdk9URG45RE93SWhnYXgxUWlaRWVGYVNYd2Nhc2d0TE9s?=
- =?utf-8?B?Z3pGSUc5QllPNzJnR3VOUFNMWFhYTVF4U3MwemdjMUxybHRZeVAyQkFOUnJF?=
- =?utf-8?B?N2dqLzEzUDBjR01FYSt5VUFOV1ROSm5zS2lySkRnMW5rZHhDWmRRRkxsOTNI?=
- =?utf-8?B?UkdaQ1dtTjZwU0pWYW8ycTZLOC9veGhFb2hQY0VXb05abllydVhuc2YvajRa?=
- =?utf-8?B?bUliNXdHd2d5OG91VGNOVS8rTkYrUEF0c0U5clZuS0M0cWZUOG1wb1V1R1ZE?=
- =?utf-8?B?YmVJa3BqaE9QbGdvbjhmVGJicnd0VUxRRVFuZU5WODNjZjdQZmMrTWg5RFk5?=
- =?utf-8?Q?9+5PTuXjh+0iF++S1Fx4Xmjh+?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fd7b27b6-be44-477e-cac6-08dd2f3cb65a
-X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6108.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jan 2025 16:59:56.1556 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0UZBB9zkMr/Buu4aWl+8OXD2va07RUgaXQMXJk6INCyHdJjliRfecd8FhZJOl0NJ72xkcSjQgIzyY1KGueex1A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7114
+Cc: Tobias Jakobi <tjakobi@math.uni-bielefeld.de>, 
+ Mario Limonciello <mario.limonciello@amd.com>, amd-gfx@lists.freedesktop.org, 
+ alex.hung@amd.com, regressions@lists.linux.dev, lenb@kernel.org, 
+ linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Hans de Goede <hdegoede@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,70 +75,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+CC Hans who's been dealing with the acpi_video code for some time.
 
+On Thu, Dec 26, 2024 at 2:27=E2=80=AFAM Chris Bainbridge
+<chris.bainbridge@gmail.com> wrote:
+>
+> On Thu, Dec 26, 2024 at 12:19:02AM +0100, Tobias Jakobi wrote:
+> > Hi Chris!
+> >
+> > On 12/26/24 00:09, Chris Bainbridge wrote:
+> >
+> > > Commit c6a837088bed ("drm/amd/display: Fetch the EDID from _DDC if
+> > > available for eDP") added function dm_helpers_probe_acpi_edid, which
+> > > fetches the EDID from the BIOS by calling acpi_video_get_edid.
+> > > acpi_video_get_edid returns a pointer to the EDID, but this pointer d=
+oes
+> > > not originate from kmalloc - it is actually the internal "pointer" fi=
+eld
+> > > from an acpi_buffer struct (which did come from kmalloc).
+> > > dm_helpers_probe_acpi_edid then attempts to kfree the EDID pointer,
+> > > resulting in memory corruption which leads to random, intermittent
+> > > crashes (e.g. 4% of boots will fail with some Oops).
+> > >
+> > > Fix this by allocating a new array (which can be safely freed) for th=
+e
+> > > EDID data in acpi_video_get_edid, and correctly freeing the acpi_buff=
+er.
+> >
+> > Hmm, maybe I'm missing something here. But shouldn't it suffice to just
+> > remove the kfree call in dm_helpers_probe_acpi_edid()?
+>
+> Yes, that would work to fix the bad kfree, but there would be a small
+> memory leak of the acpi_buffer struct. It's not a huge problem since
+> this code is rarely run, and the Nouveau code has never tried to free
+> the edid buffer and apparently nobody noticed, but it would be better to
+> do the correct thing.
+>
+> One other curiosity is this comment in the code that allocates the
+> memory:
+>
+> case ACPI_ALLOCATE_BUFFER:
+>         /*
+>          * Allocate a new buffer. We directectly call acpi_os_allocate he=
+re to
+>          * purposefully bypass the (optionally enabled) internal allocati=
+on
+>          * tracking mechanism since we only want to track internal
+>          * allocations. Note: The caller should use acpi_os_free to free =
+this
+>          * buffer created via ACPI_ALLOCATE_BUFFER.
+>          */
+>
+> Which makes me wonder if all the calls to kfree on acpi_buffer structs
+> with ACPI_ALLOCATE_BUFFER in acpi_video.c should actually be calls to
+> acpi_os_free instead? I used kfree just for consistency with the
+> existing code.
 
-On 12/25/2024 5:09 PM, Chris Bainbridge wrote:
-> Commit c6a837088bed ("drm/amd/display: Fetch the EDID from _DDC if
-> available for eDP") added function dm_helpers_probe_acpi_edid, which
-> fetches the EDID from the BIOS by calling acpi_video_get_edid.
-> acpi_video_get_edid returns a pointer to the EDID, but this pointer does
-> not originate from kmalloc - it is actually the internal "pointer" field
-> from an acpi_buffer struct (which did come from kmalloc).
-> dm_helpers_probe_acpi_edid then attempts to kfree the EDID pointer,
-> resulting in memory corruption which leads to random, intermittent
-> crashes (e.g. 4% of boots will fail with some Oops).
-> 
-> Fix this by allocating a new array (which can be safely freed) for the
-> EDID data in acpi_video_get_edid, and correctly freeing the acpi_buffer.
-> 
-> The only other caller of acpi_video_get_edid is nouveau_acpi_edid:
-> remove the extraneous kmemdup here as the EDID data is now copied in
-> acpi_video_get_edid.
-> 
-> Signed-off-by: Chris Bainbridge <chris.bainbridge@gmail.com>
-> Fixes: c6a837088bed ("drm/amd/display: Fetch the EDID from _DDC if available for eDP")
+In Linux, acpi_os_free() is a wrapper around kfree(), so it doesn't
+matter in practice which one is used, although in principle you are
+right.
 
-Thanks, I agree this is a better solution for this issue than 
-duplicating in the AMD driver code.
+So Hans points out that you should check the kmemdup() return value
+against NULL because returning a nonzero length along with a NULL
+buffer pointer is confusing at best.
 
-However, the subject seems wrong given where it lands.  This is 
-primarily a patch to ACPI video, so it should be prefixed with "ACPI: 
-video" like other commits to acpi_video.c.
+But if you want to kmemdup() the buffer, it is better to additionally
+check if the length of it really equals to the 'length' value.
 
-With that subject fixed:
-
-Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
-
-> ---
->   drivers/acpi/acpi_video.c              | 3 ++-
->   drivers/gpu/drm/nouveau/nouveau_acpi.c | 2 +-
->   2 files changed, 3 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/acpi/acpi_video.c b/drivers/acpi/acpi_video.c
-> index 8274a17872ed..151d1d534264 100644
-> --- a/drivers/acpi/acpi_video.c
-> +++ b/drivers/acpi/acpi_video.c
-> @@ -1485,7 +1485,8 @@ int acpi_video_get_edid(struct acpi_device *device, int type, int device_id,
->   		if (!length)
->   			continue;
->   
-> -		*edid = buffer->buffer.pointer;
-> +		*edid = kmemdup(buffer->buffer.pointer, length, GFP_KERNEL);
-> +		kfree(buffer);
->   		return length;
->   	}
->   
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_acpi.c b/drivers/gpu/drm/nouveau/nouveau_acpi.c
-> index 8f0c69aad248..21b56cc7605c 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_acpi.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_acpi.c
-> @@ -384,7 +384,7 @@ nouveau_acpi_edid(struct drm_device *dev, struct drm_connector *connector)
->   	if (ret < 0)
->   		return NULL;
->   
-> -	return kmemdup(edid, EDID_LENGTH, GFP_KERNEL);
-> +	return edid;
->   }
->   
->   bool nouveau_acpi_video_backlight_use_native(void)
-
+And I would put the entire buffer management into
+acpi_video_device_EDID() including the kmemdup() and make it return
+the actual length of the buffer on success.
