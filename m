@@ -4,120 +4,165 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B527E77197
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jan 2025 12:09:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 033DFE77197
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jan 2025 12:35:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E29610E4C0;
-	Tue,  7 Jan 2025 12:09:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9727410E6D9;
+	Tue,  7 Jan 2025 12:35:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="HFzqh9aM";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="KPeBzaUC";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2062.outbound.protection.outlook.com [40.107.92.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 130E110E4C0
- for <amd-gfx@lists.freedesktop.org>; Tue,  7 Jan 2025 12:09:01 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2046.outbound.protection.outlook.com [40.107.94.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 82A0010E6D9;
+ Tue,  7 Jan 2025 12:35:18 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xiF49lqdos8sCLbi5l+5olw/1BnD2j4BEWh4qz4CJ5AjYdiAf5NOsGRPhaTDDYxcXyUSoddmzH/gv9sKj7tI1pr1hzC+nqFT7RYtUNvodxYGRpYMsYkquPphCEkJX/L604nin8KuSmi3XWYakCLrKSAHdmZw7SAwigTEWf6MbauuCXv0M7oOjyhcwDSKhU1Ar6GvY2C7u9604iG42+o5uGfY13MLEMDyKFcIvofYfoHvkq2yAxXVP4rzODl/0g1jJDZStlQuA0HrxHIZW93Q38vS5lx6qlz6cclAlA9jooLqCsScSBXiSz0r7mVSwuWzUBFuh9/eIIEcwndwA8SdLw==
+ b=CnPnQVFxX633v2wbc7ISsE/9skGPJwPXPQ/0E4Ij/BS3m6y4iXvTRl3+ixmlTNISJbe3/FH08DBNm4CUWyqY/zV8eqsCuNDCzWOaEt2RxpBNZ8I58ZWBykeNDGZXpCNvNIq0mSE1ikhSt13am87FIQPIH9kjq2fDft8NwbSSkxxL4YwbAV5XEQJENkuRF6qaVmyeQL5zX9eGIhYYNYmw9yS4eNq7YT6xD0moSLhxeI/HMsCamJy5Sz3+FM83goyhtjbU7/qPyC7v6mgIzI5bxWqTmx+LLYLwQUMzV/FIPRRl5qaRgYzFSTjxCyay3qadOLyHZTh6MSNxeYiahNr3dA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=q2mtZHYYiQ4AM2otLGbX7+G70j9GDEuj363MMNTkS+A=;
- b=hcCs1I6l7CpPZibXVg8p3nfcSIbpkILXvZiIjBGqEh5eVkUqgLDxd7A3hn/I5xW5MBwsFIntIgvaZaJfyOHD1H0CQObO1HmCURjRsUHJF4xnTIwlP4D9FrKhApO25XMT/Tbjw/dGyJifIRQSzprLCvOfGgLytkdxGZ5rgECwYBUi3xhKjanMzQC9ewbRCAGir0cPbX7TxlUtcNAhjYFmT8xg1UZnLLnQnl3p4iDl0htj3GBfKzBvwBZpZRu20QIJt8Dwa3o5XrPhmaWNAYywbc3N3PnmLPlZnUq4mWEQKLxRPqWkhJEsPFiN1230wrKOiMj5Oq1HULVIr2zSSa1Fsg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=DcWCFd7igeZpvkvBhfcLnI0f2WQRJicgYDsa3j2GZHc=;
+ b=ycYNYUYljo7BbCn2k9TUwX5SD8ROLUI1TLDcrk8wgGQSDcu9E2EXByqE0NOQZrBtS2/EtnJm5oU5Re9mZvyYpe7mjmqFYR8FpLWXrvU85LjuPulg1HPNjgtxKQhkEVXmp29mPgd9EeJZQSCn3ljf5ABylEnQlcqzp2lARx26Y5b+zdlfVGQuDSvLc4TUugc5Lsrmfr4bjXzJHwWtfhIB4tG0V36DdMU3pKjPwaMxF4A2D4mNm7NUnC0eFbEynftyDb5018X9joxeU8DT1Mnyw2WdSpgAhztWHCdhzwHHTqmOS/AlZLJiHHcFLEgh6UTWUnbM2v5IMFm3r2zVz1V2bQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=q2mtZHYYiQ4AM2otLGbX7+G70j9GDEuj363MMNTkS+A=;
- b=HFzqh9aMvC/2PxAEiD8S8TR2txWJ+htc7mmY3XY5Z6mQ7MvA4gEiKvO7SO+Vxfc9snFTwqANXML3eKnVNkm9TCmip6x5J5XUmsW+ft6U7lHZN3XcJ5KHQ5uiwe31DMljRGVEzaSSgDdHGnn6L3Zy4NDlb1nDC5rw/IKI8XyC2oo=
-Received: from MN2PR14CA0027.namprd14.prod.outlook.com (2603:10b6:208:23e::32)
- by DS7PR12MB8345.namprd12.prod.outlook.com (2603:10b6:8:d8::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8314.17; Tue, 7 Jan
- 2025 12:08:53 +0000
-Received: from BN1PEPF00004686.namprd03.prod.outlook.com
- (2603:10b6:208:23e:cafe::4c) by MN2PR14CA0027.outlook.office365.com
- (2603:10b6:208:23e::32) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8335.11 via Frontend Transport; Tue,
- 7 Jan 2025 12:08:52 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN1PEPF00004686.mail.protection.outlook.com (10.167.243.91) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8335.7 via Frontend Transport; Tue, 7 Jan 2025 12:08:52 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 7 Jan
- 2025 06:08:52 -0600
-Received: from qdhost.amd.com (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Tue, 7 Jan 2025 06:08:50 -0600
-From: Kun Liu <Kun.Liu2@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <harry.wentland@amd.com>,
- <Mario.Limonciello@amd.com>
-CC: <richardqi.liang@amd.com>, Kun Liu <Kun.Liu2@amd.com>
-Subject: [PATCH v2] drm/amd/display: add CEC notifier to amdgpu driver
-Date: Tue, 7 Jan 2025 20:08:50 +0800
-Message-ID: <20250107120850.213843-1-Kun.Liu2@amd.com>
-X-Mailer: git-send-email 2.34.1
-MIME-Version: 1.0
+ bh=DcWCFd7igeZpvkvBhfcLnI0f2WQRJicgYDsa3j2GZHc=;
+ b=KPeBzaUCT96XQX/gzAO8ygctK0nCe/GkN40rH1WR9Wn6K5oM/lh1qk2lsO9cVjubEto/n7rxxdD+U0QnY0J/M/hnNM4VtfKzk1MlJw3Y6haAnymtWKJwL62AfcyormwcQYn7vos3AqTRQ9+C3Fh8wRoZvcRLni7bxV8aI8VyuWA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by MN2PR12MB4456.namprd12.prod.outlook.com (2603:10b6:208:266::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8314.18; Tue, 7 Jan
+ 2025 12:35:01 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5%5]) with mapi id 15.20.8335.010; Tue, 7 Jan 2025
+ 12:35:01 +0000
+Message-ID: <8564f261-45f4-4443-bc7d-9474ec27eb57@amd.com>
+Date: Tue, 7 Jan 2025 13:34:53 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: Enable runtime modification of gpu_recovery
+ parameter with validation
+To: Shuai Xue <xueshuai@linux.alibaba.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, "airlied@gmail.com" <airlied@gmail.com>,
+ "simona@ffwll.ch" <simona@ffwll.ch>, "Lazar, Lijo" <Lijo.Lazar@amd.com>,
+ "Ma, Le" <Le.Ma@amd.com>, "hamza.mahfooz@amd.com" <hamza.mahfooz@amd.com>,
+ "tzimmermann@suse.de" <tzimmermann@suse.de>,
+ "Liu, Shaoyun" <Shaoyun.Liu@amd.com>, "Jun.Ma2@amd.com" <Jun.Ma2@amd.com>,
+ "Zhang, Hawking" <Hawking.Zhang@amd.com>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "tianruidong@linux.alibaba.com" <tianruidong@linux.alibaba.com>
+References: <20241228063245.61874-1-xueshuai@linux.alibaba.com>
+ <563b1797-5524-44c5-89b0-754f245e6b8f@amd.com>
+ <63938ba2-dcb5-456f-bf82-bd8c893549c0@linux.alibaba.com>
+ <PH7PR12MB5685C307737F826039EEE48583152@PH7PR12MB5685.namprd12.prod.outlook.com>
+ <dbaaac26-9df2-49c2-8591-7ceb7b8f5e40@linux.alibaba.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <dbaaac26-9df2-49c2-8591-7ceb7b8f5e40@linux.alibaba.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Received-SPF: None (SATLEXMB04.amd.com: Kun.Liu2@amd.com does not designate
- permitted sender hosts)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: FR0P281CA0170.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b4::8) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00004686:EE_|DS7PR12MB8345:EE_
-X-MS-Office365-Filtering-Correlation-Id: e700f75a-ddf4-4219-9a7d-08dd2f140d66
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MN2PR12MB4456:EE_
+X-MS-Office365-Filtering-Correlation-Id: 75e03c9b-84b1-4eb7-01dc-08dd2f17b45f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|376014|1800799024|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?vDyyukwWyX6iDdp0G26RecNMNLlnCje2FDHnpN43WUkp4PJcmFWgcJHW6kma?=
- =?us-ascii?Q?4nP/vaNBZnx3YncZG2+wGT1RrDegdHkw6OvNHaD6k+pKuAF48B5WIw2/uCjt?=
- =?us-ascii?Q?r9Fv4G5DWvw1p1W/bid1ELyVfj7Sy6wczwd9efOMAKxnMcjTaKX00AsTbhO6?=
- =?us-ascii?Q?+tZEIL1Uz7JqaVLWa1AFmL5rLWClfs2N6XyDR3C9uT6RJey+ySh/h8pLHbBY?=
- =?us-ascii?Q?uEOANvsLIzidfpZJpZptWE9rixKlog8BaZRd4VPQLOdJT0DX8EjOfNqOGOns?=
- =?us-ascii?Q?qooyuGY/mSIhLcOz7HvqTm9wUk52fQCFZyhuc4go3FZzpBaeC8mKsYDhzHbY?=
- =?us-ascii?Q?jRlsRDTd0qAg4NViGIiuANL1XJHy76jLOj6JoGGX5+8KfbSNMpuRie9Zn6zZ?=
- =?us-ascii?Q?HCm0gj409Z3iNjgYwAlk61Zt/BA25gRl2eKYV5xkzuzFIKxGJHchP3KLIXc2?=
- =?us-ascii?Q?iqpxuynYRTFjVV/jXjKERo+Ku7ll6Khsc+p11oESiwtUZRqFKIhWUSDohAGK?=
- =?us-ascii?Q?3rlh+oOSi59isIZb2smEF8JDZjTq3M29lx7XxiQBSqYEEvereyDz6iEsEaC1?=
- =?us-ascii?Q?VMJ03jka/bfw3pj3owwigBptASObyUEuGefpDCIzOTw1jRTy0r8N4M4jB79j?=
- =?us-ascii?Q?KFctRLx93ZKHIlg/Qkbnf42qNCtEaUn8uZ35la1Wzpu5BMl5tZvkH66l05dm?=
- =?us-ascii?Q?UhnBGtNR7JunHgFVKOHoc0Bk0YhnWtj0SF+wPNepnCFxqJG5lzbubsuI19TS?=
- =?us-ascii?Q?GtTsUo3BpBoRxikYRE2H7AWoaLcUzZrL2X1JXTDTXhKS6QscUGDayIO8NgXH?=
- =?us-ascii?Q?+9BTkKWD4TMQutD9Yhe6yHDSfGfXtSXc8J0Mnk3Uabw/+BtmWfO47DHpMVZf?=
- =?us-ascii?Q?lyJ5L5ddyz0mCAIcfTL3zgVqpIMQDUyPDycXlL4JsKL7Z2X1Y3k9NL753BsK?=
- =?us-ascii?Q?XQ1J1gW2dnlNRX3iF6Lktty791E03Gh4LSWhqy6eJa/uUrdnmbHS9E3yJi9J?=
- =?us-ascii?Q?zWvvBtLL8RkeUa9HYRPjIOt3eFb/6wptpcX5+oHwm1jtwPwMoiSTKkSY7D3O?=
- =?us-ascii?Q?87ULbiudK07M3k1xT106ZclgvUWSbL7l4vIL5zch2S96hZAoB4U85pRhFEbK?=
- =?us-ascii?Q?42iKnkuh8aw9Yb9HLGlYvJ+ish51eGcbEA2FWKF4bf2lwVKyk9OX8noop4Ea?=
- =?us-ascii?Q?QKKrIu7cTFydD7n6QXvD/wBlTVeqpgDNNy/KUV3A0X9B8qRzX/345lDqsyAs?=
- =?us-ascii?Q?qp1xpWYubh3QH9qZ7FxjnuzOvrVNK68KnTY8k4bXj0spx6NSSJeNOProKaRL?=
- =?us-ascii?Q?HEG5KFPKPgxgE2EVGiVQJdaJr7HAVb58c3PHRB794yKMkUqFXKq1qQar9Qww?=
- =?us-ascii?Q?KxMOUmqAC3vkSEa3Acm92fZR4zIhnUAbODqPzq/ZHhS8IO5Xesy7qvm+T6j+?=
- =?us-ascii?Q?mBhvXBmQkt8=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(376014)(1800799024)(82310400026); DIR:OUT;
+ ARA:13230040|376014|1800799024|366016|921020|7053199007; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?NDlURWltNDVGT0ZMSHFuV1Q3NFlMWXI3TmpFa0l1ck02c3ZvRlI5M1J2aXlZ?=
+ =?utf-8?B?azdOZUwwbjlpMk9BdmUxVk82SVBobW5lSXI4ZC93QlREUWpkRnZVREp6TVpO?=
+ =?utf-8?B?UEltU3hDN1JWcjF6Z3l6eVo3Q0tYRll3aG9XUjNyS2d0Y01YeVBxZHNibWhV?=
+ =?utf-8?B?UHlqWHVZQkFiY3JLK2NFOWNLRFRreVVBUEpyeUx6QWFPY2V0NUE2RWlHMU8y?=
+ =?utf-8?B?M2tBbzE3TFhtckVWNDRDWkZac21ZNHJJRU1FMjhORjJ1SHRJK2ljdWFlMndE?=
+ =?utf-8?B?akFvSlZBdG5oSGFTOTA5YVpVaHByNXVRSnFHcjlpYmZiNXJJaDZXU1U5MG1L?=
+ =?utf-8?B?MWZUSUxtRFdva3VGRXVHV3RBbzVqOEJpdjZMYXQvNHFITVBZTk1ranRmZ2hI?=
+ =?utf-8?B?TVlHSjNTUklxcFNwZ1Q5My9LQXdCNFYrNURNUGo4eWZMWVEvb2FybGhjVnMx?=
+ =?utf-8?B?eXpUV2gvS0llKzVaeEY2dVZZV1ViQlB1YzQ1YjJQQmxKZ3dUQ29qL1ozNUxn?=
+ =?utf-8?B?K0E2S1h1QmlQM3VocCt0NkFYOEFaRVpFSndBRjNBcHZrUnlVRThZZjBWUmNx?=
+ =?utf-8?B?NmtLQWwrYVR6d0xrcTZmMm5UTUZRYUcrbWlaSTNoaUVUbytXT1NRWHplcGJy?=
+ =?utf-8?B?VW5iaW90aUNaNGQwaVVnL3M5cUduS1RxeVI0SzdTUTNwanFDaDFhTXBCWEtC?=
+ =?utf-8?B?eFpKRVkyYzYva3FBa1F4QVlsYmNBZlNObEpDN1A1RzEzOVE1d1ZUTHpDK2V4?=
+ =?utf-8?B?aU51d1V4MW9McGsxQ1lQZU55NStGemhTWE1ZbldBTGJxczFYQktmckR3VWRk?=
+ =?utf-8?B?SGF2dk4xT08vOGQ1ZllCK0Q5THZLUjFDeW53MDV6ZkVBbTlpcE5tdFQzYTZS?=
+ =?utf-8?B?eGdVc1BPUk0rNEpKbWtBTEVYWDdhS1pqZ0JsTXQremNPdlJ5NnV6STNLZkNs?=
+ =?utf-8?B?Mk0wL2lIdWlTbEFiV1E5d0VZM2ZJUzg4Qlg5QnZYTGRrQUlxeFkrQnFSYnBL?=
+ =?utf-8?B?aHVYMlhtS1ZBSXFtZkV1L0JjV2NqbUh6bDNxMk5wS3N3MHRtelJEWjVRNVZR?=
+ =?utf-8?B?Znc1S090M3pkWUpwbFF6L2lPUnJIZHg2aUpUd2IzYjlxR05RMjNCckx4Y1Jq?=
+ =?utf-8?B?VkE5ZFYycDhlL3Y5TmYxdTB1MEl5SGhURHhqRmQxbXlNUkQrNHU0aHo1Tnpy?=
+ =?utf-8?B?MGk1ZUVrUmpLOGFobVBNb0Q2OFlycnBWd1YzeExlUEJqRTlRdGNNRUlJbnFX?=
+ =?utf-8?B?dm9rWFBqQ1JNQzlyMUFBYlRRWDQyVDN1WHowWjROb01reE1XUmV4am51aE9y?=
+ =?utf-8?B?NzdoNTJzMnFLYXd2cHFvMXZueHlkWDNRa05KK1ZQR1FTSUVUOTcvb2pMVFlF?=
+ =?utf-8?B?OE1aTTB0eW1BUFhScHgyWXMzWjFLNUpXd1F0QTUybG1mZEo2aGw0U08vTURn?=
+ =?utf-8?B?V3RQV3o5S2F0VUtnb3hlTmhRaTJGcmJIeEI0bFZMT2pMRHozeDN4YXJBeXlP?=
+ =?utf-8?B?KzArMzFENmgzc3F1aXhJdi90L3pvVVpRRVAxelFOdFE1MGMwdExmRk5ycDRY?=
+ =?utf-8?B?Ty8vUWJPQ2pBNGpPOVkyd2tQUjUyeHd1c1FxbXlqcERuVkpCVFUzOHorYVQz?=
+ =?utf-8?B?eG9oZXFJZlNRTDVuUFNtVUJqMmdOWUEwQTNiOE56QlNlb0JyQXM2WlVWaWd5?=
+ =?utf-8?B?THFjUmZmRmFEQmpIcmtJMkxoZ0ZZbHlIS1RyenRIQk51aDlmems0OVJ3VFo2?=
+ =?utf-8?B?TGFUSXdFd3RiMEl6UUVhVFFUZmlTOFBUVU1GLzR6Z0t5WnQxRGFuZ1lGbUE1?=
+ =?utf-8?B?cmdHVjFJbDl6Zmd0a1pNd2FMTnhzSnlrUytaNTNxaGRRNEtzc3VzbVBQMzNq?=
+ =?utf-8?B?V2NqV3dKNmVQRm9yZXRQWGJSUTl4eEJXeUxIcDhqcFQ0dXNpZTl2eit6UVBS?=
+ =?utf-8?Q?iyHqhRNGdse10T2TSSRGLkCuL811Tm/C?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(921020)(7053199007); DIR:OUT;
  SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cmpkTGhDbW5hSkV2OElaR2hkQ1VpeTA3bDJ4TUJFdDVyZ0MwdHdxS3lPZ2tZ?=
+ =?utf-8?B?c3ZxNGk5ZmlkNllxMXZRbWwxUDR5OWYrSTUwb1JHK1poaFhoZDlmNVhDMUZ6?=
+ =?utf-8?B?NkZYYnpnbmo1enZyUlZoSVF2U2xFcktlYmNaMW4zbjIzT21Md01aYWd1K1Ez?=
+ =?utf-8?B?QmhOQlM2d3dtVW5IUnArZ1o4czVYT1lKMmdOcGU5UUZMWDRLbWtmcTcrUnpP?=
+ =?utf-8?B?dktxOWNGakoza09QUU1YTTZpdHIxNG1xK05aS0xqU0tsSjlUMnVkeXFLVmdj?=
+ =?utf-8?B?WkVOdmN5RE9sY3JFQml0aEJRWTJTa2h2L0N5aTNmbnhqZWV2UUNLdEgwazBU?=
+ =?utf-8?B?bER1elovS241aStoQXpSR3FLcHBGazYwcmFCOWk2VVJnajV0SnpCWXFlVEV0?=
+ =?utf-8?B?ZG5ZSE51aXlPRWdkRWZXUDNMa0xiSExwNVNYWkhmNEZuYmlxZjhhSGQycGlr?=
+ =?utf-8?B?MUFuZXNNVlBnMkZ6NFViWDBtRG5UR3lYc01kTm04eHV4aEl6RmFWKzlzOXF4?=
+ =?utf-8?B?d250QkRZRDNETXhCZENScWJ0ZStrRzBxWWxsWHRXNks2U0xXdHdLL1JoSXNS?=
+ =?utf-8?B?UThGVHMybDQ0ZG4rM1pBNWhNRHM5RVpWWWxQZFg5ZlorMTVEdU13VTVPWGMx?=
+ =?utf-8?B?NkJJaTdaVXNEelRWRStQOTVmTUJ5TVV3Qlc1b2tha1lZZFBrcVp4ZlViK3VT?=
+ =?utf-8?B?L2ZQSWNwZUErYUxKTC9VYWpsUGxwWkRNeERhUldrclhLaGxZM0g3UC90cWJj?=
+ =?utf-8?B?cnBCQ1BMcEVXVm9CZFlERW9vUFU1S1dYTjA5ZVB3L1BUc3NqbnhYYjVORU1x?=
+ =?utf-8?B?Yzg3YlJFT2t0bGpqQWo4L1hsYk5Ec2RKbC85QnNxRGxjQkxRM0VHZW5PZlV4?=
+ =?utf-8?B?UjlYT0ZaK2ZsdmFEZlFLVzhzTTBDZjJvRnZOb2FqZy9Na0U5RktLazgxTXAr?=
+ =?utf-8?B?bEUxQ0hhQTMydWxFWjlVVVkzaWdiRktoTUkyREJwMUFXSklpNzBkdlBvY3g1?=
+ =?utf-8?B?RHJlT2U4OHJtM29nb2ZzSWZtamluSk1pMVR5aGlTYXdJS1g4VnJtYlhaS0Zs?=
+ =?utf-8?B?OGk1bUsyVUZOeTBkNzgveTQ3UGdCSEdIcHR0b3dMU0hhTHdUNTdjYUhtZjAz?=
+ =?utf-8?B?NEcxNzBVd0dqbjVTUWlTbkNYMHJYWEs2ZTdhdjgvcXFvWCs2SWl1cHN6OVps?=
+ =?utf-8?B?V0xIY1QyNnh2a3M5NDlIa1J0cEZPa0xSaThXdER0QVVRSmx2Nm85TGhkQ2pm?=
+ =?utf-8?B?NThkaGpQKzRLZjZhUE1tYlpYZURubkpQZW1FcEE4MmpMdGtrb0R3WTMvNUlz?=
+ =?utf-8?B?b000cm5RTFFMMGwvZVpvdEJQM2dpVVRSUjliRElOU2VDQXQyY0pEdHBjL1hx?=
+ =?utf-8?B?YzNuRWdOV3VGRU90Q1l6ZWsvVkxWWHZJMis5TXZ4OTNKRTJDUGlYM3N0Z0wx?=
+ =?utf-8?B?aHU5ampmWkFRbDZrK1dRTitBako1M1hVR3Q2eC92WUUzaEZPZEUzYm9WbDZq?=
+ =?utf-8?B?cXN0RFpyemRERXpCa3VKdWN3WnllZ2Jac2JIc0hWTXQ1alNvVVpkcGZpNUNn?=
+ =?utf-8?B?Uk9SQ2FZemhpM3k3QmRnaEJFTmZ3bk9IMDlmSmhLOWRNTzdqUVgyN2dKaXNO?=
+ =?utf-8?B?WGpQemRkUFRXcTRCVWlVcXQxWityaU9EZTRIRVdOSmhXLzBrNStXRjIxWlNm?=
+ =?utf-8?B?SkRhVG9OU3pPRnBGRkNiTjlodzhUSTd2RVQwdUQvMEZFVmphckRSZUJieDVF?=
+ =?utf-8?B?MVVhb2RNYkFQUVl3RDBBRGZjbk53SHVDNENJeDRTVjNVZEhCWmVTN2M3L05S?=
+ =?utf-8?B?ZHBuL2tCMjV4SUJGSjdhTDZTb01xWFQ1MTBBODg0VTJkN1psZjZxYmJUV0E0?=
+ =?utf-8?B?MnppSkg4eUdsN2w5N0svZUNGR1IzNHdKZU91cFhUTlJrbVQ2OXhsekNBbUZv?=
+ =?utf-8?B?WXk1ZjNUK2FnOUY1M1phcDB2SW4wcVd4STU1MXY1dmhKUEY0VHZWSlFnT0VW?=
+ =?utf-8?B?ZTlySFVEcUo3M0ZMSnUvV3RET1JBd2M2STJwbHpCUEI5OFRZc290TzJEY2I5?=
+ =?utf-8?B?ZjFWNER0dWNCQzhmWnB0OEZ3SGU0U0R2cFlNTEY3V0F5RkE4cmp2cytGYkY1?=
+ =?utf-8?Q?FNpTfEuJ5Y37ui2iyOx4z9r1B?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jan 2025 12:08:52.6532 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e700f75a-ddf4-4219-9a7d-08dd2f140d66
+X-MS-Exchange-CrossTenant-Network-Message-Id: 75e03c9b-84b1-4eb7-01dc-08dd2f17b45f
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jan 2025 12:35:01.5002 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00004686.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8345
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: vivUhdBWTv05bh76etfcHB0+DaXhBCwOckI/DqfjE08BQn5qNo64WH5IP4hFg3o0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4456
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,318 +177,259 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This patch adds the cec_notifier feature to amdgpu driver.
-The changes will allow amdgpu driver code to notify EDID
-and HPD changes to an eventual CEC adapter.
+Am 07.01.25 um 08:06 schrieb Shuai Xue:
+>
+>
+> 在 2025/1/3 16:21, Koenig, Christian 写道:
+>> [AMD Official Use Only - AMD Internal Distribution Only]
+>>
+>> Hi Shuai,
+>>
+>> setting gpu_recovery=0 is not even remotely related to RAS. If that 
+>> option affects RAS behavior in any way then that is a bug.
+>>
+>> The purpose of setting gpu_recovery=0 is to disable resets after a 
+>> submission timeout most likely caused by an unrecoverable HW error.
+>>
+>> This is necessary for JTAG debugging in our labs during HW bringup 
+>> and should *NEVER* be used on any production system.
+>>
+>> We already discussed with upstream maintainers that we should 
+>> probably mark the kernel as tainted to indicate that it might be in 
+>> an unreliable HW state. I will push for this now since there seems to 
+>> be a big misunderstanding what this option does.
+>>
+>> Regards,
+>> Christian.
+>
+>
+> Hi, Christian,
+>
+> Got the purpose of setting gpu_recovery=0. Thanks for the your patient 
+> explanation.
+>
+> When a ECC error occurs, the AMD GPU driver auto resets all GPUs and 
+> all jobs
+> are terminated. My ultimate goal is provide error isolation between 
+> independent
+> jobs which use a different GPU. Any suggestion?
 
-Signed-off-by: Kun Liu <Kun.Liu2@amd.com>
----
- drivers/gpu/drm/amd/display/Kconfig           |  2 +
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 76 +++++++++++++++++++
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  6 ++
- .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 66 +++++++++++++++-
- drivers/gpu/drm/amd/include/amd_shared.h      |  5 ++
- 5 files changed, 154 insertions(+), 1 deletion(-)
+Not of hand.
 
-diff --git a/drivers/gpu/drm/amd/display/Kconfig b/drivers/gpu/drm/amd/display/Kconfig
-index 11e3f2f3b..abd3b6564 100644
---- a/drivers/gpu/drm/amd/display/Kconfig
-+++ b/drivers/gpu/drm/amd/display/Kconfig
-@@ -8,6 +8,8 @@ config DRM_AMD_DC
- 	bool "AMD DC - Enable new display engine"
- 	default y
- 	depends on BROKEN || !CC_IS_CLANG || ARM64 || LOONGARCH || RISCV || SPARC64 || X86_64
-+	select CEC_CORE
-+	select CEC_NOTIFIER
- 	select SND_HDA_COMPONENT if SND_HDA_CORE
- 	# !CC_IS_CLANG: https://github.com/ClangBuiltLinux/linux/issues/1752
- 	select DRM_AMD_DC_FP if ARCH_HAS_KERNEL_FPU_SUPPORT && !(CC_IS_CLANG && (ARM64 || LOONGARCH || RISCV))
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 49baef9dd..1db955c28 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -97,6 +97,7 @@
- #include <drm/drm_audio_component.h>
- #include <drm/drm_gem_atomic_helper.h>
- 
-+#include <media/cec-notifier.h>
- #include <acpi/video.h>
- 
- #include "ivsrcid/dcn/irqsrcs_dcn_1_0.h"
-@@ -2751,6 +2752,48 @@ static void resume_mst_branch_status(struct drm_dp_mst_topology_mgr *mgr)
- 	mutex_unlock(&mgr->lock);
- }
- 
-+void hdmi_cec_unset_edid(struct amdgpu_dm_connector *aconnector)
-+{
-+	struct cec_notifier *n = aconnector->notifier;
-+
-+	if (!n)
-+		return;
-+
-+	cec_notifier_phys_addr_invalidate(n);
-+}
-+
-+void hdmi_cec_set_edid(struct amdgpu_dm_connector *aconnector)
-+{
-+	struct drm_connector *connector = &aconnector->base;
-+	struct cec_notifier *n = aconnector->notifier;
-+
-+	if (!n)
-+		return;
-+
-+	cec_notifier_set_phys_addr(n,
-+				   connector->display_info.source_physical_address);
-+}
-+
-+static void s3_handle_hdmi_cec(struct drm_device *ddev, bool suspend)
-+{
-+	struct amdgpu_dm_connector *aconnector;
-+	struct drm_connector *connector;
-+	struct drm_connector_list_iter conn_iter;
-+
-+	drm_connector_list_iter_begin(ddev, &conn_iter);
-+	drm_for_each_connector_iter(connector, &conn_iter) {
-+		if (connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
-+			continue;
-+
-+		aconnector = to_amdgpu_dm_connector(connector);
-+		if (suspend)
-+			hdmi_cec_unset_edid(aconnector);
-+		else
-+			hdmi_cec_set_edid(aconnector);
-+	}
-+	drm_connector_list_iter_end(&conn_iter);
-+}
-+
- static void s3_handle_mst(struct drm_device *dev, bool suspend)
- {
- 	struct amdgpu_dm_connector *aconnector;
-@@ -3022,6 +3065,8 @@ static int dm_suspend(struct amdgpu_ip_block *ip_block)
- 	if (IS_ERR(adev->dm.cached_state))
- 		return PTR_ERR(adev->dm.cached_state);
- 
-+	s3_handle_hdmi_cec(adev_to_drm(adev), true);
-+
- 	s3_handle_mst(adev_to_drm(adev), true);
- 
- 	amdgpu_dm_irq_suspend(adev);
-@@ -3294,6 +3339,8 @@ static int dm_resume(struct amdgpu_ip_block *ip_block)
- 	 */
- 	amdgpu_dm_irq_resume_early(adev);
- 
-+	s3_handle_hdmi_cec(ddev, false);
-+
- 	/* On resume we need to rewrite the MSTM control bits to enable MST*/
- 	s3_handle_mst(ddev, false);
- 
-@@ -3603,6 +3650,7 @@ void amdgpu_dm_update_connector_after_detect(
- 		dc_sink_retain(aconnector->dc_sink);
- 		if (sink->dc_edid.length == 0) {
- 			aconnector->drm_edid = NULL;
-+			hdmi_cec_unset_edid(aconnector);
- 			if (aconnector->dc_link->aux_mode) {
- 				drm_dp_cec_unset_edid(&aconnector->dm_dp_aux.aux);
- 			}
-@@ -3612,6 +3660,7 @@ void amdgpu_dm_update_connector_after_detect(
- 			aconnector->drm_edid = drm_edid_alloc(edid, sink->dc_edid.length);
- 			drm_edid_connector_update(connector, aconnector->drm_edid);
- 
-+			hdmi_cec_set_edid(aconnector);
- 			if (aconnector->dc_link->aux_mode)
- 				drm_dp_cec_attach(&aconnector->dm_dp_aux.aux,
- 						  connector->display_info.source_physical_address);
-@@ -3628,6 +3677,7 @@ void amdgpu_dm_update_connector_after_detect(
- 		amdgpu_dm_update_freesync_caps(connector, aconnector->drm_edid);
- 		update_connector_ext_caps(aconnector);
- 	} else {
-+		hdmi_cec_unset_edid(aconnector);
- 		drm_dp_cec_unset_edid(&aconnector->dm_dp_aux.aux);
- 		amdgpu_dm_update_freesync_caps(connector, NULL);
- 		aconnector->num_modes = 0;
-@@ -7044,6 +7094,7 @@ static void amdgpu_dm_connector_unregister(struct drm_connector *connector)
- 	if (amdgpu_dm_should_create_sysfs(amdgpu_dm_connector))
- 		sysfs_remove_group(&connector->kdev->kobj, &amdgpu_group);
- 
-+	cec_notifier_conn_unregister(amdgpu_dm_connector->notifier);
- 	drm_dp_aux_unregister(&amdgpu_dm_connector->dm_dp_aux.aux);
- }
- 
-@@ -8280,6 +8331,27 @@ create_i2c(struct ddc_service *ddc_service,
- 	return i2c;
- }
- 
-+int amdgpu_dm_initialize_hdmi_connector(struct amdgpu_dm_connector *aconnector)
-+{
-+	struct cec_connector_info conn_info;
-+	struct drm_device *ddev = aconnector->base.dev;
-+	struct device *hdmi_dev = ddev->dev;
-+
-+	if (amdgpu_dc_debug_mask & DC_DISABLE_HDMI_CEC) {
-+		drm_info(ddev, "HDMI-CEC feature masked\n");
-+		return -EINVAL;
-+	}
-+
-+	cec_fill_conn_info_from_drm(&conn_info, &aconnector->base);
-+	aconnector->notifier =
-+		cec_notifier_conn_register(hdmi_dev, NULL, &conn_info);
-+	if (!aconnector->notifier) {
-+		drm_err(ddev, "Failed to create cec notifier\n");
-+		return -ENOMEM;
-+	}
-+
-+	return 0;
-+}
- 
- /*
-  * Note: this function assumes that dc_link_detect() was called for the
-@@ -8343,6 +8415,10 @@ static int amdgpu_dm_connector_init(struct amdgpu_display_manager *dm,
- 	drm_connector_attach_encoder(
- 		&aconnector->base, &aencoder->base);
- 
-+	if (connector_type == DRM_MODE_CONNECTOR_HDMIA ||
-+	    connector_type == DRM_MODE_CONNECTOR_HDMIB)
-+		amdgpu_dm_initialize_hdmi_connector(aconnector);
-+
- 	if (connector_type == DRM_MODE_CONNECTOR_DisplayPort
- 		|| connector_type == DRM_MODE_CONNECTOR_eDP)
- 		amdgpu_dm_initialize_dp_connector(dm, aconnector, link->link_index);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index e46e1365f..76fa3e785 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -671,6 +671,8 @@ struct amdgpu_dm_connector {
- 	uint32_t connector_id;
- 	int bl_idx;
- 
-+	struct cec_notifier *notifier;
-+
- 	/* we need to mind the EDID between detect
- 	   and get modes due to analog/digital/tvencoder */
- 	const struct drm_edid *drm_edid;
-@@ -1010,4 +1012,8 @@ void dm_free_gpu_mem(struct amdgpu_device *adev,
- 
- bool amdgpu_dm_is_headless(struct amdgpu_device *adev);
- 
-+void hdmi_cec_set_edid(struct amdgpu_dm_connector *aconnector);
-+void hdmi_cec_unset_edid(struct amdgpu_dm_connector *aconnector);
-+int amdgpu_dm_initialize_hdmi_connector(struct amdgpu_dm_connector *aconnector);
-+
- #endif /* __AMDGPU_DM_H__ */
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-index 0d84308c5..d189dddb1 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-@@ -25,6 +25,7 @@
- 
- #include <linux/string_helpers.h>
- #include <linux/uaccess.h>
-+#include <media/cec-notifier.h>
- 
- #include "dc.h"
- #include "amdgpu.h"
-@@ -2848,6 +2849,67 @@ static int is_dpia_link_show(struct seq_file *m, void *data)
- 	return 0;
- }
- 
-+/**
-+ * hdmi_cec_state_show - Read out the HDMI-CEC feature status
-+ * @m: sequence file.
-+ * @data: unused.
-+ *
-+ * Return 0 on success
-+ */
-+static int hdmi_cec_state_show(struct seq_file *m, void *data)
-+{
-+	struct drm_connector *connector = m->private;
-+	struct amdgpu_dm_connector *aconnector = to_amdgpu_dm_connector(connector);
-+
-+	seq_printf(m, "%s:%d\n", connector->name, connector->base.id);
-+	seq_printf(m, "HDMI-CEC status: %d\n", aconnector->notifier ? 1 : 0);
-+
-+	return 0;
-+}
-+
-+/**
-+ * hdmi_cec_state_write - Enable/Disable HDMI-CEC feature from driver side
-+ * @f: file structure.
-+ * @buf: userspace buffer. set to '1' to enable; '0' to disable cec feature.
-+ * @size: size of buffer from userpsace.
-+ * @pos: unused.
-+ *
-+ * Return size on success, error code on failure
-+ */
-+static ssize_t hdmi_cec_state_write(struct file *f, const char __user *buf,
-+				     size_t size, loff_t *pos)
-+{
-+	int ret;
-+	bool enable;
-+	struct amdgpu_dm_connector *aconnector = file_inode(f)->i_private;
-+	struct drm_device *ddev = aconnector->base.dev;
-+
-+	if (size == 0)
-+		return -EINVAL;
-+
-+	ret = kstrtobool_from_user(buf, size, &enable);
-+	if (ret) {
-+		drm_dbg_driver(ddev, "invalid user data !\n");
-+		return ret;
-+	}
-+
-+	if (enable) {
-+		if (aconnector->notifier)
-+			return -EINVAL;
-+		ret = amdgpu_dm_initialize_hdmi_connector(aconnector);
-+		if (ret)
-+			return ret;
-+		hdmi_cec_set_edid(aconnector);
-+	} else {
-+		if (!aconnector->notifier)
-+			return -EINVAL;
-+		cec_notifier_conn_unregister(aconnector->notifier);
-+		aconnector->notifier = NULL;
-+	}
-+
-+	return size;
-+}
-+
- DEFINE_SHOW_ATTRIBUTE(dp_dsc_fec_support);
- DEFINE_SHOW_ATTRIBUTE(dmub_fw_state);
- DEFINE_SHOW_ATTRIBUTE(dmub_tracebuffer);
-@@ -2860,6 +2922,7 @@ DEFINE_SHOW_ATTRIBUTE(psr_capability);
- DEFINE_SHOW_ATTRIBUTE(dp_is_mst_connector);
- DEFINE_SHOW_ATTRIBUTE(dp_mst_progress_status);
- DEFINE_SHOW_ATTRIBUTE(is_dpia_link);
-+DEFINE_SHOW_STORE_ATTRIBUTE(hdmi_cec_state);
- 
- static const struct file_operations dp_dsc_clock_en_debugfs_fops = {
- 	.owner = THIS_MODULE,
-@@ -2995,7 +3058,8 @@ static const struct {
- 	char *name;
- 	const struct file_operations *fops;
- } hdmi_debugfs_entries[] = {
--		{"hdcp_sink_capability", &hdcp_sink_capability_fops}
-+		{"hdcp_sink_capability", &hdcp_sink_capability_fops},
-+		{"hdmi_cec_state", &hdmi_cec_state_fops}
- };
- 
- /*
-diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/amd/include/amd_shared.h
-index 98d9e840b..05bdb4e02 100644
---- a/drivers/gpu/drm/amd/include/amd_shared.h
-+++ b/drivers/gpu/drm/amd/include/amd_shared.h
-@@ -344,6 +344,11 @@ enum DC_DEBUG_MASK {
- 	 * eDP display from ACPI _DDC method.
- 	 */
- 	DC_DISABLE_ACPI_EDID = 0x8000,
-+
-+	/*
-+	 * @DC_DISABLE_HDMI_CEC: If set, disable HDMI-CEC feature in amdgpu driver.
-+	 */
-+	DC_DISABLE_HDMI_CEC = 0x10000,
- };
- 
- enum amd_dpm_forced_level;
--- 
-2.47.0
+Hawking is the expert for  this, but resetting all GPUs and all jobs on 
+a RAS error is a must have for system stability.
+
+What we might be able to do is to isolate the GPU from the PCIe bus. The 
+only problem with that is that you need a full system reset to get out 
+of this again.
+
+Regards,
+Christian.
+
+>
+> Thank you.
+> Best Regards,
+>
+>>
+>> ________________________________________
+>> Von: Shuai Xue <xueshuai@linux.alibaba.com>
+>> Gesendet: Montag, 30. Dezember 2024 09:50
+>> An: Koenig, Christian; Deucher, Alexander; Pan, Xinhui; 
+>> airlied@gmail.com; simona@ffwll.ch; Lazar, Lijo; Ma, Le; 
+>> hamza.mahfooz@amd.com; tzimmermann@suse.de; Liu, Shaoyun; 
+>> Jun.Ma2@amd.com
+>> Cc: amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org; 
+>> linux-kernel@vger.kernel.org; tianruidong@linux.alibaba.com
+>> Betreff: Re: [PATCH] drm/amdgpu: Enable runtime modification of 
+>> gpu_recovery parameter with validation
+>>
+>>
+>>
+>> 在 2024/12/30 04:11, Christian König 写道:
+>>> Am 28.12.24 um 07:32 schrieb Shuai Xue:
+>>>> It's observed that most GPU jobs utilize less than one server, 
+>>>> typically
+>>>> with each GPU being used by an independent job. If a job consumed 
+>>>> poisoned
+>>>> data, a SIGBUS signal will be sent to terminate it. Meanwhile, the
+>>>> gpu_recovery parameter is set to -1 by default, the amdgpu driver 
+>>>> resets
+>>>> all GPUs on the server. As a result, all jobs are terminated. Setting
+>>>> gpu_recovery to 0 provides an opportunity to preemptively evacuate 
+>>>> other
+>>>> jobs and subsequently manually reset all GPUs.
+>>>
+>>> *BIG* NAK to this whole approach!
+>>>
+>>> Setting gpu_recovery to 0 in a production environment is *NOT* 
+>>> supported at all and should never be done.
+>>>
+>>> This is a pure debugging feature for JTAG debugging and can result 
+>>> in random crashes and/or compromised data.
+>>>
+>>> Please don't tell me that you tried to use this in a production 
+>>> environment.
+>>>
+>>> Regards,
+>>> Christian.
+>>
+>> Hi, Christian,
+>>
+>> Thank you for your quick reply.
+>>
+>> When an application encounters uncorrected error, it will be 
+>> terminate by a
+>> SIGBUS signal. The related bad pages are retired. I did not figure why
+>> gpu_recovery=0 can result in random crashes and/or compromised data.
+>>
+>> I test with error injection in my dev enviroment:
+>>
+>> 1. load driver with gpu_recovery=0
+>> #cat /sys/bus/pci/drivers/amdgpu/module/parameters/gpu_recovery
+>> 0
+>>
+>> 2. inject a Uncorrectable ECC error to UMC
+>> #sudo amdgpuras -d 0 -b 2 -t 8
+>> Poison inject, logical addr:0x7f2b495f9000 physical addr:0x27f5d4b000 
+>> vmid:5
+>> Bus error
+>>
+>> 3. GPU 0000:0a:00.0 reports error address with PA
+>> #dmesg | grep 27f5
+>> [424443.174154] amdgpu 0000:0a:00.0: amdgpu: Error 
+>> Address(PA):0x27f5d43080 Row:0x1fd7 Col:0x0  Bank:0xa Channel:0x30
+>> [424443.174156] amdgpu 0000:0a:00.0: amdgpu: Error 
+>> Address(PA):0x27f5d4b080 Row:0x1fd7 Col:0x4  Bank:0xa Channel:0x30
+>> [424443.174158] amdgpu 0000:0a:00.0: amdgpu: Error 
+>> Address(PA):0x27f5d53080 Row:0x1fd7 Col:0x8  Bank:0xa Channel:0x30
+>> [424443.174160] amdgpu 0000:0a:00.0: amdgpu: Error 
+>> Address(PA):0x27f5d5b080 Row:0x1fd7 Col:0xc  Bank:0xa Channel:0x30
+>> [424443.174162] amdgpu 0000:0a:00.0: amdgpu: Error 
+>> Address(PA):0x27f5f43080 Row:0x1fd7 Col:0x10 Bank:0xa Channel:0x30
+>> [424443.174169] amdgpu 0000:0a:00.0: amdgpu: Error 
+>> Address(PA):0x27f5f4b080 Row:0x1fd7 Col:0x14 Bank:0xa Channel:0x30
+>> [424443.174172] amdgpu 0000:0a:00.0: amdgpu: Error 
+>> Address(PA):0x27f5f53080 Row:0x1fd7 Col:0x18 Bank:0xa Channel:0x30
+>> [424443.174174] amdgpu 0000:0a:00.0: amdgpu: Error 
+>> Address(PA):0x27f5f5b080 Row:0x1fd7 Col:0x1c Bank:0xa Channel:0x30
+>>
+>> 4. All the related bad pages are AMDGPU_RAS_RETIRE_PAGE_RESERVED.
+>> #cat 
+>> /sys/devices/pci0000:05/0000:05:01.0/0000:06:00.0/0000:07:00.0/0000:08:00.0/0000:09:00.0/0000:0a:00.0/ras/gpu_vram_bad_pages 
+>> | grep 27f5
+>> 0x027f5d43 : 0x00001000 : R
+>> 0x027f5d4b : 0x00001000 : R
+>> 0x027f5d53 : 0x00001000 : R
+>> 0x027f5d5b : 0x00001000 : R
+>> 0x027f5f43 : 0x00001000 : R
+>> 0x027f5f4b : 0x00001000 : R
+>> 0x027f5f53 : 0x00001000 : R
+>> 0x027f5f5b : 0x00001000 : R
+>>
+>> AFAIK, the reserved bad pages will not be used any more.  Please 
+>> correct me if
+>> I missed anything.
+>>
+>> DRAM ECC issues are the most common problems. When it occurs, the 
+>> kernel will
+>> attempt to hard-offline the page, by trying to unmap the page or 
+>> killing any
+>> owner, or triggering IO errors if needed.
+>>
+>> ECC error is also common for HBM and error isolation from each user's 
+>> job is a
+>> basic requirement in public cloud. For NVIDIA GPU, a ECC error could be
+>> contained to a process.
+>>
+>>> XID 94: Contained ECC error
+>>> XID 95: UnContained ECC error
+>>>
+>>> For Xid 94, these errors are contained to one application, and the 
+>>> application
+>>> that encountered this error must be restarted. All other 
+>>> applications running
+>>> at the time of the Xid are unaffected. It is recommended to reset 
+>>> the GPU when
+>>> convenient. Applications can continue to be run until the reset can be
+>>> performed.
+>>>
+>>> For Xid 95, these errors affect multiple applications, and the 
+>>> affected GPU
+>>> must be reset before applications can restart.
+>>>
+>>> https://docs.nvidia.com/deploy/xid-errors/
+>>
+>> Does AMD GPU provide a similar way to achieve error isolation 
+>> requirement?
+>>
+>> Best Regards,
+>> Shuai
+>>
+>>>
+>>>>    However, this parameter is
+>>>> read-only, necessitating correct settings at driver load. And 
+>>>> reloading the
+>>>> GPU driver in a production environment can be challenging due to 
+>>>> reference
+>>>> counts maintained by various monitoring services.
+>>>>
+>>>> Set the gpu_recovery parameter with read-write permission to enable 
+>>>> runtime
+>>>> modification. It will enables users to dynamically manage GPU recovery
+>>>> mechanisms based on real-time requirements or conditions.
+>>>>
+>>>> Signed-off-by: Shuai Xue <xueshuai@linux.alibaba.com>
+>>>> ---
+>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 26 
+>>>> ++++++++++++++++++++++++-
+>>>>    1 file changed, 25 insertions(+), 1 deletion(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c 
+>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>>>> index 38686203bea6..03dd902e1cec 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>>>> @@ -563,12 +563,36 @@ module_param_named(lbpw, amdgpu_lbpw, int, 
+>>>> 0444);
+>>>>    MODULE_PARM_DESC(compute_multipipe, "Force compute queues to be 
+>>>> spread across pipes (1 = enable, 0 = disable, -1 = auto)");
+>>>>    module_param_named(compute_multipipe, amdgpu_compute_multipipe, 
+>>>> int, 0444);
+>>>> +static int amdgpu_set_gpu_recovery(const char *buf,
+>>>> +                   const struct kernel_param *kp)
+>>>> +{
+>>>> +    unsigned long val;
+>>>> +    int ret;
+>>>> +
+>>>> +    ret = kstrtol(buf, 10, &val);
+>>>> +    if (ret < 0)
+>>>> +        return ret;
+>>>> +
+>>>> +    if (val != 1 && val != 0 && val != -1) {
+>>>> +        pr_err("Invalid value for gpu_recovery: %ld, excepted 
+>>>> 0,1,-1\n",
+>>>> +               val);
+>>>> +        return -EINVAL;
+>>>> +    }
+>>>> +
+>>>> +    return param_set_int(buf, kp);
+>>>> +}
+>>>> +
+>>>> +static const struct kernel_param_ops amdgpu_gpu_recovery_ops = {
+>>>> +    .set = amdgpu_set_gpu_recovery,
+>>>> +    .get = param_get_int,
+>>>> +};
+>>>> +
+>>>>    /**
+>>>>     * DOC: gpu_recovery (int)
+>>>>     * Set to enable GPU recovery mechanism (1 = enable, 0 = 
+>>>> disable). The default is -1 (auto, disabled except SRIOV).
+>>>>     */
+>>>>    MODULE_PARM_DESC(gpu_recovery, "Enable GPU recovery mechanism, 
+>>>> (1 = enable, 0 = disable, -1 = auto)");
+>>>> -module_param_named(gpu_recovery, amdgpu_gpu_recovery, int, 0444);
+>>>> +module_param_cb(gpu_recovery, &amdgpu_gpu_recovery_ops, 
+>>>> &amdgpu_gpu_recovery, 0644);
+>>>>    /**
+>>>>     * DOC: emu_mode (int)
 
