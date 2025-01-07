@@ -4,71 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9793AE77197
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jan 2025 16:01:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7C0AE77197
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jan 2025 16:03:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4062E10E1C5;
-	Tue,  7 Jan 2025 16:01:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 80E4810E0A0;
+	Tue,  7 Jan 2025 16:03:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="aEyKgtVT";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ctAylwUS";
 	dkim-atps=neutral
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
- [209.85.221.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9777810E1C5
- for <amd-gfx@lists.freedesktop.org>; Tue,  7 Jan 2025 16:01:07 +0000 (UTC)
-Received: by mail-wr1-f49.google.com with SMTP id
- ffacd0b85a97d-385e27c75f4so11330924f8f.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 07 Jan 2025 08:01:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ffwll.ch; s=google; t=1736265606; x=1736870406; darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=gcKT0I3SsLedH2TQveBeJBFIRBqbzWijWm5hO+Gmv2Y=;
- b=aEyKgtVTsO4N3urocv3trm7cITc1eqvwWFa/tHimkaDLxfspRtor6n9gYQ9POFGj2T
- 65JEwY2c4jwwTZ8MZdVtPRMvRdZ/S0VO1H1tX8NPldDsSSWq+hg6rBSEaYL9jxS3OjGJ
- mI9EEdc77oP3oKdBsx8ajytXhPKsk2iUDXYBs=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736265606; x=1736870406;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=gcKT0I3SsLedH2TQveBeJBFIRBqbzWijWm5hO+Gmv2Y=;
- b=kLMbnfGaFfZdwvvDi08u6eFL+wJDYb4wFauQHEF+5tFlSgDDRfqpHfh1ow9Y2PfPZu
- d2FaUXdVSzKGNWj/ulpw8Ir5MUAoTOufy2e+blj1gTR3EKK81BrLx/wMfxBsqtoFiB6e
- IcQv4xehWf6Za6Dp2xlnqalDJtXQC7KR4Iq+th773NNN2IyM/5HpL4XbWS3zLuGknA2F
- YegIGgwTToRKfeV7NOw3+hVFezpS8pkskgh0MKb760CCmqLzJbTqjag7VFjGIuZyU6Bt
- khQCiujttwXYeO9jpoGWJGfJao3Dd/5EUuApgPAYpnV6lNE8i0hwQEonR/j86CXvqQhR
- KD4w==
-X-Gm-Message-State: AOJu0YzizMkY1neKBF3rowJQbU9pw0aI6UbXt3FRMcDSaQLUaOjDinFW
- ofUYb6vhV7gEdkc9qF3ZTr5qMFoLYdsLMqzqal6cobGZWh30iPvDJ37eTRTqOpFvquRQ+kal2D/
- kOTA=
-X-Gm-Gg: ASbGncuhHyGifwvb6R/g/NoVkEWKCDZ4TSgGks7Tk6ZHxXgz9qphrGrWQtCdRjKOvq8
- sK70Hgb0LJtHrrRfsVFmG0q/WguM6GibhRok/ZgA/I4wed9T+zcqksJVq/jI+HJvEt0mXKjIjga
- GIVwU+i7Tm6iA/skfoMMFG/dhWx5XgLwr5nMmHSOwI48oQ+ZaIdG8kLWMTJVgJgXOGAXZY9+xis
- GusB61/m5UhebJWJ5YG4TCI4Yw1iPTyHdcorq3qPIfvEdsAkMNldCEybkPvEv8wiQVY
-X-Google-Smtp-Source: AGHT+IHw7U5bwEb+PQTF6+p7uboI+4w+j8uiTOK7Dp0r/5Q9NFHpqsveVMy6jTYyW7nKvgqot6ci0A==
-X-Received: by 2002:a5d:584f:0:b0:386:399a:7f17 with SMTP id
- ffacd0b85a97d-38a221f2ed2mr41855508f8f.24.1736265605951; 
- Tue, 07 Jan 2025 08:00:05 -0800 (PST)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:5485:d4b2:c087:b497])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-43656b3b2afsm648717595e9.35.2025.01.07.08.00.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 07 Jan 2025 08:00:05 -0800 (PST)
-Date: Tue, 7 Jan 2025 17:00:02 +0100
-From: Simona Vetter <simona.vetter@ffwll.ch>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, sima@ffwll.ch
-Subject: Re: [PATCH] drm/amdgpu: mark a bunch of module parameters unsafe
-Message-ID: <Z31PgleArdPbhGAw@phenom.ffwll.local>
-References: <20250107145308.53467-1-christian.koenig@amd.com>
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2067.outbound.protection.outlook.com [40.107.237.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6584C10E0A0
+ for <amd-gfx@lists.freedesktop.org>; Tue,  7 Jan 2025 16:03:08 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pRYJHFjFG+U5REWdhLZHWKYc3AVOUNsxgom5kCTaxHI7zxIXb5Qz53QgEofr6+yQMm2x/krE8H2TljoH2alSzyF+/hZ+rO88cR4MZJYF1uQDCL8ojkWJuLtFeC+ZOFxjsDZtfvEvPPcND3CYYDqQEmiU2QZiwNXGSMwg9etWfT9HhjP6dEGsDetB77iDSIUWy15a9hU32D0pDi6bZ61dAB+pwQavfrYhEIcV16Gi1mV2hHlm8cqV5PGssHYoRssyKP7/Ptm0J/pW6HCjr1fLo234ZE46IpeatDea5NkIXO+G/MG1AoXN+5YqA9y2tyHJww3gZgyfRw56QReQve7BaQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=894d8/YoTnXiixowWdBgTCWKogn+VIkkmyi+ItxsVzI=;
+ b=BfGYuEFP+kKMWJd4iTZvda2OU8dN+7Ua0Ir/eld7NOpoIVrVnF4X/0xp0gSpdaX8zfcvpEfIFSESZL4ivDagfe5GYAFXDJn0sKDdI9wgMiqbdMCbXDUQhzbqS4lc6nR4LRdSY7oUQmP7rn1fFjw1KnPAHSChov4o74fDxroUIO/1+C/BOxTtUneIN4BcQ1QlyG5vevXSQUFW5NM/nLB+4ew56PR+NQMFEE6vx18SGyFg/3V5Gal9jE0GqGztaTy82skQEGvZt702ybYEXzafPWUBe2YVtbsjl4063/+Y2FxAV9wg8PjiCoixCDEc0dSBPHIqa04icjXQF8OAaOdIcA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=894d8/YoTnXiixowWdBgTCWKogn+VIkkmyi+ItxsVzI=;
+ b=ctAylwUSFHwqj0nONkFgz9k5NFoyTOyC6CI7mmb6zp8njxRtnpC506HJRfynegX7b+rcDv7wHplwbwHfoSH/Vbake/I789wCqq8THIpaeRsdlcz84+ur93eKH6UrROyUjuD/2JrHo8y0lnmP9aOwUTLG9RAsj+8qf0CtxNZFXUE=
+Received: from MN0P220CA0023.NAMP220.PROD.OUTLOOK.COM (2603:10b6:208:52e::27)
+ by PH8PR12MB6961.namprd12.prod.outlook.com (2603:10b6:510:1bc::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8314.17; Tue, 7 Jan
+ 2025 15:29:46 +0000
+Received: from BN2PEPF000044A7.namprd04.prod.outlook.com
+ (2603:10b6:208:52e:cafe::8) by MN0P220CA0023.outlook.office365.com
+ (2603:10b6:208:52e::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8314.18 via Frontend Transport; Tue,
+ 7 Jan 2025 15:29:46 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BN2PEPF000044A7.mail.protection.outlook.com (10.167.243.101) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8335.7 via Frontend Transport; Tue, 7 Jan 2025 15:29:45 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 7 Jan
+ 2025 09:29:45 -0600
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 7 Jan
+ 2025 09:29:44 -0600
+Received: from tom-r5.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Tue, 7 Jan 2025 09:29:36 -0600
+From: Tom Chung <chiahsuan.chung@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <rodrigo.siqueira@amd.com>, Aurabindo Pillai
+ <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>, Wayne Lin
+ <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, Fangzhi Zuo
+ <jerry.zuo@amd.com>, Zaeem Mohamed <zaeem.mohamed@amd.com>, Solomon Chiu
+ <solomon.chiu@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>, Wayne Lin
+ <Wayne.Lin@amd.com>, Mario Limonciello <mario.limonciello@amd.com>, "Alex
+ Deucher" <alexander.deucher@amd.com>, <stable@vger.kernel.org>
+Subject: [PATCH 08/24] drm/amd/display: Reduce accessing remote DPCD overhead
+Date: Tue, 7 Jan 2025 23:28:39 +0800
+Message-ID: <20250107152855.2953302-9-chiahsuan.chung@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20250107152855.2953302-1-chiahsuan.chung@amd.com>
+References: <20250107152855.2953302-1-chiahsuan.chung@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250107145308.53467-1-christian.koenig@amd.com>
-X-Operating-System: Linux phenom 6.12.3-amd64 
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF000044A7:EE_|PH8PR12MB6961:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3d54107f-8ecd-44c0-e9f7-08dd2f301dab
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|82310400026|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?2jB7i0i/c+8aRu8N7hjw040ysW2hBDWWFp9KhWmEXovxU95dhTT2godWfkWo?=
+ =?us-ascii?Q?Qd1noQ5r2QwEYEv6IboZg6knTHAD0AQ9FDmM+37Dic5JOAce1tFtlL7pe4Uu?=
+ =?us-ascii?Q?x306iG4V+2xK2unpUbYFkYM/mZWZBvsgb2ukYl03SWoUySW9kHUnT3CfEqtI?=
+ =?us-ascii?Q?N3IImvgAmeeNvG+riYi/ppv42ED8I6bxksXtw1Oh/gExLYAV1n7vXJCFFKFV?=
+ =?us-ascii?Q?8qlOzVjLlgPY7okuSJpEq8szRQFH6vKxmf/J6d5AGYgQP9U6ZiksBoukkFNI?=
+ =?us-ascii?Q?2kxT7foJdtpivK8urCQ/CEJUPhPuUIYJVusqCeWhx9HnBeu6qQeFJzTuKEc6?=
+ =?us-ascii?Q?4PdTs6KNIP0Zk7+uCKfXlwQ4IsyN7InNu3RRgSLi27j2/KKtgPHtwuLW1KGc?=
+ =?us-ascii?Q?5HrsJ//JPg0r1+cGLABfs4coAaG4y0BqDYdrVeJQWbNe9vSzoYKi42vs/5CO?=
+ =?us-ascii?Q?Vw4dli80I7Dlo1bH9zcMvyV+cnh/6DzSp1/eIyK2fKTS/iSLP1lxdd/dNCJO?=
+ =?us-ascii?Q?yYfjrKwQKo7+/c3aUD5LgoO0GBLCrQCPlX57qVqJX7tPbGpvHj2Y4ryH4Uwp?=
+ =?us-ascii?Q?bYZvOniO64O7ynzsOjI+vNfgm0JilSnzzaHa0RAJhGYgd4m3GNqEVdG+H5In?=
+ =?us-ascii?Q?cwwvCpSRkAENeh9XN71squjCqly8c3d8smwz4zP0CZTvm7LdjaEBpMlHcdyq?=
+ =?us-ascii?Q?784c0Xvo/kW52e5s/TMajpkvZzshMxZrq0XBGLH0uy+tdfw3nN5oB4Z516j1?=
+ =?us-ascii?Q?7rgXleWnLBB6Q9jsHVj9maIwCeBxzxX8CZMTEayWOjFKCqs6golV48Kkw0By?=
+ =?us-ascii?Q?jtVZma7jINv/ejDTgZ2pPfutbze915E9+6j8BRTcs/eN/VFDYN6VWlCY91qM?=
+ =?us-ascii?Q?SZaGwOfDT1BqhX70hSs1rjFR/Ryj2/hgTWr2IKglBB7ItJ0Ukl0zH0bmJZHM?=
+ =?us-ascii?Q?FmmNqxz/EwmTpQV17284vZMjL/0NZ4QtjnkCFVbzSBhLMA3hVQRC3ZLJArXW?=
+ =?us-ascii?Q?yHWNB1PpCYWSuwChFokgMRYhU0N+yz8xtrbAMdgnRWs2m/aetVZ7/KGzoEaO?=
+ =?us-ascii?Q?oEOvZxIXCyuu6BdicTYPnxwDEeSGG+ID0V45O1EIZyisOmInbLvM9Sacwph6?=
+ =?us-ascii?Q?WoWQAZzHMKFZbIq4JgJxu7dE6HbCVWczCcZvh1/shX1P0bO2LiKvXECeI92L?=
+ =?us-ascii?Q?2ZQJCSHff70QldXH65xDhf38e71Ochf54EzbP3tNSLggdytUItxCUb61HmWR?=
+ =?us-ascii?Q?5unJ1s4l9GgEkuO/DGjvp7wI04iE7mw+C2byz1Z1g/rhKMcBO712oK4T0bzA?=
+ =?us-ascii?Q?yYSiEVhvzhF/r9PxShCLURNnEjcV3Czki6gpP4mGOwCMfkSC9MYrb5Cgp2CK?=
+ =?us-ascii?Q?JPyu/uDXXgvzVW51NMpJgCaE9hsZY55OxAtlHvAf8uL5zCQRE7RyU+Kmfn84?=
+ =?us-ascii?Q?btNvnFBHxVI=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(82310400026)(36860700013); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jan 2025 15:29:45.8595 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3d54107f-8ecd-44c0-e9f7-08dd2f301dab
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000044A7.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6961
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,92 +142,115 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jan 07, 2025 at 03:53:08PM +0100, Christian König wrote:
-> We sometimes have people trying to use debugging options in production
-> environments.
-> 
-> Mark options only meant to be used for debugging as unsafe so that the
-> kernel is tainted when they are used.
-> 
-> Signed-off-by: Christian König <christian.koenig@amd.com>
+From: Wayne Lin <Wayne.Lin@amd.com>
 
-Acked-by: Simona Vetter <simona.vetter@ffwll.ch>
+[Why]
+Observed frame rate get dropped by tool like glxgear. Even though the
+output to monitor is 60Hz, the rendered frame rate drops to 30Hz lower.
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 14 +++++++-------
->  1 file changed, 7 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> index acb9dc3705ac..9ddfdb02a6a2 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -401,7 +401,7 @@ module_param_named(runpm, amdgpu_runtime_pm, int, 0444);
->   * the kernel log for the list of IPs on the asic. The default is 0xffffffff (enable all blocks on a device).
->   */
->  MODULE_PARM_DESC(ip_block_mask, "IP Block Mask (all blocks enabled (default))");
-> -module_param_named(ip_block_mask, amdgpu_ip_block_mask, uint, 0444);
-> +module_param_named_unsafe(ip_block_mask, amdgpu_ip_block_mask, uint, 0444);
->  
->  /**
->   * DOC: bapm (int)
-> @@ -459,7 +459,7 @@ module_param_named(vm_update_mode, amdgpu_vm_update_mode, int, 0444);
->   * Enable experimental hw support (1 = enable). The default is 0 (disabled).
->   */
->  MODULE_PARM_DESC(exp_hw_support, "experimental hw support (1 = enable, 0 = disable (default))");
-> -module_param_named(exp_hw_support, amdgpu_exp_hw_support, int, 0444);
-> +module_param_named_unsafe(exp_hw_support, amdgpu_exp_hw_support, int, 0444);
->  
->  /**
->   * DOC: dc (int)
-> @@ -570,14 +570,14 @@ module_param_named(compute_multipipe, amdgpu_compute_multipipe, int, 0444);
->   * Set to enable GPU recovery mechanism (1 = enable, 0 = disable). The default is -1 (auto, disabled except SRIOV).
->   */
->  MODULE_PARM_DESC(gpu_recovery, "Enable GPU recovery mechanism, (1 = enable, 0 = disable, -1 = auto)");
-> -module_param_named(gpu_recovery, amdgpu_gpu_recovery, int, 0444);
-> +module_param_named_unsafe(gpu_recovery, amdgpu_gpu_recovery, int, 0444);
->  
->  /**
->   * DOC: emu_mode (int)
->   * Set value 1 to enable emulation mode. This is only needed when running on an emulator. The default is 0 (disabled).
->   */
->  MODULE_PARM_DESC(emu_mode, "Emulation mode, (1 = enable, 0 = disable)");
-> -module_param_named(emu_mode, amdgpu_emu_mode, int, 0444);
-> +module_param_named_unsafe(emu_mode, amdgpu_emu_mode, int, 0444);
->  
->  /**
->   * DOC: ras_enable (int)
-> @@ -732,7 +732,7 @@ module_param_named(noretry, amdgpu_noretry, int, 0644);
->   */
->  MODULE_PARM_DESC(force_asic_type,
->  	"A non negative value used to specify the asic type for all supported GPUs");
-> -module_param_named(force_asic_type, amdgpu_force_asic_type, int, 0444);
-> +module_param_named_unsafe(force_asic_type, amdgpu_force_asic_type, int, 0444);
->  
->  /**
->   * DOC: use_xgmi_p2p (int)
-> @@ -955,7 +955,7 @@ module_param_named(freesync_video, amdgpu_freesync_vid_mode, uint, 0444);
->   * GPU reset method (-1 = auto (default), 0 = legacy, 1 = mode0, 2 = mode1, 3 = mode2, 4 = baco)
->   */
->  MODULE_PARM_DESC(reset_method, "GPU reset method (-1 = auto (default), 0 = legacy, 1 = mode0, 2 = mode1, 3 = mode2, 4 = baco/bamaco)");
-> -module_param_named(reset_method, amdgpu_reset_method, int, 0644);
-> +module_param_named_unsafe(reset_method, amdgpu_reset_method, int, 0644);
->  
->  /**
->   * DOC: bad_page_threshold (int) Bad page threshold is specifies the
-> @@ -1051,7 +1051,7 @@ module_param_named(seamless, amdgpu_seamless, int, 0444);
->   * - 0x4: Disable GPU soft recovery, always do a full reset
->   */
->  MODULE_PARM_DESC(debug_mask, "debug options for amdgpu, disabled by default");
-> -module_param_named(debug_mask, amdgpu_debug_mask, uint, 0444);
-> +module_param_named_unsafe(debug_mask, amdgpu_debug_mask, uint, 0444);
->  
->  /**
->   * DOC: agp (int)
-> -- 
-> 2.34.1
-> 
+It's due to code path in some cases will trigger
+dm_dp_mst_is_port_support_mode() to read out remote Link status to
+assess the available bandwidth for dsc maniplation. Overhead of keep
+reading remote DPCD is considerable.
 
+[How]
+Store the remote link BW in mst_local_bw and use end-to-end full_pbn
+as an indicator to decide whether update the remote link bw or not.
+
+Whenever we need the info to assess the BW, visit the stored one first.
+
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3720
+Fixes: fa57924c76d9 ("drm/amd/display: Refactor function dm_dp_mst_is_port_support_mode()")
+Cc: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: stable@vger.kernel.org
+Reviewed-by: Jerry Zuo <jerry.zuo@amd.com>
+Signed-off-by: Wayne Lin <Wayne.Lin@amd.com>
+Signed-off-by: Tom Chung <chiahsuan.chung@amd.com>
+---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  2 ++
+ .../display/amdgpu_dm/amdgpu_dm_mst_types.c   | 34 ++++++++++++++-----
+ 2 files changed, 27 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+index e46e1365fe91..e7963158a147 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+@@ -697,6 +697,8 @@ struct amdgpu_dm_connector {
+ 	struct drm_dp_mst_port *mst_output_port;
+ 	struct amdgpu_dm_connector *mst_root;
+ 	struct drm_dp_aux *dsc_aux;
++	uint32_t mst_local_bw;
++	uint16_t vc_full_pbn;
+ 	struct mutex handle_mst_msg_ready;
+ 
+ 	/* TODO see if we can merge with ddc_bus or make a dm_connector */
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+index a504aa1243e9..e096fb562122 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+@@ -155,6 +155,17 @@ amdgpu_dm_mst_connector_late_register(struct drm_connector *connector)
+ 	return 0;
+ }
+ 
++
++static inline void
++amdgpu_dm_mst_reset_mst_connector_setting(struct amdgpu_dm_connector *aconnector)
++{
++	aconnector->drm_edid = NULL;
++	aconnector->dsc_aux = NULL;
++	aconnector->mst_output_port->passthrough_aux = NULL;
++	aconnector->mst_local_bw = 0;
++	aconnector->vc_full_pbn = 0;
++}
++
+ static void
+ amdgpu_dm_mst_connector_early_unregister(struct drm_connector *connector)
+ {
+@@ -182,9 +193,7 @@ amdgpu_dm_mst_connector_early_unregister(struct drm_connector *connector)
+ 
+ 		dc_sink_release(dc_sink);
+ 		aconnector->dc_sink = NULL;
+-		aconnector->drm_edid = NULL;
+-		aconnector->dsc_aux = NULL;
+-		port->passthrough_aux = NULL;
++		amdgpu_dm_mst_reset_mst_connector_setting(aconnector);
+ 	}
+ 
+ 	aconnector->mst_status = MST_STATUS_DEFAULT;
+@@ -504,9 +513,7 @@ dm_dp_mst_detect(struct drm_connector *connector,
+ 
+ 		dc_sink_release(aconnector->dc_sink);
+ 		aconnector->dc_sink = NULL;
+-		aconnector->drm_edid = NULL;
+-		aconnector->dsc_aux = NULL;
+-		port->passthrough_aux = NULL;
++		amdgpu_dm_mst_reset_mst_connector_setting(aconnector);
+ 
+ 		amdgpu_dm_set_mst_status(&aconnector->mst_status,
+ 			MST_REMOTE_EDID | MST_ALLOCATE_NEW_PAYLOAD | MST_CLEAR_ALLOCATED_PAYLOAD,
+@@ -1819,9 +1826,18 @@ enum dc_status dm_dp_mst_is_port_support_mode(
+ 			struct drm_dp_mst_port *immediate_upstream_port = NULL;
+ 			uint32_t end_link_bw = 0;
+ 
+-			/*Get last DP link BW capability*/
+-			if (dp_get_link_current_set_bw(&aconnector->mst_output_port->aux, &end_link_bw)) {
+-				if (stream_kbps > end_link_bw) {
++			/*Get last DP link BW capability. Mode shall be supported by Legacy peer*/
++			if (aconnector->mst_output_port->pdt != DP_PEER_DEVICE_DP_LEGACY_CONV &&
++				aconnector->mst_output_port->pdt != DP_PEER_DEVICE_NONE) {
++				if (aconnector->vc_full_pbn != aconnector->mst_output_port->full_pbn) {
++					dp_get_link_current_set_bw(&aconnector->mst_output_port->aux, &end_link_bw);
++					aconnector->vc_full_pbn = aconnector->mst_output_port->full_pbn;
++					aconnector->mst_local_bw = end_link_bw;
++				} else {
++					end_link_bw = aconnector->mst_local_bw;
++				}
++
++				if (end_link_bw > 0 && stream_kbps > end_link_bw) {
+ 					DRM_DEBUG_DRIVER("MST_DSC dsc decode at last link."
+ 							 "Mode required bw can't fit into last link\n");
+ 					return DC_FAIL_BANDWIDTH_VALIDATE;
 -- 
-Simona Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+2.34.1
+
