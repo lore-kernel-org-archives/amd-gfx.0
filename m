@@ -4,158 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDC85E77197
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jan 2025 15:19:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C936E77197
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Jan 2025 15:29:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D50310EAF7;
-	Tue,  7 Jan 2025 15:19:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB4B010E70C;
+	Tue,  7 Jan 2025 15:29:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4q7KlILb";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="mpGBQeqP";
 	dkim-atps=neutral
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2054.outbound.protection.outlook.com [40.107.95.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DECE610EAF7
- for <amd-gfx@lists.freedesktop.org>; Tue,  7 Jan 2025 15:19:37 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2056.outbound.protection.outlook.com [40.107.92.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D5EAA10E1AE
+ for <amd-gfx@lists.freedesktop.org>; Tue,  7 Jan 2025 15:29:10 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Xl6SYVUh50mhYa1mAyM3em0iR23oer/1zvo2yByIYNr04ZtPQzUmGtJqYV1JGLxmKHaLjMdzCxKIoJtvFGwbm9mPK4LT2t/Y4Wp4qdtjtic6SeDRnQN+vzIOFGXhWA15J4tgaGA4V+qtHoqc77+ImD70rkoAiYTgKRIpyeSZio9qEF0txSKC+7ETWxqElI+3vBL4s5Izp85hhkCStnPp96ve7j02Dl+WLQiH7DvilkviHFhTjB2WZrNnpG8/cAMV8vDIunLzFlV3Jv08t5Ap7Tny5/5hMHRghK2K7nYCb2cfF7RPUHDTiTvZZfICw9UJ+T6EIu6rUCSxTJEhf0SD7A==
+ b=DlvCtBEAQZ8Zk7lJ1ZxvWCPjx4LRo0GM7nxfjbd4vFhZwyTjDZ31ky7bOxksvqakKqFoL022gnBrq3kAhhhumam5tzeJxEJRlLqi8GjkjmquDNJSu7NGBAXHR3Z9Ogc1qEP3nhC3X/XEboJ7/nyrNcIVSvxGQVMs0wTcOWYMEnPWG0lTaWucPU4EcROfm32PyeQxosBcwxMz+IANdq1nkbcGuLtZh3coS1ZD4qKn16ZNs+Ln2ED9WW4W/mvTSi+i11xt3oe0srAX0JZQQESzk0OShByggcslFwSw8Tdzvp9cWKd2Rm+1oTith8iGOmlSyjHJ4E559TCmp4Hftv7ejA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pdCLe5uSpOJ+yHbDAT6ff3JPipX6mb+P3H6FQJfpxrI=;
- b=D3r0LBo+FKlqACqxRBilqqTxTAbCl6HyoJRTGnB5x9zCFwe4GuxTs00abV+B6FJjYXLxuE7uiNlGzjgDeHxxoqaPHJQYicFnqShYH9Llc9MYw2zAijGj9P26TaYQqKVzuMt+EtBoiPeHnTz/3rJKFL0hACu3VBQ/nGfOtB5SBU/kbY0kLMG53vNOr7hK7FNeHMZ44t0xrMuppH4Hl9JPathcSfIlUlCaK8UuoA4g7g6KfhDNFxUGtKMh8BZrEOAvS2P6nIURdKp+sMK7fhLfJOFFMlz/yADFZHLu0vT3n3/nbmvN5bLTAJ6ShwNoUzKlI8m2QO1FgJPGnI0H2eHmLA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=9nwMU0SyupjUd5H0k4+nnseaP7eFceFpMB9USvN64GY=;
+ b=X3+18trsovC6i33CYz0vdGd6hylfrTgdL/8q4AWWs7t+37FRe2tcgmvGHo9XulFR16bXjFhXocUXc7hFwywDhW7xjCsB3jMbWUXshaL3MFKRj7YGCJlme8xc3qMbTL/KgrHMLRI1rCHUqxLZ0mKG+X+6viqp2L2sixxYKI72elpYDJI1O6x1AugeRLUUvDyRQks5nkePgNbOsEH0Bu7iPnCzeW3zjmF6eqLoynounC/BCeFbnzeY6OIGORqx/WKrSK9RKTbvRv4KXBdEJp5X1QVTofn4+u8qfFhELQ/62qhxhfd6N/rw5W5LJhsS55QkaXwfIEroclOQJ38uLvM5wg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pdCLe5uSpOJ+yHbDAT6ff3JPipX6mb+P3H6FQJfpxrI=;
- b=4q7KlILboekfiJTW8Gowp/f5w81wDks3LgZkpyNXEo/j8E4SxDthDlurLOjXEGDxhru0ZGxvMteV/fsgxX1Kdstc/QrEsOuD1jtrDsNThSaRKWTgDvyyWLXNYVEqf/Zzx5l3QnkpKrudtzVvLwE/rtfX6eoi9uz4r8qN+hH3KxQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5149.namprd12.prod.outlook.com (2603:10b6:5:390::14)
- by IA0PR12MB8906.namprd12.prod.outlook.com (2603:10b6:208:481::9) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=9nwMU0SyupjUd5H0k4+nnseaP7eFceFpMB9USvN64GY=;
+ b=mpGBQeqP14YRHHlMU0aKoflxXANsQH25bPZ6OAEdyg6ehWVbGdJAtc7SlT9uudk4ppw8bEh9PYtMFofFJOJi14Aiwc+rbe3GxteZUwCOPEBuX6oZLMZKcm4FRIXgzT4K45io2JK9EWE9efTOkxRWtDYA7IKFc1qmOzZCbFtI0tk=
+Received: from SJ0PR13CA0215.namprd13.prod.outlook.com (2603:10b6:a03:2c1::10)
+ by MN0PR12MB6293.namprd12.prod.outlook.com (2603:10b6:208:3c2::22)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8314.17; Tue, 7 Jan
- 2025 15:19:18 +0000
-Received: from DM4PR12MB5149.namprd12.prod.outlook.com
- ([fe80::36fa:deca:aaeb:75da]) by DM4PR12MB5149.namprd12.prod.outlook.com
- ([fe80::36fa:deca:aaeb:75da%3]) with mapi id 15.20.8314.018; Tue, 7 Jan 2025
- 15:19:18 +0000
-Message-ID: <22e5cee7-52f4-ef08-b44b-e4fb96027ea9@amd.com>
-Date: Tue, 7 Jan 2025 10:19:16 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH v2] drm/amdgpu: Fix the looply call
- svm_range_restore_pages issue
-Content-Language: en-US
-To: "Deng, Emily" <Emily.Deng@amd.com>,
- "Kuehling, Felix" <Felix.Kuehling@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "Yang, Philip" <Philip.Yang@amd.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>
-References: <20250103022615.1399054-1-Emily.Deng@amd.com>
- <62496e35-e23c-4d10-a5b1-99978665cebc@amd.com>
- <PH0PR12MB54177A7932BF4D91A8A41FE38F102@PH0PR12MB5417.namprd12.prod.outlook.com>
- <PH0PR12MB5417D0B508B3DECD240478E48F112@PH0PR12MB5417.namprd12.prod.outlook.com>
- <PH0PR12MB5417E664CA264D62E1F2EB9B8F112@PH0PR12MB5417.namprd12.prod.outlook.com>
-From: Philip Yang <yangp@amd.com>
-In-Reply-To: <PH0PR12MB5417E664CA264D62E1F2EB9B8F112@PH0PR12MB5417.namprd12.prod.outlook.com>
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT3PR01CA0097.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:85::15) To DM4PR12MB5149.namprd12.prod.outlook.com
- (2603:10b6:5:390::14)
+ 2025 15:29:04 +0000
+Received: from SN1PEPF000252A4.namprd05.prod.outlook.com
+ (2603:10b6:a03:2c1:cafe::82) by SJ0PR13CA0215.outlook.office365.com
+ (2603:10b6:a03:2c1::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8335.10 via Frontend Transport; Tue,
+ 7 Jan 2025 15:29:03 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SN1PEPF000252A4.mail.protection.outlook.com (10.167.242.11) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8335.7 via Frontend Transport; Tue, 7 Jan 2025 15:29:03 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 7 Jan
+ 2025 09:29:02 -0600
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 7 Jan
+ 2025 09:29:02 -0600
+Received: from tom-r5.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Tue, 7 Jan 2025 09:28:59 -0600
+From: Tom Chung <chiahsuan.chung@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <rodrigo.siqueira@amd.com>, Aurabindo Pillai
+ <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>, Wayne Lin
+ <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, Fangzhi Zuo
+ <jerry.zuo@amd.com>, Zaeem Mohamed <zaeem.mohamed@amd.com>, Solomon Chiu
+ <solomon.chiu@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>
+Subject: [PATCH 00/24] DC Patches Jan 13 2025
+Date: Tue, 7 Jan 2025 23:28:31 +0800
+Message-ID: <20250107152855.2953302-1-chiahsuan.chung@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5149:EE_|IA0PR12MB8906:EE_
-X-MS-Office365-Filtering-Correlation-Id: cd0e2863-fd36-42f0-ec2b-08dd2f2ea76a
+X-MS-TrafficTypeDiagnostic: SN1PEPF000252A4:EE_|MN0PR12MB6293:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0c6172e0-9cc0-4993-9e57-08dd2f300460
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|7053199007|8096899003; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?SDBuelU3WGo0ZHgyekdIRFM4bXRqU0lwN1RuRXBQTno0czhhYU83bGJNUHhN?=
- =?utf-8?B?N3Y3Y1lzTnJsUkVUNDJ6Qk9pVURzelBiaGtDMUxybnVBemNHUlk5NkdSaXhC?=
- =?utf-8?B?bkVPQjZpenJ3dkIxTkNNMWlwdlNhR3BFQytUNXFvdHdaQjQxdG5Za09DeEFw?=
- =?utf-8?B?NHR3LzQ5Rkt1N2p6dEJDVmR1N0F5TE9ocmJmdEtCU3ROMTdvMDFnaG9QOHEx?=
- =?utf-8?B?N1RpU0lEajJYd2Z6ajNvdzI0aU5BMzR1SmVDV291VGxZSnZsOFlXRUg3bzJD?=
- =?utf-8?B?SW9Rb3FmWUM0S09iRmxneG9yNWJlYkIxVk5oclE4TlEyUnZyblRjR1lXWEhH?=
- =?utf-8?B?dG15OHQ2SSs0aGNBTU5XbGgzc01MYmNQNVVqYXovbStiM2o1eEFIMEpqNVpJ?=
- =?utf-8?B?MU1wZXJoY1J0c2tyaVF6V3VyNHBrNHB2ZjZ3c0xrOTllSHl2RGdzRzdMOHZo?=
- =?utf-8?B?UDJlTndjZEpEU2FZOWNITlhzQnJxbjNaNGRIVzd4amNJSGpBLzlmb2pEUURV?=
- =?utf-8?B?RzI0UGxWN0M1S0VGNjZiZ0dpdTB0dHBqdnFsdlJic3hDZUVGcUJwNkpETTB6?=
- =?utf-8?B?SzNKeWNTRXhkdW56RHBGRzV6NmdnRytlOHJBOEtsajFuS0dkc0Z4VWtXcWtL?=
- =?utf-8?B?ZU1aOTh2UkhoVlM3REFNMkxYOVRHK3d5UGQrR1hQeUp5M094SVNKbFpWYm00?=
- =?utf-8?B?S2IvTkN5MHJWVXhTTWJUNE93TllNb1pOMzgwbVUycGo3dDFTWUJRd1dyTUxK?=
- =?utf-8?B?WS83a3NBVHNHOGZDQjJTTmFQMUdUWTRKZEp6SFRpMGZvK1g5U2VFWXNtNSs1?=
- =?utf-8?B?YStRSm12ZXI3a1lpaEh6RHJENnJPT0JidWMveVN2eVVuV1pqaDRDNThXaGhS?=
- =?utf-8?B?aWZjTTQ3Rlh4a1hjSXUyUzhnbFFkTjVwbGVCWXVWc2JvYUFVQkRRTmE5RFl5?=
- =?utf-8?B?RWxXY05MUjZkOGNIVzRFSkNGUkh0ZGF5L3NxNk1ubkVuY0V2N2VQNDlNYkFr?=
- =?utf-8?B?S0phbkM1QmF1dmQ2dENuK2JxMUJQY1YyeXpGMWcrVkNrenhqWTFiTXE4M2Q1?=
- =?utf-8?B?ZWFMNDFJUjZ2ZWxITU91MlVHNnpTTHlyZHJ4d0JMc2xaWGMwalN1VzBBVVhM?=
- =?utf-8?B?R3BKQUFQaTB5Um5kZnAwdXhrdkc2Nzh5OGFxa2J3TnNzVG9pcFIyVnFUL1hU?=
- =?utf-8?B?TVF0S2RrY0pMOE51RzdpaVRac1c3dWQ5NDlBNjBSMnpSRXZVeDROLzg0WlRp?=
- =?utf-8?B?TzJVZjE2anF1L3BrUDhSc2IvQUlkdlNMTzBPUjNTanNvRTdGdXpkZXdhT0th?=
- =?utf-8?B?VkNscU1PRjFHelJQK1NGOEFyTTl6OTVadGhUSmtuWnltNHJVMXBxOGZKVmRQ?=
- =?utf-8?B?ZGpSVEYrZDFFenorYU11MG8rYWlLVXdIRUkzaVlsQVVsekZXcUV4K3F1VHg4?=
- =?utf-8?B?cE82aVBRT2puT2g4QTlKS1UyNzlPekd4Nm9rbGhiYit3QUxKT01lTUNQLzBj?=
- =?utf-8?B?WmlIY1ZIdkc0dVcvdDlKZkxBWnRwUzlYTkJnWG81UjNKck1IQVVJUFBmUkk0?=
- =?utf-8?B?a2JTL1M4QlZ0b1drN1F6UFVIR2NDZW5OWXRYbmR1NVNVT2hVZURCenRuZVow?=
- =?utf-8?B?Sy9nbkZDZEU5dDVnMTljcVNiM2lNQUg3TVNKVDNwSnIvM0VNRmJOVGZqRU9v?=
- =?utf-8?B?VkxrRllzQkswRWsrck56Z2hNMThOcjYxYkVvRXI0L0U3eFRCRVp2R3NlSVFI?=
- =?utf-8?B?Z1E5alBHTUhtNyt0blhBTFlvclJKTWUxNGd0NE5qVFVBMjA4KzNoMzl6S3Q3?=
- =?utf-8?B?djREdk9UaVRMUUI2QnkzeDNLc3hzaW1yNGwvSHYwaWRjaDBid2pXWVJDT2pP?=
- =?utf-8?Q?3+PNqA08nLSai?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5149.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(7053199007)(8096899003); DIR:OUT;
- SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aUpxYzlSZGRDcXdOQjFIL2lEY21jTzBnTUJJNHpiK0tVQVFaNGJ3ZVg1enQ3?=
- =?utf-8?B?ZEZhZEYxL1Y1OG5QdXRMVEliczRSUkViNFBjS2Jqd2pJOUI4bmtCZ2l0OWRL?=
- =?utf-8?B?b25TWjJreXdJa2NFcXVqSHdwQjIxcDhNTjAyVW9XQ3hDOERXMEs1UG9NdjdZ?=
- =?utf-8?B?SmJNRmFVSjBBQUdWcVZYLzJLWnpVQWhuemVpTzFkV2sxOTRCWG50cDZXZEZr?=
- =?utf-8?B?YVJ5R21OWXZEdlU0MTVTRE9aY2Y5QWpSZEpQcHlRM0xFMFJ4OFBNTnNGWGZ5?=
- =?utf-8?B?Y2JmdG4vY0RiQksza2xoMUdnMzkyVm5BbGw4OFhzNzQrVEJyRFN6SXdiUUtm?=
- =?utf-8?B?QnE0K0x4eVB3VHIvV3oxV3dJQ3lEUVpLRjhoLzc5RUxoZVBudlREQ29Udzd2?=
- =?utf-8?B?Q3UwaXNvSzN2NzZXZ1BCY0VNdHV2Ujd0cElodU8yeWVVK1A4V3kzNTlPTU9k?=
- =?utf-8?B?RjZKdWFITmF0ZDY3cCt1dEE3bytOWEJ3ekZDc1RFZ1g4VkJIZXRYZ3BKbjRw?=
- =?utf-8?B?c3lzcE44akhyUjdmTzJnRzk3U3Zob3U0c1lDZW9VR0JJdHlNOEFLMTRtVXlV?=
- =?utf-8?B?TkRsNG9uZ2hpRlAyeWZtY0ExZks5ZUxkWmlrK2RZSUZIZFNZQ2VtbUtuTm5M?=
- =?utf-8?B?L2RSdUZYdGNOQ2krM2FwQ0x2MVRlRnBOZG9XZGk3VDhEVTRqcDd5ci9GMUta?=
- =?utf-8?B?bjBMOXEvRmJ6SkRKNHVJS2RmNzRHZmY1OTJ3YXFQTFk1QkZKOWtMRlhudW9M?=
- =?utf-8?B?ODJlSktEK3VPNEpSUGJjZHhoWW9KZXEvQmpYTFMxU3diZHBHNFFxVUhhYWlQ?=
- =?utf-8?B?Kzh0VXhPVVIzNWJYYkptc21PeWtHNXd1dCtkNE9SV09scnBSMDV4QkhiMVVt?=
- =?utf-8?B?L2wxRTNhUmhMVUYzdlZ2SmxGRkxYSUY4bDQ5OThIQ1ZOaFlHOEx3eitGWFNS?=
- =?utf-8?B?YUxIZW9OVjJMb2FCeDlLYm4vMFNvY2JkWWZyNVFzTFRFRm8xNDQ1WjVMMVVI?=
- =?utf-8?B?MTBiaE5ReFlJREQ1bEZtTkRlb3ZjekwzSEhaMmRLR3U1aU5nM0kzNEdaZE1B?=
- =?utf-8?B?TUM2Wm1yWWp0ODh3TmEwekN2M21MUzZ0djlmVkwvQUgzVFl6dTc0YjAreGU2?=
- =?utf-8?B?cEwxc1ZmcWFMRk91WjVTMi80bFRlT1JjMFV3cWZlTUN0ZURPV3lFOGhsbzlk?=
- =?utf-8?B?WE02N2taOEVsTUYwMFM1aDZ4eFVRQVlObEs3enB0UUR1L1pMRzllZzV0NUtG?=
- =?utf-8?B?UHg4SXBpbkF2a1lxbnE5RWgwa09qQzkvYWxmR083cjhuZXJma3k2UnpSNjJJ?=
- =?utf-8?B?TmdHcFE3RXZpdDhCUk1FWEVLOUZaUityZEFBRTB6RlE4eGtucGtwa0d1bHFm?=
- =?utf-8?B?RVFhTmFjL1N2WTN6SU1pcEp4WVAzRHZJR3U1K0x2TXVtaXk1RWNGb3JFbXNO?=
- =?utf-8?B?TGxGa3Q2Tm9JUG82VGt0bFlPV3U1UmNZOGcwMnduYVFpTng2Yi9weG1reGxJ?=
- =?utf-8?B?Zk5UVWQxa3UxTUgwdkJPMXJJMDViWXc0c0I2ZVhQM3lIRlZFcWgyVWVNTzlw?=
- =?utf-8?B?NmduZ0dsWFdWM0FZcWVIZldEazZrVHRTc29wTk9leXpiV0syVk1ud2ZSdklJ?=
- =?utf-8?B?M0IvOFVZYjhwN2pjSmlxeVJzRmlpdnpGT3EzNVpnNTl4YVpWWjYyL3FUV2Jv?=
- =?utf-8?B?cldrdUNCZlN3ZkVVcHJNemd0c0FEKzAwQjFBbFA0OEU5R2xXZWUxemNLdlZ1?=
- =?utf-8?B?K2pRNGFQZTFHWDBlYkZQMW4xSmduMUxmb2NGYWxYamI3QklUd1RTNGZDWkVJ?=
- =?utf-8?B?dXJleHFkV1NkK0JEUXA3Yy81ZUhMaWhjTk1HcUxGaDRRRnQrS1NLNzhUK3VQ?=
- =?utf-8?B?RUtKS25VMnhTV1ZYNDJ0SkNmek5ISHVXamt1T054SnJGeTZYbjJEV2NBSjgr?=
- =?utf-8?B?VzVmSDhUWmx4RWZDdzB1aVpUb0lXUE1zeEVXZERtWDZEdzF3Yml0Qkd2LzRO?=
- =?utf-8?B?VHlPcjA1OTAwb3hQTDFESVpXaFp0L1YxTDJib1VyaDhqM1V2WTkrNUVva2ow?=
- =?utf-8?B?YW85U3J6T3NxR1V0S0Q1ZmJPYkN3MkJ0eVNBSWN2dmxKNGpDNERZVmVZeUgz?=
- =?utf-8?Q?KxJEx6lF/Rx9wX5R2Dh+lwHKY?=
+ ARA:13230040|30052699003|1800799024|376014|36860700013|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?j14osf5OH0Hv6I10eQ2OL/l86UxclTSYDKj3+0grbzDixn2UV7iwL0tWym76?=
+ =?us-ascii?Q?+6Sfxt2ckuLTJ+wwwLW8lV5dNsco2/ozgtpA594qzMjboq/aZjUxjTHQj9jy?=
+ =?us-ascii?Q?Vi+GGPOJHoR8smv3bl0PSUxRiYXFUQqx30LX4o7oHrf+wRJ3L3c6QCxF41D8?=
+ =?us-ascii?Q?UfVAgIooYCcJ5XwDBBrNSt6W4k+VcsGA2SS1iaePwIAPg2vpAGBQn5PeQd8I?=
+ =?us-ascii?Q?qQgQ7kdpC2KaP8S2AQRVQ5zWALYUclBqQ5BKFJ57l7tl0XqLtweDmrxb1SU3?=
+ =?us-ascii?Q?YLFBr3wG6rcZdbBrQG17Cdi0klZwSwvt+pL2pWhxoNmll6ew3kOpS2m5PbJ9?=
+ =?us-ascii?Q?EUtxnt9ata4zOjZXBwgOdchdfA+qEvnDJW9svmUkLxS3WjI4zmpSMQhqQRQq?=
+ =?us-ascii?Q?GCIJfrMb2KxJTRHjpf+vB5Ylpw8VuMW9DLwMRdPmAI3XAW0/Fl9Qt10G/tGB?=
+ =?us-ascii?Q?q6r7579KKO3tIt1E/FToY2NijMvCCOpw43EkN307Y03dcaI1mCQX4dmHsmBq?=
+ =?us-ascii?Q?Y9W0R7w7TRqtiyyyMBtfVo819pMASgxO9AHYHnkSF5O9NyNGDTt7bzWtSnUA?=
+ =?us-ascii?Q?nJ3tLRg7J7iCSk9gOoJk6zuK/dP8ATyhz+7ZLnjxzhjpXx6GHjQ+NlRQoRUL?=
+ =?us-ascii?Q?uuFCtPTJAWSM/ItfxiMpMp3MG3UBuMSH8o1+KnoxcCMEgJq3A7ZlBOcOUjUm?=
+ =?us-ascii?Q?nIEHcOTUPMDMdR/lqFoYWKlT5y14mFCeA63uJmJ9RPARqyX4rwaOuLY3AlS9?=
+ =?us-ascii?Q?JMfXsP2Sio6AWRBsc5JSKXkSLXPLVcK6d5VzfMplplVD7dnDYKA2lqehZ+IU?=
+ =?us-ascii?Q?oVXqpS3we39D6jtd9w7X7M3rLHfygvvDPkcVWIFW2+/EI35fzAx6VGpxpUyn?=
+ =?us-ascii?Q?bs3iK0Z75jKBtcbRn9C3kBwsui4QzaVAa6pL8F8ZXzF2AYZbsJIcwwwu7sxj?=
+ =?us-ascii?Q?tDCi/zGFf3UhuVmDaU3V8YOO/kdnwJboj4r5ZA7ONQpzsWXp7tfDiDuuj0ji?=
+ =?us-ascii?Q?EI+/LtaO8B1+oTMkUPUl+05bcOji1YBnMsF38pGgA6LqJCviBbmaRSnGwPi+?=
+ =?us-ascii?Q?fmRzE6EndiJT4GVA4ytER/nZROWtTsZ/E483Fc0gam2zFF2XEITVXhyugbxd?=
+ =?us-ascii?Q?5yXcUD1MaqWXC7cwXWjVfrj8MkLBhgxm+5eWtxPsLcl2U+j8TA9aw3DaStc8?=
+ =?us-ascii?Q?CqpNiwU5ZuD1ULNNlmMylPeh4YpYHQvrt1zxkpr5CvJz4M0hn0kbvwZMQXUM?=
+ =?us-ascii?Q?57+sRS+VHElUwKKk+tBHWeDI7TTSolQQUzqga/8FaQFb6GZl506Yc1ZGxvWb?=
+ =?us-ascii?Q?qKa66L/izVw7gJ5x5zrIuTFI3lYDXjsiBGx0eQCZslyBcK97MXt+azcK7Ubl?=
+ =?us-ascii?Q?gXiLJGH+/P1cdwgQ4Xakr1ZJJmJBz4Z7i9W63ErpAfIqWddzrcoUhSP2IgkQ?=
+ =?us-ascii?Q?Opx/EIjPJZ1eKP/H6EhQDR2aa2gh1nneFlojH5MSugLtP+qx4m97mSWqkraf?=
+ =?us-ascii?Q?/qhpCV0e0Y2LG6o=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(30052699003)(1800799024)(376014)(36860700013)(82310400026);
+ DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cd0e2863-fd36-42f0-ec2b-08dd2f2ea76a
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5149.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jan 2025 15:19:18.1747 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jan 2025 15:29:03.4229 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0c6172e0-9cc0-4993-9e57-08dd2f300460
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4UeXMexhkkJc3qJDtF1QK83dadebDaolHV7dqBru2Y3Qd27DzwLhs7+gQgwAbnhn
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8906
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF000252A4.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6293
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -170,361 +139,176 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-<html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 2025-01-07 07:30, Deng, Emily wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:PH0PR12MB5417E664CA264D62E1F2EB9B8F112@PH0PR12MB5417.namprd12.prod.outlook.com">
-      <pre class="moz-quote-pre" wrap="">[AMD Official Use Only - AMD Internal Distribution Only]
+This DC patchset brings improvements in multiple areas. In summary, we highlight:
 
-Hi Felix,
-    You are right, it is easily to hit deadlock, don't know why LOCKDEP doesn't catch this. Need to find another solution.
+- Add some feature for secure display
+- Add replay desync error count tracking and reset
+- Update chip_cap defines and usage
+- Remove unnecessary eDP power down
+- Fix some stuttering/corruption issue on PSR panel
+- Cleanup and refactoring DML2.1
 
-Hi Philip,
-     Do you have a solution for this delay free pt?
-</pre>
-    </blockquote>
-    <p>Thanks for debugging this case, I had a patch to not free PTB bo
-      when unmapping from GPU, but it will waste VRAM memory. My test
-      case also passed with the tlb flush fence fix, I don't see the
-      no-retry fault generated any more.<br>
-    </p>
-    <p>The deadlock is probably from svm_range_unmap_from_gpu -&gt;
-      flush_workqueue(adev-&gt;wq), this is from mmu notifier callback,
-      actually we only need flush pt_free_work before mapping to gpu,
-      please remove the flush_workqueue in unmap from gpu. If deadlock
-      still happens, please post the backtrace.</p>
-    <p>I think you don't need add new adev-&gt;wq, use default system_wq
-      and flush_work.</p>
-    <p>Regards,</p>
-    <p>Philip<br>
-    </p>
-    <blockquote type="cite" cite="mid:PH0PR12MB5417E664CA264D62E1F2EB9B8F112@PH0PR12MB5417.namprd12.prod.outlook.com">
-      <pre class="moz-quote-pre" wrap="">
-Emily Deng
-Best Wishes
-
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">-----Original Message-----
-From: Deng, Emily <a class="moz-txt-link-rfc2396E" href="mailto:Emily.Deng@amd.com">&lt;Emily.Deng@amd.com&gt;</a>
-Sent: Tuesday, January 7, 2025 10:34 AM
-To: Deng, Emily <a class="moz-txt-link-rfc2396E" href="mailto:Emily.Deng@amd.com">&lt;Emily.Deng@amd.com&gt;</a>; Kuehling, Felix
-<a class="moz-txt-link-rfc2396E" href="mailto:Felix.Kuehling@amd.com">&lt;Felix.Kuehling@amd.com&gt;</a>; <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>; Yang, Philip
-<a class="moz-txt-link-rfc2396E" href="mailto:Philip.Yang@amd.com">&lt;Philip.Yang@amd.com&gt;</a>; Koenig, Christian <a class="moz-txt-link-rfc2396E" href="mailto:Christian.Koenig@amd.com">&lt;Christian.Koenig@amd.com&gt;</a>
-Subject: RE: [PATCH v2] drm/amdgpu: Fix the looply call svm_range_restore_pages
-issue
-
-[AMD Official Use Only - AMD Internal Distribution Only]
-
-Ping....
-How about this? Currently it is easily to reproduce the issue on our environment. We
-need this change to fix it.
-
-Emily Deng
-Best Wishes
+Cc: Daniel Wheeler <daniel.wheeler@amd.com>
 
 
+Alex Hung (1):
+  drm/amd/display: Initialize denominator defaults to 1
 
-</pre>
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">-----Original Message-----
-From: amd-gfx <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx-bounces@lists.freedesktop.org">&lt;amd-gfx-bounces@lists.freedesktop.org&gt;</a> On Behalf Of
-Deng, Emily
-Sent: Monday, January 6, 2025 9:52 AM
-To: Kuehling, Felix <a class="moz-txt-link-rfc2396E" href="mailto:Felix.Kuehling@amd.com">&lt;Felix.Kuehling@amd.com&gt;</a>;
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>; Yang, Philip <a class="moz-txt-link-rfc2396E" href="mailto:Philip.Yang@amd.com">&lt;Philip.Yang@amd.com&gt;</a>;
-Koenig, Christian <a class="moz-txt-link-rfc2396E" href="mailto:Christian.Koenig@amd.com">&lt;Christian.Koenig@amd.com&gt;</a>
-Subject: RE: [PATCH v2] drm/amdgpu: Fix the looply call
-svm_range_restore_pages issue
+Austin Zheng (1):
+  drm/amd/display: Apply DML21 Patches
 
-[AMD Official Use Only - AMD Internal Distribution Only]
+Charlene Liu (1):
+  drm/amd/display: avoid reset DTBCLK at clock init
 
-[AMD Official Use Only - AMD Internal Distribution Only]
+Dennis Chan (1):
+  drm/amd/display: Revised for Replay Pseudo vblank control
 
-</pre>
-          <blockquote type="cite">
-            <pre class="moz-quote-pre" wrap="">-----Original Message-----
-From: Kuehling, Felix <a class="moz-txt-link-rfc2396E" href="mailto:Felix.Kuehling@amd.com">&lt;Felix.Kuehling@amd.com&gt;</a>
-Sent: Saturday, January 4, 2025 7:18 AM
-To: Deng, Emily <a class="moz-txt-link-rfc2396E" href="mailto:Emily.Deng@amd.com">&lt;Emily.Deng@amd.com&gt;</a>; <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>;
-Yang, Philip <a class="moz-txt-link-rfc2396E" href="mailto:Philip.Yang@amd.com">&lt;Philip.Yang@amd.com&gt;</a>; Koenig, Christian
-<a class="moz-txt-link-rfc2396E" href="mailto:Christian.Koenig@amd.com">&lt;Christian.Koenig@amd.com&gt;</a>
-Subject: Re: [PATCH v2] drm/amdgpu: Fix the looply call
-svm_range_restore_pages issue
+Dillon Varone (1):
+  drm/amd/display: Add SMU interface to get UMC count for dcn401
 
+Gabe Teeger (1):
+  drm/amd/display: Limit Scaling Ratio on DCN3.01
 
-On 2025-01-02 21:26, Emily Deng wrote:
-</pre>
-            <blockquote type="cite">
-              <pre class="moz-quote-pre" wrap="">As the delayed free pt, the wanted freed bo has been reused which
-will cause unexpected page fault, and then call svm_range_restore_pages.
+Jack Chang (1):
+  drm/amd/display: Add replay desync error count tracking and reset
+    functionality
 
-Detail as below:
-1.It wants to free the pt in follow code, but it is not freed
-immediately and used “schedule_work(&amp;vm-&gt;pt_free_work);”.
+Karthi Kandasamy (1):
+  drm/amd/display: Remove unused read_ono_state function from Hwss
+    module
 
-[   92.276838] Call Trace:
-[   92.276841]  dump_stack+0x63/0xa0
-[   92.276887]  amdgpu_vm_pt_free_list+0xfb/0x120 [amdgpu]
-[   92.276932]  amdgpu_vm_update_range+0x69c/0x8e0 [amdgpu]
-[   92.276990]  svm_range_unmap_from_gpus+0x112/0x310 [amdgpu]
-[   92.277046]  svm_range_cpu_invalidate_pagetables+0x725/0x780 [amdgpu]
-[   92.277050]  ? __alloc_pages_nodemask+0x19f/0x3e0
-[   92.277051]  mn_itree_invalidate+0x72/0xc0
-[   92.277052]  __mmu_notifier_invalidate_range_start+0x48/0x60
-[   92.277054]  migrate_vma_collect+0xf6/0x100
-[   92.277055]  migrate_vma_setup+0xcf/0x120
-[   92.277109]  svm_migrate_ram_to_vram+0x256/0x6b0 [amdgpu]
+Leo Li (2):
+  drm/amd/display: Do not wait for PSR disable on vbl enable
+  drm/amd/display: Do not elevate mem_type change to full update
 
-2.Call svm_range_map_to_gpu-&gt;amdgpu_vm_update_range to update the
-page table, at this time it will use the same entry bo which is the
-want free bo in step1.
+Michael Strauss (1):
+  drm/amd/display: Update chip_cap defines and usage
 
-3.Then it executes the pt_free_work to free the bo. At this time,
-the GPU access memory will cause page fault as pt bo has been freed.
-And then it will call svm_range_restore_pages again.
+Nicholas Susanto (1):
+  Revert "drm/amd/display: Enable urgent latency adjustments for DCN35"
 
-How to fix?
-Add a workqueue, and flush the workqueue each time before updating page
-</pre>
-            </blockquote>
-          </blockquote>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">table.
-</pre>
-        <blockquote type="cite">
-          <blockquote type="cite">
-            <pre class="moz-quote-pre" wrap="">
-I think this is kind of a known issue in the GPUVM code. Philip was
-looking at it before.
+Peichen Huang (1):
+  drm/amd/display: improve dpia pre-train
 
-Just flushing a workqueue may seem like a simple and elegant solution,
-but I'm afraid it introduces lock dependency issues. By flushing the
-workqueue, you're effectively creating a lock dependency of the MMU
-notifier on any locks held inside the worker function. You now get a
-circular lock dependency with any of those locks and memory reclaim. I
-think LOCKDEP would be able to catch that if you compile your kernel
-with that
-</pre>
-          </blockquote>
-          <pre class="moz-quote-pre" wrap="">feature enabled.
-</pre>
-          <blockquote type="cite">
-            <pre class="moz-quote-pre" wrap="">
-The proper solution is to prevent delayed freeing of page tables if
-they happened to get reused, or prevent reuse of page tables if they
-are flagged for
-</pre>
-          </blockquote>
-          <pre class="moz-quote-pre" wrap="">delayed freeing.
-</pre>
-          <blockquote type="cite">
-            <pre class="moz-quote-pre" wrap="">
-Regards,
-  Felix
+Rafal Ostrowski (1):
+  drm/amd/display: DML2.1 Post-Si Cleanup
 
-</pre>
-          </blockquote>
-          <pre class="moz-quote-pre" wrap="">Thanks, already enabled LOCKDEP while compiling the kernel. The delay
-work seems for other reasons, I am not sure whether it could be deleted completely.
+Robin Chen (1):
+  drm/amd/display: Add a new flag for replay low hz
 
-Emily Deng
-Best Wishes
-</pre>
-          <blockquote type="cite">
-            <pre class="moz-quote-pre" wrap="">
-</pre>
-            <blockquote type="cite">
-              <pre class="moz-quote-pre" wrap="">
-Signed-off-by: Emily Deng <a class="moz-txt-link-rfc2396E" href="mailto:Emily.Deng@amd.com">&lt;Emily.Deng@amd.com&gt;</a>
----
-  drivers/gpu/drm/amd/amdgpu/amdgpu.h              | 1 +
-  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 1 +
-  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c           | 7 +++++--
-  drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c        | 6 +++++-
-  drivers/gpu/drm/amd/amdkfd/kfd_svm.c             | 3 +++
-  5 files changed, 15 insertions(+), 3 deletions(-)
+Ryan Seto (1):
+  drm/amd/display: 3.2.316
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 93c352b08969..cbf68ad1c8d0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -1188,6 +1188,7 @@ struct amdgpu_device {
-     struct mutex                    enforce_isolation_mutex;
+Sung Lee (1):
+  drm/amd/display: Log Hard Min Clocks and Phantom Pipe Status
 
-     struct amdgpu_init_level *init_lvl;
-+    struct workqueue_struct *wq;
-  };
+Taimur Hassan (1):
+  drm/amd/display: [FW Promotion] Release 0.0.248.0
 
-  static inline uint32_t amdgpu_ip_version(const struct
-amdgpu_device *adev, diff --git
-a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index f30548f4c3b3..5b4835bc81b3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -2069,6 +2069,7 @@ int amdgpu_amdkfd_gpuvm_map_memory_to_gpu(
-             if (ret)
-                     goto out;
-     }
-+    flush_workqueue(adev-&gt;wq);
+Tom Chung (1):
+  drm/amd/display: Use HW lock mgr for PSR1
 
-     ret = reserve_bo_and_vm(mem, avm, &amp;ctx);
-     if (unlikely(ret))
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index 9d6ffe38b48a..500d97cd9114 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -2607,7 +2607,7 @@ void amdgpu_vm_fini(struct amdgpu_device
-*adev,
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">struct amdgpu_vm *vm)
-</pre>
-            <blockquote type="cite">
-              <pre class="moz-quote-pre" wrap="">     amdgpu_amdkfd_gpuvm_destroy_cb(adev, vm);
+Wayne Lin (4):
+  drm/amd/display: Validate mdoe under MST LCT=1 case as well
+  drm/amd/display: Reduce accessing remote DPCD overhead
+  drm/amd/display: Add support to configure CRC window on specific CRC
+    instance
+  drm/amd/display: Extend secure display to support DisplayCRC mode
 
-     flush_work(&amp;vm-&gt;pt_free_work);
--
-+    cancel_work_sync(&amp;vm-&gt;pt_free_work);
-     root = amdgpu_bo_ref(vm-&gt;root.bo);
-     amdgpu_bo_reserve(root, true);
-     amdgpu_vm_put_task_info(vm-&gt;task_info);
-@@ -2708,6 +2708,8 @@ void amdgpu_vm_manager_init(struct
-amdgpu_device
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">*adev)
-</pre>
-            <blockquote type="cite">
-              <pre class="moz-quote-pre" wrap="">  #endif
+Yiling Chen (1):
+  drm/amd/display: Remove unnecessary eDP power down
 
-     xa_init_flags(&amp;adev-&gt;vm_manager.pasids, XA_FLAGS_LOCK_IRQ);
-+    adev-&gt;wq = alloc_workqueue(&quot;amdgpu_recycle&quot;,
-+                               WQ_MEM_RECLAIM | WQ_HIGHPRI |
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">WQ_UNBOUND, 16);
-</pre>
-            <blockquote type="cite">
-              <pre class="moz-quote-pre" wrap="">  }
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  33 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   2 +
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c |  83 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_crc.h |   9 +
+ .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |   2 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c |   2 +-
+ .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  48 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c |  35 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_psr.h |   3 +-
+ .../drm/amd/display/dc/bios/bios_parser2.c    |   9 +-
+ .../display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c  |  18 +-
+ .../amd/display/dc/clk_mgr/dcn401/dalsmc.h    |   4 +-
+ .../dc/clk_mgr/dcn401/dcn401_clk_mgr.c        |  25 +
+ .../clk_mgr/dcn401/dcn401_clk_mgr_smu_msg.c   |  14 +
+ .../clk_mgr/dcn401/dcn401_clk_mgr_smu_msg.h   |   1 +
+ drivers/gpu/drm/amd/display/dc/core/dc.c      |  33 +-
+ .../gpu/drm/amd/display/dc/core/dc_resource.c |  16 +-
+ drivers/gpu/drm/amd/display/dc/dc.h           |   2 +-
+ drivers/gpu/drm/amd/display/dc/dc_stream.h    |   4 +-
+ drivers/gpu/drm/amd/display/dc/dc_types.h     |   8 +-
+ .../drm/amd/display/dc/dce/dmub_hw_lock_mgr.c |   3 +-
+ .../dc/dce110/dce110_timing_generator.c       | 169 ++--
+ .../dc/dce120/dce120_timing_generator.c       |  90 +-
+ .../dc/dio/dcn31/dcn31_dio_link_encoder.c     |   5 +-
+ .../drm/amd/display/dc/dml/dcn35/dcn35_fpu.c  |   4 +-
+ .../dc/dml2/dml21/dml21_translation_helper.c  |  86 +-
+ .../dc/dml2/dml21/dml21_translation_helper.h  |   2 -
+ .../amd/display/dc/dml2/dml21/dml21_utils.c   | 129 +--
+ .../amd/display/dc/dml2/dml21/dml21_utils.h   |   8 +-
+ .../amd/display/dc/dml2/dml21/dml21_wrapper.c |   8 -
+ .../dml21/inc/bounding_boxes/dcn3_soc_bb.h    | 401 ---------
+ .../src/dml2_core/dml2_core_dcn4_calcs.c      | 111 ++-
+ .../src/dml2_core/dml2_core_shared_types.h    |   6 +-
+ .../dml21/src/dml2_core/dml2_core_utils.c     |   2 +-
+ .../dml2/dml21/src/dml2_pmo/dml2_pmo_dcn3.c   |   6 +-
+ .../dml21/src/dml2_pmo/dml2_pmo_dcn4_fams2.c  |  10 +-
+ .../dml21/src/dml2_top/dml2_top_interfaces.c  |   1 -
+ .../dml2/dml21/src/dml2_top/dml2_top_legacy.c |   6 +
+ .../dml2/dml21/src/dml2_top/dml2_top_soc15.c  |   1 +
+ .../dml2/dml21/src/dml2_top/dml2_top_soc15.h  |   1 +
+ .../src/inc/dml2_internal_shared_types.h      |   2 -
+ .../drm/amd/display/dc/dml2/dml2_wrapper.c    |  14 +-
+ .../amd/display/dc/hubp/dcn401/dcn401_hubp.c  |  92 +-
+ .../amd/display/dc/hubp/dcn401/dcn401_hubp.h  |  35 +-
+ .../amd/display/dc/hwss/dcn20/dcn20_hwseq.c   | 257 +++---
+ .../amd/display/dc/hwss/dcn20/dcn20_hwseq.h   |  17 +-
+ .../amd/display/dc/hwss/dcn32/dcn32_hwseq.c   |  12 +-
+ .../amd/display/dc/hwss/dcn35/dcn35_init.c    |   4 +
+ .../amd/display/dc/hwss/dcn401/dcn401_hwseq.c | 831 ++++++++++++++++--
+ .../amd/display/dc/hwss/dcn401/dcn401_hwseq.h |  11 +-
+ .../amd/display/dc/hwss/dcn401/dcn401_init.c  |  10 +-
+ .../drm/amd/display/dc/hwss/hw_sequencer.h    |  12 +
+ .../gpu/drm/amd/display/dc/inc/core_types.h   |   2 +
+ .../gpu/drm/amd/display/dc/inc/hw/clk_mgr.h   |   3 +
+ drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h  |  11 +
+ .../amd/display/dc/inc/hw/timing_generator.h  |   3 +
+ .../display/dc/link/accessories/link_dp_cts.c |   4 +-
+ .../hwss/link_hwss_dio_fixed_vs_pe_retimer.c  |   2 +-
+ .../gpu/drm/amd/display/dc/link/link_dpms.c   |  23 +-
+ .../drm/amd/display/dc/link/link_factory.c    |   2 +-
+ .../amd/display/dc/link/protocols/link_ddc.c  |   2 +-
+ .../dc/link/protocols/link_dp_capability.c    |  10 +-
+ .../dc/link/protocols/link_dp_irq_handler.c   |   3 +
+ .../display/dc/link/protocols/link_dp_phy.c   |   2 +-
+ .../dc/link/protocols/link_dp_training.c      |   4 +-
+ .../amd/display/dc/optc/dcn10/dcn10_optc.c    |  87 +-
+ .../amd/display/dc/optc/dcn35/dcn35_optc.c    | 101 ++-
+ .../dc/resource/dcn10/dcn10_resource.c        |   8 +-
+ .../dc/resource/dcn10/dcn10_resource.h        |   1 +
+ .../dc/resource/dcn20/dcn20_resource.c        |   3 +-
+ .../dc/resource/dcn201/dcn201_resource.c      |   3 +-
+ .../dc/resource/dcn21/dcn21_resource.c        |   1 +
+ .../dc/resource/dcn30/dcn30_resource.c        |   1 +
+ .../dc/resource/dcn301/dcn301_resource.c      |  11 +-
+ .../dc/resource/dcn302/dcn302_resource.c      |   1 +
+ .../dc/resource/dcn303/dcn303_resource.c      |   1 +
+ .../dc/resource/dcn31/dcn31_resource.c        |   1 +
+ .../dc/resource/dcn314/dcn314_resource.c      |   1 +
+ .../dc/resource/dcn315/dcn315_resource.c      |   1 +
+ .../dc/resource/dcn316/dcn316_resource.c      |   1 +
+ .../dc/resource/dcn32/dcn32_resource.c        |   1 +
+ .../dc/resource/dcn321/dcn321_resource.c      |   1 +
+ .../dc/resource/dcn35/dcn35_resource.c        |   1 +
+ .../dc/resource/dcn351/dcn351_resource.c      |   1 +
+ .../dc/resource/dcn401/dcn401_resource.c      |  54 +-
+ .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   |  15 +-
+ .../amd/display/modules/power/power_helpers.c |   9 +-
+ .../amd/display/modules/power/power_helpers.h |   3 +-
+ 88 files changed, 1891 insertions(+), 1184 deletions(-)
+ delete mode 100644 drivers/gpu/drm/amd/display/dc/dml2/dml21/inc/bounding_boxes/dcn3_soc_bb.h
 
-  /**
-@@ -2721,7 +2723,8 @@ void amdgpu_vm_manager_fini(struct
-amdgpu_device
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">*adev)
-</pre>
-            <blockquote type="cite">
-              <pre class="moz-quote-pre" wrap="">  {
-     WARN_ON(!xa_empty(&amp;adev-&gt;vm_manager.pasids));
-     xa_destroy(&amp;adev-&gt;vm_manager.pasids);
--
-+    flush_workqueue(adev-&gt;wq);
-+    destroy_workqueue(adev-&gt;wq);
-     amdgpu_vmid_mgr_fini(adev);
-  }
+-- 
+2.34.1
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-index f78a0434a48f..1204406215ee 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-@@ -554,15 +554,19 @@ void amdgpu_vm_pt_free_work(struct work_struct
-*work)
-
-     vm = container_of(work, struct amdgpu_vm, pt_free_work);
-
-+    printk(&quot;Emily:%s\n&quot;, __func__);
-     spin_lock(&amp;vm-&gt;status_lock);
-     list_splice_init(&amp;vm-&gt;pt_freed, &amp;pt_freed);
-     spin_unlock(&amp;vm-&gt;status_lock);
-+    printk(&quot;Emily:%s 1\n&quot;, __func__);
-
-     /* flush_work in amdgpu_vm_fini ensure vm-&gt;root.bo is valid. */
-     amdgpu_bo_reserve(vm-&gt;root.bo, true);
-+    printk(&quot;Emily:%s 2\n&quot;, __func__);
-
-     list_for_each_entry_safe(entry, next, &amp;pt_freed, vm_status)
-             amdgpu_vm_pt_free(entry);
-+    printk(&quot;Emily:%s 3\n&quot;, __func__);
-
-     amdgpu_bo_unreserve(vm-&gt;root.bo);
-  }
-@@ -589,7 +593,7 @@ void amdgpu_vm_pt_free_list(struct amdgpu_device
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">*adev,
-</pre>
-            <blockquote type="cite">
-              <pre class="moz-quote-pre" wrap="">             spin_lock(&amp;vm-&gt;status_lock);
-             list_splice_init(&amp;params-&gt;tlb_flush_waitlist, &amp;vm-&gt;pt_freed);
-             spin_unlock(&amp;vm-&gt;status_lock);
--            schedule_work(&amp;vm-&gt;pt_free_work);
-+            queue_work(adev-&gt;wq, &amp;vm-&gt;pt_free_work);
-             return;
-     }
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index 3e2911895c74..55edf96d5a95 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -1314,6 +1314,7 @@ svm_range_unmap_from_gpu(struct amdgpu_device
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">*adev, struct amdgpu_vm *vm,
-</pre>
-            <blockquote type="cite">
-              <pre class="moz-quote-pre" wrap="">     uint64_t init_pte_value = 0;
-
-     pr_debug(&quot;[0x%llx 0x%llx]\n&quot;, start, last);
-+    flush_workqueue(adev-&gt;wq);
-
-     return amdgpu_vm_update_range(adev, vm, false, true, true,
-false, NULL,
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">start,
-</pre>
-            <blockquote type="cite">
-              <pre class="moz-quote-pre" wrap="">                                   last, init_pte_value, 0, 0, NULL,
-NULL, @@ -1422,6
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">+1423,8
-</pre>
-            <blockquote type="cite">
-              <pre class="moz-quote-pre" wrap="">@@ svm_range_map_to_gpu(struct kfd_process_device *pdd, struct
-svm_range
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">*prange,
-</pre>
-            <blockquote type="cite">
-              <pre class="moz-quote-pre" wrap="">              * different memory partition based on fpfn/lpfn, we should use
-              * same vm_manager.vram_base_offset regardless memory partition.
-              */
-+            flush_workqueue(adev-&gt;wq);
-+
-             r = amdgpu_vm_update_range(adev, vm, false, false, flush_tlb, true,
-                                        NULL, last_start, prange-&gt;start + i,
-                                        pte_flags,
-</pre>
-            </blockquote>
-          </blockquote>
-        </blockquote>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-</pre>
-    </blockquote>
-  </body>
-</html>
