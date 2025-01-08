@@ -4,158 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A308C02183
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jan 2025 15:59:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A771E7719A
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jan 2025 14:00:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A2B1410E702;
-	Mon, 13 Jan 2025 15:59:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 66EDC10E8A4;
+	Wed,  8 Jan 2025 14:00:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="nWaTlSgA";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="pWcYoVGg";
 	dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2051.outbound.protection.outlook.com [40.107.244.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F292910E6F2
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jan 2025 15:59:25 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=I51kA+qBLArP1p0hO9RLqU9mT4gkMRat87KwdXgfr+I8XVaOReh/GQaenBYV1IsRe3LXmXUtxc4FuW1zdizFokL0i4Ad00U9ciwcLVp1aaF9Ro7QotlrGLN8C/lZi8gQ+JEFiPL3iLbKOcd5JGowxqRHnqyBGCsttNPaferuIHFJtPpW2XIPzyL/Xow2kEG/xe84+1743VGc86Ogj+IoaCR23h1ODDILbELfzD24ZxmVIn0w1LNqKr6KR8DfyHyLgoGcSPtSGbA8KPdcbXOFvrAX6xzIIuB3zOOwxkEVHdlsL3gHiKlgP1dvkdCmFUeOVKAmc3IY7S+vqDg3iozCfg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+ABqzL03q5IJFHO8JGpUvjQacJcDqjFg8RF6X+swTOw=;
- b=HIbVUktUIv0gtf09hhxD7C6nRJJUzlvtcx5xvaQmvuMKrkGxBKHueCmujMchOYCYyT9gU0+niWkp2fpoVRg8KCrJgQpfigEgU5vpopeHMg8TNKoEem/YK0AWwk3e/JP/7Z6HftfTVJQqIUT0J/9V0CaNfJZASqVbmcYLh8X+XNktzxW2wUb5iqOTHZMh9qAsse1SYMajp20DMyC50J90OGrqFkudzS8FLPZYsN+4GdMezD7Kfbo/oB+vGVfRI8rs6Bg3WRb9YPmx3Wf1u7n43pl2d7LN8MBuffkZcUotgnPv8cw/p6p/qq8gw5oeXxCkfG8pRLjZ8AWKgWH1Z2DZyQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+ABqzL03q5IJFHO8JGpUvjQacJcDqjFg8RF6X+swTOw=;
- b=nWaTlSgAhUCzJ6/SHdq9js98WC+3vJ8y65KUeKbi7b5KHinxKK2iFFGS0+dlMm9ho/paw91glByWebSbK8WFgSAJL9hyps4+onW7ji0av7Wr/uYPvGofHkB/zbovGdtSUVUmJU3h0ZauVMDR6qYulRZUQgfXOT1fvxCQgikyOGs=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
- by SN7PR12MB8819.namprd12.prod.outlook.com (2603:10b6:806:32a::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8335.17; Mon, 13 Jan
- 2025 15:59:24 +0000
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::37ee:a763:6d04:81ca]) by MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::37ee:a763:6d04:81ca%4]) with mapi id 15.20.8335.017; Mon, 13 Jan 2025
- 15:59:24 +0000
-Message-ID: <ed72f369-bc74-44d8-9cce-34aa125176fa@amd.com>
-Date: Mon, 13 Jan 2025 09:59:22 -0600
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] ACPI: video: Fix random crashes due to bad kfree
-From: Mario Limonciello <mario.limonciello@amd.com>
-To: Chris Bainbridge <chris.bainbridge@gmail.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: Tobias Jakobi <tjakobi@math.uni-bielefeld.de>,
- amd-gfx@lists.freedesktop.org, alex.hung@amd.com,
- regressions@lists.linux.dev, lenb@kernel.org, linux-acpi@vger.kernel.org,
- linux-kernel@vger.kernel.org, Hans de Goede <hdegoede@redhat.com>,
- Borislav Petkov <bp@alien8.de>
-References: <Z2yQvTyg_MWwrlj3@debian.local>
- <b98f2fa5-fbe8-4958-bf20-fa5d28c5a38b@math.uni-bielefeld.de>
- <Z2yw_eJwR5ih1Npr@debian.local>
- <CAJZ5v0i=ap+w4QZ8f2DsaHY6D=XUEuSNjyQ-2_=DGOLfZjdn+w@mail.gmail.com>
- <Z4K_oQL7eA9Owkbs@debian.local>
- <c6e622b2-64e4-41cf-acfb-31ae493571d2@amd.com>
-Content-Language: en-US
-In-Reply-To: <c6e622b2-64e4-41cf-acfb-31ae493571d2@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SA0PR11CA0090.namprd11.prod.outlook.com
- (2603:10b6:806:d2::35) To MN0PR12MB6101.namprd12.prod.outlook.com
- (2603:10b6:208:3cb::10)
+Received: from out30-132.freemail.mail.aliyun.com
+ (out30-132.freemail.mail.aliyun.com [115.124.30.132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9276210E8A4
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Jan 2025 14:00:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linux.alibaba.com; s=default;
+ t=1736344811; h=From:To:Subject:Date:Message-ID:MIME-Version;
+ bh=R8AO7eaKJ16u+gsYlUZ+LnPWX2kerK611y107FP34fk=;
+ b=pWcYoVGgfzeEPiVgXIKhj5zQjUNZT884PBwZFFppKcdOWRTDVj7fvFbN7GuW/otQS+3H1W/7CsWwy8cC/RaGGccQ7lUYRm1QDi9jwOmuyw2Hlw6Ol0QyJPNPu6UBRE7MeFYAJqaoNHhCfAsXve97vILP9NmXn4F/kn7tv0n304A=
+Received: from i32d02263.sqa.eu95.tbsite.net(mailfrom:gerry@linux.alibaba.com
+ fp:SMTPD_---0WNEHXCe_1736344808 cluster:ay36) by smtp.aliyun-inc.com;
+ Wed, 08 Jan 2025 22:00:09 +0800
+From: Jiang Liu <gerry@linux.alibaba.com>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, simona@ffwll.ch, sunil.khatri@amd.com,
+ lijo.lazar@amd.com, Hawking.Zhang@amd.com, mario.limonciello@amd.com,
+ Jun.Ma2@amd.com, xiaogang.chen@amd.com, Kent.Russell@amd.com,
+ shuox.liu@linux.alibaba.com, amd-gfx@lists.freedesktop.org
+Cc: Jiang Liu <gerry@linux.alibaba.com>
+Subject: 
+Date: Wed,  8 Jan 2025 21:59:52 +0800
+Message-ID: <cover.1736344725.git.gerry@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.5
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|SN7PR12MB8819:EE_
-X-MS-Office365-Filtering-Correlation-Id: f6c35e29-4c76-4573-badb-08dd33eb3ffb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|7416014|376014|7053199007; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?SFR6eFpQRFlySjdxcmRmZU9QTnVpNWJiWkh5SWRzKzNKY2FJQnJ6WGlkS1E3?=
- =?utf-8?B?WDIvRkxadjhwSEJsbDF4QlMxR3hERzZrUU9hbXU1UVFRMHBtR3dabUU2Z2ZE?=
- =?utf-8?B?K1R6OE1ONzl2WlNTbmJ6WExqYlkxTmRyWUhEbnBieGM3WUhwQ2ZoYkVaeHh0?=
- =?utf-8?B?YkdiYkUwa3Fyb1hyN3o1aGxCeHFDbVBOcmppd3ozTE0vc1FnTTU3aVdIYTEw?=
- =?utf-8?B?Z3h2cSs0MFhvbkVIYnd6TXF4RklyRFNYWmZobkRRQ1hpU2h5STM4alV6eFNa?=
- =?utf-8?B?Tkc4eEp5SU9WYWQxS0QyU2ozcVZhQ0dLMUV3L1ZYd3dITUNsUGs3NVgySWxN?=
- =?utf-8?B?bzl3OFV4QUN1NVV6d2o4K2t1UDJ1NjBuZkVQVlNoZUxmLzRMSFExUjdXV2V4?=
- =?utf-8?B?Zkg4YzN4ZzkwTFRqYmw2cUVpdnprMkFRTFlaeWl2Sm9FQkZxODhVZnhIZjlr?=
- =?utf-8?B?Yjl4MXR5eWtlcGFGaDhuZUp3bTVIQ21Ba3dxRkoxd3k5MDM5NmR1N0FXRGJP?=
- =?utf-8?B?aHd6dGFVQTF2RXE3QzZiNFJvL0x1V1VIR1ZJbEtLTy9KTkZMRUt3UVhBaytB?=
- =?utf-8?B?TFR0QzE3enRFeWhOdnZpWGpuYk5zRHhrUEtMWnd4RENhdXVVZHFVSWoydVo5?=
- =?utf-8?B?d3N5bnJKL3IzNHMwRnEvTk4xSXplMWw0QlFtYmlHejh5eE5zWlYxeWVibEkw?=
- =?utf-8?B?cldUMUZPTHAzR2theFdCUHRGRE1vVUYwS25wMk1reG13QWRvaVRFYzVMTktC?=
- =?utf-8?B?R1JPMjgvTUlsa2NrblJvN0VHM01LV3k0TXVUM3ZTMlVWTUNNTnZxM2Z2MWlU?=
- =?utf-8?B?RTRZK1YwSFhQWHhMUStXK0l1U2FOOHdRNTk3Uk9aRHM1Ym1UWXhIMzRydXNM?=
- =?utf-8?B?cmFMNWNYTEpQcWlKNTQ3RFErVnFiTHJZWFNEdzR2NW9HclQyZG96VVhCc3NV?=
- =?utf-8?B?UnhSTDRjbUIvb2huVEgrTlVBRXFQQm91enB0R2ZPT1ErY21XaG16TVIycENh?=
- =?utf-8?B?WDhDdGVVeGZjQnZmY1I5dnZPN3ZFZndLTFhvSlE5NVVqRkt2eEoybDZsRVJs?=
- =?utf-8?B?K2VTWm5mMDArdHBjS3plSjh6UitGWkVTdjVTVndBYzZ3RlRZbndYNXpWUEJJ?=
- =?utf-8?B?SUNyME8rbVZZWkpFUGQ3dTNMTDBxUmI5b1lSdFNCSjZMS3hGSThxYVJtbWF1?=
- =?utf-8?B?Z2tKMFZZV1FuL09JSEJrSVVvYWFTODBKM3ZJaUJyeUNmN2I5RjZoRG5CbCtr?=
- =?utf-8?B?VnBkNEdwV2lnRHpJTEVwKzRERkFrOGNpSXZUUUlWVVI5Y3lCbXplbzhCaDQr?=
- =?utf-8?B?MkJnaDNzRTJRQXA0ajlmUVJudmFiLzI3dkowVE80akoxNGYwWmpROGVPWm9T?=
- =?utf-8?B?MVBJcDd2RU9PVUJ0RjQvY00ycXFaSDhYNVVSa2VCUkNjUVpIQ2hjK0ZKbFA0?=
- =?utf-8?B?cTJRTzVUYTVBT1hIN2xSMG16ZFpBRkVNODVyZ3A1YURKZ3BrNGdpNUZUKytJ?=
- =?utf-8?B?bXhUMk1ZRVNOaDdaNysvUXlTdXFQZUtpeFZibkI4Y1dXb0F1SG5kVjZwa2FR?=
- =?utf-8?B?VU1DeDRDM1RuWkpzUVhqa3B2aTRJZVV6L1NScXJYc212ZFk3TDBucG9XdHo2?=
- =?utf-8?B?NWN5MGJ6d2NobE5FbklJQXVpRDE4bzBVbm1qV1dpL0pMVmwvZ1BZb3ZIU0do?=
- =?utf-8?B?aExEQkFvUkZQaTJTT1RrSVBlVFJkUEFvVXBUTGg2d3RodjhiRzhhQTdzM1ha?=
- =?utf-8?B?NkNpYmN1cnNwWDd4Ykg0bVVGeEhvVCtLNjh2MEdJSHdzRWo2Z2w0OHFVRFVy?=
- =?utf-8?B?VGIray90N3ZmOCtvbzJXUT09?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(7416014)(376014)(7053199007); DIR:OUT;
- SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NjJ2YVNpN3VOTVZiU3VJTkhMdnBtM0t1Y1JnZmh6WCtVaVMzVmlrYit4RytN?=
- =?utf-8?B?SmZ3LzhiS25uREEwSExhY1VsQ3RLUmNpcnNWUllsWGVRSnFuOGh2YXEzaWZq?=
- =?utf-8?B?dHNhOFVqTmZ5bmtFd2F3cmNKeGJQUzVBbEZLY1pKMFdaVm1xaHN6eHZrMzky?=
- =?utf-8?B?cTdNQlI3Z2JyaDhXNTVFRjdjTHlUdzV3ZXBOV09oUlo0YThZaXhFeUcwNk9K?=
- =?utf-8?B?VytQOGZGNzYxUUtGTkNrdWhKK0Q5U2FUS0h0cDJabWNHbVhhMGtQTS9aU3Vq?=
- =?utf-8?B?Rm1xOHJCcG1lQXJlVUEyUGRBbEZudFY4cC9sN1lWOEZrVCtES21US0FuVVps?=
- =?utf-8?B?VW1sL29VaG1selRvd2RObENpUVhuL3h5MGlsdEp6eEUxS21zMFJDeU1RL0tY?=
- =?utf-8?B?L3c2cFNHaGZpaktvS3dRZ2NqenlhaE41VFdPY3h6UERYTDNMKzJzS2toeEJO?=
- =?utf-8?B?RStFVlJFRWFvc2NYdTFyUDJlelVXVVZWcllZcDBzL1ZSTyt0SkpBM2Z0cXFT?=
- =?utf-8?B?K090K2RQT3VaRFVZMEsvME0wekhwaHZ6V3pVNitCSENmZnIrcDFlcWZQemhK?=
- =?utf-8?B?M1ZHUldKNk8yL1JYWFBBVGlpTnVxOGJnemZSOTB6cDF5L2EzMGlPb1lzTE16?=
- =?utf-8?B?d2VvZE1zTUZjdVZXY0txYWlsL0hRNmt1QW5aTUE0V0lQdEUzbVV3NVk2ZDZx?=
- =?utf-8?B?bGpsV3JneHdXYWp2d1lDZG5wd3ExZGNVK3dxV3MwQXg1czJEcHE0YndWNmZj?=
- =?utf-8?B?Tlh6REM0Z3R2U1RYVVFLSmRBS0twa3ZiSjd3NUkycFRFTGU5RmlpbUViQnM5?=
- =?utf-8?B?bVAzOWxaMVdrWkdQRmNJdklIK3YwdVBwcFdodGF6Ty9Obk5ia2M5NnFmQThJ?=
- =?utf-8?B?eFdrczRsd2tjcEV2ZnpWQ0FTNzRaWmk3VGYyZGNKc2pHRXhqZ3BUTzlDMGtn?=
- =?utf-8?B?anRhZzNvUm9GdCsxajRRaTQ2eEdBU3RZQXA4Sjk4b01iUUxrVkQ2eGxqQ3hz?=
- =?utf-8?B?bUw4SzNKMjFlbmVIR3ZTOWM4MWw2c0M3VlVyNDQ4LzRBandiNGlCdEJyK3k2?=
- =?utf-8?B?bTIzNGdyOEtOdDVYOEFWNFZFUk9sMk9wMmtzTXU1WlhiQ002WkdmVVVVb0N0?=
- =?utf-8?B?UlB6QWc3RmlNcVpxL0p3alBNb3RaUHB1ckRwT3Flb0tTTUlBM2Zvd3VKaERh?=
- =?utf-8?B?SWhmWi82YVJHRE1RRkx1Q2FUbHdLUjVuOCtXM1FZaXJOdW5tZmZadUZqSFBx?=
- =?utf-8?B?QTdsZUJUY1QyOVl6VWJ0UnU5amlPdUVNL2p5V1h4aTFpQ0c0VDdUZmNWY0FE?=
- =?utf-8?B?bUFWa2RLajVxbGkwemlUTTB6bEs4WHIxKzNsUWUxQnh4V3dGamxvUjJMblVV?=
- =?utf-8?B?Qzg0eGhOZ2l4bDRIejFVWHBnc2ZwZ2FUV3JGaGhiREttYlhkSjhha3h3WHph?=
- =?utf-8?B?dUU1Qzdmc3BMUWNoV2xOSUEvMk1kSU5KYWdtbUVKTDBibHd1S2dRM3ArUDh5?=
- =?utf-8?B?RWRZUWkrSmk2WXVmRlZWS0RhQjR2Vm05ckxKeFA4OEdZb0xLVWQ3Q01GeGxZ?=
- =?utf-8?B?ZjFFa2dtOVcvWjBLREZMWmgzUUtjeVVweTB1cFBSSlh4cEJqWXpya1RLSHpx?=
- =?utf-8?B?S0E0czB1cGRvRDg1YllpQTdpRXBRWk13Rkx6WHdvVDBZa3A0WEw5TUY1N21v?=
- =?utf-8?B?UXI4aVVNcU9XSzRnaFdXTG9hRXY2aytKNERuWXovUnVSODN4Qjg4QTZiMk5v?=
- =?utf-8?B?bVI4NmJXdkhOOUxLSDVUV09sem51WU83YzZwY0xmT2hDZTdlSHlYMkphZ05l?=
- =?utf-8?B?N2w5RjdrVWR4R2xhSGU3VjVoblZ6NkRWWWJOdU1nQm9NZ0FveVRxa2RQUUdD?=
- =?utf-8?B?VnhOZU1lSjBTQ094aGxOdnNpaGpOVjc3NEtRU2xVQW5TbEpRT2xMd1hwNG1K?=
- =?utf-8?B?SkJKKzExakRjZVAyZERSVHkxRTFUUzNIVDBERkI0RTdNTEpkaStpVmpWb0tY?=
- =?utf-8?B?RWd2RCtoRTJ5Uk9jTm5NQ2x4WTF6VHZGWHQyOHJleHc0eVQ4amhZM2NvQThq?=
- =?utf-8?B?a0hUOGNOcGxJYmhPS3Z0d0dlVnJJV3pYOHNGeS8vSnB0Z3IrSEVKSWl4ZlVR?=
- =?utf-8?Q?/Tvzx8bphES4feZhbyb3zTGt8?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f6c35e29-4c76-4573-badb-08dd33eb3ffb
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jan 2025 15:59:24.1765 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: VxiufaHczsxeiJH9cQnuf0ul1qSs2tiWUhkqzDpdILKGSZ9aJWhALbJxinjQG8LvS2Gt+AForNMb0mmgnEhI1g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8819
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -170,164 +51,181 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 1/13/2025 08:19, Mario Limonciello wrote:
-> On 1/11/2025 12:59, Chris Bainbridge wrote:
->> Commit c6a837088bed ("drm/amd/display: Fetch the EDID from _DDC if
->> available for eDP") added function dm_helpers_probe_acpi_edid, which
->> fetches the EDID from the BIOS by calling acpi_video_get_edid.
->> acpi_video_get_edid returns a pointer to the EDID, but this pointer does
->> not originate from kmalloc - it is actually the internal "pointer" field
->> from an acpi_buffer struct (which did come from kmalloc).
->> dm_helpers_probe_acpi_edid then attempts to kfree the EDID pointer,
->> resulting in memory corruption which leads to random, intermittent
->> crashes (e.g. 4% of boots will fail with some Oops).
->>
->> Fix this by allocating a new array (which can be safely freed) for the
->> EDID data, and correctly freeing the acpi_buffer pointer.
->>
->> The only other caller of acpi_video_get_edid is nouveau_acpi_edid:
->> remove the extraneous kmemdup here as the EDID data is now copied in
->> acpi_video_device_EDID.
->>
->> Signed-off-by: Chris Bainbridge <chris.bainbridge@gmail.com>
->> Fixes: c6a837088bed ("drm/amd/display: Fetch the EDID from _DDC if 
->> available for eDP")
-> 
-> Two minor documentation related comments to consider, otherwise I think 
-> the code change looks good.  Feel free to include:
-> 
-> Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
+Subject: [RFC PATCH 00/13] Enhance device state machine to better support suspend/resume
 
-A few more tags to collate from another thread:
+Recently we were testing suspend/resume functionality with AMD GPUs,
+we have encountered several resource tracking related bugs, such as
+double buffer free, use after free and unbalanced irq reference count.
 
-Reported-by: Borislav Petkov (AMD) <bp@alien8.de>
-Closes: 
-https://lore.kernel.org/amd-gfx/20250110175252.GBZ4FedNKqmBRaY4T3@fat_crate.local/T/#m324a23eb4c4c32fa7e89e31f8ba96c781e496fb1
-Tested-by: Borislav Petkov (AMD) <bp@alien8.de>
+We have tried to solve these issues case by case, but found that may
+not be the right way. Especially about the unbalanced irq reference
+count, there will be new issues appear once we fixed the current known
+issues. After analyzing related source code, we found that there may be
+some fundamental implementaion flaws behind these resource tracking
+issues.
 
-> 
->> ---
->> Changes in v2:
->>     - check kmemdup() return value
->>     - move buffer management into acpi_video_device_EDID()
->>     - return actual length value of buffer
->> ---
->>   drivers/acpi/acpi_video.c              | 50 ++++++++++++++------------
->>   drivers/gpu/drm/nouveau/nouveau_acpi.c |  2 +-
->>   2 files changed, 29 insertions(+), 23 deletions(-)
->>
->> diff --git a/drivers/acpi/acpi_video.c b/drivers/acpi/acpi_video.c
->> index 8274a17872ed..3c627bdf2d1b 100644
->> --- a/drivers/acpi/acpi_video.c
->> +++ b/drivers/acpi/acpi_video.c
->> @@ -610,16 +610,29 @@ acpi_video_device_lcd_get_level_current(struct 
->> acpi_video_device *device,
->>       return 0;
->>   }
->> +/*
->> + *  Arg:
-> 
-> As you've pretty much written kernel doc, us it better to just make this 
-> proper kerneldoc (IE use /**)?
-> 
->> + *    device    : video output device (LCD, CRT, ..)
->> + *    edid    : address for returned EDID pointer
->> + *    length  : _DDC length to request (must be a multiple of 128)
->> + *
->> + *  Return Value:
->> + *    Length of EDID (positive value) or error (negative value)
->> + *
->> + *  Get EDID from ACPI _DDC. On success, a pointer to the EDID data 
->> is written
->> + *  to the edid address, and the length of the EDID is returned. The 
->> caller is
-> 
-> Since 'EDID' and 'edid' mean different things in the context of this 
-> description for the purpose of clarity I think it would be better to say 
-> "the edid pointer address".
-> 
->> + *  responsible for freeing the edid pointer.
->> + */
->> +
->>   static int
->> -acpi_video_device_EDID(struct acpi_video_device *device,
->> -               union acpi_object **edid, int length)
->> +acpi_video_device_EDID(struct acpi_video_device *device, void **edid, 
->> int length)
->>   {
->> -    int status;
->> +    acpi_status status;
->>       struct acpi_buffer buffer = { ACPI_ALLOCATE_BUFFER, NULL };
->>       union acpi_object *obj;
->>       union acpi_object arg0 = { ACPI_TYPE_INTEGER };
->>       struct acpi_object_list args = { 1, &arg0 };
->> -
->> +    int ret;
->>       *edid = NULL;
->> @@ -636,16 +649,17 @@ acpi_video_device_EDID(struct acpi_video_device 
->> *device,
->>       obj = buffer.pointer;
->> -    if (obj && obj->type == ACPI_TYPE_BUFFER)
->> -        *edid = obj;
->> -    else {
->> +    if (obj && obj->type == ACPI_TYPE_BUFFER) {
->> +        *edid = kmemdup(obj->buffer.pointer, obj->buffer.length, 
->> GFP_KERNEL);
->> +        ret = *edid ? obj->buffer.length : -ENOMEM;
->> +    } else {
->>           acpi_handle_debug(device->dev->handle,
->>                    "Invalid _DDC data for length %d\n", length);
->> -        status = -EFAULT;
->> -        kfree(obj);
->> +        ret = -EFAULT;
->>       }
->> -    return status;
->> +    kfree(obj);
->> +    return ret;
->>   }
->>   /* bus */
->> @@ -1435,9 +1449,7 @@ int acpi_video_get_edid(struct acpi_device 
->> *device, int type, int device_id,
->>   {
->>       struct acpi_video_bus *video;
->>       struct acpi_video_device *video_device;
->> -    union acpi_object *buffer = NULL;
->> -    acpi_status status;
->> -    int i, length;
->> +    int i, length, ret;
->>       if (!device || !acpi_driver_data(device))
->>           return -EINVAL;
->> @@ -1477,16 +1489,10 @@ int acpi_video_get_edid(struct acpi_device 
->> *device, int type, int device_id,
->>           }
->>           for (length = 512; length > 0; length -= 128) {
->> -            status = acpi_video_device_EDID(video_device, &buffer,
->> -                            length);
->> -            if (ACPI_SUCCESS(status))
->> -                break;
->> +            ret = acpi_video_device_EDID(video_device, edid, length);
->> +            if (ret > 0)
->> +                return ret;
->>           }
->> -        if (!length)
->> -            continue;
->> -
->> -        *edid = buffer->buffer.pointer;
->> -        return length;
->>       }
->>       return -ENODEV;
->> diff --git a/drivers/gpu/drm/nouveau/nouveau_acpi.c b/drivers/gpu/drm/ 
->> nouveau/nouveau_acpi.c
->> index 8f0c69aad248..21b56cc7605c 100644
->> --- a/drivers/gpu/drm/nouveau/nouveau_acpi.c
->> +++ b/drivers/gpu/drm/nouveau/nouveau_acpi.c
->> @@ -384,7 +384,7 @@ nouveau_acpi_edid(struct drm_device *dev, struct 
->> drm_connector *connector)
->>       if (ret < 0)
->>           return NULL;
->> -    return kmemdup(edid, EDID_LENGTH, GFP_KERNEL);
->> +    return edid;
->>   }
->>   bool nouveau_acpi_video_backlight_use_native(void)
-> 
+The amdgpu driver has two major state machines to driver the device
+management flow, one is for ip blocks, the other is for ras blocks.
+The hook points defined in struct amd_ip_funcs for device setup/teardown
+are symmetric, but the implementation is asymmetric, sometime even
+ambiguous. The most obvious two issues we noticed are:
+1) amdgpu_irq_get() are called from .late_init() but amdgpu_irq_put()
+   are called from .hw_fini() instead of .early_fini().
+2) the way to reset ip_bloc.status.valid/sw/hw/late_initialized doesn't
+   match the way to set those flags.
+
+When taking device suspend/resume into account, in addition to device
+probe/remove, things get much more complex. Some issues arise because
+many suspend/resume implementations directly reuse .hw_init/.hw_fini/
+.late_init hook points.
+
+So we try to fix those issues by two enhancements/refinements to current
+device management state machines.
+
+The first change is to make the ip block state machine and associated
+status flags work in stack-like way as below:
+Callback        Status Flags
+early_init:     valid = true
+sw_init:        sw = true
+hw_init:        hw = true
+late_init:      late_initialized = true
+early_fini:     late_initialized = false
+hw_fini:        hw = false
+sw_fini:        sw = false
+late_fini:      valid = false
+
+Also do the same thing for ras block state machine, though it's much
+more simpler.
+
+The second change is fine tune the overall device management work
+flow as below:
+1. amdgpu_driver_load_kms()
+	amdgpu_device_init()
+		amdgpu_device_ip_early_init()
+			ip_blocks[i].early_init()
+			ip_blocks[i].status.valid = true
+		amdgpu_device_ip_init()
+			amdgpu_ras_init()
+			ip_blocks[i].sw_init()
+			ip_blocks[i].status.sw = true
+			ip_blocks[i].hw_init()
+			ip_blocks[i].status.hw = true
+		amdgpu_device_ip_late_init()
+			ip_blocks[i].late_init()
+			ip_blocks[i].status.late_initialized = true
+			amdgpu_ras_late_init()
+				ras_blocks[i].ras_late_init()
+					amdgpu_ras_feature_enable_on_boot()
+
+2. amdgpu_pmops_suspend()/amdgpu_pmops_freeze()/amdgpu_pmops_poweroff()
+	amdgpu_device_suspend()
+		amdgpu_ras_early_fini()
+			ras_blocks[i].ras_early_fini()
+				amdgpu_ras_feature_disable()
+		amdgpu_ras_suspend()
+			amdgpu_ras_disable_all_features()
++++		ip_blocks[i].early_fini()
++++		ip_blocks[i].status.late_initialized = false
+		ip_blocks[i].suspend()
+
+3. amdgpu_pmops_resume()/amdgpu_pmops_thaw()/amdgpu_pmops_restore()
+	amdgpu_device_resume()
+		amdgpu_device_ip_resume()
+			ip_blocks[i].resume()
+		amdgpu_device_ip_late_init()
+			ip_blocks[i].late_init()
+			ip_blocks[i].status.late_initialized = true
+			amdgpu_ras_late_init()
+				ras_blocks[i].ras_late_init()
+					amdgpu_ras_feature_enable_on_boot()
+		amdgpu_ras_resume()
+			amdgpu_ras_enable_all_features()
+
+4. amdgpu_driver_unload_kms()
+	amdgpu_device_fini_hw()
+		amdgpu_ras_early_fini()
+			ras_blocks[i].ras_early_fini()
++++		ip_blocks[i].early_fini()
++++		ip_blocks[i].status.late_initialized = false
+		ip_blocks[i].hw_fini()
+		ip_blocks[i].status.hw = false
+
+5. amdgpu_driver_release_kms()
+	amdgpu_device_fini_sw()
+		amdgpu_device_ip_fini()
+			ip_blocks[i].sw_fini()
+			ip_blocks[i].status.sw = false
+---			ip_blocks[i].status.valid = false
++++			amdgpu_ras_fini()
+			ip_blocks[i].late_fini()
++++			ip_blocks[i].status.valid = false
+---			ip_blocks[i].status.late_initialized = false
+---			amdgpu_ras_fini()
+
+The main changes include:
+1) invoke ip_blocks[i].early_fini in amdgpu_pmops_suspend().
+   Currently there's only one ip block which provides `early_fini`
+   callback. We have add a check of `in_s3` to keep current behavior in
+   function amdgpu_dm_early_fini(). So there should be no functional
+   changes.
+2) set ip_blocks[i].status.late_initialized to false after calling
+   callback `early_fini`. We have auditted all usages of the
+   late_initialized flag and no functional changes found.
+3) only set ip_blocks[i].status.valid = false after calling the
+   `late_fini` callback.
+4) call amdgpu_ras_fini() before invoking ip_blocks[i].late_fini.
+
+Then we try to refine each subsystem, such as nbio, asic, gfx, gmc,
+ras etc, to follow the new design. Currently we have only taken the
+nbio and asic as examples to show the proposed changes. Once we have
+confirmed that's the right way to go, we will handle the lefting
+subsystems.
+
+This is in early stage and requesting for comments, any comments and
+suggestions are welcomed!
+Jiang Liu (13):
+  amdgpu: wrong array index to get ip block for PSP
+  drm/admgpu: add helper functions to track status for ras manager
+  drm/amdgpu: add a flag to track ras debugfs creation status
+  drm/amdgpu: free all resources on error recovery path of
+    amdgpu_ras_init()
+  drm/amdgpu: introduce a flag to track refcount held for features
+  drm/amdgpu: enhance amdgpu_ras_block_late_fini()
+  drm/amdgpu: enhance amdgpu_ras_pre_fini() to better support SR
+  drm/admgpu: rename amdgpu_ras_pre_fini() to amdgpu_ras_early_fini()
+  drm/amdgpu: make IP block state machine works in stack like way
+  drm/admgpu: make device state machine work in stack like way
+  drm/amdgpu/sdma: improve the way to manage irq reference count
+  drm/amdgpu/nbio: improve the way to manage irq reference count
+  drm/amdgpu/asic: make ip block operations symmetric by .early_fini()
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  40 +++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  37 ++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c       |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c      |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c      |  16 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h      |   1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c       |   8 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c       | 144 +++++++++++++-----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h       |  16 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c      |  26 +++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h      |   2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c       |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c       |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c      |   2 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c       |   2 +-
+ drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c       |   2 +-
+ drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c        |   1 +
+ drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c        |   1 +
+ drivers/gpu/drm/amd/amdgpu/nv.c               |  14 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c        |   8 -
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c      |  23 +--
+ drivers/gpu/drm/amd/amdgpu/soc15.c            |  38 ++---
+ drivers/gpu/drm/amd/amdgpu/soc21.c            |  35 +++--
+ drivers/gpu/drm/amd/amdgpu/soc24.c            |  17 ++-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   3 +
+ 25 files changed, 326 insertions(+), 118 deletions(-)
+
+-- 
+2.43.5
 
