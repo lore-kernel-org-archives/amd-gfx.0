@@ -4,72 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C539E77188
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF4DCE77199
 	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jan 2025 09:07:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9DAE810E293;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E4CB10E28E;
 	Wed,  8 Jan 2025 09:07:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Epb8UfU1";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="YFWrW7XA";
 	dkim-atps=neutral
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com
- [209.85.167.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8930A10E261
- for <amd-gfx@lists.freedesktop.org>; Tue,  7 Jan 2025 16:57:15 +0000 (UTC)
-Received: by mail-lf1-f50.google.com with SMTP id
- 2adb3069b0e04-54024ecc33dso2020483e87.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 07 Jan 2025 08:57:15 -0800 (PST)
+Received: from out30-99.freemail.mail.aliyun.com
+ (out30-99.freemail.mail.aliyun.com [115.124.30.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 31E2110E7EA
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Jan 2025 02:34:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1736268974; x=1736873774; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=lMfX1ukmt9zKlMQvTs4rDaldX9Ypcnm+9H1/Ac3eikQ=;
- b=Epb8UfU1PFApMReWKvDaRql/AZ8X7PRG9YPLNh5cTbhhxr6aXMORS1DFXeLmBv0j40
- xHCEsRkuO6ORRkR8t+FNlShrPcr4qUDs1xphOBoKAYLLX20dTTutPgM5syfwGHixgW9x
- Gi0wcr78N0xSa2bisnQVvBdWJHG02COIqj/AEOBTdW69Dr+6Ke18TOIpCc8KtSM14vmZ
- fXT72+E8Ay0eBsLFdifYHjBqL24nSQqRZybzNdFDmjh0MFRem+pbrmQk7N+N5oUbN5FH
- XqNH1UHHUu2cvia3XKudKV8mci6KlCOssZ70HDC5fBawgTSELEt3aboRLmbdU3I5cXX4
- 368Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736268974; x=1736873774;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=lMfX1ukmt9zKlMQvTs4rDaldX9Ypcnm+9H1/Ac3eikQ=;
- b=N6c3dpgvpYpi/+NMZjBE3bslgoxpZDZBD/9yRT8O0ysfQwfzgVMw+EGd8Lfb5CbKjq
- RYsAiQSX+khph9N1IGCa9ZpIF9UXmPPH2ayWJbHgYDHVysjyLCUcA/6HORXxtE1WhuOs
- QznFl4m573b2bbY+eiAV43VcadoNf4WfdDkkJKSXyOuj08PQyEhPyxKnO+Trt8zzJNqF
- K2yoDziAq0szO1QvCPT8rkUWDsIuv1Wawn3uViWcX1/2tjmVR7UIq207L7mbgwceuQD8
- wHUcPHarCOBliUMUyFJaPwSQknEQ40i9p+aK3qE/oq+kHc4LTQCSyC+UDPWhe1kZh/Zq
- pfrQ==
-X-Gm-Message-State: AOJu0YxozclCQ7jmtIXJ9iDy3kHU7Lbu0vVgiM6/lZALy2zX5eCCaHae
- O7Vrb9jW7jEFod9jmbt8pNxd4DB81w3GsbRUncTm8GPbSy0evGUSdFoB+yOX
-X-Gm-Gg: ASbGncsnS4vvzupzD1XviORT9rLAbkGLt/OW0Fzk4BncYKvTj2ug/P8hDzvTE2paQ22
- qaZoOi32e68kmwpDLsq/R9YXB699c4/Lx09X1+OeSGwBbsmiZWyWfiNI71GCsLoztHg0MNMaW7i
- GmuG1tP/Ckrnyj82ukHdPP5hSyvws9ZelB46UVxjvr9SrrmMd8K+KJuM5wVatOW9+LlT8qV+tNA
- BWdpcREEZ3X6c9HTXMle8XxoivUufiq1dcbixd0NHRMQovetVeFztvLil2KOfqWJA==
-X-Google-Smtp-Source: AGHT+IHhld3Aj2eOg6OSq3UrWdclip0tuLg3hj6E39Paamh0zg+IMdpn2D4qS8+BRnfMsIcynzBSBg==
-X-Received: by 2002:a05:6000:4012:b0:386:3272:ee68 with SMTP id
- ffacd0b85a97d-38a221f9fd4mr57615402f8f.28.1736268650005; 
- Tue, 07 Jan 2025 08:50:50 -0800 (PST)
-Received: from debian.local ([84.66.149.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38a1c832e8asm50137086f8f.37.2025.01.07.08.50.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 07 Jan 2025 08:50:49 -0800 (PST)
-Date: Tue, 7 Jan 2025 16:50:47 +0000
-From: Chris Bainbridge <chris.bainbridge@gmail.com>
-To: Mario Limonciello <mario.limonciello@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, alex.hung@amd.com,
- regressions@lists.linux.dev, tjakobi@math.uni-bielefeld.de,
- rafael@kernel.org, lenb@kernel.org, linux-acpi@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/amd: Fix random crashes due to bad kfree
-Message-ID: <Z31bZzkjySUgoOkM@debian.local>
-References: <Z2yQvTyg_MWwrlj3@debian.local>
+ d=linux.alibaba.com; s=default;
+ t=1736303647; h=From:To:Subject:Date:Message-Id:MIME-Version;
+ bh=pVlTQIbFuRa2W/n67g0E65TmqpSMwXCyHsru7N04vV8=;
+ b=YFWrW7XAwAh2bZKN8chh2JJKaCQ/zI7gJ9svt4Zgb+ReDf0ZUDiivu+R60oaTymgHIFkavwPyZf468PDo0Dl6YYhT0/L8d1+86gSDxmp0pQVPVGWnUx+W8WdR1PqeevvlwSezELEw9JARXprn2Pux3Myh/1eje0ar1ZSxebrkYk=
+Received: from localhost(mailfrom:tianruidong@linux.alibaba.com
+ fp:SMTPD_---0WNC83CF_1736303642 cluster:ay36) by smtp.aliyun-inc.com;
+ Wed, 08 Jan 2025 10:34:06 +0800
+From: Ruidong Tian <tianruidong@linux.alibaba.com>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, simona@ffwll.ch, xueshuai@linux.alibaba.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, tianruidong@linux.alibaba.com
+Subject: [RESEND PATCH] drm/amdgpu: add tracepoint while dump mca bank
+Date: Wed,  8 Jan 2025 10:34:00 +0800
+Message-Id: <20250108023400.35081-1-tianruidong@linux.alibaba.com>
+X-Mailer: git-send-email 2.33.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <Z2yQvTyg_MWwrlj3@debian.local>
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 08 Jan 2025 09:07:10 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,4 +50,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-#regzbot introduced: c6a837088bed ^
+RAS errors are typically exposed to user-space programs using tracepoints,
+allowing tools like rasdaemon to decode and post-process them.
+AMDGPU might also follow this, offering the following benefits:
+1. It can proactively notify users of RAS events, eliminating the need
+   to monitor /dev/kmsg.
+2. It allows for further post-processing similar to AMD SMCA[1].
+
+[1]: https://github.com/mchehab/rasdaemon/commit/932118
+
+Signed-off-by: Ruidong Tian <tianruidong@linux.alibaba.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c   |  3 +++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h | 31 +++++++++++++++++++++++
+ 2 files changed, 34 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c
+index 3ca03b5e0f91..9daa95365457 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c
+@@ -23,6 +23,7 @@
+ #include "amdgpu_ras.h"
+ #include "amdgpu.h"
+ #include "amdgpu_mca.h"
++#include "amdgpu_trace.h"
+ 
+ #include "umc/umc_6_7_0_offset.h"
+ #include "umc/umc_6_7_0_sh_mask.h"
+@@ -287,6 +288,8 @@ static void amdgpu_mca_smu_mca_bank_dump(struct amdgpu_device *adev, int idx, st
+ 		      idx, entry->regs[MCA_REG_IDX_IPID]);
+ 	RAS_EVENT_LOG(adev, event_id, HW_ERR "aca entry[%02d].SYND=0x%016llx\n",
+ 		      idx, entry->regs[MCA_REG_IDX_SYND]);
++
++	trace_amdgpu_mca_bank_dumps(event_id, idx, entry);
+ }
+ 
+ static int amdgpu_mca_smu_get_valid_mca_count(struct amdgpu_device *adev, enum amdgpu_mca_error_type type, uint32_t *count)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
+index 383fce40d4dd..a0ba79394099 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
+@@ -554,6 +554,37 @@ TRACE_EVENT(amdgpu_reset_reg_dumps,
+ 		      __entry->value)
+ );
+ 
++TRACE_EVENT(amdgpu_mca_bank_dumps,
++	   TP_PROTO(uint64_t event_id, int idx, struct mca_bank_entry *e),
++	   TP_ARGS(event_id, idx, e),
++	   TP_STRUCT__entry(
++			    __field(uint64_t, event_id)
++			    __field(int, idx)
++			    __field(uint64_t, status)
++			    __field(uint64_t, addr)
++			    __field(uint64_t, misc0)
++			    __field(uint64_t, ipid)
++			    __field(uint64_t, synd)
++			    ),
++	   TP_fast_assign(
++			  __entry->event_id = event_id;
++			  __entry->idx = idx;
++			  __entry->status = e->regs[MCA_REG_IDX_STATUS];
++			  __entry->addr = e->regs[MCA_REG_IDX_ADDR];
++			  __entry->misc0 = e->regs[MCA_REG_IDX_MISC0];
++			  __entry->ipid = e->regs[MCA_REG_IDX_IPID];
++			  __entry->synd = e->regs[MCA_REG_IDX_SYND];
++			  ),
++	   TP_printk("amdgpu mca bank dump: event_id: %lld, idx: %d, STATUS: %016llx, ADDR: %016llx, MISC0: %016llx, IPID: %016llx, SYND: %016llx",
++		     __entry->event_id,
++		     __entry->idx,
++		     __entry->status,
++		     __entry->addr,
++		     __entry->misc0,
++		     __entry->ipid,
++		     __entry->synd)
++);
++
+ #undef AMDGPU_JOB_GET_TIMELINE_NAME
+ #endif
+ 
+-- 
+2.33.1
+
