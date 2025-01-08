@@ -4,42 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D18C6C02183
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jan 2025 14:00:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8EE5E77188
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jan 2025 14:24:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D4EAC10EBCC;
-	Wed,  8 Jan 2025 14:00:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3714710E8BF;
+	Wed,  8 Jan 2025 14:24:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="GeyiVRXH";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dQKjt02u";
 	dkim-atps=neutral
-Received: from out30-113.freemail.mail.aliyun.com
- (out30-113.freemail.mail.aliyun.com [115.124.30.113])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D396310E8B8
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Jan 2025 14:00:18 +0000 (UTC)
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
+ [209.85.216.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F4FE10E8BF
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Jan 2025 14:24:50 +0000 (UTC)
+Received: by mail-pj1-f44.google.com with SMTP id
+ 98e67ed59e1d1-2f440e152fdso3549261a91.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 08 Jan 2025 06:24:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux.alibaba.com; s=default;
- t=1736344817; h=From:To:Subject:Date:Message-ID:MIME-Version;
- bh=a18FZXrpSo939y8wREpsZgvJuFbiokGXqQoBd7KuEDk=;
- b=GeyiVRXHsVo8OIKQiQXpWEYfda04/ro3MQ0oVBCmmxnyzDauYyM+gDgwcO7w+wdhKMlUOc6QKnbPuLOQ3as8GPC87+4jagFmwWBMra+/zZ2HdNyabymxFWXQmWfTc4dUIEcpF+8jMP8zA3TzzQc1rFsTNrAtjoT1JWMn8zR6gvE=
-Received: from i32d02263.sqa.eu95.tbsite.net(mailfrom:gerry@linux.alibaba.com
- fp:SMTPD_---0WNEHXFv_1736344815 cluster:ay36) by smtp.aliyun-inc.com;
- Wed, 08 Jan 2025 22:00:16 +0800
-From: Jiang Liu <gerry@linux.alibaba.com>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, simona@ffwll.ch, sunil.khatri@amd.com,
- lijo.lazar@amd.com, Hawking.Zhang@amd.com, mario.limonciello@amd.com,
- Jun.Ma2@amd.com, xiaogang.chen@amd.com, Kent.Russell@amd.com,
- shuox.liu@linux.alibaba.com, amd-gfx@lists.freedesktop.org
-Cc: Jiang Liu <gerry@linux.alibaba.com>
-Subject: [RFC PATCH 13/13] drm/amdgpu/asic: make ip block operations symmetric
- by .early_fini()
-Date: Wed,  8 Jan 2025 22:00:05 +0800
-Message-ID: <7aca2e843624283534f3ba784276a968bd84616a.1736344725.git.gerry@linux.alibaba.com>
-X-Mailer: git-send-email 2.43.5
-In-Reply-To: <cover.1736344725.git.gerry@linux.alibaba.com>
-References: <cover.1736344725.git.gerry@linux.alibaba.com>
+ d=gmail.com; s=20230601; t=1736346230; x=1736951030; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=jXIC4KguKe0gvpaadlLFYN9IQUwfUkABz3fSyZkxN5A=;
+ b=dQKjt02u3tP1acEgoE9kziZocNJU1c3yJ/D7c9nxz7wqjczFLnQ3/k9ysSfjYXJmNO
+ RJstAvfSOfg8CuVDNM0S/7k/1zrGKK2QXEKIRyniUIwaTSGzQH2rK0kEFfKakZh3Htyd
+ b1HWt0OoLYDcN09+M3kWRS4kdEW5grMISn69we/e7NKxMqw+O8qh5YNhbvJiAGqDLyeg
+ rDdQF04BsKAVg7cUspr4sWAQef5WtE5YnZ9Jp4AkbNEL0ABIR+lsfDMyTsU2E3qhORDQ
+ CxZjD7fsDsR/q9Coukb58igYN2sw63MyCnPoFdFyRt1zNgJDH8qOmAP0mvOUY5Sm/pqx
+ Kwbw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1736346230; x=1736951030;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=jXIC4KguKe0gvpaadlLFYN9IQUwfUkABz3fSyZkxN5A=;
+ b=vkoH/Hh4eamOnLNTXEI66bWqNDOB//gQdCfN3NCHv5FXjT5P6zN64cBDCq/XQV7bI6
+ eoBjGTe7LBfBiNkYa6UHmPQqdNP/6aGCY4EzSEf1Jj1g0vIhui5eGuDo9Sb+TgzltO1p
+ Qi9B5Vb36MPdE8GF+25JAOAB+5UwHzQvZvK8yrQHP3XYZef9Xmj021eRwRY0z0hOsaAl
+ +GFZ9HYLfdjE91Mv/Za9gG7wsEiN4QMNsd6zT7cqNFXuUrk1VNZKO6uRUbLZcyF34D3Q
+ CpKlOlmgjkufr6OvxUoargG3H8giyjCzgWbiC/nOpMRroJLAY3LczASbZN8o7u9IaQ2w
+ T+FA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXkeVULbcPvrM126iG9xzA7LB6lyqlkTPgFGkWMvTKimZEyXz24AxnwLhOHofXqPvsPaH8Y5v4D@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzd8sI/FCj/DwSsCScp5qpGCnpmkztWO/vHefHmf+uR3c0gsJjB
+ lJCgWVoA9muBn4g7VhA2Kv+ndkDRYjgn6IGFv9diwdQriaM+JIZ/E1yjqJvlQCskqKtiS4X+F3U
+ 5GxY6PaARoLVkP7dEPDHQcCoP/+ZkjA==
+X-Gm-Gg: ASbGncskruuv6BHXPV2FvGseziZ/WrpWK/VXNFBCwlyQ1QsjWxVIDyZYSoc8TTkGANn
+ tBmb5ndD8xb/k0nSrtbaRqRkGON0Hmj/wA7BaNA==
+X-Google-Smtp-Source: AGHT+IEJd9hecPvudfaKF+RPSK8tLEs3ufpS2Ou8c+fwVbtNGqYEdZCbOa3eCGZPenvQ2QPmBHLQQlVksN2a9r6/KAo=
+X-Received: by 2002:a17:90b:2c8c:b0:2ee:b665:12ce with SMTP id
+ 98e67ed59e1d1-2f548f05913mr1768892a91.1.1736346229995; Wed, 08 Jan 2025
+ 06:23:49 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20250108093237.81961-1-christian.koenig@amd.com>
+In-Reply-To: <20250108093237.81961-1-christian.koenig@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 8 Jan 2025 09:23:37 -0500
+X-Gm-Features: AbW1kvY9h4CGR9JJi9B8Y2p2oPeYFNL54CbmMbt-w3XyyqMRTXBn5CC3TXkRAKc
+Message-ID: <CADnq5_Nyyctnq-Ts5gnm4wqadRF3ZjcLEkdM24bDsh=t8NAT1Q@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: always sync the GFX pipe on ctx switch
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Cc: srinivasan.shanmugam@amd.com, amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,230 +80,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Make ip block operations for asic symmetric by making using of the
-.early_fini() hook, which will undo work done by the .late_init() hook.
-1) introduce xxx_common_early_fini() for nv/soc15/soc21/soc24.
-2) move `enable_doorbell_selfring_aperture(adev, false)` from .hw_init()
-   into .early_fini().
-3) call xgpu_nv_mailbox_put_irq() for nv.c to avoid possible resource
-   leakage.
-4) use flags to track irq reference count usage.
+On Wed, Jan 8, 2025 at 4:52=E2=80=AFAM Christian K=C3=B6nig
+<ckoenig.leichtzumerken@gmail.com> wrote:
+>
+> That is needed to enforce isolation between contexts.
+>
+> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
 
-Signed-off-by: Jiang Liu <gerry@linux.alibaba.com>
----
- drivers/gpu/drm/amd/amdgpu/nv.c    | 14 +++++++++++-
- drivers/gpu/drm/amd/amdgpu/soc15.c | 22 +++++++++++--------
- drivers/gpu/drm/amd/amdgpu/soc21.c | 35 ++++++++++++++++++++----------
- drivers/gpu/drm/amd/amdgpu/soc24.c | 17 +++++++++++----
- 4 files changed, 63 insertions(+), 25 deletions(-)
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
-index 4e8f9af1e2be..f87b9c835774 100644
---- a/drivers/gpu/drm/amd/amdgpu/nv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-@@ -973,6 +973,18 @@ static int nv_common_late_init(struct amdgpu_ip_block *ip_block)
- 	return 0;
- }
- 
-+static int nv_common_early_fini(struct amdgpu_ip_block *ip_block)
-+{
-+	struct amdgpu_device *adev = ip_block->adev;
-+
-+	adev->nbio.funcs->enable_doorbell_selfring_aperture(adev, false);
-+
-+	if (amdgpu_sriov_vf(adev))
-+		xgpu_nv_mailbox_put_irq(adev);
-+
-+	return 0;
-+}
-+
- static int nv_common_sw_init(struct amdgpu_ip_block *ip_block)
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_ib.c
+> index d751995dc131..e0bc37557d2c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+> @@ -191,8 +191,8 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsi=
+gned int num_ibs,
+>         need_ctx_switch =3D ring->current_ctx !=3D fence_ctx;
+>         if (ring->funcs->emit_pipeline_sync && job &&
+>             ((tmp =3D amdgpu_sync_get_fence(&job->explicit_sync)) ||
+> -            (amdgpu_sriov_vf(adev) && need_ctx_switch) ||
+> -            amdgpu_vm_need_pipeline_sync(ring, job))) {
+> +            need_ctx_switch || amdgpu_vm_need_pipeline_sync(ring, job)))=
  {
- 	struct amdgpu_device *adev = ip_block->adev;
-@@ -1024,7 +1036,6 @@ static int nv_common_hw_fini(struct amdgpu_ip_block *ip_block)
- 	 * selfring doorbell.
- 	 */
- 	adev->nbio.funcs->enable_doorbell_aperture(adev, false);
--	adev->nbio.funcs->enable_doorbell_selfring_aperture(adev, false);
- 
- 	return 0;
- }
-@@ -1110,6 +1121,7 @@ static const struct amd_ip_funcs nv_common_ip_funcs = {
- 	.name = "nv_common",
- 	.early_init = nv_common_early_init,
- 	.late_init = nv_common_late_init,
-+	.early_fini = nv_common_early_fini,
- 	.sw_init = nv_common_sw_init,
- 	.sw_fini = nv_common_sw_fini,
- 	.hw_init = nv_common_hw_init,
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
-index 1dca7d7c813c..e084430f8998 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-@@ -1217,6 +1217,18 @@ static int soc15_common_late_init(struct amdgpu_ip_block *ip_block)
- 	return 0;
- }
- 
-+static int soc15_common_early_fini(struct amdgpu_ip_block *ip_block)
-+{
-+	struct amdgpu_device *adev = ip_block->adev;
-+
-+	adev->nbio.funcs->enable_doorbell_selfring_aperture(adev, false);
-+
-+	if (amdgpu_sriov_vf(adev))
-+		xgpu_ai_mailbox_put_irq(adev);
-+
-+	return 0;
-+}
-+
- static int soc15_common_sw_init(struct amdgpu_ip_block *ip_block)
- {
- 	struct amdgpu_device *adev = ip_block->adev;
-@@ -1288,16 +1300,7 @@ static int soc15_common_hw_fini(struct amdgpu_ip_block *ip_block)
- {
- 	struct amdgpu_device *adev = ip_block->adev;
- 
--	/* Disable the doorbell aperture and selfring doorbell aperture
--	 * separately in hw_fini because soc15_enable_doorbell_aperture
--	 * has been removed and there is no need to delay disabling
--	 * selfring doorbell.
--	 */
- 	adev->nbio.funcs->enable_doorbell_aperture(adev, false);
--	adev->nbio.funcs->enable_doorbell_selfring_aperture(adev, false);
--
--	if (amdgpu_sriov_vf(adev))
--		xgpu_ai_mailbox_put_irq(adev);
- 
- 	return 0;
- }
-@@ -1476,6 +1479,7 @@ static const struct amd_ip_funcs soc15_common_ip_funcs = {
- 	.name = "soc15_common",
- 	.early_init = soc15_common_early_init,
- 	.late_init = soc15_common_late_init,
-+	.early_fini = soc15_common_early_fini,
- 	.sw_init = soc15_common_sw_init,
- 	.sw_fini = soc15_common_sw_fini,
- 	.hw_init = soc15_common_hw_init,
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
-index 03b9bcb8eb6d..5a6da83c938a 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc21.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
-@@ -796,6 +796,7 @@ static int soc21_common_early_init(struct amdgpu_ip_block *ip_block)
- 
- static int soc21_common_late_init(struct amdgpu_ip_block *ip_block)
- {
-+	int r;
- 	struct amdgpu_device *adev = ip_block->adev;
- 
- 	if (amdgpu_sriov_vf(adev)) {
-@@ -816,12 +817,16 @@ static int soc21_common_late_init(struct amdgpu_ip_block *ip_block)
- 		}
- 	} else {
- 		if (adev->nbio.ras &&
--		    adev->nbio.ras_err_event_athub_irq.funcs)
-+		    adev->nbio.ras_err_event_athub_irq.funcs) {
- 			/* don't need to fail gpu late init
- 			 * if enabling athub_err_event interrupt failed
- 			 * nbio v4_3 only support fatal error hanlding
- 			 * just enable the interrupt directly */
--			amdgpu_irq_get(adev, &adev->nbio.ras_err_event_athub_irq, 0);
-+			r = amdgpu_irq_get(adev, &adev->nbio.ras_err_event_athub_irq, 0);
-+			if (r)
-+				return r;
-+			amdgpu_ip_block_set_marker(ip_block, AMDGPU_MARKER_IRQ0);
-+		}
- 	}
- 
- 	/* Enable selfring doorbell aperture late because doorbell BAR
-@@ -832,6 +837,22 @@ static int soc21_common_late_init(struct amdgpu_ip_block *ip_block)
- 	return 0;
- }
- 
-+static int soc21_common_early_fini(struct amdgpu_ip_block *ip_block)
-+{
-+	struct amdgpu_device *adev = ip_block->adev;
-+
-+	adev->nbio.funcs->enable_doorbell_selfring_aperture(adev, false);
-+
-+	if (amdgpu_sriov_vf(adev)) {
-+		xgpu_nv_mailbox_put_irq(adev);
-+	} else {
-+		if (amdgpu_ip_block_test_and_clear_marker(ip_block, AMDGPU_MARKER_IRQ0))
-+			amdgpu_irq_put(adev, &adev->nbio.ras_err_event_athub_irq, 0);
-+	}
-+
-+	return 0;
-+}
-+
- static int soc21_common_sw_init(struct amdgpu_ip_block *ip_block)
- {
- 	struct amdgpu_device *adev = ip_block->adev;
-@@ -877,15 +898,6 @@ static int soc21_common_hw_fini(struct amdgpu_ip_block *ip_block)
- 	 * selfring doorbell.
- 	 */
- 	adev->nbio.funcs->enable_doorbell_aperture(adev, false);
--	adev->nbio.funcs->enable_doorbell_selfring_aperture(adev, false);
--
--	if (amdgpu_sriov_vf(adev)) {
--		xgpu_nv_mailbox_put_irq(adev);
--	} else {
--		if (adev->nbio.ras &&
--		    adev->nbio.ras_err_event_athub_irq.funcs)
--			amdgpu_irq_put(adev, &adev->nbio.ras_err_event_athub_irq, 0);
--	}
- 
- 	return 0;
- }
-@@ -1000,6 +1012,7 @@ static const struct amd_ip_funcs soc21_common_ip_funcs = {
- 	.name = "soc21_common",
- 	.early_init = soc21_common_early_init,
- 	.late_init = soc21_common_late_init,
-+	.early_fini = soc21_common_early_fini,
- 	.sw_init = soc21_common_sw_init,
- 	.sw_fini = soc21_common_sw_fini,
- 	.hw_init = soc21_common_hw_init,
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc24.c b/drivers/gpu/drm/amd/amdgpu/soc24.c
-index b20dc81dc257..5a4a04834ecb 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc24.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc24.c
-@@ -455,6 +455,18 @@ static int soc24_common_late_init(struct amdgpu_ip_block *ip_block)
- 	return 0;
- }
- 
-+static int soc24_common_early_fini(struct amdgpu_ip_block *ip_block)
-+{
-+	struct amdgpu_device *adev = ip_block->adev;
-+
-+	adev->nbio.funcs->enable_doorbell_selfring_aperture(adev, false);
-+
-+	if (amdgpu_sriov_vf(adev))
-+		xgpu_nv_mailbox_put_irq(adev);
-+
-+	return 0;
-+}
-+
- static int soc24_common_sw_init(struct amdgpu_ip_block *ip_block)
- {
- 	struct amdgpu_device *adev = ip_block->adev;
-@@ -504,10 +516,6 @@ static int soc24_common_hw_fini(struct amdgpu_ip_block *ip_block)
- 	 * selfring doorbell.
- 	 */
- 	adev->nbio.funcs->enable_doorbell_aperture(adev, false);
--	adev->nbio.funcs->enable_doorbell_selfring_aperture(adev, false);
--
--	if (amdgpu_sriov_vf(adev))
--		xgpu_nv_mailbox_put_irq(adev);
- 
- 	return 0;
- }
-@@ -590,6 +598,7 @@ static const struct amd_ip_funcs soc24_common_ip_funcs = {
- 	.name = "soc24_common",
- 	.early_init = soc24_common_early_init,
- 	.late_init = soc24_common_late_init,
-+	.early_fini = soc24_common_early_fini,
- 	.sw_init = soc24_common_sw_init,
- 	.sw_fini = soc24_common_sw_fini,
- 	.hw_init = soc24_common_hw_init,
--- 
-2.43.5
-
+> +
+>                 need_pipe_sync =3D true;
+>
+>                 if (tmp)
+> --
+> 2.34.1
+>
