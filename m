@@ -4,26 +4,26 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 253E0C02181
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jan 2025 14:00:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1CE0E7719E
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jan 2025 14:00:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C22410EBC8;
-	Wed,  8 Jan 2025 14:00:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE9DB10E8B8;
+	Wed,  8 Jan 2025 14:00:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="RGhSykG0";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="czYa+by0";
 	dkim-atps=neutral
-Received: from out30-118.freemail.mail.aliyun.com
- (out30-118.freemail.mail.aliyun.com [115.124.30.118])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 919BC10E8B7
+Received: from out30-101.freemail.mail.aliyun.com
+ (out30-101.freemail.mail.aliyun.com [115.124.30.101])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 589A810E2A3
  for <amd-gfx@lists.freedesktop.org>; Wed,  8 Jan 2025 14:00:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=linux.alibaba.com; s=default;
  t=1736344816; h=From:To:Subject:Date:Message-ID:MIME-Version;
- bh=USd38oArDWmnL4u6hXj2RsQQSH3MAtLfbFn+t56+nmk=;
- b=RGhSykG07qYPuG1fZrvXzZMddpgpG53ybeAPKj3EIIZPSJu6PqkTmH12BN0/eZX4lRwl6rAjivCWRkTx4R8Xw6YQdQAF/Mt5jJAUpGmaj6ysj5/BWuemzEiaovC1iN+WZgwFoxaYqdveKsFeLvLeAv3mkvbhQw1OriUUeVInfBo=
+ bh=Vv5XwvrGOIsAF+hM/78p++8hqwEmRjyK1I5lFwFLf5U=;
+ b=czYa+by0s4nRMmULJZzkGYphbqojsiAI61lxlYpHjYfA+i58ClEqJcRWLx/Hw1hnuQdo0KAVyMQCWCrv/gPgaZCwEGEEEB0+2wTXym4Xc3fZU5dHPpfDXIMM7G/7VFg3qmpR0lWlp+yn39DqMgLeWp2uUCSNMlcKInesb6iC4YQ=
 Received: from i32d02263.sqa.eu95.tbsite.net(mailfrom:gerry@linux.alibaba.com
- fp:SMTPD_---0WNEHXFZ_1736344815 cluster:ay36) by smtp.aliyun-inc.com;
- Wed, 08 Jan 2025 22:00:15 +0800
+ fp:SMTPD_---0WNEHXF9_1736344814 cluster:ay36) by smtp.aliyun-inc.com;
+ Wed, 08 Jan 2025 22:00:14 +0800
 From: Jiang Liu <gerry@linux.alibaba.com>
 To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
  airlied@gmail.com, simona@ffwll.ch, sunil.khatri@amd.com,
@@ -31,10 +31,10 @@ To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
  Jun.Ma2@amd.com, xiaogang.chen@amd.com, Kent.Russell@amd.com,
  shuox.liu@linux.alibaba.com, amd-gfx@lists.freedesktop.org
 Cc: Jiang Liu <gerry@linux.alibaba.com>
-Subject: [RFC PATCH 11/13] drm/amdgpu/sdma: improve the way to manage irq
- reference count
-Date: Wed,  8 Jan 2025 22:00:03 +0800
-Message-ID: <11aead3d0e4d7e568f9533fd13395bd4d7959749.1736344725.git.gerry@linux.alibaba.com>
+Subject: [RFC PATCH 10/13] drm/admgpu: make device state machine work in stack
+ like way
+Date: Wed,  8 Jan 2025 22:00:02 +0800
+Message-ID: <3d3920095879123b7261c7529ad4a61ee5e56259.1736344725.git.gerry@linux.alibaba.com>
 X-Mailer: git-send-email 2.43.5
 In-Reply-To: <cover.1736344725.git.gerry@linux.alibaba.com>
 References: <cover.1736344725.git.gerry@linux.alibaba.com>
@@ -54,191 +54,155 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Refactor sdma related code to improve the way to manage irq reference
-count. Originally amdgpu_irq_get() is called from ip_blocks[].late_init
-and amdgpu_irq_put is called from ip_blocks[].hw_fini. The asymmetric
-design may cause issue under certain conditions. So
-1) introduce amdgpu_sdma_ras_early_fini() to undo work done by
-   amdgpu_sdma_ras_late_init().
-2) remove call of amdgpu_irq_put in xxxx_hw_fini().
-3) call amdgpu_irq_get() in function sdma_v4_4_2_xcp_resume() to keep
-   irq reference count balanced. Currently sdma_v4_4_2_xcp_resume()
-   doesn't invoke ip_blocks[].late_init(amdgpu_irq_get), but
-   sdma_v4_4_2_xcp_suspend() invokes amdgpu_irq_put(), thus causes
-   unbalanced irq reference count. Fix it by calling amdgpu_irq_get()
-   in function sdma_v4_4_2_xcp_resume().
+Make the device state machine work in stack like way to better support
+suspend/resume by following changes:
+
+1. amdgpu_driver_load_kms()
+	amdgpu_device_init()
+		amdgpu_device_ip_early_init()
+			ip_blocks[i].early_init()
+			ip_blocks[i].status.valid = true
+		amdgpu_device_ip_init()
+			amdgpu_ras_init()
+			ip_blocks[i].sw_init()
+			ip_blocks[i].status.sw = true
+			ip_blocks[i].hw_init()
+			ip_blocks[i].status.hw = true
+		amdgpu_device_ip_late_init()
+			ip_blocks[i].late_init()
+			ip_blocks[i].status.late_initialized = true
+			amdgpu_ras_late_init()
+				ras_blocks[i].ras_late_init()
+					amdgpu_ras_feature_enable_on_boot()
+
+2. amdgpu_pmops_suspend()/amdgpu_pmops_freeze()/amdgpu_pmops_poweroff()
+	amdgpu_device_suspend()
+		amdgpu_ras_early_fini()
+			ras_blocks[i].ras_early_fini()
+				amdgpu_ras_feature_disable()
+		amdgpu_ras_suspend()
+			amdgpu_ras_disable_all_features()
++++		ip_blocks[i].early_fini()
++++		ip_blocks[i].status.late_initialized = false
+		ip_blocks[i].suspend()
+
+3. amdgpu_pmops_resume()/amdgpu_pmops_thaw()/amdgpu_pmops_restore()
+	amdgpu_device_resume()
+		amdgpu_device_ip_resume()
+			ip_blocks[i].resume()
+		amdgpu_device_ip_late_init()
+			ip_blocks[i].late_init()
+			ip_blocks[i].status.late_initialized = true
+			amdgpu_ras_late_init()
+				ras_blocks[i].ras_late_init()
+					amdgpu_ras_feature_enable_on_boot()
+		amdgpu_ras_resume()
+			amdgpu_ras_enable_all_features()
+
+4. amdgpu_driver_unload_kms()
+	amdgpu_device_fini_hw()
+		amdgpu_ras_early_fini()
+			ras_blocks[i].ras_early_fini()
++++		ip_blocks[i].early_fini()
++++		ip_blocks[i].status.late_initialized = false
+		ip_blocks[i].hw_fini()
+		ip_blocks[i].status.hw = false
+
+5. amdgpu_driver_release_kms()
+	amdgpu_device_fini_sw()
+		amdgpu_device_ip_fini()
+			ip_blocks[i].sw_fini()
+			ip_blocks[i].status.sw = false
+---			ip_blocks[i].status.valid = false
++++			amdgpu_ras_fini()
+			ip_blocks[i].late_fini()
++++			ip_blocks[i].status.valid = false
+---			ip_blocks[i].status.late_initialized = false
+---			amdgpu_ras_fini()
+
+The main changes include:
+1) invoke ip_blocks[i].early_fini in amdgpu_pmops_suspend().
+   Currently there's only one ip block which provides `early_fini`
+   callback. We have add a check of `in_s3` to keep current behavior in
+   function amdgpu_dm_early_fini(). So there should be no functional
+   changes.
+2) set ip_blocks[i].status.late_initialized to false after calling
+   callback `early_fini`. We have auditted all usages of the
+   late_initialized flag and no functional changes found.
+3) only set ip_blocks[i].status.valid = false after calling the
+   `late_fini` callback.
+4) call amdgpu_ras_fini() before invoking ip_blocks[i].late_fini.
+
+There's one more task left to analyze GPU reset related state machine
+transitions.
 
 Signed-off-by: Jiang Liu <gerry@linux.alibaba.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu.h      |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c | 26 ++++++++++++++++++++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h |  2 ++
- drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c   |  8 --------
- drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c | 23 ++++++++++++---------
- 5 files changed, 40 insertions(+), 21 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 22 +++++++++++++++++--
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  3 +++
+ 2 files changed, 23 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index fa19c5391d8c..ff5907f2c544 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -383,7 +383,7 @@ enum amdgpu_marker {
- 	AMDGPU_MARKER_RAS_DEBUGFS	= 63,
- };
- 
--#define AMDGPU_MARKER_INDEX_IRQ(idx)		(AMDGPU_MARKER_INDEX_IRQ0 + (idx))
-+#define AMDGPU_MARKER_IRQ(idx)		(AMDGPU_MARKER_IRQ0 + (idx))
- 
- struct amdgpu_ip_block_status {
- 	bool valid;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-index 21938e858d55..799bcd9978da 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-@@ -110,16 +110,35 @@ int amdgpu_sdma_ras_late_init(struct amdgpu_device *adev,
- 				AMDGPU_SDMA_IRQ_INSTANCE0 + i);
- 			if (r)
- 				goto late_fini;
-+			amdgpu_ras_set_marker(adev, ras_block, AMDGPU_MARKER_IRQ(i));
- 		}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 36a33a391411..5c6b39e5cdaa 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -3411,6 +3411,8 @@ static int amdgpu_device_ip_fini(struct amdgpu_device *adev)
+ 		adev->ip_blocks[i].status.sw = false;
  	}
  
- 	return 0;
++	amdgpu_ras_fini(adev);
++
+ 	for (i = adev->num_ip_blocks - 1; i >= 0; i--) {
+ 		if (!adev->ip_blocks[i].status.valid)
+ 			continue;
+@@ -3419,8 +3421,6 @@ static int amdgpu_device_ip_fini(struct amdgpu_device *adev)
+ 		adev->ip_blocks[i].status.valid = false;
+ 	}
  
- late_fini:
--	amdgpu_ras_block_early_fini(adev, ras_block);
-+	amdgpu_sdma_ras_early_fini(adev, ras_block);
- 	return r;
+-	amdgpu_ras_fini(adev);
+-
+ 	return 0;
  }
  
-+void amdgpu_sdma_ras_early_fini(struct amdgpu_device *adev,
-+				struct ras_common_if *ras_block)
-+{
-+	int i;
+@@ -3478,6 +3478,24 @@ static int amdgpu_device_ip_suspend_phase1(struct amdgpu_device *adev)
+ 	if (amdgpu_dpm_set_df_cstate(adev, DF_CSTATE_DISALLOW))
+ 		dev_warn(adev->dev, "Failed to disallow df cstate");
+ 
++	for (i = adev->num_ip_blocks - 1; i >= 0; i--) {
++		if (!adev->ip_blocks[i].status.valid)
++			continue;
++		if (!adev->ip_blocks[i].status.late_initialized)
++			continue;
 +
-+	if (amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__SDMA)) {
-+		for (i = 0; i < adev->sdma.num_instances; i++) {
-+			if (amdgpu_ras_test_and_clear_marker(adev, ras_block,
-+			    AMDGPU_MARKER_IRQ(i))) {
-+				amdgpu_irq_put(adev, &adev->sdma.ecc_irq,
-+					       AMDGPU_SDMA_IRQ_INSTANCE0 + i);
++		if (adev->ip_blocks[i].version->funcs->early_fini) {
++			r = adev->ip_blocks[i].version->funcs->early_fini(&adev->ip_blocks[i]);
++			if (r) {
++				DRM_ERROR(" of IP block <%s> failed %d\n",
++					  adev->ip_blocks[i].version->funcs->name, r);
++				return r;
 +			}
 +		}
++
++		adev->ip_blocks[i].status.late_initialized = false;
 +	}
 +
-+	amdgpu_ras_block_early_fini(adev, ras_block);
-+}
-+
- int amdgpu_sdma_process_ras_data_cb(struct amdgpu_device *adev,
- 		void *err_data,
- 		struct amdgpu_iv_entry *entry)
-@@ -334,8 +353,11 @@ int amdgpu_sdma_ras_sw_init(struct amdgpu_device *adev)
- 	adev->sdma.ras_if = &ras->ras_block.ras_comm;
- 
- 	/* If not define special ras_late_init function, use default ras_late_init */
--	if (!ras->ras_block.ras_late_init)
-+	if (!ras->ras_block.ras_late_init) {
-+		WARN_ON(ras->ras_block.ras_early_fini);
- 		ras->ras_block.ras_late_init = amdgpu_sdma_ras_late_init;
-+		ras->ras_block.ras_early_fini = amdgpu_sdma_ras_early_fini;
-+	}
- 
- 	/* If not defined special ras_cb function, use default ras_cb */
- 	if (!ras->ras_block.ras_cb)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
-index 087ce0f6fa07..1915e6c9be63 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
-@@ -164,6 +164,8 @@ int amdgpu_sdma_get_index_from_ring(struct amdgpu_ring *ring, uint32_t *index);
- uint64_t amdgpu_sdma_get_csa_mc_addr(struct amdgpu_ring *ring, unsigned vmid);
- int amdgpu_sdma_ras_late_init(struct amdgpu_device *adev,
- 			      struct ras_common_if *ras_block);
-+void amdgpu_sdma_ras_early_fini(struct amdgpu_device *adev,
-+			        struct ras_common_if *ras_block);
- int amdgpu_sdma_process_ras_data_cb(struct amdgpu_device *adev,
- 		void *err_data,
- 		struct amdgpu_iv_entry *entry);
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-index ccf0d531776d..369d7094a3ab 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-@@ -1968,18 +1968,10 @@ static int sdma_v4_0_hw_init(struct amdgpu_ip_block *ip_block)
- static int sdma_v4_0_hw_fini(struct amdgpu_ip_block *ip_block)
+ 	for (i = adev->num_ip_blocks - 1; i >= 0; i--) {
+ 		if (!adev->ip_blocks[i].status.valid)
+ 			continue;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index f622eb1551df..33a1a795c761 100755
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -2175,6 +2175,9 @@ static int amdgpu_dm_early_fini(struct amdgpu_ip_block *ip_block)
  {
  	struct amdgpu_device *adev = ip_block->adev;
--	int i;
  
- 	if (amdgpu_sriov_vf(adev))
- 		return 0;
- 
--	if (amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__SDMA)) {
--		for (i = 0; i < adev->sdma.num_instances; i++) {
--			amdgpu_irq_put(adev, &adev->sdma.ecc_irq,
--				       AMDGPU_SDMA_IRQ_INSTANCE0 + i);
--		}
--	}
--
- 	sdma_v4_0_ctx_switch_enable(adev, false);
- 	sdma_v4_0_enable(adev, false);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-index 9c7cea0890c9..744569bbc1e6 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-@@ -1486,19 +1486,11 @@ static int sdma_v4_4_2_hw_fini(struct amdgpu_ip_block *ip_block)
- {
- 	struct amdgpu_device *adev = ip_block->adev;
- 	uint32_t inst_mask;
--	int i;
- 
- 	if (amdgpu_sriov_vf(adev))
- 		return 0;
- 
- 	inst_mask = GENMASK(adev->sdma.num_instances - 1, 0);
--	if (amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__SDMA)) {
--		for (i = 0; i < adev->sdma.num_instances; i++) {
--			amdgpu_irq_put(adev, &adev->sdma.ecc_irq,
--				       AMDGPU_SDMA_IRQ_INSTANCE0 + i);
--		}
--	}
--
- 	sdma_v4_4_2_inst_ctx_switch_enable(adev, false, inst_mask);
- 	sdma_v4_4_2_inst_enable(adev, false, inst_mask);
- 
-@@ -2153,14 +2145,24 @@ const struct amdgpu_ip_block_version sdma_v4_4_2_ip_block = {
- static int sdma_v4_4_2_xcp_resume(void *handle, uint32_t inst_mask)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
--	int r;
-+	uint32_t tmp_mask = inst_mask;
-+	int r, i;
- 
- 	if (!amdgpu_sriov_vf(adev))
- 		sdma_v4_4_2_inst_init_golden_registers(adev, inst_mask);
- 
- 	r = sdma_v4_4_2_inst_start(adev, inst_mask);
-+	if (r)
-+		return r;
- 
--	return r;
-+	if (amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__SDMA)) {
-+		for_each_inst(i, tmp_mask) {
-+			amdgpu_irq_get(adev, &adev->sdma.ecc_irq,
-+				       AMDGPU_SDMA_IRQ_INSTANCE0 + i);
-+		}
-+	}
++	if (adev->in_s0ix || adev->in_s3 || adev->in_s4 || adev->in_suspend)
++		return 0;
 +
-+	return 0;
- }
+ 	amdgpu_dm_audio_fini(adev);
  
- static int sdma_v4_4_2_xcp_suspend(void *handle, uint32_t inst_mask)
-@@ -2366,6 +2368,7 @@ static struct amdgpu_sdma_ras sdma_v4_4_2_ras = {
- 	.ras_block = {
- 		.hw_ops = &sdma_v4_4_2_ras_hw_ops,
- 		.ras_late_init = sdma_v4_4_2_ras_late_init,
-+		.ras_early_fini = amdgpu_sdma_ras_early_fini,
- 	},
- };
- 
+ 	return 0;
 -- 
 2.43.5
 
