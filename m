@@ -4,68 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8EE5E77188
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jan 2025 14:24:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9D85E77199
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jan 2025 14:36:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3714710E8BF;
-	Wed,  8 Jan 2025 14:24:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A53C10E8C7;
+	Wed,  8 Jan 2025 14:36:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dQKjt02u";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="n3Ju6dao";
 	dkim-atps=neutral
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
- [209.85.216.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F4FE10E8BF
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Jan 2025 14:24:50 +0000 (UTC)
-Received: by mail-pj1-f44.google.com with SMTP id
- 98e67ed59e1d1-2f440e152fdso3549261a91.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 08 Jan 2025 06:24:50 -0800 (PST)
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
+ [209.85.221.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E38A210E82A
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Jan 2025 09:42:32 +0000 (UTC)
+Received: by mail-wr1-f42.google.com with SMTP id
+ ffacd0b85a97d-385ddcfc97bso13806926f8f.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 08 Jan 2025 01:42:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1736346230; x=1736951030; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=jXIC4KguKe0gvpaadlLFYN9IQUwfUkABz3fSyZkxN5A=;
- b=dQKjt02u3tP1acEgoE9kziZocNJU1c3yJ/D7c9nxz7wqjczFLnQ3/k9ysSfjYXJmNO
- RJstAvfSOfg8CuVDNM0S/7k/1zrGKK2QXEKIRyniUIwaTSGzQH2rK0kEFfKakZh3Htyd
- b1HWt0OoLYDcN09+M3kWRS4kdEW5grMISn69we/e7NKxMqw+O8qh5YNhbvJiAGqDLyeg
- rDdQF04BsKAVg7cUspr4sWAQef5WtE5YnZ9Jp4AkbNEL0ABIR+lsfDMyTsU2E3qhORDQ
- CxZjD7fsDsR/q9Coukb58igYN2sw63MyCnPoFdFyRt1zNgJDH8qOmAP0mvOUY5Sm/pqx
- Kwbw==
+ d=linaro.org; s=google; t=1736329291; x=1736934091; darn=lists.freedesktop.org;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=g54O8YkwZGrgLT3edof7A4TrnCHNhhKENcG6SumtW14=;
+ b=n3Ju6daoDrdvLXpOp8RmSbtnPLJIjC7v7C8y+e0f/7F4kN5MrbO4XtszFMhGvBHBT1
+ uCZa3zbj++jrTsPnThD5gQxQpqsH1CigKi9V5jjszNmcP4pJs1k7t7yi5I7itkIYFe/N
+ lWftgl7Uz+hEgMq3hqGlgrZpnOBUfso4XVPOYpF0l6HvQ12V4sVLks+JRJWxk9Fps+d7
+ anqJH3X2fyyK7+8KqTNvgErPriDFK8/qcuIPhoME/WRvRu7RxBn1bdcyq+BiesbqU9aU
+ mraDTNxi/pgK9XzIY1UBNIP8ONemyjl180cd4Deg2DegHJuN4H+SRGj+++/cGzpTxW80
+ HbZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736346230; x=1736951030;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=jXIC4KguKe0gvpaadlLFYN9IQUwfUkABz3fSyZkxN5A=;
- b=vkoH/Hh4eamOnLNTXEI66bWqNDOB//gQdCfN3NCHv5FXjT5P6zN64cBDCq/XQV7bI6
- eoBjGTe7LBfBiNkYa6UHmPQqdNP/6aGCY4EzSEf1Jj1g0vIhui5eGuDo9Sb+TgzltO1p
- Qi9B5Vb36MPdE8GF+25JAOAB+5UwHzQvZvK8yrQHP3XYZef9Xmj021eRwRY0z0hOsaAl
- +GFZ9HYLfdjE91Mv/Za9gG7wsEiN4QMNsd6zT7cqNFXuUrk1VNZKO6uRUbLZcyF34D3Q
- CpKlOlmgjkufr6OvxUoargG3H8giyjCzgWbiC/nOpMRroJLAY3LczASbZN8o7u9IaQ2w
- T+FA==
+ d=1e100.net; s=20230601; t=1736329291; x=1736934091;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=g54O8YkwZGrgLT3edof7A4TrnCHNhhKENcG6SumtW14=;
+ b=uqrE1LFTWjGgUghHcxNxPs4Ds2sTbKTwQ5QRnaqPN+mylpITajXJvE3Q5c3WrfVMZg
+ EqEKoORjPh/Uyc9Z8fsUhv3a7fbJ4LPv0aYNZw4/SbRsgXA4PG9T+LGzgko4DwX7aN6y
+ DpcALCI9IKnwZFi7R6AHFgUeCktBUV74NcS6zG4fB+lTgxOpZpNcvtP6yNX3MAcHagTv
+ 0tPstFsILRe2zgIlvlT7GLc++il8Zrvl7ocMwkBZN6LHDkImFmqpOSXEeR4jQyxSDz5X
+ Nimqf9mr8bg8qv7TUb5Z9GrXI4q6r34ztylTdwe3K4BGepqktlIKL/zZFwLN2VR4izM7
+ XiMQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXkeVULbcPvrM126iG9xzA7LB6lyqlkTPgFGkWMvTKimZEyXz24AxnwLhOHofXqPvsPaH8Y5v4D@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzd8sI/FCj/DwSsCScp5qpGCnpmkztWO/vHefHmf+uR3c0gsJjB
- lJCgWVoA9muBn4g7VhA2Kv+ndkDRYjgn6IGFv9diwdQriaM+JIZ/E1yjqJvlQCskqKtiS4X+F3U
- 5GxY6PaARoLVkP7dEPDHQcCoP/+ZkjA==
-X-Gm-Gg: ASbGncskruuv6BHXPV2FvGseziZ/WrpWK/VXNFBCwlyQ1QsjWxVIDyZYSoc8TTkGANn
- tBmb5ndD8xb/k0nSrtbaRqRkGON0Hmj/wA7BaNA==
-X-Google-Smtp-Source: AGHT+IEJd9hecPvudfaKF+RPSK8tLEs3ufpS2Ou8c+fwVbtNGqYEdZCbOa3eCGZPenvQ2QPmBHLQQlVksN2a9r6/KAo=
-X-Received: by 2002:a17:90b:2c8c:b0:2ee:b665:12ce with SMTP id
- 98e67ed59e1d1-2f548f05913mr1768892a91.1.1736346229995; Wed, 08 Jan 2025
- 06:23:49 -0800 (PST)
+ AJvYcCUX6rKJn3RcdBUiwHwBhv8M5D8Bepo7iNe11AZUAlF4VRZ2JhCNJfhS+QB+1fFKRZrLC4oWzdf1@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzbZZAhLZOkSobLLCNQv2gLh2zQZiJsgRO8o8Mlr2THspPsJCmK
+ F5Ywf+XZa0z7emBiF3CeO97x1Zf1wsgqSx1Z8McfKWAKghql7JOgO1Z77qX9TeA=
+X-Gm-Gg: ASbGncsQKN6azatKuOXEG0DTBpDykcF3MdHwxjaKo96mBN/rsrxOe0GU0lVAGl9HGgL
+ m25nnMOazm7nMzXTgFhO6KAmpDyzJQ6kPxom0WClxVnui/Ch53B4oVpyHs3d5wyLnMTeHLMKygG
+ GGocUs9Cqj2airdv3NW7l0L22E/alQHaDNvj8oLrhcPJ0E1HMX5J+IzUrgI5F8O0nEUN2ljoKhv
+ Zs9HBVajwQnJeaM/CKABObBd7ao9eDAWm4fecWPhmtf7HTYA9KEUA+Koh+iFw==
+X-Google-Smtp-Source: AGHT+IHkhtjxU/+Fjus/E3cnU1FkrZVIFQ90dsX1DLhvXda8HEgNw6w3TvBh5/m1vuuiaw6SkOOZIQ==
+X-Received: by 2002:a05:6000:490e:b0:385:ef39:6cf7 with SMTP id
+ ffacd0b85a97d-38a872ec3c7mr1392758f8f.32.1736329291503; 
+ Wed, 08 Jan 2025 01:41:31 -0800 (PST)
+Received: from localhost ([196.207.164.177]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-436e2c27b54sm14879005e9.0.2025.01.08.01.41.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 08 Jan 2025 01:41:31 -0800 (PST)
+Date: Wed, 8 Jan 2025 12:41:28 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Jesse Zhang <jesse.zhang@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Hawking Zhang <Hawking.Zhang@amd.com>,
+ Tim Huang <tim.huang@amd.com>, "Jesse.zhang@amd.com" <Jesse.zhang@amd.com>,
+ Likun Gao <Likun.Gao@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Yang Wang <kevinyang.wang@amd.com>, Le Ma <le.ma@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
+Subject: [PATCH] drm/amdgpu: Fix shift type in
+ amdgpu_debugfs_sdma_sched_mask_set()
+Message-ID: <d39a9325-87a4-4543-b6ec-1c61fca3a6fc@stanley.mountain>
 MIME-Version: 1.0
-References: <20250108093237.81961-1-christian.koenig@amd.com>
-In-Reply-To: <20250108093237.81961-1-christian.koenig@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 8 Jan 2025 09:23:37 -0500
-X-Gm-Features: AbW1kvY9h4CGR9JJi9B8Y2p2oPeYFNL54CbmMbt-w3XyyqMRTXBn5CC3TXkRAKc
-Message-ID: <CADnq5_Nyyctnq-Ts5gnm4wqadRF3ZjcLEkdM24bDsh=t8NAT1Q@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: always sync the GFX pipe on ctx switch
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Cc: srinivasan.shanmugam@amd.com, amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailer: git-send-email haha only kidding
+X-Mailman-Approved-At: Wed, 08 Jan 2025 14:36:21 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,37 +92,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jan 8, 2025 at 4:52=E2=80=AFAM Christian K=C3=B6nig
-<ckoenig.leichtzumerken@gmail.com> wrote:
->
-> That is needed to enforce isolation between contexts.
->
-> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+The "mask" and "val" variables are type u64.  The problem is that the
+BIT() macros are type unsigned long which is just 32 bits on 32bit
+systems.
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+It's unlikely that people will be using this driver on 32bit kernels
+and even if they did we only use the lower AMDGPU_MAX_SDMA_INSTANCES (16)
+bits.  So this bug does not affect anything in real life.
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_ib.c
-> index d751995dc131..e0bc37557d2c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-> @@ -191,8 +191,8 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsi=
-gned int num_ibs,
->         need_ctx_switch =3D ring->current_ctx !=3D fence_ctx;
->         if (ring->funcs->emit_pipeline_sync && job &&
->             ((tmp =3D amdgpu_sync_get_fence(&job->explicit_sync)) ||
-> -            (amdgpu_sriov_vf(adev) && need_ctx_switch) ||
-> -            amdgpu_vm_need_pipeline_sync(ring, job))) {
-> +            need_ctx_switch || amdgpu_vm_need_pipeline_sync(ring, job)))=
- {
-> +
->                 need_pipe_sync =3D true;
->
->                 if (tmp)
-> --
-> 2.34.1
->
+Still, for correctness sake, u64 bit masks should use BIT_ULL().
+
+Fixes: d2e3961ae371 ("drm/amdgpu: add amdgpu_sdma_sched_mask debugfs")
+Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+index 632295bf3875..174badca27e7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+@@ -362,13 +362,13 @@ static int amdgpu_debugfs_sdma_sched_mask_set(void *data, u64 val)
+ 	if (!adev)
+ 		return -ENODEV;
+ 
+-	mask = (1 << adev->sdma.num_instances) - 1;
++	mask = BIT_ULL(adev->sdma.num_instances) - 1;
+ 	if ((val & mask) == 0)
+ 		return -EINVAL;
+ 
+ 	for (i = 0; i < adev->sdma.num_instances; ++i) {
+ 		ring = &adev->sdma.instance[i].ring;
+-		if (val & (1 << i))
++		if (val & BIT_ULL(i))
+ 			ring->sched.ready = true;
+ 		else
+ 			ring->sched.ready = false;
+-- 
+2.45.2
+
