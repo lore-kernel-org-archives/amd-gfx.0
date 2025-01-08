@@ -4,45 +4,154 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67CE1E77199
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jan 2025 10:05:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19275E77188
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jan 2025 10:08:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 10C5910E28B;
-	Wed,  8 Jan 2025 10:05:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8BDAC10E291;
+	Wed,  8 Jan 2025 10:08:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="K1DPn2KR";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="waIq7CLR";
 	dkim-atps=neutral
-Received: from out30-132.freemail.mail.aliyun.com
- (out30-132.freemail.mail.aliyun.com [115.124.30.132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9BDA710E28B
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Jan 2025 10:05:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux.alibaba.com; s=default;
- t=1736330741; h=From:Message-Id:Content-Type:Mime-Version:Subject:Date:To;
- bh=z6CduTLpGZb1uClG5eDxFOtMKT6Pvt7yVjIZT9S/W8M=;
- b=K1DPn2KRh1t7isgiQVfm/uK8JDPDX/xuQPrrZVqAiTX5oiXvoZN/wKY90uuCrTSGGYAINMtNQCwgq0oJzVKrM4b0GUoCKkEyvmj5ivf0YP5oMIZkilJXRjpGGioBgeeEm80vIQD+Hb2HDV2cs1AEylCw5m/ddKeqChRFrec6adE=
-Received: from smtpclient.apple(mailfrom:gerry@linux.alibaba.com
- fp:SMTPD_---0WNDiuRz_1736330739 cluster:ay36) by smtp.aliyun-inc.com;
- Wed, 08 Jan 2025 18:05:40 +0800
-From: Gerry Liu <gerry@linux.alibaba.com>
-Message-Id: <D69A1867-42CE-48DB-A93D-425C83070A0D@linux.alibaba.com>
-Content-Type: multipart/alternative;
- boundary="Apple-Mail=_AF20CCA0-3AFC-4760-96C0-D6A05048FBDB"
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3696.120.41.1.1\))
-Subject: Re: [v3 6/6] drm/amdgpu: get rid of false warnings caused by
- amdgpu_irq_put()
-Date: Wed, 8 Jan 2025 18:05:39 +0800
-In-Reply-To: <eb90ea93-972d-460f-8ad8-3c60a656207a@amd.com>
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, simona@ffwll.ch, sunil.khatri@amd.com,
- Hawking.Zhang@amd.com, mario.limonciello@amd.com, Jun.Ma2@amd.com,
- xiaogang.chen@amd.com, Kent.Russell@amd.com, shuox.liu@linux.alibaba.com,
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2061.outbound.protection.outlook.com [40.107.236.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0EB0210E299
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Jan 2025 10:08:30 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xhYQGaHsyYvlJ1SAJpbRbeTbDCX2puplizxOBe1dAaeG0eSUdQQBRWUQHD/XixL5i0VXC1Fm08dFHceMPQPHCtVgcbPhG5VM8+uV4DxO9QhE59BVFwOXszQOfLkSC3Ly3Puxnlui2TafKs8aF10VwP3H0STDvyPSIFSPnV2ytxot9Kw+/vday1nCLMhMrlY0EeklKMaOY4pUZMas7Oy2BOUU1Zg3GttCNJ+KMPPt1kldeF+54usqTTYKBVBCWhr/JCjWY6MwTtQd3UuwByv0I6o5ZfKxxU/qibcdyPXDZiBeNpJ/0lxn4+6PVxAgDEW81gD3bCvZtSK6r54/OH/D/w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2jksBZKNYxTFegZh+cNJ/F2aua28sy2JjNd/lyluDcM=;
+ b=Hm8bAmTFPkl/R/uDyqUBGtB9SQghXVWUabfYj2GSpyjkafxtaufjaC4eSJ3GkaVoYz3XwDCD2+SIQes5qEFyFmKzN6XV4ovWDpt/xAXSsds9kdWzxw0GEu8r+NbeqFo3wdqHe7gO7MdpTwyJnwqsbrl6gw8a3Y9CcwKi7SdkBDgWRiVUlZjV6jquEYOH0Ou+nTnc+A6sZMsQkQgxQ0vR7pnnbYzadRCsiZPYmFp8kCifwQ8/5c/a2KvVOJZDjIUISYbtInNlU8HgEvfwzjTfPZcQFwfO/ehTSRJ+bxzqUo6DES9qCmYsMqIFBCEmCRM67Hfk8QZlDKnX2dD8E0M5Yw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2jksBZKNYxTFegZh+cNJ/F2aua28sy2JjNd/lyluDcM=;
+ b=waIq7CLRauySWZe9rp7pn2kibXSJrGxKwSjLWnks8ic7xliP6Q5QIXjMEDoqv/lrTU5dlHdac6cEWZuz2ZwYYKxUTOsXXT/L2YYPW9nLRx3m7JCP6OROp+bvLo+sWirAb+f+GsY9L98plBFb9zt8oRGLvMK4nrX9yplPeqnVqWM=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
+ SA0PR12MB4496.namprd12.prod.outlook.com (2603:10b6:806:9b::14) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.8335.10; Wed, 8 Jan 2025 09:54:12 +0000
+Received: from DS0PR12MB7804.namprd12.prod.outlook.com
+ ([fe80::8327:d71a:ce21:a290]) by DS0PR12MB7804.namprd12.prod.outlook.com
+ ([fe80::8327:d71a:ce21:a290%7]) with mapi id 15.20.8335.010; Wed, 8 Jan 2025
+ 09:54:12 +0000
+Message-ID: <51b9f2ea-40ee-40f4-b3a8-33c06e0e866e@amd.com>
+Date: Wed, 8 Jan 2025 15:24:01 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [v3 3/6] drm/amdgpu: fix use after free bug related to
+ amdgpu_driver_release_kms()
+To: Jiang Liu <gerry@linux.alibaba.com>, alexander.deucher@amd.com,
+ christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, sunil.khatri@amd.com, Hawking.Zhang@amd.com,
+ mario.limonciello@amd.com, Jun.Ma2@amd.com, xiaogang.chen@amd.com,
+ Kent.Russell@amd.com, shuox.liu@linux.alibaba.com,
  amd-gfx@lists.freedesktop.org
-To: "Lazar, Lijo" <lijo.lazar@amd.com>
 References: <cover.1736325561.git.gerry@linux.alibaba.com>
- <55f6e8e3d14c639d869a76adae932075b443685e.1736325561.git.gerry@linux.alibaba.com>
- <eb90ea93-972d-460f-8ad8-3c60a656207a@amd.com>
-X-Mailer: Apple Mail (2.3696.120.41.1.1)
+ <5c662d197e0d483b551365fcb98f55c33c66d281.1736325561.git.gerry@linux.alibaba.com>
+Content-Language: en-US
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <5c662d197e0d483b551365fcb98f55c33c66d281.1736325561.git.gerry@linux.alibaba.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA0PR01CA0026.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:b8::14) To DS0PR12MB7804.namprd12.prod.outlook.com
+ (2603:10b6:8:142::5)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB7804:EE_|SA0PR12MB4496:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7de7eb8c-b4c2-4481-b4b0-08dd2fca6726
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024|921020;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?ZWZOVWVwd2xaSWFYelNnNUJlTVlDY1crajZFRUNlT3pNOGNYUHFrWG0rc1Zo?=
+ =?utf-8?B?dFRScW5TU3VJdW8vMTNmNDlvK3V4YUM0U2tpbk1mNWM1RnF1L3E1U2hVdXBr?=
+ =?utf-8?B?cFdVSUVlRUtXTmM1eStzZVlFZWtjQThCRTdZdVVlM01ZVHZCcjE4b2w2S2xH?=
+ =?utf-8?B?QktxcEV1UzQxb3dnU09ZdTFOYnRUbFgyR2ZzcU5lbzZhZzlyQm9NdW1xTElB?=
+ =?utf-8?B?ZWdBVEdQcUhYcXRwdlJGblNmU1RJMTU4ZmZiSmlzdm4wRHVMUjdxMVRSL3Rl?=
+ =?utf-8?B?RkpDYngrNmxjUk82Q2hzZWREd3lEZWRpeTczeHpiZUx2WjJRNXIxcnlPZThj?=
+ =?utf-8?B?RFdNVXR4cEp5Sk5BWXppZnFGRjk4MTFreS9oRVpHdEZsU2xuVU9LWkhBQVFB?=
+ =?utf-8?B?OFVmQ3p5NUdMUnk3YWlldU1HRmVKYTM3U0EzUFVodUZZZUYzb2g3aTMrOCtS?=
+ =?utf-8?B?WURTUVNDVzBwbVRhQ2kxbDFPRTk0TFNUT3RlT0dGbmlGTWF1N2RYWkJRSzRL?=
+ =?utf-8?B?T2pvV1ZkNkN0bzV4Skh0ZGVaUFBBSEZCaDFsTjRoekdadmdjVi9pUWhVOGUy?=
+ =?utf-8?B?Y2FRU1FMdDF3NnUvYzVlS0ZWcXQ3aW1PcG0wdXJ1aTFEK2dBZ093TEFRMTg3?=
+ =?utf-8?B?ZDJlcFNydmFHblJuZlBBZTQrNGJSaHp5R2dLRGVyUnhSOW9jSCtpYVlhd3p0?=
+ =?utf-8?B?MUZqa3ZGWitxaHZ2Z0hZeFpSbWFTNFh5TUxrS3dJUlFqME4vMG0waU55dHgz?=
+ =?utf-8?B?Um5aay8yVzdTMEQ5WTdnZHVWcVorTmxlQjlsUFY3K0E1V2lNOXIvMTZjc2lz?=
+ =?utf-8?B?dGovRG5sUlVOTkRHQ2RGZ2pndk5VRTZQRUpVS01qWldaRGNrWlVQbXBmN05w?=
+ =?utf-8?B?QmlaZHBQREhSbHN2SmpYczREUHpjMUtjUnFLbm0xMzZTZDBrNUlrM2pnUVNK?=
+ =?utf-8?B?QVI3OUJYWGY0V1RybVBEYmpxV2pPbTFOV0dCRDJwM1hjUUtieHd6aEhKb2hq?=
+ =?utf-8?B?SUxWUitxWDRVNXVxeGVKTzdCUGU1eFMza0xhZHFwSktrN1p6Y1NIMlJvc0VE?=
+ =?utf-8?B?VXdNUjVscWRURTlzNDJYU2xteHBYTWtHYk4yWDVHUitkTklpeXEvNHQ1RzNv?=
+ =?utf-8?B?eGRpR2JwNitvTENRRCtRYWd0eEQ5NEk1VzZ4cGFQWnN4Q211a3ZVeHAvYmhU?=
+ =?utf-8?B?RUZSMitkcmZuZll3UFFLVnF4V1BBU0VuejZUa0ZVOTljallRSG9uRkhCQmEr?=
+ =?utf-8?B?eUxJaDlZSnM5VWRsZmZOUGdYRXcwMDBnQmlDbHgvODlUc3NpSElZWWN2NHlO?=
+ =?utf-8?B?ZFZvSnBaZmRSb2pjcEZpV3BzZHRQUHhpWlR6d0grS2htbndJeFVFQVY3QlFs?=
+ =?utf-8?B?bmtrbG5NVWc1NzJXRWgxbnVFRmYzMkJFVkRXWWNYNUowUWdHVDRjVnV6bE91?=
+ =?utf-8?B?SGFnRGtqcEhLM2tXYWxUc0xFcnZCNjdGYXF5dHhYQVljL3pmRnp2QjNLeGhu?=
+ =?utf-8?B?ME1waUdJZnZjaFdodE96bzNadzFtMU4xcC9YOGxMdEhOazBSYUxSRWxKcHdu?=
+ =?utf-8?B?Y2h5SVpYNFV2N0JIdERscE5WaFpnR3BZSGtJZHkwZXNuclVLUVNLNEdJTzB4?=
+ =?utf-8?B?OGpKM3doSm1qS1JtcUVlQ1ArTWhuMGYxZmF2S0l1Y05OS2ViUU41NVBXNktj?=
+ =?utf-8?B?VlBaUDVCVXljZmcwM2NTQ2F3eVJ5Z010enRzb0sxQnpvTjAwdXc0MGFPdkJI?=
+ =?utf-8?B?blBDblNSbU1LOEJqWC9jaDdldHhsZVdWZ09CUU83Rkx3Qm9obzB0QWovY1NT?=
+ =?utf-8?B?UXVzcTg0VEVWL0xqNC9kY0FZN0hBYndxZXl5WDNKU2RPblVpVXlYampMbUhn?=
+ =?utf-8?B?UVQ3bE1vSFlrUitpQlJSYWRScGVEclY3b09jbWFrMWJCcHNJdUVCbmIrRDAv?=
+ =?utf-8?Q?64K7961dKYo=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(921020); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SXk2VDFmbnJtVFFPUnYydkJxR2FxZkI1cWsxeEt5VDd0RkxjSlQxbGFTc0Rk?=
+ =?utf-8?B?Q2V3a0drRVBwRDROWlYyQitVOEN4d3lHQ3h2cVQzc3Z3UDJRWERKTmVoSkly?=
+ =?utf-8?B?M2pCN0tuZEJsekJqVjdTbG9USDdMME0wM0pGTVpUTDB0SEl5Ym1sdDQ0eFJx?=
+ =?utf-8?B?Q0lrdDZNM0ZMenJBTnFTWnFRcnVURzR6RzUwZ3JyWHE3ck1JUjM3SXBJR2dQ?=
+ =?utf-8?B?alNTanpOTllqcnd2Z2xZT3dVbHlSa1pQckUzZ0VBY0ZNNi9RYU5Iay9xSHFS?=
+ =?utf-8?B?U3prcm5ESUtFeDF0SVV1SzYvVmtOZDVISEV3SjFZZDdGeGNHTTVXM2JXeW1H?=
+ =?utf-8?B?czVKd3poSEF6RkhIRzRzWkp5cnA1S1hrOTdPNG5oeW9UcUw1T3dNeGFkMmZn?=
+ =?utf-8?B?WVRVdmoyT29ic3JRNW9aRXkvS2E0dHZHYmFsd0dUcGZWYXVyM09NVEdvdjlv?=
+ =?utf-8?B?Z1NBVG11QXpoSU9PSkhMVTJybzdiajN6ZEJPN21NeSszc0VnTVBDbFV0cyto?=
+ =?utf-8?B?RW9RYXd0YnpmMGZGU3llY0pwamtKZm96SGpYMDlONk1idmlnZ1Z3RENZYzB1?=
+ =?utf-8?B?a3FZSXBKYzBiekxPYy83Rjd2MHlNSHkrcmljaWFqbWVkbVEyUnUrd0xKVlVD?=
+ =?utf-8?B?RkhyUkdrS1JzVlRtbG5oY256VUFmY3lmd1ZqWDdYazRRdWF2clNmZUhaZGZp?=
+ =?utf-8?B?aE9YRTN2bjFOTWJyUzNWV2J2L0VrWHpYbTEra3RUZEJXdzBLU09vaGh5WnB3?=
+ =?utf-8?B?bS91K0lLUFU1WmhyS1JQQ1h1NTg4RGpUdmpOcEVkN1pxMHlLQWlSNFFaYkpn?=
+ =?utf-8?B?UlAyWDRjVzh5b01Mc0pUcW5xb0dsS2dyRTluQmtxdVRzcWU4Z1FZSDdYanh0?=
+ =?utf-8?B?RUVORkxQU2VkTXVmTDhWYWdLdkRrZVdEeG84UlFpZTk1T2p1SDl5cjFPOFEz?=
+ =?utf-8?B?STFrQk5ibkZIZlQrK3dBd203ems5a2pxcW5zeHUyZVlBaXVHbm9sM2p3ZXhK?=
+ =?utf-8?B?SzZURjNVUDJLTjR6ejdzMW1YWVN5TUlLdHBqamdTUTE5Qk5RcWdhNjZKTmJN?=
+ =?utf-8?B?dUF2NnlyM05pQzhGY3E2Y20rSFdocTA1UmdySUxWZ0VjcUpvZ0dpSVRsSnNX?=
+ =?utf-8?B?VE1pWDZtYkF4WHNSREplZlRkR3YyazJkck5FSXdoeGVORm9VR0hUdXphMU1W?=
+ =?utf-8?B?bkNabWMzNWpoTEg5eHo0Qk1vTCtteGtJQWc0aE1MOXVaRmt6N3BTRm95MFhq?=
+ =?utf-8?B?a3NNQnN0cXUrUGs5MTYzdVBkS2dMZVFBTTN0UGVFa25aeXYxMy9nVk9YUzg3?=
+ =?utf-8?B?N3NoUE40bi84eGFHNzEwZWpSd1Fzd1FRR2JYWGRZcmdQTjNwTTF6a2JadjlT?=
+ =?utf-8?B?S1VoSlZ5UzVrL0JXVm9hcGZ3RWJFMCszQXhqdUlhcHZ2RU9iQ0c4MW02cHpR?=
+ =?utf-8?B?YmxTSzhWV1FoRXJOZ3JLTlZHeHlTYXBhUWl2NWdPaWM3NFoyR0RFSkpjZUhp?=
+ =?utf-8?B?TFdiWldxN3FqUGZlN3hxeWZXaWlLNDR3M05yQmxHVC9kcWVCTXVHa2xxcWJn?=
+ =?utf-8?B?dzRKbitqdmViY0Z2VVJYZ2NnQWs3enUvZVZ0RUpyUzhiUGVFNlVrTmZrMEZ4?=
+ =?utf-8?B?Q0pVQ1RDZkpJVG5QWmtleG5ua2RxTW9aRFhCS2YydTdST1NzY2xObVVmaTE3?=
+ =?utf-8?B?TzAyTDN6UUdkNERtN0xXL01ReFhHTDE2aTVBdmFOY2dNbFRrbmk5VE5BZkJM?=
+ =?utf-8?B?Y2RjTTRpNWg0d053WWJGMkVKM0l5am9CdHZyNjU0c3pYeEhGRkkwR2JYTldX?=
+ =?utf-8?B?NXdjcG01ak9UYnVNSDQ3VFlJKzNpUGxnK2hNWTF3eTg0MzlEWFFBbUlQVUw3?=
+ =?utf-8?B?NnJMYVJGK2ozOFFFWHB2ckNvZkJDZytOT3AzK2dPbkEyMHc3a3B2WTBGaFRI?=
+ =?utf-8?B?QWpVV2FEYSsrQ1lta2RZTGpKVXhST0piUUZ2Z05NalBHZlllUGRWM3c2VUZM?=
+ =?utf-8?B?MzNaWXZkUGtvcEwvblNYdDEwOEpnakNiWkpPRm1ocWpLUFRka3dTK01GZEZD?=
+ =?utf-8?B?UnlVeGpyWjFlb0VOQWJiTWpUajVGMHlIYjJtVitRZzRJeDltN2VjYkZ2Qm5i?=
+ =?utf-8?Q?bpXAEsinWv/Ocw5OgTwFatOab?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7de7eb8c-b4c2-4481-b4b0-08dd2fca6726
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7804.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jan 2025 09:54:12.0502 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: PKx94nIuKqxIIr46YMrl7MMJAfXMYm1IRPb/rJ7DO7gq6yL5MVVU3BQXpLksEVvI
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4496
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,431 +167,215 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
---Apple-Mail=_AF20CCA0-3AFC-4760-96C0-D6A05048FBDB
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain;
-	charset=utf-8
 
+On 1/8/2025 2:26 PM, Jiang Liu wrote:
+> If some GPU device failed to probe, `rmmod amdgpu` will trigger a use
+> after free bug related to amdgpu_driver_release_kms() as:
+> 2024-12-26 16:17:45 [16002.085540] BUG: kernel NULL pointer dereference, address: 0000000000000000
+> 2024-12-26 16:17:45 [16002.093792] #PF: supervisor read access in kernel mode
+> 2024-12-26 16:17:45 [16002.099993] #PF: error_code(0x0000) - not-present page
+> 2024-12-26 16:17:45 [16002.106188] PGD 0 P4D 0
+> 2024-12-26 16:17:45 [16002.109464] Oops: Oops: 0000 [#1] PREEMPT SMP NOPTI
+> 2024-12-26 16:17:45 [16002.115372] CPU: 2 PID: 14375 Comm: rmmod Kdump: loaded Tainted: G        W   E      6.10.0+ #2
+> 2024-12-26 16:17:45 [16002.125577] Hardware name: Alibaba Alibaba Cloud ECS/Alibaba Cloud ECS, BIOS 3.0.ES.AL.P.087.05 04/07/2024
+> 2024-12-26 16:17:45 [16002.136858] RIP: 0010:drm_sched_fini+0x3f/0xe0 [gpu_sched]
+> 2024-12-26 16:17:45 [16002.143463] Code: 60 c6 87 be 00 00 00 01 e8 ce e0 90 d8 48 8d bb 80 00 00 00 e8 c2 e0 90 d8 8b 43 20 85 c0 74 51 45 31 e4 48 8b
+> 43 28 4d 63 ec <4a> 8b 2c e8 48 89 ef e8 f5 0e 59 d9 48 8b 45 10 48 8d 55 10 48 39
+> 2024-12-26 16:17:45 [16002.164992] RSP: 0018:ffffb570dbbb7da8 EFLAGS: 00010246
+> 2024-12-26 16:17:45 [16002.171316] RAX: 0000000000000000 RBX: ffff96b0fdadc878 RCX: 0000000000000000
+> 2024-12-26 16:17:46 [16002.179784] RDX: 000fffffffe00000 RSI: 0000000000000000 RDI: ffff96b0fdadc8f8
+> 2024-12-26 16:17:46 [16002.188252] RBP: ffff96b0fdadc800 R08: ffff97abbd035040 R09: ffffffff9ac52540
+> 2024-12-26 16:17:46 [16002.196722] R10: 0000000000000000 R11: 0000000000000000 R12: 0000000000000000
+> 2024-12-26 16:17:46 [16002.205179] R13: 0000000000000000 R14: ffff96b0fdadfc00 R15: 0000000000000000
+> 2024-12-26 16:17:46 [16002.213648] FS:  00007f2737000740(0000) GS:ffff97abbd100000(0000) knlGS:0000000000000000
+> 2024-12-26 16:17:46 [16002.223189] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> 2024-12-26 16:17:46 [16002.230103] CR2: 0000000000000000 CR3: 000000011be3a005 CR4: 0000000000f70ef0
+> 2024-12-26 16:17:46 [16002.238581] DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+> 2024-12-26 16:17:46 [16002.247053] DR3: 0000000000000000 DR6: 00000000fffe07f0 DR7: 0000000000000400
+> e024se+0x3c/0x90 [amdxcp]
+> 2024-12-26 16:17:46 [16002.337645]  __do_sys_delete_module.constprop.0+0x176/0x310
+> 2024-12-26 16:17:46 [16002.344324]  do_syscall_64+0x5d/0x170
+> 2024-12-26 16:17:46 [16002.348858]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+> 2024-12-26 16:17:46 [16002.354956] RIP: 0033:0x7f2736a620cb-12-26
+> 
+> Fix it by removing xcp drm devices when failed to probe GPU devices.
+> 
+> Signed-off-by: Jiang Liu <gerry@linux.alibaba.com>
+> Tested-by: Shuo Liu <shuox.liu@linux.alibaba.com>
+> Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c    |  1 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c    | 47 +++++++++++++++++++---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h    |  4 +-
+>  5 files changed, 47 insertions(+), 9 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 5ff53a3b9851..510074a9074e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -6682,7 +6682,7 @@ void amdgpu_device_halt(struct amdgpu_device *adev)
+>  	struct pci_dev *pdev = adev->pdev;
+>  	struct drm_device *ddev = adev_to_drm(adev);
+>  
+> -	amdgpu_xcp_dev_unplug(adev);
+> +	amdgpu_xcp_dev_deregister(adev);
+>  	drm_dev_unplug(ddev);
+>  
+>  	amdgpu_irq_disable_all(adev);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index 62de668e9ff8..41d1b06be600 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -2435,7 +2435,7 @@ amdgpu_pci_remove(struct pci_dev *pdev)
+>  	struct drm_device *dev = pci_get_drvdata(pdev);
+>  	struct amdgpu_device *adev = drm_to_adev(dev);
+>  
+> -	amdgpu_xcp_dev_unplug(adev);
+> +	amdgpu_xcp_dev_deregister(adev);
+>  	amdgpu_gmc_prepare_nps_mode_change(adev);
+>  	drm_dev_unplug(dev);
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> index d2a046736edd..be9147eb8308 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> @@ -1508,6 +1508,7 @@ void amdgpu_driver_release_kms(struct drm_device *dev)
+>  	struct amdgpu_device *adev = drm_to_adev(dev);
+>  
+>  	amdgpu_device_fini_sw(adev);
+> +	amdgpu_xcp_mgr_fini(adev);
 
+Suggest to move this inside fini_sw()
 
-> 2025=E5=B9=B41=E6=9C=888=E6=97=A5 18:02=EF=BC=8CLazar, Lijo =
-<lijo.lazar@amd.com> =E5=86=99=E9=81=93=EF=BC=9A
->=20
->=20
->=20
-> On 1/8/2025 2:26 PM, Jiang Liu wrote:
->> If error happens before amdgpu_fence_driver_hw_init() gets called =
-during
->> device probe, it will trigger a false warning in amdgpu_irq_put() as
->> below:
->> [ 1209.300996] ------------[ cut here ]------------
->> [ 1209.301061] WARNING: CPU: 48 PID: 293 at =
-/tmp/amd.Rc9jFrl7/amd/amdgpu/amdgpu_irq.c:633 amdgpu_irq_put+0x45/0x70 =
-[amdgpu]
->> [ 1209.301062] Modules linked in: ...
->> [ 1209.301093] CPU: 48 PID: 293 Comm: kworker/48:1 Kdump: loaded =
-Tainted: G        W  OE     5.10.134-17.2.al8.x86_64 #1
->> [ 1209.301094] Hardware name: Alibaba Alibaba Cloud ECS/Alibaba Cloud =
-ECS, BIOS 3.0.ES.AL.P.087.05 04/07/2024
->> [ 1209.301095] Workqueue: events work_for_cpu_fn
->> [ 1209.301159] RIP: 0010:amdgpu_irq_put+0x45/0x70 [amdgpu]
->> [ 1209.301160] Code: 48 8b 4e 10 48 83 39 00 74 2c 89 d1 48 8d 04 88 =
-8b 08 85 c9 74 14 f0 ff 08 b8 00 00 00 00 74 05 c3 cc cc cc cc e9 8b fd =
-ff ff <0f> 0b b8 ea ff ff ff c3 cc cc cc cc b8 ea ff ff ff c3 cc cc cc =
-cc
->> [ 1209.301162] RSP: 0018:ffffb08a99c8fd88 EFLAGS: 00010246
->> [ 1209.301162] RAX: ffff9efe1bcbf500 RBX: ffff9efe1cc3e400 RCX: =
-0000000000000000
->> [ 1209.301163] RDX: 0000000000000000 RSI: ffff9efe1cc3b108 RDI: =
-ffff9efe1cc00000
->> [ 1209.301163] RBP: ffff9efe1cc10818 R08: 0000000000000001 R09: =
-000000000000000d
->> [ 1209.301164] R10: ffffb08a99c8fb48 R11: ffffffffa2068018 R12: =
-ffff9efe1cc109d0
->> [ 1209.301164] R13: ffff9efe1cc00010 R14: ffff9efe1cc00000 R15: =
-ffff9efe1cc3b108
->> [ 1209.301165] FS:  0000000000000000(0000) GS:ffff9ff9fce00000(0000) =
-knlGS:0000000000000000
->> [ 1209.301165] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
->> [ 1209.301165] CR2: 00007fd0f6e860d0 CR3: 0000010092baa003 CR4: =
-0000000002770ee0
->> [ 1209.301166] DR0: 0000000000000000 DR1: 0000000000000000 DR2: =
-0000000000000000
->> [ 1209.301166] DR3: 0000000000000000 DR6: 00000000fffe07f0 DR7: =
-0000000000000400
->> [ 1209.301167] PKRU: 55555554
->> [ 1209.301167] Call Trace:
->> [ 1209.301225]  amdgpu_fence_driver_hw_fini+0xda/0x110 [amdgpu]
->> [ 1209.301284]  amdgpu_device_fini_hw+0xaf/0x200 [amdgpu]
->> [ 1209.301342]  amdgpu_driver_load_kms+0x7f/0xc0 [amdgpu]
->> [ 1209.301400]  amdgpu_pci_probe+0x1cd/0x4a0 [amdgpu]
->> [ 1209.301401]  local_pci_probe+0x40/0xa0
->> [ 1209.301402]  work_for_cpu_fn+0x13/0x20
->> [ 1209.301403]  process_one_work+0x1ad/0x380
->> [ 1209.301404]  worker_thread+0x1c8/0x310
->> [ 1209.301405]  ? process_one_work+0x380/0x380
->> [ 1209.301406]  kthread+0x118/0x140
->> [ 1209.301407]  ? __kthread_bind_mask+0x60/0x60
->> [ 1209.301408]  ret_from_fork+0x1f/0x30
->> [ 1209.301410] ---[ end trace 733f120fe2ab13e5 ]---
->> [ 1209.301418] ------------[ cut here ]------------
->>=20
->> Signed-off-by: Jiang Liu <gerry@linux.alibaba.com>
->> ---
->> drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 9 +++++++--
->> drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h  | 1 +
->> 2 files changed, 8 insertions(+), 2 deletions(-)
->>=20
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c =
-b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
->> index b5e87b515139..0e41a535e05f 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
->> @@ -614,9 +614,11 @@ void amdgpu_fence_driver_hw_fini(struct =
-amdgpu_device *adev)
->>=20
->> 		if (!drm_dev_is_unplugged(adev_to_drm(adev)) &&
->> 		    ring->fence_drv.irq_src &&
->> -		    amdgpu_fence_need_ring_interrupt_restore(ring))
->> +		    ring->fence_drv.irq_enabled) {
->> 			amdgpu_irq_put(adev, ring->fence_drv.irq_src,
->> 				       ring->fence_drv.irq_type);
->> +		        ring->fence_drv.irq_enabled =3D false;
->> +		}
->>=20
->> 		del_timer_sync(&ring->fence_drv.fallback_timer);
->> 	}
->> @@ -693,9 +695,12 @@ void amdgpu_fence_driver_hw_init(struct =
-amdgpu_device *adev)
->>=20
->> 		/* enable the interrupt */
->> 		if (ring->fence_drv.irq_src &&
->> -		    amdgpu_fence_need_ring_interrupt_restore(ring))
->> +		    !ring->fence_drv.irq_enabled &&
->> +		    amdgpu_fence_need_ring_interrupt_restore(ring)) {
->> 			amdgpu_irq_get(adev, ring->fence_drv.irq_src,
->> 				       ring->fence_drv.irq_type);
->> +		        ring->fence_drv.irq_enabled =3D true;
->> +		}
->=20
-> I guess the problem is more generic like calling fence driver =
-hw_fini()
-> when hw_init is not called.
->=20
-You are so smart:)
-I=E2=80=99m working on another patch set to fix these generic issues by =
-tweaking the ip block and ras block state machine.
+>  	pci_set_drvdata(adev->pdev, NULL);
+>  }
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
+> index e209b5e101df..62dd5287808b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
+> @@ -283,6 +283,33 @@ static int amdgpu_xcp_dev_alloc(struct amdgpu_device *adev)
+>  	return 0;
+>  }
+>  
+> +static void amdgpu_xcp_dev_free(struct amdgpu_device *adev)
+> +{
+> +	struct drm_device *p_ddev;
+> +	int i;
+> +
+> +	if (!adev->xcp_mgr)
+> +		return;
+> +
+> +	for (i = 1; i < MAX_XCP; i++) {
+> +		if (!adev->xcp_mgr->xcp[i].ddev)
+> +			break;
+> +
+> +		// Restore and free the original drm_device.
+> +		p_ddev = adev->xcp_mgr->xcp[i].ddev;
+> +		p_ddev->render->dev = adev->xcp_mgr->xcp[i].rdev;
+> +		p_ddev->primary->dev = adev->xcp_mgr->xcp[i].pdev;
+> +		p_ddev->driver =  adev->xcp_mgr->xcp[i].driver;
+> +		p_ddev->vma_offset_manager = adev->xcp_mgr->xcp[i].vma_offset_manager;
+
+Now that there are more calls, this doesn't make sense here. What about
+moving the redirection along with register() (I guess it matters from
+that point onwards) and undoing it (restore back saved values) along
+with deregister()? With that, there won't be a need to have registered
+flag. You may only need to check if xcp rdev/pdev is not NULL.
+
+> +		amdgpu_xcp_drm_dev_free(p_ddev);
+> +
+> +		adev->xcp_mgr->xcp[i].ddev = NULL;
+> +	}
+> +
+> +	adev->xcp_mgr->xcp->ddev = NULL;
+> +}
+> +
+> +
+>  int amdgpu_xcp_mgr_init(struct amdgpu_device *adev, int init_mode,
+>  			int init_num_xcps,
+>  			struct amdgpu_xcp_mgr_funcs *xcp_funcs)
+> @@ -310,6 +337,13 @@ int amdgpu_xcp_mgr_init(struct amdgpu_device *adev, int init_mode,
+>  	return amdgpu_xcp_dev_alloc(adev);
+>  }
+>  
+> +void amdgpu_xcp_mgr_fini(struct amdgpu_device *adev)
+> +{
+> +	amdgpu_xcp_dev_free(adev);
+> +	kfree(adev->xcp_mgr);
+> +	adev->xcp_mgr = NULL;
+
+Thanks for adding this.
+
 Thanks,
-Gerry
+Lijo
 
-> Thanks,
-> Lijo
->=20
->> 	}
->> }
->>=20
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h =
-b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
->> index dee5a1b4e572..959d474a0516 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
->> @@ -118,6 +118,7 @@ struct amdgpu_fence_driver {
->> 	uint32_t			sync_seq;
->> 	atomic_t			last_seq;
->> 	bool				initialized;
->> +	bool				irq_enabled;
->> 	struct amdgpu_irq_src		*irq_src;
->> 	unsigned			irq_type;
->> 	struct timer_list		fallback_timer;
+> +}
+> +
+>  int amdgpu_xcp_get_partition(struct amdgpu_xcp_mgr *xcp_mgr,
+>  			     enum AMDGPU_XCP_IP_BLOCK ip, int instance)
+>  {
+> @@ -359,12 +393,14 @@ int amdgpu_xcp_dev_register(struct amdgpu_device *adev,
+>  		ret = drm_dev_register(adev->xcp_mgr->xcp[i].ddev, ent->driver_data);
+>  		if (ret)
+>  			return ret;
+> +
+> +		adev->xcp_mgr->xcp[i].registered = true;
+>  	}
+>  
+>  	return 0;
+>  }
+>  
+> -void amdgpu_xcp_dev_unplug(struct amdgpu_device *adev)
+> +void amdgpu_xcp_dev_deregister(struct amdgpu_device *adev)
+>  {
+>  	struct drm_device *p_ddev;
+>  	int i;
+> @@ -377,11 +413,10 @@ void amdgpu_xcp_dev_unplug(struct amdgpu_device *adev)
+>  			break;
+>  
+>  		p_ddev = adev->xcp_mgr->xcp[i].ddev;
+> -		drm_dev_unplug(p_ddev);
+> -		p_ddev->render->dev = adev->xcp_mgr->xcp[i].rdev;
+> -		p_ddev->primary->dev = adev->xcp_mgr->xcp[i].pdev;
+> -		p_ddev->driver =  adev->xcp_mgr->xcp[i].driver;
+> -		p_ddev->vma_offset_manager = adev->xcp_mgr->xcp[i].vma_offset_manager;
+> +		if (adev->xcp_mgr->xcp[i].registered) {
+> +			drm_dev_unplug(p_ddev);
+> +			adev->xcp_mgr->xcp[i].registered = false;
+> +		}
+>  	}
+>  }
+>  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h
+> index b63f53242c57..be22d4398463 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h
+> @@ -101,6 +101,7 @@ struct amdgpu_xcp {
+>  	uint8_t id;
+>  	uint8_t mem_id;
+>  	bool valid;
+> +	bool registered;
+>  	atomic_t	ref_cnt;
+>  	struct drm_device *ddev;
+>  	struct drm_device *rdev;
+> @@ -155,6 +156,7 @@ int amdgpu_xcp_resume(struct amdgpu_xcp_mgr *xcp_mgr, int xcp_id);
+>  
+>  int amdgpu_xcp_mgr_init(struct amdgpu_device *adev, int init_mode,
+>  			int init_xcps, struct amdgpu_xcp_mgr_funcs *xcp_funcs);
+> +void amdgpu_xcp_mgr_fini(struct amdgpu_device *adev);
+>  int amdgpu_xcp_init(struct amdgpu_xcp_mgr *xcp_mgr, int num_xcps, int mode);
+>  int amdgpu_xcp_query_partition_mode(struct amdgpu_xcp_mgr *xcp_mgr, u32 flags);
+>  int amdgpu_xcp_switch_partition_mode(struct amdgpu_xcp_mgr *xcp_mgr, int mode);
+> @@ -168,7 +170,7 @@ int amdgpu_xcp_get_inst_details(struct amdgpu_xcp *xcp,
+>  
+>  int amdgpu_xcp_dev_register(struct amdgpu_device *adev,
+>  				const struct pci_device_id *ent);
+> -void amdgpu_xcp_dev_unplug(struct amdgpu_device *adev);
+> +void amdgpu_xcp_dev_deregister(struct amdgpu_device *adev);
+>  int amdgpu_xcp_open_device(struct amdgpu_device *adev,
+>  			   struct amdgpu_fpriv *fpriv,
+>  			   struct drm_file *file_priv);
 
-
---Apple-Mail=_AF20CCA0-3AFC-4760-96C0-D6A05048FBDB
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/html;
-	charset=utf-8
-
-<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html; =
-charset=3Dutf-8"></head><body style=3D"word-wrap: break-word; =
--webkit-nbsp-mode: space; line-break: after-white-space;" class=3D""><br =
-class=3D""><div><br class=3D""><blockquote type=3D"cite" class=3D""><div =
-class=3D"">2025=E5=B9=B41=E6=9C=888=E6=97=A5 18:02=EF=BC=8CLazar, Lijo =
-&lt;<a href=3D"mailto:lijo.lazar@amd.com" =
-class=3D"">lijo.lazar@amd.com</a>&gt; =E5=86=99=E9=81=93=EF=BC=9A</div><br=
- class=3D"Apple-interchange-newline"><div class=3D""><meta =
-charset=3D"UTF-8" class=3D""><br style=3D"caret-color: rgb(0, 0, 0); =
-font-family: Helvetica; font-size: 18px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><br style=3D"caret-color: rgb(0, 0, =
-0); font-family: Helvetica; font-size: 18px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: Helvetica; font-size: 18px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">On 1/8/2025 2:26 PM, Jiang Liu wrote:</span><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size: =
-18px; font-style: normal; font-variant-caps: normal; font-weight: 400; =
-letter-spacing: normal; text-align: start; text-indent: 0px; =
-text-transform: none; white-space: normal; word-spacing: 0px; =
--webkit-text-stroke-width: 0px; text-decoration: none;" =
-class=3D""><blockquote type=3D"cite" style=3D"font-family: Helvetica; =
-font-size: 18px; font-style: normal; font-variant-caps: normal; =
-font-weight: 400; letter-spacing: normal; orphans: auto; text-align: =
-start; text-indent: 0px; text-transform: none; white-space: normal; =
-widows: auto; word-spacing: 0px; -webkit-text-size-adjust: auto; =
--webkit-text-stroke-width: 0px; text-decoration: none;" class=3D"">If =
-error happens before amdgpu_fence_driver_hw_init() gets called during<br =
-class=3D"">device probe, it will trigger a false warning in =
-amdgpu_irq_put() as<br class=3D"">below:<br class=3D"">[ 1209.300996] =
-------------[ cut here ]------------<br class=3D"">[ 1209.301061] =
-WARNING: CPU: 48 PID: 293 at =
-/tmp/amd.Rc9jFrl7/amd/amdgpu/amdgpu_irq.c:633 amdgpu_irq_put+0x45/0x70 =
-[amdgpu]<br class=3D"">[ 1209.301062] Modules linked in: ...<br =
-class=3D"">[ 1209.301093] CPU: 48 PID: 293 Comm: kworker/48:1 Kdump: =
-loaded Tainted: G &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;W &nbsp;OE =
-&nbsp;&nbsp;&nbsp;&nbsp;5.10.134-17.2.al8.x86_64 #1<br class=3D"">[ =
-1209.301094] Hardware name: Alibaba Alibaba Cloud ECS/Alibaba Cloud ECS, =
-BIOS 3.0.ES.AL.P.087.05 04/07/2024<br class=3D"">[ 1209.301095] =
-Workqueue: events work_for_cpu_fn<br class=3D"">[ 1209.301159] RIP: =
-0010:amdgpu_irq_put+0x45/0x70 [amdgpu]<br class=3D"">[ 1209.301160] =
-Code: 48 8b 4e 10 48 83 39 00 74 2c 89 d1 48 8d 04 88 8b 08 85 c9 74 14 =
-f0 ff 08 b8 00 00 00 00 74 05 c3 cc cc cc cc e9 8b fd ff ff &lt;0f&gt; =
-0b b8 ea ff ff ff c3 cc cc cc cc b8 ea ff ff ff c3 cc cc cc cc<br =
-class=3D"">[ 1209.301162] RSP: 0018:ffffb08a99c8fd88 EFLAGS: 00010246<br =
-class=3D"">[ 1209.301162] RAX: ffff9efe1bcbf500 RBX: ffff9efe1cc3e400 =
-RCX: 0000000000000000<br class=3D"">[ 1209.301163] RDX: 0000000000000000 =
-RSI: ffff9efe1cc3b108 RDI: ffff9efe1cc00000<br class=3D"">[ 1209.301163] =
-RBP: ffff9efe1cc10818 R08: 0000000000000001 R09: 000000000000000d<br =
-class=3D"">[ 1209.301164] R10: ffffb08a99c8fb48 R11: ffffffffa2068018 =
-R12: ffff9efe1cc109d0<br class=3D"">[ 1209.301164] R13: ffff9efe1cc00010 =
-R14: ffff9efe1cc00000 R15: ffff9efe1cc3b108<br class=3D"">[ 1209.301165] =
-FS: &nbsp;0000000000000000(0000) GS:ffff9ff9fce00000(0000) =
-knlGS:0000000000000000<br class=3D"">[ 1209.301165] CS: &nbsp;0010 DS: =
-0000 ES: 0000 CR0: 0000000080050033<br class=3D"">[ 1209.301165] CR2: =
-00007fd0f6e860d0 CR3: 0000010092baa003 CR4: 0000000002770ee0<br =
-class=3D"">[ 1209.301166] DR0: 0000000000000000 DR1: 0000000000000000 =
-DR2: 0000000000000000<br class=3D"">[ 1209.301166] DR3: 0000000000000000 =
-DR6: 00000000fffe07f0 DR7: 0000000000000400<br class=3D"">[ 1209.301167] =
-PKRU: 55555554<br class=3D"">[ 1209.301167] Call Trace:<br class=3D"">[ =
-1209.301225] &nbsp;amdgpu_fence_driver_hw_fini+0xda/0x110 [amdgpu]<br =
-class=3D"">[ 1209.301284] &nbsp;amdgpu_device_fini_hw+0xaf/0x200 =
-[amdgpu]<br class=3D"">[ 1209.301342] =
-&nbsp;amdgpu_driver_load_kms+0x7f/0xc0 [amdgpu]<br class=3D"">[ =
-1209.301400] &nbsp;amdgpu_pci_probe+0x1cd/0x4a0 [amdgpu]<br class=3D"">[ =
-1209.301401] &nbsp;local_pci_probe+0x40/0xa0<br class=3D"">[ =
-1209.301402] &nbsp;work_for_cpu_fn+0x13/0x20<br class=3D"">[ =
-1209.301403] &nbsp;process_one_work+0x1ad/0x380<br class=3D"">[ =
-1209.301404] &nbsp;worker_thread+0x1c8/0x310<br class=3D"">[ =
-1209.301405] &nbsp;? process_one_work+0x380/0x380<br class=3D"">[ =
-1209.301406] &nbsp;kthread+0x118/0x140<br class=3D"">[ 1209.301407] =
-&nbsp;? __kthread_bind_mask+0x60/0x60<br class=3D"">[ 1209.301408] =
-&nbsp;ret_from_fork+0x1f/0x30<br class=3D"">[ 1209.301410] ---[ end =
-trace 733f120fe2ab13e5 ]---<br class=3D"">[ 1209.301418] ------------[ =
-cut here ]------------<br class=3D""><br class=3D"">Signed-off-by: Jiang =
-Liu &lt;<a href=3D"mailto:gerry@linux.alibaba.com" =
-class=3D"">gerry@linux.alibaba.com</a>&gt;<br class=3D"">---<br =
-class=3D"">drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 9 +++++++--<br =
-class=3D"">drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h &nbsp;| 1 +<br =
-class=3D"">2 files changed, 8 insertions(+), 2 deletions(-)<br =
-class=3D""><br class=3D"">diff --git =
-a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c =
-b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c<br class=3D"">index =
-b5e87b515139..0e41a535e05f 100644<br class=3D"">--- =
-a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c<br class=3D"">+++ =
-b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c<br class=3D"">@@ -614,9 =
-+614,11 @@ void amdgpu_fence_driver_hw_fini(struct amdgpu_device =
-*adev)<br class=3D""><br class=3D""><span class=3D"Apple-tab-span" =
-style=3D"white-space: pre;">	</span><span class=3D"Apple-tab-span" =
-style=3D"white-space: pre;">	</span>if =
-(!drm_dev_is_unplugged(adev_to_drm(adev)) &amp;&amp;<br class=3D""><span =
-class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span><span =
-class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span><span =
-class=3D"Apple-converted-space">&nbsp;</span>&nbsp;&nbsp;&nbsp;ring-&gt;fe=
-nce_drv.irq_src &amp;&amp;<br class=3D"">-<span class=3D"Apple-tab-span" =
-style=3D"white-space: pre;">	</span><span class=3D"Apple-tab-span" =
-style=3D"white-space: pre;">	</span><span =
-class=3D"Apple-converted-space">&nbsp;</span>&nbsp;&nbsp;&nbsp;amdgpu_fenc=
-e_need_ring_interrupt_restore(ring))<br class=3D"">+<span =
-class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span><span =
-class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span><span =
-class=3D"Apple-converted-space">&nbsp;</span>&nbsp;&nbsp;&nbsp;ring-&gt;fe=
-nce_drv.irq_enabled) {<br class=3D""><span class=3D"Apple-tab-span" =
-style=3D"white-space: pre;">	</span><span class=3D"Apple-tab-span" =
-style=3D"white-space: pre;">	</span><span class=3D"Apple-tab-span" =
-style=3D"white-space: pre;">	</span>amdgpu_irq_put(adev, =
-ring-&gt;fence_drv.irq_src,<br class=3D""><span class=3D"Apple-tab-span" =
-style=3D"white-space: pre;">	</span><span class=3D"Apple-tab-span" =
-style=3D"white-space: pre;">	</span><span class=3D"Apple-tab-span" =
-style=3D"white-space: pre;">	</span><span class=3D"Apple-tab-span" =
-style=3D"white-space: pre;">	</span><span =
-class=3D"Apple-converted-space">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;ring-&gt;fence_drv.irq_type);<br class=3D"">+<span =
-class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span><span =
-class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span><span =
-class=3D"Apple-converted-space">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;ring-&gt;fence_drv.irq_enabled =3D false;<br =
-class=3D"">+<span class=3D"Apple-tab-span" style=3D"white-space: pre;">	=
-</span><span class=3D"Apple-tab-span" style=3D"white-space: pre;">	=
-</span>}<br class=3D""><br class=3D""><span class=3D"Apple-tab-span" =
-style=3D"white-space: pre;">	</span><span class=3D"Apple-tab-span" =
-style=3D"white-space: pre;">	=
-</span>del_timer_sync(&amp;ring-&gt;fence_drv.fallback_timer);<br =
-class=3D""><span class=3D"Apple-tab-span" style=3D"white-space: pre;">	=
-</span>}<br class=3D"">@@ -693,9 +695,12 @@ void =
-amdgpu_fence_driver_hw_init(struct amdgpu_device *adev)<br class=3D""><br =
-class=3D""><span class=3D"Apple-tab-span" style=3D"white-space: pre;">	=
-</span><span class=3D"Apple-tab-span" style=3D"white-space: pre;">	=
-</span>/* enable the interrupt */<br class=3D""><span =
-class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span><span =
-class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span>if =
-(ring-&gt;fence_drv.irq_src &amp;&amp;<br class=3D"">-<span =
-class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span><span =
-class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span><span =
-class=3D"Apple-converted-space">&nbsp;</span>&nbsp;&nbsp;&nbsp;amdgpu_fenc=
-e_need_ring_interrupt_restore(ring))<br class=3D"">+<span =
-class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span><span =
-class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span><span =
-class=3D"Apple-converted-space">&nbsp;</span>&nbsp;&nbsp;&nbsp;!ring-&gt;f=
-ence_drv.irq_enabled &amp;&amp;<br class=3D"">+<span =
-class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span><span =
-class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span><span =
-class=3D"Apple-converted-space">&nbsp;</span>&nbsp;&nbsp;&nbsp;amdgpu_fenc=
-e_need_ring_interrupt_restore(ring)) {<br class=3D""><span =
-class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span><span =
-class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span><span =
-class=3D"Apple-tab-span" style=3D"white-space: pre;">	=
-</span>amdgpu_irq_get(adev, ring-&gt;fence_drv.irq_src,<br =
-class=3D""><span class=3D"Apple-tab-span" style=3D"white-space: pre;">	=
-</span><span class=3D"Apple-tab-span" style=3D"white-space: pre;">	=
-</span><span class=3D"Apple-tab-span" style=3D"white-space: pre;">	=
-</span><span class=3D"Apple-tab-span" style=3D"white-space: pre;">	=
-</span><span =
-class=3D"Apple-converted-space">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;ring-&gt;fence_drv.irq_type);<br class=3D"">+<span =
-class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span><span =
-class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span><span =
-class=3D"Apple-converted-space">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;ring-&gt;fence_drv.irq_enabled =3D true;<br class=3D"">+<span=
- class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span><span =
-class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span>}<br =
-class=3D""></blockquote><br style=3D"caret-color: rgb(0, 0, 0); =
-font-family: Helvetica; font-size: 18px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: Helvetica; font-size: 18px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">I guess the problem is more generic like calling fence driver =
-hw_fini()</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Helvetica; font-size: 18px; font-style: normal; font-variant-caps: =
-normal; font-weight: 400; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Helvetica; font-size: 18px; font-style: normal; font-variant-caps: =
-normal; font-weight: 400; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">when hw_init =
-is not called.</span><br style=3D"caret-color: rgb(0, 0, 0); =
-font-family: Helvetica; font-size: 18px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><br style=3D"caret-color: rgb(0, 0, =
-0); font-family: Helvetica; font-size: 18px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""></div></blockquote>You are so =
-smart:)<br class=3D""><div>I=E2=80=99m working on another patch set to =
-fix these generic issues by tweaking the ip block and ras block state =
-machine.</div><div>Thanks,</div><div>Gerry</div><br class=3D""><blockquote=
- type=3D"cite" class=3D""><div class=3D""><span style=3D"caret-color: =
-rgb(0, 0, 0); font-family: Helvetica; font-size: 18px; font-style: =
-normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">Thanks,</span><br style=3D"caret-color: rgb(0, 0, 0); =
-font-family: Helvetica; font-size: 18px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: Helvetica; font-size: 18px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">Lijo</span><br style=3D"caret-color: rgb(0, 0, 0); =
-font-family: Helvetica; font-size: 18px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><br style=3D"caret-color: rgb(0, 0, =
-0); font-family: Helvetica; font-size: 18px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><blockquote type=3D"cite" =
-style=3D"font-family: Helvetica; font-size: 18px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-orphans: auto; text-align: start; text-indent: 0px; text-transform: =
-none; white-space: normal; widows: auto; word-spacing: 0px; =
--webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span class=3D"Apple-tab-span" =
-style=3D"white-space: pre;">	</span>}<br class=3D"">}<br class=3D""><br=
- class=3D"">diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h =
-b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h<br class=3D"">index =
-dee5a1b4e572..959d474a0516 100644<br class=3D"">--- =
-a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h<br class=3D"">+++ =
-b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h<br class=3D"">@@ -118,6 =
-+118,7 @@ struct amdgpu_fence_driver {<br class=3D""><span =
-class=3D"Apple-tab-span" style=3D"white-space: pre;">	=
-</span>uint32_t<span class=3D"Apple-tab-span" style=3D"white-space: =
-pre;">	</span><span class=3D"Apple-tab-span" style=3D"white-space: =
-pre;">	</span><span class=3D"Apple-tab-span" style=3D"white-space: =
-pre;">	</span>sync_seq;<br class=3D""><span class=3D"Apple-tab-span" =
-style=3D"white-space: pre;">	</span>atomic_t<span =
-class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span><span =
-class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span><span =
-class=3D"Apple-tab-span" style=3D"white-space: pre;">	=
-</span>last_seq;<br class=3D""><span class=3D"Apple-tab-span" =
-style=3D"white-space: pre;">	</span>bool<span class=3D"Apple-tab-span" =
-style=3D"white-space: pre;">	</span><span class=3D"Apple-tab-span" =
-style=3D"white-space: pre;">	</span><span class=3D"Apple-tab-span" =
-style=3D"white-space: pre;">	</span><span class=3D"Apple-tab-span" =
-style=3D"white-space: pre;">	</span>initialized;<br class=3D"">+<span =
-class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span>bool<span =
-class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span><span =
-class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span><span =
-class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span><span =
-class=3D"Apple-tab-span" style=3D"white-space: pre;">	=
-</span>irq_enabled;<br class=3D""><span class=3D"Apple-tab-span" =
-style=3D"white-space: pre;">	</span>struct amdgpu_irq_src<span =
-class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span><span =
-class=3D"Apple-tab-span" style=3D"white-space: pre;">	=
-</span>*irq_src;<br class=3D""><span class=3D"Apple-tab-span" =
-style=3D"white-space: pre;">	</span>unsigned<span =
-class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span><span =
-class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span><span =
-class=3D"Apple-tab-span" style=3D"white-space: pre;">	=
-</span>irq_type;<br class=3D""><span class=3D"Apple-tab-span" =
-style=3D"white-space: pre;">	</span>struct timer_list<span =
-class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span><span =
-class=3D"Apple-tab-span" style=3D"white-space: pre;">	=
-</span>fallback_timer;</blockquote></div></blockquote></div><br =
-class=3D""></body></html>=
-
---Apple-Mail=_AF20CCA0-3AFC-4760-96C0-D6A05048FBDB--
