@@ -4,156 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24489E7719A
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jan 2025 17:35:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65320E77188
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jan 2025 18:00:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86C9610E900;
-	Wed,  8 Jan 2025 17:35:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E84310E0A7;
+	Wed,  8 Jan 2025 18:00:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="HS6/7LoB";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="O0NiXnu0";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2060.outbound.protection.outlook.com [40.107.237.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 25F2610E900
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Jan 2025 17:35:32 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eCJL44brygSsGkwR0b6YPENck6ou0nsUG4cu7wQMO3OmC1L2np29due9+lJhB2oy+cszOsrGT0nxkLPGK8xcFOjEaD0cYpbzYoDXwoqGhdH5BYBNoRXxzKORpqTOTCh760DGXZ83OEZWsx1Q8+22rqxYZiTrkoImKlHov5l9pa3kd26r6M/nAQYb+1B+6tVq7bva779V/GebNDdc8NjrNV/XhGPO6giSO5eM8P4Fr4Mqn85uTeohsyJUG+bQFsHE38dJunuUFivW8b258JrPVdRe2rHyy764lvXgjppD2ZJNg8Y83Gz7cOgELmccWvWvkeico1s2Y7MsOAcvIoKdGw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HfpYdsyDa4X5lUb6fpDPSYFIOU+6eF5+kui2l8J7Xtc=;
- b=IKcp1Ch0/UDz29b2WT8aNcu5A/vwZp2piMsTf3sfUmFVeiTCXl+TdPLxmpm0uPilkJwqf9c9YJeT5C6Wbbh4atfKCHWc52PlEGX315XZteUKn+sy8KYjQ6aziCOeBayqKunDqVOMZDr+rni5mILIXDJ7VPWx65rMxKabQKYjSVTnsL1AwODok4fnqhtKtVrpbWAza7r0xlC8pY5EizVpKPvnLnsXiGcAt0GPG2EOhBD0cUTkFcrkouREXwwBkWqYa+a6tyRJ2HGy5abQontEYTR2PFqJY/lpJKHi+CkkHjjhWoxnr5Ov76MHt5MVokCOeox8VeA1ZBAqV3P46iqg2Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HfpYdsyDa4X5lUb6fpDPSYFIOU+6eF5+kui2l8J7Xtc=;
- b=HS6/7LoB1ou4y4Nte2aMJRH3HVvBqvkR/u0G0IjMvaz6slllb1lHTt9HZRD7+1Cipy9AgIG4UsLrC1e6tsj2fPyYe7V67FeY2+zzkJ0WjAnZyXwAKP/djKgKv+Vno6zxeGnqxXfx0tluBQk7qb9y2oHVBgCZmol3TlBY5E6fPt0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CY5PR12MB6108.namprd12.prod.outlook.com (2603:10b6:930:27::15)
- by DM3PR12MB9415.namprd12.prod.outlook.com (2603:10b6:8:1ac::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8314.17; Wed, 8 Jan
- 2025 17:19:28 +0000
-Received: from CY5PR12MB6108.namprd12.prod.outlook.com
- ([fe80::46e5:5b51:72c3:3754]) by CY5PR12MB6108.namprd12.prod.outlook.com
- ([fe80::46e5:5b51:72c3:3754%6]) with mapi id 15.20.8293.000; Wed, 8 Jan 2025
- 17:19:28 +0000
-Message-ID: <9c6f3c11-0782-47f3-ba7e-eb6d8ba66d31@amd.com>
-Date: Wed, 8 Jan 2025 11:19:26 -0600
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 03/13] drm/amdgpu: add a flag to track ras debugfs
- creation status
-To: Jiang Liu <gerry@linux.alibaba.com>, alexander.deucher@amd.com,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- simona@ffwll.ch, sunil.khatri@amd.com, lijo.lazar@amd.com,
- Hawking.Zhang@amd.com, Jun.Ma2@amd.com, xiaogang.chen@amd.com,
- Kent.Russell@amd.com, shuox.liu@linux.alibaba.com,
- amd-gfx@lists.freedesktop.org
-References: <cover.1736344725.git.gerry@linux.alibaba.com>
- <014a704e91787b123203d568256861000a7fe558.1736344725.git.gerry@linux.alibaba.com>
-Content-Language: en-US
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <014a704e91787b123203d568256861000a7fe558.1736344725.git.gerry@linux.alibaba.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SA1P222CA0122.NAMP222.PROD.OUTLOOK.COM
- (2603:10b6:806:3c5::17) To CY5PR12MB6108.namprd12.prod.outlook.com
- (2603:10b6:930:27::15)
+Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com
+ [209.85.210.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0DE1010E07F
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Jan 2025 18:00:38 +0000 (UTC)
+Received: by mail-ot1-f54.google.com with SMTP id
+ 46e09a7af769-71e111248a2so1511a34.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 08 Jan 2025 10:00:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1736359178; x=1736963978; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=CjQMC5LGQZZmvVKwj0vj+M3Xt4aWxoBIy70XTqexMiQ=;
+ b=O0NiXnu0YrrMWtiUQYz9bSQ/2Ve3FNlHBy5MC6BwOJhOGZT/zR7uIED3ok/jaEKbqL
+ qe0i2ylAdNWC84vwYSXaCiCbQ4WdzmPDKFHdyB+zS6AxvEvCNN4DvxpQGCFsUDdP8JoX
+ JcHcM+8c+tG/B9sN0wuA+FEryOIX4x2OGutVxLf032RULKxSzcUrAHDQ3O3GwltsjRxf
+ bKYAv5BmVlojNY+DY8f0CI9Van7vKMB4/SHPMwNLifC7u/xYIhtlCqUL5pzcAwBr4Jha
+ sccBmqDJ8xTjZJKAYWUXuuhGNK61WhkiNu3o/kyTyvW1OYhrBfuiF8juyP+k5kF1Q71c
+ BFqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1736359178; x=1736963978;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=CjQMC5LGQZZmvVKwj0vj+M3Xt4aWxoBIy70XTqexMiQ=;
+ b=D0mY+U1/Q+fvtzPiJgGiu8tVRdZETheD6tXRfKx64qQiltnt8MXWawFBeWo+Soi89h
+ ya8BA+KdppHp9sqwxvdEMKO6EeTon54pGksCETJQSZJlvdQOJiVAQrBLCc12k5NdTHQ/
+ F2ASI7ibhktLrbsMM3DYiqMavscmZQB3WqfyTcQKxAvHdaPrluyDC+ZOHn1fGPXz2ich
+ KTWBYpHKa9Uw8WR5J4I0i/CvGyAbxbzW/RR8AkFj4uXxtszrL8HwmO2h/egyjv7LwSRc
+ JC8yNVg8QpDVsaPkOqaP5LfquLglhjPVyegqp6JMk+iyFqVsLQEoEpvnTwL+2eAgEEip
+ bTpg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVWL1xoehmBQy440ois7E3xRqLEnL+2S5MYtS6i+2ZRlbp8YCwv17eIFR2ZRvMwTUU1p6+Fxd29@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzqKnbARyvKQN8zHDL43DpS7gvay5cdDrgxm/wArkI3VVWQ91J2
+ WVDQ7UNe4C8TSm4EjOR9gEWPwagQLZgL20WFZkQBVD9wcQeZQiuZ/VaEa5wewl3B2hJd2DI5g9P
+ MF97T6qWy4Sk3j2713vvEyyWO9HjuxQ==
+X-Gm-Gg: ASbGnct8kGUACgFnAB3fidXaz1e7fplJ3V+HJk9v8XddCGkHrJ8qcYBycKpwQe9uNGJ
+ APqZ2ZTqK2TkeTPutyd5Xr37Lgkr2LVejyIH1bg==
+X-Google-Smtp-Source: AGHT+IGagO4uiFnpL/oakOpsXeapQbBkOZctUJfF+1VztIg+pRsT2n5loYAVe2P+LD/hL5TZ7widVPeytGAu+wAG+Wk=
+X-Received: by 2002:a17:90a:f945:b0:2ee:acea:9ec4 with SMTP id
+ 98e67ed59e1d1-2f548eb3faamr1947641a91.3.1736357899327; Wed, 08 Jan 2025
+ 09:38:19 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY5PR12MB6108:EE_|DM3PR12MB9415:EE_
-X-MS-Office365-Filtering-Correlation-Id: 566e2230-37bf-4f50-a3d9-08dd30089b97
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|7053199007|921020; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?aFZ3QUpzaUJOSFlJUFdzeDNTMkM1dFYzTmt0QzR4N3ZzSzFlSDNka3BRdWln?=
- =?utf-8?B?TWpmaTFPNHN4Y2Qrc0ZRdXB4aFVRTmZlNnM1T1NFbit1RnpqcDNENGV0ei9Z?=
- =?utf-8?B?NXlZLy9RcEsxcGVqa2tEbTQ5MGE5TGU4Z3pNeHJ3bnNKVms2U2l1SWhyZW96?=
- =?utf-8?B?NEI5b0pqem56d3gvRDJOTFFQQjF6TmpEQlMvQWtldWk2RlhSVnNLMFNWcjg3?=
- =?utf-8?B?bUhXdWl1THZ0U2ZaYWoyZm1Oc0VQMkpVYU5WZGdUSzVERFU4UG9PaFNqYzdv?=
- =?utf-8?B?U3Z6Z2UxclBpQXV4Tk9Jc2RzMnM1ZmU5RlRsaEJIT1lrQzNscjlyRTgxaWlV?=
- =?utf-8?B?dko5aWtQZzJnM3VwNjF3Vis5OWltNWcyWnRqVGxEM0phaW8zYWw0TVZqV1JD?=
- =?utf-8?B?UzNqTFJzMnhMVUNKR3VOWFJPWHdDeEVGd0owVUUzT3lTOUhHdUtacDQwbzEr?=
- =?utf-8?B?NE9WNFhpVEorTVNlcDVVUUFkdXREeG5tb3pMczRNaTJHUlk5L1FhTTdxVW5R?=
- =?utf-8?B?MXVSTXFzL2ttb1ljbFBkVUJhdFBMYmcyMDBmMDdydEZvQzFzeVBMNGhla3Nj?=
- =?utf-8?B?Z1Z6VC9zWjJkN2JkQzhCbk1pbFF3V092RGFKRGtiOW1IanovN2RKRjFpLzVr?=
- =?utf-8?B?Tk43bWNoYWttVWlsYVd2aUlxdmNCVHBKUlhXTG13Ym00NXM0ZW5IT1IxTEtw?=
- =?utf-8?B?NmFCcjEzM0JXM1lQbFNlWm5CVmpiM3NUalFuVU9zc21vRUt3UTUyZ2xrcjNV?=
- =?utf-8?B?c2FhSVhINm5MdkdHQUE4RkJ1bEZWSDQwRGFoRkhBS29zTlhHRmRWS3JzN01D?=
- =?utf-8?B?QklGK1lhaG5PWjJtd2ljZTNob01HRmVYMVhyR1VBS3J1V1MwZDNBQ2dPQWFC?=
- =?utf-8?B?eWpaNGJJUnhTNXo5M3VwSGdKaGVFQis0VXBhQ20zK1lTSTVFSWRCR1lvakky?=
- =?utf-8?B?VGd5RkpId3BXNnFBZlY5bGpHdHNqT251ZURtc3c0VkhORzNML0l2MjduNkpU?=
- =?utf-8?B?V3RmZHhrM3pYb2ZyZWpqYWtZVGtyaWZoblpTYzBiKzdUS0xhRHIwaWVmVlZt?=
- =?utf-8?B?YUk4RGFIUkJyWlpxTUpsNktTKy9xMXZJRzNyM3BGZ3ByUWJvdUlhay9OOUV4?=
- =?utf-8?B?TlNvZjJuMTM1NnlBWit3N0VtcGhxdDI0eTJ6aHJKOU01czhqeDA4eXMxcTZN?=
- =?utf-8?B?NG12dTRkNmQ5WW55SHd0WG1mOXBVcFI5SmJxc1BkNVcxblNJMVJ3OEQxWjAw?=
- =?utf-8?B?dHlGanFtYWcxaGpDL3hYK1BxWXpVR05ob2RUM1kyZGRnL094Z0ZRdjhSZXNG?=
- =?utf-8?B?ZnVUL1NNY3VDVGRJdGFTYUxSLzM5TmNISDlJS0FHYjFnVkZwK3k1TExRZ0dl?=
- =?utf-8?B?TnFjaEJqWU5uK2kvWGhwd1dUREtMcCsyT0NWU01RWVdteW5PaW5NNjFTRmsy?=
- =?utf-8?B?SUtPY25KYjYzRkhRT1hoWDVBSzNkRjlzeW8xbXZHTjNwRVVPYU1OZkw5NFRa?=
- =?utf-8?B?YVhqY1cxM3BSa0ovMElWemgzSnl5RHhFdzYvdFFEODMwMW1LZ2Q0TzU1NExR?=
- =?utf-8?B?RVdtQzJMeVVYblFKdzAzUGk1NzNTZWJxNEsya2tkUGszWERNN291U0xlNE5y?=
- =?utf-8?B?aEQ5MXNoRlVOTnVKZCtHK3hVRDNxQjlvSWRqYU5VY3JObmRyOFZMcC85Zm84?=
- =?utf-8?B?RFl1ZlgxR1JjLzhvM01lN25LUnhVYVVCUUtIUHlJTVkyTHRoNUtkcUhLNFFH?=
- =?utf-8?B?S2FQUWhpTUQrU3pOVDJhYnpWaVJQVVYyaUI3c0dGOUt5cmRXUlFyR1ZKd2h6?=
- =?utf-8?B?UmpXbGRzdGdwUG5MMFBWUEFMeDBNalB6akdYbDNKSEpVTUhndVFFTVMwdFdq?=
- =?utf-8?B?N1pnWHlBTXZNbm96MzVrdmVJSXFmREFISmVpZyt2emlpNllReVEyK09lSzRF?=
- =?utf-8?Q?w7nqVECxAgk=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY5PR12MB6108.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(7053199007)(921020); DIR:OUT;
- SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aVA5Z1ptRGxrVTE3bjQzc3F2bEJRMDJvT3JvUURNV1lMcThLQmc2RjUzVEg0?=
- =?utf-8?B?ZVpMbnh0RGVraUNkK0YzWm15STFLVFAxeXFFalRUNVk1dmFGemhHSmdoUWVU?=
- =?utf-8?B?UkZ0bDVMeHVVVCsvaU5mdERkT24rNU40LzZ3UVhnL29McU16R29xdHFHYlNM?=
- =?utf-8?B?TVpEcDQzL3piNjM2SmtlaVUvSWJoREdNWHBRUjNCbDgyalhEUmRhOWFVWWtE?=
- =?utf-8?B?M1ZKcFNNUitNRkdIMUxNNjlTanlkc3NaS2Y0ZGd5ZTNKUTF5RkluZndUVmVx?=
- =?utf-8?B?Wmk5S0xQU0dpdVZyMVI0QmJidzJHZEFPWTYyVHZFWUYvbE0vODY3ckF1aVFP?=
- =?utf-8?B?YkRKUFhrdUxQWlhYcTFvTnNiTUZGUEhyRm44UnVkSXBaSDBVOW1hK1NnelNu?=
- =?utf-8?B?TWNsUXJoZk9VRnZxNnpERTJTOTI1NmN3NGdZdHRLT1gvemdOcnBCb3VycWtG?=
- =?utf-8?B?SkEwUGNaZG9ndXZwQ2VVVU14RXkxYkJRZUpyZldiakdYWU1NVXFNUElvVUpn?=
- =?utf-8?B?TlRybXc4b1kzRHp0WWFlTnlPRmR1ZS9jR2Y4VC9CUXRtMSt6Nms0N1ZIbHc3?=
- =?utf-8?B?TjltZTRNVmN4eXIyZGdjeitaRFVSQy9MTUxGTjBrRHRnQ2VLZUR2cG1FaHJM?=
- =?utf-8?B?allzakdqS2xlRXZDZ3ZyTENnbnhseWpnUDJQMzg5YzBoaldEdENlakg4OTJn?=
- =?utf-8?B?VmxoYUtOVnFuZTNYQ3d3cmk5MUw5Q0Z4V0JzdWduUUhhaVR1bTh0YjFUQlRv?=
- =?utf-8?B?OEtiQjFhTEVuWUZyTWpBeXNjUWNlMkpsbUVkd254NXkrMjRXaHVBeUtyakZP?=
- =?utf-8?B?K2tkVndzOU9VNElsMlVXb2pmY3N3MFRBaTBDaDQ3Snd2Q2dkSWIrMnhwVnVE?=
- =?utf-8?B?OVNoQ3paMWVSOVVOZGl1RDBYZDlPdDE4d1JOckxyTUJMcTkxdmlvSVBwaExT?=
- =?utf-8?B?M0xJVjFGd2hNOFF1amFCY0xISTB0SXM2UEMzbDFJUjE2R3p5cCtoZDF5czh0?=
- =?utf-8?B?bExvWU55VUxPMWJwa1ZGTGtzNlhURTJUV3F5MGhBNlJPU0d2YTN5TDBvTHJ2?=
- =?utf-8?B?MjNTVkxISGs3TWFQMFNEREpPMC9wYXkwVEpiY053OVJCY0pUMituWml5c0tk?=
- =?utf-8?B?S083T3ZjcTR4VXh2YnFXbmNsbEt4TXpZK0hzMlYwVHdkbkVwLzBNVFlzczRn?=
- =?utf-8?B?TVY2bjJSL3ZEcC8zMWRxVks2YmZjSk1hdUN4OWFReVVWc0tvZ1BuMzdDczZl?=
- =?utf-8?B?TEhsZnVwN3ZRdTFzZ21iTWpsU1h5bkI1enNXUE5YYVpCU1pJN1k0ck9JYkkw?=
- =?utf-8?B?Yy9XbGpvbEdZZkluRzIvajV4MHEvdEZVZ3NEWk9Nc1NhUVloSE50YTRsRnY5?=
- =?utf-8?B?a2QwYTVVclloUm01K01RRnQwWHFDZzJHbnlUWkNHRWZJTmcwMnJxV01sVDQ4?=
- =?utf-8?B?L1BWY2NML1Z1WEFCYlhQRHdpZmVGQi8zRGJBOUdRQWwweTNuckNNTUVJdFRS?=
- =?utf-8?B?TXhKWEJ2WXB1NmtvbDFrU2ZNWFVycU9JU3EydlYvOHFVOFdhRVlvY1FJU1pJ?=
- =?utf-8?B?YUlhNW1wTXI5dnYxN3gyeDFzbTBGTERuVEdqN1AwUnRQZ2hKMG9LVTRSaTBE?=
- =?utf-8?B?MmZCZVA4R0pnQ3k0NVIwUzRrWE5maDU2ckZ1YmgyU3ErcEx0Vm5Vc01DM1kv?=
- =?utf-8?B?MnRFQ3JVd21NUk1ZVlpraW1nN3hralMwWCtramtVNmFvVDZkVVBacElQdGJC?=
- =?utf-8?B?bktlMEdKQXR0TU1OSHJGd21rWTVYMlBsMCtLN2RKdDQwQ1hzbEVYMC92OEVM?=
- =?utf-8?B?enZITkVUcHJUTDNJdy9SSW9EeFdueGMvNlBCMkxmeUhIT0cwQWE3MHZuMTlW?=
- =?utf-8?B?NFIzbDZnZ3RCdEMwMUQvMnhyRngzU2JINWVCYjFJYnF1TUtYYUJJQXR1N2Nv?=
- =?utf-8?B?bExkeWk1cVpUVnVESGdFZWhVY2w5bzVrZEtyVU50dnZ4cHpDdXpoRWlXK093?=
- =?utf-8?B?VkU5T1B6WUR3L3FvczBDUlJjMm00cHZZb1ptdVVsVHlOWExFbkhHZTVKVmtZ?=
- =?utf-8?B?dlZHWWdaT0xGL2NVWlhpc0VMZ2Z5MEZHem1iY0RRMEJWbWZJeTZYdjNtSE9V?=
- =?utf-8?Q?bmPFIYaa8LFlmtwXlzEfxhI1Y?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 566e2230-37bf-4f50-a3d9-08dd30089b97
-X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6108.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jan 2025 17:19:28.6281 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: otGT6NLg01ohkAb++lKaxUjqEROOcEy3ZunePxjltddcUONpZ3VOY+fs9ynYMFfy8N1dof+C6ZzTnGFRyEmtYw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9415
+References: <20250104084047.3669928-1-srinivasan.shanmugam@amd.com>
+In-Reply-To: <20250104084047.3669928-1-srinivasan.shanmugam@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 8 Jan 2025 12:38:07 -0500
+X-Gm-Features: AbW1kvbNykHz2kFoKbqRYBDgTb2Lyh91Fr_NWytRiJelLbH9J5trVOvaZAhNdeI
+Message-ID: <CADnq5_Mc5624SJKfgtg90R8CPDqfLB_rpzCa29bobuCEbbe4Dw@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amdgpu/gfx10: Enable cleaner shader for
+ GFX10.3.2/10.3.4/10.3.5 GPUs
+To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -168,70 +82,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 1/8/2025 07:59, Jiang Liu wrote:
-> Add a flag to track ras debugfs creation status, to avoid possible
-> incorrect reference count management for ras block object  in function
-> amdgpu_ras_aca_is_supported().
+On Sat, Jan 4, 2025 at 3:52=E2=80=AFAM Srinivasan Shanmugam
+<srinivasan.shanmugam@amd.com> wrote:
+>
+> Enable the cleaner shader for GFX10.3.2/10.3.4/10.3.5 GPUs to provide
+> data isolation between GPU workloads. The cleaner shader is responsible
+> for clearing the Local Data Store (LDS), Vector General Purpose
+> Registers (VGPRs), and Scalar General Purpose Registers (SGPRs), which
+> helps prevent data leakage and ensures accurate computation results.
+>
+> This update extends cleaner shader support to GFX10.3.2/10.3.4/10.3.5
+> GPUs, previously available for GFX10.3.0. It enhances security by
+> clearing GPU memory between processes and maintains a consistent GPU
+> state across KGD and KFD workloads.
 
-Rather than taking a marker position, why not just check for
-obj->fs_data.debugfs_name to be non NULL in amdgpu_ras_fs_fini()?
+Are the minimum firmware versions the same for these chips as well?
+If not, we'll need to add firmware version checks for them as well.
+If they are the same, then the patch is:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-> 
-> Signed-off-by: Jiang Liu <gerry@linux.alibaba.com>
+Alex
+
+>
+> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu.h     | 2 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 9 +++++++--
->   2 files changed, 8 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> index 32941f29507c..2ef7d3102be3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -378,7 +378,7 @@ enum amdgpu_marker {
->   	AMDGPU_MARKER_IRQ6		= 6,
->   	AMDGPU_MARKER_IRQ7		= 7,
->   	AMDGPU_MARKER_IRQ_MAX		= 47,
-> -	AMDGPU_MARKER_DEBUGFS		= 63,
-> +	AMDGPU_MARKER_RAS_DEBUGFS	= 63,
-
-Any particular reason you jumped to 63 in this patch and then counted 
-down in the next one?  IE why not throw it at 48 (and then 49 for next one)?
-
->   };
->   
->   #define AMDGPU_MARKER_INDEX_IRQ(idx)		(AMDGPU_MARKER_INDEX_IRQ0 + (idx))
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> index 6d52e22691f7..efd72b07a185 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> @@ -1996,7 +1996,8 @@ static void amdgpu_ras_debugfs_create(struct amdgpu_device *adev,
->   {
->   	struct ras_manager *obj = amdgpu_ras_find_obj(adev, &head->head);
->   
-> -	if (!obj || !dir)
-> +	if (!obj || !dir ||
-> +	    amdgpu_ras_test_marker(adev, &head->head, AMDGPU_MARKER_RAS_DEBUGFS))
->   		return;
->   
->   	get_obj(obj);
-> @@ -2007,6 +2008,8 @@ static void amdgpu_ras_debugfs_create(struct amdgpu_device *adev,
->   
->   	debugfs_create_file(obj->fs_data.debugfs_name, S_IWUGO | S_IRUGO, dir,
->   			    obj, &amdgpu_ras_debugfs_ops);
-> +
-> +	amdgpu_ras_set_marker(adev, &head->head, AMDGPU_MARKER_RAS_DEBUGFS);
->   }
->   
->   static bool amdgpu_ras_aca_is_supported(struct amdgpu_device *adev)
-> @@ -2134,7 +2137,9 @@ static int amdgpu_ras_fs_fini(struct amdgpu_device *adev)
->   	if (IS_ENABLED(CONFIG_DEBUG_FS)) {
->   		list_for_each_entry_safe(con_obj, tmp, &con->head, node) {
->   			ip_obj = amdgpu_ras_find_obj(adev, &con_obj->head);
-> -			if (ip_obj)
-> +			if (ip_obj &&
-> +			    amdgpu_ras_test_and_clear_marker(adev, &ip_obj->head,
-> +			    				     AMDGPU_MARKER_RAS_DEBUGFS))
->   				put_obj(ip_obj);
->   		}
->   	}
-
+> v2: Updated commit message
+>
+>  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 3 +++
+>  1 file changed, 3 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd=
+/amdgpu/gfx_v10_0.c
+> index 88393c2c08e4..5ba263fe5512 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> @@ -4740,6 +4740,9 @@ static int gfx_v10_0_sw_init(struct amdgpu_ip_block=
+ *ip_block)
+>         }
+>         switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
+>         case IP_VERSION(10, 3, 0):
+> +       case IP_VERSION(10, 3, 2):
+> +       case IP_VERSION(10, 3, 4):
+> +       case IP_VERSION(10, 3, 5):
+>                 adev->gfx.cleaner_shader_ptr =3D gfx_10_3_0_cleaner_shade=
+r_hex;
+>                 adev->gfx.cleaner_shader_size =3D sizeof(gfx_10_3_0_clean=
+er_shader_hex);
+>                 if (adev->gfx.me_fw_version >=3D 64 &&
+> --
+> 2.34.1
+>
