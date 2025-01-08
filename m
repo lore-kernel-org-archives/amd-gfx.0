@@ -4,26 +4,26 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0823EE77188
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8B23E7719C
 	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jan 2025 14:00:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8338610E8B0;
-	Wed,  8 Jan 2025 14:00:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BCCD10E8B1;
+	Wed,  8 Jan 2025 14:00:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="xGe4s/cI";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="LpTZSbVK";
 	dkim-atps=neutral
-Received: from out30-112.freemail.mail.aliyun.com
- (out30-112.freemail.mail.aliyun.com [115.124.30.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F27210E8A7
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Jan 2025 14:00:14 +0000 (UTC)
+Received: from out30-113.freemail.mail.aliyun.com
+ (out30-113.freemail.mail.aliyun.com [115.124.30.113])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 456BB10E2A3
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Jan 2025 14:00:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=linux.alibaba.com; s=default;
- t=1736344812; h=From:To:Subject:Date:Message-ID:MIME-Version;
- bh=heKzskz1Ds8ReUo+/tta+jLMNtX7BSE1yAGFRnme11Q=;
- b=xGe4s/cISphq3QEZY0W88Uy2RjD6uFY5wcv770kiPDyJMUiy8ooaeXxgylYCNb/iPLT3HGTcTD8BZtLhVyqSqlF4oi7DgB9q56DkqvdwJI+zVPZ4re/lIvxz2TjfiXV47j0YTrc7JL9hisHTFhSyyeUoMIOdf7fVmQSWGa1wfkg=
+ t=1736344813; h=From:To:Subject:Date:Message-ID:MIME-Version;
+ bh=zqzHl+opxVVCTi7vdPFytgKHgSee0QsHTN/qNfo18Ro=;
+ b=LpTZSbVK6nV2PgzmAXikSJdFsyMjZOjnWQfaMzAzHm/uzc9XSk4gMVgkpzjjCuIpyUBEaDqhSgZFoTw31dY6BSq//D2AzkvyHA2kEeGpNSTy+pm6Dj0RO3WUlh+2GB+xQ44l/D32z531Z67NL9rR7YxhqNgS2MkZt9EOpxUjNoE=
 Received: from i32d02263.sqa.eu95.tbsite.net(mailfrom:gerry@linux.alibaba.com
- fp:SMTPD_---0WNEHXDd_1736344811 cluster:ay36) by smtp.aliyun-inc.com;
- Wed, 08 Jan 2025 22:00:11 +0800
+ fp:SMTPD_---0WNEHXE0_1736344812 cluster:ay36) by smtp.aliyun-inc.com;
+ Wed, 08 Jan 2025 22:00:12 +0800
 From: Jiang Liu <gerry@linux.alibaba.com>
 To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
  airlied@gmail.com, simona@ffwll.ch, sunil.khatri@amd.com,
@@ -31,10 +31,10 @@ To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
  Jun.Ma2@amd.com, xiaogang.chen@amd.com, Kent.Russell@amd.com,
  shuox.liu@linux.alibaba.com, amd-gfx@lists.freedesktop.org
 Cc: Jiang Liu <gerry@linux.alibaba.com>
-Subject: [RFC PATCH 03/13] drm/amdgpu: add a flag to track ras debugfs
- creation status
-Date: Wed,  8 Jan 2025 21:59:55 +0800
-Message-ID: <014a704e91787b123203d568256861000a7fe558.1736344725.git.gerry@linux.alibaba.com>
+Subject: [RFC PATCH 05/13] drm/amdgpu: introduce a flag to track refcount held
+ for features
+Date: Wed,  8 Jan 2025 21:59:57 +0800
+Message-ID: <55cb5e533b76a1c0cc11e81f8e7866a2fe28baac.1736344725.git.gerry@linux.alibaba.com>
 X-Mailer: git-send-email 2.43.5
 In-Reply-To: <cover.1736344725.git.gerry@linux.alibaba.com>
 References: <cover.1736344725.git.gerry@linux.alibaba.com>
@@ -54,63 +54,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add a flag to track ras debugfs creation status, to avoid possible
-incorrect reference count management for ras block object  in function
-amdgpu_ras_aca_is_supported().
+Currently we track the refcount on ras block object for features by
+checking `if (obj && amdgpu_ras_is_feature_enabled(adev, head))`,
+which is a little unreliable. So introduce a dedicated flag to track
+the reference count.
 
 Signed-off-by: Jiang Liu <gerry@linux.alibaba.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu.h     | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h     | 2 ++
  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 9 +++++++--
- 2 files changed, 8 insertions(+), 3 deletions(-)
+ 2 files changed, 9 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 32941f29507c..2ef7d3102be3 100644
+index 2ef7d3102be3..fa19c5391d8c 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -378,7 +378,7 @@ enum amdgpu_marker {
+@@ -378,6 +378,8 @@ enum amdgpu_marker {
  	AMDGPU_MARKER_IRQ6		= 6,
  	AMDGPU_MARKER_IRQ7		= 7,
  	AMDGPU_MARKER_IRQ_MAX		= 47,
--	AMDGPU_MARKER_DEBUGFS		= 63,
-+	AMDGPU_MARKER_RAS_DEBUGFS	= 63,
++	// used for ras blocks
++	AMDGPU_MARKER_RAS_FEATURE	= 62,
+ 	AMDGPU_MARKER_RAS_DEBUGFS	= 63,
  };
  
- #define AMDGPU_MARKER_INDEX_IRQ(idx)		(AMDGPU_MARKER_INDEX_IRQ0 + (idx))
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index 6d52e22691f7..efd72b07a185 100644
+index 5e8838ffccaa..41978116b92b 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -1996,7 +1996,8 @@ static void amdgpu_ras_debugfs_create(struct amdgpu_device *adev,
- {
- 	struct ras_manager *obj = amdgpu_ras_find_obj(adev, &head->head);
- 
--	if (!obj || !dir)
-+	if (!obj || !dir ||
-+	    amdgpu_ras_test_marker(adev, &head->head, AMDGPU_MARKER_RAS_DEBUGFS))
- 		return;
- 
- 	get_obj(obj);
-@@ -2007,6 +2008,8 @@ static void amdgpu_ras_debugfs_create(struct amdgpu_device *adev,
- 
- 	debugfs_create_file(obj->fs_data.debugfs_name, S_IWUGO | S_IRUGO, dir,
- 			    obj, &amdgpu_ras_debugfs_ops);
-+
-+	amdgpu_ras_set_marker(adev, &head->head, AMDGPU_MARKER_RAS_DEBUGFS);
- }
- 
- static bool amdgpu_ras_aca_is_supported(struct amdgpu_device *adev)
-@@ -2134,7 +2137,9 @@ static int amdgpu_ras_fs_fini(struct amdgpu_device *adev)
- 	if (IS_ENABLED(CONFIG_DEBUG_FS)) {
- 		list_for_each_entry_safe(con_obj, tmp, &con->head, node) {
- 			ip_obj = amdgpu_ras_find_obj(adev, &con_obj->head);
--			if (ip_obj)
-+			if (ip_obj &&
-+			    amdgpu_ras_test_and_clear_marker(adev, &ip_obj->head,
-+			    				     AMDGPU_MARKER_RAS_DEBUGFS))
- 				put_obj(ip_obj);
+@@ -774,15 +774,20 @@ static int __amdgpu_ras_feature_enable(struct amdgpu_device *adev,
+ 			obj = amdgpu_ras_create_obj(adev, head);
+ 			if (!obj)
+ 				return -EINVAL;
+-		} else {
++			amdgpu_ras_set_marker(adev, head, AMDGPU_MARKER_RAS_FEATURE);
++		} else if (!amdgpu_ras_test_marker(adev, head,
++						   AMDGPU_MARKER_RAS_FEATURE)) {
+ 			/* In case we create obj somewhere else */
+ 			get_obj(obj);
++			amdgpu_ras_set_marker(adev, head, AMDGPU_MARKER_RAS_FEATURE);
+ 		}
+ 		con->features |= BIT(head->block);
+ 	} else {
+ 		if (obj && amdgpu_ras_is_feature_enabled(adev, head)) {
+ 			con->features &= ~BIT(head->block);
+-			put_obj(obj);
++			if (amdgpu_ras_test_and_clear_marker(adev, head,
++							     AMDGPU_MARKER_RAS_FEATURE))
++				put_obj(obj);
  		}
  	}
+ 
 -- 
 2.43.5
 
