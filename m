@@ -4,70 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 804B7E77197
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jan 2025 16:25:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 855E3E77199
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jan 2025 16:43:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 230CE10E010;
-	Thu,  9 Jan 2025 16:25:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFADF10E474;
+	Thu,  9 Jan 2025 16:43:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UKrv6hq6";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="CqjXPpi6";
 	dkim-atps=neutral
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
- [209.85.216.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E322C10E010
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jan 2025 16:25:03 +0000 (UTC)
-Received: by mail-pj1-f44.google.com with SMTP id
- 98e67ed59e1d1-2ee534d6800so225599a91.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 09 Jan 2025 08:25:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1736439843; x=1737044643; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=xNx2XiQizkGQgHlnp+9N6gqVRTh8DPooKNftBJ8oNFQ=;
- b=UKrv6hq6yQ1GnPcuTf2p+NYsO+syEvxp0OwUr/hk5RwOnp+8GzEtFUg0zz2HqsTvew
- u9mLhvsSeom8OrYI+B7fcuIZvdTEgZtGJ3EtQUvX2HCobgdBGgBBEyWNpNRlUlBveuzw
- A3gH71l+q0jjiJs2086wVyMHeqA+JRozmcv/xNURPjL79p0O+KR+hfqcLhqPgGFnj0CY
- b0PGfny0IjVL+ztQMH4vQu8LYXEMAAlNe2TWhfn1EOBgi1/B29pgfqdP9Zaxf303uzym
- aS4+J2UHsgnfYGdeP2cWtLf8MeWWYZC/Gfy49S68eBXhKIAzuB7CWyRvQGtarksAVsIG
- UPzQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736439843; x=1737044643;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=xNx2XiQizkGQgHlnp+9N6gqVRTh8DPooKNftBJ8oNFQ=;
- b=g/EuDHII7bjWqIFDc82loGdzWpeTIZbXZkvkWRPWDv5zVrK1kjTjOcchrG9j5FxOzY
- z9FO3VvJXnoQyYDnax+ffuP/Y4yb8l/tFIEnskFF3qsqmnZBMySGLpYVXJgjqhUzOJ1o
- ykObkyCXpWM/O5GC6rZqDJpyyANUxu4LOGhk7bQlzcpUX2AX+rhJDuDhCknrr1BesfN1
- 2F9HZfuDl8AlDyWnzxtScyJqzTxxdxe2FxWEi+H262VzBAlhIs6RHreL9xwsUWaKyFXJ
- vGUPoLhJqYOxzmT337H/xImG3dXVmE4EdoOZ38n2uyQov3g6X87JL8sWDrRiI9UFhRS+
- fJJg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXhaAvzapE8UaWEaln6lddOeuaNfCh8hRVXQQ/8tr5JOzMpjrw+U/jgQxMawEzqwX+Y0a4tGIzF@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzru1LK5Vz5x/AhYBOq4j1Wk4vVumHKmrIif03j+Kbt+ab/MNgj
- hGNScIaqiGxVUDbdsuUxsw/lIIi0KD2tOe7fAUkJUXDU7PkgdilveokQwOS2F6e+UxczwwH1hnI
- LgR9QnhfIAkIDFWq0WsikCeFjuGTMxQ==
-X-Gm-Gg: ASbGncuzGHrCiljEL8/hGGIKlwb5GFcnX8dWgHq59cOgHEMrUmrJ/ONncApwmb66zsW
- kthX/G3+boMNeCIMnHhObEAYRJw5TewOTL1bGzA==
-X-Google-Smtp-Source: AGHT+IH+3CvpQcoUMjIcIA6ktx29sIOEZ4Ivm9seZ26+er0kYEAQmHDyLT0aY1k/iXBRjWjEFsLcmrolWhjlnT6YoJA=
-X-Received: by 2002:a17:90a:dfcb:b0:2f4:447b:f095 with SMTP id
- 98e67ed59e1d1-2f5490a9faamr4247041a91.4.1736439843378; Thu, 09 Jan 2025
- 08:24:03 -0800 (PST)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2055.outbound.protection.outlook.com [40.107.243.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 099F210E472;
+ Thu,  9 Jan 2025 16:43:00 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Pyrw3vbEGWr7IPfirjdH69c1nzqD34UVmEE/IpYCr1yRn9noulHrI8jJAmQjw4pG/0l4O1qxIC+W87m4G/sMOEoaf/VYzay4F5cxX8FKUlA1LTsyRPqTVQHc4hP0YjI3vTFsf016XdmHG8Ds5Jod4lsyJxGXb3ErylSOugZn9nhT4DaDN8ezr56VuQCbw7wNtjyoxsJVkxu1KQYRghPwF66++N+ZbXCHR1LdwDjo1afev2nyH4ug28BeRzun+5JK8obc5tQcAPeZz+aBjMwOx97jOLRgkfhRmtEORYwWqAM7o5m1KkhhOv1HLZNmNRLSFOpL50XPAkjHjCyKf+1wwg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XnTEPGIT4Go/eD6SwmtfiDIHQO9NWku/2kaa5Cw7Z0s=;
+ b=RHjAJes/XV+F4UCNOnEZTjbmCseMEFI6tS3Y7Lc9zKm0jBbRrO+oQlBEFFn38OSOTdNOyHu2iye9URfllPWyrfOAb4QbFBWXyt/URziypnDL26Or8wqanrGnEXiI2W4lrGummpQSnNm09x21a/aS7kI7wIouINq8ig29SuN+rmoaW6yMhn2Wqlmg0qSaWhJ6cTtlkbvXwhalDRuGOo8e9nzU7il6R6NUIjMTjbYy3phmO6Rd4brWT4e2EWijXhN9GSaXAqtPC5uvI/9jN+gaZ+hjINC/N7nRrw9xG7/n2gvKkXygFM8jN10cB2E6nVl5kNAUHNj6PF30qDkBzVhm0Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XnTEPGIT4Go/eD6SwmtfiDIHQO9NWku/2kaa5Cw7Z0s=;
+ b=CqjXPpi69NdSQ2ohQQnxwIPbUL7lLZMGIkDuJbRQBeZ/zaR85dfC1Wa4VnDIwPVvTuaer7o8q4nUJDLoSd2/ViOjGU2AVgUdujkgMbY8gg37LujX29Ls5N88C+GmCPyoL+E6cpSyeoYNXXjm8nAECTru4od6N5B6UCCBqN+m2ns=
+Received: from SJ0PR13CA0109.namprd13.prod.outlook.com (2603:10b6:a03:2c5::24)
+ by MW6PR12MB8913.namprd12.prod.outlook.com (2603:10b6:303:247::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8335.12; Thu, 9 Jan
+ 2025 16:42:58 +0000
+Received: from CO1PEPF000042A8.namprd03.prod.outlook.com
+ (2603:10b6:a03:2c5:cafe::c1) by SJ0PR13CA0109.outlook.office365.com
+ (2603:10b6:a03:2c5::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8356.6 via Frontend Transport; Thu, 9
+ Jan 2025 16:42:58 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1PEPF000042A8.mail.protection.outlook.com (10.167.243.37) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8335.7 via Frontend Transport; Thu, 9 Jan 2025 16:42:57 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 9 Jan
+ 2025 10:42:56 -0600
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <simona@ffwll.ch>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [pull] amdgpu, amdkfd drm-fixes-6.13
+Date: Thu, 9 Jan 2025 11:42:36 -0500
+Message-ID: <20250109164236.477295-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.47.1
 MIME-Version: 1.0
-References: <20250109160938.2855092-1-srinivasan.shanmugam@amd.com>
-In-Reply-To: <20250109160938.2855092-1-srinivasan.shanmugam@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 9 Jan 2025 11:23:51 -0500
-X-Gm-Features: AbW1kvaxJ-D-DPF0Pu0Q_7DrHqOIR_vETMHbNHtEXnSY8HkJLgQrxXpRo_JsrSE
-Message-ID: <CADnq5_PJV5g3Pf5JkYztck+tcmHMMzqcnaG9t_rONX8M5E6Ffw@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amdgpu: Fix Circular Locking Dependency in AMDGPU
- GFX Isolation
-To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF000042A8:EE_|MW6PR12MB8913:EE_
+X-MS-Office365-Filtering-Correlation-Id: 16cbb3c9-ff25-4b88-8623-08dd30ccac78
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|36860700013|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?Z3AyTVRQbmhHNlplY0U3M3dqdDIrZDB4RVpPMDZlZ2VMY25zMmRQSlh4L2lD?=
+ =?utf-8?B?MXIwemt6cHorVkF4MGY3MnhmM2ZSVUtyQy9yVjl5Zm5TUklrRi9XM0JZREJH?=
+ =?utf-8?B?ZCtMQ2hvUzM4WWJrMmVsSk1KeU04MWpSamZMUDJGblRxUHRzTUZtdEpqL2E4?=
+ =?utf-8?B?WDFQdWNmSEhGeXNEQTg3VkRHMitCdG9WbVJiblV5UnBSZUIrN2VtN1d3d1oy?=
+ =?utf-8?B?ZXZkL2dyQ01SQk1WTjcrOFp5UUlJbi8rekJHTU4zN2xkT096U2d1WitPMnYz?=
+ =?utf-8?B?SzBTQkN5MUo0cnBjMk5QWExKeFIxeklJQURuYThFL010YXNSVG1uWGFmOXlW?=
+ =?utf-8?B?eDY3S3JGU2U2UElPdEFoQ0grK0Y3a3JTMno0RlNPL24rTEM1L1R6S2JQR0RT?=
+ =?utf-8?B?SSt4VlAxc0R0R2lLRjBOUzU0cHdnSy9qL25OSUpoZEZNTHA1cTRXd2RLZU85?=
+ =?utf-8?B?NGNuOFNsalVraDV6Y0tYQzBaQytnaGhtOWVaMngzWFE0TXB5RnBtY25sSlRL?=
+ =?utf-8?B?MXhOYnRvL1hCRWpZSXlLRXFpZXkvRWlzMnNCejlJMWczdnRwdkRwK1hreVQ2?=
+ =?utf-8?B?RmN5RGV5dEQ1UlNpVFMxMWNWQk91TmxLZ2NiRGhXQklBYzVzdFdlNEFHQi9W?=
+ =?utf-8?B?NlJycmZnaE9Da1FjU24zMGtjaDZTcVI1M2hRaFRWcnd1VXd2S2xIaWRyemRq?=
+ =?utf-8?B?MWVwSWJ0OURrM01yUkpMcmNFYW9MTGs4RUQ0bENlRWJCZG5uSVBRcmNZSUNF?=
+ =?utf-8?B?anJVamVnejhsYzdGSlZOYldrU2ZIRWFrUnMzOUdiN21LZS9waVY3cUsyYVBi?=
+ =?utf-8?B?YnYxMGtBRWwzTVk0RXF1aHJiLzk0QkhXZmx4WUhBTy9vOTdZbkpJSjVRMFNU?=
+ =?utf-8?B?NGhLV2tpNWZlNHZINHkzTnVnTGRtU1hWbTZLMHRWQkZmZFd5bC9BMTFXKzE4?=
+ =?utf-8?B?MVpLNkdFc2M3VjB0SFRSdnNhblAvU0YwVjNGeStDY2xHNUJONmsxbDFZTFBX?=
+ =?utf-8?B?dlFKWi9YcVFhdlkxd2hndmVad1VCYXd1a2xlRjVqNmlFdDBTUHFzemlpcDZN?=
+ =?utf-8?B?dFpOdENEWVcrMVJubTNXeHVQK3ZyZUU1WU5SbVMxR1QvMjEwdktzaERuS1NU?=
+ =?utf-8?B?VElaTHhEVWNDenUvd2xJQ01xNUFRNVBmbEluVjVIdmFIR3Z5UDZaaFFvL3V3?=
+ =?utf-8?B?OCtEcE9RdmRiZFBQQ3QyT3NWR1BQd3Z5T25HRzVUeHRJUm9vT1crcEVKV3g0?=
+ =?utf-8?B?ZnA3YW9hQkU3a2x4VDVweXMzS0twUUFCOEVpU1RRVldJV0tUOHpmTGtEMXhL?=
+ =?utf-8?B?b2hmamx6eTFpaU8waFpBZ1RLN2lOMzkrY3JISU9tYnlyMVJEK3dsaGVsbmVD?=
+ =?utf-8?B?dXhCRXI3VjhnaWJ1dkZnM0MvMDIzQUNnRDZKYW41QU02UThIVy8xa05sMjRi?=
+ =?utf-8?B?VldmZDhqRG0zc3MvNmtWbmYveHFKNlFteEdNOGVpZ2cwL2pPU05WUk92UjA2?=
+ =?utf-8?B?T2ZDTTg0UVZWV05nRlZ2TDkwNFptTkg5NlYwV25nOHZkYUV5cUI3ZTAxUHFq?=
+ =?utf-8?B?Y212eHpLUm5QWG5ub255WXYrSDRtSFEzSklQWlMvT2VkOHJ2S2h3Z2pQRHFS?=
+ =?utf-8?B?NkdzS3J1YWxCNllDUWZPZVNKMkRQWTRTSzUwelg3U3o0dGlxMmdOaWY4UDFy?=
+ =?utf-8?B?QlhlVnNadEY4ZTg0V1pzejQyRHkzK1JESHFvd1hsV05DRXlXa3pFTnh1dElS?=
+ =?utf-8?B?OVJXcnZZTTFPS0NLQ3Y1Rlh5eForSHE5TUhJRGZsbEtOS216TGtNa2ZCWVVW?=
+ =?utf-8?B?MU9UMUpsSEFBR1NmbkJ1ZXdsVzlIeFRIeWxwdzlTa2FIa2NxaFVHN0dMa2Zk?=
+ =?utf-8?B?ZkVFWHVrQWJ6VnhXOUlqeS93TXV3YklqTURrM3RDWXVmYXVNSVdXbkdwM0t6?=
+ =?utf-8?Q?hcQ837acCtg=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jan 2025 16:42:57.9957 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 16cbb3c9-ff25-4b88-8623-08dd30ccac78
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000042A8.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8913
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,243 +138,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jan 9, 2025 at 11:17=E2=80=AFAM Srinivasan Shanmugam
-<srinivasan.shanmugam@amd.com> wrote:
->
-> This commit addresses a circular locking dependency issue within the GFX
-> isolation mechanism. The problem was identified by a warning indicating
-> a potential deadlock due to inconsistent lock acquisition order.
->
-> - The `amdgpu_gfx_enforce_isolation_ring_begin_use` and
->   `amdgpu_gfx_enforce_isolation_ring_end_use` functions previously
->   acquired `enforce_isolation_mutex` and called `amdgpu_gfx_kfd_sch_ctrl`=
-,
->   leading to potential deadlocks. ie., If `amdgpu_gfx_kfd_sch_ctrl` is
->   called while `enforce_isolation_mutex` is held, and
->   `amdgpu_gfx_enforce_isolation_handler` is called while `kfd_sch_mutex` =
-is
->   held, it can create a circular dependency.
->
-> By ensuring consistent lock usage, this fix resolves the issue:
->
-> [  606.297333] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> [  606.297343] WARNING: possible circular locking dependency detected
-> [  606.297353] 6.10.0-amd-mlkd-610-311224-lof #19 Tainted: G           OE
-> [  606.297365] ------------------------------------------------------
-> [  606.297375] kworker/u96:3/3825 is trying to acquire lock:
-> [  606.297385] ffff9aa64e431cb8 ((work_completion)(&(&adev->gfx.enforce_i=
-solation[i].work)->work)){+.+.}-{0:0}, at: __flush_work+0x232/0x610
-> [  606.297413]
->                but task is already holding lock:
-> [  606.297423] ffff9aa64e432338 (&adev->gfx.kfd_sch_mutex){+.+.}-{3:3}, a=
-t: amdgpu_gfx_kfd_sch_ctrl+0x51/0x4d0 [amdgpu]
-> [  606.297725]
->                which lock already depends on the new lock.
->
-> [  606.297738]
->                the existing dependency chain (in reverse order) is:
-> [  606.297749]
->                -> #2 (&adev->gfx.kfd_sch_mutex){+.+.}-{3:3}:
-> [  606.297765]        __mutex_lock+0x85/0x930
-> [  606.297776]        mutex_lock_nested+0x1b/0x30
-> [  606.297786]        amdgpu_gfx_kfd_sch_ctrl+0x51/0x4d0 [amdgpu]
-> [  606.298007]        amdgpu_gfx_enforce_isolation_ring_begin_use+0x2a4/0=
-x5d0 [amdgpu]
-> [  606.298225]        amdgpu_ring_alloc+0x48/0x70 [amdgpu]
-> [  606.298412]        amdgpu_ib_schedule+0x176/0x8a0 [amdgpu]
-> [  606.298603]        amdgpu_job_run+0xac/0x1e0 [amdgpu]
-> [  606.298866]        drm_sched_run_job_work+0x24f/0x430 [gpu_sched]
-> [  606.298880]        process_one_work+0x21e/0x680
-> [  606.298890]        worker_thread+0x190/0x350
-> [  606.298899]        kthread+0xe7/0x120
-> [  606.298908]        ret_from_fork+0x3c/0x60
-> [  606.298919]        ret_from_fork_asm+0x1a/0x30
-> [  606.298929]
->                -> #1 (&adev->enforce_isolation_mutex){+.+.}-{3:3}:
-> [  606.298947]        __mutex_lock+0x85/0x930
-> [  606.298956]        mutex_lock_nested+0x1b/0x30
-> [  606.298966]        amdgpu_gfx_enforce_isolation_handler+0x87/0x370 [am=
-dgpu]
-> [  606.299190]        process_one_work+0x21e/0x680
-> [  606.299199]        worker_thread+0x190/0x350
-> [  606.299208]        kthread+0xe7/0x120
-> [  606.299217]        ret_from_fork+0x3c/0x60
-> [  606.299227]        ret_from_fork_asm+0x1a/0x30
-> [  606.299236]
->                -> #0 ((work_completion)(&(&adev->gfx.enforce_isolation[i]=
-.work)->work)){+.+.}-{0:0}:
-> [  606.299257]        __lock_acquire+0x16f9/0x2810
-> [  606.299267]        lock_acquire+0xd1/0x300
-> [  606.299276]        __flush_work+0x250/0x610
-> [  606.299286]        cancel_delayed_work_sync+0x71/0x80
-> [  606.299296]        amdgpu_gfx_kfd_sch_ctrl+0x287/0x4d0 [amdgpu]
-> [  606.299509]        amdgpu_gfx_enforce_isolation_ring_begin_use+0x2a4/0=
-x5d0 [amdgpu]
-> [  606.299723]        amdgpu_ring_alloc+0x48/0x70 [amdgpu]
-> [  606.299909]        amdgpu_ib_schedule+0x176/0x8a0 [amdgpu]
-> [  606.300101]        amdgpu_job_run+0xac/0x1e0 [amdgpu]
-> [  606.300355]        drm_sched_run_job_work+0x24f/0x430 [gpu_sched]
-> [  606.300369]        process_one_work+0x21e/0x680
-> [  606.300378]        worker_thread+0x190/0x350
-> [  606.300387]        kthread+0xe7/0x120
-> [  606.300396]        ret_from_fork+0x3c/0x60
-> [  606.300406]        ret_from_fork_asm+0x1a/0x30
-> [  606.300416]
->                other info that might help us debug this:
->
-> [  606.300428] Chain exists of:
->                  (work_completion)(&(&adev->gfx.enforce_isolation[i].work=
-)->work) --> &adev->enforce_isolation_mutex --> &adev->gfx.kfd_sch_mutex
->
-> [  606.300458]  Possible unsafe locking scenario:
->
-> [  606.300468]        CPU0                    CPU1
-> [  606.300476]        ----                    ----
-> [  606.300484]   lock(&adev->gfx.kfd_sch_mutex);
-> [  606.300494]                                lock(&adev->enforce_isolati=
-on_mutex);
-> [  606.300508]                                lock(&adev->gfx.kfd_sch_mut=
-ex);
-> [  606.300521]   lock((work_completion)(&(&adev->gfx.enforce_isolation[i]=
-.work)->work));
-> [  606.300536]
->                 *** DEADLOCK ***
->
-> [  606.300546] 5 locks held by kworker/u96:3/3825:
-> [  606.300555]  #0: ffff9aa5aa1f5d58 ((wq_completion)comp_1.1.0){+.+.}-{0=
-:0}, at: process_one_work+0x3f5/0x680
-> [  606.300577]  #1: ffffaa53c3c97e40 ((work_completion)(&sched->work_run_=
-job)){+.+.}-{0:0}, at: process_one_work+0x1d6/0x680
-> [  606.300600]  #2: ffff9aa64e463c98 (&adev->enforce_isolation_mutex){+.+=
-.}-{3:3}, at: amdgpu_gfx_enforce_isolation_ring_begin_use+0x1c3/0x5d0 [amdg=
-pu]
-> [  606.300837]  #3: ffff9aa64e432338 (&adev->gfx.kfd_sch_mutex){+.+.}-{3:=
-3}, at: amdgpu_gfx_kfd_sch_ctrl+0x51/0x4d0 [amdgpu]
-> [  606.301062]  #4: ffffffff8c1a5660 (rcu_read_lock){....}-{1:2}, at: __f=
-lush_work+0x70/0x610
-> [  606.301083]
->                stack backtrace:
-> [  606.301092] CPU: 14 PID: 3825 Comm: kworker/u96:3 Tainted: G          =
- OE      6.10.0-amd-mlkd-610-311224-lof #19
-> [  606.301109] Hardware name: Gigabyte Technology Co., Ltd. X570S GAMING =
-X/X570S GAMING X, BIOS F7 03/22/2024
-> [  606.301124] Workqueue: comp_1.1.0 drm_sched_run_job_work [gpu_sched]
-> [  606.301140] Call Trace:
-> [  606.301146]  <TASK>
-> [  606.301154]  dump_stack_lvl+0x9b/0xf0
-> [  606.301166]  dump_stack+0x10/0x20
-> [  606.301175]  print_circular_bug+0x26c/0x340
-> [  606.301187]  check_noncircular+0x157/0x170
-> [  606.301197]  ? register_lock_class+0x48/0x490
-> [  606.301213]  __lock_acquire+0x16f9/0x2810
-> [  606.301230]  lock_acquire+0xd1/0x300
-> [  606.301239]  ? __flush_work+0x232/0x610
-> [  606.301250]  ? srso_alias_return_thunk+0x5/0xfbef5
-> [  606.301261]  ? mark_held_locks+0x54/0x90
-> [  606.301274]  ? __flush_work+0x232/0x610
-> [  606.301284]  __flush_work+0x250/0x610
-> [  606.301293]  ? __flush_work+0x232/0x610
-> [  606.301305]  ? __pfx_wq_barrier_func+0x10/0x10
-> [  606.301318]  ? mark_held_locks+0x54/0x90
-> [  606.301331]  ? srso_alias_return_thunk+0x5/0xfbef5
-> [  606.301345]  cancel_delayed_work_sync+0x71/0x80
-> [  606.301356]  amdgpu_gfx_kfd_sch_ctrl+0x287/0x4d0 [amdgpu]
-> [  606.301661]  amdgpu_gfx_enforce_isolation_ring_begin_use+0x2a4/0x5d0 [=
-amdgpu]
-> [  606.302050]  ? srso_alias_return_thunk+0x5/0xfbef5
-> [  606.302069]  amdgpu_ring_alloc+0x48/0x70 [amdgpu]
-> [  606.302452]  amdgpu_ib_schedule+0x176/0x8a0 [amdgpu]
-> [  606.302862]  ? drm_sched_entity_error+0x82/0x190 [gpu_sched]
-> [  606.302890]  amdgpu_job_run+0xac/0x1e0 [amdgpu]
-> [  606.303366]  drm_sched_run_job_work+0x24f/0x430 [gpu_sched]
-> [  606.303388]  process_one_work+0x21e/0x680
-> [  606.303409]  worker_thread+0x190/0x350
-> [  606.303424]  ? __pfx_worker_thread+0x10/0x10
-> [  606.303437]  kthread+0xe7/0x120
-> [  606.303449]  ? __pfx_kthread+0x10/0x10
-> [  606.303463]  ret_from_fork+0x3c/0x60
-> [  606.303476]  ? __pfx_kthread+0x10/0x10
-> [  606.303489]  ret_from_fork_asm+0x1a/0x30
-> [  606.303512]  </TASK>
->
-> Fixes: afefd6f24502 ("drm/amdgpu: Implement Enforce Isolation Handler for=
- KGD/KFD serialization")
-> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Suggested-by: Alex Deucher <alexander.deucher@amd.com>
-> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Hi Dave, Simona,
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Fixes for 6.13.
 
-> ---
-> v2: Refactor lock handling to resolve circular dependency  (Alex)
->
-> - Introduced a `sched_work` flag to defer the call to `amdgpu_gfx_kfd_sch=
-_ctrl` until after releasing `enforce_isolation_mutex`.
-> - This change ensures that `amdgpu_gfx_kfd_sch_ctrl` is called outside th=
-e critical section, preventing the circular dependency and deadlock.
-> - The `sched_work` flag is set within the mutex-protected section if cond=
-itions are met, and the actual function call is made afterward.
-> - This approach ensures consistent lock acquisition order.
->
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 12 ++++++++++--
->  1 file changed, 10 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_gfx.c
-> index 6d5d81f0dc4e..784b03abb3a4 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> @@ -2054,6 +2054,7 @@ void amdgpu_gfx_enforce_isolation_ring_begin_use(st=
-ruct amdgpu_ring *ring)
->  {
->         struct amdgpu_device *adev =3D ring->adev;
->         u32 idx;
-> +       bool sched_work =3D false;
->
->         if (!adev->gfx.enable_cleaner_shader)
->                 return;
-> @@ -2072,9 +2073,12 @@ void amdgpu_gfx_enforce_isolation_ring_begin_use(s=
-truct amdgpu_ring *ring)
->         mutex_lock(&adev->enforce_isolation_mutex);
->         if (adev->enforce_isolation[idx]) {
->                 if (adev->kfd.init_complete)
-> -                       amdgpu_gfx_kfd_sch_ctrl(adev, idx, false);
-> +                       sched_work =3D true;
->         }
->         mutex_unlock(&adev->enforce_isolation_mutex);
-> +
-> +       if (sched_work)
-> +               amdgpu_gfx_kfd_sch_ctrl(adev, idx, false);
->  }
->
->  /**
-> @@ -2090,6 +2094,7 @@ void amdgpu_gfx_enforce_isolation_ring_end_use(stru=
-ct amdgpu_ring *ring)
->  {
->         struct amdgpu_device *adev =3D ring->adev;
->         u32 idx;
-> +       bool sched_work =3D false;
->
->         if (!adev->gfx.enable_cleaner_shader)
->                 return;
-> @@ -2105,9 +2110,12 @@ void amdgpu_gfx_enforce_isolation_ring_end_use(str=
-uct amdgpu_ring *ring)
->         mutex_lock(&adev->enforce_isolation_mutex);
->         if (adev->enforce_isolation[idx]) {
->                 if (adev->kfd.init_complete)
-> -                       amdgpu_gfx_kfd_sch_ctrl(adev, idx, true);
-> +                       sched_work =3D true;
->         }
->         mutex_unlock(&adev->enforce_isolation_mutex);
-> +
-> +       if (sched_work)
-> +               amdgpu_gfx_kfd_sch_ctrl(adev, idx, true);
->  }
->
->  /*
-> --
-> 2.34.1
->
+The following changes since commit 273b3eb600713a5e71c64b8b403b355dc580f167:
+
+  Merge tag 'drm-xe-fixes-2025-01-02' of https://gitlab.freedesktop.org/drm/xe/kernel into drm-fixes (2025-01-03 10:57:31 +1000)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-6.13-2025-01-09
+
+for you to fetch changes up to 75c8b703e5bded1e33b08fb09b829e7c2c1ed50a:
+
+  drm/amdgpu: Add a lock when accessing the buddy trim function (2025-01-06 15:20:13 -0500)
+
+----------------------------------------------------------------
+amd-drm-fixes-6.13-2025-01-09:
+
+amdgpu:
+- Display interrupt fixes
+- Fix display max surface mismatches
+- Fix divide error in DM plane scale calcs
+- Display divide by 0 checks in dml helpers
+- SMU 13 AD/DC interrrupt handling fix
+- Fix locking around buddy trim handling
+
+amdkfd:
+- Fix page fault with shader debugger enabled
+- Fix eviction fence wq handling
+
+----------------------------------------------------------------
+Alex Hung (1):
+      drm/amd/display: Remove unnecessary amdgpu_irq_get/put
+
+Arunpravin Paneer Selvam (1):
+      drm/amdgpu: Add a lock when accessing the buddy trim function
+
+Jesse.zhang@amd.com (1):
+      drm/amdkfd: fixed page fault when enable MES shader debugger
+
+Kun Liu (1):
+      drm/amd/pm:  fix BUG: scheduling while atomic
+
+Melissa Wen (3):
+      drm/amd/display: fix page fault due to max surface definition mismatch
+      drm/amd/display: increase MAX_SURFACES to the value supported by hw
+      drm/amd/display: fix divide error in DM plane scale calcs
+
+Roman Li (1):
+      drm/amd/display: Add check for granularity in dml ceil/floor helpers
+
+Zhu Lingshan (1):
+      drm/amdkfd: wq_release signals dma_fence only when available
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c       |  2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_debug.c             | 17 +++++++++++
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c           |  3 +-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 35 ++--------------------
+ drivers/gpu/drm/amd/display/dc/core/dc.c           |  2 +-
+ drivers/gpu/drm/amd/display/dc/core/dc_state.c     |  8 ++---
+ drivers/gpu/drm/amd/display/dc/dc.h                |  4 +--
+ drivers/gpu/drm/amd/display/dc/dc_stream.h         |  2 +-
+ drivers/gpu/drm/amd/display/dc/dc_types.h          |  1 -
+ .../gpu/drm/amd/display/dc/dml/dml_inline_defs.h   |  8 +++++
+ .../drm/amd/display/dc/dml2/dml2_mall_phantom.c    |  2 +-
+ drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h       |  2 ++
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c     | 12 ++++----
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c   |  1 +
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c   |  1 +
+ 15 files changed, 49 insertions(+), 51 deletions(-)
