@@ -4,121 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42800E77188
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jan 2025 03:22:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A67CE77197
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jan 2025 03:34:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D4EC710E983;
-	Thu,  9 Jan 2025 03:22:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 506E310ECCD;
+	Thu,  9 Jan 2025 03:34:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="uBU1nzaa";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="x9pblx0h";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2078.outbound.protection.outlook.com [40.107.92.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3BCD210E983
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jan 2025 03:22:45 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lcFVFfjrNtATkIvYX5DDkWNerjR3VVFvc8rskcgLWXHlQ5gYj8R0lBWkIUrOhviD4FXUyPEkaaOPQ5L+pDKNCeeSYSG6zpGJpuTBQMtgjzlGJn6SaANXiYjQmOClaps2AzUkMTvOpyNMg6rCXkFiIFv5mIIVbfSHmRCU7kwlXJjGQFs8vzfESvNsbYyDVkNljcaLaWFus6npRVTCCdN5ALEfrMwcuE1KYOk60geGGyndXzvWYsJgiNbmK7K6tcA+jmH0G8Bbn4bT8PPjQb5hza+lsLcqWAMEFB8zZU1HNTAN1HijZ9RICNlKJb4c9ujpUw8X7MR07eiJ5oC+Mnym1g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4kZWIQRSe7rdankau0bL9ScsBc8JhB12UMDBp0VMd9g=;
- b=GVaGjvCntEhNdaaWpOBR2461d6mHZ9KofekPurMiMJFQPQxmGzeql/O7ybugBSj8N1qncxiPesEloAmO0UOQIo1celZMeZNV04eolx2R7+e7/1QNpArcbwslQDfo3EA/oADK4X1HGWP5AQ7xeQPzWmaa5kirQagXdsvsOe2m0OXV/+GhmmOurlYnp8CMqnRtjBe4C5dXgcJQBuBA5GUQK3yRTdNoonYV6oeWHjUaR5c5XvI8/7Iz7bCgkVRyV/K1ZPA+82lqfjFY0ua+osxsm5UvDd1GKbb0/M7bCt+7YsyyiX62HTV1lX7g8kVK8V7aHNcfoL15PO0FBGSLM5/dhQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4kZWIQRSe7rdankau0bL9ScsBc8JhB12UMDBp0VMd9g=;
- b=uBU1nzaa4BGZPuI8ybFYvIfTqOrd8VtnoWFA1TSq7csl3Huw2vFB1t0fr4U56wFhrTxYg555yyRCAa8T+YLdA08x3DsvLNsIrdOcwG02Hjyc0RStP3AnYTOAuH0rTkTHGhzRATNtgK5azF7DTsPHRJgHNtIzF4X18ZwCKiy1Tuw=
-Received: from SA1P222CA0075.NAMP222.PROD.OUTLOOK.COM (2603:10b6:806:2c1::22)
- by DM6PR12MB4420.namprd12.prod.outlook.com (2603:10b6:5:2a7::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8335.10; Thu, 9 Jan
- 2025 03:06:50 +0000
-Received: from SA2PEPF0000150B.namprd04.prod.outlook.com
- (2603:10b6:806:2c1:cafe::c1) by SA1P222CA0075.outlook.office365.com
- (2603:10b6:806:2c1::22) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8335.11 via Frontend Transport; Thu,
- 9 Jan 2025 03:06:49 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SA2PEPF0000150B.mail.protection.outlook.com (10.167.242.43) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8335.7 via Frontend Transport; Thu, 9 Jan 2025 03:06:49 +0000
-Received: from ldev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 8 Jan
- 2025 21:05:37 -0600
-From: Tim Huang <tim.huang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Alexander.Deucher@amd.com>, <Yifan1.zhang@amd.com>,
- <Xiaojian.Du@amd.com>, Tim Huang <tim.huang@amd.com>, Saleemkhan Jamadar
- <saleemkhan.jamadar@amd.com>, Yifan Zhang <yifan1.zhang@amd.com>
-Subject: [PATCH 5/7] drm/amdgpu: enable VCN/JPEG CGPG for GC IP version 11.5.3
-Date: Thu, 9 Jan 2025 11:01:31 +0800
-Message-ID: <20250109030133.3887086-5-tim.huang@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20250109030133.3887086-1-tim.huang@amd.com>
-References: <20250109030133.3887086-1-tim.huang@amd.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF0000150B:EE_|DM6PR12MB4420:EE_
-X-MS-Office365-Filtering-Correlation-Id: b42a1557-efeb-45e7-0680-08dd305aa90c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|82310400026|376014|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?D2VtS8pCRQfu/Gmwhngx/KQD5MzIlnAG/8LByl45l+oDZuGQ92/24AQUzY4+?=
- =?us-ascii?Q?H/qt6smcbAa/kEgnKfUfyrhdn8CBZe1mPtdsCdN08k+usNQhJP0yAIH9Mb2t?=
- =?us-ascii?Q?/X3X4+akJwr4bYz14moSsRaJxB9xAc0eicozNSRSoXvFcXNTJHXHbFED350v?=
- =?us-ascii?Q?wyfFLy5jHTiwv6CKIIb4Kc056zEUP5JBpg4SXxsVDWXSIp8DLmEdxlzqimuQ?=
- =?us-ascii?Q?92HXlLR23CAh4pj+OcS1fm+DHLKTspoHcXPl2ajHj21myIOVZNRjs+jMZIlm?=
- =?us-ascii?Q?JC7QLVvISfT4G8BB3tEHjW0V2NHBe6Fd8+t3Rp4PTDW6I8NqaR2okSBYA9g1?=
- =?us-ascii?Q?d15qyhUnoZDJtM6yQYndi507rVhnQZ1oxGdWWFmGxHQWVvNrMJ2L3QkBfeTW?=
- =?us-ascii?Q?fX0w+cbVtIrEg4a9TRx98sgrrKBM1zKMgg1dNdrpF1r6r4dOXXhm5Ix0vJsU?=
- =?us-ascii?Q?3wbuBpxzcWKj54q+6Kcyou7J3JVRxqfKu+4l2kERzgiWo/jXPZVjoU3Dq8Y8?=
- =?us-ascii?Q?7+5ny1k/rECw/CWHtnscLbRm9SwCJo+Q3Dex6OZHxX8tFPSL5BkAvyHVLXU1?=
- =?us-ascii?Q?WYbJ029ES/5acn5oMh6KvrTC6sW1g5l+tpFHhWfwv97vMrRcMgbLWBM8/EWr?=
- =?us-ascii?Q?YyyvSiD42PbtVgkMixklqMinQvbxdeF08JQhNZUOEbGRsfMqoyPBKxaXwVff?=
- =?us-ascii?Q?PqtVf1u7GQEqEovnZRMmOB/1EZYevopsLV3daUbFyv5EkAU6Cl/p4fqNA+8e?=
- =?us-ascii?Q?68tW0kOjyuSly9sqJx/jT+5uJj7IUhVz7peTEWD7xCzwSrf9WtNZR3Vtjsqg?=
- =?us-ascii?Q?YHGDztMmjGIv3mIUalO56oyoyYNTneMZogdjB5f4YUJbDZnS49bk7mfiyxdU?=
- =?us-ascii?Q?RRzth2sSO9SPWfRGAMMdP4fxUqnWWnSoEYNMd+jrpIUCTeDPTohhSKtcwMT0?=
- =?us-ascii?Q?qjBzg9SisXvw51pSNlMFNC9bAUoCbay1MWiHJXbeG3rz0P8pOdhTrkev0kXX?=
- =?us-ascii?Q?llCmoTKdIG7M3h9tn3jV6LyFOh5zSjOCcWqTWxTeSPQ6E2boh2uxdK+jDGDe?=
- =?us-ascii?Q?jpmASZYzzsp5QCHrJqnl67hp1tLG6+WM++vjJ6JmKhFQszesJTAXIjayjOhm?=
- =?us-ascii?Q?1xQcOmUubrnu460kY7TUnNr2nBvFi/j4Jdf8HwGXkazXJrbIhhWCzW/eF66F?=
- =?us-ascii?Q?dPNPV/8k5g8JWqDeYPy4LAPDqWbLWiqYV1PelXRDCkx3XHD6Kfd42GZKQPEO?=
- =?us-ascii?Q?hP8+ttQtGVSORgO79fNpnBHCGSbHzyJo7CV8Trt00gmiCiOzoYtvqfQsa9nm?=
- =?us-ascii?Q?6aZs+eDc/0UtIegbqueOBypbwUk9SY5W+Gw8O2aML38Q7UVC9tyVYmtF96Ip?=
- =?us-ascii?Q?21wdvwROjvWXLl5+kkRFT2dkRqkiKlS+5nmDa+Q5/OLzlCGlLt1ApC8FzI4+?=
- =?us-ascii?Q?48X8tiGygQBH7HPoTlioz3DeC6zlC3zxgrB4ngB36xcJ0JLK9g1Q0Q=3D=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(82310400026)(376014)(1800799024); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jan 2025 03:06:49.7180 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b42a1557-efeb-45e7-0680-08dd305aa90c
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF0000150B.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4420
+Received: from out30-111.freemail.mail.aliyun.com
+ (out30-111.freemail.mail.aliyun.com [115.124.30.111])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72C6810ECCD
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jan 2025 03:34:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linux.alibaba.com; s=default;
+ t=1736393680; h=From:Message-Id:Content-Type:Mime-Version:Subject:Date:To;
+ bh=4HGCxtevL4CCBILn8ALxrFTKp+5Vez8f1ONiVvikXA4=;
+ b=x9pblx0hNJN2uujazBpvP7keCfnK76TnHbRWBOn1sMBKaqZ9qT5Cc4TSiIoMTk0AzvvZcPp2M5Rvqi7M6dI2jZFSubT5H03Wuv5oo5GZMIn4Fhbgfg0dJiGn08NuNhvWAAESM1GyG0IWof9zoAuENLv+Y84izMaatMqBzdaBSCQ=
+Received: from smtpclient.apple(mailfrom:gerry@linux.alibaba.com
+ fp:SMTPD_---0WNFvi5C_1736393677 cluster:ay36) by smtp.aliyun-inc.com;
+ Thu, 09 Jan 2025 11:34:39 +0800
+From: Gerry Liu <gerry@linux.alibaba.com>
+Message-Id: <C6F771B0-966D-40CC-8D3D-DEB920CD3171@linux.alibaba.com>
+Content-Type: multipart/alternative;
+ boundary="Apple-Mail=_334FD5CD-22B5-44F4-8680-5711A7B145D9"
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3696.120.41.1.1\))
+Subject: Re: [v3 4/6] drm/amdgpu: enhance error handling in function
+ amdgpu_pci_probe()
+Date: Thu, 9 Jan 2025 11:34:37 +0800
+In-Reply-To: <7a28a207-b732-4640-b0c4-c19916637b8f@amd.com>
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, simona@ffwll.ch, sunil.khatri@amd.com,
+ lijo.lazar@amd.com, Hawking.Zhang@amd.com, Jun.Ma2@amd.com,
+ xiaogang.chen@amd.com, Kent.Russell@amd.com, shuox.liu@linux.alibaba.com,
+ amd-gfx@lists.freedesktop.org
+To: Mario Limonciello <mario.limonciello@amd.com>
+References: <cover.1736325561.git.gerry@linux.alibaba.com>
+ <5ba140aee2b20fc7cf724293d96260bd10d3dbdc.1736325561.git.gerry@linux.alibaba.com>
+ <7a28a207-b732-4640-b0c4-c19916637b8f@amd.com>
+X-Mailer: Apple Mail (2.3696.120.41.1.1)
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,43 +57,216 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Enable VCN/JPEG CGPG for ASIC with GFX version 11.5.3.
 
-Signed-off-by: Saleemkhan Jamadar <saleemkhan.jamadar@amd.com>
-Signed-off-by: Tim Huang <tim.huang@amd.com>
-Reviewed-by: Yifan Zhang <yifan1.zhang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/soc21.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+--Apple-Mail=_334FD5CD-22B5-44F4-8680-5711A7B145D9
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=utf-8
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
-index e1dad7ca5b5c..2e86c730d192 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc21.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
-@@ -782,7 +782,9 @@ static int soc21_common_early_init(struct amdgpu_ip_block *ip_block)
- 		adev->external_rev_id = adev->rev_id + 0x40;
- 		break;
- 	case IP_VERSION(11, 5, 3):
--		adev->cg_flags = AMD_CG_SUPPORT_GFX_CGCG |
-+		adev->cg_flags = AMD_CG_SUPPORT_VCN_MGCG |
-+			AMD_CG_SUPPORT_JPEG_MGCG |
-+			AMD_CG_SUPPORT_GFX_CGCG |
- 			AMD_CG_SUPPORT_GFX_CGLS |
- 			AMD_CG_SUPPORT_GFX_MGCG |
- 			AMD_CG_SUPPORT_GFX_FGCG |
-@@ -800,7 +802,11 @@ static int soc21_common_early_init(struct amdgpu_ip_block *ip_block)
- 			AMD_CG_SUPPORT_IH_CG |
- 			AMD_CG_SUPPORT_BIF_MGCG |
- 			AMD_CG_SUPPORT_BIF_LS;
--		adev->pg_flags = AMD_PG_SUPPORT_GFX_PG;
-+		adev->pg_flags = AMD_PG_SUPPORT_VCN_DPG |
-+			AMD_PG_SUPPORT_VCN |
-+			AMD_PG_SUPPORT_JPEG_DPG |
-+			AMD_PG_SUPPORT_JPEG |
-+			AMD_PG_SUPPORT_GFX_PG;
- 		adev->external_rev_id = adev->rev_id + 0x50;
- 		break;
- 	default:
--- 
-2.43.0
 
+
+> 2025=E5=B9=B41=E6=9C=889=E6=97=A5 00:08=EF=BC=8CMario Limonciello =
+<mario.limonciello@amd.com> =E5=86=99=E9=81=93=EF=BC=9A
+>=20
+> On 1/8/2025 02:56, Jiang Liu wrote:
+>> Enhance error handling in function amdgpu_pci_probe() to avoid
+>> possible resource leakage.
+>> Signed-off-by: Jiang Liu <gerry@linux.alibaba.com>
+>> ---
+>>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 12 +++++++++---
+>>  1 file changed, 9 insertions(+), 3 deletions(-)
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c =
+b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>> index 41d1b06be600..f8deca2f2696 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>> @@ -2346,16 +2346,16 @@ static int amdgpu_pci_probe(struct pci_dev =
+*pdev,
+>>  		msleep(5000);
+>>  		goto retry_init;
+>>  	} else if (ret) {
+>> -		goto err_pci;
+>> +		goto unload_kms;
+>=20
+> This label change looks wrong to me.  If you fail to =
+amdgpu_driver_load_kms(), why would you amdgpu_driver_unload_kms()?
+>=20
+> amdgpu_driver_load_kms() has cleanup handling already to call =
+amdgpu_driver_unload_kms()
+This goto is to handle failure of drm_dev_register() instead of failure =
+of amdgpu_driver_load_kms().
+Thanks,
+Gerry
+
+>=20
+>>  	}
+>>    	ret =3D amdgpu_xcp_dev_register(adev, ent);
+>>  	if (ret)
+>> -		goto err_pci;
+>> +		goto unplug_drm;
+>>    	ret =3D amdgpu_amdkfd_drm_client_create(adev);
+>>  	if (ret)
+>> -		goto err_pci;
+>> +		goto deregister_xcp;
+>>    	/*
+>>  	 * 1. don't init fbdev on hw without DCE
+>> @@ -2424,6 +2424,12 @@ static int amdgpu_pci_probe(struct pci_dev =
+*pdev,
+>>    	return 0;
+>>  +deregister_xcp:
+>> +	amdgpu_xcp_dev_deregister(adev);
+>> +unplug_drm:
+>> +	drm_dev_unplug(ddev);
+>> +unload_kms:
+>> +	amdgpu_driver_unload_kms(ddev);
+>>  err_pci:
+>>  	pci_disable_device(pdev);
+>>  	return ret;
+
+
+--Apple-Mail=_334FD5CD-22B5-44F4-8680-5711A7B145D9
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html;
+	charset=utf-8
+
+<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html; =
+charset=3Dutf-8"></head><body style=3D"word-wrap: break-word; =
+-webkit-nbsp-mode: space; line-break: after-white-space;" class=3D""><br =
+class=3D""><div><br class=3D""><blockquote type=3D"cite" class=3D""><div =
+class=3D"">2025=E5=B9=B41=E6=9C=889=E6=97=A5 00:08=EF=BC=8CMario =
+Limonciello &lt;<a href=3D"mailto:mario.limonciello@amd.com" =
+class=3D"">mario.limonciello@amd.com</a>&gt; =E5=86=99=E9=81=93=EF=BC=9A</=
+div><br class=3D"Apple-interchange-newline"><div class=3D""><meta =
+charset=3D"UTF-8" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); =
+font-family: Helvetica; font-size: 18px; font-style: normal; =
+font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none; float: none; display: inline !important;" =
+class=3D"">On 1/8/2025 02:56, Jiang Liu wrote:</span><br =
+style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size: =
+18px; font-style: normal; font-variant-caps: normal; font-weight: 400; =
+letter-spacing: normal; text-align: start; text-indent: 0px; =
+text-transform: none; white-space: normal; word-spacing: 0px; =
+-webkit-text-stroke-width: 0px; text-decoration: none;" =
+class=3D""><blockquote type=3D"cite" style=3D"font-family: Helvetica; =
+font-size: 18px; font-style: normal; font-variant-caps: normal; =
+font-weight: 400; letter-spacing: normal; orphans: auto; text-align: =
+start; text-indent: 0px; text-transform: none; white-space: normal; =
+widows: auto; word-spacing: 0px; -webkit-text-size-adjust: auto; =
+-webkit-text-stroke-width: 0px; text-decoration: none;" class=3D"">Enhance=
+ error handling in function amdgpu_pci_probe() to avoid<br =
+class=3D"">possible resource leakage.<br class=3D"">Signed-off-by: Jiang =
+Liu &lt;<a href=3D"mailto:gerry@linux.alibaba.com" =
+class=3D"">gerry@linux.alibaba.com</a>&gt;<br class=3D"">---<br =
+class=3D"">&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 12 =
++++++++++---<br class=3D"">&nbsp;1 file changed, 9 insertions(+), 3 =
+deletions(-)<br class=3D"">diff --git =
+a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c =
+b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br class=3D"">index =
+41d1b06be600..f8deca2f2696 100644<br class=3D"">--- =
+a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br class=3D"">+++ =
+b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br class=3D"">@@ -2346,16 =
++2346,16 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,<br =
+class=3D"">&nbsp;<span class=3D"Apple-tab-span" style=3D"white-space: =
+pre;">	</span><span class=3D"Apple-tab-span" style=3D"white-space: =
+pre;">	</span>msleep(5000);<br class=3D"">&nbsp;<span =
+class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span><span =
+class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span>goto =
+retry_init;<br class=3D"">&nbsp;<span class=3D"Apple-tab-span" =
+style=3D"white-space: pre;">	</span>} else if (ret) {<br =
+class=3D"">-<span class=3D"Apple-tab-span" style=3D"white-space: pre;">	=
+</span><span class=3D"Apple-tab-span" style=3D"white-space: pre;">	=
+</span>goto err_pci;<br class=3D"">+<span class=3D"Apple-tab-span" =
+style=3D"white-space: pre;">	</span><span class=3D"Apple-tab-span" =
+style=3D"white-space: pre;">	</span>goto unload_kms;<br =
+class=3D""></blockquote><br style=3D"caret-color: rgb(0, 0, 0); =
+font-family: Helvetica; font-size: 18px; font-style: normal; =
+font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
+0); font-family: Helvetica; font-size: 18px; font-style: normal; =
+font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none; float: none; display: inline !important;" =
+class=3D"">This label change looks wrong to me. &nbsp;If you fail to =
+amdgpu_driver_load_kms(), why would you =
+amdgpu_driver_unload_kms()?</span><br style=3D"caret-color: rgb(0, 0, =
+0); font-family: Helvetica; font-size: 18px; font-style: normal; =
+font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><br style=3D"caret-color: rgb(0, 0, =
+0); font-family: Helvetica; font-size: 18px; font-style: normal; =
+font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
+0); font-family: Helvetica; font-size: 18px; font-style: normal; =
+font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none; float: none; display: inline !important;" =
+class=3D"">amdgpu_driver_load_kms() has cleanup handling already to call =
+amdgpu_driver_unload_kms()</span><br style=3D"caret-color: rgb(0, 0, 0); =
+font-family: Helvetica; font-size: 18px; font-style: normal; =
+font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""></div></blockquote><div>This goto is =
+to handle failure of drm_dev_register() instead of failure of =
+amdgpu_driver_load_kms().</div><div>Thanks,</div><div>Gerry</div><br =
+class=3D""><blockquote type=3D"cite" class=3D""><div class=3D""><br =
+style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size: =
+18px; font-style: normal; font-variant-caps: normal; font-weight: 400; =
+letter-spacing: normal; text-align: start; text-indent: 0px; =
+text-transform: none; white-space: normal; word-spacing: 0px; =
+-webkit-text-stroke-width: 0px; text-decoration: none;" =
+class=3D""><blockquote type=3D"cite" style=3D"font-family: Helvetica; =
+font-size: 18px; font-style: normal; font-variant-caps: normal; =
+font-weight: 400; letter-spacing: normal; orphans: auto; text-align: =
+start; text-indent: 0px; text-transform: none; white-space: normal; =
+widows: auto; word-spacing: 0px; -webkit-text-size-adjust: auto; =
+-webkit-text-stroke-width: 0px; text-decoration: none;" =
+class=3D"">&nbsp;<span class=3D"Apple-tab-span" style=3D"white-space: =
+pre;">	</span>}<br class=3D"">&nbsp;&nbsp;&nbsp;<span =
+class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span>ret =3D =
+amdgpu_xcp_dev_register(adev, ent);<br class=3D"">&nbsp;<span =
+class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span>if =
+(ret)<br class=3D"">-<span class=3D"Apple-tab-span" style=3D"white-space: =
+pre;">	</span><span class=3D"Apple-tab-span" style=3D"white-space: =
+pre;">	</span>goto err_pci;<br class=3D"">+<span class=3D"Apple-tab-span"=
+ style=3D"white-space: pre;">	</span><span class=3D"Apple-tab-span" =
+style=3D"white-space: pre;">	</span>goto unplug_drm;<br =
+class=3D"">&nbsp;&nbsp;&nbsp;<span class=3D"Apple-tab-span" =
+style=3D"white-space: pre;">	</span>ret =3D =
+amdgpu_amdkfd_drm_client_create(adev);<br class=3D"">&nbsp;<span =
+class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span>if =
+(ret)<br class=3D"">-<span class=3D"Apple-tab-span" style=3D"white-space: =
+pre;">	</span><span class=3D"Apple-tab-span" style=3D"white-space: =
+pre;">	</span>goto err_pci;<br class=3D"">+<span class=3D"Apple-tab-span"=
+ style=3D"white-space: pre;">	</span><span class=3D"Apple-tab-span" =
+style=3D"white-space: pre;">	</span>goto deregister_xcp;<br =
+class=3D"">&nbsp;&nbsp;&nbsp;<span class=3D"Apple-tab-span" =
+style=3D"white-space: pre;">	</span>/*<br class=3D"">&nbsp;<span =
+class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span><span =
+class=3D"Apple-converted-space">&nbsp;</span>* 1. don't init fbdev on hw =
+without DCE<br class=3D"">@@ -2424,6 +2424,12 @@ static int =
+amdgpu_pci_probe(struct pci_dev *pdev,<br =
+class=3D"">&nbsp;&nbsp;&nbsp;<span class=3D"Apple-tab-span" =
+style=3D"white-space: pre;">	</span>return 0;<br =
+class=3D"">&nbsp;+deregister_xcp:<br class=3D"">+<span =
+class=3D"Apple-tab-span" style=3D"white-space: pre;">	=
+</span>amdgpu_xcp_dev_deregister(adev);<br class=3D"">+unplug_drm:<br =
+class=3D"">+<span class=3D"Apple-tab-span" style=3D"white-space: pre;">	=
+</span>drm_dev_unplug(ddev);<br class=3D"">+unload_kms:<br =
+class=3D"">+<span class=3D"Apple-tab-span" style=3D"white-space: pre;">	=
+</span>amdgpu_driver_unload_kms(ddev);<br class=3D"">&nbsp;err_pci:<br =
+class=3D"">&nbsp;<span class=3D"Apple-tab-span" style=3D"white-space: =
+pre;">	</span>pci_disable_device(pdev);<br class=3D"">&nbsp;<span =
+class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span>return =
+ret;</blockquote></div></blockquote></div><br class=3D""></body></html>=
+
+--Apple-Mail=_334FD5CD-22B5-44F4-8680-5711A7B145D9--
