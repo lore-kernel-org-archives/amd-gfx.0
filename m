@@ -4,128 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FBA5E77199
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jan 2025 16:58:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDAB2E77197
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jan 2025 17:04:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED32C10EE3C;
-	Thu,  9 Jan 2025 16:58:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 75E8510EE51;
+	Thu,  9 Jan 2025 17:04:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="rrTCLPJm";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VnwKANlO";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2050.outbound.protection.outlook.com [40.107.237.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 83AB810EE3C
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jan 2025 16:58:43 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=r11MAyKnAC/vBpXjX9noJj3xnCDKsYgbKAsMq7g5YRSk3Grd+COBILG5fzNr0QoQMgysvpelC0tMK8DD0H8KkN10G9BEplPrio90EQTUk+YCSkgaJy9fe+sC0IzoVkiF3AkhP5YWCPzRW7JH7aTM67y9hoGtiaB7ArTRA8CydCbtzBMuqGUiIqjDxxFlRYAMIaMonOLhczkpd0T6j3mE9IZzY64SGRdRmPQt0fesgZVEl/5CUNde0ugPzWS+5I9RyUTqyI0I8QhFPzhde9i+EQaF61GzDHbSwQMR4120r7dZxFcULwyitzpBb7SlE8hueXRn5PO5w0gn6ltKWUQ/Fw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bD0HYFDxFH2YEU//7ppCT5l1LFeGiqYrVk+JeDD4kDQ=;
- b=etyliP86FKh+2uC609PrvbTtaDNNg0Dr6hKxDsQ6lhQrCDutm5U3hqfRbvJc/E9vunf4kBy0y4Gdio17STUzPcRGJtn86JlDFvIK81Of406vTjVDldjmOmKoclVpknjcyPjaonMBlCDAwXWW6PrrnB1GzNuMc4XMLhoXHJ/YNrfvp1BE1xjcqJaBXCdloNzOaxm2gfdPg9SVrdOtYX2RIFmg3SaTTLDKKs3XSTVs+wV3zmGE3OLRENsnFArc2anx3ZDHMw4D7Z0pqKVULSQ8P7oT8f8x2SY23jtyw7hjIOSmMh6UOirH5xEETFtEZwmXj8GY/es8Qg4R4cd2trejUQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bD0HYFDxFH2YEU//7ppCT5l1LFeGiqYrVk+JeDD4kDQ=;
- b=rrTCLPJmPPe5dDZjhH34714ASF3CPG3dRhgVNeTvPegp32FqHfq3o9u4yr6LdQxYdFlGaUBxYSelj2J13fraFy58K9JLTQudVOpf9X4IoFv/lmh74YIk/uTrni3TyJVBE/wDQmM+xtdhnaJnmixC3E/OvXw/Lx7WUhn39URTxW8=
-Received: from BN9PR03CA0954.namprd03.prod.outlook.com (2603:10b6:408:108::29)
- by CH2PR12MB4214.namprd12.prod.outlook.com (2603:10b6:610:aa::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8335.11; Thu, 9 Jan
- 2025 16:58:26 +0000
-Received: from BL6PEPF0001AB74.namprd02.prod.outlook.com
- (2603:10b6:408:108:cafe::ac) by BN9PR03CA0954.outlook.office365.com
- (2603:10b6:408:108::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8335.11 via Frontend Transport; Thu,
- 9 Jan 2025 16:58:26 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL6PEPF0001AB74.mail.protection.outlook.com (10.167.242.167) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8335.7 via Frontend Transport; Thu, 9 Jan 2025 16:58:25 +0000
-Received: from Harpoon.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 9 Jan
- 2025 10:58:24 -0600
-From: Felix Kuehling <felix.kuehling@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Pak Nin Lui
- <pak.lui@amd.com>, Simona Vetter <simona.vetter@ffwll.ch>
-Subject: [PATCH] drm/amdgpu: allow pinning DMA-bufs into VRAM if all importers
- can do P2P
-Date: Thu, 9 Jan 2025 11:57:56 -0500
-Message-ID: <20250109165756.26401-1-felix.kuehling@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mail-pj1-x1031.google.com (mail-pj1-x1031.google.com
+ [IPv6:2607:f8b0:4864:20::1031])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D0EAC10EE51
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Jan 2025 17:04:25 +0000 (UTC)
+Received: by mail-pj1-x1031.google.com with SMTP id
+ 98e67ed59e1d1-2ee9b1a2116so224925a91.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 09 Jan 2025 09:04:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1736442265; x=1737047065; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=SsZi6r/XeZUzAZahJ3GzZo3CPnk9Dv25wlYZRXrlHTY=;
+ b=VnwKANlOt6gWFno20DBgrU2ItczYfhBkirVfKEPxNDPPvtSAgu8yS8VTMPjlhZmxD/
+ X0PuR9h+LxNQqm11fAqDtPOHcmvBJ5sK8pPJWx73H3/7QZIuk2zELt05WGjitUdUeaN2
+ i5S+/mQpePQfG6ykQhCQLs3Eo/cDLI/MbPcZ+REHNLSTmZHKJ8Z85WAR9Roln3odMChZ
+ h5643VKJP47yH7en/eYqKWHnmVHfmJmvGZFK808DqvbH6K3Ql7h3fbvF/6Zeiq4XN0uk
+ Z+GyGEgdjQZTbUxgFhQMb8SH3cs3M60sw3Rs+Ve2r74BLznrcMu+xOQ3KlUPI+OAgHrW
+ ubLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1736442265; x=1737047065;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=SsZi6r/XeZUzAZahJ3GzZo3CPnk9Dv25wlYZRXrlHTY=;
+ b=ttZMJ0s4/FbSJ/zSrGepnL/Rmx7OsiFoAAQmNby5YhcZwPQk+cjq29Es+Xnno/NzaX
+ PJ1AExLqSPtcOmERptjnljdbHXeiXzqoOpm8jWP8wlveGu+eDGA1mBn7h9Hlq9p5POGj
+ k5Gvg8fLyP1GVbvt15LbIxjpCQOIt5sp/XcDMkiq8XSZDMk/WMdJIYZtaeGlOehIT6nb
+ Y0G3yU8QMSP5Y3nEGk1nywzafpw8ppEfFMvkz4iXkBNqXHLh2zsXhqiEVu6BMpGluPol
+ bHMsyycGMADx6T1Sc+M5KWDUN36HJQF/uGrE2R2L0NtVzaG/K011ngjHtfrKbpMzT6ti
+ QY3w==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUU2rtAv2VeXWHPPnABrSvpzbkAriq0xCm5EIqUyvvvISdN1PpzYg8bkM2edWyQpY3b/S2xcwQ1@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyb9xmWhq9U68ucMTD9frZG25VZ0IFgYtZKETwiLTOZJxXDxuX4
+ VZGfvRNM9GRBSwg/SWoCPPG6FRm6FtK83nMNUTiPuTvpLAaJxTMvPYnsefACe7wGDkihEQOy3NI
+ oCZZH8xK/loMxmHyyNlXLNiwEYkpvPw==
+X-Gm-Gg: ASbGncuLPvGj+5uQm8LIyyK+9EmBDk5VhIrXcAvy3tJOp553mBkekugzz63pSMm6FB9
+ nI5sFRIg5SPG0+HzIoaipyeNUTz+vXl/SGrKaFg==
+X-Google-Smtp-Source: AGHT+IF8B3Hqp+M8IpjfAViy5BpECY+1+7TKaMYeOvQBaJXbCZSq/YbaWkqmY6tC1dqpuLKQeiad+cMSiGj9xiHnYUo=
+X-Received: by 2002:a17:90a:da88:b0:2ee:f440:bb93 with SMTP id
+ 98e67ed59e1d1-2f548f2449fmr3915999a91.4.1736442265171; Thu, 09 Jan 2025
+ 09:04:25 -0800 (PST)
 MIME-Version: 1.0
+References: <20250108225627.14063-1-alexander.deucher@amd.com>
+ <DM4PR12MB5165AC72A93B485D3B07F7958E132@DM4PR12MB5165.namprd12.prod.outlook.com>
+In-Reply-To: <DM4PR12MB5165AC72A93B485D3B07F7958E132@DM4PR12MB5165.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 9 Jan 2025 12:04:13 -0500
+X-Gm-Features: AbW1kvZtnXDYbF-hpZRLy3te-XHcuXFyyJ1NXUi_ON9OJDBvXOsYl9gXZ078aY0
+Message-ID: <CADnq5_Of6kZ_uA6ceH6gtReaUoTZy-x9=1mzP8ABi+9rODrdMQ@mail.gmail.com>
+Subject: Re: [PATCH 1/5] drm/amdgpu/gfx: add ring helpers for setting workload
+ profile
+To: "Feng, Kenneth" <Kenneth.Feng@amd.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
+ "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB74:EE_|CH2PR12MB4214:EE_
-X-MS-Office365-Filtering-Correlation-Id: c2b66c02-a427-4681-0888-08dd30ced577
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|36860700013|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?aU4vTGpZRVlTOEhQTFMwL2swSmNOclJ6bjYwdU9rRTdsU1JFYTVSN3JnSWtQ?=
- =?utf-8?B?VFB3dTY1VnhPRTJHZzZ2N1NvSVdhWng5M2lGMXJ1WFlrQkZXak1DVHJXZU16?=
- =?utf-8?B?SXJmejZhS0J1VlREczMxcnpXY3BtSm1JQ0Q4Y0ZLLzlJelVxejJac0xacDhM?=
- =?utf-8?B?UXFZd2hTUktraHRDK25Wam5JakxEK3I0UHl5cml6N3BhOU9ZVW5XS0V6cXVw?=
- =?utf-8?B?MUsybzFwT1l3a3U4MFkrV1dOQ2pVZzVCYlJSVnpaS0lxaENEZWN5NHpoWEIw?=
- =?utf-8?B?STNFK3NvNlAxSWNlTnk5QzNuUy82SWFEa0htcEJWNitJWGxlL3ZkUHNXRnNN?=
- =?utf-8?B?S2E3clFTUzFoSklrVGQ5Vk1RS3cycW8wSmU3QjN6c3BtT3ZKT01ISGZRbitP?=
- =?utf-8?B?eURlbUF5cnQvaTNBLy9qODlTMlBSOWFGSTF4QThFRUJFbHVHK2p5M2pyY2dj?=
- =?utf-8?B?STd1SUVpUEFGYW1pY1kzaVVKUzNlUjJUWUtldDVMUkdUaW5HdVNqRXRua2dK?=
- =?utf-8?B?ZTRtZkJZMldLQUl3V0s1ODdNV0VtcW42NGNxVWYrRTQ5RlV4T0FTWktQeXcy?=
- =?utf-8?B?aE41cXczUHFUMm1jU00rdkduL3QrU2VVSEY1Rjc1bElyNDJBWE9vdmJQS1RP?=
- =?utf-8?B?QXVGaVo5Vk9PbUN2WmZJZ1lEV2FXeEhWbVlWY3N3dHZIeW5CQXZYWUlsYkxo?=
- =?utf-8?B?aGhlcERhVUd3WkJZQ0FVcDgwZWNpTEZqZjVtSXpVby9yZGdqVVBFalE1N0dD?=
- =?utf-8?B?aytSQ0Z1NkxpT3NObzhzQy8rSi96Y0l2TEpML0dlMXliSW5DaHR3UDBad2F0?=
- =?utf-8?B?dU5YUXE4ME92eHV2ZkRDK205Y0xhRStWZnhFa2RlUVhLTjM5Q2hFZEdEcUpw?=
- =?utf-8?B?V3lYd09aTXk3V21jY0l0WTRYZHpBSUlhallic205azZjVkxoMysyVm1oU2h0?=
- =?utf-8?B?NTZVYVB5emNzT2kxTDlIRnJiL3lkc1VwOWdGdXNqOERjeDFMK1JDSHU4WmZL?=
- =?utf-8?B?eER1c0hIMER1aEpoYzNiOUJXVUpwbEVKQVFLTjBuaFIxZzhEYWlmOVJwRTZF?=
- =?utf-8?B?N3ArMkVHQ1VQemU1M0RTZE5rSWZ2M25ZMUpZZ0tMb2V3V2ZxS0x6YjM0N1ZJ?=
- =?utf-8?B?dXhoZG40ZE5ERlArT1ZqUmorZzREU0dYbXlqWGdaOUxidlY2QnhXYkpReXpk?=
- =?utf-8?B?VlpDQ1VKdE1kelFjN1BQYzJOYWtIRElvNzk5M0IzWDErZGJwTjFyeVlCT21t?=
- =?utf-8?B?UWdIVnZSU1NGam13SHdkVHJ0Y2RwRFdpdE54S0Fka3dHMEZiMzBrMERpVzB1?=
- =?utf-8?B?TzlsUVRQVHhGZHN3TmRabjVwdUFES3BQdXR3VjlhZFRLYmZxc1ROYkJVWVE0?=
- =?utf-8?B?bWJBZDYrTTFUbWlKNGtjTGJCTzl4blpWNXNGT1phSW9tNGtUTE1YdCtCZlRS?=
- =?utf-8?B?R0xwN0NDaUpUcjEyTStpajM5UVZDaGJIdmxUSHVEa3U5QzlzSUxxZG9BSUky?=
- =?utf-8?B?ci9HKytOSy93MnpRN1kwclJzMTBKK1IwTmNFODRSTTY2ZHhURnZISmRoWVpJ?=
- =?utf-8?B?dGtyNDAxWHRWbG1md3Q3R3BWbWR5RVBFVUxQSFNlamVuWXFiL3Rmc0RQY3BE?=
- =?utf-8?B?RUsxK2paT3lxYkx6MkQ4eHBsa0V6Qm5PZFF2ai9qdEtIZFlpWWRRcDU1WXRR?=
- =?utf-8?B?RzM2SmlRTTFNa0QwdmVYM1ZtZjhLc3VXckM3WWltMTNjMXpDbWlWbkZ5VC9T?=
- =?utf-8?B?d0NYZyttc2thV0d0T0QxZmNSL1RqU2NzSzZTQzJZeG5aekVlR2JETTZXaXhI?=
- =?utf-8?B?cVdZM3lJWlVIZmxEaUdweDZEQmR6QWRhbkZObDdlcDJESnMxeCt0MytrRkt2?=
- =?utf-8?B?M0FsNmdpYWlRMHA1ZGp2azE5S3RRVHpsRzhzVVlCa0pNSjhwTEdxUUF5azhk?=
- =?utf-8?B?V2FyZGF1bVdkV3hjVlE1VWNwZ2d4V0wxSU1TSHNSLzVCQlNDeGE5cEJlemdJ?=
- =?utf-8?Q?dnJTSKggS37P8geqmOb43m611zUA3s=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(36860700013)(82310400026); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jan 2025 16:58:25.8597 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c2b66c02-a427-4681-0888-08dd30ced577
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB74.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4214
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,65 +84,162 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Christian König <christian.koenig@amd.com>
+On Wed, Jan 8, 2025 at 11:17=E2=80=AFPM Feng, Kenneth <Kenneth.Feng@amd.com=
+> wrote:
+>
+> [AMD Official Use Only - AMD Internal Distribution Only]
+>
+> -----Original Message-----
+> From: Deucher, Alexander <Alexander.Deucher@amd.com>
+> Sent: Thursday, January 9, 2025 6:56 AM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Pillai, Aurabindo <Aurabindo.Pillai@amd.com>; Feng, Kenneth <Kenneth.=
+Feng@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>
+> Subject: [PATCH 1/5] drm/amdgpu/gfx: add ring helpers for setting workloa=
+d profile
+>
+> Add helpers to switch the workload profile dynamically when commands are =
+submitted.  This allows us to switch to the FULLSCREEN3D or COMPUTE profile=
+ when work is submitted.
+> Add a delayed work handler to delay switching out of the selected profile=
+ if additional work comes in.  This works the same as the VIDEO profile for=
+ VCN.  This lets dynamically enable workload profiles on the fly and then m=
+ove back to the default when there is no work.
+>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 57 +++++++++++++++++++++++++  =
+drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h | 11 +++++
+>  2 files changed, 68 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_gfx.c
+> index 6d5d81f0dc4e7..c542617121393 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> @@ -2110,6 +2110,63 @@ void amdgpu_gfx_enforce_isolation_ring_end_use(str=
+uct amdgpu_ring *ring)
+>         mutex_unlock(&adev->enforce_isolation_mutex);
+>  }
+>
+> +void amdgpu_gfx_profile_idle_work_handler(struct work_struct *work) {
+> +       struct amdgpu_device *adev =3D
+> +               container_of(work, struct amdgpu_device, gfx.idle_work.wo=
+rk);
+> +       enum PP_SMC_POWER_PROFILE profile;
+> +       u32 i, fences =3D 0;
+> +       int r;
+> +
+> +       if (adev->gfx.num_gfx_rings)
+> +               profile =3D PP_SMC_POWER_PROFILE_FULLSCREEN3D;
+> +       else
+> +               profile =3D PP_SMC_POWER_PROFILE_COMPUTE;
+>
+>
+> [Kenneth] - there is KFD code amdgpu_amdkfd_set_compute_idle() to manage =
+the compute workload, is it necessary to control compute workload here?
 
-Try pinning into VRAM to allow P2P with RDMA NICs without ODP
-support if all attachments can do P2P. If any attachment can't do
-P2P just pin into GTT instead.
+This only adjusts submissions to kernel queues.  If there are no KFD
+user queues, then we wouldn't set the compute profile.  Also, at the
+moment, I've only enabled this for gfx10 and newer.
 
-Signed-off-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Felix Kuehling <felix.kuehling@amd.com>
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
-Tested-by: Pak Nin Lui <pak.lui@amd.com>
-Cc: Simona Vetter <simona.vetter@ffwll.ch>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 25 +++++++++++++++------
- 1 file changed, 18 insertions(+), 7 deletions(-)
+Alex
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-index 8e81a83d37d84..83390143c2e9f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-@@ -72,11 +72,25 @@ static int amdgpu_dma_buf_attach(struct dma_buf *dmabuf,
-  */
- static int amdgpu_dma_buf_pin(struct dma_buf_attachment *attach)
- {
--	struct drm_gem_object *obj = attach->dmabuf->priv;
--	struct amdgpu_bo *bo = gem_to_amdgpu_bo(obj);
-+	struct dma_buf *dmabuf = attach->dmabuf;
-+	struct amdgpu_bo *bo = gem_to_amdgpu_bo(dmabuf->priv);
-+	u32 domains = bo->preferred_domains;
- 
--	/* pin buffer into GTT */
--	return amdgpu_bo_pin(bo, AMDGPU_GEM_DOMAIN_GTT);
-+	dma_resv_assert_held(dmabuf->resv);
-+
-+	/*
-+	 * Try pinning into VRAM to allow P2P with RDMA NICs without ODP
-+	 * support if all attachments can do P2P. If any attachment can't do
-+	 * P2P just pin into GTT instead.
-+	 */
-+	list_for_each_entry(attach, &dmabuf->attachments, node)
-+		if (!attach->peer2peer)
-+			domains &= ~AMDGPU_GEM_DOMAIN_VRAM;
-+
-+	if (domains & AMDGPU_GEM_DOMAIN_VRAM)
-+		bo->flags |= AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
-+
-+	return amdgpu_bo_pin(bo, domains);
- }
- 
- /**
-@@ -131,9 +145,6 @@ static struct sg_table *amdgpu_dma_buf_map(struct dma_buf_attachment *attach,
- 		r = ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
- 		if (r)
- 			return ERR_PTR(r);
--
--	} else if (bo->tbo.resource->mem_type != TTM_PL_TT) {
--		return ERR_PTR(-EBUSY);
- 	}
- 
- 	switch (bo->tbo.resource->mem_type) {
--- 
-2.34.1
-
+>
+> +
+> +       for (i =3D 0; i < AMDGPU_MAX_GFX_RINGS; ++i)
+> +               fences +=3D amdgpu_fence_count_emitted(&adev->gfx.gfx_rin=
+g[i]);
+> +       for (i =3D 0; i < (AMDGPU_MAX_COMPUTE_RINGS * AMDGPU_MAX_GC_INSTA=
+NCES); ++i)
+> +               fences +=3D amdgpu_fence_count_emitted(&adev->gfx.compute=
+_ring[i]);
+> +       if (!fences && !atomic_read(&adev->gfx.total_submission_cnt)) {
+> +               r =3D amdgpu_dpm_switch_power_profile(adev, profile, fals=
+e);
+> +               if (r)
+> +                       dev_warn(adev->dev, "(%d) failed to disable %s po=
+wer profile mode\n", r,
+> +                                profile =3D=3D PP_SMC_POWER_PROFILE_FULL=
+SCREEN3D ?
+> +                                "fullscreen 3D" : "compute");
+> +       } else {
+> +               schedule_delayed_work(&adev->gfx.idle_work, GFX_PROFILE_I=
+DLE_TIMEOUT);
+> +       }
+> +}
+> +
+> +void amdgpu_gfx_profile_ring_begin_use(struct amdgpu_ring *ring) {
+> +       struct amdgpu_device *adev =3D ring->adev;
+> +       enum PP_SMC_POWER_PROFILE profile;
+> +       int r;
+> +
+> +       if (adev->gfx.num_gfx_rings)
+> +               profile =3D PP_SMC_POWER_PROFILE_FULLSCREEN3D;
+> +       else
+> +               profile =3D PP_SMC_POWER_PROFILE_COMPUTE;
+> +
+> +       atomic_inc(&adev->gfx.total_submission_cnt);
+> +
+> +       if (!cancel_delayed_work_sync(&adev->gfx.idle_work)) {
+> +               r =3D amdgpu_dpm_switch_power_profile(adev, profile, true=
+);
+> +               if (r)
+> +                       dev_warn(adev->dev, "(%d) failed to disable %s po=
+wer profile mode\n", r,
+> +                                profile =3D=3D PP_SMC_POWER_PROFILE_FULL=
+SCREEN3D ?
+> +                                "fullscreen 3D" : "compute");
+> +       }
+> +}
+> +
+> +void amdgpu_gfx_profile_ring_end_use(struct amdgpu_ring *ring) {
+> +       atomic_dec(&ring->adev->gfx.total_submission_cnt);
+> +
+> +       schedule_delayed_work(&ring->adev->gfx.idle_work,
+> +GFX_PROFILE_IDLE_TIMEOUT); }
+> +
+>  /*
+>   * debugfs for to enable/disable gfx job submission to specific core.
+>   */
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_gfx.h
+> index 7f9e261f47f11..6c84598caec21 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> @@ -57,6 +57,9 @@ enum amdgpu_gfx_pipe_priority {  #define AMDGPU_GFX_QUE=
+UE_PRIORITY_MINIMUM  0  #define AMDGPU_GFX_QUEUE_PRIORITY_MAXIMUM  15
+>
+> +/* 1 second timeout */
+> +#define GFX_PROFILE_IDLE_TIMEOUT       msecs_to_jiffies(1000)
+> +
+>  enum amdgpu_gfx_partition {
+>         AMDGPU_SPX_PARTITION_MODE =3D 0,
+>         AMDGPU_DPX_PARTITION_MODE =3D 1,
+> @@ -477,6 +480,9 @@ struct amdgpu_gfx {
+>         bool                            kfd_sch_inactive[MAX_XCP];
+>         unsigned long                   enforce_isolation_jiffies[MAX_XCP=
+];
+>         unsigned long                   enforce_isolation_time[MAX_XCP];
+> +
+> +       atomic_t                        total_submission_cnt;
+> +       struct delayed_work             idle_work;
+>  };
+>
+>  struct amdgpu_gfx_ras_reg_entry {
+> @@ -585,6 +591,11 @@ void amdgpu_gfx_cleaner_shader_init(struct amdgpu_de=
+vice *adev,  void amdgpu_gfx_enforce_isolation_handler(struct work_struct *=
+work);  void amdgpu_gfx_enforce_isolation_ring_begin_use(struct amdgpu_ring=
+ *ring);  void amdgpu_gfx_enforce_isolation_ring_end_use(struct amdgpu_ring=
+ *ring);
+> +
+> +void amdgpu_gfx_profile_idle_work_handler(struct work_struct *work);
+> +void amdgpu_gfx_profile_ring_begin_use(struct amdgpu_ring *ring); void
+> +amdgpu_gfx_profile_ring_end_use(struct amdgpu_ring *ring);
+> +
+>  void amdgpu_debugfs_gfx_sched_mask_init(struct amdgpu_device *adev);  vo=
+id amdgpu_debugfs_compute_sched_mask_init(struct amdgpu_device *adev);
+>
+> --
+> 2.47.1
+>
