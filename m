@@ -4,61 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63586E7719C
-	for <amd-gfx@archiver.kernel.org>; Sat, 11 Jan 2025 14:09:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 466A1E7719D
+	for <amd-gfx@archiver.kernel.org>; Sat, 11 Jan 2025 14:09:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7153D10E5AC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 70FA010E59C;
 	Sat, 11 Jan 2025 14:09:39 +0000 (UTC)
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
- by gabe.freedesktop.org (Postfix) with ESMTP id 589B610E059
- for <amd-gfx@lists.freedesktop.org>; Sat, 11 Jan 2025 07:03:11 +0000 (UTC)
-Received: from loongson.cn (unknown [113.200.148.30])
- by gateway (Coremail) with SMTP id _____8Bx366uF4JnrIFhAA--.20633S3;
- Sat, 11 Jan 2025 15:03:10 +0800 (CST)
-Received: from [10.130.0.149] (unknown [113.200.148.30])
- by front1 (Coremail) with SMTP id qMiowMBxXcetF4Jn5GMdAA--.55243S3;
- Sat, 11 Jan 2025 15:03:10 +0800 (CST)
-Subject: Re: [PATCH v2 0/5] drm/amd/display: Stop control flow if the divisior
- is zero
-To: Harry Wentland <harry.wentland@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Xinhui Pan <Xinhui.Pan@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-References: <20250106085755.3268-1-yangtiezhu@loongson.cn>
- <21f4f72a-b27f-4389-b345-e1d9cf4c2f06@amd.com>
-Cc: Nathan Chancellor <nathan@kernel.org>,
- Josh Poimboeuf <jpoimboe@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- loongarch@lists.linux.dev, amd-gfx@lists.freedesktop.org,
- llvm@lists.linux.dev, linux-kernel@vger.kernel.org
-From: Tiezhu Yang <yangtiezhu@loongson.cn>
-Message-ID: <97d1f078-981d-ed10-7e6f-a9e177298b2e@loongson.cn>
-Date: Sat, 11 Jan 2025 15:03:09 +0800
-User-Agent: Mozilla/5.0 (X11; Linux mips64; rv:45.0) Gecko/20100101
- Thunderbird/45.4.0
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (4096-bit key; unprotected) header.d=alien8.de header.i=@alien8.de header.b="F2KAB2pX";
+	dkim-atps=neutral
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F146F10E50C;
+ Fri, 10 Jan 2025 17:53:12 +0000 (UTC)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 5CA4140E0277; 
+ Fri, 10 Jan 2025 17:53:11 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+ header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+ by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id UgdFvW0kh09k; Fri, 10 Jan 2025 17:53:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+ t=1736531587; bh=hWQNssuWD66YKuLujLHgbp4MStYpf0nY+KZT+LDratA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=F2KAB2pXegz//kxjxJ7Ddy0mVXHvSd3Z8jqm8luMh60AZiQKOq15d7sxfSGHUvlKo
+ mse7Q09Uw09qDr/v0aA7/ZYUEK4MXP2QNj7KOqS4MaJmRbtT+qNeJIG8XHyGonFL7s
+ Aifuq30U0cZWWagtBYlw3jpb5C35JOM93N3LerPNusF2eti+7dUlOmuEyzR5iLnsEr
+ 3SdEnZn13eorX+YbLrbVl3OMZJULAO+6cWFSBL4mRc70ajmqavTX6xMOdU+y8MISI7
+ YAezNaiLs3GJ33qNN/D67PY+u8DzPlDImbAQUbw+iRvcn85MaXqBMO2Au+5zpU+6iB
+ zr/foFa2/keLQr2wx031C3xQ4ttLWnPw0L7WzVl+za+S9s5YzTxy1JS141fwTJ1ZNb
+ 1F1k7+qIX73Fg4OxXYFYwvLqN8tKdzuvILuR/DrvZ/pvSI6d5oqxtZGuS6LIfXOGpd
+ HyBbWaMStOUaCz3yM5wDD8bPtIJlv/HKY64KKPuBVVkNbvB3UDNms827c7NKICcAoy
+ tgKbepsmqpLkjy1wa/XZbHGYcQ64fEUS+om3eZSngcRsdIzopAYG51kqBMAtXITRhn
+ KfeVFh/zy3fPU5gvVMKtQU92I7EzbXpZZSBV/QMszPM2EQvUTyVvm6/dKN4Hndcl3K
+ aAT4CkQ6B9XS2ScrypgiafpY=
+Received: from zn.tnic (p200300ea971f9337329c23fffea6a903.dip0.t-ipconnect.de
+ [IPv6:2003:ea:971f:9337:329c:23ff:fea6:a903])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest
+ SHA256) (No client certificate requested)
+ by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 29FF140E02C1;
+ Fri, 10 Jan 2025 17:53:00 +0000 (UTC)
+Date: Fri, 10 Jan 2025 18:52:52 +0100
+From: Borislav Petkov <bp@alien8.de>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Xinhui Pan <Xinhui.Pan@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: kmemleak: Found object by alias at 0xffff888107b65918
+Message-ID: <20250110175252.GBZ4FedNKqmBRaY4T3@fat_crate.local>
+References: <20250109201740.GEZ4Au5ESOtQd4o1R3@fat_crate.local>
+ <CADnq5_OfmegA2XzeCuUNq5PmvbQrX6cdn8vPOUMf4x4BQGb5fQ@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <21f4f72a-b27f-4389-b345-e1d9cf4c2f06@amd.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID: qMiowMBxXcetF4Jn5GMdAA--.55243S3
-X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
-X-Coremail-Antispam: 1Uk129KBj93XoW7AFWfXry5Zr1UKr1rGw13KFX_yoW5JrW3pa
- 1fGFy7Ar1kJas2y3Z7Z3WruFW3X3yrJF4jgw13uw4ku3W7uFsxWrW3Ja4rGryUCasxC3ya
- vFZ0g3yDXF4vyrXCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
- sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
- 0xBIdaVrnRJUUUPYb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
- IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
- e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
- 0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
- GcCE3s1ln4kS14v26r1Y6r17M2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2
- x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1q6rW5
- McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7
- I2V7IY0VAS07AlzVAYIcxG8wCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCF
- x2IqxVCFs4IE7xkEbVWUJVW8JwCFI7km07C267AKxVWUXVWUAwC20s026c02F40E14v26r
- 1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij
- 64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr
- 0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF
- 0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07jYJP_UUUUU=
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <CADnq5_OfmegA2XzeCuUNq5PmvbQrX6cdn8vPOUMf4x4BQGb5fQ@mail.gmail.com>
 X-Mailman-Approved-At: Sat, 11 Jan 2025 14:09:38 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -74,69 +75,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 01/11/2025 05:45 AM, Harry Wentland wrote:
-> On 2025-01-06 03:57, Tiezhu Yang wrote:
->> As far as I can tell, with the current existing macro definitions, there
->> is no better way to do the minimal and proper changes to stop the control
->> flow if the divisior is zero.
->>
->> In order to keep the current ability for the aim of debugging and avoid
->> printing the warning message twice, it is better to only use ASSERT_BUG()
->> and SPL_ASSERT_BUG() directly after doing the following four steps:
->>
->> (1) Replace ASSERT() with ASSERT_WARN()
->> (2) Replace SPL_ASSERT() with SPL_ASSERT_WARN()
->> (3) Add ASSERT_BUG() macro definition
->> (4) Add SPL_ASSERT_BUG() macro definition
->>
->
-> Patches 1-4 create lots of churn across the whole driver for little
-> immediate benefit. We should be able to do patch 5 without requiring
-> all that churn.
+On Thu, Jan 09, 2025 at 03:40:59PM -0500, Alex Deucher wrote:
+> Possibly fixed by this patch?
+> https://lore.kernel.org/lkml/CAJZ5v0i=ap+w4QZ8f2DsaHY6D=XUEuSNjyQ-2_=DGOLfZjdn+w@mail.gmail.com/T/
 
-Do you mean to drop the first 4 patches and only do the following
-simple changes to replace the current ASSERT() and SPL_ASSERT() with
-BUG_ON() directly without considering the aim of debugging? Something
-like this:
+Yap, it does.
 
---- >8 ---
+You can add
 
-diff --git a/drivers/gpu/drm/amd/display/dc/basics/fixpt31_32.c 
-b/drivers/gpu/drm/amd/display/dc/basics/fixpt31_32.c
-index 88d3f9d7dd55..ec6b194fb093 100644
---- a/drivers/gpu/drm/amd/display/dc/basics/fixpt31_32.c
-+++ b/drivers/gpu/drm/amd/display/dc/basics/fixpt31_32.c
-@@ -51,7 +51,7 @@ static inline unsigned long long 
-complete_integer_division_u64(
-  {
-         unsigned long long result;
+Reported-by: Borislav Petkov (AMD) <bp@alien8.de>
+Tested-by: Borislav Petkov (AMD) <bp@alien8.de>
 
--       ASSERT(divisor);
-+       BUG_ON(divisor);
+if you want to.
 
-         result = div64_u64_rem(dividend, divisor, remainder);
+Thx.
 
-diff --git a/drivers/gpu/drm/amd/display/dc/spl/spl_fixpt31_32.c 
-b/drivers/gpu/drm/amd/display/dc/spl/spl_fixpt31_32.c
-index 131f1e3949d3..a91dbd076d13 100644
---- a/drivers/gpu/drm/amd/display/dc/spl/spl_fixpt31_32.c
-+++ b/drivers/gpu/drm/amd/display/dc/spl/spl_fixpt31_32.c
-@@ -29,7 +29,7 @@ static inline unsigned long long 
-spl_complete_integer_division_u64(
-  {
-         unsigned long long result;
+-- 
+Regards/Gruss,
+    Boris.
 
--       SPL_ASSERT(divisor);
-+       BUG_ON(divisor);
-
-         result = spl_div64_u64_rem(dividend, divisor, remainder);
-
-or keep the ASSERT() and SPL_ASSERT() definitions as is, just add
-ASSERT_BUG() and SPL_ASSERT_BUG() definitions, then replace the
-current ASSERT() and SPL_ASSERT() for the two places, that is to
-say, drop the first 2 patches and squash the last 3 patches to one
-single patch?
-
-Thanks,
-Tiezhu
-
+https://people.kernel.org/tglx/notes-about-netiquette
