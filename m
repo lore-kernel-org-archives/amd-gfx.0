@@ -4,163 +4,155 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 805B3E77188
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2025 21:24:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C425CE7719C
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2025 21:45:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2DEA210F19C;
-	Fri, 10 Jan 2025 21:24:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B02210E17F;
+	Fri, 10 Jan 2025 21:45:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="BVHIZhHs";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="K2ArFgSu";
 	dkim-atps=neutral
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2086.outbound.protection.outlook.com [40.107.94.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D44810F19C;
- Fri, 10 Jan 2025 21:24:00 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2047.outbound.protection.outlook.com [40.107.236.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30E2710E17F
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jan 2025 21:45:11 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CjdWVGaksY0sPn+VsK6VKf8Q3kuNnGLUrf0rSUFCq8p04FRALMJlhJ2aIZ0yv3TO/O/qPqG/rBx8yNahQQ18NSq0zhkIh5EYjr9oIygw/MTIzFPR0Rg/C6PBLITUkATqBNLLxiE9b0pK3zsFzIZQWkR2FaliVcNzivC3wmWU9OXVg508SXwu4ZS5JupmsE9cDvFPTc11v3ZMIfkkINTWZQRSREKALCErZqK4r0jrxQqw5MOadpblD4GzZ4h0ptPkTn2OKgN6543FzP735brzK6Zpsp17BxdyAhdURNYxsHNjmkGSewIfXxEabOmv8bnm1ttE40dZhRA+leEegQ+8DQ==
+ b=b5O6HmriRF/snADLaSi4jzQrk3VVu+P29NVuUCg3LF8dsklMwfw78X4uHGrd5Lqhcp8FerIEJSRF7c3wlzo+sRM7HXTv97Kl4frqVKlQ7xjFXHyEyRqRhtTjfeaGn8f+jdTwp4y1U0untLPrJzwrVWxAOBI0COmGIwXcU/m1/VqpZxWoCw9/8olP+wYNDp7AqFkpE+2AfPwMTshhTJFSRdj32/ZjceZrtlO8jx9+sNoJuzQ1sdYK/PkqCjYZ9LWOCiVNENk3rpPuMYPB7Lekdbh+d7yOAX8w+/t4IeIRGHkEIEg9xFBRjM6kB0cuZmd5c3LrEw/OvkULubLfkSH7qA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HR5Bb8imglAIZcfW165sauvN2TzOGbN86ixEnOXRImQ=;
- b=TMUPfhp+jYHBfCOj8B0/P0T3Sp6a6dI76yCFgBQvhUZ+y1Gl9M7jg40UiRkD9y+ZyTU8qwKIguE7/pKoN/1rDtfqAvQ8dUrEAD332zIWTKBrpWv0LHA5DBnxtw8HJyxdiiR3x2UrYRaOf5Fm/OmsynAeQFsQkT0SU2ccI2599NRUnhFF+Gtr8QmKKyv/gnb7sffX3L4cM1+dkcj0pWXYt9EeKYOXs0erSBI83VogbHQVdWTRmew1C8SmP2+PosYdcYPyHJGTF+gxwcvR0+69ki7cLAuuXsUJ8J3Wd4TPSx+EXHfhKedYcKgk9nbKAYgfzANfHTMUV+MR8wZ3uaQ/xg==
+ bh=2AjQWM1n9gYpLvvCKceW/sgPUUpWzFyKuOgj5ytvWAc=;
+ b=kWTzvp+lsL0BRhSGrJ7b8qYNu1Egxk9q4ThnAy/5wjaWHV6g+LXPcrAWT16oHBUnEsfaD79FYKiod9xOEvTiO/S7uoePcg1tVmD2Q+OliKYLsV8B5130Ew/wNvq/4PYIN3Qdfgv3cTLQUSk9xa7GZPeHxH1QQ1+GVrA9fewp02uwjr/J6Fs0EhL8td1LRMj1687EJM2o/n05/U+x26HxdctviuSfSk8sX2veUMXo0yK0Umnojje9BQrmGkCi6pmo42Tf8M7SxQdeRQ4xjUOIq+0M6uOtM5bP+q2uC5dZS7+lPJRq3UYtIKUo1BJSZmsc1/xZ8fIbuPNtzrastg2BYQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HR5Bb8imglAIZcfW165sauvN2TzOGbN86ixEnOXRImQ=;
- b=BVHIZhHsA9+o0ABaKqgnEc/nZw61GEBewb+Emd9Ao1CeROzJ2ntIVWMgi5gmnRRFUU22vPnpiOZbHei4/j2j1AwcHFwcwS7/raiUl2eSjITLXr9KGJ4Io7+//mPc5dWVET1se+9gF5/ohMR/PO/WT1Dnsy3tFLNQADeLAMm9sm0/5P314flG1nbMq8T6/WTjVyAiMEefLZRDBaXMRMtsAXydJ/tRbGjXxPohQ7TaIq9KXtQXvx1WCAYAt+j/axpxw//81VMyaLPjhqlbh5ml6bYJ9tKq82E1l4+3SJmZT/kiyOm8n3UdSvcuX/n9lLbvI+aBl0Pv5qruTua4mFLolg==
+ bh=2AjQWM1n9gYpLvvCKceW/sgPUUpWzFyKuOgj5ytvWAc=;
+ b=K2ArFgSumpQ7mcZPIvyk5fe6SoqTimy0W7L3aspMTCQzoTAwcjKzqOnDTciQdSiPj/cjbcTHdLBwHDzfq6MliaP0bBH2OgGO3iF8XnIekXfbdMMk6DR1FVU9q4a1nYze/44x5I8B5Yv31xdvGZ+MIf5wzsDYOJMhLpKSH6kZkLw=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CH3PR12MB9146.namprd12.prod.outlook.com (2603:10b6:610:19c::18)
- by LV8PR12MB9084.namprd12.prod.outlook.com (2603:10b6:408:18e::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8335.12; Fri, 10 Jan
- 2025 21:23:43 +0000
-Received: from CH3PR12MB9146.namprd12.prod.outlook.com
- ([fe80::a638:d48c:2c10:9b04]) by CH3PR12MB9146.namprd12.prod.outlook.com
- ([fe80::a638:d48c:2c10:9b04%7]) with mapi id 15.20.8335.011; Fri, 10 Jan 2025
- 21:23:43 +0000
-Message-ID: <07d08a42-c44a-477e-8057-721b270310cf@nvidia.com>
-Date: Fri, 10 Jan 2025 13:23:40 -0800
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
+ by DM4PR12MB7574.namprd12.prod.outlook.com (2603:10b6:8:10e::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8335.11; Fri, 10 Jan
+ 2025 21:45:08 +0000
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::1c2f:5c82:2d9c:6062]) by CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::1c2f:5c82:2d9c:6062%4]) with mapi id 15.20.8335.011; Fri, 10 Jan 2025
+ 21:45:08 +0000
+Message-ID: <21f4f72a-b27f-4389-b345-e1d9cf4c2f06@amd.com>
+Date: Fri, 10 Jan 2025 16:45:04 -0500
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/fourcc: add LINEAR modifiers with an exact pitch
- alignment
-To: Simona Vetter <simona.vetter@ffwll.ch>, Daniel Stone <daniel@fooishbar.org>
-Cc: Brian Starkey <brian.starkey@arm.com>,
- =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
- =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
- ML Mesa-dev <mesa-dev@lists.freedesktop.org>, nd@arm.com,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
-References: <CAAxE2A5BkF13bFt8_UnuiqPM8W-ZESgmKEjqqGfv=DGzSfJ7aQ@mail.gmail.com>
- <uffsfaps6a75zmkyshkwfxgybcslqrnfqqtjzekegdptvwpugc@2ndpcuxyfp3f>
- <c64cb9d8-5ea7-4644-93c8-04a97b758fa0@mailbox.org>
- <h26quuebhpxwkc3fl4vtfteoqyvingnddgxbnzptfnxfg6xgkd@kkkmeqwplomv>
- <8dae97c9-9286-451a-8122-b309eb21b2f4@mailbox.org>
- <Z2Ki-lQH4Fbch6RO@phenom.ffwll.local>
- <q45c43j5kwwvemec7mcs4kqzt54pa3nz3jlhkcky2v63s2vfie@him4q253uw4p>
- <CAPj87rMFJ0JRvsKqZUsw_EGrFWr1VLO4Ne2w_bZ5cH+gs_d=og@mail.gmail.com>
- <Z2Rf7mpSuzZ0ObmT@phenom.ffwll.local>
+Subject: Re: [PATCH v2 0/5] drm/amd/display: Stop control flow if the divisior
+ is zero
+To: Tiezhu Yang <yangtiezhu@loongson.cn>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Xinhui Pan <Xinhui.Pan@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Cc: Nathan Chancellor <nathan@kernel.org>,
+ Josh Poimboeuf <jpoimboe@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ loongarch@lists.linux.dev, amd-gfx@lists.freedesktop.org,
+ llvm@lists.linux.dev, linux-kernel@vger.kernel.org
+References: <20250106085755.3268-1-yangtiezhu@loongson.cn>
 Content-Language: en-US
-From: James Jones <jajones@nvidia.com>
-In-Reply-To: <Z2Rf7mpSuzZ0ObmT@phenom.ffwll.local>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <20250106085755.3268-1-yangtiezhu@loongson.cn>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BY5PR03CA0026.namprd03.prod.outlook.com
- (2603:10b6:a03:1e0::36) To CH3PR12MB9146.namprd12.prod.outlook.com
- (2603:10b6:610:19c::18)
+X-ClientProxiedBy: YT4PR01CA0147.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:ac::22) To CO6PR12MB5427.namprd12.prod.outlook.com
+ (2603:10b6:5:358::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PR12MB9146:EE_|LV8PR12MB9084:EE_
-X-MS-Office365-Filtering-Correlation-Id: df32692e-000a-4f61-05f8-08dd31bd0f4b
+X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|DM4PR12MB7574:EE_
+X-MS-Office365-Filtering-Correlation-Id: c271d6b4-f197-43f3-d182-08dd31c00d21
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|7416014|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?WkF1bVN1T0ZCRzNhb25WT2YwMjV5TXBUSHcvK05qMU5ZaGtLRnVVZy9TeVVF?=
- =?utf-8?B?SkpVZ0s0S2o2RlVOQnVsRStWTlYwVmhEVXdwZlJPdThPcWpOMjBrZmlOenlJ?=
- =?utf-8?B?K3FpT1hGSjQrMUZ6K3JMRmhDc0VqT29hOEpOMFJ5MElWeVFBYW9XazlxeU9Q?=
- =?utf-8?B?U1JFc01rMmVQN0xyRmNBWWhrZk03alRPVXRGb0ZLU3BlUFA1WUFvbnBZaVJS?=
- =?utf-8?B?Y01QMUFiUndZTVNVWHczck5PeUJjTnBGdXJGOXJGM0dOZXkvZGxUa2NvbEpL?=
- =?utf-8?B?ZlN4cEtnMFRMY3NsY1ZEQldBVkxvNDFpMS94UDgvYjJDODRyaEZ6ZmtuUzV6?=
- =?utf-8?B?ellyUjFDcXBaa3cwZmdCdWlGQzk2Qjl6QkJ1QUxpRUNTbC9OZGdRQzR2Rkdp?=
- =?utf-8?B?c0tLWkNFay9DZFY4OEd4NzVoZ1FvUEkxVWFBbDIrUVAzWGVia3BTWXo2SU56?=
- =?utf-8?B?aFFid2llRGo3TnVjMnRvME5PRDIwR1hFUDFNY241M1dGZnp1blNZQ3J4TEt6?=
- =?utf-8?B?enY5WUR0eEZ3S2VzaDlmcE4rc2hTTzJaaXlldTJPZDQyMHlCUFNRZUllQVd0?=
- =?utf-8?B?ZjN6LzE5Wk50cnB3ckIyUEszZ1JGSlNBQTJIaFFINEtxUm4xdDJJMzB4aVRS?=
- =?utf-8?B?YVJDNUFLak9uanJJS0hZMmFDR09LZDRsTUo0Qk5ZVng2Mzg0dG9aSTRsSnBw?=
- =?utf-8?B?V2V2RTd1aWhyNWh2UEpvUEFma2lCZHVRWXJxaVozUzg2ZWoxczJEbm9oV0Zy?=
- =?utf-8?B?NThsb0xwT1MwQWIwTkY1bUdoaVZHOWNrUnhLZ2JBZm5ndEgycEw1eVVSZXVC?=
- =?utf-8?B?TkliZkdlOTltbS85Y1ZPQUJoSG8vVENYZHFuNlRzSngvMXNSazBNdmkwTWZr?=
- =?utf-8?B?S2tFRWJqd0dXYmpmdExrZWdBa2IxSHUyTTh6NFhwTHZNVzlHTmZzSXk5VTll?=
- =?utf-8?B?NjYyVjhaak9ObXVOcDZrUHZPN2lLOGVmSGNLcVdjSVgrTkZyelBHYWlodU45?=
- =?utf-8?B?bFNXY09xc3hQbFFCQ0hIMlpGR2pHbE0rcnBHNlBIRXhJU056QW02cXZEV2wy?=
- =?utf-8?B?M2ZTY0hBdEJtdTNzdnFZVjJIVEF1bmtmWElmZzBScVZVc0lyYWVkTmV3R3ZK?=
- =?utf-8?B?Vktxcm8xWmY1YWhtb1N1Nnc5Zm85bzRkdSt0QWZZRHBjUU9OeWRPdlc1RWZh?=
- =?utf-8?B?LzVnZEhyNVFWVFdWV0Zxb25HZXM2bzdzMDJoUDhtTjFvazVFNGhhMGFnalBr?=
- =?utf-8?B?a0dCeVNLbmRBZm1WdUQrbWg3WDZFTTBsdjE5dnJjaEZKRDhXTmtzUFJoa0ZE?=
- =?utf-8?B?bU1FR01rZjdITTI4QmlTdi9lRGRJK2NLanhnRGJxYTZTelVxVGtWQ0VuVWwy?=
- =?utf-8?B?aGNLTncwUXduM2FTL2hjZU5XSzQ3MnJuYlNGZXg4dXh0ZCtLWENzbkxRZzMw?=
- =?utf-8?B?eVE3VStpMzEvZE1vbmVCZlFZMlZqb20yekRpT1NJUFhYRjVXVkpEcElrMkxz?=
- =?utf-8?B?VmNxR2IrUW1yV000TmgwSTdNbWRVUTBNRFRBUUlaUWpIZElZTEVhcWtvdEFZ?=
- =?utf-8?B?dnlPMGpVdVR0bmV1SStHckFta1JZbzRmNThKN2tzWngzYjA2RGJCSEZLY2RV?=
- =?utf-8?B?UFJ2QTh0djlsYmNGN1B2Y0Joak9PNTFpdUJFckI4Mm1rcXFxUmZoRVZUOGJj?=
- =?utf-8?B?ekM1QUFrYi81ZDVXOER5WjFkUnN1KzBmdEppTXNSeWpMdzd0dWt2NUt5WGlI?=
- =?utf-8?B?elMwcjh0cjVvaGR5ZkQ2eW9ReEZnNTExOGNHS2FZdjkvUFNldlRZcElPeTZG?=
- =?utf-8?B?SnZmd2tIcnpvUDg4Sm82Z1Q0TzVCdzk2dnpweDZlS2tsVzNVcTFyempNbEU4?=
- =?utf-8?Q?s3iBihZ7Oh0FE?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?emw0M0VYRzAzM0tYYUhaVnpPUHFCUXNhUUtlNmRnbHVsUFlGZmYxbitTd3M1?=
+ =?utf-8?B?N3ZZZUdqSEZxV2RlQ0ZsZ0FBd1U1bE5lRFNVbWJCV3VyVjliclc0cXJqZHdF?=
+ =?utf-8?B?eW9RYjc5OFZoYk4rNnVBQlJkYnVna1FrV2J4R2JkNzZSNEEvNzc2NjJSRFdQ?=
+ =?utf-8?B?SkRrT3psRXJmR0k1Zm5rVG9EZ3QxeU11MUpiMVdpT2wrK0VPbEhHVEJVZkha?=
+ =?utf-8?B?VU0zci9hSzFHVW9UVmQ3bnc3b28yWmdoY0tlcloxQW1YekF0NUlVa2grQmUz?=
+ =?utf-8?B?bFUyNVRuVVhvSnpHa2J5aUQ4NzlFZXNxR0VPVllhSEhPZFJURlE4eXJrdTMw?=
+ =?utf-8?B?RGkvUDcvdXBxaVN4dVpqYUxja0ZIbVNaWnNiQWlLTHlYTlJDWFdIUjZtNk1Z?=
+ =?utf-8?B?THQzNnJyaGZlSGNxak1KRFU1c3Y0azc1T0Zibmtmak55Rng0NDg3MlJlUXpU?=
+ =?utf-8?B?eHgvbVcxS3Y1ZUVHZGV4Z2dYUHdZOVlVQXA0Q0RvOUd5SnVwSWF0TEMvejc2?=
+ =?utf-8?B?ZFBWNWJHNC9PR1BiUzNXMml6Y2hDWU12dFdqNU5QeUNqdGJIY0kwZXdxalZ6?=
+ =?utf-8?B?N1pVbzNFQ0tSZkNNelE2Ni9wUjcvTDRlQStZb0Z0STA0SDZiNXh4OVVhcjZ4?=
+ =?utf-8?B?UWVUTjRHbFFLMXZwZkNVV0FnTy9IK1BCcHN6bHpHckdUYTd3MGdaeG4vdVlW?=
+ =?utf-8?B?c1RzdkdhU0JqNllDUnhIZW55RnIvZ1hnVVRCdFBaRUkwQVMwaGdlSi9hRkx2?=
+ =?utf-8?B?TDFuaVdVbWF0YnpRRW52YldjRGdFaUkya0NSTUhremd1NWd6cVlrYkdqQ2p0?=
+ =?utf-8?B?bFRMN1ppSTZ4SG9IYjYvVGFFQ3IydHNiL09KcmZrMUl6NVNJMHJscWhTcVZS?=
+ =?utf-8?B?NkJodlM1a2VuT3pIK0d0QjVYcERGQXRFdDRPa0VsVlN0Y2NMY0VlR3l5Nm5Z?=
+ =?utf-8?B?NVdQZWhNanN1SDJGcjVGMFFmN1JMNm11TUx1dW1zZHFEUndsNXRYb3Z2RjNT?=
+ =?utf-8?B?NGhDdWMyd3MyOVdqTnlPMnNBYVRWSEhpdWlZa01IM1FVNjFuckoycWdGS0dx?=
+ =?utf-8?B?alZnUlNiU2MxYVFzczRmZ3Z3WjFkSFA4Y3JzNlVSZStYQmo0TlZRQkRZTHkx?=
+ =?utf-8?B?S29JV2dZTE9mR2pqN1RJMGxiKytmV2UwTGVKMWw3R3J2ei9ZbnB2ZnVYSC9D?=
+ =?utf-8?B?VFZvNDJFR2NLd1dvZG05QW5VdVRFT0NVVkRMR2tqcGZ3VEtBKys3aFJ3OHB0?=
+ =?utf-8?B?NGhmUVdGd3M2V2owZzEyaVNWZkFlc1NMWXR1MVFaa3RlcFUydEg3VHVDSkM4?=
+ =?utf-8?B?SDU2RTBCMHV0SEM4ZHZwQUswWG5iM2hTVDMzdjNGL2JxVGxyM2VHeEZXSEY2?=
+ =?utf-8?B?ZHVlU09YZXVxRWdoeWtNK1BTZjBOaUV1czZBOVZXNjRHczlTdUtpMXVoS0Q3?=
+ =?utf-8?B?bTVDcGFYVCtXWlhRZkVIMmZNTFRZT0Q0ZEFOWDlDTEo4WDB0NllQVEVkaDd3?=
+ =?utf-8?B?MlpaWDQ1b29ybC9KNjc2cnJwVUZ1eGdTU0NIWlVEanlOb1dYNmkyZ1JPU0JJ?=
+ =?utf-8?B?VWg2WlNQa2xXTXlYaHRsQ0M0cHpES1Z1b3FSNEhHMno0eE1pclNTZnVDdnpo?=
+ =?utf-8?B?M1d0UGtSOGhqV0lwWXFYZXE0czZEcUNxNGQ5WG56S0FxcXRNRDFKK3dSNzEx?=
+ =?utf-8?B?TlBCelVQSiszVmxkeFhGdmROTU80eFVXTStVcG4ydlk0ZHhMajZDWkZ0R1g0?=
+ =?utf-8?B?Y1d2ZjhqTWUxVjlnTzNBVXU3RVZlajg3VFZjUWg4UWtDUHhwV3Y3TTVabnpI?=
+ =?utf-8?B?VTgraTJlNnZxUVA0N0pDWGx0T3FzWlh5MzZSZm9ZMkY1TjBBTTY5TWV5T280?=
+ =?utf-8?Q?wjot9GCIGCUAp?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH3PR12MB9146.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(7416014)(376014); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?amlwQjNkMTkyYWMzRjFXYXloWmhqcmRIK0l1T2k1NlZGTE9tb2lraUNlQm9T?=
- =?utf-8?B?OVNqYllvUXVMNWF3QWJwRVZvNGhjR3hpblhCNFVaenZGY1IyZ1pONERXNTk3?=
- =?utf-8?B?aGc3bzlQTko5SzZFbVR3MGxLYVBkVmJ2ZmZoNUN4N3JOaTBxUWNDYlV3YmFF?=
- =?utf-8?B?WHRYeE1TcTdWN2taUnNqRFVVUEp1NVVWWXYrL0IzaUNxRkF5cGdwSjhmU3NL?=
- =?utf-8?B?bGxoREptaS9GUWdENTVGRFQxdG8waFdXM2ZDVU92NStMeUlrUjV1RTl6RW5J?=
- =?utf-8?B?dzJDdFVBL21aVFIyaFoyaU9haU01T1BoKzBhV2ZNQzF3MEY3Q2kvUFE4bHBv?=
- =?utf-8?B?RjVmNTB2ZklDVVF1d1QwQW5UdERsbXJGdXh5OWcyb0VWUXFJMm1oZEdJZ2lP?=
- =?utf-8?B?d1o5WTVqSU5ST3hjVHBsUlhzUU13Z2tFMFJsZ1AvWm1lbk1yak53QjRxK29K?=
- =?utf-8?B?aU4raVlBUFRLM0hRUExoVnl3WU9wdnd0eUV5bzZ5S1lTdUhhSzVPWTB1UWJ3?=
- =?utf-8?B?bHdjWS8zQ2x4MWFHSFdxQy9PR1ZSVXdkVUpBMjNOUkZ6cUhNYU9qOTYxY0Jk?=
- =?utf-8?B?b1kyeFZSbVBrOFduSW9GbFEycXBIR1p6WnMrZnlETSs1ai9HM2p0ZytneE8v?=
- =?utf-8?B?a2dtYmVUMlY2MllNcWhUUnlHM3ZyWVRPWnR2dFpvM09tdDkxUmt2UkZ5MWhR?=
- =?utf-8?B?VkZNaEd4SURITVlzSWhWYlk0M2RVc2Y2ZGRkTlIyV3ZpQnJQelJqVDh2SGZv?=
- =?utf-8?B?dVBINjdiaU5zSE85Ui90dHdEc1YyOTBsRGZreUdOeEpESVdkTHg4bElMb1px?=
- =?utf-8?B?RVVvWUZLL0NNR1A1eHhNeDYzZ2I4UVBqZjBNWVFkb3JvVm5CRW5tVUR0SDU0?=
- =?utf-8?B?aTcyb3pPNUh6TkZEa2U1dXVFeW0yZXpNNm13aDdHSm9GU2ZLKzlKcGJ6cjVM?=
- =?utf-8?B?SUJ4UmxEb1lOVXo2TEkxUG51Zk1GZFVCYjJYU2F2T0VlOVh1bS9UVFJsV1h4?=
- =?utf-8?B?UEJkNHo5RkkyTkRLYmdaL1pIbm1XRzg2MFdRSkFDbzF1cEp0SlUzUHlnNTZr?=
- =?utf-8?B?NnZwckNUSGtQQ3NpMTNpY3AxZGF5UWs0V0tFTmdrcVhTQ0N5cnJmWi8wQ01E?=
- =?utf-8?B?ZFpudGJ2VStLSzFaSnJISklQSEZwZndtMWVQQUNoUXBEZmo4a3dxWGRwS2xO?=
- =?utf-8?B?V0VWK2RRNWJZbVpRa3c1MlNhVDhmR09GUzQzUW0rcHNicDNzaVl6cGFtS3RD?=
- =?utf-8?B?STJObDlMTmxaRjgvWktXNlpGdmViUnZXUWZwZGZVK1dTUE1JOE9ETkc2K2Nh?=
- =?utf-8?B?dGtlOVlJZzhNd25Qc1ZKYXVrclphRnNaR1JrNmRFdkU1YXhMODRaRUNaY1FU?=
- =?utf-8?B?M3RlV1lqS3kySTBNalFybDEyUjhvQ3RwZytyOWJ0eGtmUU54eW5GMkxqOVZ5?=
- =?utf-8?B?RW9rZENPUkkvYXBBWDJaZjVhdHpsSTVjWHBvWm9FSGF1TXJSczIyMzRZQzdl?=
- =?utf-8?B?WGNRVnlxS3dRZnJYUmJkcjZjNkx6dUY1TDdRazNyUmdaT1Q5Q0MvaE0rbC9t?=
- =?utf-8?B?SkFVc0xRM3h6VlJETUtUdjNGMlFNZXlzeGtSTS96bWsxSENjeEtIZUZyRng2?=
- =?utf-8?B?OEhMdXBqblpQWThRb1dPV1VYWVNCczFnT1dscjFOQXBsc1BHSmp2eFhmcS9j?=
- =?utf-8?B?ZWhiQVVrQkZibEZ5cG9TcnZMQkpTK2Jtb1BQOTRLYTdOSGRSME12ci83MS9R?=
- =?utf-8?B?ZWxXeDNVaDl0Z3RqMHJhS0pucVcrR1EyUDN3ZlF2dm9DQmJxVVNBSWkyRkFv?=
- =?utf-8?B?ZXhxclN0OHZiS213NzZmdzRDaFNRME1GWDdMWUhYdEJMOEk2SDBDRDI3UlNv?=
- =?utf-8?B?YjNkR2xhNlJJRVhuYS9DMUF2NjRjRUI1dGVMUWNBSTdJbjZOK2N0aHRmRVRD?=
- =?utf-8?B?R0VYZHUyNmljS1hCemlJblpKRnlvWVpQMFRhRVI2RCtGT09kckNOT3U4UXFB?=
- =?utf-8?B?Nnk0b2wxdnZPZ3dlVWJtZ25BcDRvbXRuQWlNd1hBclBIOExMandmVUdvNW4x?=
- =?utf-8?B?dllSZlJEbTVTeldOZWxFWTZyN2ZvdU9Cc3J1cDh1ZFVSOTlMWTNPUDYxRytV?=
- =?utf-8?Q?eVnOKg8yY4Wi/rfyscibTHYw+?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: df32692e-000a-4f61-05f8-08dd31bd0f4b
-X-MS-Exchange-CrossTenant-AuthSource: CH3PR12MB9146.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TEhrc2liMkRBQzNTYzBOY2piNXBkVjl1UEpLREVKNTdTa3N4aVZ1SG54QVVK?=
+ =?utf-8?B?dHVBby9uTk1RVXFJWWpZZkZCVUlTcW1Uc2dMKzdTN1RPV2loSzczRzBFdWdF?=
+ =?utf-8?B?aTdORVFYMXdUd1JyRE91N1kzRTBFam9Qcm5sQ2VNdlk2Z2xLeHZOblVsSVJt?=
+ =?utf-8?B?YitFaTZmZVNEZ0pWTE9lMVZrNGlYR1BmNittRlUrVVh1WHVxQWpwbmNlRndy?=
+ =?utf-8?B?aUt3d3JvTlhMeWZ3c0ZrUG9KUWxKTU5CZjBWeXd0WUE4ZC9Ja1ppNVpSNVAy?=
+ =?utf-8?B?U1RJeThubEw5Y01LaHdpdjNpRThaTVdRVkplV0xxMnF1Si9yTS95VlRsMFdQ?=
+ =?utf-8?B?aVBNWk1xQzNWcDlYR3ZRWE1wek51WnMxWnVUaDl1TWliRVRRR2c4QkNKMGlJ?=
+ =?utf-8?B?blhlbEl1djRPQU8wRmpIcFJRR2hpZTlPUFpoMzNGK2ZRQ0RvaFZhbERKa1kx?=
+ =?utf-8?B?b1hhVGtKYyszN0FHY0p2cmZqUXlEZWNxd09NdXR2T3ZKU3ZXTlBFdkZIOWQ0?=
+ =?utf-8?B?TXI5NldOL2EvaTkxaHQ3bGxqQ1BBYkFzVkJhN3FGTkUzTkJyM2dPWGd0SFpU?=
+ =?utf-8?B?b3RGSTUyODJDOGdjb2NOV09wYVdkK1E3UjhIcEVjOS8vS2Mvbmd2MStwYVNM?=
+ =?utf-8?B?eE1kODc4VEs4ci91RlBkZVNNZm1SRUMxSUhmMml1VFdXdTgyQk9SUzZrYzNo?=
+ =?utf-8?B?K29odjVpcE1jaHF4cGpINUxTcjlRZUtuN3MrdGNGVmhnK0dlZVl4b3pRNlJS?=
+ =?utf-8?B?czY0WDNKeFVpUVIyREdsbWprNEQ5cTU3emNBaXFtblIrZUN6WFU3SjNBWWhW?=
+ =?utf-8?B?TGhla3drbEQwdURQSW1JSHJyRFE5Qk1xS1J6OEV2T01xNFVCeitMcnIvUm1G?=
+ =?utf-8?B?S0R5ZzZHblcvUGZtWUJpMVpBc2hPNFF3L1VFQStzbUFpSEZMek9FL3NhSUhr?=
+ =?utf-8?B?SXk1NklOSWVKUjJFeVFLQnZiMGQvbGQ1d0NkV2ZBekFLODJJT3Z2aFZUZ0Mv?=
+ =?utf-8?B?NTdJTUVtNTlrSjJ1dnFiTEZ0bjNPeFozcHp6ZUg4ZmNBVE5yZ1dEMWNtSWJv?=
+ =?utf-8?B?emJEeXUwSkpXd3hKZGNyakdmQWYyeXFFdWlwQVVIbWgzaEJ5V1V6anFyN2FK?=
+ =?utf-8?B?dHJoNklGUlM0Y2tOYkFHZld1VERrOTNsakRtZEhjQkVmbGpHMjNRLzkzU2xS?=
+ =?utf-8?B?dm1NZTRMUEh0VjZJVnNNMllnZUhDcXQvLzlSckx2SVZwaHpPSnRIZkswNitw?=
+ =?utf-8?B?WjhnL043UEcyakhlNmY0UHBnL29DaWY1blJkOTR0MGdQbTBsdFVTdEd3d3FX?=
+ =?utf-8?B?ZTZOOHk4c1g4dXl2QXlkMWJPcTB4TDhEK3lWMXJIclR3NXJLRzk5VENkR3pI?=
+ =?utf-8?B?U2NDeWJwSGJENzZxRmxTZk9DZzRucnFFRjVHNTF4aEJJdkN4L0crcWNndDZq?=
+ =?utf-8?B?bGl5ano2T0dML1JrTUdnc1FzZ0lNV3V0dDI3Q3U5dHhLendJbVAzR2xCYzBp?=
+ =?utf-8?B?OVJRZk1yWFlPNFJMeFh5TmM3Qnk3STIvN2hWRG03UTF1cVB2cjlzazdLL0RR?=
+ =?utf-8?B?Wm9MZjFPVUVhMk0vaUo4eXF1RXlBRDFGSDBDc3JNUVlYNXl2RXI3QmZIZXg5?=
+ =?utf-8?B?RGdyazdXVTlveUxKcmVOeGNBaUNuSVlua0prL1FnSXo2VHdFNDFZUGF5MW91?=
+ =?utf-8?B?SjI5ZVBCYXV6VkE3SzZzZDZTbG5qSkN0VHZxa0N4UlBMYjFOc0RrR3JWYkM0?=
+ =?utf-8?B?OHBaRWF2RnpsaStxY01PblhLc2kyRDg5SHhPaXBmSEJhNGNlZlJkS1NWd1lV?=
+ =?utf-8?B?TEFFbHhaYk81OUFkVVIzem1OQkFiV1dlUUhnSkpwNWt2VGljL0ZFRnE3L1RV?=
+ =?utf-8?B?dE5UbExuRWRMaU1CWXNtaGtRVFlwRFczZ1hkaWc1RTlPY0ZlYzZ3S2V4S2lx?=
+ =?utf-8?B?SmNVUW9lbVBoOE80RWtpNTUyV0hYNDdsY1lTTlhSUVE1Yk9GbVM4UGdwVndt?=
+ =?utf-8?B?cnlxY0FaUzZlNlRxTnRxbGdMaWhJS1NvU0NsZVB1dmVyVDNtTllpc21GWld5?=
+ =?utf-8?B?bytDYlZZREhXMnM3RVZxbSs4YWFpdlNOREtlcFhoSmlIS1V6aFdvcnFTNmRq?=
+ =?utf-8?Q?4mWqM8UDZ9q6vRTl3JhO8ipyP?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c271d6b4-f197-43f3-d182-08dd31c00d21
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2025 21:23:43.3681 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2025 21:45:08.2880 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: d6fVsy0Ver6I5Ck1SV5GAkrq7OcFpyVKz0XaZSGtS0TmcX991eX9v/FjavPwuAQCTH0qHa9FXk1PIiGNa+Cnxw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9084
+X-MS-Exchange-CrossTenant-UserPrincipalName: TEJxpZXgyWewvGzP5WJIy3kTsSCx68JLh6PZz8y6iVrUWlW6vxcFAeAF2iMVdXZHXKWjZJ7vxtopGssdnRXpCA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7574
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -175,163 +167,239 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 12/19/24 10:03, Simona Vetter wrote:
-> On Thu, Dec 19, 2024 at 09:02:27AM +0000, Daniel Stone wrote:
->> On Wed, 18 Dec 2024 at 10:32, Brian Starkey <brian.starkey@arm.com> wrote:
->>> On Wed, Dec 18, 2024 at 11:24:58AM +0000, Simona Vetter wrote:
->>>> For that reason I think linear modifiers with explicit pitch/size
->>>> alignment constraints is a sound concept and fits into how modifiers work
->>>> overall.
->>>
->>> Could we make it (more) clear that pitch alignment is a "special"
->>> constraint (in that it's really a description of the buffer layout),
->>> and that constraints in-general shouldn't be exposed via modifiers?
->>
->> It's still worryingly common to see requirements for contiguous
->> allocation, if for no other reason than we'll all be stuck with
->> Freescale/NXP i.MX6 for a long time to come. Would that be in scope
->> for expressing constraints via modifiers as well, and if so, should we
->> be trying to use feature bits to express this?
->>
->> How this would be used in practice is also way too underdocumented. We
->> need to document that exact-round-up 64b is more restrictive than
->> any-multiple-of 64b is more restrictive than 'classic' linear. We need
->> to document what people should advertise - if we were starting from
->> scratch, the clear answer would be that anything which doesn't care
->> should advertise all three, anything advertising any-multiple-of
->> should also advertise exact-round-up, etc.
->>
->> But we're not starting from scratch, and since linear is 'special',
->> userspace already has explicit knowledge of it. So AMD is going to
->> have to advertise LINEAR forever, because media frameworks know about
->> DRM_FORMAT_MOD_LINEAR and pass that around explicitly when they know
->> that the buffer is linear. That and not breaking older userspace
->> running in containers or as part of a bisect or whatever.
->>
->> There's also the question of what e.g. gbm_bo_get_modifier() should
->> return. Again, if we were starting from scratch, most restrictive
->> would make sense. But we're not, so I think it has to return LINEAR
->> for maximum compatibility (because modifiers can't be morphed into
->> other ones for fun), which further cements that we're not removing
->> LINEAR.
->>
->> And how should allocators determine what to go for? Given that, I
->> think the only sensible semantics are, when only LINEAR has been
->> passed, to pick the most restrictive set possible; when LINEAR
->> variants have been passed as well as LINEAR, to act as if LINEAR were
->> not passed at all.
+On 2025-01-06 03:57, Tiezhu Yang wrote:
+> As far as I can tell, with the current existing macro definitions, there
+> is no better way to do the minimal and proper changes to stop the control
+> flow if the divisior is zero.
 > 
-> Yeah I think this makes sense, and we'd need to add that to the kerneldoc
-> about how drivers/apps/frameworks need to work with variants of LINEAR.
+> In order to keep the current ability for the aim of debugging and avoid
+> printing the warning message twice, it is better to only use ASSERT_BUG()
+> and SPL_ASSERT_BUG() directly after doing the following four steps:
 > 
-> Just deprecating LINEAR does indeed not work. The same way it was really
-> hard slow crawl (and we're still not there everywhere, if you include
-> stuff like bare metal Xorg) trying to retire the implied modifier. Maybe,
-> in an extremely bright future were all relevant drivers advertise a full
-> set of LINEAR variants, and all frameworks understand them, we'll get
-> there. But if AMD is the one special case that really needs this I don't
-> think it's realistic to plan for that, and what Daniel describe above
-> looks like the future we're stuck to.
-> -Sima
+> (1) Replace ASSERT() with ASSERT_WARN()
+> (2) Replace SPL_ASSERT() with SPL_ASSERT_WARN()
+> (3) Add ASSERT_BUG() macro definition
+> (4) Add SPL_ASSERT_BUG() macro definition
+> 
 
-I spent some time thinking about this over the break, because on a venn 
-diagram it does overlap a sliver of the work we've done to define the 
-differences between the concepts of constraints Vs. capabilities in the 
-smorgasbord of unified memory allocator talks/workshops/prototypes/etc. 
-over the years. I'm not that worried about some overlap being 
-introduced, because every reasonable rule deserves an exception here and 
-there, but I have concerns similar to Daniel's and Brian's.
+Patches 1-4 create lots of churn across the whole driver for little
+immediate benefit. We should be able to do patch 5 without requiring
+all that churn.
 
-Once you start adding more than one special modifier, some things in the 
-existing usage start to break down. Right now you can naively pass 
-around modifiers, then somewhere either before or just after allocation 
-depending on your usage, check if LINEAR is available and take your 
-special "I can parse this thing" path, for whatever that means in your 
-special use case. Modifying all those paths to include one variant of 
-linear is probably OK-but-not-great. Modifying all those paths to 
-include <N> variants of linear is probably unrealistic, and I do worry 
-about slippery slopes here.
+Harry
 
----
+> This version is based on 6.13-rc6, tested on x86 and LoongArch.
+> 
+> Tiezhu Yang (5):
+>   drm/amd/display: Replace ASSERT() with ASSERT_WARN()
+>   drm/amd/display: Replace SPL_ASSERT() with SPL_ASSERT_WARN()
+>   drm/amd/display: Add ASSERT_BUG() macro definition
+>   drm/amd/display: Add SPL_ASSERT_BUG() macro definition
+>   drm/amd/display: Harden callers of division functions
+> 
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  4 +-
+>  .../amd/display/amdgpu_dm/amdgpu_dm_color.c   |  8 +-
+>  .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |  2 +-
+>  .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  2 +-
+>  .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   |  2 +-
+>  .../gpu/drm/amd/display/amdgpu_dm/dc_fpu.c    |  2 +-
+>  .../gpu/drm/amd/display/dc/basics/bw_fixed.c  | 18 ++---
+>  .../gpu/drm/amd/display/dc/basics/dce_calcs.c |  2 +-
+>  .../drm/amd/display/dc/basics/fixpt31_32.c    | 28 +++----
+>  .../drm/amd/display/dc/bios/bios_parser2.c    |  6 +-
+>  .../amd/display/dc/bios/bios_parser_common.c  |  2 +-
+>  .../gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c  |  2 +-
+>  .../display/dc/clk_mgr/dce100/dce_clk_mgr.c   |  4 +-
+>  .../dc/clk_mgr/dce110/dce110_clk_mgr.c        |  4 +-
+>  .../display/dc/clk_mgr/dcn10/rv1_clk_mgr.c    |  2 +-
+>  .../dc/clk_mgr/dcn10/rv1_clk_mgr_vbios_smu.c  |  2 +-
+>  .../amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c |  8 +-
+>  .../dc/clk_mgr/dcn21/rn_clk_mgr_vbios_smu.c   |  6 +-
+>  .../display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c  |  2 +-
+>  .../display/dc/clk_mgr/dcn301/dcn301_smu.c    |  2 +-
+>  .../display/dc/clk_mgr/dcn301/vg_clk_mgr.c    | 10 +--
+>  .../display/dc/clk_mgr/dcn31/dcn31_clk_mgr.c  | 12 +--
+>  .../amd/display/dc/clk_mgr/dcn31/dcn31_smu.c  |  4 +-
+>  .../dc/clk_mgr/dcn314/dcn314_clk_mgr.c        | 14 ++--
+>  .../display/dc/clk_mgr/dcn314/dcn314_smu.c    |  4 +-
+>  .../dc/clk_mgr/dcn315/dcn315_clk_mgr.c        | 14 ++--
+>  .../display/dc/clk_mgr/dcn315/dcn315_smu.c    |  2 +-
+>  .../dc/clk_mgr/dcn316/dcn316_clk_mgr.c        | 12 +--
+>  .../display/dc/clk_mgr/dcn316/dcn316_smu.c    |  2 +-
+>  .../display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c  |  2 +-
+>  .../display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c  | 18 ++---
+>  .../amd/display/dc/clk_mgr/dcn35/dcn35_smu.c  |  6 +-
+>  .../dc/clk_mgr/dcn401/dcn401_clk_mgr.c        | 10 +--
+>  drivers/gpu/drm/amd/display/dc/core/dc.c      | 24 +++---
+>  .../drm/amd/display/dc/core/dc_hw_sequencer.c |  4 +-
+>  .../drm/amd/display/dc/core/dc_link_enc_cfg.c | 12 +--
+>  .../gpu/drm/amd/display/dc/core/dc_resource.c | 62 ++++++++--------
+>  drivers/gpu/drm/amd/display/dc/core/dc_stat.c |  4 +-
+>  .../gpu/drm/amd/display/dc/core/dc_stream.c   |  2 +-
+>  .../gpu/drm/amd/display/dc/core/dc_surface.c  |  2 +-
+>  drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c  |  6 +-
+>  drivers/gpu/drm/amd/display/dc/dc_helper.c    |  8 +-
+>  .../amd/display/dc/dccg/dcn20/dcn20_dccg.c    |  2 +-
+>  .../amd/display/dc/dccg/dcn31/dcn31_dccg.c    |  2 +-
+>  .../amd/display/dc/dccg/dcn35/dcn35_dccg.c    |  4 +-
+>  .../amd/display/dc/dccg/dcn401/dcn401_dccg.c  |  2 +-
+>  .../gpu/drm/amd/display/dc/dce/dce_audio.c    |  6 +-
+>  .../gpu/drm/amd/display/dc/dce/dce_clk_mgr.c  |  8 +-
+>  .../drm/amd/display/dc/dce/dce_clock_source.c |  2 +-
+>  drivers/gpu/drm/amd/display/dc/dce/dce_dmcu.c |  2 +-
+>  .../gpu/drm/amd/display/dc/dce/dce_i2c_sw.c   |  2 +-
+>  drivers/gpu/drm/amd/display/dc/dce/dce_ipp.c  |  4 +-
+>  .../drm/amd/display/dc/dce/dce_link_encoder.c |  8 +-
+>  .../drm/amd/display/dc/dce/dce_mem_input.c    |  6 +-
+>  .../amd/display/dc/dce/dce_stream_encoder.c   | 10 +--
+>  .../drm/amd/display/dc/dce/dce_transform.c    |  8 +-
+>  drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c |  4 +-
+>  .../gpu/drm/amd/display/dc/dce/dmub_replay.c  |  4 +-
+>  .../dc/dce110/dce110_timing_generator.c       |  2 +-
+>  .../amd/display/dc/dce60/dce60_hw_sequencer.c |  2 +-
+>  .../drm/amd/display/dc/dce60/dce60_resource.c |  2 +-
+>  .../gpu/drm/amd/display/dc/dcn20/dcn20_vmid.c |  2 +-
+>  .../amd/display/dc/dcn21/dcn21_link_encoder.c |  4 +-
+>  .../gpu/drm/amd/display/dc/dcn30/dcn30_afmt.c |  2 +-
+>  .../gpu/drm/amd/display/dc/dcn30/dcn30_vpg.c  |  2 +-
+>  .../gpu/drm/amd/display/dc/dcn31/dcn31_apg.c  |  2 +-
+>  .../amd/display/dc/dcn31/dcn31_panel_cntl.c   |  2 +-
+>  .../display/dc/dio/dcn10/dcn10_link_encoder.c |  4 +-
+>  .../dc/dio/dcn10/dcn10_stream_encoder.c       |  8 +-
+>  .../dc/dio/dcn20/dcn20_stream_encoder.c       |  4 +-
+>  .../dc/dio/dcn30/dcn30_dio_stream_encoder.c   | 16 ++--
+>  .../dc/dio/dcn314/dcn314_dio_stream_encoder.c |  6 +-
+>  .../dc/dio/dcn32/dcn32_dio_stream_encoder.c   |  6 +-
+>  .../dc/dio/dcn35/dcn35_dio_stream_encoder.c   |  8 +-
+>  .../dc/dio/dcn401/dcn401_dio_stream_encoder.c |  8 +-
+>  drivers/gpu/drm/amd/display/dc/dm_services.h  |  2 +-
+>  .../amd/display/dc/dml/calcs/dcn_calc_math.c  |  6 +-
+>  .../drm/amd/display/dc/dml/calcs/dcn_calcs.c  | 18 ++---
+>  .../drm/amd/display/dc/dml/dcn10/dcn10_fpu.c  |  2 +-
+>  .../drm/amd/display/dc/dml/dcn20/dcn20_fpu.c  | 14 ++--
+>  .../dc/dml/dcn20/display_mode_vba_20.c        |  2 +-
+>  .../dc/dml/dcn20/display_mode_vba_20v2.c      |  2 +-
+>  .../dc/dml/dcn20/display_rq_dlg_calc_20.c     | 54 +++++++-------
+>  .../dc/dml/dcn20/display_rq_dlg_calc_20v2.c   | 54 +++++++-------
+>  .../dc/dml/dcn21/display_mode_vba_21.c        |  2 +-
+>  .../dc/dml/dcn21/display_rq_dlg_calc_21.c     | 54 +++++++-------
+>  .../drm/amd/display/dc/dml/dcn30/dcn30_fpu.c  |  4 +-
+>  .../dc/dml/dcn30/display_mode_vba_30.c        |  4 +-
+>  .../dc/dml/dcn30/display_rq_dlg_calc_30.c     | 56 +++++++-------
+>  .../amd/display/dc/dml/dcn301/dcn301_fpu.c    |  6 +-
+>  .../amd/display/dc/dml/dcn302/dcn302_fpu.c    |  2 +-
+>  .../amd/display/dc/dml/dcn303/dcn303_fpu.c    |  2 +-
+>  .../drm/amd/display/dc/dml/dcn31/dcn31_fpu.c  |  6 +-
+>  .../dc/dml/dcn31/display_mode_vba_31.c        |  4 +-
+>  .../dc/dml/dcn31/display_rq_dlg_calc_31.c     | 50 ++++++-------
+>  .../amd/display/dc/dml/dcn314/dcn314_fpu.c    |  6 +-
+>  .../dc/dml/dcn314/display_mode_vba_314.c      |  4 +-
+>  .../dc/dml/dcn314/display_rq_dlg_calc_314.c   | 50 ++++++-------
+>  .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.c  | 32 ++++----
+>  .../dc/dml/dcn32/display_rq_dlg_calc_32.c     | 58 +++++++--------
+>  .../amd/display/dc/dml/dcn321/dcn321_fpu.c    |  2 +-
+>  .../drm/amd/display/dc/dml/dcn35/dcn35_fpu.c  |  4 +-
+>  .../amd/display/dc/dml/dcn351/dcn351_fpu.c    |  4 +-
+>  .../drm/amd/display/dc/dml/display_mode_vba.c | 12 +--
+>  .../display/dc/dml/dml1_display_rq_dlg_calc.c | 74 +++++++++----------
+>  .../amd/display/dc/dml2/display_mode_core.c   | 14 ++--
+>  .../amd/display/dc/dml2/display_mode_util.c   | 12 +--
+>  .../dc/dml2/dml21/dml21_translation_helper.c  | 10 +--
+>  .../amd/display/dc/dml2/dml21/dml21_utils.c   |  8 +-
+>  .../amd/display/dc/dml2/dml21/dml21_wrapper.c |  8 +-
+>  .../lib_float_math.c                          |  4 +-
+>  .../dc/dml2/dml21/src/inc/dml2_debug.c        |  2 +-
+>  .../display/dc/dml2/dml2_dc_resource_mgmt.c   | 50 ++++++-------
+>  .../gpu/drm/amd/display/dc/dml2/dml2_policy.c |  2 +-
+>  .../display/dc/dml2/dml2_translation_helper.c | 10 +--
+>  .../gpu/drm/amd/display/dc/dml2/dml2_utils.c  |  6 +-
+>  .../drm/amd/display/dc/dml2/dml2_wrapper.c    | 10 +--
+>  .../display/dc/dml2/dml_display_rq_dlg_calc.c | 62 ++++++++--------
+>  .../amd/display/dc/dpp/dcn10/dcn10_dpp_dscl.c |  4 +-
+>  .../drm/amd/display/dc/dpp/dcn30/dcn30_dpp.c  |  8 +-
+>  .../display/dc/dpp/dcn401/dcn401_dpp_dscl.c   |  4 +-
+>  drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c   |  4 +-
+>  .../drm/amd/display/dc/dsc/dcn20/dcn20_dsc.c  | 24 +++---
+>  .../drm/amd/display/dc/dsc/dcn35/dcn35_dsc.c  |  2 +-
+>  .../amd/display/dc/dsc/dcn401/dcn401_dsc.c    |  4 +-
+>  drivers/gpu/drm/amd/display/dc/gpio/hw_gpio.c |  2 +-
+>  .../dc/hpo/dcn31/dcn31_hpo_dp_link_encoder.c  |  6 +-
+>  .../hpo/dcn31/dcn31_hpo_dp_stream_encoder.c   |  4 +-
+>  .../dc/hpo/dcn32/dcn32_hpo_dp_link_encoder.c  |  2 +-
+>  .../display/dc/hubbub/dcn10/dcn10_hubbub.c    |  4 +-
+>  .../display/dc/hubbub/dcn20/dcn20_hubbub.c    |  6 +-
+>  .../display/dc/hubbub/dcn31/dcn31_hubbub.c    |  8 +-
+>  .../display/dc/hubbub/dcn32/dcn32_hubbub.c    |  8 +-
+>  .../display/dc/hubbub/dcn35/dcn35_hubbub.c    |  8 +-
+>  .../display/dc/hubbub/dcn401/dcn401_hubbub.c  | 10 +--
+>  .../amd/display/dc/hubp/dcn10/dcn10_hubp.c    |  4 +-
+>  .../amd/display/dc/hubp/dcn20/dcn20_hubp.c    |  4 +-
+>  .../amd/display/dc/hubp/dcn401/dcn401_hubp.c  |  8 +-
+>  .../amd/display/dc/hwss/dce110/dce110_hwseq.c |  8 +-
+>  .../amd/display/dc/hwss/dcn10/dcn10_hwseq.c   |  8 +-
+>  .../amd/display/dc/hwss/dcn20/dcn20_hwseq.c   | 22 +++---
+>  .../amd/display/dc/hwss/dcn201/dcn201_hwseq.c |  4 +-
+>  .../amd/display/dc/hwss/dcn30/dcn30_hwseq.c   | 24 +++---
+>  .../amd/display/dc/hwss/dcn31/dcn31_hwseq.c   |  4 +-
+>  .../amd/display/dc/hwss/dcn314/dcn314_hwseq.c | 10 +--
+>  .../amd/display/dc/hwss/dcn32/dcn32_hwseq.c   | 18 ++---
+>  .../amd/display/dc/hwss/dcn35/dcn35_hwseq.c   | 10 +--
+>  .../amd/display/dc/hwss/dcn401/dcn401_hwseq.c |  6 +-
+>  .../gpu/drm/amd/display/dc/irq/irq_service.c  |  4 +-
+>  .../display/dc/link/accessories/link_dp_cts.c |  4 +-
+>  .../amd/display/dc/link/hwss/link_hwss_dio.c  |  2 +-
+>  .../amd/display/dc/link/hwss/link_hwss_dpia.c |  2 +-
+>  .../drm/amd/display/dc/link/link_detection.c  |  4 +-
+>  .../gpu/drm/amd/display/dc/link/link_dpms.c   | 26 +++----
+>  .../dc/link/protocols/link_dp_capability.c    | 12 +--
+>  .../display/dc/link/protocols/link_dp_phy.c   |  4 +-
+>  .../dc/link/protocols/link_dp_training.c      | 14 ++--
+>  .../link/protocols/link_dp_training_8b_10b.c  |  2 +-
+>  .../dc/link/protocols/link_dp_training_dpia.c |  4 +-
+>  .../link_dp_training_fixed_vs_pe_retimer.c    |  4 +-
+>  .../amd/display/dc/link/protocols/link_dpcd.c |  2 +-
+>  .../link/protocols/link_edp_panel_control.c   |  6 +-
+>  .../amd/display/dc/link/protocols/link_hpd.c  |  2 +-
+>  .../drm/amd/display/dc/mpc/dcn10/dcn10_mpc.c  | 16 ++--
+>  .../drm/amd/display/dc/mpc/dcn20/dcn20_mpc.c  | 14 ++--
+>  .../drm/amd/display/dc/opp/dcn20/dcn20_opp.c  |  2 +-
+>  .../amd/display/dc/optc/dcn10/dcn10_optc.c    |  2 +-
+>  .../amd/display/dc/optc/dcn20/dcn20_optc.c    |  2 +-
+>  .../amd/display/dc/optc/dcn201/dcn201_optc.c  |  2 +-
+>  .../amd/display/dc/optc/dcn30/dcn30_optc.c    |  2 +-
+>  .../amd/display/dc/optc/dcn31/dcn31_optc.c    |  2 +-
+>  .../amd/display/dc/optc/dcn35/dcn35_optc.c    |  2 +-
+>  .../amd/display/dc/optc/dcn401/dcn401_optc.c  |  4 +-
+>  drivers/gpu/drm/amd/display/dc/os_types.h     |  7 +-
+>  .../dc/resource/dce100/dce100_resource.c      |  2 +-
+>  .../dc/resource/dce110/dce110_resource.c      |  2 +-
+>  .../dc/resource/dce112/dce112_resource.c      |  2 +-
+>  .../dc/resource/dce120/dce120_resource.c      |  2 +-
+>  .../dc/resource/dce80/dce80_resource.c        |  2 +-
+>  .../dc/resource/dcn10/dcn10_resource.c        |  4 +-
+>  .../dc/resource/dcn20/dcn20_resource.c        | 30 ++++----
+>  .../dc/resource/dcn201/dcn201_resource.c      |  2 +-
+>  .../dc/resource/dcn21/dcn21_resource.c        | 12 +--
+>  .../dc/resource/dcn30/dcn30_resource.c        | 26 +++----
+>  .../dc/resource/dcn31/dcn31_resource.c        |  4 +-
+>  .../dc/resource/dcn314/dcn314_resource.c      |  2 +-
+>  .../dc/resource/dcn315/dcn315_resource.c      |  4 +-
+>  .../dc/resource/dcn316/dcn316_resource.c      |  6 +-
+>  .../dc/resource/dcn32/dcn32_resource.c        | 20 ++---
+>  .../dc/resource/dcn321/dcn321_resource.c      |  6 +-
+>  .../dc/resource/dcn35/dcn35_resource.c        |  2 +-
+>  .../dc/resource/dcn351/dcn351_resource.c      |  2 +-
+>  .../dc/resource/dcn401/dcn401_resource.c      |  6 +-
+>  drivers/gpu/drm/amd/display/dc/spl/dc_spl.c   | 12 +--
+>  .../gpu/drm/amd/display/dc/spl/spl_debug.h    | 15 +++-
+>  .../drm/amd/display/dc/spl/spl_fixpt31_32.c   | 32 ++++----
+>  .../drm/amd/display/dc/spl/spl_fixpt31_32.h   | 12 +--
+>  .../gpu/drm/amd/display/dmub/src/dmub_srv.c   |  4 +-
+>  .../gpu/drm/amd/display/include/fixed31_32.h  | 12 +--
+>  .../amd/display/modules/color/color_gamma.c   |  2 +-
+>  .../amd/display/modules/freesync/freesync.c   |  4 +-
+>  .../amd/display/modules/power/power_helpers.c |  8 +-
+>  .../gpu/drm/amd/display/modules/vmid/vmid.c   |  2 +-
+>  203 files changed, 961 insertions(+), 947 deletions(-)
+> 
 
-What got me more interested though was this led to another thought. At 
-first I didn't notice that this was an exact-match constraint and 
-thought it meant the usual alignment constraint of >=, and I was 
-concerned about how future variants would interact poorly. It could 
-still be a concern if things progress down this route, and we have 
-vendor A requiring >= 32B alignment and vendor B requiring == 64B 
-alignment. They're compatible, but modifiers expressing this would 
-naively cancel each-other out unless vendor A proactively advertised == 
-64B linear modifiers too. This isn't a huge deal at that scale, but it 
-could get worse, and it got me thinking about a way to solve the problem 
-of a less naive way to merge modifier lists.
-
-As a background, the two hard problems left with implementing a 
-constraint system to sit alongside the format modifier system are:
-
-1) A way to name special heaps (E.g., local vidmem on device A) in the 
-constraints in a way that spans process boundaries using some sort of 
-identifier. There are various ways to solve this. Lately the thinking is 
-something around dma heaps, but no one's fleshed it out yet that I'm aware.
-
-2) A transport that doesn't require us to revise every userspace API, 
-kernel API, and protocol that got revised to support DRM format 
-modifiers, and every API/protocol introduced since.
-
-I haven't seen any great ideas for the latter problem yet, but what if 
-we did this:
-
-- Introduced a new DRM format modifier vendor that was actually 
-vendor-agnostic, but implied the format modifier was a constraint 
-definition fragment instead of an actual modifier.
-
-- Constraint-aware code could tack on its constraints (The ones it 
-requires and/or the ones it can support allocating) as a series of 
-additional modifiers using this vendor code. A given constraint might be 
-fragmented into multiple modifiers, but their definition and 
-serialization/deserialization mechanism could be defined in drm_fourcc.h 
-as macros all the clients could use.
-
-- Existing non-constraint-aware code in a modifier usage chain might 
-filter these modifiers out using the existing strict intersection logic. 
-Hence, any link in the chain not aware of constraints would likely block 
-their use, but that's OK. We're muddling along without them now. It 
-wouldn't make those situations any worse.
-
-- New code would be required to use some minimal library (Header-only 
-perhaps, as Simon and I proposed a few years ago) to intersect format 
-modifier lists instead, and this code would parse out the constraint 
-modifiers from each input list and use the envisioned per-constraint 
-logic to merge them. It would result in yet another merged 
-modifier+constraint list encoded as a list of modifiers that could be 
-passed along through any format-modifier-aware API.
-
-- One consideration that would be sort of tricky is that constraints are 
-supposed to be advertised per-modifier, so you'd have to have a way to 
-associate constraint modifiers in a given set with real modifiers in 
-that set or in general. This is easily solved though. Some bits of the 
-constraint modifiers would already need to be used to associate and 
-order constraint fragments during deserialization, since modifier lists 
-aren't strictly ordered.
-
-This effectively allows you to use format modifiers to encode 
-arbitrarily complex constraint mechanisms by piggybacking on the 
-existing format modifier definition and transport mechanisms without 
-breaking backwards compatibility. It's a little dirty, because modifiers 
-are being abused to implement a raw bitstream, but modifiers and 
-constraints are related concepts, so it's not a complete hack. It still 
-requires modifying all the implementations in the system to fully make 
-use of constraints, but doesn't require e.g. revising X11 DRI3 protocol 
-again to tunnel them through Xwayland, and in situations where the 
-constraint-aware thing sits downstream of the non-constraint-aware thing 
-in the allocation pipeline, you could get some benefit even when all the 
-upstream things aren't updated yet, because it could still merge in its 
-local constraints before allocating or passing the modifier list down 
-the chain.
-
-Does this seem like something worth pursuing to others? I've been trying 
-to decide how to best move the allocation constraints efforts forward, 
-so it's potentially something I could put some time into this year.
-
-Thanks,
--James
