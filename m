@@ -4,154 +4,153 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B5D7E77188
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2025 19:02:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E99A4E77188
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2025 19:03:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E636710F16C;
-	Fri, 10 Jan 2025 19:02:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 88E1910F170;
+	Fri, 10 Jan 2025 19:03:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="JQccodrj";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="CD1X/qnu";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2082.outbound.protection.outlook.com [40.107.93.82])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C4AFD10F16C
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jan 2025 19:02:17 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2056.outbound.protection.outlook.com [40.107.92.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E82810F170
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jan 2025 19:03:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RM/TKw6Gn7OXYBXRG3J7RlzEA3rIuAFy5C9PtTkJmPdcgYPnKSWI29UePRDHWh+f9vBAQ6c6m4dEaPLlS7F/03idxiP0Q936NPxRK2h6r910tqQDCJiXfqXhpb/PbLUJBSuyR8xFpvXurxF/CoKl6KYxA+QjM5lA47BFmPOL9Sh5rHhvjd0SKAVxaQp80TuvuidXM186nMDaHRMQlXkZlwLTe6vrEDVtdS8grX53NbjKv5byRRNCA0GWRM9InoZn+I7jiXRkSqm975qZ+hkQbLuoUxmXquHRSbHspJSlsEAVEuKY0TkMFcud+mYhUhyKy7svNXCBOg8I96DL/ZoF0Q==
+ b=MPKJkhsTWz3bvOZr95/M5k057GDc3sQxrEXB1rc+JklSbuamNcdjcKhSdJfONSW2hgDjzkccYnIoggMBg4j5aqRIxjLLNLCfP7eZzrxxT0WwOagFR360jcP6l7pGKE+rLmmlTDjYXpkMylKn49sPQM0SxleU1IWuPyPDdeVoWAVplKKvGjeG36YWDlQL9UxBCUphYKK2EU3FSbZiU5LU4fqCNU2paBgrDxZvw0302qAaAHI/Ng3VqRxDvKQE/sl+ebU3L4xWpmmBPedS9iLPzebL3Ub/ULPrb3kkvsfoW2adlZDfe82QWFc9Qk7ZX7WJgdgj8ZmR8XMMgb61ytb/bA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NwGARWtDzn31MY/Lr4do2N7Wc40DVVLrnxutfaorNI0=;
- b=Rd52lmz6B/IR1efZz9XaC21qugRfNz+jtdwI0McxvPtjzqPBQ8+o/6Pq4UTmRgGV3nm7f2dOaJhnSWavlpZvjsudyDgKA4pPICXjT4PdelgU+3RyJ3slPjFjVS9dr6Dhu8Xeotp5CELEp05XaVHBLRaFTX7KYxilYdnkfuyv4n20MlUJApVyO4HrKyOUDx0dGrlRcJfL5VMFTjrdkwMQVwP0DLgES1FFLHql0wI/t1K84kDAiOyFjo0T3SDU+0U0xnEKFwmI4UdvfcXFMwahOvGlPTzcK5z4APKaFCF1O9c6yiPwA3AFd0nV+VlAQG1hrMfZh0xYW7Oep5BXY1/UTw==
+ bh=8Iu1XhZyWbomyd/+WLE9lPqZR9PvQDfGBQNdVoRl6pk=;
+ b=SH3FeQWHTjnBSA5n67v1nFYBodTq7IpGs+xKdyVq1xnVV0IlrD/ryGqtKF6eVLKE+dtI8uoLHP3PM9rU0ZBQy/gQAaZ25JdBa9R5Pj7xsf6mC+Y6JQxBj67UW7Gr7+WNWDovFOxtyE9bjytu+NwiYVJ2YsFX9J6/aHhOWGf4QsSzB2zN2khBoY1QhELvA4nV7rkvR7eNvZk2K5kcWQJSlh7V4HnQ9EIqu37I1OevhzFMNlJVBXVi9WG5KH86LDgD8hdF5+aIsiJp//i0ALBvL26qJvw5mWa2zpMrIRpf1UOuIeGEIqOEIgX2k9t4SiZB5kxrjKLwLeFuArKmn5GSEA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NwGARWtDzn31MY/Lr4do2N7Wc40DVVLrnxutfaorNI0=;
- b=JQccodrj/6wNX6HYO/7rhdhRt4J9EN87iptJA2iX5NeZY0zRzZOkg/VQXOQhKzZmBkrcVdcX2F7OoEy9tXU6azVpMpbo9Y6eUiqqLOqVpSbmy6XXZmE6UGoEtEz1CoMdYC5pQtMdtM026h88qvvPD/YUPwVKRSMyRFthq7YBHJE=
+ bh=8Iu1XhZyWbomyd/+WLE9lPqZR9PvQDfGBQNdVoRl6pk=;
+ b=CD1X/qnuAeab3U2ChsCZ10uVI9RbNsGzHQhrp/ems0iTY6YZF1qaNZvAmYzNoiKq/OR0ptS4Ooh73t9Wzn88F4joVByuGZFXONSTcKsTzV1BJtBQp4SbB85X7ogUZScDpqfAB7TuoMJqHDF/zj4+OS3annfASnmbx9B8sJgS3H4=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
- by DM4PR12MB6160.namprd12.prod.outlook.com (2603:10b6:8:a7::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8335.10; Fri, 10 Jan
- 2025 19:02:13 +0000
+ by SJ0PR12MB7036.namprd12.prod.outlook.com (2603:10b6:a03:483::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8314.17; Fri, 10 Jan
+ 2025 19:03:36 +0000
 Received: from MN0PR12MB6101.namprd12.prod.outlook.com
  ([fe80::37ee:a763:6d04:81ca]) by MN0PR12MB6101.namprd12.prod.outlook.com
  ([fe80::37ee:a763:6d04:81ca%4]) with mapi id 15.20.8335.012; Fri, 10 Jan 2025
- 19:02:13 +0000
-Message-ID: <3f2d18a8-e75c-4ab5-bf5f-48443c208e0c@amd.com>
-Date: Fri, 10 Jan 2025 13:02:11 -0600
+ 19:03:36 +0000
+Message-ID: <65d6961e-c376-4b76-9b2c-47b56dd2e770@amd.com>
+Date: Fri, 10 Jan 2025 13:03:33 -0600
 User-Agent: Mozilla Thunderbird
-Subject: Re: [v4 2/5] drm/amdxcp: introduce new API amdgpu_xcp_drm_dev_free()
+Subject: Re: [v4 3/5] drm/amdgpu: fix use after free bug related to
+ amdgpu_driver_release_kms()
 To: Jiang Liu <gerry@linux.alibaba.com>, alexander.deucher@amd.com,
  christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
  simona@ffwll.ch, sunil.khatri@amd.com, lijo.lazar@amd.com,
  Hawking.Zhang@amd.com, xiaogang.chen@amd.com, Kent.Russell@amd.com,
  shuox.liu@linux.alibaba.com, amd-gfx@lists.freedesktop.org
 References: <cover.1736474822.git.gerry@linux.alibaba.com>
- <79267ddb1b1b8d83e2ec170f4b0b578c705de4dd.1736474822.git.gerry@linux.alibaba.com>
+ <3b84aafd838898a1de248f57359e3d23d2a64fe4.1736474822.git.gerry@linux.alibaba.com>
 Content-Language: en-US
 From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <79267ddb1b1b8d83e2ec170f4b0b578c705de4dd.1736474822.git.gerry@linux.alibaba.com>
+In-Reply-To: <3b84aafd838898a1de248f57359e3d23d2a64fe4.1736474822.git.gerry@linux.alibaba.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SN4PR0501CA0037.namprd05.prod.outlook.com
- (2603:10b6:803:41::14) To MN0PR12MB6101.namprd12.prod.outlook.com
+X-ClientProxiedBy: SN7PR04CA0044.namprd04.prod.outlook.com
+ (2603:10b6:806:120::19) To MN0PR12MB6101.namprd12.prod.outlook.com
  (2603:10b6:208:3cb::10)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|DM4PR12MB6160:EE_
-X-MS-Office365-Filtering-Correlation-Id: b0f26863-9a37-486b-6ea1-08dd31a94b2d
+X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|SJ0PR12MB7036:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2f8ea632-0a8b-449c-1931-08dd31a97c1e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|7053199007|921020; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?VEZsdXdOcEsyMzc1SlR3T2dEcU10cVFYRTdFS1ZPYzgvTTdXenVrZ1BwSTVh?=
- =?utf-8?B?Vmt2OTlUcUVhRHhzRFhaS0QrcnZNdDJjRGhITmRpeTJ4R05ZZmVEZXJzUXNC?=
- =?utf-8?B?WlZJOFdxRXc3d2gwalRuS1VYQSs5L2hwb1hKSVdlNlR2TllLUmhXRWUrUnlJ?=
- =?utf-8?B?bnZSYWc5Yzh2Z2pKTW1oWGZ5U0lmL2dKbGFFU3FsU0Z4OXFvemdPaEFMK29l?=
- =?utf-8?B?UzcxV2ExWVlhVEw1WFRjTTF2TDZXQUhnRmFVdTN4WjFmZ3BhVWtUUDFQc2xK?=
- =?utf-8?B?NWJONWRKYUdKZ2JvT1ZoWDBORmNWMmJiK2JQbkpIVUxLVUt4QmtaaEo2aTJv?=
- =?utf-8?B?WlJBUGtTaGxOS2EwSkZlT2lwOGJTTkVCRVA0RGpZS25qOTZ0b1RJQW9DRHJM?=
- =?utf-8?B?aDhBYTZXbHlWWTFPUURxRFh5UVdkZE02VGhhb3JOVHdFaWc2aDdSRTNPWFdn?=
- =?utf-8?B?SHFuM29OeXRtM0wrK2NSUm9mRmJrcWtvVXNtWWNpdHRwUDVVbk85anpnN0Vs?=
- =?utf-8?B?L3F1ZXRrNDU5UWF2T0hNRnJyOEM4YXlmdThkcjJZYzZGc09WSmVxd0trWThi?=
- =?utf-8?B?WWhXYnl2RlZ4S1FYVmxPU01Sd1p3N1R2MVE1N0x0ZzluU0lUUVBsMFhjcjJr?=
- =?utf-8?B?ZzkxNnhORWtqUlM3U1IyVWdNcDNIalEzRk5iam9UaUpqcVF6Z2RsOWhzQ1Az?=
- =?utf-8?B?VUV0Y0NWTlVuRUhjR2kyV2ZybWlGemozc0hMdzB4ZjJyV0VuT01NbGxWRjZU?=
- =?utf-8?B?T3dIdGE4V3dVWlczWk9oN01EOWlTdFgxUEdsc2h3N2IzQTd1MC9Va0ZET0hR?=
- =?utf-8?B?VUluaU1GQlZwaDJqbk5BNXpuQkdPT3Vzd0dUQlh0c04wb2F0YUs1ZTlORjlw?=
- =?utf-8?B?d3NnMHBqUWk0dVMzWHd6ZXFER29HbmZPejlUNm9pSFNTdG15M3hBbFFCWnlt?=
- =?utf-8?B?UVFkVVFmei9CeWd1VjM5WWdZcDBaVHNFWFBxOFVxRDA0ZG1xTVdMc051NllW?=
- =?utf-8?B?SW5BN3pVOXVkdXVvTFZOc3Q5T3FUdHF4Q0hEYXpnMXM1R0JOY3gwdS9TOW9h?=
- =?utf-8?B?ZWFmN2svejR1SWxTTVA5T09KdXN0WlYxWDlvdkFIQ21xM3ZWZ2ZQZ2s1ejAr?=
- =?utf-8?B?SWFQWWMzVUV4VisyVG5VOW04bFdqWGdhMDhoY2MyYk5JSGhGVTU2cTRpTmpo?=
- =?utf-8?B?YUhITTM4N3pTejZFeUNGcHNFRkp2dWh2QUluUWgrS1AyWXZjRkR0VXpuMGdo?=
- =?utf-8?B?dkxyQVBzWkZsaVNlaC9DZE5JYTROS0J0NVFYeGNQcExHbFVNa1R3UndaNGpM?=
- =?utf-8?B?WGRsY0FXTUVzL1ppbGs4Wit0QWFPK2RwUjQ1V2UxTEJEZklkR2U2dTdsaWpt?=
- =?utf-8?B?SytHYUdHY3RVNUZwMTBFbjdMdVhyNDh6Tms4VzZTSFNoY3ZvSld1UkxvUHVq?=
- =?utf-8?B?SXFFTkR2aWx3dTFKSWdxMHByRDVUQWt3UkErUnFkbG9rVlArd09JZWg1NE9C?=
- =?utf-8?B?NVhXTXFrYzlrMFFuZEEwMXNmbEcyTFF3Y3Rha3JWMXl1QUw3VTNRNm42bVI0?=
- =?utf-8?B?dWROelgxZ2JQaG11WUpPenVQaHJYOHdOUDRQdnRmQTcrT0psdTlOTVBxU3Jy?=
- =?utf-8?B?QXRMdGdaSW1LMnhySkR6UVBhcFFwV21qSFU2bUtURmJCTW5XNmxwQ09mQzY4?=
- =?utf-8?B?b0EzcmlLYkQybkRzVjM0QTQxdmF5NXYvS0Y3RGprdmdQa0FwSU9seHNzNnpr?=
- =?utf-8?B?Uk02aFM3OHg2ejBSQmc2UTBoc3VuamdxRnlQbUJQVE44MWcxM1JSQzA4dHdz?=
- =?utf-8?B?dlp3SmxXVUJhNkJKUnBHckU0c2FOSG5aYkVubTNsVFViRHAzNWFvMmxIMGpK?=
- =?utf-8?B?dDlGNFNWOG54cG11RDdEcDdRSEY0VS9DaGlKS200c2ZOMDhaeWc5NHVVTG02?=
- =?utf-8?Q?CccztjfTcPI=3D?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024|921020;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?eDRScDAydlVSZlM5STB0YWZ3QnpIZksvWlhoTnV4WUJPZVFXZFhRRUgvYmh4?=
+ =?utf-8?B?c3hwUk4wYzFsWnNiVk5ndU5oMms2K2VNdzhWSWkvMjdoV1k4N0FyYlFoUngz?=
+ =?utf-8?B?by9SNFlpa0gwV1R1L2R0aTQ5YjVaQ1NnQU9YbEpjZ284L1B4L1Vid2doTUFl?=
+ =?utf-8?B?Mi9vak1GUlVaZW9hNVNRUStmbWpoaHNqRnBsQ1YzNWJFaFNwV014WVFEalF6?=
+ =?utf-8?B?eWRZM0tWcnl0Sjh3L0NwVURmQmFkaUM2N2pjakJ1b082ZjBpOExnN0htWGtB?=
+ =?utf-8?B?ZFBOenAxT0JYczNzVGRITEFPY0pzN1Y5bVJ4NmFyVWZGOTNmSjFuMm9wQ2VN?=
+ =?utf-8?B?TjFaQmxCWUpVdTVlVWg1d01rRkFVV0JIZ2l5UTU4UXVaVHhXUDNNSVhNRmVQ?=
+ =?utf-8?B?QlFBOUFDd1RZRVA5YTNhMXFodHYzcjhzbTJNTXV4SWhlbTErdkdZMmkxV1Ar?=
+ =?utf-8?B?WDRiMEgyUzRjbTg1YXFXdGJwN3FBamhQVFJTNFlVc0o5M0xsS0ZSd0tZNm00?=
+ =?utf-8?B?akFxay8vcjdsZ3F6akM5SWpCbE5PMURXSFFlL3dvTWI5aVdmVGxoK1lLcnFn?=
+ =?utf-8?B?LzR5ZGkvUmhNSmlsb0pXN21pVGJGQkNKbXloWGN0NG5pcmdCbFpxSTdMcDNq?=
+ =?utf-8?B?aHZQOTk2MDg0SEQwNC9LUEhrZjQ1OGlLdjlncE9SaGNWN091TUx6VUtkZTRO?=
+ =?utf-8?B?OFFRUERXUURPRzQvZ0hVYzVCZUZpQXc4R2cxZTdTTXpYdVNyU3pSTFRmQVNG?=
+ =?utf-8?B?aUNiWjhuV3UvQmNPOUtyTlQ3K2U3VnRBWGZwSWY2T29HTklHMWpJR2Jkb2Ji?=
+ =?utf-8?B?UjNVcmhZSEdFZmFldG82R1NjTVN3ZXJZRDBLeUM5V2pzSFJqN3hnb1ZwT2hR?=
+ =?utf-8?B?dXFLTlUxeExjZVBUZy9DbzF1L3p0Qyt4MDQ1azUyZjlDTDErYU9hQ0tVMmhX?=
+ =?utf-8?B?eFRraWc4dDR0ZVErN2tXWEZjNmZsVVZFcTcxRUhwTlFhRWRESTk3aGJpVldi?=
+ =?utf-8?B?dHY4RlIwcUJGelNiN0MwRnVSOEZ0QkU2VGRSbnlzRTVZSkh5SmVtSml6aFhW?=
+ =?utf-8?B?QjNZSkhjTUFmNkJySnhYNFFRRXJNU0JSMFdxTjNCZzBKNmFyN0lQc1EzaVNw?=
+ =?utf-8?B?a3Q3OWYrVW9EN2FmUTdEWlk0TjNBM01sNHZteGJvZkdvR3B6TVNLR0xYZUZl?=
+ =?utf-8?B?UHphQ1dxbnU4bGtGY25iSENEVEp2SytFTk9iNXAzQmxEUU85SmtXWllkWW1v?=
+ =?utf-8?B?R2pkY0NFbnRtR2xnTkFpTGpPVTFXbmNDMUw1TEh1UG9LSzEzNE96Rk9CcnJY?=
+ =?utf-8?B?UStycnl0ampDamhEOVA2ZDlEaldhVGV6NzZsQzl4NWQrVnpEOG5jRDYrdnN3?=
+ =?utf-8?B?R3VMZG9KNEVNVkVlUVpiMStQODdaUVBxVkxlMEJYUzgrTzN0WWdrWjFXSFdq?=
+ =?utf-8?B?UHE1QjZpOGRveDhJdVdyUjBSdDk1bVFQK240aG5vNm50MHhRM2RWNEw3b2ZN?=
+ =?utf-8?B?NWxYWnRnZUI4Um9KYUh2dGxTQmVkRDNkUjEzMk9lZzM3a3JudHNFK2RkYjZs?=
+ =?utf-8?B?NXA0ektOMC9FbnJwRGpieE9xVEczajAwZjJhcHpiS1U3OXhEOXBCTUcxNnd3?=
+ =?utf-8?B?eVFnK2ZTSVRmV01QUllwTXd2bWUxdUI4WDl1bm5OblhvakloN28rUXpUZWhV?=
+ =?utf-8?B?ZTIwbUZzMXlINkVpWmZoZ0Y4alFoVmVwckE2NUZSRTVCSHdVOTBwYkFHZHZt?=
+ =?utf-8?B?ODNSZ3J6WTFBTHhoSU1CYW9IcG5TNWJ1dC9OUHdYS0NZc3pCdGplWnpoK2lp?=
+ =?utf-8?B?L2hTVTU0dlh0K1VvU1hZcHZBNGcxa21qNFJIaW9KTTFGamloYnRWNHYyN0dt?=
+ =?utf-8?B?MnBla1ZFOGhRT0NERzZOZTZiUVpOd1FrRjYwalZ5RU9DRDBNU3ZGdGxpNHUw?=
+ =?utf-8?Q?orMpokyPvP0=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(7053199007)(921020); DIR:OUT;
- SFP:1101; 
+ SFS:(13230040)(366016)(376014)(1800799024)(921020); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZmpyWnF4dUJEVUxweS9DZExjeS9FbWdGbzZrVENpM0xja3lNSkhqUnpYQUc2?=
- =?utf-8?B?TzYxaFhIZ0FrMDQ3T2FhSENTOVA2QSt3VDV4OGVVYkxrOVNKcVhUdUZMU0Vn?=
- =?utf-8?B?TFg0TjRQYjlLQWM5RFBxOEtVbkJmRlhaMjViVk1XRGcvMHdCQ1pJOUthaHIz?=
- =?utf-8?B?cVNHa29hUDdCOXBpQkI3OEVtTmZyL3ErSXhyZVFJYkJvT1NncDk4a3RsR0Fo?=
- =?utf-8?B?K1ZIaEN5NXlEYjVhTWlIR21ZMjFNZ0habm5STUhxTjhESGJsRkZkT1NGVEw2?=
- =?utf-8?B?WW1TMVEyempCRU1VNitRRTdpMUxUZldvMWVOckhHYnN4cENWbW1obUVNNUU5?=
- =?utf-8?B?UWF0djkyRmJPcWsySDlMN0V4SE9iUjdPRWlnWm94NVJWbkdwZmovVnRTTTI1?=
- =?utf-8?B?YXBHaDVoZFZSZ0JnbEM3VmJJQUpNM0JVWXMzRm5VRWZjS0V0TlVwY1BaUGtm?=
- =?utf-8?B?cWFsTlBubXJFSFh0WjdvNTZjUXVSRkZMK1ZhNjgrV3V2RjVHWWNjN09sVnpV?=
- =?utf-8?B?eVpuSnlHaUx6R250cDZTd0x0eVU3WVpMdUpOejg0d0Y1b2hndGkzN2pkMmli?=
- =?utf-8?B?cUx0bHlZSHR0RGh5SGlqZnhySUJ6L0gwUjR4UnlvbXJuc1d2bzF5cjI2WlRV?=
- =?utf-8?B?aEtwaHZiTlN5bE1BOUExNXFIdGZGMU9Sb3R4dzhZREFUck94dGNSRDlSbDR0?=
- =?utf-8?B?Q0pvdVRQOElSQzZ6VGlqQ1NKdFVyVVJBY0tZdm0wcVh3USs0QitNaUE0Y3Bw?=
- =?utf-8?B?NGc5QjVOd3gvTTFYRVhkZlZ6UHd6WGxuUFpFaDNadmwzV2xrK1NjTytveUhp?=
- =?utf-8?B?MGxuWUpDd2tkbThScGxHVEdFc0tUemN3ckdRcWNTTGphWk55V1ZIWjlscWtF?=
- =?utf-8?B?eElNZmNVM1FpV0xSZDd5emxPWmlGdHhWZXFKOTZ0b3B0QXVSQkN0OXpadmd5?=
- =?utf-8?B?YWw1aW8rZFAzN0ZyYW1razRnQnlLbkgxZ1c2TWJYc0N6N1lWU0lMNG9CV1Qr?=
- =?utf-8?B?ei9GdGRHT3JxUkZSMlZ4Q04vSURuNTg3cDFjNzZYOUZ4SElXYlRvOHc4VkVX?=
- =?utf-8?B?UU5vWjB6WUlnWkxhU1doTWR2bkJWb0NraS9uVU52dTJZUVNYMWJqcGkxZllW?=
- =?utf-8?B?Q2JxaGRvVWZ3MFUrSWZoeDEwUnAzZlVFNTRMcXBCL3kxeC9ZVFptU0IyeVZh?=
- =?utf-8?B?My9BR1RtbllHalViQXhVYUJJUjRDVEFPUmFqNmt2N1dvRW1QbDdKZ2lVMUhW?=
- =?utf-8?B?L3RZQ0JsREVoYmlWbzNDbTdIT1lwOTZOSUp4R1lvVk9pSEV1SGhUY1JmZlpE?=
- =?utf-8?B?L2hISHR2QzZpR2RvMkVYVWJFS3A2T2JnMWJ2bHg4Y0tjakZ5MUxaWnNBQXBS?=
- =?utf-8?B?YVlqOWhSNGh1NzVJbFpVMFRBVXUrekNpcWJYVE0vNEp6azBXeVVUblJ1YWpk?=
- =?utf-8?B?OHFaMm9RaGNsL0RCUG56anBMSTZhWFRUbk1VeWlyVjJBOFFYeVhxNlZReElh?=
- =?utf-8?B?c1FXVVpuekczbElObzZvWWNOL0tERWpCKzFMOEZxYWZYMHo5Y2NST0hmdFk3?=
- =?utf-8?B?REw2RTJUbFh5NG5GNjkyTFZ1Rlp4ODFrM3l6QW1DR0Q5RFRZV2V1ZFZaNndY?=
- =?utf-8?B?d3BLZmhTTGV4dlQrYW1EU2k3QzJCT1o3YS9LdTV0aGNCdXptMzJxaU1hNXRD?=
- =?utf-8?B?bzdETmxSQmN2L1pxb1NqT04xRDdlZlZ6c2tqc1NRWWlBUVZkdS9WZGNWZDZS?=
- =?utf-8?B?cmhQb0xka1YxVDFueC9IVjdMQmYwTTVYc0l1SWxYckM0ZHNXNUZBdGlQdXI5?=
- =?utf-8?B?S293akNjY1Zka2pFTHZwa2tpRzFDZnZzWmxNNE56YUV2dVNqUVhlWVlXbmtL?=
- =?utf-8?B?a2psaERQU0lsVFVoTkpTRzNjUVZBNjRaUzYwaHNFTlJBSVB2VTN3UWJzYmNi?=
- =?utf-8?B?K3dsWDRRRjZqQ1gxTlVHL1I4T090YmsrVTNIVGtaeGJ4a055QTJFVW9nNUEv?=
- =?utf-8?B?U210SUdWY1lORlp2cmtkUTd3d0xQMysrZ2tvdEMvQ2RPL0RmQnlpUS9oMjZy?=
- =?utf-8?B?alQ1b2lKMUV3UGtxZTZTVVNPbStFZlBHTVN2T0tIRS9MejFtL213TG9MT1dD?=
- =?utf-8?Q?T6hrmgbIVkGWLCaGC2QUuCEd+?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ekZpTWU4OHAzZytYUGI4TmcrdzVUNmVKWmlabXlUUk5Ia3lVZlVVaThmdWU4?=
+ =?utf-8?B?bnZzd0FMamt2TXk1TWJzSFhEUGJvTURtbGRMZlFWUms1K2duS2NudTJBNFVT?=
+ =?utf-8?B?MExVVVlzNTJ1MVI0VTFwdzZmL3d1SmR4K1JORkdONC80ZGlTYnNWWTZrMXdD?=
+ =?utf-8?B?WktqT0g0T2hveUpmRzUwNGtRVStQem5OdDFueklLSmNLbzR0anJiTGxDSlg5?=
+ =?utf-8?B?dnhqNmpnbFRwTkVMRXhNaE9PTE5GQ0ljWk13WDFwZzdpNEJZNFVFS05qeGdu?=
+ =?utf-8?B?ZnhIVXdtdk9hMUJGQWRQTTY0VW9PcDFZaWQwRjUrL0lPWU1MYUxQNkU5V0lt?=
+ =?utf-8?B?UW9oR1JUSjBzejAyYXQ4ODMvdEpvbWhPWndkKzVobktvSzdPT1RNYWJOVUlH?=
+ =?utf-8?B?YlhCeSszNzlRVnphUnhRT2tNdEN6Vm5PNHMwb0hidlhiTUdMbWJ5YjlrbGpY?=
+ =?utf-8?B?dHgxUWExcUgyNjhXSm41ME01alFpNmd6anpmSDhSRWJxTEZldFVhdURwMGNt?=
+ =?utf-8?B?SmJrVUNjWUxnYkNVNHRWTkdIdldFb1RsYllqTnA1RmE5dU9PTVFRYzdTRjBn?=
+ =?utf-8?B?Kzh6cEgvYStkNWxXWEJNSWpIUktBM2hDcmptenFmd3MzUkxadHQzdmkzanVE?=
+ =?utf-8?B?QXNNbnVYMXVEUnpCTjA3QkVoeFdja0FRWm85bVFUanNRS1ZmMC83V202eWFq?=
+ =?utf-8?B?ZEd6WGVOWjJXNVV3TDRIbGlvcWgxd0p2MFFNZGtwR08xUVg1UnV6ZXllb2FP?=
+ =?utf-8?B?U3l0SkdGVkF1QmlOWXlqcFI3eG0xMmV2azVpRm5PaWNvNG5IRFJVbFVKaCtt?=
+ =?utf-8?B?WFNkVi9uaitWbjdXYXg4ZEFISU5XdHc0b0taMVRYSzhLVUZnQ0R6Q1JkMjRj?=
+ =?utf-8?B?Ty9kSEQyd2R1Yi9BY2xTUWErVkNIbGF2RWphQzNqQnNLN2ZVMXF3azRBUkFa?=
+ =?utf-8?B?NDRvckxLQWZDQnQrQXVTbWNFUFlLTkdjRXhZeWJqUUcrdUc3NlRSYmQ4TlZT?=
+ =?utf-8?B?VnVHei8rU2t3SVNyQ2FhVEtxMDR6cnlUSGtvaitTR0pPSDk2d1NXc2hpMjBC?=
+ =?utf-8?B?THZ0Znp0OEROblJGL0NFSzFZeENsbzU5czlGaG1iL2hQN0JHcHpxeXdSMGVr?=
+ =?utf-8?B?ZUg5ZDYwOHpaQVhqWUtGalhCNnZhZEkrSHlCbi9zWDZoL2l6M3h3amc0T1ps?=
+ =?utf-8?B?RkVVR0xldzRMUldLcm9BTWl3SWhBUlUzUGV2N0h2aEkzK00wRGRha05HbXBC?=
+ =?utf-8?B?MkdsNW1kYkRua1ZFdW5zMGhpM1dNWktwYmRCMFlJOVJkeExBVXJmTHJJVTBn?=
+ =?utf-8?B?Ym5NU2pZQ3ZvbEwxNmtRU25mS0FPcW1RR1R6YVZBR05nMjhWaEcyOFVxUnlt?=
+ =?utf-8?B?T0xSdjlLWDJNQ2FhY0pGTVJ2MkgxSzI5dUtoVmlMdGhBYWlNUVdVS09rbXNF?=
+ =?utf-8?B?eU1KbDkremp5OFlUNytwRDIxaTA3QWZKdC9hRFJ5N3dGczF0cUVpSHZDMzJ5?=
+ =?utf-8?B?QlRCelIxaW9US2xwZnRJRGpaNmJIaUN4UjBTQjNaTUNZNTJHVWNidUpXbHg5?=
+ =?utf-8?B?ZFdiRWs2czA5TElOcEtoSXhGUzh1RklUZXBNcVQyMVNnN3NmMElWQURhR0Q5?=
+ =?utf-8?B?aXJFdm5wUFlwbUdwQjIvci84NGI1b2lkbGdNWU5XcUQ3SmZHcEdFSEtZZitk?=
+ =?utf-8?B?bVhuNlNaejBaMUlVT1RQenVoMWZid3ZrditObGJqVldvakZRYUx3Nm5Bd2VX?=
+ =?utf-8?B?aFp0bmVRK3MvQ1BpWlEyOWdYU3BlSjlTNk9sUzVIZjM2VHZQRkNHN3NMbzZh?=
+ =?utf-8?B?Qk9wMXdId2o3V3k1Z3ZEbGhIOG1TamlycG4yZHpMMFF5R1hQSTgxTkhVMDdu?=
+ =?utf-8?B?S0xhL1ZiMGxXS0d2Z2tpQ2dVWG1RMmtZUmp1QytEUTRZanB3QXVhSTJtOWNH?=
+ =?utf-8?B?UFF6dWozdFVVZ1U3Y0pCWFVnZzRqOW9qMG9MVnQyWHBtZEg4UU5KNEFZSE1y?=
+ =?utf-8?B?N2E4MWJFOXJ6dCtvVkkrbjY0dkRxNG81N0xrQWtnTURkS3B4M2pOOWhmZ3kz?=
+ =?utf-8?B?NFUweFZ3aFJXUE52OWU5YTd2RGpNdG42RGpxaWhoWXp0aXpvdmgrS1doOWR5?=
+ =?utf-8?Q?EQl3isD2RUOWlNsR0J5mRfL71?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b0f26863-9a37-486b-6ea1-08dd31a94b2d
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2f8ea632-0a8b-449c-1931-08dd31a97c1e
 X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2025 19:02:13.8435 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2025 19:03:36.0100 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: sYtPUOAKhWIMV6721CxgyvMS47Mo8UDe1fVwglgU0TNQQJ6wiYjQ0LHPy0yTYBF+OMLLlCWXTe94NdaEpJ1yJQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6160
+X-MS-Exchange-CrossTenant-UserPrincipalName: mqnsxXcuao8aQld4uMFL0bnBkp2F0gJ6gGYI9PvBxVaE5k7pnDIB7U7DaCdJCN2f46mfByT3rdRKRIGjBbNB/g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB7036
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -167,136 +166,247 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On 1/9/2025 20:08, Jiang Liu wrote:
-> Introduce new interface amdgpu_xcp_drm_dev_free() to free a specific
-> drm_device crreated by amdgpu_xcp_drm_dev_alloc(), which will be used
-s/crreated/created/
-> to do error recovery.
+> If some GPU device failed to probe, `rmmod amdgpu` will trigger a use
+> after free bug related to amdgpu_driver_release_kms() as:
+> [16002.085540] BUG: kernel NULL pointer dereference, address: 0000000000000000
+> [16002.093792] #PF: supervisor read access in kernel mode
+> [16002.099993] #PF: error_code(0x0000) - not-present page
+> [16002.106188] PGD 0 P4D 0
+> [16002.109464] Oops: Oops: 0000 [#1] PREEMPT SMP NOPTI
+> [16002.115372] CPU: 2 PID: 14375 Comm: rmmod Kdump: loaded Tainted: G        W   E      6.10.0+ #2
+> [16002.125577] Hardware name: Alibaba Alibaba Cloud ECS/Alibaba Cloud ECS, BIOS 3.0.ES.AL.P.087.05 04/07/2024
+> [16002.136858] RIP: 0010:drm_sched_fini+0x3f/0xe0 [gpu_sched]
+> [16002.143463] Code: 60 c6 87 be 00 00 00 01 e8 ce e0 90 d8 48 8d bb 80 00 00 00 e8 c2 e0 90 d8 8b 43 20 85 c0 74 51 45 31 e4 48 8b
+> 8b 2c e8 48 89 ef e8 f5 0e 59 d9 48 8b 45 10 48 8d 55 10 48 39
+> [16002.164992] RSP: 0018:ffffb570dbbb7da8 EFLAGS: 00010246
+> [16002.171316] RAX: 0000000000000000 RBX: ffff96b0fdadc878 RCX: 0000000000000000
+> [16002.179784] RDX: 000fffffffe00000 RSI: 0000000000000000 RDI: ffff96b0fdadc8f8
+> [16002.188252] RBP: ffff96b0fdadc800 R08: ffff97abbd035040 R09: ffffffff9ac52540
+> [16002.196722] R10: 0000000000000000 R11: 0000000000000000 R12: 0000000000000000
+> [16002.205179] R13: 0000000000000000 R14: ffff96b0fdadfc00 R15: 0000000000000000
+> [16002.213648] FS:  00007f2737000740(0000) GS:ffff97abbd100000(0000) knlGS:0000000000000000
+> [16002.223189] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [16002.230103] CR2: 0000000000000000 CR3: 000000011be3a005 CR4: 0000000000f70ef0
+> [16002.238581] DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+> [16002.247053] DR3: 0000000000000000 DR6: 00000000fffe07f0 DR7: 0000000000000400
+> dxcp]
+> [16002.337645]  __do_sys_delete_module.constprop.0+0x176/0x310
+> [16002.344324]  do_syscall_64+0x5d/0x170
+> [16002.348858]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+> [16002.354956] RIP: 0033:0x7f2736a620cb-12-26
+> 
+> Fix it by removing xcp drm devices when failed to probe GPU devices.
 > 
 > Signed-off-by: Jiang Liu <gerry@linux.alibaba.com>
+> Tested-by: Shuo Liu <shuox.liu@linux.alibaba.com>
+> Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+
+I have one nit below, but otherwise LGTM.
+
+Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
+
 > ---
->   drivers/gpu/drm/amd/amdxcp/amdgpu_xcp_drv.c | 65 +++++++++++++++++----
->   drivers/gpu/drm/amd/amdxcp/amdgpu_xcp_drv.h |  1 +
->   2 files changed, 56 insertions(+), 10 deletions(-)
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  4 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c    | 70 ++++++++++++++++++----
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h    |  4 +-
+>   4 files changed, 64 insertions(+), 16 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/amdxcp/amdgpu_xcp_drv.c b/drivers/gpu/drm/amd/amdxcp/amdgpu_xcp_drv.c
-> index faed84172dd4..0473fe0479d9 100644
-> --- a/drivers/gpu/drm/amd/amdxcp/amdgpu_xcp_drv.c
-> +++ b/drivers/gpu/drm/amd/amdxcp/amdgpu_xcp_drv.c
-> @@ -45,18 +45,26 @@ static const struct drm_driver amdgpu_xcp_driver = {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 5ff53a3b9851..f29a4ad3c6d0 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -4777,6 +4777,8 @@ void amdgpu_device_fini_sw(struct amdgpu_device *adev)
+>   	amdgpu_reset_put_reset_domain(adev->reset_domain);
+>   	adev->reset_domain = NULL;
 >   
->   static int8_t pdev_num;
->   static struct xcp_device *xcp_dev[MAX_XCP_PLATFORM_DEVICE];
-> +static DEFINE_MUTEX(xcp_mutex);
->   
->   int amdgpu_xcp_drm_dev_alloc(struct drm_device **ddev)
->   {
->   	struct platform_device *pdev;
->   	struct xcp_device *pxcp_dev;
->   	char dev_name[20];
-> -	int ret;
-> +	int ret, index;
+> +	amdgpu_xcp_mgr_fini(adev);
 > +
-> +	guard(mutex)(&xcp_mutex);
+>   	kfree(adev->pci_state);
 >   
->   	if (pdev_num >= MAX_XCP_PLATFORM_DEVICE)
->   		return -ENODEV;
+>   }
+> @@ -6682,7 +6684,7 @@ void amdgpu_device_halt(struct amdgpu_device *adev)
+>   	struct pci_dev *pdev = adev->pdev;
+>   	struct drm_device *ddev = adev_to_drm(adev);
 >   
-> -	snprintf(dev_name, sizeof(dev_name), "amdgpu_xcp_%d", pdev_num);
-> +	for (index = 0; index < MAX_XCP_PLATFORM_DEVICE; index++) {
-> +		if (!xcp_dev[index])
-> +			break;
-> +	}
-> +
-> +	snprintf(dev_name, sizeof(dev_name), "amdgpu_xcp_%d", index);
->   	pdev = platform_device_register_simple(dev_name, -1, NULL, 0);
->   	if (IS_ERR(pdev))
->   		return PTR_ERR(pdev);
-> @@ -72,8 +80,8 @@ int amdgpu_xcp_drm_dev_alloc(struct drm_device **ddev)
->   		goto out_devres;
+> -	amdgpu_xcp_dev_unplug(adev);
+> +	amdgpu_xcp_dev_deregister(adev);
+>   	drm_dev_unplug(ddev);
+>   
+>   	amdgpu_irq_disable_all(adev);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index 62de668e9ff8..41d1b06be600 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -2435,7 +2435,7 @@ amdgpu_pci_remove(struct pci_dev *pdev)
+>   	struct drm_device *dev = pci_get_drvdata(pdev);
+>   	struct amdgpu_device *adev = drm_to_adev(dev);
+>   
+> -	amdgpu_xcp_dev_unplug(adev);
+> +	amdgpu_xcp_dev_deregister(adev);
+>   	amdgpu_gmc_prepare_nps_mode_change(adev);
+>   	drm_dev_unplug(dev);
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
+> index e209b5e101df..21993aff0dbc 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
+> @@ -268,21 +268,34 @@ static int amdgpu_xcp_dev_alloc(struct amdgpu_device *adev)
+>   			return ret;
+>   		}
+>   
+> -		/* Redirect all IOCTLs to the primary device */
+> -		adev->xcp_mgr->xcp[i].rdev = p_ddev->render->dev;
+> -		adev->xcp_mgr->xcp[i].pdev = p_ddev->primary->dev;
+> -		adev->xcp_mgr->xcp[i].driver = (struct drm_driver *)p_ddev->driver;
+> -		adev->xcp_mgr->xcp[i].vma_offset_manager = p_ddev->vma_offset_manager;
+> -		p_ddev->render->dev = ddev;
+> -		p_ddev->primary->dev = ddev;
+> -		p_ddev->vma_offset_manager = ddev->vma_offset_manager;
+> -		p_ddev->driver = &amdgpu_partition_driver;
+>   		adev->xcp_mgr->xcp[i].ddev = p_ddev;
 >   	}
 >   
-> -	xcp_dev[pdev_num] = pxcp_dev;
-> -	xcp_dev[pdev_num]->pdev = pdev;
-> +	xcp_dev[index] = pxcp_dev;
-> +	xcp_dev[index]->pdev = pdev;
->   	*ddev = &pxcp_dev->drm;
->   	pdev_num++;
->   
-> @@ -88,16 +96,53 @@ int amdgpu_xcp_drm_dev_alloc(struct drm_device **ddev)
+>   	return 0;
 >   }
->   EXPORT_SYMBOL(amdgpu_xcp_drm_dev_alloc);
 >   
-> +static void __amdgpu_xcp_drm_dev_free(int index)
+> +static void amdgpu_xcp_dev_free(struct amdgpu_device *adev)
 > +{
-> +	struct platform_device *pdev;
+> +	struct drm_device *p_ddev;
+> +	int i;
 > +
-
-Would it be valuable to have WARN_ON(!pdev_num) here?
-
-> +	pdev = xcp_dev[index]->pdev;
-> +	devres_release_group(&pdev->dev, NULL);
-> +	platform_device_unregister(pdev);
-> +	xcp_dev[index] = NULL;
-> +	pdev_num--;
-> +}
-> +
-> +void amdgpu_xcp_drm_dev_free(struct drm_device *ddev)
-> +{
-> +	int index;
-> +	struct xcp_device *pxcp_dev;
-
-Just a nit; this should be reverse xmas tree order.
-
-> +
-> +	if (ddev == NULL)
+> +	if (!adev->xcp_mgr)
 > +		return;
 > +
-> +	guard(mutex)(&xcp_mutex);
-> +	WARN_ON(!pdev_num);
-> +
-> +	pxcp_dev = container_of(ddev, struct xcp_device, drm);
-> +	for (index = 0; index < MAX_XCP_PLATFORM_DEVICE; index++) {
-> +		if (xcp_dev[index] == pxcp_dev) {
-> +			__amdgpu_xcp_drm_dev_free(index);
+> +	for (i = 1; i < MAX_XCP; i++) {
+> +		if (!adev->xcp_mgr->xcp[i].ddev)
 > +			break;
-> +		}
+> +
+> +		p_ddev = adev->xcp_mgr->xcp[i].ddev;
+> +		adev->xcp_mgr->xcp[i].ddev = NULL;
+> +
+> +		amdgpu_xcp_drm_dev_free(p_ddev);
 > +	}
+> +
+> +	adev->xcp_mgr->xcp->ddev = NULL;
 > +}
-> +EXPORT_SYMBOL(amdgpu_xcp_drm_dev_free);
 > +
->   void amdgpu_xcp_drv_release(void)
->   {
-> -	for (--pdev_num; pdev_num >= 0; --pdev_num) {
-> -		struct platform_device *pdev = xcp_dev[pdev_num]->pdev;
-> +	int index;
+> +
+
+You only need one newline here.
+
+>   int amdgpu_xcp_mgr_init(struct amdgpu_device *adev, int init_mode,
+>   			int init_num_xcps,
+>   			struct amdgpu_xcp_mgr_funcs *xcp_funcs)
+> @@ -310,6 +323,13 @@ int amdgpu_xcp_mgr_init(struct amdgpu_device *adev, int init_mode,
+>   	return amdgpu_xcp_dev_alloc(adev);
+>   }
 >   
-> -		devres_release_group(&pdev->dev, NULL);
-> -		platform_device_unregister(pdev);
-> -		xcp_dev[pdev_num] = NULL;
-> +	guard(mutex)(&xcp_mutex);
+> +void amdgpu_xcp_mgr_fini(struct amdgpu_device *adev)
+> +{
+> +	amdgpu_xcp_dev_free(adev);
+> +	kfree(adev->xcp_mgr);
+> +	adev->xcp_mgr = NULL;
+> +}
 > +
-> +	for (index = 0; index < MAX_XCP_PLATFORM_DEVICE; index++) {
-> +		if (xcp_dev[index]) {
-> +			__amdgpu_xcp_drm_dev_free(index);
-> +			if (!pdev_num)
-> +				break;
+>   int amdgpu_xcp_get_partition(struct amdgpu_xcp_mgr *xcp_mgr,
+>   			     enum AMDGPU_XCP_IP_BLOCK ip, int instance)
+>   {
+> @@ -348,23 +368,44 @@ int amdgpu_xcp_dev_register(struct amdgpu_device *adev,
+>   			const struct pci_device_id *ent)
+>   {
+>   	int i, ret;
+> +	struct drm_device *p_ddev;
+> +	struct drm_device *ddev;
+>   
+>   	if (!adev->xcp_mgr)
+>   		return 0;
+>   
+> +	ddev = adev_to_drm(adev);
+> +
+>   	for (i = 1; i < MAX_XCP; i++) {
+> -		if (!adev->xcp_mgr->xcp[i].ddev)
+> +		if (!adev->xcp_mgr->xcp[i].ddev || adev->xcp_mgr->xcp[i].driver)
+>   			break;
+>   
+> +		/* Redirect all IOCTLs to the primary device */
+> +		p_ddev = adev->xcp_mgr->xcp[i].ddev;
+> +		adev->xcp_mgr->xcp[i].rdev = p_ddev->render->dev;
+> +		adev->xcp_mgr->xcp[i].pdev = p_ddev->primary->dev;
+> +		adev->xcp_mgr->xcp[i].driver = (struct drm_driver *)p_ddev->driver;
+> +		adev->xcp_mgr->xcp[i].vma_offset_manager = p_ddev->vma_offset_manager;
+> +		p_ddev->render->dev = ddev;
+> +		p_ddev->primary->dev = ddev;
+> +		p_ddev->driver = &amdgpu_partition_driver;
+> +		p_ddev->vma_offset_manager = ddev->vma_offset_manager;
+> +
+>   		ret = drm_dev_register(adev->xcp_mgr->xcp[i].ddev, ent->driver_data);
+> -		if (ret)
+> +		if (ret) {
+> +			p_ddev->render->dev = adev->xcp_mgr->xcp[i].rdev;
+> +			p_ddev->primary->dev = adev->xcp_mgr->xcp[i].pdev;
+> +			p_ddev->driver =  adev->xcp_mgr->xcp[i].driver;
+> +			p_ddev->vma_offset_manager = adev->xcp_mgr->xcp[i].vma_offset_manager;
+> +			adev->xcp_mgr->xcp[i].driver = NULL;
+>   			return ret;
 > +		}
 >   	}
-> -	pdev_num = 0;
-> +
-> +	WARN_ON(pdev_num != 0);
+>   
+>   	return 0;
 >   }
->   EXPORT_SYMBOL(amdgpu_xcp_drv_release);
 >   
-> diff --git a/drivers/gpu/drm/amd/amdxcp/amdgpu_xcp_drv.h b/drivers/gpu/drm/amd/amdxcp/amdgpu_xcp_drv.h
-> index c1c4b679bf95..580a1602c8e3 100644
-> --- a/drivers/gpu/drm/amd/amdxcp/amdgpu_xcp_drv.h
-> +++ b/drivers/gpu/drm/amd/amdxcp/amdgpu_xcp_drv.h
-> @@ -25,5 +25,6 @@
->   #define _AMDGPU_XCP_DRV_H_
+> -void amdgpu_xcp_dev_unplug(struct amdgpu_device *adev)
+> +void amdgpu_xcp_dev_deregister(struct amdgpu_device *adev)
+>   {
+>   	struct drm_device *p_ddev;
+>   	int i;
+> @@ -373,15 +414,18 @@ void amdgpu_xcp_dev_unplug(struct amdgpu_device *adev)
+>   		return;
 >   
->   int amdgpu_xcp_drm_dev_alloc(struct drm_device **ddev);
-> +void amdgpu_xcp_drm_dev_free(struct drm_device *ddev);
->   void amdgpu_xcp_drv_release(void);
->   #endif /* _AMDGPU_XCP_DRV_H_ */
+>   	for (i = 1; i < MAX_XCP; i++) {
+> -		if (!adev->xcp_mgr->xcp[i].ddev)
+> +		if (!adev->xcp_mgr->xcp[i].ddev || !adev->xcp_mgr->xcp[i].driver)
+>   			break;
+>   
+> +		// Restore and free the original drm_device.
+>   		p_ddev = adev->xcp_mgr->xcp[i].ddev;
+>   		drm_dev_unplug(p_ddev);
+> +
+>   		p_ddev->render->dev = adev->xcp_mgr->xcp[i].rdev;
+>   		p_ddev->primary->dev = adev->xcp_mgr->xcp[i].pdev;
+>   		p_ddev->driver =  adev->xcp_mgr->xcp[i].driver;
+>   		p_ddev->vma_offset_manager = adev->xcp_mgr->xcp[i].vma_offset_manager;
+> +		adev->xcp_mgr->xcp[i].driver = NULL;
+>   	}
+>   }
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h
+> index b63f53242c57..be22d4398463 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h
+> @@ -101,6 +101,7 @@ struct amdgpu_xcp {
+>   	uint8_t id;
+>   	uint8_t mem_id;
+>   	bool valid;
+> +	bool registered;
+>   	atomic_t	ref_cnt;
+>   	struct drm_device *ddev;
+>   	struct drm_device *rdev;
+> @@ -155,6 +156,7 @@ int amdgpu_xcp_resume(struct amdgpu_xcp_mgr *xcp_mgr, int xcp_id);
+>   
+>   int amdgpu_xcp_mgr_init(struct amdgpu_device *adev, int init_mode,
+>   			int init_xcps, struct amdgpu_xcp_mgr_funcs *xcp_funcs);
+> +void amdgpu_xcp_mgr_fini(struct amdgpu_device *adev);
+>   int amdgpu_xcp_init(struct amdgpu_xcp_mgr *xcp_mgr, int num_xcps, int mode);
+>   int amdgpu_xcp_query_partition_mode(struct amdgpu_xcp_mgr *xcp_mgr, u32 flags);
+>   int amdgpu_xcp_switch_partition_mode(struct amdgpu_xcp_mgr *xcp_mgr, int mode);
+> @@ -168,7 +170,7 @@ int amdgpu_xcp_get_inst_details(struct amdgpu_xcp *xcp,
+>   
+>   int amdgpu_xcp_dev_register(struct amdgpu_device *adev,
+>   				const struct pci_device_id *ent);
+> -void amdgpu_xcp_dev_unplug(struct amdgpu_device *adev);
+> +void amdgpu_xcp_dev_deregister(struct amdgpu_device *adev);
+>   int amdgpu_xcp_open_device(struct amdgpu_device *adev,
+>   			   struct amdgpu_fpriv *fpriv,
+>   			   struct drm_file *file_priv);
 
