@@ -4,147 +4,161 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C181E77188
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2025 15:03:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60E58E7719E
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2025 15:17:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4DD9B10F0F9;
-	Fri, 10 Jan 2025 15:03:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0124210F101;
+	Fri, 10 Jan 2025 15:17:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Ohyr+eFE";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="HFCVtJvL";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2062b.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:2415::62b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E36E910F0F5
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jan 2025 15:03:17 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2062b.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:2418::62b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B467110E02D
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jan 2025 15:17:50 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vmWMlI4V8i2y/4qMdtsBLgMHkKGFBvEyjUgeWfV4+jJJWDaiu14OzT3Ur5NDxIvTO3dLPfuh4GuEIDFq0lprOpcDkTjXSR5vtDUldzsfgqSOcqGfOBJLx/KYF3xc2GLpYssy7yMau4aV7uEvA0/5NSvqd4bcShvmlyVGbEbW4GbEnEss0aTjDJn9Cvw9otMQp7cVhOT/b8QlzzG5bUF6HkLaLpkrAluwRIKbQeOQZ6cyEIXmn1/PsUMvBbkzx+yadI7QELRQ4M5R49fBCXbmaOmvEujbmA2OCm9hHH30wLum8aiedDQ48rQ37UX20hMwwpPEnWtRr9dK9rd/LxFvvQ==
+ b=vnXccKvc+ZrcQKEMPAoQfqDKSSbhqDl47P3L1bOS7DWFnccX6O2KZXf9F8B2soUHSZLxKp/91A/k/hdcKahs/HJVAk7fGWB1NLUPu+eck2WvO4QhKeeYQCkckkFaA3XFVeoOoE5NZvWH35BqMY/U4y6T9uXM5u1EgD6Ogxapf3W0g0NtjaIsg8Ys5VuFe/OS7ftBVz078lFyllpdR0OWOHzDgVtEZcJMAoZ5KRkmEEQ8qTcAY1ll2fUeqK8pywTtHsxEMyrJGjvsHaxZzrrf3Sl0zNlkjOetFgWeC7qp6aACPjuXQbqJ18DUf+dsv5MbGx62RAIz+mATTbcguRkrfQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ptO4x8HgN2mtF2W6lLQYnaGgkHPj2drGaf1vg+QJkME=;
- b=NRAj5dQOBBY4eOLX3Y9otkoWXXs+1FrE/3NAUq5ECfES/pOPX1Lwj4rPh3t1XpCaMpc8Nn5X/gHHJAK/ec3c9Sta4rYyaT1kkTP7Vx1E1shXdi+UPJAGnEZSe2Z8v0uL2LGLRFwa53Cah/MoUGq68HpBzDqu2GXtLajuZ6cYYzdVWzE/CvDfQaO6/K4qRtGQZpPXXtKdXwLqV6XpvgcIJNpen4MCpyZodyWVSJAWgHFEE+RGgvpPYhxnN6inJrW5gdi8yoeo0b3cpZVwG/p28egsTLQWca87bUs0wMIUTDdXJ61R+krWRnPy6ZU/3j1wDHw+lu3M3xrJ3YJeC/rjTw==
+ bh=6gg55OIG1RniEjMhzmt+2QqOuArINMdX3JEqjtJ8V4M=;
+ b=dtdmW7PBAc1i3+zn+UX6l7250PTdhCvPPfzsYRX6Wxn4KOgUMgdQGh4sDbalGPPVTcEMqRpKYZDx9Oln8MFUcIylUt4mEmbpvNw0WS4JSGfNbDi7KLn1BbOjSolfLEGsm7lR0kKLgqQZlFQMRfmPSbzgio6Yjct0Udc7SEsAQEZLPGXEwuzU29/i/Ef94ThVChEFP1P+b4lp1wshcftYx3aUQNgzJwEmMmQVwbGvYU0bpZmRdm63neBjxKZMMrSn09hb7MM8exT4HiAHHcxzqYSQzSpwP1ZWefS6rX2x/BN8SV1vE/Ir7uxz1pJn1EVy5O5GsGqbsPc/rVw2YxFS8Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ptO4x8HgN2mtF2W6lLQYnaGgkHPj2drGaf1vg+QJkME=;
- b=Ohyr+eFEqej0sVb7yFCSHcjwLVn/BwqVwNg9/3n2hVbBUqAn9c1cILoN8LFrPjt04Aqlf7ev1K7MzGz0MQ7Fvf5mykX4KnNWHXT34Q8NyprtWu9JdRvGaN+RlFS0M5a8UNkTb1Cq4U/JpbfmN5+Ur8Hyv/zEy8Y+DdtdfRRPDHE=
+ bh=6gg55OIG1RniEjMhzmt+2QqOuArINMdX3JEqjtJ8V4M=;
+ b=HFCVtJvLV73njHfaiWIKCXZ5BuzGC1UmfmTdzhkO3065+DJGDhWPjY9p7Vy4n7lgQTjBL5GrTyfE3rsIHBMPZbbr/BdvUnxsbWvcD9foyuvoV/laqpbR+lHvN74EcwpDZOb8OcqhWzkNS6qlWVWS3e4qk/9qxYFgX6tBtrnW+MY=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CH3PR12MB9079.namprd12.prod.outlook.com (2603:10b6:610:1a1::9)
- by PH7PR12MB7139.namprd12.prod.outlook.com (2603:10b6:510:1ef::21)
- with Microsoft SMTP Server (version=TLS1_2,
+Received: from DM4PR12MB5149.namprd12.prod.outlook.com (2603:10b6:5:390::14)
+ by SA3PR12MB9105.namprd12.prod.outlook.com (2603:10b6:806:382::18) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8335.12; Fri, 10 Jan
- 2025 15:03:15 +0000
-Received: from CH3PR12MB9079.namprd12.prod.outlook.com
- ([fe80::8c67:8cec:7c4a:ccaa]) by CH3PR12MB9079.namprd12.prod.outlook.com
- ([fe80::8c67:8cec:7c4a:ccaa%7]) with mapi id 15.20.8335.010; Fri, 10 Jan 2025
- 15:03:15 +0000
-Message-ID: <f09160c8-ec9f-4c19-8c0b-14a4514f1a7d@amd.com>
-Date: Fri, 10 Jan 2025 15:03:10 +0000
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] drm/amdkfd: Sync trap handler binary with source
-To: Jay Cornwall <jay.cornwall@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20250109175613.6265-1-jay.cornwall@amd.com>
+ 2025 15:17:48 +0000
+Received: from DM4PR12MB5149.namprd12.prod.outlook.com
+ ([fe80::36fa:deca:aaeb:75da]) by DM4PR12MB5149.namprd12.prod.outlook.com
+ ([fe80::36fa:deca:aaeb:75da%3]) with mapi id 15.20.8335.012; Fri, 10 Jan 2025
+ 15:17:48 +0000
+Message-ID: <2acec921-b01c-7d83-9965-580d2805cdee@amd.com>
+Date: Fri, 10 Jan 2025 10:17:41 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH v2] drm/amdgpu: Fix the looply call
+ svm_range_restore_pages issue
 Content-Language: en-US
-From: Lancelot SIX <Lancelot.Six@amd.com>
-In-Reply-To: <20250109175613.6265-1-jay.cornwall@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: Felix Kuehling <felix.kuehling@amd.com>, "Deng, Emily"
+ <Emily.Deng@amd.com>, "Yang, Philip" <Philip.Yang@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "Koenig, Christian" <Christian.Koenig@amd.com>
+References: <20250103022615.1399054-1-Emily.Deng@amd.com>
+ <62496e35-e23c-4d10-a5b1-99978665cebc@amd.com>
+ <PH0PR12MB54177A7932BF4D91A8A41FE38F102@PH0PR12MB5417.namprd12.prod.outlook.com>
+ <PH0PR12MB5417D0B508B3DECD240478E48F112@PH0PR12MB5417.namprd12.prod.outlook.com>
+ <PH0PR12MB5417E664CA264D62E1F2EB9B8F112@PH0PR12MB5417.namprd12.prod.outlook.com>
+ <22e5cee7-52f4-ef08-b44b-e4fb96027ea9@amd.com>
+ <PH0PR12MB54172D04315DCA27E581B2CD8F122@PH0PR12MB5417.namprd12.prod.outlook.com>
+ <PH0PR12MB5417561D4BF4379DAFF7CF698F122@PH0PR12MB5417.namprd12.prod.outlook.com>
+ <2015756a-974d-67a2-d875-9b90a1a9b1f3@amd.com>
+ <4925dfbe-9a0f-4c73-989f-d2b1d7784161@amd.com>
+From: Philip Yang <yangp@amd.com>
+In-Reply-To: <4925dfbe-9a0f-4c73-989f-d2b1d7784161@amd.com>
+Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0162.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a2::14) To CH3PR12MB9079.namprd12.prod.outlook.com
- (2603:10b6:610:1a1::9)
+X-ClientProxiedBy: YQBPR0101CA0191.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:f::34) To DM4PR12MB5149.namprd12.prod.outlook.com
+ (2603:10b6:5:390::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PR12MB9079:EE_|PH7PR12MB7139:EE_
-X-MS-Office365-Filtering-Correlation-Id: a462b0e4-8b19-44ab-b594-08dd3187e896
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5149:EE_|SA3PR12MB9105:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7e9ee47c-af51-4f11-0bfa-08dd3189f0b1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?MExsSFA1ZGJkSCtIV25icy9zcVNEakxRQU5mTjZMbDc0bkpzcDdidjJpb3Rr?=
- =?utf-8?B?UDl1L3JRUWxISVVKOUw0UVAvTzRKYnhLSVFIQXB4THI3UEZUUEdnRjBEZ0c5?=
- =?utf-8?B?ZjFxTWVIRE1ERmtkZzVsZCt1bFJzNFpjYzJidWJKL0Y5a3lDN1NaZDcvUmlX?=
- =?utf-8?B?Z2VZdWZzRDlLVU96TkZlSktIYllkVEJiWEkzTFdodnkzYkVaZm5EYk1Gakd6?=
- =?utf-8?B?akRXbkdNTkMrUlpmUzF4eTBWV2VscEd5bTZ5SVpUVjRhNS9yWTVlQzM3dGd6?=
- =?utf-8?B?bGtubnJ5TTNGa0Z3Q0VtN205SWJ6WFRKN2M2ZzNnYW9qemRYdVFuMHB1bGFU?=
- =?utf-8?B?alU4alNNOTFDQjNmUE9Wclh6ZVFlaURoUXlHRmRBM3hSM1I2UVFNRVdhajhC?=
- =?utf-8?B?aHorOWJuRWZxZzhDenE4OVFCNnhaVm1FZmRYL3BqZm1ZZzRaM2YyNlkzQ1RW?=
- =?utf-8?B?TFE3d3JueDMwelVWMnRJQkN6L25aMlMzS2lxd20rdW5ZOFBtbUVqSU83ci9s?=
- =?utf-8?B?SnZuK25UVHFVVXQ2bC9NZm8xUS9aYjVwdXFCRUdhK3M1VUlQajkxZ0RSZlBs?=
- =?utf-8?B?VURKbVlxazgyeHpHRlFiMTZZR25RcklzMnBtZWNkaFYvaUliMFd2Q01YV0VY?=
- =?utf-8?B?T2lHLzloVU9RU3I1QWRUZE1rUTVhZXc4WDJtM05JNk82L08vK1lzbGVyVFV0?=
- =?utf-8?B?M3RmQWE3ZXJXdjJsdndsMUU0aHNhUlJsTVJEaURpdlhENEdWdWErdGhQbnBx?=
- =?utf-8?B?SkZwZHc2OFRqL0lGMjh4MTlZTkc5cGtSaGlXSFErblNLY0ZQQktIWUlSb0Np?=
- =?utf-8?B?NVFtbm9sMFJmNWJTMFV1bGl2cTJQSmNCbU95S0pWMVJZRE5rcXVFUGt1Ri9J?=
- =?utf-8?B?WU85MzU1U2ttZ3VmNnVhSml5YkRzMDliaVNQSTNhcm5ldGJEemlYV3dZQWkv?=
- =?utf-8?B?Sk44di9veng0WVBwdzlsUmdycTB3cFZ3S0lTZGZhSDU1Z1MrS3Q0NGFvUm4x?=
- =?utf-8?B?RG12ZmJpUnJaRVF3cUhDSVNlRG1nZlN0bnFJcnBkRmt5SzRLMC9ha3prb2Nk?=
- =?utf-8?B?WEhhZnA2S0xYK1liM2ZMdDdSalN4V0Y5MW44bjJSdmJNc0xHZEx2ejVvSkFn?=
- =?utf-8?B?TUh4emZsNVRVVFBXVm95eTVPMHY4U3BTS1dGenpqb01aaCtxR0o3N3dxbEFt?=
- =?utf-8?B?WkZmcktZaG9xa0k2aE9SZHR1djRzaVRLNVhzN1VNL0lPUjZaUlJPckJjNzRv?=
- =?utf-8?B?OXo3L1V3UmJmYUNQZEZlWnoxY1Mwb2VNMjVrajJZZkVCeURhRngvNGxXend0?=
- =?utf-8?B?WU9acHRxOWR1cVJyQlF3VjU3dUFCYnRicnNnQmtVbCtIQnhNcllTbHEzalg1?=
- =?utf-8?B?SDExWGc5M2JjVi83a2VON1N3RHdJUzlrcTV5S3cwZXBxTnF3L3dqa2dhbVZ5?=
- =?utf-8?B?UEhtK2tEQnd4NVpBVXBoTFR1VWZ1cmNZTys5aGlRUnlCeFR5d3NVcXJQZ3FI?=
- =?utf-8?B?cXdwWmlWMi8xUUs4ZVVkQkNHN1dEYVp0bEFnTFl4dEFOc0pTcHp2eFRGYURy?=
- =?utf-8?B?WWxYb2xsaW9Dcmh0MFVKcXBLY3dQUnUzNkpYczFhVzlNQ1oxNG94RCs5azN0?=
- =?utf-8?B?aUJtbU1tUmxTc2NJS2xqbnk5cG81Z3l4cEZ2Q3ByNngxcmZJZVQvUytEL2ty?=
- =?utf-8?B?OStWeURzRnRtdDRHVVpsSitvNWdyMzlKSitTUEFoak95SldMYjV2V05VNTBK?=
- =?utf-8?B?L1BsQ1JDaGhHeXJ1WGREMFRMZmo0Z3ZOZjEzSmdaVFNJWnpwbk5vOE5jZ1k4?=
- =?utf-8?B?Z3ZRYmhOa1NwVEU5ekJSL0kwcHJRKzJsS0JvLzI2WGY2TTRKdWJOemowVlN2?=
- =?utf-8?Q?gVqWRWMzIyI4O?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016|8096899003;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?aWFacURRV3JLTmRWRHc0RHJudkZFd0xvYVhWZFVVdG1HNkZQa2FLNGlWTTk5?=
+ =?utf-8?B?ZFIvc0ZRaVQ5cDd3Q2ZVb0FQMDBOS3M1cVhLMUZpUG1qRzVuMjlNc0MwdGND?=
+ =?utf-8?B?L3pTUzMyZ0VCRzZPYm56Nng3cVZjWU1qVGZRRVNEbDdGcXlnNVN0eU5GYkVk?=
+ =?utf-8?B?V0RCQVVLWjlKeXA5WlNyZlROekp4QkFleXV6aFVTbXBKMVZLNm1aYnZ6VlR3?=
+ =?utf-8?B?dnZ3dUVXVXRCVEgzcWlhczQ5Ri8rdEdiVDZPbmhkUW1PUnk4YnBCUTU3N0Zt?=
+ =?utf-8?B?TlRBbHo4aCtkc3hnVGg1dG9VbVBXNmhLL25Sb0dYd3ZZRndHNmZ0R1ZOcU1i?=
+ =?utf-8?B?RGJuUXp2OHZrR05LQTZpbTVJUVQyTnZqbHVITmRJaGYzQ3F6d2ZqN0lQc04x?=
+ =?utf-8?B?aXE1ZFdwSElQdGVkcCtMOERMSjc5aGtHcVh0MzFoT1NhZVpWVHlEV1ZlTi9E?=
+ =?utf-8?B?bkljYU5vdkRFVnB2UjZrblBsbjZZbnIrQ2Nka0ZYcFhrNkNBMkZ0RmtPbDlz?=
+ =?utf-8?B?ODRHaG1XWHg3dVJ0VFhrMkljckVhRkRLNHQwdC94cHMxRVhEQTBSb21hdUY2?=
+ =?utf-8?B?RGIxaWoyelpGdDdlcGZDYXRDOTltUmtZc2JHb3VBN3JlWWxqVHB1S1kvYm5i?=
+ =?utf-8?B?T2FDdGJIcHIxZ25wVU9KamZsZVhwYkdueTYrSVVjMStabEhpZUVKTHdBTHRW?=
+ =?utf-8?B?VnJ4K2R1bEJhNkxEdU5rcEVkZlZUeTFOVTZjek85UG5GME5pVVU4UGthYk02?=
+ =?utf-8?B?aUpzSjNpZktuQXN1Z3pJbEQvSXhYSnp3dWNNUXhjSE5vZW1OTTRZdUxyVHd0?=
+ =?utf-8?B?ZTg4QXhXcFNJNFFpeGxoNERQTmNtOW1EWTkvcnBZc3R4ZWk2aEZ6TmFVM2Iy?=
+ =?utf-8?B?VndBUnNOU2d0cFVIaGhCSms5ZHBZZ2hEQVpXNXUwSnlYK0xSR013L1Fpbjc5?=
+ =?utf-8?B?bXllTGJJc0RRV2VtY3V1QTQ4Nk9NWHZDdzhpekJYb3hNMVNWV2VJRWlaU0RY?=
+ =?utf-8?B?QmZtRGVQR3VEUmRxVVNpWXJFYlkrY2NFZkdYazV3QTJ3ZHFtUGJRTFh0Vll3?=
+ =?utf-8?B?SjQwYndydnpZTzZWV3c4d2licHM5ZFVkTGp2SjBVRVpZSWpRMGZOVW16RnRV?=
+ =?utf-8?B?dlpBL2FNbkdzZWh4cEJ3TCtONXBvY1ZsanBYaHpsRllQVnNtRzFPelBtNjVx?=
+ =?utf-8?B?c1libGJvYXZCdnIrdUp3bDdrdnQwWkhidGJVTnF5QlExdjc3Smh1Vm8yOFFr?=
+ =?utf-8?B?MmduTDVKM3RnTkJxbHpObWxFc09JalJRcU9wWkN1OVZIMmRJdTVWSUJlNGZy?=
+ =?utf-8?B?WEZyWDFsSjVBRHJ3cVJnNUlTY2UyeEZSRFN4d3F5U25GYytxcEFraEZoci91?=
+ =?utf-8?B?SEpFci9oRTB1OVlCZmU5bHJaV3VPTzRWZHM0Y0xpUHZCeHNEOFUzRFBjRVJB?=
+ =?utf-8?B?N1RSSktLcE8xcmRKN2JPVzdoQ2hxazliVHhvb3cvN1B0cWdJSUlYRHRWRC9X?=
+ =?utf-8?B?dWxrVFZqTzNBN2JrVFhmUXBMZGhtY096Mk9rYWZuTCtlUS9hazlucHd1WjBM?=
+ =?utf-8?B?ZC91b1M2eXBTZmVPUGFHZFJ6Y3RJRG0vT0s5N3hoaytsN2lmNjNnZjJNWGNB?=
+ =?utf-8?B?UWF6dGtsSDNjUzlFT0NBOSs5WGFHS1IwaDMwMnFGTHZFV1M3c2k0S1ZZbXdz?=
+ =?utf-8?B?Nzk1b0JNbFpiTTdjYTRoQlBLNzJ4dTVWTG5UMVo0SENqY0JSeis5WGF0R1Aw?=
+ =?utf-8?B?MUF5dVp5NHQ5dUFMUkI1cE45eXNWQVVnekFHZVRRMWg5RGVMYzVEVjYvYjJ1?=
+ =?utf-8?B?VVZSZmJSZUxISjJYK29SejJvRDZ3dEhMajNsWFE2S1RpMHV4TEtJMzMxek80?=
+ =?utf-8?Q?gstB0oog/NVVz?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH3PR12MB9079.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5149.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(8096899003); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NVZOaXZYREhabWxrbDlVMFVQa0NtUVdvMGVrTlI4eTVFa2oyN0czSURoencr?=
- =?utf-8?B?ZVhFYU0xT1hySEhENVM4elhLN215QlM3UEJDdU5TbnNFaDY4WXE3MXpSNmJW?=
- =?utf-8?B?bGZxbEZIZW9hU1BPa1FyK2JYM0YzaTJSZHFQL1RJVjBCdFJnMXIxbmZpLzg0?=
- =?utf-8?B?aGw2bVQxQ3ZqRlJrc2x1RGQ2WUNWQXRpMVFRV21Qc0M4QkFFdDlCRUUrR29V?=
- =?utf-8?B?Tmt2MFEwN1Y2L0NvT0RmakFxUzFOZjc0eFNBTjhNekhOSzZFU2w1NHpiZGtW?=
- =?utf-8?B?ZUU2bC81NGtGTDAzN0JEcGhXSXIvQWRlN2gxamNJOEZERzNZRjdZOHYrV1Jq?=
- =?utf-8?B?eGVwTllmRWF0N1FLM0huUHpGRzE5NkcvUWdtM1h1ekMycS9SdFNVSjJLWE44?=
- =?utf-8?B?UFM3NWhhK3pMTkR6cVJZU20wSWdwVlBXbDZnQ0RqSVNmbG5FNG1qaFFzNVRP?=
- =?utf-8?B?NjJscFJUck1zMEFtTWVLUno4aS80ZklJMXdGOUpZc2NHbkVPQ3lWSFdGYzJo?=
- =?utf-8?B?Q2oyemZFOEJJNWE2bmZJRHduVzRpbFIxTVRzZEwyMG5Ub2tyT0pLQTBOd1Bn?=
- =?utf-8?B?Zzg2a25ia0I1Q2Y5djNoTGJxZnVwKzNMaVZQWUUzZVJXaVdqUTVzWkJjVHlC?=
- =?utf-8?B?RU9vZUk2WjllWnVjVm1wR0g1eXlKdTdRRWtJTXk1TWFwQ1V1TC83RHFaMEVp?=
- =?utf-8?B?UkJmMFNja2xOQmZEWWU1NUJHRE9SWC9LNmdTaTlSN2JXTlQ0Z0tURGErRzRF?=
- =?utf-8?B?OHcxaEtjblF4VHIyWDFOeWlhRDJXMTZQY2lvS2N2azF4SnFtc3FDbmVkK1hx?=
- =?utf-8?B?K3BENE1xcnlaYVdBUUdvTTZnYTZRWTBTQzNVQXpnN3U1aGVFSGpiMnNMcmxU?=
- =?utf-8?B?allDVE05M1N5ZHUyZEpxZTNVUk1zLzA4YWgrQWh6amlHRm1CNGRsR1gwQ3BB?=
- =?utf-8?B?cWVzQkFjQU1DQXhuY1FRY3lQbnA3V0hockhXeUl5LzVkemQ0MGFqMGdqb3BR?=
- =?utf-8?B?ZzhpSFh4UGRTSWR0b3Rza3R2T2prL2IrUU5nTDRFTXhRTUNTSXlHektDWUwz?=
- =?utf-8?B?UFJXNGN2OG1vY1hjS3BFV0dRVmRtTmc3b3I4azU0Wnl2WnZYYTh2Vkk5c2x0?=
- =?utf-8?B?Yzl5Yjg1M1cyUUVFREYxRm40OXZyOGlqTXRhaE5wbSs4TjhyMEJtS2tUMjhu?=
- =?utf-8?B?UTJvUXkwZk9iL1NCa3hOZWFuR01NMWlxNm95TXlMR3ZiSjN6WGhGWXY5a3ZZ?=
- =?utf-8?B?OTB3cXNzeVkzU2RKQlNNNVhoN1g0THVQME9PditnaTY1S3NXY1lpRVNkbWxM?=
- =?utf-8?B?ejNBVEE5bHB4U1VXNmRkK1N3WWJ5N1BSQTltaE55SFhzQnFDOUh3VE1hQldy?=
- =?utf-8?B?NFJPajFoeTZoSjY4R0xQT0RkUUVLZm1RWG9WRFM2eUJJLzdob3MvVHdUamhl?=
- =?utf-8?B?SWE0azJROTRmZHFBVkNrQllRSXlyRGVNUlcvbFhwWmtTOFFlSFpVVjV2VHFo?=
- =?utf-8?B?aDE5U1FqQmVhNlZWdTRTZm4zcGJwM3VQVm5DcjdxdDVlclp1TVVVRXhYYkoy?=
- =?utf-8?B?MmlIWUp2Y3dhUzNKSWdpckJNVzJzNzNpS1ZhMTA2WDBkNUNOd1ZKMm1tajlz?=
- =?utf-8?B?NUJRNFZ3TUszVkhaeXJNNTFDMUJVN29hUjRZazh1YlozbkRXWmJobmhucVd2?=
- =?utf-8?B?TTRIMit0M2xNa3hKTkdXenRacFJ5c29mY0tjSXVROU51dE1nNW5NYUlqZWZv?=
- =?utf-8?B?ZlpnR1VqZW9uaXBJWWJVVXFwdUUvRWVXRXlXbmdmU3I3d0ZxZDl2WFFRb0NL?=
- =?utf-8?B?SDlzZXJpaWJ1Q29pdXhYSitBaVRPK3hvMkcrUUkwYmpEZlc3R3o3VCs5czdr?=
- =?utf-8?B?VTRXdElpWDN2WUl6dnIrNUNudmJTV2t6SGF1dUFEZnN2OE5TTm9PYXoxbEIy?=
- =?utf-8?B?K29PTS9tREJ2MWxoTXdUbUdtZ1g1RzkvV2FnckxoOFM2dlpDdWtPcXpJMjdv?=
- =?utf-8?B?RjZIMk14WFhNVHRkbXVUNHBlY2dwSXAyOWRpQzdhNDVveWI2V2owUDZFajM0?=
- =?utf-8?B?SkVSdFI5anhUTG5JenN5SEY5WjFaZ1pOcDEvamlGRHI1eXQwREFyczdHVTNJ?=
- =?utf-8?Q?57cykllz1hFruLNyi1ODGr7FZ?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZFMyY09kWi8vemhRbWpVbzdlVUlIRFVWdmV6RTZacEJ4ZytIMDdXYmdYVDd2?=
+ =?utf-8?B?NTJEZGp6MmFUbXhXMDJtSk1Fb0gzVm5mdHBzaU5OTTRLRG1TNzNkc0k3S2lh?=
+ =?utf-8?B?TktZTjdFbGxaMFpaRTFVZjN6OEJMTWJkOVVSTGhNL003WHM1dDRrbVh1cS9r?=
+ =?utf-8?B?OEtKa0cwRWg4czArQkw3eHU2N3hRUWRCNm9NamZyUVNmMktiQTZZUFE5WTlB?=
+ =?utf-8?B?bERWb3RDOW1sSEJSOFcvWFQ4RE1QdWlac0FKSXBSYStNVWZZUFBtOXdjajNJ?=
+ =?utf-8?B?WFRhYXo2c2hybnM3SnFibVhWRUNUVTBoaWU5UE9wU3hRTENldU1ucHp3R0ln?=
+ =?utf-8?B?RzBwZ3I0K1JTY1dFREh3TGt5eTQvZlVzVFU3SkYySU15b05QdHRsRnpEREw5?=
+ =?utf-8?B?cDhTTms2aUpRdVhRTFkrdERhKzhHUUJlQ3EzOFExcExmcjJQREJlYXpLVFc0?=
+ =?utf-8?B?dG9QQU5wSTVtZTFNOHZTNXBzVVdQZEI0YWlJUTBjR0xqcnVTVEhnQ1NrRzAz?=
+ =?utf-8?B?QWg1MHBvb3BsNkp0STZkNlFVeXZlaVN6VCtsUVA2RWQ4WkJMelF5bGtmVk84?=
+ =?utf-8?B?aE5vbzNuSUpBdzFoNjVEY0lKeXV1RHh3T1g5MHR2UHo2c1dkUkxsQkY2Mjg5?=
+ =?utf-8?B?RnR4eFEyMHY0L3g4VFBSRFpXMHlYMWNyQ0NJODkrT2t6S1h3UzhIQm9YMVZF?=
+ =?utf-8?B?NkNNQ3IzTWQ3OHdQd0t5K3BQQlVEb1FzdVdDTmVGcDBOZXdkemhjdUh3UWFE?=
+ =?utf-8?B?S3BPSnJkUVgzWnFaYSttZkJGNzRDVHU3dU9WSVp4RVZvaWpZK3BkbXBOcUlj?=
+ =?utf-8?B?R3hIODNycmlxc3U3ajgrcWc3YlNaRnpMQ2YwTnEyaXRYRStBMXZROXFUS2pn?=
+ =?utf-8?B?RHdNcXZFbGZGeTF3MlVOTkt6YTdHZjhPS0UzWXBISldQZmhLZHdaZG56QzBs?=
+ =?utf-8?B?VHphT2cwRTVTeHZRVndEZUNReFNQZmgzYnlXSTRmcVZ6dThyalBHNUM5RzN5?=
+ =?utf-8?B?T3FCUnRORTRhd2Znak1IcWg0Y1hXNGdHUHZrWmRmUkdncVhBdS9jbU5sbHp6?=
+ =?utf-8?B?ZCtEem0rOVBKWlhuc3V5dXBwQjBxL0Mrcmg1ZWViSVB3Q2orTWVwaWNoNkc1?=
+ =?utf-8?B?cnB5OFQxS3ZSQjcvc0lCNGhVZTlOeHlsaVQrMHVBY29wTUUyTzl4ZWNhdkRQ?=
+ =?utf-8?B?MEFFV3lMSkVkaGdsWnFReURmTzlxaW5mcmtEUnVvVUdMUm9XdEdTR0FGZHR1?=
+ =?utf-8?B?eXZ0Q0VwcUJTNTdibmhCejJNMi9KdFI1NThYZ094UHNOcFR2VGI3bE8veTZy?=
+ =?utf-8?B?UUV1S2lkcjhjdHJ2bWhEMm1taDd5RTR6bG15YVh5Zzd6OEIrVDNCTTBnN3pw?=
+ =?utf-8?B?YXIyWFRYdXJubkxJTGNlVmhGcm5nU0x2UlJWMnhjRnJzaURLcFdCQ25Wb0hm?=
+ =?utf-8?B?R1EydlVkOUgvQTdGR1BrUzg4dG5Hc3cxM3RSeHJ6TGNVeCs2bkY5YVZ2RG5Y?=
+ =?utf-8?B?VjU3bjlSUWFqUS9GK24xSUZ4QjFXcW9naGFmWnBPTlVQTHF3SmpNWmIzTERW?=
+ =?utf-8?B?L2JBcExVc1U4Y3VPRWgvTXB2NDZZYWlLUnNUWkVIR1hqc3pCc1hIOUFQYVhT?=
+ =?utf-8?B?T1I1cU9kTXdYNEc1ZzdSZitkSmVtMm4yS3o2ZGJCb0VjcHlYT1Y1aWtzZ0pB?=
+ =?utf-8?B?ZEUrTUdNSVJGZllrc3ZnVXlNcFdvM0tOQTVGQk9LR2huQ21DL3doNDEzTmVl?=
+ =?utf-8?B?RVk2R2NEQ2QwVWxqUmpjUXR4dEJQd1hSb1BINzB5eVJmMjBscnBqOWx1czJG?=
+ =?utf-8?B?bGRuc1FNalg1d3VlektRRkVTRnAxU3lvV2lVMmNHQnB5dXpOVUp5eVBpS0kv?=
+ =?utf-8?B?dW1Udkxkc3hDMCtuNXE4N0wrNTNMLzVPdzZrQ2M3VUVqcm1KVmQxa1pEa0JQ?=
+ =?utf-8?B?ZktFV054M2d6VjFkYU1MbVZyZ3Foa1dEWjlvMHFoOVZ5ZmNHbnE3emN6bEFx?=
+ =?utf-8?B?Qzhqei9ZQ3ZwOHRFaTF5WExkUnk3NU5pL2JPZkVpMnM3VUw3ZFZRN1c0MGVX?=
+ =?utf-8?B?NUp5MXNnOWZleTdhakN4d0tmUXl4cUE3RzhmZlhUekp4R3pTWE1DbFlUMC91?=
+ =?utf-8?Q?KstGi6CZ8A8iQurVl9xA88rjf?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a462b0e4-8b19-44ab-b594-08dd3187e896
-X-MS-Exchange-CrossTenant-AuthSource: CH3PR12MB9079.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7e9ee47c-af51-4f11-0bfa-08dd3189f0b1
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5149.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2025 15:03:15.1887 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2025 15:17:47.7076 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /QmwE6CXBCgl56rmSwxf0szE9ysL+kBcDI/jrKb3b9cEwsQQ4nzu7IwOTlU9fu9hH9MZ1BAHbJZaadZrfuchgg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7139
+X-MS-Exchange-CrossTenant-UserPrincipalName: zwtSu0EWJicVKVuhJpTnFSzgsLxdaUBCchroTVs0zpH2hvYwuP84kGnaqLZSCSv4
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9105
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,846 +173,1107 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-
-On 09/01/2025 17:56, Jay Cornwall wrote:
-> Source and binary have become mismatched during branch activity.
-> 
-> Signed-off-by: Jay Cornwall <jay.cornwall@amd.com>
-> Cc: Lancelot Six <lancelot.six@amd.com>
-
-Thanks for doing that.  That new binary match what I obtain by 
-re-assembling the sources.
-
-Reviewed-by: Lancelot Six <lancelot.six@amd.com>
-
-Best,
-Lancelot.
-
-> ---
->   .../gpu/drm/amd/amdkfd/cwsr_trap_handler.h    | 726 +++++++++---------
->   1 file changed, 359 insertions(+), 367 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h
-> index 388b44ed5928..b8c13549571a 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h
-> @@ -4124,27 +4124,25 @@ static const uint32_t cwsr_trap_gfx12_hex[] = {
->   };
->   
->   static const uint32_t cwsr_trap_gfx9_5_0_hex[] = {
-> -	0xbf820001, 0xbf8202d8,
-> +	0xbf820001, 0xbf8202c9,
->   	0xb8f8f802, 0x8978ff78,
->   	0x00020006, 0xb8fbf803,
->   	0x866eff78, 0x00002000,
-> -	0xbf840008, 0xbf0d986d,
-> -	0xbf85001f, 0x866eff7b,
-> -	0x00000400, 0xbf850061,
-> -	0xbf8e0010, 0xb8fbf803,
-> -	0xbf82fffa, 0x866eff7b,
-> -	0x03800900, 0xbf850015,
-> -	0x866eff7b, 0x000071ff,
-> -	0xbf840008, 0x866fff7b,
-> -	0x00007080, 0xbf840001,
-> -	0xbeee1a87, 0xb8eff801,
-> -	0x8e6e8c6e, 0x866e6f6e,
-> -	0xbf85000a, 0xbf0d986d,
-> -	0xbf850003, 0x866eff6d,
-> -	0x00ff0000, 0xbf850005,
-> -	0xbf0d986d, 0xbf850004,
-> +	0xbf840009, 0x866eff6d,
-> +	0x00ff0000, 0xbf85001a,
->   	0x866eff7b, 0x00000400,
-> -	0xbf850046, 0xbeed1a9d,
-> +	0xbf850051, 0xbf8e0010,
-> +	0xb8fbf803, 0xbf82fffa,
-> +	0x866eff7b, 0x03c00900,
-> +	0xbf850011, 0x866eff7b,
-> +	0x000071ff, 0xbf840008,
-> +	0x866fff7b, 0x00007080,
-> +	0xbf840001, 0xbeee1a87,
-> +	0xb8eff801, 0x8e6e8c6e,
-> +	0x866e6f6e, 0xbf850006,
-> +	0x866eff6d, 0x00ff0000,
-> +	0xbf850003, 0x866eff7b,
-> +	0x00000400, 0xbf85003a,
->   	0xb8faf807, 0x867aff7a,
->   	0x001f8000, 0x8e7a8b7a,
->   	0x8979ff79, 0xfc000000,
-> @@ -4153,192 +4151,221 @@ static const uint32_t cwsr_trap_gfx9_5_0_hex[] = {
->   	0xb8fbf813, 0x8efa887a,
->   	0xbf0d8f7b, 0xbf840002,
->   	0x877bff7b, 0xffff0000,
-> -	0xc0031cfd, 0x00000010,
-> -	0xc0071bbd, 0x00000000,
-> +	0xc0031bbd, 0x00000010,
-> +	0xbf8cc07f, 0x8e6e976e,
-> +	0x8979ff79, 0x00800000,
-> +	0x87796e79, 0xc0071bbd,
-> +	0x00000000, 0xbf8cc07f,
->   	0xc0071ebd, 0x00000008,
-> -	0xbf8cc07f, 0x8e739773,
-> -	0x8979ff79, 0x01800000,
-> -	0x87797379, 0xbf0d986d,
-> -	0xbf840009, 0xbf0d9879,
-> -	0xbf850007, 0x896dff6d,
-> -	0x01ff0000, 0xba7f0583,
-> -	0x00000000, 0xbf0d9d6d,
-> -	0xbeed189d, 0xbf840012,
-> -	0xbef91898, 0xbeed189d,
-> -	0x86ee6e6e, 0xbf840001,
-> -	0xbe801d6e, 0x866eff6d,
-> -	0x01ff0000, 0xbf850005,
-> -	0x8778ff78, 0x00002000,
-> -	0x80ec886c, 0x82ed806d,
-> -	0xbf820005, 0x866eff6d,
-> -	0x01000000, 0xbf850002,
-> -	0x806c846c, 0x826d806d,
-> -	0x866dff6d, 0x0000ffff,
-> -	0x8f7a8b79, 0x867aff7a,
-> -	0x001f8000, 0xb97af807,
-> -	0x86fe7e7e, 0x86ea6a6a,
-> -	0x8f6e8378, 0xb96ee0c2,
-> -	0xbf800002, 0xb9780002,
-> -	0xbe801f6c, 0x866dff6d,
-> -	0x0000ffff, 0xbefa0080,
-> -	0xb97a0283, 0xb8faf807,
-> +	0xbf8cc07f, 0x86ee6e6e,
-> +	0xbf840001, 0xbe801d6e,
-> +	0x866eff6d, 0x01ff0000,
-> +	0xbf850005, 0x8778ff78,
-> +	0x00002000, 0x80ec886c,
-> +	0x82ed806d, 0xbf820005,
-> +	0x866eff6d, 0x01000000,
-> +	0xbf850002, 0x806c846c,
-> +	0x826d806d, 0x866dff6d,
-> +	0x0000ffff, 0x8f7a8b79,
->   	0x867aff7a, 0x001f8000,
-> -	0x8e7a8b7a, 0x8979ff79,
-> -	0xfc000000, 0x87797a79,
-> -	0xba7ff807, 0x00000000,
-> -	0xbeee007e, 0xbeef007f,
-> -	0xbefe0180, 0xbf900004,
-> -	0x877a8478, 0xb97af802,
-> -	0xbf8e0002, 0xbf88fffe,
-> -	0xb8fa2985, 0x807a817a,
-> -	0x8e7a8a7a, 0x8e7a817a,
-> -	0xb8fb1605, 0x807b817b,
-> -	0x8e7b867b, 0x807a7b7a,
-> -	0x807a7e7a, 0x827b807f,
-> -	0x867bff7b, 0x0000ffff,
-> -	0xc04b1c3d, 0x00000050,
-> -	0xbf8cc07f, 0xc04b1d3d,
-> -	0x00000060, 0xbf8cc07f,
-> -	0xc0431e7d, 0x00000074,
-> -	0xbf8cc07f, 0xbef4007e,
-> -	0x8675ff7f, 0x0000ffff,
-> -	0x8775ff75, 0x00040000,
-> -	0xbef60080, 0xbef700ff,
-> -	0x00807fac, 0xbef1007c,
-> -	0xbef00080, 0xb8f02985,
-> -	0x80708170, 0x8e708a70,
-> -	0x8e708170, 0xb8fa1605,
-> -	0x807a817a, 0x8e7a867a,
-> -	0x80707a70, 0xbef60084,
-> -	0xbef600ff, 0x01000000,
-> -	0xbefe007c, 0xbefc0070,
-> -	0xc0611c7a, 0x0000007c,
-> -	0xbf8cc07f, 0x80708470,
-> -	0xbefc007e, 0xbefe007c,
-> -	0xbefc0070, 0xc0611b3a,
-> +	0xb97af807, 0x86fe7e7e,
-> +	0x86ea6a6a, 0x8f6e8378,
-> +	0xb96ee0c2, 0xbf800002,
-> +	0xb9780002, 0xbe801f6c,
-> +	0x866dff6d, 0x0000ffff,
-> +	0xbefa0080, 0xb97a0283,
-> +	0xb8faf807, 0x867aff7a,
-> +	0x001f8000, 0x8e7a8b7a,
-> +	0x8979ff79, 0xfc000000,
-> +	0x87797a79, 0xba7ff807,
-> +	0x00000000, 0xbeee007e,
-> +	0xbeef007f, 0xbefe0180,
-> +	0xbf900004, 0x877a8478,
-> +	0xb97af802, 0xbf8e0002,
-> +	0xbf88fffe, 0xb8fa2985,
-> +	0x807a817a, 0x8e7a8a7a,
-> +	0x8e7a817a, 0xb8fb1605,
-> +	0x807b817b, 0x8e7b867b,
-> +	0x807a7b7a, 0x807a7e7a,
-> +	0x827b807f, 0x867bff7b,
-> +	0x0000ffff, 0xc04b1c3d,
-> +	0x00000050, 0xbf8cc07f,
-> +	0xc04b1d3d, 0x00000060,
-> +	0xbf8cc07f, 0xc0431e7d,
-> +	0x00000074, 0xbf8cc07f,
-> +	0xbef4007e, 0x8675ff7f,
-> +	0x0000ffff, 0x8775ff75,
-> +	0x00040000, 0xbef60080,
-> +	0xbef700ff, 0x00807fac,
-> +	0xbef1007c, 0xbef00080,
-> +	0xb8f02985, 0x80708170,
-> +	0x8e708a70, 0x8e708170,
-> +	0xb8fa1605, 0x807a817a,
-> +	0x8e7a867a, 0x80707a70,
-> +	0xbef60084, 0xbef600ff,
-> +	0x01000000, 0xbefe007c,
-> +	0xbefc0070, 0xc0611c7a,
->   	0x0000007c, 0xbf8cc07f,
->   	0x80708470, 0xbefc007e,
->   	0xbefe007c, 0xbefc0070,
-> -	0xc0611b7a, 0x0000007c,
-> +	0xc0611b3a, 0x0000007c,
->   	0xbf8cc07f, 0x80708470,
->   	0xbefc007e, 0xbefe007c,
-> -	0xbefc0070, 0xc0611bba,
-> +	0xbefc0070, 0xc0611b7a,
->   	0x0000007c, 0xbf8cc07f,
->   	0x80708470, 0xbefc007e,
->   	0xbefe007c, 0xbefc0070,
-> -	0xc0611bfa, 0x0000007c,
-> +	0xc0611bba, 0x0000007c,
->   	0xbf8cc07f, 0x80708470,
->   	0xbefc007e, 0xbefe007c,
-> -	0xbefc0070, 0xc0611e3a,
-> -	0x0000007c, 0xbf8cc07f,
-> -	0x80708470, 0xbefc007e,
-> -	0xb8fbf803, 0xbefe007c,
-> -	0xbefc0070, 0xc0611efa,
-> +	0xbefc0070, 0xc0611bfa,
->   	0x0000007c, 0xbf8cc07f,
->   	0x80708470, 0xbefc007e,
->   	0xbefe007c, 0xbefc0070,
-> -	0xc0611a3a, 0x0000007c,
-> +	0xc0611e3a, 0x0000007c,
-> +	0xbf8cc07f, 0x80708470,
-> +	0xbefc007e, 0xb8fbf803,
-> +	0xbefe007c, 0xbefc0070,
-> +	0xc0611efa, 0x0000007c,
->   	0xbf8cc07f, 0x80708470,
->   	0xbefc007e, 0xbefe007c,
-> -	0xbefc0070, 0xc0611a7a,
-> -	0x0000007c, 0xbf8cc07f,
-> -	0x80708470, 0xbefc007e,
-> -	0xb8f1f801, 0xbefe007c,
-> -	0xbefc0070, 0xc0611c7a,
-> +	0xbefc0070, 0xc0611a3a,
->   	0x0000007c, 0xbf8cc07f,
->   	0x80708470, 0xbefc007e,
-> -	0x867aff7f, 0x04000000,
-> -	0xbeef0080, 0x876f6f7a,
-> -	0xb8f02985, 0x80708170,
-> -	0x8e708a70, 0x8e708170,
-> -	0xb8fb1605, 0x807b817b,
-> -	0x8e7b847b, 0x8e76827b,
-> -	0xbef600ff, 0x01000000,
-> -	0xbef20174, 0x80747074,
-> -	0x82758075, 0xbefc0080,
-> -	0xbf800000, 0xbe802b00,
-> -	0xbe822b02, 0xbe842b04,
-> -	0xbe862b06, 0xbe882b08,
-> -	0xbe8a2b0a, 0xbe8c2b0c,
-> -	0xbe8e2b0e, 0xc06b003a,
-> -	0x00000000, 0xbf8cc07f,
-> -	0xc06b013a, 0x00000010,
-> -	0xbf8cc07f, 0xc06b023a,
-> -	0x00000020, 0xbf8cc07f,
-> -	0xc06b033a, 0x00000030,
-> -	0xbf8cc07f, 0x8074c074,
-> -	0x82758075, 0x807c907c,
-> -	0xbf0a7b7c, 0xbf85ffe7,
-> -	0xbef40172, 0xbef00080,
-> -	0xbefe00c1, 0xbeff00c1,
-> -	0xbee80080, 0xbee90080,
-> -	0xbef600ff, 0x01000000,
-> -	0x867aff78, 0x00400000,
-> -	0xbf850003, 0xb8faf803,
-> -	0x897a7aff, 0x10000000,
-> -	0xbf85004d, 0xbe840080,
-> -	0xd2890000, 0x00000900,
-> -	0x80048104, 0xd2890001,
-> -	0x00000900, 0x80048104,
-> -	0xd2890002, 0x00000900,
-> -	0x80048104, 0xd2890003,
-> -	0x00000900, 0x80048104,
-> -	0xc069003a, 0x00000070,
-> -	0xbf8cc07f, 0x80709070,
-> -	0xbf06c004, 0xbf84ffee,
-> +	0xbefe007c, 0xbefc0070,
-> +	0xc0611a7a, 0x0000007c,
-> +	0xbf8cc07f, 0x80708470,
-> +	0xbefc007e, 0xb8f1f801,
-> +	0xbefe007c, 0xbefc0070,
-> +	0xc0611c7a, 0x0000007c,
-> +	0xbf8cc07f, 0x80708470,
-> +	0xbefc007e, 0x867aff7f,
-> +	0x04000000, 0xbeef0080,
-> +	0x876f6f7a, 0xb8f02985,
-> +	0x80708170, 0x8e708a70,
-> +	0x8e708170, 0xb8fb1605,
-> +	0x807b817b, 0x8e7b847b,
-> +	0x8e76827b, 0xbef600ff,
-> +	0x01000000, 0xbef20174,
-> +	0x80747074, 0x82758075,
-> +	0xbefc0080, 0xbf800000,
-> +	0xbe802b00, 0xbe822b02,
-> +	0xbe842b04, 0xbe862b06,
-> +	0xbe882b08, 0xbe8a2b0a,
-> +	0xbe8c2b0c, 0xbe8e2b0e,
-> +	0xc06b003a, 0x00000000,
-> +	0xbf8cc07f, 0xc06b013a,
-> +	0x00000010, 0xbf8cc07f,
-> +	0xc06b023a, 0x00000020,
-> +	0xbf8cc07f, 0xc06b033a,
-> +	0x00000030, 0xbf8cc07f,
-> +	0x8074c074, 0x82758075,
-> +	0x807c907c, 0xbf0a7b7c,
-> +	0xbf85ffe7, 0xbef40172,
-> +	0xbef00080, 0xbefe00c1,
-> +	0xbeff00c1, 0xbee80080,
-> +	0xbee90080, 0xbef600ff,
-> +	0x01000000, 0x867aff78,
-> +	0x00400000, 0xbf850003,
-> +	0xb8faf803, 0x897a7aff,
-> +	0x10000000, 0xbf85004d,
->   	0xbe840080, 0xd2890000,
-> -	0x00000901, 0x80048104,
-> -	0xd2890001, 0x00000901,
-> +	0x00000900, 0x80048104,
-> +	0xd2890001, 0x00000900,
->   	0x80048104, 0xd2890002,
-> -	0x00000901, 0x80048104,
-> -	0xd2890003, 0x00000901,
-> +	0x00000900, 0x80048104,
-> +	0xd2890003, 0x00000900,
->   	0x80048104, 0xc069003a,
->   	0x00000070, 0xbf8cc07f,
->   	0x80709070, 0xbf06c004,
->   	0xbf84ffee, 0xbe840080,
-> -	0xd2890000, 0x00000902,
-> +	0xd2890000, 0x00000901,
->   	0x80048104, 0xd2890001,
-> -	0x00000902, 0x80048104,
-> -	0xd2890002, 0x00000902,
-> +	0x00000901, 0x80048104,
-> +	0xd2890002, 0x00000901,
->   	0x80048104, 0xd2890003,
-> -	0x00000902, 0x80048104,
-> +	0x00000901, 0x80048104,
->   	0xc069003a, 0x00000070,
->   	0xbf8cc07f, 0x80709070,
->   	0xbf06c004, 0xbf84ffee,
->   	0xbe840080, 0xd2890000,
-> -	0x00000903, 0x80048104,
-> -	0xd2890001, 0x00000903,
-> +	0x00000902, 0x80048104,
-> +	0xd2890001, 0x00000902,
->   	0x80048104, 0xd2890002,
-> -	0x00000903, 0x80048104,
-> -	0xd2890003, 0x00000903,
-> +	0x00000902, 0x80048104,
-> +	0xd2890003, 0x00000902,
->   	0x80048104, 0xc069003a,
->   	0x00000070, 0xbf8cc07f,
->   	0x80709070, 0xbf06c004,
-> -	0xbf84ffee, 0xbf820008,
-> -	0xe0724000, 0x701d0000,
-> -	0xe0724100, 0x701d0100,
-> -	0xe0724200, 0x701d0200,
-> -	0xe0724300, 0x701d0300,
-> +	0xbf84ffee, 0xbe840080,
-> +	0xd2890000, 0x00000903,
-> +	0x80048104, 0xd2890001,
-> +	0x00000903, 0x80048104,
-> +	0xd2890002, 0x00000903,
-> +	0x80048104, 0xd2890003,
-> +	0x00000903, 0x80048104,
-> +	0xc069003a, 0x00000070,
-> +	0xbf8cc07f, 0x80709070,
-> +	0xbf06c004, 0xbf84ffee,
-> +	0xbf820008, 0xe0724000,
-> +	0x701d0000, 0xe0724100,
-> +	0x701d0100, 0xe0724200,
-> +	0x701d0200, 0xe0724300,
-> +	0x701d0300, 0xbefe00c1,
-> +	0xbeff00c1, 0xb8fb5306,
-> +	0x867bc17b, 0xbf840052,
-> +	0xbf8a0000, 0x867aff6f,
-> +	0x04000000, 0xbf84004e,
-> +	0x8e7b867b, 0x8e7b827b,
-> +	0xbef6007b, 0xb8f02985,
-> +	0x80708170, 0x8e708a70,
-> +	0x8e708170, 0xb8fa1605,
-> +	0x807a817a, 0x8e7a867a,
-> +	0x80707a70, 0x8070ff70,
-> +	0x00000080, 0xbef600ff,
-> +	0x01000000, 0xbefc0080,
-> +	0xd28c0002, 0x000100c1,
-> +	0xd28d0003, 0x000204c1,
-> +	0x867aff78, 0x00400000,
-> +	0xbf850003, 0xb8faf803,
-> +	0x897a7aff, 0x10000000,
-> +	0xbf85001d, 0x24040682,
-> +	0xd86c0000, 0x00000002,
-> +	0xbf8cc07f, 0xbe840080,
-> +	0xd2890000, 0x00000900,
-> +	0x80048104, 0xd2890001,
-> +	0x00000900, 0x80048104,
-> +	0xd2890002, 0x00000900,
-> +	0x80048104, 0xd2890003,
-> +	0x00000900, 0x80048104,
-> +	0xc069003a, 0x00000070,
-> +	0xbf8cc07f, 0x80709070,
-> +	0xbf06c004, 0xbf84ffee,
-> +	0x680404ff, 0x00000100,
-> +	0xd0c9006a, 0x0000f702,
-> +	0xbf87ffe5, 0xbf820016,
-> +	0xd1060002, 0x00011103,
-> +	0x7e0602ff, 0x00000200,
-> +	0xbefc00ff, 0x00010000,
-> +	0xbe800077, 0x8677ff77,
-> +	0xff7fffff, 0x8777ff77,
-> +	0x00058000, 0xd8ec0000,
-> +	0x00000002, 0xbf8cc07f,
-> +	0xe0765000, 0x701d0002,
-> +	0x68040702, 0xd0c9006a,
-> +	0x0000f702, 0xbefe016a,
-> +	0xbf87fff6, 0xbef70000,
-> +	0xbef000ff, 0x00000400,
->   	0xbefe00c1, 0xbeff00c1,
-> -	0xb8fb5306, 0x867bc17b,
-> -	0xbf840052, 0xbf8a0000,
-> -	0x867aff6f, 0x04000000,
-> -	0xbf84004e, 0x8e7b867b,
-> -	0x8e7b827b, 0xbef6007b,
-> -	0xb8f02985, 0x80708170,
-> -	0x8e708a70, 0x8e708170,
-> -	0xb8fa1605, 0x807a817a,
-> -	0x8e7a867a, 0x80707a70,
-> -	0x8070ff70, 0x00000080,
-> -	0xbef600ff, 0x01000000,
-> -	0xbefc0080, 0xd28c0002,
-> -	0x000100c1, 0xd28d0003,
-> -	0x000204c1, 0x867aff78,
-> +	0xb8fb2b05, 0x807b817b,
-> +	0x8e7b827b, 0xbef600ff,
-> +	0x01000000, 0xbefc0084,
-> +	0xbf0a7b7c, 0xbf84006d,
-> +	0xbf11017c, 0x807bff7b,
-> +	0x00001000, 0x867aff78,
->   	0x00400000, 0xbf850003,
->   	0xb8faf803, 0x897a7aff,
-> -	0x10000000, 0xbf85001d,
-> -	0x24040682, 0xd86c0000,
-> -	0x00000002, 0xbf8cc07f,
-> +	0x10000000, 0xbf850051,
->   	0xbe840080, 0xd2890000,
->   	0x00000900, 0x80048104,
->   	0xd2890001, 0x00000900,
-> @@ -4348,32 +4375,61 @@ static const uint32_t cwsr_trap_gfx9_5_0_hex[] = {
->   	0x80048104, 0xc069003a,
->   	0x00000070, 0xbf8cc07f,
->   	0x80709070, 0xbf06c004,
-> -	0xbf84ffee, 0x680404ff,
-> -	0x00000100, 0xd0c9006a,
-> -	0x0000f702, 0xbf87ffe5,
-> -	0xbf820016, 0xd1060002,
-> -	0x00011103, 0x7e0602ff,
-> -	0x00000200, 0xbefc00ff,
-> -	0x00010000, 0xbe800077,
-> -	0x8677ff77, 0xff7fffff,
-> -	0x8777ff77, 0x00058000,
-> -	0xd8ec0000, 0x00000002,
-> -	0xbf8cc07f, 0xe0765000,
-> -	0x701d0002, 0x68040702,
-> -	0xd0c9006a, 0x0000f702,
-> -	0xbefe016a, 0xbf87fff6,
-> -	0xbef70000, 0xbef000ff,
-> -	0x00000400, 0xbefe00c1,
-> -	0xbeff00c1, 0xb8fb2b05,
-> -	0x807b817b, 0x8e7b827b,
-> -	0xbef600ff, 0x01000000,
-> -	0xbefc0084, 0xbf0a7b7c,
-> -	0xbf84006d, 0xbf11017c,
-> +	0xbf84ffee, 0xbe840080,
-> +	0xd2890000, 0x00000901,
-> +	0x80048104, 0xd2890001,
-> +	0x00000901, 0x80048104,
-> +	0xd2890002, 0x00000901,
-> +	0x80048104, 0xd2890003,
-> +	0x00000901, 0x80048104,
-> +	0xc069003a, 0x00000070,
-> +	0xbf8cc07f, 0x80709070,
-> +	0xbf06c004, 0xbf84ffee,
-> +	0xbe840080, 0xd2890000,
-> +	0x00000902, 0x80048104,
-> +	0xd2890001, 0x00000902,
-> +	0x80048104, 0xd2890002,
-> +	0x00000902, 0x80048104,
-> +	0xd2890003, 0x00000902,
-> +	0x80048104, 0xc069003a,
-> +	0x00000070, 0xbf8cc07f,
-> +	0x80709070, 0xbf06c004,
-> +	0xbf84ffee, 0xbe840080,
-> +	0xd2890000, 0x00000903,
-> +	0x80048104, 0xd2890001,
-> +	0x00000903, 0x80048104,
-> +	0xd2890002, 0x00000903,
-> +	0x80048104, 0xd2890003,
-> +	0x00000903, 0x80048104,
-> +	0xc069003a, 0x00000070,
-> +	0xbf8cc07f, 0x80709070,
-> +	0xbf06c004, 0xbf84ffee,
-> +	0x807c847c, 0xbf0a7b7c,
-> +	0xbf85ffb1, 0xbf9c0000,
-> +	0xbf820012, 0x7e000300,
-> +	0x7e020301, 0x7e040302,
-> +	0x7e060303, 0xe0724000,
-> +	0x701d0000, 0xe0724100,
-> +	0x701d0100, 0xe0724200,
-> +	0x701d0200, 0xe0724300,
-> +	0x701d0300, 0x807c847c,
-> +	0x8070ff70, 0x00000400,
-> +	0xbf0a7b7c, 0xbf85ffef,
-> +	0xbf9c0000, 0xb8fb2985,
-> +	0x807b817b, 0x8e7b837b,
-> +	0xb8fa2b05, 0x807a817a,
-> +	0x8e7a827a, 0x80fb7a7b,
-> +	0x867b7b7b, 0xbf84007a,
->   	0x807bff7b, 0x00001000,
-> +	0xbefc0080, 0xbf11017c,
->   	0x867aff78, 0x00400000,
->   	0xbf850003, 0xb8faf803,
->   	0x897a7aff, 0x10000000,
-> -	0xbf850051, 0xbe840080,
-> +	0xbf850059, 0xd3d84000,
-> +	0x18000100, 0xd3d84001,
-> +	0x18000101, 0xd3d84002,
-> +	0x18000102, 0xd3d84003,
-> +	0x18000103, 0xbe840080,
->   	0xd2890000, 0x00000900,
->   	0x80048104, 0xd2890001,
->   	0x00000900, 0x80048104,
-> @@ -4412,204 +4468,140 @@ static const uint32_t cwsr_trap_gfx9_5_0_hex[] = {
->   	0x00000070, 0xbf8cc07f,
->   	0x80709070, 0xbf06c004,
->   	0xbf84ffee, 0x807c847c,
-> -	0xbf0a7b7c, 0xbf85ffb1,
-> -	0xbf9c0000, 0xbf820012,
-> -	0x7e000300, 0x7e020301,
-> -	0x7e040302, 0x7e060303,
-> +	0xbf0a7b7c, 0xbf85ffa9,
-> +	0xbf9c0000, 0xbf820016,
-> +	0xd3d84000, 0x18000100,
-> +	0xd3d84001, 0x18000101,
-> +	0xd3d84002, 0x18000102,
-> +	0xd3d84003, 0x18000103,
->   	0xe0724000, 0x701d0000,
->   	0xe0724100, 0x701d0100,
->   	0xe0724200, 0x701d0200,
->   	0xe0724300, 0x701d0300,
->   	0x807c847c, 0x8070ff70,
->   	0x00000400, 0xbf0a7b7c,
-> -	0xbf85ffef, 0xbf9c0000,
-> -	0xb8fb2985, 0x807b817b,
-> -	0x8e7b837b, 0xb8fa2b05,
-> -	0x807a817a, 0x8e7a827a,
-> -	0x80fb7a7b, 0x867b7b7b,
-> -	0xbf84007a, 0x807bff7b,
-> -	0x00001000, 0xbefc0080,
-> -	0xbf11017c, 0x867aff78,
-> -	0x00400000, 0xbf850003,
-> -	0xb8faf803, 0x897a7aff,
-> -	0x10000000, 0xbf850059,
-> -	0xd3d84000, 0x18000100,
-> -	0xd3d84001, 0x18000101,
-> -	0xd3d84002, 0x18000102,
-> -	0xd3d84003, 0x18000103,
-> -	0xbe840080, 0xd2890000,
-> -	0x00000900, 0x80048104,
-> -	0xd2890001, 0x00000900,
-> -	0x80048104, 0xd2890002,
-> -	0x00000900, 0x80048104,
-> -	0xd2890003, 0x00000900,
-> -	0x80048104, 0xc069003a,
-> -	0x00000070, 0xbf8cc07f,
-> -	0x80709070, 0xbf06c004,
-> -	0xbf84ffee, 0xbe840080,
-> -	0xd2890000, 0x00000901,
-> -	0x80048104, 0xd2890001,
-> -	0x00000901, 0x80048104,
-> -	0xd2890002, 0x00000901,
-> -	0x80048104, 0xd2890003,
-> -	0x00000901, 0x80048104,
-> -	0xc069003a, 0x00000070,
-> -	0xbf8cc07f, 0x80709070,
-> -	0xbf06c004, 0xbf84ffee,
-> -	0xbe840080, 0xd2890000,
-> -	0x00000902, 0x80048104,
-> -	0xd2890001, 0x00000902,
-> -	0x80048104, 0xd2890002,
-> -	0x00000902, 0x80048104,
-> -	0xd2890003, 0x00000902,
-> -	0x80048104, 0xc069003a,
-> -	0x00000070, 0xbf8cc07f,
-> -	0x80709070, 0xbf06c004,
-> -	0xbf84ffee, 0xbe840080,
-> -	0xd2890000, 0x00000903,
-> -	0x80048104, 0xd2890001,
-> -	0x00000903, 0x80048104,
-> -	0xd2890002, 0x00000903,
-> -	0x80048104, 0xd2890003,
-> -	0x00000903, 0x80048104,
-> -	0xc069003a, 0x00000070,
-> -	0xbf8cc07f, 0x80709070,
-> -	0xbf06c004, 0xbf84ffee,
-> -	0x807c847c, 0xbf0a7b7c,
-> -	0xbf85ffa9, 0xbf9c0000,
-> -	0xbf820016, 0xd3d84000,
-> -	0x18000100, 0xd3d84001,
-> -	0x18000101, 0xd3d84002,
-> -	0x18000102, 0xd3d84003,
-> -	0x18000103, 0xe0724000,
-> -	0x701d0000, 0xe0724100,
-> -	0x701d0100, 0xe0724200,
-> -	0x701d0200, 0xe0724300,
-> -	0x701d0300, 0x807c847c,
-> -	0x8070ff70, 0x00000400,
-> -	0xbf0a7b7c, 0xbf85ffeb,
-> -	0xbf9c0000, 0xbf8200f4,
-> -	0xbef4007e, 0x8675ff7f,
-> -	0x0000ffff, 0x8775ff75,
-> -	0x00040000, 0xbef60080,
-> -	0xbef700ff, 0x00807fac,
-> -	0x866eff7f, 0x04000000,
-> -	0xbf840025, 0xbefe00c1,
-> -	0xbeff00c1, 0xb8ef5306,
-> -	0x866fc16f, 0xbf840020,
-> -	0x8e6f866f, 0x8e6f826f,
-> -	0xbef6006f, 0xb8f82985,
-> -	0x80788178, 0x8e788a78,
-> -	0x8e788178, 0xb8ee1605,
-> -	0x806e816e, 0x8e6e866e,
-> -	0x80786e78, 0x8078ff78,
-> -	0x00000080, 0xbef600ff,
-> -	0x01000000, 0xbefc0080,
-> -	0xe0510000, 0x781d0000,
-> -	0xe0510100, 0x781d0000,
-> -	0xe0510200, 0x781d0000,
-> -	0xe0510300, 0x781d0000,
-> -	0xe0510400, 0x781d0000,
-> -	0x807cff7c, 0x00000500,
-> -	0x8078ff78, 0x00000500,
-> -	0xbf0a6f7c, 0xbf85fff0,
-> +	0xbf85ffeb, 0xbf9c0000,
-> +	0xbf8200f4, 0xbef4007e,
-> +	0x8675ff7f, 0x0000ffff,
-> +	0x8775ff75, 0x00040000,
-> +	0xbef60080, 0xbef700ff,
-> +	0x00807fac, 0x866eff7f,
-> +	0x04000000, 0xbf840025,
->   	0xbefe00c1, 0xbeff00c1,
-> +	0xb8ef5306, 0x866fc16f,
-> +	0xbf840020, 0x8e6f866f,
-> +	0x8e6f826f, 0xbef6006f,
-> +	0xb8f82985, 0x80788178,
-> +	0x8e788a78, 0x8e788178,
-> +	0xb8ee1605, 0x806e816e,
-> +	0x8e6e866e, 0x80786e78,
-> +	0x8078ff78, 0x00000080,
->   	0xbef600ff, 0x01000000,
-> -	0xb8ef2b05, 0x806f816f,
-> -	0x8e6f826f, 0x806fff6f,
-> -	0x00008000, 0xbef80080,
-> -	0xbeee0078, 0x8078ff78,
-> -	0x00000400, 0xbefc0084,
-> +	0xbefc0080, 0xe0510000,
-> +	0x781d0000, 0xe0510100,
-> +	0x781d0000, 0xe0510200,
-> +	0x781d0000, 0xe0510300,
-> +	0x781d0000, 0xe0510400,
-> +	0x781d0000, 0x807cff7c,
-> +	0x00000500, 0x8078ff78,
-> +	0x00000500, 0xbf0a6f7c,
-> +	0xbf85fff0, 0xbefe00c1,
-> +	0xbeff00c1, 0xbef600ff,
-> +	0x01000000, 0xb8ef2b05,
-> +	0x806f816f, 0x8e6f826f,
-> +	0x806fff6f, 0x00008000,
-> +	0xbef80080, 0xbeee0078,
-> +	0x8078ff78, 0x00000400,
-> +	0xbefc0084, 0xbf11087c,
-> +	0xe0524000, 0x781d0000,
-> +	0xe0524100, 0x781d0100,
-> +	0xe0524200, 0x781d0200,
-> +	0xe0524300, 0x781d0300,
-> +	0xbf8c0f70, 0x7e000300,
-> +	0x7e020301, 0x7e040302,
-> +	0x7e060303, 0x807c847c,
-> +	0x8078ff78, 0x00000400,
-> +	0xbf0a6f7c, 0xbf85ffee,
-> +	0xb8ef2985, 0x806f816f,
-> +	0x8e6f836f, 0xb8f92b05,
-> +	0x80798179, 0x8e798279,
-> +	0x80ef796f, 0x866f6f6f,
-> +	0xbf84001a, 0x806fff6f,
-> +	0x00008000, 0xbefc0080,
->   	0xbf11087c, 0xe0524000,
->   	0x781d0000, 0xe0524100,
->   	0x781d0100, 0xe0524200,
->   	0x781d0200, 0xe0524300,
->   	0x781d0300, 0xbf8c0f70,
-> -	0x7e000300, 0x7e020301,
-> -	0x7e040302, 0x7e060303,
-> +	0xd3d94000, 0x18000100,
-> +	0xd3d94001, 0x18000101,
-> +	0xd3d94002, 0x18000102,
-> +	0xd3d94003, 0x18000103,
->   	0x807c847c, 0x8078ff78,
->   	0x00000400, 0xbf0a6f7c,
-> -	0xbf85ffee, 0xb8ef2985,
-> -	0x806f816f, 0x8e6f836f,
-> -	0xb8f92b05, 0x80798179,
-> -	0x8e798279, 0x80ef796f,
-> -	0x866f6f6f, 0xbf84001a,
-> -	0x806fff6f, 0x00008000,
-> -	0xbefc0080, 0xbf11087c,
-> -	0xe0524000, 0x781d0000,
-> -	0xe0524100, 0x781d0100,
-> -	0xe0524200, 0x781d0200,
-> -	0xe0524300, 0x781d0300,
-> -	0xbf8c0f70, 0xd3d94000,
-> -	0x18000100, 0xd3d94001,
-> -	0x18000101, 0xd3d94002,
-> -	0x18000102, 0xd3d94003,
-> -	0x18000103, 0x807c847c,
-> -	0x8078ff78, 0x00000400,
-> -	0xbf0a6f7c, 0xbf85ffea,
-> -	0xbf9c0000, 0xe0524000,
-> -	0x6e1d0000, 0xe0524100,
-> -	0x6e1d0100, 0xe0524200,
-> -	0x6e1d0200, 0xe0524300,
-> -	0x6e1d0300, 0xbf8c0f70,
-> -	0xb8f82985, 0x80788178,
-> -	0x8e788a78, 0x8e788178,
-> -	0xb8ee1605, 0x806e816e,
-> -	0x8e6e866e, 0x80786e78,
-> -	0x80f8c078, 0xb8ef1605,
-> -	0x806f816f, 0x8e6f846f,
-> -	0x8e76826f, 0xbef600ff,
-> -	0x01000000, 0xbefc006f,
-> -	0xc031003a, 0x00000078,
-> -	0x80f8c078, 0xbf8cc07f,
-> -	0x80fc907c, 0xbf800000,
-> -	0xbe802d00, 0xbe822d02,
-> -	0xbe842d04, 0xbe862d06,
-> -	0xbe882d08, 0xbe8a2d0a,
-> -	0xbe8c2d0c, 0xbe8e2d0e,
-> -	0xbf06807c, 0xbf84fff0,
-> -	0xb8f82985, 0x80788178,
-> -	0x8e788a78, 0x8e788178,
-> -	0xb8ee1605, 0x806e816e,
-> -	0x8e6e866e, 0x80786e78,
-> -	0xbef60084, 0xbef600ff,
-> -	0x01000000, 0xc0211bfa,
-> +	0xbf85ffea, 0xbf9c0000,
-> +	0xe0524000, 0x6e1d0000,
-> +	0xe0524100, 0x6e1d0100,
-> +	0xe0524200, 0x6e1d0200,
-> +	0xe0524300, 0x6e1d0300,
-> +	0xbf8c0f70, 0xb8f82985,
-> +	0x80788178, 0x8e788a78,
-> +	0x8e788178, 0xb8ee1605,
-> +	0x806e816e, 0x8e6e866e,
-> +	0x80786e78, 0x80f8c078,
-> +	0xb8ef1605, 0x806f816f,
-> +	0x8e6f846f, 0x8e76826f,
-> +	0xbef600ff, 0x01000000,
-> +	0xbefc006f, 0xc031003a,
-> +	0x00000078, 0x80f8c078,
-> +	0xbf8cc07f, 0x80fc907c,
-> +	0xbf800000, 0xbe802d00,
-> +	0xbe822d02, 0xbe842d04,
-> +	0xbe862d06, 0xbe882d08,
-> +	0xbe8a2d0a, 0xbe8c2d0c,
-> +	0xbe8e2d0e, 0xbf06807c,
-> +	0xbf84fff0, 0xb8f82985,
-> +	0x80788178, 0x8e788a78,
-> +	0x8e788178, 0xb8ee1605,
-> +	0x806e816e, 0x8e6e866e,
-> +	0x80786e78, 0xbef60084,
-> +	0xbef600ff, 0x01000000,
-> +	0xc0211bfa, 0x00000078,
-> +	0x80788478, 0xc0211b3a,
->   	0x00000078, 0x80788478,
-> -	0xc0211b3a, 0x00000078,
-> -	0x80788478, 0xc0211b7a,
-> +	0xc0211b7a, 0x00000078,
-> +	0x80788478, 0xc0211c3a,
->   	0x00000078, 0x80788478,
-> -	0xc0211c3a, 0x00000078,
-> -	0x80788478, 0xc0211c7a,
-> +	0xc0211c7a, 0x00000078,
-> +	0x80788478, 0xc0211eba,
->   	0x00000078, 0x80788478,
-> -	0xc0211eba, 0x00000078,
-> -	0x80788478, 0xc0211efa,
-> +	0xc0211efa, 0x00000078,
-> +	0x80788478, 0xc0211a3a,
->   	0x00000078, 0x80788478,
-> -	0xc0211a3a, 0x00000078,
-> -	0x80788478, 0xc0211a7a,
-> +	0xc0211a7a, 0x00000078,
-> +	0x80788478, 0xc0211cfa,
->   	0x00000078, 0x80788478,
-> -	0xc0211cfa, 0x00000078,
-> -	0x80788478, 0xbf8cc07f,
-> -	0xbefc006f, 0xbefe0070,
-> -	0xbeff0071, 0x866f7bff,
-> -	0x000003ff, 0xb96f4803,
-> -	0x866f7bff, 0xfffff800,
-> -	0x8f6f8b6f, 0xb96fa2c3,
-> -	0xb973f801, 0xb8ee2985,
-> -	0x806e816e, 0x8e6e8a6e,
-> -	0x8e6e816e, 0xb8ef1605,
-> -	0x806f816f, 0x8e6f866f,
-> -	0x806e6f6e, 0x806e746e,
-> -	0x826f8075, 0x866fff6f,
-> -	0x0000ffff, 0xc00b1c37,
-> -	0x00000050, 0xc00b1d37,
-> -	0x00000060, 0xc0031e77,
-> -	0x00000074, 0xbf8cc07f,
-> -	0x8f6e8b79, 0x866eff6e,
-> -	0x001f8000, 0xb96ef807,
-> -	0x866dff6d, 0x0000ffff,
-> -	0x86fe7e7e, 0x86ea6a6a,
-> -	0x8f6e837a, 0xb96ee0c2,
-> -	0xbf800002, 0xb97a0002,
-> -	0xbf8a0000, 0xbe801f6c,
-> -	0xbf9b0000, 0x00000000,
-> +	0xbf8cc07f, 0xbefc006f,
-> +	0xbefe0070, 0xbeff0071,
-> +	0x866f7bff, 0x000003ff,
-> +	0xb96f4803, 0x866f7bff,
-> +	0xfffff800, 0x8f6f8b6f,
-> +	0xb96fa2c3, 0xb973f801,
-> +	0xb8ee2985, 0x806e816e,
-> +	0x8e6e8a6e, 0x8e6e816e,
-> +	0xb8ef1605, 0x806f816f,
-> +	0x8e6f866f, 0x806e6f6e,
-> +	0x806e746e, 0x826f8075,
-> +	0x866fff6f, 0x0000ffff,
-> +	0xc00b1c37, 0x00000050,
-> +	0xc00b1d37, 0x00000060,
-> +	0xc0031e77, 0x00000074,
-> +	0xbf8cc07f, 0x8f6e8b79,
-> +	0x866eff6e, 0x001f8000,
-> +	0xb96ef807, 0x866dff6d,
-> +	0x0000ffff, 0x86fe7e7e,
-> +	0x86ea6a6a, 0x8f6e837a,
-> +	0xb96ee0c2, 0xbf800002,
-> +	0xb97a0002, 0xbf8a0000,
-> +	0xbe801f6c, 0xbf9b0000,
->   };
-
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 2025-01-09 12:14, Felix Kuehling
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:4925dfbe-9a0f-4c73-989f-d2b1d7784161@amd.com">
+      <br>
+      On 2025-01-08 20:11, Philip Yang wrote:
+      <br>
+      <blockquote type="cite">
+        <br>
+        <br>
+        On 2025-01-07 22:08, Deng, Emily wrote:
+        <br>
+        <blockquote type="cite">
+          <br>
+          [AMD Official Use Only - AMD Internal Distribution Only]
+          <br>
+          <br>
+          <br>
+          Hi Philip,
+          <br>
+          <br>
+          It still has the deadlock, maybe the best way is trying to
+          remove the delayed free pt work.
+          <br>
+          <br>
+          [Wed Jan&nbsp; 8 10:35:44 2025 &lt;&nbsp;&nbsp;&nbsp; 0.000000&gt;] INFO: task
+          kfdtest:5827 blocked for more than 122 seconds.
+          <br>
+          <br>
+          [Wed Jan&nbsp; 8 10:35:44 2025 &lt;&nbsp;&nbsp;&nbsp; 0.000290&gt;] Tainted:
+          G&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; OE K&nbsp;&nbsp; 5.10.134-17.2.al8.x86_64 #1
+          <br>
+          <br>
+          [Wed Jan&nbsp; 8 10:35:44 2025 &lt;&nbsp;&nbsp;&nbsp; 0.000243&gt;] &quot;echo 0 &gt;
+          /proc/sys/kernel/hung_task_timeout_secs&quot; disables this
+          message.
+          <br>
+          <br>
+          [Wed Jan&nbsp; 8 10:35:44 2025 &lt;&nbsp;&nbsp;&nbsp; 0.000317&gt;]
+          task:kfdtest&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; state:D stack:&nbsp;&nbsp;&nbsp; 0 pid: 5827 ppid:&nbsp; 5756
+          flags:0x00004080
+          <br>
+          <br>
+          [Wed Jan&nbsp; 8 10:35:44 2025 &lt;&nbsp;&nbsp;&nbsp; 0.000002&gt;] Call Trace:
+          <br>
+          <br>
+          [Wed Jan&nbsp; 8 10:35:44 2025 &lt;&nbsp;&nbsp;&nbsp; 0.000006&gt;]
+          __schedule+0x1ba/0x490
+          <br>
+          <br>
+          [Wed Jan&nbsp; 8 10:35:44 2025 &lt;&nbsp;&nbsp;&nbsp; 0.000002&gt;]&nbsp; ?
+          usleep_range+0x90/0x90
+          <br>
+          <br>
+          [Wed Jan&nbsp; 8 10:35:44 2025 &lt;&nbsp;&nbsp;&nbsp; 0.000002&gt;]
+          schedule+0x46/0xb0
+          <br>
+          <br>
+          [Wed Jan&nbsp; 8 10:35:44 2025 &lt;&nbsp;&nbsp;&nbsp; 0.000001&gt;]
+          schedule_timeout+0x12a/0x140
+          <br>
+          <br>
+          [Wed Jan&nbsp; 8 10:35:44 2025 &lt;&nbsp;&nbsp;&nbsp; 0.000003&gt;]&nbsp; ?
+          __prepare_to_swait+0x4f/0x70
+          <br>
+          <br>
+          [Wed Jan&nbsp; 8 10:35:44 2025 &lt;&nbsp;&nbsp;&nbsp; 0.000002&gt;]
+          __wait_for_common+0xb1/0x160
+          <br>
+          <br>
+          [Wed Jan&nbsp; 8 10:35:44 2025 &lt;&nbsp;&nbsp;&nbsp; 0.000004&gt;]
+          flush_workqueue+0x12f/0x410
+          <br>
+          <br>
+          [Wed Jan&nbsp; 8 10:35:44 2025 &lt;&nbsp;&nbsp;&nbsp; 0.000126&gt;]
+          svm_range_map_to_gpu+0x1b8/0x730 [amdgpu]
+          <br>
+          <br>
+          [Wed Jan&nbsp; 8 10:35:44 2025 &lt;&nbsp;&nbsp;&nbsp; 0.000078&gt;]
+          svm_range_validate_and_map+0x978/0xd30 [amdgpu]
+          <br>
+          <br>
+          [Wed Jan&nbsp; 8 10:35:44 2025 &lt;&nbsp;&nbsp;&nbsp; 0.000065&gt;]
+          svm_range_set_attr+0x55f/0xb20 [amdgpu]
+          <br>
+          <br>
+          [Wed Jan&nbsp; 8 10:35:44 2025 &lt;&nbsp;&nbsp;&nbsp; 0.000060&gt;]
+          kfd_ioctl+0x208/0x540 [amdgpu]
+          <br>
+          <br>
+          [Wed Jan&nbsp; 8 10:35:44 2025 &lt;&nbsp;&nbsp;&nbsp; 0.000058&gt;]&nbsp; ?
+          kfd_ioctl_set_xnack_mode+0xd0/0xd0 [amdgpu]
+          <br>
+          <br>
+          [Wed Jan&nbsp; 8 10:35:44 2025 &lt;&nbsp;&nbsp;&nbsp; 0.000004&gt;]&nbsp; ?
+          vm_mmap_pgoff+0xf2/0x120
+          <br>
+          <br>
+          [Wed Jan&nbsp; 8 10:35:44 2025 &lt;&nbsp;&nbsp;&nbsp; 0.000002&gt;]
+          __x64_sys_ioctl+0x88/0xc0
+          <br>
+          <br>
+          [Wed Jan&nbsp; 8 10:35:44 2025 &lt;&nbsp;&nbsp;&nbsp; 0.000003&gt;]
+          do_syscall_64+0x2e/0x50
+          <br>
+          <br>
+          [Wed Jan&nbsp; 8 10:35:44 2025 &lt;&nbsp;&nbsp;&nbsp; 0.000002&gt;]
+          entry_SYSCALL_64_after_hwframe+0x62/0xc7
+          <br>
+          <br>
+          [Wed Jan&nbsp; 8 10:35:44 2025 &lt;&nbsp;&nbsp;&nbsp; 0.000008&gt;] RIP:
+          0033:0x7f8c472617db
+          <br>
+          <br>
+          [Wed Jan&nbsp; 8 10:35:44 2025 &lt;&nbsp;&nbsp;&nbsp; 0.000001&gt;] RSP:
+          002b:00007ffd2908a688 EFLAGS: 00000246 ORIG_RAX:
+          0000000000000010
+          <br>
+          <br>
+          [Wed Jan&nbsp; 8 10:35:44 2025 &lt;&nbsp;&nbsp;&nbsp; 0.000002&gt;] RAX:
+          ffffffffffffffda RBX: 00007ffd2908a6fc RCX: 00007f8c472617db
+          <br>
+          <br>
+          [Wed Jan&nbsp; 8 10:35:44 2025 &lt;&nbsp;&nbsp;&nbsp; 0.000002&gt;] RDX:
+          00007ffd2908a6c0 RSI: 00000000c0384b20 RDI: 0000000000000003
+          <br>
+          <br>
+          [Wed Jan&nbsp; 8 10:35:44 2025 &lt;&nbsp;&nbsp;&nbsp; 0.000000&gt;] RBP:
+          00007ffd2908a6c0 R08: 0000000000000000 R09: 0000000000000000
+          <br>
+          <br>
+          [Wed Jan&nbsp; 8 10:35:44 2025 &lt;&nbsp;&nbsp;&nbsp; 0.000001&gt;] R10:
+          00007f70f467f000 R11: 0000000000000246 R12: 00000000c0384b20
+          <br>
+          <br>
+          [Wed Jan&nbsp; 8 10:35:44 2025 &lt;&nbsp;&nbsp;&nbsp; 0.000000&gt;] R13:
+          0000000000000003 R14: 0000000000200000 R15: 00007ffd2908a770
+          <br>
+          <br>
+          [Wed Jan&nbsp; 8 10:35:44 2025 &lt;&nbsp;&nbsp;&nbsp; 0.000003&gt;] INFO: task
+          kworker/u129:7:5942 blocked for more than 122 seconds.
+          <br>
+          <br>
+          [Wed Jan&nbsp; 8 10:35:44 2025 &lt;&nbsp;&nbsp;&nbsp; 0.001897&gt;] Tainted:
+          G&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; OE K&nbsp;&nbsp; 5.10.134-17.2.al8.x86_64 #1
+          <br>
+          <br>
+          [Wed Jan&nbsp; 8 10:35:44 2025 &lt;&nbsp;&nbsp;&nbsp; 0.000247&gt;] &quot;echo 0 &gt;
+          /proc/sys/kernel/hung_task_timeout_secs&quot; disables this
+          message.
+          <br>
+          <br>
+          [Wed Jan&nbsp; 8 10:35:44 2025 &lt;&nbsp;&nbsp;&nbsp; 0.000315&gt;]
+          task:kworker/u129:7&nbsp; state:D stack:&nbsp;&nbsp;&nbsp; 0 pid: 5942 ppid:&nbsp;&nbsp;&nbsp;&nbsp; 2
+          flags:0x00004080
+          <br>
+          <br>
+          [Wed Jan&nbsp; 8 10:35:44 2025 &lt;&nbsp;&nbsp;&nbsp; 0.000067&gt;] Workqueue:
+          amdgpu_recycle amdgpu_vm_pt_free_work [amdgpu]
+          <br>
+          <br>
+          [Wed Jan&nbsp; 8 10:35:44 2025 &lt;&nbsp;&nbsp;&nbsp; 0.000002&gt;] Call Trace:
+          <br>
+          <br>
+          [Wed Jan&nbsp; 8 10:35:44 2025 &lt;&nbsp;&nbsp;&nbsp; 0.000003&gt;]
+          __schedule+0x1ba/0x490
+          <br>
+          <br>
+          [Wed Jan&nbsp; 8 10:35:44 2025 &lt;&nbsp;&nbsp;&nbsp; 0.000002&gt;]&nbsp; ?
+          newidle_balance+0x16a/0x3b0
+          <br>
+          <br>
+          [Wed Jan&nbsp; 8 10:35:44 2025 &lt;&nbsp;&nbsp;&nbsp; 0.000001&gt;]
+          schedule+0x46/0xb0
+          <br>
+          <br>
+          [Wed Jan&nbsp; 8 10:35:44 2025 &lt;&nbsp;&nbsp;&nbsp; 0.000002&gt;]
+          schedule_preempt_disabled+0xa/0x10
+          <br>
+          <br>
+          [Wed Jan&nbsp; 8 10:35:44 2025 &lt;&nbsp;&nbsp;&nbsp; 0.000001&gt;]
+          __ww_mutex_lock.constprop.0+0x390/0x6e0
+          <br>
+          <br>
+          [Wed Jan&nbsp; 8 10:35:44 2025 &lt;&nbsp;&nbsp;&nbsp; 0.000045&gt;]
+          amdgpu_vm_pt_free_work+0x97/0x160 [amdgpu]
+          <br>
+          <br>
+          [Wed Jan&nbsp; 8 10:35:44 2025 &lt;&nbsp;&nbsp;&nbsp; 0.000003&gt;]
+          process_one_work+0x1ad/0x380
+          <br>
+          <br>
+          [Wed Jan&nbsp; 8 10:35:44 2025 &lt;&nbsp;&nbsp;&nbsp; 0.000001&gt;]
+          worker_thread+0x49/0x310
+          <br>
+          <br>
+          [Wed Jan&nbsp; 8 10:35:44 2025 &lt;&nbsp;&nbsp;&nbsp; 0.000001&gt;]&nbsp; ?
+          process_one_work+0x380/0x380
+          <br>
+          <br>
+          [Wed Jan&nbsp; 8 10:35:44 2025 &lt;&nbsp;&nbsp;&nbsp; 0.000001&gt;]
+          kthread+0x118/0x140
+          <br>
+          <br>
+          [Wed Jan&nbsp; 8 10:35:44 2025 &lt;&nbsp;&nbsp;&nbsp; 0.000002&gt;]&nbsp; ?
+          __kthread_bind_mask+0x60/0x60
+          <br>
+          <br>
+          [Wed Jan&nbsp; 8 10:35:44 2025 &lt;&nbsp;&nbsp;&nbsp; 0.000002&gt;]
+          ret_from_fork+0x1f/0x30
+          <br>
+          <br>
+        </blockquote>
+        Move flush_workqueue to the beginning of
+        svm_range_validate_and_map should fix the deadlock, deadlock is
+        because it is after svm_range_reserve_bos. Also there is no
+        concurrent unmap mmu notifier callback to free pt bo as mmap
+        read lock is taken outside svm_range_validate_and_map.
+        <br>
+        <br>
+      </blockquote>
+      I don't think the mmap_read_lock protects you from concurrent MMU
+      notifiers. I believe we have made that assumption in the past and
+      it proved to be incorrect.
+      <br>
+      <br>
+    </blockquote>
+    <p>Thanks for the reminding, yes, if we cannot prevent concurrent
+      MMU notifier, there is race condition, flush work can not fix the
+      issue completely.</p>
+    <p>We are testing another approach , unmap only clear page table
+      leaves.</p>
+    <p>Regards,</p>
+    <p>Philip<br>
+    </p>
+    <blockquote type="cite" cite="mid:4925dfbe-9a0f-4c73-989f-d2b1d7784161@amd.com">Regards,
+      <br>
+      &nbsp; Felix
+      <br>
+      <br>
+      <br>
+      <blockquote type="cite">Ideally it is enough to flush work
+        amdgpu_vm_pt_free_work (not flush queue system_wq), but
+        svm_range_validate_and_map cannot get the correct vm to flush.
+        <br>
+        <br>
+        adev-&gt;wq is shared by all processes and all xcp partitions,
+        maybe better to add wq to KFD process info, but right now
+        amdgpu_vm_update_range cannot access KFD process info.
+        <br>
+        <br>
+        Regards,
+        <br>
+        <br>
+        Philip
+        <br>
+        <br>
+        <br>
+        <blockquote type="cite">Emily Deng
+          <br>
+          <br>
+          Best Wishes
+          <br>
+          <br>
+          *From:*amd-gfx <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx-bounces@lists.freedesktop.org">&lt;amd-gfx-bounces@lists.freedesktop.org&gt;</a>
+          *On Behalf Of *Deng, Emily
+          <br>
+          *Sent:* Wednesday, January 8, 2025 8:34 AM
+          <br>
+          *To:* Yang, Philip <a class="moz-txt-link-rfc2396E" href="mailto:Philip.Yang@amd.com">&lt;Philip.Yang@amd.com&gt;</a>; Kuehling,
+          Felix <a class="moz-txt-link-rfc2396E" href="mailto:Felix.Kuehling@amd.com">&lt;Felix.Kuehling@amd.com&gt;</a>;
+          <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>; Koenig, Christian
+          <a class="moz-txt-link-rfc2396E" href="mailto:Christian.Koenig@amd.com">&lt;Christian.Koenig@amd.com&gt;</a>
+          <br>
+          *Subject:* RE: [PATCH v2] drm/amdgpu: Fix the looply call
+          svm_range_restore_pages issue
+          <br>
+          <br>
+          [AMD Official Use Only - AMD Internal Distribution Only]
+          <br>
+          <br>
+          [AMD Official Use Only - AMD Internal Distribution Only]
+          <br>
+          <br>
+          *From:*Yang, Philip <a class="moz-txt-link-rfc2396E" href="mailto:Philip.Yang@amd.com">&lt;Philip.Yang@amd.com&gt;</a>
+          <br>
+          *Sent:* Tuesday, January 7, 2025 11:19 PM
+          <br>
+          *To:* Deng, Emily <a class="moz-txt-link-rfc2396E" href="mailto:Emily.Deng@amd.com">&lt;Emily.Deng@amd.com&gt;</a>; Kuehling, Felix
+          <a class="moz-txt-link-rfc2396E" href="mailto:Felix.Kuehling@amd.com">&lt;Felix.Kuehling@amd.com&gt;</a>; <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>;
+          Yang, Philip <a class="moz-txt-link-rfc2396E" href="mailto:Philip.Yang@amd.com">&lt;Philip.Yang@amd.com&gt;</a>; Koenig, Christian
+          <a class="moz-txt-link-rfc2396E" href="mailto:Christian.Koenig@amd.com">&lt;Christian.Koenig@amd.com&gt;</a>
+          <br>
+          *Subject:* Re: [PATCH v2] drm/amdgpu: Fix the looply call
+          svm_range_restore_pages issue
+          <br>
+          <br>
+          On 2025-01-07 07:30, Deng, Emily wrote:
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp; [AMD Official Use Only - AMD Internal Distribution Only]
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp; Hi Felix,
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; You are right, it is easily to hit deadlock, don't
+          know why LOCKDEP doesn't catch this. Need to find another
+          solution.
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp; Hi Philip,
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; Do you have a solution for this delay free pt?
+          <br>
+          <br>
+          Thanks for debugging this case, I had a patch to not free PTB
+          bo when unmapping from GPU, but it will waste VRAM memory. My
+          test case also passed with the tlb flush fence fix, I don't
+          see the no-retry fault generated any more.
+          <br>
+          <br>
+          The deadlock is probably from svm_range_unmap_from_gpu -&gt;
+          flush_workqueue(adev-&gt;wq), this is from mmu notifier
+          callback, actually we only need flush pt_free_work before
+          mapping to gpu, please remove the flush_workqueue in unmap
+          from gpu. If deadlock still happens, please post the
+          backtrace.
+          <br>
+          <br>
+          [Emily]Yes, you are right, will try to remove flush_workqueue
+          in unmap from gpu to have a try. Will send a v3.
+          <br>
+          <br>
+          I think you don't need add new adev-&gt;wq, use default
+          system_wq and flush_work.
+          <br>
+          <br>
+          [Emily]No, it doesn’t allow to flush a system_wq in driver, it
+          will trigger a kernel warning, as lots of other work will be
+          put in system_wq. I have tried this.
+          <br>
+          <br>
+          Regards,
+          <br>
+          <br>
+          Philip
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp; Emily Deng
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp; Best Wishes
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -----Original Message-----
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; From: Deng, Emily<a class="moz-txt-link-rfc2396E" href="mailto:Emily.Deng@amd.com">&lt;Emily.Deng@amd.com&gt;</a>&nbsp;
+          <a class="moz-txt-link-rfc2396E" href="mailto:Emily.Deng@amd.com">&lt;mailto:Emily.Deng@amd.com&gt;</a>
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Sent: Tuesday, January 7, 2025 10:34 AM
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; To: Deng, Emily<a class="moz-txt-link-rfc2396E" href="mailto:Emily.Deng@amd.com">&lt;Emily.Deng@amd.com&gt;</a>&nbsp;
+          <a class="moz-txt-link-rfc2396E" href="mailto:Emily.Deng@amd.com">&lt;mailto:Emily.Deng@amd.com&gt;</a>; Kuehling, Felix
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a class="moz-txt-link-rfc2396E" href="mailto:Felix.Kuehling@amd.com">&lt;Felix.Kuehling@amd.com&gt;</a>&nbsp;
+          <a class="moz-txt-link-rfc2396E" href="mailto:Felix.Kuehling@amd.com">&lt;mailto:Felix.Kuehling@amd.com&gt;</a>;amd-gfx@lists.freedesktop.org;
+          Yang, Philip
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a class="moz-txt-link-rfc2396E" href="mailto:Philip.Yang@amd.com">&lt;Philip.Yang@amd.com&gt;</a>&nbsp;
+          <a class="moz-txt-link-rfc2396E" href="mailto:Philip.Yang@amd.com">&lt;mailto:Philip.Yang@amd.com&gt;</a>; Koenig,
+          Christian<a class="moz-txt-link-rfc2396E" href="mailto:Christian.Koenig@amd.com">&lt;Christian.Koenig@amd.com&gt;</a>&nbsp;
+          <a class="moz-txt-link-rfc2396E" href="mailto:Christian.Koenig@amd.com">&lt;mailto:Christian.Koenig@amd.com&gt;</a>
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Subject: RE: [PATCH v2] drm/amdgpu: Fix the looply
+          call svm_range_restore_pages
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; issue
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [AMD Official Use Only - AMD Internal Distribution
+          Only]
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ping....
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; How about this? Currently it is easily to reproduce
+          the issue on our environment. We
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; need this change to fix it.
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Emily Deng
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Best Wishes
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -----Original Message-----
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; From:
+          amd-gfx<a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx-bounces@lists.freedesktop.org">&lt;amd-gfx-bounces@lists.freedesktop.org&gt;</a>&nbsp;
+          <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx-bounces@lists.freedesktop.org">&lt;mailto:amd-gfx-bounces@lists.freedesktop.org&gt;</a>&nbsp; On
+          Behalf Of
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Deng, Emily
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Sent: Monday, January 6, 2025 9:52 AM
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; To: Kuehling, Felix<a class="moz-txt-link-rfc2396E" href="mailto:Felix.Kuehling@amd.com">&lt;Felix.Kuehling@amd.com&gt;</a>&nbsp;
+          <a class="moz-txt-link-rfc2396E" href="mailto:Felix.Kuehling@amd.com">&lt;mailto:Felix.Kuehling@amd.com&gt;</a>;
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>; Yang,
+          Philip<a class="moz-txt-link-rfc2396E" href="mailto:Philip.Yang@amd.com">&lt;Philip.Yang@amd.com&gt;</a>&nbsp;
+          <a class="moz-txt-link-rfc2396E" href="mailto:Philip.Yang@amd.com">&lt;mailto:Philip.Yang@amd.com&gt;</a>;
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Koenig, Christian<a class="moz-txt-link-rfc2396E" href="mailto:Christian.Koenig@amd.com">&lt;Christian.Koenig@amd.com&gt;</a>&nbsp;
+          <a class="moz-txt-link-rfc2396E" href="mailto:Christian.Koenig@amd.com">&lt;mailto:Christian.Koenig@amd.com&gt;</a>
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Subject: RE: [PATCH v2] drm/amdgpu: Fix the looply
+          call
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; svm_range_restore_pages issue
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [AMD Official Use Only - AMD Internal Distribution
+          Only]
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [AMD Official Use Only - AMD Internal Distribution
+          Only]
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -----Original Message-----
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; From: Kuehling,
+          Felix<a class="moz-txt-link-rfc2396E" href="mailto:Felix.Kuehling@amd.com">&lt;Felix.Kuehling@amd.com&gt;</a>&nbsp;
+          <a class="moz-txt-link-rfc2396E" href="mailto:Felix.Kuehling@amd.com">&lt;mailto:Felix.Kuehling@amd.com&gt;</a>
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Sent: Saturday, January 4, 2025 7:18 AM
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; To: Deng, Emily<a class="moz-txt-link-rfc2396E" href="mailto:Emily.Deng@amd.com">&lt;Emily.Deng@amd.com&gt;</a>&nbsp;
+          <a class="moz-txt-link-rfc2396E" href="mailto:Emily.Deng@amd.com">&lt;mailto:Emily.Deng@amd.com&gt;</a>;amd-gfx@lists.freedesktop.org;
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Yang, Philip<a class="moz-txt-link-rfc2396E" href="mailto:Philip.Yang@amd.com">&lt;Philip.Yang@amd.com&gt;</a>&nbsp;
+          <a class="moz-txt-link-rfc2396E" href="mailto:Philip.Yang@amd.com">&lt;mailto:Philip.Yang@amd.com&gt;</a>; Koenig, Christian
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a class="moz-txt-link-rfc2396E" href="mailto:Christian.Koenig@amd.com">&lt;Christian.Koenig@amd.com&gt;</a>&nbsp;
+          <a class="moz-txt-link-rfc2396E" href="mailto:Christian.Koenig@amd.com">&lt;mailto:Christian.Koenig@amd.com&gt;</a>
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Subject: Re: [PATCH v2] drm/amdgpu: Fix the
+          looply call
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; svm_range_restore_pages issue
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; On 2025-01-02 21:26, Emily Deng wrote:
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; As the delayed free pt, the wanted freed
+          bo has been reused which
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; will cause unexpected page fault, and then
+          call svm_range_restore_pages.
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Detail as below:
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.It wants to free the pt in follow code,
+          but it is not freed
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; immediately and used
+          “schedule_work(&amp;vm-&gt;pt_free_work);”.
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [&nbsp;&nbsp; 92.276838] Call Trace:
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [&nbsp;&nbsp; 92.276841]&nbsp; dump_stack+0x63/0xa0
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [&nbsp;&nbsp; 92.276887]&nbsp;
+          amdgpu_vm_pt_free_list+0xfb/0x120 [amdgpu]
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [&nbsp;&nbsp; 92.276932]&nbsp;
+          amdgpu_vm_update_range+0x69c/0x8e0 [amdgpu]
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [&nbsp;&nbsp; 92.276990]&nbsp;
+          svm_range_unmap_from_gpus+0x112/0x310 [amdgpu]
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [&nbsp;&nbsp; 92.277046]&nbsp;
+          svm_range_cpu_invalidate_pagetables+0x725/0x780 [amdgpu]
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [&nbsp;&nbsp; 92.277050]&nbsp; ?
+          __alloc_pages_nodemask+0x19f/0x3e0
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [&nbsp;&nbsp; 92.277051]&nbsp;
+          mn_itree_invalidate+0x72/0xc0
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [&nbsp;&nbsp; 92.277052]&nbsp;
+          __mmu_notifier_invalidate_range_start+0x48/0x60
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [&nbsp;&nbsp; 92.277054]&nbsp;
+          migrate_vma_collect+0xf6/0x100
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [&nbsp;&nbsp; 92.277055]&nbsp;
+          migrate_vma_setup+0xcf/0x120
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [&nbsp;&nbsp; 92.277109]&nbsp;
+          svm_migrate_ram_to_vram+0x256/0x6b0 [amdgpu]
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.Call
+          svm_range_map_to_gpu-&gt;amdgpu_vm_update_range to update the
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; page table, at this time it will use the
+          same entry bo which is the
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; want free bo in step1.
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3.Then it executes the pt_free_work to
+          free the bo. At this time,
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; the GPU access memory will cause page
+          fault as pt bo has been freed.
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; And then it will call
+          svm_range_restore_pages again.
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; How to fix?
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Add a workqueue, and flush the workqueue
+          each time before updating page
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; table.
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I think this is kind of a known issue in the
+          GPUVM code. Philip was
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; looking at it before.
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Just flushing a workqueue may seem like a
+          simple and elegant solution,
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; but I'm afraid it introduces lock dependency
+          issues. By flushing the
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; workqueue, you're effectively creating a lock
+          dependency of the MMU
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; notifier on any locks held inside the worker
+          function. You now get a
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; circular lock dependency with any of those
+          locks and memory reclaim. I
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; think LOCKDEP would be able to catch that if
+          you compile your kernel
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; with that
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; feature enabled.
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The proper solution is to prevent delayed
+          freeing of page tables if
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; they happened to get reused, or prevent reuse
+          of page tables if they
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; are flagged for
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; delayed freeing.
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Regards,
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; Felix
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Thanks, already enabled LOCKDEP while compiling
+          the kernel. The delay
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; work seems for other reasons, I am not sure
+          whether it could be deleted completely.
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Emily Deng
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Best Wishes
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Signed-off-by: Emily
+          Deng<a class="moz-txt-link-rfc2396E" href="mailto:Emily.Deng@amd.com">&lt;Emily.Deng@amd.com&gt;</a>&nbsp;
+          <a class="moz-txt-link-rfc2396E" href="mailto:Emily.Deng@amd.com">&lt;mailto:Emily.Deng@amd.com&gt;</a>
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ---
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
+          drivers/gpu/drm/amd/amdgpu/amdgpu.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 1 +
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
+          drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 1 +
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
+          drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 7 +++++--
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
+          drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 6 +++++-
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
+          drivers/gpu/drm/amd/amdkfd/kfd_svm.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 3 +++
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; 5 files changed, 15 insertions(+), 3
+          deletions(-)
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; diff --git
+          a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; index 93c352b08969..cbf68ad1c8d0 100644
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @@ -1188,6 +1188,7 @@ struct amdgpu_device
+          {
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; struct mutex&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          enforce_isolation_mutex;
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_init_level *init_lvl;
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +&nbsp;&nbsp;&nbsp; struct workqueue_struct *wq;
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; };
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; static inline uint32_t
+          amdgpu_ip_version(const struct
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_device *adev, diff --git
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; index f30548f4c3b3..5b4835bc81b3 100644
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ---
+          a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +++
+          b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @@ -2069,6 +2069,7 @@ int
+          amdgpu_amdkfd_gpuvm_map_memory_to_gpu(
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto out;
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; }
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +&nbsp;&nbsp;&nbsp; flush_workqueue(adev-&gt;wq);
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; ret = reserve_bo_and_vm(mem, avm,
+          &amp;ctx);
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; if (unlikely(ret))
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; diff --git
+          a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; index 9d6ffe38b48a..500d97cd9114 100644
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ---
+          a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +++
+          b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @@ -2607,7 +2607,7 @@ void
+          amdgpu_vm_fini(struct amdgpu_device
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *adev,
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_vm *vm)
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; amdgpu_amdkfd_gpuvm_destroy_cb(adev,
+          vm);
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+          flush_work(&amp;vm-&gt;pt_free_work);
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +&nbsp;&nbsp;&nbsp;
+          cancel_work_sync(&amp;vm-&gt;pt_free_work);
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; root =
+          amdgpu_bo_ref(vm-&gt;root.bo);
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_reserve(root, true);
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+          amdgpu_vm_put_task_info(vm-&gt;task_info);
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @@ -2708,6 +2708,8 @@ void
+          amdgpu_vm_manager_init(struct
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_device
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *adev)
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; #endif
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+          xa_init_flags(&amp;adev-&gt;vm_manager.pasids,
+          XA_FLAGS_LOCK_IRQ);
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +&nbsp;&nbsp;&nbsp; adev-&gt;wq =
+          alloc_workqueue(&quot;amdgpu_recycle&quot;,
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          WQ_MEM_RECLAIM | WQ_HIGHPRI |
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WQ_UNBOUND, 16);
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; }
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; /**
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @@ -2721,7 +2723,8 @@ void
+          amdgpu_vm_manager_fini(struct
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_device
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *adev)
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; {
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+          WARN_ON(!xa_empty(&amp;adev-&gt;vm_manager.pasids));
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+          xa_destroy(&amp;adev-&gt;vm_manager.pasids);
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +&nbsp;&nbsp;&nbsp; flush_workqueue(adev-&gt;wq);
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +&nbsp;&nbsp;&nbsp; destroy_workqueue(adev-&gt;wq);
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; amdgpu_vmid_mgr_fini(adev);
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; }
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; diff --git
+          a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; index f78a0434a48f..1204406215ee 100644
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ---
+          a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +++
+          b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @@ -554,15 +554,19 @@ void
+          amdgpu_vm_pt_free_work(struct work_struct
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *work)
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; vm = container_of(work, struct
+          amdgpu_vm, pt_free_work);
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +&nbsp;&nbsp;&nbsp; printk(&quot;Emily:%s\n&quot;, __func__);
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; spin_lock(&amp;vm-&gt;status_lock);
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+          list_splice_init(&amp;vm-&gt;pt_freed, &amp;pt_freed);
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+          spin_unlock(&amp;vm-&gt;status_lock);
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +&nbsp;&nbsp;&nbsp; printk(&quot;Emily:%s 1\n&quot;, __func__);
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; /* flush_work in amdgpu_vm_fini
+          ensure vm-&gt;root.bo is valid. */
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_reserve(vm-&gt;root.bo,
+          true);
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +&nbsp;&nbsp;&nbsp; printk(&quot;Emily:%s 2\n&quot;, __func__);
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; list_for_each_entry_safe(entry,
+          next, &amp;pt_freed, vm_status)
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_vm_pt_free(entry);
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +&nbsp;&nbsp;&nbsp; printk(&quot;Emily:%s 3\n&quot;, __func__);
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_unreserve(vm-&gt;root.bo);
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; }
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @@ -589,7 +593,7 @@ void
+          amdgpu_vm_pt_free_list(struct amdgpu_device
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *adev,
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          spin_lock(&amp;vm-&gt;status_lock);
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          list_splice_init(&amp;params-&gt;tlb_flush_waitlist,
+          &amp;vm-&gt;pt_freed);
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          spin_unlock(&amp;vm-&gt;status_lock);
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          schedule_work(&amp;vm-&gt;pt_free_work);
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; queue_work(adev-&gt;wq,
+          &amp;vm-&gt;pt_free_work);
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return;
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; }
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; diff --git
+          a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; index 3e2911895c74..55edf96d5a95 100644
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @@ -1314,6 +1314,7 @@
+          svm_range_unmap_from_gpu(struct amdgpu_device
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *adev, struct amdgpu_vm *vm,
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; uint64_t init_pte_value = 0;
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;[0x%llx 0x%llx]\n&quot;, start,
+          last);
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +&nbsp;&nbsp;&nbsp; flush_workqueue(adev-&gt;wq);
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; return amdgpu_vm_update_range(adev,
+          vm, false, true, true,
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; false, NULL,
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; start,
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; last,
+          init_pte_value, 0, 0, NULL,
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NULL, @@ -1422,6
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +1423,8
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @@ svm_range_map_to_gpu(struct
+          kfd_process_device *pdd, struct
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; svm_range
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *prange,
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * different memory
+          partition based on fpfn/lpfn, we should use
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * same
+          vm_manager.vram_base_offset regardless memory partition.
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; flush_workqueue(adev-&gt;wq);
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =
+          amdgpu_vm_update_range(adev, vm, false, false, flush_tlb,
+          true,
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          NULL, last_start, prange-&gt;start + i,
+          <br>
+          <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          pte_flags,
+          <br>
+          <br>
+        </blockquote>
+      </blockquote>
+    </blockquote>
+  </body>
+</html>
