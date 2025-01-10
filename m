@@ -4,72 +4,145 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0AB7E77197
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Jan 2025 20:41:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25F73E7719A
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2025 01:49:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 75BCA10E48A;
-	Thu,  9 Jan 2025 20:41:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B01DA10E40A;
+	Fri, 10 Jan 2025 01:49:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="aTTkpxnX";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="TZ/lvqr9";
 	dkim-atps=neutral
-Received: from mail-pj1-x102f.google.com (mail-pj1-x102f.google.com
- [IPv6:2607:f8b0:4864:20::102f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 021B810EF1D;
- Thu,  9 Jan 2025 20:41:11 +0000 (UTC)
-Received: by mail-pj1-x102f.google.com with SMTP id
- 98e67ed59e1d1-2ef79243680so268057a91.2; 
- Thu, 09 Jan 2025 12:41:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1736455271; x=1737060071; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=EnBMCdZsTt4lglc0qQTTeSi2hHu565uzhFPcflOVKWQ=;
- b=aTTkpxnXUWUIK0hNYV13xVcDPp/ztt/UA+57C2WrfS5R6sbp3RbPXPZqxayW3B7NY/
- LSxccNaRV6w5OZ8Y9MJYAryH9bErEwCo21sCea27QfwqCIwS34KQ5rF3re3u6EIGjxJS
- FOa/Rz5KdHcaUc2GFJhvUmNF85NerdbT+LAecf/GkpQAgZVt5OGOvXRRSJpIS4Tu9B9x
- FOX5F0mRdXTMVgRa/H8GvGgNof/LFTCeBZDW/u5otdVPwPT6FVM/XN82gvzzgKcecDdM
- ROx4ZvYicv0KPi+7bR7V0ZAiCI1ht/ugAWgevFkW5wKnWlPUq/c59coVVBKiWCqRoP59
- FomA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736455271; x=1737060071;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=EnBMCdZsTt4lglc0qQTTeSi2hHu565uzhFPcflOVKWQ=;
- b=H+qRQn6ELDy4d/63Fr2MziN6SUWQDIrI0XJsEotad6M83bE3QC/vhUlf/oOig1QsQs
- KFbNuRMAEvJ0g5CQbwA78ctC2CzQsL6iidA94+7PPmk2KfF83d7ecwhxQxEq5p2906Ol
- I3ract6ja740JsrO3pSFlRY35PD0IVVQ99ii5s+n0E+rDr7BwgQGx+uXpn7LA2cAIAE0
- JozwJO+AJpNCozjpqJ4Pwkrr7IqPXhxJW7K8127cLl4x5NPGOiLpYGmMNHfRmcRl0JrA
- SR2Zk6F4JGACamYCzKx68Wm8sW/EGBhCfMyPb9ugWy62SbY1Xo1tTOSgtgMgfmXBzw6c
- Wbqw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU0skXaRrGGm080eUuGkYimmeYwkrHmaepkJh2MaD8k9t566kS/NwP9BiaFVT7VDXKAWNiD1CpekIrU@lists.freedesktop.org,
- AJvYcCX0PGWTt2aGoWS2V1+qvXOHCSY4NXYmZHoE1bvmtQHdlaBsOByxwZSbjK65fVwYURsG7Mpds1qv@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz39vliT2yIbCZLTc4ScAFEvA8BvawJ1bPUaIqx3B0VB68ZCLQE
- 698uSxf6yRii8rt9kH0RbmUpq1KMAiYT9sV9XWixOZl2bmwhQcAKoNsmdqELp9fxF2ewCq/meYF
- SC7HD9n4M56b+ag7HNNfyW9bXsuY=
-X-Gm-Gg: ASbGncuQRkWaV3I2aPKO3/W6s8RWLhzR6gyZsbl+TjEBX/+HsnBSFr44TWkG/icBlZG
- KNn3m4Hc9/ORD2T0v14WKAzUdCWhcUi+wvY9S4Q==
-X-Google-Smtp-Source: AGHT+IHll+MhthP4/+kxpxt+aFJxJLlOi1Nj/wPzNf2LzsPDLGoQqz9Z71ltvDr65wF61D7sXC8SxhSUtYfhuQrvQY0=
-X-Received: by 2002:a17:90b:51c5:b0:2ee:948b:72d3 with SMTP id
- 98e67ed59e1d1-2f548f04dfbmr4614996a91.1.1736455271361; Thu, 09 Jan 2025
- 12:41:11 -0800 (PST)
-MIME-Version: 1.0
-References: <20250109201740.GEZ4Au5ESOtQd4o1R3@fat_crate.local>
-In-Reply-To: <20250109201740.GEZ4Au5ESOtQd4o1R3@fat_crate.local>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 9 Jan 2025 15:40:59 -0500
-X-Gm-Features: AbW1kvZgRnIzZwwnKvJS1-I8KOK5TkCxSkfn0TpC9lK6xqhrEABzZDSqJqM6kek
-Message-ID: <CADnq5_OfmegA2XzeCuUNq5PmvbQrX6cdn8vPOUMf4x4BQGb5fQ@mail.gmail.com>
-Subject: Re: kmemleak: Found object by alias at 0xffff888107b65918
-To: Borislav Petkov <bp@alien8.de>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Xinhui Pan <Xinhui.Pan@amd.com>, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2071.outbound.protection.outlook.com [40.107.237.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 067BF10E162
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jan 2025 01:49:18 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gSVPZgqKG1tFXRQ47r1I8pm5hz9IMyrd5EcVkspS6Ue0oX+D8cGY4Lp9SrpsLW+uHvUp8ImvOaNabmaflRhzcLfnYql1ZocSORLIKZoBMJs46GvIAoOKnk9Es83W6egDZCNowORB9DVVo7Tlhl1fimnJXubKdINl7R4krgLC9m40+17fqZxJPfnNIibv+DiWbUnaeEjoyTCIBuhOjookdJglAHuE4ndmGQOPy6drIvXAUQGbDJdZIx+OqQEpgAxrEYB2A/WoTHJvxXVrpaHywcsd67l0bSGpFQGBAAmzMhySWU8uP2MYk/TgmG2xzdrvEykIhQ6j0fFWlD4BZXuwCA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2staEM9lvFBY4QVVOgrJRHXFeXxFqhYdQftB8WPzhx0=;
+ b=KRQ1FyFg25NKCBVAk8ARuieYssiOaGWE7/RthVnKlV+zAYYqyjfjMLFNAg/eJvUBYjud5aq7GH7ff13OBnTcOdCy1XT1SzGdH2Wz2w7n/VYr2XXd4aOO4h/0TG0q4TmXFM4JCNOLFNe5vjxt++Jez5YJDI+6L9m2KHl3/jnZqr72axO/z9/7d3WsjiLjKBstvLPA7zR7uM9cwfXom6McCpGjX1HJ8JG1RvnZm7qtyXcOHas+RMTirxTmRmNUejzysu/tKWRpVRdXxA9DGP9Xv/6Y4dFigdMV+auJitPy3UZIrQdlKTh9JO9J06SWfyx8pqE+67dK/6YK+eoF9GCPoQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2staEM9lvFBY4QVVOgrJRHXFeXxFqhYdQftB8WPzhx0=;
+ b=TZ/lvqr9li8dpG5SK+ZblomZovoy59HA1satktKzrttthEE+4j0XaxtJyr2dXZAyx9k/LyPIdPymCpJo0jdJEuKmg812v0O2cl0d+seuBMR3GhUCioF0SRWwJJ905RVsY9XsQsvDMX/enAjysro5doN+tmVUxdzem+cOkU5QR9M=
+Received: from PH7PR12MB5997.namprd12.prod.outlook.com (2603:10b6:510:1d9::21)
+ by PH7PR12MB5950.namprd12.prod.outlook.com (2603:10b6:510:1d9::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8335.11; Fri, 10 Jan
+ 2025 01:49:14 +0000
+Received: from PH7PR12MB5997.namprd12.prod.outlook.com
+ ([fe80::c5da:9b53:9d77:c708]) by PH7PR12MB5997.namprd12.prod.outlook.com
+ ([fe80::c5da:9b53:9d77:c708%4]) with mapi id 15.20.8335.011; Fri, 10 Jan 2025
+ 01:49:14 +0000
+From: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
+To: "Feng, Kenneth" <Kenneth.Feng@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Feng, Kenneth" <Kenneth.Feng@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: disable gfxoff with the compute workload on
+ gfx12
+Thread-Topic: [PATCH] drm/amdgpu: disable gfxoff with the compute workload on
+ gfx12
+Thread-Index: AQHbYnALFhdScJp2/kS+hsOTB9+rJrMPPr3Q
+Date: Fri, 10 Jan 2025 01:49:14 +0000
+Message-ID: <PH7PR12MB599782EB0198573B9C2EAFD8821C2@PH7PR12MB5997.namprd12.prod.outlook.com>
+References: <20250109082524.11102-1-kenneth.feng@amd.com>
+In-Reply-To: <20250109082524.11102-1-kenneth.feng@amd.com>
+Accept-Language: en-US, zh-CN
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=51c5fab6-acad-426b-860f-ef505f2dc228;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution Only;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-01-10T01:48:55Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH7PR12MB5997:EE_|PH7PR12MB5950:EE_
+x-ms-office365-filtering-correlation-id: 49dd9a6a-c8ef-4906-3dde-08dd3118fce0
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|7053199007|38070700018; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?7va7tp4AIg1onizz3snGvvB6Qrgkj9j4PpwdgUcOx+ugqIL9WniklcHmQNTo?=
+ =?us-ascii?Q?ibh3ycA+ssWzInFgKTkSHXdGglghSelsAl3tBXtNJ5MpOfOOtNQbcAWsSWAQ?=
+ =?us-ascii?Q?I9TxdFvBDBXIxPlM1Jq8R3odglEaI7++ryKguYYg/snbTxNim9qQF0h2E3k5?=
+ =?us-ascii?Q?FR0a/vzELSoDotU7AE9sEkXWMU+bQ99eVetEz027FUWc7fGb9LxZmcYq3STR?=
+ =?us-ascii?Q?2BmMJ6u1bqlskr4QP50P2O7oLWQ8QRVNbBpY6ohlreQZ2Vtlhik5+ZNTvejO?=
+ =?us-ascii?Q?AZpEvTkN+4tMeeDPC2LNXibmc4tqwG6u81RzZXa+WDvHABT6OiSHHLDJ36G/?=
+ =?us-ascii?Q?EA5eSs0s5XO9XJbzKwYF+4trhPjIjr8NtvvXZFSfV68GQLE+ZJC1m/GjtZes?=
+ =?us-ascii?Q?I6EC0eMLL1nAncUGATJ8Ie3Fnw7gTVKVuN/fa6prmzk/beg7HOImWi30pS1g?=
+ =?us-ascii?Q?zJV91V8hpBx3FnufJQbeDSoS5pJHIXJ93n5YbaQY9ID59UXYUk5SXZujhrv8?=
+ =?us-ascii?Q?O4OCyqCoxbBOlNQOAdZZuBUcCXuJ9VJ5VsXBWZ0Hmgb2lT7qqaN2lFeT8YAw?=
+ =?us-ascii?Q?ycBoKGGJZa56/ZD9W5yCx98tFqboyffsdHBe5BRKZl1QytrkSpkhOYSfH0dt?=
+ =?us-ascii?Q?PmKLsyeKyd69D1m5Ze+kymPIL/DiXMC0yVUh06P5ZDBBywYmNK08JXJQnS0G?=
+ =?us-ascii?Q?v7Z1yPO88lVEI0MS8TysXvdZ9BrXgyAvduus24Vv+Yq87IULkZSNoh6b5XGG?=
+ =?us-ascii?Q?NcJBY1mHPlXGNTJIuHHSy8I7rwE62pAxiRRFtF+6+6bdanLoK14Lf3GbSRFW?=
+ =?us-ascii?Q?FTvJSwxLbo6MDTvLMByiRryK9HG/UhJK2KM2z/cOLz4orkEZ9cGKphrER/ic?=
+ =?us-ascii?Q?yB9DUgjcNOzAHHTUKPhSe2cT4npJ4sOmMFt5iY6QYJYLdAt3ifWMjejT7osM?=
+ =?us-ascii?Q?q/4e/XkfqpBec6ZGSIN5UQQx6wmaINP8vE5YUWTTPrGPzqjwRCdLqSWpKRhZ?=
+ =?us-ascii?Q?Fmmhfamj9Y73l5a9VMz7MMMD7i64CuukQd/v6322koKF/iU9jtW8Rj/3OTA0?=
+ =?us-ascii?Q?6xdl7276n/AMVfAqswWgv24kBqC1v7BmQqgI/EL7IH+40uth3h7jSCLgLyuV?=
+ =?us-ascii?Q?8odelFimV++A07zCVcNpTWkGdY9IDrW2zqZwGK4vc4yK/PRwNVgtGWNWEFj1?=
+ =?us-ascii?Q?P3OxDDMuMW57C4ac9d/7CCUHwKmu9OtJY3+Cw0aOfKSuxgecPJo5bVVV4Rli?=
+ =?us-ascii?Q?4YjwaL0W+PCZKKbKTIGRAXUsI1CA2vPaYW37CFnqLOmBMoflEZDLK34Wf26t?=
+ =?us-ascii?Q?dzwgId3oR/zhxuduNQQ7oAMzlvDG97bBwDLPV8qDWjmd8etNjBb1YqUNfwql?=
+ =?us-ascii?Q?2Fcb0ojUldYR8iUpl4ZtU8C0xAPv2BFIiU+E8ADTJMEnwt1eSQA7SGQ+AnNq?=
+ =?us-ascii?Q?PCS/GWaBJJu8QIdS9cYuOwO74d/J9ozt?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5997.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(7053199007)(38070700018); DIR:OUT;
+ SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?PlwlJpabsAuz/FeRbcsvZjvp6v4E8pI8Ca5Z/wkhBLPFqfkFvDkjwesKL3RH?=
+ =?us-ascii?Q?J8WXJ8P6LbHNeppfjlhN8P+R9JwikZHkjp/hfuhlWGc5IlTUxBAi54d+C8yj?=
+ =?us-ascii?Q?GawDfEesNbwe52BBwtgXf9OBanTSLwKO/3mHaKIEdNGGf0uXSVeYxz9ads6c?=
+ =?us-ascii?Q?/M7WHnqPmMCObv/Zy864vffAQysMmT3ZgS6fThbtRIW3j/KHzCWayDfSObmw?=
+ =?us-ascii?Q?lcvfvCnjZR/uubovtJxr4defsb0kx+h6R731AZt0ZU8C75gLd9p4o+7hfopJ?=
+ =?us-ascii?Q?xble8PbzZ+ZdryauzGyQCR+zZ38tBkLig6sPwEFGtlfWfrKUqFEGwYcpGLuI?=
+ =?us-ascii?Q?D/Zkz7Mg6Yh8IbwXmLdlJFmLzi5yjeIOEUehBOqxH8rHAwjyxgePf3wiPynZ?=
+ =?us-ascii?Q?nGzxRVie6+lWjVH1kJ6YBPJHElmiVZONMuEaNajH9rXWk+AqiontLSNze7lA?=
+ =?us-ascii?Q?No7gp6/d0Ndg1+vPGc+tiyatucyjGFXQu59We4/2t1GoleNJNOOptcFFBgcK?=
+ =?us-ascii?Q?fQYDx7wc050VMybEkaKr5b3S34Z2VjV3fA9kb5qSmDjVQ7D205/VKW5RG9AH?=
+ =?us-ascii?Q?/ukkxeFcqN8yB858azyLAXnmixJy88Xoz+4w1l1lx33GzJRbxPSYmUJOVqCg?=
+ =?us-ascii?Q?6FRR0kavc7JT3xyjsakJ8JYHzhKR4DOYDUTbqnt3/Uk17j3IsqaBYdKP2b4r?=
+ =?us-ascii?Q?rlVrF2CiX6hfoNGtPItGjC1xcE5zY60p6Njn1MgnOBsVxwrRo0zt2LE1YoE8?=
+ =?us-ascii?Q?N65RIrZQiMMy9kZG4S2c/IbrbVZLzUC0cIrixQWGtmW8M5kq/83mZkdhvMFn?=
+ =?us-ascii?Q?qrIoPJ3FmO6n/yBKt6+cu55VDwcUfHsD8U7jQx+8fkgcOEo8ts+dSUtrywuy?=
+ =?us-ascii?Q?4Qxo+IYoWF5uRJlOHs37QdYhnzv1PStmoBM+xNFMpZOhqQpawim0fSuM3aNM?=
+ =?us-ascii?Q?1FLceI6iABFIurKCf4F0V7GR0gOgNm8OA4B/S78ytR6QY940qB1bOYofnt4e?=
+ =?us-ascii?Q?lfyJ93UEqSkN2Wb96jfj4uY8YkITMMRFWQop7CqKUnFl5YkFoWkYDmSe6cDC?=
+ =?us-ascii?Q?YBQVLS9iAvIcoH/lk5LOqnlogmyGos/82pQ71vDSbEO34r9GFQl8mwlpuPKq?=
+ =?us-ascii?Q?1NekmJvOdqfQELula6xFNk38Z91AQiMRfl0YB93s02V++HvlS1u+7OlhYCUf?=
+ =?us-ascii?Q?vQtmK8f+Tlepsau7wzRitcJJj5ccOK4LTr0ZkCLhb2hZ0LI3rHuEPqzLCcVv?=
+ =?us-ascii?Q?jNao+bV5CCv+7+7c8ka7Kp0U60hbc8m7JNVFXnr8YrSz0mpFdP4kU0OsxuYN?=
+ =?us-ascii?Q?AlauN01h35XT6MA85zNb2UAVZzXFE60diJ+ERFyfZbJPPqeIEM3juHhgGcqP?=
+ =?us-ascii?Q?85Ir4FC1lENxNHzBZgM6949Iu0A2YNz7VvFXT3Xzo24MBDsQEvuemN794vpj?=
+ =?us-ascii?Q?8RaA/BhAseutWs2zKWkpj5GXXjvcKayuqVvDQR3G/9Y5kRxXtRSDI4qps6vt?=
+ =?us-ascii?Q?HSb7vTD0A4vMYaeei5F2yJsmNrPD9GoRXp5glQ+nUOJr+xN31qqo3UT61ZKh?=
+ =?us-ascii?Q?b6RCUPEEdstG9XT9Rek=3D?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5997.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 49dd9a6a-c8ef-4906-3dde-08dd3118fce0
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Jan 2025 01:49:14.7936 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: BcnXcPx2nyeEDviELjPBRB0K3eLUc8Ll7YTRQ2DO6MiJk7GSRghKF8tSrdS+rHPc
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5950
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,102 +157,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jan 9, 2025 at 3:29=E2=80=AFPM Borislav Petkov <bp@alien8.de> wrote=
-:
->
-> Hi folks,
->
-> this is rc6 + tip/master, machine is Carrizo laptop.
+[AMD Official Use Only - AMD Internal Distribution Only]
 
-Possibly fixed by this patch?
-https://lore.kernel.org/lkml/CAJZ5v0i=3Dap+w4QZ8f2DsaHY6D=3DXUEuSNjyQ-2_=3D=
-DGOLfZjdn+w@mail.gmail.com/T/
+Reviewed-by: Yang Wang <kevinyang.wang@amd.com>
 
-Alex
+Best Regards,
+Kevin
 
->
-> full dmesg attached.
->
-> Thx.
->
-> ...
-> [   13.271015] [drm] DM_PPLIB:    level           : 8
-> [   13.271658] [drm] Display Core v3.2.310 initialized on DCE 11.0
-> [   13.351651] kmemleak: Found object by alias at 0xffff888107b65918
-> [   13.352365] CPU: 0 UID: 0 PID: 1216 Comm: systemd-udevd Not tainted 6.=
-13.0-rc6+ #1
-> [   13.352642] Hardware name: HP HP EliteBook 745 G3/807E, BIOS N73 Ver. =
-01.39 04/16/2019
-> [   13.352928] Call Trace:
-> [   13.353023]  <TASK>
-> [   13.353108]  dump_stack_lvl+0x71/0xa0
-> [   13.353257]  __lookup_object+0x80/0x90
-> [   13.353403]  delete_object_full+0x39/0xa0
-> [   13.353555]  kfree+0x1dc/0x390
-> [   13.353676]  dm_helpers_probe_acpi_edid+0xd3/0x130 [amdgpu]
-> [   13.355424]  ? __pfx_dm_helpers_probe_acpi_edid+0x10/0x10 [amdgpu]
-> [   13.357127]  edid_block_read+0x50/0x100
-> [   13.357279]  _drm_do_get_edid+0xe8/0x380
-> [   13.357429]  ? __pfx_dm_helpers_probe_acpi_edid+0x10/0x10 [amdgpu]
-> [   13.359131]  drm_edid_read_custom+0x2e/0xc0
-> [   13.359296]  dm_helpers_read_local_edid+0x83/0x2a0 [amdgpu]
-> [   13.360992]  detect_link_and_local_sink+0x1db/0x1190 [amdgpu]
-> [   13.362715]  ? lock_acquire+0xe0/0x300
-> [   13.362864]  ? amdgpu_dm_init+0x12b5/0x2150 [amdgpu]
-> [   13.364528]  ? __mutex_lock+0x7e5/0xd00
-> [   13.364680]  ? amdgpu_dm_init+0x12b5/0x2150 [amdgpu]
-> [   13.366345]  ? dal_gpio_destroy+0x44/0x70 [amdgpu]
-> [   13.368016]  link_detect+0x30/0x530 [amdgpu]
-> [   13.369670]  ? dal_gpio_destroy_irq+0x21/0x40 [amdgpu]
-> [   13.371364]  ? query_hpd_status+0x60/0x80 [amdgpu]
-> [   13.373060]  amdgpu_dm_init+0x12d3/0x2150 [amdgpu]
-> [   13.374719]  dm_hw_init+0x1a/0x40 [amdgpu]
-> [   13.376349]  ? pp_hw_init+0x16/0x40 [amdgpu]
-> [   13.377994]  amdgpu_device_init+0x20d5/0x2720 [amdgpu]
-> [   13.379606]  ? _raw_spin_unlock_irqrestore+0x56/0x70
-> [   13.379800]  amdgpu_driver_load_kms+0x23/0xc0 [amdgpu]
-> [   13.381427]  amdgpu_pci_probe+0x1c9/0x5a0 [amdgpu]
-> [   13.383011]  local_pci_probe+0x53/0xb0
-> [   13.383159]  pci_device_probe+0xcc/0x1d0
-> [   13.383309]  really_probe+0xda/0x390
-> [   13.383448]  ? pm_runtime_barrier+0x61/0xb0
-> [   13.383606]  ? __pfx___driver_attach+0x10/0x10
-> [   13.383772]  __driver_probe_device+0x78/0x150
-> [   13.383934]  driver_probe_device+0x2d/0xb0
-> [   13.384088]  __driver_attach+0xdc/0x1d0
-> [   13.384233]  bus_for_each_dev+0x6a/0xb0
-> [   13.384381]  bus_add_driver+0x139/0x260
-> [   13.384526]  driver_register+0x55/0x100
-> [   13.384671]  ? __pfx_amdgpu_init+0x10/0x10 [amdgpu]
-> [   13.386278]  do_one_initcall+0x60/0x2b0
-> [   13.386430]  ? __kmalloc_cache_noprof+0x2c5/0x3c0
-> [   13.386612]  do_init_module+0x60/0x230
-> [   13.386756]  init_module_from_file+0x89/0xc0
-> [   13.386920]  idempotent_init_module+0x113/0x320
-> [   13.387094]  __x64_sys_finit_module+0x7b/0xf0
-> [   13.387257]  do_syscall_64+0x64/0x130
-> [   13.387399]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
-> [   13.387586] RIP: 0033:0x7f39c5922059
-> [   13.387725] Code: 08 89 e8 5b 5d c3 66 2e 0f 1f 84 00 00 00 00 00 90 4=
-8 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <=
-48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d 8f 1d 0d 00 f7 d8 64 89 01 48
-> [   13.388386] RSP: 002b:00007ffc51f9cc18 EFLAGS: 00000246 ORIG_RAX: 0000=
-000000000139
-> [   13.388662] RAX: ffffffffffffffda RBX: 0000558cb28bf670 RCX: 00007f39c=
-5922059
-> [   13.388919] RDX: 0000000000000000 RSI: 00007f39c5815ded RDI: 000000000=
-0000016
-> [   13.389176] RBP: 0000000000020000 R08: 0000000000000000 R09: 0000558cb=
-28b4a68
-> [   13.389432] R10: 0000000000000016 R11: 0000000000000246 R12: 00007f39c=
-5815ded
-> [   13.389688] R13: 0000000000000000 R14: 0000558cb28baa10 R15: 0000558cb=
-28bf670
-> [   13.389949]  </TASK>
->
->
-> --
-> Regards/Gruss,
->     Boris.
->
-> https://people.kernel.org/tglx/notes-about-netiquette
+-----Original Message-----
+From: Kenneth Feng <kenneth.feng@amd.com>
+Sent: Thursday, January 9, 2025 16:25
+To: amd-gfx@lists.freedesktop.org
+Cc: Wang, Yang(Kevin) <KevinYang.Wang@amd.com>; Feng, Kenneth <Kenneth.Feng=
+@amd.com>
+Subject: [PATCH] drm/amdgpu: disable gfxoff with the compute workload on gf=
+x12
+
+Disable gfxoff with the compute workload on gfx12. This is a workaround for=
+ the opencl test failure.
+
+Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_amdkfd.c
+index 2e5732dfd425..e4cf25c47509 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+@@ -715,8 +715,10 @@ int amdgpu_amdkfd_submit_ib(struct amdgpu_device *adev=
+,  void amdgpu_amdkfd_set_compute_idle(struct amdgpu_device *adev, bool idl=
+e)  {
+        enum amd_powergating_state state =3D idle ? AMD_PG_STATE_GATE : AMD=
+_PG_STATE_UNGATE;
+-       if (IP_VERSION_MAJ(amdgpu_ip_version(adev, GC_HWIP, 0)) =3D=3D 11 &=
+&
+-           ((adev->mes.kiq_version & AMDGPU_MES_VERSION_MASK) <=3D 64)) {
++       if ((IP_VERSION_MAJ(amdgpu_ip_version(adev, GC_HWIP, 0)) =3D=3D 11 =
+&&
++           ((adev->mes.kiq_version & AMDGPU_MES_VERSION_MASK) <=3D 64)) ||
++               (IP_VERSION_MAJ(amdgpu_ip_version(adev, GC_HWIP, 0)) =3D=3D=
+ 12 &&
++           ((adev->mes.kiq_version & AMDGPU_MES_VERSION_MASK) > 0x6C))) {
+                pr_debug("GFXOFF is %s\n", idle ? "enabled" : "disabled");
+                amdgpu_gfx_off_ctrl(adev, idle);
+        } else if ((IP_VERSION_MAJ(amdgpu_ip_version(adev, GC_HWIP, 0)) =3D=
+=3D 9) &&
+--
+2.34.1
+
