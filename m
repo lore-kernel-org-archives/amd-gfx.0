@@ -4,121 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 126BDE7719C
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2025 02:39:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64C07E77188
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Jan 2025 03:19:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB6D310EF80;
-	Fri, 10 Jan 2025 02:39:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA04410E4C2;
+	Fri, 10 Jan 2025 03:19:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="onOHxNT7";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="K/7nD+DQ";
 	dkim-atps=neutral
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on20619.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:2405::619])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A3DC310EF80
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jan 2025 02:39:54 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yVks5assGEAqqEendn02CkwU8jJP1aYincAXbbm06K2kG9KyKnkHHH//P4cERFtTYKsVvXwE9mfQxOWjmuOanbEVX3ePFtqa638iJQkGbmDOclMndrUYtwocBhgfu62n9fVNYlB/gGHNs1pD2CyGvmGFADqhwhXAoAOYm1bmT+7sjSrtqMcuC9tBXyy0s9SoBJ6J2z6Emv+9B0kawBCxR8Hqi5HMXjaMx7Uoh5u0HmZXhnfzDtmHzfWsF2Z3EWsMnks+ekHeM3rNmb5WmV4bxdDxsLj68846X+4tciGHMi2xUGABm4I+vKymQ7HOInMRlz5gx+2t1bTtAO31h7EMdQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Z06M7ZmttsJUHZ93Owwn9V28m53/420vzWhk92b8Gaw=;
- b=Pshs+KZa+DCkBuPJ9LEP7jwci0xk/zZ6lvtMa0RSouAE03ruJRJtLoeOgqde7spe3HX14pryhhVwqm5bZVmZpKw4F1MFhYPP+kFthFzlhuLpFg5M8LcU/hXlZnirL0RHQZMmWKXt0x6h6fbJmm7VscqiSHN7nYPv67qYfVRFRWn1bc0CgcMED5CT79TthA3rP1+tYCP96gFNQpKxHPnsBFGYLDjA2/Z4urS4gz72eTq6u1h3jo+YNT5/p6IrOZfp36VntNAOHhYkHRoS7guTzxB85wKb9UE7TqeIaT6KFfN3iKO9GUXG7O2AU9WReGw5TJAVH0YqmOsLDQqvEueNBw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Z06M7ZmttsJUHZ93Owwn9V28m53/420vzWhk92b8Gaw=;
- b=onOHxNT7hCyRtyH/sSg3BzufbCvcHkGLtpFN2CoXANsQWbyVlEt9AUQttSobLAS4SqAhGSz+aSaHbxO8i2pOvcRxs8aWVqE3pNlClHTA6N8cjSThCSWj1ICTLxRdoytUebeBFngCmyb2IVw1JfavOZu2IcUgODwNK0UjKndY4YM=
-Received: from BL0PR02CA0144.namprd02.prod.outlook.com (2603:10b6:208:35::49)
- by CY8PR12MB8244.namprd12.prod.outlook.com (2603:10b6:930:72::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8335.11; Fri, 10 Jan
- 2025 02:39:43 +0000
-Received: from BL02EPF00021F6D.namprd02.prod.outlook.com
- (2603:10b6:208:35:cafe::17) by BL0PR02CA0144.outlook.office365.com
- (2603:10b6:208:35::49) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8335.11 via Frontend Transport; Fri,
- 10 Jan 2025 02:39:42 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BL02EPF00021F6D.mail.protection.outlook.com (10.167.249.9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8335.7 via Frontend Transport; Fri, 10 Jan 2025 02:39:42 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 9 Jan
- 2025 20:39:41 -0600
-Received: from kenneth-mlse-vm.amd.com (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via
- Frontend Transport; Thu, 9 Jan 2025 20:39:40 -0600
-From: Kenneth Feng <kenneth.feng@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <kevinyang.wang@amd.com>, <alexdeucher@gmail.com>, Kenneth Feng
- <kenneth.feng@amd.com>
-Subject: [PATCH] drm/amdgpu: disable gfxoff with the compute workload on gfx12
-Date: Fri, 10 Jan 2025 10:39:38 +0800
-Message-ID: <20250110023938.13375-1-kenneth.feng@amd.com>
-X-Mailer: git-send-email 2.34.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Received-SPF: None (SATLEXMB03.amd.com: kenneth.feng@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF00021F6D:EE_|CY8PR12MB8244:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0dd10d82-5adc-4121-bbda-08dd312009bc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|82310400026|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?kKCuAsShwEZSWj5k/ZsxAmuYcapHJXlb4x/fBnLG025HREwKlFkxcyQXYjJo?=
- =?us-ascii?Q?2uOZv0bJ9H5Y+7fLkbVLOzQXtUeIN8X4WBlduQOaIPHD5fm8Ncz4FlN8F3Il?=
- =?us-ascii?Q?+fl9Q6RqTXgOIoaGefo5nuv37uqUkeYMq8O4hz1K5mR+Z6PpXEJODNLgctQR?=
- =?us-ascii?Q?Nfg6wYYJu/jqHWEhVozz/zsKbVWwid2UfwzV9P+UEBx/yZ495zzMVSeiApTx?=
- =?us-ascii?Q?zvd1eb1cXSUvOizHnhqdn6UwTQic7zT5tTcNJPJCUg5u/UE6pRF3p2H02NJX?=
- =?us-ascii?Q?Hdc8LqBcHbUY0z4meLgwrsTC5sPe/w8fRwgWp0JAY7cyQ9qn3PWu9n4kUkct?=
- =?us-ascii?Q?X1hVCl/ERJ4XWyOemBPIBboJ5vKI8a/BKoKASGJ2f2+qGSgc+a21Ni2tRFpv?=
- =?us-ascii?Q?4GfUigvpI1BoO5P0+Nwncup02lZu3tsBEkQki/s03DXd7rprAX7JeYhEGcYl?=
- =?us-ascii?Q?gRd9EKpHdeSQSE1NpJXteHHBqabFmAdxCAeeZ1IXiI6gaM78a9pXOkBg19fA?=
- =?us-ascii?Q?1ZpcWuxwPfby3RDx/KYdFrTAhc81w4sZI6wxEr6Gwps63ZObf17/exr+EU4Q?=
- =?us-ascii?Q?SH0HVyySt9BovCTpccBCWP24M5fMUeiDDQXY/ovmvsqHN8B37FkvAjzFpOVs?=
- =?us-ascii?Q?GJG4aZRApgS61q8DaI3x7Z6kuyOCOVBzha3Eb0IQbfwMsGWvYeaLkkMaCyvB?=
- =?us-ascii?Q?eKIf6ZW02iefx+Oid1joyVKkN2DQMtP4925J3YZDn7FPn7NMMljc4EWM+svu?=
- =?us-ascii?Q?L4BHOrjbjPd/jjiZSu0A33QbAu4UaEcrbEr6WbKKIxX247hJYEQBHHb42nZz?=
- =?us-ascii?Q?CMBOeLswNwLxB+WOndxW0lJ+BRajE+iAj9XIyGmSGXq0BUWmdbGJRAbdNeoH?=
- =?us-ascii?Q?AUk3f11tuZYCWm848Xx9fZsR036pw5J2fdpa3pD5OhzRY/viummgB8DoF/Bx?=
- =?us-ascii?Q?bBQ7I8HDjUnwzd2im4IwmfnWYU0RgBe6hBmEqD93symKn+32/xrgW6qBdXSS?=
- =?us-ascii?Q?X8nQ7k/eqQzaW2yS07CNjsceWpX81x0JV2hu1j5DaXkshaRh7sX7XqdGl72s?=
- =?us-ascii?Q?prWBEBOiXvssUBwWtJdrg/uR0Kh6mgSpJl7QWcDD4Z1FEcoGhX+30A0Zz4rL?=
- =?us-ascii?Q?7xvDWwgW/5NpMm9UeXMp8W9dX2qc7dB8cgSiSaEppwuZBRiquNwDnDMy+qPf?=
- =?us-ascii?Q?RNIW9JHvmTWMdkeH3GfyKDcCO5rFTXaWAMYqroasn2jf6Ae/FVck0szUQsEo?=
- =?us-ascii?Q?WIbtfNWx8bsuMcQw3c+YHgLFYHTZLMpwIaYUUxSy3k6JpkhhZUWL+tLE32GX?=
- =?us-ascii?Q?50oU+7k5Lu60yA7KpxFp/umgsLVL1rTRP6aWBNtEUqq/rV6AejlVEjUnZtKb?=
- =?us-ascii?Q?FSHuVBKDmihiiQiSWD0s5EdBFMKjzC0Nht03FjvlgLHost7ecabxn0dDMGk4?=
- =?us-ascii?Q?Yjs8lwNgrpWnr7SmgxO6t52PSYdi6fPZhu6MeJ3BY0c92rUKj0Qfjg=3D=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(82310400026)(36860700013); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2025 02:39:42.7931 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0dd10d82-5adc-4121-bbda-08dd312009bc
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF00021F6D.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8244
+Received: from out30-130.freemail.mail.aliyun.com
+ (out30-130.freemail.mail.aliyun.com [115.124.30.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9846B10E4C2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Jan 2025 03:19:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linux.alibaba.com; s=default;
+ t=1736479154; h=From:Message-Id:Content-Type:Mime-Version:Subject:Date:To;
+ bh=EQ69PJuOnoyHEfiBkeHnGqUeP3rBNqaBjILLveu1qS0=;
+ b=K/7nD+DQT17vxWCQ8fIK5r+Iw1TZVmprzZ4S6Auw6PDNz1bHccTuE2wfUDyECfpGmt2C15cgdAWKd/LAzSM1AeSrtx400L6YesRg/2YIk8OGBaG7Wjcs11chdkeBFFbjJcvhl7XcVxKpIi++W1MJwctlXO9InbchiN7/pze57Ps=
+Received: from smtpclient.apple(mailfrom:gerry@linux.alibaba.com
+ fp:SMTPD_---0WNJL9C5_1736479152 cluster:ay36) by smtp.aliyun-inc.com;
+ Fri, 10 Jan 2025 11:19:13 +0800
+From: Gerry Liu <gerry@linux.alibaba.com>
+Message-Id: <C869BCDD-27CD-4A46-8DD3-E364C15F9FF6@linux.alibaba.com>
+Content-Type: multipart/alternative;
+ boundary="Apple-Mail=_AEEF2DEB-E3EA-4677-8CAF-FB61689C6A05"
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3696.120.41.1.1\))
+Subject: Re: [RFC PATCH 03/13] drm/amdgpu: add a flag to track ras debugfs
+ creation status
+Date: Fri, 10 Jan 2025 11:19:11 +0800
+In-Reply-To: <9c6f3c11-0782-47f3-ba7e-eb6d8ba66d31@amd.com>
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, simona@ffwll.ch, sunil.khatri@amd.com,
+ lijo.lazar@amd.com, Hawking.Zhang@amd.com, Jun.Ma2@amd.com,
+ xiaogang.chen@amd.com, Kent.Russell@amd.com, shuox.liu@linux.alibaba.com,
+ amd-gfx@lists.freedesktop.org
+To: Mario Limonciello <mario.limonciello@amd.com>
+References: <cover.1736344725.git.gerry@linux.alibaba.com>
+ <014a704e91787b123203d568256861000a7fe558.1736344725.git.gerry@linux.alibaba.com>
+ <9c6f3c11-0782-47f3-ba7e-eb6d8ba66d31@amd.com>
+X-Mailer: Apple Mail (2.3696.120.41.1.1)
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,30 +57,326 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Disable gfxoff with the compute workload on gfx12. This is a
-workaround for the opencl test failure.
 
-Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+--Apple-Mail=_AEEF2DEB-E3EA-4677-8CAF-FB61689C6A05
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=utf-8
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-index 2e5732dfd425..2c1b38c5cfc6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-@@ -715,8 +715,9 @@ int amdgpu_amdkfd_submit_ib(struct amdgpu_device *adev,
- void amdgpu_amdkfd_set_compute_idle(struct amdgpu_device *adev, bool idle)
- {
- 	enum amd_powergating_state state = idle ? AMD_PG_STATE_GATE : AMD_PG_STATE_UNGATE;
--	if (IP_VERSION_MAJ(amdgpu_ip_version(adev, GC_HWIP, 0)) == 11 &&
--	    ((adev->mes.kiq_version & AMDGPU_MES_VERSION_MASK) <= 64)) {
-+	if ((IP_VERSION_MAJ(amdgpu_ip_version(adev, GC_HWIP, 0)) == 11 &&
-+	    ((adev->mes.kiq_version & AMDGPU_MES_VERSION_MASK) <= 64)) ||
-+		(IP_VERSION_MAJ(amdgpu_ip_version(adev, GC_HWIP, 0)) == 12)) {
- 		pr_debug("GFXOFF is %s\n", idle ? "enabled" : "disabled");
- 		amdgpu_gfx_off_ctrl(adev, idle);
- 	} else if ((IP_VERSION_MAJ(amdgpu_ip_version(adev, GC_HWIP, 0)) == 9) &&
--- 
-2.34.1
 
+
+> 2025=E5=B9=B41=E6=9C=889=E6=97=A5 01:19=EF=BC=8CMario Limonciello =
+<mario.limonciello@amd.com> =E5=86=99=E9=81=93=EF=BC=9A
+>=20
+> On 1/8/2025 07:59, Jiang Liu wrote:
+>> Add a flag to track ras debugfs creation status, to avoid possible
+>> incorrect reference count management for ras block object  in =
+function
+>> amdgpu_ras_aca_is_supported().
+>=20
+> Rather than taking a marker position, why not just check for
+> obj->fs_data.debugfs_name to be non NULL in amdgpu_ras_fs_fini()?
+I plan to use marker as a common status track mechanism, so used marker =
+here:)
+
+>=20
+>> Signed-off-by: Jiang Liu <gerry@linux.alibaba.com>
+>> ---
+>>  drivers/gpu/drm/amd/amdgpu/amdgpu.h     | 2 +-
+>>  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 9 +++++++--
+>>  2 files changed, 8 insertions(+), 3 deletions(-)
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h =
+b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>> index 32941f29507c..2ef7d3102be3 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>> @@ -378,7 +378,7 @@ enum amdgpu_marker {
+>>  	AMDGPU_MARKER_IRQ6		=3D 6,
+>>  	AMDGPU_MARKER_IRQ7		=3D 7,
+>>  	AMDGPU_MARKER_IRQ_MAX		=3D 47,
+>> -	AMDGPU_MARKER_DEBUGFS		=3D 63,
+>> +	AMDGPU_MARKER_RAS_DEBUGFS	=3D 63,
+>=20
+> Any particular reason you jumped to 63 in this patch and then counted =
+down in the next one?  IE why not throw it at 48 (and then 49 for next =
+one)?
+I=E2=80=99m not sure how much markers are needed for IRQ, so I split the =
+space into two parts: one for irq and one for others.
+
+>=20
+>>  };
+>>    #define AMDGPU_MARKER_INDEX_IRQ(idx)		=
+(AMDGPU_MARKER_INDEX_IRQ0 + (idx))
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c =
+b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+>> index 6d52e22691f7..efd72b07a185 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+>> @@ -1996,7 +1996,8 @@ static void amdgpu_ras_debugfs_create(struct =
+amdgpu_device *adev,
+>>  {
+>>  	struct ras_manager *obj =3D amdgpu_ras_find_obj(adev, =
+&head->head);
+>>  -	if (!obj || !dir)
+>> +	if (!obj || !dir ||
+>> +	    amdgpu_ras_test_marker(adev, &head->head, =
+AMDGPU_MARKER_RAS_DEBUGFS))
+>>  		return;
+>>    	get_obj(obj);
+>> @@ -2007,6 +2008,8 @@ static void amdgpu_ras_debugfs_create(struct =
+amdgpu_device *adev,
+>>    	debugfs_create_file(obj->fs_data.debugfs_name, S_IWUGO | =
+S_IRUGO, dir,
+>>  			    obj, &amdgpu_ras_debugfs_ops);
+>> +
+>> +	amdgpu_ras_set_marker(adev, &head->head, =
+AMDGPU_MARKER_RAS_DEBUGFS);
+>>  }
+>>    static bool amdgpu_ras_aca_is_supported(struct amdgpu_device =
+*adev)
+>> @@ -2134,7 +2137,9 @@ static int amdgpu_ras_fs_fini(struct =
+amdgpu_device *adev)
+>>  	if (IS_ENABLED(CONFIG_DEBUG_FS)) {
+>>  		list_for_each_entry_safe(con_obj, tmp, &con->head, node) =
+{
+>>  			ip_obj =3D amdgpu_ras_find_obj(adev, =
+&con_obj->head);
+>> -			if (ip_obj)
+>> +			if (ip_obj &&
+>> +			    amdgpu_ras_test_and_clear_marker(adev, =
+&ip_obj->head,
+>> +			    				     =
+AMDGPU_MARKER_RAS_DEBUGFS))
+>>  				put_obj(ip_obj);
+>>  		}
+>>  	}
+
+
+--Apple-Mail=_AEEF2DEB-E3EA-4677-8CAF-FB61689C6A05
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html;
+	charset=utf-8
+
+<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html; =
+charset=3Dutf-8"></head><body style=3D"word-wrap: break-word; =
+-webkit-nbsp-mode: space; line-break: after-white-space;" class=3D""><br =
+class=3D""><div><br class=3D""><blockquote type=3D"cite" class=3D""><div =
+class=3D"">2025=E5=B9=B41=E6=9C=889=E6=97=A5 01:19=EF=BC=8CMario =
+Limonciello &lt;<a href=3D"mailto:mario.limonciello@amd.com" =
+class=3D"">mario.limonciello@amd.com</a>&gt; =E5=86=99=E9=81=93=EF=BC=9A</=
+div><br class=3D"Apple-interchange-newline"><div class=3D""><meta =
+charset=3D"UTF-8" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); =
+font-family: Helvetica; font-size: 18px; font-style: normal; =
+font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none; float: none; display: inline !important;" =
+class=3D"">On 1/8/2025 07:59, Jiang Liu wrote:</span><br =
+style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size: =
+18px; font-style: normal; font-variant-caps: normal; font-weight: 400; =
+letter-spacing: normal; text-align: start; text-indent: 0px; =
+text-transform: none; white-space: normal; word-spacing: 0px; =
+-webkit-text-stroke-width: 0px; text-decoration: none;" =
+class=3D""><blockquote type=3D"cite" style=3D"font-family: Helvetica; =
+font-size: 18px; font-style: normal; font-variant-caps: normal; =
+font-weight: 400; letter-spacing: normal; orphans: auto; text-align: =
+start; text-indent: 0px; text-transform: none; white-space: normal; =
+widows: auto; word-spacing: 0px; -webkit-text-size-adjust: auto; =
+-webkit-text-stroke-width: 0px; text-decoration: none;" class=3D"">Add a =
+flag to track ras debugfs creation status, to avoid possible<br =
+class=3D"">incorrect reference count management for ras block object =
+&nbsp;in function<br class=3D"">amdgpu_ras_aca_is_supported().<br =
+class=3D""></blockquote><br style=3D"caret-color: rgb(0, 0, 0); =
+font-family: Helvetica; font-size: 18px; font-style: normal; =
+font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
+0); font-family: Helvetica; font-size: 18px; font-style: normal; =
+font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none; float: none; display: inline !important;" =
+class=3D"">Rather than taking a marker position, why not just check =
+for</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
+Helvetica; font-size: 18px; font-style: normal; font-variant-caps: =
+normal; font-weight: 400; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
+Helvetica; font-size: 18px; font-style: normal; font-variant-caps: =
+normal; font-weight: 400; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none; float: none; display: inline !important;" =
+class=3D"">obj-&gt;fs_data.debugfs_name to be non NULL in =
+amdgpu_ras_fs_fini()?</span><br style=3D"caret-color: rgb(0, 0, 0); =
+font-family: Helvetica; font-size: 18px; font-style: normal; =
+font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""></div></blockquote><div>I plan to use =
+marker as a common status track mechanism, so used marker =
+here:)</div><br class=3D""><blockquote type=3D"cite" class=3D""><div =
+class=3D""><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
+Helvetica; font-size: 18px; font-style: normal; font-variant-caps: =
+normal; font-weight: 400; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none;" class=3D""><blockquote type=3D"cite" style=3D"font-family: =
+Helvetica; font-size: 18px; font-style: normal; font-variant-caps: =
+normal; font-weight: 400; letter-spacing: normal; orphans: auto; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; widows: auto; word-spacing: 0px; -webkit-text-size-adjust: auto; =
+-webkit-text-stroke-width: 0px; text-decoration: none;" =
+class=3D"">Signed-off-by: Jiang Liu &lt;<a =
+href=3D"mailto:gerry@linux.alibaba.com" =
+class=3D"">gerry@linux.alibaba.com</a>&gt;<br class=3D"">---<br =
+class=3D"">&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu.h =
+&nbsp;&nbsp;&nbsp;&nbsp;| 2 +-<br =
+class=3D"">&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 9 =
++++++++--<br class=3D"">&nbsp;2 files changed, 8 insertions(+), 3 =
+deletions(-)<br class=3D"">diff --git =
+a/drivers/gpu/drm/amd/amdgpu/amdgpu.h =
+b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br class=3D"">index =
+32941f29507c..2ef7d3102be3 100644<br class=3D"">--- =
+a/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br class=3D"">+++ =
+b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br class=3D"">@@ -378,7 +378,7 @@ =
+enum amdgpu_marker {<br class=3D"">&nbsp;<span class=3D"Apple-tab-span" =
+style=3D"white-space: pre;">	</span>AMDGPU_MARKER_IRQ6<span =
+class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span><span =
+class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span>=3D 6,<br =
+class=3D"">&nbsp;<span class=3D"Apple-tab-span" style=3D"white-space: =
+pre;">	</span>AMDGPU_MARKER_IRQ7<span class=3D"Apple-tab-span" =
+style=3D"white-space: pre;">	</span><span class=3D"Apple-tab-span" =
+style=3D"white-space: pre;">	</span>=3D 7,<br class=3D"">&nbsp;<span =
+class=3D"Apple-tab-span" style=3D"white-space: pre;">	=
+</span>AMDGPU_MARKER_IRQ_MAX<span class=3D"Apple-tab-span" =
+style=3D"white-space: pre;">	</span><span class=3D"Apple-tab-span" =
+style=3D"white-space: pre;">	</span>=3D 47,<br class=3D"">-<span =
+class=3D"Apple-tab-span" style=3D"white-space: pre;">	=
+</span>AMDGPU_MARKER_DEBUGFS<span class=3D"Apple-tab-span" =
+style=3D"white-space: pre;">	</span><span class=3D"Apple-tab-span" =
+style=3D"white-space: pre;">	</span>=3D 63,<br class=3D"">+<span =
+class=3D"Apple-tab-span" style=3D"white-space: pre;">	=
+</span>AMDGPU_MARKER_RAS_DEBUGFS<span class=3D"Apple-tab-span" =
+style=3D"white-space: pre;">	</span>=3D 63,<br =
+class=3D""></blockquote><br style=3D"caret-color: rgb(0, 0, 0); =
+font-family: Helvetica; font-size: 18px; font-style: normal; =
+font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
+0); font-family: Helvetica; font-size: 18px; font-style: normal; =
+font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none; float: none; display: inline !important;" =
+class=3D"">Any particular reason you jumped to 63 in this patch and then =
+counted down in the next one? &nbsp;IE why not throw it at 48 (and then =
+49 for next one)?</span><br style=3D"caret-color: rgb(0, 0, 0); =
+font-family: Helvetica; font-size: 18px; font-style: normal; =
+font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""></div></blockquote><div>I=E2=80=99m =
+not sure how much markers are needed for IRQ, so I split the space into =
+two parts: one for irq and one for others.</div><br class=3D""><blockquote=
+ type=3D"cite" class=3D""><div class=3D""><br style=3D"caret-color: =
+rgb(0, 0, 0); font-family: Helvetica; font-size: 18px; font-style: =
+normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
+normal; text-align: start; text-indent: 0px; text-transform: none; =
+white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><blockquote type=3D"cite" =
+style=3D"font-family: Helvetica; font-size: 18px; font-style: normal; =
+font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
+orphans: auto; text-align: start; text-indent: 0px; text-transform: =
+none; white-space: normal; widows: auto; word-spacing: 0px; =
+-webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D"">&nbsp;};<br =
+class=3D"">&nbsp;&nbsp;&nbsp;#define AMDGPU_MARKER_INDEX_IRQ(idx)<span =
+class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span><span =
+class=3D"Apple-tab-span" style=3D"white-space: pre;">	=
+</span>(AMDGPU_MARKER_INDEX_IRQ0 + (idx))<br class=3D"">diff --git =
+a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c =
+b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c<br class=3D"">index =
+6d52e22691f7..efd72b07a185 100644<br class=3D"">--- =
+a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c<br class=3D"">+++ =
+b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c<br class=3D"">@@ -1996,7 =
++1996,8 @@ static void amdgpu_ras_debugfs_create(struct amdgpu_device =
+*adev,<br class=3D"">&nbsp;{<br class=3D"">&nbsp;<span =
+class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span>struct =
+ras_manager *obj =3D amdgpu_ras_find_obj(adev, &amp;head-&gt;head);<br =
+class=3D"">&nbsp;-<span class=3D"Apple-tab-span" style=3D"white-space: =
+pre;">	</span>if (!obj || !dir)<br class=3D"">+<span =
+class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span>if (!obj =
+|| !dir ||<br class=3D"">+<span class=3D"Apple-tab-span" =
+style=3D"white-space: pre;">	</span><span =
+class=3D"Apple-converted-space">&nbsp;</span>&nbsp;&nbsp;&nbsp;amdgpu_ras_=
+test_marker(adev, &amp;head-&gt;head, AMDGPU_MARKER_RAS_DEBUGFS))<br =
+class=3D"">&nbsp;<span class=3D"Apple-tab-span" style=3D"white-space: =
+pre;">	</span><span class=3D"Apple-tab-span" style=3D"white-space: =
+pre;">	</span>return;<br class=3D"">&nbsp;&nbsp;&nbsp;<span =
+class=3D"Apple-tab-span" style=3D"white-space: pre;">	=
+</span>get_obj(obj);<br class=3D"">@@ -2007,6 +2008,8 @@ static void =
+amdgpu_ras_debugfs_create(struct amdgpu_device *adev,<br =
+class=3D"">&nbsp;&nbsp;&nbsp;<span class=3D"Apple-tab-span" =
+style=3D"white-space: pre;">	=
+</span>debugfs_create_file(obj-&gt;fs_data.debugfs_name, S_IWUGO | =
+S_IRUGO, dir,<br class=3D"">&nbsp;<span class=3D"Apple-tab-span" =
+style=3D"white-space: pre;">	</span><span class=3D"Apple-tab-span" =
+style=3D"white-space: pre;">	</span><span class=3D"Apple-tab-span" =
+style=3D"white-space: pre;">	</span><span =
+class=3D"Apple-converted-space">&nbsp;</span>&nbsp;&nbsp;&nbsp;obj, =
+&amp;amdgpu_ras_debugfs_ops);<br class=3D"">+<br class=3D"">+<span =
+class=3D"Apple-tab-span" style=3D"white-space: pre;">	=
+</span>amdgpu_ras_set_marker(adev, &amp;head-&gt;head, =
+AMDGPU_MARKER_RAS_DEBUGFS);<br class=3D"">&nbsp;}<br =
+class=3D"">&nbsp;&nbsp;&nbsp;static bool =
+amdgpu_ras_aca_is_supported(struct amdgpu_device *adev)<br class=3D"">@@ =
+-2134,7 +2137,9 @@ static int amdgpu_ras_fs_fini(struct amdgpu_device =
+*adev)<br class=3D"">&nbsp;<span class=3D"Apple-tab-span" =
+style=3D"white-space: pre;">	</span>if (IS_ENABLED(CONFIG_DEBUG_FS)) =
+{<br class=3D"">&nbsp;<span class=3D"Apple-tab-span" style=3D"white-space:=
+ pre;">	</span><span class=3D"Apple-tab-span" style=3D"white-space: =
+pre;">	</span>list_for_each_entry_safe(con_obj, tmp, &amp;con-&gt;head, =
+node) {<br class=3D"">&nbsp;<span class=3D"Apple-tab-span" =
+style=3D"white-space: pre;">	</span><span class=3D"Apple-tab-span" =
+style=3D"white-space: pre;">	</span><span class=3D"Apple-tab-span" =
+style=3D"white-space: pre;">	</span>ip_obj =3D =
+amdgpu_ras_find_obj(adev, &amp;con_obj-&gt;head);<br class=3D"">-<span =
+class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span><span =
+class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span><span =
+class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span>if =
+(ip_obj)<br class=3D"">+<span class=3D"Apple-tab-span" =
+style=3D"white-space: pre;">	</span><span class=3D"Apple-tab-span" =
+style=3D"white-space: pre;">	</span><span class=3D"Apple-tab-span" =
+style=3D"white-space: pre;">	</span>if (ip_obj &amp;&amp;<br =
+class=3D"">+<span class=3D"Apple-tab-span" style=3D"white-space: pre;">	=
+</span><span class=3D"Apple-tab-span" style=3D"white-space: pre;">	=
+</span><span class=3D"Apple-tab-span" style=3D"white-space: pre;">	=
+</span><span =
+class=3D"Apple-converted-space">&nbsp;</span>&nbsp;&nbsp;&nbsp;amdgpu_ras_=
+test_and_clear_marker(adev, &amp;ip_obj-&gt;head,<br class=3D"">+<span =
+class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span><span =
+class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span><span =
+class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span><span =
+class=3D"Apple-converted-space">&nbsp;</span>&nbsp;&nbsp;&nbsp;<span =
+class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span><span =
+class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span><span =
+class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span><span =
+class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span><span =
+class=3D"Apple-converted-space">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;AMDGP=
+U_MARKER_RAS_DEBUGFS))<br class=3D"">&nbsp;<span class=3D"Apple-tab-span" =
+style=3D"white-space: pre;">	</span><span class=3D"Apple-tab-span" =
+style=3D"white-space: pre;">	</span><span class=3D"Apple-tab-span" =
+style=3D"white-space: pre;">	</span><span class=3D"Apple-tab-span" =
+style=3D"white-space: pre;">	</span>put_obj(ip_obj);<br =
+class=3D"">&nbsp;<span class=3D"Apple-tab-span" style=3D"white-space: =
+pre;">	</span><span class=3D"Apple-tab-span" style=3D"white-space: =
+pre;">	</span>}<br class=3D"">&nbsp;<span class=3D"Apple-tab-span" =
+style=3D"white-space: pre;">	=
+</span>}</blockquote></div></blockquote></div><br =
+class=3D""></body></html>=
+
+--Apple-Mail=_AEEF2DEB-E3EA-4677-8CAF-FB61689C6A05--
