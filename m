@@ -4,79 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9AAAE7719E
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jan 2025 08:36:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B6A2C02181
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jan 2025 08:36:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C5C610E5BD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6CCC010E5BF;
 	Mon, 13 Jan 2025 08:36:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="j/sEBwOd";
+	dkim=pass (2048-bit key; unprotected) header.d=treblig.org header.i=@treblig.org header.b="ITIz29fB";
 	dkim-atps=neutral
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [IPv6:2a00:1450:4864:20::330])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7314410E02B
- for <amd-gfx@lists.freedesktop.org>; Sat, 11 Jan 2025 18:59:49 +0000 (UTC)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-4364a37a1d7so32882565e9.3
- for <amd-gfx@lists.freedesktop.org>; Sat, 11 Jan 2025 10:59:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1736621988; x=1737226788; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=L3DgohbenACHXn6wOW4eU9gM7Gu7Z7kDdY29V2QFR8Y=;
- b=j/sEBwOd/4JUWpelyO7vLJ4z+FK8e+Od4TVukhJtyqz7HjqYF8DipuIZqI2pxlVEt4
- pEgiyxTs4cbzESkvPriF2rsCMJp98oOjrGmDx2t1AqhSgL3IxAjfCYuMMW3KSmRja/nA
- bt7QcnZTCTjFWNYy5EG9ZoEEjSs0GI4ThTdzuDZCvWqxf4Lb8x9BNU0myJ7AG/xbYgZL
- qKQD+c9USqG7+BZ2TSwIRon7tF3Q6/HO9v3pRaOoQjmAj+bzRPuEvkEvKaP+sZOCXTBx
- J46+DQZPZgjAmB2XRzSSgGwmOptCmsEzqqYajkXgJx9IH5y60cTg8AlS2/NJmdqVqIBE
- Z/cw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736621988; x=1737226788;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=L3DgohbenACHXn6wOW4eU9gM7Gu7Z7kDdY29V2QFR8Y=;
- b=L56+WGi5udU5GCEINxFhVPqgQZcpnPYP3iM2zRmKxMWzZqAwdBAo0M5FlgToOIY0NB
- Qb6DMvP2ka8kspy5ReEslUlBSOGAoRO605dfXlQJcHh95cK9k6wpjy4HsI1LRRV5W+sb
- /8IR/K4lveEYkXH65a2ZgWweL8g5ctJurPXOnjuDckgfdtcdL4fLcCBGtxaogqOp0WL1
- 8P+RbtA8pNiZY3fIQdZFixTTpFzqx9bt80D/ml7DYHGCQ9BI/krd8TKchALworzEpGRA
- /yoxxAf2KHmr/cMWM979GXYYKHi98BR/eYMvTTerKsB9fPDUen3LqG5xNSTJkSbDwOcS
- AyjA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVifKZZ6KGGpcPoV6j6DrDAusCseoF6GENGHE+vOvGxYmZpbwcvywyS2nkUUKRVz/Ef9P+jGecb@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxoAgUDSMcqWvMsg0bytGZlCqTqsHKg57b9j6owfKIozOtCh6VU
- wRX0FK2JtKZ7MmpHPlKhwKneI8m9q8ZPmFJDIfQTuXKz6AAkX+WX
-X-Gm-Gg: ASbGnct5dD+nPv4ASg6x4BOY1wwtxZKHoswUJRPhj+8E1nZuW/8/bG+GzJlwU6KPDer
- 5v8VdZQTMh5q8ojLmsEyAMq8ATlwIlBzYk2Y78n1dwHH25tPENXiCd9jxiPS5/6c3WTBWkH1Uxp
- UxBSeODwBqR649Z3UG9y1jDXMj0JuLx1gescR08BzNRBRCyExsckjU/wYqiO0As5IrrgFR2S3yS
- rgV4V5863bV3kh/bCtaSDLj62wedU3XoQ1jKjk7Pxtsmt6Xo1Uy8xSJqZcZTswySA==
-X-Google-Smtp-Source: AGHT+IEPA1ZIEy2BVvJIreSvtc7pK5EpKKeAI+bCNXKQkeEEBtMKu5+tlqaQ1Ywp2IM9xt0CHUsflQ==
-X-Received: by 2002:a05:600c:348c:b0:436:ed33:1535 with SMTP id
- 5b1f17b1804b1-436ed3316a4mr93947005e9.12.1736621987670; 
- Sat, 11 Jan 2025 10:59:47 -0800 (PST)
-Received: from debian.local ([83.105.230.12]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-436e9e6263fsm92372725e9.39.2025.01.11.10.59.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 11 Jan 2025 10:59:47 -0800 (PST)
-Date: Sat, 11 Jan 2025 18:59:45 +0000
-From: Chris Bainbridge <chris.bainbridge@gmail.com>
-To: "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: Tobias Jakobi <tjakobi@math.uni-bielefeld.de>,
- Mario Limonciello <mario.limonciello@amd.com>,
- amd-gfx@lists.freedesktop.org, alex.hung@amd.com,
- regressions@lists.linux.dev, lenb@kernel.org,
- linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org,
- Hans de Goede <hdegoede@redhat.com>
-Subject: [PATCH v2] ACPI: video: Fix random crashes due to bad kfree
-Message-ID: <Z4K_oQL7eA9Owkbs@debian.local>
-References: <Z2yQvTyg_MWwrlj3@debian.local>
- <b98f2fa5-fbe8-4958-bf20-fa5d28c5a38b@math.uni-bielefeld.de>
- <Z2yw_eJwR5ih1Npr@debian.local>
- <CAJZ5v0i=ap+w4QZ8f2DsaHY6D=XUEuSNjyQ-2_=DGOLfZjdn+w@mail.gmail.com>
+Received: from mx.treblig.org (mx.treblig.org [46.235.229.95])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 508F510E24B;
+ Sun, 12 Jan 2025 13:43:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=treblig.org
+ ; s=bytemarkmx;
+ h=MIME-Version:Message-ID:Date:Subject:From:Content-Type:From
+ :Subject; bh=GBw/kTc50JMCdL9NraUxTr2TqlNGdHlCJYiN4J/1AHo=; b=ITIz29fBjXiKUzVk
+ XVN7N8JFH0gA2YyY+KeeyPgLLQYb3mMvljJWc0lymDxYZC0h870pe+BIiyvXazBqbGp/BtvhasASL
+ ThuIbJm62mnA4vGurNZ8//c+V5ZHN+3pQFzc03iZGbPKxPDW+fZB73T+kjbY4O3jcIHXF6FdQdNVP
+ 5Mg+9GVqnaFCdV2JY8nk1nvgsMRYXzAtC/H4EmWxm3TTlFSVJc6L97WoRmRcUEf47wh0On6GfabRf
+ KarInBA7f6OgFq/7Gz/YHNa3VdeYTFWYJqaH3rxl+ifutBP+2PQofLWYEWEQDqS1U7MKrLmbtR6Po
+ QdWnA+iBuBgGKfdwNg==;
+Received: from localhost ([127.0.0.1] helo=dalek.home.treblig.org)
+ by mx.treblig.org with esmtp (Exim 4.96)
+ (envelope-from <linux@treblig.org>) id 1tWyDA-009jBX-29;
+ Sun, 12 Jan 2025 13:41:04 +0000
+From: linux@treblig.org
+To: Felix.Kuehling@amd.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, Xinhui.Pan@amd.com
+Cc: airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ "Dr. David Alan Gilbert" <linux@treblig.org>
+Subject: [PATCH] drm/amdkfd: Remove unused functions
+Date: Sun, 12 Jan 2025 13:41:03 +0000
+Message-ID: <20250112134103.72081-1-linux@treblig.org>
+X-Mailer: git-send-email 2.47.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAJZ5v0i=ap+w4QZ8f2DsaHY6D=XUEuSNjyQ-2_=DGOLfZjdn+w@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 13 Jan 2025 08:36:44 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,141 +55,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Commit c6a837088bed ("drm/amd/display: Fetch the EDID from _DDC if
-available for eDP") added function dm_helpers_probe_acpi_edid, which
-fetches the EDID from the BIOS by calling acpi_video_get_edid.
-acpi_video_get_edid returns a pointer to the EDID, but this pointer does
-not originate from kmalloc - it is actually the internal "pointer" field
-from an acpi_buffer struct (which did come from kmalloc).
-dm_helpers_probe_acpi_edid then attempts to kfree the EDID pointer,
-resulting in memory corruption which leads to random, intermittent
-crashes (e.g. 4% of boots will fail with some Oops).
+From: "Dr. David Alan Gilbert" <linux@treblig.org>
 
-Fix this by allocating a new array (which can be safely freed) for the
-EDID data, and correctly freeing the acpi_buffer pointer.
+kfd_device_by_pci_dev(), kfd_get_pasid_limit() and kfd_set_pasid_limit()
+have been unused since 2023's
+commit c99a2e7ae291 ("drm/amdkfd: drop IOMMUv2 support")
 
-The only other caller of acpi_video_get_edid is nouveau_acpi_edid:
-remove the extraneous kmemdup here as the EDID data is now copied in
-acpi_video_device_EDID.
+Remove them.
 
-Signed-off-by: Chris Bainbridge <chris.bainbridge@gmail.com>
-Fixes: c6a837088bed ("drm/amd/display: Fetch the EDID from _DDC if available for eDP")
+Signed-off-by: Dr. David Alan Gilbert <linux@treblig.org>
 ---
-Changes in v2:
-	- check kmemdup() return value
-	- move buffer management into acpi_video_device_EDID()
-	- return actual length value of buffer
----
- drivers/acpi/acpi_video.c              | 50 ++++++++++++++------------
- drivers/gpu/drm/nouveau/nouveau_acpi.c |  2 +-
- 2 files changed, 29 insertions(+), 23 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_pasid.c    | 24 -----------------------
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h     |  3 ---
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 18 -----------------
+ 3 files changed, 45 deletions(-)
 
-diff --git a/drivers/acpi/acpi_video.c b/drivers/acpi/acpi_video.c
-index 8274a17872ed..3c627bdf2d1b 100644
---- a/drivers/acpi/acpi_video.c
-+++ b/drivers/acpi/acpi_video.c
-@@ -610,16 +610,29 @@ acpi_video_device_lcd_get_level_current(struct acpi_video_device *device,
- 	return 0;
- }
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_pasid.c b/drivers/gpu/drm/amd/amdkfd/kfd_pasid.c
+index e3b250918f39..8896426e0556 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_pasid.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_pasid.c
+@@ -28,30 +28,6 @@
+ static unsigned int pasid_bits = 16;
+ static bool pasids_allocated; /* = false */
  
-+/*
-+ *  Arg:
-+ *	device	: video output device (LCD, CRT, ..)
-+ *	edid    : address for returned EDID pointer
-+ *	length  : _DDC length to request (must be a multiple of 128)
-+ *
-+ *  Return Value:
-+ *	Length of EDID (positive value) or error (negative value)
-+ *
-+ *  Get EDID from ACPI _DDC. On success, a pointer to the EDID data is written
-+ *  to the edid address, and the length of the EDID is returned. The caller is
-+ *  responsible for freeing the edid pointer.
-+ */
-+
- static int
--acpi_video_device_EDID(struct acpi_video_device *device,
--		       union acpi_object **edid, int length)
-+acpi_video_device_EDID(struct acpi_video_device *device, void **edid, int length)
- {
--	int status;
-+	acpi_status status;
- 	struct acpi_buffer buffer = { ACPI_ALLOCATE_BUFFER, NULL };
- 	union acpi_object *obj;
- 	union acpi_object arg0 = { ACPI_TYPE_INTEGER };
- 	struct acpi_object_list args = { 1, &arg0 };
+-bool kfd_set_pasid_limit(unsigned int new_limit)
+-{
+-	if (new_limit < 2)
+-		return false;
 -
-+	int ret;
- 
- 	*edid = NULL;
- 
-@@ -636,16 +649,17 @@ acpi_video_device_EDID(struct acpi_video_device *device,
- 
- 	obj = buffer.pointer;
- 
--	if (obj && obj->type == ACPI_TYPE_BUFFER)
--		*edid = obj;
--	else {
-+	if (obj && obj->type == ACPI_TYPE_BUFFER) {
-+		*edid = kmemdup(obj->buffer.pointer, obj->buffer.length, GFP_KERNEL);
-+		ret = *edid ? obj->buffer.length : -ENOMEM;
-+	} else {
- 		acpi_handle_debug(device->dev->handle,
- 				 "Invalid _DDC data for length %d\n", length);
--		status = -EFAULT;
--		kfree(obj);
-+		ret = -EFAULT;
- 	}
- 
--	return status;
-+	kfree(obj);
-+	return ret;
- }
- 
- /* bus */
-@@ -1435,9 +1449,7 @@ int acpi_video_get_edid(struct acpi_device *device, int type, int device_id,
- {
- 	struct acpi_video_bus *video;
- 	struct acpi_video_device *video_device;
--	union acpi_object *buffer = NULL;
--	acpi_status status;
--	int i, length;
-+	int i, length, ret;
- 
- 	if (!device || !acpi_driver_data(device))
- 		return -EINVAL;
-@@ -1477,16 +1489,10 @@ int acpi_video_get_edid(struct acpi_device *device, int type, int device_id,
- 		}
- 
- 		for (length = 512; length > 0; length -= 128) {
--			status = acpi_video_device_EDID(video_device, &buffer,
--							length);
--			if (ACPI_SUCCESS(status))
--				break;
-+			ret = acpi_video_device_EDID(video_device, edid, length);
-+			if (ret > 0)
-+				return ret;
- 		}
--		if (!length)
--			continue;
+-	if (new_limit < (1U << pasid_bits)) {
+-		if (pasids_allocated)
+-			/* We've already allocated user PASIDs, too late to
+-			 * change the limit
+-			 */
+-			return false;
 -
--		*edid = buffer->buffer.pointer;
--		return length;
- 	}
+-		while (new_limit < (1U << pasid_bits))
+-			pasid_bits--;
+-	}
+-
+-	return true;
+-}
+-
+-unsigned int kfd_get_pasid_limit(void)
+-{
+-	return 1U << pasid_bits;
+-}
+-
+ u32 kfd_pasid_alloc(void)
+ {
+ 	int r = amdgpu_pasid_alloc(pasid_bits);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index 9e5ca0b93b2a..0b5979b29bbc 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -1086,8 +1086,6 @@ struct kfd_process *kfd_lookup_process_by_pid(struct pid *pid);
+ /* PASIDs */
+ int kfd_pasid_init(void);
+ void kfd_pasid_exit(void);
+-bool kfd_set_pasid_limit(unsigned int new_limit);
+-unsigned int kfd_get_pasid_limit(void);
+ u32 kfd_pasid_alloc(void);
+ void kfd_pasid_free(u32 pasid);
  
- 	return -ENODEV;
-diff --git a/drivers/gpu/drm/nouveau/nouveau_acpi.c b/drivers/gpu/drm/nouveau/nouveau_acpi.c
-index 8f0c69aad248..21b56cc7605c 100644
---- a/drivers/gpu/drm/nouveau/nouveau_acpi.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_acpi.c
-@@ -384,7 +384,7 @@ nouveau_acpi_edid(struct drm_device *dev, struct drm_connector *connector)
- 	if (ret < 0)
- 		return NULL;
- 
--	return kmemdup(edid, EDID_LENGTH, GFP_KERNEL);
-+	return edid;
+@@ -1137,7 +1135,6 @@ struct kfd_topology_device *kfd_topology_device_by_proximity_domain_no_lock(
+ 						uint32_t proximity_domain);
+ struct kfd_topology_device *kfd_topology_device_by_id(uint32_t gpu_id);
+ struct kfd_node *kfd_device_by_id(uint32_t gpu_id);
+-struct kfd_node *kfd_device_by_pci_dev(const struct pci_dev *pdev);
+ static inline bool kfd_irq_is_from_node(struct kfd_node *node, uint32_t node_id,
+ 					uint32_t vmid)
+ {
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+index 9476e30d6baa..a9bc9ab7e31d 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+@@ -108,24 +108,6 @@ struct kfd_node *kfd_device_by_id(uint32_t gpu_id)
+ 	return top_dev->gpu;
  }
  
- bool nouveau_acpi_video_backlight_use_native(void)
+-struct kfd_node *kfd_device_by_pci_dev(const struct pci_dev *pdev)
+-{
+-	struct kfd_topology_device *top_dev;
+-	struct kfd_node *device = NULL;
+-
+-	down_read(&topology_lock);
+-
+-	list_for_each_entry(top_dev, &topology_device_list, list)
+-		if (top_dev->gpu && top_dev->gpu->adev->pdev == pdev) {
+-			device = top_dev->gpu;
+-			break;
+-		}
+-
+-	up_read(&topology_lock);
+-
+-	return device;
+-}
+-
+ /* Called with write topology_lock acquired */
+ static void kfd_release_topology_device(struct kfd_topology_device *dev)
+ {
 -- 
-2.39.5
+2.47.1
 
