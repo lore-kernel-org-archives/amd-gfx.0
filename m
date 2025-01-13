@@ -4,73 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35FADC02180
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jan 2025 16:55:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 226D3C02180
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jan 2025 17:00:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C856910E726;
-	Mon, 13 Jan 2025 16:55:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B86F310E733;
+	Mon, 13 Jan 2025 17:00:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RPt+Tue0";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AhGl0lSL";
 	dkim-atps=neutral
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
- [209.85.216.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 441A310E731
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jan 2025 16:55:23 +0000 (UTC)
-Received: by mail-pj1-f51.google.com with SMTP id
- 98e67ed59e1d1-2f2f5e91393so991325a91.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jan 2025 08:55:23 -0800 (PST)
+Received: from mail-pj1-x1029.google.com (mail-pj1-x1029.google.com
+ [IPv6:2607:f8b0:4864:20::1029])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 393CC10E733;
+ Mon, 13 Jan 2025 17:00:30 +0000 (UTC)
+Received: by mail-pj1-x1029.google.com with SMTP id
+ 98e67ed59e1d1-2ee94a2d8d0so950284a91.2; 
+ Mon, 13 Jan 2025 09:00:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1736787263; x=1737392063; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1736787630; x=1737392430; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=b1T5aywAiH7ptt7VdlA4aHoOt/53ne29fLPVJVqCrh0=;
- b=RPt+Tue0a29+SVQ1gW/vdbyAYjCfWiOJY8u/aPwO9iC986FXvm0Dq85wkN4N1cKkCT
- 74uav3jK6TdU2vdJvaaQ/LT+Jw+5CDD1qwT4mM4bwjL/3cRUoDI6Mn8q2ULSw7oepThk
- bGVkRWETCIEhi+IL6jv5iLT1rvZqHxfblOdH8DoyeQrXRnbrcGZS9m2LkbKYWhICCuJ3
- a0AyCK6WxmKzYKCiQHn7t/DfGYW/Fy+zRG3/XxbdWwErSXw5Emzsd+BUTFxxvyh0c54W
- Nc5kJAoYuxrRPGmESrMbIZB3q1GAE953VxTxwXq9Ei3HnesOt7EbWnrnf6zVDeU4Ve1Q
- vypQ==
+ bh=PbCZdzZQB8fOgM5lm3EVuRvwh/5DKW/szxC/ujNMdug=;
+ b=AhGl0lSLYIs1K5pQvegQ/ggmbHVX1SAd1FbeLPgFQndefxeGbAicp4Yd+k3q6Z3+u0
+ GG6RbzxErzjrY7g54U00Alx9drZY9/tgth/KC6plmfJu9myau72ICKrZcX8PDqsmu/uF
+ kraZjNiptgEVhwqRduZgRZRg5Bz82X19nzWg3iKskYgAddHedY+VLuwCw0GU5jcis+ht
+ DfBvhDGPE0XBNxnb2T9QM7AmbhC+u/AvgxcjB/WB3sb9dBxdyVYNEWIoIQFsaEHUZ7BO
+ fGsf10rfZdQI8gN7BcQSmb59lQAYg7Qm6Y4BNCPpYbu+lGUmSpA4vp+xHeJlavMAC9kk
+ eoiA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736787263; x=1737392063;
+ d=1e100.net; s=20230601; t=1736787630; x=1737392430;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=b1T5aywAiH7ptt7VdlA4aHoOt/53ne29fLPVJVqCrh0=;
- b=OizFwHI6g/OP5pDAduKsDuflrvRvA7xZ8lxD/JMXyXXMmYnMPJHbr7pvPuIL6QzFfq
- uLoQjl7Qmpw/cQlL5kyB4qj28q0W7XlH6RJ0mM/S+XNDc5Yo8ZaYuVewpMtR2FY1+fJk
- yBtD4wgRsUYAicPZ+y8iGQ9X8Ty9cuCyPxddGW9iYbHnzzU3h1Nf6lsSs/fAiGxQhjHE
- ThRMgBl3KTlURdeUYWzFtPHYHFNHNUJ1Qw0NeSMzcARiQtV4ji9rhYjSfA3YpnMLWYNg
- TKnGtmMdyCM74ZvmxnrGpAbmgf9iMb8i9u9b3FMn45dNAVAZreXtX6NU8PQwUdmW7HkM
- /i9w==
+ bh=PbCZdzZQB8fOgM5lm3EVuRvwh/5DKW/szxC/ujNMdug=;
+ b=MkFvoG3oo7lLLGcnkb+G41QOTaoLM0m9B8ne5bw3nEWm8qLbpdZhP1NbvT0Bi/nV41
+ iwMrvqUgewP4WJ49QAXmtLvkyxrTkZCF/oS4iFNlHMMn7uoMGtYN+qdnV385OhDS1pRV
+ LExyTTrCyDkMyXeAnmiGxVgPIkj69D33K9n0XHpaM4HCvY2yBgdnGXy6fvxFTFIaGrYX
+ MCj/tqzCKZjFA0/tGi0RligifQSauU6DrfOY/y0mFuixLFU2LXiuBmkTiDkZjc8q6HoL
+ 9nYsPQ8zEtiBTOYwta00vxTcbr43E7qSf/DjaK1+MrCV4r5CD/PFnhP9fRVO28wQbfyx
+ KY6w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWefM60I3Dem05RCWh2yrUkfUUsXvN4ZpQpsXX2a86y19ZGh9Bp1/naEZCv+mEqJLnK935Zu+JY@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyncVWO6B+g5o6Ygnlh/WuA5BzC32pMsBgPIdNBt2Mh01cXZTdV
- cPn0u+JCjnhYMlzas08gD/UtbTronqgblF0k/2guSeuS7pPrHZ9OC8Cev8SjOsMAec+3l44SEls
- wpt/OdxN+2ZsEY+UtrzlilRQ/81I=
-X-Gm-Gg: ASbGncsu7fKR78ENkHlrGzjQYx59FxDv3Cy5HTHSCkGKwuU03ROEc9ZaHbpCH1jdKGP
- 3gZ45yz8ki1bhh9CQfARmiNbsaCEQ1hFNDA8RAg==
-X-Google-Smtp-Source: AGHT+IExc7j/Q4qoN5XrPwTBxzJpWvA6Ch7oEuA1AVObKQgMvJKMfp/8Qu1qL92+C1oKJQ94C1b6ej0kEUpzCfc9CyM=
-X-Received: by 2002:a17:90a:c88c:b0:2ee:c059:7de6 with SMTP id
- 98e67ed59e1d1-2f548ea2dc2mr10880757a91.2.1736787262758; Mon, 13 Jan 2025
- 08:54:22 -0800 (PST)
+ AJvYcCVRV4eyw98DvARfTRnovFFUT1FmUv56oB/SO18wWm49RON0z0bBaIm6JGo5eOf+7TU60jcQypXn@lists.freedesktop.org,
+ AJvYcCWr5bvjQLj2Ipi+5dEva9XDkJkVyFK/ugw8XHoSu3xoPWiE4telWeGqbYifrHXGTxwIUrYYBm5+bfOE@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzvT0Ae+UJrrIX98JLYJXUegk55klIAydmMBetuUo/TLG7HCHOH
+ kqFk1xA56vTaBSDaOXtBIv19yvYT9Qt3YgPDY2JSPgL/0jLocuLKoswCjUhgpMGh/N3Adbgmjvj
+ 8sDaeNVvF8hgeASgWpIJf2333K+lvHw==
+X-Gm-Gg: ASbGnctVuYaHzaprrKjx7/LAoPsdvD4SWnEXvhQ9A6eySBEcrAuka2GVHZQmg4yMZt+
+ hC8MLpqIdzA5mIuVXX3Dpdn8Un6fCMR/csz2guw==
+X-Google-Smtp-Source: AGHT+IFBfOrslAMlo9J6W9grm47b3hcHW7H2w5I5rWuqurqPDRwmUKCccmufyMFPYfJDVTLs5Y3aOGMChBuGCtU9CIE=
+X-Received: by 2002:a17:90a:d645:b0:2f4:f7f8:f70b with SMTP id
+ 98e67ed59e1d1-2f5490fafb1mr12280361a91.5.1736787629456; Mon, 13 Jan 2025
+ 09:00:29 -0800 (PST)
 MIME-Version: 1.0
-References: <20250108225627.14063-1-alexander.deucher@amd.com>
- <589ecdc0-9f5d-4b79-b11d-01b6d22fbf15@amd.com>
- <CADnq5_NrJ7xqkxk-ccYnQeuVRoWuN95Wyq59UVYtdRUMVVqCvw@mail.gmail.com>
- <7bf342e7-72ad-4ed0-a45d-ad933db28753@amd.com>
- <CADnq5_N_S6Cv57zAgroHJ2e7KbvmQ_8QcPHrryEtatpaAWR87w@mail.gmail.com>
- <27163712-891c-4708-96f4-90bd1b2bbf7f@amd.com>
-In-Reply-To: <27163712-891c-4708-96f4-90bd1b2bbf7f@amd.com>
+References: <20250112134103.72081-1-linux@treblig.org>
+In-Reply-To: <20250112134103.72081-1-linux@treblig.org>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 13 Jan 2025 11:54:11 -0500
-X-Gm-Features: AbW1kvZF20HgkUcBNvYj1CRKVIlzhk2erVlbqtODebiv2iLkGlMOCFAHHNVHyj0
-Message-ID: <CADnq5_MhEg9T1ksaNka=ra7KhszCV1JW72bw1A-aDX7CRprkmg@mail.gmail.com>
-Subject: Re: [PATCH 1/5] drm/amdgpu/gfx: add ring helpers for setting workload
- profile
-To: "Lazar, Lijo" <lijo.lazar@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, 
- aurabindo.pillai@amd.com, kenneth.feng@amd.com
+Date: Mon, 13 Jan 2025 12:00:18 -0500
+X-Gm-Features: AbW1kvZufvjWWQRieZ02twwrQaygQOkpqrBifoPH_-7W1kFXo627zREr6GxyUZ0
+Message-ID: <CADnq5_PBFGnTwfCqMQRTa+uD+mrXmSrAjC_5Gp9VLbwr8tkuzg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdkfd: Remove unused functions
+To: linux@treblig.org
+Cc: Felix.Kuehling@amd.com, alexander.deucher@amd.com, 
+ christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com, 
+ simona@ffwll.ch, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -87,233 +84,121 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jan 10, 2025 at 10:40=E2=80=AFPM Lazar, Lijo <lijo.lazar@amd.com> w=
-rote:
->
->
->
-> On 1/10/2025 8:33 PM, Alex Deucher wrote:
-> > On Thu, Jan 9, 2025 at 10:30=E2=80=AFPM Lazar, Lijo <lijo.lazar@amd.com=
-> wrote:
-> >>
-> >>
-> >>
-> >> On 1/9/2025 10:36 PM, Alex Deucher wrote:
-> >>> On Thu, Jan 9, 2025 at 12:59=E2=80=AFAM Lazar, Lijo <lijo.lazar@amd.c=
-om> wrote:
-> >>>>
-> >>>>
-> >>>>
-> >>>> On 1/9/2025 4:26 AM, Alex Deucher wrote:
-> >>>>> Add helpers to switch the workload profile dynamically when
-> >>>>> commands are submitted.  This allows us to switch to
-> >>>>> the FULLSCREEN3D or COMPUTE profile when work is submitted.
-> >>>>> Add a delayed work handler to delay switching out of the
-> >>>>> selected profile if additional work comes in.  This works
-> >>>>> the same as the VIDEO profile for VCN.  This lets dynamically
-> >>>>> enable workload profiles on the fly and then move back
-> >>>>> to the default when there is no work.
-> >>>>>
-> >>>>> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> >>>>> ---
-> >>>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 57 +++++++++++++++++++++=
-++++
-> >>>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h | 11 +++++
-> >>>>>  2 files changed, 68 insertions(+)
-> >>>>>
-> >>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/=
-drm/amd/amdgpu/amdgpu_gfx.c
-> >>>>> index 6d5d81f0dc4e7..c542617121393 100644
-> >>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> >>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> >>>>> @@ -2110,6 +2110,63 @@ void amdgpu_gfx_enforce_isolation_ring_end_u=
-se(struct amdgpu_ring *ring)
-> >>>>>       mutex_unlock(&adev->enforce_isolation_mutex);
-> >>>>>  }
-> >>>>>
-> >>>>> +void amdgpu_gfx_profile_idle_work_handler(struct work_struct *work=
-)
-> >>>>> +{
-> >>>>> +     struct amdgpu_device *adev =3D
-> >>>>> +             container_of(work, struct amdgpu_device, gfx.idle_wor=
-k.work);
-> >>>>> +     enum PP_SMC_POWER_PROFILE profile;
-> >>>>> +     u32 i, fences =3D 0;
-> >>>>> +     int r;
-> >>>>> +
-> >>>>> +     if (adev->gfx.num_gfx_rings)
-> >>>>> +             profile =3D PP_SMC_POWER_PROFILE_FULLSCREEN3D;
-> >>>>> +     else
-> >>>>> +             profile =3D PP_SMC_POWER_PROFILE_COMPUTE;
-> >>>>
-> >>>> Since profile selection is in generic code, it makes sense to first
-> >>>> check if the profile is supported for the family. Otherwise, this ne=
-eds
-> >>>> to be passed by the respective GFX family.
-> >>>
-> >>> The generic code already handles this.  If you select an unsupported
-> >>> profile, it's ignored when the mask is updated.
-> >>>
-> >>
-> >> That is strange. Does that mean user never gets an error if user
-> >> attempts to set an unsupported profile?
-> >
-> > If you use sysfs, you can only select from the available options
-> > supported by the chip so there is no way to select a non-supported
-> > profile.  For the internal driver API, we just silently ignore it.
-> >
-> >>
-> >> Another problem is this could override the user set profile now. Is th=
-at
-> >> intended? In the current logic, whenever user sets a profile, the
-> >> current profile is removed. With this one, another profile gets added
-> >> and the user preference could be ignored depending on the priority.
-> >
-> > Yes, I think.  For VCN we already select the video profile in a
-> > similar manner and for ROCm we already select the compute profile,
-> > this just extends that to gfx.  This doesn't really change the
-> > behavior compared to the current state of the driver.  At the moment
-> > we default to fullscreen3d on navi chips and on MI chips we always
-> > enable compute when ROCm is active.  The change here is that we
-> > eventually fall back to the bootup profile by default when the GPU is
-> > idle.  This allows PMFW to enable additional power saving features
-> > while still providing a boost when applications are running.
-> >
->
-> Sounds good. Only concern is if user intentionally wants to use power
-> saving profile all the time. Not sure if 3D has a lower priority than tha=
-t.
-
-Yes, power save is higher priority than fullscreen 3d.
+Applied.  Thanks!
 
 Alex
 
+On Sun, Jan 12, 2025 at 9:39=E2=80=AFAM <linux@treblig.org> wrote:
 >
-> That aside, series is -
->         Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+> From: "Dr. David Alan Gilbert" <linux@treblig.org>
 >
-> Thanks,
-> Lijo
+> kfd_device_by_pci_dev(), kfd_get_pasid_limit() and kfd_set_pasid_limit()
+> have been unused since 2023's
+> commit c99a2e7ae291 ("drm/amdkfd: drop IOMMUv2 support")
 >
-> > Alex
-> >
-> >>
-> >> Thanks,
-> >> Lijo
-> >>
-> >>> Alex
-> >>>
-> >>>>
-> >>>> Thanks,
-> >>>> Lijo
-> >>>>
-> >>>>> +
-> >>>>> +     for (i =3D 0; i < AMDGPU_MAX_GFX_RINGS; ++i)
-> >>>>> +             fences +=3D amdgpu_fence_count_emitted(&adev->gfx.gfx=
-_ring[i]);
-> >>>>> +     for (i =3D 0; i < (AMDGPU_MAX_COMPUTE_RINGS * AMDGPU_MAX_GC_I=
-NSTANCES); ++i)
-> >>>>> +             fences +=3D amdgpu_fence_count_emitted(&adev->gfx.com=
-pute_ring[i]);
-> >>>>> +     if (!fences && !atomic_read(&adev->gfx.total_submission_cnt))=
+> Remove them.
+>
+> Signed-off-by: Dr. David Alan Gilbert <linux@treblig.org>
+> ---
+>  drivers/gpu/drm/amd/amdkfd/kfd_pasid.c    | 24 -----------------------
+>  drivers/gpu/drm/amd/amdkfd/kfd_priv.h     |  3 ---
+>  drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 18 -----------------
+>  3 files changed, 45 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_pasid.c b/drivers/gpu/drm/amd=
+/amdkfd/kfd_pasid.c
+> index e3b250918f39..8896426e0556 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_pasid.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_pasid.c
+> @@ -28,30 +28,6 @@
+>  static unsigned int pasid_bits =3D 16;
+>  static bool pasids_allocated; /* =3D false */
+>
+> -bool kfd_set_pasid_limit(unsigned int new_limit)
+> -{
+> -       if (new_limit < 2)
+> -               return false;
+> -
+> -       if (new_limit < (1U << pasid_bits)) {
+> -               if (pasids_allocated)
+> -                       /* We've already allocated user PASIDs, too late =
+to
+> -                        * change the limit
+> -                        */
+> -                       return false;
+> -
+> -               while (new_limit < (1U << pasid_bits))
+> -                       pasid_bits--;
+> -       }
+> -
+> -       return true;
+> -}
+> -
+> -unsigned int kfd_get_pasid_limit(void)
+> -{
+> -       return 1U << pasid_bits;
+> -}
+> -
+>  u32 kfd_pasid_alloc(void)
+>  {
+>         int r =3D amdgpu_pasid_alloc(pasid_bits);
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/=
+amdkfd/kfd_priv.h
+> index 9e5ca0b93b2a..0b5979b29bbc 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> @@ -1086,8 +1086,6 @@ struct kfd_process *kfd_lookup_process_by_pid(struc=
+t pid *pid);
+>  /* PASIDs */
+>  int kfd_pasid_init(void);
+>  void kfd_pasid_exit(void);
+> -bool kfd_set_pasid_limit(unsigned int new_limit);
+> -unsigned int kfd_get_pasid_limit(void);
+>  u32 kfd_pasid_alloc(void);
+>  void kfd_pasid_free(u32 pasid);
+>
+> @@ -1137,7 +1135,6 @@ struct kfd_topology_device *kfd_topology_device_by_=
+proximity_domain_no_lock(
+>                                                 uint32_t proximity_domain=
+);
+>  struct kfd_topology_device *kfd_topology_device_by_id(uint32_t gpu_id);
+>  struct kfd_node *kfd_device_by_id(uint32_t gpu_id);
+> -struct kfd_node *kfd_device_by_pci_dev(const struct pci_dev *pdev);
+>  static inline bool kfd_irq_is_from_node(struct kfd_node *node, uint32_t =
+node_id,
+>                                         uint32_t vmid)
+>  {
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/=
+amd/amdkfd/kfd_topology.c
+> index 9476e30d6baa..a9bc9ab7e31d 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+> @@ -108,24 +108,6 @@ struct kfd_node *kfd_device_by_id(uint32_t gpu_id)
+>         return top_dev->gpu;
+>  }
+>
+> -struct kfd_node *kfd_device_by_pci_dev(const struct pci_dev *pdev)
+> -{
+> -       struct kfd_topology_device *top_dev;
+> -       struct kfd_node *device =3D NULL;
+> -
+> -       down_read(&topology_lock);
+> -
+> -       list_for_each_entry(top_dev, &topology_device_list, list)
+> -               if (top_dev->gpu && top_dev->gpu->adev->pdev =3D=3D pdev)=
  {
-> >>>>> +             r =3D amdgpu_dpm_switch_power_profile(adev, profile, =
-false);
-> >>>>> +             if (r)
-> >>>>> +                     dev_warn(adev->dev, "(%d) failed to disable %=
-s power profile mode\n", r,
-> >>>>> +                              profile =3D=3D PP_SMC_POWER_PROFILE_=
-FULLSCREEN3D ?
-> >>>>> +                              "fullscreen 3D" : "compute");
-> >>>>> +     } else {
-> >>>>> +             schedule_delayed_work(&adev->gfx.idle_work, GFX_PROFI=
-LE_IDLE_TIMEOUT);
-> >>>>> +     }
-> >>>>> +}
-> >>>>> +
-> >>>>> +void amdgpu_gfx_profile_ring_begin_use(struct amdgpu_ring *ring)
-> >>>>> +{
-> >>>>> +     struct amdgpu_device *adev =3D ring->adev;
-> >>>>> +     enum PP_SMC_POWER_PROFILE profile;
-> >>>>> +     int r;
-> >>>>> +
-> >>>>> +     if (adev->gfx.num_gfx_rings)
-> >>>>> +             profile =3D PP_SMC_POWER_PROFILE_FULLSCREEN3D;
-> >>>>> +     else
-> >>>>> +             profile =3D PP_SMC_POWER_PROFILE_COMPUTE;
-> >>>>> +
-> >>>>> +     atomic_inc(&adev->gfx.total_submission_cnt);
-> >>>>> +
-> >>>>> +     if (!cancel_delayed_work_sync(&adev->gfx.idle_work)) {
-> >>>>> +             r =3D amdgpu_dpm_switch_power_profile(adev, profile, =
-true);
-> >>>>> +             if (r)
-> >>>>> +                     dev_warn(adev->dev, "(%d) failed to disable %=
-s power profile mode\n", r,
-> >>>>> +                              profile =3D=3D PP_SMC_POWER_PROFILE_=
-FULLSCREEN3D ?
-> >>>>> +                              "fullscreen 3D" : "compute");
-> >>>>> +     }
-> >>>>> +}
-> >>>>> +
-> >>>>> +void amdgpu_gfx_profile_ring_end_use(struct amdgpu_ring *ring)
-> >>>>> +{
-> >>>>> +     atomic_dec(&ring->adev->gfx.total_submission_cnt);
-> >>>>> +
-> >>>>> +     schedule_delayed_work(&ring->adev->gfx.idle_work, GFX_PROFILE=
-_IDLE_TIMEOUT);
-> >>>>> +}
-> >>>>> +
-> >>>>>  /*
-> >>>>>   * debugfs for to enable/disable gfx job submission to specific co=
-re.
-> >>>>>   */
-> >>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/=
-drm/amd/amdgpu/amdgpu_gfx.h
-> >>>>> index 7f9e261f47f11..6c84598caec21 100644
-> >>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> >>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> >>>>> @@ -57,6 +57,9 @@ enum amdgpu_gfx_pipe_priority {
-> >>>>>  #define AMDGPU_GFX_QUEUE_PRIORITY_MINIMUM  0
-> >>>>>  #define AMDGPU_GFX_QUEUE_PRIORITY_MAXIMUM  15
-> >>>>>
-> >>>>> +/* 1 second timeout */
-> >>>>> +#define GFX_PROFILE_IDLE_TIMEOUT     msecs_to_jiffies(1000)
-> >>>>> +
-> >>>>>  enum amdgpu_gfx_partition {
-> >>>>>       AMDGPU_SPX_PARTITION_MODE =3D 0,
-> >>>>>       AMDGPU_DPX_PARTITION_MODE =3D 1,
-> >>>>> @@ -477,6 +480,9 @@ struct amdgpu_gfx {
-> >>>>>       bool                            kfd_sch_inactive[MAX_XCP];
-> >>>>>       unsigned long                   enforce_isolation_jiffies[MAX=
-_XCP];
-> >>>>>       unsigned long                   enforce_isolation_time[MAX_XC=
-P];
-> >>>>> +
-> >>>>> +     atomic_t                        total_submission_cnt;
-> >>>>> +     struct delayed_work             idle_work;
-> >>>>>  };
-> >>>>>
-> >>>>>  struct amdgpu_gfx_ras_reg_entry {
-> >>>>> @@ -585,6 +591,11 @@ void amdgpu_gfx_cleaner_shader_init(struct amd=
-gpu_device *adev,
-> >>>>>  void amdgpu_gfx_enforce_isolation_handler(struct work_struct *work=
-);
-> >>>>>  void amdgpu_gfx_enforce_isolation_ring_begin_use(struct amdgpu_rin=
-g *ring);
-> >>>>>  void amdgpu_gfx_enforce_isolation_ring_end_use(struct amdgpu_ring =
-*ring);
-> >>>>> +
-> >>>>> +void amdgpu_gfx_profile_idle_work_handler(struct work_struct *work=
-);
-> >>>>> +void amdgpu_gfx_profile_ring_begin_use(struct amdgpu_ring *ring);
-> >>>>> +void amdgpu_gfx_profile_ring_end_use(struct amdgpu_ring *ring);
-> >>>>> +
-> >>>>>  void amdgpu_debugfs_gfx_sched_mask_init(struct amdgpu_device *adev=
-);
-> >>>>>  void amdgpu_debugfs_compute_sched_mask_init(struct amdgpu_device *=
-adev);
-> >>>>>
-> >>>>
-> >>
+> -                       device =3D top_dev->gpu;
+> -                       break;
+> -               }
+> -
+> -       up_read(&topology_lock);
+> -
+> -       return device;
+> -}
+> -
+>  /* Called with write topology_lock acquired */
+>  static void kfd_release_topology_device(struct kfd_topology_device *dev)
+>  {
+> --
+> 2.47.1
 >
