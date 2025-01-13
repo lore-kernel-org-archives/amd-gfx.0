@@ -4,39 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A771E7719A
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Jan 2025 14:00:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AE87C02184
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jan 2025 16:45:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 66EDC10E8A4;
-	Wed,  8 Jan 2025 14:00:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38C8B10E72A;
+	Mon, 13 Jan 2025 16:45:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="pWcYoVGg";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OlB/wQFW";
 	dkim-atps=neutral
-Received: from out30-132.freemail.mail.aliyun.com
- (out30-132.freemail.mail.aliyun.com [115.124.30.132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9276210E8A4
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Jan 2025 14:00:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux.alibaba.com; s=default;
- t=1736344811; h=From:To:Subject:Date:Message-ID:MIME-Version;
- bh=R8AO7eaKJ16u+gsYlUZ+LnPWX2kerK611y107FP34fk=;
- b=pWcYoVGgfzeEPiVgXIKhj5zQjUNZT884PBwZFFppKcdOWRTDVj7fvFbN7GuW/otQS+3H1W/7CsWwy8cC/RaGGccQ7lUYRm1QDi9jwOmuyw2Hlw6Ol0QyJPNPu6UBRE7MeFYAJqaoNHhCfAsXve97vILP9NmXn4F/kn7tv0n304A=
-Received: from i32d02263.sqa.eu95.tbsite.net(mailfrom:gerry@linux.alibaba.com
- fp:SMTPD_---0WNEHXCe_1736344808 cluster:ay36) by smtp.aliyun-inc.com;
- Wed, 08 Jan 2025 22:00:09 +0800
-From: Jiang Liu <gerry@linux.alibaba.com>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, simona@ffwll.ch, sunil.khatri@amd.com,
- lijo.lazar@amd.com, Hawking.Zhang@amd.com, mario.limonciello@amd.com,
- Jun.Ma2@amd.com, xiaogang.chen@amd.com, Kent.Russell@amd.com,
- shuox.liu@linux.alibaba.com, amd-gfx@lists.freedesktop.org
-Cc: Jiang Liu <gerry@linux.alibaba.com>
-Subject: 
-Date: Wed,  8 Jan 2025 21:59:52 +0800
-Message-ID: <cover.1736344725.git.gerry@linux.alibaba.com>
-X-Mailer: git-send-email 2.43.5
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5277710E72A;
+ Mon, 13 Jan 2025 16:45:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1736786709; x=1768322709;
+ h=from:to:subject:in-reply-to:references:date:message-id:
+ mime-version:content-transfer-encoding;
+ bh=D/FEDvK/MGCzHnDd2wgr5sAsfkdhqlM2Z38rEqyK2tI=;
+ b=OlB/wQFWj3PM0bH+OmqemAfKherlaHWAhutS43lA/IT+MEIol8GKy7+N
+ rLL8CxvodduN9iRclDarqqfYzdGBXfJQDY9F7eHGhOY7o9qEbQj3PsBMt
+ ahg4Utyim2TmI0U2jA6f3JK8UIZ+bdb0QK3/Ub/1SrYwvsdf829pdewp6
+ onXklCYcAq+2FLzDbSSG+u3YKzQr0TC0wNvzil4E111wUwUT8bwh80T8K
+ pHCRqU4tDNpBmqwY9Rc0zxT9BipSOdINzXQA9V4igJSNKXWl6j9s4E3bQ
+ rmcD+aF6fOpfaBepT1r6WaBDW7Nltl2h2FkAb+q3mQPhWaf+s3f/yd8Oz A==;
+X-CSE-ConnectionGUID: R3ZQhY4JQySodE7hsv94lQ==
+X-CSE-MsgGUID: UsyBR3U2SoaZxCNBiSvVQQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11314"; a="37086429"
+X-IronPort-AV: E=Sophos;i="6.12,310,1728975600"; d="scan'208";a="37086429"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jan 2025 08:45:09 -0800
+X-CSE-ConnectionGUID: DEnqptPxRgS8rJl2kdAGdQ==
+X-CSE-MsgGUID: wC4RiyGhQ2amzwMrqF5xaQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.12,310,1728975600"; d="scan'208";a="104313841"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.246.145])
+ by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jan 2025 08:45:07 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Emil J Tywoniak <emil@tywoniak.eu>, intel-xe@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Subject: Re: oops in xe_bo_evict on 6.12.8
+In-Reply-To: <1686df0ae8f7caf0d97369a685c810e09afdbca1@tywoniak.eu>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <1686df0ae8f7caf0d97369a685c810e09afdbca1@tywoniak.eu>
+Date: Mon, 13 Jan 2025 18:45:04 +0200
+Message-ID: <87a5buirxr.fsf@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,181 +68,134 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Subject: [RFC PATCH 00/13] Enhance device state machine to better support suspend/resume
+On Fri, 10 Jan 2025, "Emil J Tywoniak" <emil@tywoniak.eu> wrote:
+> What's up gamers,
+>
+> hope this is the right place to report this oops which possibly is due
+> to amdgpu interaction. The community guidelines link for this list
+> (https://01.org/linuxgraphics/community) doesn't work. Feel free to
+> redirect me if not, even to /dev/null. The Video(DRI - Intel) section
+> on kernel bugzilla doesn't seem to get much life.
 
-Recently we were testing suspend/resume functionality with AMD GPUs,
-we have encountered several resource tracking related bugs, such as
-double buffer free, use after free and unbalanced irq reference count.
+For the longest time, the fdo gitlab has been the place to report i915
+[1] (and lately xe [2]) driver bugs, with a bug filing guide at [3].
 
-We have tried to solve these issues case by case, but found that may
-not be the right way. Especially about the unbalanced irq reference
-count, there will be new issues appear once we fixed the current known
-issues. After analyzing related source code, we found that there may be
-some fundamental implementaion flaws behind these resource tracking
-issues.
+However, the backtrace is all amdgpu? You only mention xe_bo_evict in
+the subject.
 
-The amdgpu driver has two major state machines to driver the device
-management flow, one is for ip blocks, the other is for ras blocks.
-The hook points defined in struct amd_ip_funcs for device setup/teardown
-are symmetric, but the implementation is asymmetric, sometime even
-ambiguous. The most obvious two issues we noticed are:
-1) amdgpu_irq_get() are called from .late_init() but amdgpu_irq_put()
-   are called from .hw_fini() instead of .early_fini().
-2) the way to reset ip_bloc.status.valid/sw/hw/late_initialized doesn't
-   match the way to set those flags.
+Cc: amd-gfx@lists.freedesktop.org
 
-When taking device suspend/resume into account, in addition to device
-probe/remove, things get much more complex. Some issues arise because
-many suspend/resume implementations directly reuse .hw_init/.hw_fini/
-.late_init hook points.
 
-So we try to fix those issues by two enhancements/refinements to current
-device management state machines.
+BR,
+Jani.
 
-The first change is to make the ip block state machine and associated
-status flags work in stack-like way as below:
-Callback        Status Flags
-early_init:     valid = true
-sw_init:        sw = true
-hw_init:        hw = true
-late_init:      late_initialized = true
-early_fini:     late_initialized = false
-hw_fini:        hw = false
-sw_fini:        sw = false
-late_fini:      valid = false
 
-Also do the same thing for ras block state machine, though it's much
-more simpler.
 
-The second change is fine tune the overall device management work
-flow as below:
-1. amdgpu_driver_load_kms()
-	amdgpu_device_init()
-		amdgpu_device_ip_early_init()
-			ip_blocks[i].early_init()
-			ip_blocks[i].status.valid = true
-		amdgpu_device_ip_init()
-			amdgpu_ras_init()
-			ip_blocks[i].sw_init()
-			ip_blocks[i].status.sw = true
-			ip_blocks[i].hw_init()
-			ip_blocks[i].status.hw = true
-		amdgpu_device_ip_late_init()
-			ip_blocks[i].late_init()
-			ip_blocks[i].status.late_initialized = true
-			amdgpu_ras_late_init()
-				ras_blocks[i].ras_late_init()
-					amdgpu_ras_feature_enable_on_boot()
+[1] https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/
+[2] https://gitlab.freedesktop.org/drm/xe/kernel/-/issues/
+[3] https://drm.pages.freedesktop.org/intel-docs/how-to-file-i915-bugs.html
 
-2. amdgpu_pmops_suspend()/amdgpu_pmops_freeze()/amdgpu_pmops_poweroff()
-	amdgpu_device_suspend()
-		amdgpu_ras_early_fini()
-			ras_blocks[i].ras_early_fini()
-				amdgpu_ras_feature_disable()
-		amdgpu_ras_suspend()
-			amdgpu_ras_disable_all_features()
-+++		ip_blocks[i].early_fini()
-+++		ip_blocks[i].status.late_initialized = false
-		ip_blocks[i].suspend()
 
-3. amdgpu_pmops_resume()/amdgpu_pmops_thaw()/amdgpu_pmops_restore()
-	amdgpu_device_resume()
-		amdgpu_device_ip_resume()
-			ip_blocks[i].resume()
-		amdgpu_device_ip_late_init()
-			ip_blocks[i].late_init()
-			ip_blocks[i].status.late_initialized = true
-			amdgpu_ras_late_init()
-				ras_blocks[i].ras_late_init()
-					amdgpu_ras_feature_enable_on_boot()
-		amdgpu_ras_resume()
-			amdgpu_ras_enable_all_features()
+>
+> I see there have been recent changes to things around bo eviction on
+> xe and today I caught the following oops when spawning a second VS
+> Code window in sway with the New Window command (Ctrl+Shift+N). VS
+> Code was not running on XWayland. So far I haven't been able to
+> reproduce this. I have amdgpu loaded as a fall back for my ryzen 7900X
+> builtin graphics since I installed the funny GPU (Intel Arc B580 / BMG
+> G21). I'm on Mesa 24.3.3.
+>
+> ------------[ cut here ]------------
+> workqueue: WQ_MEM_RECLAIM sdma0:drm_sched_run_job_work [gpu_sched] is flu=
+shing !WQ_MEM_RECLAIM events:amdgpu_device_delay_enable_gfx_off [amdgpu]
+> WARNING: CPU: 5 PID: 29199 at kernel/workqueue.c:3704 check_flush_depende=
+ncy+0x10f/0x130
+> Modules linked in: rfcomm snd_seq_dummy snd_hrtimer snd_seq cmac algif_ha=
+sh algif_skcipher af_alg nft_chain_nat xt_MASQUERADE nf_conntrack_netlink x=
+frm_user xfrm_algo xt_addrtype overlay af_packet bnep btusb btrtl btintel b=
+tbcm btmtk bluetooth mousedev cdc_acm joydev nls_iso8859_1 nls_cp437 vfat f=
+at mei_gsc_proxy mei_gsc mei_me mei xt_conntrack ip6t_rpfilter mt7921e ipt_=
+rpfilter mt7921_common mt792x_lib snd_hda_codec_hdmi mt76_connac_lib edac_m=
+ce_amd edac_core mt76 snd_hda_intel amd_atl intel_rapl_msr snd_intel_dspcfg=
+ xt_pkttype intel_rapl_common snd_intel_sdw_acpi crct10dif_pclmul xt_LOG ma=
+c80211 snd_usb_audio uvcvideo nf_log_syslog snd_usbmidi_lib crc32_pclmul sn=
+d_hda_codec xt_tcpudp polyval_clmulni videobuf2_vmalloc xe snd_ump polyval_=
+generic uvc snd_hda_core ghash_clmulni_intel cfg80211 nft_compat snd_rawmid=
+i sha512_ssse3 videobuf2_memops spd5118 sha256_ssse3 snd_seq_device videobu=
+f2_v4l2 snd_hwdep r8169 sha1_ssse3 battery sp5100_tco videobuf2_common aesn=
+i_intel snd_pcm watchdog realtek gf128mul
+>  crypto_simd mdio_devres videodev snd_timer cryptd libphy rfkill snd i2c_=
+piix4 drm_gpuvm wmi_bmof rapl libarc4 led_class mc nf_tables i2c_smbus k10t=
+emp soundcore sch_fq_codel tpm_crb rtc_cmos evdev mac_hid tpm_tis gpio_amdp=
+t tiny_power_button tpm_tis_core gpio_generic button uinput hid_xpadneo(O) =
+ff_memless atkbd libps2 serio vivaldi_fmap loop xt_nat nf_nat nf_conntrack =
+nf_defrag_ipv6 nf_defrag_ipv4 libcrc32c br_netfilter veth tun tap macvlan b=
+ridge stp llc kvm_amd ccp kvm fuse efi_pstore configfs nfnetlink efivarfs t=
+pm libaescfb ecdh_generic ecc rng_core dmi_sysfs ip_tables x_tables autofs4=
+ ext4 crc32c_generic mbcache jbd2 hid_generic usbhid hid ahci libahci xhci_=
+pci libata nvme xhci_hcd scsi_mod nvme_core crc32c_intel scsi_common nvme_a=
+uth dm_mod dax amdgpu video wmi amdxcp i2c_algo_bit drm_ttm_helper ttm drm_=
+exec gpu_sched drm_suballoc_helper drm_buddy drm_display_helper cec crc16
+> CPU: 5 UID: 0 PID: 29199 Comm: kworker/u96:0 Tainted: G        W  O      =
+ 6.12.8 #1-NixOS
+> Tainted: [W]=3DWARN, [O]=3DOOT_MODULE
+> Hardware name: Micro-Star International Co., Ltd. MS-7D75/MAG B650 TOMAHA=
+WK WIFI (MS-7D75), BIOS 1.60 05/30/2023
+> Workqueue: sdma0 drm_sched_run_job_work [gpu_sched]
+> RIP: 0010:check_flush_dependency+0x10f/0x130
+> Code: c0 f3 01 01 90 49 8b 45 18 48 8d b2 c0 00 00 00 48 8d 8b c0 00 00 0=
+0 49 89 e8 48 c7 c7 a0 c7 df b4 48 89 c2 e8 82 7e fd ff 90 <0f> 0b 90 90 e9=
+ 0a ff ff ff 80 3d 99 c0 f3 01 00 75 8f e9 42 ff ff
+> RSP: 0018:ffff95dd9ef97c60 EFLAGS: 00010046
+> RAX: 0000000000000000 RBX: ffff9265c01b8e00 RCX: 0000000000000000
+> RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
+> RBP: ffffffffc0438c00 R08: 0000000000000000 R09: 0000000000000000
+> R10: 0000000000000000 R11: 0000000000000000 R12: ffff92681a13b200
+> R13: ffff9265c94338c0 R14: 0000000000000001 R15: ffff9265c01bce00
+> FS:  0000000000000000(0000) GS:ffff926cb7e80000(0000) knlGS:0000000000000=
+000
+> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> CR2: 000000000050d6d0 CR3: 00000002a38d6000 CR4: 0000000000f50ef0
+> PKRU: 55555554
+> Call Trace:
+>  <TASK>
+>  ? check_flush_dependency+0x10f/0x130
+>  ? __warn.cold+0x93/0xf6
+>  ? check_flush_dependency+0x10f/0x130
+>  ? report_bug+0x10d/0x150
+>  ? srso_alias_return_thunk+0x5/0xfbef5
+>  ? handle_bug+0x61/0xb0
+>  ? exc_invalid_op+0x17/0x80
+>  ? asm_exc_invalid_op+0x1a/0x20
+>  ? __pfx_amdgpu_device_delay_enable_gfx_off+0x10/0x10 [amdgpu]
+>  ? check_flush_dependency+0x10f/0x130
+>  __flush_work+0x10c/0x320
+>  cancel_delayed_work_sync+0x62/0x80
+>  amdgpu_gfx_off_ctrl+0xb7/0x150 [amdgpu]
+>  amdgpu_ring_alloc+0x40/0x70 [amdgpu]
+>  amdgpu_ib_schedule+0xf0/0x750 [amdgpu]
+>  amdgpu_job_run+0x8e/0x200 [amdgpu]
+>  drm_sched_run_job_work+0x283/0x420 [gpu_sched]
+>  process_one_work+0x18a/0x350
+>  worker_thread+0x235/0x370
+>  ? __pfx_worker_thread+0x10/0x10
+>  ? __pfx_worker_thread+0x10/0x10
+>  kthread+0xcd/0x100
+>  ? __pfx_kthread+0x10/0x10
+>  ret_from_fork+0x31/0x50
+>  ? __pfx_kthread+0x10/0x10
+>  ret_from_fork_asm+0x1a/0x30
+>  </TASK>
+> ---[ end trace 0000000000000000 ]---
+>
+> I hope this tells you something. I'm willing to switch to some cutting
+> edge kernel commit and report back if I get an oops again, so feel
+> free which remote and commit I should go get, or any other
+> troubleshooting steps I could follow.
+>
+> Thanks for all your hard work,
+>
+> Emil J. Tywoniak (widlarizer)
 
-4. amdgpu_driver_unload_kms()
-	amdgpu_device_fini_hw()
-		amdgpu_ras_early_fini()
-			ras_blocks[i].ras_early_fini()
-+++		ip_blocks[i].early_fini()
-+++		ip_blocks[i].status.late_initialized = false
-		ip_blocks[i].hw_fini()
-		ip_blocks[i].status.hw = false
-
-5. amdgpu_driver_release_kms()
-	amdgpu_device_fini_sw()
-		amdgpu_device_ip_fini()
-			ip_blocks[i].sw_fini()
-			ip_blocks[i].status.sw = false
----			ip_blocks[i].status.valid = false
-+++			amdgpu_ras_fini()
-			ip_blocks[i].late_fini()
-+++			ip_blocks[i].status.valid = false
----			ip_blocks[i].status.late_initialized = false
----			amdgpu_ras_fini()
-
-The main changes include:
-1) invoke ip_blocks[i].early_fini in amdgpu_pmops_suspend().
-   Currently there's only one ip block which provides `early_fini`
-   callback. We have add a check of `in_s3` to keep current behavior in
-   function amdgpu_dm_early_fini(). So there should be no functional
-   changes.
-2) set ip_blocks[i].status.late_initialized to false after calling
-   callback `early_fini`. We have auditted all usages of the
-   late_initialized flag and no functional changes found.
-3) only set ip_blocks[i].status.valid = false after calling the
-   `late_fini` callback.
-4) call amdgpu_ras_fini() before invoking ip_blocks[i].late_fini.
-
-Then we try to refine each subsystem, such as nbio, asic, gfx, gmc,
-ras etc, to follow the new design. Currently we have only taken the
-nbio and asic as examples to show the proposed changes. Once we have
-confirmed that's the right way to go, we will handle the lefting
-subsystems.
-
-This is in early stage and requesting for comments, any comments and
-suggestions are welcomed!
-Jiang Liu (13):
-  amdgpu: wrong array index to get ip block for PSP
-  drm/admgpu: add helper functions to track status for ras manager
-  drm/amdgpu: add a flag to track ras debugfs creation status
-  drm/amdgpu: free all resources on error recovery path of
-    amdgpu_ras_init()
-  drm/amdgpu: introduce a flag to track refcount held for features
-  drm/amdgpu: enhance amdgpu_ras_block_late_fini()
-  drm/amdgpu: enhance amdgpu_ras_pre_fini() to better support SR
-  drm/admgpu: rename amdgpu_ras_pre_fini() to amdgpu_ras_early_fini()
-  drm/amdgpu: make IP block state machine works in stack like way
-  drm/admgpu: make device state machine work in stack like way
-  drm/amdgpu/sdma: improve the way to manage irq reference count
-  drm/amdgpu/nbio: improve the way to manage irq reference count
-  drm/amdgpu/asic: make ip block operations symmetric by .early_fini()
-
- drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  40 +++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  37 ++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c       |   2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c      |   2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c      |  16 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h      |   1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c       |   8 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c       | 144 +++++++++++++-----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h       |  16 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c      |  26 +++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h      |   2 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c       |   2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c       |   2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c      |   2 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c       |   2 +-
- drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c       |   2 +-
- drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c        |   1 +
- drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c        |   1 +
- drivers/gpu/drm/amd/amdgpu/nv.c               |  14 +-
- drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c        |   8 -
- drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c      |  23 +--
- drivers/gpu/drm/amd/amdgpu/soc15.c            |  38 ++---
- drivers/gpu/drm/amd/amdgpu/soc21.c            |  35 +++--
- drivers/gpu/drm/amd/amdgpu/soc24.c            |  17 ++-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   3 +
- 25 files changed, 326 insertions(+), 118 deletions(-)
-
--- 
-2.43.5
-
+--=20
+Jani Nikula, Intel
