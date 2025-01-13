@@ -4,55 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AE87C02184
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jan 2025 16:45:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35FADC02180
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Jan 2025 16:55:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 38C8B10E72A;
-	Mon, 13 Jan 2025 16:45:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C856910E726;
+	Mon, 13 Jan 2025 16:55:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OlB/wQFW";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RPt+Tue0";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5277710E72A;
- Mon, 13 Jan 2025 16:45:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1736786709; x=1768322709;
- h=from:to:subject:in-reply-to:references:date:message-id:
- mime-version:content-transfer-encoding;
- bh=D/FEDvK/MGCzHnDd2wgr5sAsfkdhqlM2Z38rEqyK2tI=;
- b=OlB/wQFWj3PM0bH+OmqemAfKherlaHWAhutS43lA/IT+MEIol8GKy7+N
- rLL8CxvodduN9iRclDarqqfYzdGBXfJQDY9F7eHGhOY7o9qEbQj3PsBMt
- ahg4Utyim2TmI0U2jA6f3JK8UIZ+bdb0QK3/Ub/1SrYwvsdf829pdewp6
- onXklCYcAq+2FLzDbSSG+u3YKzQr0TC0wNvzil4E111wUwUT8bwh80T8K
- pHCRqU4tDNpBmqwY9Rc0zxT9BipSOdINzXQA9V4igJSNKXWl6j9s4E3bQ
- rmcD+aF6fOpfaBepT1r6WaBDW7Nltl2h2FkAb+q3mQPhWaf+s3f/yd8Oz A==;
-X-CSE-ConnectionGUID: R3ZQhY4JQySodE7hsv94lQ==
-X-CSE-MsgGUID: UsyBR3U2SoaZxCNBiSvVQQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11314"; a="37086429"
-X-IronPort-AV: E=Sophos;i="6.12,310,1728975600"; d="scan'208";a="37086429"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jan 2025 08:45:09 -0800
-X-CSE-ConnectionGUID: DEnqptPxRgS8rJl2kdAGdQ==
-X-CSE-MsgGUID: wC4RiyGhQ2amzwMrqF5xaQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,310,1728975600"; d="scan'208";a="104313841"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.246.145])
- by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jan 2025 08:45:07 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Emil J Tywoniak <emil@tywoniak.eu>, intel-xe@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Subject: Re: oops in xe_bo_evict on 6.12.8
-In-Reply-To: <1686df0ae8f7caf0d97369a685c810e09afdbca1@tywoniak.eu>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <1686df0ae8f7caf0d97369a685c810e09afdbca1@tywoniak.eu>
-Date: Mon, 13 Jan 2025 18:45:04 +0200
-Message-ID: <87a5buirxr.fsf@intel.com>
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
+ [209.85.216.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 441A310E731
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jan 2025 16:55:23 +0000 (UTC)
+Received: by mail-pj1-f51.google.com with SMTP id
+ 98e67ed59e1d1-2f2f5e91393so991325a91.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Jan 2025 08:55:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1736787263; x=1737392063; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=b1T5aywAiH7ptt7VdlA4aHoOt/53ne29fLPVJVqCrh0=;
+ b=RPt+Tue0a29+SVQ1gW/vdbyAYjCfWiOJY8u/aPwO9iC986FXvm0Dq85wkN4N1cKkCT
+ 74uav3jK6TdU2vdJvaaQ/LT+Jw+5CDD1qwT4mM4bwjL/3cRUoDI6Mn8q2ULSw7oepThk
+ bGVkRWETCIEhi+IL6jv5iLT1rvZqHxfblOdH8DoyeQrXRnbrcGZS9m2LkbKYWhICCuJ3
+ a0AyCK6WxmKzYKCiQHn7t/DfGYW/Fy+zRG3/XxbdWwErSXw5Emzsd+BUTFxxvyh0c54W
+ Nc5kJAoYuxrRPGmESrMbIZB3q1GAE953VxTxwXq9Ei3HnesOt7EbWnrnf6zVDeU4Ve1Q
+ vypQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1736787263; x=1737392063;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=b1T5aywAiH7ptt7VdlA4aHoOt/53ne29fLPVJVqCrh0=;
+ b=OizFwHI6g/OP5pDAduKsDuflrvRvA7xZ8lxD/JMXyXXMmYnMPJHbr7pvPuIL6QzFfq
+ uLoQjl7Qmpw/cQlL5kyB4qj28q0W7XlH6RJ0mM/S+XNDc5Yo8ZaYuVewpMtR2FY1+fJk
+ yBtD4wgRsUYAicPZ+y8iGQ9X8Ty9cuCyPxddGW9iYbHnzzU3h1Nf6lsSs/fAiGxQhjHE
+ ThRMgBl3KTlURdeUYWzFtPHYHFNHNUJ1Qw0NeSMzcARiQtV4ji9rhYjSfA3YpnMLWYNg
+ TKnGtmMdyCM74ZvmxnrGpAbmgf9iMb8i9u9b3FMn45dNAVAZreXtX6NU8PQwUdmW7HkM
+ /i9w==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWefM60I3Dem05RCWh2yrUkfUUsXvN4ZpQpsXX2a86y19ZGh9Bp1/naEZCv+mEqJLnK935Zu+JY@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyncVWO6B+g5o6Ygnlh/WuA5BzC32pMsBgPIdNBt2Mh01cXZTdV
+ cPn0u+JCjnhYMlzas08gD/UtbTronqgblF0k/2guSeuS7pPrHZ9OC8Cev8SjOsMAec+3l44SEls
+ wpt/OdxN+2ZsEY+UtrzlilRQ/81I=
+X-Gm-Gg: ASbGncsu7fKR78ENkHlrGzjQYx59FxDv3Cy5HTHSCkGKwuU03ROEc9ZaHbpCH1jdKGP
+ 3gZ45yz8ki1bhh9CQfARmiNbsaCEQ1hFNDA8RAg==
+X-Google-Smtp-Source: AGHT+IExc7j/Q4qoN5XrPwTBxzJpWvA6Ch7oEuA1AVObKQgMvJKMfp/8Qu1qL92+C1oKJQ94C1b6ej0kEUpzCfc9CyM=
+X-Received: by 2002:a17:90a:c88c:b0:2ee:c059:7de6 with SMTP id
+ 98e67ed59e1d1-2f548ea2dc2mr10880757a91.2.1736787262758; Mon, 13 Jan 2025
+ 08:54:22 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain
+References: <20250108225627.14063-1-alexander.deucher@amd.com>
+ <589ecdc0-9f5d-4b79-b11d-01b6d22fbf15@amd.com>
+ <CADnq5_NrJ7xqkxk-ccYnQeuVRoWuN95Wyq59UVYtdRUMVVqCvw@mail.gmail.com>
+ <7bf342e7-72ad-4ed0-a45d-ad933db28753@amd.com>
+ <CADnq5_N_S6Cv57zAgroHJ2e7KbvmQ_8QcPHrryEtatpaAWR87w@mail.gmail.com>
+ <27163712-891c-4708-96f4-90bd1b2bbf7f@amd.com>
+In-Reply-To: <27163712-891c-4708-96f4-90bd1b2bbf7f@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 13 Jan 2025 11:54:11 -0500
+X-Gm-Features: AbW1kvZF20HgkUcBNvYj1CRKVIlzhk2erVlbqtODebiv2iLkGlMOCFAHHNVHyj0
+Message-ID: <CADnq5_MhEg9T1ksaNka=ra7KhszCV1JW72bw1A-aDX7CRprkmg@mail.gmail.com>
+Subject: Re: [PATCH 1/5] drm/amdgpu/gfx: add ring helpers for setting workload
+ profile
+To: "Lazar, Lijo" <lijo.lazar@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, 
+ aurabindo.pillai@amd.com, kenneth.feng@amd.com
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,134 +87,233 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 10 Jan 2025, "Emil J Tywoniak" <emil@tywoniak.eu> wrote:
-> What's up gamers,
+On Fri, Jan 10, 2025 at 10:40=E2=80=AFPM Lazar, Lijo <lijo.lazar@amd.com> w=
+rote:
 >
-> hope this is the right place to report this oops which possibly is due
-> to amdgpu interaction. The community guidelines link for this list
-> (https://01.org/linuxgraphics/community) doesn't work. Feel free to
-> redirect me if not, even to /dev/null. The Video(DRI - Intel) section
-> on kernel bugzilla doesn't seem to get much life.
+>
+>
+> On 1/10/2025 8:33 PM, Alex Deucher wrote:
+> > On Thu, Jan 9, 2025 at 10:30=E2=80=AFPM Lazar, Lijo <lijo.lazar@amd.com=
+> wrote:
+> >>
+> >>
+> >>
+> >> On 1/9/2025 10:36 PM, Alex Deucher wrote:
+> >>> On Thu, Jan 9, 2025 at 12:59=E2=80=AFAM Lazar, Lijo <lijo.lazar@amd.c=
+om> wrote:
+> >>>>
+> >>>>
+> >>>>
+> >>>> On 1/9/2025 4:26 AM, Alex Deucher wrote:
+> >>>>> Add helpers to switch the workload profile dynamically when
+> >>>>> commands are submitted.  This allows us to switch to
+> >>>>> the FULLSCREEN3D or COMPUTE profile when work is submitted.
+> >>>>> Add a delayed work handler to delay switching out of the
+> >>>>> selected profile if additional work comes in.  This works
+> >>>>> the same as the VIDEO profile for VCN.  This lets dynamically
+> >>>>> enable workload profiles on the fly and then move back
+> >>>>> to the default when there is no work.
+> >>>>>
+> >>>>> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> >>>>> ---
+> >>>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 57 +++++++++++++++++++++=
+++++
+> >>>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h | 11 +++++
+> >>>>>  2 files changed, 68 insertions(+)
+> >>>>>
+> >>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/=
+drm/amd/amdgpu/amdgpu_gfx.c
+> >>>>> index 6d5d81f0dc4e7..c542617121393 100644
+> >>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> >>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> >>>>> @@ -2110,6 +2110,63 @@ void amdgpu_gfx_enforce_isolation_ring_end_u=
+se(struct amdgpu_ring *ring)
+> >>>>>       mutex_unlock(&adev->enforce_isolation_mutex);
+> >>>>>  }
+> >>>>>
+> >>>>> +void amdgpu_gfx_profile_idle_work_handler(struct work_struct *work=
+)
+> >>>>> +{
+> >>>>> +     struct amdgpu_device *adev =3D
+> >>>>> +             container_of(work, struct amdgpu_device, gfx.idle_wor=
+k.work);
+> >>>>> +     enum PP_SMC_POWER_PROFILE profile;
+> >>>>> +     u32 i, fences =3D 0;
+> >>>>> +     int r;
+> >>>>> +
+> >>>>> +     if (adev->gfx.num_gfx_rings)
+> >>>>> +             profile =3D PP_SMC_POWER_PROFILE_FULLSCREEN3D;
+> >>>>> +     else
+> >>>>> +             profile =3D PP_SMC_POWER_PROFILE_COMPUTE;
+> >>>>
+> >>>> Since profile selection is in generic code, it makes sense to first
+> >>>> check if the profile is supported for the family. Otherwise, this ne=
+eds
+> >>>> to be passed by the respective GFX family.
+> >>>
+> >>> The generic code already handles this.  If you select an unsupported
+> >>> profile, it's ignored when the mask is updated.
+> >>>
+> >>
+> >> That is strange. Does that mean user never gets an error if user
+> >> attempts to set an unsupported profile?
+> >
+> > If you use sysfs, you can only select from the available options
+> > supported by the chip so there is no way to select a non-supported
+> > profile.  For the internal driver API, we just silently ignore it.
+> >
+> >>
+> >> Another problem is this could override the user set profile now. Is th=
+at
+> >> intended? In the current logic, whenever user sets a profile, the
+> >> current profile is removed. With this one, another profile gets added
+> >> and the user preference could be ignored depending on the priority.
+> >
+> > Yes, I think.  For VCN we already select the video profile in a
+> > similar manner and for ROCm we already select the compute profile,
+> > this just extends that to gfx.  This doesn't really change the
+> > behavior compared to the current state of the driver.  At the moment
+> > we default to fullscreen3d on navi chips and on MI chips we always
+> > enable compute when ROCm is active.  The change here is that we
+> > eventually fall back to the bootup profile by default when the GPU is
+> > idle.  This allows PMFW to enable additional power saving features
+> > while still providing a boost when applications are running.
+> >
+>
+> Sounds good. Only concern is if user intentionally wants to use power
+> saving profile all the time. Not sure if 3D has a lower priority than tha=
+t.
 
-For the longest time, the fdo gitlab has been the place to report i915
-[1] (and lately xe [2]) driver bugs, with a bug filing guide at [3].
+Yes, power save is higher priority than fullscreen 3d.
 
-However, the backtrace is all amdgpu? You only mention xe_bo_evict in
-the subject.
-
-Cc: amd-gfx@lists.freedesktop.org
-
-
-BR,
-Jani.
-
-
-
-[1] https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/
-[2] https://gitlab.freedesktop.org/drm/xe/kernel/-/issues/
-[3] https://drm.pages.freedesktop.org/intel-docs/how-to-file-i915-bugs.html
-
+Alex
 
 >
-> I see there have been recent changes to things around bo eviction on
-> xe and today I caught the following oops when spawning a second VS
-> Code window in sway with the New Window command (Ctrl+Shift+N). VS
-> Code was not running on XWayland. So far I haven't been able to
-> reproduce this. I have amdgpu loaded as a fall back for my ryzen 7900X
-> builtin graphics since I installed the funny GPU (Intel Arc B580 / BMG
-> G21). I'm on Mesa 24.3.3.
+> That aside, series is -
+>         Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
 >
-> ------------[ cut here ]------------
-> workqueue: WQ_MEM_RECLAIM sdma0:drm_sched_run_job_work [gpu_sched] is flu=
-shing !WQ_MEM_RECLAIM events:amdgpu_device_delay_enable_gfx_off [amdgpu]
-> WARNING: CPU: 5 PID: 29199 at kernel/workqueue.c:3704 check_flush_depende=
-ncy+0x10f/0x130
-> Modules linked in: rfcomm snd_seq_dummy snd_hrtimer snd_seq cmac algif_ha=
-sh algif_skcipher af_alg nft_chain_nat xt_MASQUERADE nf_conntrack_netlink x=
-frm_user xfrm_algo xt_addrtype overlay af_packet bnep btusb btrtl btintel b=
-tbcm btmtk bluetooth mousedev cdc_acm joydev nls_iso8859_1 nls_cp437 vfat f=
-at mei_gsc_proxy mei_gsc mei_me mei xt_conntrack ip6t_rpfilter mt7921e ipt_=
-rpfilter mt7921_common mt792x_lib snd_hda_codec_hdmi mt76_connac_lib edac_m=
-ce_amd edac_core mt76 snd_hda_intel amd_atl intel_rapl_msr snd_intel_dspcfg=
- xt_pkttype intel_rapl_common snd_intel_sdw_acpi crct10dif_pclmul xt_LOG ma=
-c80211 snd_usb_audio uvcvideo nf_log_syslog snd_usbmidi_lib crc32_pclmul sn=
-d_hda_codec xt_tcpudp polyval_clmulni videobuf2_vmalloc xe snd_ump polyval_=
-generic uvc snd_hda_core ghash_clmulni_intel cfg80211 nft_compat snd_rawmid=
-i sha512_ssse3 videobuf2_memops spd5118 sha256_ssse3 snd_seq_device videobu=
-f2_v4l2 snd_hwdep r8169 sha1_ssse3 battery sp5100_tco videobuf2_common aesn=
-i_intel snd_pcm watchdog realtek gf128mul
->  crypto_simd mdio_devres videodev snd_timer cryptd libphy rfkill snd i2c_=
-piix4 drm_gpuvm wmi_bmof rapl libarc4 led_class mc nf_tables i2c_smbus k10t=
-emp soundcore sch_fq_codel tpm_crb rtc_cmos evdev mac_hid tpm_tis gpio_amdp=
-t tiny_power_button tpm_tis_core gpio_generic button uinput hid_xpadneo(O) =
-ff_memless atkbd libps2 serio vivaldi_fmap loop xt_nat nf_nat nf_conntrack =
-nf_defrag_ipv6 nf_defrag_ipv4 libcrc32c br_netfilter veth tun tap macvlan b=
-ridge stp llc kvm_amd ccp kvm fuse efi_pstore configfs nfnetlink efivarfs t=
-pm libaescfb ecdh_generic ecc rng_core dmi_sysfs ip_tables x_tables autofs4=
- ext4 crc32c_generic mbcache jbd2 hid_generic usbhid hid ahci libahci xhci_=
-pci libata nvme xhci_hcd scsi_mod nvme_core crc32c_intel scsi_common nvme_a=
-uth dm_mod dax amdgpu video wmi amdxcp i2c_algo_bit drm_ttm_helper ttm drm_=
-exec gpu_sched drm_suballoc_helper drm_buddy drm_display_helper cec crc16
-> CPU: 5 UID: 0 PID: 29199 Comm: kworker/u96:0 Tainted: G        W  O      =
- 6.12.8 #1-NixOS
-> Tainted: [W]=3DWARN, [O]=3DOOT_MODULE
-> Hardware name: Micro-Star International Co., Ltd. MS-7D75/MAG B650 TOMAHA=
-WK WIFI (MS-7D75), BIOS 1.60 05/30/2023
-> Workqueue: sdma0 drm_sched_run_job_work [gpu_sched]
-> RIP: 0010:check_flush_dependency+0x10f/0x130
-> Code: c0 f3 01 01 90 49 8b 45 18 48 8d b2 c0 00 00 00 48 8d 8b c0 00 00 0=
-0 49 89 e8 48 c7 c7 a0 c7 df b4 48 89 c2 e8 82 7e fd ff 90 <0f> 0b 90 90 e9=
- 0a ff ff ff 80 3d 99 c0 f3 01 00 75 8f e9 42 ff ff
-> RSP: 0018:ffff95dd9ef97c60 EFLAGS: 00010046
-> RAX: 0000000000000000 RBX: ffff9265c01b8e00 RCX: 0000000000000000
-> RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
-> RBP: ffffffffc0438c00 R08: 0000000000000000 R09: 0000000000000000
-> R10: 0000000000000000 R11: 0000000000000000 R12: ffff92681a13b200
-> R13: ffff9265c94338c0 R14: 0000000000000001 R15: ffff9265c01bce00
-> FS:  0000000000000000(0000) GS:ffff926cb7e80000(0000) knlGS:0000000000000=
-000
-> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> CR2: 000000000050d6d0 CR3: 00000002a38d6000 CR4: 0000000000f50ef0
-> PKRU: 55555554
-> Call Trace:
->  <TASK>
->  ? check_flush_dependency+0x10f/0x130
->  ? __warn.cold+0x93/0xf6
->  ? check_flush_dependency+0x10f/0x130
->  ? report_bug+0x10d/0x150
->  ? srso_alias_return_thunk+0x5/0xfbef5
->  ? handle_bug+0x61/0xb0
->  ? exc_invalid_op+0x17/0x80
->  ? asm_exc_invalid_op+0x1a/0x20
->  ? __pfx_amdgpu_device_delay_enable_gfx_off+0x10/0x10 [amdgpu]
->  ? check_flush_dependency+0x10f/0x130
->  __flush_work+0x10c/0x320
->  cancel_delayed_work_sync+0x62/0x80
->  amdgpu_gfx_off_ctrl+0xb7/0x150 [amdgpu]
->  amdgpu_ring_alloc+0x40/0x70 [amdgpu]
->  amdgpu_ib_schedule+0xf0/0x750 [amdgpu]
->  amdgpu_job_run+0x8e/0x200 [amdgpu]
->  drm_sched_run_job_work+0x283/0x420 [gpu_sched]
->  process_one_work+0x18a/0x350
->  worker_thread+0x235/0x370
->  ? __pfx_worker_thread+0x10/0x10
->  ? __pfx_worker_thread+0x10/0x10
->  kthread+0xcd/0x100
->  ? __pfx_kthread+0x10/0x10
->  ret_from_fork+0x31/0x50
->  ? __pfx_kthread+0x10/0x10
->  ret_from_fork_asm+0x1a/0x30
->  </TASK>
-> ---[ end trace 0000000000000000 ]---
+> Thanks,
+> Lijo
 >
-> I hope this tells you something. I'm willing to switch to some cutting
-> edge kernel commit and report back if I get an oops again, so feel
-> free which remote and commit I should go get, or any other
-> troubleshooting steps I could follow.
+> > Alex
+> >
+> >>
+> >> Thanks,
+> >> Lijo
+> >>
+> >>> Alex
+> >>>
+> >>>>
+> >>>> Thanks,
+> >>>> Lijo
+> >>>>
+> >>>>> +
+> >>>>> +     for (i =3D 0; i < AMDGPU_MAX_GFX_RINGS; ++i)
+> >>>>> +             fences +=3D amdgpu_fence_count_emitted(&adev->gfx.gfx=
+_ring[i]);
+> >>>>> +     for (i =3D 0; i < (AMDGPU_MAX_COMPUTE_RINGS * AMDGPU_MAX_GC_I=
+NSTANCES); ++i)
+> >>>>> +             fences +=3D amdgpu_fence_count_emitted(&adev->gfx.com=
+pute_ring[i]);
+> >>>>> +     if (!fences && !atomic_read(&adev->gfx.total_submission_cnt))=
+ {
+> >>>>> +             r =3D amdgpu_dpm_switch_power_profile(adev, profile, =
+false);
+> >>>>> +             if (r)
+> >>>>> +                     dev_warn(adev->dev, "(%d) failed to disable %=
+s power profile mode\n", r,
+> >>>>> +                              profile =3D=3D PP_SMC_POWER_PROFILE_=
+FULLSCREEN3D ?
+> >>>>> +                              "fullscreen 3D" : "compute");
+> >>>>> +     } else {
+> >>>>> +             schedule_delayed_work(&adev->gfx.idle_work, GFX_PROFI=
+LE_IDLE_TIMEOUT);
+> >>>>> +     }
+> >>>>> +}
+> >>>>> +
+> >>>>> +void amdgpu_gfx_profile_ring_begin_use(struct amdgpu_ring *ring)
+> >>>>> +{
+> >>>>> +     struct amdgpu_device *adev =3D ring->adev;
+> >>>>> +     enum PP_SMC_POWER_PROFILE profile;
+> >>>>> +     int r;
+> >>>>> +
+> >>>>> +     if (adev->gfx.num_gfx_rings)
+> >>>>> +             profile =3D PP_SMC_POWER_PROFILE_FULLSCREEN3D;
+> >>>>> +     else
+> >>>>> +             profile =3D PP_SMC_POWER_PROFILE_COMPUTE;
+> >>>>> +
+> >>>>> +     atomic_inc(&adev->gfx.total_submission_cnt);
+> >>>>> +
+> >>>>> +     if (!cancel_delayed_work_sync(&adev->gfx.idle_work)) {
+> >>>>> +             r =3D amdgpu_dpm_switch_power_profile(adev, profile, =
+true);
+> >>>>> +             if (r)
+> >>>>> +                     dev_warn(adev->dev, "(%d) failed to disable %=
+s power profile mode\n", r,
+> >>>>> +                              profile =3D=3D PP_SMC_POWER_PROFILE_=
+FULLSCREEN3D ?
+> >>>>> +                              "fullscreen 3D" : "compute");
+> >>>>> +     }
+> >>>>> +}
+> >>>>> +
+> >>>>> +void amdgpu_gfx_profile_ring_end_use(struct amdgpu_ring *ring)
+> >>>>> +{
+> >>>>> +     atomic_dec(&ring->adev->gfx.total_submission_cnt);
+> >>>>> +
+> >>>>> +     schedule_delayed_work(&ring->adev->gfx.idle_work, GFX_PROFILE=
+_IDLE_TIMEOUT);
+> >>>>> +}
+> >>>>> +
+> >>>>>  /*
+> >>>>>   * debugfs for to enable/disable gfx job submission to specific co=
+re.
+> >>>>>   */
+> >>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/=
+drm/amd/amdgpu/amdgpu_gfx.h
+> >>>>> index 7f9e261f47f11..6c84598caec21 100644
+> >>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> >>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> >>>>> @@ -57,6 +57,9 @@ enum amdgpu_gfx_pipe_priority {
+> >>>>>  #define AMDGPU_GFX_QUEUE_PRIORITY_MINIMUM  0
+> >>>>>  #define AMDGPU_GFX_QUEUE_PRIORITY_MAXIMUM  15
+> >>>>>
+> >>>>> +/* 1 second timeout */
+> >>>>> +#define GFX_PROFILE_IDLE_TIMEOUT     msecs_to_jiffies(1000)
+> >>>>> +
+> >>>>>  enum amdgpu_gfx_partition {
+> >>>>>       AMDGPU_SPX_PARTITION_MODE =3D 0,
+> >>>>>       AMDGPU_DPX_PARTITION_MODE =3D 1,
+> >>>>> @@ -477,6 +480,9 @@ struct amdgpu_gfx {
+> >>>>>       bool                            kfd_sch_inactive[MAX_XCP];
+> >>>>>       unsigned long                   enforce_isolation_jiffies[MAX=
+_XCP];
+> >>>>>       unsigned long                   enforce_isolation_time[MAX_XC=
+P];
+> >>>>> +
+> >>>>> +     atomic_t                        total_submission_cnt;
+> >>>>> +     struct delayed_work             idle_work;
+> >>>>>  };
+> >>>>>
+> >>>>>  struct amdgpu_gfx_ras_reg_entry {
+> >>>>> @@ -585,6 +591,11 @@ void amdgpu_gfx_cleaner_shader_init(struct amd=
+gpu_device *adev,
+> >>>>>  void amdgpu_gfx_enforce_isolation_handler(struct work_struct *work=
+);
+> >>>>>  void amdgpu_gfx_enforce_isolation_ring_begin_use(struct amdgpu_rin=
+g *ring);
+> >>>>>  void amdgpu_gfx_enforce_isolation_ring_end_use(struct amdgpu_ring =
+*ring);
+> >>>>> +
+> >>>>> +void amdgpu_gfx_profile_idle_work_handler(struct work_struct *work=
+);
+> >>>>> +void amdgpu_gfx_profile_ring_begin_use(struct amdgpu_ring *ring);
+> >>>>> +void amdgpu_gfx_profile_ring_end_use(struct amdgpu_ring *ring);
+> >>>>> +
+> >>>>>  void amdgpu_debugfs_gfx_sched_mask_init(struct amdgpu_device *adev=
+);
+> >>>>>  void amdgpu_debugfs_compute_sched_mask_init(struct amdgpu_device *=
+adev);
+> >>>>>
+> >>>>
+> >>
 >
-> Thanks for all your hard work,
->
-> Emil J. Tywoniak (widlarizer)
-
---=20
-Jani Nikula, Intel
