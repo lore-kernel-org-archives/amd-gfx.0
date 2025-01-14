@@ -4,20 +4,20 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4093FC02183
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jan 2025 14:05:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D2A9C02184
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jan 2025 14:05:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE5E710E31B;
-	Tue, 14 Jan 2025 14:05:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DBA2310E32D;
+	Tue, 14 Jan 2025 14:05:07 +0000 (UTC)
 Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
- by gabe.freedesktop.org (Postfix) with ESMTP id 9D00E10E2B2
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jan 2025 13:29:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id E1B6C10E2BF
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jan 2025 13:29:59 +0000 (UTC)
 Received: from loongson.cn (unknown [113.200.148.30])
- by gateway (Coremail) with SMTP id _____8CxC+KaZoZnbjxjAA--.63161S3;
- Tue, 14 Jan 2025 21:28:58 +0800 (CST)
+ by gateway (Coremail) with SMTP id _____8CxCeHVZoZnrTxjAA--.63562S3;
+ Tue, 14 Jan 2025 21:29:57 +0800 (CST)
 Received: from linux.localdomain (unknown [113.200.148.30])
- by front1 (Coremail) with SMTP id qMiowMCxncWZZoZncSUiAA--.3105S2;
- Tue, 14 Jan 2025 21:28:57 +0800 (CST)
+ by front1 (Coremail) with SMTP id qMiowMBxTMXUZoZnwiUiAA--.3549S2;
+ Tue, 14 Jan 2025 21:29:57 +0800 (CST)
 From: Tiezhu Yang <yangtiezhu@loongson.cn>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -28,31 +28,33 @@ Cc: Nathan Chancellor <nathan@kernel.org>,
  Peter Zijlstra <peterz@infradead.org>, loongarch@lists.linux.dev,
  amd-gfx@lists.freedesktop.org, llvm@lists.linux.dev,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v4 0/3] drm/amd/display: Stop control flow if the divisior is
- zero
-Date: Tue, 14 Jan 2025 21:28:56 +0800
-Message-ID: <20250114132856.19463-1-yangtiezhu@loongson.cn>
+Subject: [PATCH v4 1/3] drm/amd/display: Add ASSERT_BUG() macro definition
+Date: Tue, 14 Jan 2025 21:29:56 +0800
+Message-ID: <20250114132956.19945-1-yangtiezhu@loongson.cn>
 X-Mailer: git-send-email 2.42.0
+In-Reply-To: <20250114132856.19463-1-yangtiezhu@loongson.cn>
+References: <20250114132856.19463-1-yangtiezhu@loongson.cn>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: qMiowMCxncWZZoZncSUiAA--.3105S2
+X-CM-TRANSID: qMiowMBxTMXUZoZnwiUiAA--.3549S2
 X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
-X-Coremail-Antispam: 1Uk129KBj9xXoWrZrW5WF1xJFyfJr45tF17CFX_yoWDtrc_Kr
- W8XF93tw1Uta9IvFW2yF4fuFyYg3yUAr4ftFy8K3yvvFyfGw4UWa4UGrWkAr18Z3W2kFZ8
- uryUKF1rAwsrGosvyTuYvTs0mTUanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUj1kv1TuYvT
+X-Coremail-Antispam: 1Uk129KBj9xXoW7XrWfuw4UZrykZr1UWw4UGFX_yoWfXwc_Kr
+ 48ZrySgw12yF1vgFW0yr4fuFyI9w4ruF4kWr48t3sIv347uw4DX340kr48Wr1fuFy2yFZ0
+ v34jg3WrA3ZrGosvyTuYvTs0mTUanT9S1TB71UUUUUJqnTZGkaVYY2UrUUUUj1kv1TuYvT
  s0mT0YCTnIWjqI5I8CrVACY4xI64kE6c02F40Ex7xfYxn0WfASr-VFAUDa7-sFnT9fnUUI
- cSsGvfJTRUUUb78YFVCjjxCrM7AC8VAFwI0_Jr0_Gr1l1xkIjI8I6I8E6xAIw20EY4v20x
+ cSsGvfJTRUUUbfxYFVCjjxCrM7AC8VAFwI0_Jr0_Gr1l1xkIjI8I6I8E6xAIw20EY4v20x
  vaj40_Wr0E3s1l1IIY67AEw4v_Jrv_JF1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
  w2x7M28EF7xvwVC0I7IYx2IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
  W8JVWxJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0
- oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYIkI8VC2zVCFFI0UMc02F4
- 0EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_
- Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxAIw28IcxkI7VAKI4
- 8JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xv
- wVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjx
- v20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20E
- Y4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267
- AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8vApUUUUUU==
+ oVCq3wAaw2AFwI0_Jrv_JF1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0cIa02
+ 0Ex4CE44I27wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jw0_Wryl
+ Yx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrw
+ CY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8
+ JwCFI7km07C267AKxVWUXVWUAwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14
+ v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY
+ 67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2
+ IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_
+ Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07jz-eOUUUUU=
 X-Mailman-Approved-At: Tue, 14 Jan 2025 14:05:05 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,30 +70,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-As far as I can tell, with the current existing macro definitions, there
-is no better way to do the minimal and proper changes to stop the control
-flow if the divisior is zero.
-
 In order to keep the current ability for the aim of debugging and avoid
-printing the warning message twice, it is better to only use ASSERT_BUG()
-and SPL_ASSERT_BUG() directly after doing the following two steps:
+printing the warning message twice, add ASSERT_BUG() macro definition to
+harden the callers of division functions.
 
-(1) Add ASSERT_BUG() macro definition
-(2) Add SPL_ASSERT_BUG() macro definition
+Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
+---
+ drivers/gpu/drm/amd/display/dc/os_types.h | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-This version is based on 6.13-rc7, tested on x86 and LoongArch.
-
-Tiezhu Yang (3):
-  drm/amd/display: Add ASSERT_BUG() macro definition
-  drm/amd/display: Add SPL_ASSERT_BUG() macro definition
-  drm/amd/display: Harden callers of division functions
-
- drivers/gpu/drm/amd/display/dc/basics/fixpt31_32.c  |  2 +-
- drivers/gpu/drm/amd/display/dc/os_types.h           |  7 +++++++
- drivers/gpu/drm/amd/display/dc/spl/spl_debug.h      | 11 +++++++++++
- drivers/gpu/drm/amd/display/dc/spl/spl_fixpt31_32.c |  2 +-
- 4 files changed, 20 insertions(+), 2 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/display/dc/os_types.h b/drivers/gpu/drm/amd/display/dc/os_types.h
+index f2ba76c1e0c0..f0f4e22b43cd 100644
+--- a/drivers/gpu/drm/amd/display/dc/os_types.h
++++ b/drivers/gpu/drm/amd/display/dc/os_types.h
+@@ -79,6 +79,13 @@
+ 			dc_breakpoint();	\
+ 	} while (0)
+ 
++#define ASSERT_BUG(expr) do {			\
++		if (!(expr)) {			\
++			dc_breakpoint();	\
++			BUG();			\
++		}				\
++	} while (0)
++
+ #define BREAK_TO_DEBUGGER() \
+ 	do { \
+ 		DRM_DEBUG_DRIVER("%s():%d\n", __func__, __LINE__); \
 -- 
 2.42.0
 
