@@ -4,26 +4,26 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43950C02184
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jan 2025 09:55:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4753EC02183
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jan 2025 09:55:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E8FF610E030;
-	Tue, 14 Jan 2025 09:55:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE4EF10E04F;
+	Tue, 14 Jan 2025 09:55:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="SEnZ2NeR";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="VZ9sGBPr";
 	dkim-atps=neutral
-Received: from out30-130.freemail.mail.aliyun.com
- (out30-130.freemail.mail.aliyun.com [115.124.30.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C1B4810E00A
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jan 2025 09:55:09 +0000 (UTC)
+Received: from out30-133.freemail.mail.aliyun.com
+ (out30-133.freemail.mail.aliyun.com [115.124.30.133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 86A7910E0D7
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jan 2025 09:55:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=linux.alibaba.com; s=default;
- t=1736848507; h=From:To:Subject:Date:Message-ID:MIME-Version;
- bh=VI7llR3vBqZ9jpEftgcg4rERqPvNU1vPN7NwgxxrFP0=;
- b=SEnZ2NeRNhktqXND52PhStojbKOKkAPocYIZSApwnVWfbtlGk0lb1KyHzKt5jO5kQ7wp7rIYhYDphCAm9VrjwlMZ0LsiCQALxlwqWl42ErZQlIqQsgt8k2IKhULtPxAxMAhjYVPZZT6pHImAUw2JuJU+hd03npWnpt/LijTTZ8M=
+ t=1736848509; h=From:To:Subject:Date:Message-ID:MIME-Version;
+ bh=pEL79gYDv6eEyt+74qmQJ6bqueydfC/b771aK+cwGsg=;
+ b=VZ9sGBPrSo20ZLTHsWP4oeM+GF300UHJbVe5wSRbVDChmXtdWtKK/9ptRSlHcC94GqNR/46eV9Y785XrazLSemDu6NQlfPHO4VYbJXzFvtnnrbjqbHv4Jk374UNO4Ok68IjzYTInAwcAreyUlkSmkKfpTSN6NomU4ifLvNUe7iE=
 Received: from i32d02263.sqa.eu95.tbsite.net(mailfrom:gerry@linux.alibaba.com
- fp:SMTPD_---0WNerZyu_1736848505 cluster:ay36) by smtp.aliyun-inc.com;
- Tue, 14 Jan 2025 17:55:06 +0800
+ fp:SMTPD_---0WNera--_1736848506 cluster:ay36) by smtp.aliyun-inc.com;
+ Tue, 14 Jan 2025 17:55:08 +0800
 From: Jiang Liu <gerry@linux.alibaba.com>
 To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
  airlied@gmail.com, simona@ffwll.ch, sunil.khatri@amd.com,
@@ -31,9 +31,10 @@ To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
  xiaogang.chen@amd.com, Kent.Russell@amd.com, shuox.liu@linux.alibaba.com,
  amd-gfx@lists.freedesktop.org
 Cc: Jiang Liu <gerry@linux.alibaba.com>
-Subject: [RFC v1 1/2] drm/amdgpu: update cached vram base addresses on resume
-Date: Tue, 14 Jan 2025 17:54:57 +0800
-Message-ID: <ccc964858fd99facb8984e035d611c3a9c591bdc.1736847835.git.gerry@linux.alibaba.com>
+Subject: [RFC v1 2/2] drm/amdgpu: introduce helper
+ amdgpu_bo_get_pinned_gpu_addr()
+Date: Tue, 14 Jan 2025 17:54:58 +0800
+Message-ID: <5e08e4133ee13d172d6d313af5fe1e1fcfe80331.1736847835.git.gerry@linux.alibaba.com>
 X-Mailer: git-send-email 2.43.5
 In-Reply-To: <cover.1736847835.git.gerry@linux.alibaba.com>
 References: <cover.1736847835.git.gerry@linux.alibaba.com>
@@ -53,99 +54,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When resume on a different SR-IOV vGPU device, the VRAM base addresses
-may have changed. So we need to update those cached addresses.
+Introduce helper amdgpu_bo_get_pinned_gpu_addr(), which will be
+used to update GPU address of pinned kernel BO during resume.
 
 Signed-off-by: Jiang Liu <gerry@linux.alibaba.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 15 +++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h    |  6 ++++--
- drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c     |  7 +++++++
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c      |  6 ++++++
- 4 files changed, 32 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c   | 9 +++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.h   | 1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c | 9 +++++++++
+ 3 files changed, 19 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 36053b3d48b3..c9df54127417 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -4970,6 +4970,21 @@ int amdgpu_device_resume(struct drm_device *dev, bool notify_clients)
- 	if (dev->switch_power_state == DRM_SWITCH_POWER_OFF)
- 		return 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+index 4f057996ef35..bce939a63a99 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+@@ -1555,6 +1555,15 @@ u64 amdgpu_bo_gpu_offset_no_check(struct amdgpu_bo *bo)
+ 	return amdgpu_gmc_sign_extend(offset);
+ }
  
-+	/* Get xgmi info again for sriov to detect device changes */
-+	if (amdgpu_sriov_vf(adev) &&
-+	    !(adev->flags & AMD_IS_APU) &&
-+	    adev->gmc.xgmi.supported &&
-+	    !adev->gmc.xgmi.connected_to_cpu) {
-+		adev->gmc.xgmi.prev_physical_node_id = adev->gmc.xgmi.physical_node_id;
-+		r = adev->gfxhub.funcs->get_xgmi_info(adev);
-+		if (r)
-+			return r;
-+		if (adev->gmc.xgmi.physical_node_id != adev->gmc.xgmi.prev_physical_node_id)
-+			adev->gmc.xgmi.physical_node_id_changed = true;
-+		else
-+			adev->gmc.xgmi.physical_node_id_changed = false;
-+	}
++/**
++ * amdgpu_bo_get_kernel_gpu_addr - get GPU address of pinned kernel BO
++ */
++void amdgpu_bo_get_pinned_gpu_addr(struct amdgpu_bo *bo, u64 *gpu_addr)
++{
++	if (bo && bo->tbo.pin_count && gpu_addr)
++		*gpu_addr = amdgpu_bo_gpu_offset(bo);
++}
 +
- 	if (adev->in_s0ix)
- 		amdgpu_dpm_gfx_state_change(adev, sGpuChangeState_D0Entry);
+ /**
+  * amdgpu_bo_get_preferred_domain - get preferred domain
+  * @adev: amdgpu device object
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+index ab3fe7b42da7..9022592291a1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+@@ -305,6 +305,7 @@ int amdgpu_bo_sync_wait_resv(struct amdgpu_device *adev, struct dma_resv *resv,
+ int amdgpu_bo_sync_wait(struct amdgpu_bo *bo, void *owner, bool intr);
+ u64 amdgpu_bo_gpu_offset(struct amdgpu_bo *bo);
+ u64 amdgpu_bo_gpu_offset_no_check(struct amdgpu_bo *bo);
++void amdgpu_bo_get_pinned_gpu_addr(struct amdgpu_bo *bo, u64 *gpu_addr);
+ void amdgpu_bo_get_memory(struct amdgpu_bo *bo,
+ 			  struct amdgpu_mem_stats *stats,
+ 			  unsigned int size);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c
+index dde15c6a96e1..40605749b5d3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c
+@@ -881,6 +881,15 @@ static int umsch_mm_suspend(struct amdgpu_ip_block *ip_block)
  
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-index 459a30fe239f..a32ab7b61cfd 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-@@ -184,10 +184,12 @@ struct amdgpu_xgmi {
- 	u64 hive_id;
- 	/* fixed per family */
- 	u64 node_segment_size;
--	/* physical node (0-3) */
--	unsigned physical_node_id;
- 	/* number of nodes (0-4) */
- 	unsigned num_physical_nodes;
-+	/* physical node (0-3) */
-+	unsigned physical_node_id;
-+	unsigned prev_physical_node_id;
-+	bool physical_node_id_changed;
- 	/* gpu list in the same hive */
- 	struct list_head head;
- 	bool supported;
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-index 9bedca9a79c6..94d86e9a08e0 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-@@ -1065,8 +1065,15 @@ static int gmc_v10_0_suspend(struct amdgpu_ip_block *ip_block)
- 
- static int gmc_v10_0_resume(struct amdgpu_ip_block *ip_block)
+ static int umsch_mm_resume(struct amdgpu_ip_block *ip_block)
  {
 +	struct amdgpu_device *adev = ip_block->adev;
- 	int r;
- 
-+	if (adev->gmc.xgmi.physical_node_id_changed) {
-+		r = gmc_v10_0_mc_init(adev);
-+		if (r)
-+			return r;
-+	}
 +
- 	r = gmc_v10_0_hw_init(ip_block);
- 	if (r)
- 		return r;
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-index 291549765c38..db118e07efde 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -2532,6 +2532,12 @@ static int gmc_v9_0_resume(struct amdgpu_ip_block *ip_block)
- 		adev->gmc.reset_flags &= ~AMDGPU_GMC_INIT_RESET_NPS;
- 	}
- 
-+	if (adev->gmc.xgmi.physical_node_id_changed) {
-+		r = gmc_v9_0_mc_init(adev);
-+		if (r)
-+			return r;
-+	}
++	adev->umsch_mm.sch_ctx_gpu_addr = adev->wb.gpu_addr +
++					  (adev->umsch_mm.wb_index * 4);
++	amdgpu_bo_get_pinned_gpu_addr(adev->umsch_mm.cmd_buf_obj,
++				      &adev->umsch_mm.cmd_buf_gpu_addr);
++	amdgpu_bo_get_pinned_gpu_addr(adev->umsch_mm.dbglog_bo,
++				      &adev->umsch_mm.log_gpu_addr);
 +
- 	r = gmc_v9_0_hw_init(ip_block);
- 	if (r)
- 		return r;
+ 	return umsch_mm_hw_init(ip_block);
+ }
+ 
 -- 
 2.43.5
 
