@@ -4,20 +4,20 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 010D4E77188
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jan 2025 08:39:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C8C0C02186
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jan 2025 08:39:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9899110E887;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB4DC10E88A;
 	Tue, 14 Jan 2025 08:39:07 +0000 (UTC)
 Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
- by gabe.freedesktop.org (Postfix) with ESMTP id 0F9E210E008
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jan 2025 06:15:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 21E1010E008
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jan 2025 06:16:23 +0000 (UTC)
 Received: from loongson.cn (unknown [113.200.148.30])
- by gateway (Coremail) with SMTP id _____8BxIK_wAIZnxApjAA--.38690S3;
- Tue, 14 Jan 2025 14:15:12 +0800 (CST)
+ by gateway (Coremail) with SMTP id _____8AxLOI2AYZnCQtjAA--.1822S3;
+ Tue, 14 Jan 2025 14:16:22 +0800 (CST)
 Received: from linux.localdomain (unknown [113.200.148.30])
- by front1 (Coremail) with SMTP id qMiowMDx_8fuAIZnaqEhAA--.2237S2;
- Tue, 14 Jan 2025 14:15:10 +0800 (CST)
+ by front1 (Coremail) with SMTP id qMiowMBxjcUyAYZn66EhAA--.1451S2;
+ Tue, 14 Jan 2025 14:16:18 +0800 (CST)
 From: Tiezhu Yang <yangtiezhu@loongson.cn>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -28,32 +28,33 @@ Cc: Nathan Chancellor <nathan@kernel.org>,
  Peter Zijlstra <peterz@infradead.org>, loongarch@lists.linux.dev,
  amd-gfx@lists.freedesktop.org, llvm@lists.linux.dev,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v3 0/3] drm/amd/display: Stop control flow if the divisior is
- zero
-Date: Tue, 14 Jan 2025 14:15:07 +0800
-Message-ID: <20250114061507.30765-1-yangtiezhu@loongson.cn>
+Subject: [PATCH v3 2/3] drm/amd/display: Add SPL_ASSERT_BUG() macro definition
+Date: Tue, 14 Jan 2025 14:16:17 +0800
+Message-ID: <20250114061617.31328-1-yangtiezhu@loongson.cn>
 X-Mailer: git-send-email 2.42.0
+In-Reply-To: <20250114061507.30765-1-yangtiezhu@loongson.cn>
+References: <20250114061507.30765-1-yangtiezhu@loongson.cn>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: qMiowMDx_8fuAIZnaqEhAA--.2237S2
+X-CM-TRANSID: qMiowMBxjcUyAYZn66EhAA--.1451S2
 X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
-X-Coremail-Antispam: 1Uk129KBj9xXoWrZrW5WF1xJFyfJr45tF17CFX_yoWDuFg_Kr
- 48XF93tw1jqa9IvFWYyF4fuFyYg3yUAr4ftFy8K3yvvFyfGw4UWa4UGrWkAr18Z3W2yFZ8
- ury8KF15AwsrGosvyTuYvTs0mTUanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUj1kv1TuYvT
- s0mT0YCTnIWjqI5I8CrVACY4xI64kE6c02F40Ex7xfYxn0WfASr-VFAUDa7-sFnT9fnUUI
- cSsGvfJTRUUUbxxYFVCjjxCrM7AC8VAFwI0_Jr0_Gr1l1xkIjI8I6I8E6xAIw20EY4v20x
- vaj40_Wr0E3s1l1IIY67AEw4v_Jrv_JF1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
- w2x7M28EF7xvwVC0I7IYx2IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
- W8JVWxJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0
- oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYIkI8VC2zVCFFI0UMc02F4
- 0EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_
- Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxkF7I0En4kS14v26r
- 126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAF
- wI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc4
- 0Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AK
- xVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr
- 1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjxU2BT5DUUU
- U
+X-Coremail-Antispam: 1Uk129KBj93XoW7CryfurW8CF1xWrW3Zr1fuFX_yoW8GFyDpw
+ 1kWrn8uwn8Ja17K343J3W8CFW3Z397JF47X3sIv390va48uan7Zry3Jr4rtrWxWFWSya4r
+ Jrn8WrW2qFsFyrbCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
+ sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+ 0xBIdaVrnRJUUUB0b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+ IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+ e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+ 0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
+ GcCE3s1ln4kS14v26r1Y6r17M2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2
+ x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1q6rW5
+ McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr4
+ 1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_
+ Gr1l4IxYO2xFxVAFwI0_Jrv_JF1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67
+ AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8I
+ cVAFwI0_Gr0_Xr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI
+ 8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v2
+ 6r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxU4ZqXDUUUU
 X-Mailman-Approved-At: Tue, 14 Jan 2025 08:39:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,30 +70,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-As far as I can tell, with the current existing macro definitions, there
-is no better way to do the minimal and proper changes to stop the control
-flow if the divisior is zero.
-
 In order to keep the current ability for the aim of debugging and avoid
-printing the warning message twice, it is better to only use ASSERT_BUG()
-and SPL_ASSERT_BUG() directly after doing the following two steps:
+printing the warning message twice, add SPL_ASSERT_BUG() macro definition
+to harden the callers of division functions.
 
-(1) Add ASSERT_BUG() macro definition
-(2) Add SPL_ASSERT_BUG() macro definition
+Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
+---
+ drivers/gpu/drm/amd/display/dc/spl/spl_debug.h | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-This version is based on 6.13-rc7, tested on x86 and LoongArch.
-
-Tiezhu Yang (3):
-  drm/amd/display: Add ASSERT_BUG() macro definition
-  drm/amd/display: Add SPL_ASSERT_BUG() macro definition
-  drm/amd/display: Harden callers of division functions
-
- drivers/gpu/drm/amd/display/dc/basics/fixpt31_32.c  | 2 +-
- drivers/gpu/drm/amd/display/dc/os_types.h           | 5 +++++
- drivers/gpu/drm/amd/display/dc/spl/spl_debug.h      | 9 +++++++++
- drivers/gpu/drm/amd/display/dc/spl/spl_fixpt31_32.c | 2 +-
- 4 files changed, 16 insertions(+), 2 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/display/dc/spl/spl_debug.h b/drivers/gpu/drm/amd/display/dc/spl/spl_debug.h
+index a6f6132df241..5677dd6d5408 100644
+--- a/drivers/gpu/drm/amd/display/dc/spl/spl_debug.h
++++ b/drivers/gpu/drm/amd/display/dc/spl/spl_debug.h
+@@ -11,18 +11,27 @@
+ 		kgdb_breakpoint(); \
+ 	} \
+ } while (0)
++#define SPL_ASSERT_EMERGENCY(expr) do {	\
++	kgdb_breakpoint(); \
++	BUG_ON(!(expr)); \
++} while (0)
+ #else
+ #define SPL_ASSERT_CRITICAL(expr) do {	\
+ 	if (WARN_ON(!(expr))) { \
+ 		; \
+ 	} \
+ } while (0)
++#define SPL_ASSERT_EMERGENCY(expr) do {	\
++	BUG_ON(!(expr)); \
++} while (0)
+ #endif /* CONFIG_HAVE_KGDB || CONFIG_KGDB */
+ 
+ #if defined(CONFIG_DEBUG_KERNEL_DC)
+ #define SPL_ASSERT(expr) SPL_ASSERT_CRITICAL(expr)
++#define SPL_ASSERT_BUG(expr) SPL_ASSERT_EMERGENCY(expr)
+ #else
+ #define SPL_ASSERT(expr) WARN_ON(!(expr))
++#define SPL_ASSERT_BUG(expr) BUG_ON(!(expr))
+ #endif /* CONFIG_DEBUG_KERNEL_DC */
+ 
+ #define SPL_BREAK_TO_DEBUGGER() SPL_ASSERT(0)
 -- 
 2.42.0
 
