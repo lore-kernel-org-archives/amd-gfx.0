@@ -4,64 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6638FC02180
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jan 2025 02:10:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DDA9C02180
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jan 2025 02:11:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E62810E83B;
-	Tue, 14 Jan 2025 02:10:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F83F10E842;
+	Tue, 14 Jan 2025 02:11:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="eIydOx+m";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="oN5EqcsX";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2075.outbound.protection.outlook.com [40.107.93.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61F0E10E83B
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jan 2025 02:10:58 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on20630.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:240a::630])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D45D810E842
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jan 2025 02:11:00 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cabSpD4bgDjBZ7FV7QBGwGqcc44aKe5Ei5fT0IHyKLfMVQeYUTCE4aZsZgMGO+jE4ItiMCyhURRtmXpa0bMiYbihOi91p6eaZgV5wF9WnVDZTnALw//6amKXNCMX7fJ5Qqkp/M5WtI+BY10GAAv8uw33kQqB+Fjrr3u58/quEwOR1WHEHEJ6dTpFLkuDY/J3KDeXwdQflMwPl6cKzWtWtiJ7OZziRHM7htZwMubLXU+xQkKqj66f4a8CWlVXd8NkqGAEpp+yTBLLVTgXZxw6/1Bc+E15g1nPa0+9XWsi4AbdlVfrQmT3zQikCXfUPG1hcBRObuWeMiT0m7cVDpRIsA==
+ b=kpevTLnxCbk72dlU0KlwqYNeN+b2SXFeexUCDVgH4LEaRQZ6pOLEpVFASUowjiaFAHFypIH3H2sBDwnQceo+4riiYiiqn4ebXHKscHjSXhXPhrAuia+WMeWQHdKY0kgiKLSMeb5AuRADBS+PUhKCphfW1oRcP0worIERAk7eHnEFOito4626g/7FWdk7xf/WZ8NlnomTXdBC1Ay6x8kD5OGuov0e4oOZraLqoYfJPjoQDbMOKDZ/h0fHlfzQde/bP9kYu9u6hqwr24JFZ20IC3ULTJGQvQqYRSn7rt6MLAk2F1vUue7GR0NRg7GNW3qDkmbDlOCNSN3fPnQYZpB9YA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4WKmo2T4GO2JAG5PXoHWMC3MqejFR/mvo1aMUWM9bok=;
- b=gfMHD2oUkQ8HSkGLNsDHPX/PklvbtNVpCdKIvj2Lk1XUxUxvBbs7GGjFcfHHLzcohqIPR8OgHm/wdUjzSLIP/kgmhdzi7wthDtuMeUjbAevKqZSpLtgaHNSiXIQbfKAUNzRJ5SnNTjt+sbEullwmPe6KFHdYSjcoFTbjThQUM5phN0Dkitm2wVsCoeLOYCuEUyitaQNg/dUE9GCVwMML+fSLOzkp0U1KFroZvnFIWYFD8sTVFoCgU99a9PmbOfpVFDF5kUtKn8My6F05LaiQHWGGoX1HVljhswmJzH+5+GBNDmw2ZQLwDsf4Ui/iLmQvUQE9SzIi0s6oSrlCfwpA5w==
+ bh=hq9mAcuetUoMWbXf7G8R8shYYmNTm94IKEBMVMLIdZI=;
+ b=IgzWE277ww4eV4ixTYaWSFf+tNTFEROvB44wywehmqV6yACfaS/4YK1C+n1Wzrm2/5gnV0Ft2HuBJ+W1tjnSPlabOAvYh0wkpFlrF00aKFH/LtXIXNgffWu0Pu/4bFmJ2BmxDaXMpSUm4yu5gojLknQbOMf9XGmH46iZcRXLIDa8RPzY9UQpj+YbMjClP001RoSpqOkw7jf56pPIJUqFQW9iU9zVrkurC8CizeCDzpYv4jOcfdyQdXFoxQTFkeM//8slnj9LWWmT/vOhKBlQPDkg//xqyGkbHDhYZAAUJsvdtaeiROHVSITWlvaU3N39JptTViiJTJ9sGztk8ByEKw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4WKmo2T4GO2JAG5PXoHWMC3MqejFR/mvo1aMUWM9bok=;
- b=eIydOx+m85wUiiaiD3t5GJMVqUTCI0pTN+boodUJe3GLFSeMS+juhydhsFh3Npo71ihNDKDt6cM5ss4YyJzKO2GzgHPBIVJWVwr+6vqCz+GZilElIR43k+nVrjO7hspsotUUcfRDA/c4gUSd/IA5o1oEUQVpXQMkZ8bf36Uf08o=
-Received: from BN0PR10CA0008.namprd10.prod.outlook.com (2603:10b6:408:143::27)
- by SA1PR12MB6798.namprd12.prod.outlook.com (2603:10b6:806:25a::22)
+ bh=hq9mAcuetUoMWbXf7G8R8shYYmNTm94IKEBMVMLIdZI=;
+ b=oN5EqcsXFkBboKXAeOTqH1/tblmEDUCRfWNklNN1VZ+z2hBtuBdhBlSWxh1nfA3uoXLDh8Yv91iMH0Wi9DHDw+aLAxtGypDNDwV/PuleOyu3l1sR/3fjxLa26kOh4yKiXjCWa+ShtAVYRLfIMhjKOOeH0KxAiJMz+FhvuZbhPQA=
+Received: from BLAPR03CA0135.namprd03.prod.outlook.com (2603:10b6:208:32e::20)
+ by SJ0PR12MB7067.namprd12.prod.outlook.com (2603:10b6:a03:4ae::9)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8335.17; Tue, 14 Jan
- 2025 02:10:54 +0000
-Received: from MN1PEPF0000F0E2.namprd04.prod.outlook.com
- (2603:10b6:408:143:cafe::a7) by BN0PR10CA0008.outlook.office365.com
- (2603:10b6:408:143::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8335.18; Tue, 14 Jan
+ 2025 02:10:56 +0000
+Received: from MN1PEPF0000F0DF.namprd04.prod.outlook.com
+ (2603:10b6:208:32e:cafe::30) by BLAPR03CA0135.outlook.office365.com
+ (2603:10b6:208:32e::20) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.8335.18 via Frontend Transport; Tue,
- 14 Jan 2025 02:10:54 +0000
+ 14 Jan 2025 02:10:56 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- MN1PEPF0000F0E2.mail.protection.outlook.com (10.167.242.40) with Microsoft
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ MN1PEPF0000F0DF.mail.protection.outlook.com (10.167.242.37) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8356.11 via Frontend Transport; Tue, 14 Jan 2025 02:10:53 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.8356.11 via Frontend Transport; Tue, 14 Jan 2025 02:10:56 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 13 Jan
- 2025 20:10:53 -0600
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 13 Jan
- 2025 20:10:52 -0600
+ 2025 20:10:28 -0600
 Received: from localhost.localdomain (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Mon, 13 Jan 2025 20:10:47 -0600
+ Transport; Mon, 13 Jan 2025 20:10:00 -0600
 From: Wayne Lin <Wayne.Lin@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -69,66 +66,67 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>, Wayne Lin
  <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, Fangzhi Zuo
  <jerry.zuo@amd.com>, Zaeem Mohamed <zaeem.mohamed@amd.com>, Solomon Chiu
- <solomon.chiu@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>, Aric Cyr
- <Aric.Cyr@amd.com>, Mario Limonciello <mario.limonciello@amd.com>, "Alex
- Deucher" <alexander.deucher@amd.com>, <stable@vger.kernel.org>, Sung Lee
- <sung.lee@amd.com>
-Subject: [PATCH 07/11] drm/amd/display: Optimize cursor position updates
-Date: Tue, 14 Jan 2025 10:08:56 +0800
-Message-ID: <20250114020900.3804152-8-Wayne.Lin@amd.com>
+ <solomon.chiu@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>, Austin Zheng
+ <Austin.Zheng@amd.com>, Dillon Varone <dillon.varone@amd.com>
+Subject: [PATCH 05/11] drm/amd/display: Use Nominal vBlank If Provided Instead
+ Of Capping It
+Date: Tue, 14 Jan 2025 10:08:54 +0800
+Message-ID: <20250114020900.3804152-6-Wayne.Lin@amd.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20250114020900.3804152-1-Wayne.Lin@amd.com>
 References: <20250114020900.3804152-1-Wayne.Lin@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
+Received-SPF: None (SATLEXMB04.amd.com: Wayne.Lin@amd.com does not designate
+ permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0E2:EE_|SA1PR12MB6798:EE_
-X-MS-Office365-Filtering-Correlation-Id: 64d71a54-3569-454a-27b9-08dd3440ace7
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0DF:EE_|SJ0PR12MB7067:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0869faec-800a-4799-c111-08dd3440ae3a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|36860700013|1800799024|82310400026|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?jiEEWLTwlYxK+EJCvCgQUynB3fzCMsruvOI6zJXF+gfHYkmFyh0D/CKkY8Pd?=
- =?us-ascii?Q?obwl5dV6DYoQZ8kclAR7+SGOLzQdSekP66CJJuc5UtZCwUM02r3EOfQbm2es?=
- =?us-ascii?Q?Jx+6/f7ug4x12PxBA+eWOJ5GexBxzGFZ/Rj4JFk8zbVExTlp9Fgddezp/JcE?=
- =?us-ascii?Q?rJigDozhbQPA7Sb2d1CUS1CWyZALiFkzys8aOx84NmT+l0v3F6g8l1I7bxSp?=
- =?us-ascii?Q?mvEQbdVasDpbmEm+Dbe6Ttnp0NtXYG0N3OUpC1/zfE/4IcG4roYu9Bzs7fye?=
- =?us-ascii?Q?YNTSyPQX+nwFojOxBqivljG/1rxSVQuC0yY0EHB7uNejf3b8JE/M59KfCaEV?=
- =?us-ascii?Q?d+o6NOGbBwkOiusuQnwmxmiehLLmYWoc4broYqvzR9HpZ/DkWdFEeYLurVlA?=
- =?us-ascii?Q?G8/IospZ9K4kYSI75xK6qUfaIRl9bCFmlDqStH40pAcy3s3IbVdXMJpWYQGR?=
- =?us-ascii?Q?exYBMQ7UaToy12xCm/1zo6YyfObQdrqmOOYAU/+PdP+PlmTSoFRAsIGPqBH/?=
- =?us-ascii?Q?fyooI5IUBYEfNnPNo4QweFIoEq9Tg78OI4Pu3YARPO3uid2tVcVR4ULFgqyh?=
- =?us-ascii?Q?vwBxhULcMju55GT+LuyWeUOvh897YZPqjOULbZTaYwYH6uCwpCcuwPyDbLbe?=
- =?us-ascii?Q?RDZqrvAtPyTPpiDDMydh0h9ry24rxek9KBzp59jyIYysIib8Dbi65H6Qo8pP?=
- =?us-ascii?Q?sLJUhLfGs1NWpCvZmhjS87CMRDUMpM9V1AmJiHcrp0YGd4k25mAE85C5V0Kr?=
- =?us-ascii?Q?dlK3jTg1/7yFVGyo52DjpjwILd07pTkayjucZEk8gE2lqQZKzG0lyOMtwiHc?=
- =?us-ascii?Q?0MCWvYexmb53ydgPeGxK2i9Jc8CEWE3EGyEbWP1Nla3N+injhtAOZTQNX2bq?=
- =?us-ascii?Q?TAd5WiAnE+2V+shs36LzZLoDvfIgDms9N3PGmP3M7j8omp9/uRqHBYt2Rw3D?=
- =?us-ascii?Q?e0w+duLInp4QMSXtApZlfJrE5YwX6SM/6jCse2ugqQpRM15Ronfag6OMdfPy?=
- =?us-ascii?Q?5Pu+1K04WkfBlJMms1Ud09+9K3zYgBxc5L8hWAYjmkQ0G70VJzh5NcEOEg/6?=
- =?us-ascii?Q?bLLuj95S7nqXHvgKbdymlfqjPD0Ky+b3iOU6xBoDmYxjY+xsEz/ZKAnQkkYm?=
- =?us-ascii?Q?v2DFS18845tZML8oLyVsxk3H5OJzAbbG5BRrsVKS/92gjPSIfHOnt185uAJi?=
- =?us-ascii?Q?OWUb7/J1ESRgWbqkjRwQAVtxEvHAMwIdxRp6nbKEHtXRQVk4AQXrOpni19mh?=
- =?us-ascii?Q?AvdXs8P1dCrDuBHytq+XPyPMqJfKpXfbjYfi+kSlEnhqkXlLlDIYCcdmihKl?=
- =?us-ascii?Q?Kim6Cj2F51zFlzdn+nSpiDu4eFfOrCssEB+cNGvcYD3aAdjQGro0udt5Fjt2?=
- =?us-ascii?Q?I6fTBTwJ7yjmQ8bd5MHu2vWGpsu2Tf8WRh6BibXgVjYjl91fCPcgta7CS5zN?=
- =?us-ascii?Q?aMNQqv72qMC4xM51IJ15nnfXXfvWOqI3XrBDCnQNYcc+Is5ni715pQ=3D=3D?=
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?LaOXt+iQDtTQvit7rFdTJ5WwuvyTL3tBk56KYDtjr1ywtaxykkfjQ+UQ3M46?=
+ =?us-ascii?Q?jE6EF3zoZfZS4bniZi1hR5k+V+pLi5O62EUh8+4FwDRd0Y5/gcpfD4ej8o02?=
+ =?us-ascii?Q?YIeZ+kHxm9hs0fapQgu+hOxuy1qhjNf2aiTtVZQjrcfoNWegP9FZmUuvBUUR?=
+ =?us-ascii?Q?9mpo/6SAZTeXsp5AXj1EFzUVsSn1xms9oGG2wam/Fmj+7AoF0efibJUf8aLd?=
+ =?us-ascii?Q?xIZNw6nuqWnn4KH8z93yb2WlwOyt7pNggIrDCBxth4EEbK1zrRxtB72BZcG/?=
+ =?us-ascii?Q?wpzlhqrziVdPcb7nhwTuxheQ/O3Er7YBKPbkNv/0ba859hie8rj+Qt4txh+p?=
+ =?us-ascii?Q?0G7eacaxKO4zRZ7CJqHUPU1HrdbTSEDuZBZoQ+SHPbdoGnAYjEqjLGDIvELP?=
+ =?us-ascii?Q?2NYropNndReTJ5Wh1wROLvukGV0+gSYRrlywAld9lSfRJ4kLOGSXXmkbo7UJ?=
+ =?us-ascii?Q?+nHb/ruCd98bbGuA/ZusonmQedM2BwYqJjptXLe9aNHZKhZUHIC6E0+JV2fi?=
+ =?us-ascii?Q?KdWjSe38knqazn21gx6rFdFbUsh5Y4onfV78Gl24NvKUpYN68UWBZEEce6Ej?=
+ =?us-ascii?Q?dI+nyfDRfPpy4rmJ8eWP/VfUV9trwofPnElaQqK3Pla/oPQF+SGlZfA04Erd?=
+ =?us-ascii?Q?6jSfDI/+BGB4xb3LQZuCdFrL0qApHbQ2RFswHc7tLmKqJ2QQ8FPczj1urZY1?=
+ =?us-ascii?Q?IKUZ7KWpe0Mt1LBdRpyaxhOHMCadTJRjnCIZlGFRwNEylQjDPMfFmrsSHNfE?=
+ =?us-ascii?Q?U+KUHBOTllD/5jWdXfPq9whFvLzR34LaOSh5Khf2TYH2kubfjExBR5FS0hiy?=
+ =?us-ascii?Q?C/f7PW6+DJZ9dQhq13DpyaeeLCUjq0ijbAmt4TiMahP1X9QFVNzDPfmZjZAy?=
+ =?us-ascii?Q?W00sqQeJxFU+FdQNdGiAciGT5VkDsm6ShFRuTCTuwcC5NsislY6Oe2VNBLCI?=
+ =?us-ascii?Q?iWjTCQPWmzcRWJNoG6z+0MhSJ2J0rFRJeUR0Zp4EeZrS82CfVWwefisrgih0?=
+ =?us-ascii?Q?gSrTkzlYFwPayvECyuIQvf6FD9V3y9XOo8ws+vH0l19y47xHAlpZgB4jyS0Z?=
+ =?us-ascii?Q?dHymkxVjR1cemRdc5Zkx93rHoCqE+kQrLjLf/CIlF3YClf0jeJwTlP4fBTfh?=
+ =?us-ascii?Q?c7lj6+gaX65N3fHXgyX/elYmmOdwXJR1Ldrm2C4AhCIQH2rp4IWfIVJIhfvs?=
+ =?us-ascii?Q?w9gg/LOHNDBsf47QH/IS+9+lcmlW7l26NIGpfpAyt137MkBpfAEbJG0UB9NQ?=
+ =?us-ascii?Q?J/ACW8t2UjD2N4k4OBf+Ulu34IMzyjTZbgUUsPNinDuG7i3QHpsw3/+XVuzv?=
+ =?us-ascii?Q?K7FQUjE6XcanH7G3sPPEo5OblBnC9naUlxOZmAk4nEPOfzN9XyH16wLhy4Q9?=
+ =?us-ascii?Q?2i0w17sLt3ScZC02P8V6AtlxlaYGP3Ao5m13LaSMFO+LZiXArIQp6yigxstb?=
+ =?us-ascii?Q?LVTO1CRDKd2c1NW+dj5hAqN3Sw8m/J+Bv6FIksAhVki2Sk1dbKB80A=3D=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
  SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jan 2025 02:10:53.9078 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 64d71a54-3569-454a-27b9-08dd3440ace7
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jan 2025 02:10:56.1490 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0869faec-800a-4799-c111-08dd3440ae3a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000F0E2.namprd04.prod.outlook.com
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000F0DF.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6798
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB7067
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,112 +141,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Aric Cyr <Aric.Cyr@amd.com>
+From: Austin Zheng <Austin.Zheng@amd.com>
 
-[why]
-Updating the cursor enablement register can be a slow operation and accumulates
-when high polling rate cursors cause frequent updates asynchronously to the
-cursor position.
+[Why/How]
+vBlank used to determine the max vStartup is based on the smallest between
+the vblank provided by the timing and vblank in ip_caps.
+Extra vblank time is not considered if the vblank provided by the timing ends
+up being higher than what's defined by the ip_caps
 
-[how]
-Since the cursor enable bit is cached there is no need to update the
-enablement register if there is no change to it.  This removes the
-read-modify-write from the cursor position programming path in HUBP and
-DPP, leaving only the register writes.
+Use 1 less than the vblank size in case the timing is interlaced
+so vstartup will always be less than vblank_nom.
 
-Cc: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: stable@vger.kernel.org
-Reviewed-by: Sung Lee <sung.lee@amd.com>
-Signed-off-by: Aric Cyr <Aric.Cyr@amd.com>
+Reviewed-by: Dillon Varone <dillon.varone@amd.com>
+Signed-off-by: Austin Zheng <Austin.Zheng@amd.com>
 Signed-off-by: Wayne Lin <wayne.lin@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dpp/dcn10/dcn10_dpp.c   |  7 ++++---
- .../gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_cm.c  |  6 ++++--
- drivers/gpu/drm/amd/display/dc/hubp/dcn20/dcn20_hubp.c |  8 +++++---
- .../gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.c   | 10 ++++++----
- 4 files changed, 19 insertions(+), 12 deletions(-)
+ .../dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c       | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dpp/dcn10/dcn10_dpp.c b/drivers/gpu/drm/amd/display/dc/dpp/dcn10/dcn10_dpp.c
-index e1da48b05d00..8f6529a98f31 100644
---- a/drivers/gpu/drm/amd/display/dc/dpp/dcn10/dcn10_dpp.c
-+++ b/drivers/gpu/drm/amd/display/dc/dpp/dcn10/dcn10_dpp.c
-@@ -480,10 +480,11 @@ void dpp1_set_cursor_position(
- 	if (src_y_offset + cursor_height <= 0)
- 		cur_en = 0;  /* not visible beyond top edge*/
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
+index c4dbf27abaf8..b1da89a5e5e4 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
+@@ -3709,13 +3709,12 @@ static unsigned int CalculateMaxVStartup(
+ 	double line_time_us = (double)timing->h_total / ((double)timing->pixel_clock_khz / 1000);
+ 	unsigned int vblank_actual = timing->v_total - timing->v_active;
+ 	unsigned int vblank_nom_default_in_line = (unsigned int)math_floor2((double)vblank_nom_default_us / line_time_us, 1.0);
+-	unsigned int vblank_nom_input = (unsigned int)math_min2(timing->vblank_nom, vblank_nom_default_in_line);
+-	unsigned int vblank_avail = (vblank_nom_input == 0) ? vblank_nom_default_in_line : vblank_nom_input;
++	unsigned int vblank_avail = (timing->vblank_nom == 0) ? vblank_nom_default_in_line : (unsigned int)timing->vblank_nom;
  
--	REG_UPDATE(CURSOR0_CONTROL,
--			CUR0_ENABLE, cur_en);
-+	if (dpp_base->pos.cur0_ctl.bits.cur0_enable != cur_en) {
-+		REG_UPDATE(CURSOR0_CONTROL, CUR0_ENABLE, cur_en);
+ 	vblank_size = (unsigned int)math_min2(vblank_actual, vblank_avail);
  
--	dpp_base->pos.cur0_ctl.bits.cur0_enable = cur_en;
-+		dpp_base->pos.cur0_ctl.bits.cur0_enable = cur_en;
-+	}
- }
- 
- void dpp1_cnv_set_optional_cursor_attributes(
-diff --git a/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_cm.c b/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_cm.c
-index 3b6ca7974e18..1236e0f9a256 100644
---- a/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_cm.c
-+++ b/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_cm.c
-@@ -154,9 +154,11 @@ void dpp401_set_cursor_position(
- 	struct dcn401_dpp *dpp = TO_DCN401_DPP(dpp_base);
- 	uint32_t cur_en = pos->enable ? 1 : 0;
- 
--	REG_UPDATE(CURSOR0_CONTROL, CUR0_ENABLE, cur_en);
-+	if (dpp_base->pos.cur0_ctl.bits.cur0_enable != cur_en) {
-+		REG_UPDATE(CURSOR0_CONTROL, CUR0_ENABLE, cur_en);
- 
--	dpp_base->pos.cur0_ctl.bits.cur0_enable = cur_en;
-+		dpp_base->pos.cur0_ctl.bits.cur0_enable = cur_en;
-+	}
- }
- 
- void dpp401_set_optional_cursor_attributes(
-diff --git a/drivers/gpu/drm/amd/display/dc/hubp/dcn20/dcn20_hubp.c b/drivers/gpu/drm/amd/display/dc/hubp/dcn20/dcn20_hubp.c
-index c74f6a3313a2..d537d0c53cf0 100644
---- a/drivers/gpu/drm/amd/display/dc/hubp/dcn20/dcn20_hubp.c
-+++ b/drivers/gpu/drm/amd/display/dc/hubp/dcn20/dcn20_hubp.c
-@@ -1058,11 +1058,13 @@ void hubp2_cursor_set_position(
- 	if (src_y_offset + cursor_height <= 0)
- 		cur_en = 0;  /* not visible beyond top edge*/
- 
--	if (cur_en && REG_READ(CURSOR_SURFACE_ADDRESS) == 0)
--		hubp->funcs->set_cursor_attributes(hubp, &hubp->curs_attr);
-+	if (hubp->pos.cur_ctl.bits.cur_enable != cur_en) {
-+		if (cur_en && REG_READ(CURSOR_SURFACE_ADDRESS) == 0)
-+			hubp->funcs->set_cursor_attributes(hubp, &hubp->curs_attr);
- 
--	REG_UPDATE(CURSOR_CONTROL,
-+		REG_UPDATE(CURSOR_CONTROL,
- 			CURSOR_ENABLE, cur_en);
-+	}
- 
- 	REG_SET_2(CURSOR_POSITION, 0,
- 			CURSOR_X_POSITION, pos->x,
-diff --git a/drivers/gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.c b/drivers/gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.c
-index 28ceceaf9e31..03bfa902dc01 100644
---- a/drivers/gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.c
-+++ b/drivers/gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.c
-@@ -742,11 +742,13 @@ void hubp401_cursor_set_position(
- 			dc_fixpt_from_int(dst_x_offset),
- 			param->h_scale_ratio));
- 
--	if (cur_en && REG_READ(CURSOR_SURFACE_ADDRESS) == 0)
--		hubp->funcs->set_cursor_attributes(hubp, &hubp->curs_attr);
-+	if (hubp->pos.cur_ctl.bits.cur_enable != cur_en) {
-+		if (cur_en && REG_READ(CURSOR_SURFACE_ADDRESS) == 0)
-+			hubp->funcs->set_cursor_attributes(hubp, &hubp->curs_attr);
- 
--	REG_UPDATE(CURSOR_CONTROL,
--		CURSOR_ENABLE, cur_en);
-+		REG_UPDATE(CURSOR_CONTROL,
-+			CURSOR_ENABLE, cur_en);
-+	}
- 
- 	REG_SET_2(CURSOR_POSITION, 0,
- 		CURSOR_X_POSITION, x_pos,
+ 	if (timing->interlaced && !ptoi_supported)
+-		max_vstartup_lines = (unsigned int)(math_floor2(vblank_size / 2.0, 1.0));
++		max_vstartup_lines = (unsigned int)(math_floor2((vblank_size - 1) / 2.0, 1.0));
+ 	else
+ 		max_vstartup_lines = vblank_size - (unsigned int)math_max2(1.0, math_ceil2(write_back_delay_us / line_time_us, 1.0));
+ #ifdef __DML_VBA_DEBUG__
 -- 
 2.37.3
 
