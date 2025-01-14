@@ -4,127 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93D55E77188
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jan 2025 13:51:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4178E77188
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jan 2025 14:05:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 55AC410E2E2;
-	Tue, 14 Jan 2025 13:51:02 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="eaGRr8F/";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="O0VD1u/k";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="eaGRr8F/";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="O0VD1u/k";
-	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 53FBB10E2C4;
- Tue, 14 Jan 2025 13:51:01 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 9DEBD2116A;
- Tue, 14 Jan 2025 13:50:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1736862629; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=kru6DSrUnl2eUBRYcxxMVFGIDND6Bp53H3iDhc2SIB4=;
- b=eaGRr8F/SP+WjIJSjy5B3Z39rdmT4PdwenGwI03+hgjtIY1t9wc7nz87TcTNDfbjljXMB8
- ZdUT+UGgYvQfp5AZ3kecqtJQ5/6gxK8v2PAkkiHwOiS6k8jrWKSwZYVX51VbmLpJtoOb9C
- crymOruD2e4ox76z96t67bQzPjZk5U8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1736862629;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=kru6DSrUnl2eUBRYcxxMVFGIDND6Bp53H3iDhc2SIB4=;
- b=O0VD1u/kRnmksNxzoRxDb+x0/0RsK7VO39Q37gSeodBijCeH9A4EY9YEEJ925o12tBY4m7
- MVbTJ2Cv+xpi2fBQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1736862629; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=kru6DSrUnl2eUBRYcxxMVFGIDND6Bp53H3iDhc2SIB4=;
- b=eaGRr8F/SP+WjIJSjy5B3Z39rdmT4PdwenGwI03+hgjtIY1t9wc7nz87TcTNDfbjljXMB8
- ZdUT+UGgYvQfp5AZ3kecqtJQ5/6gxK8v2PAkkiHwOiS6k8jrWKSwZYVX51VbmLpJtoOb9C
- crymOruD2e4ox76z96t67bQzPjZk5U8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1736862629;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=kru6DSrUnl2eUBRYcxxMVFGIDND6Bp53H3iDhc2SIB4=;
- b=O0VD1u/kRnmksNxzoRxDb+x0/0RsK7VO39Q37gSeodBijCeH9A4EY9YEEJ925o12tBY4m7
- MVbTJ2Cv+xpi2fBQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7BCB1139CB;
- Tue, 14 Jan 2025 13:50:29 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id Nj7cHKVrhmdFUgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 14 Jan 2025 13:50:29 +0000
-Message-ID: <7cf9af86-b656-4153-9db2-eeb4e8433f2b@suse.de>
-Date: Tue, 14 Jan 2025 14:50:29 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 733FE10E316;
+	Tue, 14 Jan 2025 14:05:05 +0000 (UTC)
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+ by gabe.freedesktop.org (Postfix) with ESMTP id AB5BF10E2B2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jan 2025 13:30:51 +0000 (UTC)
+Received: from loongson.cn (unknown [113.200.148.30])
+ by gateway (Coremail) with SMTP id _____8Bx364JZ4ZnAD1jAA--.23578S3;
+ Tue, 14 Jan 2025 21:30:49 +0800 (CST)
+Received: from linux.localdomain (unknown [113.200.148.30])
+ by front1 (Coremail) with SMTP id qMiowMDxfccGZ4ZnEiYiAA--.3726S2;
+ Tue, 14 Jan 2025 21:30:46 +0800 (CST)
+From: Tiezhu Yang <yangtiezhu@loongson.cn>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Xinhui Pan <Xinhui.Pan@amd.com>, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Cc: Nathan Chancellor <nathan@kernel.org>,
+ Josh Poimboeuf <jpoimboe@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>, loongarch@lists.linux.dev,
+ amd-gfx@lists.freedesktop.org, llvm@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH v4 3/3] drm/amd/display: Harden callers of division functions
+Date: Tue, 14 Jan 2025 21:30:35 +0800
+Message-ID: <20250114133035.20178-1-yangtiezhu@loongson.cn>
+X-Mailer: git-send-email 2.42.0
+In-Reply-To: <20250114132856.19463-1-yangtiezhu@loongson.cn>
+References: <20250114132856.19463-1-yangtiezhu@loongson.cn>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/fourcc: add LINEAR modifiers with an exact pitch
- alignment
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
- ML Mesa-dev <mesa-dev@lists.freedesktop.org>
-References: <CAAxE2A5BkF13bFt8_UnuiqPM8W-ZESgmKEjqqGfv=DGzSfJ7aQ@mail.gmail.com>
- <96a3171d-7052-4a6d-92cc-daac7976e4ef@suse.de>
-Content-Language: en-US
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <96a3171d-7052-4a6d-92cc-daac7976e4ef@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- FREEMAIL_TO(0.00)[gmail.com,lists.freedesktop.org];
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- MID_RHS_MATCH_FROM(0.00)[]; MIME_TRACE(0.00)[0:+];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FUZZY_BLOCKED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; RCPT_COUNT_THREE(0.00)[4];
- RCVD_TLS_ALL(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; TO_DN_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,bootlin.com:url]
+X-CM-TRANSID: qMiowMDxfccGZ4ZnEiYiAA--.3726S2
+X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
+X-Coremail-Antispam: 1Uk129KBj93XoWxWry8uF1ktw1UJFWUCFWUJrc_yoW5GF4fpa
+ 13GFyUXryDZFZ2yFZ7C3W7WFZxAa93JF4v9F43Cws5u347Zan8urZ3J3Z5Gr429rWIyF4a
+ vFs8GrWjqF1vyrXCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
+ sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+ 0xBIdaVrnRJUUUBIb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+ IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+ e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+ 0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v2
+ 6rxl6s0DM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYI
+ kI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUtVWr
+ XwAv7VC2z280aVAFwI0_Cr0_Gr1UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwI
+ xGrwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWU
+ JVW8JwCFI7km07C267AKxVWUXVWUAwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4
+ vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IY
+ x2IY67AKxVW5JVW7JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26c
+ xKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26F4j6r4UJwCI42IY6I8E87Iv6xkF7I0E
+ 14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7IU8ceOJUUUUU==
+X-Mailman-Approved-At: Tue, 14 Jan 2025 14:05:05 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,87 +70,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi
+There are objtool warnings compiled with the latest mainline LLVM:
 
+  dc_fixpt_recip() falls through to next function dc_fixpt_sinc()
+  spl_fixpt_recip() falls through to next function spl_fixpt_sinc()
 
-Am 14.01.25 um 14:46 schrieb Thomas Zimmermann:
-> Hi
->
->
-> Am 15.12.24 um 21:53 schrieb Marek Olšák:
->> The comment explains the problem with DRM_FORMAT_MOD_LINEAR.
->>
->> Signed-off-by: Marek Olšák <marek.olsak@amd.com>
->>
->> diff --git a/include/uapi/drm/drm_fourcc.h 
->> b/include/uapi/drm/drm_fourcc.h
->> index 78abd819fd62e..8ec4163429014 100644
->> --- a/include/uapi/drm/drm_fourcc.h
->> +++ b/include/uapi/drm/drm_fourcc.h
->> @@ -484,9 +484,27 @@ extern "C" {
->>   * modifier (e.g. not setting DRM_MODE_FB_MODIFIERS in the 
->> DRM_ADDFB2 ioctl),
->>   * which tells the driver to also take driver-internal information 
->> into account
->>   * and so might actually result in a tiled framebuffer.
->> + *
->> + * WARNING:
->> + * There are drivers out there that expose DRM_FORMAT_MOD_LINEAR, 
->> but only
->> + * support a certain pitch alignment and can't import images with 
->> this modifier
->> + * if the pitch alignment isn't exactly the one supported. They can 
->> however
->> + * allocate images with this modifier and other drivers can import 
->> them only
->> + * if they support the same pitch alignment. Thus, 
->> DRM_FORMAT_MOD_LINEAR is
->> + * fundamentically incompatible across devices and is the only 
->> modifier that
->> + * has a chance of not working. The PITCH_ALIGN modifiers should be 
->> used
->> + * instead.
->>   */
->>  #define DRM_FORMAT_MOD_LINEAR  fourcc_mod_code(NONE, 0)
->>
->> +/* Linear layout modifiers with an explicit pitch alignment in bytes.
->> + * Exposing this modifier requires that the pitch alignment is exactly
->> + * the number in the definition.
->> + */
->> +#define DRM_FORMAT_MOD_LINEAR_PITCH_ALIGN_64B fourcc_mod_code(NONE, 1)
->
-> I recently went through drivers and tried to harmonize some 
-> pitch-related code. There are essentially all cases from 2 to 256. See 
-> my series at
->
->   https://patchwork.freedesktop.org/series/141168/
->
-> Sometimes the driver computes the pitch requirements from the 
-> bit-per-pixels. [1]
->
-> Hardware also has alignment requirements for framebuffer width 
-> (usually 8 pixels).
+Here are the call paths:
 
-To clarify: given this and the overall discussion here, it seems to me 
-that modifiers and descriptors really don't fit well to the problem.
+  dc_fixpt_recip()
+    dc_fixpt_from_fraction()
+      complete_integer_division_u64()
+        div64_u64_rem()
 
-Best regards
-Thomas
+  spl_fixpt_recip()
+    spl_fixpt_from_fraction()
+      spl_complete_integer_division_u64()
+        spl_div64_u64_rem()
 
->
-> Best regards
-> Thomas
->
-> [1] 
-> https://elixir.bootlin.com/linux/v6.12.6/source/drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c#L410
->
+This was introduced by a change in Clang from a few months:
 
+  [SimplifyCFG] Deduce paths unreachable if they cause div/rem UB)
+  https://github.com/llvm/llvm-project/commit/37932643abab
+
+The current ASSERT() and SPL_ASSERT() do not do anything to prevent
+the divide by zero and the rest of the code does not either, this
+is the root cause.
+
+The callers of division functions should be hardened against dividing
+by zero to avoid undefined behavior, so use the new added ASSERT_BUG()
+and SPL_ASSERT_BUG() to stop the control flow if the divisior is zero.
+
+Suggested-by: Nathan Chancellor <nathan@kernel.org>
+Suggested-by: Xi Ruoyao <xry111@xry111.site>
+Suggested-by: Rui Wang <wangrui@loongson.cn>
+Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
+Link: https://lore.kernel.org/lkml/20241220223403.GA2605890@ax162/
+---
+ drivers/gpu/drm/amd/display/dc/basics/fixpt31_32.c  | 2 +-
+ drivers/gpu/drm/amd/display/dc/spl/spl_fixpt31_32.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/basics/fixpt31_32.c b/drivers/gpu/drm/amd/display/dc/basics/fixpt31_32.c
+index 88d3f9d7dd55..f78c6702bc42 100644
+--- a/drivers/gpu/drm/amd/display/dc/basics/fixpt31_32.c
++++ b/drivers/gpu/drm/amd/display/dc/basics/fixpt31_32.c
+@@ -51,7 +51,7 @@ static inline unsigned long long complete_integer_division_u64(
+ {
+ 	unsigned long long result;
+ 
+-	ASSERT(divisor);
++	ASSERT_BUG(divisor);
+ 
+ 	result = div64_u64_rem(dividend, divisor, remainder);
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/spl/spl_fixpt31_32.c b/drivers/gpu/drm/amd/display/dc/spl/spl_fixpt31_32.c
+index 131f1e3949d3..b3e6840e4715 100644
+--- a/drivers/gpu/drm/amd/display/dc/spl/spl_fixpt31_32.c
++++ b/drivers/gpu/drm/amd/display/dc/spl/spl_fixpt31_32.c
+@@ -29,7 +29,7 @@ static inline unsigned long long spl_complete_integer_division_u64(
+ {
+ 	unsigned long long result;
+ 
+-	SPL_ASSERT(divisor);
++	SPL_ASSERT_BUG(divisor);
+ 
+ 	result = spl_div64_u64_rem(dividend, divisor, remainder);
+ 
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstrasse 146, 90461 Nuernberg, Germany
-GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
-HRB 36809 (AG Nuernberg)
+2.42.0
 
