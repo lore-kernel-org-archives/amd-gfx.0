@@ -4,166 +4,165 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0A28E77188
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jan 2025 17:21:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE52EC02183
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Jan 2025 17:55:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FDA810E40B;
-	Tue, 14 Jan 2025 17:21:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6BE7A10E452;
+	Tue, 14 Jan 2025 17:55:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="oJiRVBO2";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="B9JOfS1X";
 	dkim-atps=neutral
 Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2077.outbound.protection.outlook.com [40.107.243.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C7A9910E40B
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Jan 2025 17:21:26 +0000 (UTC)
+ (mail-dm6nam12on2076.outbound.protection.outlook.com [40.107.243.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F157E10E452;
+ Tue, 14 Jan 2025 17:55:50 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OWB1fD1PUhSJUmp9faZkv76yNtKGuWvKnPOJZbheAo4QvXcb9Vo/vMaRa0wWtLoCoCIAJroG0gADi02Yh7IZlL72e1AH2MR2cDROzR/SAy00bqKf9tD0u/it+sQovIbLA4ZsjvqobcFIPL2D7QYh8BRBx1Z3U5YmmYq8Wo/mC/XG6NyYk5zGDegV2JojOvGIRsGfu6HBx8ku7lJxDCG6rTjWTijqeFo0BEbAkfAg4m3LL8/V4o59zACM/a0qEpysMxyrpjSI03Ato6UX4cgti9PHjqS6Xhmya8dbuxZbsEageZ8+bEmDRoCHfcqmb9tAGnIFzEbYbNpEi+MliHUIrw==
+ b=lyYZGhL58f6lGFU40TriujD7AvDZZ60hufTbXWyDD6wdcdFxlZHIOwpRONAIWgkszwiT+k3MGTJfqFLbCcu1+vwaELrurJhvXiy3mpIMIUBWOL7oepla2aQLEdlZIEb5jKYDlkR8dmiemst+lkQrbdu+T+4PM5XCBSahiE176tkDFVf1ygZ8JsapJ8jbVWIo7FEyTa4ouOcaJazPxLWp3EcRgj3hD7XB67UBGU1Eo39Cl29HpKIgK6ZI9DpcOQopRweRK39ik0fp4cUoCn773EsNmY95iLizr1tUIwcDwZxVv3cKLmnvDJs3hz28Dv0hc3EufTOr7WUoqGOCHQxvhQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QF3AMD1on4/ZIF96jRt/DCVRbiuOxkupVOLQhmuXka4=;
- b=thB1jF6ZXHJnvXxvzlpWE06+Mi3/PmViUDDKVGMvFi86UjXjdgsS8TAY2UVLBgz/S2YYfxNBN7MpEjvcivMFloJt0o/lv4LMfUlm6S2gz4EZaSXQmkkH0jANYe1+1WoP8lpzaakwBMWD0mREit7l40GrmN1uxvXtdX5PcdaV94rSMjRotJMv1XOJx/iepdz3+FTL9zJqMfaJWIywEtlKh2gRJOsmLnmhPsLXSPLW37KFCU59BvpOziuBxCk5OtCsWX0IZVonSdILTdHMEYsvH9YO9OWOyA2EW2FPpBZYhbCcEDtqu0jAsN500KsgB1vYSJ5xOXgqMlQnuOlKI/ygBg==
+ bh=XdiBROqx6Wnu8vO4nGCXsMxFc68RyeI5Fbz6rHK5foE=;
+ b=avsLBP1EnmKClbpFAIoi4pb6K5j6wxAwFZ968/ElwDj2VxsWJjGKKpri/UUze+pi4qHvc4SXXR32Rvbtrnj1OMF0xbkCcSQGri3FsI0mDDSM2X75v1P195o7go72kq+o+0KMJmi2vly0xE/60HVKhn4qOIk25tRGUntO7k53Yu+SaD7nc1u2rkMfsW7EVNZWBg0ieugz2y2wH/V63Mm+CYFCzaTUoKKT/ZcW1B+a9QG9FAgLCPrVmU7mol1VKAkOHHtBxMOPr+58SJfyDss+fqcfnoi7GS68p2mI4+qbZG0HHEhX/o/XNnfO/Kf5bQfcY+VR8cGcwBUzejdoamK3TQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QF3AMD1on4/ZIF96jRt/DCVRbiuOxkupVOLQhmuXka4=;
- b=oJiRVBO2r3iYIHccSiG3miJQuSQEli3B2ab8qfhp0RoVLP/ul05rG+WNtAmX8SXN/ks1FYHth1sWNRe3CczzdL/WkNH7CaBrkGSf7L8aDMHl1z8VOaDDSSzdgw0fdpynskHSsqxnZ5k0Xl/wAjuOyv4vztRXoVdgAIIOM+VFvQI=
-Received: from CY8PR12MB7435.namprd12.prod.outlook.com (2603:10b6:930:51::6)
- by LV8PR12MB9264.namprd12.prod.outlook.com (2603:10b6:408:1e8::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8356.12; Tue, 14 Jan
- 2025 17:21:23 +0000
-Received: from CY8PR12MB7435.namprd12.prod.outlook.com
- ([fe80::817c:781e:25f1:8210]) by CY8PR12MB7435.namprd12.prod.outlook.com
- ([fe80::817c:781e:25f1:8210%4]) with mapi id 15.20.8356.010; Tue, 14 Jan 2025
- 17:21:23 +0000
-From: "Kim, Jonathan" <Jonathan.Kim@amd.com>
-To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Kasiviswanathan, Harish" <Harish.Kasiviswanathan@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: fix gpu recovery disable with per queue reset
-Thread-Topic: [PATCH] drm/amdgpu: fix gpu recovery disable with per queue reset
-Thread-Index: AQHbYggg7TRtauGCh02VRE8z9Mjnf7MN908AgACHIuCAAN/YAIAAy7mwgAALhACAAErsIIAAb5eAgAWbWcA=
-Date: Tue, 14 Jan 2025 17:21:23 +0000
-Message-ID: <CY8PR12MB7435DC1509E304F279F6145185182@CY8PR12MB7435.namprd12.prod.outlook.com>
-References: <20250108200121.2808908-1-jonathan.kim@amd.com>
- <0ab5d4aa-ac2c-4108-99e5-902f73f827bb@amd.com>
- <CY8PR12MB7435645F2AB787B7BC57BB0A85132@CY8PR12MB7435.namprd12.prod.outlook.com>
- <f7a71dc8-7643-431e-8c92-ade74619ef2c@amd.com>
- <CY8PR12MB743599F7DD753244994863C6851C2@CY8PR12MB7435.namprd12.prod.outlook.com>
- <9600acc2-b6fc-4c22-a9d6-061250cf75e0@amd.com>
- <CY8PR12MB74358329999D20A4899DA18D851C2@CY8PR12MB7435.namprd12.prod.outlook.com>
- <fe31a1d4-d137-4d0e-8a63-321a5c365512@amd.com>
-In-Reply-To: <fe31a1d4-d137-4d0e-8a63-321a5c365512@amd.com>
-Accept-Language: en-US
+ bh=XdiBROqx6Wnu8vO4nGCXsMxFc68RyeI5Fbz6rHK5foE=;
+ b=B9JOfS1Xs1qyj66CkvIWPpBeU4pGqS7zM3bqk84pkAA//XxOgB/kLdV2pj4MUY+UA2iZcHFbVGi+8I3piQExnDeNGAVVqDr9PaxwFhfP11PXXBiTbrzLG06fbIvnnp/r2lVBV+2bQjGxJX5A3hGkp0ZAFp+dqOxsmfCmH2KhJGco/CETep1Eov9JGg2sAlEoNxVnJD3S94z1OlOdZSc2bDloRvsfK6qYTNSMMa2HWPyxoTjYEcxJNsjsvQGSuqLz/GQagrPolNG7jEjuHC7WJrAnnfQFpZmRgSOT5Qh8gyBmKkJ/DqynGCGAKTq1ywtI0bK+D6m9tMmrGGqsbZoDkQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH3PR12MB9146.namprd12.prod.outlook.com (2603:10b6:610:19c::18)
+ by PH7PR12MB7841.namprd12.prod.outlook.com (2603:10b6:510:273::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8335.18; Tue, 14 Jan
+ 2025 17:55:48 +0000
+Received: from CH3PR12MB9146.namprd12.prod.outlook.com
+ ([fe80::a638:d48c:2c10:9b04]) by CH3PR12MB9146.namprd12.prod.outlook.com
+ ([fe80::a638:d48c:2c10:9b04%7]) with mapi id 15.20.8335.017; Tue, 14 Jan 2025
+ 17:55:48 +0000
+Message-ID: <8dd7405a-0317-4e35-ac66-a35b0bd743a9@nvidia.com>
+Date: Tue, 14 Jan 2025 09:55:44 -0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/fourcc: add LINEAR modifiers with an exact pitch
+ alignment
+To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
+Cc: Simona Vetter <simona.vetter@ffwll.ch>,
+ Daniel Stone <daniel@fooishbar.org>, Brian Starkey <brian.starkey@arm.com>,
+ =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
+ ML Mesa-dev <mesa-dev@lists.freedesktop.org>, nd@arm.com,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+References: <CAAxE2A5BkF13bFt8_UnuiqPM8W-ZESgmKEjqqGfv=DGzSfJ7aQ@mail.gmail.com>
+ <uffsfaps6a75zmkyshkwfxgybcslqrnfqqtjzekegdptvwpugc@2ndpcuxyfp3f>
+ <c64cb9d8-5ea7-4644-93c8-04a97b758fa0@mailbox.org>
+ <h26quuebhpxwkc3fl4vtfteoqyvingnddgxbnzptfnxfg6xgkd@kkkmeqwplomv>
+ <8dae97c9-9286-451a-8122-b309eb21b2f4@mailbox.org>
+ <Z2Ki-lQH4Fbch6RO@phenom.ffwll.local>
+ <q45c43j5kwwvemec7mcs4kqzt54pa3nz3jlhkcky2v63s2vfie@him4q253uw4p>
+ <CAPj87rMFJ0JRvsKqZUsw_EGrFWr1VLO4Ne2w_bZ5cH+gs_d=og@mail.gmail.com>
+ <Z2Rf7mpSuzZ0ObmT@phenom.ffwll.local>
+ <07d08a42-c44a-477e-8057-721b270310cf@nvidia.com>
+ <CAAxE2A6N0xtgZmzTR9FXMN79xxy3T8zfhh1sz73h1h8=0ycJ2g@mail.gmail.com>
 Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ActionId=4b0ff9f5-60a2-4a5b-8f78-a4a76f22cd00;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=0;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=true;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open Source;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2025-01-14T17:20:36Z;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY8PR12MB7435:EE_|LV8PR12MB9264:EE_
-x-ms-office365-filtering-correlation-id: 6a613053-d84a-4045-77f9-08dd34bfdeb6
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|38070700018|7053199007; 
-x-microsoft-antispam-message-info: =?utf-8?B?MXZoV2lKeTRkdnNJc0ZHSTRnc2k3bWU2K3U1T0dzM2RaWkovZnh2TjhCam95?=
- =?utf-8?B?aEIyT2hRaEF6aGdCcUxXTnlLL3hnVEVyRkcvejV0Yk5UZFpYV0wrQ2Zxdnpy?=
- =?utf-8?B?dEFCalV1eVhYdjNweDAxN1FzMW9lbDRtd1lZU010cVJ6emplOC9Yb0RyMUgw?=
- =?utf-8?B?OFdvZk5zK0RYTWVrNDhMaHFmUkd1ZkZVOHhDLytCand1MmxaVU50VG5QeXd3?=
- =?utf-8?B?ZFk1emFReFNUZk9hajRnY01xV09wdDEwNmU3MWVyYWFYUXUzK1BYa0Z4aTRJ?=
- =?utf-8?B?dEovWGdETFVBU3ZGVDQ1WVVzNGxNWEJ3b1dMdE91ZE5DZVVoY0UvQmVPVkdm?=
- =?utf-8?B?UGlJaEU3TzNsTCtSbXdwY2JrVDk1bUFLaHRweHNDK0hoUksyMC9VOGV2NWFV?=
- =?utf-8?B?ZkJ1YU04OUdBdHZDM2M5NEhzV1hJZG1iYml0N3E5dGZhcE9rTXpuemV1azlB?=
- =?utf-8?B?eHN0N2xCQXhJaEp0ZUpzb2w4VjF6OUZFM21aVFRmQWJ4eHpXdDZuNGx6VThP?=
- =?utf-8?B?M1VOd0FzQ2ZXQ1VNVzB5aklUbVJZSXcwenJSa25LMnVtMnp4UFZQY3hWTWlB?=
- =?utf-8?B?TmxaQmg0QXAvWnBiNG5tR09zOElzN21wSDJNSUJNaHdwR3p4c3Z5aXdQWHBJ?=
- =?utf-8?B?UHlSTGxuUUFkR1o4Y0ZFRFNaQXpGbzRUeGl0Y2dHNTJyTHE4azEvNkFETDZB?=
- =?utf-8?B?cWk0UU84U2dJMk1DUnNlUWU0SlFkMEVBL2l3dGN4b0hQckw1enVqcHJmQ2ZJ?=
- =?utf-8?B?UXRVblIzWFhIQU8rUUYvVXVzK282TGNLZDgyRjZ3MnpSaEdpOFg0V1A1TjdZ?=
- =?utf-8?B?YzRrY1lxdEVmYUZ3c0pqVnp5UWFNTlF2eExUbU5hbkJDQlBzWi9VRlc5SE02?=
- =?utf-8?B?bTdIbFgyY0pvcXZCMDdyUjQ0Rml3WXBtcjZ3S1Bsa3o4ZmFsWWlFaEpodzRj?=
- =?utf-8?B?ajJoVWNXTmVjNDVIKzFaK1pVMlVKWTgzZzlYTmtMcDdhYWpoRkxLZ2dzM2hq?=
- =?utf-8?B?Uys3cmVYUXJSYWhyK3FvajdqdjRIM2R0OTB4YXRibCtnWVB0OFlzb2JITnBI?=
- =?utf-8?B?ZnJRVWllZmRodkVnTG9DSVJMcW9NemZ4aExkSVFGUVRHc1M5L3ZobHNZdGM2?=
- =?utf-8?B?OFlzVTZ3VzdpMWhPMFVYYVVvNXdSMTB4S3l3REFtLzI4QnhsS2JIYXRJa0c4?=
- =?utf-8?B?Qys3OU1mQnp3Q0xLRzRZaDlSQlIzUWpPUHJyNHhucFBSV0ZGK2ZzdEUwMW1Q?=
- =?utf-8?B?R2NQOTRBZjJKbHFyQUZycFVEOGpkQi91K2lub09FdWlqZXhSelp4UWhEd1dw?=
- =?utf-8?B?d0tXNGxsckFiSDNjUU1ldXpJUUxRQkRhRmp0dFMrU1Q2MzZmcXpIMERUR1Zh?=
- =?utf-8?B?SkFqdGRKTUVsZGdqQnpUUG9ma3NYbDEwR3RuUVd1QytocUhtZ2FZMXM4dWF5?=
- =?utf-8?B?SFp2aDNJS1M5azlYcjhaenZOdklQN0pIS0w1a2Z2dDVrVWVLaHFSeHhIWTAz?=
- =?utf-8?B?NjNFd1pKYWdFYzhYSGd5VTdYOWUvaUdiVjVtMTAxR0R0QTdYZ2dOQUU3R1lT?=
- =?utf-8?B?Wk9YVHZVdlE3enVmQUE1Q21BYjdlWEttN3V2SGhxbUsvQnlWTlJyaWlSQ1hr?=
- =?utf-8?B?cy93S2d0VWtvS2owSVhUYVdiVDFCWmVqa2lmZ2FTeU5DUTdyWW9WUlRtR1lM?=
- =?utf-8?B?dHlYNVRIL1lPUmZDNTVRVStmRXZ0Ui9jVXdRYlZETE94L1pkcWhlWkp6ejZV?=
- =?utf-8?B?ekNYeVZCL3l5NGNUSElJQXhLVmk3MjU1Mm9JajF5a2dXT3hNU1NHR0FHQ0cr?=
- =?utf-8?B?Zk93Y0I0VHlrSGhFbklWUUUyam5EVSszN0pOQ1U4WmZGRjR3ZzdWOEROT3R0?=
- =?utf-8?B?dDVraEJ4THVZUWVjYXVpNjlZeXNWSEZMWTJRMGlaTExUT3VBbUI2a3k1L3VY?=
- =?utf-8?Q?/M0FWGbtpO4JgAP3K9X3N0V7YtG5yZSp?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY8PR12MB7435.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(38070700018)(7053199007); DIR:OUT;
- SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?TWZxd1g4NDh3TjVYS3VNK2h2cU4xYTdHUTgxaWdaclpvMDQyZnkvU2Q5d0RR?=
- =?utf-8?B?akR3VDQySlczaFUrOURQY0ZEYnQxN3NnMDA4QkhGeXZvV3FVUzZLRWhXUzRU?=
- =?utf-8?B?OTdwVkIvbFhEbGZFUEJZaWNrVk55Yzh4K2lpRHF6SCtDU0wrOGJjMlQzUlg2?=
- =?utf-8?B?Wmk4enNwdHpGcDBlUnVJS2Y0T0NNbmYwblRLeWt0VjNQdyt3UzRaVklnZXRr?=
- =?utf-8?B?Y0xDeE9MeENUVWxieXl3UEU2R3JlOSszOXhFUUlhZUszdVVGMENaN0dnVmVl?=
- =?utf-8?B?S1picmVLRGx6a1YwQ3lvekI3K3BTdjNwWEg3VDN1bkQra1d1QkVZbW1PNGt6?=
- =?utf-8?B?SzdDdTM2SDhtMVlWdmI3YXBKWmp2UmVWWWxFandvZkVud0h4b1dieFhROHN5?=
- =?utf-8?B?cVI3UGcrMmU4QlowRXFieGQ0UXpDdWJoZENYWEo0UW5Nak55eVZ1djJJaFVw?=
- =?utf-8?B?d0lXd2IxQW1JU24rYzhYNFNsWkNzUE9rL0YzanZCVTlPeDJJMkY0d1puM1JX?=
- =?utf-8?B?TE1DR2NvR2dkc0ZkbVhoZ05aakppWlFNdXVJNXVHaG4vVld5ZmlOR1lVeUNx?=
- =?utf-8?B?aTh5UzZoQ0l1Zm9rMjUvZ0c0Qy9yVWxrOTgrS1ZVaTZXQzhqc1FURi9kdXY5?=
- =?utf-8?B?V3FHV1ZDV3UxRVRZSmxiRG5IL1lXRVlMYWVNRSt4SktvdFFIT0U3Tkpkc3ZC?=
- =?utf-8?B?YU5FTjdZZlJtazBYOTA0RGpxV2p2enVmT2tZbVNkN1VzQ2ZMZ0VLalIzaUdZ?=
- =?utf-8?B?cUFjL1BJWCtJbmJLQi9VWWF6T3VLejhYWXRCZTNUR1dkN0ZlQTBTc2Y0K2U1?=
- =?utf-8?B?bDRFL2gwR1NneGdKVGt4bmVGSU51OXJwSXJBQ2RBNGxYOXpIZnhmL2dmZDZt?=
- =?utf-8?B?SjFBay9YN1grQXFYT2p2c09yNVRjSXNlNDN4MkdYZFJ2cW4xQkx6VUMvNG14?=
- =?utf-8?B?Vm91SEpmWXJaTGNlYUhwQ0NaTG0veXBTcXVVQUhnVXBXSVFONGVmdlhuZzJ3?=
- =?utf-8?B?RDJPUnIwS2xyVlVLV00rZ2ZLRW9Hc1FwbzFWbHFMWkRMVmNvNUFmbnU3cUpH?=
- =?utf-8?B?bzVuNm1rR2N2M09ReVluZ0p4WDZnOGJBUzRGOU5DZGhQTkdxaksvcjdOSUkz?=
- =?utf-8?B?VWNpYm0reVRrRVdGUUMzMHcwa2VVMThYc21HVkdEMENJb1VBUWlxQVA5amYz?=
- =?utf-8?B?Rjk1Z1RULzZXR2tsZGFFTW11UGlaUWRBdDQ4bGhwNVZZSjRNWVlGUlppeU84?=
- =?utf-8?B?bjM5S1JmemVUWkJmSW9VS2oxQ0xoUjF3QWJNS2dTaHFMK2xVR2VFaG0rYjU4?=
- =?utf-8?B?dDB6dXd3SDZmNE1BdUJXQVNKOCtrZmZuNm8wQlEwb1BpNi9HNVQ3V0ovZ1dU?=
- =?utf-8?B?bTVnWWFhdTExaU5rY29CRGNVN0UrenRseFhIczlhOXJxb0Q3cDVua0EvbEVr?=
- =?utf-8?B?dk9UdmQrYnJZanplckhTSjRiYVRyc0Z2MEdYa2JwYTJwUk5USkMwOFdjUHg5?=
- =?utf-8?B?WFhnZ2hLVERjM2F3Um9ZTWMyY00yL2dFRzczTWlXRkpqUmVnd0VGc3hwRjh5?=
- =?utf-8?B?THU1eUczeW5rY01iVUE1UEJYeENIWDA3eVh3UnRRbG8xczIxNStMOXhibS9r?=
- =?utf-8?B?Tm5lSTBHb24vMHJ0eGw2eWZ3RVZ5TisvdFhZcnFwVjNwaG15WWRYVnRpb010?=
- =?utf-8?B?eUU2Nnl5d2wwM0czcVhXc2hlc0kwR1VSN3BveG5ncHM1SG5BcGhKUXF2T3or?=
- =?utf-8?B?OXNrcHdoT0FOUmpQcWUxa2tiVjFnVjE5QUJBd0hZK29LUUpnNW5wQmptREFr?=
- =?utf-8?B?U20xMUhhM0RIa3g1eHR5eDlyQVRCT1UzQUREdVZ4UUE5OFhLZHRjMTBLdFVn?=
- =?utf-8?B?WlRwdno0L0ltMU5nYVN5Yktwc2hZWEtKUitkMnI3N1A1S2xNRkJiVVhVYXl0?=
- =?utf-8?B?VE9wVE9OYnpzdStxQTZTTmplYkwxVW5xMzFuRERaNjhGTWlnR3FCbTBBd3Q5?=
- =?utf-8?B?Rk1lRlJ6bjM2UU95SG5tZHR2cU04aGNraGVhbmxWUFRzaGNMV2lycU9yMndH?=
- =?utf-8?B?MjVBeVZtbm9uQTczWURHTm1VSlJhbjB3czdjWGRERWZNczBkb3orb1RKUTZ3?=
- =?utf-8?Q?IsxM=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+From: James Jones <jajones@nvidia.com>
+In-Reply-To: <CAAxE2A6N0xtgZmzTR9FXMN79xxy3T8zfhh1sz73h1h8=0ycJ2g@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BY3PR10CA0027.namprd10.prod.outlook.com
+ (2603:10b6:a03:255::32) To CH3PR12MB9146.namprd12.prod.outlook.com
+ (2603:10b6:610:19c::18)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PR12MB9146:EE_|PH7PR12MB7841:EE_
+X-MS-Office365-Filtering-Correlation-Id: 725dcee0-d8c6-4149-0226-08dd34c4ad07
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|7416014|376014|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?SVdwb3dIZGRwWm9UMFRKNDNrdXNyOFpSWlZDaUZza2g0Wldka05YYVlDQUV4?=
+ =?utf-8?B?cXU3SE43NU4wZmhQZDhOUXpmTGlEdk41WWFsSHBPRWRDRkdyMEV6b01HblV3?=
+ =?utf-8?B?amVGZXQ1emROd1lpTk1LNFI5Qjl1U29oWUFDNTFFT29xMHUvSWkzeWo3aHBv?=
+ =?utf-8?B?TTNGeXR2QkoxWUIrWERNOHcwWHBad05GK0Z2L092V0J0MzNQdGVycXdMZ1ZN?=
+ =?utf-8?B?OVJVdkIxOHRPSFQ0RVpuM2JrNHMrM3FOYmFrNEpwNlpEZHVCUGE1NVBNcTBn?=
+ =?utf-8?B?N051N0FWYzNnbU84aDdXaGxtS1V3TWw5MTVPWS94V3RXL1VNV0VQVnBaM2hs?=
+ =?utf-8?B?RjhieDR3cE4waGRmTmN5WkFNVUlmVVJVSzBadGkrTHd2ZWRxdG5qUTYzblEw?=
+ =?utf-8?B?NHk3TmZ1MzVjdGNrUktidmtxNDE2cFBXTURUcUNrN1ZGeG41cUdtcXJ5aFFt?=
+ =?utf-8?B?ZW9JTERiUEpTa0I5M1U2ellUVnhBMGxNOVl2ZWxxMHpsQ2Qyc3FtL0xIZzVT?=
+ =?utf-8?B?YUlBdFEySlB1NGZCLzJkSkJROEFLUWJsNkVRZ3UrbVYweDd3Q2VSNHU5WDhv?=
+ =?utf-8?B?bEJUQ0hhd3NxbmdHMWFDVGdiOUNzVDcrb2ZndjZzcHJmREJZbzZYNFhuNUxo?=
+ =?utf-8?B?YUdDVmdEYUZkaFBNZFRzaTFCN3d2NzNDTDRxMlkvN2kvNmJUVkhIdE9DWUtp?=
+ =?utf-8?B?bENiamFLM0lOZnlRVWRET0k3L0lYMFYvQXQ3cWNUdGhCdlByN1VKL0xHSGxv?=
+ =?utf-8?B?RUFhT1BUY24wOWU4cnJqeWZvUklGTktValNVUThrcXJiWHJyK0xMZXh3TDc4?=
+ =?utf-8?B?bTBLUEZnUkpESFh0RFdGazNNL2YvOElPMU5VSllwZmRmSUVqMC9VRUxuUWVK?=
+ =?utf-8?B?SE5nNUJqZW92T3gyOGJodnk5VkdUVHZDRDY1VnAwbmhjL0ZDR04rbno4TzQv?=
+ =?utf-8?B?MURBa0R3dmNHcXZ6T2R3KyswWXE0RG05RG92czV2SEMrRWhqS3ZScUd4MHZF?=
+ =?utf-8?B?ZE9LZzdlaExxZU9xUmF6Y3c1V3cybjZiUnhNQ0R4S3VjL2hxU3dkMkxUWWZT?=
+ =?utf-8?B?SnJVN3B6c0tuaExRazkzKzhzUDBhc1JZekdMZ29Dc3ZIV0ZPR1RwTGNRS1Zq?=
+ =?utf-8?B?dWhucjdvczZ3cVdubnFHSDBrWVVGK0FoUHFzQitmUlNqcGUzOWpRK2RJc0V5?=
+ =?utf-8?B?M3pEMHpqdXY2eFRHVTl6d0Rld01DV0FjdjMydTNxSTI4T1BhRmJYTXRaWGxo?=
+ =?utf-8?B?T21CZUsvTlBxclF3dmdYai9JNnJhSFloQWxKQmRTdlgvRXp3blh3Z2F6SXpq?=
+ =?utf-8?B?UXl1U0xVeFRjT0Q2aFVGbkdXTGJFckhRWUNaVkI4SFlzK0sySTR3OFEyY2Qz?=
+ =?utf-8?B?cGhBQkh6M2h6MUNVTk4wS3F1dVVPRldVTWg0N1VrcEh1aHluajFoaFAvemwz?=
+ =?utf-8?B?ZDVWQXVZL01rUVpGV1FtdjVaWDVBcXQ2N0xmYmRBVHNnVWVDSVc2dXZ2c090?=
+ =?utf-8?B?YmwxSTZNMDlNQm11NENWM1RGS0hySUVWZ2NjVExNcFNCMnl6aGdYZkpEbGdj?=
+ =?utf-8?B?UTBMYy9DTi9mZklxcHh0dGhVV284bHZOWUQ5QkpqMjdZOURpb254Wi9Edmsx?=
+ =?utf-8?B?NXZKcTRpTXVmNmVjbDhxUzZ5U1BvbEtUdENsVjhDSitzVU82WXZ0ODIzNDNN?=
+ =?utf-8?B?WEhoTmZVWlluR3hwMFJtZzFYcVBBcno4cUJZZ1VQV2NCcmpNamU1RVpBQTBi?=
+ =?utf-8?B?QklrWlhXRWJsV3Zjc1pEaStZOXRRblo2RnVaSU9xd0pJdGxUVlgxT3pEOGtR?=
+ =?utf-8?B?WXg0RzBxNFBOSW5KTE9jRVB5cFB1U2RtVzVQMjg3ZTE1WUxocnBPemI2MnM2?=
+ =?utf-8?Q?VGpC4x3KbtCLI?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH3PR12MB9146.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(7416014)(376014)(366016); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UnFYN2lxV2t0azBVcDRXZVcvcnJZQ2RLdTJyaE1CQlFZSWlJVTI2bklmekoy?=
+ =?utf-8?B?V3JjSFpQMHpRWkt2amlja3RhaTNVbVNianFZdkRBeENmdTNYbXUwMmFwTXA2?=
+ =?utf-8?B?QjJkT2FIZ1J0dU8xYmV4WmZOMkl2dWsvNDVQYUxoejdzdmhFTWhZd3JnZk5j?=
+ =?utf-8?B?RUpMc2E4MjIrR0tGdk5aVXluQ2ZFOWZzOFhEeUZNRmZWQWwrZ0lqM241UGRB?=
+ =?utf-8?B?UzZNVThrWHo0bW9MS0xkV2lCMm5seXBBRUZyUmF1RzAvTnNHTTJKc2tvZWZ1?=
+ =?utf-8?B?VVBmb3dBKzg1cStDTGlaOXpQTDQ1VjN0SzVheld3aUdsamJuOHFoellVenE5?=
+ =?utf-8?B?dDczQVdNZFlueStwVUxTNGJRUWM2a1RORGZndkNaZnhjQkl0MEVaU3ZxVWEv?=
+ =?utf-8?B?bDY0a2lhVE95V1ltQTl0TDM1aFpyZTI5MTBDa0Q2VUhEcmwrdnB6b2NTQ2lB?=
+ =?utf-8?B?eE5QSkpMblJkdkZ5MnZuYUFpczJHd0pRSnhrcC80OXdZL3RRU3VPa3U0NWpS?=
+ =?utf-8?B?c2N5SEliWnhkZVNtZ1RGb1ovamoybDlkN08wMkQ0QkZIQ0ViL2x0MTVhZEdX?=
+ =?utf-8?B?aUxQeW5BaklNQkxFUkNHOE5Kd3h4cHcybnphQnZHT2Y0bFF2OHExZHdKUVdy?=
+ =?utf-8?B?NzBxOWJMMHZ3TWU0UFlNbDN2amhCcFFjT2lIVUtrZjN1N0QrRlZFUy80TTBN?=
+ =?utf-8?B?V2V5REJ5SUdrQ0dwdDk0ZHJkYnFkYm9hbXFDMGFvaGs5ZTJUSFFYWjVORkFZ?=
+ =?utf-8?B?Zjl4SVpleUc3M09BbjdMWm8remJaV3pIM2FMRG40di9BUVN5OXZqSFFBRkZ1?=
+ =?utf-8?B?eENGNG1NNkVzcHhXcFhaN3hKVUVua013RThYWXREM2VWZzNsMitHSklWTnB2?=
+ =?utf-8?B?T3AwNHIyWW4yNWVIRVZpbmdWaDU2ZkM1cmYxT09PZW1iak1tZUtwc2RCU2hh?=
+ =?utf-8?B?d3BZZGZYbk5WcU83aUF4OUVhclIrcVdEN3BxdUV3b3F3WjFSTjk1eEpUMVBm?=
+ =?utf-8?B?TE5aazFRSDBZZDhVOXpYaEVXQ01YUGFLeUhNaUxzZmQrVnljZ1M1MHB2YjBl?=
+ =?utf-8?B?M0M1YjJHNk5VOExPRWNORTd2RjhZMnNqVjd2N1NRTWRtdEYwdVBoM25sTStl?=
+ =?utf-8?B?c1lzOTIrejZ5V1FLSHRIWi95dUpQNUl3ZENVTjNqWkFyY3hpMXc1S2FWbENX?=
+ =?utf-8?B?SnJud1FGRXFubFFZbDdNSC9BOUQ5YVUrdlpkYW1SQzJCbWVkbWppRCtjSmN2?=
+ =?utf-8?B?R1BiQ2h5WjVZR2xhb2NKakp2L3NtRkp6b21Rb3hqTm9ocFQ1T2toRWpKS0NI?=
+ =?utf-8?B?TEIvc3kwcHJWcnVlYTBUazJZc24xcGlPcm50QzZHT0MyVFErZUxsRjFxRS9Y?=
+ =?utf-8?B?ejR4WFFHbnlieUdoRzVoTmsxeTIwNTVjQXZLa3RBbEZZbzZoc3crbDArWVhs?=
+ =?utf-8?B?RU00a2NrUk8zd0tjdENQUlZwNloranRGNUx5NnJ1S3JaZXBneS8ySjZNand1?=
+ =?utf-8?B?RzJRR1FycmEweDVaZzZ2R1BsaGNRVmN5MlVjMkxMQkd3UGpVdWVhalR5WmYx?=
+ =?utf-8?B?VDRqNUgrdUxTYkpHZ0Z3SEQvaWhYUjdJcHdEM2pCRytoNzhwR01yYmtnclY5?=
+ =?utf-8?B?VTRyQWN0QlgwcHlZMnhKaGh0TW8zTHNGbDZkKzFNMTMySzlFMEpuVFFQRm5E?=
+ =?utf-8?B?MHdRVVNuOHgvdHhKMUJvNlVoNzN4MWtXeHFuT0xDd2xxRTErTE81dVlHbnkx?=
+ =?utf-8?B?dHFKL1l4TUJVa1Fuc0JsWEYxRUhZL3h5eFdxYjA3OTRlZi9GQXozVVFJbHE3?=
+ =?utf-8?B?TnJCbmlSTUtzRitrY29oMEdoRUZobTBhYWVzbWEvbUs1L1crRklDZjFBc3E3?=
+ =?utf-8?B?UDZKb1EzOCt2RmZLUm5GdGdFV3ZUbkdqUm1VVzBtMUN2ZEJkeDU3Z2FFOTAx?=
+ =?utf-8?B?SG5oVmNKYUg2d25mV2RJMlhPZjB2QkswM3lRbmI0Z0dJd29BdSs0N2Y2YUFy?=
+ =?utf-8?B?QVBPREdnaHFCRTFWNWFIbHgrenZrMGZPVWRhNXIxbU42VVQ5K1NFY3MwUzk4?=
+ =?utf-8?B?OWZ2V2MvTEJFT2J4c0IrYkV5SEcwU3RHMXY1TUx0Q01tNWdCaHRqcmxmbXc3?=
+ =?utf-8?Q?J9nqKe3SctZXH81AgGRzy6kPo?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 725dcee0-d8c6-4149-0226-08dd34c4ad07
+X-MS-Exchange-CrossTenant-AuthSource: CH3PR12MB9146.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7435.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6a613053-d84a-4045-77f9-08dd34bfdeb6
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Jan 2025 17:21:23.6237 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: n/deoQFUcaKm7peGjqmqebZQQHt4Ntj0BJRqfW/5QALEfRUkDqNZOzy2/ElLIlj5
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9264
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jan 2025 17:55:47.9667 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mgB0g84eAHKNDag5wwzse8441oAeLSe1QwXBQSXN89oO03evoiptfzbE81RALsMIl3LYGqOuPgbKsYLYp9E8Bg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7841
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -178,127 +177,240 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W1B1YmxpY10NCg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBMYXphciwg
-TGlqbyA8TGlqby5MYXphckBhbWQuY29tPg0KPiBTZW50OiBGcmlkYXksIEphbnVhcnkgMTAsIDIw
-MjUgMTA6MzcgUE0NCj4gVG86IEtpbSwgSm9uYXRoYW4gPEpvbmF0aGFuLktpbUBhbWQuY29tPjsg
-YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gQ2M6IEthc2l2aXN3YW5hdGhhbiwgSGFy
-aXNoIDxIYXJpc2guS2FzaXZpc3dhbmF0aGFuQGFtZC5jb20+DQo+IFN1YmplY3Q6IFJlOiBbUEFU
-Q0hdIGRybS9hbWRncHU6IGZpeCBncHUgcmVjb3ZlcnkgZGlzYWJsZSB3aXRoIHBlciBxdWV1ZSBy
-ZXNldA0KPg0KPg0KPg0KPiBPbiAxLzExLzIwMjUgMjo1MyBBTSwgS2ltLCBKb25hdGhhbiB3cm90
-ZToNCj4gPiBbUHVibGljXQ0KPiA+DQo+ID4+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+
-ID4+IEZyb206IExhemFyLCBMaWpvIDxMaWpvLkxhemFyQGFtZC5jb20+DQo+ID4+IFNlbnQ6IEZy
-aWRheSwgSmFudWFyeSAxMCwgMjAyNSAxMToyOSBBTQ0KPiA+PiBUbzogS2ltLCBKb25hdGhhbiA8
-Sm9uYXRoYW4uS2ltQGFtZC5jb20+OyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiA+
-PiBDYzogS2FzaXZpc3dhbmF0aGFuLCBIYXJpc2ggPEhhcmlzaC5LYXNpdmlzd2FuYXRoYW5AYW1k
-LmNvbT4NCj4gPj4gU3ViamVjdDogUmU6IFtQQVRDSF0gZHJtL2FtZGdwdTogZml4IGdwdSByZWNv
-dmVyeSBkaXNhYmxlIHdpdGggcGVyIHF1ZXVlIHJlc2V0DQo+ID4+DQo+ID4+DQo+ID4+DQo+ID4+
-IE9uIDEvMTAvMjAyNSA5OjQzIFBNLCBLaW0sIEpvbmF0aGFuIHdyb3RlOg0KPiA+Pj4gW1B1Ymxp
-Y10NCj4gPj4+DQo+ID4+Pj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gPj4+PiBGcm9t
-OiBMYXphciwgTGlqbyA8TGlqby5MYXphckBhbWQuY29tPg0KPiA+Pj4+IFNlbnQ6IFRodXJzZGF5
-LCBKYW51YXJ5IDksIDIwMjUgMTA6MzkgUE0NCj4gPj4+PiBUbzogS2ltLCBKb25hdGhhbiA8Sm9u
-YXRoYW4uS2ltQGFtZC5jb20+OyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiA+Pj4+
-IENjOiBLYXNpdmlzd2FuYXRoYW4sIEhhcmlzaCA8SGFyaXNoLkthc2l2aXN3YW5hdGhhbkBhbWQu
-Y29tPg0KPiA+Pj4+IFN1YmplY3Q6IFJlOiBbUEFUQ0hdIGRybS9hbWRncHU6IGZpeCBncHUgcmVj
-b3ZlcnkgZGlzYWJsZSB3aXRoIHBlciBxdWV1ZQ0KPiByZXNldA0KPiA+Pj4+DQo+ID4+Pj4NCj4g
-Pj4+Pg0KPiA+Pj4+IE9uIDEvOS8yMDI1IDg6MjcgUE0sIEtpbSwgSm9uYXRoYW4gd3JvdGU6DQo+
-ID4+Pj4+IFtQdWJsaWNdDQo+ID4+Pj4+DQo+ID4+Pj4+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2Ut
-LS0tLQ0KPiA+Pj4+Pj4gRnJvbTogTGF6YXIsIExpam8gPExpam8uTGF6YXJAYW1kLmNvbT4NCj4g
-Pj4+Pj4+IFNlbnQ6IFRodXJzZGF5LCBKYW51YXJ5IDksIDIwMjUgMToxNCBBTQ0KPiA+Pj4+Pj4g
-VG86IEtpbSwgSm9uYXRoYW4gPEpvbmF0aGFuLktpbUBhbWQuY29tPjsgYW1kLQ0KPiBnZnhAbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnDQo+ID4+Pj4+PiBDYzogS2FzaXZpc3dhbmF0aGFuLCBIYXJpc2gg
-PEhhcmlzaC5LYXNpdmlzd2FuYXRoYW5AYW1kLmNvbT4NCj4gPj4+Pj4+IFN1YmplY3Q6IFJlOiBb
-UEFUQ0hdIGRybS9hbWRncHU6IGZpeCBncHUgcmVjb3ZlcnkgZGlzYWJsZSB3aXRoIHBlciBxdWV1
-ZQ0KPiA+PiByZXNldA0KPiA+Pj4+Pj4NCj4gPj4+Pj4+DQo+ID4+Pj4+Pg0KPiA+Pj4+Pj4gT24g
-MS85LzIwMjUgMTozMSBBTSwgSm9uYXRoYW4gS2ltIHdyb3RlOg0KPiA+Pj4+Pj4+IFBlciBxdWV1
-ZSByZXNldCBzaG91bGQgYmUgYnlwYXNzZWQgd2hlbiBncHUgcmVjb3ZlcnkgaXMgZGlzYWJsZWQN
-Cj4gPj4+Pj4+PiB3aXRoIG1vZHVsZSBwYXJhbWV0ZXIuDQo+ID4+Pj4+Pj4NCj4gPj4+Pj4+PiBT
-aWduZWQtb2ZmLWJ5OiBKb25hdGhhbiBLaW0gPGpvbmF0aGFuLmtpbUBhbWQuY29tPg0KPiA+Pj4+
-Pj4+IC0tLQ0KPiA+Pj4+Pj4+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1k
-a2ZkX2dmeF92OS5jIHwgNiArKysrKysNCj4gPj4+Pj4+PiAgMSBmaWxlIGNoYW5nZWQsIDYgaW5z
-ZXJ0aW9ucygrKQ0KPiA+Pj4+Pj4+DQo+ID4+Pj4+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmRfZ2Z4X3Y5LmMNCj4gPj4+Pj4+IGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZF9nZnhfdjkuYw0KPiA+Pj4+Pj4+IGlu
-ZGV4IGNjNjZlYmI3YmFlMS4uNDQxNTY4MTYzZTIwIDEwMDY0NA0KPiA+Pj4+Pj4+IC0tLSBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmRfZ2Z4X3Y5LmMNCj4gPj4+Pj4+
-PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkX2dmeF92OS5j
-DQo+ID4+Pj4+Pj4gQEAgLTExMzEsNiArMTEzMSw5IEBAIHVpbnQ2NF90IGtnZF9nZnhfdjlfaHFk
-X2dldF9wcV9hZGRyKHN0cnVjdA0KPiA+Pj4+Pj4gYW1kZ3B1X2RldmljZSAqYWRldiwNCj4gPj4+
-Pj4+PiAgICAgdWludDMyX3QgbG93LCBoaWdoOw0KPiA+Pj4+Pj4+ICAgICB1aW50NjRfdCBxdWV1
-ZV9hZGRyID0gMDsNCj4gPj4+Pj4+Pg0KPiA+Pj4+Pj4+ICsgICBpZiAoIWFtZGdwdV9ncHVfcmVj
-b3ZlcnkpDQo+ID4+Pj4+Pj4gKyAgICAgICAgICAgcmV0dXJuIDA7DQo+ID4+Pj4+Pj4gKw0KPiA+
-Pj4+Pj4+ICAgICBrZ2RfZ2Z4X3Y5X2FjcXVpcmVfcXVldWUoYWRldiwgcGlwZV9pZCwgcXVldWVf
-aWQsIGluc3QpOw0KPiA+Pj4+Pj4+ICAgICBhbWRncHVfZ2Z4X3JsY19lbnRlcl9zYWZlX21vZGUo
-YWRldiwgaW5zdCk7DQo+ID4+Pj4+Pj4NCj4gPj4+Pj4+PiBAQCAtMTE3OSw2ICsxMTgyLDkgQEAg
-dWludDY0X3Qga2dkX2dmeF92OV9ocWRfcmVzZXQoc3RydWN0DQo+ID4+Pj4gYW1kZ3B1X2Rldmlj
-ZQ0KPiA+Pj4+Pj4gKmFkZXYsDQo+ID4+Pj4+Pj4gICAgIHVpbnQzMl90IGxvdywgaGlnaCwgcGlw
-ZV9yZXNldF9kYXRhID0gMDsNCj4gPj4+Pj4+PiAgICAgdWludDY0X3QgcXVldWVfYWRkciA9IDA7
-DQo+ID4+Pj4+Pj4NCj4gPj4+Pj4+PiArICAgaWYgKCFhbWRncHVfZ3B1X3JlY292ZXJ5KQ0KPiA+
-Pj4+Pj4+ICsgICAgICAgICAgIHJldHVybiAwOw0KPiA+Pj4+Pj4+ICsNCj4gPj4+Pj4+DQo+ID4+
-Pj4+PiBJIHRoaW5rIHRoZSByaWdodCBwbGFjZSBmb3IgdGhpcyBjaGVjayBpcyBub3QgaW5zaWRl
-IGNhbGxiYWNrLCBzaG91bGQgYmUNCj4gPj4+Pj4+IGZyb20gdGhlIHBsYWNlIHdoZXJlIHRoZSBj
-YWxsYmFjayBnZXRzIGNhbGxlZC4NCj4gPj4+Pj4NCj4gPj4+Pj4gSSBkb24ndCB0aGluayBpdCBy
-ZWFsbHkgbWF0dGVycy4gIFdlJ3JlIGdvaW5nIHRvIGhhdmUgZGlmZmVyZW50IHJlc2V0IHR5cGVz
-IGluIHRoZQ0KPiA+PiBmdXR1cmUNCj4gPj4+PiB0aGF0IG15IGNvbWUgZnJvbSBkaWZmZXJlbnQg
-Y2FsbGVycy4NCj4gPj4+Pj4gSXQncyBwcm9iYWJseSBlYXNpZXIgdG8gcmVtZW1iZXIgdG8gcHV0
-IHRoZSBieXBhc3Mgd2hlcmUgdGhlIHJlc2V0IGlzIGFjdHVhbGx5DQo+ID4+Pj4gaGFwcGVuaW5n
-Lg0KPiA+Pj4+Pg0KPiA+Pj4+DQo+ID4+Pj4gSWYgSSB3YW50IHRvIGRlZmluZSBzb21ldGhpbmcg
-bGlrZSBhbWRncHVfZ3B1X3JlY292ZXJ5PTIgKGRvbid0IGRvIHF1ZXVlDQo+ID4+Pj4gcmVzZXQg
-YnV0IHBlcmZvcm0gb3RoZXIgcmVzZXRzKSwgdGhlbiBpdCBtYXR0ZXJzLg0KPiA+Pj4NCj4gPj4+
-IEkgZG9uJ3QgZ2V0IHdoeSB0aGF0IG1hdHRlcnMuDQo+ID4+PiBUaGlzIGNhbGxiYWNrIGFsb25l
-LCBmb3IgZXhhbXBsZSwgY2FsbHMgMiB0eXBlcyBvZiByZXNldHMgd2l0aGluIGl0c2VsZiAocXVl
-dWUgdGhlbg0KPiA+PiBwaXBlKS4NCj4gPj4+IElmIHlvdSB3YW50ZWQgcGFydGlhbCByZXNldHMg
-YmV0d2VlbiBxdWV1ZSBhbmQgcGlwZSBpbiB0aGlzIGNhc2UsIHlvdSdkIGhhdmUgdG8NCj4gPj4g
-YnJhbmNoIHRlc3Qgd2l0aGluIHRoZSBjYWxsYmFjayBpdHNlbGYuDQo+ID4+PiBHUFUgcmVzZXQg
-YnlwYXNzIGNoZWNrcyBhcmUgaW52aXNpYmxlIHRvIHRoZSBLRkQgc2VjdGlvbiBvZiB0aGUgY29k
-ZSBhcyB3ZWxsLg0KPiA+Pj4NCj4gPj4+Pg0KPiA+Pj4+IFNpbmNlIHRoaXMgaXMgYSBjYWxsYmFj
-aywga2VlcGluZyBpdCBhdCB0aGUgd3JhcHBlciBwbGFjZSBtYXkgYmUgbW9yZQ0KPiA+Pj4+IG1h
-aW50YWluYWJsZSByYXRoZXIgdGhhbiBrZWVwaW5nIHRoZSBjaGVjayBmb3IgZ2Z4MTAvMTEvMTIg
-ZXRjLg0KPiA+Pj4NCj4gPj4+IE1heWJlIG5vdC4gIE1FUyBpcyBwcmVlbXB0aW9uIGNoZWNrcyBh
-cmUgbm90IGxpa2UgTUVDIHByZWVtcHRpb24gY2hlY2tzIGF0DQo+IGFsbC4NCj4gPj4+IEFuZCB3
-ZSBwcm9iYWJseSBkb24ndCB3YW50IHRvIGphbSBvdGhlciBmdXR1cmUgSVAgcmVzZXRzIGludG8g
-YSBzaW5nbGUgY2FsbGVyLg0KPiA+Pj4gSWYgeW91IGxvb2sgYXQgdGhlIGtmZDJrZ2QgY2FsbGJh
-Y2tzLCBtb3N0IGFyZSBwcmV0dHkgbXVjaCBjb3B5IGFuZCBwYXN0ZSBmcm9tDQo+IG9uZQ0KPiA+
-PiBnZW5lcmF0aW9uIHRvIGFub3RoZXIuDQo+ID4+PiBJIGRvbid0IHNlZSBob3cgcHV0dGluZyB0
-aGUgdGVzdCBpbiB0aGUgY2FsbGJhY2sgbWFrZXMgaXQgbGVzcyBtYWludGFpbmFibGUuDQo+ID4+
-Pg0KPiA+Pg0KPiA+PiBNeSB0aG91Z2h0IHByb2Nlc3Mgd2FzIHRoaXMgY291bGQgYmUgcHV0IGlu
-IC0gcmVzZXRfcXVldWVzX29uX2h3c19oYW5nDQo+ID4+IGFuZCBhbnl0aGluZyBzaW1pbGFyIGhh
-bmRsZXMgTUVTIGJhc2VkIHF1ZXVlIHJlc2V0cy4gV2hhdCB5b3UgYXJlIHNheWluZw0KPiA+PiB0
-aGVyZSB3b24ndCBiZSBhbnl0aGluZyBsaWtlIHJlc2V0X3F1ZXVlX2J5X21lcygpIGZvciBNRVMg
-YmFzZWQgcmVzZXRzLg0KPiA+PiBJcyB0aGF0IGNvcnJlY3Q/DQo+ID4NCj4gPiBObyB0aGUgb3Bw
-b3NpdGUuICBCdXQgbm93IHdlJ2QgaGF2ZSB0byByZW1lbWJlciB0byBwdXQgaXQgaW4gMiBwbGFj
-ZXMgd2hlcmUNCj4gdGhlcmUncyBzdGlsbCBubyB2aXNpYmxlIHRlc3QgZm9yIGdwdSByZXNldCBi
-eXBhc3MgaW4gdGhlIHNhbWUgZmlsZS4NCj4gPiBTRE1BIHJlc2V0cyBhcmUgYWxzbyBiZWluZyBp
-bXBsZW1lbnRlZCBhbmQgd2lsbCBwcm9iYWJseSBoYXZlIHRvIGJlIGNhbGxlZCBpbg0KPiBkaWZm
-ZXJlbnQgcGxhY2VzIGluIHRoZSBLRkQgYXMgd2VsbC4NCj4gPiBXZSBjYW4gbG9vayBhdCBjb25z
-b2xpZGF0aW5nIHRoaXMgbGF0ZXIgYXMgbW9yZSBkZXZpY2VzIGFuZCBJUHMgZ2V0IGRvbmUgaWYg
-aXQNCj4gbWFrZXMgc2Vuc2UgdG8gYWJzdHJhY3QgdGhpcyBzdHVmZi4NCj4gPiBNeSBwb2ludCBp
-cywgdGhlIGNhbGxiYWNrIGRvZXMgdGhlIHJlc2V0IGFuZCByZXR1cm5zIGEgcmVzZXQgc3RhdHVz
-Lg0KPiA+IEJ5cGFzc2luZyBieSBmYWlsIHJldHVybiBzZWVtcyBlYXNpZXIgdG8gcmVtZW1iZXIg
-YW5kIGxldmVyYWdlLg0KPg0KPiBPaywgd2UgaGF2ZSBTRE1BIHF1ZXVlIHJlc2V0IGNhbGxlZCBm
-cm9tIGpvYiB0aW1lb3V0cy4gSWYgaXQncyBnZXR0aW5nDQo+IGNhbGxlZCBmcm9tIEtGRCB0b28s
-IHdpbGwgbG9vayBhdCBjb25zb2xpZGF0aW5nIHRoYXQgb25lLg0KPg0KPiBCVFcsIGlmIHRoaXMg
-aXMgcmV0dXJuaW5nIGEgZmFrZSBzdWNjZXNzLCB3b24ndCBpdCByZXN1bHQgaW4gYSBwcmludA0K
-PiBsaWtlIHF1ZXVlIHJlc2V0IHN1Y2NlZWRlZCB3aGljaCBnaXZlcyB0aGUgZmFsc2UgaW1wcmVz
-c2lvbiB0aGF0IHF1ZXVlDQo+IHJlc2V0IGhhcHBlbmVkPyBPciwgc2hvdWxkIGl0IHJldHVybiBh
-IGRpZmZlcmVudCBlcnJvciBjb2RlIGxpa2UNCj4gJ0VDQU5DRUxFRCcgc2luY2Ugb3BlcmF0aW9u
-IGlzIGludGVudGlvbmFsbHkgc2tpcHBlZCB0aHJvdWdoIG1vZHVsZSBwYXJhbQ0KDQpXZWxsIC4u
-LiB0aGUgY2FsbCBpcyBzdXBwb3NlZCB0byByZXR1cm4gYW4gYWRkcmVzcyBvZiB3aGljaCBxdWV1
-ZSBnb3QgcmVzZXQgd2hlcmUgYSBudWxsIHJldHVybiBpbmRpY2F0ZXMgIm5vIHF1ZXVlIGdvdCBy
-ZXNldCIuDQpJJ20gdGhpbmtpbmcgdG8gbWFrZSB0aGlzIHNpbXBsZXIsIG1heWJlIHdlIGNoYW5n
-ZSByZXNldF9xdWV1ZXNfb25faHdzIGludG8gYSB3cmFwcGVyIHRoYXQgdGFrZXMgaW4gYSBxdWV1
-ZSB0eXBlIGlucHV0IChjb21wdXRlLCBzZG1hIGV0YykgYW5kIGJyYW5jaGVzIHRvIHRoZSByaWdo
-dCByZXNldCBjYWxsIGJhc2VkIG9uIGlucHV0IHR5cGUuDQpUaGF0IHdheSB3ZSBvbmx5IG5lZWQg
-MSBwbGFjZSB0byBkbyB0aGUgZ3B1X3JlY292ZXJ5IGVuYWJsZW1lbnQgY2hlY2sgaW4gdGhlIEtG
-RCwgYW5kIHRoZSBLRkQgaGFzIHRoZSBmbGV4aWJpbGl0eSB0byBjYWxsIHRoaXMgd3JhcHBlciB3
-aGVyZSBldmVyIGl0IHdhbnRzIHRvIHdpdGhvdXQgaGF2aW5nIHRvIHdvcnJ5IGFib3V0IHRoZSBt
-b2R1bGUgcGFyYW1ldGVyIHN0YXR1cyBpbiB0aGUgZnV0dXJlLg0KDQpKb24NCg0KPg0KPiBUaGFu
-a3MsDQo+IExpam8NCj4NCj4gPiBUaGF0IGJlaW5nIHNhaWQsIHB1dHRpbmcgdGhlIHRlc3QgaW4g
-aHFkX2dldF9wcV9hZGRyIHdhcyBwcm9iYWJseSBvdmVya2lsbCwgYnV0IEkNCj4gZG9uJ3QgdGhp
-bmsgYW55b25lIHJlYWxseSBjYXJlcyB0byB1c2UgaXQgd2l0aCBncHUgcmVjb3Zlcnkgb2ZmIG9u
-IGl0cyBvd24gYXQgdGhlDQo+IG1vbWVudC4NCj4gPg0KPiA+IEpvbg0KPiA+DQo+ID4+DQo+ID4+
-IFRoYW5rcywNCj4gPj4gTGlqbw0KPiA+Pg0KPiA+Pj4gSm9uDQo+ID4+Pg0KPiA+Pj4+DQo+ID4+
-Pj4gVGhhbmtzLA0KPiA+Pj4+IExpam8NCj4gPj4+Pg0KPiA+Pj4+PiBKb24NCj4gPj4+Pj4NCj4g
-Pj4+Pj4+DQo+ID4+Pj4+PiBUaGFua3MsDQo+ID4+Pj4+PiBMaWpvDQo+ID4+Pj4+Pg0KPiA+Pj4+
-Pj4+ICAgICBrZ2RfZ2Z4X3Y5X2FjcXVpcmVfcXVldWUoYWRldiwgcGlwZV9pZCwgcXVldWVfaWQs
-IGluc3QpOw0KPiA+Pj4+Pj4+ICAgICBhbWRncHVfZ2Z4X3JsY19lbnRlcl9zYWZlX21vZGUoYWRl
-diwgaW5zdCk7DQo+ID4+Pj4+Pj4NCj4gPj4+Pj4NCj4gPj4+DQo+ID4NCg0K
+I don't see how that fits in the current modifier usage patterns. I'm 
+not clear how applications are supposed to programmatically "look at the 
+modifiers of other drivers to find commonalities," nor how that "keeps 
+"expectations the same as today for simplicity.". I think replacing the 
+existing linear modifier would be very disruptive, and I don't think 
+this proposal solves a general problem. Is it common for other vendors' 
+hardware to have such strict pitch/height alignment requirements? Prior 
+to this discussion, I'd only ever heard of minimum alignments.
+
+Thanks,
+-James
+
+On 1/14/25 01:38, Marek Olšák wrote:
+> I would keep the existing modifier interfaces, API extensions, and 
+> expectations the same as today for simplicity.
+> 
+> The new linear modifier definition (proposal) will have these fields:
+>     5 bits for log2 pitch alignment in bytes
+>     5 bits for log2 height alignment in rows
+>     5 bits for log2 offset alignment in bytes
+>     5 bits for log2 minimum pitch in bytes
+>     5 bits for log2 minimum (2D) image size in bytes
+> 
+> The pitch and the image size in bytes are no longer arbitrary values. 
+> They are fixed values computed from {width, height, bpp, modifier} as 
+> follows:
+>     aligned_width = align(width * bpp / 8, 1 << log2_pitch_alignment);
+>     aligned_height = align(height, 1 << log2_height_alignment);
+>     pitch = max(1 << log2_minimum_pitch, aligned_width);
+>     image_size = max(1 << log2_minimum_image_size, pitch * aligned_height);
+> 
+> The modifier defines the layout exactly and non-ambiguously. 
+> Overaligning the pitch or height is not supported. Only the offset 
+> alignment has some freedom regarding placement. Drivers can expose 
+> whatever they want within that definition, even exposing only 1 linear 
+> modifier is OK. Then, you can look at modifiers of other drivers if you 
+> want to find commonalities.
+> 
+> DRM_FORMAT_MOD_LINEAR needs to go because it prevents apps from 
+> detecting whether 2 devices have 0 compatible memory layouts, which is a 
+> useful thing to know.
+> 
+> Marek
+> 
+> On Fri, Jan 10, 2025 at 4:23 PM James Jones <jajones@nvidia.com 
+> <mailto:jajones@nvidia.com>> wrote:
+> 
+>     On 12/19/24 10:03, Simona Vetter wrote:
+>      > On Thu, Dec 19, 2024 at 09:02:27AM +0000, Daniel Stone wrote:
+>      >> On Wed, 18 Dec 2024 at 10:32, Brian Starkey
+>     <brian.starkey@arm.com <mailto:brian.starkey@arm.com>> wrote:
+>      >>> On Wed, Dec 18, 2024 at 11:24:58AM +0000, Simona Vetter wrote:
+>      >>>> For that reason I think linear modifiers with explicit pitch/size
+>      >>>> alignment constraints is a sound concept and fits into how
+>     modifiers work
+>      >>>> overall.
+>      >>>
+>      >>> Could we make it (more) clear that pitch alignment is a "special"
+>      >>> constraint (in that it's really a description of the buffer
+>     layout),
+>      >>> and that constraints in-general shouldn't be exposed via modifiers?
+>      >>
+>      >> It's still worryingly common to see requirements for contiguous
+>      >> allocation, if for no other reason than we'll all be stuck with
+>      >> Freescale/NXP i.MX6 for a long time to come. Would that be in scope
+>      >> for expressing constraints via modifiers as well, and if so,
+>     should we
+>      >> be trying to use feature bits to express this?
+>      >>
+>      >> How this would be used in practice is also way too
+>     underdocumented. We
+>      >> need to document that exact-round-up 64b is more restrictive than
+>      >> any-multiple-of 64b is more restrictive than 'classic' linear.
+>     We need
+>      >> to document what people should advertise - if we were starting from
+>      >> scratch, the clear answer would be that anything which doesn't care
+>      >> should advertise all three, anything advertising any-multiple-of
+>      >> should also advertise exact-round-up, etc.
+>      >>
+>      >> But we're not starting from scratch, and since linear is 'special',
+>      >> userspace already has explicit knowledge of it. So AMD is going to
+>      >> have to advertise LINEAR forever, because media frameworks know
+>     about
+>      >> DRM_FORMAT_MOD_LINEAR and pass that around explicitly when they know
+>      >> that the buffer is linear. That and not breaking older userspace
+>      >> running in containers or as part of a bisect or whatever.
+>      >>
+>      >> There's also the question of what e.g. gbm_bo_get_modifier() should
+>      >> return. Again, if we were starting from scratch, most restrictive
+>      >> would make sense. But we're not, so I think it has to return LINEAR
+>      >> for maximum compatibility (because modifiers can't be morphed into
+>      >> other ones for fun), which further cements that we're not removing
+>      >> LINEAR.
+>      >>
+>      >> And how should allocators determine what to go for? Given that, I
+>      >> think the only sensible semantics are, when only LINEAR has been
+>      >> passed, to pick the most restrictive set possible; when LINEAR
+>      >> variants have been passed as well as LINEAR, to act as if LINEAR
+>     were
+>      >> not passed at all.
+>      >
+>      > Yeah I think this makes sense, and we'd need to add that to the
+>     kerneldoc
+>      > about how drivers/apps/frameworks need to work with variants of
+>     LINEAR.
+>      >
+>      > Just deprecating LINEAR does indeed not work. The same way it was
+>     really
+>      > hard slow crawl (and we're still not there everywhere, if you include
+>      > stuff like bare metal Xorg) trying to retire the implied
+>     modifier. Maybe,
+>      > in an extremely bright future were all relevant drivers advertise
+>     a full
+>      > set of LINEAR variants, and all frameworks understand them, we'll get
+>      > there. But if AMD is the one special case that really needs this
+>     I don't
+>      > think it's realistic to plan for that, and what Daniel describe above
+>      > looks like the future we're stuck to.
+>      > -Sima
+> 
+>     I spent some time thinking about this over the break, because on a venn
+>     diagram it does overlap a sliver of the work we've done to define the
+>     differences between the concepts of constraints Vs. capabilities in the
+>     smorgasbord of unified memory allocator talks/workshops/prototypes/etc.
+>     over the years. I'm not that worried about some overlap being
+>     introduced, because every reasonable rule deserves an exception here
+>     and
+>     there, but I have concerns similar to Daniel's and Brian's.
+> 
+>     Once you start adding more than one special modifier, some things in
+>     the
+>     existing usage start to break down. Right now you can naively pass
+>     around modifiers, then somewhere either before or just after allocation
+>     depending on your usage, check if LINEAR is available and take your
+>     special "I can parse this thing" path, for whatever that means in your
+>     special use case. Modifying all those paths to include one variant of
+>     linear is probably OK-but-not-great. Modifying all those paths to
+>     include <N> variants of linear is probably unrealistic, and I do worry
+>     about slippery slopes here.
+> 
+>     ---
+> 
+>     What got me more interested though was this led to another thought. At
+>     first I didn't notice that this was an exact-match constraint and
+>     thought it meant the usual alignment constraint of >=, and I was
+>     concerned about how future variants would interact poorly. It could
+>     still be a concern if things progress down this route, and we have
+>     vendor A requiring >= 32B alignment and vendor B requiring == 64B
+>     alignment. They're compatible, but modifiers expressing this would
+>     naively cancel each-other out unless vendor A proactively advertised ==
+>     64B linear modifiers too. This isn't a huge deal at that scale, but it
+>     could get worse, and it got me thinking about a way to solve the
+>     problem
+>     of a less naive way to merge modifier lists.
+> 
+>     As a background, the two hard problems left with implementing a
+>     constraint system to sit alongside the format modifier system are:
+> 
+>     1) A way to name special heaps (E.g., local vidmem on device A) in the
+>     constraints in a way that spans process boundaries using some sort of
+>     identifier. There are various ways to solve this. Lately the
+>     thinking is
+>     something around dma heaps, but no one's fleshed it out yet that I'm
+>     aware.
+> 
+>     2) A transport that doesn't require us to revise every userspace API,
+>     kernel API, and protocol that got revised to support DRM format
+>     modifiers, and every API/protocol introduced since.
+> 
+>     I haven't seen any great ideas for the latter problem yet, but what if
+>     we did this:
+> 
+>     - Introduced a new DRM format modifier vendor that was actually
+>     vendor-agnostic, but implied the format modifier was a constraint
+>     definition fragment instead of an actual modifier.
+> 
+>     - Constraint-aware code could tack on its constraints (The ones it
+>     requires and/or the ones it can support allocating) as a series of
+>     additional modifiers using this vendor code. A given constraint
+>     might be
+>     fragmented into multiple modifiers, but their definition and
+>     serialization/deserialization mechanism could be defined in
+>     drm_fourcc.h
+>     as macros all the clients could use.
+> 
+>     - Existing non-constraint-aware code in a modifier usage chain might
+>     filter these modifiers out using the existing strict intersection
+>     logic.
+>     Hence, any link in the chain not aware of constraints would likely
+>     block
+>     their use, but that's OK. We're muddling along without them now. It
+>     wouldn't make those situations any worse.
+> 
+>     - New code would be required to use some minimal library (Header-only
+>     perhaps, as Simon and I proposed a few years ago) to intersect format
+>     modifier lists instead, and this code would parse out the constraint
+>     modifiers from each input list and use the envisioned per-constraint
+>     logic to merge them. It would result in yet another merged
+>     modifier+constraint list encoded as a list of modifiers that could be
+>     passed along through any format-modifier-aware API.
+> 
+>     - One consideration that would be sort of tricky is that constraints
+>     are
+>     supposed to be advertised per-modifier, so you'd have to have a way to
+>     associate constraint modifiers in a given set with real modifiers in
+>     that set or in general. This is easily solved though. Some bits of the
+>     constraint modifiers would already need to be used to associate and
+>     order constraint fragments during deserialization, since modifier lists
+>     aren't strictly ordered.
+> 
+>     This effectively allows you to use format modifiers to encode
+>     arbitrarily complex constraint mechanisms by piggybacking on the
+>     existing format modifier definition and transport mechanisms without
+>     breaking backwards compatibility. It's a little dirty, because
+>     modifiers
+>     are being abused to implement a raw bitstream, but modifiers and
+>     constraints are related concepts, so it's not a complete hack. It still
+>     requires modifying all the implementations in the system to fully make
+>     use of constraints, but doesn't require e.g. revising X11 DRI3 protocol
+>     again to tunnel them through Xwayland, and in situations where the
+>     constraint-aware thing sits downstream of the non-constraint-aware
+>     thing
+>     in the allocation pipeline, you could get some benefit even when all
+>     the
+>     upstream things aren't updated yet, because it could still merge in its
+>     local constraints before allocating or passing the modifier list down
+>     the chain.
+> 
+>     Does this seem like something worth pursuing to others? I've been
+>     trying
+>     to decide how to best move the allocation constraints efforts forward,
+>     so it's potentially something I could put some time into this year.
+> 
+>     Thanks,
+>     -James
+> 
+
