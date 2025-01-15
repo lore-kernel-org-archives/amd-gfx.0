@@ -4,56 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CDCFC02180
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2025 05:24:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F418CC02183
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2025 06:52:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C657510E4CB;
-	Wed, 15 Jan 2025 05:24:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 465D710E057;
+	Wed, 15 Jan 2025 06:52:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="Uf/39eCb";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0oE0fkKF";
 	dkim-atps=neutral
-Received: from out30-111.freemail.mail.aliyun.com
- (out30-111.freemail.mail.aliyun.com [115.124.30.111])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B75F110E4CB
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jan 2025 05:24:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux.alibaba.com; s=default;
- t=1736918652; h=Content-Type:Mime-Version:Subject:From:Date:Message-Id:To;
- bh=jbmQbq6aRhNpAniZKaTGKmZiu2NYLiU+4LsFxsmqqT8=;
- b=Uf/39eCba3W76UHDRN24gouacUpSASn/E2EYaNl0cqPYV/8OO6IJsVpJRQTClWPGuXAKDtuNzE24PXBST/op8D0BdvPvWdXaKeyofeKjkbBYhBYxmcgS4GiTpcOQZ5TYZYLjZMmOx3MQBWAHDKhHgtIdZLX246+f+Tl3CLmbnKw=
-Received: from smtpclient.apple(mailfrom:gerry@linux.alibaba.com
- fp:SMTPD_---0WNhILxy_1736918650 cluster:ay36) by smtp.aliyun-inc.com;
- Wed, 15 Jan 2025 13:24:11 +0800
-Content-Type: text/plain;
-	charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3696.120.41.1.1\))
-Subject: Re: [RFC v1 0/2] Enable resume with different AMD SRIOV vGPUs
-From: Gerry Liu <gerry@linux.alibaba.com>
-In-Reply-To: <CH0PR12MB5372685232446C6C2D3E2860F4192@CH0PR12MB5372.namprd12.prod.outlook.com>
-Date: Wed, 15 Jan 2025 13:24:09 +0800
-Cc: "Koenig, Christian" <Christian.Koenig@amd.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- "airlied@gmail.com" <airlied@gmail.com>,
- "simona@ffwll.ch" <simona@ffwll.ch>,
- "Khatri, Sunil" <Sunil.Khatri@amd.com>, "Lazar, Lijo" <Lijo.Lazar@amd.com>,
- "Zhang, Hawking" <Hawking.Zhang@amd.com>,
- "Limonciello, Mario" <Mario.Limonciello@amd.com>,
- "Chen, Xiaogang" <Xiaogang.Chen@amd.com>,
- "Russell, Kent" <Kent.Russell@amd.com>,
- "shuox.liu@linux.alibaba.com" <shuox.liu@linux.alibaba.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <38C26576-828A-473B-B620-9BF10781C063@linux.alibaba.com>
-References: <cover.1736847835.git.gerry@linux.alibaba.com>
- <46f008f8-6e88-4475-9510-6072f990c377@amd.com>
- <DC5FBF2C-9F17-4E22-9D51-525EB33FC79E@linux.alibaba.com>
- <820617e7-f82f-4a08-9035-0c4a753b61ee@amd.com>
- <CH0PR12MB53726FB2D787A0A6D22A2603F4182@CH0PR12MB5372.namprd12.prod.outlook.com>
- <3C088F3C-8592-494D-8976-4BCD64C2A6A9@linux.alibaba.com>
- <CH0PR12MB5372685232446C6C2D3E2860F4192@CH0PR12MB5372.namprd12.prod.outlook.com>
-To: "Liu, Shaoyun" <Shaoyun.Liu@amd.com>
-X-Mailer: Apple Mail (2.3696.120.41.1.1)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on20600.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:2408::600])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A87E10E057
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jan 2025 06:52:31 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kIWUHfiO18btHfL3KW5e4qFJ/4H29k8sazZHzSGJg4fcvVYHjltZg2JFqKbaPEuc3FxmRZiPLImbG9vbOXW0lhxturEMVM+W0kCX0fSkSp5ayO9fXflDQXfPr7rF+/byy2uGW3VFr8bU83UFsm3ia42nEPCqJ9SH22YI5+OYlI3gaqCDNu0MHiyAcJNrkSzEfX4RnGr/GgQckC5ti7q/5Ins12u9NFvjFS2LaoSmQe//gjwhVYbml7t6cnnWg5X5oeVxpU07DEn74FLt3i8J06JtmLwGtAwZsARNKrrgaQzfpJ4H2Z0SrRnbEJaHkGmUr0SK8G/O7GEPbDz0VnzDMQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GVSs0fklEKEwxtWYSKZ77KRUyfUEO0mQrchdg/3Ej2E=;
+ b=YQQAybd9tS76ln1fR22zDb2YbQD4yKpdnqtPb6xEnamLXkt9i6epoo72+ylkz+humu9bWVj5yoWbgMZ3vk2aBkCYpHOdqrGwsXT8vqdFWyjvSQBfPuBEsR5n6Lq0TCDlHBn4SgR6CjMCF++XX9K+pkBqYL2jH+rRra0iNFOELvo52qn+tJH5jpZEAVTaIfHywhuoRhfqd6+y5xfHEFO69fTRZZsgs5DGeJxuV2qM6+Mn4NvdvvSSwxuGM3pq0RHK8oim3xt7zEnLZjgEywYxWwfAKEWaOA259IGBhBSs9+/GK6YNpDBLPRFUETDnemtemFmdJSutK36fqKiDbk+34Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GVSs0fklEKEwxtWYSKZ77KRUyfUEO0mQrchdg/3Ej2E=;
+ b=0oE0fkKFwJVI5yJunAPrS2ZyeAAoGyCbQ0QPjzqzOeDwvR7yfoI6Dp6ObuZllbj6bqA1bDQSrQkq2uDZS1W9aQI+HKF6In0mJB29oU4t0+ZBnfsFssv79B1XIlFUu9n2ODirgeFRHBNx9ZH2YiifcqFnyPmuk0KIwcfiX0y7qXA=
+Received: from BL0PR0102CA0055.prod.exchangelabs.com (2603:10b6:208:25::32) by
+ CH2PR12MB4149.namprd12.prod.outlook.com (2603:10b6:610:7c::13) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.8356.13; Wed, 15 Jan 2025 06:52:27 +0000
+Received: from BN3PEPF0000B077.namprd04.prod.outlook.com
+ (2603:10b6:208:25:cafe::9f) by BL0PR0102CA0055.outlook.office365.com
+ (2603:10b6:208:25::32) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8356.13 via Frontend Transport; Wed,
+ 15 Jan 2025 06:52:26 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN3PEPF0000B077.mail.protection.outlook.com (10.167.243.122) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8356.11 via Frontend Transport; Wed, 15 Jan 2025 06:52:26 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 15 Jan
+ 2025 00:52:16 -0600
+Received: from JesseDEV.guestwireless.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39
+ via Frontend Transport; Wed, 15 Jan 2025 00:52:14 -0600
+From: "Jesse.zhang@amd.com" <jesse.zhang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
+ <Tim.Huang@amd.com>, Vitaly Prosyak <vitaly.prosyak@amd.com>,
+ "Jesse.zhang@amd.com" <jesse.zhang@amd.com>
+Subject: [PATCH] drm/amdgpu: Use -ENODATA for GPU job timeout queue recovery
+Date: Wed, 15 Jan 2025 14:52:14 +0800
+Message-ID: <20250115065214.3698126-1-jesse.zhang@amd.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB04.amd.com: jesse.zhang@amd.com does not designate
+ permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B077:EE_|CH2PR12MB4149:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5bf7f9b5-21bb-42f5-5469-08dd35312c4f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|36860700013|376014|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?NrHliEOgXUR0yu4l3fdvnRiIYUypo+UjDK5in4EJGzFV5udmKIPQYt1o8iy3?=
+ =?us-ascii?Q?lwkISdYYScRciYUjF8+Q8TTOgaZNRWix4EJMXzmkVcAu7o4mRcorz7Angpya?=
+ =?us-ascii?Q?jX5xxog+Kxu/G13zEbQBswIS+kmQMcIVMOOjtohuZcHfM3T2i9uUcWIrhf6F?=
+ =?us-ascii?Q?DI0sZvlVQ3wfTB8gU3/6YxZubqwMPk2yCOehYdv5uGxmc8m5A0di2oVe7KyA?=
+ =?us-ascii?Q?4L/J3Va4qXzbTNAv5YY1H72w7e8giOU/0GGWTOuPTC6Zl2URweLkOBhsb2YO?=
+ =?us-ascii?Q?1lAJfznL341wSRm/z5ie2RIoM1usgJbwbZSglKYeAfWzHXc/D4ngazG7HWbl?=
+ =?us-ascii?Q?A4xjXcNomuq9XFAC4PZ79rECcdh84Z2mT7rrVyXD9FNJJYxFWiK1KJK2h+C/?=
+ =?us-ascii?Q?LaCP/zGyo6TfouNdZoygsXtoIf4n9BHgrILzm2BAciBvlSqbpzVFDPRbxgIm?=
+ =?us-ascii?Q?vQ6e6BZv8u3rB3hDZS0bYqWucrpHlfd9hHUi5LktYu4J2SGaCs3BeZiKcJwV?=
+ =?us-ascii?Q?f/DkWzGKXUiKvy/QgvuWsh8LQ3NzqMpqjo4qaFmrEEPbEiPAT8NK4+wvhejX?=
+ =?us-ascii?Q?AkSIXZWhpOxNF5lbM2yoEq93cT3JhwexsFOxy/24iCP9h9YVIGlMqN1tu3WD?=
+ =?us-ascii?Q?T7UN5b/716/3N0a8HFSy2r6s7/BT3bEzjhqtHQvlqGbDxuBURnXnfmfcsP2K?=
+ =?us-ascii?Q?rNuAAyCkLLcsZX2f5ELYDARAw2nhjlddnionsDH0pJky6VTyuTxpMVu1J1vU?=
+ =?us-ascii?Q?wuAdXU2AAFWMaiFMSsjqe6A/UYFsnZkA9ecocZ9pshRJk1sYahfETsrxT+lE?=
+ =?us-ascii?Q?rgL/CGDuxyR685SmO+wScjmpUACObWl6+MstlRIKd/FZTWVlvRUPP29VVxWg?=
+ =?us-ascii?Q?9tg9Wna60IyFYXNUK47vhXrSuesmN4apDROxiVHBYE4aiHVAz4UR2OqjDb2q?=
+ =?us-ascii?Q?nxxM8RaGUW2fMoVCXASF86dhmTNF+z3DZHxDk/mdwJHmjQHvYM9/gjlO1TJj?=
+ =?us-ascii?Q?j7XuFSYVIygc/BYnVhRean6X/AyK/9lOVKx/mcFahUEQsKNNBK1VNg4qVIsc?=
+ =?us-ascii?Q?rDyadLFLTLLaGUjWHXKBGVDj/L4/EwtZ4W6sfRjy8bxdua96QV2djBJsolt9?=
+ =?us-ascii?Q?Sp2nJw7MNESz1B9PvI8M2a6romPO5bm052VtWAdYIjA3+2rZNDua8VXNdBye?=
+ =?us-ascii?Q?odRh5SlLUNlKXibTx8ZrQylie3RThoU2D+zmA5AWzILnE7ydGoo1oH/Y2emU?=
+ =?us-ascii?Q?7R6IfdLQxI77E5hLFUrGPcoVKe00G4cgFyxbaBCPfGKK4P1YWYnbK8yR/O9+?=
+ =?us-ascii?Q?SAQOf8ws6mDxPH/wizRwDGUmnLkm2+nV3PTfa3294ob3UgE6zROuLK6ykGst?=
+ =?us-ascii?Q?W2on5BkMKSqKVfvDvLAoweb3q2lnpVfLNhNkNGooSjsN83NrsHg7/J0xbwEc?=
+ =?us-ascii?Q?lbP9k3Qqy9TfimRHdwLxxPCTq0mxn1h56fBMKKnoGFGb+JExzvonPjEOv3kU?=
+ =?us-ascii?Q?Tux+EEfr7xVj/sc=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700013)(376014)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jan 2025 06:52:26.8763 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5bf7f9b5-21bb-42f5-5469-08dd35312c4f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B077.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4149
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,225 +135,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+When a GPU job times out, the driver attempts to recover by restarting
+the scheduler. Previously, the scheduler was restarted with an error
+code of 0, which does not distinguish between a full GPU reset and a
+queue reset. This patch changes the error code to -ENODATA for queue
+resets, while -ECANCELED or -ETIME is used for full GPU resets.
 
+This change improves error handling by:
+1. Clearly differentiating between queue resets and full GPU resets.
+2. Providing more specific error codes for better debugging and recovery.
+3. Aligning with kernel best practices for error reporting.
 
-> 2025=E5=B9=B41=E6=9C=8815=E6=97=A5 12:03=EF=BC=8CLiu, Shaoyun =
-<Shaoyun.Liu@amd.com> =E5=86=99=E9=81=93=EF=BC=9A
->=20
-> [AMD Official Use Only - AMD Internal Distribution Only]
->=20
-> I might misunderstood your requirement . For live migration, it's =
-transparent  to the guest.  The guest can be  in running  state (ex. =
-like running  some compute stuff),  hypervisor     and gim driver =
-together will handle the GPU HW state migration from source vGPU to =
-other  identical  vGPU .  It doesn't requires the guest to do the =
-suspend/resume.  You can contact other engineers that work on SRIOV for =
-more live  migration support info.
-Yeah, there are different usage scenarios:
-1) live migration
-2) hibernate/suspend/resume
-3) snapshot and clone
-Currently we are focusing on live migration and hibernation, and hope =
-that we can base on common underlying technologies.
+The related commit "b2ef808786d93df3658" (drm/sched: add optional errno
+to drm_sched_start())
+introduced support for passing an error code to
+drm_sched_start(), enabling this improvement.
 
->=20
-> Regards
-> Shaoyun.liu
->=20
-> -----Original Message-----
-> From: Gerry Liu <gerry@linux.alibaba.com>
-> Sent: Tuesday, January 14, 2025 8:48 PM
-> To: Liu, Shaoyun <Shaoyun.Liu@amd.com>
-> Cc: Koenig, Christian <Christian.Koenig@amd.com>; Deucher, Alexander =
-<Alexander.Deucher@amd.com>; Pan, Xinhui <Xinhui.Pan@amd.com>; =
-airlied@gmail.com; simona@ffwll.ch; Khatri, Sunil =
-<Sunil.Khatri@amd.com>; Lazar, Lijo <Lijo.Lazar@amd.com>; Zhang, Hawking =
-<Hawking.Zhang@amd.com>; Limonciello, Mario <Mario.Limonciello@amd.com>; =
-Chen, Xiaogang <Xiaogang.Chen@amd.com>; Russell, Kent =
-<Kent.Russell@amd.com>; shuox.liu@linux.alibaba.com; =
-amd-gfx@lists.freedesktop.org
-> Subject: Re: [RFC v1 0/2] Enable resume with different AMD SRIOV vGPUs
->=20
->=20
->=20
->> 2025=E5=B9=B41=E6=9C=8815=E6=97=A5 02:00=EF=BC=8CLiu, Shaoyun =
-<Shaoyun.Liu@amd.com> =E5=86=99=E9=81=93=EF=BC=9A
->>=20
->> [AMD Official Use Only - AMD Internal Distribution Only]
->>=20
->> I think to resume with different SRIOV vGPUs depends on the  =
-hypervisor has the live migration support . Different Hypervisor have =
-different implementation , basically  it will call into the  host gpu =
-driver in different stage and  host side do the  hw related  migration =
-including the FW state.
-> Hi Shaoyun,
->        Great news! That sounds like what I=E2=80=99m looking for:)
->        Is there any documentation about how to enable this with an =
-in-house implemented hypervisor? Will the hypervisor need to cooperate =
-with the gim driver to enable resume with different vGPUs?
-> Regards
-> Gerry
->=20
->>=20
->> Regards
->> Shaoyun.liu
->>=20
->> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
->> Christian K=C3=B6nig
->> Sent: Tuesday, January 14, 2025 7:44 AM
->> To: Gerry Liu <gerry@linux.alibaba.com>
->> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Pan, Xinhui
->> <Xinhui.Pan@amd.com>; airlied@gmail.com; simona@ffwll.ch; Khatri,
->> Sunil <Sunil.Khatri@amd.com>; Lazar, Lijo <Lijo.Lazar@amd.com>; =
-Zhang,
->> Hawking <Hawking.Zhang@amd.com>; Limonciello, Mario
->> <Mario.Limonciello@amd.com>; Chen, Xiaogang <Xiaogang.Chen@amd.com>;
->> Russell, Kent <Kent.Russell@amd.com>; shuox.liu@linux.alibaba.com;
->> amd-gfx@lists.freedesktop.org
->> Subject: Re: [RFC v1 0/2] Enable resume with different AMD SRIOV =
-vGPUs
->>=20
->> Hi Gerry,
->>=20
->> Am 14.01.25 um 12:03 schrieb Gerry Liu:
->> 2025=E5=B9=B41=E6=9C=8814=E6=97=A5 18:46=EF=BC=8CChristian K=C3=B6nig =
-<christian.koenig@amd.com> =E5=86=99=E9=81=93=EF=BC=9A
->>=20
->> Hi Jiang,
->>=20
->> Some of the firmware, especially the multimedia ones, keep FW =
-pointers to buffers in the suspend/resume state.
->>=20
->> In other words the firmware needs to be in the exact same location =
-before and after resume. That's why we don't unpin the firmware BOs, but =
-rather save their content and restore it. See function =
-amdgpu_vcn_save_vcpu_bo() for reference.
->>=20
->> Additional to that the serial numbers, IDs etc are used for things =
-like TMZ. So anything which uses HW encryption won't work any more.
->>=20
->> Then even two identical boards can have different harvest and memory =
-channel configurations. Could be that we might be able to abstract that =
-with SR-IOV but I won't rely on that.
->>=20
->> To summarize that looks like a completely futile effort which most =
-likely won't work reliable in a production environment.
->> Hi Christian,
->>  Thanks for the information. Previously I assume that we may reset =
-the asic and reload all firmwares on resume, but missed the vcn ip block =
-which save and restore firmware vram content during suspend/resume. Is =
-there any other IP blocks which save and restore firmware ram content?
->>=20
->> Not that I of hand know of any, but neither the hypervisor nor the =
-driver stack was designed with something like this in mind. So could be =
-that there are other dependencies I don't know about.
->>=20
->> I do remember that this idea of resuming on different HW than =
-suspending came up a while ago and was rejected by multiple parties as =
-to complicated and error prone.
->>=20
->> So we never looked more deeply into the possibility of doing that.
->>=20
->>=20
->>=20
->>  Our usage scenario targets GPGPU workload (amdkfd) with AMD GPU in =
-single SR-IOV vGPU mode. Is it possible to resume on a different vGPU =
-device in such a case?
->>=20
->> If I'm not completely mistaken you can use checkpoint/restore for =
-that. It's still under development, but as far as I can see it should =
-solve your problem quite nicely.
->>=20
->> Regards,
->> Christian.
->>=20
->>=20
->>=20
->> Regards,
->> Gerry
->>=20
->>=20
->>=20
->> Regards,
->> Christian.
->>=20
->> Am 14.01.25 um 10:54 schrieb Jiang Liu:
->> For virtual machines with AMD SR-IOV vGPUs, following work flow may =
-be
->> used to support virtual machine hibernation(suspend):
->> 1) suspends a virtual machine with AMD vGPU A.
->> 2) hypervisor dumps guest RAM content to a disk image.
->> 3) hypervisor loads the guest system image from disk.
->> 4) resumes the guest OS with a different AMD vGPU B.
->>=20
->> The step 4 above is special because we are resuming with a different
->> AMD vGPU device and the amdgpu driver may observe changed device
->> properties. To support above work flow, we need to fix those changed
->> device properties cached by the amdgpu drivers.
->>=20
->> With information from the amdgpu driver source code (haven't read
->> corresponding hardware specs yet), we have identified following
->> changed device properties:
->> 1) PCI MMIO address. This can be fixed by hypervisor.
->> 2) serial_number, unique_id, xgmi_device_id, fru_id in sysfs. Seems
->>   they are information only.
->> 3) xgmi_physical_id if xgmi is enabled, which affects VRAM MC =
-address.
->> 4) mc_fb_offset, which affects VRAM physical address.
->>=20
->> We will focus on the VRAM address related changes here, because it's
->> sensitive to the GPU functionalities. The original data sources
->> include .get_mc_fb_offset(), .get_fb_location() and xgmi hardware =
-registers.
->> The main data cached by amdgpu driver are adev->gmc.vram_start and
->> adev->vm_manager.vram_base_offset. And the major consumers of the
->> cached information are ip_block.hw_init() and GMU page table builder.
->>=20
->> After code analysis, we found that most consumers of
->> dev->gmc.vram_start and adev->vm_manager.vram_base_offset directly
->> read value from these two variables on demand instead of caching =
-them.
->> So if we fix these two cached fields on resume, everything should =
-work as expected.
->>=20
->> But there's an exception, and an very import exception, that callers
->> of amdgpu_bo_create_kernel()/amdgpu_bo_create_reserved() may cache
->> VRAM addresses. With further analysis, the callers of these interface
->> have three different patterns:
->> 1) This pattern is safe.
->>   - call amdgpu_bo_create_reserved() in ip_block.hw_init()
->>   - call amdgpu_bo_free_kernel() in ip_block.suspend()
->>   - call amdgpu_bo_create_reserved() in ip_block.resume()
->> 2) This pattern works with current implementaiton of =
-amdgpu_bo_create_reserved()
->>   but bo.pin_count gets incorrect.
->>   - call amdgpu_bo_create_reserved() in ip_block.hw_init()
->>   - call amdgpu_bo_create_reserved() in ip_block.resume()
->> 3) This pattern needs to be enhanced.
->>   - call amdgpu_bo_create_reserved() in ip_block.sw_init()
->>=20
->> So my question is which pattern should we use here? Personally I
->> prefer pattern 2 with enhancement to fix the bo.pin_count.
->>=20
->> Currently there're still bugs in SRIOV suspend/resume, so we can't
->> test our hypothesis. And we are not sure whether there are still =
-other
->> blocking to enable resume with different AMD SR-IOV vGPUs.
->>=20
->> Help is needed to identify more task items to enable resume with
->> different AMD SR-IOV vGPUs:)
->>=20
->> Jiang Liu (2):
->>  drm/amdgpu: update cached vram base addresses on resume
->>  drm/amdgpu: introduce helper amdgpu_bo_get_pinned_gpu_addr()
->>=20
->> drivers/gpu/drm/amd/amdgpu/amdgpu_device.c   | 15 +++++++++++++++
->> drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h      |  6 ++++--
->> drivers/gpu/drm/amd/amdgpu/amdgpu_object.c   |  9 +++++++++
->> drivers/gpu/drm/amd/amdgpu/amdgpu_object.h   |  1 +
->> drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c |  9 +++++++++
->> drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c       |  7 +++++++
->> drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c        |  6 ++++++
->> 7 files changed, 51 insertions(+), 2 deletions(-)
->=20
+Signed-off-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
+Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+index 100f04475943..b18b316872a0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+@@ -148,7 +148,7 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
+ 			atomic_inc(&ring->adev->gpu_reset_counter);
+ 			amdgpu_fence_driver_force_completion(ring);
+ 			if (amdgpu_ring_sched_ready(ring))
+-				drm_sched_start(&ring->sched, 0);
++				drm_sched_start(&ring->sched, -ENODATA);
+ 			goto exit;
+ 		}
+ 		dev_err(adev->dev, "Ring %s reset failure\n", ring->sched.name);
+-- 
+2.25.1
 
