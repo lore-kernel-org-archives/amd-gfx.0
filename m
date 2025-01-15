@@ -4,67 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37B59C02183
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2025 14:05:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D968C02180
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2025 14:44:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C509B10E6DC;
-	Wed, 15 Jan 2025 14:05:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3989A10E703;
+	Wed, 15 Jan 2025 14:44:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Lir21DFI";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LGlcxqSU";
 	dkim-atps=neutral
-Received: from mail-pj1-x1029.google.com (mail-pj1-x1029.google.com
- [IPv6:2607:f8b0:4864:20::1029])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6CC4410E6DC
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jan 2025 14:05:48 +0000 (UTC)
-Received: by mail-pj1-x1029.google.com with SMTP id
- 98e67ed59e1d1-2f45526dea0so1484635a91.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jan 2025 06:05:48 -0800 (PST)
+Received: from mail-pj1-x102c.google.com (mail-pj1-x102c.google.com
+ [IPv6:2607:f8b0:4864:20::102c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1CC9910E70F
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jan 2025 14:44:54 +0000 (UTC)
+Received: by mail-pj1-x102c.google.com with SMTP id
+ 98e67ed59e1d1-2ef718cb473so1378723a91.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jan 2025 06:44:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1736949948; x=1737554748; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1736952293; x=1737557093; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=tVYwuIMekxoWZWciMDFLffbfjBOqBUvAuyXJhLL46Ns=;
- b=Lir21DFIq4YFkPdRQLHyzCHLjEo+6Svcx70MuUnT0CzCtKMGo8hoRAebmQ54RL3vCu
- aDgeZPT+IP/FNREmCA1MZ+a1SLfua0/3Exn6kBg0cBTXn6NRDxWlrpJTdpv40df4ULNE
- 0Vfmvo6lFY0EncM9FDESJ+RBK+vpdBI+PzFyF7W2/Vp5S4Cq7zrMFwo06cZunRwpgkoD
- h5LkW/OwZDsBdjU0ak8fO+R5A6SlelBysbr2T1Jwmw2Q8y27mLCNXpvn2+8BcWsy4P7o
- YZD7XGzWPAlRCfEQvt9e4fuVJhujOla7COBhdFTLgq93M9/hdK3GQwLT/ytOg5B99LEp
- EPgw==
+ bh=j+T0ibS9Muecg0g+9yb54W1/k8m8i41e89s2lHZ6k7I=;
+ b=LGlcxqSURVBjCM8IFm6WIl2oELFxMA6q2urdg596ycgMvT9bXJAy+a9e4V5mDnNRd5
+ P38qZeDDYQ+LMhu6ubYMUqRnjM6q+PsJXrzKvl50Ouc+5HDT5EIQYRdqHBTl365jza2O
+ QKKuLPATSf64ZzUMw9Ep21FHodU83ewJ6Ob2S6A1Dp2BHKK/Id2EdZcTFVigRTxsZAyb
+ RgWAMjsQHsGU4JsvtBmsEuM5VkjLsMfpnQB2I6uc79pKWf4u+e9XLQwdQaFpk3W17O05
+ eh1puSQgbKKpNKJQPVHjSsFNnrHjsqsx42ZQDzRX/NuFIn3qRJAKURNDOuUHg1x6RKgs
+ /GZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736949948; x=1737554748;
+ d=1e100.net; s=20230601; t=1736952293; x=1737557093;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=tVYwuIMekxoWZWciMDFLffbfjBOqBUvAuyXJhLL46Ns=;
- b=D+8/dSJZ20Yh49z0uJBcs+xg9zmjk8uvlhFZ9GyyZE4HwS6DqjTlwUMx2TQZ4bF00c
- yzPkv+0T2oHKNpk8MtM/SoeVcdqnOgEAaYCNo6KcoXI+nUixdcXdfw+2ihkA+KTeJ46/
- mdbNY8YeRV6X6uuKccaEYGepfCQf1vvRIcVvfg2UPgDRad5py2OQ4TCq+6KP6PAYL4Lk
- brNjyVYfRQB5HrDaZmxC1s2OBXYTHorTjsG6WfYNtZZ/CR832cnz0pT/ARbEtasf5Tbb
- P/QtOBtkdmeZ2i7/z+1+LWtT3ntKEt5nhsfgePuHlju5yeuhgviF2mZLZ6usJl0Om0kv
- 9UlA==
-X-Gm-Message-State: AOJu0YywASUGNmKNo0TPNIl3nj9EnEb3Roj7TAGMNi+TGxeh+SqcMIRJ
- dJdtN2oMooMq5iU3dSTF9Uaw2oqR76rs/CH2TACet9jeFEs30PkGMHByBlbX1SvCwwHhpcRFO/C
- ALJuErM5fO3JRX/rf/epfwyGndIZE+g==
-X-Gm-Gg: ASbGncv63OTrCA1MSrlGbjW3t8nU4ebuy/1YFQ6oZbM1WpNHPHqnNIHPNdJ0fm7LrtG
- qcPfVgT5aw8xwGmmfA14jo+PWwvkcDn3QDskQjg==
-X-Google-Smtp-Source: AGHT+IG9gmKSKQFMxFj4IC+XHq15Nw42mr09QI1GB0vZDQw5tSBU1w6N3n9N1XOhNHccFCswmN9tNnGzJ+F1yuNhpkM=
-X-Received: by 2002:a17:90a:d887:b0:2ee:6a70:c5d1 with SMTP id
- 98e67ed59e1d1-2f548f1ef1bmr16007635a91.3.1736949947570; Wed, 15 Jan 2025
- 06:05:47 -0800 (PST)
+ bh=j+T0ibS9Muecg0g+9yb54W1/k8m8i41e89s2lHZ6k7I=;
+ b=T0o5PaVjZQYeQWuVzJTBpl0cb7X2IGHPyvco7XwaVWU9Yy+RKibr3nmM0uvupp1ki6
+ BK4XnhgLGVuSN3f1WQV7wRoXsW6+LOahud4j0e6VvVLTSffu7uebR8mKGw04RT/d6tb6
+ X8PC4RippHDAIXjbqFELGBGPQkyRsnGQUkkGeY6TgckoeI4r++4UQLg0flYwtflDIHoW
+ bINDo1PT/YPHBfWDhNv3aUhpDPCMVNoV2nNl4Foc5T4HGZEeUdbI71r1YPXZwECvOX06
+ 9rLQ9SYe2276ZUwLTO5wdW6rkG6WDuBcee/dlGoOn48LloppF9o9sV6/Pre3ddMynVLW
+ 5l7Q==
+X-Gm-Message-State: AOJu0Yyt6aMPAIDFF7xrcqVH4/RUMR2Jz5YSdBzka0zUPeXkzGhf14Tk
+ TP+qIBHGbFVQw5jQbPNAORoISe/H1sTcSnPVdpAT4D2dGT7L+nMPY3r1eExzlhTyGGMtdbjtaqS
+ Sox5WX2Dpi6vSQT6sp2qiRTnA9Y+9kw==
+X-Gm-Gg: ASbGncu/s7BV9Sp9bG+ZSa4X1UsZwJInkXBZTLHexStX2WS0p/6Ck3cD2Zim04dQ0X/
+ 9lrI27cOzOMPANb9imcAj+DvfNuajaCDV0sdZbA==
+X-Google-Smtp-Source: AGHT+IHrXKTWGfJgaO7Q6IFfVo+qli2puSanNaXcGwX3nsZ/lOzr5hqHH963PmBRTFIAjwduDz0tfiKlSR+OzzQDzUw=
+X-Received: by 2002:a17:90a:e183:b0:2ea:956b:deab with SMTP id
+ 98e67ed59e1d1-2f5490fa85emr16612045a91.4.1736952293545; Wed, 15 Jan 2025
+ 06:44:53 -0800 (PST)
 MIME-Version: 1.0
-References: <20250115094821.3736827-1-jesse.zhang@amd.com>
-In-Reply-To: <20250115094821.3736827-1-jesse.zhang@amd.com>
+References: <20250115035022.531358-1-shaoyun.liu@amd.com>
+In-Reply-To: <20250115035022.531358-1-shaoyun.liu@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 15 Jan 2025 09:05:34 -0500
-X-Gm-Features: AbW1kvaZ0f6VeZ2QGp3VTiwpIamn-Gpz-U0o5RtFa2r6pfhv-24Jnjo_S6ZdNoI
-Message-ID: <CADnq5_MCFrWtuh67MHhxYxKA3CfwKGOf3rW0HwK7VY0F_2+X8Q@mail.gmail.com>
-Subject: Re: [PATCH 3/3 V2] drm/amd/pm: Refactor SMU 13.0.6 SDMA reset
- firmware version checks
-To: "Jesse.zhang@amd.com" <jesse.zhang@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
- Christian Koenig <christian.koenig@amd.com>, Tim.Huang@amd.com,
- jiadong.zhu@amd.com, Lazar Lijo <Lijo.Lazar@amd.com>
+Date: Wed, 15 Jan 2025 09:44:40 -0500
+X-Gm-Features: AbW1kvYDcn_f3pmGcm1LbLSGEbm72TAJZMEZrmMNsv0gXrhBoRT1-HUIFkAG6uo
+Message-ID: <CADnq5_PYHnaBE-pAfarEtf65fXz_7G8RyiRhu3QynHmWzkHZ6Q@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/amdgpu: Enable scratch data dump for mes 12
+To: Shaoyun Liu <shaoyun.liu@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -81,76 +78,122 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jan 15, 2025 at 4:48=E2=80=AFAM Jesse.zhang@amd.com <jesse.zhang@am=
-d.com> wrote:
+On Tue, Jan 14, 2025 at 11:02=E2=80=AFPM Shaoyun Liu <shaoyun.liu@amd.com> =
+wrote:
 >
-> From: "Jesse.zhang@amd.com" <Jesse.zhang@amd.com>
+> MES internal will check CP_MES_MSCRATCH_LO/HI register to set scratch dat=
+a location
+> during ucode start, driver side need to start the MES one by one with dif=
+ferent
+> setting for each pipe
 >
-> This patch refactors the firmware version checks in `smu_v13_0_6_reset_sd=
-ma`
-> to support multiple SMU programs with different firmware version threshol=
-ds.
->
-> V2: return -EOPNOTSUPP for unspported pmfw
->
-> Suggested-by: Lazar Lijo <Lijo.Lazar@amd.com>
-> Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
+> Signed-off-by: Shaoyun Liu <shaoyun.liu@amd.com>
 
-Series is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
 > ---
->  .../drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c  | 23 ++++++++++++++-----
->  1 file changed, 17 insertions(+), 6 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/mes_v12_0.c | 43 +++++++++++++++++++-------
+>  1 file changed, 31 insertions(+), 12 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drive=
-rs/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-> index 650aa9d0548a..f68282238303 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-> @@ -2745,12 +2745,23 @@ static int smu_v13_0_6_reset_sdma(struct smu_cont=
-ext *smu, uint32_t inst_mask)
->  {
->         struct amdgpu_device *adev =3D smu->adev;
->         int ret =3D 0;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c b/drivers/gpu/drm/amd=
+/amdgpu/mes_v12_0.c
+> index d24a0e7fff15..f79edff19333 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
+> @@ -992,29 +992,47 @@ static void mes_v12_0_enable(struct amdgpu_device *=
+adev, bool enable)
+>         uint32_t pipe, data =3D 0;
+>
+>         if (enable) {
+> -               data =3D RREG32_SOC15(GC, 0, regCP_MES_CNTL);
+> -               data =3D REG_SET_FIELD(data, CP_MES_CNTL, MES_PIPE0_RESET=
+, 1);
+> -               data =3D REG_SET_FIELD(data, CP_MES_CNTL, MES_PIPE1_RESET=
+, 1);
+> -               WREG32_SOC15(GC, 0, regCP_MES_CNTL, data);
 > -
-> -       /* the message is only valid on SMU 13.0.6 with pmfw 85.121.00 an=
-d above */
-> -       if ((adev->flags & AMD_IS_APU) ||
-> -           amdgpu_ip_version(adev, MP1_HWIP, 0) !=3D IP_VERSION(13, 0, 6=
-) ||
-> -           smu->smc_fw_version < 0x00557900)
-> -               return 0;
-> +       uint32_t smu_program;
+>                 mutex_lock(&adev->srbm_mutex);
+>                 for (pipe =3D 0; pipe < AMDGPU_MAX_MES_PIPES; pipe++) {
+>                         soc21_grbm_select(adev, 3, pipe, 0, 0);
+> +                       if (amdgpu_mes_log_enable) {
+> +                               uint32_t log_size =3D AMDGPU_MES_LOG_BUFF=
+ER_SIZE + AMDGPU_MES_MSCRATCH_SIZE;
+> +                               /* In case uni mes is not enabled, only p=
+rogram for pipe 0 */
+> +                               if (adev->mes.event_log_size >=3D (pipe +=
+ 1) * log_size) {
+> +                                       WREG32_SOC15(GC, 0, regCP_MES_MSC=
+RATCH_LO,
+> +                                               lower_32_bits(adev->mes.e=
+vent_log_gpu_addr + pipe * log_size + AMDGPU_MES_LOG_BUFFER_SIZE));
+> +                                       WREG32_SOC15(GC, 0, regCP_MES_MSC=
+RATCH_HI,
+> +                                               upper_32_bits(adev->mes.e=
+vent_log_gpu_addr + pipe * log_size + AMDGPU_MES_LOG_BUFFER_SIZE));
+> +                                       dev_info(adev->dev, "Setup CP MES=
+ MSCRATCH address : 0x%x. 0x%x\n",
+> +                                               RREG32_SOC15(GC, 0, regCP=
+_MES_MSCRATCH_HI),
+> +                                               RREG32_SOC15(GC, 0, regCP=
+_MES_MSCRATCH_LO));
+> +                               }
+> +                       }
 > +
-> +       smu_program =3D (smu->smc_fw_version >> 24) & 0xff;
-> +       /* the message is only valid on SMU 13.0.6 with these pmfw and ab=
-ove */
-> +       if (amdgpu_ip_version(adev, MP1_HWIP, 0) !=3D IP_VERSION(13, 0, 6=
-) ||
-> +               ((smu_program =3D=3D 0) && (smu->smc_fw_version < 0x00557=
-900)) ||
-> +               ((smu_program =3D=3D 4) && (smu->smc_fw_version < 0x45570=
-00)) ||
-> +               ((smu_program =3D=3D 5) && (smu->smc_fw_version < 0x55512=
-00)) ||
-> +               ((smu_program =3D=3D 7) && (smu->smc_fw_version < 0x75507=
-00))) {
-> +               dev_err(smu->adev->dev,
-> +               "ResetSDMA not supported: SMU program %u requires PMFW >=
-=3D 0x%x\n"
-> +               "Current PMFW version: 0x%x\n",smu_program,
-> +               smu_program =3D=3D 0 ? 0x00557900 : smu_program =3D=3D 4 =
-? 0x4557000 :
-> +               smu_program =3D=3D 5 ? 0x5551200 : smu_program =3D=3D 7 ?=
- 0x7550700 : 0,
-> +               smu->smc_fw_version);
-> +               return -EOPNOTSUPP;
-> +       }
+> +                       data =3D RREG32_SOC15(GC, 0, regCP_MES_CNTL);
+> +                       if (pipe =3D=3D 0)
+> +                               data =3D REG_SET_FIELD(data, CP_MES_CNTL,=
+ MES_PIPE0_RESET, 1);
+> +                       else
+> +                               data =3D REG_SET_FIELD(data, CP_MES_CNTL,=
+ MES_PIPE1_RESET, 1);
+> +                       WREG32_SOC15(GC, 0, regCP_MES_CNTL, data);
 >
->         ret =3D smu_cmn_send_smc_msg_with_param(smu,
->                                               SMU_MSG_ResetSDMA, inst_mas=
-k, NULL);
+>                         ucode_addr =3D adev->mes.uc_start_addr[pipe] >> 2=
+;
+>                         WREG32_SOC15(GC, 0, regCP_MES_PRGRM_CNTR_START,
+>                                      lower_32_bits(ucode_addr));
+>                         WREG32_SOC15(GC, 0, regCP_MES_PRGRM_CNTR_START_HI=
+,
+>                                      upper_32_bits(ucode_addr));
+> +
+> +                       /* unhalt MES and activate one pipe each loop */
+> +                       if (pipe =3D=3D 0)
+> +                               data =3D REG_SET_FIELD(0, CP_MES_CNTL, ME=
+S_PIPE0_ACTIVE, 1);
+> +                       else
+> +                               data =3D REG_SET_FIELD(0, CP_MES_CNTL, ME=
+S_PIPE1_ACTIVE, 1);
+> +                       WREG32_SOC15(GC, 0, regCP_MES_CNTL, data);
+> +
+>                 }
+>                 soc21_grbm_select(adev, 0, 0, 0, 0);
+>                 mutex_unlock(&adev->srbm_mutex);
+>
+> -               /* unhalt MES and activate pipe0 */
+> -               data =3D REG_SET_FIELD(0, CP_MES_CNTL, MES_PIPE0_ACTIVE, =
+1);
+> -               data =3D REG_SET_FIELD(data, CP_MES_CNTL, MES_PIPE1_ACTIV=
+E, 1);
+> -               WREG32_SOC15(GC, 0, regCP_MES_CNTL, data);
+> -
+>                 if (amdgpu_emu_mode)
+>                         msleep(100);
+>                 else if (adev->enable_uni_mes)
+> @@ -1488,8 +1506,9 @@ static int mes_v12_0_sw_init(struct amdgpu_ip_block=
+ *ip_block)
+>         adev->mes.kiq_hw_fini =3D &mes_v12_0_kiq_hw_fini;
+>         adev->mes.enable_legacy_queue_map =3D true;
+>
+> -       adev->mes.event_log_size =3D adev->enable_uni_mes ? (AMDGPU_MAX_M=
+ES_PIPES * AMDGPU_MES_LOG_BUFFER_SIZE) : AMDGPU_MES_LOG_BUFFER_SIZE;
+> -
+> +       adev->mes.event_log_size =3D adev->enable_uni_mes ?
+> +               (AMDGPU_MAX_MES_PIPES * (AMDGPU_MES_LOG_BUFFER_SIZE + AMD=
+GPU_MES_MSCRATCH_SIZE)) :
+> +               (AMDGPU_MES_LOG_BUFFER_SIZE + AMDGPU_MES_MSCRATCH_SIZE);
+>         r =3D amdgpu_mes_init(adev);
+>         if (r)
+>                 return r;
 > --
-> 2.25.1
+> 2.34.1
 >
