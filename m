@@ -4,150 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3936EC02180
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2025 11:56:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCA20C02180
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2025 12:20:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B989010E4F3;
-	Wed, 15 Jan 2025 11:56:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B2AB10E636;
+	Wed, 15 Jan 2025 12:20:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="oz4tKiiR";
+	dkim=pass (2048-bit key; unprotected) header.d=fooishbar.org header.i=@fooishbar.org header.b="jpuLxiCz";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2060e.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:2009::60e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 81BE410E600
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jan 2025 11:56:32 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=k7pjC2sogDEId7H+3sa8WYiVbZSv+uaF0y7gNhPGPALXIf7tTYEYCnsggSIXEPl1t3hxNgVv/sdT3KQNl1H1uB4fbEMEY/WzGQXozo7RAOD9qORNivlnuZ0AEE6g/baK1yiuc6OO+RNd+mwLSeXru4O3mbEJCehfODjyxUMw7mP25P78A+ieQ+DlLyE4MB6jZ5B8vW+uHKOTefL/9404cvu5DKVRYMZ6JNOlIME/5si1TZuLpjePye8lypvE/rIeCmT9tpRVur+DtpiODrsFb0YF5Ke1hK2wASzZlcwbwAMPJowMcqDAl01+YPoo9p6h7kaYgupIsG/KRJYLGtOq0g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bpX0t0w+ln4z5dbUjdRzaT8NQNJ0fzMB1EMBEYPU61Q=;
- b=u/Z4EskHH9f9pJESGy6jQZTXiIS2sRpvkawujaafEWI1hWuiZ8bNkFkROZ93XGmHbWdQeBZmlmWy5ZLFAVIpDIueL6j5IurJ0rPfKmS6ksOEWjtIggHzHE4pOIfP7LuyLnvG8GYHYxMiWv8wysIWiGj86DsASKGrw5c5IVlF6ahcdUUxnws4N6K942f3lVtFXAWfqGqx7gNJoe8cbpnGzJLx7w9Uq/nDOAmZCbFPl7lOFIT00sKtla77rk9GglyqHgw/EcEBgBAj3pe7oIYL/XOq3GtzAhyn3NH8TK45NpIGx70VVbCIw5Pugjbg1+ZHbKCfE4o7BnHsLMtHGf+cSw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bpX0t0w+ln4z5dbUjdRzaT8NQNJ0fzMB1EMBEYPU61Q=;
- b=oz4tKiiR+1SJTO4SbgcJXyZ7ayGXEvhYfAw23Hngm+bZw4kWBfV2SWKKXjIC2UM8xTKLMtthxHaXGXGqgnPvNFtwOTCyZJsb1P64lhQVr3hbObZb+IlCxHrS09ypi4D7j5esinazHnVFt0CVNJGZ0FN2vxEfw/jnL4wmxa8PFZA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SA1PR12MB7246.namprd12.prod.outlook.com (2603:10b6:806:2bc::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8335.21; Wed, 15 Jan
- 2025 11:56:28 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%5]) with mapi id 15.20.8356.010; Wed, 15 Jan 2025
- 11:56:28 +0000
-Message-ID: <446b0bac-b860-4a04-b150-d29fe7edede1@amd.com>
-Date: Wed, 15 Jan 2025 12:56:24 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: Use -ENODATA for GPU job timeout queue
- recovery
-To: "Jesse.zhang@amd.com" <jesse.zhang@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Alexander.Deucher@amd.com, Tim.Huang@amd.com,
- Vitaly Prosyak <vitaly.prosyak@amd.com>
-References: <20250115065214.3698126-1-jesse.zhang@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20250115065214.3698126-1-jesse.zhang@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0254.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:af::9) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mail-qv1-xf34.google.com (mail-qv1-xf34.google.com
+ [IPv6:2607:f8b0:4864:20::f34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 06CD210E642
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jan 2025 12:20:20 +0000 (UTC)
+Received: by mail-qv1-xf34.google.com with SMTP id
+ 6a1803df08f44-6dcdf23b4edso59974256d6.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jan 2025 04:20:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=fooishbar.org; s=google; t=1736943619; x=1737548419;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=nAB9wiU4nf/DepdyNjk7NO70CuLQ2ZcDafrtyDQ7E4c=;
+ b=jpuLxiCz2kxIQDUClw5s0KuKkUxn8aoicUBy0TkEUlAUIOICYlwTXP6zX0P5GSHSkK
+ AXu/sVg98KMXzy1zmpZpsEtNxUNyzpVqMlio4oVV7S0686DDeIPYyMQ4B6Sr2IWfyr7D
+ 6daUFPUvHAPatcqqsUyfq4fZo2MJKJ/OhxS8jKbTJsdwoV+hf7q9ILjG3NoiidGzdvbf
+ tSHb/hmst3h55i9XAKGEntdu90vE3ZKAKVr9CVQjkW+DzfzbM1hvUOwM8KIgW6KnF1kA
+ afmyHrdSqVnA9aln61JZ+5iLuPX+W800UiwDIfK1AazerNXcnlLHNP+GMS7h+pvP7soH
+ dF2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1736943619; x=1737548419;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=nAB9wiU4nf/DepdyNjk7NO70CuLQ2ZcDafrtyDQ7E4c=;
+ b=a/ZeDsiY/msTdEEBJTMMKyWcNU8p4KYem8ri7rb/DIy+O9ghcN+FfT7mwkNEISOi9l
+ yPRzhLv+nRNBEyswzraL9lrY8B0keEVP3uFrJTJ8HuyT+U+2gvWEO10l2SkO/w7wFIRd
+ bz8ruzaeQ3DtTe5m2oJx0rXYX2HmXMJwEDCt/KlCELOrumM4/+gIppCDtm0+lIfFeR8N
+ PgsoEwB3kdKNU2fFr9Rhbmyy+4eQLZ4IfHYI75n1gosDExer1Ok7pb4RzqlwsnRkLqrL
+ C8fHjLxWaakxWrbWsJFVf2mgUe1/yKtrbVKbFh4AbX2LrNzU6fo2xJiwI5IbN3mzpBvs
+ MXEg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUpH2UFnu7BFnCA3/g/6D83Em029rjAZXwUWRb7F4rKY3uTfI8TXGIJIcSp+v/FMu4pZVKza8tQ@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw+EbLNOSqOqkvmzyRQEMFwCKPCiUMyFwcLMbesaEiooDluv556
+ 0zdhkrhx2nr5qJMGZDZMKoQB2cCjywZaU0QEM9LpNf+i4Hk6F68zFlhW79zTU+lYwC32WT4mgID
+ arYAveP8hqqORCdJC5lJrzkE6zahTeV92ColOGA==
+X-Gm-Gg: ASbGncsb0Lo2CIfp54BtxaTqZIZ64PK77p5r5y8WvWGus7T2MsiDfyhFFOGVCpcFKf1
+ sycSi3xs6I3d8rivJ2eVl4OjLeVd1fFixoCA=
+X-Google-Smtp-Source: AGHT+IH++MvvbPX1N6C4BsVMZdJuPpHeIHlRVGwK/q1DLnsCFWiUlolSn7pCijM10VWaG92QHVc57ip1CChWurmFgfw=
+X-Received: by 2002:a05:6214:242f:b0:6d8:a5da:3aba with SMTP id
+ 6a1803df08f44-6df9b221686mr478026176d6.20.1736943618918; Wed, 15 Jan 2025
+ 04:20:18 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA1PR12MB7246:EE_
-X-MS-Office365-Filtering-Correlation-Id: b5a46541-33f7-4068-127d-08dd355ba519
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?bVRzN2pVY3FuUFZxbmgzdS9BSkJBRXBZajhOeHRGN0doVFhQNVFDaWlkS2dQ?=
- =?utf-8?B?UFpQSjUvdTlQaUh1RUc1MEQyUzRZOU93OXIwbTVXSEVYQWx2cHpUSmZLZS9D?=
- =?utf-8?B?VE44OEtBdEl6TzdGNXN2N2h4QVVLUTZjM3hJSUh6bFBrcnpQbHRkeDVhU0F6?=
- =?utf-8?B?Q0NPNEZucnNMSGhOU2lQSUxIOHBDWEpFUHdkYWZwbm0xOHFNVTR1YmxNNUZk?=
- =?utf-8?B?QWRGWW1yQ3pNV3lRalhrM216VnBUUmNUa2FXVzk1dUJ2dC9xYVUvSFdtRG9G?=
- =?utf-8?B?KzYrT0JGaW9TdjBGVDhJSlMwOTZZWE9ZUWlUaHkzUnppYmN3Zi9rYjRpZjZh?=
- =?utf-8?B?NDVlcnpNbWZ2RFpBU29HQzBaNU5Xa2FuUTVKdm5zM0xPUzRBeW1GaWd5YWt3?=
- =?utf-8?B?bWpNTXJwM1pNTUE3V0NDaUV5RmRRTkhQTDdpZW1GZFU1TE1hWm9GN0FmKzI2?=
- =?utf-8?B?eVJidmw1ampOUTRBS3lvODZTVlVONmwyT1J4SkpvK2swVzV0NFI2MUdjelA4?=
- =?utf-8?B?d1BLcG45WW9NWTJWeHdzc3EwN2xTSVhIS1JTVFlDbEhXa3VmVEswUWxvOGM2?=
- =?utf-8?B?SUpHTEhtOGQyWGVHd2tteVY5OHZSa2FENjFkTDF6SUIyZmhFS1c5dGxEUWFU?=
- =?utf-8?B?UlNDTE04VTlKMUViamIwcy9nMWI3YzUzMnJWdGdkVEZPNjRHZ1QzUzZJQlZ6?=
- =?utf-8?B?dElJQkVqMGZqdldudkhWazJUa3lTU3V4cXZldjlWS1dRK3JZQXVzTzUvaFFv?=
- =?utf-8?B?Y2Y3WVdXMmx0WVY3UUloQTdld2xjaWEwYi9zbG40L2JXVzZnSi8xekhDU2lG?=
- =?utf-8?B?T1ZjblkvMEJMaXRjSnhxTlRRU2MwQXBrQ2dKZnJKdW9CdVNKRGlCZDhvV1RG?=
- =?utf-8?B?amFnbGErbkZMcDR5V2dMVWEzYzdqWWh6YmpBYWJOWEUwTTlubU5MWFdXNTVn?=
- =?utf-8?B?QTVJcEM3ZmxVejhJYjBBRUV2Vm16emxCZDlCT1NENmllQmVIWERxUmR3V0Zp?=
- =?utf-8?B?OHdxdktDZ3dsQi84Q0tsK2JsOXBUN2wxK2I0S2VNWlcwOU16d2xRNGI1ZEJl?=
- =?utf-8?B?UExXVjFpSGl4eUZLYmpjOVdxalZnMDhjL2p0aDNNQStPY3pQUlZhR2dLTjd4?=
- =?utf-8?B?dTNOTFFEZEt5TGVZUTBuTXhZeW13dWhFcUwySk0wZUhxTGJCcVBKR3l0ZWJ6?=
- =?utf-8?B?NlRkSWtkcVpKZ2Z0UXF1aXVKMjZCQVpGcXBRL01UTnBzcWZtemRPdnVaRkwx?=
- =?utf-8?B?RFB5QVNpejgvQ3ZmcXgzdU81Rm9lUzdEb3pOQk90d0pXZWZUV1lrQjVyOG91?=
- =?utf-8?B?Q0dkRWRmdmVIN21oVnJzakVUeHhMMzUyVkdkcDk3MDk5d1h1MUNQVnhhNUFx?=
- =?utf-8?B?TklZajNVdWpBSkwvUTlHOWJWNkQ4RlZPOFNVOFRpOS9ldEVEVFNPenhEUzlU?=
- =?utf-8?B?dmtXbGtGczFrZXd4NFp5SjY2ZGRLNTVjbDZJZzQ5Vk1QYlBYL0c1Z3dBZVRj?=
- =?utf-8?B?dDhnazBPL1BsTzVOU21nbm5LeW5ISEcyQkJKbHpiRDY2ZC8yQlVGSTJ6cjJO?=
- =?utf-8?B?NXY5TndMcFJXYUpPd3JsbGN1VFRsWW85QVdFSU9udzFsMi8vMWZqbzRqMDNo?=
- =?utf-8?B?bkFpekNEaVdwMGtyN2NMbHM4TjJGTzFEWDczckNXZmUwbjZBRXNYUXhNVHlo?=
- =?utf-8?B?NVEyOG5jdmpKZmJqdVFMOUtuWURTTTg0QzdQZEV6aGl5WEtoY29nTDdHdVhL?=
- =?utf-8?B?L2FiUHR3TGQzaWFjdlZVNkQ4RGFGNGZyNEEvOVBQR015ZXA0YVI4NkNGelVo?=
- =?utf-8?B?S1k0YXpCcm5xemRBVWhaa25vbnZJY2puemtWRGJrbWlkeitYSnhYbTJxYnBK?=
- =?utf-8?Q?4IbroHoJEKc/l?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?R1RmSEdzeEdqdEFnaS9vaUdHd0VLNzRTWmFPckhzcXkzUmUvOGlOMmE2K2x6?=
- =?utf-8?B?Tm1FTlBMdk4rbVgyOG5LSFZibm5lOEJ6dEErZmxyblh4Z2dvZHVjY2xGZm5C?=
- =?utf-8?B?cFdQcjZQeXVnT1BzajQrYU5kQVpEUHBMZWUvSkg3NkpiMW5VdmppT1lwNVRh?=
- =?utf-8?B?ZkJHN21rU1ZGaHFWV0JGa0UyOXV5a1V4TzhWMmZLZ0pjb3h5N21SdEdMUDVr?=
- =?utf-8?B?ZmZ0bDdldXdDSkMwS2hNQ0xDQ0YrM0srM3BiREFJTHIwd0F5ZXBjYXRQN2ta?=
- =?utf-8?B?aGxtMkRZazM2R2NpN1ZJQU5KVjZocy9pZTRlOEpLczJONnR1b1d6eTYvNm5V?=
- =?utf-8?B?TEV5MDdpaEpUNjl5Z1I4azY5SWZOcGNBQjdscU1pZWNMNkx0WmNxUUoyV3FH?=
- =?utf-8?B?cE5oOThZanU0cU1Vb210OWFXVXFCZlkyRHEySTFvYVFBUmlsa3c2Wlcyb2J2?=
- =?utf-8?B?SDhBYzgyeUoxMnhNZlhoTUZKTGE4NE5ycDVsUWh2cHlJZ0E5Y1gyVG1FVVRM?=
- =?utf-8?B?cyt5RUNvVWRqWERGNzJ0QzUrbWZPN0t6RVNLdTR1NkpDdTJhNnRkTThmQkxu?=
- =?utf-8?B?Z3F0bFY3Zm1vMHJnY2Nja0QzWDlSODV3MVFvZEdRRlZUd2JjR0EwQnNidmhN?=
- =?utf-8?B?dmZqVnRGZ3JDUmppNk1rOXcvd2prOFYwR3duSGJXWmxjQnFaQTlBcDJHS0Yx?=
- =?utf-8?B?Z3N6VmlsVDdaYjFNTHhJeUhid0ZuWXBxejdoUXJ3NzR2eXJnYzFNMkZtZDZw?=
- =?utf-8?B?cW90K3U0RGlrdlpsVVVmcE56Wjh1bDU3V3pQVXF1Qjc2bU1ISVI0ekIwYnZB?=
- =?utf-8?B?VVVBMGRsZjZFSklHUFFCVFNvMmMrWDNOUWFMbDZVSXFaZS9zZlJZSml2TWZ4?=
- =?utf-8?B?dmlNNTg0ZWdiWXZMN3d3NnA1YjJRaTRxMTNFa0Z5eGk5c2FnR21NSGtPaDAz?=
- =?utf-8?B?S2wybldHUWtjVmxmdjI1eFBqN1lPWWFhUjlpcVFnSFl2UStQQUZuSUtsWFVv?=
- =?utf-8?B?MmdTMHk3V3ZUQzFIMEV0cWxQOHFVTjUvaXlKUmVVNDNFMFp5WnlkT2FTb0hU?=
- =?utf-8?B?SUZNMUtxMTVvWXI1ZlJVOGxCVXlsbm5kcUhNc3pkUkExRWJCNSt5N3N4ZUNz?=
- =?utf-8?B?TEYrbjFkQ2hwL1dXOWFpTVVFS2xmRm0yM0l5L21LbUxTL2tkeERiZTMxZk52?=
- =?utf-8?B?MzRrM0FtSHlOaThucEg2NlNyc1NRWlZEY3BjUkd1eGR5K1pTdzFNc1Rvc1FH?=
- =?utf-8?B?cU9NZU9Manl6Smp3bnR3aFkwVWsxa2xnd29BOThIYys4MVBJcTVNRHhjRTFO?=
- =?utf-8?B?WTl4ekxrTnRQeGlpcnBBVFNycnFpUCtwcERXQTFzQXBFUzhLZHFDdnJPeDBI?=
- =?utf-8?B?akJoSDJsalNqa0YzR1R6MzBHVk54TzM1cSs1Nm5FclZnZVJQSmdYOXVwbkRm?=
- =?utf-8?B?OWZqazNnb0tscEFMaVFxa25yYTl0NS8ycTBJNTF2bFltMzk5Z1JvWHhMM2xG?=
- =?utf-8?B?bmVpYlRhQTBrbDgyb0RsYlN4YnVFc00zenpkRzNGTjN2YzBSQWRNODlhY2Zk?=
- =?utf-8?B?dDZrbnp2VXdEVFpQWC9EWjNPSjdWSjN1YTNxRHJOay9kYjVsWkE1b2hiYU5o?=
- =?utf-8?B?dFlOOGp2YUgyMythTFkySncvcDFnWTU5ZUc3MHc4cnNWOVNKcVRzNjIwb2t0?=
- =?utf-8?B?NHdqdEtuQW5XNE5IY3VyVEJIbzdiRFNQUzNVaGZQTUdudU1aN3RrVjNqajky?=
- =?utf-8?B?aGRDbG9BOCtmMERlTU0zeHRjQlRaOGNrTnlyU1djaGVKYjFsTklvRzVPc2xp?=
- =?utf-8?B?Y2hKSHBoMzZEUkFoNytnZm9PZzBVVUdUaGZQc2NGVGhXakozbXRzbk4yeGZO?=
- =?utf-8?B?R2l4d0hJall0Ti9LV2dJOS9oOG5rOGRaVWFFRDZNNnlZTWNETnlFQWgvYUc5?=
- =?utf-8?B?cC9kd1pGVHFqRCtqRlhUUG8zVEVnVlFsRUhURGhNSkk4QnZrRVB4cXdIdmdB?=
- =?utf-8?B?eG5OS0NmRXE5Q3BsVGlNMWNXa3hFS21tVWNjVFM3UWZoVTE3aTk3NlIyMVNq?=
- =?utf-8?B?M3RKZElLOWFhNVFiVzM4TlRvTDcxV1VQSUdSaFZ6THFIVG52RnlVbHdZTFdj?=
- =?utf-8?Q?QZUTqp6eJbE5f2PFVrtyReMy2?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b5a46541-33f7-4068-127d-08dd355ba519
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jan 2025 11:56:28.7027 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qjgxtViSP2kx+HgIzQnoOhEBT0IfoPzIAxvgh4tQjmBB2b3zelPpRekp6hj00Vb2
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7246
+References: <CAAxE2A5BkF13bFt8_UnuiqPM8W-ZESgmKEjqqGfv=DGzSfJ7aQ@mail.gmail.com>
+ <uffsfaps6a75zmkyshkwfxgybcslqrnfqqtjzekegdptvwpugc@2ndpcuxyfp3f>
+ <c64cb9d8-5ea7-4644-93c8-04a97b758fa0@mailbox.org>
+ <h26quuebhpxwkc3fl4vtfteoqyvingnddgxbnzptfnxfg6xgkd@kkkmeqwplomv>
+ <8dae97c9-9286-451a-8122-b309eb21b2f4@mailbox.org>
+ <Z2Ki-lQH4Fbch6RO@phenom.ffwll.local>
+ <q45c43j5kwwvemec7mcs4kqzt54pa3nz3jlhkcky2v63s2vfie@him4q253uw4p>
+ <CAPj87rMFJ0JRvsKqZUsw_EGrFWr1VLO4Ne2w_bZ5cH+gs_d=og@mail.gmail.com>
+ <Z2Rf7mpSuzZ0ObmT@phenom.ffwll.local>
+ <07d08a42-c44a-477e-8057-721b270310cf@nvidia.com>
+ <CAAxE2A6N0xtgZmzTR9FXMN79xxy3T8zfhh1sz73h1h8=0ycJ2g@mail.gmail.com>
+ <CAPj87rP4r4q-wBx1dHsEkZ7=S2c2XsbA1Pz4Skw1ETt_2yD2Ag@mail.gmail.com>
+ <CAAxE2A6ghBK2VTLkNXgk1c61UG1ZQAzWQ4q=wO-OShAUC9eRmQ@mail.gmail.com>
+In-Reply-To: <CAAxE2A6ghBK2VTLkNXgk1c61UG1ZQAzWQ4q=wO-OShAUC9eRmQ@mail.gmail.com>
+From: Daniel Stone <daniel@fooishbar.org>
+Date: Wed, 15 Jan 2025 12:20:07 +0000
+X-Gm-Features: AbW1kvZypYUDzjEI4tFk9DCbDQL9wznW1ZpJeL0bmA-05bm7WepfcCFdFzlZvFM
+Message-ID: <CAPj87rNFy7GLAjjxDYGLN-f8M0F7yMX6PED94O4kBJ=pwtPVyA@mail.gmail.com>
+Subject: Re: [PATCH] drm/fourcc: add LINEAR modifiers with an exact pitch
+ alignment
+To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
+Cc: James Jones <jajones@nvidia.com>, Simona Vetter <simona.vetter@ffwll.ch>, 
+ Brian Starkey <brian.starkey@arm.com>,
+ =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>, 
+ dri-devel <dri-devel@lists.freedesktop.org>, 
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>, 
+ ML Mesa-dev <mesa-dev@lists.freedesktop.org>, nd@arm.com, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,51 +100,107 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 15.01.25 um 07:52 schrieb Jesse.zhang@amd.com:
-> When a GPU job times out, the driver attempts to recover by restarting
-> the scheduler. Previously, the scheduler was restarted with an error
-> code of 0, which does not distinguish between a full GPU reset and a
-> queue reset. This patch changes the error code to -ENODATA for queue
-> resets, while -ECANCELED or -ETIME is used for full GPU resets.
+On Wed, 15 Jan 2025 at 04:05, Marek Ol=C5=A1=C3=A1k <maraeo@gmail.com> wrot=
+e:
+> On Tue, Jan 14, 2025 at 12:58=E2=80=AFPM Daniel Stone <daniel@fooishbar.o=
+rg> wrote:
+>> AMD hardware is the only hardware I know of which doesn't support
+>> overaligning. Say (not hypothetically) we have a GPU and a display
+>> controller which have a minimum pitch alignment of 32 bytes, no
+>> minimum height alignment, minimum 32-byte offset alignment, minimum
+>> pitch of 32 bytes, and minimum image size of 32 bytes.
+>>
+>> To be maximally compatible, we'd have to expose 28 (pitch align) * 32
+>> (height align) * 28 (offset align) * 28 (min pitch) * 28 (min size) =3D=
+=3D
+>> 19668992 individual modifiers when queried, which is 150MB per format
+>> just to store the list of modifiers.
 >
-> This change improves error handling by:
-> 1. Clearly differentiating between queue resets and full GPU resets.
-> 2. Providing more specific error codes for better debugging and recovery.
-> 3. Aligning with kernel best practices for error reporting.
+> Maximum compatibility is not required nor expected.
 >
-> The related commit "b2ef808786d93df3658" (drm/sched: add optional errno
-> to drm_sched_start())
-> introduced support for passing an error code to
-> drm_sched_start(), enabling this improvement.
-
-I'm about to remove the scheduler stop/start for queue resets which 
-would make this here superfluous.
-
-On the other hand I'm not sure when I will be done with that work. So 
-could be that this will take a while and we should commit this in the 
-meantime.
-
-Regards,
-Christian.
-
+> In your case, only 1 linear modifier would be added for that driver, whic=
+h is: [5 / 0 / 5 / 5 / 5]
 >
-> Signed-off-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
-> Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> index 100f04475943..b18b316872a0 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> @@ -148,7 +148,7 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
->   			atomic_inc(&ring->adev->gpu_reset_counter);
->   			amdgpu_fence_driver_force_completion(ring);
->   			if (amdgpu_ring_sched_ready(ring))
-> -				drm_sched_start(&ring->sched, 0);
-> +				drm_sched_start(&ring->sched, -ENODATA);
->   			goto exit;
->   		}
->   		dev_err(adev->dev, "Ring %s reset failure\n", ring->sched.name);
+> Then if, and only if, compatibility with other devices is desired, the dr=
+iver developer could look at drivers of those other devices and determine w=
+hich other linear modifiers to add. Ideally it would be just 1, so there wo=
+uld be a total of 2.
 
+Mali (actually two DRM drivers and sort of three Mesa drivers) can be
+paired with any one of 11 KMS drivers (really 12 given that one is a
+very independent subdriver), and something like 20 different codecs
+(at least 12 different vendors; I didn't bother counting the actual
+subdrivers which are all quite different). The VeriSilicon Hantro G2
+codec driver is shipped by five (that we know of) vendors who all have
+their own KMS drivers. One of those is in the Rockchip RK3588, which
+(don't ask me why) ships six different codec blocks, with three
+different drivers, from two different vendors - that's before you even
+get to things like the ISP and NPU which really need to be sharing
+buffers properly without copies.
+
+So yeah, working widely without having to encode specific knowledge
+everywhere isn't a nice-to-have, it's a hard baseline requirement.
+
+>> > DRM_FORMAT_MOD_LINEAR needs to go because it prevents apps from detect=
+ing whether 2 devices have 0 compatible memory layouts, which is a useful t=
+hing to know.
+>>
+>> I get the point, but again, we have the exact same problem today with
+>> placement, i.e. some devices require buffers to be in or not be in
+>> VRAM or GTT or sysram for some uses, and some devices require physical
+>> contiguity. Solving that problem would require an additional 4 bits,
+>> which brings us to 2.3GB of modifiers per format with the current
+>> scheme. Not super viable.
+>
+> Userspace doesn't determine placement. The kernel memory management can m=
+ove buffers between heaps to accommodate sharing between devices as needed.=
+ This is a problem in which userspace has no say.
+
+It really does though!
+
+None of these devices use TTM with placement moves, and doing that
+isn't a fix either. Embedded systems have so low memory bandwidth that
+the difference between choosing the wrong placement and moving it
+later vs. having the right placement to begin with is the difference
+between 'this does not work' and 'great, I can ship this'. Which is
+great if you're a consultancy trying to get paid, but tbh I'd rather
+work on more interesting things.
+
+So yeah, userspace does very much choose the placement. On most
+drivers, this is either by 'knowing' which device to allocate from, or
+passing a flag to your allocation ioctl. For newer drivers though,
+there's the dma-heap allocation mechanism which is now upstream and
+the blessed path, for which userspace needs to explicitly know the
+desired placement (and must, because fixing it up later is a
+non-starter).
+
+Given that we need to keep LINEAR ~forever for ABI reasons, and
+because there's no reasonably workable alternative, let's abandon the
+idea of abandoning LINEAR, and try to work with out-of-band signalling
+instead.
+
+One idea is to actually pursue the allocator idea and express this
+properly through constraints. I'd be super in favour of this,
+unsurprisingly, because it allows us to solve a whole pile of other
+problems, rather than the extremely narrow AMD/Intel interop case.
+
+Another idea for the out-of-band signalling would be to add
+information-only modifiers, like
+DRM_FORMAT_MOD_LINEAR_PITCH_ALIGN_EQ(256), or
+DRM_FORMAT_MOD_LINEAR_PITCH_ALIGN_GE(32). But then that doesn't really
+work at all with how people actually use modifiers: as the doc
+describes, userspace takes and intersects the declared modifier lists
+and passes the result through. The intersection of LINEAR+EQ256 and
+LINEAR+GE32 is LINEAR, so a userspace that follows the rules will just
+drop the hints on the floor and pick whatever linear allocation it
+feels like.
+
+I think I've just talked myself into the position that passing
+allocator constraints together with modifiers is the only way to
+actually solve this problem, at least without creating the sort of
+technical debt that meant we spent years fixing up implicit/explicit
+modifier interactions when it really should've just been adding a
+!)@*(#$ u64 next to the u32.
+
+Cheers,
+Daniel
