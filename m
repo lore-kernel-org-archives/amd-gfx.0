@@ -4,50 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47144C02180
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2025 20:12:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9EF51C02180
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2025 20:27:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC57310E522;
-	Wed, 15 Jan 2025 20:12:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3DBC310E0FB;
+	Wed, 15 Jan 2025 20:27:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=dorfdsl.de header.i=@dorfdsl.de header.b="K9at+qVN";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JOk9ZxGP";
 	dkim-atps=neutral
-Received: from srv1.dorfdsl.de (srv1.dorfdsl.de [82.139.196.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B194A10E522
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jan 2025 20:12:42 +0000 (UTC)
-Authentication-Results: srv1; none (SPF check N/A for local connections 
- -  client-ip=2a01:170:118f:5:769d:b986:18ec:4188; 
- helo=[IPv6:2a01:170:118f:5:769d:b986:18ec:4188]; 
- envelope-from=mm@dorfdsl.de; receiver=<UNKNOWN>)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=dorfdsl.de;
- s=default; t=1736971840;
- bh=bp6h6ln42NZls9aWesrFf4XmRIQjR6B7P/rpaLtXiCU=;
- h=Date:From:To:Subject:In-Reply-To:References:From;
- b=K9at+qVNzDWFEAOPRlh21Bdn3veX9spcEZLvgdG7fE0U8Xv4XvZ7WBzKYOlT3I+At
- tn+o6Uzl/ivHgS6yJjpbb0rp7089xK8QImY+QA00aNQFc7rS7FV57S0RiVXkIRF0Ct
- 0MT+2QFh5J7SvprJOSwsL2C1AniBY0FV74P2HAk4DqU9K+CuzoJ9Im7cF0E+yu2OCa
- sdtKI6OuCPH/SuAQe5NeUMdQF9PKNeKZaicFJ7cwE/RRVp0xTUjTOgWDMf3Jcmg+h/
- JPM1UId8nSLuf/7K5JzBJihyUewVnuH7gfyemrZ0Ng8b2RPGhoMqB8ZfDPEJmCjHU9
- hIPJeyfT6pfJg==
-Received: from zbook ([IPv6:2a01:170:118f:5:769d:b986:18ec:4188])
- (authenticated bits=0)
- by srv1.dorfdsl.de (8.18.1/8.18.1/Debian-6~bpo12+1) with ESMTPSA id
- 50FKAel3239254
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT)
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jan 2025 21:10:40 +0100
-Date: Wed, 15 Jan 2025 21:10:39 +0100
-From: Marco Moock <mm@dorfdsl.de>
-To: amd-gfx@lists.freedesktop.org
-Subject: Re: amdgpu 100% CPU usage causing freeze 1002:15d8
-Message-ID: <20250115211039.09e6e69e@zbook>
-In-Reply-To: <20250115160834.033e8aad@ryz.dorfdsl.de>
+Received: from mail-pl1-x635.google.com (mail-pl1-x635.google.com
+ [IPv6:2607:f8b0:4864:20::635])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2AD9710E0FB
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jan 2025 20:27:13 +0000 (UTC)
+Received: by mail-pl1-x635.google.com with SMTP id
+ d9443c01a7336-2162f968cd7so206455ad.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jan 2025 12:27:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1736972833; x=1737577633; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=+1ThH2Z3QkfYpRXR8SnLP75ysoopcMSk42tpNp+gIqM=;
+ b=JOk9ZxGPUJ5Uuuc1CkHCsOcpTbNbisO7DJpRcp8MSJxksXLnckdbmHed04ey0X/3fz
+ E3qFSEejA85vKEGA5n9GjTVoGgiKHx0TMWlGJO6gxjduEdGnAvAq2gYORIIm0RZe4me1
+ fVLjgADh2VbvJXimvTak2vru+hDLR/lTkH4AePr4RbENUJCDCj/XdQINdseHLJWUNhUP
+ XTifj4RpGtx6GFtNlgJMWYCD0f1TJRxEqToAGyCJqwoj+Dl4dqjsbqVJmfaXVZqrVMTo
+ tJN+UgOoTkiuMsvQEClJAvEt4QOKP9rA/bre2OUEPULxSqgiIsZTPy79a3q3Mdp+znNJ
+ ft3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1736972833; x=1737577633;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=+1ThH2Z3QkfYpRXR8SnLP75ysoopcMSk42tpNp+gIqM=;
+ b=Um5yQ0HJ3MyhCvEm2HTR22+NLKqLBg1/eYgvmNDc5i2mVTDAUk8ZVD8oiqjNMrxy/s
+ s2FF5VUs8NSBPhURX+N37xZSnitWc2SzNAWq2rjJqVe+A3heFEAGkgN7c+WRAfqca2g5
+ 4b3rUOX1tjc9vQ2TLZUPDoN7UmJKvDDnySjYcojS79TogVy0EuG6WZ8CGK+AYimrZaaR
+ +6KeYfBYibMWfSkV1QbhHfwK2XbBJKsFA/OzwIUUr0kx4r2AD5NKo7I+MeWVt5M/DfmE
+ rl5Yklt7XixTMYrisWqtAnfXuQitmkMUkuUgLJmJOQaTHh+q4cBN6pb6kayXbRz5KLc/
+ arQw==
+X-Gm-Message-State: AOJu0Yy7EszrYJE3tN7XXvhGbiVWN0Mckww9wZdn1EHEy8vhfwoS5dNI
+ G3tkMBvNyTAy2r1rvCZUWcT+baSPnUOIqdUNGot9UV1RByABc2c6rZM0IP3CIMYITohws/6R9KC
+ vvI62OZQ7MJyTDQDKXei0QQ4qnXwekA==
+X-Gm-Gg: ASbGncv+0C4rg0Yffq1SKFysuH+RyRIaAso/pSifeu5lsU/8FZNVEdvoiPgLjYQleiB
+ QCsP4m4P90xbLK60aMC2cq+cLo4hKCneCjHF/Ig==
+X-Google-Smtp-Source: AGHT+IGNAK/Tbyvu7T7Bzaz2VpNIcQ1bXxZzSkuG6qFCaiWvxfHqT8h+otCiMWrEwgzm3agZ8JBNtvS0T9Ty9JLNwZs=
+X-Received: by 2002:a17:903:32ce:b0:216:30f9:93c5 with SMTP id
+ d9443c01a7336-21a83f4c434mr173665875ad.6.1736972832577; Wed, 15 Jan 2025
+ 12:27:12 -0800 (PST)
+MIME-Version: 1.0
 References: <20250114213157.19de9009@ryz.dorfdsl.de>
  <CADnq5_MFq-OWn7dwTTPPcBbFKQmBHvD6qCi8ngiVumk2V1U40g@mail.gmail.com>
- <20250115160834.033e8aad@ryz.dorfdsl.de>
-X-Mailer: Claws Mail 4.3.0 (GTK 3.24.43; x86_64-redhat-linux-gnu)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+ <20250115160834.033e8aad@ryz.dorfdsl.de> <20250115211039.09e6e69e@zbook>
+In-Reply-To: <20250115211039.09e6e69e@zbook>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 15 Jan 2025 15:27:00 -0500
+X-Gm-Features: AbW1kvZ5zJiVH-zWf-OzUPYtMfwHxgy4iotAbYapd7BBj7wHhmkR-dVHf925ZXs
+Message-ID: <CADnq5_MY+cN0dPTis582HY0a80rNiO86kz9Ha=e=HS2Toim=4w@mail.gmail.com>
+Subject: Re: amdgpu 100% CPU usage causing freeze 1002:15d8
+To: Marco Moock <mm@dorfdsl.de>
+Cc: amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,12 +80,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am Wed, 15 Jan 2025 16:08:34 +0100
-schrieb Marco Moock <mm@dorfdsl.de>:
+On Wed, Jan 15, 2025 at 3:22=E2=80=AFPM Marco Moock <mm@dorfdsl.de> wrote:
+>
+> Am Wed, 15 Jan 2025 16:08:34 +0100
+> schrieb Marco Moock <mm@dorfdsl.de>:
+>
+> > I assume it was 6.12.6, but Debian doesn't have the old packages
+> > anymore and it has been purged from my system already.
+>
+> I've now tried 6.12.6, same situation.
+>
+> Any further ideas what could cause this?
 
-> I assume it was 6.12.6, but Debian doesn't have the old packages
-> anymore and it has been purged from my system already.
+Can you provide more details about what you are seeing?  What does `ps
+aux` or `top` show as using all of the CPU time?
 
-I've now tried 6.12.6, same situation.
-
-Any further ideas what could cause this?
+Alex
