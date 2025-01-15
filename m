@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9516DC02180
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2025 08:04:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96E32C02180
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2025 08:14:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3AA0410E515;
-	Wed, 15 Jan 2025 08:04:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4272C10E52E;
+	Wed, 15 Jan 2025 08:14:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=emersion.fr header.i=@emersion.fr header.b="EyeLe8h2";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=emersion.fr header.i=@emersion.fr header.b="OzB5vCP8";
 	dkim-atps=neutral
 Received: from mail-4317.proton.ch (mail-4317.proton.ch [185.70.43.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 74B9710E515;
- Wed, 15 Jan 2025 08:04:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 181D610E52D;
+ Wed, 15 Jan 2025 08:14:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
- s=protonmail2; t=1736928259; x=1737187459;
- bh=Z5inlJxMurSHYB3t8b1zfq8d2EdlQvI9ZmCDh+UPX1k=;
+ s=protonmail2; t=1736928856; x=1737188056;
+ bh=eQQAoUrWbVIy7Aqv7nX0E1kQ77K/KQutmFsneyx6nFU=;
  h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
  Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
  Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
- b=EyeLe8h2MU7CzWUfpwvdiapl3ITKmY+Lr5fB0oUuNimyl7K79f78vTWG45L5379Ue
- FhOiswrjGEo9gmUOGWPopF9s5k9GEB1mvaNwJJZFbouLvmAmUJrMDhgpIpDQwoQjQ7
- oPjfYdv3051gqVPK4pxo5PiSinw1s6ejOiTHzEUGEqFRDEducdWmrFXFqNz7u4vmIW
- eByli6hNQQBN5ddWGwFIA1dWGbOPOxktHuIsI1BhTnnauXmUNGagOU/tWSZZlV8WWb
- KfmUZ8Q2NfbJBQWR6ToQsphJdoFNRXfhvyye3E2NoI59Oh4eHCNJdNTUwvshz9g3Hl
- Uzbhat/0je+Dw==
-Date: Wed, 15 Jan 2025 08:04:16 +0000
+ b=OzB5vCP86FXkTTSGQdlIKOwmRs01Nk8bCXPdq0oq39uTNnQS9C/H2kAkcOrE6lvvq
+ SbC0b2f0tbm74JwIhXd7oYHRHZl70zG0OJxr5hVnn5SOkGUWODrZafvdFQF4eqgB2y
+ Uz52/EkTKMA+uXYkpdLWjZtfeTwFSfZQzts0O++f+RANZuTESocNH7MWfjVXzerAHs
+ Qvbq+drCGYgMgkdzTQ9YufLDCnKXx7MGAB5KX5w++x7d+GsQmx+4SuE9nvk9oBpYXX
+ c7zn6MpPkkTU1Yrg5se3I+oGKSK1Qd8mdEg7q/e9UnE3kXfz+EKJwAwUSxnyri2anu
+ xPTK0MAB78OiA==
+Date: Wed, 15 Jan 2025 08:14:11 +0000
 To: Alex Hung <alex.hung@amd.com>
 From: Simon Ser <contact@emersion.fr>
 Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  wayland-devel@lists.freedesktop.org, harry.wentland@amd.com
-Subject: Re: [V7 31/45] drm/colorop: add BT2020/BT709 OETF and Inverse OETF
-Message-ID: <VuB1bzC8-OmJkpsruFPIliNJDtjPACOabarfYceRZtyBwlToiOYx1ury1sjz3qa0FtHLUKR6z0m5tFVo-rkX_vL9g5XfIK7TiT-yMhKV8nQ=@emersion.fr>
-In-Reply-To: <20241220043410.416867-32-alex.hung@amd.com>
+Subject: Re: [V7 33/45] drm/colorop: Add 1D Curve Custom LUT type
+Message-ID: <bEQfY8v5JGKxFSuZE_Sx7wUPe4j7WtdrnKcY13WAyoMEA9vtUrCkyZoYUcFyPILmVZGW2Y8pOSk9hyhlp_Y0Stxx32osdADBMbpwJjBRPh8=@emersion.fr>
+In-Reply-To: <20241220043410.416867-34-alex.hung@amd.com>
 References: <20241220043410.416867-1-alex.hung@amd.com>
- <20241220043410.416867-32-alex.hung@amd.com>
+ <20241220043410.416867-34-alex.hung@amd.com>
 Feedback-ID: 1358184:user:proton
-X-Pm-Message-ID: e18ecf66cfad279fdac21232ace434d1efb63a31
+X-Pm-Message-ID: fe772401f306acf9cb7bdea1173d4601c4d4516f
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
@@ -56,19 +56,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-> The BT.709 and BT.2020 OETFs are the same, the only difference
-> being that the BT.2020 variant is defined with more precision
-> for 10 and 12-bit per color encodings.
+> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atom=
+ic_uapi.c
+> index a3e1fcad47ad..4744c12e429d 100644
+> --- a/drivers/gpu/drm/drm_atomic_uapi.c
+> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
+> @@ -701,6 +701,9 @@ static int drm_atomic_color_set_data_property(struct =
+drm_colorop *colorop,
+>  =09bool replaced =3D false;
+> =20
+>  =09switch (colorop->type) {
+> +=09case DRM_COLOROP_1D_LUT:
+> +=09=09size =3D colorop->lut_size * sizeof(struct drm_color_lut);
 
-Just to make sure, the spec defines this precision, correct? It's
-not an AMD-specific thing?
+Should we set the element size and the number of elements instead of
+multiplying? Or is that only useful when either of these are controlled by
+user-space to avoid integer overflows?
 
-> Both are used as encoding functions for video content, and are
-> therefore defined as OETF (opto-electronic transfer function)
-> instead of as EOTF (electro-optical transfer function).
+> +=09=09break;
+>  =09case DRM_COLOROP_CTM_3X4:
+>  =09=09size =3D sizeof(struct drm_color_ctm_3x4);
+>  =09=09break;
+> @@ -750,6 +753,8 @@ drm_atomic_colorop_get_property(struct drm_colorop *c=
+olorop,
+>  =09=09*val =3D state->bypass;
+>  =09} else if (property =3D=3D colorop->curve_1d_type_property) {
+>  =09=09*val =3D state->curve_1d_type;
+> +=09} else if (property =3D=3D colorop->lut_size_property) {
+> +=09=09*val =3D colorop->lut_size;
+>  =09} else if (property =3D=3D colorop->data_property) {
+>  =09=09*val =3D (state->data) ? state->data->base.id : 0;
+>  =09} else {
+> diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_colorop.=
+c
+> index 665b23900cc0..e6dea2713490 100644
+> --- a/drivers/gpu/drm/drm_colorop.c
+> +++ b/drivers/gpu/drm/drm_colorop.c
+> @@ -64,6 +64,7 @@
+> =20
+>  static const struct drm_prop_enum_list drm_colorop_type_enum_list[] =3D =
+{
+>  =09{ DRM_COLOROP_1D_CURVE, "1D Curve" },
+> +=09{ DRM_COLOROP_1D_LUT, "1D Curve Custom LUT" },
 
-Ah, and IIRC the OETF is not the mathematical inverse of the EOTF,
-right? So it makes sense to have separate entries for EOTF and OETF
-and their mathematical inverses.
-
-Again, I am no HDR expert.
+Since we now have both a "normal" 1D curve, and a "special" one=E2=80=A6 Wo=
+uld it make
+sense to change our minds regarding the naming of the former? For instance,=
+ we
+could rename it to DRM_COLOROP_FIXED_1D_CURVE. Or is the current name clear
+enough (and only the human-readable name can be switched to "1D Fixed Curve=
+")?
