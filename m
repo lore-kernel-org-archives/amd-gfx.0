@@ -4,157 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5898DC02183
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2025 08:32:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 538D2C02180
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2025 08:37:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0998110E552;
-	Wed, 15 Jan 2025 08:32:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 993CE10E532;
+	Wed, 15 Jan 2025 08:37:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="sD1BHVki";
+	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="MD8m5Vy4";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2087.outbound.protection.outlook.com [40.107.92.87])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 833CA10E532
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jan 2025 08:32:39 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cLX/YjDp3Aq/tAc3NsQvTOo68VmYTGet9icku+wHm1qM0WKORieIHTzmypljsVzwZI2HJtvAnqNTVbqgqAm03+htCKW/dsfbktk1JQRuPfXU1vBJ1vZBpQWyypGNtkMOo5n+LCJMBWcZfD6zY8ZfxDdGTRFrUmisg8ixzKcc4W3ddwiQcSJ+toQ6Nw6UZtX8jaqkPqJNjJpFqOvauTZ8xMgnXrghY9Umj2gWUrViPJbMlwG95y0BD0TSIYuml8L9pu1KYHLdprIKCSJo+RAr3ojYJns4oxBcndHIAYYG5J/kPZNbuiy1DGh2D8WjxzduNXxCJwBsp5ytbFHTcZXaIw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qAVDePZZ9oCNhqsH5OF906yC3hhhoEo9CTcJi2IRf+U=;
- b=I9xdr3UQgkncccxB4erwzFz0ArOwmskoBu7pzyiGo81Ey4Bmx+FNdJ8iYM7OuRX/6MyjzjfQcXcqiT5CpOL2WjGrZ/fSGQ6RYnVfIViuzjUQcKf7RNtyYg1koTZgzZDrOnXjBq6eraVQcPlDVSGP/KPlgan6PpDW0XRL0bC+as5X6XmeqGKTdEJwMCgEHzIvozXbC5kpOCfNbQ8vIRmBB32jaETQbRdKs8Xf7AMvKM8FPMkVxo1zzL9j7CSKQp+4Da8LFD/utSJAG0Hdgwi/Z1Cxz6JpbiA2vrG/MIVoefpArOWBFUOvjBnzGFcRehn/0ORseKNw83ipSn0zJpUcOA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qAVDePZZ9oCNhqsH5OF906yC3hhhoEo9CTcJi2IRf+U=;
- b=sD1BHVkiL7H90ox8msBOmRVqaoVE4IsaBd2HzNqr0LezAWuQeh6w3A/Egx7L0Vedx4XEAuF5ibaIeP/d2WS/QsTJD7HeRT6irt7Wt8hyvpONukRyjnRtND9Wd66fTr61IRuaAJIRt2l5GFLhj3twKQvcPhsgoLBEowwlTRIvcxk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
- SN7PR12MB8058.namprd12.prod.outlook.com (2603:10b6:806:348::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8356.13; Wed, 15 Jan
- 2025 08:32:37 +0000
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::8327:d71a:ce21:a290]) by DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::8327:d71a:ce21:a290%7]) with mapi id 15.20.8335.017; Wed, 15 Jan 2025
- 08:32:37 +0000
-Message-ID: <4031af6e-e5e0-4aa6-bca3-7dbf6c666d75@amd.com>
-Date: Wed, 15 Jan 2025 14:02:31 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: fix gpu recovery disable with per queue reset
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-To: "Kim, Jonathan" <Jonathan.Kim@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Cc: "Kasiviswanathan, Harish" <Harish.Kasiviswanathan@amd.com>
-References: <20250108200121.2808908-1-jonathan.kim@amd.com>
- <0ab5d4aa-ac2c-4108-99e5-902f73f827bb@amd.com>
- <CY8PR12MB7435645F2AB787B7BC57BB0A85132@CY8PR12MB7435.namprd12.prod.outlook.com>
- <f7a71dc8-7643-431e-8c92-ade74619ef2c@amd.com>
- <CY8PR12MB743599F7DD753244994863C6851C2@CY8PR12MB7435.namprd12.prod.outlook.com>
- <9600acc2-b6fc-4c22-a9d6-061250cf75e0@amd.com>
- <CY8PR12MB74358329999D20A4899DA18D851C2@CY8PR12MB7435.namprd12.prod.outlook.com>
- <fe31a1d4-d137-4d0e-8a63-321a5c365512@amd.com>
- <CY8PR12MB7435DC1509E304F279F6145185182@CY8PR12MB7435.namprd12.prod.outlook.com>
- <00eda50f-fb2c-419c-9bd3-2fe932cef057@amd.com>
-Content-Language: en-US
-In-Reply-To: <00eda50f-fb2c-419c-9bd3-2fe932cef057@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN2PEPF000001AC.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c04::12) To DS0PR12MB7804.namprd12.prod.outlook.com
- (2603:10b6:8:142::5)
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [IPv6:2a00:1450:4864:20::32a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B43A10E532
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jan 2025 08:37:42 +0000 (UTC)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-4364a37a1d7so65929925e9.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jan 2025 00:37:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ffwll.ch; s=google; t=1736930261; x=1737535061; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=t1lDtsTBmzeHySH6Oo2lABqepsQDxWNeuVS+1+aT2Qg=;
+ b=MD8m5Vy4OrlZDFAzIO++9D7LKSXDi836aAfTgOumoLGI974HFxC3MJAVgSazqp0lC4
+ f2B4CLlvtQ3TAFLmGXLEPwB3TafwV+/BeKEL44gIuhvVqEyfYWT7kZcYXegPT35K99fd
+ macd3YNSRI1X4mp8CJifDJ0rV8VXPxVgqdL8E=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1736930261; x=1737535061;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=t1lDtsTBmzeHySH6Oo2lABqepsQDxWNeuVS+1+aT2Qg=;
+ b=ce+ZIxGS4D+npNkaspGiEMy5qsbiZhX8cJ1KfzEhDONNwLDv8Cx/mryIlJLLs+eZRH
+ tc+PDKsr1IUK0qPoLwLriLs5rE/GdRVpusPN09o0NSe9RE1EivoE3AUU0LmH8WQAm2lj
+ cnHTXOW9UGTCmj2KZTWWRiDQcOro+lt71erq7h/1DhAiD17mXNO1II8HIFB7FRU97jj6
+ q/kccVcOewNLExx3iKv8fFXRD/zRnYtW67CoeKH1mwfNXrbYheUnQOlIQFeBvbqoQSJt
+ GVhaeBylDjT4yCAtNKqyNug4xIqcXh8cL3HbX5w4b002fJ2+GURod2syJTm5XvSgrvrt
+ 3SZQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWw9jVH+RtQPHPGco8PIY4K23kM0JihjIP4Q6ly9OBJ0vRo7HuBfEe/AHNKxcuXGd8j1+hy7rJw@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YykFzFIraCroqHaG/Hs8LAm5Zk38ZiuuGmG+qkSpZFjVUmMkZbp
+ 5ZXWoY90OUkhsy4bPKjR56ekXM904GXgyApg/Rl5bV0lJBFPHqny/y4rDnOesOo=
+X-Gm-Gg: ASbGncuhwIkULOma1WOgOPZ/M66I57bKxBZ7MsVinqu0jr+SYTGHnRNw9dWxpJyOGHD
+ VHMOZX7lFmem6MBHgN0eI/55xehXFAs6kifmArB8oq6r1iSRAvXArL93excO44EkFdP2MSntU++
+ aPu4CFv5G0dPaH0Pj/15To0z85dftUaTNxQBpw55TadMZ1Fyo5uRTx3gr2DqFpplJNiHAjCElgE
+ 449rXQQYuO2JFWp1dQCgfXe1nWFJmG1qZ8r2f4pEyYcXdBkpmcnsmhm5pKBLaiBO3q7
+X-Google-Smtp-Source: AGHT+IFCngAu+YTirFFtvbri7ZMR5JigjYzfZ83aMKoKXVXXIAkEYs+Sq0xIkzeDUko621Th102jfQ==
+X-Received: by 2002:a7b:c4c9:0:b0:436:f960:3428 with SMTP id
+ 5b1f17b1804b1-436f96034b3mr120401255e9.29.1736930260377; 
+ Wed, 15 Jan 2025 00:37:40 -0800 (PST)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:5485:d4b2:c087:b497])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-437c74e6511sm15215655e9.38.2025.01.15.00.37.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 15 Jan 2025 00:37:39 -0800 (PST)
+Date: Wed, 15 Jan 2025 09:37:37 +0100
+From: Simona Vetter <simona.vetter@ffwll.ch>
+To: Faith Ekstrand <faith@gfxstrand.net>
+Cc: Marek =?utf-8?B?T2zFocOhaw==?= <maraeo@gmail.com>,
+ James Jones <jajones@nvidia.com>, Simona Vetter <simona.vetter@ffwll.ch>,
+ Daniel Stone <daniel@fooishbar.org>, Brian Starkey <brian.starkey@arm.com>,
+ Michel =?iso-8859-1?Q?D=E4nzer?= <michel.daenzer@mailbox.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
+ ML Mesa-dev <mesa-dev@lists.freedesktop.org>, nd@arm.com,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+Subject: Re: [PATCH] drm/fourcc: add LINEAR modifiers with an exact pitch
+ alignment
+Message-ID: <Z4dz0dP12dcy5bhz@phenom.ffwll.local>
+References: <c64cb9d8-5ea7-4644-93c8-04a97b758fa0@mailbox.org>
+ <h26quuebhpxwkc3fl4vtfteoqyvingnddgxbnzptfnxfg6xgkd@kkkmeqwplomv>
+ <8dae97c9-9286-451a-8122-b309eb21b2f4@mailbox.org>
+ <Z2Ki-lQH4Fbch6RO@phenom.ffwll.local>
+ <q45c43j5kwwvemec7mcs4kqzt54pa3nz3jlhkcky2v63s2vfie@him4q253uw4p>
+ <CAPj87rMFJ0JRvsKqZUsw_EGrFWr1VLO4Ne2w_bZ5cH+gs_d=og@mail.gmail.com>
+ <Z2Rf7mpSuzZ0ObmT@phenom.ffwll.local>
+ <07d08a42-c44a-477e-8057-721b270310cf@nvidia.com>
+ <CAAxE2A6N0xtgZmzTR9FXMN79xxy3T8zfhh1sz73h1h8=0ycJ2g@mail.gmail.com>
+ <19466180208.28b9.76a0d8c26856b44b62c020e2e9d89f6d@gfxstrand.net>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB7804:EE_|SN7PR12MB8058:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2ff5e3fd-618c-4e81-f051-08dd353f2a94
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016|7053199007;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?OE5zQ3F0WWZEc25Qc3BsL1F3VTNrdWV2SFh5bVZsQkYyenlzeHF3YU5IN3Ux?=
- =?utf-8?B?a0tBRlg4NnVYWitCdVlXZWhiRThNeHBKU2IzQ3ZLUzY0S1o4emN0VHBvTWE5?=
- =?utf-8?B?VURLUmJsNVhNVDBMRXYzeWhLK3lpVjdobVFCelZ3VldCbWEwZzdCUEUyNkZ1?=
- =?utf-8?B?K0JZL1VHTkxrTG9jbWVoMnl1ak0yMDhkWnF0dTlCZ3ZxMGh1REpNYWY1eUR5?=
- =?utf-8?B?bEhiemo3a3o1bTNxbFRGSC9nRXovMDIraWVuMDlNNGdmVWFaV2RhSHoxK3Yz?=
- =?utf-8?B?dGhpd2tCb3ZLVFptUEgxUW5BdlFkREpWVW51ajlTdjJrQ2lqSWQxQ2dFYXNR?=
- =?utf-8?B?cnBKQUU4aUtRYkwzNHVaQTRNVVpwSHVZUXcvbTdVb0QwRkM4ME1zQTMvRW5p?=
- =?utf-8?B?bzNvVjJVZElGa04vRGh4anUySk5Ya0hDWFN0MGEzbSszTlFpU1k5NmV3alpY?=
- =?utf-8?B?V0FtNVlBV092aml6UmxUSVpWRG9ZMkM4Z29ESWRtdG1pbmM2a0tXRXovL3Y1?=
- =?utf-8?B?aDdSc0dIdFVwYVdDN0tlS1B0OTNxSjU2K2NYUVRYL3JGS2RsbFhuY0EyM09I?=
- =?utf-8?B?dkljWDBYTDFnUnhsTGJmcEhqQ011dmg5ZWIrS3V4YkJERS9ha0tHT2JtVEJX?=
- =?utf-8?B?MjJVdEVjVEUyQjhNQ0NmK20wM3BFclp2YzNZYmZGOU9DYzdQYnJvOFNuZzR2?=
- =?utf-8?B?cllKYXJ4aGo3YTVGMUZ3VFZUMEdmcW9ubm45c1Zxbm1UbjdFVWxaTEwrV1BS?=
- =?utf-8?B?b2h4NjFWNm1waEJ4aUtkeFhXUm1rN3ZlcFBXcHR4eVRzYnJERzd4SUZtR0Vu?=
- =?utf-8?B?RTdrVzZmaDI1eE9obVBSWTM2VUdlcG0wa0pzQ2hFeS96UG9vUkEzcm5zSzZH?=
- =?utf-8?B?cGFZaGVyYk5Ia2VwVGthM0JWOTVPSXNDeWwzNEJkRlFTWWErdk9ISEY2dEps?=
- =?utf-8?B?eVYybDdwbFo1a25pRDNHZ2pOQUczcUszMzZEZ2NuMU10UTU0ZHpGRWYzclNR?=
- =?utf-8?B?Kyt4UUFxWU9DZE9hcUhTbUo3ZXQvQkExR3p3SUtoeUN1K3Vnb0xBaCsxQTlE?=
- =?utf-8?B?OEk5dk5yQTNVcWk4alFCbUNjNVRtOUtJWnBZTHBzb3VURlM0VjBuN0JFVkI2?=
- =?utf-8?B?QjU4eHFrZW0vMDRGT3R0NUtDeW5DaW9WeS85OG1DcEJmVnJMbkNwR20zRDRG?=
- =?utf-8?B?RHBRREpyUHlMa3FERjdnRVBKUVYvd09tYXRvWEpiVUEzcFZOblIzQ1RiVktM?=
- =?utf-8?B?TCthaHhsOHhjbFlLUVdJSmZDblJNTmVoM24yTmhNQThzZkI2bGhBWHo2TGp3?=
- =?utf-8?B?UFd5Z0dBRllvdGpYeE55azFBNE5ndHMyMDRDUFBpR3RMTU9KWURtaTM0bFV1?=
- =?utf-8?B?OG5HNEcyWFdYNVJzN0hJTGtyMzRWNExFS3BMSm5wVWozRkY2b1lQQ3Y2STBS?=
- =?utf-8?B?QlhZWHQrTmdzWnVvOUdlRW9ESTh6aUpzbTNwRzBqL21udElHQnc3YngyVnp2?=
- =?utf-8?B?S3hNYjVDcFl3OTVwVytBYW0veExTRTV0M1BFdjlLaDVGUGRFT2F0NjdZQnUv?=
- =?utf-8?B?aUQwdlZQU1c2OTdQcVRUTFZvU29wWXlDellJTUNGTHh0NElONEp5ZjExbm9i?=
- =?utf-8?B?aVZvN1EvMHo1NDEweSsvS2N3NzBXL1hRSzJBV3FGanowZEk4YVRJSllHcHpZ?=
- =?utf-8?B?bUpYeUFlWkhTSmY4NmlOSWJqV3B5ZWRrMWZidmFQK2h5TkQxRjNCQm1KbUZy?=
- =?utf-8?B?OFo4aVNxU3JMNklkSThickxKT3RlMnMwMG12b0VlWStmWDg1bUhiZFpmVGg2?=
- =?utf-8?B?Rjl1S3NBYzVyN1o0eHM5OTNCK1l5NnRKRlhHTUZHeU1adEdrWlJUeWJQa2M0?=
- =?utf-8?Q?eVKQDbpihktcp?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(7053199007); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aFhYc2hVMDRMTHJtUk5aUmZCblQvVzBMRTZZZ0RmMXlldGJBZlBzNm03Ymp6?=
- =?utf-8?B?Q0RteVdxTXFtMEowRXJuU2p2K0pwWFR2OStGa1Vxems0U3J5SGtsZE5OL3da?=
- =?utf-8?B?TFZTVFlNVDNVUEVJWFB0RE5vSnJvN1VhaWd0M1ZRYVFjdERSbnNIZTZxZDM0?=
- =?utf-8?B?RkxFZ3ByVHovc21yY0t2ck5HcFB5L1pJbFNlNnFQT2ZGckhJNXg2dEJCOUVz?=
- =?utf-8?B?amlGczlYYlN4VmlDdHI5Ui9DUGswZG9WOG9HMS96RDU0N05WNWNsQ2RuSmg2?=
- =?utf-8?B?UU5XbGl0WlFPNnNObmdrM0M4dE9KWC9vWXFmSkdhUU1sY2tKUVNWY2RibnRz?=
- =?utf-8?B?UzROTDBTUlZNaFZLbDJRbVl4dmp4Z0pPVXlCdmNSbjh4UWluR3luVjRxaDZF?=
- =?utf-8?B?S1ZCd0NLcEZHNUFYT2tnaDkwSmhhY29SZTZoNEtpa29mRWd1bzhuYTJ3TFJV?=
- =?utf-8?B?dDk0a2h3MG9IRGZlOFlGNkJnZkQ3RlhzekFwQW5tR2Z6cVlHZ2Y5SGdJUHQ1?=
- =?utf-8?B?NzhUNUJjQ0dvVXQ0R251dGFqRk80VHFPd0xwb21mamRxR0NvQWhXZmRvNXpO?=
- =?utf-8?B?QnlybWxpK2Zma2wyWDIrbTIxMkt0NVNXMnBnSm1xYS9tYk9GN3F1THVId0p5?=
- =?utf-8?B?M3FnbXJmaW1sekN2dXJXK05LUzdpb3pEYitWUEpPSW12bmQzbmRQR3dFRmFI?=
- =?utf-8?B?NXB2SnhoUnRiTG5NbGprbEJENTZLWjMvcnpwOE8ycmd3Vmw3dS9CdVE0R3pr?=
- =?utf-8?B?SEl5RFVvNkpJTE1udElwRmxkU09aZTI3T0xxOXF0MDg1ZUd4aU4rdDNueStN?=
- =?utf-8?B?R1MyVFNjWGNsSWhBNHJrQTZtVWs1UTl3QW92RDR3MlZxNE44b3BHOGhPdHVO?=
- =?utf-8?B?SXlSVzdHTWpCZ3pKUVliM0xLK3V0YW9yV0ZKRDFRRTYyVTJjU0t2L3lsK21B?=
- =?utf-8?B?Y2syZ1dyT1BKQURhVnAyUGpoblJZSmcxK2lxWVpVOFJIdGFmTU54VHJjR3F4?=
- =?utf-8?B?TkpLRitJWUpLdGVZWXFQY1Z3Z1pIektaWU1lUnBLcDNnVmsweE4welZJU1pI?=
- =?utf-8?B?QTluYjhEUHVRUGlyQ0l0MnlEWmhKN2ZpSGE2dWhjNm51VFAxU2xRZlJVVDNI?=
- =?utf-8?B?d0RleGVad3RGd0crOCtBTHg0WjBld1d0dlNnOTBkRlNBTFl3dEhNTERUbUZx?=
- =?utf-8?B?bHFkcW5HcDZpYXI1YXFGaUtlZGFEK0JYOE9rQXdlWE8zZjZ1Z1JlcFlPTjc2?=
- =?utf-8?B?UU5IQXlEWUM5YW14NlJiRTA3WW5kbkVWL3VJdnlEM1o3MWF6ZU1VNEJILzA4?=
- =?utf-8?B?bS9EMkZhQ2JDWit2aTIrOHJkd01KUlhDMisvaGpZbzJDZXhzTlJiVXkxRjhS?=
- =?utf-8?B?bitLa3lta0dLQW9HeXpuaW5VdTBYaHdObDZCV2pISDFoZ0E3TGZPQnZVeXRr?=
- =?utf-8?B?RnY2WnJ3dUxEWW02dHBLdHNxanVaNmw4RlhTSE9OZzdaSit5eXZzbmlwV1J4?=
- =?utf-8?B?SHNvRzhVa0pkYSsrWVVBTDQwZUNFSDNJSzdpb2VoSW1TSVgyWlNvMHlkL1pR?=
- =?utf-8?B?Qk13WlJyZExQd25hVk1GbzRuQ0hTWnZndTRINzB1MDF0Q2hheERJQUgxYXEr?=
- =?utf-8?B?eWE5ejg1WEpsZ2hYeU5PcE51Um9iU3V0byswd1M2NGFuTlN4VUVHRkpNVTcx?=
- =?utf-8?B?bGdNa2h0aXFZRW1TaWRwVXI5QjVaekt0ZERXRWowazc3L1RUUis4cFFIMGpk?=
- =?utf-8?B?bHRyYU95OEJ4djQwVGVwcXVJTFFibEZPR3llK0FiMzhnb01JOTdoTmgzeVdF?=
- =?utf-8?B?ekN1bHBWTnRxMkd5dms5dWxKbE50aDdQRmIyQzBKVjRUUFJVcHEyeGV3VEJp?=
- =?utf-8?B?cFZIZXBmdCs1T3dCeC9uMnJZeHBreXdBZkVNZVlIM2lhblFvVUpIazFoaDB1?=
- =?utf-8?B?cGtKcGtBZ1RkeFhZR3dkMVV3MEZIUGgyRk1nOFp4MTdTM25wU0FVbHkxK0pR?=
- =?utf-8?B?TG5PY2VJSzFUMXJSdFlvMVRuemhuUGlvTlRwTk9Cb3dQR2hrZXgxbXVNWEhq?=
- =?utf-8?B?UnNMK3U4K1d2VXl4SzhkWVZ3RlNGQUhYMnBHL2RacENaVFRsQUM5WGtVaFAw?=
- =?utf-8?Q?YAG4FV1pvsXhLXCQA9V09ITdP?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2ff5e3fd-618c-4e81-f051-08dd353f2a94
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7804.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jan 2025 08:32:37.3414 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hsyX5GauJvA/sI02xckXAho6oDg2OSFNrD3oh4jMYd0zWR1SoBKbsuwRGnAxfNFy
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8058
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <19466180208.28b9.76a0d8c26856b44b62c020e2e9d89f6d@gfxstrand.net>
+X-Operating-System: Linux phenom 6.12.3-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -169,218 +101,256 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Tue, Jan 14, 2025 at 12:33:57PM -0600, Faith Ekstrand wrote:
+> On January 14, 2025 03:39:45 Marek Olšák <maraeo@gmail.com> wrote:
+> > I would keep the existing modifier interfaces, API extensions, and
+> > expectations the same as today for simplicity.
+> > 
+> > The new linear modifier definition (proposal) will have these fields:
+> >   5 bits for log2 pitch alignment in bytes
+> >   5 bits for log2 height alignment in rows
+> > 
+> >   5 bits for log2 offset alignment in bytes
+> >   5 bits for log2 minimum pitch in bytes
+> > 
+> >   5 bits for log2 minimum (2D) image size in bytes
+> 
+> I'm not strictly opposed to adding a new modifier or two but this seems
+> massively over-designed. First off, no one uses anything but simple 2D
+> images for WSI and BOs are allocated in units of 4k pages so 2, 4, and 5 can
+> go. If we assume pitch alignment and offset alignment are the same (and
+> offset is almost always 0 anyway), 3 can go.
+> 
+> Even with that, I'm struggling to see how useful this is. My understanding
+> is that you're trying to solve a problem where you need an exact 64-byte
+> alignment for some AMD scanout stuff. That's not even possible to support on
+> Nvidia (minimum alignment is 128B) so practically you're looking at one
+> modifier that's shared between AMD and Intel. Why can't we just add an AMD
+> modifier, make Intel support it, and move on?
+> 
+> Otherwise we're massively exploding the modifier space for... Why? Intel
+> will have to advertise basically all of them. Nvidia will advertise most of
+> them. AMD will advertise something. And now apps have tens of thousands of
+> modifiers to sort through when we could have just added one and solved the
+> problem.
 
+Yeah I feel like step 1 here would be to just add LINEAR_AMD, document the
+requirements, add it to drivers that can pull it in for display or
+whatever or have some other interop requirement, and see where we go.
 
-On 1/15/2025 1:59 PM, Lazar, Lijo wrote:
+The combinatorial explosion of linear constraints is way too much as
+Daniel/James both point out, but luckily there's not that many
+gpu/display/camera vendors in this world, and we do have like almost
+56bits of LINEAR space we can waste.
+
+What we cannot do is drop LINEAR itself, since that would break the world.
+Maybe in some glorious future, if there's enough drivers out there
+supporting vendor linear modifiers, userspace could know that LINEAR is
+special, and if it finds a matching vendor LINEAR_FOO modifier, it should
+prefer that one. But then we could probably achieve the same by something
+like "try common modifiers in order" and put LINEAR last consistently,
+after all the vendor linear modifers, and have the same effect.
+-Sima
+
+> ~Faith
 > 
 > 
-> On 1/14/2025 10:51 PM, Kim, Jonathan wrote:
->> [Public]
->>
->>> -----Original Message-----
->>> From: Lazar, Lijo <Lijo.Lazar@amd.com>
->>> Sent: Friday, January 10, 2025 10:37 PM
->>> To: Kim, Jonathan <Jonathan.Kim@amd.com>; amd-gfx@lists.freedesktop.org
->>> Cc: Kasiviswanathan, Harish <Harish.Kasiviswanathan@amd.com>
->>> Subject: Re: [PATCH] drm/amdgpu: fix gpu recovery disable with per queue reset
->>>
->>>
->>>
->>> On 1/11/2025 2:53 AM, Kim, Jonathan wrote:
->>>> [Public]
->>>>
->>>>> -----Original Message-----
->>>>> From: Lazar, Lijo <Lijo.Lazar@amd.com>
->>>>> Sent: Friday, January 10, 2025 11:29 AM
->>>>> To: Kim, Jonathan <Jonathan.Kim@amd.com>; amd-gfx@lists.freedesktop.org
->>>>> Cc: Kasiviswanathan, Harish <Harish.Kasiviswanathan@amd.com>
->>>>> Subject: Re: [PATCH] drm/amdgpu: fix gpu recovery disable with per queue reset
->>>>>
->>>>>
->>>>>
->>>>> On 1/10/2025 9:43 PM, Kim, Jonathan wrote:
->>>>>> [Public]
->>>>>>
->>>>>>> -----Original Message-----
->>>>>>> From: Lazar, Lijo <Lijo.Lazar@amd.com>
->>>>>>> Sent: Thursday, January 9, 2025 10:39 PM
->>>>>>> To: Kim, Jonathan <Jonathan.Kim@amd.com>; amd-gfx@lists.freedesktop.org
->>>>>>> Cc: Kasiviswanathan, Harish <Harish.Kasiviswanathan@amd.com>
->>>>>>> Subject: Re: [PATCH] drm/amdgpu: fix gpu recovery disable with per queue
->>> reset
->>>>>>>
->>>>>>>
->>>>>>>
->>>>>>> On 1/9/2025 8:27 PM, Kim, Jonathan wrote:
->>>>>>>> [Public]
->>>>>>>>
->>>>>>>>> -----Original Message-----
->>>>>>>>> From: Lazar, Lijo <Lijo.Lazar@amd.com>
->>>>>>>>> Sent: Thursday, January 9, 2025 1:14 AM
->>>>>>>>> To: Kim, Jonathan <Jonathan.Kim@amd.com>; amd-
->>> gfx@lists.freedesktop.org
->>>>>>>>> Cc: Kasiviswanathan, Harish <Harish.Kasiviswanathan@amd.com>
->>>>>>>>> Subject: Re: [PATCH] drm/amdgpu: fix gpu recovery disable with per queue
->>>>> reset
->>>>>>>>>
->>>>>>>>>
->>>>>>>>>
->>>>>>>>> On 1/9/2025 1:31 AM, Jonathan Kim wrote:
->>>>>>>>>> Per queue reset should be bypassed when gpu recovery is disabled
->>>>>>>>>> with module parameter.
->>>>>>>>>>
->>>>>>>>>> Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
->>>>>>>>>> ---
->>>>>>>>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c | 6 ++++++
->>>>>>>>>>  1 file changed, 6 insertions(+)
->>>>>>>>>>
->>>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
->>>>>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
->>>>>>>>>> index cc66ebb7bae1..441568163e20 100644
->>>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
->>>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
->>>>>>>>>> @@ -1131,6 +1131,9 @@ uint64_t kgd_gfx_v9_hqd_get_pq_addr(struct
->>>>>>>>> amdgpu_device *adev,
->>>>>>>>>>     uint32_t low, high;
->>>>>>>>>>     uint64_t queue_addr = 0;
->>>>>>>>>>
->>>>>>>>>> +   if (!amdgpu_gpu_recovery)
->>>>>>>>>> +           return 0;
->>>>>>>>>> +
->>>>>>>>>>     kgd_gfx_v9_acquire_queue(adev, pipe_id, queue_id, inst);
->>>>>>>>>>     amdgpu_gfx_rlc_enter_safe_mode(adev, inst);
->>>>>>>>>>
->>>>>>>>>> @@ -1179,6 +1182,9 @@ uint64_t kgd_gfx_v9_hqd_reset(struct
->>>>>>> amdgpu_device
->>>>>>>>> *adev,
->>>>>>>>>>     uint32_t low, high, pipe_reset_data = 0;
->>>>>>>>>>     uint64_t queue_addr = 0;
->>>>>>>>>>
->>>>>>>>>> +   if (!amdgpu_gpu_recovery)
->>>>>>>>>> +           return 0;
->>>>>>>>>> +
->>>>>>>>>
->>>>>>>>> I think the right place for this check is not inside callback, should be
->>>>>>>>> from the place where the callback gets called.
->>>>>>>>
->>>>>>>> I don't think it really matters.  We're going to have different reset types in the
->>>>> future
->>>>>>> that my come from different callers.
->>>>>>>> It's probably easier to remember to put the bypass where the reset is actually
->>>>>>> happening.
->>>>>>>>
->>>>>>>
->>>>>>> If I want to define something like amdgpu_gpu_recovery=2 (don't do queue
->>>>>>> reset but perform other resets), then it matters.
->>>>>>
->>>>>> I don't get why that matters.
->>>>>> This callback alone, for example, calls 2 types of resets within itself (queue then
->>>>> pipe).
->>>>>> If you wanted partial resets between queue and pipe in this case, you'd have to
->>>>> branch test within the callback itself.
->>>>>> GPU reset bypass checks are invisible to the KFD section of the code as well.
->>>>>>
->>>>>>>
->>>>>>> Since this is a callback, keeping it at the wrapper place may be more
->>>>>>> maintainable rather than keeping the check for gfx10/11/12 etc.
->>>>>>
->>>>>> Maybe not.  MES is preemption checks are not like MEC preemption checks at
->>> all.
->>>>>> And we probably don't want to jam other future IP resets into a single caller.
->>>>>> If you look at the kfd2kgd callbacks, most are pretty much copy and paste from
->>> one
->>>>> generation to another.
->>>>>> I don't see how putting the test in the callback makes it less maintainable.
->>>>>>
->>>>>
->>>>> My thought process was this could be put in - reset_queues_on_hws_hang
->>>>> and anything similar handles MES based queue resets. What you are saying
->>>>> there won't be anything like reset_queue_by_mes() for MES based resets.
->>>>> Is that correct?
->>>>
->>>> No the opposite.  But now we'd have to remember to put it in 2 places where
->>> there's still no visible test for gpu reset bypass in the same file.
->>>> SDMA resets are also being implemented and will probably have to be called in
->>> different places in the KFD as well.
->>>> We can look at consolidating this later as more devices and IPs get done if it
->>> makes sense to abstract this stuff.
->>>> My point is, the callback does the reset and returns a reset status.
->>>> Bypassing by fail return seems easier to remember and leverage.
->>>
->>> Ok, we have SDMA queue reset called from job timeouts. If it's getting
->>> called from KFD too, will look at consolidating that one.
->>>
->>> BTW, if this is returning a fake success, won't it result in a print
->>> like queue reset succeeded which gives the false impression that queue
->>> reset happened? Or, should it return a different error code like
->>> 'ECANCELED' since operation is intentionally skipped through module param
->>
->> Well ... the call is supposed to return an address of which queue got reset where a null return indicates "no queue got reset".
-> 
-> We should also somehow indicate to the user that the queue indeed ran
-> into a reset situation. Not sure if that is taken care if address is
-> returned as NULL.
-> 
->> I'm thinking to make this simpler, maybe we change reset_queues_on_hws into a wrapper that takes in a queue type input (compute, sdma etc) and branches to the right reset call based on input type.
->> That way we only need 1 place to do the gpu_recovery enablement check in the KFD, and the KFD has the flexibility to call this wrapper where ever it wants to without having to worry about the module parameter status in the future.
-> 
-> Yes, this was the intention of original comment - to add at caller place
-> rather than inside callback. It provides a one-place (or fewer places)
-> control of the usage.
-> 
-> While at it, suggest to use amdgpu_device_should_recover_gpu(). This
-> will give an info message if recovery is disabled, and we could control
-> different meanings of this param (Ex: gpu_recovery = 2, avoid sdma queue
-> reset alone) through the same function.
+> > 
+> > 
+> > 
+> > The pitch and the image size in bytes are no longer arbitrary values.
+> > They are fixed values computed from {width, height, bpp, modifier} as
+> > follows:
+> >   aligned_width = align(width * bpp / 8, 1 << log2_pitch_alignment);
+> > 
+> >   aligned_height = align(height, 1 << log2_height_alignment);
+> >   pitch = max(1 << log2_minimum_pitch, aligned_width);
+> > 
+> >   image_size = max(1 << log2_minimum_image_size, pitch * aligned_height);
+> > 
+> > 
+> > The modifier defines the layout exactly and non-ambiguously.
+> > Overaligning the pitch or height is not supported. Only the offset
+> > alignment has some freedom regarding placement. Drivers can expose
+> > whatever they want within that definition, even exposing only 1 linear
+> > modifier is OK. Then, you can look at modifiers of other drivers if you
+> > want to find commonalities.
+> > 
+> > 
+> > DRM_FORMAT_MOD_LINEAR needs to go because it prevents apps from
+> > detecting whether 2 devices have 0 compatible memory layouts, which is a
+> > useful thing to know.
+> > 
+> > 
+> > Marek
+> > 
+> > 
+> > 
+> > On Fri, Jan 10, 2025 at 4:23 PM James Jones <jajones@nvidia.com> wrote:
+> > 
+> > On 12/19/24 10:03, Simona Vetter wrote:
+> > > On Thu, Dec 19, 2024 at 09:02:27AM +0000, Daniel Stone wrote:
+> > > > On Wed, 18 Dec 2024 at 10:32, Brian Starkey <brian.starkey@arm.com> wrote:
+> > > > > On Wed, Dec 18, 2024 at 11:24:58AM +0000, Simona Vetter wrote:
+> > > > > > For that reason I think linear modifiers with explicit pitch/size
+> > > > > > alignment constraints is a sound concept and fits into how modifiers work
+> > > > > > overall.
+> > > > > 
+> > > > > Could we make it (more) clear that pitch alignment is a "special"
+> > > > > constraint (in that it's really a description of the buffer layout),
+> > > > > and that constraints in-general shouldn't be exposed via modifiers?
+> > > > 
+> > > > It's still worryingly common to see requirements for contiguous
+> > > > allocation, if for no other reason than we'll all be stuck with
+> > > > Freescale/NXP i.MX6 for a long time to come. Would that be in scope
+> > > > for expressing constraints via modifiers as well, and if so, should we
+> > > > be trying to use feature bits to express this?
+> > > > 
+> > > > How this would be used in practice is also way too underdocumented. We
+> > > > need to document that exact-round-up 64b is more restrictive than
+> > > > any-multiple-of 64b is more restrictive than 'classic' linear. We need
+> > > > to document what people should advertise - if we were starting from
+> > > > scratch, the clear answer would be that anything which doesn't care
+> > > > should advertise all three, anything advertising any-multiple-of
+> > > > should also advertise exact-round-up, etc.
+> > > > 
+> > > > But we're not starting from scratch, and since linear is 'special',
+> > > > userspace already has explicit knowledge of it. So AMD is going to
+> > > > have to advertise LINEAR forever, because media frameworks know about
+> > > > DRM_FORMAT_MOD_LINEAR and pass that around explicitly when they know
+> > > > that the buffer is linear. That and not breaking older userspace
+> > > > running in containers or as part of a bisect or whatever.
+> > > > 
+> > > > There's also the question of what e.g. gbm_bo_get_modifier() should
+> > > > return. Again, if we were starting from scratch, most restrictive
+> > > > would make sense. But we're not, so I think it has to return LINEAR
+> > > > for maximum compatibility (because modifiers can't be morphed into
+> > > > other ones for fun), which further cements that we're not removing
+> > > > LINEAR.
+> > > > 
+> > > > And how should allocators determine what to go for? Given that, I
+> > > > think the only sensible semantics are, when only LINEAR has been
+> > > > passed, to pick the most restrictive set possible; when LINEAR
+> > > > variants have been passed as well as LINEAR, to act as if LINEAR were
+> > > > not passed at all.
+> > > 
+> > > Yeah I think this makes sense, and we'd need to add that to the kerneldoc
+> > > about how drivers/apps/frameworks need to work with variants of LINEAR.
+> > > 
+> > > Just deprecating LINEAR does indeed not work. The same way it was really
+> > > hard slow crawl (and we're still not there everywhere, if you include
+> > > stuff like bare metal Xorg) trying to retire the implied modifier. Maybe,
+> > > in an extremely bright future were all relevant drivers advertise a full
+> > > set of LINEAR variants, and all frameworks understand them, we'll get
+> > > there. But if AMD is the one special case that really needs this I don't
+> > > think it's realistic to plan for that, and what Daniel describe above
+> > > looks like the future we're stuck to.
+> > > -Sima
+> > 
+> > I spent some time thinking about this over the break, because on a venn
+> > diagram it does overlap a sliver of the work we've done to define the
+> > differences between the concepts of constraints Vs. capabilities in the
+> > smorgasbord of unified memory allocator talks/workshops/prototypes/etc.
+> > over the years. I'm not that worried about some overlap being
+> > introduced, because every reasonable rule deserves an exception here and
+> > there, but I have concerns similar to Daniel's and Brian's.
+> > 
+> > Once you start adding more than one special modifier, some things in the
+> > existing usage start to break down. Right now you can naively pass
+> > around modifiers, then somewhere either before or just after allocation
+> > depending on your usage, check if LINEAR is available and take your
+> > special "I can parse this thing" path, for whatever that means in your
+> > special use case. Modifying all those paths to include one variant of
+> > linear is probably OK-but-not-great. Modifying all those paths to
+> > include <N> variants of linear is probably unrealistic, and I do worry
+> > about slippery slopes here.
+> > 
+> > ---
+> > 
+> > What got me more interested though was this led to another thought. At
+> > first I didn't notice that this was an exact-match constraint and
+> > thought it meant the usual alignment constraint of >=, and I was
+> > concerned about how future variants would interact poorly. It could
+> > still be a concern if things progress down this route, and we have
+> > vendor A requiring >= 32B alignment and vendor B requiring == 64B
+> > alignment. They're compatible, but modifiers expressing this would
+> > naively cancel each-other out unless vendor A proactively advertised ==
+> > 64B linear modifiers too. This isn't a huge deal at that scale, but it
+> > could get worse, and it got me thinking about a way to solve the problem
+> > of a less naive way to merge modifier lists.
+> > 
+> > As a background, the two hard problems left with implementing a
+> > constraint system to sit alongside the format modifier system are:
+> > 
+> > 1) A way to name special heaps (E.g., local vidmem on device A) in the
+> > constraints in a way that spans process boundaries using some sort of
+> > identifier. There are various ways to solve this. Lately the thinking is
+> > something around dma heaps, but no one's fleshed it out yet that I'm aware.
+> > 
+> > 2) A transport that doesn't require us to revise every userspace API,
+> > kernel API, and protocol that got revised to support DRM format
+> > modifiers, and every API/protocol introduced since.
+> > 
+> > I haven't seen any great ideas for the latter problem yet, but what if
+> > we did this:
+> > 
+> > - Introduced a new DRM format modifier vendor that was actually
+> > vendor-agnostic, but implied the format modifier was a constraint
+> > definition fragment instead of an actual modifier.
+> > 
+> > - Constraint-aware code could tack on its constraints (The ones it
+> > requires and/or the ones it can support allocating) as a series of
+> > additional modifiers using this vendor code. A given constraint might be
+> > fragmented into multiple modifiers, but their definition and
+> > serialization/deserialization mechanism could be defined in drm_fourcc.h
+> > as macros all the clients could use.
+> > 
+> > - Existing non-constraint-aware code in a modifier usage chain might
+> > filter these modifiers out using the existing strict intersection logic.
+> > Hence, any link in the chain not aware of constraints would likely block
+> > their use, but that's OK. We're muddling along without them now. It
+> > wouldn't make those situations any worse.
+> > 
+> > - New code would be required to use some minimal library (Header-only
+> > perhaps, as Simon and I proposed a few years ago) to intersect format
+> > modifier lists instead, and this code would parse out the constraint
+> > modifiers from each input list and use the envisioned per-constraint
+> > logic to merge them. It would result in yet another merged
+> > modifier+constraint list encoded as a list of modifiers that could be
+> > passed along through any format-modifier-aware API.
+> > 
+> > - One consideration that would be sort of tricky is that constraints are
+> > supposed to be advertised per-modifier, so you'd have to have a way to
+> > associate constraint modifiers in a given set with real modifiers in
+> > that set or in general. This is easily solved though. Some bits of the
+> > constraint modifiers would already need to be used to associate and
+> > order constraint fragments during deserialization, since modifier lists
+> > aren't strictly ordered.
+> > 
+> > This effectively allows you to use format modifiers to encode
+> > arbitrarily complex constraint mechanisms by piggybacking on the
+> > existing format modifier definition and transport mechanisms without
+> > breaking backwards compatibility. It's a little dirty, because modifiers
+> > are being abused to implement a raw bitstream, but modifiers and
+> > constraints are related concepts, so it's not a complete hack. It still
+> > requires modifying all the implementations in the system to fully make
+> > use of constraints, but doesn't require e.g. revising X11 DRI3 protocol
+> > again to tunnel them through Xwayland, and in situations where the
+> > constraint-aware thing sits downstream of the non-constraint-aware thing
+> > in the allocation pipeline, you could get some benefit even when all the
+> > upstream things aren't updated yet, because it could still merge in its
+> > local constraints before allocating or passing the modifier list down
+> > the chain.
+> > 
+> > Does this seem like something worth pursuing to others? I've been trying
+> > to decide how to best move the allocation constraints efforts forward,
+> > so it's potentially something I could put some time into this year.
+> > 
+> > Thanks,
+> > -James
 > 
 
-As an afterthought, realized that this function doesn't have a param for
-the type of recovery attempted. This may be added later if at all we
-have a situation to assign new param values like skip reset for sdma
-alone. Would still recommend to use the same function instead of direct
-value check of param.
-
-Thanks,
-Lijo
-
-> Thanks,
-> Lijo
-> 
->>
->> Jon
->>
->>>
->>> Thanks,
->>> Lijo
->>>
->>>> That being said, putting the test in hqd_get_pq_addr was probably overkill, but I
->>> don't think anyone really cares to use it with gpu recovery off on its own at the
->>> moment.
->>>>
->>>> Jon
->>>>
->>>>>
->>>>> Thanks,
->>>>> Lijo
->>>>>
->>>>>> Jon
->>>>>>
->>>>>>>
->>>>>>> Thanks,
->>>>>>> Lijo
->>>>>>>
->>>>>>>> Jon
->>>>>>>>
->>>>>>>>>
->>>>>>>>> Thanks,
->>>>>>>>> Lijo
->>>>>>>>>
->>>>>>>>>>     kgd_gfx_v9_acquire_queue(adev, pipe_id, queue_id, inst);
->>>>>>>>>>     amdgpu_gfx_rlc_enter_safe_mode(adev, inst);
->>>>>>>>>>
->>>>>>>>
->>>>>>
->>>>
->>
-> 
-
+-- 
+Simona Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
