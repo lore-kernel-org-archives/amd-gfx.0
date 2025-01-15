@@ -4,46 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBEABE77188
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2025 01:34:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17DACE77188
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2025 01:41:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D69E10E388;
-	Wed, 15 Jan 2025 01:34:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD4C010E467;
+	Wed, 15 Jan 2025 01:41:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HBygPGta";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="oSCjJVNK";
 	dkim-atps=neutral
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E90110E388
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jan 2025 01:34:48 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 23D63A41A83;
- Wed, 15 Jan 2025 01:32:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E25EC4CEDD;
- Wed, 15 Jan 2025 01:34:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1736904886;
- bh=OXCHDIVdFs+lD+uci6+EY4R2agA/+sdGam9mXKqjzhs=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=HBygPGta7fs0zulpH4swS2t1N+kZKFXIxcKBmN2/Ewi5+DhA0Tzd8QYiC443tN3Q4
- y0BHSYwNgpin/7LyzWaegxjAsGvBLd460uIHZV10W+qa1/CITbBl7UfpRG5lmvUCFw
- BD51zpxDqMUaXWscGRP1R5kq/u7rjjpHxe8Y3hu7G5v2BC40+vWoemAFxrxfXzwNK8
- 982z7KSpsMYPbORmU3aI8MHxZ/SRBZoxDWrpWf7HB7/417YaCLrqlTIymAOdt5lljL
- MkOkWT51DqyxUK/rUnyDmp76GLAiq/k4Iv68k5/QUbTHr0J8BSREMWBFoi5krlAo3D
- lRebyjGXBsVBw==
-Date: Tue, 14 Jan 2025 17:34:44 -0800
-From: Josh Poimboeuf <jpoimboe@kernel.org>
-To: Tiezhu Yang <yangtiezhu@loongson.cn>
-Cc: Huacai Chen <chenhuacai@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>, loongarch@lists.linux.dev,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 0/9] Add jump table support for objtool on LoongArch
-Message-ID: <20250115013444.anzoct6gvs56m225@jpoimboe>
-References: <20241217010905.13054-1-yangtiezhu@loongson.cn>
- <ef1e3e7c-0117-175c-5a85-091382696748@loongson.cn>
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2049.outbound.protection.outlook.com [40.107.244.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7FDAC10E467
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jan 2025 01:41:17 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=VvKhsJTVOay/qM28ihsWIgkUYGU04efHvy81KEkwQCkz+utHh793zy3Th8Mk2kUnA76WPkyiYXc8ULrd94LTPgIpGTdC+4j42XNMdfwJlwGCb420G7v3DIdErBLnxD4r4SXF8AbZ5Otr8ExcQS4uQHFkJG+Q4KazDyrb2Z3WAlE35LIXnb0hIVxE0uDN5qBWjnnevkafNJ6DH6LMfwf3qcDaebnEPhimnRgqeWTVIqGPmDp8NBFWSMWeKp6epfkfivewoErLqjrvtoXyd1hhPavogS7tOPgXskCq62V4+uDvr15gZhMqwxnC3SFtKKKybVwCWa6F5YYhlkd+Em6ZkQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uFXNLJWwaWGdFrQsBXKGZxhbEhqXMjEr0ZXJw2pOHxc=;
+ b=FrnEyWso80967gVl8M7qb91zdnNHmzIIrJaCaNFeYHo5mOSqT53Dxh56tKdQfWB2XEaZTMRp3LUzvUa6eGdeA6ImX3GdrP7yBsGMEAeBMYDra/ib1JDUhU/1fOYmWkNachvllHgWJh/dyiV99/6aXbcgT2hDLKjlkxvO0CIL9zojyeXkANeJlTB1LJnjKRARkSL8R3oUUzc/q4/0ee9cO8lREFrZS74UiCzJBkgD7T4/tohvGooMwg9lSxNPjooHtf3zXO3qP8Ww5vLY8YDCD0CCO4U2DN0UG8MqEehRyAXuA5YvdF9rYp8t0oywDkLWQK3IYcU+D1oUeq2KamVjgA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uFXNLJWwaWGdFrQsBXKGZxhbEhqXMjEr0ZXJw2pOHxc=;
+ b=oSCjJVNKBaYMoOFHjSD5hjiewbKMtppNTqQRGrZuYOBspNS9oWXyE0UliMGryrrNF9Q+u/ES0lg4sRmQTbBbzmeqdxYAdOqV4zBFnzSCVn/zjPza/sMNth08Jcw2yOHn9cQZK80d5O2cOquKCi5NFRa8i3f2sFNqgYQ65EQSLTc=
+Received: from DS7PR03CA0025.namprd03.prod.outlook.com (2603:10b6:5:3b8::30)
+ by DS0PR12MB7608.namprd12.prod.outlook.com (2603:10b6:8:13b::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8356.13; Wed, 15 Jan
+ 2025 01:41:14 +0000
+Received: from CY4PEPF0000FCBF.namprd03.prod.outlook.com
+ (2603:10b6:5:3b8:cafe::a7) by DS7PR03CA0025.outlook.office365.com
+ (2603:10b6:5:3b8::30) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8335.19 via Frontend Transport; Wed,
+ 15 Jan 2025 01:41:14 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CY4PEPF0000FCBF.mail.protection.outlook.com (10.167.242.101) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8356.11 via Frontend Transport; Wed, 15 Jan 2025 01:41:14 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 14 Jan
+ 2025 19:40:50 -0600
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 14 Jan
+ 2025 19:40:47 -0600
+Received: from JesseDEV.guestwireless.amd.com (10.180.168.240) by
+ SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39
+ via Frontend Transport; Tue, 14 Jan 2025 19:40:40 -0600
+From: "Jesse.zhang@amd.com" <jesse.zhang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
+ <Tim.Huang@amd.com>, <jiadong.zhu@amd.com>, "Jesse.zhang@amd.com"
+ <Jesse.zhang@amd.com>, Jesse Zhang <jesse.zhang@amd.com>
+Subject: [PATCH 1/3] revert "drm/amdgpu/pm: add definition
+ PPSMC_MSG_ResetSDMA2"
+Date: Wed, 15 Jan 2025 09:40:33 +0800
+Message-ID: <20250115014035.3681642-1-jesse.zhang@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <ef1e3e7c-0117-175c-5a85-091382696748@loongson.cn>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000FCBF:EE_|DS0PR12MB7608:EE_
+X-MS-Office365-Filtering-Correlation-Id: b018da16-590d-41f3-290e-08dd3505b28c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|82310400026|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?dIaoks9kI7ECWHPcBxpXjvSeJaJFCh4oDAkduGgWSx+oR42WOf7lo+iMVX/+?=
+ =?us-ascii?Q?GcvhQE2MrF/9+BOORoCX81+5IqCw+2veoEUsBtgzsdwan1SDUqSUGpFigPvo?=
+ =?us-ascii?Q?M0IdU1R31hTL/0yWVbSGlWI4tskPmfuV8dcqKnYest3D2TCf7+3usptxFnaK?=
+ =?us-ascii?Q?UV3ES+7gle2c7+TSttVnDPiilxoKx/Kf1E7beIRRyetufe9hl+mB2nz0jRU/?=
+ =?us-ascii?Q?s0SxRodFGx8WizSe8GT+nqmG0cQ+wUlNA28NI9HWoIcBY4k6W3POG5/+YlZT?=
+ =?us-ascii?Q?GDNis4Cwk6FGmGdP6vZg7QpWHihLrVL5aSJ2WcaRoj7jLhuwJzoLBUljjI5A?=
+ =?us-ascii?Q?8q9IcmqY8D5tsKj5quY+bI1y5ST3Q7vQa43lrUeQ36ara8OdWRoTTuaD0GuV?=
+ =?us-ascii?Q?EyVIEUBYTPofuQ00qFZ35Je6wPFq/dy/Sv8itrj/SiUJQjDneFu0oireYvxa?=
+ =?us-ascii?Q?V3IQGX0W3vJgAYLrNTns13NYrsmFfQZ4l/WYGNl1hSiuniIbX2LLP/O2p1GZ?=
+ =?us-ascii?Q?7jFTQPXqyGFZ+GlRA0rDGDcrFLA5MV0I3TuKGHRLuYmoil1bTBzCN4WQt83d?=
+ =?us-ascii?Q?3KLbNOQdeBglsTsXfCyy3Xly3zVVi05P3NguCp6d0+C6cz0zW1acD+CT7Jwt?=
+ =?us-ascii?Q?rVQQw+waHT9rRVxoRT2KhyGSbrSD5p+ZCYC7JzFDajw5og+0ZlpUnegioSej?=
+ =?us-ascii?Q?OUBLgKIdSfBnmLEbQrhFRW7HCc5hDLoBgFIkTzMVNxRPEYC9s+11ZPzizr36?=
+ =?us-ascii?Q?i2CYvypf/OcotndSdccVGHkKpo2LTri0Oly8qBWbpxYb8fbszIvSWdZIzkRp?=
+ =?us-ascii?Q?sSkLuYB01u4EeztLDI9yXpTYpBwCDNRiSjUfGP7Y6mLcGBPSV4iCCzmmrjZJ?=
+ =?us-ascii?Q?uDq3cIoAjTZ/u8p/7pTmZJydD6uYMdmizLqi2mQBEl4+dnfni71XPySr3htN?=
+ =?us-ascii?Q?dM30qo2tMGFxE36HnO1FmjOi7Xhp3H/vnNtocjAGNHxfCMiXMSKvQ1tC3VwK?=
+ =?us-ascii?Q?rWyDtkMAJjvrwLlRIleP4BXbtD81uDoori8T68wxg3rxQR2dS5D6NK5TNueW?=
+ =?us-ascii?Q?Q2bU7Zx1KhkJ+7ln/tR6axQU8h2aERuNfVfdxYRqosKltOwBhHe1qc4gxhV5?=
+ =?us-ascii?Q?yfzPEcQVbMT+BOp4Gh3Z6Buc6V9PV2iehiFLr7IBHkq4hq4fWhZOSMsgsgeO?=
+ =?us-ascii?Q?wz+2yXm5OpG7iaqEn0rFaHSdy6pJrAwrvqHPg6qFlqfxhoUFmTVsGDOqzitR?=
+ =?us-ascii?Q?u5wtcNGIMpf2S7crOYrMQn2+vtVvDATR6cOoFVdFVHzXLzNQsuso7chHrj4k?=
+ =?us-ascii?Q?xxqZDS566dJahn3u7sDSPk6o+io8yLoFupkMZ6sbEuc4FKaPnEt5+Oo9D+M+?=
+ =?us-ascii?Q?0avW35b5A/fjkTjWwA862aoxjNCgSBURrSY7LBTEwO5a0VN65OrkAbXRpSYI?=
+ =?us-ascii?Q?Frx2+/StKWrwH5Ob0DiV/ceEDVhQgVDkvEx8TI+I23NnZZOrtkL/8tFaiMBW?=
+ =?us-ascii?Q?syR0PIYpTp2MN/0=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(82310400026)(36860700013); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jan 2025 01:41:14.1398 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b018da16-590d-41f3-290e-08dd3505b28c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000FCBF.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7608
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,34 +137,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sat, Jan 11, 2025 at 02:57:42PM +0800, Tiezhu Yang wrote:
-> Hi Josh and Peter,
-> 
-> On 12/17/2024 09:08 AM, Tiezhu Yang wrote:
-> > This version is based on tip/tip.git objtool/core branch [1], add some weak
-> > and arch-specific functions to make the generic code more readable, tested
-> > with the latest upstream mainline Binutils, GCC and Clang.
-> 
-> ...
-> 
-> > [1] https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git/log/?h=objtool/core
-> > 
-> > Tiezhu Yang (9):
-> >   objtool: Handle various symbol types of rodata
-> >   objtool: Handle different entry size of rodata
-> >   objtool: Handle PC relative relocation type
-> >   objtool: Handle unreachable entry of rodata
-> >   objtool/LoongArch: Add support for switch table
-> >   objtool/LoongArch: Add support for goto table
-> >   LoongArch: Enable jump table for objtool
-> >   LoongArch: Convert unreachable() to BUG()
-> >   drm/amd/display: Mark dc_fixpt_from_fraction() noinline
-> 
-> Are you OK with the first 8 patches?
-> What's the merge plan for this series?
+From: "Jesse.zhang@amd.com" <Jesse.zhang@amd.com>
 
-Sorry, my inbox is still reeling from the holidays.  I will review this
-soon.
+pmfw now unifies PPSMC_MSG_ResetSDMA definitions for different devices.
+PPSMC_MSG_ResetSDMA2 is not needed.
 
+Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
+---
+ drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_6_ppsmc.h | 1 -
+ drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h                 | 3 +--
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c         | 1 -
+ 3 files changed, 1 insertion(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_6_ppsmc.h b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_6_ppsmc.h
+index 7b65a27fb302..147bfb12fd75 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_6_ppsmc.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_6_ppsmc.h
+@@ -93,7 +93,6 @@
+ #define PPSMC_MSG_SelectPLPDMode                    0x40
+ #define PPSMC_MSG_RmaDueToBadPageThreshold          0x43
+ #define PPSMC_MSG_SelectPstatePolicy                0x44
+-#define PPSMC_MSG_ResetSDMA2                        0x45
+ #define PPSMC_MSG_ResetSDMA                         0x4D
+ #define PPSMC_Message_Count                         0x4E
+ 
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
+index b0dab9797c70..e4cd6a0d13da 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
+@@ -276,8 +276,7 @@
+ 	__SMU_DUMMY_MAP(SelectPstatePolicy), \
+ 	__SMU_DUMMY_MAP(MALLPowerController), \
+ 	__SMU_DUMMY_MAP(MALLPowerState), \
+-	__SMU_DUMMY_MAP(ResetSDMA), \
+-	__SMU_DUMMY_MAP(ResetSDMA2),
++	__SMU_DUMMY_MAP(ResetSDMA),
+ 
+ #undef __SMU_DUMMY_MAP
+ #define __SMU_DUMMY_MAP(type)	SMU_MSG_##type
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+index 8ab30b2f7119..4ec339d17499 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+@@ -209,7 +209,6 @@ static const struct cmn2asic_msg_mapping smu_v13_0_6_message_map[SMU_MSG_MAX_COU
+ 	MSG_MAP(RmaDueToBadPageThreshold,            PPSMC_MSG_RmaDueToBadPageThreshold,        0),
+ 	MSG_MAP(SelectPstatePolicy,                  PPSMC_MSG_SelectPstatePolicy,              0),
+ 	MSG_MAP(ResetSDMA,                           PPSMC_MSG_ResetSDMA,                       0),
+-	MSG_MAP(ResetSDMA2,                          PPSMC_MSG_ResetSDMA2,                      0),
+ };
+ 
+ // clang-format on
 -- 
-Josh
+2.25.1
+
