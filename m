@@ -4,75 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 307E9C02180
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2025 15:01:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A978C02180
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2025 15:10:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC77F10E507;
-	Wed, 15 Jan 2025 15:01:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05C0510E502;
+	Wed, 15 Jan 2025 15:10:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="J4SemOwZ";
+	dkim=pass (2048-bit key; unprotected) header.d=dorfdsl.de header.i=@dorfdsl.de header.b="hxWiE1mg";
 	dkim-atps=neutral
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
- [209.85.216.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 739BB10E05B;
- Wed, 15 Jan 2025 15:01:08 +0000 (UTC)
-Received: by mail-pj1-f43.google.com with SMTP id
- 98e67ed59e1d1-2ef05d0ef18so1419716a91.0; 
- Wed, 15 Jan 2025 07:01:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1736953208; x=1737558008; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=oJNN+yIAbJ7FQhP5e1dcdow/Ss7cUXshCz1OUzIShrw=;
- b=J4SemOwZfYSmG5EjjFJkuLbBc3Ewt/MgAf47yrBwxHEXZtc7ODWTiAutDFV8IV4Fkb
- kajKRqy20K9AZEPrvLseOdvNpBAD6eLykfjOIsP9xQv6WsSD9G6ok0RdmFVs9EMxk/3a
- 4qcZRBMPpdEvRw5pgVpPQNtTOgLeK2kV0KgShwa26VQ6tAULmledvLoi6+b95ZWScAdb
- Zn+qPLtsLIyjmvXPz8ZooSUEBgm7kk7Wl9fjpwR5I4H4StgDOSs5CQimpM5zKAZKAVEM
- Qnmhg2ZcLBlVk0jNPWBXoPlNdaA4alNz6L9DPx+pPeS+PelmXQw2OZuFAGnmYlERwIMo
- ip7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1736953208; x=1737558008;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=oJNN+yIAbJ7FQhP5e1dcdow/Ss7cUXshCz1OUzIShrw=;
- b=g7U/ez0KvduVYocIRHHajL1SJe7oxOfFxbjLj+CW6uctldtKEDD7alzYQeHNdd2uoZ
- X+aeG/UqGMCd4fiKVrcChqVck5wWevZAIglH2Q1sVFiJCYwUq18i5ooEyGJtW6nss/Jw
- rC575Fzj7Jl+gi/DoX5GCN0aVd1SpNiau5S6jtAA5lu690d7tJfSUv+SWn+V900QdpoL
- RvkakEF6kpo9mbN6VG+V4dqV0ZIh2Uc/ppy31Wt+dp9ZzGbDrRDpujJ9d0RZBe0FhUIn
- FqJJP1k6kHlKojIC1KjPqgj4U3aGPfMiV3750pbIShM+Inv4+9BZqRaCtbnSrw1ntXrr
- liDQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUhaYntNTrOP/ilhTKbHBZ8CYl7zp1e+cO3rvgfyvUgmnj2xWpP1UgZuc2ZE+7eVSoDtn/GcmGF@lists.freedesktop.org,
- AJvYcCVC+ZSflOdbP3c6WYDEP8pBf8tZI/0519/tUFQ+DMw4zaD8FKBNTmruB+aDmWd3ylVMKLfcuzRzw84T@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwYabyk4n1WGD2yghFk3QabvktOPNmOlv1ui77bsdYmt8HyaniX
- euGGFPjBMzfJqOtrIhJ4zVMYFcoHGsBoscXlWvf5i5qwNnBJ2XxMqGo621s9BkkKLSUuRqfWWYU
- 1e6NgNhcqzDiPT5vM0hglU8dINMS4zQ==
-X-Gm-Gg: ASbGncuj2xrAp8uG/JDTkG8LtusVBIANIgEZw6GsLEK+Ik47LZ2WQnu6CC5OwLtqmha
- dmE75ILu6Vo0GeM1ojuJhUXAPlLrPD2q4LIzLbQ==
-X-Google-Smtp-Source: AGHT+IFr7+OOHfJRndFGnKOHv47itbOd5fZmj4mkPaTAVgkZpPIEyEf6hdx/C48x6sLxu6ybP54hOConvjPiXuJhOeM=
-X-Received: by 2002:a17:90b:2811:b0:2ee:cbc9:d50b with SMTP id
- 98e67ed59e1d1-2f5490ac695mr16375331a91.4.1736953207787; Wed, 15 Jan 2025
- 07:00:07 -0800 (PST)
+Received: from srv1.dorfdsl.de (srv1.dorfdsl.de [82.139.196.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ABEF010E06B
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jan 2025 15:10:39 +0000 (UTC)
+Authentication-Results: srv1; none (SPF check N/A for local connections 
+ -  client-ip=2a01:170:118f:2:993:abe1:9e14:e7bd; 
+ helo=[IPv6:2a01:170:118f:2:993:abe1:9e14:e7bd]; 
+ envelope-from=mm@dorfdsl.de; receiver=<UNKNOWN>)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=dorfdsl.de;
+ s=default; t=1736953718;
+ bh=Z/ZYMWM6sKchAhjRZp5XZoneEFyfTpW9HB5W3YfIOww=;
+ h=Date:From:To:Subject:In-Reply-To:References:From;
+ b=hxWiE1mge3LWg7zS+xFCXHsXRFJbOf93zrS8gTV9rvlHgGmC/bBIHE3vb+r+SoG8A
+ xVWh1u1kKqM+JtSpXXbux6RWT9Tn8zq3tntaYgHeObFs/wVRBlETH3/lYK/W4Wcasp
+ E7eMQAB91w7lYlmd6HsoN5RgEd+aE9r8ZfL9dcWXXruYgYBNp5fMxGT2SNo0BUIY+a
+ 9vUTJNUe/UDcofC4jP4iWKY1nHsHglNUGGYhDWjmN0v1WyHjbsGbC+aoZv7XBQ9/ZW
+ Yno2fOb585QhGmNmxc7ZwwzqL6ZKLDN5c7FCsnmdEt295UK0EWVkTSsHYQTpvJYeT0
+ tbxf4mIgZ67kg==
+Received: from ryz.dorfdsl.de ([IPv6:2a01:170:118f:2:993:abe1:9e14:e7bd])
+ (authenticated bits=0)
+ by srv1.dorfdsl.de (8.18.1/8.18.1/Debian-6~bpo12+1) with ESMTPSA id
+ 50FF8Z1o236195
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT)
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jan 2025 16:08:37 +0100
+Date: Wed, 15 Jan 2025 16:08:34 +0100
+From: Marco Moock <mm@dorfdsl.de>
+To: amd-gfx@lists.freedesktop.org
+Subject: Re: amdgpu 100% CPU usage causing freeze 1002:15d8
+Message-ID: <20250115160834.033e8aad@ryz.dorfdsl.de>
+In-Reply-To: <CADnq5_MFq-OWn7dwTTPPcBbFKQmBHvD6qCi8ngiVumk2V1U40g@mail.gmail.com>
+References: <20250114213157.19de9009@ryz.dorfdsl.de>
+ <CADnq5_MFq-OWn7dwTTPPcBbFKQmBHvD6qCi8ngiVumk2V1U40g@mail.gmail.com>
+X-Mailer: Claws Mail 4.3.0 (GTK 3.24.43; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-References: <20250115113552.297307-1-colin.i.king@gmail.com>
-In-Reply-To: <20250115113552.297307-1-colin.i.king@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 15 Jan 2025 09:59:55 -0500
-X-Gm-Features: AbW1kvZGmglu8dFsb44hdBkRoz1ygvAcPx6pHw7z_ZcBWTQupYD9YyxpbJX4y2w
-Message-ID: <CADnq5_PQGZuL5g5w87-HCqKAL+76WN=iso45UvnVu4GGww1Veg@mail.gmail.com>
-Subject: Re: [PATCH][next] drm/amd/display: remove extraneous ;
- after statements
-To: Colin Ian King <colin.i.king@gmail.com>
-Cc: Chaitanya Dhere <chaitanya.dhere@amd.com>, Jun Lei <jun.lei@amd.com>, 
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,52 +61,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  thanks!
+Am 14.01.2025 um 17:25:46 Uhr schrieb Alex Deucher:
 
-Alex
+> What kernel version(s) is it working properly with?  Can you bisect?
 
-On Wed, Jan 15, 2025 at 7:02=E2=80=AFAM Colin Ian King <colin.i.king@gmail.=
-com> wrote:
->
-> There are a couple of statements with two following semicolons, replace
-> these with just one semicolon.
->
-> Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
-> ---
->  .../dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c        | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2=
-_core_dcn4_calcs.c b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_cor=
-e/dml2_core_dcn4_calcs.c
-> index c4dbf27abaf8..1a0a08823ed9 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_d=
-cn4_calcs.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_d=
-cn4_calcs.c
-> @@ -3894,8 +3894,8 @@ static void CalculateSwathAndDETConfiguration(struc=
-t dml2_core_internal_scratch
->                         p->SwathHeightC[k] =3D MaximumSwathHeightC[k] / 2=
-;
->                         RoundedUpSwathSizeBytesY[k] =3D p->full_swath_byt=
-es_l[k] / 2;
->                         RoundedUpSwathSizeBytesC[k] =3D p->full_swath_byt=
-es_c[k] / 2;
-> -                       p->request_size_bytes_luma[k] =3D ((p->BytePerPix=
-Y[k] =3D=3D 2) =3D=3D dml_is_vertical_rotation(p->display_cfg->plane_descri=
-ptors[k].composition.rotation_angle)) ? 128 : 64;;
-> -                       p->request_size_bytes_chroma[k] =3D ((p->BytePerP=
-ixC[k] =3D=3D 2) =3D=3D dml_is_vertical_rotation(p->display_cfg->plane_desc=
-riptors[k].composition.rotation_angle)) ? 128 : 64;;
-> +                       p->request_size_bytes_luma[k] =3D ((p->BytePerPix=
-Y[k] =3D=3D 2) =3D=3D dml_is_vertical_rotation(p->display_cfg->plane_descri=
-ptors[k].composition.rotation_angle)) ? 128 : 64;
-> +                       p->request_size_bytes_chroma[k] =3D ((p->BytePerP=
-ixC[k] =3D=3D 2) =3D=3D dml_is_vertical_rotation(p->display_cfg->plane_desc=
-riptors[k].composition.rotation_angle)) ? 128 : 64;
->                 }
->
->                 if (p->SwathHeightC[k] =3D=3D 0)
-> --
-> 2.47.1
->
+I assume it was 6.12.6, but Debian doesn't have the old packages
+anymore and it has been purged from my system already.
+
+I am trying to find a way to get the old kernel for testing.
+
+--=20
+Gru=C3=9F
+Marco
