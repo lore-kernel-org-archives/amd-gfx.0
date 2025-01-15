@@ -4,147 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B42C0C02183
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2025 11:01:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C14CC02183
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2025 11:23:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02CDE10E5D3;
-	Wed, 15 Jan 2025 11:01:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A64A310E15A;
+	Wed, 15 Jan 2025 11:23:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="jDYdR7bE";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="m8CTP3dV";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2089.outbound.protection.outlook.com [40.107.93.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B961610E4F0
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jan 2025 11:01:29 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JzR2visTWJx6IrE7O7NjuHkAnQePfd7iTNVnieFuETsXIexyajN9mH2Ah6k6UHEBAMqPkMhP0CuTZJ0oCbPADlHp3dUqa8T30kPWrnC6T5hk2Nd+vlDVdf2UsTC99JW2Im9veZlUZlp4AO8zSJAMobKybY9iOezKQ3mOtQ9YwTasj6SPnpbXdiNRz6cFc8C3DPii1+adw7RvTnA4aOqWD74RFFNWtpykVxbZhd9cH1ELulR/CJZaPlSWNHk+KCpUd5CvahTn1NVW7VaKwk1R4vIL+uG/a56laozFKl5kA+fdeCVzVNROl5NXvyxOwpNBL9XemSJdisdvJvxZCPmGmg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TaKNC7Ihouqep/iepG9IGEpzp7SbMl4GLnLhEkazBYk=;
- b=Kjoq8gwFwvyzzdwHIr3hN3XK+5/CJJrj9IkUFXjq1YPlcQPjTw1GNtRwYqLobI5Gq++iOucpKAUDNDD28kNF8m/kLAEiMRAks7bgsfHHi6eclO3HrHUK2dJ1IofDLPVDiB8As0aQmGRhGRY+IdivLcWWv3YX88eCo7ZmhM4ypb0VmXzih223TlRon2v65obYda2RPJ9GAON3X0izBDmL6iAwB6MRlP5MGzKel1V11EchKwYGCI5WS/mJke+sjYvRJ0nXJ7SNdAkGHWaxYTBqaeU02mbPWKOjJcwOXBUvUkL1Tp5M76CCT6tmlh7u0A1nvBHCNlBzZoyLeYWMqkf3NQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TaKNC7Ihouqep/iepG9IGEpzp7SbMl4GLnLhEkazBYk=;
- b=jDYdR7bEITXiUEJr23nBYbIJKbbVKsWNcDIpt+SKI4b0eY1PZPSr1rGfm8SkDTgFT0mZHLq7n53FmsZVt6mOHwl76gvGldnj9cTQeeoxKgZSOhXQZkMh++vABRPDyxd9zwHZMzPq0V8uh/tXrSFHu/T971OsgRFTuqyAk5tlbuo=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by MW4PR12MB7285.namprd12.prod.outlook.com (2603:10b6:303:22e::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8356.12; Wed, 15 Jan
- 2025 11:01:27 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%5]) with mapi id 15.20.8356.010; Wed, 15 Jan 2025
- 11:01:27 +0000
-Message-ID: <f5f41f09-b62d-495f-9339-0c9dc6535bf8@amd.com>
-Date: Wed, 15 Jan 2025 12:01:22 +0100
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [IPv6:2a00:1450:4864:20::32a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1586110E15A
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jan 2025 11:23:05 +0000 (UTC)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-4361b0ec57aso63291635e9.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jan 2025 03:23:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1736940183; x=1737544983; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=O5r6KMlEH8bs+csVml7SCFCWOghNOBTWLOAlw5xy9LY=;
+ b=m8CTP3dV31mnijvXcGh2wTvmVtjrYfsTsQHSeljHz4LG77wLdSvTRH522JiEXhT6hm
+ 2ahNJF5Np36iApoYfky2BKpNMcctUXjtascXC6jL/Dz8FI91jgO4XXKwN7Q/y9Xxvn63
+ r3dGoTnd49AMai+yTa+W4gXtE3VJLZ4W6drwvJbTxFVE5HR/J/fMSrBKg94MjlCpVTIh
+ jOMx+P0aRHsAGrZRb4QUoiLhaMKtDYDCEOY/hbM01Pn8ITW1We2uP9eNwLVuNrX0Blb8
+ 5M3qWCEzUeFIavp/YktjJfCpC9l++Ph4mLVhZME+Tfs3kOOqG3otCRtMdM3NOu1I3uje
+ xkSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1736940183; x=1737544983;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=O5r6KMlEH8bs+csVml7SCFCWOghNOBTWLOAlw5xy9LY=;
+ b=jV+RkKCkGezsHe5fcqIW8OW6zcj6IG2Ytq0Z0wlwQHiAdObNoaUQ3U/4AlgqAxIo7j
+ bJl7DOmrwZGC0JhsbrFtXdXgL0PDfXwuCqBa5xefeHmUdIZqe0Aapadop2rQ3P5kesPa
+ SbF1KWNTydiTeyGPSygCBR8apcR5eCWUaxtSawevfdfjGy2fKB1V9V6DrQL+Rmqq5OeF
+ JrZsuGXCV/fs0hQ9Dcbm3ZMk8fDZrsjbNLlXQnEv4B4CqtCPnj6OYMVmxJXftNLFJMoX
+ l+8J3Wrb/yKosGUKEb0IqzM+XCYJx4WQ64pS4uLJy2WYZtFxmUZiOoSvUkL9lpsoHbG0
+ MgeA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXqsiL5bMU3rucLeyu0iKmJIvjC81Q1bLWq0C+HMRIcCYoN50ImorJxYjhONUXygsEVtJXctiCk@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywp5HTGEQd5K4rDIRXAyX+X7hJrwb7HqWpQwcRH+JsRLtdfz7iW
+ nU/ZrNmPrQScyMLUS2/ttDQOfSff/z5zW3jCobm+EgnHtIUDmFNoVV9c39lN
+X-Gm-Gg: ASbGncsionL83HoEA++rgu0QsJ9YPrlCledxtP94auWKmoSARMsDzFKBNJkeI+ltp8E
+ UUgmy5qXtMgoHZGMD0AapBgh2091gO6WWsKo7oFiuXpMopLI/504QIdydjWs7WYzDsiyuQ4246H
+ iW2UlW2LtoJwDVK/zcUMj3GCmdRBX89FfvrFsuyF1Pl8e4aewMjKrPvd/OaJ9j4IvMjXKMwIFjo
+ /JrpLJt7NPEpHy42O3Emh2CBr8W9kvsIQh3KQTMpTWBGZ7vZiKaJG61GHZ9sIjUSPb4lCrSoPqJ
+ Us3iAZqR+A==
+X-Google-Smtp-Source: AGHT+IEgUQMUpGtGt07w/PYM4NJ7T4/LrnJCBkw+XZd1ckF5I0OKZF/fGK14U6Sqp961csVxv2upyQ==
+X-Received: by 2002:a05:600c:3103:b0:434:a746:9c82 with SMTP id
+ 5b1f17b1804b1-436e26ae9b1mr288444855e9.5.1736940183151; 
+ Wed, 15 Jan 2025 03:23:03 -0800 (PST)
+Received: from [10.254.108.83] (munvpn.amd.com. [165.204.72.6])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-437c74e59ecsm19714845e9.35.2025.01.15.03.23.01
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 15 Jan 2025 03:23:02 -0800 (PST)
+Message-ID: <9e9921c9-02c4-4cfe-b2d9-4f797036aa4c@gmail.com>
+Date: Wed, 15 Jan 2025 12:23:00 +0100
+MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: Unlocked unmap only clear page table leaves
-To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Felix.Kuehling@amd.com, emily.deng@amd.com
-References: <20250114145314.4633-1-Philip.Yang@amd.com>
+Subject: Re: [RFC v1 0/2] Enable resume with different AMD SRIOV vGPUs
+To: Gerry Liu <gerry@linux.alibaba.com>, "Liu, Shaoyun" <Shaoyun.Liu@amd.com>
+Cc: "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, "airlied@gmail.com" <airlied@gmail.com>,
+ "simona@ffwll.ch" <simona@ffwll.ch>, "Khatri, Sunil" <Sunil.Khatri@amd.com>,
+ "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Zhang, Hawking"
+ <Hawking.Zhang@amd.com>, "Limonciello, Mario" <Mario.Limonciello@amd.com>,
+ "Chen, Xiaogang" <Xiaogang.Chen@amd.com>,
+ "Russell, Kent" <Kent.Russell@amd.com>,
+ "shuox.liu@linux.alibaba.com" <shuox.liu@linux.alibaba.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <cover.1736847835.git.gerry@linux.alibaba.com>
+ <46f008f8-6e88-4475-9510-6072f990c377@amd.com>
+ <DC5FBF2C-9F17-4E22-9D51-525EB33FC79E@linux.alibaba.com>
+ <820617e7-f82f-4a08-9035-0c4a753b61ee@amd.com>
+ <CH0PR12MB53726FB2D787A0A6D22A2603F4182@CH0PR12MB5372.namprd12.prod.outlook.com>
+ <3C088F3C-8592-494D-8976-4BCD64C2A6A9@linux.alibaba.com>
+ <CH0PR12MB5372685232446C6C2D3E2860F4192@CH0PR12MB5372.namprd12.prod.outlook.com>
+ <38C26576-828A-473B-B620-9BF10781C063@linux.alibaba.com>
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20250114145314.4633-1-Philip.Yang@amd.com>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <38C26576-828A-473B-B620-9BF10781C063@linux.alibaba.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR0P281CA0220.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:ac::15) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MW4PR12MB7285:EE_
-X-MS-Office365-Filtering-Correlation-Id: a27c5a16-888b-4b5f-9f9c-08dd3553f594
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?b0YrSHhyWkw0K2FCd2tlN05jVmVtRU1GQ0JNR1gzUFg3QmVhak0xc3BqZWs1?=
- =?utf-8?B?c2dHTTk0OS9YM0RkZ1ZHdUdMTG5QSzIwR1k3bkpCNXFvbERDODdqemtEZWFF?=
- =?utf-8?B?eUtxZDdHS1EwN3F1SDRVUmM3T1c4V0poTWRSVTcrb3pLQ1dJbVIvOGJiTGln?=
- =?utf-8?B?cDFrOG9UMHZ1QkdyU2hiaE5kK2RHZmdyZGNrU0hTUXhxRzVOMWFkMlkweUk5?=
- =?utf-8?B?T0JRZWpoSG94WVZReHBxWEUzQmQzcFVteDFCZ3RSaFJqWU5TQ0FEYWpSRlht?=
- =?utf-8?B?OENkSUtqOG9lTjJNV0tJczFsT2VWdW13SnZtdDBoOCt3SW5iUm9vd2htOG4y?=
- =?utf-8?B?ckpZbmkvMFVOcHMvalllR0tUOHBvNHBsNXQwd1VjdHhiNTZ5NXUwRUx2Sld3?=
- =?utf-8?B?eU4wVTlJL1N6QUFhcVAzTlIvS3ZFMGZZNkRmU0ZodzVVaTlZN3lnQVB4WitH?=
- =?utf-8?B?UndmS0ZzUEtVZjZSem8vMmZZQXN3RVhXSnI2cHZFQk1DUysxZnp2OVdzNlJr?=
- =?utf-8?B?RDh5RzdGT1dEWkZMYkVoeCt0QTBvOG9xaFNEK295WDZQV3piWHdEOE5xS0RR?=
- =?utf-8?B?ZzBUSmh6bUxwUFBSRFN5dmdCdmlzN1h1M2ZQRzhCNjVXOHdoQ0syOU1pSXV3?=
- =?utf-8?B?SHo5T1lOZDUwTDVlQ3Z6OFdSR094SlFjOGFOaUt5TVFoMGFJRjh6TVdVZVhG?=
- =?utf-8?B?K2Y2VWxCY2dGQzB6d0lEbUpYWWVIYUhvdktqQ1ZTcTFnUkNocGFlQTYrUzRx?=
- =?utf-8?B?K3c0K1BjMHlBbjExQUZmMXpWd2Qra05FdjhkSElKMzBwV0drRDB3S0MyQW5z?=
- =?utf-8?B?RDlSWDBOWVByblFxNGZ4UHN1QkhIWXRzMVdUOEtoeUt6ZS9keDkyWi9NVTBU?=
- =?utf-8?B?ODBzUjRrWGI0aFJoWncwZ0ZWZ2JPWUZCNWtVQ1MxczNCSTRhNlZudTdWQ0ZS?=
- =?utf-8?B?SWpRTjdzMHJaUE5KaUpBTkZWWkJhVEc0bGI5RmNIS1VoQmV0YURqT3EzOVRz?=
- =?utf-8?B?TEhFVWJQYVBUWG43OUNYSVMxYTRBZmFrV3hxczVyK1JFbkFxdE85Q01BYTBm?=
- =?utf-8?B?cm90Z2xNWWpkRENvWlA0Q2NZQ0x4cHpGczdteGNTM2g2WFFDSU9LNU9ScGpC?=
- =?utf-8?B?b2tISkRPWHBHOExEbHJMWFFoZmdsNjFGOCt5cnZPcUhtZ1hoTjRTclQrSWlR?=
- =?utf-8?B?eVdlNUl2YWh3MUo3cVp0M2dHNVJydjRlOWVIU1R4cmdQZE5tNjlUalJsejdF?=
- =?utf-8?B?L250Nm9qcktMSFFSdHlha1RXWnJqbGZnR1lncWhoNHg1S0xUSnJENHBGSkZa?=
- =?utf-8?B?VG5YZnFEazcwUFhBN25mWUdJSkpDQ05mZzFIS0pXRTlvcTA1ZHpNc0xRYk9I?=
- =?utf-8?B?OEtuWkwzT1VQSkNhUUlnMUEreGkxRDRiQ1lqQ2tZdzZTSTh2RTlrdllEUDJJ?=
- =?utf-8?B?ZDZpcVRvcDdsSWxKSStWbWNMRmtZdFlZOGszQTVXcHNqcnd6Q1NGYnAyZE1H?=
- =?utf-8?B?SXVvempoSnVXaGgyODFlRDNhZWcyTFFaL0UrNlNkZER1eUdsQ3ZUaW5ybU9P?=
- =?utf-8?B?WVJ0MGlSQ1hXa3MxZ0E3QXRSdmdHeXlEdEVVcXdCYjMxbEVOS09jWkdPQ0FM?=
- =?utf-8?B?RldDSTdHbFp4MHgwcUxRL25OZDJRbE5HVmdDc3Rzd1B2WU9zWHc3V2NZU3Az?=
- =?utf-8?B?aG1BYlc2OVhmNzJwUXdqR1VqelEvRkFybVYwOW8veW5ucS9FZDFTNUpDNDhW?=
- =?utf-8?B?M1hOVUZENFUxb3RzSzNIa0xCaUNEampnNjRzNmtCaHIzSlBSMVVHK01uUDI0?=
- =?utf-8?B?VENVVGJRNVNvdmlNSHpReTJmbDgxM1BJcGNta1V0a3E2NlBHYmQ4dkZXRGps?=
- =?utf-8?Q?cnfFuoOkgAhI0?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TGlCYUlDWGtPbzVSai8rb29SdVdzelhKcUp2eExvUnkzV0Jwd09ETWJrOWcx?=
- =?utf-8?B?dnFoL1lGaEIxQlZ4OEt5S0krNmdTdVM4ZWJUNnhpNE45WG1lTVdRVDE5b3dI?=
- =?utf-8?B?b2x0Wld4akZNSnZiM3NEdnREcXYzSENXOW9XZHlOUXBUUlczN1hzejlNZ2d2?=
- =?utf-8?B?OXBlc24rNFY0TGRRR0NuQmJpQXFIWkxaRy9UenJnS0VML1U2eVFySEsxTEJJ?=
- =?utf-8?B?Q2J5TU9ZbkwxaWF0ZWRTNGFMYUlncmhrcVJFbWVnQzlNRmRNeE5YZ0JEckc2?=
- =?utf-8?B?YldBZk9qaXpsK2NFeUVqM3BlUkRXMS81T0JvbzAxUmV4OTM1UTJSc2FDbjdX?=
- =?utf-8?B?N3BaVlArQlNVSUdpamtFL3NKRWp6TURBQzc4RHlhaTc1M1Y3S3d0NHpyT0VQ?=
- =?utf-8?B?alJXUG9TSFZFU1RvU3JqUWtQUmRpTlkxbVBuQmgxdG5qNDVZaldseW9ZZllC?=
- =?utf-8?B?UzNNRG4yajFMc3ZCVkwzbzZIbnV3cnlSdHV0cDdiTDhpb2hyeWRHUUFzVEJK?=
- =?utf-8?B?a1ovekZsZ21TZGd0dnRpVVk0U2VHa3IvM3NabWVsTFBDTWpNN0tlYUVzdlJm?=
- =?utf-8?B?bmJoMWF1bU5wTU44NVY0ZDBOOUcwRFgvN1EzQ0dPWmRjcG9hMU9Xc3VGT3dt?=
- =?utf-8?B?eitRVStGVC9jMWo3WVVnY0lSdXppUmZsZGZROGxWMk80Q0xmSythRExGaytt?=
- =?utf-8?B?QnVpSFhYU1BoK2VpSEV1eVRZMmdZMFR2bFVEc1BuRE9XOXhZN08zMWNqQTMz?=
- =?utf-8?B?bG44UGtKS1V5SHpsQW1UNG8raXNsUGZDWFZKamtaakJ5Mjh1ZHJiYlFIc0Ew?=
- =?utf-8?B?SExYWWQ2amwwWU9oV0trM0FnZTY5Vk9RcEgwOHUwdHVQeXlSWmx4OUF4OWJF?=
- =?utf-8?B?a3cxeXVldURjTWcyVnNtdHl4d3dVQWVIK1YxS3FkbUNmdDZoVk1kZTlYcEEr?=
- =?utf-8?B?eUpmZFNuTUdZZDFLcTNoL1U0SnVaVjJ4OHRnZWxkWS9YRnhmVEI0WWxkSEhR?=
- =?utf-8?B?Q0lLNGpiODIydVMvL0poYnhFQWoyR0gvOVVFZWVFblczT21RN3Yva25IWFRB?=
- =?utf-8?B?YTBkT1BqTHVjZTZ6Tmx4QmEwd3RNSDcrK2pKcGZST01VWXg0aEZ5SHNNanNH?=
- =?utf-8?B?VzltUUc2YWlqZkZobGJsZFVOUjFHRXlPNnQ2aXBOTlRoRkJzK04xbHhkd2FJ?=
- =?utf-8?B?YlpjRlpCc2JaSWw5Q1B5RVNhRUpxT3ZYcFRRek1uVFVGTkpUeVp5aUFDTm4v?=
- =?utf-8?B?RFJhMS8rNWpUck11YmVQRWE2aTVaMG9qK014SHdwdzN1d1UyNW01NlhzeXVV?=
- =?utf-8?B?NDd5OWhIb2RRcWlpZjIwbDdXVGN1TUZlVXM5TU80MHlwQitxc0VlUzcySGow?=
- =?utf-8?B?SlFINytycFJITS8vK1IyNHU5bEtFdG8rN2I4Z3lwOUliMVU1RHpLTERkeG9t?=
- =?utf-8?B?cU8xdERabGRHUlUyMXZzWGtDdWx1NS9oak4vY0pvV0gvQTQ3Zk5UOVM0dzNZ?=
- =?utf-8?B?MzZ0bW4vT2EwZjhuNitrTjJYUWF3bWdUOHNEbEZzMGYrQkpLKzhnbzRZc2pP?=
- =?utf-8?B?cDVrbFp6RU4zRkJlaVhWeXhJeUUzajAxTVZJdFpSdUttVnFOOVQ0NkNLMjd5?=
- =?utf-8?B?aExYRGhNRWdQaGd1ekpaOTBCVXRMUFhtUXBoYWlqdWxIMUxwR1N0ek83ZXVx?=
- =?utf-8?B?SzFkMlFTWitRSHcrSFVWRDNrWUpVVXpEMzBrcTVjeUhhR1dmVS9zRXJEUW1v?=
- =?utf-8?B?SFBiTEtqM2lVQ3FHcTcwdnRQcXhEVnJ0ZHpKZVUvNVN6Y3hjMzFLOVNGaFRK?=
- =?utf-8?B?anhCUEZHU3UxcXE1bW5pQ1J1dmJJM28rMmxMN2RyMnZPZ2hJQURCSXBNY1Mv?=
- =?utf-8?B?OXJrTG1GNzhWek41TkpjQjJHamkvYldUTVZCV2VFWXRGQTU5bFV1QkN0dFFP?=
- =?utf-8?B?UVlHMUJBRzUySG5xY0xmbmpiTnM0MjlkMVFWMlpWUWVxTDBOSEpmSWdOSzdC?=
- =?utf-8?B?ODVqV2UrNHlKMTVQcjd3L2dKRnprclRuRUlRbTdLSndlUUhLTEhyTzBhOW5t?=
- =?utf-8?B?dC9SSDVCVGpHbll4ZkFacnFFVGRISmIxWWM3a1pmZTdoQWVzYkMzazNHLzlR?=
- =?utf-8?Q?lFOMAsu63tuiTV+1x8J35AJB3?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a27c5a16-888b-4b5f-9f9c-08dd3553f594
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jan 2025 11:01:27.6599 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kv/9Wgx1801zXM/S6EsE6G8fbYhuTRbTFmJbKvZWnVJcpPbyJQkj2Vo8ZLI1Wyxy
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7285
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,171 +104,199 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 14.01.25 um 15:53 schrieb Philip Yang:
-> SVM migration unmap pages from GPU and then update mapping to GPU to
-> recover page fault. Currently unmap clears the PDE entry for range
-> length >= huge page and free PTB bo, update mapping to alloc new PT bo.
-> There is race bug that the freed entry bo maybe still on the pt_free
-> list, reused when updating mapping and then freed, leave invalid PDE
-> entry and cause GPU page fault.
->
-> By setting the update to clear only one PDE entry or clear PTB, to
-> avoid unmap to free PTE bo. This fixes the race bug and improve the
-> unmap and map to GPU performance. Update mapping to huge page will
-> still free the PTB bo.
->
-> With this change, the vm->pt_freed list and work is not needed. Add
-> WARN_ON(unlocked) in amdgpu_vm_pt_free_dfs to catch if unmap to free the
-> PTB.
->
-> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    |  4 ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h    |  4 ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c | 43 +++++++----------------
->   3 files changed, 13 insertions(+), 38 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> index c9c48b782ec1..48b2c0b3b315 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -2440,8 +2440,6 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->   	spin_lock_init(&vm->status_lock);
->   	INIT_LIST_HEAD(&vm->freed);
->   	INIT_LIST_HEAD(&vm->done);
-> -	INIT_LIST_HEAD(&vm->pt_freed);
-> -	INIT_WORK(&vm->pt_free_work, amdgpu_vm_pt_free_work);
->   	INIT_KFIFO(vm->faults);
->   
->   	r = amdgpu_vm_init_entities(adev, vm);
-> @@ -2613,8 +2611,6 @@ void amdgpu_vm_fini(struct amdgpu_device *adev, struct amdgpu_vm *vm)
->   
->   	amdgpu_amdkfd_gpuvm_destroy_cb(adev, vm);
->   
-> -	flush_work(&vm->pt_free_work);
-> -
->   	root = amdgpu_bo_ref(vm->root.bo);
->   	amdgpu_bo_reserve(root, true);
->   	amdgpu_vm_put_task_info(vm->task_info);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> index 5d119ac26c4f..160889e5e64d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> @@ -369,10 +369,6 @@ struct amdgpu_vm {
->   	/* BOs which are invalidated, has been updated in the PTs */
->   	struct list_head        done;
->   
-> -	/* PT BOs scheduled to free and fill with zero if vm_resv is not hold */
-> -	struct list_head	pt_freed;
-> -	struct work_struct	pt_free_work;
-> -
->   	/* contains the page directory */
->   	struct amdgpu_vm_bo_base     root;
->   	struct dma_fence	*last_update;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-> index f78a0434a48f..54ae0e9bc6d7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
-> @@ -546,27 +546,6 @@ static void amdgpu_vm_pt_free(struct amdgpu_vm_bo_base *entry)
->   	amdgpu_bo_unref(&entry->bo);
->   }
->   
-> -void amdgpu_vm_pt_free_work(struct work_struct *work)
-> -{
-> -	struct amdgpu_vm_bo_base *entry, *next;
-> -	struct amdgpu_vm *vm;
-> -	LIST_HEAD(pt_freed);
-> -
-> -	vm = container_of(work, struct amdgpu_vm, pt_free_work);
-> -
-> -	spin_lock(&vm->status_lock);
-> -	list_splice_init(&vm->pt_freed, &pt_freed);
-> -	spin_unlock(&vm->status_lock);
-> -
-> -	/* flush_work in amdgpu_vm_fini ensure vm->root.bo is valid. */
-> -	amdgpu_bo_reserve(vm->root.bo, true);
-> -
-> -	list_for_each_entry_safe(entry, next, &pt_freed, vm_status)
-> -		amdgpu_vm_pt_free(entry);
-> -
-> -	amdgpu_bo_unreserve(vm->root.bo);
-> -}
-> -
->   /**
->    * amdgpu_vm_pt_free_list - free PD/PT levels
->    *
-> @@ -579,19 +558,15 @@ void amdgpu_vm_pt_free_list(struct amdgpu_device *adev,
->   			    struct amdgpu_vm_update_params *params)
->   {
->   	struct amdgpu_vm_bo_base *entry, *next;
-> -	struct amdgpu_vm *vm = params->vm;
->   	bool unlocked = params->unlocked;
->   
->   	if (list_empty(&params->tlb_flush_waitlist))
->   		return;
->   
-> -	if (unlocked) {
-> -		spin_lock(&vm->status_lock);
-> -		list_splice_init(&params->tlb_flush_waitlist, &vm->pt_freed);
-> -		spin_unlock(&vm->status_lock);
-> -		schedule_work(&vm->pt_free_work);
-> -		return;
-> -	}
-> +	/*
-> +	 * unlocked unmap clear page table leaves, warning to free the page entry.
-> +	 */
-> +	WARN_ON(unlocked);
->   
->   	list_for_each_entry_safe(entry, next, &params->tlb_flush_waitlist, vm_status)
->   		amdgpu_vm_pt_free(entry);
-> @@ -899,7 +874,15 @@ int amdgpu_vm_ptes_update(struct amdgpu_vm_update_params *params,
->   		incr = (uint64_t)AMDGPU_GPU_PAGE_SIZE << shift;
->   		mask = amdgpu_vm_pt_entries_mask(adev, cursor.level);
->   		pe_start = ((cursor.pfn >> shift) & mask) * 8;
-> -		entry_end = ((uint64_t)mask + 1) << shift;
-> +
-> +		if (cursor.level < AMDGPU_VM_PTB && params->unlocked)
-> +			/*
-> +			 * MMU notifier callback unlocked unmap huge page, leave is PDE entry,
-> +			 * only clear one entry. Next entry search again for PDE or PTE leave.
-> +			 */
-> +			entry_end = 1ULL << shift;
-> +		else
-> +			entry_end = ((uint64_t)mask + 1) << shift;
+Hi Shaoyun and Gerry,
 
-That here looks to much like a hack for my taste. entry_end basically 
-denotes the end of the pages tables and not the updated region.
+yes good idea, live migration is certainly an option as well.
 
-We already set frag_end to this here:
+In live migration the hypervisor transparently provides the same GPU 
+configuration to the client on the new GPU like it has seen it before on 
+the old GPU. In other words your fully state including VRAM content and 
+locations, FW and HW state is transferred from one GPU to another.
 
-frag_end = max(frag_end, ALIGN(frag_start + 1, 1ULL << shift));
+Checkpoint/restore on the other hand works on the application level by 
+writing the state of a specific application into a checkpoint file with 
+the help of the user mode and kernel drivers.
 
-Which basically means that we should update just one entry at the time 
-and then walk the page tables again.
+The hibernation approach you proposed kind of sits in between those two 
+ideas. But the hypervisor of the new GPU is not aware of the old GPU 
+configuration and the user mode driver side isn't aware that it is moved 
+to different hardware either while configuration parameters still 
+change. That's why you have to add those hacks to update the location of 
+pinned BOs into the firmware.
 
-The issue is just that we immediately calculate a new fragment after 
-each update:
-
-                         if (frag_start >= frag_end) {
-                                 /* figure out the next fragment */
-                                 amdgpu_vm_pte_fragment(params, 
-frag_start, end,
-                                                        flags, &frag, 
-&frag_end);
-                                 if (frag < shift)
-                                         break;
-                         }
-And that looks like the place we need to adjust something to allow 
-updates of the leave nodes.
-
-Alternatively I wouldn't mind having a complete separate function for 
-unlocked invalidations.
+But as far as I can see that will never work 100% reliable because you 
+can't look into the firmware code and update all pointers there. 
+Especially when firmware stack etc.. is relative to parameters the 
+hypervisor has set.
 
 Regards,
 Christian.
 
-
->   		entry_end += cursor.pfn & ~(entry_end - 1);
->   		entry_end = min(entry_end, end);
->   
+Am 15.01.25 um 06:24 schrieb Gerry Liu:
+>
+>> 2025年1月15日 12:03，Liu, Shaoyun <Shaoyun.Liu@amd.com> 写道：
+>>
+>> [AMD Official Use Only - AMD Internal Distribution Only]
+>>
+>> I might misunderstood your requirement . For live migration, it's transparent  to the guest.  The guest can be  in running  state (ex. like running  some compute stuff),  hypervisor     and gim driver together will handle the GPU HW state migration from source vGPU to other  identical  vGPU .  It doesn't requires the guest to do the suspend/resume.  You can contact other engineers that work on SRIOV for more live  migration support info.
+> Yeah, there are different usage scenarios:
+> 1) live migration
+> 2) hibernate/suspend/resume
+> 3) snapshot and clone
+> Currently we are focusing on live migration and hibernation, and hope that we can base on common underlying technologies.
+>
+>> Regards
+>> Shaoyun.liu
+>>
+>> -----Original Message-----
+>> From: Gerry Liu <gerry@linux.alibaba.com>
+>> Sent: Tuesday, January 14, 2025 8:48 PM
+>> To: Liu, Shaoyun <Shaoyun.Liu@amd.com>
+>> Cc: Koenig, Christian <Christian.Koenig@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>; Pan, Xinhui <Xinhui.Pan@amd.com>; airlied@gmail.com; simona@ffwll.ch; Khatri, Sunil <Sunil.Khatri@amd.com>; Lazar, Lijo <Lijo.Lazar@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>; Limonciello, Mario <Mario.Limonciello@amd.com>; Chen, Xiaogang <Xiaogang.Chen@amd.com>; Russell, Kent <Kent.Russell@amd.com>; shuox.liu@linux.alibaba.com; amd-gfx@lists.freedesktop.org
+>> Subject: Re: [RFC v1 0/2] Enable resume with different AMD SRIOV vGPUs
+>>
+>>
+>>
+>>> 2025年1月15日 02:00，Liu, Shaoyun <Shaoyun.Liu@amd.com> 写道：
+>>>
+>>> [AMD Official Use Only - AMD Internal Distribution Only]
+>>>
+>>> I think to resume with different SRIOV vGPUs depends on the  hypervisor has the live migration support . Different Hypervisor have different implementation , basically  it will call into the  host gpu driver in different stage and  host side do the  hw related  migration including the FW state.
+>> Hi Shaoyun,
+>>         Great news! That sounds like what I’m looking for:)
+>>         Is there any documentation about how to enable this with an in-house implemented hypervisor? Will the hypervisor need to cooperate with the gim driver to enable resume with different vGPUs?
+>> Regards
+>> Gerry
+>>
+>>> Regards
+>>> Shaoyun.liu
+>>>
+>>> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
+>>> Christian König
+>>> Sent: Tuesday, January 14, 2025 7:44 AM
+>>> To: Gerry Liu <gerry@linux.alibaba.com>
+>>> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Pan, Xinhui
+>>> <Xinhui.Pan@amd.com>; airlied@gmail.com; simona@ffwll.ch; Khatri,
+>>> Sunil <Sunil.Khatri@amd.com>; Lazar, Lijo <Lijo.Lazar@amd.com>; Zhang,
+>>> Hawking <Hawking.Zhang@amd.com>; Limonciello, Mario
+>>> <Mario.Limonciello@amd.com>; Chen, Xiaogang <Xiaogang.Chen@amd.com>;
+>>> Russell, Kent <Kent.Russell@amd.com>; shuox.liu@linux.alibaba.com;
+>>> amd-gfx@lists.freedesktop.org
+>>> Subject: Re: [RFC v1 0/2] Enable resume with different AMD SRIOV vGPUs
+>>>
+>>> Hi Gerry,
+>>>
+>>> Am 14.01.25 um 12:03 schrieb Gerry Liu:
+>>> 2025年1月14日 18:46，Christian König <christian.koenig@amd.com> 写道：
+>>>
+>>> Hi Jiang,
+>>>
+>>> Some of the firmware, especially the multimedia ones, keep FW pointers to buffers in the suspend/resume state.
+>>>
+>>> In other words the firmware needs to be in the exact same location before and after resume. That's why we don't unpin the firmware BOs, but rather save their content and restore it. See function amdgpu_vcn_save_vcpu_bo() for reference.
+>>>
+>>> Additional to that the serial numbers, IDs etc are used for things like TMZ. So anything which uses HW encryption won't work any more.
+>>>
+>>> Then even two identical boards can have different harvest and memory channel configurations. Could be that we might be able to abstract that with SR-IOV but I won't rely on that.
+>>>
+>>> To summarize that looks like a completely futile effort which most likely won't work reliable in a production environment.
+>>> Hi Christian,
+>>>   Thanks for the information. Previously I assume that we may reset the asic and reload all firmwares on resume, but missed the vcn ip block which save and restore firmware vram content during suspend/resume. Is there any other IP blocks which save and restore firmware ram content?
+>>>
+>>> Not that I of hand know of any, but neither the hypervisor nor the driver stack was designed with something like this in mind. So could be that there are other dependencies I don't know about.
+>>>
+>>> I do remember that this idea of resuming on different HW than suspending came up a while ago and was rejected by multiple parties as to complicated and error prone.
+>>>
+>>> So we never looked more deeply into the possibility of doing that.
+>>>
+>>>
+>>>
+>>>   Our usage scenario targets GPGPU workload (amdkfd) with AMD GPU in single SR-IOV vGPU mode. Is it possible to resume on a different vGPU device in such a case?
+>>>
+>>> If I'm not completely mistaken you can use checkpoint/restore for that. It's still under development, but as far as I can see it should solve your problem quite nicely.
+>>>
+>>> Regards,
+>>> Christian.
+>>>
+>>>
+>>>
+>>> Regards,
+>>> Gerry
+>>>
+>>>
+>>>
+>>> Regards,
+>>> Christian.
+>>>
+>>> Am 14.01.25 um 10:54 schrieb Jiang Liu:
+>>> For virtual machines with AMD SR-IOV vGPUs, following work flow may be
+>>> used to support virtual machine hibernation(suspend):
+>>> 1) suspends a virtual machine with AMD vGPU A.
+>>> 2) hypervisor dumps guest RAM content to a disk image.
+>>> 3) hypervisor loads the guest system image from disk.
+>>> 4) resumes the guest OS with a different AMD vGPU B.
+>>>
+>>> The step 4 above is special because we are resuming with a different
+>>> AMD vGPU device and the amdgpu driver may observe changed device
+>>> properties. To support above work flow, we need to fix those changed
+>>> device properties cached by the amdgpu drivers.
+>>>
+>>> With information from the amdgpu driver source code (haven't read
+>>> corresponding hardware specs yet), we have identified following
+>>> changed device properties:
+>>> 1) PCI MMIO address. This can be fixed by hypervisor.
+>>> 2) serial_number, unique_id, xgmi_device_id, fru_id in sysfs. Seems
+>>>    they are information only.
+>>> 3) xgmi_physical_id if xgmi is enabled, which affects VRAM MC address.
+>>> 4) mc_fb_offset, which affects VRAM physical address.
+>>>
+>>> We will focus on the VRAM address related changes here, because it's
+>>> sensitive to the GPU functionalities. The original data sources
+>>> include .get_mc_fb_offset(), .get_fb_location() and xgmi hardware registers.
+>>> The main data cached by amdgpu driver are adev->gmc.vram_start and
+>>> adev->vm_manager.vram_base_offset. And the major consumers of the
+>>> cached information are ip_block.hw_init() and GMU page table builder.
+>>>
+>>> After code analysis, we found that most consumers of
+>>> dev->gmc.vram_start and adev->vm_manager.vram_base_offset directly
+>>> read value from these two variables on demand instead of caching them.
+>>> So if we fix these two cached fields on resume, everything should work as expected.
+>>>
+>>> But there's an exception, and an very import exception, that callers
+>>> of amdgpu_bo_create_kernel()/amdgpu_bo_create_reserved() may cache
+>>> VRAM addresses. With further analysis, the callers of these interface
+>>> have three different patterns:
+>>> 1) This pattern is safe.
+>>>    - call amdgpu_bo_create_reserved() in ip_block.hw_init()
+>>>    - call amdgpu_bo_free_kernel() in ip_block.suspend()
+>>>    - call amdgpu_bo_create_reserved() in ip_block.resume()
+>>> 2) This pattern works with current implementaiton of amdgpu_bo_create_reserved()
+>>>    but bo.pin_count gets incorrect.
+>>>    - call amdgpu_bo_create_reserved() in ip_block.hw_init()
+>>>    - call amdgpu_bo_create_reserved() in ip_block.resume()
+>>> 3) This pattern needs to be enhanced.
+>>>    - call amdgpu_bo_create_reserved() in ip_block.sw_init()
+>>>
+>>> So my question is which pattern should we use here? Personally I
+>>> prefer pattern 2 with enhancement to fix the bo.pin_count.
+>>>
+>>> Currently there're still bugs in SRIOV suspend/resume, so we can't
+>>> test our hypothesis. And we are not sure whether there are still other
+>>> blocking to enable resume with different AMD SR-IOV vGPUs.
+>>>
+>>> Help is needed to identify more task items to enable resume with
+>>> different AMD SR-IOV vGPUs:)
+>>>
+>>> Jiang Liu (2):
+>>>   drm/amdgpu: update cached vram base addresses on resume
+>>>   drm/amdgpu: introduce helper amdgpu_bo_get_pinned_gpu_addr()
+>>>
+>>> drivers/gpu/drm/amd/amdgpu/amdgpu_device.c   | 15 +++++++++++++++
+>>> drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h      |  6 ++++--
+>>> drivers/gpu/drm/amd/amdgpu/amdgpu_object.c   |  9 +++++++++
+>>> drivers/gpu/drm/amd/amdgpu/amdgpu_object.h   |  1 +
+>>> drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c |  9 +++++++++
+>>> drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c       |  7 +++++++
+>>> drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c        |  6 ++++++
+>>> 7 files changed, 51 insertions(+), 2 deletions(-)
 
