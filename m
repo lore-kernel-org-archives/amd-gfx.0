@@ -4,156 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED9B2C02187
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jan 2025 21:30:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F22DC02183
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jan 2025 21:32:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A50710EA0D;
-	Thu, 16 Jan 2025 21:30:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AEA1410EA0E;
+	Thu, 16 Jan 2025 21:32:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="GnV3Iobc";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="htNGU1eL";
 	dkim-atps=neutral
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2068.outbound.protection.outlook.com [40.107.212.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9448C10EA0D
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jan 2025 21:30:08 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AtjcCff4nImQ48MbgxIkNChdx7oy18cmzRXS7d4C4ZlrgDULPfwtTLYpAkuWbZheoRcqNYJR9l3CfkFsrBmpNM3XYrVrzaxaeIrldMLy8nAw/jKI+pTTp46GGUm2Rhoya4vEjX4RQJGZ8YDsMOEKQuz/1OVxw4SLFrUjId55AzoT3HHF8gMjxJXc7esYJOqxZqtvgv8OYk/w0vBnvi+hpz28Fmp3qW9prl1K/x6QUMzvkM7/mVFw6Z/9nFCh/boojde7y6Onza7QJvOWtKjuyUG5WP2tlry7QvOH+kBDsh1P11raHtIgQTZTjhn/xH5S6L3T4CheiToMZTmJ/LtXUQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5Tz235h+T67V/29PDtw4Ww60Ky6wsnuFgE2E4m3BvAY=;
- b=Yk71DqGpY4Nd1fAB7agXjK0mwoRg4lGKvc8eRgiSuysEDHWI3nSX4vFK0s51dzwJN0TLvuWOJOGrL/xJBUhXiZqxL1LSPxrsfM/bnuNS4/ietqrVJO+AGfwJg96VTznoo05/0hSe+YFdFwLLgtfjE6qahKEqc9kWp4rBWhtspX5H3N2QN5i9WgkhT4I5gbbyuHUspkDB1jmzoeTCV97qPEW03h6Hvw4BSifHLyVLiQ2+GZoq2cXXgPVK4JUAZYE0qfvC/cdhUTXBTtTicZWVsv7NVgQ7A+EwDembpzD/2thXxcngIHXQHMQVJyxYLqW8sbSnq3jADqIEYMB7SnyaUA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5Tz235h+T67V/29PDtw4Ww60Ky6wsnuFgE2E4m3BvAY=;
- b=GnV3IobcFm1ns7AXkqog6zS5e8gNefE2ojcyf2lN9gJj/l1BH0DsyETCwzCrWbQjVfD6FMn3cgf6XMQylpKqFXuTY47lHOjjveIlo9Fbjf/1bjmFiaElmEdQ0UUmHm/naekvIhq0r2Am2uazXEPJDP7wsDIM+1/Y2kDIJcWL3OU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
- by DM4PR12MB8569.namprd12.prod.outlook.com (2603:10b6:8:18a::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8356.13; Thu, 16 Jan
- 2025 21:30:06 +0000
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::37ee:a763:6d04:81ca]) by MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::37ee:a763:6d04:81ca%4]) with mapi id 15.20.8335.017; Thu, 16 Jan 2025
- 21:30:06 +0000
-Message-ID: <e8e45267-caf8-455f-9a99-886dc7ab0188@amd.com>
-Date: Thu, 16 Jan 2025 15:30:03 -0600
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC v2 09/15] drm/amdgpu_dm: enhance amdgpu_dm_early_fini() for
- PM ops
-To: "Wentland, Harry" <Harry.Wentland@amd.com>,
- Jiang Liu <gerry@linux.alibaba.com>, alexander.deucher@amd.com,
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
- simona@ffwll.ch, sunil.khatri@amd.com, lijo.lazar@amd.com,
- Hawking.Zhang@amd.com, xiaogang.chen@amd.com, Kent.Russell@amd.com,
- shuox.liu@linux.alibaba.com, amd-gfx@lists.freedesktop.org
-References: <cover.1736732062.git.gerry@linux.alibaba.com>
- <d84286e5f7c01a35afdb4affba2141d8ea0281d7.1736732062.git.gerry@linux.alibaba.com>
-Content-Language: en-US
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <d84286e5f7c01a35afdb4affba2141d8ea0281d7.1736732062.git.gerry@linux.alibaba.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SN7PR04CA0079.namprd04.prod.outlook.com
- (2603:10b6:806:121::24) To MN0PR12MB6101.namprd12.prod.outlook.com
- (2603:10b6:208:3cb::10)
+Received: from mail-pl1-x631.google.com (mail-pl1-x631.google.com
+ [IPv6:2607:f8b0:4864:20::631])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B9BA10EA0E
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jan 2025 21:32:13 +0000 (UTC)
+Received: by mail-pl1-x631.google.com with SMTP id
+ d9443c01a7336-2162b5d2e1fso2922525ad.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jan 2025 13:32:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1737063132; x=1737667932; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=iE4e0zlJ5uqGWcHFLx7UDgOoIwT6wXR0u+0HEplefZI=;
+ b=htNGU1eL5R48MlMIqln/jsZLcIYY6sYNN8m0rycSKKUMxS5wuGLlNMkrQFL6gvAt5d
+ lYc51RBNPHA/1Ztk2+t1bUHeyq4PiRabI2rd4aYo7vCKmXb0XBY+njpjCwgP2MGdBAIt
+ 1eDf08o+//5ak8mEVKY52ngjnROrclpgquK0QijoSGftEYw3nZUDDauihdc+I1TdBdHf
+ YafjC1n7fUXbqkQSTl9xPtflMmUdgkOZxTi21QP+i86FEM4Lndd5x5/r203RmM5h6HWg
+ 3h7Z/CDigZSFGfiHKFPPoLJcqzsTBNcZm0j13nslO/dydsJxKoi6awQmXdvn2zSGIJgP
+ nTMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1737063132; x=1737667932;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=iE4e0zlJ5uqGWcHFLx7UDgOoIwT6wXR0u+0HEplefZI=;
+ b=liOMWMdZLONS8CQ1HFL0vpqpcWnsFg48uAdtkj2X1PGh7ppwKaT3jAbHgiuKenJoUh
+ Kw/pRyjF4uVjCrK3snjzED9XfuAmEKzYmI2zjox4xAejwOOJsXpohQum1GU5B5AKvFgY
+ mwM8pnkjBIWiBzY4B2xBSZyTXpchs8xOXnWmteuyFUYljEeDNXei9OM+mUxv0c5r3qVy
+ W/WcD8NE4yFwxlKvNM/ZSH8IsXKBH3UgYXIhK0radRi3HWSHARnTHLy8ys8rY0TPOx2i
+ gVKQJVd5pvDJJDaKXktsMKFbHGiKWEG1+ifzvptGsoYC/SCM0uoBBXVNSo25UlgiuKaM
+ Htkw==
+X-Gm-Message-State: AOJu0YwC8hM3MR+UEF4ifaGKG9WUTz7U5cZ1QPQlXAx7uUaqpLuKxYr8
+ z9MuHPzbU5kpo1Bt/yyVfzri7HkzEkvAELXU3GkvLaxttvzFPeJXENbpdVnIZTYfV6g/KmYXnOk
+ 1zkt0/TUvL5Av/XNFU46JJmwJHw6NeQ==
+X-Gm-Gg: ASbGncu78ICRW/p8djYj6bVcFbUs7BLR1/5Uktu84Skke34zwRbWoqhvP8H+7eQht12
+ krmuWTbfKwWBXYdhpa2Qhh3Pz8QWqg+iMZnj92A==
+X-Google-Smtp-Source: AGHT+IFN0nrGWSujU3X7FUvqWAVmt1KzWo5DiDOFrrLg0C04i7QjWPJyEw2LXcfMZbxAgB5B4nbFnWWS6JjeJCYr2l0=
+X-Received: by 2002:a17:903:41c2:b0:216:6590:d477 with SMTP id
+ d9443c01a7336-21c35538df7mr1400625ad.2.1737063132544; Thu, 16 Jan 2025
+ 13:32:12 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|DM4PR12MB8569:EE_
-X-MS-Office365-Filtering-Correlation-Id: d55ca51f-b63c-45d5-cc98-08dd3674f1ff
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|7053199007|921020; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?US9RNi9IMmN0UksrT1hrWXZMS0o4clN6TEVUMi92RnJibUYvUXFMYWhGc001?=
- =?utf-8?B?RjRITHFZSjVrR0tRZ2hlYk9jVVQ4ODUvY1gvYXZLalBpTERST0RnbGc1VDFB?=
- =?utf-8?B?c2gzdUZzeXNMNjRsRnM1NEVYNDJTVHR6WEgvWUxEUlcrMWpjbTNiaTZUS2Rh?=
- =?utf-8?B?Q203WkVaRTVZajhxZ0dIWGRBRWVxUmd3enErWXFZMmppcnNidFFjd09Gc3BO?=
- =?utf-8?B?SE4vQUNtSmU0dE9kL0YzaHRwa1ROYlRUVXYzNHRFVUxEbXFPeTRrOUFFdi9y?=
- =?utf-8?B?ZU8vS0JLdU1PZG4zbkg4MHdTNEl5a25xSURUZlpCU3U0bnh5SEdqc3hJOVgy?=
- =?utf-8?B?ODNyNFlrYnVramdRSUVuallQNGlvOHhLUmFEZFNCTWpVUHNWallwWDN5bi9h?=
- =?utf-8?B?UmRtZ1owamg4cGZmMFhBbmRhRld1akQrbXMrSUhqak1kSDErYnMxeWE4T3dr?=
- =?utf-8?B?L0dHb1dkelIyZUNNS0xqM0hMUUp4MGl6cWxvRVFLVm5nVFdPODBWNlBseDlu?=
- =?utf-8?B?a09aK0VpZGdoS09jRDZqeUd0UTIvL1oveEl3K1BHYW0rdXVGQjl5WHJwTm91?=
- =?utf-8?B?d3QwZ0lDT3JuNTdvODUwdVFrQkFZYmZaWC91dUozNnZNU1ZldFl2bk9Kd0xU?=
- =?utf-8?B?ZW1oRHFsdERRdjg2N3pNL2ZzdG1qRFh3czRuQ3c0aERoMjJ2US81SzVUem1h?=
- =?utf-8?B?VjVJbWljbVpyWXZWMUpBaC9jTzd2ZEdpcVM2VHR6TzRGdnc3Y25sNDFobkpT?=
- =?utf-8?B?Ukg3dVp2UTdBcjdxUUVzdHdhQ2RMZ082TVI4ZGpLbEZCc0ozTlhwQ3lHZUFM?=
- =?utf-8?B?YWpsTmpTNGVTZFYxVWhtbVBqWFkwOXBHM1I2SnBhb3lseVZzK0RsUXJWelVh?=
- =?utf-8?B?VTArYVdobXgvZStRcVZjWGVkWkR5REF4cG5QeWRzMklFMGJxazdnbzdmTFFU?=
- =?utf-8?B?OGZiZmVOZXp5VlNVOGZGUTdRcmFUUlZuTjhJSDdqamtReTdtQlk3WlYxQ0Vu?=
- =?utf-8?B?KzYvWndHMVAwdmF1RTRnRGcraUlNaWN2bndvVEIvMjY5dWdna3BLS1JXTDEy?=
- =?utf-8?B?SFNSVGhNQmlUMloxanRiR016bXNLRWlGNkYxbmlqekk0cmZQd1pVbGRaS3k4?=
- =?utf-8?B?clpKbUdvc2h6OUFOL1I2TjVpQUl3SnAzV21OWlhzOS9xOUhZUDQ2RVJwdk04?=
- =?utf-8?B?aXA3bmxpaTQ1V2ZtZjdKOCtadFppR205Y1FEN3AyMXg4UERoVFJ4R1Bab09G?=
- =?utf-8?B?UW4yeEY2R1MxWTJad1NLL29rNFEzR25GTGMxdEVMMXc2VWZ4NXpsL0QzY0tq?=
- =?utf-8?B?MjlHQmROamtsVERUeDlaQlAvNnBNVVlkckdzdE9UWG5veGJHL3BjRGtld21S?=
- =?utf-8?B?cnZhR1daWmIvOW4xNlJ4UWVxalpobDIvVi9HUjJvQURnZ2ZlUFpiTzZYSXU4?=
- =?utf-8?B?MVZ3bFBUY0ZhNmYxVHpFRWdvSjkweUVHTStLTUw1bUhVMW42YkFmRE1yT1Vk?=
- =?utf-8?B?YjdKb1B6TkhvamcwVGl0Njhwc08vd0tQcGFmbkxhZFBTaEVWajlVWnUxNEZU?=
- =?utf-8?B?cVJVeXhtUkZ1aHFneWNDcTlTTjh0VHczMk00QmFYaktlTUpWRm4xNUZGcEtC?=
- =?utf-8?B?aUlxcXRYNlRaNVZRd0xtWitkK25xVUYwcWJOb2dNelBFV0RGTG9ITEsrQ1pE?=
- =?utf-8?B?aHZrcnljVnhOL3dnc3VKcVpPNXBoMjBKbnlDY0ZvWFRFeWZJSkJGRDVCa1R6?=
- =?utf-8?B?M0JCNzgwRGZxSEdwa3ozZ0xHK2NBcTlmaHBqM3o0c1dWTjJRRzZxS1VZK2J0?=
- =?utf-8?B?M04yYzU0ck9yUjBCR3M1cWdnV0JDYkRyVmNyMCtrZmlPeVh5OURrMjF3TldW?=
- =?utf-8?B?TXB2d2p0MzhzcVlHMlJ2QjcwMnpuV0pzV1V4MVNOTXRIaDZZNStyUzhDdStr?=
- =?utf-8?Q?F+x8E44onLk=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(7053199007)(921020); DIR:OUT;
- SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UWVsWXJQendIYTVWQ3FSYjBpb2pxd3FxSTRtMlNtTWJxb2RwVVI4dzRsVTRN?=
- =?utf-8?B?LzZFVWMzTGt3SkxEVU9BbEZaUmRGaW1La3JKMnlzdGRkbDIzUmlaZC9UNW5Q?=
- =?utf-8?B?cnhNK3lxazRHWkJBL0xUcFArbGpKaFgwQVkrZlNwUmlYaUZub3dwTVFwNWdD?=
- =?utf-8?B?bFpBRWtQeFlkMHhDQjEzYUdFOXhxVUlrYjJFWUcwc0pWdHo1TU9qdm9vbTZm?=
- =?utf-8?B?YkI3QzNCN1VDNE9senp6TUp4T1E5dkkwOXBTdWdZY00ycnUwRzJtM1kyMVZB?=
- =?utf-8?B?SzdET1p5NXNEdlFyaFh0cW1jUnoyZkdsK2R4TmJRSjNKanVzS015ZTFxdnRO?=
- =?utf-8?B?UDZuSWFRTmY1YkdvUmdYSFZDMnBwMDNMWDVJWFdXMHozR3NDQVJrdmZlRXJZ?=
- =?utf-8?B?SWFEU3NrMEplTjRxeDJZSDgxL2R4bVdOczQvYzBMTFkyTFgrbVdNVS96czho?=
- =?utf-8?B?eHhKT1BoRzFGS1pCcXRjWGFHM2t2R0cwYm5CMCtDdkozSEY2Vjk1Ni9DcnpR?=
- =?utf-8?B?RG91dEVQdXpoYmxuLytKZDJXU1lBcmQ4M0M4Vm1ZVEJwejY5cTQ1SWVvUDlz?=
- =?utf-8?B?aGptcDd3YUFza0tvUzJ6NGN2UWlERjIwSVh5WXNOTExaTS9DRnlZOFk4MUxO?=
- =?utf-8?B?SnB5SmZLSUJtc0pVUXg5TDJ3cGh3bDk2N1hKdzZsVjJTSHJlMXNIU0RDREhR?=
- =?utf-8?B?LzYwM3VEcExnQlQ0OFZMeGp3dlZBWFZCekxnRHFFSDJkdTNlVDRlK0dmUUdR?=
- =?utf-8?B?dGFtaENqM1lWZzZNWHBNeWc3SHRHRk1KUmM1Zms3RVZOWGZIZmdxakIwMVBF?=
- =?utf-8?B?bWJWZUl2c1d4elRlL1g4dzEvMVVzUDFsY0dWVmJzZ2tzVkhqUVlpcmJ5UlN1?=
- =?utf-8?B?WXA2ZDFwZWZjRVB6RnZzOVBpRmxDYllpREovbCs1Ri9ybWRHd1lsZnpXZVhl?=
- =?utf-8?B?QWhGNksyUDlRc3U0RnpVY1VzSUx5R1M1QVJrem5BRzNKLzN6bWQ2SkNZMUpn?=
- =?utf-8?B?YXlZRnoxQ0t0VzFUUHBsYkxnZ1g3UGxneHdqWUIxTnBvN2hEZ3IrMHVuVVVS?=
- =?utf-8?B?U2hMUXpjNHd6RGFkT2ZFVS9HN1NZcUxCOENuTHNJWHlLUm1MYWRlRlFJenh0?=
- =?utf-8?B?L0RKenFFODh0ZGtCeUt0K1orNVVqeUV4U2t4RXVib2JHaE54U0VyalRDTlh6?=
- =?utf-8?B?eUZQRVhIZlM5VnEzUHpuVm5zWmJ4SXNDSnN2WVFzREdVUlFQRGR6VVhvbmJ1?=
- =?utf-8?B?UVlERG94S1haUlNjeDgzak5jL3BQSVhJQ1d0a2cvdlc5QVB2N0FwanNrS3M1?=
- =?utf-8?B?Q1ZMTmtqSXV0eXlISi93ZTVMVldqY2tnRWZCRWU4SG1nemtqYWJFSTloUjFZ?=
- =?utf-8?B?YnRsUVJCb08vRmpwWm95SmNscDMrN09wdUhFTHViNWlGM3g5T2wyY2xvUXlT?=
- =?utf-8?B?bkU4dkZiVkVJR1NBTDlscE10dk1Cb2hGQTdHQUl0RmE5QkVtNWlKWC9pSWx5?=
- =?utf-8?B?L01vNGg1TFlBMzBmUGVwRVVsMUpWbnppK2pWZCs0Q1RtU3FjS29oODMwVDdp?=
- =?utf-8?B?QXJyek9sdk5YeDBPNXRBa0lVaXBieGw5bFlyT3AvWTAzVld4WkFqK1JMOHdP?=
- =?utf-8?B?QSt5SVprb1NSYjlBajU1ZGpWalhVVmNzL3FJYndZY1d5eXVmZE9rZk4wbmFU?=
- =?utf-8?B?cG1qWnQ1YlVzUFhoRG1pVGdpeTg0WlVPMGJZeXhGT2lSbUZZelI4MTBvVmdF?=
- =?utf-8?B?OTlMMlFzM2J0WmxBU3k0NEhKTkRuM1NwV2prZUlQRjhPcDZmbWpnWmpDNkRN?=
- =?utf-8?B?Q1N0cS80SzNtRGlOZ1g4enYrTmk1ejVMeW1MN3dTMXZSZzNjQytlNTJKZXRC?=
- =?utf-8?B?ZDlmTi9MNDZ6Mm5nMlpNNTQ5Mng1dnRmN1pFcHFnQTZYTy9FYzVsV2xUY1lk?=
- =?utf-8?B?K212WElaUXB0djJ4dlVtek9XdDA3OXdsMXpiY0dFMmhGcmFhQjhkSVZTRk9U?=
- =?utf-8?B?L05ENnR1Rlo3L0lOS1ltTG9neTlDdDdXUkREdXBsSGFpODdXZXIyYkJ5UzRO?=
- =?utf-8?B?UGRDOExDYXdOcEo2Q0F2bDJKOXlkUVdwUVRKUDk1a1hSL3dIWUhGRjBhM3pU?=
- =?utf-8?Q?0rzrS28Y9i3XRs5VwxuJ87XW2?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d55ca51f-b63c-45d5-cc98-08dd3674f1ff
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jan 2025 21:30:06.2146 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: TK0NEpzVKe+fuu7gvYynPpAU4LmsBLwsiseH46B+0mJX+/urj1OY2DdmRZ+fET+R7/aWaF7MNNmXqNFSRc7lUg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB8569
+References: <20250116182921.1730696-1-superm1@kernel.org>
+In-Reply-To: <20250116182921.1730696-1-superm1@kernel.org>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 16 Jan 2025 16:32:00 -0500
+X-Gm-Features: AbW1kvY7HPX3D21PQePB7bpYkQe4xj4dpbP4LaEOPWT1je7ZPoL_9fkrDRvGNKg
+Message-ID: <CADnq5_NDhxidmtNhi5rONuZQv-vQF-gYanrVuFU0XYJA-RDqqw@mail.gmail.com>
+Subject: Re: [RFC] drm/amd: Drop gttsize module parameter
+To: Mario Limonciello <superm1@kernel.org>
+Cc: amd-gfx@lists.freedesktop.org, 
+ Mario Limonciello <mario.limonciello@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -168,39 +79,127 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 1/12/2025 19:42, Jiang Liu wrote:
-> Enhance amdgpu_dm_early_fini() so it can be called in power
-> management operations.
-> 
-> Signed-off-by: Jiang Liu <gerry@linux.alibaba.com>
+On Thu, Jan 16, 2025 at 1:29=E2=80=AFPM Mario Limonciello <superm1@kernel.o=
+rg> wrote:
+>
+> From: Mario Limonciello <mario.limonciello@amd.com>
+>
+> When not set `gttsize` module parameter by default will get the
+> value to use for the GTT pool from the TTM page limit, which is
+> set by a separate module parameter.
+>
+> This inevitably leads to people not sure which one to set when they
+> want more addressable memory for the GPU, and you'll end up seeing
+> instructions online saying to set both.
+>
+> Drop the amdgpu module parameter and related code for it.  This way
+> if users want to change the amount of addressable memory they can
+> change it solely in TTM.
+>
+
+I suspect we probably want to keep it for compatibility with users
+that still use this option to change their GTT size.
+
+Alex
+
+
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 > ---
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 +++
->   1 file changed, 3 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 9121abe0e5ef..7b900b293c0d 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -2175,6 +2175,9 @@ static int amdgpu_dm_early_fini(struct amdgpu_ip_block *ip_block)
->   {
->   	struct amdgpu_device *adev = ip_block->adev;
->   
-> +	if (adev->in_s0ix || adev->in_s3 || adev->in_s4 || adev->in_suspend)
-> +		return 0;
-> +
-
-I'm a bit confused how this has even happened over suspend.  The call 
-stack I see is:
-
-amdgpu_pci_remove()
-->amdgpu_driver_unload_kms()
-->->amdgpu_device_fini_hw()
-->->-> amdgpu_device_ip_fini_early()
-->->->-> adev->ip_blocks[i].version->funcs->early_fini()
-
-Is there another call stack I'm missing?
-
->   	amdgpu_dm_audio_fini(adev);
->   
->   	return 0;
-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h        | 1 -
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 7 -------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 9 ---------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    | 9 ++-------
+>  4 files changed, 2 insertions(+), 24 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/am=
+dgpu/amdgpu.h
+> index 5e55a44f9eef..e728974114bb 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -164,7 +164,6 @@ extern int amdgpu_modeset;
+>  extern unsigned int amdgpu_vram_limit;
+>  extern int amdgpu_vis_vram_limit;
+>  extern int amdgpu_gart_size;
+> -extern int amdgpu_gtt_size;
+>  extern int amdgpu_moverate;
+>  extern int amdgpu_audio;
+>  extern int amdgpu_disp_priority;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_device.c
+> index 3774d12ebc4a..1b62b843e5fb 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -2031,13 +2031,6 @@ static int amdgpu_device_check_arguments(struct am=
+dgpu_device *adev)
+>                 amdgpu_gart_size =3D -1;
+>         }
+>
+> -       if (amdgpu_gtt_size !=3D -1 && amdgpu_gtt_size < 32) {
+> -               /* gtt size must be greater or equal to 32M */
+> -               dev_warn(adev->dev, "gtt size (%d) too small\n",
+> -                                amdgpu_gtt_size);
+> -               amdgpu_gtt_size =3D -1;
+> -       }
+> -
+>         /* valid range is between 4 and 9 inclusive */
+>         if (amdgpu_vm_fragment_size !=3D -1 &&
+>             (amdgpu_vm_fragment_size > 9 || amdgpu_vm_fragment_size < 4))=
+ {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_drv.c
+> index b911653dd8b6..62b09c518665 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -141,7 +141,6 @@ enum AMDGPU_DEBUG_MASK {
+>  unsigned int amdgpu_vram_limit =3D UINT_MAX;
+>  int amdgpu_vis_vram_limit;
+>  int amdgpu_gart_size =3D -1; /* auto */
+> -int amdgpu_gtt_size =3D -1; /* auto */
+>  int amdgpu_moverate =3D -1; /* auto */
+>  int amdgpu_audio =3D -1;
+>  int amdgpu_disp_priority;
+> @@ -279,14 +278,6 @@ module_param_named(vis_vramlimit, amdgpu_vis_vram_li=
+mit, int, 0444);
+>  MODULE_PARM_DESC(gartsize, "Size of kernel GART to setup in megabytes (3=
+2, 64, etc., -1=3Dauto)");
+>  module_param_named(gartsize, amdgpu_gart_size, uint, 0600);
+>
+> -/**
+> - * DOC: gttsize (int)
+> - * Restrict the size of GTT domain (for userspace use) in MiB for testin=
+g.
+> - * The default is -1 (Use 1/2 RAM, minimum value is 3GB).
+> - */
+> -MODULE_PARM_DESC(gttsize, "Size of the GTT userspace domain in megabytes=
+ (-1 =3D auto)");
+> -module_param_named(gttsize, amdgpu_gtt_size, int, 0600);
+> -
+>  /**
+>   * DOC: moverate (int)
+>   * Set maximum buffer migration rate in MB/s. The default is -1 (8 MB/s)=
+.
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_ttm.c
+> index e6fc89440210..e3fee81d8646 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> @@ -1957,13 +1957,8 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
+>         DRM_INFO("amdgpu: %uM of VRAM memory ready\n",
+>                  (unsigned int)(adev->gmc.real_vram_size / (1024 * 1024))=
+);
+>
+> -       /* Compute GTT size, either based on TTM limit
+> -        * or whatever the user passed on module init.
+> -        */
+> -       if (amdgpu_gtt_size =3D=3D -1)
+> -               gtt_size =3D ttm_tt_pages_limit() << PAGE_SHIFT;
+> -       else
+> -               gtt_size =3D (uint64_t)amdgpu_gtt_size << 20;
+> +       /* Compute GTT size, based on TTM limit */
+> +       gtt_size =3D ttm_tt_pages_limit() << PAGE_SHIFT;
+>
+>         /* Initialize GTT memory pool */
+>         r =3D amdgpu_gtt_mgr_init(adev, gtt_size);
+> --
+> 2.48.0
+>
