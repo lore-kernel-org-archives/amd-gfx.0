@@ -4,69 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F31D9C02187
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jan 2025 15:04:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3FD1C02183
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jan 2025 15:07:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A04E610E1E7;
-	Thu, 16 Jan 2025 15:04:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 659D310E9A5;
+	Thu, 16 Jan 2025 15:07:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lManEm+7";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hB7L76xD";
 	dkim-atps=neutral
-Received: from mail-pj1-x102c.google.com (mail-pj1-x102c.google.com
- [IPv6:2607:f8b0:4864:20::102c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D059510E9A8
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jan 2025 15:04:50 +0000 (UTC)
-Received: by mail-pj1-x102c.google.com with SMTP id
- 98e67ed59e1d1-2f2f5e91393so225734a91.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jan 2025 07:04:50 -0800 (PST)
+Received: from mail-pj1-x102d.google.com (mail-pj1-x102d.google.com
+ [IPv6:2607:f8b0:4864:20::102d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D364C10E9A5
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jan 2025 15:07:17 +0000 (UTC)
+Received: by mail-pj1-x102d.google.com with SMTP id
+ 98e67ed59e1d1-2f615e14d0fso235312a91.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jan 2025 07:07:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1737039890; x=1737644690; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1737040037; x=1737644837; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=yKAmwHeJcvm8+LKCQlFEtb5GWBuolrYMJsPobnAQIcE=;
- b=lManEm+78zSBpMTWuVCzE5mdwfchw5nPEctVyPdWHheRo0JTTwtIaICz/buyKWBNil
- 61ECAFdplxDZVzdqy1ReAaW5juGucSfh0478/sioLwArtCjaB0t5cK3Iif0YASdDlEMY
- TgNDLWVsbGP09dl25+hGiywvo6Y5iZ+6RHwtF+ZjlQWOrv+YHsFEsC0nS+YyTFyax51T
- MgWcGW4UYUyRb2+dzY+JIf9rkmUj55ofZRlh/PahwoV+MEMt/xqDxu/nJ0B5Wc/vOHHc
- KzxuNOuvzID02ehgQZTRoUVCqlXJKA8+W4I4y1OtkfK6leIz5a3Awcr96FkQQ/UaXJi7
- k3nQ==
+ bh=JErvk/ObJWQXCTn/l+bUOd5rMKF/iCZCH6v8t8HPBgo=;
+ b=hB7L76xDUxDlxAsF7bSdyOXnrMoleAlaxbT82aBey3K/4yVASX+X7M+MKJ07TZyCko
+ MSL4Vhj2DMMdzThzDvGQ1yHykS38dQkqhyy9YHzv0VhwlhT+JQ8i6vqb0TFEczRKl4Uu
+ nR1VovnjE5kZi+ofZl78Aq9Ir1cLddwTrlvUbYhowxb92/ZX9QTewRVBPbFzE6rt/iFr
+ 5+KhQD4hxuJantwZ8iErQQRtDpwB/OevO2slFJTtqR01Nq54wSODh/BhMypt8qDAmYJ1
+ FJ0Is8aKIX3kbS1OoQIp1rIdNKvXCK2CctQi08n51t/XVnyGdCxc4KcopM81cjcH0abd
+ evCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737039890; x=1737644690;
+ d=1e100.net; s=20230601; t=1737040037; x=1737644837;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=yKAmwHeJcvm8+LKCQlFEtb5GWBuolrYMJsPobnAQIcE=;
- b=vXtfWujfRxbhoqcnxGtt6TwQykx1A2yJysqjYoIJAbh6OqKG9yJd1xgv6+8il6PmcP
- 03LBgaGZXnyoUHEcyR1uyBi+9PFBWfASTN8Q9IrtwziFRd+TPwGMFKQjc7atJLpTCw/c
- FtZpxCEW/gpl0yDId4dtyvJiWmTJ0Dg1XX1VLAv/2DrHukxNRT3tQD+yNhCZzJLBwSme
- EUrcnFtCWAW3rxhyvPNViQqaaxJQ4/rnRL5+086H3OGS+8RLPNXBOtsSphWUQfEsLn12
- n0PvQME1+St4v58CGHWVBwHmSWiw70nQzgOHS3HwoVzc926Kvh/G/9UA+5BpOqi5KmkX
- WVTA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUhtY+fFtLJSLREZjE4qyytwyan7XDlovLUcpW0JdTbzTUFI/XUMfQeiyjaBscaxiVZDMESJLEt@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy4SD7zch8+5KLCkr9KtXtgQ+80JCM+nznwc0E5EfQlJjrUgAYA
- 181EwMSzFDbQkTVJ2rv4IVcrzTOJhN6YZDAW7TU8njas0QYhkOoH+T0eY2OXbbIDOmQylld4veN
- iPHd4s2k3kRf82RUwroOURwgpf7Q=
-X-Gm-Gg: ASbGncu4/OQ7PO88GHuBJamtKnP3tuP1QWbwcCcdnhEQJewnPJ/4WjvipAeJavX3fWf
- 5hlu0AUe4Ue4YzJEAFmLm4Dv8pDT2sdlbi25YQw==
-X-Google-Smtp-Source: AGHT+IF9Y7mivpNhdSgSLP78ohucqzOGiFoL5pyD25dbVaXlh8b56+nMhgcOWFY/d998bGFkcBGo/Rx/vnnEjQEe91M=
-X-Received: by 2002:a17:90a:da88:b0:2ee:f440:bb93 with SMTP id
- 98e67ed59e1d1-2f548f2449fmr17344247a91.4.1737039890199; Thu, 16 Jan 2025
- 07:04:50 -0800 (PST)
+ bh=JErvk/ObJWQXCTn/l+bUOd5rMKF/iCZCH6v8t8HPBgo=;
+ b=ZsC6WLhYT7soXAwiN8hoDfewQjfPMhj0pLvspWbQA4sb4reW1hrjzo9uomg7xZYbh4
+ uue2SLUJiX5V5toFJTzc7u7AYY0GWjn5BfOF6Gy0BN2xO8sTr0sVpoRFw5+Ilqvfrw73
+ j8Hgj+/4Rv3HZmBT1ben6b4vtx1AQ7NZfMzX6MLHtuyIIxPRhjnES2anPO/rRpL6c+sQ
+ rc6O7aO9YNSYlEPAedIbIdejhJpAR/VEuo68dbxRy5KnANnet1+I3Yo7mvPLp9ykKs/P
+ 05PAlawzqjhI7HOf2Xb1CxXYsIdx3yv5YusUCcG9nFDPt5H1Jk61KB9lDetxwdWKxr+7
+ BGVA==
+X-Gm-Message-State: AOJu0YzkX4gJtE62INkuFCTk33JIAENhilH78y1prxAXgzdX2K6O8P6X
+ hIxRwmESQ5e9TsiFS0UIfwKo5eFBcbkfc0o4df6fApkcc5dcAWwPYbvdqVhgAfpcK/8JJrbxn4v
+ cui2AUOQrbuJublKg2wimXHNDiMo5eA==
+X-Gm-Gg: ASbGncvpSTfsT6xOtQP34wO/MHwy7iNISRVVFyj6qQOFRYWdcwa0NN0NQkfG4eF5/3z
+ bMH5WtE1nETD+Miki7faiAwavOj/eOsIDiuikMA==
+X-Google-Smtp-Source: AGHT+IGhWkiSVm0cYZd6PhuD+FmlyXmPCdhXWuXQhHCD7bqhsyLkcRBU7POtWHLjeTThSJHbaWa/W8zOzjeIlJQ2YF8=
+X-Received: by 2002:a17:90b:2c8c:b0:2ee:b665:12c2 with SMTP id
+ 98e67ed59e1d1-2f548f04e89mr18551403a91.2.1737040037150; Thu, 16 Jan 2025
+ 07:07:17 -0800 (PST)
 MIME-Version: 1.0
-References: <20250115162820.637642-1-alexander.deucher@amd.com>
- <DS7PR12MB6071331E7301973B4F53604D8E1A2@DS7PR12MB6071.namprd12.prod.outlook.com>
-In-Reply-To: <DS7PR12MB6071331E7301973B4F53604D8E1A2@DS7PR12MB6071.namprd12.prod.outlook.com>
+References: <20250116122908.1451094-1-lijo.lazar@amd.com>
+In-Reply-To: <20250116122908.1451094-1-lijo.lazar@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 16 Jan 2025 10:04:38 -0500
-X-Gm-Features: AbW1kvagH1WQANWqeKOdIwfJiVcWwBpbI5FUQ6tw2lxTcTtaPrboMhN7yUqT8Ys
-Message-ID: <CADnq5_NfgXRM0OOeYfDA1P_=0PigKTLwbZz3BwpFjAtgrT3TSg@mail.gmail.com>
-Subject: Re: [PATCH 1/2] drm/amd/pm: Add SMUv13.0.12 PMFW headers
-To: "Kamal, Asad" <Asad.Kamal@amd.com>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Lazar,
- Lijo" <Lijo.Lazar@amd.com>
+Date: Thu, 16 Jan 2025 10:07:05 -0500
+X-Gm-Features: AbW1kvalF80oCrhZw2zcl5YHsTi6UoLBL1XAsyDpsvYTRKr0SErzm2noiDS5m_0
+Message-ID: <CADnq5_MEEUN5wnUt2Hk17+5prLBKjZCGA5pn=1FLJ9MXbBf+JQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/pm: Add capability flags for SMU v13.0.6
+To: Lijo Lazar <lijo.lazar@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Hawking.Zhang@amd.com, 
+ Alexander.Deucher@amd.com, Asad.Kamal@amd.com, kevinyang.wang@amd.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -83,317 +79,511 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jan 16, 2025 at 8:02=E2=80=AFAM Kamal, Asad <Asad.Kamal@amd.com> wr=
-ote:
+On Thu, Jan 16, 2025 at 7:29=E2=80=AFAM Lijo Lazar <lijo.lazar@amd.com> wro=
+te:
 >
-> [AMD Official Use Only - AMD Internal Distribution Only]
+> Add capability flags for SMU v13.0.6 variants. Initialize the flags
+> based on firmware support. As there are multiple IP versions maintained,
+> it is more manageable with one time initialization caps flags based on
+> IP version and firmware feature support.
 >
-> Hi @Deucher, Alexander,
->
-> Please hold on to this series, we are currently working on a refined vers=
-ion, this current series will be dropped.
+> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
 
-Sure.  thanks.
+This is a nice cleanup.
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-Alex
-
->
-> Thanks & Regards
-> Asad
->
-> -----Original Message-----
-> From: Deucher, Alexander <Alexander.Deucher@amd.com>
-> Sent: Wednesday, January 15, 2025 9:58 PM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Kamal, Asad <Asad.Kamal@amd.com>; Lazar, Lijo <Lijo.Lazar@amd.com>; D=
-eucher, Alexander <Alexander.Deucher@amd.com>
-> Subject: [PATCH 1/2] drm/amd/pm: Add SMUv13.0.12 PMFW headers
->
-> From: Asad Kamal <asad.kamal@amd.com>
->
-> Add pmfw headers for smuv13.0.12 to pmfw version 86.24.0
->
-> Signed-off-by: Asad Kamal <asad.kamal@amd.com>
-> Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > ---
->  .../pm/swsmu/inc/pmfw_if/smu_v13_0_12_pmfw.h  | 248 ++++++++++++++++++
->  1 file changed, 248 insertions(+)
->  create mode 100644 drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_12=
-_pmfw.h
+>  drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h  |   1 +
+>  .../drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c  | 225 ++++++++++++------
+>  2 files changed, 158 insertions(+), 68 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_12_pmfw.h=
- b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_12_pmfw.h
-> new file mode 100644
-> index 0000000000000..859e7a3813bb5
-> --- /dev/null
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v13_0_12_pmfw.h
-> @@ -0,0 +1,248 @@
-> +/*
-> + * Copyright 2021 Advanced Micro Devices, Inc.
-> + *
-> + * Permission is hereby granted, free of charge, to any person
-> +obtaining a
-> + * copy of this software and associated documentation files (the
-> +"Software"),
-> + * to deal in the Software without restriction, including without
-> +limitation
-> + * the rights to use, copy, modify, merge, publish, distribute,
-> +sublicense,
-> + * and/or sell copies of the Software, and to permit persons to whom
-> +the
-> + * Software is furnished to do so, subject to the following conditions:
-> + *
-> + * The above copyright notice and this permission notice shall be
-> +included in
-> + * all copies or substantial portions of the Software.
-> + *
-> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-> +EXPRESS OR
-> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-> +MERCHANTABILITY,
-> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT
-> +SHALL
-> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM,
-> +DAMAGES OR
-> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-> +OTHERWISE,
-> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
-> +OR
-> + * OTHER DEALINGS IN THE SOFTWARE.
-> + *
-> + */
-> +#ifndef SMU_13_0_12_PMFW_H
-> +#define SMU_13_0_12_PMFW_H
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h b/drivers/gpu/d=
+rm/amd/pm/swsmu/inc/smu_v13_0.h
+> index 356d9422b411..8d4a96e23326 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h
+> @@ -107,6 +107,7 @@ struct smu_13_0_dpm_context {
+>         struct smu_13_0_dpm_tables  dpm_tables;
+>         uint32_t                    workload_policy_mask;
+>         uint32_t                    dcef_min_ds_clk;
+> +       uint64_t                    caps;
+>  };
+>
+>  enum smu_13_0_power_state {
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drive=
+rs/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+> index c12959a36d78..56e26fcd3066 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+> @@ -101,38 +101,25 @@ MODULE_FIRMWARE("amdgpu/smu_13_0_14.bin");
+>  #define MCA_BANK_IPID(_ip, _hwid, _type) \
+>         [AMDGPU_MCA_IP_##_ip] =3D { .hwid =3D _hwid, .mcatype =3D _type, =
+}
+>
+> -static inline bool smu_v13_0_6_is_unified_metrics(struct smu_context *sm=
+u)
+> -{
+> -       return (smu->adev->flags & AMD_IS_APU) &&
+> -               smu->smc_fw_version <=3D 0x4556900;
+> -}
+> -
+> -static inline bool smu_v13_0_6_is_other_end_count_available(struct smu_c=
+ontext *smu)
+> -{
+> -       switch (amdgpu_ip_version(smu->adev, MP1_HWIP, 0)) {
+> -       case IP_VERSION(13, 0, 6):
+> -               return smu->smc_fw_version >=3D 0x557600;
+> -       case IP_VERSION(13, 0, 14):
+> -               return smu->smc_fw_version >=3D 0x05550E00;
+> -       default:
+> -               return false;
+> -       }
+> -}
+> -
+> -static inline bool smu_v13_0_6_is_blw_host_limit_available(struct smu_co=
+ntext *smu)
+> -{
+> -       if (smu->adev->flags & AMD_IS_APU)
+> -               return smu->smc_fw_version >=3D 0x04556F00;
+> +enum smu_v13_0_6_caps {
+> +       SMU_13_0_6_CAPS_DPM,
+> +       SMU_13_0_6_CAPS_UNI_METRICS,
+> +       SMU_13_0_6_CAPS_DPM_POLICY,
+> +       SMU_13_0_6_CAPS_OTHER_END_METRICS,
+> +       SMU_13_0_6_CAPS_SET_UCLK_MAX,
+> +       SMU_13_0_6_CAPS_PCIE_METRICS,
+> +       SMU_13_0_6_CAPS_HST_LIMIT_METRICS,
+> +       SMU_13_0_6_CAPS_MCA_DEBUG_MODE,
+> +       SMU_13_0_6_CAPS_PER_INST_METRICS,
+> +       SMU_13_0_6_CAPS_CTF_LIMIT,
+> +       SMU_13_0_6_CAPS_RMA_MSG,
+> +       SMU_13_0_6_CAPS_ACA_SYND,
+> +       SMU_13_0_6_CAPS_SDMA_RESET,
+> +       SMU_13_0_6_CAPS_ALL,
+> +};
+>
+> -       switch (amdgpu_ip_version(smu->adev, MP1_HWIP, 0)) {
+> -       case IP_VERSION(13, 0, 6):
+> -               return smu->smc_fw_version >=3D 0x557900;
+> -       case IP_VERSION(13, 0, 14):
+> -               return smu->smc_fw_version >=3D 0x05551000;
+> -       default:
+> -               return false;
+> -       }
+> -}
+> +#define SMU_CAPS_MASK(x) (ULL(1) << x)
+> +#define SMU_CAPS(x) SMU_CAPS_MASK(SMU_13_0_6_CAPS_##x)
+>
+>  struct mca_bank_ipid {
+>         enum amdgpu_mca_ip ip;
+> @@ -297,6 +284,119 @@ struct smu_v13_0_6_dpm_map {
+>         uint32_t *freq_table;
+>  };
+>
+> +static void smu_v13_0_14_init_caps(struct smu_context *smu)
+> +{
+> +       struct smu_13_0_dpm_context *dpm_context =3D smu->smu_dpm.dpm_con=
+text;
+> +       uint64_t caps =3D SMU_CAPS(DPM) | SMU_CAPS(UNI_METRICS) |
+> +                       SMU_CAPS(SET_UCLK_MAX) | SMU_CAPS(DPM_POLICY) |
+> +                       SMU_CAPS(PCIE_METRICS) | SMU_CAPS(CTF_LIMIT) |
+> +                       SMU_CAPS(MCA_DEBUG_MODE) | SMU_CAPS(RMA_MSG) |
+> +                       SMU_CAPS(ACA_SYND);
+> +       uint32_t fw_ver =3D smu->smc_fw_version;
 > +
-> +#define NUM_VCLK_DPM_LEVELS   4
-> +#define NUM_DCLK_DPM_LEVELS   4
-> +#define NUM_SOCCLK_DPM_LEVELS 4
-> +#define NUM_LCLK_DPM_LEVELS   4
-> +#define NUM_UCLK_DPM_LEVELS   4
-> +#define NUM_FCLK_DPM_LEVELS   4
-> +#define NUM_XGMI_DPM_LEVELS   2
-> +#define NUM_CXL_BITRATES      4
-> +#define NUM_PCIE_BITRATES     4
-> +#define NUM_XGMI_BITRATES     4
-> +#define NUM_XGMI_WIDTHS       3
-> +#define NUM_TDP_GROUPS        4
-> +#define NUM_SOC_P2S_TABLES    6
-> +#define NUM_GFX_P2S_TABLES    8
-> +#define NUM_PSM_DIDT_THRESHOLDS 3
+> +       if (fw_ver >=3D 0x05550E00)
+> +               caps |=3D SMU_CAPS(OTHER_END_METRICS);
+> +       if (fw_ver >=3D 0x05551000)
+> +               caps |=3D SMU_CAPS(HST_LIMIT_METRICS);
+> +       if (fw_ver >=3D 0x05550B00)
+> +               caps |=3D SMU_CAPS(PER_INST_METRICS);
+> +       if (fw_ver > 0x05550f00)
+> +               caps |=3D SMU_CAPS(SDMA_RESET);
 > +
-> +typedef enum {
-> +/*0*/   FEATURE_DATA_CALCULATION            =3D 0,
-> +/*1*/   FEATURE_DPM_FCLK                    =3D 1,
-> +/*2*/   FEATURE_DPM_GFXCLK                  =3D 2,
-> +/*3*/   FEATURE_DPM_LCLK                    =3D 3,
-> +/*4*/   FEATURE_DPM_SOCCLK                  =3D 4,
-> +/*5*/   FEATURE_DPM_UCLK                    =3D 5,
-> +/*6*/   FEATURE_DPM_VCN                     =3D 6,
-> +/*7*/   FEATURE_DPM_XGMI                    =3D 7,
-> +/*8*/   FEATURE_DS_FCLK                     =3D 8,
-> +/*9*/   FEATURE_DS_GFXCLK                   =3D 9,
-> +/*10*/  FEATURE_DS_LCLK                     =3D 10,
-> +/*11*/  FEATURE_DS_MP0CLK                   =3D 11,
-> +/*12*/  FEATURE_DS_MP1CLK                   =3D 12,
-> +/*13*/  FEATURE_DS_MPIOCLK                  =3D 13,
-> +/*14*/  FEATURE_DS_SOCCLK                   =3D 14,
-> +/*15*/  FEATURE_DS_VCN                      =3D 15,
-> +/*16*/  FEATURE_APCC_DFLL                   =3D 16,
-> +/*17*/  FEATURE_APCC_PLUS                   =3D 17,
-> +/*18*/  FEATURE_PPT                         =3D 18,
-> +/*19*/  FEATURE_TDC                         =3D 19,
-> +/*20*/  FEATURE_THERMAL                     =3D 20,
-> +/*21*/  FEATURE_SOC_PCC                     =3D 21,
-> +/*22*/  FEATURE_PROCHOT                     =3D 22,
-> +/*23*/  FEATURE_FDD_AID_HBM                 =3D 23,
-> +/*24*/  FEATURE_FDD_AID_SOC                 =3D 24,
-> +/*25*/  FEATURE_FDD_XCD_EDC                 =3D 25,
-> +/*26*/  FEATURE_FDD_XCD_XVMIN               =3D 26,
-> +/*27*/  FEATURE_FW_CTF                      =3D 27,
-> +/*28*/  FEATURE_SMU_CG                      =3D 28,
-> +/*29*/  FEATURE_PSI7                        =3D 29,
-> +/*30*/  FEATURE_XGMI_PER_LINK_PWR_DOWN      =3D 30,
-> +/*31*/  FEATURE_SOC_DC_RTC                  =3D 31,
-> +/*32*/  FEATURE_GFX_DC_RTC                  =3D 32,
-> +/*33*/  FEATURE_DVM_MIN_PSM                 =3D 33,
-> +/*34*/  FEATURE_PRC                         =3D 34,
-> +/*35*/  FEATURE_PSM_SQ_THROTTLER            =3D 35,
-> +/*36*/  FEATURE_PIT                         =3D 36,
-> +/*37*/  FEATURE_DVO                         =3D 37,
-> +/*38*/  FEATURE_XVMINORPSM_CLKSTOP_DS       =3D 38,
+> +       dpm_context->caps =3D caps;
+> +}
 > +
-> +/*39*/  NUM_FEATURES                        =3D 39
-> +} FEATURE_LIST_e;
+> +static void smu_v13_0_6_init_caps(struct smu_context *smu)
+> +{
+> +       uint64_t caps =3D SMU_CAPS(DPM) | SMU_CAPS(UNI_METRICS) |
+> +                       SMU_CAPS(SET_UCLK_MAX) | SMU_CAPS(DPM_POLICY) |
+> +                       SMU_CAPS(PCIE_METRICS) | SMU_CAPS(MCA_DEBUG_MODE)=
+ |
+> +                       SMU_CAPS(CTF_LIMIT) | SMU_CAPS(RMA_MSG) |
+> +                       SMU_CAPS(ACA_SYND);
+> +       struct smu_13_0_dpm_context *dpm_context =3D smu->smu_dpm.dpm_con=
+text;
+> +       struct amdgpu_device *adev =3D smu->adev;
+> +       uint32_t fw_ver =3D smu->smc_fw_version;
+> +       uint32_t pgm =3D (fw_ver >> 24) & 0xFF;
 > +
-> +//enum for MPIO PCIe gen speed msgs
-> +typedef enum {
-> +  PCIE_LINK_SPEED_INDEX_TABLE_GEN1,
-> +  PCIE_LINK_SPEED_INDEX_TABLE_GEN2,
-> +  PCIE_LINK_SPEED_INDEX_TABLE_GEN3,
-> +  PCIE_LINK_SPEED_INDEX_TABLE_GEN4,
-> +  PCIE_LINK_SPEED_INDEX_TABLE_GEN4_ESM,
-> +  PCIE_LINK_SPEED_INDEX_TABLE_GEN5,
-> +  PCIE_LINK_SPEED_INDEX_TABLE_COUNT
-> +} PCIE_LINK_SPEED_INDEX_TABLE_e;
+> +       if (fw_ver < 0x552F00)
+> +               caps &=3D ~SMU_CAPS(DPM);
 > +
-> +typedef enum {
-> +  GFX_GUARDBAND_OFFSET_0,
-> +  GFX_GUARDBAND_OFFSET_1,
-> +  GFX_GUARDBAND_OFFSET_2,
-> +  GFX_GUARDBAND_OFFSET_3,
-> +  GFX_GUARDBAND_OFFSET_4,
-> +  GFX_GUARDBAND_OFFSET_5,
-> +  GFX_GUARDBAND_OFFSET_6,
-> +  GFX_GUARDBAND_OFFSET_7,
-> +  GFX_GUARDBAND_OFFSET_COUNT
-> +} GFX_GUARDBAND_OFFSET_e;
+> +       if (adev->flags & AMD_IS_APU) {
+> +               caps &=3D ~SMU_CAPS(PCIE_METRICS);
+> +               caps &=3D ~SMU_CAPS(SET_UCLK_MAX);
+> +               caps &=3D ~SMU_CAPS(DPM_POLICY);
+> +               caps &=3D ~SMU_CAPS(RMA_MSG);
+> +               caps &=3D ~SMU_CAPS(ACA_SYND);
 > +
-> +typedef enum {
-> +  GFX_DVM_MARGINHI_0,
-> +  GFX_DVM_MARGINHI_1,
-> +  GFX_DVM_MARGINHI_2,
-> +  GFX_DVM_MARGINHI_3,
-> +  GFX_DVM_MARGINHI_4,
-> +  GFX_DVM_MARGINHI_5,
-> +  GFX_DVM_MARGINHI_6,
-> +  GFX_DVM_MARGINHI_7,
-> +  GFX_DVM_MARGINLO_0,
-> +  GFX_DVM_MARGINLO_1,
-> +  GFX_DVM_MARGINLO_2,
-> +  GFX_DVM_MARGINLO_3,
-> +  GFX_DVM_MARGINLO_4,
-> +  GFX_DVM_MARGINLO_5,
-> +  GFX_DVM_MARGINLO_6,
-> +  GFX_DVM_MARGINLO_7,
-> +  GFX_DVM_MARGIN_COUNT
-> +} GFX_DVM_MARGIN_e;
+> +               if (fw_ver <=3D 0x4556900)
+> +                       caps &=3D ~SMU_CAPS(UNI_METRICS);
 > +
-> +#define SMU_METRICS_TABLE_VERSION 0xF
+> +               if (fw_ver >=3D 0x04556F00)
+> +                       caps |=3D SMU_CAPS(HST_LIMIT_METRICS);
+> +               if (fw_ver >=3D 0x04556A00)
+> +                       caps |=3D SMU_CAPS(PER_INST_METRICS);
+> +               if (fw_ver < 0x554500)
+> +                       caps &=3D ~SMU_CAPS(CTF_LIMIT);
+> +       } else {
+> +               if (fw_ver >=3D 0x557600)
+> +                       caps |=3D SMU_CAPS(OTHER_END_METRICS);
+> +               if (fw_ver < 0x00556000)
+> +                       caps &=3D ~SMU_CAPS(DPM_POLICY);
+> +               if (amdgpu_sriov_vf(adev) && (fw_ver < 0x556600))
+> +                       caps &=3D ~SMU_CAPS(SET_UCLK_MAX);
+> +               if (fw_ver < 0x556300)
+> +                       caps &=3D ~SMU_CAPS(PCIE_METRICS);
+> +               if (fw_ver < 0x554800)
+> +                       caps &=3D ~SMU_CAPS(MCA_DEBUG_MODE);
+> +               if (fw_ver >=3D 0x556F00)
+> +                       caps |=3D SMU_CAPS(PER_INST_METRICS);
+> +               if (fw_ver < 0x554500)
+> +                       caps &=3D ~SMU_CAPS(CTF_LIMIT);
+> +               if (fw_ver < 0x00555a00)
+> +                       caps &=3D ~SMU_CAPS(RMA_MSG);
+> +               if (fw_ver < 0x00555600)
+> +                       caps &=3D ~SMU_CAPS(ACA_SYND);
+> +               if (pgm =3D=3D 0 && fw_ver >=3D 0x557900)
+> +                       caps |=3D SMU_CAPS(HST_LIMIT_METRICS);
+> +       }
+> +       if (((pgm =3D=3D 7) && (fw_ver > 0x07550700)) ||
+> +           ((pgm =3D=3D 0) && (fw_ver > 0x00557700)) ||
+> +           ((pgm =3D=3D 4) && (fw_ver > 0x4556e6c)))
+> +               caps |=3D SMU_CAPS(SDMA_RESET);
 > +
-> +typedef struct __attribute__((packed, aligned(4))) {
-> +  uint64_t AccumulationCounter;
+> +       dpm_context->caps =3D caps;
+> +}
 > +
-> +  //TEMPERATURE
-> +  uint32_t MaxSocketTemperature;
-> +  uint32_t MaxVrTemperature;
-> +  uint32_t MaxHbmTemperature;
-> +  uint64_t MaxSocketTemperatureAcc;
-> +  uint64_t MaxVrTemperatureAcc;
-> +  uint64_t MaxHbmTemperatureAcc;
+> +static inline bool smu_v13_0_6_caps_supported(struct smu_context *smu,
+> +                                             enum smu_v13_0_6_caps caps)
+> +{
+> +       struct smu_13_0_dpm_context *dpm_context =3D smu->smu_dpm.dpm_con=
+text;
 > +
-> +  //POWER
-> +  uint32_t SocketPowerLimit;
-> +  uint32_t MaxSocketPowerLimit;
-> +  uint32_t SocketPower;
+> +       return (dpm_context->caps & SMU_CAPS_MASK(caps)) =3D=3D SMU_CAPS_=
+MASK(caps);
+> +}
 > +
-> +  //ENERGY
-> +  uint64_t Timestamp;
-> +  uint64_t SocketEnergyAcc;
-> +  uint64_t CcdEnergyAcc;
-> +  uint64_t XcdEnergyAcc;
-> +  uint64_t AidEnergyAcc;
-> +  uint64_t HbmEnergyAcc;
+> +static void smu_v13_0_x_init_caps(struct smu_context *smu)
+> +{
+> +       switch (amdgpu_ip_version(smu->adev, MP1_HWIP, 0)) {
+> +       case IP_VERSION(13, 0, 14):
+> +               return smu_v13_0_14_init_caps(smu);
+> +       default:
+> +               return smu_v13_0_6_init_caps(smu);
+> +       }
+> +}
 > +
-> +  //FREQUENCY
-> +  uint32_t GfxclkFrequencyLimit;
-> +  uint32_t FclkFrequency;
-> +  uint32_t UclkFrequency;
-> +  uint32_t SocclkFrequency[4];
-> +  uint32_t VclkFrequency[4];
-> +  uint32_t DclkFrequency[4];
-> +  uint32_t LclkFrequency[4];
-> +  uint64_t GfxclkFrequencyAcc[8];
+> +static int smu_v13_0_6_check_fw_version(struct smu_context *smu)
+> +{
+> +       int r;
 > +
-> +  //FREQUENCY RANGE
-> +  uint32_t MaxGfxclkFrequency;
-> +  uint32_t MinGfxclkFrequency;
-> +  uint32_t FclkFrequencyTable[4];
-> +  uint32_t UclkFrequencyTable[4];
-> +  uint32_t SocclkFrequencyTable[4];
-> +  uint32_t VclkFrequencyTable[4];
-> +  uint32_t DclkFrequencyTable[4];
-> +  uint32_t LclkFrequencyTable[4];
-> +  uint32_t MaxLclkDpmRange;
-> +  uint32_t MinLclkDpmRange;
+> +       r =3D smu_v13_0_check_fw_version(smu);
+> +       /* Initialize caps flags once fw version is fetched */
+> +       if (!r)
+> +               smu_v13_0_x_init_caps(smu);
 > +
-> +  //XGMI
-> +  uint32_t XgmiWidth;
-> +  uint32_t XgmiBitrate;
-> +  uint64_t XgmiReadBandwidthAcc[8];
-> +  uint64_t XgmiWriteBandwidthAcc[8];
+> +       return r;
+> +}
 > +
-> +  //ACTIVITY
-> +  uint32_t SocketGfxBusy;
-> +  uint32_t DramBandwidthUtilization;
-> +  uint64_t SocketC0ResidencyAcc;
-> +  uint64_t SocketGfxBusyAcc;
-> +  uint64_t DramBandwidthAcc;
-> +  uint32_t MaxDramBandwidth;
-> +  uint64_t DramBandwidthUtilizationAcc;  uint64_t PcieBandwidthAcc[4];
-> +
-> +  //THROTTLERS
-> +  uint32_t ProchotResidencyAcc;
-> +  uint32_t PptResidencyAcc;
-> +  uint32_t SocketThmResidencyAcc;
-> +  uint32_t VrThmResidencyAcc;
-> +  uint32_t HbmThmResidencyAcc;
-> +  uint32_t GfxLockXCDMak;
-> +
-> +  // New Items at end to maintain driver compatibility  uint32_t
-> + GfxclkFrequency[8];
-> +
-> +  //PSNs
-> +  uint64_t PublicSerialNumber_AID[4];
-> +  uint64_t PublicSerialNumber_XCD[8];
-> +
-> +  //XGMI Data tranfser size
-> +  uint64_t XgmiReadDataSizeAcc[8];//in KByte  uint64_t
-> + XgmiWriteDataSizeAcc[8];//in KByte
-> +
-> +  //PCIE BW Data and error count
-> +  uint32_t PcieBandwidth[4];
-> +  uint32_t PCIeL0ToRecoveryCountAcc;      // The Pcie counter itself is =
-accumulated
-> +  uint32_t PCIenReplayAAcc;               // The Pcie counter itself is =
-accumulated
-> +  uint32_t PCIenReplayARolloverCountAcc;  // The Pcie counter itself is =
-accumulated
-> +  uint32_t PCIeNAKSentCountAcc;           // The Pcie counter itself is =
-accumulated
-> +  uint32_t PCIeNAKReceivedCountAcc;       // The Pcie counter itself is =
-accumulated
-> +
-> +  // VCN/JPEG ACTIVITY
-> +  uint32_t VcnBusy[4];
-> +  uint32_t JpegBusy[32];
-> +
-> +  // PCIE LINK Speed and width
-> +  uint32_t PCIeLinkSpeed;
-> +  uint32_t PCIeLinkWidth;
-> +
-> +  // PER XCD ACTIVITY
-> +  uint32_t GfxBusy[8];
-> +  uint64_t GfxBusyAcc[8];
-> +
-> +  //PCIE BW Data and error count
-> +  uint32_t PCIeOtherEndRecoveryAcc;       // The Pcie counter itself is =
-accumulated
-> +
-> +  //Total App Clock Counter
-> +  uint64_t GfxclkBelowHostLimitAcc[8];
-> +} MetricsTable_t;
-> +
-> +#define SMU_VF_METRICS_TABLE_VERSION 0x3
-> +
-> +typedef struct __attribute__((packed, aligned(4))) {
-> +  uint32_t AccumulationCounter;
-> +  uint32_t InstGfxclk_TargFreq;
-> +  uint64_t AccGfxclk_TargFreq;
-> +  uint64_t AccGfxRsmuDpm_Busy;
-> +} VfMetricsTable_t;
-> +
-> +#endif
+>  static int smu_v13_0_6_init_microcode(struct smu_context *smu)
+>  {
+>         const struct smc_firmware_header_v2_1 *v2_1;
+> @@ -616,7 +716,7 @@ static int smu_v13_0_6_setup_driver_pptable(struct sm=
+u_context *smu)
+>         MetricsTableA_t *metrics_a =3D (MetricsTableA_t *)smu_table->metr=
+ics_table;
+>         struct PPTable_t *pptable =3D
+>                 (struct PPTable_t *)smu_table->driver_pptable;
+> -       bool flag =3D smu_v13_0_6_is_unified_metrics(smu);
+> +       bool flag =3D !smu_v13_0_6_caps_supported(smu, SMU_CAPS(UNI_METRI=
+CS));
+>         int ret, i, retry =3D 100;
+>         uint32_t table_version;
+>
+> @@ -812,8 +912,7 @@ static int smu_v13_0_6_set_default_dpm_table(struct s=
+mu_context *smu)
+>         smu_v13_0_6_setup_driver_pptable(smu);
+>
+>         /* DPM policy not supported in older firmwares */
+> -       if (!(smu->adev->flags & AMD_IS_APU) &&
+> -           (smu->smc_fw_version < 0x00556000)) {
+> +       if (!smu_v13_0_6_caps_supported(smu, SMU_CAPS(DPM_POLICY))) {
+>                 struct smu_dpm_context *smu_dpm =3D &smu->smu_dpm;
+>
+>                 smu_dpm->dpm_policies->policy_mask &=3D
+> @@ -990,7 +1089,7 @@ static int smu_v13_0_6_get_smu_metrics_data(struct s=
+mu_context *smu,
+>         struct smu_table_context *smu_table =3D &smu->smu_table;
+>         MetricsTableX_t *metrics_x =3D (MetricsTableX_t *)smu_table->metr=
+ics_table;
+>         MetricsTableA_t *metrics_a =3D (MetricsTableA_t *)smu_table->metr=
+ics_table;
+> -       bool flag =3D smu_v13_0_6_is_unified_metrics(smu);
+> +       bool flag =3D !smu_v13_0_6_caps_supported(smu, SMU_CAPS(UNI_METRI=
+CS));
+>         struct amdgpu_device *adev =3D smu->adev;
+>         int ret =3D 0;
+>         int xcc_id;
+> @@ -1003,7 +1102,7 @@ static int smu_v13_0_6_get_smu_metrics_data(struct =
+smu_context *smu,
+>         switch (member) {
+>         case METRICS_CURR_GFXCLK:
+>         case METRICS_AVERAGE_GFXCLK:
+> -               if (smu->smc_fw_version >=3D 0x552F00) {
+> +               if (smu_v13_0_6_caps_supported(smu, SMU_CAPS(DPM))) {
+>                         xcc_id =3D GET_INST(GC, 0);
+>                         *value =3D SMUQ10_ROUND(GET_METRIC_FIELD(GfxclkFr=
+equency, flag)[xcc_id]);
+>                 } else {
+> @@ -1692,7 +1791,7 @@ static int smu_v13_0_6_notify_unload(struct smu_con=
+text *smu)
+>  static int smu_v13_0_6_mca_set_debug_mode(struct smu_context *smu, bool =
+enable)
+>  {
+>         /* NOTE: this ClearMcaOnRead message is only supported for smu ve=
+rsion 85.72.0 or higher */
+> -       if (smu->smc_fw_version < 0x554800)
+> +       if (!smu_v13_0_6_caps_supported(smu, SMU_CAPS(MCA_DEBUG_MODE)))
+>                 return 0;
+>
+>         return smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_ClearMcaOnRea=
+d,
+> @@ -1837,9 +1936,8 @@ static int smu_v13_0_6_set_soft_freq_limited_range(=
+struct smu_context *smu,
+>                         if (max =3D=3D pstate_table->uclk_pstate.curr.max=
+)
+>                                 return 0;
+>                         /* For VF, only allowed in FW versions 85.102 or =
+greater */
+> -                       if (amdgpu_sriov_vf(adev) &&
+> -                           ((smu->smc_fw_version < 0x556600) ||
+> -                            (adev->flags & AMD_IS_APU)))
+> +                       if (!smu_v13_0_6_caps_supported(smu,
+> +                                                       SMU_CAPS(SET_UCLK=
+_MAX)))
+>                                 return -EOPNOTSUPP;
+>                         /* Only max clock limiting is allowed for UCLK */
+>                         ret =3D smu_v13_0_set_soft_freq_limited_range(
+> @@ -2043,7 +2141,7 @@ static int smu_v13_0_6_get_enabled_mask(struct smu_=
+context *smu,
+>
+>         ret =3D smu_cmn_get_enabled_mask(smu, feature_mask);
+>
+> -       if (ret =3D=3D -EIO && smu->smc_fw_version < 0x552F00) {
+> +       if (ret =3D=3D -EIO && !smu_v13_0_6_caps_supported(smu, SMU_CAPS(=
+DPM))) {
+>                 *feature_mask =3D 0;
+>                 ret =3D 0;
+>         }
+> @@ -2336,11 +2434,10 @@ static int smu_v13_0_6_get_current_pcie_link_spee=
+d(struct smu_context *smu)
+>
+>  static ssize_t smu_v13_0_6_get_gpu_metrics(struct smu_context *smu, void=
+ **table)
+>  {
+> -       bool per_inst, smu_13_0_6_per_inst, smu_13_0_14_per_inst, apu_per=
+_inst;
+>         struct smu_table_context *smu_table =3D &smu->smu_table;
+>         struct gpu_metrics_v1_7 *gpu_metrics =3D
+>                 (struct gpu_metrics_v1_7 *)smu_table->gpu_metrics_table;
+> -       bool flag =3D smu_v13_0_6_is_unified_metrics(smu);
+> +       bool flag =3D !smu_v13_0_6_caps_supported(smu, SMU_CAPS(UNI_METRI=
+CS));
+>         int ret =3D 0, xcc_id, inst, i, j, k, idx;
+>         struct amdgpu_device *adev =3D smu->adev;
+>         MetricsTableX_t *metrics_x;
+> @@ -2348,6 +2445,7 @@ static ssize_t smu_v13_0_6_get_gpu_metrics(struct s=
+mu_context *smu, void **table
+>         struct amdgpu_xcp *xcp;
+>         u16 link_width_level;
+>         u32 inst_mask;
+> +       bool per_inst;
+>
+>         metrics_x =3D kzalloc(max(sizeof(MetricsTableX_t), sizeof(Metrics=
+TableA_t)), GFP_KERNEL);
+>         ret =3D smu_v13_0_6_get_metrics_table(smu, metrics_x, true);
+> @@ -2421,7 +2519,7 @@ static ssize_t smu_v13_0_6_get_gpu_metrics(struct s=
+mu_context *smu, void **table
+>                  * table for both pf & one vf for smu version 85.99.0 or =
+higher else report only
+>                  * for pf from registers
+>                  */
+> -               if (smu->smc_fw_version >=3D 0x556300) {
+> +               if (smu_v13_0_6_caps_supported(smu, SMU_CAPS(PCIE_METRICS=
+))) {
+>                         gpu_metrics->pcie_link_width =3D metrics_x->PCIeL=
+inkWidth;
+>                         gpu_metrics->pcie_link_speed =3D
+>                                 pcie_gen_to_speed(metrics_x->PCIeLinkSpee=
+d);
+> @@ -2450,7 +2548,8 @@ static ssize_t smu_v13_0_6_get_gpu_metrics(struct s=
+mu_context *smu, void **table
+>                                 metrics_x->PCIeNAKSentCountAcc;
+>                 gpu_metrics->pcie_nak_rcvd_count_acc =3D
+>                                 metrics_x->PCIeNAKReceivedCountAcc;
+> -               if (smu_v13_0_6_is_other_end_count_available(smu))
+> +               if (smu_v13_0_6_caps_supported(smu,
+> +                                              SMU_CAPS(OTHER_END_METRICS=
+)))
+>                         gpu_metrics->pcie_lc_perf_other_end_recovery =3D
+>                                 metrics_x->PCIeOtherEndRecoveryAcc;
+>
+> @@ -2475,17 +2574,7 @@ static ssize_t smu_v13_0_6_get_gpu_metrics(struct =
+smu_context *smu, void **table
+>
+>         gpu_metrics->num_partition =3D adev->xcp_mgr->num_xcps;
+>
+> -       apu_per_inst =3D (adev->flags & AMD_IS_APU) && (smu->smc_fw_versi=
+on >=3D 0x04556A00);
+> -       smu_13_0_6_per_inst =3D !(adev->flags & AMD_IS_APU) &&
+> -                               (amdgpu_ip_version(smu->adev, MP1_HWIP, 0=
+)
+> -                                =3D=3D IP_VERSION(13, 0, 6)) &&
+> -                               (smu->smc_fw_version >=3D 0x556F00);
+> -       smu_13_0_14_per_inst =3D !(adev->flags & AMD_IS_APU) &&
+> -                               (amdgpu_ip_version(smu->adev, MP1_HWIP, 0=
+)
+> -                                =3D=3D IP_VERSION(13, 0, 14)) &&
+> -                               (smu->smc_fw_version >=3D 0x05550B00);
+> -
+> -       per_inst =3D apu_per_inst || smu_13_0_6_per_inst || smu_13_0_14_p=
+er_inst;
+> +       per_inst =3D smu_v13_0_6_caps_supported(smu, SMU_CAPS(PER_INST_ME=
+TRICS));
+>
+>         for_each_xcp(adev->xcp_mgr, xcp, i) {
+>                 amdgpu_xcp_get_inst_details(xcp, AMDGPU_XCP_VCN, &inst_ma=
+sk);
+> @@ -2516,7 +2605,8 @@ static ssize_t smu_v13_0_6_get_gpu_metrics(struct s=
+mu_context *smu, void **table
+>                                 gpu_metrics->xcp_stats[i].gfx_busy_acc[id=
+x] =3D
+>                                         SMUQ10_ROUND(metrics_x->GfxBusyAc=
+c[inst]);
+>
+> -                               if (smu_v13_0_6_is_blw_host_limit_availab=
+le(smu))
+> +                               if (smu_v13_0_6_caps_supported(
+> +                                           smu, SMU_CAPS(HST_LIMIT_METRI=
+CS)))
+>                                         gpu_metrics->xcp_stats[i].gfx_bel=
+ow_host_limit_acc[idx] =3D
+>                                                 SMUQ10_ROUND(metrics_x->G=
+fxclkBelowHostLimitAcc
+>                                                                 [inst]);
+> @@ -2624,7 +2714,7 @@ static int smu_v13_0_6_get_thermal_temperature_rang=
+e(struct smu_context *smu,
+>                 return -EINVAL;
+>
+>         /*Check smu version, GetCtfLimit message only supported for smu v=
+ersion 85.69 or higher */
+> -       if (smu->smc_fw_version < 0x554500)
+> +       if (!smu_v13_0_6_caps_supported(smu, SMU_CAPS(CTF_LIMIT)))
+>                 return 0;
+>
+>         /* Get SOC Max operating temperature */
+> @@ -2726,11 +2816,10 @@ static int smu_v13_0_6_smu_send_hbm_bad_page_num(=
+struct smu_context *smu,
+>
+>  static int smu_v13_0_6_send_rma_reason(struct smu_context *smu)
+>  {
+> -       struct amdgpu_device *adev =3D smu->adev;
+>         int ret;
+>
+>         /* NOTE: the message is only valid on dGPU with pmfw 85.90.0 and =
+above */
+> -       if ((adev->flags & AMD_IS_APU) || smu->smc_fw_version < 0x00555a0=
+0)
+> +       if (!smu_v13_0_6_caps_supported(smu, SMU_CAPS(RMA_MSG)))
+>                 return 0;
+>
+>         ret =3D smu_cmn_send_smc_msg(smu, SMU_MSG_RmaDueToBadPageThreshol=
+d, NULL);
+> @@ -2750,18 +2839,17 @@ static int smu_v13_0_6_reset_sdma(struct smu_cont=
+ext *smu, uint32_t inst_mask)
+>         smu_program =3D (smu->smc_fw_version >> 24) & 0xff;
+>         switch (amdgpu_ip_version(smu->adev, MP1_HWIP, 0)) {
+>         case IP_VERSION(13, 0, 6):
+> -               if (((smu_program =3D=3D 7) && (smu->smc_fw_version > 0x0=
+7550700)) ||
+> -                       ((smu_program =3D=3D 0) && (smu->smc_fw_version >=
+ 0x00557700)))
+> +               if ((smu_program =3D=3D 7 || smu_program =3D=3D 0) &&
+> +                   smu_v13_0_6_caps_supported(smu, SMU_CAPS(SDMA_RESET))=
+)
+>                         ret =3D smu_cmn_send_smc_msg_with_param(smu,
+>                                 SMU_MSG_ResetSDMA, inst_mask, NULL);
+>                 else if ((smu_program =3D=3D 4) &&
+> -                       (smu->smc_fw_version > 0x4556e6c))
+> +                        smu_v13_0_6_caps_supported(smu, SMU_CAPS(SDMA_RE=
+SET)))
+>                         ret =3D smu_cmn_send_smc_msg_with_param(smu,
+>                                       SMU_MSG_ResetSDMA2, inst_mask, NULL=
+);
+>                 break;
+>         case IP_VERSION(13, 0, 14):
+> -               if ((smu_program =3D=3D 5) &&
+> -                       (smu->smc_fw_version > 0x05550f00))
+> +               if (smu_v13_0_6_caps_supported(smu, SMU_CAPS(SDMA_RESET))=
+)
+>                         ret =3D smu_cmn_send_smc_msg_with_param(smu,
+>                                       SMU_MSG_ResetSDMA2, inst_mask, NULL=
+);
+>                 break;
+> @@ -3087,7 +3175,7 @@ static bool mca_smu_bank_is_valid(const struct mca_=
+ras_info *mca_ras, struct amd
+>         if (instlo !=3D 0x03b30400)
+>                 return false;
+>
+> -       if (!(adev->flags & AMD_IS_APU) && smu->smc_fw_version >=3D 0x005=
+55600) {
+> +       if (smu_v13_0_6_caps_supported(smu, SMU_CAPS(ACA_SYND))) {
+>                 errcode =3D MCA_REG__SYND__ERRORINFORMATION(entry->regs[M=
+CA_REG_IDX_SYND]);
+>                 errcode &=3D 0xff;
+>         } else {
+> @@ -3373,9 +3461,10 @@ static int aca_smu_get_valid_aca_bank(struct amdgp=
+u_device *adev,
+>
+>  static int aca_smu_parse_error_code(struct amdgpu_device *adev, struct a=
+ca_bank *bank)
+>  {
+> +       struct smu_context *smu =3D adev->powerplay.pp_handle;
+>         int error_code;
+>
+> -       if (!(adev->flags & AMD_IS_APU) && adev->pm.fw_version >=3D 0x005=
+55600)
+> +       if (smu_v13_0_6_caps_supported(smu, SMU_CAPS(ACA_SYND)))
+>                 error_code =3D ACA_REG__SYND__ERRORINFORMATION(bank->regs=
+[ACA_REG_IDX_SYND]);
+>         else
+>                 error_code =3D ACA_REG__STATUS__ERRORCODE(bank->regs[ACA_=
+REG_IDX_STATUS]);
+> @@ -3413,7 +3502,7 @@ static const struct pptable_funcs smu_v13_0_6_ppt_f=
+uncs =3D {
+>         .fini_power =3D smu_v13_0_fini_power,
+>         .check_fw_status =3D smu_v13_0_6_check_fw_status,
+>         /* pptable related */
+> -       .check_fw_version =3D smu_v13_0_check_fw_version,
+> +       .check_fw_version =3D smu_v13_0_6_check_fw_version,
+>         .set_driver_table_location =3D smu_v13_0_set_driver_table_locatio=
+n,
+>         .set_tool_table_location =3D smu_v13_0_set_tool_table_location,
+>         .notify_memory_pool_location =3D smu_v13_0_notify_memory_pool_loc=
+ation,
 > --
-> 2.47.1
+> 2.25.1
 >
