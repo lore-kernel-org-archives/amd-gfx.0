@@ -4,69 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A132C02183
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jan 2025 16:22:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25E88C02183
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jan 2025 16:31:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DEED510E9BC;
-	Thu, 16 Jan 2025 16:22:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE33210E9C6;
+	Thu, 16 Jan 2025 16:31:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IGh4T33X";
+	dkim=pass (2048-bit key; unprotected) header.d=dorfdsl.de header.i=@dorfdsl.de header.b="zKGxPT7V";
 	dkim-atps=neutral
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
- [209.85.216.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 479F110E9BC
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jan 2025 16:22:25 +0000 (UTC)
-Received: by mail-pj1-f43.google.com with SMTP id
- 98e67ed59e1d1-2f45526dea0so249076a91.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jan 2025 08:22:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1737044485; x=1737649285; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=geXXdr3ypT/KeEnHFJryRPy49s3CDabZDwouiwb2vY0=;
- b=IGh4T33XU4f9cb77T/sLrRfQ5eWRVkjNLgVf6XTXsSMpoEyWZ0LIMd63o38PKg0Zv2
- PyO5Yv17ZRj98klbgDlpn32hnnY/2GKewSB8IfvRrfdc0AAV6rUl8QQMOtiFXeu5U8/Z
- iFCAyzo6CQTV+t5topQ0c8/MPIrLv32SRI3BFSaokP0UJ0K8T7M4RQdvi7KWKXORi/f7
- VJlH4tV4NAFdeirG+fow2opTnYyzipleHBA+0vTNZOmF4jdG7kRoWPx20Fn46VDJun2B
- n3cXbKlC+mTxeBItYykybzP+gxBIyC96IjY9lj+BZd88PjAWkfkCXaXdYXT9lnWQ/6FJ
- RzWw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737044485; x=1737649285;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=geXXdr3ypT/KeEnHFJryRPy49s3CDabZDwouiwb2vY0=;
- b=gmHzTosjv7TebJqRfSmSPamVRbRrEFrSk/F5znQ8wt9ksf0nF5QewlbN+PNfIoyvTu
- xmwuU4QdC8rJhnro7IkZQknQk11GYJWsdWwnp5ppy+cB76r8rbDGAX1U/Gg1zLFWlxCs
- gZX8K/ZXsKUR1HD6ZIl4tCL5HDMzqiREvOYx7jeZ772DMYM6bZSx87X/BUXxhdv9qTsd
- LJtKcYiP2/IOT1a2vzzcacbYZ9xAFoMxSBu1SoqGF6+9yw8N0NDPufO3Y7YB62FVn5Nf
- g0/g5lxgtGF4klfDZCRc7XudG2y1F5oOO06y/Iu3RB3udSrqmycTlXQmo4KrBRxWdks4
- J5KA==
-X-Gm-Message-State: AOJu0YzDXeAgZvpkZfojg7lEJOrNHnxKkyBzAQs86ocD2v2U+fylEwPr
- tdU5WqIv9jm7T2vrkvdMrzmCxBgYiwAoMJiquR/fiVUcH/QCogumBjkkb6ejYZuFS2YagV8/LqY
- C+PBO8lNVaP/ID5xbSySGmp/KLZp1UA==
-X-Gm-Gg: ASbGncunc1SCBwloQjahn4ZLzFmT+XxvLeN+SixnoPWUOVDRjzEvTOu0wxi2luNQbVk
- IpNa6wr6zTYzYqqTGSop+c8MaSajagIJKXmNPFg==
-X-Google-Smtp-Source: AGHT+IFVHRoGaxTLcQFftd4BC1yqLu14o+YAARh4Q/bVT+g7P8u1KIz6J9CrFUZB37Vx/EvP5R1Q/a8rNG+/i60sDLI=
-X-Received: by 2002:a17:90a:dfcb:b0:2f4:447b:f095 with SMTP id
- 98e67ed59e1d1-2f5490a9faamr18805176a91.4.1737044484719; Thu, 16 Jan 2025
- 08:21:24 -0800 (PST)
-MIME-Version: 1.0
+Received: from srv1.dorfdsl.de (srv1.dorfdsl.de [82.139.196.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7789710E9C6
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jan 2025 16:31:19 +0000 (UTC)
+Authentication-Results: srv1; none (SPF check N/A for local connections 
+ -  client-ip=2a01:170:118f:2:6884:75a0:9758:8704; 
+ helo=[IPv6:2a01:170:118f:2:6884:75a0:9758:8704]; 
+ envelope-from=mm@dorfdsl.de; receiver=<UNKNOWN>)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=dorfdsl.de;
+ s=default; t=1737044957;
+ bh=JPEWXM2IZ1qe4qadyuLQpG7jjIBym52qVnN+m1ue8ds=;
+ h=Date:From:To:Subject:In-Reply-To:References:From;
+ b=zKGxPT7VDPwn4igCpBv70fM3gUiSZ7336QIk3xXSzqaDT7ujn2BCUFymc3Cm1iim3
+ nUAtLygA0FP9Uh06rU+9TWfAdBHmt4VjlKOLtbVTgoBSSUlqJCc3jQ/phIOJh6/j2O
+ h8xTUVLv9oQrru2w9IKC/fVpdiZDkHUcrujerPoACBf4SODyXrR3iWV/+GU6Wx3I1S
+ AVazRLTd760fX+6w++VMy+C8rkHgtM1BoDhjYV6W4TMWLcRAP7To2iw/IpwmEVdklq
+ yZO1g1AQINeyXi0wu7jcxjsUBwuDrQTAKiX3a9W2xSnTT28i8OY8PVVsHAMbnBPZw0
+ o16MW1n1hhmUQ==
+Received: from ryz.dorfdsl.de ([IPv6:2a01:170:118f:2:6884:75a0:9758:8704])
+ (authenticated bits=0)
+ by srv1.dorfdsl.de (8.18.1/8.18.1/Debian-6~bpo12+1) with ESMTPSA id
+ 50GGTHj6248362
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT)
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jan 2025 17:29:17 +0100
+Date: Thu, 16 Jan 2025 17:29:16 +0100
+From: Marco Moock <mm@dorfdsl.de>
+To: amd-gfx@lists.freedesktop.org
+Subject: Re: amdgpu 100% CPU usage causing freeze 1002:15d8
+Message-ID: <20250116172916.0dba9ff6@ryz.dorfdsl.de>
+In-Reply-To: <CADnq5_MbeTRb642qwb0Q7JbL=2UsnK6RnLm6NWTeVLZOEuyn4A@mail.gmail.com>
 References: <20250114213157.19de9009@ryz.dorfdsl.de>
  <CADnq5_MFq-OWn7dwTTPPcBbFKQmBHvD6qCi8ngiVumk2V1U40g@mail.gmail.com>
- <20250115160834.033e8aad@ryz.dorfdsl.de> <20250115211039.09e6e69e@zbook>
+ <20250115160834.033e8aad@ryz.dorfdsl.de>
+ <20250115211039.09e6e69e@zbook>
  <CADnq5_MY+cN0dPTis582HY0a80rNiO86kz9Ha=e=HS2Toim=4w@mail.gmail.com>
  <20250115213511.2feaa331@zbook>
-In-Reply-To: <20250115213511.2feaa331@zbook>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 16 Jan 2025 11:21:11 -0500
-X-Gm-Features: AbW1kvZTqXZnZaQEHjHU4Of1nExi2rGCJ_eslV47YcRbXdD1NwiPNNdG47MxmsM
-Message-ID: <CADnq5_MbeTRb642qwb0Q7JbL=2UsnK6RnLm6NWTeVLZOEuyn4A@mail.gmail.com>
-Subject: Re: amdgpu 100% CPU usage causing freeze 1002:15d8
-To: Marco Moock <mm@dorfdsl.de>
-Cc: amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+ <CADnq5_MbeTRb642qwb0Q7JbL=2UsnK6RnLm6NWTeVLZOEuyn4A@mail.gmail.com>
+X-Mailer: Claws Mail 4.3.0 (GTK 3.24.43; x86_64-pc-linux-gnu)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,42 +66,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jan 15, 2025 at 4:02=E2=80=AFPM Marco Moock <mm@dorfdsl.de> wrote:
->
-> Am Wed, 15 Jan 2025 15:27:00 -0500
-> schrieb Alex Deucher <alexdeucher@gmail.com>:
->
-> > On Wed, Jan 15, 2025 at 3:22=E2=80=AFPM Marco Moock <mm@dorfdsl.de> wro=
-te:
-> > >
-> > > Am Wed, 15 Jan 2025 16:08:34 +0100
-> > > schrieb Marco Moock <mm@dorfdsl.de>:
-> > >
-> > > > I assume it was 6.12.6, but Debian doesn't have the old packages
-> > > > anymore and it has been purged from my system already.
-> > >
-> > > I've now tried 6.12.6, same situation.
-> > >
-> > > Any further ideas what could cause this?
+Am 16.01.2025 um 11:21:11 Uhr schrieb Alex Deucher:
+
+> On Wed, Jan 15, 2025 at 4:02=E2=80=AFPM Marco Moock <mm@dorfdsl.de> wrote:
 > >
-> > Can you provide more details about what you are seeing?  What does `ps
-> > aux` or `top` show as using all of the CPU time?
->
-> I saw
->    2977 root      20   0       0      0      0 R  99,3   0,0   5:18.68
->    kworker/u16:39+amdgpu-reset-dev
->
-> But the system is almost unusable, it takes seconds to print the
-> characters in terminal when connecting from a remote machine. Local,
-> the system doesn't care about keyboard anymore, except Sysrq.
-> Switching to another tty wasn't possible.
->
-> In some cases, even the sysrq keystroke won't be recognized and I need
-> to use the reset switch on the case.
+> > Am Wed, 15 Jan 2025 15:27:00 -0500
+> > schrieb Alex Deucher <alexdeucher@gmail.com>:
+> > =20
+> > > On Wed, Jan 15, 2025 at 3:22=E2=80=AFPM Marco Moock <mm@dorfdsl.de>
+> > > wrote: =20
+> > > >
+> > > > Am Wed, 15 Jan 2025 16:08:34 +0100
+> > > > schrieb Marco Moock <mm@dorfdsl.de>:
+> > > > =20
+> > > > > I assume it was 6.12.6, but Debian doesn't have the old
+> > > > > packages anymore and it has been purged from my system
+> > > > > already. =20
+> > > >
+> > > > I've now tried 6.12.6, same situation.
+> > > >
+> > > > Any further ideas what could cause this? =20
+> > >
+> > > Can you provide more details about what you are seeing?  What
+> > > does `ps aux` or `top` show as using all of the CPU time? =20
+> >
+> > I saw
+> >    2977 root      20   0       0      0      0 R  99,3   0,0
+> > 5:18.68 kworker/u16:39+amdgpu-reset-dev
+> >
+> > But the system is almost unusable, it takes seconds to print the
+> > characters in terminal when connecting from a remote machine. Local,
+> > the system doesn't care about keyboard anymore, except Sysrq.
+> > Switching to another tty wasn't possible.
+> >
+> > In some cases, even the sysrq keystroke won't be recognized and I
+> > need to use the reset switch on the case. =20
+>=20
+> Can you get the dmesg output when this happens?  Might be easier to
+> get it over a remote connection like ssh if possible.
 
-Can you get the dmesg output when this happens?  Might be easier to
-get it over a remote connection like ssh if possible.
+Jan 15 20:40:26 ryz kernel: amdgpu 0000:08:00.0: amdgpu: Dumping IP
+State
 
-Thanks,
+This is the only message that is related to the problem.=20
+After that are some firewall messages, I doubt that they are useful to
+be posted here.
 
-Alex
+--=20
+Gru=C3=9F
+Marco
