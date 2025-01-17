@@ -4,155 +4,155 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2EA6C02183
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jan 2025 08:37:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 686C3C02185
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jan 2025 08:46:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5541A10E27C;
-	Fri, 17 Jan 2025 08:37:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1429910E2E6;
+	Fri, 17 Jan 2025 08:46:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Mke9wRTD";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="V/aOBJYl";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2073.outbound.protection.outlook.com [40.107.92.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 05D8E10E27C
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jan 2025 08:37:15 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2050.outbound.protection.outlook.com [40.107.220.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A30F410E2E6
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jan 2025 08:46:01 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DtpE6Mbc6gcECzZRh1wwzjS2L2R54ewrd/soUaWwAdJZuyt659TBRrBiYpIE6B2bnKnaLze+VYQJymOTx7pHzdBY6t1EyikC0iHRmaNwcLlnZ9zvqyuE3q2x2yQ5JavWF730mM49VpImy/hp+mAkEe1NRzbm9u3qbCIRbfzu5I+Xj4T6xyP4y7zgCXEK4XXFjNDbZTqx3mk5e4IARuplBkoSm4oPubMjis7a4hmHpX5TEGGHFD0uV+1p0O6puM7Sv0dppw59EZprYMP+pdlAcb12lDC3tOxaaekZFaQ6HLjrx8eqzVTp4u9TeNO4QS0zQMe5pfieQdDUi8wcUrcrvg==
+ b=I/e4hWEIwjLK0MC7UYK1nx6u0QLlkD/Eej7QpiN8R6cS6hbu1aEoDr0j/2yh3V/YNgaY4u2dg/ZZwSWyZAtn22tQkNwVmtjhnFYqXkED7ZUN9AX/9QxLc547KeLwu7PnP8aXgrO/gRacsA6m/IOdzrj2K8D47/NR19p9jDlPO2795v1LaZs2djLFKSngcJDRIHrd2ENSmbYtovksZ67TmbatYuSB3covQDVLgvDaKQZ6IGVYnj7dJLGBcQc8cas2D74/OJMY/fSUCyHxOJQRfaSFaHX1jCmBgnCpuTNU+7pbH9yFOszHoFHY2L4PUMxYirlp4pAaq1mJshTS8B1Nag==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6hVUmpcmrGHbZEyja6EMMXowOPVy0usFUxacTdkqnTY=;
- b=q5i39SBdsIcorLIqrpeTRzCrsynmDvdd/vq/kBaWbmfIvpOVlxdys0fwtan+C2fpsBECmkTfvO+tZtBjBs5O14/urIQqlFqY8WTcf/4J7IKjcqbsBA2w8adKlnSy6FfDPTMChVH+CCqdpGgVU01V9JSyJGmsnZr6xdYAaSAQJk2yXuH6DtHhd2f8BNGcNXSTswK4QhxyNdUS/3oyB2VFuxBYNBpDxcwiyMZPdeRhz6Pr0NHVYBdx0Sd6g4vT/MyF6iKOFF8/aG1ks+voHfWzyFZdXSkoynDmsUHuWvrTqV+U4sIzfmY4K76z0oxsegDSvh7NJhd6AT6lnKmUvCs2kw==
+ bh=MfLUTq5yqkHHiq3nbUsJIy0ygNdZysrop1guH05gYxk=;
+ b=Kb/U01es3A43Pu3ddtMUAA9ZLkufvFyUyai/XaVrU1A5LsBQyrc2iqhZpecEtsrfdarkuBLSDLLZVFa1K6hSC7SqycdzAD7NFVdP40rDOE+0fOFW2HeH/vq1n74SZSQzH1KEJbcr33WUHw5KpPlKOe/wuvfONNG1vua76ppWS4rPPRbfK6JrZV/kZuAK5gqZRPYLA5cJe1auuxsz9nRkOm8lZgyA+iRy9yXfGaFi8HlyaPI/RTcvLKMGNZnoiylCqVN7VE/+Y40+9FRaSwffL8qQaYe4MWygVAO91StnqpFkwAWwi9k4hmMLqdMj0acUfoBEZYKYH4nPeuAUMQN9Hg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6hVUmpcmrGHbZEyja6EMMXowOPVy0usFUxacTdkqnTY=;
- b=Mke9wRTD1KHLx7+JpUFwbCfc09PFkQ8UqSJz5NAE5O7578iqhR4hqvYXK8TQ7JENlNQH6PZJgXpNBq+Fpt+78w77YBgsoHNdRBKPPS9nhxQiq9T0avnRPzrIkU25mLP2baFX4p3hQusH85nCrorpv8D9KA1soyNnRUa4zlGcuwE=
+ bh=MfLUTq5yqkHHiq3nbUsJIy0ygNdZysrop1guH05gYxk=;
+ b=V/aOBJYlRDBjv6T+TipZ3gHw9S+KEm5cGjpeIV9QgE9LOw6PqwxAQInfP7dq7uTSmb4z+TZJrblPnWwZPAibJ276RS3zZVGOl8O3JZd8Cqy2CFoNlDQ4eY2kIi4VUyj02J4em7bQObI0blEMLVoQTgicUlpyj8HrNe1Cs3Om7Ug=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
- IA1PR12MB6433.namprd12.prod.outlook.com (2603:10b6:208:3af::11) with
+ PH7PR12MB7305.namprd12.prod.outlook.com (2603:10b6:510:209::21) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8356.13; Fri, 17 Jan
- 2025 08:37:11 +0000
+ 2025 08:45:45 +0000
 Received: from DS0PR12MB7804.namprd12.prod.outlook.com
  ([fe80::8327:d71a:ce21:a290]) by DS0PR12MB7804.namprd12.prod.outlook.com
  ([fe80::8327:d71a:ce21:a290%5]) with mapi id 15.20.8356.014; Fri, 17 Jan 2025
- 08:37:11 +0000
-Message-ID: <ed1bf88c-aac6-44de-8dbd-78cc205e4374@amd.com>
-Date: Fri, 17 Jan 2025 14:07:00 +0530
+ 08:45:45 +0000
+Message-ID: <7c890f79-64e9-47e1-a18e-0a3e156b497d@amd.com>
+Date: Fri, 17 Jan 2025 14:15:36 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC v2 07/15] drm/admgpu: rename amdgpu_ras_pre_fini() to
- amdgpu_ras_early_fini()
+Subject: Re: [RFC v2 08/15] drm/amdgpu: make IP block state machine works in
+ stack like way
 To: Jiang Liu <gerry@linux.alibaba.com>, alexander.deucher@amd.com,
  christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
  simona@ffwll.ch, sunil.khatri@amd.com, Hawking.Zhang@amd.com,
  mario.limonciello@amd.com, xiaogang.chen@amd.com, Kent.Russell@amd.com,
  shuox.liu@linux.alibaba.com, amd-gfx@lists.freedesktop.org
 References: <cover.1736732062.git.gerry@linux.alibaba.com>
- <0e66fc11d40fc0f9c8ea4e2bd3ac70b7b8933ee5.1736732062.git.gerry@linux.alibaba.com>
+ <4f627f06fab99e7534f590dfa16f1db13b16f7ea.1736732062.git.gerry@linux.alibaba.com>
 Content-Language: en-US
 From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <0e66fc11d40fc0f9c8ea4e2bd3ac70b7b8933ee5.1736732062.git.gerry@linux.alibaba.com>
+In-Reply-To: <4f627f06fab99e7534f590dfa16f1db13b16f7ea.1736732062.git.gerry@linux.alibaba.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN2PR01CA0241.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:21a::12) To DS0PR12MB7804.namprd12.prod.outlook.com
+X-ClientProxiedBy: PN2PR01CA0195.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:e8::20) To DS0PR12MB7804.namprd12.prod.outlook.com
  (2603:10b6:8:142::5)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB7804:EE_|IA1PR12MB6433:EE_
-X-MS-Office365-Filtering-Correlation-Id: 88bb0d7e-0209-46c2-071e-08dd36d22270
+X-MS-TrafficTypeDiagnostic: DS0PR12MB7804:EE_|PH7PR12MB7305:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1691a1ec-b5e1-4ce7-3d2c-08dd36d354f8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|366016|1800799024|376014|7053199007|921020; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?cDhKa3pwbHJlZzJtRHV3V0lzVXhWRkl2QzhBZ0JjL2xIOFVxbEkzcEhVWVhx?=
- =?utf-8?B?MzhwM0lZZkRiVnZoa0NLcWtaREFUL1NFZUtFb21hbzRqd0hwa2txWk5nYU5O?=
- =?utf-8?B?Yzd0VTRwdU5yUzJiWGFKd2syY21yNjZZczVHOFRzNURnc2FyWFB4MGdLV29W?=
- =?utf-8?B?dlIydnNMN01mRnZHcjVYZUZjYkFMaEl3WWZhN1owU2RCeDlqU1ZkM1U2ZWF5?=
- =?utf-8?B?SktwRWl2QUN2R0ozZloxdm8wQVJINnMxbjJFSWFyMEZPeWgrQUovRFk5bDdI?=
- =?utf-8?B?eG5yL0FKOTVmQTlLS0k5NkVaREtqNitTcEpyRjd4ejgwQ3hTM0g0SDlWNnlt?=
- =?utf-8?B?WjhYRzdOUWRNaXV2WVp3YlJPdUFJcU1BSE5sUUVaV04vS3QwR3FPOGxKcmxz?=
- =?utf-8?B?V0s4ZXZUTDB2OFNUMVJlWEZhZy80aVE5N3VDMUNsRzJMbHd6SE5VWXFuV1l3?=
- =?utf-8?B?ejFNNWhYdlV5V20yZzR4dHM3KzVrb0paRzJXQ3FiS0h3SHVBTTRFY0lmZ2Jx?=
- =?utf-8?B?bXBpQzBJM2hZc1RNNFBJRWxHakpGQWFPQmQrZGFLdWVLaE1rTkY1ZHFSeEpU?=
- =?utf-8?B?T0pzZzlhQ3lxZTY1bWw4ajkyZHYvYk1UNTFHUS9ZQlU2a1RLTjc5K0szdHIw?=
- =?utf-8?B?WTN1VWdUSTlzaVRJeWF4eC9TcGlkeUlFSVpIbDBkZmxNRXB0RWc5K3lxOWx5?=
- =?utf-8?B?YVF5ZlZhQ1JWWTdtdFJjb0tJWUQyMFBhM3Q4YXE3S1hPUm9XWi9zMzErTEJV?=
- =?utf-8?B?WXp5akJVenl5eVhkeGNGaW9ncHMwcE9LcGNtblpMOEVaZTlFN1pYS29zSkx1?=
- =?utf-8?B?Z1Rna0Y1cElYc0xENi90LzhDa0o2MURnS1doMDVuUUVNVjEvaEd5UzZKelk1?=
- =?utf-8?B?eVFoZkNjbGd4anc1NnNRYVBFellPWkFxVHNtMm5qckovNzhGVnFvYXhKYmxh?=
- =?utf-8?B?Y2ptM3dudjhFeFIvRSt1VVJ6aHNFQ0NESlJRcFhSOVVuRnFiSGV4Yy80T2NE?=
- =?utf-8?B?clZmYnc3djRLUGRmdTRoQUp6ZDhBWkxWZXFxZVhKSEJURUdIQmlFZ0V0a21y?=
- =?utf-8?B?V0U4a3RGNnVkZCtXcVpmamdYRU04OENNRXlDNmllY2JVSEpxQ3g5MGdkNWl5?=
- =?utf-8?B?R25qbU5XT0RydWxhdmpLMnJtTVhnRWY3V25pZVM2eXhXMS9GTzRpMS9vWSta?=
- =?utf-8?B?dU1QUEVPNXdKb1NKcmVEY0p3UzEwZk5mWnNGSWpOVDVZMzZYK2x0bnJhOFRX?=
- =?utf-8?B?U2c2UytueVVaNmlzM05KanBNeHY3YnFJcm90anRpNDZMSEhJemcwUGdLVEZi?=
- =?utf-8?B?YkVUSnJPdy9mOWlWdFg4bThBcUtsQnJKZjB2cHNwQmV5SmE1M2Jrbkk2c2Ex?=
- =?utf-8?B?czNLOUV5SVFWTmZnQ1E0RlJxTnNMRnB2MWdBS3pEY2lOMkdUK1JBM0dkdTNY?=
- =?utf-8?B?d2ZRbHRqZlZ1MFlpcjgzellIclBpbWh1Vi9uSHhWSUhOZk1XRiswWmhReHhR?=
- =?utf-8?B?aDNOR3RqMnlGUlVjV2JubjJuMFQxdkNrRERkL1M5U2ltelJlQzZubFZNZDlm?=
- =?utf-8?B?UEQ4WjRqWGZOQVFaMmFSS25WUE1kNFViM3hqVTFzWElHUzEwSzNmcVlMd1JD?=
- =?utf-8?B?VFZMd1lnRCt2dkk4dHoxbzc0VHBJYU4rMTFTU0ZyZUhuWGtYMGlNbXBFdFdu?=
- =?utf-8?B?cm9TY1JYYlN1UEQ5QlFTay9YT2FyMG43bEtheXAxYVhySktpS2pBeUpZVEds?=
- =?utf-8?B?ZVdESzAzRnRxV05sc1RTRnM1cmlBTFNTVlU4N211U2RpWjhXRzBCa2RTeDdP?=
- =?utf-8?B?KzltR3J6aWZWdTFZMUh6WGpRN1pNTk1KamE3aVNHcDV2RmhVczQwNVhKSnI2?=
- =?utf-8?B?U0d6ajJPRG9EZlF2RTJsMXpJU2VzQmxzV2w1cmQ3NFcyZk1SdTRqVEV6cnBR?=
- =?utf-8?Q?m/z6fpijk2U=3D?=
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?dS83NG5rVE43ZGVhNGttemV2bWVOTUJCOVZVeVhsMXRybVp1eFdaOW9OWVY5?=
+ =?utf-8?B?ZVhZVlpQOWVzRXFWeFZJNjRaamI2R3NnQnk4VmdOMmszanZ5KzJheTR5Nmli?=
+ =?utf-8?B?N0hFa3hNSDM2RDFZVFB3N25VMmFlb1dHa2hydGhIZUdPUWwzSFVuSzdhN0ZH?=
+ =?utf-8?B?REVCaWhhVlJycGZ3RXIxS2pXNmg4Y2FFMDVsOUxPOTFEbGxjMTFIbnJmbzBC?=
+ =?utf-8?B?MVk1dW9oYTBpWUxxdmF2UXIvUTdqYkFXaWNIVGRaekthZVJnZEFsKzBoaWJw?=
+ =?utf-8?B?d08vRWI2SFJqZU96TFZDbytkUEhoOU1zWktKYWxVaWEwQktmRW0xSEdxQkxu?=
+ =?utf-8?B?SW9xZmVlRUdpeEFLMjdhUEpvdURLZ2IyOEU4dXBHYXFndFpFSzFjZU00YlM1?=
+ =?utf-8?B?S0ZaWEpySkd1ZWI0dmZjNmIyV3RuL3p5Y3h4MEJ4WUljWGtSSmZNTVlWRnNO?=
+ =?utf-8?B?L1I2Mk1nSWZNajdqZm5ZUEkyRHUyVlNNTm83UnZueWt2Y0E5WXM0RTAreStr?=
+ =?utf-8?B?ZEhTL3Z5Y0tQcUl5bHNWR2h0dDJYNis5VHBPZEJoTElKZFFOS2tOSE93UGxy?=
+ =?utf-8?B?YzEzUmsrS0NNa29OaWVpdTFFeXk5ci9zVGFYQXRBMG1RRTUyOE5DTDJEbm90?=
+ =?utf-8?B?cFJxWVp5dlUzT09td0xHWXZzajQ1VEcrS21xNERLNkRldzRaWWFsVW1IeWpq?=
+ =?utf-8?B?bFgyU3c5djNNcGsyT3NMdEFsM0VMKzR6NXdMWUVwUUw2N29PclUzN3JRVDBI?=
+ =?utf-8?B?NVNsZ1VWUGNnT2dkOHBIUXhvaG9CNDBka1kwQlY3N2FEVkF5clgxZ1QrLzg4?=
+ =?utf-8?B?UGpKQkhjaGtEVEJOL1dGU2ZrZHZNNVYxSGdIY0ZLMDNJQStvcXJjSG1ET1pC?=
+ =?utf-8?B?OTRGWUVZaUZZaTBXRGphbGRFNVB6MmY4N0UvS3p2L056L1dDcUdycU5mMVB2?=
+ =?utf-8?B?bWdEd1ZxMUdQWGJTVWRlSzRoNnRuMWVWZ3c0dlRnS0pOVVYvZWszYXNXU2VU?=
+ =?utf-8?B?Z3ZPYWx6V1d6WEVhQlRLbW51MStlOVpBL2tWcGRudHlzanByRGRyTUViODk5?=
+ =?utf-8?B?ZDlVeVE2RU9MQVJoUEZ5ZVhFSHJPQlpsUUgzdHhmZzQ3WnlkcWxNaE9OUHZz?=
+ =?utf-8?B?cUlvcEtESHRMVlRvTnVoRmtncHFMMHRaSzY0OTBKMzhyYS9WSWFRM202OVRW?=
+ =?utf-8?B?MGxuelhyb0YrL1BLNXdjU1NVeDZPK2tEeS8xaDY1bEQrL1V5WlY3dEJIU0U3?=
+ =?utf-8?B?UnRkY0JGcGw1S2VVT0tCUnRyMTJCWkQ4R1BOZW83Qmg5b2VVU2o5RkV2Y2lH?=
+ =?utf-8?B?MkVSc2doc2lvQWE2TDkvWnFDWWRZQllWSHZtSFVEeVRBenJwc2J1M210dWRK?=
+ =?utf-8?B?a09OWWh6dkdYb2I0ZDdjVXNNYWJiTTVPNmdMZ0lBb1BWT1lHNFU3ell0SnI5?=
+ =?utf-8?B?UEJGeGxhTVJad0FoU1lCU1h1RVg1ODkzcWV3QXkwUW55aVBUOGQvTEcybGRO?=
+ =?utf-8?B?VVRoQVFyU3QzeS9QSWR4eUtxVzJQSFdrRjlObkhTT1VIMlN3cVQwV3M3K2Ji?=
+ =?utf-8?B?a21MaUZjcnZ5dEQ0NjE3QmhMNnVqbTNkREtYeHp5cHg2OWNGUXZUMTM1dis2?=
+ =?utf-8?B?RFhoczZiejd3Ym03Z2UvRlRObFZOekpJU2RyNmh4c3FIS1hqKzBpL0NsRDNq?=
+ =?utf-8?B?QlQxODNBMzN5QmFnYnBQVWxDVUI3OEVxUkt3L0dRaEJ1MG03WkJsSUpQQkFB?=
+ =?utf-8?B?ZC9neGduSzQreEI3WXBwYkM0cGlocUxlamdhTGlON08vNGRpV0FONHRxLzdl?=
+ =?utf-8?B?Q0l3S2RZa0NMK0NoUUQ0TC9NaGw5bFYvSFhZZFJiVi9pcUpueWM0M2dLd044?=
+ =?utf-8?B?YldXR2pFSlBnYlVlUmN2OCtPbXhlVFFsUktRWGNQK1dkNEZsV1VUTFplWVc1?=
+ =?utf-8?Q?pTkvPl8XGK4=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(366016)(1800799024)(376014)(7053199007)(921020); DIR:OUT;
  SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Q3NLc29va29YWDRvWjlPMHJUNHFoK2tHdVRzSmxJckh4N29Cdk1Wb21xMCtt?=
- =?utf-8?B?dEU3UHQ0OWdSeU5oWDFkRXdQaWtOdXhidjFDYnAvck9JZHpmYWhzaGtWQyt2?=
- =?utf-8?B?djR0cjVzMlgwUXVSSGwwaHpMSTlkdGFJaXl6MEl2KzFhZm5MY3c2RnhZaUdR?=
- =?utf-8?B?eTk1ZktwWm43QUxaTUVKa0MycjVWUC9USUZKVVFyK0c1NmdhU1V3MUVJNCtz?=
- =?utf-8?B?TXcvSFdoVFJydHZ3RHI3M0Z3REpNWERjaXc3NU5BdGtsSlhRb1JHNGNVQWNv?=
- =?utf-8?B?SVltTzUzZ0I4N0JnQVVGT2l5WnBpUC9sdkk2cC82MkVtM3kvd1JZTnBuY25k?=
- =?utf-8?B?bGtCcnh4MVRiVk1meFI3SS9sRmNrUXJMNzlWQVk3NzQ4M1VMY1dJdFFkdSti?=
- =?utf-8?B?QVZnRUcrQzZxamc4cmpEY0VqWlk1Q1U0MmFRU1NZZXUreHN4bkJSeGJ5enl4?=
- =?utf-8?B?blBjSStkanh6SFUyT1BjL1lmaFFZYUMrUU5ZY3Y4b0lySWlNT0hreStHeGtj?=
- =?utf-8?B?aVJERGdueWJUSFJnVEp5cHJqK0dmWEQ4U2hXVzNCVC9KNDVxTDZjMVI4a1Bl?=
- =?utf-8?B?SWFMTEFod0ZhR1Y3OVdTNGxTUHQ2djRSdzhxalhrRzkxaHA5ZTNVdHA4dk8v?=
- =?utf-8?B?ZkdwQ01tTUk5TlEvd3RKdEFpSnhnVmcvN1MrMGVZTjVlWnd0cSs1QndYR0o4?=
- =?utf-8?B?MDc2T1Y5c3dZaTNJTGZ6V2xPK3VEZ2NoOUpYZDNZcnRjTjFiTFd1TW9ROTdu?=
- =?utf-8?B?d0VKcUJtcnpHdllINk1XRnVLQm1ST280amN4b1ozR1h0Tm1rWkZYc0tjVUpH?=
- =?utf-8?B?N0h2aTU3SXNzNEw4Zmc2MjMwWUFlM2duRG1WeUhxSVVsSVVjOUpETFFqUTR4?=
- =?utf-8?B?Q1E4akJTNkJKSDJwQ1hRN284ODZ6YkJGRzNVWkFwYmdSeTVXa3hBWndVOWdO?=
- =?utf-8?B?ZURaSlRYVWYrRUM3eVBOMEhBWUxqb2RqZjc2dWdLWm1HS0hrVjduOEN1d3Vl?=
- =?utf-8?B?dzRZNld2Q2xkZ0hhdTBoNDBHVG5KYXJiZmI0bzBzZnh3azFxMmc0R2ZnZWlj?=
- =?utf-8?B?S0gyaUFRZFNSNVVOWmJVTGR4d1FFNklCMHlyNEthUkxPb2dqUHNYNnk1TVBI?=
- =?utf-8?B?QTNIUGZJOTN5cDVTSEpxNldOKzFhK0tKRzh1bVpOeXJFdi9ueDFZQkNxam45?=
- =?utf-8?B?eVh0QStsWmIydFZqNUE0LzhVMnBiVEt2Wm4rSk5jbHd5dUhvYU5MUjVPRkVB?=
- =?utf-8?B?WUZSa2xWZURYemwyYkFjd2svS0pCVjNaVDVVMUdlRlUyd01jcEc5NkgrOEF3?=
- =?utf-8?B?MlRvanJOQjdVRzBkMVdUSWlxWm05eDBTNi9HZVZKYTV0MDdGSSt3aGllRVRX?=
- =?utf-8?B?NkpoVlRKWk1TSzRPdzNmQ2Nmd3VDbmlsQTFkb2ZqSi9uemFsdEg3Y0dUMkJ2?=
- =?utf-8?B?cjFOcHVJWkxtNWpNUmpHT0MzamxPbnR6TlNxeVRNZ0dSdkNhNFRKSENzMTlY?=
- =?utf-8?B?YU0vS295Z2IvelFHZGxtVTlYaDVzMDNhczZsYWw1aVQ3aWE3dFZybXl3Mnd6?=
- =?utf-8?B?M05lbWxVM0d0bVBqMks1QUp1VnoxUndrK1FvOXk0VjJ3bENyMVk5RjB0YmlG?=
- =?utf-8?B?VFdVRm1hSHlyeGhqYUQ4bUp6ZE53bDdQVDdWS0xtejdlNjJMVnBRanZBZTZI?=
- =?utf-8?B?ZkdGSjNIQXgzR0s2T3NWRGN1V1JrWUdKZ1EwM2VKWW9kOGJ5eGw4dDRaN2ZQ?=
- =?utf-8?B?VnUyV2lQd05RZXIwRkxxdCs5Tk9oTzRYUXNSSUd4RDhPZjFWdW1GcGNMSFJU?=
- =?utf-8?B?Wlc3b29GeFN3cTlaMVoyYm41M3M4SDdGcGFuelRHdUhEWkg5dVBhaU9pSU1z?=
- =?utf-8?B?TVBPc2xvZ0JqbHl4YlZOZ3RHKzRNQTFwVS90MkFPblVtRTZHcGVwTm5vZW9a?=
- =?utf-8?B?Mkl6Vkp4L05xSlRUU3preFBiWU93bFBjUU9ESHEzUFpnVTlZMGQxSlNQcHRm?=
- =?utf-8?B?SnJVZ2ZMK1lkemxVOThKbk42YTJZWWZlM09BdUhSSkJQK2k2UDlRbWgrU0dI?=
- =?utf-8?B?d0tZQTZrYm1BYzhaRExleXdZdGxJTk1udFc4NjYwSFZWaUExQXdWMWFIbjdz?=
- =?utf-8?Q?qagI+rJTJuAbD+1vdbHgtnX5z?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?d3J3Tm95bVNld0MxUGdkQ1Z3NU9SUkxnSkVjVUwxb2gwMkttRW1FZy84U1l6?=
+ =?utf-8?B?NVVtK0lwNThPcUkxTlY1TTVneFBjSDk0a2U0SWU4MVRySnYxZm9OQTZ2ZjRz?=
+ =?utf-8?B?M3BubFFkZTdnaU5mY2pnWUhLNTBTTWEwdnJRLzBhYXozUzgvOXpBendkd255?=
+ =?utf-8?B?SDlITTJKNHpDZDdYNk5ncXJxVENFcTJidzE1eStlOG9qaERySU1ibUlyQ21D?=
+ =?utf-8?B?T01XbVVFbzdMZmZWUUphaFhwQzY5RDdJdnJjdTVOa3A4SkRtUXQ5a0RhMjJG?=
+ =?utf-8?B?L0NBTUtjMDdTM3A4WERFR01MRHpITjBlUTlUWHNNUUdiV0ZNVzJkOU12dTBG?=
+ =?utf-8?B?Q2pJNy9yRmc4N1FiQnc0S0U1WUE0Y3BSWitNQ3kvRTJaay9IUERaU2wzOTI3?=
+ =?utf-8?B?RStCeDV2MG80MFB2WVJ2Sno4N0RSWlpqNjlEaTZHQ0doWWlPYkIxd2Q2Nm1T?=
+ =?utf-8?B?NjF5ZVNJd0RJTGxycGNFZ0NudjZTWkx1NFNmczdWUnU1QndsdkJtY2hZS01w?=
+ =?utf-8?B?SE9pSnNpQm5tVGUzME1UZHVzRm1vckUrY2NwQWRPTEc1dzBtS29pZnV5KzZp?=
+ =?utf-8?B?UTczNXhNWk1yaTlUMjZWNCtFK3MwTXJySWJOUXkzTUpSM0t2dTM4SkhuQ1do?=
+ =?utf-8?B?NVRrV01kc3UvZmRVVnJBYUYxTFJUTGx0R01KUkQ5anFFZjVMYVJhVjhTdVdK?=
+ =?utf-8?B?TUFyZXpSTDluL2xVc3BUcjk2U2lCaTVNZmNaclZDNHRBZHYySFFpRkJHaUg0?=
+ =?utf-8?B?amhjRWlRempaV2s3Q1FiZTU3Z1JwNHQvSE5rejNiWmdLYmNHUmZzUi9vR1BR?=
+ =?utf-8?B?bVl5b0k3VG11WUVnb1lxQmdOZlFxTGZCVUlGbUNWcTdyb2VzZzRDQkw0Vk9L?=
+ =?utf-8?B?anloa2ljNkdIUlVZWDU4OXVJeWMrUkJYRTU3aUVwMktweXJHTE9XT0xLd3hV?=
+ =?utf-8?B?QmpxRUt3SCtCaU1KMlJOM1pBQ2gwQXd5Q2lsdGthSkxydnh5Vk5WY3YxaW14?=
+ =?utf-8?B?aC9qMnoyQ21vRUphN1lIRUo2MEdMZWN4Rmt2K1dxU3VkSmUyQm5EWFlzUkY2?=
+ =?utf-8?B?K0dhbllEYjhSK1ZLd0ZTMHZHK0c3UzRFWFlTOW9OT0QxdmxPYnFaZ1Zqb0s2?=
+ =?utf-8?B?aGU4TTdabjJxRXJmM1dYSHNZUG43UlBZV09MdG9yWnpJbzZuVUdCRU9uUDBu?=
+ =?utf-8?B?T3laV2RzVTFkVnVGV0YwWDJhZ09Rd3pLQjRLaFdnU0VhaS8yaEE0d2w5Y2da?=
+ =?utf-8?B?d04yZ0hWWjhIWnBOQnN5ZzUyVUxmQm5JS3dCZW5iUGZZZnhvTTRzYWdaSXcr?=
+ =?utf-8?B?U2d4b2YyVzA2SlNadU01RGJGZzZrVlBBR0cxSTJWSmxhcVY2aVVKTWIrQ1lP?=
+ =?utf-8?B?Q3IrRENwNlNZbWI5Y1A3K25kWldqMUFlUExDWXJ6aWhHZzJjTFZuQzRLSGpa?=
+ =?utf-8?B?VEFMMzNEbjAxY2xHbitiRm1OQ2tBWWhlYlJteG0rSDVTcks3MDRwOCtiTkVX?=
+ =?utf-8?B?M0F5cGtxcFBXRFc3aVRRamlzY3dHTTkzSmp2Sm5aVHc1OEVTcGxTamtIVzYy?=
+ =?utf-8?B?SGpydm96UkZBaUE4R012ME1PdkVxTklVQmVlWEhubWVLM0k3UkFQYjgrdVZj?=
+ =?utf-8?B?bG1GV2FBVnBIeXhaaThBbVZqR29vbmZBRVdYZEU2L3p4a3BFdWhzWVMwc1Bs?=
+ =?utf-8?B?S3d1SHVUUmdhcjFuNXc0NWNUd3FjQnpXZmllRHh2UE1HRkhZZkpodFkwUTFz?=
+ =?utf-8?B?Rm5FNkJUYWc3MGlkQUMza0tuMWVkRW1MWDBNOVgyRGQxSUhlL1VMMEdOUUU4?=
+ =?utf-8?B?Q3dxZ2dLZ0NMeTQxYm5WbTQwRFVsT2ViSWNTQXg1RjF1Z0xSZk84SlFoVXNa?=
+ =?utf-8?B?OGIwTGk4Y0ZqYkU3N0JwUy9Mdnc5OWJoTjRMZTZESzhkVTZZYUh6L0Y1NFQx?=
+ =?utf-8?B?NzA5dUQyaG1Ld1ZKcXpSalVNdEp0UGEya2V3cERDVWNYT21jeG15NGl2S096?=
+ =?utf-8?B?eFRnRUpGTzM5ZVpaWmlXL09KQSt4OGkxT3RDMTMzZUlPakdWVm5xY3lXL3Nv?=
+ =?utf-8?B?VFVuaU15YnJtOUgxSjBiV0RQcnAwbWlnQ0NQeTRPYUNBZExBZFFITkI5T1Nv?=
+ =?utf-8?Q?VoSbpsOI8o639a3+X7crw5RdJ?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 88bb0d7e-0209-46c2-071e-08dd36d22270
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1691a1ec-b5e1-4ce7-3d2c-08dd36d354f8
 X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7804.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jan 2025 08:37:10.9212 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jan 2025 08:45:45.1146 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: uMKkOaSU/8bFdTuXZP59n3UTmDbrbxc1upzg2mHDtysPUIU/TlEHNWF2LoHbDfxy
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6433
+X-MS-Exchange-CrossTenant-UserPrincipalName: R9456oj65L+inASlMMLdA6awkX4X/6iJjisO2TmfKfc2cXA3W0I7WYNyzFizQbcp
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7305
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -170,291 +170,63 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 On 1/13/2025 7:12 AM, Jiang Liu wrote:
-> Rename amdgpu_ras_pre_fini() to amdgpu_ras_early_fini(), to keep same
-> style with other code.
-> 
-> Signed-off-by: Jiang Liu <gerry@linux.alibaba.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  6 +++---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c    |  2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c   |  2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c   |  2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c    | 16 ++++++++--------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h    |  6 +++---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c   |  2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c    |  2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c    |  2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c   |  2 +-
->  drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c    |  2 +-
->  drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c   |  2 +-
->  drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c    |  2 +-
->  drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c    |  2 +-
->  14 files changed, 25 insertions(+), 25 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 2bfe113e17c7..6cbd19ad0fa5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -4613,7 +4613,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
->  	return 0;
->  
->  release_ras_con:
-> -	amdgpu_ras_pre_fini(adev);
-> +	amdgpu_ras_early_fini(adev);
->  	amdgpu_ras_fini(adev);
->  	if (amdgpu_sriov_vf(adev))
->  		amdgpu_virt_release_full_gpu(adev, true);
-> @@ -4705,7 +4705,7 @@ void amdgpu_device_fini_hw(struct amdgpu_device *adev)
->  	amdgpu_xcp_cfg_sysfs_fini(adev);
->  
->  	/* disable ras feature must before hw fini */
-> -	amdgpu_ras_pre_fini(adev);
-> +	amdgpu_ras_early_fini(adev);
->  
->  	amdgpu_ttm_set_buffer_funcs_status(adev, false);
->  
-> @@ -4922,7 +4922,7 @@ int amdgpu_device_suspend(struct drm_device *dev, bool notify_clients)
->  	cancel_delayed_work_sync(&adev->delayed_init_work);
->  
->  	/* disable ras feature must before hw fini */
-> -	amdgpu_ras_pre_fini(adev);
-> +	amdgpu_ras_early_fini(adev);
->  	amdgpu_ras_suspend(adev);
->  
->  	amdgpu_device_ip_suspend_phase1(adev);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> index 6d5d81f0dc4e..2e7c09530ec1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> @@ -918,7 +918,7 @@ int amdgpu_gfx_ras_late_init(struct amdgpu_device *adev, struct ras_common_if *r
->  
->  	return 0;
->  late_fini:
-> -	amdgpu_ras_block_late_fini(adev, ras_block);
-> +	amdgpu_ras_block_early_fini(adev, ras_block);
->  	return r;
->  }
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
-> index b6d2eb049f54..80248930082c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
-> @@ -300,7 +300,7 @@ int amdgpu_jpeg_ras_late_init(struct amdgpu_device *adev, struct ras_common_if *
->  	return 0;
->  
->  late_fini:
-> -	amdgpu_ras_block_late_fini(adev, ras_block);
-> +	amdgpu_ras_block_early_fini(adev, ras_block);
+> There are some mismatches between IP block state machine and its
+> associated status flags, especially about the meaning of
+> `status.late_initialized`. So let's make the state machine and
+> associated status flas work in stack-like way as below:
+> Callback	Status
+> early_init:	valid = true
+> sw_init: 	sw = true
+> hw_init:	hw = true
+> late_init:	late_initialized = true
+> early_fini:	late_initialized = false
 
-This feels confusing - calling early_fini from late_init
+Changing the state like this is confusing. The intention of late_fini is
+to reverse the steps in late_init. It's straight forward read like if
+the ip is not late_initialized, no need to late_fini. This is making
+that complicated.
 
 Thanks,
 Lijo
 
->  	return r;
->  }
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c
-> index d085687a47ea..c75ce91f94ab 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c
-> @@ -71,6 +71,6 @@ int amdgpu_nbio_ras_late_init(struct amdgpu_device *adev, struct ras_common_if *
->  
->  	return 0;
->  late_fini:
-> -	amdgpu_ras_block_late_fini(adev, ras_block);
-> +	amdgpu_ras_block_early_fini(adev, ras_block);
->  	return r;
->  }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> index 5ac63f9cffda..b11e3eb2b100 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> @@ -4124,7 +4124,7 @@ int amdgpu_ras_block_late_init(struct amdgpu_device *adev,
->  	return 0;
->  
->  cleanup:
-> -	amdgpu_ras_block_late_fini(adev, ras_block);
-> +	amdgpu_ras_block_early_fini(adev, ras_block);
->  	return r;
->  }
->  
-> @@ -4135,7 +4135,7 @@ static int amdgpu_ras_block_late_init_default(struct amdgpu_device *adev,
->  }
->  
->  /* helper function to remove ras fs node and interrupt handler */
-> -void amdgpu_ras_block_late_fini(struct amdgpu_device *adev,
-> +void amdgpu_ras_block_early_fini(struct amdgpu_device *adev,
->  			  struct ras_common_if *ras_block)
->  {
->  	struct amdgpu_ras_block_object *ras_obj;
-> @@ -4156,10 +4156,10 @@ void amdgpu_ras_block_late_fini(struct amdgpu_device *adev,
->  		amdgpu_ras_interrupt_remove_handler(adev, ras_block);
->  }
->  
-> -static void amdgpu_ras_block_late_fini_default(struct amdgpu_device *adev,
-> +static void amdgpu_ras_block_early_fini_default(struct amdgpu_device *adev,
->  			  struct ras_common_if *ras_block)
->  {
-> -	return amdgpu_ras_block_late_fini(adev, ras_block);
-> +	return amdgpu_ras_block_early_fini(adev, ras_block);
->  }
->  
->  /* do some init work after IP late init as dependence.
-> @@ -4267,7 +4267,7 @@ int amdgpu_ras_late_init(struct amdgpu_device *adev)
->  }
->  
->  /* do some fini work before IP fini as dependence */
-> -int amdgpu_ras_pre_fini(struct amdgpu_device *adev)
-> +int amdgpu_ras_early_fini(struct amdgpu_device *adev)
->  {
->  	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
->  	struct amdgpu_ras_block_list *node, *tmp;
-> @@ -4284,10 +4284,10 @@ int amdgpu_ras_pre_fini(struct amdgpu_device *adev)
->  		if (!amdgpu_ras_is_supported(adev, obj->ras_comm.block))
->  			continue;
->  
-> -		if (obj->ras_fini)
-> -			obj->ras_fini(adev, &obj->ras_comm);
-> +		if (obj->ras_early_fini)
-> +			obj->ras_early_fini(adev, &obj->ras_comm);
->  		else
-> -			amdgpu_ras_block_late_fini_default(adev, &obj->ras_comm);
-> +			amdgpu_ras_block_early_fini_default(adev, &obj->ras_comm);
+> hw_fini:	hw = false
+> sw_fini:	sw = false
+> late_fini:	valid = false
+> 
+> Signed-off-by: Jiang Liu <gerry@linux.alibaba.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 7 ++++---
+>  1 file changed, 4 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 6cbd19ad0fa5..6b503fb7e366 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -3376,6 +3376,8 @@ static int amdgpu_device_ip_fini_early(struct amdgpu_device *adev)
+>  			DRM_DEBUG("early_fini of IP block <%s> failed %d\n",
+>  				  adev->ip_blocks[i].version->funcs->name, r);
+>  		}
+> +
+> +		adev->ip_blocks[i].status.late_initialized = false;
 >  	}
 >  
->  disable:
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-> index 35881087b17b..3a6f70b75e47 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-> @@ -711,7 +711,7 @@ struct amdgpu_ras_block_object {
->  	int (*ras_block_match)(struct amdgpu_ras_block_object *block_obj,
->  				enum amdgpu_ras_block block, uint32_t sub_block_index);
->  	int (*ras_late_init)(struct amdgpu_device *adev, struct ras_common_if *ras_block);
-> -	void (*ras_fini)(struct amdgpu_device *adev, struct ras_common_if *ras_block);
-> +	void (*ras_early_fini)(struct amdgpu_device *adev, struct ras_common_if *ras_block);
->  	ras_ih_cb ras_cb;
->  	const struct amdgpu_ras_block_hw_ops *hw_ops;
->  };
-> @@ -825,13 +825,13 @@ amdgpu_ras_error_to_ta(enum amdgpu_ras_error_type error) {
->  /* called in ip_init and ip_fini */
->  int amdgpu_ras_init(struct amdgpu_device *adev);
->  int amdgpu_ras_late_init(struct amdgpu_device *adev);
-> +int amdgpu_ras_early_fini(struct amdgpu_device *adev);
->  int amdgpu_ras_fini(struct amdgpu_device *adev);
-> -int amdgpu_ras_pre_fini(struct amdgpu_device *adev);
+>  	amdgpu_device_set_pg_state(adev, AMD_PG_STATE_UNGATE);
+> @@ -3445,15 +3447,14 @@ static int amdgpu_device_ip_fini(struct amdgpu_device *adev)
+>  			}
+>  		}
+>  		adev->ip_blocks[i].status.sw = false;
+> -		adev->ip_blocks[i].status.valid = false;
+>  	}
 >  
->  int amdgpu_ras_block_late_init(struct amdgpu_device *adev,
->  			struct ras_common_if *ras_block);
+>  	for (i = adev->num_ip_blocks - 1; i >= 0; i--) {
+> -		if (!adev->ip_blocks[i].status.late_initialized)
+> +		if (!adev->ip_blocks[i].status.valid)
+>  			continue;
+>  		if (adev->ip_blocks[i].version->funcs->late_fini)
+>  			adev->ip_blocks[i].version->funcs->late_fini(&adev->ip_blocks[i]);
+> -		adev->ip_blocks[i].status.late_initialized = false;
+> +		adev->ip_blocks[i].status.valid = false;
+>  	}
 >  
-> -void amdgpu_ras_block_late_fini(struct amdgpu_device *adev,
-> +void amdgpu_ras_block_early_fini(struct amdgpu_device *adev,
->  			  struct ras_common_if *ras_block);
->  
->  int amdgpu_ras_feature_enable(struct amdgpu_device *adev,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-> index 174badca27e7..1a1834e47b50 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-> @@ -116,7 +116,7 @@ int amdgpu_sdma_ras_late_init(struct amdgpu_device *adev,
->  	return 0;
->  
->  late_fini:
-> -	amdgpu_ras_block_late_fini(adev, ras_block);
-> +	amdgpu_ras_block_early_fini(adev, ras_block);
->  	return r;
->  }
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
-> index eafe20d8fe0b..dd787f5f2f23 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
-> @@ -336,7 +336,7 @@ int amdgpu_umc_ras_late_init(struct amdgpu_device *adev, struct ras_common_if *r
->  	return 0;
->  
->  late_fini:
-> -	amdgpu_ras_block_late_fini(adev, ras_block);
-> +	amdgpu_ras_block_early_fini(adev, ras_block);
->  	return r;
->  }
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> index 83faf6e6788a..3ab80399d2ba 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> @@ -1248,7 +1248,7 @@ int amdgpu_vcn_ras_late_init(struct amdgpu_device *adev, struct ras_common_if *r
->  	return 0;
->  
->  late_fini:
-> -	amdgpu_ras_block_late_fini(adev, ras_block);
-> +	amdgpu_ras_block_early_fini(adev, ras_block);
->  	return r;
->  }
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-> index 74b4349e345a..825c331f48f0 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-> @@ -1174,7 +1174,7 @@ static int amdgpu_xgmi_ras_late_init(struct amdgpu_device *adev, struct ras_comm
->  	return 0;
->  
->  late_fini:
-> -	amdgpu_ras_block_late_fini(adev, ras_block);
-> +	amdgpu_ras_block_early_fini(adev, ras_block);
->  
->  	return r;
->  }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-> index 2ba185875baa..ce70acfbf22c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-> @@ -5080,7 +5080,7 @@ static int gfx_v9_4_3_ras_late_init(struct amdgpu_device *adev, struct ras_commo
->  	return 0;
->  
->  late_fini:
-> -	amdgpu_ras_block_late_fini(adev, ras_block);
-> +	amdgpu_ras_block_early_fini(adev, ras_block);
->  
->  	return r;
->  }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
-> index 88f9771c1686..28bc2f946e91 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
-> @@ -1311,7 +1311,7 @@ static int jpeg_v4_0_3_ras_late_init(struct amdgpu_device *adev, struct ras_comm
->  	return 0;
->  
->  late_fini:
-> -	amdgpu_ras_block_late_fini(adev, ras_block);
-> +	amdgpu_ras_block_early_fini(adev, ras_block);
->  
->  	return r;
->  }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c
-> index e646e5cef0a2..467283165a3a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c
-> @@ -789,7 +789,7 @@ static int mmhub_v1_8_ras_late_init(struct amdgpu_device *adev, struct ras_commo
->  	return 0;
->  
->  late_fini:
-> -	amdgpu_ras_block_late_fini(adev, ras_block);
-> +	amdgpu_ras_block_early_fini(adev, ras_block);
->  
->  	return r;
->  }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-> index ecdc027f8220..063b3bafd134 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-> @@ -1996,7 +1996,7 @@ static int vcn_v4_0_3_ras_late_init(struct amdgpu_device *adev, struct ras_commo
->  	return 0;
->  
->  late_fini:
-> -	amdgpu_ras_block_late_fini(adev, ras_block);
-> +	amdgpu_ras_block_early_fini(adev, ras_block);
->  
->  	return r;
->  }
+>  	amdgpu_ras_fini(adev);
 
