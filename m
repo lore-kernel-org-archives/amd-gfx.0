@@ -4,67 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9EB30C02183
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jan 2025 14:08:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24A2DC02183
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jan 2025 14:18:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C74E10EAFB;
-	Fri, 17 Jan 2025 14:08:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6204E10EAFC;
+	Fri, 17 Jan 2025 14:18:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YDD1T9zm";
+	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="J23okV0l";
 	dkim-atps=neutral
-Received: from mail-pj1-x102c.google.com (mail-pj1-x102c.google.com
- [IPv6:2607:f8b0:4864:20::102c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D2D510EAFC
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jan 2025 14:08:46 +0000 (UTC)
-Received: by mail-pj1-x102c.google.com with SMTP id
- 98e67ed59e1d1-2efdaa02378so462023a91.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jan 2025 06:08:46 -0800 (PST)
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [IPv6:2a00:1450:4864:20::329])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA54610EB09
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jan 2025 14:18:09 +0000 (UTC)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-4364a37a1d7so20519105e9.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jan 2025 06:18:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1737122926; x=1737727726; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=qZ4OBPhyEwgWHfaXc5OF6OxfaDxBFg4Q1tXy3nNOQ1g=;
- b=YDD1T9zmFVFaXAQ2/lR4nGgzcNtjg4f8ipNcQ/RqDKicTqLYfPFhQZEp7zDYbQWNyU
- wbGoBLw6rBhQHHdrwk5NKkUbOzC360DujSw71/EO6lMMRm/NL23weGhW0PWvtJdnU7hC
- J/+sh07m7c0gIDOxUzwUs7teqwe4UmkwCy2RK9s/ZDN+BDRoZUs0gWyWk42nKo5h7gQI
- 5FWmikKQSfQ1ihIeMk+RVMP6PAYzXAxvwGw0E8HX70JMPCAgyitrYYRc1hSpu/V+gtZn
- 8teSbPDNakbh+CZYVPhufI9PIAKydIqhwGw+4h1GsnP5OIVlQGTbPG4wQ5MlIjhGUHvf
- xo7g==
+ d=ffwll.ch; s=google; t=1737123488; x=1737728288; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=Tp7wSAJqhLGIrZ3nLQeCPYHy8kxgR4Pc06+Wfa9fy1Q=;
+ b=J23okV0lMY1MiRM6M70XDzl9BpIX11X9GLqLetT+3gMNQFZ1Bnm7C96eOo9tg2JqjC
+ II/sKNCGcMqhmH74hfnZnGroFNkUo3idUKJjShKPDyvYmF59h4mcdEMkoJqLRSpdj7VY
+ HAVNAjKy/PmRxLqgJTMECjmf1lMedq3Coa9TE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737122926; x=1737727726;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=qZ4OBPhyEwgWHfaXc5OF6OxfaDxBFg4Q1tXy3nNOQ1g=;
- b=sO7SRQzmuMbfV/vmYttihwOD2gnSzF/UWsqSHDrn9zriZg8WITrvXk17za62I8jCYO
- ZmHEyPd2ShvVBdcErappfuZBchfWDW9KVyOxZa0mP3pSO3mZmbuR8i6smU2hpDemF4lF
- BDcb+nWdqW/rBx6jaEzB+vOvXvIWBV1QaRtgfq8vXhtliz910/ZHaRRocy2w5xHm+8Mh
- XZJoNZspCNtSNRJ96cZACUcQa6vNUMEGX2GPVJg9dYtfM2RQM2tGSEnQWaRkfw3qNEgQ
- 7J/WnKiv7ZZG9W6aoRq0ADMqiXNxIWM6E9hQJ1/aLJKMz0v7qe0kmV9g7EBeBmM48Eam
- QT6A==
-X-Gm-Message-State: AOJu0Yz+sBLpsbeKMWa45k6E+sHyFMRrlD2I5CZppcpRX8qbYWUssKfm
- ZBgFzW5DxQnNIwlHfHToPEYKPNT6qUVGCBebpBVnnzydZoNiVTAr6E0MwTl1rmFfXs8qpzMsANX
- RG7K7P/Tahogk6BPRBnKxGtlFyWNrb52S
-X-Gm-Gg: ASbGncts5H4cxAka/wSBvZAPZcPqIlH0q1H19Gyx9zGgtCta5QNfmMmzH8164lN2bvC
- bI+kFdeaXl4/y4XQIk+E2mIxDjlXLEHpwlLWLDw==
-X-Google-Smtp-Source: AGHT+IGLKweKjY4U4WHaAdEn6GOgoQ3IBfazmjyKJfX6mdMOzHMzfOpPPxSbDbfxrnXFPIHak/RncldKxWnw0KRWnlc=
-X-Received: by 2002:a17:90b:5444:b0:2ee:b665:12c2 with SMTP id
- 98e67ed59e1d1-2f782c55039mr1465929a91.2.1737122926060; Fri, 17 Jan 2025
- 06:08:46 -0800 (PST)
+ d=1e100.net; s=20230601; t=1737123488; x=1737728288;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=Tp7wSAJqhLGIrZ3nLQeCPYHy8kxgR4Pc06+Wfa9fy1Q=;
+ b=GDF3hxXm2qsfzsX3agJUkMq6X6bXAG6kOzpuuYfwDI7+X+s8yJsaJNH/BZH5dVFxFP
+ alhEm1HaZtxBcS2WK4hNkKL70AehGoaQ3ZJ4e4Bemcx/Of5h1LAKxNVDFXTH7wK0u7iK
+ X1PBntu85kUBaov4Bw1WTwnnbZfJAT5xr8360+s7Nftq4fw8SMDRyw8/mmaGwkxukn1N
+ QNDtiqCNdyCPfcwabrxpq1MjfLWTDkqNoCJnd58zlCICZIuRl0Eq/44Clf8CzkXvm4MV
+ teIiyEKGfEMod0xDpx+6uZcZePurY3Bmmbbe8cuKmgat7V6OHVpx4QysrgwPrLuel4Hl
+ HTRg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXuTcNHWTA3LBwEA+qxGS3O5wlStfd6UBzX32NvQzgC6miEnl4vR3/UE61akVTiy2WW2pggjbLs@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxf/9reJmEkhe6IEyWd9xn6LCR8sRTCux1VcCCMe7U033P1e3bd
+ bMdgnvTAJz2WXmynEuZkeqZ+USbRjrTXf3ilyKLO+ltT86QxdgUOeOCOV04gsXk=
+X-Gm-Gg: ASbGncvk5jdUQ4K2xFuXZ2Mksj81JJ4qEuWE5MN2zvQ2GBCDu8U+Y4152wBT0AJhLMo
+ C/K0zws1y0TmD7JFOVxRE/rFQkIMSWVerCbjumOD5wLsQ4GzKIXz3x4xj2No/0XPCrM8z4pEya3
+ Ogv/ACvKMBHBHi2OL+UCjH+pidCZmA9o4kDNAJRsWte21zD4QBSY79s6coCOmHxgwhqYqizQZiX
+ ACaEc4fcioGoZZq4tXSCYuWETuBxU3jlgf1vwacidRSdXR+LbB1z4Kv3wxH4yqI+3QA
+X-Google-Smtp-Source: AGHT+IGmGWKhpQjrSctpZpzWmduNr6tOj7WD15395d+bDkHH4Rt6DnKHMET7Vs5pm2MWNMs121e3Ug==
+X-Received: by 2002:a05:600c:350b:b0:431:58cd:b259 with SMTP id
+ 5b1f17b1804b1-438914671fdmr30487135e9.31.1737123487983; 
+ Fri, 17 Jan 2025 06:18:07 -0800 (PST)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:5485:d4b2:c087:b497])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-437c74c4751sm94460675e9.19.2025.01.17.06.18.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 17 Jan 2025 06:18:07 -0800 (PST)
+Date: Fri, 17 Jan 2025 15:18:05 +0100
+From: Simona Vetter <simona.vetter@ffwll.ch>
+To: Daniel Stone <daniel@fooishbar.org>
+Cc: Marek =?utf-8?B?T2zFocOhaw==?= <maraeo@gmail.com>,
+ James Jones <jajones@nvidia.com>, Simona Vetter <simona.vetter@ffwll.ch>,
+ Brian Starkey <brian.starkey@arm.com>,
+ Michel =?iso-8859-1?Q?D=E4nzer?= <michel.daenzer@mailbox.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
+ ML Mesa-dev <mesa-dev@lists.freedesktop.org>, nd@arm.com,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+Subject: Re: [PATCH] drm/fourcc: add LINEAR modifiers with an exact pitch
+ alignment
+Message-ID: <Z4pmnTy1NYD3rLwS@phenom.ffwll.local>
+References: <8dae97c9-9286-451a-8122-b309eb21b2f4@mailbox.org>
+ <Z2Ki-lQH4Fbch6RO@phenom.ffwll.local>
+ <q45c43j5kwwvemec7mcs4kqzt54pa3nz3jlhkcky2v63s2vfie@him4q253uw4p>
+ <CAPj87rMFJ0JRvsKqZUsw_EGrFWr1VLO4Ne2w_bZ5cH+gs_d=og@mail.gmail.com>
+ <Z2Rf7mpSuzZ0ObmT@phenom.ffwll.local>
+ <07d08a42-c44a-477e-8057-721b270310cf@nvidia.com>
+ <CAAxE2A6N0xtgZmzTR9FXMN79xxy3T8zfhh1sz73h1h8=0ycJ2g@mail.gmail.com>
+ <CAPj87rP4r4q-wBx1dHsEkZ7=S2c2XsbA1Pz4Skw1ETt_2yD2Ag@mail.gmail.com>
+ <CAAxE2A6ghBK2VTLkNXgk1c61UG1ZQAzWQ4q=wO-OShAUC9eRmQ@mail.gmail.com>
+ <CAPj87rNFy7GLAjjxDYGLN-f8M0F7yMX6PED94O4kBJ=pwtPVyA@mail.gmail.com>
 MIME-Version: 1.0
-References: <CAG-pW8H7WOi7JiN5zHdCo2MX3w0c8yEuJ=SFGV+BPbFuBK0Spg@mail.gmail.com>
-In-Reply-To: <CAG-pW8H7WOi7JiN5zHdCo2MX3w0c8yEuJ=SFGV+BPbFuBK0Spg@mail.gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 17 Jan 2025 09:08:34 -0500
-X-Gm-Features: AbW1kvYxxQ1uB-obBDmzrgcA0Te2TFg9BeTEYaZu858fVh0J6-Ut6R4KCweg0Og
-Message-ID: <CADnq5_Pj0NLqwiooxyXULERo8YQTh1TN76FVnM9MZt3FCMFSwg@mail.gmail.com>
-Subject: Re: drm/amdgpu: AMDGPU unusable since 6.12.1 and it looks like no one
- cares.
-To: Pavel Nikulin <pavel@noa-labs.com>
-Cc: amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAPj87rNFy7GLAjjxDYGLN-f8M0F7yMX6PED94O4kBJ=pwtPVyA@mail.gmail.com>
+X-Operating-System: Linux phenom 6.12.3-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,26 +101,125 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jan 17, 2025 at 7:27=E2=80=AFAM Pavel Nikulin <pavel@noa-labs.com> =
-wrote:
->
-> I think it persists as of 6.12.9 and today's firmware version from git.
->
-> Hardware Asus um5606
->
-> It only happens when the AC adaptor is disconnected, and the screen
-> refresh frequency is set to 120hz. It does not happen on any other
-> refresh frequency, or when the charger is connected.
->
-> It might be happening in Windows, but at much lower rate, like once in
-> a month. The windows version might be applying some mitigations.
->
-> Trying to catch what may be a prelude to hang never worked. It's just
-> instahang, without panic, or anything. I cannot debug it without
-> JTAGing the CPU, for which I have no equipment, nor am I sure if there
-> are even JTAG headers exposed on the laptop motherboard.
+On Wed, Jan 15, 2025 at 12:20:07PM +0000, Daniel Stone wrote:
+> On Wed, 15 Jan 2025 at 04:05, Marek Olšák <maraeo@gmail.com> wrote:
+> > On Tue, Jan 14, 2025 at 12:58 PM Daniel Stone <daniel@fooishbar.org> wrote:
+> >> AMD hardware is the only hardware I know of which doesn't support
+> >> overaligning. Say (not hypothetically) we have a GPU and a display
+> >> controller which have a minimum pitch alignment of 32 bytes, no
+> >> minimum height alignment, minimum 32-byte offset alignment, minimum
+> >> pitch of 32 bytes, and minimum image size of 32 bytes.
+> >>
+> >> To be maximally compatible, we'd have to expose 28 (pitch align) * 32
+> >> (height align) * 28 (offset align) * 28 (min pitch) * 28 (min size) ==
+> >> 19668992 individual modifiers when queried, which is 150MB per format
+> >> just to store the list of modifiers.
+> >
+> > Maximum compatibility is not required nor expected.
+> >
+> > In your case, only 1 linear modifier would be added for that driver, which is: [5 / 0 / 5 / 5 / 5]
+> >
+> > Then if, and only if, compatibility with other devices is desired, the driver developer could look at drivers of those other devices and determine which other linear modifiers to add. Ideally it would be just 1, so there would be a total of 2.
+> 
+> Mali (actually two DRM drivers and sort of three Mesa drivers) can be
+> paired with any one of 11 KMS drivers (really 12 given that one is a
+> very independent subdriver), and something like 20 different codecs
+> (at least 12 different vendors; I didn't bother counting the actual
+> subdrivers which are all quite different). The VeriSilicon Hantro G2
+> codec driver is shipped by five (that we know of) vendors who all have
+> their own KMS drivers. One of those is in the Rockchip RK3588, which
+> (don't ask me why) ships six different codec blocks, with three
+> different drivers, from two different vendors - that's before you even
+> get to things like the ISP and NPU which really need to be sharing
+> buffers properly without copies.
+> 
+> So yeah, working widely without having to encode specific knowledge
+> everywhere isn't a nice-to-have, it's a hard baseline requirement.
+> 
+> >> > DRM_FORMAT_MOD_LINEAR needs to go because it prevents apps from detecting whether 2 devices have 0 compatible memory layouts, which is a useful thing to know.
+> >>
+> >> I get the point, but again, we have the exact same problem today with
+> >> placement, i.e. some devices require buffers to be in or not be in
+> >> VRAM or GTT or sysram for some uses, and some devices require physical
+> >> contiguity. Solving that problem would require an additional 4 bits,
+> >> which brings us to 2.3GB of modifiers per format with the current
+> >> scheme. Not super viable.
+> >
+> > Userspace doesn't determine placement. The kernel memory management can move buffers between heaps to accommodate sharing between devices as needed. This is a problem in which userspace has no say.
+> 
+> It really does though!
+> 
+> None of these devices use TTM with placement moves, and doing that
+> isn't a fix either. Embedded systems have so low memory bandwidth that
+> the difference between choosing the wrong placement and moving it
+> later vs. having the right placement to begin with is the difference
+> between 'this does not work' and 'great, I can ship this'. Which is
+> great if you're a consultancy trying to get paid, but tbh I'd rather
+> work on more interesting things.
+> 
+> So yeah, userspace does very much choose the placement. On most
+> drivers, this is either by 'knowing' which device to allocate from, or
+> passing a flag to your allocation ioctl. For newer drivers though,
+> there's the dma-heap allocation mechanism which is now upstream and
+> the blessed path, for which userspace needs to explicitly know the
+> desired placement (and must, because fixing it up later is a
+> non-starter).
+> 
+> Given that we need to keep LINEAR ~forever for ABI reasons, and
+> because there's no reasonably workable alternative, let's abandon the
+> idea of abandoning LINEAR, and try to work with out-of-band signalling
+> instead.
+> 
+> One idea is to actually pursue the allocator idea and express this
+> properly through constraints. I'd be super in favour of this,
+> unsurprisingly, because it allows us to solve a whole pile of other
+> problems, rather than the extremely narrow AMD/Intel interop case.
+> 
+> Another idea for the out-of-band signalling would be to add
+> information-only modifiers, like
+> DRM_FORMAT_MOD_LINEAR_PITCH_ALIGN_EQ(256), or
+> DRM_FORMAT_MOD_LINEAR_PITCH_ALIGN_GE(32). But then that doesn't really
+> work at all with how people actually use modifiers: as the doc
+> describes, userspace takes and intersects the declared modifier lists
+> and passes the result through. The intersection of LINEAR+EQ256 and
+> LINEAR+GE32 is LINEAR, so a userspace that follows the rules will just
+> drop the hints on the floor and pick whatever linear allocation it
+> feels like.
 
-Please file a bug report and attach your dmesg output.
-https://gitlab.freedesktop.org/drm/amd/-/issues
+Yeah I think latest when we also take into account logical image size (not
+just pitch) with stuff like it needs to be aligned to 2 pixels in both
+directions just using modifiers falls apart.
 
-Alex
+And the problem with linear, unlike device modifiers is that we can't just
+throw up our hands and enumerate the handful of formats in actual use for
+interop. There's so many produces and consumers of linera buffers
+(Daniel's list above missed camera/image processors) that save assumption
+is that anything really can happen.
+
+> I think I've just talked myself into the position that passing
+> allocator constraints together with modifiers is the only way to
+> actually solve this problem, at least without creating the sort of
+> technical debt that meant we spent years fixing up implicit/explicit
+> modifier interactions when it really should've just been adding a
+> !)@*(#$ u64 next to the u32.
+
+Yeah probably.
+
+Otoh I know inertia, so I am tempted to go with the oddball
+LINEAR_VEDNOR_A_VENDOR_B_INTEROP thing and stretch the runway for a bit.
+And we just assign those as we go as a very special thing, and the drivers
+that support it would prefer it above just LINEAR if there's no other
+common format left.
+
+Also makes it really obvious what all userspace/kernel driver enabling
+would be needed to justify such a modifier.
+-Sima
+
+> 
+> Cheers,
+> Daniel
+
+-- 
+Simona Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
