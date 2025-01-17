@@ -4,47 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFF18C02185
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jan 2025 09:04:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14D23C02185
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jan 2025 09:06:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 20C2F10E3A1;
-	Fri, 17 Jan 2025 09:04:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 14A9F10EABF;
+	Fri, 17 Jan 2025 09:06:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=haloniitty.fi header.i=@haloniitty.fi header.b="wTgpX6T9";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=haloniitty.fi header.i=@haloniitty.fi header.b="KItksaI/";
 	dkim-atps=neutral
 Received: from whm50.louhi.net (whm50.louhi.net [77.240.19.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A823310E2FA;
- Fri, 17 Jan 2025 09:04:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24CA210EAB9;
+ Fri, 17 Jan 2025 09:06:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=haloniitty.fi; s=default; h=Content-Type:MIME-Version:References:
  In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
  List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=fANOeKvbGZhIa7R8ixVbFZE1HhyfTPDLRenZOXTjAl8=; b=wTgpX6T9mh5eFfg+M1Va8h+FLn
- Mes6LNpPFBsFxg0hWqKmHtbL4mtc52Ss7/udGmGg/xIaIhWH6odW3R3+TKmXaOxFw2HLVqalf4iKj
- X4LQ6jTr/pdzdaOaV2NQnwik9ziAwIxyrxlcKzxhcpRSdjPCXNsUly429XaiaDIgsDqc24hN6qNQl
- vtLpQ2rVV708vc+h7lxappdfSxRNRWBN0EsxaQj9UqzjXxKw32WS2rkU6spXO1V/TJ6+nssrEFX0d
- na6TfBXbS8zgK2IoT7DKnB+8qsTqwg+RLdbxmNsrClFzySV9pQ+wTfMvqq5RYgmKV1jwbvtscIJhx
- O5Eus6sQ==;
-Received: from [194.136.85.206] (port=38556 helo=eldfell)
+ bh=VPJ6kjT2KUa371l28txauwNyjykZPJKUwUkZ2naKUOk=; b=KItksaI/ehu5V3y5xnqu/n/2jj
+ 6ZudIoUHs2JCLG0PaMOjDgpTmR62RJIlhL8Yd9RDfUdgsD5/g2m/mEm3V5tzW5zcPJMnNWcHf+sh9
+ KWmRinvSp41YMaec6ZWA1GthwCAdJoSzoxOXA8St0/K/J6DfpDGz+57DEvIIr2nq+VNzvTeaJQAem
+ Mh5TnLMmcG8qmgRPZn4ajVIfnIf2EkCtT1U6GvjIk5v+gZhAvrENJGvYRN4qGm1dGQODT5DrXHDQu
+ fxreyTL+5SJxqCedDZtPq/yYO1J3wiUGTzGHR7A81vcRbuUoA5obQgbvktraVxSG4Z8sISQmedrD5
+ yUdi5F8Q==;
+Received: from [194.136.85.206] (port=33082 helo=eldfell)
  by whm50.louhi.net with esmtpsa (TLS1.2) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96.2)
- (envelope-from <pekka.paalanen@haloniitty.fi>) id 1tYiGw-0003jK-2Y;
- Fri, 17 Jan 2025 11:04:10 +0200
-Date: Fri, 17 Jan 2025 11:04:01 +0200
+ (envelope-from <pekka.paalanen@haloniitty.fi>) id 1tYiJO-0004tv-2S;
+ Fri, 17 Jan 2025 11:06:42 +0200
+Date: Fri, 17 Jan 2025 11:06:41 +0200
 From: Pekka Paalanen <pekka.paalanen@haloniitty.fi>
-To: Alex Hung <alex.hung@amd.com>
+To: Alex Hung <alex.hung@amd.com>, <harry.wentland@amd.com>
 Cc: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>,
- <wayland-devel@lists.freedesktop.org>, <harry.wentland@amd.com>
-Subject: Re: [V7 29/45] drm/colorop: Add PQ 125 EOTF and its inverse
-Message-ID: <20250117110401.446619e7@eldfell>
-In-Reply-To: <20241220043410.416867-30-alex.hung@amd.com>
+ <wayland-devel@lists.freedesktop.org>
+Subject: Re: [V7 31/45] drm/colorop: add BT2020/BT709 OETF and Inverse OETF
+Message-ID: <20250117110641.7040f712@eldfell>
+In-Reply-To: <20250116105622.577533fc@tisha>
 References: <20241220043410.416867-1-alex.hung@amd.com>
- <20241220043410.416867-30-alex.hung@amd.com>
+ <20241220043410.416867-32-alex.hung@amd.com>
+ <20250116105622.577533fc@tisha>
 X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/IbKa/Ak_Cc0udwwLFnLiXes";
+Content-Type: multipart/signed; boundary="Sig_/2AYt4dGga0HNm7b1Cf3+1lP";
  protocol="application/pgp-signature"; micalg=pgp-sha256
 X-AntiAbuse: This header was added to track abuse,
  please include it with any abuse report
@@ -72,130 +73,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---Sig_/IbKa/Ak_Cc0udwwLFnLiXes
+--Sig_/2AYt4dGga0HNm7b1Cf3+1lP
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, 19 Dec 2024 21:33:35 -0700
-Alex Hung <alex.hung@amd.com> wrote:
+On Thu, 16 Jan 2025 10:56:22 +0200
+Pekka Paalanen <pekka.paalanen@haloniitty.fi> wrote:
 
-> From: Harry Wentland <harry.wentland@amd.com>
+> On Thu, 19 Dec 2024 21:33:37 -0700
+> Alex Hung <alex.hung@amd.com> wrote:
 >=20
-> The PQ function defines a mapping of code values to nits (cd/m^2).
-> The max code value maps to 10,000 nits.
+> > From: Harry Wentland <harry.wentland@amd.com>
+> >=20
+> > The BT.709 and BT.2020 OETFs are the same, the only difference
+> > being that the BT.2020 variant is defined with more precision
+> > for 10 and 12-bit per color encodings.
+> >=20
+> > Both are used as encoding functions for video content, and are
+> > therefore defined as OETF (opto-electronic transfer function)
+> > instead of as EOTF (electro-optical transfer function).
+> >=20
+> > Signed-off-by: Alex Hung <alex.hung@amd.com>
+> > Signed-off-by: Harry Wentland <harry.wentland@amd.com> =20
 >=20
-> Windows DWM's canonical composition color space (CCCS)  defaults
-> to composing SDR contents to 80 nits and uses a float value of
-> 1.0 to represent this. For this reason AMD HW hard-codes a PQ
-> function that is scaled by 125, yielding 80 nit PQ values for
-> 1.0 and 10,000 nits at 125.0.
+> Hi,
 >=20
-> This patch introduces this scaled PQ EOTF and its inverse as
-> 1D curve types.
->=20
-> Signed-off-by: Alex Hung <alex.hung@amd.com>
-> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-> ---
->  drivers/gpu/drm/drm_colorop.c |  2 ++
->  include/drm/drm_colorop.h     | 21 ++++++++++++++++++++-
->  2 files changed, 22 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_colorop.c
-> index 7d4b29c0a0cc..f3391602a577 100644
-> --- a/drivers/gpu/drm/drm_colorop.c
-> +++ b/drivers/gpu/drm/drm_colorop.c
-> @@ -70,6 +70,8 @@ static const struct drm_prop_enum_list drm_colorop_type=
-_enum_list[] =3D {
->  static const char * const colorop_curve_1d_type_names[] =3D {
->  	[DRM_COLOROP_1D_CURVE_SRGB_EOTF] =3D "sRGB EOTF",
->  	[DRM_COLOROP_1D_CURVE_SRGB_INV_EOTF] =3D "sRGB Inverse EOTF",
-> +	[DRM_COLOROP_1D_CURVE_PQ_125_EOTF] =3D "PQ 125 EOTF",
-> +	[DRM_COLOROP_1D_CURVE_PQ_125_INV_EOTF] =3D "PQ 125 Inverse EOTF",
->  };
-> =20
-> =20
-> diff --git a/include/drm/drm_colorop.h b/include/drm/drm_colorop.h
-> index e9f5c1adc2fe..4084a7438032 100644
-> --- a/include/drm/drm_colorop.h
-> +++ b/include/drm/drm_colorop.h
-> @@ -36,7 +36,6 @@
->   * enum drm_colorop_curve_1d_type - type of 1D curve
->   *
->   * Describes a 1D curve to be applied by the DRM_COLOROP_1D_CURVE coloro=
-p.
-> - *
->   */
->  enum drm_colorop_curve_1d_type {
->  	/**
-> @@ -56,6 +55,26 @@ enum drm_colorop_curve_1d_type {
->  	 */
->  	DRM_COLOROP_1D_CURVE_SRGB_INV_EOTF,
-> =20
-> +	/**
-> +	 * @DRM_COLOROP_1D_CURVE_PQ_125_EOTF:
-> +	 *
-> +	 * The PQ transfer function, scaled by 125.0f, so that 10,000
-> +	 * nits correspond to 125.0f.
-> +	 *
-> +	 * Transfer characteristics of the PQ function as defined by
-> +	 * SMPTE ST 2084 (2014) for 10-, 12-, 14-, and 16-bit systems
-> +	 * and Rec. ITU-R BT.2100-2 perceptual quantization (PQ) system.
-> +	 * Equivalent to H.273 TransferCharacteristics code point 16.
-> +	 */
+> why would a display system ever use BT.2020 or BT.709 OETF or its
+> inverse?
 
-Hi,
-
-this all good, I'd just clarify a minor detail.
-
-H.273 code point 16 defines the normalised formula
-TF: [0.0, 1.0] -> [0.0, 1.0]
-so it is not equivalent to the 125-scaled version.
-
-Maybe you meant something like this?
-
-+	 * Transfer characteristics of the PQ function as defined by
-+	 * SMPTE ST 2084 (2014) for 10-, 12-, 14-, and 16-bit systems
-+	 * and Rec. ITU-R BT.2100-2 perceptual quantization (PQ) system,
-+	 * represented by H.273 TransferCharacteristics code point 16.
+Sorry, this is more for my own curiosity, not an argument against the
+patch. Since hardware designers decided to incorporate these curves
+explicitly, what use was in mind? It's likely something I have
+overlooked.
 
 
 Thanks,
 pq
 
-
-> +	DRM_COLOROP_1D_CURVE_PQ_125_EOTF,
-> +
-> +	/**
-> +	 * @DRM_COLOROP_1D_CURVE_PQ_125_INV_EOTF:
-> +	 *
-> +	 * The inverse of DRM_COLOROP_1D_CURVE_PQ_125_EOTF.
-> +	 */
-> +	DRM_COLOROP_1D_CURVE_PQ_125_INV_EOTF,
-> +
->  	/**
->  	 * @DRM_COLOROP_1D_CURVE_COUNT:
->  	 *
-
-
---Sig_/IbKa/Ak_Cc0udwwLFnLiXes
+--Sig_/2AYt4dGga0HNm7b1Cf3+1lP
 Content-Type: application/pgp-signature
 Content-Description: OpenPGP digital signature
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmeKHQEACgkQI1/ltBGq
-qqc9UA//dhdXDVCxqYir1zscMW40RSIpSdwcETmm3p4KUH5YCHk/w04BI1y74wxv
-CU+G+x/s5sZi5+ZS4m2F8+tr9KOMV3q1KEaw52MjfetRYVGt9NaJkzhchY6Qvt5X
-IcfuAxR7jcD8TLnro/aCSzGn3QNBqKuFkOXelC7AWbuA80Don0eEJSgzby2by5u2
-AhEttZwp30LntUNowIwWfwLwGdU9FUbxFuIthLPtKo1z7bXWnmwHE6aRuyM2RBxD
-F+wcUXZlcRTKSHWrJmVI++47y6wcYQqU23eghDsKpP0irnBGAqcXjgZXZNiKpQn+
-eC67s53c6XhhFa+AijC58yH2POenHLvsk0mj9AfBG4eXxfTGxrfLCAjR0AIpS/DD
-cLczgpM1LVg2RHu63uhYiIyezsMEvAe2lTMImGBBlOsyCvGT5NG7DJr8xBhShOxv
-tzCEYtCyx4o5qExGo4sVZbpAycTI6BS+g6VBrdLJ08AyF0/dOuREJfDA/HWemUMF
-UUGXmLMF9OY7xWew2fRe7ds2bJbWU2rVrVDz/h9qQhEU0/3CwszG7xuDuB87xloN
-AAHPlOGgEbUQv48v81J8cdbQuf7Idm6PPvOGHAwPo5J5cc+yd058IdoLDklsauo+
-jI7bucGVkHLKFCtpyGnN6cYHpZISTZOBK9p13KXkZl8tnvDtSjw=
-=eU11
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmeKHaEACgkQI1/ltBGq
+qqcG4RAAqf9Nv3xxuyphVwhsx0JActJhcuesyQywDeSH04WT4G9DLGqPudpyYy7G
+LksCjnm5/k3+7jW8DvrChCZt3WdhrWHlKIKecCSLsOqRqzeD5ooRySL6lNmVr8TR
+8v1jDcAP+yGgOrx1WHyVn0J7F0NIG2BZKnQktJiRDPRGFe9EKMwLR/6F+2SbMuFy
+vI2Uz0e2Bno1bPi+3sqL8pXtIy3XVvjVIxD4eD6HQ3GjPIq0hB2ylpf9nlUhGFYI
+rHQ0wZHY8E9EVbB7OReIBu4bMqv2havwDIl10zPNHeImaTfXMImUk/TmslmGCj+3
+bC3o3lVyFYhJ6SH8HmR5UvkNzSZ/rYl5kbX9NC8Z6k/UQRfR7F3zD3Ee9foPLjMb
+ohxri+EnLCft0GufeSvnmtFI4d4GNxwOh6LUvStZ0sKYEsHNodhVo1LBQOQw5jdY
+GTDFefW9jE7GJT9354PDEvIAj39iHiAYe7kEpMT3cPeYlf/2aZ8lmTZ3zX9Uxh/K
+U737TW/Ci9pFHR5NkUVHBNx4zy5UwPWajDxTysnf+/atHuOJ7XJ4ogWu+CUh+2Nw
+Qv9fvaeYGvToi9808GhaJQvG8OsIjHGU4PL7Ky0svJwSsHr1xClvNHdKjDCKcnEq
+ABrlWAvkZkLR0PwhKf5ATpLYjRyHdIvclsd5lWDEOjXAYfvscgY=
+=1ZwL
 -----END PGP SIGNATURE-----
 
---Sig_/IbKa/Ak_Cc0udwwLFnLiXes--
+--Sig_/2AYt4dGga0HNm7b1Cf3+1lP--
