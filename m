@@ -4,63 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C52FEC02185
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jan 2025 13:59:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2125EC02183
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jan 2025 14:02:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 37A3310E30E;
-	Fri, 17 Jan 2025 13:59:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C869910E309;
+	Fri, 17 Jan 2025 14:02:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=noa-labs.com header.i=@noa-labs.com header.b="CHP4GVZ9";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="D9FAsxEo";
 	dkim-atps=neutral
-Received: from mail-oi1-x230.google.com (mail-oi1-x230.google.com
- [IPv6:2607:f8b0:4864:20::230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3AAA10EADA
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jan 2025 12:27:45 +0000 (UTC)
-Received: by mail-oi1-x230.google.com with SMTP id
- 5614622812f47-3eb7e725aa0so828979b6e.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jan 2025 04:27:45 -0800 (PST)
+Received: from mail-pj1-x102c.google.com (mail-pj1-x102c.google.com
+ [IPv6:2607:f8b0:4864:20::102c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1297310E309
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jan 2025 14:02:19 +0000 (UTC)
+Received: by mail-pj1-x102c.google.com with SMTP id
+ 98e67ed59e1d1-2f74e6c6cbcso450913a91.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jan 2025 06:02:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=noa-labs.com; s=google; t=1737116865; x=1737721665;
- darn=lists.freedesktop.org; 
- h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=IcD6iONF1jYl/3AQEnjrI5kDYNGZJl5PbkHO55OHMEo=;
- b=CHP4GVZ9zQxpmTM3tMTjDZhw2ugupeLJC5S2z4FHlCKzQQcGdVzF2ZD2TZcUm0BOZy
- fa8LPQ97ZYw7+sIcLRRTlOGBOeCziLK4xSkvCPXWKJPvyfCMh5KuBwfmx7K4k+VWKYU0
- X4clVRxSVkFPRol3H5F+IJETnuSbBga1a7uZI=
+ d=gmail.com; s=20230601; t=1737122538; x=1737727338; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=8k7CfajODKStQGaV7pgGNQlKHVi6C7uzB78CwwGIORs=;
+ b=D9FAsxEorP+57UxQ9llIJyM2zOxHWVmwBVHIy2jMDLq8jUse0ln5Xg+GTQosq0Ib7Y
+ mSRsxgEjDi8Z/f4ebc6hrXROmY2q2+Chm5g1N2MBTZ1ldtyVocZQzJekFFjXqH+tEkRV
+ SA8dSYvorA+LORKQBhjYCau9DvEOi34Kp+tVP5gGaGaArw3a6RaKrJWDowRBmGowUpj6
+ BxRbBgM/jVUtQcO44IGRW7H2bdIY7SPLaucStDWXqURLEJ4MDtLwzbwIsad7moWIjK6M
+ ShlvR1GkGyzdA7HQVX1BFx3KR4KrDHjqLLVIlyG6u1LWueeiFLmzPIYorZwx7MQa3TG2
+ i3sA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737116865; x=1737721665;
- h=to:subject:message-id:date:from:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=IcD6iONF1jYl/3AQEnjrI5kDYNGZJl5PbkHO55OHMEo=;
- b=D0KpvdY4+jSvMzJIDgb2K/rjfaaGs+ZzKy+yue4ZhyHJxJ9kk+6GeRqZG7FDkkql/7
- Je1QLHpv3raU7pH4HjikP/w8LyCK9uLqDocVc6vFXDE1LDCUJJD0VBVSTJ4MYjN+p/CU
- QVrsi0D/BteH5uwe8tPCxm2m2Uh/gE++EQGyTVlJy25nsFRqZzHDICKg1nz0aloKIS3M
- jxSsKnZ99BYl7EZnHErzevpNElCerR0cJbQo16VPvotFk7y6TLrvy1Q60FAYNQFx3JdR
- e4V59GadYgWh3OcacKILhb7gDpbZLINN+rkxE+Xkf2bbkLoHgAdby5VCz1ixfTHGLiTV
- 6TCA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXQMDwFXt3US8SooMo2Ld8zSi8FPACN9WiLVk4diDvKXbGcal915Iyxeq43RbhKkb6bvjPRB5c5@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzLQC+Q+vthJYHFXz6bApo3TDwhfHScUTiCeADP/foVwvs/Q3qY
- KBIGe9CwCLKxo2povRptzWI6DH6Fwk4UqaT6YN+ecQwyayzh5U9L9M5QmstbRoxphOiUW3f05D2
- 05w05lY3v1lvsZnmZFexdvHTTUADhJlTqKJ7cmA==
-X-Gm-Gg: ASbGncvuDTHxC/5reg42/Ii7hoRqGsovq8uR4PjkM8oNPvcgiWLxU9WX5gn7tc/paCP
- HjYpV7uFu296k3bwiyPoX4K6J2Wceu0oOcwzCoBvgAAKmG8QSNRBO8bHgRxeVaf3HL+ag3+M=
-X-Google-Smtp-Source: AGHT+IELAuIw16i4b4QS9hZ0fQDDSFeOPvB9tLwrYhWqptnG2iP8wny9TEwEq3mjp03Rwtf1S/qkCOnL0wniBQAbxSM=
-X-Received: by 2002:a05:6871:618b:b0:29e:5dfd:1e17 with SMTP id
- 586e51a60fabf-2b1c0ad0420mr1275959fac.23.1737116864834; Fri, 17 Jan 2025
- 04:27:44 -0800 (PST)
+ d=1e100.net; s=20230601; t=1737122538; x=1737727338;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=8k7CfajODKStQGaV7pgGNQlKHVi6C7uzB78CwwGIORs=;
+ b=KtxaQOkJw2fj5K/W+t7rcRgle5ZX0NHjtPeOHsUXkr/ce7+9WrJaTXpw9olA9dyCFc
+ DHea04+PS8F9HljNflfDGAOyllrfy/G9MgOLQd93swUX5wxcQxDw4lwCbrlp6atOWMUJ
+ Q0AJ0Px7u68Grb2bZ4KhWtTeLSnAoc6F4nl7JLa/RT5T4DJmhoNAmabLXO+yK7zHwTsC
+ IP0pzIKast45AnqsLiOO4+ULxke5aMPNcLCGjbfL4ojwnBwL+ttbkWj+97xkSwZ9u7p6
+ 8xgzIE/rkSpLpCXHadtSY/JZtwEvADPQsLVJanPr5W8uF+7JhPUYszj08+Og869XMFiE
+ 8p0A==
+X-Gm-Message-State: AOJu0Yw72hNJi4Wni/iNa8/KR3LhpkFZ1BO8DDoDuT3QX/DRU0A+RICY
+ US5EoOEMx7vTYaHxJkSys1UgtC6wJWa3FKd6SKopjGWkFRhM4VpkYE1U/xF19pTgMmpLmet11Tx
+ p1OTlEICcFCr3lnxkWnKqzDp+N5OBaA==
+X-Gm-Gg: ASbGncsGmKrk9deHzxTdrWJndE2OcO2wPZw06Q6uemavaVZ1CZcyeY6npksLdF/lOxC
+ FmfliNpSXUUsTMRfpsxqeHXHL4GWynmzsMUq++A==
+X-Google-Smtp-Source: AGHT+IHUHDLj8jxYdg19Nd4NBPCEWdKJuc4vpoNOAhBJZz800c/vTv4F+VuOU5tqo3lr3Jw6X0i2GhnPm+511WhvaFc=
+X-Received: by 2002:a17:90b:3bcb:b0:2ee:6db1:21dc with SMTP id
+ 98e67ed59e1d1-2f782c82684mr1536974a91.1.1737122538445; Fri, 17 Jan 2025
+ 06:02:18 -0800 (PST)
 MIME-Version: 1.0
-From: Pavel Nikulin <pavel@noa-labs.com>
-Date: Fri, 17 Jan 2025 16:27:34 +0400
-X-Gm-Features: AbW1kvYrEzrvb_JPM_Yi3jTQJPjR30QnVW2aWyLKWqh-cqOr5we1b4GhM9lBx2M
-Message-ID: <CAG-pW8H7WOi7JiN5zHdCo2MX3w0c8yEuJ=SFGV+BPbFuBK0Spg@mail.gmail.com>
-Subject: Re: drm/amdgpu: AMDGPU unusable since 6.12.1 and it looks like no one
- cares.
-To: "alexdeucher@gmail.com" <alexdeucher@gmail.com>,
- amd-gfx@lists.freedesktop.org
+References: <20250114100603.20997-1-lincao12@amd.com>
+In-Reply-To: <20250114100603.20997-1-lincao12@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 17 Jan 2025 09:02:05 -0500
+X-Gm-Features: AbW1kvZi26BP_jJTRP0mtH2Zc6ow1fdf6EtSSQ2nOOTuZ44GUPAgRjzIOF-KiXM
+Message-ID: <CADnq5_OApad4PHJ4afBJ2AbaKxzhWQz+xRu1SbfFnPqGNqAczA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: fix ring timeout issue in gfx10 sr-iov
+ environment
+To: "Lin.Cao" <lincao12@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Deucher Alexander <Alexander.Deucher@amd.com>
 Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Fri, 17 Jan 2025 13:59:17 +0000
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,18 +81,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-I think it persists as of 6.12.9 and today's firmware version from git.
+On Tue, Jan 14, 2025 at 5:32=E2=80=AFAM Lin.Cao <lincao12@amd.com> wrote:
+>
+> 'commit 6e66dc05b54f ("drm/amdgpu: set the VM pointer to NULL in
+> amdgpu_job_prepare")' set job->vm as NULL if there is no fence. It will
+> cause emit switch buffer be skippen if job->vm set as NULL.
+>
+> Check job rather than vm could solve this problem.
+>
+> Signed-off-by: Lin.Cao <lincao12@amd.com>
 
-Hardware Asus um5606
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-It only happens when the AC adaptor is disconnected, and the screen
-refresh frequency is set to 120hz. It does not happen on any other
-refresh frequency, or when the charger is connected.
-
-It might be happening in Windows, but at much lower rate, like once in
-a month. The windows version might be applying some mitigations.
-
-Trying to catch what may be a prelude to hang never worked. It's just
-instahang, without panic, or anything. I cannot debug it without
-JTAGing the CPU, for which I have no equipment, nor am I sure if there
-are even JTAG headers exposed on the laptop motherboard.
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_ib.c
+> index e0bc37557d2c..2ea98ec60220 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+> @@ -297,7 +297,7 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsi=
+gned int num_ibs,
+>         amdgpu_ring_patch_cond_exec(ring, cond_exec);
+>
+>         ring->current_ctx =3D fence_ctx;
+> -       if (vm && ring->funcs->emit_switch_buffer)
+> +       if (job && ring->funcs->emit_switch_buffer)
+>                 amdgpu_ring_emit_switch_buffer(ring);
+>
+>         if (ring->funcs->emit_wave_limit &&
+> --
+> 2.46.1
+>
