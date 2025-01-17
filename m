@@ -4,154 +4,156 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15842C02183
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jan 2025 08:54:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A246C02188
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jan 2025 08:57:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BB5E10E38D;
-	Fri, 17 Jan 2025 08:54:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D63010E2EB;
+	Fri, 17 Jan 2025 08:57:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="O91gPYB6";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="MdCAGC8N";
 	dkim-atps=neutral
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on20631.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:2409::631])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 83A1510E38D
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jan 2025 08:54:40 +0000 (UTC)
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2061b.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:2408::61b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6050F10E2EB
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jan 2025 08:57:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=J3jR27w7U28Pkei7TxbQJVDpToRYcqmn8R9XmKSwVZcheWrsF4SaRu8gb4rGMaOBVT382JcAHOCXzk/oxaEbEmmb40yv8ezmmvYB7Kk6R1xr0OfN/VvwND6k9cY384wN6FlVXlXDrzM+RZaMR9dx3AtQvCDW5IXQ93/3Ik5xSjdk3OLVGt7fhBR2UbIPyTY3LwoA9BOgdGCyZy80UyQJOfPqCGBm516SDywFLaRVKLmZgT3j/qoHhhkfbjihZiJBPwahlcPceZqWLGJhV4kdxht6swyKLYKGK+BjZ3Shrdxbx7Bbigu257y3+iHtBAwwknRm/Kn0dmyZEOkp7yRWDw==
+ b=HjjdEMZ8nifBzazxTlKii3bGXhlP82QN4Mbl/RoNFMorLEzIlfTXpQQtOdvsTbxo0oBk+mdijgZyt1WjwMTYP9rKQtGvUBBDilORSUVhGGlQ0t0gap02XnKCG7M6WQOXa8Xssnn58vdvRrCPe4UuQYAleRemwN4533v3mxA9c6ojWjzDQmOwIUvOsAHOS+Y+ND3V0UB5F0N7OUkA7orihEQ7McYnG+Z2ef1kpgyzJ33CSVpsUZC3CvnJi1jv+w3iS7qODq4pII4jUBP9E9e4nbNOflpNp5MHQxcyzDww5vGBgGhv/8EJOsqen128fpR+DJra3WjxBQAxOohz/cBowg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/VAq2nKMQEuUhfNGM1uKA4M1/+VZbOxgHLTbicCSvJQ=;
- b=gdx1suxEe3TpVuCXEnbgCXptI8DOE/yyZeEG25LSjY4k3Q/g5ujDUIBUGZ6BY+7Pe70IEAh0RFOjil5LbLhzkXQJf8MC4AjH9ZKQl8dvuiCN/AB1dM+rQMa018NsPgnWEk3rlMwFwQdv8DfE8wqxUiLlvCTaM3k/eRlczQ7vw4o4pTyWlEJjuSD4EJ34CN8KWsMbdyxVeUWqd5rgLY4+EV5y+7buf1tV6uI3LYuI7V8/ONOt2ZKWR3CaC73M6WRqZ8mDVaZGooP9OVqAPKh743wIXXDJc7l5cozP2TYL+hMv8bP+51iAAahsXluV/6J/dM05w+/67EY/TBbTfZV/hw==
+ bh=qx0opcYKCwbqxZVS58M5hO0GDuu9iHgQh6JyGCNiJsY=;
+ b=HEyHrSTLOPx+SWyMlgaO+989E1TRvB4EROGJqtWTPSGjfGitzR3TaU2/oeT56cQVIwk/FtOUT5EIL9MmaIaf0QGXhqEFM1n2fCyGXmUvuBBBvqsN8aC9urRj8nugJSXtu3NIC9Al0Soo68BqkmW5kzouWmWSyDUMfbKIKe/aYMKQiY5ehS7KtM5RrIsuWCUkJlx7Kopyado441JEHdKrW00+EOFmJiuSB/ExV7sGVritnvRiaPntn72XzngoTJpjMw08WbYODsCx00pFmP5Z7bNL5Pyjb8b6l+Ndp6k736vDz/BGEPwa2iQU/NVeNtpPWAIW0E0ORsI62ZzhheY8Aw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/VAq2nKMQEuUhfNGM1uKA4M1/+VZbOxgHLTbicCSvJQ=;
- b=O91gPYB6IZEKk2H8X3TmJelBngzg+LSxeQVC4t5fNednHCHPOO+RYD3pGtAVR16D3aP/Vs2VeGZAmdx4dFEkEhmsrpagoW9clsVMGwusc9/wu3YfnssnQkAZwCFX7g5d/pitXyU1O3zy5sawSVk7NOSQh9Qv9S1EnfWQGVpdcVo=
+ bh=qx0opcYKCwbqxZVS58M5hO0GDuu9iHgQh6JyGCNiJsY=;
+ b=MdCAGC8NF4BFvWZaPrlBjPePQi8OhpriCB0mrISc6Graaq+QLephynn28gPPcNFuUNw6PdHvRkmnOwulYWN9+dcDuPgiwPPoEE7s03gQylEMDLEflMnNFIyLUcKoY+1/oXsm7I0XCofXkok7APJXd1CGWj69LILMTs37L7huq4Y=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
- PH7PR12MB7305.namprd12.prod.outlook.com (2603:10b6:510:209::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8356.13; Fri, 17 Jan
- 2025 08:54:29 +0000
+ BY1PR12MB8445.namprd12.prod.outlook.com (2603:10b6:a03:523::6) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.8335.18; Fri, 17 Jan 2025 08:57:26 +0000
 Received: from DS0PR12MB7804.namprd12.prod.outlook.com
  ([fe80::8327:d71a:ce21:a290]) by DS0PR12MB7804.namprd12.prod.outlook.com
  ([fe80::8327:d71a:ce21:a290%5]) with mapi id 15.20.8356.014; Fri, 17 Jan 2025
- 08:54:29 +0000
-Message-ID: <76494817-39dd-4900-9906-e4d13639be6b@amd.com>
-Date: Fri, 17 Jan 2025 14:24:21 +0530
+ 08:57:26 +0000
+Message-ID: <669c0a60-bba8-4af6-919e-1bc3113bde1e@amd.com>
+Date: Fri, 17 Jan 2025 14:27:17 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC v2 10/15] drm/admgpu: make device state machine work in
- stack like way
+Subject: Re: [RFC v2 11/15] drm/amdgpu: convert ip block bool flags into an
+ enum
 To: Jiang Liu <gerry@linux.alibaba.com>, alexander.deucher@amd.com,
  christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
  simona@ffwll.ch, sunil.khatri@amd.com, Hawking.Zhang@amd.com,
  mario.limonciello@amd.com, xiaogang.chen@amd.com, Kent.Russell@amd.com,
  shuox.liu@linux.alibaba.com, amd-gfx@lists.freedesktop.org
 References: <cover.1736732062.git.gerry@linux.alibaba.com>
- <f9816814dd71316bf371c01c5f4d71ca85954ade.1736732062.git.gerry@linux.alibaba.com>
+ <17736b6c6c4cd8ca3f87800c469ff4a95429d5b7.1736732062.git.gerry@linux.alibaba.com>
 Content-Language: en-US
 From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <f9816814dd71316bf371c01c5f4d71ca85954ade.1736732062.git.gerry@linux.alibaba.com>
+In-Reply-To: <17736b6c6c4cd8ca3f87800c469ff4a95429d5b7.1736732062.git.gerry@linux.alibaba.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN2PR01CA0185.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:e8::12) To DS0PR12MB7804.namprd12.prod.outlook.com
+X-ClientProxiedBy: BMXPR01CA0079.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:b00:54::19) To DS0PR12MB7804.namprd12.prod.outlook.com
  (2603:10b6:8:142::5)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB7804:EE_|PH7PR12MB7305:EE_
-X-MS-Office365-Filtering-Correlation-Id: 150cc568-98f8-413d-dca7-08dd36d48d99
+X-MS-TrafficTypeDiagnostic: DS0PR12MB7804:EE_|BY1PR12MB8445:EE_
+X-MS-Office365-Filtering-Correlation-Id: 440395fc-a8e4-4569-8210-08dd36d4f6b9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014|921020;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?T3MybW9qSGlJdVQxMEZNcGZpL2xlNTc2TzI4M0NTN3ZDMzhqSlNMQTV3TlNH?=
- =?utf-8?B?VDJOaDV6cTFuYi8xRnFNc2lCY3NnZjJyM2c3b2ZFbm9jd1UxTytobDF6NUE2?=
- =?utf-8?B?UDVqVldRNTZXeVYzSFdVTTE2bVZUV1VxaE1FNlI4b09kczI2SkQ1SHk2eE9u?=
- =?utf-8?B?MjVpaTd1c3ExVnFreFNKbytYVmxQem5TRFNERVR1emFRblgybFZUaDJSS3FW?=
- =?utf-8?B?QlpVckJVV3Q4OVR2WHcvQzk5V3dpckVMbklKMUJrMGh1UG1RREpVV1NRYzhj?=
- =?utf-8?B?L1IvdWh5WXh0MTBqTUw3TVYxeHRCVkZia0xPN2JxZVd5RGJyTUovSTRPOGpO?=
- =?utf-8?B?MXM3L1pnNlVHd3JUNm9uYWhtQmZCbUdqR3JJZDFzNGczZ0J2NnVZZEtsUFlz?=
- =?utf-8?B?Q3FPVjN3dGR4MnhIMXNzV3F6L3BzaGVMZk9JNWpSUGp3V0hDcEllY1dmVW9S?=
- =?utf-8?B?YXFYa1haQVlucXVlK0RTOUFheS9la3FBVVpDU0pndWxIZzM2Um5ITVFPQWN3?=
- =?utf-8?B?eTlOMDRUd1RUUXJNWTBwdU1ab28vUXVuUG0yZ2VCeEh2M0hiSnlzdHozMkxp?=
- =?utf-8?B?NzA5eEp3Wm9mQ1pZa3JiRjRxWS96YlRjSkhBUXhyRkU4RlJtb3FxV0tNVksw?=
- =?utf-8?B?UmtPL0gxOVlWNXg1QkdYZGo5Rk5FczhtTng4b25rdnpoSTRwV3Q0NFU5eHpm?=
- =?utf-8?B?SXlaakJIMnA1ZmpBRnV6azlmeE93ZzV5UVNYL3kxNVphWnZmelBYVVlMaTF2?=
- =?utf-8?B?WHZhRUJhQ0xqZzNqOFBwS3g2L2Z3Q2RHU0pQZmRzM0JxZkdtS3VBRWJPNEM1?=
- =?utf-8?B?MmljeDg2M0xkU3JybVkvN0FLdmZOcmFwem4xWlZUUVdBYmdraXpuaHBoSE9n?=
- =?utf-8?B?aUFRcmExK2UrUUFNVk53UW9lSmQwME5oYlBVaGFqT1JiRUtMMVpVSkxLTW1V?=
- =?utf-8?B?T28xVGQ5VmhZd3dLck50VHJocVJiMkt4WEpBUkxrTmVyWDNCcWZKV0FkMjdk?=
- =?utf-8?B?d2orRHd3TDNNSnRnamsvcHlXOVRNT0lLSTMrUWVLZWlTb3Z0a3pIb0cyYjZO?=
- =?utf-8?B?VnpLTXdkY3FwWlRXU1FhVW13aThYc3Q2M0RkdmRyRkVVRmNTaEc0Q1NaZTZk?=
- =?utf-8?B?SzZjWTRRNEcrcjVLMjJpaTcwVTN2YjRrS2hoTGtMUERpVkZoeUo5bjllYWp0?=
- =?utf-8?B?STJ0TEZVdXlCVGQrem14N0VTV2tEbzBScmh0RU03MDJyWjVGbkprQWd1emt2?=
- =?utf-8?B?bzFCSFlyazhZaUlEVndtRC9oSFNhb2tyMW5BT0E0TVdOdGQ1bDkrbnpDRmNG?=
- =?utf-8?B?cFk4UW16N0E5TW1EVks4TEZ6RG9Xdks5bllYOUcyU1RhWVAzTWpWd2lwVVRi?=
- =?utf-8?B?Q0hOMkRKVUx6c2E4QmU1eHhseVJsc0I1M3NubUgyMUxXWmh5ckJTSldtdFc4?=
- =?utf-8?B?MG4rNEdtaWI3RVY3SUJLek1ZQ2FXZ3Rob1NWSEVRVmZGS0tpaThiZk5HMm9j?=
- =?utf-8?B?T3hCQ0xoNVVZL0NIZlJHcnB6ZUU5R1NCT1VldjFRYUVWcGdqcEhjNm9CS05i?=
- =?utf-8?B?VUFsRDVOU1pRQk11cnpJNFNUelFBWnV5bStld2R6STFSbmNCOGFacXZmUjBY?=
- =?utf-8?B?OWR6UzhHd01Ba2Y1bG80Z3RMd2lheXRSOThuclRmd1lrWGY0NHBYbGJkZjNW?=
- =?utf-8?B?WUkvV01MaFJmeVRmd3RrTzFSdGVQMjJkaEdJbmpLUjh4a1Z5UG9wcmsvNk51?=
- =?utf-8?B?VGMyVWhxbmhaQ2ZVQWNFTUxlVmJCWWtsNi96NXhzNWFUZFd4TnhDb21ER0lp?=
- =?utf-8?B?eHpyRFlEUW9zYy9VTEd2eTZDY2ljWFZzTFdqWmxmWkZKK2djKy95SzBJRUVL?=
- =?utf-8?B?bm9LUzAvSU9DMzBrNU96U1N6alJSY1FQQUF6NlZOMHI0R3loR0RZOUJ4RDYy?=
- =?utf-8?Q?1wS2EYuNDZM=3D?=
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|921020|7053199007; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?dUhwKytyTllkQWxsMFpjTll2UDE4aWpoNjh5ZGZnSUROZlA4MC9hZVFRU0c0?=
+ =?utf-8?B?M1Y3MWZhVGJPWEpwOWRXK2VQNFBPSzdzZ3FYeWk4Zmw4VmErS0ZRd2FRMWNR?=
+ =?utf-8?B?bXFkMmFxcjNWUFFKcGpYcXNoaDNwdWswaHNWQkZwYUZZMGQycEc3dWttbGdL?=
+ =?utf-8?B?SFJ1TXZpeWNpTUl0czZqL0pWOG9tYU1LL3ZWczE1cEptUDNZWXJnVzhWbEph?=
+ =?utf-8?B?TUJqVitjYklqRmYvV21hbFVscjZyNXkzTkprYkY3TWpCSXNuMWpqWWJMSTc3?=
+ =?utf-8?B?WFQ4SjN2Y3gzeG1idXdqSXNBL1lUN1JuVWxUV2VYNlZQdWFVUGRhVkR4ZzVs?=
+ =?utf-8?B?eXhkVzduZ0QzdW8wdTg0KzVTZ0ZmN1JPRHpyWXk5SXcwR1kyZmdCMjljV3Nw?=
+ =?utf-8?B?UXZJeTRMb1UvendqSVRNbkc3cituUG16RXVCclVyMGVWNTVTWE5lUVNtQWNh?=
+ =?utf-8?B?UU5jbWpJZlYrWU1IcUdPYlFxazRodEtlbHE2UnBCWWs0cC8rS2ZPbnhwb2hK?=
+ =?utf-8?B?cEF2YzVoMW5jNUFKRDJsUU1EVlR6djM4TW9zUWpma0QrMmZmQzVOTndnSzRr?=
+ =?utf-8?B?ZTltZVViTVlSWXE1Vmw1OWpNaXcvREl5ZW9nU0YzcUliSnpiei9jQW5mcEFG?=
+ =?utf-8?B?bmcraExMTDVSYWp0elg5QjF6bDVmRjYraXpVOHI4RWdEb2tYVWZmUjYrSXBr?=
+ =?utf-8?B?dnlTb0lIdWExdVJwL0piaWRYWTRMVHBDeWlqYmpSK3JRSjVEV0FRUDlFQUZ2?=
+ =?utf-8?B?NldlVXc1NW4xR1hVWldNU3gxR3hjVGRSanZNT3NMV1BEdVRtTGlObFZKb05T?=
+ =?utf-8?B?ZG9KUGtGTm1oNi9EaTRGSzdOS3M1NHJsOVF5a2F3OTNGQUZFcGNZN1FCaHZ3?=
+ =?utf-8?B?alhXSmZQUTAzK05BQTJtR3lxK29TNDFmK0tLM2ZUN3JhQlppSkxIS0tBcXRy?=
+ =?utf-8?B?RzJadElLU0grVTU1ME5DU3RBMVNhcldaZTNKbmtWTitrNk9iVEdKalNUOVY5?=
+ =?utf-8?B?ZW5CVGxlVE9TVytLZWpZNWVRZ293aU9GeHNCS0tzVTNTM0dCVEdHcERXa1Uw?=
+ =?utf-8?B?NmZlZE5nMGxUUFVybEV1NTVhRytXN3NxTXh5SjN4R2JQdkFZejc2ZDFxYkQv?=
+ =?utf-8?B?emJ2QmoxR0J2alVkdHRmWXZmNlZYVDJvdStsb3ZkTEZoZWNDc2NsSVlHS3ly?=
+ =?utf-8?B?UXZ3TXZ4RHJEb0NnN2xPWVN3SWJqMjJIUko3eFRiV2pvak5aTStIczdIMTFa?=
+ =?utf-8?B?aTBRbFgxNjY4cXREV0p2OThZejdtb0gxTWc5d1dCVXVOMlpkb3dWQnVEMHhj?=
+ =?utf-8?B?eEJZekh2Njl6WG0wT2VmQm5IWTc4dEJMR2toYXkyby9VakdNZnVubFYveHVX?=
+ =?utf-8?B?WjV1LzI5ekVnK3ovUWZSNnpuY21qbVB5aUFCaDNCcnR4aW53d0RWUlFsTFp2?=
+ =?utf-8?B?QnFUNXhHTG1hekZSYVpiQ3dPMHRtSmRwRjVjUUZTVDRFdk9DM043UUtmVzV0?=
+ =?utf-8?B?SHJwa2EyQ0FRU0Rkd1IxV3JOdVlQNTM3YkRWQVhPZVdhc2NmREJlaDF5L0F5?=
+ =?utf-8?B?TGlXUWc5WUliMVd1bVNDOEFTOUIydXNXMkMyWHFtang5Wm5XcUUwQWNybExH?=
+ =?utf-8?B?M2xKRjNjQ1J5ZlVwcXNIS1dsVmpLZWVFa05pd1V6QU1JdXJLV0xrZGtqNGhr?=
+ =?utf-8?B?MHl1eWxXZEI0YXJTdk1pb3BCa0E1aFlGb1BpK2dITmgwMUJsMmtKZ2w4THBx?=
+ =?utf-8?B?aSt1R2dqbEp3YmJCWk1hcldrdjZZdG11Z3pZVllGTlRJV2lBSGFNTVgzQkQr?=
+ =?utf-8?B?RlZrNTJzM1hlb1FiYjVJa0x6K3AxWmV4MzNPZ3d4aUFZaWl1aitiRUc3TlF1?=
+ =?utf-8?B?TzQ2Nk5oQXR5NThTZmhlMXZWajlsYlZweGtqTzBsbDhxM3Y1a1VBY2JDVG1m?=
+ =?utf-8?Q?/xyva/BpfGQ=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(921020); DIR:OUT; SFP:1101; 
+ SFS:(13230040)(1800799024)(366016)(376014)(921020)(7053199007); DIR:OUT;
+ SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YzFoVEFCMDlpTjZBVCt0SnF6TkVLRFRaamZPTjZzdEMzMEVEek9MUG1XVWZt?=
- =?utf-8?B?SDc0WEVYeDB1VmYvUEhrZDVGcFNtOVZ5U0dPbGdnMzFJTDlYMkpFMlVGQXE5?=
- =?utf-8?B?Rmx4TU1HYjVKS2VLQmRFNjVlbDJsbmx5OGJTQUpFN2J0UHBVK2xPM0hxV1Ji?=
- =?utf-8?B?bmhuL0tXNzVCQ1RjTlhJK0IrWDVRak9rT0x5Tml2bHJ4QVFVemdQb3lFQS9E?=
- =?utf-8?B?T3dDMkZYMExacTJWN2JvQk5EY1BYOVdia1M3TjNUbEVOSGpMcHMvNC9yRm0w?=
- =?utf-8?B?MDdPUDVmS2FQRVBXbElIcFRzbUdqODhSdU1EZWxMekZ3QVN3OXlBb05DVTU2?=
- =?utf-8?B?S1A3b2lXZWV4SERqbzhiMjd1N1pBckpSTXlYc2FvRmg2TXVSamRLS3VSOEJl?=
- =?utf-8?B?UkxiWDVCNHBFNFBQamwyTkNyMEFEMmU0WGZ2d3JGSHZWWmRHVndxM3pGYUdB?=
- =?utf-8?B?R2xJRHhJd253Q3VaY3o2M3Rhb1Z6TXJyRklERTFlY3duWlV0dm1nMXBydVZ6?=
- =?utf-8?B?dEo3TGcya01uREhHNmhvZklaSUd0djMvL24ybWVIeEtCV2RNaDBpUFRpUXMw?=
- =?utf-8?B?MVFkVDFZbklXeEhXaHk1eU15eTB1enhtUUVPSkxLMWxnTC92TWJIZ0lMbDNU?=
- =?utf-8?B?dTA0SitadXVOSFZEZlZKbkVIRG1nL1RZNFo4OXFWb09mUmlrVytlUndTTnF2?=
- =?utf-8?B?WFIzV0xWSUdmbGZiNzVHT1NOdG1Xc1RiU3YxdDNJUG9FMFNTQm9NMnQwNG9m?=
- =?utf-8?B?YjhkWXM4ai85N1NzRW9zaENPZnVMTTNuTVM3S2hTT2k1cEkvREYrNXpOalpD?=
- =?utf-8?B?TUM2eWUraUpSak9hZjNBSmthUFRja3cwUFRzMkxsdmtGN25oeFVyOTA2a0ZY?=
- =?utf-8?B?aGZCdjNpS2tiQkY2T1FmYTl1WWlTeGk2Um0yY3RMalJXS0VONTNHb3BScXNa?=
- =?utf-8?B?ckNZbml5anVzdkRIaTdYRDQzWUVEVGY0WlFYayt5V2tLL2pOVFRrekFGUmxU?=
- =?utf-8?B?VWFDOERSZnVKT3VaWHhsWUhRcGIzUE8vOGppTkFRSDlSbTg0VVdyVmxMei9D?=
- =?utf-8?B?ejZPaUJhSytSUUtRTHkvL2xyWmQwVEV0SnV3MzFWZ2RmWEQ0Sk5uS2pJTHRS?=
- =?utf-8?B?MGg0eUVRNjh6WEFEQk16dXZyTStCQWZ0UXFNaWRXdEkwYXZ4bG5nS2pWYmJS?=
- =?utf-8?B?UEZ6NjhJWkJTZTdKSmdTa0xobEk4MUlEREcwMEtDVS9KeVNudUh0MUwzdDA1?=
- =?utf-8?B?UGg5OHZ3ZFpkY2thYkFLTHlMZVRRVzJNcWFacGhCVmxZbWRGS3FrcGdCTFFB?=
- =?utf-8?B?MFQxUER4bEZhdCt5M2plK1NiNGVUMHdEZi9wb3hBZWU2VzJmMGNNTXBSSDY4?=
- =?utf-8?B?SEFmdStwVlZ6N1cvZzVmWnd3RWROMVYrMzA1aWNvUDFJY2N3aVpEQWZoRUpC?=
- =?utf-8?B?Z0FoZ2k1QklIaEhOc09qd2tLMkllZUpUSXdKVjJuZmJURmFpMUJjZXMxT0VJ?=
- =?utf-8?B?cEVYd25qN3lOd3NTZ2VZTFhYUTIyTEFjVnlCaGFtVVlQVEVjRmRQN0FxQ1Ez?=
- =?utf-8?B?UEVUODF6a3JvTVVycDZEd1YybW5WQ1F5Qnh6UExjZ2l5SXQ1UkcyaDJtTjFW?=
- =?utf-8?B?MHY3d2xGVEhwZUR6TjVkVHJlWTh1c1djTk4wQ2dRUEtUYW9xNXJVRW9Ndkl3?=
- =?utf-8?B?eEZKdFZvaW12TTdkam0welVHTFRPU1ptbjVYSTBFNDgvY3YrK1dvSnNkVFJy?=
- =?utf-8?B?ZUpBYnVQMzdTdDR1NjBOUTRrRmI5TVE2UHVDK2I5ZHh5T2xJYnJVdVd6ZXEy?=
- =?utf-8?B?aU12djdXMnJWRUpMWHJNWGQ5cjFVZXpSSWxtRDMyOXBCbTNNVDZLQ2lrZjhR?=
- =?utf-8?B?UGZWR3NwU1pSRWloOVBqNzhPU2NEOWVzWmJxRXBCbjZkM2RvOTZlalBnOXll?=
- =?utf-8?B?WWVxcDBFY3FZUHJ5ZERSM043Rmp3VXgxakF3dFRHNXpsVHZTN05QVEw2WGFl?=
- =?utf-8?B?U3llbUJlSkEzVDlraTJkSHB3NVZnZk50YUh1dkxuVHVsTGJkeVR3aEZnV1Fq?=
- =?utf-8?B?YW9vdGVaT0pvcVcwdFU0RjQvMmVEaHh2MnpJS3JUd0VwTEo5MVF2dTZVUGlE?=
- =?utf-8?Q?JwfuTEOjIkRvGGJm4g3l4wySh?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eWVockhrVVRpOU11YVlOOFRJZmxKNndLbE9Kb21tWUh6OFpMQjZ0ZHBDZzJr?=
+ =?utf-8?B?RFNZWEFVWjhTUk5SQlIxelpPNklHcGd6akI4alpZWGxpVm52ZHJWVDhXdmI0?=
+ =?utf-8?B?NTBpTmFMcEpTN1NCdDlJd1hpRVRaUVk1K0o5S3ZDVlRKQ2k3ZDhlVmVHOHF0?=
+ =?utf-8?B?bTFVVUI3NVMyaG1EU0UxMTFSK3pzVUo3VU00aXh6dTZ0KzJOT2dMcjVLdHVw?=
+ =?utf-8?B?c2crOFkvRGdCbnVsdFJzdWs0d1dTc2hxVjRzWG55ckNZZllTU0Zuem5ta3kr?=
+ =?utf-8?B?KzdXdmtVQ29tWTc1UHMwWWtXME9hS1NzMlpjNERpOWVFN1ZPaVd0MFc5cU1i?=
+ =?utf-8?B?Z3lMOXU0QjE1YXFZUjV1NStGZGZWU0F0NkprZVBBbW84SFd1eFVneXNxS2cw?=
+ =?utf-8?B?djAvN0dkbWowOE1DWlhwL1RSYTgvWk1oMjV0akN2YVVkZEQ3cjVqeFpEaVBn?=
+ =?utf-8?B?TkJOcis0MFlFeStpUlpXUzk3V1U5Ylh3cXY3RWt1c1VXWms2aU1TbmZlSXNC?=
+ =?utf-8?B?SnNKSEhIUkN4NXAySmdoLzRXT2VOMStnYmZHd3F2L1d4TGxmNHI4UDRTM21D?=
+ =?utf-8?B?cDZVZ3BFNzhZS0hDOFgyLzdpRTQvMm4zVG42dVRsQU1FUGdFemNzenlQbVgr?=
+ =?utf-8?B?OVJtbTZWQlB3Tk9kd2s3UUNpZjVJS3oydWd1QWg0WGlMYWJVTFl0WVF6UHZ5?=
+ =?utf-8?B?dG0xMTZnVGtyMVJ3L1JtYTBCRFZXMDF4ZFc2ekc0a01tYVI3ckRJRGY2ejFM?=
+ =?utf-8?B?QnZHc0Y3WDZwU0dVTGRsZHlVMS9nbGpBTnJxeWhsaHkyMERaSTRSYmdBZWU0?=
+ =?utf-8?B?Y0RsbEdmYWdHNy9YeVd3TVdrSldsTS9ISXZkSXJqNEFaSEFPRmE0bUpXMzhp?=
+ =?utf-8?B?SGxJZnMvelhWbzR4NzBJeXk4UHcxT09qUzVUR2NoU2VlMEFrNVlpNjdZdVN2?=
+ =?utf-8?B?ZkU1MFA0azA2MDhSYnovaHJhbXYvQnJnaS9taEdibUVrZXAzb1JrbXVJK1Ni?=
+ =?utf-8?B?NnFtWHB6bm95MHFDRkFrc1BheDFERDF4R3VTbVhuczBMVHpjaUhreWhwVnlT?=
+ =?utf-8?B?b0ZpRzRIOE4zQUptbXFvZ0lnZkl6VEY1ME9IS0hPY2Y3K3hyODl5Q3doRTBn?=
+ =?utf-8?B?cTNSR3V3UWtBeXcva2F5MDFXMVdFZmZRK2ZNNnQ2dzNqdXJpZ3FuUkM2ejcw?=
+ =?utf-8?B?Zjkxa0d5NmlPY3N5UFVra0tmR1JNaVVRalNGWVFxWVFXZlZvUWhnOUE4cWpz?=
+ =?utf-8?B?Smd4NFp0c0RlSTh3VVpwTEg2UG1xV21NdFh2UURSTllGMUt2cHMxaFNTSThy?=
+ =?utf-8?B?MWtkNDgzM0NKVWZDYWhxU1VCRGg2WXRIY1dRbzRvdjM4NGhTbDZjdGZTVW04?=
+ =?utf-8?B?dkJySUNxZjVMUWMrYW05K21naWtMWGV2b2pSUnNadGhXaG9aUnZGQTM3aFV5?=
+ =?utf-8?B?TDUwaXZDaStNRnR4ay8xM044STJ3enF0NzZQVThGK2hkcjJLYmZSMjFYK2FH?=
+ =?utf-8?B?MzlScStZRnlwaGRIemxCSDZ6RHVuSzd4Kys0T3JmL0Fodm9lZW1JUWprTGht?=
+ =?utf-8?B?bzRVc2c2RG9EbzY1NjhaNGhqQ0lBSEZMYkhxSE5zbHo1Ym85VVJCTkg2S2pm?=
+ =?utf-8?B?b0E2VGRvWGJPNGNnbW92aThGNVI5Zm95RFpaUndvTFVPZ0h6TldXME9HT09F?=
+ =?utf-8?B?UTl3V3RkQk9McERLeU1zUEdZV0liSDg4dUNkQzBwRU9OODZnUnNjamxOSFRh?=
+ =?utf-8?B?ZnlRclRmbXJORVExdERVeHM1ZmdBZlh3WmFuTmhNMjBPL0lrNFBmSkxkNTJk?=
+ =?utf-8?B?SXU1N044elY5eXhZL3BlZTJHOGtHMExtNHpMdlFzc2E4UDIxRHRkVHZyQ3pQ?=
+ =?utf-8?B?aXRTTG1Lb3NPb0ZWckRvNXk3VWpuQTV5UGdEOU1NUmRlTGNpajR4elA5akh4?=
+ =?utf-8?B?dVZIOEZuK2plY2RjUnZwYmN0MmdCdU1oY0RPQTlqZDdmaWpsWklLSm1zUita?=
+ =?utf-8?B?WVZpSlJ1NjYwaWlJYWlvWUhFMDdUUUNYRnJ0UHljdTJiTDUvTzdYTC9VU1k4?=
+ =?utf-8?B?aXZmUTZISUlNWW9EZHNFZEt5a1ppQjcrazIzM1QvOHlmZGo0ZkYydEpOSG5B?=
+ =?utf-8?Q?/o18IyFiWRtIHn5HJitHqAZTz?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 150cc568-98f8-413d-dca7-08dd36d48d99
+X-MS-Exchange-CrossTenant-Network-Message-Id: 440395fc-a8e4-4569-8210-08dd36d4f6b9
 X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7804.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jan 2025 08:54:29.6840 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jan 2025 08:57:25.9211 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Qdoq/hIDaA7jvjooCsWqp7CeZJapYLLCSb6tgvs7FWjPu0o6deEJ/TIj4nX1jEWc
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7305
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0rm7ubM0OGr7b/Rh60q4PhvMI0SSofBBqYyc/4gjtp0hmOlx5WL/62Rp9WaOyDH+
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY1PR12MB8445
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -169,142 +171,743 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 On 1/13/2025 7:12 AM, Jiang Liu wrote:
-> Make the device state machine work in stack like way to better support
-> suspend/resume by following changes:
+> Convert ip block bool flags into an enumeration, to explicitly mark
+> current state of the ip block. Also introduce helper functions to
+> manipulate the ip block state. Now the state machine works as below:
+> Callbacks                    State after successfully execute callback
+>                              AMDGPU_IP_STATE_INVALID
+> .early_init()                AMDGPU_IP_STATE_EARLY
+> .sw_init()                   AMDGPU_IP_STATE_SW
+> .hw_init()                   AMDGPU_IP_STATE_HW
+> .late_init()                 AMDGPU_IP_STATE_LATE
+> .early_fini()                AMDGPU_IP_STATE_HW
+> .hw_fini()                   AMDGPU_IP_STATE_SW
+> .sw_fini()                   AMDGPU_IP_STATE_EARLY
+> .late_fini()                 AMDGPU_IP_STATE_INVALID
 > 
-> 1. amdgpu_driver_load_kms()
-> 	amdgpu_device_init()
-> 		amdgpu_device_ip_early_init()
-> 			ip_blocks[i].early_init()
-> 			ip_blocks[i].status.valid = true
-> 		amdgpu_device_ip_init()
-> 			amdgpu_ras_init()
-> 			ip_blocks[i].sw_init()
-> 			ip_blocks[i].status.sw = true
-> 			ip_blocks[i].hw_init()
-> 			ip_blocks[i].status.hw = true
-> 		amdgpu_device_ip_late_init()
-> 			ip_blocks[i].late_init()
-> 			ip_blocks[i].status.late_initialized = true
-> 			amdgpu_ras_late_init()
-> 				ras_blocks[i].ras_late_init()
-> 					amdgpu_ras_feature_enable_on_boot()
+> Signed-off-by: Jiang Liu <gerry@linux.alibaba.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/aldebaran.c      |   2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h         |  48 ++++++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  | 144 ++++++++++++--------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c     |   4 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c     |   6 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c   |   6 +-
+>  drivers/gpu/drm/amd/amdgpu/sienna_cichlid.c |   2 +-
+>  drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.c   |   2 +-
+>  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c   |   2 +-
+>  9 files changed, 143 insertions(+), 73 deletions(-)
 > 
-> 2. amdgpu_pmops_suspend()/amdgpu_pmops_freeze()/amdgpu_pmops_poweroff()
-> 	amdgpu_device_suspend()
-> 		amdgpu_ras_early_fini()
-> 			ras_blocks[i].ras_early_fini()
-> 				amdgpu_ras_feature_disable()
-> 		amdgpu_ras_suspend()
-> 			amdgpu_ras_disable_all_features()
-> +++		ip_blocks[i].early_fini()
-> +++		ip_blocks[i].status.late_initialized = false
+> diff --git a/drivers/gpu/drm/amd/amdgpu/aldebaran.c b/drivers/gpu/drm/amd/amdgpu/aldebaran.c
+> index e13fbd974141..b2bad8837b64 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/aldebaran.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/aldebaran.c
+> @@ -301,7 +301,7 @@ static int aldebaran_mode2_restore_ip(struct amdgpu_device *adev)
+>  				return r;
+>  			}
+>  		}
+> -		adev->ip_blocks[i].status.late_initialized = true;
+> +		amdgpu_device_ip_set_state(adev, i, AMDGPU_IP_STATE_LATE);
+>  	}
+>  
+>  	amdgpu_device_set_cg_state(adev, AMD_CG_STATE_GATE);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index 24ef39b706e3..f3275a281280 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -395,11 +395,32 @@ enum amdgpu_marker {
+>  
+>  #define AMDGPU_MARKER_IRQ(idx)		(AMDGPU_MARKER_IRQ0 + (idx))
+>  
+> +/**
+> + * States for ip block state machine.
+> + *
+> + * The IP block state machine has five states and the associated state
+> + * transition works in stack like way as below:
+> + * Callbacks			State after successfully execute callback
+> + *				AMDGPU_IP_STATE_INVALID
+> + * .early_init()		AMDGPU_IP_STATE_EARLY
+> + * .sw_init()			AMDGPU_IP_STATE_SW
+> + * .hw_init()			AMDGPU_IP_STATE_HW
+> + * .late_init()			AMDGPU_IP_STATE_LATE
+> + * .early_fini()		AMDGPU_IP_STATE_HW
+> + * .hw_fini()			AMDGPU_IP_STATE_SW
+> + * .sw_fini()			AMDGPU_IP_STATE_EARLY
+> + * .late_fini()			AMDGPU_IP_STATE_INVALID
+> + */
+> +enum amdgpu_device_ip_state {
+> +	AMDGPU_IP_STATE_INVALID	= 0,
+> +	AMDGPU_IP_STATE_EARLY	= 1,
+> +	AMDGPU_IP_STATE_SW	= 2,
+> +	AMDGPU_IP_STATE_HW	= 3,
+> +	AMDGPU_IP_STATE_LATE	= 4,
 
-As said in the previous patch, please don't add confusion. You could
-maintain a state machine like early fini done/late fini done etc, but
-please don't introduce this kind of confusing things.
+Would suggest to add separate INIT/FINI stages for each state -
+EARLY_INIT_DONE/EARLY_FINI_DONE. Then reading the code will be easier.
 
 Thanks,
 Lijo
 
-> 		ip_blocks[i].suspend()
-> 
-> 3. amdgpu_pmops_resume()/amdgpu_pmops_thaw()/amdgpu_pmops_restore()
-> 	amdgpu_device_resume()
-> 		amdgpu_device_ip_resume()
-> 			ip_blocks[i].resume()
-> 		amdgpu_device_ip_late_init()
-> 			ip_blocks[i].late_init()
-> 			ip_blocks[i].status.late_initialized = true
-> 			amdgpu_ras_late_init()
-> 				ras_blocks[i].ras_late_init()
-> 					amdgpu_ras_feature_enable_on_boot()
-> 		amdgpu_ras_resume()
-> 			amdgpu_ras_enable_all_features()
-> 
-> 4. amdgpu_driver_unload_kms()
-> 	amdgpu_device_fini_hw()
-> 		amdgpu_ras_early_fini()
-> 			ras_blocks[i].ras_early_fini()
-> +++		ip_blocks[i].early_fini()
-> +++		ip_blocks[i].status.late_initialized = false
-> 		ip_blocks[i].hw_fini()
-> 		ip_blocks[i].status.hw = false
-> 
-> 5. amdgpu_driver_release_kms()
-> 	amdgpu_device_fini_sw()
-> 		amdgpu_device_ip_fini()
-> 			ip_blocks[i].sw_fini()
-> 			ip_blocks[i].status.sw = false
-> ---			ip_blocks[i].status.valid = false
-> +++			amdgpu_ras_fini()
-> 			ip_blocks[i].late_fini()
-> +++			ip_blocks[i].status.valid = false
-> ---			ip_blocks[i].status.late_initialized = false
-> ---			amdgpu_ras_fini()
-> 
-> The main changes include:
-> 1) invoke ip_blocks[i].early_fini in amdgpu_pmops_suspend().
-> 2) set ip_blocks[i].status.late_initialized to false after calling
->    callback `early_fini`. We have auditted all usages of the
->    late_initialized flag and no functional changes found.
-> 3) only set ip_blocks[i].status.valid = false after calling the
->    `late_fini` callback.
-> 4) call amdgpu_ras_fini() before invoking ip_blocks[i].late_fini.
-> 
-> There's one more task left to analyze GPU reset related state machine
-> transitions.
-> 
-> Signed-off-by: Jiang Liu <gerry@linux.alibaba.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 22 ++++++++++++++++++++--
->  1 file changed, 20 insertions(+), 2 deletions(-)
-> 
+> +};
+> +
+>  struct amdgpu_ip_block_status {
+> -	bool valid;
+> -	bool sw;
+> -	bool hw;
+> -	bool late_initialized;
+> +	enum amdgpu_device_ip_state state;
+>  	bool hang;
+>  	uint64_t markers;
+>  };
+> @@ -429,6 +450,25 @@ amdgpu_device_ip_get_ip_block(struct amdgpu_device *adev,
+>  int amdgpu_device_ip_block_add(struct amdgpu_device *adev,
+>  			       const struct amdgpu_ip_block_version *ip_block_version);
+>  
+> +void amdgpu_device_ip_set_state(struct amdgpu_device *adev, int index,
+> +				enum amdgpu_device_ip_state state);
+> +enum amdgpu_device_ip_state amdgpu_device_ip_state(struct amdgpu_device *adev,
+> +						   int index);
+> +bool amdgpu_device_ip_valid(struct amdgpu_device *adev, int index);
+> +void amdgpu_ip_block_set_state(struct amdgpu_ip_block *ip_block,
+> +			       enum amdgpu_device_ip_state state);
+> +
+> +static inline enum amdgpu_device_ip_state
+> +amdgpu_ip_block_state(struct amdgpu_ip_block *ip_block)
+> +{
+> +	return ip_block->status.state;
+> +}
+> +
+> +static inline bool amdgpu_ip_block_valid(struct amdgpu_ip_block *ip_block)
+> +{
+> +	return ip_block->status.state != AMDGPU_IP_STATE_INVALID;
+> +}
+> +
+>  static inline void amdgpu_ip_block_set_marker(struct amdgpu_ip_block *ip_block,
+>  					      enum amdgpu_marker marker)
+>  {
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 6b503fb7e366..c2e4057ecd82 100644
+> index c2e4057ecd82..fcfbdcfd1fa3 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -3449,6 +3449,8 @@ static int amdgpu_device_ip_fini(struct amdgpu_device *adev)
->  		adev->ip_blocks[i].status.sw = false;
+> @@ -297,7 +297,7 @@ int amdgpu_ip_block_suspend(struct amdgpu_ip_block *ip_block)
+>  		}
 >  	}
 >  
-> +	amdgpu_ras_fini(adev);
-> +
->  	for (i = adev->num_ip_blocks - 1; i >= 0; i--) {
->  		if (!adev->ip_blocks[i].status.valid)
->  			continue;
-> @@ -3457,8 +3459,6 @@ static int amdgpu_device_ip_fini(struct amdgpu_device *adev)
->  		adev->ip_blocks[i].status.valid = false;
->  	}
->  
-> -	amdgpu_ras_fini(adev);
-> -
+> -	ip_block->status.hw = false;
+> +	amdgpu_ip_block_set_state(ip_block, AMDGPU_IP_STATE_SW);
 >  	return 0;
 >  }
 >  
-> @@ -3516,6 +3516,24 @@ static int amdgpu_device_ip_suspend_phase1(struct amdgpu_device *adev)
->  	if (amdgpu_dpm_set_df_cstate(adev, DF_CSTATE_DISALLOW))
+> @@ -315,7 +315,7 @@ int amdgpu_ip_block_resume(struct amdgpu_ip_block *ip_block)
+>  		}
+>  	}
+>  
+> -	ip_block->status.hw = true;
+> +	amdgpu_ip_block_set_state(ip_block, AMDGPU_IP_STATE_HW);
+>  	return 0;
+>  }
+>  
+> @@ -2164,7 +2164,7 @@ int amdgpu_device_ip_set_clockgating_state(void *dev,
+>  	int i, r = 0;
+>  
+>  	for (i = 0; i < adev->num_ip_blocks; i++) {
+> -		if (!adev->ip_blocks[i].status.valid)
+> +		if (!amdgpu_device_ip_valid(adev, i))
+>  			continue;
+>  		if (adev->ip_blocks[i].version->type != block_type)
+>  			continue;
+> @@ -2198,7 +2198,7 @@ int amdgpu_device_ip_set_powergating_state(void *dev,
+>  	int i, r = 0;
+>  
+>  	for (i = 0; i < adev->num_ip_blocks; i++) {
+> -		if (!adev->ip_blocks[i].status.valid)
+> +		if (!amdgpu_device_ip_valid(adev, i))
+>  			continue;
+>  		if (adev->ip_blocks[i].version->type != block_type)
+>  			continue;
+> @@ -2230,7 +2230,7 @@ void amdgpu_device_ip_get_clockgating_state(struct amdgpu_device *adev,
+>  	int i;
+>  
+>  	for (i = 0; i < adev->num_ip_blocks; i++) {
+> -		if (!adev->ip_blocks[i].status.valid)
+> +		if (!amdgpu_device_ip_valid(adev, i))
+>  			continue;
+>  		if (adev->ip_blocks[i].version->funcs->get_clockgating_state)
+>  			adev->ip_blocks[i].version->funcs->get_clockgating_state((void *)adev, flags);
+> @@ -2252,7 +2252,7 @@ int amdgpu_device_ip_wait_for_idle(struct amdgpu_device *adev,
+>  	int i, r;
+>  
+>  	for (i = 0; i < adev->num_ip_blocks; i++) {
+> -		if (!adev->ip_blocks[i].status.valid)
+> +		if (!amdgpu_device_ip_valid(adev, i))
+>  			continue;
+>  		if (adev->ip_blocks[i].version->type == block_type) {
+>  			if (adev->ip_blocks[i].version->funcs->wait_for_idle) {
+> @@ -2284,7 +2284,7 @@ bool amdgpu_device_ip_is_valid(struct amdgpu_device *adev,
+>  
+>  	for (i = 0; i < adev->num_ip_blocks; i++) {
+>  		if (adev->ip_blocks[i].version->type == block_type)
+> -			return adev->ip_blocks[i].status.valid;
+> +			return amdgpu_device_ip_valid(adev, i);
+>  	}
+>  	return false;
+>  
+> @@ -2375,6 +2375,29 @@ int amdgpu_device_ip_block_add(struct amdgpu_device *adev,
+>  	return 0;
+>  }
+>  
+> +void amdgpu_device_ip_set_state(struct amdgpu_device *adev, int index,
+> +			       enum amdgpu_device_ip_state state)
+> +{
+> +	amdgpu_ip_block_set_state(&adev->ip_blocks[index], state);
+> +}
+> +
+> +enum amdgpu_device_ip_state amdgpu_device_ip_state(struct amdgpu_device *adev,
+> +						 int index)
+> +{
+> +	return amdgpu_ip_block_state(&adev->ip_blocks[index]);
+> +}
+> +
+> +bool amdgpu_device_ip_valid(struct amdgpu_device *adev, int index)
+> +{
+> +	return amdgpu_ip_block_valid(&adev->ip_blocks[index]);
+> +}
+> +
+> +void amdgpu_ip_block_set_state(struct amdgpu_ip_block *ip_block,
+> +			       enum amdgpu_device_ip_state state)
+> +{
+> +	ip_block->status.state = state;
+> +}
+> +
+>  /**
+>   * amdgpu_device_enable_virtual_display - enable virtual display feature
+>   *
+> @@ -2671,20 +2694,21 @@ static int amdgpu_device_ip_early_init(struct amdgpu_device *adev)
+>  		if ((amdgpu_ip_block_mask & (1 << i)) == 0) {
+>  			DRM_WARN("disabled ip block: %d <%s>\n",
+>  				  i, adev->ip_blocks[i].version->funcs->name);
+> -			adev->ip_blocks[i].status.valid = false;
+> +			amdgpu_device_ip_set_state(adev, i, AMDGPU_IP_STATE_INVALID);
+>  		} else if (ip_block->version->funcs->early_init) {
+>  			r = ip_block->version->funcs->early_init(ip_block);
+>  			if (r == -ENOENT) {
+> -				adev->ip_blocks[i].status.valid = false;
+> +				amdgpu_device_ip_set_state(adev, i, AMDGPU_IP_STATE_INVALID);
+>  			} else if (r) {
+>  				DRM_ERROR("early_init of IP block <%s> failed %d\n",
+>  					  adev->ip_blocks[i].version->funcs->name, r);
+>  				total = false;
+> +				amdgpu_device_ip_set_state(adev, i, AMDGPU_IP_STATE_INVALID);
+>  			} else {
+> -				adev->ip_blocks[i].status.valid = true;
+> +				amdgpu_device_ip_set_state(adev, i, AMDGPU_IP_STATE_EARLY);
+>  			}
+>  		} else {
+> -			adev->ip_blocks[i].status.valid = true;
+> +			amdgpu_device_ip_set_state(adev, i, AMDGPU_IP_STATE_EARLY);
+>  		}
+>  		/* get the vbios after the asic_funcs are set up */
+>  		if (adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_COMMON) {
+> @@ -2715,7 +2739,7 @@ static int amdgpu_device_ip_early_init(struct amdgpu_device *adev)
+>  		return -ENODEV;
+>  
+>  	ip_block = amdgpu_device_ip_get_ip_block(adev, AMD_IP_BLOCK_TYPE_GFX);
+> -	if (ip_block->status.valid != false)
+> +	if (amdgpu_ip_block_valid(ip_block))
+>  		amdgpu_amdkfd_device_probe(adev);
+>  
+>  	adev->cg_flags &= amdgpu_cg_mask;
+> @@ -2729,9 +2753,9 @@ static int amdgpu_device_ip_hw_init_phase1(struct amdgpu_device *adev)
+>  	int i, r;
+>  
+>  	for (i = 0; i < adev->num_ip_blocks; i++) {
+> -		if (!adev->ip_blocks[i].status.sw)
+> +		if (amdgpu_device_ip_state(adev, i) < AMDGPU_IP_STATE_SW)
+>  			continue;
+> -		if (adev->ip_blocks[i].status.hw)
+> +		if (amdgpu_device_ip_state(adev, i) >= AMDGPU_IP_STATE_HW)
+>  			continue;
+>  		if (!amdgpu_ip_member_of_hwini(
+>  			    adev, adev->ip_blocks[i].version->type))
+> @@ -2745,7 +2769,7 @@ static int amdgpu_device_ip_hw_init_phase1(struct amdgpu_device *adev)
+>  					  adev->ip_blocks[i].version->funcs->name, r);
+>  				return r;
+>  			}
+> -			adev->ip_blocks[i].status.hw = true;
+> +			amdgpu_device_ip_set_state(adev, i, AMDGPU_IP_STATE_HW);
+>  		}
+>  	}
+>  
+> @@ -2757,9 +2781,9 @@ static int amdgpu_device_ip_hw_init_phase2(struct amdgpu_device *adev)
+>  	int i, r;
+>  
+>  	for (i = 0; i < adev->num_ip_blocks; i++) {
+> -		if (!adev->ip_blocks[i].status.sw)
+> +		if (amdgpu_device_ip_state(adev, i) < AMDGPU_IP_STATE_SW)
+>  			continue;
+> -		if (adev->ip_blocks[i].status.hw)
+> +		if (amdgpu_device_ip_state(adev, i) >= AMDGPU_IP_STATE_HW)
+>  			continue;
+>  		if (!amdgpu_ip_member_of_hwini(
+>  			    adev, adev->ip_blocks[i].version->type))
+> @@ -2770,7 +2794,7 @@ static int amdgpu_device_ip_hw_init_phase2(struct amdgpu_device *adev)
+>  				  adev->ip_blocks[i].version->funcs->name, r);
+>  			return r;
+>  		}
+> -		adev->ip_blocks[i].status.hw = true;
+> +		amdgpu_device_ip_set_state(adev, i, AMDGPU_IP_STATE_HW);
+>  	}
+>  
+>  	return 0;
+> @@ -2791,11 +2815,11 @@ static int amdgpu_device_fw_loading(struct amdgpu_device *adev)
+>  						       AMD_IP_BLOCK_TYPE_PSP))
+>  				break;
+>  
+> -			if (!adev->ip_blocks[i].status.sw)
+> +			if (amdgpu_device_ip_state(adev, i) < AMDGPU_IP_STATE_SW)
+>  				continue;
+>  
+>  			/* no need to do the fw loading again if already done*/
+> -			if (adev->ip_blocks[i].status.hw == true)
+> +			if (amdgpu_device_ip_state(adev, i) >= AMDGPU_IP_STATE_HW)
+>  				break;
+>  
+>  			if (amdgpu_in_reset(adev) || adev->in_suspend) {
+> @@ -2809,7 +2833,7 @@ static int amdgpu_device_fw_loading(struct amdgpu_device *adev)
+>  							  adev->ip_blocks[i].version->funcs->name, r);
+>  					return r;
+>  				}
+> -				adev->ip_blocks[i].status.hw = true;
+> +				amdgpu_device_ip_set_state(adev, i, AMDGPU_IP_STATE_HW);
+>  			}
+>  			break;
+>  		}
+> @@ -2900,7 +2924,7 @@ static int amdgpu_device_ip_init(struct amdgpu_device *adev)
+>  		return r;
+>  
+>  	for (i = 0; i < adev->num_ip_blocks; i++) {
+> -		if (!adev->ip_blocks[i].status.valid)
+> +		if (!amdgpu_device_ip_valid(adev, i))
+>  			continue;
+>  		if (adev->ip_blocks[i].version->funcs->sw_init) {
+>  			r = adev->ip_blocks[i].version->funcs->sw_init(&adev->ip_blocks[i]);
+> @@ -2910,7 +2934,7 @@ static int amdgpu_device_ip_init(struct amdgpu_device *adev)
+>  				goto init_failed;
+>  			}
+>  		}
+> -		adev->ip_blocks[i].status.sw = true;
+> +		amdgpu_device_ip_set_state(adev, i, AMDGPU_IP_STATE_SW);
+>  
+>  		if (!amdgpu_ip_member_of_hwini(
+>  			    adev, adev->ip_blocks[i].version->type))
+> @@ -2923,7 +2947,7 @@ static int amdgpu_device_ip_init(struct amdgpu_device *adev)
+>  				DRM_ERROR("hw_init %d failed %d\n", i, r);
+>  				goto init_failed;
+>  			}
+> -			adev->ip_blocks[i].status.hw = true;
+> +			amdgpu_device_ip_set_state(adev, i, AMDGPU_IP_STATE_HW);
+>  		} else if (adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_GMC) {
+>  			/* need to do gmc hw init early so we can allocate gpu mem */
+>  			/* Try to reserve bad pages early */
+> @@ -2945,7 +2969,7 @@ static int amdgpu_device_ip_init(struct amdgpu_device *adev)
+>  				DRM_ERROR("amdgpu_device_wb_init failed %d\n", r);
+>  				goto init_failed;
+>  			}
+> -			adev->ip_blocks[i].status.hw = true;
+> +			amdgpu_device_ip_set_state(adev, i, AMDGPU_IP_STATE_HW);
+>  
+>  			/* right after GMC hw init, we create CSA */
+>  			if (adev->gfx.mcbp) {
+> @@ -3130,7 +3154,7 @@ int amdgpu_device_set_cg_state(struct amdgpu_device *adev,
+>  
+>  	for (j = 0; j < adev->num_ip_blocks; j++) {
+>  		i = state == AMD_CG_STATE_GATE ? j : adev->num_ip_blocks - j - 1;
+> -		if (!adev->ip_blocks[i].status.late_initialized)
+> +		if (amdgpu_device_ip_state(adev, i) < AMDGPU_IP_STATE_LATE)
+>  			continue;
+>  		/* skip CG for GFX, SDMA on S0ix */
+>  		if (adev->in_s0ix &&
+> @@ -3167,7 +3191,7 @@ int amdgpu_device_set_pg_state(struct amdgpu_device *adev,
+>  
+>  	for (j = 0; j < adev->num_ip_blocks; j++) {
+>  		i = state == AMD_PG_STATE_GATE ? j : adev->num_ip_blocks - j - 1;
+> -		if (!adev->ip_blocks[i].status.late_initialized)
+> +		if (amdgpu_device_ip_state(adev, i) < AMDGPU_IP_STATE_LATE)
+>  			continue;
+>  		/* skip PG for GFX, SDMA on S0ix */
+>  		if (adev->in_s0ix &&
+> @@ -3246,7 +3270,7 @@ static int amdgpu_device_ip_late_init(struct amdgpu_device *adev)
+>  	int i = 0, r;
+>  
+>  	for (i = 0; i < adev->num_ip_blocks; i++) {
+> -		if (!adev->ip_blocks[i].status.hw)
+> +		if (amdgpu_device_ip_state(adev, i) < AMDGPU_IP_STATE_HW)
+>  			continue;
+>  		if (adev->ip_blocks[i].version->funcs->late_init) {
+>  			r = adev->ip_blocks[i].version->funcs->late_init(&adev->ip_blocks[i]);
+> @@ -3256,7 +3280,7 @@ static int amdgpu_device_ip_late_init(struct amdgpu_device *adev)
+>  				return r;
+>  			}
+>  		}
+> -		adev->ip_blocks[i].status.late_initialized = true;
+> +		amdgpu_device_ip_set_state(adev, i, AMDGPU_IP_STATE_LATE);
+>  	}
+>  
+>  	r = amdgpu_ras_late_init(adev);
+> @@ -3336,7 +3360,7 @@ static void amdgpu_ip_block_hw_fini(struct amdgpu_ip_block *ip_block)
+>  		}
+>  	}
+>  
+> -	ip_block->status.hw = false;
+> +	amdgpu_ip_block_set_state(ip_block, AMDGPU_IP_STATE_SW);
+>  }
+>  
+>  /**
+> @@ -3354,7 +3378,7 @@ static void amdgpu_device_smu_fini_early(struct amdgpu_device *adev)
+>  		return;
+>  
+>  	for (i = 0; i < adev->num_ip_blocks; i++) {
+> -		if (!adev->ip_blocks[i].status.hw)
+> +		if (amdgpu_device_ip_state(adev, i) < AMDGPU_IP_STATE_HW)
+>  			continue;
+>  		if (adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_SMC) {
+>  			amdgpu_ip_block_hw_fini(&adev->ip_blocks[i]);
+> @@ -3377,7 +3401,7 @@ static int amdgpu_device_ip_fini_early(struct amdgpu_device *adev)
+>  				  adev->ip_blocks[i].version->funcs->name, r);
+>  		}
+>  
+> -		adev->ip_blocks[i].status.late_initialized = false;
+> +		amdgpu_device_ip_set_state(adev, i, AMDGPU_IP_STATE_HW);
+>  	}
+>  
+>  	amdgpu_device_set_pg_state(adev, AMD_PG_STATE_UNGATE);
+> @@ -3389,7 +3413,7 @@ static int amdgpu_device_ip_fini_early(struct amdgpu_device *adev)
+>  	amdgpu_device_smu_fini_early(adev);
+>  
+>  	for (i = adev->num_ip_blocks - 1; i >= 0; i--) {
+> -		if (!adev->ip_blocks[i].status.hw)
+> +		if (amdgpu_device_ip_state(adev, i) < AMDGPU_IP_STATE_HW)
+>  			continue;
+>  
+>  		amdgpu_ip_block_hw_fini(&adev->ip_blocks[i]);
+> @@ -3427,7 +3451,7 @@ static int amdgpu_device_ip_fini(struct amdgpu_device *adev)
+>  	amdgpu_amdkfd_device_fini_sw(adev);
+>  
+>  	for (i = adev->num_ip_blocks - 1; i >= 0; i--) {
+> -		if (!adev->ip_blocks[i].status.sw)
+> +		if (amdgpu_device_ip_state(adev, i) < AMDGPU_IP_STATE_SW)
+>  			continue;
+>  
+>  		if (adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_GMC) {
+> @@ -3446,17 +3470,17 @@ static int amdgpu_device_ip_fini(struct amdgpu_device *adev)
+>  					  adev->ip_blocks[i].version->funcs->name, r);
+>  			}
+>  		}
+> -		adev->ip_blocks[i].status.sw = false;
+> +		amdgpu_device_ip_set_state(adev, i, AMDGPU_IP_STATE_EARLY);
+>  	}
+>  
+>  	amdgpu_ras_fini(adev);
+>  
+>  	for (i = adev->num_ip_blocks - 1; i >= 0; i--) {
+> -		if (!adev->ip_blocks[i].status.valid)
+> +		if (!amdgpu_device_ip_valid(adev, i))
+>  			continue;
+>  		if (adev->ip_blocks[i].version->funcs->late_fini)
+>  			adev->ip_blocks[i].version->funcs->late_fini(&adev->ip_blocks[i]);
+> -		adev->ip_blocks[i].status.valid = false;
+> +		amdgpu_device_ip_set_state(adev, i, AMDGPU_IP_STATE_INVALID);
+>  	}
+>  
+>  	return 0;
+> @@ -3517,9 +3541,9 @@ static int amdgpu_device_ip_suspend_phase1(struct amdgpu_device *adev)
 >  		dev_warn(adev->dev, "Failed to disallow df cstate");
 >  
-> +	for (i = adev->num_ip_blocks - 1; i >= 0; i--) {
-> +		if (!adev->ip_blocks[i].status.valid)
-> +			continue;
-> +		if (!adev->ip_blocks[i].status.late_initialized)
-> +			continue;
-> +
-> +		if (adev->ip_blocks[i].version->funcs->early_fini) {
-> +			r = adev->ip_blocks[i].version->funcs->early_fini(&adev->ip_blocks[i]);
-> +			if (r) {
-> +				DRM_ERROR(" of IP block <%s> failed %d\n",
-> +					  adev->ip_blocks[i].version->funcs->name, r);
-> +				return r;
-> +			}
-> +		}
-> +
-> +		adev->ip_blocks[i].status.late_initialized = false;
-> +	}
-> +
 >  	for (i = adev->num_ip_blocks - 1; i >= 0; i--) {
->  		if (!adev->ip_blocks[i].status.valid)
+> -		if (!adev->ip_blocks[i].status.valid)
+> +		if (!amdgpu_device_ip_valid(adev, i))
 >  			continue;
+> -		if (!adev->ip_blocks[i].status.late_initialized)
+> +		if (amdgpu_device_ip_state(adev, i) < AMDGPU_IP_STATE_LATE)
+>  			continue;
+>  
+>  		if (adev->ip_blocks[i].version->funcs->early_fini) {
+> @@ -3531,11 +3555,11 @@ static int amdgpu_device_ip_suspend_phase1(struct amdgpu_device *adev)
+>  			}
+>  		}
+>  
+> -		adev->ip_blocks[i].status.late_initialized = false;
+> +		amdgpu_device_ip_set_state(adev, i, AMDGPU_IP_STATE_HW);
+>  	}
+>  
+>  	for (i = adev->num_ip_blocks - 1; i >= 0; i--) {
+> -		if (!adev->ip_blocks[i].status.valid)
+> +		if (!amdgpu_device_ip_valid(adev, i))
+>  			continue;
+>  
+>  		/* displays are handled separately */
+> @@ -3570,7 +3594,7 @@ static int amdgpu_device_ip_suspend_phase2(struct amdgpu_device *adev)
+>  		amdgpu_dpm_gfx_state_change(adev, sGpuChangeState_D3Entry);
+>  
+>  	for (i = adev->num_ip_blocks - 1; i >= 0; i--) {
+> -		if (!adev->ip_blocks[i].status.valid)
+> +		if (!amdgpu_device_ip_valid(adev, i))
+>  			continue;
+>  		/* displays are handled in phase1 */
+>  		if (adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_DCE)
+> @@ -3578,7 +3602,7 @@ static int amdgpu_device_ip_suspend_phase2(struct amdgpu_device *adev)
+>  		/* PSP lost connection when err_event_athub occurs */
+>  		if (amdgpu_ras_intr_triggered() &&
+>  		    adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_PSP) {
+> -			adev->ip_blocks[i].status.hw = false;
+> +			amdgpu_device_ip_set_state(adev, i, AMDGPU_IP_STATE_SW);
+>  			continue;
+>  		}
+>  
+> @@ -3620,7 +3644,7 @@ static int amdgpu_device_ip_suspend_phase2(struct amdgpu_device *adev)
+>  
+>  		/* XXX handle errors */
+>  		r = amdgpu_ip_block_suspend(&adev->ip_blocks[i]);
+> -		adev->ip_blocks[i].status.hw = false;
+> +		amdgpu_device_ip_set_state(adev, i, AMDGPU_IP_STATE_SW);
+>  
+>  		/* handle putting the SMC in the appropriate state */
+>  		if (!amdgpu_sriov_vf(adev)) {
+> @@ -3687,12 +3711,12 @@ static int amdgpu_device_ip_reinit_early_sriov(struct amdgpu_device *adev)
+>  		struct amdgpu_ip_block *block;
+>  
+>  		block = &adev->ip_blocks[i];
+> -		block->status.hw = false;
+> +		amdgpu_device_ip_set_state(adev, i, AMDGPU_IP_STATE_SW);
+>  
+>  		for (j = 0; j < ARRAY_SIZE(ip_order); j++) {
+>  
+>  			if (block->version->type != ip_order[j] ||
+> -				!block->status.valid)
+> +			    !amdgpu_device_ip_valid(adev, i))
+>  				continue;
+>  
+>  			r = block->version->funcs->hw_init(&adev->ip_blocks[i]);
+> @@ -3701,7 +3725,7 @@ static int amdgpu_device_ip_reinit_early_sriov(struct amdgpu_device *adev)
+>  					 block->version->funcs->name);
+>  				return r;
+>  			}
+> -			block->status.hw = true;
+> +			amdgpu_device_ip_set_state(adev, i, AMDGPU_IP_STATE_HW);
+>  		}
+>  	}
+>  
+> @@ -3731,7 +3755,8 @@ static int amdgpu_device_ip_reinit_late_sriov(struct amdgpu_device *adev)
+>  		if (!block)
+>  			continue;
+>  
+> -		if (block->status.valid && !block->status.hw) {
+> +		if (amdgpu_ip_block_valid(block) &&
+> +		    amdgpu_ip_block_state(block) < AMDGPU_IP_STATE_HW) {
+>  			if (block->version->type == AMD_IP_BLOCK_TYPE_SMC) {
+>  				r = amdgpu_ip_block_resume(block);
+>  			} else {
+> @@ -3743,7 +3768,7 @@ static int amdgpu_device_ip_reinit_late_sriov(struct amdgpu_device *adev)
+>  					 block->version->funcs->name);
+>  				break;
+>  			}
+> -			block->status.hw = true;
+> +			amdgpu_ip_block_set_state(block, AMDGPU_IP_STATE_HW);
+>  		}
+>  	}
+>  
+> @@ -3767,7 +3792,8 @@ static int amdgpu_device_ip_resume_phase1(struct amdgpu_device *adev)
+>  	int i, r;
+>  
+>  	for (i = 0; i < adev->num_ip_blocks; i++) {
+> -		if (!adev->ip_blocks[i].status.valid || adev->ip_blocks[i].status.hw)
+> +		if (!amdgpu_device_ip_valid(adev, i) ||
+> +		    amdgpu_device_ip_state(adev, i) >= AMDGPU_IP_STATE_HW)
+>  			continue;
+>  		if (adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_COMMON ||
+>  		    adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_GMC ||
+> @@ -3801,7 +3827,8 @@ static int amdgpu_device_ip_resume_phase2(struct amdgpu_device *adev)
+>  	int i, r;
+>  
+>  	for (i = 0; i < adev->num_ip_blocks; i++) {
+> -		if (!adev->ip_blocks[i].status.valid || adev->ip_blocks[i].status.hw)
+> +		if (!amdgpu_device_ip_valid(adev, i) ||
+> +		    amdgpu_device_ip_state(adev, i) >= AMDGPU_IP_STATE_HW)
+>  			continue;
+>  		if (adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_COMMON ||
+>  		    adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_GMC ||
+> @@ -3835,7 +3862,8 @@ static int amdgpu_device_ip_resume_phase3(struct amdgpu_device *adev)
+>  	int i, r;
+>  
+>  	for (i = 0; i < adev->num_ip_blocks; i++) {
+> -		if (!adev->ip_blocks[i].status.valid || adev->ip_blocks[i].status.hw)
+> +		if (!amdgpu_device_ip_valid(adev, i) ||
+> +		    amdgpu_device_ip_state(adev, i) >= AMDGPU_IP_STATE_HW)
+>  			continue;
+>  		if (adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_DCE) {
+>  			r = amdgpu_ip_block_resume(&adev->ip_blocks[i]);
+> @@ -4888,7 +4916,7 @@ int amdgpu_device_prepare(struct drm_device *dev)
+>  	flush_delayed_work(&adev->gfx.gfx_off_delay_work);
+>  
+>  	for (i = 0; i < adev->num_ip_blocks; i++) {
+> -		if (!adev->ip_blocks[i].status.valid)
+> +		if (!amdgpu_device_ip_valid(adev, i))
+>  			continue;
+>  		if (!adev->ip_blocks[i].version->funcs->prepare_suspend)
+>  			continue;
+> @@ -5090,7 +5118,7 @@ static bool amdgpu_device_ip_check_soft_reset(struct amdgpu_device *adev)
+>  		return true;
+>  
+>  	for (i = 0; i < adev->num_ip_blocks; i++) {
+> -		if (!adev->ip_blocks[i].status.valid)
+> +		if (!amdgpu_device_ip_valid(adev, i))
+>  			continue;
+>  		if (adev->ip_blocks[i].version->funcs->check_soft_reset)
+>  			adev->ip_blocks[i].status.hang =
+> @@ -5120,7 +5148,7 @@ static int amdgpu_device_ip_pre_soft_reset(struct amdgpu_device *adev)
+>  	int i, r = 0;
+>  
+>  	for (i = 0; i < adev->num_ip_blocks; i++) {
+> -		if (!adev->ip_blocks[i].status.valid)
+> +		if (!amdgpu_device_ip_valid(adev, i))
+>  			continue;
+>  		if (adev->ip_blocks[i].status.hang &&
+>  		    adev->ip_blocks[i].version->funcs->pre_soft_reset) {
+> @@ -5150,7 +5178,7 @@ static bool amdgpu_device_ip_need_full_reset(struct amdgpu_device *adev)
+>  		return true;
+>  
+>  	for (i = 0; i < adev->num_ip_blocks; i++) {
+> -		if (!adev->ip_blocks[i].status.valid)
+> +		if (!amdgpu_device_ip_valid(adev, i))
+>  			continue;
+>  		if ((adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_GMC) ||
+>  		    (adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_SMC) ||
+> @@ -5182,7 +5210,7 @@ static int amdgpu_device_ip_soft_reset(struct amdgpu_device *adev)
+>  	int i, r = 0;
+>  
+>  	for (i = 0; i < adev->num_ip_blocks; i++) {
+> -		if (!adev->ip_blocks[i].status.valid)
+> +		if (!amdgpu_device_ip_valid(adev, i))
+>  			continue;
+>  		if (adev->ip_blocks[i].status.hang &&
+>  		    adev->ip_blocks[i].version->funcs->soft_reset) {
+> @@ -5211,7 +5239,7 @@ static int amdgpu_device_ip_post_soft_reset(struct amdgpu_device *adev)
+>  	int i, r = 0;
+>  
+>  	for (i = 0; i < adev->num_ip_blocks; i++) {
+> -		if (!adev->ip_blocks[i].status.valid)
+> +		if (!amdgpu_device_ip_valid(adev, i))
+>  			continue;
+>  		if (adev->ip_blocks[i].status.hang &&
+>  		    adev->ip_blocks[i].version->funcs->post_soft_reset)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> index f908355df07c..33030a0bfef2 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> @@ -515,7 +515,7 @@ static int amdgpu_hw_ip_info(struct amdgpu_device *adev,
+>  
+>  	for (i = 0; i < adev->num_ip_blocks; i++)
+>  		if (adev->ip_blocks[i].version->type == type &&
+> -		    adev->ip_blocks[i].status.valid)
+> +		    amdgpu_device_ip_valid(adev, i))
+>  			break;
+>  
+>  	if (i == adev->num_ip_blocks)
+> @@ -636,7 +636,7 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+>  		type = amdgpu_ip_get_block_type(adev, info->query_hw_ip.type);
+>  		ip_block = amdgpu_device_ip_get_ip_block(adev, type);
+>  
+> -		if (!ip_block || !ip_block->status.valid)
+> +		if (!ip_block || !amdgpu_ip_block_valid(ip_block))
+>  			return -EINVAL;
+>  
+>  		if (adev->xcp_mgr && adev->xcp_mgr->num_xcps > 0 &&
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> index a441dffca45b..26a0d9050dca 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> @@ -3897,7 +3897,8 @@ static ssize_t psp_usbc_pd_fw_sysfs_read(struct device *dev,
+>  	int ret;
+>  
+>  	ip_block = amdgpu_device_ip_get_ip_block(adev, AMD_IP_BLOCK_TYPE_PSP);
+> -	if (!ip_block || !ip_block->status.late_initialized) {
+> +	if (!ip_block ||
+> +	    amdgpu_ip_block_state(ip_block) < AMDGPU_IP_STATE_LATE) {
+>  		dev_info(adev->dev, "PSP block is not ready yet\n.");
+>  		return -EBUSY;
+>  	}
+> @@ -3929,7 +3930,8 @@ static ssize_t psp_usbc_pd_fw_sysfs_write(struct device *dev,
+>  	struct amdgpu_ip_block *ip_block;
+>  
+>  	ip_block = amdgpu_device_ip_get_ip_block(adev, AMD_IP_BLOCK_TYPE_PSP);
+> -	if (!ip_block || !ip_block->status.late_initialized) {
+> +	if (!ip_block ||
+> +	    amdgpu_ip_block_state(ip_block) < AMDGPU_IP_STATE_LATE) {
+>  		dev_err(adev->dev, "PSP block is not ready yet.");
+>  		return -EBUSY;
+>  	}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
+> index dabfbdf6f1ce..eb72dac61c83 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
+> @@ -31,9 +31,9 @@ static int amdgpu_reset_xgmi_reset_on_init_suspend(struct amdgpu_device *adev)
+>  	int i;
+>  
+>  	for (i = adev->num_ip_blocks - 1; i >= 0; i--) {
+> -		if (!adev->ip_blocks[i].status.valid)
+> +		if (!amdgpu_device_ip_valid(adev, i))
+>  			continue;
+> -		if (!adev->ip_blocks[i].status.hw)
+> +		if (amdgpu_device_ip_state(adev, i) <= AMDGPU_IP_STATE_HW)
+>  			continue;
+>  		/* displays are handled in phase1 */
+>  		if (adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_DCE)
+> @@ -41,7 +41,7 @@ static int amdgpu_reset_xgmi_reset_on_init_suspend(struct amdgpu_device *adev)
+>  
+>  		/* XXX handle errors */
+>  		amdgpu_ip_block_suspend(&adev->ip_blocks[i]);
+> -		adev->ip_blocks[i].status.hw = false;
+> +		amdgpu_device_ip_set_state(adev, i, AMDGPU_IP_STATE_SW);
+>  	}
+>  
+>  	/* VCN FW shared region is in frambuffer, there are some flags
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sienna_cichlid.c b/drivers/gpu/drm/amd/amdgpu/sienna_cichlid.c
+> index 2594467bdd87..c9479a92a9df 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sienna_cichlid.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sienna_cichlid.c
+> @@ -204,7 +204,7 @@ static int sienna_cichlid_mode2_restore_ip(struct amdgpu_device *adev)
+>  				return r;
+>  			}
+>  		}
+> -		adev->ip_blocks[i].status.late_initialized = true;
+> +		amdgpu_device_ip_set_state(adev, i, AMDGPU_IP_STATE_LATE);
+>  	}
+>  
+>  	amdgpu_device_set_cg_state(adev, AMD_CG_STATE_GATE);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.c b/drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.c
+> index 70569ea906bc..75dc5cb1e1ec 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/smu_v13_0_10.c
+> @@ -205,7 +205,7 @@ static int smu_v13_0_10_mode2_restore_ip(struct amdgpu_device *adev)
+>  				return r;
+>  			}
+>  		}
+> -		adev->ip_blocks[i].status.late_initialized = true;
+> +		amdgpu_device_ip_set_state(adev, i, AMDGPU_IP_STATE_LATE);
+>  	}
+>  
+>  	amdgpu_device_set_cg_state(adev, AMD_CG_STATE_GATE);
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> index 8ca793c222ff..c75402d606c3 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> @@ -230,7 +230,7 @@ static bool is_vcn_enabled(struct amdgpu_device *adev)
+>  	for (i = 0; i < adev->num_ip_blocks; i++) {
+>  		if ((adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_VCN ||
+>  			adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_JPEG) &&
+> -			!adev->ip_blocks[i].status.valid)
+> +			!amdgpu_device_ip_valid(adev, i))
+>  			return false;
+>  	}
+>  
 
