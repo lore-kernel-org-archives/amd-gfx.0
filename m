@@ -4,149 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1CF07C02188
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jan 2025 19:28:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9741EC02183
+	for <amd-gfx@archiver.kernel.org>; Sat, 18 Jan 2025 02:39:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A695910EB6F;
-	Fri, 17 Jan 2025 19:28:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D472810E32C;
+	Sat, 18 Jan 2025 02:39:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="iWj7gaMC";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KfFm2YMc";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on20621.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:2413::621])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A9BA510EB6F
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jan 2025 19:28:04 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=f6ZqM75Fsx5H9VYTTc9zan9E0f7cuhyoI2gxadnZome0N5JZM2n6w2Dk4rh9OqoKTfZZcFZGooBxNVenpK54Idv/O/Sxcf7rof7e4qd29NWKQe8rIU3NjwfB0EO9GH1Xo3d4Zm3a5cx4SXxDJVUSuM03NWYm3e5D3kHcSnF8lIPdwC1Zm0wc38WOO0/4SjCH9mC0Gb2/3SVMVw+5qcVrr09mnc1Jk59xm49TYW2zh38nwk8NjW75W4a/ymUnfvo4c0iBBPAzb2u0ilX/6G3oB5wjilzZbN1S1OZCyFdR/6MIDNJK2wrTe6pEWs4p5h6CNI9gBisPtZwukJFOW0aVnw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AS8e2sgqM+PVgqYADjEPjtcnpOMeFT5QfRSrL2S644k=;
- b=PE6Lzwl66XGtgDYO1MOCHGcze5ATvzfKQuj479b/vKBvs0eEacVxIuhCCRjXxgdfkrbyQmdUly3TToMICNxwdMdmB21wjEJ+xgpAs3YgE8t6g5cEI/OQf5Pf6u7YAJERSP1HiQdRSrLePfEBVS6Cri0y1CMmy5xmClQxn9C6iPxRNxzZLfcn1tluZRVcun1bgpbY/v0ufN8guJsmm+vQsfMU7kafaHyeK8P5apdBE9QthWM6EnT6y9GxDURg71zeXiqA0+Xp2QpYgBauxgmHUnBNwhN8g8Ml8sbjdEV4NZbPB4+TiQHB7RowQlmnH4WN+24BBSiNjqH/nFQwz3YWvg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AS8e2sgqM+PVgqYADjEPjtcnpOMeFT5QfRSrL2S644k=;
- b=iWj7gaMCOHrouXE3paMbGLyuLwJGy1pO72RPB1H2AL9UydKvuBCi2waUEnD6dA3FmhytrVsCk2zqy0WV+hc13623Y7bPMjGusKfKeb3a5K0/7GMve8Jpt7OkIxNPiJZJDc+glX5cXlPxpm45pOoV1T+a1sqq568g725lqBy/e00=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
- by DM4PR12MB6326.namprd12.prod.outlook.com (2603:10b6:8:a3::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8356.16; Fri, 17 Jan
- 2025 19:28:02 +0000
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::1c2f:5c82:2d9c:6062]) by CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::1c2f:5c82:2d9c:6062%4]) with mapi id 15.20.8356.014; Fri, 17 Jan 2025
- 19:28:02 +0000
-Message-ID: <90128cb6-0828-41eb-aa27-6b8396fb674f@amd.com>
-Date: Fri, 17 Jan 2025 14:28:00 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: fix SUBVP DC_DEBUG_MASK documentation
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Stephen Rothwell <sfr@canb.auug.org.au>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>
-References: <20250117191856.2781254-1-alexander.deucher@amd.com>
-Content-Language: en-US
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <20250117191856.2781254-1-alexander.deucher@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT4PR01CA0322.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:10a::11) To CO6PR12MB5427.namprd12.prod.outlook.com
- (2603:10b6:5:358::13)
+Received: from mail-oa1-f51.google.com (mail-oa1-f51.google.com
+ [209.85.160.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7583B10E32C;
+ Sat, 18 Jan 2025 02:39:20 +0000 (UTC)
+Received: by mail-oa1-f51.google.com with SMTP id
+ 586e51a60fabf-2a016ef0822so63568fac.0; 
+ Fri, 17 Jan 2025 18:39:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1737167899; x=1737772699; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=IAbJVSBhvKB/Vnp4nWOV0+x50/nKWwhXDTl4//4/izo=;
+ b=KfFm2YMcT67aRqBBP0qgbLw1oOpASuOkh8BFyzSQ9RKyqND0PUbcbeoZOIVnhz/ygv
+ QpMvjfX/UeJ8zEvjrE+eX6upQl5p1JLgOSehLAoNRcTlaCU3kTYJ7N5MzjsMNhRb+qp6
+ 9sGYJQXF+PWDUV6AcOMdyoB4tG1+RcXsj1FLqoUmnLZv/kGSybItFq/TKxRS8CxonLzE
+ fOTGZ5/Xk4SG3FNveiSnaGOfN+drRawObwiMEVkAfVnv+EV7/BLXI8tOtEM7i4lVgsF4
+ 4xcpJEt7W6oL0DuXngupwf7H2XpzN81go6xf51AoKDYmu6hv71aUy/Ldt4nrxuB6XEZy
+ g4dA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1737167899; x=1737772699;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=IAbJVSBhvKB/Vnp4nWOV0+x50/nKWwhXDTl4//4/izo=;
+ b=Zk2pTHCzNLZkuS9g7JiAhnWZEBegMX0Z677Xg1ePLBzmswY46OeLO4EgAPdL5jLQMh
+ DYKNcguaXby8l750oKq0KKRyjjvjh9voOR01zjHjSe0bFUridrFH9S1qx0da4oSkBGDN
+ q6harTd7p4Ak+WjiX/UZaY5MvX5q4PP+7jc068qUR/WrBypJdCw0oRjov5yUkBQ0RplJ
+ jv9r5Qy9X45icCg9+WtLTs9e9/Cu9u36p9mt1gp4FewbuuPblklHRutwRc/1WBKJtOH6
+ sBmqqZVSO3FDUozCZxunuqpFcpsbJCNj+CnZqwUPME77skSniXJh/U9H3ewKqC+PQ/uE
+ Wh4A==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUg6DXQyXlcgPvSFddWq6owLc7XEvd2JS+DbdA2Axap9qlpYoRW/e8w7+eVZYcecQbYStPxFo4TMkzM@lists.freedesktop.org,
+ AJvYcCWdX36xG0qz8lFF1RlBIrYLUqncesq83VI40Dg5+onlLi9LWhRefMPcNsA3lAqeqRFUQVVLSbgZ@lists.freedesktop.org,
+ AJvYcCX4UyWiku+oXIrvz8Sn+CZBxbhHZ+AU4EoweYCRyhe2mUiRG/MfCHXL3mqI/ZSX21eOfc1sHLPZfrk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzbf6ieMzjmV5yNJz3JZgkY1qdPSFQfJkcSgxESQckVEutt3Q5C
+ TV+7SIAMU4J0D+nNH+fs0xv+6ssJ+GbBGUq0KUzIxNisjM/NiKI3cm4UC79eeJMQ8ARlx7OHDNB
+ FOYLW889wyjgLJ2zsfPAm8LShrjk=
+X-Gm-Gg: ASbGncsUl+FvToxDPQUjFGoblHfjqtecX62yq+ziZcHp/abLdJX+Pi4sITmqqCfU5cP
+ 363dQ/WMrKVV5ZJUJNsaVNVFy6j98hWCNfdQFO7Iw+PB8p1T1cEE+6A==
+X-Google-Smtp-Source: AGHT+IFl/o/xQp6BQ9SLIjW4Y2taoTl/ofjk45viDlxxUGX3NtQrOFqy9xX4SdlzjK5YRhkwKKfXUyb+0oqSYmByzow=
+X-Received: by 2002:a05:6870:224b:b0:29e:4111:fef4 with SMTP id
+ 586e51a60fabf-2b1c0aafb52mr1021706fac.6.1737167899483; Fri, 17 Jan 2025
+ 18:38:19 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|DM4PR12MB6326:EE_
-X-MS-Office365-Filtering-Correlation-Id: ef9503c9-f47a-4db4-1103-08dd372d0efd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?UkxYMUx6dTNST0xzeHl1bWNsK1RlbkdwR2JNS21KLzlyQzNNOEY5UlRiZHJM?=
- =?utf-8?B?VXVQMHc2V1VwL2pxdGJqdkZpbUpkL3JOMm9BMWkva2ZrQkowYUUvRVF5eHBu?=
- =?utf-8?B?aGxZNjZEa3hSbmhYRTkxbFZPb3VaMHdnQkZIRjI2aDRFNzRIS0x2YjZPMmdI?=
- =?utf-8?B?c0hYYkw5YjBON05oMy9vTWI1TDlhbFpKYXhrdGtYelcxUGtPTk1xRHhVa3Y2?=
- =?utf-8?B?SERHaFk4cHVIcG04eDcvbDdQaGkyM3E4U0QrN1FSYnVmMC9ZNXg3elRMbUFj?=
- =?utf-8?B?Y21abHUyanVpVllNR1hzNnh3OUNSajExZzZHZWtmOGVWc1dQWFErQ3FHTFZ0?=
- =?utf-8?B?dTBNbFRLbkE3L1ZUUlpoejhHTFplenlhR0FpbFFNTFRKVlUrdWJrSUJVTDBh?=
- =?utf-8?B?T2FITXJ3SW9YK2Z4bEs5Y1lVV3J6VkQzVFhYeEFXSDBxTllrc1dBempvZnFz?=
- =?utf-8?B?VUZ2R0k1L2lGUThldFJQY0xFSEczYTk0dWpLZC9rUjBJc2ZTMjZMa2IxYVdL?=
- =?utf-8?B?MlhzMXBUK1lGNnlNRitQckRmRVFPNFdDd0YyYy9MSnA4ZUZXWkFiMm50ZGVp?=
- =?utf-8?B?VlhHSFlGVWFFUmV6VStvRk91ZlVST1h6RUdGSTJQeGZkTXR5aHhSUjYyWlkw?=
- =?utf-8?B?bFZHRUdVNjBBcG9PTFQxSTFtMU1tWFo1aDZyVGpSY3R6bnZ5UE5NYWthRUxN?=
- =?utf-8?B?T3BTQmFlYk9kSGE5akFjbm5EK29QTlJMZ3ZMYmw5bjRlMmpkeDVHV2EzSkFq?=
- =?utf-8?B?SjRtSGdIdmlCYUluSFpvTXZucU5WWi9YK1JPQ0tDVk9YNWl0bXl4TG84S1Ex?=
- =?utf-8?B?dC8wa2JwSTBpTjBmWUhBMFByWFVSdG0zM08xRHhPVXVqc0hRSmN4RG5mVDdx?=
- =?utf-8?B?UC9xaW51QnNIbnlaYjNBWWtqNHFHUUhTZy9Ga2IyaDlxRkJuWlppOGtBR01s?=
- =?utf-8?B?ZTEwOWJFMC9SY2lTWjZYeUZPMnU5MDZjeUlVbU13OUdSRkR6dGtRM3VqNnRo?=
- =?utf-8?B?YUNmU2JDTkxRbXFWZ1RFS0tJMWZaUnBoNE9Rc3hvdGdUL3B4aG9nWFhYeGhV?=
- =?utf-8?B?YVI0bWZwZjRQbWEzcGxmR1V3aTl0NVFIbHc2TEFWUkVQWjZ6bjh6RTlkRlRw?=
- =?utf-8?B?dlFVbjhHZEpLN1pmOTlsTGFxNmVvWXZKMzBzYzJXd2RpbnhTOUJtQmNzTWI3?=
- =?utf-8?B?RWwwNzV0R2xlSWRTQytJeS96SFRoMHJ5SU1KRXlPMVRPa2pWc3E4S1BOWVhV?=
- =?utf-8?B?MkhoanNibUJzUEZzV2xkZFF2ZGhhQTRGWTJaSzlmZTRVcHpyTjloZWVtZC8v?=
- =?utf-8?B?TjZjeS8vMEp4aC9nNkMzZXBmd1FGU2hscjE1aDhod0htV1BTMzl4TGZtbDIw?=
- =?utf-8?B?NEF1QlliQllZQk1raUhzU2ZOQkdwVFFjdVpsZFBpQTZodEJQbVp4c1RpNC95?=
- =?utf-8?B?SUVWRnhyL00vNmhXZm4rdEpPMzQ1SkdBeElQSCtzakEreUlvOHZDTUM1c1pV?=
- =?utf-8?B?bDd1c2IwMlpJUi9NVmVqMGRuanMrM28zUUdCc3I2Q2I2NWYzdE1FM2JKUW1r?=
- =?utf-8?B?bkVmcU92dmd6NmovMmdRMGFzZnkrN0kwTmtrUldvK29XWDQyK0Z3TW9JZHoy?=
- =?utf-8?B?SFRLRFE0cTE1U1lXQnM2L2F6bFhqaEgxZWVFSm84ZjlUMU1mMTcyWmxTc1R2?=
- =?utf-8?B?ZkNra1NuN0FlY1RCYWF6TlU0Wk01U1VvckZ6T3dWdUsxenFZZW90TXF5dUp0?=
- =?utf-8?B?a1ZVd0tPS3p6WFFJUXhDSUZwOU1jZFFkcWM1Wnl3K3VYVE5UNUFPL3JMR3VE?=
- =?utf-8?B?ZVhpMkg3WGMwbEV3cS9DbHk4WmluL2ExdCtaajROaVlKbkUvT3FQaXdZSFVk?=
- =?utf-8?Q?GocoBB2hXzZrp?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OCt1c0k1aDJwaTBXSnBaenk3WXp6Y3NwZ2ZvRU4rdVE0amN5RUJnMGY1RGRC?=
- =?utf-8?B?NmJJZm1DNEFjazAySURmNVJ4RElPdVlFQUhWaUxvSHowTWdNOEFUL0pNSU04?=
- =?utf-8?B?bjY4ZzRUamJOMVBWWERtL2swNDVkU3N5dmYzYXF1T21uQ3J3RjdCd2d3U2xp?=
- =?utf-8?B?YWJVVTZxMHE1ZUl5Q0hRSmtJTWliclRuRUsxQ0ExV3htbDdqYXU2ZFJNWldh?=
- =?utf-8?B?cEkrL0J3U082Rkh0TEZnN2hPV1BkenppNTRKcW9tV0tYR1RpdlFYdFh4TGQ1?=
- =?utf-8?B?SEZBQ0NENThnUDhWTm1MOGNMSy9ESkdQTll1QzMyNXZZUkxEQXZLb0FoZEtM?=
- =?utf-8?B?dVhaSTF5MWF1L1p2S3pUc0gvaHhIb0Z3anhPakU4RUtlYnpBME1IeVlaN2lx?=
- =?utf-8?B?TWNtREk5QklObSsvUnViRnlFZTlaRnlTZU5SK1pPODFDNFhydUREcmgwRitN?=
- =?utf-8?B?Um5UWWEzd2JENlJnWG9LSjdMZSt4SzRaaTdjc3NIYm5oUGJ2MXh0bVJDbE9U?=
- =?utf-8?B?dlZLQkVJaSswVUxlNkRYVVVLT05nOTd1bkRzNnlUeU4xWit0eUlPbHVPMDhp?=
- =?utf-8?B?MmtwMS9XNEZ6RmZUY1l4WG5iZXd0Q2xJRnUwejRCUnlYZGJnTnVpRWpmVUdB?=
- =?utf-8?B?WGNjQUFMOGFONVZpVjdockd2cmsxVVc4QVRkM3Y0RWlvdUdtMVF0bk1NQVI0?=
- =?utf-8?B?MGZ3bnhyVVRwUjk1N1dOd3o1SzFEMER3aDY5NzVvaktMZnh2NE1nQy9ha2tP?=
- =?utf-8?B?NGVZMy9zM3NYQVArcmt4TC94b3A0UDk1ZldSQzQvNkNZQWhZMHJ3dkN0OU9y?=
- =?utf-8?B?VS96R1R2bXpFOHNBNzRCcFRLUW1GL3dZckN0Nm1MejJpeXhWNFZzL3pzRCtw?=
- =?utf-8?B?RTZzTUkyeDUxbnl3WUFFZFZFYm52TnU3M0xzbjAzZHVTTWFmbVo5TGh0dkNz?=
- =?utf-8?B?N0R5SC9JdUlPYmRXK1hzd20zRVRVN2dOM0dSYjBuWjJ4Z0pjdUVUWTdpdlU4?=
- =?utf-8?B?WkNmdkxrMTZIQkpkN2hGMGJicERmVHZLbWpDZ1paWXNEcncvdkY5QXc5UHU3?=
- =?utf-8?B?UXhlUnJrVXFGWWVYSitVbUgra1VkdDVnYkZ4OWV4QzljSzlWaHBINjE5WkJW?=
- =?utf-8?B?VWNsRVdtaVJ4ZXNRMTdWb24zTkVDYXpNQ01zZC9TZndjbkxheFhyRzVtaWI4?=
- =?utf-8?B?cUlYdnFPM0IvdTVUdlpHQlNVN1FBOFJVN1VHaHJyanZETW4weXFZeDhWRWQr?=
- =?utf-8?B?Q3dKRnBPSmZob3NXYTJzdXh4aWZGZllrRjNRUlcxNDlzVTVuSXlvVFk0a0dW?=
- =?utf-8?B?UUZhbUFLdlNqbFlUU2IvVGF5cTduOCtwUEFSWkhMa3RxMG5QanhrNlBGaGhv?=
- =?utf-8?B?NTJHME5vUmJzREVHbStiL2ZXUUxmU1B0YUdUSml6dGF2Sk5xMytzM2pDSCtQ?=
- =?utf-8?B?Mzh4THZ1TjRDUG93RXdpMnVINEJiV29tUnR6MVFEN05wOEhjSnp0cUdrYi9V?=
- =?utf-8?B?YU9XWnkrNDJiZGRmMkJUTWFIaHdGRnhKWElEdCtaTTkzRDZHTTZCZllNR0JK?=
- =?utf-8?B?YXJ6cWo1aVZNR29oZy95MW9BYkUzeUFOeWxIb3Z5TU40V3dabWdpMjdsTWox?=
- =?utf-8?B?V2owR1ExKzZ1NVFMakVGQnUraTVkclljUHcreGN3R0lrNHBJWGVoYkhFNUpW?=
- =?utf-8?B?QVRTVktGbWxJcnVJZmhJNGFIZ3hpMUpWalZqbWREYnhjbVY4UnIySUE0dHdQ?=
- =?utf-8?B?L3Q0YjVOdlZ1TXRHajhEcEJnYWdvWHpEZUhHMnpESGM0V0ZFd3FqUmVoa2Fy?=
- =?utf-8?B?bVYzalpRQ0ZHaERFTnNNcWR0MDN0Z1dSNjVmZ3ZJbXFQdDkzZTFkRUg1L2VU?=
- =?utf-8?B?QUE2TnA2SzdXMnpOeFpualRySUZpd1RYd3g2NHh1MGtaUUExQlE2TkR2eWNy?=
- =?utf-8?B?Z0NLbUh1NUlvTC9lVFlFMWtGTGtTQXVPMVg2UlJwNGFMcGx1NUVHN2RZVFdt?=
- =?utf-8?B?OGtPRWpkc0dmZmpnSkhVWGJSdExocm0zZmczTS92aTZTYnhyNG5ubnJHVHJQ?=
- =?utf-8?B?TFlvalpsY2tNOUJacWY5aENDTXdyV05yS0YxNFhyR3NLRXBwb0dtM2RTZ0pv?=
- =?utf-8?Q?TKkhrU1sl0Hn5R+vGRCqigvya?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ef9503c9-f47a-4db4-1103-08dd372d0efd
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jan 2025 19:28:02.2973 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +T/fUSBriOu00uZoA144d7zdb8rGhAO/E6S+rH4GsYJgwGBb0N9n6GKf5nsTNuujozixxc22MJrq7lnp/gnU0w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6326
+References: <8dae97c9-9286-451a-8122-b309eb21b2f4@mailbox.org>
+ <Z2Ki-lQH4Fbch6RO@phenom.ffwll.local>
+ <q45c43j5kwwvemec7mcs4kqzt54pa3nz3jlhkcky2v63s2vfie@him4q253uw4p>
+ <CAPj87rMFJ0JRvsKqZUsw_EGrFWr1VLO4Ne2w_bZ5cH+gs_d=og@mail.gmail.com>
+ <Z2Rf7mpSuzZ0ObmT@phenom.ffwll.local>
+ <07d08a42-c44a-477e-8057-721b270310cf@nvidia.com>
+ <CAAxE2A6N0xtgZmzTR9FXMN79xxy3T8zfhh1sz73h1h8=0ycJ2g@mail.gmail.com>
+ <CAPj87rP4r4q-wBx1dHsEkZ7=S2c2XsbA1Pz4Skw1ETt_2yD2Ag@mail.gmail.com>
+ <CAAxE2A6ghBK2VTLkNXgk1c61UG1ZQAzWQ4q=wO-OShAUC9eRmQ@mail.gmail.com>
+ <CAPj87rNFy7GLAjjxDYGLN-f8M0F7yMX6PED94O4kBJ=pwtPVyA@mail.gmail.com>
+ <Z4pmnTy1NYD3rLwS@phenom.ffwll.local>
+In-Reply-To: <Z4pmnTy1NYD3rLwS@phenom.ffwll.local>
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
+Date: Fri, 17 Jan 2025 21:37:43 -0500
+X-Gm-Features: AbW1kvY5IuxtPnPVKEKRkX4PWmyPXyweVxRigqqH0P53rbUjRCvTfoymuD2Dn1o
+Message-ID: <CAAxE2A6iDsN=YKW2F7WyyZxn4Sw4Dr5CxZminQGwf8awBivovQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/fourcc: add LINEAR modifiers with an exact pitch
+ alignment
+To: Simona Vetter <simona.vetter@ffwll.ch>
+Cc: Daniel Stone <daniel@fooishbar.org>, James Jones <jajones@nvidia.com>, 
+ Brian Starkey <brian.starkey@arm.com>,
+ =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>, 
+ dri-devel <dri-devel@lists.freedesktop.org>, 
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>, 
+ ML Mesa-dev <mesa-dev@lists.freedesktop.org>, nd@arm.com, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+Content-Type: multipart/alternative; boundary="0000000000009066f8062bf1eb7f"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,33 +97,397 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2025-01-17 14:18, Alex Deucher wrote:
-> This needs to be kerneldoc formatted.
-> 
-> Fixes: 5349658fa4a1 ("drm/amd: Add debug option to disable subvp")
-> Reported-by: Stephen Rothwell <sfr@canb.auug.org.au>
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+--0000000000009066f8062bf1eb7f
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+If DRM_FORMAT_MOD_LINEAR stays, then most of this discussion is irrelevant.
+If you don't like the new linear modifiers, don't use them. If that's you,
+bye.
 
-Harry
+For the rest, there are multiple solutions:
 
-> ---
->  drivers/gpu/drm/amd/include/amd_shared.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/amd/include/amd_shared.h
-> index 5cb97414e4a33..6dccee403a3d1 100644
-> --- a/drivers/gpu/drm/amd/include/amd_shared.h
-> +++ b/drivers/gpu/drm/amd/include/amd_shared.h
-> @@ -350,7 +350,7 @@ enum DC_DEBUG_MASK {
->  	 */
->  	DC_DISABLE_HDMI_CEC = 0x10000,
->  
-> -	/*
-> +	/**
->  	 * @DC_DISABLE_SUBVP: If set, disable DCN Sub-Viewport feature in amdgpu driver.
->  	 */
->  	DC_DISABLE_SUBVP = 0x20000,
+1) New vendor-agnostic linear modifiers. The reason why we would want them
+is that they define robust functions for (x,y,w)->address, (w,h)->size, and
+alignment. All 2^32 (roughly) AMD modifiers have such functions in Mesa
+(really). Linear modifiers would work in the same way.
 
+2) New cross-vendor modifier defining 1 layout for the existing case. This
+is not less effort than 1). It's just a different #define, but limited to
+only 1 case. Why bother. Is it really worth debating so much whether
+#define should have 0 parameters instead of 5? If nobody else uses 1), so
+what?
+
+3) Implementing DRM_FORMAT_MOD_LINEAR as having 256B pitch and offset
+alignment. This is what we do today. Even if Intel and some AMD chips can
+do 64B or 128B alignment, they overalign to 256B. With so many AMD+NV
+laptops out there, NV is probably next, unless they already do this in the
+closed source driver.
+
+Marek
+
+On Fri, Jan 17, 2025 at 9:18=E2=80=AFAM Simona Vetter <simona.vetter@ffwll.=
+ch>
+wrote:
+
+> On Wed, Jan 15, 2025 at 12:20:07PM +0000, Daniel Stone wrote:
+> > On Wed, 15 Jan 2025 at 04:05, Marek Ol=C5=A1=C3=A1k <maraeo@gmail.com> =
+wrote:
+> > > On Tue, Jan 14, 2025 at 12:58=E2=80=AFPM Daniel Stone <daniel@fooishb=
+ar.org>
+> wrote:
+> > >> AMD hardware is the only hardware I know of which doesn't support
+> > >> overaligning. Say (not hypothetically) we have a GPU and a display
+> > >> controller which have a minimum pitch alignment of 32 bytes, no
+> > >> minimum height alignment, minimum 32-byte offset alignment, minimum
+> > >> pitch of 32 bytes, and minimum image size of 32 bytes.
+> > >>
+> > >> To be maximally compatible, we'd have to expose 28 (pitch align) * 3=
+2
+> > >> (height align) * 28 (offset align) * 28 (min pitch) * 28 (min size) =
+=3D=3D
+> > >> 19668992 individual modifiers when queried, which is 150MB per forma=
+t
+> > >> just to store the list of modifiers.
+> > >
+> > > Maximum compatibility is not required nor expected.
+> > >
+> > > In your case, only 1 linear modifier would be added for that driver,
+> which is: [5 / 0 / 5 / 5 / 5]
+> > >
+> > > Then if, and only if, compatibility with other devices is desired, th=
+e
+> driver developer could look at drivers of those other devices and determi=
+ne
+> which other linear modifiers to add. Ideally it would be just 1, so there
+> would be a total of 2.
+> >
+> > Mali (actually two DRM drivers and sort of three Mesa drivers) can be
+> > paired with any one of 11 KMS drivers (really 12 given that one is a
+> > very independent subdriver), and something like 20 different codecs
+> > (at least 12 different vendors; I didn't bother counting the actual
+> > subdrivers which are all quite different). The VeriSilicon Hantro G2
+> > codec driver is shipped by five (that we know of) vendors who all have
+> > their own KMS drivers. One of those is in the Rockchip RK3588, which
+> > (don't ask me why) ships six different codec blocks, with three
+> > different drivers, from two different vendors - that's before you even
+> > get to things like the ISP and NPU which really need to be sharing
+> > buffers properly without copies.
+> >
+> > So yeah, working widely without having to encode specific knowledge
+> > everywhere isn't a nice-to-have, it's a hard baseline requirement.
+> >
+> > >> > DRM_FORMAT_MOD_LINEAR needs to go because it prevents apps from
+> detecting whether 2 devices have 0 compatible memory layouts, which is a
+> useful thing to know.
+> > >>
+> > >> I get the point, but again, we have the exact same problem today wit=
+h
+> > >> placement, i.e. some devices require buffers to be in or not be in
+> > >> VRAM or GTT or sysram for some uses, and some devices require physic=
+al
+> > >> contiguity. Solving that problem would require an additional 4 bits,
+> > >> which brings us to 2.3GB of modifiers per format with the current
+> > >> scheme. Not super viable.
+> > >
+> > > Userspace doesn't determine placement. The kernel memory management
+> can move buffers between heaps to accommodate sharing between devices as
+> needed. This is a problem in which userspace has no say.
+> >
+> > It really does though!
+> >
+> > None of these devices use TTM with placement moves, and doing that
+> > isn't a fix either. Embedded systems have so low memory bandwidth that
+> > the difference between choosing the wrong placement and moving it
+> > later vs. having the right placement to begin with is the difference
+> > between 'this does not work' and 'great, I can ship this'. Which is
+> > great if you're a consultancy trying to get paid, but tbh I'd rather
+> > work on more interesting things.
+> >
+> > So yeah, userspace does very much choose the placement. On most
+> > drivers, this is either by 'knowing' which device to allocate from, or
+> > passing a flag to your allocation ioctl. For newer drivers though,
+> > there's the dma-heap allocation mechanism which is now upstream and
+> > the blessed path, for which userspace needs to explicitly know the
+> > desired placement (and must, because fixing it up later is a
+> > non-starter).
+> >
+> > Given that we need to keep LINEAR ~forever for ABI reasons, and
+> > because there's no reasonably workable alternative, let's abandon the
+> > idea of abandoning LINEAR, and try to work with out-of-band signalling
+> > instead.
+> >
+> > One idea is to actually pursue the allocator idea and express this
+> > properly through constraints. I'd be super in favour of this,
+> > unsurprisingly, because it allows us to solve a whole pile of other
+> > problems, rather than the extremely narrow AMD/Intel interop case.
+> >
+> > Another idea for the out-of-band signalling would be to add
+> > information-only modifiers, like
+> > DRM_FORMAT_MOD_LINEAR_PITCH_ALIGN_EQ(256), or
+> > DRM_FORMAT_MOD_LINEAR_PITCH_ALIGN_GE(32). But then that doesn't really
+> > work at all with how people actually use modifiers: as the doc
+> > describes, userspace takes and intersects the declared modifier lists
+> > and passes the result through. The intersection of LINEAR+EQ256 and
+> > LINEAR+GE32 is LINEAR, so a userspace that follows the rules will just
+> > drop the hints on the floor and pick whatever linear allocation it
+> > feels like.
+>
+> Yeah I think latest when we also take into account logical image size (no=
+t
+> just pitch) with stuff like it needs to be aligned to 2 pixels in both
+> directions just using modifiers falls apart.
+>
+> And the problem with linear, unlike device modifiers is that we can't jus=
+t
+> throw up our hands and enumerate the handful of formats in actual use for
+> interop. There's so many produces and consumers of linera buffers
+> (Daniel's list above missed camera/image processors) that save assumption
+> is that anything really can happen.
+>
+> > I think I've just talked myself into the position that passing
+> > allocator constraints together with modifiers is the only way to
+> > actually solve this problem, at least without creating the sort of
+> > technical debt that meant we spent years fixing up implicit/explicit
+> > modifier interactions when it really should've just been adding a
+> > !)@*(#$ u64 next to the u32.
+>
+> Yeah probably.
+>
+> Otoh I know inertia, so I am tempted to go with the oddball
+> LINEAR_VEDNOR_A_VENDOR_B_INTEROP thing and stretch the runway for a bit.
+> And we just assign those as we go as a very special thing, and the driver=
+s
+> that support it would prefer it above just LINEAR if there's no other
+> common format left.
+>
+> Also makes it really obvious what all userspace/kernel driver enabling
+> would be needed to justify such a modifier.
+> -Sima
+>
+> >
+> > Cheers,
+> > Daniel
+>
+> --
+> Simona Vetter
+> Software Engineer, Intel Corporation
+> http://blog.ffwll.ch
+>
+
+--0000000000009066f8062bf1eb7f
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>If <span class=3D"gmail-im">DRM_FORMAT_MOD_LINEAR sta=
+ys, then most of this discussion is irrelevant. If you don&#39;t like the n=
+ew linear modifiers, don&#39;t use them. If that&#39;s you, bye.</span></di=
+v><div><span class=3D"gmail-im"><br></span></div><div><span class=3D"gmail-=
+im">For the rest, there are multiple solutions:</span></div><div><span clas=
+s=3D"gmail-im"><br></span></div><div><span class=3D"gmail-im">1) New vendor=
+-agnostic linear modifiers. The reason why we would want them is that they =
+define robust functions for </span><span class=3D"gmail-im">(x,y,w)-&gt;add=
+ress, (w,h)-&gt;size, and alignment. All 2^32 (roughly) AMD modifiers have =
+such functions in Mesa (really).</span><span class=3D"gmail-im"> Linear mod=
+ifiers would work in the same way.<br></span></div><div><span class=3D"gmai=
+l-im"><br></span></div><div><span class=3D"gmail-im">2) New cross-vendor mo=
+difier defining 1 layout for the existing case.=C2=A0</span><span class=3D"=
+gmail-im">This is not less effort than 1). It&#39;s just a different #defin=
+e, but limited to only 1 case.</span><span class=3D"gmail-im"> Why bother. =
+Is it really worth debating so much whether #define should have 0 parameter=
+s instead of 5? If nobody else uses 1), so what?<br></span></div><div><span=
+ class=3D"gmail-im"><br></span></div><div><span class=3D"gmail-im">3) Imple=
+menting </span><span class=3D"gmail-im">DRM_FORMAT_MOD_LINEAR as having 256=
+B pitch and offset alignment. This is what we do today. Even if Intel and s=
+ome AMD chips can do 64B or 128B alignment, they overalign to 256B. </span>=
+<span class=3D"gmail-im">With so many AMD+NV laptops out there, NV is proba=
+bly next, unless they already do this in the closed source driver.</span></=
+div><div><span class=3D"gmail-im"><br></span></div><div><span class=3D"gmai=
+l-im">Marek<br></span></div><div><span class=3D"gmail-im"></span></div></di=
+v><br><div class=3D"gmail_quote gmail_quote_container"><div dir=3D"ltr" cla=
+ss=3D"gmail_attr">On Fri, Jan 17, 2025 at 9:18=E2=80=AFAM Simona Vetter &lt=
+;<a href=3D"mailto:simona.vetter@ffwll.ch">simona.vetter@ffwll.ch</a>&gt; w=
+rote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0p=
+x 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">On Wed, Ja=
+n 15, 2025 at 12:20:07PM +0000, Daniel Stone wrote:<br>
+&gt; On Wed, 15 Jan 2025 at 04:05, Marek Ol=C5=A1=C3=A1k &lt;<a href=3D"mai=
+lto:maraeo@gmail.com" target=3D"_blank">maraeo@gmail.com</a>&gt; wrote:<br>
+&gt; &gt; On Tue, Jan 14, 2025 at 12:58=E2=80=AFPM Daniel Stone &lt;<a href=
+=3D"mailto:daniel@fooishbar.org" target=3D"_blank">daniel@fooishbar.org</a>=
+&gt; wrote:<br>
+&gt; &gt;&gt; AMD hardware is the only hardware I know of which doesn&#39;t=
+ support<br>
+&gt; &gt;&gt; overaligning. Say (not hypothetically) we have a GPU and a di=
+splay<br>
+&gt; &gt;&gt; controller which have a minimum pitch alignment of 32 bytes, =
+no<br>
+&gt; &gt;&gt; minimum height alignment, minimum 32-byte offset alignment, m=
+inimum<br>
+&gt; &gt;&gt; pitch of 32 bytes, and minimum image size of 32 bytes.<br>
+&gt; &gt;&gt;<br>
+&gt; &gt;&gt; To be maximally compatible, we&#39;d have to expose 28 (pitch=
+ align) * 32<br>
+&gt; &gt;&gt; (height align) * 28 (offset align) * 28 (min pitch) * 28 (min=
+ size) =3D=3D<br>
+&gt; &gt;&gt; 19668992 individual modifiers when queried, which is 150MB pe=
+r format<br>
+&gt; &gt;&gt; just to store the list of modifiers.<br>
+&gt; &gt;<br>
+&gt; &gt; Maximum compatibility is not required nor expected.<br>
+&gt; &gt;<br>
+&gt; &gt; In your case, only 1 linear modifier would be added for that driv=
+er, which is: [5 / 0 / 5 / 5 / 5]<br>
+&gt; &gt;<br>
+&gt; &gt; Then if, and only if, compatibility with other devices is desired=
+, the driver developer could look at drivers of those other devices and det=
+ermine which other linear modifiers to add. Ideally it would be just 1, so =
+there would be a total of 2.<br>
+&gt; <br>
+&gt; Mali (actually two DRM drivers and sort of three Mesa drivers) can be<=
+br>
+&gt; paired with any one of 11 KMS drivers (really 12 given that one is a<b=
+r>
+&gt; very independent subdriver), and something like 20 different codecs<br=
+>
+&gt; (at least 12 different vendors; I didn&#39;t bother counting the actua=
+l<br>
+&gt; subdrivers which are all quite different). The VeriSilicon Hantro G2<b=
+r>
+&gt; codec driver is shipped by five (that we know of) vendors who all have=
+<br>
+&gt; their own KMS drivers. One of those is in the Rockchip RK3588, which<b=
+r>
+&gt; (don&#39;t ask me why) ships six different codec blocks, with three<br=
+>
+&gt; different drivers, from two different vendors - that&#39;s before you =
+even<br>
+&gt; get to things like the ISP and NPU which really need to be sharing<br>
+&gt; buffers properly without copies.<br>
+&gt; <br>
+&gt; So yeah, working widely without having to encode specific knowledge<br=
+>
+&gt; everywhere isn&#39;t a nice-to-have, it&#39;s a hard baseline requirem=
+ent.<br>
+&gt; <br>
+&gt; &gt;&gt; &gt; DRM_FORMAT_MOD_LINEAR needs to go because it prevents ap=
+ps from detecting whether 2 devices have 0 compatible memory layouts, which=
+ is a useful thing to know.<br>
+&gt; &gt;&gt;<br>
+&gt; &gt;&gt; I get the point, but again, we have the exact same problem to=
+day with<br>
+&gt; &gt;&gt; placement, i.e. some devices require buffers to be in or not =
+be in<br>
+&gt; &gt;&gt; VRAM or GTT or sysram for some uses, and some devices require=
+ physical<br>
+&gt; &gt;&gt; contiguity. Solving that problem would require an additional =
+4 bits,<br>
+&gt; &gt;&gt; which brings us to 2.3GB of modifiers per format with the cur=
+rent<br>
+&gt; &gt;&gt; scheme. Not super viable.<br>
+&gt; &gt;<br>
+&gt; &gt; Userspace doesn&#39;t determine placement. The kernel memory mana=
+gement can move buffers between heaps to accommodate sharing between device=
+s as needed. This is a problem in which userspace has no say.<br>
+&gt; <br>
+&gt; It really does though!<br>
+&gt; <br>
+&gt; None of these devices use TTM with placement moves, and doing that<br>
+&gt; isn&#39;t a fix either. Embedded systems have so low memory bandwidth =
+that<br>
+&gt; the difference between choosing the wrong placement and moving it<br>
+&gt; later vs. having the right placement to begin with is the difference<b=
+r>
+&gt; between &#39;this does not work&#39; and &#39;great, I can ship this&#=
+39;. Which is<br>
+&gt; great if you&#39;re a consultancy trying to get paid, but tbh I&#39;d =
+rather<br>
+&gt; work on more interesting things.<br>
+&gt; <br>
+&gt; So yeah, userspace does very much choose the placement. On most<br>
+&gt; drivers, this is either by &#39;knowing&#39; which device to allocate =
+from, or<br>
+&gt; passing a flag to your allocation ioctl. For newer drivers though,<br>
+&gt; there&#39;s the dma-heap allocation mechanism which is now upstream an=
+d<br>
+&gt; the blessed path, for which userspace needs to explicitly know the<br>
+&gt; desired placement (and must, because fixing it up later is a<br>
+&gt; non-starter).<br>
+&gt; <br>
+&gt; Given that we need to keep LINEAR ~forever for ABI reasons, and<br>
+&gt; because there&#39;s no reasonably workable alternative, let&#39;s aban=
+don the<br>
+&gt; idea of abandoning LINEAR, and try to work with out-of-band signalling=
+<br>
+&gt; instead.<br>
+&gt; <br>
+&gt; One idea is to actually pursue the allocator idea and express this<br>
+&gt; properly through constraints. I&#39;d be super in favour of this,<br>
+&gt; unsurprisingly, because it allows us to solve a whole pile of other<br=
+>
+&gt; problems, rather than the extremely narrow AMD/Intel interop case.<br>
+&gt; <br>
+&gt; Another idea for the out-of-band signalling would be to add<br>
+&gt; information-only modifiers, like<br>
+&gt; DRM_FORMAT_MOD_LINEAR_PITCH_ALIGN_EQ(256), or<br>
+&gt; DRM_FORMAT_MOD_LINEAR_PITCH_ALIGN_GE(32). But then that doesn&#39;t re=
+ally<br>
+&gt; work at all with how people actually use modifiers: as the doc<br>
+&gt; describes, userspace takes and intersects the declared modifier lists<=
+br>
+&gt; and passes the result through. The intersection of LINEAR+EQ256 and<br=
+>
+&gt; LINEAR+GE32 is LINEAR, so a userspace that follows the rules will just=
+<br>
+&gt; drop the hints on the floor and pick whatever linear allocation it<br>
+&gt; feels like.<br>
+<br>
+Yeah I think latest when we also take into account logical image size (not<=
+br>
+just pitch) with stuff like it needs to be aligned to 2 pixels in both<br>
+directions just using modifiers falls apart.<br>
+<br>
+And the problem with linear, unlike device modifiers is that we can&#39;t j=
+ust<br>
+throw up our hands and enumerate the handful of formats in actual use for<b=
+r>
+interop. There&#39;s so many produces and consumers of linera buffers<br>
+(Daniel&#39;s list above missed camera/image processors) that save assumpti=
+on<br>
+is that anything really can happen.<br>
+<br>
+&gt; I think I&#39;ve just talked myself into the position that passing<br>
+&gt; allocator constraints together with modifiers is the only way to<br>
+&gt; actually solve this problem, at least without creating the sort of<br>
+&gt; technical debt that meant we spent years fixing up implicit/explicit<b=
+r>
+&gt; modifier interactions when it really should&#39;ve just been adding a<=
+br>
+&gt; !)@*(#$ u64 next to the u32.<br>
+<br>
+Yeah probably.<br>
+<br>
+Otoh I know inertia, so I am tempted to go with the oddball<br>
+LINEAR_VEDNOR_A_VENDOR_B_INTEROP thing and stretch the runway for a bit.<br=
+>
+And we just assign those as we go as a very special thing, and the drivers<=
+br>
+that support it would prefer it above just LINEAR if there&#39;s no other<b=
+r>
+common format left.<br>
+<br>
+Also makes it really obvious what all userspace/kernel driver enabling<br>
+would be needed to justify such a modifier.<br>
+-Sima<br>
+<br>
+&gt; <br>
+&gt; Cheers,<br>
+&gt; Daniel<br>
+<br>
+-- <br>
+Simona Vetter<br>
+Software Engineer, Intel Corporation<br>
+<a href=3D"http://blog.ffwll.ch" rel=3D"noreferrer" target=3D"_blank">http:=
+//blog.ffwll.ch</a><br>
+</blockquote></div>
+
+--0000000000009066f8062bf1eb7f--
