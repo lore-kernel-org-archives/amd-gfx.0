@@ -4,51 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30A18C02185
-	for <amd-gfx@archiver.kernel.org>; Sat, 18 Jan 2025 11:26:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA60FC02185
+	for <amd-gfx@archiver.kernel.org>; Sat, 18 Jan 2025 13:55:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B337510E0E5;
-	Sat, 18 Jan 2025 11:26:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6CF4A10E009;
+	Sat, 18 Jan 2025 13:55:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=dorfdsl.de header.i=@dorfdsl.de header.b="uOoTHB0t";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=emersion.fr header.i=@emersion.fr header.b="I5uFrabS";
 	dkim-atps=neutral
-Received: from srv1.dorfdsl.de (srv1.dorfdsl.de [82.139.196.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE34010E0E5
- for <amd-gfx@lists.freedesktop.org>; Sat, 18 Jan 2025 11:26:18 +0000 (UTC)
-Authentication-Results: srv1; none (SPF check N/A for local connections 
- -  client-ip=2a01:170:118f:5:fc78:1220:436c:5e3e; 
- helo=[IPv6:2a01:170:118f:5:fc78:1220:436c:5e3e]; 
- envelope-from=mm@dorfdsl.de; receiver=<UNKNOWN>)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=dorfdsl.de;
- s=default; t=1737199456;
- bh=ANmS9tzUiBKaQOTRNN+4G3GdWwf3O2yOXb7AN4h+v+Q=;
- h=Date:From:To:Subject:In-Reply-To:References:From;
- b=uOoTHB0tu+C2gpkEfSE+fNu9nBx0W7h+02FVR0eOr0VgUw1rUpl77HhDdIGs7YH1G
- 9183gVo4iksovFkTnW8U6M1A3gSGqeTbT9kY/HIr2w35rJtfGX301YpyWPh+7UmNmR
- zPLeugDvKdcvcZh4h1DDJuzaz749lGBfU10m5GuPBECODDhV9qR3QAc+r/BN8IH8wK
- IRZ6R8k3zMVwWjd9ynF6K8xiI0QTnfTsI6F1zRa5CMNwLrUGyUE1EIyfpi07G8A3Gc
- B81Z5Rk3b2li8wlaFQkoN0Z1KgUv6fiaLejLpzn3SHx1kSxCBqooJZPSuyns22hUYt
- ZkgM9JKoGdZLA==
-Received: from zbook ([IPv6:2a01:170:118f:5:fc78:1220:436c:5e3e])
- (authenticated bits=0)
- by srv1.dorfdsl.de (8.18.1/8.18.1/Debian-6~bpo12+1) with ESMTPSA id
- 50IBOGMN268735
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT)
- for <amd-gfx@lists.freedesktop.org>; Sat, 18 Jan 2025 12:24:16 +0100
-Date: Sat, 18 Jan 2025 12:24:15 +0100
-From: Marco Moock <mm@dorfdsl.de>
-To: amd-gfx@lists.freedesktop.org
-Subject: Re: amdgpu 100% CPU usage causing freeze 1002:15d8
-Message-ID: <20250118122415.7c4d9091@zbook>
-In-Reply-To: <20250115211039.09e6e69e@zbook>
-References: <20250114213157.19de9009@ryz.dorfdsl.de>
- <CADnq5_MFq-OWn7dwTTPPcBbFKQmBHvD6qCi8ngiVumk2V1U40g@mail.gmail.com>
- <20250115160834.033e8aad@ryz.dorfdsl.de>
- <20250115211039.09e6e69e@zbook>
-X-Mailer: Claws Mail 4.3.0 (GTK 3.24.43; x86_64-redhat-linux-gnu)
+Received: from mail-4022.proton.ch (mail-4022.proton.ch [185.70.40.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 471D910E009;
+ Sat, 18 Jan 2025 13:55:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
+ s=protonmail2; t=1737208501; x=1737467701;
+ bh=YMqEqzZb4emZ/EHHBC69A4yNYzWStBugARDgfFqiDbc=;
+ h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+ Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+ Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
+ b=I5uFrabSpyue1dQl0heu545NUym4XVXzSIpAxtv1LUsWtAKErb9Lq0OpBDEjbhnmY
+ 7QcA1kYiMvdrtpvBZGf0EJN9VNS+5Zf+v2Eqm01sN4yZdVtBC5hWs0R+yJ049wgQ3T
+ Mg+loE5yKWmJwLUJAvOmdhhKmerTFCI+grikiod07t3QzDbJOgmtOKW4E37BqD5lSY
+ Q5LOA0DHA1iKbdEDCy9xb074RMP8zaPcezfL+1bmeIdO3SjxXn1qAeuT481mXRIcRD
+ ZkfVFqLPgCj5uxOGVZWebgF2SDTQmvpXadxVYaAysdkpOd4ogPYrQoZwb3oA72XHBP
+ CG/dXDfSaynDg==
+Date: Sat, 18 Jan 2025 13:54:57 +0000
+To: Alex Hung <alex.hung@amd.com>
+From: Simon Ser <contact@emersion.fr>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ wayland-devel@lists.freedesktop.org, harry.wentland@amd.com
+Subject: Re: [V7 33/45] drm/colorop: Add 1D Curve Custom LUT type
+Message-ID: <fChzDU1JCPpRINsR2fDGg7EzolmLIrbkAGTUV9tpdwsC7OT9JnlT0ar23K1tMYLX_91yHHXXw2nFYaT-EbC9EAVnhrDcaNS4z22cKT5kuFA=@emersion.fr>
+In-Reply-To: <4d13fddf-d3d1-4e94-b736-e240a4ba8658@amd.com>
+References: <20241220043410.416867-1-alex.hung@amd.com>
+ <20241220043410.416867-34-alex.hung@amd.com>
+ <bEQfY8v5JGKxFSuZE_Sx7wUPe4j7WtdrnKcY13WAyoMEA9vtUrCkyZoYUcFyPILmVZGW2Y8pOSk9hyhlp_Y0Stxx32osdADBMbpwJjBRPh8=@emersion.fr>
+ <4d13fddf-d3d1-4e94-b736-e240a4ba8658@amd.com>
+Feedback-ID: 1358184:user:proton
+X-Pm-Message-ID: 53a2afcd7ea79a0aee1fb64f76bc2feddf1bada4
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,19 +58,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am Wed, 15 Jan 2025 21:10:39 +0100
-schrieb Marco Moock <mm@dorfdsl.de>:
+On Friday, January 17th, 2025 at 00:33, Alex Hung <alex.hung@amd.com> wrote=
+:
 
-> Am Wed, 15 Jan 2025 16:08:34 +0100
-> schrieb Marco Moock <mm@dorfdsl.de>:
-> 
-> > I assume it was 6.12.6, but Debian doesn't have the old packages
-> > anymore and it has been purged from my system already.  
-> 
-> I've now tried 6.12.6, same situation.
-> 
-> Any further ideas what could cause this?
+> On 1/15/25 01:14, Simon Ser wrote:
+> >> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_a=
+tomic_uapi.c
+> >> index a3e1fcad47ad..4744c12e429d 100644
+> >> --- a/drivers/gpu/drm/drm_atomic_uapi.c
+> >> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
+> >> @@ -701,6 +701,9 @@ static int drm_atomic_color_set_data_property(stru=
+ct drm_colorop *colorop,
+> >>   =09bool replaced =3D false;
+> >>
+> >>   =09switch (colorop->type) {
+> >> +=09case DRM_COLOROP_1D_LUT:
+> >> +=09=09size =3D colorop->lut_size * sizeof(struct drm_color_lut);
+> >
+> > Should we set the element size and the number of elements instead of
+> > multiplying? Or is that only useful when either of these are controlled=
+ by
+> > user-space to avoid integer overflows?
+>=20
+> This multiplication here is to calculate the total size for the data blob=
+.
+>=20
+> The user-space communicates the lut_size (which is read-only) without
+> multiplying sizeof(drm_color_lut) in drm_atomic_colorop_get_property, i.e=
+.,
+>=20
+> +=09} else if (property =3D=3D colorop->lut_size_property) {
+> +=09=09*val =3D colorop->lut_size;
+>=20
+> Is this what you meant?
 
-I've now tried 6.12.5, same problem.
-I noticed that it often happens when I play videos or do video
-conferences in the browser.
+I mean that drm_property_replace_blob_from_id() takes two parameters:
+expected_size and expected_elem_size.
+
+But it seems expected_elem_size is just used for checking whether the size =
+of
+the blob set by user-space is divisible by the element size, and nothing mo=
+re.
+In particular, drm_property_replace_blob_from_id() doesn't internally multi=
+ply
+expected_size and expected_elem_size to check the total size when both of t=
+hese
+parameters are provided. In other words, it's useless to provide both
+expected_size and expected_elem_size.
+
+tl;dr my comment can be ignored.
+
+> >> diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_color=
+op.c
+> >> index 665b23900cc0..e6dea2713490 100644
+> >> --- a/drivers/gpu/drm/drm_colorop.c
+> >> +++ b/drivers/gpu/drm/drm_colorop.c
+> >> @@ -64,6 +64,7 @@
+> >>
+> >>   static const struct drm_prop_enum_list drm_colorop_type_enum_list[] =
+=3D {
+> >>   =09{ DRM_COLOROP_1D_CURVE, "1D Curve" },
+> >> +=09{ DRM_COLOROP_1D_LUT, "1D Curve Custom LUT" },
+> >
+> > Since we now have both a "normal" 1D curve, and a "special" one=
+=E2=80=A6 Would it make
+> > sense to change our minds regarding the naming of the former? For insta=
+nce, we
+> > could rename it to DRM_COLOROP_FIXED_1D_CURVE. Or is the current name c=
+lear
+> > enough (and only the human-readable name can be switched to "1D Fixed C=
+urve")?
+>=20
+> How about keeping "1D Curve" and simplifying "1D Curve Custom LUT" to
+> "1D LUT" such as the following?
+
+Yeah, that sounds good to me!
