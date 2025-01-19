@@ -4,149 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B62CFC02188
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jan 2025 07:58:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28A77C02185
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jan 2025 08:46:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E687810E362;
-	Mon, 20 Jan 2025 07:58:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB07110E36B;
+	Mon, 20 Jan 2025 08:46:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="pDyznBWq";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="9niHqFSd";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="pDyznBWq";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="9niHqFSd";
+	dkim=pass (1024-bit key; unprotected) header.d=noa-labs.com header.i=@noa-labs.com header.b="nOe1glFI";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B043810E356;
- Mon, 20 Jan 2025 07:58:23 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id ADB521F79F;
- Mon, 20 Jan 2025 07:58:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1737359900; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=9NkoZJk2FXErj69xLFgw3HCJyuWx0aNFkntqUIqR1Ww=;
- b=pDyznBWqmJDHovX7lCRWcbqiXqg8HRo4Hv8Rtpt+D1FjlqFqCudMOkGn6v778Axguq6h4x
- vHLVahuGokKhKuAJY0IpoLTktscQ29njLUfBpVmWa0z5fODgmW7qFKEICJ5Dxg+wx9WKMs
- 9qumQvhjyqYxMRPMQ20vrsiTLn9krhY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1737359900;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=9NkoZJk2FXErj69xLFgw3HCJyuWx0aNFkntqUIqR1Ww=;
- b=9niHqFSdAN0eSFbePvFfUYmF7OrTPVZAHYNLZ7S0kjTSgFVqkhpIT36aSrlXqKieMp0TzA
- RhVE/lObVmcTR5CQ==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=pDyznBWq;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=9niHqFSd
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1737359900; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=9NkoZJk2FXErj69xLFgw3HCJyuWx0aNFkntqUIqR1Ww=;
- b=pDyznBWqmJDHovX7lCRWcbqiXqg8HRo4Hv8Rtpt+D1FjlqFqCudMOkGn6v778Axguq6h4x
- vHLVahuGokKhKuAJY0IpoLTktscQ29njLUfBpVmWa0z5fODgmW7qFKEICJ5Dxg+wx9WKMs
- 9qumQvhjyqYxMRPMQ20vrsiTLn9krhY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1737359900;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=9NkoZJk2FXErj69xLFgw3HCJyuWx0aNFkntqUIqR1Ww=;
- b=9niHqFSdAN0eSFbePvFfUYmF7OrTPVZAHYNLZ7S0kjTSgFVqkhpIT36aSrlXqKieMp0TzA
- RhVE/lObVmcTR5CQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 65642139CB;
- Mon, 20 Jan 2025 07:58:20 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 4KduFxwCjmdHEgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 20 Jan 2025 07:58:20 +0000
-Message-ID: <0e9aee49-aa69-4fb6-bab8-4624143f5267@suse.de>
-Date: Mon, 20 Jan 2025 08:58:20 +0100
+Received: from mail-oo1-xc2b.google.com (mail-oo1-xc2b.google.com
+ [IPv6:2607:f8b0:4864:20::c2b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6C2A10E103
+ for <amd-gfx@lists.freedesktop.org>; Sun, 19 Jan 2025 13:53:32 +0000 (UTC)
+Received: by mail-oo1-xc2b.google.com with SMTP id
+ 006d021491bc7-5f2e31139d9so1631506eaf.0
+ for <amd-gfx@lists.freedesktop.org>; Sun, 19 Jan 2025 05:53:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=noa-labs.com; s=google; t=1737294812; x=1737899612;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=SUjuFJLKy70JiVPZF76Avmg4XWgc8QZMGWJrLXoKepE=;
+ b=nOe1glFI5Pu5nJIyYEqYR238+I3EYCdFE6uoqubQI8srtnUjFPIS4h6KSQflUyP6bC
+ CJhs2NQ7CjvzCphwYH8BryhtK9v5Tt4CgvNWKt4ep0F9Po1KxWBkLt7PCy7NaB9atjHQ
+ JNUaf5ry+5U1GCsgHvy2+Jmp7eNTdF/gujJZk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1737294812; x=1737899612;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=SUjuFJLKy70JiVPZF76Avmg4XWgc8QZMGWJrLXoKepE=;
+ b=VtxlR/tlvMw1u0d/BFrKwiRlFR3b7OFjib2qMbq/SbaVP0e1zjHjw+e5yNiZ4EwghC
+ ccE/VZLMO7Fk7GhI1kARN3XgwIH1Z1DKe+1JwxkIjGX3zP++H1y+7ahhcjo6UxUP1qcz
+ 1ErFmp7bC7LRKc4lj0zeAqXz8XyxjdbqITKVhK85Zwu/RM5cbTIbZJk3IhwYVxMQlq15
+ Znbi5qqzv5gmIgrbH8mbJvi3Yztsed3MB28+FKumdVaVuHTmiVpvn9NrehIWzKwINXTG
+ BN+iHNgICDCY88vr6oykjYeA+g+iGSTopA/2/1dTonHzNvErpl+2rbc4sUz4Taeq43He
+ JfEw==
+X-Gm-Message-State: AOJu0YzHfAKNhJ6w6R2vDXFfUV6EOEFzXNwid9EnC/phOs+ny6X9hIgt
+ sAzSp52G0cVd5APhhw1w0WDhIWmuMhXlBTthXQyx46Mes1ZLopnb8K8QaQvwCrtURatgITTtnkA
+ nf4pe6iyY1zyb0L8qkXsyLXKUvcOOrmZ22FIGlA==
+X-Gm-Gg: ASbGncvVPVcblYKkAnZpWRO0viOxVf+u092oPI1bTV2lYmNKCvwV6VT0/i+iSLl+/lF
+ /E7h4qCcBgqAuxPYiU7G3htPLHNUOn8QibOVD621GlZGwEExN+GvyxH4c5BV4FnJDb7RiWTVqgz
+ StVW+E1mya
+X-Google-Smtp-Source: AGHT+IFtvtyywoLX2q7eM+43vLCy4/VwkBf8cKIWf3xoSxKgUK05HOfQqW9cxGA5P0A5Yg5EFQSrZ6C2Z1nJPt6YClQ=
+X-Received: by 2002:a05:6870:794:b0:297:26a9:32ef with SMTP id
+ 586e51a60fabf-2b1c0cd175amr5507076fac.33.1737294811781; Sun, 19 Jan 2025
+ 05:53:31 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/fourcc: add LINEAR modifiers with an exact pitch
- alignment
-To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>,
- Simona Vetter <simona.vetter@ffwll.ch>
-Cc: Daniel Stone <daniel@fooishbar.org>, James Jones <jajones@nvidia.com>,
- Brian Starkey <brian.starkey@arm.com>,
- =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
- ML Mesa-dev <mesa-dev@lists.freedesktop.org>, nd@arm.com,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
-References: <8dae97c9-9286-451a-8122-b309eb21b2f4@mailbox.org>
- <Z2Ki-lQH4Fbch6RO@phenom.ffwll.local>
- <q45c43j5kwwvemec7mcs4kqzt54pa3nz3jlhkcky2v63s2vfie@him4q253uw4p>
- <CAPj87rMFJ0JRvsKqZUsw_EGrFWr1VLO4Ne2w_bZ5cH+gs_d=og@mail.gmail.com>
- <Z2Rf7mpSuzZ0ObmT@phenom.ffwll.local>
- <07d08a42-c44a-477e-8057-721b270310cf@nvidia.com>
- <CAAxE2A6N0xtgZmzTR9FXMN79xxy3T8zfhh1sz73h1h8=0ycJ2g@mail.gmail.com>
- <CAPj87rP4r4q-wBx1dHsEkZ7=S2c2XsbA1Pz4Skw1ETt_2yD2Ag@mail.gmail.com>
- <CAAxE2A6ghBK2VTLkNXgk1c61UG1ZQAzWQ4q=wO-OShAUC9eRmQ@mail.gmail.com>
- <CAPj87rNFy7GLAjjxDYGLN-f8M0F7yMX6PED94O4kBJ=pwtPVyA@mail.gmail.com>
- <Z4pmnTy1NYD3rLwS@phenom.ffwll.local>
- <CAAxE2A6iDsN=YKW2F7WyyZxn4Sw4Dr5CxZminQGwf8awBivovQ@mail.gmail.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <CAAxE2A6iDsN=YKW2F7WyyZxn4Sw4Dr5CxZminQGwf8awBivovQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: ADB521F79F
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- MIME_GOOD(-0.10)[text/plain]; MX_GOOD(-0.01)[];
- RCPT_COUNT_SEVEN(0.00)[11];
- FREEMAIL_TO(0.00)[gmail.com,ffwll.ch];
- RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
- ARC_NA(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; TO_DN_SOME(0.00)[];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- FUZZY_BLOCKED(0.00)[rspamd.com]; RCVD_TLS_ALL(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
+References: <CAG-pW8H7WOi7JiN5zHdCo2MX3w0c8yEuJ=SFGV+BPbFuBK0Spg@mail.gmail.com>
+ <CADnq5_Pj0NLqwiooxyXULERo8YQTh1TN76FVnM9MZt3FCMFSwg@mail.gmail.com>
+In-Reply-To: <CADnq5_Pj0NLqwiooxyXULERo8YQTh1TN76FVnM9MZt3FCMFSwg@mail.gmail.com>
+From: Pavel Nikulin <pavel@noa-labs.com>
+Date: Sun, 19 Jan 2025 17:53:22 +0400
+X-Gm-Features: AbW1kvZk9HYDFXD9cQeC1hnfKn44hgeybWoMkTCNaiTOLjiBNrlrgrcxTMDrY90
+Message-ID: <CAG-pW8GaL+JSGSmu-G3qbskPoHe=iU4usMP293RB7gr5VVbUQg@mail.gmail.com>
+Subject: Re: drm/amdgpu: AMDGPU unusable since 6.12.1 and it looks like no one
+ cares.
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Mon, 20 Jan 2025 08:46:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,197 +80,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi
-
-
-Am 18.01.25 um 03:37 schrieb Marek Olšák:
-[...]
->
-> 3) Implementing DRM_FORMAT_MOD_LINEAR as having 256B pitch and offset 
-> alignment. This is what we do today. Even if Intel and some AMD chips 
-> can do 64B or 128B alignment, they overalign to 256B. With so many 
-> AMD+NV laptops out there, NV is probably next, unless they already do 
-> this in the closed source driver.
-
-The dumb-buffer series currently being discussed on dri-devel also 
-touches handling of scanline pitches. THe actual value varies with each 
-driver.  Should dumb buffers use a default pitch alignment of 256 on al 
-hardware?
-
-Best regards
-Thomas
-
->
-> Marek
->
-> On Fri, Jan 17, 2025 at 9:18 AM Simona Vetter <simona.vetter@ffwll.ch> 
+On Fri, Jan 17, 2025 at 6:08=E2=80=AFPM Alex Deucher <alexdeucher@gmail.com=
 > wrote:
 >
->     On Wed, Jan 15, 2025 at 12:20:07PM +0000, Daniel Stone wrote:
->     > On Wed, 15 Jan 2025 at 04:05, Marek Olšák <maraeo@gmail.com> wrote:
->     > > On Tue, Jan 14, 2025 at 12:58 PM Daniel Stone
->     <daniel@fooishbar.org> wrote:
->     > >> AMD hardware is the only hardware I know of which doesn't support
->     > >> overaligning. Say (not hypothetically) we have a GPU and a
->     display
->     > >> controller which have a minimum pitch alignment of 32 bytes, no
->     > >> minimum height alignment, minimum 32-byte offset alignment,
->     minimum
->     > >> pitch of 32 bytes, and minimum image size of 32 bytes.
->     > >>
->     > >> To be maximally compatible, we'd have to expose 28 (pitch
->     align) * 32
->     > >> (height align) * 28 (offset align) * 28 (min pitch) * 28 (min
->     size) ==
->     > >> 19668992 individual modifiers when queried, which is 150MB
->     per format
->     > >> just to store the list of modifiers.
->     > >
->     > > Maximum compatibility is not required nor expected.
->     > >
->     > > In your case, only 1 linear modifier would be added for that
->     driver, which is: [5 / 0 / 5 / 5 / 5]
->     > >
->     > > Then if, and only if, compatibility with other devices is
->     desired, the driver developer could look at drivers of those other
->     devices and determine which other linear modifiers to add. Ideally
->     it would be just 1, so there would be a total of 2.
->     >
->     > Mali (actually two DRM drivers and sort of three Mesa drivers)
->     can be
->     > paired with any one of 11 KMS drivers (really 12 given that one is a
->     > very independent subdriver), and something like 20 different codecs
->     > (at least 12 different vendors; I didn't bother counting the actual
->     > subdrivers which are all quite different). The VeriSilicon Hantro G2
->     > codec driver is shipped by five (that we know of) vendors who
->     all have
->     > their own KMS drivers. One of those is in the Rockchip RK3588, which
->     > (don't ask me why) ships six different codec blocks, with three
->     > different drivers, from two different vendors - that's before
->     you even
->     > get to things like the ISP and NPU which really need to be sharing
->     > buffers properly without copies.
->     >
->     > So yeah, working widely without having to encode specific knowledge
->     > everywhere isn't a nice-to-have, it's a hard baseline requirement.
->     >
->     > >> > DRM_FORMAT_MOD_LINEAR needs to go because it prevents apps
->     from detecting whether 2 devices have 0 compatible memory layouts,
->     which is a useful thing to know.
->     > >>
->     > >> I get the point, but again, we have the exact same problem
->     today with
->     > >> placement, i.e. some devices require buffers to be in or not
->     be in
->     > >> VRAM or GTT or sysram for some uses, and some devices require
->     physical
->     > >> contiguity. Solving that problem would require an additional
->     4 bits,
->     > >> which brings us to 2.3GB of modifiers per format with the current
->     > >> scheme. Not super viable.
->     > >
->     > > Userspace doesn't determine placement. The kernel memory
->     management can move buffers between heaps to accommodate sharing
->     between devices as needed. This is a problem in which userspace
->     has no say.
->     >
->     > It really does though!
->     >
->     > None of these devices use TTM with placement moves, and doing that
->     > isn't a fix either. Embedded systems have so low memory
->     bandwidth that
->     > the difference between choosing the wrong placement and moving it
->     > later vs. having the right placement to begin with is the difference
->     > between 'this does not work' and 'great, I can ship this'. Which is
->     > great if you're a consultancy trying to get paid, but tbh I'd rather
->     > work on more interesting things.
->     >
->     > So yeah, userspace does very much choose the placement. On most
->     > drivers, this is either by 'knowing' which device to allocate
->     from, or
->     > passing a flag to your allocation ioctl. For newer drivers though,
->     > there's the dma-heap allocation mechanism which is now upstream and
->     > the blessed path, for which userspace needs to explicitly know the
->     > desired placement (and must, because fixing it up later is a
->     > non-starter).
->     >
->     > Given that we need to keep LINEAR ~forever for ABI reasons, and
->     > because there's no reasonably workable alternative, let's
->     abandon the
->     > idea of abandoning LINEAR, and try to work with out-of-band
->     signalling
->     > instead.
->     >
->     > One idea is to actually pursue the allocator idea and express this
->     > properly through constraints. I'd be super in favour of this,
->     > unsurprisingly, because it allows us to solve a whole pile of other
->     > problems, rather than the extremely narrow AMD/Intel interop case.
->     >
->     > Another idea for the out-of-band signalling would be to add
->     > information-only modifiers, like
->     > DRM_FORMAT_MOD_LINEAR_PITCH_ALIGN_EQ(256), or
->     > DRM_FORMAT_MOD_LINEAR_PITCH_ALIGN_GE(32). But then that doesn't
->     really
->     > work at all with how people actually use modifiers: as the doc
->     > describes, userspace takes and intersects the declared modifier
->     lists
->     > and passes the result through. The intersection of LINEAR+EQ256 and
->     > LINEAR+GE32 is LINEAR, so a userspace that follows the rules
->     will just
->     > drop the hints on the floor and pick whatever linear allocation it
->     > feels like.
+> On Fri, Jan 17, 2025 at 7:27=E2=80=AFAM Pavel Nikulin <pavel@noa-labs.com=
+> wrote:
+> >
+> > I think it persists as of 6.12.9 and today's firmware version from git.
+> >
+> > Hardware Asus um560.6
+> >
+> > It only happens when the AC adaptor is disconnected, and the screen
+> > refresh frequency is set to 120hz. It does not happen on any other
+> > refresh frequency, or when the charger is connected.
+> >
+> > It might be happening in Windows, but at much lower rate, like once in
+> > a month. The windows version might be applying some mitigations.
+> >
+> > Trying to catch what may be a prelude to hang never worked. It's just
+> > instahang, without panic, or anything. I cannot debug it without
+> > JTAGing the CPU, for which I have no equipment, nor am I sure if there
+> > are even JTAG headers exposed on the laptop motherboard.
 >
->     Yeah I think latest when we also take into account logical image
->     size (not
->     just pitch) with stuff like it needs to be aligned to 2 pixels in both
->     directions just using modifiers falls apart.
+> Please file a bug report and attach your dmesg output.
+> https://gitlab.freedesktop.org/drm/amd/-/issues
 >
->     And the problem with linear, unlike device modifiers is that we
->     can't just
->     throw up our hands and enumerate the handful of formats in actual
->     use for
->     interop. There's so many produces and consumers of linera buffers
->     (Daniel's list above missed camera/image processors) that save
->     assumption
->     is that anything really can happen.
->
->     > I think I've just talked myself into the position that passing
->     > allocator constraints together with modifiers is the only way to
->     > actually solve this problem, at least without creating the sort of
->     > technical debt that meant we spent years fixing up implicit/explicit
->     > modifier interactions when it really should've just been adding a
->     > !)@*(#$ u64 next to the u32.
->
->     Yeah probably.
->
->     Otoh I know inertia, so I am tempted to go with the oddball
->     LINEAR_VEDNOR_A_VENDOR_B_INTEROP thing and stretch the runway for
->     a bit.
->     And we just assign those as we go as a very special thing, and the
->     drivers
->     that support it would prefer it above just LINEAR if there's no other
->     common format left.
->
->     Also makes it really obvious what all userspace/kernel driver enabling
->     would be needed to justify such a modifier.
->     -Sima
->
->     >
->     > Cheers,
->     > Daniel
->
->     -- 
->     Simona Vetter
->     Software Engineer, Intel Corporation
->     http://blog.ffwll.ch
->
+> Alex
 
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstrasse 146, 90461 Nuernberg, Germany
-GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
-HRB 36809 (AG Nuernberg)
+Unfortunately, what I would have would be the same dmesg as anyone
+else, however I have made following observations:
 
+Disabling PSR with debug mask makes it stable.
+
+If I set the refresh frequency to 60Hz, the lpddr memory clocks wiggle
+around 600mHz, and keep going back and forth (spread spectrum
+working.)
+
+If I switch to any other frequency, they stay stably at 937mhz (spread
+spectrum stops working,) and hangs happen.
+
+If I disconnect antennas from the MT7925 WiFi module, the issues are
+gone (as well as the wifi connectivity.)
+
+If I RFKILL the mt7925, both wifi, and bluetooth, it may still hang.
+
+If I nevertheless try to connect by putting the open laptop right next
+to the access point, the laptop will hang.
+
+But if I only try to do the same with 2.4GHz bluetooth mouse, it will
+continue to work. If I connect to 2.4GHz wifi, it will still hang
+after a few minutes.
+
+If I use the RTL8156BG based type-C usb dongle, and disconnect the
+power. It works stable. If I keep the connection going on type-C
+dongle, but switch on wifi, and set it as a default route, everything
+works stable, regardless if I connect to 5GHz or 2.4GHz wifi.
+
+If I try to put grounding tape around DP cables, and around the wifi
+module, it did not do anything conclusively.
+
+If I try to manually set the GPU performance to high, it marginally
+improves the hanging rate.
+
+DP 2.0, and 2.1 works on 600MHz, 1.4 on 300MHz, 1.2 on 150MHz
+depending on link speed, which I can't measure
+
+So, here is what think may have happened during the transition from 6.11 to=
+ 6.12
+
+- Something PCIE related (ASPM, other PCIE frequency/power settings)
+- Something PSR related (PSR raises memory clock rate, disables spread spec=
+trum)
+- Something power related (undervoltage happens when type-C port, or
+power is not plugged in)
+- Something RF related (rendered less likely by it keeping working
+with type-C ethernet dongle plugged in, but not active)
+
+My guess it's an interplay in between PCIE, and PSR setting. Less
+likely, a hardware problem.
+
+I do remember, someone with a similar bug did dissect the breakage to
+a PCIE related commit.
+
+Do you want me to still put all of the above into a bug ticket on gitlab?
