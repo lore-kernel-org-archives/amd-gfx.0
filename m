@@ -4,50 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FDE9C02181
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jan 2025 17:18:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4EFA0C02181
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jan 2025 18:42:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3FFB510E069;
-	Mon, 20 Jan 2025 17:18:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC76210E0DA;
+	Mon, 20 Jan 2025 18:42:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="sNZUDvAW";
+	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="R08NqI5h";
 	dkim-atps=neutral
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99AE110E069;
- Mon, 20 Jan 2025 17:18:00 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 8DF875C5D59;
- Mon, 20 Jan 2025 17:17:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 283B4C4CEDD;
- Mon, 20 Jan 2025 17:17:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1737393479;
- bh=7UvFMIGMwdtuX5wHCGv0mAgnStO1x3T5gJDiuiDjDUQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=sNZUDvAW+aHPoDtC/vvBtroMWLKqxbDoaMkYlKPgoEaO8eHTvD/0jf8DLWgHQbGAM
- KuqKquXsI7N+hgtVYz4hjovE4vDyOM85k9mWUAUcLaO8RfP3e9UGP/IyohIZKXrSZO
- Si+MvjoX5DZnkTNRBe5UEtGdoPbPWJowBtYhLJMqfIlJWrzgDltHpk15W+hIK4BgMC
- rwMWvFXOALz1cSAZrvaT/tg8vcOEe6tJlqfHtvH4+CoLiqzyT5fIJ6UypDSFcYzXz8
- YjX0BPAltOlhJvkuwVlvzIEg0mVZWIeeIeSMKU6/wdXcSxiMkOKIOcIZr5EjwNRxqK
- eYf+NhdUZQgcg==
-Date: Mon, 20 Jan 2025 18:17:55 +0100
-From: Danilo Krummrich <dakr@kernel.org>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- kernel-dev@igalia.com,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Philipp Stanner <phasta@kernel.org>
-Subject: Re: [PATCH 3/4] drm/sched: Remove to_drm_sched_job internal helper
-Message-ID: <Z46FQw2swGX4yD5i@pollux>
-References: <20250120165240.9105-1-tvrtko.ursulin@igalia.com>
- <20250120165240.9105-4-tvrtko.ursulin@igalia.com>
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
+ [209.85.221.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0FF3D10E0DA
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jan 2025 18:42:41 +0000 (UTC)
+Received: by mail-wr1-f45.google.com with SMTP id
+ ffacd0b85a97d-385de59c1a0so2721120f8f.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jan 2025 10:42:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ffwll.ch; s=google; t=1737398499; x=1738003299; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=XmEaOieCAc7bMbdh+HUROx5/TtGv8pXLJhv3OilkQ6g=;
+ b=R08NqI5hoRFBeLGZ6fpyzgli3Hz9NMF0C2NG3YeSZjV1k3C1QhGINCX0Gtsh/Q6/fh
+ 0OBWqo6fO2T26Akce2PSLv8dxaNVrBS76MQ+r3i08piIoYh1kgF5r+fhlbbPNF0B/h8J
+ fHLeyX4gGHUoH18RZ86+C/xwL5F0hH0XgO39Y=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1737398499; x=1738003299;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=XmEaOieCAc7bMbdh+HUROx5/TtGv8pXLJhv3OilkQ6g=;
+ b=cw748lOsvPAV9m0WfYzHMGa4D/le83tgt3iQPJOsqwMnMxEol6G+GozcUNOPYiwwhT
+ ocHHaesKgFpOPXdkA1POjXEjM87F4EOV4HE15Lxu+xgYeiNVBKLh53oVc37rsM8bU9V6
+ KB5ANrGuxG82BiJWOKJK6c93cIJfspcZY9SJqDaiFt6KSbWsfBZ6vrgeYP7Uow3V+hcm
+ TBRGJlzCwzyMvKJjyd9GJyZms98eVfzC3z2vyxrP3zUpIJ4lVGTGT5pG+9xxVKVGMVTM
+ 5HcDggxSVdCwfXal9RgqrmDh0/uk3dES5ezrreFmdVc7aapoOdvQoitAYyZBDZKeLtzp
+ K2UQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWc1zaGvbX43zZe2KPMBwGWu43oy31l4S9ZJwkpj47HuaZ8ek/w9/WmJ1XbJ4X896QIg8M8IZLI@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx8Sp/oBtbsLJdRarAJztIla1cZtO4V7GEnCakmfso3fj2wgoni
+ l1av7acQ0iCyOrkJ3Z5/5qpSxYqYsKzauQ8IDdIFgssNMcMYryBa4vWFgCFPF2Y=
+X-Gm-Gg: ASbGncsH0iqlpajdqTGJHESM48otOnemgnQ8/Yy/4H5Wl5q8wyF4JOfG1XxfbM1Bf1E
+ euWmpVYzBZmAia4Mfd6/X8e5CT4pQv+UBFPluGIRFFsm5l9E+J1k2rFtpJSOly+9hebzIgl9d3u
+ xzuJjQYfqyB5j1dIbTTKaWSSsDBkfJwkVfdtWFFxmjTRNZeTKRS9DGeRg8ENiIOu7WdmqfRZL/R
+ AMXuMo47GrYOHro8AOiBhYjIPhyol1UShH+6HhxkSMYVTTQRHffhAEw+iIpUJARBkKyV7Xx+s/E
+ JTJQHQ==
+X-Google-Smtp-Source: AGHT+IGO1Xleq5uCHk5UufCWucKt1rjPfEzKCVKiQOKcRMrMwdu2DwDJNPLfIaNPYDCphmwvI9XZrA==
+X-Received: by 2002:a05:6000:1faa:b0:385:deca:f7cf with SMTP id
+ ffacd0b85a97d-38bf5655457mr12755428f8f.8.1737398499345; 
+ Mon, 20 Jan 2025 10:41:39 -0800 (PST)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:5485:d4b2:c087:b497])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-437c74c4e38sm208588815e9.21.2025.01.20.10.41.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 20 Jan 2025 10:41:38 -0800 (PST)
+Date: Mon, 20 Jan 2025 19:41:36 +0100
+From: Simona Vetter <simona.vetter@ffwll.ch>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Marek =?utf-8?B?T2zFocOhaw==?= <maraeo@gmail.com>,
+ Simona Vetter <simona.vetter@ffwll.ch>,
+ Daniel Stone <daniel@fooishbar.org>, James Jones <jajones@nvidia.com>,
+ Brian Starkey <brian.starkey@arm.com>,
+ Michel =?iso-8859-1?Q?D=E4nzer?= <michel.daenzer@mailbox.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
+ ML Mesa-dev <mesa-dev@lists.freedesktop.org>, nd@arm.com,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+Subject: Re: [PATCH] drm/fourcc: add LINEAR modifiers with an exact pitch
+ alignment
+Message-ID: <Z46Y4EME7T6yejWP@phenom.ffwll.local>
+References: <CAPj87rMFJ0JRvsKqZUsw_EGrFWr1VLO4Ne2w_bZ5cH+gs_d=og@mail.gmail.com>
+ <Z2Rf7mpSuzZ0ObmT@phenom.ffwll.local>
+ <07d08a42-c44a-477e-8057-721b270310cf@nvidia.com>
+ <CAAxE2A6N0xtgZmzTR9FXMN79xxy3T8zfhh1sz73h1h8=0ycJ2g@mail.gmail.com>
+ <CAPj87rP4r4q-wBx1dHsEkZ7=S2c2XsbA1Pz4Skw1ETt_2yD2Ag@mail.gmail.com>
+ <CAAxE2A6ghBK2VTLkNXgk1c61UG1ZQAzWQ4q=wO-OShAUC9eRmQ@mail.gmail.com>
+ <CAPj87rNFy7GLAjjxDYGLN-f8M0F7yMX6PED94O4kBJ=pwtPVyA@mail.gmail.com>
+ <Z4pmnTy1NYD3rLwS@phenom.ffwll.local>
+ <CAAxE2A6iDsN=YKW2F7WyyZxn4Sw4Dr5CxZminQGwf8awBivovQ@mail.gmail.com>
+ <0e9aee49-aa69-4fb6-bab8-4624143f5267@suse.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250120165240.9105-4-tvrtko.ursulin@igalia.com>
+In-Reply-To: <0e9aee49-aa69-4fb6-bab8-4624143f5267@suse.de>
+X-Operating-System: Linux phenom 6.12.3-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,109 +103,213 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jan 20, 2025 at 04:52:39PM +0000, Tvrtko Ursulin wrote:
-> The code assumes queue node is the first element in struct
-> drm_sched_job.
-
-I'd add that this assumption lies in doing the NULL check after the
-container_of(). Without saying that, it might not be that obvious.
-
-> Since this is not documented it can be very fragile so lets
-> just remove the internal helper and explicitly check for "nothing
-> dequeued", before converting the node to a sched job.
+On Mon, Jan 20, 2025 at 08:58:20AM +0100, Thomas Zimmermann wrote:
+> Hi
 > 
-> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> Cc: Christian K�nig <christian.koenig@amd.com>
-> Cc: Danilo Krummrich <dakr@kernel.org>
-> Cc: Matthew Brost <matthew.brost@intel.com>
-> Cc: Philipp Stanner <phasta@kernel.org>
-> ---
->  drivers/gpu/drm/scheduler/sched_entity.c | 18 +++++++++---------
->  drivers/gpu/drm/scheduler/sched_main.c   | 10 +++++-----
->  2 files changed, 14 insertions(+), 14 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
-> index 7c0d266a89ef..8992bb432ec6 100644
-> --- a/drivers/gpu/drm/scheduler/sched_entity.c
-> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
-> @@ -30,9 +30,6 @@
->  
->  #include "gpu_scheduler_trace.h"
->  
-> -#define to_drm_sched_job(sched_job)		\
-> -		container_of((sched_job), struct drm_sched_job, queue_node)
-> -
->  /**
->   * drm_sched_entity_init - Init a context entity used by scheduler when
->   * submit to HW ring.
-> @@ -476,11 +473,14 @@ drm_sched_job_dependency(struct drm_sched_job *job,
->  struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
->  {
->  	struct drm_sched_job *sched_job;
-> +	struct spsc_node *node;
->  
-> -	sched_job = to_drm_sched_job(spsc_queue_peek(&entity->job_queue));
-> -	if (!sched_job)
-> +	node = spsc_queue_peek(&entity->job_queue);
-> +	if (!node)
->  		return NULL;
->  
-> +	sched_job = container_of(node, typeof(*sched_job), queue_node);
+> Am 18.01.25 um 03:37 schrieb Marek Olšák:
+> [...]
+> > 
+> > 3) Implementing DRM_FORMAT_MOD_LINEAR as having 256B pitch and offset
+> > alignment. This is what we do today. Even if Intel and some AMD chips
+> > can do 64B or 128B alignment, they overalign to 256B. With so many
+> > AMD+NV laptops out there, NV is probably next, unless they already do
+> > this in the closed source driver.
 
-So, here you have this pattern for a valid used case and even twice. I think you
-should add drm_sched_entity_peek_job() instead and document what the
-preconditions are to be allowed to peek given it's an spsc queue.
+I don't think this works, or at least not any better than the current
+linear modifier. There's way too many users of that thing out there that I
+think you can realistically redefine it.
 
-> +
->  	while ((entity->dependency =
->  			drm_sched_job_dependency(sched_job, entity))) {
->  		trace_drm_sched_job_wait_dep(sched_job, entity->dependency);
-> @@ -511,10 +511,10 @@ struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
->  	 * the timestamp of the next job, if any.
->  	 */
->  	if (drm_sched_policy == DRM_SCHED_POLICY_FIFO) {
-> -		struct drm_sched_job *next;
-> -
-> -		next = to_drm_sched_job(spsc_queue_peek(&entity->job_queue));
-> -		if (next) {
-> +		node = spsc_queue_peek(&entity->job_queue);
-> +		if (node) {
-> +			struct drm_sched_job *next =
-> +				container_of(node, typeof(*next), queue_node);
->  			struct drm_sched_rq *rq;
->  
->  			spin_lock(&entity->lock);
-> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-> index a48be16ab84f..66eee6372253 100644
-> --- a/drivers/gpu/drm/scheduler/sched_main.c
-> +++ b/drivers/gpu/drm/scheduler/sched_main.c
-> @@ -87,9 +87,6 @@ static struct lockdep_map drm_sched_lockdep_map = {
->  };
->  #endif
->  
-> -#define to_drm_sched_job(sched_job)		\
-> -		container_of((sched_job), struct drm_sched_job, queue_node)
-> -
->  int drm_sched_policy = DRM_SCHED_POLICY_FIFO;
->  
->  /**
-> @@ -122,11 +119,14 @@ static bool drm_sched_can_queue(struct drm_gpu_scheduler *sched,
->  				struct drm_sched_entity *entity)
->  {
->  	struct drm_sched_job *s_job;
-> +	struct spsc_node *node;
->  
-> -	s_job = to_drm_sched_job(spsc_queue_peek(&entity->job_queue));
-> -	if (!s_job)
-> +	node = spsc_queue_peek(&entity->job_queue);
-> +	if (!node)
->  		return false;
->  
-> +	s_job = container_of(node, typeof(*s_job), queue_node);
-> +
->  	/* If a job exceeds the credit limit, truncate it to the credit limit
->  	 * itself to guarantee forward progress.
->  	 */
+Adding new linear modifiers and then preferring those above the old LINEAR
+(if there is one left after all the wittling down to a common set) is I
+think the only option that really works to fix something.
+
+> The dumb-buffer series currently being discussed on dri-devel also touches
+> handling of scanline pitches. THe actual value varies with each driver. 
+> Should dumb buffers use a default pitch alignment of 256 on al hardware?
+
+If you go with new modifiers then there could be shared code that dtrt by
+just looking at the modifier list.
+-Sima
+
+> Best regards
+> Thomas
+> 
+> > 
+> > Marek
+> > 
+> > On Fri, Jan 17, 2025 at 9:18 AM Simona Vetter <simona.vetter@ffwll.ch>
+> > wrote:
+> > 
+> >     On Wed, Jan 15, 2025 at 12:20:07PM +0000, Daniel Stone wrote:
+> >     > On Wed, 15 Jan 2025 at 04:05, Marek Olšák <maraeo@gmail.com> wrote:
+> >     > > On Tue, Jan 14, 2025 at 12:58 PM Daniel Stone
+> >     <daniel@fooishbar.org> wrote:
+> >     > >> AMD hardware is the only hardware I know of which doesn't support
+> >     > >> overaligning. Say (not hypothetically) we have a GPU and a
+> >     display
+> >     > >> controller which have a minimum pitch alignment of 32 bytes, no
+> >     > >> minimum height alignment, minimum 32-byte offset alignment,
+> >     minimum
+> >     > >> pitch of 32 bytes, and minimum image size of 32 bytes.
+> >     > >>
+> >     > >> To be maximally compatible, we'd have to expose 28 (pitch
+> >     align) * 32
+> >     > >> (height align) * 28 (offset align) * 28 (min pitch) * 28 (min
+> >     size) ==
+> >     > >> 19668992 individual modifiers when queried, which is 150MB
+> >     per format
+> >     > >> just to store the list of modifiers.
+> >     > >
+> >     > > Maximum compatibility is not required nor expected.
+> >     > >
+> >     > > In your case, only 1 linear modifier would be added for that
+> >     driver, which is: [5 / 0 / 5 / 5 / 5]
+> >     > >
+> >     > > Then if, and only if, compatibility with other devices is
+> >     desired, the driver developer could look at drivers of those other
+> >     devices and determine which other linear modifiers to add. Ideally
+> >     it would be just 1, so there would be a total of 2.
+> >     >
+> >     > Mali (actually two DRM drivers and sort of three Mesa drivers)
+> >     can be
+> >     > paired with any one of 11 KMS drivers (really 12 given that one is a
+> >     > very independent subdriver), and something like 20 different codecs
+> >     > (at least 12 different vendors; I didn't bother counting the actual
+> >     > subdrivers which are all quite different). The VeriSilicon Hantro G2
+> >     > codec driver is shipped by five (that we know of) vendors who
+> >     all have
+> >     > their own KMS drivers. One of those is in the Rockchip RK3588, which
+> >     > (don't ask me why) ships six different codec blocks, with three
+> >     > different drivers, from two different vendors - that's before
+> >     you even
+> >     > get to things like the ISP and NPU which really need to be sharing
+> >     > buffers properly without copies.
+> >     >
+> >     > So yeah, working widely without having to encode specific knowledge
+> >     > everywhere isn't a nice-to-have, it's a hard baseline requirement.
+> >     >
+> >     > >> > DRM_FORMAT_MOD_LINEAR needs to go because it prevents apps
+> >     from detecting whether 2 devices have 0 compatible memory layouts,
+> >     which is a useful thing to know.
+> >     > >>
+> >     > >> I get the point, but again, we have the exact same problem
+> >     today with
+> >     > >> placement, i.e. some devices require buffers to be in or not
+> >     be in
+> >     > >> VRAM or GTT or sysram for some uses, and some devices require
+> >     physical
+> >     > >> contiguity. Solving that problem would require an additional
+> >     4 bits,
+> >     > >> which brings us to 2.3GB of modifiers per format with the current
+> >     > >> scheme. Not super viable.
+> >     > >
+> >     > > Userspace doesn't determine placement. The kernel memory
+> >     management can move buffers between heaps to accommodate sharing
+> >     between devices as needed. This is a problem in which userspace
+> >     has no say.
+> >     >
+> >     > It really does though!
+> >     >
+> >     > None of these devices use TTM with placement moves, and doing that
+> >     > isn't a fix either. Embedded systems have so low memory
+> >     bandwidth that
+> >     > the difference between choosing the wrong placement and moving it
+> >     > later vs. having the right placement to begin with is the difference
+> >     > between 'this does not work' and 'great, I can ship this'. Which is
+> >     > great if you're a consultancy trying to get paid, but tbh I'd rather
+> >     > work on more interesting things.
+> >     >
+> >     > So yeah, userspace does very much choose the placement. On most
+> >     > drivers, this is either by 'knowing' which device to allocate
+> >     from, or
+> >     > passing a flag to your allocation ioctl. For newer drivers though,
+> >     > there's the dma-heap allocation mechanism which is now upstream and
+> >     > the blessed path, for which userspace needs to explicitly know the
+> >     > desired placement (and must, because fixing it up later is a
+> >     > non-starter).
+> >     >
+> >     > Given that we need to keep LINEAR ~forever for ABI reasons, and
+> >     > because there's no reasonably workable alternative, let's
+> >     abandon the
+> >     > idea of abandoning LINEAR, and try to work with out-of-band
+> >     signalling
+> >     > instead.
+> >     >
+> >     > One idea is to actually pursue the allocator idea and express this
+> >     > properly through constraints. I'd be super in favour of this,
+> >     > unsurprisingly, because it allows us to solve a whole pile of other
+> >     > problems, rather than the extremely narrow AMD/Intel interop case.
+> >     >
+> >     > Another idea for the out-of-band signalling would be to add
+> >     > information-only modifiers, like
+> >     > DRM_FORMAT_MOD_LINEAR_PITCH_ALIGN_EQ(256), or
+> >     > DRM_FORMAT_MOD_LINEAR_PITCH_ALIGN_GE(32). But then that doesn't
+> >     really
+> >     > work at all with how people actually use modifiers: as the doc
+> >     > describes, userspace takes and intersects the declared modifier
+> >     lists
+> >     > and passes the result through. The intersection of LINEAR+EQ256 and
+> >     > LINEAR+GE32 is LINEAR, so a userspace that follows the rules
+> >     will just
+> >     > drop the hints on the floor and pick whatever linear allocation it
+> >     > feels like.
+> > 
+> >     Yeah I think latest when we also take into account logical image
+> >     size (not
+> >     just pitch) with stuff like it needs to be aligned to 2 pixels in both
+> >     directions just using modifiers falls apart.
+> > 
+> >     And the problem with linear, unlike device modifiers is that we
+> >     can't just
+> >     throw up our hands and enumerate the handful of formats in actual
+> >     use for
+> >     interop. There's so many produces and consumers of linera buffers
+> >     (Daniel's list above missed camera/image processors) that save
+> >     assumption
+> >     is that anything really can happen.
+> > 
+> >     > I think I've just talked myself into the position that passing
+> >     > allocator constraints together with modifiers is the only way to
+> >     > actually solve this problem, at least without creating the sort of
+> >     > technical debt that meant we spent years fixing up implicit/explicit
+> >     > modifier interactions when it really should've just been adding a
+> >     > !)@*(#$ u64 next to the u32.
+> > 
+> >     Yeah probably.
+> > 
+> >     Otoh I know inertia, so I am tempted to go with the oddball
+> >     LINEAR_VEDNOR_A_VENDOR_B_INTEROP thing and stretch the runway for
+> >     a bit.
+> >     And we just assign those as we go as a very special thing, and the
+> >     drivers
+> >     that support it would prefer it above just LINEAR if there's no other
+> >     common format left.
+> > 
+> >     Also makes it really obvious what all userspace/kernel driver enabling
+> >     would be needed to justify such a modifier.
+> >     -Sima
+> > 
+> >     >
+> >     > Cheers,
+> >     > Daniel
+> > 
+> >     --     Simona Vetter
+> >     Software Engineer, Intel Corporation
+> >     http://blog.ffwll.ch
+> > 
+> 
 > -- 
-> 2.47.1
+> --
+> Thomas Zimmermann
+> Graphics Driver Developer
+> SUSE Software Solutions Germany GmbH
+> Frankenstrasse 146, 90461 Nuernberg, Germany
+> GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
+> HRB 36809 (AG Nuernberg)
 > 
+
+-- 
+Simona Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
