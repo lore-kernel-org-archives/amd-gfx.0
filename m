@@ -4,56 +4,153 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A1E6C02181
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jan 2025 22:00:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B340CC02181
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jan 2025 22:07:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ABA9710E49B;
-	Mon, 20 Jan 2025 22:00:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6252410E49E;
+	Mon, 20 Jan 2025 22:07:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="CjPELwAy";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="5PmQUsXW";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B2C310E49B;
- Mon, 20 Jan 2025 22:00:20 +0000 (UTC)
-Received: from pendragon.ideasonboard.com (81-175-209-231.bb.dnainternet.fi
- [81.175.209.231])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id BAF6B594;
- Mon, 20 Jan 2025 22:59:17 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1737410357;
- bh=4XrqcEbW71Czb8WPSWBZWhYHXYSDv7Iu7hlgRwLE5ck=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=CjPELwAyFsImYHaH+oaMo3+NqQtIPN0ItlaBERMmhbs2huZ+Ps7PmJeojaGbVyLIf
- 4f7rY1TKa+xSBv6VX9j7dbBaJPx6y0kY81GlHG+6GBbr3bpHXOmf7g7FP/OwhqNjv3
- dOCLJGoL7lj6MExCd8qi6/35kPcefbrZeSqpdEZE=
-Date: Tue, 21 Jan 2025 00:00:11 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: James Jones <jajones@nvidia.com>
-Cc: Simona Vetter <simona.vetter@ffwll.ch>,
- Daniel Stone <daniel@fooishbar.org>, Brian Starkey <brian.starkey@arm.com>,
- Michel =?utf-8?Q?D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
- Marek =?utf-8?B?T2zFocOhaw==?= <maraeo@gmail.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
- ML Mesa-dev <mesa-dev@lists.freedesktop.org>, nd@arm.com
-Subject: Re: [PATCH] drm/fourcc: add LINEAR modifiers with an exact pitch
- alignment
-Message-ID: <20250120220011.GJ9249@pendragon.ideasonboard.com>
-References: <CAAxE2A5BkF13bFt8_UnuiqPM8W-ZESgmKEjqqGfv=DGzSfJ7aQ@mail.gmail.com>
- <uffsfaps6a75zmkyshkwfxgybcslqrnfqqtjzekegdptvwpugc@2ndpcuxyfp3f>
- <c64cb9d8-5ea7-4644-93c8-04a97b758fa0@mailbox.org>
- <h26quuebhpxwkc3fl4vtfteoqyvingnddgxbnzptfnxfg6xgkd@kkkmeqwplomv>
- <8dae97c9-9286-451a-8122-b309eb21b2f4@mailbox.org>
- <Z2Ki-lQH4Fbch6RO@phenom.ffwll.local>
- <q45c43j5kwwvemec7mcs4kqzt54pa3nz3jlhkcky2v63s2vfie@him4q253uw4p>
- <CAPj87rMFJ0JRvsKqZUsw_EGrFWr1VLO4Ne2w_bZ5cH+gs_d=og@mail.gmail.com>
- <Z2Rf7mpSuzZ0ObmT@phenom.ffwll.local>
- <07d08a42-c44a-477e-8057-721b270310cf@nvidia.com>
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2043.outbound.protection.outlook.com [40.107.236.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BEF8910E49E
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jan 2025 22:07:15 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PD/fqmLmGrFNreK8ybZA42jvc7cUuh3dTAcjtMxK1Q2DUnIk17ushHQjd4ztIppZoht0I/XZh5dzXt6/QT6NCdpIipyLdFmxuEthm6A4v93wpZNHcyjmpIrq/ImFzcwsJhmRgMBM46UfUqPqC79cpy/gDcrjEgrxtM4zbFid73y+0OGcP0of1Ij1Vu7iDvH9SAQ1/spzVnL/R/OPQl9Io9z4zdsRKhrbZsFoKQv0kXpxfKmFdpgbfC2F1Ys+IBxgF4BKyEuBZM95kuqiIQN1pH7ntsnzq+30lh80NKGtYhGPNJXioO8adu7K51brgYnFeddLu8GKs6ThVdDehTCaug==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Fw+OlvOOwFtpDTDnQjCBOppkhxYc2SFIThD2bzyKi+c=;
+ b=t7UAKNPhaGEHOcayaFSzzX44TrI+YyddHdZvvxL7RNEzhM5LsD/je6Um1wyNP/lyXI4KXPCwrw4Mw2rwePR2+1GPKEGzU8D3drhFY7UQH8HFFmQxRtvtGZNzD9CzoCsswbAIWcixVw59aIOF+TKWxVo/tt5u1HKYCoBMgFiXjxe7O+dzXqcd+9GRTonGC8tpbC5MfwO/Nu9X/dypLsEms83PQE6dAYIQn3wPfEBCzfch3y+9TuZyDVJjKttxHFXKdOiS0CqGjNFND1w5OeRojYu+srbDoHUISinNgeAxgJ7UK4GS0zC0+zPt5X9EGNpOv5v4jU7grm5ezYFJcWoOUQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Fw+OlvOOwFtpDTDnQjCBOppkhxYc2SFIThD2bzyKi+c=;
+ b=5PmQUsXW5UpiWsdX5x/yXRUk4u9uMQU+m28xCJCzjdTzhPx1v0wmPTiR5RvY4ijrXISkTu5P3grPQCQdfpAoJAQeafKp9sL+kCgUzLs6nzehrH+Ti67S6vPv6MYO63SDTTXRDJbXgXa0/DeYF/b2f8TIhaowxr3VnsxAcEJxWnc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
+ by LV2PR12MB5797.namprd12.prod.outlook.com (2603:10b6:408:17b::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8356.16; Mon, 20 Jan
+ 2025 22:07:00 +0000
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::37ee:a763:6d04:81ca]) by MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::37ee:a763:6d04:81ca%4]) with mapi id 15.20.8356.020; Mon, 20 Jan 2025
+ 22:07:00 +0000
+Message-ID: <2ca6e5c3-4570-4c47-9f3a-108e2a4a0bb5@amd.com>
+Date: Mon, 20 Jan 2025 16:06:57 -0600
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/1] amdgpu/soc15: enable asic reset for dGPU in case of
+ suspend abort
+To: Jiang Liu <gerry@linux.alibaba.com>
+References: <cover.1736739303.git.gerry@linux.alibaba.com>
+ <2462b4b12eb9d025e82525178d568cbaa4c223ff.1736739303.git.gerry@linux.alibaba.com>
+Content-Language: en-US
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, simona@ffwll.ch, sunil.khatri@amd.com,
+ lijo.lazar@amd.com, Hawking.Zhang@amd.com, xiaogang.chen@amd.com,
+ Kent.Russell@amd.com, Prike.Liang@amd.com, asad.kamal@amd.com,
+ sonjiang@amd.com, shuox.liu@linux.alibaba.com, amd-gfx@lists.freedesktop.org
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <2462b4b12eb9d025e82525178d568cbaa4c223ff.1736739303.git.gerry@linux.alibaba.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SA9PR13CA0126.namprd13.prod.outlook.com
+ (2603:10b6:806:27::11) To MN0PR12MB6101.namprd12.prod.outlook.com
+ (2603:10b6:208:3cb::10)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <07d08a42-c44a-477e-8057-721b270310cf@nvidia.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|LV2PR12MB5797:EE_
+X-MS-Office365-Filtering-Correlation-Id: b7ee1fc8-5f09-4abf-978c-08dd399ec349
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014|7053199007;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?Q0NnbE05ZStZcm1CYko3NlpMajd1UmJIbWRCcmFpdkd4K2pJSmVpQzhVUU5O?=
+ =?utf-8?B?NHcxSGdFNlhtUng0dGQyczg4VDV5Y3Y1RlErbUlDTnJnRzRBeml1UVJiOStI?=
+ =?utf-8?B?aDIva1lWcU43Y252UmtLaGFEQzdGQXJWenpEK25kMzJtVTFCWDlkb1NZQU9G?=
+ =?utf-8?B?ZVJoMzBJNFB6NzBPRC90S0dFeUxpNDF4TUlPVzlJc0RRSm5id3hvVDJkWDFZ?=
+ =?utf-8?B?eTJwa0hXYU9xanJ2SGNENzR1OG42bWZ3QlU2WlRkRiszU2lOVDA0UUZPNnh2?=
+ =?utf-8?B?Smc0Si8va3l4Z0o0RkdpOHh4S05EZ216aU03NG83c1lZY1dpS2wranh0SGda?=
+ =?utf-8?B?OG9ROER6WXAzaHhGTDJhUXhCbThVYmtHNzU3aXRwcjNFVkpPSEJId1I5OE9M?=
+ =?utf-8?B?NlBMcEdGTlV5T3NGOWx2VFdXWXFxeDFFNHRXVTNTQzlOVEZYd0dJZkxFZFFD?=
+ =?utf-8?B?T0NLMXB5cmdNVk5mU1c4Wmd1ekVKUUg1YmdPenVVUFVJbktxTkZWdExsa2tU?=
+ =?utf-8?B?bExMZ3pkeUZzdHRMWTJzZjl3c1JGU0NPQVJqRjJFcEx5ZDZESC91TFZ0dmlW?=
+ =?utf-8?B?aUJ0R1hORHY3QjFLamtlM2w3ZkZ6ZHp2VjJnS1NQQ2JFdUh5R3pFNE1iL2RK?=
+ =?utf-8?B?b2lDaStqVUVhbW1EWlZRSzdMSmVtbjUvWjBSa1krZVpHYlJ5aHowaHNWV1Q1?=
+ =?utf-8?B?UFpGKzhuYmRLN2o1bVA3TC9jTS9mSFBDM3h0bGt6eEtyK09XU09KK3lJZ3cz?=
+ =?utf-8?B?bnVnNDVrT2ZTcWdlNEhuV1NKYUFTcDRReXlXZDhLLzEwaFYrT1JORllNMUJp?=
+ =?utf-8?B?YVIvSS9nWi94elZZaWVuNzdEeFR2ZnNXR1lBK2hzbWNlMzRKLzluSjlHR0h0?=
+ =?utf-8?B?V1p6Vy9zeGN1UDBkblZ4YmpEV3FjSFpXaTNKNHJFSFhENms2S0ZXWk1jT094?=
+ =?utf-8?B?eTdzTW5FVGcrR1FldXZGcWVYdmR0cUtkK1hacTZWU0xzaGJ1UDBxV2hWS3RI?=
+ =?utf-8?B?Rm9xR2tuZ0g5eTBZclZxTWxGOHVta0pIUEV6OHlwKzdCTVJoWmh3dGJPbmVt?=
+ =?utf-8?B?TW01a2FCR1NhM1lsdU4vUmFHZVEycFkrcThJWlAxaExmZ0UyL2Z4UDVpNkJS?=
+ =?utf-8?B?a0lmY1RRQ2FNYVdTR3JHdXN5UE1teTMvdVIrQmVBT0NvRzZJcDhkeTVCWEo3?=
+ =?utf-8?B?dndBbHFiU24rd2NGN2hvNDdGOHJtWk1YZjdhR2hydmNKQWVReXJ4eTZDY3F3?=
+ =?utf-8?B?aTR2ZXBqZUZYc2J4WXVZNFE3aFFFM2drUkdBL0laRDk3U2U1R3Fick0xNzZj?=
+ =?utf-8?B?SjdqU1FQWUJaRDRzREg2dlgzYWQ5NTg4TkJQdFFvR0d4SVlsL3RleTR1Ulor?=
+ =?utf-8?B?ZzRYSm1yNnJPRjZoS0l3Z1JENnV3Z0V2MlZHY2xMVEk2MDRwVEpyV010WGhp?=
+ =?utf-8?B?SFE1TjFEQ2I1akY3Z1lIRWJBSW1hKzZYdWFXbTk5cWJNR2ptWjNTN0V3Rndm?=
+ =?utf-8?B?MHpEb1RCelVVZzlSSE1kaUNxMTNmZ21LK2VyVTh0RUJyUzBDZERUVzVJWFNP?=
+ =?utf-8?B?a0YxK3F5aWRENUJjVTd0YjhVUXhPY2l2WXA2UW9TUmpmbXpOZk14ZHBVQkdK?=
+ =?utf-8?B?OStsbldROWxRTWt1bGFuK3JKZ285R0dkYjgzU05hVVdYYXNrWWp5YVhVOUdv?=
+ =?utf-8?B?cGZWWUNaYUswSVFjNGUranRTNloxUEhSOUxMR0ZmVG1CaVhHME14cXhHdXJi?=
+ =?utf-8?B?QnpqRjNmNGhKQ0FYNmVjT0hsYWQwVE1DMXQrWEJSZldtRjIyM25DdzgvUUpy?=
+ =?utf-8?B?SVg5aFcrRHpEdnp2UndJaU0rR2x5M1IyaVk1blloZ1FDSkxrTEVnSWxzOEsw?=
+ =?utf-8?Q?DON3lj+6By/Wj?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(7053199007); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MHlMWkVpOWN2RFFUQmFvTkVGNzhPYTNVSUprUzRPSEM3TnlZNUN1UEMvMDJl?=
+ =?utf-8?B?d0E0bmIwZzQwOHJxM3RqazFqUEZ1eVduU1liV3NNMWJKSXphREpsTkQvMkoy?=
+ =?utf-8?B?RTFPTDNnMzJ4SE9TMUI5OVh5U05YL29DMjBWdExkODlDQm5KTmNsV3FTV3hp?=
+ =?utf-8?B?SmtQbjBqWU1zWUw0VjhqT1VEVzlzQWVPKzFSNDUwV1JCeitMcEhsRGkvZnRt?=
+ =?utf-8?B?dGcvWUJLUTVWVktZTzdZdWdhdVhKMWpnVWF6VWdxQ01pRGFBT082MW91dWtn?=
+ =?utf-8?B?NlN3dE40UHJ2K3N1eFJqNThXd0FsY2JyQWluRkxpN2l5UzV1L0pId3BXdDhp?=
+ =?utf-8?B?a1J3eXNLazJsNFpySzZwSWc3b0hTdXVKQTc3bkhXVGhUZGZCcnpaVk9TUU1o?=
+ =?utf-8?B?dEIvN2ZuWmhXUFFNZGhvN0V4eTExT2VVUS9rUTg3Z3NrUjZ2MWt0M2NqMFVi?=
+ =?utf-8?B?NGpGSW13NDNhcmNIZTRDdW1Gd05BOHNYbDZnOUxhUGRJSnVsZnRReGlyTEI4?=
+ =?utf-8?B?R1RsVmFJV1NjVG11Uk9FVGVhTUE0NjF6elZ5b0Z4UUxERnNjUjZBOEt4Mndo?=
+ =?utf-8?B?bFJmUDFsdlFsVy9HZWtybENibFBSaHNGK0puZy84bVpJcDk2NWM1SFZYcW50?=
+ =?utf-8?B?bFBRLy9RMkx5OTFLNy9jVjlXOWxnSFBROTJMRmQ3MGRiSVFzWjBhWjNFY1Qv?=
+ =?utf-8?B?T3hHYy9iMzE4UTBIRjlSQUFRZ2ZReFgxK2lJaHU1U2VGM0YyN25FTWh5RG95?=
+ =?utf-8?B?d2xJL2pCMVA2S0JPVDVXWDNDdUE5V0ZNUkhicFlYT0d2R3BvaVpMUnpsR0FD?=
+ =?utf-8?B?ZGxYTG42a1JnUzlER1BramtwLy9CU3FadlJsaFkvZGE5TGJOZGxRdENpWmFw?=
+ =?utf-8?B?Zyt3TDF3QUxGd2ZNelB0WWVYM0E5QlhSVXRyRW10cGVtZUIxeWMyb1duc1J4?=
+ =?utf-8?B?UGVGc0xkTHhQeHViWVl2OENla2ZwemZTUmNDR1o4VGlQeWMra2l5RzFJRUdH?=
+ =?utf-8?B?Yi95MUV6MUJWOWJqQmJVMWgyeFI4USswcUdydURQdUJsZkxVN2FOQUxMazZF?=
+ =?utf-8?B?NjlVTnBkanpHNGpTbmI5d0NudVZyTWtXUnBNVjhSUFV6YlNPNXIyOFY4Zkt6?=
+ =?utf-8?B?Z3kzcG8rNkFLVGJuZEFIMTV6bXdiaFQ1N09EVDJqRjZhU3NSYjJLak8yQVRi?=
+ =?utf-8?B?UWdrM0YrT1JlTWRYclZrVUg3Ujd2NE4yVjJlN2RPZ0ZZSUxVaDRxOVc0Y0pX?=
+ =?utf-8?B?K0pxU1F2a0hpellUeWJudlVZekV0TFNKVmNMRmdjVGNYYTB6QVhrUng2ZTRD?=
+ =?utf-8?B?cHd4UHJZd2sxejJtMkhFSTVWNlE1WENQQnNQeFdDNmhmZzVJWlVBbVNZc0Uw?=
+ =?utf-8?B?d0JxYW9ZRVR1ZjBDTUNoSElKVi9sSDRzZ0RUdGFheTFDcjMvL05RMFZZUzJm?=
+ =?utf-8?B?bWo4dSsyTXZQa09KWEtXVHBzTUtNb0ZZbzhmMmFoRStlNGJTajhzMWRiTFY0?=
+ =?utf-8?B?SWVxZlJpbzN4TUdtelZvelpiNkpLUHRrR0lMOENsZGYrUWd4SzdJNHJUeDgr?=
+ =?utf-8?B?ZHp1YzN0ZzA1WHFjWmJ4dlY4WFBuWEhGcEIrcjNkc3VqUmc4ZDVuOExnVjQ3?=
+ =?utf-8?B?SVd3SUMxZHc2SXJsVkozanlMcVlBU3B0TUVRdmhnZWthSWJ6OGZ0dHRubW5L?=
+ =?utf-8?B?TmlZZkdhMW5sb1F2Y1V5dWdOemZCamtTekRXNFlrT3Y5L2dHNEtBYzdPYVFz?=
+ =?utf-8?B?d0NqY3U1TTlvYW5XNk04dmVYTXNFUnNseXNGVHpGVThMTGduTyt2S3VZZ0p5?=
+ =?utf-8?B?N3F4eVRkL2NKK3UyVHl1ZC9PUWNFTGRlekZ1U1JvUndMOGovcXN3YitWcE56?=
+ =?utf-8?B?SG1VVnhsRlhFU1lIbWRCOWhnMDVjalg1SHFMSHlXVDJybGhNOEVEZzRKOWpT?=
+ =?utf-8?B?cFhpbERGZEtFOFE1Q1BKSllvWlFlNS9ZdlBYczAvMGYreW53enFiNCt5UTdK?=
+ =?utf-8?B?QWxzMEhIOURYNk10aFAzTXl1SFI4dWhRRm5xZVRUaVBZZDY3L3cwTyszMFFy?=
+ =?utf-8?B?cVZLMXYzRTlVY0x0Qk9RKzA5VnpXNkplOVo0UWpWTWEyYmN6WmNQdzVwanpN?=
+ =?utf-8?Q?LqOS+kKY0St+VfwBrW92/bNFx?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b7ee1fc8-5f09-4abf-978c-08dd399ec349
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jan 2025 22:07:00.2113 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1F6GlYn5eyoMizTtd+PxqBCUSBGEkRCbqevHk8PDyWMasOH4SG9ItBt+FiKY9jlvv89twMhuy1ViNrp1dyC+rw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5797
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,183 +165,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jan 10, 2025 at 01:23:40PM -0800, James Jones wrote:
-> On 12/19/24 10:03, Simona Vetter wrote:
-> > On Thu, Dec 19, 2024 at 09:02:27AM +0000, Daniel Stone wrote:
-> >> On Wed, 18 Dec 2024 at 10:32, Brian Starkey <brian.starkey@arm.com> wrote:
-> >>> On Wed, Dec 18, 2024 at 11:24:58AM +0000, Simona Vetter wrote:
-> >>>> For that reason I think linear modifiers with explicit pitch/size
-> >>>> alignment constraints is a sound concept and fits into how modifiers work
-> >>>> overall.
-> >>>
-> >>> Could we make it (more) clear that pitch alignment is a "special"
-> >>> constraint (in that it's really a description of the buffer layout),
-> >>> and that constraints in-general shouldn't be exposed via modifiers?
-> >>
-> >> It's still worryingly common to see requirements for contiguous
-> >> allocation, if for no other reason than we'll all be stuck with
-> >> Freescale/NXP i.MX6 for a long time to come. Would that be in scope
-> >> for expressing constraints via modifiers as well, and if so, should we
-> >> be trying to use feature bits to express this?
-> >>
-> >> How this would be used in practice is also way too underdocumented. We
-> >> need to document that exact-round-up 64b is more restrictive than
-> >> any-multiple-of 64b is more restrictive than 'classic' linear. We need
-> >> to document what people should advertise - if we were starting from
-> >> scratch, the clear answer would be that anything which doesn't care
-> >> should advertise all three, anything advertising any-multiple-of
-> >> should also advertise exact-round-up, etc.
-> >>
-> >> But we're not starting from scratch, and since linear is 'special',
-> >> userspace already has explicit knowledge of it. So AMD is going to
-> >> have to advertise LINEAR forever, because media frameworks know about
-> >> DRM_FORMAT_MOD_LINEAR and pass that around explicitly when they know
-> >> that the buffer is linear. That and not breaking older userspace
-> >> running in containers or as part of a bisect or whatever.
-> >>
-> >> There's also the question of what e.g. gbm_bo_get_modifier() should
-> >> return. Again, if we were starting from scratch, most restrictive
-> >> would make sense. But we're not, so I think it has to return LINEAR
-> >> for maximum compatibility (because modifiers can't be morphed into
-> >> other ones for fun), which further cements that we're not removing
-> >> LINEAR.
-> >>
-> >> And how should allocators determine what to go for? Given that, I
-> >> think the only sensible semantics are, when only LINEAR has been
-> >> passed, to pick the most restrictive set possible; when LINEAR
-> >> variants have been passed as well as LINEAR, to act as if LINEAR were
-> >> not passed at all.
-> > 
-> > Yeah I think this makes sense, and we'd need to add that to the kerneldoc
-> > about how drivers/apps/frameworks need to work with variants of LINEAR.
-> > 
-> > Just deprecating LINEAR does indeed not work. The same way it was really
-> > hard slow crawl (and we're still not there everywhere, if you include
-> > stuff like bare metal Xorg) trying to retire the implied modifier. Maybe,
-> > in an extremely bright future were all relevant drivers advertise a full
-> > set of LINEAR variants, and all frameworks understand them, we'll get
-> > there. But if AMD is the one special case that really needs this I don't
-> > think it's realistic to plan for that, and what Daniel describe above
-> > looks like the future we're stuck to.
-> > -Sima
+On 1/12/2025 21:40, Jiang Liu wrote:
+> When GPU suspend is aborted, do the same for dGPU as APU to reset
+> soc15 asic. Otherwise it may cause following errors:
+> [  547.229463] amdgpu 0001:81:00.0: [drm:amdgpu_ring_test_helper [amdgpu]] *ERROR* ring kiq_0.2.1.0 test failed (-110)
 > 
-> I spent some time thinking about this over the break, because on a venn 
-> diagram it does overlap a sliver of the work we've done to define the 
-> differences between the concepts of constraints Vs. capabilities in the 
-> smorgasbord of unified memory allocator talks/workshops/prototypes/etc. 
-> over the years. I'm not that worried about some overlap being 
-> introduced, because every reasonable rule deserves an exception here and 
-> there, but I have concerns similar to Daniel's and Brian's.
+> [  555.126827] amdgpu 0000:0a:00.0: [drm:amdgpu_ring_test_helper [amdgpu]] *ERROR* ring kiq_0.2.1.0 test failed (-110)
+> [  555.126901] [drm:amdgpu_gfx_enable_kcq [amdgpu]] *ERROR* KCQ enable failed
+> [  555.126957] [drm:amdgpu_device_ip_resume_phase2 [amdgpu]] *ERROR* resume of IP block <gfx_v9_4_3> failed -110
+> [  555.126959] amdgpu 0000:0a:00.0: amdgpu: amdgpu_device_ip_resume failed (-110).
+> [  555.126965] PM: dpm_run_callback(): pci_pm_resume+0x0/0xe0 returns -110
+> [  555.126966] PM: Device 0000:0a:00.0 failed to resume async: error -110
 > 
-> Once you start adding more than one special modifier, some things in the 
-> existing usage start to break down. Right now you can naively pass 
-> around modifiers, then somewhere either before or just after allocation 
-> depending on your usage, check if LINEAR is available and take your 
-> special "I can parse this thing" path, for whatever that means in your 
-> special use case. Modifying all those paths to include one variant of 
-> linear is probably OK-but-not-great. Modifying all those paths to 
-> include <N> variants of linear is probably unrealistic, and I do worry 
-> about slippery slopes here.
+> This fix has been tested on Mi308X.
 > 
+> Signed-off-by: Jiang Liu <gerry@linux.alibaba.com>
+> Tested-by: Shuo Liu <shuox.liu@linux.alibaba.com>
+
+Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
+
+I'll get this committed to amd-staging-drm-next, thanks.
+
 > ---
+>   drivers/gpu/drm/amd/amdgpu/soc15.c | 8 +++-----
+>   1 file changed, 3 insertions(+), 5 deletions(-)
 > 
-> What got me more interested though was this led to another thought. At 
-> first I didn't notice that this was an exact-match constraint and 
-> thought it meant the usual alignment constraint of >=, and I was 
-> concerned about how future variants would interact poorly. It could 
-> still be a concern if things progress down this route, and we have 
-> vendor A requiring >= 32B alignment and vendor B requiring == 64B 
-> alignment. They're compatible, but modifiers expressing this would 
-> naively cancel each-other out unless vendor A proactively advertised == 
-> 64B linear modifiers too. This isn't a huge deal at that scale, but it 
-> could get worse, and it got me thinking about a way to solve the problem 
-> of a less naive way to merge modifier lists.
-> 
-> As a background, the two hard problems left with implementing a 
-> constraint system to sit alongside the format modifier system are:
-> 
-> 1) A way to name special heaps (E.g., local vidmem on device A) in the 
-> constraints in a way that spans process boundaries using some sort of 
-> identifier. There are various ways to solve this. Lately the thinking is 
-> something around dma heaps, but no one's fleshed it out yet that I'm aware.
-> 
-> 2) A transport that doesn't require us to revise every userspace API, 
-> kernel API, and protocol that got revised to support DRM format 
-> modifiers, and every API/protocol introduced since.
-> 
-> I haven't seen any great ideas for the latter problem yet, but what if 
-> we did this:
-> 
-> - Introduced a new DRM format modifier vendor that was actually 
-> vendor-agnostic, but implied the format modifier was a constraint 
-> definition fragment instead of an actual modifier.
-> 
-> - Constraint-aware code could tack on its constraints (The ones it 
-> requires and/or the ones it can support allocating) as a series of 
-> additional modifiers using this vendor code. A given constraint might be 
-> fragmented into multiple modifiers, but their definition and 
-> serialization/deserialization mechanism could be defined in drm_fourcc.h 
-> as macros all the clients could use.
-> 
-> - Existing non-constraint-aware code in a modifier usage chain might 
-> filter these modifiers out using the existing strict intersection logic. 
-> Hence, any link in the chain not aware of constraints would likely block 
-> their use, but that's OK. We're muddling along without them now. It 
-> wouldn't make those situations any worse.
-> 
-> - New code would be required to use some minimal library (Header-only 
-> perhaps, as Simon and I proposed a few years ago) to intersect format 
-> modifier lists instead, and this code would parse out the constraint 
-> modifiers from each input list and use the envisioned per-constraint 
-> logic to merge them. It would result in yet another merged 
-> modifier+constraint list encoded as a list of modifiers that could be 
-> passed along through any format-modifier-aware API.
-> 
-> - One consideration that would be sort of tricky is that constraints are 
-> supposed to be advertised per-modifier, so you'd have to have a way to 
-> associate constraint modifiers in a given set with real modifiers in 
-> that set or in general. This is easily solved though. Some bits of the 
-> constraint modifiers would already need to be used to associate and 
-> order constraint fragments during deserialization, since modifier lists 
-> aren't strictly ordered.
-> 
-> This effectively allows you to use format modifiers to encode 
-> arbitrarily complex constraint mechanisms by piggybacking on the 
-> existing format modifier definition and transport mechanisms without 
-> breaking backwards compatibility. It's a little dirty, because modifiers 
-> are being abused to implement a raw bitstream, but modifiers and 
-> constraints are related concepts, so it's not a complete hack. It still 
-> requires modifying all the implementations in the system to fully make 
-> use of constraints, but doesn't require e.g. revising X11 DRI3 protocol 
-> again to tunnel them through Xwayland, and in situations where the 
-> constraint-aware thing sits downstream of the non-constraint-aware thing 
-> in the allocation pipeline, you could get some benefit even when all the 
-> upstream things aren't updated yet, because it could still merge in its 
-> local constraints before allocating or passing the modifier list down 
-> the chain.
-> 
-> Does this seem like something worth pursuing to others? I've been trying 
-> to decide how to best move the allocation constraints efforts forward, 
-> so it's potentially something I could put some time into this year.
+> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
+> index a59b4c36cad7..0e1daefd1a8e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
+> @@ -605,12 +605,10 @@ soc15_asic_reset_method(struct amdgpu_device *adev)
+>   static bool soc15_need_reset_on_resume(struct amdgpu_device *adev)
+>   {
+>   	/* Will reset for the following suspend abort cases.
+> -	 * 1) Only reset on APU side, dGPU hasn't checked yet.
+> -	 * 2) S3 suspend aborted in the normal S3 suspend or
+> -	 *    performing pm core test.
+> +	 * 1) S3 suspend aborted in the normal S3 suspend
+> +	 * 2) S3 suspend aborted in performing pm core test.
+>   	 */
+> -	if (adev->flags & AMD_IS_APU && adev->in_s3 &&
+> -			!pm_resume_via_firmware())
+> +	if (adev->in_s3 && !pm_resume_via_firmware())
+>   		return true;
+>   	else
+>   		return false;
 
-It's a fairly interesting idea I hadn't thought of.
-
-My limited experience with all the graphics protocols and their history
-means I have had limited exposure to the pain that communicating
-modifiers everywhere has generated. As a result, I would have (perhaps
-naively) tried to design a new mechanism. Using modifiers as a transport
-mechanism is clearly a hack, but it may be a clever one. It seems worth
-experimenting with it at least.
-
-After reading the whole thread, I however wonder if this will be
-backward compatible. If two devices expose a constraint that ends up
-being encoded in the same binary form in a modifier (let's say for
-instance the same pitch alignment), isn't there a risk that an
-application not aware of this new scheme will pick that common modifier
-when intersecting the modifiers list as done today, without realizing
-it's not a real modifier ?
-
--- 
-Regards,
-
-Laurent Pinchart
