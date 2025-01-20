@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F225C02182
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D912C0218C
 	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jan 2025 09:14:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E1F010E519;
-	Tue, 21 Jan 2025 09:14:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E05E310E517;
+	Tue, 21 Jan 2025 09:14:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="nIEOr7uu";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="O9DnDauo";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 008DD10E445;
- Mon, 20 Jan 2025 16:52:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5CA7410E44B;
+ Mon, 20 Jan 2025 16:52:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
@@ -22,16 +22,16 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=F2/SqIkEaMbVIwttIbrzQ87h2V5aWYFh2JC+zdL8iv0=; b=nIEOr7uuP2WyvQl4AiHrZjzE2V
- zDomsliuIXQrlwEpbUN5UuLY5zef9cxT8oTZ2SFTsoM4CdC5Ji7UBpfocL0Ik6icNu+NY5lbBVr4y
- 9eHsoA0zMxHRzPM5DBXT08DN8zm1b5z3qL0Alpr+sjcfdTVQruTCCpa/+O1Iw6JbE6do1lT4WG9IT
- cc+OX/k2IEI2D40CHQOvWlC+KX7LaIBd3TeXXexxPdFz90eaYodMEH+kY5VJD6ANLRuHWsHVHcsLh
- KTz4n1gPrxVfB/ejXd3IdvWAfO5FLFrggZU8zRyfcLWKlYsfdOPFO7Xl0gpUB12BsE9msxjlTuIp1
- 7IiEkweg==;
+ bh=bzknq5mAmEKvxp1IjETJYNytA/cYZ4r62a24cB1hXN4=; b=O9DnDauoOxebVYYnvkqTv95K9I
+ sg+MFnnxP1YfmiSZQArSanOlZVNRZCtLRcMZFzIqRm61hJYr7xgsnB1n0GF2c13tGQKpm/+zyHWSz
+ rdRn+qoh9h05B3J6Wf4XwnovwlqXSJ4EVh7TXqXLSMkxxDc0T9niYMpERxMnrjOsCUXlKE3RJj1LJ
+ e2ZlltYfHw8oL6y6HjEsxnhUOhgAktuID6+61R9LlzmeCDaxmDaX9spEIVh0doeMb6ykpi0dVkFe6
+ qSzT6xgma74WHvMRqc3pfnJKiyf11zkJKI+XyGUYKvEAEF+5gaLLDaX3/R97e43nkpk1hMDAJH/XV
+ uz08K6EQ==;
 Received: from [90.241.98.187] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1tZv14-000v9b-60; Mon, 20 Jan 2025 17:52:46 +0100
+ id 1tZv15-000v9k-JB; Mon, 20 Jan 2025 17:52:47 +0100
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
@@ -40,9 +40,10 @@ Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
  Danilo Krummrich <dakr@kernel.org>,
  Matthew Brost <matthew.brost@intel.com>,
  Philipp Stanner <phasta@kernel.org>
-Subject: [PATCH 2/4] drm/amdgpu: Use the new low level job popping helper
-Date: Mon, 20 Jan 2025 16:52:38 +0000
-Message-ID: <20250120165240.9105-3-tvrtko.ursulin@igalia.com>
+Subject: [PATCH 4/4] drm/sched: Make the type of
+ drm_sched_job->last_dependency consistent
+Date: Mon, 20 Jan 2025 16:52:40 +0000
+Message-ID: <20250120165240.9105-5-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.47.1
 In-Reply-To: <20250120165240.9105-1-tvrtko.ursulin@igalia.com>
 References: <20250120165240.9105-1-tvrtko.ursulin@igalia.com>
@@ -64,9 +65,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Amdgpu is the only driver which peeks into scheduler internals in this way
-so lets make it use the previously added helper. This allows removing the
-local copy of the to_drm_sched_job macro.
+Dependency tracking via xarray uses xa_limit_32b so there is not need for
+the struct member to be unsigned long.
+
+At the same time re-order some struct members and take u32 credits outside
+of the pointer sandwich and avoid a hole.
+
+Pahole report before:
+        /* size: 160, cachelines: 3, members: 14 */
+        /* sum members: 156, holes: 1, sum holes: 4 */
+        /* last cacheline: 32 bytes */
+
+And after:
+        /* size: 152, cachelines: 3, members: 14 */
+        /* last cacheline: 24 bytes */
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 Cc: Christian König <christian.koenig@amd.com>
@@ -74,32 +86,84 @@ Cc: Danilo Krummrich <dakr@kernel.org>
 Cc: Matthew Brost <matthew.brost@intel.com>
 Cc: Philipp Stanner <phasta@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+ include/drm/gpu_scheduler.h | 38 +++++++++++++++++++------------------
+ 1 file changed, 20 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-index 100f04475943..cbbdf33f10ef 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-@@ -411,9 +411,6 @@ static struct dma_fence *amdgpu_job_run(struct drm_sched_job *sched_job)
- 	return fence;
- }
+diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+index 092242f2464f..9feb7ce6eff0 100644
+--- a/include/drm/gpu_scheduler.h
++++ b/include/drm/gpu_scheduler.h
+@@ -338,8 +338,14 @@ struct drm_sched_fence *to_drm_sched_fence(struct dma_fence *f);
+  * to schedule the job.
+  */
+ struct drm_sched_job {
+-	struct spsc_node		queue_node;
+-	struct list_head		list;
++	u64				id;
++
++	/**
++	 * @submit_ts:
++	 *
++	 * When the job was pushed into the entity queue.
++	 */
++	ktime_t                         submit_ts;
  
--#define to_drm_sched_job(sched_job)		\
--		container_of((sched_job), struct drm_sched_job, queue_node)
+ 	/**
+ 	 * @sched:
+@@ -349,24 +355,30 @@ struct drm_sched_job {
+ 	 * has finished.
+ 	 */
+ 	struct drm_gpu_scheduler	*sched;
++
+ 	struct drm_sched_fence		*s_fence;
++	struct drm_sched_entity         *entity;
+ 
++	enum drm_sched_priority		s_priority;
+ 	u32				credits;
++	/** @last_dependency: tracks @dependencies as they signal */
++	unsigned int			last_dependency;
++	atomic_t			karma;
++
++	struct spsc_node		queue_node;
++	struct list_head		list;
+ 
+ 	/*
+ 	 * work is used only after finish_cb has been used and will not be
+ 	 * accessed anymore.
+ 	 */
+ 	union {
+-		struct dma_fence_cb		finish_cb;
+-		struct work_struct		work;
++		struct dma_fence_cb	finish_cb;
++		struct work_struct	work;
+ 	};
+ 
+-	uint64_t			id;
+-	atomic_t			karma;
+-	enum drm_sched_priority		s_priority;
+-	struct drm_sched_entity         *entity;
+ 	struct dma_fence_cb		cb;
++
+ 	/**
+ 	 * @dependencies:
+ 	 *
+@@ -375,16 +387,6 @@ struct drm_sched_job {
+ 	 * drm_sched_job_add_implicit_dependencies().
+ 	 */
+ 	struct xarray			dependencies;
 -
- void amdgpu_job_stop_all_jobs_on_sched(struct drm_gpu_scheduler *sched)
- {
- 	struct drm_sched_job *s_job;
-@@ -425,7 +422,7 @@ void amdgpu_job_stop_all_jobs_on_sched(struct drm_gpu_scheduler *sched)
- 		struct drm_sched_rq *rq = sched->sched_rq[i];
- 		spin_lock(&rq->lock);
- 		list_for_each_entry(s_entity, &rq->entities, list) {
--			while ((s_job = to_drm_sched_job(spsc_queue_pop(&s_entity->job_queue)))) {
-+			while ((s_job = __drm_sched_entity_pop_job(s_entity))) {
- 				struct drm_sched_fence *s_fence = s_job->s_fence;
+-	/** @last_dependency: tracks @dependencies as they signal */
+-	unsigned long			last_dependency;
+-
+-	/**
+-	 * @submit_ts:
+-	 *
+-	 * When the job was pushed into the entity queue.
+-	 */
+-	ktime_t                         submit_ts;
+ };
  
- 				dma_fence_signal(&s_fence->scheduled);
+ static inline bool drm_sched_invalidate_job(struct drm_sched_job *s_job,
 -- 
 2.47.1
 
