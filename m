@@ -4,67 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26650C02181
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jan 2025 14:39:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17B8CC02181
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jan 2025 14:39:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7E9410E042;
-	Mon, 20 Jan 2025 14:39:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 90D6510E112;
+	Mon, 20 Jan 2025 14:39:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="eN8l2Udw";
+	dkim=pass (1024-bit key; unprotected) header.d=swemel.ru header.i=@swemel.ru header.b="Av2D9gLK";
 	dkim-atps=neutral
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
- [209.85.221.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B267910E37F
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jan 2025 09:19:36 +0000 (UTC)
-Received: by mail-wr1-f48.google.com with SMTP id
- ffacd0b85a97d-385e0e224cbso2183976f8f.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jan 2025 01:19:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1737364715; x=1737969515; darn=lists.freedesktop.org;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc:subject:date:message-id:reply-to;
- bh=ZosYWNMJVsmJIMpdriuqtZru3ZSj+/aM+wzcRtWl9jk=;
- b=eN8l2UdwprnvONX/vV5eEJVd8ykfVNAMAlphD2QTDU97tciqmchbh2yJzkhW9S/iT6
- tjK8M2hNunxV/OJ+wgNPo+7yUpeRMP/lCC0hivXRd+Xf1gd544hlzRfjeMJS0lWjhMpi
- Qm5MufaaOcau6q7axPXvLtvHa9Ip1jORsDuBldFfMiyFndb+i93BqIFnEb91IGHQXTr7
- PafVDSYm/pZdvkiwYH6Xfs7EB+Sqtrp9CSADig3MOTYdTvwSUJmgYvsWf+GDIR6qR/DI
- z7lWhPgbnqlpci2YdEkWW3lMtQD9YeX7vA/JuU0Q1n3IcZZfDRuYIpKyymcCfKF6E3DL
- hEJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737364715; x=1737969515;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=ZosYWNMJVsmJIMpdriuqtZru3ZSj+/aM+wzcRtWl9jk=;
- b=mAikX4uHdtS9fnoSFGHC29RSVL8oIalVovYDt7EaFkHRwF/ccv1pqSL95WqLpzRWxD
- MQe+s/HGzvrzV1aBRFzakl5XTEHejiWscGQ9p090grjKcOtoP6HmjQuuGXzwklEzbG2E
- d2cy2xVOaTsWyAaBKMkuggq7uO0MAgb32QlS+LJKz0+DJh0vhEKkdlyGai6Xhjud7JLe
- VZqjTGiGJ8u82av2lMNeJUdP90o8qFZfIc/Z2q/2CakdXuGlDv75f05gMDSWpAI7iG+s
- asrEl/i2TBKvfd2yj9srP67L6HwfhiGT70KB58Bd8vsDYNguYSrPTMb2QQ51iO4vW4CO
- SKUA==
-X-Gm-Message-State: AOJu0YwuqGvqrbsUAdpn9Pc69lvEx4SGDPWwAi+8k6GfGZH6RJtQ7n0q
- hygma+1kL6VkDE1eZaa0LK4GGHnGuW2Pn3Rdrkgnp4QTLbnOMxTmKgp3/y5vLZs=
-X-Gm-Gg: ASbGnctCXd2tb0iaPpJ64GwX0uzKPVPvW9zyo5jLR15je0ZVwPq3Y4OkGHr1JqWS5x+
- 9ckCWBY05ZsK3Ag1/HKe8euNiaavFV2gIHtwTbJGN9MSBnT6GBtyoOIB6a5j5O5l/n05ZBDj3kW
- S3GJvhw0ba+eem+QNJwvUtxNdHXWZLohSDQSsWK3HQfosJYLrAZwe8mbNqJRxwHW2jJ/M9LC6Kd
- 4napidrdLHCtHUX56ZfzNaCaQnFM2FHypixtRmDmGpIyJ4n72xBN8+Be9hxNeGlOYU7ssnmbls=
-X-Google-Smtp-Source: AGHT+IEsA5qD+BjEVqSprBVBp9ao/ZgpSWZ3jiWHgzni9Qd6l+Nz9oLww3rEIDY57//W8oZlQikAmg==
-X-Received: by 2002:a05:6000:1faa:b0:386:1cd3:8a0e with SMTP id
- ffacd0b85a97d-38bf57c034emr13185041f8f.48.1737364715335; 
- Mon, 20 Jan 2025 01:18:35 -0800 (PST)
-Received: from localhost ([196.207.164.177]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38bf3215482sm9723028f8f.5.2025.01.20.01.18.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 20 Jan 2025 01:18:34 -0800 (PST)
-Date: Mon, 20 Jan 2025 12:18:31 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org,
- "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>
-Subject: [bug report] drm/amdgpu: cache gpu pcie link width
-Message-ID: <f2a16c0a-09ca-46f4-8ca5-797d302dcfd9@stanley.mountain>
+X-Greylist: delayed 311 seconds by postgrey-1.36 at gabe;
+ Mon, 20 Jan 2025 12:50:27 UTC
+Received: from mx.swemel.ru (mx.swemel.ru [95.143.211.150])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C323D10E3E0;
+ Mon, 20 Jan 2025 12:50:27 +0000 (UTC)
+From: Denis Arefev <arefev@swemel.ru>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=swemel.ru; s=mail;
+ t=1737377112;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=V4/psA0m1o91XWq5sYUPCRXkQJFrjno5ZMVOnvX30W8=;
+ b=Av2D9gLKJ24lX1xYUUICaEbd9qvYO5S3JgPfwHedLQJ9aU4ScS7VfHfipILbjCx543ff2H
+ H7IigcTUbAAgYHo+rHf8vW6F1QzkjtiJupux9aH/cxRU7QKlwAklYb1UCYtVtRp+TbWerj
+ Kz/RX/6YdfyeTU/ocG+TynV6l53mxHg=
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+Subject: [PATCH 5.10] drm/radeon: check bo_va->bo is non-NULL before using it
+Date: Mon, 20 Jan 2025 15:45:09 +0300
+Message-ID: <20250120124512.51418-1-arefev@swemel.ru>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 20 Jan 2025 14:39:07 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -80,49 +55,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello Alex Deucher,
+From: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
 
-Commit 8fae3b201fee ("drm/amdgpu: cache gpu pcie link width") from
-Jan 6, 2025 (linux-next), leads to the following Smatch static
-checker warning:
+commit 6fb15dcbcf4f212930350eaee174bb60ed40a536 upstream.
 
-	drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:6193 amdgpu_device_gpu_bandwidth()
-	error: we previously assumed 'parent' could be null (see line 6180)
+The call to radeon_vm_clear_freed might clear bo_va->bo, so
+we have to check it before dereferencing it.
 
-drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-    6170 static void amdgpu_device_gpu_bandwidth(struct amdgpu_device *adev,
-    6171                                         enum pci_bus_speed *speed,
-    6172                                         enum pcie_link_width *width)
-    6173 {
-    6174         struct pci_dev *parent = adev->pdev;
-    6175 
-    6176         if (!speed || !width)
-    6177                 return;
-    6178 
-    6179         parent = pci_upstream_bridge(parent);
-    6180         if (parent && parent->vendor == PCI_VENDOR_ID_ATI) {
-                     ^^^^^^
-If parent is NULL
+Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+[Denis: minor fix to resolve merge conflict.] 
+Signed-off-by: Denis Arefev <arefev@swemel.ru> 
+---
+Backport fix CVE-2024-41060
+Link: https://nvd.nist.gov/vuln/detail/CVE-2024-41060
+---
+ drivers/gpu/drm/radeon/radeon_gem.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-    6181                 /* use the upstream/downstream switches internal to dGPU */
-    6182                 *speed = pcie_get_speed_cap(parent);
-    6183                 *width = pcie_get_width_cap(parent);
-    6184                 while ((parent = pci_upstream_bridge(parent))) {
-    6185                         if (parent->vendor == PCI_VENDOR_ID_ATI) {
-    6186                                 /* use the upstream/downstream switches internal to dGPU */
-    6187                                 *speed = pcie_get_speed_cap(parent);
-    6188                                 *width = pcie_get_width_cap(parent);
-    6189                         }
-    6190                 }
-    6191         } else {
-    6192                 /* use the device itself */
---> 6193                 *speed = pcie_get_speed_cap(parent);
-                                                     ^^^^^^
-Then we are toasted here.
+diff --git a/drivers/gpu/drm/radeon/radeon_gem.c b/drivers/gpu/drm/radeon/radeon_gem.c
+index 75053917d213..51b6f38b5c47 100644
+--- a/drivers/gpu/drm/radeon/radeon_gem.c
++++ b/drivers/gpu/drm/radeon/radeon_gem.c
+@@ -582,7 +582,7 @@ static void radeon_gem_va_update_vm(struct radeon_device *rdev,
+ 	if (r)
+ 		goto error_unlock;
+ 
+-	if (bo_va->it.start)
++	if (bo_va->it.start && bo_va->bo)
+ 		r = radeon_vm_bo_update(rdev, bo_va, &bo_va->bo->tbo.mem);
+ 
+ error_unlock:
+-- 
+2.43.0
 
-    6194                 *width = pcie_get_width_cap(parent);
-    6195         }
-    6196 }
-
-regards,
-dan carpenter
