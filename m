@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A25FAC02181
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jan 2025 11:10:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83B85C02181
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jan 2025 12:32:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 39A5710E3BA;
-	Mon, 20 Jan 2025 11:10:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31E6D10E3CE;
+	Mon, 20 Jan 2025 12:32:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="5i4UygBn";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="AZrGmykZ";
 	dkim-atps=neutral
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on20619.outbound.protection.outlook.com
- [IPv6:2a01:111:f403:2407::619])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC43A10E3BA
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jan 2025 11:10:56 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2087.outbound.protection.outlook.com [40.107.244.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0311410E3CE
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jan 2025 12:32:25 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UxcZIJ4+PF8K+Mjhnf3AEblnX06olBbz//bbnAFHdvZZ7OWpqSZxa/yJzxVYAl8pJJ3IiQ9EZg0KTpz/yr7ZqX0TLKYpi1nKA9Bt1ON0hQrDV0l0Q1qHPD5pEXymp2TmXiJG4eapwA02biMwOaVkRd1ngXWsoHNEHqqLX8iRwgEJtazBkmKO42QNit2yB47+l1lMk3yYSDlXxOxfzwXrWmJvrEa8NmbR7PKUQIfrMREfKoD0YWH/e1/feqD8GfrxuBIcY6mALfZ2BE4+tKaQImALvfKdZUFQmgAYvZ+XfqQmvhZ3FJmanzOf/QJL+zAZ/EbicxJzgcsardFxKcGX/A==
+ b=OgU/KyQjGKb7/jKfKgdFhlZdopgxAhEzmjgv/vfoNy//YajkpAQ/O8jTCTGgPHvdgbL8cRKHL/MUQEF5IsKhAdD7cl2M7c+Obtkqp3XbktUcIKXlyuJRDf143R/lA51PUBND//r1bTjiyQBzE6x1Rj4plsu1k02I8pjPe76jUX9xz6Et9Xr9KXHsjGURkehWXTqThBDsc4fgiWtC/bsuFL+yZkbDx7KAtQ420KR8JDHuBQqO2tl52gF+qKpMX3E3t1WVOgrEDNREd1FhVs1eik2XUdv8xIOrRB/g9u23Acd9qH6AaGiKVrjzwDeSA2IcCv/UYZkNa9Feq340taUjgQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=53I5DqRd7MR7o9bTvZD6tSgywtAGeexzVJwwbRZmuJA=;
- b=DW1lvU32zrs7IFLJClV6YGklg0PILNNbTI4vmvAEZ+dTwCWbzHaUAqiHKZuwFnpIX8XO/yKU7eDF9Dby4atiEFH+/3tYrL/B5oAwEuoMlxvMbwDAsj0SpxvQiUj9VL2bQm0ptlAyhxIwcz+ofovknwoPQiJYkCS2RTqkPHeutePTJOdwsXsXbyQhuR/URcvlNYnCjLyLieyKGmV7Y+wpBpeOF5SwXc1gEYWC+hsqiVQ+eSJF4Wrn5Bt7TL3LU99EOnidFB+qMZWrUtoR2yGm7844ehPI65dZSw1qm07UOQEWTh7i76RBQbHmEsdFAAfXCmruUBdA0Q7UsMNqrCN1pw==
+ bh=eu2lyBJjrGDuAVhSpw9znwiFeCWs4w2Jbvy5V/wwiuA=;
+ b=VdTrnMauM2gFIQRtyXY3wqWDgbnZCKIh7kvQeU+bF3aLSmSwVupXiaPFiz7ejGk83QRcWdtXXkSsXGZW+ZpFIHlJCxy7Qjd6iC9Z9vtpWC1BQpNEq4IpGcX8xHSVt7AL/gozpco7FfwbiR20cd4yf2/gB1i+TvkyM06hye+nrVgSMpi6h1swjRxMlr0jM7t2FsmCF42O9lTH3mE05HPjYBgJSjru/0ItjMoQ86++VoVSrOlRDHk5qmLXL18SbaldsPzERsffjjtK9KU6agQJumUPYX7/IIgHH7ySe2KzWlfi9+7UuobqfwvWdSZ8TRIaovCSskTcuu4w7ZRmJy/Fkw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=53I5DqRd7MR7o9bTvZD6tSgywtAGeexzVJwwbRZmuJA=;
- b=5i4UygBnMBNDKpiDVCE0MB8gJ03X2/7SncgaxQ4r5n5RiFXQ8OFal/f27DmynGMGqgCeVMsGIrVF0ATSdeJEoWOCDceb3hUkl+cs4IG5Ut3wbsp0DybbUVa4JZZTYFBBpqfMXZdNkhqnoFDsEsYkvaTU/Qv7rWuLdmeVECIUZ3o=
-Received: from DM6PR02CA0165.namprd02.prod.outlook.com (2603:10b6:5:332::32)
- by DS0PR12MB9424.namprd12.prod.outlook.com (2603:10b6:8:1b4::6) with
+ bh=eu2lyBJjrGDuAVhSpw9znwiFeCWs4w2Jbvy5V/wwiuA=;
+ b=AZrGmykZz59rsrZlaSUTEWa/k9vIKZmPUZpd1IQdTGImU8lL0OYpyi30t1kW1DF+GZ6tBqayMVUCfLhJ5QegNRdUpv3WSzTaVt0oABUwF0RzgWOEusKux4omyJdLuVv6eWiSiHqG3Ruk8BOvNOjnm2tE9aHB82kF9yqf4g4bpeQ=
+Received: from SA0PR11CA0092.namprd11.prod.outlook.com (2603:10b6:806:d1::7)
+ by SA3PR12MB7830.namprd12.prod.outlook.com (2603:10b6:806:315::15) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8356.22; Mon, 20 Jan
- 2025 11:10:51 +0000
-Received: from DS1PEPF00017097.namprd05.prod.outlook.com
- (2603:10b6:5:332:cafe::6a) by DM6PR02CA0165.outlook.office365.com
- (2603:10b6:5:332::32) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8356.22 via Frontend Transport; Mon,
- 20 Jan 2025 11:10:51 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8356.21; Mon, 20 Jan
+ 2025 12:32:22 +0000
+Received: from SA2PEPF000015C8.namprd03.prod.outlook.com
+ (2603:10b6:806:d1:cafe::83) by SA0PR11CA0092.outlook.office365.com
+ (2603:10b6:806:d1::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8356.21 via Frontend Transport; Mon,
+ 20 Jan 2025 12:32:22 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,75 +48,85 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS1PEPF00017097.mail.protection.outlook.com (10.167.18.101) with Microsoft
+ SA2PEPF000015C8.mail.protection.outlook.com (10.167.241.198) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8377.8 via Frontend Transport; Mon, 20 Jan 2025 11:10:51 +0000
-Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 20 Jan
- 2025 05:10:48 -0600
-From: Lijo Lazar <lijo.lazar@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Hawking.Zhang@amd.com>, <Alexander.Deucher@amd.com>,
- <Asad.Kamal@amd.com>, <kevinyang.wang@amd.com>
-Subject: [PATCH v2] drm/amd/pm: Fix smu v13.0.6 caps initialization
-Date: Mon, 20 Jan 2025 16:40:27 +0530
-Message-ID: <20250120111027.1525667-1-lijo.lazar@amd.com>
-X-Mailer: git-send-email 2.25.1
+ 15.20.8377.8 via Frontend Transport; Mon, 20 Jan 2025 12:32:21 +0000
+Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39; Mon, 20 Jan 2025 06:32:19 -0600
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
+ Deucher" <alexander.deucher@amd.com>
+CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
+ <srinivasan.shanmugam@amd.com>, Dan Carpenter <dan.carpenter@linaro.org>
+Subject: [PATCH] drm/amd/amdgpu: Prevent null pointer dereference in GPU
+ bandwidth calculation
+Date: Mon, 20 Jan 2025 18:02:06 +0530
+Message-ID: <20250120123206.188410-1-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
 X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF00017097:EE_|DS0PR12MB9424:EE_
-X-MS-Office365-Filtering-Correlation-Id: 30326506-1e81-4281-d07b-08dd394319a9
+X-MS-TrafficTypeDiagnostic: SA2PEPF000015C8:EE_|SA3PR12MB7830:EE_
+X-MS-Office365-Filtering-Correlation-Id: 87344f1f-7719-476b-3989-08dd394e7cad
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|1800799024|376014|36860700013|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?jl3A+fb/aX/mElww6H21tGVudvWkRUDpTbVoPDkDBillezZHJkhAEJsbnBZ/?=
- =?us-ascii?Q?Kq0itDIxG1gRl9h/tR37lMSL17N3gchx25O5c5dOCM+xoboxtUsDSoU1r8fg?=
- =?us-ascii?Q?ZhZ1LF5hLHb7I3QsBh+URwCuWkxROo83FHHAw6UZ8yUmjHp3RzxEqRBhTXhq?=
- =?us-ascii?Q?cmh3XnKcgNEmWOJwBDgXvlWkWUQiuEqtC9Ypp5qkc++0VnC3tNfejE3l6cJN?=
- =?us-ascii?Q?mX7mW7jUOHoGgtR74PkMgJqge0IB2Bz6NrKROdMkQGhAwYy90I/Zcxtu7UrP?=
- =?us-ascii?Q?Lu5ksxfbC7Gbt+gVhlhnF5fONcmibaPOGlFWYqE83e63BcYeRzQCxE3OvgJX?=
- =?us-ascii?Q?oALr8POlkCX+aCNqRgukJMEynvPad+QU8gAULMiR0NeeOCt7RSgkzgvJ5tjN?=
- =?us-ascii?Q?YGEPNx5EB/KDmxo7X3leKaDPCoBCQqc3ZwmNhcIzuI6TlxYG6yomh5Cvqjmb?=
- =?us-ascii?Q?AZvXa6Ky3CTDAfAjODqUdrjJup7Ih6IL6H5cDka2tPbVpVYLQBF+iTGRzGBb?=
- =?us-ascii?Q?ppaigGpgFMnVjGV5sKXUM8ufIZTC/C+jDcnY/Kk2Mrs5QuiSynVW1MwvA+LT?=
- =?us-ascii?Q?3wyNGGn7vwMnRWMmVPScpcrWnExSzrO33wiBNf/7DNt+RVHLlcQXnSJ85TVb?=
- =?us-ascii?Q?cm4h0yHEx15Vc2SS/tZlMNG76cQMiFXaA5G9EtZaItNJLLgS9S9KFFs7Ppae?=
- =?us-ascii?Q?LONieYP+GYAbyaU7tV+PKAiwtT2kefRhwX0luR6TfD6IOmVas8PiqWICLWIz?=
- =?us-ascii?Q?RlpG3rj6VRTielYGBTbpTQWqowkDM6rVlJtT7w/BeitY1vkE1O8SSq+OFLwu?=
- =?us-ascii?Q?6vfsPrxFDvsPzIPizAZePPzEC2hb7dD04b+TnUtHyfXjAmvbFUcC/jJ4fWL8?=
- =?us-ascii?Q?aB4Mm9sYjF2pEq4iviOx4x399m38Zj3Jihj2bXY6vERqup+Oax3b8ryWozAu?=
- =?us-ascii?Q?5CigcwE1PMg+nexjWAn1uFqrjag3ZPE9Rjfd3bRSV0wnQ1oURY2UUojtlbfW?=
- =?us-ascii?Q?tRAbh2vFK4901xj6+dayhJtljVRlhhw33pxWq60kxOXz7huaKg69ADxYQK16?=
- =?us-ascii?Q?/f2HAR9AOV0gzwqRqEUKOxzQLd9YP0MA39w1TN1gra3k0wJ0Yzl6/9gAQXBB?=
- =?us-ascii?Q?ZnRTM9wU351PYHp2wKg8e6q7cKikDIRd9OqgBrDo26BvFj+Le4K8Hb54ewNq?=
- =?us-ascii?Q?fYm6PZOnrBOuOcNFsbY6IwrUZKVfwoOQzKtuZtfHGKGDJVsgIkKXbIzuMh0R?=
- =?us-ascii?Q?Gn58Q4kv7DKgWaEYBSP0szn+XlmSdtY+6TaluaDG9CMthtpkXVNTkIrS0u++?=
- =?us-ascii?Q?XUIzGpa/Aq8AjWOFBddsv4hIFzDSL4UyGt/tw0OYLAHYQASVHWK9gSKbOkTE?=
- =?us-ascii?Q?XOKA73PKG/72H25gB7FvTn9/aykJhKM4nCEw+qNhQAP4ZyTUyk42eK0w6g3x?=
- =?us-ascii?Q?3sCQgwUkOz3WKJanFCY3DCI+YEJr8OAFD967LNdeJFxZu0OGIlCjY+EY5afn?=
- =?us-ascii?Q?8AaQE/4LC83ypUE=3D?=
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?bHFucjdlbGZqWUE1NnZucE8rT3I5RmVpTlJLa1hkNjkwTjNQUmlhd0lIVVRv?=
+ =?utf-8?B?S2czQnZaZ3BPQm5HZ1pwdlYreWRFWEV6bWJ6UDhiU2gzY3ZRWWpMZ25XY25T?=
+ =?utf-8?B?RE53TFNlak45T09RT3FJSmU2cXJwcGZmaHgvZk9jTjlzZUdpMWs3ZnVjckp4?=
+ =?utf-8?B?aG0xZ2p2TVVwWjFaUXdKZWhQZ0xXMURMMGthZ2dIZHVMS1h3K2hMK3pDVXJN?=
+ =?utf-8?B?VTdNUnBhRjZSdjFEWER2T3NVWEErZVlyR0ZOYjVvRzkxWXNkZlhtOXFkQ09p?=
+ =?utf-8?B?T1pVa2NRQXZsam9hem9nSTRTQ244cE9zcTVzc1NzRDYyNlYxRXlacGRkb3hP?=
+ =?utf-8?B?cGhhS3hpMGFSZXBNYy9NcFNqT1N5K3RVOWVvUTU5ajBwV2MxblM4bStCZ0dm?=
+ =?utf-8?B?Z0pLdGNWS2QzeGd3bTAxS2JidGdUcWxzelJDRnFZLzcvUUpyZUJDeFBMWDB1?=
+ =?utf-8?B?a3dRRk5hWklIZUxxNjdNYTM5RTJiUExwM1lOZUUzbHdLZjcvMlh4VVo2RUNB?=
+ =?utf-8?B?Nm8xclhQSlZobjl5L09wTUw1RUtmSXZhcThzREgvck9JVEZGaURtYnlTQmQ0?=
+ =?utf-8?B?cEZoS0kxWW80ZEVBZHVtNzNLSFFudmJhbTFvMGM3WFo3VnVwNkxTUXZZZFhY?=
+ =?utf-8?B?NGVxUFRyVUNMd1BsRnJ4OWF0SDZveG5pSGlkZlZjc3VnQ1Vsd0FTbnc5WW9a?=
+ =?utf-8?B?VVl5M1pZVy8yclNyZUJsR1ZPakQxSVV2c1p3VmE0aGdZZHVWN1JwOVU3OE1q?=
+ =?utf-8?B?YkswR1hIdUFuKzdpaEYwQUZIRXFISXFJTVM5ajlXQVNzM0tUbXd0RWw3RUY3?=
+ =?utf-8?B?cUgrUUdVWDF1V0lsYUV3VnM2eXRXM05DZWEvZ3lIaVhObmdwSUdkeFA5UGFw?=
+ =?utf-8?B?ZSs5clZnR25uSHpVdlh1eklIRjY1clVjSC9MMlVsZ1NyZ285TDhLdVkzcGJo?=
+ =?utf-8?B?RWFodUtncXcrZHhqVTcxRExvcnBPcWJRUGdkdHAwNisrOHVKRXNmWlFYVDZT?=
+ =?utf-8?B?a1FrRFRXckdZR1NpeERKZTVxZUtkM1h1ZG5lUlV5cW41RW4rL2JqTEFBajZr?=
+ =?utf-8?B?Y3ZUU3lLUTcwOHpnS1lGeUV0RHBLL3BlWXlGR2xDTG5jam5tZ1NvNTZqM0JW?=
+ =?utf-8?B?TGVPT3J5UGw2S3hSSDR4NUtQN0pNQ3lFVjl4TGJ4cmdKY3NaWTNuYjh5UnN1?=
+ =?utf-8?B?RmJFTW5GUVJTdEhTQmM4SWhzSEUwTTZsTU9lU213aEpWcFdIcHovVytXUVU2?=
+ =?utf-8?B?STZiVlZnenh6eFl6TU9LYmNRdzk0Nm02MUNuQWxEU2doYXIrS3hOanZWcVFP?=
+ =?utf-8?B?c3hzbHRqM2hqakZtM2g1Q1ZtVWZEZkw4UFB0R0x4bEwzYTE5NzFQOEV0NUNS?=
+ =?utf-8?B?ellGQmtHaDNpZTUxbC9RZmFVS2Y1V3UwU0YzK1FWN1U1ZmpmMmRaNHc2cmRi?=
+ =?utf-8?B?dm9UVUFEc0I4emdkdkJ6cHhmZEFCY2pFaVJ3blR2MUJ2MExDdWZMS2FHeCs0?=
+ =?utf-8?B?T1RyZTNSMXlQQkM2amNFMlE4cWEzYkdtWkx4UXRHRGFtcGlwMk9HbU02Z0FB?=
+ =?utf-8?B?RFlnSVI4c2ppY2NqUEVnVmI5aTZNcHQ5Y3RINHBOTHBOT3R2WUVLak05dEkx?=
+ =?utf-8?B?TW14OGQvWWFuRDFVdlZpZHMxTGVXVERTTWhVd212YW1uWUxWdzNKOGdTbk5a?=
+ =?utf-8?B?bW5kcGlSakhJQVNPeDY5czBmU0lkcTM5M2RqNzhhblBvbHY2WFNGZ1JPU2hJ?=
+ =?utf-8?B?bDhnYVd2bFFyNTVieHpjUWFxZVVMRmcwdmN1TWI0czBFYURpUzBzM0JjclZt?=
+ =?utf-8?B?VWpQZmNicDYvSjFFcXJldk1vcyt5cG5aM2kva1Joc1R6MXlzcW00VUl0Vktr?=
+ =?utf-8?B?R1ZyNndpbGFVRHpKT0gzUHJiZlpSa1laYnFWZ3lzUFVHUHo2RjVKRmhuRGhW?=
+ =?utf-8?B?clA3dEJQcm1KRkFHVkhwVFgwWTZGSHVURXVUQW5xY3BJMzJlTEttM0dpdzRo?=
+ =?utf-8?Q?/5EXGhHDQtdWsnXjNLt5OllhP+6PXY=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
  SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jan 2025 11:10:51.1692 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 30326506-1e81-4281-d07b-08dd394319a9
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jan 2025 12:32:21.7500 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 87344f1f-7719-476b-3989-08dd394e7cad
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF00017097.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF000015C8.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB9424
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7830
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,205 +141,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix the initialization and usage of SMU v13.0.6 capability values. Use
-caps_set/clear functions to set/clear capability.
+This commit adds an early return if no upstream bridge is found, setting
+the speed and width to PCI_SPEED_UNKNOWN and PCIE_LNK_WIDTH_UNKNOWN,
+respectively. This ensures that the function handles the absence of an
+upstream bridge gracefully.
 
-Also, fix SET_UCLK_MAX capability on APUs, it is supported on APUs.
+Fixes the below:
+drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:6193 amdgpu_device_gpu_bandwidth()
+	error: we previously assumed 'parent' could be null (see line 6180)
 
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+    6170 static void amdgpu_device_gpu_bandwidth(struct amdgpu_device *adev,
+    6171                                         enum pci_bus_speed *speed,
+    6172                                         enum pcie_link_width *width)
+    6173 {
+    6174         struct pci_dev *parent = adev->pdev;
+    6175
+    6176         if (!speed || !width)
+    6177                 return;
+    6178
+    6179         parent = pci_upstream_bridge(parent);
+    6180         if (parent && parent->vendor == PCI_VENDOR_ID_ATI) {
+                     ^^^^^^
+If parent is NULL
 
-Fixes: 9bb53d2ce109 ("drm/amd/pm: Add capability flags for SMU v13.0.6")
+    6181                 /* use the upstream/downstream switches internal to dGPU */
+    6182                 *speed = pcie_get_speed_cap(parent);
+    6183                 *width = pcie_get_width_cap(parent);
+    6184                 while ((parent = pci_upstream_bridge(parent))) {
+    6185                         if (parent->vendor == PCI_VENDOR_ID_ATI) {
+    6186                                 /* use the upstream/downstream switches internal to dGPU */
+    6187                                 *speed = pcie_get_speed_cap(parent);
+    6188                                 *width = pcie_get_width_cap(parent);
+    6189                         }
+    6190                 }
+    6191         } else {
+    6192                 /* use the device itself */
+--> 6193                 *speed = pcie_get_speed_cap(parent);
+                                                     ^^^^^^ Then we are toasted here.
+
+    6194                 *width = pcie_get_width_cap(parent);
+    6195         }
+    6196 }
+
+Fixes: 9e424a5d9087 ("drm/amdgpu: cache gpu pcie link width")
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 ---
-v1: ("drm/amd/pm: Use correct macros for smu caps")
-v2:
-	Use caps_set/clear instead of macros (Alex). Commit message changed.
-	Use BIT_ULL (Kevin)
-	Fix SET_UCLK_MAX capability on APUs
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
- .../drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c  | 124 ++++++++++--------
- 1 file changed, 72 insertions(+), 52 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-index 56e26fcd3066..9e64392d23a9 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-@@ -118,8 +118,7 @@ enum smu_v13_0_6_caps {
- 	SMU_13_0_6_CAPS_ALL,
- };
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 46af07faf8c8..749791a486bd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -6174,6 +6174,14 @@ static void amdgpu_device_gpu_bandwidth(struct amdgpu_device *adev,
+ 		return;
  
--#define SMU_CAPS_MASK(x) (ULL(1) << x)
--#define SMU_CAPS(x) SMU_CAPS_MASK(SMU_13_0_6_CAPS_##x)
-+#define SMU_CAPS(x) SMU_13_0_6_CAPS_##x
- 
- struct mca_bank_ipid {
- 	enum amdgpu_mca_ip ip;
-@@ -284,95 +283,116 @@ struct smu_v13_0_6_dpm_map {
- 	uint32_t *freq_table;
- };
- 
--static void smu_v13_0_14_init_caps(struct smu_context *smu)
-+static inline void smu_v13_0_6_caps_set(struct smu_context *smu,
-+					enum smu_v13_0_6_caps caps)
-+{
-+	struct smu_13_0_dpm_context *dpm_context = smu->smu_dpm.dpm_context;
+ 	parent = pci_upstream_bridge(parent);
 +
-+	dpm_context->caps |= BIT_ULL(caps);
-+}
++	if (!parent) {
++		/*Return early if no upstream bridge is found */
++		*speed = PCI_SPEED_UNKNOWN;
++		*width = PCIE_LNK_WIDTH_UNKNOWN;
++		return;
++	}
 +
-+static inline void smu_v13_0_6_caps_clear(struct smu_context *smu,
-+					  enum smu_v13_0_6_caps caps)
- {
- 	struct smu_13_0_dpm_context *dpm_context = smu->smu_dpm.dpm_context;
--	uint64_t caps = SMU_CAPS(DPM) | SMU_CAPS(UNI_METRICS) |
--			SMU_CAPS(SET_UCLK_MAX) | SMU_CAPS(DPM_POLICY) |
--			SMU_CAPS(PCIE_METRICS) | SMU_CAPS(CTF_LIMIT) |
--			SMU_CAPS(MCA_DEBUG_MODE) | SMU_CAPS(RMA_MSG) |
--			SMU_CAPS(ACA_SYND);
-+
-+	dpm_context->caps &= ~BIT_ULL(caps);
-+}
-+
-+static inline bool smu_v13_0_6_caps_supported(struct smu_context *smu,
-+					      enum smu_v13_0_6_caps caps)
-+{
-+	struct smu_13_0_dpm_context *dpm_context = smu->smu_dpm.dpm_context;
-+
-+	return !!(dpm_context->caps & BIT_ULL(caps));
-+}
-+
-+static void smu_v13_0_14_init_caps(struct smu_context *smu)
-+{
-+	enum smu_v13_0_6_caps default_caps_list[] = { SMU_CAPS(DPM),
-+						      SMU_CAPS(UNI_METRICS),
-+						      SMU_CAPS(SET_UCLK_MAX),
-+						      SMU_CAPS(DPM_POLICY),
-+						      SMU_CAPS(PCIE_METRICS),
-+						      SMU_CAPS(CTF_LIMIT),
-+						      SMU_CAPS(MCA_DEBUG_MODE),
-+						      SMU_CAPS(RMA_MSG),
-+						      SMU_CAPS(ACA_SYND) };
- 	uint32_t fw_ver = smu->smc_fw_version;
- 
-+	for (int i = 0; i < ARRAY_SIZE(default_caps_list); i++)
-+		smu_v13_0_6_caps_set(smu, default_caps_list[i]);
-+
- 	if (fw_ver >= 0x05550E00)
--		caps |= SMU_CAPS(OTHER_END_METRICS);
-+		smu_v13_0_6_caps_set(smu, SMU_CAPS(OTHER_END_METRICS));
- 	if (fw_ver >= 0x05551000)
--		caps |= SMU_CAPS(HST_LIMIT_METRICS);
-+		smu_v13_0_6_caps_set(smu, SMU_CAPS(HST_LIMIT_METRICS));
- 	if (fw_ver >= 0x05550B00)
--		caps |= SMU_CAPS(PER_INST_METRICS);
-+		smu_v13_0_6_caps_set(smu, SMU_CAPS(PER_INST_METRICS));
- 	if (fw_ver > 0x05550f00)
--		caps |= SMU_CAPS(SDMA_RESET);
--
--	dpm_context->caps = caps;
-+		smu_v13_0_6_caps_set(smu, SMU_CAPS(SDMA_RESET));
- }
- 
- static void smu_v13_0_6_init_caps(struct smu_context *smu)
- {
--	uint64_t caps = SMU_CAPS(DPM) | SMU_CAPS(UNI_METRICS) |
--			SMU_CAPS(SET_UCLK_MAX) | SMU_CAPS(DPM_POLICY) |
--			SMU_CAPS(PCIE_METRICS) | SMU_CAPS(MCA_DEBUG_MODE) |
--			SMU_CAPS(CTF_LIMIT) | SMU_CAPS(RMA_MSG) |
--			SMU_CAPS(ACA_SYND);
--	struct smu_13_0_dpm_context *dpm_context = smu->smu_dpm.dpm_context;
-+	enum smu_v13_0_6_caps default_caps_list[] = { SMU_CAPS(DPM),
-+						      SMU_CAPS(UNI_METRICS),
-+						      SMU_CAPS(SET_UCLK_MAX),
-+						      SMU_CAPS(DPM_POLICY),
-+						      SMU_CAPS(PCIE_METRICS),
-+						      SMU_CAPS(CTF_LIMIT),
-+						      SMU_CAPS(MCA_DEBUG_MODE),
-+						      SMU_CAPS(RMA_MSG),
-+						      SMU_CAPS(ACA_SYND) };
- 	struct amdgpu_device *adev = smu->adev;
- 	uint32_t fw_ver = smu->smc_fw_version;
- 	uint32_t pgm = (fw_ver >> 24) & 0xFF;
- 
-+	for (int i = 0; i < ARRAY_SIZE(default_caps_list); i++)
-+		smu_v13_0_6_caps_set(smu, default_caps_list[i]);
- 	if (fw_ver < 0x552F00)
--		caps &= ~SMU_CAPS(DPM);
-+		smu_v13_0_6_caps_clear(smu, SMU_CAPS(DPM));
- 
- 	if (adev->flags & AMD_IS_APU) {
--		caps &= ~SMU_CAPS(PCIE_METRICS);
--		caps &= ~SMU_CAPS(SET_UCLK_MAX);
--		caps &= ~SMU_CAPS(DPM_POLICY);
--		caps &= ~SMU_CAPS(RMA_MSG);
--		caps &= ~SMU_CAPS(ACA_SYND);
-+		smu_v13_0_6_caps_clear(smu, SMU_CAPS(PCIE_METRICS));
-+		smu_v13_0_6_caps_clear(smu, SMU_CAPS(DPM_POLICY));
-+		smu_v13_0_6_caps_clear(smu, SMU_CAPS(RMA_MSG));
-+		smu_v13_0_6_caps_clear(smu, SMU_CAPS(ACA_SYND));
- 
- 		if (fw_ver <= 0x4556900)
--			caps &= ~SMU_CAPS(UNI_METRICS);
--
-+			smu_v13_0_6_caps_clear(smu, SMU_CAPS(UNI_METRICS));
- 		if (fw_ver >= 0x04556F00)
--			caps |= SMU_CAPS(HST_LIMIT_METRICS);
-+			smu_v13_0_6_caps_set(smu, SMU_CAPS(HST_LIMIT_METRICS));
- 		if (fw_ver >= 0x04556A00)
--			caps |= SMU_CAPS(PER_INST_METRICS);
-+			smu_v13_0_6_caps_set(smu, SMU_CAPS(PER_INST_METRICS));
- 		if (fw_ver < 0x554500)
--			caps &= ~SMU_CAPS(CTF_LIMIT);
-+			smu_v13_0_6_caps_clear(smu, SMU_CAPS(CTF_LIMIT));
- 	} else {
- 		if (fw_ver >= 0x557600)
--			caps |= SMU_CAPS(OTHER_END_METRICS);
-+			smu_v13_0_6_caps_set(smu, SMU_CAPS(OTHER_END_METRICS));
- 		if (fw_ver < 0x00556000)
--			caps &= ~SMU_CAPS(DPM_POLICY);
-+			smu_v13_0_6_caps_clear(smu, SMU_CAPS(DPM_POLICY));
- 		if (amdgpu_sriov_vf(adev) && (fw_ver < 0x556600))
--			caps &= ~SMU_CAPS(SET_UCLK_MAX);
-+			smu_v13_0_6_caps_clear(smu, SMU_CAPS(SET_UCLK_MAX));
- 		if (fw_ver < 0x556300)
--			caps &= ~SMU_CAPS(PCIE_METRICS);
-+			smu_v13_0_6_caps_clear(smu, SMU_CAPS(PCIE_METRICS));
- 		if (fw_ver < 0x554800)
--			caps &= ~SMU_CAPS(MCA_DEBUG_MODE);
-+			smu_v13_0_6_caps_clear(smu, SMU_CAPS(MCA_DEBUG_MODE));
- 		if (fw_ver >= 0x556F00)
--			caps |= SMU_CAPS(PER_INST_METRICS);
-+			smu_v13_0_6_caps_set(smu, SMU_CAPS(PER_INST_METRICS));
- 		if (fw_ver < 0x554500)
--			caps &= ~SMU_CAPS(CTF_LIMIT);
-+			smu_v13_0_6_caps_clear(smu, SMU_CAPS(CTF_LIMIT));
- 		if (fw_ver < 0x00555a00)
--			caps &= ~SMU_CAPS(RMA_MSG);
-+			smu_v13_0_6_caps_clear(smu, SMU_CAPS(RMA_MSG));
- 		if (fw_ver < 0x00555600)
--			caps &= ~SMU_CAPS(ACA_SYND);
-+			smu_v13_0_6_caps_clear(smu, SMU_CAPS(ACA_SYND));
- 		if (pgm == 0 && fw_ver >= 0x557900)
--			caps |= SMU_CAPS(HST_LIMIT_METRICS);
-+			smu_v13_0_6_caps_set(smu, SMU_CAPS(HST_LIMIT_METRICS));
- 	}
- 	if (((pgm == 7) && (fw_ver > 0x07550700)) ||
- 	    ((pgm == 0) && (fw_ver > 0x00557700)) ||
- 	    ((pgm == 4) && (fw_ver > 0x4556e6c)))
--		caps |= SMU_CAPS(SDMA_RESET);
--
--	dpm_context->caps = caps;
--}
--
--static inline bool smu_v13_0_6_caps_supported(struct smu_context *smu,
--					      enum smu_v13_0_6_caps caps)
--{
--	struct smu_13_0_dpm_context *dpm_context = smu->smu_dpm.dpm_context;
--
--	return (dpm_context->caps & SMU_CAPS_MASK(caps)) == SMU_CAPS_MASK(caps);
-+		smu_v13_0_6_caps_set(smu, SMU_CAPS(SDMA_RESET));
- }
- 
- static void smu_v13_0_x_init_caps(struct smu_context *smu)
+ 	if (parent && parent->vendor == PCI_VENDOR_ID_ATI) {
+ 		/* use the upstream/downstream switches internal to dGPU */
+ 		*speed = pcie_get_speed_cap(parent);
 -- 
-2.25.1
+2.34.1
 
