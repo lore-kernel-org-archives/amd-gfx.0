@@ -4,68 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C932CC02181
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jan 2025 15:27:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD38CC02182
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jan 2025 15:37:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6030610E429;
-	Mon, 20 Jan 2025 15:27:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C05689811;
+	Mon, 20 Jan 2025 15:37:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Qv54XgWw";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dbj6WNLA";
 	dkim-atps=neutral
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
- [209.85.216.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A3C910E429
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jan 2025 15:27:23 +0000 (UTC)
-Received: by mail-pj1-f48.google.com with SMTP id
- 98e67ed59e1d1-2f74e6c6cbcso1007283a91.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jan 2025 07:27:23 -0800 (PST)
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com
+ [209.85.216.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 01BAF10E05B
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jan 2025 15:37:45 +0000 (UTC)
+Received: by mail-pj1-f41.google.com with SMTP id
+ 98e67ed59e1d1-2ef05d0ef18so981998a91.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jan 2025 07:37:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1737386783; x=1737991583; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1737387405; x=1737992205; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=oIOJNHER7nUwRs2Yxfk41MxcMvaTTSdbJfpJ/koGoIA=;
- b=Qv54XgWw7T15G/m36NhBjlfByHrDTIfyE2b8xIesoMhYo4jas34//CW9smSgeK79Dg
- LNySFip1n9lxKAoEPVH5spwcuFd8gXsEQmVwZxpDTttxSnfizZkfF1bTegwYPPjBoqQ2
- 97OegF99RSd5FFx1ky4yfP7tbbLt7bsNOlVBGHiXvSfUyL3VU8cUqK0Po8H3jzjTMkqm
- UA7h+JOO5x52fKbti9C0yXqlR6PUa/f539WwbApkTh8Rbu5khLhv7+cKaHdveUnh/OY1
- B8aq2ehndoDdmh91CQmqiEUYn8+OKkR39H+5WODzbbGRyu7vUgFXlpN3zaCt25MPNDDs
- PINw==
+ bh=qtAp6qBFZ2Pd1nT4DmW8ghWEmCUwze5l2jyOAjgiq/s=;
+ b=dbj6WNLAv9yuSYvhTyuGrxYgm9Lm5vGkDNt7lYxdFwsLl8adpkwe5+0RnrqHc3yJG9
+ 0dXL4kJn/ThjgkBLnXuRc+qdttBcr4gGLNN94PP9XyhrE0j4/OBFz9AwYRSwe9zlCaKR
+ zq/qpGXJT+79kKBWE0EwwKQ3+SZS28DN8zZjzdZiS4b8OTPRyZJvWOr9/5tRCz+8uK6a
+ UmBU5lqLCUy/YlCNpI8TlpsupBiNn26ziaaW/vh5jNffseCPq4DFfnwIIxUDgKvzc7BU
+ 37KyCqOoHm37GGTAONDLe1uwjstSlVScWiEmMX1eVxyx1trsYbA73Avl0Rjt3UROJ7/k
+ jMIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737386783; x=1737991583;
+ d=1e100.net; s=20230601; t=1737387405; x=1737992205;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=oIOJNHER7nUwRs2Yxfk41MxcMvaTTSdbJfpJ/koGoIA=;
- b=YrHlmQhTqLCgbFSopNV0CvcHza9v7MvYQyh/XL0NVgBpLsCVgB+USAt7WXFINMEn3w
- jS1GBNQHsE7dyh9t8BCi0GNfQNhc1jYKVI51xkni3o/QDccMxl666f5ngO9Dno6KuLnN
- 1pboNvPdtpy47dDW5XInEMa37SvzhFdqYP4xLRy+pzGC0wruKYE/mBgg+rKCN7oqVGX+
- 5fMto6dzG0iY9QGoP+/ppYE/YcR7wfmFssorP9hkqAi2kwZ5Km6RitHFMDngp8glC312
- KL2AUmTnASVME+Gsiw5DR5UOFobSRKD7cmQcvm3zpVP8xxsMFk+c6MxRB2WZRpFe3oXV
- AVjA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX1U76nW5TPpSbzDax2w4ogAmHRpJQLSTd6e6uT2ujy1WISiuQyImGjJFLB6mWysmc6isM/IuUq@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwRFDU4uI1jSydoxZbfTeWV4+5/xIhGmr5eNkTJBkDK+/LaI1Qt
- rCAZhsML/asNqUFvi2vn/CGEF3vp70nWkh57jm1UTPlwxareXmIR7zZ6miIRI0rQW8p7ZBOrT7k
- /fL08lQAYGiW1cezv9aQoATI164nqdg==
-X-Gm-Gg: ASbGnctwrPVyqeyLN7MJtrhIULp7TwI0BhPnLtVY5whQ8FISQoD6aTbn7EFl/bct6qA
- RCnZVdVrehASfRPDfNpQ6xWeSvHUJnrs+9ZACdOGW9yZsy9QF1SI=
-X-Google-Smtp-Source: AGHT+IFUapmv2543Si+Dg85jRKG1nD0X3tjUuOnC/Z0H0goAJJ/tMLmt0HBYsYHw9mysfV3APKEKPz4hOy3GvgBCsnw=
-X-Received: by 2002:a17:90a:d883:b0:2ee:f1e3:fd0c with SMTP id
- 98e67ed59e1d1-2f783295935mr7422006a91.8.1737386782885; Mon, 20 Jan 2025
- 07:26:22 -0800 (PST)
+ bh=qtAp6qBFZ2Pd1nT4DmW8ghWEmCUwze5l2jyOAjgiq/s=;
+ b=wVP4CmL3r2B4iahaG7RhIoET5Ti20knjhKjyWwFB48TnAcp5v/UGfvrQpXofDkRJwj
+ gUVjEA5gBGAyFI6gy64K8ilLgzzLHHbGgbH215otS/r0v5gc6+pNcbP72iCCYCPjzixB
+ OScwOpel+Mul7J3BhcMGm8MC69+Lr6CzUz2P00NqBy1HMYk5MmdpkVquASNpf46fB+Vy
+ s3saegFfqpsKz2aRdlOBbNxcXPZ9QmqsbHEqoUb3CbtIlds1NNf2Exv+I8ve0/xpDeVp
+ Z5f904n+JkrEPjKB6fSpW2FBPRO8b0fPkAuOlzY+EID9iCZblfEBZbLMwA4qBNkW1Wb4
+ Kqxg==
+X-Gm-Message-State: AOJu0YxM1kBiNIzlac4JZgxyCHLz8KV6F2xjexvzATNOtyhvu8YSxhf5
+ q5sTSlkm+OqfDxwGRwYy3aBZ8nu5m9r7ejVEA1sbN4LZHVaO9sLQ5KDlV8CzoiQhfqa9sI/fXJx
+ DLrIX6luwRs/N0fTCrukYrcuqyyqo/A==
+X-Gm-Gg: ASbGnct3ggnqwIDhNAepgKUaCBXgCa/SBYdHEBuN9MnhTr9D9Jmlu7Qn8lNG91an8Ei
+ G3ME+zDmaHJ92oWZmSUnYdXCUCGmnoug4SBCA8Ef7xgNYx9AWdf8=
+X-Google-Smtp-Source: AGHT+IFKd84lIj6p+t2/lHvJ0vYpMjMu2W8AwMb8bLPYgM6vRo13x2KpgKdXm99YcmQfZG/lUIVtVOoXHeWdd0dO0mw=
+X-Received: by 2002:a17:90b:534c:b0:2ee:6563:20b5 with SMTP id
+ 98e67ed59e1d1-2f782b06b52mr7520225a91.0.1737387405512; Mon, 20 Jan 2025
+ 07:36:45 -0800 (PST)
 MIME-Version: 1.0
-References: <20250120074126.971042-1-perry.yuan@amd.com>
-In-Reply-To: <20250120074126.971042-1-perry.yuan@amd.com>
+References: <o93Aruut7VI05oqVX7Se1udr5FAyqfyP_TGDutW0p2fXBSkRv7QkhpLmAT-buTpdWIwn8PnC8B2DNSMtaTp5kk00ZtK653PDLuK14uoUI4k=@protonmail.com>
+ <CADnq5_PatAYdyKGVJpX5TrVJ451Ga9PJjCx85jna+CUxsaFAhA@mail.gmail.com>
+ <8o8j5o9K-GIowaV5BW0uUds5QSczbsDlObPMAEUyGjPMV1G2tq-3sdYaQwbZHt_d4p-9sqBe5OnsUkkbS2gb6eZT1d5KiOXyTdz3vy75_V8=@protonmail.com>
+ <EefQ4XqoUhDVKwtzYbP7Cwv1m6p8brSTBJzVQeojHh8X688L3QdBfGkakTuU0yf3lWfne5Bhcj90MXHhB9nblEqobkXeWvluAnwrplGkH2A=@protonmail.com>
+In-Reply-To: <EefQ4XqoUhDVKwtzYbP7Cwv1m6p8brSTBJzVQeojHh8X688L3QdBfGkakTuU0yf3lWfne5Bhcj90MXHhB9nblEqobkXeWvluAnwrplGkH2A=@protonmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 20 Jan 2025 10:26:11 -0500
-X-Gm-Features: AbW1kvYi2URjFzck7Kx87zxPvBeBzHnqcOB1CnQfF2yYvvdHcoxYYzh39o9j6T4
-Message-ID: <CADnq5_N8RV7r7FzZMhrircJmP0DTAx_q56BsNYz6Oo1KCPN3SQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Fix parameter compatibility issue in
- amdgpu_vkms_early_init
-To: Perry Yuan <perry.yuan@amd.com>
-Cc: Alexander.Deucher@amd.com, yifan1.zhang@amd.com, 
- amd-gfx@lists.freedesktop.org, flora.cui@amd.com, bob.zhou@amd.com
+Date: Mon, 20 Jan 2025 10:36:33 -0500
+X-Gm-Features: AbW1kvb5ELfl0LvACsqjpUPy7ER2vtgacYH4trqKi2kG_A_reGIOtrWNazJQH7M
+Message-ID: <CADnq5_MoZ7W0pf2BFx7Rs2e+6YyJNO2KBCfjjnrkv-+hKNqduA@mail.gmail.com>
+Subject: Re: drm/amdgpu: AMDGPU unusable since 6.12.1 and it looks like no one
+ cares.
+To: SyntheticBird <syntheticbirdxmr@protonmail.com>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -82,50 +82,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jan 20, 2025 at 2:52=E2=80=AFAM Perry Yuan <perry.yuan@amd.com> wro=
-te:
+On Sun, Jan 19, 2025 at 3:25=E2=80=AFPM SyntheticBird
+<syntheticbirdxmr@protonmail.com> wrote:
 >
-> GCC raises a parameter compatibility error log for the
-> amdgpu_vkms_early_init function because it previously accepted
-> a generic `void *handle` parameter. This change updates the
-> function signature to accept a specific `struct amdgpu_ip_block *`
-> parameter instead.
 >
-> error log:
-> /tmp/amd.fwXY79Rm/amd/amdgpu/amdgpu_vkms.c:805:16: error:
-> initialization of =E2=80=98int (*)(struct amdgpu_ip_block *)=E2=80=99 fro=
-m
-> incompatible pointer type =E2=80=98int (*)(void *)=E2=80=99 [-Werror=3Din=
-compatible-pointer-types]
-> .early_init =3D amdgpu_vkms_early_init,
+> Hello,
 >
-> Acked-by:  Yifan Zhang <yifan1.zhang@amd.com>
-> Signed-off-by: Perry Yuan <perry.yuan@amd.com>
+> One person on the Gitlab issue have potentially bisected the commit causi=
+ng the kernel freeze: https://gitlab.freedesktop.org/drm/amd/-/issues/3787#=
+note_2741901
+>
+> https://gitlab.freedesktop.org/drm/kernel/-/commit/de848da12f752170c2ebe1=
+14804a985314fd5a6a
+>
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Per the report, they have not finished the bisect yet.  It's generally
+unlikely that a merge commit will be the problematic one.  Let's wait
+until they finish the bisect.
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+Alex
+
+> Also I apologize Alex I think I sent you an email without cc the mailing =
+list.
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_vkms.c
-> index 5530d4ead536..e958e1cd85e0 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-> @@ -617,9 +617,9 @@ static const struct amdgpu_irq_src_funcs amdgpu_vkms_=
-crtc_irq_funcs =3D {
->         .process =3D NULL,
->  };
+> On Tuesday, January 14th, 2025 at 3:02 PM, SyntheticBird <syntheticbirdxm=
+r@protonmail.com> wrote:
 >
-> -static int amdgpu_vkms_early_init(void *handle)
-> +static int amdgpu_vkms_early_init(struct amdgpu_ip_block *ip_block)
->  {
-> -       struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
-> +       struct amdgpu_device *adev =3D ip_block->adev;
->
->         adev->crtc_irq.num_types =3D adev->mode_info.num_crtc;
->         adev->crtc_irq.funcs =3D &amdgpu_vkms_crtc_irq_funcs;
-> --
-> 2.34.1
->
+> >
+> >
+> >
+> >
+> >
+> >
+> >
+> > On Tuesday, January 14th, 2025 at 2:44 PM, Alex Deucher alexdeucher@gma=
+il.com wrote:
+> >
+> > > On Tue, Jan 14, 2025 at 9:05=E2=80=AFAM SyntheticBird
+> > > syntheticbirdxmr@protonmail.com wrote:
+> > >
+> > > > Hello and happy new year to all members of this list.
+> > > >
+> > > > I know that mailing lists aren't meant for begging for support, but=
+ after discussing this in another distribution channel, it seems to me like=
+ it is the only way for me and other users to grab the attention of a maint=
+ainer.
+> > > >
+> > > > Since 6.12.1, several users have reported a kernel freeze issue wit=
+h AMDGPU, including a complete stack trace. It corresponds to the following=
+ issues on GitLab:
+> > > >
+> > > > https://gitlab.freedesktop.org/drm/amd/-/issues/3787https://gitlab.=
+freedesktop.org/drm/amd/-/issues/3866
+> > > >
+> > > > I also suspect this issue may have happened to one user on the Leve=
+l1Tech forum: https://forum.level1techs.com/t/help-with-troubleshooting-fre=
+ezing-with-linux-kernel-6-12-on-arch/221340/22
+> > > >
+> > > > Two months have passed since the first report of this bug, and no o=
+ne in either of the two issues has ever reached out to us. I've checked the=
+ mailing list archive, and it seems like no maintainer has ever discussed i=
+t. We're simply left alone with only hope.
+> > > >
+> > > > I perfectly understand that maintainers are busy, and I do not blam=
+e them, but we as users and owners of AMDGPU have no other choice but to tr=
+y reaching out to you, to at least be sure that this issue hasn't been igno=
+red in the depths of the GitLab issue list.
+> > > >
+> > > > This issue is impacting versions 6.12.1 to the latest 6.13 rc. Seve=
+ral users are still stuck on either 6.6 LTS or 6.11.9-10. For users relying=
+ on features that have been introduced between 6.6 and 6.12, they cannot do=
+wngrade to 6.6 and also cannot upgrade to 6.12, leaving them without vulner=
+abilities being patched on mainline and LTS.
+> > >
+> > > Per my comments on the bug report, did you also update mesa or GPU
+> > > firmware? If so, can you narrow down if any of those other components
+> > > had an impact? Alternatively, can you bisect the kernel? If you have
+> > > known good and bad kernels, it would be really helpful if you could
+> > > bisect to identify what commit caused the regression for you.
+> > >
+> > > Alex
+> >
+> >
+> > Hi,
+> >
+> > Thanks Alex for reaching out. Also per my comment on the bug report, I =
+can't right now but will be able to bisect during this week-end.
+> > I do have two versions of the kernel one good (6.11.10) and one bad (6.=
+12.1).
+> > I checked and both mesa (24.3.3) and firmware (20241210) are up to date=
+.
+> >
+> > I will update here whenever I find the commit.
