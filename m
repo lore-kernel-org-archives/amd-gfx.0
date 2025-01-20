@@ -4,78 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB962C02181
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jan 2025 14:03:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26650C02181
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jan 2025 14:39:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9818F10E159;
-	Mon, 20 Jan 2025 14:03:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7E9410E042;
+	Mon, 20 Jan 2025 14:39:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cz4oIh33";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="eN8l2Udw";
 	dkim-atps=neutral
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
- [209.85.221.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC85F10E159
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jan 2025 14:03:57 +0000 (UTC)
-Received: by mail-wr1-f51.google.com with SMTP id
- ffacd0b85a97d-38a8b35e168so3106522f8f.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jan 2025 06:03:57 -0800 (PST)
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
+ [209.85.221.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B267910E37F
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jan 2025 09:19:36 +0000 (UTC)
+Received: by mail-wr1-f48.google.com with SMTP id
+ ffacd0b85a97d-385e0e224cbso2183976f8f.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jan 2025 01:19:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1737381776; x=1737986576; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
+ d=linaro.org; s=google; t=1737364715; x=1737969515; darn=lists.freedesktop.org;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
  :from:to:cc:subject:date:message-id:reply-to;
- bh=tvGqlTONoLOw01LZ4p2mas+gfXtOBlkN9toA94FalHo=;
- b=cz4oIh33rcHLThNtR7yPSccEpjr0USiKjiVF/zUbaITt5m5nDWuTv34aROpfWL+EHO
- fgbzefCtSe+R++Pa9dfSxEZC1oUoY1JSxwngFiDpMKZfJd9vU6D2mAcY/0NvXUfl07c6
- LpaBGeLixTFqvvwyp6fcTRpnadi4FJpcBE7MbzBmP/YHjkmSNQP3X4rTYgDsFuUoUJD7
- whjvZWW9b77jWwYiRAP/2YWRdc/XiWRABK10sdKbC2K9yaR8zbs0JXoA5spdScG2UT4s
- /PIw1QLEurTy7a+ucFy6b4esPdWWoaM7L+7l/P5mpZn4eDPLkNkuCF/PzwoxALWcUSjG
- eGeA==
+ bh=ZosYWNMJVsmJIMpdriuqtZru3ZSj+/aM+wzcRtWl9jk=;
+ b=eN8l2UdwprnvONX/vV5eEJVd8ykfVNAMAlphD2QTDU97tciqmchbh2yJzkhW9S/iT6
+ tjK8M2hNunxV/OJ+wgNPo+7yUpeRMP/lCC0hivXRd+Xf1gd544hlzRfjeMJS0lWjhMpi
+ Qm5MufaaOcau6q7axPXvLtvHa9Ip1jORsDuBldFfMiyFndb+i93BqIFnEb91IGHQXTr7
+ PafVDSYm/pZdvkiwYH6Xfs7EB+Sqtrp9CSADig3MOTYdTvwSUJmgYvsWf+GDIR6qR/DI
+ z7lWhPgbnqlpci2YdEkWW3lMtQD9YeX7vA/JuU0Q1n3IcZZfDRuYIpKyymcCfKF6E3DL
+ hEJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737381776; x=1737986576;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
+ d=1e100.net; s=20230601; t=1737364715; x=1737969515;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=tvGqlTONoLOw01LZ4p2mas+gfXtOBlkN9toA94FalHo=;
- b=h+8jcCfzNN1osM6BL+R9TG9kNbuOnEY/SUhNPPbnWwPxvT1tyhrRIetB9g40qFNdif
- RqMLA5CCSgdq4+IK/6ECzesc2CR9tGPegDv52yUCAA1JZa9y+lJul9vzzxnFqP8kCg+k
- AiC9QmSa0/JaeqVRMcZoq4pNvC8Kok8G2wDKPs0m8L5/zj6CM2HNl+RuD4QcRxDjbfB8
- tCKciB/EXJwQ3gNcDooAqdPrW8gdAnR+QSHSLmhqBzxvIKjAr8VB8OkEw7g2TDjLrWbq
- Q1WcD6U1hri0wEAY/82V8YpOgMSKWWIJgEIeWcFjY4D1shDsoQ3u3EXa2JSC2u1v27dm
- GUng==
-X-Gm-Message-State: AOJu0YygApKG1RGm+kIudQsmYf1UDD66er3va+h/3VQAL/BMZTHxqwJE
- aY2E82Ve1MR00ZyhgSA0GXi3qoMkDfZhyRUDFY7C2NGqAsjj7wMC
-X-Gm-Gg: ASbGncvFg4ypsbRotrFY9uTEpmuliMhbQttS1tTlvdUAVhoY7u2c9QInPuh1bZnudMl
- eMfCy1A2fDWAHnMTTu+Up/JGJN7MDHOyHAJx1g2zx2yEWnbFSg+iDQFugbXucGMlWI4O9arfDfO
- 1Z8nvHLH5duCvJhvdcWm6FpxNm53evshMLtiYay94nJhGHCgefqdcqQgdWoM8q7q9zt3zteFwe+
- GHONLIG3lyt22u9TcrfAahf2fvurhCZv1gsoA9f+PjYmtNc/jEmLd2vs0Mi40pvbKcFwE0CovLj
- iCFDPV4Ry3D5O4M86CMwwNQ=
-X-Google-Smtp-Source: AGHT+IHKpBPdOg6DNnQr5BMl+NhQmj4ywlS1N8yg0CUU4TusguL13ktDb9ZI86u1hp9PSLte2CPnUw==
-X-Received: by 2002:a5d:5888:0:b0:38a:888c:a635 with SMTP id
- ffacd0b85a97d-38bf5ae25d2mr11014332f8f.14.1737381775920; 
- Mon, 20 Jan 2025 06:02:55 -0800 (PST)
-Received: from [10.254.108.83] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38bf322a506sm10388072f8f.41.2025.01.20.06.02.55
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 20 Jan 2025 06:02:55 -0800 (PST)
-Message-ID: <59773739-6fde-4c41-9b42-329988108e73@gmail.com>
-Date: Mon, 20 Jan 2025 15:02:54 +0100
+ bh=ZosYWNMJVsmJIMpdriuqtZru3ZSj+/aM+wzcRtWl9jk=;
+ b=mAikX4uHdtS9fnoSFGHC29RSVL8oIalVovYDt7EaFkHRwF/ccv1pqSL95WqLpzRWxD
+ MQe+s/HGzvrzV1aBRFzakl5XTEHejiWscGQ9p090grjKcOtoP6HmjQuuGXzwklEzbG2E
+ d2cy2xVOaTsWyAaBKMkuggq7uO0MAgb32QlS+LJKz0+DJh0vhEKkdlyGai6Xhjud7JLe
+ VZqjTGiGJ8u82av2lMNeJUdP90o8qFZfIc/Z2q/2CakdXuGlDv75f05gMDSWpAI7iG+s
+ asrEl/i2TBKvfd2yj9srP67L6HwfhiGT70KB58Bd8vsDYNguYSrPTMb2QQ51iO4vW4CO
+ SKUA==
+X-Gm-Message-State: AOJu0YwuqGvqrbsUAdpn9Pc69lvEx4SGDPWwAi+8k6GfGZH6RJtQ7n0q
+ hygma+1kL6VkDE1eZaa0LK4GGHnGuW2Pn3Rdrkgnp4QTLbnOMxTmKgp3/y5vLZs=
+X-Gm-Gg: ASbGnctCXd2tb0iaPpJ64GwX0uzKPVPvW9zyo5jLR15je0ZVwPq3Y4OkGHr1JqWS5x+
+ 9ckCWBY05ZsK3Ag1/HKe8euNiaavFV2gIHtwTbJGN9MSBnT6GBtyoOIB6a5j5O5l/n05ZBDj3kW
+ S3GJvhw0ba+eem+QNJwvUtxNdHXWZLohSDQSsWK3HQfosJYLrAZwe8mbNqJRxwHW2jJ/M9LC6Kd
+ 4napidrdLHCtHUX56ZfzNaCaQnFM2FHypixtRmDmGpIyJ4n72xBN8+Be9hxNeGlOYU7ssnmbls=
+X-Google-Smtp-Source: AGHT+IEsA5qD+BjEVqSprBVBp9ao/ZgpSWZ3jiWHgzni9Qd6l+Nz9oLww3rEIDY57//W8oZlQikAmg==
+X-Received: by 2002:a05:6000:1faa:b0:386:1cd3:8a0e with SMTP id
+ ffacd0b85a97d-38bf57c034emr13185041f8f.48.1737364715335; 
+ Mon, 20 Jan 2025 01:18:35 -0800 (PST)
+Received: from localhost ([196.207.164.177]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-38bf3215482sm9723028f8f.5.2025.01.20.01.18.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 20 Jan 2025 01:18:34 -0800 (PST)
+Date: Mon, 20 Jan 2025 12:18:31 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org,
+ "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>
+Subject: [bug report] drm/amdgpu: cache gpu pcie link width
+Message-ID: <f2a16c0a-09ca-46f4-8ca5-797d302dcfd9@stanley.mountain>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] drm/amd/amdgpu: Prevent null pointer dereference in
- GPU bandwidth calculation
-To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Dan Carpenter <dan.carpenter@linaro.org>,
- Lijo Lazar <lijo.lazar@amd.com>
-References: <20250120133807.235523-1-srinivasan.shanmugam@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20250120133807.235523-1-srinivasan.shanmugam@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailman-Approved-At: Mon, 20 Jan 2025 14:39:07 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,75 +80,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 20.01.25 um 14:38 schrieb Srinivasan Shanmugam:
-> If the parent is NULL, adev->pdev is used to retrieve the PCIe speed and
-> width, ensuring that  the function can still determine these
-> capabilities from the device itself.
->
-> Fixes the below:
-> drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:6193 amdgpu_device_gpu_bandwidth()
-> 	error: we previously assumed 'parent' could be null (see line 6180)
->
-> drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->      6170 static void amdgpu_device_gpu_bandwidth(struct amdgpu_device *adev,
->      6171                                         enum pci_bus_speed *speed,
->      6172                                         enum pcie_link_width *width)
->      6173 {
->      6174         struct pci_dev *parent = adev->pdev;
->      6175
->      6176         if (!speed || !width)
->      6177                 return;
->      6178
->      6179         parent = pci_upstream_bridge(parent);
->      6180         if (parent && parent->vendor == PCI_VENDOR_ID_ATI) {
->                       ^^^^^^
-> If parent is NULL
->
->      6181                 /* use the upstream/downstream switches internal to dGPU */
->      6182                 *speed = pcie_get_speed_cap(parent);
->      6183                 *width = pcie_get_width_cap(parent);
->      6184                 while ((parent = pci_upstream_bridge(parent))) {
->      6185                         if (parent->vendor == PCI_VENDOR_ID_ATI) {
->      6186                                 /* use the upstream/downstream switches internal to dGPU */
->      6187                                 *speed = pcie_get_speed_cap(parent);
->      6188                                 *width = pcie_get_width_cap(parent);
->      6189                         }
->      6190                 }
->      6191         } else {
->      6192                 /* use the device itself */
-> --> 6193                 *speed = pcie_get_speed_cap(parent);
->                                                       ^^^^^^ Then we are toasted here.
->
->      6194                 *width = pcie_get_width_cap(parent);
->      6195         }
->      6196 }
->
-> Fixes: 9e424a5d9087 ("drm/amdgpu: cache gpu pcie link width")
-> Cc: Christian König <christian.koenig@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
-> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-> Suggested-by: Lijo Lazar <lijo.lazar@amd.com>
+Hello Alex Deucher,
 
-Reviewed-by: Christian König <christian.koenig@amd.com>
+Commit 8fae3b201fee ("drm/amdgpu: cache gpu pcie link width") from
+Jan 6, 2025 (linux-next), leads to the following Smatch static
+checker warning:
 
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 46af07faf8c8..ae83e23872fa 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -6187,8 +6187,8 @@ static void amdgpu_device_gpu_bandwidth(struct amdgpu_device *adev,
->   		}
->   	} else {
->   		/* use the device itself */
-> -		*speed = pcie_get_speed_cap(parent);
-> -		*width = pcie_get_width_cap(parent);
-> +		*speed = pcie_get_speed_cap(adev->pdev);
-> +		*width = pcie_get_width_cap(adev->pdev);
->   	}
->   }
->   
+	drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:6193 amdgpu_device_gpu_bandwidth()
+	error: we previously assumed 'parent' could be null (see line 6180)
 
+drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+    6170 static void amdgpu_device_gpu_bandwidth(struct amdgpu_device *adev,
+    6171                                         enum pci_bus_speed *speed,
+    6172                                         enum pcie_link_width *width)
+    6173 {
+    6174         struct pci_dev *parent = adev->pdev;
+    6175 
+    6176         if (!speed || !width)
+    6177                 return;
+    6178 
+    6179         parent = pci_upstream_bridge(parent);
+    6180         if (parent && parent->vendor == PCI_VENDOR_ID_ATI) {
+                     ^^^^^^
+If parent is NULL
+
+    6181                 /* use the upstream/downstream switches internal to dGPU */
+    6182                 *speed = pcie_get_speed_cap(parent);
+    6183                 *width = pcie_get_width_cap(parent);
+    6184                 while ((parent = pci_upstream_bridge(parent))) {
+    6185                         if (parent->vendor == PCI_VENDOR_ID_ATI) {
+    6186                                 /* use the upstream/downstream switches internal to dGPU */
+    6187                                 *speed = pcie_get_speed_cap(parent);
+    6188                                 *width = pcie_get_width_cap(parent);
+    6189                         }
+    6190                 }
+    6191         } else {
+    6192                 /* use the device itself */
+--> 6193                 *speed = pcie_get_speed_cap(parent);
+                                                     ^^^^^^
+Then we are toasted here.
+
+    6194                 *width = pcie_get_width_cap(parent);
+    6195         }
+    6196 }
+
+regards,
+dan carpenter
