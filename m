@@ -4,65 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4AC7C0218B
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jan 2025 09:14:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F225C02182
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jan 2025 09:14:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7755910E518;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E1F010E519;
 	Tue, 21 Jan 2025 09:14:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=kde.org header.i=@kde.org header.b="i/qmBaiS";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="nIEOr7uu";
 	dkim-atps=neutral
-Received: from letterbox.kde.org (letterbox.kde.org [46.43.1.242])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9FB9310E4AA;
- Tue, 21 Jan 2025 01:00:02 +0000 (UTC)
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com
- [209.85.218.42]) (Authenticated sender: zamundaaa)
- by letterbox.kde.org (Postfix) with ESMTPSA id B591A3240BE;
- Tue, 21 Jan 2025 00:59:58 +0000 (GMT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kde.org; s=users;
- t=1737421198; bh=CkwoxWESXNcXMmZ7s2mD76S7ybGw8Kl6aaukujWpS1c=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=i/qmBaiSCFcaYyCYnmku7snewTzRZ34PW0ED6n/RXbBvU8MrCTd7HA8CsdpmWvsGa
- oZCdmvOpmQ+sIb9H31LBfyX4nKWS+M96J27JNU18IjEFo4anx5AEcgZpn+rLm3VeKn
- PUm88LfBQJgyf0NrIjNrvk/wKkO225rOop949FIy21AgAYNkuH6evF7Ek6LQRq4HcR
- 00OUPI5Jmb4RcJn8nEqudC1v2uBougZcJp2upBS9x0HXGl6j/9JVjAS1+8a6hxl9Zy
- Sr6Tk+9ce1VFZ7n4Hx3t1h0IOlKTm6aPtaAxcfdW9eQnbj5l7/THyQOreJmdYy9K/W
- T/BfFok2sOYqg==
-Received: by mail-ej1-f42.google.com with SMTP id
- a640c23a62f3a-aaf900cc7fbso840432766b.3; 
- Mon, 20 Jan 2025 16:59:58 -0800 (PST)
-X-Forwarded-Encrypted: i=1;
- AJvYcCUEEUa0zjxhyEQxxGd9qTgiYTDOS+k2YADwpMf5+MPPyU71trXIO5qG2qC+zJ5yUN2BpJxvqnzA@lists.freedesktop.org,
- AJvYcCUTasT1T1hwIOnyQeI4p6I5r4FYuxW9RJTx90VTe6NI0k8ELpmK3jG0b35mQmSopaYnvVMsl5Jp2uuJ@lists.freedesktop.org,
- AJvYcCVCH23JlfYRWgyhVJynDHMOcXaW3YPv9fl7ID/jdWkVwhJQeIRoO1Q7rY51vMp1mJ/eLPi27rbTQAY=@lists.freedesktop.org,
- AJvYcCXptH+iFetihqD3qDFwn+R2QW2rKfEWM7P4m+Tt1KNWUASQArYF0OV32EzVyDEia99x3VCMWe8PUZQN@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx2SeuvPmZ7cvGjwXmmB5PBkiwgqysAE2/ACacRLM/CKwMfIMZ4
- RK6y9aSjoTOhWttmiD3kYMu5aAgDsv7KABle4r8+2KGOwXQxnumUFF4ZbOIG9G7ly0so5Pd5yuG
- Lp8IeLQmJ8xxP6OuQ4K3ql8qQNgM=
-X-Google-Smtp-Source: AGHT+IHWjJmow8W95O/jnjybriW0t5JeZFQUA4ExgR0utqovF7K16cEfkE60tz4dkdsEYis7VCTx+AhqD8irrs+GXTk=
-X-Received: by 2002:a17:907:97c8:b0:ab2:c208:732d with SMTP id
- a640c23a62f3a-ab38b3840f3mr1375840566b.40.1737421198223; Mon, 20 Jan 2025
- 16:59:58 -0800 (PST)
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 008DD10E445;
+ Mon, 20 Jan 2025 16:52:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
+ In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=F2/SqIkEaMbVIwttIbrzQ87h2V5aWYFh2JC+zdL8iv0=; b=nIEOr7uuP2WyvQl4AiHrZjzE2V
+ zDomsliuIXQrlwEpbUN5UuLY5zef9cxT8oTZ2SFTsoM4CdC5Ji7UBpfocL0Ik6icNu+NY5lbBVr4y
+ 9eHsoA0zMxHRzPM5DBXT08DN8zm1b5z3qL0Alpr+sjcfdTVQruTCCpa/+O1Iw6JbE6do1lT4WG9IT
+ cc+OX/k2IEI2D40CHQOvWlC+KX7LaIBd3TeXXexxPdFz90eaYodMEH+kY5VJD6ANLRuHWsHVHcsLh
+ KTz4n1gPrxVfB/ejXd3IdvWAfO5FLFrggZU8zRyfcLWKlYsfdOPFO7Xl0gpUB12BsE9msxjlTuIp1
+ 7IiEkweg==;
+Received: from [90.241.98.187] (helo=localhost)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1tZv14-000v9b-60; Mon, 20 Jan 2025 17:52:46 +0100
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+To: amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Philipp Stanner <phasta@kernel.org>
+Subject: [PATCH 2/4] drm/amdgpu: Use the new low level job popping helper
+Date: Mon, 20 Jan 2025 16:52:38 +0000
+Message-ID: <20250120165240.9105-3-tvrtko.ursulin@igalia.com>
+X-Mailer: git-send-email 2.47.1
+In-Reply-To: <20250120165240.9105-1-tvrtko.ursulin@igalia.com>
+References: <20250120165240.9105-1-tvrtko.ursulin@igalia.com>
 MIME-Version: 1.0
-References: <20241128153707.1294347-1-raag.jadav@intel.com>
-In-Reply-To: <20241128153707.1294347-1-raag.jadav@intel.com>
-From: Xaver Hugl <xaver.hugl@kde.org>
-Date: Tue, 21 Jan 2025 01:59:47 +0100
-X-Gmail-Original-Message-ID: <CAFZQkGwJ4qgHV8WTp2=svJ_VXhb-+Y8_VNtKB=jLsk6DqMYp9w@mail.gmail.com>
-X-Gm-Features: AbW1kvbLlAQjTqa9LUa9lNjlyS2jIj_z2nRscjceoujIm2WjZlTFBKAO1ojrhLc
-Message-ID: <CAFZQkGwJ4qgHV8WTp2=svJ_VXhb-+Y8_VNtKB=jLsk6DqMYp9w@mail.gmail.com>
-Subject: Re: [PATCH v10 0/4] Introduce DRM device wedged event
-To: Raag Jadav <raag.jadav@intel.com>
-Cc: airlied@gmail.com, simona@ffwll.ch, lucas.demarchi@intel.com, 
- rodrigo.vivi@intel.com, jani.nikula@linux.intel.com, 
- andriy.shevchenko@linux.intel.com, lina@asahilina.net, 
- michal.wajdeczko@intel.com, christian.koenig@amd.com, 
- intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, himal.prasad.ghimiray@intel.com, 
- aravind.iddamsetty@linux.intel.com, anshuman.gupta@intel.com, 
- alexander.deucher@amd.com, andrealmeid@igalia.com, 
- amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 21 Jan 2025 09:14:35 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -78,21 +64,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+Amdgpu is the only driver which peeks into scheduler internals in this way
+so lets make it use the previously added helper. This allows removing the
+local copy of the to_drm_sched_job macro.
 
-I experimented with using this in KWin, and
-https://invent.kde.org/plasma/kwin/-/merge_requests/7027/diffs?commit_id=6da40f1b9e2bc94615a436de4778880cee16f940
-makes it fall back to a software renderer when a rebind is required to
-recover the GPU.
-Making it also survive the rebind properly is more challenging
-(current version of the MR doesn't do it for you and just crashes if
-you do it with a udev rule or manually), but it's doable - and not a
-problem of the API.
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Danilo Krummrich <dakr@kernel.org>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Philipp Stanner <phasta@kernel.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-I'd really like to have the PID of the client that triggered the GPU
-reset, so that we can kill it if multiple resets are triggered in a
-row (or switch to software rendering if it's KWin itself) and show a
-user-friendly notification about why their app(s) crashed, but that
-can be added later.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+index 100f04475943..cbbdf33f10ef 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+@@ -411,9 +411,6 @@ static struct dma_fence *amdgpu_job_run(struct drm_sched_job *sched_job)
+ 	return fence;
+ }
+ 
+-#define to_drm_sched_job(sched_job)		\
+-		container_of((sched_job), struct drm_sched_job, queue_node)
+-
+ void amdgpu_job_stop_all_jobs_on_sched(struct drm_gpu_scheduler *sched)
+ {
+ 	struct drm_sched_job *s_job;
+@@ -425,7 +422,7 @@ void amdgpu_job_stop_all_jobs_on_sched(struct drm_gpu_scheduler *sched)
+ 		struct drm_sched_rq *rq = sched->sched_rq[i];
+ 		spin_lock(&rq->lock);
+ 		list_for_each_entry(s_entity, &rq->entities, list) {
+-			while ((s_job = to_drm_sched_job(spsc_queue_pop(&s_entity->job_queue)))) {
++			while ((s_job = __drm_sched_entity_pop_job(s_entity))) {
+ 				struct drm_sched_fence *s_fence = s_job->s_fence;
+ 
+ 				dma_fence_signal(&s_fence->scheduled);
+-- 
+2.47.1
 
-- Xaver
