@@ -4,149 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 183DAC02181
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jan 2025 16:13:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A8A3C02181
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jan 2025 16:30:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA84210E43D;
-	Mon, 20 Jan 2025 16:13:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 39F7C10E045;
+	Mon, 20 Jan 2025 16:30:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="5uQz7dyC";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="jaz26X/F";
 	dkim-atps=neutral
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2082.outbound.protection.outlook.com [40.107.212.82])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0744510E43D
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jan 2025 16:13:38 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2082.outbound.protection.outlook.com [40.107.92.82])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DEC8F10E045
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jan 2025 16:30:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=adut+TxEwVltq4lLG4beUq0LQHHNyT24i8mEfBIaC5L888GJtG6UDrWQ3YpGBohtfBUtZycesSD3o5UAOHqNnk4mrVJT1LAXFCk8fmrPga9BPpCbPlYWpa71ZtdSqaBzRrCnJdRmQH/0USUTBqNcElTYctjFUt1JyKgzca28M0ANC0OhoiCGyqZKmuG0vQUR5OQxVV3wRITm0L9wvCeSz82Fu2MYplqmUiNJXAsejf4TKZQzFj+JM/AYq4Qy3MebIs4v51qbUcHK3N2LQV35JU8zQyS6Z8nV7Uqurv8vQcbpcyr72mdEPMYteJGzD8F5iElN3My92H75ulCBW+4Hcg==
+ b=gkKQRcYKlk//5f2GM3/yGrWRUo65kr/ih0iiDXA92NjJq7yuEkbpo4at/tVwgM8ifi12uOGU6cojhHo+zhxWDiyvNPQEDfjLEWKQe+kCn+5fwAM3/XJ49XnrvIkYa269gA11W7lsHknmkWQjOtNwXtfoXOy+8j4h1o37v23KTSldfxq6TxstcgY2hg2jwKp734gAiWVKjQqtV7s4qFQtbNyBoGyVP/AEiBng2kp9ZuvlwJ+y64x1ijrZpwOZecUFmIhV0tA7wPPuItpv4HsCMjrGsNfFU1ds1W0MgOnxExknAkkLx9xSDAbRYfiJU6/uQJNVszq1acfio8ZHq/WiVA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=v5p+APRi+xPLJCLrsv8SLVBrCFcpaq95yRSlcs2SNHs=;
- b=j2H0Qm3rcSfn0jWbcFJZ6Lm7IyXxLwbQ1xpqyMBOARp3HeMRPvBwibxZ0lQKorXT0sgn+ViwuQdXJWG6qEHD7c6WEykjPrC+0+HAs7aN76fE9sBt0gnigVILEHDJDE5bt3uQOULxpA8rGCopNwm5ub0CMtujN2OaN9OZgCv9fmZw+4r/JLucJV6y0ky1h7HXboe7+wNrd1/X48tiD/JnkfAlmTjLKT+Vwyw1CKjjnTaRPuaHDiVl6UvTue+poy8cTmfIUUcRAe1uqzsK2WrIYRHh0m6RAzeoPR+UEKuc00evqiGNx5Ahw5MWZzCa8ewsiVzAsRMvcra5ZCFZN9L6Uw==
+ bh=boRaP4pULnc3Jt40vvwx9qFomdQcrl8gsLyCxRT4Jtc=;
+ b=nVZu/91Lq1h2Czku/34dy5gunWZkqOLr1v6V9/u2+Xj61tXVVs28+sN5ArACkB0IZ53UNOvILIThzh7P2VUd9kjeO8SjMwIx7gta5bHo2l+B7IndW0OaDv06bETPmioDchT7k9wiTZMMY88PbQbQizRpgLzFyEhUcn3zqOmQE2AujJZvJCbJQtk4lGk08VaI1PKEDFw4jBVvH68s4o9xCuaUOfly1QQiBXI6yGXwSrtPDDXX7gOXf2Qc/3uAK64C9XEPMmGk4sTZ43kxcdCDT+X/p6Y5k/0RCrf/ctLI99GFbIHWr549phalfBSrH4EJFgcRhLpx9F7Qyu8B8ZxLVw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=v5p+APRi+xPLJCLrsv8SLVBrCFcpaq95yRSlcs2SNHs=;
- b=5uQz7dyCo1CaLkMQMfhrlUmkxv7i5vaWgWTY8MKajn/hIxjhkZrhPbqmy6Rr1/qvAgwlEr+jCp+JOdC3jAY/IWwvDVw1EV8zt+CL5uVwbCnI5M27bvHmf8PIpUQEAhNTexhFR7KuAmSbLYAzd9OV/LLsr0NOvdwQc4NDMWrvbe0=
+ bh=boRaP4pULnc3Jt40vvwx9qFomdQcrl8gsLyCxRT4Jtc=;
+ b=jaz26X/FiX2J3OozbCTURrHTktIyTolKewfS51UUPktishxps7n08oYkqOb4d4wAWTm7sWKHNdC9rSCntIvihvWdOPKLWVrhF9Xs99Xj6yk/Nn08UtG1rW6WJvUoUJlkIod9TwK+do/j9tVTM0a9OMRB7Jg9T2y/v1fgkGv8UyQ=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5149.namprd12.prod.outlook.com (2603:10b6:5:390::14)
- by SA3PR12MB7903.namprd12.prod.outlook.com (2603:10b6:806:307::12) with
+Received: from DM4PR12MB6566.namprd12.prod.outlook.com (2603:10b6:8:8d::16) by
+ MN0PR12MB5956.namprd12.prod.outlook.com (2603:10b6:208:37f::16) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8356.19; Mon, 20 Jan
- 2025 16:13:33 +0000
-Received: from DM4PR12MB5149.namprd12.prod.outlook.com
- ([fe80::36fa:deca:aaeb:75da]) by DM4PR12MB5149.namprd12.prod.outlook.com
- ([fe80::36fa:deca:aaeb:75da%3]) with mapi id 15.20.8356.017; Mon, 20 Jan 2025
- 16:13:33 +0000
-Message-ID: <8a89c11e-e2d3-acd9-5fe4-22bc3f261d3a@amd.com>
-Date: Mon, 20 Jan 2025 11:13:30 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8356.21; Mon, 20 Jan
+ 2025 16:30:24 +0000
+Received: from DM4PR12MB6566.namprd12.prod.outlook.com
+ ([fe80::31b:5d31:8ba6:abd7]) by DM4PR12MB6566.namprd12.prod.outlook.com
+ ([fe80::31b:5d31:8ba6:abd7%4]) with mapi id 15.20.8356.020; Mon, 20 Jan 2025
+ 16:30:24 +0000
+Content-Type: multipart/alternative;
+ boundary="------------CvKGCk5SQlygSE9OM07DSoTA"
+Message-ID: <ea9dea25-e2e8-4ee1-bc4b-8a06af47cabc@amd.com>
+Date: Mon, 20 Jan 2025 10:30:21 -0600
+User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] drm/amdkfd: Change page discontinuity handling at
  svm_migrate_copy_to_vram
-Content-Language: en-US
-To: "Xiaogang.Chen" <xiaogang.chen@amd.com>, amd-gfx@lists.freedesktop.org
+To: Philip Yang <yangp@amd.com>, amd-gfx@lists.freedesktop.org
 Cc: Philip.Yang@amd.com, Emily.Deng@amd.com, felix.kuehling@amd.com
 References: <20250115214001.335607-1-xiaogang.chen@amd.com>
-From: Philip Yang <yangp@amd.com>
-In-Reply-To: <20250115214001.335607-1-xiaogang.chen@amd.com>
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQBPR0101CA0218.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:67::6) To DM4PR12MB5149.namprd12.prod.outlook.com
- (2603:10b6:5:390::14)
+ <8a89c11e-e2d3-acd9-5fe4-22bc3f261d3a@amd.com>
+Content-Language: en-US
+From: "Chen, Xiaogang" <xiaogang.chen@amd.com>
+In-Reply-To: <8a89c11e-e2d3-acd9-5fe4-22bc3f261d3a@amd.com>
+X-ClientProxiedBy: SN7PR04CA0161.namprd04.prod.outlook.com
+ (2603:10b6:806:125::16) To DM4PR12MB6566.namprd12.prod.outlook.com
+ (2603:10b6:8:8d::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5149:EE_|SA3PR12MB7903:EE_
-X-MS-Office365-Filtering-Correlation-Id: 33e2f647-8324-4671-0275-08dd396d62be
+X-MS-TrafficTypeDiagnostic: DM4PR12MB6566:EE_|MN0PR12MB5956:EE_
+X-MS-Office365-Filtering-Correlation-Id: da5d8f49-76c5-4ec0-05a2-08dd396fbda6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014|8096899003;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?dm56YUpjcEc3RGJKb0prRTIwUExvQ1piTTRkOXZRclVEUjFFeHBrMlhRbW1j?=
- =?utf-8?B?T0pmL21CL1JqV0wwNHBNVFlLYUFoaFNKV3NpN3p5MC96NzhDdEhPUEdtVk10?=
- =?utf-8?B?SFZFTWs4WHJiSlRjL2N1ZkZ6eFNqazFYZkFscGpKR1lvbUE0TmZtWVJhbUlI?=
- =?utf-8?B?UkFtQWVxeUduN0M0ZGNSVnhlbGlhNlk3ajlRVzg4SzY1VjBEUzZBZG9zRm5y?=
- =?utf-8?B?dnY3a0FKUUlDeWh0ZmI2VlZMa2UrcG54VktyK3dLYlROeC8yNVk2enJiNDc3?=
- =?utf-8?B?cHZjSDlXY1NIYmJ6Q3BCY2IzRFhBZHBzNllhK0JsL0o3L3ZGR1pCamorZ054?=
- =?utf-8?B?ckZBNTlVSW1yeCtHb1ZVVHZHOG1zaHJNcmg2cDUraEIwYmV1dW1aZ0NpbGVi?=
- =?utf-8?B?SlNrRzVydGNNbS9tRW85U25QcnE3NFozQlU1VHRyMGNxN2hEaHlXR2lvcTJV?=
- =?utf-8?B?WW1ZVlVHS1dDS0dCWklYRkpWendvSjlsV2QxcTU3UjdLRjZQY3FTM05BOEZZ?=
- =?utf-8?B?cmtXOVpQWlR3SEdEVGxUb1I2ZldkNVRWQXYwWjRPRE0vK1FvQzVIRDd4VVZS?=
- =?utf-8?B?aE9XbERCcmwzWXBndnhHckRhUkxRVmJkendmOGJyZTZKSUJYSlpRUmtySkhm?=
- =?utf-8?B?Ky9Na25DUmZ4ZEhwYVZEYnpOU1BDbSt3MS9JSTYrc0NHU1FjZ0syVC9QdDNk?=
- =?utf-8?B?MmE0UDA5VVp2bkdtZk5jOURhQnE2SHJ3eWgrK2Z5czAvQnJYWmlYM2JSa25S?=
- =?utf-8?B?T0d2UUNYV3cxd3VoZERvYkMvTUVxLzRKeVVXMWNFNlNIOHQycXFiZGxNMEV2?=
- =?utf-8?B?QldJT3BYQmE4aGJzTHYwZ0Z1MFo2cU1JT3llUWtKeHgrQXk0UFZSdlVRRitp?=
- =?utf-8?B?dDZtOWVBOTVCK1E5cGlidTdOSnBZc1o0RVhmK25XU25Kb1RxME5uR2lKbDVY?=
- =?utf-8?B?dU53MWlkZXZ0TkhUZWJKTDFCM0Mvd3dlK24rLzlDTDRYUHd1WEVMOXZ0Skhp?=
- =?utf-8?B?Y3BBcXdIZTNTVXh5eWR1SmZkejNydmQ5WnVSbWVmcXFIOTNGNis5T081USsz?=
- =?utf-8?B?ZFl1NU5TKzAxSitENTRpdVN5WDhndWZhcHgzY1NlY0s0RzNWQjZiSGRLRGs5?=
- =?utf-8?B?YTl6STFhR3k4UnlCY0wxUWtPZ21acmJmdFJ6VXVxZUo3VTY5WGpkU0diS1gw?=
- =?utf-8?B?NlJidFE0eTBkbVE1TldaQlk1ZjJZdmRTZnFKQmxYLytvSisraHFFeDNMc2xL?=
- =?utf-8?B?aTk2c2lFQzVFZDhLN25OVTBaZ3IwTUtEcFp6Smp0NTVTcnNsOFZoTnFsditJ?=
- =?utf-8?B?NXFGZE9WVDRWNjVtbmJBWEd5OXRUL2l0QWpsNXpVL3hSYkxJZnJIdGNtT0R3?=
- =?utf-8?B?YVd5eXpjM1JWaUtUN0tabWJ2UUFPUWJXemxKajJSY3o2MHZWejY3RFlXR0JM?=
- =?utf-8?B?b1RScUQ5WmE3MTFoTEhUNGh1NXpXQzlneWJaSm14QnhCR1ZqV3crdTFGUkth?=
- =?utf-8?B?RzRhTUEzVUtTSkhjVHJ2TzZ5Y2FBejZzc2RKUVRlSWFXUTI0MENJNXpRWTJ1?=
- =?utf-8?B?S01mT0hyM2YvbVRZR3ZpSmtqamlQV0RocEhYV0EzM2ZoWStzYjdKcjRsZzRE?=
- =?utf-8?B?d0l4Y0QwaEpQeTUzVzJpT2ZzbmpiOUVTVTY3SzdmUEpSTWhGeTZFa2ZxVE82?=
- =?utf-8?B?UVVIZnVVM0JvZm02MTJlbzlldk5kempGY2tGbzN0UERELzhrVE1pYzM3emp4?=
- =?utf-8?B?K2w2aTNGLzlmUm9MUFRsR2s5cGM4RE43Y2ZuTzArRm5ITW5NVldReExaemFo?=
- =?utf-8?B?QW9lZ2JRNjJzalZLWGVRdmZDUW9KS2swV0Z3MUhUQzkvNEFudFZmNkN6bDJl?=
- =?utf-8?Q?Npe7p3W49BA+U?=
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?RUhBaWp2VzlMaTE1OWpaMEkyYklXb3p2TVphMWIvTm1UbUNOUUZKaHhyMFBQ?=
+ =?utf-8?B?ak50eGpBMDBSNmZCRTZCR1U5eXNVcWwzSFZFT0NMZjVEcmtGVWgvWFBGU0ov?=
+ =?utf-8?B?QTJuRXllQzhKdWhreXQwT1NqQTQyd3RuMFVYRHFiSnJ5UDFTTGYvMUE3UFQv?=
+ =?utf-8?B?RjZBY0lZUUJCZTBNU2k1YjRpMWJ2T0kxLzd4Y0VmUHczTDBmNnErMlJTYWJS?=
+ =?utf-8?B?U0xUQXBDVXB2TFFqdlZXMG9LQjhYbG5EMVJxanN5NklYbWM0Z2V2NW5QT3FU?=
+ =?utf-8?B?elZlT1VKQnlkaWV1R3QrWVNrZVBGNUtZMDhEMUJIUzZoZE1xVjNCZU5RWVRZ?=
+ =?utf-8?B?aXBBeXJRTnQxRTZ2Mm44TFAvVzR1QnNLdGprVGxFTzc1NjZoSXpaclk2WkNq?=
+ =?utf-8?B?MTdVZWxFeU1pWFZMVGJ0R0J5UnhNWnRtLzQ4SVl5RjhLOXBOb1doWmszV2da?=
+ =?utf-8?B?aDRDMlo1MlI1MEViNWtidGJITncvT0RlTElTa0M2WmFYcHFGaTY2Qi93MnZP?=
+ =?utf-8?B?c3QwSlRRcnROZ3gwZ1Vra0RtR290WGlUYVZFYTd4OXNET0FKTjZBOFR2Qjg1?=
+ =?utf-8?B?dU5JbW5pZW9pYy9xdnlFMERDSjBHVEVDMzk2Uy9DdFVNWFZHbHhhSTRPZnZN?=
+ =?utf-8?B?ellGQnNLVDNGU01Ldy8zdVVicDJrU3V5MjlFdXpncUpVRVZjN2w2WjNsa1Bk?=
+ =?utf-8?B?SGhwa1dQVUFwMjlKOUt3SHl0RkZreTZQSS92SmtqVU9JMnVxWXdrMXNrR3gw?=
+ =?utf-8?B?MzRLaEN2YTFXdWJRdGZ0Zk83VjZrZjBMZFk3R2ZOQ3BQbzlNZ2pjMDRwTDNh?=
+ =?utf-8?B?R21yQTlEdzJiR0tPbWhSTk8vZXZ0OWdFVkg4L3FOOGFqeUNCQ0FYWWZJQWJz?=
+ =?utf-8?B?MUdvUjRWL1QrSjNtVzFUaDdxeFhxTUxER3hDT3NmWTVFS2VjUnM2d0I5Tldk?=
+ =?utf-8?B?U09VeUFvazZVdDBCdEdrVXRDbThPWHVoOWVxVlFnSDdQclIwN0dyTk9JMDM1?=
+ =?utf-8?B?eEtTNVlFY0hseDF5TEdVWUFLaC9JRktFTkMwcW11V0NmZ1RMRjBrcmJCYXE3?=
+ =?utf-8?B?MTNPcWtLR0M2N1NocUR2bDRvMGo3NlAweS96L0lIUkwzajJQZE1QT3BkTlVT?=
+ =?utf-8?B?NGtkOHI2YndGOFFYR1lvbERieFgwTjRwQW91UzFPM3VjdFJMc3RrV21UcFpL?=
+ =?utf-8?B?RWZnWmVSMDUwNS90UEF6Z3ovaDlRTVFncWtmYkFwVWI2R0xMTXJ5TytuZVNh?=
+ =?utf-8?B?dERJRXZDREVxVlJGTldRUit0S2pDUGR3SVFyRUx3cUZDa2ZzeVRUNGFFV3c4?=
+ =?utf-8?B?NFU5Q2c0R3J6cDRnTC9GVHpac1BzaDRQRmYyRUY5b2lxMk9NbW95TzRhN1g2?=
+ =?utf-8?B?aTc5QVZnMU53WFlHQjhLNVg4VXFJdkFxaGpyNWRqUHEvd2YyV3N1ZFErUk9L?=
+ =?utf-8?B?WjFWbEY2S0dpeGJWaWEvNGFLUmNZTHZUMnYvc3k4a0NJZTZSZUViZG5HamJp?=
+ =?utf-8?B?aVI4Qm8zWEZxeFhCZDcvN0FOOGxJYlVDMXVVVllGSGh1cVNQYWJIcm5lTXBO?=
+ =?utf-8?B?cEIya3V4bFhuemNHQkJWdXZDcGhGT055bnY0Tnh6QWZmNGNiR2N1WE92SnVX?=
+ =?utf-8?B?K1U5T2N5L0xKamEwMDlqV1luV3AyWEE5cDlYMUZ5a1cwVGxSMDcyQVJGSFdC?=
+ =?utf-8?B?ODZ6Wk4rTHZjblJOeWxjb294R3p3cXk2Wjg5dlVuL3ZOL2JUK1F1ZUM2WThH?=
+ =?utf-8?B?WHdKekZLMEtoY21PZWVDcExWWXM1U253Q0xUdlVDenBKcHdsWXZlWWJ3dHZM?=
+ =?utf-8?B?UjV4Z1E0eDhKQW1SK2ZQczdtRzM5M0pWZFY1bjNkekpwZVdxd25hSlFHVzdB?=
+ =?utf-8?Q?6xfA+Bk4lY5rH?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5149.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB6566.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(366016)(1800799024)(376014)(8096899003); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NFgwRnhNSGI4UTQ1MzdtKzV2MzdLNlBaVENPM3JVbXhnSlROVGl3M1NPN3Vv?=
- =?utf-8?B?d3RxbmtwdlFRV2xtQW4za0JXVjNDeVJLSXR2NjkySHFXK3htN2NKLzNIWURH?=
- =?utf-8?B?RVhNYldBZmpxdXc1Z1Rmd1NZQWxIeUIxeG14N3VWbzZYZGhmZmhFdWJvMERJ?=
- =?utf-8?B?SVBIT2E0cjZtL1dsMmdnMUR3MFV0SldBclNkbmU3Z3dMY0FzOExUUURkQk9Q?=
- =?utf-8?B?cC84T2R6MjNjQlVIMEo4dHduMWhvei9haCs2elJ6azlTU2JZNUcvRWZENG5L?=
- =?utf-8?B?N2hWM0h3dWxXRVl3TllMTUNVYWxTQjR1RXloTG5IV2J1ZVdaZkxwRVdSMC9k?=
- =?utf-8?B?R01wVjlDODFhdXRON1phOUphQ1Yzc1BPa0tHamwrby9jK0pub2RxbDZKRUVG?=
- =?utf-8?B?ZDlDYWtmZ0Q0cDlOOUdmN1doSkZLRExsMHYxUDJLSHFlanoyMHdsTUozdC9y?=
- =?utf-8?B?c0VsTEw0RTdEdzFPWXNYTnBrYzllRiswS3FXQU15Zm1BUHZaeXZDQVJzYkFx?=
- =?utf-8?B?aXRHTTdLVVd3bWdHeC9iRERaVFMwZmp4QjJkV1dUNmtiRUkxVGdKdFIrazY4?=
- =?utf-8?B?UVJRYnFJUVNHRkxlMGM1OThxekpyNnJsOFkybjYyNldZNHg5eWkxRzVCeHVH?=
- =?utf-8?B?L3NaQTBwenp6WDhDY0VnUFZXRVBwc1lVeDNYOUxaZ05jQVFTZXRENTZDOHE1?=
- =?utf-8?B?VzZSSW9wUENvL2dWVk5QUE5ZdVVGVHdCRHVOQkVkZmM0dGlpbjdvSWpocWhJ?=
- =?utf-8?B?MlJ0a2cva05HUU1EclFFQ1VWOHU5UkplcENQTWhTb2M1VzN1SXhKb1Nlb09z?=
- =?utf-8?B?QTNtN3ZTQ1dPZ2RRSXl4Z1dlSjhPb3dySWZ2Lzl5eUpOZW5GYnpuUXA0NDZp?=
- =?utf-8?B?ekhIVjVtUnIzTGRJVzdvMldYSmlQbjdQV1V2UDFrNTlQM3NsRkZQTHV6ZytZ?=
- =?utf-8?B?L1VqUnZ5eThsbFo4b2NrSGkwNlhtM2d3TVpoWFdnbXd0R2hjS3hIWHE5Umlw?=
- =?utf-8?B?Y0NBbkd3c24zZ3dHRFlpbzlVa242N2hmdHRYQVRxLzd2QzlBejZ3cWwrSmtO?=
- =?utf-8?B?YmpuaVhyanE2dW5BV3NmVTN6bW5hZDY3ZHlKN3ZOZGRrdmJWVE02aU5RYVJR?=
- =?utf-8?B?TCtoN0YyUTQ0TEFrOVh3eFFnVFZQVUtqQXVmaVhBWm4zUVlDMHJ0SXU4akpP?=
- =?utf-8?B?L0VJNjRFbzJvWThzalVSVHFsZWxuWnJwYzVOY3kzaUdKN2FOcTFGWDRUWWx3?=
- =?utf-8?B?MWduSGR5MkVta3JGMG0xTmo1MjlXM0RSNk1hbzNBMXdCdEkxcmhqak1PeFJz?=
- =?utf-8?B?ZUFQOGpRYzVCNFRBZUFIcXJFU2RCZk9yK2VLc29ReUdjRGlicnlXYmVBWFZv?=
- =?utf-8?B?NXM5NHVNenp0YlpmRHBvejlBZFA3NkJTMTVWMW1saDA1V2NSQjlDNlJyS0Ur?=
- =?utf-8?B?RS91ZmZ2dlFxcWNGaHBWUzRWY3I2bzhwUjdnUHdEcHJSMzArQ3JJUHk2ei9O?=
- =?utf-8?B?RC9qcGpyamRubzE5UnZCUjE2dDYrazV3WFhNSTJqL21FVG1TbEtPY2dYYmZ5?=
- =?utf-8?B?WThJYlYzQkk1U1JBRVBSQkxnN0NLRzBlTGxoRFN4dU5aSFFoNmZTaVMzZmZt?=
- =?utf-8?B?dVNsQ3BuSFpjei9GVE9hL2lCbUhMU0ZGS253YWwzRFBHSDlFRTUrYnRpZUJq?=
- =?utf-8?B?WTc2QkplYVBoaFptZG12VTVoSzdhREk1cjRGSDFGc0JpaW5MWU9hQis0UlY0?=
- =?utf-8?B?UDNsUlFQWWwyRjNRanljKzBzSUVhYjc2dkZaZkNNMXpZeFROck9nSWlhSjcv?=
- =?utf-8?B?K2RNMWhjVTdDSnFWQ3l5dDdncjhsQkRpenJFUnFhL2h2UHV2SnIzV3N4RHdF?=
- =?utf-8?B?L0NBeUQ3NWJFS0gzYklNZ0FGTDdPZ0pxRmVhY1phZ3VtVm5mSFJBS0Q2NWcw?=
- =?utf-8?B?SWlnMjRXcmFBaWM0NjhUMGVJQVJPN1dMOTd6akw0RnJyaXBlem1zU2g5MmdJ?=
- =?utf-8?B?dVFoNlN4U2dqWUpoRE4rRlUzeGowcHgzTUI3ck5DWWFDS25IamRxNXZXRmZn?=
- =?utf-8?B?NStjL1BxNmhLcy9uT2lza3dueFJ5akN5Um5SRlh0R1JKdmFhUkJaVzJUNWpv?=
- =?utf-8?Q?Mn0mVXtyRRA2aLt0/gwzklW6/?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dlY3OVdWSEQyTUNBSXMvUkNFS1FmZGQ5SHNhUmdlRVlhRGM3Y3k3TGhiL2Q3?=
+ =?utf-8?B?OVVtQzgyUnNsUitpYTVlWWw5RFVocnlPdjBmcXJ0YUllbVBJaDE3UVgzRkJK?=
+ =?utf-8?B?SDZORnUwSXc1Vk5rNHljT2pmNkNrWVlTMjF1OHAxZExkRWFlVUtId3oyd3Vl?=
+ =?utf-8?B?emV6cGlCQnA5SkZVR3UzVjBHcGRma0pidnUxOUV4alRmeTdkVGVpMG1saHlw?=
+ =?utf-8?B?S1hKaXpocmtRY2JKL2U0cDlWNnNtNVJYMXJlNzJ6MWJhVHl0NjUwMnRHUXU0?=
+ =?utf-8?B?Qng4dGZJeWZkaHAyQUtCdHJoTmFJUWZNOXVzUTd1ZFFRWFBKbE4raVZzTndt?=
+ =?utf-8?B?ekc2OHpuYVlNZ2VnRzV1M1N6RXp0SFVkSGRxZVVRSjFsRU5mNjVWME84Yysr?=
+ =?utf-8?B?UlFzWHJwZThUWC9aRUV2OEtubThDUkRlUEYyYWFpaExnT0tjb3ZWL2VwdTN3?=
+ =?utf-8?B?VitJS0ZubDBmZzc2ZmF2YTI4RG9mT0xaTnkzUk1qVmpkZzZrOEh3MUNmdzVz?=
+ =?utf-8?B?YTBIUVlVWTFxSDBwSDFOdkVYMFM3MWFHb003RUx2cGY2eFo4bWx2aFc3Z1c2?=
+ =?utf-8?B?bS82Ym5XVW04QjFRTjB2YlNOdE0rNmpuUEEyRmZJbzd5ck9VeVZPemZ1dVpJ?=
+ =?utf-8?B?M0ZoY09UMjZHQjVyeStMWUtUZUZDOHcwVW4wRzlZcUdvOWZaa0oxcTFhYmpW?=
+ =?utf-8?B?blFaaThHWUJnY0g4amVJWEg3T0lxVTNhblh0azFaMGRXeHAvNCtTSXYydEt2?=
+ =?utf-8?B?U0tlZzM4bWVwemRpTy9OcjNtRXJDRVBaMjQvMUNTVlBHZlY5WkpSVVIzNUtl?=
+ =?utf-8?B?c21ZdVo0NDdvZTN6b2tBblhvL1lpTFRmNWc2eVg3ZVJjd2ZIcm9CdnFTSXpJ?=
+ =?utf-8?B?NnkvZ0VIcmxxKzBpWUhheFRIYjlLUDdObXlETm9ZQVA4OTNUS3RjbXY3ZENx?=
+ =?utf-8?B?SW1ITWhnYldzK0RwN2VwMURHRFoxVlMyWG1CSThsQTk1a25uSUY4aFRtb3FX?=
+ =?utf-8?B?VXZiVnpKZm8xMTREejY5cWR3dC9NMlpPdEUwREU4WHg3ZldCZkc2WWE1WmhU?=
+ =?utf-8?B?TFcwSVJpODVKWVpMM3B2dG9TWWNJSFZXVmFsdXRXNDIvRFpjQVE2cUdYN2RO?=
+ =?utf-8?B?czMvWXczNHVtdGgrTVg0b3N4cGZsWGg2Q2NlSTA4b1lqeXY3YXM3OEgwaHBz?=
+ =?utf-8?B?L1lWdk1ZaHNqbEQvdDRUYUlGZXU0Y2UxS3lsVENXUERsSlhYY2F1R0FseGdX?=
+ =?utf-8?B?c0tqUVN4Ykw0VUdzNlBoRGE2QnRhdzR2QXRmb1dZUDlEMnFvNDFUaVlJK1lY?=
+ =?utf-8?B?TGhUSG5HcTFLZ1ZXeUM2cUhyM04xMDFhLytzaGpBZDVjTEtUU2dKNWo1Vy9T?=
+ =?utf-8?B?VkV1YUVUYkFqK24rTitwdUJESkFRRm9lUUh2ZWUzQWpvWkM5NGpQa0hhN2dQ?=
+ =?utf-8?B?ellPLy8zb1BFNSsvaTNhaXNFckFqS1R4b1pKdmNCeGwvUzViWGNIRnRVdHMx?=
+ =?utf-8?B?TW1kK08xN3ZudnRPMDdUNGlxWXA2RGxhcTJCWUNERkU3VWNFem1yWHVKaXB6?=
+ =?utf-8?B?a2EvYzNaWUZPWG5sVzZZWWUyZUJwTndnTU5rVGlEM2ppZE9nY3lUNDIxMTlw?=
+ =?utf-8?B?QTNzQ2hGdDFDd2UvU2JQdnluQnRGdVFJTGczMlJnWlM1T3JjS3dyV1hqMTVz?=
+ =?utf-8?B?LzdCODFrRnpKeVJEamtKQ2lCbXdJdC9pZko4QUs0U0tySTRVeS8rYkw0WUt2?=
+ =?utf-8?B?bGdSQmxkMkhZTWV2UzhhODd0N3FSM3JLNTMvTWRBaEdxTkd2aVFnbWdQMUxn?=
+ =?utf-8?B?RkN0bjUwRElUOWl3b1psZVZ1V2l5d1ZaSnlhcm5VYm5KOXNtMjIzaml3TUlH?=
+ =?utf-8?B?bUg2bUw5czQ1dlpROGRuUzdWeC8vbDIrTnhySWZuWExLSDVpWHcyeXB0UHFh?=
+ =?utf-8?B?NzVOWDRqNkhDTVhmTG5Cb3lxSlRaWURHNUw5SW9ZblpXc1IySHh0NmU0SlpX?=
+ =?utf-8?B?eVlCMTI1VGl5Y3EyZWRsdGcvWCs4bHhYTDhlOEVqWGxBS3YzbElNcE9aR01I?=
+ =?utf-8?B?WnZuenVjbGdFVFMzb09XZG9lSTZHVW50WE9JRXRHb1Eva3F1UVFqQnlmN0tI?=
+ =?utf-8?Q?tbiM=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 33e2f647-8324-4671-0275-08dd396d62be
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5149.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: da5d8f49-76c5-4ec0-05a2-08dd396fbda6
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6566.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jan 2025 16:13:32.8720 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jan 2025 16:30:24.4207 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5tBMbz3Kvp/rY5LXlfLCnjA04XqY9doAJUVlUfs2Ly+6s1exu9GBJcZpfSpRGEqd
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7903
+X-MS-Exchange-CrossTenant-UserPrincipalName: NrremV2tjQdXDIfBkTBkaG2/7B4DmSQzt5Nf4DgFlaZkq4LXXGSicBqAgwi0snLh
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5956
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,17 +161,178 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-<html><head>
+--------------CvKGCk5SQlygSE9OM07DSoTA
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+
+On 1/20/2025 10:13 AM, Philip Yang wrote:
+>
+>
+> On 2025-01-15 16:40, Xiaogang.Chen wrote:
+>> From: Xiaogang Chen<xiaogang.chen@amd.com>
+>>
+>> Current svm_migrate_copy_to_vram handles sys pages(src) and dst pages (vram)
+>> discontinuation in different way. When src got discontinuity migrates j pages
+>> that ith page is not migrated; When dst got discontinuity migrates j+1 pages
+>> that ith page is migrated. That cause error path have to iterate all pages to
+>> find which page got migrated before error happened. Also makes code more
+>> difficult to read.
+> error handling path loop from 0 -> mpages or i -> 0, to rollback 
+> migrated pages, I think both way should handle similar number of pages.
+same number to call svm_migrate_put_vram_page, the loop number is not 
+same. The change is not about correctness, but make the code more 
+straight forward to read. At error path a more logical way is rollback 
+from the place where the error happened, instead browse all pages.
+>> This patch handles src and dst page discontinuity in consistent way, has its
+>> logic and error recovery straight forward.
+>
+> I feel that svm_migrate_copy_memory_gart move to the beginning of the 
+> loop is harder to understand.
+>
+If you feel handle vram page discontinuation at beginning of loop is not 
+natural we can put it after sys ram discontinuation handling. The 
+purpose is handling src/dst page discontinuity in consistent way.
+
+
+> Regards,
+>
+> Philip
+>
+>> Signed-off-by: Xiaogang Chen<Xiaogang.Chen@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 68 ++++++++++++------------
+>>   1 file changed, 35 insertions(+), 33 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+>> index d05d199b5e44..2ce78c77f203 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+>> @@ -299,6 +299,19 @@ svm_migrate_copy_to_vram(struct kfd_node *node, struct svm_range *prange,
+>>   	for (i = j = 0; (i < npages) && (mpages < migrate->cpages); i++) {
+>>   		struct page *spage;
+>>   
+>> +		/* accumulated pages more than current cursor's block has */
+>> +		if (j >= (cursor.size >> PAGE_SHIFT)) {
+>> +			r = svm_migrate_copy_memory_gart(adev, src + i - j,
+>> +							 dst + i - j, j,
+>> +							 FROM_RAM_TO_VRAM,
+>> +							 mfence);
+>> +			if (r)
+>> +				goto out_free_vram_pages;
+>> +
+>> +			amdgpu_res_next(&cursor, j * PAGE_SIZE);
+>> +			j = 0;
+>> +		}
+>> +
+>>   		if (migrate->src[i] & MIGRATE_PFN_MIGRATE) {
+>>   			dst[i] = cursor.start + (j << PAGE_SHIFT);
+>>   			migrate->dst[i] = svm_migrate_addr_to_pfn(adev, dst[i]);
+>> @@ -306,17 +319,10 @@ svm_migrate_copy_to_vram(struct kfd_node *node, struct svm_range *prange,
+>>   			migrate->dst[i] = migrate_pfn(migrate->dst[i]);
+>>   			mpages++;
+>>   		}
+>> +
+>>   		spage = migrate_pfn_to_page(migrate->src[i]);
+>> -		if (spage && !is_zone_device_page(spage)) {
+>> -			src[i] = dma_map_page(dev, spage, 0, PAGE_SIZE,
+>> -					      DMA_BIDIRECTIONAL);
+>> -			r = dma_mapping_error(dev, src[i]);
+>> -			if (r) {
+>> -				dev_err(dev, "%s: fail %d dma_map_page\n",
+>> -					__func__, r);
+>> -				goto out_free_vram_pages;
+>> -			}
+>> -		} else {
+>> +		if (!spage || is_zone_device_page(spage)) {
+>> +			/* sdma accumulated pages before src got gap */
+>>   			if (j) {
+>>   				r = svm_migrate_copy_memory_gart(
+>>   						adev, src + i - j,
+>> @@ -325,29 +331,26 @@ svm_migrate_copy_to_vram(struct kfd_node *node, struct svm_range *prange,
+>>   						mfence);
+>>   				if (r)
+>>   					goto out_free_vram_pages;
+>> -				amdgpu_res_next(&cursor, (j + 1) << PAGE_SHIFT);
+>> +
+>> +				amdgpu_res_next(&cursor, (j+1) << PAGE_SHIFT);
+>>   				j = 0;
+>> -			} else {
+>> +			} else
+>>   				amdgpu_res_next(&cursor, PAGE_SIZE);
+>> -			}
+>> +
+>>   			continue;
+>>   		}
+>>   
+>> -		pr_debug_ratelimited("dma mapping src to 0x%llx, pfn 0x%lx\n",
+>> -				     src[i] >> PAGE_SHIFT, page_to_pfn(spage));
+>> -
+>> -		if (j >= (cursor.size >> PAGE_SHIFT) - 1 && i < npages - 1) {
+>> -			r = svm_migrate_copy_memory_gart(adev, src + i - j,
+>> -							 dst + i - j, j + 1,
+>> -							 FROM_RAM_TO_VRAM,
+>> -							 mfence);
+>> -			if (r)
+>> -				goto out_free_vram_pages;
+>> -			amdgpu_res_next(&cursor, (j + 1) * PAGE_SIZE);
+>> -			j = 0;
+>> -		} else {
+>> -			j++;
+>> +		src[i] = dma_map_page(dev, spage, 0, PAGE_SIZE,
+>> +				DMA_BIDIRECTIONAL);
+>> +		r = dma_mapping_error(dev, src[i]);
+>> +		if (r) {
+>> +			dev_err(dev, "%s: fail %d dma_map_page\n", __func__, r);
+>> +			goto out_free_vram_pages;
+>>   		}
+>> +
+>> +		pr_debug_ratelimited("dma mapping src to 0x%llx, pfn 0x%lx\n",
+>> +							 src[i] >> PAGE_SHIFT, page_to_pfn(spage));
+>> +		j++;
+>>   	}
+>>   
+>>   	r = svm_migrate_copy_memory_gart(adev, src + i - j, dst + i - j, j,
+>> @@ -356,12 +359,11 @@ svm_migrate_copy_to_vram(struct kfd_node *node, struct svm_range *prange,
+>>   out_free_vram_pages:
+>>   	if (r) {
+>>   		pr_debug("failed %d to copy memory to vram\n", r);
+>> -		for (i = 0; i < npages && mpages; i++) {
+>> -			if (!dst[i])
+>> -				continue;
+>> -			svm_migrate_put_vram_page(adev, dst[i]);
+>> -			migrate->dst[i] = 0;
+>> -			mpages--;
+>> +		while (i--) {
+>> +			if (migrate->dst[i]) {
+>> +				svm_migrate_put_vram_page(adev, dst[i]);
+>> +				migrate->dst[i] = 0;
+>> +			}
+>>   		}
+>>   	}
+>>   
+--------------CvKGCk5SQlygSE9OM07DSoTA
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html><html><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   </head>
   <body>
     <p><br>
     </p>
-    <div class="moz-cite-prefix">On 2025-01-15 16:40, Xiaogang.Chen
+    <div class="moz-cite-prefix">On 1/20/2025 10:13 AM, Philip Yang
       wrote:<br>
     </div>
-    <blockquote type="cite" cite="mid:20250115214001.335607-1-xiaogang.chen@amd.com">
-      <pre class="moz-quote-pre" wrap="">From: Xiaogang Chen <a class="moz-txt-link-rfc2396E" href="mailto:xiaogang.chen@amd.com">&lt;xiaogang.chen@amd.com&gt;</a>
+    <blockquote type="cite" cite="mid:8a89c11e-e2d3-acd9-5fe4-22bc3f261d3a@amd.com">
+      
+      <p><br>
+      </p>
+      <div class="moz-cite-prefix">On 2025-01-15 16:40, Xiaogang.Chen
+        wrote:<br>
+      </div>
+      <blockquote type="cite" cite="mid:20250115214001.335607-1-xiaogang.chen@amd.com">
+        <pre class="moz-quote-pre" wrap="">From: Xiaogang Chen <a class="moz-txt-link-rfc2396E" href="mailto:xiaogang.chen@amd.com" moz-do-not-send="true">&lt;xiaogang.chen@amd.com&gt;</a>
 
 Current svm_migrate_copy_to_vram handles sys pages(src) and dst pages (vram)
 discontinuation in different way. When src got discontinuity migrates j pages
@@ -179,24 +340,33 @@ that ith page is not migrated; When dst got discontinuity migrates j+1 pages
 that ith page is migrated. That cause error path have to iterate all pages to
 find which page got migrated before error happened. Also makes code more
 difficult to read.</pre>
+      </blockquote>
+      error handling path loop from 0 -&gt; mpages or i -&gt; 0, to
+      rollback migrated pages, I think both way should handle similar
+      number of pages.<br>
     </blockquote>
-    error handling path loop from 0 -&gt; mpages or i -&gt; 0, to
-    rollback migrated pages, I think both way should handle similar
-    number of pages.<br>
-    <blockquote type="cite" cite="mid:20250115214001.335607-1-xiaogang.chen@amd.com">
-      <pre class="moz-quote-pre" wrap="">
-This patch handles src and dst page discontinuity in consistent way, has its
+    same number to call <span style="white-space: pre-wrap">svm_migrate_put_vram_page, the loop number is not same. The change is not about correctness, but make the code more straight forward to read. At error path a more logical way is rollback from the place where the error happened, instead browse all pages.</span>
+    <blockquote type="cite" cite="mid:8a89c11e-e2d3-acd9-5fe4-22bc3f261d3a@amd.com">
+      <blockquote type="cite" cite="mid:20250115214001.335607-1-xiaogang.chen@amd.com">
+        <pre class="moz-quote-pre" wrap="">This patch handles src and dst page discontinuity in consistent way, has its
 logic and error recovery straight forward.</pre>
+      </blockquote>
+      <p>I feel that svm_migrate_copy_memory_gart move to the beginning
+        of the loop is harder to understand.</p>
     </blockquote>
-    <p>I feel that svm_migrate_copy_memory_gart move to the beginning of
-      the loop is harder to understand.</p>
-    <p>Regards,</p>
-    <p>Philip<br>
+    <p>If you feel handle vram page discontinuation at beginning of loop
+      is not natural we can put it after sys ram discontinuation
+      handling. The purpose is handling src/dst page discontinuity in
+      consistent way. &nbsp; <br>
     </p>
-    <blockquote type="cite" cite="mid:20250115214001.335607-1-xiaogang.chen@amd.com">
-      <pre class="moz-quote-pre" wrap="">
-
-Signed-off-by: Xiaogang Chen<a class="moz-txt-link-rfc2396E" href="mailto:Xiaogang.Chen@amd.com">&lt;Xiaogang.Chen@amd.com&gt;</a>
+    <p><br>
+    </p>
+    <blockquote type="cite" cite="mid:8a89c11e-e2d3-acd9-5fe4-22bc3f261d3a@amd.com">
+      <p>Regards,</p>
+      <p>Philip<br>
+      </p>
+      <blockquote type="cite" cite="mid:20250115214001.335607-1-xiaogang.chen@amd.com">
+        <pre class="moz-quote-pre" wrap="">Signed-off-by: Xiaogang Chen<a class="moz-txt-link-rfc2396E" href="mailto:Xiaogang.Chen@amd.com" moz-do-not-send="true">&lt;Xiaogang.Chen@amd.com&gt;</a>
 ---
  drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 68 ++++++++++++------------
  1 file changed, 35 insertions(+), 33 deletions(-)
@@ -309,6 +479,9 @@ index d05d199b5e44..2ce78c77f203 100644
  	}
  
 </pre>
+      </blockquote>
     </blockquote>
   </body>
 </html>
+
+--------------CvKGCk5SQlygSE9OM07DSoTA--
