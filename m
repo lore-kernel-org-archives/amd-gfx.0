@@ -4,68 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD38CC02182
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jan 2025 15:37:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C269FC02185
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jan 2025 15:46:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C05689811;
-	Mon, 20 Jan 2025 15:37:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 676EB10E037;
+	Mon, 20 Jan 2025 15:46:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dbj6WNLA";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JCNWdmF1";
 	dkim-atps=neutral
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com
- [209.85.216.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 01BAF10E05B
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jan 2025 15:37:45 +0000 (UTC)
-Received: by mail-pj1-f41.google.com with SMTP id
- 98e67ed59e1d1-2ef05d0ef18so981998a91.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jan 2025 07:37:45 -0800 (PST)
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com
+ [209.85.214.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1FBB710E05B
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jan 2025 15:46:24 +0000 (UTC)
+Received: by mail-pl1-f171.google.com with SMTP id
+ d9443c01a7336-21c0e29b26bso10292235ad.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jan 2025 07:46:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1737387405; x=1737992205; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1737387924; x=1737992724; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=qtAp6qBFZ2Pd1nT4DmW8ghWEmCUwze5l2jyOAjgiq/s=;
- b=dbj6WNLAv9yuSYvhTyuGrxYgm9Lm5vGkDNt7lYxdFwsLl8adpkwe5+0RnrqHc3yJG9
- 0dXL4kJn/ThjgkBLnXuRc+qdttBcr4gGLNN94PP9XyhrE0j4/OBFz9AwYRSwe9zlCaKR
- zq/qpGXJT+79kKBWE0EwwKQ3+SZS28DN8zZjzdZiS4b8OTPRyZJvWOr9/5tRCz+8uK6a
- UmBU5lqLCUy/YlCNpI8TlpsupBiNn26ziaaW/vh5jNffseCPq4DFfnwIIxUDgKvzc7BU
- 37KyCqOoHm37GGTAONDLe1uwjstSlVScWiEmMX1eVxyx1trsYbA73Avl0Rjt3UROJ7/k
- jMIQ==
+ bh=cOtzg6/aD57coK6TdIvBbjoa/TpemCu8Md8hQr4A1b0=;
+ b=JCNWdmF17wbxW5fDw9Cl51o7kKY7IufJ/trK2hCIgB1KfsLTrsx/WavnZcCwsD+fxM
+ Ex2eTfCKxBnwq5QNuPM61ZIu+8OyDJ1sDBH+I33bb6I6aqwh5y1yXNUgjzCa5CEiXWS1
+ uwJTPi0vpxKdAI7qyl6N5vfaPiZIu08+q8tqoiRLycz/rhWBHUsTQ+ad5VYQ0GYxWh35
+ LW8Hqx08jlM0XpWOdEh5yOAf6f1LH//c/tsd2cs6Tx1tt+LD3VHDUSC054oPhfvsxr6o
+ ueRu0nqAprMPxC4JLxeAHLC5ie5KT0TXUvTEOSlN+Ci7mHl+kCwqvQc4sTZ5vQc1wvtQ
+ 3jhg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737387405; x=1737992205;
+ d=1e100.net; s=20230601; t=1737387924; x=1737992724;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=qtAp6qBFZ2Pd1nT4DmW8ghWEmCUwze5l2jyOAjgiq/s=;
- b=wVP4CmL3r2B4iahaG7RhIoET5Ti20knjhKjyWwFB48TnAcp5v/UGfvrQpXofDkRJwj
- gUVjEA5gBGAyFI6gy64K8ilLgzzLHHbGgbH215otS/r0v5gc6+pNcbP72iCCYCPjzixB
- OScwOpel+Mul7J3BhcMGm8MC69+Lr6CzUz2P00NqBy1HMYk5MmdpkVquASNpf46fB+Vy
- s3saegFfqpsKz2aRdlOBbNxcXPZ9QmqsbHEqoUb3CbtIlds1NNf2Exv+I8ve0/xpDeVp
- Z5f904n+JkrEPjKB6fSpW2FBPRO8b0fPkAuOlzY+EID9iCZblfEBZbLMwA4qBNkW1Wb4
- Kqxg==
-X-Gm-Message-State: AOJu0YxM1kBiNIzlac4JZgxyCHLz8KV6F2xjexvzATNOtyhvu8YSxhf5
- q5sTSlkm+OqfDxwGRwYy3aBZ8nu5m9r7ejVEA1sbN4LZHVaO9sLQ5KDlV8CzoiQhfqa9sI/fXJx
- DLrIX6luwRs/N0fTCrukYrcuqyyqo/A==
-X-Gm-Gg: ASbGnct3ggnqwIDhNAepgKUaCBXgCa/SBYdHEBuN9MnhTr9D9Jmlu7Qn8lNG91an8Ei
- G3ME+zDmaHJ92oWZmSUnYdXCUCGmnoug4SBCA8Ef7xgNYx9AWdf8=
-X-Google-Smtp-Source: AGHT+IFKd84lIj6p+t2/lHvJ0vYpMjMu2W8AwMb8bLPYgM6vRo13x2KpgKdXm99YcmQfZG/lUIVtVOoXHeWdd0dO0mw=
-X-Received: by 2002:a17:90b:534c:b0:2ee:6563:20b5 with SMTP id
- 98e67ed59e1d1-2f782b06b52mr7520225a91.0.1737387405512; Mon, 20 Jan 2025
- 07:36:45 -0800 (PST)
+ bh=cOtzg6/aD57coK6TdIvBbjoa/TpemCu8Md8hQr4A1b0=;
+ b=pOsGupaz07VKvFsan50ahoKPSB3AyjD9Y4tFeJyQofUF9WskX0HTEIYEybdC/inGkh
+ Mv4z3eDkYfR/USkYebSSH/AuxVVvZe7fMlID+fkjky0pXaRyQ/P9d2LCoduMgJlAg7cJ
+ Qo7JLib25grjc2hSwjol0Txg1V5k9JvGMWERpCdOceLItlKwTS7Usc9blbFDwiE3r+Pf
+ 8w9wjL2GNLdu9rDRshW03HOQtF2RNhlIFslix4gxtVPn4liTv4DIFk4MwlyULsNE/mYd
+ yjSyvTvEqZK/lRdsrN7sX63mWoNMbXh3OiZZfxfmDzbuYOhMJW00kwQ38RWN/TOAtIJG
+ dwBg==
+X-Gm-Message-State: AOJu0YzyDO7EzJmd6hc7+7URYJ6lVPyz4o4OOB/fdKrkY05S8SoBpesR
+ ktbSGbZh0W4JQHZQ2X45rp6y4nUgJWmIFghJP/cAjsjaaVh1+MGlXoQ1tP7eLcPWC3mx4eFrV2g
+ cAHe+cyPqhBKeLKm4ds5ciB2zBYU=
+X-Gm-Gg: ASbGncucirXBdLweZKAs7TsVQ375LusVKODlq4QOdAclLwls2BdREQlSbfEbwi6KJCV
+ poH5cPMZ/26N5ifBNVesx5aA4ZtivPvKg5it49CkzWpst4JMKdjk=
+X-Google-Smtp-Source: AGHT+IHkPJZa0/WTZbi7EMyIS0kmJl9PonUrHMAG2cSs7vmwEjAla/fLG8PwpO0Ae/bjHs0RyOSDrn7JMa21c5CUhgs=
+X-Received: by 2002:a17:902:f548:b0:215:3862:603a with SMTP id
+ d9443c01a7336-21c355854e8mr78244355ad.10.1737387923552; Mon, 20 Jan 2025
+ 07:45:23 -0800 (PST)
 MIME-Version: 1.0
-References: <o93Aruut7VI05oqVX7Se1udr5FAyqfyP_TGDutW0p2fXBSkRv7QkhpLmAT-buTpdWIwn8PnC8B2DNSMtaTp5kk00ZtK653PDLuK14uoUI4k=@protonmail.com>
- <CADnq5_PatAYdyKGVJpX5TrVJ451Ga9PJjCx85jna+CUxsaFAhA@mail.gmail.com>
- <8o8j5o9K-GIowaV5BW0uUds5QSczbsDlObPMAEUyGjPMV1G2tq-3sdYaQwbZHt_d4p-9sqBe5OnsUkkbS2gb6eZT1d5KiOXyTdz3vy75_V8=@protonmail.com>
- <EefQ4XqoUhDVKwtzYbP7Cwv1m6p8brSTBJzVQeojHh8X688L3QdBfGkakTuU0yf3lWfne5Bhcj90MXHhB9nblEqobkXeWvluAnwrplGkH2A=@protonmail.com>
-In-Reply-To: <EefQ4XqoUhDVKwtzYbP7Cwv1m6p8brSTBJzVQeojHh8X688L3QdBfGkakTuU0yf3lWfne5Bhcj90MXHhB9nblEqobkXeWvluAnwrplGkH2A=@protonmail.com>
+References: <20250120111027.1525667-1-lijo.lazar@amd.com>
+In-Reply-To: <20250120111027.1525667-1-lijo.lazar@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 20 Jan 2025 10:36:33 -0500
-X-Gm-Features: AbW1kvb5ELfl0LvACsqjpUPy7ER2vtgacYH4trqKi2kG_A_reGIOtrWNazJQH7M
-Message-ID: <CADnq5_MoZ7W0pf2BFx7Rs2e+6YyJNO2KBCfjjnrkv-+hKNqduA@mail.gmail.com>
-Subject: Re: drm/amdgpu: AMDGPU unusable since 6.12.1 and it looks like no one
- cares.
-To: SyntheticBird <syntheticbirdxmr@protonmail.com>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Date: Mon, 20 Jan 2025 10:45:11 -0500
+X-Gm-Features: AbW1kvZhb3RhnZGhYA0l2-4c4Y5PrXEwXOMFZtX5FXPIhNJAOZOMIIPm0Z-3gaA
+Message-ID: <CADnq5_NrqKXzwA6LjRRMtRL14YRT4n2UE=RnYAFeTaSYQHfWvw@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amd/pm: Fix smu v13.0.6 caps initialization
+To: Lijo Lazar <lijo.lazar@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Hawking.Zhang@amd.com, 
+ Alexander.Deucher@amd.com, Asad.Kamal@amd.com, kevinyang.wang@amd.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -82,95 +79,252 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sun, Jan 19, 2025 at 3:25=E2=80=AFPM SyntheticBird
-<syntheticbirdxmr@protonmail.com> wrote:
+On Mon, Jan 20, 2025 at 6:17=E2=80=AFAM Lijo Lazar <lijo.lazar@amd.com> wro=
+te:
 >
+> Fix the initialization and usage of SMU v13.0.6 capability values. Use
+> caps_set/clear functions to set/clear capability.
 >
-> Hello,
+> Also, fix SET_UCLK_MAX capability on APUs, it is supported on APUs.
 >
-> One person on the Gitlab issue have potentially bisected the commit causi=
-ng the kernel freeze: https://gitlab.freedesktop.org/drm/amd/-/issues/3787#=
-note_2741901
+> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
 >
-> https://gitlab.freedesktop.org/drm/kernel/-/commit/de848da12f752170c2ebe1=
-14804a985314fd5a6a
->
+> Fixes: 9bb53d2ce109 ("drm/amd/pm: Add capability flags for SMU v13.0.6")
 
-Per the report, they have not finished the bisect yet.  It's generally
-unlikely that a merge commit will be the problematic one.  Let's wait
-until they finish the bisect.
+A couple minor nits below.  Otherwise,
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-Alex
+> ---
+> v1: ("drm/amd/pm: Use correct macros for smu caps")
+> v2:
+>         Use caps_set/clear instead of macros (Alex). Commit message chang=
+ed.
+>         Use BIT_ULL (Kevin)
+>         Fix SET_UCLK_MAX capability on APUs
+>
+>  .../drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c  | 124 ++++++++++--------
+>  1 file changed, 72 insertions(+), 52 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drive=
+rs/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+> index 56e26fcd3066..9e64392d23a9 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+> @@ -118,8 +118,7 @@ enum smu_v13_0_6_caps {
+>         SMU_13_0_6_CAPS_ALL,
+>  };
+>
+> -#define SMU_CAPS_MASK(x) (ULL(1) << x)
+> -#define SMU_CAPS(x) SMU_CAPS_MASK(SMU_13_0_6_CAPS_##x)
+> +#define SMU_CAPS(x) SMU_13_0_6_CAPS_##x
+>
+>  struct mca_bank_ipid {
+>         enum amdgpu_mca_ip ip;
+> @@ -284,95 +283,116 @@ struct smu_v13_0_6_dpm_map {
+>         uint32_t *freq_table;
+>  };
+>
+> -static void smu_v13_0_14_init_caps(struct smu_context *smu)
+> +static inline void smu_v13_0_6_caps_set(struct smu_context *smu,
+> +                                       enum smu_v13_0_6_caps caps)
+> +{
+> +       struct smu_13_0_dpm_context *dpm_context =3D smu->smu_dpm.dpm_con=
+text;
+> +
+> +       dpm_context->caps |=3D BIT_ULL(caps);
+> +}
+> +
+> +static inline void smu_v13_0_6_caps_clear(struct smu_context *smu,
+> +                                         enum smu_v13_0_6_caps caps)
 
-> Also I apologize Alex I think I sent you an email without cc the mailing =
-list.
+Maybe s/caps/cap/ to make it clear that this function should only be
+used for a single cap.
+
+>  {
+>         struct smu_13_0_dpm_context *dpm_context =3D smu->smu_dpm.dpm_con=
+text;
+> -       uint64_t caps =3D SMU_CAPS(DPM) | SMU_CAPS(UNI_METRICS) |
+> -                       SMU_CAPS(SET_UCLK_MAX) | SMU_CAPS(DPM_POLICY) |
+> -                       SMU_CAPS(PCIE_METRICS) | SMU_CAPS(CTF_LIMIT) |
+> -                       SMU_CAPS(MCA_DEBUG_MODE) | SMU_CAPS(RMA_MSG) |
+> -                       SMU_CAPS(ACA_SYND);
+> +
+> +       dpm_context->caps &=3D ~BIT_ULL(caps);
+> +}
+> +
+> +static inline bool smu_v13_0_6_caps_supported(struct smu_context *smu,
+> +                                             enum smu_v13_0_6_caps caps)
+
+Same here.
+
+> +{
+> +       struct smu_13_0_dpm_context *dpm_context =3D smu->smu_dpm.dpm_con=
+text;
+> +
+> +       return !!(dpm_context->caps & BIT_ULL(caps));
+> +}
+> +
+> +static void smu_v13_0_14_init_caps(struct smu_context *smu)
+> +{
+> +       enum smu_v13_0_6_caps default_caps_list[] =3D { SMU_CAPS(DPM),
+> +                                                     SMU_CAPS(UNI_METRIC=
+S),
+> +                                                     SMU_CAPS(SET_UCLK_M=
+AX),
+> +                                                     SMU_CAPS(DPM_POLICY=
+),
+> +                                                     SMU_CAPS(PCIE_METRI=
+CS),
+> +                                                     SMU_CAPS(CTF_LIMIT)=
+,
+> +                                                     SMU_CAPS(MCA_DEBUG_=
+MODE),
+> +                                                     SMU_CAPS(RMA_MSG),
+> +                                                     SMU_CAPS(ACA_SYND) =
+};
+>         uint32_t fw_ver =3D smu->smc_fw_version;
 >
-> On Tuesday, January 14th, 2025 at 3:02 PM, SyntheticBird <syntheticbirdxm=
-r@protonmail.com> wrote:
+> +       for (int i =3D 0; i < ARRAY_SIZE(default_caps_list); i++)
+> +               smu_v13_0_6_caps_set(smu, default_caps_list[i]);
+> +
+>         if (fw_ver >=3D 0x05550E00)
+> -               caps |=3D SMU_CAPS(OTHER_END_METRICS);
+> +               smu_v13_0_6_caps_set(smu, SMU_CAPS(OTHER_END_METRICS));
+>         if (fw_ver >=3D 0x05551000)
+> -               caps |=3D SMU_CAPS(HST_LIMIT_METRICS);
+> +               smu_v13_0_6_caps_set(smu, SMU_CAPS(HST_LIMIT_METRICS));
+>         if (fw_ver >=3D 0x05550B00)
+> -               caps |=3D SMU_CAPS(PER_INST_METRICS);
+> +               smu_v13_0_6_caps_set(smu, SMU_CAPS(PER_INST_METRICS));
+>         if (fw_ver > 0x05550f00)
+> -               caps |=3D SMU_CAPS(SDMA_RESET);
+> -
+> -       dpm_context->caps =3D caps;
+> +               smu_v13_0_6_caps_set(smu, SMU_CAPS(SDMA_RESET));
+>  }
 >
-> >
-> >
-> >
-> >
-> >
-> >
-> >
-> > On Tuesday, January 14th, 2025 at 2:44 PM, Alex Deucher alexdeucher@gma=
-il.com wrote:
-> >
-> > > On Tue, Jan 14, 2025 at 9:05=E2=80=AFAM SyntheticBird
-> > > syntheticbirdxmr@protonmail.com wrote:
-> > >
-> > > > Hello and happy new year to all members of this list.
-> > > >
-> > > > I know that mailing lists aren't meant for begging for support, but=
- after discussing this in another distribution channel, it seems to me like=
- it is the only way for me and other users to grab the attention of a maint=
-ainer.
-> > > >
-> > > > Since 6.12.1, several users have reported a kernel freeze issue wit=
-h AMDGPU, including a complete stack trace. It corresponds to the following=
- issues on GitLab:
-> > > >
-> > > > https://gitlab.freedesktop.org/drm/amd/-/issues/3787https://gitlab.=
-freedesktop.org/drm/amd/-/issues/3866
-> > > >
-> > > > I also suspect this issue may have happened to one user on the Leve=
-l1Tech forum: https://forum.level1techs.com/t/help-with-troubleshooting-fre=
-ezing-with-linux-kernel-6-12-on-arch/221340/22
-> > > >
-> > > > Two months have passed since the first report of this bug, and no o=
-ne in either of the two issues has ever reached out to us. I've checked the=
- mailing list archive, and it seems like no maintainer has ever discussed i=
-t. We're simply left alone with only hope.
-> > > >
-> > > > I perfectly understand that maintainers are busy, and I do not blam=
-e them, but we as users and owners of AMDGPU have no other choice but to tr=
-y reaching out to you, to at least be sure that this issue hasn't been igno=
-red in the depths of the GitLab issue list.
-> > > >
-> > > > This issue is impacting versions 6.12.1 to the latest 6.13 rc. Seve=
-ral users are still stuck on either 6.6 LTS or 6.11.9-10. For users relying=
- on features that have been introduced between 6.6 and 6.12, they cannot do=
-wngrade to 6.6 and also cannot upgrade to 6.12, leaving them without vulner=
-abilities being patched on mainline and LTS.
-> > >
-> > > Per my comments on the bug report, did you also update mesa or GPU
-> > > firmware? If so, can you narrow down if any of those other components
-> > > had an impact? Alternatively, can you bisect the kernel? If you have
-> > > known good and bad kernels, it would be really helpful if you could
-> > > bisect to identify what commit caused the regression for you.
-> > >
-> > > Alex
-> >
-> >
-> > Hi,
-> >
-> > Thanks Alex for reaching out. Also per my comment on the bug report, I =
-can't right now but will be able to bisect during this week-end.
-> > I do have two versions of the kernel one good (6.11.10) and one bad (6.=
-12.1).
-> > I checked and both mesa (24.3.3) and firmware (20241210) are up to date=
-.
-> >
-> > I will update here whenever I find the commit.
+>  static void smu_v13_0_6_init_caps(struct smu_context *smu)
+>  {
+> -       uint64_t caps =3D SMU_CAPS(DPM) | SMU_CAPS(UNI_METRICS) |
+> -                       SMU_CAPS(SET_UCLK_MAX) | SMU_CAPS(DPM_POLICY) |
+> -                       SMU_CAPS(PCIE_METRICS) | SMU_CAPS(MCA_DEBUG_MODE)=
+ |
+> -                       SMU_CAPS(CTF_LIMIT) | SMU_CAPS(RMA_MSG) |
+> -                       SMU_CAPS(ACA_SYND);
+> -       struct smu_13_0_dpm_context *dpm_context =3D smu->smu_dpm.dpm_con=
+text;
+> +       enum smu_v13_0_6_caps default_caps_list[] =3D { SMU_CAPS(DPM),
+> +                                                     SMU_CAPS(UNI_METRIC=
+S),
+> +                                                     SMU_CAPS(SET_UCLK_M=
+AX),
+> +                                                     SMU_CAPS(DPM_POLICY=
+),
+> +                                                     SMU_CAPS(PCIE_METRI=
+CS),
+> +                                                     SMU_CAPS(CTF_LIMIT)=
+,
+> +                                                     SMU_CAPS(MCA_DEBUG_=
+MODE),
+> +                                                     SMU_CAPS(RMA_MSG),
+> +                                                     SMU_CAPS(ACA_SYND) =
+};
+>         struct amdgpu_device *adev =3D smu->adev;
+>         uint32_t fw_ver =3D smu->smc_fw_version;
+>         uint32_t pgm =3D (fw_ver >> 24) & 0xFF;
+>
+> +       for (int i =3D 0; i < ARRAY_SIZE(default_caps_list); i++)
+> +               smu_v13_0_6_caps_set(smu, default_caps_list[i]);
+>         if (fw_ver < 0x552F00)
+> -               caps &=3D ~SMU_CAPS(DPM);
+> +               smu_v13_0_6_caps_clear(smu, SMU_CAPS(DPM));
+>
+>         if (adev->flags & AMD_IS_APU) {
+> -               caps &=3D ~SMU_CAPS(PCIE_METRICS);
+> -               caps &=3D ~SMU_CAPS(SET_UCLK_MAX);
+> -               caps &=3D ~SMU_CAPS(DPM_POLICY);
+> -               caps &=3D ~SMU_CAPS(RMA_MSG);
+> -               caps &=3D ~SMU_CAPS(ACA_SYND);
+> +               smu_v13_0_6_caps_clear(smu, SMU_CAPS(PCIE_METRICS));
+> +               smu_v13_0_6_caps_clear(smu, SMU_CAPS(DPM_POLICY));
+> +               smu_v13_0_6_caps_clear(smu, SMU_CAPS(RMA_MSG));
+> +               smu_v13_0_6_caps_clear(smu, SMU_CAPS(ACA_SYND));
+>
+>                 if (fw_ver <=3D 0x4556900)
+> -                       caps &=3D ~SMU_CAPS(UNI_METRICS);
+> -
+> +                       smu_v13_0_6_caps_clear(smu, SMU_CAPS(UNI_METRICS)=
+);
+>                 if (fw_ver >=3D 0x04556F00)
+> -                       caps |=3D SMU_CAPS(HST_LIMIT_METRICS);
+> +                       smu_v13_0_6_caps_set(smu, SMU_CAPS(HST_LIMIT_METR=
+ICS));
+>                 if (fw_ver >=3D 0x04556A00)
+> -                       caps |=3D SMU_CAPS(PER_INST_METRICS);
+> +                       smu_v13_0_6_caps_set(smu, SMU_CAPS(PER_INST_METRI=
+CS));
+>                 if (fw_ver < 0x554500)
+> -                       caps &=3D ~SMU_CAPS(CTF_LIMIT);
+> +                       smu_v13_0_6_caps_clear(smu, SMU_CAPS(CTF_LIMIT));
+>         } else {
+>                 if (fw_ver >=3D 0x557600)
+> -                       caps |=3D SMU_CAPS(OTHER_END_METRICS);
+> +                       smu_v13_0_6_caps_set(smu, SMU_CAPS(OTHER_END_METR=
+ICS));
+>                 if (fw_ver < 0x00556000)
+> -                       caps &=3D ~SMU_CAPS(DPM_POLICY);
+> +                       smu_v13_0_6_caps_clear(smu, SMU_CAPS(DPM_POLICY))=
+;
+>                 if (amdgpu_sriov_vf(adev) && (fw_ver < 0x556600))
+> -                       caps &=3D ~SMU_CAPS(SET_UCLK_MAX);
+> +                       smu_v13_0_6_caps_clear(smu, SMU_CAPS(SET_UCLK_MAX=
+));
+>                 if (fw_ver < 0x556300)
+> -                       caps &=3D ~SMU_CAPS(PCIE_METRICS);
+> +                       smu_v13_0_6_caps_clear(smu, SMU_CAPS(PCIE_METRICS=
+));
+>                 if (fw_ver < 0x554800)
+> -                       caps &=3D ~SMU_CAPS(MCA_DEBUG_MODE);
+> +                       smu_v13_0_6_caps_clear(smu, SMU_CAPS(MCA_DEBUG_MO=
+DE));
+>                 if (fw_ver >=3D 0x556F00)
+> -                       caps |=3D SMU_CAPS(PER_INST_METRICS);
+> +                       smu_v13_0_6_caps_set(smu, SMU_CAPS(PER_INST_METRI=
+CS));
+>                 if (fw_ver < 0x554500)
+> -                       caps &=3D ~SMU_CAPS(CTF_LIMIT);
+> +                       smu_v13_0_6_caps_clear(smu, SMU_CAPS(CTF_LIMIT));
+>                 if (fw_ver < 0x00555a00)
+> -                       caps &=3D ~SMU_CAPS(RMA_MSG);
+> +                       smu_v13_0_6_caps_clear(smu, SMU_CAPS(RMA_MSG));
+>                 if (fw_ver < 0x00555600)
+> -                       caps &=3D ~SMU_CAPS(ACA_SYND);
+> +                       smu_v13_0_6_caps_clear(smu, SMU_CAPS(ACA_SYND));
+>                 if (pgm =3D=3D 0 && fw_ver >=3D 0x557900)
+> -                       caps |=3D SMU_CAPS(HST_LIMIT_METRICS);
+> +                       smu_v13_0_6_caps_set(smu, SMU_CAPS(HST_LIMIT_METR=
+ICS));
+>         }
+>         if (((pgm =3D=3D 7) && (fw_ver > 0x07550700)) ||
+>             ((pgm =3D=3D 0) && (fw_ver > 0x00557700)) ||
+>             ((pgm =3D=3D 4) && (fw_ver > 0x4556e6c)))
+> -               caps |=3D SMU_CAPS(SDMA_RESET);
+> -
+> -       dpm_context->caps =3D caps;
+> -}
+> -
+> -static inline bool smu_v13_0_6_caps_supported(struct smu_context *smu,
+> -                                             enum smu_v13_0_6_caps caps)
+> -{
+> -       struct smu_13_0_dpm_context *dpm_context =3D smu->smu_dpm.dpm_con=
+text;
+> -
+> -       return (dpm_context->caps & SMU_CAPS_MASK(caps)) =3D=3D SMU_CAPS_=
+MASK(caps);
+> +               smu_v13_0_6_caps_set(smu, SMU_CAPS(SDMA_RESET));
+>  }
+>
+>  static void smu_v13_0_x_init_caps(struct smu_context *smu)
+> --
+> 2.25.1
+>
