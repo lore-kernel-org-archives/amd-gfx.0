@@ -4,145 +4,156 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81C50C02182
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jan 2025 05:43:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E13CBC02182
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jan 2025 05:46:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C0BD10E068;
-	Tue, 21 Jan 2025 05:43:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 633F310E4C3;
+	Tue, 21 Jan 2025 05:46:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="02KtPa9L";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="fbOjt13f";
 	dkim-atps=neutral
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2053.outbound.protection.outlook.com [40.107.212.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D152B10E068
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jan 2025 05:43:37 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on2077.outbound.protection.outlook.com [40.107.96.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3953210E4C3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jan 2025 05:46:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=zF3+6DcUADDXyZ4B6poovF76N2hQivYKWfvM2wREAqLxDKnTIVtVkfjh4vSEJH/Zg/QJyhsXrG0jCltue/5rkiCctypHJZ9+1rFM1SJyMw7YlcpeKOuIC+PemvTnXcUGd8yVnsLsKlYmS2yKa1DR7G5VYvfjpJdUepDCQfBLIFs/4lihIra3CJ1lZTXg7s+Zjsk6mCi1jbggb0PnPoow+Bf6EmmZy8mBbwpd5JtBgIBhHe+pde8CyrL014QVlpQM5jtPEoTgOxKoeIoqAc8PmC+rWAFgrAsDDyLLmB5gFQPUr8DNXbNlSVsPNXPSHsVhE6VfBEBTQd2/rG0SsA9LSw==
+ b=phQ8q878yPj5kxD6OTvTljksymjnVSa/F7x0anuXcYBZyCYuKpMVDnvax6DIW3GPaAmT8k90cURueoz+YG7K7U5b81oUlItmbQQgPkDQ73QEZd7CFZs7ubY7hOokgM/XOMOEbwmUoMF0bWKxwhuCxON4SlO8Y5Y6KfNcPwHGQDvJdhjwuJrDva8Df8W4Ql7mS/I1p6votKwEP/8o6bS9LNAnLjd2MNPp78M5d+79F1rHqFPi0Ydnpt2J04k2IJyBpnc0mjXgluSivFQ8xnyx9QgqwOr0TP1lDNcb4qpkelccyA67xJCTMtFaFW2qYSrLYg9Vyi59eJ7THiR8vEjA8g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hoFAQcHEebkV3g4J8dTbFwSGFYeLnarrafnYRyE6OxU=;
- b=E3E702z/Ss+32abb6hIh9ZLghmNi/t8mk6hhMWSbP1ID8s8N5lZy1WYRlKIg2q3xL2sDs6OVW40uqNvgyAi+ujftEOMDyLTG6jH0AskeUJRaY++gFt09+0t7NSgPP/0psc9LwntFYvy3/h+edtft6XjsKc+YKQeg29KSSee8Aa4ggSysY6U/txxuRDFqDqKG6Vv9TpnF1+9SxEe5dnvykYD8Mh6AWOIeropVGY1AGP4TfwPIUB/KFZU2cRxjOWyl9izg3O4I3R6i3ALomQRY/NqJNrWvNEUtKaH+hCa/GBIcuVLkj+AqDqgdKca9SaJb3Rd2F9OEyeOudEqcjdo4HA==
+ bh=6TPoZJRNZtBu1hliAopsMpKvlW1KwC3yyN7Pko3OufQ=;
+ b=mUMK2rT/oxTRs34ZVTdYeJ4vAcEkZLEglpEFyzczQ2Uq8Oi8adteuwf1qJGvSr1I2kFLt8aDpJklzfO7OFm1widUPgUQJvOsOHteuTF6dRruKSyNsFQO8KGDp2XJge/cXvycaAI9kpluOwnt5hM7OvzYFxWsnkT16KhNkUE2UkJzt5WdNYdjGU8hukgfJAkaNH5lWpjdPap90N03GeFjWK5xcBrDdm3JFih76Lnt7ho1uBjua0WGWYjPLBMRYV7trDnhdwm9gsrHXYILu7vgW2RSE/Q3bB/N3Y3sAH6FWYeMhVYAMUab6VRQa9sg8uLemcl9HuHf7oyIPdfccfZnRg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hoFAQcHEebkV3g4J8dTbFwSGFYeLnarrafnYRyE6OxU=;
- b=02KtPa9LLBp8lNC+w2PBqU/wX4BVhkxP6QvYoNVxqljrJRCRI8ni2yjlv4QgXKL3q377ZlotvBjFdJxS7s4scLEQG95niR+1DKWqDrC3jqsfTEvrASlCWqKgp0DOY0TKjzbesj2dW3djAD830BNK5/C51xcs7pVFDBNPg3aOxN8=
-Received: from PH7PR12MB5997.namprd12.prod.outlook.com (2603:10b6:510:1d9::21)
- by MN6PR12MB8469.namprd12.prod.outlook.com (2603:10b6:208:46e::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8356.22; Tue, 21 Jan
- 2025 05:43:33 +0000
-Received: from PH7PR12MB5997.namprd12.prod.outlook.com
- ([fe80::c5da:9b53:9d77:c708]) by PH7PR12MB5997.namprd12.prod.outlook.com
- ([fe80::c5da:9b53:9d77:c708%4]) with mapi id 15.20.8356.020; Tue, 21 Jan 2025
- 05:43:32 +0000
-From: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
-To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>, "Kamal, Asad" <Asad.Kamal@amd.com>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>
-Subject: RE: [PATCH v3] drm/amd/pm: Fix smu v13.0.6 caps initialization
-Thread-Topic: [PATCH v3] drm/amd/pm: Fix smu v13.0.6 caps initialization
-Thread-Index: AQHba8bk5d+/Bwgv2UiFj7H98yveQLMgtzEA
-Date: Tue, 21 Jan 2025 05:43:32 +0000
-Message-ID: <PH7PR12MB5997794AE9DC8E88B0F205E082E62@PH7PR12MB5997.namprd12.prod.outlook.com>
-References: <20250121053929.1538914-1-lijo.lazar@amd.com>
-In-Reply-To: <20250121053929.1538914-1-lijo.lazar@amd.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=48b4040b-3cce-4c22-8708-aa0cd4b153f9;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution Only;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-01-21T05:43:18Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
+ bh=6TPoZJRNZtBu1hliAopsMpKvlW1KwC3yyN7Pko3OufQ=;
+ b=fbOjt13fbYkJwe7Avfr5sWAXmHJ5p48aLoAsp9hg4ex9o6QOySK7fSy5crUfgnvoxCDXL4rFDZBcAoi6+rNXnQ4EIgcmmmw4m2ooVgl9ezjECSzZ6ZTR/DqvgjlAf/3v2V9BZNEUUjlrLK2oRCKYAQ1++VIs1+GbnrNULoxQdcc=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH7PR12MB5997:EE_|MN6PR12MB8469:EE_
-x-ms-office365-filtering-correlation-id: cddd5d96-bc25-4ad6-a2ce-08dd39de8ab0
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|38070700018|7053199007; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?9nQLpWhvlLSUNg5OrYmPDdJGQuB/0ZXESvxBKtsrjxeOr/Dz3r1vWXEFsFWn?=
- =?us-ascii?Q?g1pNp6plStbQN/rB8l23YHPoR1PWeVeUbjkML6O8D1+bUG5lAgFqGmxlsGJY?=
- =?us-ascii?Q?IvZWrXcXTOCezE6H603dUKOHDg6WVNZ2tOULJ1hmdvWzbwM2MMLcZRBWfTtp?=
- =?us-ascii?Q?KO8F9oE8fcfjkDDh2y+QHDhF801F8vdsGsuHTJc8RpCbN5h2yyRGW4qnwuSC?=
- =?us-ascii?Q?s9yik1dlBSbeJXGNeKMoKFfeIr7nZrlowMZJznmgzv0PfH1i422P3Uw2l7sV?=
- =?us-ascii?Q?l4Kw8Ro8qIwvsF14pHyt/un1DtzcezsgTwy+leKstcFNpetkUfdJCdyUqj6d?=
- =?us-ascii?Q?1rnOx7bs5lnhcuP/WjlmEro8m33xTPIjKc/k1QES+eA/bbZpsB0ER+uzId9l?=
- =?us-ascii?Q?tXWZr+Gi0lFPq/SBmGAyj94wgPby9QMc6kvWNYCFBcuUiaZwsldbJ6RlwQtx?=
- =?us-ascii?Q?J3bjinVeech1pPjcd9e2zYfkqZ1O7DpU+V8V0Z3s/29sKgCFOr3oLoGT2nC2?=
- =?us-ascii?Q?usgBxG0+gFulBYqZopw2x3nrD3XsoiU/G0OIIx8eLe7gODFAdoMQ94HkjKtE?=
- =?us-ascii?Q?hRE3tlrn22RZEFXxZzwYW4bmcOd4RhJ/psYcWjvKj52/nhNUaGKS9+QaeCQw?=
- =?us-ascii?Q?a9WvtRrZ1cwVem6m6wJufuc2sSM9h/+x6DSxYjtJcAeUspQhwLqZH7rqQhIy?=
- =?us-ascii?Q?qQ+pwjGvO/TQ/Cteix1xi7dLAbsiQPet2xETeNvi6BtYSKpvsT5zwZxAEHLy?=
- =?us-ascii?Q?5u1EIa2xS1QpcVwJQ5hTTsEHIPc1qT5ZHOluqUSMgr8LLx7P8vCK6XOyyhEK?=
- =?us-ascii?Q?sF7GpEmM0lzw0cwdN1bU7yDu09CpMBC952GzTr9bL3WnSn02H2gDzrXuIyfc?=
- =?us-ascii?Q?n5my84KzRMShLufw0BtW6JbSTcmOV5QyA5UQB/QE2UWJv1rXumPRadSdeccT?=
- =?us-ascii?Q?e1CeOvw3TgC1iOWlk14eRwba+fmM8RClF19yC7r3RV47/+yHno7XdEUZnu5H?=
- =?us-ascii?Q?ZEVlCMcw25oz7nmWsnk7m9wCswvb5dSE09ImFdZrkIrZE5ex11F8i+W7DNWg?=
- =?us-ascii?Q?RU/TyUE4vCSYgUlZjLelFo7/cuj67D/shIsDn31hK3Nnk2xzjegoJgP9r1Hf?=
- =?us-ascii?Q?oFcWsDxVk4ubMx64KfxFdqxM7kSJiOvKA684VD98DUZxb0+t7xfIhiw92DGm?=
- =?us-ascii?Q?/0YtokHteud4YnAGkQYiVrNrRpl2UTwEf3sqffeTPliXuePrvKeHUh0HQVA7?=
- =?us-ascii?Q?y50SHFDaDbN52ywSsS+iS1Xt7uKQsYI2dndJ1wv/PNHjXiYPjLsuIMYZiJEO?=
- =?us-ascii?Q?WbyNvv6Ag5WgFwv8XK88oeDO476PLDKp0H8METHgyhWE2RArkhh+DY75pFPj?=
- =?us-ascii?Q?2kac7WHvk/Hl6R3CL+EGqlE+2F3AnocIiIMpRfiJbFeTkE4U/5flbdZC8NkR?=
- =?us-ascii?Q?Wra3exTAxcpZhKoXQJmqWXLGjZT8bjwm?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5997.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(38070700018)(7053199007); DIR:OUT;
- SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?R4cXuDOCyqUmVwW/+7KZ+JDngl7SAd/5dsdKzchQaP6e8ZNXrliLPAUwP6rs?=
- =?us-ascii?Q?tHdNMKbsa15mjtaR1h6kAiDR5CzX4QGf4REUk67zoN5HrkDbOBGSYCnAbphX?=
- =?us-ascii?Q?fMrfLWb+gsFaG5d9BuvfLePKfcsg/2qcmWBYDKjoysJr1bmN+hhYI1VupH/E?=
- =?us-ascii?Q?RMbPTlUMfhe4iP0a5BIH7oOMaWg+TgLYItAvv/9jnd53yhVlMaiCBo/9W02P?=
- =?us-ascii?Q?jF/dQnRGziCsdfLIIF77vvfvU5wc23ZwYEin2FmZ8vy3XHmMP/3sQWl2+wWL?=
- =?us-ascii?Q?61+PB40NM74aF+CnNNyDN3GKRNtscHaFVaIv8Fc49LNVQ/8uOa+g1kBXy1yO?=
- =?us-ascii?Q?G2S+g6Pk1asbKPMPyJE6eDRKZLf9rFbCo7Wxl6wfBG81pB6p6KazCnGCqpB4?=
- =?us-ascii?Q?P+mq+Zrq0qHbhTGviRAGL3I+kR+BxeOohLH3ysP+++HJlhx6/WeHmRiBda5q?=
- =?us-ascii?Q?/0ubj9Fc4oB1BeOtovZftdtwmVCUykEVDtIGwfoCsgpj6yUDvJ0ClIdvAXA7?=
- =?us-ascii?Q?+vgCGoLjxeYbr2I3LzBf+YT4kZlOehiSSK9/sWH4lchEegXis+k2w+8j93/f?=
- =?us-ascii?Q?8qLpqTJOz8WlDDy7PF24XRyFHTYt/7Zrtst8AaepnXfs7e7JOyyK9mGGbC+B?=
- =?us-ascii?Q?u8sDCyy+ODAAqd+jjcZP6hFxe/BcbfqdOvtzyGBb0Cii1Ez5aGzTIvx+BwUk?=
- =?us-ascii?Q?7HNTmrdkWHN5JI1QzQ7cLKf6FJ7HDomeBxiJ9mP7OKym0jPtWcCkaPaLjb2i?=
- =?us-ascii?Q?jSymju/YoW8uZ5MnofDegdPZORhjkbsrRqQdOz9oM4WZVQxPGUq9GtTMe57a?=
- =?us-ascii?Q?utEbg70nG3nbtzC4xhtE9SXc5R01raonjCElOExISOk1fghLdbnkSItme8Op?=
- =?us-ascii?Q?70cn9DMtvENrmj4nbvTxJNChnhykYtWuiaL9zvzavi8IFxaJARcnYN00cYhM?=
- =?us-ascii?Q?gE3c+dx5XthmmL2uRq6FfmlUamijI2cPCGd3GKREy9pn978ZZmDtU5xkxXHR?=
- =?us-ascii?Q?ZOwtpcZPB4INH+Li0Lk4CIIlN5ALGYXMh4f16CHZsFg9vMNfY45pXm/m0YjK?=
- =?us-ascii?Q?BXDVrsXR/AZLhACwj/is00FDyxokyevt8p5lWsQPscVpxXZixetAwZWiHXbW?=
- =?us-ascii?Q?sfsTHSHj8dzAweTfIAxtIFvMMSKkkGO4PQoxyvvYimyAQtrmeEj/H+2cZ68Y?=
- =?us-ascii?Q?YaTKpkYwjIfv67cxkeio0zoA7GoZxlDpqOqsz5VKav+cevi6W5MXRM76SHJr?=
- =?us-ascii?Q?rpIpNWUnNLUGqtIr1j6J2xtKYQHauU881WcBVho2da6SArCa8d/qATCvlIcZ?=
- =?us-ascii?Q?q0UUKuw2dlqNjZSaenNpVPBJvz5Df01JtUUzpApJ9vlKdQr1NNbJinwoETBc?=
- =?us-ascii?Q?lggvru7FqTfvqnJ3gBNVmhsKSJzTcJVSqRZDIqoaTZfFg7RJizML8YBf5BK4?=
- =?us-ascii?Q?4hMoy55RWNEfcft9eb/CCmEJeQjc3vqIyE2yIjXPUU5XHjOcD4WoK14Aac1D?=
- =?us-ascii?Q?mGWZQGzQDZT3P2v2/HIs6kQ5LmrDrb+Tf/XaWk4rf2WzqMH3KE3n3KLeyiKp?=
- =?us-ascii?Q?UCWLkgGd3GaLnDUpwr8=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
+ PH7PR12MB8796.namprd12.prod.outlook.com (2603:10b6:510:272::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8377.16; Tue, 21 Jan
+ 2025 05:46:11 +0000
+Received: from DS0PR12MB7804.namprd12.prod.outlook.com
+ ([fe80::8327:d71a:ce21:a290]) by DS0PR12MB7804.namprd12.prod.outlook.com
+ ([fe80::8327:d71a:ce21:a290%5]) with mapi id 15.20.8356.017; Tue, 21 Jan 2025
+ 05:46:11 +0000
+Message-ID: <ef9902c4-0d7e-4a1a-b785-b3ca8e8d0a03@amd.com>
+Date: Tue, 21 Jan 2025 11:15:59 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/1] amdgpu/soc15: enable asic reset for dGPU in case of
+ suspend abort
+To: Jiang Liu <gerry@linux.alibaba.com>, alexander.deucher@amd.com,
+ christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, sunil.khatri@amd.com, Hawking.Zhang@amd.com,
+ mario.limonciello@amd.com, xiaogang.chen@amd.com, Kent.Russell@amd.com,
+ Prike.Liang@amd.com, asad.kamal@amd.com, sonjiang@amd.com,
+ shuox.liu@linux.alibaba.com, amd-gfx@lists.freedesktop.org
+References: <cover.1736739303.git.gerry@linux.alibaba.com>
+ <2462b4b12eb9d025e82525178d568cbaa4c223ff.1736739303.git.gerry@linux.alibaba.com>
+Content-Language: en-US
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <2462b4b12eb9d025e82525178d568cbaa4c223ff.1736739303.git.gerry@linux.alibaba.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN2PR01CA0177.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:26::32) To DS0PR12MB7804.namprd12.prod.outlook.com
+ (2603:10b6:8:142::5)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB7804:EE_|PH7PR12MB8796:EE_
+X-MS-Office365-Filtering-Correlation-Id: 367bb670-123e-41ef-bc77-08dd39dee8f4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|376014|1800799024|921020|7053199007; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?NVZDMEQ0VHU5ZnlMdVZLMExiMXVQTUhGNHNJZGlQMWNUWmVHQVVmRjJtS0dz?=
+ =?utf-8?B?cHd3TFZGTmRSN1IvTlpXa1Z1UjJabDM1b0xXUXNXZldtVXJHbWVzS3gyWGlx?=
+ =?utf-8?B?RE5pS1pvUUgyTVAvL2lhbXRTYmVGRFYvLzIvc0dHd3FOOTVHbEJOeDhRdFEx?=
+ =?utf-8?B?cXdJMVIvaDRVNGRyK211S1EvVEJPTWFucE9iVHFLQlF6V3FVNnNUemR0TEs5?=
+ =?utf-8?B?cU54K1dydnVnYnpWM2hOeEtlRzRYeDhnQ1VSYzZuaFVveUxoQko1c2IyNTNm?=
+ =?utf-8?B?RDYrQ05MMlN0bWExNVBiVytlUTNEVmNKR2d1QWpqVVU3NGVYdWlpbW9rQ3F4?=
+ =?utf-8?B?NHNiNFdKRThOdmM2dVl6NkpIVlU4RkN2RzV4OFBycDY4ZEQ3QXVFZjhyaUNK?=
+ =?utf-8?B?cVplcEEzeTNraVdXV3YrR1BwLzI0ano2bDNlcmw5ZkxzN1FMay9ic0phZDV4?=
+ =?utf-8?B?QzQybFRkS1NJWkhodWQ0UmNxRENscGZUL3QzWTZQbVZrMlNKbkpXY2hGQmI1?=
+ =?utf-8?B?ekMzWGs0YnE5aXJmSmNweVhTekxIVmdjNUdqOFRJNGkrSGo0VDlyZVBMU2NN?=
+ =?utf-8?B?MHBxWjJJc1EwZjdnT2YyS1ozYTZ2OCs5eEplNllhZmlTZGZhZE9GOWpDc0hz?=
+ =?utf-8?B?TFpKNWZxb3A3SlFackpmVEhMa091SDErRWg1QzIzR0cyUkV5cWZSd09qenFD?=
+ =?utf-8?B?dXhsUGZJWkltRUNBR0diWmE5M21PNUNmYUpNZXE3SVNyVjNINmNxYU42Sjd5?=
+ =?utf-8?B?SVJXMjdsa29DdUJpV21sUm93ZlFmdVR6RjhsNnJMcnJYRXdBeVhzbXQ4RXIz?=
+ =?utf-8?B?Z2ZyWVBrZG9RRXFwNHVEdWRFWC9qTzV0NjViK1p6YmFEMmJGYXp1WTAxenZF?=
+ =?utf-8?B?cGtrSTQ5aTRPMnA3aS9BU01MTitpOFZnOUtDVDA4OEUxekZWRGc1bzJTdTZH?=
+ =?utf-8?B?K1pVUkIybFZ1RkxsckVxcjlXSTh1dVVERFh0TjdyZjRyK2lXNmxvUkNnNEdk?=
+ =?utf-8?B?aUlSMmVmMWw1VHZETDlyTS8rNzVVRkNwRVF1RmVXUDNualBKbm9CL3VxRlV1?=
+ =?utf-8?B?YjNUZklRQzR0TU1RYXEzTnNONTZ4cXVFMmgyQlZCTnRkUXp4Y0I3eVdHcUJt?=
+ =?utf-8?B?TkUxTi96QlpFcHhpUDJseFo4TmNaMjk0UnZWZmNlVHVMK1NZaHoreTh3SjFU?=
+ =?utf-8?B?S2swZHdvQ2E5MjRhanVvR0I4d0Z1amowQkU4cmJyTWQ0NjliaEMxeFc0Z0I1?=
+ =?utf-8?B?TTdqQ3BKTzY5UThkQ0VkbWdTT0xnazU2ZjRTUkowakllZ0IwMVFBcHBBQ2hO?=
+ =?utf-8?B?Z2EvNGVxcnA0b1F3b2NiaGFSdkkrRmovdEV0RGZRVENrdTMwdmNiSXl3eXNs?=
+ =?utf-8?B?NDJONytqMmpBTytzWnI4SWxEU0g3TkM0N3JpZFdvV2J6bllrbk9XSXI4MlBs?=
+ =?utf-8?B?Z1FaRGNidXJBandVNzc4Vzk4VHBGcXhWeUtnZkp3Z0VmaDM2S0FENUVBVXJS?=
+ =?utf-8?B?YXppTkNsZmhGZmZnVjVHVHo0QzFBekFhRGorZUwzdno1WTFYZjZNWnpXbWVr?=
+ =?utf-8?B?dHluRllkZTh4UnNWc2RIOGFnbzlDMGVEUGs0eG9Wb3VMOVlwbitXVGNaQUFQ?=
+ =?utf-8?B?Ly9QamtxbzR0OFhLdHdWRThWVVFGUU1sTG1VL1ROTG5jNmVyaXJYckdSQkpi?=
+ =?utf-8?B?UTJxdnhROW4yNXg1b1lpb3JLL2ZvemYvMGt2ekYyMVE2eXJHRHN3a2EySEFp?=
+ =?utf-8?B?KzRqWFhnUVRTb1RKMjBLYytnMzFKUzhwdWthUlFjOWJHUG9jQVYxbndpNDV5?=
+ =?utf-8?B?MnM3RllnNW1IWDNoYllmeC9yZDhFWWkxM2RNOG5pQmdRWVBOZHZvNk5aTDZq?=
+ =?utf-8?B?ZlRHVGs4NFE1cWZrNGZRN2QrNTIrSEFqbllCeWdIOXJteG1GKzMrSVY5bjcv?=
+ =?utf-8?Q?G/Pa0BXr3Xc=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(921020)(7053199007); DIR:OUT;
+ SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MzNpN1dNQ0xrUERmTnNkamxycmhSNmxZNE15MHgwQ2lNWHlXZjlpVWtISnhT?=
+ =?utf-8?B?UE4zMHpPeWVkYzUzc1UrUkxEV1VqSndWaTNjd0V3a2tWYnNMUStuT0QyRlhD?=
+ =?utf-8?B?ZmtFQml4T2k2a2NNN0dMbEZKTlo5TWVrRmRLRlNuUjVuZ3NlUmZWcGY2WitC?=
+ =?utf-8?B?Y1U2ME9YS1hhV2ltMjVBMGtYWEJKRDVjOUszOFUvVXl6REFlbmNYQU1uY3pV?=
+ =?utf-8?B?SWgzQkY4WTdMVUlrSEUzN1E4NlM3Z0xSOUZmdEhQcXlrak9IajBVcU0zOG95?=
+ =?utf-8?B?K1dZZXYvUTVROWVCb3drek9aMXAvd0h1bnd4YzNDV2tMVTBvK3BSM1dqR1Vq?=
+ =?utf-8?B?RkRETmxsejZDL3phYS9KRFBvWFVCcGhlT2JYQ2tTK25md3lFNkMycjAxRFZ6?=
+ =?utf-8?B?ZVA1OUJjbkxkVDJvWHhXenRyYVRZUFZlb1VXTDl6Qmo1d3d1QWFoMFJaREhu?=
+ =?utf-8?B?UjFpdzkyU0FpeWxLOW8zM2Y0NkFXSlIrZm9Qdjh6d2JreWRVNDlJT1BhQS9k?=
+ =?utf-8?B?MzN6aXlqLzgwSW9WU1htNjNsVTRtK2tsdHc4bkh4OWd5MzFMWWdrc2dmWFNI?=
+ =?utf-8?B?WkZnTkVYZzlVempoLzI3TkxCTms2dmZzMk15ZFljSlBtMnJkWjRodFZSR1kx?=
+ =?utf-8?B?NFVkT28xVm9JVUFrMWs4Mkc5a2Y0ZHNYeTFZcGpMM2NLWE5VQ3FaUmRSZ3hN?=
+ =?utf-8?B?VGVqTUtLYnhzQWx0b2t3WlFhWWM5Y1RvUU9OU1R0QjVxUVhvMUovdkhmRmhm?=
+ =?utf-8?B?bDBVMU5qdjh1KytFZm5YQ25FQWNsQ0VQc01mTytvOGJaTk1PMzJaSWZVb0xu?=
+ =?utf-8?B?YkVlbSsxUlg0ZW9NWi85c0NHYUJ0U0FyZmx4VjAzc3pnNFB3Y05TV2VWTllC?=
+ =?utf-8?B?ZWsrc0VURVY0NTg3Njg2akhwWndFemlyOGdSUnhVVURRRWJQUUdhZTlrcThK?=
+ =?utf-8?B?WE5DZm5vcnhWRnBkVjR2OWpTT0d2WkJuK09rb1BpVmVvRWRZVGNqWjZHeGRz?=
+ =?utf-8?B?VFpOZ0J5Wnlab2NtNW5ERU5VejJuVW41ZnZTVVczVTg0bk0xU0ZUTU11aTJO?=
+ =?utf-8?B?OGUzUG5aRW9qZ2R5a3NCdCs0Rys1ODZ0VmtKeGk1WHR6WFJleGRmK0swdFI1?=
+ =?utf-8?B?MDVCMEpuZmFjeEpyQkQ2ZTdyRnBLN1RFb0xkZC9CWFZiOStzYVBFNFMzL0Nj?=
+ =?utf-8?B?aUp5OGd5bnh5V0ZBRXRpNFpTL25nZmprdnBFOGlkbWowOEhPMnl0NnhlemlM?=
+ =?utf-8?B?Z3drL0E3TWxwL0ZNdTRVUVppdlVoK3lvZTJnd1BGYXIyek5yY3V4QlppQXU1?=
+ =?utf-8?B?T1ZjbGYvUHZSbktuV2dCOGVQNU1xSHhycVRUYUVKYlU3TGlEa1pSeVE2ZkRQ?=
+ =?utf-8?B?b1F1cVR6TTIzZVEyV1BzaEQ2MHpMV21LcW1WZ1hTVUswanpHODQyTlhpcStG?=
+ =?utf-8?B?NDY3bTN1SHo0R0Y1eUYxR2tUemFSd2FnbFJBcnNRcGljWHh5dm12N1lXUEhT?=
+ =?utf-8?B?ZUEzNllUYVdJcGxkM051bmpSS1NGMit6WjhaZWNmTStvS2VPOG4rK0xGTnlT?=
+ =?utf-8?B?OWdMOGdWVExpeTRWNUVhTFRseTYyUnh3ZXdQN2I3Y29FaEdzaGxpR1k3UEVp?=
+ =?utf-8?B?WEc0Qklucnk0UHNSRlF4WTZ2czBZYmNPeVFQT1Y2UVh1T2tXQWZqNzgzNmM5?=
+ =?utf-8?B?cXUwbUI1dlY5Y3NNNXdmaXYzK0szMC85RFZOc25NbDlaZkc4TCtIN0l1NGpX?=
+ =?utf-8?B?d2VncjRVZ2xUVUUvdXV5cU1DMFhYZnkvZW0vMkIvOFRoQTJnUWtlNVBFV1pI?=
+ =?utf-8?B?Tk1xcHVTOXdzalRTNGdLcXRrNmw0dWFQWlNQTlVXMGJrTUZZNlpnZTlhdlRF?=
+ =?utf-8?B?WGRqS004YmlpV2g4U0RCU0c0UXlpamZ1UmRhUHJ4blRhN0VCN0hQSDFDckxa?=
+ =?utf-8?B?ZmhWWnpFVk1UVisrK0RVU0pKSWU1Q2w4ejE1YmxOazVnZTlpWFpzem15d3NR?=
+ =?utf-8?B?TGI2RDRzVGwvM25YQnB1NFpkVWJZbGw5TmJrdXc1Mks0MUI4aFdwODBDYjNB?=
+ =?utf-8?B?anB1dkQwNFQyTEFabGt0emNqUzJZUUtkVzQyaVg3dTBqc0hYOEhPL0lmeWdY?=
+ =?utf-8?Q?OaVD8S6bkPaArXWJ+gOCLxb/x?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 367bb670-123e-41ef-bc77-08dd39dee8f4
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7804.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5997.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cddd5d96-bc25-4ad6-a2ce-08dd39de8ab0
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Jan 2025 05:43:32.8196 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: xRoEcbdUjvJ3BWXmZatZQYSo3bfYNxKb7DD4IH16Xwni9ZwtA+eI6cXCqqVPXtTC
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8469
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jan 2025 05:46:11.4363 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3RsZxRX8J277M9aLUh8Un6Roa6VdtEZ5clVV5hiFG7oYkCxnfsQkaGCSurN7WjAZ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8796
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,491 +168,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - AMD Internal Distribution Only]
 
-Reviewed-by: Yang Wang <kevinyang.wang@amd.com>
 
-Best Regards,
-Kevin
+On 1/13/2025 9:10 AM, Jiang Liu wrote:
+> When GPU suspend is aborted, do the same for dGPU as APU to reset
+> soc15 asic. Otherwise it may cause following errors:
+> [  547.229463] amdgpu 0001:81:00.0: [drm:amdgpu_ring_test_helper [amdgpu]] *ERROR* ring kiq_0.2.1.0 test failed (-110)
+> 
+> [  555.126827] amdgpu 0000:0a:00.0: [drm:amdgpu_ring_test_helper [amdgpu]] *ERROR* ring kiq_0.2.1.0 test failed (-110)
+> [  555.126901] [drm:amdgpu_gfx_enable_kcq [amdgpu]] *ERROR* KCQ enable failed
+> [  555.126957] [drm:amdgpu_device_ip_resume_phase2 [amdgpu]] *ERROR* resume of IP block <gfx_v9_4_3> failed -110
+> [  555.126959] amdgpu 0000:0a:00.0: amdgpu: amdgpu_device_ip_resume failed (-110).
+> [  555.126965] PM: dpm_run_callback(): pci_pm_resume+0x0/0xe0 returns -110
+> [  555.126966] PM: Device 0000:0a:00.0 failed to resume async: error -110
+> 
+> This fix has been tested on Mi308X.
+> 
+> Signed-off-by: Jiang Liu <gerry@linux.alibaba.com>
+> Tested-by: Shuo Liu <shuox.liu@linux.alibaba.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/soc15.c | 8 +++-----
+>  1 file changed, 3 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
+> index a59b4c36cad7..0e1daefd1a8e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
+> @@ -605,12 +605,10 @@ soc15_asic_reset_method(struct amdgpu_device *adev)
+>  static bool soc15_need_reset_on_resume(struct amdgpu_device *adev)
+>  {
+>  	/* Will reset for the following suspend abort cases.
+> -	 * 1) Only reset on APU side, dGPU hasn't checked yet.
+> -	 * 2) S3 suspend aborted in the normal S3 suspend or
+> -	 *    performing pm core test.
+> +	 * 1) S3 suspend aborted in the normal S3 suspend
+> +	 * 2) S3 suspend aborted in performing pm core test.
+>  	 */
+> -	if (adev->flags & AMD_IS_APU && adev->in_s3 &&
+> -			!pm_resume_via_firmware())
+> +	if (adev->in_s3 && !pm_resume_via_firmware())
+>  		return true;
 
------Original Message-----
-From: Lazar, Lijo <Lijo.Lazar@amd.com>
-Sent: Tuesday, January 21, 2025 13:39
-To: amd-gfx@lists.freedesktop.org
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander <Alexander.D=
-eucher@amd.com>; Kamal, Asad <Asad.Kamal@amd.com>; Wang, Yang(Kevin) <Kevin=
-Yang.Wang@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>
-Subject: [PATCH v3] drm/amd/pm: Fix smu v13.0.6 caps initialization
+I don't think this can be applied to all environments. For ex: this may
+not be applicable for dGPUs combined with ARM CPUs.
 
-Fix the initialization and usage of SMU v13.0.6 capability values. Use caps=
-_set/clear functions to set/clear capability.
+Thanks,
+Lijo
 
-Also, fix SET_UCLK_MAX capability on APUs, it is supported on APUs.
-
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-
-Fixes: 9bb53d2ce109 ("drm/amd/pm: Add capability flags for SMU v13.0.6")
----
-v1: ("drm/amd/pm: Use correct macros for smu caps")
-v2:
-        Use caps_set/clear instead of macros (Alex). Commit message changed=
-.
-        Use BIT_ULL (Kevin)
-        Fix SET_UCLK_MAX capability on APUs
-v3:
-        Rename to cap to indicate operations on single capability (Alex)
-        Use SMU_CAP in enum value definition also for consistency
-
- .../drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c  | 197 ++++++++++--------
- 1 file changed, 108 insertions(+), 89 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers=
-/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-index 56e26fcd3066..d991a5df3796 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-@@ -101,26 +101,25 @@ MODULE_FIRMWARE("amdgpu/smu_13_0_14.bin");
- #define MCA_BANK_IPID(_ip, _hwid, _type) \
-        [AMDGPU_MCA_IP_##_ip] =3D { .hwid =3D _hwid, .mcatype =3D _type, }
-
-+#define SMU_CAP(x) SMU_13_0_6_CAPS_##x
-+
- enum smu_v13_0_6_caps {
--       SMU_13_0_6_CAPS_DPM,
--       SMU_13_0_6_CAPS_UNI_METRICS,
--       SMU_13_0_6_CAPS_DPM_POLICY,
--       SMU_13_0_6_CAPS_OTHER_END_METRICS,
--       SMU_13_0_6_CAPS_SET_UCLK_MAX,
--       SMU_13_0_6_CAPS_PCIE_METRICS,
--       SMU_13_0_6_CAPS_HST_LIMIT_METRICS,
--       SMU_13_0_6_CAPS_MCA_DEBUG_MODE,
--       SMU_13_0_6_CAPS_PER_INST_METRICS,
--       SMU_13_0_6_CAPS_CTF_LIMIT,
--       SMU_13_0_6_CAPS_RMA_MSG,
--       SMU_13_0_6_CAPS_ACA_SYND,
--       SMU_13_0_6_CAPS_SDMA_RESET,
--       SMU_13_0_6_CAPS_ALL,
-+       SMU_CAP(DPM),
-+       SMU_CAP(UNI_METRICS),
-+       SMU_CAP(DPM_POLICY),
-+       SMU_CAP(OTHER_END_METRICS),
-+       SMU_CAP(SET_UCLK_MAX),
-+       SMU_CAP(PCIE_METRICS),
-+       SMU_CAP(HST_LIMIT_METRICS),
-+       SMU_CAP(MCA_DEBUG_MODE),
-+       SMU_CAP(PER_INST_METRICS),
-+       SMU_CAP(CTF_LIMIT),
-+       SMU_CAP(RMA_MSG),
-+       SMU_CAP(ACA_SYND),
-+       SMU_CAP(SDMA_RESET),
-+       SMU_CAP(ALL),
- };
-
--#define SMU_CAPS_MASK(x) (ULL(1) << x)
--#define SMU_CAPS(x) SMU_CAPS_MASK(SMU_13_0_6_CAPS_##x)
--
- struct mca_bank_ipid {
-        enum amdgpu_mca_ip ip;
-        uint16_t hwid;
-@@ -284,95 +283,116 @@ struct smu_v13_0_6_dpm_map {
-        uint32_t *freq_table;
- };
-
--static void smu_v13_0_14_init_caps(struct smu_context *smu)
-+static inline void smu_v13_0_6_cap_set(struct smu_context *smu,
-+                                      enum smu_v13_0_6_caps cap)
-+{
-+       struct smu_13_0_dpm_context *dpm_context =3D smu->smu_dpm.dpm_conte=
-xt;
-+
-+       dpm_context->caps |=3D BIT_ULL(cap);
-+}
-+
-+static inline void smu_v13_0_6_cap_clear(struct smu_context *smu,
-+                                        enum smu_v13_0_6_caps cap)
- {
-        struct smu_13_0_dpm_context *dpm_context =3D smu->smu_dpm.dpm_conte=
-xt;
--       uint64_t caps =3D SMU_CAPS(DPM) | SMU_CAPS(UNI_METRICS) |
--                       SMU_CAPS(SET_UCLK_MAX) | SMU_CAPS(DPM_POLICY) |
--                       SMU_CAPS(PCIE_METRICS) | SMU_CAPS(CTF_LIMIT) |
--                       SMU_CAPS(MCA_DEBUG_MODE) | SMU_CAPS(RMA_MSG) |
--                       SMU_CAPS(ACA_SYND);
-+
-+       dpm_context->caps &=3D ~BIT_ULL(cap);
-+}
-+
-+static inline bool smu_v13_0_6_cap_supported(struct smu_context *smu,
-+                                            enum smu_v13_0_6_caps cap)
-+{
-+       struct smu_13_0_dpm_context *dpm_context =3D smu->smu_dpm.dpm_conte=
-xt;
-+
-+       return !!(dpm_context->caps & BIT_ULL(cap)); }
-+
-+static void smu_v13_0_14_init_caps(struct smu_context *smu) {
-+       enum smu_v13_0_6_caps default_cap_list[] =3D { SMU_CAP(DPM),
-+                                                    SMU_CAP(UNI_METRICS),
-+                                                    SMU_CAP(SET_UCLK_MAX),
-+                                                    SMU_CAP(DPM_POLICY),
-+                                                    SMU_CAP(PCIE_METRICS),
-+                                                    SMU_CAP(CTF_LIMIT),
-+                                                    SMU_CAP(MCA_DEBUG_MODE=
-),
-+                                                    SMU_CAP(RMA_MSG),
-+                                                    SMU_CAP(ACA_SYND) };
-        uint32_t fw_ver =3D smu->smc_fw_version;
-
-+       for (int i =3D 0; i < ARRAY_SIZE(default_cap_list); i++)
-+               smu_v13_0_6_cap_set(smu, default_cap_list[i]);
-+
-        if (fw_ver >=3D 0x05550E00)
--               caps |=3D SMU_CAPS(OTHER_END_METRICS);
-+               smu_v13_0_6_cap_set(smu, SMU_CAP(OTHER_END_METRICS));
-        if (fw_ver >=3D 0x05551000)
--               caps |=3D SMU_CAPS(HST_LIMIT_METRICS);
-+               smu_v13_0_6_cap_set(smu, SMU_CAP(HST_LIMIT_METRICS));
-        if (fw_ver >=3D 0x05550B00)
--               caps |=3D SMU_CAPS(PER_INST_METRICS);
-+               smu_v13_0_6_cap_set(smu, SMU_CAP(PER_INST_METRICS));
-        if (fw_ver > 0x05550f00)
--               caps |=3D SMU_CAPS(SDMA_RESET);
--
--       dpm_context->caps =3D caps;
-+               smu_v13_0_6_cap_set(smu, SMU_CAP(SDMA_RESET));
- }
-
- static void smu_v13_0_6_init_caps(struct smu_context *smu)  {
--       uint64_t caps =3D SMU_CAPS(DPM) | SMU_CAPS(UNI_METRICS) |
--                       SMU_CAPS(SET_UCLK_MAX) | SMU_CAPS(DPM_POLICY) |
--                       SMU_CAPS(PCIE_METRICS) | SMU_CAPS(MCA_DEBUG_MODE) |
--                       SMU_CAPS(CTF_LIMIT) | SMU_CAPS(RMA_MSG) |
--                       SMU_CAPS(ACA_SYND);
--       struct smu_13_0_dpm_context *dpm_context =3D smu->smu_dpm.dpm_conte=
-xt;
-+       enum smu_v13_0_6_caps default_cap_list[] =3D { SMU_CAP(DPM),
-+                                                    SMU_CAP(UNI_METRICS),
-+                                                    SMU_CAP(SET_UCLK_MAX),
-+                                                    SMU_CAP(DPM_POLICY),
-+                                                    SMU_CAP(PCIE_METRICS),
-+                                                    SMU_CAP(CTF_LIMIT),
-+                                                    SMU_CAP(MCA_DEBUG_MODE=
-),
-+                                                    SMU_CAP(RMA_MSG),
-+                                                    SMU_CAP(ACA_SYND) };
-        struct amdgpu_device *adev =3D smu->adev;
-        uint32_t fw_ver =3D smu->smc_fw_version;
-        uint32_t pgm =3D (fw_ver >> 24) & 0xFF;
-
-+       for (int i =3D 0; i < ARRAY_SIZE(default_cap_list); i++)
-+               smu_v13_0_6_cap_set(smu, default_cap_list[i]);
-        if (fw_ver < 0x552F00)
--               caps &=3D ~SMU_CAPS(DPM);
-+               smu_v13_0_6_cap_clear(smu, SMU_CAP(DPM));
-
-        if (adev->flags & AMD_IS_APU) {
--               caps &=3D ~SMU_CAPS(PCIE_METRICS);
--               caps &=3D ~SMU_CAPS(SET_UCLK_MAX);
--               caps &=3D ~SMU_CAPS(DPM_POLICY);
--               caps &=3D ~SMU_CAPS(RMA_MSG);
--               caps &=3D ~SMU_CAPS(ACA_SYND);
-+               smu_v13_0_6_cap_clear(smu, SMU_CAP(PCIE_METRICS));
-+               smu_v13_0_6_cap_clear(smu, SMU_CAP(DPM_POLICY));
-+               smu_v13_0_6_cap_clear(smu, SMU_CAP(RMA_MSG));
-+               smu_v13_0_6_cap_clear(smu, SMU_CAP(ACA_SYND));
-
-                if (fw_ver <=3D 0x4556900)
--                       caps &=3D ~SMU_CAPS(UNI_METRICS);
--
-+                       smu_v13_0_6_cap_clear(smu, SMU_CAP(UNI_METRICS));
-                if (fw_ver >=3D 0x04556F00)
--                       caps |=3D SMU_CAPS(HST_LIMIT_METRICS);
-+                       smu_v13_0_6_cap_set(smu, SMU_CAP(HST_LIMIT_METRICS)=
-);
-                if (fw_ver >=3D 0x04556A00)
--                       caps |=3D SMU_CAPS(PER_INST_METRICS);
-+                       smu_v13_0_6_cap_set(smu, SMU_CAP(PER_INST_METRICS))=
-;
-                if (fw_ver < 0x554500)
--                       caps &=3D ~SMU_CAPS(CTF_LIMIT);
-+                       smu_v13_0_6_cap_clear(smu, SMU_CAP(CTF_LIMIT));
-        } else {
-                if (fw_ver >=3D 0x557600)
--                       caps |=3D SMU_CAPS(OTHER_END_METRICS);
-+                       smu_v13_0_6_cap_set(smu, SMU_CAP(OTHER_END_METRICS)=
-);
-                if (fw_ver < 0x00556000)
--                       caps &=3D ~SMU_CAPS(DPM_POLICY);
-+                       smu_v13_0_6_cap_clear(smu, SMU_CAP(DPM_POLICY));
-                if (amdgpu_sriov_vf(adev) && (fw_ver < 0x556600))
--                       caps &=3D ~SMU_CAPS(SET_UCLK_MAX);
-+                       smu_v13_0_6_cap_clear(smu, SMU_CAP(SET_UCLK_MAX));
-                if (fw_ver < 0x556300)
--                       caps &=3D ~SMU_CAPS(PCIE_METRICS);
-+                       smu_v13_0_6_cap_clear(smu, SMU_CAP(PCIE_METRICS));
-                if (fw_ver < 0x554800)
--                       caps &=3D ~SMU_CAPS(MCA_DEBUG_MODE);
-+                       smu_v13_0_6_cap_clear(smu, SMU_CAP(MCA_DEBUG_MODE))=
-;
-                if (fw_ver >=3D 0x556F00)
--                       caps |=3D SMU_CAPS(PER_INST_METRICS);
-+                       smu_v13_0_6_cap_set(smu, SMU_CAP(PER_INST_METRICS))=
-;
-                if (fw_ver < 0x554500)
--                       caps &=3D ~SMU_CAPS(CTF_LIMIT);
-+                       smu_v13_0_6_cap_clear(smu, SMU_CAP(CTF_LIMIT));
-                if (fw_ver < 0x00555a00)
--                       caps &=3D ~SMU_CAPS(RMA_MSG);
-+                       smu_v13_0_6_cap_clear(smu, SMU_CAP(RMA_MSG));
-                if (fw_ver < 0x00555600)
--                       caps &=3D ~SMU_CAPS(ACA_SYND);
-+                       smu_v13_0_6_cap_clear(smu, SMU_CAP(ACA_SYND));
-                if (pgm =3D=3D 0 && fw_ver >=3D 0x557900)
--                       caps |=3D SMU_CAPS(HST_LIMIT_METRICS);
-+                       smu_v13_0_6_cap_set(smu, SMU_CAP(HST_LIMIT_METRICS)=
-);
-        }
-        if (((pgm =3D=3D 7) && (fw_ver > 0x07550700)) ||
-            ((pgm =3D=3D 0) && (fw_ver > 0x00557700)) ||
-            ((pgm =3D=3D 4) && (fw_ver > 0x4556e6c)))
--               caps |=3D SMU_CAPS(SDMA_RESET);
--
--       dpm_context->caps =3D caps;
--}
--
--static inline bool smu_v13_0_6_caps_supported(struct smu_context *smu,
--                                             enum smu_v13_0_6_caps caps)
--{
--       struct smu_13_0_dpm_context *dpm_context =3D smu->smu_dpm.dpm_conte=
-xt;
--
--       return (dpm_context->caps & SMU_CAPS_MASK(caps)) =3D=3D SMU_CAPS_MA=
-SK(caps);
-+               smu_v13_0_6_cap_set(smu, SMU_CAP(SDMA_RESET));
- }
-
- static void smu_v13_0_x_init_caps(struct smu_context *smu) @@ -716,7 +736,=
-7 @@ static int smu_v13_0_6_setup_driver_pptable(struct smu_context *smu)
-        MetricsTableA_t *metrics_a =3D (MetricsTableA_t *)smu_table->metric=
-s_table;
-        struct PPTable_t *pptable =3D
-                (struct PPTable_t *)smu_table->driver_pptable;
--       bool flag =3D !smu_v13_0_6_caps_supported(smu, SMU_CAPS(UNI_METRICS=
-));
-+       bool flag =3D !smu_v13_0_6_cap_supported(smu, SMU_CAP(UNI_METRICS))=
-;
-        int ret, i, retry =3D 100;
-        uint32_t table_version;
-
-@@ -912,7 +932,7 @@ static int smu_v13_0_6_set_default_dpm_table(struct smu=
-_context *smu)
-        smu_v13_0_6_setup_driver_pptable(smu);
-
-        /* DPM policy not supported in older firmwares */
--       if (!smu_v13_0_6_caps_supported(smu, SMU_CAPS(DPM_POLICY))) {
-+       if (!smu_v13_0_6_cap_supported(smu, SMU_CAP(DPM_POLICY))) {
-                struct smu_dpm_context *smu_dpm =3D &smu->smu_dpm;
-
-                smu_dpm->dpm_policies->policy_mask &=3D @@ -1089,7 +1109,7 =
-@@ static int smu_v13_0_6_get_smu_metrics_data(struct smu_context *smu,
-        struct smu_table_context *smu_table =3D &smu->smu_table;
-        MetricsTableX_t *metrics_x =3D (MetricsTableX_t *)smu_table->metric=
-s_table;
-        MetricsTableA_t *metrics_a =3D (MetricsTableA_t *)smu_table->metric=
-s_table;
--       bool flag =3D !smu_v13_0_6_caps_supported(smu, SMU_CAPS(UNI_METRICS=
-));
-+       bool flag =3D !smu_v13_0_6_cap_supported(smu, SMU_CAP(UNI_METRICS))=
-;
-        struct amdgpu_device *adev =3D smu->adev;
-        int ret =3D 0;
-        int xcc_id;
-@@ -1102,7 +1122,7 @@ static int smu_v13_0_6_get_smu_metrics_data(struct sm=
-u_context *smu,
-        switch (member) {
-        case METRICS_CURR_GFXCLK:
-        case METRICS_AVERAGE_GFXCLK:
--               if (smu_v13_0_6_caps_supported(smu, SMU_CAPS(DPM))) {
-+               if (smu_v13_0_6_cap_supported(smu, SMU_CAP(DPM))) {
-                        xcc_id =3D GET_INST(GC, 0);
-                        *value =3D SMUQ10_ROUND(GET_METRIC_FIELD(GfxclkFreq=
-uency, flag)[xcc_id]);
-                } else {
-@@ -1791,7 +1811,7 @@ static int smu_v13_0_6_notify_unload(struct smu_conte=
-xt *smu)  static int smu_v13_0_6_mca_set_debug_mode(struct smu_context *smu=
-, bool enable)  {
-        /* NOTE: this ClearMcaOnRead message is only supported for smu vers=
-ion 85.72.0 or higher */
--       if (!smu_v13_0_6_caps_supported(smu, SMU_CAPS(MCA_DEBUG_MODE)))
-+       if (!smu_v13_0_6_cap_supported(smu, SMU_CAP(MCA_DEBUG_MODE)))
-                return 0;
-
-        return smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_ClearMcaOnRead,=
- @@ -1936,8 +1956,8 @@ static int smu_v13_0_6_set_soft_freq_limited_range(s=
-truct smu_context *smu,
-                        if (max =3D=3D pstate_table->uclk_pstate.curr.max)
-                                return 0;
-                        /* For VF, only allowed in FW versions 85.102 or gr=
-eater */
--                       if (!smu_v13_0_6_caps_supported(smu,
--                                                       SMU_CAPS(SET_UCLK_M=
-AX)))
-+                       if (!smu_v13_0_6_cap_supported(smu,
-+                                                      SMU_CAP(SET_UCLK_MAX=
-)))
-                                return -EOPNOTSUPP;
-                        /* Only max clock limiting is allowed for UCLK */
-                        ret =3D smu_v13_0_set_soft_freq_limited_range(
-@@ -2141,7 +2161,7 @@ static int smu_v13_0_6_get_enabled_mask(struct smu_co=
-ntext *smu,
-
-        ret =3D smu_cmn_get_enabled_mask(smu, feature_mask);
-
--       if (ret =3D=3D -EIO && !smu_v13_0_6_caps_supported(smu, SMU_CAPS(DP=
-M))) {
-+       if (ret =3D=3D -EIO && !smu_v13_0_6_cap_supported(smu, SMU_CAP(DPM)=
-)) {
-                *feature_mask =3D 0;
-                ret =3D 0;
-        }
-@@ -2437,7 +2457,7 @@ static ssize_t smu_v13_0_6_get_gpu_metrics(struct smu=
-_context *smu, void **table
-        struct smu_table_context *smu_table =3D &smu->smu_table;
-        struct gpu_metrics_v1_7 *gpu_metrics =3D
-                (struct gpu_metrics_v1_7 *)smu_table->gpu_metrics_table;
--       bool flag =3D !smu_v13_0_6_caps_supported(smu, SMU_CAPS(UNI_METRICS=
-));
-+       bool flag =3D !smu_v13_0_6_cap_supported(smu, SMU_CAP(UNI_METRICS))=
-;
-        int ret =3D 0, xcc_id, inst, i, j, k, idx;
-        struct amdgpu_device *adev =3D smu->adev;
-        MetricsTableX_t *metrics_x;
-@@ -2519,7 +2539,7 @@ static ssize_t smu_v13_0_6_get_gpu_metrics(struct smu=
-_context *smu, void **table
-                 * table for both pf & one vf for smu version 85.99.0 or hi=
-gher else report only
-                 * for pf from registers
-                 */
--               if (smu_v13_0_6_caps_supported(smu, SMU_CAPS(PCIE_METRICS))=
-) {
-+               if (smu_v13_0_6_cap_supported(smu, SMU_CAP(PCIE_METRICS))) =
-{
-                        gpu_metrics->pcie_link_width =3D metrics_x->PCIeLin=
-kWidth;
-                        gpu_metrics->pcie_link_speed =3D
-                                pcie_gen_to_speed(metrics_x->PCIeLinkSpeed)=
-;
-@@ -2548,8 +2568,7 @@ static ssize_t smu_v13_0_6_get_gpu_metrics(struct smu=
-_context *smu, void **table
-                                metrics_x->PCIeNAKSentCountAcc;
-                gpu_metrics->pcie_nak_rcvd_count_acc =3D
-                                metrics_x->PCIeNAKReceivedCountAcc;
--               if (smu_v13_0_6_caps_supported(smu,
--                                              SMU_CAPS(OTHER_END_METRICS))=
-)
-+               if (smu_v13_0_6_cap_supported(smu, SMU_CAP(OTHER_END_METRIC=
-S)))
-                        gpu_metrics->pcie_lc_perf_other_end_recovery =3D
-                                metrics_x->PCIeOtherEndRecoveryAcc;
-
-@@ -2574,7 +2593,7 @@ static ssize_t smu_v13_0_6_get_gpu_metrics(struct smu=
-_context *smu, void **table
-
-        gpu_metrics->num_partition =3D adev->xcp_mgr->num_xcps;
-
--       per_inst =3D smu_v13_0_6_caps_supported(smu, SMU_CAPS(PER_INST_METR=
-ICS));
-+       per_inst =3D smu_v13_0_6_cap_supported(smu, SMU_CAP(PER_INST_METRIC=
-S));
-
-        for_each_xcp(adev->xcp_mgr, xcp, i) {
-                amdgpu_xcp_get_inst_details(xcp, AMDGPU_XCP_VCN, &inst_mask=
-); @@ -2605,8 +2624,8 @@ static ssize_t smu_v13_0_6_get_gpu_metrics(struct =
-smu_context *smu, void **table
-                                gpu_metrics->xcp_stats[i].gfx_busy_acc[idx]=
- =3D
-                                        SMUQ10_ROUND(metrics_x->GfxBusyAcc[=
-inst]);
-
--                               if (smu_v13_0_6_caps_supported(
--                                           smu, SMU_CAPS(HST_LIMIT_METRICS=
-)))
-+                               if (smu_v13_0_6_cap_supported(
-+                                           smu, SMU_CAP(HST_LIMIT_METRICS)=
-))
-                                        gpu_metrics->xcp_stats[i].gfx_below=
-_host_limit_acc[idx] =3D
-                                                SMUQ10_ROUND(metrics_x->Gfx=
-clkBelowHostLimitAcc
-                                                                [inst]);
-@@ -2714,7 +2733,7 @@ static int smu_v13_0_6_get_thermal_temperature_range(=
-struct smu_context *smu,
-                return -EINVAL;
-
-        /*Check smu version, GetCtfLimit message only supported for smu ver=
-sion 85.69 or higher */
--       if (!smu_v13_0_6_caps_supported(smu, SMU_CAPS(CTF_LIMIT)))
-+       if (!smu_v13_0_6_cap_supported(smu, SMU_CAP(CTF_LIMIT)))
-                return 0;
-
-        /* Get SOC Max operating temperature */ @@ -2819,7 +2838,7 @@ stati=
-c int smu_v13_0_6_send_rma_reason(struct smu_context *smu)
-        int ret;
-
-        /* NOTE: the message is only valid on dGPU with pmfw 85.90.0 and ab=
-ove */
--       if (!smu_v13_0_6_caps_supported(smu, SMU_CAPS(RMA_MSG)))
-+       if (!smu_v13_0_6_cap_supported(smu, SMU_CAP(RMA_MSG)))
-                return 0;
-
-        ret =3D smu_cmn_send_smc_msg(smu, SMU_MSG_RmaDueToBadPageThreshold,=
- NULL); @@ -2840,16 +2859,16 @@ static int smu_v13_0_6_reset_sdma(struct sm=
-u_context *smu, uint32_t inst_mask)
-        switch (amdgpu_ip_version(smu->adev, MP1_HWIP, 0)) {
-        case IP_VERSION(13, 0, 6):
-                if ((smu_program =3D=3D 7 || smu_program =3D=3D 0) &&
--                   smu_v13_0_6_caps_supported(smu, SMU_CAPS(SDMA_RESET)))
-+                   smu_v13_0_6_cap_supported(smu, SMU_CAP(SDMA_RESET)))
-                        ret =3D smu_cmn_send_smc_msg_with_param(smu,
-                                SMU_MSG_ResetSDMA, inst_mask, NULL);
-                else if ((smu_program =3D=3D 4) &&
--                        smu_v13_0_6_caps_supported(smu, SMU_CAPS(SDMA_RESE=
-T)))
-+                        smu_v13_0_6_cap_supported(smu, SMU_CAP(SDMA_RESET)=
-))
-                        ret =3D smu_cmn_send_smc_msg_with_param(smu,
-                                      SMU_MSG_ResetSDMA2, inst_mask, NULL);
-                break;
-        case IP_VERSION(13, 0, 14):
--               if (smu_v13_0_6_caps_supported(smu, SMU_CAPS(SDMA_RESET)))
-+               if (smu_v13_0_6_cap_supported(smu, SMU_CAP(SDMA_RESET)))
-                        ret =3D smu_cmn_send_smc_msg_with_param(smu,
-                                      SMU_MSG_ResetSDMA2, inst_mask, NULL);
-                break;
-@@ -3175,7 +3194,7 @@ static bool mca_smu_bank_is_valid(const struct mca_ra=
-s_info *mca_ras, struct amd
-        if (instlo !=3D 0x03b30400)
-                return false;
-
--       if (smu_v13_0_6_caps_supported(smu, SMU_CAPS(ACA_SYND))) {
-+       if (smu_v13_0_6_cap_supported(smu, SMU_CAP(ACA_SYND))) {
-                errcode =3D MCA_REG__SYND__ERRORINFORMATION(entry->regs[MCA=
-_REG_IDX_SYND]);
-                errcode &=3D 0xff;
-        } else {
-@@ -3464,7 +3483,7 @@ static int aca_smu_parse_error_code(struct amdgpu_dev=
-ice *adev, struct aca_bank
-        struct smu_context *smu =3D adev->powerplay.pp_handle;
-        int error_code;
-
--       if (smu_v13_0_6_caps_supported(smu, SMU_CAPS(ACA_SYND)))
-+       if (smu_v13_0_6_cap_supported(smu, SMU_CAP(ACA_SYND)))
-                error_code =3D ACA_REG__SYND__ERRORINFORMATION(bank->regs[A=
-CA_REG_IDX_SYND]);
-        else
-                error_code =3D ACA_REG__STATUS__ERRORCODE(bank->regs[ACA_RE=
-G_IDX_STATUS]);
---
-2.25.1
+>  	else
+>  		return false;
 
