@@ -4,53 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7473C02182
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jan 2025 13:57:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4013C02182
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jan 2025 13:57:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F63410E01F;
-	Tue, 21 Jan 2025 13:57:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C1F610E5B8;
+	Tue, 21 Jan 2025 13:57:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="MblcMP//";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Hxjc8QTH";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9860410E1CB;
- Tue, 21 Jan 2025 09:38:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=5q14k5/ZfJYsaoezG1YzPs6u6Afeulo3mpAyCyk9vbs=; b=MblcMP//h74jf9xBS4UwiFY3Qh
- qkRzth7sGcy6IeDw4r+1sIimvxThsn9qSZ7rmuraqsF9rqRYFz/gvw8dhPzob3Z+FNUKzrfHA4DyA
- eM2B9M8rHUfNJH0Ps5qH9mLcuaMFMpW7ex5YxaT+yetL7dtwCBkkrKne26iQSyIxo1xL25l4QFtow
- bywA0qRCr1kePDQYd5Oq9rdb6fkvMDgvIajO5dL++V2hqEBX+cu11a3FNhOYkcLZBvIY0XM3KGIZh
- eXNG2W+2ErPjaC0s9rfp3OrQNyLC0uzMthALmCn+mh+j1U20NjQFbhBgUwYu2Ur4wCNc0bhXmuANf
- 29NE3mug==;
-Received: from [90.241.98.187] (helo=[192.168.0.101])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1taAid-00024v-PH; Tue, 21 Jan 2025 10:38:47 +0100
-Message-ID: <89adedd0-7117-4098-90fb-00c9d20e362c@igalia.com>
-Date: Tue, 21 Jan 2025 09:38:46 +0000
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1BB3010E5B8
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jan 2025 13:57:43 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 7F517A4199C;
+ Tue, 21 Jan 2025 13:55:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C689C4CEDF;
+ Tue, 21 Jan 2025 13:57:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1737467861;
+ bh=LqsmMghNzev9q06Xe6vBkbJQBi+l/YCg/+86Y9L4uxk=;
+ h=From:To:Cc:Subject:Date:From;
+ b=Hxjc8QTHN1guArNTprnw+kJZkQ/UUfraPDwUChEEp/F1Ih1jU7BtMU/Z+5AXLFbM7
+ SJoTesPKJKAPgAm7zzik8aoGeQQ9Xt+/r4vCR7y1O2YZS+UB+205wN8+SDvkrir3rQ
+ 6L250c+DySHwpq6vWDtm377/Suj7yTjZcbClll1Z2rnbbZoGe6w1+7e1eil+awdKD4
+ wL8onMdboFpm0cyuuDhUe9DI8DVqiRkeo2+966SFzH5Q3H+lcCGBIKnoeuxfm0A0a6
+ KFIxBKnaEUobpatj4rzl+B6GsQGC3yV3FkRb2CuVvJh1wYI8TGVNm+W/XDsdcV7563
+ +RiUGIQX6+QWw==
+From: Mario Limonciello <superm1@kernel.org>
+To: roman.li@amd.com,
+	amd-gfx@lists.freedesktop.org
+Cc: Mario Limonciello <mario.limonciello@amd.com>
+Subject: [PATCH 0/4] Correct a series of off by 1 errors in DML and DML2
+Date: Tue, 21 Jan 2025 07:57:15 -0600
+Message-ID: <20250121135719.2883833-1-superm1@kernel.org>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] drm/sched: Add job popping API
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Danilo Krummrich <dakr@kernel.org>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- kernel-dev@igalia.com, Matthew Brost <matthew.brost@intel.com>,
- Philipp Stanner <phasta@kernel.org>
-References: <20250120165240.9105-1-tvrtko.ursulin@igalia.com>
- <20250120165240.9105-2-tvrtko.ursulin@igalia.com> <Z46ESMfTh_FDm-eM@pollux>
- <4d6cb141-b60a-463c-a72d-6f76dab09525@amd.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <4d6cb141-b60a-463c-a72d-6f76dab09525@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 21 Jan 2025 13:57:31 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,93 +54,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+From: Mario Limonciello <mario.limonciello@amd.com>
 
-On 20/01/2025 18:49, Christian König wrote:
-> Am 20.01.25 um 18:13 schrieb Danilo Krummrich:
->> On Mon, Jan 20, 2025 at 04:52:37PM +0000, Tvrtko Ursulin wrote:
->>> Idea is to add a helper for popping jobs from the entity with the goal
->>> of making amdgpu use it in the next patch. That way amdgpu will decouple
->>> itself a tiny bit more from scheduler implementation details.
->> I object to adding this function if it's *only* used for something 
->> that looks
->> like an abuse of the API by amdgpu. Let's not make that more convenient.
-> 
-> Completely agree. Since when do we have that?
-> 
-> I don't remember agreeing to anything which messes so badly with 
-> scheduler internals.
+Many people have reported a series of issues that lead to divide
+by zero errors in DML2 code on DCN 3.5.
 
-Since 7c6e68c777f1 ("drm/amdgpu: Avoid HW GPU reset for RAS."). Where it 
-looks to be implementing a permanently wedged state - drops everything 
-submitted so far and claims to be blocking any future submission.
+This divide by zero error is caused by accessing outside of the bound
+of what is initialized on an array for the number of planes.
 
-Remove that part instead and let the unsubmitted jobs be cleaned up when 
-userspace clients exit? Would need specific hardware to test so it would 
-need to be done on the AMD side.
+The first patch in the series fixes the immediate issue.  This patch
+should go to fixes and stable.
 
-Regards,
+The remaining patches fix what appears to be the same problem in other
+code in both DML and DML2 that has (presumably) been copy/pasted for
+loop iterators.
 
-Tvrtko
+Mario Limonciello (4):
+  drm/amd/display: Adjust plane init for off by one error
+  drm/amd/display: Correct off by one errors in DML
+  drm/amd/display: Correct some suspect code indentation
+  drm/amd/display: Correct off by one errors in DML2
 
->>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->>> Cc: Christian König <christian.koenig@amd.com>
->>> Cc: Danilo Krummrich <dakr@kernel.org>
->>> Cc: Matthew Brost <matthew.brost@intel.com>
->>> Cc: Philipp Stanner <phasta@kernel.org>
->>> ---
->>>   drivers/gpu/drm/scheduler/sched_entity.c |  2 +-
->>>   include/drm/gpu_scheduler.h              | 21 +++++++++++++++++++++
->>>   2 files changed, 22 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c 
->>> b/drivers/gpu/drm/scheduler/sched_entity.c
->>> index 69bcf0e99d57..7c0d266a89ef 100644
->>> --- a/drivers/gpu/drm/scheduler/sched_entity.c
->>> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
->>> @@ -255,7 +255,7 @@ static void drm_sched_entity_kill(struct 
->>> drm_sched_entity *entity)
->>>       /* The entity is guaranteed to not be used by the scheduler */
->>>       prev = rcu_dereference_check(entity->last_scheduled, true);
->>>       dma_fence_get(prev);
->>> -    while ((job = 
->>> to_drm_sched_job(spsc_queue_pop(&entity->job_queue)))) {
->>> +    while ((job = __drm_sched_entity_pop_job(entity))) {
->>>           struct drm_sched_fence *s_fence = job->s_fence;
->>>           dma_fence_get(&s_fence->finished);
->>> diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
->>> index a0ff08123f07..092242f2464f 100644
->>> --- a/include/drm/gpu_scheduler.h
->>> +++ b/include/drm/gpu_scheduler.h
->>> @@ -611,6 +611,27 @@ void drm_sched_entity_set_priority(struct 
->>> drm_sched_entity *entity,
->>>   bool drm_sched_entity_is_ready(struct drm_sched_entity *entity);
->>>   int drm_sched_entity_error(struct drm_sched_entity *entity);
->>> +/**
->>> + * __drm_sched_entity_pop_job - Low level helper for popping queued 
->>> jobs
->>> + *
->>> + * @entity: scheduler entity
->>> + *
->>> + * Low level helper for popping queued jobs. Drivers should not use it.
->>> + *
->>> + * Returns the job dequeued or NULL.
->>> + */
->>> +static inline struct drm_sched_job *
->>> +__drm_sched_entity_pop_job(struct drm_sched_entity *entity)
->>> +{
->>> +    struct spsc_node *node;
->>> +
->>> +    node = spsc_queue_pop(&entity->job_queue);
->>> +    if (!node)
->>> +        return NULL;
->>> +
->>> +    return container_of(node, struct drm_sched_job, queue_node);
->>> +}
->>> +
->>>   struct drm_sched_fence *drm_sched_fence_alloc(
->>>       struct drm_sched_entity *s_entity, void *owner);
->>>   void drm_sched_fence_init(struct drm_sched_fence *fence,
->>> -- 
->>> 2.47.1
->>>
-> 
+ .../dc/dml/dcn32/display_mode_vba_32.c        |  68 ++++-----
+ .../amd/display/dc/dml2/display_mode_core.c   | 131 +++++++++---------
+ .../src/dml2_core/dml2_core_dcn4_calcs.c      |  40 +++---
+ .../dml21/src/dml2_core/dml2_core_shared.c    |  50 +++----
+ 4 files changed, 144 insertions(+), 145 deletions(-)
+
+-- 
+2.43.0
+
