@@ -4,86 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE932C02182
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jan 2025 19:22:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75D36C02182
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jan 2025 19:39:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8453F10E20C;
-	Tue, 21 Jan 2025 19:22:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25CF410E628;
+	Tue, 21 Jan 2025 19:39:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ctDdrFCV";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="HUa3OPs/";
 	dkim-atps=neutral
-Received: from mail-oi1-x234.google.com (mail-oi1-x234.google.com
- [IPv6:2607:f8b0:4864:20::234])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4492B10E20B;
- Tue, 21 Jan 2025 19:22:34 +0000 (UTC)
-Received: by mail-oi1-x234.google.com with SMTP id
- 5614622812f47-3eb8583e9f0so988737b6e.1; 
- Tue, 21 Jan 2025 11:22:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1737487353; x=1738092153; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=0NK3hXMftqmRUpwUCPGcGtU49DbTM35z8//m0dfrfNA=;
- b=ctDdrFCVhgtkK5XJR5g+xtqFnub7083uuwJOhf2c/iiZzCDaGyVByU4d0bqwksOgiF
- I+XuX5rhoUB6divQ24FvFD+Tp5KPki4iDZ7U8CLPX/8m7G353kZbfxjYW0S6EDocj+AZ
- yXu67Tvg++KfaG5AJukokXSmJ9ax0EuG9ypkEtbsUdxtpMX6VRbRsGydjiyb/NGOON2m
- F4yIKBo8cDRqVH9/9igK/WLYSPa3Q7CMlcj97U+e1DqLL7P2JWd8SgQwTq9qYi/EPPcv
- PldGmOkhJUExHLF+2ESF7VDhCZwpEVsNennKw3ZZZEcvx1xPgEt/IP50DnB3bA4tHsnR
- zZgA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737487353; x=1738092153;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=0NK3hXMftqmRUpwUCPGcGtU49DbTM35z8//m0dfrfNA=;
- b=g5juTiNBPsAGUblDKDMw2pOUCxApH9XG0yfatHUZNCiCVXgRCMFF24skbjPAsVz7LK
- ysxVpa0MDLzUhwbLHoC6sSViyRvbwhs59e7L3bDxD7oVnmAHIEckdpdSImPgFcozT42V
- chNMqfw0AulcTC/l4rJmoRmI5id7y7aWnifr19X+MGnMH0bNKtngrGWYWLqF2qxHJjlx
- 0cKpsPgd7E6/THFqaOBfZUHm0pD3BM5aZhQeQ27H/JSbiGscu2d/NEnLoQ7ZioGvPvCo
- 0uNbq9nSR7YclFnie8YBOKmLtn/hnXwY1jlk89nVGz+OCz6SrJ4wTIPWKfZgyBaI9/XM
- Pg9Q==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU+KHh9iMFyom4fsUMgOXkPjMlMP+eBAC4vJRNWHbdz2SiiXVZWzu5Dy/xHOTqxcNtgkgXGszLX@lists.freedesktop.org,
- AJvYcCWJlG2RQA+EIU+p1Pvrh59655llaTh5WQUcDuwXnrdC9OeWjTwcaKhJYx0ix2wzMEjiD6Ypn9apt4E=@lists.freedesktop.org,
- AJvYcCWbhZUsSJAtSbqGLAqLVa9cZubA2y13DN0TTdTwwFkYxCUiiMdWa4LxDnfTn0nou3q7azZu+Bx8t3fK@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxmsAWFggayQYTsN8lCfwRdNJpxmfILOtyhHQ9ITX2hf6GHPx0U
- vayrn5pcQzZjK3fueapJGRy4RycHVjRFJr2IMGXTzeRernqM33YILFQ8DIwURWM0MKAXYRaAoVr
- JfAuEquQvF+qtjR/eOvcPqwBYZTA=
-X-Gm-Gg: ASbGncvOCdNRau1I7gGHz4Z5d9To4X4hu22P5uoclmRgk6MK26nIVZWXHpf9/q5Dlyq
- pqaC3LJH0nvEAy/4KFDBc8Ejm272KDsS5sK8ksWib5Xi3EfngsXCq
-X-Google-Smtp-Source: AGHT+IHA/2aKVDb9MnLNMISmiXlIQLOj5O9vo/FNQ78whCjnbqn1MP/5R/NIx7wAyxsbhxv+PQT+UB8wLxuQ1ej8eSs=
-X-Received: by 2002:a05:6820:2106:b0:5f5:2d91:da4c with SMTP id
- 006d021491bc7-5fa737d474dmr251727eaf.2.1737487353242; Tue, 21 Jan 2025
- 11:22:33 -0800 (PST)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2045.outbound.protection.outlook.com [40.107.243.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 41F7D10E628
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jan 2025 19:39:58 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=d8ppbGqNUEI93Rix+RXCw+yxdKEn2vzq9o2uE0Wj/XjBftaqJ3hQzN4EX+Ot1wGgyTBCkxeGrK1Cy7IQ7Nen0iDdVJB18dfl9GYgWNEW9nbYp6MWebS9kl2kF/j+PvLumkTq9QCL5HpvByiiGR0u1YCKFNCGYFT/6B+x2okA52RdMO8iW11ABif7bGK0Ao20jn8stTLsfnLOjM7sjPEFK9WSL0EEaaNFfsamYwe6BJBIBgpx8aoGBrGTmz1DIGVlLqWpcF3No1Mpa9muXigbeI6xbagmdNzk/sEVf3Ny7XGN+oTaz/yP1q9FxYG4KV+/nfEI/KzmsNSrtERNVyo7Ug==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zeSGhy7Q0EC1bjqfDuSwQDq2oGkL+32Tv6v+H/jE3WA=;
+ b=uzUIKtASEYMNeWUmpSlm+TfzxJ2A60F6z7Mth5x6c7joHX6kBqDPDoc03FKZ+A7TwB3IanlANJqqWDJEbXjnf3HLWLUT+DaV/KWbI2JIw0P+nkSsNrO3QzRWR8aDmG3nEar8ng2QKe2qTx5oGqtnbKS1n/pAe0rMkTQWr8F+jQS7JqQ5DiaAcCL3DUsAE4eu+Gc1XheLqHgy44ryGm1x4x1f3XeyjRu3uBcZ4fhDNuGaJjkxlQdZ1YkPIQekTYTJzPciIZanYsu22qlZ2Tevrl8eDsKZU+rm7Repb8TyhC++pbrqfAT4y1iPAelhT5Wa6aosYdJBBdUrGR9GMyPjQA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zeSGhy7Q0EC1bjqfDuSwQDq2oGkL+32Tv6v+H/jE3WA=;
+ b=HUa3OPs/xety1oSFYVQtlbWf5VTi38y+/VU7MlJAFsi55siG2xjzhviPmVdmsz+O6IQUWF2TFwEx/WInAJ2l98fWS/TagIs5tk8LdvyFh35iBoYkOyHziGajlvaHk2mNnV7HMQDi29leYfOrAdsNjqQyZAAn1rW/pzL0qjSthRg=
+Received: from BL1PR13CA0193.namprd13.prod.outlook.com (2603:10b6:208:2be::18)
+ by SJ0PR12MB8116.namprd12.prod.outlook.com (2603:10b6:a03:4ec::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8356.20; Tue, 21 Jan
+ 2025 19:39:53 +0000
+Received: from BN2PEPF000044A8.namprd04.prod.outlook.com
+ (2603:10b6:208:2be:cafe::31) by BL1PR13CA0193.outlook.office365.com
+ (2603:10b6:208:2be::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8377.14 via Frontend Transport; Tue,
+ 21 Jan 2025 19:39:52 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN2PEPF000044A8.mail.protection.outlook.com (10.167.243.102) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8377.8 via Frontend Transport; Tue, 21 Jan 2025 19:39:52 +0000
+Received: from mkmmarleung05.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 21 Jan
+ 2025 13:39:50 -0600
+From: Zaeem Mohamed <zaeem.mohamed@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <rodrigo.siqueira@amd.com>, Aurabindo Pillai
+ <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>, Wayne Lin
+ <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, Fangzhi Zuo
+ <jerry.zuo@amd.com>, Zaeem Mohamed <zaeem.mohamed@amd.com>, Solomon Chiu
+ <solomon.chiu@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>
+Subject: [PATCH 00/14] DC Patches JANUARY 20, 2025
+Date: Tue, 21 Jan 2025 14:39:05 -0500
+Message-ID: <20250121193919.3342348-1-zaeem.mohamed@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <CAPj87rMFJ0JRvsKqZUsw_EGrFWr1VLO4Ne2w_bZ5cH+gs_d=og@mail.gmail.com>
- <Z2Rf7mpSuzZ0ObmT@phenom.ffwll.local>
- <07d08a42-c44a-477e-8057-721b270310cf@nvidia.com>
- <CAAxE2A6N0xtgZmzTR9FXMN79xxy3T8zfhh1sz73h1h8=0ycJ2g@mail.gmail.com>
- <CAPj87rP4r4q-wBx1dHsEkZ7=S2c2XsbA1Pz4Skw1ETt_2yD2Ag@mail.gmail.com>
- <CAAxE2A6ghBK2VTLkNXgk1c61UG1ZQAzWQ4q=wO-OShAUC9eRmQ@mail.gmail.com>
- <CAPj87rNFy7GLAjjxDYGLN-f8M0F7yMX6PED94O4kBJ=pwtPVyA@mail.gmail.com>
- <Z4pmnTy1NYD3rLwS@phenom.ffwll.local>
- <CAAxE2A6iDsN=YKW2F7WyyZxn4Sw4Dr5CxZminQGwf8awBivovQ@mail.gmail.com>
- <0e9aee49-aa69-4fb6-bab8-4624143f5267@suse.de>
- <Z46Y4EME7T6yejWP@phenom.ffwll.local>
-In-Reply-To: <Z46Y4EME7T6yejWP@phenom.ffwll.local>
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-Date: Tue, 21 Jan 2025 14:21:57 -0500
-X-Gm-Features: AbW1kvZTQuqa6Lm9Yr9zisb2n7ShkvxMdxRVKcMr3x4M_nubLEMqZNa8Qn8YvzA
-Message-ID: <CAAxE2A7T0ho42j_a1XbqA1wdCTECZs_MjBb-THv3c+HudWAULQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/fourcc: add LINEAR modifiers with an exact pitch
- alignment
-To: Simona Vetter <simona.vetter@ffwll.ch>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>,
- Daniel Stone <daniel@fooishbar.org>, 
- James Jones <jajones@nvidia.com>, Brian Starkey <brian.starkey@arm.com>, 
- =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>, 
- dri-devel <dri-devel@lists.freedesktop.org>, 
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>, 
- ML Mesa-dev <mesa-dev@lists.freedesktop.org>, nd@arm.com, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
-Content-Type: multipart/alternative; boundary="0000000000007dec76062c3c4ca7"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF000044A8:EE_|SJ0PR12MB8116:EE_
+X-MS-Office365-Filtering-Correlation-Id: dea17fd4-2f56-484f-e0aa-08dd3a536036
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700013|82310400026|1800799024|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?obfArpVsaeGYl54moArLjhpBhoRaFUVTUWqS1kD9U0Ja9Rtq07pKSyQcjfPP?=
+ =?us-ascii?Q?bUEncTvWgfnrizTyTMSQHyTU2vRbyQDt2X60vtSWGVrseaX2NjSbfwkHZsvX?=
+ =?us-ascii?Q?J/c8/KMOhhlddhvPUnPmVYrngNCt5PBy5GH3LkPOCKu0/SRwlTkCPx5wJKu6?=
+ =?us-ascii?Q?w09ojb6WpGSCoKGSaSPau2gA0Vj2yz95rz7ObKFsXSZr8c9aFlp6ojaq6Qhl?=
+ =?us-ascii?Q?mbAIcbDGEoDvwxMNvR+AxaQmGoJamf6JKUSndag6DmRL35IDp9yJ9wB6lMsx?=
+ =?us-ascii?Q?ZJzcr5DALDzrnxyL4g74k6leWorPAfQNMk3ioMSlf+NKjh5UcklZWS3RyhL+?=
+ =?us-ascii?Q?h74CBZFq7YH4eKZCN2EhfuQ5sXMFads7n/7peybhbXNBReL/x+vmIdRF75af?=
+ =?us-ascii?Q?mQHAZ+DtD2aheYCnPBQ41QQpmC5PCgURcs2+utBkHaect44l2Co60m8kgp8a?=
+ =?us-ascii?Q?qZaEtRaR8SMCIHT55shQhmBCpuWIAvhPPblLil/CsgPD6KefELLjhAu6I/ac?=
+ =?us-ascii?Q?sgDsRJwNB58Kd55omm10dW5AU5TkCUug6gw+cN0kbmVXMPguzE23eTETjs//?=
+ =?us-ascii?Q?aT08OmCsvENu4uuITduGnFj0CFqdCx+Ie4tH/WMDqPRP1P+zHjLlAQEB02LI?=
+ =?us-ascii?Q?QJ1oBrx7CqW+Fe/aKg9uXbTVvKZXfM5IZ5/dsWm/nIl2uwunVl6EDzYNoiXt?=
+ =?us-ascii?Q?jnDnXafeCO6vkWz5efV2h4VD6ybq+ZpPzpwK44y/XEXip2QUDuzsjxAzN8d/?=
+ =?us-ascii?Q?DUQXA+Fi7ykr0L6LBAF0n2+VHGuDaLpq1vxxvz2AnVX7aAVJ+RlMYIX+pQgH?=
+ =?us-ascii?Q?0+F2Hcu//HtZLUnC0B0zICoRpTYJZDGyKqq8GPxKDNp0CY+bsXM7s1s0SZQp?=
+ =?us-ascii?Q?cLmnXMR9+xXKTTRz1gRb+aqDXZb1Cx8f770+D6GNESfPz+WDmaWp4Qm/z7Lz?=
+ =?us-ascii?Q?AK/IrRVJutl+bCt1u+xRbxaVxeflIDTk/i0LnLaHb+riho6zddl6MQn4rryE?=
+ =?us-ascii?Q?AYxL0PdZHiwaWdjE5bObmpmUtR1tOVD7ExBpQAtUZL2sx6tlpR8iyKu8qrNz?=
+ =?us-ascii?Q?OXvJz34jSkEMwDKw1aQyc2nwcCMx1eDe82A3skRc5mbHcuY8zlQbCLSULfXi?=
+ =?us-ascii?Q?kHYbuu9qQAEfedDru7cMVet7Cx8HLwmhNRVcbQb4RIlGS+/Ag0Zr71k/IHFO?=
+ =?us-ascii?Q?xNx8A7FuVvt3ORyn0YwX20OcYygTLizuXBL4+o7kZCFkt6c9GGa5qucheHH+?=
+ =?us-ascii?Q?fvIOr4Bi1jcTRnofXkydJITVsS+qkaYKh3THqAVGjiWKyr6AhDIKfCGBLO67?=
+ =?us-ascii?Q?qvQrLbbo8vNmA6QGbYVQev9lul4DJ/dWcdTujMZXMtC4gY/AELKSW5Y6wkmN?=
+ =?us-ascii?Q?wn5WJIcLlaOejAsqTl8T+72FiRwqyld3V0iwKwVBLl4LkgsCYDjSUtfqTkqM?=
+ =?us-ascii?Q?G1nqHjp3QDB/dbbhG3B7bQ7BxAj0kOPnJhAIKseugHFvCLwJHwu7xQ=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(82310400026)(1800799024)(376014); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jan 2025 19:39:52.6446 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: dea17fd4-2f56-484f-e0aa-08dd3a536036
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000044A8.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB8116
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,90 +134,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---0000000000007dec76062c3c4ca7
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+This DC patchset brings improvements in multiple areas. In summary, we have:
+ 
+- Fixes on psr_version, dcn35 register address, DCPG OP control sequences
+- Imporvements to CR AUX RD interval interpretation, dio link encoder
+- Disable PSR-SU on some OLED panels
+  
+ 
+Cc: Daniel Wheeler <daniel.wheeler@amd.com>
 
-On Mon, Jan 20, 2025 at 1:41=E2=80=AFPM Simona Vetter <simona.vetter@ffwll.=
-ch>
-wrote:
+Alex Hung (1):
+  drm/amd/display: Fix possible NULL dereferencing
 
-> On Mon, Jan 20, 2025 at 08:58:20AM +0100, Thomas Zimmermann wrote:
-> > Hi
-> >
-> >
-> > Am 18.01.25 um 03:37 schrieb Marek Ol=C5=A1=C3=A1k:
-> > [...]
-> > >
-> > > 3) Implementing DRM_FORMAT_MOD_LINEAR as having 256B pitch and offset
-> > > alignment. This is what we do today. Even if Intel and some AMD chips
-> > > can do 64B or 128B alignment, they overalign to 256B. With so many
-> > > AMD+NV laptops out there, NV is probably next, unless they already do
-> > > this in the closed source driver.
->
-> I don't think this works, or at least not any better than the current
-> linear modifier. There's way too many users of that thing out there that =
-I
-> think you can realistically redefine it.
->
+Aric Cyr (1):
+  drm/amd/display: 3.2.318
 
-DRM_FORMAT_MOD_LINEAR was redefined on PC a long time ago to mean 256B
-pitch alignment because of laptops with AMD+Intel. Drivers redefined it
-because that's what happens when it's under-defined. As you say,
-DRM_FORMAT_MOD_LINEAR can't be removed, but then it can't work with any
-other pitch alignment on all PC hw either, so there is no other choice.
+Austin Zheng (1):
+  drm/amd/display: Account For OTO Prefetch Bandwidth When Calculating
+    Urgent Bandwidth
 
-The options for PC are either a new parameterized linear modifier (with
-properly defined addressing and size equations) or DRM_FORMAT_MOD_LINEAR
-with 256B pitch alignment. There is no 3rd option. Even if you totally
-disregard AMD, you won't get it below 128B or 64B on the rest of PC hw
-anyway, and that's the same problem.
+Charlene Liu (1):
+  drm/amd/display: pass calculated dram_speed_mts to dml2
 
-Marek
+Dillon Varone (1):
+  drm/amd/display: Ammend DCPG IP control sequences to align with HW
+    guidance
 
---0000000000007dec76062c3c4ca7
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+George Shen (1):
+  drm/amd/display: Update CR AUX RD interval interpretation
 
-<div dir=3D"ltr"><div class=3D"gmail_quote gmail_quote_container"><div dir=
-=3D"ltr" class=3D"gmail_attr">On Mon, Jan 20, 2025 at 1:41=E2=80=AFPM Simon=
-a Vetter &lt;<a href=3D"mailto:simona.vetter@ffwll.ch">simona.vetter@ffwll.=
-ch</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margi=
-n:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex=
-">On Mon, Jan 20, 2025 at 08:58:20AM +0100, Thomas Zimmermann wrote:<br>
-&gt; Hi<br>
-&gt; <br>
-&gt; <br>
-&gt; Am 18.01.25 um 03:37 schrieb Marek Ol=C5=A1=C3=A1k:<br>
-&gt; [...]<br>
-&gt; &gt; <br>
-&gt; &gt; 3) Implementing DRM_FORMAT_MOD_LINEAR as having 256B pitch and of=
-fset<br>
-&gt; &gt; alignment. This is what we do today. Even if Intel and some AMD c=
-hips<br>
-&gt; &gt; can do 64B or 128B alignment, they overalign to 256B. With so man=
-y<br>
-&gt; &gt; AMD+NV laptops out there, NV is probably next, unless they alread=
-y do<br>
-&gt; &gt; this in the closed source driver.<br>
-<br>
-I don&#39;t think this works, or at least not any better than the current<b=
-r>
-linear modifier. There&#39;s way too many users of that thing out there tha=
-t I<br>
-think you can realistically redefine it.<br></blockquote><div><br></div>DRM=
-_FORMAT_MOD_LINEAR was redefined on PC a long time ago to mean 256B pitch a=
-lignment because of laptops with AMD+Intel. Drivers redefined it because th=
-at&#39;s what happens when it&#39;s under-defined. As you say, DRM_FORMAT_M=
-OD_LINEAR can&#39;t be removed, but then it can&#39;t work with any other p=
-itch alignment on all PC hw either, so there is no other choice.</div><div =
-class=3D"gmail_quote gmail_quote_container"><br></div><div class=3D"gmail_q=
-uote gmail_quote_container">The options for PC are either a new=C2=A0parame=
-terized linear modifier (with properly defined addressing and size equation=
-s) or DRM_FORMAT_MOD_LINEAR with 256B pitch alignment. There is no 3rd opti=
-on. Even if you totally disregard AMD, you won&#39;t get it below 128B or 6=
-4B on the rest of PC hw anyway, and that&#39;s the same problem.<br></div><=
-div class=3D"gmail_quote gmail_quote_container"><br></div><div class=3D"gma=
-il_quote gmail_quote_container">Marek<br></div></div>
+Hansen Dsouza (1):
+  drm/amd/display: Add boot option to reduce PHY SSC for HBR3
 
---0000000000007dec76062c3c4ca7--
+Peichen Huang (1):
+  drm/amd/display: refactor dio link encoder assigning
+
+Sung Lee (1):
+  drm/amd/display: Guard Possible Null Pointer Dereference
+
+Tom Chung (2):
+  drm/amd/display: Initial psr_version with correct setting
+  drm/amd/display: Disable PSR-SU on some OLED panel
+
+Wayne Lin (1):
+  drm/amd/display: Fix potential NULL dereference
+
+Zhikai Zhai (1):
+  drm/amd/display: Update Cursor request mode to the beginning prefetch
+    always
+
+loanchen (1):
+  drm/amd/display: Correct register address in dcn35
+
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c |  20 ++
+ .../drm/amd/display/dc/bios/bios_parser2.c    |   4 +-
+ .../display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c  |   2 +-
+ drivers/gpu/drm/amd/display/dc/core/dc.c      |  11 +-
+ .../gpu/drm/amd/display/dc/core/dc_resource.c | 202 +++++++++++++++++-
+ drivers/gpu/drm/amd/display/dc/dc.h           |   4 +-
+ .../drm/amd/display/dc/dml/dcn35/dcn35_fpu.c  |   2 +
+ .../amd/display/dc/dml/dcn351/dcn351_fpu.c    |   1 +
+ .../src/dml2_core/dml2_core_dcn4_calcs.c      |  25 ++-
+ .../src/dml2_core/dml2_core_shared_types.h    |   5 +
+ .../display/dc/dml2/dml2_translation_helper.c |   9 +-
+ .../drm/amd/display/dc/dml2/dml2_wrapper.h    |   1 +
+ .../amd/display/dc/hubp/dcn31/dcn31_hubp.c    |   2 +-
+ .../amd/display/dc/hwss/dcn10/dcn10_hwseq.c   |  22 +-
+ .../amd/display/dc/hwss/dcn20/dcn20_hwseq.c   |  14 +-
+ .../amd/display/dc/hwss/dcn401/dcn401_hwseq.c |  34 +++
+ .../amd/display/dc/hwss/dcn401/dcn401_hwseq.h |   3 +
+ .../amd/display/dc/hwss/dcn401/dcn401_init.c  |   2 +-
+ .../gpu/drm/amd/display/dc/inc/core_types.h   |   3 +
+ .../link/protocols/link_dp_training_8b_10b.c  |   7 +-
+ .../gpu/drm/amd/display/dmub/src/dmub_dcn31.c |   1 +
+ 21 files changed, 339 insertions(+), 35 deletions(-)
+
+-- 
+2.34.1
+
