@@ -4,108 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F527C02182
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Jan 2025 16:15:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D9A3C02182
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Jan 2025 16:33:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CAE410E729;
-	Wed, 22 Jan 2025 16:15:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9DF3110E727;
+	Wed, 22 Jan 2025 16:33:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin-net.20230601.gappssmtp.com header.i=@ursulin-net.20230601.gappssmtp.com header.b="KdK4iKFO";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="oGVloV6g";
 	dkim-atps=neutral
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [IPv6:2a00:1450:4864:20::330])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA0FC10E721
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Jan 2025 16:15:03 +0000 (UTC)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-4361f796586so78612025e9.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Jan 2025 08:15:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin-net.20230601.gappssmtp.com; s=20230601; t=1737562502; x=1738167302;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=k6yifiK7k1egD832rtDY2X5ShBnrSfrr32YKaeunTC8=;
- b=KdK4iKFOSGcnO0aoEI+jD4eCVb69PwkWFLUq94aslSm4dHouSdF3BDvRuMrEx0Y3wj
- uabthTZX4K8LloKL4sfBEGzkWIaw1ArrQkVqeP2gCZuzOhBi88GD69htFu7liuqKQT7u
- WDSK+nUbktsQcDFVQjx2MR/dWqrLbkkqrBoVi0XYkpfjT9bKbKn3SF2ObT3F9i/XjE2p
- owVkqQEDlnJ9ylMgo3+LCpj+t6cSGgGWz9R+ohwpXXYZW0N5ZS2NcVaeiOXrfX2orwg+
- 5gRIqqoEDCp57KMlMSJIDt5duAsSWMXBvOdckl2qyj5nt29ZrbRHKMWnl3sZqBlsgPow
- 2tDQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737562502; x=1738167302;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=k6yifiK7k1egD832rtDY2X5ShBnrSfrr32YKaeunTC8=;
- b=vVOMsrD5i2Z4tNUdUvLCkOALYtzTG5idNH2O57PqogckxILeMwh8fKMbz6oHGLvGKE
- TCDdShiEvqLbfY+2YSSh/LHFRfxGH8pQbTDKl4p2iplgMJX8ojqN+dN5BrLVIX+WhDLs
- XIlsnpYTJrvzAR8KsA1c7QmMPeseX7XJEMZX80Z+6r09cyvwFjyKX3DxxaZ/rt4r2J8u
- pEQfCoTPXT8WjokN9yVH/OY6cFrb+5G6tOcd3bykQavfDGWCDwv3+axvs1OBZ+sOt2K3
- Zibz3h0y5srSGcE8robBaiCQa496GeJom8Ka2mNKOjZdAvr2MeLSAfUNmTmFvZyEhEb2
- znGw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVtNeIAGMTOVtqsCJeVnAbp9vBblpXi23nWvbMKoc7K/5Sm9PxbdO6YhAMg1ATdat4fRJWj9YW8@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwXnmGrCSQzP5kyCObOt5w+D4AbA/Q/pMrouIUWLBVhNqF6ZSo3
- 0SJrmMWNdlys2o3igeqLMV/AHMGENZzf44d8eeooWovDE0DfUWFxlOTz5nk4ADc=
-X-Gm-Gg: ASbGncttdHg/MN/ePisDO5MKMY3XmcaS7l5tCbupwxx9G7ffp6QPSpSiTpoBzPlkSHy
- oZk5N0jIodVVH1CJ648cGwvBjtjG+qsm06NwNQFsR5S0zqjtNjdMHZd1usASUe2DGgdRdtjQTkc
- LNBLyxGiE+FgRIxnufGnDMzqk31dau7OWN4hkOXIzlUsCpWcGq03YgArq+C3dz3L/skvHBoBm7t
- cl7k8o9R2sGq7cfmZSDoujpi8D+IBoDyH4kCz8DIcXFndCQUqzBYgIXk87HU92Vua5mni+h2LXT
- VBv4S+dzIw==
-X-Google-Smtp-Source: AGHT+IHjMS8YRSk6XzW0Efeh0A/XzjKRZHlKqwNXg3TUjzGuKVwVdcPgC6qrdd/tzzJ2CrO/z5EPcw==
-X-Received: by 2002:a05:600c:4ecb:b0:434:ff45:cbbe with SMTP id
- 5b1f17b1804b1-438913f5c63mr219797095e9.18.1737562501952; 
- Wed, 22 Jan 2025 08:15:01 -0800 (PST)
-Received: from [192.168.0.101] ([90.241.98.187])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-438b1718741sm20115825e9.0.2025.01.22.08.15.00
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 22 Jan 2025 08:15:01 -0800 (PST)
-Message-ID: <ce6bd1f3-8d7c-4b3c-af07-b8c9e0912f51@ursulin.net>
-Date: Wed, 22 Jan 2025 16:14:59 +0000
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2086.outbound.protection.outlook.com [40.107.93.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 07EE210E724;
+ Wed, 22 Jan 2025 16:33:29 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=EIwcj5E3KfcIxxW5ynandhz1vd8vlqFwR2RW/XEoHR6UznVOfjBH++E5belLk8Xg1DzAhLZShKX8H6pPbpMFg0GnNPz9v00F5IYCaLJNcDKUbzvhR+EvR0l9n3kXut4ceGCUoKwmd7gK2CbLaKyU4lOIcv4E+QlBSsUBurETyWz+7AxIBAws4p42LTEG7hVP39M6ODTKBiBbHWmcPhoEuyVT1teDsUVK1uJ5NX4V9+Nh4EjoRKgSIW58KynS77sc+YGlbVjqcDJlHZcTbmXeTakmGjmMPjSKy7grSAWvqNxsxMW7ziNrjMuE9oqctHbduDwIjdOmTH7nRJoVPIkYMg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=V1lqCC5ipr6ZSTU8tQNTOYNq47jNhvRAxplPUH5m518=;
+ b=qCkCWwQ4Iy8TMBdAQc7NT+9eo0s8t7BfqLcOk7XNS5akuaDavhzuFy0nVjI4zF4gsnX/MfQ8bb4qxejzf2LNFc4gord9ePTL6SwYPS9IYWMXtmN6VgKYDuSwA/cS+aG5Yt9US4nWgZ1oroDTb/Ud6m+uwZricWkzZbv0HGFhoPWXIRnSXb7GHvQ7xqSX6g9mb4MqAS7rJ6aRC6z9PHjSuVRnBJ9yajIiXrwkGWZ55RkseAtLLaGDzMnKEQsl8d3tkB1t9xQ8hu6QYPazQ1pU6Z7AAJGlIqIqwzwcpjWDpWpgmdFb0fd1qWEE2VmvdDNdY2bx5QQUI6o0+jFMYCF9Yw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=V1lqCC5ipr6ZSTU8tQNTOYNq47jNhvRAxplPUH5m518=;
+ b=oGVloV6gXau2DOKZWlf9+rjtlSJUrCAfG5uD/pPgtumW8imaIIaCKmiFxjzkKKpQnW96th7wPU5pmAddFB2zDmthz3TIuDoYs8j4Ig/e68K7acQ4cqmDlAEuBrs8wldFvdnEFhJIpdsEyYRXEpwi5LSpxAQcKnmj1r8SYOWpYdU=
+Received: from CH0PR04CA0046.namprd04.prod.outlook.com (2603:10b6:610:77::21)
+ by SJ0PR12MB5662.namprd12.prod.outlook.com (2603:10b6:a03:429::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8356.21; Wed, 22 Jan
+ 2025 16:33:09 +0000
+Received: from DS2PEPF0000343D.namprd02.prod.outlook.com
+ (2603:10b6:610:77:cafe::7f) by CH0PR04CA0046.outlook.office365.com
+ (2603:10b6:610:77::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8377.14 via Frontend Transport; Wed,
+ 22 Jan 2025 16:33:09 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS2PEPF0000343D.mail.protection.outlook.com (10.167.18.40) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8377.8 via Frontend Transport; Wed, 22 Jan 2025 16:33:08 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 22 Jan
+ 2025 10:33:06 -0600
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <simona@ffwll.ch>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [pull] amdgpu drm-next-6.14
+Date: Wed, 22 Jan 2025 11:32:52 -0500
+Message-ID: <20250122163252.1788713-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.48.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/sched: Use struct for drm_sched_init() params
-To: Boris Brezillon <boris.brezillon@collabora.com>,
- Philipp Stanner <phasta@kernel.org>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Lucas Stach <l.stach@pengutronix.de>,
- Russell King <linux+etnaviv@armlinux.org.uk>,
- Christian Gmeiner <christian.gmeiner@gmail.com>,
- Frank Binns <frank.binns@imgtec.com>, Matt Coster <matt.coster@imgtec.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Qiang Yu <yuq825@gmail.com>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Karol Herbst <kherbst@redhat.com>, Lyude Paul <lyude@redhat.com>,
- Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Luben Tuikov <ltuikov89@gmail.com>, Matthew Brost <matthew.brost@intel.com>,
- Philipp Stanner <pstanner@redhat.com>, Melissa Wen <mwen@igalia.com>,
- =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Sunil Khatri <sunil.khatri@amd.com>,
- Lijo Lazar <lijo.lazar@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>, Ma Jun <Jun.Ma2@amd.com>,
- Yunxiang Li <Yunxiang.Li@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- etnaviv@lists.freedesktop.org, lima@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-References: <20250122140818.45172-3-phasta@kernel.org>
- <20250122165104.536c4143@collabora.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <20250122165104.536c4143@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS2PEPF0000343D:EE_|SJ0PR12MB5662:EE_
+X-MS-Office365-Filtering-Correlation-Id: d420e03c-d3df-40e0-5c2e-08dd3b02746f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|36860700013|376014|82310400026|13003099007; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?mFzIkSsE1i4DmOWqfcPBIlZ6Cgg2esPyMTFaNa8EWnqnWXgFcHSg8p2s6xgV?=
+ =?us-ascii?Q?CMMl/schXjZEZNXrCy4RltUs8wa/vyft1GmPfIpvFnE1E7KcI7amudFpmAev?=
+ =?us-ascii?Q?h6PiKfQcPeQNCnoHMFtZG73YKPvIDhGfcPzSl5LxoS6EEkrNHpwvGu0b56qj?=
+ =?us-ascii?Q?S756Wda237KB9DLmW7KQ4pT28bTCQKR7YwQ989wid4Hlm30oCay+fmtDxmRj?=
+ =?us-ascii?Q?gdhEJRVUNOWlqBryUthfHUP/BPtx2yTkIVBvno66Ro1XCnb7FhlR03LBW8da?=
+ =?us-ascii?Q?icAIhZI7XcSIYq9dxZPQZ1Nfc3bDVz1ygiLWzkV1G7DRr4KOGJQ/ic9k0j9g?=
+ =?us-ascii?Q?JjZyhvP7V80IzTM8JPvDIp53aAAlJTSKwD2zdOhs8PKov3M4BWfA+MurwKsm?=
+ =?us-ascii?Q?+GsSTa1/jyycDUXzzTSspMPXw0lWT7O89bT7YIDh6lY4fj1e54cUp/HmCYAI?=
+ =?us-ascii?Q?JSyCW0c8IuCIQCBbvcHgOGVJBYqJ5FfNM0MYh5Oj4uZTFDDyCS74/LQuG/Kl?=
+ =?us-ascii?Q?tK0ROwfOJJcEKGzhZm9g2RzetvWnXQNVt5cY111OXli/8GrptlBRcK21DTQg?=
+ =?us-ascii?Q?BCZWhhpnJ4r1ljgGsZFAlyjgQAp0w7Hu4AEtZAVsV4VtDHiwCUdjK/aCC3Qc?=
+ =?us-ascii?Q?ygbDx9csN+MTdi0FuBtx/LEOwXu/0c/WH6k5l+R7hUUD3pewObG81gamTKV+?=
+ =?us-ascii?Q?9UbT6zPenAr82/FJpVXSLo83MfjAjw5DErMpTKySGlXrRDNkjbNWR7+Jo2c+?=
+ =?us-ascii?Q?Q9A0VJITkYux7SukYBjobruBwofaCWRnt9Cub+xqu+7utifSR2i7hbZbp+Ue?=
+ =?us-ascii?Q?LFEHu7tm2cXDyjyF/E2gnMWOpfexJPQhgTPlz+I2EoMS6bUx2tYHGXy1f55/?=
+ =?us-ascii?Q?8BAAGnplRz32LH5Qp2OZmbg/setiV3cVn3rusYAJQXRpy6DSb/wCEUWNmAUB?=
+ =?us-ascii?Q?NvaYdS4wp/uJlN0RJtpBPOr6af/gzf24zkoVH8LLB+Gvz10zElb7eWtFy3f0?=
+ =?us-ascii?Q?Nb9Qi5yV1cac2SG3kqHAmpjbo2d2476TRXQuAHYtxbEnQs2RcFufTH6CnoSC?=
+ =?us-ascii?Q?RnYYjJNoklos3DCUpumdfGt8QlSc7B8TYZfdfAiJ91agxY8UE/4LEWLhS/Cr?=
+ =?us-ascii?Q?FTxczVOBq6q4hgEXMd1Vb8l02an4U6TCWkB0d0BHHjCpdsfFFOEI5GUuOjBn?=
+ =?us-ascii?Q?JfmH273IXzJe76+mdR0HdSYVERd6vpw3euTS/V4g03gxKwvFfxwy2hh/aL7N?=
+ =?us-ascii?Q?pu4R28dFjUHzVLp+uD/D7OqH0UEHuWe9Vtx0HoQLuJCae353skjNCuJsJV/D?=
+ =?us-ascii?Q?Kcf4aLt5XJk/Dc7t6u7RS5LP3Nt8fPXqGJc9KuNLLX2Tt97/qy2YKZ2SQD7S?=
+ =?us-ascii?Q?1f6u3DBRrJqMl6B7TVFp21t7dnR7+fALYGYvCI4dy7W/rb+Knbw0t6K0AMOb?=
+ =?us-ascii?Q?6+PHd56fBJA=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700013)(376014)(82310400026)(13003099007);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jan 2025 16:33:08.4813 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d420e03c-d3df-40e0-5c2e-08dd3b02746f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF0000343D.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5662
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,83 +130,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Hi Dave, Simona,
 
-On 22/01/2025 15:51, Boris Brezillon wrote:
-> On Wed, 22 Jan 2025 15:08:20 +0100
-> Philipp Stanner <phasta@kernel.org> wrote:
-> 
->> --- a/drivers/gpu/drm/panthor/panthor_sched.c
->> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
->> @@ -3272,6 +3272,7 @@ group_create_queue(struct panthor_group *group,
->>   		   const struct drm_panthor_queue_create *args)
->>   {
->>   	struct drm_gpu_scheduler *drm_sched;
->> +	struct drm_sched_init_params sched_params;
-> 
-> nit: Could we use a struct initializer instead of a
-> memset(0)+field-assignment?
-> 
-> 	struct drm_sched_init_params sched_params = {
-> 		.ops = &panthor_queue_sched_ops,
-> 		.submit_wq = group->ptdev->scheduler->wq,
-> 		.num_rqs = 1,
-> 		.credit_limit = args->ringbuf_size / sizeof(u64),
-> 		.hang_limit = 0,
-> 		.timeout = msecs_to_jiffies(JOB_TIMEOUT_MS),
-> 		.timeout_wq = group->ptdev->reset.wq,
-> 		.name = "panthor-queue",
-> 		.dev = group->ptdev->base.dev,
->          };
+Fixes for 6.14.
 
-+1 on this as a general approach for the whole series. And I'd drop the 
-explicit zeros and NULLs. Memsets could then go too.
+The following changes since commit 97e5c9e4139087a67c2469488360a6d6afdd4b69:
 
-Regards,
+  drm/amd/display: fix CEC DC_DEBUG_MASK documentation (2025-01-16 16:23:22 -0500)
 
-Tvrtko
+are available in the Git repository at:
 
-> 
-> The same comment applies the panfrost changes BTW.
-> 
->>   	struct panthor_queue *queue;
->>   	int ret;
->>   
->> @@ -3289,6 +3290,8 @@ group_create_queue(struct panthor_group *group,
->>   	if (!queue)
->>   		return ERR_PTR(-ENOMEM);
->>   
->> +	memset(&sched_params, 0, sizeof(struct drm_sched_init_params));
->> +
->>   	queue->fence_ctx.id = dma_fence_context_alloc(1);
->>   	spin_lock_init(&queue->fence_ctx.lock);
->>   	INIT_LIST_HEAD(&queue->fence_ctx.in_flight_jobs);
->> @@ -3341,17 +3344,23 @@ group_create_queue(struct panthor_group *group,
->>   	if (ret)
->>   		goto err_free_queue;
->>   
->> +	sched_params.ops = &panthor_queue_sched_ops;
->> +	sched_params.submit_wq = group->ptdev->scheduler->wq;
->> +	sched_params.num_rqs = 1;
->>   	/*
->> -	 * Credit limit argument tells us the total number of instructions
->> +	 * The credit limit argument tells us the total number of instructions
->>   	 * across all CS slots in the ringbuffer, with some jobs requiring
->>   	 * twice as many as others, depending on their profiling status.
->>   	 */
->> -	ret = drm_sched_init(&queue->scheduler, &panthor_queue_sched_ops,
->> -			     group->ptdev->scheduler->wq, 1,
->> -			     args->ringbuf_size / sizeof(u64),
->> -			     0, msecs_to_jiffies(JOB_TIMEOUT_MS),
->> -			     group->ptdev->reset.wq,
->> -			     NULL, "panthor-queue", group->ptdev->base.dev);
->> +	sched_params.credit_limit = args->ringbuf_size / sizeof(u64);
->> +	sched_params.hang_limit = 0;
->> +	sched_params.timeout = msecs_to_jiffies(JOB_TIMEOUT_MS);
->> +	sched_params.timeout_wq = group->ptdev->reset.wq;
->> +	sched_params.score = NULL;
->> +	sched_params.name = "panthor-queue";
->> +	sched_params.dev = group->ptdev->base.dev;
->> +
->> +	ret = drm_sched_init(&queue->scheduler, &sched_params);
->>   	if (ret)
->>   		goto err_free_queue;
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-next-6.14-2025-01-22
+
+for you to fetch changes up to 74d099cbc632a76ea80cdf31126c8b110ff34865:
+
+  drm/amd/display: Optimize cursor position updates (2025-01-21 10:38:59 -0500)
+
+----------------------------------------------------------------
+amd-drm-next-6.14-2025-01-22:
+
+amdgpu:
+- Documentation fixes
+- SMU 13.x fixes
+- SR-IOV fix
+- Display fix
+- PCIe calculation fix
+- MES 12 fix
+- HUBP fix
+- Cursor fix
+
+----------------------------------------------------------------
+Alex Deucher (1):
+      drm/amd/display: fix SUBVP DC_DEBUG_MASK documentation
+
+Aric Cyr (2):
+      drm/amd/display: Add hubp cache reset when powergating
+      drm/amd/display: Optimize cursor position updates
+
+Jesse.zhang@amd.com (3):
+      revert "drm/amdgpu/pm: Implement SDMA queue reset for different asic"
+      revert "drm/amdgpu/pm: add definition PPSMC_MSG_ResetSDMA2"
+      drm/amd/pm: Refactor SMU 13.0.6 SDMA reset firmware version checks
+
+Lijo Lazar (2):
+      drm/amd/pm: Add capability flags for SMU v13.0.6
+      drm/amd/pm: Fix smu v13.0.6 caps initialization
+
+Lin.Cao (1):
+      drm/amdgpu: fix ring timeout issue in gfx10 sr-iov environment
+
+Mario Limonciello (1):
+      drm/amd: Clarify kdoc for amdgpu.gttsize
+
+Shaoyun Liu (1):
+      drm/amd/amdgpu: Enable scratch data dump for mes 12
+
+Srinivasan Shanmugam (2):
+      drm/amd/display: Fix error pointers in amdgpu_dm_crtc_mem_type_changed
+      drm/amd/amdgpu: Prevent null pointer dereference in GPU bandwidth calculation
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |   4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c            |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c             |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h            |   2 +-
+ drivers/gpu/drm/amd/amdgpu/mes_v12_0.c             |  49 +++-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |   5 +
+ .../gpu/drm/amd/display/dc/dpp/dcn10/dcn10_dpp.c   |  10 +-
+ .../drm/amd/display/dc/dpp/dcn401/dcn401_dpp_cm.c  |   6 +-
+ .../gpu/drm/amd/display/dc/hubp/dcn10/dcn10_hubp.c |  10 +-
+ .../gpu/drm/amd/display/dc/hubp/dcn10/dcn10_hubp.h |   2 +
+ .../gpu/drm/amd/display/dc/hubp/dcn20/dcn20_hubp.c |   9 +-
+ .../drm/amd/display/dc/hubp/dcn201/dcn201_hubp.c   |   1 +
+ .../gpu/drm/amd/display/dc/hubp/dcn21/dcn21_hubp.c |   3 +
+ .../gpu/drm/amd/display/dc/hubp/dcn30/dcn30_hubp.c |   3 +
+ .../gpu/drm/amd/display/dc/hubp/dcn31/dcn31_hubp.c |   1 +
+ .../gpu/drm/amd/display/dc/hubp/dcn32/dcn32_hubp.c |   1 +
+ .../gpu/drm/amd/display/dc/hubp/dcn35/dcn35_hubp.c |   1 +
+ .../drm/amd/display/dc/hubp/dcn401/dcn401_hubp.c   |  13 +-
+ .../drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c    |   2 +
+ .../drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c    |   2 +
+ drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h       |   2 +
+ drivers/gpu/drm/amd/include/amd_shared.h           |   2 +-
+ .../amd/pm/swsmu/inc/pmfw_if/smu_v13_0_6_ppsmc.h   |   1 -
+ drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h       |   3 +-
+ drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h       |   1 +
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c   | 286 ++++++++++++++-------
+ 26 files changed, 300 insertions(+), 123 deletions(-)
