@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91870C02182
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jan 2025 11:10:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2F08C0218C
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jan 2025 11:10:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A375610E7D1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C36810E286;
 	Thu, 23 Jan 2025 11:10:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="M8FZeqCe";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="SXS0yejQ";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AFDB810E1D8;
- Wed, 22 Jan 2025 05:22:33 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1415E10E2D4;
+ Wed, 22 Jan 2025 04:48:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1737523353; x=1769059353;
+ t=1737521322; x=1769057322;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=bGb3uSuBaIf/MAnGLEfUH4EYMoGQe75OanvumQWUoUE=;
- b=M8FZeqCeTBBpjKlnTFYEjKD0PPQrY2iixSC7hhqsJpYKRu+ujX/wjVpK
- zQT1kaSDOTheYe8ivS8rW7W9yGBD53cJ0jYAolS7ShXCHndffJC2ZSl4X
- UTBDm/Og/s1uotrGtYPT3Qdt+JhRVmRm1ecoCysKE5tnHWUgMj3pDazTk
- I6+ViRtcaCy9bpA3n47K+lVGXlm0v/TxQbog+IsTBdGMY478X+tDRQGQw
- HynUX68zZnx0IY1aoKYhAexB3sXUY0PaE6RAAQ+wSrL6p/j8dX1mTxS1r
- O64YyYLk3faDYm97Txq869nJv5p4tdGxDt0x6NcOHiJJpkM6FyxUe57ho Q==;
-X-CSE-ConnectionGUID: KVDxAFc3Slm5mpf8LJZ+BQ==
-X-CSE-MsgGUID: R3BIyjePSW22if0eCW+h6Q==
-X-IronPort-AV: E=McAfee;i="6700,10204,11322"; a="37995042"
-X-IronPort-AV: E=Sophos;i="6.13,224,1732608000"; d="scan'208";a="37995042"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jan 2025 21:22:33 -0800
-X-CSE-ConnectionGUID: 3wX4WW/XS4ycm8dlpM1JCw==
-X-CSE-MsgGUID: MBkDZ6oBT36a7o+Q4DRzVw==
+ bh=iMaXACMURgli3ZtGpip9gpyVmugdXalQ98jx7Q9T6ko=;
+ b=SXS0yejQEEnuAqVdD9G4tiiHUwRH+AZDMm1tUowKVbzHxr0nB5rr+49o
+ +QPOHIvA2wh5Q3kEg408No7y3kxt5yod91FNAPXyEgwBqGIuPby3mld4x
+ FZRM3FUBmbujDlECYz/U1DL4tM3D7GO3UCE3CYTv//gJmBu84lOYi9O9S
+ ourBXXta4pCsydomdZ+FJR3RKGArtnyrb9QdpbB2qqOJLTGLXo42d1HCh
+ dpoP+JFrI4XgvNSZzdc4CX68Zf1gvu9QvBzsfpc5tejL1MwdDrOIWpUIm
+ twtwLveXb+2rEI0IW/clVLUmqvv5/k9nfMLCRk57BNoy6VPzbUe4p6Dio A==;
+X-CSE-ConnectionGUID: U09vFCqMQdC4fGs8spnlBw==
+X-CSE-MsgGUID: 5O0u6rtuQK2ih/XUF42L2A==
+X-IronPort-AV: E=McAfee;i="6700,10204,11322"; a="48628750"
+X-IronPort-AV: E=Sophos;i="6.13,224,1732608000"; d="scan'208";a="48628750"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jan 2025 20:48:42 -0800
+X-CSE-ConnectionGUID: 3irDzB9/R/CdJfHQYz4KNQ==
+X-CSE-MsgGUID: rD5B8qHZTiCjrUj9Dlyyhw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,224,1732608000"; d="scan'208";a="112023364"
+X-IronPort-AV: E=Sophos;i="6.13,224,1732608000"; d="scan'208";a="107556201"
 Received: from black.fi.intel.com ([10.237.72.28])
- by fmviesa004.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jan 2025 21:22:29 -0800
-Date: Wed, 22 Jan 2025 07:22:25 +0200
+ by fmviesa010.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jan 2025 20:48:37 -0800
+Date: Wed, 22 Jan 2025 06:48:34 +0200
 From: Raag Jadav <raag.jadav@intel.com>
 To: Xaver Hugl <xaver.hugl@kde.org>
 Cc: airlied@gmail.com, simona@ffwll.ch, lucas.demarchi@intel.com,
@@ -53,15 +53,14 @@ Cc: airlied@gmail.com, simona@ffwll.ch, lucas.demarchi@intel.com,
  aravind.iddamsetty@linux.intel.com, anshuman.gupta@intel.com,
  alexander.deucher@amd.com, andrealmeid@igalia.com,
  amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com
-Subject: Re: [PATCH v10 2/4] drm/doc: Document device wedged event
-Message-ID: <Z5CAkXSOpNiiFbv4@black.fi.intel.com>
+Subject: Re: [PATCH v10 0/4] Introduce DRM device wedged event
+Message-ID: <Z5B4ogLqSMT7aE-r@black.fi.intel.com>
 References: <20241128153707.1294347-1-raag.jadav@intel.com>
- <20241128153707.1294347-3-raag.jadav@intel.com>
- <CAFZQkGy3R0TMY5CARPQZF70fdKGLX8GQjV_YQAHzEXsiuNHj+w@mail.gmail.com>
+ <CAFZQkGwJ4qgHV8WTp2=svJ_VXhb-+Y8_VNtKB=jLsk6DqMYp9w@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAFZQkGy3R0TMY5CARPQZF70fdKGLX8GQjV_YQAHzEXsiuNHj+w@mail.gmail.com>
+In-Reply-To: <CAFZQkGwJ4qgHV8WTp2=svJ_VXhb-+Y8_VNtKB=jLsk6DqMYp9w@mail.gmail.com>
 X-Mailman-Approved-At: Thu, 23 Jan 2025 11:10:36 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -77,35 +76,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jan 21, 2025 at 02:14:56AM +0100, Xaver Hugl wrote:
-> > +It is the responsibility of the consumer to make sure that the device or
-> > +its resources are not in use by any process before attempting recovery.
-> I'm not convinced this is actually doable in practice, outside of
-> killing all apps that aren't the one trying to recover the GPU.
-> Is this just about not crashing those processes if they don't handle
-> GPU hotunplugs well, about leaks, or something else?
+On Tue, Jan 21, 2025 at 01:59:47AM +0100, Xaver Hugl wrote:
+> Hi,
+> 
+> I experimented with using this in KWin, and
+> https://invent.kde.org/plasma/kwin/-/merge_requests/7027/diffs?commit_id=6da40f1b9e2bc94615a436de4778880cee16f940
+> makes it fall back to a software renderer when a rebind is required to
+> recover the GPU.
+> Making it also survive the rebind properly is more challenging
+> (current version of the MR doesn't do it for you and just crashes if
+> you do it with a udev rule or manually), but it's doable - and not a
+> problem of the API.
+> 
+> I'd really like to have the PID of the client that triggered the GPU
+> reset, so that we can kill it if multiple resets are triggered in a
+> row (or switch to software rendering if it's KWin itself) and show a
+> user-friendly notification about why their app(s) crashed, but that
+> can be added later.
 
-Correct, all of it. And since the compositor is in charge of device resources,
-this way it atleast has the opportunity to recover the device and recreate
-context without all the userspace violence.
+Excellent! While we have our consumer implementation in progress, it's
+always good to have wider adoption.
 
-I'm not entirely aware of its feasibility though, perhaps something for the
-consumers to experiment.
-
-> > +With IOCTLs blocked and device already 'wedged', all device memory should
-> > +be unmapped and file descriptors should be closed to prevent leaks.
-> Afaiu from a userspace POV, a rebind is just like a GPU hotunplug +
-> hotplug with matching "remove" and "add" udev events. As long as the
-> application cleans up resources related to the device when it receives
-> the event, there should be no leaks with a normal hotunplug... Is this
-> different enough that we can't have the same expectations?
-
-The thing about "remove" event is that it is generated *after* we opt for an
-unbind, and at that point it might be already too late if userspace doesn't
-get enough time to clean things up while the device is removed with a live
-client resulting in unknown consequences.
-
-The idea here is to clean things up *before* we opt for an unbind leaving
-no room for side effects.
+Thank you for your contribution.
 
 Raag
