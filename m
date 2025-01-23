@@ -4,69 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CA69C02182
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jan 2025 18:16:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A81A4C02182
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jan 2025 20:08:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 91BA510E1F1;
-	Thu, 23 Jan 2025 18:16:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C58E10E3E9;
+	Thu, 23 Jan 2025 20:08:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FZ0tmXoK";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="fdmdh2tA";
 	dkim-atps=neutral
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
- [209.85.214.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D80AD10E1F1
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jan 2025 18:15:44 +0000 (UTC)
-Received: by mail-pl1-f179.google.com with SMTP id
- d9443c01a7336-2161a4f86a3so2439485ad.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jan 2025 10:15:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1737656144; x=1738260944; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Z8vHCmQPilritVcKoytE/56R/vR2ifrSK2WZnsVWx84=;
- b=FZ0tmXoK4kcPCzYZspdWsLQx9tHkx5eZ8CN5efbk3kgtYzf3vzqIGkxNo+VZuDZFQa
- m0qJHbOwEkACHDKwvaVzF6KY/yywVaqx0004x/EHFy5osNZ52VpZF0JG4cs0oji5N6Lf
- Ri9KK7EH7Sb7VxpkZFSi7M9ClG9U+X+HTlv/sxuYUOAGrO+s6yckc7jxskPRmouKnCGm
- eABRVYypYZpNH5CBe3Y/CGak+VL0ifGRxuCpypn3s3kk8/oBmV8V/0xfHQv915buJc1b
- nN5G3whrKqN4w4vJt87bABBxM1cd2G0mYzkadTTtP048SwjGtepO746KlcFyZWiZMrCz
- xQIA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737656144; x=1738260944;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Z8vHCmQPilritVcKoytE/56R/vR2ifrSK2WZnsVWx84=;
- b=g+O5dqJZO6oHYEnX7uweRUy5WwXZiH1dK7HCfuXBy1HvbBmRk98gYx7zoawrkt6l87
- lGP4NSfLYUO2z0WnUZhsEb9LBKZy8dAD20pbm4l1BTigMLvzDE6FWuMGx29XDiScLNeQ
- wf3L0hq7IfB/zRVMxfDFHlL5VJC6XGDkWeqLM4jqNGWt+B9SMxCIDj4XKdl3HCHV6PqR
- NJmnbHlq+X1tTpf+60mr65KNv/dHHEmjCbZNImOD4Yk4T+XIHBz5mDYoeylrgv8/xUxC
- OdxKrQTAdYYKzh8Xf0yBwVOIywOmCj8zcE1xhAxKJgFBR4e29IeBAFpaXRiGS6ujk3Fp
- JwFQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUcrkfO55tZ7TtgqAxtD6RhqkFhXOirYcsC/ujLs4BfeuUqMYgmK2EHplvz8WL+6x4qJiyVujn+@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxY5qnZqk35v1ch/I2CWESVBhy/wS9dBEuuurDE55toXhH4mdg6
- JhN44p9V+0UfIX7LlDFub4nPXE/JDwbdSSrs2znKIw+ILzk4S5fQmp9DzxHLcSGYaCGUWEcPaBi
- yAz4NYfgP1iY8EsN+ux6n5znqg4Q=
-X-Gm-Gg: ASbGncvOkfl338BOIumHWRGIEn+sZJz9mQ/hhSUt+HgdiXt7jAJNJgPFYz+iCxOJbUK
- Zlnil5P4WaeTSlVocSYygYYTL0kB0P6auzSRtMurjVM+CyDNd+IM29k/6UUzH6g==
-X-Google-Smtp-Source: AGHT+IGZmQYpfQQDW8vRY8uWvZL5fpfw8wQO0dtJRzCL2qLwq2Ha/z8GLHSM5oE+iMJ4x8dtFp0ImfpMftK9XUe/Wmg=
-X-Received: by 2002:a17:903:1108:b0:20b:9b07:777a with SMTP id
- d9443c01a7336-21d79b26072mr53968295ad.10.1737656144086; Thu, 23 Jan 2025
- 10:15:44 -0800 (PST)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2085.outbound.protection.outlook.com [40.107.244.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C9B810E890;
+ Thu, 23 Jan 2025 20:06:49 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=f9tp57srG7e79enndgRgRxXi2/4EnfHg0qteShaZHHI2psNffOirdYG/MIZVJJETb9Y+8WMimBwx2nVtNilDvzIqkeiunpcJ7H9ACAobbywI/3nevqRqzAmJ0FvfW8s4tv9msAjTzUi0dnAAdNKfCfBnSad2VDRo7uU0XauiMRr/zTh0H0s5ZWN9A3nvz266VxU8q33U72IqEZdciNnN5jJIMFPs4NbRpLTmOhOE5vXWWAySlQ2w4bl0Yq5+FzeHZBJwrUFYni2SZQX4vLjVvgpU4W8JUTBbDz2x7D5c9SnA7XxPg7USVCZOthmg/U4w0Iv8PepTouV6xIVcZ3aVzA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8zNLZ6In0WxBxMdjk/eyflSCSXvXRVOjUvGeXSJv+Z4=;
+ b=VO4lA2R4V2N+TVcdu1ioYxlY26++w5uCo831rDjqlBBCQ5JsrcLwn1nymjFKucNOGQ7mV8IwatPGwsIkDx9kZT8c/VKQLrOZwk/pmr7Nrc2rDUPGvdsK7YD8m+xrIstWN2ki6zctjCguAUBY1skBKUI8n6Epr3wfQEVFWs4OGnIuAEa9SXskS56Dbb52Aq2hQ6qj+DFvt6XYF8UYkJs4ANMtyObj/X+syIz3JoKgBikxlywZ07EfkPEXV6e4N10vfppuZIhY4654U05oeQdY8YoNz7QaYO6lypajgmDNaAZZAE2si106lF60BmFo9mAc007d8VHUUMLHoIbDZziiQg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8zNLZ6In0WxBxMdjk/eyflSCSXvXRVOjUvGeXSJv+Z4=;
+ b=fdmdh2tAUKRsQQQO3nUJStp6NiMoHuqWsZqpgRQfK0h+qK4ueVd5e25n9aJ+4Imwk7CIah3dcNvUgv1Lh747Kwx/0sXgjTpBX8FAqOwtr9XsXBLROdS0IV87OngRRkeOoYdNrQmuK4JgMSH58G7Il9uTTf8JSbDhsU8aydS2DbA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
+ by BY5PR12MB4211.namprd12.prod.outlook.com (2603:10b6:a03:20f::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8356.22; Thu, 23 Jan
+ 2025 20:06:47 +0000
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::1c2f:5c82:2d9c:6062]) by CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::1c2f:5c82:2d9c:6062%4]) with mapi id 15.20.8356.020; Thu, 23 Jan 2025
+ 20:06:47 +0000
+Message-ID: <16986d2f-abd8-41d8-b150-55d6b1c6ba6c@amd.com>
+Date: Thu, 23 Jan 2025 15:06:44 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [V7 29/45] drm/colorop: Add PQ 125 EOTF and its inverse
+To: Simon Ser <contact@emersion.fr>, Alex Hung <alex.hung@amd.com>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ wayland-devel@lists.freedesktop.org
+References: <20241220043410.416867-1-alex.hung@amd.com>
+ <20241220043410.416867-30-alex.hung@amd.com>
+ <owMi7HF_zONkAALlmHM6WhUNrOAyMbEYyjD7We0OGgWht2Tgj7o4OSByObPiwf8lZ0qwyy80r8kuf3pTea1ayGXzSua0oZc5OtydzYkF-M0=@emersion.fr>
+Content-Language: en-US
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <owMi7HF_zONkAALlmHM6WhUNrOAyMbEYyjD7We0OGgWht2Tgj7o4OSByObPiwf8lZ0qwyy80r8kuf3pTea1ayGXzSua0oZc5OtydzYkF-M0=@emersion.fr>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YT4PR01CA0151.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:ac::18) To CO6PR12MB5427.namprd12.prod.outlook.com
+ (2603:10b6:5:358::13)
 MIME-Version: 1.0
-References: <20250123174649.2882048-1-srinivasan.shanmugam@amd.com>
-In-Reply-To: <20250123174649.2882048-1-srinivasan.shanmugam@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 23 Jan 2025 13:15:31 -0500
-X-Gm-Features: AbW1kvZmXcoSK1NcRGVkM0FXCMe-SFdROcU7O_pwE1TnBcOkfnEvbIJJ85wv2oE
-Message-ID: <CADnq5_NjfLVvtinth0W045sLJAkNGJeVWb4TF68DNzKDakuNjQ@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amdgpu/gfx10: Add cleaner shader for GFX10.1.10
-To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|BY5PR12MB4211:EE_
+X-MS-Office365-Filtering-Correlation-Id: 95bc42d6-ff87-4a3f-0e77-08dd3be9771c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?V0FWVG13RVNTdjFON0NwVW1tSEd4d25OdVJYdjcwYTRPamxpSUhMNnRFY0Rl?=
+ =?utf-8?B?SFgrbnh4emJHNlFEazN0MEZWYUdKT3VPbnU0ZVdLRHU3UVhQaTZDMU9JK3Q0?=
+ =?utf-8?B?OFZGMFBFcFB3YjlST3VzNVJ2LzEybjRIV1dVekRtMlFLY1BoeDcvbGs2Ym5w?=
+ =?utf-8?B?SDQ3K1htYnNucGNBUzQ3aXZTeUJvNzFmV0tuN0tFd284elJldUlqU3BnRHRG?=
+ =?utf-8?B?U2xoVWk3bnF4N1RJanBKOGtwa09kWjQ5MFd1S2JsUjh6RlBIWEV4UUNBSFU5?=
+ =?utf-8?B?Nmpxd3QrYno5U2s0TE0vcVZWNGw3cVR4K3JEOE1XUnRRQW1ITG83UVpTZXZB?=
+ =?utf-8?B?SjdhY2U2VlJVc3BHdVE1d0pvbHkrK3NIekUyTC9YTVdvZUlBZmtWaUJ0NCtG?=
+ =?utf-8?B?cEt6bFNlMUxqekhueDExNStjK1YwS0lmbUphT2RjWHNsNE9oQkRXblBVdkxm?=
+ =?utf-8?B?dVAvL2dndEFsNlZmQlJiS05VaTE2eHBsQ1hXVzRSSUhyY1kxckwzZGhTTVl1?=
+ =?utf-8?B?VFp4YlVkQm9sZmp0QnZnSklKcXJpM2ptSWFOZldWd3VzOStZQzlnZUdLaENL?=
+ =?utf-8?B?S0s4d2Y1TSt0ckMwaUZKK1k0aEdLRGY0SER3ZU04QVZRYjZYNmpld1ZyZ1I5?=
+ =?utf-8?B?OTZYN1BuYkVFMEJIaWFxTnRJM3F6USt1aVlTdXBrL0FLdWxHcmJ2a1lvbk5E?=
+ =?utf-8?B?Y3IxNFhaTFdlZ09EaVBMczNSSldNRFA0ZWdZcmErUG84ejFZSmJHMWpwL3Ri?=
+ =?utf-8?B?Ny9HQ2l5V2VkNUhHbTd4azlSWkp1WEY0Y0tiTSsrNkF3eUlYc2V1WHRWQ3FU?=
+ =?utf-8?B?ZzBsNnZUVHI5cWM4UG1sYUU1TkcxN0VtdUJmZmdRUjNtZW81MUpYMW9tQVBu?=
+ =?utf-8?B?cHhoWExockdHRVgyZmlVM1dPZXRXNjVrQkhkOVFybmNVZTUvUkZwRlpGT0t1?=
+ =?utf-8?B?MEVpVG91L1BGdkg3VzZWM0tGaUFHVjFobjFZRVV6ODZaRmFHSG5aSFVzNlQr?=
+ =?utf-8?B?Njd2SEZWMSt6K29NNFVVVzVGU3hlMDhOQjNmOTRnVFBWS21uQU1abGtaeTR1?=
+ =?utf-8?B?NWlROWtpRzFpd1BnWXdUVlg4NWNObk5Xclp1TURmZ0QwYm5CTE8yQ3h1STha?=
+ =?utf-8?B?L2RRR0pBNG9mNG14ZHVUaVpCdkY3Q2NLZnhSNWxVVXBHNHA1REgrb0RjTHZt?=
+ =?utf-8?B?K1J4aXlJMnVjODdCVFB1WHUzRjNHYng3RzBEOEtvM1IxTjN6cEc5d3NoZHRI?=
+ =?utf-8?B?ZTJ3TkVINHFoZktLeE1ZaXJpZGUyZVd6Yk5zNTRNL29JSEtacUFuNStnR1I1?=
+ =?utf-8?B?WEFOSDEvdUJUQjA1aGJ5ejBGUkdLc2JoRTNlUzJZWEc0VGlrL3ZQdXhiUSt1?=
+ =?utf-8?B?NlRYYlNGMnZaS2JrK0k0U21PbTJHeTRIbEc4Sy8xdUMzVGR4S0VVcFZmZHZO?=
+ =?utf-8?B?VmJOb2k5VmxhSTRiR0RjMEJ6MVVtVWx6c25OT2NmeEg1NlROUWZ2QVFTempP?=
+ =?utf-8?B?NXZITjdEeTI5K0FlOEtMT1NoWUxrRkNZQ0l5bG9tWWdSVncwTkRnMG1kZVRR?=
+ =?utf-8?B?Z1grakI2d296empiN0xGNmZGd2FBYUlwVFkwRi9qaGI1WFo5NDNZVlVGa09m?=
+ =?utf-8?B?ZWI3UllYMi91WCtZV2syUFRQaDMwcUZLQzFsbms2Q1VPd3lpOXNXZDl3ZW5i?=
+ =?utf-8?B?VlhQc2pVLy9jcmVmSlJIOVh2UkJPb3ZVSWFSb1JoaSs1OG5FQjZiV0o1dmln?=
+ =?utf-8?B?WXBXUjlzWUFpQTJUWGl5c3U4aVBRSitrZGszZG9EdHFJK2ZaRVR3NUQ2L3p5?=
+ =?utf-8?B?TjJ3MnFhelNUVXpVeW94UT09?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Y01QSTluV0FadUNGY28zTVNxeVp5b29GQXduMlZjWithYm5EdTVzQ3ZuWGQ2?=
+ =?utf-8?B?aktYQmRMbFc0SWgvQlBiOEYwVHN5Z3VvTmozbDB1WDZ0SFJ0OWpGUEMySHIx?=
+ =?utf-8?B?ZjJHdGk3TFE0WGU2M2lUS0VzY0pRdUxkTi9vZTNPb01nOHRySDZXU2VUZTFI?=
+ =?utf-8?B?aml6WHVsM1Z6dm5mMERpRFRXMi9RK0I1TElCQk5zaG8va3RNaUpXWnZicTVO?=
+ =?utf-8?B?cWM2TTZjTnVBS0RPb1dLU2ZNYzFvcTFjVkRKSGVWdHdpQWZhWkk2Vi92NGV3?=
+ =?utf-8?B?bUlaOWo4ZjdCUzk3cnNyS1h1TzlOaDdIS21qUkZ6a3g1Y2Q0VTdkcVJwanNl?=
+ =?utf-8?B?Nm4wbFJPZXJnQitnc1UzNTFpYVFKbCtCeGE3dEZBSU1QYUxHL3pqRlZXK3hY?=
+ =?utf-8?B?OTRPQitWUjhGQ0Y0Ui9oY0FkQVVWelpvL0JLaG85b1o0Q2xlY0VidHhGYUV0?=
+ =?utf-8?B?b1NjOXpxVlg5ZklON0JsMDk1cWZCUlFocXVqZEltNFVDcUpTanpsZGdEa2U0?=
+ =?utf-8?B?Q0RINVdsUXdTKzlqQkwwNmNEMWluMW1VWHZCQW5LdTdMbkg2WmdkR2tkNTRk?=
+ =?utf-8?B?bWYvSjdYZmxMT1hQZ3ZCejJJWDN4c2FuaVdFVGlxNGlqR3Ixdnk1SFRpQ3Rw?=
+ =?utf-8?B?a0dvWFBqbllKQWozM1hTck5JUTk1Q25FQ1E1aWEvYlpvMEY3Q0xicWxLY1lX?=
+ =?utf-8?B?bmhPdXUvM0FrOFJaNDZBdnYwWHVBRmtHaytaV2F6bk1nQTN4V2k2ZlFWamZj?=
+ =?utf-8?B?ZDRqNGRET2Q1STlXOHJWdVE5eVZJcVI5cEtnQ25VTUhVekZ2NWh1eHlLWTND?=
+ =?utf-8?B?VUMzYzBzYWM0ZFdEZ1Rnb0xzeTB4cENXR0lod1kxMHZ4cEVXWmVwbWk1NVVD?=
+ =?utf-8?B?dk1MOHdjZitvajIzalpCTGNBUDkxSkRJQnVkT3dWYXEwKzM2NURrRXczbXhu?=
+ =?utf-8?B?bzVXNDdUcGhDTEJ3RGhzKzlCcDE2d255bVNKZDdQVGRaVVFjeFl1em0zaW9T?=
+ =?utf-8?B?bXk3SUZSOURXbUM2THZjNFB5RlVsTkFQclVmODNRbTVPWmZTTjVxdCtwc29V?=
+ =?utf-8?B?cVVzV0pScWhJK2cyM0s3VThpQ1JYWFVsalNmRXV1VGhhN0dIcUwxMDBTNTN2?=
+ =?utf-8?B?bTVLTjVLVGpKU0JoZU9tZVFXL0k4YTdIQWFKOEpCSDQwZm00S0JDRFJ2RDg1?=
+ =?utf-8?B?Y1NLaURQRkI4TG51bW1SaXJCckw2L1RvbTRJRjBLYldIM2h6OENEQmg0Wlh6?=
+ =?utf-8?B?OHZBZmVyQzdPdGFla0N4S1JRWm42V21INSt1alR1V3NWbks4b1BtZVlOOFEz?=
+ =?utf-8?B?RitqR0dEbUxzeWk1dHVtck85TmYwTlR0ZTFKNDJYMUthVkt3UzgvT2R5SFo5?=
+ =?utf-8?B?Sm5qVm1QL25xVXBTeHMzbWQ0ZUxPUG11dmNqMDRzNGxHNlZ6ck1LMWNUSEs4?=
+ =?utf-8?B?dVlQWCtWUFRtMmdXc1dpUnRxYlJjS3YrakF1Y2YwQ1c5Y09QZ05INGpFa1Yz?=
+ =?utf-8?B?TVluSW9JN2V6cnJtLzJNc3FHNFJJMFRZTVd3R3g5V1lSWE9uUE9nUDVHSEJG?=
+ =?utf-8?B?cmJtWFlGdlpVekF2Y1ZGK1ZTbjJGd2Y5czdDODIyRmZSamVFWHkyalp3UVNG?=
+ =?utf-8?B?WFNsYlE2Z0dkTlc2RjdEN1Y3SDNvR3NpQ1I2ZXRIbUMwNWhhdTVrMXh2d1lp?=
+ =?utf-8?B?V0IxVUU0U3pCODlqZ2kvUGk1djBpZzk2YVEzNnJ3c1pRdU1vMVRubGdCcDdi?=
+ =?utf-8?B?eGlWS1AwYWxqRlc3bnhLTitjYUZobXBPdEpsWFlkRjg0bVhOTlplV1lha3lj?=
+ =?utf-8?B?ODUyejJxRnpCaHY0ZDRCMGs0OFh0dVZiUW9hQXkwdm5sWE5yRzQ1a2RTdUZC?=
+ =?utf-8?B?d0gzMyswaUpQZjhoRE5PY1lzc09kSUt1bk9OeHRkZWV5Y29OVU45K3MzTGxE?=
+ =?utf-8?B?aU9TMExLUTRyMnE1UmNPTTlreUtzLzk5YmxwOWFma1NxUFppaTV1d2IrVzhM?=
+ =?utf-8?B?NnRXRUd1Tkk3TDU0NG9LbDhkL2hjL2c0ZzZEOVZMQ2hFTmR0WjFlay9HY2N3?=
+ =?utf-8?B?dlJNQjIwZmlkWHhRTlBnNXFqU0pHMWVUbnhTT2xrNldYL09GMS9iSXZaWHRw?=
+ =?utf-8?Q?m/Oupd9Rj5qzEdcP6JIPwL7Ny?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 95bc42d6-ff87-4a3f-0e77-08dd3be9771c
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jan 2025 20:06:46.9774 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: t73Ms66A8D4nv0aNQhTB5GKJKkIZ5dSaxZzzux1qM42FzOHpGEcyyn66xSiJLMso0+qVOdojyBTtWN3TRzF4xQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4211
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,295 +161,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jan 23, 2025 at 12:47=E2=80=AFPM Srinivasan Shanmugam
-<srinivasan.shanmugam@amd.com> wrote:
->
-> This commit adds the cleaner shader microcode for GFX10.1.0 GPUs. The
-> cleaner shader is a piece of GPU code that is used to clear or
-> initialize certain GPU resources, such as Local Data Share (LDS), Vector
-> General Purpose Registers (VGPRs), and Scalar General Purpose Registers
-> (SGPRs).
->
-> Clearing these resources is important for ensuring data isolation
-> between different workloads running on the GPU. Without the cleaner
-> shader, residual data from a previous workload could potentially be
-> accessed by a subsequent workload, leading to data leaks and incorrect
-> computation results.
->
-> The cleaner shader microcode is represented as an array of 32-bit words
-> (`gfx_10_1_0_cleaner_shader_hex`). This array is the binary
-> representation of the cleaner shader code, which is written in a
-> low-level GPU instruction set.
->
-> When the cleaner shader feature is enabled, the AMDGPU driver loads this
-> array into a specific location in the GPU memory. The GPU then reads
-> this memory location to fetch and execute the cleaner shader
-> instructions.
->
-> The cleaner shader is executed automatically by the GPU at the end of
-> each workload, before the next workload starts. This ensures that all
-> GPU resources are in a clean state before the start of each workload.
->
-> This addition is part of the cleaner shader feature implementation. The
-> cleaner shader feature helps resource utilization by cleaning up GPU
-> resources after they are used. It also enhances security and reliability
-> by preventing data leaks between workloads.
->
-> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c        |  14 ++
->  .../drm/amd/amdgpu/gfx_v10_0_cleaner_shader.h |  35 +++++
->  .../amdgpu/gfx_v10_1_10_cleaner_shader.asm    | 126 ++++++++++++++++++
->  3 files changed, 175 insertions(+)
->  create mode 100644 drivers/gpu/drm/amd/amdgpu/gfx_v10_1_10_cleaner_shade=
-r.asm
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd=
-/amdgpu/gfx_v10_0.c
-> index 4b5e65affb81..1878c83ff7e3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> @@ -4794,6 +4794,20 @@ static int gfx_v10_0_sw_init(struct amdgpu_ip_bloc=
-k *ip_block)
->                 break;
->         }
->         switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
-> +       case IP_VERSION(10, 1, 10):
-> +               adev->gfx.cleaner_shader_ptr =3D gfx_10_1_10_cleaner_shad=
-er_hex;
-> +               adev->gfx.cleaner_shader_size =3D sizeof(gfx_10_1_10_clea=
-ner_shader_hex);
-> +               if (adev->gfx.me_fw_version >=3D 101 &&
-> +                   adev->gfx.pfp_fw_version  >=3D 158 &&
-> +                   adev->gfx.mec_fw_version >=3D 152) {
-> +                       adev->gfx.enable_cleaner_shader =3D true;
-> +                       r =3D amdgpu_gfx_cleaner_shader_sw_init(adev, ade=
-v->gfx.cleaner_shader_size);
-> +                       if (r) {
-> +                               adev->gfx.enable_cleaner_shader =3D false=
-;
-> +                               dev_err(adev->dev, "Failed to initialize =
-cleaner shader\n");
-> +                       }
-> +               }
-> +               break;
->         case IP_VERSION(10, 3, 0):
->         case IP_VERSION(10, 3, 2):
->         case IP_VERSION(10, 3, 4):
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0_cleaner_shader.h b/driv=
-ers/gpu/drm/amd/amdgpu/gfx_v10_0_cleaner_shader.h
-> index 663c2572d440..5255378af53c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0_cleaner_shader.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0_cleaner_shader.h
-> @@ -21,6 +21,41 @@
->   * OTHER DEALINGS IN THE SOFTWARE.
->   */
->
-> +/* Define the cleaner shader gfx_10_1_10 */
-> +static const u32 gfx_10_1_10_cleaner_shader_hex[] =3D {
-> +       0xb0804004, 0xbf8a0000,
-> +       0xbf068100, 0xbf840023,
-> +       0xbe8203b8, 0xbefc0380,
-> +       0x7e008480, 0x7e028480,
-> +       0x7e048480, 0x7e068480,
-> +       0x7e088480, 0x7e0a8480,
-> +       0x7e0c8480, 0x7e0e8480,
-> +       0xbefc0302, 0x80828802,
-> +       0xbf84fff5, 0xbe8203ff,
-> +       0x80000000, 0x87020102,
-> +       0xbf840012, 0xbefe03c1,
-> +       0xbeff03c1, 0xd7650001,
-> +       0x0001007f, 0xd7660001,
-> +       0x0002027e, 0x16020288,
-> +       0xbe8203bf, 0xbefc03c1,
-> +       0xd9382000, 0x00020201,
-> +       0xd9386040, 0x00040401,
-> +       0xd70f6a01, 0x000202ff,
-> +       0x00000400, 0x80828102,
-> +       0xbf84fff7, 0xbefc03ff,
-> +       0x00000068, 0xbe803080,
-> +       0xbe813080, 0xbe823080,
-> +       0xbe833080, 0x80fc847c,
-> +       0xbf84fffa, 0xbeea0480,
-> +       0xbeec0480, 0xbeee0480,
-> +       0xbef00480, 0xbef20480,
-> +       0xbef40480, 0xbef60480,
-> +       0xbef80480, 0xbefa0480,
-> +       0xbf810000, 0xbf9f0000,
-> +       0xbf9f0000, 0xbf9f0000,
-> +       0xbf9f0000, 0xbf9f0000,
-> +};
-> +
->  /* Define the cleaner shader gfx_10_3_0 */
->  static const u32 gfx_10_3_0_cleaner_shader_hex[] =3D {
->         0xb0804004, 0xbf8a0000,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_1_10_cleaner_shader.asm b=
-/drivers/gpu/drm/amd/amdgpu/gfx_v10_1_10_cleaner_shader.asm
-> new file mode 100644
-> index 000000000000..9ba3359253c9
-> --- /dev/null
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_1_10_cleaner_shader.asm
-> @@ -0,0 +1,126 @@
-> +/* SPDX-License-Identifier: MIT */
-> +/*
-> + * Copyright 2025 Advanced Micro Devices, Inc.
-> + *
-> + * Permission is hereby granted, free of charge, to any person obtaining=
- a
-> + * copy of this software and associated documentation files (the "Softwa=
-re"),
-> + * to deal in the Software without restriction, including without limita=
-tion
-> + * the rights to use, copy, modify, merge, publish, distribute, sublicen=
-se,
-> + * and/or sell copies of the Software, and to permit persons to whom the
-> + * Software is furnished to do so, subject to the following conditions:
-> + *
-> + * The above copyright notice and this permission notice shall be includ=
-ed in
-> + * all copies or substantial portions of the Software.
-> + *
-> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRE=
-SS OR
-> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILI=
-TY,
-> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SH=
-ALL
-> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES=
- OR
-> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-> + * OTHER DEALINGS IN THE SOFTWARE.
-> + */
-> +
-> +// This shader is to clean LDS, SGPRs and VGPRs. It is  first 64 Dwords =
-or 256 bytes of 256 Dwords cleaner shader.
-> +
-> +// GFX10.1 : Clear SGPRs, VGPRs and LDS
-> +//   Launch 32 waves per CU (16 per SIMD) as a workgroup (threadgroup) t=
-o fill every wave slot
-> +//   Waves are "wave32" and have 64 VGPRs each, which uses all 1024 VGPR=
-s per SIMD
-> +//   Waves are launched in "CU" mode, and the workgroup shares 64KB of L=
-DS (half of the WGP's LDS)
-> +//      It takes 2 workgroups to use all of LDS: one on each CU of the W=
-GP
-> +//   Each wave clears SGPRs 0 - 107
-> +//   Each wave clears VGPRs 0 - 63
-> +//   The first wave of the workgroup clears its 64KB of LDS
-> +//   The shader starts with "S_BARRIER" to ensure SPI has launched all w=
-aves of the workgroup
-> +//       before any wave in the workgroup could end.  Without this, it i=
-s possible not all SGPRs get cleared.
-> +
-> +
-> +shader main
-> +  asic(GFX10.1)
-> +  type(CS)
-> +  wave_size(32)
-> +// Note: original source code from SQ team
-> +
-> +//
-> +// Create 32 waves in a threadgroup (CS waves)
-> +// Each allocates 64 VGPRs
-> +// The workgroup allocates all of LDS (64kbytes)
-> +//
-> +// Takes about 2500 clocks to run.
-> +//   (theorhetical fastest =3D 1024clks vgpr + 640lds =3D 1660 clks)
-> +//
-> +  S_BARRIER
-> +  s_cmp_eq_u32 s0, 1                                // Bit0 is set, sgpr=
-0 is set then clear VGPRS and LDS as FW set COMPUTE_USER_DATA_0
-> +  s_cbranch_scc0  label_0023                        // Clean VGPRs and L=
-DS if sgpr0 of wave is set, scc =3D (s0 =3D=3D 1)
-> +
-> +  s_mov_b32     s2, 0x00000038  // Loop 64/8=3D8 times  (loop unrolled f=
-or performance)
-> +  s_mov_b32     m0, 0
-> +  //
-> +  // CLEAR VGPRs
-> +  //
-> +label_0005:
-> +  v_movreld_b32     v0, 0
-> +  v_movreld_b32     v1, 0
-> +  v_movreld_b32     v2, 0
-> +  v_movreld_b32     v3, 0
-> +  v_movreld_b32     v4, 0
-> +  v_movreld_b32     v5, 0
-> +  v_movreld_b32     v6, 0
-> +  v_movreld_b32     v7, 0
-> +  s_mov_b32         m0, s2
-> +  s_sub_u32     s2, s2, 8
-> +  s_cbranch_scc0  label_0005
-> +  //
-> +  s_mov_b32     s2, 0x80000000                     // Bit31 is first_wav=
-e
-> +  s_and_b32     s2, s2, s0                                  // sgpr0 has=
- tg_size (first_wave) term as in ucode only COMPUTE_PGM_RSRC2.tg_size_en is=
- set
-> +  s_cbranch_scc0  label_0023                         // Clean LDS if its=
- first wave of ThreadGroup/WorkGroup
-> +  // CLEAR LDS
-> +  //
-> +  s_mov_b32 exec_lo, 0xffffffff
-> +  s_mov_b32 exec_hi, 0xffffffff
-> +  v_mbcnt_lo_u32_b32  v1, exec_hi, 0          // Set V1 to thread-ID (0.=
-.63)
-> +  v_mbcnt_hi_u32_b32  v1, exec_lo, v1        // Set V1 to thread-ID (0..=
-63)
-> +  v_mul_u32_u24  v1, 0x00000008, v1          // * 8, so each thread is a=
- double-dword address (8byte)
-> +  s_mov_b32     s2, 0x00000003f                    // 64 loop iterations
-> +  s_mov_b32     m0, 0xffffffff
-> +  // Clear all of LDS space
-> +  // Each FirstWave of WorkGroup clears 64kbyte block
-> +
-> +label_001F:
-> +  ds_write2_b64  v1, v[2:3], v[2:3] offset1:32
-> +  ds_write2_b64  v1, v[4:5], v[4:5] offset0:64 offset1:96
-> +  v_add_co_u32     v1, vcc, 0x00000400, v1
-> +  s_sub_u32     s2, s2, 1
-> +  s_cbranch_scc0  label_001F
-> +
-> +  //
-> +  // CLEAR SGPRs
-> +  //
-> +label_0023:
-> +  s_mov_b32     m0, 0x00000068  // Loop 108/4=3D27 times  (loop unrolled=
- for performance)
-> +label_sgpr_loop:
-> +  s_movreld_b32     s0, 0
-> +  s_movreld_b32     s1, 0
-> +  s_movreld_b32     s2, 0
-> +  s_movreld_b32     s3, 0
-> +  s_sub_u32         m0, m0, 4
-> +  s_cbranch_scc0  label_sgpr_loop
-> +
-> +  //clear vcc
-> +  s_mov_b64 vcc, 0          //clear vcc
-> +  //s_setreg_imm32_b32 hw_reg_shader_flat_scratch_lo, 0   //clear  flat =
-scratch lo SGPR
-> +  //s_setreg_imm32_b32 hw_reg_shader_flat_scratch_hi, 0    //clear  flat=
- scratch hi SGPR
-> +  s_mov_b64 ttmp0, 0        //Clear ttmp0 and ttmp1
-> +  s_mov_b64 ttmp2, 0        //Clear ttmp2 and ttmp3
-> +  s_mov_b64 ttmp4, 0        //Clear ttmp4 and ttmp5
-> +  s_mov_b64 ttmp6, 0        //Clear ttmp6 and ttmp7
-> +  s_mov_b64 ttmp8, 0        //Clear ttmp8 and ttmp9
-> +  s_mov_b64 ttmp10, 0       //Clear ttmp10 and ttmp11
-> +  s_mov_b64 ttmp12, 0       //Clear ttmp12 and ttmp13
-> +  s_mov_b64 ttmp14, 0       //Clear ttmp14 and ttmp15
-> +
-> + s_endpgm
-> +
-> +end
-> +
-> +
-> --
-> 2.34.1
->
+On 2025-01-15 03:00, Simon Ser wrote:
+> Is this 125 magic number something we can expect other hardware to
+> implement as well?
+> 
+
+It's based on MS's CCCS interpretation of 80 nits as 1.0f [1]. Based on
+this definition one needs to use 125.0f to represent 10,000 nits,
+the maximum value PQ can represent.
+
+It's hard to say whether other HW will implement it the same way,
+though most drivers for HW that supports HDR on Windows might have
+a similar concept somewhere.
+
+> Could AMD use the HDR multiplier or another block to behave as if
+> the multiplier didn't exist?
+> 
+
+Gamescope makes use of this scaled PQ EOTF and its inverse, so I'd
+like to expose at least one color pipeline that we can use to move
+gamescope from the AMD-private color properties to the color pipeline
+API.
+
+We only have a single HDR multiplier but three curves (1 and 3 are EOTF,
+curve 2 is the inverse). We could only mode a PQ curve in the range of
+0 to MAX_VALUE (1.0, 255, 1024, etc.) for the 1st EOTF, not for the 2nd or
+3rd curves. I'm not sure how useful that would be.
+
+[1] https://learn.microsoft.com/en-us/windows/win32/direct3darticles/high-dynamic-range#system-composition-using-a-high-bit-depth-canonical-color-space-1
+
+Harry
+
+> Note, I am no HDR expert. Maybe others have a better idea whether this
+> makes sense or not.
+
