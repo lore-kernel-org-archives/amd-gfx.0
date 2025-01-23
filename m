@@ -4,63 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2F08C0218C
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jan 2025 11:10:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C68D6C02182
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jan 2025 11:10:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C36810E286;
-	Thu, 23 Jan 2025 11:10:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0943910E7D4;
+	Thu, 23 Jan 2025 11:10:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="SXS0yejQ";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="AI8M5Qr0";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1415E10E2D4;
- Wed, 22 Jan 2025 04:48:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1737521322; x=1769057322;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=iMaXACMURgli3ZtGpip9gpyVmugdXalQ98jx7Q9T6ko=;
- b=SXS0yejQEEnuAqVdD9G4tiiHUwRH+AZDMm1tUowKVbzHxr0nB5rr+49o
- +QPOHIvA2wh5Q3kEg408No7y3kxt5yod91FNAPXyEgwBqGIuPby3mld4x
- FZRM3FUBmbujDlECYz/U1DL4tM3D7GO3UCE3CYTv//gJmBu84lOYi9O9S
- ourBXXta4pCsydomdZ+FJR3RKGArtnyrb9QdpbB2qqOJLTGLXo42d1HCh
- dpoP+JFrI4XgvNSZzdc4CX68Zf1gvu9QvBzsfpc5tejL1MwdDrOIWpUIm
- twtwLveXb+2rEI0IW/clVLUmqvv5/k9nfMLCRk57BNoy6VPzbUe4p6Dio A==;
-X-CSE-ConnectionGUID: U09vFCqMQdC4fGs8spnlBw==
-X-CSE-MsgGUID: 5O0u6rtuQK2ih/XUF42L2A==
-X-IronPort-AV: E=McAfee;i="6700,10204,11322"; a="48628750"
-X-IronPort-AV: E=Sophos;i="6.13,224,1732608000"; d="scan'208";a="48628750"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jan 2025 20:48:42 -0800
-X-CSE-ConnectionGUID: 3irDzB9/R/CdJfHQYz4KNQ==
-X-CSE-MsgGUID: rD5B8qHZTiCjrUj9Dlyyhw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,224,1732608000"; d="scan'208";a="107556201"
-Received: from black.fi.intel.com ([10.237.72.28])
- by fmviesa010.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jan 2025 20:48:37 -0800
-Date: Wed, 22 Jan 2025 06:48:34 +0200
-From: Raag Jadav <raag.jadav@intel.com>
-To: Xaver Hugl <xaver.hugl@kde.org>
-Cc: airlied@gmail.com, simona@ffwll.ch, lucas.demarchi@intel.com,
- rodrigo.vivi@intel.com, jani.nikula@linux.intel.com,
- andriy.shevchenko@linux.intel.com, lina@asahilina.net,
- michal.wajdeczko@intel.com, christian.koenig@amd.com,
- intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, himal.prasad.ghimiray@intel.com,
- aravind.iddamsetty@linux.intel.com, anshuman.gupta@intel.com,
- alexander.deucher@amd.com, andrealmeid@igalia.com,
- amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com
-Subject: Re: [PATCH v10 0/4] Introduce DRM device wedged event
-Message-ID: <Z5B4ogLqSMT7aE-r@black.fi.intel.com>
-References: <20241128153707.1294347-1-raag.jadav@intel.com>
- <CAFZQkGwJ4qgHV8WTp2=svJ_VXhb-+Y8_VNtKB=jLsk6DqMYp9w@mail.gmail.com>
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1944510E05E;
+ Thu, 23 Jan 2025 09:36:01 +0000 (UTC)
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4YdwmY48K5z9sst;
+ Thu, 23 Jan 2025 10:35:57 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1737624957; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=BA21ZdFmf9AgvaHm9Y/mSCvgkAFKKd488Nm7JfR7y80=;
+ b=AI8M5Qr0n+UrVl84JV0jLmmaPU1I8UG2L59++38mtN9RvjsDVUZ4NeluXnppr33VC5TXR+
+ 7g2U/c7hkJlnNIqL07aoUVZ0EvdpYVlVEREJELozJ480nJ/5XveHQ6GVnWjSA4fYJIyxF+
+ OTzFTPyJPPsGmaHEmsXHyaWc4eI0dichd+FmBf6OgECfoQmezRCivB9jGmijomm8Bc7ix3
+ AiMmq2sTxSkXvietx2YWVpATLzbRjaogj+GVXMGm5XVN+C2FCBiKc5/1ibcrIeWtXVqAvi
+ W/FaLMq8S1cc6wy+D9rFhUuWV4IALs+9FSHpGAPACwjrAYrQGlxh4MkWrmgyCQ==
+Message-ID: <4ef6430c01f31659c327f688965800285b8172ac.camel@mailbox.org>
+Subject: Re: [PATCH] drm/sched: Use struct for drm_sched_init() params
+From: Philipp Stanner <phasta@mailbox.org>
+To: Danilo Krummrich <dakr@kernel.org>, phasta@kernel.org
+Cc: Boris Brezillon <boris.brezillon@collabora.com>, Alex Deucher
+ <alexander.deucher@amd.com>, Christian =?ISO-8859-1?Q?K=F6nig?=
+ <christian.koenig@amd.com>, Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Lucas Stach
+ <l.stach@pengutronix.de>, Russell King <linux+etnaviv@armlinux.org.uk>, 
+ Christian Gmeiner <christian.gmeiner@gmail.com>, Frank Binns
+ <frank.binns@imgtec.com>, Matt Coster <matt.coster@imgtec.com>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>,  Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Qiang Yu
+ <yuq825@gmail.com>,  Rob Clark <robdclark@gmail.com>, Sean Paul
+ <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,  Abhinav Kumar
+ <quic_abhinavk@quicinc.com>, Dmitry Baryshkov
+ <dmitry.baryshkov@linaro.org>, Marijn Suijten
+ <marijn.suijten@somainline.org>, Karol Herbst <kherbst@redhat.com>, Lyude
+ Paul <lyude@redhat.com>, Rob Herring <robh@kernel.org>, Steven Price
+ <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, Luben Tuikov
+ <ltuikov89@gmail.com>, Matthew Brost <matthew.brost@intel.com>, Melissa Wen
+ <mwen@igalia.com>, =?ISO-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>, Thomas
+ =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>, Rodrigo
+ Vivi <rodrigo.vivi@intel.com>,  Sunil Khatri <sunil.khatri@amd.com>, Lijo
+ Lazar <lijo.lazar@amd.com>, Mario Limonciello <mario.limonciello@amd.com>,
+ Ma Jun <Jun.Ma2@amd.com>, Yunxiang Li <Yunxiang.Li@amd.com>,
+ amd-gfx@lists.freedesktop.org,  dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org,  etnaviv@lists.freedesktop.org,
+ lima@lists.freedesktop.org,  linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org,  nouveau@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org
+Date: Thu, 23 Jan 2025 10:35:43 +0100
+In-Reply-To: <Z5IL9Ok7f16S9ZoD@pollux.localdomain>
+References: <20250122140818.45172-3-phasta@kernel.org>
+ <20250122181227.491b7881@collabora.com>
+ <af5aac800f7d2153aa3c315584f70c55378c1b2b.camel@mailbox.org>
+ <Z5IL9Ok7f16S9ZoD@pollux.localdomain>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAFZQkGwJ4qgHV8WTp2=svJ_VXhb-+Y8_VNtKB=jLsk6DqMYp9w@mail.gmail.com>
+X-MBO-RS-ID: 164d94837fa13444ce2
+X-MBO-RS-META: f5i44jte5azn1qwoc836a5u9i8n7kbs1
 X-Mailman-Approved-At: Thu, 23 Jan 2025 11:10:36 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -73,30 +89,42 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jan 21, 2025 at 01:59:47AM +0100, Xaver Hugl wrote:
-> Hi,
-> 
-> I experimented with using this in KWin, and
-> https://invent.kde.org/plasma/kwin/-/merge_requests/7027/diffs?commit_id=6da40f1b9e2bc94615a436de4778880cee16f940
-> makes it fall back to a software renderer when a rebind is required to
-> recover the GPU.
-> Making it also survive the rebind properly is more challenging
-> (current version of the MR doesn't do it for you and just crashes if
-> you do it with a udev rule or manually), but it's doable - and not a
-> problem of the API.
-> 
-> I'd really like to have the PID of the client that triggered the GPU
-> reset, so that we can kill it if multiple resets are triggered in a
-> row (or switch to software rendering if it's KWin itself) and show a
-> user-friendly notification about why their app(s) crashed, but that
-> can be added later.
+On Thu, 2025-01-23 at 10:29 +0100, Danilo Krummrich wrote:
+> On Thu, Jan 23, 2025 at 08:33:01AM +0100, Philipp Stanner wrote:
+> > On Wed, 2025-01-22 at 18:16 +0100, Boris Brezillon wrote:
+> > > On Wed, 22 Jan 2025 15:08:20 +0100
+> > > Philipp Stanner <phasta@kernel.org> wrote:
+> > >=20
+> > > > =C2=A0int drm_sched_init(struct drm_gpu_scheduler *sched,
+> > > > - =C2=A0=C2=A0 const struct drm_sched_backend_ops *ops,
+> > > > - =C2=A0=C2=A0 struct workqueue_struct *submit_wq,
+> > > > - =C2=A0=C2=A0 u32 num_rqs, u32 credit_limit, unsigned int hang_lim=
+it,
+> > > > - =C2=A0=C2=A0 long timeout, struct workqueue_struct *timeout_wq,
+> > > > - =C2=A0=C2=A0 atomic_t *score, const char *name, struct device *de=
+v);
+> > > > + const struct drm_sched_init_params *params);
+> > >=20
+> > >=20
+> > > Another nit: indenting is messed up here.
+> >=20
+> > That was done on purpose.
+>=20
+> Let's not change this convention, it's used all over the kernel tree,
+> including
+> the GPU scheduler. People are used to read code that is formatted
+> this way, plus
+> the attempt of changing it will make code formatting inconsistent.
 
-Excellent! While we have our consumer implementation in progress, it's
-always good to have wider adoption.
+Both the tree and this file are already inconsistent in regards to
+this.
 
-Thank you for your contribution.
+Anyways, what is your proposed solution to ridiculous nonsense like
+this?
 
-Raag
+https://elixir.bootlin.com/linux/v6.13-rc3/source/drivers/gpu/drm/scheduler=
+/sched_main.c#L1296
