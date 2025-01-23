@@ -4,150 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99BB3C0218B
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jan 2025 20:52:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A1F8C0218B
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jan 2025 21:01:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2FDE410E8AE;
-	Thu, 23 Jan 2025 20:52:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D84510E02E;
+	Thu, 23 Jan 2025 21:01:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="QVvU4eBW";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="d1Xqk+Ur";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2083.outbound.protection.outlook.com [40.107.237.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8CB9610E8C3;
- Thu, 23 Jan 2025 20:52:32 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=g9Djh5aQZYzym+IaRcTctcdtlyNLXNdyevabPXG4J2uk1f1aW09vavvshS2iw8euNHc0z1puv4te3FHCX+vw9CJ+GF+7LmiUHiC3P26Zb7lq8VQOeVwu4HvUTtfD+N2crcLza+dUcCvxhZLLZ7xwE4sSOumpcUHbC1a7yFuhiSW5N78LAdvLWiLo0VZp7s6mydT19CFw20K3O/KUpyV4XkATu0E8n1+f4Dv1kKvb23MqyiSWUds0tyaRK/6cU9G9ZLuEBb48zDzCohO4Q5Fb7Hv02/F5860nFRHeBj8Njsdu9Uh8qy9NsZWFnhUQ2QHDhw0MQifdtfcPuGkOwAWdkg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rjteE1qinSUS9GLRxgdeiG5MXWnAdfygB23e7wSvs8s=;
- b=nzLmPAhHzF6N0Vd1PKIbQI+PQBvbgEqeibPZcr1hdO4ZxFT5OL6wBBRYzvutDCxY+UQNC8vlas3u11IBkBvaH3MjofBMzfxzESabPBVLpXabDxFnMEj1Hg3DLoryb8YiIu5BPv5m2+CwNpI+aMLIPaRTGx9rQC1JaF8vHvEhXL4DzuCVF54NjfA9RCw5JPjKqI6tBm6xS/+/DHSmj+qJiUy0fesIEmVIp4p9kJ2Zgs5Fo1Ti4xqmaVWh5qJyEcjG6hiAtPIPqynL0PHJQ4uvld3ZVCCLhciY75hCMS05ULjDAiDGISKSJnARGyRy1bUPl4a7xYHb8NjHFWfqBJSlxw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rjteE1qinSUS9GLRxgdeiG5MXWnAdfygB23e7wSvs8s=;
- b=QVvU4eBWgXWQ6EPZS4mPBr47XMiJSFGN7V06aKUDaBnxGev4KbBLTnz7QYFBBc+FVSUKO0WXXgUKGucw3BidGc9XpSU/uK9AKo97nMrWk1JBLMaaCtdm23RgrbDkZt4DaxSZKBznNu8g9aSmXifxaSpn6xhdZ2isOy7bmbmb67U=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
- by CYYPR12MB8732.namprd12.prod.outlook.com (2603:10b6:930:c8::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8377.17; Thu, 23 Jan
- 2025 20:52:29 +0000
-Received: from CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::1c2f:5c82:2d9c:6062]) by CO6PR12MB5427.namprd12.prod.outlook.com
- ([fe80::1c2f:5c82:2d9c:6062%4]) with mapi id 15.20.8356.020; Thu, 23 Jan 2025
- 20:52:28 +0000
-Message-ID: <1d03eca9-8199-4d44-89d2-e168e272e9d7@amd.com>
-Date: Thu, 23 Jan 2025 15:52:26 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [V7 43/45] drm/amd/display: Add AMD color pipeline doc
-To: Pekka Paalanen <pekka.paalanen@haloniitty.fi>,
- Alex Hung <alex.hung@amd.com>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- wayland-devel@lists.freedesktop.org
-References: <20241220043410.416867-1-alex.hung@amd.com>
- <20241220043410.416867-44-alex.hung@amd.com>
- <20250117111952.66d09977@eldfell>
-Content-Language: en-US
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <20250117111952.66d09977@eldfell>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT4P288CA0048.CANP288.PROD.OUTLOOK.COM
- (2603:10b6:b01:d3::25) To CO6PR12MB5427.namprd12.prod.outlook.com
- (2603:10b6:5:358::13)
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com
+ [209.85.216.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 53CE910E02E
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jan 2025 21:01:46 +0000 (UTC)
+Received: by mail-pj1-f47.google.com with SMTP id
+ 98e67ed59e1d1-2ef79243680so334219a91.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jan 2025 13:01:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1737666106; x=1738270906; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=iTGj0cXqkBQpWDwRfEb5Ug+LQsYRTrlkl7gKQhB5F2k=;
+ b=d1Xqk+Urn84CKI8Mc/1xWJTwNoxwA8IVACrGoQVijhjVVBNC2AhWJUk4uN0RZh0Og3
+ A0RXnMa0Qh17I7Za95uMok7EBi/fX+S/BMd5TrA8fpeY3kHVN6IYN8PJ3ztgKacyZfSM
+ vY66AIlbk2grc7vd/R/AzCD5r30ZfpkUeyGJ5oz6iv9cYmrd8isie96B9RPMr+HiNPku
+ Ka6rLcHzw4RvpD8ApjsrvqTrpeCHFNmF08xmAV6zlBe/ePa45crihaqPTmBU2lkODayx
+ a1EHPp3I8dKCbOks5vJzHwi+jVqbUf753V4l+uflxDuzFsNN5hEaYzcZRfc24m5Bz9Ll
+ bhlw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1737666106; x=1738270906;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=iTGj0cXqkBQpWDwRfEb5Ug+LQsYRTrlkl7gKQhB5F2k=;
+ b=OlRo2WshVszmcvw6nf9iEEO45+Vv1anDcWoLrrG2f1eiyQFsRPr3o6perZwPmU7s90
+ sCvBO8RWaJE47Aq822aVzhxQZs27JI7fWx7cc2WJD1ldb/sHMRKavXeTcmaQeEoxhsed
+ SwHRDC/riCGuYtH9i1yjSXQgVwY8xWId3BExfdOgdOjNafDjbKAM8GAijg7MWXrRhsHR
+ 4q0SUosQ4aJhlfRSny+vAAOj96FgskqOCAZ8DbesuZbtflJTbkH12xpbt1om51xOe59S
+ gePhtjRd22eVPeSkbk+X/X8VdvXAzgMODySthvoDwScgftvqVn2Mx1TDdpbMnOolyxPJ
+ nnpQ==
+X-Gm-Message-State: AOJu0Yytm28CpGWamZlhvCvn9ociMfXOMx6To+6fJbWQpKuCG5wTrBZZ
+ ktBxmqB4jvAn3X91JomxUT+NX5+L1M/mrKWjv51PKI3o5TI43NerqBhrQI1a+Y4dy57ZyVt5ZhZ
+ tMeocr3789RwA+7iIdyGeodCXOXkQSA==
+X-Gm-Gg: ASbGncve7qoi4IPCam2u/qiqlzdozhRWCJrPOah/Y1+ctvZdhAu9oU9q6t4+wQDcMyL
+ EYkO+yv5l6V0tMkJdlLWFvrV/KidybzzkL8+eIsIHsbECC5/aw3tuu3caXexbfg==
+X-Google-Smtp-Source: AGHT+IENe6etMHhcVi2U2mGlO5JZfUjGHupK6kPc9T0UtdBDKJwDZQfQ59cyAn7CzYe8qZRtf8vedcpq/1tvNrZK8hQ=
+X-Received: by 2002:a05:6a00:2406:b0:72a:a7a4:99ca with SMTP id
+ d2e1a72fcca58-72daf973e78mr15592587b3a.2.1737666105448; Thu, 23 Jan 2025
+ 13:01:45 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|CYYPR12MB8732:EE_
-X-MS-Office365-Filtering-Correlation-Id: 90190d15-b1a3-4e89-da3c-08dd3befd946
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?WEtVcnlCKzUrT3hMR0hPR3dVbXJzcmxheDRhaHJ5K0QrR3dSVHRXT3cwVXFl?=
- =?utf-8?B?dk95ZGtEd3l1d3cwWndEbnEvSWpEbFZ2V1p0bFFKS1FxYnBhSTRXQ0J4QVMw?=
- =?utf-8?B?SlgydHRtdVovRFRiSElSdW8rTFZyd3lZN3I0TzNrUFJkSExaQ0tZaHNzN2lJ?=
- =?utf-8?B?ZHlnSDZ6eGl6a3BqVmczZk4zTkxSazhKN2pLbzRQVFVVcXJVTDVyM3NXelVH?=
- =?utf-8?B?OU5ObVNXMGkxNy9GUTlSUHdCbXhaZGFHN0NZWGFWWU5IWFVlUDBKK2o1MXJL?=
- =?utf-8?B?ZFRQczY1amJ3OE4vb1BaT2orMHJQclB0M1UvNDRaOXBtZWVRZDhXd2pIRGxD?=
- =?utf-8?B?SUh5d2dOMjhBTVdpc2h1Si9hMWZXWmJZeFJTWjRoSTJUeTRRaDFNeU1yR3Fq?=
- =?utf-8?B?ZVR4MkJlWjdaKzU4eFBiN1FuazZObEhrelBhR2dCN20xMndaNWY5N0JPWVY2?=
- =?utf-8?B?cUhpdGRPN1JSZW9ML1VCQkZsaVNVTlUyWlhaUUpIQVRYRFdtMkp4YUVjc1NY?=
- =?utf-8?B?VktsMERxcDdRUmtjRHFXdnNGL3hJT1FobHZ4d3B2L0s5QWY4S1VMYWdTYnhm?=
- =?utf-8?B?T0Q5bzc5MFZQQld1d25WUUFlanBVWERwSE52SzNuTkx6Z3VjRzdUdmVydXpJ?=
- =?utf-8?B?NHpnSWgrZHByQUxBOUtucVNnckRlR2dUaHZFbElwdFVUK1ZuZlhWcDB6VUZo?=
- =?utf-8?B?SGR0T256b2UwZmhMN3pISWtKcFVNV0NCSm1sZ3YyT1VkZTB6eVh6akx2R3ND?=
- =?utf-8?B?MHNkOXcwNERQZUxacUFYb3NlS1pPNW1VYi9abzU1dzJhM3NpNk51RnlvVmRr?=
- =?utf-8?B?UDloZE9seWQvVkk1MzlRQmt1WVNjQlhIbzJsTEhFVkpDSHFkeGxKSUd6cHVy?=
- =?utf-8?B?OXdaMUhPVktRYWlrWVh3Q2JHK1N2bVc3cjFuQmVTSjh2TTRJSXE2S1liWDRW?=
- =?utf-8?B?U2RxMHBOWUFQYzg4b0R2QTlCbG9kMjY3UkREY3pYQjNrTDdGL3FlNEErNzlr?=
- =?utf-8?B?cUdIQ2ttVTVLb3JMWkY1QnZiQU9vN0FGUUp6UzlOMUNXRUp0ODUvN2puekRm?=
- =?utf-8?B?MTZRblIzZnFhN0RCR0RCbEdOZjhLRlBmdmxyNFhiLzhqUXpZRzFaNXdGWFhQ?=
- =?utf-8?B?MmRHblNBOWYwRjMvYk9yNWZtblpybEpqQ3NYTnBoa2Q2WHZ3ZzdQTXg5bG5T?=
- =?utf-8?B?U3hZUVhMQWZhVHhERzN2NFdoamEyK2gyNkN5YVl2eWRQSFlOenoxdTBDQWpu?=
- =?utf-8?B?YlRaSERFQzlNQ1FIWExzbktITG5jc2VJcFB6eWxkR1hqY1kvMFFXdDFMMjJF?=
- =?utf-8?B?ZFFHTkpaVHdLMkdDcW1iUlcxaUt2MEUxb3lLQWg0eTlNSWpUWUtDM3BoY3dl?=
- =?utf-8?B?V1dBOVFhWjhtYzA3c0NEWWY5Vkh2SUZxVXhiUUNUcUg3UlNtZWZ3MFRsNzFE?=
- =?utf-8?B?NlFQdW51ekwxQnJqSTJ1dm5kdHR3UjkwUHIvdlpGbmR0bi80cjRtVDE5d0hX?=
- =?utf-8?B?U01LcjhiTzNpc21YTXBCY3lXUHVwckVhQ3RiWHFWTEVoZ1BZNzJVcFlsdU9X?=
- =?utf-8?B?UmxvTDJCZDlJUS83MXI1S1l4QTBhdUc1S3k3Y0ZTOHR2MVVhUXFDR3pIYW9Z?=
- =?utf-8?B?aFZXUm0yUXhhRmp4MENHYkR1Nm5yZ3hRM0xaTlZlM2ZwZlFGRjV3Vk5PK1RI?=
- =?utf-8?B?S202WGRmY2oxcU1LNGZEM3hqUWdxMEo4Y29vRGVwQ1dBQVFseXFCZDJyR0tW?=
- =?utf-8?B?Y3FXNjJUd1lvY1h6MFNkcjArV1dTR1JITlU1WVNSU0pVWHBtMm5yT1dBK2hQ?=
- =?utf-8?B?OGIxVnBheEVIMjBPMzJLZz09?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Zysyc0w4WEJxZXE0c01UL3gvL1daaFFTU0hpRGRvdVB4SWp2VGVZbWpvQ2ZS?=
- =?utf-8?B?SS9FbmZYUWwybmtzYUJrQzBneDNxRXYvUFg3REJEZU91ME9YSisyMExZeEpr?=
- =?utf-8?B?Z2t3L2xuSFAyWUZia0RmZkdjK0duaVA5dFBpRjZ6amZDejExWXRtTkwzQWRk?=
- =?utf-8?B?ME9VTVB1TU95WjM5L2VyT2k0OU9tVlI3dTRJaFp3WStOZ1JHeVAzM0dzbFQx?=
- =?utf-8?B?aWRlVTJEUVpnM09lT2hPSHZ5UW5oME1jdHo0TUMyd0hnNDUyVTNMSUtZMlND?=
- =?utf-8?B?N1g4eFVSK1JodzBnYjZDc01weElDZXlwTTVtWTVkeFJXSE1PN3lGVDdGUm5l?=
- =?utf-8?B?c2xkcmo3MGVVVWdHOVM4M1IrZnUrUnAxdko1QlR5VzN6TnZzVkhaTUtlZWJY?=
- =?utf-8?B?Sm1CMDNWdEFEZVV2VG1jVDV1N01JZWVBR1VkdDNtNzRNdThDMVU3VzZ2K3pO?=
- =?utf-8?B?Z2JpK1NlUnJ1TkNVZjhXUmd3cHZGK0JPVU5OOWZsdjdlZngrMk41dGU3YlJi?=
- =?utf-8?B?SG84VFlwM2M1UlRnY0VrTWpGbFZTZ0pSQ1pxTXhmWHhWSXJrUURnMVB0K0JL?=
- =?utf-8?B?NE4ySHMzK2xzWTZ5TXhqNXp4VW1UdUh6TGVCbTdEb29HVzFQNTFEK1BTMGEz?=
- =?utf-8?B?SklJNWw3bEtOWUdYSnlyNzBiNTN4YUNqcmRYbjI5OUtGbVB6aUh3NFF3Mndm?=
- =?utf-8?B?N3JKOXhJbWRxQzRtUGNyZ0pXMEhudFpwMll2TURTdjlJZUFVNDYxOC9pcE15?=
- =?utf-8?B?M2ttckZwbVh1UGl4dHdMTzZjMVFoRGErYmJhMWl0YmVsR2c1MUNSV2N5Tnhz?=
- =?utf-8?B?eXZIeGpOK2dwbXhnUmxTaSt4TU9UZDFPVlpRb2RMUGd5VTNXMWJoRnBjSVVD?=
- =?utf-8?B?NVluMUVDSXpFaG1MM1lzaU9vZzZRSGhvQXVIR1plamNsbEhwaVUrV2paeStM?=
- =?utf-8?B?ME5PZlpHVGYwYzNaVFdYd2swejVVTmVWOEhXY1NYRFdBVE0rSUx2TDdKVnBy?=
- =?utf-8?B?T1pMM2ZMQk55SXBXV2xQOHd1ZEJZdW1FZWRHcjIzcnYxN3d3MXR3cUVFdzN4?=
- =?utf-8?B?czdlSndFTWRLK3pWaHRYNU9aZ2Z4OHJnUWJEa1Vnb3IrZnkzeEJHTUthbTNz?=
- =?utf-8?B?dFBwd3E0Q010UkVRemdlVkc1VmR1RkpSbVBRNkppVXRkSnBRNHZ5dWE5dEZK?=
- =?utf-8?B?MmV2blRuRlJ2OXdOL0pNRndnRTBGNFQwMkRTV1ZZM3dqWWhZVnRmekg2UDkz?=
- =?utf-8?B?ZmllUEIxdmhET3o4UjBYM1lZNzc3REwwZjJ2RjlNeUlPM1Y3U0xXR2JIN2tC?=
- =?utf-8?B?NGE1VzlzNGRPYVgxaG1IZ3Z6alV6bGhqMng4ek8wSjV3QVRTc0dHQUEzdHhZ?=
- =?utf-8?B?WnRlTHJkbnNJanZoRXh2MFBlSTI1bGdDQ0pTRnFoQ1pLYVNoZmpNa1pEcHFR?=
- =?utf-8?B?UGpDYlVsck9jVjRKNkhpcWE3S0xLT3hKVG1lMkh5T3JCN0RvRE9pZW9EbU1C?=
- =?utf-8?B?RWR2Y0V0WWJlS214VStWMUtua3dRVjdJTTJhZWFsZE12UmlFU1J6WDFmQ0Np?=
- =?utf-8?B?UHFXeEx2SUcrRXRQU1JnRHpkQzRtMUM5UEpjTGNnRUl5U0hMdmU1elFFZXo0?=
- =?utf-8?B?alVmMVR0Y2l1b09mT1krcFRHVjI0VXV1L0Uyb1JjREVQQnJhajhrZ3BsQU5x?=
- =?utf-8?B?UzR3SmZremFQQ2NOanExNFNxZ0l5VDZDTkt4T0hQVWI2MlA5VGlNUHpBcy9z?=
- =?utf-8?B?M0owM28zWjEwbVlSMSthVEpyNkVCRmtqWnFqZW56T1gzZEsyR1VBd3VoM2JH?=
- =?utf-8?B?d0FhQmhHMTYyT3d5WWFEM0lyeWxLUGR6a2U1TEZaQ25yVzRyLyswSmdYOGsr?=
- =?utf-8?B?dElEUWw1bUs3U0ZKNkIybmU3eVEzVVorU1dxbnZMRnArT0tMQlhyWTYzcTB4?=
- =?utf-8?B?RmVIK283NW1mUVVQUXpCaHVVWU5EcFJoV0FSL3JZRzVZaGx3Tnk0d25Db1p3?=
- =?utf-8?B?ZGZsVEV4WmxtZGkzRWowOVB0V1pRVUlBN2NMeVdqM0hWMmJXZklCUUUvU3gw?=
- =?utf-8?B?N3I2a2dmYTFEbENOdjhla056a3J5K3d2eXFVZ0RQdGlmaVErVnhTVE83bGQ1?=
- =?utf-8?Q?3gW9Km4fBhWTPbBQEp7+5NyhI?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 90190d15-b1a3-4e89-da3c-08dd3befd946
-X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jan 2025 20:52:28.6918 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: VXXWSQgbRnoXpM47Ki+BKbniL5M84et1tJq6sPLjCXFVC7OddxvIPXHBwII1QnbYh7vwREwnVdgurct1A2vD1Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8732
+References: <20250120194017.201218-1-alexander.deucher@amd.com>
+ <CADnq5_MhadSHG=QUFQa=aFgQCs+HuZ777hFuZN4h_dbFX6z8GQ@mail.gmail.com>
+In-Reply-To: <CADnq5_MhadSHG=QUFQa=aFgQCs+HuZ777hFuZN4h_dbFX6z8GQ@mail.gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 23 Jan 2025 16:01:33 -0500
+X-Gm-Features: AbW1kvaMNKY1dbx-Q9i7C_E-mk9QG-ffHEv2h4iLYh-u3WEHQHijjOg7nbdYl5k
+Message-ID: <CADnq5_OM_yac_3i8S=NiYi+L7c3pjsP5fjqM7OOVL62rsdB6GA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: update and cleanup PM4 headers
+To: Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Saurabh Verma <saurabh.verma@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,90 +79,794 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Ping again?
 
-
-On 2025-01-17 04:19, Pekka Paalanen wrote:
-> On Thu, 19 Dec 2024 21:33:49 -0700
-> Alex Hung <alex.hung@amd.com> wrote:
-> 
->> From: Harry Wentland <harry.wentland@amd.com>
->>
->> Add kernel doc for AMD color pipeline.
->>
->> Signed-off-by: Alex Hung <alex.hung@amd.com>
->> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
->> ---
->>  .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 122 +++++++++++++++---
->>  1 file changed, 102 insertions(+), 20 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
->> index 5e8c5c0657c4..56fb0870a2fc 100644
->> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
->> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-> 
-> ...
-> 
->> + * AMD plane color pipeline
->> + * ------------------------
->> + *
->> + * The AMD &drm_plane color pipeline is advertised for DCN generations
->> + * 3.0 and newer. It exposes these elements in this order:
->> + *
->> + * 1. 1D curve colorop
->> + * 2. Multiplier
->> + * 3. 3x4 CTM
->> + * 4. 1D curve colorop
->> + * 5. 1D LUT
->> + * 6. 3D LUT
->> + * 7. 1D curve colorop
->> + * 8. 1D LUT
->> + *
->> + * The multiplier (#2) is a simple multiplier that is applied to all
->> + * channels.
->> + *
->> + * The 3x4 CTM (#3) is a simple 3x4 matrix.
-> 
-> Hi,
-> 
-> I'm curious of why does the multiplier exist? Under what conditions is
-> it not feasible to precompute the multiplier into the CTM coefficients
-> and must instead be programmed as a separate colorop?
-> 
-
-AMD HW only supports S2.13 and S3.13 for the CTM coefficients [1] and
-our driver only ever picks S2.13. The multiplier is programmed as a
-floating point value instead.
-
-[1] https://gitlab.freedesktop.org/agd5f/linux/-/blob/amd-staging-drm-next/drivers/gpu/drm/amd/display/dc/dc_hw_types.h#L1089
-
-Harry
-
-> 
-> Thanks,
-> pq
-> 
->>   *
->> - * The pipe blending also happens after these blocks so we don't actually
->> - * support any CRTC props with correct blending with multiple planes - but we
->> - * can still support CRTC color management properties in DM in most single
->> - * plane cases correctly with clever management of the DC interface in DM.
->> + * #1, and #7 are non-linear to linear curves. #4 is a linear to
->> + * non-linear curve. They support sRGB, PQ, and BT.709/BT.2020 EOTFs or
->> + * their inverse.
->>   *
->> - * As per DRM documentation, blocks should be in hardware bypass when their
->> - * respective property is set to NULL. A linear DGM/RGM LUT should also
->> - * considered as putting the respective block into bypass mode.
->> + * The 1D LUTs (#5 and #8) are plain 4096 entry LUTs.
->>   *
->> - * This means that the following
->> - * configuration is assumed to be the default:
->> + * The 3DLUT (#6) is a tetrahedrally interpolated 17 cube LUT.
->>   *
->> - * Plane DGM Bypass -> Plane CTM Bypass -> Plane RGM Bypass -> ...
->> - * CRTC DGM Bypass -> CRTC CTM Bypass -> CRTC RGM Bypass
->>   */
->>  
->>  #define MAX_DRM_LUT_VALUE 0xFFFF
-> 
-
+On Wed, Jan 22, 2025 at 10:41=E2=80=AFAM Alex Deucher <alexdeucher@gmail.co=
+m> wrote:
+>
+> Ping?
+>
+> On Mon, Jan 20, 2025 at 2:47=E2=80=AFPM Alex Deucher <alexander.deucher@a=
+md.com> wrote:
+> >
+> > Consolidate PM4 definitions.  Most of these were previously
+> > only defined in UMDs.  Add them here as well and sync with
+> > latest packets.  Also no need to include soc15d.h on gfx10+.
+> >
+> > Suggested-by: Saurabh Verma <saurabh.verma@amd.com>
+> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c |   1 -
+> >  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c |   1 -
+> >  drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c |   1 -
+> >  drivers/gpu/drm/amd/amdgpu/nvd.h       | 208 +++++++++++++++++++++++++
+> >  drivers/gpu/drm/amd/amdgpu/soc15d.h    | 139 +++++++++++++++++
+> >  5 files changed, 347 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/a=
+md/amdgpu/gfx_v10_0.c
+> > index 070b4d6bd9c59..63de78060d679 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> > @@ -40,7 +40,6 @@
+> >  #include "ivsrcid/gfx/irqsrcs_gfx_10_1.h"
+> >
+> >  #include "soc15.h"
+> > -#include "soc15d.h"
+> >  #include "soc15_common.h"
+> >  #include "clearstate_gfx10.h"
+> >  #include "v10_structs.h"
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/a=
+md/amdgpu/gfx_v11_0.c
+> > index 52c571b134fd0..89d17750af04d 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> > @@ -42,7 +42,6 @@
+> >  #include "ivsrcid/gfx/irqsrcs_gfx_11_0_0.h"
+> >
+> >  #include "soc15.h"
+> > -#include "soc15d.h"
+> >  #include "clearstate_gfx11.h"
+> >  #include "v11_structs.h"
+> >  #include "gfx_v11_0.h"
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/a=
+md/amdgpu/gfx_v12_0.c
+> > index 2a71998800414..e425b87078d7d 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> > @@ -40,7 +40,6 @@
+> >  #include "ivsrcid/gfx/irqsrcs_gfx_11_0_0.h"
+> >
+> >  #include "soc15.h"
+> > -#include "soc15d.h"
+> >  #include "clearstate_gfx12.h"
+> >  #include "v12_structs.h"
+> >  #include "gfx_v12_0.h"
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/nvd.h b/drivers/gpu/drm/amd/amd=
+gpu/nvd.h
+> > index 631dafb922990..56f1bfac0b208 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/nvd.h
+> > +++ b/drivers/gpu/drm/amd/amdgpu/nvd.h
+> > @@ -64,6 +64,24 @@
+> >  #define        PACKET3_INDIRECT_BUFFER_CNST_END                0x19
+> >  #define        PACKET3_ATOMIC_GDS                              0x1D
+> >  #define        PACKET3_ATOMIC_MEM                              0x1E
+> > +#define        PACKET3_ATOMIC_MEM__ATOMIC(x) ((((unsigned)(x)) & 0x7F)=
+ << 0)
+> > +#define        PACKET3_ATOMIC_MEM__COMMAND(x) ((((unsigned)(x)) & 0xF)=
+ << 8)
+> > +#define        PACKET3_ATOMIC_MEM__CACHE_POLICY(x) ((((unsigned)(x)) &=
+ 0x3) << 25)
+> > +#define        PACKET3_ATOMIC_MEM__ADDR_LO(x) (((unsigned)(x)))
+> > +#define        PACKET3_ATOMIC_MEM__ADDR_HI(x) (((unsigned)(x)))
+> > +#define        PACKET3_ATOMIC_MEM__SRC_DATA_LO(x) (((unsigned)(x)))
+> > +#define        PACKET3_ATOMIC_MEM__SRC_DATA_HI(x) (((unsigned)(x)))
+> > +#define        PACKET3_ATOMIC_MEM__CMP_DATA_LO(x) (((unsigned)(x)))
+> > +#define        PACKET3_ATOMIC_MEM__CMP_DATA_HI(x) (((unsigned)(x)))
+> > +#define        PACKET3_ATOMIC_MEM__LOOP_INTERVAL(x) ((((unsigned)(x)) =
+& 0x1FFF) << 0)
+> > +#define        PACKET3_ATOMIC_MEM__COMMAND__SINGLE_PASS_ATOMIC 0
+> > +#define        PACKET3_ATOMIC_MEM__COMMAND__LOOP_UNTIL_COMPARE_SATISFI=
+ED 1
+> > +#define        PACKET3_ATOMIC_MEM__COMMAND__WAIT_FOR_WRITE_CONFIRMATIO=
+N 2
+> > +#define        PACKET3_ATOMIC_MEM__COMMAND__SEND_AND_CONTINUE 3
+> > +#define        PACKET3_ATOMIC_MEM__CACHE_POLICY__LRU 0
+> > +#define        PACKET3_ATOMIC_MEM__CACHE_POLICY__STREAM 1
+> > +#define        PACKET3_ATOMIC_MEM__CACHE_POLICY__NOA 2
+> > +#define        PACKET3_ATOMIC_MEM__CACHE_POLICY__BYPASS 3
+> >  #define        PACKET3_OCCLUSION_QUERY                         0x1F
+> >  #define        PACKET3_SET_PREDICATION                         0x20
+> >  #define        PACKET3_REG_RMW                                 0x21
+> > @@ -105,6 +123,38 @@
+> >                  * 1 - pfp
+> >                  * 2 - ce
+> >                  */
+> > +#define        PACKET3_WRITE_DATA__DST_SEL(x) ((((unsigned)(x)) & 0xF)=
+ << 8)
+> > +#define        PACKET3_WRITE_DATA__ADDR_INCR(x) ((((unsigned)(x)) & 0x=
+1) << 16)
+> > +#define        PACKET3_WRITE_DATA__WR_CONFIRM(x) ((((unsigned)(x)) & 0=
+x1) << 20)
+> > +#define        PACKET3_WRITE_DATA__CACHE_POLICY(x) ((((unsigned)(x)) &=
+ 0x3) << 25)
+> > +#define        PACKET3_WRITE_DATA__DST_MMREG_ADDR(x) ((((unsigned)(x))=
+ & 0x3FFFF) << 0)
+> > +#define        PACKET3_WRITE_DATA__DST_GDS_ADDR(x) ((((unsigned)(x)) &=
+ 0xFFFF) << 0)
+> > +#define        PACKET3_WRITE_DATA__DST_MEM_ADDR_LO(x) ((((unsigned)(x)=
+) & 0x3FFFFFFF) << 2)
+> > +#define        PACKET3_WRITE_DATA__DST_MEM_ADDR_HI(x) ((unsigned)(x))
+> > +#define        PACKET3_WRITE_DATA__MODE(x) ((((unsigned)(x)) & 0x1) <<=
+ 21)
+> > +#define        PACKET3_WRITE_DATA__AID_ID(x) ((((unsigned)(x)) & 0x3) =
+<< 22)
+> > +#define        PACKET3_WRITE_DATA__TEMPORAL(x) ((((unsigned)(x)) & 0x3=
+) << 24)
+> > +#define        PACKET3_WRITE_DATA__DST_MMREG_ADDR_LO(x) ((unsigned)(x)=
+)
+> > +#define        PACKET3_WRITE_DATA__DST_MMREG_ADDR_HI(x) ((((unsigned)(=
+x)) & 0xFF) << 0)
+> > +#define        PACKET3_WRITE_DATA__DST_SEL__MEM_MAPPED_REGISTER 0
+> > +#define        PACKET3_WRITE_DATA__DST_SEL__TC_L2 2
+> > +#define        PACKET3_WRITE_DATA__DST_SEL__GDS 3
+> > +#define        PACKET3_WRITE_DATA__DST_SEL__MEMORY 5
+> > +#define        PACKET3_WRITE_DATA__DST_SEL__MEMORY_MAPPED_ADC_PERSISTE=
+NT_STATE 6
+> > +#define        PACKET3_WRITE_DATA__ADDR_INCR__INCREMENT_ADDRESS 0
+> > +#define        PACKET3_WRITE_DATA__ADDR_INCR__DO_NOT_INCREMENT_ADDRESS=
+ 1
+> > +#define        PACKET3_WRITE_DATA__WR_CONFIRM__DO_NOT_WAIT_FOR_WRITE_C=
+ONFIRMATION 0
+> > +#define        PACKET3_WRITE_DATA__WR_CONFIRM__WAIT_FOR_WRITE_CONFIRMA=
+TION 1
+> > +#define        PACKET3_WRITE_DATA__MODE__PF_VF_DISABLED 0
+> > +#define        PACKET3_WRITE_DATA__MODE__PF_VF_ENABLED 1
+> > +#define        PACKET3_WRITE_DATA__TEMPORAL__RT 0
+> > +#define        PACKET3_WRITE_DATA__TEMPORAL__NT 1
+> > +#define        PACKET3_WRITE_DATA__TEMPORAL__HT 2
+> > +#define        PACKET3_WRITE_DATA__TEMPORAL__LU 3
+> > +#define        PACKET3_WRITE_DATA__CACHE_POLICY__LRU 0
+> > +#define        PACKET3_WRITE_DATA__CACHE_POLICY__STREAM 1
+> > +#define        PACKET3_WRITE_DATA__CACHE_POLICY__NOA 2
+> > +#define        PACKET3_WRITE_DATA__CACHE_POLICY__BYPASS 3
+> >  #define        PACKET3_DRAW_INDEX_INDIRECT_MULTI               0x38
+> >  #define        PACKET3_MEM_SEMAPHORE                           0x39
+> >  #              define PACKET3_SEM_USE_MAILBOX       (0x1 << 16)
+> > @@ -135,6 +185,42 @@
+> >                 /* 0 - me
+> >                  * 1 - pfp
+> >                  */
+> > +#define                PACKET3_WAIT_REG_MEM__FUNCTION(x) ((((unsigned)=
+(x)) & 0x7) << 0)
+> > +#define                PACKET3_WAIT_REG_MEM__MEM_SPACE(x) ((((unsigned=
+)(x)) & 0x3) << 4)
+> > +#define                PACKET3_WAIT_REG_MEM__OPERATION(x) ((((unsigned=
+)(x)) & 0x3) << 6)
+> > +#define                PACKET3_WAIT_REG_MEM__MES_INTR_PIPE(x) ((((unsi=
+gned)(x)) & 0x3) << 22)
+> > +#define                PACKET3_WAIT_REG_MEM__MES_ACTION(x) ((((unsigne=
+d)(x)) & 0x1) << 24)
+> > +#define                PACKET3_WAIT_REG_MEM__CACHE_POLICY(x) ((((unsig=
+ned)(x)) & 0x3) << 25)
+> > +#define                PACKET3_WAIT_REG_MEM__TEMPORAL(x) ((((unsigned)=
+(x)) & 0x3) << 25)
+> > +#define                PACKET3_WAIT_REG_MEM__MEM_POLL_ADDR_LO(x) ((((u=
+nsigned)(x)) & 0x3FFFFFFF) << 2)
+> > +#define                PACKET3_WAIT_REG_MEM__REG_POLL_ADDR(x) ((((unsi=
+gned)(x)) & 0X3FFFF) << 0)
+> > +#define                PACKET3_WAIT_REG_MEM__REG_WRITE_ADDR1(x) ((((un=
+signed)(x)) & 0X3FFFF) << 0)
+> > +#define                PACKET3_WAIT_REG_MEM__MEM_POLL_ADDR_HI(x) ((uns=
+igned)(x))
+> > +#define                PACKET3_WAIT_REG_MEM__REG_WRITE_ADDR2(x) ((((un=
+signed)(x)) & 0x3FFFF) << 0)
+> > +#define                PACKET3_WAIT_REG_MEM__REFERENCE(x) ((unsigned)(=
+x))
+> > +#define                PACKET3_WAIT_REG_MEM__MASK(x) ((unsigned)(x))
+> > +#define                PACKET3_WAIT_REG_MEM__POLL_INTERVAL(x) ((((unsi=
+gned)(x)) & 0xFFFF) << 0)
+> > +#define                PACKET3_WAIT_REG_MEM__OPTIMIZE_ACE_OFFLOAD_MODE=
+(x) ((((unsigned)(x)) & 0x1) << 31)
+> > +#define        PACKET3_WAIT_REG_MEM__FUNCTION__ALWAYS_PASS 0
+> > +#define        PACKET3_WAIT_REG_MEM__FUNCTION__LESS_THAN_REF_VALUE 1
+> > +#define        PACKET3_WAIT_REG_MEM__FUNCTION__LESS_THAN_EQUAL_TO_THE_=
+REF_VALUE 2
+> > +#define        PACKET3_WAIT_REG_MEM__FUNCTION__EQUAL_TO_THE_REFERENCE_=
+VALUE 3
+> > +#define        PACKET3_WAIT_REG_MEM__FUNCTION__NOT_EQUAL_REFERENCE_VAL=
+UE 4
+> > +#define        PACKET3_WAIT_REG_MEM__FUNCTION__GREATER_THAN_OR_EQUAL_R=
+EFERENCE_VALUE 5
+> > +#define        PACKET3_WAIT_REG_MEM__FUNCTION__GREATER_THAN_REFERENCE_=
+VALUE 6
+> > +#define        PACKET3_WAIT_REG_MEM__MEM_SPACE__REGISTER_SPACE 0
+> > +#define        PACKET3_WAIT_REG_MEM__MEM_SPACE__MEMORY_SPACE 1
+> > +#define        PACKET3_WAIT_REG_MEM__OPERATION__WAIT_REG_MEM 0
+> > +#define        PACKET3_WAIT_REG_MEM__OPERATION__WR_WAIT_WR_REG 1
+> > +#define        PACKET3_WAIT_REG_MEM__OPERATION__WAIT_MEM_PREEMPTABLE 3
+> > +#define        PACKET3_WAIT_REG_MEM__CACHE_POLICY__LRU 0
+> > +#define        PACKET3_WAIT_REG_MEM__CACHE_POLICY__STREAM 1
+> > +#define        PACKET3_WAIT_REG_MEM__CACHE_POLICY__NOA 2
+> > +#define        PACKET3_WAIT_REG_MEM__CACHE_POLICY__BYPASS 3
+> > +#define        PACKET3_WAIT_REG_MEM__TEMPORAL__RT 0
+> > +#define        PACKET3_WAIT_REG_MEM__TEMPORAL__NT 1
+> > +#define        PACKET3_WAIT_REG_MEM__TEMPORAL__HT 2
+> > +#define        PACKET3_WAIT_REG_MEM__TEMPORAL__LU 3
+> >  #define        PACKET3_INDIRECT_BUFFER                         0x3F
+> >  #define                INDIRECT_BUFFER_VALID                   (1 << 2=
+3)
+> >  #define                INDIRECT_BUFFER_CACHE_POLICY(x)         ((x) <<=
+ 28)
+> > @@ -144,8 +230,94 @@
+> >                  */
+> >  #define                INDIRECT_BUFFER_PRE_ENB(x)              ((x) <<=
+ 21)
+> >  #define                INDIRECT_BUFFER_PRE_RESUME(x)           ((x) <<=
+ 30)
+> > +#define        PACKET3_INDIRECT_BUFFER__IB_BASE_LO(x) ((((unsigned)(x)=
+) & 0x3FFFFFFF) << 2)
+> > +#define        PACKET3_INDIRECT_BUFFER__IB_BASE_HI(x) ((unsigned)(x))
+> > +#define        PACKET3_INDIRECT_BUFFER__IB_SIZE(x) ((((unsigned)(x)) &=
+ 0xFFFFF) << 0)
+> > +#define        PACKET3_INDIRECT_BUFFER__CHAIN(x) ((((unsigned)(x)) & 0=
+x1) << 20)
+> > +#define        PACKET3_INDIRECT_BUFFER__OFFLOAD_POLLING(x) ((((unsigne=
+d)(x)) & 0x1) << 21)
+> > +#define        PACKET3_INDIRECT_BUFFER__VALID(x) ((((unsigned)(x)) & 0=
+x1) << 23)
+> > +#define        PACKET3_INDIRECT_BUFFER__VMID(x) ((((unsigned)(x)) & 0x=
+F) << 24)
+> > +#define        PACKET3_INDIRECT_BUFFER__CACHE_POLICY(x) ((((unsigned)(=
+x)) & 0x3) << 28)
+> > +#define        PACKET3_INDIRECT_BUFFER__TEMPORAL(x) ((((unsigned)(x)) =
+& 0x3) << 28)
+> > +#define        PACKET3_INDIRECT_BUFFER__PRIV(x) ((((unsigned)(x)) & 0x=
+1) << 31)
+> > +#define        PACKET3_INDIRECT_BUFFER__TEMPORAL__RT 0
+> > +#define        PACKET3_INDIRECT_BUFFER__TEMPORAL__NT 1
+> > +#define        PACKET3_INDIRECT_BUFFER__TEMPORAL__HT 2
+> > +#define        PACKET3_INDIRECT_BUFFER__TEMPORAL__LU 3
+> > +#define        PACKET3_INDIRECT_BUFFER__CACHE_POLICY__LRU 0
+> > +#define        PACKET3_INDIRECT_BUFFER__CACHE_POLICY__STREAM 1
+> > +#define        PACKET3_INDIRECT_BUFFER__CACHE_POLICY__NOA 2
+> > +#define        PACKET3_INDIRECT_BUFFER__CACHE_POLICY__BYPASS 3
+> >  #define        PACKET3_COND_INDIRECT_BUFFER                    0x3F
+> >  #define        PACKET3_COPY_DATA                               0x40
+> > +#define        PACKET3_COPY_DATA__SRC_SEL(x) ((((unsigned)(x)) & 0xF) =
+<< 0)
+> > +#define        PACKET3_COPY_DATA__DST_SEL(x) ((((unsigned)(x)) & 0xF) =
+<< 8)
+> > +#define        PACKET3_COPY_DATA__SRC_CACHE_POLICY(x) ((((unsigned)(x)=
+) & 0x3) << 13)
+> > +#define        PACKET3_COPY_DATA__SRC_TEMPORAL(x) ((((unsigned)(x)) & =
+0x3) << 13)
+> > +#define        PACKET3_COPY_DATA__COUNT_SEL(x) ((((unsigned)(x)) & 0x1=
+) << 16)
+> > +#define        PACKET3_COPY_DATA__WR_CONFIRM(x) ((((unsigned)(x)) & 0x=
+1) << 20)
+> > +#define        PACKET3_COPY_DATA__DST_CACHE_POLICY(x) ((((unsigned)(x)=
+) & 0x3) << 25)
+> > +#define        PACKET3_COPY_DATA__PQ_EXE_STATUS(x) ((((unsigned)(x)) &=
+ 0x1) << 29)
+> > +#define        PACKET3_COPY_DATA__SRC_REG_OFFSET(x) ((((unsigned)(x)) =
+& 0x3FFFF) << 0)
+> > +#define        PACKET3_COPY_DATA__SRC_32B_ADDR_LO(x) ((((unsigned)(x))=
+ & 0x3FFFFFFF) << 2)
+> > +#define        PACKET3_COPY_DATA__SRC_64B_ADDR_LO(x) ((((unsigned)(x))=
+ & 0x1FFFFFFF) << 3)
+> > +#define        PACKET3_COPY_DATA__SRC_GDS_ADDR_LO(x) ((((unsigned)(x))=
+ & 0xFFFF) << 0)
+> > +#define        PACKET3_COPY_DATA__IMM_DATA(x) ((unsigned)(x))
+> > +#define        PACKET3_COPY_DATA__SRC_MEMTC_ADDR_HI(x) ((unsigned)(x))
+> > +#define        PACKET3_COPY_DATA__SRC_IMM_DATA(x) ((unsigned)(x))
+> > +#define        PACKET3_COPY_DATA__DST_REG_OFFSET(x) ((((unsigned)(x)) =
+& 0x3FFFF) << 0)
+> > +#define        PACKET3_COPY_DATA__DST_32B_ADDR_LO(x) ((((unsigned)(x))=
+ & 0x3FFFFFFF) << 2)
+> > +#define        PACKET3_COPY_DATA__DST_64B_ADDR_LO(x) ((((unsigned)(x))=
+ & 0x1FFFFFFF) << 3)
+> > +#define        PACKET3_COPY_DATA__DST_GDS_ADDR_LO(x) ((((unsigned)(x))=
+ & 0xFFFF) << 0)
+> > +#define        PACKET3_COPY_DATA__DST_ADDR_HI(x) ((unsigned)(x))
+> > +#define        PACKET3_COPY_DATA__MODE(x) ((((unsigned)(x)) & 0x1) << =
+21)
+> > +#define        PACKET3_COPY_DATA__AID_ID(x) ((((unsigned)(x)) & 0x3) <=
+< 23)
+> > +#define        PACKET3_COPY_DATA__DST_TEMPORAL(x) ((((unsigned)(x)) & =
+0x3) << 25)
+> > +#define        PACKET3_COPY_DATA__SRC_REG_OFFSET_LO(x) ((unsigned)(x))
+> > +#define        PACKET3_COPY_DATA__SRC_REG_OFFSET_HI(x) ((((unsigned)(x=
+)) & 0xFF) << 0)
+> > +#define        PACKET3_COPY_DATA__DST_REG_OFFSET_LO(x) ((unsigned)(x))
+> > +#define        PACKET3_COPY_DATA__DST_REG_OFFSET_HI(x) ((((unsigned)(x=
+)) & 0xFF) << 0)
+> > +#define        PACKET3_COPY_DATA__SRC_SEL__MEM_MAPPED_REGISTER 0
+> > +#define        PACKET3_COPY_DATA__SRC_SEL__TC_L2_OBSOLETE 1
+> > +#define        PACKET3_COPY_DATA__SRC_SEL__TC_L2 2
+> > +#define        PACKET3_COPY_DATA__SRC_SEL__GDS 3
+> > +#define        PACKET3_COPY_DATA__SRC_SEL__PERFCOUNTERS 4
+> > +#define        PACKET3_COPY_DATA__SRC_SEL__IMMEDIATE_DATA 5
+> > +#define        PACKET3_COPY_DATA__SRC_SEL__ATOMIC_RETURN_DATA 6
+> > +#define        PACKET3_COPY_DATA__SRC_SEL__GDS_ATOMIC_RETURN_DATA0 7
+> > +#define        PACKET3_COPY_DATA__SRC_SEL__GDS_ATOMIC_RETURN_DATA1 8
+> > +#define        PACKET3_COPY_DATA__SRC_SEL__GPU_CLOCK_COUNT 9
+> > +#define        PACKET3_COPY_DATA__SRC_SEL__SYSTEM_CLOCK_COUNT 10
+> > +#define        PACKET3_COPY_DATA__DST_SEL__MEM_MAPPED_REGISTER 0
+> > +#define        PACKET3_COPY_DATA__DST_SEL__TC_L2 2
+> > +#define        PACKET3_COPY_DATA__DST_SEL__GDS 3
+> > +#define        PACKET3_COPY_DATA__DST_SEL__PERFCOUNTERS 4
+> > +#define        PACKET3_COPY_DATA__DST_SEL__TC_L2_OBSOLETE 5
+> > +#define        PACKET3_COPY_DATA__DST_SEL__MEM_MAPPED_REG_DC 6
+> > +#define        PACKET3_COPY_DATA__SRC_TEMPORAL__RT 0
+> > +#define        PACKET3_COPY_DATA__SRC_TEMPORAL__NT 1
+> > +#define        PACKET3_COPY_DATA__SRC_TEMPORAL__HT 2
+> > +#define        PACKET3_COPY_DATA__SRC_TEMPORAL__LU 3
+> > +#define        PACKET3_COPY_DATA__SRC_CACHE_POLICY__LRU 0
+> > +#define        PACKET3_COPY_DATA__SRC_CACHE_POLICY__STREAM 1
+> > +#define        PACKET3_COPY_DATA__SRC_CACHE_POLICY__NOA 2
+> > +#define        PACKET3_COPY_DATA__SRC_CACHE_POLICY__BYPASS 3
+> > +#define        PACKET3_COPY_DATA__COUNT_SEL__32_BITS_OF_DATA 0
+> > +#define        PACKET3_COPY_DATA__COUNT_SEL__64_BITS_OF_DATA 1
+> > +#define        PACKET3_COPY_DATA__WR_CONFIRM__DO_NOT_WAIT_FOR_CONFIRMA=
+TION 0
+> > +#define        PACKET3_COPY_DATA__WR_CONFIRM__WAIT_FOR_CONFIRMATION 1
+> > +#define        PACKET3_COPY_DATA__MODE__PF_VF_DISABLED 0
+> > +#define        PACKET3_COPY_DATA__MODE__PF_VF_ENABLED 1
+> > +#define        PACKET3_COPY_DATA__DST_TEMPORAL__RT 0
+> > +#define        PACKET3_COPY_DATA__DST_TEMPORAL__NT 1
+> > +#define        PACKET3_COPY_DATA__DST_TEMPORAL__HT 2
+> > +#define        PACKET3_COPY_DATA__DST_TEMPORAL__LU 3
+> > +#define        PACKET3_COPY_DATA__DST_CACHE_POLICY__LRU 0
+> > +#define        PACKET3_COPY_DATA__DST_CACHE_POLICY__STREAM 1
+> > +#define        PACKET3_COPY_DATA__DST_CACHE_POLICY__NOA 2
+> > +#define        PACKET3_COPY_DATA__DST_CACHE_POLICY__BYPASS 3
+> > +#define        PACKET3_COPY_DATA__PQ_EXE_STATUS__DEFAULT 0
+> > +#define        PACKET3_COPY_DATA__PQ_EXE_STATUS__PHASE_UPDATE 1
+> >  #define        PACKET3_CP_DMA                                  0x41
+> >  #define        PACKET3_PFP_SYNC_ME                             0x42
+> >  #define        PACKET3_SURFACE_SYNC                            0x43
+> > @@ -160,6 +332,23 @@
+> >                  * 3 - SAMPLE_STREAMOUTSTAT*
+> >                  * 4 - *S_PARTIAL_FLUSH
+> >                  */
+> > +#define                PACKET3_EVENT_WRITE__EVENT_TYPE(x) ((((unsigned=
+)(x)) & 0x3F) << 0)
+> > +#define                PACKET3_EVENT_WRITE__EVENT_INDEX(x) ((((unsigne=
+d)(x)) & 0xF) << 8)
+> > +#define                PACKET3_EVENT_WRITE__SAMP_PLST_CNTR_MODE(x) (((=
+(unsigned)(x)) & 0x3) << 29)
+> > +#define                PACKET3_EVENT_WRITE__OFFLOAD_ENABLE(x) ((((unsi=
+gned)(x)) & 0x1) << 0)
+> > +#define        PACKET3_EVENT_WRITE__ADDRESS_LO(x) ((((unsigned)(x)) & =
+0x1FFFFFFF) << 3)
+> > +#define        PACKET3_EVENT_WRITE__ADDRESS_HI(x) ((unsigned)(x))
+> > +#define        PACKET3_EVENT_WRITE__EVENT_INDEX__OTHER 0
+> > +#define        PACKET3_EVENT_WRITE__EVENT_INDEX__SAMPLE_PIPELINESTAT 2
+> > +#define        PACKET3_EVENT_WRITE__EVENT_INDEX__CS_PARTIAL_FLUSH 4
+> > +#define        PACKET3_EVENT_WRITE__EVENT_INDEX__SAMPLE_STREAMOUTSTATS=
+ 8
+> > +#define        PACKET3_EVENT_WRITE__EVENT_INDEX__SAMPLE_STREAMOUTSTATS=
+1 9
+> > +#define        PACKET3_EVENT_WRITE__EVENT_INDEX__SAMPLE_STREAMOUTSTATS=
+2 10
+> > +#define        PACKET3_EVENT_WRITE__EVENT_INDEX__SAMPLE_STREAMOUTSTATS=
+3 11
+> > +#define        PACKET3_EVENT_WRITE__SAMP_PLST_CNTR_MODE__LEGACY_MODE 0
+> > +#define        PACKET3_EVENT_WRITE__SAMP_PLST_CNTR_MODE__MIXED_MODE1 1
+> > +#define        PACKET3_EVENT_WRITE__SAMP_PLST_CNTR_MODE__NEW_MODE 2
+> > +#define        PACKET3_EVENT_WRITE__SAMP_PLST_CNTR_MODE__MIXED_MODE3 3
+> >  #define        PACKET3_EVENT_WRITE_EOP                         0x47
+> >  #define        PACKET3_EVENT_WRITE_EOS                         0x48
+> >  #define        PACKET3_RELEASE_MEM                             0x49
+> > @@ -304,6 +493,12 @@
+> >                  * 2: REVERSE
+> >                  */
+> >  #define        PACKET3_ACQUIRE_MEM_GCR_RANGE_IS_PA  (1 << 18)
+> > +#define        PACKET3_ACQUIRE_MEM__COHER_SIZE(x) ((unsigned)(x))
+> > +#define        PACKET3_ACQUIRE_MEM__COHER_SIZE_HI(x) ((((unsigned)(x))=
+ & 0xFF) << 0)
+> > +#define        PACKET3_ACQUIRE_MEM__COHER_BASE_LO(x) ((unsigned)(x))
+> > +#define        PACKET3_ACQUIRE_MEM__COHER_BASE_HI(x) ((((unsigned)(x))=
+ & 0xFFFFFF) << 0)
+> > +#define        PACKET3_ACQUIRE_MEM__POLL_INTERVAL(x) ((((unsigned)(x))=
+ & 0xFFFF) << 0)
+> > +#define        PACKET3_ACQUIRE_MEM__GCR_CNTL(x) ((((unsigned)(x)) & 0x=
+7FFFF) << 0)
+> >  #define        PACKET3_REWIND                                  0x59
+> >  #define        PACKET3_INTERRUPT                               0x5A
+> >  #define        PACKET3_GEN_PDEPTE                              0x5B
+> > @@ -330,11 +525,17 @@
+> >  #define        PACKET3_SET_SH_REG                              0x76
+> >  #define                PACKET3_SET_SH_REG_START                       =
+ 0x00002c00
+> >  #define                PACKET3_SET_SH_REG_END                         =
+ 0x00003000
+> > +#define        PACKET3_SET_SH_REG__REG_OFFSET(x) ((((unsigned)(x)) & 0=
+xFFFF) << 0)
+> > +#define        PACKET3_SET_SH_REG__VMID_SHIFT(x) ((((unsigned)(x)) & 0=
+x1F) << 23)
+> > +#define        PACKET3_SET_SH_REG__INDEX(x) ((((unsigned)(x)) & 0xF) <=
+< 28)
+> > +#define        PACKET3_SET_SH_REG__INDEX__DEFAULT 0
+> > +#define        PACKET3_SET_SH_REG__INDEX__INSERT_VMID 1
+> >  #define        PACKET3_SET_SH_REG_OFFSET                       0x77
+> >  #define        PACKET3_SET_QUEUE_REG                           0x78
+> >  #define        PACKET3_SET_UCONFIG_REG                         0x79
+> >  #define                PACKET3_SET_UCONFIG_REG_START                  =
+ 0x0000c000
+> >  #define                PACKET3_SET_UCONFIG_REG_END                    =
+ 0x0000c400
+> > +#define        PACKET3_SET_UCONFIG_REG__REG_OFFSET(x) ((((unsigned)(x)=
+) & 0xFFFF) << 0)
+> >  #define        PACKET3_SET_UCONFIG_REG_INDEX                   0x7A
+> >  #define        PACKET3_FORWARD_HEADER                          0x7C
+> >  #define        PACKET3_SCRATCH_RAM_WRITE                       0x7D
+> > @@ -369,6 +570,7 @@
+> >  #              define PACKET3_INVALIDATE_TLBS_DST_SEL(x)     ((x) << 0=
+)
+> >  #              define PACKET3_INVALIDATE_TLBS_ALL_HUB(x)     ((x) << 4=
+)
+> >  #              define PACKET3_INVALIDATE_TLBS_PASID(x)       ((x) << 5=
+)
+> > +#              define PACKET3_INVALIDATE_TLBS_FLUSH_TYPE(x)  ((x) << 2=
+9)
+> >  #define        PACKET3_AQL_PACKET                              0x99
+> >  #define        PACKET3_DMA_DATA_FILL_MULTI                     0x9A
+> >  #define        PACKET3_SET_SH_REG_INDEX                        0x9B
+> > @@ -462,6 +664,12 @@
+> >  #              define PACKET3_QUERY_STATUS_ENG_SEL(x)          ((x) <<=
+ 25)
+> >  #define        PACKET3_RUN_LIST                                0xA5
+> >  #define        PACKET3_MAP_PROCESS_VM                          0xA6
+> > +
+> > +#define PACKET3_RUN_CLEANER_SHADER                      0xD2
+> > +/* 1. header
+> > + * 2. RESERVED [31:0]
+> > + */
+> > +
+> >  /* GFX11 */
+> >  #define        PACKET3_SET_Q_PREEMPTION_MODE                   0xF0
+> >  #              define PACKET3_SET_Q_PREEMPTION_MODE_IB_VMID(x)  ((x) <=
+< 0)
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/soc15d.h b/drivers/gpu/drm/amd/=
+amdgpu/soc15d.h
+> > index b9cbeb389edc1..a5000c171c02c 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/soc15d.h
+> > +++ b/drivers/gpu/drm/amd/amdgpu/soc15d.h
+> > @@ -93,11 +93,25 @@
+> >  #define        PACKET3_DISPATCH_INDIRECT                       0x16
+> >  #define        PACKET3_ATOMIC_GDS                              0x1D
+> >  #define        PACKET3_ATOMIC_MEM                              0x1E
+> > +#define                PACKET3_ATOMIC_MEM__ATOMIC(x) ((((unsigned)(x))=
+ & 0x3F) << 0)
+> > +#define                PACKET3_ATOMIC_MEM__COMMAND(x) ((((unsigned)(x)=
+) & 0xF) << 8)
+> > +#define                PACKET3_ATOMIC_MEM__CACHE_POLICY(x) ((((unsigne=
+d)(x)) & 0x3) << 25)
+> > +#define                PACKET3_ATOMIC_MEM__ADDR_LO(x) (((unsigned)(x))=
+ << 0)
+> > +#define                PACKET3_ATOMIC_MEM__ADDR_HI(x) (((unsigned)(x))=
+ << 0)
+> > +#define                PACKET3_ATOMIC_MEM__SRC_DATA_LO(x) (((unsigned)=
+(x)) << 0)
+> > +#define                PACKET3_ATOMIC_MEM__SRC_DATA_HI(x) (((unsigned)=
+(x)) << 0)
+> > +#define                PACKET3_ATOMIC_MEM__CMP_DATA_LO(x) (((unsigned)=
+(x)) << 0)
+> > +#define                PACKET3_ATOMIC_MEM__CMP_DATA_HI(x) (((unsigned)=
+(x)) << 0)
+> > +#define                PACKET3_ATOMIC_MEM__LOOP_INTERVAL(x) ((((unsign=
+ed)(x)) & 0x1FFF) << 0)
+> > +#define        PACKET3_ATOMIC_MEM__COMMAND__SINGLE_PASS_ATOMIC 0
+> > +#define        PACKET3_ATOMIC_MEM__COMMAND__LOOP_UNTIL_COMPARE_SATISFI=
+ED 1
+> >  #define        PACKET3_OCCLUSION_QUERY                         0x1F
+> >  #define        PACKET3_SET_PREDICATION                         0x20
+> >  #define        PACKET3_REG_RMW                                 0x21
+> >  #define        PACKET3_COND_EXEC                               0x22
+> >  #define        PACKET3_PRED_EXEC                               0x23
+> > +#define                PACKET3_PRED_EXEC__EXEC_COUNT(x)        ((((uns=
+igned)(x)) & 0x3FFF) << 0)
+> > +#define                PACKET3_PRED_EXEC__VIRTUAL_XCC_ID_SELECT(x)    =
+ ((((unsigned)(x)) & 0xFF) << 24)
+> >  #define        PACKET3_DRAW_INDIRECT                           0x24
+> >  #define        PACKET3_DRAW_INDEX_INDIRECT                     0x25
+> >  #define        PACKET3_INDEX_BASE                              0x26
+> > @@ -132,6 +146,28 @@
+> >                  * 1 - pfp
+> >                  * 2 - ce
+> >                  */
+> > +#define                PACKET3_WRITE_DATA__DST_SEL(x) ((((unsigned)(x)=
+) & 0xF) << 8)
+> > +#define                PACKET3_WRITE_DATA__ADDR_INCR(x) ((((unsigned)(=
+x)) & 0x1) << 16)
+> > +#define                PACKET3_WRITE_DATA__RESUME_VF_MI300(x) ((((unsi=
+gned)(x)) & 0x1) << 19)
+> > +#define                PACKET3_WRITE_DATA__WR_CONFIRM(x) ((((unsigned)=
+(x)) & 0x1) << 20)
+> > +#define                PACKET3_WRITE_DATA__CACHE_POLICY(x) ((((unsigne=
+d)(x)) & 0x3) << 25)
+> > +#define                PACKET3_WRITE_DATA__DST_MMREG_ADDR(x) ((((unsig=
+ned)(x)) & 0x3FFFF) << 0)
+> > +#define                PACKET3_WRITE_DATA__DST_GDS_ADDR(x) ((((unsigne=
+d)(x)) & 0xFFFF) << 0)
+> > +#define                PACKET3_WRITE_DATA__DST_MEM_ADDR_LO(x) ((((unsi=
+gned)(x)) & 0x3FFFFFFF) << 2)
+> > +#define                PACKET3_WRITE_DATA__DST_MEM_ADDR_HI(x) ((unsign=
+ed)(x))
+> > +#define                PACKET3_WRITE_DATA__DST_SEL__MEM_MAPPED_REGISTE=
+R        0
+> > +#define                PACKET3_WRITE_DATA__DST_SEL__TC_L2      2
+> > +#define                PACKET3_WRITE_DATA__DST_SEL__GDS        3
+> > +#define                PACKET3_WRITE_DATA__DST_SEL__MEMORY     5
+> > +#define                PACKET3_WRITE_DATA__DST_SEL__MEMORY_MAPPED_ADC_=
+PERSISTENT_STATE 6
+> > +#define                PACKET3_WRITE_DATA__ADDR_INCR__INCREMENT_ADDRES=
+S        0
+> > +#define                PACKET3_WRITE_DATA__ADDR_INCR__DO_NOT_INCREMENT=
+_ADDRESS 1
+> > +#define                PACKET3_WRITE_DATA__WR_CONFIRM__DO_NOT_WAIT_FOR=
+_WRITE_CONFIRMATION      0
+> > +#define                PACKET3_WRITE_DATA__WR_CONFIRM__WAIT_FOR_WRITE_=
+CONFIRMATION     1
+> > +#define                PACKET3_WRITE_DATA__CACHE_POLICY__LRU   0
+> > +#define                PACKET3_WRITE_DATA__CACHE_POLICY__STREAM       =
+ 1
+> > +#define                PACKET3_WRITE_DATA__CACHE_POLICY__NOA   2
+> > +#define                PACKET3_WRITE_DATA__CACHE_POLICY__BYPASS       =
+ 3
+> >  #define        PACKET3_DRAW_INDEX_INDIRECT_MULTI               0x38
+> >  #define        PACKET3_MEM_SEMAPHORE                           0x39
+> >  #              define PACKET3_SEM_USE_MAILBOX       (0x1 << 16)
+> > @@ -160,6 +196,33 @@
+> >                 /* 0 - me
+> >                  * 1 - pfp
+> >                  */
+> > +#define                PACKET3_WAIT_REG_MEM__FUNCTION(x) ((((unsigned)=
+(x)) & 0x7) << 0)
+> > +#define                PACKET3_WAIT_REG_MEM__MEM_SPACE(x) ((((unsigned=
+)(x)) & 0x3) << 4)
+> > +#define                PACKET3_WAIT_REG_MEM__OPERATION(x) ((((unsigned=
+)(x)) & 0x3) << 6)
+> > +#define                PACKET3_WAIT_REG_MEM__MES_INTR_PIPE(x) ((((unsi=
+gned)(x)) & 0x3) << 22)
+> > +#define                PACKET3_WAIT_REG_MEM__MES_ACTION(x) ((((unsigne=
+d)(x)) & 0x1) << 24)
+> > +#define                PACKET3_WAIT_REG_MEM__CACHE_POLICY(x) ((((unsig=
+ned)(x)) & 0x3) << 25)
+> > +#define                PACKET3_WAIT_REG_MEM__MEM_POLL_ADDR_LO(x) ((((u=
+nsigned)(x)) & 0x3FFFFFFF) << 2)
+> > +#define                PACKET3_WAIT_REG_MEM__REG_POLL_ADDR(x) ((((unsi=
+gned)(x)) & 0x3FFFF) << 0)
+> > +#define                PACKET3_WAIT_REG_MEM__REG_WRITE_ADDR1(x) ((((un=
+signed)(x)) & 0x3FFFF) << 0)
+> > +#define                PACKET3_WAIT_REG_MEM__MEM_POLL_ADDR_HI(x) ((uns=
+igned)(x))
+> > +#define                PACKET3_WAIT_REG_MEM__REG_WRITE_ADDR2(x) ((((un=
+signed)(x)) & 0x3FFFF) << 0)
+> > +#define                PACKET3_WAIT_REG_MEM__REFERENCE(x) ((unsigned)(=
+x))
+> > +#define                PACKET3_WAIT_REG_MEM__MASK(x) ((unsigned)(x))
+> > +#define                PACKET3_WAIT_REG_MEM__POLL_INTERVAL(x) ((((unsi=
+gned)(x)) & 0xFFFF) << 0)
+> > +#define                PACKET3_WAIT_REG_MEM__OPTIMIZE_ACE_OFFLOAD_MODE=
+(x) ((((unsigned)(x)) & 0x1) << 31)
+> > +#define                PACKET3_WAIT_REG_MEM__FUNCTION__ALWAYS_PASS    =
+ 0
+> > +#define                PACKET3_WAIT_REG_MEM__FUNCTION__LESS_THAN_REF_V=
+ALUE     1
+> > +#define                PACKET3_WAIT_REG_MEM__FUNCTION__LESS_THAN_EQUAL=
+_TO_THE_REF_VALUE        2
+> > +#define                PACKET3_WAIT_REG_MEM__FUNCTION__EQUAL_TO_THE_RE=
+FERENCE_VALUE    3
+> > +#define                PACKET3_WAIT_REG_MEM__FUNCTION__NOT_EQUAL_REFER=
+ENCE_VALUE       4
+> > +#define                PACKET3_WAIT_REG_MEM__FUNCTION__GREATER_THAN_OR=
+_EQUAL_REFERENCE_VALUE   5
+> > +#define                PACKET3_WAIT_REG_MEM__FUNCTION__GREATER_THAN_RE=
+FERENCE_VALUE    6
+> > +#define                PACKET3_WAIT_REG_MEM__MEM_SPACE__REGISTER_SPACE=
+ 0
+> > +#define                PACKET3_WAIT_REG_MEM__MEM_SPACE__MEMORY_SPACE  =
+ 1
+> > +#define                PACKET3_WAIT_REG_MEM__OPERATION__WAIT_REG_MEM  =
+ 0
+> > +#define                PACKET3_WAIT_REG_MEM__OPERATION__WR_WAIT_WR_REG=
+ 1
+> > +#define                PACKET3_WAIT_REG_MEM__OPERATION__WAIT_MEM_PREEM=
+PTABLE   3
+> >  #define        PACKET3_INDIRECT_BUFFER                         0x3F
+> >  #define                INDIRECT_BUFFER_VALID                   (1 << 2=
+3)
+> >  #define                INDIRECT_BUFFER_CACHE_POLICY(x)         ((x) <<=
+ 28)
+> > @@ -169,7 +232,63 @@
+> >                  */
+> >  #define     INDIRECT_BUFFER_PRE_ENB(x)          ((x) << 21)
+> >  #define     INDIRECT_BUFFER_PRE_RESUME(x)               ((x) << 30)
+> > +#define                PACKET3_INDIRECT_BUFFER__IB_BASE_LO(x) ((((unsi=
+gned)(x)) & 0x3FFFFFFF) << 2)
+> > +#define                PACKET3_INDIRECT_BUFFER__IB_BASE_HI(x) ((unsign=
+ed)(x))
+> > +#define                PACKET3_INDIRECT_BUFFER__IB_SIZE(x) ((((unsigne=
+d)(x)) & 0xFFFFF) << 0)
+> > +#define                PACKET3_INDIRECT_BUFFER__CHAIN(x) ((((unsigned)=
+(x)) & 0x1) << 20)
+> > +#define                PACKET3_INDIRECT_BUFFER__OFFLOAD_POLLING(x) (((=
+(unsigned)(x)) & 0x1) << 21)
+> > +#define                PACKET3_INDIRECT_BUFFER__VALID(x) ((((unsigned)=
+(x)) & 0x1) << 23)
+> > +#define                PACKET3_INDIRECT_BUFFER__VMID(x) ((((unsigned)(=
+x)) & 0xF) << 24)
+> > +#define                PACKET3_INDIRECT_BUFFER__CACHE_POLICY(x) ((((un=
+signed)(x)) & 0x3) << 28)
+> > +#define                PACKET3_INDIRECT_BUFFER__PRIV(x) ((((unsigned)(=
+x)) & 0x1) << 31)
+> > +#define                PACKET3_INDIRECT_BUFFER__CACHE_POLICY__LRU     =
+ 0
+> > +#define                PACKET3_INDIRECT_BUFFER__CACHE_POLICY__STREAM  =
+ 1
+> >  #define        PACKET3_COPY_DATA                               0x40
+> > +#define                PACKET3_COPY_DATA__SRC_SEL(x) ((((unsigned)(x))=
+ & 0xF) << 0)
+> > +#define                PACKET3_COPY_DATA__DST_SEL(x) ((((unsigned)(x))=
+ & 0xF) << 8)
+> > +#define                PACKET3_COPY_DATA__SRC_CACHE_POLICY(x) ((((unsi=
+gned)(x)) & 0x3) << 13)
+> > +#define                PACKET3_COPY_DATA__COUNT_SEL(x) ((((unsigned)(x=
+)) & 0x1) << 16)
+> > +#define                PACKET3_COPY_DATA__WR_CONFIRM(x) ((((unsigned)(=
+x)) & 0x1) << 20)
+> > +#define                PACKET3_COPY_DATA__DST_CACHE_POLICY(x) ((((unsi=
+gned)(x)) & 0x3) << 25)
+> > +#define                PACKET3_COPY_DATA__PQ_EXE_STATUS(x) ((((unsigne=
+d)(x)) & 0x1) << 29)
+> > +#define                PACKET3_COPY_DATA__SRC_REG_OFFSET(x) ((((unsign=
+ed)(x)) & 0x3FFFF) << 0)
+> > +#define                PACKET3_COPY_DATA__SRC_32B_ADDR_LO(x) ((((unsig=
+ned)(x)) & 0x3FFFFFFF) << 2)
+> > +#define                PACKET3_COPY_DATA__SRC_64B_ADDR_LO(x) ((((unsig=
+ned)(x)) & 0x1FFFFFFF) << 3)
+> > +#define                PACKET3_COPY_DATA__SRC_GDS_ADDR_LO(x) ((((unsig=
+ned)(x)) & 0xFFFF) << 0)
+> > +#define                PACKET3_COPY_DATA__IMM_DATA(x) ((unsigned)(x))
+> > +#define                PACKET3_COPY_DATA__SRC_MEMTC_ADDR_HI(x) ((unsig=
+ned)(x))
+> > +#define                PACKET3_COPY_DATA__SRC_IMM_DATA(x) ((unsigned)(=
+x))
+> > +#define                PACKET3_COPY_DATA__DST_REG_OFFSET(x) ((((unsign=
+ed)(x)) & 0x3FFFF) << 0)
+> > +#define                PACKET3_COPY_DATA__DST_32B_ADDR_LO(x) ((((unsig=
+ned)(x)) & 0x3FFFFFFF) << 2)
+> > +#define                PACKET3_COPY_DATA__DST_64B_ADDR_LO(x) ((((unsig=
+ned)(x)) & 0x1FFFFFFF) << 3)
+> > +#define                PACKET3_COPY_DATA__DST_GDS_ADDR_LO(x) ((((unsig=
+ned)(x)) & 0xFFFF) << 0)
+> > +#define                PACKET3_COPY_DATA__DST_ADDR_HI(x) ((unsigned)(x=
+))
+> > +#define                PACKET3_COPY_DATA__SRC_SEL__MEM_MAPPED_REGISTER=
+ 0
+> > +#define                PACKET3_COPY_DATA__SRC_SEL__MEMORY      1
+> > +#define                PACKET3_COPY_DATA__SRC_SEL__TC_L2       2
+> > +#define                PACKET3_COPY_DATA__SRC_SEL__GDS 3
+> > +#define                PACKET3_COPY_DATA__SRC_SEL__PERFCOUNTERS       =
+ 4
+> > +#define                PACKET3_COPY_DATA__SRC_SEL__IMMEDIATE_DATA     =
+ 5
+> > +#define                PACKET3_COPY_DATA__SRC_SEL__ATOMIC_RETURN_DATA =
+ 6
+> > +#define                PACKET3_COPY_DATA__SRC_SEL__GDS_ATOMIC_RETURN_D=
+ATA0     7
+> > +#define                PACKET3_COPY_DATA__SRC_SEL__GDS_ATOMIC_RETURN_D=
+ATA1     8
+> > +#define                PACKET3_COPY_DATA__SRC_SEL__GPU_CLOCK_COUNT    =
+ 9
+> > +#define                PACKET3_COPY_DATA__DST_SEL__MEM_MAPPED_REGISTER=
+ 0
+> > +#define                PACKET3_COPY_DATA__DST_SEL__TC_L2       2
+> > +#define                PACKET3_COPY_DATA__DST_SEL__GDS 3
+> > +#define                PACKET3_COPY_DATA__DST_SEL__PERFCOUNTERS       =
+ 4
+> > +#define                PACKET3_COPY_DATA__DST_SEL__MEMORY      5
+> > +#define                PACKET3_COPY_DATA__DST_SEL__MEM_MAPPED_REG_DC  =
+ 6
+> > +#define                PACKET3_COPY_DATA__SRC_CACHE_POLICY__LRU       =
+ 0
+> > +#define                PACKET3_COPY_DATA__SRC_CACHE_POLICY__STREAM 1
+> > +#define                PACKET3_COPY_DATA__COUNT_SEL__32_BITS_OF_DATA  =
+ 0
+> > +#define                PACKET3_COPY_DATA__COUNT_SEL__64_BITS_OF_DATA  =
+ 1
+> > +#define                PACKET3_COPY_DATA__WR_CONFIRM__DO_NOT_WAIT_FOR_=
+CONFIRMATION     0
+> > +#define                PACKET3_COPY_DATA__WR_CONFIRM__WAIT_FOR_CONFIRM=
+ATION    1
+> > +#define                PACKET3_COPY_DATA__DST_CACHE_POLICY__LRU       =
+ 0
+> > +#define                PACKET3_COPY_DATA__DST_CACHE_POLICY__STREAM    =
+ 1
+> > +#define                PACKET3_COPY_DATA__PQ_EXE_STATUS__DEFAULT      =
+ 0
+> > +#define                PACKET3_COPY_DATA__PQ_EXE_STATUS__PHASE_UPDATE =
+ 1
+> >  #define        PACKET3_PFP_SYNC_ME                             0x42
+> >  #define        PACKET3_COND_WRITE                              0x45
+> >  #define        PACKET3_EVENT_WRITE                             0x46
+> > @@ -181,6 +300,15 @@
+> >                  * 3 - SAMPLE_STREAMOUTSTAT*
+> >                  * 4 - *S_PARTIAL_FLUSH
+> >                  */
+> > +#define                PACKET3_EVENT_WRITE__EVENT_TYPE(x) ((((unsigned=
+)(x)) & 0x3F) << 0)
+> > +#define                PACKET3_EVENT_WRITE__EVENT_INDEX(x) ((((unsigne=
+d)(x)) & 0xF) << 8)
+> > +#define                PACKET3_EVENT_WRITE__OFFLOAD_ENABLE(x) ((((unsi=
+gned)(x)) & 0x1) << 31)
+> > +#define                PACKET3_EVENT_WRITE__SAMP_PLST_CNTR_MODE(x) (((=
+(unsigned)(x)) & 0x3) << 29)
+> > +#define                PACKET3_EVENT_WRITE__ADDRESS_LO(x) ((((unsigned=
+)(x)) & 0x1FFFFFFF) << 3)
+> > +#define                PACKET3_EVENT_WRITE__ADDRESS_HI(x) (((unsigned)=
+(x)) << 0)
+> > +#define                PACKET3_EVENT_WRITE__EVENT_INDEX__OTHER 0
+> > +#define                PACKET3_EVENT_WRITE__EVENT_INDEX__SAMPLE_PIPELI=
+NESTATS  2
+> > +#define                PACKET3_EVENT_WRITE__EVENT_INDEX__CS_PARTIAL_FL=
+USH      4
+> >  #define        PACKET3_RELEASE_MEM                             0x49
+> >  #define                EVENT_TYPE(x)                           ((x) <<=
+ 0)
+> >  #define                EVENT_INDEX(x)                          ((x) <<=
+ 8)
+> > @@ -286,6 +414,13 @@
+> >  #define        PACKET3_ACQUIRE_MEM_CP_COHER_CNTL_SH_ICACHE_ACTION_ENA(=
+x) ((x) << 29)
+> >  #define        PACKET3_ACQUIRE_MEM_CP_COHER_CNTL_SH_KCACHE_WB_ACTION_E=
+NA(x) ((x) << 30)
+> >  #define        PACKET3_REWIND                                  0x59
+> > +#define                PACKET3_ACQUIRE_MEM__COHER_SIZE(x) ((unsigned)(=
+x))
+> > +#define        PACKET3_ACQUIRE_MEM__COHER_SIZE_HI(x) ((((unsigned)(x))=
+ & 0xFF) << 0)
+> > +#define        PACKET3_ACQUIRE_MEM__COHER_SIZE_HI_VG10(x) ((((unsigned=
+)(x)) & 0xFFFFFF) << 0)
+> > +#define        PACKET3_ACQUIRE_MEM__COHER_BASE_LO(x) ((unsigned)(x))
+> > +#define        PACKET3_ACQUIRE_MEM__COHER_BASE_HI(x) ((((unsigned)(x))=
+ & 0xFFFFFF) << 0)
+> > +#define        PACKET3_ACQUIRE_MEM__POLL_INTERVAL(x) ((((unsigned)(x))=
+ & 0xFFFF) << 0)
+> > +#define        PACKET3_ACQUIRE_MEM__GCR_CNTL(x) ((((unsigned)(x)) & 0x=
+7FF) << 0)
+> >  #define        PACKET3_LOAD_UCONFIG_REG                        0x5E
+> >  #define        PACKET3_LOAD_SH_REG                             0x5F
+> >  #define        PACKET3_LOAD_CONFIG_REG                         0x60
+> > @@ -300,12 +435,16 @@
+> >  #define        PACKET3_SET_SH_REG                              0x76
+> >  #define                PACKET3_SET_SH_REG_START                       =
+ 0x00002c00
+> >  #define                PACKET3_SET_SH_REG_END                         =
+ 0x00003000
+> > +#define        PACKET3_SET_SH_REG__REG_OFFSET(x) ((((unsigned)(x)) & 0=
+xFFFF) << 0)
+> > +#define        PACKET3_SET_SH_REG__VMID_SHIFT(x) ((((unsigned)(x)) & 0=
+x1F) << 23)
+> > +#define        PACKET3_SET_SH_REG__INDEX(x) ((((unsigned)(x)) & 0xF) <=
+< 28)
+> >  #define        PACKET3_SET_SH_REG_OFFSET                       0x77
+> >  #define        PACKET3_SET_QUEUE_REG                           0x78
+> >  #define        PACKET3_SET_UCONFIG_REG                         0x79
+> >  #define                PACKET3_SET_UCONFIG_REG_START                  =
+ 0x0000c000
+> >  #define                PACKET3_SET_UCONFIG_REG_END                    =
+ 0x0000c400
+> >  #define                PACKET3_SET_UCONFIG_REG_INDEX_TYPE             =
+ (2 << 28)
+> > +#define        PACKET3_SET_UCONFIG_REG__REG_OFFSET(x) ((((unsigned)(x)=
+) & 0xFFFF) << 0)
+> >  #define        PACKET3_SCRATCH_RAM_WRITE                       0x7D
+> >  #define        PACKET3_SCRATCH_RAM_READ                        0x7E
+> >  #define        PACKET3_LOAD_CONST_RAM                          0x80
+> > --
+> > 2.48.1
+> >
