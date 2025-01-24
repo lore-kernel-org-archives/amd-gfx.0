@@ -4,82 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67CC8C0218C
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jan 2025 09:34:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F7C6C0218C
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jan 2025 09:43:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 08BE210E92F;
-	Fri, 24 Jan 2025 09:34:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2201B10E939;
+	Fri, 24 Jan 2025 09:43:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="T7sGEjIG";
+	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="U0dGHww/";
 	dkim-atps=neutral
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
- [209.85.216.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15C4910E220;
- Fri, 24 Jan 2025 04:08:48 +0000 (UTC)
-Received: by mail-pj1-f53.google.com with SMTP id
- 98e67ed59e1d1-2ee76befe58so3060480a91.2; 
- Thu, 23 Jan 2025 20:08:48 -0800 (PST)
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C80B010E939
+ for <amd-gfx@lists.freedesktop.org>; Fri, 24 Jan 2025 09:43:30 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-43690d4605dso12469965e9.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 24 Jan 2025 01:43:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1737691727; x=1738296527; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=D6e6R/iD1t4ReAa9KfZ1qSPqX0t3TQNshzKeYKkD9yY=;
- b=T7sGEjIGhF2uQVyVyilN8b2cSvd6im2obRj7geVlvH3UYHslJ7GyjGaoP6bID2vibE
- +FEfC0cRDz3DexT4O+jnQJNnXNCUajpuKC3yc1Jf7W9omgnoei/XavrsRvkTkJc186xe
- FOibf3tyS1weQGC4T5v1LyagzD1GDfd9LKUgrd5C4QEuF5tbRB5vjsetiyuspHUaDjbJ
- cZo4YRW2UZcolzOKDHE5kYuxhUkl+G6ijecMn8dRmU2TlMD6FHx7gJbDhTSXeCIocZ8D
- zyLy1JWRsCNt8W0bxa4zGFWXeUx+TYrnhUTgcfY9+im64u423A/GKcc/wyOdV1dJXATx
- rEPA==
+ d=ffwll.ch; s=google; t=1737711809; x=1738316609; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=HiVPCS0/X3Z+cksyZsvgs6k8eqxEex/xdbV+ebR25dg=;
+ b=U0dGHww/eyoeW5Q1FkchGvNf1X0mKyx9JJWDOZ97P57x5YMTZMhiyqHOH/UR1Ywm7Z
+ vnp/Y7fBL8fPWC+5FnsotJizDHbbalH2fl7BkiHbNN1FIjO69s+GuhcD39v19HZrb4/q
+ kgFaNb5xctcaYIqHwIuS1j53tu4jTrlcYArZs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737691727; x=1738296527;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=D6e6R/iD1t4ReAa9KfZ1qSPqX0t3TQNshzKeYKkD9yY=;
- b=D1NlCoEvoMdiBjJKJhU9EEwVCIdzoRGrk+uKMDJo5TLNnSl2bo+MEhSnbifykJxbD+
- dHwHHx1yTacs8Pf0HowjjCA1pmeDHpbjcCnMAy3lqz+OXgqdQmHULF4Otzvo/xTAhw0C
- YDs+D8GB/Gk0IuK4GiXA62frzVh4i4ufDN+GbsI/b/UDCMQI8me/r5QpsJpKbfAdvCix
- EAWxWR/7xlrQT7MhhmwT2bQNY0nHZ/0e3KI2JBYiq0oCfIEalWgsDO2yxrsF7s9azb7O
- G9rlpXudAbcVoChB2Gp0W6G2gofKZSc2BUIrqyRvJB/7l+fa7QsbGc5HNiHA7Waqvr/w
- zQdQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVERHqS8FEhgfYU5I8Nvh83xrUSQ2mUy1/Bb/Azh0p0lKA+f4HV7ZSsLtPQJYkl6zfeJu/a778XFLMY@lists.freedesktop.org,
- AJvYcCVT2wyqZ/rLRj39ZuYbhZHWxuIeJqm/e98jFwAvDSw8GFqKr4LyF7G7NCHowsOUf39cR7Uw9nEw@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwcNJuKunRfjWdY/A5U9jBEhR/16ho3XRptrx0unufoVkc61PZ+
- 0/G0gMYwtvuOeXuWAyh3JlzSDw75ckm+vasnZ9Hijh/EiIVoQSzN
-X-Gm-Gg: ASbGncswSHvlADefllCLgQtQbvfIi0iBBIOnYSWIlele/3uZj1NbvljGR25oiRHxCll
- K8tI3hc4NW6O6Aqpak6IS09cOfEbdnQd4csE/SjLME7uFdL9/HW1Odmso/tu2QtmP/PSAuZUSL7
- ny0PJyFxk6Y42r02HlOwECk2u70i3S24VW32URLApIkAZzzwoNIxx1iB26LjxxjOZU6Rnt8ZxNo
- lX8DdVzXgio7GYBZDHvaqQz4hISPPY8iM/y8PJIA9v6c1JVPMgPRcsoPZXpshqu5LIW7RGXNmN9
- ptfOOi8rDdLSu5IV3XiWfVuSrW2sBACodK8hmAt+
-X-Google-Smtp-Source: AGHT+IGKwqK3FeAP7M3pDG/EPu8XOfZtrxx0RtjPTD4kt8b1n6567njef2h1tCvlNFusMRPQtdbLkw==
-X-Received: by 2002:a17:90b:2808:b0:2ee:d433:7c54 with SMTP id
- 98e67ed59e1d1-2f782cb61bemr40425091a91.19.1737691727590; 
- Thu, 23 Jan 2025 20:08:47 -0800 (PST)
-Received: from jren-d3.localdomain ([221.222.59.195])
+ d=1e100.net; s=20230601; t=1737711809; x=1738316609;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=HiVPCS0/X3Z+cksyZsvgs6k8eqxEex/xdbV+ebR25dg=;
+ b=UelFjXA3oFP7FVpw4cH7M5NMcy1mfYnnAiJ0mQnmuolgIu2wIaeEFUSsJzuYAHsp1q
+ MVNf9EFD+fwXnavhNwjxeouSKTpwOm/4fceNDKdE4pevcAPyeYvKCKxU74WJ+3Jd2zW1
+ p2NNkN8mC2gEgH7Q1z3ozmuHe6QUDX7mQUMg2H3ZgLBwQR1te1z9D7cG68iY4GIObyvC
+ CEYeaAyX+KxTAm4WKIbLMw+dUIYuKCdB3CELyyg88bDbBPIc+3C9uzo509esM7cvSRfy
+ tAnYj0IpfzoFBo2TE3Y4Fll43PpRUD+LE0KVDhD/voEZvy8U5smGDt9+bZ2AJ2Xzxrqx
+ ENmw==
+X-Gm-Message-State: AOJu0YwAHdEwkuBkh9Z8Qycabe1/cEbuXxAI7eSAD64hbI6j5z9iyGFs
+ GKdZsqAUZ+Yb2MJlnB1VwsxABUB3nPo0TlgdJONDY4mx2PnnbcJgIQd7sI8W63NHZ31KgSWIoqe
+ w
+X-Gm-Gg: ASbGncv8/Jr3P8uxE6bZczAn3Bw46UNuYDP+1gdEJn/0WRGh51WojkgFqqqfJd0laOB
+ qC3k6p7xmVXtKtLxyOoVNCQOsCIylX3r/0N2OLTcGy0uAsWngZZJpXmkzVIey3cscgznQeYXtK5
+ 18PLPsiJinNa5kByzcgUEbrvprZ4lYIn7Gf38XnBR+8meJ0vlvosRzgrtedeTeur9b6u8jNSk/U
+ 2k34c6t0avY8t4B+frjFhE2gOITmCoKTA7G/r7b71Tji2ACLrjNPMH9daw0wT4YDYe3eOi9Bauf
+ rrdPStTMtuNM4NVq
+X-Google-Smtp-Source: AGHT+IFO2cBc7ehIZAnFF0d6XYEGMyydAzDoZEK5FT2V4uZVuHjTy//iZJSTEds/wT4DYYZLZS66Tg==
+X-Received: by 2002:a5d:6d86:0:b0:38a:8e2e:9fcc with SMTP id
+ ffacd0b85a97d-38bf57befa9mr27925570f8f.45.1737711809032; 
+ Fri, 24 Jan 2025 01:43:29 -0800 (PST)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:5485:d4b2:c087:b497])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-2f7ffa455c0sm562670a91.3.2025.01.23.20.08.41
+ ffacd0b85a97d-38c2a188fd0sm2204300f8f.58.2025.01.24.01.43.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Jan 2025 20:08:47 -0800 (PST)
-From: Imkanmod Khan <imkanmodkhan@gmail.com>
-To: stable@vger.kernel.org
-Cc: patches@lists.linux.dev, alexander.deucher@amd.com, daniel.wheeler@amd.com,
- mario.limonciello@amd.com, josip.pavic@amd.com, aurabindo.pillai@amd.com,
- sohaib.nadeem@amd.com, gregkh@linuxfoundation.org, harry.wentland@amd.com,
- sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, christian.koenig@amd.com,
- Xinhui.Pan@amd.com, airlied@gmail.com, daniel@ffwll.ch, wayne.lin@amd.com,
- sashal@kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, charlene.liu@amd.com, gabe.teeger@amd.com,
- amd-gfx@lists.freedesktop.org, Nicholas.Kazlauskas@amd.com,
- Imkanmod Khan <imkanmodkhan@gmail.com>
-Subject: [PATCH 6.1.y] drm/amd/display: fixed integer types and null check
- locations
-Date: Fri, 24 Jan 2025 12:08:36 +0800
-Message-ID: <20250124040836.7603-1-imkanmodkhan@gmail.com>
-X-Mailer: git-send-email 2.43.0
+ Fri, 24 Jan 2025 01:43:28 -0800 (PST)
+Date: Fri, 24 Jan 2025 10:43:26 +0100
+From: Simona Vetter <simona.vetter@ffwll.ch>
+To: Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ airlied@gmail.com, simona@ffwll.ch
+Subject: Re: [pull] amdgpu drm-next-6.14
+Message-ID: <Z5NgvvRgXUvMSe-m@phenom.ffwll.local>
+References: <20250122163252.1788713-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 24 Jan 2025 09:34:02 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250122163252.1788713-1-alexander.deucher@amd.com>
+X-Operating-System: Linux phenom 6.12.3-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,98 +83,108 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Sohaib Nadeem <sohaib.nadeem@amd.com>
+On Wed, Jan 22, 2025 at 11:32:52AM -0500, Alex Deucher wrote:
+> Hi Dave, Simona,
+> 
+> Fixes for 6.14.
+> 
+> The following changes since commit 97e5c9e4139087a67c2469488360a6d6afdd4b69:
+> 
+>   drm/amd/display: fix CEC DC_DEBUG_MASK documentation (2025-01-16 16:23:22 -0500)
+> 
+> are available in the Git repository at:
+> 
+>   https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-next-6.14-2025-01-22
 
-[ Upstream commit 0484e05d048b66d01d1f3c1d2306010bb57d8738 ]
+I think you forgot to add your sob when rebasing/cherry-picking some of
+the commits in this one. Apologies for only looking at it now, but can
+you please respin?
 
-[why]:
-issues fixed:
-- comparison with wider integer type in loop condition which can cause
-infinite loops
-- pointer dereference before null check
+dim: f4f65756091c ("drm/amdkfd: Clear MODE.VSKIP in gfx9 trap handler"): committer Signed-off-by missing.
+dim: 8507f33a13b8 ("drm/amdgpu: Refine ip detection log message"): committer Signed-off-by missing.
+dim: d3690f0e7b50 ("drm/amdgpu: Add handler for SDMA context empty"): committer Signed-off-by missing.
+dim: 5349658fa4a1 ("drm/amd: Add debug option to disable subvp"): committer Signed-off-by missing.
+dim: bede35aa9ebe ("drm/amdkfd: Sync trap handler binary with source"): committer Signed-off-by missing.
+dim: 1cd21c472883 ("drm/amdkfd: Fix partial migrate issue"): committer Signed-off-by missing.
 
-Cc: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: stable@vger.kernel.org
-Reviewed-by: Josip Pavic <josip.pavic@amd.com>
-Acked-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Signed-off-by: Sohaib Nadeem <sohaib.nadeem@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Imkanmod Khan <imkanmodkhan@gmail.com>
----
- .../gpu/drm/amd/display/dc/bios/bios_parser2.c   | 16 ++++++++++------
- 1 file changed, 10 insertions(+), 6 deletions(-)
+Cheers, Sima
+> 
+> for you to fetch changes up to 74d099cbc632a76ea80cdf31126c8b110ff34865:
+> 
+>   drm/amd/display: Optimize cursor position updates (2025-01-21 10:38:59 -0500)
+> 
+> ----------------------------------------------------------------
+> amd-drm-next-6.14-2025-01-22:
+> 
+> amdgpu:
+> - Documentation fixes
+> - SMU 13.x fixes
+> - SR-IOV fix
+> - Display fix
+> - PCIe calculation fix
+> - MES 12 fix
+> - HUBP fix
+> - Cursor fix
+> 
+> ----------------------------------------------------------------
+> Alex Deucher (1):
+>       drm/amd/display: fix SUBVP DC_DEBUG_MASK documentation
+> 
+> Aric Cyr (2):
+>       drm/amd/display: Add hubp cache reset when powergating
+>       drm/amd/display: Optimize cursor position updates
+> 
+> Jesse.zhang@amd.com (3):
+>       revert "drm/amdgpu/pm: Implement SDMA queue reset for different asic"
+>       revert "drm/amdgpu/pm: add definition PPSMC_MSG_ResetSDMA2"
+>       drm/amd/pm: Refactor SMU 13.0.6 SDMA reset firmware version checks
+> 
+> Lijo Lazar (2):
+>       drm/amd/pm: Add capability flags for SMU v13.0.6
+>       drm/amd/pm: Fix smu v13.0.6 caps initialization
+> 
+> Lin.Cao (1):
+>       drm/amdgpu: fix ring timeout issue in gfx10 sr-iov environment
+> 
+> Mario Limonciello (1):
+>       drm/amd: Clarify kdoc for amdgpu.gttsize
+> 
+> Shaoyun Liu (1):
+>       drm/amd/amdgpu: Enable scratch data dump for mes 12
+> 
+> Srinivasan Shanmugam (2):
+>       drm/amd/display: Fix error pointers in amdgpu_dm_crtc_mem_type_changed
+>       drm/amd/amdgpu: Prevent null pointer dereference in GPU bandwidth calculation
+> 
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |   4 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c            |   2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c             |   2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h            |   2 +-
+>  drivers/gpu/drm/amd/amdgpu/mes_v12_0.c             |  49 +++-
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |   5 +
+>  .../gpu/drm/amd/display/dc/dpp/dcn10/dcn10_dpp.c   |  10 +-
+>  .../drm/amd/display/dc/dpp/dcn401/dcn401_dpp_cm.c  |   6 +-
+>  .../gpu/drm/amd/display/dc/hubp/dcn10/dcn10_hubp.c |  10 +-
+>  .../gpu/drm/amd/display/dc/hubp/dcn10/dcn10_hubp.h |   2 +
+>  .../gpu/drm/amd/display/dc/hubp/dcn20/dcn20_hubp.c |   9 +-
+>  .../drm/amd/display/dc/hubp/dcn201/dcn201_hubp.c   |   1 +
+>  .../gpu/drm/amd/display/dc/hubp/dcn21/dcn21_hubp.c |   3 +
+>  .../gpu/drm/amd/display/dc/hubp/dcn30/dcn30_hubp.c |   3 +
+>  .../gpu/drm/amd/display/dc/hubp/dcn31/dcn31_hubp.c |   1 +
+>  .../gpu/drm/amd/display/dc/hubp/dcn32/dcn32_hubp.c |   1 +
+>  .../gpu/drm/amd/display/dc/hubp/dcn35/dcn35_hubp.c |   1 +
+>  .../drm/amd/display/dc/hubp/dcn401/dcn401_hubp.c   |  13 +-
+>  .../drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c    |   2 +
+>  .../drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c    |   2 +
+>  drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h       |   2 +
+>  drivers/gpu/drm/amd/include/amd_shared.h           |   2 +-
+>  .../amd/pm/swsmu/inc/pmfw_if/smu_v13_0_6_ppsmc.h   |   1 -
+>  drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h       |   3 +-
+>  drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h       |   1 +
+>  .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c   | 286 ++++++++++++++-------
+>  26 files changed, 300 insertions(+), 123 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
-index 4d2590964a20..75e44d8a7b40 100644
---- a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
-+++ b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
-@@ -1862,19 +1862,21 @@ static enum bp_result get_firmware_info_v3_2(
- 		/* Vega12 */
- 		smu_info_v3_2 = GET_IMAGE(struct atom_smu_info_v3_2,
- 							DATA_TABLES(smu_info));
--		DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", smu_info_v3_2->gpuclk_ss_percentage);
- 		if (!smu_info_v3_2)
- 			return BP_RESULT_BADBIOSTABLE;
- 
-+		DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", smu_info_v3_2->gpuclk_ss_percentage);
-+
- 		info->default_engine_clk = smu_info_v3_2->bootup_dcefclk_10khz * 10;
- 	} else if (revision.minor == 3) {
- 		/* Vega20 */
- 		smu_info_v3_3 = GET_IMAGE(struct atom_smu_info_v3_3,
- 							DATA_TABLES(smu_info));
--		DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", smu_info_v3_3->gpuclk_ss_percentage);
- 		if (!smu_info_v3_3)
- 			return BP_RESULT_BADBIOSTABLE;
- 
-+		DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", smu_info_v3_3->gpuclk_ss_percentage);
-+
- 		info->default_engine_clk = smu_info_v3_3->bootup_dcefclk_10khz * 10;
- 	}
- 
-@@ -2439,10 +2441,11 @@ static enum bp_result get_integrated_info_v11(
- 	info_v11 = GET_IMAGE(struct atom_integrated_system_info_v1_11,
- 					DATA_TABLES(integratedsysteminfo));
- 
--	DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", info_v11->gpuclk_ss_percentage);
- 	if (info_v11 == NULL)
- 		return BP_RESULT_BADBIOSTABLE;
- 
-+	DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", info_v11->gpuclk_ss_percentage);
-+
- 	info->gpu_cap_info =
- 	le32_to_cpu(info_v11->gpucapinfo);
- 	/*
-@@ -2654,11 +2657,12 @@ static enum bp_result get_integrated_info_v2_1(
- 
- 	info_v2_1 = GET_IMAGE(struct atom_integrated_system_info_v2_1,
- 					DATA_TABLES(integratedsysteminfo));
--	DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", info_v2_1->gpuclk_ss_percentage);
- 
- 	if (info_v2_1 == NULL)
- 		return BP_RESULT_BADBIOSTABLE;
- 
-+	DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", info_v2_1->gpuclk_ss_percentage);
-+
- 	info->gpu_cap_info =
- 	le32_to_cpu(info_v2_1->gpucapinfo);
- 	/*
-@@ -2816,11 +2820,11 @@ static enum bp_result get_integrated_info_v2_2(
- 	info_v2_2 = GET_IMAGE(struct atom_integrated_system_info_v2_2,
- 					DATA_TABLES(integratedsysteminfo));
- 
--	DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", info_v2_2->gpuclk_ss_percentage);
--
- 	if (info_v2_2 == NULL)
- 		return BP_RESULT_BADBIOSTABLE;
- 
-+	DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", info_v2_2->gpuclk_ss_percentage);
-+
- 	info->gpu_cap_info =
- 	le32_to_cpu(info_v2_2->gpucapinfo);
- 	/*
 -- 
-2.25.1
-
+Simona Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
