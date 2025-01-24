@@ -4,129 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13E9DC02181
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jan 2025 08:54:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF0A1C02181
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jan 2025 09:34:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B4B5D10E2CE;
-	Fri, 24 Jan 2025 08:54:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C84610E92E;
+	Fri, 24 Jan 2025 09:34:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="eGSMmHPn";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="JS9921qz";
 	dkim-atps=neutral
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2052.outbound.protection.outlook.com [40.107.102.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3BEDD10E2CE
- for <amd-gfx@lists.freedesktop.org>; Fri, 24 Jan 2025 08:54:49 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hBPbvdpTa7QWnWBnIktqiu44s+wh2qCnA6KsrHHO8lFU7O4RzbbtvrKSe6GPQS5lP5Ki/E38uDQrkM44SDD4wiP8E5h7ZdiRPoh3B6Xken27RDZz+7nWvZNRscXSQWJyZHoZK1aGMvJkQp4Jj+00fHFzX3axMumWsWxsAn32XTGeNTlINMUsOFUktdrJO3nYs1aa8nUQs2KIB3TRQd5Pl/V/AhnxtVnDlPTCayD/Crus9EOQFABhVSBJrzcfgu14YaECQfOFsjGQPiipUweRn60XOsrJMIxn50n304z/esAVvUTmpSS9UOIStjNi8GompaJAkTE28ZE+UfaFkSJp8Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JXBeF6u6iE/pVjU5mnvFM1JnUD1WobWaKaEVx5m6mt4=;
- b=b96km8g9mBw1bUWeMIMdgS27RXCG+Jlho1vMfvwheow4yA45/UplalcgmLjHGxWhgd+iVVfY1sLzVtVgeVZnQcH3QJbiGhvq+2vs9cXMvwe2AdzV1FxfVvrquIJHhaq+d5Jnc5EltLWAdpHx9MZxImAwRqDF4yfAnPYq9RvqV9P2QDCvNweRWHVjWaHDuMczYi28XcMM7ujqYb9/H1tpHl0QdHg9pbpC13v+DF0NVjab27r7Fg8JTghx1jCHszTeRtUsBUDcUoicR7F+FTAeduMgL6D2puWTOxsuwGJxucHUSLMiuP440GZaKLz1i2jmEzF+0473UwLcWeZfOpYj6A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JXBeF6u6iE/pVjU5mnvFM1JnUD1WobWaKaEVx5m6mt4=;
- b=eGSMmHPnUjmEiJjASz91jC6lE5+SFQdbSVm+ZtFvXe3w+zDogdI4SPeQGXd4MIdo3w0LKd9orUQXV8znbzq2vTqN9HLikgS5ZcgZc6aL17UMcGx5g0wj5SD58DQLyWgc+Y9WUhR1JCs1f/+SjDu+8yhL+eA2r5KuVp1/K0OvIYw=
-Received: from BL1PR13CA0157.namprd13.prod.outlook.com (2603:10b6:208:2bd::12)
- by DS0PR12MB6463.namprd12.prod.outlook.com (2603:10b6:8:c5::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8377.18; Fri, 24 Jan
- 2025 08:54:44 +0000
-Received: from BL6PEPF00022575.namprd02.prod.outlook.com
- (2603:10b6:208:2bd:cafe::10) by BL1PR13CA0157.outlook.office365.com
- (2603:10b6:208:2bd::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8398.11 via Frontend Transport; Fri,
- 24 Jan 2025 08:54:44 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL6PEPF00022575.mail.protection.outlook.com (10.167.249.43) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8377.8 via Frontend Transport; Fri, 24 Jan 2025 08:54:44 +0000
-Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Fri, 24 Jan 2025 02:54:42 -0600
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
- Deucher" <alexander.deucher@amd.com>
-CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
- <srinivasan.shanmugam@amd.com>, Mario Sopena-Novales <mario.novales@amd.com>
-Subject: [PATCH] drm/amdgpu/gfx10: Extend Cleaner Shader Support for
- Additional GFX10.3.x Versions
-Date: Fri, 24 Jan 2025 14:24:29 +0530
-Message-ID: <20250124085429.3129121-1-srinivasan.shanmugam@amd.com>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C0C210E8E7;
+ Fri, 24 Jan 2025 05:53:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1737697996; x=1769233996;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=9gHo3h+8hKIoEpCYlsQQFmJc+s4Oel5MKo/7KXjsYc0=;
+ b=JS9921qzznHnbNDGukbXEt3TfqASQ4NGfnTsQiF/4rhrVKzpCE0FQOKR
+ Icj7zFvk5BaP8xLIODErnmrf6L2u2u9nh4A2gkzPKqBbPhRwTiJjjuzsZ
+ SAn7i6NyrJbmEyl0+L0zaTCOQ5o2KQa8DeaXJBERJNAbF1LPkgGJYP+dl
+ kdhsqR2uaQhZCf/Gl5hTzYYYXcZaUWtpWeTqF0EMqIxpo5jh5PlLOPaz0
+ MJMg47nIaaGsbOB68JTj9QkG/KSx4LAC0bGkVHI7Lspx+koxK+FRqno51
+ uiCdEpYUJ2jY7ugq8sJs7AD5dcgUxXR/ZE5MWbwDvsdqkcgoR9TueZWIw A==;
+X-CSE-ConnectionGUID: exrckF+sR5K7cRekboiYcA==
+X-CSE-MsgGUID: 6clRlO1hTTWYPUfIJBAo+Q==
+X-IronPort-AV: E=McAfee;i="6700,10204,11324"; a="60689173"
+X-IronPort-AV: E=Sophos;i="6.13,230,1732608000"; d="scan'208";a="60689173"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jan 2025 21:53:16 -0800
+X-CSE-ConnectionGUID: /6dmIShJSMuMxD5G2ndnQg==
+X-CSE-MsgGUID: ODFs6u1aQVaC27471ZTxmQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.13,230,1732608000"; d="scan'208";a="108218755"
+Received: from jraag-z790m-itx-wifi.iind.intel.com ([10.190.239.23])
+ by fmviesa010.fm.intel.com with ESMTP; 23 Jan 2025 21:53:09 -0800
+From: Raag Jadav <raag.jadav@intel.com>
+To: airlied@gmail.com, simona@ffwll.ch, lucas.demarchi@intel.com,
+ rodrigo.vivi@intel.com, jani.nikula@linux.intel.com,
+ andriy.shevchenko@linux.intel.com, michal.wajdeczko@intel.com,
+ christian.koenig@amd.com, xaver.hugl@kde.org
+Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, himal.prasad.ghimiray@intel.com,
+ aravind.iddamsetty@linux.intel.com, anshuman.gupta@intel.com,
+ lina@asahilina.net, alexander.deucher@amd.com, andrealmeid@igalia.com,
+ amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
+ Raag Jadav <raag.jadav@intel.com>
+Subject: [PATCH v11 3/5] drm/xe: Use device wedged event
+Date: Fri, 24 Jan 2025 11:22:58 +0530
+Message-Id: <20250124055300.1111274-4-raag.jadav@intel.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20250124055300.1111274-1-raag.jadav@intel.com>
+References: <20250124055300.1111274-1-raag.jadav@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF00022575:EE_|DS0PR12MB6463:EE_
-X-MS-Office365-Filtering-Correlation-Id: e17a0a5d-7c16-4b21-a9c2-08dd3c54bf6f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700013|1800799024|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?SjErRnpQQ1YxV3Jjc2k0WkMzUWdPK2IxNUQyTHRkTFRFcGVwMlhRd0JsVVlB?=
- =?utf-8?B?OC9RSVhvQnRsM1ppSGZYVEIyaXIyQm10VmZWMm4wa3IxOGl3ZGlEQ09vYnUx?=
- =?utf-8?B?TDhHTTNvT0w5bnNqUkJmcDBGdlBpNFFDQ1JDQ2F2SlN1TDdVYVo2M2hZU2F4?=
- =?utf-8?B?cmZXZXRGMUhoRXhqd096cTRzRTlzLzBEcFRMRTltWkw5dlBaZnFFV2c3dTVl?=
- =?utf-8?B?aDE2L1paZDBWNzhJUTM4aS95NTAxb1VpdFU3aUZNdFpud2R5OS9vR3RsdmxS?=
- =?utf-8?B?ZUtybi9XMzdrdHpuUGZxaDlHSzFDdm1nZk5veHZFUWxWTVluQXlkZHF0ZFZi?=
- =?utf-8?B?NnVjM2NEV3F0bnVSZkxpU1VqdHp0RlVRZnVHNWtJZ1MyWEtOWUc4aUU1NzRX?=
- =?utf-8?B?Z0Y5b05NUFhqdnRhcnJBenBLbmN6MkpPdFZGbHYxb0dUenJjOHdnQWRwTG91?=
- =?utf-8?B?eXFubmVtS0daWFUzZG1BV3c0R080aDZQUXRRUVVlbHgvdmtuZzUxMHJodjMv?=
- =?utf-8?B?QmZadmZVdkM5dEtxOGpLUU5pUW1CdzBMbVZobXRKYnZoTlhnL0xybHVlcFBW?=
- =?utf-8?B?cmpvSkc2c3dxN3NSVlNhczhzMEF6d1hJUWxad2lSaW5DcUkydXVXcW4vVTVz?=
- =?utf-8?B?T21FeUk0bS8zVDl2ZVQ5L2hzMlIzekxySVgxVVJHZTMzYWVhVTBkQzVSSlRQ?=
- =?utf-8?B?UEdXVVVJOXRvRG5EV0Z1SFNqdnhDVzU1L2F4aWszU2xvbE12Wk5VREZmVjhl?=
- =?utf-8?B?NFNLeHZWb3dwb1VqOXZJV2Zpa0xtQ0hIaWZ6d3JmSnZjSE5MWmlwS0lyb3hh?=
- =?utf-8?B?NEJVV21vMDNaSFdzS3Rabm9qNUdjSFpraVVKOGcxN2tPd1JPQXNTNnQyQS9t?=
- =?utf-8?B?YWlVMXBOeEJuSzdjMWxvaHNCRG5PaWtSMGlSM3dDTy9VTTJpVXBoV3dqTTZN?=
- =?utf-8?B?MEIxZTR0cjExWVJXeXBOTU03QzhtbmJCOHc3K05CZ1BhbHJFQUhqQTExV0ZQ?=
- =?utf-8?B?VWlkbjZ4ck5RRVN2NzVnZTBXL1UwbHhEZFpYaEdrSmdsRE1lOFM2cXpES0k3?=
- =?utf-8?B?bTY2T0JrcFRRNGQrQzI1YWhKZkpxRWI4L1AzeWd0Wng0S1NyQkFlN1IwcnQr?=
- =?utf-8?B?ZXI0dTgreWg3M3lYM016ZHNFZGtIS1V6YVdBbHNmaDJFM1FVaElFR3Z1MjVV?=
- =?utf-8?B?Rk1BYmdwNVM3RktLazNnLytROW00Q0FRUzkyTFl2UHBQU2JnRTRXbnA1eDdH?=
- =?utf-8?B?S0V1Z3pkNEtOMFZ2dkM1MThDMXcxSGJVa1VycVdjR3drQUFHaUh6NWZPdDJR?=
- =?utf-8?B?bmRRS2NkZmVCbEJvSmRuSS8ybFFWV0JYeXU5QjlGOEdTOEZPWE9sODhyNjFS?=
- =?utf-8?B?ckdIcGwva2N4a0ZNeEYvSzhyYlpsUjlFcE1LMjhTb0dkSWxyN2ZHaFdjbFpn?=
- =?utf-8?B?NllSbDhLdjhLSXorYXJYeCs3VjBXc3ozMDhqSmNLbEQ4TUl6TWdWUGpOVm0y?=
- =?utf-8?B?NjZvR1lISzRVZGxLR1ZBMUhjM2MwdTBKWlRhZzJ0Mkp2U0EwUkk0djd0SG5Y?=
- =?utf-8?B?OHZmQy82MmUwTnNKR1NLR3ZlT1BkdVVkN3FYUXJaOTZ0Zm0rQjFMNHFwM1Ew?=
- =?utf-8?B?SUI4QU5oaUZSWXQ2N24yZVYvYnM0eGhIUWJMK0VUSUJlMExkWU9mTStHTW90?=
- =?utf-8?B?UmZpb0s2QS9sMUtLaU1SMFRjL0NNNDJMRE50Q0RiLzdubEI3KzVOSk5iNkll?=
- =?utf-8?B?WGc2Vlc4UkV3ckRSbnpXcnBxcE5INTVVQUtwczlSRzdKTWR3QWpYSDVGcDFj?=
- =?utf-8?B?L1JVMmQrZDJ3cU5LempxaTNZZUovMU9sWm10SlRDY2FLenFpWEFxaC9KNUR1?=
- =?utf-8?B?eHhKSllSSXFSVEE1RDVCL3ZvMHZ2QjB0NlRYTHpiWU5mRVRmS2VuSmRhZzk3?=
- =?utf-8?B?UTRqcjV1WVh1S2NDZ1R2cmpvWG1aMTgzRXR0M1FaRE5KRGU0b3lmQStyV2l0?=
- =?utf-8?Q?H8P9SJNLrW80a7VUEFCKbN/oAKElOE=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700013)(1800799024)(82310400026); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jan 2025 08:54:44.2539 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e17a0a5d-7c16-4b21-a9c2-08dd3c54bf6f
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF00022575.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6463
+X-Mailman-Approved-At: Fri, 24 Jan 2025 09:34:02 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,37 +74,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This commit extends the cleaner shader support to additional versions of
-the GFX10.3.x series, specifically including versions 10.3.1, 10.3.3,
-10.3.6, and 10.3.7. The cleaner shader is important for clearing
-leftover locals and ensuring process isolation on the GPU.
+This was previously attempted as xe specific reset uevent but dropped
+in commit 77a0d4d1cea2 ("drm/xe/uapi: Remove reset uevent for now")
+as part of refactoring.
 
-Cc: Mario Sopena-Novales <mario.novales@amd.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Now that we have device wedged event provided by DRM core, make use
+of it and support both driver rebind and bus-reset based recovery.
+With this in place userspace will be notified of wedged device, on
+the basis of which, userspace may take respective action to recover
+the device.
+
+$ udevadm monitor --property --kernel
+monitor will print the received events for:
+KERNEL - the kernel uevent
+
+KERNEL[265.802982] change   /devices/pci0000:00/0000:00:01.0/0000:01:00.0/0000:02:01.0/0000:03:00.0/drm/card0 (drm)
+ACTION=change
+DEVPATH=/devices/pci0000:00/0000:00:01.0/0000:01:00.0/0000:02:01.0/0000:03:00.0/drm/card0
+SUBSYSTEM=drm
+WEDGED=rebind,bus-reset
+DEVNAME=/dev/dri/card0
+DEVTYPE=drm_minor
+SEQNUM=5208
+MAJOR=226
+MINOR=0
+
+v2: Change authorship to Himal (Aravind)
+    Add uevent for all device wedged cases (Aravind)
+v3: Generic implementation in DRM subsystem (Lucas)
+v4: Change authorship to Raag (Aravind)
+
+Signed-off-by: Raag Jadav <raag.jadav@intel.com>
+Reviewed-by: Aravind Iddamsetty <aravind.iddamsetty@linux.intel.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/xe/xe_device.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-index 938f7d60a0ee..9816e2a4d62e 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-@@ -4811,9 +4811,13 @@ static int gfx_v10_0_sw_init(struct amdgpu_ip_block *ip_block)
- 		}
- 		break;
- 	case IP_VERSION(10, 3, 0):
-+	case IP_VERSION(10, 3, 1):
- 	case IP_VERSION(10, 3, 2):
-+	case IP_VERSION(10, 3, 3):
- 	case IP_VERSION(10, 3, 4):
- 	case IP_VERSION(10, 3, 5):
-+	case IP_VERSION(10, 3, 6):
-+	case IP_VERSION(10, 3, 7):
- 		adev->gfx.cleaner_shader_ptr = gfx_10_3_0_cleaner_shader_hex;
- 		adev->gfx.cleaner_shader_size = sizeof(gfx_10_3_0_cleaner_shader_hex);
- 		if (adev->gfx.me_fw_version >= 64 &&
+diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_device.c
+index bd6191e1ed3e..98981c0051c1 100644
+--- a/drivers/gpu/drm/xe/xe_device.c
++++ b/drivers/gpu/drm/xe/xe_device.c
+@@ -1114,7 +1114,8 @@ static void xe_device_wedged_fini(struct drm_device *drm, void *arg)
+  * re-probe (unbind + bind).
+  * In this state every IOCTL will be blocked so the GT cannot be used.
+  * In general it will be called upon any critical error such as gt reset
+- * failure or guc loading failure.
++ * failure or guc loading failure. Userspace will be notified of this state
++ * through device wedged uevent.
+  * If xe.wedged module parameter is set to 2, this function will be called
+  * on every single execution timeout (a.k.a. GPU hang) right after devcoredump
+  * snapshot capture. In this mode, GT reset won't be attempted so the state of
+@@ -1144,6 +1145,10 @@ void xe_device_declare_wedged(struct xe_device *xe)
+ 			"IOCTLs and executions are blocked. Only a rebind may clear the failure\n"
+ 			"Please file a _new_ bug report at https://gitlab.freedesktop.org/drm/xe/kernel/issues/new\n",
+ 			dev_name(xe->drm.dev));
++
++		/* Notify userspace of wedged device */
++		drm_dev_wedged_event(&xe->drm,
++				     DRM_WEDGE_RECOVERY_REBIND | DRM_WEDGE_RECOVERY_BUS_RESET);
+ 	}
+ 
+ 	for_each_gt(gt, xe, id)
 -- 
 2.34.1
 
