@@ -4,25 +4,25 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13FE7C0218C
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jan 2025 05:22:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E955C0218B
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jan 2025 05:22:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 42A2510E8D0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4784A10E8D1;
 	Fri, 24 Jan 2025 05:22:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="uTgCG4KJ";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="FDAlbp6R";
 	dkim-atps=neutral
-Received: from out30-110.freemail.mail.aliyun.com
- (out30-110.freemail.mail.aliyun.com [115.124.30.110])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C7F910E253
+Received: from out30-97.freemail.mail.aliyun.com
+ (out30-97.freemail.mail.aliyun.com [115.124.30.97])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC70A10E8CE
  for <amd-gfx@lists.freedesktop.org>; Fri, 24 Jan 2025 05:19:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=linux.alibaba.com; s=default;
  t=1737695961; h=From:To:Subject:Date:Message-ID:MIME-Version;
- bh=3ahRtewzenNBXikF3fQ+ahP0e8WetatDMTtQpfy+4CA=;
- b=uTgCG4KJ7O/mzwkqxZmpK6QBVutJLGN7EGyNKlcPAVN/9T96HIrGAtybJwkcAgmtPJYyNPdUGy/CowIblpv/HAuVHUTSuZQX2Be9TFntgEyn+zu1Fo+0GpHGms42L1bCjxgEq8rzOPdxMIszXWmyzI0ep7WsOB79kr9f3spiy0s=
+ bh=tetcFqHdUIwp4+KqlGJCdq9CFqdYgrAhCCMXtF9PlgM=;
+ b=FDAlbp6Rz/OJ405JmZ9yNPv5GpBxHfqLcqnx7tFk0QYsh3iDMa0HGrwqONRqOwjPGvc6IM/QHtKUI17qJ7lPsd4ThF6w0PZdhoxWj+hBXr7wZfWlH0n0N+Ga+ceXLNqaL1MuZoUc5S2G2NGCWw+vpXBxst3bEcnxkN2ckYiXZIE=
 Received: from i32d02263.sqa.eu95.tbsite.net(mailfrom:gerry@linux.alibaba.com
- fp:SMTPD_---0WODTwiJ_1737695959 cluster:ay36) by smtp.aliyun-inc.com;
+ fp:SMTPD_---0WODTwik_1737695960 cluster:ay36) by smtp.aliyun-inc.com;
  Fri, 24 Jan 2025 13:19:20 +0800
 From: Jiang Liu <gerry@linux.alibaba.com>
 To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
@@ -31,10 +31,12 @@ To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
  xiaogang.chen@amd.com, Kent.Russell@amd.com, shuox.liu@linux.alibaba.com,
  amd-gfx@lists.freedesktop.org
 Cc: Jiang Liu <gerry@linux.alibaba.com>
-Subject: [v6 0/5] Fix several bugs in error handling during device probe
-Date: Fri, 24 Jan 2025 13:19:13 +0800
-Message-ID: <cover.1737695869.git.gerry@linux.alibaba.com>
+Subject: [v6 1/5] drm/amdxcp: introduce new API amdgpu_xcp_drm_dev_free()
+Date: Fri, 24 Jan 2025 13:19:14 +0800
+Message-ID: <fa058b9b2ed2e45d2e80939bff4b46322d3c9df4.1737695869.git.gerry@linux.alibaba.com>
 X-Mailer: git-send-email 2.43.5
+In-Reply-To: <cover.1737695869.git.gerry@linux.alibaba.com>
+References: <cover.1737695869.git.gerry@linux.alibaba.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -51,55 +53,129 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This patchset tries to fix several memory leakages/invalid memory
-accesses on error handling path during GPU driver loading/unloading.
-They applies to:
-https://gitlab.freedesktop.org/agd5f/linux.git amd-staging-drm-next
+Introduce new interface amdgpu_xcp_drm_dev_free() to free a specific
+drm_device crreated by amdgpu_xcp_drm_dev_alloc(), which will be used
+to do error recovery.
 
-v6:
-1) fix coding style of patch 5
-
-v5:
-1) drop first in v4, we have found a reliable way to fix the issue.
-2) add patch 3 in v5 to fix a new issue
-3) rework patch 5 according to review feedback
-
-v4:
-1) drop patch 1 in v3
-2) split out amdxcp related change into a dedicated patch
-3) use `guard(mutex)` instead of mutex_lock/unlock().
-4) move patch 6 in v3 to next patch set
-
-v3:
-1) drop first patch of v2
-2) rework the 0003/0004 patches of v2 according to review comments
-3) add patch 0004 to fix possible resource leakage in amdgpu_pci_probe()
-
-v2:
-1) rebased to https://gitlab.freedesktop.org/agd5f/linux.git branch
-   amd-staging-drm-next.
-2) removed the first patch, which is unnecessary.
-3) add amdgpu_xcp_drm_dev_free() in patch 0003 to enhance amdxcp
-   driver to better support device remove and error handling.
-4) reworked patch 0005 to fix it in amdgpu instead of drm core.
-
-Jiang Liu (5):
-  drm/amdxcp: introduce new API amdgpu_xcp_drm_dev_free()
-  drm/amdgpu: fix use after free bug related to
-    amdgpu_driver_release_kms()
-  drm/amdgpu: fix invalid memory access in amdgpu_xcp_cfg_sysfs_fini()
-  drm/amdgpu: enhance error handling in function amdgpu_pci_probe()
-  drm/amdgpu: fix invalid memory access in amdgpu_fence_driver_sw_fini()
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  | 33 ++++++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c     | 14 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c   |  9 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c     | 71 +++++++++++++++++----
- drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h     |  3 +-
- drivers/gpu/drm/amd/amdxcp/amdgpu_xcp_drv.c | 63 +++++++++++++++---
+Signed-off-by: Jiang Liu <gerry@linux.alibaba.com>
+---
+ drivers/gpu/drm/amd/amdxcp/amdgpu_xcp_drv.c | 63 +++++++++++++++++----
  drivers/gpu/drm/amd/amdxcp/amdgpu_xcp_drv.h |  1 +
- 7 files changed, 152 insertions(+), 42 deletions(-)
+ 2 files changed, 54 insertions(+), 10 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/amdxcp/amdgpu_xcp_drv.c b/drivers/gpu/drm/amd/amdxcp/amdgpu_xcp_drv.c
+index faed84172dd4..2ff5377d54cd 100644
+--- a/drivers/gpu/drm/amd/amdxcp/amdgpu_xcp_drv.c
++++ b/drivers/gpu/drm/amd/amdxcp/amdgpu_xcp_drv.c
+@@ -45,18 +45,26 @@ static const struct drm_driver amdgpu_xcp_driver = {
+ 
+ static int8_t pdev_num;
+ static struct xcp_device *xcp_dev[MAX_XCP_PLATFORM_DEVICE];
++static DEFINE_MUTEX(xcp_mutex);
+ 
+ int amdgpu_xcp_drm_dev_alloc(struct drm_device **ddev)
+ {
+ 	struct platform_device *pdev;
+ 	struct xcp_device *pxcp_dev;
+ 	char dev_name[20];
+-	int ret;
++	int ret, index;
++
++	guard(mutex)(&xcp_mutex);
+ 
+ 	if (pdev_num >= MAX_XCP_PLATFORM_DEVICE)
+ 		return -ENODEV;
+ 
+-	snprintf(dev_name, sizeof(dev_name), "amdgpu_xcp_%d", pdev_num);
++	for (index = 0; index < MAX_XCP_PLATFORM_DEVICE; index++) {
++		if (!xcp_dev[index])
++			break;
++	}
++
++	snprintf(dev_name, sizeof(dev_name), "amdgpu_xcp_%d", index);
+ 	pdev = platform_device_register_simple(dev_name, -1, NULL, 0);
+ 	if (IS_ERR(pdev))
+ 		return PTR_ERR(pdev);
+@@ -72,8 +80,8 @@ int amdgpu_xcp_drm_dev_alloc(struct drm_device **ddev)
+ 		goto out_devres;
+ 	}
+ 
+-	xcp_dev[pdev_num] = pxcp_dev;
+-	xcp_dev[pdev_num]->pdev = pdev;
++	xcp_dev[index] = pxcp_dev;
++	xcp_dev[index]->pdev = pdev;
+ 	*ddev = &pxcp_dev->drm;
+ 	pdev_num++;
+ 
+@@ -88,16 +96,51 @@ int amdgpu_xcp_drm_dev_alloc(struct drm_device **ddev)
+ }
+ EXPORT_SYMBOL(amdgpu_xcp_drm_dev_alloc);
+ 
++static void __amdgpu_xcp_drm_dev_free(int index)
++{
++	struct platform_device *pdev;
++
++	WARN_ON(!pdev_num);
++	pdev = xcp_dev[index]->pdev;
++	devres_release_group(&pdev->dev, NULL);
++	platform_device_unregister(pdev);
++	xcp_dev[index] = NULL;
++	pdev_num--;
++}
++
++void amdgpu_xcp_drm_dev_free(struct drm_device *ddev)
++{
++	struct xcp_device *pxcp_dev;
++	int index;
++
++	if (ddev == NULL)
++		return;
++
++	guard(mutex)(&xcp_mutex);
++	WARN_ON(!pdev_num);
++
++	pxcp_dev = container_of(ddev, struct xcp_device, drm);
++	for (index = 0; index < MAX_XCP_PLATFORM_DEVICE; index++) {
++		if (xcp_dev[index] == pxcp_dev) {
++			__amdgpu_xcp_drm_dev_free(index);
++			break;
++		}
++	}
++}
++EXPORT_SYMBOL(amdgpu_xcp_drm_dev_free);
++
+ void amdgpu_xcp_drv_release(void)
+ {
+-	for (--pdev_num; pdev_num >= 0; --pdev_num) {
+-		struct platform_device *pdev = xcp_dev[pdev_num]->pdev;
++	int index;
+ 
+-		devres_release_group(&pdev->dev, NULL);
+-		platform_device_unregister(pdev);
+-		xcp_dev[pdev_num] = NULL;
++	guard(mutex)(&xcp_mutex);
++
++	for (index = 0; pdev_num && index < MAX_XCP_PLATFORM_DEVICE; index++) {
++		if (xcp_dev[index])
++			__amdgpu_xcp_drm_dev_free(index);
+ 	}
+-	pdev_num = 0;
++
++	WARN_ON(pdev_num != 0);
+ }
+ EXPORT_SYMBOL(amdgpu_xcp_drv_release);
+ 
+diff --git a/drivers/gpu/drm/amd/amdxcp/amdgpu_xcp_drv.h b/drivers/gpu/drm/amd/amdxcp/amdgpu_xcp_drv.h
+index c1c4b679bf95..580a1602c8e3 100644
+--- a/drivers/gpu/drm/amd/amdxcp/amdgpu_xcp_drv.h
++++ b/drivers/gpu/drm/amd/amdxcp/amdgpu_xcp_drv.h
+@@ -25,5 +25,6 @@
+ #define _AMDGPU_XCP_DRV_H_
+ 
+ int amdgpu_xcp_drm_dev_alloc(struct drm_device **ddev);
++void amdgpu_xcp_drm_dev_free(struct drm_device *ddev);
+ void amdgpu_xcp_drv_release(void);
+ #endif /* _AMDGPU_XCP_DRV_H_ */
 -- 
 2.43.5
 
