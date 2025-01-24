@@ -4,59 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B801C02181
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67CC8C0218C
 	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jan 2025 09:34:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C9F610E932;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08BE210E92F;
 	Fri, 24 Jan 2025 09:34:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Gjqwb9VO";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="T7sGEjIG";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96B8210E8D7;
- Fri, 24 Jan 2025 05:53:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1737698003; x=1769234003;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=1Z5TJwZS6JAy+qJUSNBrRRPyIC6HzfGCxyxDCS4AWLo=;
- b=Gjqwb9VO6mHHm4fSWOdCPnfZunqlo4YtNbd5aiSi4PZtghS4bjr9GZ9t
- mSvHmm8eWsHP+acTb4G4PDm/+N1P+i4s0FBXMfOxjsS7S2iyuACOo8zDC
- vdF1E9QtBvDWEv1XtnSfl0GnWCrlT//EOLGsHfuQh+7mmmd2S/fjXAhr/
- yX4u4/ZDdFhi67/kYmzQh3g+6aJC/evZXWyOIlxE6ev1jnvz8uMTc4Q71
- tkF47RvryuRdiK/PiMOj3/EUCaFLQPnD4NDvbdh8iIAhevGwDX2u2bPf2
- ZRt3SOX0NTMtFTc0fXKqQQWmWDZ1I1MvSjil0LyJoUW0qwhAePUkWUB4s Q==;
-X-CSE-ConnectionGUID: INVIirblQqauqJdI9FUsBA==
-X-CSE-MsgGUID: fDiHa+jUTPa9eGoJGu6Tjg==
-X-IronPort-AV: E=McAfee;i="6700,10204,11324"; a="60689200"
-X-IronPort-AV: E=Sophos;i="6.13,230,1732608000"; d="scan'208";a="60689200"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jan 2025 21:53:22 -0800
-X-CSE-ConnectionGUID: 0o+3GuHST5akoUYeGd59Xw==
-X-CSE-MsgGUID: OfjxnbF+RHOjPeMnQvtudw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.13,230,1732608000"; d="scan'208";a="108218808"
-Received: from jraag-z790m-itx-wifi.iind.intel.com ([10.190.239.23])
- by fmviesa010.fm.intel.com with ESMTP; 23 Jan 2025 21:53:16 -0800
-From: Raag Jadav <raag.jadav@intel.com>
-To: airlied@gmail.com, simona@ffwll.ch, lucas.demarchi@intel.com,
- rodrigo.vivi@intel.com, jani.nikula@linux.intel.com,
- andriy.shevchenko@linux.intel.com, michal.wajdeczko@intel.com,
- christian.koenig@amd.com, xaver.hugl@kde.org
-Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, himal.prasad.ghimiray@intel.com,
- aravind.iddamsetty@linux.intel.com, anshuman.gupta@intel.com,
- lina@asahilina.net, alexander.deucher@amd.com, andrealmeid@igalia.com,
- amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
- Raag Jadav <raag.jadav@intel.com>
-Subject: [PATCH v11 4/5] drm/i915: Use device wedged event
-Date: Fri, 24 Jan 2025 11:22:59 +0530
-Message-Id: <20250124055300.1111274-5-raag.jadav@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250124055300.1111274-1-raag.jadav@intel.com>
-References: <20250124055300.1111274-1-raag.jadav@intel.com>
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
+ [209.85.216.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 15C4910E220;
+ Fri, 24 Jan 2025 04:08:48 +0000 (UTC)
+Received: by mail-pj1-f53.google.com with SMTP id
+ 98e67ed59e1d1-2ee76befe58so3060480a91.2; 
+ Thu, 23 Jan 2025 20:08:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1737691727; x=1738296527; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=D6e6R/iD1t4ReAa9KfZ1qSPqX0t3TQNshzKeYKkD9yY=;
+ b=T7sGEjIGhF2uQVyVyilN8b2cSvd6im2obRj7geVlvH3UYHslJ7GyjGaoP6bID2vibE
+ +FEfC0cRDz3DexT4O+jnQJNnXNCUajpuKC3yc1Jf7W9omgnoei/XavrsRvkTkJc186xe
+ FOibf3tyS1weQGC4T5v1LyagzD1GDfd9LKUgrd5C4QEuF5tbRB5vjsetiyuspHUaDjbJ
+ cZo4YRW2UZcolzOKDHE5kYuxhUkl+G6ijecMn8dRmU2TlMD6FHx7gJbDhTSXeCIocZ8D
+ zyLy1JWRsCNt8W0bxa4zGFWXeUx+TYrnhUTgcfY9+im64u423A/GKcc/wyOdV1dJXATx
+ rEPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1737691727; x=1738296527;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=D6e6R/iD1t4ReAa9KfZ1qSPqX0t3TQNshzKeYKkD9yY=;
+ b=D1NlCoEvoMdiBjJKJhU9EEwVCIdzoRGrk+uKMDJo5TLNnSl2bo+MEhSnbifykJxbD+
+ dHwHHx1yTacs8Pf0HowjjCA1pmeDHpbjcCnMAy3lqz+OXgqdQmHULF4Otzvo/xTAhw0C
+ YDs+D8GB/Gk0IuK4GiXA62frzVh4i4ufDN+GbsI/b/UDCMQI8me/r5QpsJpKbfAdvCix
+ EAWxWR/7xlrQT7MhhmwT2bQNY0nHZ/0e3KI2JBYiq0oCfIEalWgsDO2yxrsF7s9azb7O
+ G9rlpXudAbcVoChB2Gp0W6G2gofKZSc2BUIrqyRvJB/7l+fa7QsbGc5HNiHA7Waqvr/w
+ zQdQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVERHqS8FEhgfYU5I8Nvh83xrUSQ2mUy1/Bb/Azh0p0lKA+f4HV7ZSsLtPQJYkl6zfeJu/a778XFLMY@lists.freedesktop.org,
+ AJvYcCVT2wyqZ/rLRj39ZuYbhZHWxuIeJqm/e98jFwAvDSw8GFqKr4LyF7G7NCHowsOUf39cR7Uw9nEw@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwcNJuKunRfjWdY/A5U9jBEhR/16ho3XRptrx0unufoVkc61PZ+
+ 0/G0gMYwtvuOeXuWAyh3JlzSDw75ckm+vasnZ9Hijh/EiIVoQSzN
+X-Gm-Gg: ASbGncswSHvlADefllCLgQtQbvfIi0iBBIOnYSWIlele/3uZj1NbvljGR25oiRHxCll
+ K8tI3hc4NW6O6Aqpak6IS09cOfEbdnQd4csE/SjLME7uFdL9/HW1Odmso/tu2QtmP/PSAuZUSL7
+ ny0PJyFxk6Y42r02HlOwECk2u70i3S24VW32URLApIkAZzzwoNIxx1iB26LjxxjOZU6Rnt8ZxNo
+ lX8DdVzXgio7GYBZDHvaqQz4hISPPY8iM/y8PJIA9v6c1JVPMgPRcsoPZXpshqu5LIW7RGXNmN9
+ ptfOOi8rDdLSu5IV3XiWfVuSrW2sBACodK8hmAt+
+X-Google-Smtp-Source: AGHT+IGKwqK3FeAP7M3pDG/EPu8XOfZtrxx0RtjPTD4kt8b1n6567njef2h1tCvlNFusMRPQtdbLkw==
+X-Received: by 2002:a17:90b:2808:b0:2ee:d433:7c54 with SMTP id
+ 98e67ed59e1d1-2f782cb61bemr40425091a91.19.1737691727590; 
+ Thu, 23 Jan 2025 20:08:47 -0800 (PST)
+Received: from jren-d3.localdomain ([221.222.59.195])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-2f7ffa455c0sm562670a91.3.2025.01.23.20.08.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 23 Jan 2025 20:08:47 -0800 (PST)
+From: Imkanmod Khan <imkanmodkhan@gmail.com>
+To: stable@vger.kernel.org
+Cc: patches@lists.linux.dev, alexander.deucher@amd.com, daniel.wheeler@amd.com,
+ mario.limonciello@amd.com, josip.pavic@amd.com, aurabindo.pillai@amd.com,
+ sohaib.nadeem@amd.com, gregkh@linuxfoundation.org, harry.wentland@amd.com,
+ sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, christian.koenig@amd.com,
+ Xinhui.Pan@amd.com, airlied@gmail.com, daniel@ffwll.ch, wayne.lin@amd.com,
+ sashal@kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, charlene.liu@amd.com, gabe.teeger@amd.com,
+ amd-gfx@lists.freedesktop.org, Nicholas.Kazlauskas@amd.com,
+ Imkanmod Khan <imkanmodkhan@gmail.com>
+Subject: [PATCH 6.1.y] drm/amd/display: fixed integer types and null check
+ locations
+Date: Fri, 24 Jan 2025 12:08:36 +0800
+Message-ID: <20250124040836.7603-1-imkanmodkhan@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 24 Jan 2025 09:34:02 +0000
@@ -74,31 +94,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Now that we have device wedged event provided by DRM core, make use
-of it and support both driver rebind and bus-reset based recovery.
-With this in place, userspace will be notified of wedged device on
-gt reset failure.
+From: Sohaib Nadeem <sohaib.nadeem@amd.com>
 
-Signed-off-by: Raag Jadav <raag.jadav@intel.com>
-Reviewed-by: Aravind Iddamsetty <aravind.iddamsetty@linux.intel.com>
+[ Upstream commit 0484e05d048b66d01d1f3c1d2306010bb57d8738 ]
+
+[why]:
+issues fixed:
+- comparison with wider integer type in loop condition which can cause
+infinite loops
+- pointer dereference before null check
+
+Cc: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: stable@vger.kernel.org
+Reviewed-by: Josip Pavic <josip.pavic@amd.com>
+Acked-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Signed-off-by: Sohaib Nadeem <sohaib.nadeem@amd.com>
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Imkanmod Khan <imkanmodkhan@gmail.com>
 ---
- drivers/gpu/drm/i915/gt/intel_reset.c | 3 +++
- 1 file changed, 3 insertions(+)
+ .../gpu/drm/amd/display/dc/bios/bios_parser2.c   | 16 ++++++++++------
+ 1 file changed, 10 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_reset.c b/drivers/gpu/drm/i915/gt/intel_reset.c
-index 5a625518d1a9..b33007cd1504 100644
---- a/drivers/gpu/drm/i915/gt/intel_reset.c
-+++ b/drivers/gpu/drm/i915/gt/intel_reset.c
-@@ -1422,6 +1422,9 @@ static void intel_gt_reset_global(struct intel_gt *gt,
+diff --git a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
+index 4d2590964a20..75e44d8a7b40 100644
+--- a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
++++ b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
+@@ -1862,19 +1862,21 @@ static enum bp_result get_firmware_info_v3_2(
+ 		/* Vega12 */
+ 		smu_info_v3_2 = GET_IMAGE(struct atom_smu_info_v3_2,
+ 							DATA_TABLES(smu_info));
+-		DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", smu_info_v3_2->gpuclk_ss_percentage);
+ 		if (!smu_info_v3_2)
+ 			return BP_RESULT_BADBIOSTABLE;
  
- 	if (!test_bit(I915_WEDGED, &gt->reset.flags))
- 		kobject_uevent_env(kobj, KOBJ_CHANGE, reset_done_event);
-+	else
-+		drm_dev_wedged_event(&gt->i915->drm,
-+				     DRM_WEDGE_RECOVERY_REBIND | DRM_WEDGE_RECOVERY_BUS_RESET);
- }
++		DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", smu_info_v3_2->gpuclk_ss_percentage);
++
+ 		info->default_engine_clk = smu_info_v3_2->bootup_dcefclk_10khz * 10;
+ 	} else if (revision.minor == 3) {
+ 		/* Vega20 */
+ 		smu_info_v3_3 = GET_IMAGE(struct atom_smu_info_v3_3,
+ 							DATA_TABLES(smu_info));
+-		DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", smu_info_v3_3->gpuclk_ss_percentage);
+ 		if (!smu_info_v3_3)
+ 			return BP_RESULT_BADBIOSTABLE;
  
- /**
++		DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", smu_info_v3_3->gpuclk_ss_percentage);
++
+ 		info->default_engine_clk = smu_info_v3_3->bootup_dcefclk_10khz * 10;
+ 	}
+ 
+@@ -2439,10 +2441,11 @@ static enum bp_result get_integrated_info_v11(
+ 	info_v11 = GET_IMAGE(struct atom_integrated_system_info_v1_11,
+ 					DATA_TABLES(integratedsysteminfo));
+ 
+-	DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", info_v11->gpuclk_ss_percentage);
+ 	if (info_v11 == NULL)
+ 		return BP_RESULT_BADBIOSTABLE;
+ 
++	DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", info_v11->gpuclk_ss_percentage);
++
+ 	info->gpu_cap_info =
+ 	le32_to_cpu(info_v11->gpucapinfo);
+ 	/*
+@@ -2654,11 +2657,12 @@ static enum bp_result get_integrated_info_v2_1(
+ 
+ 	info_v2_1 = GET_IMAGE(struct atom_integrated_system_info_v2_1,
+ 					DATA_TABLES(integratedsysteminfo));
+-	DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", info_v2_1->gpuclk_ss_percentage);
+ 
+ 	if (info_v2_1 == NULL)
+ 		return BP_RESULT_BADBIOSTABLE;
+ 
++	DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", info_v2_1->gpuclk_ss_percentage);
++
+ 	info->gpu_cap_info =
+ 	le32_to_cpu(info_v2_1->gpucapinfo);
+ 	/*
+@@ -2816,11 +2820,11 @@ static enum bp_result get_integrated_info_v2_2(
+ 	info_v2_2 = GET_IMAGE(struct atom_integrated_system_info_v2_2,
+ 					DATA_TABLES(integratedsysteminfo));
+ 
+-	DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", info_v2_2->gpuclk_ss_percentage);
+-
+ 	if (info_v2_2 == NULL)
+ 		return BP_RESULT_BADBIOSTABLE;
+ 
++	DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", info_v2_2->gpuclk_ss_percentage);
++
+ 	info->gpu_cap_info =
+ 	le32_to_cpu(info_v2_2->gpucapinfo);
+ 	/*
 -- 
-2.34.1
+2.25.1
 
