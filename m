@@ -4,61 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F98AC0218B
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jan 2025 15:18:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67306C02181
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jan 2025 15:22:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4826F10E02C;
-	Fri, 24 Jan 2025 15:18:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E2ADC10E997;
+	Fri, 24 Jan 2025 15:22:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EuXPYOAH";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="GU2fnbjU";
 	dkim-atps=neutral
-Received: from mail-ot1-f48.google.com (mail-ot1-f48.google.com
- [209.85.210.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F1E710E997
- for <amd-gfx@lists.freedesktop.org>; Fri, 24 Jan 2025 15:16:37 +0000 (UTC)
-Received: by mail-ot1-f48.google.com with SMTP id
- 46e09a7af769-724daedf8c3so29205a34.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 24 Jan 2025 07:16:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1737731796; x=1738336596; darn=lists.freedesktop.org;
- h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=f20UApdCjwR8Fj8rhm4eNo/jIW8wX+IDUjx3266hJK8=;
- b=EuXPYOAHgpv7rH43b8vulYbQuE2BIcNfvTO9zwtlnTw1MmSL/0MpVc8yH7Bz13o9Fc
- 0k1uWOf7jS6sKTG4E8Wffk2dKbwcDkZJfMn/COYdoQF/ofQRCFXeuMUiR37yoGAeC1jY
- Kt6MR3bCsYYSM9NVFnYDWFTAbMfLOL5F9W81sbOxWRr2xlUWdA6C2tqvEGIpDxPjZfQW
- u9bYq4qO0QNWbt2KgYmMjqvrsbJ3xG1BRIRwH05SYBJGa3D/gVFdrL/TYvyv7Bjb8nkU
- xiKz8oMRJKfPV5TJ9eUZLSgglmTwUfoXKgKEwWNI2/FKqegjH5wEvTFOVnUNXVePKh1I
- xZAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737731796; x=1738336596;
- h=to:subject:message-id:date:from:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=f20UApdCjwR8Fj8rhm4eNo/jIW8wX+IDUjx3266hJK8=;
- b=kzHxuaOFFct3X/eyF438Zc5yPF2ocBocww7bRsejdKel9Ysvh6Z3cNX74IwM8UVN9e
- RbNVv8jXHrl/oBi7oPJGywVVq54OjO61GPKQazzzWnkS1eOmrrzt8UhNoxmmHf0drT2f
- uLsIJGcfptMsf3+OQWgK6JSAdLPegwTmTuRjhXOCtxDTO40j0x8LyNGeTUgeRg187TDB
- iOaD7HludYI/pM6ZSjn9D75W0Iuf74DNAZgxR4PYrF4r2vtVH5fvenXrOqp0maHp9rss
- 8TI3E3MGmA4K73ODOLOtXjXHCKsh3Tr/nm49U1gwqD4qwqjejg48kxAqpWBPOHr8W8cX
- owDA==
-X-Gm-Message-State: AOJu0YwSVtucJ+HtvqHYiYuNewT5ZlnQZ+x0ZmvcFbf6HEk8BSvDy5Ba
- lF9Se6viSMUPsk+5yZJWvwS3i953ULvu0IRZhC08aMSTgZHmSE45UGvJvlmr4ZNhlxe8CpAZdec
- j+IZyIUO/4osl/TATvQc1pwmB3aGdeU8o
-X-Gm-Gg: ASbGnctYnyAXTH/tuENRelzQAqAaDpHyNVc6Yq0nxueMvJejyBvS3G11H6r427PbBwL
- 64CnCeWpQhpqzmeOoYlrKDDZz5jF1zxSKFg/jF353IKOIpihh2O/OrdpxyLNw6Dg=
-X-Google-Smtp-Source: AGHT+IFUC1zWk0nhcHoAV+YFPSMekU6C07CFKQi8x4XZ9jzNnAFXPop9Ojgf4xKFEAQN9o/Yt81/cDXDckpyMDG4zXE=
-X-Received: by 2002:a05:6808:151f:b0:3eb:834f:775b with SMTP id
- 5614622812f47-3f19fcb9a80mr6921066b6e.4.1737731796315; Fri, 24 Jan 2025
- 07:16:36 -0800 (PST)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2059.outbound.protection.outlook.com [40.107.237.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 44CBA10E997;
+ Fri, 24 Jan 2025 15:22:26 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=dvTYdkyo3OqCfTsdFAP7nkewLAicityRL/Jl3OsMhvpu+a5DcP/XYofxD8wrrlha9GXLNLDhnfagmXm59FJR0P/z2R6T5KH1tV140VXtdGuiw5sMc6qgi9P5OkaQnLutqV5a23uMA2pzqzyFBZ4hWCKRMivwHUHbiAX0Rux/4RsooR4ADZNg/VNuYQDlK/oJLee8cbhhF73UrOhxmAID1pt84zmmHsffBkn3fNKA5P9BMKT1m2drztX3Vt5vZif8kLhVc2BQsNm3Fge0feuBIEzOrmgvotIOhDtNFfJ3gTooRHzJlYTRWtQERsTNvFnwKA7aSD/dJd+WFlDmoX8bYw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6eAtXjzFMmtyexOsGjWPMK/Zll/6K1xkkpUaMYInQ6k=;
+ b=fQLX4rCo78YlkFlmRqVzxrT8YqhItbQ8vaGDheBawYuhTIZ9pmzBlFpcqSinJRhA994h7N13pJhFLsQAp9Wto2A5IIcp0h4dNC+5zKHGwWGv28vtLfCXECIPsRVRrit4GCOOqixaCOLKQc9yolrzkPCKRlZqLtLeJkxK2F3zKzfY/ejL5nbGgQRR96mKm/GFfuioiFzjoWJ7zHB+0GY6jFrAIZxB0ORWJ/cPuUhvp+spzAhU6M8kSO1S7SZ0hv1XNdQFf9U9xDrDSSEZzx28t/disG2uOCUDcfLGX5C7sy/TlQgFt5QMyOVwXxDj8t+m9aFb7H8NHSWlZHSRcr96yA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6eAtXjzFMmtyexOsGjWPMK/Zll/6K1xkkpUaMYInQ6k=;
+ b=GU2fnbjUsRGl1hlR33Zk8XEQTLf4MVFL5kOsrMrG3fQWi9wqoY9tE+E8/O/ziXYgTGmml8SOZ/tXJ/tPHD2+2aW6xWWF3sjcwE4TX7FyyeOBDLyawlrgNQhBxrugep0MJcXwlSixLJqyxCCG+Q8T5GUZuz73TtnYt9D7guvn844=
+Received: from BL1PR13CA0362.namprd13.prod.outlook.com (2603:10b6:208:2c0::7)
+ by BY5PR12MB4241.namprd12.prod.outlook.com (2603:10b6:a03:20c::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8377.16; Fri, 24 Jan
+ 2025 15:22:18 +0000
+Received: from BL02EPF00021F6E.namprd02.prod.outlook.com
+ (2603:10b6:208:2c0:cafe::57) by BL1PR13CA0362.outlook.office365.com
+ (2603:10b6:208:2c0::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8377.10 via Frontend Transport; Fri,
+ 24 Jan 2025 15:22:17 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL02EPF00021F6E.mail.protection.outlook.com (10.167.249.10) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8377.8 via Frontend Transport; Fri, 24 Jan 2025 15:22:17 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 24 Jan
+ 2025 09:22:15 -0600
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <simona@ffwll.ch>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [pull] amdgpu, amdkfd drm-next-6.14
+Date: Fri, 24 Jan 2025 10:21:52 -0500
+Message-ID: <20250124152153.3861868-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.48.1
 MIME-Version: 1.0
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-Date: Fri, 24 Jan 2025 10:15:59 -0500
-X-Gm-Features: AWEUYZl5vUuwSTwxW9N8sC9mTvVUWkpxxlonWagizGMkX-SUS23XRoIgmGE0pMY
-Message-ID: <CAAxE2A42f1uH_1esfXn-BsPEzbMeuev4TAFfG9DYDc01xS=g8Q@mail.gmail.com>
-Subject: [PATCH] drm/amdgpu: add a BO metadata flag to disable write
- compression for Vulkan
-To: amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
-Content-Type: multipart/mixed; boundary="0000000000006f509c062c75360e"
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF00021F6E:EE_|BY5PR12MB4241:EE_
+X-MS-Office365-Filtering-Correlation-Id: 131f63cb-43d9-42a3-edaa-08dd3c8ae349
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|36860700013|376014|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?N0pRczNsNHdkY09kaTRQRnRBcm52QUhoQUZHczdnR00vQVlTUGtCNDJaQjF0?=
+ =?utf-8?B?NForQitYVnBNMm5WQ2FmeEY4VW9pTWRKTEJYOVgyN2xZeUxvd2sxUDZzVUo0?=
+ =?utf-8?B?eVExMjZMR1Fwc21URHh3Y1JQdXRHcUtvR2pPalJORktCTUJiMmFNKzZ5V0ZU?=
+ =?utf-8?B?ay9yb2Vzbm1sOFJwemsrUG5Sc3c2S3JhVkg5OWJXUHpMNEFHOHZyanJFNnBi?=
+ =?utf-8?B?NW1qYnFMS1hxMkNrTUdMV01VMHBiVW9PRzRZajNMaDNkN2NnSHdqY0JvdnFM?=
+ =?utf-8?B?VmkwN1NwWGliUXlHQysxbVErNEtFZ1o4RFVudGpYNFVFc2NuZENqSjZpOFcx?=
+ =?utf-8?B?SVF0ZFRJMGRrQXBWNzdFSDBBOU1xd1c4Rzh6VEhKaWYxM3FrQ0FCTitkWWJr?=
+ =?utf-8?B?YjNodERyY09EVlUySG8wNTNLWE1neUpxdzhtQThlVXRMcTB1b3hhQlVMR0ZF?=
+ =?utf-8?B?ZWN2NTllT3lINmQ5RytCTmZMYktaM1Zha3BydVIvcUh5TGpuMHJiK2MxeFl3?=
+ =?utf-8?B?MlpOQjJWejd5Mk1NQlMzV3FIWnhXaXhQbFRKUlMyN1Zwcno5RnRHdG5DUE8z?=
+ =?utf-8?B?R0NmSFI2andldkE5L1NwN2U1UzgxYkdydmo0bVVUVGdoUVVlRWNicFdlMFM3?=
+ =?utf-8?B?VmV2L01yWkQyeGgra1hSQTRSY2x6cjlYa040aTFZS1lCa0NsY3NiWk9CQ1U5?=
+ =?utf-8?B?ZlBVTm1EeTUrQ1IxTUtSOFVLcC9NejNXOFpSYTZxeXFuZjBubXcwbUlacXBq?=
+ =?utf-8?B?a1d3Y1JneW5YQUhiNjNieFRjdFFQWHFPL0NJVzhoOXRuWVdPVWlvbEkrOE9G?=
+ =?utf-8?B?TUJkMVQyMHJxUDN0UWV3a2VBSkFWWUZlTEhCSWlZN1RqblZVV05TU0xNMm5o?=
+ =?utf-8?B?WGZ4TzY1YUJQWTBpcWVQWldzM0RKdFRLT2tVUEt0WU9VOFhseVQyaFdYUnZE?=
+ =?utf-8?B?Nks2dE9pS2hzQVh1RDFaR2M2YlNrWGdmM2lvbXZqWlM1WHR4L0laaGpQdDRM?=
+ =?utf-8?B?RHh4MFFjeG9qaGRzbDErQk9WYmY1Y2VUOG9xYm0zZ3B2MGlLSWdzVTFLdkgw?=
+ =?utf-8?B?Z1UwTm90YnNraVZUVEVPQ2dkSHNDOUs0Q1lPNElPNHlFTHN2cjA2UUwvejht?=
+ =?utf-8?B?aG8xckJzRUVNQ1lvTC9nei90K1hLQ1MvdVZvVkxSNkpML0c2bTQ1OE1GbUxx?=
+ =?utf-8?B?RTVyVEZlQUVCZzNETTFNYWljMEU2NWlPdnFLeEo0dG9uK2g5K3R3aEt1Snd2?=
+ =?utf-8?B?V0RLa1h5cm1ldm01dDVUSmxWdEpFd1RsaEVnTFF2LzU0aE1LNCttb3NLaTJC?=
+ =?utf-8?B?NThKMGh0RkIwSTdvOXN5N2NPeG9XOW0xZ0x4K3dEZnM3eFNmREJ4QURVT3hL?=
+ =?utf-8?B?YXBvL0krS2M0WUpEaTZsRFR3clNjbDUzeHhEa2lZN2xEbnIzek90MW5ldVdv?=
+ =?utf-8?B?c3Y5KzkxNnlVUXlkL1VxWVBiQTd2VmhWemNKUnoxc1hLbkdpa0VabEJ6VW1O?=
+ =?utf-8?B?N01vcll1eG8yb2VYU3pXcFY1aG9NbnFwMy9oUDd1c3NTSW9vbXdUVUNPbm5N?=
+ =?utf-8?B?Y0Rkand6cDhWYnpZRlZHU3oyWXNadUF2elNBcmFkU3FYc0dlNVQxUHFLVHo2?=
+ =?utf-8?B?RHJ2MFRtczhla1lsS3FwTStBZGVrODZlT0ZWcXZzb0F0U1MvWkx2bmowNFNi?=
+ =?utf-8?B?TjNWeFQxb2dXVTlJazhpRzUrY3Yyam9yRDVGcGN3NllOZkk2Vy9HNGMzYldu?=
+ =?utf-8?B?czQ2Z2JibGJXc3p5bG9hdnNVSFhYZExLeVhMNWcwMFdHK3crZ3c3cEhhdkJR?=
+ =?utf-8?B?Qy91emhMRnp2bDNnQ1g4aEk3OHpzOG1HWnBjYlZBWkpUVi85d0JEcWg1U05t?=
+ =?utf-8?B?NitLaDdId2NZYWZsNEdyK3d4MlNVcGxkbjltOHBySTMwcStiYzdVVVU2WHQz?=
+ =?utf-8?Q?faMC58X++y0=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700013)(376014)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jan 2025 15:22:17.2279 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 131f63cb-43d9-42a3-edaa-08dd3c8ae349
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF00021F6E.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4241
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,138 +138,156 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---0000000000006f509c062c75360e
-Content-Type: multipart/alternative; boundary="0000000000006f509a062c75360c"
+Hi Dave, Simona,
 
---0000000000006f509a062c75360c
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Fixes for 6.14 from last two weeks.  Fixed missing s-o-b.
 
-Required by Vulkan because it can allocate whole VRAM as 1 BO and parts
-of it bypass compression and read raw data.
+The following changes since commit 24c61d553302ee49e9c21dd251275ba8c36dcfe4:
 
-Signed-off-by: Marek Ol=C5=A1=C3=A1k <marek.olsak@amd.com>
+  Merge tag 'drm-msm-next-2025-01-07' of gitlab.freedesktop.org:drm/msm into drm-next (2025-01-13 11:14:07 +1000)
 
---0000000000006f509a062c75360c
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+are available in the Git repository at:
 
-<div dir=3D"ltr">Required by Vulkan because it can allocate whole VRAM as 1=
- BO and parts<br>of it bypass compression and read raw data.<br><br>Signed-=
-off-by: Marek Ol=C5=A1=C3=A1k &lt;<a href=3D"mailto:marek.olsak@amd.com">ma=
-rek.olsak@amd.com</a>&gt;</div>
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-next-6.14-2025-01-24
 
---0000000000006f509a062c75360c--
+for you to fetch changes up to 024771f3fb75dc817e9429d5763f1a6eb84b6f21:
 
---0000000000006f509c062c75360e
-Content-Type: text/x-patch; charset="UTF-8"; 
-	name="0001-drm-amdgpu-add-a-BO-metadata-flag-to-disable-write-c.patch"
-Content-Disposition: attachment; 
-	filename="0001-drm-amdgpu-add-a-BO-metadata-flag-to-disable-write-c.patch"
-Content-Transfer-Encoding: base64
-Content-ID: <f_m6awihps0>
-X-Attachment-Id: f_m6awihps0
+  drm/amd/display: Optimize cursor position updates (2025-01-24 09:56:28 -0500)
 
-RnJvbSA5OGQ1MzQyZDFiNmYyNDdmYzZhZGRjYTQ4ZmViZjAzMzRhNDQ1YmY1IE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiA9P1VURi04P3E/TWFyZWs9MjBPbD1DNT1BMT1DMz1BMWs/PSA8
-bWFyZWsub2xzYWtAYW1kLmNvbT4KRGF0ZTogRnJpLCAyNCBKYW4gMjAyNSAwOTo0Mzo0NSAtMDUw
-MApTdWJqZWN0OiBbUEFUQ0hdIGRybS9hbWRncHU6IGFkZCBhIEJPIG1ldGFkYXRhIGZsYWcgdG8g
-ZGlzYWJsZSB3cml0ZQogY29tcHJlc3Npb24gZm9yIFZ1bGthbgpNSU1FLVZlcnNpb246IDEuMApD
-b250ZW50LVR5cGU6IHRleHQvcGxhaW47IGNoYXJzZXQ9VVRGLTgKQ29udGVudC1UcmFuc2Zlci1F
-bmNvZGluZzogOGJpdAoKUmVxdWlyZWQgYnkgVnVsa2FuIGJlY2F1c2UgaXQgY2FuIGFsbG9jYXRl
-IHdob2xlIFZSQU0gYXMgMSBCTyBhbmQgcGFydHMKb2YgaXQgYnlwYXNzIGNvbXByZXNzaW9uIGFu
-ZCByZWFkIHJhdyBkYXRhLgoKU2lnbmVkLW9mZi1ieTogTWFyZWsgT2zFocOhayA8bWFyZWsub2xz
-YWtAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMg
-fCA4ICsrKysrKy0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmggfCAy
-ICsrCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zZG1hX3Y3XzAuYyAgfCA1ICsrKy0tCiBp
-bmNsdWRlL3VhcGkvZHJtL2FtZGdwdV9kcm0uaCAgICAgICAgICAgfCA2ICsrKysrLQogNCBmaWxl
-cyBjaGFuZ2VkLCAxNiBpbnNlcnRpb25zKCspLCA1IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYwppbmRleCA2NzYzNjIyNDkyZDc0Li41YWRhOGNjNGZl
-MDA0IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMK
-KysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jCkBAIC0zMDksNyAr
-MzA5LDcgQEAgaW50IGFtZGdwdV90dG1fY29weV9tZW1fdG9fbWVtKHN0cnVjdCBhbWRncHVfZGV2
-aWNlICphZGV2LAogCW11dGV4X2xvY2soJmFkZXYtPm1tYW4uZ3R0X3dpbmRvd19sb2NrKTsKIAl3
-aGlsZSAoc3JjX21tLnJlbWFpbmluZykgewogCQl1aW50NjRfdCBmcm9tLCB0bywgY3VyX3NpemUs
-IHRpbGluZ19mbGFnczsKLQkJdWludDMyX3QgbnVtX3R5cGUsIGRhdGFfZm9ybWF0LCBtYXhfY29t
-OworCQl1aW50MzJfdCBudW1fdHlwZSwgZGF0YV9mb3JtYXQsIG1heF9jb20sIHdyaXRlX2NvbXBy
-ZXNzX2Rpc2FibGU7CiAJCXN0cnVjdCBkbWFfZmVuY2UgKm5leHQ7CiAKIAkJLyogTmV2ZXIgY29w
-eSBtb3JlIHRoYW4gMjU2TWlCIGF0IG9uY2UgdG8gYXZvaWQgYSB0aW1lb3V0ICovCkBAIC0zNDAs
-OSArMzQwLDEzIEBAIGludCBhbWRncHVfdHRtX2NvcHlfbWVtX3RvX21lbShzdHJ1Y3QgYW1kZ3B1
-X2RldmljZSAqYWRldiwKIAkJCW1heF9jb20gPSBBTURHUFVfVElMSU5HX0dFVCh0aWxpbmdfZmxh
-Z3MsIEdGWDEyX0RDQ19NQVhfQ09NUFJFU1NFRF9CTE9DSyk7CiAJCQludW1fdHlwZSA9IEFNREdQ
-VV9USUxJTkdfR0VUKHRpbGluZ19mbGFncywgR0ZYMTJfRENDX05VTUJFUl9UWVBFKTsKIAkJCWRh
-dGFfZm9ybWF0ID0gQU1ER1BVX1RJTElOR19HRVQodGlsaW5nX2ZsYWdzLCBHRlgxMl9EQ0NfREFU
-QV9GT1JNQVQpOworCQkJd3JpdGVfY29tcHJlc3NfZGlzYWJsZSA9CisJCQkJQU1ER1BVX1RJTElO
-R19HRVQodGlsaW5nX2ZsYWdzLCBHRlgxMl9EQ0NfV1JJVEVfQ09NUFJFU1NfRElTQUJMRSk7CiAJ
-CQljb3B5X2ZsYWdzIHw9IChBTURHUFVfQ09QWV9GTEFHU19TRVQoTUFYX0NPTVBSRVNTRUQsIG1h
-eF9jb20pIHwKIAkJCQkgICAgICAgQU1ER1BVX0NPUFlfRkxBR1NfU0VUKE5VTUJFUl9UWVBFLCBu
-dW1fdHlwZSkgfAotCQkJCSAgICAgICBBTURHUFVfQ09QWV9GTEFHU19TRVQoREFUQV9GT1JNQVQs
-IGRhdGFfZm9ybWF0KSk7CisJCQkJICAgICAgIEFNREdQVV9DT1BZX0ZMQUdTX1NFVChEQVRBX0ZP
-Uk1BVCwgZGF0YV9mb3JtYXQpIHwKKwkJCQkgICAgICAgQU1ER1BVX0NPUFlfRkxBR1NfU0VUKFdS
-SVRFX0NPTVBSRVNTX0RJU0FCTEUsCisJCQkJCQkJICAgICB3cml0ZV9jb21wcmVzc19kaXNhYmxl
-KSk7CiAJCX0KIAogCQlyID0gYW1kZ3B1X2NvcHlfYnVmZmVyKHJpbmcsIGZyb20sIHRvLCBjdXJf
-c2l6ZSwgcmVzdiwKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV90dG0uaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uaAppbmRleCAy
-ODUyYTYwNjRjOWFjLi5jZDM0OWEzYzc5ODgxIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfdHRtLmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X3R0bS5oCkBAIC0xMTksNiArMTE5LDggQEAgc3RydWN0IGFtZGdwdV9jb3B5X21lbSB7
-CiAjZGVmaW5lIEFNREdQVV9DT1BZX0ZMQUdTX05VTUJFUl9UWVBFX01BU0sJCTB4MDcKICNkZWZp
-bmUgQU1ER1BVX0NPUFlfRkxBR1NfREFUQV9GT1JNQVRfU0hJRlQJCTgKICNkZWZpbmUgQU1ER1BV
-X0NPUFlfRkxBR1NfREFUQV9GT1JNQVRfTUFTSwkJMHgzZgorI2RlZmluZSBBTURHUFVfQ09QWV9G
-TEFHU19XUklURV9DT01QUkVTU19ESVNBQkxFX1NISUZUCTE0CisjZGVmaW5lIEFNREdQVV9DT1BZ
-X0ZMQUdTX1dSSVRFX0NPTVBSRVNTX0RJU0FCTEVfTUFTSwkweDEKIAogI2RlZmluZSBBTURHUFVf
-Q09QWV9GTEFHU19TRVQoZmllbGQsIHZhbHVlKSBcCiAJKCgoX191MzIpKHZhbHVlKSAmIEFNREdQ
-VV9DT1BZX0ZMQUdTXyMjZmllbGQjI19NQVNLKSA8PCBBTURHUFVfQ09QWV9GTEFHU18jI2ZpZWxk
-IyNfU0hJRlQpCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zZG1hX3Y3
-XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NkbWFfdjdfMC5jCmluZGV4IDc1ODE3
-NzYxZjAwMTYuLjliNDBhZTY3YTkyZjcgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L3NkbWFfdjdfMC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NkbWFf
-djdfMC5jCkBAIC0xNzQ5LDExICsxNzQ5LDEyIEBAIHN0YXRpYyB2b2lkIHNkbWFfdjdfMF9lbWl0
-X2NvcHlfYnVmZmVyKHN0cnVjdCBhbWRncHVfaWIgKmliLAogCQkJCSAgICAgICB1aW50MzJfdCBi
-eXRlX2NvdW50LAogCQkJCSAgICAgICB1aW50MzJfdCBjb3B5X2ZsYWdzKQogewotCXVpbnQzMl90
-IG51bV90eXBlLCBkYXRhX2Zvcm1hdCwgbWF4X2NvbTsKKwl1aW50MzJfdCBudW1fdHlwZSwgZGF0
-YV9mb3JtYXQsIG1heF9jb20sIHdyaXRlX2NtOwogCiAJbWF4X2NvbSA9IEFNREdQVV9DT1BZX0ZM
-QUdTX0dFVChjb3B5X2ZsYWdzLCBNQVhfQ09NUFJFU1NFRCk7CiAJZGF0YV9mb3JtYXQgPSBBTURH
-UFVfQ09QWV9GTEFHU19HRVQoY29weV9mbGFncywgREFUQV9GT1JNQVQpOwogCW51bV90eXBlID0g
-QU1ER1BVX0NPUFlfRkxBR1NfR0VUKGNvcHlfZmxhZ3MsIE5VTUJFUl9UWVBFKTsKKwl3cml0ZV9j
-bSA9IEFNREdQVV9DT1BZX0ZMQUdTX0dFVChjb3B5X2ZsYWdzLCBXUklURV9DT01QUkVTU19ESVNB
-QkxFKSA/IDIgOiAxOwogCiAJaWItPnB0cltpYi0+bGVuZ3RoX2R3KytdID0gU0RNQV9QS1RfQ09Q
-WV9MSU5FQVJfSEVBREVSX09QKFNETUFfT1BfQ09QWSkgfAogCQlTRE1BX1BLVF9DT1BZX0xJTkVB
-Ul9IRUFERVJfU1VCX09QKFNETUFfU1VCT1BfQ09QWV9MSU5FQVIpIHwKQEAgLTE3NzAsNyArMTc3
-MSw3IEBAIHN0YXRpYyB2b2lkIHNkbWFfdjdfMF9lbWl0X2NvcHlfYnVmZmVyKHN0cnVjdCBhbWRn
-cHVfaWIgKmliLAogCWlmICgoY29weV9mbGFncyAmIChBTURHUFVfQ09QWV9GTEFHU19SRUFEX0RF
-Q09NUFJFU1NFRCB8IEFNREdQVV9DT1BZX0ZMQUdTX1dSSVRFX0NPTVBSRVNTRUQpKSkKIAkJaWIt
-PnB0cltpYi0+bGVuZ3RoX2R3KytdID0gU0RNQV9EQ0NfREFUQV9GT1JNQVQoZGF0YV9mb3JtYXQp
-IHwgU0RNQV9EQ0NfTlVNX1RZUEUobnVtX3R5cGUpIHwKIAkJCSgoY29weV9mbGFncyAmIEFNREdQ
-VV9DT1BZX0ZMQUdTX1JFQURfREVDT01QUkVTU0VEKSA/IFNETUFfRENDX1JFQURfQ00oMikgOiAw
-KSB8Ci0JCQkoKGNvcHlfZmxhZ3MgJiBBTURHUFVfQ09QWV9GTEFHU19XUklURV9DT01QUkVTU0VE
-KSA/IFNETUFfRENDX1dSSVRFX0NNKDEpIDogMCkgfAorCQkJKChjb3B5X2ZsYWdzICYgQU1ER1BV
-X0NPUFlfRkxBR1NfV1JJVEVfQ09NUFJFU1NFRCkgPyBTRE1BX0RDQ19XUklURV9DTSh3cml0ZV9j
-bSkgOiAwKSB8CiAJCQlTRE1BX0RDQ19NQVhfQ09NKG1heF9jb20pIHwgU0RNQV9EQ0NfTUFYX1VD
-T00oMSk7CiAJZWxzZQogCQlpYi0+cHRyW2liLT5sZW5ndGhfZHcrK10gPSAwOwpkaWZmIC0tZ2l0
-IGEvaW5jbHVkZS91YXBpL2RybS9hbWRncHVfZHJtLmggYi9pbmNsdWRlL3VhcGkvZHJtL2FtZGdw
-dV9kcm0uaAppbmRleCA4MTkxZDBiZDBjMDBhLi44ZGMxNjY1NzhmMGRmIDEwMDY0NAotLS0gYS9p
-bmNsdWRlL3VhcGkvZHJtL2FtZGdwdV9kcm0uaAorKysgYi9pbmNsdWRlL3VhcGkvZHJtL2FtZGdw
-dV9kcm0uaApAQCAtNjUxLDEzICs2NTEsMTcgQEAgc3RydWN0IGRybV9hbWRncHVfZ2VtX3VzZXJw
-dHIgewogLyogR0ZYMTIgYW5kIGxhdGVyOiAqLwogI2RlZmluZSBBTURHUFVfVElMSU5HX0dGWDEy
-X1NXSVpaTEVfTU9ERV9TSElGVAkJCTAKICNkZWZpbmUgQU1ER1BVX1RJTElOR19HRlgxMl9TV0la
-WkxFX01PREVfTUFTSwkJCTB4NwotLyogVGhlc2UgYXJlIERDQyByZWNvbXByZXNzaW9uIHNldHRp
-bmcgZm9yIG1lbW9yeSBtYW5hZ2VtZW50OiAqLworLyogVGhlc2UgYXJlIERDQyByZWNvbXByZXNz
-aW9uIHNldHRpbmdzIGZvciBtZW1vcnkgbWFuYWdlbWVudDogKi8KICNkZWZpbmUgQU1ER1BVX1RJ
-TElOR19HRlgxMl9EQ0NfTUFYX0NPTVBSRVNTRURfQkxPQ0tfU0hJRlQJMwogI2RlZmluZSBBTURH
-UFVfVElMSU5HX0dGWDEyX0RDQ19NQVhfQ09NUFJFU1NFRF9CTE9DS19NQVNLCTB4MyAvKiAwOjY0
-QiwgMToxMjhCLCAyOjI1NkIgKi8KICNkZWZpbmUgQU1ER1BVX1RJTElOR19HRlgxMl9EQ0NfTlVN
-QkVSX1RZUEVfU0hJRlQJCTUKICNkZWZpbmUgQU1ER1BVX1RJTElOR19HRlgxMl9EQ0NfTlVNQkVS
-X1RZUEVfTUFTSwkJMHg3IC8qIENCX0NPTE9SMF9JTkZPLk5VTUJFUl9UWVBFICovCiAjZGVmaW5l
-IEFNREdQVV9USUxJTkdfR0ZYMTJfRENDX0RBVEFfRk9STUFUX1NISUZUCQk4CiAjZGVmaW5lIEFN
-REdQVV9USUxJTkdfR0ZYMTJfRENDX0RBVEFfRk9STUFUX01BU0sJCTB4M2YgLyogWzA6NF06Q0Jf
-Q09MT1IwX0lORk8uRk9STUFULCBbNV06TU0gKi8KKy8qIFdoZW4gY2xlYXJpbmcgdGhlIGJ1ZmZl
-ciBvciBtb3ZpbmcgaXQgZnJvbSBWUkFNIHRvIEdUVCwgZG9uJ3QgY29tcHJlc3MgYW5kIHNldCBE
-Q0MgbWV0YWRhdGEKKyAqIHRvIHVuY29tcHJlc3NlZC4gU2V0IHdoZW4gcGFydHMgb2YgYW4gYWxs
-b2NhdGlvbiBieXBhc3MgRENDIGFuZCByZWFkIHJhdyBkYXRhLiAqLworI2RlZmluZSBBTURHUFVf
-VElMSU5HX0dGWDEyX0RDQ19XUklURV9DT01QUkVTU19ESVNBQkxFX1NISUZUCTE0CisjZGVmaW5l
-IEFNREdQVV9USUxJTkdfR0ZYMTJfRENDX1dSSVRFX0NPTVBSRVNTX0RJU0FCTEVfTUFTSwkweDEK
-IAogLyogU2V0L0dldCBoZWxwZXJzIGZvciB0aWxpbmcgZmxhZ3MuICovCiAjZGVmaW5lIEFNREdQ
-VV9USUxJTkdfU0VUKGZpZWxkLCB2YWx1ZSkgXAotLSAKMi40My4wCgo=
---0000000000006f509c062c75360e--
+----------------------------------------------------------------
+amd-drm-next-6.14-2025-01-24:
+
+amdgpu:
+- Documentation fixes
+- SMU 13.x fixes
+- SR-IOV fix
+- Display fix
+- PCIe calculation fix
+- MES 12 fix
+- HUBP fix
+- Cursor fix
+- Enforce isolation fixes
+- GFX 12 fix
+- Use drm scheduler API helper rather than open coding it
+- Mark some debugging parameters as unsafe
+- PSP 14.x fix
+- Add cleaner shader support for gfx12
+- Add subvp debugging flag
+- SDMA 4.4.x fix
+- Clarify some kernel log messages
+- clang fix
+- PCIe lane reporting fix
+- Documentation fix
+
+amdkfd:
+- Mark some debugging parameters as unsafe
+- Fix partial migration handling
+- Trap handler updates
+
+----------------------------------------------------------------
+Alex Deucher (4):
+      drm/amdgpu: cache gpu pcie link width
+      drm/amdgpu: fix the PCIe lanes reporting in the INFO IOCTL
+      drm/amd/display: fix CEC DC_DEBUG_MASK documentation
+      drm/amd/display: fix SUBVP DC_DEBUG_MASK documentation
+
+Aric Cyr (2):
+      drm/amd/display: Add hubp cache reset when powergating
+      drm/amd/display: Optimize cursor position updates
+
+Aurabindo Pillai (1):
+      drm/amd: Add debug option to disable subvp
+
+Christian König (2):
+      drm/amdgpu: mark a bunch of module parameters unsafe
+      drm/amdgpu: always sync the GFX pipe on ctx switch
+
+Emily Deng (1):
+      drm/amdkfd: Fix partial migrate issue
+
+Gui Chengming (1):
+      drm/amdgpu: fix fw attestation for MP0_14_0_{2/3}
+
+Jay Cornwall (2):
+      drm/amdkfd: Sync trap handler binary with source
+      drm/amdkfd: Clear MODE.VSKIP in gfx9 trap handler
+
+Jesse.zhang@amd.com (3):
+      revert "drm/amdgpu/pm: Implement SDMA queue reset for different asic"
+      revert "drm/amdgpu/pm: add definition PPSMC_MSG_ResetSDMA2"
+      drm/amd/pm: Refactor SMU 13.0.6 SDMA reset firmware version checks
+
+Kenneth Feng (1):
+      drm/amdgpu: disable gfxoff with the compute workload on gfx12
+
+Kent Russell (1):
+      drm/amdgpu: Mark debug KFD module params as unsafe
+
+Lijo Lazar (4):
+      drm/amdgpu: Add handler for SDMA context empty
+      drm/amdgpu: Refine ip detection log message
+      drm/amd/pm: Add capability flags for SMU v13.0.6
+      drm/amd/pm: Fix smu v13.0.6 caps initialization
+
+Lin.Cao (1):
+      drm/amdgpu: fix ring timeout issue in gfx10 sr-iov environment
+
+Mario Limonciello (1):
+      drm/amd: Clarify kdoc for amdgpu.gttsize
+
+Shaoyun Liu (1):
+      drm/amd/amdgpu: Enable scratch data dump for mes 12
+
+Srinivasan Shanmugam (4):
+      drm/amdgpu: Fix Circular Locking Dependency in AMDGPU GFX Isolation
+      drm/amdgpu/gfx12: Add Cleaner Shader Support for GFX12.0 GPUs
+      drm/amd/display: Fix error pointers in amdgpu_dm_crtc_mem_type_changed
+      drm/amd/amdgpu: Prevent null pointer dereference in GPU bandwidth calculation
+
+Tvrtko Ursulin (1):
+      drm/amdgpu: Use DRM scheduler API in amdgpu_xcp_release_sched
+
+Tzung-Bi Shih (1):
+      drm/amd/display: mark static functions noinline_for_stack
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c         |    5 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |  156 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c            |   26 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fw_attestation.c |    4 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c            |   12 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c             |    6 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c            |   19 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h            |    2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h           |    1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c            |    2 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c             |    8 +
+ drivers/gpu/drm/amd/amdgpu/mes_v12_0.c             |   49 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c           |   22 +
+ drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h     | 2391 ++++++++++----------
+ .../gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx9.asm  |    4 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_migrate.c           |   22 +-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |    8 +
+ .../drm/amd/display/dc/dml2/display_mode_core.c    |   12 +-
+ .../dml21/src/dml2_core/dml2_core_dcn4_calcs.c     |   12 +-
+ .../gpu/drm/amd/display/dc/dpp/dcn10/dcn10_dpp.c   |   10 +-
+ .../drm/amd/display/dc/dpp/dcn401/dcn401_dpp_cm.c  |    6 +-
+ .../gpu/drm/amd/display/dc/hubp/dcn10/dcn10_hubp.c |   10 +-
+ .../gpu/drm/amd/display/dc/hubp/dcn10/dcn10_hubp.h |    2 +
+ .../gpu/drm/amd/display/dc/hubp/dcn20/dcn20_hubp.c |    9 +-
+ .../drm/amd/display/dc/hubp/dcn201/dcn201_hubp.c   |    1 +
+ .../gpu/drm/amd/display/dc/hubp/dcn21/dcn21_hubp.c |    3 +
+ .../gpu/drm/amd/display/dc/hubp/dcn30/dcn30_hubp.c |    3 +
+ .../gpu/drm/amd/display/dc/hubp/dcn31/dcn31_hubp.c |    1 +
+ .../gpu/drm/amd/display/dc/hubp/dcn32/dcn32_hubp.c |    1 +
+ .../gpu/drm/amd/display/dc/hubp/dcn35/dcn35_hubp.c |    1 +
+ .../drm/amd/display/dc/hubp/dcn401/dcn401_hubp.c   |   13 +-
+ .../drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c    |    2 +
+ .../drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c    |    2 +
+ drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h       |    2 +
+ drivers/gpu/drm/amd/include/amd_pcie.h             |   18 +
+ drivers/gpu/drm/amd/include/amd_shared.h           |    7 +-
+ .../amd/pm/swsmu/inc/pmfw_if/smu_v13_0_6_ppsmc.h   |    1 -
+ drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h       |    3 +-
+ drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h       |    1 +
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c   |  286 ++-
+ 40 files changed, 1743 insertions(+), 1400 deletions(-)
