@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4E55C021A6
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jan 2025 08:16:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D378AC02192
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jan 2025 08:16:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D740110E4E1;
-	Mon, 27 Jan 2025 08:16:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F50C10E4E7;
+	Mon, 27 Jan 2025 08:16:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Nc5DZJqV";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JrQ42gN3";
 	dkim-atps=neutral
-Received: from mail-il1-f179.google.com (mail-il1-f179.google.com
- [209.85.166.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B1BB910EA96;
- Sat, 25 Jan 2025 06:47:43 +0000 (UTC)
-Received: by mail-il1-f179.google.com with SMTP id
- e9e14a558f8ab-3cfc8772469so5195275ab.3; 
- Fri, 24 Jan 2025 22:47:43 -0800 (PST)
+Received: from mail-il1-f173.google.com (mail-il1-f173.google.com
+ [209.85.166.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A8E0410EA62;
+ Sat, 25 Jan 2025 06:47:11 +0000 (UTC)
+Received: by mail-il1-f173.google.com with SMTP id
+ e9e14a558f8ab-3ce8a6bc715so21102055ab.2; 
+ Fri, 24 Jan 2025 22:47:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1737787663; x=1738392463; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1737787631; x=1738392431; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=zMxBeI+ZLf9yVYG2cFYc0qaCJ8NkAf6XlTFRcgZVjQg=;
- b=Nc5DZJqVpsUnMc74Fh4s7hw8qRwTK/UZZGzD2NqzIf8YrVIEF1/7ZLM4+YB7whkvqk
- IRjJzj3kL45n+EsFf7xgeSoErjeTk8Qlvg/et8y+mc2V5OVT62KIUdo8h7pUqhg5Yq6q
- ll/c1kvOC0ugTmPnr1aky/Gn7eHhPLYQSfJ1RkM0wuw6PShozlFYalOpzeH7yq/RGudF
- HVyw0yqad9fZE2SfzPwtsWCHjcTOfVdg3EWNsEZWHpv8xbgcBBTKsuBI6mtWXd8j8O4B
- DB1UjVH0XVz55BYS7KhVBjqGb2fxmKZABVPPZPa9bce64RvtjlnSh69wa7yd8l4EBIlG
- cvcQ==
+ bh=419xiuPVMG3qbwGo3tkCVXoWQ5CudHQx226Ckf7XZpg=;
+ b=JrQ42gN3gvjYK9jhjejDBuELxQVxrmeIv3+4HmwIZawKD3Im9YFqv0rc6zWu5/4oNQ
+ B+MdA38OubyxnhWXc8lUxWY5qpILa+fngqndZ1+Xv+N/7ifSgfkT6CN7iVsWz5q4Dj28
+ QMpimptEyhKM/VuHc1B8dKvlD4x2YBMRCmCfbp8vLjRbqm0XcIjar0KLtxOgdhhcvNku
+ ZIBTyUI5VQuJonE+zXnC9I8g9hYHqWE97ceIAsIBzTI3EKPjenrwapk3RCSfQa1xYAH4
+ Q090qY2/IMD0BtTD7eQ704gith9JPMupxq7yXfNjx/VKuWKtNqVK/5VJhOF2NiKcQV4y
+ 4Lvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737787663; x=1738392463;
+ d=1e100.net; s=20230601; t=1737787631; x=1738392431;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=zMxBeI+ZLf9yVYG2cFYc0qaCJ8NkAf6XlTFRcgZVjQg=;
- b=I+12QpUzNN0qlAhmF2dmcerVLxC58fLT8cPCcjoN8uay1E4C6o6iFKBAZYgP+awvwk
- j/85UPYmBXZVRYma4euiiEBC/0RcSCt54LvmsCKGHBJXcCycwwBO3BaNQcE27YdbMnEQ
- m877OiRT7g0ka4ZfHtfcOiPtyVrtsGQ0A0lIPXXWfvVC30hp8LMIG+NpPwhIZk3ZrKnW
- 1s438E/FO7SLnMz0AeyNlLbqv2RaZ5ScgzK4MZyzTrduqZ3yreuxrdBcicLwveiIhwLZ
- mq34dzztwjeltngNu9lI0uBftixJCCU7+E9E9z9mEllThpk+47ByHcI4CH9LN5BEben/
- WXFQ==
+ bh=419xiuPVMG3qbwGo3tkCVXoWQ5CudHQx226Ckf7XZpg=;
+ b=cxRRr7SBwJOG7r3KnkN1eVDLSAZ149AkN6H9BQH4EDXUWae15L3I0z88ebAQ4iyNNf
+ Wk4TbIHl4/JqKwQOzIa/DVbjSwHzVCtqCnNzwtnWn83qo1ccaV5p9xVOp0zJgGcxhFxp
+ O6BpvDNfJaV1DL3/z7Vcfq03zoaFGsk1VWp+r+qOLu0jmGuusGo8zsuBwghm2/P+q1gE
+ 0oAiXb6On60vEmOypn6JB1guX++88NvvyhW+Nl1ZU6DizYz0U7NqrhDHdNn/TQQqpUBE
+ rRycF5PfgTape9WncFtiJ2CHc/aYiqtbE8QOxOuI8zAQ1kJH81mXRjit1Kbg4SMw0100
+ F8aQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU5iS5QOKgDCSqktWnKWS/6a3e6ylJo3dJz9LZURxkVqsR/7RBg7OEA2Po963DEy3qxclfHh1sgoEWo@lists.freedesktop.org,
- AJvYcCV4YIudZJBv5eWaUpvfIvgdkMbX5xOS7a4YpR2jhi/XervInf3TwEF6lXiElQMHK2e+56nxtuE1Q77GV42gzQ==@lists.freedesktop.org,
- AJvYcCVicVe2nDAhexwdZ5JIOUWrrGTQnG6ex4riUFxfeaRYU6EBcws1o6dDY1K7KhtK2Nvv6gildqj3iQ5n@lists.freedesktop.org,
- AJvYcCWHFB9/aBwyu6PUrBFKtpYqbp74E5JwAC7J0tNG37+tURmXzGPnD8vSpSlfjUmb2BQiZSxWPV5w@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzPJND6qx9FfvN1PoNS8DRs3QVVaivhTS7CFiST83HFM1o8Lpjj
- bD+lfSQMo7D9oa819tK3ELxsQBn6J1y8241TgH+V4dymEMF6+8G7
-X-Gm-Gg: ASbGnctwu7rybhHCMrAibpnZ5ejT/88Qh10a5iZh6X2waYV72Kjxsz8So37nBRQQRmF
- UK5+F+tDJdSde/9552+rDKqvcEzKnLgsvVcN37mDHrjxC54xVgkwnuveCSeWP+j5TnMjK4rIHd4
- 8e5SlM3q6QowG6zbaWecu4F913ctyxdfFBsIQ3wfB35/z9u8vVBsRu073NDTtP5J3Wg6Jro4njh
- pp3WHQRrg8zxvXcmjorhUMwTHVr/ApTbYV7XR1R9WIiMej4MMtIJm54vTGEfoet7j/PcY4POjrL
- Zi/HXAGZYeEGq/ntoRjTJAvZH2HPMi13XM42cw==
-X-Google-Smtp-Source: AGHT+IFb1IYAOoDwrPX5oAD1/5R309ZYSOIrwtBkiFdBX9WxKJLvt5wVK1HYP6ZV250VsZiGsSrO6w==
-X-Received: by 2002:a05:6602:2dc6:b0:843:ea9a:acc4 with SMTP id
- ca18e2360f4ac-851b61cacc9mr2996533339f.8.1737787663036; 
- Fri, 24 Jan 2025 22:47:43 -0800 (PST)
+ AJvYcCUHfMdRWA3C+TiX5SLpWhI24Bkn3qSo/dfu5WGxWoWRhkNgsdWkghUCcvDnwrNxLO5F/z+bK4LTGT6xVYtWfg==@lists.freedesktop.org,
+ AJvYcCUV3ykRcuCfYMpb+7liWkZf+L0iI1/Nb2atIL6WFVKwIGRQZU5Xkrfbj6z9BqA4B8pp9ur6ClJ0W0w4@lists.freedesktop.org,
+ AJvYcCWWYdCY9dBmSt+GhVEPiB9XjYKuo8V+CtNf1XPpqJ7WbB2ibPDJ/QMm0APTamEjKGlHwqRc9jj+@lists.freedesktop.org,
+ AJvYcCX4hSaw4MvzJnY94aSqNmEwvo/sC5NoGowWy7I4iEzhDw6VD5LG9R4yg5fw3SmWUHBmnQeAF8BOWFuM@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw+IDBdZDG/vntF8+BVJED9/7ZUYaunvh6wWbjv2nO7Zz1DQmPN
+ H9VPyxNIRUeZKV8qp4a1Kcvg7OOlpZ70R5a4WOOnNkieopJNR8LE
+X-Gm-Gg: ASbGncsSUcJbqIhs+Na5DAV1+eDaXiNFRS7k4DJCZysfjZwy26aSF9IDhQPMQWCTtYj
+ ebMPbIJdiPRodGbZGtmAAXgbHNm4/Yj3WnkwBuUPI4kD+aUvy1mkiVvJlfrsujbNp4amPkuRUVu
+ iYEmUM2TSV0vTg3SrtmnMqbH+i/ahjlWbxW9EiYNDm9FlpmGkzFx8CGXIw0R+1ZFv7NgvpMHgQM
+ I3RNy4uWsVvmTdxfh1YD7qts2G+iNSetlkfIq7xkp1aTg/Ygnk65ICvAOxStvrxy7Cot4Ahe4RR
+ uIK3Mq+e58Dhfq8Y9GM5iZSX8V+OvClNhelnOFwwZDQACj55
+X-Google-Smtp-Source: AGHT+IEdolY48jcy1d5GbnNNp6uwMS0tCY3zAQsNey2Tb/bKtSSTu+VxIC9kGp83MyjaHTPxuWcnsA==
+X-Received: by 2002:a05:6e02:1aa3:b0:3cf:cc8d:48aa with SMTP id
+ e9e14a558f8ab-3cfcc8d4b85mr45317065ab.21.1737787631024; 
+ Fri, 24 Jan 2025 22:47:11 -0800 (PST)
 Received: from gandalf.. (c-67-165-245-5.hsd1.co.comcast.net. [67.165.245.5])
  by smtp.googlemail.com with ESMTPSA id
- 8926c6da1cb9f-4ec1da476fesm1174144173.58.2025.01.24.22.47.42
+ 8926c6da1cb9f-4ec1da476fesm1174144173.58.2025.01.24.22.47.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Jan 2025 22:47:42 -0800 (PST)
+ Fri, 24 Jan 2025 22:47:10 -0800 (PST)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, ukaszb@chromium.org
@@ -72,10 +72,9 @@ Cc: intel-gfx-trybot@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, daniel.vetter@ffwll.ch,
  tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
  ville.syrjala@linux.intel.com, Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH 62/63] drm-dyndbg: add DRM_CLASSMAP_USE to the
- drm_gem_shmem_helper driver
-Date: Fri, 24 Jan 2025 23:46:16 -0700
-Message-ID: <20250125064619.8305-63-jim.cromie@gmail.com>
+Subject: [PATCH 31/63] selftests-dyndbg: add comma_terminator_tests
+Date: Fri, 24 Jan 2025 23:45:45 -0700
+Message-ID: <20250125064619.8305-32-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20250125064619.8305-1-jim.cromie@gmail.com>
 References: <20250125064619.8305-1-jim.cromie@gmail.com>
@@ -96,27 +95,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The drm_gem_shmem_helper driver has a number of DRM_UT_* debugs, make
-them controllable when CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling
-dyndbg that the module uses them.
+New fn validates parsing and effect of queries using combinations of
+commas and spaces to delimit the tokens.
+
+It manipulates pr-debugs in builtin module/params, so might have deps
+I havent foreseen on odd configurations.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/drm_gem_shmem_helper.c | 1 +
- 1 file changed, 1 insertion(+)
+- skip comma tests if no builtins
+---
+ .../dynamic_debug/dyndbg_selftest.sh          | 21 ++++++++++++++++++-
+ 1 file changed, 20 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
-index 5ab351409312..481d18561688 100644
---- a/drivers/gpu/drm/drm_gem_shmem_helper.c
-+++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
-@@ -23,6 +23,7 @@
- #include <drm/drm_print.h>
+diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+index 68a9046405f2..368d10a691a0 100755
+--- a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
++++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+@@ -216,7 +216,7 @@ function check_err_msg() {
+ function basic_tests {
+     echo -e "${GREEN}# BASIC_TESTS ${NC}"
+     if [ $LACK_DD_BUILTIN -eq 1 ]; then
+-	echo "SKIP"
++	echo "SKIP - test requires params, which is a builtin module"
+ 	return
+     fi
+     ddcmd =_ # zero everything
+@@ -238,8 +238,27 @@ EOF
+     ddcmd =_
+ }
  
- MODULE_IMPORT_NS("DMA_BUF");
-+DRM_CLASSMAP_USE(drm_debug_classes);
++function comma_terminator_tests {
++    echo -e "${GREEN}# COMMA_TERMINATOR_TESTS ${NC}"
++    if [ $LACK_DD_BUILTIN -eq 1 ]; then
++	echo "SKIP - test requires params, which is a builtin module"
++	return
++    fi
++    # try combos of spaces & commas
++    check_match_ct '\[params\]' 4 -r
++    ddcmd module,params,=_		# commas as spaces
++    ddcmd module,params,+mpf		# turn on module's pr-debugs
++    check_match_ct =pmf 4
++    ddcmd ,module ,, ,  params, -p
++    check_match_ct =mf 4
++    ddcmd " , module ,,, ,  params, -m"	#
++    check_match_ct =f 4
++    ddcmd =_
++}
++
+ tests_list=(
+     basic_tests
++    comma_terminator_tests
+ )
  
- /**
-  * DOC: overview
+ # Run tests
 -- 
 2.48.1
 
