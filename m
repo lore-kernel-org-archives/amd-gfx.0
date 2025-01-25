@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A5DCC02190
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DCD8C0218C
 	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jan 2025 08:16:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C057510E4A7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFDEA10E4A5;
 	Mon, 27 Jan 2025 08:16:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Xpkc3EkJ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UNfKCgwP";
 	dkim-atps=neutral
-Received: from mail-io1-f53.google.com (mail-io1-f53.google.com
- [209.85.166.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CAD0710EA70;
- Sat, 25 Jan 2025 06:47:14 +0000 (UTC)
-Received: by mail-io1-f53.google.com with SMTP id
- ca18e2360f4ac-844e7bc6d84so90833939f.0; 
- Fri, 24 Jan 2025 22:47:14 -0800 (PST)
+Received: from mail-il1-f179.google.com (mail-il1-f179.google.com
+ [209.85.166.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A210110EA84;
+ Sat, 25 Jan 2025 06:47:33 +0000 (UTC)
+Received: by mail-il1-f179.google.com with SMTP id
+ e9e14a558f8ab-3cfc8772469so5194985ab.3; 
+ Fri, 24 Jan 2025 22:47:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1737787634; x=1738392434; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1737787653; x=1738392453; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=JsyGIKm5KVw15Lrl3SAKRhPe64hFlD++7kUKJ3Bp+EU=;
- b=Xpkc3EkJUKy4Cbb9+/XGkxjREUQsi0MtB0sCrZJDE/IKUBGYsv4qurwZt9e+NRTi9B
- w20J64rfXz2secC5G0tXsPi+IIVe33opvXekSkVNVZ4wfImk9y1OVBiBPZ4oAGwI80/P
- smZYi7iMbCmut06+cc+20qOLxdKL9VRW3zUGS/RF22U9TbAqRM3z6EZHCQK8QPzoKdhZ
- Luj5zQB4GDbTCFKv9wM4U3hisTSIVlBL3+RXN2ehCJ42VLRAyqKkTsFp3tzhdYJMrMDf
- hUVKHbk3FyQbfKvJ3dTbAED2pxwl6rEiVAfw9txUOoOORSpnJ0blTHWM+ONfEAfeYfHY
- YWRA==
+ bh=QXJvwkX5dMWwVOOB9k5iDyJ+DvIudVbZ+A9Ut3PgCsY=;
+ b=UNfKCgwPKXyK2QDToDx0l/NJSkPysCUOl9zFLyGmYQVOegdFJabWysP7IIcSdbm81W
+ ZuglG3mR7ND0EJCcQgKLdtxFYPh2wnppZhtE8/EIhN6IFXuqKgDJFiqzr6Pi4OvzyFIW
+ dQRhAATbCY0xdVvC+kRZWUSl41aT/wS+yCaRK5vCSraw2KiNLTd1cqor0igw1ragVaZA
+ oEt6o7MJzg5THkmI9pgP9Z/JWZlZUqnCb0lrBYRsbrXWRvrfkncP5sWHUhkoCEX+WFUI
+ aWqx2kyuF3W8Wp5eLSV0RNyXlVoNcFamnOUQ9lcv9R9mAlCcwXb8q3BsjH9mO7VJ07HD
+ BNMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737787634; x=1738392434;
+ d=1e100.net; s=20230601; t=1737787653; x=1738392453;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=JsyGIKm5KVw15Lrl3SAKRhPe64hFlD++7kUKJ3Bp+EU=;
- b=YTUaAZ6daxOfnc8mPUT+gwJw1IZ7O5qF7n0mxK8lQCfpD7XemSt7rD+SbbMXH7PcKw
- h9G4aQ95Upciag0lkeeXa5FpiRVfB2snGnb/gr41de7KUS6PC3+ntLB4zavqL+kbULSZ
- alg7Hftv5MPIA2uIqu60b2oOtpg7yYbFVMua1YRyQMrqiF73zKQDRu+0LVZLDEug3Wt4
- dZg5rbweSpRwIxdaKZUOaUKyC+Lxt4a9zdGQDtvxW0NE872DNsaoSFh8WTqzltrnpJzQ
- 6ZsuL86zhZKL/Xz4n528+Xlghpdrc7bBkuIaKMCOR/3ucU1i6OhkVsr+waGIBK1C4MGk
- 7z0w==
+ bh=QXJvwkX5dMWwVOOB9k5iDyJ+DvIudVbZ+A9Ut3PgCsY=;
+ b=X7uGxIIM31TjpQapHxFImfanNeCV9leIUAORQaAh/w0vk6B4khEMvnrJRaqq1FfSja
+ 1mvVkPocyhV2uKlp5cFVFlhyYxbsiySyzD2phFAuGNfQDJ6Crq2gOz61Iyh5lbnmG6P8
+ kRBISXMnB259nv2Ao/b1vbO0luFz1ONilwDnKHhpf4/6h6nYfCta48esFgRjlOeTnspq
+ s5iViHLTSF3Yt2jZqrwFqU2azm+nV1T3JiIW6LYqDJdkdazsvf5NIUCy6Hy7llFi2v6G
+ LWt00w0vnOtxAvHlvX+TV2fE3JS6qxfHUPU06zPqJYdc8Le2hZ0F7nJhPXynQegzI4xY
+ bOfw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUROz5ohq3DEHoJ5c8r5lNZPMo/kBZUvvCaxnj4NzLLhl09mCNzWqXC+qVH9DXX0GVNZWh7Np8LSnqg@lists.freedesktop.org,
- AJvYcCUTDIYD6oxxVAna8JoZXE/CuMeDK5eL7Uqe5I5O0DEoB5AF5QBTCepgSx9e0FIoQ15sLzRDEFQKowdQWEzQBw==@lists.freedesktop.org,
- AJvYcCUXrSPZCmeM9s/y+UzdbvPs1t+xwarMV+2Vd0KWkCX8I1GiVQyCxbUOHzq6HimMv2Os8ILDO5UENadr@lists.freedesktop.org,
- AJvYcCWgDfKaeSufNYJCI6lXBBZeZ/8T+zwwO5oxwv9OZdX3tbWikhl9MFIoOxdDntwIenzAWrFQ5m+w@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzrY6DkCXwz+CB1bjtnLZ8KoKDQoGw1lf5sQiEKpW2IJObheMVb
- t9hkP/iMIIId/5lxdBxPdLgfnZPU7kvW1hpuJGMRcO+bQjh+/l+z
-X-Gm-Gg: ASbGncuC+G4vUcNhFHft5YZ0OruBHW68IrLTt6OiCiPq4V4wRnqXcMFHIicMyvqidHb
- YyRO5v+KVnfglsSSOOE/xEWWeJNp0Z6zbJeccmWWuiIbg8tIlxfin0+vAsFYFde57xNjiCQrgui
- SkNtBMMj48+R4GkLB8AxML+xAbEc19v+ma6PxGd6L3SpGeEMwet8iVhMwT29QHg7etNuf9HmwVU
- 3AvXDvCO+d3aam1cv8mOrNCAWzssUyXa3cTBLlCzo+9yJ4e0zzOIpNVs/DATR8b0+4b8UxkNLps
- jsPkkKITLKE8zhMdpAhr71JPOfIEUu3mTdDilg==
-X-Google-Smtp-Source: AGHT+IEO16ggXmzyfYHgop4tbbYRoiJ+jPn2ZC4cmvbjRlCrlzH1udV42UlgxC08+7x3doqhyHdvvQ==
-X-Received: by 2002:a05:6602:6081:b0:841:ab27:acac with SMTP id
- ca18e2360f4ac-8521e1a91d5mr552474239f.2.1737787633949; 
- Fri, 24 Jan 2025 22:47:13 -0800 (PST)
+ AJvYcCUG4E1ZIzXnjB0V1X9flF2PzSOY3PPR+2JZPE2xymZqTfpanrY3eYxSuugEmZk4SCl0hybH+OSsuVgz1cq4yQ==@lists.freedesktop.org,
+ AJvYcCUq+MNKkzERFR4Y3dEZwiY1JmzMcJz5R3HiS3YeX2iFLCed3VnV4kJR4KnYQ2qYgCyFptvoyAK0eub+@lists.freedesktop.org,
+ AJvYcCWmJLwJuMaIhZ5J77E4mkQoWswhFR7WJ8NG3/F5sKpWk1Afdeq5zHlQptTxht+UcxYiGHTIYL+pGDyr@lists.freedesktop.org,
+ AJvYcCXPhaOHC/Px/66ZtF5lqkgG5kdXg1MCQCpcAPlHARMg65XtjMVTACp1PFSA/FcP14svOyDYAT/b@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwPR4obvCVyIRdG0rWLUtUAUr94Nozkeb4PMqFKz/XPjHcmX6JI
+ lisftU2+cKLvbC7SbR9O4pPos8tg8LJ5vNh6fhmn0EHe8KNl3Yf+
+X-Gm-Gg: ASbGncsFKuNHjey82RT8rTl4rh1AzAaseU/I9sQ0FG8siri7uR5qbMlR2tdBKPO8EPy
+ zZ+aoWIdhZNRYEuLaZOjNk5cOBj9Gaj2i3pysCLXKz+q8nEFRooTphmcQc0rErWWYzig3tzgi51
+ lY9y5AsZpnFl9cD6cS1sbmfgqxZ2nFmqYpH9Ny89cFeQPUsT9HpcRUKI5/4DBQOW7B/zKd9hvc0
+ wo5hxj5PeNxg+A/aUuTs+9bCNDZ5c8RL1SdakBzupEyHYFH3ct4+YG5wtqDQiS/C8yDLD5DKrhG
+ dNco6F8cUqnkk2i6VtU+5U9g9bN08z3TQ4oYTA==
+X-Google-Smtp-Source: AGHT+IFR8c5S4HlnxAhhQQrNs6VgmiPrwR9vlqdXV98OhQbNPjVEjH4OwoZZHaDBKr7qyvOeA3I8Dw==
+X-Received: by 2002:a05:6602:4881:b0:84f:537d:b097 with SMTP id
+ ca18e2360f4ac-851b62b5a35mr2857317739f.12.1737787652958; 
+ Fri, 24 Jan 2025 22:47:32 -0800 (PST)
 Received: from gandalf.. (c-67-165-245-5.hsd1.co.comcast.net. [67.165.245.5])
  by smtp.googlemail.com with ESMTPSA id
- 8926c6da1cb9f-4ec1da476fesm1174144173.58.2025.01.24.22.47.13
+ 8926c6da1cb9f-4ec1da476fesm1174144173.58.2025.01.24.22.47.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Jan 2025 22:47:13 -0800 (PST)
+ Fri, 24 Jan 2025 22:47:32 -0800 (PST)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, ukaszb@chromium.org
@@ -72,9 +72,9 @@ Cc: intel-gfx-trybot@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, daniel.vetter@ffwll.ch,
  tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
  ville.syrjala@linux.intel.com, Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH 34/63] docs/dyndbg: explain new delimiters: comma, percent
-Date: Fri, 24 Jan 2025 23:45:48 -0700
-Message-ID: <20250125064619.8305-35-jim.cromie@gmail.com>
+Subject: [PATCH 52/63] drm-dyndbg: add DRM_CLASSMAP_USE to bochs
+Date: Fri, 24 Jan 2025 23:46:06 -0700
+Message-ID: <20250125064619.8305-53-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20250125064619.8305-1-jim.cromie@gmail.com>
 References: <20250125064619.8305-1-jim.cromie@gmail.com>
@@ -95,71 +95,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add mention of comma and percent delimiters into the respective
-paragraphs describing their equivalents: space and newline.
+tiny/bochs has 5 DRM_UT_* debugs, make them controllable when
+CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg that the module has
+class'd debugs.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- .../admin-guide/dynamic-debug-howto.rst       | 19 +++++++++++--------
- 1 file changed, 11 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/tiny/bochs.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Documentation/admin-guide/dynamic-debug-howto.rst
-index 391e40a510c9..c3537f8689e6 100644
---- a/Documentation/admin-guide/dynamic-debug-howto.rst
-+++ b/Documentation/admin-guide/dynamic-debug-howto.rst
-@@ -78,16 +78,19 @@ Command Language Reference
- ==========================
+diff --git a/drivers/gpu/drm/tiny/bochs.c b/drivers/gpu/drm/tiny/bochs.c
+index 6f91ff1dbf7e..d29541aa82ab 100644
+--- a/drivers/gpu/drm/tiny/bochs.c
++++ b/drivers/gpu/drm/tiny/bochs.c
+@@ -59,6 +59,8 @@ static int bochs_modeset = -1;
+ static int defx = 1024;
+ static int defy = 768;
  
- At the basic lexical level, a command is a sequence of words separated
--by spaces or tabs.  So these are all equivalent::
-+by spaces, tabs, or commas.  So these are all equivalent::
- 
-   :#> ddcmd file svcsock.c line 1603 +p
-   :#> ddcmd "file svcsock.c line 1603 +p"
-   :#> ddcmd '  file   svcsock.c     line  1603 +p  '
-+  :#> ddcmd file,svcsock.c,line,1603,+p
- 
--Command submissions are bounded by a write() system call.
--Multiple commands can be written together, separated by ``;`` or ``\n``::
-+Command submissions are bounded by a write() system call.  Multiple
-+commands can be written together, separated by ``%``, ``;`` or ``\n``::
- 
--  :#> ddcmd "func pnpacpi_get_resources +p; func pnp_assign_mem +p"
-+  :#> ddcmd func foo +p % func bar +p
-+  :#> ddcmd func foo +p \; func bar +p
-+  :#> ddcmd "func foo +p ; func bar +p"
-   :#> ddcmd <<"EOC"
-   func pnpacpi_get_resources +p
-   func pnp_assign_mem +p
-@@ -109,7 +112,6 @@ The match-spec's select *prdbgs* from the catalog, upon which to apply
- the flags-spec, all constraints are ANDed together.  An absent keyword
- is the same as keyword "*".
- 
--
- A match specification is a keyword, which selects the attribute of
- the callsite to be compared, and a value to compare against.  Possible
- keywords are:::
-@@ -133,7 +135,6 @@ keywords are:::
-   ``line-range`` cannot contain space, e.g.
-   "1-30" is valid range but "1 - 30" is not.
- 
--
- The meanings of each keyword are:
- 
- func
-@@ -158,9 +159,11 @@ module
-     The given string is compared against the module name
-     of each callsite.  The module name is the string as
-     seen in ``lsmod``, i.e. without the directory or the ``.ko``
--    suffix and with ``-`` changed to ``_``.  Examples::
-+    suffix and with ``-`` changed to ``_``.
++DRM_CLASSMAP_USE(drm_debug_classes);
 +
-+    Examples::
- 
--	module sunrpc
-+	module,sunrpc	# with ',' as token separator
- 	module nfsd
- 	module drm*	# both drm, drm_kms_helper
+ module_param_named(modeset, bochs_modeset, int, 0444);
+ MODULE_PARM_DESC(modeset, "enable/disable kernel modesetting");
  
 -- 
 2.48.1
