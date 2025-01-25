@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8771C02193
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jan 2025 08:16:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D79CAC0218C
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jan 2025 08:16:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 89A4310E4B5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F7A310E4B1;
 	Mon, 27 Jan 2025 08:16:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LjSiLj65";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KdyBJdRx";
 	dkim-atps=neutral
-Received: from mail-io1-f54.google.com (mail-io1-f54.google.com
- [209.85.166.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9DC2B10EA71;
- Sat, 25 Jan 2025 06:47:13 +0000 (UTC)
-Received: by mail-io1-f54.google.com with SMTP id
- ca18e2360f4ac-84a012f7232so114027139f.0; 
- Fri, 24 Jan 2025 22:47:13 -0800 (PST)
+Received: from mail-il1-f173.google.com (mail-il1-f173.google.com
+ [209.85.166.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B15A10E29C;
+ Sat, 25 Jan 2025 06:46:51 +0000 (UTC)
+Received: by mail-il1-f173.google.com with SMTP id
+ e9e14a558f8ab-3a8146a8ddaso7563635ab.1; 
+ Fri, 24 Jan 2025 22:46:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1737787633; x=1738392433; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1737787610; x=1738392410; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=8Fcd0CbpeqTSAr2MUddHNYquZXYxsn4RsHtjuNfIUxs=;
- b=LjSiLj65Dg7/U6MYyJAJ0+ooVa2fL6R75m+v8DprKj/9mVaDf2kpJ/wPvKyL+2MaVi
- uJyI47UsNUXFYa8pitIqniVyawBpgGai634+o4hsxAJuEkNlnAi3aJsqpryhgh7ICmgg
- loxmvlaBhyMrQavCoYhZWlnpqk+dFilwLvkd9IkCOxsKVXvLLn17Wwo2QGs7eZQ5L7m9
- hjc3kcK71jC8BwAK8F1Cpvh3CEok9pJPwEkdsLh3SrlCneb0MPE3iwo4FaGQ8s0geTCL
- 57aZirZ0thWcLKN/9PQPUGAD1oRq9bDRI478oYftHy6tPOtyN7g/ZxNFQ6zeKtB0iZqs
- JgaA==
+ bh=JhnbP0DWcHpdehvzPtVKNEphMptFcEvIUAWn1R09L9s=;
+ b=KdyBJdRxMcLAhi1jtTKe+kehlFDyMSlKFiFpbeHp4aFtfltuiiVp6U1XLROJWF65Ps
+ AfRuaopmadtUv2ZZlEkWMYJ5aHzgFTzkrhtpQQj9lae/Sw8O/Qb3xXb3F7Fy4JgwBLkc
+ Z8yo+918eoJDf8Tihb2KOO3S0rCUYVNOq2n2svAOmy7me+AHwc3J1uPZdeYjCILY1uqo
+ 2zkxyJ+d/KfehusYrOpA7Tf9ZEMEJ8XIVmz9YYnfQtdQdPEjMLiII9kk3PU7rMbN2qoN
+ 1Sn0j8B5Mv44RjpiBpYIBY2OonoBuzno5yZhIFtmXAQ2+brPHthNyPZ9TQA47vtN5Niw
+ fepg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737787633; x=1738392433;
+ d=1e100.net; s=20230601; t=1737787610; x=1738392410;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=8Fcd0CbpeqTSAr2MUddHNYquZXYxsn4RsHtjuNfIUxs=;
- b=rSrkPIuGw2PGN0GY8Nv3AGygova5SvMDWLiVrTfhai9iSJaqGfsXAVHhiA4O0pUGwn
- I4/+CwSql+ZlKV8hBV0m2Q7pFUCT7McOyDFYD3gGxW6FyfrVbUBBGJzMyTYDWNz+CHeZ
- kkIlRwYNtGLezC0/hoStWLEbHRyRsx3P2zpu53C4EFENHNtIJ3Feoudd8+I4+EIgb+5A
- g3pQ9S+VOahVEgYYVkhTgcZLO2d9BhIPyo4QstBeqTHx6vGjdDTfMziNF4DS4YYTMZ1y
- OlrlaV+yCWF83KoTN5CW5C8zpJnnTE8AbhtiqLtDsG15HyTBdMbXD33F8Ql5aQlmBD2G
- ntNQ==
+ bh=JhnbP0DWcHpdehvzPtVKNEphMptFcEvIUAWn1R09L9s=;
+ b=JOV7hBDqkZEdBWgGUV8AfZEQPWZqN3HUv0CnOzG/5gOJmfyAfKptU3xPLa62b6a/7+
+ bFSivPNuM+Hk9uRHmU54oUJ6RmwS5lRIrTgbiPA8UQ9Qal3hpEFtDtEJIpF4eYvHPBxR
+ C56iL1/NXE848Tcfh9AcLXUF0WdvJHKwijBzw0e95e0s7bliOy8RoSwVgtD0gbNdWyGx
+ Kbwl7y53+CQzsJVqzY5WCSmdLYyTjxqbLtNqWYEPYyKlkrI9QSJnX921GfX1is2NPKuq
+ JNU7j3GxdPdew3B1ThWXO4qYf4jwQHdwFJMX+urpi3n+cZ83lOldR0l0odKsWV+m85is
+ TU4Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUNpI/5EDIrn0RbA+TApdheJSjJF3nyTPzeYakhOWkE96DQkf1pxlpyv2T//SS+Bw2N2x+bNOAxWApp@lists.freedesktop.org,
- AJvYcCXuEjP1zYoMHfKBFNbuiqYi1Bq48fVKvWbMA6KzeVv4GQ60P5JT9dXUlCnXs744uqiXwno4qGjMix3K@lists.freedesktop.org,
- AJvYcCXwS725zbC/6B4P0XOx+Q5XEivat/pFWbl0YDk+IzucwnANqe0k8iBQsG4wVeyyCF+NTtcbYK6v3XfhA0/M8g==@lists.freedesktop.org,
- AJvYcCXycvmmk1/ZzbFLvw8bs6NCuXKOvJwi5k2nCTrLBm8nSg6u/y2Fbk1jqfkkdCERjzxaOJ/OoibL@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx90x+r7N9z0EZ8+E7DoQD/j7XPNV7loIO2Y365jOMnmJFYly/W
- 0U7B2x0tfswAjLO+xYZY9nx8TiWLdWXz3QZ42aoyOe5ZewNMO//G
-X-Gm-Gg: ASbGncvu1dL+5Mz+0FFeWDgt+TxF7Rs+9tZQY0X0u/SCJb+sJ1iL4FlvXB2+TQut9wx
- iCs/ZKt2ZydcRj2j6fE3hZp12oHxXPc+2OPb/CJ+nPuKKEkVoAXw1OeSs6FJhaWyXW1b1u8z+ps
- QK/RHBfOYZyWFdUyTYOvzjIEfIZ1Qe/AI6g2OzDB3NAgx3TGKJrfY5ELxa2MhexePITrOSoUci/
- /cF22+amxVkYH+6eYGBlRLrqeJ7w3GuoZtVHxK0lEtkfZAR90+TQkRNTwjLyu6t+4t1LQ0eonZi
- YRetGuE5j9JSdP2NEdMUwkTybXy1BAiWm86pNQ==
-X-Google-Smtp-Source: AGHT+IFCwNCwKk2LjU+VISPtmf45oXrUgrMIIcfvyXFuFTikBwGEdBXb11cx99j0mRG19lRHebe9QQ==
-X-Received: by 2002:a05:6602:751c:b0:84a:5201:570a with SMTP id
- ca18e2360f4ac-8520bd814a2mr784672939f.4.1737787632909; 
- Fri, 24 Jan 2025 22:47:12 -0800 (PST)
+ AJvYcCU00K4YNh4f/4HovadOznaPmHb5nHewuDbDOvqNneGpzzp3jPeqyAV+tTUVTUu81i+GEA4XagyvIu2u@lists.freedesktop.org,
+ AJvYcCWRi4FWYiAPYWcuYe52oi+Ya2QDkkYOjEx4AWN6L9DB6r1jokHIpOURdDFaeULZzZN5s1V65wFx@lists.freedesktop.org,
+ AJvYcCWhe0t7mD0bpUE7AgseUFuxk7PDiVeWHgNN1K+0PQIp+OzBKvBIUZiVkP/uqdUaPbq0zwfBZPYPawPLUqBRQQ==@lists.freedesktop.org,
+ AJvYcCWuYjVw26nCDsVT+Q9h2VKoCOLo9oAk1qulrenE4g+Ec9+JJUAWtXgru/H9hzUJ5cCxYG3JaqdoJRK6@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyWQCrRWHXIEj5lY50kGwzucnx2Ak0R/QJlZ8MAIY2sMuT3ULO6
+ r0Sd0d7XQPjqBQEQi6MetxyytztKI9GqQY2aQVWvvGhRvuZo6F7B
+X-Gm-Gg: ASbGncsocf8Yi8QS7O4bphjKCsaZNgi1OU3D3NWP08rFkK3Ma0H+8LGtTT0f7bb/xSE
+ viWUw/9/bwRsPMH4lrsa+D2xmDnh+w8FEFwjZViTy5kG4nvDGKgJZVEd6segz/3lFGYR9huyAcm
+ CgaciEKTMhVmCEZrtf8uon8wNcxEZQSkP9a8VF+/w3m8MH9/DckbbCCmhtdf1ma+JfhmwYAgXtL
+ +Wp84jeBafiKaftCf7raCiKumSbD1BVxN9TIlBahmn3fPPtt2AnyTO1sN4ZEaXou11eArod0CZI
+ ZN+ge5Dj7i34z4mFtLswfpBAjfJBilfRTEP5BjYwBCgvPl/u
+X-Google-Smtp-Source: AGHT+IEjwcFP/08iV5u7smlEOAHtcy4vLQNSUwAcIBZCKkDwG3GOx0o4FLASRAUuvVLtd3Cgpon0RA==
+X-Received: by 2002:a05:6e02:170e:b0:3cf:bbd4:8aef with SMTP id
+ e9e14a558f8ab-3cfbbd48bc6mr91708935ab.19.1737787610590; 
+ Fri, 24 Jan 2025 22:46:50 -0800 (PST)
 Received: from gandalf.. (c-67-165-245-5.hsd1.co.comcast.net. [67.165.245.5])
  by smtp.googlemail.com with ESMTPSA id
- 8926c6da1cb9f-4ec1da476fesm1174144173.58.2025.01.24.22.47.12
+ 8926c6da1cb9f-4ec1da476fesm1174144173.58.2025.01.24.22.46.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Jan 2025 22:47:12 -0800 (PST)
+ Fri, 24 Jan 2025 22:46:50 -0800 (PST)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, ukaszb@chromium.org
@@ -72,9 +72,9 @@ Cc: intel-gfx-trybot@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, daniel.vetter@ffwll.ch,
  tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
  ville.syrjala@linux.intel.com, Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH 33/63] selftests-dyndbg: test_percent_splitting
-Date: Fri, 24 Jan 2025 23:45:47 -0700
-Message-ID: <20250125064619.8305-34-jim.cromie@gmail.com>
+Subject: [PATCH 13/63] dyndbg: reduce verbose=3 messages in ddebug_add_module
+Date: Fri, 24 Jan 2025 23:45:27 -0700
+Message-ID: <20250125064619.8305-14-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20250125064619.8305-1-jim.cromie@gmail.com>
 References: <20250125064619.8305-1-jim.cromie@gmail.com>
@@ -95,50 +95,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This does basic testing of classmaps using '%' separated
-multi-queries.  It modprobes test_dynamic_debug with several classes
-enabled, and counts to verify that the expected sites show the
-enablement in the control file.
+When modprobing a module, dyndbg currently logs/says "add-module", and
+then "skipping" if the module has no prdbgs.  Instead just check 1st
+and return quietly.
+
+no functional change
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- .../dynamic_debug/dyndbg_selftest.sh          | 20 +++++++++++++++++++
- 1 file changed, 20 insertions(+)
+ lib/dynamic_debug.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-index 368d10a691a0..c97c9391d0f4 100755
---- a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-+++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-@@ -256,9 +256,29 @@ function comma_terminator_tests {
-     ddcmd =_
- }
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index fc9bf5d80aa9..6bac5703dd41 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -1245,11 +1245,10 @@ static int ddebug_add_module(struct _ddebug_info *di, const char *modname)
+ {
+ 	struct ddebug_table *dt;
  
-+function test_percent_splitting {
-+    echo -e "${GREEN}# TEST_PERCENT_SPLITTING - multi-command splitting on % ${NC}"
-+    ifrmmod test_dynamic_debug_submod
-+    ifrmmod test_dynamic_debug
-+    ddcmd =_
-+    modprobe test_dynamic_debug dyndbg=class,D2_CORE,+pf%class,D2_KMS,+pt%class,D2_ATOMIC,+pm
-+    check_match_ct =pf 1
-+    check_match_ct =pt 1
-+    check_match_ct =pm 1
-+    check_match_ct test_dynamic_debug 23 -r
-+    # add flags to those callsites
-+    ddcmd class,D2_CORE,+mf%class,D2_KMS,+lt%class,D2_ATOMIC,+ml
-+    check_match_ct =pmf 1
-+    check_match_ct =plt 1
-+    check_match_ct =pml 1
-+    check_match_ct test_dynamic_debug 23 -r
-+    ifrmmod test_dynamic_debug
-+}
+-	v3pr_info("add-module: %s.%d sites\n", modname, di->num_descs);
+-	if (!di->num_descs) {
+-		v3pr_info(" skip %s\n", modname);
++	if (!di->num_descs)
+ 		return 0;
+-	}
 +
- tests_list=(
-     basic_tests
-     comma_terminator_tests
-+    test_percent_splitting
- )
++	v3pr_info("add-module: %s %d sites\n", modname, di->num_descs);
  
- # Run tests
+ 	dt = kzalloc(sizeof(*dt), GFP_KERNEL);
+ 	if (dt == NULL) {
 -- 
 2.48.1
 
