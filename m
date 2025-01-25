@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C18EC0218C
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jan 2025 08:16:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53439C0218C
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jan 2025 08:16:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3665210E4AC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3DF7A10E4AD;
 	Mon, 27 Jan 2025 08:16:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FYKCBpfp";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JRmRxTf8";
 	dkim-atps=neutral
-Received: from mail-io1-f47.google.com (mail-io1-f47.google.com
- [209.85.166.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3AC210EA79;
- Sat, 25 Jan 2025 06:47:37 +0000 (UTC)
-Received: by mail-io1-f47.google.com with SMTP id
- ca18e2360f4ac-844e6d1283aso105645439f.1; 
- Fri, 24 Jan 2025 22:47:37 -0800 (PST)
+Received: from mail-il1-f176.google.com (mail-il1-f176.google.com
+ [209.85.166.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0FB5F10E296;
+ Sat, 25 Jan 2025 06:46:47 +0000 (UTC)
+Received: by mail-il1-f176.google.com with SMTP id
+ e9e14a558f8ab-3ce6b289e43so25367665ab.3; 
+ Fri, 24 Jan 2025 22:46:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1737787657; x=1738392457; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1737787606; x=1738392406; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=DhCfYf7LWbGsDKgpZFGMa7Otj3zRUhvG+D/wYe+cSJI=;
- b=FYKCBpfpDQxmda3vyP+oWGCRbP3hL+Gkv8l9sE6G+f9t/BR9jVloQbEqj/BQBCs6Pb
- QCcsPl2SjwdFZzRg1Gh3yGBSvoKpuuGbXa6hUTpsh6Q+W3m95n40nk8FHWu5umPlDJh1
- j41jCgjgyhL8l54dmT70/B+/Cxf5SChZXn1awurE+rTEq4xfcVUNZ5lBmxq1cB4WzBk8
- jfbNYISeK/rogLhu0kmWOmw9QBUo/lJd+Zk1Z+Pq4gtjZaCqFFtdV8w2nHtv+oZlBzfN
- e46IDJIyzFsIeTAJJDFAuKfIE5EdNOA6+ouoJkQhln/OvVTicvSjZdw2aOPBwtqtD+fN
- YPJA==
+ bh=crImgp1y7IRXSUD7oHrqvuelp6vlR0pAkEGBI4jI/u4=;
+ b=JRmRxTf8ubcfT7LdPcGRXpCOOM55TrWT9p3fOeBjMXqJEVgODp/fxYbS+4EbCUnQUw
+ +ZlZJImJ4gDXN+tdFPWdn0Uz8xScIXwu3Gl3gbrVK0twjhFpQu8OxHBpwe0dWosBwxEb
+ GvGmpTB2qoOATck2al+7X2NSCw5zq7dmIc4s8LTCML09BIM+0mePWxvnm/O85HfQN9+L
+ mwaWEgwJDQQmxRA5xKn0BpBoEK8+Z7u1S1kwCDoFGQW/T/LIxytUqmKSOIKys4L+kaeo
+ 83r7HXsei6oYGWUSnuQRemdToN7Q6xaQUONC4Q0sm3zfmDzKoPZrdc8dHe1fi8iXwVVl
+ tA/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737787657; x=1738392457;
+ d=1e100.net; s=20230601; t=1737787606; x=1738392406;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=DhCfYf7LWbGsDKgpZFGMa7Otj3zRUhvG+D/wYe+cSJI=;
- b=mgMz6jekgZ9+wMDXPn61WLvSv6lduoOr6528Nhoyr84bgAtmNOENNxvEkT61l1R3NM
- nVgwnMBLIydfWEjFqNcc1DLTTpH2fdwof4QB8u2y0ufml4efhEmz4TMZE5EvGrjP2Hjd
- uJgUDs61inD6oozDQBZn8eERbEcv6sj8m/5U6E2pLCyw/OkAEXvIG1OdJAmdcwcqCrS7
- E1mZT7UuuKQc5DNMxDHFaEs4hjf//QLtgmhqoLJKpi4AJO5FcG6Es7BCHpb0q590/0k0
- ta+9lr2IyeqORJJKe3uCIys7aLv2GY8dKE8YOXOSp622PEtrbouqM+eXcK8DLXQrc8wc
- t7nw==
+ bh=crImgp1y7IRXSUD7oHrqvuelp6vlR0pAkEGBI4jI/u4=;
+ b=KeTLlOCeNW4JHrcjjc4oWLS5K0TWDbOcQj8Cv7pJYS7QeqQ/7s41+B6VHFTSngbQAv
+ 21QIqstOEWXN/5QyxHBU7gJkz/WIKvxoVLQ/X94F2YONyYPXRjns/WSOE/tWFCN/PhHJ
+ 6KeyVGeAb9+/mg/UF4eKWZQdBx/pcRpyrYJ+QSQnaIV0IiaoW2Izq1N5mNIwwNA6v6Ir
+ /fST/Ll0JYYrMDStYoHSyZ3v8IvojUKkEFbMvWW1ziDSKXda7W/OE1h4/lpwtUr/Fg8l
+ U1aokGWXEDbjMajx3wPmSxM87iM+NDtbRsx1lZsEKQQHT/cFtKRuS+pAL1yKLxUsh+9C
+ bNfQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUNE3M0qej1lSmDZlucjE29MIfgm7cifZWxkln5M48heaMAds0Mc0+sY000y2wRFFfUEia1fzn5hOu6@lists.freedesktop.org,
- AJvYcCWKKeyxrg5MCq9yUIhvfr6KP0YUCuSXkupwG5nxKNGW1DaHbyV/+F2xnKogWb1c2vMPaKB60HPw@lists.freedesktop.org,
- AJvYcCXbbPoAiiGY5HoFRVYxF1FWb+8D/bgEG7xIkn5L6E5y8rmy80fOTuCcFSCbIwOpM9HsJ6T7jGmrykYA@lists.freedesktop.org,
- AJvYcCXtHQIJ5KVrdlc8lkGEwnrrZgvGYm5n28ra7HcDMVGk3KHD2OS9pHAB2l9TPsmRpdvtPMw0MTzUD6QjBwrX7A==@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwOTInv4PpUaoisY3yy0cf/6Aq7tXPsvn0oLTNKUpgEyxVtFaq6
- P1Kx2Rohj3NKYbHjbBe4A+s1tId218U7ofeIh3vSjjBHNTjJBEI/Z+44xQ==
-X-Gm-Gg: ASbGncuKUJslrVxJbXCKB9fFPgdU2QTS45MhpJ3HBdco5BnHqmqYBoceqWuUcQ7Fx2e
- HdXEzy2wP20QTqIqWLLA4OiP64zQOChGK9ryoIQCZ80Y801j5Mui214MUW9Q1oV3qsWWB/oE8ri
- Q4019a2uLQ+USWlbFeGj9sEFguu0SK0UXyXumyaED9o3ScD5fqpjT0f8tyBJWD1h1D0oDebs2h9
- qGjWN9n4mNNZtEVcJAyHsAsC7CwK+sa3iRTr/CQFGftv0cJj+RKw2QmKdsSQJTsAxe8bFp0Wevi
- o69uyDRiQVqmFq0SwOUn1c+y5uMo/vzood/m8A==
-X-Google-Smtp-Source: AGHT+IEOsWBfW6JMMeblHf07aDl8IvLJQ8Aif02FrLV5eXAYXXOlj7T/wgGUMmZxrrBFRXc4sTl7Ng==
-X-Received: by 2002:a5e:c302:0:b0:841:99cb:776f with SMTP id
- ca18e2360f4ac-8521e350512mr486421539f.6.1737787657015; 
- Fri, 24 Jan 2025 22:47:37 -0800 (PST)
+ AJvYcCUZeAg8nug+yl6t0WJqP9KUson63ni+IPV2eARsN7kqD7W76/VK2rX7SwpbFNpZNzpcfIVBhmAwNLmd@lists.freedesktop.org,
+ AJvYcCUveWsmfAythns4qHPUG9E3AdZ9OVeie6PaQQkCRXEPNS8x7csTq5ZOC0OgrHn5vpnq1AJhxezB@lists.freedesktop.org,
+ AJvYcCWIsA7niLMMeeB+un1q2eBBSkrmEwRLrUGqFPVRDaIaPR58epAhb+yKKioFumE4F5ATuQMvFcVXCplM@lists.freedesktop.org,
+ AJvYcCX6Lzh7roIlTGuur7/xCtMGUJrIxh39rSxOpmm9o7WOeJrZ3sTq1YgS3dn4QCzod+jNAiMiGpnUYDeEiNgZ+Q==@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxteruy3tR2pMy2sqf3qxrufeYEASG2gP3naSRkEYqnQA71Gh13
+ mCCetWn5XhHxT+d+7uTqF3B2JNerP7IJSbfIgKByOsNxRClyTSZh
+X-Gm-Gg: ASbGnctdNJt+/YvKm2g4S59e2kAypElEUoCxxZUGQP4SDk4xITrw88emmrn6OFIVtrC
+ yS2E1J48JBslwyQbzYuTDonUxeLSSW1MUUeZXj7E/z/q6BJJ6ZkehDEue9QKwm6iV58eYKwFOC7
+ mbamrrnOdITSNC6CiCsyxaz07LAae/djDSqoYtHIEsy1xZUbbD/uhnZL8GAoYJe9PgkCSitoaPt
+ h4Pmcbr4+Ir0Awf9EUpcDc0GWJPEjW8SM7PpWDBj/WJrcG15cpqGw/HwaQi0v6lSNL+vQfWglyT
+ MYX9qRBTANnWV80qLdD/JtfXOLZ/kqRo1Yu+kg==
+X-Google-Smtp-Source: AGHT+IEjjwWoWaC2eqRVAIRwzEKW3d0rVEFuGJkXw2+P/hMoxb83M7t9s2BDslJJbs0hJxkgZgzZdQ==
+X-Received: by 2002:a05:6e02:fc5:b0:3cf:c558:3594 with SMTP id
+ e9e14a558f8ab-3cfc558384emr50346105ab.2.1737787606321; 
+ Fri, 24 Jan 2025 22:46:46 -0800 (PST)
 Received: from gandalf.. (c-67-165-245-5.hsd1.co.comcast.net. [67.165.245.5])
  by smtp.googlemail.com with ESMTPSA id
- 8926c6da1cb9f-4ec1da476fesm1174144173.58.2025.01.24.22.47.36
+ 8926c6da1cb9f-4ec1da476fesm1174144173.58.2025.01.24.22.46.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Jan 2025 22:47:36 -0800 (PST)
+ Fri, 24 Jan 2025 22:46:45 -0800 (PST)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, ukaszb@chromium.org
@@ -72,9 +72,9 @@ Cc: intel-gfx-trybot@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, daniel.vetter@ffwll.ch,
  tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
  ville.syrjala@linux.intel.com, Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH 56/63] drm-dyndbg: add DRM_CLASSMAP_USE to vmwgfx driver
-Date: Fri, 24 Jan 2025 23:46:10 -0700
-Message-ID: <20250125064619.8305-57-jim.cromie@gmail.com>
+Subject: [PATCH 09/63] dyndbg: reduce verbose/debug clutter
+Date: Fri, 24 Jan 2025 23:45:23 -0700
+Message-ID: <20250125064619.8305-10-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20250125064619.8305-1-jim.cromie@gmail.com>
 References: <20250125064619.8305-1-jim.cromie@gmail.com>
@@ -95,28 +95,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The vmwgfx driver has a number of DRM_UT_* debugs, make them
-controllable when CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg
-that the module uses them.
+currently, for verbose=3, these are logged (blank lines for clarity):
+
+ dyndbg: query 0: "class DRM_UT_CORE +p" mod:*
+ dyndbg: split into words: "class" "DRM_UT_CORE" "+p"
+
+ dyndbg: op='+'
+ dyndbg: flags=0x1
+ dyndbg: *flagsp=0x1 *maskp=0xffffffff
+
+ dyndbg: parsed: func="" file="" module="" format="" lineno=0-0 class=...
+ dyndbg: no matches for query
+ dyndbg: no-match: func="" file="" module="" format="" lineno=0-0 class=...
+ dyndbg: processed 1 queries, with 0 matches, 0 errs
+
+That is excessive, so this patch:
+ - shrinks 3 lines of 2nd stanza to single line
+ - drops 1st 2 lines of 3rd stanza
+   3rd line is like 1st, with result, not procedure.
+   2nd line is just status, retold in 4th, with more info.
+
+New output:
+
+ dyndbg: query 0: "class DRM_UT_CORE +p" mod:*
+ dyndbg: split into words: "class" "DRM_UT_CORE" "+p"
+ dyndbg: op='+' flags=0x1 *flagsp=0x1 *maskp=0xffffffff
+ dyndbg: no-match: func="" file="" module="" format="" lineno=0-0 class=...
+ dyndbg: processed 1 queries, with 0 matches, 0 errs
+
+no functional change.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/vmwgfx/vmwgfx_drv.c | 2 ++
- 1 file changed, 2 insertions(+)
+ lib/dynamic_debug.c | 14 +++-----------
+ 1 file changed, 3 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
-index b19a062592b0..20ad48f3efd0 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
-@@ -279,6 +279,8 @@ static int vmw_probe(struct pci_dev *, const struct pci_device_id *);
- static int vmwgfx_pm_notifier(struct notifier_block *nb, unsigned long val,
- 			      void *ptr);
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index 9adcb9fa7110..1b2fb6502e61 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -266,9 +266,6 @@ static int ddebug_change(const struct ddebug_query *query,
+ 	}
+ 	mutex_unlock(&ddebug_lock);
  
-+DRM_CLASSMAP_USE(drm_debug_classes);
-+
- MODULE_PARM_DESC(restrict_iommu, "Try to limit IOMMU usage for TTM pages");
- module_param_named(restrict_iommu, vmw_restrict_iommu, int, 0600);
- MODULE_PARM_DESC(force_coherent, "Force coherent TTM pages");
+-	if (!nfound && verbose)
+-		pr_info("no matches for query\n");
+-
+ 	return nfound;
+ }
+ 
+@@ -501,7 +498,6 @@ static int ddebug_parse_flags(const char *str, struct flag_settings *modifiers)
+ 		pr_err("bad flag-op %c, at start of %s\n", *str, str);
+ 		return -EINVAL;
+ 	}
+-	v3pr_info("op='%c'\n", op);
+ 
+ 	for (; *str ; ++str) {
+ 		for (i = ARRAY_SIZE(opt_array) - 1; i >= 0; i--) {
+@@ -515,7 +511,6 @@ static int ddebug_parse_flags(const char *str, struct flag_settings *modifiers)
+ 			return -EINVAL;
+ 		}
+ 	}
+-	v3pr_info("flags=0x%x\n", modifiers->flags);
+ 
+ 	/* calculate final flags, mask based upon op */
+ 	switch (op) {
+@@ -531,7 +526,7 @@ static int ddebug_parse_flags(const char *str, struct flag_settings *modifiers)
+ 		modifiers->flags = 0;
+ 		break;
+ 	}
+-	v3pr_info("*flagsp=0x%x *maskp=0x%x\n", modifiers->flags, modifiers->mask);
++	v3pr_info("op='%c' flags=0x%x maskp=0x%x\n", op, modifiers->flags, modifiers->mask);
+ 
+ 	return 0;
+ }
+@@ -541,7 +536,7 @@ static int ddebug_exec_query(char *query_string, const char *modname)
+ 	struct flag_settings modifiers = {};
+ 	struct ddebug_query query = {};
+ #define MAXWORDS 9
+-	int nwords, nfound;
++	int nwords;
+ 	char *words[MAXWORDS];
+ 
+ 	nwords = ddebug_tokenize(query_string, words, MAXWORDS);
+@@ -559,10 +554,7 @@ static int ddebug_exec_query(char *query_string, const char *modname)
+ 		return -EINVAL;
+ 	}
+ 	/* actually go and implement the change */
+-	nfound = ddebug_change(&query, &modifiers);
+-	vpr_info_dq(&query, nfound ? "applied" : "no-match");
+-
+-	return nfound;
++	return ddebug_change(&query, &modifiers);
+ }
+ 
+ /* handle multiple queries in query string, continue on error, return
 -- 
 2.48.1
 
