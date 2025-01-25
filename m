@@ -4,80 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 618CDC0219A
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4E55C021A6
 	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jan 2025 08:16:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD0E510E4DF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D740110E4E1;
 	Mon, 27 Jan 2025 08:16:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="K38BjYE2";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Nc5DZJqV";
 	dkim-atps=neutral
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
- [209.85.216.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 146AA10E053;
- Sun, 26 Jan 2025 06:45:15 +0000 (UTC)
-Received: by mail-pj1-f51.google.com with SMTP id
- 98e67ed59e1d1-2ee51f8c47dso4806714a91.1; 
- Sat, 25 Jan 2025 22:45:15 -0800 (PST)
+Received: from mail-il1-f179.google.com (mail-il1-f179.google.com
+ [209.85.166.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B1BB910EA96;
+ Sat, 25 Jan 2025 06:47:43 +0000 (UTC)
+Received: by mail-il1-f179.google.com with SMTP id
+ e9e14a558f8ab-3cfc8772469so5195275ab.3; 
+ Fri, 24 Jan 2025 22:47:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1737873914; x=1738478714; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=FqNaVZFEEca3E3wz8Ju8ZljshuiNP61cQ6d6L0AnGGM=;
- b=K38BjYE2CU/MNlQibCXxWnPMj6Fxn0n0Q3vOFsznHCXPVbESyCpYuiXZ3lJcf46hI9
- 4SGGK/kYbwqJSojjSSnTbmwuOqMv7t3WMROqDzwgPXagDmVtPLu5otHTtADnvEMmfyAV
- spFSEED1ncVnAwBl5Gu6AZ9A/zwlhuocZfdu1rfjtqnhh+d4OeeEYDcv+f6epPPlNNa8
- omlA5961PsRd6JSZcrLJOX+kYY4Nx7pNr6M+mnHIGOR8ujmVcLuitwUFSFTnbhqgL+Rr
- Dzs747UaBdGHqkWJsHHkE/Xw/ZHrPmF39JhbOn0c3nJ1LeSNsmVs6yg9SuUhwdUlGElr
- yZwA==
+ d=gmail.com; s=20230601; t=1737787663; x=1738392463; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=zMxBeI+ZLf9yVYG2cFYc0qaCJ8NkAf6XlTFRcgZVjQg=;
+ b=Nc5DZJqVpsUnMc74Fh4s7hw8qRwTK/UZZGzD2NqzIf8YrVIEF1/7ZLM4+YB7whkvqk
+ IRjJzj3kL45n+EsFf7xgeSoErjeTk8Qlvg/et8y+mc2V5OVT62KIUdo8h7pUqhg5Yq6q
+ ll/c1kvOC0ugTmPnr1aky/Gn7eHhPLYQSfJ1RkM0wuw6PShozlFYalOpzeH7yq/RGudF
+ HVyw0yqad9fZE2SfzPwtsWCHjcTOfVdg3EWNsEZWHpv8xbgcBBTKsuBI6mtWXd8j8O4B
+ DB1UjVH0XVz55BYS7KhVBjqGb2fxmKZABVPPZPa9bce64RvtjlnSh69wa7yd8l4EBIlG
+ cvcQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737873914; x=1738478714;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=FqNaVZFEEca3E3wz8Ju8ZljshuiNP61cQ6d6L0AnGGM=;
- b=AnjPOyVKPf1aHFVnNuC4wuBDPve4VuWyN4crKQbduLCYIrnDMVUv+UpNavcd2Vz02M
- Xmg0GEoSapAaHJHA7ZcCcKzwWQPeo7j8gTk+Q0GqIvMo6YIxwPKhXHV3XLZQHxfO5Ecs
- zp11gkfKaHLBiPnLlzLCk3dRXK7Q35fZc6jvMeBWTg4zVBRG0lQBMMrzwp0iFjK39XPt
- sJU+oYSgs8siG0IB07RbSeJ/OpbYlAY0DCMuhaZP3p9e1f6jqLSsdx6hFgO/1p6D2u8J
- mIKJ2O86zgG9Jz6A7rdwoHRder4DSddrCP60JEStmUHbd5iah2sTQRPxHdlPGQUnejwA
- S0yQ==
+ d=1e100.net; s=20230601; t=1737787663; x=1738392463;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=zMxBeI+ZLf9yVYG2cFYc0qaCJ8NkAf6XlTFRcgZVjQg=;
+ b=I+12QpUzNN0qlAhmF2dmcerVLxC58fLT8cPCcjoN8uay1E4C6o6iFKBAZYgP+awvwk
+ j/85UPYmBXZVRYma4euiiEBC/0RcSCt54LvmsCKGHBJXcCycwwBO3BaNQcE27YdbMnEQ
+ m877OiRT7g0ka4ZfHtfcOiPtyVrtsGQ0A0lIPXXWfvVC30hp8LMIG+NpPwhIZk3ZrKnW
+ 1s438E/FO7SLnMz0AeyNlLbqv2RaZ5ScgzK4MZyzTrduqZ3yreuxrdBcicLwveiIhwLZ
+ mq34dzztwjeltngNu9lI0uBftixJCCU7+E9E9z9mEllThpk+47ByHcI4CH9LN5BEben/
+ WXFQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUicCtTvhg/8aUg1HM2KusHgmAfM0eopqziwTzP4ryPUfLoBbtu764Rhp4axu/TG/0OZUjGvc5r@lists.freedesktop.org,
- AJvYcCWlGIa3k2AtVmwthWOt6X49KjhmzG1hX7IUGJJqlvLcJw00FerM0K2XL5jLKOHasUZTMrZ4a9R2aixT@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxbetCUDkXurIhbVf3VNoKMx45/lzCaiK9CrD8B/Kw3b+vS0O2h
- IGS+jLVw27UAnxD+asU2quzB+5cHn0YI++61HB9vxBRFN5s5Mkng
-X-Gm-Gg: ASbGncthGAa4TCy6KF69fSnGkYnWXy/UwkNmLyMb//jx6kshQSDfbAPv9qk/geQWvpV
- lJRrmoo5DXRl7eEukReF68ltQYbkBjcchKCRzY7iao3EtUkyN4hdEHr3vaQRefrHmTCAIQoTz2u
- 2PUOyvzE8+NwZKxys1N9lqbrcYNFz5RX4zJP9qgdePn9u0SSXTPKcI22aUeaXcx/N2HyC1qD9pb
- yRYHhiV3G6Ww+5p5fAT5koSh2Hy+xv1h2BTE+eB7em034q8yegjQYNhwEjkcsoZF7JbAH20Tv3L
- Xq7ovTOR/hPtq9r1wL3pq+I873GY
-X-Google-Smtp-Source: AGHT+IFg7WVPs9aNmjLP+b1xdMjOuirhgOPLzTaNKIBZZkbsCXo6bvei5V5jnc7lQvWmvL9tsG/2Tg==
-X-Received: by 2002:a05:6a00:4505:b0:728:927b:7de2 with SMTP id
- d2e1a72fcca58-72daf9eba1bmr60305593b3a.8.1737873914435; 
- Sat, 25 Jan 2025 22:45:14 -0800 (PST)
-Received: from jren-d3.localdomain ([221.222.59.31])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-72f8a761134sm4680916b3a.115.2025.01.25.22.45.06
+ AJvYcCU5iS5QOKgDCSqktWnKWS/6a3e6ylJo3dJz9LZURxkVqsR/7RBg7OEA2Po963DEy3qxclfHh1sgoEWo@lists.freedesktop.org,
+ AJvYcCV4YIudZJBv5eWaUpvfIvgdkMbX5xOS7a4YpR2jhi/XervInf3TwEF6lXiElQMHK2e+56nxtuE1Q77GV42gzQ==@lists.freedesktop.org,
+ AJvYcCVicVe2nDAhexwdZ5JIOUWrrGTQnG6ex4riUFxfeaRYU6EBcws1o6dDY1K7KhtK2Nvv6gildqj3iQ5n@lists.freedesktop.org,
+ AJvYcCWHFB9/aBwyu6PUrBFKtpYqbp74E5JwAC7J0tNG37+tURmXzGPnD8vSpSlfjUmb2BQiZSxWPV5w@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzPJND6qx9FfvN1PoNS8DRs3QVVaivhTS7CFiST83HFM1o8Lpjj
+ bD+lfSQMo7D9oa819tK3ELxsQBn6J1y8241TgH+V4dymEMF6+8G7
+X-Gm-Gg: ASbGnctwu7rybhHCMrAibpnZ5ejT/88Qh10a5iZh6X2waYV72Kjxsz8So37nBRQQRmF
+ UK5+F+tDJdSde/9552+rDKqvcEzKnLgsvVcN37mDHrjxC54xVgkwnuveCSeWP+j5TnMjK4rIHd4
+ 8e5SlM3q6QowG6zbaWecu4F913ctyxdfFBsIQ3wfB35/z9u8vVBsRu073NDTtP5J3Wg6Jro4njh
+ pp3WHQRrg8zxvXcmjorhUMwTHVr/ApTbYV7XR1R9WIiMej4MMtIJm54vTGEfoet7j/PcY4POjrL
+ Zi/HXAGZYeEGq/ntoRjTJAvZH2HPMi13XM42cw==
+X-Google-Smtp-Source: AGHT+IFb1IYAOoDwrPX5oAD1/5R309ZYSOIrwtBkiFdBX9WxKJLvt5wVK1HYP6ZV250VsZiGsSrO6w==
+X-Received: by 2002:a05:6602:2dc6:b0:843:ea9a:acc4 with SMTP id
+ ca18e2360f4ac-851b61cacc9mr2996533339f.8.1737787663036; 
+ Fri, 24 Jan 2025 22:47:43 -0800 (PST)
+Received: from gandalf.. (c-67-165-245-5.hsd1.co.comcast.net. [67.165.245.5])
+ by smtp.googlemail.com with ESMTPSA id
+ 8926c6da1cb9f-4ec1da476fesm1174144173.58.2025.01.24.22.47.42
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 25 Jan 2025 22:45:14 -0800 (PST)
-From: Imkanmod Khan <imkanmodkhan@gmail.com>
-To: stable@vger.kernel.org
-Cc: patches@lists.linux.dev, n.zhandarovich@fintech.ru,
- alexander.deucher@amd.com, wayne.lin@amd.com, gregkh@linuxfoundation.org,
- harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, daniel@ffwll.ch,
- Jerry.Zuo@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- sashal@kernel.org, alex.hung@amd.com, mario.limonciello@amd.com,
- chiahsuan.chung@amd.com, hersenxs.wu@amd.com, shenshih@amd.com,
- Nicholas.Kazlauskas@amd.com, hanghong.ma@amd.com,
- Imkanmod Khan <imkanmodkhan@gmail.com>
-Subject: [PATCH 6.1.y] drm/amd/display: fix NULL checks for adev->dm.dc in
- amdgpu_dm_fini()
-Date: Sun, 26 Jan 2025 14:44:58 +0800
-Message-ID: <20250126064459.7897-1-imkanmodkhan@gmail.com>
-X-Mailer: git-send-email 2.43.0
+ Fri, 24 Jan 2025 22:47:42 -0800 (PST)
+From: Jim Cromie <jim.cromie@gmail.com>
+To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
+ gregkh@linuxfoundation.org, ukaszb@chromium.org
+Cc: intel-gfx-trybot@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, daniel.vetter@ffwll.ch,
+ tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
+ ville.syrjala@linux.intel.com, Jim Cromie <jim.cromie@gmail.com>
+Subject: [PATCH 62/63] drm-dyndbg: add DRM_CLASSMAP_USE to the
+ drm_gem_shmem_helper driver
+Date: Fri, 24 Jan 2025 23:46:16 -0700
+Message-ID: <20250125064619.8305-63-jim.cromie@gmail.com>
+X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20250125064619.8305-1-jim.cromie@gmail.com>
+References: <20250125064619.8305-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 27 Jan 2025 08:16:33 +0000
@@ -95,59 +96,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Nikita Zhandarovich <n.zhandarovich@fintech.ru>
+The drm_gem_shmem_helper driver has a number of DRM_UT_* debugs, make
+them controllable when CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling
+dyndbg that the module uses them.
 
-[ Upstream commit 2a3cfb9a24a28da9cc13d2c525a76548865e182c ]
-
-Since 'adev->dm.dc' in amdgpu_dm_fini() might turn out to be NULL
-before the call to dc_enable_dmub_notifications(), check
-beforehand to ensure there will not be a possible NULL-ptr-deref
-there.
-
-Also, since commit 1e88eb1b2c25 ("drm/amd/display: Drop
-CONFIG_DRM_AMD_DC_HDCP") there are two separate checks for NULL in
-'adev->dm.dc' before dc_deinit_callbacks() and dc_dmub_srv_destroy().
-Clean up by combining them all under one 'if'.
-
-Found by Linux Verification Center (linuxtesting.org) with static
-analysis tool SVACE.
-
-Fixes: 81927e2808be ("drm/amd/display: Support for DMUB AUX")
-Signed-off-by: Nikita Zhandarovich <n.zhandarovich@fintech.ru>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-[ To fix CVE-2024-27041, I fix the merge conflict by still using macro
- CONFIG_DRM_AMD_DC_HDCP in the first adev->dm.dc check. ]
-Signed-off-by: Imkanmod Khan <imkanmodkhan@gmail.com>
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/drm_gem_shmem_helper.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 8dc0f70df24f..7b4d44dcb343 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -1882,14 +1882,14 @@ static void amdgpu_dm_fini(struct amdgpu_device *adev)
- 		dc_deinit_callbacks(adev->dm.dc);
- #endif
+diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
+index 5ab351409312..481d18561688 100644
+--- a/drivers/gpu/drm/drm_gem_shmem_helper.c
++++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
+@@ -23,6 +23,7 @@
+ #include <drm/drm_print.h>
  
--	if (adev->dm.dc)
-+	if (adev->dm.dc) {
- 		dc_dmub_srv_destroy(&adev->dm.dc->ctx->dmub_srv);
--
--	if (dc_enable_dmub_notifications(adev->dm.dc)) {
--		kfree(adev->dm.dmub_notify);
--		adev->dm.dmub_notify = NULL;
--		destroy_workqueue(adev->dm.delayed_hpd_wq);
--		adev->dm.delayed_hpd_wq = NULL;
-+		if (dc_enable_dmub_notifications(adev->dm.dc)) {
-+			kfree(adev->dm.dmub_notify);
-+			adev->dm.dmub_notify = NULL;
-+			destroy_workqueue(adev->dm.delayed_hpd_wq);
-+			adev->dm.delayed_hpd_wq = NULL;
-+		}
- 	}
+ MODULE_IMPORT_NS("DMA_BUF");
++DRM_CLASSMAP_USE(drm_debug_classes);
  
- 	if (adev->dm.dmub_bo)
+ /**
+  * DOC: overview
 -- 
-2.25.1
+2.48.1
 
