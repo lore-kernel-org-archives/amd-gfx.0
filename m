@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3865C0219C
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84757C0219B
 	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jan 2025 08:16:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CDE010E4C5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3923E10E4BF;
 	Mon, 27 Jan 2025 08:16:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dIhXxPfq";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="X9uKx2WK";
 	dkim-atps=neutral
-Received: from mail-il1-f176.google.com (mail-il1-f176.google.com
- [209.85.166.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9824E10EA68;
- Sat, 25 Jan 2025 06:47:07 +0000 (UTC)
-Received: by mail-il1-f176.google.com with SMTP id
- e9e14a558f8ab-3cfc8a2415fso5390895ab.2; 
- Fri, 24 Jan 2025 22:47:07 -0800 (PST)
+Received: from mail-io1-f47.google.com (mail-io1-f47.google.com
+ [209.85.166.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3348C10EA76;
+ Sat, 25 Jan 2025 06:47:24 +0000 (UTC)
+Received: by mail-io1-f47.google.com with SMTP id
+ ca18e2360f4ac-844e9b8b0b9so206430739f.0; 
+ Fri, 24 Jan 2025 22:47:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1737787627; x=1738392427; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1737787643; x=1738392443; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=K2adNnpQ1ndgxlrGpzojCmuFvxvCimDSyhOgF+7GluQ=;
- b=dIhXxPfq9SfId/0EsJML29fuwypruhtceooWrs0AWT2rNqw79K2BKiotngjj0DtXMk
- DqRE0z93WUfx6gJ6x5m9ACwwJi+PJCS6C4mSucjCJO3X8HVZiwvZV7pZfMPgQjXGfJiw
- REO5LMRkDuvcLiY9PI4+kJ7N4a/OkZXbcfvX2cmU0UOKpSVWNfEmNhFeGXtbN3+S4ph5
- LpJkLX58zQNe2g5N9IqQYc2jECpPJfoq3Q7FBOMPJD7Br2/PNyTJcuKZi1l8kL8pQFbH
- ZWARY9E60ACbkVcvHdmYbCtuUZmV1ZJ84jeW/nkzj2eWynf1IdE15H7R50jDKej3gSwa
- lNGg==
+ bh=jK0UrBy056BGUqJ1ryqJN7gZOTsk9pTFsv0ec8+B0yU=;
+ b=X9uKx2WKf63SRcHRiE8UDBihoGaKKkquZWvEzzZsL2qolQcFOriJa6JRUckjnBTewm
+ Ka/OK7aAaaG/DPcBgA7+VouP72JvG3v+TAG8YkubN/iwqQpSTzufAaF9SHFO559GuxWj
+ R9IQcJ2Kqj2mXLJXNtGjLNn5QtpBl1fGHW1d1FkYQpN6dAxGSlEL3MlFDKdm29qGlM7u
+ 7FhopjUzSgLLvqMCcN0PqlcWM13TXrkAKV8eIKUHa1T6JFpHgO5LuSlLnz1BoWYKy5At
+ fnZerpvdYJnMdeturzy1gdBkRjrdP+hwR4vMCdyczvs1n7iL4C3yV5Fgs96UlJLh4qGo
+ zefg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737787627; x=1738392427;
+ d=1e100.net; s=20230601; t=1737787643; x=1738392443;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=K2adNnpQ1ndgxlrGpzojCmuFvxvCimDSyhOgF+7GluQ=;
- b=B58lBGb1ECVd1yuNs2y3JMnXrYK5iyift3EZdibMYR4MoED7YDMRPWNOGz3Coo4TG9
- 1YqY0EpoLH7rpRsNX8NEU7WLVctOzfC0IelDxJfy/GjngSnlKJmLoW+R+FMMGJ8uesOz
- adVXBtK/o6KjGbnPDlhZlRuvMCQam8MObO+IsxWKTQIALtA6/vSLxyd+DSfEVGZygf55
- dNB/FeyUI8GGraCrMYNjHpZ6RjvZQiTWTTK1x7QX89g0jS0Nd6ufDbFx/sABYeYYZdcO
- uqbGWLgwWGS26gnQiu6VZVclDJFxONNjgqDZTl1h9hzDjA5knAw0Cg+fW/eS5OBOold8
- fuig==
+ bh=jK0UrBy056BGUqJ1ryqJN7gZOTsk9pTFsv0ec8+B0yU=;
+ b=wR6TEYqUg2AkBeNsFMtg6jOiyO0LudidrzeTqdNDJ8brH2LCzoVkRAU/dCAZfvO1jS
+ AKyn5YD2qpsrBcsZE7X9nYrZBm8tasL8jtUqtu1/6AJ7K1Ada600/c7+NiratRZn6hVF
+ GrufRdw6gOvvqCtTlanJ/UnRax48CwlxFMYGe0oq39ZXIDtz5kLjrcHdTXAY6UPlDu6/
+ Dqf2RqYBlFEf+qxc0JMqFD+AIrRNNBEYTN8gYpL05Wt4cv82C0JWcAiNgpEU9Z484/PS
+ fVzOSfPp5lMqjGuNtX/v6+chAxv8wj9GpyJrBArFqYN4mSBfZCwmtXzPNRXiqX29VW5p
+ UAqg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUrcEw8927A+5hk+X9Ar41zZnv6FHuk25BH9bXvGnFXv+gfgnzJixM6nJ3XlnwctZH7vDLZ9nBh/y0C@lists.freedesktop.org,
- AJvYcCVJQVV1kiAhB1LkNIwHGALnIUjympkOyC/yanAjD+4BI4uXe37WoPlnuIPvdgGTtzMJCv2seI9i@lists.freedesktop.org,
- AJvYcCVvQTdHWJIYMkG6O/DGSfHQMNMhs7RxvqUmS4g0XnY3z853TvPMxt3VSlX5fh8VVHzIUMGfDxz73eXI0T1+xQ==@lists.freedesktop.org,
- AJvYcCWT7aeH+PtLPpxZ3U30zMeywo83f9rJ5mafocUdSBTcotHACaEdKitEVpov5+lHQec1mFegNNNQGjF1@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxNqTw1ptjW6CgZnyRfOMdp2od7tE79iBArbqwmeXRh0SYbeTQK
- b0JaijZeXxKERNhvGpyH4DthUXkIGK784HQuLKzNDdy4Od0J8JWC
-X-Gm-Gg: ASbGnctTWiAOK/pef5xxcarQQHaRFK+t7cfXnkYAh/nvHoona7VCE+18J2i4V8f1SoH
- fdQp4dJ2JB5Cr0VabOlttYkJqeYKs1F9xs7Qpse+PXMLDT4AG+7dUKobJglwFOcg3tBWb7RWDrV
- GU/QPhrpEInAi7axpVV9+bEcChrUkntTp4UZg+3f2MeWA8a63DrN71w58rVs/2KVB7UOxPGVSxX
- BuaZaQZjqau6LC0SN/4ulIKhLyN89ajy4alFeXVgwbsqDBL1mrJajUm8Scg/o4faC+Zj/9ayh05
- tK4zPmFym0PrUDiR03/Mik9x2AnRBZHKsciKig==
-X-Google-Smtp-Source: AGHT+IFvfnXx3vIA0IygucIVFMzusww6a1v559qwPHqvKV9Wy0ZpTiWPO7TpRRif5ApEBz6kamOW3Q==
-X-Received: by 2002:a05:6e02:3cc2:b0:3ce:791d:7f6 with SMTP id
- e9e14a558f8ab-3cf74487b41mr262768565ab.16.1737787625414; 
- Fri, 24 Jan 2025 22:47:05 -0800 (PST)
+ AJvYcCWiGP1JdfQqZGKDgB62XfNFz79ml9PUuj+tE117rCWlS0y9aTUo/5yJPQDj6PpABigcJety86gMGrp2@lists.freedesktop.org,
+ AJvYcCWogUU5NCQWuPtAw9eisRXo4ZWvaVwEZtnYGUjIPoLVQfxlsWrXDeQNg/ZU76lQELgP2hRZNdOgBrbY@lists.freedesktop.org,
+ AJvYcCXFpy2ckIlKmSlrH45yqIoov99kZSC/91JuafowUxcBO8PT59/M1fSojUtB7ypapswl0GHYdb1a@lists.freedesktop.org,
+ AJvYcCXn7DvXET5Sm6Up08yZYqtbnIxVrBDW0Rp0cf3ZABOBxQTgyfLecTzkI5ywer5LsgyeZ4JjedF292coIsJr6A==@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz1S+Okq8w01fpDNP5r7cjC9uFWI1ECTnuwB5Zb7QxR+s0mcDvn
+ LKL361k+zHyUPk222YtdmJdCChIWMZK1ZyxXYe/gXaxDnhL8QmjgwOjv7g==
+X-Gm-Gg: ASbGncuUBQVISOEcH13Re47PNvkPovjL3ZHRUVptjwBgEOjYNszoIKzWPpuKQb5bwGl
+ kiD2XtVqdHmfBVdzQzr+MHcmLhzGLQJ8Xe3OjLRyHOyzNw0wjcHMhZwTcsDTmO6Rgh1BgEWo7pY
+ a02jiUN0vXuqDmNQI1/vAXLOc+qOA4xFApfr7tdA2NdsTrgH1uoLvTvnfTW6a37TgU+wfSI1Had
+ VKx8naWF4KBhcxIAGtrN7TVizeyg8qU+y8iwjpJIzT23h7mZ+A7cNhCsTCWZTQPZF0NAIlGleBU
+ hUXoLW1m+LKvA6W93kCsPGZiyi8BLFZUCyyrkA==
+X-Google-Smtp-Source: AGHT+IHayxOMJs31PstVOcXn+82f63fxvtyYlv8CLQzhR0Q1eGOVyp3qvY9W6qSZ3tkYze4hI3v78g==
+X-Received: by 2002:a05:6602:27cb:b0:83a:b500:3513 with SMTP id
+ ca18e2360f4ac-851b62426b6mr3493044439f.8.1737787643439; 
+ Fri, 24 Jan 2025 22:47:23 -0800 (PST)
 Received: from gandalf.. (c-67-165-245-5.hsd1.co.comcast.net. [67.165.245.5])
  by smtp.googlemail.com with ESMTPSA id
- 8926c6da1cb9f-4ec1da476fesm1174144173.58.2025.01.24.22.47.04
+ 8926c6da1cb9f-4ec1da476fesm1174144173.58.2025.01.24.22.47.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Jan 2025 22:47:05 -0800 (PST)
+ Fri, 24 Jan 2025 22:47:22 -0800 (PST)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, ukaszb@chromium.org
@@ -72,10 +72,9 @@ Cc: intel-gfx-trybot@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, daniel.vetter@ffwll.ch,
  tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
  ville.syrjala@linux.intel.com, Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH 26/63] dyndbg-test: change do_prints testpoint to accept a
- loopct
-Date: Fri, 24 Jan 2025 23:45:40 -0700
-Message-ID: <20250125064619.8305-27-jim.cromie@gmail.com>
+Subject: [PATCH 43/63] drm-print: fix config-dependent unused variable
+Date: Fri, 24 Jan 2025 23:45:57 -0700
+Message-ID: <20250125064619.8305-44-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20250125064619.8305-1-jim.cromie@gmail.com>
 References: <20250125064619.8305-1-jim.cromie@gmail.com>
@@ -96,79 +95,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-echo 1000 > /sys/module/test_dynamic_debug/parameters/do_prints
+With CONFIG_DRM_USE_DYNAMIC_DEBUG=y, __drm_printfn_dbg() gets an
+unused variable warning/error on 'category', even though the usage
+follows immediately, in drm_debug_enabled(category).
 
-This allows its use as a scriptable load generator, to generate
-dynamic-prefix-emits for flag combinations vs undecorated printks.
-This will make it easy to assess the cost of the prefixing.
+For static-key optimized dyndbg, the macro doesn't actually check the
+category var, since the static-key patches in the proper state.  The
+compiler evidently sees this lack of reference and complains.
 
-NB: the count is an unsigned int, and is *not* clamped currently, but
-probably should be.
+So this drops the local var and refs the field directly in the
+macro-call, which avoids the warning/error.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/test_dynamic_debug.c | 29 ++++++++++++++++++++---------
- 1 file changed, 20 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/drm_print.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
-index 74b98adc4ed0..5cfc156ca4bb 100644
---- a/lib/test_dynamic_debug.c
-+++ b/lib/test_dynamic_debug.c
-@@ -16,16 +16,24 @@
- 
- /* re-gen output by reading or writing sysfs node: do_prints */
- 
--static void do_prints(void); /* device under test */
-+static void do_prints(unsigned int); /* device under test */
- static int param_set_do_prints(const char *instr, const struct kernel_param *kp)
+diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
+index b5fe0c37dcee..dcdf21eb73f1 100644
+--- a/drivers/gpu/drm/drm_print.c
++++ b/drivers/gpu/drm/drm_print.c
+@@ -212,9 +212,8 @@ void __drm_printfn_dbg(struct drm_printer *p, struct va_format *vaf)
  {
--	do_prints();
-+	int rc;
-+	unsigned int ct;
-+
-+	rc = kstrtouint(instr, 0, &ct);
-+	if (rc) {
-+		pr_err("expecting numeric input, using 1 instead\n");
-+		ct = 1;
-+	}
-+	do_prints(ct);
- 	return 0;
- }
- static int param_get_do_prints(char *buffer, const struct kernel_param *kp)
- {
--	do_prints();
--	return scnprintf(buffer, PAGE_SIZE, "did do_prints\n");
-+	do_prints(1);
-+	return scnprintf(buffer, PAGE_SIZE, "did 1 do_prints\n");
- }
- static const struct kernel_param_ops param_ops_do_prints = {
- 	.set = param_set_do_prints,
-@@ -177,17 +185,20 @@ static void do_levels(void)
- 	prdbg(V7);
- }
+ 	const struct drm_device *drm = p->arg;
+ 	const struct device *dev = drm ? drm->dev : NULL;
+-	enum drm_debug_category category = p->category;
  
--static void do_prints(void)
-+static void do_prints(unsigned int ct)
- {
--	pr_debug("do_prints:\n");
--	do_cats();
--	do_levels();
-+	/* maybe clamp this */
-+	pr_debug("do-prints %d times:\n", ct);
-+	for (; ct; ct--) {
-+		do_cats();
-+		do_levels();
-+	}
- }
+-	if (!__drm_debug_enabled(category))
++	if (!__drm_debug_enabled(p->category))
+ 		return;
  
- static int __init test_dynamic_debug_init(void)
- {
- 	pr_debug("init start\n");
--	do_prints();
-+	do_prints(1);
- 	pr_debug("init done\n");
- 	return 0;
- }
+ 	__drm_dev_vprintk(dev, KERN_DEBUG, p->origin, p->prefix, vaf);
 -- 
 2.48.1
 
