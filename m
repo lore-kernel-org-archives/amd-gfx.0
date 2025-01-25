@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92657C02195
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jan 2025 08:16:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7903CC02190
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jan 2025 08:16:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A726410E4B7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB61E10E4B9;
 	Mon, 27 Jan 2025 08:16:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kB0oSXq1";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="O9Oavc4M";
 	dkim-atps=neutral
-Received: from mail-io1-f45.google.com (mail-io1-f45.google.com
- [209.85.166.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4DAFF10E2BC;
- Sat, 25 Jan 2025 06:46:48 +0000 (UTC)
-Received: by mail-io1-f45.google.com with SMTP id
- ca18e2360f4ac-844e161a957so209605339f.0; 
- Fri, 24 Jan 2025 22:46:48 -0800 (PST)
+Received: from mail-il1-f170.google.com (mail-il1-f170.google.com
+ [209.85.166.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA80C10EA69;
+ Sat, 25 Jan 2025 06:47:31 +0000 (UTC)
+Received: by mail-il1-f170.google.com with SMTP id
+ e9e14a558f8ab-3ce915a8a25so9044525ab.1; 
+ Fri, 24 Jan 2025 22:47:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1737787607; x=1738392407; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1737787651; x=1738392451; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=uX3l/iQikxAaQX2/QdRkr7TBe7St6PLnbGyQCN0qCdQ=;
- b=kB0oSXq1prfPbDNAieLUy6u5if7dZPGQHhW96Wc3b0ujf7R60yXqX3ZNzuMbYAJZ3S
- i/h58n++7pAYgIOOkwD7vVWx2NUuqmkcEenxn5sjyU3dpsDz9SSURAQ0/EezVbQRGZ83
- JVdcz+I9a6fXhJBrh8inIV7BKrIhtCl04oX4dcmgmWeMC7Xck+NBRGoICKtTlVGLoCjH
- OzP9cLor3/Yf68m0ozQCRxwgCmKGnRwFkgI/8LCej9mP9dsra6VFbkmZd3paa+TyAbJq
- DZBGp76fPDG5gk2a6xqsS84rKWnW2HUXeQ8VWBEvPWoS9IyQIiJX/3lImqsxxVueiD7e
- tN1w==
+ bh=bLkPNu2Q5EYmviVwXAixj7ZJhhmJ3xs87XYWfnwbjNs=;
+ b=O9Oavc4MybZ1Ww8EJNMEYWP6hmMhmxT9CgYs68eyDKHy8fa88TMycvFaAGIBVb4xlb
+ 3ftdMxbZZaUWNouWrx5mkmSKSfUs5Nx89TR/fhGLpd1ZU1qvGLOzaeSVcn9x9DNtb+IY
+ mmOIuN4ciS/wF7ho/18eq+AvTveDWz9NC6yyakGDSAOL8AH4psHywhfF+BIBghp3ERfe
+ B5nim5elsiqO4kZCGt7ykAcudbJeWoFiQzT0xhah34E/iIEK19RfREKlJLi1dLQzyKMI
+ PBmhugNfOgp6h3JrXzjF8xa7I0mo4GzR9oezRtk16BCCMv8kJ196Jy7oWkCkkWkgkQHI
+ COJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737787607; x=1738392407;
+ d=1e100.net; s=20230601; t=1737787651; x=1738392451;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=uX3l/iQikxAaQX2/QdRkr7TBe7St6PLnbGyQCN0qCdQ=;
- b=GIGm4ij/mj6u0sdtG2OMu+th+7yrnyHf5FH4wPSXqyXc8RJkZ067vxEs/TibiEJ3U/
- Mybq9e+sUZdJz8G2mO0viXkH8umDAXQFl+RRaf27Y0JSpdxeKwifwBmx5s5PdSHpocJ8
- rSOy0oOmqpbJdGDSF+ZNXO3/PAk0Bvh92mpk6sgjVYzRbv/kD66TZiN3AJmJ6XKgO4oS
- 2CKKJpuXXlzpi0tw5hR7LE1GDaVzoN1wZ4nayb37YB6e/L8naJDCES7qNRkZgO3qXhfp
- oWVkRbw8UJayDTbhil0JWeMuXOtIqwhRDcLU+w4ulDUieLI+5QVeFCyaz/ViQR5vCO08
- YO4A==
+ bh=bLkPNu2Q5EYmviVwXAixj7ZJhhmJ3xs87XYWfnwbjNs=;
+ b=AE7pid/VkAqWAVxxh4wxJ1n2mhl81+4cBmbtVRfeoKVlkneu99HK2/l12aW3jRMb4s
+ Me+s8gxr8UiU4fxE3CsP/ahQuzzltsCpM56luVFLgRhG1UDCN9m7MF1LNAiGQmPsi5pF
+ oz64/4HXSvNxYK4lALMhmD/FCC8wKZoXm427pcdTYwl7QrGSi6ATrlU7A7hLkvjnq05U
+ E6/coBLdwOVKrPvTEd1Bj0S5bGgNjx72wEjlcgVBTofbcKMdlyAym73EFvirhLnFxzzN
+ OS98+oFYSmnfV5WzKKXMgNd8tLba8xmDUivQiTzhxNTOsU/V3bCFPZwa6mZxZT9t941J
+ UFEw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU0FkZyhyrtL3YKPOQgNrq5CWwY/ZZBj2Cdw7csuUMR/5gBTnAuiE6e2xyi3fYoV01N6hI49w4AloybNhiHIA==@lists.freedesktop.org,
- AJvYcCV8rrw+hN+T39U40T3KDAftHRYq9HV7Wp1w8+aQmT1rAz8jfdiP0c9QBbXKgcdzJqj7KCNx40F3td1w@lists.freedesktop.org,
- AJvYcCWcaLi9/Po6KrWOG04KFqOCw27n+FGy1iiZpCQAqhu+/Tksq5I7t5czchH1kv7qDVKKjNwvwU3w5Jer@lists.freedesktop.org,
- AJvYcCXVAYcs8GTWrU6Hd13VV3m/+sVXWE6YJ3ajjrBbdxgWrdjG3XKsXsmU/Oe7YehQb0lu2aYMKjRu@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw6sGtpKbjdQqPBLautTmtJMVCW6XdeiJ7S5hlqar57aPraigRA
- CYXNPSHqxAnnQv2C4nN4a6szlxgz1fSxG5o1y7tALFiCRtci7NsC
-X-Gm-Gg: ASbGncv4IC+y3Szhe94/K9RSaNbOROPFqVBspapFVsWaQFICDuRildnXXJUcE+v2lP3
- cETatx+XNr0JNALCYHq6nyiBgHAwyEJY1H6SZSZWOP/O9jzmV2tt0prGTNk9WjuDn/VCZl5SQZ1
- JBzhNfJUVITyexnTuhQZWmkMqAiRrjeKtguc2p+KhRkiZMQw69k9GAY5thHf2W/uk3E9B1TIaFi
- 3qmYt73H4eV+JD8Lw7n0TMqOBSgxfn2Z3CWlJ7c9SKudbHYyb2rul9TpWMYBVrbZtfeTX7oCEwg
- Kbh2olm/S52Law8Q/vOH6fW0j6yXgMCdUj7BcA==
-X-Google-Smtp-Source: AGHT+IERZTxhAZxFSe1csHMGwCl8KwsmPfchqC0NaFpULXt8261DlITQ09T7azGi9+ykPl9fw06Y+w==
-X-Received: by 2002:a05:6e02:1d9c:b0:3cf:bb11:a3a4 with SMTP id
- e9e14a558f8ab-3cfbb11a52bmr102830845ab.15.1737787607309; 
- Fri, 24 Jan 2025 22:46:47 -0800 (PST)
+ AJvYcCVWHp+cCdGfvZ8jdoCb1w1bPakyj+KtvqHJkbuudBXhJj3hV5wfwjzfJYAMycaKyqKNF788TmE4BN1Q/3em/w==@lists.freedesktop.org,
+ AJvYcCW5DlVlfOPx4Em5LICUHCIRAGRC6wbbGL47k6330Ixa6LREpHE2rwa83UnDMKOFXigIEw9eIVik8Mq9@lists.freedesktop.org,
+ AJvYcCWvjMgt9h1Ao4Zowo6degSfZd3XjkDsiLr5+sNQwQM0L21SHVEVVRV63cNTwQPcqjy4HoeAnEwm@lists.freedesktop.org,
+ AJvYcCXC7UFMRETPvtomHe115rCRSQrd+p5yHKmVYpgos8k0JBqm7CQUzEMP+L09pCuLmCT5PHaQv13eXWyl@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz0OlsYVvd7G8kIVABsp2CcBXopCiYTF/pf7O5696xUa0+lD5ta
+ SKaMDSZ2ZUVGgHsWw4xltZmPkEBSoTxqTiH3AB1ikjdY4u3aaWx2elORhQ==
+X-Gm-Gg: ASbGncsabPeHfP9N436pwRT7+3atUUvpiURjEm0i1oDRjzFqFconh2s4m/QHW9j3PTl
+ BXp0wqTzCpx54pYoXZ/276JwvHY4o/5IHxQLCYY5NHfnAgq/GJHrEjVU5eD8Ts0Q5URcecyiDmg
+ mDekCa8X4p1A10Ib9/fz9duFk+irJr75xapyF12/uicbqLGhw634yCdl6f8zjQZUKwc0Rr5zZUe
+ VJ/F8k8lJf7n/hTCwJ3dNJQMwu18F6Miz+/ViXHVnfCmfK5q3MQapfDx31t5WfCLv8Ys15utLVm
+ TV7CLcn7u+X67J9TB88ySN4R4VGtO/aco9mNAg==
+X-Google-Smtp-Source: AGHT+IE+1sdA59rvtPU5SkxEWaRpr0NIdPh+RV46664Rr2xVtF4kdC2MMHfvNMK5CKli+LmN1bSAtw==
+X-Received: by 2002:a05:6e02:170b:b0:3cf:b365:dcf0 with SMTP id
+ e9e14a558f8ab-3cfb365f19bmr116839155ab.19.1737787650985; 
+ Fri, 24 Jan 2025 22:47:30 -0800 (PST)
 Received: from gandalf.. (c-67-165-245-5.hsd1.co.comcast.net. [67.165.245.5])
  by smtp.googlemail.com with ESMTPSA id
- 8926c6da1cb9f-4ec1da476fesm1174144173.58.2025.01.24.22.46.46
+ 8926c6da1cb9f-4ec1da476fesm1174144173.58.2025.01.24.22.47.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Jan 2025 22:46:46 -0800 (PST)
+ Fri, 24 Jan 2025 22:47:30 -0800 (PST)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, ukaszb@chromium.org
@@ -72,9 +72,9 @@ Cc: intel-gfx-trybot@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, daniel.vetter@ffwll.ch,
  tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
  ville.syrjala@linux.intel.com, Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH 10/63] dyndbg: silence debugs with no-change updates
-Date: Fri, 24 Jan 2025 23:45:24 -0700
-Message-ID: <20250125064619.8305-11-jim.cromie@gmail.com>
+Subject: [PATCH 50/63] drm-dyndbg: add DRM_CLASSMAP_USE to virtio_gpu
+Date: Fri, 24 Jan 2025 23:46:04 -0700
+Message-ID: <20250125064619.8305-51-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20250125064619.8305-1-jim.cromie@gmail.com>
 References: <20250125064619.8305-1-jim.cromie@gmail.com>
@@ -95,53 +95,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In ddebug_apply_class_bitmap(), check for actual changes to the bits
-before announcing them, to declutter logs.
-
-no functional change.
+virtio_gpu has 10 DRM_UT_CORE debugs, make them controllable when
+CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg that the module has
+class'd debugs.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/dynamic_debug.c | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/virtio/virtgpu_drv.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 1b2fb6502e61..c27965180a49 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -595,7 +595,7 @@ static int ddebug_exec_queries(char *query, const char *modname)
- 	return nfound;
- }
+diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.c b/drivers/gpu/drm/virtio/virtgpu_drv.c
+index ffca6e2e1c9a..fca1a1250161 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_drv.c
++++ b/drivers/gpu/drm/virtio/virtgpu_drv.c
+@@ -45,6 +45,8 @@ static const struct drm_driver driver;
  
--/* apply a new bitmap to the sys-knob's current bit-state */
-+/* apply a new class-param setting */
- static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
- 				     unsigned long *new_bits, unsigned long *old_bits,
- 				     const char *query_modname)
-@@ -606,8 +606,9 @@ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
- 	int matches = 0;
- 	int bi, ct;
+ static int virtio_gpu_modeset = -1;
  
--	v2pr_info("apply bitmap: 0x%lx to: 0x%lx for %s\n", *new_bits, *old_bits,
--		  query_modname ?: "");
-+	if (*new_bits != *old_bits)
-+		v2pr_info("apply bitmap: 0x%lx to: 0x%lx for %s\n", *new_bits,
-+			  *old_bits, query_modname ?: "'*'");
++DRM_CLASSMAP_USE(drm_debug_classes);
++
+ MODULE_PARM_DESC(modeset, "Disable/Enable modesetting");
+ module_param_named(modeset, virtio_gpu_modeset, int, 0400);
  
- 	for (bi = 0; bi < map->length; bi++) {
- 		if (test_bit(bi, new_bits) == test_bit(bi, old_bits))
-@@ -622,8 +623,9 @@ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
- 		v2pr_info("bit_%d: %d matches on class: %s -> 0x%lx\n", bi,
- 			  ct, map->class_names[bi], *new_bits);
- 	}
--	v2pr_info("applied bitmap: 0x%lx to: 0x%lx for %s\n", *new_bits, *old_bits,
--		  query_modname ?: "");
-+	if (*new_bits != *old_bits)
-+		v2pr_info("applied bitmap: 0x%lx to: 0x%lx for %s\n", *new_bits,
-+			  *old_bits, query_modname ?: "'*'");
- 
- 	return matches;
- }
 -- 
 2.48.1
 
