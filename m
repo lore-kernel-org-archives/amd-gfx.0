@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6DAFC021A3
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jan 2025 08:16:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 585B3C0218C
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jan 2025 08:16:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6237C10E4DB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0378810E4CE;
 	Mon, 27 Jan 2025 08:16:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Z2O8vyM7";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JbX/feOL";
 	dkim-atps=neutral
-Received: from mail-io1-f43.google.com (mail-io1-f43.google.com
- [209.85.166.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 65D1410E299;
- Sat, 25 Jan 2025 06:46:41 +0000 (UTC)
-Received: by mail-io1-f43.google.com with SMTP id
- ca18e2360f4ac-84a1ce51187so77809639f.1; 
- Fri, 24 Jan 2025 22:46:41 -0800 (PST)
+Received: from mail-il1-f176.google.com (mail-il1-f176.google.com
+ [209.85.166.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A78B710E2CF;
+ Sat, 25 Jan 2025 06:47:17 +0000 (UTC)
+Received: by mail-il1-f176.google.com with SMTP id
+ e9e14a558f8ab-3ce873818a3so24594585ab.1; 
+ Fri, 24 Jan 2025 22:47:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1737787600; x=1738392400; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1737787637; x=1738392437; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=g9s7OD1sQ4+HufNRNHWDoATH13uKXMFeEAmrzFZExds=;
- b=Z2O8vyM70V/E+CNGvE2Z5t8pbaRy7dbMK42QbId9OQWSuI5PKwvWCPV+9MMWUu98qj
- IpAdfqGmXnbFyt2visvrb8+9smAW0rm/ML/zWLOXKVPWRTdcXJiil94Y1lq+KXAABilp
- rEnA+03HqRXYNoALw5+IBv7yrYkEDxgUTROO5V24cxgXKgkt12pfCGufP7Q0Bqt8wvXd
- h6YAc3n0wHZY9EAKQ+PeKYlKHOVXAP38WOlBap1Afr4ID0EO8f6OpZEO1U50IIg75iDL
- bYEHbsE3QkgQfCy3hFluuSozFyUJaaGaNjcU1rKB08WKKgz4/vVqphpry2ziut53EWyU
- V89A==
+ bh=R20pJusVAFn+0eRwjuybzN3XQmUoFo5g9xIXn//WdwU=;
+ b=JbX/feOLHWePv122M5u7gl2tXq9qqLu/LRQC04X42YSWvQshkZct42k0F84ePLTfYz
+ 6b+cwReCaSo+b2zedpifwYx6T7+wG+C0Fr7/ijrSrGTAi8iX7qy4OaR+Pt6Z/NgDaQeG
+ 9lejJJTj6xabjwoKBrF7bXcHBo/zyZ2qJJT480MPbhN5ITrFCEWKLoFebrUGaLd6ryLr
+ 9PgxVMaN5ZOlVmhRGS6NDo5o+w1ljN9LyLuj6HiVIT7uZb7w98xIh0+pBXR96UXXwSiZ
+ nNNFfBA+R0Wgt4lUb9RuuxHbii5q5AaE/glm56f+KMdlQ+K8uVX4JgNjK+vrQfR9Da/1
+ 5Xhg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737787600; x=1738392400;
+ d=1e100.net; s=20230601; t=1737787637; x=1738392437;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=g9s7OD1sQ4+HufNRNHWDoATH13uKXMFeEAmrzFZExds=;
- b=a4WkYGKwzWCBRJGJ7qK8w2pBBxxuZ/+ho7Ym/br9arEVDbabFMPOKs3iu1ltPLkhWK
- VwFBAeVl43RQATieJ+oMP0gx0VQKGCPezWOuxNrxXNgkqiTsbNxaxQ036gYJ0PFRkTt5
- ptw8nTwx1e1/gLKFLndboIfLIvltoNyHLb6rcmujAM0sz+FUIrgsnDwe/OBzwS0yF3nT
- 8BDfBv6w6QVz7sw4KiZOQUd4JgHLlem6VEeb8h5EXE4Fat5yo4SLhqmhrs0dlDnn4/QZ
- u3X50sUsYFj82UXb3SfPuhr1TgSuDyr+AzwtZsHjP3ic8Qe5KjNwst0By9JDHT2KagR6
- DI9Q==
+ bh=R20pJusVAFn+0eRwjuybzN3XQmUoFo5g9xIXn//WdwU=;
+ b=ph327RIyQtHSkuuZzgCwINMafp2ERPaqHlQhOqVCAAiPNV5E4QSGPjHk7N0e2gxkzH
+ jHz6fje+n4Ydtjs8KYLruiJcsYriP3MzyPclEca3lapjobV1oUkelElC5xKMUedR15zc
+ eSzIfFzmuCtHsb8+Px+H/Gpuqa5lmvCSLmD4KL7669VHwzgAlUytwugtxufn+SPB+OuA
+ jEVDWJCtQ4lB7BZ8nceLDd5H8xAof2ykJz2OGsldgBEA5uWChbMAb9Zug3s0bTo4Kt5o
+ hn7o00ua2EPEsP6UBhJlL86E4g1XgF5//frCsk2DTb5p9cY3i1DzEngJoEb4xoNNkQj8
+ LY/A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUJ0zI+X4ItUBXs0yE1gAw4sBbXQiMAk4S6aSDbtPWgHt1w1thc5a8CRgKtUE/y92a49vBA9kDInjFibyg6iA==@lists.freedesktop.org,
- AJvYcCUcndZYbqc/VuF7dVCZSkjIFgRRmU/5G3Kxb7Ds4H/gwW458f4AWGD0KAPrEwnzclDlTK7oWeZ+/syp@lists.freedesktop.org,
- AJvYcCVLvGI7i3gwDIh1Mf9rkMreI21ySIZyj5NC9/41VUC7bbOXEm6LxscWzb1l5mgkmaUutP/xcY9k@lists.freedesktop.org,
- AJvYcCWmAsaeHOg8oE872Y7SzVUtxdR5fhZ/9Cj3iN0hcnLVRpyjBQV7vIBmp+a/rnh0t0UqOpbttFsBrfi/@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzUNtoPPUFy+FIZSXlgB27D2GZXZHv08W0LzVoEO6HuqKa7qhIs
- EgGwPcOUCHmlPJ5lYM9Yx+hT67yyfz1wlM42SIW91fy8pLYUaSqH
-X-Gm-Gg: ASbGncv4eNnSCTO78T7cTlDb26zA7J/ZHk+H2QuzaMeLE3v22D9M193xzBoI5K+CKCp
- XB8VpsdQxP64j+inmW78kHx3dvJxCzXOTJD2Tn+GXjq6SIh94qjVR6sBh02B/dmi1VEqbg9Rd2j
- gYQm9+PusuanjIbqlMwKUCkJNXJRdIvW2n9mKdoSDsPU0sEGBVOLQyYwg8pl00u+snRg9Ff+KaE
- CnVQRWZIsSd0mszbg5SXdezgQ1b8n8Cdoyf7/BPnHh4HZWl6UMFFBmOXRfK/jOrwVpOSqc7shJY
- pxQxH4kXqMpjfjYaMmdc1RbP43vNhjyxqFHaPg==
-X-Google-Smtp-Source: AGHT+IHgbpWAw3ToF51VNapcA24BXvqXwUUtA2PGPS4mT2XtqGWGo3JjVejPDRtbOWoXeUzU8vi6VA==
-X-Received: by 2002:a05:6e02:1381:b0:3cf:b7c0:8809 with SMTP id
- e9e14a558f8ab-3cfb7c08be4mr109840195ab.8.1737787600600; 
- Fri, 24 Jan 2025 22:46:40 -0800 (PST)
+ AJvYcCVN95PtVmxz+QOVEMWejPhiNI4nq9VZiSfSSg9wKwbaCjOgPVLVWN0hR0LOZK6vKMFH5yyGYEDFLXpg@lists.freedesktop.org,
+ AJvYcCWOffyfFmKzmhRUXxmDd6qEzxYzJJdglhyxS9aW6Ft6ZjNO5VoGJTUNtD0ltMLzTIgq9HkeRBbP@lists.freedesktop.org,
+ AJvYcCWV7u3i/pf0+sxV7Sw7UtHB3/OoEHvWxp/pTt2s0ZSwzNOfegO1smUdn8DpDnxH7GBRcE3+IBGKRQTD@lists.freedesktop.org,
+ AJvYcCWrAhwBv9oojKJuagT3QOaD9PzlMoKPW5h8tyE+8UqNCyZRWi/5DwWaHJTy6WNt6aL+7A1ByJgwI4F/J683Dw==@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwBODRXsN5zdL/gWgT84sXPP1ZM64Ce+SJsTFszER/jQfV3gFHz
+ SSJoHjz90kW2/yX3tJwmXvGaAu74kJEd/b4i1fic1EsTZXBtX+1MrFwZIg==
+X-Gm-Gg: ASbGncu35ZMQByKl4+K+6gOheaJu9QBGTW2+HKy+pCuf4zPz9wInuUpgYWu1/ebFDP6
+ X+OSZLNHqXh6cbuRScbdiYC4nrt7HGVJq/s53xdX9nrbgSO9BeRVAWOcl4MhDBTg16oUG4DAdr8
+ VMK/X7yN66q3sIEZ7Uu2ZQVfXTVnP9jbKbovE5XFMpdJ1giEHPCHIYPZubHP7o+4AkOZ9NMkv3v
+ 0mYBRk1K+DPCHtxFRjysG7leBqKkz3mhpfDcnYIb9bXejOPDEU8dZK0YzEOK9YtC51bxs4l6rRr
+ 0WjRCKdgsKOuFwOygh/DoWz7b8LrLe0lqom76w==
+X-Google-Smtp-Source: AGHT+IFhqHjUjw9cNO0qk0/umRlKp25sKTeEZ9PGaxIK1gOwxXhslLtN+M7fQRx/uvI7gn1cs6FAKA==
+X-Received: by 2002:a05:6e02:3f03:b0:3ce:87e3:c26c with SMTP id
+ e9e14a558f8ab-3cf743df88amr329678925ab.5.1737787636967; 
+ Fri, 24 Jan 2025 22:47:16 -0800 (PST)
 Received: from gandalf.. (c-67-165-245-5.hsd1.co.comcast.net. [67.165.245.5])
  by smtp.googlemail.com with ESMTPSA id
- 8926c6da1cb9f-4ec1da476fesm1174144173.58.2025.01.24.22.46.39
+ 8926c6da1cb9f-4ec1da476fesm1174144173.58.2025.01.24.22.47.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Jan 2025 22:46:40 -0800 (PST)
+ Fri, 24 Jan 2025 22:47:16 -0800 (PST)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, ukaszb@chromium.org
@@ -72,9 +72,10 @@ Cc: intel-gfx-trybot@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, daniel.vetter@ffwll.ch,
  tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
  ville.syrjala@linux.intel.com, Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH 04/63] dyndbg: make ddebug_class_param union members same size
-Date: Fri, 24 Jan 2025 23:45:18 -0700
-Message-ID: <20250125064619.8305-5-jim.cromie@gmail.com>
+Subject: [PATCH 37/63] dyndbg: change __dynamic_func_call_cls* macros into
+ expressions
+Date: Fri, 24 Jan 2025 23:45:51 -0700
+Message-ID: <20250125064619.8305-38-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20250125064619.8305-1-jim.cromie@gmail.com>
 References: <20250125064619.8305-1-jim.cromie@gmail.com>
@@ -95,45 +96,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-struct ddebug_class_param keeps a ref to the state-storage of the
-param; make both class-types use the same unsigned long storage type.
+The Xe driver's XE_IOCTL_DBG macro calls drm_dbg() from inside an if
+(expression).  This breaks when CONFIG_DRM_USE_DYNAMIC_DEBUG=y because
+the invoked macro has a do-while-0 wrapper.
 
-ISTM this is simpler and safer; it avoids an irrelevant difference,
-and if 2 users somehow get class-type mixed up (or refer to the wrong
-union member), at least they will both see the same value.
+   if (cond && (drm_dbg("expr-form"),1)) {
+      ... do some more stuff
+   }
+
+Fix for this usage by changing __dynamic_func_call_cls{,_no_desc}
+macros into expressions, by replacing the do-while-0s with a ({ })
+wrapper.  In the common usage, the trailing ';' converts the
+expression into a statement.
+
+   drm_dbg("statement form");
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- include/linux/dynamic_debug.h | 2 +-
- lib/dynamic_debug.c           | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+---
+ include/linux/dynamic_debug.h | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
 diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index ff44ec346162..b9afc7731b7c 100644
+index b47d1088b7ad..1ff7bb6210cf 100644
 --- a/include/linux/dynamic_debug.h
 +++ b/include/linux/dynamic_debug.h
-@@ -124,7 +124,7 @@ struct _ddebug_info {
- struct ddebug_class_param {
- 	union {
- 		unsigned long *bits;
--		unsigned int *lvl;
-+		unsigned long *lvl;
- 	};
- 	char flags[8];
- 	const struct ddebug_class_map *map;
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 147540c57154..55df35df093b 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -799,7 +799,7 @@ int param_get_dyndbg_classes(char *buffer, const struct kernel_param *kp)
+@@ -331,20 +331,20 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
+  * (|_cls):	adds in _DPRINT_CLASS_DFLT as needed
+  * (|_no_desc):	former gets callsite descriptor as 1st arg (for prdbgs)
+  */
+-#define __dynamic_func_call_cls(id, cls, fmt, func, ...) do {	\
+-	DEFINE_DYNAMIC_DEBUG_METADATA_CLS((id), cls, fmt);	\
++#define __dynamic_func_call_cls(id, cls, fmt, func, ...) ({	\
++	DEFINE_DYNAMIC_DEBUG_METADATA_CLS(id, cls, fmt);	\
+ 	if (DYNAMIC_DEBUG_BRANCH(id))				\
+-		func(&id, ##__VA_ARGS__);			\
+-} while (0)
++		func(&(id), ##__VA_ARGS__);			\
++})
+ #define __dynamic_func_call(id, fmt, func, ...)				\
+ 	__dynamic_func_call_cls(id, _DPRINTK_CLASS_DFLT, fmt,		\
+ 				func, ##__VA_ARGS__)
  
- 	case DD_CLASS_TYPE_LEVEL_NAMES:
- 	case DD_CLASS_TYPE_LEVEL_NUM:
--		return scnprintf(buffer, PAGE_SIZE, "%d\n", *dcp->lvl);
-+		return scnprintf(buffer, PAGE_SIZE, "%ld\n", *dcp->lvl);
- 	default:
- 		return -1;
- 	}
+-#define __dynamic_func_call_cls_no_desc(id, cls, fmt, func, ...) do {	\
++#define __dynamic_func_call_cls_no_desc(id, cls, fmt, func, ...) ({	\
+ 	DEFINE_DYNAMIC_DEBUG_METADATA_CLS(id, cls, fmt);		\
+ 	if (DYNAMIC_DEBUG_BRANCH(id))					\
+ 		func(__VA_ARGS__);					\
+-} while (0)
++})
+ #define __dynamic_func_call_no_desc(id, fmt, func, ...)			\
+ 	__dynamic_func_call_cls_no_desc(id, _DPRINTK_CLASS_DFLT,	\
+ 					fmt, func, ##__VA_ARGS__)
 -- 
 2.48.1
 
