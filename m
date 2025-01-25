@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E348FC02193
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jan 2025 08:16:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86965C021A8
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jan 2025 08:16:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 259C510E4E5;
-	Mon, 27 Jan 2025 08:16:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C547110E4E0;
+	Mon, 27 Jan 2025 08:16:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FMYzfRgX";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dT2FONh6";
 	dkim-atps=neutral
-Received: from mail-io1-f51.google.com (mail-io1-f51.google.com
- [209.85.166.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF76110E2B7;
- Sat, 25 Jan 2025 06:47:10 +0000 (UTC)
-Received: by mail-io1-f51.google.com with SMTP id
- ca18e2360f4ac-84a1ce51187so77815539f.1; 
- Fri, 24 Jan 2025 22:47:10 -0800 (PST)
+Received: from mail-il1-f173.google.com (mail-il1-f173.google.com
+ [209.85.166.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BBB3010E2CF;
+ Sat, 25 Jan 2025 06:47:16 +0000 (UTC)
+Received: by mail-il1-f173.google.com with SMTP id
+ e9e14a558f8ab-3a9c9f2a569so20551825ab.0; 
+ Fri, 24 Jan 2025 22:47:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1737787630; x=1738392430; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1737787636; x=1738392436; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=x11BZKBrVuF//4sDIzHDHCm/mRQ6/WwpO4x5frMPkhY=;
- b=FMYzfRgXLUKQxSEJFD7/TLI6A4F7+8x1ndvMM+qSyXtgKMc7UYh0LIMOXFt8c+EmAS
- rDlF/L5ZaNjq5AUUcV8ZSzej9V+bJXn7SoXI6f0KHwjjDytkjWul+8K16SbHc1oTSnrk
- vH3Z7m1G5reXdj2bDEnRFVvbxLSdyqk5XC90V+RoH2rsGv9DZBGd4OFm/ARauONq0BYW
- S4NeiYFr/L8ouLusHBVh4acrblsev7BPI+/1DYa8WFczd4ta8W3gb58f9EJ10jgRS+k9
- l5s4ER6aUQr49JHLSyRkQ0TCuhQ5qCffHDiN9ezuUvLMbQ/M0QEPln131MfOmWikPIge
- ZEwA==
+ bh=jfhcWZrz83wYOYEIdNpEF1X0nPHND6LQ2XiKG1miCwc=;
+ b=dT2FONh6i9L/UJjEDh5tuFK+qaIC68LE0zjizmEempmvq0dLWYYBGkQvfVrgrerlOd
+ OFqEB5uZbRPYpWHStYv/quItvBPdy1j5JTqqTnynhiu5soN3RXno9TCCuD/ZJdsmanek
+ RaN5uQjYKjQCzRt92Ly91sRsW93gKGSranFoZsLA0X1e0yP4CY52LNi8e0bU21zh/q3O
+ R2iHslvAt3FftomS9dDKa+ANW9Iei7XJvn1iwbCQPFHPym11Zmx1EmQuIZXIH1T2OC5N
+ ID2XDZRIvUAzGun0ighPJAjM8Y5+qgxC5l9enzFZrylFz57TQIroCo4SsiEnojawsxOG
+ 0dHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737787630; x=1738392430;
+ d=1e100.net; s=20230601; t=1737787636; x=1738392436;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=x11BZKBrVuF//4sDIzHDHCm/mRQ6/WwpO4x5frMPkhY=;
- b=AHm3GCVxhkKzoT7famQiekMXQwbBALkz6cBlZhKhj4Dn0Bg3IC35F5UWdNjZQEgKDs
- KXSUqKBHJA2tZ/F/XU/TPIlap29CBRJ8noyuyRDehiFYFqc3w88VJ5hO4rfZMuYIj50X
- EvhOCPBRgBXyyAMFP7Sv/0ShsK+w9mW5FstP5TxjBssUP2PMltGOkWRZ5bwgPi8ff7x6
- WKN6Ql4moS1g5PVaVWX5KPnDTC5Vf3Fw56WR/XlMe8Mr1yxqDFV9a/sVfMiJfguCUQpF
- 12YDRthOcJW35CBRR7l6+AsQ/Ck2oWoGO5M3bs0fAulJLeueT2hwSOflaIO1UA73tj1w
- kwVg==
+ bh=jfhcWZrz83wYOYEIdNpEF1X0nPHND6LQ2XiKG1miCwc=;
+ b=DhsgjI+I2Hdb4si2XjMkW2ofl0JrhvEnJBPWooS8VZqz2WX5XhwhpwTj6tz5GUBwvg
+ XIcEVVuKw6pgLAGgJpp7KNyXZbo8VgOy0XiwJ9p8buItOoEP0TqTGUbOGp1htNYFit2J
+ LGu2DzTSY8OSAM9c4sKUEzyCvd0xjzZ9hs8pkEHHvlbuOjnuotuMblZW+LiUK6UEsb1E
+ VL8It/KpeBS3ETEMNEDS2jo3Slp4m7jd2i9TqdGvV6SXbBOL5jUL+UnwnRg9/JCNu5o0
+ s0UZNrFM2TYyTrS4OFnbw9lpnMUgC6YlddlX/NH7khjs3fqjpbmrnduBEeMIOTz1VwDz
+ 2Npg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUgBw0QmAy85M5+Iwj2Dn6hj8ootqhdErI7RT6O4RrzWwaGR22OlMFDbTGwXAPxvrFRVmDc43B01w1x@lists.freedesktop.org,
- AJvYcCVCoeSMCOe9UaEGxD97n8VKcqHa9EpIsk6rZNTJ9pFQELYK2p61m87eGii3ojuQpDE7kyGrP5fz@lists.freedesktop.org,
- AJvYcCVeQ/0+CdlyHF0No6z6MdJZ9qqIhGCcuzkBgWNBUu7Hmp7ohXizMZiGTl9U/fm5ZnP0+2bakspYRr3b@lists.freedesktop.org,
- AJvYcCVmdtbbfgsTwL8JTXQuXDXh2RcMMe4oXgJj5upQGsNfMNvNPYxXxg2avP86SGaLFrtLF/Y91118eresz/QQaw==@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YznnTi5qir7fR5HUa3YrgwY/48B4V1yY4wG8fZmU2UIO+Q8zloU
- iEZETZS7IOLLDiALdCF6Mj8OaVdLMjRiYjnZo7zcY3sYS9WIf7tL
-X-Gm-Gg: ASbGncvw74iGNi3kBQZkarj3lloqcE5cbkU+qVmvBNmCwatzcJkgczyd2e0FT9a652T
- xodZ48ItgdsnrVFgbVcAMhZ1K4ONZzqQoqqK2CrP923NMF4rhSkaH7OhF7goUbDU/BJRgw873FV
- uAoJIzHjsNYv0Bu1MT8Dm9DofX1bUUmiZ9N4ptixjSF12j8SgO/XMEaMgZPgWKWmvteNEb9VLds
- vNn7IT3CcxkugD+3A0BRUFzH12TNfJklYIcrwAuTYGJZJgCa5JJDD7T2UOyNItnwFIBKNqSy956
- 2jA8JVeIbvOchJGLhq+371z/51UnvL6qaXyniA==
-X-Google-Smtp-Source: AGHT+IEMjfj5KPBD+MY1YnSxoaWknOFxVXF7E1RjBZMpsyNcxNDm6LNROXUaKAR5kPzioEBH7zCauA==
-X-Received: by 2002:a05:6602:3e94:b0:843:e667:f196 with SMTP id
- ca18e2360f4ac-851b61ee917mr3363869739f.4.1737787629916; 
- Fri, 24 Jan 2025 22:47:09 -0800 (PST)
+ AJvYcCUReo4QsQuo91CjmjbmUs8GPDKTX0OWHA/1cyKY6Lv/qEdK3hdEqJjNVSMfJLb88sUsXvEj5FnynO1hEmTsyw==@lists.freedesktop.org,
+ AJvYcCVwbi5KP4HO0vOSLWc4elxk39PqOjI5iGCzwqKIhHzjgWjffbAYP827i89cswXZiKxvjQt5+T0Ko7RO@lists.freedesktop.org,
+ AJvYcCWqtTBIR8uiC/dicUd102Zy4u/K3zoD82kww6c0AYT9WUEi9j3etdQ4Pg3tnYaAEOHUmgmNCrNUhDUp@lists.freedesktop.org,
+ AJvYcCXzKDx188OKrvl9W5+3XBFEPmHvZOARVTcCEdvx31I8neVnVnphXQePUp+g+dnQvL2gxeH+XfHV@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyVN/EC3aobuESNGg3tOxv+M2EEwC2rBKGQKxpAeJZ+RwqyfomZ
+ FERWM+emM+l+g+wK6ZJhBS7f2bQg+c0Jpu4JQPjGQ5u+ncuflgkh
+X-Gm-Gg: ASbGnctp+LZGvAtm+KuXJww4VN1Fc4m/mSltOsNnMJ9I1SIT3KGEcIZOCJpuPlH0Gqv
+ HkJFoXJ5XwfEKqTHXWDge4hZIUiyu7EhinA1q15NbXNNPu4NjyTishx4jWY/b7Szv2z4FwnoikZ
+ 43ITNUCqD760p/bl9d7Hk+qXJ8bVkOfa5nZnW8JVc472mY6xCfCAk12kKJ4yg9Bzb+LzUQj13Fc
+ qgO9HFnUkfhVPVvHf9CZp2wkBnW7/H4avW42w2VJCcXcp3IZakMAMlygBbr3m0XJE14drF3AivP
+ JBimInjWcONtB5WPRFU1ay3xVEUohEntrUx9GA==
+X-Google-Smtp-Source: AGHT+IEOc8EmSIZbznFHHPXX84xuy1I6pZ+yKmSAQ2gwM3rRL/NYDxG3wxu+D0E1wbsVsa/ZJEfxwQ==
+X-Received: by 2002:a05:6e02:3f03:b0:3ce:87e3:c26c with SMTP id
+ e9e14a558f8ab-3cf743df88amr329678565ab.5.1737787636061; 
+ Fri, 24 Jan 2025 22:47:16 -0800 (PST)
 Received: from gandalf.. (c-67-165-245-5.hsd1.co.comcast.net. [67.165.245.5])
  by smtp.googlemail.com with ESMTPSA id
- 8926c6da1cb9f-4ec1da476fesm1174144173.58.2025.01.24.22.47.09
+ 8926c6da1cb9f-4ec1da476fesm1174144173.58.2025.01.24.22.47.15
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Jan 2025 22:47:09 -0800 (PST)
+ Fri, 24 Jan 2025 22:47:15 -0800 (PST)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, ukaszb@chromium.org
@@ -72,14 +72,13 @@ Cc: intel-gfx-trybot@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, daniel.vetter@ffwll.ch,
  tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
  ville.syrjala@linux.intel.com, Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH 30/63] dyndbg: treat comma as a token separator
-Date: Fri, 24 Jan 2025 23:45:44 -0700
-Message-ID: <20250125064619.8305-31-jim.cromie@gmail.com>
+Subject: [PATCH 36/63] docs/dyndbg: explain flags parse 1st
+Date: Fri, 24 Jan 2025 23:45:50 -0700
+Message-ID: <20250125064619.8305-37-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20250125064619.8305-1-jim.cromie@gmail.com>
 References: <20250125064619.8305-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 27 Jan 2025 08:16:33 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -96,83 +95,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Treat comma as a token terminator, just like a space.  This allows a
-user to avoid quoting hassles when spaces are otherwise needed:
-
- :#> modprobe drm dyndbg=class,DRM_UT_CORE,+p\;class,DRM_UT_KMS,+p
-
-or as a boot arg:
-
- drm.dyndbg=class,DRM_UT_CORE,+p  # todo: support multi-query here
-
-Given the many ways a boot-line +args can be assembled and then passed
-in/down/around shell based tools, this may allow side-stepping all
-sorts of quoting hassles thru those layers.
-
-existing query format:
-
- modprobe test_dynamic_debug dyndbg="class D2_CORE +p"
-
-new format:
-
- modprobe test_dynamic_debug dyndbg=class,D2_CORE,+p
+When writing queries to >control, flags are parsed 1st, since they are
+the only required field, and they require specific compositions.  So
+if the flags draw an error (on those specifics), then keyword errors
+aren't reported.  This can be mildly confusing/annoying, so explain it
+instead.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-Co-developed-by: Łukasz Bartosik <ukaszb@chromium.org>
-Signed-off-by: Łukasz Bartosik <ukaszb@chromium.org>
 ---
- lib/dynamic_debug.c | 17 +++++++++++++----
- 1 file changed, 13 insertions(+), 4 deletions(-)
+ Documentation/admin-guide/dynamic-debug-howto.rst | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 9283f2866415..56e09e878f80 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -293,6 +293,14 @@ static int ddebug_change(const struct ddebug_query *query, struct flag_settings
- 	return nfound;
- }
+diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Documentation/admin-guide/dynamic-debug-howto.rst
+index c3537f8689e6..89810ebaca8c 100644
+--- a/Documentation/admin-guide/dynamic-debug-howto.rst
++++ b/Documentation/admin-guide/dynamic-debug-howto.rst
+@@ -112,6 +112,16 @@ The match-spec's select *prdbgs* from the catalog, upon which to apply
+ the flags-spec, all constraints are ANDed together.  An absent keyword
+ is the same as keyword "*".
  
-+static char *skip_spaces_and_commas(const char *str)
-+{
-+	str = skip_spaces(str);
-+	while (*str == ',')
-+		str = skip_spaces(++str);
-+	return (char *)str;
-+}
++Note: because the match-spec can be empty, the flags are checked 1st,
++then the pairs of keyword values.  Flag errs will hide keyword errs:
 +
- /*
-  * Split the buffer `buf' into space-separated words.
-  * Handles simple " and ' quoting, i.e. without nested,
-@@ -306,8 +314,8 @@ static int ddebug_tokenize(char *buf, char *words[], int maxwords)
- 	while (*buf) {
- 		char *end;
- 
--		/* Skip leading whitespace */
--		buf = skip_spaces(buf);
-+		/* Skip leading whitespace and comma */
-+		buf = skip_spaces_and_commas(buf);
- 		if (!*buf)
- 			break;	/* oh, it was trailing whitespace */
- 		if (*buf == '#')
-@@ -323,7 +331,7 @@ static int ddebug_tokenize(char *buf, char *words[], int maxwords)
- 				return -EINVAL;	/* unclosed quote */
- 			}
- 		} else {
--			for (end = buf; *end && !isspace(*end); end++)
-+			for (end = buf; *end && !isspace(*end) && *end != ','; end++)
- 				;
- 			if (end == buf) {
- 				pr_err("parse err after word:%d=%s\n", nwords,
-@@ -595,7 +603,8 @@ static int ddebug_exec_queries(char *query, const char *modname)
- 		if (split)
- 			*split++ = '\0';
- 
--		query = skip_spaces(query);
-+		query = skip_spaces_and_commas(query);
++  bash-5.2# ddcmd mod bar +foo
++  dyndbg: read 13 bytes from userspace
++  dyndbg: query 0: "mod bar +foo" mod:*
++  dyndbg: unknown flag 'o'
++  dyndbg: flags parse failed
++  dyndbg: processed 1 queries, with 0 matches, 1 errs
 +
- 		if (!query || !*query || *query == '#')
- 			continue;
- 
+ A match specification is a keyword, which selects the attribute of
+ the callsite to be compared, and a value to compare against.  Possible
+ keywords are:::
 -- 
 2.48.1
 
