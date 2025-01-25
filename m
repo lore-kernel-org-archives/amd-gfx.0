@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47A19C02191
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jan 2025 08:16:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 030F6C02194
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jan 2025 08:16:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3935410E4C0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36BFC10E4BE;
 	Mon, 27 Jan 2025 08:16:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SHTw7X2D";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Y+3x+eGk";
 	dkim-atps=neutral
-Received: from mail-il1-f181.google.com (mail-il1-f181.google.com
- [209.85.166.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 549CE10E120;
- Sat, 25 Jan 2025 06:46:38 +0000 (UTC)
-Received: by mail-il1-f181.google.com with SMTP id
- e9e14a558f8ab-3ce873818a3so24590735ab.1; 
- Fri, 24 Jan 2025 22:46:38 -0800 (PST)
+Received: from mail-io1-f46.google.com (mail-io1-f46.google.com
+ [209.85.166.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F2B010E296;
+ Sat, 25 Jan 2025 06:46:40 +0000 (UTC)
+Received: by mail-io1-f46.google.com with SMTP id
+ ca18e2360f4ac-84cdacbc3dbso225254239f.2; 
+ Fri, 24 Jan 2025 22:46:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1737787597; x=1738392397; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1737787599; x=1738392399; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=AU/BJVCrYw/L98CqP4xWM6IdTrod6CaHL5wpnn7zk9I=;
- b=SHTw7X2DXqBHpSIX/O5EttJP7Ntw6RLuDvFAy4g4NZAWRzFFKw9mucp+10xW92MmNW
- ZnCpoM/jmOW4iV8W6gAefSboR6HvBUmK3uuduwhnU3NWsBjQXdnFQKctHdcC4Jd3969h
- E3cyoNnky44dfYWhR6tb8cb8FlLVAPqGr30lAYSAeV06QyFo9BYlHgZF26dZmK9VzN2f
- I2ma5DmhmQims8DfGw/I2v40OGsdbFSYxiKdWfCPButVhX1Qdjr3paeWf+KdwQz7W/P9
- 8U77xAK9QgCFNwq6b9Rk64bgNKlJpVdzj4CeNge4oYmIKp+42d5YbPYmk/ElSNR0HpZI
- QeXA==
+ bh=lC0bEfQkqUFUX2DEnhyRE7tZ3eJxkUlfRX/DOTIhCKw=;
+ b=Y+3x+eGkp99FB/yz0zHWN+OkQXswDhWBl552D1lpxGTFQaGWjb6nt4VjKLKjDlNMXg
+ o33kggs79qn0ziLDhkssS2J5yJ/TYSeEJA+R8UFiqOpu8I3//k7HeK0X1Sz5FwvXTfPW
+ pnDt9Bu08fLq8CT/3VB9NoIUbCN9kgw1m5W67iJ1Abp/cdt9IC1rAl9Cw48xr/xPvoR/
+ 9/aRorSlAMkDUS8ExL3tGZk1uVT+SWCc71p1RekJvqimIsXnIzfJ4FOS0WYAAmbDfeqm
+ pg9ginR/MQaNG5paYET6MniXvMXE3j8s/Vurw0cY56sZkzClLxEX7PIxd6TayUugG79H
+ pdxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737787597; x=1738392397;
+ d=1e100.net; s=20230601; t=1737787599; x=1738392399;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=AU/BJVCrYw/L98CqP4xWM6IdTrod6CaHL5wpnn7zk9I=;
- b=fdS5ow2Ermji9CwQD1v2J6dRegg5SRBCkoovRb24EoFWfWD+sNjL8JWm8v+G4m/Tkl
- yDP5ygaqlpzZigiA4w/+bP+hiOmaxhl1jhNc6Qs8EOHvY3edhQR4Sju2noqPFs4oIiyv
- KL55zBcKij21vvL+gFnz7UCZu4ME0Qc/WTiU7pDEZfuoAfa/btnBRXQ+aCdlQHPOj170
- 1HtL6Sa0oW+cwFrwUs2tXJeQq5wwRM2G6loyo0E7MHoW2b4q+eme+LUtyKJI7ZV0yZAD
- MhAJQoo1Th6HhBBcP5CMxOekZyfw0ygHe5w4ExNtX2nQ6xsj5pou/PPapuLNrFjbIno9
- 2xyw==
+ bh=lC0bEfQkqUFUX2DEnhyRE7tZ3eJxkUlfRX/DOTIhCKw=;
+ b=qS4MBDRoWHc57juyNqiF2PJ58P7U0DliSVKNDPNByD8gPLbi/CJbYKCJcYu9sIkHTL
+ CoEJHp190cJ4p2HhxEokBiSWn8p1unf2LS0pcJOsV7c6QbjS1FlLtC9DAyP2lbUigoND
+ CCaVb6EkjOgSWZWUz9rT1Yjz2tpgSfSiu6JZRvHM1JcbWYyOAV7xcSrWJpg7+eo+D2cO
+ bCr2LCtMntsuTicqDJaZxAsxhT4C6JZ+0YQlPFvhfv8ARyLT7awImHIU7uOL9WcA62y8
+ aldJam7H3hWs1shdxO+RZaQfGqzM5tyKjcQAUWKu98rfKOuOmEugPflevXX6Msm+5lQ3
+ +Y+g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWSkQLSJeZ+UpLBYt6XO/HFuUkVa3HsuALtkHYflgw2onEkFy9I1O45ZSfoegvHIVviJfDv4Jv9@lists.freedesktop.org,
- AJvYcCWTUOOh0jq5lgxueNm7bSvpbQJUgEV8Chu1ElWfFAxZiSGDY18wabMvrHaKAIjlZmhzPyecQAA1L3MO@lists.freedesktop.org,
- AJvYcCWuKGX5QOqtQj0RBFQUSiGeX1ySjn2dR4Cwiswm6hzR382GyVmgcdxGOBDIW3QD+ti4aE6EtIMjcMd6@lists.freedesktop.org,
- AJvYcCXvWpFE8D4WQ3Igj5u0duZcLmvk/mlzIN3KloUMBzbLzKb8pztrmAT+n4XA5HqZ0sLllvJ7osf5bm4DsPOhaQ==@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yykl2bXh+6xoGfC5Y4h8KGPW1HoG//6Isopi8ksf104CNDYTIiz
- rhFUVXuYtj8/HH8qTp1PcbP9Qi2CGRuPUTr/OvnvAAPCSDQljius
-X-Gm-Gg: ASbGnctr0RCysA5XS+OkmhSuM3kiZA+kFw9Xg53O3YKz+5XsW9ZXVZYfc3e3Mzf3TdP
- TtCJ+/O2LGCtIfhD5kQdn5IkZS20QpzyGqXCX8ZqwM6OH9KYXLqffMjO/910727sriYr5INQHCT
- 2XooGn0wam9xtb3AvvHnk79Gf1I5ENbgeejGkifP41sAQ1fOC+HrWpe2xIXbPjg/48WDbNCWzlY
- Ge0xhJoX8JASEM1uN9mQRhU6jbUwPf8ZbC2ZYyHugVdQQWu5En15f2vBGe5cVn+iXsQ3tGbgbk8
- /Exyn8c9lFI7C6GoXOz01P8pIRYjXZ9Nvovh5Q==
-X-Google-Smtp-Source: AGHT+IGGQmsmMU4LyFcc13bApx7ltT6qUdG974W1OcN8PUVNTeEuTSdgnGp/+eHsAuANJUqP1kdN+Q==
-X-Received: by 2002:a05:6e02:1fe2:b0:3a7:88f2:cfa9 with SMTP id
- e9e14a558f8ab-3cf744386c6mr233064305ab.11.1737787597495; 
- Fri, 24 Jan 2025 22:46:37 -0800 (PST)
+ AJvYcCU8f+1a9UjHqCl37kNQ9XjKlN+tlE0wweGlzQCgMGG33DUpAE5STFRH9r1rXc1x/fKl0h2+LWypVs+a@lists.freedesktop.org,
+ AJvYcCUPVB9PaCg8INSWkVCYVl/1K4Ikx5Q5T7ELfTpn38aPyiYDli/syvjcy+XAjSSohaf2v7NG+vbWqp+FNcccSw==@lists.freedesktop.org,
+ AJvYcCVVWTFhsVUf2VibROhsYKAK9Tr++4WPgZ/WXoredXPJJUtFvpbpjNwZUkjY72IZx2TFJe5lB2f9gyEC@lists.freedesktop.org,
+ AJvYcCWdMpm3eZqwoQyuXwc+kWalexW2+3d5Wed2a/xhZlwAyJYb9tONru6Yu8DSaQ6sBjqqn/Wi0AZp@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzkhcVOyTDLwhAjs/rm83u4c4TECrDsnecNDethp+HGtT8d9myO
+ 3jafQQqZbYFLIuRP0xUkqlcI6E+4vrEC2h4lshxMkIYNi9RBCD0e
+X-Gm-Gg: ASbGncukvLxO3MaNAe31Ur0r5JrITnaP0WTA7FrHMivU3vNtY5Tdas7z67ZJPMxNEp8
+ IUPOfCxDjLyx1gIC5peddOlU2l5TKTuBYpfRbHI1SDS2qVOs0v9COtsrgcCbyKcSzEL2NSbnYZT
+ X2c4UEaqrSngCDb6jJCFgx3/wJbAcyaD0+HTZN3Y6ES/QQ0TMFmzoseXjqsYS4a3wW2r3WHtJdu
+ 7qFP43iHbPZ0fy2BxYnhQBh6uylBPclyuPNCsxnRVyIHV7hxiNZ+ZSM8s48hIrSI96/aJvOwJGV
+ p706E1Ro13p00cz8V3yKnZUKGciIzuBrm0TUGA==
+X-Google-Smtp-Source: AGHT+IGCJkMDi6QJz04QzrJP+6InsJu9u2vONXpHhIfvz9GYsm9WZO74SuyY8vqfLEAfr6A647uPAQ==
+X-Received: by 2002:a05:6602:488d:b0:849:a2bb:ffdd with SMTP id
+ ca18e2360f4ac-851b618abd4mr3617977939f.4.1737787599462; 
+ Fri, 24 Jan 2025 22:46:39 -0800 (PST)
 Received: from gandalf.. (c-67-165-245-5.hsd1.co.comcast.net. [67.165.245.5])
  by smtp.googlemail.com with ESMTPSA id
- 8926c6da1cb9f-4ec1da476fesm1174144173.58.2025.01.24.22.46.36
+ 8926c6da1cb9f-4ec1da476fesm1174144173.58.2025.01.24.22.46.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Jan 2025 22:46:37 -0800 (PST)
+ Fri, 24 Jan 2025 22:46:39 -0800 (PST)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, ukaszb@chromium.org
@@ -72,9 +72,9 @@ Cc: intel-gfx-trybot@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, daniel.vetter@ffwll.ch,
  tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
  ville.syrjala@linux.intel.com, Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH 01/63] docs/dyndbg: update examples \012 to \n
-Date: Fri, 24 Jan 2025 23:45:15 -0700
-Message-ID: <20250125064619.8305-2-jim.cromie@gmail.com>
+Subject: [PATCH 03/63] dyndbg: reword "class unknown," to "class:_UNKNOWN_"
+Date: Fri, 24 Jan 2025 23:45:17 -0700
+Message-ID: <20250125064619.8305-4-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20250125064619.8305-1-jim.cromie@gmail.com>
 References: <20250125064619.8305-1-jim.cromie@gmail.com>
@@ -95,37 +95,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-commit 47ea6f99d06e ("dyndbg: use ESCAPE_SPACE for cat control")
+When a dyndbg classname is unknown to a kernel module (as before
+previous patch), the callsite is un-addressable via >control queries.
 
-changed the control-file to display format strings with "\n" rather
-than "\012".  Update the docs to match the new reality.
+The control-file displays this condition as "class unknown,"
+currently.  That spelling is sub-optimal/too-generic, so change it to
+"class:_UNKNOWN_" to loudly announce the erroneous situation, and to
+make it exceedingly greppable.
+
+NB: pr_debugs are only alterable via >control, and to protect class'd
+debug's from unintended alteration, "class name" must be given to
+change them.  Classmaps map known classes to reserved .class_ids (the
+1..64 val range per module).
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- Documentation/admin-guide/dynamic-debug-howto.rst | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ lib/dynamic_debug.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Documentation/admin-guide/dynamic-debug-howto.rst
-index 7c036590cd07..691e0f7d4de1 100644
---- a/Documentation/admin-guide/dynamic-debug-howto.rst
-+++ b/Documentation/admin-guide/dynamic-debug-howto.rst
-@@ -57,12 +57,12 @@ query/commands to the control file.  Example::
-   # grease the interface
-   :#> alias ddcmd='echo $* > /proc/dynamic_debug/control'
- 
--  :#> ddcmd '-p; module main func run* +p'
-+  :#> ddcmd '-p; module main func run* +p'	# disable all, then enable main
-   :#> grep =p /proc/dynamic_debug/control
--  init/main.c:1424 [main]run_init_process =p "  with arguments:\012"
--  init/main.c:1426 [main]run_init_process =p "    %s\012"
--  init/main.c:1427 [main]run_init_process =p "  with environment:\012"
--  init/main.c:1429 [main]run_init_process =p "    %s\012"
-+  init/main.c:1424 [main]run_init_process =p "  with arguments:\n"
-+  init/main.c:1426 [main]run_init_process =p "    %s\n"
-+  init/main.c:1427 [main]run_init_process =p "  with environment:\n"
-+  init/main.c:1429 [main]run_init_process =p "    %s\n"
- 
- Error messages go to console/syslog::
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index 5a007952f7f2..147540c57154 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -1154,7 +1154,7 @@ static int ddebug_proc_show(struct seq_file *m, void *p)
+ 		if (class)
+ 			seq_printf(m, " class:%s", class);
+ 		else
+-			seq_printf(m, " class unknown, _id:%d", dp->class_id);
++			seq_printf(m, " class:_UNKNOWN_ _id:%d", dp->class_id);
+ 	}
+ 	seq_putc(m, '\n');
  
 -- 
 2.48.1
