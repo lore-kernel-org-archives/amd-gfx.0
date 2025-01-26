@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8074CC02181
-	for <amd-gfx@archiver.kernel.org>; Sun, 26 Jan 2025 14:56:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE368C0218E
+	for <amd-gfx@archiver.kernel.org>; Sun, 26 Jan 2025 14:57:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F21F10E414;
-	Sun, 26 Jan 2025 14:56:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 907A810E424;
+	Sun, 26 Jan 2025 14:57:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="d5FP2IaM";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Zwo1Wzl5";
 	dkim-atps=neutral
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4154110E414;
- Sun, 26 Jan 2025 14:56:40 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F8FE10E424;
+ Sun, 26 Jan 2025 14:57:02 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 662325C5C77;
- Sun, 26 Jan 2025 14:55:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9CF1C4CED3;
- Sun, 26 Jan 2025 14:56:36 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 9C3635C1121;
+ Sun, 26 Jan 2025 14:56:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26A61C4CEE4;
+ Sun, 26 Jan 2025 14:56:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1737903399;
- bh=E1is4zt2gze7byJYRFtumhxxLlDVcMbXbCdG/3VCcz8=;
+ s=k20201202; t=1737903421;
+ bh=s/+/JuViBKmMbnbElSmcPqp34fg1Y9JUTA0kgwPD87g=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=d5FP2IaMAkMvKC7555vYhHw1WaOai+eSO5igsThdZ9I0IYOCSDed0ZulaQslSEXEH
- gwAhVqCC5c/ywXbCk+Cn3/FpQpCYdqonh7jGJLfCl77O5OZBm+wzKW7ITSWQu7vg9p
- Qa7/0HIAJWSTMelFH9J/yExY5P2xXDyPhYDHGLVNXWfz9gJPzwZE2Ad0UQQcc+IwMg
- 1QLCm4U+Z7ndoCyIc0rSCLubCyOlmmZEWd4Vw7gaJjbBGSEZV4C4vnr7nI0vI6zET/
- jcrtjJKZgna9DDhiR2LVH3/KaskSsC0vpS+DMFFRUl0WIY0XFnFKLr2oesDpyiaq4P
- L4fCOpGQd3iLQ==
+ b=Zwo1Wzl5U48JpBUY/V8VkNU7d9KzaKNIVVbEmJQZ6S7eHfBI2f9C+aD/8/iPDsjd4
+ rIaHFO1ykQcKJ20Sy0h8K1dhL3zjYN4k+rFGAIEi5hn4Q+l4IviaTi0l2KpUCpUtrp
+ gA8Fg0/aikwTsOpy7x0bcboStvBaaE/v+6bIqwKbUaTTHNdl+slPnHt0lmW2NF9TR5
+ 32H3+HnwbZPK0zWE/z5e1HBPJZKs03BWbyB0oyscGl7N7sYA1BcoTHyUEklK+Y8U3N
+ Qkl/EpyGZMlETABPlBl2X9M+UdMWZaWHRR5iGK+z7zCWM9HzfsdCSGwKheq2VMyj0i
+ mQIhabvYiZCpQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
@@ -39,20 +39,20 @@ Cc: Fangzhi Zuo <Jerry.Zuo@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>,
  harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
  christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
  simona@ffwll.ch, Wayne.Lin@amd.com, chiahsuan.chung@amd.com,
- agustin.gutierrez@amd.com, hersenxs.wu@amd.com, mario.limonciello@amd.com,
+ agustin.gutierrez@amd.com, mario.limonciello@amd.com, hersenxs.wu@amd.com,
  mwen@igalia.com, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.6 11/17] drm/amd/display: Fix Mode Cutoff in DSC
+Subject: [PATCH AUTOSEL 6.1 4/9] drm/amd/display: Fix Mode Cutoff in DSC
  Passthrough to DP2.1 Monitor
-Date: Sun, 26 Jan 2025 09:56:06 -0500
-Message-Id: <20250126145612.937679-11-sashal@kernel.org>
+Date: Sun, 26 Jan 2025 09:56:46 -0500
+Message-Id: <20250126145651.943149-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20250126145612.937679-1-sashal@kernel.org>
-References: <20250126145612.937679-1-sashal@kernel.org>
+In-Reply-To: <20250126145651.943149-1-sashal@kernel.org>
+References: <20250126145651.943149-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.6.74
+X-stable-base: Linux 6.1.127
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -98,10 +98,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-index 385a5a75fdf87..5858e288b3fd6 100644
+index 1acef5f3838f3..5eb994ed54717 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-@@ -1578,16 +1578,16 @@ int pre_validate_dsc(struct drm_atomic_state *state,
+@@ -1555,16 +1555,16 @@ int pre_validate_dsc(struct drm_atomic_state *state,
  	return ret;
  }
  
