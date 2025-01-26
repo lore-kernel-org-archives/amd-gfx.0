@@ -4,44 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63BC4C02181
-	for <amd-gfx@archiver.kernel.org>; Sun, 26 Jan 2025 14:54:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 937C9C02181
+	for <amd-gfx@archiver.kernel.org>; Sun, 26 Jan 2025 14:54:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17C5D10E3BD;
-	Sun, 26 Jan 2025 14:54:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 237A010E3C8;
+	Sun, 26 Jan 2025 14:54:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JDD83mlg";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="r57ZkTfa";
 	dkim-atps=neutral
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4DE5910E3C1;
- Sun, 26 Jan 2025 14:54:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 33B6310E3C4;
+ Sun, 26 Jan 2025 14:54:43 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 92ACD5C6074;
- Sun, 26 Jan 2025 14:53:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10054C4CED3;
- Sun, 26 Jan 2025 14:54:26 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 784305C607A;
+ Sun, 26 Jan 2025 14:54:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9859BC4CEE2;
+ Sun, 26 Jan 2025 14:54:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1737903268;
- bh=jr+njAPJPtrffhbrexdXiHtdDn4WQiC8q9V5BBCE4Vk=;
+ s=k20201202; t=1737903282;
+ bh=lUa6hxzSEHrVv1Pb4M3DcXtPzy5jghDECoP62giwwcU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=JDD83mlgyKDs4i/n3qvS19ASWQXhFpp6PcAs2dyj3tJKoi2HKijMeYvnbA6y4918l
- SIuo9ht05rSZziVhH4MEmUahXsKURbLOhiVEK+xBHbmGTgZoDtSJneVAIEwlMBuHyN
- TZ7LkhkXM/iH2KQZ8M7Fo8WThYobO72sJaZF0iVb81n3WozvABEOeBCSa3N1NiO1ES
- D2S+MxdUW4SR5gLWUvwkf7sczTxP5wI89IRtExjdWOPiewZgCY/MO9pCpgutBBwQRG
- 1jhkp8kSE7nUe77r/fegnc2NyeYhri66lSzJm+yxxK/9PJqsjrVzu7EIiqkh0XmQLG
- EZKzLZWPDDPfA==
+ b=r57ZkTfaS5R71AcfN+CONsN+ab8tMvA5nkaXRkreIvd10L5aGuAX3FqmmNajkd6x3
+ 3IiA6lWxDOmvIo4+8vjOS/SB6EnQI8ZHsWP6AOHH3pYWZesOOxZuvhKc0BBHBSLd09
+ NyCoCQECZ3Ko6YgDK+EewwGJXj98Xd+O759oipcAwiQC6Kfhs4tGqybBEQJkUc6tC8
+ gGb+Cn+VMEqHEuc0t3iJATEIv7KKaD8rQg20C92t5CzYwQGyN71K0mZnVOpIi/JCEm
+ Ldkjky+GvfKoTDdQ9iSE4ZWxqLEDdfPDlRI4tfo9Ac3lq6+VkWQyom20kTcbg0YWlW
+ LE9XmhKx/VDfw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Philip Yang <Philip.Yang@amd.com>, Felix Kuehling <felix.kuehling@amd.com>,
+Cc: Nathan Chancellor <nathan@kernel.org>, kernel test robot <lkp@intel.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- Felix.Kuehling@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.13 25/34] drm/amdkfd: Queue interrupt work to
- different CPU
-Date: Sun, 26 Jan 2025 09:53:01 -0500
-Message-Id: <20250126145310.926311-25-sashal@kernel.org>
+ chaitanya.dhere@amd.com, jun.lei@amd.com, harry.wentland@amd.com,
+ sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, christian.koenig@amd.com,
+ Xinhui.Pan@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ llvm@lists.linux.dev
+Subject: [PATCH AUTOSEL 6.13 32/34] drm/amd/display: Increase sanitizer frame
+ larger than limit when compile testing with clang
+Date: Sun, 26 Jan 2025 09:53:08 -0500
+Message-Id: <20250126145310.926311-32-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250126145310.926311-1-sashal@kernel.org>
 References: <20250126145310.926311-1-sashal@kernel.org>
@@ -64,150 +66,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Philip Yang <Philip.Yang@amd.com>
+From: Nathan Chancellor <nathan@kernel.org>
 
-[ Upstream commit 34db5a32617d102e8042151bb87590e43c97132e ]
+[ Upstream commit e4479aecf6581af81bc0908575447878d2a07e01 ]
 
-For CPX mode, each KFD node has interrupt worker to process ih_fifo to
-send events to user space. Currently all interrupt workers of same adev
-queue to same CPU, all workers execution are actually serialized and
-this cause KFD ih_fifo overflow when CPU usage is high.
+Commit 24909d9ec7c3 ("drm/amd/display: Overwriting dualDPP UBF values
+before usage") added a new warning in dml2/display_mode_core.c when
+building allmodconfig with clang:
 
-Use per-GPU unbounded highpri queue with number of workers equals to
-number of partitions, let queue_work select the next CPU round robin
-among the local CPUs of same NUMA.
+  drivers/gpu/drm/amd/amdgpu/../display/dc/dml2/display_mode_core.c:6268:13: error: stack frame size (3128) exceeds limit (3072) in 'dml_prefetch_check' [-Werror,-Wframe-larger-than]
+   6268 | static void dml_prefetch_check(struct display_mode_lib_st *mode_lib)
+        |             ^
 
-Signed-off-by: Philip Yang <Philip.Yang@amd.com>
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+Commit be4e3509314a ("drm/amd/display: DML21 Reintegration For Various
+Fixes") introduced one in dml2_core/dml2_core_dcn4_calcs.c with the same
+configuration:
+
+  drivers/gpu/drm/amd/amdgpu/../display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c:7236:13: error: stack frame size (3256) exceeds limit (3072) in 'dml_core_mode_support' [-Werror,-Wframe-larger-than]
+   7236 | static bool dml_core_mode_support(struct dml2_core_calcs_mode_support_ex *in_out_params)
+        |             ^
+
+In the case of the first warning, the stack usage was already at the
+limit at the parent change, so the offending change was rather
+innocuous. In the case of the second warning, there was a rather
+dramatic increase in stack usage compared to the parent:
+
+  drivers/gpu/drm/amd/amdgpu/../display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c:7032:13: error: stack frame size (2696) exceeds limit (2048) in 'dml_core_mode_support' [-Werror,-Wframe-larger-than]
+   7032 | static bool dml_core_mode_support(struct dml2_core_calcs_mode_support_ex *in_out_params)
+        |             ^
+
+This is an unfortunate interaction between an issue with stack slot
+reuse in LLVM that gets exacerbated by sanitization (which gets enabled
+with all{mod,yes}config) and function calls using a much higher number
+of parameters than is typical in the kernel, necessitating passing most
+of these values on the stack.
+
+While it is possible that there should be source code changes to address
+these warnings, this code is difficult to modify for various reasons, as
+has been noted in other changes that have occurred for similar reasons,
+such as commit 6740ec97bcdb ("drm/amd/display: Increase frame warning
+limit with KASAN or KCSAN in dml2").
+
+Increase the frame larger than limit when compile testing with clang and
+the sanitizers enabled to avoid this breakage in all{mod,yes}config, as
+they are commonly used and valuable testing targets. While it is not the
+best to hide this issue, it is not really relevant when compile testing,
+as the sanitizers are commonly stressful on optimizations and they are
+only truly useful at runtime, which COMPILE_TEST states will not occur
+with the current build.
+
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202412121748.chuX4sap-lkp@intel.com/
+Signed-off-by: Nathan Chancellor <nathan@kernel.org>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_device.c    | 25 ++++++++--------------
- drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c | 25 ++++++++--------------
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h      |  3 ++-
- 3 files changed, 20 insertions(+), 33 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dml2/Makefile | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-index 9b51dd75fefc7..35caa71f317dc 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-@@ -638,6 +638,14 @@ static void kfd_cleanup_nodes(struct kfd_dev *kfd, unsigned int num_nodes)
- 	struct kfd_node *knode;
- 	unsigned int i;
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2/Makefile b/drivers/gpu/drm/amd/display/dc/dml2/Makefile
+index c4378e620cbf9..986a69c5bd4bc 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/dml2/Makefile
+@@ -29,7 +29,11 @@ dml2_rcflags := $(CC_FLAGS_NO_FPU)
  
-+	/*
-+	 * flush_work ensures that there are no outstanding
-+	 * work-queue items that will access interrupt_ring. New work items
-+	 * can't be created because we stopped interrupt handling above.
-+	 */
-+	flush_workqueue(kfd->ih_wq);
-+	destroy_workqueue(kfd->ih_wq);
-+
- 	for (i = 0; i < num_nodes; i++) {
- 		knode = kfd->nodes[i];
- 		device_queue_manager_uninit(knode->dqm);
-@@ -1059,21 +1067,6 @@ static int kfd_resume(struct kfd_node *node)
- 	return err;
- }
- 
--static inline void kfd_queue_work(struct workqueue_struct *wq,
--				  struct work_struct *work)
--{
--	int cpu, new_cpu;
--
--	cpu = new_cpu = smp_processor_id();
--	do {
--		new_cpu = cpumask_next(new_cpu, cpu_online_mask) % nr_cpu_ids;
--		if (cpu_to_node(new_cpu) == numa_node_id())
--			break;
--	} while (cpu != new_cpu);
--
--	queue_work_on(new_cpu, wq, work);
--}
--
- /* This is called directly from KGD at ISR. */
- void kgd2kfd_interrupt(struct kfd_dev *kfd, const void *ih_ring_entry)
- {
-@@ -1099,7 +1092,7 @@ void kgd2kfd_interrupt(struct kfd_dev *kfd, const void *ih_ring_entry)
- 			    	patched_ihre, &is_patched)
- 		    && enqueue_ih_ring_entry(node,
- 			    	is_patched ? patched_ihre : ih_ring_entry)) {
--			kfd_queue_work(node->ih_wq, &node->interrupt_work);
-+			queue_work(node->kfd->ih_wq, &node->interrupt_work);
- 			spin_unlock_irqrestore(&node->interrupt_lock, flags);
- 			return;
- 		}
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c b/drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c
-index 9b6b6e8825934..15b4b70cf1997 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c
-@@ -62,11 +62,14 @@ int kfd_interrupt_init(struct kfd_node *node)
- 		return r;
- 	}
- 
--	node->ih_wq = alloc_workqueue("KFD IH", WQ_HIGHPRI, 1);
--	if (unlikely(!node->ih_wq)) {
--		kfifo_free(&node->ih_fifo);
--		dev_err(node->adev->dev, "Failed to allocate KFD IH workqueue\n");
--		return -ENOMEM;
-+	if (!node->kfd->ih_wq) {
-+		node->kfd->ih_wq = alloc_workqueue("KFD IH", WQ_HIGHPRI | WQ_UNBOUND,
-+						   node->kfd->num_nodes);
-+		if (unlikely(!node->kfd->ih_wq)) {
-+			kfifo_free(&node->ih_fifo);
-+			dev_err(node->adev->dev, "Failed to allocate KFD IH workqueue\n");
-+			return -ENOMEM;
-+		}
- 	}
- 	spin_lock_init(&node->interrupt_lock);
- 
-@@ -96,16 +99,6 @@ void kfd_interrupt_exit(struct kfd_node *node)
- 	spin_lock_irqsave(&node->interrupt_lock, flags);
- 	node->interrupts_active = false;
- 	spin_unlock_irqrestore(&node->interrupt_lock, flags);
--
--	/*
--	 * flush_work ensures that there are no outstanding
--	 * work-queue items that will access interrupt_ring. New work items
--	 * can't be created because we stopped interrupt handling above.
--	 */
--	flush_workqueue(node->ih_wq);
--
--	destroy_workqueue(node->ih_wq);
--
- 	kfifo_free(&node->ih_fifo);
- }
- 
-@@ -162,7 +155,7 @@ static void interrupt_wq(struct work_struct *work)
- 			/* If we spent more than a second processing signals,
- 			 * reschedule the worker to avoid soft-lockup warnings
- 			 */
--			queue_work(dev->ih_wq, &dev->interrupt_work);
-+			queue_work(dev->kfd->ih_wq, &dev->interrupt_work);
- 			break;
- 		}
- 	}
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index 9e5ca0b93b2a2..74881a5ca59ad 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -273,7 +273,6 @@ struct kfd_node {
- 
- 	/* Interrupts */
- 	struct kfifo ih_fifo;
--	struct workqueue_struct *ih_wq;
- 	struct work_struct interrupt_work;
- 	spinlock_t interrupt_lock;
- 
-@@ -366,6 +365,8 @@ struct kfd_dev {
- 	struct kfd_node *nodes[MAX_KFD_NODES];
- 	unsigned int num_nodes;
- 
-+	struct workqueue_struct *ih_wq;
-+
- 	/* Kernel doorbells for KFD device */
- 	struct amdgpu_bo *doorbells;
- 
+ ifneq ($(CONFIG_FRAME_WARN),0)
+ ifeq ($(filter y,$(CONFIG_KASAN)$(CONFIG_KCSAN)),y)
++ifeq ($(CONFIG_CC_IS_CLANG)$(CONFIG_COMPILE_TEST),yy)
++frame_warn_flag := -Wframe-larger-than=4096
++else
+ frame_warn_flag := -Wframe-larger-than=3072
++endif
+ else
+ frame_warn_flag := -Wframe-larger-than=2048
+ endif
 -- 
 2.39.5
 
