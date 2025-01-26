@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9AA9C0218D
-	for <amd-gfx@archiver.kernel.org>; Sun, 26 Jan 2025 14:55:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3C9AC0218E
+	for <amd-gfx@archiver.kernel.org>; Sun, 26 Jan 2025 14:55:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9016210E3DD;
-	Sun, 26 Jan 2025 14:55:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67AC610E3EE;
+	Sun, 26 Jan 2025 14:55:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gr6NSIZt";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HSE2Uch+";
 	dkim-atps=neutral
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2929B10E3DD;
- Sun, 26 Jan 2025 14:55:24 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 985C810E3DE;
+ Sun, 26 Jan 2025 14:55:36 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 3ED6CA406C4;
- Sun, 26 Jan 2025 14:53:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12A0AC4CEE4;
- Sun, 26 Jan 2025 14:55:20 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id DCA8A5C3ED2;
+ Sun, 26 Jan 2025 14:54:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 774CCC4CEE3;
+ Sun, 26 Jan 2025 14:55:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1737903323;
- bh=XKGfn4HN9PdLr93dYM6sHItaHU5f7ZdT7XRVtQ3vWxE=;
+ s=k20201202; t=1737903335;
+ bh=eobPHnESK3HhnA4oyak0zVx+YXq6YNDAcH29j12Pm7I=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=gr6NSIZtapDWeKCsT4CQwwbtoD0qjvn5fDJpF5oA9U4rbIOf4d6OJDCpHwYCs0ZG3
- 3V6aKkSgWtXDK/Kzjlp7YmFzV7GjwknxbQr57hSC9kmNnBUFs6hfra0ZpsGhI4HOim
- pA3mPHmxCsUVMOsQnL96tbVgjzjHwl0Z+1Ol0KnajCtNmvxlOQANkXx9Zkq8yqup55
- WaTs+clbnuWAgFYXk+1b2VkMEZTb1y3B8RoLDdKYFVwHw85R76DZVgEMGl5LkQpylk
- LeriwQbz2FkHwr422sIIkhrnjNT/21A+Jl0xtPUK9nABsSGyjNKlLjUilPHQwY7411
- RenP7qRYeFp8Q==
+ b=HSE2Uch+AFzT7RL+GzZ4gQPgeol2Kf7cJLLDf5XJeVK6wTlGv3wl3LbtCh4CoaizF
+ XylRCq7A/0LeBje9Bsudp5Z4phu9/XHFF1Yanfwz4gSpcKWP9V02nj5YqBLpOy3gE0
+ 3HowQtP4luWdopwFV+pJB41v6qpV/+QHllfgcZYG0UJtibNhOAgoBYGJ63McZX5pNF
+ r60Jc0IjorwX58udaXqEl0BU0XNSsiOZNRxJH6pmJ9gZSq3jiJz21nLvS8RCFS0/+f
+ eYNHj7WHClIFwAIQV2rl6z9yrZX+2NwDU9ozvdbQtYiNoz757+cyrbkELg08A+ldz7
+ KvdInR6Jn5p7A==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Ausef Yousof <Ausef.Yousof@amd.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Daniel Wheeler <daniel.wheeler@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- chaitanya.dhere@amd.com, jun.lei@amd.com, harry.wentland@amd.com,
- sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, christian.koenig@amd.com,
- Xinhui.Pan@amd.com, airlied@gmail.com, simona@ffwll.ch,
+Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Maxime Ripard <mripard@kernel.org>,
+ Harry Wentland <harry.wentland@amd.com>, Sasha Levin <sashal@kernel.org>,
+ sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, hamza.mahfooz@amd.com, chiahsuan.chung@amd.com,
+ sunil.khatri@amd.com, alex.hung@amd.com, aurabindo.pillai@amd.com,
+ hersenxs.wu@amd.com, mwen@igalia.com, Wayne.Lin@amd.com,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.12 10/31] drm/amd/display: Overwriting dualDPP UBF
- values before usage
-Date: Sun, 26 Jan 2025 09:54:26 -0500
-Message-Id: <20250126145448.930220-10-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.12 15/31] drm/amd/display: use eld_mutex to protect
+ access to connector->eld
+Date: Sun, 26 Jan 2025 09:54:31 -0500
+Message-Id: <20250126145448.930220-15-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250126145448.930220-1-sashal@kernel.org>
 References: <20250126145448.930220-1-sashal@kernel.org>
@@ -68,129 +68,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Ausef Yousof <Ausef.Yousof@amd.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-[ Upstream commit 24909d9ec7c3afa8da2f3c9afa312e7a4a61f250 ]
+[ Upstream commit 819bee01eea06282d7bda17d46caf29cae4f6d84 ]
 
-[WHY]
-Right now in dml2 mode validation we are calculating UBF parameters for
-prefetch calculation for single and dual DPP scenarios. Data structure
-to store such values are just 1D arrays, the single DPP values are
-overwritten by the dualDPP values, and we end up using dualDPP for
-prefetch calculations twice (once in place of singleDPP support check
-and again for dual).
+Reading access to connector->eld can happen at the same time the
+drm_edid_to_eld() updates the data. Take the newly added eld_mutex in
+order to protect connector->eld from concurrent access.
 
-This naturally leads to many problems, one of which validating a mode in
-"singleDPP" (when we used dual DPP parameters) and sending the singleDPP
-parameters to mode programming, if we cannot support then we observe the
-corruption as described in the ticket.
-
-[HOW]
-UBF values need to have 2d arrays to store values specific to single and
-dual DPP states to avoid single DPP values being overwritten. Other
-parameters are recorded on a per state basis such as prefetch UBF values
-but they are in the same loop used for calculation and at that point its
-fine to overwrite them, its not the case for plain UBF values.
-
-Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Signed-off-by: Ausef Yousof <Ausef.Yousof@amd.com>
-Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Reviewed-by: Maxime Ripard <mripard@kernel.org>
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Link: https://patchwork.freedesktop.org/patch/msgid/20241206-drm-connector-eld-mutex-v2-4-c9bce1ee8bea@linaro.org
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../amd/display/dc/dml2/display_mode_core.c   | 30 +++++++++----------
- .../dc/dml2/display_mode_core_structs.h       |  6 ++--
- 2 files changed, 18 insertions(+), 18 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core.c b/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core.c
-index be87dc0f07799..6822b07951204 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core.c
-@@ -6301,9 +6301,9 @@ static void dml_prefetch_check(struct display_mode_lib_st *mode_lib)
- 			mode_lib->ms.meta_row_bandwidth_this_state,
- 			mode_lib->ms.dpte_row_bandwidth_this_state,
- 			mode_lib->ms.NoOfDPPThisState,
--			mode_lib->ms.UrgentBurstFactorLuma,
--			mode_lib->ms.UrgentBurstFactorChroma,
--			mode_lib->ms.UrgentBurstFactorCursor);
-+			mode_lib->ms.UrgentBurstFactorLuma[j],
-+			mode_lib->ms.UrgentBurstFactorChroma[j],
-+			mode_lib->ms.UrgentBurstFactorCursor[j]);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index ea403fece8392..84b801171fe5a 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -1036,8 +1036,10 @@ static int amdgpu_dm_audio_component_get_eld(struct device *kdev, int port,
+ 			continue;
  
- 		s->VMDataOnlyReturnBWPerState = dml_get_return_bw_mbps_vm_only(
- 																	&mode_lib->ms.soc,
-@@ -6458,9 +6458,9 @@ static void dml_prefetch_check(struct display_mode_lib_st *mode_lib)
- 				mode_lib->ms.cursor_bw_pre,
- 				mode_lib->ms.prefetch_vmrow_bw,
- 				mode_lib->ms.NoOfDPPThisState,
--				mode_lib->ms.UrgentBurstFactorLuma,
--				mode_lib->ms.UrgentBurstFactorChroma,
--				mode_lib->ms.UrgentBurstFactorCursor,
-+				mode_lib->ms.UrgentBurstFactorLuma[j],
-+				mode_lib->ms.UrgentBurstFactorChroma[j],
-+				mode_lib->ms.UrgentBurstFactorCursor[j],
- 				mode_lib->ms.UrgentBurstFactorLumaPre,
- 				mode_lib->ms.UrgentBurstFactorChromaPre,
- 				mode_lib->ms.UrgentBurstFactorCursorPre,
-@@ -6517,9 +6517,9 @@ static void dml_prefetch_check(struct display_mode_lib_st *mode_lib)
- 						mode_lib->ms.cursor_bw,
- 						mode_lib->ms.cursor_bw_pre,
- 						mode_lib->ms.NoOfDPPThisState,
--						mode_lib->ms.UrgentBurstFactorLuma,
--						mode_lib->ms.UrgentBurstFactorChroma,
--						mode_lib->ms.UrgentBurstFactorCursor,
-+						mode_lib->ms.UrgentBurstFactorLuma[j],
-+						mode_lib->ms.UrgentBurstFactorChroma[j],
-+						mode_lib->ms.UrgentBurstFactorCursor[j],
- 						mode_lib->ms.UrgentBurstFactorLumaPre,
- 						mode_lib->ms.UrgentBurstFactorChromaPre,
- 						mode_lib->ms.UrgentBurstFactorCursorPre);
-@@ -6586,9 +6586,9 @@ static void dml_prefetch_check(struct display_mode_lib_st *mode_lib)
- 													mode_lib->ms.cursor_bw_pre,
- 													mode_lib->ms.prefetch_vmrow_bw,
- 													mode_lib->ms.NoOfDPP[j], // VBA_ERROR DPPPerSurface is not assigned at this point, should use NoOfDpp here
--													mode_lib->ms.UrgentBurstFactorLuma,
--													mode_lib->ms.UrgentBurstFactorChroma,
--													mode_lib->ms.UrgentBurstFactorCursor,
-+													mode_lib->ms.UrgentBurstFactorLuma[j],
-+													mode_lib->ms.UrgentBurstFactorChroma[j],
-+													mode_lib->ms.UrgentBurstFactorCursor[j],
- 													mode_lib->ms.UrgentBurstFactorLumaPre,
- 													mode_lib->ms.UrgentBurstFactorChromaPre,
- 													mode_lib->ms.UrgentBurstFactorCursorPre,
-@@ -7809,9 +7809,9 @@ dml_bool_t dml_core_mode_support(struct display_mode_lib_st *mode_lib)
- 				mode_lib->ms.DETBufferSizeYThisState[k],
- 				mode_lib->ms.DETBufferSizeCThisState[k],
- 				/* Output */
--				&mode_lib->ms.UrgentBurstFactorCursor[k],
--				&mode_lib->ms.UrgentBurstFactorLuma[k],
--				&mode_lib->ms.UrgentBurstFactorChroma[k],
-+				&mode_lib->ms.UrgentBurstFactorCursor[j][k],
-+				&mode_lib->ms.UrgentBurstFactorLuma[j][k],
-+				&mode_lib->ms.UrgentBurstFactorChroma[j][k],
- 				&mode_lib->ms.NotUrgentLatencyHiding[k]);
- 		}
+ 		*enabled = true;
++		mutex_lock(&connector->eld_mutex);
+ 		ret = drm_eld_size(connector->eld);
+ 		memcpy(buf, connector->eld, min(max_bytes, ret));
++		mutex_unlock(&connector->eld_mutex);
  
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core_structs.h b/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core_structs.h
-index f951936bb579e..504c427b3b319 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core_structs.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/display_mode_core_structs.h
-@@ -884,11 +884,11 @@ struct mode_support_st {
- 	dml_uint_t meta_row_height[__DML_NUM_PLANES__];
- 	dml_uint_t meta_row_height_chroma[__DML_NUM_PLANES__];
- 	dml_float_t UrgLatency;
--	dml_float_t UrgentBurstFactorCursor[__DML_NUM_PLANES__];
-+	dml_float_t UrgentBurstFactorCursor[2][__DML_NUM_PLANES__];
- 	dml_float_t UrgentBurstFactorCursorPre[__DML_NUM_PLANES__];
--	dml_float_t UrgentBurstFactorLuma[__DML_NUM_PLANES__];
-+	dml_float_t UrgentBurstFactorLuma[2][__DML_NUM_PLANES__];
- 	dml_float_t UrgentBurstFactorLumaPre[__DML_NUM_PLANES__];
--	dml_float_t UrgentBurstFactorChroma[__DML_NUM_PLANES__];
-+	dml_float_t UrgentBurstFactorChroma[2][__DML_NUM_PLANES__];
- 	dml_float_t UrgentBurstFactorChromaPre[__DML_NUM_PLANES__];
- 	dml_float_t MaximumSwathWidthInLineBufferLuma;
- 	dml_float_t MaximumSwathWidthInLineBufferChroma;
+ 		break;
+ 	}
 -- 
 2.39.5
 
