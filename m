@@ -4,44 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5881AC02181
-	for <amd-gfx@archiver.kernel.org>; Sun, 26 Jan 2025 14:54:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C9C0C02181
+	for <amd-gfx@archiver.kernel.org>; Sun, 26 Jan 2025 14:54:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 009B410E3A9;
-	Sun, 26 Jan 2025 14:54:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F096910E3B8;
+	Sun, 26 Jan 2025 14:54:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SPdcX3Zj";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IcKoIYkR";
 	dkim-atps=neutral
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C87810E3A9;
- Sun, 26 Jan 2025 14:54:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A701F10E3B8;
+ Sun, 26 Jan 2025 14:54:23 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id AEE465C606C;
- Sun, 26 Jan 2025 14:53:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69450C4CEEB;
- Sun, 26 Jan 2025 14:54:14 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id D53645C600A;
+ Sun, 26 Jan 2025 14:53:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85764C4CEE6;
+ Sun, 26 Jan 2025 14:54:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1737903255;
- bh=AUYlC3Kq1tJ9yUzra1pfHn+21oUrYNBP5wRDuPx4TAg=;
+ s=k20201202; t=1737903262;
+ bh=tFMmcJ4WiZ4T+GcQR2jZ8ZBr1K9RTB8HKxC6Cg085BA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=SPdcX3Zj9eARevzCLHqZqL0Z9+Xf9cHx+Ic3YcS+kTqHi7w2PeOIAyrwY5UuxjCgA
- 2Mf7R9hdGriohFGoLCnupuOKb5eIpG64k1VCQDUqe/Ql4pvZJqqeCCBcUXy6PYx8nX
- O7EIw+5NK3dOE5j7WMAGymjst3PMyyBPBEx3Bh4GFKXC1e3RYZT6hdWQGvg6Rm/2l+
- c+7negN4Wv3d8HBLv4EazfDKCS9RWR78a+H6aI+89ECbDLgRI4V9GEcFilvsLQOWlf
- wbxmEEjTofkBPYcqTijAwiUqgMChb5ohrBwE3W4Krgt9j6WaU3Pd5Y6Kvuq0lq2abJ
- rqoY5BQhli8qw==
+ b=IcKoIYkRoybSvkNYBc2HiRARHfjvh7Ka3w2CaEZy8Zs9ul7rh0D5t47v/qXar9iwL
+ j8LymBGSgLETVPfJv6qpZGfhGYTPZb3ZG79toZeSOkfAfNHRwoQ1XOR9SV4eU0+Rlv
+ MSouZ1dPQoNsdUOB1Jf+8MKPv8lwTkNWUgvSXFNeTl4W6urPTorRlD/s0UBspwBQue
+ 2gkUrEFazoDGkDwgLygLvBclTpvJTwsbUt54lT/n9Wquk/7o7tV7GnSE1sAn5iHjJ3
+ ck3/jRHwg7PCtg3/1zZ7WEIxEWe8U0LhgjKmG6dAkXxmTLXrxj4c6X3IR2snm84yCQ
+ aLVeRWiMb/oKw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Maxime Ripard <mripard@kernel.org>, Sasha Levin <sashal@kernel.org>,
- alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+Cc: Fangzhi Zuo <Jerry.Zuo@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>,
+ Wayne Lin <wayne.lin@amd.com>, Rodrigo Siqueira <rodrigo.siqueira@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
+ harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
+ christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, Wayne.Lin@amd.com, chiahsuan.chung@amd.com,
+ agustin.gutierrez@amd.com, hersenxs.wu@amd.com, mario.limonciello@amd.com,
+ mwen@igalia.com, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.13 20/34] drm/radeon: use eld_mutex to protect
- access to connector->eld
-Date: Sun, 26 Jan 2025 09:52:56 -0500
-Message-Id: <20250126145310.926311-20-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.13 23/34] drm/amd/display: Fix Mode Cutoff in DSC
+ Passthrough to DP2.1 Monitor
+Date: Sun, 26 Jan 2025 09:52:59 -0500
+Message-Id: <20250126145310.926311-23-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250126145310.926311-1-sashal@kernel.org>
 References: <20250126145310.926311-1-sashal@kernel.org>
@@ -64,37 +68,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+From: Fangzhi Zuo <Jerry.Zuo@amd.com>
 
-[ Upstream commit b54c14f82428c8a602392d4cae1958a71a578132 ]
+[ Upstream commit e56ad45e991128bf4db160b75a1d9f647a341d8f ]
 
-Reading access to connector->eld can happen at the same time the
-drm_edid_to_eld() updates the data. Take the newly added eld_mutex in
-order to protect connector->eld from concurrent access.
+Source --> DP2.1 MST hub --> DP1.4/2.1 monitor
 
-Reviewed-by: Maxime Ripard <mripard@kernel.org>
-Link: https://patchwork.freedesktop.org/patch/msgid/20241206-drm-connector-eld-mutex-v2-8-c9bce1ee8bea@linaro.org
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+When change from DP1.4 to DP2.1 from monitor manual, modes higher than
+4k120 are all cutoff by mode validation. Switch back to DP1.4 gets all
+the modes up to 4k240 available to be enabled by dsc passthrough.
+
+[why]
+Compared to DP1.4 link from hub to monitor, DP2.1 link has larger
+full_pbn value that causes overflow in the process of doing conversion
+from pbn to kbps.
+
+[how]
+Change the data type accordingly to fit into the data limit during
+conversion calculation.
+
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+Reviewed-by: Wayne Lin <wayne.lin@amd.com>
+Signed-off-by: Fangzhi Zuo <Jerry.Zuo@amd.com>
+Signed-off-by: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/radeon/radeon_audio.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/radeon_audio.c b/drivers/gpu/drm/radeon/radeon_audio.c
-index 5b69cc8011b42..8d64ba18572ec 100644
---- a/drivers/gpu/drm/radeon/radeon_audio.c
-+++ b/drivers/gpu/drm/radeon/radeon_audio.c
-@@ -775,8 +775,10 @@ static int radeon_audio_component_get_eld(struct device *kdev, int port,
- 		if (!dig->pin || dig->pin->id != port)
- 			continue;
- 		*enabled = true;
-+		mutex_lock(&connector->eld_mutex);
- 		ret = drm_eld_size(connector->eld);
- 		memcpy(buf, connector->eld, min(max_bytes, ret));
-+		mutex_unlock(&connector->eld_mutex);
- 		break;
- 	}
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+index 1080075ccb17c..e096fb5621229 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+@@ -1695,16 +1695,16 @@ int pre_validate_dsc(struct drm_atomic_state *state,
+ 	return ret;
+ }
  
+-static unsigned int kbps_from_pbn(unsigned int pbn)
++static uint32_t kbps_from_pbn(unsigned int pbn)
+ {
+-	unsigned int kbps = pbn;
++	uint64_t kbps = (uint64_t)pbn;
+ 
+ 	kbps *= (1000000 / PEAK_FACTOR_X1000);
+ 	kbps *= 8;
+ 	kbps *= 54;
+ 	kbps /= 64;
+ 
+-	return kbps;
++	return (uint32_t)kbps;
+ }
+ 
+ static bool is_dsc_common_config_possible(struct dc_stream_state *stream,
 -- 
 2.39.5
 
