@@ -4,76 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1D72C0218A
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jan 2025 15:32:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50162C02188
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jan 2025 15:53:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4080C10E56E;
-	Mon, 27 Jan 2025 15:32:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04F7D10E574;
+	Mon, 27 Jan 2025 15:53:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jKDjFHEX";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="meMvycAU";
 	dkim-atps=neutral
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
- [209.85.128.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2881C10E569
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Jan 2025 15:32:13 +0000 (UTC)
-Received: by mail-wm1-f53.google.com with SMTP id
- 5b1f17b1804b1-436a39e4891so30757765e9.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Jan 2025 07:32:13 -0800 (PST)
+Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com
+ [209.85.210.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A3F5210E574
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Jan 2025 15:53:22 +0000 (UTC)
+Received: by mail-ot1-f54.google.com with SMTP id
+ 46e09a7af769-71e3c7117e8so162776a34.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Jan 2025 07:53:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1737991931; x=1738596731; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=kZneoDKIo24LxFcJSQMPiOFBLWTj9oIcQPwnr3yK/h4=;
- b=jKDjFHEXRcoolskVIjfikDLC8mydwKgCZYDbF7WOixJsDsAUNRFLhuhP9sXLs/qWUq
- YfZHyZ35REBwfdi1VLfYuuI9uGDBvwKdPrVNqEpSwkcZMxYVdIxfNHT/I8egfqPCYZLA
- WEbRNzxw+4ier2E6ZPPUhOctKws/Ui5qyC47x2XLXFB5oXBdohwsb5tj/ArtR0qRNTeN
- wKfvYFR/QRR97DFCTehTrubu7Q8XxQ+cYVxZnzYR51DvTuQpkt0myVPIefSsG/m/Q3ia
- 4OoU0FQysNTUeRIKynHRkCv5EG6qbt5ZOIlLmz/7dO0qZHpx9pVTcyXa+GGTRUYCQd6l
- 3Flg==
+ d=gmail.com; s=20230601; t=1737993201; x=1738598001; darn=lists.freedesktop.org;
+ h=to:subject:message-id:date:from:in-reply-to:references:mime-version
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=AVpbBdnEOPEV30b57OGqT1CchNZDBXdvrlf/o/TrHws=;
+ b=meMvycAUHVOhsK0VYFYCE3JeFNn6Yd2YrSHcspoH8k7QGWpfU5Ruv3vN9HBhlj6z2X
+ GC5qd2/EPN2ZAXa9b+jygInTPmLnLWejz7CHXeYTctAalJDugkDuPXEpXiqOir8O8M5L
+ 6D3GIGcRdUagML9fdNFHddiO2Ocai4NM4vIp3CiHYJwAxS7KWioFhZoAzNveREctiASI
+ TZrTY0qvcmokRkhRsRge5sFn465qKACwrvKPAp1RknDxgnID2oPOH68emjF+chwx/k2P
+ FENFSqPUzQu3eqU1kJgvaJ73BBcGnMiVSaU7QW6mrqMJw3ChNRCg+Sf+CP2HmzMP7hAs
+ wFcw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737991931; x=1738596731;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=kZneoDKIo24LxFcJSQMPiOFBLWTj9oIcQPwnr3yK/h4=;
- b=wqc5KD3NgINgnLylsSkd8ADIbtjReYxEvoC/LPKSkjpUTMIeVx3QTPIvkgcS8pEQRE
- uXZskvg/r5nbc++L2wZRYCMNbpQcTHap6+CUJvRAVmaWCJJ3QOb/imD03WXnhr+9Zkc1
- HkbqIzikct1X+dEg66Ku1cOi2c9JAIzgtkYXB/uH9eBh4oomVcXGa66AiCrVTCcJXxDg
- 4or9pusJOSet75TAC0jFj1gqlFLzBD8EKGNZb9kKLb1HerpAuu61h5Hz42CVJgyMcuVn
- l8PSkQHdNbwxVwMqr6qwqnEKGo+PHL614JLhJrpIoypSPltZOt8tKIlmpvyLdkzmGGN4
- 4KjQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWamPRSreUD/3CORrHaDBMu3/C/8psxj/obMvNWrD4kp0aRkE+qs2BMTCNgBmbPAtR8wJFxz6Hu@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzDpTjNV6BeCneTCme5OpHWZKnq9hXNe14S4pACupz45I9CGs/w
- YjTRtgU3JynI71DubwEIda6AY1HfT6OLdfX+oV2+GrhFddJ0pkwe
-X-Gm-Gg: ASbGncv00vj3YZeFJSg2g1OAWFkrSm6sZefAL+OTLTquso66CwLx5/fzse4nGU3lO2t
- 3tTrvqlCNBgGy32zejPa60TtLo7nCB4dzNHf/lQYbC9MaOUsMk/3A9MuIHd5WEFIqGcKFbdLv9n
- IC/AzEBlYvcUVDrbD7cJ5qXwhnSJmT/qhVfTW+/SLlVijTedLs0zfyZFFxEIrwOisAuxpYKgD8O
- NoENjX0fsXoS69W4+P7sshsZ7glNHHZrgvIWP+p5mxG4lbCBiO7EWRS+J2yyfddWT2zggMmLnBZ
- uQbbFQATJTX0W87nvg==
-X-Google-Smtp-Source: AGHT+IG1fnyjWnqwrSFAQqaYUoaRSw2r8Q12ZztCaTwYGN9Cr1xETXPphUB7G0mAFCGXqGJu7sHkBQ==
-X-Received: by 2002:a05:600c:1d28:b0:434:9f81:76d5 with SMTP id
- 5b1f17b1804b1-43891434081mr352050385e9.22.1737991931357; 
- Mon, 27 Jan 2025 07:32:11 -0800 (PST)
-Received: from able.fritz.box ([2a00:e180:153d:dd00:1202:d6cf:5d6d:56cb])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-438bd575468sm133904325e9.39.2025.01.27.07.32.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Jan 2025 07:32:10 -0800 (PST)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: Alexander.Deucher@amd.com, srinivasan.shanmugam@amd.com,
- amd-gfx@lists.freedesktop.org
-Subject: [PATCH 4/6] drm/amdgpu: rework how isolation is enforced
-Date: Mon, 27 Jan 2025 16:32:05 +0100
-Message-Id: <20250127153207.5717-4-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250127153207.5717-1-christian.koenig@amd.com>
-References: <20250127153207.5717-1-christian.koenig@amd.com>
+ d=1e100.net; s=20230601; t=1737993201; x=1738598001;
+ h=to:subject:message-id:date:from:in-reply-to:references:mime-version
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=AVpbBdnEOPEV30b57OGqT1CchNZDBXdvrlf/o/TrHws=;
+ b=a36vS2Jpy1vK3QTbvZ7+gzQjQpr1P20UG3UfAwpv+L2uqG/Xi/c8AIJG2bIFJClVGa
+ XU2yhl5x9tN7iNdAn26fT+zoJJ9n6Miof1aopb/9IIqjOB211iGfUobkbxdDw+jYNrHE
+ alsdDCKSzutt8jVgIKqWt9i8atVGRF/glOfVdpN0xpZkBjq+Eb1U8yNck+U+LhozSxwM
+ SoYKmhUaswTDykylTcdC4NOQ28/oeMWQihkyF2gL+FF20DDbH7DS2iQiZ0EzR/OWnMFC
+ fHen1BIW75TluKZiVRC5/PS50ZyZuAWqDidGuKw2bTRwxnlnBjwaMCY9A8VcPWUM9Nsp
+ U07Q==
+X-Gm-Message-State: AOJu0YzoK4scmETEM/D0ugUp2fAy0wEZjf0F7AA59/JG+b8sMrEY+9ql
+ JUw7yeg6c530P8KjWHkfcxA1ZgLKI33oZYhW4dO2K/8LsUpB2CwNaj9vOCLa/dq9AEKaBKfLh/V
+ 6k1IvlK9znYElAmnySd4RWwMIJv6yNq/F
+X-Gm-Gg: ASbGncsfcFwqY4A0udVRPolIB1dQEHGz6BN8OgEKX905YEcJi5KMlVfXpQxU0MLlzOi
+ 8kon9ykD6hPYTciq7eKCq5dIbgopm1IsMC6yKIMHGOxA8yMDHctqapQNrjk7Mj/MW
+X-Google-Smtp-Source: AGHT+IEycmif3Jt62UdlxJchAYEBbF8ng+hJGsz6iCy9MjxNkH/ebXcCaU1SiR4nFk7is1UyEgFpT4tc9LZSvbg0F5M=
+X-Received: by 2002:a05:6808:13c6:b0:3eb:a04a:974f with SMTP id
+ 5614622812f47-3f1d82358b3mr5811099b6e.4.1737993201401; Mon, 27 Jan 2025
+ 07:53:21 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <CAAxE2A42f1uH_1esfXn-BsPEzbMeuev4TAFfG9DYDc01xS=g8Q@mail.gmail.com>
+In-Reply-To: <CAAxE2A42f1uH_1esfXn-BsPEzbMeuev4TAFfG9DYDc01xS=g8Q@mail.gmail.com>
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
+Date: Mon, 27 Jan 2025 10:52:45 -0500
+X-Gm-Features: AWEUYZn_0PiZFAV__SKIW5hZK50zbWHh1urJVpBjlAd833Zd2ARbB47QgXY-M4E
+Message-ID: <CAAxE2A60-sJkNLrh0bVVpi35h1PZREbeb+9cpZBjmcBgfW2wrw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: add a BO metadata flag to disable write
+ compression for Vulkan
+To: amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
+Content-Type: multipart/mixed; boundary="000000000000649289062cb21322"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,328 +75,171 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Limiting the number of available VMIDs to enforce isolation causes some
-issues with gang submit and applying certain HW workarounds which
-require multiple VMIDs to work correctly.
+--000000000000649289062cb21322
+Content-Type: multipart/alternative; boundary="000000000000649288062cb21320"
 
-So instead start to track all submissions to the relevant engines in a
-per partition data structure and use the dma_fences of the submissions
-to enforce isolation similar to what a VMID limit does.
+--000000000000649288062cb21320
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Christian König <christian.koenig@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h        | 13 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 94 +++++++++++++++++++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c    | 43 ++++------
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.c    | 16 +++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c   | 19 +++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_sync.h   |  1 +
- 6 files changed, 151 insertions(+), 35 deletions(-)
+Updated patch attached.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 5e55a44f9eef..8902fafbcf8d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -1204,9 +1204,15 @@ struct amdgpu_device {
- 	bool                            debug_enable_ras_aca;
- 	bool                            debug_exp_resets;
- 
--	bool				enforce_isolation[MAX_XCP];
--	/* Added this mutex for cleaner shader isolation between GFX and compute processes */
-+	/* Protection for the following isolation structure */
- 	struct mutex                    enforce_isolation_mutex;
-+	bool				enforce_isolation[MAX_XCP];
-+	struct amdgpu_isolation {
-+		void			*owner;
-+		struct dma_fence	*spearhead;
-+		struct amdgpu_sync	active;
-+		struct amdgpu_sync	prev;
-+	} isolation[MAX_XCP];
- 
- 	struct amdgpu_init_level *init_lvl;
- };
-@@ -1487,6 +1493,9 @@ void amdgpu_device_pcie_port_wreg(struct amdgpu_device *adev,
- struct dma_fence *amdgpu_device_get_gang(struct amdgpu_device *adev);
- struct dma_fence *amdgpu_device_switch_gang(struct amdgpu_device *adev,
- 					    struct dma_fence *gang);
-+struct dma_fence *amdgpu_device_enforce_isolation(struct amdgpu_device *adev,
-+						  struct amdgpu_ring *ring,
-+						  struct amdgpu_job *job);
- bool amdgpu_device_has_display_hardware(struct amdgpu_device *adev);
- ssize_t amdgpu_get_soft_full_reset_mask(struct amdgpu_ring *ring);
- ssize_t amdgpu_show_reset_mask(char *buf, uint32_t supported_reset);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index aaa8f9f7b6b2..d8f79fe4617b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -4225,6 +4225,11 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 	mutex_init(&adev->gfx.reset_sem_mutex);
- 	/* Initialize the mutex for cleaner shader isolation between GFX and compute processes */
- 	mutex_init(&adev->enforce_isolation_mutex);
-+	for (i = 0; i < MAX_XCP; ++i) {
-+		adev->isolation[i].spearhead = dma_fence_get_stub();
-+		amdgpu_sync_create(&adev->isolation[i].active);
-+		amdgpu_sync_create(&adev->isolation[i].prev);
-+	}
- 	mutex_init(&adev->gfx.kfd_sch_mutex);
- 
- 	amdgpu_device_init_apu_flags(adev);
-@@ -4724,7 +4729,7 @@ void amdgpu_device_fini_hw(struct amdgpu_device *adev)
- 
- void amdgpu_device_fini_sw(struct amdgpu_device *adev)
- {
--	int idx;
-+	int i, idx;
- 	bool px;
- 
- 	amdgpu_device_ip_fini(adev);
-@@ -4732,6 +4737,11 @@ void amdgpu_device_fini_sw(struct amdgpu_device *adev)
- 	amdgpu_ucode_release(&adev->firmware.gpu_info_fw);
- 	adev->accel_working = false;
- 	dma_fence_put(rcu_dereference_protected(adev->gang_submit, true));
-+	for (i = 0; i < MAX_XCP; ++i) {
-+		dma_fence_put(adev->isolation[i].spearhead);
-+		amdgpu_sync_free(&adev->isolation[i].active);
-+		amdgpu_sync_free(&adev->isolation[i].prev);
-+	}
- 
- 	amdgpu_reset_fini(adev);
- 
-@@ -6771,6 +6781,88 @@ struct dma_fence *amdgpu_device_switch_gang(struct amdgpu_device *adev,
- 	return NULL;
- }
- 
-+/**
-+ * amdgpu_device_enforce_isolation - enforce HW isolation
-+ * @adev: the amdgpu device pointer
-+ * @ring: the HW ring the job is supposed to run on
-+ * @job: the job which is about to be pushed to the HW ring
-+ *
-+ * Makes sure that only one client at a time can use the GFX block.
-+ * Returns: The dependency to wait on before the job can be pushed to the HW.
-+ * The function is called multiple times until NULL is returned.
-+ */
-+struct dma_fence *amdgpu_device_enforce_isolation(struct amdgpu_device *adev,
-+						  struct amdgpu_ring *ring,
-+						  struct amdgpu_job *job)
-+{
-+	struct amdgpu_isolation *isolation = &adev->isolation[ring->xcp_id];
-+	struct drm_sched_fence *f = job->base.s_fence;
-+	struct dma_fence *dep;
-+	void *owner;
-+
-+	/*
-+	 * For now enforce isolation only for the GFX block since we only need
-+	 * the cleaner shader on those rings.
-+	 */
-+	if (ring->funcs->type != AMDGPU_RING_TYPE_GFX &&
-+	    ring->funcs->type != AMDGPU_RING_TYPE_COMPUTE)
-+		return NULL;
-+
-+	/*
-+	 * All submissions where enforce isolation is false are handled as if
-+	 * they come from a single client.
-+	 */
-+	owner = job->enforce_isolation ? f->owner : NULL;
-+
-+	mutex_lock(&adev->enforce_isolation_mutex);
-+
-+	/*
-+	 * The "spearhead" submission is the first one which changes the
-+	 * ownership to its client. We always need to wait for it to be
-+	 * pushed to the HW before proceeding with anything.
-+	 */
-+	if (&f->scheduled != isolation->spearhead &&
-+	    !dma_fence_is_signaled(isolation->spearhead)) {
-+		dep = isolation->spearhead;
-+		goto out_grab_ref;
-+	}
-+
-+	if (isolation->owner != owner) {
-+
-+		/*
-+		 * Wait for any gang to be assembled before switching to a
-+		 * different owner or otherwise we could deadlock the
-+		 * submissions.
-+		 */
-+		if (!job->gang_submit) {
-+			dep = amdgpu_device_get_gang(adev);
-+			if (!dma_fence_is_signaled(dep))
-+				goto out_return_dep;
-+			dma_fence_put(dep);
-+		}
-+
-+		dma_fence_put(isolation->spearhead);
-+		isolation->spearhead = dma_fence_get(&f->scheduled);
-+		amdgpu_sync_move(&isolation->active, &isolation->prev);
-+		isolation->owner = owner;
-+	}
-+
-+	/*
-+	 * Specifying the ring here helps to pipeline submissions even when
-+	 * isolation is enabled. If that is not desired for testing NULL can be
-+	 * used instead of the ring to enforce a CPU round trip while switching
-+	 * between clients.
-+	 */
-+	dep = amdgpu_sync_peek_fence(&isolation->prev, ring);
-+	amdgpu_sync_fence(&isolation->active, &f->finished, GFP_NOWAIT);
-+
-+out_grab_ref:
-+	dma_fence_get(dep);
-+out_return_dep:
-+	mutex_unlock(&adev->enforce_isolation_mutex);
-+	return dep;
-+}
-+
- bool amdgpu_device_has_display_hardware(struct amdgpu_device *adev)
- {
- 	switch (adev->asic_type) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-index 56d27cea052e..92ab821afc06 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-@@ -287,40 +287,27 @@ static int amdgpu_vmid_grab_reserved(struct amdgpu_vm *vm,
- 	    (*id)->flushed_updates < updates ||
- 	    !(*id)->last_flush ||
- 	    ((*id)->last_flush->context != fence_context &&
--	     !dma_fence_is_signaled((*id)->last_flush))) {
-+	     !dma_fence_is_signaled((*id)->last_flush)))
-+		needs_flush = true;
-+
-+	if ((*id)->owner != vm->immediate.fence_context ||
-+	    (!adev->vm_manager.concurrent_flush && needs_flush)) {
- 		struct dma_fence *tmp;
- 
--		/* Wait for the gang to be assembled before using a
--		 * reserved VMID or otherwise the gang could deadlock.
-+		/* Don't use per engine and per process VMID at the
-+		 * same time
- 		 */
--		tmp = amdgpu_device_get_gang(adev);
--		if (!dma_fence_is_signaled(tmp) && tmp != job->gang_submit) {
-+		if (adev->vm_manager.concurrent_flush)
-+			ring = NULL;
-+
-+		/* to prevent one context starved by another context */
-+		(*id)->pd_gpu_addr = 0;
-+		tmp = amdgpu_sync_peek_fence(&(*id)->active, ring);
-+		if (tmp) {
- 			*id = NULL;
--			*fence = tmp;
-+			*fence = dma_fence_get(tmp);
- 			return 0;
- 		}
--		dma_fence_put(tmp);
--
--		/* Make sure the id is owned by the gang before proceeding */
--		if (!job->gang_submit ||
--		    (*id)->owner != vm->immediate.fence_context) {
--
--			/* Don't use per engine and per process VMID at the
--			 * same time
--			 */
--			if (adev->vm_manager.concurrent_flush)
--				ring = NULL;
--
--			/* to prevent one context starved by another context */
--			(*id)->pd_gpu_addr = 0;
--			tmp = amdgpu_sync_peek_fence(&(*id)->active, ring);
--			if (tmp) {
--				*id = NULL;
--				*fence = dma_fence_get(tmp);
--				return 0;
--			}
--		}
--		needs_flush = true;
- 	}
- 
- 	/* Good we can use this VMID. Remember this submission as
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-index 100f04475943..685c61a05af8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-@@ -342,17 +342,24 @@ amdgpu_job_prepare_job(struct drm_sched_job *sched_job,
- {
- 	struct amdgpu_ring *ring = to_amdgpu_ring(s_entity->rq->sched);
- 	struct amdgpu_job *job = to_amdgpu_job(sched_job);
--	struct dma_fence *fence = NULL;
-+	struct dma_fence *fence;
- 	int r;
- 
- 	r = drm_sched_entity_error(s_entity);
- 	if (r)
- 		goto error;
- 
--	if (job->gang_submit)
-+	if (job->gang_submit) {
- 		fence = amdgpu_device_switch_gang(ring->adev, job->gang_submit);
-+		if (fence)
-+			return fence;
-+	}
-+
-+	fence = amdgpu_device_enforce_isolation(ring->adev, ring, job);
-+	if (fence)
-+		return fence;
- 
--	if (!fence && job->vm && !job->vmid) {
-+	if (job->vm && !job->vmid) {
- 		r = amdgpu_vmid_grab(job->vm, ring, job, &fence);
- 		if (r) {
- 			dev_err(ring->adev->dev, "Error getting VM ID (%d)\n", r);
-@@ -365,9 +372,10 @@ amdgpu_job_prepare_job(struct drm_sched_job *sched_job,
- 		 */
- 		if (!fence)
- 			job->vm = NULL;
-+		return fence;
- 	}
- 
--	return fence;
-+	return NULL;
- 
- error:
- 	dma_fence_set_error(&job->base.s_fence->finished, r);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
-index bfe12164d27d..c5f9db6b32a4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
-@@ -405,6 +405,25 @@ int amdgpu_sync_clone(struct amdgpu_sync *source, struct amdgpu_sync *clone)
- 	return 0;
- }
- 
-+/**
-+ * amdgpu_sync_move - move all fences from src to dst
-+ *
-+ * @src: source of the fences, empty after function
-+ * @dst: destination for the fences
-+ *
-+ * Moves all fences from source to destination. All fences in destination are
-+ * freed and source is empty after the function call.
-+ */
-+void amdgpu_sync_move(struct amdgpu_sync *src, struct amdgpu_sync *dst)
-+{
-+	unsigned int i;
-+
-+	amdgpu_sync_free(dst);
-+
-+	for (i = 0; i < HASH_SIZE(src->fences); ++i)
-+		hlist_move_list(&src->fences[i], &dst->fences[i]);
-+}
-+
- /**
-  * amdgpu_sync_push_to_job - push fences into job
-  * @sync: sync object to get the fences from
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.h
-index 1504f5e7fc46..51eb4382c91e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.h
-@@ -57,6 +57,7 @@ struct dma_fence *amdgpu_sync_peek_fence(struct amdgpu_sync *sync,
- 				     struct amdgpu_ring *ring);
- struct dma_fence *amdgpu_sync_get_fence(struct amdgpu_sync *sync);
- int amdgpu_sync_clone(struct amdgpu_sync *source, struct amdgpu_sync *clone);
-+void amdgpu_sync_move(struct amdgpu_sync *src, struct amdgpu_sync *dst);
- int amdgpu_sync_push_to_job(struct amdgpu_sync *sync, struct amdgpu_job *job);
- int amdgpu_sync_wait(struct amdgpu_sync *sync, bool intr);
- void amdgpu_sync_free(struct amdgpu_sync *sync);
--- 
-2.34.1
+Vulkan can't support DCC and Z/S compression on GFX12 without this.
 
+Marek
+
+On Fri, Jan 24, 2025 at 10:15=E2=80=AFAM Marek Ol=C5=A1=C3=A1k <maraeo@gmai=
+l.com> wrote:
+
+> Required by Vulkan because it can allocate whole VRAM as 1 BO and parts
+> of it bypass compression and read raw data.
+>
+> Signed-off-by: Marek Ol=C5=A1=C3=A1k <marek.olsak@amd.com>
+>
+
+--000000000000649288062cb21320
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Updated patch attached.</div><div><br></div><div>Vulk=
+an can&#39;t support DCC and Z/S compression on GFX12 without this.</div><d=
+iv><br></div><div>Marek<br></div></div><br><div class=3D"gmail_quote gmail_=
+quote_container"><div dir=3D"ltr" class=3D"gmail_attr">On Fri, Jan 24, 2025=
+ at 10:15=E2=80=AFAM Marek Ol=C5=A1=C3=A1k &lt;<a href=3D"mailto:maraeo@gma=
+il.com">maraeo@gmail.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail=
+_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204=
+,204);padding-left:1ex"><div dir=3D"ltr">Required by Vulkan because it can =
+allocate whole VRAM as 1 BO and parts<br>of it bypass compression and read =
+raw data.<br><br>Signed-off-by: Marek Ol=C5=A1=C3=A1k &lt;<a href=3D"mailto=
+:marek.olsak@amd.com" target=3D"_blank">marek.olsak@amd.com</a>&gt;</div>
+</blockquote></div>
+
+--000000000000649288062cb21320--
+
+--000000000000649289062cb21322
+Content-Type: text/x-patch; charset="UTF-8"; 
+	name="0001-drm-amdgpu-add-a-BO-metadata-flag-to-disable-write-c.patch"
+Content-Disposition: attachment; 
+	filename="0001-drm-amdgpu-add-a-BO-metadata-flag-to-disable-write-c.patch"
+Content-Transfer-Encoding: base64
+Content-ID: <f_m6f88qsg0>
+X-Attachment-Id: f_m6f88qsg0
+
+RnJvbSBhOTMyZWNiODUxYTMxMWM0NjNmZGZiOTVhYmEyZmI0ZDYxYzRmOTc5IE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiA9P1VURi04P3E/TWFyZWs9MjBPbD1DNT1BMT1DMz1BMWs/PSA8
+bWFyZWsub2xzYWtAYW1kLmNvbT4KRGF0ZTogRnJpLCAyNCBKYW4gMjAyNSAwOTo0Mzo0NSAtMDUw
+MApTdWJqZWN0OiBbUEFUQ0hdIGRybS9hbWRncHU6IGFkZCBhIEJPIG1ldGFkYXRhIGZsYWcgdG8g
+ZGlzYWJsZSB3cml0ZQogY29tcHJlc3Npb24gZm9yIFZ1bGthbgpNSU1FLVZlcnNpb246IDEuMApD
+b250ZW50LVR5cGU6IHRleHQvcGxhaW47IGNoYXJzZXQ9VVRGLTgKQ29udGVudC1UcmFuc2Zlci1F
+bmNvZGluZzogOGJpdAoKVnVsa2FuIGNhbid0IHN1cHBvcnQgRENDIGFuZCBaL1MgY29tcHJlc3Np
+b24gb24gR0ZYMTIgd2l0aG91dApXUklURV9DT01QUkVTU19ESVNBQkxFIGluIHRoaXMgY29tbWl0
+IG9yIGEgY29tcGxldGVseSBkaWZmZXJlbnQgRENDCmludGVyZmFjZS4KCkFNREdQVV9USUxJTkdf
+R0ZYMTJfU0NBTk9VVCBpcyBhZGRlZCBiZWNhdXNlIGl0J3MgYWxyZWFkeSB1c2VkIGJ5IHVzZXJz
+cGFjZS4KCkNjOiBzdGFibGVAdmdlci5rZXJuZWwub3JnClNpZ25lZC1vZmYtYnk6IE1hcmVrIE9s
+xaHDoWsgPG1hcmVrLm9sc2FrQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X2Rydi5jIHwgMyArKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dV90dG0uYyB8IDggKysrKysrLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90
+dG0uaCB8IDIgKysKIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NkbWFfdjdfMC5jICB8IDUg
+KysrLS0KIGluY2x1ZGUvdWFwaS9kcm0vYW1kZ3B1X2RybS5oICAgICAgICAgICB8IDkgKysrKysr
+KystCiA1IGZpbGVzIGNoYW5nZWQsIDIxIGluc2VydGlvbnMoKyksIDYgZGVsZXRpb25zKC0pCgpk
+aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jIGIvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jCmluZGV4IGMxZGFjYTM1OThlOGIu
+LjY5ZTUzMmUzNDk1MGUgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV9kcnYuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMK
+QEAgLTEyMSw5ICsxMjEsMTAgQEAKICAqIC0gMy41Ny4wIC0gQ29tcHV0ZSB0dW5uZWxpbmcgb24g
+R0ZYMTArCiAgKiAtIDMuNTguMCAtIEFkZCBHRlgxMiBEQ0Mgc3VwcG9ydAogICogLSAzLjU5LjAg
+LSBDbGVhcmVkIFZSQU0KKyAqIC0gMy42MC4wIC0gQWRkIEFNREdQVV9USUxJTkdfR0ZYMTJfREND
+X1dSSVRFX0NPTVBSRVNTX0RJU0FCTEUgKFZ1bGthbiByZXF1aXJlbWVudCkKICAqLwogI2RlZmlu
+ZSBLTVNfRFJJVkVSX01BSk9SCTMKLSNkZWZpbmUgS01TX0RSSVZFUl9NSU5PUgk1OQorI2RlZmlu
+ZSBLTVNfRFJJVkVSX01JTk9SCTYwCiAjZGVmaW5lIEtNU19EUklWRVJfUEFUQ0hMRVZFTAkwCiAK
+IC8qCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMg
+Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMKaW5kZXggNjc2MzYyMjQ5
+MmQ3NC4uNWFkYThjYzRmZTAwNCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X3R0bS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90
+dG0uYwpAQCAtMzA5LDcgKzMwOSw3IEBAIGludCBhbWRncHVfdHRtX2NvcHlfbWVtX3RvX21lbShz
+dHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKIAltdXRleF9sb2NrKCZhZGV2LT5tbWFuLmd0dF93
+aW5kb3dfbG9jayk7CiAJd2hpbGUgKHNyY19tbS5yZW1haW5pbmcpIHsKIAkJdWludDY0X3QgZnJv
+bSwgdG8sIGN1cl9zaXplLCB0aWxpbmdfZmxhZ3M7Ci0JCXVpbnQzMl90IG51bV90eXBlLCBkYXRh
+X2Zvcm1hdCwgbWF4X2NvbTsKKwkJdWludDMyX3QgbnVtX3R5cGUsIGRhdGFfZm9ybWF0LCBtYXhf
+Y29tLCB3cml0ZV9jb21wcmVzc19kaXNhYmxlOwogCQlzdHJ1Y3QgZG1hX2ZlbmNlICpuZXh0Owog
+CiAJCS8qIE5ldmVyIGNvcHkgbW9yZSB0aGFuIDI1Nk1pQiBhdCBvbmNlIHRvIGF2b2lkIGEgdGlt
+ZW91dCAqLwpAQCAtMzQwLDkgKzM0MCwxMyBAQCBpbnQgYW1kZ3B1X3R0bV9jb3B5X21lbV90b19t
+ZW0oc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCiAJCQltYXhfY29tID0gQU1ER1BVX1RJTElO
+R19HRVQodGlsaW5nX2ZsYWdzLCBHRlgxMl9EQ0NfTUFYX0NPTVBSRVNTRURfQkxPQ0spOwogCQkJ
+bnVtX3R5cGUgPSBBTURHUFVfVElMSU5HX0dFVCh0aWxpbmdfZmxhZ3MsIEdGWDEyX0RDQ19OVU1C
+RVJfVFlQRSk7CiAJCQlkYXRhX2Zvcm1hdCA9IEFNREdQVV9USUxJTkdfR0VUKHRpbGluZ19mbGFn
+cywgR0ZYMTJfRENDX0RBVEFfRk9STUFUKTsKKwkJCXdyaXRlX2NvbXByZXNzX2Rpc2FibGUgPQor
+CQkJCUFNREdQVV9USUxJTkdfR0VUKHRpbGluZ19mbGFncywgR0ZYMTJfRENDX1dSSVRFX0NPTVBS
+RVNTX0RJU0FCTEUpOwogCQkJY29weV9mbGFncyB8PSAoQU1ER1BVX0NPUFlfRkxBR1NfU0VUKE1B
+WF9DT01QUkVTU0VELCBtYXhfY29tKSB8CiAJCQkJICAgICAgIEFNREdQVV9DT1BZX0ZMQUdTX1NF
+VChOVU1CRVJfVFlQRSwgbnVtX3R5cGUpIHwKLQkJCQkgICAgICAgQU1ER1BVX0NPUFlfRkxBR1Nf
+U0VUKERBVEFfRk9STUFULCBkYXRhX2Zvcm1hdCkpOworCQkJCSAgICAgICBBTURHUFVfQ09QWV9G
+TEFHU19TRVQoREFUQV9GT1JNQVQsIGRhdGFfZm9ybWF0KSB8CisJCQkJICAgICAgIEFNREdQVV9D
+T1BZX0ZMQUdTX1NFVChXUklURV9DT01QUkVTU19ESVNBQkxFLAorCQkJCQkJCSAgICAgd3JpdGVf
+Y29tcHJlc3NfZGlzYWJsZSkpOwogCQl9CiAKIAkJciA9IGFtZGdwdV9jb3B5X2J1ZmZlcihyaW5n
+LCBmcm9tLCB0bywgY3VyX3NpemUsIHJlc3YsCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfdHRtLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfdHRtLmgKaW5kZXggMjg1MmE2MDY0YzlhYy4uY2QzNDlhM2M3OTg4MSAxMDA2NDQKLS0tIGEv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5oCisrKyBiL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uaApAQCAtMTE5LDYgKzExOSw4IEBAIHN0cnVjdCBh
+bWRncHVfY29weV9tZW0gewogI2RlZmluZSBBTURHUFVfQ09QWV9GTEFHU19OVU1CRVJfVFlQRV9N
+QVNLCQkweDA3CiAjZGVmaW5lIEFNREdQVV9DT1BZX0ZMQUdTX0RBVEFfRk9STUFUX1NISUZUCQk4
+CiAjZGVmaW5lIEFNREdQVV9DT1BZX0ZMQUdTX0RBVEFfRk9STUFUX01BU0sJCTB4M2YKKyNkZWZp
+bmUgQU1ER1BVX0NPUFlfRkxBR1NfV1JJVEVfQ09NUFJFU1NfRElTQUJMRV9TSElGVAkxNAorI2Rl
+ZmluZSBBTURHUFVfQ09QWV9GTEFHU19XUklURV9DT01QUkVTU19ESVNBQkxFX01BU0sJMHgxCiAK
+ICNkZWZpbmUgQU1ER1BVX0NPUFlfRkxBR1NfU0VUKGZpZWxkLCB2YWx1ZSkgXAogCSgoKF9fdTMy
+KSh2YWx1ZSkgJiBBTURHUFVfQ09QWV9GTEFHU18jI2ZpZWxkIyNfTUFTSykgPDwgQU1ER1BVX0NP
+UFlfRkxBR1NfIyNmaWVsZCMjX1NISUZUKQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvc2RtYV92N18wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zZG1hX3Y3
+XzAuYwppbmRleCA3NTgxNzc2MWYwMDE2Li45YjQwYWU2N2E5MmY3IDEwMDY0NAotLS0gYS9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zZG1hX3Y3XzAuYworKysgYi9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9zZG1hX3Y3XzAuYwpAQCAtMTc0OSwxMSArMTc0OSwxMiBAQCBzdGF0aWMgdm9p
+ZCBzZG1hX3Y3XzBfZW1pdF9jb3B5X2J1ZmZlcihzdHJ1Y3QgYW1kZ3B1X2liICppYiwKIAkJCQkg
+ICAgICAgdWludDMyX3QgYnl0ZV9jb3VudCwKIAkJCQkgICAgICAgdWludDMyX3QgY29weV9mbGFn
+cykKIHsKLQl1aW50MzJfdCBudW1fdHlwZSwgZGF0YV9mb3JtYXQsIG1heF9jb207CisJdWludDMy
+X3QgbnVtX3R5cGUsIGRhdGFfZm9ybWF0LCBtYXhfY29tLCB3cml0ZV9jbTsKIAogCW1heF9jb20g
+PSBBTURHUFVfQ09QWV9GTEFHU19HRVQoY29weV9mbGFncywgTUFYX0NPTVBSRVNTRUQpOwogCWRh
+dGFfZm9ybWF0ID0gQU1ER1BVX0NPUFlfRkxBR1NfR0VUKGNvcHlfZmxhZ3MsIERBVEFfRk9STUFU
+KTsKIAludW1fdHlwZSA9IEFNREdQVV9DT1BZX0ZMQUdTX0dFVChjb3B5X2ZsYWdzLCBOVU1CRVJf
+VFlQRSk7CisJd3JpdGVfY20gPSBBTURHUFVfQ09QWV9GTEFHU19HRVQoY29weV9mbGFncywgV1JJ
+VEVfQ09NUFJFU1NfRElTQUJMRSkgPyAyIDogMTsKIAogCWliLT5wdHJbaWItPmxlbmd0aF9kdysr
+XSA9IFNETUFfUEtUX0NPUFlfTElORUFSX0hFQURFUl9PUChTRE1BX09QX0NPUFkpIHwKIAkJU0RN
+QV9QS1RfQ09QWV9MSU5FQVJfSEVBREVSX1NVQl9PUChTRE1BX1NVQk9QX0NPUFlfTElORUFSKSB8
+CkBAIC0xNzcwLDcgKzE3NzEsNyBAQCBzdGF0aWMgdm9pZCBzZG1hX3Y3XzBfZW1pdF9jb3B5X2J1
+ZmZlcihzdHJ1Y3QgYW1kZ3B1X2liICppYiwKIAlpZiAoKGNvcHlfZmxhZ3MgJiAoQU1ER1BVX0NP
+UFlfRkxBR1NfUkVBRF9ERUNPTVBSRVNTRUQgfCBBTURHUFVfQ09QWV9GTEFHU19XUklURV9DT01Q
+UkVTU0VEKSkpCiAJCWliLT5wdHJbaWItPmxlbmd0aF9kdysrXSA9IFNETUFfRENDX0RBVEFfRk9S
+TUFUKGRhdGFfZm9ybWF0KSB8IFNETUFfRENDX05VTV9UWVBFKG51bV90eXBlKSB8CiAJCQkoKGNv
+cHlfZmxhZ3MgJiBBTURHUFVfQ09QWV9GTEFHU19SRUFEX0RFQ09NUFJFU1NFRCkgPyBTRE1BX0RD
+Q19SRUFEX0NNKDIpIDogMCkgfAotCQkJKChjb3B5X2ZsYWdzICYgQU1ER1BVX0NPUFlfRkxBR1Nf
+V1JJVEVfQ09NUFJFU1NFRCkgPyBTRE1BX0RDQ19XUklURV9DTSgxKSA6IDApIHwKKwkJCSgoY29w
+eV9mbGFncyAmIEFNREdQVV9DT1BZX0ZMQUdTX1dSSVRFX0NPTVBSRVNTRUQpID8gU0RNQV9EQ0Nf
+V1JJVEVfQ00od3JpdGVfY20pIDogMCkgfAogCQkJU0RNQV9EQ0NfTUFYX0NPTShtYXhfY29tKSB8
+IFNETUFfRENDX01BWF9VQ09NKDEpOwogCWVsc2UKIAkJaWItPnB0cltpYi0+bGVuZ3RoX2R3Kytd
+ID0gMDsKZGlmZiAtLWdpdCBhL2luY2x1ZGUvdWFwaS9kcm0vYW1kZ3B1X2RybS5oIGIvaW5jbHVk
+ZS91YXBpL2RybS9hbWRncHVfZHJtLmgKaW5kZXggODE5MWQwYmQwYzAwYS4uNzhiNzk4NDg1MWVj
+OCAxMDA2NDQKLS0tIGEvaW5jbHVkZS91YXBpL2RybS9hbWRncHVfZHJtLmgKKysrIGIvaW5jbHVk
+ZS91YXBpL2RybS9hbWRncHVfZHJtLmgKQEAgLTY1MSwxMyArNjUxLDIwIEBAIHN0cnVjdCBkcm1f
+YW1kZ3B1X2dlbV91c2VycHRyIHsKIC8qIEdGWDEyIGFuZCBsYXRlcjogKi8KICNkZWZpbmUgQU1E
+R1BVX1RJTElOR19HRlgxMl9TV0laWkxFX01PREVfU0hJRlQJCQkwCiAjZGVmaW5lIEFNREdQVV9U
+SUxJTkdfR0ZYMTJfU1dJWlpMRV9NT0RFX01BU0sJCQkweDcKLS8qIFRoZXNlIGFyZSBEQ0MgcmVj
+b21wcmVzc2lvbiBzZXR0aW5nIGZvciBtZW1vcnkgbWFuYWdlbWVudDogKi8KKy8qIFRoZXNlIGFy
+ZSBEQ0MgcmVjb21wcmVzc2lvbiBzZXR0aW5ncyBmb3IgbWVtb3J5IG1hbmFnZW1lbnQ6ICovCiAj
+ZGVmaW5lIEFNREdQVV9USUxJTkdfR0ZYMTJfRENDX01BWF9DT01QUkVTU0VEX0JMT0NLX1NISUZU
+CTMKICNkZWZpbmUgQU1ER1BVX1RJTElOR19HRlgxMl9EQ0NfTUFYX0NPTVBSRVNTRURfQkxPQ0tf
+TUFTSwkweDMgLyogMDo2NEIsIDE6MTI4QiwgMjoyNTZCICovCiAjZGVmaW5lIEFNREdQVV9USUxJ
+TkdfR0ZYMTJfRENDX05VTUJFUl9UWVBFX1NISUZUCQk1CiAjZGVmaW5lIEFNREdQVV9USUxJTkdf
+R0ZYMTJfRENDX05VTUJFUl9UWVBFX01BU0sJCTB4NyAvKiBDQl9DT0xPUjBfSU5GTy5OVU1CRVJf
+VFlQRSAqLwogI2RlZmluZSBBTURHUFVfVElMSU5HX0dGWDEyX0RDQ19EQVRBX0ZPUk1BVF9TSElG
+VAkJOAogI2RlZmluZSBBTURHUFVfVElMSU5HX0dGWDEyX0RDQ19EQVRBX0ZPUk1BVF9NQVNLCQkw
+eDNmIC8qIFswOjRdOkNCX0NPTE9SMF9JTkZPLkZPUk1BVCwgWzVdOk1NICovCisvKiBXaGVuIGNs
+ZWFyaW5nIHRoZSBidWZmZXIgb3IgbW92aW5nIGl0IGZyb20gVlJBTSB0byBHVFQsIGRvbid0IGNv
+bXByZXNzIGFuZCBzZXQgRENDIG1ldGFkYXRhCisgKiB0byB1bmNvbXByZXNzZWQuIFNldCB3aGVu
+IHBhcnRzIG9mIGFuIGFsbG9jYXRpb24gYnlwYXNzIERDQyBhbmQgcmVhZCByYXcgZGF0YS4gKi8K
+KyNkZWZpbmUgQU1ER1BVX1RJTElOR19HRlgxMl9EQ0NfV1JJVEVfQ09NUFJFU1NfRElTQUJMRV9T
+SElGVAkxNAorI2RlZmluZSBBTURHUFVfVElMSU5HX0dGWDEyX0RDQ19XUklURV9DT01QUkVTU19E
+SVNBQkxFX01BU0sJMHgxCisvKiBiaXQgZ2FwICovCisjZGVmaW5lIEFNREdQVV9USUxJTkdfR0ZY
+MTJfU0NBTk9VVF9TSElGVAkJCTYzCisjZGVmaW5lIEFNREdQVV9USUxJTkdfR0ZYMTJfU0NBTk9V
+VF9NQVNLCQkJMHgxCiAKIC8qIFNldC9HZXQgaGVscGVycyBmb3IgdGlsaW5nIGZsYWdzLiAqLwog
+I2RlZmluZSBBTURHUFVfVElMSU5HX1NFVChmaWVsZCwgdmFsdWUpIFwKLS0gCjIuNDMuMAoK
+--000000000000649289062cb21322--
