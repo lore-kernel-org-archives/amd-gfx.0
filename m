@@ -4,70 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E41DC02192
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jan 2025 15:32:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49C82C02191
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jan 2025 15:32:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 07F6B10E56D;
-	Mon, 27 Jan 2025 15:32:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 820DC10E56A;
+	Mon, 27 Jan 2025 15:32:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lKGCkchN";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SdpkT3Vk";
 	dkim-atps=neutral
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 55A2110E566
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Jan 2025 15:32:12 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-43618283d48so32586515e9.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Jan 2025 07:32:12 -0800 (PST)
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
+ [209.85.128.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C565210E569
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Jan 2025 15:32:13 +0000 (UTC)
+Received: by mail-wm1-f46.google.com with SMTP id
+ 5b1f17b1804b1-436ce2ab251so30019955e9.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Jan 2025 07:32:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1737991931; x=1738596731; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1737991932; x=1738596732; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=O+C29FQAAsqcq/eSCAC8m1g/I0pkefooPYlJKiIkZ6k=;
- b=lKGCkchN66r99zQQPSuQjkiNXSVAJr1AG6iatVOwOHBhS0ADbg6JNXyF2ZOCP8vmfN
- 7jfm4xFMdKVVGqlDYYT7o2en8Kn0+ujAr+Rz1rIDwLdLftL7uE7MK+2IJV6XVpyePiir
- 93DWb79R0YyEM8joahVCOA4H+l9ro8TL2aZOP0gEON7TvysgtHUP34a8exfDQqI3Qcbv
- MF1KCSRw+calEFZLlVf/wnV7zcWKsPsWZ4jOZU30nigp4VF9U5RRK8PJXJ4actKGPbvt
- lhoTWDX3zuUrBlegVOQl7WjLe8HZ5sZS3cVeXhqnQB5+vUYDBcJUfoTztBSs8lg7QP3G
- nuUw==
+ :reply-to; bh=g2RVUIy/Y6d5uhj8X4mPDrIym1RpYeBC8d1zNwGwpN0=;
+ b=SdpkT3VkR0BwpmYvII9yDI8cxwPatABJRLU27kgs4D8unmra64mTqSB4t3itzmkoGy
+ nYuJR6yXBMgUmR6IxU5h2Rsq6caINJ7b9K0BzSajjcUaHvQCOc/M8mj2sxn/6K170rID
+ NOOnM0nCYhZC67sBgoALodS41UVCEOIABBwCKN2t8qcujBPCQ8jhTFNvFXKZYPhYJYZB
+ 5uF8iiHcErYFbreiAjfTpM67kTpVthJDCDu7Xev5UGW6LUEORn9FfTNsbm3qF12gw06Q
+ awgITt2Y0CDHuPvT54pNlVEwPwxiS3SbP801WUn0faKIiSx3+0ESSPRx1mwFxkq6EmA/
+ HLNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1737991931; x=1738596731;
+ d=1e100.net; s=20230601; t=1737991932; x=1738596732;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=O+C29FQAAsqcq/eSCAC8m1g/I0pkefooPYlJKiIkZ6k=;
- b=ewZjO4U9xmaG9U56+YLfeF44egQfyxjybR22nNGNQ0yYvj7b3jTrZzlRbdJIPmkqBK
- VA3Ion47VkGui1R5wQl0qzGbcC8a597iHb+3lVmJTFDspW/U1JlmbgcBk+IjRuG4NIZz
- E5pm7eAcDc3Eexmwdb3DFymza7KYb6QmLjLLC89CfAXhG/0/6PUDuTUcHRHajv7d5psO
- VV6wcXRkLwkf/Tg7oumtr+fB+EsTToBh/rQA/EzETAqNCC2GXn7iwlRfPqM1EH0E8W5j
- a2BRSKbvij9lUil0aiXZFQasuHOqs8gPVQvTLA/Y2rdNUOJHV/BIIW+q3fIctbShwnea
- A+/Q==
+ bh=g2RVUIy/Y6d5uhj8X4mPDrIym1RpYeBC8d1zNwGwpN0=;
+ b=vMpou+YnECDJ1xumRC03Skq0og4yrvBjAfMQw3vXmSWtRMZkaLXzNlYLm+jrBfMbZv
+ PescdWBMk0vxrSsVgreC1jUGLmsWDoI8WPA0bABadDI9KU7VuVcVHyM5ZelFcirH7FGF
+ lO3CbWmguT/46YddvqdnxzHP3H+h2YnLTxoanx9kGtI/rjbjSxJTPRiRQ5xB1MGc/ox2
+ rzUWOt28d2sCF+tusEzrVLjEKUTxk4a2XwVIGdQAKOqKv+TCPY2QTPc9whIDx4dLpn/C
+ Do2p3uNMCYQ8iBTciZyLkZE3irEL/sSfOH/GmkWPL+x1dh7IdXjunbemM0l0n+Yr893O
+ b9QQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUOCZLyTkBTrLSgUhzFVtpIFJ2JwY7PWYsCcSrhc1urTckn9HJxe658IaE5Nu3cXl8GmEgKYqxd@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yyr4OW3/flXuPdststv22pUSQ/a1ijc5kHbcnFEvqga8FDuTB3+
- EqUWnpfz17a3oXMY9kYdi/tZB8uEu84xLUCktf7WmkTqu9raUv/8eJU+SO1n
-X-Gm-Gg: ASbGncusAlRjxdbhjrH/zLWQffCHeQ17gAetq1ARgHv4oOu0aalwd2jFFt0PEVob4W6
- Pf6rMDRIixW2AUMlLm2zd8AnwVuf9IA0rdCxlhAOsuz4zpIXr+ytZd+y8rs8gXp6e8sLldsaeTK
- paxlkeiHC7T1VAMvz7Fwmu6HEqxBnm+R78qWDQchD/wKQ3xDIJzVhZpzmciIp0kF8rZWxaoVsOP
- QVcEFQi+0CfBL0mufRtfn8owQ2/e/bjcNUYdvDglcx72Tm4dW0SowBu0kW+83b2eAi9G9rWWZsA
- pCHZyCQi1F/GnWyuPA==
-X-Google-Smtp-Source: AGHT+IHAyQwJ1QGQnXZvIklthKRvrwO4esBqSdT9SQZKo++JkHQWsAAiL6ncl66Vx34cAFRIbNelTw==
-X-Received: by 2002:a05:600c:1e8b:b0:434:f609:1af7 with SMTP id
- 5b1f17b1804b1-438913bf885mr393159125e9.4.1737991930540; 
- Mon, 27 Jan 2025 07:32:10 -0800 (PST)
+ AJvYcCUBgiCENuv7aAtg2kNhr6Jqi2ku1+56Cv921m6HdDy01e/YU13ws+oN9cRl1xpPZUeJNvJJcpUo@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxcU6TB6cpiEZg82qnO+n4I5WUdCdBlxXunB8EttEi4rS1ERI/o
+ XRvongYO4J98N2ggTHPHwgZNOK4/76u5j53fH/xaSHetnwfh/1GX
+X-Gm-Gg: ASbGnct2vqoK1e9IVqc09LDlX5wLQKheZJT5Xljpnukm6FkdyZjHQOOmNnvWXGY7XDv
+ odAM13mJKd3lCNao+WB9Osih9Y34jN62+77TG/WLCWvOxqWltGvIxv2D8hlpWavJ+fOC9QtVirH
+ kKag1wymiUdWoiwOfwZuMkbRatIC0V0nwox/LTEb9zlN2YevpXgrktZOy9/2b/wZneketTTKhF4
+ 5mFcYjPbScD+xUc+w9DIk0HJgJ8apkC0oNhg9F/ixVvQbymrOxCK7K9kZ4g2p59ikhE4VLFoD/2
+ Fh09K2rfDK7MfXv7kA==
+X-Google-Smtp-Source: AGHT+IFwM/xIUuBgdk88O1U9MCilKqUCFqEvxyu2ZZzKoXgyNNRZLQ4eRGQcWDItVFlmJs0+0LHh+Q==
+X-Received: by 2002:a05:600c:4e89:b0:434:f739:7ce3 with SMTP id
+ 5b1f17b1804b1-438913cb518mr370259005e9.8.1737991932024; 
+ Mon, 27 Jan 2025 07:32:12 -0800 (PST)
 Received: from able.fritz.box ([2a00:e180:153d:dd00:1202:d6cf:5d6d:56cb])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-438bd575468sm133904325e9.39.2025.01.27.07.32.10
+ 5b1f17b1804b1-438bd575468sm133904325e9.39.2025.01.27.07.32.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Jan 2025 07:32:10 -0800 (PST)
+ Mon, 27 Jan 2025 07:32:11 -0800 (PST)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
 To: Alexander.Deucher@amd.com, srinivasan.shanmugam@amd.com,
  amd-gfx@lists.freedesktop.org
-Subject: [PATCH 3/6] drm/amdgpu: overwrite signaled fence in amdgpu_sync
-Date: Mon, 27 Jan 2025 16:32:04 +0100
-Message-Id: <20250127153207.5717-3-christian.koenig@amd.com>
+Subject: [PATCH 5/6] drm/amdgpu: rework how the cleaner shader is emitted
+Date: Mon, 27 Jan 2025 16:32:06 +0100
+Message-Id: <20250127153207.5717-5-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250127153207.5717-1-christian.koenig@amd.com>
 References: <20250127153207.5717-1-christian.koenig@amd.com>
@@ -88,39 +88,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This allows using amdgpu_sync even without peeking into the fences for a
-long time.
+Instead of emitting the cleaner shader for every job which has the
+enforce_isolation flag set only emit it for the first submission from
+every client.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 25 ++++++++++++++++++++-----
+ 1 file changed, 20 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
-index 86c17a8946f5..bfe12164d27d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
-@@ -135,11 +135,16 @@ static bool amdgpu_sync_add_later(struct amdgpu_sync *sync, struct dma_fence *f)
- 	struct amdgpu_sync_entry *e;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index c9c48b782ec1..9d94479532fb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -643,6 +643,7 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
+ 		    bool need_pipe_sync)
+ {
+ 	struct amdgpu_device *adev = ring->adev;
++	struct amdgpu_isolation *isolation = &adev->isolation[ring->xcp_id];
+ 	unsigned vmhub = ring->vm_hub;
+ 	struct amdgpu_vmid_mgr *id_mgr = &adev->vm_manager.id_mgr[vmhub];
+ 	struct amdgpu_vmid *id = &id_mgr->ids[job->vmid];
+@@ -650,8 +651,9 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
+ 	bool gds_switch_needed = ring->funcs->emit_gds_switch &&
+ 		job->gds_switch_needed;
+ 	bool vm_flush_needed = job->vm_needs_flush;
+-	struct dma_fence *fence = NULL;
++	bool cleaner_shader_needed = false;
+ 	bool pasid_mapping_needed = false;
++	struct dma_fence *fence = NULL;
+ 	unsigned int patch;
+ 	int r;
  
- 	hash_for_each_possible(sync->fences, e, node, f->context) {
--		if (unlikely(e->fence->context != f->context))
--			continue;
-+		if (dma_fence_is_signaled(e->fence)) {
-+			dma_fence_put(e->fence);
-+			e->fence = dma_fence_get(f);
-+			return true;
-+		}
+@@ -674,8 +676,12 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
+ 	pasid_mapping_needed &= adev->gmc.gmc_funcs->emit_pasid_mapping &&
+ 		ring->funcs->emit_wreg;
  
--		amdgpu_sync_keep_later(&e->fence, f);
--		return true;
-+		if (likely(e->fence->context == f->context)) {
-+			amdgpu_sync_keep_later(&e->fence, f);
-+			return true;
-+		}
++	cleaner_shader_needed = adev->gfx.enable_cleaner_shader &&
++		ring->funcs->emit_cleaner_shader &&
++		&job->base.s_fence->scheduled == isolation->spearhead;
++
+ 	if (!vm_flush_needed && !gds_switch_needed && !need_pipe_sync &&
+-	    !(job->enforce_isolation && !job->vmid))
++	    !cleaner_shader_needed)
+ 		return 0;
+ 
+ 	amdgpu_ring_ib_begin(ring);
+@@ -686,9 +692,7 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
+ 	if (need_pipe_sync)
+ 		amdgpu_ring_emit_pipeline_sync(ring);
+ 
+-	if (adev->gfx.enable_cleaner_shader &&
+-	    ring->funcs->emit_cleaner_shader &&
+-	    job->enforce_isolation)
++	if (cleaner_shader_needed)
+ 		ring->funcs->emit_cleaner_shader(ring);
+ 
+ 	if (vm_flush_needed) {
+@@ -732,6 +736,17 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
+ 		id->pasid_mapping = dma_fence_get(fence);
+ 		mutex_unlock(&id_mgr->lock);
  	}
- 	return false;
- }
++
++	/*
++	 * Make sure that all other submissions wait for the cleaner shader to
++	 * finish before we push them to the HW.
++	 */
++	if (cleaner_shader_needed) {
++		mutex_lock(&adev->enforce_isolation_mutex);
++		dma_fence_put(isolation->spearhead);
++		isolation->spearhead = dma_fence_get(fence);
++		mutex_unlock(&adev->enforce_isolation_mutex);
++	}
+ 	dma_fence_put(fence);
+ 
+ 	amdgpu_ring_patch_cond_exec(ring, patch);
 -- 
 2.34.1
 
