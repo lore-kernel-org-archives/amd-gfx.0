@@ -4,56 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7135C02188
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jan 2025 10:23:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D0DDC02188
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jan 2025 12:05:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 753A510E08F;
-	Mon, 27 Jan 2025 10:23:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9BBB010E530;
+	Mon, 27 Jan 2025 12:05:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=haloniitty.fi header.i=@haloniitty.fi header.b="RrzLYm/h";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=haloniitty.fi header.i=@haloniitty.fi header.b="04oquTfn";
 	dkim-atps=neutral
 Received: from whm50.louhi.net (whm50.louhi.net [77.240.19.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C44289DFB;
- Mon, 27 Jan 2025 10:23:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8CBD310E509;
+ Mon, 27 Jan 2025 12:05:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=haloniitty.fi; s=default; h=Content-Type:MIME-Version:References:
  In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
  List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=yD/D2+nscyMs4rmMHdMo35IBdi5XMB2qp4Gun29olS8=; b=RrzLYm/hJNnp8Iawo14KFujD1B
- dgYwgU2sXAB2bMOc9kXkeA1pldRUvEnrwMkqpmid5ZG2T6C+urJ9CSzsBpe9RtIPWCrAWnBpljibR
- NCL6ZpDEQlc8P0nyaYxJv9b3f+hD7oAFcvRg0KxuASNAfECabdSEHqH5mfkKhKTa+iasGrkDGffGL
- O0Vdbzy0TulqAF9xPP+B9kv/majU4pzGgGln2J31ccubtKed6WKjOkM/Vm0VeXrPumVpaX4lCq49c
- LrHuuFQcN2b9LiiRnxYAalDysrPaEgHdgn6/jid11xHnyJox4jSl4p6w+0FiYVDp2hLfQdw/BcZRd
- 6rPRc1Ag==;
-Received: from [194.136.85.206] (port=38530 helo=eldfell)
+ bh=pjsHTBMWY9P7wI2MwLRSYjI4iuAYoxhTOWBrxWOO6Us=; b=04oquTfn5T3O0dEqwwwdQ260vG
+ biscmqoJlMKOCmey10jhfieNjvSJnHXDhh/pE2FcInXoKqWCSDkybjzz3O+obRH0sOzEFGYH9jR60
+ /SCj7oOVC5asi19BgeHUwTp4kKcIcrgMD4BM1wAsu1C7w3kJoH7HhJM3tfKiP17WSrdigAybtHq88
+ MzECwoizJPng4kinLfS9ZCxVFLNTqdhjGDl7AEPPIxUW5x3C3mtpEZRb9FvBHrzqqgGCYzvdmniDI
+ HJ1pA7kx8GE2OkyCN8E7gEEE/dOk4LSBg1tByB04jjaXBbm5TNpk+mxIq+Q2HZg8k6nme9VtYsjoy
+ pzVga2uA==;
+Received: from [194.136.85.206] (port=50614 helo=eldfell)
  by whm50.louhi.net with esmtpsa (TLS1.2) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96.2)
- (envelope-from <pekka.paalanen@haloniitty.fi>) id 1tcMHD-00016b-2a;
- Mon, 27 Jan 2025 12:23:31 +0200
-Date: Mon, 27 Jan 2025 12:23:28 +0200
+ (envelope-from <pekka.paalanen@haloniitty.fi>) id 1tcNs1-0007lT-0b;
+ Mon, 27 Jan 2025 14:05:37 +0200
+Date: Mon, 27 Jan 2025 14:05:29 +0200
 From: Pekka Paalanen <pekka.paalanen@haloniitty.fi>
-To: Raag Jadav <raag.jadav@intel.com>
-Cc: Xaver Hugl <xaver.hugl@kde.org>, airlied@gmail.com, simona@ffwll.ch,
- lucas.demarchi@intel.com, rodrigo.vivi@intel.com,
- jani.nikula@linux.intel.com, andriy.shevchenko@linux.intel.com,
- lina@asahilina.net, michal.wajdeczko@intel.com, christian.koenig@amd.com,
- intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, himal.prasad.ghimiray@intel.com,
- aravind.iddamsetty@linux.intel.com, anshuman.gupta@intel.com,
- alexander.deucher@amd.com, andrealmeid@igalia.com,
- amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com
-Subject: Re: [PATCH v10 2/4] drm/doc: Document device wedged event
-Message-ID: <20250127122328.6d85bca1@eldfell>
-In-Reply-To: <Z5CAkXSOpNiiFbv4@black.fi.intel.com>
-References: <20241128153707.1294347-1-raag.jadav@intel.com>
- <20241128153707.1294347-3-raag.jadav@intel.com>
- <CAFZQkGy3R0TMY5CARPQZF70fdKGLX8GQjV_YQAHzEXsiuNHj+w@mail.gmail.com>
- <Z5CAkXSOpNiiFbv4@black.fi.intel.com>
+To: Harry Wentland <harry.wentland@amd.com>
+Cc: Alex Hung <alex.hung@amd.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, wayland-devel@lists.freedesktop.org
+Subject: Re: [V7 31/45] drm/colorop: add BT2020/BT709 OETF and Inverse OETF
+Message-ID: <20250127140529.722b376d@eldfell>
+In-Reply-To: <9cc07dc9-ce0d-40cc-ae70-55a1b3f176e2@amd.com>
+References: <20241220043410.416867-1-alex.hung@amd.com>
+ <20241220043410.416867-32-alex.hung@amd.com>
+ <20250116105622.577533fc@tisha> <20250117110641.7040f712@eldfell>
+ <9cc07dc9-ce0d-40cc-ae70-55a1b3f176e2@amd.com>
 X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/WDsb8DKWCL+/WckgwZn74cK";
+Content-Type: multipart/signed; boundary="Sig_/T=m.9GT+5+=inHIBQ2.tQrd";
  protocol="application/pgp-signature"; micalg=pgp-sha256
 X-AntiAbuse: This header was added to track abuse,
  please include it with any abuse report
@@ -81,129 +74,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---Sig_/WDsb8DKWCL+/WckgwZn74cK
+--Sig_/T=m.9GT+5+=inHIBQ2.tQrd
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, 22 Jan 2025 07:22:25 +0200
-Raag Jadav <raag.jadav@intel.com> wrote:
+On Thu, 23 Jan 2025 15:16:29 -0500
+Harry Wentland <harry.wentland@amd.com> wrote:
 
-> On Tue, Jan 21, 2025 at 02:14:56AM +0100, Xaver Hugl wrote:
-> > > +It is the responsibility of the consumer to make sure that the devic=
-e or
-> > > +its resources are not in use by any process before attempting recove=
-ry. =20
-> > I'm not convinced this is actually doable in practice, outside of
-> > killing all apps that aren't the one trying to recover the GPU.
-> > Is this just about not crashing those processes if they don't handle
-> > GPU hotunplugs well, about leaks, or something else? =20
+> On 2025-01-17 04:06, Pekka Paalanen wrote:
+> > On Thu, 16 Jan 2025 10:56:22 +0200
+> > Pekka Paalanen <pekka.paalanen@haloniitty.fi> wrote:
+> >  =20
+> >> On Thu, 19 Dec 2024 21:33:37 -0700
+> >> Alex Hung <alex.hung@amd.com> wrote:
+> >> =20
+> >>> From: Harry Wentland <harry.wentland@amd.com>
+> >>>
+> >>> The BT.709 and BT.2020 OETFs are the same, the only difference
+> >>> being that the BT.2020 variant is defined with more precision
+> >>> for 10 and 12-bit per color encodings.
+> >>>
+> >>> Both are used as encoding functions for video content, and are
+> >>> therefore defined as OETF (opto-electronic transfer function)
+> >>> instead of as EOTF (electro-optical transfer function).
+> >>>
+> >>> Signed-off-by: Alex Hung <alex.hung@amd.com>
+> >>> Signed-off-by: Harry Wentland <harry.wentland@amd.com>   =20
+> >>
+> >> Hi,
+> >>
+> >> why would a display system ever use BT.2020 or BT.709 OETF or its
+> >> inverse? =20
+> >=20
+> > Sorry, this is more for my own curiosity, not an argument against the
+> > patch. Since hardware designers decided to incorporate these curves
+> > explicitly, what use was in mind? It's likely something I have
+> > overlooked.
+> >  =20
 >=20
-> Correct, all of it. And since the compositor is in charge of device resou=
-rces,
-> this way it atleast has the opportunity to recover the device and recreate
-> context without all the userspace violence.
-
-Hi Raag,
-
-sorry, I haven't followed this series, so I wonder, why should
-userspace be part of recovering the device? Why doesn't the kernel
-automatically load a new driver instance with a new DRM device node?
-
-Of course userspace needs to deal with stuff suddenly erroring out, and
-destroy existing related resources, then wait for a working device
-to appear and rebuild all state. The kernel driver already needs to
-make the existing open stuff inert and harmless, why does it need an
-acknowledgement from userspace to unbind and re-bind?
-
-> I'm not entirely aware of its feasibility though, perhaps something for t=
-he
-> consumers to experiment.
-
-If consumers mean userspace, then no, not reliably. But the kernel can
-do it.
-
-I see in the commit message written:
-
-	"For example, if the driver supports multiple recovery methods,
-	consumers can opt for the suitable one based on policy
-	definition."
-
-How could consumers know what to do? How can they guess what would be
-enough to recover the device? Isn't that the kernel driver's job to
-know?
-
-(More important for userspace would be know if dmabuf fds remain
-pointing to valid memory retaining its contents or if the contents are
-lost. Userspace cannot tell which device a dmabuf originates from,
-AFAIK, so this would need to be added in the generic dmabuf UAPI.)
-
-	"Consumers can also choose to have the device available for
-	debugging or additional data collection before performing the
-	recovery."
-
-Couldn't the wedged driver instance remain detached from the hardware
-while a new driver instance initializes? Then debug data remains until
-the wedged device is fully closed from userspace, or maybe devcore dump
-retains it.
-
-I presume that WEDGED=3Dnone case should retain the debug data somehow as
-well.
-
-> > > +With IOCTLs blocked and device already 'wedged', all device memory s=
-hould
-
-btw. when I see "blocked" I think of the function call not returning
-yet. But in this patch "blocked" seems to be synonymous for "returns
-an error immediately". Would it be possible to avoid the word "blocked"
-for this?
-
-> > > +be unmapped and file descriptors should be closed to prevent leaks. =
-=20
-> > Afaiu from a userspace POV, a rebind is just like a GPU hotunplug +
-> > hotplug with matching "remove" and "add" udev events. As long as the
-> > application cleans up resources related to the device when it receives
-> > the event, there should be no leaks with a normal hotunplug... Is this
-> > different enough that we can't have the same expectations? =20
+> I'm not entirely sure myself, but gamescope does use it for displaying
+> game streaming content.
 >=20
-> The thing about "remove" event is that it is generated *after* we opt for=
- an
-> unbind, and at that point it might be already too late if userspace doesn=
-'t
-> get enough time to clean things up while the device is removed with a live
-> client resulting in unknown consequences.
->=20
-> The idea here is to clean things up *before* we opt for an unbind leaving
-> no room for side effects.
+> https://github.com/ValveSoftware/gamescope/blob/2f88849ac9dc7da5c678d5d7d=
+3e9b58f38add1bf/src/Backends/DRMBackend.cpp#L2509
 
-Something here feels fragile. There should not be a deadline for
-userspace to finish cleaning up. What was described for KMS device nodes
-in this same document seems like a more reliable approach: keep the
-dead driver instance around until userspace has closed all references
-to it. The device node could be removed earlier.
+I see, apparently they are being used as a pair to make a roundtrip to
+some optical space for applying a color transformation matrix. IOW, the
+CTM is being applied in the assumed "camera" side of broadcasting or
+grading.
+
+ITU-R BT.2408 seems to refer to this as "scene referred mapping", whose
+aim is to match cameras rather than displays (and has nothing to do
+with the scene). I cannot claim to understand this case, but I suspect
+it should be used only before color grading (manual or automatic
+artistic adjustments, or IOW picture formation(?)) in a pipeline.
+
+I would assume that game streaming content has been prepared for a
+display at its source, which implies that grading has been done. That
+means that inverse-OETF leads to an unknown color space. Applying a
+matrix in an unknown color space has unintended effects. That may not
+be a big problem, even less if the matrix is visually adjusted, but
+it's theoretically not quite right AFAIU.
 
 
 Thanks,
 pq
 
---Sig_/WDsb8DKWCL+/WckgwZn74cK
+--Sig_/T=m.9GT+5+=inHIBQ2.tQrd
 Content-Type: application/pgp-signature
 Content-Description: OpenPGP digital signature
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmeXXqAACgkQI1/ltBGq
-qqcM/Q/+Ipt9pMHVb7G+gEvEnhJkrg1fVIHMg2XIo3dIkwC7T8Jrtv8D8eRsbQ6Y
-SRlCSt2FjhlzcLDVVz3li5BgYxyHvEoFdu7KNvgmPydLvdXvUIsBDpluSHhzOCFf
-b3XgaplCG7QlsQMAkP5w0PATD3J0yp8izHFwtlIymst7loPhmTqDd8fJNCfhpA1a
-1qLe3Y8fE+1gzVA3ScrH+H+wWLXi3hKPM5S8ukghCkTUqrO1pc41HDVt2yQ+0UR4
-d2DPAgUayv2uVJvU3mVUpYAU519xFswrtFJ5oGtHMf1aAb4GS4GvUDmQr0TE2ZVo
-l0gc9v1RQ7KLGy3nTNu56a8d3rSYML4OoG569IlW7OyzncE9rsofMMAJ8Z4snzoY
-0+A8lQsJX76gxgdDk7NEZgPdm/9SzY5pZmR/uVn2/ilrnozOy57xKNIU1uYS//IG
-iXGCj8gk+zPUyvId1eLFsCLELOnujTK3g7llRYXR5axdQn2/GElJ4nPbGi0KyZWQ
-whJ6u48Qek6n+3aX1tjuL6EeIhW9aiTXQ4PmS4owwKvi0SB+vys8WRwFvynDLP5Z
-BNq9mUASWrRZE6M7qycKhcAjccZuDyAfz//++5clDmfL05dIntTYzctamLilwWdy
-wsRSNEB/o2ikguHw6NOSTTRL1Lk4usLjPQwoAIi0+kWvEMCjXr4=
-=axF5
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmeXdokACgkQI1/ltBGq
+qqeiKg/9GD6pmONnePa5/D8aVfH8Sb/12oeBa7VwsCSgUVk2Lq84IsIR6+9Acqzq
+CClBNEx2Cs+VEnqzMko8RtSoODrx30PddYSKNBBxtmv/3VeMQ3zc2nn6/2WTssIq
+CVfQR9vv6dOJZetIlKL/l8hLi2bAbnHcIgrkosjUvFswHM72I63WFKLQgE94s2kH
+31Rd+aXHe1LWpHPOfuqmnszciU7an+K3UcqEV9czOH+lNksboiyJ4ajS5hmxsys8
+RccmrZify2O3NQ48purUAnOoh9NJxIfBMIMyYUIJoJbZzDa38EgBcrdQV1FqNcQj
+xXfeaklaNx7OSajXYdf1GnkeEn1ef/jA0oz+cFhyiEUwAdWXLa0hT3y1WcTZOVej
+dz+nWC32oH8nmuyLcAtIy9s/aqZoaO9di5KEl3RuiU89tmz4cmiqXatYNwYeA5eM
+ASzPloE4ee8OTVCR5CAVHPxFLXfEexaSLPr/wGnOZAgnVnwkjmzDd9n4aYWKgz7W
+06D7LaUoIGleJpHPyKGJhy3xqiRvKOjWAjro2CHpdx63SYEQgnJkvmjKYMfHof6M
+m8bIBzaIKseF7nPlngVaWq8YzS6K3ZlDROwl5QMafmMfeolX/En5apIPSt5LMP9e
+t7qhbrHGvos+3BGj0551OMkvokEfsHxIr4DrQjEZKmoj+tpY2Gk=
+=g+i4
 -----END PGP SIGNATURE-----
 
---Sig_/WDsb8DKWCL+/WckgwZn74cK--
+--Sig_/T=m.9GT+5+=inHIBQ2.tQrd--
