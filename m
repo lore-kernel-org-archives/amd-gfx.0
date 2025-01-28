@@ -4,66 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D08B5C0218A
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jan 2025 15:31:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7F62C02190
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jan 2025 15:35:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 603BC10E688;
-	Tue, 28 Jan 2025 15:31:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3129810E68B;
+	Tue, 28 Jan 2025 15:35:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lcRxOYqG";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bs3TVa2a";
 	dkim-atps=neutral
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com
- [209.85.216.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE2D910E688
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jan 2025 15:31:38 +0000 (UTC)
-Received: by mail-pj1-f47.google.com with SMTP id
- 98e67ed59e1d1-2f45526dea0so1352659a91.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jan 2025 07:31:38 -0800 (PST)
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com
+ [209.85.216.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C8B8910E68B;
+ Tue, 28 Jan 2025 15:35:50 +0000 (UTC)
+Received: by mail-pj1-f54.google.com with SMTP id
+ 98e67ed59e1d1-2ef718cb473so1192359a91.1; 
+ Tue, 28 Jan 2025 07:35:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1738078298; x=1738683098; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1738078550; x=1738683350; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=xyrlm48eJ3OtiG2snT4+9nDJbulqIPkyeW2EEptP8Rg=;
- b=lcRxOYqGKJPjziMml/lI8e8nY/WYI3gU6VuUqjG+ETUlpvdomBdoDkUMUY+JiqARPd
- zgOo2OuoY4nVEmVm7moBIr8s891RzbMrHhpU6933fYsRVwRETZ8cYH4jy83sZ8iNNx4l
- mOCAuRca1cFjCvl7TOnf/geoy1NQgLsBmhzOsOPxXMHpfOtvim2xXSSTL5MXD33Wif8M
- P+/SgQ9A8KbZWT3wDsPtUUjp6YfwGi8g8NEWGmpGar+H8KNiqf/v+KsSjr+jg7r/rdqg
- t9r0ZuK9lFFUoosnBkco6i3JwUlK2rz3hzbaiPI4YEzeiYPYA9bAJDmIXq8OwXGh1QRL
- wbLw==
+ bh=ll9yz4s9tbNGn79Y5DlxGFvaYJ0PUHi0VPEFTFkzAO4=;
+ b=bs3TVa2aCE4U2rtrSQDgNtDsYsqBI0XSoNHNzOaW/icEqehQ8lEERlHAcufL4KcWEi
+ UD0UGc7uL0t7lm3DX9FO9myqAvO3tvrqY9RCwdmDpSw5SM1BM3WFxIB/SxHWSDY+obdX
+ i2bxnYx5mzIPQhK9bH8rHCfb2WYVxFzlVmZVw8vRpoWu2D+V9Rqz6a1CUwYqHoBgebpv
+ wGILVIjEnMUUhrB4EFXiP7xr6rgSUSf2fSDxa5v+3nTgedyzyA6B/KDLYmxlY6oeoY8P
+ XpCaiAHhwif2uvg3xi8COnBIIEp1O25tUI13eCZRmNYsyBGo7iaYJ7ozquL1aiMWBe9x
+ 4GVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1738078298; x=1738683098;
+ d=1e100.net; s=20230601; t=1738078550; x=1738683350;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=xyrlm48eJ3OtiG2snT4+9nDJbulqIPkyeW2EEptP8Rg=;
- b=fqozUFj/H7YiOdh9ISs7WEn1vonPWdQe+k4ly/DE8nAr149gXnUIqehNGnwlBPsv/V
- UBjWg93Jh1RqYwae9QXEvqmcoMj1qtH090jRFZd+PJHEf8vBVCLX57G1/F/xXTyenxVg
- cXtjyCjWZuwg6m3/v3pOeuWTxXTF4tq1bkovZS2wVajvT4ZQVNU5mC+DO3hg4darHOok
- OVsYf/Idiwn6d3GOH7F2Az6hpCuEmRt0DCH3Z3k+bxi4CckA3ji/hG4UM4W2cCLE7D4S
- F2WiCXrugNg2P+YkK0isFPXRvAItkgVp/k7yqBXX4UCQpSLLHNe6uWGzRbAbv5wsvjl2
- AOVA==
-X-Gm-Message-State: AOJu0YwTohNKBQ2iMDHEKKJznaJzB5/wxK+1XHZa1QnOc17OJ5IwzQMV
- BYEsxOzP4o12DPCPteTqCre1Q22ZNGXTTLXgLUorPY46sREhjfWaqbhhZFLUvWanPKlNZEDUZuO
- 0ynVNImLmJnpodMxwAgY75O+8+K4/sA==
-X-Gm-Gg: ASbGncv41sn1L2cTCXJYJCXw8H4NqUmYPhFvICwtJJ692eE2Oq+ItKL/SlH15lqWRzQ
- /kl3m/CXnzfEstBqPnCacd+RqdjTWgsvDhqoqa+LtQeG/sB3ub03BRl4RC6buUyJarhaliQmK
-X-Google-Smtp-Source: AGHT+IGZzbTUlPTBqFK22Or26dyNAfNFOPlj5k55HyVCQoRwBdGHv2TocPTyso/bZdTslzf2oYZzFa5U9bBup+H+KaE=
-X-Received: by 2002:a17:90b:2c84:b0:2ee:6a70:c5d1 with SMTP id
- 98e67ed59e1d1-2f782d3845fmr24205562a91.3.1738078298134; Tue, 28 Jan 2025
- 07:31:38 -0800 (PST)
+ bh=ll9yz4s9tbNGn79Y5DlxGFvaYJ0PUHi0VPEFTFkzAO4=;
+ b=RRG1XZmPPKRdKhu5dX8g5AgQRoTiDSCQdVGeEO0yU6U2mLAm/CGVyZtjF/K7+p3o5M
+ 42mXcpIV1Kstp2VtQOtDH2r4J15pSGGOM1IfvxR3QOtGryIWxYRbuY1y6v1T7pO68TOm
+ 6CQNSNndEsLcyYbvhpBatbnCti1w9teerBVIoFEOgsyZAOiKQHxMeUWs9ZI4OzJNmluv
+ DGhUZWXrKm21fhaDNIcM7jdhydHVt8t+c1Q5NGsQjUzLdaDGfL3JFwPjkTjcItPotZ88
+ YX+wTtXXEzZEnkX9OBojkdzpE4Y9y88J81fPIsVvLqct8dlalqZMq4wzcal+xHuPaQKw
+ q+tg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVZAx4dT0nieTHpKZzsw3tkgn3/tlQlO306uLCLWLP45sw78Sp6CxhHSJZfV9E+A2p3kHNabPlB@lists.freedesktop.org,
+ AJvYcCVtPvJ70AvKX+ISUZgeFA1dyWyHpxS5m36Gv3ZRGlPifxrY+NjvWwEtuL5ABg4FxqxN4umWwUl9Su06@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwaaQDG2wsZ2eT6MyKgvA06f7J4C19zrloXCboereIKQ2iyLLvx
+ Ku9K+Y+Vu93x9eJEe4VvdA4CfUtfB74fF7fNT8C8olaAxc0yAVeJYFFEtsbByXDcKsZa088knO/
+ V0i6uSw57hrx9NIqE4FBH5xy6/HA=
+X-Gm-Gg: ASbGnctN4m5fsUBKD7KSdwC0WNK8FdVNB+8HByHmFcU1DDxuSruzEkkwxZ1Qr6aRmGF
+ HguI5PP+RDyqH1YtxZ4fgscuhx6ADo/QLfecUyzIYBbk+HjEKF5PGHYVtK9V7KJ6N7DSGcGig
+X-Google-Smtp-Source: AGHT+IH4r/aE06szz4+MqU4sWiG7qbTaj0WudyIu/mZ4AAFIY1oiLtMuoIJTu5Fhb3uXJzIiJ03HVskgfxc/dYDo2tQ=
+X-Received: by 2002:a17:90a:d64e:b0:2ee:d372:91bd with SMTP id
+ 98e67ed59e1d1-2f7e3efc78dmr15701307a91.2.1738078550217; Tue, 28 Jan 2025
+ 07:35:50 -0800 (PST)
 MIME-Version: 1.0
-References: <20250128063115.1690375-1-lijo.lazar@amd.com>
- <20250128063115.1690375-2-lijo.lazar@amd.com>
-In-Reply-To: <20250128063115.1690375-2-lijo.lazar@amd.com>
+References: <20250128005135.168681-1-mwen@igalia.com>
+ <2b35e1ea-e7f7-4852-a088-80b71a82b780@amd.com>
+In-Reply-To: <2b35e1ea-e7f7-4852-a088-80b71a82b780@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 28 Jan 2025 10:31:25 -0500
-X-Gm-Features: AWEUYZnWmxpVZdfU6CuOD_rurMAT5pcKrm8iUUw8eYApFAK6P1RVchRxt3W8clk
-Message-ID: <CADnq5_OCDkEx2tum+=eXZ2wUaYHSdDc_iePZzhr3Zj96y7gb0Q@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amdgpu: Use version to figure out harvest info
-To: Lijo Lazar <lijo.lazar@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Hawking.Zhang@amd.com, 
- Alexander.Deucher@amd.com, Asad.Kamal@amd.com, Le.Ma@amd.com
+Date: Tue, 28 Jan 2025 10:35:38 -0500
+X-Gm-Features: AWEUYZk7Q4OJs6BE67uajAmjNapMM2LyzGRkCQONGCdGyZHE0MRM2MMKdyhskbA
+Message-ID: <CADnq5_Nzya6F0Vjb0+VpX5Rme9b8dN=jWQ2iNUkGvR-vPq69-g@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: restore invalid MSA timing check for
+ freesync
+To: Harry Wentland <harry.wentland@amd.com>
+Cc: Melissa Wen <mwen@igalia.com>, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com, 
+ airlied@gmail.com, simona@ffwll.ch, alex.hung@amd.com, 
+ mario.limonciello@amd.com, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, kernel-dev@igalia.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -80,110 +87,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jan 28, 2025 at 1:42=E2=80=AFAM Lijo Lazar <lijo.lazar@amd.com> wro=
-te:
+Applied.  Thanks!
+
+Alex
+
+On Tue, Jan 28, 2025 at 10:03=E2=80=AFAM Harry Wentland <harry.wentland@amd=
+.com> wrote:
 >
-> IP tables with version <=3D2 may use harvest bit. For version 3 and above=
+>
+>
+> On 2025-01-27 19:41, Melissa Wen wrote:
+> > This restores the original behavior that gets min/max freq from EDID an=
+d
+> > only set DP/eDP connector as freesync capable if "sink device is capabl=
+e
+> > of rendering incoming video stream without MSA timing parameters", i.e.=
 ,
-> harvest bit is not applicable, instead uses harvest table. Fix the
-> logic accordingly.
+> > `allow_invalid_MSA_timing_params` is true. The condition was mistakenly
+> > removed by 0159f88a99c9 ("drm/amd/display: remove redundant freesync
+> > parser for DP").
+> >
+> > CC: Mario Limonciello <mario.limonciello@amd.com>
+> > CC: Alex Hung <alex.hung@amd.com>
+> > Link: https://gitlab.freedesktop.org/drm/amd/-/issues/3915
+> > Fixes: 0159f88a99c9 ("drm/amd/display: remove redundant freesync parser=
+ for DP")
+> > Signed-off-by: Melissa Wen <mwen@igalia.com>
 >
-> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 27 +++++++++++--------
->  1 file changed, 16 insertions(+), 11 deletions(-)
+> Yeah, we need to check IGNORE_MSA_TIMING_PARAM before
+> allowing Freesync / adaptive sync.
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/=
-drm/amd/amdgpu/amdgpu_discovery.c
-> index d34b97a081d8..e3afdf933dc8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> @@ -612,7 +612,7 @@ static void amdgpu_discovery_read_harvest_bit_per_ip(=
-struct amdgpu_device *adev,
->         struct binary_header *bhdr;
->         struct ip_discovery_header *ihdr;
->         struct die_header *dhdr;
-> -       struct ip_v4 *ip;
-> +       struct ip *ip;
->         uint16_t die_offset, ip_offset, num_dies, num_ips;
->         uint16_t hw_id;
->         uint8_t inst;
-> @@ -631,13 +631,14 @@ static void amdgpu_discovery_read_harvest_bit_per_i=
-p(struct amdgpu_device *adev,
->                 ip_offset =3D die_offset + sizeof(*dhdr);
+> Thanks for the fix.
 >
->                 for (j =3D 0; j < num_ips; j++) {
-> -                       ip =3D (struct ip_v4 *)(adev->mman.discovery_bin =
-+ ip_offset);
-> -                       inst =3D ip->instance_number;
-> +                       ip =3D (struct ip *)(adev->mman.discovery_bin +
-> +                                          ip_offset);
-> +                       inst =3D ip->number_instance;
->                         hw_id =3D le16_to_cpu(ip->hw_id);
->                         if (amdgpu_discovery_validate_ip(adev, inst, hw_i=
-d))
->                                 goto next_ip;
+> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 >
-> -                       if (le16_to_cpu(ip->variant) =3D=3D 1) {
-> +                       if (le16_to_cpu(ip->harvest) =3D=3D 1) {
-
-ip->harvest is a uint8_t so it doesn't need byte swapping.  Other than
-that, the series is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-
-
->                                 switch (hw_id) {
->                                 case VCN_HWID:
->                                         (*vcn_harvest_count)++;
-> @@ -663,10 +664,8 @@ static void amdgpu_discovery_read_harvest_bit_per_ip=
-(struct amdgpu_device *adev,
->                                 }
->                         }
->  next_ip:
-> -                       if (ihdr->base_addr_64_bit)
-> -                               ip_offset +=3D struct_size(ip, base_addre=
-ss_64, ip->num_base_address);
-> -                       else
-> -                               ip_offset +=3D struct_size(ip, base_addre=
-ss, ip->num_base_address);
-> +                       ip_offset +=3D struct_size(ip, base_address,
-> +                                                ip->num_base_address);
->                 }
->         }
->  }
-> @@ -1474,18 +1473,24 @@ static int amdgpu_discovery_reg_base_init(struct =
-amdgpu_device *adev)
+> Harry
 >
->  static void amdgpu_discovery_harvest_ip(struct amdgpu_device *adev)
->  {
-> +       struct ip_discovery_header *ihdr;
-> +       struct binary_header *bhdr;
->         int vcn_harvest_count =3D 0;
->         int umc_harvest_count =3D 0;
-> +       uint16_t offset, ihdr_ver;
->
-> +       bhdr =3D (struct binary_header *)adev->mman.discovery_bin;
-> +       offset =3D le16_to_cpu(bhdr->table_list[IP_DISCOVERY].offset);
-> +       ihdr =3D (struct ip_discovery_header *)(adev->mman.discovery_bin =
-+
-> +                                             offset);
-> +       ihdr_ver =3D le16_to_cpu(ihdr->version);
->         /*
->          * Harvest table does not fit Navi1x and legacy GPUs,
->          * so read harvest bit per IP data structure to set
->          * harvest configuration.
->          */
->         if (amdgpu_ip_version(adev, GC_HWIP, 0) < IP_VERSION(10, 2, 0) &&
-> -           amdgpu_ip_version(adev, GC_HWIP, 0) !=3D IP_VERSION(9, 4, 3) =
-&&
-> -           amdgpu_ip_version(adev, GC_HWIP, 0) !=3D IP_VERSION(9, 4, 4) =
-&&
-> -           amdgpu_ip_version(adev, GC_HWIP, 0) !=3D IP_VERSION(9, 5, 0))=
- {
-> +           ihdr_ver <=3D 2) {
->                 if ((adev->pdev->device =3D=3D 0x731E &&
->                         (adev->pdev->revision =3D=3D 0xC6 ||
->                          adev->pdev->revision =3D=3D 0xC7)) ||
-> --
-> 2.25.1
+> > ---
+> >
+> >
+> > Mario, Alex,
+> >
+> > I can't reproduce the reported issue on my side, but reporters mentione=
+d
+> > this fixes their black screen issue. I examined the code around it and
+> > overall restoring this condition in this way seems right.
+> >
+> > For the future, we can consider using
+> > `drm_dp_sink_can_do_video_without_timing_msa` instead.
+> >
+> > Anyway, from my tests, what I can say is that things seem stable and I
+> > didn't noticed any changes.
+> >
+> > Can you verify how it goes on the CI?
+> >
+> > Thanks,
+> >
+> > Melissa
+> >
+> >
+> >  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 12 ++++++++----
+> >  1 file changed, 8 insertions(+), 4 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/driver=
+s/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > index c9e8982a8804..da550a257f09 100644
+> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > @@ -12381,10 +12381,14 @@ void amdgpu_dm_update_freesync_caps(struct dr=
+m_connector *connector,
+> >
+> >       if (edid && (sink->sink_signal =3D=3D SIGNAL_TYPE_DISPLAY_PORT ||
+> >                    sink->sink_signal =3D=3D SIGNAL_TYPE_EDP)) {
+> > -             amdgpu_dm_connector->min_vfreq =3D connector->display_inf=
+o.monitor_range.min_vfreq;
+> > -             amdgpu_dm_connector->max_vfreq =3D connector->display_inf=
+o.monitor_range.max_vfreq;
+> > -             if (amdgpu_dm_connector->max_vfreq - amdgpu_dm_connector-=
+>min_vfreq > 10)
+> > -                     freesync_capable =3D true;
+> > +             if (amdgpu_dm_connector->dc_link &&
+> > +                 amdgpu_dm_connector->dc_link->dpcd_caps.allow_invalid=
+_MSA_timing_param) {
+> > +                     amdgpu_dm_connector->min_vfreq =3D connector->dis=
+play_info.monitor_range.min_vfreq;
+> > +                     amdgpu_dm_connector->max_vfreq =3D connector->dis=
+play_info.monitor_range.max_vfreq;
+> > +                     if (amdgpu_dm_connector->max_vfreq - amdgpu_dm_co=
+nnector->min_vfreq > 10)
+> > +                             freesync_capable =3D true;
+> > +             }
+> > +
+> >               parse_amd_vsdb(amdgpu_dm_connector, edid, &vsdb_info);
+> >
+> >               if (vsdb_info.replay_mode) {
 >
