@@ -4,68 +4,153 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C58C9C0218A
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jan 2025 14:18:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A24AC0218A
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jan 2025 14:25:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0DD510E00B;
-	Tue, 28 Jan 2025 14:18:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 23B1510E052;
+	Tue, 28 Jan 2025 14:25:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="I0uFOV60";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Ky0P7QUm";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1967F10E612;
- Tue, 28 Jan 2025 09:38:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1738057082; x=1769593082;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=0OmVlqjNNBWDciJjn8c2KrLdS+04Lyx4uar8CJn7mK4=;
- b=I0uFOV60veSJjEG2DmC5bt2IcRFKbUfOEpm2ze9XhJnpMqBOPzAi7Dp0
- yVmknQvvkqjSwct9jGrU7jaat2iJeXZWPCsxQmFJKyKJ+M6Jlxo9TAe1d
- +T2YhT9EEkKTiTkhs7arbXF8hIlz+weITRKdxEzW3xJH0s0sUq5WPmwfO
- dBEQSJ4cY/z+2+IrbwD2gR4LTY+02A4jHuoHF7FkPkFmgr4f9oEgWNMNJ
- CdOqM2QPBRX8VzHoaFnhrzDAzMT9S17Hfhq8I6rzKC1rxJggN+MEh1657
- KEkP+kp1wq4J4ta9EmFzumLDbfWGCsCGsDvyVkI+cY1IiE2pzoiricwCl Q==;
-X-CSE-ConnectionGUID: t4nCgrN0QvKUnkqHocLbbQ==
-X-CSE-MsgGUID: 3nQINScGS4auGPtNixlgNw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11328"; a="38568590"
-X-IronPort-AV: E=Sophos;i="6.13,240,1732608000"; d="scan'208";a="38568590"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jan 2025 01:38:02 -0800
-X-CSE-ConnectionGUID: zeU0ymB6Qjiw5yMC4bCJMw==
-X-CSE-MsgGUID: myfb1sMlR7ymjVtXsqMshw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="113818126"
-Received: from black.fi.intel.com ([10.237.72.28])
- by orviesa005.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jan 2025 01:37:56 -0800
-Date: Tue, 28 Jan 2025 11:37:53 +0200
-From: Raag Jadav <raag.jadav@intel.com>
-To: Pekka Paalanen <pekka.paalanen@haloniitty.fi>
-Cc: Xaver Hugl <xaver.hugl@kde.org>, airlied@gmail.com, simona@ffwll.ch,
- lucas.demarchi@intel.com, rodrigo.vivi@intel.com,
- jani.nikula@linux.intel.com, andriy.shevchenko@linux.intel.com,
- lina@asahilina.net, michal.wajdeczko@intel.com,
- christian.koenig@amd.com, intel-xe@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- himal.prasad.ghimiray@intel.com, aravind.iddamsetty@linux.intel.com,
- anshuman.gupta@intel.com, alexander.deucher@amd.com,
- andrealmeid@igalia.com, amd-gfx@lists.freedesktop.org,
- kernel-dev@igalia.com
-Subject: Re: [PATCH v10 2/4] drm/doc: Document device wedged event
-Message-ID: <Z5ilcc0hC8nvz0Li@black.fi.intel.com>
-References: <20241128153707.1294347-1-raag.jadav@intel.com>
- <20241128153707.1294347-3-raag.jadav@intel.com>
- <CAFZQkGy3R0TMY5CARPQZF70fdKGLX8GQjV_YQAHzEXsiuNHj+w@mail.gmail.com>
- <Z5CAkXSOpNiiFbv4@black.fi.intel.com>
- <20250127122328.6d85bca1@eldfell>
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2053.outbound.protection.outlook.com [40.107.244.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B9F5410E052
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jan 2025 14:25:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=G2GczYwYZ5vJ4UP4xK6vevQbZMDhW6CZR2SlvBxU6wwS/SK3JtQPjfeKn0UM66FW6t9nqI4Y+4JHNDaOdJuAYDOm4zZ5jZPv/5Mg7Z4Oiz/Ye+vlJK+jV0tstNgqMRz+qPiqrnG3wW2DIj7i3mpRB06IZPYSUumWEiXi2GGSu/QxYKwOGY0I6EnYi+ybgzmpWOrG7n6EgNTvIpRDTdPNB2RvzdbfAcyxB/tIjNH0pVruWjrtXF6PIRJe6Vz7p25CkjUvJ2LxVgPv1eVIjuAhQz2cM91ac7J3F4d6M5mdjC1luItMXBC3OHv85+xoHIz5Fz4+z6WIOP0p1RFKzSniWA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mwW8VTCWrI89lljfofA4leBmGtvK9N4SYGqW1ajpCp0=;
+ b=WTtp3/moQ3yXe1AVACQvLafSCVo3k/fC1d1Ak09iEBzSOVhKa8bLNhuzBjBuju9mibqIkDLARt7Pxp5swsTzh18E5uqjGGDEqpTyn+jcdHHI4XR4vYnOoZYfHm5LNm0UIEE+/cLgmDaSNU9MODzEenBl3Asa5RlDW6SzY5E90dShh+AyYHn4Y3ZM9VQL3/7XPCgIKMsEtGHA/gwifvLT4MPSYt0O2EgDAWO2KckNInsB/AeQuumL7D6nv6y6UyuQ0E35Qz8qw3gSh+t3W03T2ONoc4o2DnRnI01w1K4XaL/YJ+J3fIK5yFoBw/1HfpsVT2lulYBxSMQnBX2P34U60g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mwW8VTCWrI89lljfofA4leBmGtvK9N4SYGqW1ajpCp0=;
+ b=Ky0P7QUmDzPdbQlkruvCc3bMygbdk4HZvoCn1nxIg3qu0pTLmmKzBf063OJBXPa5sr72CkPOSIVf+8kBKDwMG1DB0puhyZWw8AtHXc3CaQZn4kQ++lS1kr7UFXzkmuLtyqUW6NcRni+FWJ/1UmcCujoK7cxhphhjHViHDag0hso=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from MN0PR12MB6293.namprd12.prod.outlook.com (2603:10b6:208:3c2::22)
+ by MN2PR12MB4455.namprd12.prod.outlook.com (2603:10b6:208:265::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8398.17; Tue, 28 Jan
+ 2025 14:25:31 +0000
+Received: from MN0PR12MB6293.namprd12.prod.outlook.com
+ ([fe80::49ac:e84e:ea32:d743]) by MN0PR12MB6293.namprd12.prod.outlook.com
+ ([fe80::49ac:e84e:ea32:d743%6]) with mapi id 15.20.8398.014; Tue, 28 Jan 2025
+ 14:25:31 +0000
+Message-ID: <803921d9-c743-4c13-bff7-06df704f300f@amd.com>
+Date: Tue, 28 Jan 2025 19:55:25 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/9] drm/amdgpu: Add helper funcs for jpeg devcoredump
+To: "Lazar, Lijo" <lijo.lazar@amd.com>,
+ Sathishkumar S <sathishkumar.sundararaju@amd.com>,
+ amd-gfx@lists.freedesktop.org
+Cc: Leo Liu <Leo.Liu@amd.com>
+References: <20250128090950.461291-1-sathishkumar.sundararaju@amd.com>
+ <20250128090950.461291-3-sathishkumar.sundararaju@amd.com>
+ <16793f54-a7b8-4e45-b899-fb177b39f8f7@amd.com>
+ <9b7392c7-6085-4c99-93b4-2bfac8b332ce@amd.com>
+ <174adca3-3b0f-4174-bf71-a57598db912f@amd.com>
+Content-Language: en-US
+From: "Sundararaju, Sathishkumar" <sasundar@amd.com>
+In-Reply-To: <174adca3-3b0f-4174-bf71-a57598db912f@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PN3PR01CA0168.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:de::8) To MN0PR12MB6293.namprd12.prod.outlook.com
+ (2603:10b6:208:3c2::22)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250127122328.6d85bca1@eldfell>
-X-Mailman-Approved-At: Tue, 28 Jan 2025 14:18:46 +0000
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN0PR12MB6293:EE_|MN2PR12MB4455:EE_
+X-MS-Office365-Filtering-Correlation-Id: a3ccd636-873d-4eef-c888-08dd3fa79ea8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?Z3JHNjNJV2k2NUNjalZoZUZ5MVlXb1FXdjVONmo4YjFyYW9KMDUxTk9LYlN2?=
+ =?utf-8?B?YlUwWExIa0c5N3c2V2RPTWxRRkIxdCtBMFZMNlcza3ZJNWRaanEvWVZ4U1Bn?=
+ =?utf-8?B?MDdMeXNPQzd3ZFNPd2YzWFlCdnFhNWxJR0dVRDBSYmxrVjZuazVNQWpJaHht?=
+ =?utf-8?B?TVcwSTZEbDMya1hFWkozTDYwdHFCM1lxbXlPZWE0WUsvcnBSQzZ4bFhVRzA4?=
+ =?utf-8?B?WFBySDJZZ041d24yU0JnZDZnQm1QY2NadHZ3RHFOVXoyQ2hNQXlTQVpLekhE?=
+ =?utf-8?B?bWtrM0gxdmZHdDA0UVhGS0szMTIyYkpxOXdKWVZCV2p1SmZmYWNJd09TbFpJ?=
+ =?utf-8?B?eUs5a3N6Q0RsYVc0Q1EwVFVyYVFORFVjZTB6Uk5oamF1WUJ5M1RiR0I4V0lH?=
+ =?utf-8?B?QWxNaDIrU3JUZnZMMWhqV2xGUURSd1g5QmR5UXVRRVUyVG44bXExY203QjR0?=
+ =?utf-8?B?cnhueEtUS3dsWjk2M0N2VEJ1czdBL1ZtQ3ZzdXJaNVc5NCtjTXl0NkFRRVJt?=
+ =?utf-8?B?VGxUWnB5NXowM2tOZ3RKS3doRUIwVXVHTDBjTTZMVmljUFNoUlRnQ1kzY3RW?=
+ =?utf-8?B?N0U0VGk4UUE5TmNKNGlhcUdIL21wdzVsRHQ2Rzc4VGNSUzJyUmVOMFdVcHZE?=
+ =?utf-8?B?SFpQdFZ0RHRBbEhiSENmOG4zZk1DcXk5THJwbSs5Q3dZWFJGemU1QXMwemI4?=
+ =?utf-8?B?QmRSZHFGSDlLcU9yMFFRQ0JRSUVmV3ZKTExOWFE0UGNGYkhGUU83QW01YW5G?=
+ =?utf-8?B?UUlVa1hXTEtjanM5UVd1TkNKQ1kydXNZNlJzRzVEM01tSlA3TTJYcDNZN25F?=
+ =?utf-8?B?Nkc3Z0Q2NGhCdGc1VDk2Q3cwbHBjSFpjWS9ud3c0RkNFMVZvUTJVMHNBMVcr?=
+ =?utf-8?B?QWJhbXZYQ01qbDRFSnBUdXQ0UTNrT1kvM2lhRVU2VFdWOTlYcWZYbHdnNUdp?=
+ =?utf-8?B?TzZ5RG1IVmlRV3BFZm55SU9sSHkyTURQVW1GR1lNV1N2T3Fnd1hKcThLbkl0?=
+ =?utf-8?B?MU5DN3hDRzdUOWFGbTR0d0grdmxyYWpCKzlqd2VIKzI1eVByTnlOcjFTTGpv?=
+ =?utf-8?B?NFlZd3cvd0FOc0F3MDE4N2RQSndQV1FFSmlmV0VVa1V6M25LR3pRRmRWZDJJ?=
+ =?utf-8?B?MW1IUkkwa1VnbGh3UFZiQUE4LzNlQ2wwNkphb0dyN2ZBVmlaN2dWdmljcGxN?=
+ =?utf-8?B?eFc4amluZGF6MUl3TlN6NG14bW53UDErOEtoUk1RQTl5d3NjeHRTYjQ1TTRB?=
+ =?utf-8?B?emtwTllyTmN1OHMvTUhyblA5dTk5TFFRQ0N5Y24xdDlBVFR0eGdVcEhsS0lX?=
+ =?utf-8?B?bGNBUnFEOFcvSGJjOERrYjhIQWpRcXVrbHNFb3lOMXZsblNNbjlpc09RM21i?=
+ =?utf-8?B?QnlGaGFOc2dpWDF2Mi9GRzh3K1hkZVFaSUMvTGlIZTBLMGVoMnpaeW83ZXhX?=
+ =?utf-8?B?UEVvZzhmMlVBQ2NCRnR2bGhBWkNxeXRvZUtRb0srcVZScnozS25sOHIxRmZV?=
+ =?utf-8?B?UEtJVkRsRElXbGovck1lSzJjaUdVdTRrZi9RNTZyUHU1OG1QSnVRd3hKbUpa?=
+ =?utf-8?B?b3c0QTJPaW5rOXdUWFFkYmQ4N002VWgxMUhkSGUvRlpLM1VwRzdUa0VSQmRk?=
+ =?utf-8?B?c1lTM2E2V1FpQWNmdWdvZitNenVqT1dCb2FTcXdTUXJkR2w1WEV2SG1DWW1v?=
+ =?utf-8?B?MUZ5aWVLUWE0bFBhTlp5TmpiSHhWakVZMnBGQlY4SHAxTzJpY3hMWXdTZGd5?=
+ =?utf-8?B?bHg5Q3FRSWVrVWVoaVI1cndPNGFqWVhrcERxSjAyT3NiTDEzSHJKVjY4UXRm?=
+ =?utf-8?B?K1RzNDJ6ZGt4NFVYb05JSlZTT3JURmswZWcxU0J0TzNVa3BHZUg3UERrUkMy?=
+ =?utf-8?Q?Kp/5HIMTczb83?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN0PR12MB6293.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?R1IrMlpuZzY1Z0pCYUJmQWg2b21GcDRqVTVYM2s3L3hLek1Iajg4QWhkMTNY?=
+ =?utf-8?B?Wko4WTZSK0lMSm5BTEJ6endkeHA1TjlYbzVPYjZBNmV4UHBTNzllTlBsb0FU?=
+ =?utf-8?B?Q1BrQXUzTzdYWldJOVYxaVVDSEpZcThsZTAwZ0JCU2o3L00rcC9LcTc2eFFt?=
+ =?utf-8?B?c2JqaTE2RlM5MDgvOUtrYnhtS1BzSFdlclJ2Q3E0bmZQdFhJYWVYSlppazBY?=
+ =?utf-8?B?VVpreUh3UVVpQmhYNW4rWnhGOEdaWEliZ1hLSzNqZGZoc2RCNENZTk5iUTFn?=
+ =?utf-8?B?bjJrSGJrNm52K0U5Y0ltZDNJTFAyZmZTVUp0eUdEalVlWGhjbHdCYU95aDZE?=
+ =?utf-8?B?K2J2RjFyaFpDNlk5QjBLZlBvWnBiWDN6V1JkdmN3NXMrWDFQR3RDaFg2RWZG?=
+ =?utf-8?B?UEpMbGh6cmVDRmtMUXlXNUR5WWR2UWZIS1NFS2tOb010OXM1KzhQVzAySE5Y?=
+ =?utf-8?B?K1Y3bU52VlJOMEl1bnBjdFl1NTdxVGw1bDdwZjRZZEZyYWU3NURYT0tWck94?=
+ =?utf-8?B?elUzaUcvWSsvYWtFdkszVGhHWk1LRVFLTXNFZHhGM2JHaHo2SXQ4Umw2N3BV?=
+ =?utf-8?B?SnRIZEFXMTRXZ05qODBrbkliUnkxSjBzN0JjWDlPMzdmM2xDd3VHNHBiNVVn?=
+ =?utf-8?B?eHRDVDRtdnVEMGYyYVlyLzFkelFnazRSbzZENktHZFRyM01JNmlUakp6UkdL?=
+ =?utf-8?B?d3VZeWZYNExSS3FaTDVtQU9mRkpCS3EvRmg2YUV6WFkxTVQzMHR0L1VVUUJT?=
+ =?utf-8?B?YU45RFZIOWsydHovOUxVNVJzTWg3VytaTUI3UVhuKzVUaTJDTWg5aU5QQU1q?=
+ =?utf-8?B?TmVsM0JrSDIrMnoxeGZEeFptNlBPOTRGZ1hmWEdvUVZKbVZJc1IzK2todXBo?=
+ =?utf-8?B?cjZpTE00TzRFQXdPTEtEelZoOHowNWx4NWh2OGJmQ2Yxc01rRU1wK1YwQzd6?=
+ =?utf-8?B?cURITmhyNGR6cTgrK3BVU1FqbGwxbnNnYjBtWkdoaU0waDdUcGp1QnA2MEVh?=
+ =?utf-8?B?OHFaemZrNk1vSUpmSlVsV3hRUUJGS2sxZUpseHJzWVlTQVBaYm9FK3pBcEJm?=
+ =?utf-8?B?Y0dMc0dHc3pzUk5kSnNyQTVaaFBGaDB6TnFFaFp0VDk5YUhuMkMvbWJHUHpu?=
+ =?utf-8?B?a3cvb2ZvZ2ZkU0JlR2pSbThVZXpJQm1iS05DS0VDRW1QVzRuOWw2bFYwZFJY?=
+ =?utf-8?B?Y3lSZGxpYmMxR0NJd0UzcnZxcmhuVG1RYnlFSkwxb3lIcE1rVCtiUzRTdTQx?=
+ =?utf-8?B?WTlFN2JaeGdpYmJTdlFlVzBWWHN4NXE0eGU1cC85ejVWemFoZ1dQL1ViVVJn?=
+ =?utf-8?B?eHptMmE5OXdiR1dhMmw4TXkwRWZPSzBSSE5sZWlTbHVyUDViQStHb0N4bFF3?=
+ =?utf-8?B?bDZnSzV5ZHFuVUxaTlh2RTdGeU51UDg0dFY1WklsUHBQMWpybXlMcTIvN0tC?=
+ =?utf-8?B?bFdXeWhVSnRlUUgycEY4SjMzdmNyMCtuVUVrK3loVXo2MGRNS0tBM0Vha0Qx?=
+ =?utf-8?B?RTJBcGNGUjVxcVdQK29hVSt1bHlJeUJVQjZwdXBuUTF5Slk4TXVISjZUSHZY?=
+ =?utf-8?B?d0wzTEYwZzh6OXNQaWEwL2JDQmhvMldISEh2K1BOaFlFcGVZYXdWM2RNRmVQ?=
+ =?utf-8?B?cU52RGRWazBoUW9keEllME91WENIUXlTNm5lWER1YmVXQk5MeFh3UEs4alAr?=
+ =?utf-8?B?ZzZsRG4xb2F4S0wydm9lODlUUy8xTTAyR0ZXQ2RYcjZFbE9CTlZ0T3FCb1c0?=
+ =?utf-8?B?a0F3NlUxVVZTNGZEYlhCeWdWdnE2OU5lSldjMVF0WHpISnZUcWw3KytuemNr?=
+ =?utf-8?B?SWlBZW1XSUx1Y0pWNnNJd29yUWFhY0RDakUzQTh4QW5hL0RHOTViNVB3Vnlx?=
+ =?utf-8?B?L1RLM0UxZ1E3cnFKeXJrRjZrK3RZczczMG4xK0s3WGkzazQwbU5uQ20zZ21x?=
+ =?utf-8?B?ayszMkROTG5oOTB0bXdIQk0yV0dFMWZCU2pETUx6bWYrOFdodEppbWtZV3VI?=
+ =?utf-8?B?VTlFN2wwTDgvM3JzYzIyMDllREg4TXkyRnFhajBMRk1qNVdxc0c0UE1zeHRC?=
+ =?utf-8?B?UERReHNKOUVSa1A0WXpVbitOYW01cnBLR0QzcGFhT3NSb200RG54WWpMeWlU?=
+ =?utf-8?Q?crNcZ3YSJ8lOxayetr99ycztl?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a3ccd636-873d-4eef-c888-08dd3fa79ea8
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6293.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jan 2025 14:25:31.3615 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: AG3evOZy5YdKMqDOs7VbR8gGtri+DWQ2M2HUMPWEFXCpgnhjXXRvOOQ3/p3x6NVLKmH9JVhjds0u0q5lqtN2bA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4455
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,122 +165,173 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jan 27, 2025 at 12:23:28PM +0200, Pekka Paalanen wrote:
-> On Wed, 22 Jan 2025 07:22:25 +0200
-> Raag Jadav <raag.jadav@intel.com> wrote:
-> 
-> > On Tue, Jan 21, 2025 at 02:14:56AM +0100, Xaver Hugl wrote:
-> > > > +It is the responsibility of the consumer to make sure that the device or
-> > > > +its resources are not in use by any process before attempting recovery.  
-> > > I'm not convinced this is actually doable in practice, outside of
-> > > killing all apps that aren't the one trying to recover the GPU.
-> > > Is this just about not crashing those processes if they don't handle
-> > > GPU hotunplugs well, about leaks, or something else?  
-> > 
-> > Correct, all of it. And since the compositor is in charge of device resources,
-> > this way it atleast has the opportunity to recover the device and recreate
-> > context without all the userspace violence.
-> 
-> Hi Raag,
-> 
-> sorry, I haven't followed this series, so I wonder, why should
-> userspace be part of recovering the device? Why doesn't the kernel
-> automatically load a new driver instance with a new DRM device node?
 
-There are things like bus level reset (PCI SBR) and re-enumeration that are
-not possible from driver context (or atleast I'm not aware of it), so a new
-instance is just as useful/less as the old one.
 
-> Of course userspace needs to deal with stuff suddenly erroring out, and
-> destroy existing related resources, then wait for a working device
-> to appear and rebuild all state. The kernel driver already needs to
-> make the existing open stuff inert and harmless, why does it need an
-> acknowledgement from userspace to unbind and re-bind?
 
-Rebind is kind of a stepping stone to the above.
+On 1/28/2025 5:29 PM, Lazar, Lijo wrote:
+>
+> On 1/28/2025 5:06 PM, Sundararaju, Sathishkumar wrote:
+>> Hi Lijo,
+>>
+>>
+>> On 1/28/2025 3:04 PM, Lazar, Lijo wrote:
+>>> On 1/28/2025 2:39 PM, Sathishkumar S wrote:
+>>>> Add devcoredump helper functions that can be reused for all jpeg
+>>>> versions.
+>>>>
+>>>> Signed-off-by: Sathishkumar S <sathishkumar.sundararaju@amd.com>
+>>>> ---
+>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c | 59 ++++++++++++++++++++++++
+>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.h |  7 +++
+>>>>    2 files changed, 66 insertions(+)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c b/drivers/gpu/
+>>>> drm/amd/amdgpu/amdgpu_jpeg.c
+>>>> index b6d2eb049f54..70f1e0e88f4b 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
+>>>> @@ -452,3 +452,62 @@ void amdgpu_jpeg_sysfs_reset_mask_fini(struct
+>>>> amdgpu_device *adev)
+>>>>                device_remove_file(adev->dev, &dev_attr_jpeg_reset_mask);
+>>>>        }
+>>>>    }
+>>>> +
+>>>> +void amdgpu_jpeg_dump_ip_state(struct amdgpu_ip_block *ip_block,
+>>>> +                   const struct amdgpu_hwip_reg_entry *reg, u32
+>>>> reg_count)
+>>>> +{
+>>>> +    struct amdgpu_device *adev = ip_block->adev;
+>>>> +    u32 inst_off, inst_id, is_powered;
+>>>> +    int i, j;
+>>>> +
+>>>> +    if (!adev->jpeg.ip_dump)
+>>>> +        return;
+>>>> +
+>>>> +    for (i = 0; i < adev->jpeg.num_jpeg_inst; i++) {
+>>>> +        if (adev->jpeg.harvest_config & (1 << i))
+>>>> +            continue;
+>>>> +
+>>>> +        inst_id = GET_INST(JPEG, i);
+>>>> +        inst_off = i * reg_count;
+>>>> +        /* check power status from UVD_JPEG_POWER_STATUS */
+>>>> +        adev->jpeg.ip_dump[inst_off] =
+>>>> RREG32(SOC15_REG_ENTRY_OFFSET_INST(reg[0],
+>>>> +                                          inst_id));
+>>>> +        is_powered = ((adev->jpeg.ip_dump[inst_off] & 0x1) != 1);
+>>>> +
+>>>> +        if (is_powered)
+>>>> +            for (j = 1; j < reg_count; j++)
+>>>> +                adev->jpeg.ip_dump[inst_off + j] =
+>>>> +                    RREG32(SOC15_REG_ENTRY_OFFSET_INST(reg[j],
+>>>> +                                       inst_id));
+>>>> +    }
+>>>> +}
+>>>> +
+>>>> +void amdgpu_jpeg_print_ip_state(struct amdgpu_ip_block *ip_block,
+>>>> struct drm_printer *p,
+>>>> +                const struct amdgpu_hwip_reg_entry *reg, u32 reg_count)
+>>>> +{
+>>>> +    struct amdgpu_device *adev = ip_block->adev;
+>>>> +    u32 inst_off, is_powered;
+>>>> +    int i, j;
+>>>> +
+>>>> +    if (!adev->jpeg.ip_dump)
+>>>> +        return;
+>>>> +
+>>>> +    drm_printf(p, "num_instances:%d\n", adev->jpeg.num_jpeg_inst);
+>>>> +    for (i = 0; i < adev->jpeg.num_jpeg_inst; i++) {
+>>>> +        if (adev->jpeg.harvest_config & (1 << i)) {
+>>>> +            drm_printf(p, "\nHarvested Instance:JPEG%d Skipping
+>>>> dump\n", i);
+>>>> +            continue;
+>>>> +        }
+>>>> +
+>>>> +        inst_off = i * reg_count;
+>>>> +        is_powered = ((adev->jpeg.ip_dump[inst_off] & 0x1) != 1);
+>>>> +
+>>>> +        if (is_powered) {
+>>>> +            drm_printf(p, "Active Instance:JPEG%d\n", i);
+>>>> +            for (j = 0; j < reg_count; j++)
+>>>> +                drm_printf(p, "%-50s \t 0x%08x\n", reg[j].reg_name,
+>>>> +                       adev->jpeg.ip_dump[inst_off + j]);
+>>>> +        } else
+>>>> +            drm_printf(p, "\nInactive Instance:JPEG%d\n", i);
+>>>> +    }
+>>>> +}
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.h b/drivers/gpu/
+>>>> drm/amd/amdgpu/amdgpu_jpeg.h
+>>>> index eb2096dcf1a6..1d334f35d8a8 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.h
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.h
+>>>> @@ -92,6 +92,8 @@
+>>>>            *adev->jpeg.inst[inst_idx].dpg_sram_curr_addr++ = value;    \
+>>>>        } while (0)
+>>>>    +struct amdgpu_hwip_reg_entry;
+>>>> +
+>>>>    enum amdgpu_jpeg_caps {
+>>>>        AMDGPU_JPEG_RRMT_ENABLED,
+>>>>    };
+>>>> @@ -137,6 +139,7 @@ struct amdgpu_jpeg {
+>>>>        bool    indirect_sram;
+>>>>        uint32_t supported_reset;
+>>>>        uint32_t caps;
+>>>> +    u32 *ip_dump;
+>>> It's better to keep this at per jpeg instance level (amdgpu_jpeg_inst).
+>>> If the hang happens for a single jpeg ring, that will help rather than
+>>> dumping out reg settings for all instances.
+>> The devcoredump infra in amdgpu does not propagate the job itself or the
+>> hung instance, so there is no feasible way of doing this, meaning
+>> dumping only the affected instance.
+>> And if every instance is represented by an ip_block then I can implement
+>> this with a flag to handle per instance case, but I doubt it is, as seen
+>> from the below commit
+>> fba4761ca00f drm/amdgpu: partially revert VCN IP block instancing support
+>>
+> Even if the API in its current form doesn't support per instance dump,
+> suggest to keept the reg_dump data struct in jpeg_instance. That way it
+> doesn't need any calculation to find the right offset etc.
+>
+> On the other hand, a single copy may be maintained for the reg address
+> list if that is feasible. As I see the address calculation is dynamic
+> based on the instance id and it may not make sense to keep it in all
+> instances.
+I am aligned with you on maintaining a single copy of the reg_list, and 
+so, yes address calculation is dynamic
+based on the the instance id as you pointed out, in that case 
+maintaining this inside an instance tracking structure
+doesn't feel right, as multiple instances track the same reg_list 
+pointer which is the same list for all instances given an IP version.
 
-> > I'm not entirely aware of its feasibility though, perhaps something for the
-> > consumers to experiment.
-> 
-> If consumers mean userspace, then no, not reliably. But the kernel can
-> do it.
+The request I am proposing is to maintain the reg_list inside 
+adev->jpeg, a common list of registers for any instance in the ip, and
+all the ip_blocks of type JPEG refer to this common list when separate 
+instances are represented by discrete ip_blocks, and dump per instance
+register list in the future when that is planned and enabled.
 
-Can you please elaborate or refer to an example?
+Regards,
+Sathish
+>
+> Thanks,
+> Lijo
+>
+>> Regards,
+>> Sathish
+>>> Thanks,
+>>> Lijo
+>>>
+>>>>    };
+>>>>      int amdgpu_jpeg_sw_init(struct amdgpu_device *adev);
+>>>> @@ -161,5 +164,9 @@ int amdgpu_jpeg_psp_update_sram(struct
+>>>> amdgpu_device *adev, int inst_idx,
+>>>>    void amdgpu_debugfs_jpeg_sched_mask_init(struct amdgpu_device *adev);
+>>>>    int amdgpu_jpeg_sysfs_reset_mask_init(struct amdgpu_device *adev);
+>>>>    void amdgpu_jpeg_sysfs_reset_mask_fini(struct amdgpu_device *adev);
+>>>> +void amdgpu_jpeg_dump_ip_state(struct amdgpu_ip_block *ip_block,
+>>>> +                   const struct amdgpu_hwip_reg_entry *reg, u32
+>>>> reg_count);
+>>>> +void amdgpu_jpeg_print_ip_state(struct amdgpu_ip_block *ip_block,
+>>>> struct drm_printer *p,
+>>>> +                const struct amdgpu_hwip_reg_entry *reg, u32
+>>>> reg_count);
+>>>>      #endif /*__AMDGPU_JPEG_H__*/
 
-> I see in the commit message written:
-> 
-> 	"For example, if the driver supports multiple recovery methods,
-> 	consumers can opt for the suitable one based on policy
-> 	definition."
-> 
-> How could consumers know what to do? How can they guess what would be
-> enough to recover the device? Isn't that the kernel driver's job to
-> know?
-
-Yes, 'WEDGED=' value are the known methods that are expected to work. The
-policy is how the consumer can decide which one to opt for depending on the
-scenario. For example, the less drastic method could work in most cases, but
-you'd probably want to opt for a more drastic method for repeat offences or
-perhaps if something more serious is discovered from "optional telemetry
-collection".
-
-> (More important for userspace would be know if dmabuf fds remain
-> pointing to valid memory retaining its contents or if the contents are
-> lost. Userspace cannot tell which device a dmabuf originates from,
-> AFAIK, so this would need to be added in the generic dmabuf UAPI.)
-
-Not sure if I understand, perhaps Christian can shed some light here.
-
-> 	"Consumers can also choose to have the device available for
-> 	debugging or additional data collection before performing the
-> 	recovery."
-> 
-> Couldn't the wedged driver instance remain detached from the hardware
-> while a new driver instance initializes? Then debug data remains until
-> the wedged device is fully closed from userspace, or maybe devcore dump
-> retains it.
-> 
-> I presume that WEDGED=none case should retain the debug data somehow as
-> well.
-
-Indeed, but it's optional so depends on the driver.
-
-> > > > +With IOCTLs blocked and device already 'wedged', all device memory should
-> 
-> btw. when I see "blocked" I think of the function call not returning
-> yet. But in this patch "blocked" seems to be synonymous for "returns
-> an error immediately". Would it be possible to avoid the word "blocked"
-> for this?
-
-It is meant as "blocking the access", but fair enough. We can have a quick
-fix later on if it's not too big of a concern.
-
-> > > > +be unmapped and file descriptors should be closed to prevent leaks.  
-> > > Afaiu from a userspace POV, a rebind is just like a GPU hotunplug +
-> > > hotplug with matching "remove" and "add" udev events. As long as the
-> > > application cleans up resources related to the device when it receives
-> > > the event, there should be no leaks with a normal hotunplug... Is this
-> > > different enough that we can't have the same expectations?  
-> > 
-> > The thing about "remove" event is that it is generated *after* we opt for an
-> > unbind, and at that point it might be already too late if userspace doesn't
-> > get enough time to clean things up while the device is removed with a live
-> > client resulting in unknown consequences.
-> > 
-> > The idea here is to clean things up *before* we opt for an unbind leaving
-> > no room for side effects.
-> 
-> Something here feels fragile. There should not be a deadline for
-> userspace to finish cleaning up. What was described for KMS device nodes
-> in this same document seems like a more reliable approach: keep the
-> dead driver instance around until userspace has closed all references
-> to it. The device node could be removed earlier.
-
-I'm not sure if I'm following here. The driver instance will exist as long
-as the dead device exists, which the consumer can remove if/when it chooses
-to trigger an unbind from userspace. There is no deadline for it.
-
-The consumer can choose to rely on hotplug events if it wishes, but the point
-here is that it doesn't guarantee a clean recovery in all cases.
-
-Raag
