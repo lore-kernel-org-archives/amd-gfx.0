@@ -4,68 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF70CC0218F
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jan 2025 18:36:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB5BFC0218D
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jan 2025 18:57:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 62BBF10E0DF;
-	Wed, 29 Jan 2025 18:36:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3EAA310E0A2;
+	Wed, 29 Jan 2025 18:57:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YVmoIaoC";
+	dkim=pass (2048-bit key; unprotected) header.d=dorfdsl.de header.i=@dorfdsl.de header.b="cZ+KPgmY";
 	dkim-atps=neutral
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
- [209.85.216.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0132010E0DF
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jan 2025 18:36:52 +0000 (UTC)
-Received: by mail-pj1-f53.google.com with SMTP id
- 98e67ed59e1d1-2f440e152fdso1645146a91.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jan 2025 10:36:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1738175812; x=1738780612; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=UNpMOryMh75+DMbC39vcn+v1/+DAPdh2XM9NDgrFUU8=;
- b=YVmoIaoCZLY4FwTXAJOkohgrGTXkoW0kao45QzyjLTMcRHy3Qh3BkzcxaRmI28NVE7
- 6tvlE4S4kFtNBwvgHa/7QkVe6FjgSD9Z4WO77oQeEsB7t35vM5oOPMcdQTrTHO4iweNb
- b3W46Ty74OLRGS5yJ5ar6PqO0hF9n5NCY5dcW3GCAnrv27Ddvv7OY1G5esDxPS5lyF+m
- SlAAH46wjkgHdJC2vL/IaaN1llGgHYOdMmNn1GVDuacZRZK4c//lqTUlQ+/bAnWUJWHd
- GyXkcXphUdBzFZr5M4EyiHXBwvJHLf5YA2BNaVj0VumX7XdTw4EIL4oVaXmBVszCR3zy
- AiyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1738175812; x=1738780612;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=UNpMOryMh75+DMbC39vcn+v1/+DAPdh2XM9NDgrFUU8=;
- b=AI7IpOFtGERmD4BmKn0SMnUcivQz3LLyHNawNLeouhoDH5WOUCDdUIy6XjNt+42lNj
- 3BDDjv7OVqbkfa4dsAHKpd0Wne13mxuXORjxpsPuKd3pndEYOU5xtiHZiS7vEcffnaqC
- izB8qxYMtGQq3QAXvmi1YkLfmXAuckZ5bSyVZz/AZfU+Y1m9Qk+svjyNnfhyxZW7Yh04
- 9GY6L6qe67edNyUaDvV5EeOVfZlY92pFOG09U5Zk9OHx8VJZ5xMWOsDEWbs6R20JBpll
- bT/jgixuGeRp/l+iiykOUOzMOYiq1dNmbv//JVUpmujMOxI1Cxz7s2V6gqkIW+GZCKmw
- 3HgQ==
-X-Gm-Message-State: AOJu0YyQY3j5fe3yz/VnCy+MkNMBr6AoQzNa+hRCKaiOlp5o8ve+DFqM
- BEkFdcGdndJBnXwPlIa8LXiPACmdGCW6vWFkiGkFnR1CbjBx1wRsqqjF+j3/CND60h8SAqBIaz1
- ReDxlW67zTPbSXFtHxTNa6YgQdzUYlA==
-X-Gm-Gg: ASbGnctV20bXT6iwEQ9G+wuTc6To7F0yeYTlsU8Siog9Ad5+B0SU2FrAIQzg6jHYf3u
- NlSJwF9yeyzZPkaxUyZRFJDBsMQP5Br2v7Dv/Fwo6BayddiOy3bIll+rN3TcaifRPnpmtasUX
-X-Google-Smtp-Source: AGHT+IG2VlpxuW0jct5dCCPZ98ELr2gVK8XMDEtDKLSSi/yDKSxNS2K1dRxIp9SJL4E1eOiW9CKZbBb8ocPsQOw3YqQ=
-X-Received: by 2002:a17:90b:2dca:b0:2ee:b665:12ce with SMTP id
- 98e67ed59e1d1-2f83aba7fd1mr2385392a91.1.1738175812342; Wed, 29 Jan 2025
- 10:36:52 -0800 (PST)
+Received: from srv1.dorfdsl.de (srv1.dorfdsl.de [82.139.196.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A91410E0A2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jan 2025 18:57:15 +0000 (UTC)
+Authentication-Results: srv1; none (SPF check N/A for local connections 
+ -  client-ip=2a01:170:118f:2:abc0:2524:932c:126c; 
+ helo=[IPv6:2a01:170:118f:2:abc0:2524:932c:126c]; 
+ envelope-from=mm@dorfdsl.de; receiver=<UNKNOWN>)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=dorfdsl.de;
+ s=default; t=1738177033;
+ bh=ap4X4VFDghIjOrLcgtJJvWfbwPXsARjnsIvT7qdY9EA=;
+ h=Date:From:To:Subject:In-Reply-To:References:From;
+ b=cZ+KPgmYV/R45mYvXG4fl5N5KWIAno27qVjIVDF67Noy1RQRNOaB+qK14mWKZMqfV
+ VcjVDUIxqeKWefoEBIPeo5PgEi8bG8uV9IzEBt8WdokM9n0r/F/tWefFdggZGueMdd
+ BQEXZPUPYwlYfwiv7AOH8z1u0n9rm5ebCM+L8pWUOmK7pzVEpg8uiCW2pLaB/RdN7b
+ YQ5omhsX9LoQRls8upE0ogVocPQ1Wtl5Be0lOR07LVX/cuXpzyypb/LNJIArt2Gb8x
+ 33Fop5smkBfQY5Om3kGkajHQdGgezdWcTOk3hEvX28UUZ7NSlkCJTsDiMTqsib1Yw2
+ Gv7O79qxulXKw==
+Received: from ryz.dorfdsl.de ([IPv6:2a01:170:118f:2:abc0:2524:932c:126c])
+ (authenticated bits=0)
+ by srv1.dorfdsl.de (8.18.1/8.18.1/Debian-6~bpo12+1) with ESMTPSA id
+ 50TIvCEm069828
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT)
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jan 2025 19:57:13 +0100
+Date: Wed, 29 Jan 2025 19:57:11 +0100
+From: Marco Moock <mm@dorfdsl.de>
+To: amd-gfx@lists.freedesktop.org
+Subject: Re: amdgpu 100% CPU usage causing freeze 1002:15d8
+Message-ID: <20250129195711.0d013ea4@ryz.dorfdsl.de>
+In-Reply-To: <CADnq5_Pg2JMuJ13ow0AcVgMqUvin6Oj41hmWYqP6+Vrjq3cMWQ@mail.gmail.com>
+References: <20250114213157.19de9009@ryz.dorfdsl.de>
+ <CADnq5_MFq-OWn7dwTTPPcBbFKQmBHvD6qCi8ngiVumk2V1U40g@mail.gmail.com>
+ <20250115160834.033e8aad@ryz.dorfdsl.de>
+ <20250115211039.09e6e69e@zbook>
+ <CADnq5_MY+cN0dPTis582HY0a80rNiO86kz9Ha=e=HS2Toim=4w@mail.gmail.com>
+ <20250115213511.2feaa331@zbook>
+ <CADnq5_MbeTRb642qwb0Q7JbL=2UsnK6RnLm6NWTeVLZOEuyn4A@mail.gmail.com>
+ <20250116172916.0dba9ff6@ryz.dorfdsl.de>
+ <CADnq5_NU-stpay1uFHXD9fVemg4snyE-eZZ4rfyg2Mc3x2OLyg@mail.gmail.com>
+ <20250116173734.256704ca@ryz.dorfdsl.de>
+ <CADnq5_O_WcZJ7yoDKEJpktSqffbP8RENhChmkD8Es7NHRYhCAg@mail.gmail.com>
+ <20250124110225.6a0a87ad@ryz.dorfdsl.de>
+ <CADnq5_PwhCK0DfUrEgmdpoFmcBcS-FobGf8p20fSDHOrPTFrNg@mail.gmail.com>
+ <20250125193837.373438f7@ryz.dorfdsl.de>
+ <CADnq5_ODfJtaRpQpkSbkSuCQobHyz3QZ-CO2KkPuaqHBuupKvw@mail.gmail.com>
+ <CADnq5_Pg2JMuJ13ow0AcVgMqUvin6Oj41hmWYqP6+Vrjq3cMWQ@mail.gmail.com>
+X-Mailer: Claws Mail 4.3.0 (GTK 3.24.48; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-References: <CAAxE2A42f1uH_1esfXn-BsPEzbMeuev4TAFfG9DYDc01xS=g8Q@mail.gmail.com>
- <CAAxE2A60-sJkNLrh0bVVpi35h1PZREbeb+9cpZBjmcBgfW2wrw@mail.gmail.com>
- <CAAxE2A6oBwCvVaPe_oxMRmFFdvZkUM-oHHJhc+tConM=5niqZg@mail.gmail.com>
-In-Reply-To: <CAAxE2A6oBwCvVaPe_oxMRmFFdvZkUM-oHHJhc+tConM=5niqZg@mail.gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 29 Jan 2025 13:36:39 -0500
-X-Gm-Features: AWEUYZldyBVrg9LaCdPxXAfdeMchDB_79ArK_aOV1L7CHHRy9PakXIKQ5jHq-KE
-Message-ID: <CADnq5_P_5vcxoxnDLDfthS7wgewXuNMhbfwXCvcV46-z8a_y-A@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: add a BO metadata flag to disable write
- compression for Vulkan
-To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-Cc: amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -81,28 +75,13 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Am 28.01.2025 um 12:06:11 Uhr schrieb Alex Deucher:
 
-On Wed, Jan 29, 2025 at 1:32=E2=80=AFPM Marek Ol=C5=A1=C3=A1k <maraeo@gmail=
-.com> wrote:
->
-> Ping. This is urgent.
->
-> Marek
->
-> On Mon, Jan 27, 2025 at 10:52=E2=80=AFAM Marek Ol=C5=A1=C3=A1k <maraeo@gm=
-ail.com> wrote:
->>
->> Updated patch attached.
->>
->> Vulkan can't support DCC and Z/S compression on GFX12 without this.
->>
->> Marek
->>
->> On Fri, Jan 24, 2025 at 10:15=E2=80=AFAM Marek Ol=C5=A1=C3=A1k <maraeo@g=
-mail.com> wrote:
->>>
->>> Required by Vulkan because it can allocate whole VRAM as 1 BO and parts
->>> of it bypass compression and read raw data.
->>>
->>> Signed-off-by: Marek Ol=C5=A1=C3=A1k <marek.olsak@amd.com>
+> Another potential better patch to try.
+
+Still freezes without=20
+amdgpu.ppfeaturemask=3D0xfff73fff
+
+--=20
+Gru=C3=9F
+Marco
