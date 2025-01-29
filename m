@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66CDAC0218A
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jan 2025 02:47:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28655C0218A
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jan 2025 02:55:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 178D410E0D2;
-	Wed, 29 Jan 2025 02:47:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B549B10E092;
+	Wed, 29 Jan 2025 02:55:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="bwm4qTzf";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Cnz/mC72";
 	dkim-atps=neutral
 Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2060.outbound.protection.outlook.com [40.107.243.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B66D210E0D2
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jan 2025 02:47:43 +0000 (UTC)
+ (mail-dm6nam12on2070.outbound.protection.outlook.com [40.107.243.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A3D510E092
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jan 2025 02:55:20 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BEv017SS7uo7Zfls5MAjbL8IIsp2CckShJ+gg2ntNwrxWqwLAKErrPn0uW6Zcbx6g6UWyowYRHGEGWeChi4UzHGnK7mUwpqe/nFui9N6BrhM2AGGuAPnTrdb84tNrSTdsemnjDgixXHyIwEGOHh7zOV5wSIjrbG319/TFVMz158nJZ7LiJv3phWbscSBmfCD14LKj7Z/abkQ4gA3WYP/vmEdW+M1k4FbDbs3kT2e9ubnRwCZNA+lyKy8GUlDUF+w6aB4BIFtFA1shsId+ViQ1uySsJ3kL2tBx4xWXSKxJqy+mslE1AbgO0PGcOugPAsKDqSl2VuunOyGEDSqZNK8NQ==
+ b=b7hBSTaVlQ1iV+pBRQX9yvonHhah4zX81+qfkKIv+p4QevGQYKxJbGKd9d1T7rup+KfaUXiPlkbg9Cd5mdjb4BHbvbhFCYOom0wC/4oX0Ha4lDuqGeJvscXmW4EvmdEbp8mLF9u80ampK0/D9PzQNUM1D4Bb3eO0Ms00jv2KkFpB9yYcKn61RO116Dh25aR3cqI8HyvlqXX8Sa9UgavjgWflKxCRZzZf165kWvbOZhhLC7ARNmwDOnu18XNd5rBehYpk9dr1daX1r4a0kuyrnRQvJ3X2nq99e7jPXd2hogxc/i3DBXn8HulB+Fh3bKAa8GqZQ4haBq+Kc26E8YW3BA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nn9pqXTlhGU4jA3Ai1tvxMOrfGbsGng4BQk+EsiirNE=;
- b=mq1V2F1fdg0GaeLWZYylMxkvL+o+ug5xgnB9+JyXFqPTCcbdACPY2ku+wwtsVcB0mqqYO3WM4NKy/xe/UIjQMVsAcdM462AAtg3Bh4NmdwEHzho5eiXX792Cyw621qwPWbkFWHZu2EsbBqKT8veWrEHtNvaQa2MPjqaf65vbhryAqd9ja101emMApzoibJf8kaV4q6Rj+KcnFGZbyyXRvIw4jTsPmX4JXoCoWAitYUXwMvgeteGU7WbpWS2ETrl/qZFddd/1HNn7IS893iLy1URiroZATSQ91sLWy1fWvmNg9lx/Q69PZScYodjzoSj1DZpRX86NlyAneTwwaZ/ogQ==
+ bh=V2wGx1UxyGhpaaf/NiLKmgG20L1N/3bZl4NYC+Qsol0=;
+ b=Z+6r+MTQRRds+EXRqHwTy7YV4dLKK557zU/R21qZjR7+v5Cz1ZsRgYeHW4d+4I/dC8pQrQMhq8dK85vOMV0IFmfi/RyzatxjIk+klzNB4hwTU+/Zvhyts3Qio+pUIKHWjrGCcI91/REVeh4XpwgaFfYIU3/l+n5Y43whSQY5hut8KZdd/w7kl3TiG8EdJSlQWM2t4GqwYdEsYUPqOF8LBhtj6ZCB1VNqgGQEGQErXH4fxlMHnTo4axv5uSyLYLXZiAvdj0yIwoij0PgD0JYEj8768RbO6hm7Pr5Wr3ZRirz6ZvBmBg9y/3/WsBUsnq0mgV7JBQwyZ5VMPg5swRc9gA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nn9pqXTlhGU4jA3Ai1tvxMOrfGbsGng4BQk+EsiirNE=;
- b=bwm4qTzfDD6vjvRZH5w2a9Ih4spjZc1I6sUX9+1I45X9POTUChVPI3Dab91fU0cHZD0lGpkLHV55BZRAj3UxEOX3ZuwUYr3dLFJMeTesApdkHiUMXFkY6QCSfllz5nwkY7ix4qL3WZbIoigwm96l5AAWJoMIZhcbIWMbcpxEy2g=
-Received: from BN7PR02CA0028.namprd02.prod.outlook.com (2603:10b6:408:20::41)
- by PH8PR12MB7157.namprd12.prod.outlook.com (2603:10b6:510:22b::8)
+ bh=V2wGx1UxyGhpaaf/NiLKmgG20L1N/3bZl4NYC+Qsol0=;
+ b=Cnz/mC72ARbsL9uUOZhO/MJJ2uStikLp40+wvkeqatBQdpfiClvWpytm68Ep0XHewJhDa1BSqO4IJbWqFPxlk+oEI3RhrDt6Dt8fLAlsQuPrU8oCdNaB/43YyP3HGmjm740qHM4PyoRsPZdRxrA1gEc/mC0pkzFiL0FI4HXfE2A=
+Received: from BY3PR05CA0002.namprd05.prod.outlook.com (2603:10b6:a03:254::7)
+ by SA1PR12MB7247.namprd12.prod.outlook.com (2603:10b6:806:2bb::6)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8377.22; Wed, 29 Jan
- 2025 02:47:37 +0000
-Received: from BN2PEPF0000449F.namprd02.prod.outlook.com
- (2603:10b6:408:20:cafe::8) by BN7PR02CA0028.outlook.office365.com
- (2603:10b6:408:20::41) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8356.21 via Frontend Transport; Wed,
- 29 Jan 2025 02:47:36 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8398.17; Wed, 29 Jan
+ 2025 02:55:15 +0000
+Received: from MWH0EPF000971E4.namprd02.prod.outlook.com
+ (2603:10b6:a03:254:cafe::cf) by BY3PR05CA0002.outlook.office365.com
+ (2603:10b6:a03:254::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8398.15 via Frontend Transport; Wed,
+ 29 Jan 2025 02:55:14 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,13 +48,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN2PEPF0000449F.mail.protection.outlook.com (10.167.243.150) with Microsoft
+ MWH0EPF000971E4.mail.protection.outlook.com (10.167.243.72) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8398.14 via Frontend Transport; Wed, 29 Jan 2025 02:47:36 +0000
+ 15.20.8398.14 via Frontend Transport; Wed, 29 Jan 2025 02:55:14 +0000
 Received: from smtp.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 28 Jan
- 2025 20:47:30 -0600
+ 2025 20:55:11 -0600
 From: Alex Hung <alex.hung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -62,17 +62,12 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>, Wayne Lin
  <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, Fangzhi Zuo
  <jerry.zuo@amd.com>, Zaeem Mohamed <zaeem.mohamed@amd.com>, Solomon Chiu
- <solomon.chiu@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>, Lo-an Chen
- <lo-an.chen@amd.com>, Mario Limonciello <mario.limonciello@amd.com>, "Alex
- Deucher" <alexander.deucher@amd.com>, <stable@vger.kernel.org>, "Nicholas
- Kazlauskas" <nicholas.kazlauskas@amd.com>, Paul Hsieh <paul.hsieh@amd.com>,
- Alex Hung <alex.hung@amd.com>
-Subject: [PATCH 05/10] drm/amd/display: Fix seamless boot sequence
-Date: Tue, 28 Jan 2025 19:41:41 -0700
-Message-ID: <20250129024432.2107937-6-alex.hung@amd.com>
+ <solomon.chiu@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>, Alex Hung
+ <alex.hung@amd.com>
+Subject: [PATCH 00/10] DC Patches Jan 28, 2025
+Date: Tue, 28 Jan 2025 19:53:44 -0700
+Message-ID: <20250129025458.2120268-1-alex.hung@amd.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20250129024432.2107937-1-alex.hung@amd.com>
-References: <20250129024432.2107937-1-alex.hung@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -81,52 +76,52 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF0000449F:EE_|PH8PR12MB7157:EE_
-X-MS-Office365-Filtering-Correlation-Id: 897b162d-4371-4e6c-bee5-08dd400f49a9
+X-MS-TrafficTypeDiagnostic: MWH0EPF000971E4:EE_|SA1PR12MB7247:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1b8dbbd3-fb94-424e-0e1d-08dd40105ac0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|36860700013|82310400026|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?HW+XEBlniV7HFgvtkx30+eiGJsXEYO5xww68buGnSafttR36L400GLrAMP8j?=
- =?us-ascii?Q?6qYG+ZH1EP0RkdY127GRE15OS0MJI1SDarLrqjHDSmCFJ/ezATEtEt13WleC?=
- =?us-ascii?Q?9zuqFdv5596Bd/46Elr+QK9kSDqPzg/BrssXdoCPRLB8rc9Hvqwji+yf2Zvf?=
- =?us-ascii?Q?9WKVPVL2gZtAUEGQW1NujctX8+a7Ed598cnVD43fMkBnpr8ZL+2OcR205tbS?=
- =?us-ascii?Q?51Rh5CvwMMQ8qhzh7uSY/fhx5BLMtnERNDBgGfesxFPJoP7/qFynbPIxLWpI?=
- =?us-ascii?Q?D4kxxbuC84SXFS4Su/NxKG5nbeOm/6+PwcZeEhcpM5CzW6idDPTgPDf93p6r?=
- =?us-ascii?Q?o2ShzYVGGO6c7jeIvADymwX/OwHSjbLTRP34Ipx1N6Hsfye3C3nakMIJKClK?=
- =?us-ascii?Q?HBh/9l3hivqSLil3Ae4XUMwuZydpqmvCdL7dw2r7kUMuw3cKfTaC/hQFBGF9?=
- =?us-ascii?Q?mo1m1Rswf0a8WvhgzNDUxFbZDy2RrDYNw+W7K2HJOIQexN1sU1sRwlUziuQc?=
- =?us-ascii?Q?P9XdDd0/qkUHzgC5pbCIUjmPprqk3KRBHBgfP/bRQ4LTyDswjmD+jLd5yPdB?=
- =?us-ascii?Q?9EnM8Inbn7+mB4s6cQsEyTC1UjuRrUt/FGgdYLr0OiOcK2ZLoxcKuUkQBGqR?=
- =?us-ascii?Q?uRwf5JXYM7f1jgVttaXM4xla9kL6mFyvseVCJY/+JyaSEDnyEb4z2nSv3/mm?=
- =?us-ascii?Q?gcpj5YM5DMHuLPWTopYJyTapfBxHOB6qm6qhUWsCuuZbxS5MsQgQWzSR2mE0?=
- =?us-ascii?Q?1+5/IgkT6rQ8Aw+8EDzbC2nj2gs3U/59VGMWNa6ujAm6J9/fsjHOSbsX7ikL?=
- =?us-ascii?Q?jwP4DBf4NF/PVNoWTELGYJn6LVBRK57Sojz0rl+2Z5aO5nYre+uUl4yrmvYm?=
- =?us-ascii?Q?RzW6DkHcB+qH8c7vEqfdAyhyietyuKPYTy4h+Fbypk2KwG56K+ll7BhcGYWk?=
- =?us-ascii?Q?bIk4eXTnu8rRAXe3B0fVYsi9OEIgUvHP9BZ8v7OjjFgIVrD3v3swOCM0WGcp?=
- =?us-ascii?Q?MV95YRvi4GRiR1OeOM90ijm4ijX2AYRF5RQTbRUwG1VaWnklzTGikTVut0rO?=
- =?us-ascii?Q?t43YV7myr7pGVyYH8e5D7l09jT4GD6lAtAM2XE7w0sx/GllN+Pps3sv9ntGK?=
- =?us-ascii?Q?WLPaQKSTvL7rm/9WHjS81FwKgTETpxSidx1gKTTP5BuD+JBOKslcCZNixGP3?=
- =?us-ascii?Q?lVwydBqW9cPnUbMVoeMP8b9TobsQbrbOR6zwMITW/wGm18PranNBq2UDiBGE?=
- =?us-ascii?Q?iLOaC+v+dETrWV6qTtlY6WbB/5vLx6BUwHPPEqQ0OQvuLyFB1h6N7vtfpM1w?=
- =?us-ascii?Q?AOkDz3fOA7l2yutkhgMzEsg8mndAq3vshyd2DONvHyz2dRF5cyetmFCOPdi+?=
- =?us-ascii?Q?LG8eKwMxe4rhbG5B244P4Bv0vmW/uCC+dkuY/h/SRsBn42uAyrbZ46enAQ3m?=
- =?us-ascii?Q?nxkfIZDILZjbdnxzI22lh2wu/ROSWopF7xsxF4HYq1c7Vdw3+4+8lvAGCpq7?=
- =?us-ascii?Q?dR7K8gTiBJD3jF4=3D?=
+ ARA:13230040|1800799024|36860700013|376014|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?CfBq72MYre/zcQ7xJrKIt6MK510o8FwZHU1rn0no11O3d9j+dGiR529YNflo?=
+ =?us-ascii?Q?1EUB+0EopbG4JUSICNXZjew5gFkDVQuu+XzzkgQhVLlRLgNLH8jRuMy8L9IP?=
+ =?us-ascii?Q?Np99wjHecI92brxOhneeZsifkWKzurfnMLzFZj1aXq1GhRsYLJVZXp4sOFEz?=
+ =?us-ascii?Q?ABiPLdtOXS37r/KloJzyHpwE70kg6IxCSsjQ+fc3BacqsUeXEHJE4vysVyxU?=
+ =?us-ascii?Q?/pEOZtjDi+bML6GIVQDmBpNUHqOw9OttImci5E+/Ybe+Azsn+iqUQvwq2lDU?=
+ =?us-ascii?Q?iwNnvpbG/5L1cnVhQ5U6/RPsrJHVsP1LCxvlc+Eg70kCyeowOhAhwsgpBEeA?=
+ =?us-ascii?Q?1kbaikOG65s89K14jCRICh+HyW8CLyPhYNWRDm97Rcbeiz677ZTOBVIoZPS4?=
+ =?us-ascii?Q?5T0McrH0D1QIe66vVxc78hGzz6H4b/ZVJFa1vXSGXZmfUpz8hleK1Jl0HkV+?=
+ =?us-ascii?Q?He+UDU0dVR7KtQAsyjiiDNYSpvVt+wynpMvmn5gX2zGY2NVqo2zqEqpgBGQI?=
+ =?us-ascii?Q?y/lCly307bAmrpVF+f6mIz6i4cX7Qk822zemcX48ML1e2b8h52aODZcdsSu6?=
+ =?us-ascii?Q?rUdb07mHS2ORkgkJlA8luK6zJsFhvK9YwVSMfM6o+b7MHVyXToqjoqRK2AeZ?=
+ =?us-ascii?Q?QTHaBvGT3ghe5KL2SoWufPYAuhPFwQxAAhrib59HG1UXnLTQN8/Xd5+JQk3g?=
+ =?us-ascii?Q?qzmX0osq3rGhoPSDrldFXv3e07+wv6sPIQupioauGOghc/Cnb5ZXcIqpGkk7?=
+ =?us-ascii?Q?61+/mO9CyDzash4jOghjMrthWYFmZs25qH3DHeu0wM7y/ciBy9FebqwWq6KF?=
+ =?us-ascii?Q?RY3M16DCB6wzIgPPMdN99lXRSll4Ho1ftnRv2VZ6ZIBecLPL9TusogdM1LfS?=
+ =?us-ascii?Q?ufPbEMqET+CPH8JoPjalaSOwSTMfb/WhUShDn3GDYxxoRCtimf6Ipuj5eRNu?=
+ =?us-ascii?Q?ZgrD/a2UfHr2rZWMrIIER1vIHh+VswGsNzjI5vWtm1Ay3D2ldHCg2fxv//mH?=
+ =?us-ascii?Q?xCCScuG0SB4+vyeLl9bumP6UIheUgMhlH6KiVhdpcVUXJ5veBdHDe+gQzFjD?=
+ =?us-ascii?Q?lcl0wGM8YIiHRMx5cxw42aF0mgvILIFkAQ3Ch6CSgy3c3gPg6l4ejyKH42Xh?=
+ =?us-ascii?Q?I1L82T8FIveMrZC7xcq8KjBZDTmgFkxvcUNNbBhzNEIa4kzt3am79HoxOao+?=
+ =?us-ascii?Q?U2ic7lo2U+0vOzRP7lbjrdkLJ43X1GZp2PKQCri1Qzttql5W6CuGvdvy6TcU?=
+ =?us-ascii?Q?Tk71tqPRmJzJoXyVCfuRKYJf213YJ4zJNGFtISkwpcHo4VgvefBvAakQZB4H?=
+ =?us-ascii?Q?WeSWbxUhUfob6rrWhYHbybRwTpISlBwIyZIgljKZmE9+RqADeTd6oagcSGWm?=
+ =?us-ascii?Q?y8H21MI+ES8423PxPeDF5QIG67QTFjzSfyrHSExkIb9IWRZfj78wLz6U8J/l?=
+ =?us-ascii?Q?GMQmpxFVj2cReN7In98e5f+0tlWLZVB3kGg0mXE6JnXD+KV4H8CbafPPAXaX?=
+ =?us-ascii?Q?+9PICrJH4wvUeBM=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014); DIR:OUT;
+ SFS:(13230040)(1800799024)(36860700013)(376014)(82310400026); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jan 2025 02:47:36.0401 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 897b162d-4371-4e6c-bee5-08dd400f49a9
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jan 2025 02:55:14.1106 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1b8dbbd3-fb94-424e-0e1d-08dd40105ac0
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF0000449F.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000971E4.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7157
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7247
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,145 +136,140 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Lo-an Chen <lo-an.chen@amd.com>
+** resend the patchset because only 5 of 10 patches were sent successully **
 
-[WHY]
-When the system powers up eDP with external monitors in seamless boot
-sequence, stutter get enabled before TTU and HUBP registers being
-programmed, which resulting in underflow.
+This DC patchset brings improvements in multiple areas. In summary, we highlight:
 
-[HOW]
-Enable TTU in hubp_init.
-Change the sequence that do not perpare_bandwidth and optimize_bandwidth
-while having seamless boot streams.
+* Fixes on DCN3.2 and DCN4
+* Code factoring for SPL module
+* Various bug fixes
 
-Cc: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: stable@vger.kernel.org
-Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Signed-off-by: Lo-an Chen <lo-an.chen@amd.com>
-Signed-off-by: Paul Hsieh <paul.hsieh@amd.com>
-Signed-off-by: Alex Hung <alex.hung@amd.com>
----
- drivers/gpu/drm/amd/display/dc/core/dc.c                   | 2 +-
- drivers/gpu/drm/amd/display/dc/hubbub/dcn30/dcn30_hubbub.c | 3 ++-
- drivers/gpu/drm/amd/display/dc/hubbub/dcn31/dcn31_hubbub.c | 3 ++-
- drivers/gpu/drm/amd/display/dc/hubbub/dcn32/dcn32_hubbub.c | 3 ++-
- drivers/gpu/drm/amd/display/dc/hubbub/dcn35/dcn35_hubbub.c | 3 ++-
- drivers/gpu/drm/amd/display/dc/hubp/dcn30/dcn30_hubp.c     | 2 ++
- drivers/gpu/drm/amd/display/dc/hubp/dcn32/dcn32_hubp.c     | 2 ++
- drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c    | 3 ++-
- 8 files changed, 15 insertions(+), 6 deletions(-)
+Ahmed, Muhammad (1):
+  drm/amd/display: Enable odm 4:1 when debug key is set
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index a5f511da1faa..a2b0331ef579 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -2192,7 +2192,7 @@ static enum dc_status dc_commit_state_no_check(struct dc *dc, struct dc_state *c
- 
- 	dc_enable_stereo(dc, context, dc_streams, context->stream_count);
- 
--	if (context->stream_count > get_seamless_boot_stream_count(context) ||
-+	if (get_seamless_boot_stream_count(context) == 0 ||
- 		context->stream_count == 0) {
- 		/* Must wait for no flips to be pending before doing optimize bw */
- 		hwss_wait_for_no_pipes_pending(dc, context);
-diff --git a/drivers/gpu/drm/amd/display/dc/hubbub/dcn30/dcn30_hubbub.c b/drivers/gpu/drm/amd/display/dc/hubbub/dcn30/dcn30_hubbub.c
-index fe741100c0f8..d347bb06577a 100644
---- a/drivers/gpu/drm/amd/display/dc/hubbub/dcn30/dcn30_hubbub.c
-+++ b/drivers/gpu/drm/amd/display/dc/hubbub/dcn30/dcn30_hubbub.c
-@@ -129,7 +129,8 @@ bool hubbub3_program_watermarks(
- 	REG_UPDATE(DCHUBBUB_ARB_DF_REQ_OUTSTAND,
- 			DCHUBBUB_ARB_MIN_REQ_OUTSTAND, 0x1FF);
- 
--	hubbub1_allow_self_refresh_control(hubbub, !hubbub->ctx->dc->debug.disable_stutter);
-+	if (safe_to_lower || hubbub->ctx->dc->debug.disable_stutter)
-+		hubbub1_allow_self_refresh_control(hubbub, !hubbub->ctx->dc->debug.disable_stutter);
- 
- 	return wm_pending;
- }
-diff --git a/drivers/gpu/drm/amd/display/dc/hubbub/dcn31/dcn31_hubbub.c b/drivers/gpu/drm/amd/display/dc/hubbub/dcn31/dcn31_hubbub.c
-index 7fb5523f9722..b98505b240a7 100644
---- a/drivers/gpu/drm/amd/display/dc/hubbub/dcn31/dcn31_hubbub.c
-+++ b/drivers/gpu/drm/amd/display/dc/hubbub/dcn31/dcn31_hubbub.c
-@@ -750,7 +750,8 @@ static bool hubbub31_program_watermarks(
- 	REG_UPDATE(DCHUBBUB_ARB_DF_REQ_OUTSTAND,
- 			DCHUBBUB_ARB_MIN_REQ_OUTSTAND, 0x1FF);*/
- 
--	hubbub1_allow_self_refresh_control(hubbub, !hubbub->ctx->dc->debug.disable_stutter);
-+	if (safe_to_lower || hubbub->ctx->dc->debug.disable_stutter)
-+		hubbub1_allow_self_refresh_control(hubbub, !hubbub->ctx->dc->debug.disable_stutter);
- 	return wm_pending;
- }
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/hubbub/dcn32/dcn32_hubbub.c b/drivers/gpu/drm/amd/display/dc/hubbub/dcn32/dcn32_hubbub.c
-index 5264dc26cce1..32a6be543105 100644
---- a/drivers/gpu/drm/amd/display/dc/hubbub/dcn32/dcn32_hubbub.c
-+++ b/drivers/gpu/drm/amd/display/dc/hubbub/dcn32/dcn32_hubbub.c
-@@ -786,7 +786,8 @@ static bool hubbub32_program_watermarks(
- 	REG_UPDATE(DCHUBBUB_ARB_DF_REQ_OUTSTAND,
- 			DCHUBBUB_ARB_MIN_REQ_OUTSTAND, 0x1FF);*/
- 
--	hubbub1_allow_self_refresh_control(hubbub, !hubbub->ctx->dc->debug.disable_stutter);
-+	if (safe_to_lower || hubbub->ctx->dc->debug.disable_stutter)
-+		hubbub1_allow_self_refresh_control(hubbub, !hubbub->ctx->dc->debug.disable_stutter);
- 
- 	hubbub32_force_usr_retraining_allow(hubbub, hubbub->ctx->dc->debug.force_usr_allow);
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/hubbub/dcn35/dcn35_hubbub.c b/drivers/gpu/drm/amd/display/dc/hubbub/dcn35/dcn35_hubbub.c
-index 5eb3da8d5206..dce7269959ce 100644
---- a/drivers/gpu/drm/amd/display/dc/hubbub/dcn35/dcn35_hubbub.c
-+++ b/drivers/gpu/drm/amd/display/dc/hubbub/dcn35/dcn35_hubbub.c
-@@ -326,7 +326,8 @@ static bool hubbub35_program_watermarks(
- 			DCHUBBUB_ARB_MIN_REQ_OUTSTAND_COMMIT_THRESHOLD, 0xA);/*hw delta*/
- 	REG_UPDATE(DCHUBBUB_ARB_HOSTVM_CNTL, DCHUBBUB_ARB_MAX_QOS_COMMIT_THRESHOLD, 0xF);
- 
--	hubbub1_allow_self_refresh_control(hubbub, !hubbub->ctx->dc->debug.disable_stutter);
-+	if (safe_to_lower || hubbub->ctx->dc->debug.disable_stutter)
-+		hubbub1_allow_self_refresh_control(hubbub, !hubbub->ctx->dc->debug.disable_stutter);
- 
- 	hubbub32_force_usr_retraining_allow(hubbub, hubbub->ctx->dc->debug.force_usr_allow);
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/hubp/dcn30/dcn30_hubp.c b/drivers/gpu/drm/amd/display/dc/hubp/dcn30/dcn30_hubp.c
-index be0ac613675a..0da70b50e86d 100644
---- a/drivers/gpu/drm/amd/display/dc/hubp/dcn30/dcn30_hubp.c
-+++ b/drivers/gpu/drm/amd/display/dc/hubp/dcn30/dcn30_hubp.c
-@@ -500,6 +500,8 @@ void hubp3_init(struct hubp *hubp)
- 	//hubp[i].HUBPREQ_DEBUG.HUBPREQ_DEBUG[26] = 1;
- 	REG_WRITE(HUBPREQ_DEBUG, 1 << 26);
- 
-+	REG_UPDATE(DCHUBP_CNTL, HUBP_TTU_DISABLE, 0);
-+
- 	hubp_reset(hubp);
- }
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/hubp/dcn32/dcn32_hubp.c b/drivers/gpu/drm/amd/display/dc/hubp/dcn32/dcn32_hubp.c
-index edd37898d550..f3a21c623f44 100644
---- a/drivers/gpu/drm/amd/display/dc/hubp/dcn32/dcn32_hubp.c
-+++ b/drivers/gpu/drm/amd/display/dc/hubp/dcn32/dcn32_hubp.c
-@@ -168,6 +168,8 @@ void hubp32_init(struct hubp *hubp)
- {
- 	struct dcn20_hubp *hubp2 = TO_DCN20_HUBP(hubp);
- 	REG_WRITE(HUBPREQ_DEBUG_DB, 1 << 8);
-+
-+	REG_UPDATE(DCHUBP_CNTL, HUBP_TTU_DISABLE, 0);
- }
- static struct hubp_funcs dcn32_hubp_funcs = {
- 	.hubp_enable_tripleBuffer = hubp2_enable_triplebuffer,
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
-index 623cde76debf..b907ad1acedd 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
-@@ -236,7 +236,8 @@ void dcn35_init_hw(struct dc *dc)
- 		}
- 
- 		hws->funcs.init_pipes(dc, dc->current_state);
--		if (dc->res_pool->hubbub->funcs->allow_self_refresh_control)
-+		if (dc->res_pool->hubbub->funcs->allow_self_refresh_control &&
-+			!dc->res_pool->hubbub->ctx->dc->debug.disable_stutter)
- 			dc->res_pool->hubbub->funcs->allow_self_refresh_control(dc->res_pool->hubbub,
- 					!dc->res_pool->hubbub->ctx->dc->debug.disable_stutter);
- 	}
+Alex Hung (1):
+  drm/amd/display: Fix out-of-bound accesses
+
+Aric Cyr (1):
+  drm/amd/display: Request HW cursor on DCN3.2 with SubVP
+
+Brandon Syu (1):
+  Revert "drm/amd/display: Exit idle optimizations before attempt to
+    access PHY"
+
+Dillon Varone (1):
+  drm/amd/display: Fixes for mcache programming in DML21
+
+Dmytro (1):
+  drm/amd/display: Allow reuse of of DCN4x code
+
+Lo-an Chen (1):
+  drm/amd/display: Fix seamless boot sequence
+
+Martin Tsai (1):
+  drm/amd/display: Support multiple options during psr entry.
+
+Samson Tam (1):
+  drm/amd/display: Move SPL to a new path
+
+Taimur Hassan (1):
+  drm/amd/display: 3.2.319
+
+ drivers/gpu/drm/amd/display/dc/Makefile       |  2 +-
+ drivers/gpu/drm/amd/display/dc/core/dc.c      |  2 +-
+ drivers/gpu/drm/amd/display/dc/dc.h           |  4 +-
+ .../gpu/drm/amd/display/dc/dc_spl_translate.c |  1 -
+ drivers/gpu/drm/amd/display/dc/dc_types.h     |  7 ++++
+ .../amd/display/dc/dccg/dcn401/dcn401_dccg.c  | 24 +++++------
+ .../amd/display/dc/dccg/dcn401/dcn401_dccg.h  | 40 ++++++++++++++++++-
+ drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c |  4 ++
+ .../dc/dio/dcn30/dcn30_dio_stream_encoder.c   |  2 +-
+ .../dc/dio/dcn30/dcn30_dio_stream_encoder.h   |  6 ++-
+ .../dc/dio/dcn401/dcn401_dio_stream_encoder.c | 12 +++---
+ .../dc/dio/dcn401/dcn401_dio_stream_encoder.h | 18 +++++++++
+ .../amd/display/dc/dml/dcn314/dcn314_fpu.c    |  3 ++
+ .../drm/amd/display/dc/dml/dcn32/dcn32_fpu.c  |  1 +
+ .../dc/dml2/dml21/dml21_translation_helper.c  |  4 +-
+ .../amd/display/dc/dml2/dml21/dml21_utils.c   |  1 -
+ .../amd/display/dc/dml2/dml21/dml21_wrapper.c | 14 +++++++
+ .../display/dc/dml2/dml21/inc/dml_top_types.h |  1 +
+ .../dml2/dml21/src/dml2_core/dml2_core_dcn4.c | 30 +++++++++++++-
+ .../src/dml2_core/dml2_core_dcn4_calcs.c      |  3 ++
+ .../dml21/src/dml2_pmo/dml2_pmo_dcn4_fams2.c  | 21 ++++++++++
+ .../dml2/dml21/src/dml2_top/dml2_top_soc15.c  |  8 ----
+ .../display/dc/dml2/dml2_translation_helper.c |  6 +--
+ .../drm/amd/display/dc/dml2/dml2_wrapper.c    |  5 ++-
+ .../drm/amd/display/dc/dpp/dcn20/dcn20_dpp.h  |  1 -
+ .../drm/amd/display/dc/dpp/dcn32/dcn32_dpp.h  |  1 -
+ .../amd/display/dc/dsc/dcn401/dcn401_dsc.c    | 19 +++------
+ .../amd/display/dc/dsc/dcn401/dcn401_dsc.h    |  7 ++++
+ .../dc/hpo/dcn32/dcn32_hpo_dp_link_encoder.c  |  2 +-
+ .../dc/hpo/dcn32/dcn32_hpo_dp_link_encoder.h  |  1 +
+ .../display/dc/hubbub/dcn30/dcn30_hubbub.c    |  3 +-
+ .../display/dc/hubbub/dcn31/dcn31_hubbub.c    |  3 +-
+ .../display/dc/hubbub/dcn32/dcn32_hubbub.c    |  3 +-
+ .../display/dc/hubbub/dcn35/dcn35_hubbub.c    | 17 ++++----
+ .../display/dc/hubbub/dcn35/dcn35_hubbub.h    | 16 ++++++++
+ .../amd/display/dc/hubp/dcn20/dcn20_hubp.h    |  5 +--
+ .../amd/display/dc/hubp/dcn30/dcn30_hubp.c    |  2 +
+ .../amd/display/dc/hubp/dcn32/dcn32_hubp.c    |  2 +
+ .../amd/display/dc/hubp/dcn35/dcn35_hubp.c    |  2 +-
+ .../amd/display/dc/hubp/dcn35/dcn35_hubp.h    |  1 +
+ .../drm/amd/display/dc/hwss/dce/dce_hwseq.h   |  8 ++++
+ .../amd/display/dc/hwss/dce110/dce110_hwseq.c |  5 ---
+ .../amd/display/dc/hwss/dcn20/dcn20_hwseq.c   |  3 +-
+ .../amd/display/dc/hwss/dcn32/dcn32_hwseq.c   |  3 +-
+ .../amd/display/dc/hwss/dcn35/dcn35_hwseq.c   |  3 +-
+ .../gpu/drm/amd/display/dc/inc/core_types.h   |  2 +-
+ .../gpu/drm/amd/display/dc/inc/hw/transform.h |  2 +-
+ drivers/gpu/drm/amd/display/dc/inc/resource.h |  1 -
+ .../gpu/drm/amd/display/dc/mmhubbub/Makefile  |  2 +-
+ drivers/gpu/drm/amd/display/dc/mpc/Makefile   |  2 +-
+ .../amd/display/dc/mpc/dcn401/dcn401_mpc.c    |  4 +-
+ .../amd/display/dc/mpc/dcn401/dcn401_mpc.h    |  5 ++-
+ .../amd/display/dc/optc/dcn10/dcn10_optc.h    | 14 +++++--
+ .../amd/display/dc/optc/dcn401/dcn401_optc.c  | 22 +++++-----
+ .../amd/display/dc/optc/dcn401/dcn401_optc.h  | 19 +++++++++
+ .../dc/resource/dcn401/dcn401_resource.c      |  4 +-
+ .../drm/amd/display/dc/{spl => sspl}/Makefile |  2 +-
+ .../drm/amd/display/dc/{spl => sspl}/dc_spl.c |  0
+ .../drm/amd/display/dc/{spl => sspl}/dc_spl.h |  0
+ .../display/dc/{spl => sspl}/dc_spl_filters.c |  0
+ .../display/dc/{spl => sspl}/dc_spl_filters.h |  0
+ .../dc/{spl => sspl}/dc_spl_isharp_filters.c  |  0
+ .../dc/{spl => sspl}/dc_spl_isharp_filters.h  |  0
+ .../{spl => sspl}/dc_spl_scl_easf_filters.c   |  0
+ .../{spl => sspl}/dc_spl_scl_easf_filters.h   |  0
+ .../dc/{spl => sspl}/dc_spl_scl_filters.c     |  0
+ .../dc/{spl => sspl}/dc_spl_scl_filters.h     |  0
+ .../display/dc/{spl => sspl}/dc_spl_types.h   |  0
+ .../dc/{spl => sspl}/spl_custom_float.c       |  0
+ .../dc/{spl => sspl}/spl_custom_float.h       |  0
+ .../amd/display/dc/{spl => sspl}/spl_debug.h  |  0
+ .../display/dc/{spl => sspl}/spl_fixpt31_32.c |  0
+ .../display/dc/{spl => sspl}/spl_fixpt31_32.h |  0
+ .../display/dc/{spl => sspl}/spl_os_types.h   |  0
+ .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   |  6 +++
+ 75 files changed, 304 insertions(+), 107 deletions(-)
+ rename drivers/gpu/drm/amd/display/dc/{spl => sspl}/Makefile (96%)
+ rename drivers/gpu/drm/amd/display/dc/{spl => sspl}/dc_spl.c (100%)
+ rename drivers/gpu/drm/amd/display/dc/{spl => sspl}/dc_spl.h (100%)
+ rename drivers/gpu/drm/amd/display/dc/{spl => sspl}/dc_spl_filters.c (100%)
+ rename drivers/gpu/drm/amd/display/dc/{spl => sspl}/dc_spl_filters.h (100%)
+ rename drivers/gpu/drm/amd/display/dc/{spl => sspl}/dc_spl_isharp_filters.c (100%)
+ rename drivers/gpu/drm/amd/display/dc/{spl => sspl}/dc_spl_isharp_filters.h (100%)
+ rename drivers/gpu/drm/amd/display/dc/{spl => sspl}/dc_spl_scl_easf_filters.c (100%)
+ rename drivers/gpu/drm/amd/display/dc/{spl => sspl}/dc_spl_scl_easf_filters.h (100%)
+ rename drivers/gpu/drm/amd/display/dc/{spl => sspl}/dc_spl_scl_filters.c (100%)
+ rename drivers/gpu/drm/amd/display/dc/{spl => sspl}/dc_spl_scl_filters.h (100%)
+ rename drivers/gpu/drm/amd/display/dc/{spl => sspl}/dc_spl_types.h (100%)
+ rename drivers/gpu/drm/amd/display/dc/{spl => sspl}/spl_custom_float.c (100%)
+ rename drivers/gpu/drm/amd/display/dc/{spl => sspl}/spl_custom_float.h (100%)
+ rename drivers/gpu/drm/amd/display/dc/{spl => sspl}/spl_debug.h (100%)
+ rename drivers/gpu/drm/amd/display/dc/{spl => sspl}/spl_fixpt31_32.c (100%)
+ rename drivers/gpu/drm/amd/display/dc/{spl => sspl}/spl_fixpt31_32.h (100%)
+ rename drivers/gpu/drm/amd/display/dc/{spl => sspl}/spl_os_types.h (100%)
+
 -- 
 2.43.0
 
