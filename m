@@ -4,103 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80378C0218D
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jan 2025 08:29:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B29B1C02193
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jan 2025 08:29:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C00810E2C2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7100810E755;
 	Wed, 29 Jan 2025 08:29:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ebq8u23T";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="fbSbY2+0";
 	dkim-atps=neutral
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com
- [209.85.216.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E50E10E2BA;
- Wed, 29 Jan 2025 08:09:25 +0000 (UTC)
-Received: by mail-pj1-f52.google.com with SMTP id
- 98e67ed59e1d1-2ee51f8c47dso9129353a91.1; 
- Wed, 29 Jan 2025 00:09:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1738138165; x=1738742965; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ye4JntaIkIF7a+w6DTbO0kIk9MLJPFfMjPP4/iHk7/A=;
- b=ebq8u23TuRkn8CC6IhZNDLrV58lsc1q+MetDloLDjsmHUezseSQC7k76j08PvP4/6k
- HLq3uZG4KheMDwm0ru7tQDM+WOZyTQSUlhBPHO2gtrFfM64fxcfZ4jbwdvcKs3cttxUw
- dg7Uh6YbmK0ecJPhzNw3fBPapwtP2kE7O7RgemB93CCxr+Cfba736KOC/1WIwbVWtTng
- 8HxygpDqHw1KjRCG0hxEq3CQdYvOk5uF8dVzY9UvO2+YsCj33WS1QJONJ61D6JTGQWXe
- ppfTncsHH9jW4m1JMjXCsbtWtBns6MUvk8bM65jJLZ40WdvsTPnljIa8Qpuwuu5PbM/w
- +m6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1738138165; x=1738742965;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=ye4JntaIkIF7a+w6DTbO0kIk9MLJPFfMjPP4/iHk7/A=;
- b=QPqlf4E7KN5zsGJcjNjgVdlxeK/tsuIH1217F9mH9skW6NH0CdMY+bKD8RnNvtF/aB
- qMYNErz35MiawQ11Hqo+j4b0jFIrb8O1Nlzf7Czb/VjZUJIu17Xcak+ZXu4/nE7hXFM1
- pCFF1AqM2nFoZ/3KYoqXV1qjyfGJxS1St+seTnqv0qwBu1EflSYfPymbRkq8YY2G4i2B
- sM4kk1GdhFkskU+1CMTyBYhGnEFkpSRDnXd1jLGEchEdJxO4AcuQ0Jg+PBiLzHcB2Qlq
- rYvxKGHe3zbKOO4eD2HRtZzsa8TNaGmuOFnESo9rNT4pr4fp3laMQkhwyqSF1ljNPs6K
- m7XA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU2lTvc4KujnjwuknReOVr96i1YdP/YihbcfT5MYFSgwL262GUinil/rBgfTbL66vaZC0okbU6J/pF2@lists.freedesktop.org,
- AJvYcCUI7UiMIGjOjGAstU5ctaIg1CbbKTpVecS1aHx0006hRoyG4eIeqZ2J1onIf8uDEeC4rLXIitCUSg==@lists.freedesktop.org,
- AJvYcCUjQ+0KxP7O/qvapaNotZgbXcCCHhJVrle6w/3YFOaCEXnbp/AiQd00J+BNcO9cHYf1wy9SiyZr3QU=@lists.freedesktop.org,
- AJvYcCVdEwTnA4hp1bdBfdBASLes3BnIcJsiZljp4VGbEyieGMkS67F1cvd9S2Dg45x1VlBgf/goOg==@lists.freedesktop.org,
- AJvYcCVeR2Okr1zThxSGF4hw0o+atgBf6T7UP7C3u4khCi1E9X43eysQ7fAPA2Ooy3dodbqRX6TcI2npcGkm@lists.freedesktop.org,
- AJvYcCXCj2m0TaxdK+Sm20gX5w3Za9fai63COrEn3n6dJdn2E1elNnleRDujCBrzxSATofvCDsxVlXgx@lists.freedesktop.org,
- AJvYcCXV21nCc16JefuhhkcodwNi6204d/JbEwMqvDFYWw7cP+pl5nUYn0zbbORIy9RgLl5NoChHV89wOQ==@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YziNfHVOPWzBJ/tOAJvzc2gUo5oda9KOtoKOHKaaQCMfKgwFgzQ
- 58OAe4JuVirEe6oWD9tkcDsrykPG3oqv6AHuN+TLm/qvCGC/jarmsMFYyYamdDDDO1iZJX/PPYt
- bUueWczw6C6zd7VJRitZSm6AvrdU=
-X-Gm-Gg: ASbGnct6zFfDgA5VfVDCWKevonTnwC2DJj1lAeO7tAyhP2yKDw5TWZEASWdHE28PeHx
- /T32c8GBbEwuhFopG8nXLZnhQug6+z+pU5FjmbjbwIisvFf22aCA+folYlt2+bZiXyrvLXkk=
-X-Google-Smtp-Source: AGHT+IFL/+Ix8PJzhRPGezz0BS/aPmM+Mu6yVPfAQpJZPpemGpHRcd0USeaMTeXX7cwj2kNE9lfyVb+Qeot2NIY7ikQ=
-X-Received: by 2002:a62:f20c:0:b0:72f:d7ce:5003 with SMTP id
- d2e1a72fcca58-72fd7ce50abmr734741b3a.22.1738138164688; Wed, 29 Jan 2025
- 00:09:24 -0800 (PST)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4908310E06E;
+ Wed, 29 Jan 2025 07:04:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1738134295; x=1769670295;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=Y3VRUb3PmeMld5+U168mbNCYtLVpYo9aXmk/0RVKA10=;
+ b=fbSbY2+0Jp1cP0Pvd2HNw+qLR1hunaYQ3sYRgRwKAGYcCQbOacNzE4Wn
+ Xf7GUmzBgAtrG1czb4sWKQHr/cbFPBCTCjndIsWkQwM36rhio0+GauR5+
+ Ndl/yqu7cMYE1ec0g+aBGGgpmT4ESBRjY6259zYPIaAr4xwijDBTcc2EL
+ HGKS6+aFXdltpgyiox8Bfq2UeypN+TzDXrMvOCDYOlMQG7sBJXi98raNv
+ v9KvP8dQKUqGaFfUU8XZs4wOi7dIRZ5O/U+Q/RaWebJClFufxm1r8NFtD
+ JXybCi/qoR3p0I6ZDs/IICrunE7o5phIuPD0jEh9+L35B+XrVdpkhw3C7 A==;
+X-CSE-ConnectionGUID: vswKM3MOScKmm7NIBNcXwQ==
+X-CSE-MsgGUID: N8gTz9onQJG2Tz2j/rpzNw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11329"; a="38541759"
+X-IronPort-AV: E=Sophos;i="6.13,242,1732608000"; d="scan'208";a="38541759"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Jan 2025 23:04:54 -0800
+X-CSE-ConnectionGUID: j1JpE7l4QfyiDOMqv/HX3A==
+X-CSE-MsgGUID: DSqUCl9GQCen2U0J1bPgqg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="108803685"
+Received: from black.fi.intel.com ([10.237.72.28])
+ by orviesa010.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Jan 2025 23:04:49 -0800
+Date: Wed, 29 Jan 2025 09:04:46 +0200
+From: Raag Jadav <raag.jadav@intel.com>
+To: Pekka Paalanen <pekka.paalanen@haloniitty.fi>
+Cc: Xaver Hugl <xaver.hugl@kde.org>, airlied@gmail.com, simona@ffwll.ch,
+ lucas.demarchi@intel.com, rodrigo.vivi@intel.com,
+ jani.nikula@linux.intel.com, andriy.shevchenko@linux.intel.com,
+ lina@asahilina.net, michal.wajdeczko@intel.com,
+ christian.koenig@amd.com, intel-xe@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ himal.prasad.ghimiray@intel.com, aravind.iddamsetty@linux.intel.com,
+ anshuman.gupta@intel.com, alexander.deucher@amd.com,
+ andrealmeid@igalia.com, amd-gfx@lists.freedesktop.org,
+ kernel-dev@igalia.com
+Subject: Re: [PATCH v10 2/4] drm/doc: Document device wedged event
+Message-ID: <Z5nTDrUVQjCcK9Cb@black.fi.intel.com>
+References: <20241128153707.1294347-1-raag.jadav@intel.com>
+ <20241128153707.1294347-3-raag.jadav@intel.com>
+ <CAFZQkGy3R0TMY5CARPQZF70fdKGLX8GQjV_YQAHzEXsiuNHj+w@mail.gmail.com>
+ <Z5CAkXSOpNiiFbv4@black.fi.intel.com>
+ <20250127122328.6d85bca1@eldfell>
+ <Z5ilcc0hC8nvz0Li@black.fi.intel.com>
+ <20250128133809.1e5ed2be@eldfell>
 MIME-Version: 1.0
-References: <20250128142927.103290-2-phasta@kernel.org>
-In-Reply-To: <20250128142927.103290-2-phasta@kernel.org>
-From: Christian Gmeiner <christian.gmeiner@gmail.com>
-Date: Wed, 29 Jan 2025 09:09:12 +0100
-X-Gm-Features: AWEUYZk3uXItrn_mY6Y0468bmDyISJSZEOiGbSbsZd4jSdwj-_i30tdpr-sVXDQ
-Message-ID: <CAH9NwWcokvvJSRQ_kbV+jiH+ag-SA+Y87n6Bw34s8GP3vop4og@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/sched: Use struct for drm_sched_init() params
-To: Philipp Stanner <phasta@kernel.org>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Lucas Stach <l.stach@pengutronix.de>,
- Russell King <linux+etnaviv@armlinux.org.uk>, 
- Frank Binns <frank.binns@imgtec.com>, Matt Coster <matt.coster@imgtec.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Qiang Yu <yuq825@gmail.com>,
- Rob Clark <robdclark@gmail.com>, 
- Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- Karol Herbst <kherbst@redhat.com>, 
- Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@redhat.com>, 
- Boris Brezillon <boris.brezillon@collabora.com>, Rob Herring <robh@kernel.org>,
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
- Matthew Brost <matthew.brost@intel.com>, Melissa Wen <mwen@igalia.com>, 
- =?UTF-8?B?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>, 
- Lucas De Marchi <lucas.demarchi@intel.com>, 
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Sunil Khatri <sunil.khatri@amd.com>, 
- Lijo Lazar <lijo.lazar@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>, 
- Mario Limonciello <mario.limonciello@amd.com>, Ma Jun <Jun.Ma2@amd.com>, 
- Yunxiang Li <Yunxiang.Li@amd.com>, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- etnaviv@lists.freedesktop.org, lima@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
- nouveau@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250128133809.1e5ed2be@eldfell>
 X-Mailman-Approved-At: Wed, 29 Jan 2025 08:29:25 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -116,51 +82,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
->
-> drm_sched_init() has a great many parameters and upcoming new
-> functionality for the scheduler might add even more. Generally, the
-> great number of parameters reduces readability and has already caused
-> one missnaming in:
->
-> commit 6f1cacf4eba7 ("drm/nouveau: Improve variable name in nouveau_sched=
-_init()").
->
-> Introduce a new struct for the scheduler init parameters and port all
-> users.
->
-> Signed-off-by: Philipp Stanner <phasta@kernel.org>
-> ---
-> Changes in v2:
->   - Point out that the hang-limit is deprecated. (Christian)
->   - Initialize the structs to 0 at declaration. (Planet Earth)
->   - Don't set stuff explicitly to 0 / NULL. (Tvrtko)
->   - Make the structs const where possible. (Boris)
->   - v3d: Use just 1, universal, function for sched-init. (Ma=C3=ADra)
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 18 ++++--
->  drivers/gpu/drm/etnaviv/etnaviv_sched.c    | 20 +++----
->  drivers/gpu/drm/imagination/pvr_queue.c    | 18 ++++--
->  drivers/gpu/drm/lima/lima_sched.c          | 16 +++--
->  drivers/gpu/drm/msm/msm_ringbuffer.c       | 17 +++---
->  drivers/gpu/drm/nouveau/nouveau_sched.c    | 15 +++--
->  drivers/gpu/drm/panfrost/panfrost_job.c    | 20 ++++---
->  drivers/gpu/drm/panthor/panthor_mmu.c      | 16 +++--
->  drivers/gpu/drm/panthor/panthor_sched.c    | 29 +++++----
->  drivers/gpu/drm/scheduler/sched_main.c     | 50 ++++++----------
->  drivers/gpu/drm/v3d/v3d_sched.c            | 68 +++++++++-------------
->  drivers/gpu/drm/xe/xe_execlist.c           | 16 +++--
->  drivers/gpu/drm/xe/xe_gpu_scheduler.c      | 17 +++++-
->  include/drm/gpu_scheduler.h                | 37 ++++++++++--
->  14 files changed, 206 insertions(+), 151 deletions(-)
->
+On Tue, Jan 28, 2025 at 01:38:09PM +0200, Pekka Paalanen wrote:
+> On Tue, 28 Jan 2025 11:37:53 +0200
+> Raag Jadav <raag.jadav@intel.com> wrote:
+> 
+> > On Mon, Jan 27, 2025 at 12:23:28PM +0200, Pekka Paalanen wrote:
+> > > On Wed, 22 Jan 2025 07:22:25 +0200
+> > > Raag Jadav <raag.jadav@intel.com> wrote:
+> > >   
+> > > > On Tue, Jan 21, 2025 at 02:14:56AM +0100, Xaver Hugl wrote:  
+> > > > > > +It is the responsibility of the consumer to make sure that the device or
+> > > > > > +its resources are not in use by any process before attempting recovery.    
+> > > > > I'm not convinced this is actually doable in practice, outside of
+> > > > > killing all apps that aren't the one trying to recover the GPU.
+> > > > > Is this just about not crashing those processes if they don't handle
+> > > > > GPU hotunplugs well, about leaks, or something else?    
+> > > > 
+> > > > Correct, all of it. And since the compositor is in charge of device resources,
+> > > > this way it atleast has the opportunity to recover the device and recreate
+> > > > context without all the userspace violence.  
+> > > 
+> > > Hi Raag,
+> > > 
+> > > sorry, I haven't followed this series, so I wonder, why should
+> > > userspace be part of recovering the device? Why doesn't the kernel
+> > > automatically load a new driver instance with a new DRM device node?  
+> > 
+> > There are things like bus level reset (PCI SBR) and re-enumeration that are
+> > not possible from driver context (or atleast I'm not aware of it), so a new
+> > instance is just as useful/less as the old one.
+> 
+> Ok, "not possible from driver context" is a key revelation. I wonder if
+> starting an overview section with that in the documentation would help
+> getting the right mindset.
 
-etnaviv changes are
+Not "not possible" in a literal sense, but rather allowing something that
+drastic and convoluted that is probably beyond the scope of the driver.
 
-Reviewed-by: Christian Gmeiner <cgmeiner@igalia.com>
+> Did I miss that somewhere?
 
---=20
-greets
---
-Christian Gmeiner, MSc
+The first two paragraphs are meant as an introduction. Let me know if
+something's not translating so well.
 
-https://christian-gmeiner.info/privacypolicy
+> I thought bus level reset meant resetting the PCI device by some bus
+> API. Clearly mistaken, I suppose you mean resetting the whole bus
+> including everything on it?
+
+I'm no PCI expert but yes, it is atleast my understanding.
+
+...
+
+> > > (More important for userspace would be know if dmabuf fds remain
+> > > pointing to valid memory retaining its contents or if the contents are
+> > > lost. Userspace cannot tell which device a dmabuf originates from,
+> > > AFAIK, so this would need to be added in the generic dmabuf UAPI.)  
+> > 
+> > Not sure if I understand, perhaps Christian can shed some light here.
+> 
+> A system might have multiple GPUs, and one GPU going down may leave all
+> the rest working as usual. A Wayland compositor would want to tell the
+> difference between still-good and possibly or definitely lost dmabufs
+> it received from its clients.
+
+Usually 'DEVNAME=' and 'DEVPATH=' values refer to the device that generates
+the event.
+
+> But this is off-topic in this thread I believe, nothing to the series
+> at hand.
+
+...
+
+> > > > > > +be unmapped and file descriptors should be closed to prevent leaks.    
+> > > > > Afaiu from a userspace POV, a rebind is just like a GPU hotunplug +
+> > > > > hotplug with matching "remove" and "add" udev events. As long as the
+> > > > > application cleans up resources related to the device when it receives
+> > > > > the event, there should be no leaks with a normal hotunplug... Is this
+> > > > > different enough that we can't have the same expectations?    
+> > > > 
+> > > > The thing about "remove" event is that it is generated *after* we opt for an
+> > > > unbind, and at that point it might be already too late if userspace doesn't
+> > > > get enough time to clean things up while the device is removed with a live
+> > > > client resulting in unknown consequences.
+> > > > 
+> > > > The idea here is to clean things up *before* we opt for an unbind leaving
+> > > > no room for side effects.  
+> > > 
+> > > Something here feels fragile. There should not be a deadline for
+> > > userspace to finish cleaning up. What was described for KMS device nodes
+> > > in this same document seems like a more reliable approach: keep the
+> > > dead driver instance around until userspace has closed all references
+> > > to it. The device node could be removed earlier.  
+> > 
+> > I'm not sure if I'm following here. The driver instance will exist as long
+> > as the dead device exists, which the consumer can remove if/when it chooses
+> > to trigger an unbind from userspace. There is no deadline for it.
+> 
+> I was going by your words: "it might be already too late if userspace
+> doesn't get enough time to clean things up".
+
+The idea here is to completely detach kernel and userspace *before* moving
+forward with the recovery.
+
+> > The consumer can choose to rely on hotplug events if it wishes, but the point
+> > here is that it doesn't guarantee a clean recovery in all cases.
+> 
+> Clearly I don't understand the whole picture here. No worries,
+> nevermind.
+
+Less moving parts comes with more chances of success.
+
+Raag
