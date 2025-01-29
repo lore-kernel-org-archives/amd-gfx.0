@@ -4,77 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C24CC02193
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jan 2025 14:54:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C271C02190
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jan 2025 15:20:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1757B10E830;
-	Wed, 29 Jan 2025 14:54:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5328810E81A;
+	Wed, 29 Jan 2025 15:20:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Kr81Qjcg";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="pJbHkuGB";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2236C10E819;
- Wed, 29 Jan 2025 14:54:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=ATdtI6Dd3DoUOYZ07wKSkHu7Owxf4k55Pq91Q66IojI=; b=Kr81QjcgK6UcWQra5TY/YKkye5
- gxtg82HR7U34vK8NxfC9/BT4IxNPjjQrc0uhiNUyrv0fdLE6HpwrjFwtUGF59YB7uKNYOrpRl9ZyT
- Xd2DpdST9ZiJTU/CEeBz7h0AH6hQIqCYNGVp9icPhR3guTEkX5MjRFUm/YJWgYhRTUr6z/SMnD9Bd
- RzVpevEoWEkTluuTEn14W1AImKGAewSb6JZ9qf8zllJ3pJt+gE5YPZEx4/AS8z399cyCPRgG8cHRt
- neJZKUOvfdu4n9a4/09nP5Oa/ihfliclagdSPdhu85WE6FMofNcFJ6+3ksV+0/h7FcMLziY/Y4AQV
- GCU5uudg==;
-Received: from [187.36.213.55] (helo=[192.168.1.103])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1td9S5-000ck3-Qz; Wed, 29 Jan 2025 15:54:07 +0100
-Message-ID: <d3ab5057-22fe-43d5-baea-4dec091fb303@igalia.com>
-Date: Wed, 29 Jan 2025 11:53:47 -0300
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2062.outbound.protection.outlook.com [40.107.244.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D157210E81A
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jan 2025 15:20:53 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=R63YLmvhC7ZDMJI9EbSHJZRTUFPRNKCVBgmiiuvkM/UrcdLtfSxfr7pXpWovGphq2aOZS6koeHOJnhWUSabFt9RfNsF/9agTCrVFmJDF0USRSgAHrcmsaf4QB66CIrQQI1TOHQp/hv5gUQiBWJWkfLTxD400R7HEacxIRsLCUWtOGNb2foNS3obvykoSVVQUIUF1yFsmDjQztLpCM5oJaIiLuBK/gILWWOR9PbhTxjoHzsNyDlUWA1WVNKQ8VrrrJosoOUwRiVpa7mpMPRn3jmiy6rapNNyABbjoHZiM4QCTlO7qSXrjHonI7NS8GaYi8DG1TkUYBpx2F+qCKvEetA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1gKqq0iV7QxwwGj+ADWofA9NdrM7JyJHAkg+v4ds0yw=;
+ b=toaIBLhW4rvsUY5ZEgFfGY5BS0nQQdTxHrNEPTXyB2gKV7lL8/YkukPdRIGO8ax9ZsDd174SC9R+H+mtPbeAXkiLM0ekwD98ZFoZWgPW4PlsuqCUybVMmrUyGLNSLFtviZodKPytkRS/ljs2LIRCmB9oh7l7myMMItxYlI53qrMoDybW8Fk6VscvfWneURhQmuJy8+aTgpDyy0FkWCh5/Yz23FGur9o0MjX7GOxpJy2B3RmZAdvq8A5O8hBcONd0yorqLC73OMUTIGHpxn2BqkKFpVW8lMYOZ2lMtVUBoQmn4sRZnfL5WH9ugZIAs91jrRqps9ym+vKW0HdH9DbSBg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1gKqq0iV7QxwwGj+ADWofA9NdrM7JyJHAkg+v4ds0yw=;
+ b=pJbHkuGBHovEVMf5R2JFbnPpP92KE0m3ZOOxjp1GGqozpi+DN8zEzhiRJpUQfO/oJml+su6Vq2ovnxzB0LcgembqTWRnJBU3DdvSZcBBaOLAt/o9eNb1fZDDSmEz+uu3DUXLUHYLz8RIry82tbsj+vaXO0J/e2B/5yx2PC9n+qI=
+Received: from MW4PR03CA0155.namprd03.prod.outlook.com (2603:10b6:303:8d::10)
+ by SA1PR12MB6799.namprd12.prod.outlook.com (2603:10b6:806:25b::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8377.22; Wed, 29 Jan
+ 2025 15:20:48 +0000
+Received: from MWH0EPF000989EC.namprd02.prod.outlook.com
+ (2603:10b6:303:8d:cafe::5f) by MW4PR03CA0155.outlook.office365.com
+ (2603:10b6:303:8d::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8398.17 via Frontend Transport; Wed,
+ 29 Jan 2025 15:20:48 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ MWH0EPF000989EC.mail.protection.outlook.com (10.167.241.139) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8398.14 via Frontend Transport; Wed, 29 Jan 2025 15:20:47 +0000
+Received: from eric-hp-elitebook-845-g7.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39; Wed, 29 Jan 2025 09:20:45 -0600
+From: Eric Huang <jinhuieric.huang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Eric Huang <jinhuieric.huang@amd.com>
+Subject: [PATCH] drm/amdkfd: fix missing L2 cache info in topology
+Date: Wed, 29 Jan 2025 10:20:29 -0500
+Message-ID: <20250129152029.32275-1-jinhuieric.huang@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/sched: Use struct for drm_sched_init() params
-To: phasta@kernel.org, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Lucas Stach <l.stach@pengutronix.de>,
- Russell King <linux+etnaviv@armlinux.org.uk>,
- Christian Gmeiner <christian.gmeiner@gmail.com>,
- Frank Binns <frank.binns@imgtec.com>, Matt Coster <matt.coster@imgtec.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Qiang Yu <yuq825@gmail.com>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Karol Herbst <kherbst@redhat.com>, Lyude Paul <lyude@redhat.com>,
- Danilo Krummrich <dakr@redhat.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
- Liviu Dudau <liviu.dudau@arm.com>, Matthew Brost <matthew.brost@intel.com>,
- Melissa Wen <mwen@igalia.com>, Lucas De Marchi <lucas.demarchi@intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Sunil Khatri <sunil.khatri@amd.com>,
- Lijo Lazar <lijo.lazar@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>, Ma Jun <Jun.Ma2@amd.com>,
- Yunxiang Li <Yunxiang.Li@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, etnaviv@lists.freedesktop.org,
- lima@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-References: <20250128142927.103290-2-phasta@kernel.org>
- <f8c9a876-4616-454d-a816-bb3c90960245@igalia.com>
- <c5c3791df54b7ae4ba1a31159a4beda0b44d00cf.camel@mailbox.org>
-Content-Language: en-US
-From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-In-Reply-To: <c5c3791df54b7ae4ba1a31159a4beda0b44d00cf.camel@mailbox.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000989EC:EE_|SA1PR12MB6799:EE_
+X-MS-Office365-Filtering-Correlation-Id: aec148f5-73f8-4381-8ccf-08dd4078820d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|376014|36860700013|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?S03a7OOrsxxyA/wVH1vmX5APi+0EwKIplzslChWzu+DSVxrrSra1FBC/Np4J?=
+ =?us-ascii?Q?vysdQQqd/d3bdjJtHN/zlnGCINN51/4LO5n4Q4peCFPhUFtGs2m7hhRgMTlc?=
+ =?us-ascii?Q?cZnHJd6RwW9ZLywbTJAvUWEGYYUau843dvDXc8qahpgfn2YSlEDLtVpDCMxw?=
+ =?us-ascii?Q?lXsAclJXtDnSHkeqkgVgovuVlWdYaXDvSSXpMa2Es9+fK7Z3FL/tBRa9SFkU?=
+ =?us-ascii?Q?El+Jaj9Pxh4PzIf0573h3NPWXRT1d4/o2Yp2cJpkq27VQxprONy6zlZEmK8c?=
+ =?us-ascii?Q?ietHuuzPEbEh1T076jZ0mY+H8FlslNr+IlBfNdcEFXzs1WcDm37wKTO5yINx?=
+ =?us-ascii?Q?33nkMAbVhHVgvV3jrdNZcwTaSz7dl7LhirM+STzxdMq52zz0PoWMiDLavita?=
+ =?us-ascii?Q?hLr6LwJxTJKgqqUEXN7wvbBvTmBqAAEE4PiZ4m3NI2lrQHSRtupmFQIaiaGO?=
+ =?us-ascii?Q?MEjIX8ZtmYyuA1fQlyGGMHWvwQHDea93VXgwUQt9cb63RYl6qT4Zdag3+hqc?=
+ =?us-ascii?Q?nfzB+NmOWN+Wp6gzhwcYdIv15q6dmw9EDnsiGHeWSxg4BMMYLBh3NLuxlBRU?=
+ =?us-ascii?Q?jFfSgSvOC0QvLj/O9hQXz3lxdDEoV2tNjTyyI1CK7CW/Fe/uYrdLtaWUlTqE?=
+ =?us-ascii?Q?RCyoFZP2VbuZCmZIU0snrgTxYm44aLmYm8ctRnc9VySvagvLxDP+MjFiEO0Q?=
+ =?us-ascii?Q?eUxgXasQ3tQMIW2eDUEhTTAqFNwWGVcv2i8nq9jSnSa3pFyPEkA7q0TBfqbl?=
+ =?us-ascii?Q?0WEXubxnTVxm67p+Tw3qnohfpMn13M1XJoBh8PAiPdfuXVR9KDvP8pw6SHE2?=
+ =?us-ascii?Q?ITETH7L9tTeHYAJtSfeO6Dzn/ly+FxF5SmgK3IEIHCa3htfZ+q395Aoq5TaY?=
+ =?us-ascii?Q?gB+jPDg6tDX/W3fPOKqhBOzbZsfT78I3vVKwVppqXvbWfZx9xNbHuMxvrRAS?=
+ =?us-ascii?Q?9UG398ZMliJj5QTu/0Hco6QpSH+ZLtNrGS+DSQAVxpzXVncuKBqLGXdL6eXz?=
+ =?us-ascii?Q?A/eNOnooIsLLTp9UTk86cXIwKWWWlAGRGKP6q3PtAY+ri1qVGiFmxgQtJZO0?=
+ =?us-ascii?Q?D4BP8uy84BH6XhVuTOexxw7ABN6Hn9GIB/LG65u0TSOwQTYE2uykIYc1Krqz?=
+ =?us-ascii?Q?Z0KXBGlUwHrv6l3Ax3jAPScHFmfICJ/7tyRWrIbsQTm6dYO3SjcH5ii4tnEH?=
+ =?us-ascii?Q?xHkUoyZvVRh7hh0QqxJGTEzNVJNTOV5zilAtgF/x3UVuUOCPHpx6mkw20AI1?=
+ =?us-ascii?Q?/O5jiTFTe1uQmhtISLCf3ey1O6bUjAoOKQjVr1Oas8rTS8w0OIChZuFkuIv3?=
+ =?us-ascii?Q?Qg9zydZ/hDJJiwuVL3TL86wo0a9ZgwFMziPHK+aX5TjSJAHJO0cA8+FVLDiC?=
+ =?us-ascii?Q?lk9o0uyPibTA0BZLtMJy2qZrr+uirf5HUnH6uZm68yHNHL9l3PzsxvdqTrBO?=
+ =?us-ascii?Q?yPZQ1FIFiD5sSZaGJZ7habar7VVIf3uzqEHRvVtDHiDeU+0SNNZ6E4hOYK7I?=
+ =?us-ascii?Q?60OVYVuK+njsy7A=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(376014)(36860700013)(1800799024); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jan 2025 15:20:47.6939 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: aec148f5-73f8-4381-8ccf-08dd4078820d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000989EC.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6799
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,189 +130,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Philipp,
+In some ASICs L2 cache info may miss in kfd topology,
+because the first bitmap may be empty, that means
+the first cu may be inactive, so to find the first
+active cu will solve the issue.
 
-On 29/01/25 09:39, Philipp Stanner wrote:
-> On Wed, 2025-01-29 at 07:53 -0300, Maíra Canal wrote:
->> Hi Philipp,
->>
->> On 28/01/25 11:29, Philipp Stanner wrote:
->>> drm_sched_init() has a great many parameters and upcoming new
->>> functionality for the scheduler might add even more. Generally, the
->>> great number of parameters reduces readability and has already
->>> caused
->>> one missnaming in:
->>>
->>> commit 6f1cacf4eba7 ("drm/nouveau: Improve variable name in
->>> nouveau_sched_init()").
->>>
->>> Introduce a new struct for the scheduler init parameters and port
->>> all
->>> users.
->>>
->>> Signed-off-by: Philipp Stanner <phasta@kernel.org>
->>> ---
->>> Changes in v2:
->>>     - Point out that the hang-limit is deprecated. (Christian)
->>>     - Initialize the structs to 0 at declaration. (Planet Earth)
->>>     - Don't set stuff explicitly to 0 / NULL. (Tvrtko)
->>>     - Make the structs const where possible. (Boris)
->>>     - v3d: Use just 1, universal, function for sched-init. (Maíra)
->>> ---
->>>    drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 18 ++++--
->>>    drivers/gpu/drm/etnaviv/etnaviv_sched.c    | 20 +++----
->>>    drivers/gpu/drm/imagination/pvr_queue.c    | 18 ++++--
->>>    drivers/gpu/drm/lima/lima_sched.c          | 16 +++--
->>>    drivers/gpu/drm/msm/msm_ringbuffer.c       | 17 +++---
->>>    drivers/gpu/drm/nouveau/nouveau_sched.c    | 15 +++--
->>>    drivers/gpu/drm/panfrost/panfrost_job.c    | 20 ++++---
->>>    drivers/gpu/drm/panthor/panthor_mmu.c      | 16 +++--
->>>    drivers/gpu/drm/panthor/panthor_sched.c    | 29 +++++----
->>>    drivers/gpu/drm/scheduler/sched_main.c     | 50 ++++++----------
->>>    drivers/gpu/drm/v3d/v3d_sched.c            | 68 +++++++++--------
->>> -----
->>>    drivers/gpu/drm/xe/xe_execlist.c           | 16 +++--
->>>    drivers/gpu/drm/xe/xe_gpu_scheduler.c      | 17 +++++-
->>>    include/drm/gpu_scheduler.h                | 37 ++++++++++--
->>>    14 files changed, 206 insertions(+), 151 deletions(-)
->>>
->>
->> [...]
->>
->>> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c
->>> b/drivers/gpu/drm/panthor/panthor_sched.c
->>> index 5844a7f639e0..44713cfdcd74 100644
->>> --- a/drivers/gpu/drm/panthor/panthor_sched.c
->>> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
->>> @@ -3284,6 +3284,22 @@ static struct panthor_queue *
->>>    group_create_queue(struct panthor_group *group,
->>>    		   const struct drm_panthor_queue_create *args)
->>>    {
->>> +	const struct drm_sched_init_args sched_args = {
->>> +		.ops = &panthor_queue_sched_ops,
->>> +		.submit_wq = group->ptdev->scheduler->wq,
->>> +		.num_rqs = 1,
->>> +		/*
->>> +		 * The credit limit argument tells us the total
->>> number of
->>> +		 * instructions across all CS slots in the
->>> ringbuffer, with
->>> +		 * some jobs requiring twice as many as others,
->>> depending on
->>> +		 * their profiling status.
->>> +		 */
->>> +		.credit_limit = args->ringbuf_size / sizeof(u64),
->>> +		.timeout = msecs_to_jiffies(JOB_TIMEOUT_MS),
->>> +		.timeout_wq = group->ptdev->reset.wq,
->>> +		.name = "panthor-queue",
->>> +		.dev = group->ptdev->base.dev
->>> +	};
->>>    	struct drm_gpu_scheduler *drm_sched;
->>>    	struct panthor_queue *queue;
->>>    	int ret;
->>> @@ -3354,17 +3370,8 @@ group_create_queue(struct panthor_group
->>> *group,
->>>    	if (ret)
->>>    		goto err_free_queue;
->>>    
->>> -	/*
->>> -	 * Credit limit argument tells us the total number of
->>> instructions
->>> -	 * across all CS slots in the ringbuffer, with some jobs
->>> requiring
->>> -	 * twice as many as others, depending on their profiling
->>> status.
->>> -	 */
->>> -	ret = drm_sched_init(&queue->scheduler,
->>> &panthor_queue_sched_ops,
->>> -			     group->ptdev->scheduler->wq, 1,
->>> -			     args->ringbuf_size / sizeof(u64),
->>> -			     0, msecs_to_jiffies(JOB_TIMEOUT_MS),
->>> -			     group->ptdev->reset.wq,
->>> -			     NULL, "panthor-queue", group->ptdev-
->>>> base.dev);
->>> +
->>
->> Please don't use multiple blank lines.
->>
->>> +	ret = drm_sched_init(&queue->scheduler, &sched_args);
->>>    	if (ret)
->>>    		goto err_free_queue;
->>>    
->>> diff --git a/drivers/gpu/drm/scheduler/sched_main.c
->>> b/drivers/gpu/drm/scheduler/sched_main.c
->>> index a48be16ab84f..6295b2654a7c 100644
->>> --- a/drivers/gpu/drm/scheduler/sched_main.c
->>> +++ b/drivers/gpu/drm/scheduler/sched_main.c
->>> @@ -1244,40 +1244,24 @@ static void drm_sched_run_job_work(struct
->>> work_struct *w)
->>>     * drm_sched_init - Init a gpu scheduler instance
->>>     *
->>>     * @sched: scheduler instance
->>> - * @ops: backend operations for this scheduler
->>> - * @submit_wq: workqueue to use for submission. If NULL, an
->>> ordered wq is
->>> - *	       allocated and used
->>> - * @num_rqs: number of runqueues, one for each priority, up to
->>> DRM_SCHED_PRIORITY_COUNT
->>> - * @credit_limit: the number of credits this scheduler can hold
->>> from all jobs
->>> - * @hang_limit: number of times to allow a job to hang before
->>> dropping it
->>> - * @timeout: timeout value in jiffies for the scheduler
->>> - * @timeout_wq: workqueue to use for timeout work. If NULL, the
->>> system_wq is
->>> - *		used
->>> - * @score: optional score atomic shared with other schedulers
->>> - * @name: name used for debugging
->>> - * @dev: target &struct device
->>> + * @args: scheduler initialization arguments
->>>     *
->>>     * Return 0 on success, otherwise error code.
->>>     */
->>> -int drm_sched_init(struct drm_gpu_scheduler *sched,
->>> -		   const struct drm_sched_backend_ops *ops,
->>> -		   struct workqueue_struct *submit_wq,
->>> -		   u32 num_rqs, u32 credit_limit, unsigned int
->>> hang_limit,
->>> -		   long timeout, struct workqueue_struct
->>> *timeout_wq,
->>> -		   atomic_t *score, const char *name, struct
->>> device *dev)
->>> +int drm_sched_init(struct drm_gpu_scheduler *sched, const struct
->>> drm_sched_init_args *args)
->>>    {
->>>    	int i;
->>>    
->>> -	sched->ops = ops;
->>> -	sched->credit_limit = credit_limit;
->>> -	sched->name = name;
->>> -	sched->timeout = timeout;
->>> -	sched->timeout_wq = timeout_wq ? : system_wq;
->>> -	sched->hang_limit = hang_limit;
->>> -	sched->score = score ? score : &sched->_score;
->>> -	sched->dev = dev;
->>> +	sched->ops = args->ops;
->>> +	sched->credit_limit = args->credit_limit;
->>> +	sched->name = args->name;
->>> +	sched->timeout = args->timeout;
->>> +	sched->timeout_wq = args->timeout_wq ? : system_wq;
->>> +	sched->hang_limit = args->hang_limit;
->>> +	sched->score = args->score ? args->score : &sched->_score;
->>
->> Could we keep it consistent and use the Elvis Operator here as well?
->> Just like `sched->timeout_wq`.
-> 
-> This is literally just the old code.
-> 
-> And if at all, this insanely stupid GCC extension should not be used.
-> It's one of the typical compiler people rampages that make the C
-> language so terrible.
+Signed-off-by: Eric Huang <jinhuieric.huang@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 18 ++++++++++++++++--
+ 1 file changed, 16 insertions(+), 2 deletions(-)
 
-Not a problem to me, we can remove the Elvis Operator from `sched-
- >timeout_wq`. My idea is just to do things consistently in variable
-assignment.
-
-Best Regards,
-- Maíra
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+index 4936697e6fc2..73d95041a388 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+@@ -1665,17 +1665,31 @@ static int fill_in_l2_l3_pcache(struct kfd_cache_properties **props_ext,
+ 				int cache_type, unsigned int cu_processor_id,
+ 				struct kfd_node *knode)
+ {
+-	unsigned int cu_sibling_map_mask;
++	unsigned int cu_sibling_map_mask = 0;
+ 	int first_active_cu;
+ 	int i, j, k, xcc, start, end;
+ 	int num_xcc = NUM_XCC(knode->xcc_mask);
+ 	struct kfd_cache_properties *pcache = NULL;
+ 	enum amdgpu_memory_partition mode;
+ 	struct amdgpu_device *adev = knode->adev;
++	bool found = false;
+ 
+ 	start = ffs(knode->xcc_mask) - 1;
+ 	end = start + num_xcc;
+-	cu_sibling_map_mask = cu_info->bitmap[start][0][0];
++
++	/* To find the bitmap in the first active cu */
++	for (xcc = start; xcc < end && !found; xcc++) {
++		for (i = 0; i < gfx_info->max_shader_engines && !found; i++) {
++			for (j = 0; j < gfx_info->max_sh_per_se && !found; j++) {
++				if (cu_info->bitmap[xcc][i % 4][j % 4]) {
++					cu_sibling_map_mask =
++						cu_info->bitmap[xcc][i % 4][j % 4];
++					found = true;
++				}
++			}
++		}
++	}
++
+ 	cu_sibling_map_mask &=
+ 		((1 << pcache_info[cache_type].num_cu_shared) - 1);
+ 	first_active_cu = ffs(cu_sibling_map_mask);
+-- 
+2.34.1
 
