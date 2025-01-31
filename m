@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E82AC02193
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jan 2025 18:59:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8C13C0218F
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jan 2025 18:59:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B1A3A10E42E;
-	Fri, 31 Jan 2025 18:59:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B92910E432;
+	Fri, 31 Jan 2025 18:59:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qAq+Dgrq";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="oFzlvvK3";
 	dkim-atps=neutral
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2081.outbound.protection.outlook.com [40.107.94.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D73A10E1F9;
- Fri, 31 Jan 2025 18:59:02 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2066.outbound.protection.outlook.com [40.107.92.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 68ACA10E423
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jan 2025 18:59:23 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=V2jHBNU5UyqQSYuyi+YK3Q1j+ocrcq3Vgnliu2YXZalkrQ/tLDim7TpFxCscR67OKDkuIfHlGX5BUJp8Xux2MACgyHfM4Vt9K0jWn395wH1577rB6LENbUUbuQJk64Glv1br4qabSFRGEnS2Sv2twQpWYAPcYRI94PHhqw8yZqwzrU+hYEp2DGGOzIN6MHXqBInXUaiUugWf9jDcVGSHMNMzANIPXdMtzmSq8S0qxMyt6IJW8VkieYaRFkdLnxL5xSiWYwgY/g8JyPe1lC0lg/HJ2eSR7LxF5hawWa504Vdrp+ZZ5aiZuwWOViT5fcHNT+bGf5QrAnxWktOnT73TnA==
+ b=quRe7NFmTTjiXp3e8vWF3RG2HngGtwjlimi3WFv+8PhdniP7uvd9qvh6B0m5BnUAsuhCN+oV1QDFeLnNuFHMcCxnNSVXrdJzkY9s7hwYgZSuuvZngz0qEeS8UyJbX9oZho/rN9Y3TyAm4Lcpm+1ZBTTgtrjW0rth2fK/cnasGv1smSYAn8OXKt2dMahuTO1OV0lhcJWTGACzMMft5tQJq9Z9wAO3yOHlVda0k6gUSz1vsHJaO9uF37kXxcceFgjy6GogNxCjiw+EgPgRqaamHJudwCI/gDGGlzRUrVwsiM9Y9wcDsmtEOdvwLvyljzuKZA2LjgySzBHawcpeFVDUbA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=t33WqjJ2kaM3Mq0lGgIcAGJhjPW7lUEal6Ng2n58dfM=;
- b=su369TzBGJw1TJFXkEgbhgovHuPYruS4vIY3EEhH3AmvBo/EXkr2Wlwexd5LJVJeFDVTE2y3njRvsMy/76fMo7qFr3lw7GMPt214CZ7/IAQMOErfZ/ov2IH7Zn21RG6gmAGYsJYEMynjadPQVdq0imhwCQzz4wSj/j8re1jQJZ7vHDyIe5qY3QkqS5YWKAc2i+4C9MLdO0CmzypbQNiev3ZEhdf6/enpOG+npM+lpU2q9wveeLnxJzGl+h6DAUkGzYgPLCIVG3VFJ7CrZdkviRrESadHc2cA7ng4V7STi7VYL1yNFVzkRjiwEKylXLXXJ1lwTDhqCMQQ/ElY6dHgqw==
+ bh=84ZogmJdeOPw/gGemOGEKUlOe3k/yEnmNbMWmjp2CB8=;
+ b=KXnCD3czFrn1wVkwbR17QWcvh2Zrd9rEdNywicav9zijowUkx/pXWKTzRPwY1vWNKJ96hgrzZ/W/mYgbEp0UbavftqQqFUIdtgDBRuis2y5Mn83Tk5N7cjk0PEWeSt8F4iLRff14aImQCfgPAfr7gtb2uYSlKyvf9Zr68lBBZ13rE9m7FUaSiYj2Npckn7rSSVhTb4P1LH0kxLYU8vS1wOPOnHujml7EU+NTxc3NBetUV3YRjhDQ8+1Weg7AY+Mq14mFMOXkHArNUHDlW8YiIYa8Blq91CueoHtoVxS87oLhoroVC51ckDq/vJ0RlRDHw2n3cc/WNO6wRblaIEyQHg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=t33WqjJ2kaM3Mq0lGgIcAGJhjPW7lUEal6Ng2n58dfM=;
- b=qAq+DgrqH6ZiYoEQOigl3MhFpG86jFzRUEgolG0DEHKRd2DDnH85DQxBhiVdOy1WVnQ/JEO0vZC0YOukkMAJ6K6E2sqAPo7xwnnYKPy5fDRnOWT7TG4mMvWYooxX9DDiQB63+0wuvRlbX+V5zlQhPIFZ0tkUptLKo4CZHTEaZqA=
-Received: from BN0PR07CA0022.namprd07.prod.outlook.com (2603:10b6:408:141::14)
- by SN7PR12MB7935.namprd12.prod.outlook.com (2603:10b6:806:349::11)
+ bh=84ZogmJdeOPw/gGemOGEKUlOe3k/yEnmNbMWmjp2CB8=;
+ b=oFzlvvK3cJiY87AdoygaFi1OH9Ogz/9GCDbQmKoC5qtr4GE72zxiMj9UGsU1SQlst3yOR9603D7/ARaTp1CD8g/pUTxiNWw2r8L38aL2BvyF9BthTRJ9KZAQ8qpr5zSV1iO3fHnGeVjlelWYwy6I2PNbeVu2602bdtsPUF+L5TU=
+Received: from BN9PR03CA0118.namprd03.prod.outlook.com (2603:10b6:408:fd::33)
+ by IA1PR12MB7733.namprd12.prod.outlook.com (2603:10b6:208:423::17)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8377.23; Fri, 31 Jan
- 2025 18:58:54 +0000
-Received: from BN3PEPF0000B076.namprd04.prod.outlook.com
- (2603:10b6:408:141:cafe::e8) by BN0PR07CA0022.outlook.office365.com
- (2603:10b6:408:141::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8398.20; Fri, 31 Jan
+ 2025 18:59:20 +0000
+Received: from MN1PEPF0000ECD8.namprd02.prod.outlook.com
+ (2603:10b6:408:fd:cafe::e0) by BN9PR03CA0118.outlook.office365.com
+ (2603:10b6:408:fd::33) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.8398.21 via Frontend Transport; Fri,
- 31 Jan 2025 18:58:54 +0000
+ 31 Jan 2025 18:59:20 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,78 +48,85 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN3PEPF0000B076.mail.protection.outlook.com (10.167.243.121) with Microsoft
+ MN1PEPF0000ECD8.mail.protection.outlook.com (10.167.242.137) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8398.14 via Frontend Transport; Fri, 31 Jan 2025 18:58:54 +0000
-Received: from fdavid-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ 15.20.8398.14 via Frontend Transport; Fri, 31 Jan 2025 18:59:20 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 31 Jan
- 2025 12:58:52 -0600
-From: David Francis <David.Francis@amd.com>
-To: <dri-devel@lists.freedesktop.org>
-CC: <amd-gfx@lists.freedesktop.org>, <tvrtko.ursulin@igalia.com>,
- <Christian.Koenig@amd.com>, <Felix.Kuehling@amd.com>, <Weijun.Jiang@amd.com>, 
- <dcostantino@meta.com>, <sruffell@meta.com>, David Francis
- <David.Francis@amd.com>
-Subject: [PATCH] Support dmabuf IPC with amdgpu CRIU
-Date: Fri, 31 Jan 2025 13:58:29 -0500
-Message-ID: <20250131185829.827297-2-David.Francis@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250131185829.827297-1-David.Francis@amd.com>
-References: <20250131185829.827297-1-David.Francis@amd.com>
+ 2025 12:59:19 -0600
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?B=C5=82a=C5=BCej=20Szczygie=C5=82?= <mumei6102@gmail.com>
+Subject: [PATCH 2/4] drm/amdgpu/gfx: add amdgpu_gfx_off_ctrl_immediate()
+Date: Fri, 31 Jan 2025 13:59:02 -0500
+Message-ID: <20250131185905.2074016-2-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20250131185905.2074016-1-alexander.deucher@amd.com>
+References: <20250131185905.2074016-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B076:EE_|SN7PR12MB7935:EE_
-X-MS-Office365-Filtering-Correlation-Id: c4dac059-ecc4-412f-ed1a-08dd42294ef6
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD8:EE_|IA1PR12MB7733:EE_
+X-MS-Office365-Filtering-Correlation-Id: fecc7467-d81d-4622-a58b-08dd42295eb4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700013|1800799024|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?+hvyAzJ7PzLchDS90x0KdbTA70lkn9F4mc6xx7PGWpCDUmaVVVUdvcSNF7kZ?=
- =?us-ascii?Q?i0Ys/FM2GlWQMxLqj8PLDNzWvinmXhM3dgiOzSBouFXQ06aDnyF82fV/xQk2?=
- =?us-ascii?Q?kdUc5B26RTVljpxTHTyxyA7YaecYYTeOeQdJcLh6zRmmZ8rl9fVFnLjk3pxP?=
- =?us-ascii?Q?ICjahATwoPtrnVUNR/tSV1xvlpXiVBtsf0xwmhBctqQ80uhdQAWXJlH0R55d?=
- =?us-ascii?Q?PJCFFOPHUR2z/G8niAGlApY9iLYhcDIBYmNX58qdJ4lp3sESfNh660gjsjHr?=
- =?us-ascii?Q?aSAQ978mu7D+jz84aplnqzfGA+Ck1u5NG1jaDDpGD37u9a5dGGjaoiAyw0QP?=
- =?us-ascii?Q?AYFvEu5VfAAkabdBAh56E971QkHXHhJFMgRUcUFlNqMzfcDZf9vHlB7Fqgqg?=
- =?us-ascii?Q?8NYsp8w2NMuUNNRCCxrjziVVBh3ecnHk0AjEB7U/3J3AsApG18F9eW79+jFO?=
- =?us-ascii?Q?UdsxLgu2PbizgN+I72guUCO/p7RIuFFwr2E0C+kFB6VKJm2x9J1D1mJKQsUy?=
- =?us-ascii?Q?ev3MajjGHzseB4E70DL+5cMxGW4v56FzVyWSbSN3jTMF5Ff/L0sL4xYrz6h8?=
- =?us-ascii?Q?LRyGa7l1VqZkokfMHNVlFp+D2aWyeqI3yCbT16Ryibt8gC0XNdIIw4E8U8Y2?=
- =?us-ascii?Q?o61w52P8B11V6bJjCij6huOi6oCBkWo6mM/xJBAoIamttNf/0kpDYCgrqnok?=
- =?us-ascii?Q?BkI7zDBI9czsv8ZL27X5lJlQl6GbND7aPArC3fDy3Gxed2LGyCQDUZLiR2Qe?=
- =?us-ascii?Q?Y+k0vhjvnX0chz37QMamjzMjY47KjTvCpaRH31MtUUPFAh6yiVU8wYZUMJEs?=
- =?us-ascii?Q?MWJfaslUUku9amndIRNr1HSJOBiUId6ESD21Yw07Z8XmPmDhdHE+8AxkTLEx?=
- =?us-ascii?Q?bt1KL6iDRnvz1YAQPL6wRT7pshgy3Kf0H5i/PyNvYJYux9iJTQmUGhmvcaig?=
- =?us-ascii?Q?50/OJfTSkoBOj6u5kZxXKQ8MWVtPbZgi1ddZVvpMqL0Zd/P/tpzOuTcLBQLw?=
- =?us-ascii?Q?OhnvDPD5WV4n4Fl7eJGGZNXl5TOZVRxqxJFn241ElhVHZH3ddLiQ3s/gQRky?=
- =?us-ascii?Q?LMWdYpOB3EJWhq5uywuIrVcfTStZf0BEt0OsPpVh/vDkxykRYTzQmlIH4igF?=
- =?us-ascii?Q?c/RlYsNAoPCKLYmOKPW+dXx5JUiM9HVWvkWZqLId+qeqqHkvoGVmbs/3qCZp?=
- =?us-ascii?Q?qJRT8mKFMBNpISgocZOZBAE7W877FAzRONnU4SW9tQMEx4gcrY3Xy/ShWhOd?=
- =?us-ascii?Q?mB/DFb0L4NUuPHj8Qm3lLBLXGmZLCDp6IxlSKCtIDDFv1ps/FcayaXZdWAfz?=
- =?us-ascii?Q?I3TTkrcUFyU0uqFCrxtSXURBbWDEWF/0YupcXkwF5zm1UOAKm8qN/vxzvSoG?=
- =?us-ascii?Q?LasXyzlAYz30ImCUivTIUwqkBDzxtPQi1uWbHwzYiFF9uIRcgCmm0CmqWJGv?=
- =?us-ascii?Q?853zNjzDIBbyUlNQfMLjpqDPETsOXK8mExiVhsAqMTXucuezPAxGKw=3D=3D?=
+ ARA:13230040|1800799024|36860700013|376014|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?RmRqTzVDZWdHNkhXQk5xdWh0ZHJpdnoxNXk4WC9vRmY2VFIreGxhaWx5ZmhM?=
+ =?utf-8?B?Y0c5aW5heHJaVHBKSFF5a0kwYmNTZlJZMHFySDRXSE0yMW1wUDZFMHdIcmR2?=
+ =?utf-8?B?VDdGdU9RdGwvelN2aWxnUktta3k5bmg1cmNrSytvNi85VVhrY3BJWmdRL1RJ?=
+ =?utf-8?B?L2lrM3BzbFZpbjdVSFA4WGxOaFVMNUFBek40VWJVVXFHTWVzWEo1YVhESkFC?=
+ =?utf-8?B?U3JwL1V5SDNVZHVGSjlWQ1RhdW5BT3BxcEk3ZFYwOVNiK3dpcmNWR2lxWEF6?=
+ =?utf-8?B?dGg5aUt2dWpoUU1EeUlDUlBNbU9zclRmMmxraGxFaEh4VU0zdDlZdEZ1VnBH?=
+ =?utf-8?B?L0ZuSzBxNXBhcUgzWG9XcUFOd3Iva1BtS1ZSZzIrdkpUNUMvU1RDbzBtUERq?=
+ =?utf-8?B?NGlEZk9sSUp6aklRVmlrcDVJOHJkNXQraGpBUi83MXoreEMvamVCNStrTjdt?=
+ =?utf-8?B?VmdIMG8ydXVrN0JETFdpR2dnSDgrc0ljaURjLzBDaFhyLytiSkdvLzdlU0t0?=
+ =?utf-8?B?MjgwT0p1QTRHY2ZMOXNVdHkvMlhVa3FLRXMxUGtWVmNoQ3FnWXp4MG9lYmR5?=
+ =?utf-8?B?SUNSRkRiVkQ2NzdmK1R6d3JNamFFTnU3bDhuQXN1aTFYR24wUm5iQkdhQUcy?=
+ =?utf-8?B?OUEwTVMweTg3c3pDcnBKb08rUXJERzAxdkg2bENqYlRQYXh1dFJ5QzhtMlVY?=
+ =?utf-8?B?ZXRwNXp3OVFhS0pzR05qcTZ0NEcwZytUOVN2bU1ocUNoNTNVc1lrV01uMklG?=
+ =?utf-8?B?KzZ0UVFGSHBqNzRMWWxiVGNGSGt5ancwSEFmcW53aFUyUlBFY1I1T3JKdExQ?=
+ =?utf-8?B?amdlMnBqb2VFeFl5MkNKWld1bGFCSSsxRXZYQ1A1WkJnSWdEVXVKV1JsNTY5?=
+ =?utf-8?B?c2t0clZKaXBuZmEvaFduUitWZGJwRjNjbm1vOVh5UUtwUkpheHo0eHFoVUt0?=
+ =?utf-8?B?TmtKVUp6TWFzVGFLUWlLZGhOVkdCSUI3UUQwcDZOeTUyYXZVSkZOTXR6b2x3?=
+ =?utf-8?B?YVFnT3R1NEhRbGxKaU1uUVpReVVpVlJNY2FWOEttUnBkRkNiTUo0b25admp5?=
+ =?utf-8?B?cjF4cDVTWHhDRFFiNDI3ZVMwbjVkWlRTMFFacGJ5aUF3MlhIeUVwV0hwem5i?=
+ =?utf-8?B?L1pZc0ZUbmVUWGMyWnh4Njl2OE9JbXdLWmlSKzd3QmZIQ0d3VVFrM2d5K3dI?=
+ =?utf-8?B?RnFUa09pd01sVTM5cFVEdktkUFJEVDBRM0Zra2FuNCtkS3B3YkM2ZEdnLzZL?=
+ =?utf-8?B?WG1YVnZTekhvQmJRN1VIUnZsN3BQVENkRGUwVUl0RTFGQTY3alFuUjcyM01B?=
+ =?utf-8?B?VU44ck9jRU9wczhYMjV1TlhxYzgxdFVtSFpHSHQvOGl1eTJFTDRMUzRBYjc2?=
+ =?utf-8?B?amFRMGJmSUVFLzZwMkFwWnZVZUQ1bCtnQlNXZFYyckh6OU14bGZ3Vk4vaHpr?=
+ =?utf-8?B?TnNUYXZrajRsak85UmVMQWxzdTVESncwODZJbHJYU0pmZDUveVdRMmxpYTFa?=
+ =?utf-8?B?R3NaME1hS2NPNURCZUlqaU5IQWUzeUgvRDQyZU9HeWZXMUhvcTY2R2s2TFZ2?=
+ =?utf-8?B?eURac3NWc2UvRXRTcU1DZXBsNExVSUpONVhXcnp1ZnJ0R0M2RUNCQkpjcXFy?=
+ =?utf-8?B?OE10cTdRYWxSWWpQckNnck55WkdkSkZ3K29ib0J1a1JuYVFHclM4SjNZUEhm?=
+ =?utf-8?B?Vkg4ODdEQ1RFU1hjNTBoN2hFdFJ2YkRTNGJ3WGNDcnU1cW81dVk3TkQ2NnZQ?=
+ =?utf-8?B?QTZPeENESGlGdFgwNDFrbEZBSjdDcS9PcS9VZTl0b3VFV25ucHdGamhIZjRX?=
+ =?utf-8?B?cGttOXFiSy9WczgzU2FmcUdJa05CU29lTDR3eU5jRm95Nk5Oc2kzSmlCbk9V?=
+ =?utf-8?B?UUUwR3M3S0dmOVJuQmRha0VaS1gwZFBTY09yL2l2dVV4aW85TlRGbm9Jc1M1?=
+ =?utf-8?B?QkJqL3gvTGd2NmRNMDllOWRaRitUOENLNExYc2FiN0ZmNm1SU2tlN25ZZlFT?=
+ =?utf-8?B?MGRzMnJSVVhBPT0=?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700013)(1800799024)(376014); DIR:OUT;
+ SFS:(13230040)(1800799024)(36860700013)(376014)(82310400026); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jan 2025 18:58:54.1595 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c4dac059-ecc4-412f-ed1a-08dd42294ef6
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jan 2025 18:59:20.5842 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fecc7467-d81d-4622-a58b-08dd42295eb4
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B076.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000ECD8.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7935
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7733
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,867 +141,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This patch (in combination with the accompanying CRIU patch)
-allows the amdgpu CRIU plugin to support dmabuf IPC.
+Same as amdgpu_gfx_off_ctrl(), but without the delay
+for gfxoff disallow.
 
-It includes
-- A new amdgpu ioctl (amdgpu_criu_op_ioctl), which has similar
-	options to kfd_ioctl_criu, and accompanying structs.
-- New "is_retry" field in amdkfd CRIU ioctls, to indicate when.
-	a restore op is a retry and certain parts of the
-	restore should not be re-done.
-- New "skip" field in amdkfd CRIU bo buckets, to indicate when
-	a bo cannot currently be restored and should be ignored.
-- Two new drm functions, drm_prime_assign_handle and
-	drm_gem_handle_create_assigned. These are similar to
-	drm_gem_prime_fd_to_handle and drm_gem_handle_create
-	but allow the caller to specify a gem handle.
-
-Still TODO:
-- Backwards compatibility between new kernel and old CRIU
-
-Signed-off-by: David Francis <David.Francis@amd.com>
+Suggested-by: Błażej Szczygieł <mumei6102@gmail.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/Makefile      |   2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_criu.c | 401 +++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_criu.h |  24 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c  |   2 +
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c |  37 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h    |   2 +-
- drivers/gpu/drm/drm_prime.c              | 146 +++++++++
- include/drm/drm_prime.h                  |   7 +
- include/uapi/drm/amdgpu_drm.h            |  46 +++
- include/uapi/linux/kfd_ioctl.h           |   4 +-
- 10 files changed, 653 insertions(+), 18 deletions(-)
- create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_criu.c
- create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_criu.h
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 53 +++++++++++++++++++------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |  1 +
+ 2 files changed, 41 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
-index 6cb3a2b2725a..eac5a455e6de 100644
---- a/drivers/gpu/drm/amd/amdgpu/Makefile
-+++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-@@ -63,7 +63,7 @@ amdgpu-y += amdgpu_device.o amdgpu_doorbell_mgr.o amdgpu_kms.o \
- 	amdgpu_xgmi.o amdgpu_csa.o amdgpu_ras.o amdgpu_vm_cpu.o \
- 	amdgpu_vm_sdma.o amdgpu_discovery.o amdgpu_ras_eeprom.o amdgpu_nbio.o \
- 	amdgpu_umc.o smu_v11_0_i2c.o amdgpu_fru_eeprom.o amdgpu_rap.o \
--	amdgpu_fw_attestation.o amdgpu_securedisplay.o \
-+	amdgpu_fw_attestation.o amdgpu_securedisplay.o amdgpu_criu.o \
- 	amdgpu_eeprom.o amdgpu_mca.o amdgpu_psp_ta.o amdgpu_lsdma.o \
- 	amdgpu_ring_mux.o amdgpu_xcp.o amdgpu_seq64.o amdgpu_aca.o amdgpu_dev_coredump.o \
- 	amdgpu_userq_fence.o amdgpu_eviction_fence.o
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_criu.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_criu.c
-new file mode 100644
-index 000000000000..4f3e5cb61323
---- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_criu.c
-@@ -0,0 +1,401 @@
-+
-+
-+#include <linux/dma-buf.h>
-+#include <linux/hashtable.h>
-+#include <linux/mutex.h>
-+#include <linux/random.h>
-+
-+#include <drm/amdgpu_drm.h>
-+#include <drm/drm_device.h>
-+#include <drm/drm_file.h>
-+
-+#include "amdgpu_criu.h"
-+
-+#include <drm/amdgpu_drm.h>
-+#include <drm/drm_drv.h>
-+#include <drm/drm_exec.h>
-+#include <drm/drm_gem_ttm_helper.h>
-+#include <drm/ttm/ttm_tt.h>
-+
-+#include "amdgpu.h"
-+#include "amdgpu_display.h"
-+#include "amdgpu_dma_buf.h"
-+#include "amdgpu_hmm.h"
-+#include "amdgpu_xgmi.h"
-+
-+static bool is_import(struct amdgpu_bo *bo) {
-+	if (bo->tbo.base.import_attach)
-+		return &bo->tbo.base != (struct drm_gem_object *)bo->tbo.base.import_attach->dmabuf->priv;
-+	return false;
-+}
-+
-+static int reserve_bo_and_vm(struct amdgpu_bo *bo,
-+			      struct amdgpu_vm *vm,
-+			      struct drm_exec *exec)
-+{
-+	int ret;
-+
-+	WARN_ON(!vm);
-+
-+	drm_exec_init(exec, DRM_EXEC_INTERRUPTIBLE_WAIT, 0);
-+	drm_exec_until_all_locked(exec) {
-+		ret = amdgpu_vm_lock_pd(vm, exec, 2);
-+		drm_exec_retry_on_contention(exec);
-+		if (unlikely(ret))
-+			goto error;
-+
-+		ret = drm_exec_prepare_obj(exec, &bo->tbo.base, 1);
-+		drm_exec_retry_on_contention(exec);
-+		if (unlikely(ret))
-+			goto error;
-+	}
-+	return 0;
-+
-+error:
-+	pr_err("Failed to reserve buffers in ttm.\n");
-+	drm_exec_fini(exec);
-+	return ret;
-+}
-+
-+static void unreserve_bo_and_vm(struct drm_exec *exec)
-+{
-+	drm_exec_fini(exec);
-+}
-+
-+static int amdgpu_criu_process_info(struct drm_device *dev, struct drm_file *data,
-+			    struct drm_amdgpu_criu_args *args) {
-+	struct drm_gem_object *gobj;
-+	int id;
-+	int num_bos = 0;
-+	int num_vm_mappings = 0;
-+	struct amdgpu_vm *avm = &((struct amdgpu_fpriv *)data->driver_priv)->vm;
-+
-+	spin_lock(&data->table_lock);
-+	idr_for_each_entry(&data->object_idr, gobj, id) {
-+		struct amdgpu_bo *bo = gem_to_amdgpu_bo(gobj);
-+		struct amdgpu_vm_bo_base *vm_bo_base;
-+
-+		num_bos += 1;
-+
-+		vm_bo_base = bo->vm_bo;
-+
-+		while(vm_bo_base) {
-+			struct amdgpu_bo_va *bo_va = container_of(vm_bo_base, struct amdgpu_bo_va, base);
-+			struct amdgpu_bo_va_mapping *mapping;
-+
-+			if (vm_bo_base->vm == avm) {
-+
-+				list_for_each_entry(mapping, &bo_va->invalids, list) {
-+					num_vm_mappings += 1;
-+				}
-+				list_for_each_entry(mapping, &bo_va->valids, list) {
-+					num_vm_mappings += 1;
-+				}
-+			}
-+
-+			vm_bo_base = vm_bo_base->next;
-+		}
-+	}
-+	spin_unlock(&data->table_lock);
-+
-+	args->num_bos = num_bos;
-+	args->priv_data_size = sizeof(struct drm_amdgpu_criu_bo_priv_data) * num_bos + sizeof(struct drm_amdgpu_criu_vm_mapping_priv_data) * num_vm_mappings;
-+	args->num_objs = num_vm_mappings;
-+	args->pid = avm->task_info->pid;
-+
-+	return 0;
-+}
-+
-+static int amdgpu_criu_checkpoint(struct drm_device *dev, struct drm_file *data,
-+			    struct drm_amdgpu_criu_args *args) {
-+	struct drm_gem_object *gobj;
-+	struct amdgpu_vm *avm = &((struct amdgpu_fpriv *)data->driver_priv)->vm;
-+	int id;
-+	int num_bos = 0;
-+	int ret;
-+	struct drm_amdgpu_criu_bo_bucket *bo_buckets;
-+	struct drm_amdgpu_criu_bo_priv_data *bo_privs;
-+	struct drm_amdgpu_criu_vm_mapping_priv_data *vm_privs;
-+	int vm_priv_index = 0;
-+	int bo_index = 0;
-+	int fd;
-+
-+	spin_lock(&data->table_lock);
-+	idr_for_each_entry(&data->object_idr, gobj, id) {
-+		num_bos += 1;
-+	}
-+	spin_unlock(&data->table_lock);
-+
-+	if (args->num_bos != num_bos) {
-+		ret = -EINVAL;
-+		goto exit;
-+	}
-+
-+	bo_buckets = kvzalloc(num_bos * sizeof(*bo_buckets), GFP_KERNEL);
-+	if (!bo_buckets)
-+		return -ENOMEM;
-+
-+	bo_privs = kvzalloc(num_bos * sizeof(*bo_privs), GFP_KERNEL);
-+	if (!bo_privs)
-+		return -ENOMEM;
-+
-+	vm_privs = kvzalloc(args->num_objs * sizeof(*vm_privs), GFP_KERNEL);
-+	if (!vm_privs)
-+		return -ENOMEM;
-+
-+	idr_for_each_entry(&data->object_idr, gobj, id) {
-+		struct amdgpu_bo *bo = gem_to_amdgpu_bo(gobj);
-+		struct drm_amdgpu_criu_bo_bucket *bo_bucket;
-+		struct drm_amdgpu_criu_bo_priv_data *bo_priv;
-+		struct amdgpu_vm_bo_base *vm_bo_base;
-+		struct amdgpu_bo *main_bo;
-+
-+		bo_bucket = &bo_buckets[bo_index];
-+		bo_priv = &bo_privs[bo_index];
-+
-+		bo_bucket->size = amdgpu_bo_size(bo);
-+		bo_bucket->offset = amdgpu_bo_mmap_offset(bo);
-+		bo_bucket->alloc_flags = bo->flags;
-+		bo_bucket->preferred_domains = bo->preferred_domains;
-+
-+		bo_priv->idr_handle = id;
-+		bo_bucket->is_import = is_import(bo);
-+
-+		main_bo = bo;
-+		if (is_import(main_bo)) {
-+			main_bo = gem_to_amdgpu_bo(bo->tbo.base.import_attach->dmabuf->priv);
-+		}
-+
-+		drm_gem_prime_handle_to_fd(dev, data, id, 0, &fd);
-+		if (fd) {
-+			bo_bucket->dmabuf_fd = fd;
-+		}
-+
-+		vm_bo_base = bo->vm_bo;
-+
-+		while(vm_bo_base) {
-+			struct amdgpu_bo_va *bo_va = container_of(vm_bo_base, struct amdgpu_bo_va, base);
-+			struct amdgpu_bo_va_mapping *mapping;
-+
-+			if (vm_bo_base->vm == avm) {
-+				list_for_each_entry(mapping, &bo_va->invalids, list) {
-+					vm_privs[vm_priv_index].start = mapping->start;
-+					vm_privs[vm_priv_index].last = mapping->last;
-+					vm_privs[vm_priv_index].offset = mapping->offset;
-+					vm_privs[vm_priv_index].flags = mapping->flags;
-+					vm_privs[vm_priv_index].idr_handle = id;
-+					vm_priv_index += 1;
-+
-+					bo_bucket->addr = mapping->start * 0x1000;
-+				}
-+				list_for_each_entry(mapping, &bo_va->valids, list) {
-+					vm_privs[vm_priv_index].start = mapping->start;
-+					vm_privs[vm_priv_index].last = mapping->last;
-+					vm_privs[vm_priv_index].offset = mapping->offset;
-+					vm_privs[vm_priv_index].flags = mapping->flags;
-+					vm_privs[vm_priv_index].idr_handle = id;
-+					vm_priv_index += 1;
-+
-+					bo_bucket->addr = mapping->start * 0x1000;
-+				}
-+			}
-+
-+			vm_bo_base = vm_bo_base->next;
-+		}
-+
-+		bo_index += 1;
-+	}
-+
-+	ret = copy_to_user((void *)args->bos, bo_buckets, num_bos * sizeof(*bo_buckets));
-+	if (ret) {
-+		pr_err("Failed to copy BO information to user\n");
-+		ret = -EFAULT;
-+		goto exit;
-+	}
-+
-+	ret = copy_to_user((void *)args->priv_data, bo_privs, num_bos * sizeof(*bo_privs));
-+	if (ret) {
-+		pr_err("Failed to copy BO PRIV information to user\n");
-+		ret = -EFAULT;
-+		goto exit;
-+	}
-+	ret = copy_to_user((void *)(args->priv_data + sizeof(struct drm_amdgpu_criu_bo_priv_data) * num_bos), vm_privs, args->num_objs * sizeof(*vm_privs));
-+	if (ret) {
-+		pr_err("Failed to copy VM PRIV information to user\n");
-+		ret = -EFAULT;
-+		goto exit;
-+	}
-+
-+	exit:
-+	kvfree(bo_buckets);
-+	kvfree(bo_privs);
-+	return ret;
-+}
-+
-+static int amdgpu_criu_unpause(struct drm_device *dev, struct drm_file *data,
-+			    struct drm_amdgpu_criu_args *args) {
-+	return 0;
-+}
-+
-+static int amdgpu_criu_restore(struct drm_device *dev, struct drm_file *data,
-+			    struct drm_amdgpu_criu_args *args) {
-+	int i;
-+	struct drm_amdgpu_criu_bo_bucket *bo_buckets;
-+	struct drm_amdgpu_criu_bo_priv_data *bo_privs;
-+	struct drm_amdgpu_criu_vm_mapping_priv_data *vm_privs;
-+	struct amdgpu_vm *avm = &((struct amdgpu_fpriv *)data->driver_priv)->vm;
-+	struct amdgpu_fpriv *fpriv = (struct amdgpu_fpriv *)data->driver_priv;
-+	struct amdgpu_device *adev = drm_to_adev(dev);
-+	struct amdgpu_bo *restored_bo;
-+	int ret;
-+
-+	bo_buckets = kvzalloc(args->num_bos * sizeof(*bo_buckets), GFP_KERNEL);
-+	if (!bo_buckets)
-+		return -ENOMEM;
-+	ret = copy_from_user(bo_buckets, (void *)args->bos, args->num_bos * sizeof(*bo_buckets));
-+	if (ret)
-+		return -EINVAL;
-+
-+	bo_privs = kvzalloc(args->num_bos * sizeof(*bo_privs), GFP_KERNEL);
-+	if (!bo_privs)
-+		return -ENOMEM;
-+	ret = copy_from_user(bo_privs, (void *)args->priv_data, args->num_bos * sizeof(*bo_privs));
-+	if (ret)
-+		return -EINVAL;
-+
-+	vm_privs = kvzalloc(args->num_objs * sizeof(*vm_privs), GFP_KERNEL);
-+	if (!vm_privs)
-+		return -ENOMEM;
-+	ret = copy_from_user(vm_privs, (void *)(args->priv_data + sizeof(struct drm_amdgpu_criu_bo_priv_data) * args->num_bos), args->num_objs * sizeof(*vm_privs));
-+	if (ret)
-+		return -EINVAL;
-+
-+	for (i = 0; i < args->num_bos; i++) {
-+		struct drm_amdgpu_criu_bo_bucket *bo_bucket = &bo_buckets[i];
-+		struct drm_amdgpu_criu_bo_priv_data *bo_priv = &bo_privs[i];
-+		struct amdgpu_bo *bo;
-+
-+		if (bo_bucket->skip)
-+			continue;
-+
-+		if (!bo_bucket->is_import) {
-+			struct drm_gem_object *obj;
-+			enum ttm_bo_type type = ttm_bo_type_device;
-+			int xcp_id = -1;
-+			int prime_fd;
-+
-+			if (bo_bucket->preferred_domains == AMDGPU_GEM_DOMAIN_VRAM) {
-+				xcp_id = fpriv->xcp_id == AMDGPU_XCP_NO_PARTITION ?
-+							0 : fpriv->xcp_id;
-+			}
-+			amdgpu_gem_object_create(adev, bo_bucket->size, 1, bo_bucket->preferred_domains,
-+				bo_bucket->alloc_flags, type, NULL, &obj, xcp_id + 1);
-+
-+			bo = gem_to_amdgpu_bo(obj);
-+
-+			ret = drm_gem_handle_create_assigned(data, obj, bo_priv->idr_handle);
-+
-+			restored_bo = bo;
-+
-+			bo_bucket->restored_offset = amdgpu_bo_mmap_offset(restored_bo);
-+
-+			ret = drm_gem_prime_handle_to_fd(dev,
-+			       data, bo_priv->idr_handle,
-+			       DRM_RDWR,
-+			       &prime_fd);
-+
-+			bo_bucket->dmabuf_fd = prime_fd;
-+		}
-+		else {
-+			struct drm_gem_object *obj;
-+			int ret;
-+
-+			if (bo->kfd_bo) {
-+				ret = drm_prime_assign_handle(dev, data, bo_bucket->dmabuf_fd, bo_priv->idr_handle, &obj);
-+				if (ret)
-+					goto exit;
-+
-+				if (obj != &bo->tbo.base)
-+					restored_bo = gem_to_amdgpu_bo(obj);
-+				else
-+					restored_bo = bo;
-+
-+				bo_bucket->restored_offset = amdgpu_bo_mmap_offset(restored_bo);
-+			}
-+		}
-+
-+
-+		for (i = 0; i < args->num_objs; i++) {
-+			struct drm_amdgpu_criu_vm_mapping_priv_data *vm_priv = &vm_privs[i];
-+			struct amdgpu_bo_va *bo_va;
-+			struct drm_exec exec;
-+
-+			if (vm_priv->idr_handle != bo_priv->idr_handle)
-+				continue;
-+
-+			reserve_bo_and_vm(restored_bo, avm, &exec);
-+
-+			bo_va = amdgpu_vm_bo_find(avm, restored_bo);
-+			if (!bo_va)
-+				bo_va = amdgpu_vm_bo_add(adev, avm, restored_bo);
-+
-+			amdgpu_vm_bo_map(adev,
-+			     bo_va,
-+			     vm_priv->start * AMDGPU_GPU_PAGE_SIZE, vm_priv->offset,
-+			     (vm_priv->last - vm_priv->start + 1) * AMDGPU_GPU_PAGE_SIZE, vm_priv->flags);
-+
-+			ret = amdgpu_vm_bo_update(adev, bo_va, false);
-+
-+			ret = amdgpu_vm_update_pdes(adev, avm, false);
-+
-+			unreserve_bo_and_vm(&exec);
-+
-+		}
-+	}
-+
-+	ret = copy_to_user((void *)args->bos, bo_buckets, args->num_bos * sizeof(*bo_buckets));
-+	if (ret) {
-+		pr_err("Failed to copy BO information to user\n");
-+		ret = -EFAULT;
-+		goto exit;
-+	}
-+
-+
-+	exit:
-+	return ret;
-+}
-+
-+static int amdgpu_criu_resume(struct drm_device *dev, struct drm_file *data,
-+			    struct drm_amdgpu_criu_args *args) {
-+	return 0;
-+}
-+
-+int amdgpu_criu_op_ioctl(struct drm_device *dev, void *data,
-+			    struct drm_file *filp)
-+{
-+	struct drm_amdgpu_criu_args *args = data;
-+	int ret;
-+
-+	switch (args->op) {
-+	case AMDGPU_CRIU_OP_PROCESS_INFO:
-+		ret = amdgpu_criu_process_info(dev, filp, args);
-+		break;
-+	case AMDGPU_CRIU_OP_CHECKPOINT:
-+		ret = amdgpu_criu_checkpoint(dev, filp, args);
-+		break;
-+	case AMDGPU_CRIU_OP_UNPAUSE:
-+		ret = amdgpu_criu_unpause(dev, filp, args);
-+		break;
-+	case AMDGPU_CRIU_OP_RESTORE:
-+		ret = amdgpu_criu_restore(dev, filp, args);
-+		break;
-+	case AMDGPU_CRIU_OP_RESUME:
-+		ret = amdgpu_criu_resume(dev, filp, args);
-+		break;
-+	default:
-+		ret = -EINVAL;
-+		break;
-+	}
-+
-+	return ret;
-+}
-\ No newline at end of file
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_criu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_criu.h
-new file mode 100644
-index 000000000000..35fbb1ffdd71
---- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_criu.h
-@@ -0,0 +1,24 @@
-+#ifndef __AMDGPU_CRIU_H__
-+#define __AMDGPU_CRIU_H__
-+
-+#include <drm/amdgpu_drm.h>
-+
-+int amdgpu_criu_op_ioctl(struct drm_device *dev, void *data,
-+			    struct drm_file *filp);
-+
-+struct amdgpu_bo *bo_from_criu_global_handle(uint8_t *handle);
-+int insert_bo_at_criu_global_handle(struct amdgpu_bo *bo, uint8_t *handle);
-+
-+struct drm_amdgpu_criu_bo_priv_data {
-+	uint32_t idr_handle; // IDR for drm gem idr
-+};
-+
-+struct drm_amdgpu_criu_vm_mapping_priv_data {
-+	uint64_t start;
-+    uint64_t last;
-+    uint64_t offset;
-+    uint64_t flags;
-+    uint32_t idr_handle;
-+};
-+
-+#endif
-\ No newline at end of file
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index acb9dc3705ac..12d844598efc 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -53,6 +53,7 @@
- #include "amdgpu_xgmi.h"
- #include "amdgpu_userqueue.h"
- #include "amdgpu_userq_fence.h"
-+#include "amdgpu_criu.h"
- #include "../amdxcp/amdgpu_xcp_drv.h"
- 
- /*
-@@ -2909,6 +2910,7 @@ const struct drm_ioctl_desc amdgpu_ioctls_kms[] = {
- 	DRM_IOCTL_DEF_DRV(AMDGPU_USERQ, amdgpu_userq_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
- 	DRM_IOCTL_DEF_DRV(AMDGPU_USERQ_SIGNAL, amdgpu_userq_signal_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
- 	DRM_IOCTL_DEF_DRV(AMDGPU_USERQ_WAIT, amdgpu_userq_wait_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
-+	DRM_IOCTL_DEF_DRV(AMDGPU_CRIU_OP, amdgpu_criu_op_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
- };
- 
- static const struct drm_driver amdgpu_kms_driver = {
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 065d87841459..2a535a1870fa 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -45,6 +45,8 @@
- #include "amdgpu_dma_buf.h"
- #include "kfd_debug.h"
- 
-+#include "amdgpu_criu.h"
-+
- static long kfd_ioctl(struct file *, unsigned int, unsigned long);
- static int kfd_open(struct inode *, struct file *);
- static int kfd_release(struct inode *, struct file *);
-@@ -2469,7 +2471,8 @@ static int criu_restore_bos(struct kfd_process *p,
- 
- 	/* Create and map new BOs */
- 	for (; i < args->num_bos; i++) {
--		ret = criu_restore_bo(p, &bo_buckets[i], &bo_privs[i], &files[i]);
-+		if (!bo_buckets[i].skip)
-+			ret = criu_restore_bo(p, &bo_buckets[i], &bo_privs[i], &files[i]);
- 		if (ret) {
- 			pr_debug("Failed to restore BO[%d] ret%d\n", i, ret);
- 			goto exit;
-@@ -2558,7 +2561,7 @@ static int criu_restore(struct file *filep,
- 		 args->num_devices, args->num_bos, args->num_objects, args->priv_data_size);
- 
- 	if (!args->bos || !args->devices || !args->priv_data || !args->priv_data_size ||
--	    !args->num_devices || !args->num_bos)
-+	    !args->num_devices)
- 		return -EINVAL;
- 
- 	mutex_lock(&p->mutex);
-@@ -2567,26 +2570,30 @@ static int criu_restore(struct file *filep,
- 	 * Set the process to evicted state to avoid running any new queues before all the memory
- 	 * mappings are ready.
- 	 */
--	ret = kfd_process_evict_queues(p, KFD_QUEUE_EVICTION_CRIU_RESTORE);
--	if (ret)
--		goto exit_unlock;
-+	if (!args->is_retry) {
-+		ret = kfd_process_evict_queues(p, KFD_QUEUE_EVICTION_CRIU_RESTORE);
-+		if (ret)
-+			goto exit_unlock;
- 
--	/* Each function will adjust priv_offset based on how many bytes they consumed */
--	ret = criu_restore_process(p, args, &priv_offset, args->priv_data_size);
--	if (ret)
--		goto exit_unlock;
-+		/* Each function will adjust priv_offset based on how many bytes they consumed */
-+		ret = criu_restore_process(p, args, &priv_offset, args->priv_data_size);
-+		if (ret)
-+			goto exit_unlock;
- 
--	ret = criu_restore_devices(p, args, &priv_offset, args->priv_data_size);
--	if (ret)
--		goto exit_unlock;
-+		ret = criu_restore_devices(p, args, &priv_offset, args->priv_data_size);
-+		if (ret)
-+			goto exit_unlock;
-+	}
- 
- 	ret = criu_restore_bos(p, args, &priv_offset, args->priv_data_size);
- 	if (ret)
- 		goto exit_unlock;
- 
--	ret = criu_restore_objects(filep, p, args, &priv_offset, args->priv_data_size);
--	if (ret)
--		goto exit_unlock;
-+	if (!args->is_retry) {
-+		ret = criu_restore_objects(filep, p, args, &priv_offset, args->priv_data_size);
-+		if (ret)
-+			goto exit_unlock;
-+	}
- 
- 	if (priv_offset != args->priv_data_size) {
- 		pr_err("Invalid private data size\n");
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index c32b255c0eb2..fd81275b8724 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -1207,7 +1207,7 @@ int kfd_process_init_cwsr_apu(struct kfd_process *process, struct file *filep);
-  * kfd_criu_svm_range_priv_data
-  */
- 
--#define KFD_CRIU_PRIV_VERSION 1
-+#define KFD_CRIU_PRIV_VERSION 2
- 
- struct kfd_criu_process_priv_data {
- 	uint32_t version;
-diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
-index 0e3f8adf162f..8f6e7c064aaf 100644
---- a/drivers/gpu/drm/drm_prime.c
-+++ b/drivers/gpu/drm/drm_prime.c
-@@ -1084,3 +1084,149 @@ void drm_prime_gem_destroy(struct drm_gem_object *obj, struct sg_table *sg)
- 	dma_buf_put(dma_buf);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+index 645efe002d068..27f5318c3a26c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+@@ -771,18 +771,8 @@ int amdgpu_gfx_enable_kgq(struct amdgpu_device *adev, int xcc_id)
+ 	return r;
  }
- EXPORT_SYMBOL(drm_prime_gem_destroy);
-+
-+int drm_prime_assign_handle(struct drm_device *dev,
-+			       struct drm_file *file_priv, int prime_fd,
-+			       uint32_t handle, struct drm_gem_object **gem_obj)
-+{
-+	struct drm_gem_object *obj;
-+	int ret;
-+	int existing_handle;
-+	struct dma_buf *dma_buf;
-+
-+	dma_buf = dma_buf_get(prime_fd);
-+	if (IS_ERR(dma_buf))
-+		return PTR_ERR(dma_buf);
-+
-+	mutex_lock(&file_priv->prime.lock);
-+
-+	ret = drm_prime_lookup_buf_handle(&file_priv->prime,
-+			dma_buf, &existing_handle);
-+	if (ret == 0)
-+		goto out_put;
-+
-+	/* never seen this one, need to import */
-+	mutex_lock(&dev->object_name_lock);
-+	if (dev->driver->gem_prime_import)
-+		obj = dev->driver->gem_prime_import(dev, dma_buf);
-+	else
-+		obj = drm_gem_prime_import(dev, dma_buf);
-+	if (IS_ERR(obj)) {
-+		ret = PTR_ERR(obj);
-+		goto out_unlock;
-+	}
-+
-+	*gem_obj = obj;
-+
-+	if (obj->dma_buf) {
-+		WARN_ON(obj->dma_buf != dma_buf);
-+	} else {
-+		obj->dma_buf = dma_buf;
-+		get_dma_buf(dma_buf);
-+	}
-+
-+	obj->handle_count++;
-+
-+	drm_gem_object_get(obj);
-+
-+	/* _handle_create_tail unconditionally unlocks dev->object_name_lock. */
-+	idr_preload(GFP_KERNEL);
-+	spin_lock(&file_priv->table_lock);
-+
-+	ret = idr_alloc(&file_priv->object_idr, obj, handle, handle + 1, GFP_NOWAIT);
-+
-+	spin_unlock(&file_priv->table_lock);
-+	idr_preload_end();
-+	mutex_unlock(&dev->object_name_lock);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = drm_vma_node_allow(&obj->vma_node, file_priv);
-+	if (ret)
-+		return ret;
-+
-+	if (obj->funcs->open) {
-+		ret = obj->funcs->open(obj, file_priv);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	drm_gem_object_put(obj);
-+
-+	ret = drm_prime_add_buf_handle(&file_priv->prime,
-+			dma_buf, handle);
-+	mutex_unlock(&file_priv->prime.lock);
-+	if (ret)
-+		goto fail;
-+
-+	dma_buf_put(dma_buf);
-+
-+	return 0;
-+
-+fail:
-+	/* hmm, if driver attached, we are relying on the free-object path
-+	 * to detach.. which seems ok..
-+	 */
-+	drm_gem_handle_delete(file_priv, handle);
-+	dma_buf_put(dma_buf);
-+	return ret;
-+
-+out_unlock:
-+	mutex_unlock(&dev->object_name_lock);
-+out_put:
-+	mutex_unlock(&file_priv->prime.lock);
-+	dma_buf_put(dma_buf);
-+	return ret;
-+}
-+EXPORT_SYMBOL(drm_prime_assign_handle);
-+
-+int drm_gem_handle_create_assigned(struct drm_file *file_priv,
-+			   struct drm_gem_object *obj,
-+			   uint32_t handle)
-+{
-+	struct drm_device *dev = obj->dev;
-+	int ret;
-+
-+	mutex_lock(&dev->object_name_lock);
-+
-+	WARN_ON(!mutex_is_locked(&dev->object_name_lock));
-+	if (obj->handle_count++ == 0)
-+		drm_gem_object_get(obj);
-+
-+	/*
-+	 * Get the user-visible handle using idr.  Preload and perform
-+	 * allocation under our spinlock.
-+	 */
-+	idr_preload(GFP_KERNEL);
-+	spin_lock(&file_priv->table_lock);
-+
-+	ret = idr_alloc(&file_priv->object_idr, obj, handle, handle + 1, GFP_NOWAIT);
-+
-+	spin_unlock(&file_priv->table_lock);
-+	idr_preload_end();
-+
-+	mutex_unlock(&dev->object_name_lock);
-+	if (ret < 0)
-+		goto err_unref;
-+
-+	ret = drm_vma_node_allow(&obj->vma_node, file_priv);
-+	if (ret)
-+		goto err_remove;
-+
-+	if (obj->funcs->open) {
-+		ret = obj->funcs->open(obj, file_priv);
-+		if (ret)
-+			goto err_revoke;
-+	}
-+	return 0;
-+
-+err_revoke:
-+	drm_vma_node_revoke(&obj->vma_node, file_priv);
-+err_remove:
-+	spin_lock(&file_priv->table_lock);
-+	idr_remove(&file_priv->object_idr, handle);
-+	spin_unlock(&file_priv->table_lock);
-+err_unref:
-+	return ret;
-+}
-+EXPORT_SYMBOL(drm_gem_handle_create_assigned);
-\ No newline at end of file
-diff --git a/include/drm/drm_prime.h b/include/drm/drm_prime.h
-index fa085c44d4ca..591ed81acb84 100644
---- a/include/drm/drm_prime.h
-+++ b/include/drm/drm_prime.h
-@@ -112,5 +112,12 @@ int drm_prime_sg_to_page_array(struct sg_table *sgt, struct page **pages,
- 			       int max_pages);
- int drm_prime_sg_to_dma_addr_array(struct sg_table *sgt, dma_addr_t *addrs,
- 				   int max_pages);
-+int drm_prime_assign_handle(struct drm_device *dev,
-+			       struct drm_file *file_priv, int prime_fd,
-+			       uint32_t handle, struct drm_gem_object **gem_obj);
-+
-+int drm_gem_handle_create_assigned(struct drm_file *file_priv,
-+			   struct drm_gem_object *obj,
-+			   uint32_t handle);
  
- #endif /* __DRM_PRIME_H__ */
-diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
-index 8191d0bd0c00..c6766fe5c1bc 100644
---- a/include/uapi/drm/amdgpu_drm.h
-+++ b/include/uapi/drm/amdgpu_drm.h
-@@ -57,6 +57,7 @@ extern "C" {
- #define DRM_AMDGPU_USERQ		0x16
- #define DRM_AMDGPU_USERQ_SIGNAL		0x17
- #define DRM_AMDGPU_USERQ_WAIT		0x18
-+#define DRM_AMDGPU_CRIU_OP		0x19
+-/* amdgpu_gfx_off_ctrl - Handle gfx off feature enable/disable
+- *
+- * @adev: amdgpu_device pointer
+- * @bool enable true: enable gfx off feature, false: disable gfx off feature
+- *
+- * 1. gfx off feature will be enabled by gfx ip after gfx cg gp enabled.
+- * 2. other client can send request to disable gfx off feature, the request should be honored.
+- * 3. other client can cancel their request of disable gfx off feature
+- * 4. other client should not send request to enable gfx off feature before disable gfx off feature.
+- */
+-
+-void amdgpu_gfx_off_ctrl(struct amdgpu_device *adev, bool enable)
++static void amdgpu_gfx_do_off_ctrl(struct amdgpu_device *adev, bool enable,
++				   bool no_delay)
+ {
+ 	unsigned long delay = GFX_OFF_DELAY_ENABLE;
  
- #define DRM_IOCTL_AMDGPU_GEM_CREATE	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_CREATE, union drm_amdgpu_gem_create)
- #define DRM_IOCTL_AMDGPU_GEM_MMAP	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_MMAP, union drm_amdgpu_gem_mmap)
-@@ -77,6 +78,7 @@ extern "C" {
- #define DRM_IOCTL_AMDGPU_USERQ		DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_USERQ, union drm_amdgpu_userq)
- #define DRM_IOCTL_AMDGPU_USERQ_SIGNAL	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_USERQ_SIGNAL, struct drm_amdgpu_userq_signal)
- #define DRM_IOCTL_AMDGPU_USERQ_WAIT	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_USERQ_WAIT, struct drm_amdgpu_userq_wait)
-+#define DRM_IOCTL_AMDGPU_CRIU_OP	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_CRIU_OP, struct drm_amdgpu_criu_args)
+@@ -804,7 +794,7 @@ void amdgpu_gfx_off_ctrl(struct amdgpu_device *adev, bool enable)
+ 		if (adev->gfx.gfx_off_req_count == 0 &&
+ 		    !adev->gfx.gfx_off_state) {
+ 			/* If going to s2idle, no need to wait */
+-			if (adev->in_s0ix) {
++			if (no_delay) {
+ 				if (!amdgpu_dpm_set_powergating_by_smu(adev,
+ 						AMD_IP_BLOCK_TYPE_GFX, true, 0))
+ 					adev->gfx.gfx_off_state = true;
+@@ -836,6 +826,43 @@ void amdgpu_gfx_off_ctrl(struct amdgpu_device *adev, bool enable)
+ 	mutex_unlock(&adev->gfx.gfx_off_mutex);
+ }
  
- /**
-  * DOC: memory domains
-@@ -1585,6 +1587,50 @@ struct drm_color_ctm_3x4 {
- 	__u64 matrix[12];
- };
- 
-+/* CRIU ioctl
++/* amdgpu_gfx_off_ctrl - Handle gfx off feature enable/disable
 + *
-+ * When checkpointing a process, the CRIU amdgpu plugin will perform:
-+ * 1. INFO op to get information about state that needs to be saved. This
-+ *    pauses execution until the checkpoint is done.
-+ * 2. CHECKPOINT op to save state (BOs for now, TODO: CS contexts)
-+ * 3. UNPAUSE op to resume execution when the checkpoint is done.
++ * @adev: amdgpu_device pointer
++ * @bool enable true: enable gfx off feature, false: disable gfx off feature
 + *
-+ * When restoring a process, the CRIU amdgpu plugin will perform:
++ * 1. gfx off feature will be enabled by gfx ip after gfx cg pg enabled.
++ * 2. other client can send request to disable gfx off feature, the request should be honored.
++ * 3. other client can cancel their request of disable gfx off feature
++ * 4. other client should not send request to enable gfx off feature before disable gfx off feature.
 + *
-+ * 1. RESTORE op to restore state
-+ * 2. RESUME op to restore userptr mappings (TODO)
++ * gfx off allow will be delayed by GFX_OFF_DELAY_ENABLE ms.
 + */
-+enum drm_amdgpu_criu_op {
-+    AMDGPU_CRIU_OP_PROCESS_INFO,
-+    AMDGPU_CRIU_OP_CHECKPOINT,
-+    AMDGPU_CRIU_OP_UNPAUSE,
-+    AMDGPU_CRIU_OP_RESTORE,
-+    AMDGPU_CRIU_OP_RESUME,
-+};
++void amdgpu_gfx_off_ctrl(struct amdgpu_device *adev, bool enable)
++{
++	/* If going to s2idle, no need to wait */
++	bool no_delay = adev->in_s0ix ? true : false;
 +
-+struct drm_amdgpu_criu_args {
-+    __u64 bos; /* user pointer to bos array */
-+    __u64 priv_data; /* user pointer to private data */
-+    __u64 priv_data_size;
-+    __u32 num_bos;
-+    __u32 num_objs;
-+    __u32 pid;
-+    __u32 op;
-+    __u8 is_retry: 1;
-+};
++	amdgpu_gfx_do_off_ctrl(adev, enable, no_delay);
++}
 +
-+struct drm_amdgpu_criu_bo_bucket {
-+    __u64 addr;
-+    __u64 size;
-+    __u64 offset;
-+    __u64 restored_offset;    /* During restore, updated offset for BO */
-+    __u64 alloc_flags;
-+    __u32 preferred_domains;
-+    __u32 dmabuf_fd;
-+	__u8 is_import: 1;
-+	__u8 skip: 1;
-+};
++/* amdgpu_gfx_off_ctrl_immediate - Handle gfx off feature enable/disable
++ *
++ * @adev: amdgpu_device pointer
++ * @bool enable true: enable gfx off feature, false: disable gfx off feature
++ *
++ * 1. gfx off feature will be enabled by gfx ip after gfx cg pg enabled.
++ * 2. other client can send request to disable gfx off feature, the request should be honored.
++ * 3. other client can cancel their request of disable gfx off feature
++ * 4. other client should not send request to enable gfx off feature before disable gfx off feature.
++ *
++ * gfx off allow will be issued immediately.
++ */
++void amdgpu_gfx_off_ctrl_immediate(struct amdgpu_device *adev, bool enable)
++{
++	amdgpu_gfx_do_off_ctrl(adev, enable, true);
++}
 +
- #if defined(__cplusplus)
- }
- #endif
-diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_ioctl.h
-index fa9f9846b88e..8c3f3a51857f 100644
---- a/include/uapi/linux/kfd_ioctl.h
-+++ b/include/uapi/linux/kfd_ioctl.h
-@@ -698,6 +698,7 @@ struct kfd_ioctl_criu_args {
- 	__u32 num_objects;	/* Used during ops: PROCESS_INFO, RESTORE */
- 	__u32 pid;		/* Used during ops: PROCESS_INFO, RESUME */
- 	__u32 op;
-+	__u8 is_retry: 1;
- };
- 
- struct kfd_criu_device_bucket {
-@@ -715,7 +716,8 @@ struct kfd_criu_bo_bucket {
- 	__u32 gpu_id;             /* This is the user_gpu_id */
- 	__u32 alloc_flags;
- 	__u32 dmabuf_fd;
--	__u32 pad;
-+	__u8 is_import: 1;
-+	__u8 skip: 1;
- };
- 
- /* CRIU IOCTLs - END */
+ int amdgpu_set_gfx_off_residency(struct amdgpu_device *adev, bool value)
+ {
+ 	int r = 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+index 6c84598caec21..ddf4533614bac 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+@@ -554,6 +554,7 @@ int amdgpu_gfx_me_queue_to_bit(struct amdgpu_device *adev, int me,
+ bool amdgpu_gfx_is_me_queue_enabled(struct amdgpu_device *adev, int me,
+ 				    int pipe, int queue);
+ void amdgpu_gfx_off_ctrl(struct amdgpu_device *adev, bool enable);
++void amdgpu_gfx_off_ctrl_immediate(struct amdgpu_device *adev, bool enable);
+ int amdgpu_get_gfx_off_status(struct amdgpu_device *adev, uint32_t *value);
+ int amdgpu_gfx_ras_late_init(struct amdgpu_device *adev, struct ras_common_if *ras_block);
+ void amdgpu_gfx_ras_fini(struct amdgpu_device *adev);
 -- 
-2.34.1
+2.48.1
 
