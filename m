@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47BBFC0218F
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A758C02194
 	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jan 2025 16:58:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E384210E3B1;
-	Fri, 31 Jan 2025 16:58:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 139D310E3C6;
+	Fri, 31 Jan 2025 16:58:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="MYAaBTtp";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="idoTbJ86";
 	dkim-atps=neutral
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2055.outbound.protection.outlook.com [40.107.243.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B33D510E3D5
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jan 2025 16:58:21 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2067.outbound.protection.outlook.com [40.107.94.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E894C10E3C5
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jan 2025 16:58:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UjIZMC3LMg9gRDXcbHBDJT4sMzfTVGeFK9CW7uzWOd9Q+uaQQDiiaibjDEIRcY6mITWrMv2z7hL3B6M+p9BF3F8ipzJS2nBWnYmog+beQh5zUJ+y/5h+DipusvdWnVqPIwcJ86zwJUVb3tcbKVO+nLafbQe7AsWPlir/FLwPDtdOlemvNIciWCKXM4jH8kuSPC0N0wY6w909ich71j9YpSUP2mF/5FwblbT1+Vq6n9CLFvmageg7ccAcXsBRheN3rHpBcx95NlCXF9o2R2yVLfda4qrN0LSA4raRyYnkctx9lye18ziLsnaYvb7BRX/mmD/jNCCdtRcm9Ky/AYLTVA==
+ b=jyUeXdHFOivwJzErpD43pVrxEG2duBjTJjdN+QwUq7ik+8J+jGcvyww7nBc9+xvJzejAibtFROwfkyPsZDb4EfQvk/yH0vzJN/AgSunjJYpTP87NWl3Gd9kFuhX7gFM/yXqMugnRSNDj7jkLInSXDnNNtFctxIc3GT/4EICS3lnUliyc6PcRu8jkTHEmBUHDM1pSZwaKTofC8YPHZmI7veog4l7jgEkvhiPHJihdcITYQ19sO1gaV06j3ZW+HOEYcOHa6cegMTFqBUIy34MRIuaYcW0qTUPoK4xqCQ9bGo6IhkIE7V7OelgALB+ZVfjFLGAYqu9NZktvz3TfxsnjIg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jPgYRYvQDpOIPk+4qOLWMA45tJfd/bNXb8c9pM7wxJ8=;
- b=xOkc1saJFGH42/TJzKnTG4Tqpr3vEIbcWaEsYaBuVri53S1oGeBcj8+SKUUG44s0yySbpKEecTEgKzBSXfYF+OphFcTmSV585wKSnrn2p+4pUM/18IbHkJoTgVguAvxlfYaI+/IBuPlWqSpeN2f+CnxuTC9idu2JCmtWUp+l+fSGge7RXw5Arwqz4z3S7J37CB2T7I/nRnH6xDT59cKXPibafa6AubLlItqkwNneGWysbwKsSRc5uAKx0oVWzbzBBna9EjX253yOUgS2B2TAERcaYZoaPpHiK/2QCsKR/tvr13zlFubnxbuMMc505F+ufkaNyvq5u0gXGisIlaK6Zg==
+ bh=CSUJL3bA+H9ti8cg0pjDkHPwG2VPCBwcnhiMuWz4hvA=;
+ b=JQ1pYUUOWnT0BoQopy10wD2WRrfW8/BSQyz+YH6iq5gEUdfW2HdlWntg/FfyHLESSrQde+8pAy3xx4HjZeCwR+t0MoAj/igwlpbXuA8RYGzanCsTnY9NyK2DcTiSPU62lDwfS1yxk5Vtl1kusZxy98u0gIoi3GPs/sRTXLbDw+wVawLzQZeyxp7IMN0wNgDZehOddKW45GTFE6EIXmNvRxIg+r0xxdzuKKHJwy2Kv2+l0STEjXWH881a4IHkKAi6MQ+7rQKkf9R3g/G4Ev+3k3cC8t9RLFwKsdJzpgZVY5dspEWPLzxqXiX9A+L5iUl0pHU0U4H38T/BCUmik563Wg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jPgYRYvQDpOIPk+4qOLWMA45tJfd/bNXb8c9pM7wxJ8=;
- b=MYAaBTtpNUvNZdMEJIgEfcS0QAznDO4PVUMPeaaqA6S9HndisK/qiuwzZBmIa8gDlqCIJvxILtTWYMF6mcspqhf7YcYDrOUrLe74af+G8IIjlgC3+dSicoypb4y21bmAKIRU+1P9YuqyNTI5jafHVDtzS+jQG8Z5di3w04ixzlk=
-Received: from DM6PR07CA0075.namprd07.prod.outlook.com (2603:10b6:5:337::8) by
- MN2PR12MB4390.namprd12.prod.outlook.com (2603:10b6:208:26e::21) with
+ bh=CSUJL3bA+H9ti8cg0pjDkHPwG2VPCBwcnhiMuWz4hvA=;
+ b=idoTbJ86Uto56ujme8Ignnk7qij7PoYp4MAQC+/8IgR4Ft1s35q5Pk4t199FOuVAupluKP6repNfrFM0poX0ciUDhOjYLAnmMsenC93f5oDAgOP5fY1vaZkSmh7mFS7oaGLid9+Q99BuEqn1uNY3MXQ73wIOcjPW2lMXI8xE4T8=
+Received: from DM6PR07CA0092.namprd07.prod.outlook.com (2603:10b6:5:337::25)
+ by DS0PR12MB6535.namprd12.prod.outlook.com (2603:10b6:8:c0::16) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8398.18; Fri, 31 Jan
- 2025 16:58:17 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8398.21; Fri, 31 Jan
+ 2025 16:58:16 +0000
 Received: from DS2PEPF0000343C.namprd02.prod.outlook.com
- (2603:10b6:5:337:cafe::b) by DM6PR07CA0075.outlook.office365.com
- (2603:10b6:5:337::8) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8398.21 via Frontend Transport; Fri,
- 31 Jan 2025 16:58:17 +0000
+ (2603:10b6:5:337:cafe::46) by DM6PR07CA0092.outlook.office365.com
+ (2603:10b6:5:337::25) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8398.22 via Frontend Transport; Fri,
+ 31 Jan 2025 16:58:16 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,17 +50,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  DS2PEPF0000343C.mail.protection.outlook.com (10.167.18.39) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8398.14 via Frontend Transport; Fri, 31 Jan 2025 16:58:17 +0000
+ 15.20.8398.14 via Frontend Transport; Fri, 31 Jan 2025 16:58:16 +0000
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 31 Jan
- 2025 10:58:13 -0600
+ 2025 10:58:11 -0600
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 24/44] drm/amdgpu/vcn2.0: add set_pg_state callback
-Date: Fri, 31 Jan 2025 11:57:20 -0500
-Message-ID: <20250131165741.1798488-25-alexander.deucher@amd.com>
+Subject: [PATCH 20/44] drm/amdgpu/vcn5.0.1: convert internal functions to use
+ vcn_inst
+Date: Fri, 31 Jan 2025 11:57:16 -0500
+Message-ID: <20250131165741.1798488-21-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20250131165741.1798488-1-alexander.deucher@amd.com>
 References: <20250131165741.1798488-1-alexander.deucher@amd.com>
@@ -72,51 +73,51 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF0000343C:EE_|MN2PR12MB4390:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0261381a-e1ad-4b92-8663-08dd42187577
+X-MS-TrafficTypeDiagnostic: DS2PEPF0000343C:EE_|DS0PR12MB6535:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4523c99e-af05-48b7-9f21-08dd4218750e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|36860700013|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?+ux5jV3u/dRe1T6AJNF/JJSx+SPNPi9hfAH5cYK+FSDmHQdGmHZ7YSzxCGdD?=
- =?us-ascii?Q?Ult7D2ji8S2yHjMufuXpNnYNIg74QHWB911r75d+Q11LQgS+vW5aWaAA0OK7?=
- =?us-ascii?Q?gZoFjMDoUlViu9aRYpwXNZTzXK54E5VHySLr0PJScQ4v29tSuzJIzPN6rWK2?=
- =?us-ascii?Q?fIIpxWb/Nk21BwESjV+hcBTvpHOCXOmeknihXiuf+e4q2Hb4NFSSVkiXRYjA?=
- =?us-ascii?Q?bushtsQDR+43hgH0HO8oJwUR6D6BzLg4SK9n2RwbgRRLjuHJDc82J/SSHCdM?=
- =?us-ascii?Q?AXqFEi5ccZRmb352R4hyVU2BV8lM1+BUvcuJZfpNdsaCzTRFY6J+NhRoclzg?=
- =?us-ascii?Q?kDg/STQ3epYygbmqP53pB5VO9bckmEMtkwbWEPnw1PcSdZuLvV04Tus3pMDp?=
- =?us-ascii?Q?HtK23yjYfumPmP7e8HESu+oB1jB/VK5RKdsBTgH1BD3tJvRhr/SJzB8v0et2?=
- =?us-ascii?Q?wGVgB1DawsCHIihhuCYDa7LQq2jyy8MdKTxZXiYt6mMEQyAclQsrBl2UJFob?=
- =?us-ascii?Q?i+2sEotoIxSokE5MIKbQlR59GHnD1sRhzm+BDhTvyceQINiDEmj2VLWoIxwD?=
- =?us-ascii?Q?BaMuyx4eoOzgM30q4M/3/Vl6pwX/PRdSHRXn3oimmRzyIovhqwOW8gTD7k5g?=
- =?us-ascii?Q?6RDciyTgSgCYyHsktMJFFRkwEGhQj6BQM07d0HJaH1aFiJwUdix1VEzL0zej?=
- =?us-ascii?Q?pg9629aMEiPlexEZjsc690X6nA/ejC0uv3tI47STIfYcuUATZG75SOGX+5jJ?=
- =?us-ascii?Q?wDPft8e1Xa7hR34CPjdNQW2ZIo7SqNUKUFFyM65/JoOD69KqrDHG1q8LK9va?=
- =?us-ascii?Q?2BHwiF5tMYVrjYz3nwQkyl/vTbp/ZPM6AmE6MQlwJOrPORh55gTpi/duQ6HY?=
- =?us-ascii?Q?lpjhux4aRvpzXdSx/FuZZzXug8ucmFKHLGlZJW3wnH2XD3ykIPb5VMwzVNot?=
- =?us-ascii?Q?NoMKPwf0oWuXb3unBRRgAOm4rOb17l+dfVTlTVZBt3vybvHNi906Du8iEQHd?=
- =?us-ascii?Q?jxFVWW+Cy/QiaD2rTwgTPd1ygFNxpRrcmjUOVvf78xJaGD0nLhQg4JQDAoTS?=
- =?us-ascii?Q?+FnVUQJ/vb2on2GC1iCeXOC2dVfvLVklwD4Cnm/+TnT64zi2zDJvYPNEoj3O?=
- =?us-ascii?Q?qFMFbfqc0jAeI961vtCrFtFkoUWo6Us4ksLC/QUV6MpfgTe7D0TSCqyoHf+i?=
- =?us-ascii?Q?T+N32kbMPyM3r8xpc5I0PpCl4uKu7XWCuOmiFf3XihT7MHyz6vdKzUhepMgj?=
- =?us-ascii?Q?Xuh8Y+8qJVCfLLHdzJD+arTA5Vb1c0GCy4ziAGWsPpPKkUdOY0ovCTlbK75K?=
- =?us-ascii?Q?s+TE6QCaY9zwo5PrPogjGragKLf3XBwsZi0MG6qF6IuctDMonEN0lgPme8Hz?=
- =?us-ascii?Q?7PR0RPUI0OGOBMEjGN5V7eo4LJgpz5Qqwjk12yX3IMkkPUn8ss30/vhzqcxi?=
- =?us-ascii?Q?ltnxQiTy7VpP4zeLwVt+WirlegRV38e+9M6Cm+gFZKOJKL/UbDeUWA=3D=3D?=
+ ARA:13230040|36860700013|82310400026|376014|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?ZLcy0+fEp148pqH35jlGB1BfysxQQ8SnGa8p8EnDIAHMOW0eEluFfEdFoG7/?=
+ =?us-ascii?Q?SFatJBfqbNPFLb8NkyED06kgYU5I2gn4n0oy9MwIgbsbJkOnq2seufq8lvke?=
+ =?us-ascii?Q?b2She7iyxsN7bt4bxX7K8gdGUvHgpNCsVmZG+bS16/RlBTXgks66iOO5tWgT?=
+ =?us-ascii?Q?Qz8bgwZpoNGgC7qdF3LniwsJl02s5q+Jpvcs1IWW0WK2AcqZgh4des8LxhEx?=
+ =?us-ascii?Q?97KSVuPLHS+TvgMdqfQv85/xB3Kq2zpn3zFlCFiRgWXhPhwZ5bKA3ywC2lSx?=
+ =?us-ascii?Q?iBqVnUWt+ezS6O8er0f6uFLmFA48FMsaEVPTBPoGwiBKDq0/r0Gp6KQjv0vX?=
+ =?us-ascii?Q?dVoK0+Q+oNQ53cKNDdoHzDewuOC3ZheT5N86YakAGwMDJufr1TKJYtdvQGCm?=
+ =?us-ascii?Q?7PKCFV74wmMVVCTt4U8feRcIFdcafR2aduRFcPaPS3AefClAiHm8cvWqCwEU?=
+ =?us-ascii?Q?4RaykvsYRls/i7XhKCHeLOx1WyFZ0IspgAPeDa7y0tTT3UiVubgs6NUNWsgi?=
+ =?us-ascii?Q?P3TgZNI4kQlRulZehyUf2RWIYKp0zVnInqh7VchakcySuN3MBHyWCJGKpsJS?=
+ =?us-ascii?Q?+Qawe5LtiGsYwyvPnK5QiOQxwQNK3ebTiV99n2UDDS50rtlptGaf8MRGm3GI?=
+ =?us-ascii?Q?dM9DsTKp0oXW7E+RlzpAPOxc3rxogdDd6R/KRMzrJUR5n31vbxl8LA7FaplT?=
+ =?us-ascii?Q?Tsp7qpmjQ+NvgiPv016E0FULtkxzvb5oRoIKBALM52RPIPHV2ZTDnEe14nIf?=
+ =?us-ascii?Q?vrHL0A8QskIeBu18TGTHjY/ZZQBUFeq0+67pvyIC7JO1+rPQCH9p3QiSqwOU?=
+ =?us-ascii?Q?3zVWtcb5sILebUOxE2hv04ENEQDBKILLImkmFSZe/mR2aIxSUkLL2qAgBM9C?=
+ =?us-ascii?Q?nc7asOIjc0UuE1IR1AZOrgziaP/61JtscqoseyLB1m2CZlYjctD5LfchD22O?=
+ =?us-ascii?Q?vCHFIrjU1eVPSnX9FOH26h9zrRkQd0A3TlsZ8jK1zO7e2HfS4tVYkLzgpgz0?=
+ =?us-ascii?Q?fopteW0XTOFxPITuT5G3HrelrEMQjE5pYa67MQXShZgE8jcJPVXYOnadgLzs?=
+ =?us-ascii?Q?JNGNPuCBUlx4vbbdjG15e0EQFqZz1Opi+iNQnZp8MxMvGUANoV4lHwmuTqw3?=
+ =?us-ascii?Q?Tg4G73FyltGhz+fyXfAxG/4yUh8U7oTYRXGkcwC6hZ2dqUJQidh6Jcz4qRn1?=
+ =?us-ascii?Q?noXaZUfLk/b+/WAxYsIU2j2A33K15TvXQ0qQr9rLAN0IM5DWTYyFo8eJ69pJ?=
+ =?us-ascii?Q?icH5a4tYIJzaek3F9m/dn6e9gj89xgYVuYQBmSJMswtoA4qGhFV+K6vGSnZR?=
+ =?us-ascii?Q?vkCiUBVEvB/doypMmuTFh/EtyVJtSRaPTmOGstRIM1iBH18h4I0Vkta1OlWY?=
+ =?us-ascii?Q?E83/uD+MDV9ccPzvIWHUfNqI+HYhB/rozh8r6yKpyEsZ/YfRm3j6jOolPHdV?=
+ =?us-ascii?Q?Rojq0b0ei5G37os5JU9xxzfNhi3VFQ8IenoF/gpKee9/CZp21jDIxA=3D=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(36860700013)(376014); DIR:OUT;
+ SFS:(13230040)(36860700013)(82310400026)(376014)(1800799024); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jan 2025 16:58:17.2644 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0261381a-e1ad-4b92-8663-08dd42187577
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jan 2025 16:58:16.5925 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4523c99e-af05-48b7-9f21-08dd4218750e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF0000343C.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4390
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6535
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,106 +132,231 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Rework the code as a vcn instance callback.
+Pass the vcn instance structure to these functions rather
+than adev and the instance number.
+
+TODO: clean up the function internals to use the vinst state
+directly rather than accessing it indirectly via adev->vcn.inst[].
 
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c | 35 ++++++++++++++++++---------
- 1 file changed, 24 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c | 71 ++++++++++++++-----------
+ 1 file changed, 41 insertions(+), 30 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-index e4305687749a8..ecbf0dd0b6603 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-@@ -92,6 +92,8 @@ static const struct amdgpu_hwip_reg_entry vcn_reg_list_2_0[] = {
- static void vcn_v2_0_set_dec_ring_funcs(struct amdgpu_device *adev);
- static void vcn_v2_0_set_enc_ring_funcs(struct amdgpu_device *adev);
- static void vcn_v2_0_set_irq_funcs(struct amdgpu_device *adev);
-+static int vcn_v2_0_set_pg_state(struct amdgpu_vcn_inst *vinst,
-+				 enum amd_powergating_state state);
- static int vcn_v2_0_set_powergating_state(struct amdgpu_ip_block *ip_block,
- 				enum amd_powergating_state state);
- static int vcn_v2_0_pause_dpg_mode(struct amdgpu_vcn_inst *vinst,
-@@ -114,6 +116,7 @@ static int vcn_v2_0_early_init(struct amdgpu_ip_block *ip_block)
- 	else
- 		adev->vcn.inst[0].num_enc_rings = 2;
- 
-+	adev->vcn.inst->set_pg_state = vcn_v2_0_set_pg_state;
- 	vcn_v2_0_set_dec_ring_funcs(adev);
- 	vcn_v2_0_set_enc_ring_funcs(adev);
- 	vcn_v2_0_set_irq_funcs(adev);
-@@ -312,13 +315,14 @@ static int vcn_v2_0_hw_init(struct amdgpu_ip_block *ip_block)
- static int vcn_v2_0_hw_fini(struct amdgpu_ip_block *ip_block)
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c
+index f49fdf2bb6e33..8eccb45b04d2c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c
+@@ -282,13 +282,14 @@ static int vcn_v5_0_1_resume(struct amdgpu_ip_block *ip_block)
+ /**
+  * vcn_v5_0_1_mc_resume - memory controller programming
+  *
+- * @adev: amdgpu_device pointer
+- * @inst: instance number
++ * @vinst: VCN instance
+  *
+  * Let the VCN memory controller know it's offsets
+  */
+-static void vcn_v5_0_1_mc_resume(struct amdgpu_device *adev, int inst)
++static void vcn_v5_0_1_mc_resume(struct amdgpu_vcn_inst *vinst)
  {
- 	struct amdgpu_device *adev = ip_block->adev;
-+	struct amdgpu_vcn_inst *vinst = adev->vcn.inst;
- 
--	cancel_delayed_work_sync(&adev->vcn.inst[0].idle_work);
-+	cancel_delayed_work_sync(&vinst->idle_work);
- 
- 	if ((adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG) ||
--	    (adev->vcn.inst[0].cur_state != AMD_PG_STATE_GATE &&
-+	    (vinst->cur_state != AMD_PG_STATE_GATE &&
- 	     RREG32_SOC15(VCN, 0, mmUVD_STATUS)))
--		vcn_v2_0_set_powergating_state(ip_block, AMD_PG_STATE_GATE);
-+		vinst->set_pg_state(vinst, AMD_PG_STATE_GATE);
- 
- 	return 0;
- }
-@@ -1810,8 +1814,8 @@ int vcn_v2_0_dec_ring_test_ring(struct amdgpu_ring *ring)
- }
- 
- 
--static int vcn_v2_0_set_powergating_state(struct amdgpu_ip_block *ip_block,
--					  enum amd_powergating_state state)
-+static int vcn_v2_0_set_pg_state(struct amdgpu_vcn_inst *vinst,
-+				 enum amd_powergating_state state)
- {
- 	/* This doesn't actually powergate the VCN block.
- 	 * That's done in the dpm code via the SMC.  This
-@@ -1821,27 +1825,36 @@ static int vcn_v2_0_set_powergating_state(struct amdgpu_ip_block *ip_block,
- 	 * the smc and the hw blocks
- 	 */
- 	int ret;
--	struct amdgpu_device *adev = ip_block->adev;
 +	struct amdgpu_device *adev = vinst->adev;
++	int inst = vinst->inst;
+ 	uint32_t offset, size, vcn_inst;
+ 	const struct common_firmware_header *hdr;
  
- 	if (amdgpu_sriov_vf(adev)) {
--		adev->vcn.inst[0].cur_state = AMD_PG_STATE_UNGATE;
-+		vinst->cur_state = AMD_PG_STATE_UNGATE;
+@@ -344,14 +345,16 @@ static void vcn_v5_0_1_mc_resume(struct amdgpu_device *adev, int inst)
+ /**
+  * vcn_v5_0_1_mc_resume_dpg_mode - memory controller programming for dpg mode
+  *
+- * @adev: amdgpu_device pointer
+- * @inst_idx: instance number index
++ * @vinst: VCN instance
+  * @indirect: indirectly write sram
+  *
+  * Let the VCN memory controller know it's offsets with dpg mode
+  */
+-static void vcn_v5_0_1_mc_resume_dpg_mode(struct amdgpu_device *adev, int inst_idx, bool indirect)
++static void vcn_v5_0_1_mc_resume_dpg_mode(struct amdgpu_vcn_inst *vinst,
++					  bool indirect)
+ {
++	struct amdgpu_device *adev = vinst->adev;
++	int inst_idx = vinst->inst;
+ 	uint32_t offset, size;
+ 	const struct common_firmware_header *hdr;
+ 
+@@ -456,38 +459,38 @@ static void vcn_v5_0_1_mc_resume_dpg_mode(struct amdgpu_device *adev, int inst_i
+ /**
+  * vcn_v5_0_1_disable_clock_gating - disable VCN clock gating
+  *
+- * @adev: amdgpu_device pointer
+- * @inst: instance number
++ * @vinst: VCN instance
+  *
+  * Disable clock gating for VCN block
+  */
+-static void vcn_v5_0_1_disable_clock_gating(struct amdgpu_device *adev, int inst)
++static void vcn_v5_0_1_disable_clock_gating(struct amdgpu_vcn_inst *vinst)
+ {
+ }
+ 
+ /**
+  * vcn_v5_0_1_enable_clock_gating - enable VCN clock gating
+  *
+- * @adev: amdgpu_device pointer
+- * @inst: instance number
++ * @vinst: VCN instance
+  *
+  * Enable clock gating for VCN block
+  */
+-static void vcn_v5_0_1_enable_clock_gating(struct amdgpu_device *adev, int inst)
++static void vcn_v5_0_1_enable_clock_gating(struct amdgpu_vcn_inst *vinst)
+ {
+ }
+ 
+ /**
+  * vcn_v5_0_1_start_dpg_mode - VCN start with dpg mode
+  *
+- * @adev: amdgpu_device pointer
+- * @inst_idx: instance number index
++ * @vinst: VCN instance
+  * @indirect: indirectly write sram
+  *
+  * Start VCN block with dpg mode
+  */
+-static int vcn_v5_0_1_start_dpg_mode(struct amdgpu_device *adev, int inst_idx, bool indirect)
++static int vcn_v5_0_1_start_dpg_mode(struct amdgpu_vcn_inst *vinst,
++				     bool indirect)
+ {
++	struct amdgpu_device *adev = vinst->adev;
++	int inst_idx = vinst->inst;
+ 	volatile struct amdgpu_vcn4_fw_shared *fw_shared =
+ 		adev->vcn.inst[inst_idx].fw_shared.cpu_addr;
+ 	struct amdgpu_ring *ring;
+@@ -535,7 +538,7 @@ static int vcn_v5_0_1_start_dpg_mode(struct amdgpu_device *adev, int inst_idx, b
+ 	WREG32_SOC24_DPG_MODE(inst_idx, SOC24_DPG_MODE_OFFSET(
+ 		VCN, 0, regUVD_LMI_CTRL), tmp, 0, indirect);
+ 
+-	vcn_v5_0_1_mc_resume_dpg_mode(adev, inst_idx, indirect);
++	vcn_v5_0_1_mc_resume_dpg_mode(vinst, indirect);
+ 
+ 	tmp = (0xFF << UVD_VCPU_CNTL__PRB_TIMEOUT_VAL__SHIFT);
+ 	tmp |= UVD_VCPU_CNTL__CLK_EN_MASK;
+@@ -589,12 +592,14 @@ static int vcn_v5_0_1_start_dpg_mode(struct amdgpu_device *adev, int inst_idx, b
+ /**
+  * vcn_v5_0_1_start - VCN start
+  *
+- * @adev: amdgpu_device pointer
++ * @vinst: VCN instance
+  *
+  * Start VCN block
+  */
+-static int vcn_v5_0_1_start(struct amdgpu_device *adev, int i)
++static int vcn_v5_0_1_start(struct amdgpu_vcn_inst *vinst)
+ {
++	struct amdgpu_device *adev = vinst->adev;
++	int i = vinst->inst;
+ 	volatile struct amdgpu_vcn4_fw_shared *fw_shared;
+ 	struct amdgpu_ring *ring;
+ 	uint32_t tmp;
+@@ -606,7 +611,7 @@ static int vcn_v5_0_1_start(struct amdgpu_device *adev, int i)
+ 	fw_shared = adev->vcn.inst[i].fw_shared.cpu_addr;
+ 
+ 	if (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG)
+-		return vcn_v5_0_1_start_dpg_mode(adev, i, adev->vcn.inst[i].indirect_sram);
++		return vcn_v5_0_1_start_dpg_mode(vinst, adev->vcn.inst[i].indirect_sram);
+ 
+ 	vcn_inst = GET_INST(VCN, i);
+ 
+@@ -639,7 +644,7 @@ static int vcn_v5_0_1_start(struct amdgpu_device *adev, int i)
+ 		     UVD_LMI_CTRL__DATA_COHERENCY_EN_MASK |
+ 		     UVD_LMI_CTRL__VCPU_DATA_COHERENCY_EN_MASK);
+ 
+-	vcn_v5_0_1_mc_resume(adev, i);
++	vcn_v5_0_1_mc_resume(vinst);
+ 
+ 	/* VCN global tiling registers */
+ 	WREG32_SOC15(VCN, vcn_inst, regUVD_GFX10_ADDR_CONFIG,
+@@ -739,13 +744,14 @@ static int vcn_v5_0_1_start(struct amdgpu_device *adev, int i)
+ /**
+  * vcn_v5_0_1_stop_dpg_mode - VCN stop with dpg mode
+  *
+- * @adev: amdgpu_device pointer
+- * @inst_idx: instance number index
++ * @vinst: VCN instance
+  *
+  * Stop VCN block with dpg mode
+  */
+-static void vcn_v5_0_1_stop_dpg_mode(struct amdgpu_device *adev, int inst_idx)
++static void vcn_v5_0_1_stop_dpg_mode(struct amdgpu_vcn_inst *vinst)
+ {
++	struct amdgpu_device *adev = vinst->adev;
++	int inst_idx = vinst->inst;
+ 	uint32_t tmp;
+ 	int vcn_inst;
+ 
+@@ -767,12 +773,14 @@ static void vcn_v5_0_1_stop_dpg_mode(struct amdgpu_device *adev, int inst_idx)
+ /**
+  * vcn_v5_0_1_stop - VCN stop
+  *
+- * @adev: amdgpu_device pointer
++ * @vinst: VCN instance
+  *
+  * Stop VCN block
+  */
+-static int vcn_v5_0_1_stop(struct amdgpu_device *adev, int i)
++static int vcn_v5_0_1_stop(struct amdgpu_vcn_inst *vinst)
+ {
++	struct amdgpu_device *adev = vinst->adev;
++	int i = vinst->inst;
+ 	volatile struct amdgpu_vcn4_fw_shared *fw_shared;
+ 	uint32_t tmp;
+ 	int r = 0, vcn_inst;
+@@ -783,7 +791,7 @@ static int vcn_v5_0_1_stop(struct amdgpu_device *adev, int i)
+ 	fw_shared->sq.queue_mode |= FW_QUEUE_DPG_HOLD_OFF;
+ 
+ 	if (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG) {
+-		vcn_v5_0_1_stop_dpg_mode(adev, i);
++		vcn_v5_0_1_stop_dpg_mode(vinst);
  		return 0;
  	}
  
--	if (state == adev->vcn.inst[0].cur_state)
-+	if (state == vinst->cur_state)
+@@ -1005,12 +1013,14 @@ static int vcn_v5_0_1_set_clockgating_state(struct amdgpu_ip_block *ip_block,
+ 	int i;
+ 
+ 	for (i = 0; i < adev->vcn.num_vcn_inst; ++i) {
++		struct amdgpu_vcn_inst *vinst = &adev->vcn.inst[i];
++
+ 		if (enable) {
+ 			if (RREG32_SOC15(VCN, GET_INST(VCN, i), regUVD_STATUS) != UVD_STATUS__IDLE)
+ 				return -EBUSY;
+-			vcn_v5_0_1_enable_clock_gating(adev, i);
++			vcn_v5_0_1_enable_clock_gating(vinst);
+ 		} else {
+-			vcn_v5_0_1_disable_clock_gating(adev, i);
++			vcn_v5_0_1_disable_clock_gating(vinst);
+ 		}
+ 	}
+ 
+@@ -1022,15 +1032,16 @@ static int vcn_v5_0_1_set_powergating_state_inst(struct amdgpu_ip_block *ip_bloc
+ 						 int i)
+ {
+ 	struct amdgpu_device *adev = ip_block->adev;
++	struct amdgpu_vcn_inst *vinst = &adev->vcn.inst[i];
+ 	int ret = 0;
+ 
+ 	if (state == adev->vcn.inst[i].cur_state)
  		return 0;
  
  	if (state == AMD_PG_STATE_GATE)
--		ret = vcn_v2_0_stop(adev->vcn.inst);
-+		ret = vcn_v2_0_stop(vinst);
+-		ret = vcn_v5_0_1_stop(adev, i);
++		ret = vcn_v5_0_1_stop(vinst);
  	else
--		ret = vcn_v2_0_start(adev->vcn.inst);
-+		ret = vcn_v2_0_start(vinst);
+-		ret = vcn_v5_0_1_start(adev, i);
++		ret = vcn_v5_0_1_start(vinst);
  
  	if (!ret)
--		adev->vcn.inst[0].cur_state = state;
-+		vinst->cur_state = state;
- 
- 	return ret;
- }
- 
-+static int vcn_v2_0_set_powergating_state(struct amdgpu_ip_block *ip_block,
-+					  enum amd_powergating_state state)
-+{
-+	struct amdgpu_device *adev = ip_block->adev;
-+	struct amdgpu_vcn_inst *vinst = adev->vcn.inst;
-+
-+	return vinst->set_pg_state(vinst, state);
-+}
-+
- static int vcn_v2_0_start_mmsch(struct amdgpu_device *adev,
- 				struct amdgpu_mm_table *table)
- {
+ 		adev->vcn.inst[i].cur_state = state;
 -- 
 2.48.1
 
