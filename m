@@ -4,86 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CFD6C02194
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jan 2025 13:12:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B200EC02192
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jan 2025 13:53:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8EAB10EAB0;
-	Fri, 31 Jan 2025 13:12:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B7F410E0AC;
+	Fri, 31 Jan 2025 13:53:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nP+czKJs";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WfPdMUUv";
 	dkim-atps=neutral
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
- [209.85.221.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE15910EAAD;
- Fri, 31 Jan 2025 13:12:33 +0000 (UTC)
-Received: by mail-wr1-f51.google.com with SMTP id
- ffacd0b85a97d-3862b40a6e0so1268975f8f.0; 
- Fri, 31 Jan 2025 05:12:33 -0800 (PST)
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com
+ [209.85.216.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1581810E0AC
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jan 2025 13:53:16 +0000 (UTC)
+Received: by mail-pj1-f45.google.com with SMTP id
+ 98e67ed59e1d1-2f7d35de32dso410925a91.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jan 2025 05:53:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1738329152; x=1738933952; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=8Qf5Ag+gkCkodLzQTGh44JB0E7mlh4X9B+GfpD3S+A8=;
- b=nP+czKJsxHNOFGSVQFQHdpT/+kE32LXIHf42AxZqyucSo5BwS5BXonmWVZaJzSqMBp
- b4ytEwt92dVLwQr8rRG0ocDukBPJWu9l5328lgXsuMOzaD2OUcfGUxMmhXEllu3VBiXT
- 8ICAZfst/4mt1+hVdeuc8x0NZUmDEX7Gf8DIzdrhH9p8TmHMT0UjeXc5AJ9rfhRIsMiq
- VtGW1xBvOGXxIKXu/0R+EmTQW7nldmvTqp8Zl8nDRXWCz3LCgWvbuZ9kjIipr4itPIuq
- 4y1z7creLLJRIKO7l2nx6zx+eKIUlc9yZhlZHAGNTD7kmyl1kMg+SpPc4fFX0oNkExXG
- JjNw==
+ d=gmail.com; s=20230601; t=1738331595; x=1738936395; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=dNMBkOpmP6vvdTRVVBF/6yEZJShOGeWKrlGiQrsMP4E=;
+ b=WfPdMUUveieaCL/QVV7jEi6ukYluSskwn1NUnR6TYbgJuu5q+BhLDtkquQWpPxGRzh
+ +sR0ZLh/s1zPbc465UocSqdxrio7sIw2FQia4NAQOg94nKSXITmnvKQGUMXQg8u/eTAH
+ T6W+PBUG5Viyn+FowknoddYOKYX4Y78P2nIB/fcq703NJGUykwo8cStmby3e0yqYl/a0
+ u0swg8o7NQa7tJg3O0WTLucSylzBYfOMombZeDw77HIBA+0r3TamHMqUmvOQYmUl+l6Q
+ /3gZNiwirq5raxgMpaN5daz20MD3mKlgBIO/7tu+MCfFeZYETfvqGFssD5j8GUIHA43+
+ dlfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1738329152; x=1738933952;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=8Qf5Ag+gkCkodLzQTGh44JB0E7mlh4X9B+GfpD3S+A8=;
- b=HgfkeergWDBiuLs4/IQyTN4iCir043oq9G2qBOqJKsIVWoK6lRKXZVgcR8us/ydTdg
- +7KB3s8CEOqZlHGp72OHcj7s3MakoCFY2tfcC0/D0xotD2lFTlUa4v2pRkB8eB0VACiL
- opZfNCgq7teZ4PnhO3LfP9yf1R9iPvO0r9XR981rOnsaqC+FZVi9lQGxlv7d52UgqwVS
- MDl/H8m+KCvjrar87xsWBVRa8PALPIfo8zkT0NZ3jE2ABTF6I46+GUpZN6E+ZM3WFckV
- 8XCEsW7sBmohqCO5UYpAY4h92X8jxQj0j8tCoNpr8n4Kc0OEzr6cEWhj0QL7m+8jk8NO
- xhjA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU6Gu7rNNL8YaeNpdBNliYImydXbr3yd8eHqmO63NRrgSqCxMqTKpFI0m2oTBf2CSBSXCopy2P8V0Y=@lists.freedesktop.org,
- AJvYcCUK/pandPRx7cIbhgvcTwo+fj5q54PhZmyOp3wZpupNyzjs9o6VGliZSrkWelHoLWj63SHQndQUPFE=@lists.freedesktop.org,
- AJvYcCVAKh3QX8ENut49+SnaRGP6bFYWiWAnKw9vR2SHPDz8UHxX4uoLocApcU95XVHmOh4eA6+pnw==@lists.freedesktop.org,
- AJvYcCVe62XdqrKI61xSRUImfmG4SymYJpbU8Mz6B6gpcbt3h+eHH9TbscEXPE+3zldrhz1SNIhrSYUh0g==@lists.freedesktop.org,
- AJvYcCWaQPTsCjanua9piLkJNaeUMhnVaUPTFFnJef0shkJ5PgkB8oSpdfADWEjcw26jvoYFoftsOtnP71jA@lists.freedesktop.org,
- AJvYcCXDpfbC/We0AGxGNaB5ryBhmLo42FVFQ9jRp5kjbpHihDHk3W+asBVpgMB0oibntO+cux9GuL/TZw==@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz8jm8CLa155e22e2+teyh5B5BCJAP8SGHXswOsycJM32ihqwSS
- 4mNvuhdZTr6KAdz2Xc7ggUd4S1kF06eF4J++CxSinObnUxYAFvxf
-X-Gm-Gg: ASbGncsNaFD9KEnDo7Ur7R5vsusmXxye1ZjIvyRmHpOUoEapr4tlKgGpSAy12cXkTrG
- piifCW9pcTWK7ttqjHsVpHVeAeIaO1lEtELgM8bCZQFR9bd8NwcFefl0SjqH5o5k3e+MMiOJNTd
- PmEOrv9NYOlZfTKpSWzHUQJoqO8edtuukyETvVpgtLw/dKRCJxs0csi4IRXsgbbDuVZzFc/pqP1
- Q+gTfeYxKvupIKVjxuIMkqw1pOkU/ebJRAQNCsKZ8QAofcI7yuw3yOadch2CqXzEPYon1YnyLuK
- e6gHqeo4EU/CQ4E+bAGt2TJHCguBN5zaoKLZv7UhiH7v
-X-Google-Smtp-Source: AGHT+IGKBtM8zdX0f/k9fSlmikQgi6UfU2qNH1ycY66SNDkJyOrXViqSqC8f4KUEz2AE7pAcFmrXww==
-X-Received: by 2002:a5d:59a6:0:b0:385:f1f2:13f1 with SMTP id
- ffacd0b85a97d-38c51951c51mr9664356f8f.22.1738329150361; 
- Fri, 31 Jan 2025 05:12:30 -0800 (PST)
-Received: from [10.254.108.83] (munvpn.amd.com. [165.204.72.6])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-438dcc263f0sm90055545e9.9.2025.01.31.05.12.29
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 31 Jan 2025 05:12:29 -0800 (PST)
-Message-ID: <0b20e88a-9009-4fa2-b5cb-ab78ce834587@gmail.com>
-Date: Fri, 31 Jan 2025 14:12:28 +0100
+ d=1e100.net; s=20230601; t=1738331595; x=1738936395;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=dNMBkOpmP6vvdTRVVBF/6yEZJShOGeWKrlGiQrsMP4E=;
+ b=t6fXu6UZ1LEPN5XtimQVzKZjPG1HqA41rEF7x4jo0bnMpShYY5t4hudOdOoXTue3qH
+ w7nHUFLgg3NOEGcD/femdLYDy/cl74yC3OI15oTbsqN17PtknJY24MT250juP9zzylcH
+ YpTnMX22a9eI51vJch/8mAdRUjozRl5BEce6+JPenb2BnUqlyZzdNYMbc8QLF6mCnvGG
+ 5X2e85BjhJ0U1u4/USbJgc+F/kQkwIqcrtRElcQXZNvOJQGCHi2oo45ucVoaoAE1GObU
+ j2OMSQWrAa570n6WpKFMM+nD6HjHV0sYzI3GN4c6L1C8dTdqU8YvKY2wTmL6iEQVdVEc
+ mcew==
+X-Gm-Message-State: AOJu0YxSkUuZsdGtrvZUQNu42TRfPmOAcVOyUMOzuUjkbrmSe7IFyQfU
+ d34O37Jk0C7FscvxD2gxWdloknb41XdRQDVpjlglmQ2Ab5Nh+fHI/0nASr27AfJyV+7H5FPjQo7
+ 4Xwb3f6Ntmvohd2OZY7a0ajQ61xM=
+X-Gm-Gg: ASbGncstFbjudoVjOQ8Bx30vzCRqp/xphHFQLJOBYszx36D4apU5UVD0pIPKSDeCbU4
+ PkUL+4tDop8a0jO9yyR242RIqUwwom0IjHvrnshBxANA0fMU40FxvLSHZ7z+mQM1Ih/nYWDYZ
+X-Google-Smtp-Source: AGHT+IHE7f9QSagHHdqt0DLY47EHPHY1WZoQrmKI8BJw6VNt+AqevfLhGpoOsD2Ew0VKRWbQud85Qyr6tsxO+VJFEWg=
+X-Received: by 2002:a17:90a:c2c7:b0:2ee:d4ed:13a7 with SMTP id
+ 98e67ed59e1d1-2f83acaaa06mr6057487a91.7.1738331595381; Fri, 31 Jan 2025
+ 05:53:15 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 0/7] Improve gpu_scheduler trace events + uAPI
-To: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- etnaviv@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, lima@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-arm-msm@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, nouveau@lists.freedesktop.org
-References: <20250131110328.706695-1-pierre-eric.pelloux-prayer@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20250131110328.706695-1-pierre-eric.pelloux-prayer@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20250131125518.1792987-1-lijo.lazar@amd.com>
+In-Reply-To: <20250131125518.1792987-1-lijo.lazar@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 31 Jan 2025 08:53:03 -0500
+X-Gm-Features: AWEUYZlDdGBhQbqVafEhU8LAutcHavxQLzsfoa-8pi_-nmMTY116UPO1hBvK_bY
+Message-ID: <CADnq5_N72Ha=V5D1XfJj5htTYysx+kXTQr8WJSFwfKuacXjUHA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/pm: Limit to 8 jpeg rings per instance
+To: Lijo Lazar <lijo.lazar@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Hawking.Zhang@amd.com, 
+ Alexander.Deucher@amd.com, Asad.Kamal@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,87 +79,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-I can't see patch #1 in my inbox for some reason, but I already know 
-what it does from your repository.
+On Fri, Jan 31, 2025 at 8:02=E2=80=AFAM Lijo Lazar <lijo.lazar@amd.com> wro=
+te:
+>
+> JPEG 5.0.1 supports upto 10 rings, however PMFW support for SMU v13.0.6
+> variants is now limited to 8 per instance. Limit to 8 temporarily to
+> avoid out of bounds access.
+>
+> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
 
-Feel free to add Reviewed-by: Christian König <christian.koenig@amd.com> 
-to the entire series.
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-Regards,
-Christian.
-
-Am 31.01.25 um 12:02 schrieb Pierre-Eric Pelloux-Prayer:
-> Hi,
+> ---
+>  drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c | 8 +++++---
+>  1 file changed, 5 insertions(+), 3 deletions(-)
 >
-> The initial goal of this series was to improve the drm and amdgpu
-> trace events to be able to expose more of the inner workings of
-> the scheduler and drivers to developers via tools.
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drive=
+rs/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+> index 7f0b4cc1141b..11591c01be0e 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+> @@ -2513,6 +2513,7 @@ static ssize_t smu_v13_0_6_get_gpu_metrics(struct s=
+mu_context *smu, void **table
+>         MetricsTableV2_t *metrics_v2;
+>         struct amdgpu_xcp *xcp;
+>         u16 link_width_level;
+> +       u8 num_jpeg_rings;
+>         u32 inst_mask;
+>         bool per_inst;
 >
-> Then, the series evolved to become focused only on gpu_scheduler.
-> The changes around vblank events will be part of a different
-> series, as well as the amdgpu ones.
+> @@ -2649,6 +2650,7 @@ static ssize_t smu_v13_0_6_get_gpu_metrics(struct s=
+mu_context *smu, void **table
 >
-> Moreover Sima suggested to make some trace events stable uAPI,
-> so tools can rely on them long term.
+>         per_inst =3D smu_v13_0_6_cap_supported(smu, SMU_CAP(PER_INST_METR=
+ICS));
 >
-> The first patches extend and cleanup the gpu scheduler events.
+> +       num_jpeg_rings =3D max_t(u8, adev->jpeg.num_jpeg_rings, 8);
+>         for_each_xcp(adev->xcp_mgr, xcp, i) {
+>                 amdgpu_xcp_get_inst_details(xcp, AMDGPU_XCP_VCN, &inst_ma=
+sk);
+>                 idx =3D 0;
+> @@ -2656,11 +2658,11 @@ static ssize_t smu_v13_0_6_get_gpu_metrics(struct=
+ smu_context *smu, void **table
+>                         /* Both JPEG and VCN has same instances */
+>                         inst =3D GET_INST(VCN, k);
 >
-> The last one adds a documentation entry in drm-uapi.rst.
+> -                       for (j =3D 0; j < adev->jpeg.num_jpeg_rings; ++j)=
+ {
+> +                       for (j =3D 0; j < num_jpeg_rings; ++j) {
+>                                 gpu_metrics->xcp_stats[i].jpeg_busy
+> -                                       [(idx * adev->jpeg.num_jpeg_rings=
+) + j] =3D
+> +                                       [(idx * num_jpeg_rings) + j] =3D
+>                                         SMUQ10_ROUND(GET_METRIC_FIELD(Jpe=
+gBusy, version)
+> -                                                       [(inst * adev->jp=
+eg.num_jpeg_rings) + j]);
+> +                                                       [(inst * num_jpeg=
+_rings) + j]);
+>                         }
+>                         gpu_metrics->xcp_stats[i].vcn_busy[idx] =3D
+>                                SMUQ10_ROUND(GET_METRIC_FIELD(VcnBusy, ver=
+sion)[inst]);
+> --
+> 2.25.1
 >
-> Changes since v6:
-> * Addressed comments from Philipp, Tvrtko, Steven
-> * The commit storing drm_client_id in sched_fence adds an extra
-> field which looks like a duplicate of the owner field. Currently
-> amdgpu uses the owner field with some magic values, so we have to
-> have 2 separate fields for now, but ultimately one could be removed.
-> Similarly storing the drm_client_id in the sched_entity is not
-> really possible as there's nothing preventing a driver to use a
-> sched_entity with multiple drm_file instances.
->
->
-> Useful links:
-> - userspace tool using the updated events:
-> https://gitlab.freedesktop.org/tomstdenis/umr/-/merge_requests/37
-> - v6:
-> https://lists.freedesktop.org/archives/dri-devel/2024-November/477644.html
->
-> Pierre-Eric Pelloux-Prayer (7):
->    drm/debugfs: output client_id in in drm_clients_info
->    drm/sched: store the drm client_id in drm_sched_fence
->    drm/sched: add device name to the drm_sched_process_job event
->    drm/sched: cleanup gpu_scheduler trace events
->    drm/sched: trace dependencies for gpu jobs
->    drm/sched: add the drm_client_id to the drm_sched_run/exec_job events
->    drm/doc: document some tracepoints as uAPI
->
->   Documentation/gpu/drm-uapi.rst                |  19 +++
->   drivers/accel/amdxdna/aie2_ctx.c              |   3 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c    |   2 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c        |   3 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_job.c       |   8 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_job.h       |   3 +-
->   drivers/gpu/drm/drm_debugfs.c                 |  10 +-
->   drivers/gpu/drm/etnaviv/etnaviv_gem_submit.c  |   2 +-
->   drivers/gpu/drm/imagination/pvr_job.c         |   2 +-
->   drivers/gpu/drm/imagination/pvr_queue.c       |   5 +-
->   drivers/gpu/drm/imagination/pvr_queue.h       |   2 +-
->   drivers/gpu/drm/lima/lima_gem.c               |   2 +-
->   drivers/gpu/drm/lima/lima_sched.c             |   6 +-
->   drivers/gpu/drm/lima/lima_sched.h             |   3 +-
->   drivers/gpu/drm/msm/msm_gem_submit.c          |   8 +-
->   drivers/gpu/drm/nouveau/nouveau_sched.c       |   3 +-
->   drivers/gpu/drm/panfrost/panfrost_drv.c       |   2 +-
->   drivers/gpu/drm/panthor/panthor_drv.c         |   3 +-
->   drivers/gpu/drm/panthor/panthor_mmu.c         |   2 +-
->   drivers/gpu/drm/panthor/panthor_sched.c       |   5 +-
->   drivers/gpu/drm/panthor/panthor_sched.h       |   3 +-
->   .../gpu/drm/scheduler/gpu_scheduler_trace.h   | 123 ++++++++++++++----
->   drivers/gpu/drm/scheduler/sched_entity.c      |   8 +-
->   drivers/gpu/drm/scheduler/sched_fence.c       |   4 +-
->   drivers/gpu/drm/scheduler/sched_main.c        |   8 +-
->   drivers/gpu/drm/v3d/v3d_submit.c              |   2 +-
->   drivers/gpu/drm/xe/xe_sched_job.c             |   3 +-
->   include/drm/gpu_scheduler.h                   |  12 +-
->   28 files changed, 192 insertions(+), 64 deletions(-)
->
-
