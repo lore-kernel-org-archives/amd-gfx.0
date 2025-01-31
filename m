@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0413C0218A
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jan 2025 02:32:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1ADB4C02193
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jan 2025 02:32:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5DD1110E154;
-	Fri, 31 Jan 2025 02:32:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31E1C10E9FF;
+	Fri, 31 Jan 2025 02:32:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1ak+KM9m";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="DRCJR+Yl";
 	dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2058.outbound.protection.outlook.com [40.107.244.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 588C410E154
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on2051.outbound.protection.outlook.com [40.107.212.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B24DA10E154
  for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jan 2025 02:32:25 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=L3wa91t6mwb3T5NLrnkTNMTwzliVTiRfW4Skz4JOsetXaUyyrdWr/kwi6Lg0Eq3+kPIv2KG8HiF++zyH7+8D2JLUG2kGx1zX9UVCCdgzIU2SQyIBRTGfoBz5SZbTlpQ7S4x/j79ItQ8wXXRMNEm41Iauf4EH7ZhNw9dsuQ67i/v+2JKNgKxW8e+D4htYnV4lSBmvGNV2/EHxcLIOV4UkFFp7QOER+bWeRThmTRb/AcqDhc5xKcIQkbKJ+j69rLhjicTERenkw0KgWaQmXag4G7oIImzLkd3xmgaXmZxTKsm1b0rBdtEDY6N6Z2rpmTCGc08j9cOiP5zo4xY6yP+ttQ==
+ b=fC1BrLU8GbwmVKmRaZ3m9msxXbnGMSbgp7zpx0px3G46jublIgNw5aB9sU6JjVgfQg5rxwH3BthZ8Z8e4Ad9LV2C/sp3d7mwIWBcXhzLd3Sp08ruSuBcFKBeZ3yi3lvT3qCI877hQRRcBK8mLLGKjIoyof2wzG/BxDP3Pfaq48qvIPeUMWvCnkVJt61JNFI/QliffSJoDc+vedenf4jrCN8zNN0KKjRB7luia53EP21s29u5/LdB3WKtpZ2GCIIpXc6PBcP7eMXr27fv9suluJIFngbSeF/lmSpeULJrvYUSj2tM2OSL6vjU286Nwd1IIyLZLc9K3aWhsWa33LXJfw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=84ZogmJdeOPw/gGemOGEKUlOe3k/yEnmNbMWmjp2CB8=;
- b=nWerZsrxmM+FXgVlzMej46TS7mFOd0D7y+hxA6mu2pjLq3P0nynzvJbRogY96BJBPrrRWtUNqSeY9FMKpnC3iHtSpaM/d+b3/0r1fHxCBz0xSA3WLFvZIwLzcHATypcQP4+0AdB5/uZRgIwNJ3goHgkuPxR3Im6SNhE5/EXfXvV67C9GlFHou175mFIm/mKSY3e2Ya34QU8jkSJ4iup5QU0y9+WA5laL9ENyvBeiVawxgswRUl9oUD5lGKIWFOrXzt3kkUYtXBlA+rndVdkc7YtjtW1HX7qqEMyq/TydzBMJmlluVpvsKM+jtvq/ZVmdYXarEzsSPbsJ6ayID64wCg==
+ bh=mwt4sCkjUAGvgOzFexsMzqBEZFHBJf6WMec/BQiXqLI=;
+ b=KwXRwo+lqc8bEubSijckHoRi59t7YYbA3fn5Y36bbzOWNXdhKcNwstCG14NGZIC7v46Yv0DL/NqrijEU6TK6wihCnU4tQTypLOgE/+geVk82pGmKNiY4OO7KxT8nCnFa59TGCsB8hbvD+q9hOGxQtKtVTivmGt8B9xWFnwULp3EhRxyLUMjalme9KBrq7ZYNs27egvNbkZGmk5SS+bWo4pm+4j1ZjXy09Rqx//lfCZyV1qr+qh4w9g1B5mCB5mI8oCpfyWzfuUhLMfx2EOe6AD3gnwbnvI2pT6i/BES43XcgjMyB7zs6r0LDrtoIn3EWs2IhHLypmxoJQAJI6liNrQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=84ZogmJdeOPw/gGemOGEKUlOe3k/yEnmNbMWmjp2CB8=;
- b=1ak+KM9m40+8axp+E6Lt+CowWuWIdVRIXtFFfHdFqRYSTTjElh2HcMovv6xx0CHbHzIIISKotGYACzbGDIquC/2LU1DHkmpEtpnvWIsr2P5oqcoIaxSzoNyHzEF9+eYkzZKGiwhIFUzGVH35d6jO9rhhIfvAbY0yyz9qh1NPAf4=
-Received: from DS7PR05CA0051.namprd05.prod.outlook.com (2603:10b6:8:2f::12) by
- DS0PR12MB8295.namprd12.prod.outlook.com (2603:10b6:8:f6::21) with
+ bh=mwt4sCkjUAGvgOzFexsMzqBEZFHBJf6WMec/BQiXqLI=;
+ b=DRCJR+Yl04b3NiNEov3MuFoey1grWp031hJyRj7VKUMDPjkCwBgsKUKhaWDfEh4BSGAMB94BDUqkv0elaIt0Of+1j9BA5v4hi2RGjVqtDq8MVQBh98Eb4YgLAka3n4Qf52K6+vZzP37wpW4U3D7qAnM4IQPZzRdDvATNlDNRwy8=
+Received: from DS7PR05CA0031.namprd05.prod.outlook.com (2603:10b6:8:2f::6) by
+ SA0PR12MB4397.namprd12.prod.outlook.com (2603:10b6:806:93::10) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.8398.18; Fri, 31 Jan 2025 02:32:21 +0000
+ 15.20.8398.20; Fri, 31 Jan 2025 02:32:22 +0000
 Received: from DS3PEPF000099DA.namprd04.prod.outlook.com
- (2603:10b6:8:2f:cafe::ae) by DS7PR05CA0051.outlook.office365.com
- (2603:10b6:8:2f::12) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:8:2f:cafe::b1) by DS7PR05CA0031.outlook.office365.com
+ (2603:10b6:8:2f::6) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.8398.18 via Frontend Transport; Fri,
- 31 Jan 2025 02:32:21 +0000
+ 31 Jan 2025 02:32:22 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -54,14 +54,15 @@ Received: from SATLEXMB04.amd.com (165.204.84.17) by
 Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 30 Jan
- 2025 20:32:17 -0600
+ 2025 20:32:18 -0600
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?B=C5=82a=C5=BCej=20Szczygie=C5=82?= <mumei6102@gmail.com>
-Subject: [PATCH 2/3] drm/amdgpu/gfx: add amdgpu_gfx_off_ctrl_immediate()
-Date: Thu, 30 Jan 2025 21:31:51 -0500
-Message-ID: <20250131023152.1188183-2-alexander.deucher@amd.com>
+Subject: [PATCH 3/3] drm/amdgpu/gfx9: use amdgpu_gfx_off_ctrl_immediate() for
+ PG
+Date: Thu, 30 Jan 2025 21:31:52 -0500
+Message-ID: <20250131023152.1188183-3-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20250131023152.1188183-1-alexander.deucher@amd.com>
 References: <20250131023152.1188183-1-alexander.deucher@amd.com>
@@ -73,60 +74,59 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS3PEPF000099DA:EE_|DS0PR12MB8295:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2a3151d8-c9b3-440b-280d-08dd419f7d83
+X-MS-TrafficTypeDiagnostic: DS3PEPF000099DA:EE_|SA0PR12MB4397:EE_
+X-MS-Office365-Filtering-Correlation-Id: 87c4b807-b904-4de1-d6bb-08dd419f7db2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|36860700013|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?bmd5V3RWY2lLcXpLWDBuaWczOTY2bWlaQXpKcVJvS01RR0M4cUdKUS8zc0tv?=
- =?utf-8?B?b2trVzFhUkdRY0p6L0QrbkkyQTBicVM1WG9tZ3RNa2NmMFQ0NkZjb1pwQ1Jt?=
- =?utf-8?B?bzQ5V2ZYVUNuQnNkTTJiNDUyczdwYVhlUTEya1Y0ZXBFdkhoUHV1clRSQ1Vu?=
- =?utf-8?B?ZWlwaU1QdGFuNjgyU2pzNEdSM0FrNG1ZcE9zRnF1d0MyTkJKOGsxYXk2YWdv?=
- =?utf-8?B?Y2QwZmE2d2I3TkhSK0dXSmZOYURKd1Bzc2RrM3J2VS91eGVZb3hzT2lEMTlt?=
- =?utf-8?B?SmtUMFpDbTBMeHg0QUtRUHVaaitIQ2tUS2dIZno1K1Z5WFlzYXRTN1RsVWNZ?=
- =?utf-8?B?MGsyTmNxZjdMaU9UTktZTVc3WEw1aDhDaXZPRDNPME4xN28wYzk1Mk1acG4x?=
- =?utf-8?B?YVYvcjhQRVR5UzI3OUJ4SVBVVGU0cVVwY1JUdHhUOUZwR2VydlBNK1JSeWIz?=
- =?utf-8?B?RVFKUnBpRmk1THo0YkpoZFh6VUNuQnB4NWhVOWgwQ2hsR2JseEdKbmhabktO?=
- =?utf-8?B?eTdmV3NaOHNaZDRzeTFxVTN4REdROFhLU2JONnM3ajBrSEFCaGNza2t1dnFL?=
- =?utf-8?B?ZnJpelJYbnY1OE9OakR1MWR4enlubWROMURudHhqcURxdDVxRFhCZWRCaXFF?=
- =?utf-8?B?Tzh5VktJYXVIMmNRS3paMC9VbjlOekNvdkdlbXJWcXBySVU2MUpuYlY2eGhE?=
- =?utf-8?B?RWUyNVhYOEFjT245VW1JMjBxajR2Y3ZwSkM5a1R5bG5yK0pCWEkwSGI5NlRD?=
- =?utf-8?B?TW1DVXlQNmJ1STNjYmsvdnkxYTFKUkNPN1BWNkxKb3ZlWXc0K0lncnZLMkNI?=
- =?utf-8?B?OUtGTzBHNXFab1VpbmpLYnZndCthMzBobzhWajFqUXMvRGxEOTRwcGlHMmZJ?=
- =?utf-8?B?MjRyQkRUdzdOMFRpeFlSKzd0RXVPbE9IbzhoYjFsdk1JcjFZQy9STFBua1Y1?=
- =?utf-8?B?UHY0TDkyMkJtQjF4SVBNRmpGWXJIZjRvRTVmcTA2OUVvdXJMMEpCWnRSa1FO?=
- =?utf-8?B?MmJOWDBTYWw0OFoxTzBUZkxVbWd4NE1xWktHRkNBZVVad3doTmMzQlZvaGt1?=
- =?utf-8?B?YUdHTytZbW9CT1dJQ0NYNHdHWUJHQk53ZjZLYzRPRXEwbzZEOGNnSXVJeFF5?=
- =?utf-8?B?V093bW5DR3ZQcXlKSDN3aS9Oemh6ZXNjWUsva1A3cTR0YmUyQ2xmT3JyMXBr?=
- =?utf-8?B?Z0NqT0RBWXdqQjJqMHJvajYvZnVWbkRXcUxnMjdLbVQ2eE9uZUljTW5YcWo2?=
- =?utf-8?B?d0k1K1ZQZFhpUFBEU1dVdGdyYnp4UkZ1a21SMW40WGpkeVplNHJ1eXRYNm9k?=
- =?utf-8?B?RCtYSnBvTUVTV1VyV1JQZVJSV0FMWlRUZ1htbFlxUm10MVE0UEZmbGlQS29l?=
- =?utf-8?B?RnRqWnlOa3hZYS9hSzdQcC9acm5nWU9zVlQxTjllYUVPcHU0Ymphb1FsZDZF?=
- =?utf-8?B?bnhTanpFd05lVXJpZzhpdElhYzg0Ym5yTWJ4VDNJQ09TVjA3N25kY1hSQ2RE?=
- =?utf-8?B?NVJhVnRWQzE3THBIaStNN0FCSEhxWWdpMVpFWng4ZElXM2FiVHBwa2dvem9D?=
- =?utf-8?B?c1pRb2NQQ3NGNVRPZ0NrTEMyeGdpMHlZTzVQSGQwc3hJUm5CMWVmL24zM0pW?=
- =?utf-8?B?YktMVVdmVjV6ZEsyeCtrUlBJZyt3akdlWFRnN2h0U09WdzhOUU9xelQ4ZG80?=
- =?utf-8?B?WnRlQmoydTdzOFRaaHlEYTNleUZKNWozQnBWcnNxNXJVU0w3eXhCaXpuamE5?=
- =?utf-8?B?MnB4UXZPSUQwSjk2eVBHeHJObUlkdmNrZ1lOQlFidEJ6cVpGZU5EMERpUGlW?=
- =?utf-8?B?NXU5TVorYTh2TUlvczE1RWFUY0dDS1lBSGw5SXFnVWlJdDVRS29CMkpRZUI0?=
- =?utf-8?B?bnBjR0dKWk9mSnpncGpTaEZYcTl1QmE3N2lpT0EvcHZreE1qcENQQnN3R2t2?=
- =?utf-8?B?VHo1ZWdiZW5NT3pKTTVkTmIvTkgzRXlGaGxCUng5a09LSW5iaDJrdU9XV0ZJ?=
- =?utf-8?B?V0M0UmhjalVRPT0=?=
+ ARA:13230040|376014|1800799024|36860700013|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?ek9YRzUvLzdveUd3bHhadWQ2bXVvTUpqZkI2aGpWcVRFeEwvb0w4a2lOc1J6?=
+ =?utf-8?B?Wm1EeHkrclNSU1BMRUJwY0Nub3poeUpiLzJMcm1ZcE5VOWxnRHoxWWhEL3Ew?=
+ =?utf-8?B?anFEc0hWblg0WXNRdWYzVEZMakFRNEdqOWNDNDJXYStJRFhoeE9CQzNWbW1k?=
+ =?utf-8?B?cHhxMHp1dHNIMmFwakdTMjcxUjNSQ0o2QnVZR1BlVFhROTlJMElLcFdyWFJm?=
+ =?utf-8?B?RXM4dCszUkdqcGp6anNSdDhRK0xmTm91Zm5IckM2SzJ4dTBETU5YQ0ZSYWNT?=
+ =?utf-8?B?Snc5MFhJKzczYXNMQ3RRaVdrNHE2QnNZeUZoYTBUNnZ0ZXBEeFhmMGlPakJy?=
+ =?utf-8?B?VFdDWHJDKzVITVBuNnlYenRqU3E0Qnkzd2drVlZxNmMrTllSbzdZeUNhUDNE?=
+ =?utf-8?B?QVl0d3VVT0x4L29tUHJZTC9YbHgyK3Y3NDlya1FvWmRGelA5aWlSc3haUGJP?=
+ =?utf-8?B?MTJMU1pJYWVaQlJOVkg0czVWQmdRemgrNktkV0Q2WGFPRTJGYTByY2lFMFV0?=
+ =?utf-8?B?MzdHNmk1bVFnSUhUUThIYUYvRFZwMXJYYndWMVFoRFBLT0kvejZJdVkwNWZw?=
+ =?utf-8?B?UjVLcEc1aDlXbXUzU3NSZGRSN1VVQ2k0RUFHQ3RFbXlEWUhZTDFxTko0allJ?=
+ =?utf-8?B?eWdLUURPNTJJV2VhQVNTZTFIZDdPWWlENmpNbjFScjhCS2NQSWJaSGQ3T2R5?=
+ =?utf-8?B?eUsyU3dYT3lHNjdFOGg2TW5DMzR6NDBVOSt1OTU3d3c2NEd2L04wYk92VUFO?=
+ =?utf-8?B?QzR2MnZKcVJIei8yTDVHOHVwVkZsQjF0TXlyd0RtWnNEU3hyOHlBbmtsZzRR?=
+ =?utf-8?B?cGJhdHIvcHluanIrWmM5QldCdjczMkc0MW9aSy8wak9SZ04zWkFldkJXdXNC?=
+ =?utf-8?B?ZWo4dEpNYWlXTVM2ZXZjM0tsTlhxaXE1dUh2OXM2SzNUZW5GZER4eGNLRUtt?=
+ =?utf-8?B?b2JqN2lCcWNWcHdGVzBHQWZXMlJtb0FXRXkrUUJoUE11ZmdSMTZwSnV5eGUy?=
+ =?utf-8?B?cmFMRDRSclFmMndQeGpwck1BQ1ZJeXNEdHk1V0szVkMyL1pXeXg1TWNnV2lN?=
+ =?utf-8?B?UHh6Q2lOZlBLcGd1NDJjblhPeWxjTmxkKzRQQ3hoUHAzU1hIVXNLaDIxVkJP?=
+ =?utf-8?B?cFcyU3BmT0VvekVJU1lKaGx4UWtnajRkci9pZCttWlRrTXduWFQrSzhYSzdM?=
+ =?utf-8?B?QXBMQmVGdTZWSTV4Y2NaVEZZTldoT1NHVlc2dlE0ZEhkYURndnZBdm5oK2Vv?=
+ =?utf-8?B?VXBHaVdSVnNQUTR2TTkwSm9GUDlMQnIycXRIdGlRc2lYUmsvRkNTNEtLQ2pr?=
+ =?utf-8?B?czk4dzJPNkZUMTJFWEx1b3ZyNExJL3VVWnduN3JLYmQyb3k2YlJCU3NBdlg4?=
+ =?utf-8?B?WGFHcUJFUVZCM2daYnFvb09rQTc2TUVFdUptWGpRMENkTWtaczlOeUt2cFB2?=
+ =?utf-8?B?ai8rd1VSeUZLbGxsN3lWSXdiakVxMHVpeUlQY2FwZ3hoS2pUVUdEL2NSQ2s3?=
+ =?utf-8?B?d0FVUlBtaGY5RTVETEZ1ODRwZVhncjZrRm81TW5zZnNWRUJxbFh6OTJyb0lM?=
+ =?utf-8?B?MmkvN0hmeWhGZkVpZzZOUW9PVnlKQzVocFNwc2paOVZnUEE1KzBUNXhma2ZP?=
+ =?utf-8?B?L1o4UnJsZlFaQlBQS3l4a1U4MmxFRmNOeDMvaUVnS1VYVWJVdXV1WU9TZ2gz?=
+ =?utf-8?B?V01Yc0FhY3ZrNmtwcE1qOUk0K3MwbzJjcFVsNEpWWHJXVVRHNDlnRmNuN1pP?=
+ =?utf-8?B?QUszNk15ZHF6RHBvUnFiNUk5aytBQ1UvTUIrc3BZR1hWcU16N3Z2aDlrb09C?=
+ =?utf-8?B?Rkl5cGhDSklJYkdieUsrRS9KZi9oUG9SS1VOaDM3TGNqUUF5bXAzUGpuL2Nk?=
+ =?utf-8?B?OVpkR01XTDF2cUN1aW1BK0g4Z1VCNVQ3dXc3MkJKTjluTENKa29rWEMvbUln?=
+ =?utf-8?Q?/mjwfIs2Vjk=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024); DIR:OUT;
+ SFS:(13230040)(376014)(1800799024)(36860700013)(82310400026); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jan 2025 02:32:21.6737 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2a3151d8-c9b3-440b-280d-08dd419f7d83
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jan 2025 02:32:21.9862 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 87c4b807-b904-4de1-d6bb-08dd419f7db2
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF000099DA.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8295
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4397
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,106 +141,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Same as amdgpu_gfx_off_ctrl(), but without the delay
-for gfxoff disallow.
+Use amdgpu_gfx_off_ctrl_immediate() when powergating.
+There's no need for the delay in gfx off allow.  The
+powergating is dynamically disabled/enabled as for
+RV/PCO on compute queues and allowing gfx off again as
+soon the job is submitted improves power savings.
 
 Suggested-by: Błażej Szczygieł <mumei6102@gmail.com>
+Link: https://gitlab.freedesktop.org/drm/amd/-/issues/3861
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 53 +++++++++++++++++++------
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |  1 +
- 2 files changed, 41 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-index 645efe002d068..27f5318c3a26c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-@@ -771,18 +771,8 @@ int amdgpu_gfx_enable_kgq(struct amdgpu_device *adev, int xcc_id)
- 	return r;
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+index 058f55f1e3fcb..6dbaa4a881d8f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+@@ -5244,7 +5244,7 @@ static int gfx_v9_0_set_powergating_state(struct amdgpu_ip_block *ip_block,
+ 	case IP_VERSION(9, 1, 0):
+ 	case IP_VERSION(9, 3, 0):
+ 		if (!enable)
+-			amdgpu_gfx_off_ctrl(adev, false);
++			amdgpu_gfx_off_ctrl_immediate(adev, false);
  
--/* amdgpu_gfx_off_ctrl - Handle gfx off feature enable/disable
-- *
-- * @adev: amdgpu_device pointer
-- * @bool enable true: enable gfx off feature, false: disable gfx off feature
-- *
-- * 1. gfx off feature will be enabled by gfx ip after gfx cg gp enabled.
-- * 2. other client can send request to disable gfx off feature, the request should be honored.
-- * 3. other client can cancel their request of disable gfx off feature
-- * 4. other client should not send request to enable gfx off feature before disable gfx off feature.
-- */
--
--void amdgpu_gfx_off_ctrl(struct amdgpu_device *adev, bool enable)
-+static void amdgpu_gfx_do_off_ctrl(struct amdgpu_device *adev, bool enable,
-+				   bool no_delay)
- {
- 	unsigned long delay = GFX_OFF_DELAY_ENABLE;
+ 		if (adev->pg_flags & AMD_PG_SUPPORT_RLC_SMU_HS) {
+ 			gfx_v9_0_enable_sck_slow_down_on_power_up(adev, true);
+@@ -5266,10 +5266,10 @@ static int gfx_v9_0_set_powergating_state(struct amdgpu_ip_block *ip_block,
+ 		gfx_v9_0_update_gfx_mg_power_gating(adev, enable);
  
-@@ -804,7 +794,7 @@ void amdgpu_gfx_off_ctrl(struct amdgpu_device *adev, bool enable)
- 		if (adev->gfx.gfx_off_req_count == 0 &&
- 		    !adev->gfx.gfx_off_state) {
- 			/* If going to s2idle, no need to wait */
--			if (adev->in_s0ix) {
-+			if (no_delay) {
- 				if (!amdgpu_dpm_set_powergating_by_smu(adev,
- 						AMD_IP_BLOCK_TYPE_GFX, true, 0))
- 					adev->gfx.gfx_off_state = true;
-@@ -836,6 +826,43 @@ void amdgpu_gfx_off_ctrl(struct amdgpu_device *adev, bool enable)
- 	mutex_unlock(&adev->gfx.gfx_off_mutex);
- }
- 
-+/* amdgpu_gfx_off_ctrl - Handle gfx off feature enable/disable
-+ *
-+ * @adev: amdgpu_device pointer
-+ * @bool enable true: enable gfx off feature, false: disable gfx off feature
-+ *
-+ * 1. gfx off feature will be enabled by gfx ip after gfx cg pg enabled.
-+ * 2. other client can send request to disable gfx off feature, the request should be honored.
-+ * 3. other client can cancel their request of disable gfx off feature
-+ * 4. other client should not send request to enable gfx off feature before disable gfx off feature.
-+ *
-+ * gfx off allow will be delayed by GFX_OFF_DELAY_ENABLE ms.
-+ */
-+void amdgpu_gfx_off_ctrl(struct amdgpu_device *adev, bool enable)
-+{
-+	/* If going to s2idle, no need to wait */
-+	bool no_delay = adev->in_s0ix ? true : false;
-+
-+	amdgpu_gfx_do_off_ctrl(adev, enable, no_delay);
-+}
-+
-+/* amdgpu_gfx_off_ctrl_immediate - Handle gfx off feature enable/disable
-+ *
-+ * @adev: amdgpu_device pointer
-+ * @bool enable true: enable gfx off feature, false: disable gfx off feature
-+ *
-+ * 1. gfx off feature will be enabled by gfx ip after gfx cg pg enabled.
-+ * 2. other client can send request to disable gfx off feature, the request should be honored.
-+ * 3. other client can cancel their request of disable gfx off feature
-+ * 4. other client should not send request to enable gfx off feature before disable gfx off feature.
-+ *
-+ * gfx off allow will be issued immediately.
-+ */
-+void amdgpu_gfx_off_ctrl_immediate(struct amdgpu_device *adev, bool enable)
-+{
-+	amdgpu_gfx_do_off_ctrl(adev, enable, true);
-+}
-+
- int amdgpu_set_gfx_off_residency(struct amdgpu_device *adev, bool value)
- {
- 	int r = 0;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-index 6c84598caec21..ddf4533614bac 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-@@ -554,6 +554,7 @@ int amdgpu_gfx_me_queue_to_bit(struct amdgpu_device *adev, int me,
- bool amdgpu_gfx_is_me_queue_enabled(struct amdgpu_device *adev, int me,
- 				    int pipe, int queue);
- void amdgpu_gfx_off_ctrl(struct amdgpu_device *adev, bool enable);
-+void amdgpu_gfx_off_ctrl_immediate(struct amdgpu_device *adev, bool enable);
- int amdgpu_get_gfx_off_status(struct amdgpu_device *adev, uint32_t *value);
- int amdgpu_gfx_ras_late_init(struct amdgpu_device *adev, struct ras_common_if *ras_block);
- void amdgpu_gfx_ras_fini(struct amdgpu_device *adev);
+ 		if (enable)
+-			amdgpu_gfx_off_ctrl(adev, true);
++			amdgpu_gfx_off_ctrl_immediate(adev, true);
+ 		break;
+ 	case IP_VERSION(9, 2, 1):
+-		amdgpu_gfx_off_ctrl(adev, enable);
++		amdgpu_gfx_off_ctrl_immediate(adev, enable);
+ 		break;
+ 	default:
+ 		break;
 -- 
 2.48.1
 
