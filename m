@@ -4,46 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B08DDC0219B
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 Feb 2025 10:51:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4800DC02192
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 Feb 2025 10:51:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3AAB610E46E;
-	Mon,  3 Feb 2025 10:51:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D3E9010E476;
+	Mon,  3 Feb 2025 10:51:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=treblig.org header.i=@treblig.org header.b="XAY1wUM5";
+	dkim=pass (2048-bit key; unprotected) header.d=treblig.org header.i=@treblig.org header.b="QvpqXNz0";
 	dkim-atps=neutral
 Received: from mx.treblig.org (mx.treblig.org [46.235.229.95])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C450010E2DA;
- Sun,  2 Feb 2025 21:59:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8404710E32B
+ for <amd-gfx@lists.freedesktop.org>; Sun,  2 Feb 2025 22:07:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=treblig.org
  ; s=bytemarkmx;
- h=MIME-Version:Message-ID:Date:Subject:From:Content-Type:From
- :Subject; bh=EiBopR9dtV9yxHm9Kvdf5kaAuKnjm8bl8Embt4vm7VY=; b=XAY1wUM5bsBuhHCn
- IDc+NMVbaI72ZwsfOIWxm9bF+WIQKAh8Mr8R6zwMWgOtofWWe8fiGXRUiPN5jwd69VR6HQTsnohMZ
- RoJjjulwBD1dOH502cazwuq+DhOxowqLdq/cnwzkAt8WPqd13V04ChNnKd9x2fviG+tiVo+sJdpQf
- cP1IsDtakV+oBxH+SWZ2jEGvnMTOo6vpcXevDd9JoqPE6/Hap/bon/3zI5j0KnxkdgtZrjF1/BQZm
- OqY674Ed1xTjx5eQzyiWdZ2I8IlBwmzvLDUqCqi41AfVy+Ux7ZzaZHq3lRJZ4ANS4oxbKbH2062ht
- 3uZPP1rkCa9210i0yA==;
-Received: from localhost ([127.0.0.1] helo=dalek.home.treblig.org)
- by mx.treblig.org with esmtp (Exim 4.96)
- (envelope-from <linux@treblig.org>) id 1tehzZ-00D9GV-1s;
- Sun, 02 Feb 2025 21:59:01 +0000
-From: linux@treblig.org
-To: patrik.r.jakobsson@gmail.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, alexander.deucher@amd.com, harry.wentland@amd.com,
- sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, christian.koenig@amd.com,
- Xinhui.Pan@amd.com, airlied@gmail.com, simona@ffwll.ch
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, "Dr. David Alan Gilbert" <linux@treblig.org>
-Subject: [PATCH 6/7] drm/amd/display: Remove unused
- get_max_support_fbc_buffersize
-Date: Sun,  2 Feb 2025 21:58:55 +0000
-Message-ID: <20250202215856.252439-7-linux@treblig.org>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20250202215856.252439-1-linux@treblig.org>
-References: <20250202215856.252439-1-linux@treblig.org>
+ h=Content-Type:MIME-Version:Message-ID:Subject:From:Date:From
+ :Subject; bh=h8D2rr22gOJ1tOKVrss/WOcI0m3aUBmqqa5JhhAL93Q=; b=QvpqXNz0HbyxCRmU
+ kOdLa/7LCj1Z0Droe2a5yrxXp0n7QFKXHr03kleZCZPpFJYLWldVzO9RSCoYXhe2Gw4KbhlrEf+Ct
+ D9tYwR85HU24p7+OJA6ocwCAwtXEAIxpqow8S4lkbaRX1FupzkBfY6jAwhwMEY1TF2fjFPmr1dSAr
+ pscIlNxvpCFRfC1pSvhNycYB0Az6sMpZKIBxgNbLBeijm4wjdg+Fy3uiq345S8gXnvaV1doOs4bzm
+ BuWTSm8pV+b+LZq8GpzWjkNUoIE+bqdSHZhVu08H/0LLTgQCCF+XCmcppjHI4PmIZWj+u+b4AOJeO
+ aAN7azeEkWKYMcjFgw==;
+Received: from dg by mx.treblig.org with local (Exim 4.96)
+ (envelope-from <dg@treblig.org>) id 1tei7s-00D9U2-0t;
+ Sun, 02 Feb 2025 22:07:36 +0000
+Date: Sun, 2 Feb 2025 22:07:36 +0000
+From: "Dr. David Alan Gilbert" <dave@treblig.org>
+To: Charlene.Liu@amd.com, alexander.deucher@amd.com
+Cc: amd-gfx@lists.freedesktop.org
+Subject: hubbub/hubp, Missing struct assignments???
+Message-ID: <Z5_sqHaGBPIqvWk1@gallifrey>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+X-Chocolate: 70 percent or better cocoa solids preferably
+X-Operating-System: Linux/6.1.0-21-amd64 (x86_64)
+X-Uptime: 22:02:32 up 270 days,  9:16,  1 user,  load average: 0.02, 0.06, 0.02
+User-Agent: Mutt/2.2.12 (2023-09-09)
 X-Mailman-Approved-At: Mon, 03 Feb 2025 10:51:05 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -59,57 +55,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: "Dr. David Alan Gilbert" <linux@treblig.org>
+Hi Charlene, Alex,
+  My scripts spotted that all 3 functions added by the commit
+  dbc2309cac2a ("drm/amd/display: add hubbub_init related")
+are uncalled, and instead of deadcoding them, I wondered if it's
+actually a simple bug and they should be assigned somewhere.
 
-get_max_support_fbc_buffersize() is unused since 2021's
-commit 94f0d0c80cf3 ("drm/amd/display/dc/dce110/dce110_compressor: Remove
-unused function 'dce110_get_required_compressed_surfacesize")
-removed it's only caller.
+That patch also added a member dchubbub_init to struct hubbub_funcs
+so perhaps 2 of them should go there, and hmm there's dcn32_hubp_funcs
+for the other one???
 
-Remove it.
-
-Signed-off-by: Dr. David Alan Gilbert <linux@treblig.org>
----
- .../drm/amd/display/dc/dce110/dce110_compressor.c   | 13 -------------
- .../drm/amd/display/dc/dce110/dce110_compressor.h   |  2 --
- 2 files changed, 15 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_compressor.c b/drivers/gpu/drm/amd/display/dc/dce110/dce110_compressor.c
-index d241ee13b293..59a0961b49da 100644
---- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_compressor.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_compressor.c
-@@ -409,19 +409,6 @@ void dce110_compressor_destroy(struct compressor **compressor)
- 	*compressor = NULL;
- }
- 
--void get_max_support_fbc_buffersize(unsigned int *max_x, unsigned int *max_y)
--{
--	*max_x = FBC_MAX_X;
--	*max_y = FBC_MAX_Y;
--
--	/* if (m_smallLocalFrameBufferMemory == 1)
--	 * {
--	 *	*max_x = FBC_MAX_X_SG;
--	 *	*max_y = FBC_MAX_Y_SG;
--	 * }
--	 */
--}
--
- static const struct compressor_funcs dce110_compressor_funcs = {
- 	.power_up_fbc = dce110_compressor_power_up_fbc,
- 	.enable_fbc = dce110_compressor_enable_fbc,
-diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_compressor.h b/drivers/gpu/drm/amd/display/dc/dce110/dce110_compressor.h
-index 26c7335a1cbf..223c57941e92 100644
---- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_compressor.h
-+++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_compressor.h
-@@ -75,7 +75,5 @@ void dce110_compressor_program_lpt_control(struct compressor *cp,
- 
- bool dce110_compressor_is_lpt_enabled_in_hw(struct compressor *cp);
- 
--void get_max_support_fbc_buffersize(unsigned int *max_x, unsigned int *max_y);
--
- #endif
- 
+Dave
 -- 
-2.48.1
-
+ -----Open up your eyes, open up your mind, open up your code -------   
+/ Dr. David Alan Gilbert    |       Running GNU/Linux       | Happy  \ 
+\        dave @ treblig.org |                               | In Hex /
+ \ _________________________|_____ http://www.treblig.org   |_______/
