@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9304C02193
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1FE3C02197
 	for <amd-gfx@archiver.kernel.org>; Mon,  3 Feb 2025 10:51:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD28110E464;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C41D910E466;
 	Mon,  3 Feb 2025 10:51:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=treblig.org header.i=@treblig.org header.b="NtJwAPb4";
+	dkim=pass (2048-bit key; unprotected) header.d=treblig.org header.i=@treblig.org header.b="m3HAYvo1";
 	dkim-atps=neutral
 Received: from mx.treblig.org (mx.treblig.org [46.235.229.95])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B1CE410E2D1;
- Sun,  2 Feb 2025 21:59:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD72C10E2BB;
+ Sun,  2 Feb 2025 21:59:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=treblig.org
  ; s=bytemarkmx;
  h=MIME-Version:Message-ID:Date:Subject:From:Content-Type:From
- :Subject; bh=28elsu1t62he74DEYIgKoW2bZYZ56l/4XaRobXPlcXI=; b=NtJwAPb45fyq0Uyr
- 0D9VebYG38zqm34JN9TtgtVPiS3CU0cIKl97VmcTPXiHDvxKKJ+5No3wXp7HB/8a5R07E+RN5/psT
- i+Lw1GdDWUnjJ0Ixurn/PSuR39lbWEWGSsUtat6Z4vKuiYLSrf5EBey3Z4YgX593ltTDG8psrvvnI
- tis/rO5LLBClBVLFqO+cHjlO3ODK1Oe88UIxAA1vCPBLnhz8QZBDTf5RPF8pmqsW4VQcilhFGtTts
- 2kxKMzu2mpFtt4/R0KqA8oEJBKFD8iy1dOcsPmGkleSbwQuhXRfVtZwOJK3NPqKlKWSjr5w1J5W4S
- XNpgwVFAHA3x3zMOUA==;
+ :Subject; bh=zB8VhMlMX6u7pxPTXphsXxQbKI9GdJdL3pZhEJ1Qsss=; b=m3HAYvo1fqxddrFe
+ YKNgnyR4V0Rdn8caHKC0YTCoq2nMzH7l3uPXBn9BZ2OY9LU+5fOP4SQXeI8d69/8OuIyXi0jd2DmF
+ VhhMEQD9QO/gcScEGqCi3ghb1KLS/PThedCxTof03qyKNkRfnqDqFs5Zx2gg6eT9XDTCXtcAHmCUM
+ qDmYnSpMuFxRwtljoYdn7K9By1yhNnnzbZ7DBB1AgHnsbI/P47teVb4hvGIeiaRzTSVE6B82fHPX9
+ /O3RPvCNqvR9ApGVTm5en/Qfgy+lAQimcscgrXLYBaIR9D3dDsbPBCgHN9YB4iunAfVzD/xgTXIGO
+ JBktysNydzjH+Xm5pQ==;
 Received: from localhost ([127.0.0.1] helo=dalek.home.treblig.org)
  by mx.treblig.org with esmtp (Exim 4.96)
- (envelope-from <linux@treblig.org>) id 1tehzX-00D9GV-1l;
- Sun, 02 Feb 2025 21:58:59 +0000
+ (envelope-from <linux@treblig.org>) id 1tehza-00D9GV-2R;
+ Sun, 02 Feb 2025 21:59:02 +0000
 From: linux@treblig.org
 To: patrik.r.jakobsson@gmail.com, maarten.lankhorst@linux.intel.com,
  mripard@kernel.org, alexander.deucher@amd.com, harry.wentland@amd.com,
@@ -35,9 +35,10 @@ To: patrik.r.jakobsson@gmail.com, maarten.lankhorst@linux.intel.com,
  Xinhui.Pan@amd.com, airlied@gmail.com, simona@ffwll.ch
 Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, "Dr. David Alan Gilbert" <linux@treblig.org>
-Subject: [PATCH 3/7] drm/amd/display: Remove unused dc_stream_get_crtc_position
-Date: Sun,  2 Feb 2025 21:58:52 +0000
-Message-ID: <20250202215856.252439-4-linux@treblig.org>
+Subject: [PATCH 7/7] drm/amd/display: Remove unused
+ link_enc_cfg_get_link_enc_used_by_stream
+Date: Sun,  2 Feb 2025 21:58:56 +0000
+Message-ID: <20250202215856.252439-8-linux@treblig.org>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20250202215856.252439-1-linux@treblig.org>
 References: <20250202215856.252439-1-linux@treblig.org>
@@ -60,86 +61,58 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: "Dr. David Alan Gilbert" <linux@treblig.org>
 
-The last user of dc_stream_get_crtc_position() was
-mod_freesync_get_v_position() which is removed in a previous
-patch in this series.
+link_enc_cfg_get_link_enc_used_by_stream() is no longer used after
+2021's:
+commit 6366b00346c0 ("drm/amd/display: Maintain consistent mode of
+operation during encoder assignment")
+which introduces and uses the _current version instead.
 
 Remove it.
 
 Signed-off-by: Dr. David Alan Gilbert <linux@treblig.org>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc.c   | 27 ----------------------
- drivers/gpu/drm/amd/display/dc/dc_stream.h | 12 ----------
- 2 files changed, 39 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc_link_enc_cfg.c | 11 -----------
+ drivers/gpu/drm/amd/display/dc/inc/link_enc_cfg.h     |  5 -----
+ 2 files changed, 16 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index cecaadf741ad..76b39052e3a0 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -515,33 +515,6 @@ bool dc_stream_get_last_used_drr_vtotal(struct dc *dc,
- 	return status;
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_enc_cfg.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_enc_cfg.c
+index 039b176e086d..08b4258b0e2f 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_enc_cfg.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_enc_cfg.c
+@@ -559,17 +559,6 @@ struct link_encoder *link_enc_cfg_get_next_avail_link_enc(struct dc *dc)
+ 	return link_enc;
  }
  
--bool dc_stream_get_crtc_position(struct dc *dc,
--		struct dc_stream_state **streams, int num_streams,
--		unsigned int *v_pos, unsigned int *nom_v_pos)
+-struct link_encoder *link_enc_cfg_get_link_enc_used_by_stream(
+-		struct dc *dc,
+-		const struct dc_stream_state *stream)
 -{
--	/* TODO: Support multiple streams */
--	const struct dc_stream_state *stream = streams[0];
--	int i;
--	bool ret = false;
--	struct crtc_position position;
+-	struct link_encoder *link_enc;
 -
--	dc_exit_ips_for_hw_access(dc);
+-	link_enc = link_enc_cfg_get_link_enc_used_by_link(dc, stream->link);
 -
--	for (i = 0; i < MAX_PIPES; i++) {
--		struct pipe_ctx *pipe =
--				&dc->current_state->res_ctx.pipe_ctx[i];
--
--		if (pipe->stream == stream && pipe->stream_res.stream_enc) {
--			dc->hwss.get_position(&pipe, 1, &position);
--
--			*v_pos = position.vertical_count;
--			*nom_v_pos = position.nominal_vcount;
--			ret = true;
--		}
--	}
--	return ret;
+-	return link_enc;
 -}
 -
- #if defined(CONFIG_DRM_AMD_SECURE_DISPLAY)
- static inline void
- dc_stream_forward_dmub_crc_window(struct dc_dmub_srv *dmub_srv,
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_stream.h b/drivers/gpu/drm/amd/display/dc/dc_stream.h
-index 3e303c7808fb..e0bfddaa23e3 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_stream.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_stream.h
-@@ -528,12 +528,6 @@ bool dc_stream_get_last_used_drr_vtotal(struct dc *dc,
- 		struct dc_stream_state *stream,
- 		uint32_t *refresh_rate);
+ struct link_encoder *link_enc_cfg_get_link_enc(
+ 		const struct dc_link *link)
+ {
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/link_enc_cfg.h b/drivers/gpu/drm/amd/display/dc/inc/link_enc_cfg.h
+index dc650be3837e..f1afb31ac70b 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/link_enc_cfg.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/link_enc_cfg.h
+@@ -96,11 +96,6 @@ struct link_encoder *link_enc_cfg_get_link_enc_used_by_link(
+ /* Return next available DIG link encoder. NULL if none available. */
+ struct link_encoder *link_enc_cfg_get_next_avail_link_enc(struct dc *dc);
  
--bool dc_stream_get_crtc_position(struct dc *dc,
--				 struct dc_stream_state **stream,
--				 int num_streams,
--				 unsigned int *v_pos,
--				 unsigned int *nom_v_pos);
+-/* Return DIG link encoder used by stream. NULL if unused. */
+-struct link_encoder *link_enc_cfg_get_link_enc_used_by_stream(
+-		struct dc *dc,
+-		const struct dc_stream_state *stream);
 -
- #if defined(CONFIG_DRM_AMD_SECURE_DISPLAY)
- bool dc_stream_forward_crc_window(struct dc_stream_state *stream,
- 		struct rect *rect,
-@@ -578,12 +572,6 @@ bool dc_stream_set_gamut_remap(struct dc *dc,
- bool dc_stream_program_csc_matrix(struct dc *dc,
- 				  struct dc_stream_state *stream);
+ /* Return DIG link encoder. NULL if unused. */
+ struct link_encoder *link_enc_cfg_get_link_enc(const struct dc_link *link);
  
--bool dc_stream_get_crtc_position(struct dc *dc,
--				 struct dc_stream_state **stream,
--				 int num_streams,
--				 unsigned int *v_pos,
--				 unsigned int *nom_v_pos);
--
- struct pipe_ctx *dc_stream_get_pipe_ctx(struct dc_stream_state *stream);
- 
- void dc_dmub_update_dirty_rect(struct dc *dc,
 -- 
 2.48.1
 
