@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A672BC02192
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9304C02193
 	for <amd-gfx@archiver.kernel.org>; Mon,  3 Feb 2025 10:51:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9174F10E43A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD28110E464;
 	Mon,  3 Feb 2025 10:51:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=treblig.org header.i=@treblig.org header.b="Qgc2sU6O";
+	dkim=pass (2048-bit key; unprotected) header.d=treblig.org header.i=@treblig.org header.b="NtJwAPb4";
 	dkim-atps=neutral
 Received: from mx.treblig.org (mx.treblig.org [46.235.229.95])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B15AC10E2B0;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B1CE410E2D1;
  Sun,  2 Feb 2025 21:59:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=treblig.org
  ; s=bytemarkmx;
  h=MIME-Version:Message-ID:Date:Subject:From:Content-Type:From
- :Subject; bh=0wnGofrGCJWqPYkWdZEZOB5+zOxrDqvG6IEsWkcHyLk=; b=Qgc2sU6OnOFo7+rq
- ubGsiT9nGrC2tFZOXMiCrsxp3B7jOeY/TR+2Vx+kGzvovwU23nAkeYe9gNEdUa2ka5tuEw/dA2c3G
- E2VpWhjgSk/9PjHYXs5OCphFfSHwlRnOZg8qQpXk2IFc8E4l4HIPN5a2sehBr3LE7O6+H9a0WYIva
- CVwjP6DYpLryyWUTP+NLekDp8+kk0mfRYknqUz9IylS8k9aZ5M0bBzP2YzzxXCXRvU8UQabzOYadK
- ZDbr6DFSD+AgeE725rPaZD6fLzHB+5+10dyJ11Hi72gaGFeQehGE6tALcQ0hi0sQyzjEVfqzjAIgx
- 1Ysk19B/Uxpjk116uQ==;
+ :Subject; bh=28elsu1t62he74DEYIgKoW2bZYZ56l/4XaRobXPlcXI=; b=NtJwAPb45fyq0Uyr
+ 0D9VebYG38zqm34JN9TtgtVPiS3CU0cIKl97VmcTPXiHDvxKKJ+5No3wXp7HB/8a5R07E+RN5/psT
+ i+Lw1GdDWUnjJ0Ixurn/PSuR39lbWEWGSsUtat6Z4vKuiYLSrf5EBey3Z4YgX593ltTDG8psrvvnI
+ tis/rO5LLBClBVLFqO+cHjlO3ODK1Oe88UIxAA1vCPBLnhz8QZBDTf5RPF8pmqsW4VQcilhFGtTts
+ 2kxKMzu2mpFtt4/R0KqA8oEJBKFD8iy1dOcsPmGkleSbwQuhXRfVtZwOJK3NPqKlKWSjr5w1J5W4S
+ XNpgwVFAHA3x3zMOUA==;
 Received: from localhost ([127.0.0.1] helo=dalek.home.treblig.org)
  by mx.treblig.org with esmtp (Exim 4.96)
- (envelope-from <linux@treblig.org>) id 1tehzY-00D9GV-2q;
- Sun, 02 Feb 2025 21:59:00 +0000
+ (envelope-from <linux@treblig.org>) id 1tehzX-00D9GV-1l;
+ Sun, 02 Feb 2025 21:58:59 +0000
 From: linux@treblig.org
 To: patrik.r.jakobsson@gmail.com, maarten.lankhorst@linux.intel.com,
  mripard@kernel.org, alexander.deucher@amd.com, harry.wentland@amd.com,
@@ -35,10 +35,9 @@ To: patrik.r.jakobsson@gmail.com, maarten.lankhorst@linux.intel.com,
  Xinhui.Pan@amd.com, airlied@gmail.com, simona@ffwll.ch
 Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, "Dr. David Alan Gilbert" <linux@treblig.org>
-Subject: [PATCH 5/7] drm/amd/display: Remove unused
- hubbub1_toggle_watermark_change_req
-Date: Sun,  2 Feb 2025 21:58:54 +0000
-Message-ID: <20250202215856.252439-6-linux@treblig.org>
+Subject: [PATCH 3/7] drm/amd/display: Remove unused dc_stream_get_crtc_position
+Date: Sun,  2 Feb 2025 21:58:52 +0000
+Message-ID: <20250202215856.252439-4-linux@treblig.org>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20250202215856.252439-1-linux@treblig.org>
 References: <20250202215856.252439-1-linux@treblig.org>
@@ -61,60 +60,86 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: "Dr. David Alan Gilbert" <linux@treblig.org>
 
-hubbub1_toggle_watermark_change_req() last use was removed in 2017 by
-commit b8fce2c9d773 ("drm/amd/display: Optimize programming front end")
+The last user of dc_stream_get_crtc_position() was
+mod_freesync_get_v_position() which is removed in a previous
+patch in this series.
 
 Remove it.
 
 Signed-off-by: Dr. David Alan Gilbert <linux@treblig.org>
 ---
- .../amd/display/dc/hubbub/dcn10/dcn10_hubbub.c | 18 ------------------
- .../amd/display/dc/hubbub/dcn10/dcn10_hubbub.h |  3 ---
- 2 files changed, 21 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc.c   | 27 ----------------------
+ drivers/gpu/drm/amd/display/dc/dc_stream.h | 12 ----------
+ 2 files changed, 39 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/hubbub/dcn10/dcn10_hubbub.c b/drivers/gpu/drm/amd/display/dc/hubbub/dcn10/dcn10_hubbub.c
-index d738a36f2132..7847c1c4927b 100644
---- a/drivers/gpu/drm/amd/display/dc/hubbub/dcn10/dcn10_hubbub.c
-+++ b/drivers/gpu/drm/amd/display/dc/hubbub/dcn10/dcn10_hubbub.c
-@@ -679,24 +679,6 @@ void hubbub1_update_dchub(
- 	dh_data->dchub_info_valid = false;
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index cecaadf741ad..76b39052e3a0 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -515,33 +515,6 @@ bool dc_stream_get_last_used_drr_vtotal(struct dc *dc,
+ 	return status;
  }
  
--void hubbub1_toggle_watermark_change_req(struct hubbub *hubbub)
+-bool dc_stream_get_crtc_position(struct dc *dc,
+-		struct dc_stream_state **streams, int num_streams,
+-		unsigned int *v_pos, unsigned int *nom_v_pos)
 -{
--	struct dcn10_hubbub *hubbub1 = TO_DCN10_HUBBUB(hubbub);
+-	/* TODO: Support multiple streams */
+-	const struct dc_stream_state *stream = streams[0];
+-	int i;
+-	bool ret = false;
+-	struct crtc_position position;
 -
--	uint32_t watermark_change_req;
+-	dc_exit_ips_for_hw_access(dc);
 -
--	REG_GET(DCHUBBUB_ARB_WATERMARK_CHANGE_CNTL,
--			DCHUBBUB_ARB_WATERMARK_CHANGE_REQUEST, &watermark_change_req);
+-	for (i = 0; i < MAX_PIPES; i++) {
+-		struct pipe_ctx *pipe =
+-				&dc->current_state->res_ctx.pipe_ctx[i];
 -
--	if (watermark_change_req)
--		watermark_change_req = 0;
--	else
--		watermark_change_req = 1;
+-		if (pipe->stream == stream && pipe->stream_res.stream_enc) {
+-			dc->hwss.get_position(&pipe, 1, &position);
 -
--	REG_UPDATE(DCHUBBUB_ARB_WATERMARK_CHANGE_CNTL,
--			DCHUBBUB_ARB_WATERMARK_CHANGE_REQUEST, watermark_change_req);
+-			*v_pos = position.vertical_count;
+-			*nom_v_pos = position.nominal_vcount;
+-			ret = true;
+-		}
+-	}
+-	return ret;
 -}
 -
- void hubbub1_soft_reset(struct hubbub *hubbub, bool reset)
- {
- 	struct dcn10_hubbub *hubbub1 = TO_DCN10_HUBBUB(hubbub);
-diff --git a/drivers/gpu/drm/amd/display/dc/hubbub/dcn10/dcn10_hubbub.h b/drivers/gpu/drm/amd/display/dc/hubbub/dcn10/dcn10_hubbub.h
-index 9fbd45c7dfef..fa5c4c18ed59 100644
---- a/drivers/gpu/drm/amd/display/dc/hubbub/dcn10/dcn10_hubbub.h
-+++ b/drivers/gpu/drm/amd/display/dc/hubbub/dcn10/dcn10_hubbub.h
-@@ -489,9 +489,6 @@ void hubbub1_allow_self_refresh_control(struct hubbub *hubbub, bool allow);
+ #if defined(CONFIG_DRM_AMD_SECURE_DISPLAY)
+ static inline void
+ dc_stream_forward_dmub_crc_window(struct dc_dmub_srv *dmub_srv,
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_stream.h b/drivers/gpu/drm/amd/display/dc/dc_stream.h
+index 3e303c7808fb..e0bfddaa23e3 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_stream.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_stream.h
+@@ -528,12 +528,6 @@ bool dc_stream_get_last_used_drr_vtotal(struct dc *dc,
+ 		struct dc_stream_state *stream,
+ 		uint32_t *refresh_rate);
  
- bool hubbub1_is_allow_self_refresh_enabled(struct hubbub *hubub);
- 
--void hubbub1_toggle_watermark_change_req(
--		struct hubbub *hubbub);
+-bool dc_stream_get_crtc_position(struct dc *dc,
+-				 struct dc_stream_state **stream,
+-				 int num_streams,
+-				 unsigned int *v_pos,
+-				 unsigned int *nom_v_pos);
 -
- void hubbub1_wm_read_state(struct hubbub *hubbub,
- 		struct dcn_hubbub_wm *wm);
+ #if defined(CONFIG_DRM_AMD_SECURE_DISPLAY)
+ bool dc_stream_forward_crc_window(struct dc_stream_state *stream,
+ 		struct rect *rect,
+@@ -578,12 +572,6 @@ bool dc_stream_set_gamut_remap(struct dc *dc,
+ bool dc_stream_program_csc_matrix(struct dc *dc,
+ 				  struct dc_stream_state *stream);
  
+-bool dc_stream_get_crtc_position(struct dc *dc,
+-				 struct dc_stream_state **stream,
+-				 int num_streams,
+-				 unsigned int *v_pos,
+-				 unsigned int *nom_v_pos);
+-
+ struct pipe_ctx *dc_stream_get_pipe_ctx(struct dc_stream_state *stream);
+ 
+ void dc_dmub_update_dirty_rect(struct dc *dc,
 -- 
 2.48.1
 
