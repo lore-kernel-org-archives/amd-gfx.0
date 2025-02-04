@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 914D5C02194
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 Feb 2025 15:03:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94B51C02194
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 Feb 2025 15:05:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 18D3A10E690;
-	Tue,  4 Feb 2025 15:03:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 449E510E692;
+	Tue,  4 Feb 2025 15:05:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gTAR1eSc";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bSfqCKae";
 	dkim-atps=neutral
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
- [209.85.216.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D903A10E690
- for <amd-gfx@lists.freedesktop.org>; Tue,  4 Feb 2025 15:03:14 +0000 (UTC)
-Received: by mail-pj1-f46.google.com with SMTP id
- 98e67ed59e1d1-2f45526dea0so1223239a91.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 04 Feb 2025 07:03:14 -0800 (PST)
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com
+ [209.85.216.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D4F410E692
+ for <amd-gfx@lists.freedesktop.org>; Tue,  4 Feb 2025 15:04:53 +0000 (UTC)
+Received: by mail-pj1-f52.google.com with SMTP id
+ 98e67ed59e1d1-2f2f5e91393so1175556a91.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 04 Feb 2025 07:04:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1738681394; x=1739286194; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1738681493; x=1739286293; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=MiPdeiJPI0lSc3WVnQ9XcQgiiQ/3YEFumfqbuf0AA/Y=;
- b=gTAR1eSce8ZtbzpXDFJk98/bp5fE8lb+gc5GqZQaRoeuxMe4ns26tNTOFGzYFs09DR
- jD1oj2AdqhZjRNWsiKUvhOC1/+MkUjSx1zB9e6w9QNQ262+MBUTCVRQa/NtCL5DBYvv5
- 0UPKQLe7Qt2C5wAuH8F5xbp0PpXu4OCc0kgCQrNg2h7CG78qmP230cf12IAVNCCGlV6f
- /25LlkB1xfn5r6mL5LBVlCVTcyXuWJq/YFCR+xOn7qWDZ4Ti48B8OwlZIG0W8dUZePkD
- fic6nccehYqwgqJJptZ6NBnt07zjHh25Y9h5FGbpsZec6jwTgUZ8+QsN2Sma2Sd7Ptjg
- DgpA==
+ bh=FPA+jsq1TAEvCBlUlpWk6ke85l8ivs29lgARa/G7YUM=;
+ b=bSfqCKae6oOIxvgUFg8OvIqjfDwkijYoKb5eoY4SHoOe1Ljj4NVbmrDius7eis225T
+ tmPseB5LOlDsRNcZUD2/y4B5wnY4y95WI2lEcbZltpDmpdLQLcXqAmyze/yzFgu7txiA
+ oIUuIxwg1AHj96ju2T1zELdxiiepJsN96waVbiE5WTzfXh1sfEwp9HVSOSkANwTCOAvO
+ jCWMdfP6lGg6rUXAdD1HGxinkOxXRHwfzQFr6+uAjU4rRXqVSos97M1T1GPV3HIgpqIQ
+ /0qgsSKT/i2crL2vvOxOUgjMv6CTydfO79ov/Lnj46ZcDEVPsrcTBCxjQcUujgj9j6qF
+ 3EjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1738681394; x=1739286194;
+ d=1e100.net; s=20230601; t=1738681493; x=1739286293;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=MiPdeiJPI0lSc3WVnQ9XcQgiiQ/3YEFumfqbuf0AA/Y=;
- b=tbJKpqMfZ75+LUXZ8V0Fpo6zMAHI5XLhX0fd92Ekrpx9ZiaEB093HOkithFSxVsCuh
- +n0oH/dg9JDn6pSdhgg+YCCaPntdCw8KRLvXB4A1HDvk6kdoPFzBphXQOSBEvXquJbek
- 5q7XXDuTZaRwiNVWuc55/chXcTAQpue8eQnsYyK9mOC9vUELVhNL57ewwjklbbz5sLpQ
- npky6hmfVWnoBilnh1wYiD0YTjzFKBXsHJAgMF+RhYDWB8kGeb7+xqJvQI0lUCAVJBDm
- gmApoNXn+aVOZBpzJBpdq53sEA58iScQEw++d6mP7GbimOZsE5o+2ywDcS2YUddVuLER
- 3RZg==
+ bh=FPA+jsq1TAEvCBlUlpWk6ke85l8ivs29lgARa/G7YUM=;
+ b=hsjNzh8iIq5ky2ViF3pxrSbsF8wLQqyWh86k32M4rJUTaqgvObB2dWEQmQ0SogrqLI
+ D0WdbqcPqxDrvShQrO/Ruk136NnC9j6N7p8LtfCRc7QyoAFt+OByMvhTwyTU1MeguVK2
+ tGoAILChOg8ERBmtu3t6e8JtiSXLu8WADr2cPLMeiScFXpsCB6lb+7dbyPrjJqQak70j
+ AAaXydKcSemACsTnrCs8E5VXb/dDTYHxPzrdxydV3K86wqtex5oF88p3PdRIsM7C6JsA
+ Dxaf0zDl1dEPe91wzlJYr2DvLbdWWxgENxD56KDm9PrOFtgNsxnR3SnDFJStjnf6KdNk
+ ywYA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXWQ3u6FhE2OiXvIIate3+DKp2Zv0QwRqX4+H326xCT5eVOWsoGk6ccjJj7CVZBSe2bsZlIgyF+@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxxUe6omAwnrr8LgF6lFTkoXulk628E18xuI44vcQ2aoIEwIZLG
- lSneR8jG2xzX2DK8pw5pmlcI/S7m2eh+qc/d8qQQW+S/Ik0zH9c1eK7eM6ltf7Ihxf53YAxUHqx
- uWQjHBtXtVgmHYG0eDwETgJaiQ4XGtA==
-X-Gm-Gg: ASbGnctqbqAMw5pz7YQ9S1BIeUM2eDGL4kVUWsSeEzQ6uP9Mxr1Dovi6oKZuG57uw1j
- 30Y95f9tqxdBhcB1D786rlcKZN+OA/ksdmP6tmkJfnX/3itlARpqBeVBLYWu1XIabV/4wOIHG
-X-Google-Smtp-Source: AGHT+IE3YDLQ1DQBeyMg4njxQGj/LXBuPpCoF4ASPHk3fLOkrhzIHdVhUgfdyXjlfCAtCmXvW8m44Bxq3ZIs1nEZato=
-X-Received: by 2002:a17:90b:37c5:b0:2ee:6a70:c5d1 with SMTP id
- 98e67ed59e1d1-2f9b8c882d5mr2226396a91.3.1738681394205; Tue, 04 Feb 2025
- 07:03:14 -0800 (PST)
+ AJvYcCUVgYkVAUwTrN66CkuEkoTs68QzIMOAa3Xqi97hIl4MVqf2upmqVJt4nAWYYx7Rx2MsLVN1MVXs@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzwJ5AmeXBjZsXALj6LD5nlA8otQoh1hzZzsJy3XyXYQ9Fo9GKm
+ qhySkuNM9WIIM4gJsOxINaP6+KUpZsKB+O4Ma1zhYdmCoA5z7HQ1M5oBiAetfvLNUXKR5jaYB4r
+ QoAoo/FMAEEHgJT4Jpj0IrQpwaak=
+X-Gm-Gg: ASbGncvFCH9bPX90XHTGxkhj3/K168baLXF4Z9brYaZwlEI7p8Yu0MtRGoZmp4OvZmm
+ A5+U6PJV/htCJxenNm4143uC2yrPLBScsP6WkVB6zM+BruCZ90pCrFgEdeE+XXG2+vImACHHX
+X-Google-Smtp-Source: AGHT+IFrFU1cdlATDkeJ0lMrElQzL7ibuD7wfqE923uRWukYde6ALtCnBBnZrxjSmIVYWZPVcI4A0howEa6u3VQC5cE=
+X-Received: by 2002:a17:90b:2b87:b0:2ee:6db1:21dc with SMTP id
+ 98e67ed59e1d1-2f9b8c16097mr2350199a91.1.1738681492820; Tue, 04 Feb 2025
+ 07:04:52 -0800 (PST)
 MIME-Version: 1.0
 References: <20250204143113.6320-1-christian.koenig@amd.com>
  <20250204143113.6320-6-christian.koenig@amd.com>
 In-Reply-To: <20250204143113.6320-6-christian.koenig@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 4 Feb 2025 10:03:02 -0500
-X-Gm-Features: AWEUYZkF2_Fs2K1lx7XPYWApXmbOUyLgqqtxxP8tkA8FzMzzOj4DU65QO9aeubs
-Message-ID: <CADnq5_OS+Uzr7_2fES2aREs8wQwg1Af8UpLAmitxKmgX9XUfVg@mail.gmail.com>
+Date: Tue, 4 Feb 2025 10:04:41 -0500
+X-Gm-Features: AWEUYZlY5zC-fNwTYP6FkC4MVkObvVY6VS97i4vt2NsYaT6ay9dZil-j0acbtdU
+Message-ID: <CADnq5_Ph2bJGCXYmQxiFwknSd3BJ=vHJt818FKa5COz_uTuk6w@mail.gmail.com>
 Subject: Re: [PATCH 5/5] drm/amdgpu: rework gfx10 queue reset
 To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
 Cc: timur.kristof@gmail.com, Alexander.Deucher@amd.com, 
@@ -100,6 +100,12 @@ On Tue, Feb 4, 2025 at 9:57=E2=80=AFAM Christian K=C3=B6nig
 > This approach seems to work for at least some time, but not as reliable
 > as it is on gfx9. It will probably need some more work until it survives
 > a whole night of reset stress testing.
+
+Does disabling the second  gfx pipe help?  E.g., set
+adev->gfx.me.num_pipe_per_me =3D 1;
+
+Alex
+
 >
 > Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
 > ---
@@ -247,11 +253,6 @@ g_funcs_compute =3D {
 >         .emit_reg_write_reg_wait =3D gfx_v10_0_ring_emit_reg_write_reg_wa=
 it,
 > -       .soft_recovery =3D gfx_v10_0_ring_soft_recovery,
-
-And here.
-
-Alex
-
 >         .emit_mem_sync =3D gfx_v10_0_emit_mem_sync,
 >         .reset =3D gfx_v10_0_reset_kcq,
 >         .emit_cleaner_shader =3D gfx_v10_0_ring_emit_cleaner_shader,
