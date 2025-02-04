@@ -4,76 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF9A5C02194
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 Feb 2025 13:58:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60C79C02194
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 Feb 2025 14:31:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7053710E341;
-	Tue,  4 Feb 2025 13:58:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0DA2210E661;
+	Tue,  4 Feb 2025 14:31:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Kyl6BPwO";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QNHDuSCs";
 	dkim-atps=neutral
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com
- [209.85.216.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7BD6110E341;
- Tue,  4 Feb 2025 13:58:45 +0000 (UTC)
-Received: by mail-pj1-f41.google.com with SMTP id
- 98e67ed59e1d1-2f45526dea0so1202929a91.1; 
- Tue, 04 Feb 2025 05:58:45 -0800 (PST)
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4655810E662
+ for <amd-gfx@lists.freedesktop.org>; Tue,  4 Feb 2025 14:31:17 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-43618283d48so42143625e9.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 04 Feb 2025 06:31:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1738677525; x=1739282325; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=XsrXZFWKImkICBLcHp0bqX7Zekt5NjRR8pvJPzJAhJs=;
- b=Kyl6BPwO7U6ysP4KyFf/NXt/FP40gHdDX13pASkJAXEGSscChBjgJwxD7y0dVu4DaX
- Jr1m+hjrMisUrh6v3JHGXlJ0BuKus8V+yhwkPTFVfk1ahxctZGQjbH5Y0t0RztU2aWOS
- I2M+8dbfR3IFxhofeMUwGLcBs+3DMVwmr8TOn4bH/I0EhVSfdY5wNQjbAWGzueK2NyAE
- 59wEZ+YMECKwnJzvnnqoEfTdxxFdckXSumx9rmG5zOVLxlTKR/qhF1Dj/h4NcXIcG4tN
- CkBrPD7z61VyaPoRFZrKuq07O1tU7OvdFoXkBkdD/UiQuRB8IFjVnhQucAzICu6PpfhS
- FhNQ==
+ d=gmail.com; s=20230601; t=1738679476; x=1739284276; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:from:to:cc:subject:date:message-id:reply-to;
+ bh=m6jS/iW8hbFj5Vv4IbwSRCEs5J/d2lId7ZuIiC51rmU=;
+ b=QNHDuSCs68pvEoaGZvkBc6J2BnDJ2DYSAjnDmGC2JfZcs2t1D8khRbIG5YCD2ZiD56
+ aG6goSVAP7+LI/OEwcDCcWvslso6FIKnci3kPPY9uTvNn+H9t8nwrdIlGAd7sbrmHtjS
+ JZpxFXM+o72LXh3uAi2gyWxWLGasvIUQPjrc+f4V3vNCvInm9wSA5uug8hPYX9y3AX0c
+ zFlONldAAA5c77IwcXxPeCfe39taB5op/8e/7B0M9Dzt6LCAYQCqL5v+XOovtGrd0YfQ
+ VBC9dtJQzjceeoawf5tcpbCZEysA6HaBFhy7umMVM87UU+wDXxuDGBwwXWYySUIvUBnO
+ jfUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1738677525; x=1739282325;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=XsrXZFWKImkICBLcHp0bqX7Zekt5NjRR8pvJPzJAhJs=;
- b=eP3CcSR2rU5wLaksEfV/6GqDPXO+G9jo6aNnKVa4ImYo1S+uhD2cE983HBOza0Kmmf
- 6A40SjqW6jp4vCE1v/mGHsW41aRgQH7O8894mNzTAx5R17m/Lbf7cRcxHb3+IvCg6W/G
- ovE2tU+Q5mUx9wkqnu3zNECi0prVwLijUG6AtntROT0xY6smSvEkps3aBiYY5oczwLh6
- vThRXChZO/9UZQtQnFg1gt/CXerenHhbPJ5QribE1uMiSFRoz/2WRXMAo5Z7g71U5sb1
- SxIX5EzOmrCdSFhQZIkZDSTEg25prDpyVOgPF4+H33G+e5T9dpv8Ov6GFfoTAVHuJhJl
- xShQ==
+ d=1e100.net; s=20230601; t=1738679476; x=1739284276;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=m6jS/iW8hbFj5Vv4IbwSRCEs5J/d2lId7ZuIiC51rmU=;
+ b=N5SyuYfcZx4THXwrBtyvLAxkkcViINWlnqOQm9ys8SXJSUFoN1BFc0QK9vjrVU0JXF
+ H6IHt4oSfA+v/vy6sAVEhEAwK8JtX9U7Jh1x5zW/Rq/lISHYy4+tXRBOCh00r7MM7dbq
+ PRvV+tvcR+zTAFQmrN6Jjo+YwHpq1GtScglqDCgssU8SwAvfXEYCpnatxqUk99r4qdlt
+ fsjpfoaWVuzMdk59sSug/vRngiaJrQYB6xX30X8FkOOh4vYi2vd2AZB0iXBiokGFBNzh
+ 5VrcOps3jCbFxu2ywrIDDuZpOcBS/wCMLOJrLj6lefq99GpHsCNsGzkQiCawZMQef9Uf
+ LeYg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU7Fn10hQuSxXx/0TJT3tdKv+nU4kwYNTz/cmDtGQ0pO9cg+fComcc0VqF9xjmsfquxi3dDenQSdpD/@lists.freedesktop.org,
- AJvYcCXJgTUXRjrQiZzHIm6KgyoUQVnlGeUpPNHGbm2SwUeCoK6jicuvNddsRK+aiYU4Sn5xbTSyIBVI@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyE7Krq2S1iX0BvBmgFBNEP02uyqlov/k4uAyS1eDxO6z9CY5Pp
- /QkDeR0kLeOnZdw0bEwdZsHt3tXBkDMoEzun4YP8rPbQroz2ADDU4siR9LJJyUepXUgdnSgzfcs
- oSye+0UciLsO7IecntwwcEXro8oo=
-X-Gm-Gg: ASbGnctDPfu8Rk8Piz0CFw+3+ZfD5sH3LL48QjAzHNfYv3dK7JrmkrQ3mrOvNXsOGGR
- DH0tt8fexjngp1jmEi12H2HmxcB+cnkM27RnHzznJkDKemeCPOKTp5U6A/sh8K5+n3hOpVf79
-X-Google-Smtp-Source: AGHT+IGL5zK++NHUFXZ370F4xSJDePMYmNGPkxXP4JSICyd0y5kyjG7oa19EZ3ruoEAtHrKdzcn715cPE9xaXFpvAvE=
-X-Received: by 2002:a17:90b:50cd:b0:2ee:b665:12ce with SMTP id
- 98e67ed59e1d1-2f9b8c23b0emr2173926a91.1.1738677524881; Tue, 04 Feb 2025
- 05:58:44 -0800 (PST)
+ AJvYcCWIPiM4Jt2v1lb7k3vJA2h7bqYEeYkRSLTzuG9RbrmtW2nOmdP+5ULMUinGYiVFXPNUucX2QYMG@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxlayCCbXW/mLFYVLX1RDtL9ymZ1V4fx/ulOUeq7xYRov+hziD3
+ +lTdfCjaAfNcvW3rhBt/aOQxosUDSoLJ19QSpToX4dGmlAxphLBE
+X-Gm-Gg: ASbGncsmkhtJCdtmqV9Vv2RJv/9Oo00+gTOdVHYPUt4n8w/FTnLT1HoQjnC/9vWPkm3
+ LOyOBF6PH4xGSmZ5PDyDr8K6l5AitVsWVXDETsuB+s4v5EL5iOwKR3xT7HUWPCONRZEYaN7UUMV
+ fainYCcKrKYMnO/SasMDKnXDq7PUM/kmqV0umDwBiCYNwTumoiVtCMN8/2OhtwKbDYbi4CKaN4F
+ Li+Jq+cYFD/VtXc8aGR0L6DYgPUeJyv/TOW3e6nu0WXZlka9Rorj/Dg2VLwREjd1gaVxVrY63ib
+ v5Ma61DcIwArjimjjrB5xJozZmt5
+X-Google-Smtp-Source: AGHT+IESKCafhroexNVXFH0Qh8vRQFGQ9VSVZkXvrP8HCE1IdG921juYhNr5FWbL/1zj3rpEqbwpjA==
+X-Received: by 2002:a05:600c:3b94:b0:434:a929:42bb with SMTP id
+ 5b1f17b1804b1-438dc3cbb71mr237313795e9.18.1738679475327; 
+ Tue, 04 Feb 2025 06:31:15 -0800 (PST)
+Received: from able.fritz.box ([2a00:e180:15d3:1100:15c3:7ea2:8ff1:462c])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-438e244eb0dsm194169135e9.27.2025.02.04.06.31.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 04 Feb 2025 06:31:14 -0800 (PST)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: timur.kristof@gmail.com, Alexander.Deucher@amd.com,
+ amd-gfx@lists.freedesktop.org
+Subject: Rework and fix queue reset for gfx7-gfx10
+Date: Tue,  4 Feb 2025 15:31:08 +0100
+Message-Id: <20250204143113.6320-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20240819072110.108715-1-friedrich.vock@gmx.de>
- <8488e172-4d50-4cd6-8d2b-fd86d6126425@amd.com>
- <e6330f10-a736-4ccd-8a0e-95e1899648d6@gmx.de>
- <2217a9b5-894a-4f1c-95f8-dbd6f18fc8b4@amd.com>
-In-Reply-To: <2217a9b5-894a-4f1c-95f8-dbd6f18fc8b4@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 4 Feb 2025 08:58:32 -0500
-X-Gm-Features: AWEUYZlYiXFeHArFRI_z43OrClNmPRAgU_CHJW_tnNvmUW7_Oa3XiNLiqJ9BC60
-Message-ID: <CADnq5_NC1ZxjCS8-cHsLTB_2DAeiMr_+LeRXwMtUQQ7MrrX_bg@mail.gmail.com>
-Subject: Re: [PATCH v3 0/3] drm/amdgpu: Explicit sync for GEM VA operations
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Friedrich Vock <friedrich.vock@gmx.de>, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, "Sharma, Shashank" <Shashank.Sharma@amd.com>, 
- Alex Deucher <Alexander.Deucher@amd.com>,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>, 
- Tatsuyuki Ishi <ishitatsuyuki@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,117 +85,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Feb 4, 2025 at 8:37=E2=80=AFAM Christian K=C3=B6nig <christian.koen=
-ig@amd.com> wrote:
->
-> Hi Friedrich,
->
-> adding Alex.
->
-> Am 04.02.25 um 13:32 schrieb Friedrich Vock:
-> > Hi,
-> >
-> > On 19.08.24 13:21, Christian K=C3=B6nig wrote:
-> >> Am 19.08.24 um 09:21 schrieb Friedrich Vock:
-> >>> In Vulkan, it is the application's responsibility to perform adequate
-> >>> synchronization before a sparse unmap, replace or BO destroy operatio=
-n.
-> >>> This adds an option to AMDGPU_VA_OPs to disable redundant implicit sy=
-nc
-> >>> that happens on sparse unmap or replace operations.
-> >>>
-> >>> This has seen a significant improvement in stutter in Forza Horizon 5
-> >>> and Forza Horizon 4. (As games that had significant issues in sparse
-> >>> binding related stutter).
-> >>
-> >> Looks pretty good, I have Shashank and his team working on the similar
-> >> patches ever since Bas initially came up with it since we need it for
-> >> user queues as well.
-> >>
-> >> Shashank can you take a look at the UAPI? Of hand looks pretty similar
-> >> to what we have done as well, doesn't it?
-> >>
-> >> For the internal implementation in the VM I'm currently working on a b=
-ug
-> >> fix for the KFD team, so this is subject to change anyway. Going to ke=
-ep
-> >> this requirement here in mind while doing that, whatever implementatio=
-n
-> >> we end up with we probably need to re-base it anyway.
-> >
-> > Bumping this again - it's been quite a while, what became of that KFD
-> > bugfix and the userqueue stuff? It'd be nice to finally make progress
-> > here, whether it's using the user queue interface you worked on or a
-> > re-spin of this. Maybe it's possible to split this off from the rest of
-> > the userqueue stuff and merge it beforehand if you're reasonably certai=
-n
-> > about how the uapi should look? Let me know.
->
-> That is merged into amd-staging-drm-next for quite a while now, but we
-> only defined the interface and dropped all optimizations to initially
-> get it upstream.
->
-> @Alex IIRC we pushed the KFD part upstream already, but the userqueue
-> part is still waiting for the final firmware release, right?
+Hi guys,
 
-Correct.
+I finally found time to work on queue reset a bit more and also gave it
+some more testing.
 
-Alex
+The per VMID reset actually seems to work 100% reliable at least on gfx9.
 
->
-> Regards,
-> Christian.
->
-> >
-> > Thanks,
-> > Friedrich
-> >
-> >>
-> >> Regards,
-> >> Christian.
-> >>
-> >>>
-> >>> Userspace changes for this new version can be found at [1][2], and a
-> >>> kernel
-> >>> branch containing these patches can be found at [3].
-> >>>
-> >>> [1] https://gitlab.freedesktop.org/pixelcluster/drm/-/commits/vm-
-> >>> explicit-sync
-> >>> [2] https://gitlab.freedesktop.org/pixelcluster/mesa/-/commits/vm-
-> >>> explicit-sync
-> >>> [3] https://gitlab.freedesktop.org/pixelcluster/linux/-/commits/
-> >>> amdgpu-vm-explicit-sync
-> >>>
-> >>> v3 changes:
-> >>> - Rebased onto current amd-staging-drm-next
-> >>> - Added option to wait for drm_syncobjs instead of executing
-> >>> immediately
-> >>>
-> >>> Tatsuyuki Ishi (3):
-> >>>    drm/amdgpu: Don't implicit sync PRT maps.
-> >>>    drm/amdgpu: Add optional explicit sync fences for GEM operations.
-> >>>    drm/amdgpu: Bump amdgpu driver version.
-> >>>
-> >>>   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |  2 +-
-> >>>   drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c       |  2 +-
-> >>>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  3 +-
-> >>>   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c       | 76
-> >>> ++++++++++++++++---
-> >>>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.h    | 23 +++++-
-> >>>   drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h     |  6 +-
-> >>>   drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c  |  2 +-
-> >>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        | 68 +++++++++++-----=
--
-> >>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h        | 30 ++++----
-> >>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm_cpu.c    | 12 ++-
-> >>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c     |  2 +-
-> >>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c   |  9 +++
-> >>>   drivers/gpu/drm/amd/amdkfd/kfd_svm.c          | 18 ++---
-> >>>   include/uapi/drm/amdgpu_drm.h                 |  7 ++
-> >>>   14 files changed, 194 insertions(+), 66 deletions(-)
-> >>>
-> >>> --
-> >>> 2.46.0
-> >>>
-> >
->
+What still could be is that an application is using multiple VMIDs on the
+graphics ring or that we re-use the same VMID for a different application.
+Preventing this will need some more work on the VMID management.
+
+The compute queue reset as well as the gfx11 and gfx12 code unfortunately
+still has some calls to amdgpu_bo_reserv/amdgpu_bo_kmap in their path
+which are totally illegal inside the reset handling, but that can be fixed
+later on.
+
+Please test, comment and review,
+Christian.
+
+
