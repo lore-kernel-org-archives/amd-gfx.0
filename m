@@ -4,66 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA253C02192
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Feb 2025 19:13:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B231C02198
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Feb 2025 19:33:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 730A210E1DA;
-	Wed,  5 Feb 2025 19:13:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D19B610E1AC;
+	Wed,  5 Feb 2025 19:33:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PQUwFacZ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EqEahlyf";
 	dkim-atps=neutral
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
- [209.85.214.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA51310E1DA
- for <amd-gfx@lists.freedesktop.org>; Wed,  5 Feb 2025 19:13:50 +0000 (UTC)
-Received: by mail-pl1-f177.google.com with SMTP id
- d9443c01a7336-21bb2c2a74dso434715ad.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 05 Feb 2025 11:13:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1738782830; x=1739387630; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=4HrUYCovtZ7DPFvqjP/ux7vAwyc1nNJz8Gk1KCgxCwg=;
- b=PQUwFacZcelPxC42Nncanm5Y6zhxOsRJiU1QQqDzbhmGgs4/SSu8iKmWqRxfLeqNwN
- PFKmq9kA1a0Gt06Wah52NzvYvF4iJOK329/H+UhDRSVCR+GbkAZQmQemHy+ypjitiE9B
- g5DjIoWDHZzpQPt+g6CCuIu3bDGrYwMuGboWGl0ciPna8omgyCfIzJO0TPQLdFCjVZWE
- Lfw+LG6bJRbMMmd+yLTb3WzbL/mAtCz0vCgeN0lPWRC1tQUnF4mx78wdW4rfQ3vmeLZE
- 0dX2ArP8qLSpWg+lNr6NJ9GfoPu2dRoEzrqpI1qHwXapjuVKwVpEJTvkOBCQPtuQxw1x
- sR1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1738782830; x=1739387630;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=4HrUYCovtZ7DPFvqjP/ux7vAwyc1nNJz8Gk1KCgxCwg=;
- b=qxBWkOXOhTvgYzkltV0Z50Ia9kGNpOzpLd5WQsw1BVQxM1YBoM7uEAaqytC27QOs8c
- 0SdymNPzRYY1nC4bY6XBH0s/iaoZJZCYgC+8Scsym5i8jOlSLZwbFhHXoiGUdvrvh6Ge
- L8CAMJjrltvkFOW/fJjZlUAZMVFRJpVs1c+yN2Hvz1ZtHcv1OvKPTak8ve3RiXw+DW6F
- h8QiO30hlx5697F/s25NbX8lhxb/sXzQ1jCtDULagjp+7Uos+6rayT3mX6qgxvdry7jN
- McoBMD7OBzSN9TCdEXoAbARB/Yjt+zNbTgkW6ykw8kyYAxEcjaBg3jvzE9FQzvGjIKCj
- aisQ==
-X-Gm-Message-State: AOJu0YybkHIPrQEF6zG2p4xF7qYCQP2d5a2SMXa5RAjeVl+FL3ZJRivK
- 5Swap6Q2gzJvfxn88/kv8HWauX/nDSANQK+ol0T94O58p4vYnSt84KLBM0tqtyGJXX61GDBDKh7
- 0WmlKLjNy4fniFFHG5wCQcatktnk=
-X-Gm-Gg: ASbGncsZVfHu9MyMdSPyQyBfqSnQWokZ3TONwumALBvXVzkhtn85y2CwzQNaeTGQN9V
- 86yHTUfgkSay72g/D9ijMuRN/lkJ1R9IV9r/tZdepJjN7vGPZ3uIAWdtOO1CualRPrg4iTRN8
-X-Google-Smtp-Source: AGHT+IHS62c2sjG+AlScxRxCh1W9ojKBbfmE59zx+wKpyYugwB0bIKrpwnpT+9UOBsG1lg0g4a0fipSv0Dn5yF8hx38=
-X-Received: by 2002:a17:902:ce03:b0:20b:9b07:777a with SMTP id
- d9443c01a7336-21f17ebe96bmr25888045ad.10.1738782830299; Wed, 05 Feb 2025
- 11:13:50 -0800 (PST)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F0F410E16E;
+ Wed,  5 Feb 2025 19:31:37 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id CB8435C6E34;
+ Wed,  5 Feb 2025 19:30:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A2AAC4CED1;
+ Wed,  5 Feb 2025 19:31:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1738783896;
+ bh=TklnhMPTz9MZgTgCoP4k/AarOTEH8Uakl9lWKzjBM9I=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=EqEahlyfZ8Ezb14/+a4acIV54dlmKExnStf2tR7ipYhKw+RFI9VvVpiwvXWkZpXMA
+ l/gAqPa+3lEBXghlB7DLmDUsVE1QgP7JjHxoq5V/YQNhdonL7mDJrv1tL3eDDowPaj
+ rn6O+qX3WpUF+53KefWwFHuc9o+AA45FTY942mOAP0iU6sdxAu3Evu20t6Qk/JGB1I
+ 9DxVFwPnC8B0sbqUMVnDVWQPiKVo0fAna9gLiXurBZr4HrTw3MZSpDdUvF0Av7C9Sr
+ Tv1avIXo/nav9foVGoJmrml9kWT0PGm10ffpr62xjVkUmlKpME3yhAdwgyAGzLkA+f
+ Acnu8V5qGN8Cw==
+Message-ID: <0451e510-f8e4-4539-a3ce-cc9fbe71964f@kernel.org>
+Date: Wed, 5 Feb 2025 13:31:34 -0600
 MIME-Version: 1.0
-References: <20250205183738.103990-1-shaoyun.liu@amd.com>
-In-Reply-To: <20250205183738.103990-1-shaoyun.liu@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 5 Feb 2025 14:13:38 -0500
-X-Gm-Features: AWEUYZnNTm9MyInMU21qh6_4WvEyy95_G803GgO786q6lD5Ey9-XwnaZMG7NNtE
-Message-ID: <CADnq5_OXOegZQ=iHJanfAi6K7ZhpdzccLe3eNcP-ceBTzKCNFA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/include : MES v11 and v12 API header update
-To: Shaoyun Liu <shaoyun.liu@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd: Refactor find_system_memory()
+To: Felix Kuehling <felix.kuehling@amd.com>, mario.limonciello@amd.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, simona@ffwll.ch
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+References: <20250204222140.3883013-1-superm1@kernel.org>
+ <65b47db9-883b-46c6-919a-e84c3ffde401@amd.com>
+Content-Language: en-US
+From: Mario Limonciello <superm1@kernel.org>
+In-Reply-To: <65b47db9-883b-46c6-919a-e84c3ffde401@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,56 +60,121 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+On 2/4/2025 17:19, Felix Kuehling wrote:
+> 
+> On 2025-02-04 17:21, Mario Limonciello wrote:
+>> From: Mario Limonciello <mario.limonciello@amd.com>
+>>
+>> find_system_memory() pulls out two fields from an SMBIOS type 17
+>> device and sets them on KFD devices. This however is pulling from
+>> the middle of the field in the SMBIOS device and leads to an unaligned
+>> access.
+>>
+>> Instead use a struct representation to access the members and pull
+>> out the two specific fields.
+> 
+> Isn't that still an unaligned access? I don't understand the purpose of this patch.
 
-On Wed, Feb 5, 2025 at 1:57=E2=80=AFPM Shaoyun Liu <shaoyun.liu@amd.com> wr=
-ote:
->
-> MES requires driver set cleaner_shader_fence_mc_addr
-> for cleaner shader support.
->
-> Signed-off-by: Shaoyun Liu <shaoyun.liu@amd.com>
-> ---
->  drivers/gpu/drm/amd/include/mes_v11_api_def.h | 3 ++-
->  drivers/gpu/drm/amd/include/mes_v12_api_def.h | 2 ++
->  2 files changed, 4 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/include/mes_v11_api_def.h b/drivers/gpu/=
-drm/amd/include/mes_v11_api_def.h
-> index eb46cb10c24d..6b5cd347dfb5 100644
-> --- a/drivers/gpu/drm/amd/include/mes_v11_api_def.h
-> +++ b/drivers/gpu/drm/amd/include/mes_v11_api_def.h
-> @@ -266,7 +266,8 @@ union MESAPI_SET_HW_RESOURCES_1 {
->                 };
->                 uint64_t                                                 =
-       mes_info_ctx_mc_addr;
->                 uint32_t                                                 =
-       mes_info_ctx_size;
-> -               uint32_t                                                 =
-       mes_kiq_unmap_timeout; // unit is 100ms
-> +               uint64_t                                                 =
-       reserved;
-> +               uint64_t                                                 =
-       cleaner_shader_fence_mc_addr;
->         };
->
->         uint32_t max_dwords_in_api[API_FRAME_SIZE_IN_DWORDS];
-> diff --git a/drivers/gpu/drm/amd/include/mes_v12_api_def.h b/drivers/gpu/=
-drm/amd/include/mes_v12_api_def.h
-> index c9b2ca5cf75f..1938150a1943 100644
-> --- a/drivers/gpu/drm/amd/include/mes_v12_api_def.h
-> +++ b/drivers/gpu/drm/amd/include/mes_v12_api_def.h
-> @@ -278,6 +278,8 @@ union MESAPI_SET_HW_RESOURCES_1 {
->                 uint32_t                            mes_debug_ctx_size;
->                 /* unit is 100ms */
->                 uint32_t                            mes_kiq_unmap_timeout=
-;
-> +               uint64_t                            reserved;
-> +               uint64_t                            cleaner_shader_fence_=
-mc_addr;
->         };
->
->         uint32_t max_dwords_in_api[API_FRAME_SIZE_IN_DWORDS];
-> --
-> 2.34.1
->
+Unless I added wrong, it looked to me that the offset it was pulling 
+from previously was incorrect.  So I was expecting it should be aligned 
+(and less error prone) to pull from the correct offset from a struct.
+
+> 
+> One more comment inline.
+> 
+>>
+>> Link: https://www.dmtf.org/sites/default/files/standards/documents/DSP0134_3.8.0.pdf p99
+>> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 27 +++++++++++------------
+>>   drivers/gpu/drm/amd/amdkfd/kfd_topology.h | 17 ++++++++++++++
+>>   2 files changed, 30 insertions(+), 14 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+>> index ceb9fb475ef13..93d3924dfcba0 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+>> @@ -968,24 +968,23 @@ static void kfd_update_system_properties(void)
+>>   	up_read(&topology_lock);
+>>   }
+>>   
+>> -static void find_system_memory(const struct dmi_header *dm,
+>> -	void *private)
+>> +static void find_system_memory(const struct dmi_header *dm, void *private)
+>>   {
+>> +	struct dmi_mem_device *memdev = (struct dmi_mem_device *)(dm);
+> 
+> I think it would be cleaner to use container_of to get a pointer to the structure containing the header.
+
+Ack.
+
+> 
+> Regards,
+>    Felix
+> 
+>>   	struct kfd_mem_properties *mem;
+>> -	u16 mem_width, mem_clock;
+>>   	struct kfd_topology_device *kdev =
+>>   		(struct kfd_topology_device *)private;
+>> -	const u8 *dmi_data = (const u8 *)(dm + 1);
+>> -
+>> -	if (dm->type == DMI_ENTRY_MEM_DEVICE && dm->length >= 0x15) {
+>> -		mem_width = (u16)(*(const u16 *)(dmi_data + 0x6));
+>> -		mem_clock = (u16)(*(const u16 *)(dmi_data + 0x11));
+>> -		list_for_each_entry(mem, &kdev->mem_props, list) {
+>> -			if (mem_width != 0xFFFF && mem_width != 0)
+>> -				mem->width = mem_width;
+>> -			if (mem_clock != 0)
+>> -				mem->mem_clk_max = mem_clock;
+>> -		}
+>> +
+>> +	if (memdev->header.type != DMI_ENTRY_MEM_DEVICE)
+>> +		return;
+>> +	if (memdev->header.length < sizeof(struct dmi_mem_device))
+>> +		return;
+>> +
+>> +	list_for_each_entry(mem, &kdev->mem_props, list) {
+>> +		if (memdev->total_width != 0xFFFF && memdev->total_width != 0)
+>> +			mem->width = memdev->total_width;
+>> +		if (memdev->speed != 0)
+>> +			mem->mem_clk_max = memdev->speed;
+>>   	}
+>>   }
+>>   
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.h b/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
+>> index 155b5c410af16..f06c9db7ddde9 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
+>> @@ -24,6 +24,7 @@
+>>   #ifndef __KFD_TOPOLOGY_H__
+>>   #define __KFD_TOPOLOGY_H__
+>>   
+>> +#include <linux/dmi.h>
+>>   #include <linux/types.h>
+>>   #include <linux/list.h>
+>>   #include <linux/kfd_sysfs.h>
+>> @@ -179,6 +180,22 @@ struct kfd_system_properties {
+>>   	struct attribute	attr_props;
+>>   };
+>>   
+>> +struct dmi_mem_device {
+>> +	struct dmi_header header;
+>> +	u16 physical_handle;
+>> +	u16 error_handle;
+>> +	u16 total_width;
+>> +	u16 data_width;
+>> +	u16 size;
+>> +	u8 form_factor;
+>> +	u8 device_set;
+>> +	u8 device_locator;
+>> +	u8 bank_locator;
+>> +	u8 memory_type;
+>> +	u16 type_detail;
+>> +	u16 speed;
+>> +} __packed;
+>> +
+>>   struct kfd_topology_device *kfd_create_topology_device(
+>>   		struct list_head *device_list);
+>>   void kfd_release_topology_device_list(struct list_head *device_list);
+> 
+
