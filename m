@@ -4,141 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DDCDC02192
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Feb 2025 20:21:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E749CC02196
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Feb 2025 20:33:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94BE610E3E0;
-	Wed,  5 Feb 2025 20:21:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9AEE810E3E7;
+	Wed,  5 Feb 2025 20:33:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="DMQLKAqG";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="syp2JRvH";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2060.outbound.protection.outlook.com [40.107.93.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB1F910E3E0
- for <amd-gfx@lists.freedesktop.org>; Wed,  5 Feb 2025 20:19:33 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2046.outbound.protection.outlook.com [40.107.237.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8AE1E10E202;
+ Wed,  5 Feb 2025 20:33:20 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vr9EyqTzTSrIT4nCsPZTjvUHjHlilF1KqQ/i8MPaeTfKlYztSerJLIZ4NTqdjqL6SP4pves6XzASKos+8ru3xfxYFLllhY7aSDlE8RYjKZTx+V0AcBPLksDeI62y14wXjW9S5THqdj5ePl1bpMCJW2aqlNoKF6hZ5Lsn48ZoWHr4roLBslj8+dzuKFOC3y31Gznwt0dpdMfY9EkrTU8I6/t+7Af20LLjvvYQ/7OSi+v4VsmJHdylS/0DkkGKr/wiR7ccFP0h06XRzi9+WxV8ofJGvRk6+aGnyWG4uptENB+YyVPSjhguj/gy6s33BipSsaiJyBhFz+Ai/WcgJeEpJg==
+ b=zUEhSlV7k+YyFcAMETDglLJaT750uMubIUI/LQEwFwUs9E8zAFnUrOemAAGR/JR5t+qL8o+6bAKc5TpR8bkupHB8oPDzqoYxFrv6qQSGqEdTl4Atgop4UoX5d44GInfCslVII2oJF15fMG/qIMes3pbNjHueweIpkR18XT6Y0U2nbsql1/SegiqxVPDtT1BtMgcq00hXEqbyZqZGanzv0DOawyYUqpV1TkR7sgsmZSrcom5KZBT4cESYrMCoEakCOncq+hdqsmL4CtVQKpDI+iNUypF56wiqKxzdkgjAm0lI5TCzvzKzAAP2kpkN0bfT3Jy4epq6qic+LuPZ97Id3Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4AXF9wGnEQhJqcBWre/rpPUg1HYEg1p31qgaTsYKdAc=;
- b=rwt+/I5GG4GeVTrcM5HhTLV42JB2ITK+Bbp+C9grSVs882mIvPzY7nZQyTBS/zkgby//RU1Swkh66wVG3jvkkVbSX2zvJgPf7ZYzUPZgrJQj/lG9mUplMoaZ8DJNovH9UpscVJqtMAtfNoYffyrrTKbbIDZdyPgriiSCUiuQIYiu4v27TaTFrONi22706P4OHb583jA4jWQ3CghFPqtzooO6NGK8sYsoStzGQcILj+XVEGhrTervjwGvrwTzvfWlpAIZy7nL+90Gwqo9JKgNyyGmQIyRr1kNio/fnvv/sjRIEShuj2XYmHql1NCbRdw5XmT5/eUnT+FwDs3moHwpKw==
+ bh=L4CxEX86f1Lq9mrAbN5qY76KutdlUk0eXTCOL82FiMA=;
+ b=aO/BaI8u86XQEE3TWs7cwXWe+IJ3x5sKET35aX+7PkBJef9wmqWlfjG8CeelGOzdfShIGlIsV9YEuaBvuIkwULnIu/koHHxZSPFgYnyaLFbi1iXMTRK/a3F1JJqJNMKk7GsCS7nEB5TbHx2Gq4TnHS3JjQztqv+FOVoIrBNTN1/j1U3V+b8kklicSTGImPFwWgCkO8MINLWVaAMibqJ4A0IdNCr40e+GNX32cKdKdJHUlvDTWpfo3kRyGfGuwIoafL1AIWVGkuIMImxMyjAHVUu3aRvAOsYLHBSLasBbZV1TlZ9Z3tuzk46+xygiqYOaO605aJdQLIzQozqmuFhefQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4AXF9wGnEQhJqcBWre/rpPUg1HYEg1p31qgaTsYKdAc=;
- b=DMQLKAqGqUx36KSAEKfTIJaplmV+YJ/D7VbH+aKcZe8bWiZfyaGYs9QxvGkDsy2tKyoJEucQh5lKL9LqKHRhBcaH88K7qioYiVedS+TCIIP5l7IdGddZkodkNULRUcS/O/PR08/4Z5wJQBVxUdA+GB2h7srclH53/1AQ9/k07bo=
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
- by PH0PR12MB8175.namprd12.prod.outlook.com (2603:10b6:510:291::5)
+ bh=L4CxEX86f1Lq9mrAbN5qY76KutdlUk0eXTCOL82FiMA=;
+ b=syp2JRvHBSnLr33DNcARu62SX9LZDDprGQan0IcpWZgTp+XOYstAG/lyuUlNdkr8ypPQEEnhE2ubZBFgC7ckxltSCBDH7N59YV5GhYMWR+NsnWwiXGcxF2mTAaLed9U4B/TDZ5AvKjq0d0/OXtax2Wlys6D9LgtwcmF1eLenJXU=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by SJ2PR12MB8112.namprd12.prod.outlook.com (2603:10b6:a03:4f8::21)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8398.24; Wed, 5 Feb
- 2025 20:19:30 +0000
-Received: from BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::491a:cce3:e531:3c42]) by BL1PR12MB5144.namprd12.prod.outlook.com
- ([fe80::491a:cce3:e531:3c42%4]) with mapi id 15.20.8422.010; Wed, 5 Feb 2025
- 20:19:30 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-Subject: Re: [PATCH] drm/amdgpu: Clean up atom header file inclusion
-Thread-Topic: [PATCH] drm/amdgpu: Clean up atom header file inclusion
-Thread-Index: AQHbd6K1J9xqwrnpkk2rJxr0JaKFj7M5JyOs
-Date: Wed, 5 Feb 2025 20:19:30 +0000
-Message-ID: <BL1PR12MB51449F4A93C5217F777BCF70F7F72@BL1PR12MB5144.namprd12.prod.outlook.com>
-References: <20250205075044.1896764-1-lijo.lazar@amd.com>
-In-Reply-To: <20250205075044.1896764-1-lijo.lazar@amd.com>
-Accept-Language: en-US
+ 2025 20:33:16 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::9269:317f:e85:cf81]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::9269:317f:e85:cf81%7]) with mapi id 15.20.8422.010; Wed, 5 Feb 2025
+ 20:33:16 +0000
+Message-ID: <30fbb0d6-b911-4a99-bcdc-38e2ede5eaa0@amd.com>
+Date: Wed, 5 Feb 2025 15:33:14 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd: Refactor find_system_memory()
+To: Mario Limonciello <superm1@kernel.org>, mario.limonciello@amd.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, simona@ffwll.ch
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+References: <20250204222140.3883013-1-superm1@kernel.org>
+ <65b47db9-883b-46c6-919a-e84c3ffde401@amd.com>
+ <0451e510-f8e4-4539-a3ce-cc9fbe71964f@kernel.org>
 Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2025-02-05T20:19:30.200Z;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
- Source; MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=0;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged; 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BL1PR12MB5144:EE_|PH0PR12MB8175:EE_
-x-ms-office365-filtering-correlation-id: f9977048-a1f7-4777-e2e6-08dd462265d5
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|38070700018|7053199007|8096899003; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?00UMe2cVi1WYPVzIBSRK2xQ2CIR8WCmtIrXbdIoeQbMf6tCKK/aWasx9OygA?=
- =?us-ascii?Q?Iyz3ZHPyudXD9vREvVYq87so4Z2garDLen5l0JQby9DkeJproSmVVRxhpEAL?=
- =?us-ascii?Q?HDLF8Y/PgDYOmTGu88nl/Kw4GukqQJyveELqzHCBHS8kaqGdYyu65z8OR4BA?=
- =?us-ascii?Q?Uc5Kdjy4AmMX2+acc9gKwMhvBEn0/qdAff0IcF8RTRFKc/F+6qMi2zO/ssBb?=
- =?us-ascii?Q?Axzx6qTPw3Bfzt+pCeA2MCibrOhCQzVIOA50TVn+h5+140WiQMbOcoVGQRDo?=
- =?us-ascii?Q?8HQzJXoabINQJHsRMP1UDJlaclnBASVqc/Cqcobg5C8QRr4Rks29ReyCDRe+?=
- =?us-ascii?Q?MVsHxXNrtn+l2HlOwMe0ADtj+RTJB5NP4zxhvcbT3M1E0q8WDqZ6+UviMY/+?=
- =?us-ascii?Q?b2zxzdnfOFqvjqowTL4xTruUQcDDUVyczaBHgsatr7ePktpHkioS4Km4kiaF?=
- =?us-ascii?Q?cvY4h2oCevQmF0jRnxclzmVFbmQ/rWGmYz4Fnt6A0zbrfrEl6v2gRljJIXcm?=
- =?us-ascii?Q?91xSh8Bdqof1IAXiWbzmfQw/mUXyurncJDZwgdvlr7PQCydnNgVknhtb28AX?=
- =?us-ascii?Q?fHjAcI6wrsrvUamLq3G6yDhoL9Uzu8beWzUuWPAEAt32DDz6uYujyP7NDpPO?=
- =?us-ascii?Q?wjRTOCNMCMwohlpUW8CPQ51M9zCQ/OxNkd/m4MdT5gl5sXZh2PPNFwLkKRP2?=
- =?us-ascii?Q?XKJJ1PNDY6I1XF+AnjFS38+ccSj4u0d5kpwGIf4kmGXy+1ApXSd8w+wGYwwZ?=
- =?us-ascii?Q?hueYJZfOzJZaiy+oL83luN5gmTgSMyJi1dcJbGykAOMoLaJsk9JVPlyemhYj?=
- =?us-ascii?Q?0CcSsT4mzd08weHibUHL63o5kNInW2cPm2pBsXDPX5Azae+FqVxm2Hbn5zPH?=
- =?us-ascii?Q?ncQqLH+tvy+NbLYgoNeOg8H1AkkBTtvtef3oz80cnGwBq69+wXzKRSG18Ksu?=
- =?us-ascii?Q?AG2NR2dQdjjt9U0NRxAt9bchSEgj4Mr5rG85WRCIPpH2nMT7VkXDKe0Y5Tqv?=
- =?us-ascii?Q?0DkTuVKQCV00+U07CmUww2gixun+jrBTuHRspOyVW0VzuTjGZZIfxf/y7pLw?=
- =?us-ascii?Q?+5GakJ6bmxatpm836wxxuNXMshpZ+CdKfRMHe9buP++5BjwvKH9zr4dA3PBA?=
- =?us-ascii?Q?inluTo6UTwKI//5LuX7C6GmwRnyxxUaSMTqMSVQYlxJdWX0OJkz/eEdV5aUy?=
- =?us-ascii?Q?NePIM1CC2pEZbpkJAGSfjNzQfDimW36nN6KSNfa99Fn6RyeC6WxUhaX5IC2T?=
- =?us-ascii?Q?PetmRbBUsRuzDubOif2+AbkWfjWgHQATDZb8ilAKr/lTKJKhb6cTLJbHXr1L?=
- =?us-ascii?Q?0IdXjvTOXxjRVExiqwY8ydJCgkC2i96bHvC88fCXZ+0RXhAtOEXfjQAFtmzh?=
- =?us-ascii?Q?PaW6LdAPbL32co3xoB43nhVaNXXrxS68exEzcP8LFApkCitfok7dwJPumemg?=
- =?us-ascii?Q?y/V6jh7+iGkuUPZW/d5SXdI3L5qwQ5ri?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(38070700018)(7053199007)(8096899003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?qht0Lyx7SMVKsOzn2ZHn8z1E+IiZB+ADtiYFx4IyDdAlO+Pin62b58I1wpXm?=
- =?us-ascii?Q?FrRas4XNReEgDpYxT16Wqwkr3BjkQ/MweUatsVuIz6o/ovKy2pwKoz2MjgJm?=
- =?us-ascii?Q?2nPCmE8K3eZOti4twTc1uIvH0OtdBASE9EVuWm8dSh9bAeoPFl03cRD2Pwav?=
- =?us-ascii?Q?KLVlGY7C9AkkKhx6BTt4QVn2vIeQNy9KilhqapsyHDn9oDkyItpB1md9WFJK?=
- =?us-ascii?Q?L7a4+d+pkRVZCVWRHDqdafDk9WPxS9QYDEjgotg6GfCGIIGH+I17GvzdFG4C?=
- =?us-ascii?Q?e1aBLrPKP2qPZaSNWb4BO3PzAVHBZJ6ZUNP0BO1DlgXKz4IzBZBRt8uFIOBX?=
- =?us-ascii?Q?RBXwSQiQKn6BDNYWZg2Ki5iMzRyqT3n3BebDqUnstHEBxASc1RieLDSPPVIH?=
- =?us-ascii?Q?eiaVP2FQ3u4baPbzr/DqATAPLaxSJHXOl0WHfHOg8Z00eW6Gadh40cZStw69?=
- =?us-ascii?Q?4MScuqShV5XIeMs4StOICgMza87UEWMgxKd4/eS2cTOyDD/YqbFvhyzscwOI?=
- =?us-ascii?Q?0T9NznFa2uyxQs8kY+n+9O92UUx5UIj2ZkLOxDgbPk90QHiwAZRZw3vkkpcy?=
- =?us-ascii?Q?gys+5i8ZZZWnvTWtXF1TEq5mT/CdjSBfLaCa/X+XG/Tl3rdj20scIm8jBXa4?=
- =?us-ascii?Q?6gd+64kmt3kTI/fOeHwulERpKVJD7qzeJ7ehLEvaSJUbsr3qW+yGbCC8lBXs?=
- =?us-ascii?Q?SaSNa32o7hQWrNRLD1WNNCC1xPm1YOvFHZfgG8BF49jCaQtVf3MoAdMtFM96?=
- =?us-ascii?Q?YJbGV3d8KMRQIiHhOYELtlN+IR1kDM9qWKR4NkNdMM59Q9jn8/z9rLtxmL/n?=
- =?us-ascii?Q?/wBZFU/0bIiUfCXPmSPRmxvUax/EQRFvXrVADuGa4bEgxgK6D7XhJsi97FKa?=
- =?us-ascii?Q?u+hnkmqmdLE7Xz2aPCu5LXK0iQfsVVrGJDu4Uy1sAPLxuBVTJ5uoeoTN0mi5?=
- =?us-ascii?Q?ZlEzsmooj0/V7mwFfZJir+LM/tJoywRVxEA8ASQr+2zNN4t7QaqoA3X+7jXh?=
- =?us-ascii?Q?94uaQZBPYqB/aknwH4qy9nkbRFncOSaDQ555yo9c5td2HMSt/e0BKIwaDVn9?=
- =?us-ascii?Q?eR3ODNXRaurs4i+zY18sdOKyzEtsH9otbw3FT8+D8OFvq7Pq6vhlaLXjjqrE?=
- =?us-ascii?Q?y/fk+PmAtwHgLu0r1KdcUWF+05x3YCm/m3hAbjp/YohLVNH6pkCuTVvgOK+e?=
- =?us-ascii?Q?Z0VkL77c52XM+omTGPZk5aea/geCpok/Ys/8wQq08IWbrR1T2uxwBfC/rBP5?=
- =?us-ascii?Q?oBTVtuBV584slwApiRC2SNhWe1yG/1puDbmLL+7CpCC4me4eyhdPR4ujJeFB?=
- =?us-ascii?Q?3sd1VgXgcypqEhTRe0rKPyPO2kGFRqG5mdImRNqzOuIf5nX6p8/Z73iUw9Qj?=
- =?us-ascii?Q?UtuMxQIanpf/K5vL9BMYrg3eQNwTxDhnwgQwn4bu9DJ3VZk74Tdcbx74s5NX?=
- =?us-ascii?Q?nYZym14cWpuZ0HrZNbUW5rPGHzD/1cqPX73Bh1OTxsBGH7UGV9EfJTIS6fmw?=
- =?us-ascii?Q?sX9tb5Q61xM4IFc0dOdv6NnTT9lTgP5cFHetTlKOfAqIaQdzQcNw4KixbfF1?=
- =?us-ascii?Q?CR9+1nrBoDp24FBENug=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_BL1PR12MB51449F4A93C5217F777BCF70F7F72BL1PR12MB5144namp_"
+From: Felix Kuehling <felix.kuehling@amd.com>
+In-Reply-To: <0451e510-f8e4-4539-a3ce-cc9fbe71964f@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YQBPR0101CA0012.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c00::25) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|SJ2PR12MB8112:EE_
+X-MS-Office365-Filtering-Correlation-Id: 05737265-dc0a-4d60-f762-08dd46245205
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?bkZrUCtwVEtWYjEyOWM5YzlQaWJsRUpDWEZlaXBJOEcrTEtqZDJ4aDlwMGNl?=
+ =?utf-8?B?MzRKVXZBdGIxSWVOU1kxY0hEaVg2aWlLT09UUzJYUDVqRzBIYmNLRFNRbVJJ?=
+ =?utf-8?B?QWRvTkdrQVloRExKL05hdGtwdTB4RlhialFUNzVEUnRxVytGWU1vZnZoQ0E5?=
+ =?utf-8?B?eDY4QnZBMnJEMjZ6Y0NkUkpBTEN0SE1tMzlGOWpIdG1vcEJMSkpKRHhCYzB2?=
+ =?utf-8?B?Q21PUE5Eek9wUzJ4bithUFlkSnNqYW90bEFaTndnK2RqTERkWE11U2NxUi82?=
+ =?utf-8?B?Tm9NRE5kc3NIakt2V29lSjlTRHFubzVsTTVFcDAwbkcvYmZQUGV2Z29nUE1V?=
+ =?utf-8?B?ZU95a1h2MnRvYjNwRlQ2YW1pbkF5eE43T2FvNUlITVFyQ0ttUllYZ3duU1JS?=
+ =?utf-8?B?aEp1VDNRR0VQL3BzRGsyWmdoM2NaS2V5QmVIVXczS044OTFUaEpjUFI2Vm5E?=
+ =?utf-8?B?RUU3NWFucnBWeGlZNkhWN25ubDdXVjVTVktEaElNOC9qNFVUTWNXSzdaVkpF?=
+ =?utf-8?B?RjRMY056WHhlZTVXQ2hjTHJDMVc0YTFPUWxLYXdMSWN3d250UnE5UlJBbDhC?=
+ =?utf-8?B?V1JRdHFHWWV3dFZSQ0ZBSXNQeTg3dy9wRjFHTzcxZVdFcVk1TG1HQXJVL0M1?=
+ =?utf-8?B?VkMrWkw4WnNnaUJQbHZKNE14bU5hNlI0TVVsRnU3Q0lXdGwyWFhIWlNYZHll?=
+ =?utf-8?B?M214VEY1N2lsaHZaUFU4ZlcvMWtXbi9HOTdQUFJ0dFVlUVJpNGl6WG1zQWl5?=
+ =?utf-8?B?VHl4eHB4MmFwQ2lYVzVTS3dOQmVsaVlCM1BxQkU3cERrUU1YSEFPMzVBYkll?=
+ =?utf-8?B?U3lrZVVhSmVZUFA3OEVUU3RSZ1ViRXRPTHhtSDdjNDNZRmlzT3J2Nk5RNisr?=
+ =?utf-8?B?eUcrNDBVdGxVdGgybkViN2xTdE9udFpUWGdjVm1NNEpaOEZEYWgrOS9HVGR3?=
+ =?utf-8?B?VmM0V3haeG94M2NjQUQ5UGQwUnVUWFBpRWJ4SUVRMEV5NlRmMGp6SGFSU2hL?=
+ =?utf-8?B?czBzdHErNnB3YVQ0Q1pPamt3Mlk3czRWN0l3WHI1Mmt0YUZyNUs5K0g1MFJw?=
+ =?utf-8?B?VkNlNHFQaUo2V3VneWN0ZmVUb0hEMGwvYTU3SkF0aEtvNU82ZWViZmwvL0h6?=
+ =?utf-8?B?U2RaRHhmMFBXMlZFZ2JZVFpEdmpycHVvRmpzSytpUW55a1p0TmZ4b3lSODdp?=
+ =?utf-8?B?VTJLM05jYkQ1cFhaUVJzbGozMDFZbTlKNlp6eGx5aUxPcWZ2d0pudHp2bXJr?=
+ =?utf-8?B?OCsvdmJoWWx1L3pJdjJnckw3b295ZVFhTElyemNINmVXTjkyUkRWd3E3QzFD?=
+ =?utf-8?B?dkZMcld0ZzFjWEdGaW9jYjJJa05yNjJRU0RkbHluSnFGTnlzVnFpWEY1MXdl?=
+ =?utf-8?B?TFZsTEV6ZDhkM2xXMFZBK25iS2NIRjJtRWczVCtFd0RhU3E3R3U5WVJLTnI3?=
+ =?utf-8?B?UWx0RHc5RXZqUDl6UCs4RmdsSzM0SEdqblZkT25ha3lLWVlxSFpTWW5waDVO?=
+ =?utf-8?B?QjN3YmxFWXN5WGc1S0VZMmlGVmwvb29MWFJIOERQd1E4cEpqYlhiT21Qd0ZR?=
+ =?utf-8?B?RUtvUWhwdjVBUm1ja1RvR0ViTTR6dDZnTkJFQVlYVlFIV3lIa2NXM2ZFeXNR?=
+ =?utf-8?B?eCtxbCtFd3pvT2JhOVQ5Vnp4UzFvMUV3d1BlSkRoN1ZGRnJXL2FtQ2x0Y2FF?=
+ =?utf-8?B?SjcyNjZVRUw5aUNEb0d4bk5kbXVnRWhkNGdMZFdBMGsvQmpLQjVQMGZtTmNk?=
+ =?utf-8?B?K3NtTm5lYlVzNzlRS0VaR29aa0hhSlJkZlI4dTVPbEpvNUlRajF1c0g2MjI1?=
+ =?utf-8?B?ZS9sb1o0MzJ1UnFHZ3BkZz09?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OXBmQjh2VGowNHdFOWpPZGxnczNSL1lRa1dhdmgwZktNS0NUeTBHamJ6RjBQ?=
+ =?utf-8?B?QzZVdzhwZWRPY3VLY0pvVC9PUjhCNTNZVHVUTmtoT3A3a3h1Lyt1VUI3dmly?=
+ =?utf-8?B?dk44YnN3ckt6SUVkVHZxZEpvVmlEZXlRcEl1Um9HM25iRjV2aWpzV3puUHBa?=
+ =?utf-8?B?Tyt6azAvODhsVW8ySVc4YzJRZ3J0L3NiMWFqeXZLdVliNmZKZWMvSVdGanlL?=
+ =?utf-8?B?NmNMRmVNNWgyM1NLdGN6bXhuTEx5UjE1aDJ5TkpZaTY3TnFZRk5DOTJqMmkr?=
+ =?utf-8?B?WHJIRDBIQkhnMDF3Tk1wUFBkMWpPNzVVd1lTUW1mK2phUDNoQWtlaU9KZnhr?=
+ =?utf-8?B?Y2QvTTNza3dWeFNlSGt2b2RGeDNmVlZiK0prdEozSHhNdDZFRlpKWlhZMnRi?=
+ =?utf-8?B?OHRhbGRBTzEvdTJYYUlxRDhnN2pRdnBMZUQ4RU1sdmlDS0s3QzR4NEY1S01B?=
+ =?utf-8?B?WVFVMWZydGZ3LzBVcW9rYXNyMm5ueVczQURrRTVleldnK3VJNllBcSsvbFpN?=
+ =?utf-8?B?Z3hlMnpJWGZ1N29OZnJia3FCR3VWcVJraWhVVlVHTlNyWTFIK0J2ZFF5VmxT?=
+ =?utf-8?B?N3FUcll1MkxxU2tTMHpEOWNEaDNsRHUwZXovSm5LNGJCVU5GMU5iNFg3ODBm?=
+ =?utf-8?B?RTBjbzFzeUJkdFVyQkZ3T2FGdENuS0ZVZG5EaXF2T01Dek5LS1V6Z3pZOFJr?=
+ =?utf-8?B?VTRaajBXMzhyb2hiaHNGNFltaDFOOU0wdDdoY2ZwU3MxdWJxQ1lIaTgvckVR?=
+ =?utf-8?B?TU5JaUNZc0V6MVAxNVcxVklJQmhzb1R1N1N2ZStmN3Z3UmN0Znd5SklFdlU2?=
+ =?utf-8?B?dFhIV3FlWTY3Yk8xZ2tvTnF3aUpuWjFlcU5UaVZBSittYUxGVlRuZ2tTQ1VS?=
+ =?utf-8?B?QS92M2pOMjFMTkEramRjT0REditPTlZDclJxU0tDMTRnajZQaGVhRjlQTWpM?=
+ =?utf-8?B?aWFLQ3dNNzh1WGgvd3REVEQrc3dMOWxJT1RjRFlZY0NMQ0FQNFdWZDhMNWxO?=
+ =?utf-8?B?a0tSaFF3K3BhVzMzTmxkNFEwNDJhVWU5SVFSR09wZ0RQYWVmbklFNVFwVDV3?=
+ =?utf-8?B?K3dpYWhUZVZMT1RSbXZlTVBQaVRlVXNHNE5DTkNUZnlEdjNndjQ0UWo3UnlR?=
+ =?utf-8?B?L2dpS1Jjdkh0TlhSdzIzdEZOZkdqNkNUbkNCN25wd0Z4ais4TTVwQUoveGI1?=
+ =?utf-8?B?ZmdJWDVGbFM4Z001allXRkkydk52aHVNYlJDZ0ZZZnF5cjZIS041aXVFMUx1?=
+ =?utf-8?B?RWpuQXMyT0Z1NURwQkloSDdmd01rU2ZLelpJUEd3amlmOElsWUJEaFlsTlNv?=
+ =?utf-8?B?cnhzamhZVThZY1lDajhzY2JULzZBbUR2dUlna2l3Mlh3YnJCOEQ0NWJkNnBS?=
+ =?utf-8?B?R3hhdXZNRjd2emFrQXpXQVYvcVU5NGxnL09aZW5SaldpdGRPbDhGNlg0YXZp?=
+ =?utf-8?B?ZUFJUHcwaEhJQTI3SFJCakVndWpkOEZFVzF1VDFSTW9kaWNxQStGb2hoSi9V?=
+ =?utf-8?B?UlVuQnJoVFY4ZzZTQ3QvMVpxT3RFaEhpcTlxOGRoVXJzQ09ZN0xwSG1SekFD?=
+ =?utf-8?B?RVlHU1lMakY0bitCdGZleEhRMXVyeURtbzdaUWNaZWJFY2xqOFJxRk84ZG1U?=
+ =?utf-8?B?SEtveFFpS2o1eGJlVFAwM0x3ckg1RWZ3RGk1bXM3WEozb2xHYTNEcEFMajM1?=
+ =?utf-8?B?WUt6WHM0Zys2d25SZ29jMXF4L3oxR3loUzAyd1Y1cWtPTjVYU1RpNVRsWkhN?=
+ =?utf-8?B?NFB2QmVWdHB3NlM2aDZOb2k4ZUg1S1Y3MHZFT1M2VGYyY0lFYkNDMnc5ZDgv?=
+ =?utf-8?B?cWZRUmp4NS9kbkJ1dmYxQ0JJM3I4dHJTcmZiaE5tblF4ME41YmtmQUdvTXlo?=
+ =?utf-8?B?b2RQZlNuN2hRS2YrVmhXRWZidlkweTNzNzR1bGk2Mkg2OTlGdGhZcEpSRzNS?=
+ =?utf-8?B?RkljNVV1SjRPQWNtbmh0N25GS3dNYzhDSm5HK3JRcmxEdnVvNzVOK3NEbTNO?=
+ =?utf-8?B?ejlPcGdDc3lHcGljays3ZVFrcHR5dmF3QlpyWWlZLytmZDNVUTU4cEtucEky?=
+ =?utf-8?B?aFlnLzgxbEczL1NzY2oyL0hOSzNOMU4vYjM2UWo1UnBFMm44QVdCckc1YUQr?=
+ =?utf-8?Q?Yji6hwvopjwcHDKDsPG5jvjIc?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 05737265-dc0a-4d60-f762-08dd46245205
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f9977048-a1f7-4777-e2e6-08dd462265d5
-X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Feb 2025 20:19:30.7718 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: eJaPRfwlHZhi7TcDMU9RPkvc3iBN0bHJ9vWBNk8ZN5d5bvIsFyBpM7MyQQp/2M8uiiAGxg8cvuL9ESmBqMMuXw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8175
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Feb 2025 20:33:16.7046 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: OIZTtsIh6keF6CcfpxFO4+hNulrDFpsjPI5fzuUZDiLx58B5l9/hAa190COO14NqGAqNCp8P/wMkZ9dfoPRs9A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8112
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,692 +162,131 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BL1PR12MB51449F4A93C5217F777BCF70F7F72BL1PR12MB5144namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-[Public]
-
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-________________________________
-From: Lazar, Lijo <Lijo.Lazar@amd.com>
-Sent: Wednesday, February 5, 2025 2:50 AM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander <Alexander.D=
-eucher@amd.com>
-Subject: [PATCH] drm/amdgpu: Clean up atom header file inclusion
-
-atom bios header files are not required in these files.
-
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 1 -
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c       | 1 -
- drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c       | 1 -
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4.c        | 1 -
- drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c        | 1 -
- drivers/gpu/drm/amd/amdgpu/hdp_v5_0.c        | 1 -
- drivers/gpu/drm/amd/amdgpu/hdp_v5_2.c        | 1 -
- drivers/gpu/drm/amd/amdgpu/hdp_v6_0.c        | 1 -
- drivers/gpu/drm/amd/amdgpu/hdp_v7_0.c        | 1 -
- drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.c     | 1 -
- drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c       | 1 -
- drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c       | 1 -
- drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c       | 1 -
- drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c       | 1 -
- drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c      | 1 -
- drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c       | 1 -
- drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c       | 1 -
- drivers/gpu/drm/amd/amdgpu/nbio_v7_7.c       | 1 -
- drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c       | 1 -
- drivers/gpu/drm/amd/amdgpu/soc15.c           | 1 -
- drivers/gpu/drm/amd/amdgpu/soc24.c           | 1 -
- 21 files changed, 21 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_vram_mgr.c
-index ff5e52025266..6da8994e0469 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-@@ -28,7 +28,6 @@
- #include "amdgpu.h"
- #include "amdgpu_vm.h"
- #include "amdgpu_res_cursor.h"
--#include "amdgpu_atomfirmware.h"
- #include "atom.h"
-
- #define AMDGPU_MAX_SG_SEGMENT_SIZE      (2UL << 30)
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/gfx_v11_0.c
-index 89d17750af04..aabc5bacd154 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-@@ -29,7 +29,6 @@
- #include "amdgpu_gfx.h"
- #include "amdgpu_psp.h"
- #include "amdgpu_smu.h"
--#include "amdgpu_atomfirmware.h"
- #include "imu_v11_0.h"
- #include "soc21.h"
- #include "nvd.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/gfx_v12_0.c
-index db5cc060de85..638507422f9b 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-@@ -29,7 +29,6 @@
- #include "amdgpu_gfx.h"
- #include "amdgpu_psp.h"
- #include "amdgpu_smu.h"
--#include "amdgpu_atomfirmware.h"
- #include "imu_v12_0.h"
- #include "soc24.h"
- #include "nvd.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4.c b/drivers/gpu/drm/amd/am=
-dgpu/gfx_v9_4.c
-index f53b379d8971..6028afd81690 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4.c
-@@ -27,7 +27,6 @@
- #include "amdgpu_gfx.h"
- #include "soc15.h"
- #include "soc15d.h"
--#include "amdgpu_atomfirmware.h"
- #include "amdgpu_pm.h"
-
- #include "gc/gc_9_4_1_offset.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c b/drivers/gpu/drm/amd/am=
-dgpu/hdp_v4_0.c
-index 194026e9be33..f1dc13b3ab38 100644
---- a/drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c
-@@ -21,7 +21,6 @@
-  *
-  */
- #include "amdgpu.h"
--#include "amdgpu_atombios.h"
- #include "hdp_v4_0.h"
- #include "amdgpu_ras.h"
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/hdp_v5_0.c b/drivers/gpu/drm/amd/am=
-dgpu/hdp_v5_0.c
-index d3962d469088..43195c079748 100644
---- a/drivers/gpu/drm/amd/amdgpu/hdp_v5_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/hdp_v5_0.c
-@@ -21,7 +21,6 @@
-  *
-  */
- #include "amdgpu.h"
--#include "amdgpu_atombios.h"
- #include "hdp_v5_0.h"
-
- #include "hdp/hdp_5_0_0_offset.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/hdp_v5_2.c b/drivers/gpu/drm/amd/am=
-dgpu/hdp_v5_2.c
-index f52552c5fa27..fcb8dd2876bc 100644
---- a/drivers/gpu/drm/amd/amdgpu/hdp_v5_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/hdp_v5_2.c
-@@ -21,7 +21,6 @@
-  *
-  */
- #include "amdgpu.h"
--#include "amdgpu_atombios.h"
- #include "hdp_v5_2.h"
-
- #include "hdp/hdp_5_2_1_offset.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/hdp_v6_0.c b/drivers/gpu/drm/amd/am=
-dgpu/hdp_v6_0.c
-index 6948fe9956ce..a88d25a06c29 100644
---- a/drivers/gpu/drm/amd/amdgpu/hdp_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/hdp_v6_0.c
-@@ -21,7 +21,6 @@
-  *
-  */
- #include "amdgpu.h"
--#include "amdgpu_atombios.h"
- #include "hdp_v6_0.h"
-
- #include "hdp/hdp_6_0_0_offset.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/hdp_v7_0.c b/drivers/gpu/drm/amd/am=
-dgpu/hdp_v7_0.c
-index 63820329f67e..49f7eb4fbd11 100644
---- a/drivers/gpu/drm/amd/amdgpu/hdp_v7_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/hdp_v7_0.c
-@@ -21,7 +21,6 @@
-  *
-  */
- #include "amdgpu.h"
--#include "amdgpu_atombios.h"
- #include "hdp_v7_0.h"
-
- #include "hdp/hdp_7_0_0_offset.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.c b/drivers/gpu/drm/amd=
-/amdgpu/nbif_v6_3_1.c
-index c92875ceb31f..9900fe5c3bc3 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.c
-@@ -21,7 +21,6 @@
-  *
-  */
- #include "amdgpu.h"
--#include "amdgpu_atombios.h"
- #include "nbif_v6_3_1.h"
-
- #include "nbif/nbif_6_3_1_offset.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c b/drivers/gpu/drm/amd/a=
-mdgpu/nbio_v2_3.c
-index 739fce4fa8fd..04041b398781 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c
-@@ -21,7 +21,6 @@
-  *
-  */
- #include "amdgpu.h"
--#include "amdgpu_atombios.h"
- #include "nbio_v2_3.h"
-
- #include "nbio/nbio_2_3_default.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c b/drivers/gpu/drm/amd/a=
-mdgpu/nbio_v4_3.c
-index a54052dea8bf..f89e5f40e1a5 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c
-@@ -21,7 +21,6 @@
-  *
-  */
- #include "amdgpu.h"
--#include "amdgpu_atombios.h"
- #include "nbio_v4_3.h"
-
- #include "nbio/nbio_4_3_0_offset.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c b/drivers/gpu/drm/amd/a=
-mdgpu/nbio_v6_1.c
-index 34180c6070dd..e911368c1aeb 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c
-@@ -21,7 +21,6 @@
-  *
-  */
- #include "amdgpu.h"
--#include "amdgpu_atombios.h"
- #include "nbio_v6_1.h"
-
- #include "nbio/nbio_6_1_default.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/nbio_v7_0.c
-index d1032e9992b4..1569a1e934ec 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c
-@@ -21,7 +21,6 @@
-  *
-  */
- #include "amdgpu.h"
--#include "amdgpu_atombios.h"
- #include "nbio_v7_0.h"
-
- #include "nbio/nbio_7_0_default.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c b/drivers/gpu/drm/amd/=
-amdgpu/nbio_v7_11.c
-index 41421da63a08..2ece3ae75ec1 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c
-@@ -21,7 +21,6 @@
-  *
-  */
- #include "amdgpu.h"
--#include "amdgpu_atombios.h"
- #include "nbio_v7_11.h"
-
- #include "nbio/nbio_7_11_0_offset.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c b/drivers/gpu/drm/amd/a=
-mdgpu/nbio_v7_2.c
-index a766e2d90cd0..acc5f363684a 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c
-@@ -21,7 +21,6 @@
-  *
-  */
- #include "amdgpu.h"
--#include "amdgpu_atombios.h"
- #include "nbio_v7_2.h"
-
- #include "nbio/nbio_7_2_0_offset.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c b/drivers/gpu/drm/amd/a=
-mdgpu/nbio_v7_4.c
-index a26a9be58eac..d5002ff931d8 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
-@@ -21,7 +21,6 @@
-  *
-  */
- #include "amdgpu.h"
--#include "amdgpu_atombios.h"
- #include "nbio_v7_4.h"
- #include "amdgpu_ras.h"
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_7.c b/drivers/gpu/drm/amd/a=
-mdgpu/nbio_v7_7.c
-index 3fb6d2aa7e3b..2ee60b8746a6 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_7.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_7.c
-@@ -21,7 +21,6 @@
-  *
-  */
- #include "amdgpu.h"
--#include "amdgpu_atombios.h"
- #include "nbio_v7_7.h"
-
- #include "nbio/nbio_7_7_0_offset.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c b/drivers/gpu/drm/amd/a=
-mdgpu/nbio_v7_9.c
-index 8a0a63ac88d2..f23cb79110d6 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
-@@ -21,7 +21,6 @@
-  *
-  */
- #include "amdgpu.h"
--#include "amdgpu_atombios.h"
- #include "nbio_v7_9.h"
- #include "amdgpu_ras.h"
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgp=
-u/soc15.c
-index 0e1daefd1a8e..6f8d867b290e 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-@@ -28,7 +28,6 @@
- #include <drm/amdgpu_drm.h>
-
- #include "amdgpu.h"
--#include "amdgpu_atombios.h"
- #include "amdgpu_ih.h"
- #include "amdgpu_uvd.h"
- #include "amdgpu_vce.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc24.c b/drivers/gpu/drm/amd/amdgp=
-u/soc24.c
-index 6b8e078ee7c7..69c5c8769395 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc24.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc24.c
-@@ -26,7 +26,6 @@
- #include <linux/pci.h>
-
- #include "amdgpu.h"
--#include "amdgpu_atombios.h"
- #include "amdgpu_ih.h"
- #include "amdgpu_uvd.h"
- #include "amdgpu_vce.h"
---
-2.25.1
 
 
---_000_BL1PR12MB51449F4A93C5217F777BCF70F7F72BL1PR12MB5144namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+On 2025-02-05 14:31, Mario Limonciello wrote:
+> On 2/4/2025 17:19, Felix Kuehling wrote:
+>>
+>> On 2025-02-04 17:21, Mario Limonciello wrote:
+>>> From: Mario Limonciello <mario.limonciello@amd.com>
+>>>
+>>> find_system_memory() pulls out two fields from an SMBIOS type 17
+>>> device and sets them on KFD devices. This however is pulling from
+>>> the middle of the field in the SMBIOS device and leads to an unaligned
+>>> access.
+>>>
+>>> Instead use a struct representation to access the members and pull
+>>> out the two specific fields.
+>>
+>> Isn't that still an unaligned access? I don't understand the purpose of this patch.
+> 
+> Unless I added wrong, it looked to me that the offset it was pulling from previously was incorrect.  So I was expecting it should be aligned (and less error prone) to pull from the correct offset from a struct.
 
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Calibri;font-size:10pt;color:#008000;margin:5pt;fon=
-t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
-[Public]<br>
-</p>
-<br>
-<div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-Reviewed-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Lazar, Lijo &lt;Lijo.=
-Lazar@amd.com&gt;<br>
-<b>Sent:</b> Wednesday, February 5, 2025 2:50 AM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; Deucher, Alexander=
- &lt;Alexander.Deucher@amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: Clean up atom header file inclusion</fo=
-nt>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">atom bios header files are not required in these f=
-iles.<br>
-<br>
-Signed-off-by: Lijo Lazar &lt;lijo.lazar@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 1 -<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp; | 1 -<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp; | 1 -<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v9_4.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; | 1 -<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; | 1 -<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/hdp_v5_0.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; | 1 -<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/hdp_v5_2.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; | 1 -<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/hdp_v6_0.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; | 1 -<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/hdp_v7_0.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; | 1 -<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.c&nbsp;&nbsp;&nbsp;&nbsp; | 1 =
--<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp; | 1 -<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp; | 1 -<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp; | 1 -<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp; | 1 -<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
- | 1 -<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp; | 1 -<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp; | 1 -<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/nbio_v7_7.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp; | 1 -<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp; | 1 -<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/soc15.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp; | 1 -<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/soc24.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp; | 1 -<br>
-&nbsp;21 files changed, 21 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_vram_mgr.c<br>
-index ff5e52025266..6da8994e0469 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c<br>
-@@ -28,7 +28,6 @@<br>
-&nbsp;#include &quot;amdgpu.h&quot;<br>
-&nbsp;#include &quot;amdgpu_vm.h&quot;<br>
-&nbsp;#include &quot;amdgpu_res_cursor.h&quot;<br>
--#include &quot;amdgpu_atomfirmware.h&quot;<br>
-&nbsp;#include &quot;atom.h&quot;<br>
-&nbsp;<br>
-&nbsp;#define AMDGPU_MAX_SG_SEGMENT_SIZE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (2UL=
- &lt;&lt; 30)<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/gfx_v11_0.c<br>
-index 89d17750af04..aabc5bacd154 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c<br>
-@@ -29,7 +29,6 @@<br>
-&nbsp;#include &quot;amdgpu_gfx.h&quot;<br>
-&nbsp;#include &quot;amdgpu_psp.h&quot;<br>
-&nbsp;#include &quot;amdgpu_smu.h&quot;<br>
--#include &quot;amdgpu_atomfirmware.h&quot;<br>
-&nbsp;#include &quot;imu_v11_0.h&quot;<br>
-&nbsp;#include &quot;soc21.h&quot;<br>
-&nbsp;#include &quot;nvd.h&quot;<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/gfx_v12_0.c<br>
-index db5cc060de85..638507422f9b 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c<br>
-@@ -29,7 +29,6 @@<br>
-&nbsp;#include &quot;amdgpu_gfx.h&quot;<br>
-&nbsp;#include &quot;amdgpu_psp.h&quot;<br>
-&nbsp;#include &quot;amdgpu_smu.h&quot;<br>
--#include &quot;amdgpu_atomfirmware.h&quot;<br>
-&nbsp;#include &quot;imu_v12_0.h&quot;<br>
-&nbsp;#include &quot;soc24.h&quot;<br>
-&nbsp;#include &quot;nvd.h&quot;<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4.c b/drivers/gpu/drm/amd/am=
-dgpu/gfx_v9_4.c<br>
-index f53b379d8971..6028afd81690 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4.c<br>
-@@ -27,7 +27,6 @@<br>
-&nbsp;#include &quot;amdgpu_gfx.h&quot;<br>
-&nbsp;#include &quot;soc15.h&quot;<br>
-&nbsp;#include &quot;soc15d.h&quot;<br>
--#include &quot;amdgpu_atomfirmware.h&quot;<br>
-&nbsp;#include &quot;amdgpu_pm.h&quot;<br>
-&nbsp;<br>
-&nbsp;#include &quot;gc/gc_9_4_1_offset.h&quot;<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c b/drivers/gpu/drm/amd/am=
-dgpu/hdp_v4_0.c<br>
-index 194026e9be33..f1dc13b3ab38 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/hdp_v4_0.c<br>
-@@ -21,7 +21,6 @@<br>
-&nbsp; *<br>
-&nbsp; */<br>
-&nbsp;#include &quot;amdgpu.h&quot;<br>
--#include &quot;amdgpu_atombios.h&quot;<br>
-&nbsp;#include &quot;hdp_v4_0.h&quot;<br>
-&nbsp;#include &quot;amdgpu_ras.h&quot;<br>
-&nbsp;<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/hdp_v5_0.c b/drivers/gpu/drm/amd/am=
-dgpu/hdp_v5_0.c<br>
-index d3962d469088..43195c079748 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/hdp_v5_0.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/hdp_v5_0.c<br>
-@@ -21,7 +21,6 @@<br>
-&nbsp; *<br>
-&nbsp; */<br>
-&nbsp;#include &quot;amdgpu.h&quot;<br>
--#include &quot;amdgpu_atombios.h&quot;<br>
-&nbsp;#include &quot;hdp_v5_0.h&quot;<br>
-&nbsp;<br>
-&nbsp;#include &quot;hdp/hdp_5_0_0_offset.h&quot;<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/hdp_v5_2.c b/drivers/gpu/drm/amd/am=
-dgpu/hdp_v5_2.c<br>
-index f52552c5fa27..fcb8dd2876bc 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/hdp_v5_2.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/hdp_v5_2.c<br>
-@@ -21,7 +21,6 @@<br>
-&nbsp; *<br>
-&nbsp; */<br>
-&nbsp;#include &quot;amdgpu.h&quot;<br>
--#include &quot;amdgpu_atombios.h&quot;<br>
-&nbsp;#include &quot;hdp_v5_2.h&quot;<br>
-&nbsp;<br>
-&nbsp;#include &quot;hdp/hdp_5_2_1_offset.h&quot;<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/hdp_v6_0.c b/drivers/gpu/drm/amd/am=
-dgpu/hdp_v6_0.c<br>
-index 6948fe9956ce..a88d25a06c29 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/hdp_v6_0.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/hdp_v6_0.c<br>
-@@ -21,7 +21,6 @@<br>
-&nbsp; *<br>
-&nbsp; */<br>
-&nbsp;#include &quot;amdgpu.h&quot;<br>
--#include &quot;amdgpu_atombios.h&quot;<br>
-&nbsp;#include &quot;hdp_v6_0.h&quot;<br>
-&nbsp;<br>
-&nbsp;#include &quot;hdp/hdp_6_0_0_offset.h&quot;<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/hdp_v7_0.c b/drivers/gpu/drm/amd/am=
-dgpu/hdp_v7_0.c<br>
-index 63820329f67e..49f7eb4fbd11 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/hdp_v7_0.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/hdp_v7_0.c<br>
-@@ -21,7 +21,6 @@<br>
-&nbsp; *<br>
-&nbsp; */<br>
-&nbsp;#include &quot;amdgpu.h&quot;<br>
--#include &quot;amdgpu_atombios.h&quot;<br>
-&nbsp;#include &quot;hdp_v7_0.h&quot;<br>
-&nbsp;<br>
-&nbsp;#include &quot;hdp/hdp_7_0_0_offset.h&quot;<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.c b/drivers/gpu/drm/amd=
-/amdgpu/nbif_v6_3_1.c<br>
-index c92875ceb31f..9900fe5c3bc3 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.c<br>
-@@ -21,7 +21,6 @@<br>
-&nbsp; *<br>
-&nbsp; */<br>
-&nbsp;#include &quot;amdgpu.h&quot;<br>
--#include &quot;amdgpu_atombios.h&quot;<br>
-&nbsp;#include &quot;nbif_v6_3_1.h&quot;<br>
-&nbsp;<br>
-&nbsp;#include &quot;nbif/nbif_6_3_1_offset.h&quot;<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c b/drivers/gpu/drm/amd/a=
-mdgpu/nbio_v2_3.c<br>
-index 739fce4fa8fd..04041b398781 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c<br>
-@@ -21,7 +21,6 @@<br>
-&nbsp; *<br>
-&nbsp; */<br>
-&nbsp;#include &quot;amdgpu.h&quot;<br>
--#include &quot;amdgpu_atombios.h&quot;<br>
-&nbsp;#include &quot;nbio_v2_3.h&quot;<br>
-&nbsp;<br>
-&nbsp;#include &quot;nbio/nbio_2_3_default.h&quot;<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c b/drivers/gpu/drm/amd/a=
-mdgpu/nbio_v4_3.c<br>
-index a54052dea8bf..f89e5f40e1a5 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c<br>
-@@ -21,7 +21,6 @@<br>
-&nbsp; *<br>
-&nbsp; */<br>
-&nbsp;#include &quot;amdgpu.h&quot;<br>
--#include &quot;amdgpu_atombios.h&quot;<br>
-&nbsp;#include &quot;nbio_v4_3.h&quot;<br>
-&nbsp;<br>
-&nbsp;#include &quot;nbio/nbio_4_3_0_offset.h&quot;<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c b/drivers/gpu/drm/amd/a=
-mdgpu/nbio_v6_1.c<br>
-index 34180c6070dd..e911368c1aeb 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c<br>
-@@ -21,7 +21,6 @@<br>
-&nbsp; *<br>
-&nbsp; */<br>
-&nbsp;#include &quot;amdgpu.h&quot;<br>
--#include &quot;amdgpu_atombios.h&quot;<br>
-&nbsp;#include &quot;nbio_v6_1.h&quot;<br>
-&nbsp;<br>
-&nbsp;#include &quot;nbio/nbio_6_1_default.h&quot;<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/nbio_v7_0.c<br>
-index d1032e9992b4..1569a1e934ec 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c<br>
-@@ -21,7 +21,6 @@<br>
-&nbsp; *<br>
-&nbsp; */<br>
-&nbsp;#include &quot;amdgpu.h&quot;<br>
--#include &quot;amdgpu_atombios.h&quot;<br>
-&nbsp;#include &quot;nbio_v7_0.h&quot;<br>
-&nbsp;<br>
-&nbsp;#include &quot;nbio/nbio_7_0_default.h&quot;<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c b/drivers/gpu/drm/amd/=
-amdgpu/nbio_v7_11.c<br>
-index 41421da63a08..2ece3ae75ec1 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_11.c<br>
-@@ -21,7 +21,6 @@<br>
-&nbsp; *<br>
-&nbsp; */<br>
-&nbsp;#include &quot;amdgpu.h&quot;<br>
--#include &quot;amdgpu_atombios.h&quot;<br>
-&nbsp;#include &quot;nbio_v7_11.h&quot;<br>
-&nbsp;<br>
-&nbsp;#include &quot;nbio/nbio_7_11_0_offset.h&quot;<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c b/drivers/gpu/drm/amd/a=
-mdgpu/nbio_v7_2.c<br>
-index a766e2d90cd0..acc5f363684a 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_2.c<br>
-@@ -21,7 +21,6 @@<br>
-&nbsp; *<br>
-&nbsp; */<br>
-&nbsp;#include &quot;amdgpu.h&quot;<br>
--#include &quot;amdgpu_atombios.h&quot;<br>
-&nbsp;#include &quot;nbio_v7_2.h&quot;<br>
-&nbsp;<br>
-&nbsp;#include &quot;nbio/nbio_7_2_0_offset.h&quot;<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c b/drivers/gpu/drm/amd/a=
-mdgpu/nbio_v7_4.c<br>
-index a26a9be58eac..d5002ff931d8 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c<br>
-@@ -21,7 +21,6 @@<br>
-&nbsp; *<br>
-&nbsp; */<br>
-&nbsp;#include &quot;amdgpu.h&quot;<br>
--#include &quot;amdgpu_atombios.h&quot;<br>
-&nbsp;#include &quot;nbio_v7_4.h&quot;<br>
-&nbsp;#include &quot;amdgpu_ras.h&quot;<br>
-&nbsp;<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_7.c b/drivers/gpu/drm/amd/a=
-mdgpu/nbio_v7_7.c<br>
-index 3fb6d2aa7e3b..2ee60b8746a6 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_7.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_7.c<br>
-@@ -21,7 +21,6 @@<br>
-&nbsp; *<br>
-&nbsp; */<br>
-&nbsp;#include &quot;amdgpu.h&quot;<br>
--#include &quot;amdgpu_atombios.h&quot;<br>
-&nbsp;#include &quot;nbio_v7_7.h&quot;<br>
-&nbsp;<br>
-&nbsp;#include &quot;nbio/nbio_7_7_0_offset.h&quot;<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c b/drivers/gpu/drm/amd/a=
-mdgpu/nbio_v7_9.c<br>
-index 8a0a63ac88d2..f23cb79110d6 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c<br>
-@@ -21,7 +21,6 @@<br>
-&nbsp; *<br>
-&nbsp; */<br>
-&nbsp;#include &quot;amdgpu.h&quot;<br>
--#include &quot;amdgpu_atombios.h&quot;<br>
-&nbsp;#include &quot;nbio_v7_9.h&quot;<br>
-&nbsp;#include &quot;amdgpu_ras.h&quot;<br>
-&nbsp;<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgp=
-u/soc15.c<br>
-index 0e1daefd1a8e..6f8d867b290e 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
-@@ -28,7 +28,6 @@<br>
-&nbsp;#include &lt;drm/amdgpu_drm.h&gt;<br>
-&nbsp;<br>
-&nbsp;#include &quot;amdgpu.h&quot;<br>
--#include &quot;amdgpu_atombios.h&quot;<br>
-&nbsp;#include &quot;amdgpu_ih.h&quot;<br>
-&nbsp;#include &quot;amdgpu_uvd.h&quot;<br>
-&nbsp;#include &quot;amdgpu_vce.h&quot;<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc24.c b/drivers/gpu/drm/amd/amdgp=
-u/soc24.c<br>
-index 6b8e078ee7c7..69c5c8769395 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/soc24.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/soc24.c<br>
-@@ -26,7 +26,6 @@<br>
-&nbsp;#include &lt;linux/pci.h&gt;<br>
-&nbsp;<br>
-&nbsp;#include &quot;amdgpu.h&quot;<br>
--#include &quot;amdgpu_atombios.h&quot;<br>
-&nbsp;#include &quot;amdgpu_ih.h&quot;<br>
-&nbsp;#include &quot;amdgpu_uvd.h&quot;<br>
-&nbsp;#include &quot;amdgpu_vce.h&quot;<br>
--- <br>
-2.25.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
+The way I see it, the offsets that were used before were correct and match the offsets in the packed structure definition. I'm annotating the offsets from the end of the header in the structure definition below as proof.
 
---_000_BL1PR12MB51449F4A93C5217F777BCF70F7F72BL1PR12MB5144namp_--
+> 
+>>
+>> One more comment inline.
+>>
+>>>
+>>> Link: https://www.dmtf.org/sites/default/files/standards/documents/DSP0134_3.8.0.pdf p99
+>>> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+>>> ---
+>>>   drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 27 +++++++++++------------
+>>>   drivers/gpu/drm/amd/amdkfd/kfd_topology.h | 17 ++++++++++++++
+>>>   2 files changed, 30 insertions(+), 14 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+>>> index ceb9fb475ef13..93d3924dfcba0 100644
+>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+>>> @@ -968,24 +968,23 @@ static void kfd_update_system_properties(void)
+>>>       up_read(&topology_lock);
+>>>   }
+>>>   -static void find_system_memory(const struct dmi_header *dm,
+>>> -    void *private)
+>>> +static void find_system_memory(const struct dmi_header *dm, void *private)
+>>>   {
+>>> +    struct dmi_mem_device *memdev = (struct dmi_mem_device *)(dm);
+>>
+>> I think it would be cleaner to use container_of to get a pointer to the structure containing the header.
+> 
+> Ack.
+> 
+>>
+>> Regards,
+>>    Felix
+>>
+>>>       struct kfd_mem_properties *mem;
+>>> -    u16 mem_width, mem_clock;
+>>>       struct kfd_topology_device *kdev =
+>>>           (struct kfd_topology_device *)private;
+>>> -    const u8 *dmi_data = (const u8 *)(dm + 1);
+>>> -
+>>> -    if (dm->type == DMI_ENTRY_MEM_DEVICE && dm->length >= 0x15) {
+>>> -        mem_width = (u16)(*(const u16 *)(dmi_data + 0x6));
+>>> -        mem_clock = (u16)(*(const u16 *)(dmi_data + 0x11));
+>>> -        list_for_each_entry(mem, &kdev->mem_props, list) {
+>>> -            if (mem_width != 0xFFFF && mem_width != 0)
+>>> -                mem->width = mem_width;
+>>> -            if (mem_clock != 0)
+>>> -                mem->mem_clk_max = mem_clock;
+>>> -        }
+>>> +
+>>> +    if (memdev->header.type != DMI_ENTRY_MEM_DEVICE)
+>>> +        return;
+>>> +    if (memdev->header.length < sizeof(struct dmi_mem_device))
+>>> +        return;
+>>> +
+>>> +    list_for_each_entry(mem, &kdev->mem_props, list) {
+>>> +        if (memdev->total_width != 0xFFFF && memdev->total_width != 0)
+>>> +            mem->width = memdev->total_width;
+>>> +        if (memdev->speed != 0)
+>>> +            mem->mem_clk_max = memdev->speed;
+>>>       }
+>>>   }
+>>>   diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.h b/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
+>>> index 155b5c410af16..f06c9db7ddde9 100644
+>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
+>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
+>>> @@ -24,6 +24,7 @@
+>>>   #ifndef __KFD_TOPOLOGY_H__
+>>>   #define __KFD_TOPOLOGY_H__
+>>>   +#include <linux/dmi.h>
+>>>   #include <linux/types.h>
+>>>   #include <linux/list.h>
+>>>   #include <linux/kfd_sysfs.h>
+>>> @@ -179,6 +180,22 @@ struct kfd_system_properties {
+>>>       struct attribute    attr_props;
+>>>   };
+>>>   +struct dmi_mem_device {
+>>> +    struct dmi_header header;
+
+Comments below to annotate the byte offset of each field from the end of the header.
+
+>>> +    u16 physical_handle; // 0x0
+>>> +    u16 error_handle;    // 0x2
+>>> +    u16 total_width;     // 0x4
+>>> +    u16 data_width;      // 0x6 (matches the original code)
+>>> +    u16 size;            // 0x8
+>>> +    u8 form_factor;      // 0xa
+>>> +    u8 device_set;       // 0xb
+>>> +    u8 device_locator;   // 0xc
+>>> +    u8 bank_locator;     // 0xd
+>>> +    u8 memory_type;      // 0xe
+>>> +    u16 type_detail;     // 0xf
+>>> +    u16 speed;           // 0x11 (matches the original code)
+>>> +} __packed;
+
+The bottom line is, this patch doesn't change anything about which DMI data is accessed. It's still an unaligned access. Now I think your patch is still a decent cleanup. But the justification in the commit description doesn't make sense.
+
+Regards,
+  Felix
+
+>>> +
+>>>   struct kfd_topology_device *kfd_create_topology_device(
+>>>           struct list_head *device_list);
+>>>   void kfd_release_topology_device_list(struct list_head *device_list);
+>>
+> 
+
