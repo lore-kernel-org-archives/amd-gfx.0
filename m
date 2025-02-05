@@ -4,148 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9159AC02194
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Feb 2025 15:06:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E3AAC02192
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Feb 2025 15:50:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 821F210E7E7;
-	Wed,  5 Feb 2025 15:06:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F420510E386;
+	Wed,  5 Feb 2025 15:50:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="V8XveEav";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="5lRx2JR7";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2074.outbound.protection.outlook.com [40.107.93.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E917A10E1D6
- for <amd-gfx@lists.freedesktop.org>; Wed,  5 Feb 2025 15:02:38 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2081.outbound.protection.outlook.com [40.107.244.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD52710E7E1
+ for <amd-gfx@lists.freedesktop.org>; Wed,  5 Feb 2025 15:42:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tyEy9aPT4B2IK14CQrBAhHYc0/6bYjJ0qKxfgPSK8upUXRuWdkHqTAMBcNW9t1zhdQT2S6UXKEj5cSLdkulJu4n2c7/qGjvXsCY8FGCVUUi/cm1Xwz9Ht7Jsk2qUZTZPsmKPSzDG7ZT+bdzwXF98D8iaFDLxm2MIvJ9If9nvHVC4V4JLnOp3YuyFFkV4uf2HBt6+LHGKFFkEuYXjAyUsX8fIZCAbBg1rY6dELwEPTpoWaV3PaCtY9jQYgn11nIQBlpwW3S4p7iDMZe4A8TiHr0a3ojEgLmaT/OhEZPeNFsPkKEi8wTmjAUvdpVETyWUlkqUhht753fKTLgecr7Qmdw==
+ b=xZLEuYN7EG00uD1O9boymUOhW4CpdsNh4aFm1Dy6lt9COSojpIDzFjkFlFir8mzczsDw9rvcKDpDmNsePIi0bWKKxkuc0BTTySbljmp/xeomwnTJXu/mYo7fwejE+RwH2UJhcztJOjaNRkiuDTuGW4GNPEjCdgdQG4joY1Y/cfbYi1QeI1cyeEIVOAE4TZSTxvwQa5dY/ExW+gkI6w9Mu+pq9leSln6zReO6eXIyuCggihGlh+95kF5yLAUnxEsFRuxX7aUouZWST5HOQDyA/e8Nsfqm3gTVdT2YrU14PNAik0cTzqzP4s29fMjFg7eZY6oF7Ue02eZJh3LfQLkc3Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=c49Luxhv77Ut1QtaJarabWWvvpqwD/dQDPZWxvRHiME=;
- b=p9BDNaEs9mqxBGJWSLHfBgothjDpeybz3iWg88lJKBTy/Eob32PHHlMuMGZH18AmFSm2to4FkRwTDOQnjo7I4Pu5H04Cm1LoTtO6v5qRjQMe4hULNeMtuKbMCq2TPvDB351/v1y5K8CAi3o9WMalh1UY2Q8vS3Z15UjqIcshoPTKvM3Jg+U3GRSDaRgRMNaTd1Iz1MsLYct7TZ5EwbMH7Qu/G5UtDQIc53/dhzm0eUxA9rR4WoWdSWAc977fbAEZKxiTK8wMVbwqwtvW90CMxxuoTOlpMbDy2XiqNkiy51WP+SMfLRC4JPeIktN6GKR+wp66zVje9gJ4MTvms/hMMw==
+ bh=3IstRpB1AKSg+ZjNePUS7QUFshCUWARfnot2gGXaTCE=;
+ b=cuDNxcnab3u0xh4/ypQLkzCwTuPyTMtUQDC3vCpp3WSMdUI3KfQ/yV8D9vCliljP5BueE5bTxb2g52+P+oWosS3qIyYcBcieWsW+niN548gG1LOmZAQIdZNsbaW1GeZUVYF257uN1Gt+Er5SiLampa0+UXGj58aJZlUUYw2Ixd+WXWCW9rkldCLzmq1CV4WVT8o6O06ZU8zarX6MAf1TgKqdfeBKDFnZobOY79lZwaD/g5i9ZZTi9DPLnS5Y2LMdM4g2OcUL3Z2TlqcLUa+BborljFkFObD3kwq5vLvpBgHKbwCMDg/KDhFVOChCwlzLkH/bVLAgLTZk6SMtcytC1g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=c49Luxhv77Ut1QtaJarabWWvvpqwD/dQDPZWxvRHiME=;
- b=V8XveEavxipq7Y8i5NNtC3XzRQq/gSAkhkV15OuLD7JRBBr2k78s0u4KSWSsDWVZkUC4RYBx5f4EkdWCmX9C7s4fEb/ElkoBElf+kngmChnuGRGn8cKQpMMFIJzL4LmutG7kIyRK4f3l3rInkXFWw0321LkZ3GD2X1UmXbJLb94=
+ bh=3IstRpB1AKSg+ZjNePUS7QUFshCUWARfnot2gGXaTCE=;
+ b=5lRx2JR75iVDsIN/mk1NgKFmup+R/c6yHeShj/sjymy65M4Wki9xuoBvGo9HViGreRz1BdA390zWjVUqH0K2IJS4+7eIP60Pkybt4V+L4I4OsuYQVyuddIe3+1hmon658ZbcVgc4CmUHUym0rCth/WlffSqpAh2dWiqSE3Gcjfg=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CY8PR12MB7491.namprd12.prod.outlook.com (2603:10b6:930:92::15)
- by SA0PR12MB4462.namprd12.prod.outlook.com (2603:10b6:806:95::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8422.11; Wed, 5 Feb
- 2025 15:02:37 +0000
-Received: from CY8PR12MB7491.namprd12.prod.outlook.com
- ([fe80::217f:1ab1:9a5f:fecc]) by CY8PR12MB7491.namprd12.prod.outlook.com
- ([fe80::217f:1ab1:9a5f:fecc%5]) with mapi id 15.20.8398.021; Wed, 5 Feb 2025
- 15:02:37 +0000
-Content-Type: multipart/alternative;
- boundary="------------vdAL2C1kQQkza2izYAFiWxGX"
-Message-ID: <21ed8ad7-4f59-42eb-b12b-eeb740caad37@amd.com>
-Date: Wed, 5 Feb 2025 10:02:34 -0500
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DM4PR12MB5748.namprd12.prod.outlook.com (2603:10b6:8:5f::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8422.10; Wed, 5 Feb
+ 2025 15:42:11 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5%7]) with mapi id 15.20.8422.010; Wed, 5 Feb 2025
+ 15:42:11 +0000
+Message-ID: <44edde63-7181-44fb-a4f7-94e50514f539@amd.com>
+Date: Wed, 5 Feb 2025 16:42:05 +0100
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 15/44] drm/amdgpu/vcn2.5: convert internal functions to
- use vcn_inst
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20250131165741.1798488-1-alexander.deucher@amd.com>
- <20250131165741.1798488-16-alexander.deucher@amd.com>
+Subject: Re: [PATCH 1/4] drm/scheduler: Add drm_sched_cancel_all_jobs helper
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ amd-gfx@lists.freedesktop.org, "Zhang, Hawking" <Hawking.Zhang@amd.com>
+Cc: kernel-dev@igalia.com, Danilo Krummrich <dakr@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>, Philipp Stanner <phasta@kernel.org>
+References: <20250205153332.14852-1-tvrtko.ursulin@igalia.com>
+ <20250205153332.14852-2-tvrtko.ursulin@igalia.com>
 Content-Language: en-US
-From: Boyuan Zhang <Boyuan.Zhang@amd.com>
-In-Reply-To: <20250131165741.1798488-16-alexander.deucher@amd.com>
-X-ClientProxiedBy: YQZPR01CA0041.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:86::13) To CY8PR12MB7491.namprd12.prod.outlook.com
- (2603:10b6:930:92::15)
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20250205153332.14852-2-tvrtko.ursulin@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR0P281CA0042.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:48::9) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY8PR12MB7491:EE_|SA0PR12MB4462:EE_
-X-MS-Office365-Filtering-Correlation-Id: fbe8ee65-3a51-4873-2533-08dd45f620a5
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM4PR12MB5748:EE_
+X-MS-Office365-Filtering-Correlation-Id: fca467b6-b200-4c1e-0e10-08dd45fba7fb
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014|8096899003;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?M3g5WnBvcTdIbjBBMVdBbmx5REY4NGRLRm1PbFJuQzRUQWlFNlQ1OVpGbEVz?=
- =?utf-8?B?QnN4WUU4RHZrV2xCRm9ZUUJwcGhyNmJFL01LQWJSMGFCM3E5MVJ2ZDIvUUN1?=
- =?utf-8?B?YXdScGZRYit5WUpaeVF4ckNKeGsyekQwNURsQzhYeHhGUmdzVm5zMHFMZGtr?=
- =?utf-8?B?TjVYL295bTJBUHZ6cnpnbXZkR1UzSXl3aXJQUnRTMXZod1cvUlVqUUNqNlpY?=
- =?utf-8?B?SDhhelJwVm1UOW1nMVRCUkIwUXlZTkQ0K01WRGxjenJ0dERRZ3BjcFBmZ2l0?=
- =?utf-8?B?TmxIUHNmWkx2Q242T2FQeWh3QVdRWFhHSUsyQ0xLTVdxNENoUlNCQUFwOURS?=
- =?utf-8?B?cUdxdUZibzBveHBla3RxTThrVXVSZ0oxTmVuaGdjYWJaZHpweHR1TFErWWpG?=
- =?utf-8?B?WGsyZHc0TmxCRGZuTFZ4Z3pqVkZMZDRBNXk3dnN5aERTd0lDVmdmM3RmNUVo?=
- =?utf-8?B?bHl3WnRSeTNNVEs4ZTBWZ2U5MnhTQ3RyR2VUQSttSVFRSjRHRlhNamdxQ1Jt?=
- =?utf-8?B?UHdWYUU1Rks2OFVYSmlQVHNhdVQrOUJacGIyMW95SWZCR1psYlErcmFCZVZl?=
- =?utf-8?B?UlVqZWZkUG1LYkU1SkFnSHdERzFaYS8xMHJ3Rnc4UHc1d0NSV1NJVWo3ODBI?=
- =?utf-8?B?eDA1NURoUy81R1AxZURDWjB1cktsdzBwY0VPZ21uajZaT0l0eVRzSHdYdjR1?=
- =?utf-8?B?STNTRzNWSFNUM3NlR1ROVmVsdnZnYlV6NVRIVkkvVFBJUmx5ZHNEK2poVkpj?=
- =?utf-8?B?RjVtaUVNaTUyd1huNHRkakx1WHIxcGVkc0diN2tuRGZla1ZmWThieE11d3dB?=
- =?utf-8?B?NGpvQ3QxSVBYOGNpd01LS3B6SG1hZkRiTlE2eUNlZGRHUjFHQkN3dmVtYlBl?=
- =?utf-8?B?aEhnRUFZU1FXN2I3a0hPZXVVeFc0K1B2UHd5VkR4eTI1RkQyM3BJNVA5SnVX?=
- =?utf-8?B?cC9ibnZDN1pORFZiZDU4TmZGNnQxN0Z6c0k3WmQ3VXMwcld4OEV1ZTZ4aWtl?=
- =?utf-8?B?YTZDeWRlandUL3UwSWlIaE0xeHVuYTJkZElFbllyaGtzdUZyZHMxWDFxWk4x?=
- =?utf-8?B?cWxBdjIrbExDRDVVRjJCWk1ZNENNVXBVR2RlM3BmTlRNdlRKWGwxSzdZMlMz?=
- =?utf-8?B?SDhGWEYwdTVsSkVHY2QyRWlDUUh4N0JONGwyRVJmUldReXVzL1Frb29IM2VP?=
- =?utf-8?B?N0NxT0Njdms1QjBpb0VWdnZVM1p0OTRkWlBsbCtLSlcrWjNoRnpQUGg1OFI2?=
- =?utf-8?B?TWpzOTFYMzBTZ1VpaTByenMrbjFzOEdibE5tbG8rRlBqQjhwSGVia1ExTlZ6?=
- =?utf-8?B?bDVkNmZJWmxnRUJ2czh0bVpWa0JxUDcrRWtXdUwxM2pDTXNtM09rUCtVWXU2?=
- =?utf-8?B?M3ZOUmw0TDFTQWVlcVk5Qi9GRG54NjBVNGpZVUNhekZNZTNsa3FSemZzWDQ5?=
- =?utf-8?B?Z2pMejRPYXFrazBhdVB5YXAvQ0QzeFY3S0xqczhJNzhBT3FuNWhNdldWZ0t5?=
- =?utf-8?B?M3Z5SHdzb2thS2dkOFM3eW4wYlR6aGhMNVJySndYZ09nWE1sWEtHOHhweXl6?=
- =?utf-8?B?T0VwaVA5SllrQnkxNkNZQ2FLaDNROFZ5WisrdkM2cHY1K2ppbWFoSG0vWVU5?=
- =?utf-8?B?QWdhUXcrcWNkZ0tETDRvTURVV2R5US9VOFFMWVMvelpyTmZTZGRqU0g1ckZw?=
- =?utf-8?B?dlZ3QkFHMm4zSlVQbiswT0NFNE5hMEEvV1FGcGJ0WVBQU21tMWhWTDlHS2Zo?=
- =?utf-8?B?NTdoQ3pRanJzM2RYM0tKVWFFVy8yR3dQYmN0V0NyRkhsQXJJRzRoaXJENUx6?=
- =?utf-8?B?YkhuSElqQnJCYUJtQVQzYVhSRERGdnR1VHhjMGdVSlFCRE9nYldUMXlUSGJt?=
- =?utf-8?Q?ba8PwKKxUtsbE?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014|7053199007;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?UDI5NkhhRDlyK3g2L0NDRXZNZE9yYlRZUElQRHlHS3BrRlBtVm1jcTB3L3JY?=
+ =?utf-8?B?TUpEYUdUR09sM0ZCS2NXd0dYMk9PTU9jN2ZpTzVadmpuUWhTczRvVmpWcXJP?=
+ =?utf-8?B?ZXF3NlRlbjVMaU1pMWZobm4yZklFSWpoS3BJN3V1T2JhTmVYWC9kV2kwMENV?=
+ =?utf-8?B?RXlTZjN4VUI0bGw4QmlGQWJ4elR4bCtkc0lMRGs2dElvdjJLK09BZXFlWkVB?=
+ =?utf-8?B?bWUyRk1wQWd0NnN4czlOa1ZzV0p5YlRJWkVSdGd0VVpxbHZrQURPQU1EdDZs?=
+ =?utf-8?B?TUxMZHFPVGI3SWtuenJzUUN1Qlc0NE1jSldUL2tQU3pkM0k0S1p4Y09qWWlN?=
+ =?utf-8?B?eUpwczgwWVJ2cWJJRzg2Q0JnbGJTUFB4Y0QyVTJPT2lTMHNQdE9HVWlvSmRn?=
+ =?utf-8?B?NmhQaDN1cFRaOTFTdGIyc01jUUNkaUFPekl0OUtrWmhjZ3BCVUlzRVE2M2Nt?=
+ =?utf-8?B?dlNyWjV6SGY4dFI5R3ZuSGhBVGJHMTdqQmZSSEtKWjg4cDJ1MTNKV0NkdHp1?=
+ =?utf-8?B?WW9DQi94M251NzlYOE4rN0JhQVo5anEzdGVLejBRUDI2UVZaNGhFMkVGeXpQ?=
+ =?utf-8?B?bWc0ZiszYkx0TlkzZ1ROdWc0LzRQQ2c0M1BzUGNqM24xeDJjdjJzazRzVnVD?=
+ =?utf-8?B?S1phanF1VmpBQkVRMEJWMTRaRlhqTGxWWVZxUDFQQmppZGl6c21KbFZaNEdI?=
+ =?utf-8?B?cmtKZm9XODI5cFR4bWxGTUlEd0NPMDV4Vks1aHo5LzNOdkN2SmhIWjJFUzVu?=
+ =?utf-8?B?RU5FVHBLR2RBSlN0TXlYTlVJenF1YVBkZW01MnFSeENORlZQMkdZRnhKU1dT?=
+ =?utf-8?B?RXFtZ0xtYm8vTTR3cnV0OWdaeHNDa1BpL3cyV2tzU2x6bm1OVkVDOUlmNVR4?=
+ =?utf-8?B?TE1FYnhlaVJtVk44VTdoaXRLVjdTMFUvMU51YS9hUHJjcmlsTUFiQzZIbWds?=
+ =?utf-8?B?anpEbFp5YUIrYmZhNXNhYjRWSjhzZ1NTNmI0ZUtMK0dHcmw3c2p5T1R4djZY?=
+ =?utf-8?B?TFM4Zk5NQVFTWEg0c0R0WHBncVVOR2VHM2RvM2NaZE4zQkJXM0xSajFlS28w?=
+ =?utf-8?B?bHRsVzB4OTM1eEdNR3VyVFF4YStPK0pQMkt5clVvOTZlMVJLSWsvZjBiNW1J?=
+ =?utf-8?B?NktGZWxqdFlHbnFmZzB3bHdYNGVrM1ZoMGl4dUZOdGZtZ0Z1THRVUlRjNDd5?=
+ =?utf-8?B?YkRHNEo4RTZudTJNU0xpbWNUOExKMnp5NnV5Q1RZNWpyZWtNQ29NV1pRZHh1?=
+ =?utf-8?B?cS8rejRaU09MMFBZb05xeWZwNUNvZDdpVzJoWWd4Qm9aaFBTbTZNY25sVlJI?=
+ =?utf-8?B?TUQwSGpSaW9uamRENEEzRTJrcC90V3A0akpvSTFBVHB6K0M2aDMwT2t3L2lk?=
+ =?utf-8?B?N2M3TEc1L0xjWW9KYUFIN2w1dWFlZFcyZFdrVnVaL21EQkNHOFE3VlpLRGR5?=
+ =?utf-8?B?NVNsQW9PUE05UXZBWVlGWlZ0QXlLN05tNGdDcUtqK2M2ZFRlZE9RMkd6Z1Ni?=
+ =?utf-8?B?M0RoU0JPaXlXdG5SS0p5RlVBcmJwQnZWVTlDeTBYUUxWYUVWWkJsZjhhT2xu?=
+ =?utf-8?B?UnpOMGM2VVpyNkE5eXJSWU5DVlNIcDlDaVl6QlUxU0Vsb0hNVmFZSVBkcy9Z?=
+ =?utf-8?B?WFNIVU92VlFQdW5WTk5uQ1RZb2NaQjYwdk9nbmdLRWs2Y1pteWZUTHhUWGFG?=
+ =?utf-8?B?bXBPY0pqbXFCWEtzM0QrTnh3R0FiRnVGWW5seWhDZjQxQXYydVlwZHpkVzlJ?=
+ =?utf-8?B?UG1tQW1zOFBDRlFDaGw0SW8ydkZ0TXlVdlRhOHFsVU1wWWFZSVE5SlM0VnRK?=
+ =?utf-8?B?VWZlcFR5TVd1UDU4NFpYc3ErOWZZcTBrajdsdTBMZEQ1VVVyQ0Y1dE1RMS9u?=
+ =?utf-8?Q?ZONxOeCreCkPD?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY8PR12MB7491.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(8096899003); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(7053199007); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SUp4TFI4WkY0Wlk0Nnd1K05UdSsvTTBMbkJYMWpCR1g5REtxMFBCK0o3MFhE?=
- =?utf-8?B?ZGVNL3dBZmJyVC9CaVg4MXZsSloyZzUxSjNwRWVSSi8vSzc5SWplVE9kQTRT?=
- =?utf-8?B?dFJPZFVnaXpGQnFueSt6Y0JTcG9zc1lyOWhUV25mUEl0R3cvWEFKU3d3UzUx?=
- =?utf-8?B?YWs4d3p3R0FDZG4rdjl1Mk5LS2xWL1ZKWVpPZk5YRVc3MFlaUDl5Vmg4NllJ?=
- =?utf-8?B?WmtKZ2pYaE9XQ2NweklReHEzalJtZlZsOTltUmFqcFNaUUEwUDVrNTdjYkpI?=
- =?utf-8?B?THRzKzFuUDg1Qklpa1hkVWVpV0d5QTU2N2JPR3Q4dzFUZEVCbEczQnNzSFRo?=
- =?utf-8?B?UTVWeW1DZENZNjJvSmxoc0dGN1R1b2p0dlY5WmVhVlJ0S0p3N3ozdkZ4NVBK?=
- =?utf-8?B?WUZkNy9DSU12L2IrOExoV2FkNHFvM0Y3dzduUlo2WlVBQWhTdVR2NEgweTVW?=
- =?utf-8?B?UXgxQlZkNjJIYnV0b0hRQVo0aW5KZE5zWGs3d0owYjloVk1JNmgrcGU0WThI?=
- =?utf-8?B?bTRGUU9wc3REWFp2LzQwQStrWWVVRVE3Mks4TFNQaWhXRmlvZXVLMlA0N003?=
- =?utf-8?B?S2p4Zk10SURuYXppemlJV01RbTh6RVhxYW01Z1hOaHdobjcrQW9qcXpPUmVk?=
- =?utf-8?B?ZTlTU2M5ZXZabE4rWkVnclN4TkdoenlBTjN1U09MdjhVS2RwN2xyS1B4aXc4?=
- =?utf-8?B?UVRNYkphWXhxVmZnODBteVlKaEg4cEpVemRwT2c4UVFERGhvQ2ZZZUVIZWY1?=
- =?utf-8?B?V2hsYzdHZ1hFaFU4K1BUbjR1SDg5dDh0ODc3ZEQ3Si9FOEZtdmZRUW1ZNkRw?=
- =?utf-8?B?OXhCcFU0SmV0Vnpwa2d0NFZQYmJXSFZLaG5CNllXSXluYW1HcnlzOHhjTnAw?=
- =?utf-8?B?ZVlRUHBSRkhjWlJHdllZcUdsZjQ1Y01HbVp6S0tNQUUyeExEaGxlM212aXNk?=
- =?utf-8?B?emgwM1ZEK3IwZklPTThiL285NXVGZllBUTE0U1ZwSXRCZXFwd3FGN3BKTHcr?=
- =?utf-8?B?TUwrWFZGK3kzY2QxZ1hOQlVZZlVuY2cyNDhRa3RUbWdxMnZwRlZCM2UwZXNo?=
- =?utf-8?B?U1RUVkFxU0E5T3NsV1NMSDEyZjJPL3BqL0tCOXhDTThYNGM3anFqUlpSU0Nz?=
- =?utf-8?B?MUcrYUJhWWxzYzhnT2huQ0xLQXVSQzQ3VlVscXd3ak91eWt4VjZtRE40V01U?=
- =?utf-8?B?eG5qd1VjRWgwdS9IMk05YnZReW55d0ZqV1FkcG4xekxVSHhveTJpc0JRQ3pH?=
- =?utf-8?B?VXVtKzArS0RSZ1VqOXllbStuemE2MTBFZWRXdXZjRlJQUnNVWWUzYTZkay9z?=
- =?utf-8?B?Vmx2c1NjRnUxZUVpVjJYa0xKaVRNTDI1VlQyWnJVdjY4L0c5MGgvWC9rb3gr?=
- =?utf-8?B?dHJuUytxWEJJNlRzTG1ValFPZGpOMSt4cGR4VERRcVNXOFBKWmRNbU9zMFJE?=
- =?utf-8?B?N2Q1YTNhbHhmKzFJcDAyOXJEYld4VDBEZ0doWTlqSkRtMDVWWUpLWjZxZ0NU?=
- =?utf-8?B?ZllNZE81ZjJITTJVR283VnNFWTUwVExyWEVkREx5M1p5SG93KzU2S3FUZUZC?=
- =?utf-8?B?QnR2ZkltWm54Nm1GSU5xblRjYjJneEdJTEh3b2R2dWZzc2puRWVhOVhTS20v?=
- =?utf-8?B?Ryt1WjlDS0V6dVAya0tTZXBNUkM5YkxyUWk1dDcrTElkamlpbVlGTGY5UHRn?=
- =?utf-8?B?NXZUQmhUNkd0V3VzLzI2REFObXJGVk9PTWxmbXRGWTg4SVFFRllGVXhCSHkz?=
- =?utf-8?B?d2lvcHczWnRUczhhbEV1OVR4OExIamZoaDRpTzZDZmNFdXJBUVBhWTdpaDhy?=
- =?utf-8?B?aWFDL2FSK29tS25WbERSWHJVM2hHb3BLUUxrMTBoV1pQais4eFBtWGF0clMr?=
- =?utf-8?B?VExZUDN6bCtaRnVIZEMvOUt2YlBlbnFzanVsakdmN3hzVmJlZ2tVUUVnRXdy?=
- =?utf-8?B?VGxoVDhnRzJwTER0U21TNFlaYnJocmNaS1phWUxDMlZ4WFcvK3QxVDhwQXRG?=
- =?utf-8?B?OHdvK3dEWUMvaDQrU1ZYTWVSRElmbHFCcjZ2ODNaUnJKVCtBTzBiK1ZxaERX?=
- =?utf-8?B?RDFSSks3R00yMm10WHRpRDFHR3hWUlhJemd1V2hCWEt5RkxWQmtpVStxZkRK?=
- =?utf-8?Q?yiHe0GUbFykKPmA2WDRBJkOnq?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UHByUGdnbGNadUNPQ3RpMmhsaThoNFBGcmxoSVZaUWdJc3pFa0YvZ0pOQ3JE?=
+ =?utf-8?B?a3N4MG9BUVFGVHJtYmI5T2NhSzhLN0Rhd1MyNEZYK2F1MWozOTdMbDltVXlV?=
+ =?utf-8?B?V1NqZ1V6eGRGcXlDb2NOekJuaGdxQTUzdHNCM3pwalAzYWJUNEh5MmhhNDJk?=
+ =?utf-8?B?N0pjUUd0dW96RWJHVlQzVFNLUVJiRVFuUytMaDJMcUlvampsY2tkTmZQQ25o?=
+ =?utf-8?B?UGxRS1NuMWYzb3RwTkMwdktHKzBaSDZaRlBpNmQ3MUlXa2FEdjQrWUk4bWsy?=
+ =?utf-8?B?eVMxbDRKemZGOTlVN3cvRGp4NHJ2S3dLdzVQRTJRM3NjclkwazVsS0VFKzN4?=
+ =?utf-8?B?ZmcrRkJTSGl5VEZqNzAydU9INU5ZUWJyTmloaFI3eUJLK0pIWjlUdVIxT2VX?=
+ =?utf-8?B?YlRiRmRvWmE1V0Q1bU5TRUNTeUlmYzgydTVHRW54L1BPYUJzQk1BZTZNWVM0?=
+ =?utf-8?B?VjJvYWlSQzhveXc3T1ZicUdtTUhNTWVOODJVY09rWDdrZlB5bE43alhQN09Z?=
+ =?utf-8?B?QzAvMUljeW0xc01jem9UVCtyNTBsNmF2c0NmYktLTkhZNllNTTM4UEdRNVJv?=
+ =?utf-8?B?U0VwVjNqZWw5cDhvQzROSEpWYVRFYkJRVjFOMHh5WlRDMVRaOHNuMjBQcUdF?=
+ =?utf-8?B?T20zY2JWcVV3STMvMWltdVZlYXlpajBMNm41OFVkd0F1Nk0wYWZXdjdIMHY4?=
+ =?utf-8?B?OVBWQ2hNM1pTeUZzckZaZEQxcTJhRmdHUC8wVjB1OUxlUXRtSUo4VUJHWnlr?=
+ =?utf-8?B?ZzJFSjM4MDNlcXlFOVpqb2dRalBpVkhacnNTbGhkcWZaakh0WHVvUUVKdUhn?=
+ =?utf-8?B?WXBGcFZHTFpZdnVnQkNuNWptQXBqdjc3aXJUK2tIOXYyQXVsZ09qS1NRZUNK?=
+ =?utf-8?B?L1ZyaEdsd3Iya09xK0QvNTZDQSsvdGtuR1NyWEovNzJZVDZpRlN3NGs2UWNF?=
+ =?utf-8?B?eVZlUmRERTF1NXdKdDFvVEJDNkk4R29nWUc5bS8xTnBzL2FCYlhuS21Ud2hY?=
+ =?utf-8?B?WUp1TUF5OGpDeGU2TGppT0MyWldBS3ZFZXh1MS90ZzRZYTlJRVg2eEV6VjVX?=
+ =?utf-8?B?YUxncHZuTE44TDdFU0toTCt2Wit6NEk5WHp3UEd2SmVNcjRjck5oVFpYZk5B?=
+ =?utf-8?B?Nm5WNVpTN2RhKytFMVdhdWs2TlpLdUhSNVQvTDR0NFpObkUwYzZ4bHptUUsy?=
+ =?utf-8?B?cUI1QVJ1VzRkbnl5NDk4aFQrMUQzUUFRWk5JK1AvanVNL3NaVnNoQnlVWDdk?=
+ =?utf-8?B?ZlEvMjJSQ2xiU202UzFhUXlHam5rMFdBNTlkcGJvWU1UQ0J6amdwR3h4Mjl6?=
+ =?utf-8?B?aDBNWTQ5NE5wdjU4TWFIUi9MWjFyMWJ1VjlSYmUxbGNuU1dUbGFFcmtxZmRo?=
+ =?utf-8?B?eXJTTXBSRk1OclFFK1ArVnQvM0R6MkZsa0VyeDRyOWVrTkNUdTB1TnloZU5I?=
+ =?utf-8?B?M2Y2N0JYbnRTYk54QS9qTDgrNk1qVlJTR0ptYXdsL2VNVWlCc3daS25LZzFw?=
+ =?utf-8?B?S282b3NVSzA2SU43czBqN0RrTU5EVTZpQXNUdFgwRWJLVS81TFloMlJDSDBL?=
+ =?utf-8?B?U3VwRzRqckVnemR6Njk4SldRa0E3cGhSemZNUjduQ2pRQmI5cXFrS2g2ekxH?=
+ =?utf-8?B?WExBRDdLdHJOSjcwdlV6OFVYV3BReFBOTzFucnkySDY4OGl2OFl5ZlU0dWtp?=
+ =?utf-8?B?bXBJeDNtSG1lalRzZ0xpeENPN0VRL3FSb3ZERjdXYUhlVHpNdmo4SnFJbW1Q?=
+ =?utf-8?B?T2srcCtsRnZLZGVSbmpnZXRrcU00b2ZEMGR2UndQeWJ5MndPQXVWUVkrUjUr?=
+ =?utf-8?B?NVE3THA0OCs0WER4ZzljamxWbzdYWGY3OVhvR2lZVkhzRXJDeWJKNTl6VVpl?=
+ =?utf-8?B?alF2ZEV1MzZFOVA3bmxHYmMzRk5ZTmdIWU1BR0Njd0I2VXk2VlJ0dk9FVC9z?=
+ =?utf-8?B?d3RiOGlWSUM5ZnhYRml0ZE9YYTFCZXhFVmlYc2xHS3loNEpWQThpQjl5bHJy?=
+ =?utf-8?B?eU1uZVNyUXdkVTNjT3k5TTlKRzcyMUZDSzZCd1h0OE83N3B3bndnT1paUjVW?=
+ =?utf-8?B?MjdESUc2cHNkSldrNG5nSzBuUFcrKzZyREFWdExKcVdITWZwRnJRd2ZSR2dj?=
+ =?utf-8?Q?5Q1oZkhldPsmOq8DI5MtyBfd5?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fbe8ee65-3a51-4873-2533-08dd45f620a5
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7491.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fca467b6-b200-4c1e-0e10-08dd45fba7fb
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Feb 2025 15:02:37.0663 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Feb 2025 15:42:11.5211 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ncf2gC0lcvzVhcXG9S4HtP8uzJWo9aOiRpDZHPpTdu+1mipm8B+1pPxFt4OKBEq1z8gHu1zLbym2OH/nu60YGw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4462
+X-MS-Exchange-CrossTenant-UserPrincipalName: PzzIaY5XoQEeG8TWDBmYaIeIqMj9DaDxWmxe26uuaTZZ/cDeBAkzahLOUEl1yeTY
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5748
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,575 +162,120 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------vdAL2C1kQQkza2izYAFiWxGX
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Adding Hawking for commenting on RAS.
 
-
-On 2025-01-31 11:57, Alex Deucher wrote:
-> Pass the vcn instance structure to these functions rather
-> than adev and the instance number.
+Am 05.02.25 um 16:33 schrieb Tvrtko Ursulin:
+> The helper copies code from the existing amdgpu_job_stop_all_jobs_on_sched
+> with the purpose of reducing the amount of driver code which directly
+> touch scheduler internals.
 >
-> TODO: clean up the function internals to use the vinst state
-> directly rather than accessing it indirectly via adev->vcn.inst[].
+> If or when amdgpu manages to change the approach for handling the
+> permanently wedged state this helper can be removed.
+
+When RAS indicates a problem and reset is disabled we shouldn't mess 
+with the scheduler internals, but rather mark the device as unplugged 
+and clear the PCIe DMA bits.
+
+In other words enter the wedged state which is now well documented.
+
+This way all submissions will run into ENODEV errors and be cleaned up 
+immediately on submission by the scheduler. Applications will then just 
+wait for their existing submissions and get an error if they try to send 
+new ones.
+
+Stopping the scheduler and then messing with the internals is basically 
+just a really ugly hack. and never made sense in the first place as far 
+as I can see.
+
+See below for more comments.
+
 >
-> Signed-off-by: Alex Deucher<alexander.deucher@amd.com>
-
-
-Reviewed-by: Boyuan Zhang <Boyuan.Zhang@amd.com> 
-<mailto:Boyuan.Zhang@amd.com>
-
-
+> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> Cc: Christian König <christian.koenig@amd.com>
+> Cc: Danilo Krummrich <dakr@kernel.org>
+> Cc: Matthew Brost <matthew.brost@intel.com>
+> Cc: Philipp Stanner <phasta@kernel.org>
 > ---
->   drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c | 79 +++++++++++++++++----------
->   1 file changed, 50 insertions(+), 29 deletions(-)
+>   drivers/gpu/drm/scheduler/sched_main.c | 44 ++++++++++++++++++++++++++
+>   include/drm/gpu_scheduler.h            |  1 +
+>   2 files changed, 45 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-> index 4f9f3de023ffd..69cf42a4a3f18 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-> @@ -468,13 +468,14 @@ static int vcn_v2_5_resume(struct amdgpu_ip_block *ip_block)
->   /**
->    * vcn_v2_5_mc_resume - memory controller programming
->    *
-> - * @adev: amdgpu_device pointer
-> - * @i: instance to resume
-> + * @vinst: VCN instance
->    *
->    * Let the VCN memory controller know it's offsets
->    */
-> -static void vcn_v2_5_mc_resume(struct amdgpu_device *adev, int i)
-> +static void vcn_v2_5_mc_resume(struct amdgpu_vcn_inst *vinst)
->   {
-> +	struct amdgpu_device *adev = vinst->adev;
-> +	int i = vinst->inst;
->   	uint32_t size;
->   	uint32_t offset;
->   
-> @@ -527,8 +528,11 @@ static void vcn_v2_5_mc_resume(struct amdgpu_device *adev, int i)
->   		     AMDGPU_GPU_PAGE_ALIGN(sizeof(struct amdgpu_fw_shared)));
+> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+> index a48be16ab84f..0363655db22d 100644
+> --- a/drivers/gpu/drm/scheduler/sched_main.c
+> +++ b/drivers/gpu/drm/scheduler/sched_main.c
+> @@ -703,6 +703,50 @@ void drm_sched_start(struct drm_gpu_scheduler *sched, int errno)
 >   }
+>   EXPORT_SYMBOL(drm_sched_start);
 >   
-> -static void vcn_v2_5_mc_resume_dpg_mode(struct amdgpu_device *adev, int inst_idx, bool indirect)
-> +static void vcn_v2_5_mc_resume_dpg_mode(struct amdgpu_vcn_inst *vinst,
-> +					bool indirect)
->   {
-> +	struct amdgpu_device *adev = vinst->adev;
-> +	int inst_idx = vinst->inst;
->   	uint32_t size = AMDGPU_GPU_PAGE_ALIGN(adev->vcn.inst[inst_idx].fw->size + 4);
->   	uint32_t offset;
->   
-> @@ -626,13 +630,14 @@ static void vcn_v2_5_mc_resume_dpg_mode(struct amdgpu_device *adev, int inst_idx
->   /**
->    * vcn_v2_5_disable_clock_gating - disable VCN clock gating
->    *
-> - * @adev: amdgpu_device pointer
-> - * @i: instance to disable clockgating on
-> + * @vinst: VCN instance
->    *
->    * Disable clock gating for VCN block
->    */
-> -static void vcn_v2_5_disable_clock_gating(struct amdgpu_device *adev, int i)
-> +static void vcn_v2_5_disable_clock_gating(struct amdgpu_vcn_inst *vinst)
->   {
-> +	struct amdgpu_device *adev = vinst->adev;
-> +	int i = vinst->inst;
->   	uint32_t data;
->   
->   	if (adev->vcn.harvest_config & (1 << i))
-> @@ -738,9 +743,11 @@ static void vcn_v2_5_disable_clock_gating(struct amdgpu_device *adev, int i)
->   	WREG32_SOC15(VCN, i, mmUVD_SUVD_CGC_CTRL, data);
->   }
->   
-> -static void vcn_v2_5_clock_gating_dpg_mode(struct amdgpu_device *adev,
-> -		uint8_t sram_sel, int inst_idx, uint8_t indirect)
-> +static void vcn_v2_5_clock_gating_dpg_mode(struct amdgpu_vcn_inst *vinst,
-> +		uint8_t sram_sel, uint8_t indirect)
->   {
-> +	struct amdgpu_device *adev = vinst->adev;
-> +	int inst_idx = vinst->inst;
->   	uint32_t reg_data = 0;
->   
->   	/* enable sw clock gating control */
-> @@ -789,13 +796,14 @@ static void vcn_v2_5_clock_gating_dpg_mode(struct amdgpu_device *adev,
->   /**
->    * vcn_v2_5_enable_clock_gating_inst - enable VCN clock gating
->    *
-> - * @adev: amdgpu_device pointer
-> - * @i: instance to enable clockgating on
-> + * @vinst: VCN instance
->    *
->    * Enable clock gating for VCN block
->    */
-> -static void vcn_v2_5_enable_clock_gating(struct amdgpu_device *adev, int i)
-> +static void vcn_v2_5_enable_clock_gating(struct amdgpu_vcn_inst *vinst)
->   {
-> +	struct amdgpu_device *adev = vinst->adev;
-> +	int i = vinst->inst;
->   	uint32_t data = 0;
->   
->   	if (adev->vcn.harvest_config & (1 << i))
-> @@ -846,9 +854,11 @@ static void vcn_v2_5_enable_clock_gating(struct amdgpu_device *adev, int i)
->   	WREG32_SOC15(VCN, i, mmUVD_SUVD_CGC_CTRL, data);
->   }
->   
-> -static void vcn_v2_6_enable_ras(struct amdgpu_device *adev, int inst_idx,
-> +static void vcn_v2_6_enable_ras(struct amdgpu_vcn_inst *vinst,
->   				bool indirect)
->   {
-> +	struct amdgpu_device *adev = vinst->adev;
-> +	int inst_idx = vinst->inst;
->   	uint32_t tmp;
->   
->   	if (amdgpu_ip_version(adev, UVD_HWIP, 0) != IP_VERSION(2, 6, 0))
-> @@ -873,8 +883,10 @@ static void vcn_v2_6_enable_ras(struct amdgpu_device *adev, int inst_idx,
->   			      tmp, 0, indirect);
->   }
->   
-> -static int vcn_v2_5_start_dpg_mode(struct amdgpu_device *adev, int inst_idx, bool indirect)
-> +static int vcn_v2_5_start_dpg_mode(struct amdgpu_vcn_inst *vinst, bool indirect)
->   {
-> +	struct amdgpu_device *adev = vinst->adev;
-> +	int inst_idx = vinst->inst;
->   	volatile struct amdgpu_fw_shared *fw_shared = adev->vcn.inst[inst_idx].fw_shared.cpu_addr;
->   	struct amdgpu_ring *ring;
->   	uint32_t rb_bufsz, tmp;
-> @@ -892,7 +904,7 @@ static int vcn_v2_5_start_dpg_mode(struct amdgpu_device *adev, int inst_idx, boo
->   		adev->vcn.inst[inst_idx].dpg_sram_curr_addr = (uint32_t *)adev->vcn.inst[inst_idx].dpg_sram_cpu_addr;
->   
->   	/* enable clock gating */
-> -	vcn_v2_5_clock_gating_dpg_mode(adev, 0, inst_idx, indirect);
-> +	vcn_v2_5_clock_gating_dpg_mode(vinst, 0, indirect);
->   
->   	/* enable VCPU clock */
->   	tmp = (0xFF << UVD_VCPU_CNTL__PRB_TIMEOUT_VAL__SHIFT);
-> @@ -941,7 +953,7 @@ static int vcn_v2_5_start_dpg_mode(struct amdgpu_device *adev, int inst_idx, boo
->   		 (0x1 << UVD_MPC_SET_MUX__SET_1__SHIFT) |
->   		 (0x2 << UVD_MPC_SET_MUX__SET_2__SHIFT)), 0, indirect);
->   
-> -	vcn_v2_5_mc_resume_dpg_mode(adev, inst_idx, indirect);
-> +	vcn_v2_5_mc_resume_dpg_mode(vinst, indirect);
->   
->   	WREG32_SOC15_DPG_MODE(inst_idx, SOC15_DPG_MODE_OFFSET(
->   		VCN, 0, mmUVD_REG_XX_MASK), 0x10, 0, indirect);
-> @@ -952,7 +964,7 @@ static int vcn_v2_5_start_dpg_mode(struct amdgpu_device *adev, int inst_idx, boo
->   	WREG32_SOC15_DPG_MODE(inst_idx, SOC15_DPG_MODE_OFFSET(
->   		VCN, 0, mmUVD_LMI_CTRL2), 0, 0, indirect);
->   
-> -	vcn_v2_6_enable_ras(adev, inst_idx, indirect);
-> +	vcn_v2_6_enable_ras(vinst, indirect);
->   
->   	/* unblock VCPU register access */
->   	WREG32_SOC15_DPG_MODE(inst_idx, SOC15_DPG_MODE_OFFSET(
-> @@ -1017,8 +1029,10 @@ static int vcn_v2_5_start_dpg_mode(struct amdgpu_device *adev, int inst_idx, boo
->   	return 0;
->   }
->   
-> -static int vcn_v2_5_start(struct amdgpu_device *adev, int i)
-> +static int vcn_v2_5_start(struct amdgpu_vcn_inst *vinst)
->   {
-> +	struct amdgpu_device *adev = vinst->adev;
-> +	int i = vinst->inst;
->   	volatile struct amdgpu_fw_shared *fw_shared =
->   		adev->vcn.inst[i].fw_shared.cpu_addr;
->   	struct amdgpu_ring *ring;
-> @@ -1032,7 +1046,7 @@ static int vcn_v2_5_start(struct amdgpu_device *adev, int i)
->   		amdgpu_dpm_enable_vcn(adev, true, i);
->   
->   	if (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG)
-> -		return vcn_v2_5_start_dpg_mode(adev, i, adev->vcn.inst[i].indirect_sram);
-> +		return vcn_v2_5_start_dpg_mode(vinst, adev->vcn.inst[i].indirect_sram);
->   
->   	/* disable register anti-hang mechanism */
->   	WREG32_P(SOC15_REG_OFFSET(VCN, i, mmUVD_POWER_STATUS), 0,
-> @@ -1046,7 +1060,7 @@ static int vcn_v2_5_start(struct amdgpu_device *adev, int i)
->   		return 0;
->   
->   	/* SW clock gating */
-> -	vcn_v2_5_disable_clock_gating(adev, i);
-> +	vcn_v2_5_disable_clock_gating(vinst);
->   
->   	/* enable VCPU clock */
->   	WREG32_P(SOC15_REG_OFFSET(VCN, i, mmUVD_VCPU_CNTL),
-> @@ -1091,7 +1105,7 @@ static int vcn_v2_5_start(struct amdgpu_device *adev, int i)
->   		      (0x1 << UVD_MPC_SET_MUX__SET_1__SHIFT) |
->   		      (0x2 << UVD_MPC_SET_MUX__SET_2__SHIFT)));
->   
-> -	vcn_v2_5_mc_resume(adev, i);
-> +	vcn_v2_5_mc_resume(vinst);
->   
->   	/* VCN global tiling registers */
->   	WREG32_SOC15(VCN, i, mmUVD_GFX8_ADDR_CONFIG,
-> @@ -1396,8 +1410,10 @@ static int vcn_v2_5_sriov_start(struct amdgpu_device *adev)
->   	return vcn_v2_5_mmsch_start(adev, &adev->virt.mm_table);
->   }
->   
-> -static int vcn_v2_5_stop_dpg_mode(struct amdgpu_device *adev, int inst_idx)
-> +static int vcn_v2_5_stop_dpg_mode(struct amdgpu_vcn_inst *vinst)
->   {
-> +	struct amdgpu_device *adev = vinst->adev;
-> +	int inst_idx = vinst->inst;
->   	uint32_t tmp;
->   
->   	/* Wait for power status to be 1 */
-> @@ -1424,15 +1440,17 @@ static int vcn_v2_5_stop_dpg_mode(struct amdgpu_device *adev, int inst_idx)
->   	return 0;
->   }
->   
-> -static int vcn_v2_5_stop(struct amdgpu_device *adev, int i)
-> +static int vcn_v2_5_stop(struct amdgpu_vcn_inst *vinst)
->   {
-> +	struct amdgpu_device *adev = vinst->adev;
-> +	int i = vinst->inst;
->   	uint32_t tmp;
->   	int r;
->   
->   	if (adev->vcn.harvest_config & (1 << i))
->   		return 0;
->   	if (adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG)
-> -		return vcn_v2_5_stop_dpg_mode(adev, i);
-> +		return vcn_v2_5_stop_dpg_mode(vinst);
->   
->   	/* wait for vcn idle */
->   	r = SOC15_WAIT_ON_RREG(VCN, i, mmUVD_STATUS, UVD_STATUS__IDLE, 0x7);
-> @@ -1475,7 +1493,7 @@ static int vcn_v2_5_stop(struct amdgpu_device *adev, int i)
->   	/* clear status */
->   	WREG32_SOC15(VCN, i, mmUVD_STATUS, 0);
->   
-> -	vcn_v2_5_enable_clock_gating(adev, i);
-> +	vcn_v2_5_enable_clock_gating(vinst);
->   
->   	/* enable register anti-hang mechanism */
->   	WREG32_P(SOC15_REG_OFFSET(VCN, i, mmUVD_POWER_STATUS),
-> @@ -1810,12 +1828,14 @@ static int vcn_v2_5_set_clockgating_state(struct amdgpu_ip_block *ip_block,
->   		return 0;
->   
->   	for (i = 0; i < adev->vcn.num_vcn_inst; ++i) {
-> +		struct amdgpu_vcn_inst *vinst = &adev->vcn.inst[i];
+> +/**
+> + * drm_sched_cancel_all_jobs - Cancel all queued and scheduled jobs
+> + *
+> + * @sched: scheduler instance
+> + * @errno: error value to set on signaled fences
+> + *
+> + * Signal all queued and scheduled jobs and set them to error state.
+> + *
+> + * Scheduler must be stopped before calling this.
+> + */
+> +void drm_sched_cancel_all_jobs(struct drm_gpu_scheduler *sched, int errno)
+> +{
+> +	struct drm_sched_entity *entity;
+> +	struct drm_sched_fence *s_fence;
+> +	struct drm_sched_job *job;
+> +	enum drm_sched_priority p;
 > +
->   		if (enable) {
->   			if (!vcn_v2_5_is_idle(adev))
->   				return -EBUSY;
-> -			vcn_v2_5_enable_clock_gating(adev, i);
-> +			vcn_v2_5_enable_clock_gating(vinst);
->   		} else {
-> -			vcn_v2_5_disable_clock_gating(adev, i);
-> +			vcn_v2_5_disable_clock_gating(vinst);
->   		}
->   	}
->   
-> @@ -1827,6 +1847,7 @@ static int vcn_v2_5_set_powergating_state_inst(struct amdgpu_ip_block *ip_block,
->   					       int i)
->   {
->   	struct amdgpu_device *adev = ip_block->adev;
-> +	struct amdgpu_vcn_inst *vinst = &adev->vcn.inst[i];
->   	int ret;
->   
->   	if (amdgpu_sriov_vf(adev))
-> @@ -1836,9 +1857,9 @@ static int vcn_v2_5_set_powergating_state_inst(struct amdgpu_ip_block *ip_block,
->   		return 0;
->   
->   	if (state == AMD_PG_STATE_GATE)
-> -		ret = vcn_v2_5_stop(adev, i);
-> +		ret = vcn_v2_5_stop(vinst);
->   	else
-> -		ret = vcn_v2_5_start(adev, i);
-> +		ret = vcn_v2_5_start(vinst);
->   
->   	if (!ret)
->   		adev->vcn.inst[i].cur_state = state;
---------------vdAL2C1kQQkza2izYAFiWxGX
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+> +	drm_WARN_ON_ONCE(sched, !sched->pause_submit);
+> +
+> +	/* Signal all jobs not yet scheduled */
+> +	for (p = DRM_SCHED_PRIORITY_KERNEL; p < sched->num_rqs; p++) {
+> +		struct drm_sched_rq *rq = sched->sched_rq[p];
+> +
+> +		spin_lock(&rq->lock);
+> +		list_for_each_entry(entity, &rq->entities, list) {
+> +			while ((job = to_drm_sched_job(spsc_queue_pop(&entity->job_queue)))) {
+> +				s_fence = job->s_fence;
+> +				dma_fence_signal(&s_fence->scheduled);
+> +				dma_fence_set_error(&s_fence->finished, errno);
+> +				dma_fence_signal(&s_fence->finished);
+> +			}
+> +		}
+> +		spin_unlock(&rq->lock);
+> +	}
+> +
+> +	/* Signal all jobs already scheduled to HW */
+> +	list_for_each_entry(job, &sched->pending_list, list) {
+> +		s_fence = job->s_fence;
+> +		dma_fence_set_error(&s_fence->finished, errno);
+> +		dma_fence_signal(&s_fence->finished);
+> +	}
 
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 2025-01-31 11:57, Alex Deucher
-      wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:20250131165741.1798488-16-alexander.deucher@amd.com">
-      <pre class="moz-quote-pre" wrap="">Pass the vcn instance structure to these functions rather
-than adev and the instance number.
+This is in the wrong order, e.g. already scheduled jobs need to signal 
+first and then not yet scheduled ones. Otherwise you violate the 
+dma_fence ordering rules.
 
-TODO: clean up the function internals to use the vinst state
-directly rather than accessing it indirectly via adev-&gt;vcn.inst[].
+Additional to that this is racy like hell, e.g. even when we had an RAS 
+error it is perfectly possible that submissions finish normally.
 
-Signed-off-by: Alex Deucher <a class="moz-txt-link-rfc2396E" href="mailto:alexander.deucher@amd.com">&lt;alexander.deucher@amd.com&gt;</a></pre>
-    </blockquote>
-    <p><br>
-    </p>
-    <p><font size="2"><span style="font-size:11pt;"><span data-markjs="true" data-olk-copy-source="MessageBody"><span data-markjs="true" class="markpsh7afcgm" style="" data-ogac="" data-ogab="" data-ogsc="" data-ogsb="" data-olk-copy-source="MessageBody">Reviewed-by</span></span>:
-          Boyuan Zhang <a href="mailto:Boyuan.Zhang@amd.com" title="mailto:Boyuan.Zhang@amd.com" data-linkindex="2">&lt;Boyuan.Zhang@amd.com&gt;</a></span></font></p>
-    <p></p>
-    <p><br>
-    </p>
-    <blockquote type="cite" cite="mid:20250131165741.1798488-16-alexander.deucher@amd.com">
-      <pre class="moz-quote-pre" wrap="">
----
- drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c | 79 +++++++++++++++++----------
- 1 file changed, 50 insertions(+), 29 deletions(-)
+Regards,
+Christian.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-index 4f9f3de023ffd..69cf42a4a3f18 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-@@ -468,13 +468,14 @@ static int vcn_v2_5_resume(struct amdgpu_ip_block *ip_block)
- /**
-  * vcn_v2_5_mc_resume - memory controller programming
-  *
-- * @adev: amdgpu_device pointer
-- * @i: instance to resume
-+ * @vinst: VCN instance
-  *
-  * Let the VCN memory controller know it's offsets
-  */
--static void vcn_v2_5_mc_resume(struct amdgpu_device *adev, int i)
-+static void vcn_v2_5_mc_resume(struct amdgpu_vcn_inst *vinst)
- {
-+	struct amdgpu_device *adev = vinst-&gt;adev;
-+	int i = vinst-&gt;inst;
- 	uint32_t size;
- 	uint32_t offset;
- 
-@@ -527,8 +528,11 @@ static void vcn_v2_5_mc_resume(struct amdgpu_device *adev, int i)
- 		     AMDGPU_GPU_PAGE_ALIGN(sizeof(struct amdgpu_fw_shared)));
- }
- 
--static void vcn_v2_5_mc_resume_dpg_mode(struct amdgpu_device *adev, int inst_idx, bool indirect)
-+static void vcn_v2_5_mc_resume_dpg_mode(struct amdgpu_vcn_inst *vinst,
-+					bool indirect)
- {
-+	struct amdgpu_device *adev = vinst-&gt;adev;
-+	int inst_idx = vinst-&gt;inst;
- 	uint32_t size = AMDGPU_GPU_PAGE_ALIGN(adev-&gt;vcn.inst[inst_idx].fw-&gt;size + 4);
- 	uint32_t offset;
- 
-@@ -626,13 +630,14 @@ static void vcn_v2_5_mc_resume_dpg_mode(struct amdgpu_device *adev, int inst_idx
- /**
-  * vcn_v2_5_disable_clock_gating - disable VCN clock gating
-  *
-- * @adev: amdgpu_device pointer
-- * @i: instance to disable clockgating on
-+ * @vinst: VCN instance
-  *
-  * Disable clock gating for VCN block
-  */
--static void vcn_v2_5_disable_clock_gating(struct amdgpu_device *adev, int i)
-+static void vcn_v2_5_disable_clock_gating(struct amdgpu_vcn_inst *vinst)
- {
-+	struct amdgpu_device *adev = vinst-&gt;adev;
-+	int i = vinst-&gt;inst;
- 	uint32_t data;
- 
- 	if (adev-&gt;vcn.harvest_config &amp; (1 &lt;&lt; i))
-@@ -738,9 +743,11 @@ static void vcn_v2_5_disable_clock_gating(struct amdgpu_device *adev, int i)
- 	WREG32_SOC15(VCN, i, mmUVD_SUVD_CGC_CTRL, data);
- }
- 
--static void vcn_v2_5_clock_gating_dpg_mode(struct amdgpu_device *adev,
--		uint8_t sram_sel, int inst_idx, uint8_t indirect)
-+static void vcn_v2_5_clock_gating_dpg_mode(struct amdgpu_vcn_inst *vinst,
-+		uint8_t sram_sel, uint8_t indirect)
- {
-+	struct amdgpu_device *adev = vinst-&gt;adev;
-+	int inst_idx = vinst-&gt;inst;
- 	uint32_t reg_data = 0;
- 
- 	/* enable sw clock gating control */
-@@ -789,13 +796,14 @@ static void vcn_v2_5_clock_gating_dpg_mode(struct amdgpu_device *adev,
- /**
-  * vcn_v2_5_enable_clock_gating_inst - enable VCN clock gating
-  *
-- * @adev: amdgpu_device pointer
-- * @i: instance to enable clockgating on
-+ * @vinst: VCN instance
-  *
-  * Enable clock gating for VCN block
-  */
--static void vcn_v2_5_enable_clock_gating(struct amdgpu_device *adev, int i)
-+static void vcn_v2_5_enable_clock_gating(struct amdgpu_vcn_inst *vinst)
- {
-+	struct amdgpu_device *adev = vinst-&gt;adev;
-+	int i = vinst-&gt;inst;
- 	uint32_t data = 0;
- 
- 	if (adev-&gt;vcn.harvest_config &amp; (1 &lt;&lt; i))
-@@ -846,9 +854,11 @@ static void vcn_v2_5_enable_clock_gating(struct amdgpu_device *adev, int i)
- 	WREG32_SOC15(VCN, i, mmUVD_SUVD_CGC_CTRL, data);
- }
- 
--static void vcn_v2_6_enable_ras(struct amdgpu_device *adev, int inst_idx,
-+static void vcn_v2_6_enable_ras(struct amdgpu_vcn_inst *vinst,
- 				bool indirect)
- {
-+	struct amdgpu_device *adev = vinst-&gt;adev;
-+	int inst_idx = vinst-&gt;inst;
- 	uint32_t tmp;
- 
- 	if (amdgpu_ip_version(adev, UVD_HWIP, 0) != IP_VERSION(2, 6, 0))
-@@ -873,8 +883,10 @@ static void vcn_v2_6_enable_ras(struct amdgpu_device *adev, int inst_idx,
- 			      tmp, 0, indirect);
- }
- 
--static int vcn_v2_5_start_dpg_mode(struct amdgpu_device *adev, int inst_idx, bool indirect)
-+static int vcn_v2_5_start_dpg_mode(struct amdgpu_vcn_inst *vinst, bool indirect)
- {
-+	struct amdgpu_device *adev = vinst-&gt;adev;
-+	int inst_idx = vinst-&gt;inst;
- 	volatile struct amdgpu_fw_shared *fw_shared = adev-&gt;vcn.inst[inst_idx].fw_shared.cpu_addr;
- 	struct amdgpu_ring *ring;
- 	uint32_t rb_bufsz, tmp;
-@@ -892,7 +904,7 @@ static int vcn_v2_5_start_dpg_mode(struct amdgpu_device *adev, int inst_idx, boo
- 		adev-&gt;vcn.inst[inst_idx].dpg_sram_curr_addr = (uint32_t *)adev-&gt;vcn.inst[inst_idx].dpg_sram_cpu_addr;
- 
- 	/* enable clock gating */
--	vcn_v2_5_clock_gating_dpg_mode(adev, 0, inst_idx, indirect);
-+	vcn_v2_5_clock_gating_dpg_mode(vinst, 0, indirect);
- 
- 	/* enable VCPU clock */
- 	tmp = (0xFF &lt;&lt; UVD_VCPU_CNTL__PRB_TIMEOUT_VAL__SHIFT);
-@@ -941,7 +953,7 @@ static int vcn_v2_5_start_dpg_mode(struct amdgpu_device *adev, int inst_idx, boo
- 		 (0x1 &lt;&lt; UVD_MPC_SET_MUX__SET_1__SHIFT) |
- 		 (0x2 &lt;&lt; UVD_MPC_SET_MUX__SET_2__SHIFT)), 0, indirect);
- 
--	vcn_v2_5_mc_resume_dpg_mode(adev, inst_idx, indirect);
-+	vcn_v2_5_mc_resume_dpg_mode(vinst, indirect);
- 
- 	WREG32_SOC15_DPG_MODE(inst_idx, SOC15_DPG_MODE_OFFSET(
- 		VCN, 0, mmUVD_REG_XX_MASK), 0x10, 0, indirect);
-@@ -952,7 +964,7 @@ static int vcn_v2_5_start_dpg_mode(struct amdgpu_device *adev, int inst_idx, boo
- 	WREG32_SOC15_DPG_MODE(inst_idx, SOC15_DPG_MODE_OFFSET(
- 		VCN, 0, mmUVD_LMI_CTRL2), 0, 0, indirect);
- 
--	vcn_v2_6_enable_ras(adev, inst_idx, indirect);
-+	vcn_v2_6_enable_ras(vinst, indirect);
- 
- 	/* unblock VCPU register access */
- 	WREG32_SOC15_DPG_MODE(inst_idx, SOC15_DPG_MODE_OFFSET(
-@@ -1017,8 +1029,10 @@ static int vcn_v2_5_start_dpg_mode(struct amdgpu_device *adev, int inst_idx, boo
- 	return 0;
- }
- 
--static int vcn_v2_5_start(struct amdgpu_device *adev, int i)
-+static int vcn_v2_5_start(struct amdgpu_vcn_inst *vinst)
- {
-+	struct amdgpu_device *adev = vinst-&gt;adev;
-+	int i = vinst-&gt;inst;
- 	volatile struct amdgpu_fw_shared *fw_shared =
- 		adev-&gt;vcn.inst[i].fw_shared.cpu_addr;
- 	struct amdgpu_ring *ring;
-@@ -1032,7 +1046,7 @@ static int vcn_v2_5_start(struct amdgpu_device *adev, int i)
- 		amdgpu_dpm_enable_vcn(adev, true, i);
- 
- 	if (adev-&gt;pg_flags &amp; AMD_PG_SUPPORT_VCN_DPG)
--		return vcn_v2_5_start_dpg_mode(adev, i, adev-&gt;vcn.inst[i].indirect_sram);
-+		return vcn_v2_5_start_dpg_mode(vinst, adev-&gt;vcn.inst[i].indirect_sram);
- 
- 	/* disable register anti-hang mechanism */
- 	WREG32_P(SOC15_REG_OFFSET(VCN, i, mmUVD_POWER_STATUS), 0,
-@@ -1046,7 +1060,7 @@ static int vcn_v2_5_start(struct amdgpu_device *adev, int i)
- 		return 0;
- 
- 	/* SW clock gating */
--	vcn_v2_5_disable_clock_gating(adev, i);
-+	vcn_v2_5_disable_clock_gating(vinst);
- 
- 	/* enable VCPU clock */
- 	WREG32_P(SOC15_REG_OFFSET(VCN, i, mmUVD_VCPU_CNTL),
-@@ -1091,7 +1105,7 @@ static int vcn_v2_5_start(struct amdgpu_device *adev, int i)
- 		      (0x1 &lt;&lt; UVD_MPC_SET_MUX__SET_1__SHIFT) |
- 		      (0x2 &lt;&lt; UVD_MPC_SET_MUX__SET_2__SHIFT)));
- 
--	vcn_v2_5_mc_resume(adev, i);
-+	vcn_v2_5_mc_resume(vinst);
- 
- 	/* VCN global tiling registers */
- 	WREG32_SOC15(VCN, i, mmUVD_GFX8_ADDR_CONFIG,
-@@ -1396,8 +1410,10 @@ static int vcn_v2_5_sriov_start(struct amdgpu_device *adev)
- 	return vcn_v2_5_mmsch_start(adev, &amp;adev-&gt;virt.mm_table);
- }
- 
--static int vcn_v2_5_stop_dpg_mode(struct amdgpu_device *adev, int inst_idx)
-+static int vcn_v2_5_stop_dpg_mode(struct amdgpu_vcn_inst *vinst)
- {
-+	struct amdgpu_device *adev = vinst-&gt;adev;
-+	int inst_idx = vinst-&gt;inst;
- 	uint32_t tmp;
- 
- 	/* Wait for power status to be 1 */
-@@ -1424,15 +1440,17 @@ static int vcn_v2_5_stop_dpg_mode(struct amdgpu_device *adev, int inst_idx)
- 	return 0;
- }
- 
--static int vcn_v2_5_stop(struct amdgpu_device *adev, int i)
-+static int vcn_v2_5_stop(struct amdgpu_vcn_inst *vinst)
- {
-+	struct amdgpu_device *adev = vinst-&gt;adev;
-+	int i = vinst-&gt;inst;
- 	uint32_t tmp;
- 	int r;
- 
- 	if (adev-&gt;vcn.harvest_config &amp; (1 &lt;&lt; i))
- 		return 0;
- 	if (adev-&gt;pg_flags &amp; AMD_PG_SUPPORT_VCN_DPG)
--		return vcn_v2_5_stop_dpg_mode(adev, i);
-+		return vcn_v2_5_stop_dpg_mode(vinst);
- 
- 	/* wait for vcn idle */
- 	r = SOC15_WAIT_ON_RREG(VCN, i, mmUVD_STATUS, UVD_STATUS__IDLE, 0x7);
-@@ -1475,7 +1493,7 @@ static int vcn_v2_5_stop(struct amdgpu_device *adev, int i)
- 	/* clear status */
- 	WREG32_SOC15(VCN, i, mmUVD_STATUS, 0);
- 
--	vcn_v2_5_enable_clock_gating(adev, i);
-+	vcn_v2_5_enable_clock_gating(vinst);
- 
- 	/* enable register anti-hang mechanism */
- 	WREG32_P(SOC15_REG_OFFSET(VCN, i, mmUVD_POWER_STATUS),
-@@ -1810,12 +1828,14 @@ static int vcn_v2_5_set_clockgating_state(struct amdgpu_ip_block *ip_block,
- 		return 0;
- 
- 	for (i = 0; i &lt; adev-&gt;vcn.num_vcn_inst; ++i) {
-+		struct amdgpu_vcn_inst *vinst = &amp;adev-&gt;vcn.inst[i];
-+
- 		if (enable) {
- 			if (!vcn_v2_5_is_idle(adev))
- 				return -EBUSY;
--			vcn_v2_5_enable_clock_gating(adev, i);
-+			vcn_v2_5_enable_clock_gating(vinst);
- 		} else {
--			vcn_v2_5_disable_clock_gating(adev, i);
-+			vcn_v2_5_disable_clock_gating(vinst);
- 		}
- 	}
- 
-@@ -1827,6 +1847,7 @@ static int vcn_v2_5_set_powergating_state_inst(struct amdgpu_ip_block *ip_block,
- 					       int i)
- {
- 	struct amdgpu_device *adev = ip_block-&gt;adev;
-+	struct amdgpu_vcn_inst *vinst = &amp;adev-&gt;vcn.inst[i];
- 	int ret;
- 
- 	if (amdgpu_sriov_vf(adev))
-@@ -1836,9 +1857,9 @@ static int vcn_v2_5_set_powergating_state_inst(struct amdgpu_ip_block *ip_block,
- 		return 0;
- 
- 	if (state == AMD_PG_STATE_GATE)
--		ret = vcn_v2_5_stop(adev, i);
-+		ret = vcn_v2_5_stop(vinst);
- 	else
--		ret = vcn_v2_5_start(adev, i);
-+		ret = vcn_v2_5_start(vinst);
- 
- 	if (!ret)
- 		adev-&gt;vcn.inst[i].cur_state = state;
-</pre>
-    </blockquote>
-  </body>
-</html>
+> +}
+> +EXPORT_SYMBOL(drm_sched_cancel_all_jobs);
+> +
+>   /**
+>    * drm_sched_resubmit_jobs - Deprecated, don't use in new code!
+>    *
+> diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+> index a0ff08123f07..298513f8c327 100644
+> --- a/include/drm/gpu_scheduler.h
+> +++ b/include/drm/gpu_scheduler.h
+> @@ -579,6 +579,7 @@ void drm_sched_wqueue_stop(struct drm_gpu_scheduler *sched);
+>   void drm_sched_wqueue_start(struct drm_gpu_scheduler *sched);
+>   void drm_sched_stop(struct drm_gpu_scheduler *sched, struct drm_sched_job *bad);
+>   void drm_sched_start(struct drm_gpu_scheduler *sched, int errno);
+> +void drm_sched_cancel_all_jobs(struct drm_gpu_scheduler *sched, int errno);
+>   void drm_sched_resubmit_jobs(struct drm_gpu_scheduler *sched);
+>   void drm_sched_increase_karma(struct drm_sched_job *bad);
+>   void drm_sched_reset_karma(struct drm_sched_job *bad);
 
---------------vdAL2C1kQQkza2izYAFiWxGX--
