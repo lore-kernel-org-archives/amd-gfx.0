@@ -4,61 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D12DC02199
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Feb 2025 22:38:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8165EC02192
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Feb 2025 22:38:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F6B710E212;
-	Wed,  5 Feb 2025 22:38:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D45210E408;
+	Wed,  5 Feb 2025 22:38:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lxR0TjLg";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="D2z9uaGj";
 	dkim-atps=neutral
-Received: from mail-vk1-f179.google.com (mail-vk1-f179.google.com
- [209.85.221.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 49DDD10E16E
- for <amd-gfx@lists.freedesktop.org>; Wed,  5 Feb 2025 19:12:52 +0000 (UTC)
-Received: by mail-vk1-f179.google.com with SMTP id
- 71dfb90a1353d-518c46cc6e4so23172e0c.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 05 Feb 2025 11:12:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1738782771; x=1739387571; darn=lists.freedesktop.org;
- h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=kWccelVeRsy1o95KeizPK/HACe1yDtoX8uEvuDrhy6A=;
- b=lxR0TjLgJO5AAT+2ArfkdHeg/PtohOrxBOZVIMGO+64c/VEHfVF/7bMtyNiS+uIKT1
- VmUW1YYldm3Za2NHtQH8HVmHbXbgk5PXL16uUlkv+gjSjpi0hUBkY39mM9ZZPiqAzmvF
- Cc0B1dr9ScL7J1CVe+CXJoQfe1SWJwfmA+mAKrA1+jhCxfLPyR9KgM6oDjg+dwXFt3+P
- 0Dpo0j1aVQRvTFCo3GPXi+2Ie3k80kT5ZIy76miWe2GdesDSbhrp7qJmYK0bGDsfyg5Y
- qIhUWQDEuRmG0V3gr2fJvS2zmpcIbALx6mFBcy5OhelFkSTc95HTiMjwHX1avgl9lp/p
- niYw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1738782771; x=1739387571;
- h=to:subject:message-id:date:from:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=kWccelVeRsy1o95KeizPK/HACe1yDtoX8uEvuDrhy6A=;
- b=sgufZAarSZ1ZOBw4qyTOQfdigR6YdRZm3KwZYmUhBKL8XkknBXnEH6R2b59kZvBdvi
- zC9zEvQN6aF9hpGWbxk4d5tOVUorATJNeKcoP1ulWGMTOKXms4LABUZpM+iCIHMIuG9S
- KWCdtB8l/gpQrrZ1oHsoCagsUe17ASbj3fe8fhbmm55fYVHF3j2roPZm6b/pEAeMfPU4
- h03doN5/SFHlS9QvHOZqALXv8QA4NauKqQiS89z7YS4iJMC9xeBLzLycBwpFd1r8TK8b
- DyUpuoMaLPdWusxLLcTjrisua7L9XEZyEuLuJ51bqauGr4ZbcF6EwvJRsZN2uVEZVXhg
- 41MA==
-X-Gm-Message-State: AOJu0YwVByPhtJWLrfg7GXp1SK2uvTzVVEHi5PS3DfxiZWPedgpdaIqe
- 2gXqcaIy4o8aYbEiYKYOI+GdfIgdkRHeNam1JZUPML7uX0oTaGm0iTpqU50hDzGCx3NGH6o5Shd
- wsumcjNwi+CtwltZsRI+tlakUlEyp7Lgj
-X-Gm-Gg: ASbGncvU5nHmI2+5+m/+qhf1MmdrcGBnHnYZdI2sokcQ4l8B/eEFYL+qQERzkScKgtZ
- 5jYbQJIYxm1m9XOv/XB0itmMiIuHMc5yi/t8mPoBFdoy0CcSlNnkTHlIl/r05Hgg+av1vag8=
-X-Google-Smtp-Source: AGHT+IGzFTnRgVfdgXq9CbnEovXw/pbq8TLB1IenQekUZIH52T8R563BeVTfCrEu08o2em1QRwXpHLdgoU/zN4sp6wY=
-X-Received: by 2002:a05:6122:da6:b0:516:2209:9032 with SMTP id
- 71dfb90a1353d-51f0c35f6c8mr2889219e0c.2.1738782770889; Wed, 05 Feb 2025
- 11:12:50 -0800 (PST)
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A65510E161;
+ Wed,  5 Feb 2025 13:07:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
+ MIME-Version:Subject:Date:From:Sender:Reply-To:Content-ID:Content-Description
+ :Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=jVmUkPbt3zvCMkUUqNmKPtRcG1+s+WzT7PxusitKQqo=; b=D2z9uaGj20pleMWRSST0wxA3qq
+ W9+0pKF+IEk6RIkYRdaqzXNKAd73jVHIdVqNWCeBjSBtQ768fM2v3ooxlYtV6ArtlMwn+XYv/TXyT
+ 5M5WhcidIGsly5yXjB18BZDjer+lpNGEd2ldllcnRG0ML8eas1qkuI29lpPyPFDxsMkVSvjVFDY4A
+ ZQW3+yxI9K3mak9t+cbYA/SDUNC1qYBLSFCLl2JrxVVXI8WytRGdrbRq60uGlnpFO8l8BvW36Pyvp
+ dOkJ2RBti36484nlqfh2ewMFx8saWEbW84VGC12iTB+EylqwvUpnGg5RKsHh7clk4BmtRvRiG9jrf
+ VO9ssb1A==;
+Received: from 179-125-64-239-dinamico.pombonet.net.br ([179.125.64.239]
+ helo=quatroqueijos.cascardo.eti.br)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1tff7G-003yER-T3; Wed, 05 Feb 2025 14:07:00 +0100
+From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+Date: Wed, 05 Feb 2025 10:06:38 -0300
+Subject: [PATCH] drm/amd/display: avoid NPD when ASIC does not support DMUB
 MIME-Version: 1.0
-From: Alexandre Demers <alexandre.f.demers@gmail.com>
-Date: Wed, 5 Feb 2025 14:12:40 -0500
-X-Gm-Features: AWEUYZmZ_bOiflqdoiQUnR8KclPofxy7Zq-jSSK4uzD9zV8UyHz_xs8FTquK4-Y
-Message-ID: <CAPEhTTFyW6Y7uGkh5zc4=N4qKaO_XM9Rfrjk767dLFp0u5_8vQ@mail.gmail.com>
-Subject: [AMDGPU/PM/legacy] PATCH SI/CIK: suspend / resume gpu hang [issue
- 2524]
-To: Freedesktop - AMD-gfx <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20250205-amdgpu-dmub-v1-1-88151fe565d8@igalia.com>
+X-B4-Tracking: v=1; b=H4sIAF1io2cC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDI1MDIwNT3cTclPSCUt2U3NIkXeO0ZCPTRIOkZDOLVCWgjoKi1LTMCrBp0bG
+ 1tQCctVNeXQAAAA==
+X-Change-ID: 20250205-amdgpu-dmub-3fc25a0bc68e
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Tom Chung <chiahsuan.chung@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, kernel-dev@igalia.com, 
+ Thadeu Lima de Souza Cascardo <cascardo@igalia.com>, stable@vger.kernel.org, 
+ Daniel Wheeler <daniel.wheeler@amd.com>
+X-Mailer: b4 0.14.2
 X-Mailman-Approved-At: Wed, 05 Feb 2025 22:38:15 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -74,201 +70,145 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-A patch has been laying dormant for more than a year that would fix
-suspend/resume GPU hangs happening on SI/CIK's pm suspend/resume
-cycles. See: https://gitlab.freedesktop.org/drm/amd/-/issues/2524
+ctx->dmub_srv will de NULL if the ASIC does not support DMUB, which is
+tested in dm_dmub_sw_init.
 
-I'm not the original proposer of the patch, however this person hasn't
-been answering after a few months since Alex Deutcher had suggested he
-send the patch to amd-gfx mailing list for review.
+However, it will be dereferenced in dmub_hw_lock_mgr_cmd if
+should_use_dmub_lock returns true.
 
-This patch handles the mutex locks/unlocks needed to prevent the
-suspend/resume hangs. It mimics what was included in
+This has been the case since dmub support has been added for PSR1.
 
-commit 3712e7a494596b26861f4dc9b81676d1d0272eaf
-Author: Evan Quan <evan.quan@amd.com>
-Date:   Tue Nov 16 14:30:20 2021 +0800
+Fix this by checking for dmub_srv in should_use_dmub_lock.
 
-    drm/amd/pm: unified lock protections in amdgpu_dpm.c
+[   37.440832] BUG: kernel NULL pointer dereference, address: 0000000000000058
+[   37.447808] #PF: supervisor read access in kernel mode
+[   37.452959] #PF: error_code(0x0000) - not-present page
+[   37.458112] PGD 0 P4D 0
+[   37.460662] Oops: Oops: 0000 [#1] PREEMPT SMP NOPTI
+[   37.465553] CPU: 2 UID: 1000 PID: 1745 Comm: DrmThread Not tainted 6.14.0-rc1-00003-gd62e938120f0 #23 99720e1cb1e0fc4773b8513150932a07de3c6e88
+[   37.478324] Hardware name: Google Morphius/Morphius, BIOS Google_Morphius.13434.858.0 10/26/2023
+[   37.487103] RIP: 0010:dmub_hw_lock_mgr_cmd+0x77/0xb0
+[   37.492074] Code: 44 24 0e 00 00 00 00 48 c7 04 24 45 00 00 0c 40 88 74 24 0d 0f b6 02 88 44 24 0c 8b 01 89 44 24 08 85 f6 75 05 c6 44 24 0e 01 <48> 8b 7f 58 48 89 e6 ba 01 00 00 00 e8 08 3c 2a 00 65 48 8b 04 5
+[   37.510822] RSP: 0018:ffff969442853300 EFLAGS: 00010202
+[   37.516052] RAX: 0000000000000000 RBX: ffff92db03000000 RCX: ffff969442853358
+[   37.523185] RDX: ffff969442853368 RSI: 0000000000000001 RDI: 0000000000000000
+[   37.530322] RBP: 0000000000000001 R08: 00000000000004a7 R09: 00000000000004a5
+[   37.537453] R10: 0000000000000476 R11: 0000000000000062 R12: ffff92db0ade8000
+[   37.544589] R13: ffff92da01180ae0 R14: ffff92da011802a8 R15: ffff92db03000000
+[   37.551725] FS:  0000784a9cdfc6c0(0000) GS:ffff92db2af00000(0000) knlGS:0000000000000000
+[   37.559814] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[   37.565562] CR2: 0000000000000058 CR3: 0000000112b1c000 CR4: 00000000003506f0
+[   37.572697] Call Trace:
+[   37.575152]  <TASK>
+[   37.577258]  ? __die_body+0x66/0xb0
+[   37.580756]  ? page_fault_oops+0x3e7/0x4a0
+[   37.584861]  ? exc_page_fault+0x3e/0xe0
+[   37.588706]  ? exc_page_fault+0x5c/0xe0
+[   37.592550]  ? asm_exc_page_fault+0x22/0x30
+[   37.596742]  ? dmub_hw_lock_mgr_cmd+0x77/0xb0
+[   37.601107]  dcn10_cursor_lock+0x1e1/0x240
+[   37.605211]  program_cursor_attributes+0x81/0x190
+[   37.609923]  commit_planes_for_stream+0x998/0x1ef0
+[   37.614722]  update_planes_and_stream_v2+0x41e/0x5c0
+[   37.619703]  dc_update_planes_and_stream+0x78/0x140
+[   37.624588]  amdgpu_dm_atomic_commit_tail+0x4362/0x49f0
+[   37.629832]  ? srso_return_thunk+0x5/0x5f
+[   37.633847]  ? mark_held_locks+0x6d/0xd0
+[   37.637774]  ? _raw_spin_unlock_irq+0x24/0x50
+[   37.642135]  ? srso_return_thunk+0x5/0x5f
+[   37.646148]  ? lockdep_hardirqs_on+0x95/0x150
+[   37.650510]  ? srso_return_thunk+0x5/0x5f
+[   37.654522]  ? _raw_spin_unlock_irq+0x2f/0x50
+[   37.658883]  ? srso_return_thunk+0x5/0x5f
+[   37.662897]  ? wait_for_common+0x186/0x1c0
+[   37.666998]  ? srso_return_thunk+0x5/0x5f
+[   37.671009]  ? drm_crtc_next_vblank_start+0xc3/0x170
+[   37.675983]  commit_tail+0xf5/0x1c0
+[   37.679478]  drm_atomic_helper_commit+0x2a2/0x2b0
+[   37.684186]  drm_atomic_commit+0xd6/0x100
+[   37.688199]  ? __cfi___drm_printfn_info+0x10/0x10
+[   37.692911]  drm_atomic_helper_update_plane+0xe5/0x130
+[   37.698054]  drm_mode_cursor_common+0x501/0x670
+[   37.702600]  ? __cfi_drm_mode_cursor_ioctl+0x10/0x10
+[   37.707572]  drm_mode_cursor_ioctl+0x48/0x70
+[   37.711851]  drm_ioctl_kernel+0xf2/0x150
+[   37.715781]  drm_ioctl+0x363/0x590
+[   37.719189]  ? __cfi_drm_mode_cursor_ioctl+0x10/0x10
+[   37.724165]  amdgpu_drm_ioctl+0x41/0x80
+[   37.728013]  __se_sys_ioctl+0x7f/0xd0
+[   37.731685]  do_syscall_64+0x87/0x100
+[   37.735355]  ? vma_end_read+0x12/0xe0
+[   37.739024]  ? srso_return_thunk+0x5/0x5f
+[   37.743041]  ? find_held_lock+0x47/0xf0
+[   37.746884]  ? vma_end_read+0x12/0xe0
+[   37.750552]  ? srso_return_thunk+0x5/0x5f
+[   37.754565]  ? lock_release+0x1c4/0x2e0
+[   37.758406]  ? vma_end_read+0x12/0xe0
+[   37.762079]  ? exc_page_fault+0x84/0xe0
+[   37.765921]  ? srso_return_thunk+0x5/0x5f
+[   37.769938]  ? lockdep_hardirqs_on+0x95/0x150
+[   37.774303]  ? srso_return_thunk+0x5/0x5f
+[   37.778317]  ? exc_page_fault+0x84/0xe0
+[   37.782163]  entry_SYSCALL_64_after_hwframe+0x55/0x5d
+[   37.787218] RIP: 0033:0x784aa5ec3059
+[   37.790803] Code: 04 25 28 00 00 00 48 89 45 c8 31 c0 48 8d 45 10 c7 45 b0 10 00 00 00 48 89 45 b8 48 8d 45 d0 48 89 45 c0 b8 10 00 00 00 0f 05 <41> 89 c0 3d 00 f0 ff ff 77 1d 48 8b 45 c8 64 48 2b 04 25 28 00 0
+[   37.809553] RSP: 002b:0000784a9cdf90e0 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+[   37.817121] RAX: ffffffffffffffda RBX: 0000784a9cdf917c RCX: 0000784aa5ec3059
+[   37.824256] RDX: 0000784a9cdf917c RSI: 00000000c01c64a3 RDI: 0000000000000020
+[   37.831391] RBP: 0000784a9cdf9130 R08: 0000000000000100 R09: 0000000000ff0000
+[   37.838525] R10: 0000000000000000 R11: 0000000000000246 R12: 0000025c01606ed0
+[   37.845657] R13: 0000025c00030200 R14: 00000000c01c64a3 R15: 0000000000000020
+[   37.852799]  </TASK>
+[   37.854992] Modules linked in:
+[   37.864546] gsmi: Log Shutdown Reason 0x03
+[   37.868656] CR2: 0000000000000058
+[   37.871979] ---[ end trace 0000000000000000 ]---
+[   37.880976] RIP: 0010:dmub_hw_lock_mgr_cmd+0x77/0xb0
+[   37.885954] Code: 44 24 0e 00 00 00 00 48 c7 04 24 45 00 00 0c 40 88 74 24 0d 0f b6 02 88 44 24 0c 8b 01 89 44 24 08 85 f6 75 05 c6 44 24 0e 01 <48> 8b 7f 58 48 89 e6 ba 01 00 00 00 e8 08 3c 2a 00 65 48 8b 04 5
+[   37.904703] RSP: 0018:ffff969442853300 EFLAGS: 00010202
+[   37.909933] RAX: 0000000000000000 RBX: ffff92db03000000 RCX: ffff969442853358
+[   37.917068] RDX: ffff969442853368 RSI: 0000000000000001 RDI: 0000000000000000
+[   37.924201] RBP: 0000000000000001 R08: 00000000000004a7 R09: 00000000000004a5
+[   37.931336] R10: 0000000000000476 R11: 0000000000000062 R12: ffff92db0ade8000
+[   37.938469] R13: ffff92da01180ae0 R14: ffff92da011802a8 R15: ffff92db03000000
+[   37.945602] FS:  0000784a9cdfc6c0(0000) GS:ffff92db2af00000(0000) knlGS:0000000000000000
+[   37.953689] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[   37.959435] CR2: 0000000000000058 CR3: 0000000112b1c000 CR4: 00000000003506f0
+[   37.966570] Kernel panic - not syncing: Fatal exception
+[   37.971901] Kernel Offset: 0x30200000 from 0xffffffff81000000 (relocation range: 0xffffffff80000000-0xffffffffbfffffff)
+[   37.982840] gsmi: Log Shutdown Reason 0x02
 
-While you could add my "Reviewed-by", I've not tested it and it may be
-possible to narrow the locks/unlocks around less calls.
-
-I'm willing to test it on Pitcairn and Tahiti for any regression I
-could find if requested.
-
-Alexandre Demers
-
-----
-
-From e62461803e84c181d6d237e27a215b788d72fa41 Mon Sep 17 00:00:00 2001
-From: "chr[]" <chris@socke>
-Date: Sun, 23 Apr 2023 06:13:47 +0200
-Subject: [PATCH] amdgpu: fix suspend/resume issues
-
-resume and irq handler happily races in set_power_state()
-
-* amdgpu_legacy_dpm_compute_clocks() needs lock
-* protect irq work handler
-* fix dpm_enabled usage
+Fixes: b5c764d6ed55 ("drm/amd/display: Use HW lock mgr for PSR1")
+Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+Cc: stable@vger.kernel.org
+Cc: Sun peng Li <sunpeng.li@amd.com>
+Cc: Tom Chung <chiahsuan.chung@amd.com>
+Cc: Daniel Wheeler <daniel.wheeler@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c    | 19 ++++++++++++++----
- .../gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c    |  2 ++
- drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c    | 20 +++++++++++++++----
- 3 files changed, 33 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dce/dmub_hw_lock_mgr.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
-b/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
-index f5e08b60f66e..e260224b6152 100644
---- a/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
-+++ b/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
-@@ -3056,6 +3056,7 @@ static int kv_dpm_hw_init(void *handle)
-    if (!amdgpu_dpm)
-        return 0;
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dmub_hw_lock_mgr.c b/drivers/gpu/drm/amd/display/dc/dce/dmub_hw_lock_mgr.c
+index 5bb8b78bf250a0e56c3e99ce7c99ed7f70c8f0f6..eef817a4c580aca2ebc7fb1b77cfc0377d477bdc 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce/dmub_hw_lock_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/dce/dmub_hw_lock_mgr.c
+@@ -63,6 +63,9 @@ void dmub_hw_lock_mgr_inbox0_cmd(struct dc_dmub_srv *dmub_srv,
+ 
+ bool should_use_dmub_lock(struct dc_link *link)
+ {
++	/* ASIC doesn't support DMUB */
++	if (!link->ctx->dmub_srv)
++		return false;
+ 	if (link->psr_settings.psr_version == DC_PSR_VERSION_SU_1 ||
+ 	    link->psr_settings.psr_version == DC_PSR_VERSION_1)
+ 		return true;
 
-+   mutex_lock(&adev->pm.mutex);
-    kv_dpm_setup_asic(adev);
-    ret = kv_dpm_enable(adev);
-    if (ret)
-@@ -3063,6 +3064,8 @@ static int kv_dpm_hw_init(void *handle)
-    else
-        adev->pm.dpm_enabled = true;
-    amdgpu_legacy_dpm_compute_clocks(adev);
-+   mutex_unlock(&adev->pm.mutex);
-+
-    return ret;
- }
+---
+base-commit: 2014c95afecee3e76ca4a56956a936e23283f05b
+change-id: 20250205-amdgpu-dmub-3fc25a0bc68e
 
-@@ -3081,10 +3084,13 @@ static int kv_dpm_suspend(void *handle)
-    struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-
-    if (adev->pm.dpm_enabled) {
-+       mutex_lock(&adev->pm.mutex);
-+       adev->pm.dpm_enabled = false;
-        /* disable dpm */
-        kv_dpm_disable(adev);
-        /* reset the power state */
-        adev->pm.dpm.current_ps = adev->pm.dpm.requested_ps =
-adev->pm.dpm.boot_ps;
-+       mutex_unlock(&adev->pm.mutex);
-    }
-    return 0;
- }
-@@ -3094,18 +3100,23 @@ static int kv_dpm_resume(void *handle)
-    int ret;
-    struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-
--   if (adev->pm.dpm_enabled) {
-+   if (!amdgpu_dpm)
-+       return 0;
-+
-+   if (!adev->pm.dpm_enabled) {
-+       mutex_lock(&adev->pm.mutex);
-        /* asic init will reset to the boot state */
-        kv_dpm_setup_asic(adev);
-        ret = kv_dpm_enable(adev);
-        if (ret)
-            adev->pm.dpm_enabled = false;
--       else
-+       else {
-            adev->pm.dpm_enabled = true;
--       if (adev->pm.dpm_enabled)
-            amdgpu_legacy_dpm_compute_clocks(adev);
-+       }
-+       mutex_unlock(&adev->pm.mutex);
-    }
--   return 0;
-+   return ret;
- }
-
- static bool kv_dpm_is_idle(void *handle)
-diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c
-b/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c
-index d3fe149d8476..665c218d9003 100644
---- a/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c
-+++ b/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c
-@@ -1047,6 +1047,7 @@ void amdgpu_dpm_thermal_work_handler(struct
-work_struct *work)
-    if (!adev->pm.dpm_enabled)
-        return;
-
-+   mutex_lock(&adev->pm.mutex);
-    if (!pp_funcs->read_sensor(adev->powerplay.pp_handle,
-                   AMDGPU_PP_SENSOR_GPU_TEMP,
-                   (void *)&temp,
-@@ -1068,4 +1069,5 @@ void amdgpu_dpm_thermal_work_handler(struct
-work_struct *work)
-    adev->pm.dpm.state = dpm_state;
-
-    amdgpu_legacy_dpm_compute_clocks(adev->powerplay.pp_handle);
-+   mutex_unlock(&adev->pm.mutex);
- }
-diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-index 49c398ec0aaf..15084872975b 100644
---- a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-+++ b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-@@ -7797,6 +7797,7 @@ static int si_dpm_hw_init(void *handle)
-    if (!amdgpu_dpm)
-        return 0;
-
-+   mutex_lock(&adev->pm.mutex);
-    si_dpm_setup_asic(adev);
-    ret = si_dpm_enable(adev);
-    if (ret)
-@@ -7804,6 +7805,7 @@ static int si_dpm_hw_init(void *handle)
-    else
-        adev->pm.dpm_enabled = true;
-    amdgpu_legacy_dpm_compute_clocks(adev);
-+   mutex_unlock(&adev->pm.mutex);
-    return ret;
- }
-
-@@ -7822,11 +7824,15 @@ static int si_dpm_suspend(void *handle)
-    struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-
-    if (adev->pm.dpm_enabled) {
-+       mutex_lock(&adev->pm.mutex);
-+       adev->pm.dpm_enabled = false;
-        /* disable dpm */
-        si_dpm_disable(adev);
-        /* reset the power state */
-        adev->pm.dpm.current_ps = adev->pm.dpm.requested_ps =
-adev->pm.dpm.boot_ps;
-+       mutex_unlock(&adev->pm.mutex);
-    }
-+
-    return 0;
- }
-
-@@ -7835,18 +7841,24 @@ static int si_dpm_resume(void *handle)
-    int ret;
-    struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-
--   if (adev->pm.dpm_enabled) {
-+   if (!amdgpu_dpm)
-+       return 0;
-+
-+   if (!adev->pm.dpm_enabled) {
-        /* asic init will reset to the boot state */
-+       mutex_lock(&adev->pm.mutex);
-        si_dpm_setup_asic(adev);
-        ret = si_dpm_enable(adev);
-        if (ret)
-            adev->pm.dpm_enabled = false;
--       else
-+       else {
-            adev->pm.dpm_enabled = true;
--       if (adev->pm.dpm_enabled)
-            amdgpu_legacy_dpm_compute_clocks(adev);
-+       }
-+       mutex_unlock(&adev->pm.mutex);
-    }
--   return 0;
-+
-+   return ret;
- }
-
- static bool si_dpm_is_idle(void *handle)
+Best regards,
 -- 
-2.30.2
+Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+
