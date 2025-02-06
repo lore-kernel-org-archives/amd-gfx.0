@@ -4,150 +4,162 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0016CC02194
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Feb 2025 22:02:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 090AFC02194
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Feb 2025 22:27:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9AD4810E993;
-	Thu,  6 Feb 2025 22:02:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5AC3E10E968;
+	Thu,  6 Feb 2025 22:27:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="LCaT1Zkl";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="FYsIxmKn";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2046.outbound.protection.outlook.com [40.107.223.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A2E110E0D4
- for <amd-gfx@lists.freedesktop.org>; Thu,  6 Feb 2025 21:57:12 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2050.outbound.protection.outlook.com [40.107.243.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5998310E0D4;
+ Thu,  6 Feb 2025 22:22:36 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fnssmXfZ5OiRT/ZBE1nPwAtpcZvTH2CUdIxJAUERBzfP14baVR6f+OXqRAgBYGOjWGS3v8dtUFyT7ygLsYFfBcyAlWH4RWmf4sYxXmieyjL480JUhhg7A7gGZhJPOI3m3Pt08XyR8Yfvsf5ByVYKn2DbW0geeZhNlRPlO6UVt0p4YvpddnVK1n0IXZr8qWYSjmD8vCOP5EZeYGWA4a3lITpB0VvnUuHON/tOm5iJpZK98h8t5KBsdgdt32n+wjjXWp2W+RC3rfBxWAcm3KJnCA8oXz6SOU2n1aPQzrZNStGCXHKA732mmA5D2Q4/5iXhB9udF6eL1tr1spGD+jV14A==
+ b=sBTtaT7tQOZhNgRYUypQKWS/QjxWsQfnxIiFrL8oZDffUs+X2T7/VQxBqOSJvjhBv/41zWtArvSrus4mnR5cW2IjBlzcEOh1uvgIQjmR5moKNLwc8/hUGKbPkFalE5/r7IuPKF8RZXAzCWdwfx0jkJDddg7QzIyJdpNyiZKq5WLDwEXJ4pZy+dlDCAcNa4GHYevKS8z7EA8l8mvT6wGt0167NJydYcAH5ysaoLX0hOR5gZJxfiavRcGwiZa2eQgo8+D1LDtbI4WKQxm1LFHyhwu38WV3JbdNtkBpxwHa59s1qwRKjE0devG5SMP+n19nR1GdeHVAnBQYJyU6CFqrUw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eG0/3f6S4sd/ooRpQsCs8PdTz4hWJSGlgt+Ocai87RU=;
- b=XfOdDVaR6fLIVQz3Iv0A1rgOTKWU90oqFB1zkLlGQIqnUYGRSdXMtaK+bxbMYPNVuDEx7rbQtUX5iP8h59uGrutkZTDXTpWtywNDo4Xxm/PR1MCU/5Pm5MX8MyR1ez7TYM6n7i+umh5l2b54vDRVIrlhfrGju4axGwih37p2Kiw6IISOH4EPkqf2oePcbQnu/io10gWiuKRNnIw5UK/AheeclnUxzQwRhmJEmFBO+V8DANTvxhDqWn+YKvaE/v7DS3A6L+QDual1gMavT2w5ORWBQsrvE1HTNeJM6tNA4I3inJ1i/BxiNCQOUvwe1GUI3MwR3a/4dfl8V5WkQqBNQA==
+ bh=zJD2s/n9pUj79Q4drTPLLCgvHbK45eCq3Jn1SA2O+/c=;
+ b=lXuCOroGQ/+V93F+OwhEn+ol2r9gt89dtuRAo6E9fddqi01eR1YiEh6a9tyXGbUDRLiesQ+0j6xx6RYZH8iMEejZd8Ibox02/o9eW/gxb6+e0s8Y0qcJZhmdh/2BAcXbpLw0g5T4YRZb7aPCU/xU0wVCofxkZUWoOLSmIHRmqv47EGGxvkjuXjDW2yrBdgVjigf+udvaGyMwPz6lQDu5lpGz0+1YA70ynINWphZBLapvAW1R13idGchpI9BaIkKD3rZfsaUsLf1kR2e6x/Ei8/JzkW/dnrOdH/qrWQDfdKSarKN0GKSGBLI+8bHLWJXB9EYjA4PFd0Rl4wZqbDSBsA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eG0/3f6S4sd/ooRpQsCs8PdTz4hWJSGlgt+Ocai87RU=;
- b=LCaT1ZklyNOomTxSoIJLyTToUp8j4Na4bROOmw+FAe9viwraPmwLrStQm7rmECmMhxWEWC4mEq57UVOy1i+tNoCR+oPd4PUJmwQGT91mPIIwB+Ee4QG6ZUlXjgmqRmRmvJ8YeqhurjJ+ACf5Ldb5J/WTvV17vZqzOVTRxPCuwVI=
+ bh=zJD2s/n9pUj79Q4drTPLLCgvHbK45eCq3Jn1SA2O+/c=;
+ b=FYsIxmKn5tCzunslMGjm7ir2fZUAN69I2pNmrykUR9hLMZuAScJBBQP6EU0eOCVG7NRCvmUjchRZS7dGFtMggwE8g0tgdaYHHOI+v32b1S37sIE9Oay8HgZqzYJkLOPl1/HKtOEvFwiveqrFQcRHgRPyLrnOEeFwNHGt3vaa5T4=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB6566.namprd12.prod.outlook.com (2603:10b6:8:8d::16) by
- DM4PR12MB8571.namprd12.prod.outlook.com (2603:10b6:8:187::13) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.8422.12; Thu, 6 Feb 2025 21:57:08 +0000
-Received: from DM4PR12MB6566.namprd12.prod.outlook.com
- ([fe80::31b:5d31:8ba6:abd7]) by DM4PR12MB6566.namprd12.prod.outlook.com
- ([fe80::31b:5d31:8ba6:abd7%4]) with mapi id 15.20.8422.010; Thu, 6 Feb 2025
- 21:57:08 +0000
-Content-Type: multipart/alternative;
- boundary="------------ti0iw91RVXwXxQNJIC5UButi"
-Message-ID: <822d7a16-1220-49ea-80bf-36217d052f4d@amd.com>
-Date: Thu, 6 Feb 2025 15:57:07 -0600
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com (2603:10b6:5:358::13)
+ by CH3PR12MB9252.namprd12.prod.outlook.com (2603:10b6:610:1ba::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8422.14; Thu, 6 Feb
+ 2025 22:22:33 +0000
+Received: from CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::1c2f:5c82:2d9c:6062]) by CO6PR12MB5427.namprd12.prod.outlook.com
+ ([fe80::1c2f:5c82:2d9c:6062%4]) with mapi id 15.20.8422.009; Thu, 6 Feb 2025
+ 22:22:33 +0000
+Message-ID: <3e6f5e44-403b-41bb-b819-c4479948731c@amd.com>
+Date: Thu, 6 Feb 2025 17:22:29 -0500
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] drm/amdgpu: Don't modify grace_period in helper
- function
-To: Elena Sakhnovitch <Elena.Sakhnovitch@amd.com>,
- amd-gfx@lists.freedesktop.org
-Cc: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
-References: <20250114195251.42661-1-Elena.Sakhnovitch@amd.com>
- <20250114195251.42661-2-Elena.Sakhnovitch@amd.com>
+Subject: Re: [PATCH v12 2/2] drm/amdgpu: Enable async flip on overlay planes
+To: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Xinhui Pan <Xinhui.Pan@amd.com>, dmitry.baryshkov@linaro.org,
+ Simon Ser <contact@emersion.fr>, joshua@froggi.es,
+ Xaver Hugl <xaver.hugl@gmail.com>, Daniel Stone <daniel@fooishbar.org>,
+ ville.syrjala@linux.intel.com
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org
+References: <20250127-tonyk-async_flip-v12-0-0f7f8a8610d3@igalia.com>
+ <20250127-tonyk-async_flip-v12-2-0f7f8a8610d3@igalia.com>
 Content-Language: en-US
-From: "Chen, Xiaogang" <xiaogang.chen@amd.com>
-In-Reply-To: <20250114195251.42661-2-Elena.Sakhnovitch@amd.com>
-X-ClientProxiedBy: SN7PR04CA0200.namprd04.prod.outlook.com
- (2603:10b6:806:126::25) To DM4PR12MB6566.namprd12.prod.outlook.com
- (2603:10b6:8:8d::16)
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <20250127-tonyk-async_flip-v12-2-0f7f8a8610d3@igalia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YT4PR01CA0256.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:10f::23) To CO6PR12MB5427.namprd12.prod.outlook.com
+ (2603:10b6:5:358::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB6566:EE_|DM4PR12MB8571:EE_
-X-MS-Office365-Filtering-Correlation-Id: 623f1e3e-31cd-4aa0-7ea3-08dd46f93375
+X-MS-TrafficTypeDiagnostic: CO6PR12MB5427:EE_|CH3PR12MB9252:EE_
+X-MS-Office365-Filtering-Correlation-Id: ea893ce8-db52-4c49-2a52-08dd46fcc0bc
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014|8096899003;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?ZGZaSXpzQW9aNFpiTENKMm5aQ1ZRQmQvMy9qMGRtOHRvbENPWDFFdjNqY3dn?=
- =?utf-8?B?YzBRMlhPaGh3UjdYWmhrVk9yZHJHZDlsWGxTZWd3TlNZcjByRFZOMTNaTU1i?=
- =?utf-8?B?TEpLaS8xM2R2MTM3RUVxbWEvcWNpNHJhN3BRL3p0OVBKeENSaUluQjREOFpu?=
- =?utf-8?B?N1cyR0RydWtpbENFOGtZRmxDa0xzZmhHWUh4UkNqVytxbzlOM3FMYVkzUnV5?=
- =?utf-8?B?WUFnZVpqb2R6OWd6Y1VOelBaa05pR0xqSWdTbmNZWG8xZHhJZklCamxpWk83?=
- =?utf-8?B?cm1uVmdONUhuNEpSSUV4NWhDRFhtNnE4Z2lqNkRSc1NXckpQSndtSlNiRm4z?=
- =?utf-8?B?SDYxS3VkTDNVNnUyNm0wdXhNcTJuVVQxV3NicmpnQVB4YkpqRjdCOHpvSnpF?=
- =?utf-8?B?dm5YdVJlenJweEt4YUJoNHQ3Wlp1M2V6UlVobHh6S09pRTVzZ1U3by9GYXN5?=
- =?utf-8?B?ZHI2WnBmWXR5Q0szR0o2eGpMN0VnZlNWR2xFOVZINm9jd3FzRDNMd3UzN2Vt?=
- =?utf-8?B?VVFKUWJ0Rld4Y2JadVFBSk5XOTF6NURXWVBpLzVOM2VTYWJKbFA2MU83dGZx?=
- =?utf-8?B?S0xDQWVBRkhBejNxcG9VV3VNWmUrajA5VEg0aUsrUStqOUJzWkhYMnRLcHkr?=
- =?utf-8?B?U0dWZElYWVRqYmhwV1g4eGdFTEprck9UVVNKMjhMWllCK09RdlhETDlYVGVj?=
- =?utf-8?B?MW8wQkR2RzlOMGVlWW9CemlZaldBakxXbFdhQ1pLazFkb1FLWitxb1h6ZEJL?=
- =?utf-8?B?UkpwNndieVdCUjEyeW5CeEp3bGdJV016YW05VEhEUjZkazNVbVk0eStidDcv?=
- =?utf-8?B?R09UaFNMdXpvcDZrUzFZZWNJNlRZWitjcWVvd2JWYlR5bzZFenpPb1NReEhk?=
- =?utf-8?B?M3NzNmVZSlNETXp6a0tXc0hFVS9ESzE5OTgvV0R5SmxFSDJUUTExdzV6dEs4?=
- =?utf-8?B?Umo5TnJ1dmNmWEN5czNWWlQ3V3kvRXM0OTJqNmF2S1g4T0VockdTQnBSRVRJ?=
- =?utf-8?B?TUYxZGxKOVJyeDJjUVRQTS8rV1NRZnczb0VTTTdxN2o0M3JueWV2UysxUC9r?=
- =?utf-8?B?ZU9JTnpBalNMY1dlbnlJNEFhV1ZzS0tjUDN6bFhzY0JvWVRQUHNabmV1WHRv?=
- =?utf-8?B?aTFmaDd5elhlTDdNbWNSdERKeUN5MGM3R0djMFhjTEFScWJXSU1TWXoyZjNt?=
- =?utf-8?B?ZTdKNlB3aUREcVNuRXA4QmhENDYyRmVweklEVmc3SXJtZVpVMHZhaG5rOE9F?=
- =?utf-8?B?SGtFbUcreHpQeGpSdkM4N2JOMVV6MkZMOEQxVVIvQzRXTmNEWTNLV0pPbTJL?=
- =?utf-8?B?cWdrWVRtRitVOGI0ZUVwcVhES2lYWVpFb2NGSVhkS2tqTU9sZlNLaWlhTUhL?=
- =?utf-8?B?RGg4aTVHR3hjbnduc1BvVkJ1dm55bzhieGpuekhONG81bTJ3dHF4UXRhOEc2?=
- =?utf-8?B?a0JLbEZ2ZHpqaW8vUjBsYS92MlN2aHNrUEI5Rkh2a3BYU29oZHZqZG5vNjMw?=
- =?utf-8?B?czVST3JvVWF1dEFQeEVDdWkraXo5QS9Bajloei9FaStkdjlXa3VSZ0o5UmFs?=
- =?utf-8?B?NFhNS1pseFRTRzZJV1JPL3JqZjAyTkVJSlZ6STRZS2d3ZFZ0ZnNFRUV1R0ZB?=
- =?utf-8?B?cUlRMU90dXJSMXpkWUljb1ZrS0phNU8yOGR3bEN4VHR6ZlRNVEtjalA2S0M1?=
- =?utf-8?B?K0hrZmZ4YUhyYVUwNys5cVFQT01YK0pxSFBHNTJzT25XVm1DeHJQMW8rbHBJ?=
- =?utf-8?B?QkUrR2ZPSFIxSFJNRVU3a0FLM1ZNNHl6V2JhR2tlSDR0U2I3L0tnam9KbGZO?=
- =?utf-8?B?ZmpnU3BtK05SRzNBS3pZbjVQbmlHK05OYUE5ZmhONWZlc3lTYlNwRlpzWFky?=
- =?utf-8?Q?6Taa5GgDCIgS8?=
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|7416014|376014|366016|7053199007|921020; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?Y25NL2lyNHNNVll0d2V1ekJJU016MmloRHlxVlJCVjcvOHJKV0dXU3pwUXlh?=
+ =?utf-8?B?U0phRFRTSlNyZTNKT2UvRlY5VHNXcHBTay9sUjlGbmFkVDM0MThWdmtOVDZq?=
+ =?utf-8?B?TE5zekFwaVVONDNSeHg0T25pdFYvMnZHL0Y1T2l4bjNISnZnaUtsRURhOVZ2?=
+ =?utf-8?B?eWJpeG1FZ2N1dVdxbjRPZWFTekZ2bHVuMUFVTGVwMDh3V3FWOXpsL2VIZFRK?=
+ =?utf-8?B?VlZkbFBiVnpMNzZWc1czcWFoS1NBN1dtN0x0WFg2MmJXbW8zUVhJZTRyMFZL?=
+ =?utf-8?B?bmxTaittZ094YkdGb3UzZENUUSttNU0rT05LZytpU1YwMmk4SFNpcS9GRGxl?=
+ =?utf-8?B?SnMvZUdhaDNRUmNrYm9GMWZzLzFpT05iaFRlNUVMa1FSQ285ZGljWW9hT0J5?=
+ =?utf-8?B?M2I4S1BtdmZwcWRSSlYwZ2IrSHpDNVBibXpTSVNLZUlrcXlIcXBIODhESGIv?=
+ =?utf-8?B?RXBEMWo1cjh5SWo2aUMzbFZVc1NuUmU0cUZheTJVQmFtRGoxK0pIQktjbzho?=
+ =?utf-8?B?NDZVVkF5cVUycFJqai9MaUoyRXAyL0pHQ0g0alJGS0lIaWlzUHdpVGJJSzZi?=
+ =?utf-8?B?UG5JTU1RZFF5SnJGY2lDRXduMlZyRWNIRzh0UG1hb0xOeFVMKzk1dUI1Y08v?=
+ =?utf-8?B?UDJEL1N1Y0JJd3lZd0NIdzMxYnphb1d5QXh6cmpLWmNoZVV3aXFXelRFaGxZ?=
+ =?utf-8?B?Q0RHU283VjZ5Vi9SSVEyNnNmZDR1bzdPdWtmLytSdHlpT1phdGkzdHpxR0po?=
+ =?utf-8?B?azJoQmg5ZEorYXFFSndRRkhXTDFZM0YxMmZkTU42MUhVQjl1S29OZVVqRHNw?=
+ =?utf-8?B?bGhaYWNhSWpmUDNiWHFaRGFuSU9ydCtmbG1nWWRsSG1UY2RNSCs0S3lPT0Rm?=
+ =?utf-8?B?WnBzSWp5OWxvVHdDbmxFbzBQYWQ2SjV4djg2b3VPLzdSOHIrSmYxcjY5YVEv?=
+ =?utf-8?B?dGRwNlc3M0wyMDdZSndRZERhUEJ1aTlpc051UExiUVp1dGszRVREdXA5cGZ6?=
+ =?utf-8?B?VDljQ2o3UWpOL01SdXJCSkQ2cFFBQXhNN2JkajFYdWJLSHZ4YVYxcmczTC9J?=
+ =?utf-8?B?Z1Q0emF1SXIydUdVSjB0SkJZMTZXbHlvMEFiOVFyYTVUMFVyekQ4Z1FqL2Jv?=
+ =?utf-8?B?SDQ5VldzRlJ2S2FtZnJ0UHhCSi9ESXcvK1RxUVIzU0lwejRoUXdYWDdiUGlR?=
+ =?utf-8?B?Q2VvZ3JxZW82cmtlK0ZpY3hoS0JWN3FkSDBPMTdwZVBtbVBBcUgwek45OE8z?=
+ =?utf-8?B?aFdYSktGaGpWODJSYXF1SWZQTlBGdlU3L2hEaEZ3WGFzMWhuZ1EvaHFxbklH?=
+ =?utf-8?B?SVBnMlJEcUtlbXNOWXBGcjRFN2R2UDZPY292MVNhREo4akRIZk9Rd2g2Unlo?=
+ =?utf-8?B?bTZKUkhIOUo1a1BWM09LUkhVNUtGWURMcDRxcWdxelozemZaL3ZDbUNRKy9w?=
+ =?utf-8?B?S1BhZ0dwT2ZYQVRUcnl6aUJIbHJrZU5nT1RHY3RiSXUvNWw2L1lrRG9YanF5?=
+ =?utf-8?B?ellXVCtxTGdYWDJmWFc1K0VacEcxR1o0ZUJBaVNsVEdTdk5SdHlxTHRFUFN6?=
+ =?utf-8?B?Ujk4Mkl5K21VSWFweEZtN21OSU1EUWxJc1pXWVN5cVZaQUZKOThIc2o4aCtp?=
+ =?utf-8?B?SmhXaTlCVElFUmxoejRSdXVlNmhlZlAvTGVDM3FCTjlRZ1dFTXRCeWovbFh0?=
+ =?utf-8?B?eGhKcTFHbG9zRlVqdWFCK2hRY3VHanlpK0FkSi9kWk9wVzJqRFJURTVSeHZx?=
+ =?utf-8?B?S3U3TXRSRUNwa0ptbkkrUlEzMWRHL0FoVGNRQk12Si9SSHRqWWZTYnBaVWpL?=
+ =?utf-8?B?MEE4YTJCNGNnUjhyQWdSdXJ6ZlVJZjhSb3RyTXk0OFQ4ZGx2bjNGTjBTRGFW?=
+ =?utf-8?B?eG56WWF0am1EL1p3cVk1Qi85Y08zS0FIZk44Q3ZNZ3BHV0tPN1dBelNEMEJF?=
+ =?utf-8?Q?efkORyc1EGM=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB6566.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(8096899003); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5427.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(7416014)(376014)(366016)(7053199007)(921020);
+ DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RzdGcS9mcWZtb1dnSUxlelRZOVRDNkhHYnovUTVaMTJzQTB1RmxyMGlOeUtm?=
- =?utf-8?B?aW9GdTU3aEZzY21EZHBnMVoxUWk2a2hTc2RTdi9BUjNxbFBTWEdFeUFwNmlD?=
- =?utf-8?B?ZmNpaS8zTXltVUFiZE5jVmdkR0hLcjkzdVpucXpSK3pCWUc1eTYrd3Zna0ZB?=
- =?utf-8?B?V1RsYTgwcERYdjRLVUs5cHdJM1V6aFpjYUpCY0RnY1ZrZjV5ZWhXWHBMZmgy?=
- =?utf-8?B?VnFzRW1aajc2bkc2cW1CTCt5b2xIYktuUDJ0NVc2R0F3MTRLYWZJaVVEM1ZI?=
- =?utf-8?B?cTluVXZ5cjBGSFBILys2VUhIc1lHOUIwcldmRmE3V1pEVThvNWpNdC8vbFhU?=
- =?utf-8?B?dVdCdndicXNCVjR0VHBBUWFPa1lIc2VDUjZlOWE3MjRZbGtxVTJmK01lSVAr?=
- =?utf-8?B?ZklPc0Z5aTBTOU04UHJ3c2VmS1BDMXdUT09QeC8yejZUcXoxRlREaHR4MXM2?=
- =?utf-8?B?dExOQldLWlhBblZDYWhIdXFtb1ZldHZMN1JuVURlWnlnc3V6YzFURHdsWW4r?=
- =?utf-8?B?SC9Td1JJMTdKOS9SZUkySWpzMXhVaGZhZVhIVGpsVExWY0dMT05ZTWorV0JC?=
- =?utf-8?B?Ukl2VnRrNG96bVNBVms2S3RTTUU3ZFZmMmc0VnUwNVpkbFc5YVZJR1JiS3JH?=
- =?utf-8?B?RHZ6VWlSNnJKaGhjQXE2Q2NvSzdPVk9BTkMrdVo5TmxHaDNSQ0RXUFdmRUFP?=
- =?utf-8?B?L1c1SkNYbXRaRUVXMzlMVXlMQU01VU01ZEhDMUk5dXd5OWtTOCs5ZTJNM3Vl?=
- =?utf-8?B?MnNkZHBEeFppUnFwVHVIZXdqSkRsM0JQTmwyYnhFblZYK2V2VTRUbW5mNlp0?=
- =?utf-8?B?YjJ3dkxmeVlybGdoMlBkUGFOZTVQaEZMdWd0RC9vOFArV1J5UUh0NU5TL3Fq?=
- =?utf-8?B?aEVzYmNkUXdWSk1xYU1NYllaRUtINmdiLy9EdW8rM280MDkxcDM3UENwbVkz?=
- =?utf-8?B?Q0dUa2ZvVmlvWnB1cnZFZDYyaUtGaW9qWW92U1JraWNIUENIN0NsNzlMQVoy?=
- =?utf-8?B?dG05Z2Z3ZlpGN0Y2ZnJqM254blRrTWFBejdQejlRTVNiTDVGRWpxRUJmN0ZC?=
- =?utf-8?B?aElmSFNXWm1FT3RHR0RSZVVQZGV5WEp3K0Uza1M4RmRGeVp4S3FtaHB1a1ZT?=
- =?utf-8?B?S2hDUElrbjlaWFRjNTRHeW9ZMzkrOVNxREtZT243ZXRJNm9LSUltR2ExL25l?=
- =?utf-8?B?MlU3Y1VSNEhNSkp4MlhHMCtNczhaaDhzT0RLdndFZmVOZDBXRkV1ai85cnN1?=
- =?utf-8?B?dnN5NHlMZ0R6MEp1OWVVLzA4WlNveXE3d0NCUzBBS0hBa3VmaGlkeGk2ajRB?=
- =?utf-8?B?c3dQRVdITlFmQ1EvSmFTVnlmUkQyQlY1eldjUlBYaGExVGx3Y3F4MGJTQnBJ?=
- =?utf-8?B?Z3RHRjd1VFc0WFVqK1ZJZVN1VmtHbDA2RUJneVEwYU5YbnF4WC9PYXgxblQ0?=
- =?utf-8?B?a3BRTERxWG9BWmJ2TlVzTFZvSk50RU90aFV1U2ozbDl0UlBSNXYxNXJXdERU?=
- =?utf-8?B?ZW5lQU0zMWVMUXJiK3ZwUUdMZUk1L051UDhSV3RzVDB5dmVTYnNQRUdnWUU3?=
- =?utf-8?B?aVk3amVOMDlhNVFZMmsvM1VoZFJ2MHdIdnRiZHZ3MjRQSGtWRzRqZTAyS25R?=
- =?utf-8?B?QmVqU2pHS2NwdUZJTmJ2NHlweW44VDdoektObUFNTXpyZUpsVHM2TDJ0WUky?=
- =?utf-8?B?ZUdvOThxWjVpN2xiSW5JVVcyNExHS2RpdlkyLytoUnpMcTVEOGpuYnhlRk5v?=
- =?utf-8?B?cXYrbk5ST3hxZ002THBFdE92YXJ0NmNwNm1DV3VsRHQrWEd3OHJWRDNqYmMv?=
- =?utf-8?B?cVgvSXVLWVZ1VHhUZVlqNnpNbWtrbVdWNFBnTC90TmowL3M0Vk9GWEdCQUVr?=
- =?utf-8?B?ZTgvU1JndndsdDRNczRYK0UzcDJVWG5VaEpsenV6K3ZqRW5Kd3pxd1gzaTRa?=
- =?utf-8?B?ekt3clZmanRDcTQzVjIzRmZHSU4vNXJ3bHp2NUlJSVRXUkJYM0NVTngyRDVQ?=
- =?utf-8?B?d1pSODJwN09yS3B0WmYxVHRBaTZZUXVYRGJ5aUwrNngrbm82UlI0bEx5QkJD?=
- =?utf-8?B?MnlZQ0lYL3dXbDUwUHNFWnBLbHA5UTRtU2ZKQ1BlcW9JSHJCdTZrQkdwK01F?=
- =?utf-8?Q?BrQg=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UjBFa2NwdXJqb0NIa05aTi84MngwN0xlZ3lwTFpQNVhqeUlFOGJoVDU3UlZm?=
+ =?utf-8?B?QXBWQm9peDhDY2t1NUlRU3EzeE16WXhjV3hIV1YrOHQrMm5NbU1yaXJZQWNQ?=
+ =?utf-8?B?ejNERk12QmtFVys2MnRTN0w0emNFTnVGU0ppdC84ak5oaG1PRkhBZkpPNFZF?=
+ =?utf-8?B?MlFndUd4MkYwZFdNTmdkeTllWFpNbzFjRkhSUCtIbVQxRzlmdndibVlhQm1u?=
+ =?utf-8?B?VjVoekZZbHJrS2JGaWdHS1Y4VG16MFA5Q2J5TEZ5dEZIbm45M2ptSUdhWndv?=
+ =?utf-8?B?ZXY3WUZ2aThWa25aN2FrS2RMbllvS1Z6RE0zeU9JRDVzU1dDL2NHZVoxU2hr?=
+ =?utf-8?B?R25YMTBiNkRFS2xpZHlmcFpTMW5jZkIweFhVT2pkY0VXVDdFUU0xc3k2ZGVE?=
+ =?utf-8?B?UGVFaGt0aHZtVHFST2cxWkhPRWpPcUo3dVpYc0lwZmJJbGMyS2FFSmJvcmNL?=
+ =?utf-8?B?ZGYvMWI2bUg2VWVHZ3l3UEZBa05PaFpKaEtCaGNaek9uYzc0QTdiN3ppbWFG?=
+ =?utf-8?B?SDZzN2c4aWVEbkRpcTNncG5tN2xXV0VSQ25JNEo0dXZMR3RsZjZkM0M3V3RV?=
+ =?utf-8?B?L0ZkaENLSkVmN1ZBa0Y2cUNLamN4SEo1S0JwZHcyNVF2MDdwZjJ3Ulk0QW8y?=
+ =?utf-8?B?K09ZNnRlK1cvZ21VZWpBNjdSUnR2THVvOXdYWGVuKys0Rnpwb3hVaENtdEZa?=
+ =?utf-8?B?WXFTbkVjalBGMmQvY3hCbTU4dEY2MWxVUENEZjREaitZNXFxY2hxbzBDNlM3?=
+ =?utf-8?B?K0Y4Yld4Y051aU5hblVSZTY1Mjk1dVdoOWhNR1I1a0VLTzdTWHl6dm9DVTMz?=
+ =?utf-8?B?Wko0RUVhMTdGa3Fvd2pRWFY5MVBsN0ZvWTVKenRJNjc3cWtwRFFFVDJJTWRT?=
+ =?utf-8?B?ZTZmYksvNWNqNStmZVV1VDJpK1BMVXNQMGlHL1A4MUFZa3pGcTNPVGo5Tkov?=
+ =?utf-8?B?RlJzaWV6ai91bzJrZTBPcmQ5TUdpMEtqeVlOZStWSTFBc1J1U2ZERXlpaHNy?=
+ =?utf-8?B?UG1sQXArR0hGZkZJMlBmOVhZQ09ZZFBiSHRTTW82QVI5TG5FNld0bXJtM1hB?=
+ =?utf-8?B?V0N2ZnFkeWZuZWI3eUhzdTVFTW5pS3ZPaUt5Zyt5QWFCVzZqSjJ4TFEvUC9z?=
+ =?utf-8?B?UFB0emFnT1AvNzVIaGc3VitxcDFXd3VHWlZxOHlOaC9xbzNOWC9hR2RGYUdT?=
+ =?utf-8?B?SnFHUi9HdFdqam5XYjhQOCtrMmxKaWxUbEFzczdFWGVJYWxmTGpneTZFZjQ4?=
+ =?utf-8?B?dU4xbEVpL1BSS04yMXh0UnZjZnBHMVQ4UUZaZmIzWGFKclJJNWlXS05zNnNk?=
+ =?utf-8?B?dFBBWlRhRTZDNWp3YkNNUXpBMURmNjUwd3RtSk4vNkcvNUkzNithaHRrWTRw?=
+ =?utf-8?B?NDgrQm1IVmM5aXprcHFBT0pOOE8xbThjSHJvR3hTQVpCcjBFaEVUczJmbVdF?=
+ =?utf-8?B?cCthMmtaWDlFVmo0Zk80bGhWNjZCT0NrR3ZZbG1GeXRNTDVkKzlkbEFPWko5?=
+ =?utf-8?B?T29QdkdMQ2R6aXJCc1VieTIrRnJHeVYxeUZ6dWcyditGV3g5TnNUZHNQci9h?=
+ =?utf-8?B?ZGk5VG1YVXFWN0NiSTRBQ1VMT21JRlhpOFhmalFJd3VRWkxkSHk1bHd2VzRi?=
+ =?utf-8?B?bWg0dHo3d25HUStQcndHZ1pLMFZZRCtUYWRWRFBuRTV5Nmw2S1NyVWt3eUpN?=
+ =?utf-8?B?bjNmQkNSUDZJYVVoL2VuN25BUmlqbFJ3OWdwbDFMbXVzc0xuTkRpVTVWelJY?=
+ =?utf-8?B?bTA5ZnNqYTdONjhLaTIyNTNwR3RqUXRPdmJITE1ycFVBazUyYkdXdjVEVzVZ?=
+ =?utf-8?B?NElMT1NRcVJTY0YzMlREL3BYRHZ0UXVvZVM5U0ttc2dwVGpCT3pGeWJJWFhj?=
+ =?utf-8?B?eXp6K0pOTEtlQmpDcXBzOXRvRStCcUdiZnl6WEFveFFnbU8xOXZhQUczM1Nz?=
+ =?utf-8?B?REpjNFllajM1L1EzS01ENUJDWkhRcnhGUVY4Z2pjNkRFeTRoclozRWNRek80?=
+ =?utf-8?B?eUw4RXVOY3JEMmJCNDJsU3pLWkMwVkRqb3NzMk9XUmE2M3hCdTA4T3R1WlBt?=
+ =?utf-8?B?a1h3KzhoQUdrM21IaUZOMHMxcFBjb3k3cDJXR2VaeVA2SjN3cGxFd0ptVVlu?=
+ =?utf-8?Q?ffaZB6P4VRjylkdhzE9U+3nvG?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 623f1e3e-31cd-4aa0-7ea3-08dd46f93375
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6566.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ea893ce8-db52-4c49-2a52-08dd46fcc0bc
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5427.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Feb 2025 21:57:08.1847 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Feb 2025 22:22:33.8075 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3m6khGTaT/XPru0v9Rjx0k9DxyBxspcH8eVtwBfKK8IGfZprirOyRBaoS4oGFZfb
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB8571
+X-MS-Exchange-CrossTenant-UserPrincipalName: l4vDM8n7ziNjddwKQFa01XiATIYohyhHNUXGvG6WEEKrBT1+B6blXCDwxNf43uaX6SEEX/4Y19k0fZ414fJKjw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9252
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,239 +174,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------ti0iw91RVXwXxQNJIC5UButi
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
 
-On 1/14/2025 1:52 PM, Elena Sakhnovitch wrote:
-> From: Harish Kasiviswanathan<Harish.Kasiviswanathan@amd.com>
->
-> build_grace_period_packet_info is asic helper function that fetches the
-> correct format. It is the responsibility of the caller to validate the
-> value.
-but what is hurt to valid it at asic function? each asic may has its own 
-requirement on grace_period, so has its own checking.
->
-> Signed-off-by: Harish Kasiviswanathan<Harish.Kasiviswanathan@amd.com>
-> Signed-off-by: Elena Sakhnovitch<Elena.Sakhnovitch@amd.com>
+On 2025-01-27 14:59, André Almeida wrote:
+> amdgpu can handle async flips on overlay planes, so allow it for atomic
+> async checks.
+> 
+> Signed-off-by: André Almeida <andrealmeid@igalia.com>
+
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+
+Harry
+
 > ---
->   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c | 18 ++++++------------
->   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c  | 17 ++++++-----------
->   .../gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c | 12 ++++++++++++
->   3 files changed, 24 insertions(+), 23 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
-> index 62176d607bef..8e72dcff8867 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
-> @@ -1029,18 +1029,12 @@ void kgd_gfx_v10_build_grace_period_packet_info(struct amdgpu_device *adev,
->   {
->   	*reg_data = wait_times;
->   
-> -	/*
-> -	 * The CP cannont handle a 0 grace period input and will result in
-> -	 * an infinite grace period being set so set to 1 to prevent this.
-> -	 */
-> -	if (grace_period == 0)
-> -		grace_period = 1;
-> -
-> -	*reg_data = REG_SET_FIELD(*reg_data,
-> -			CP_IQ_WAIT_TIME2,
-> -			SCH_WAVE,
-> -			grace_period);
-> -
-> +	if (grace_period) {
-> +		*reg_data = REG_SET_FIELD(*reg_data,
-> +				CP_IQ_WAIT_TIME2,
-> +				SCH_WAVE,
-> +				grace_period);
-> +	}
->   	*reg_offset = SOC15_REG_OFFSET(GC, 0, mmCP_IQ_WAIT_TIME2);
->   }
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-> index 441568163e20..04c86a229a23 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-> @@ -1085,17 +1085,12 @@ void kgd_gfx_v9_build_grace_period_packet_info(struct amdgpu_device *adev,
->   {
->   	*reg_data = wait_times;
->   
-> -	/*
-> -	 * The CP cannot handle a 0 grace period input and will result in
-> -	 * an infinite grace period being set so set to 1 to prevent this.
-> -	 */
-> -	if (grace_period == 0)
-> -		grace_period = 1;
-> -
-> -	*reg_data = REG_SET_FIELD(*reg_data,
-> -			CP_IQ_WAIT_TIME2,
-> -			SCH_WAVE,
-> -			grace_period);
-> +	if (grace_period) {
-> +		*reg_data = REG_SET_FIELD(*reg_data,
-> +				CP_IQ_WAIT_TIME2,
-> +				SCH_WAVE,
-> +				grace_period);
-> +	}
->   
->   	*reg_offset = SOC15_REG_OFFSET(GC, 0, mmCP_IQ_WAIT_TIME2);
->   }
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
-> index fde212242129..adc7f7c78a18 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
-> @@ -306,6 +306,18 @@ static int pm_set_grace_period_v9(struct packet_manager *pm,
->   	uint32_t reg_offset = 0;
->   	uint32_t reg_data = 0;
->   
-> +	/*
-> +	 * The CP cannot handle a 0 grace period input and will result in
-> +	 * an infinite grace period being set so set to 1 to prevent this.
-> +	 */
-> +	if (!grace_period) {
-> +		pr_debug("Invalid grace_period. Setting default value 0x%x\n",
-> +			 pm->dqm->wait_times);
-> +		if (WARN_ON((pm->dqm->wait_times & CP_IQ_WAIT_TIME2__SCH_WAVE_MASK)
-> +			== 0))
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 10 ++++++----
+>  1 file changed, 6 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> index 774cc3f4f3fd9a964fe48c66eb596d2f6dfee602..6bfed3d1530e6610eea025b477f409ee505870da 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> @@ -1258,21 +1258,23 @@ static int amdgpu_dm_plane_atomic_check(struct drm_plane *plane,
+>  }
+>  
+>  static int amdgpu_dm_plane_atomic_async_check(struct drm_plane *plane,
+> -					      struct drm_atomic_state *state)
+> +					      struct drm_atomic_state *state, bool flip)
+>  {
+>  	struct drm_crtc_state *new_crtc_state;
+>  	struct drm_plane_state *new_plane_state;
+>  	struct dm_crtc_state *dm_new_crtc_state;
+>  
+> -	/* Only support async updates on cursor planes. */
+> -	if (plane->type != DRM_PLANE_TYPE_CURSOR)
+> +	if (flip) {
+> +		if (plane->type != DRM_PLANE_TYPE_OVERLAY)
 > +			return -EINVAL;
+> +	} else if (plane->type != DRM_PLANE_TYPE_CURSOR)
+>  		return -EINVAL;
+>  
+>  	new_plane_state = drm_atomic_get_new_plane_state(state, plane);
+>  	new_crtc_state = drm_atomic_get_new_crtc_state(state, new_plane_state->crtc);
+>  	dm_new_crtc_state = to_dm_crtc_state(new_crtc_state);
+>  	/* Reject overlay cursors for now*/
+> -	if (dm_new_crtc_state->cursor_mode == DM_CURSOR_OVERLAY_MODE)
+> +	if (!flip && dm_new_crtc_state->cursor_mode == DM_CURSOR_OVERLAY_MODE)
+>  		return -EINVAL;
+>  
+>  	return 0;
+> 
 
-should set grace_period to 1 here?
-
-Regards
-
-Xiaogang
-
-> +	}
-> +
->   	if (grace_period == SET_ASIC_OPTIMIZED_GRACE_PERIOD) {
->   		/* Set CWSR grace period to 1x1000 cycle for GFX9.4.3 APU */
->   		if (amdgpu_emu_mode == 0 && dqm->dev->adev->gmc.is_app_apu &&
---------------ti0iw91RVXwXxQNJIC5UButi
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 1/14/2025 1:52 PM, Elena Sakhnovitch
-      wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:20250114195251.42661-2-Elena.Sakhnovitch@amd.com">
-      <pre wrap="" class="moz-quote-pre">From: Harish Kasiviswanathan <a class="moz-txt-link-rfc2396E" href="mailto:Harish.Kasiviswanathan@amd.com">&lt;Harish.Kasiviswanathan@amd.com&gt;</a>
-
-build_grace_period_packet_info is asic helper function that fetches the
-correct format. It is the responsibility of the caller to validate the
-value.</pre>
-    </blockquote>
-    but what is hurt to valid it at asic function? each asic may has its
-    own requirement on <span style="white-space: pre-wrap">grace_period, so has its own checking. </span>
-    <blockquote type="cite" cite="mid:20250114195251.42661-2-Elena.Sakhnovitch@amd.com">
-      <pre wrap="" class="moz-quote-pre">
-
-Signed-off-by: Harish Kasiviswanathan <a class="moz-txt-link-rfc2396E" href="mailto:Harish.Kasiviswanathan@amd.com">&lt;Harish.Kasiviswanathan@amd.com&gt;</a>
-Signed-off-by: Elena Sakhnovitch <a class="moz-txt-link-rfc2396E" href="mailto:Elena.Sakhnovitch@amd.com">&lt;Elena.Sakhnovitch@amd.com&gt;</a>
----
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c | 18 ++++++------------
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c  | 17 ++++++-----------
- .../gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c | 12 ++++++++++++
- 3 files changed, 24 insertions(+), 23 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
-index 62176d607bef..8e72dcff8867 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
-@@ -1029,18 +1029,12 @@ void kgd_gfx_v10_build_grace_period_packet_info(struct amdgpu_device *adev,
- {
- 	*reg_data = wait_times;
- 
--	/*
--	 * The CP cannont handle a 0 grace period input and will result in
--	 * an infinite grace period being set so set to 1 to prevent this.
--	 */
--	if (grace_period == 0)
--		grace_period = 1;
--
--	*reg_data = REG_SET_FIELD(*reg_data,
--			CP_IQ_WAIT_TIME2,
--			SCH_WAVE,
--			grace_period);
--
-+	if (grace_period) {
-+		*reg_data = REG_SET_FIELD(*reg_data,
-+				CP_IQ_WAIT_TIME2,
-+				SCH_WAVE,
-+				grace_period);
-+	}
- 	*reg_offset = SOC15_REG_OFFSET(GC, 0, mmCP_IQ_WAIT_TIME2);
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-index 441568163e20..04c86a229a23 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-@@ -1085,17 +1085,12 @@ void kgd_gfx_v9_build_grace_period_packet_info(struct amdgpu_device *adev,
- {
- 	*reg_data = wait_times;
- 
--	/*
--	 * The CP cannot handle a 0 grace period input and will result in
--	 * an infinite grace period being set so set to 1 to prevent this.
--	 */
--	if (grace_period == 0)
--		grace_period = 1;
--
--	*reg_data = REG_SET_FIELD(*reg_data,
--			CP_IQ_WAIT_TIME2,
--			SCH_WAVE,
--			grace_period);
-+	if (grace_period) {
-+		*reg_data = REG_SET_FIELD(*reg_data,
-+				CP_IQ_WAIT_TIME2,
-+				SCH_WAVE,
-+				grace_period);
-+	}
- 
- 	*reg_offset = SOC15_REG_OFFSET(GC, 0, mmCP_IQ_WAIT_TIME2);
- }
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
-index fde212242129..adc7f7c78a18 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
-@@ -306,6 +306,18 @@ static int pm_set_grace_period_v9(struct packet_manager *pm,
- 	uint32_t reg_offset = 0;
- 	uint32_t reg_data = 0;
- 
-+	/*
-+	 * The CP cannot handle a 0 grace period input and will result in
-+	 * an infinite grace period being set so set to 1 to prevent this.
-+	 */
-+	if (!grace_period) {
-+		pr_debug(&quot;Invalid grace_period. Setting default value 0x%x\n&quot;,
-+			 pm-&gt;dqm-&gt;wait_times);
-+		if (WARN_ON((pm-&gt;dqm-&gt;wait_times &amp; CP_IQ_WAIT_TIME2__SCH_WAVE_MASK)
-+			== 0))
-+			return -EINVAL;</pre>
-    </blockquote>
-    <p>should set <span style="white-space: pre-wrap">grace_period</span>
-      to 1 here?</p>
-    <p>Regards</p>
-    <p>Xiaogang<br>
-    </p>
-    <blockquote type="cite" cite="mid:20250114195251.42661-2-Elena.Sakhnovitch@amd.com">
-      <pre wrap="" class="moz-quote-pre">
-+	}
-+
- 	if (grace_period == SET_ASIC_OPTIMIZED_GRACE_PERIOD) {
- 		/* Set CWSR grace period to 1x1000 cycle for GFX9.4.3 APU */
- 		if (amdgpu_emu_mode == 0 &amp;&amp; dqm-&gt;dev-&gt;adev-&gt;gmc.is_app_apu &amp;&amp;
-</pre>
-    </blockquote>
-  </body>
-</html>
-
---------------ti0iw91RVXwXxQNJIC5UButi--
