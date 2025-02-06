@@ -4,74 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6679BC02194
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Feb 2025 15:40:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56D2AC02194
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Feb 2025 16:29:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 14DC810E23A;
-	Thu,  6 Feb 2025 15:40:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCDEC10E113;
+	Thu,  6 Feb 2025 16:29:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="REDqsWX4";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="gqTGu09c";
 	dkim-atps=neutral
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
- [209.85.216.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E3FE810E23A
- for <amd-gfx@lists.freedesktop.org>; Thu,  6 Feb 2025 15:39:42 +0000 (UTC)
-Received: by mail-pj1-f48.google.com with SMTP id
- 98e67ed59e1d1-2fa1c3ac70cso62771a91.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 06 Feb 2025 07:39:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1738856382; x=1739461182; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=1xrZPh/jVN3mwmztWchqciaPiV5Q9xgw8r9fj4VFD4k=;
- b=REDqsWX4zAMzShfe2g8XmIn0UGuldsefCThgOtMoPG5O/i9UAZenxcDz9es+mrCAO8
- xDLt7xNJhAtcoTE6KjfVV9YrqecHNze+0zxhZFSa+rd23FF0wH2WqJ5FJVswI+kUaEbO
- dCa0uwiKHAleQdqGImVHTBqhd3AaIXjjDoXiuG5PogOdC5lLSHJEX7Gq4kLepQt/mC7w
- o04UMlgonAOsQOe4oSGd/r+aJqawJTBQcYQDxzbz7ClPXPKP5jiJBwbW8MkwlrnZa6zc
- x4yoqNbOv7vt8r5RmmuxFHAejxDxmStzxtuLWJyf6vRQToaeRniACDhkXjaOMoy/QGvf
- lpMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1738856382; x=1739461182;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=1xrZPh/jVN3mwmztWchqciaPiV5Q9xgw8r9fj4VFD4k=;
- b=M6LgDbJu7XNE7bOECJQCDSmzYNuZvRggJ0jvc8CMptr5dZn8wGyy3n0/XC5eg3Y6H0
- 7SlamiqrOcj/U+63dsY3iiZ8qyEkwn8Ww3h87Nk4XSPW6xJBctgm3+0QGW+GZ+TV1rj+
- V+XGE+p4lhtYx0kDcsRYqU/r3JZxUZU8HGHcNIwFX7kXoB6bsbOYELCtW/W2zRGprN5s
- x2berKELYCQOLzStlnUKKnQj7ahxm/9GjTDoAgMeXOpV+SY5nZl5k6Vg4HUTxxnRQP/Z
- YmxWAEbDz5o3on6abLlN7b5SlcT5FMFT48NKaQnhvYzJVpB4IaFB5Kiln2pxrcCvUUag
- VgQg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXor6Lg4Li+MuWgitG6895KalpPst3O+nAlJJg5zYvzyjdDVGOZzyOBnm4ZPwvcpjSwKpjhwHqW@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwVUxDHXNaLRI+OMcUgJpt3cRoFsfcCKAk9CYlEqoRiB2BtECCN
- ppB0p2lu5sO2yAWf+yieT2SQmkEbKEA1BN/YAHlM7ouz96sc70MjDZ4YNLJ0cR/6qzk5L3Jvjew
- ENpEYxvwulq/cCHRoweinu0AS6eg=
-X-Gm-Gg: ASbGnctIYfEonkXWGQOIMTIBR6wm3gcRfbQd+FIIRsGaxHiSJek2u1dSLpeozih0hA9
- G7qU13ZyRycG3Rc19ZxbD9+sRFsx+McZyLD4UgVBBo1nJ6ec8udUXJPR8CzZ86bfN51jaMLUC
-X-Google-Smtp-Source: AGHT+IGrduorTvs1PwXIPtHmYqG43quf11WKmGOZttGhoJ+LOi/oc8CBRNBUEo6GbI2bIRNeyuxOoNhqD1FphtyQ3Wo=
-X-Received: by 2002:a17:90b:2883:b0:2ee:3fa7:ef23 with SMTP id
- 98e67ed59e1d1-2f9e0867b55mr4521232a91.8.1738856382320; Thu, 06 Feb 2025
- 07:39:42 -0800 (PST)
-MIME-Version: 1.0
-References: <20250203214349.1400867-1-alexander.deucher@amd.com>
- <20250203214349.1400867-5-alexander.deucher@amd.com>
- <afca7790-5a0d-44bc-9d4c-9c3eaea078d9@amd.com>
- <CADnq5_NkDg3VB1eNm7-VbwpcobPs_M=nnw0jycpXr7oxXD_3Xg@mail.gmail.com>
- <DS0PR12MB780477EC38379A673BBEECE297F62@DS0PR12MB7804.namprd12.prod.outlook.com>
-In-Reply-To: <DS0PR12MB780477EC38379A673BBEECE297F62@DS0PR12MB7804.namprd12.prod.outlook.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 6 Feb 2025 10:39:31 -0500
-X-Gm-Features: AWEUYZlW9qmzHCYdhaJUiyKH4j7_dTsGPtfw9qkvWwd-K_DWvbvBvxYlId8Oy_Y
-Message-ID: <CADnq5_P+sX_ktrHYOfVK3pbGJMENmEuv0_nJqEukT+=iARmcxw@mail.gmail.com>
-Subject: Re: [PATCH 05/11] drm/amdgpu/sdma5.2: use
- amdgpu_gfx_off_ctrl_immediate()
-To: "Lazar, Lijo" <Lijo.Lazar@amd.com>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2227D10E1BA
+ for <amd-gfx@lists.freedesktop.org>; Thu,  6 Feb 2025 13:35:18 +0000 (UTC)
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4YpdQ95gbRz9slG;
+ Thu,  6 Feb 2025 14:35:13 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1738848913; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=p0S0+7/YLe9UlVmBLRWnNKvgWO2UCJbhc33Vf/qu+44=;
+ b=gqTGu09cuHiPhpb7lnP7AuovRBbWLm4xZ+l189foQLQwW/5whox80VNPgLk6PHmg4WicKI
+ /fpqjrZR2AHKps7W/3eOx4CePafOQUH7O2ELFbGwdGLNYuFPZCfUSTntPQ6qDl2ru0M+ZR
+ XGC+iyoW9o2JLHKPhDuz5xhu1kbW8Nv86DvUUmdWH9C/kNoqh++JT4Ps/HSSApI3Er39Eo
+ I18nZWWxkkmQOTDGVLWl5C0Nt/WzoOsxD1zqnbFFrhmrapv7KFlHBbnn2ttmoW2QChDlzU
+ RxENhd2wYwYG+aToC+yVDJufYmLB3TDMYXDxo6sK85OTFpWBtHCcuQ/5lN5xLQ==
+Message-ID: <67d2ebf31e78c7819fee6f8de917829957091a0d.camel@mailbox.org>
+Subject: Re: [PATCH 1/4] drm/scheduler: Add drm_sched_cancel_all_jobs helper
+From: Philipp Stanner <phasta@mailbox.org>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, amd-gfx@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Christian =?ISO-8859-1?Q?K=F6nig?=
+ <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>, Matthew
+ Brost <matthew.brost@intel.com>, Philipp Stanner <phasta@kernel.org>
+Date: Thu, 06 Feb 2025 14:35:10 +0100
+In-Reply-To: <20250205153332.14852-2-tvrtko.ursulin@igalia.com>
+References: <20250205153332.14852-1-tvrtko.ursulin@igalia.com>
+ <20250205153332.14852-2-tvrtko.ursulin@igalia.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MBO-RS-ID: 9bc705d2bb847bf4880
+X-MBO-RS-META: wk4gjcrtitm78ntrwreh7oyahd1sm6nm
+X-Mailman-Approved-At: Thu, 06 Feb 2025 16:29:33 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,92 +62,130 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Feb 6, 2025 at 10:36=E2=80=AFAM Lazar, Lijo <Lijo.Lazar@amd.com> wr=
-ote:
->
-> [Public]
->
->
-> Specifically, was talking of examples like delayed bo deletes (don't know=
- how they could be in real world). That is an example where buffer deletion=
- is queued up and buffer clearing jobs will start sequentially. With the ne=
-w sequence, allow will be sent and could immediately be followed by a disal=
-low. With the delayed ones that won't happen.
->
-> Or is the gfxoff delay that long which removes considerable power saving?
+On Wed, 2025-02-05 at 15:33 +0000, Tvrtko Ursulin wrote:
+> The helper copies code from the existing
+> amdgpu_job_stop_all_jobs_on_sched
+> with the purpose of reducing the amount of driver code which directly
+> touch scheduler internals.
+>=20
+> If or when amdgpu manages to change the approach for handling the
+> permanently wedged state this helper can be removed.
 
-It's 100ms, so it's pretty long.
+Have you checked how many other drivers might need such a helper?
 
-Alex
+I have a bit mixed feelings about this, because, AFAICT, in the past
+helpers have been added for just 1 driver, such as
+drm_sched_wqueue_ready(), and then they have stayed for almost a
+decade.
 
->
-> Thanks,
-> Lijo
-> ________________________________
-> From: Alex Deucher <alexdeucher@gmail.com>
-> Sent: Thursday, February 6, 2025 8:55:13 PM
-> To: Lazar, Lijo <Lijo.Lazar@amd.com>
-> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; amd-gfx@lists.freedes=
-ktop.org <amd-gfx@lists.freedesktop.org>
-> Subject: Re: [PATCH 05/11] drm/amdgpu/sdma5.2: use amdgpu_gfx_off_ctrl_im=
-mediate()
->
-> On Thu, Feb 6, 2025 at 10:17=E2=80=AFAM Lazar, Lijo <lijo.lazar@amd.com> =
-wrote:
-> >
-> >
-> >
-> > On 2/4/2025 3:13 AM, Alex Deucher wrote:
-> > > In begin_use/end_use use amdgpu_gfx_off_ctrl_immediate()
-> > > rather than amdgpu_gfx_off_ctrl() as we don't need the
-> > > extra delay before we allow gfxoff again.
-> > >
-> > > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> >
-> > Won't this cause unnecessary GFX allows since sdma jobs could also be
-> > used for clearing the buffers?
->
-> The calls are already there, this just switches to gfxoff allow
-> sooner, reducing the time where gfxoff is disallowed.  Should save a
-> bit of power.
->
-> Alex
->
-> >
-> > Thanks,
-> > Lijo
-> >
-> > > ---
-> > >  drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c | 4 ++--
-> > >  1 file changed, 2 insertions(+), 2 deletions(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm=
-/amd/amdgpu/sdma_v5_2.c
-> > > index b1818e87889a2..7f2e1962b5755 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-> > > @@ -1882,7 +1882,7 @@ static void sdma_v5_2_ring_begin_use(struct amd=
-gpu_ring *ring)
-> > >        * doorbells when entering PG.  If you remove this, update
-> > >        * sdma_v5_2_ring_set_wptr() as well!
-> > >        */
-> > > -     amdgpu_gfx_off_ctrl(adev, false);
-> > > +     amdgpu_gfx_off_ctrl_immediate(adev, false);
-> > >  }
-> > >
-> > >  static void sdma_v5_2_ring_end_use(struct amdgpu_ring *ring)
-> > > @@ -1893,7 +1893,7 @@ static void sdma_v5_2_ring_end_use(struct amdgp=
-u_ring *ring)
-> > >        * disallow GFXOFF in some cases leading to
-> > >        * hangs in SDMA.  Allow GFXOFF when SDMA is complete.
-> > >        */
-> > > -     amdgpu_gfx_off_ctrl(adev, true);
-> > > +     amdgpu_gfx_off_ctrl_immediate(adev, true);
-> > >  }
-> > >
-> > >  static void sdma_v5_2_print_ip_state(struct amdgpu_ip_block *ip_bloc=
-k, struct drm_printer *p)
-> >
+AFAIU this is just code move, and only really "decouples" amdgpu in the
+sense of having an official scheduler function that does what amdgpu
+used to do.
+
+So my tendency here would be to continue "allowing" amdgpu to touch the
+scheduler internals until amdgpu fixes this "permanently wedged
+state".=C2=A0And if that's too difficult, couldn't the helper reside in a
+amdgpu/sched_helpers.c or similar?
+
+I think that's better than adding 1 helper for just 1 driver and then
+supposedly removing it again in the future.
+
+P.
+
+>=20
+> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Cc: Danilo Krummrich <dakr@kernel.org>
+> Cc: Matthew Brost <matthew.brost@intel.com>
+> Cc: Philipp Stanner <phasta@kernel.org>
+> ---
+> =C2=A0drivers/gpu/drm/scheduler/sched_main.c | 44
+> ++++++++++++++++++++++++++
+> =C2=A0include/drm/gpu_scheduler.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 1 +
+> =C2=A02 files changed, 45 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/scheduler/sched_main.c
+> b/drivers/gpu/drm/scheduler/sched_main.c
+> index a48be16ab84f..0363655db22d 100644
+> --- a/drivers/gpu/drm/scheduler/sched_main.c
+> +++ b/drivers/gpu/drm/scheduler/sched_main.c
+> @@ -703,6 +703,50 @@ void drm_sched_start(struct drm_gpu_scheduler
+> *sched, int errno)
+> =C2=A0}
+> =C2=A0EXPORT_SYMBOL(drm_sched_start);
+> =C2=A0
+> +/**
+> + * drm_sched_cancel_all_jobs - Cancel all queued and scheduled jobs
+> + *
+> + * @sched: scheduler instance
+> + * @errno: error value to set on signaled fences
+> + *
+> + * Signal all queued and scheduled jobs and set them to error state.
+> + *
+> + * Scheduler must be stopped before calling this.
+> + */
+> +void drm_sched_cancel_all_jobs(struct drm_gpu_scheduler *sched, int
+> errno)
+> +{
+> +	struct drm_sched_entity *entity;
+> +	struct drm_sched_fence *s_fence;
+> +	struct drm_sched_job *job;
+> +	enum drm_sched_priority p;
+> +
+> +	drm_WARN_ON_ONCE(sched, !sched->pause_submit);
+> +
+> +	/* Signal all jobs not yet scheduled */
+> +	for (p =3D DRM_SCHED_PRIORITY_KERNEL; p < sched->num_rqs; p++)
+> {
+> +		struct drm_sched_rq *rq =3D sched->sched_rq[p];
+> +
+> +		spin_lock(&rq->lock);
+> +		list_for_each_entry(entity, &rq->entities, list) {
+> +			while ((job =3D
+> to_drm_sched_job(spsc_queue_pop(&entity->job_queue)))) {
+> +				s_fence =3D job->s_fence;
+> +				dma_fence_signal(&s_fence-
+> >scheduled);
+> +				dma_fence_set_error(&s_fence-
+> >finished, errno);
+> +				dma_fence_signal(&s_fence-
+> >finished);
+> +			}
+> +		}
+> +		spin_unlock(&rq->lock);
+> +	}
+> +
+> +	/* Signal all jobs already scheduled to HW */
+> +	list_for_each_entry(job, &sched->pending_list, list) {
+> +		s_fence =3D job->s_fence;
+> +		dma_fence_set_error(&s_fence->finished, errno);
+> +		dma_fence_signal(&s_fence->finished);
+> +	}
+> +}
+> +EXPORT_SYMBOL(drm_sched_cancel_all_jobs);
+> +
+> =C2=A0/**
+> =C2=A0 * drm_sched_resubmit_jobs - Deprecated, don't use in new code!
+> =C2=A0 *
+> diff --git a/include/drm/gpu_scheduler.h
+> b/include/drm/gpu_scheduler.h
+> index a0ff08123f07..298513f8c327 100644
+> --- a/include/drm/gpu_scheduler.h
+> +++ b/include/drm/gpu_scheduler.h
+> @@ -579,6 +579,7 @@ void drm_sched_wqueue_stop(struct
+> drm_gpu_scheduler *sched);
+> =C2=A0void drm_sched_wqueue_start(struct drm_gpu_scheduler *sched);
+> =C2=A0void drm_sched_stop(struct drm_gpu_scheduler *sched, struct
+> drm_sched_job *bad);
+> =C2=A0void drm_sched_start(struct drm_gpu_scheduler *sched, int errno);
+> +void drm_sched_cancel_all_jobs(struct drm_gpu_scheduler *sched, int
+> errno);
+> =C2=A0void drm_sched_resubmit_jobs(struct drm_gpu_scheduler *sched);
+> =C2=A0void drm_sched_increase_karma(struct drm_sched_job *bad);
+> =C2=A0void drm_sched_reset_karma(struct drm_sched_job *bad);
+
