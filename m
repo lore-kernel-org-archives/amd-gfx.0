@@ -4,149 +4,148 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F0A1C02194
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Feb 2025 22:31:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14001C02196
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Feb 2025 22:54:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C270410E96D;
-	Thu,  6 Feb 2025 22:31:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 617C610E97F;
+	Thu,  6 Feb 2025 22:54:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="WYwecCu3";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="NopkpfQC";
 	dkim-atps=neutral
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2075.outbound.protection.outlook.com [40.107.94.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D46610E96E
- for <amd-gfx@lists.freedesktop.org>; Thu,  6 Feb 2025 22:27:52 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on2077.outbound.protection.outlook.com [40.107.212.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A7B9210E97F;
+ Thu,  6 Feb 2025 22:53:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=j5x3UVww9wkSLutmTZqA4L7eRNr7L9dSxNzjMuG4fKo9werOtMn8UCNiDe/qHgXf+0zI2yTf+hG3yKhOWwH4KGloI1/2V2nGvBmH/d2Fe2LlZgSmmOQSLyb4LDEgkKtFfXENV72dE4umP0dooNlqQnrlzpk4ytyyRW09ncMpB8NguT6xTGEuoA9aSj8ezaaNQGNefEyIppQAG7nd/Yu5Rl0RCZCsz74bmNJ8veKfs4JDTv/XeaacF/nJZ6kSPYRlMshpLYYj0Q15njCzpni6ldPNAwkm4RT/TUHvDMsfYJ2TeGmLoguTyUDS8n9RYsziBmJNrYgRUuQBNl9jN2BPAQ==
+ b=KjhGiH0r/uhdtqIJQRdak/Erj0Wvao1fvoBBXPyNkqCHdjq3dEi4SU1WJvrGcZe5h/+gRjq9RcI2SQqRgSrtN2v673BWU2yJSJNMXk3pzGXcQsI0QtBpWetieV4eLbbM0gnX2CvpaL4mBQPZ6HCOswtduAHRkw3OLSIMXfZSMOAGCSq8poARXzQ7Fv5u6F2WiEg1Ko8oFqE12l/X2JsZ6umvNTugAz1Tnk65gz+xt65Soy7x53iq40avPCgHlybRoeTYkkEkN8DwT7O85hLj8oKGJsu7VJtBVsHOimLdaXU+7LRRFfDySwKrD7kR/JwWr6TF0bVtsXebFn8cyDit1A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Eqnvnx7IClzEDnpo3/NSrOcGvHNxyHXcCgghP26y7bw=;
- b=EUXh8HfMOfNO62r7UZiirVsTXxzg9xBcSxvJZlrCI4UKy8iqCZx1imwlmh/7AHw4grScDnoxmtiSgEd1pOse1b76gmEiVQYTNQqJgxVYPl1wnFz9XtQ/ydeoYdpb//0jn9TWgzXcAK4infNdiCtHDgkHmY5Aq4VGRFpIh+/4XI4EBzY1rV/ulMOF30VhFvmHzI4HxyEgCTeS0yvx3N6UrOKKPIu5cLYrpseu+iFRQeQcKqalVu0SWj7zQPks6sia4cO6/Be2EXpjzHCjbTUFImsGmFqTQcuERu5QwCiCFaKkToyOukDad+LVHLV35d/pJSw0OaJT2tT+QR1Huv32Fw==
+ bh=AfmwKZH2U5n4XTnQioXNaIKQRGpP4mv5myUXh4a3Emg=;
+ b=ZudhAcAbsijISnv4zs+AEPKIvJ9dFy769C+VurwZoU6gH3tpnDRZ12I3FWBiFeVuugQ3TvZTxfZARZ/870VA64IsC4QrhwPvUW6H5pKdpt6RgSVjz9b2yR4UYL+9pZos7T9qgdTDX8O5CntzTqh4sB7f/XkO3cSmrPUNDFZtjUyUCDZWHX7SzExJ5JiAjiqaD4ywTw/9ZnF1wfCJFhbVRIRaQji20DkaZmX3zbvgiYUavg9zjgi3l/fIBH+8sis98zhPWNDRBmLojhalFI+xm7YEn/06/KE43PLv1G7ZFFyGkBzUsWo3BAW+RQPr8sE1oZUZpe7bGQ+dmVkpV9j3rg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Eqnvnx7IClzEDnpo3/NSrOcGvHNxyHXcCgghP26y7bw=;
- b=WYwecCu3zw9qmn+9yvfcfrWr7FkVj6/pI4PvPEtz8+5X/ePi9qGkQ2ere82DXUlQuD2tmaAKs+twiGnaGhmh9thsXe02RmnVZf7wGuPE0RABhnTFVPhMaxBygWBtfWgxDoOoXr0fpXlJXNdLBODkMRlY2Oj3tstohHVpXG23ZoM=
-Received: from PH7PR12MB5902.namprd12.prod.outlook.com (2603:10b6:510:1d6::8)
- by MN2PR12MB4112.namprd12.prod.outlook.com (2603:10b6:208:19a::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8422.11; Thu, 6 Feb
- 2025 22:27:48 +0000
-Received: from PH7PR12MB5902.namprd12.prod.outlook.com
- ([fe80::f62:33c5:301d:edf0]) by PH7PR12MB5902.namprd12.prod.outlook.com
- ([fe80::f62:33c5:301d:edf0%6]) with mapi id 15.20.8422.011; Thu, 6 Feb 2025
- 22:27:48 +0000
-From: "Russell, Kent" <Kent.Russell@amd.com>
-To: "Sakhnovitch, Elena (Elen)" <Elena.Sakhnovitch@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Cornwall,
- Jay" <Jay.Cornwall@amd.com>
-CC: "Sakhnovitch, Elena (Elen)" <Elena.Sakhnovitch@amd.com>, "Kasiviswanathan, 
- Harish" <Harish.Kasiviswanathan@amd.com>, "Sakhnovitch, Elena (Elen)"
- <Elena.Sakhnovitch@amd.com>
-Subject: RE: [PATCH 3/3] drm/amdgpu: Set lower queue retry timeout for gfx9
- family
-Thread-Topic: [PATCH 3/3] drm/amdgpu: Set lower queue retry timeout for gfx9
- family
-Thread-Index: AQHbZr4Un1ZZJH3ZxkqN4Dg/Xj5Gl7M6/yUQ
-Date: Thu, 6 Feb 2025 22:27:48 +0000
-Message-ID: <PH7PR12MB5902C5C4122EDEA9EF11ADBA85F62@PH7PR12MB5902.namprd12.prod.outlook.com>
-References: <20250114195251.42661-1-Elena.Sakhnovitch@amd.com>
- <20250114195251.42661-3-Elena.Sakhnovitch@amd.com>
-In-Reply-To: <20250114195251.42661-3-Elena.Sakhnovitch@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=bd7b4bf0-b107-4880-8f51-0fefdcbaeb3e;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution Only;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-02-06T22:27:33Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
+ bh=AfmwKZH2U5n4XTnQioXNaIKQRGpP4mv5myUXh4a3Emg=;
+ b=NopkpfQCIZYqLepuo53LLDBLc8SAmUS0mfrPJax8CU8PUE6HvnmbTsgiDKXQLSBvYcEJTlLjjDS23qyzjLCoB3iL/XUvEUR1Moa4ZKUNJEc6DJoZnua7Xw9abFUsOiq7JhPSJIWitqwkckMv+DcEfQmd5+lfRaOqX81Qdk6JMUA=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH7PR12MB5902:EE_|MN2PR12MB4112:EE_
-x-ms-office365-filtering-correlation-id: c763ba7c-f8eb-40e2-c5b9-08dd46fd7c2f
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|7053199007|38070700018; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?o1Gqc4gum/d/fmkj5E00VUi50nNLYedHvvMFvHxjRMjdf2luld9XvB0vlkdd?=
- =?us-ascii?Q?c3PW9pSNblF6k5rkaJJhuFcPV49ve5/Dt7amiUHZksrCoQoSL4wnf1Kkcs3f?=
- =?us-ascii?Q?4Oy2CMCQRIbck4Rz4NB7zeFxZqSeiFr9L5pcl69loLflfTmcm+mNS7h6apSG?=
- =?us-ascii?Q?sQCoz9VD9Jw4TyRHFeKQ775FYr3O3lxpaqf3l/VqvPJd9p+kEGNOEFdpLlJj?=
- =?us-ascii?Q?2H9ysJXDE9xl4ba0F/yM+H8UJS/bYOmv/jnu/91nCub5N1BVcbzuHLbsOUuL?=
- =?us-ascii?Q?GjI5HD2kWy5t6KaAJZd02fLj3Wt1p2R/HAbUqcz4+xXRBQ1EVbfiif8pDEB1?=
- =?us-ascii?Q?D+8T6lYcmuQVevQfIW8bwfaL6jXn6Muej2PdfcGzeQZr67Lw3uB4HxTEmUtl?=
- =?us-ascii?Q?f6o3E7ZOMyRS5Ui7t9ePibXCBrFLL4O7L71DXAa0Yqv5aKU3juCJ8La4Ri40?=
- =?us-ascii?Q?wzAquSfLaCTy7Wj/RQ4AtmtKRGg/LmtU1TCaCYaFRbxuMH0dp+MiBMYG9Vma?=
- =?us-ascii?Q?d1V1F4s6/WfKBtpZ2Cwdzp8IaCg9UCdgTHIk5fa2aAduxzKI2UIJ0OFA52Hn?=
- =?us-ascii?Q?E6IPAANyMuQS872PDHxAeOc5jkphsK30ZejP5ih15Quk8TniLa6AtT2vStt8?=
- =?us-ascii?Q?19ESUO4DzFpDqvqsVgN8OYJ4KYJhFBcNqp2e6Mw57oisvptJdDz2+ukGaglB?=
- =?us-ascii?Q?7pEeLNSYTmr3uzzBm3ObQ8oPnTCqcRKvrUCCaWQuWoksilDZJoPml5prCpfS?=
- =?us-ascii?Q?yKdagq1x/N9vON1nTeqk2/I8V+dJb8kSjVBg1v0Q44Ep9t1JAKfWrZodGtJi?=
- =?us-ascii?Q?mkUcBI/9FGHjobcuy+tlx+/uBjoxmz9VeXsUiYisfZRNDfynwmHNx/oAOMbo?=
- =?us-ascii?Q?/CnvQi4/2UBGefs0CVG/h0oEQYmtY3kl25cjKr6FoSzXBixHT3a5assrs8XW?=
- =?us-ascii?Q?kRSK/3kk2gBBvQfBbZflbZ5EYfi1BTPQQ2MaaW2jsiZA6avF4JnJavnA5PLO?=
- =?us-ascii?Q?ZFdVQkAGqScemuBtYdSbzbPMVPOTuHaE8w+qJeieSNaBQQEVoOKSM0Of2IV+?=
- =?us-ascii?Q?BybxELp6uJR9kVEc4+qf7EFutGjEbdB6ODeQFtIouxuJuGUiP2fmJdwjYqQ6?=
- =?us-ascii?Q?P55pMTTyKvzGa/SQ57M4cS0pvQHeoY9Ext/dTl/59wXTTKw1j5k9Bmbgs33o?=
- =?us-ascii?Q?wsnvQ+gldNcRaNt03rnGEyI2GAG0rse3M686MhPd5RWvvmxAoq0BOQjR5kzV?=
- =?us-ascii?Q?wMCyA4WlTSIKLBoyA5We0iAJxK+0BGjGF54bFM8Ok8MdYDFvHHesYsIWJ4z6?=
- =?us-ascii?Q?HQv8soJ5AfIcABA0dUesYBf/4h2F7egDhblP7nZf6olSZyRa3eG9EylH9AmO?=
- =?us-ascii?Q?5VjqKuSymwZ+e6ZsEzXK4OageV4rZ9f1UOQ+r3OktW+J4NkhRYQLhE7STJsD?=
- =?us-ascii?Q?6VUBHC7bDPjfJzWiMQSbHpsKFMDkFlJn?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5902.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(7053199007)(38070700018); DIR:OUT;
- SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?j7W7dYOsJe0KmX/6OUYSTr2xSvoH35sG2h1B9wx1mPSfGNtwRry7vbRQ1N6l?=
- =?us-ascii?Q?isU8us81G2bTSeXhja30zk3FGg/gbrUW2iQtot6+Wu5mJ2dVyflZh3Ob+qi2?=
- =?us-ascii?Q?8+6lG+z0K6nRZOthTZxBcn/6Cn/BZLkwfbqzG0XMuVkICSfg82cWyuXMMy90?=
- =?us-ascii?Q?8r0Bi8D3fLb0/QWfI0myh0cle1Hq16DMO8EfFfVyKUH9BWtj+yw8C6XGp0Cy?=
- =?us-ascii?Q?cjoYj7R5BEngK2q/UYzvjH/Jw5qhUsGv9lzuV+qfixI9cCIIoQRipt6SIo9C?=
- =?us-ascii?Q?LjITu+nS5rF/SNI6PYO+0dR3BATheAt24MdFkjQfKODd9kyYzsHOuu+McMnf?=
- =?us-ascii?Q?sdvQG3ZSNZqWRT2zqMB6tnfqsrERq+ooGisDQfXIRmEIugpWQvNMNqteeQ0Y?=
- =?us-ascii?Q?QwIr6dFPfewN5KwIgVDKS3uNfUZUt6SQ8RThVpwS6EEzwmmRZRirGk2Zj34m?=
- =?us-ascii?Q?O77Kvwllz225EUmK4wJh1cY16fjEK9QSmGDYQngQWpj2YBv5SuWWjOfGRxLT?=
- =?us-ascii?Q?VP3Eg3Z7XCbLUbTA8arYTZnbiy04w9svFGTri8kc11Cw95wz9Ffut/MTcclW?=
- =?us-ascii?Q?IyIJNsJTsHNOx4igabMSSOSaNCvi0UfXTr6OXRq6Se/a+1MckA8EMXKxiN5A?=
- =?us-ascii?Q?QT4y8rgE43t/9lmSZbIW7BIwg5VJbqrTGXTf6Zv5Zappm4nGQ5BD+XxmV7Eu?=
- =?us-ascii?Q?s4ZIDHjvpBWsY9vrnpXCMS5m3aI/h0Do4LDWRBj/3lKGBO1XxXZShWKJT3dU?=
- =?us-ascii?Q?iJ8ZiUiwLMr5SCm+XBLFgn1KCHLGmLvvaCRSt19GSewrTQQTOeO9Ej2ya6dr?=
- =?us-ascii?Q?vth7jZEOcy6IM3NAncTt/Q/g9hch/SXohzgYZMcMmGaMFHd84ZbKlG/JgrZv?=
- =?us-ascii?Q?yR585uBfltuKCH+ScVqJAmgn/zquqY9mLj4kR2a1MaR2MPiRRVgtuVSmOkJg?=
- =?us-ascii?Q?FpBOz6vJItAmmSjlw8GAFju0OL8aJL9iSuWSrYUsAtCz/jmZaQafvwX+EjU6?=
- =?us-ascii?Q?FzIiToQFhpwnwFdpYJP32MOeQxooquJ/V3PTG5TGka9XSFLyd429vueVlKlk?=
- =?us-ascii?Q?3y1f/8afxCTkXAle4ns+LxChCulhuRFKjRc3g4611+r9niYNihVhtRSD9jG5?=
- =?us-ascii?Q?qDIs+QHFjWU5bdpAGeyyphvFCLT4VpNhDX1FhNtn6YtfJjHm2WfpKKvWZpX5?=
- =?us-ascii?Q?ihfrLysqZEUFNSK11tmOJ/O5xt6mZHxMBK9hJJfxsnESd38503WMkZ2mvjbf?=
- =?us-ascii?Q?VBRhLiGwhgWso//3yCLiFhEOUx9dQWYksurWHaiqOt2H0tcF1+3SYodN1O4I?=
- =?us-ascii?Q?Mi5ujNkhba0sXcyhTTadSCOv4J6hVOPY+O7WNarN9c8ZeQiGRBo2Cnn85bn+?=
- =?us-ascii?Q?bBhYSui17w2y5c9GaRFiANBqsVYtCgs+iwixiHYKN/f3rbwyjNGk197d/vRZ?=
- =?us-ascii?Q?fEymd+zOpIxm3XwPnA4VRKKQs6oueaNJqehkKOyx43ETnPu6pyZ2VnoK4+vd?=
- =?us-ascii?Q?danaSwo1Sm0z3Bnc5z8Gq0JNFobsGnd+6fCEh6Vvs6kcPg1Q82S96sTB37m6?=
- =?us-ascii?Q?aVHXr0uqKIuPh5O8lzQ=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by IA0PR12MB8352.namprd12.prod.outlook.com (2603:10b6:208:3dd::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8398.24; Thu, 6 Feb
+ 2025 22:53:36 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::9269:317f:e85:cf81]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::9269:317f:e85:cf81%7]) with mapi id 15.20.8422.012; Thu, 6 Feb 2025
+ 22:53:35 +0000
+Message-ID: <3755f3f6-f7d2-4385-b709-7974c815bb2e@amd.com>
+Date: Thu, 6 Feb 2025 17:53:33 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/amd: Refactor find_system_memory()
+To: Mario Limonciello <superm1@kernel.org>, mario.limonciello@amd.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, simona@ffwll.ch
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+References: <20250206214847.3334595-1-superm1@kernel.org>
+Content-Language: en-US
+From: Felix Kuehling <felix.kuehling@amd.com>
+In-Reply-To: <20250206214847.3334595-1-superm1@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQBPR0101CA0048.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c00:1::25) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|IA0PR12MB8352:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6e1fd69b-f8ec-40d1-13b8-08dd47011634
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?K0h5MFFHeDdyM2M0MFI2dEtObWlBMGdSdVVJTGgxay80M2VCV25HVS85M1dM?=
+ =?utf-8?B?Q0lwNHdZRUp0THNTSVZWWW81bDdub2RSRFdQUDlMTmltbzBjUkVXV2dKVkcy?=
+ =?utf-8?B?VVhEUEh2VmpkYU5Ceit2V2FoZk1JSVdWTE9LUnBhSkp1TG43eFFPZmtSekZl?=
+ =?utf-8?B?UEtMUDlmQkxzMHJkTzIrZWtyNmlXWEd4RkR0ek1sa29ldlZEV1k1WElhb29u?=
+ =?utf-8?B?cTBFZk43M2ZnS3JPQS92MWVVUEM4SEJkWi9FSTZrTjhnbmVjUlpKSkhzRERZ?=
+ =?utf-8?B?dEI5RmRpNW81Y0xtUnh2NVRwbDFBT3BWeWx5RDlKcjJMZEtwR0ZWdVM4a1FB?=
+ =?utf-8?B?QmZGT3J0aGdFaDBpYTZlRy85MGFiTko5T1kzaVJRZlRmYlMrdWI0a3RhZ29i?=
+ =?utf-8?B?STI1Uzg0UFZBalltdGFBVHJHZG5wSTZnb3RWOTJuRVE0NHk3bjFwbFpid0R6?=
+ =?utf-8?B?aHhMWTY2QjdlVitwU2l6Zm1lM1hoazRXeG9GdWI4VThHbDlnYmRYSDFaeVdh?=
+ =?utf-8?B?NDRCOWFuYXU0YmNPYXJRd1d2aTJmRURPTkZ5aHdsSXYwK1J1Zmk4dmhlQWww?=
+ =?utf-8?B?U0duL1cyRHlBazRzUjBBVmkxamlVcUREbThPMlE5Q1ZIbzZTSkdGSklVZkZS?=
+ =?utf-8?B?UEZmSFk3RGNNZDYyNitYNGpRNFFLdURxd3J3ZStPdVFlOE45Yk1ZZ0tGRUZm?=
+ =?utf-8?B?L09ydEdpaUsrYmlNbFhzT1pjQkZ4QnlPZHZoeVk5a2cvTzdiejRzSThhZC9n?=
+ =?utf-8?B?Q2Joc3FWV3I3c0dZYVhjNDRkQVl1eHJRSGs3TlJVOTVEQ2hnT0l4VDV1Q2Ns?=
+ =?utf-8?B?ZVhRek1OMXFSekxGOGh3YWVURFpCemF2YjJwUWtOVzJqT1VBV3FmOU5YMERJ?=
+ =?utf-8?B?MjlBNG41ZnNMVFNDSDlHYVd3cksxdm1yV2ZuTXN4OVd5d3drWGUyRzBFL2l5?=
+ =?utf-8?B?d2t1L1lrZXhaMEZMMnpqcXZ4R3BKSGdqM1dQcklGbWNIRHpjdUY1NXgxeGdJ?=
+ =?utf-8?B?czlhTWhlMTljbVpOQlM2U3VpOVN0UWg2bGNzR0U5L1JmMGh3VGJ3OXdzeWs3?=
+ =?utf-8?B?MU5xSkVCNUpucXpLR1pyR2JIRmw0YWlmTjNlNmJPdnZXY1Ruc0M4TGkya3Zy?=
+ =?utf-8?B?cDAzb1JEYmxXNHBuY080ZlFieFh2OFQ0SDVYTFVkMHN0cm04TlJLYlFzbi9X?=
+ =?utf-8?B?Ly9ONytRaWQ0aDFnWUZsb1pUREM0N2VWWnAxRTcvdmlVbE9UWENaS0RTZXJz?=
+ =?utf-8?B?Ynl1TFFWVnQ4Ync0Z2xMMWlNRFVwUTk5NFRqdXRoQmk5QjFLODhucHJoL0Iy?=
+ =?utf-8?B?S24xd0Y0Z3ZLcmZiVkEza3RPbC9MTVZWbG5LSnJlejQvSlRranVidk9zckxx?=
+ =?utf-8?B?b082RC9XaENOb2p0YzJwREFnakFiZEhKSXk5NERYTWFVMzFMY0lYK2Q4ZEpn?=
+ =?utf-8?B?T3BHOVl1ZkRzamdVZHBFMCt2MEdScFEyaFhHTnJBSEd4ZlphSUtHcVlpak5v?=
+ =?utf-8?B?SDRkZkVLRXI5Wnh2MUwyUjlRYjU2dm1GM0lMcDd3K1B4TzA1eElSeHhOVkdP?=
+ =?utf-8?B?WGxGM2NLMCtoTDRLbnhwbGlTTUIrMC8xVXYxN3FOaFJmYnVnVmR1WDdsWFcr?=
+ =?utf-8?B?TWdEOE9Zc3JBVzVBQ05SNFQrSlRydmFEbVcwVmxsbThvVk5EYnhFQno5dHdL?=
+ =?utf-8?B?Sy90L3lENXQ1WWZkSzZmajdvU2crYkV2QVcyK0k2dDVsdk1BYVNVZGQ3SHRS?=
+ =?utf-8?B?bFVFU0oyazJrTHdralY5SktOT1UzK1BDOHF2ODdRNlA3VVNzMnJZdnZ4RHJB?=
+ =?utf-8?B?WHVUcVZCNDdmNjZXYjRlUT09?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OTdBSlpyUlBOK0lreTZIZEVlSThsZldhQWVJYkx2RWtvOTNVcTY4TFFQK3Y4?=
+ =?utf-8?B?YmVpbEE2VndZZ0hyWG0raU81VUlLOEtHN2gzVDZqeVkyemVBMEJueU1GWmVQ?=
+ =?utf-8?B?R1Q1cUE4aTNyb09UVE1UbWpZWWE0Wmd5SXFPQWc0Q25tVUUwdUxSa3E4b2tk?=
+ =?utf-8?B?bUpJdW5ieUhMSzBhaC8yb3NKNGVpNVlaUzdlMERRNS9qaklsMnlVNDRRTzA2?=
+ =?utf-8?B?NDVmR25yOUVQNzdUMGFYbkVZQ2c5ZnJTaXQzSG9kMmpLaGh1Rk12MXBaRlgv?=
+ =?utf-8?B?RThUU0NKajA0ZTZYU3FlajV5b3BTM3o1UVAyaXJGWUkzTnN0OXdhbm5jMmx2?=
+ =?utf-8?B?R3h3dkpITEdhVi95ejJ2eFZjNjBjRmZBRGk3WE1tL3p0dWkrekdMK0hUS1gv?=
+ =?utf-8?B?UytVaWE0aGtKRVd4T3gxWFpodytVYzhibDU2SHZpdWVNR0hBZE5EL21TOHd5?=
+ =?utf-8?B?a2JodFJ0a0dlRm9UN2x3UVp5V1M0NmZSSWNYMHJlSmNxbDhBTHJjbm9nYnNz?=
+ =?utf-8?B?T2JUS3FnSzN2alRrL1pubUprVkFnNHVNZU1IVlVvVWlONCtUSDNucHRxRUp0?=
+ =?utf-8?B?RVFkSlk0SzVHYThWekxJcldNNDJnK3ZKcVBlRjNXYXA3WkdLeFNtOHNFMXAw?=
+ =?utf-8?B?eFhWb2Z5U1pTTlJnRGZUS2dJbFg3eUFVZU9FUWZKQ1RuSnRuK0t5a3VBSkpT?=
+ =?utf-8?B?aFVGQnR5UVhkc2lBZ3FuS1BkOVY2U29sOFRSL0p4Rk90a1R2OGtMVjBqK08w?=
+ =?utf-8?B?bE5OTDV2SE01cEFPVzJPMHA0UFlRZjhuVXlZTlp1SlZJRmRhMXRHeUo4RXAr?=
+ =?utf-8?B?dm9SNXpPOG5hU1JqYVg1KzFhR0syTWhVdTdQQ1NqSFVSRC9GdWIvcEtMVHdJ?=
+ =?utf-8?B?UldLYzN0SWlETTNnb3VVZGVaTDRBblJFZkRJbzVGaGJrOFcrdnFlamI5c3c4?=
+ =?utf-8?B?dUlZS3BGKzhaTzlmNzJtK3VvWHBrT0YxcmdLMWVWMDZiS1FtZGtvL0xmNC96?=
+ =?utf-8?B?NEE4bzdIVDVjNVRTaGpTbS9DTmtQNyt2MEFoa2ZFM1liT1o2L29iQllBUFUy?=
+ =?utf-8?B?ZWlXTUN3WW04R1pxRkdkL0ppY1dpTjNGU29ESXFhVWZ6cmlWMnpEL29qY1pV?=
+ =?utf-8?B?cGg0SStNUm5zdjVLcFNNQlNuT1haM1kyaGkva1pDY3ZNTVNSY2N0TFZaRy9j?=
+ =?utf-8?B?dFFtSzlOZXhzM2dCRWVoWW0yK1orVXJtL2tGcWFMS3luQWt6S3Y2OGgrcGtG?=
+ =?utf-8?B?NnRScWk5R1VJaDN0MzZKVlpiNGozcVpLeHUzUnVMV25nYTZWMDgraEZ6cWNy?=
+ =?utf-8?B?S3ZYS0pEM0pZRktEMmNCYUZRbGhhVHg4b05jY2R2Vk9ObTRnNkpteitKcEgv?=
+ =?utf-8?B?U3pvZnN5ZEh3eFFhb0N3d0JEWTljOGdJWjMwNmJiR005TzJsWDJNQUNSYlI2?=
+ =?utf-8?B?TkM5d0QwZzhrMEo1VFFsaTVNU1lkaEtsSGJlbVVhN3FGbFNqNnAwSnFQYUdp?=
+ =?utf-8?B?Y083TkFEL2NzQzJyZTNHcGJzTFNxWlhJTmErVU5NR0wwRTBCTk9LbTlWV0N6?=
+ =?utf-8?B?T2dDS1NYd3d0blVJamdUN21CTDlZUUN6VVNGNmRlSGJKT3BEZlBjWGVwc1dk?=
+ =?utf-8?B?eUFuWDZIeE0wTDRBekpGNUNtY0JTWEtkamF2SE1rMWNZUC81Y1ZPWlJGOEdr?=
+ =?utf-8?B?L0ptOWc2T3ZJRmMvY0x1MjgzM1RmUWNWSGpOL0dDNnZIOEpiWjhpSFBra082?=
+ =?utf-8?B?WllZald5bmtaeDhSWEtWZ3E0SCtzRm9xRFlQSVVoeUVaTy9EUnR6b2ZKenNE?=
+ =?utf-8?B?ekFwdDF1TjJBYWtua3M2UjV2RFA1VGNYNmpwMldocFF3cStLcDI5ME83Ymhr?=
+ =?utf-8?B?M2RQZmt6eld1YjB4TlhQWG1aUldlNlF1RGNSRGpiV2hETnJINkJiRnNQcEM5?=
+ =?utf-8?B?M0dqREJGa1Z6c05EZzhBOUFlenNVdm12TnJPSWdrRE5QUzk5SUtETDdUNmVp?=
+ =?utf-8?B?dHh4TS9QQW5Yd3ZleW0rYjh6ZThobDFzZWRLbnhuUDdpQjFaQ1hEYTBGU2N1?=
+ =?utf-8?B?eUpNaHlqYlVacFR0YXVBVEtFTGV5UFFYSU5CSW0zcUsrSisxTFZSKzNMdWNz?=
+ =?utf-8?Q?5zzP5re6hH5aNu1lzjWSF+uxt?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6e1fd69b-f8ec-40d1-13b8-08dd47011634
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5902.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c763ba7c-f8eb-40e2-c5b9-08dd46fd7c2f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Feb 2025 22:27:48.0529 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: aBhhST+ti3WXFGIe4UuLgu7/fad2wt/33f3mX5frSPkuBbu6ebT6ctEv9WiIOxvD9kWKj64BKCVMXDZmy/PS+A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4112
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Feb 2025 22:53:35.7963 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0hIyQ5bKHrekRrGdhjm8uwidNl8dcV5WpSdrRneuwdUMcXM+AFWCFkFMeLKdJVyeg+5AZhCYaAWeVK/xHqVQgA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8352
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,184 +160,108 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - AMD Internal Distribution Only]
 
-Ping (plus Jay)
+On 2025-02-06 16:48, Mario Limonciello wrote:
+> From: Mario Limonciello <mario.limonciello@amd.com>
+> 
+> find_system_memory() pulls out two fields from an SMBIOS type 17
+> device and sets them on KFD devices. The data offsets are counted
+> to find interesting data.
+> 
+> Instead use a struct representation to access the members and pull
+> out the two specific fields.
+> 
+> No intended functional changes.
+> 
+> Link: https://www.dmtf.org/sites/default/files/standards/documents/DSP0134_3.8.0.pdf p99
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 
- Kent
+Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
 
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Elena
-> Sakhnovitch
-> Sent: Tuesday, January 14, 2025 2:53 PM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Sakhnovitch, Elena (Elen) <Elena.Sakhnovitch@amd.com>; Kasiviswanatha=
-n,
-> Harish <Harish.Kasiviswanathan@amd.com>; Sakhnovitch, Elena (Elen)
-> <Elena.Sakhnovitch@amd.com>
-> Subject: [PATCH 3/3] drm/amdgpu: Set lower queue retry timeout for gfx9 f=
-amily
->
-> From: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
->
-> Set more optimized queue retry timeout for gfx9 family starting with
-> arcturus.
->
-> Signed-off-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
-> Signed-off-by: Elena Sakhnovitch <Elena.Sakhnovitch@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c |  1 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h |  1 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c  |  8 ++++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h  |  1 +
->  drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c | 14 +++++++++++++-
->  drivers/gpu/drm/amd/include/kgd_kfd_interface.h    |  1 +
->  6 files changed, 25 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
-> index 8e72dcff8867..652c695d04e2 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
-> @@ -1024,6 +1024,7 @@ void kgd_gfx_v10_get_iq_wait_times(struct
-> amdgpu_device *adev,
->  void kgd_gfx_v10_build_grace_period_packet_info(struct amdgpu_device *ad=
-ev,
->                                               uint32_t wait_times,
->                                               uint32_t grace_period,
-> +                                             uint32_t que_sleep,
->                                               uint32_t *reg_offset,
->                                               uint32_t *reg_data)
->  {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h
-> index 9efd2dd4fdd7..11aedaa8a0b9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h
-> @@ -54,6 +54,7 @@ void kgd_gfx_v10_get_iq_wait_times(struct amdgpu_device
-> *adev,
->  void kgd_gfx_v10_build_grace_period_packet_info(struct amdgpu_device *ad=
-ev,
->                                              uint32_t wait_times,
->                                              uint32_t grace_period,
-> +                                            uint32_t que_sleep,
->                                              uint32_t *reg_offset,
->                                              uint32_t *reg_data);
->  uint64_t kgd_gfx_v10_hqd_get_pq_addr(struct amdgpu_device *adev,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-> index 04c86a229a23..d93a0285f225 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-> @@ -1080,6 +1080,7 @@ void kgd_gfx_v9_get_cu_occupancy(struct
-> amdgpu_device *adev,
->  void kgd_gfx_v9_build_grace_period_packet_info(struct amdgpu_device *ade=
-v,
->               uint32_t wait_times,
->               uint32_t grace_period,
-> +             uint32_t que_sleep,
->               uint32_t *reg_offset,
->               uint32_t *reg_data)
->  {
-> @@ -1092,6 +1093,13 @@ void kgd_gfx_v9_build_grace_period_packet_info(str=
-uct
-> amdgpu_device *adev,
->                               grace_period);
->       }
->
-> +     if (que_sleep) {
-> +             *reg_data =3D REG_SET_FIELD(*reg_data,
-> +                             CP_IQ_WAIT_TIME2,
-> +                             QUE_SLEEP,
-> +                             que_sleep);
-> +     }
-> +
->       *reg_offset =3D SOC15_REG_OFFSET(GC, 0, mmCP_IQ_WAIT_TIME2);
+> v2:
+>  * Update commit message
+>  * Use container_of()
+> ---
+>  drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 27 +++++++++++------------
+>  drivers/gpu/drm/amd/amdkfd/kfd_topology.h | 17 ++++++++++++++
+>  2 files changed, 30 insertions(+), 14 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+> index ceb9fb475ef13..4c4846dbaa2d4 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+> @@ -968,24 +968,23 @@ static void kfd_update_system_properties(void)
+>  	up_read(&topology_lock);
 >  }
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h
-> index b6a91a552aa4..3f159d477f5b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h
-> @@ -100,6 +100,7 @@ void kgd_gfx_v9_get_iq_wait_times(struct amdgpu_devic=
-e
-> *adev,
->  void kgd_gfx_v9_build_grace_period_packet_info(struct amdgpu_device *ade=
-v,
->                                              uint32_t wait_times,
->                                              uint32_t grace_period,
-> +                                            uint32_t que_sleep,
->                                              uint32_t *reg_offset,
->                                              uint32_t *reg_data);
->  uint64_t kgd_gfx_v9_hqd_get_pq_addr(struct amdgpu_device *adev,
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
-> b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
-> index adc7f7c78a18..4de8106d14ba 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
-> @@ -305,6 +305,7 @@ static int pm_set_grace_period_v9(struct packet_manag=
-er
-> *pm,
->       struct device_queue_manager *dqm =3D pm->dqm;
->       uint32_t reg_offset =3D 0;
->       uint32_t reg_data =3D 0;
-> +     uint32_t que_sleep =3D 0;
->
->       /*
->        * The CP cannot handle a 0 grace period input and will result in
-> @@ -319,18 +320,29 @@ static int pm_set_grace_period_v9(struct
-> packet_manager *pm,
->       }
->
->       if (grace_period =3D=3D SET_ASIC_OPTIMIZED_GRACE_PERIOD) {
-> +             /* Reduce CP_IQ_WAIT_TIME2.QUE_SLEEP to 0x1 from default
-> 0x40.
-> +              * On a 1GHz machine this is roughly 1 microsecond, which i=
-s
-> +              * about how long it takes to load data out of memory durin=
-g
-> +              * queue connect
-> +              * QUE_SLEEP: Wait Count for Dequeue Retry.
-> +              */
-> +             if (KFD_GC_VERSION(dqm->dev) >=3D IP_VERSION(9, 4, 1) &&
-> +                 KFD_GC_VERSION(dqm->dev) < IP_VERSION(10, 0, 0))
-> +                     que_sleep =3D 1;
+>  
+> -static void find_system_memory(const struct dmi_header *dm,
+> -	void *private)
+> +static void find_system_memory(const struct dmi_header *dm, void *private)
+>  {
+> +	struct dmi_mem_device *memdev = container_of(dm, struct dmi_mem_device, header);
+>  	struct kfd_mem_properties *mem;
+> -	u16 mem_width, mem_clock;
+>  	struct kfd_topology_device *kdev =
+>  		(struct kfd_topology_device *)private;
+> -	const u8 *dmi_data = (const u8 *)(dm + 1);
+> -
+> -	if (dm->type == DMI_ENTRY_MEM_DEVICE && dm->length >= 0x15) {
+> -		mem_width = (u16)(*(const u16 *)(dmi_data + 0x6));
+> -		mem_clock = (u16)(*(const u16 *)(dmi_data + 0x11));
+> -		list_for_each_entry(mem, &kdev->mem_props, list) {
+> -			if (mem_width != 0xFFFF && mem_width != 0)
+> -				mem->width = mem_width;
+> -			if (mem_clock != 0)
+> -				mem->mem_clk_max = mem_clock;
+> -		}
 > +
->               /* Set CWSR grace period to 1x1000 cycle for GFX9.4.3 APU *=
-/
->               if (amdgpu_emu_mode =3D=3D 0 && dqm->dev->adev->gmc.is_app_=
-apu
-> &&
->                   KFD_GC_VERSION(dqm->dev) =3D=3D IP_VERSION(9, 4, 3))
->                       grace_period =3D 1;
->               else
-> -                     return 0;
-> +                     grace_period =3D 0; /* 0 will keep the default valu=
-e */
->       }
->
->       pm->dqm->dev->kfd2kgd->build_grace_period_packet_info(
->                       pm->dqm->dev->adev,
->                       pm->dqm->wait_times,
->                       grace_period,
-> +                     que_sleep,
->                       &reg_offset,
->                       &reg_data);
->
-> diff --git a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
-> b/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
-> index e3e635a31b8a..1ed3fbedf50b 100644
-> --- a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
-> +++ b/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
-> @@ -316,6 +316,7 @@ struct kfd2kgd_calls {
->       void (*build_grace_period_packet_info)(struct amdgpu_device *adev,
->                       uint32_t wait_times,
->                       uint32_t grace_period,
-> +                     uint32_t que_sleep,
->                       uint32_t *reg_offset,
->                       uint32_t *reg_data);
->       void (*get_cu_occupancy)(struct amdgpu_device *adev,
-> --
-> 2.34.1
+> +	if (memdev->header.type != DMI_ENTRY_MEM_DEVICE)
+> +		return;
+> +	if (memdev->header.length < sizeof(struct dmi_mem_device))
+> +		return;
+> +
+> +	list_for_each_entry(mem, &kdev->mem_props, list) {
+> +		if (memdev->total_width != 0xFFFF && memdev->total_width != 0)
+> +			mem->width = memdev->total_width;
+> +		if (memdev->speed != 0)
+> +			mem->mem_clk_max = memdev->speed;
+>  	}
+>  }
+>  
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.h b/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
+> index 155b5c410af16..f06c9db7ddde9 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
+> @@ -24,6 +24,7 @@
+>  #ifndef __KFD_TOPOLOGY_H__
+>  #define __KFD_TOPOLOGY_H__
+>  
+> +#include <linux/dmi.h>
+>  #include <linux/types.h>
+>  #include <linux/list.h>
+>  #include <linux/kfd_sysfs.h>
+> @@ -179,6 +180,22 @@ struct kfd_system_properties {
+>  	struct attribute	attr_props;
+>  };
+>  
+> +struct dmi_mem_device {
+> +	struct dmi_header header;
+> +	u16 physical_handle;
+> +	u16 error_handle;
+> +	u16 total_width;
+> +	u16 data_width;
+> +	u16 size;
+> +	u8 form_factor;
+> +	u8 device_set;
+> +	u8 device_locator;
+> +	u8 bank_locator;
+> +	u8 memory_type;
+> +	u16 type_detail;
+> +	u16 speed;
+> +} __packed;
+> +
+>  struct kfd_topology_device *kfd_create_topology_device(
+>  		struct list_head *device_list);
+>  void kfd_release_topology_device_list(struct list_head *device_list);
 
