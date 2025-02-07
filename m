@@ -4,71 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 521BEC02199
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Feb 2025 23:10:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9948BC02199
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Feb 2025 23:12:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D9DAD10E280;
-	Fri,  7 Feb 2025 23:10:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42FF710E334;
+	Fri,  7 Feb 2025 23:12:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="BeyUOqin";
+	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="s4yMxGTf";
 	dkim-atps=neutral
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com
- [209.85.214.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A7B7D10E280
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 Feb 2025 23:09:05 +0000 (UTC)
-Received: by mail-pl1-f170.google.com with SMTP id
- d9443c01a7336-21f0444b478so39394385ad.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 07 Feb 2025 15:09:05 -0800 (PST)
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
+ [209.85.214.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C61210E335
+ for <amd-gfx@lists.freedesktop.org>; Fri,  7 Feb 2025 23:12:28 +0000 (UTC)
+Received: by mail-pl1-f169.google.com with SMTP id
+ d9443c01a7336-21f61b01630so12179685ad.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 07 Feb 2025 15:12:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=usp.br; s=usp-google; t=1738969745; x=1739574545; darn=lists.freedesktop.org;
+ d=usp.br; s=usp-google; t=1738969947; x=1739574747; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to;
  bh=7itLWNOOesTKf4Ww18TYb8sd6LtUmZCMFxKOUAFYSuE=;
- b=BeyUOqin77Xs3Ria1t1JScOwgUze/FzGEh8/GWuyEzicUpf/6Kq0/W54pU3f9YxqiQ
- QiCdFeQl6vEm6zei2IyJ1iOT6bfr9W0Vzkrs3OdkrodGRsXJ8xjcsSUeANwPEDj1Wzcp
- JWldh7Ukg1tK8IYrVRJZNPaSfDMCGWlODQMC627YQenL+2gN1z+zm0TGGA+jHpzFOuUh
- b6MPnlMT+qYwfrYoM6frYi2YXlX1bAgEoj5PKcuYXUya2ze51/L4FYPa6ppEhKXzjHvV
- 7DKdbO7f2k9OIEGIdMss3axHS8JgLVZRqFQoEnNgZbG9MWs8TKbfRxRHBbqzkPvI09e8
- qW6A==
+ b=s4yMxGTfceXlAxZpGkLo5SX82lghnaZn41SG3FjTV0yjq7r547f4AjNeKBDeDAaulP
+ o78eZKZ7oXfj85jbZMbXsfen7o/hyEdwy4z7nT0RTan5atnfFKh+9xyk9mdPYBiqZWxg
+ LF7yVWI5EzENB8/kKuoanMLin23MyFHZZ/mOFCOKnfZ2NEyJpYBRh/nk/buahVDW5Sc1
+ ZFZgDFppLdQHxYOZRBbilqlskTvy1FR9NotejNICHZQlWNAsP/15K3A1kJBQQaC6lZwN
+ rE2J4Q3uzrH+9myf+KNAhMdrl3zSzjmvlVVlr5n6tU2PSqFLQaP1GoX1w+hdE+wR571c
+ +A1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1738969745; x=1739574545;
+ d=1e100.net; s=20230601; t=1738969947; x=1739574747;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
  bh=7itLWNOOesTKf4Ww18TYb8sd6LtUmZCMFxKOUAFYSuE=;
- b=MUH0jPxHCN7aNwD+LEsv91YELYMnKyakwFdYY3VUCt9402wR0+CAWLN8O2m/dY/U0C
- spLNsi5zefzrzbc95n1AlQ3qAtY8PpGr6nJOrBUhn85Ctm8T2kEhV3swoVzK0Qy9fxPN
- /2LSrp7WapIyCVBHTSvlONU3sthjp7giK7paAJzfgflUqIgD+uqfw1PXm6QzZbZQ5UXf
- nrSU6ZzH/6S12bHyI226smzFd+3zL+TdhCdIt4Cm7csQSaxoymlXmOgiZVll/vJUHXY7
- 2SjBPd23pbOwXBYQ3gYGQ4lRc1ZhT/6H5yDZbS8dKxKZb7ydYCpRHGmbcU8OoGUQ7IaE
- d0pg==
+ b=Mi3/N9XOTTO4tAZTIFA4LzXb3B7Dip1aDRmLfNb4DZgqACJtRpEOAQPPyphZ/T7Wyo
+ +ALkFVgmUsK8UjRKIfP+jLolY6/i6OCXuVxPp2DEBy7MyGhmj5+/ZaMqobRKfrfZIIOc
+ Wtl5A/LPthVuSinfzquqnF/Tr2vw+jU3oQuSS8Vh4iqUYi6gF3XxiAdYJnSnNhnapZre
+ kwOFr6YKyT8nD+4vJH8HiQkYKCWRKS7klJK2biRB/TcoR437l7tX4GN8O7ptiuntm2X8
+ nr5BPp/S0gW5kmKZW25cB0xF8gqJtJfDCbEj/fVsZrXs1eNBl57SY2rPZsfOWFVb/zLq
+ Omjg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWtYulALysTwWD+8Fg8GdMo3JWGQwHAj6u7LtHT/KpLsIeYV9+DQ8UaettIxsWk03fYOQ8jJVez@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzFEi5/ox0n1XYYSjvnO0nAOCHoJTUnaQm6hliYlKEhFcY/sZVf
- mI66g4d9oF5OC2vSz4SRbnyfggBhnIPcxaGrCbPvbExUAFQMbNmMq0in82KR6N4=
-X-Gm-Gg: ASbGncvjFCiPCpGaUkVvLbJ0Eq+ZLvNLkvW5VAV8x/0exsMgMlAguWsIkbVvIF3v4wx
- wf4Ec3SuvcNN5uh/gFnpAxiubmB2VgIhkikq/DVfjEu0xzn/7CRbMtwwzuY8mBMPC75OpBZcWeh
- q17/KeRyDuHPJ5RfI0hrwbH6umrvHAYmkx7JW5eYnseaF4uT20mGfFm6AaeEGtU8jM7TcIqOhrp
- 8ykVo3Qjb1YH2XGCq6TQu/icTE0ALhwGQI2zR+0Ej9uxzIy3eYCQMC2pIjqJz1NJlobZfl3G4Sr
- 9WyuGORPOwc4dvI7I5exaxwwJHIb
-X-Google-Smtp-Source: AGHT+IEXl22QzQMXB0nHmGdUS22+5l9ZoN72Ao1/+ldZDPRRwMGhgOnQtgKEpZGpe0zuavM7a+ZO3g==
-X-Received: by 2002:a05:6a21:3406:b0:1e2:5cf:c8d6 with SMTP id
- adf61e73a8af0-1ee03b6f10amr9692798637.36.1738969744728; 
- Fri, 07 Feb 2025 15:09:04 -0800 (PST)
+ AJvYcCUIfVyuCMLSJ5u53rBTujSaLb/OuMLlfKKD6zkHCJMWADfdcHXVEcuROe5mTnyN8XRncpPUMlzV@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzOTfIo6ft8bqltzrVkXkCUn/k45MhCEJXkETNcz/ED38O1tZJM
+ rzDsktTks6F6ZQAqCu2jOZxrYY1erd0nVdXDanQCFRHAOdR5LYlwItkFH3RHeIo=
+X-Gm-Gg: ASbGncs5BcFo9L2JVqbXVDjuCnz2Ug7GhYacLVuVU8afb53nazCmSJEpCkaUk+oUEOV
+ 93EXg0fYjezzK1gWIGXwMbyfqMr7sXuM/bQzastHErJekpoTcY478q+DL6TS11pdZWgIsk5vPBQ
+ ID6LBFJugPlkQyI8dChe/8OahEwOrh0xo+P5o1F7u5sZ6cXhropWEkmiPt/MhIpqFWFfZHLRQTN
+ fjo5CiScQicdl8Zyuszy5o3hDnrp1IObOiZSD+nvYzyIDnGcgsXUNO10vyR+PN9LD7TYr6fk7Xd
+ B8yULMY7044zefelLfcwwmH54uvv
+X-Google-Smtp-Source: AGHT+IFHRU9uWmP6GQODLfN1w0Kek9N5gPSw+acv4FAkcUDEtbC6b4WchAuYQieIdPyqDVhDZefdNw==
+X-Received: by 2002:a05:6a20:ad0c:b0:1e1:a48f:1212 with SMTP id
+ adf61e73a8af0-1ee0523b86bmr8790413637.4.1738969947491; 
+ Fri, 07 Feb 2025 15:12:27 -0800 (PST)
 Received: from luan-B550M-AORUS-ELITE.. ([191.185.78.175])
  by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-ad51af780ccsm3082758a12.71.2025.02.07.15.09.00
+ d2e1a72fcca58-73048a9d378sm3545649b3a.26.2025.02.07.15.12.23
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 07 Feb 2025 15:09:04 -0800 (PST)
+ Fri, 07 Feb 2025 15:12:27 -0800 (PST)
 From: Luan Icaro Pinto Arcanjo <luanicaro@usp.br>
 To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
  alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
  airlied@gmail.com, daniel@ffwll.ch
 Cc: Luan Arcanjo <luanicaro@usp.br>, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
-Subject: [PATCH v2] drm/amd/display/dc: Refactor remove duplications
-Date: Fri,  7 Feb 2025 20:08:50 -0300
-Message-ID: <20250207230852.10232-1-luanicaro@usp.br>
+Subject: [PATCH v3] drm/amd/display/dc: Refactor remove duplications on
+ command_table files
+Date: Fri,  7 Feb 2025 20:12:09 -0300
+Message-ID: <20250207231219.10807-1-luanicaro@usp.br>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
