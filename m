@@ -4,67 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5B6DC02194
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Feb 2025 18:24:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9525CC0219C
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Feb 2025 18:28:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 66EEC10EB98;
-	Fri,  7 Feb 2025 18:24:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D46610EB9E;
+	Fri,  7 Feb 2025 18:28:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="T7jwomrY";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LeUqfHOf";
 	dkim-atps=neutral
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
- [209.85.216.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F7B310E12E
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 Feb 2025 18:22:53 +0000 (UTC)
-Received: by mail-pj1-f43.google.com with SMTP id
- 98e67ed59e1d1-2f9dcc3f944so494950a91.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 07 Feb 2025 10:22:53 -0800 (PST)
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
+ [209.85.216.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C220D10EB9C
+ for <amd-gfx@lists.freedesktop.org>; Fri,  7 Feb 2025 18:27:55 +0000 (UTC)
+Received: by mail-pj1-f46.google.com with SMTP id
+ 98e67ed59e1d1-2f9f90103bbso556673a91.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 07 Feb 2025 10:27:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1738952573; x=1739557373; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1738952875; x=1739557675; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Y5kJC5GX5lE4ZlE19f7dT2RP2+7VJSPDvxPOz4Kdgbg=;
- b=T7jwomrYTPCZAowHP66HaIV20PDjMGA5XXw0/7LMnlRu4H7WuIrp1mOXUBEvshb55p
- jntqFSyDUZYMVUJR2AvVwsSIir7KCIzGZeXirzMhvEFOAjjqSfJLyx7OuMnl+kLbIb5y
- NIfCb5By6PrBcUd4c77ETxAMwG9pQkQBp4h/6qJ/VDf/9UVnS8P7ApCVSZYb0Y18lP9e
- 9IdctoQaXXpn3IA2I94Slw3opv4XAz2tK1UVyKtyyWqFcZ3jFzS/HFh+I1BG13ohz0jb
- Ut1kbl1OGvAmSf7NsM1xPC0EbGA0jzituXur/K2gqpTkd58FRL4nb0Ag9rArATAA3CSO
- XGIQ==
+ bh=KXtAStvOg0Y0ZWI8F59cjjRMyjmp5VhfHTQryZY42Yg=;
+ b=LeUqfHOfysUSWBQeyNmyprU4VCdPc0t9UNDkt3iQNCZGiut8g6lgJyBGSPFE9Jkktp
+ 25qyICuCUAU39If5FxkXIplxwWB5Uoj5qJSEAAty+llhTAbZXask3yp4MWKNfRftH7JO
+ 2UW6BMXoclHg5kCjhl34c/AKD8gWKjJqq9r62l7oHe0SmPfh1Eyzcjw4gwSCMzWGy//B
+ zMZq/E0++m66xL41U4UMYDktZGZPdwb/UJQEHcRQHMgz0S5/Hagqeqe5LmWJVgBTzCFy
+ pexVZP65ODDjV7E+LNyaG1kD+/CIh4N+EULE6e4uEdGWgXpj6fYky7CSeRgRjx4ehn08
+ VDlw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1738952573; x=1739557373;
+ d=1e100.net; s=20230601; t=1738952875; x=1739557675;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Y5kJC5GX5lE4ZlE19f7dT2RP2+7VJSPDvxPOz4Kdgbg=;
- b=ROuXpU9wquDwAgh5I2V30BuH26mLoQyFh362+ipqAqk/diioygWzonZmz1gseWUY3d
- NakBDPC7jQIl1lnYwFkgjkmZB38Z5uE3S+aAefDPwiMaCOKD83drcSJfHVLhPT0uvxy7
- nZ78khegNATWmrjjSukLazs13LKSKB0Lnu2TVSxFZKQqNhSFhsRgM3EuPl6ETDBV3fsz
- nGGQViyrcYscCDgUoLEglhkkqVZSF69pADnW8HU4z3RuM+oPpxxj+6f9YIosVu2RLiQa
- /y+Ud3agUnOrbrfe+9ZnXTEtMqeYftb/xF85Ts66U4MGyf7BcfjJolG567i5VJxQthen
- QANA==
+ bh=KXtAStvOg0Y0ZWI8F59cjjRMyjmp5VhfHTQryZY42Yg=;
+ b=R0JANyAMzmMPiB1Dbl37gBggf0qZMXkRsr6PUj6ZTnwM+9jI+I2px/CnH6DA+8U6bB
+ 1BdzFVBCSnKMMKoSDJ2AEIvznARPZ6c0WNZTqQz7V19WU1a1ckrwDVlUQ743L58SRfM3
+ yGhiQ6xfk33hWc9bG3JNVuOwTR706B9+Wb91TE5H3DuCRXUYtzRXLyJthhTchCgEHzLZ
+ thvMyqNilifhWaQBeGvfenGJ+uY6hUaT4BkiWCOAe6ej4NqwOgQgRkCp/Mcjw+kAvKde
+ waaw2LaeYtM9nAtkAgCodgM4FkeM/7+paE2R4G0fd5oKs/rs03xqUEr7hEkyF3WZ6EOT
+ IHXQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVzFC7WeA39hEjFQnxdanXk2tF23RlW4GxOraZWsZG7Dk7LQQ47WFX91hjXiv7ALmQSJSCA/bQi@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwRLiL1kBYWEytdR5vSZr+Ng7ny5On/kKc59mQj1hUrjxNyZKKH
- uJECPleLgg/9fukDr4Ge/Q4962lwkC1Ll/m6lvSA4LhNND0DFch7R6myRh5VyR3p8fe06gAmJJe
- BqF7Vmy3k2itzbQ+ucFHwzoOYua4=
-X-Gm-Gg: ASbGncugusrah/Y8xz0o82pGkfw9oODD3VcHYLUWVdDeQdMfywwjRukyREdzjQMgeRB
- xhYsF5gEgyhj1icZudHTVFGY4t1TtHCHPxvASnFL+JZFm3O4iKFo0S2xpedu3te1+77AXfL+1
-X-Google-Smtp-Source: AGHT+IEx3WdsObZEC1Rihm4t1Et73TpFcCi4AwXrIqmi0GZRa1bfwvED9ECO4w12eSslPnpArB6Kjy2vqDUSyvRoego=
-X-Received: by 2002:a17:90b:1b44:b0:2ee:b665:12ce with SMTP id
- 98e67ed59e1d1-2fa23f5ea82mr2546931a91.1.1738952572812; Fri, 07 Feb 2025
- 10:22:52 -0800 (PST)
+ AJvYcCV/EIPw+3ag5becmR/hwv2cMAvJT2VTFnd0JrL9L+VfxsmL3v+0Kmd1/iwWZYDCa/ceOjECMhS7@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwAQgHQBcleEyNbngYC2h+V2so/k1+AFnft7DyZ3r7tgcgm7buZ
+ /wLKvNmYm5SO/RDppzZTcXDO7HFutZzTMhev1BHqpeIhVhkgM7WyB5fpqbidpbswzzfulfs0XcX
+ MIILvBWVl1y/cerL+XTjEYmiJQaU=
+X-Gm-Gg: ASbGncvRiyJ/Oygx1aGTDsfTNHOHP92Y7s/a7MVY/0hSxuz+xbq0iW46Z9jHD/o2nNg
+ YQEkohBIS3lQsaRjZk+FTx9Zx8yP+bMR5jjxdKCHByR+SNStVFndVXbShbTGiFx6+dpzEllIl
+X-Google-Smtp-Source: AGHT+IFT/NirgKbAm8qZNUrJp4yJtJ/GCDcqqTtMYLxILqD1fxrtp4PevZD/5ZrMZCqTP4U9/3AEqnkW5GLEsZoOpXM=
+X-Received: by 2002:a17:90b:1d92:b0:2ee:f440:bb93 with SMTP id
+ 98e67ed59e1d1-2fa242e75f7mr2504280a91.4.1738952875271; Fri, 07 Feb 2025
+ 10:27:55 -0800 (PST)
 MIME-Version: 1.0
 References: <cover.1738909308.git.gerry@linux.alibaba.com>
- <6bc04a402ec50c6b9d95c160d9bd74bb3b419e70.1738909308.git.gerry@linux.alibaba.com>
- <aad42783-d677-4031-bb86-5d02757e9493@amd.com>
-In-Reply-To: <aad42783-d677-4031-bb86-5d02757e9493@amd.com>
+ <d6d0b42a335784ae16500664ed3a0fc17bbe0476.1738909308.git.gerry@linux.alibaba.com>
+ <2c412261-20df-4b2a-9cf2-cae0688d3887@amd.com>
+In-Reply-To: <2c412261-20df-4b2a-9cf2-cae0688d3887@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 7 Feb 2025 13:22:41 -0500
-X-Gm-Features: AWEUYZk0kga7TnZAixH8fduZ6dyQXL7ySNPgeI9Gtbw-_1J5JdTMVnw6gsGEnt0
-Message-ID: <CADnq5_N3k3Rui+0vd45rrAt7nnminrqR7bSHm9fj072rp+_F1w@mail.gmail.com>
-Subject: Re: [v1 1/4] drm/amdgpu: reset psp->cmd to NULL after releasing the
- buffer
+Date: Fri, 7 Feb 2025 13:27:43 -0500
+X-Gm-Features: AWEUYZnDB1gc4pLxfs9gvg8vSbytD8D5-g_bvM7xSwJqw9gW6K_EHvbU2PfbQfg
+Message-ID: <CADnq5_NHYB=E1c0y+6ORo_N_oK379O8NWr=47QSF0-ApJ0TCAg@mail.gmail.com>
+Subject: Re: [v1 3/4] drm/amdgpu: bail out when failed to load fw in
+ psp_init_cap_microcode()
 To: "Lazar, Lijo" <lijo.lazar@amd.com>
 Cc: Jiang Liu <gerry@linux.alibaba.com>, alexander.deucher@amd.com, 
  christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com, 
@@ -87,52 +87,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+Added the fixes tag and applied.  Thanks!
 
-On Fri, Feb 7, 2025 at 6:17=E2=80=AFAM Lazar, Lijo <lijo.lazar@amd.com> wro=
+On Fri, Feb 7, 2025 at 6:07=E2=80=AFAM Lazar, Lijo <lijo.lazar@amd.com> wro=
 te:
 >
 >
 >
 > On 2/7/2025 11:58 AM, Jiang Liu wrote:
-> > Reset psp->cmd to NULL after releasing the buffer in function psp_sw_fi=
-ni().
+> > In function psp_init_cap_microcode(), it should bail out when failed to
+> > load firmware, otherwise it may cause invalid memory access.
 > >
 > > Signed-off-by: Jiang Liu <gerry@linux.alibaba.com>
 >
->         Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+> You may also add
+>
+>         Fixes: 07dbfc6b102e ("drm/amd: Use `amdgpu_ucode_*` helpers for P=
+SP")
+>
+> Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
 >
 > Thanks,
 > Lijo
 >
 > > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 5 ++---
-> >  1 file changed, 2 insertions(+), 3 deletions(-)
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 5 +++--
+> >  1 file changed, 3 insertions(+), 2 deletions(-)
 > >
 > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/=
 amd/amdgpu/amdgpu_psp.c
-> > index babe94ade247..4e9766a1d421 100644
+> > index 0d1eb7b8e59b..952da6c7943d 100644
 > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
 > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> > @@ -533,7 +533,6 @@ static int psp_sw_fini(struct amdgpu_ip_block *ip_b=
-lock)
-> >  {
-> >       struct amdgpu_device *adev =3D ip_block->adev;
-> >       struct psp_context *psp =3D &adev->psp;
-> > -     struct psp_gfx_cmd_resp *cmd =3D psp->cmd;
+> > @@ -3838,9 +3838,10 @@ int psp_init_cap_microcode(struct psp_context *p=
+sp, const char *chip_name)
+> >               if (err =3D=3D -ENODEV) {
+> >                       dev_warn(adev->dev, "cap microcode does not exist=
+, skip\n");
+> >                       err =3D 0;
+> > -                     goto out;
+> > +             } else {
+> > +                     dev_err(adev->dev, "fail to initialize cap microc=
+ode\n");
+> >               }
+> > -             dev_err(adev->dev, "fail to initialize cap microcode\n");
+> > +             goto out;
+> >       }
 > >
-> >       psp_memory_training_fini(psp);
-> >
-> > @@ -543,8 +542,8 @@ static int psp_sw_fini(struct amdgpu_ip_block *ip_b=
-lock)
-> >       amdgpu_ucode_release(&psp->cap_fw);
-> >       amdgpu_ucode_release(&psp->toc_fw);
-> >
-> > -     kfree(cmd);
-> > -     cmd =3D NULL;
-> > +     kfree(psp->cmd);
-> > +     psp->cmd =3D NULL;
-> >
-> >       psp_free_shared_bufs(psp);
-> >
+> >       info =3D &adev->firmware.ucode[AMDGPU_UCODE_ID_CAP];
 >
