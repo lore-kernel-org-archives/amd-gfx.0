@@ -4,26 +4,26 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B0E2C02192
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Feb 2025 06:49:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4802C02192
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Feb 2025 06:49:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B925110EA2D;
-	Fri,  7 Feb 2025 06:49:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63F2610EA2E;
+	Fri,  7 Feb 2025 06:49:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="YUTRbXIs";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="Axuczs29";
 	dkim-atps=neutral
-Received: from out30-97.freemail.mail.aliyun.com
- (out30-97.freemail.mail.aliyun.com [115.124.30.97])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD69810EA2D
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 Feb 2025 06:44:24 +0000 (UTC)
+Received: from out30-112.freemail.mail.aliyun.com
+ (out30-112.freemail.mail.aliyun.com [115.124.30.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E63910EA2D
+ for <amd-gfx@lists.freedesktop.org>; Fri,  7 Feb 2025 06:44:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=linux.alibaba.com; s=default;
- t=1738910663; h=From:To:Subject:Date:Message-ID:MIME-Version;
- bh=C4EBYfccoT+oVJEjV6TvncZgE/3Y6lfWLPRxbsmTLMA=;
- b=YUTRbXIsj3Q6q19BBC1efh8mFacU+CTTAKgos5iaMZGVIImfx8xrQ9iyWCkBvrs7m1JgFytrQSrU2agIJcHDu/WnP7CHVyIgCgz7578CDUZur8G+Dl/4u+sJpN72WeMNG4xfnBxpnt0Mf9jRJaQqeFpahPUUlQr+Ju0DwCBsoYQ=
+ t=1738910660; h=From:To:Subject:Date:Message-ID:MIME-Version;
+ bh=dqs0IiLbo81Z41jcnB37Q8hZo6bO1Fp2XUWzCUpP3ys=;
+ b=Axuczs29DoB/+gC5K9uo6u9H9nbWY8YM+JKm5sfiUhHxSMJEv1A5OMPXAp6ur9ETbaCTVW2tuX2pLn675gDTSh1dGOZAry/FRdUWrTnS7jZUZ0GreykeLTAmN1lHjHR62qM+/7SFWysQk1WsX1yEqryRxMm+miFe9fEIK9sg6LM=
 Received: from i32d02263.sqa.eu95.tbsite.net(mailfrom:gerry@linux.alibaba.com
- fp:SMTPD_---0WOyQe-6_1738910661 cluster:ay36) by smtp.aliyun-inc.com;
- Fri, 07 Feb 2025 14:44:21 +0800
+ fp:SMTPD_---0WOyQdyL_1738910658 cluster:ay36) by smtp.aliyun-inc.com;
+ Fri, 07 Feb 2025 14:44:19 +0800
 From: Jiang Liu <gerry@linux.alibaba.com>
 To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
  simona@ffwll.ch, sunil.khatri@amd.com, lijo.lazar@amd.com,
@@ -31,12 +31,10 @@ To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
  Kent.Russell@amd.com, shuox.liu@linux.alibaba.com,
  amd-gfx@lists.freedesktop.org
 Cc: Jiang Liu <gerry@linux.alibaba.com>
-Subject: [v1 4/4] drm/amdgpu: minor code style enhancement for smu
-Date: Fri,  7 Feb 2025 14:44:17 +0800
-Message-ID: <751aa892683cad234865404eccafacbbb73cdf6d.1738910203.git.gerry@linux.alibaba.com>
+Subject: [v1 0/4] Fix a buffer overflow in drm/amdgpu/smu
+Date: Fri,  7 Feb 2025 14:44:13 +0800
+Message-ID: <cover.1738910203.git.gerry@linux.alibaba.com>
 X-Mailer: git-send-email 2.43.5
-In-Reply-To: <cover.1738910203.git.gerry@linux.alibaba.com>
-References: <cover.1738910203.git.gerry@linux.alibaba.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -53,41 +51,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Minor code style enhancement for smu.
+Fix several bugs in smu subsystem:
+1) a buffer overflow bug in function smu_sys_set_pp_table()
+2) tune logic of is_vcn_enabled()
+3) enhance handling of gfx_off_entrycount in function smu_suspend()
 
-Signed-off-by: Jiang Liu <gerry@linux.alibaba.com>
----
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c            | 2 +-
- drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+Jiang Liu (4):
+  drm/amdgpu: avoid buffer overflow attach in smu_sys_set_pp_table()
+  drm/amdgpu: accumulate gfx_off_entrycount in smu_suspend()
+  drm/amdgpu: treat VCN as enabled if either VCN or JPEC is enabled
+  drm/amdgpu: minor code style enhancement for smu
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-index 08b42c7a4ad1..51e7bd4d3444 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-@@ -2153,7 +2153,7 @@ static int smu_resume(struct amdgpu_ip_block *ip_block)
- 	struct amdgpu_device *adev = ip_block->adev;
- 	struct smu_context *smu = adev->powerplay.pp_handle;
- 
--	if (amdgpu_sriov_vf(adev)&& !amdgpu_sriov_is_pp_one_vf(adev))
-+	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
- 		return 0;
- 
- 	if (!smu->pm_enabled)
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-index da7bd9227afe..da55d66099fb 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-@@ -3524,8 +3524,8 @@ static const struct pptable_funcs smu_v13_0_6_ppt_funcs = {
- 	.init_power = smu_v13_0_init_power,
- 	.fini_power = smu_v13_0_fini_power,
- 	.check_fw_status = smu_v13_0_6_check_fw_status,
--	/* pptable related */
- 	.check_fw_version = smu_v13_0_6_check_fw_version,
-+	/* pptable related */
- 	.set_driver_table_location = smu_v13_0_set_driver_table_location,
- 	.set_tool_table_location = smu_v13_0_set_tool_table_location,
- 	.notify_memory_pool_location = smu_v13_0_notify_memory_pool_location,
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c       | 17 +++++++++--------
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c    |  2 +-
+ 2 files changed, 10 insertions(+), 9 deletions(-)
+
 -- 
 2.43.5
 
