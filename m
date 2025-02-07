@@ -4,149 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A719EC02192
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Feb 2025 04:02:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE08FC02199
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Feb 2025 04:02:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03FF710E247;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3074310EA17;
 	Fri,  7 Feb 2025 04:02:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="DjbwiACb";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="TncWa4Bj";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2073.outbound.protection.outlook.com [40.107.93.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 53B6B10EA17
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 Feb 2025 03:56:26 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2069.outbound.protection.outlook.com [40.107.92.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8880910EA17
+ for <amd-gfx@lists.freedesktop.org>; Fri,  7 Feb 2025 03:51:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZPl07+kfgsoGE69gzbOk4wA0KK7t+fE6vMjJ2pYaDHH+muhaRH2WxDBQDAu+IY44gGeKVMFu+/+BpB2et37E9FhLIfJnYuysu5E77e2/mrlxv3W27nP8BDFp4BQfzzF9ei4lZqFRQ2Di0bClmGUng9552p+L5ZHsoeF5kwWp4KH4osPwtK7WtAmsCHVZmI02o6zO4DYTPEOecsfHm/hpxFho7XhImBjE3jkELRdyW/Lgetfs9sD+UkipYuwcnv2eBUcUKWlXNdeUgesKsPRsIQCF2j2s4MGS/h0zvQshAKJgxyqKHIzIvr37zujG9V75f3PkA3qw9igEazhBP5WYQw==
+ b=t/W2/rCS8Kk76QAAIGi1nRT8gx8tXT/VNcBcKnchX1i/ulxeCvYkz1Ur5jJoJnPGj7Hq57u46n8JBK0drC3kXOom7SoejfVv0rgCkFEJju4LJ7TkiWF2zBYPfw23fNgJBH1olzW/nxRQRnOI08TyMWWgttaJiRsI5DbGLLOcVvknUE+u13DE9fdO9azlpBx8/+X2teeuU77+OITY2kWs10vA5auNAnLuTIrHA7ON4RXC/5AQtLJ1okH3qynAmToFd5RjmCuiEzYoLeMNWFy/tJr6hSW6eI4FpSu0hsJFqH84PT3n6D4SbzJQ3DQn5C0iMsbUNEOk9TLFnB6KgC+m9w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gxzWuhbFWnX73jpOJPH5oUuilSFL2Sr4/gGRoHSpqn8=;
- b=Hs/z803nt9Wmy1c/hCDzX7P94U2qydJwQc/havnmKyX7yV4XXdn36+4glmsXa0kQizmnDvmdjzhK5mfRjS8hUTHtuzVoriNikScEGIlBTSXsAfKshUz1STyvpyYNIhu5OZxKdbmn99+eHewjlx31q0dnvXMPKZ1njh2gOHvmFGpq2g7zf3yqQWfnaqxblyH4oM95OxZQ5HXbB/RKLFC4kXDtr19XZQYTt6tHNSzVfyJ5DixhqNiIKAm+YJ8FdsBU/1bZ+UMoQm01X8FwV+5Qb1+tg5JxdOGhHNS2Z0OsLpSO7Ys1QOLnTFxP6I9mhhUuE9DQXytdUunT7fbv3VAJag==
+ bh=rbh+YWDGvdh9Lj1cVbjMRBHqzvFrZVgJY7LM8fpphsc=;
+ b=Nq1zqwJTivaS3CAB11rwKPl6307fgdXqvp93K6uCzIil8fCo2nfiMGYwcph92M+HaaAO0DgEWljo2OZmdhnZB+AuYVqCHI1TVbh1lyxhio+KrmssuJaXzt3xoH2vjTjjdIwr456/Cohh/XgBdQ/hUhVCb+PbU2Oc95u4HIYhlHBu+UosWxV0w8Sf8GnNS48jM/b10l0nzhGeXqGORUIhzH/rmIbr0ZB4bFrR+KHRmWjHhUHl1xSpciKpQrSmGgCgkr1UCGIyC/DuXfPfPF9By8SzZEVnTcq4jihP2KA5X5mZVwgRhup/iYLB4No0nJukA1heEIED7bQ1a3WbmP/IhQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gxzWuhbFWnX73jpOJPH5oUuilSFL2Sr4/gGRoHSpqn8=;
- b=DjbwiACbi630tY5YkR80nMtVrcpHQO2dtFyCEBENNasHnIQCyqlmbXb0j4fB/PUjV31OExQO6QfLRwbJO8+0R/LFbyUG5CDVrDDqbeawym95usLCyjZLnGpByk5lssd5iHTzFdSX0acWYJLoDHXSINknaZPS1U+YvQjjs+ZQ8FU=
+ bh=rbh+YWDGvdh9Lj1cVbjMRBHqzvFrZVgJY7LM8fpphsc=;
+ b=TncWa4BjElFfZzVneRnxuY4d48Tr9TaDMP0ehJvq8ktBHe/c6LxFNSRMutORBt/7cit9Mju3PXMkPnor0pTVJz8gqDMIuYbuV3VBwUrXn6YnhOJvpkf4UU5XGLrjcOLI43pViOoEl/05y9ES7bvKKqjAeTCSD9DgZ9U67diUUEw=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
  SJ2PR12MB7941.namprd12.prod.outlook.com (2603:10b6:a03:4d3::16) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8422.14; Fri, 7 Feb
- 2025 03:56:24 +0000
+ 2025 03:51:16 +0000
 Received: from DS0PR12MB7804.namprd12.prod.outlook.com
  ([fe80::8327:d71a:ce21:a290]) by DS0PR12MB7804.namprd12.prod.outlook.com
  ([fe80::8327:d71a:ce21:a290%4]) with mapi id 15.20.8398.021; Fri, 7 Feb 2025
- 03:56:23 +0000
-Message-ID: <22d2c3e8-98f9-4ea3-9737-08e9812d312a@amd.com>
-Date: Fri, 7 Feb 2025 09:26:16 +0530
+ 03:51:16 +0000
+Message-ID: <19728543-a606-41bc-b4fd-464b7a1d7a94@amd.com>
+Date: Fri, 7 Feb 2025 09:21:10 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] drm/amdgpu: Initialize xgmi info during discovery
+Subject: Re: [PATCH 2/4] drm/amdgpu: Add xgmi speed/width related info
 To: "Kim, Jonathan" <Jonathan.Kim@amd.com>,
  "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Cc: "Zhang, Hawking" <Hawking.Zhang@amd.com>
 References: <20250206131258.1970391-1-lijo.lazar@amd.com>
- <20250206131258.1970391-3-lijo.lazar@amd.com>
- <CY8PR12MB743505FC4310A69D4B2C372685F62@CY8PR12MB7435.namprd12.prod.outlook.com>
+ <20250206131258.1970391-2-lijo.lazar@amd.com>
+ <CY8PR12MB74358ACE4AA9BA563D3219E985F62@CY8PR12MB7435.namprd12.prod.outlook.com>
 Content-Language: en-US
 From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <CY8PR12MB743505FC4310A69D4B2C372685F62@CY8PR12MB7435.namprd12.prod.outlook.com>
+In-Reply-To: <CY8PR12MB74358ACE4AA9BA563D3219E985F62@CY8PR12MB7435.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN3PR01CA0038.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:98::6) To DS0PR12MB7804.namprd12.prod.outlook.com
+X-ClientProxiedBy: PN2PR01CA0176.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:26::31) To DS0PR12MB7804.namprd12.prod.outlook.com
  (2603:10b6:8:142::5)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DS0PR12MB7804:EE_|SJ2PR12MB7941:EE_
-X-MS-Office365-Filtering-Correlation-Id: fd580ccd-90e6-4f32-4511-08dd472b6381
+X-MS-Office365-Filtering-Correlation-Id: 4c84bb9d-07ff-4cbe-eec6-08dd472aac2e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024|7053199007;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?YktDeVBFV1hreHg1RnZSWWNMR3IxQUhITkRzcUNFemJPM2U2Qm1vaW1rM2pP?=
- =?utf-8?B?cDF6aGdIVmZZNEVUQTAyN05TM2FWSFFQdVVhU25rdTNzdmxFd216alQvN1ox?=
- =?utf-8?B?bElXZW9wdU54ZUtEQ1lIdVpmQ1BBdWtGc2VLQlllM3ErTmtYc3FnTTgvZk9w?=
- =?utf-8?B?QTRqNHNqeDB0cVpEUXV4RkNGcnVicG1SbnBCeWlCdmErY1prWUFWQkF4NGJ5?=
- =?utf-8?B?dTkzQlNRVTA2S3RNNm5aVHJqZmpqOGFWbUVXVDRjRENETHRqY29Xd2VPLy9r?=
- =?utf-8?B?dm9LbjNnVVZKS2VOZEsrMjU3alRueUVxYmQyUmdXWUJ0QkdGelVIMzlmY0Ft?=
- =?utf-8?B?d1hHZnJmdFJFMGs1WllFSGpvODBibUJwaWZKZTl6NDBTTWJpK3Z5bGV0WGpi?=
- =?utf-8?B?aUJ6VDQvMUwrY2xZSkdqSCtXMWtvY0svNGhrUEgzeHQxeG1WL01ONE9aYWdQ?=
- =?utf-8?B?dW4wc3FVU1J5YkY1QlJFNk1OWVAzWkFaTTJ3UUpTbzBsRlRxbnNFVWZqdEIz?=
- =?utf-8?B?T2lpRzg3MEdWajBFRkRONng5a3djdG92bTk3QjN3RUxOSWh2WWJhZDZTajIv?=
- =?utf-8?B?OVdKVXdlaERWYzR4STV1MWVvMllBanQ3OXJ1RWRMM1ZlYlNoSG8rZEc2WmlJ?=
- =?utf-8?B?MGZzdnRUYWJpQXUvOE1QOFRPbXdUaURwcnNoZk10U05GQTc0Z0ExOHNaVkZy?=
- =?utf-8?B?d2tuT3BZNlo2L2QrSmtPNno0ODNiWTlrS2pGMFVUZmx2eWNHVHlPQjNEbm1p?=
- =?utf-8?B?S2F0bklCZTFVOUV5U3lIWnpaaldmaXplSTFNQkQvQ3NSWVB0Vkh0NW9Ia3Vz?=
- =?utf-8?B?N1FBYmlBN3FaaW4zcUlJQnUwSnFTbitqdlI2Wk1nNDVxaXBDS0xxcTRaTjha?=
- =?utf-8?B?R1QxK3h6UlVOcFRaT1Z4T2xZaUpWNzA1NXFwcWF6NHFqa0hidUh3dFY1K05X?=
- =?utf-8?B?bkljTnpnWFB4a1pGcGNlUXZGSG9tQktZeTJDZzV3UE8yckgxRHdZK2hoNXJC?=
- =?utf-8?B?SjB0dS9JOFJ5NlQyekdSM0VTQW5vbFVCdE5NTlFMOXFCMmcwdVZ5ck84OFdG?=
- =?utf-8?B?WnhIRmxlTU5vb3k3R1VoTDk4MEpsMEw3UDZHZGw2RjJBTHJ5aVlRYTNST3JC?=
- =?utf-8?B?WHk4SEFvZWJlSzcwYWEwLzZQSkxLaEgrd0xxSnVRakhtUUE4V21JZyt1czRZ?=
- =?utf-8?B?QWNRTkpSOXZOd1l4Z2Q0bGxLeW1lSVFVZ0tvblp4a3RsYlRmRlJNRTdHSnNJ?=
- =?utf-8?B?MHRUQzVaTTE5RXRxTU1FcCs4amZ2OHR1cEwwQ0RmUjBwRnFGNWNDekZpb01h?=
- =?utf-8?B?ODM0SjE1Z2lzaExMSkt0RDRNcVJURENKa21PdDJPems2bmFMUjZQTXlDSnNw?=
- =?utf-8?B?Ym1nelo0U3B6UkJ4WUxRYU13Y05xZk0xblRsUG0xWDh2VjJxSVNqSlhJcG9r?=
- =?utf-8?B?eHhGczVpdWNDSXJ5cVVDRVBtbHZ5TDJ6NkxMRjNSeUZGeWV4K1ZyaFpBUXpK?=
- =?utf-8?B?THhHWWZhdkU2d1ZPM2RWMEJQclVHNStsYi9RWlMwRkFhODN5bklNVkdEUlI5?=
- =?utf-8?B?K2I3V1JsTVNpdjBaYzIxbGZnRU9XSzRrZ3RBa3ZXbWhWT0JBRDY5UjJBVmZp?=
- =?utf-8?B?dFl0Y2dsTk80Vy9CTW15ZDlWaDVRejM5bFJ3VmtPZmgyUkVUalJqc2NEeTBk?=
- =?utf-8?B?cUZGbGIrL2dMa0sraStLcWoxNTcwNDlKSEdTTGoyaEQ2VU5EVC9DWU4yYm5k?=
- =?utf-8?B?WVZ2RHdFQURNTmUzaUpqNW5CQUhKZTMxQWFhTXoyTzJtclpITTVoN2h1WURu?=
- =?utf-8?B?dzFvaENkQUNXa0Nsc2ttT1ZlSlNOenQwc2VUcFl6Tlg4ZS8zVzRsOXUxMExu?=
- =?utf-8?Q?bEXPtuW+Bdom4?=
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?RWhlVldRcTFCMFZFa1NZQWozS055dEVLR3BJUklCY3pYRys0NVdOTlBkbUVX?=
+ =?utf-8?B?dHFxbUJZc2UrM3E5clJOc0FlUmpvLzRZd2NVTnQ2ZkhQQzB1NXVsMU50a2Zs?=
+ =?utf-8?B?OEZSa2NTdkRMOTE3TVB0S2lXZHVTRHFrYnVuNmtIZ3NJZm5rTnpVa0tSTlpt?=
+ =?utf-8?B?UFdIaE8waTk0c2dybDZqcDd3cWRtZWxVbTJJUzgzbndUTnQ1YmNhRmo2WitD?=
+ =?utf-8?B?REJUamd6TWVoS1ZzNzFHZGllWEdNVEs1ZGd4SGliUEdsOTZxSjRpeEZpU1pX?=
+ =?utf-8?B?dElYbFZ6aFF2Sm0xWEhIQmhWeE1GWEVsMmc5aU92SC9IbEczRVY1aUU3Ry9q?=
+ =?utf-8?B?aXVBcWRtTzBsRFF5WjhwSWFOUDROaGVnWG5sRDhkS1MrS2ppNHlDY0JVY0Nx?=
+ =?utf-8?B?cXFSSE9PaGZiOE9qZmJnMFJmdDRWd1ZDOTQvYSsxRlRoaERxR3B4ZkZ1ZFFD?=
+ =?utf-8?B?bXBUVXpiSUZ5dXp6WjUrSE56MFBJbVMxbERKa0hXVUdob1QxaExTRGhPV2hF?=
+ =?utf-8?B?YXc5Wk9uYjJtelo3azJtUVpvWit6SC94RkdFT09HMjIwU0EvUmw3bytVVVVF?=
+ =?utf-8?B?ODBhaUlFdy9Wd05YV3FPK2VvbTlUM3BGeHlMbHNzdFQ5U1dOdkIrQ0FnWFZG?=
+ =?utf-8?B?ZFgyZ0J0TGdJclpZS2hvSW00eTVYNHo3SFJTMytKdGJOZjVJV00rTmZYbkRK?=
+ =?utf-8?B?NnovMG1FQTE5dDNxcFpzUTc3MlZXV0syVUEzZG9DMEJJRUhoQmp6Zk5JQlRK?=
+ =?utf-8?B?NVhlSjg1cGVpaDR5a3BxVUcrNTFRU2czVmNuTjQ2NEpoUVFmTDNnTDRid3FH?=
+ =?utf-8?B?QVNHSHNuNkhCblR2a3QyZXdzeHRaVnR2d0FtYjlmMElzWllteXFOTzVNV253?=
+ =?utf-8?B?NVBEOXg3SGtEK1NYc0pBVGVlc005a2ZDYnk5YVd4SEtuT0pJTnY5eG0rdkJP?=
+ =?utf-8?B?T0Zma2cvbi91M0FQQitnbmlaTHhKQjBFOWlEb3Qxd1c4aXc1ZFpQOThwRUZL?=
+ =?utf-8?B?WXlVL01YandLTkYvR3JPNGduQUxUZTdNdjBpd3NqZGpoR2R2UWh0eEFZaU5J?=
+ =?utf-8?B?Z0w2aDlRR0g1U1dQNzFGRUczaTFwQzhBK0JBcE92a1BTVlRCNWdsZW00VnZ0?=
+ =?utf-8?B?cFNubE9VSkJiYlovV1Z3bVA4WVJWZG1NUXRyS3V1SndKVGVkNFlkZE1ZN3dR?=
+ =?utf-8?B?ZmROYkRFYlhBRTJPSWNJTWNCeVh4eXhORTJXQ1FYTUNtekFURzZ4MDU2STFn?=
+ =?utf-8?B?WHpPR1o4b3BKcEdvcm5UbVI2OHNEN1IvWHpNTjRyRUVvY0xpakZvTys1QUlN?=
+ =?utf-8?B?bWRQUGZ5bjF0azlUSjBabUQrbGhpRGRKMVd0QTk5ZkM5ZXdxdDJIWEJLYzlr?=
+ =?utf-8?B?MWcya1VKZmlld3RoTDJhNkRoeDhpZHA2eTdVT24wNzFzOSttV1dkaVJvSjNX?=
+ =?utf-8?B?aW9UU0tCZ2x0WWlPRUkwZ3BONlZKZHBGL1pQV1puQ3ZjdjhhQlZVeXYxREg4?=
+ =?utf-8?B?RGQ5MHVVaVY2MVdaeVNhNm12ZysvV01vakhJdERrR2lTaGgyZktVcmZzWXVt?=
+ =?utf-8?B?M2NueXdLRGNwSmRGazdLVEVWMmxiREJNaElOV1htZG5CM0ZSOHMrTnhKeGxz?=
+ =?utf-8?B?ejhKZWE4cW1QSDU0SVc0azFXc09aK0xGSTR1QnJLQThKYUhLUDVWS1VLVTJC?=
+ =?utf-8?B?em8vODkvQkpuTStkRGNxcCtxQ1FDdEJIT2dWZ3E1L1djKzVFbUNiVnVXNXNR?=
+ =?utf-8?B?aExKc2FvMVJBbUFRTWhzN2Rpa0RpUU9LTFd1Y09jeHhWNkhDVTl6bXdzbi9B?=
+ =?utf-8?B?Yys3MmRVUHFzQW1MQ1d5aEdvUmJJUkM1cWJUNzkzRDJaV2VLeERVQjRlMHQ2?=
+ =?utf-8?Q?1x0qAKZ5bWPDg?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(376014)(366016)(1800799024)(7053199007); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Q3JONmFCN3RZQ1VkKzBuVUwxb0FSWTA0Y0RWTU1iMVVTY2FlMlhHODFlOUV5?=
- =?utf-8?B?MWlDcVFrVytKQm9PblBSdHE3dTBsS0RtRnNiZklaakhVVVl6aklJNy9zeTRF?=
- =?utf-8?B?K08xYmY0MHhpdTYzZkM3dnZtSlpzeEFPS3hDS3V6a09EN2xtN2psZ1hodTZp?=
- =?utf-8?B?dDQ4VU5XQnRkRzZEOFdId1NWeVJ4UjVBeXRBNWpHMTltQVJybURONGFlZHhD?=
- =?utf-8?B?VGMzMzNaQjhNOTdJRXBLZFVjTFFzcGI3MmN0WThoVHdwNUNKcmtKa2tnYUhU?=
- =?utf-8?B?YTFsT1B4Y2N1SXNwUUpxQVB2T2YzcmRKYzRqUVkvcXdsZ0FtQzVFc1ZFRm1t?=
- =?utf-8?B?WlBPMjljYmN2dlp2di9xSGpBWmRmM0FtaHpqL2p3RldxSGFKT1pGN0pnUldF?=
- =?utf-8?B?OU10TDBKY21tOGhyMjU1a09XaE5hQmRtbWZRQ245bEY4bHk3N0xjVVhXTDk4?=
- =?utf-8?B?Y3llUmw5QjRHanhRZVNiTVJVdHAvZjFwQ3dLSm5ISml5U1pZR3BZREgwd3A3?=
- =?utf-8?B?bzR0NmdwOXZDQVRaWFFvZG8xclFVUzV4V2k0K0lGYnNrWlkzbUhYQU94ak9s?=
- =?utf-8?B?Z2piTDBiS3RKTWZzNlN2UzNQdFRRbG4ydm44cFhVQldIMUZYVnRkN1phZ3NR?=
- =?utf-8?B?V3hIVVo1Mnl3aUlxdE5Dd2tDNitwRzJwVW1yY0QxRGg5dUlMeE9zenR4akZC?=
- =?utf-8?B?aU03Z1J0OC9iZWd4eitUMzVXZTI1eWM4YUNKTWxyQW52dHlRZDVjOXFUWE9F?=
- =?utf-8?B?NUxPZG55QTRzeEdmS3NyMjNQb3lZOFlXeXZNRXBsWndKSFdTRXdDYjJ1eGV4?=
- =?utf-8?B?NUZzMkgxcnkwaXRYdjlHWnFlS0Zka1d5OXV1N0szOXN4T0FYMGI2cWZsNzNa?=
- =?utf-8?B?MGs1UllFZEZPeWMrai81NTJwYUl0QmtQTVBKRnVBczVLL2Fja2k5NDU2cVJi?=
- =?utf-8?B?cDhRRWFHdVlBcG9VRDNJVi9qQTBpalUwWXNOYm02cEZPdEI3aGZMQkpMa2Vs?=
- =?utf-8?B?Y0VBVXY3SHZOYUo0VDJER1Zjb1d3T2dJSmxIQldmUmYreXlOb3VjV2dZbHcy?=
- =?utf-8?B?SnZsNlM0MUlRZi9YRGcwb09PWWNIekRPendnQ2N0Z1dUM1dtRkJiRkVtSUlH?=
- =?utf-8?B?cUFPYjltYStkK3c2eGhpa3lxTzVkOGk0aE5COTh5ZS96aE5QNHVSRmx2bndk?=
- =?utf-8?B?Y1hKMlZqa2pMSWw2VWdxYVE3Y1Z5ZGZDZ1FYYzIxMzNpcXhDZFIyakRwdktN?=
- =?utf-8?B?bHVVblZ2b013eC9yWVd3MmUwUUxjb0ZPYTBuMUwrUjVVNkZrVjhaUWRmWHNV?=
- =?utf-8?B?OUpwYzJhMGtoa0RhZitjWFI4dWN0Y3ptTDE5Sk1pQ3lJOE9DSjZ6dCtuSG5O?=
- =?utf-8?B?K0pQT0FzdmJIU0N5TFVMYXZQTGJHbmMzSFBacEJoNlE1RGcyRkRXelZ6UFJM?=
- =?utf-8?B?RWhmTXpvQ21pRE9EYThzaU1xWE5EL1MzK0N4VllFNGJSMEJXQVFXbmY5R1JX?=
- =?utf-8?B?L0plLzMybkVrbjN4NXdCeURxNmw2OWJkTjUzcUJudzJ0RkFPL1pVeGFrc1V2?=
- =?utf-8?B?MFQyOWc5d0tIVERUcDBNSEFwRzNsbU9YMEJrTHdnMWZBUDVyd2xzWFU3ZGNB?=
- =?utf-8?B?aFpMN0hyZFBrbU9zVE1Vbm5MNEhJQTJhWXZZVFRQT1d2Y2ZBcldPQnZPSWhk?=
- =?utf-8?B?ald6VGhIcXVVRjNMRmRYRzg1ZHpvd09tckdwWnI0WDFaZVZ1OXhZUVVWSnR0?=
- =?utf-8?B?b2hoVkUwWkMwU3VYeVIyeDkvSDd1R1QvRnA4QVRzcXlHdENCanpFUTNDdnpk?=
- =?utf-8?B?ZkFhWVZCS0RDTC9hbWdTUGlyVVlRVFhJNFJRS3I4d0VqNDNHbk4yVjZqWWVH?=
- =?utf-8?B?VXlTOVRMQ0F5bnkzeEtTQWhXMlpJNkFQUjB1YnRHRXFvTGNwb2Q2QTh3UFRE?=
- =?utf-8?B?WXJndXNuY3dKOHJyYkF4UWJGb0MyZFFQWjdGTWlWZjl6ZzFJUXU1Z1RhclJa?=
- =?utf-8?B?eWo5L1hTaWJjZU5NRnJKbmNqSW01S1B2VHE4cjZxMWt0UFF6MjNLM1I3TWFw?=
- =?utf-8?B?Tk4zVnRlUFNjc3BXdVY0YmNObUxiRVZDZmZwRWhYdmM4anBnRUlzRUM0ZlVu?=
- =?utf-8?Q?PXCff+EMd3cqLsmeXyLDtDxrY?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QWFEWitVc05na29wSGl2V0RDNm1XTTFwZklSckNHTXl3YXJ5enkwamQwakh6?=
+ =?utf-8?B?cEI2ZVBOaVczRXowK1pXTjhxZldFb0RqNk45c0JlWk1Sb1NzLzhsZThCbEFT?=
+ =?utf-8?B?V1pLbWlFUzhqV2JCSkZYaHZkTkF6RUJRd1cxVlV4Zi9GUVhhOVpqM2YyQys2?=
+ =?utf-8?B?NHpvc0p2N3gzV1dDT0FRMkhDcnFIOTVYSWxNejJFNTVxTDYrQW5aaTJRWFdN?=
+ =?utf-8?B?L3Q4ZmRnTzZnTGRRMXJBcWZDeDlBT0FYQ1k3dXlrc0VocjZ1MXN0QmpjTCtV?=
+ =?utf-8?B?SWR4UXYvSU5tN1VnV1RYZXNBaks5WEk5eGtZZzNpZUNEdVpkcndMbGhPSzd5?=
+ =?utf-8?B?N1lMMWdsc1kzT0Z3T21zMWpMaG1NYzdDYktwaTJOWU1OYWVIc1FjTjl3TEo4?=
+ =?utf-8?B?Ry9NU3pHRC8rSFRVcFZkTkVNdyt1WGx2aG94YTFtY21IckErQXEwYy8zSFlJ?=
+ =?utf-8?B?dkF3cjliZ2QxWnlQZ0UzTkhjczRybkM3aUJFSGI2eE1VOTlDWkxncldPbEZu?=
+ =?utf-8?B?RUtPMjR6dXB3eEU1TTJMeHBJVWhsdGh1Q3pqWTBaR2hrbkdJUUgwSmhzY1lI?=
+ =?utf-8?B?NnJjN0l5eXFTei9WVzNFdmdLUUVXQjFnTlFaY0hGclJ4UkFZdXhoWVRaVzRR?=
+ =?utf-8?B?Y0IwUThuQ3BYVVRnVzVvbFhTeWtwR05sK3pMZ0ZwbVcxZEJna2QzaXhDaHln?=
+ =?utf-8?B?WEpmY0VzdStzNTliVDRzU3l4TXRDRnZjK0JmVWxxM3BhZVB0NVhQMWU4Nkhw?=
+ =?utf-8?B?YzF2WU9IUENKNjdIZk1nQzZQOGxwQ1VKYUdIcjJMZHBzY3RWZllzdERzQXgr?=
+ =?utf-8?B?Y3Nvc2tBR3R4a3luRDR5Z2dWTk5WSXYya1ByTEF3V1FJQS9JWkpKUzJFc3Zp?=
+ =?utf-8?B?Y3UzMlV0TW1STktSRElTV1c2TFpFNno0ZllONUdhMnp4UzlBRkI5NFZJT0d0?=
+ =?utf-8?B?MDU4VFBkM0xweTZ3OWxVdjBwUnErMElyNXNIcmZxcVZrWWM3V3FZTXZSN2xp?=
+ =?utf-8?B?aGx3V3JoUmVuRHhmK3BiNHBic25pOGRkUjlHeFpoVWZNL0pBZ3JqOEN0di9t?=
+ =?utf-8?B?NUMrYng2a0s2N0ppQkNxenZ5bzJBSTUvQ3JQanczS3BLSjg3WkdsYzNLZEc2?=
+ =?utf-8?B?V2xvN0orSzdtSkJ0N2ZnSWR1aTdJZThSVE9nRTBKR2d5MC9RdCtncWZOU0Q5?=
+ =?utf-8?B?Q0psVlZqSHprWmdVbmIwNlkyK0pwV01UbzJIdmVLMllTRklobkRNOG9wVzJr?=
+ =?utf-8?B?VVRnUjRKelFLZVM1YUxaNEwzajNWYmlWT29NSlJ6cG50dEhwVHQyYkdOdW1T?=
+ =?utf-8?B?amVQTDRTcHg4TVZMbXFnc1A2Q2JlN0l3Q1BhZHluU24rOU0wQUlPR2d3WVht?=
+ =?utf-8?B?QU1Tb2I4RjAyYUJjWXNhMFJFbFo5TWp6NXlWNzBDNGNaL0FDWGhJeWtBUXNa?=
+ =?utf-8?B?ZGoyS1RrWmNySWdTS0pBVmZMdlI1Um9wTjNDRHMxRWFFZDJXaXZNWmdMRlhn?=
+ =?utf-8?B?R0sxbkNZSndvbXAvYlU0WnVtRmdnVWdBaXlsQWgwUGdlN2ZRdFIzU0dWWGJU?=
+ =?utf-8?B?eG1NMXh3dlB2Z1dRcHBZY1hCbmxTdmErSGNzWmpucjZpVUwvM2xpN0dpOW1T?=
+ =?utf-8?B?M09aR01CZUlrdU1vdzVaZnNZM2Z5QW03KzFsbWxVeVpLQ0hveHJ2Vkgwazds?=
+ =?utf-8?B?VC9SVGQwQncyYUZpcFJDKzk3M0RGOWhWWDRaTFlqVVExWGZXeEM2Wkk0T1NO?=
+ =?utf-8?B?d2F1akZjV0w4VS9sQnZLZ0VhZmVMVG9rb3FRYzRzWDRWOWNWMW5MeEdzdFpi?=
+ =?utf-8?B?RG1ORXI0UkJmeDNIdWI1ZHVBMjg5aVY2bmFKL0htejNMeWJIYldFK05JMUFH?=
+ =?utf-8?B?bnZaREtDZENRdEs2dTk5alUrN204cVlKOFBRN2NtVVJ0WmtqRUw4UWZVZy9B?=
+ =?utf-8?B?a0p6QlEvUXNqSmdCOFBpKzFORUhOZ1Z3dkVuZi9NZFg3aDdOZjhmTVhBMkFO?=
+ =?utf-8?B?TGxRbHlUVEpEVGxpaDE5Tk9mTlREdnczWFFzQmFKOGNOTVAveG9KVFk1Kzho?=
+ =?utf-8?B?YWlOOTFlQ0dzTUhHbmR6WDBxa2tGd2lLNU9LS3VvaG5QVDVoOThsdGlCMnR6?=
+ =?utf-8?Q?7ZOGhPI6UlSGicThYoVairet8?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fd580ccd-90e6-4f32-4511-08dd472b6381
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4c84bb9d-07ff-4cbe-eec6-08dd472aac2e
 X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7804.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Feb 2025 03:56:23.8757 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Feb 2025 03:51:16.3560 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: COd21AhWrNiCb1wV264xgZ4yvHqYSnd1pPkJIiKb2sY5TsPkSJCDwO0+QzW2jg0m
+X-MS-Exchange-CrossTenant-UserPrincipalName: 27ZzqUVvhdMvoEgzKbupF0SHMv9FEWxin+ANsVefwbYamLofbc/52YX3hGE7zt1H
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7941
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -164,7 +164,7 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-On 2/7/2025 5:03 AM, Kim, Jonathan wrote:
+On 2/7/2025 4:56 AM, Kim, Jonathan wrote:
 > [Public]
 > 
 >> -----Original Message-----
@@ -173,77 +173,138 @@ On 2/7/2025 5:03 AM, Kim, Jonathan wrote:
 >> To: amd-gfx@lists.freedesktop.org; Lazar, Lijo <Lijo.Lazar@amd.com>
 >> Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Kim, Jonathan
 >> <Jonathan.Kim@amd.com>
->> Subject: [PATCH 3/4] drm/amdgpu: Initialize xgmi info during discovery
+>> Subject: [PATCH 2/4] drm/amdgpu: Add xgmi speed/width related info
 >>
->> Initialize xgmi related static information during discovery.
+>> Add APIs to initialize XGMI speed, width details and get to max
+>> bandwidth supported. It is assumed that a device only supports same
+>> generation of XGMI links with uniform width.
 >>
 >> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
 >> ---
->>  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 20 +++++++++++++------
->>  1 file changed, 14 insertions(+), 6 deletions(-)
+>>  drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c | 41 ++++++++++++++++++++++++
+>>  drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h | 11 +++++++
+>>  2 files changed, 52 insertions(+)
 >>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
->> index eca431e52038..d4eade2bd4d3 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
->> @@ -2502,6 +2502,19 @@ static int amdgpu_discovery_set_isp_ip_blocks(struct
->> amdgpu_device *adev)
->>       return 0;
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+>> index 03d909c7b14b..edef5763e2b8 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+>> @@ -1679,3 +1679,44 @@ bool amdgpu_xgmi_same_hive(struct amdgpu_device
+>> *adev,
+>>               adev->gmc.xgmi.hive_id &&
+>>               adev->gmc.xgmi.hive_id == bo_adev->gmc.xgmi.hive_id);
 >>  }
->>
->> +static void amdgpu_discovery_set_xgmi_info(struct amdgpu_device *adev)
->> +{
->> +     if (amdgpu_ip_version(adev, XGMI_HWIP, 0) == IP_VERSION(4, 8, 0))
->> +             adev->gmc.xgmi.supported = true;
 >> +
->> +     if (amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 3) ||
->> +         amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 4))
->> +             adev->ip_versions[XGMI_HWIP][0] = IP_VERSION(6, 4, 0);
+>> +static inline uint32_t
+>> +__amdgpu_xgmi_get_max_bandwidth(uint8_t link_width,
+>> +                             enum amdgpu_xgmi_link_speed max_speed)
+>> +{
+>> +     /* Returns unidirectional bandwidth in Mbps */
+>> +     return max_speed * 1000 * link_width;
 > 
-> Can this stuff get rolled into xgm_init_info and called directly into amdgpu_discovery_set_ip_blocks?
-> Breaking up discovery_set_xgmi_info and xgmi_init_info as 2 separate things seems a little confusing.
+> Instead of wrapping this in a new static, would it work to declare a new member adev->gmc.xgmi.max_bandwidth?
+> Then in amdgpu_xgmi_init_info, you can define max_bandwidth directly after the switch.
+>
+
+Link Width/Link speed is generally the standard way to represent link
+info. Presently, tools like SMI show these for PCIe. Followed the same
+here and kept a max bandwidth value calculation.
+
+>> +}
+>> +
+>> +/**
+>> + * amdgpu_xgmi_get_max_bandwidth - Get max possible bandwidth of a single
+>> XGMI
+>> + * link of the device in Mbps
+>> + * @adev: Target device.
+>> + *
+>> + * Gets the max possible bandwidth of a single XGMI link of the device in Mbps.
+>> + * Assumption is all links of the device have the same width and are of the
+>> + * same XGMI generation.
+>> + */
+>> +uint32_t amdgpu_xgmi_get_max_bandwidth(struct amdgpu_device *adev)
+>> +{
+>> +     if (!adev->gmc.xgmi.supported)
+>> +             return 0;
+>> +
+>> +     return __amdgpu_xgmi_get_max_bandwidth(adev->gmc.xgmi.max_width,
+>> adev->gmc.xgmi.max_speed);
+> 
+> If you do the suggested above, both tests can be simplified into 1 line as
+> -> return = xgmi_supported ? max_bandwidth : 0;
 > 
 
-Intent is like this -
-	Set IP version info. This is the job of discovery and kept inside
-amdgpu_discovery.
-	Set any static information derived out of IP versions and not available
-in discovery tables. This is kept outside of discovery file.
+Yes, primarily width/speed is chosen to represent link info.
+
+>> +}
+>> +
+>> +void amdgpu_xgmi_init_info(struct amdgpu_device *adev)
+>> +{
+>> +     switch (amdgpu_ip_version(adev, XGMI_HWIP, 0)) {
+>> +     case IP_VERSION(6, 1, 0):
+>> +             adev->gmc.xgmi.max_speed = XGMI2_5_SPEED_GT;
+>> +             adev->gmc.xgmi.max_width = 16;
+>> +             break;
+>> +     case IP_VERSION(6, 4, 0):
+>> +             adev->gmc.xgmi.max_speed = XGMI3_SPEED_GT;
+>> +             adev->gmc.xgmi.max_width = 16;
+>> +             break;
+>> +     default:
+>> +             break;
+>> +     }
+>> +}
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
+>> index 044c4f6be44a..384c4ddef78a 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
+>> @@ -25,6 +25,12 @@
+>>  #include <drm/task_barrier.h>
+>>  #include "amdgpu_ras.h"
+>>
+>> +enum amdgpu_xgmi_link_speed {
+>> +     XGMI2_SPEED_GT = 16,
+>> +     XGMI2_5_SPEED_GT = 25,
+>> +     XGMI3_SPEED_GT = 32
+> 
+> Why not declare and define them as units of Mbps to begin with so you don't have to do the calculation later?
+
+Actually, this is also something which is followed from PCIe to
+represent as GT/s. If bandwidth field alone is kept, then this also
+won't be required.
+
+I'm not so sure if that is a good way to keep things.
 
 Thanks,
 Lijo
 
->> +
->> +     if (amdgpu_ip_version(adev, XGMI_HWIP, 0))
-> 
-> Maybe roll this check into xgmi_init_info i.e. void early return if null.
-> 
->> +             amdgpu_xgmi_init_info(adev);
->> +}
->> +
->>  int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
->>  {
->>       int r;
->> @@ -2769,12 +2782,7 @@ int amdgpu_discovery_set_ip_blocks(struct
->> amdgpu_device *adev)
->>               break;
->>       }
->>
->> -     if (amdgpu_ip_version(adev, XGMI_HWIP, 0) == IP_VERSION(4, 8, 0))
->> -             adev->gmc.xgmi.supported = true;
->> -
->> -     if (amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 3) ||
->> -         amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 4))
->> -             adev->ip_versions[XGMI_HWIP][0] = IP_VERSION(6, 4, 0);
->> +     amdgpu_discovery_set_xgmi_info(adev);
-> 
-> If you do the suggestions above, you can just call amdgpu_xgmi_init_info unconditionally.
 > 
 > Jon
+> 
+>> +};
+>> +
+>>  struct amdgpu_hive_info {
+>>       struct kobject kobj;
+>>       uint64_t hive_id;
+>> @@ -75,6 +81,8 @@ struct amdgpu_xgmi {
+>>       struct ras_common_if *ras_if;
+>>       bool connected_to_cpu;
+>>       struct amdgpu_xgmi_ras *ras;
+>> +     enum amdgpu_xgmi_link_speed max_speed;
+>> +     uint8_t max_width;
+>>  };
 >>
->>       /* set NBIO version */
->>       switch (amdgpu_ip_version(adev, NBIO_HWIP, 0)) {
+>>  struct amdgpu_hive_info *amdgpu_get_xgmi_hive(struct amdgpu_device *adev);
+>> @@ -102,4 +110,7 @@ int amdgpu_xgmi_request_nps_change(struct
+>> amdgpu_device *adev,
+>>  int amdgpu_get_xgmi_link_status(struct amdgpu_device *adev,
+>>                               int global_link_num);
+>>
+>> +void amdgpu_xgmi_init_info(struct amdgpu_device *adev);
+>> +uint32_t amdgpu_xgmi_get_max_bandwidth(struct amdgpu_device *adev);
+>> +
+>>  #endif
 >> --
 >> 2.25.1
 > 
