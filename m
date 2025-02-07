@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55A90C0219D
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6103C0219E
 	for <amd-gfx@archiver.kernel.org>; Fri,  7 Feb 2025 15:31:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3FAB910EB55;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D16F10EB57;
 	Fri,  7 Feb 2025 15:31:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="NbFQSRme";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="qvGkfMHE";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2449110E27D;
- Fri,  7 Feb 2025 14:51:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E80110E27D;
+ Fri,  7 Feb 2025 14:51:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
- In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=u1FqwNDCUrbBg0RpDSF38zAMjA7/G9WyaEImBN40SNI=; b=NbFQSRmeXgDcXBOeQ+oWq6E0Mi
- bQRFeKkPSC1b5JVYkin06EkhO51wQhqctUn6aNQOkd+qbR/60FBImAI2NX+hvMWMe2tQR29rS8N+D
- tJDs80bhZIdX9IAzWJWjgNCsCNO1O5qkLLcheu2sfu508s7+Dy0rLE2dYhLfktDQvF9OBWbUNOUVk
- RKNqY5jL4WlgpzQHkfGBAeUQptpfFwQUy+c/l0/3aW3niCp9lY1ERpZ1u+dlpKoUm2+VYZBPpuI68
- ZIhYof58pHgwOVdlR0yI1pk/fUuyQ6IAdNkxQkGA6pFzytFPy3KtTjHDFeAxTJMtTgosFsGD6hI8b
- xO+sVBng==;
+ bh=3XQJzRbgL8tnck7KJu/Sdjwl0+++6CK1Pkdg0qyVaTo=; b=qvGkfMHEHxstbYHOjdqcSEpWe/
+ vR9Yaa9rrjJorUWCunBRjgBTrbmD3xbPe51N5Az5tBJwV//MBxdO7MBF0cofuWpJm16pv3+RoePyU
+ gRUvAUExVahiWXtqNlSGnICMhZxpOakccieANsl9jYrlS24tttcIcpvWPSYXx60xukUoOQxT566qe
+ rgplGhEGFN56a1CapxYtL+ebbd9pCEX/awPRRQ6l3YOF3B2uzcGY3bmVuJDGyCu5vciEf3tMzkaj4
+ ut4NmU9n0wiaiuc/Bh2VXK+3Fc9OKighzzb9Ju1bZkowbojTP8oXdbgTD4ScE3ws2bBPNgadBTbol
+ BVz/FfcA==;
 Received: from [90.241.98.187] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1tgPhB-005spB-H8; Fri, 07 Feb 2025 15:51:11 +0100
+ id 1tgPhA-005sp2-3z; Fri, 07 Feb 2025 15:51:10 +0100
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
@@ -39,14 +39,12 @@ Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Danilo Krummrich <dakr@kernel.org>,
  Matthew Brost <matthew.brost@intel.com>,
- Philipp Stanner <phasta@kernel.org>,
- "Zhang, Hawking" <Hawking.Zhang@amd.com>
-Subject: [PATCH 2/6] drm/amdgpu: Pop jobs from the queue more robustly
-Date: Fri,  7 Feb 2025 14:51:00 +0000
-Message-ID: <20250207145104.60455-3-tvrtko.ursulin@igalia.com>
+ Philipp Stanner <phasta@kernel.org>
+Subject: [PATCH v4 0/6] drm/sched: Job queue peek/pop helpers and struct job
+ re-order
+Date: Fri,  7 Feb 2025 14:50:58 +0000
+Message-ID: <20250207145104.60455-1-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.48.0
-In-Reply-To: <20250207145104.60455-1-tvrtko.ursulin@igalia.com>
-References: <20250207145104.60455-1-tvrtko.ursulin@igalia.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -65,66 +63,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Replace a copy of DRM scheduler's to_drm_sched_job with a copy of a newly
-added __drm_sched_entity_queue_pop.
+Lets add some helpers for peeking and popping from the job queue which allows us
+to re-order the fields in struct drm_sched_job and remove one hole.
 
-This allows breaking the hidden dependency that queue_node has to be the
-first element in struct drm_sched_job.
+As in the process we have added a header file for scheduler internal prototypes,
+lets also use it more and cleanup the "exported" header a bit.
 
-A comment is also added with a reference to the mailing list discussion
-explaining the copied helper will be removed when the whole broken
-amdgpu_job_stop_all_jobs_on_sched is removed.
+v2:
+ * Add header file for internal scheduler API.
+ * Add helper for peeking too. (Danilo)
+ * Add (temporary?) drm_sched_cancel_all_jobs() helper to replace amdgpu
+   amdgpu_job_stop_all_jobs_on_sched().
 
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+v3:
+ * Settle for a copy of __drm_sched_entity_queue_pop in amdgpu for now.
+
+v4:
+ * Expand the series with some more header file cleanup.
+
 Cc: Christian König <christian.koenig@amd.com>
 Cc: Danilo Krummrich <dakr@kernel.org>
 Cc: Matthew Brost <matthew.brost@intel.com>
 Cc: Philipp Stanner <phasta@kernel.org>
-Cc: "Zhang, Hawking" <Hawking.Zhang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 22 +++++++++++++++++++---
- 1 file changed, 19 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-index 100f04475943..1899c601c95c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-@@ -411,8 +411,24 @@ static struct dma_fence *amdgpu_job_run(struct drm_sched_job *sched_job)
- 	return fence;
- }
- 
--#define to_drm_sched_job(sched_job)		\
--		container_of((sched_job), struct drm_sched_job, queue_node)
-+/*
-+ * This is a duplicate function from DRM scheduler sched_internal.h.
-+ * Plan is to remove it when amdgpu_job_stop_all_jobs_on_sched is removed, due
-+ * latter being incorrect and racy.
-+ *
-+ * See https://lore.kernel.org/amd-gfx/44edde63-7181-44fb-a4f7-94e50514f539@amd.com/
-+ */
-+static struct drm_sched_job *
-+drm_sched_entity_queue_pop(struct drm_sched_entity *entity)
-+{
-+	struct spsc_node *node;
-+
-+	node = spsc_queue_pop(&entity->job_queue);
-+	if (!node)
-+		return NULL;
-+
-+	return container_of(node, struct drm_sched_job, queue_node);
-+}
- 
- void amdgpu_job_stop_all_jobs_on_sched(struct drm_gpu_scheduler *sched)
- {
-@@ -425,7 +441,7 @@ void amdgpu_job_stop_all_jobs_on_sched(struct drm_gpu_scheduler *sched)
- 		struct drm_sched_rq *rq = sched->sched_rq[i];
- 		spin_lock(&rq->lock);
- 		list_for_each_entry(s_entity, &rq->entities, list) {
--			while ((s_job = to_drm_sched_job(spsc_queue_pop(&s_entity->job_queue)))) {
-+			while ((s_job = drm_sched_entity_queue_pop(s_entity))) {
- 				struct drm_sched_fence *s_fence = s_job->s_fence;
- 
- 				dma_fence_signal(&s_fence->scheduled);
+Tvrtko Ursulin (6):
+  drm/sched: Add internal job peek/pop API
+  drm/amdgpu: Pop jobs from the queue more robustly
+  drm/sched: Remove a hole from struct drm_sched_job
+  drm/sched: Move drm_sched_entity_is_ready to internal header
+  drm/sched: Move internal prototypes to internal header
+  drm/sched: Group exported prototypes by object type
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c    |  22 +++-
+ drivers/gpu/drm/scheduler/sched_entity.c   |  23 +---
+ drivers/gpu/drm/scheduler/sched_fence.c    |   2 +
+ drivers/gpu/drm/scheduler/sched_internal.h |  89 +++++++++++++++
+ drivers/gpu/drm/scheduler/sched_main.c     |   7 +-
+ include/drm/gpu_scheduler.h                | 122 +++++++++------------
+ 6 files changed, 169 insertions(+), 96 deletions(-)
+ create mode 100644 drivers/gpu/drm/scheduler/sched_internal.h
+
 -- 
 2.48.0
 
