@@ -4,25 +4,25 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF03FC02192
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Feb 2025 06:51:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3797C02192
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Feb 2025 06:53:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 779D910EA2F;
-	Fri,  7 Feb 2025 06:51:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 916ED10EA31;
+	Fri,  7 Feb 2025 06:53:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="kzEFL7Cs";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="rPzGRGlA";
 	dkim-atps=neutral
-Received: from out30-110.freemail.mail.aliyun.com
- (out30-110.freemail.mail.aliyun.com [115.124.30.110])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 04DC810EA2E
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 Feb 2025 06:44:22 +0000 (UTC)
+Received: from out30-99.freemail.mail.aliyun.com
+ (out30-99.freemail.mail.aliyun.com [115.124.30.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A73810EA2D
+ for <amd-gfx@lists.freedesktop.org>; Fri,  7 Feb 2025 06:44:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=linux.alibaba.com; s=default;
- t=1738910661; h=From:To:Subject:Date:Message-ID:MIME-Version;
- bh=Sg1xuCkxbSMJnYh3UkLKU0Fa57qhHtUw+FbZshcYYj0=;
- b=kzEFL7Cseg6e5yZhHe3/ox3Wg3F601ARqJoPddMLF6V/U+Hr8WEm70XJ8gfOEAQCmFKA80owmqDYJaaftMDOFtNUG5WvVE6OpeubfPhAaK31ybHFRYJdU2BuYXA3dRGmIfiaBBw+vmIsHf/S5yBhmxSxMCgp0cwFZa9k8H8aCdE=
+ t=1738910660; h=From:To:Subject:Date:Message-ID:MIME-Version;
+ bh=SvZyG7ZzV65xnCgajzwe3c1zsE0uBeCjrBEE6ctE6eQ=;
+ b=rPzGRGlA8zMPSwXNDWjdgEgYCkH1CHbl/zEVtpYVgkorJELKAbNs56d76IRzjku0MgD/ALMM5idK8n/0y5yPevEyK/Ar1ISXgV9c/A0ZcOqARAM3dY1pD4wdrIjA2HhTxMOqWGv4yUjcUED2iM6PNCYFD2x4GBE7pTRYtSOnznY=
 Received: from i32d02263.sqa.eu95.tbsite.net(mailfrom:gerry@linux.alibaba.com
- fp:SMTPD_---0WOyQdz5_1738910660 cluster:ay36) by smtp.aliyun-inc.com;
+ fp:SMTPD_---0WOyQdyl_1738910659 cluster:ay36) by smtp.aliyun-inc.com;
  Fri, 07 Feb 2025 14:44:20 +0800
 From: Jiang Liu <gerry@linux.alibaba.com>
 To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
@@ -31,9 +31,10 @@ To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
  Kent.Russell@amd.com, shuox.liu@linux.alibaba.com,
  amd-gfx@lists.freedesktop.org
 Cc: Jiang Liu <gerry@linux.alibaba.com>
-Subject: [v1 2/4] drm/amdgpu: accumulate gfx_off_entrycount in smu_suspend()
-Date: Fri,  7 Feb 2025 14:44:15 +0800
-Message-ID: <9253f9f4144fd2e126e6b7307c63eb75764dce21.1738910203.git.gerry@linux.alibaba.com>
+Subject: [v1 1/4] drm/amdgpu: avoid buffer overflow attach in
+ smu_sys_set_pp_table()
+Date: Fri,  7 Feb 2025 14:44:14 +0800
+Message-ID: <5d77360ce88ec08ceb6cd9e9347001dc427dc1af.1738910203.git.gerry@linux.alibaba.com>
 X-Mailer: git-send-email 2.43.5
 In-Reply-To: <cover.1738910203.git.gerry@linux.alibaba.com>
 References: <cover.1738910203.git.gerry@linux.alibaba.com>
@@ -53,35 +54,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-As pwfw resets entrycount when device is suspended, so we should
-accmulate the gfx_off_entrycount value instead of save the last value
-of it.
+It malicious user provides a small pptable through sysfs and then
+a bigger pptable, it may cause buffer overflow attack in function
+smu_sys_set_pp_table().
 
 Signed-off-by: Jiang Liu <gerry@linux.alibaba.com>
 ---
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-index ed9dac00ebfb..70a5ab649e5f 100644
+index 8ca793c222ff..ed9dac00ebfb 100644
 --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
 +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-@@ -2134,12 +2134,12 @@ static int smu_suspend(struct amdgpu_ip_block *ip_block)
- 	smu_set_gfx_cgpg(smu, false);
+@@ -612,7 +612,8 @@ static int smu_sys_set_pp_table(void *handle,
+ 		return -EIO;
+ 	}
  
- 	/*
--	 * pwfw resets entrycount when device is suspended, so we save the
--	 * last value to be used when we resume to keep it consistent
-+	 * pwfw resets entrycount when device is suspended, so we accumulate
-+	 * the `gfx_off_entrycount` value.
- 	 */
- 	ret = smu_get_entrycount_gfxoff(smu, &count);
- 	if (!ret)
--		adev->gfx.gfx_off_entrycount = count;
-+		adev->gfx.gfx_off_entrycount += count;
- 
- 	/* clear this on suspend so it will get reprogrammed on resume */
- 	smu->workload_mask = 0;
+-	if (!smu_table->hardcode_pptable) {
++	if (!smu_table->hardcode_pptable || smu_table->power_play_table_size < size) {
++		kfree(smu_table->hardcode_pptable);
+ 		smu_table->hardcode_pptable = kzalloc(size, GFP_KERNEL);
+ 		if (!smu_table->hardcode_pptable)
+ 			return -ENOMEM;
 -- 
 2.43.5
 
