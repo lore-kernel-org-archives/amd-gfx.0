@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09C58C0219D
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Feb 2025 15:29:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 737BAC02199
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Feb 2025 15:29:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D76110EB47;
-	Fri,  7 Feb 2025 15:29:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 298B310EB4E;
+	Fri,  7 Feb 2025 15:29:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="XdysvMqd";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="ow32H00h";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6318C10E27D;
- Fri,  7 Feb 2025 14:51:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8407F10EB36;
+ Fri,  7 Feb 2025 14:51:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
@@ -22,16 +22,16 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=HHYYLuX8aWEijeq0lX5BJg3IzORHC//IdKmEKiPmr4Y=; b=XdysvMqdEWbevS0ibKg0yMuRdN
- 41p6/VeziEqzctkc/CdJ76T6hrlApumOygqWzMrq0h8sUT7vle8uVgqj+rFtMOSKtCsv7GAhRZL7s
- Kclz/MCyKsK1uwZh3GERcT+jFAkaMHeaWywu1F1VntQ7Og50tBsamHllI6MLG5Hr809IVcxjwDqT8
- EXHo806Y1BDPDK3HrH/3MjSEQAQs6lEpcN6YGqVjlbqZF2uGsOx6fyZAxiYWMwHo3i6ZaQGligHjx
- tNseN1GwMIY5HADr6FJaFOwScjbYTHJyw8QtV0orY/ZLB8WrSOISkgflQv2N83wJlYIvpGlmQERIM
- iibcazJw==;
+ bh=c+iqQFvYFEIvLvrYZto/tJ+lIEE6vMoNTFNS2CPaTYk=; b=ow32H00hZ5pBt0KorXFw7eG3M+
+ RA8SX4Au7py7Xk+YX8NqXvTarkFNFVoIHTDaA+fn3P04AOPdQlG+VjcEKnZ7sPR7E4JjgmnMyphCI
+ 2FB80eP3TD2h+SdoTdOPiCNz/8OSwUWvmp32gjRRoL5QeMYoilOLDvIDsd9Iwd8lqkh7JvmCoJLhK
+ uWC/kBnXYB2Ujv5iV3d5CcMpuAmyZqMvBx4pw8iuC0yuddWPmbCqUYWFyEBF4D6QeE7SY/NpACamu
+ zmN+q17nYxlhyOL3hjhWrUgpDDiRJ5HfwRVIWtl6lw7vWXHvwocQ3jlDH3+iToOBsRKAqWn1yD+rT
+ eVuwFV1Q==;
 Received: from [90.241.98.187] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1tgPhA-005sp5-QQ; Fri, 07 Feb 2025 15:51:10 +0100
+ id 1tgPhC-005spM-Uj; Fri, 07 Feb 2025 15:51:12 +0100
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
@@ -40,9 +40,10 @@ Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
  Danilo Krummrich <dakr@kernel.org>,
  Matthew Brost <matthew.brost@intel.com>,
  Philipp Stanner <phasta@kernel.org>
-Subject: [PATCH 1/6] drm/sched: Add internal job peek/pop API
-Date: Fri,  7 Feb 2025 14:50:59 +0000
-Message-ID: <20250207145104.60455-2-tvrtko.ursulin@igalia.com>
+Subject: [PATCH 4/6] drm/sched: Move drm_sched_entity_is_ready to internal
+ header
+Date: Fri,  7 Feb 2025 14:51:02 +0000
+Message-ID: <20250207145104.60455-5-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.48.0
 In-Reply-To: <20250207145104.60455-1-tvrtko.ursulin@igalia.com>
 References: <20250207145104.60455-1-tvrtko.ursulin@igalia.com>
@@ -64,18 +65,11 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Idea is to add helpers for peeking and popping jobs from entities with
-the goal of decoupling the hidden assumption in the code that queue_node
-is the first element in struct drm_sched_job.
+Helper is for scheduler internal use so lets hide it from DRM drivers
+completely.
 
-That assumption usually comes in the form of:
-
-  while ((job = to_drm_sched_job(spsc_queue_pop(&entity->job_queue))))
-
-Which breaks if the queue_node is re-positioned due to_drm_sched_job
-being implemented with a container_of.
-
-This also allows us to remove duplicate definitions of to_drm_sched_job.
+At the same time we change the method of checking whethere there is
+anything in the queue from peeking to looking at the node count.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 Cc: Christian König <christian.koenig@amd.com>
@@ -83,141 +77,68 @@ Cc: Danilo Krummrich <dakr@kernel.org>
 Cc: Matthew Brost <matthew.brost@intel.com>
 Cc: Philipp Stanner <phasta@kernel.org>
 ---
- drivers/gpu/drm/scheduler/sched_entity.c   | 11 +++---
- drivers/gpu/drm/scheduler/sched_internal.h | 46 ++++++++++++++++++++++
- drivers/gpu/drm/scheduler/sched_main.c     |  7 ++--
- 3 files changed, 54 insertions(+), 10 deletions(-)
- create mode 100644 drivers/gpu/drm/scheduler/sched_internal.h
+ drivers/gpu/drm/scheduler/sched_entity.c   | 12 ------------
+ drivers/gpu/drm/scheduler/sched_internal.h | 13 +++++++++++++
+ include/drm/gpu_scheduler.h                |  1 -
+ 3 files changed, 13 insertions(+), 13 deletions(-)
 
 diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
-index 69bcf0e99d57..a171f05ad761 100644
+index a171f05ad761..87f88259ddf6 100644
 --- a/drivers/gpu/drm/scheduler/sched_entity.c
 +++ b/drivers/gpu/drm/scheduler/sched_entity.c
-@@ -28,11 +28,10 @@
- #include <drm/drm_print.h>
- #include <drm/gpu_scheduler.h>
+@@ -151,18 +151,6 @@ static bool drm_sched_entity_is_idle(struct drm_sched_entity *entity)
+ 	return false;
+ }
  
-+#include "sched_internal.h"
-+
- #include "gpu_scheduler_trace.h"
- 
--#define to_drm_sched_job(sched_job)		\
--		container_of((sched_job), struct drm_sched_job, queue_node)
+-/* Return true if entity could provide a job. */
+-bool drm_sched_entity_is_ready(struct drm_sched_entity *entity)
+-{
+-	if (spsc_queue_peek(&entity->job_queue) == NULL)
+-		return false;
+-
+-	if (READ_ONCE(entity->dependency))
+-		return false;
+-
+-	return true;
+-}
 -
  /**
-  * drm_sched_entity_init - Init a context entity used by scheduler when
-  * submit to HW ring.
-@@ -255,7 +254,7 @@ static void drm_sched_entity_kill(struct drm_sched_entity *entity)
- 	/* The entity is guaranteed to not be used by the scheduler */
- 	prev = rcu_dereference_check(entity->last_scheduled, true);
- 	dma_fence_get(prev);
--	while ((job = to_drm_sched_job(spsc_queue_pop(&entity->job_queue)))) {
-+	while ((job = drm_sched_entity_queue_pop(entity))) {
- 		struct drm_sched_fence *s_fence = job->s_fence;
- 
- 		dma_fence_get(&s_fence->finished);
-@@ -477,7 +476,7 @@ struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
- {
- 	struct drm_sched_job *sched_job;
- 
--	sched_job = to_drm_sched_job(spsc_queue_peek(&entity->job_queue));
-+	sched_job = drm_sched_entity_queue_peek(entity);
- 	if (!sched_job)
- 		return NULL;
- 
-@@ -513,7 +512,7 @@ struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
- 	if (drm_sched_policy == DRM_SCHED_POLICY_FIFO) {
- 		struct drm_sched_job *next;
- 
--		next = to_drm_sched_job(spsc_queue_peek(&entity->job_queue));
-+		next = drm_sched_entity_queue_peek(entity);
- 		if (next) {
- 			struct drm_sched_rq *rq;
- 
+  * drm_sched_entity_error - return error of last scheduled job
+  * @entity: scheduler entity to check
 diff --git a/drivers/gpu/drm/scheduler/sched_internal.h b/drivers/gpu/drm/scheduler/sched_internal.h
-new file mode 100644
-index 000000000000..25ac62ac2bf3
---- /dev/null
+index 25ac62ac2bf3..9ff5cddb5708 100644
+--- a/drivers/gpu/drm/scheduler/sched_internal.h
 +++ b/drivers/gpu/drm/scheduler/sched_internal.h
-@@ -0,0 +1,46 @@
-+#ifndef _DRM_GPU_SCHEDULER_INTERNAL_H_
-+#define _DRM_GPU_SCHEDULER_INTERNAL_H_
-+
-+/**
-+ * drm_sched_entity_queue_pop - Low level helper for popping queued jobs
-+ *
-+ * @entity: scheduler entity
-+ *
-+ * Low level helper for popping queued jobs.
-+ *
-+ * Returns the job dequeued or NULL.
-+ */
-+static inline struct drm_sched_job *
-+drm_sched_entity_queue_pop(struct drm_sched_entity *entity)
+@@ -43,4 +43,17 @@ drm_sched_entity_queue_peek(struct drm_sched_entity *entity)
+ 	return container_of(node, struct drm_sched_job, queue_node);
+ }
+ 
++/* Return true if entity could provide a job. */
++static inline bool
++drm_sched_entity_is_ready(struct drm_sched_entity *entity)
 +{
-+	struct spsc_node *node;
++	if (!spsc_queue_count(&entity->job_queue))
++		return false;
 +
-+	node = spsc_queue_pop(&entity->job_queue);
-+	if (!node)
-+		return NULL;
++	if (READ_ONCE(entity->dependency))
++		return false;
 +
-+	return container_of(node, struct drm_sched_job, queue_node);
++	return true;
 +}
 +
-+/**
-+ * drm_sched_entity_queue_peek - Low level helper for peeking at the job queue
-+ *
-+ * @entity: scheduler entity
-+ *
-+ * Low level helper for peeking at the job queue
-+ *
-+ * Returns the job at the head of the queue or NULL.
-+ */
-+static inline struct drm_sched_job *
-+drm_sched_entity_queue_peek(struct drm_sched_entity *entity)
-+{
-+	struct spsc_node *node;
-+
-+	node = spsc_queue_peek(&entity->job_queue);
-+	if (!node)
-+		return NULL;
-+
-+	return container_of(node, struct drm_sched_job, queue_node);
-+}
-+
-+#endif
-diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-index a48be16ab84f..9f614a775c49 100644
---- a/drivers/gpu/drm/scheduler/sched_main.c
-+++ b/drivers/gpu/drm/scheduler/sched_main.c
-@@ -78,6 +78,8 @@
- #include <drm/gpu_scheduler.h>
- #include <drm/spsc_queue.h>
- 
-+#include "sched_internal.h"
-+
- #define CREATE_TRACE_POINTS
- #include "gpu_scheduler_trace.h"
- 
-@@ -87,9 +89,6 @@ static struct lockdep_map drm_sched_lockdep_map = {
- };
  #endif
+diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+index 5188c7f3bd3b..962825613596 100644
+--- a/include/drm/gpu_scheduler.h
++++ b/include/drm/gpu_scheduler.h
+@@ -606,7 +606,6 @@ struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_entity *entity);
+ void drm_sched_entity_push_job(struct drm_sched_job *sched_job);
+ void drm_sched_entity_set_priority(struct drm_sched_entity *entity,
+ 				   enum drm_sched_priority priority);
+-bool drm_sched_entity_is_ready(struct drm_sched_entity *entity);
+ int drm_sched_entity_error(struct drm_sched_entity *entity);
  
--#define to_drm_sched_job(sched_job)		\
--		container_of((sched_job), struct drm_sched_job, queue_node)
--
- int drm_sched_policy = DRM_SCHED_POLICY_FIFO;
- 
- /**
-@@ -123,7 +122,7 @@ static bool drm_sched_can_queue(struct drm_gpu_scheduler *sched,
- {
- 	struct drm_sched_job *s_job;
- 
--	s_job = to_drm_sched_job(spsc_queue_peek(&entity->job_queue));
-+	s_job = drm_sched_entity_queue_peek(entity);
- 	if (!s_job)
- 		return false;
- 
+ struct drm_sched_fence *drm_sched_fence_alloc(
 -- 
 2.48.0
 
