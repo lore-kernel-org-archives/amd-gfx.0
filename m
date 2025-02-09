@@ -4,78 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C57E3C02199
-	for <amd-gfx@archiver.kernel.org>; Sun,  9 Feb 2025 14:43:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5959EC02199
+	for <amd-gfx@archiver.kernel.org>; Sun,  9 Feb 2025 15:44:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A7D310E15A;
-	Sun,  9 Feb 2025 14:43:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBED310E34F;
+	Sun,  9 Feb 2025 15:44:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NJf5mUqx";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=aosc.io header.i=@aosc.io header.b="BDAut/I+";
 	dkim-atps=neutral
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com
- [209.85.218.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DAC8D10EB5D
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 Feb 2025 15:49:37 +0000 (UTC)
-Received: by mail-ej1-f51.google.com with SMTP id
- a640c23a62f3a-ab7430e27b2so413570966b.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 07 Feb 2025 07:49:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1738943376; x=1739548176; darn=lists.freedesktop.org;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:to:from:subject:message-id:from:to:cc:subject:date
- :message-id:reply-to;
- bh=mBi4AotdPfbUdi7Kn9UmoCaZKTdKVqatWpE/DlNcYyg=;
- b=NJf5mUqxEhH5jTbT++CVQ/gXDS1E4s+lLhFkc+SpxxiaeiWCMaP8UxF+vfu7b4XE6Y
- 3CQqoVcpXpgK96i0NgKD95JO61eDR+pPSSYC59z1TJVMlDVLkeKA84q8D56BRAsmPxwu
- sSR8QbBMMYSy7eL22dwy6/y91bF4Z/xD/QVtIo/KePbaOlN9j0I+fC+lgCPgGS+ZMPZE
- N9jdaWOQedjSS4+bNRZ9fHKsCAFSYJEX9m3KnUpPUqLL5wudQeef1ZZjiKAlR0SCxuyA
- BWKXgmmcWwpHY3XsZYEy0X5zJfLJPO42d+2fFi+29b+1LhkF3gwROk2eHwUqthDkuopm
- 9UgA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1738943376; x=1739548176;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:to:from:subject:message-id:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=mBi4AotdPfbUdi7Kn9UmoCaZKTdKVqatWpE/DlNcYyg=;
- b=rJE8Fq6NULi4LGhfZ2WDGVmt96xzlCny/xScDULbHds0gvWUIx/wD5Mx56CFBze4Tw
- wd9s5hl4ApsFZJxDcoXwP8XnhtIDCd+4mmn2Zdcn+QUTyMcB6LAQ30MhRW9Ekdx0oLLc
- ncQXQ6Nt8nBoHGMdv8c7ChrXU+sQpuUG//4iCPVg3NyQPtWlxoaS0d33pc+eMUPo0qv1
- DIe4MhR7OBHYaEXvLy1r3+OssqNmPMGiGXMzaMqg2pWnnHmlz5P0J8zMqQ4e/BnWWYZD
- 1VmyaH8xBYK7ARmIHgg9DIkQnJauY2lV2iQRqFsh6mPC8igp/yJ4oSffBkIAyyaBNjLH
- g1iA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWaHcxcqFqC4rWegoKDFZLH28IdLTK9BCLQyBQJ22sckBAR+33OTvgwemHPSX9etOHVWomZ4HwT@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzCRyYZlVQE7f322S7vpL/7YCZfiP6cXxknZjfQjiWQ0EGLxSZa
- ALVdbvQcvm99KxaqrdpPDq00/9dK4hYJcCIK9fIsS/R1cjuevwK4
-X-Gm-Gg: ASbGncsjue+Q4/w74h1KdlndnU5RTo6F3Ttv+7VXQdpb8ksBLUV1GJKUkqDy0DM3icq
- qfBBP8QPOlahrvGwc4UYgNApl9/O+wa/nQo0ETO1IV34fqLIjUFFvfxO3NlYD+OmY+2/3sz9/aW
- QODS13FZX7bO+q0v1rRTv49ZKFMuFsF+rJFZkdiPczhe/NjFMa94ZtgftJ7iqwNUJyXy7z9rhEa
- r9h4GBR9otpnIjcGYZaGt4abhUDDz1mNfFHh/+pHZtw/N0F5hN6J5M/DUeWgQdjLWLdDISMvRl1
- x2HNROMoLJ4KH+iXtOFmqMXB5jcZLeUpPyqyLg1czFKwhjBAQXMBwyFCkpcx
-X-Google-Smtp-Source: AGHT+IHa/FA0G3vLZldLIISvXwAelJNO+Ezes6js+jQX40q++wjFJWOfdGOqPrv96eEfk/zxh0cngA==
-X-Received: by 2002:a17:907:1c9c:b0:aa6:88c6:9449 with SMTP id
- a640c23a62f3a-ab789ade75fmr391378066b.19.1738943375888; 
- Fri, 07 Feb 2025 07:49:35 -0800 (PST)
-Received: from [192.168.0.94] (catv-80-99-56-108.catv.fixed.one.hu.
- [80.99.56.108]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ab7736464c8sm286819566b.166.2025.02.07.07.49.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 07 Feb 2025 07:49:35 -0800 (PST)
-Message-ID: <056dd07634c8610f99a8006d484c6ac0e6ee8faf.camel@gmail.com>
-Subject: Re: Rework and fix queue reset for gfx7-gfx10
-From: Timur =?ISO-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>
-To: =?ISO-8859-1?Q?Andr=E9?= Almeida <andrealmeid@riseup.net>, Christian
- =?ISO-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Alexander.Deucher@amd.com, amd-gfx@lists.freedesktop.org
-Date: Fri, 07 Feb 2025 16:49:34 +0100
-In-Reply-To: <a8219316-dc08-478f-905b-1e6eb356409f@riseup.net>
-References: <20250204143113.6320-1-christian.koenig@amd.com>
- <a8219316-dc08-478f-905b-1e6eb356409f@riseup.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.54.3 (3.54.3-1.fc41) 
+X-Greylist: delayed 599 seconds by postgrey-1.36 at gabe;
+ Sun, 09 Feb 2025 15:44:14 UTC
+Received: from relay-us1.mymailcheap.com (relay-us1.mymailcheap.com
+ [51.81.35.219])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 62A8210E34F;
+ Sun,  9 Feb 2025 15:44:14 +0000 (UTC)
+Received: from relay5.mymailcheap.com (relay5.mymailcheap.com
+ [159.100.248.207])
+ by relay-us1.mymailcheap.com (Postfix) with ESMTPS id 2E6E9202B5;
+ Sun,  9 Feb 2025 15:34:14 +0000 (UTC)
+Received: from relay4.mymailcheap.com (relay4.mymailcheap.com [137.74.80.155])
+ by relay5.mymailcheap.com (Postfix) with ESMTPS id C59BE260F7;
+ Sun,  9 Feb 2025 15:34:10 +0000 (UTC)
+Received: from nf2.mymailcheap.com (nf2.mymailcheap.com [54.39.180.165])
+ by relay4.mymailcheap.com (Postfix) with ESMTPS id 5C105203CD;
+ Sun,  9 Feb 2025 15:34:08 +0000 (UTC)
+Received: from mail20.mymailcheap.com (mail20.mymailcheap.com [51.83.111.147])
+ by nf2.mymailcheap.com (Postfix) with ESMTPSA id 51EB840098;
+ Sun,  9 Feb 2025 15:34:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=aosc.io; s=default;
+ t=1739115246; bh=WmsqJqDfGBjTiEEMO2Bvl+sBwNM3htxGNeXAIexYEn0=;
+ h=Date:To:Cc:From:Subject:From;
+ b=BDAut/I+aCsNzhQ9PXFaBVV8EUDUkumpeVgfixKehispIutQVQWuDhaXz1D7r+6SC
+ 2Ts89KRgOp6zIamaEjYmayCvwh79X77bcChAMnnUgSpqllcwrKeUAu/3lMif7Ps2mq
+ qUPKL7gmaSx9LqB5WnCQEtj0UjTTpI2vPDqX+s/Q=
+Received: from [172.29.0.1] (unknown [203.175.14.47])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mail20.mymailcheap.com (Postfix) with ESMTPSA id C6E1E41423;
+ Sun,  9 Feb 2025 15:33:59 +0000 (UTC)
+Message-ID: <13267282-2b5d-4a9d-aa0e-bbf650ea2221@aosc.io>
+Date: Sun, 9 Feb 2025 23:33:55 +0800
 MIME-Version: 1.0
-X-Mailman-Approved-At: Sun, 09 Feb 2025 14:43:40 +0000
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: stable@vger.kernel.org
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Tom Chung <chiahsuan.chung@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, Alex Hung <alex.hung@amd.com>,
+ Sunil Khatri <sunil.khatri@amd.com>, Hamza Mahfooz <hamza.mahfooz@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, harico@yurier.net,
+ Kexy Biscuit <kexybiscuit@aosc.io>
+From: Mingcong Bai <jeffbai@aosc.io>
+Subject: Please Apply: Revert "drm/amd/display: Fix green screen issue after
+ suspend"
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Queue-Id: 51EB840098
+X-Rspamd-Server: nf2.mymailcheap.com
+X-Spamd-Result: default: False [-0.10 / 10.00]; MIME_GOOD(-0.10)[text/plain];
+ ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ RCVD_TLS_ALL(0.00)[];
+ ASN(0.00)[asn:16276, ipnet:51.83.0.0/16, country:FR];
+ MIME_TRACE(0.00)[0:+]; RCVD_COUNT_ONE(0.00)[1];
+ MID_RHS_MATCH_FROM(0.00)[];
+ SPFBL_URIBL_EMAIL_FAIL(0.00)[harico.yurier.net:server
+ fail,jeffbai.aosc.io:server fail]; 
+ TO_MATCH_ENVRCPT_SOME(0.00)[]; FROM_HAS_DN(0.00)[];
+ RCPT_COUNT_TWELVE(0.00)[19]; FROM_EQ_ENVFROM(0.00)[];
+ FREEMAIL_CC(0.00)[amd.com,gmail.com,ffwll.ch,lists.freedesktop.org,vger.kernel.org,yurier.net,aosc.io];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]; TO_DN_SOME(0.00)[]
+X-Rspamd-Action: no action
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,34 +94,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Andr=C3=A9,
+The display on Lenovo Xiaoxin Pro 13 2019 (Lenovo XiaoXinPro-13API 2019) 
+briefly shows a garbled screen upon wakeup from S3 with kernel v6.13.2, 
+but not with v6.14-rc1. I have bisected to 
+04d6273faed083e619fc39a738ab0372b6a4db20 ("Revert "drm/amd/display: Fix 
+green screen issue after suspend"") as the fix to this issue.
 
-Sorry for the late reply - we've been discussing all of this on a
-different, long email thread.
+However, it is quite strange that the title indicated a revert to the 
+fix for the exact issue I was experiencing - despite the commit claiming 
+that the maintainers "cannot see the issue" any more. It seems that I'm 
+running into some sort of unexpected issue that is outside of AMD's test 
+case.
 
-Alex & Christian - do you think it's OK to include Andr=C3=A9 on that
-thread?
+In any case, this commit fixes the issue on the device I have tested and 
+applies cleanly on 6.13. I would therefore like to request for this 
+commit to be backported to 6.13 (and maybe other branches, but I think 
+the maintainers may have a better idea on this).
 
-Andr=C3=A9 - in a nutshell, I was using a Mesa patch that intentionally
-breaks NGG culling:
-https://gitlab.freedesktop.org/Venemo/mesa/-/commit/83bb8d88248cdbe7a7df653=
-2efba0e8f81c9654a
-which shows that neither the enforce_isolation series, nor the VMID
-reset series can actually recover from hangs.
-
-Best regards,
-Timur
-
-On Wed, 2025-02-05 at 10:47 -0300, Andr=C3=A9 Almeida wrote:
-> Hi Christian,
->=20
-> Em 04/02/2025 11:31, Christian K=C3=B6nig escreveu:
-> > Hi guys,
-> >=20
-> > I finally found time to work on queue reset a bit more and also
-> > gave it
-> > some more testing.
-> >=20
->=20
-> How are you testing this series?
-
+Reported-By: Yang Wu <harico@yurier.net>
+Tested-by: Yang Wu <harico@yurier.net>
+Suggested-by: Mingcong Bai <jeffbai@aosc.io>
