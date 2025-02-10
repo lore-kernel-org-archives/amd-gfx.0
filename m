@@ -4,118 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F647C0219E
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Feb 2025 01:08:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95070C021A0
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Feb 2025 02:17:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B12B410E0AE;
-	Mon, 10 Feb 2025 01:08:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA4C910E023;
+	Mon, 10 Feb 2025 02:17:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="njyo39d2";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="hQQm/Cvk";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2040.outbound.protection.outlook.com [40.107.93.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA3F910E0AE
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Feb 2025 01:08:08 +0000 (UTC)
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2069.outbound.protection.outlook.com [40.107.101.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CDDEF10E023
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 Feb 2025 02:17:35 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jvcMeqpU55vfTruXpdoUoRGfIRR6GAKOFcLgTQFoEKK7zioOhOMvlBaWHZLNl4Jhc23H5uIM+3RboLX2EC3rITPF8N1pdrDSPfTRIbY2iHPVokmAPxjh9gCHVO9qmIqqaW/UIkD+agxBQoTVF+ItRHkfkxnDaZhQHoyS1KkQifZnmdVVXbn3A6+Y7RIZK+6+64SBcBobUlJzQkHa+A1VU7lCvLSzzjjgPftCjh6Qd0m79D6Ftgfcdc1w++UubYikYll7A3bDs2RyWslGf39gPBBew3NVzEEyNVfdGqDgGhqmxrXFURpu0L64/NWmLIyUoEZk59SYiyN8YDfC42DAuQ==
+ b=UtmFUTvhth/noC1hxjt1C9LXyDimFOjC+z+iuaR1ZySR9XzwhYewo3Ea3xpKLkREv+7vTtmfa0efct5WFHPD3NAxTOnsZOBIM2FWaodpEjITiv84TDBMWqoYpUGxvXhVZa6jQ95eiEPpXAZY/4THNZQcRBvm9U7AlQPczgsyiKoNHNTJ3fOFOiHcyPOqnJZgoXmIvylBWJ4RDIDfWNu1Cmu/9Ml0ort+mMZmOFPkp0ICwL4YTBM1DlUl7PktsZmAE2xVIj35PTOHFFHtKv9rKHwMrLKYm3Ko92QzX+uKTQ36Jq+T/YAIQ3Yy71h3T7El0qGD4YQ42c9aS3uzkAz8pQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iMe7OvZtV6Llb/fH+z9SU2pj7DNNrT5TUh0yGPgNBzM=;
- b=FXNCcOBsGhWKkp+/NIVOWZ1dNaygAVOkPpZejJWZpykQ3b7uln+6hee3l0roYjQecc59GTZdffOWMLMd/UTJ4X9corf7ClbWKxSvdlOlr8L7DKzOBSuOTPO66v3HpHLOKAoohWnDudbxI+S+5YWkH4V+0DfQJP84WmW6zK7gEMCno1WPaaD9YPBQNz7H73MSyRMjnBnnO/LAcOw4A+MDmziI5my+hSn9B9K0ywi3P3TzDabwbTXgWnihPgtj+HFKjaCUPJG+xAl6k0SDgt4mhS3FK4kOL5nYO3rFMTTlIk/VwoZ2YBJM4/Fx2WY6bPFZZjnURjdVSLFRWf0Z525JlQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=jSfGc1zq7wChHHNWKa2ROTwJ4b5OJJed6oz6FclZIXc=;
+ b=dUZvhVtnkhY57qdDMOfgTlizx5YuPxZiS+q94D0EmCHQqYEKmzX5P/koxHgHpuN0/yikibk7bmeqea0+a04jJHm4oh5jmglG+BwJ74napkxwlSBXxQSi0EGkvdpe4l3Zhyo2pmrQp5MyBexeg5fVcyIWIP9VUBxQULFBJxxVynSIxfdB2FsZlHO+FHCHtMDEk2i5t2L4qaM9pFr0BrZ1UPESQdLqKvmKGimmhoQms5fIuHKVH8bhO03RnVb6gb7pyB7UwGQJATWvLFIWXz7bxGqkFwwdWQ/AiDj4fP9EgjrlZwVjSOFJPpNE/NRlQAzA0obek1TgCh0fyRkW3CTDng==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iMe7OvZtV6Llb/fH+z9SU2pj7DNNrT5TUh0yGPgNBzM=;
- b=njyo39d2zIXaLSm2j8uIWP7uqJo5EXh+6xRoFMYqR7iLcC/2wUF+eO1gnvTgUVJIh9NPBMBUWlqIwz/hX2tmGdCY2+NTigYmuqAM+hRoEsP/TcG4GMyxt90dufLP4GB2hnUkfCBaPzItXIVng/Ls0eDFGzgtDjSvtrowa9cXc7Y=
-Received: from DM6PR05CA0062.namprd05.prod.outlook.com (2603:10b6:5:335::31)
- by BY5PR12MB4227.namprd12.prod.outlook.com (2603:10b6:a03:206::21) with
+ bh=jSfGc1zq7wChHHNWKa2ROTwJ4b5OJJed6oz6FclZIXc=;
+ b=hQQm/Cvks4N7S+/OlmD3NBsmJRL5/VgdpF/lvuRG7mWqsTlljnKClbOlIHzZDyq/KPOqvHIyzC3pRUvoaDzBBTPSh49CeE6hlsyiU8yxa9GByCY8NgPo1yxkAlsz0moe1jRKFmEGByLNTidUPr+C6Lhgmz6zvPdpxU8g7ovg814=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB6566.namprd12.prod.outlook.com (2603:10b6:8:8d::16) by
+ SA3PR12MB9225.namprd12.prod.outlook.com (2603:10b6:806:39e::13) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8422.18; Mon, 10 Feb
- 2025 01:08:03 +0000
-Received: from CY4PEPF0000FCC4.namprd03.prod.outlook.com
- (2603:10b6:5:335:cafe::de) by DM6PR05CA0062.outlook.office365.com
- (2603:10b6:5:335::31) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8445.10 via Frontend Transport; Mon,
- 10 Feb 2025 01:08:03 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000FCC4.mail.protection.outlook.com (10.167.242.106) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8445.10 via Frontend Transport; Mon, 10 Feb 2025 01:08:02 +0000
-Received: from mao-Super-Server.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Sun, 9 Feb
- 2025 19:08:01 -0600
-From: YuanShang <YuanShang.Mao@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: YuanShang <YuanShang.Mao@amd.com>
-Subject: [PATCH] drm/amdgpu - Put the fence returned by amdgpu_gem_va_update_vm
-Date: Mon, 10 Feb 2025 09:07:50 +0800
-Message-ID: <20250210010750.93033-1-YuanShang.Mao@amd.com>
-X-Mailer: git-send-email 2.25.1
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8422.12; Mon, 10 Feb
+ 2025 02:17:32 +0000
+Received: from DM4PR12MB6566.namprd12.prod.outlook.com
+ ([fe80::31b:5d31:8ba6:abd7]) by DM4PR12MB6566.namprd12.prod.outlook.com
+ ([fe80::31b:5d31:8ba6:abd7%4]) with mapi id 15.20.8422.015; Mon, 10 Feb 2025
+ 02:17:32 +0000
+Content-Type: multipart/alternative;
+ boundary="------------30pdn0hywDVEPpHHAU3i7pDe"
+Message-ID: <841a21b8-b0b6-48a9-af2d-62b51d5d6a1b@amd.com>
+Date: Sun, 9 Feb 2025 20:17:30 -0600
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdkfd: Fix the deadlock in svm_range_restore_work
+To: "Deng, Emily" <Emily.Deng@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <20250207102823.1565467-1-Emily.Deng@amd.com>
+ <PH0PR12MB541778A52306F3BF717609018FF02@PH0PR12MB5417.namprd12.prod.outlook.com>
+Content-Language: en-US
+From: "Chen, Xiaogang" <xiaogang.chen@amd.com>
+In-Reply-To: <PH0PR12MB541778A52306F3BF717609018FF02@PH0PR12MB5417.namprd12.prod.outlook.com>
+X-ClientProxiedBy: SN6PR05CA0032.namprd05.prod.outlook.com
+ (2603:10b6:805:de::45) To DM4PR12MB6566.namprd12.prod.outlook.com
+ (2603:10b6:8:8d::16)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000FCC4:EE_|BY5PR12MB4227:EE_
-X-MS-Office365-Filtering-Correlation-Id: 20aed565-bb20-4bcf-cc04-08dd496f5e5b
+X-MS-TrafficTypeDiagnostic: DM4PR12MB6566:EE_|SA3PR12MB9225:EE_
+X-MS-Office365-Filtering-Correlation-Id: 995c9d22-ace1-4326-a51a-08dd4979132e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|82310400026|1800799024|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?H0GmT4n+l9DElPGM6ywtoxX+HWnJz1SCbLhV2LLxwTAPafzMY8uAvBNcwLrN?=
- =?us-ascii?Q?ZQ+F4VU0IucPQUU3VHx6nDTPEbdV16M9veapG+CfdrTBYCSmsAd0AKZQlvKc?=
- =?us-ascii?Q?TpBOOUlIIEkw508E+KAJLM6vL0S1LAXm0qEo5hbcEsCSvhQ4fiOvdbLoqlq4?=
- =?us-ascii?Q?KeRtTzJ974ZqAT4QAG52+PeZ09ZWT9K/F0dBarCNxk/sD0+CV97qpQtDvAsJ?=
- =?us-ascii?Q?UPQbtrqsUzpRJ48KXObxF0wFK2s5OQozmJjZEdtL2F5U0+j8yzmsuEtBqcXG?=
- =?us-ascii?Q?77ZhJlPQf8sim/Zarr+rqFlwaNc35igBWUh4PSCIOHCoQE4lwYG8Kvixg2ew?=
- =?us-ascii?Q?L2JYrpemLYrwKWT42UyssVOTOvMIYDM0p9aP1cGJJYGeGdH6ogD7S+qNV8mV?=
- =?us-ascii?Q?FsJcQ4OC7Hn+swk+yGSYCbHXQ5gBZtZ8+CSRU/C/IPsQWlPxGLp7F1k33IHM?=
- =?us-ascii?Q?DXDMssQCOIySe32RLpdGo2rOgvvzxsZehNLxJf8iVCanKP2eNKwxgD3fBQVw?=
- =?us-ascii?Q?XYGE1eIe9N4EMeDDK4Vh/R4wa+S8yjWgROW9rkCBlGcBEEs/eyYclBxMqNOJ?=
- =?us-ascii?Q?x9cXxSB/p672HNbFX6f3oW4dwzpggULViiryECZdrzbQhlm2iZ4SeZivbBwA?=
- =?us-ascii?Q?H33wo6RM9LMwMTUdNT8mMGC7F+xKOTJmTUWFzi6pQPEKTTSCJECnZ70BIv/c?=
- =?us-ascii?Q?mx7Q1DeFfDlZZ8kdOnX74F2O0ccZ45uaWuCUmZW6JVEygxWSd9WmMPeuhNEg?=
- =?us-ascii?Q?iObjSKgxjqF2JhzShjnY7LymBakzEcwvNqv9jd6Qlq+WAg9XeMYPxSh5Ux4J?=
- =?us-ascii?Q?OcRWAEvxoY6IYn1YwBXFuEg0Y8mO44cg6Tm/SUwvdpQhgVFy7GC83nTIL12d?=
- =?us-ascii?Q?OHA2ZyODTX6PK11YD0NqFWypWSVAko/IhdMyx2Z3lz4CyZGBegAu/1w0vzVG?=
- =?us-ascii?Q?pPyJDbwdeg4uFYpEVz/33RHx12PjLuBokh8DFSYYbGY80/K26T2dw+Ndgqi8?=
- =?us-ascii?Q?oxbI3cOAiXX9qu5thtIYSUTSFNAnLE0Wvzg0Q/3FzQFUx6DLmG4PC8KrNUFA?=
- =?us-ascii?Q?o+srTIBUTrxXfQhzRhU/gtA5LL7x5NIliu7vjNyde96I0S20TpVwZ+fQzZNr?=
- =?us-ascii?Q?5qQEBOs7q5vaslnOBK9WjReRiNV0oxZ7538zR3M292+cROyoP25E7bP6hUn/?=
- =?us-ascii?Q?bp2z17zlMyQopBI9OJMq7jkgavl4JN79K5cdivdny2EUfbqVq+ImwYyRTF7E?=
- =?us-ascii?Q?Aj2Pp7B2DzCEKl+L0r7E+6/kItVBCajNUgu16SUuVSa6OyDBItJZrwY6XD0K?=
- =?us-ascii?Q?1m/CF1Xtqc0eHovkTkpBhu/IJxqsTEdRsEXH+NzaJW75dzRttzK6QFWIYsGq?=
- =?us-ascii?Q?yjNRJZac89Pqgiyl6sFBsA/6V5rHFTyKoS7PtQI1rkTo5CnQUxpf1fbmMW9L?=
- =?us-ascii?Q?b2R8w5O2N90p6qiVk2ZtI7EeYGONflE5XldqIoOSCFxH+p/WNdnppJB5EonJ?=
- =?us-ascii?Q?VHZHZQ2S+ciNHik=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(82310400026)(1800799024)(376014); DIR:OUT;
+ ARA:13230040|376014|366016|1800799024|8096899003|7053199007; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?WCtzUHoxa1NtdlU0c0tuY25GYnhEK2RodUJxem90bzgzVjc0dEgzbG1vM2FO?=
+ =?utf-8?B?Z1E0eTRDUHRPNVp6bmRwZGgvWGFORUZqVTFYbWZBS1d1VHU2NWcyUlZrdFpo?=
+ =?utf-8?B?cFgwSVh1Vk9jQzMyS01PMmVSNnBBckdBaUF0VkgrRDFmeU5za0NsUTRTblpB?=
+ =?utf-8?B?SDd0RThWZjhINDdrblJuWFJUemE0b212S1dmRzNMK2ZSWDF2dnlMc3cwZ2gz?=
+ =?utf-8?B?TnA1cmREdGduYitMSUxkOEdLVFRBNGxxSEltbzhUU3dqaXBSWjRlQmQ2amRj?=
+ =?utf-8?B?VFVINEtuRFJtUXFPd2ZjODF2SUxJVFptQWExY3p1SGRrVXQ2aXNrazRkVUxs?=
+ =?utf-8?B?bHY2RXFtYVZIMk9MVlRZYzlNV3RDeDFDZW9nWnlONHVyMFJmWFdmTkN3VEYw?=
+ =?utf-8?B?RkJzRjl5QmxWdStnTTVTK1ErQmlDUStXcjNXK21LbXJ1aUZKUUdsZ285ZDlm?=
+ =?utf-8?B?REhUcWhIaVpUTjA4czdCZjBVb0piMjA1OUxBNFh3U3N3UFVRcDlzR1JqNjhU?=
+ =?utf-8?B?Z3FyN2NTM2ZSUkZudVFPdXAzc3pLZmdycXJTbkhIam1RclM2QUJpSnF0d0RZ?=
+ =?utf-8?B?TUNpbitrd09xYVUzaTQrdUYvV0Q1VHh1MklsUkpGcmFFQkJlVWEreU5BUnR0?=
+ =?utf-8?B?eUU0MlVXSTlvK2NXRllkL2huYkNiOGxVUU4rUi9vN25uTjk0eXIxWUhEdWJB?=
+ =?utf-8?B?eGFFcXdxZ2J5R3FtUXVPWUFZZHh6Njh2cmRqamlaSVNZeWhvL1I3NFlHZlI2?=
+ =?utf-8?B?LzRCRFl6cTdjNlBvSkp2ZmZPcGM0eFI0Ty9oUW9Memd5WXp1R294MDVRWXFL?=
+ =?utf-8?B?Qm9SOWY1TmsvNHBXd0s3Wnh2eEdPa1haMTRiOGQ1ZlczeGhSaHRENTJGMTI3?=
+ =?utf-8?B?RmdZeDh2aU5tWndhTlhCbCs5Sk9FTEJjVmNkaGdDbnRyNDZEalBDQXpZSFQr?=
+ =?utf-8?B?NDVEejZ5Y3ExN3h6bkpwNUI0UTZncDBmcHRVcVJNN29NalFKSlRsSFJnL1BI?=
+ =?utf-8?B?VnR1b09XZlZqVC9QMHJldXM4MU5vTEZ2cCtPaHkvaVhINTEzdEZXakVITHh0?=
+ =?utf-8?B?dm5rcE8vaDUvT0NPQkplamlBZXdrdXVZU2JTOE40RGVZdXFOa1lpTU1UKzBT?=
+ =?utf-8?B?SjY0Uzl3bnF5blZKbTAwY29wVWRzVkJXYTdEZHZoajVGS3RIOE5JYXptT2J5?=
+ =?utf-8?B?bklrOUpYTVloK0V4cFh5VEhIVGhzK0hrN0tWQVB5NkFET2pGLzNXaEtrK0hy?=
+ =?utf-8?B?b3J5Um52QUlzNGRFMkkyWFVzeUEyVG1zaWUzSUJOU3FJbE9GMjV4TXFOOFRT?=
+ =?utf-8?B?clUwQnk3ejUrYldERWJ2YnBPb0FGbDRnMnVpaTF3Z3VmNVdUbmZjNzh0c2hQ?=
+ =?utf-8?B?cWJST2FQOEdZNUpKdkFwME1JWlQwRkk4d0NJSTg1ZUxpRCszeGFxaDNYckRP?=
+ =?utf-8?B?QXpsdVVuVERiZEpEYUNaSmVsYitIUng4SFFDaEppQzhIY0RaMU5wampjRlo0?=
+ =?utf-8?B?L3A2MXNOa1J0NCtvYzc4WThKdFZuY0JUVUlOc0E2MXRNbEpaTDhnR3Z3aE5w?=
+ =?utf-8?B?VEd5dGxXR2hWMVBrOFhkVWNlOUh3NkpJSDBoL3FhK1o4b3pFRDFNSHIvR1Bs?=
+ =?utf-8?B?dnMrck5tdVZDZ21mNi9UbjByNVBvRUpoU3RleUpxRnV3Q1pqZGxCTTBuWlBW?=
+ =?utf-8?B?N1lEUmxBVjF2ZGdiK1oxQlY5em9tUlFsWUN0TUNIS3hVWEYxSkZ4TnUvdURG?=
+ =?utf-8?B?S202d3B1Y0dWU3hvMllJWFM4MWpiS0x1c2lRM3JaTGsreEhmdFdxT3lVSk95?=
+ =?utf-8?B?Y3ZnMGIremNrUWNEZURCc3g3cGcvYVgzUUhqL0g0SHJDYnhCMlJJWU1Bb1Y0?=
+ =?utf-8?Q?6SwvDg3IC8Bwf?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB6566.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(8096899003)(7053199007); DIR:OUT;
  SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QjYvamtrU3BWM1BUVEFJWExwMDNhb1VYMW5DdzM0aU50cTE1R0J5ejhtYUds?=
+ =?utf-8?B?WnhReTRmaENSeVIvaitPYjRvdXZEVWdpVFk3MVdMalFIQWliUXBYUkQ3eWlH?=
+ =?utf-8?B?UE5waXFwdnlQQ01UekZyZ1g0bCtMKzRyRFZBZnV4aEFFRDJwcGlRWk9QS2x2?=
+ =?utf-8?B?VFhpNzdMTmFhOHRKc0FxWmwvTW02SDJYbzF2cHJsZTkyWFE2Q2Jkd01kWVhY?=
+ =?utf-8?B?RjFSZGxWSVFUK0dVU1hRaXIyZW9DQkp1MUJST2EwWmZoMU04RVdlSG5NcTl2?=
+ =?utf-8?B?dS9FMzA5Nnc4VTJpQ0FGSG9CUWJUcFlFdEdNeGFIVTZiNmVLS0NXejRGa0Yv?=
+ =?utf-8?B?c1N4YTNjNkZURWR0OVdOTCtqMW9YUUh6dWdCTmc4bXJSYnNmd3Z3SzJYeVpE?=
+ =?utf-8?B?TUVWcmwvY2R2dFZ5T3ljNXVsZUJGNHBYRVBxU2o0ajZVWDhGSENkVWJyZHNB?=
+ =?utf-8?B?MC9NVUd6VXgwbXdOSVVrN0kreHdvUFZWV1M0SVZBZFoxWUEzdERUYTlTRHQ3?=
+ =?utf-8?B?WndpcjJpOStTbnB4REx5SXJpcXZIOENEeEpQYXk0Q1NRazMxazh0aWR4eGYv?=
+ =?utf-8?B?elBZWDBUSzBUb0IvMWdaVGovNVhPNW1HYWZnclFlRTYzNVZNRzF4WEJTSWNx?=
+ =?utf-8?B?bThZdVRBL3d6YmN5NmQvelJMeWtEVUtvSzlraXc5bWlLSDV1TEwzSXE4bTcz?=
+ =?utf-8?B?KzY4KytMbk1uaXRVVzd5azB3NG1KMmNZUkI3aVUvbDM3c0VOelZnWm9ROC9W?=
+ =?utf-8?B?UHoxSnArWDBaWDVwemkrTy9sUlNEdGFUeEhUR1NzdE1TZjZ2V0w3eGM1TU4x?=
+ =?utf-8?B?OTQ1WjVSUTBURFI1VXd4OEh1L29sRThLV1I0czZ0enB6dTdXNnR1b2tQeGtm?=
+ =?utf-8?B?WkpVNkJ4V2JDWTArM1YyRXhOWkYrVStHVWNJd1VzZWpjV254RWlXaktwcUQ0?=
+ =?utf-8?B?aHhhbU5SS2QzZm13RldxYmFTOUJ0LzBJZFMybVBpUUZLQ0hqS1Z5YUhtaHQ3?=
+ =?utf-8?B?QzRxZklrZldMOTNIQ0lBR1h5MklEMkpYdHpuU2xNckJWK243RmJnakp3a25u?=
+ =?utf-8?B?b1VSZG1oWUpkOUZSd2tTWkwxVmVyZTl6eHJ2MGVtYXg5QzZ0cllXcHRpdUw5?=
+ =?utf-8?B?b0tVTlVxbFgrZWVoT1ZJcVNzVDFUUUtyVFY0Rm4vcHE2dzFiRVZMblR5a0JV?=
+ =?utf-8?B?UmNDTy9ueHZGMzRmQnh6RTh0Yi84S2s4eVZBZ05VMExJRFRaVlAybm44ZG5P?=
+ =?utf-8?B?cTlSckRHWFU2YjFwS2h1NHFiTWVLQnRZYlNUUDRNb3NJTCtqYmNrTjNLOEVP?=
+ =?utf-8?B?VlNjbFZncVVxVUNWUXZNbUdTWHBMUUV0aWhJcjR0em9GZ2d2ZjByMnBGQ21w?=
+ =?utf-8?B?aVRYdFdFL003UGo3Q2JnWU9tTE9ObmFqbjZxZWE1RmI0TGg5M3NoeTRIcGdT?=
+ =?utf-8?B?clowM0NiNGUxSkVuS3k0eXp4RHZ6K1Rudnp3angrRU5Yc21oVGdvTFFJdkVV?=
+ =?utf-8?B?TDBhZ295dVhZYUovYnRpc0hlSkFEZlRyejlHUWtxY2oyUDFXMm1QM2x4bEUx?=
+ =?utf-8?B?Njcxa0FkekF2aVA5Skd5clp4ekNnaGRSM1VYRC9GZUlOenM1bDNRL0VtZzJz?=
+ =?utf-8?B?T2kvMmlOODR5cFA4OFczRk9VNk5Tc2hDaEJ1bVYvY0FIVXVmZ0VQdmZsTFhM?=
+ =?utf-8?B?Q2pWSEw5M09PTmxNU1VUK3FldlgxTW9sTis3T1gzRVhQTEp3QmduckJxeE5X?=
+ =?utf-8?B?cTRVK2N3VnpIKzlUamlzT21rVmpWdTFOSXJITk5lNDVIcDNvanI4V3RiRVJu?=
+ =?utf-8?B?aXkycTVQbjIwSDBUaThBT2d2UWE0QmJBMmVaYnBGeVBoUkptQ3U1RDNidkJR?=
+ =?utf-8?B?MkplZHFmclJzRUQ2REhMcVhreXdkZG1kUW5xM01DdmhvenI3U0FYUStpbzBw?=
+ =?utf-8?B?T1owMFRudkZ1OEZEMWQvTTJIaEJudDFYYTNxWVo1WitZdm5CNHAvbmNXdmN6?=
+ =?utf-8?B?TEROL1FnS0VjMkVpVWoxakR4eVVSNm9oZWh5QzBZbG5kK2lWK09EMDFUTkV1?=
+ =?utf-8?B?eUtCZmxYRXFsTVE5SzNncGM0UE9xb1JOMm92OUhVYUpsYU5EdUtqNzcwU1Nh?=
+ =?utf-8?Q?dlXQ=3D?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Feb 2025 01:08:02.8187 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 20aed565-bb20-4bcf-cc04-08dd496f5e5b
+X-MS-Exchange-CrossTenant-Network-Message-Id: 995c9d22-ace1-4326-a51a-08dd4979132e
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6566.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Feb 2025 02:17:31.9648 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000FCC4.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4227
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: FMmh1iWIniKcFWeA+zloXFJftZr+sUcC3IJulnQOkCWVGsWzcj9hfM69gJfuD1Bg
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9225
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,27 +162,187 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The fence in amdgpu_gem_va_update_vm is not used after
-amdgpu_gem_update_bo_mapping.
+--------------30pdn0hywDVEPpHHAU3i7pDe
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Signed-off-by: YuanShang <YuanShang.Mao@amd.com>
+
+On 2/7/2025 9:02 PM, Deng, Emily wrote:
+> [AMD Official Use Only - AMD Internal Distribution Only]
+>
+> [AMD Official Use Only - AMD Internal Distribution Only]
+>
+> Ping.......
+>
+> Emily Deng
+> Best Wishes
+>
+>
+>
+>> -----Original Message-----
+>> From: Emily Deng<Emily.Deng@amd.com>
+>> Sent: Friday, February 7, 2025 6:28 PM
+>> To:amd-gfx@lists.freedesktop.org
+>> Cc: Deng, Emily<Emily.Deng@amd.com>
+>> Subject: [PATCH] drm/amdkfd: Fix the deadlock in svm_range_restore_work
+>>
+>> It will hit deadlock in svm_range_restore_work ramdonly.
+>> Detail as below:
+>> 1.svm_range_restore_work
+>>        ->svm_range_list_lock_and_flush_work
+>>        ->mmap_write_lock
+>> 2.svm_range_restore_work
+>>        ->svm_range_validate_and_map
+>>        ->amdgpu_vm_update_range
+>>        ->amdgpu_vm_ptes_update
+>>        ->amdgpu_vm_pt_alloc
+>>        ->svm_range_evict_svm_bo_worker
+
+svm_range_evict_svm_bo_worker is a function running by a kernel task 
+from default system_wq. It is not the task that runs 
+svm_range_restore_work which is from system_freezable_wq. The second 
+task may need wait the first task to release mmap_write_lock, but there 
+is no cycle lock dependency.
+
+Can you explain more how deadlock happened? If a deadlock exists between 
+two tasks there are should be at least two locks used by both tasks.
+
+Regards
+
+Xiaogang
+
+>>        ->mmap_read_lock(deadlock here, because already get mmap_write_lock)
+>>
+>> How to fix?
+>> Downgrade the write lock to read lock.
+>>
+>> Signed-off-by: Emily Deng<Emily.Deng@amd.com>
+>> ---
+>> drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 3 ++-
+>> 1 file changed, 2 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+>> b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+>> index bd3e20d981e0..c907e2de3dde 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+>> @@ -1841,6 +1841,7 @@ static void svm_range_restore_work(struct work_struct
+>> *work)
+>>        mutex_lock(&process_info->lock);
+>>        svm_range_list_lock_and_flush_work(svms, mm);
+>>        mutex_lock(&svms->lock);
+>> +      mmap_write_downgrade(mm);
+>>
+>>        evicted_ranges = atomic_read(&svms->evicted_ranges);
+>>
+>> @@ -1890,7 +1891,7 @@ static void svm_range_restore_work(struct work_struct
+>> *work)
+>>
+>> out_reschedule:
+>>        mutex_unlock(&svms->lock);
+>> -      mmap_write_unlock(mm);
+>> +      mmap_read_unlock(mm);
+>>        mutex_unlock(&process_info->lock);
+>>
+>>        /* If validation failed, reschedule another attempt */
+>> --
+>> 2.34.1
+--------------30pdn0hywDVEPpHHAU3i7pDe
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 2/7/2025 9:02 PM, Deng, Emily wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:PH0PR12MB541778A52306F3BF717609018FF02@PH0PR12MB5417.namprd12.prod.outlook.com">
+      <pre wrap="" class="moz-quote-pre">[AMD Official Use Only - AMD Internal Distribution Only]
+
+[AMD Official Use Only - AMD Internal Distribution Only]
+
+Ping.......
+
+Emily Deng
+Best Wishes
+
+
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">-----Original Message-----
+From: Emily Deng <a class="moz-txt-link-rfc2396E" href="mailto:Emily.Deng@amd.com">&lt;Emily.Deng@amd.com&gt;</a>
+Sent: Friday, February 7, 2025 6:28 PM
+To: <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>
+Cc: Deng, Emily <a class="moz-txt-link-rfc2396E" href="mailto:Emily.Deng@amd.com">&lt;Emily.Deng@amd.com&gt;</a>
+Subject: [PATCH] drm/amdkfd: Fix the deadlock in svm_range_restore_work
+
+It will hit deadlock in svm_range_restore_work ramdonly.
+Detail as below:
+1.svm_range_restore_work
+      -&gt;svm_range_list_lock_and_flush_work
+      -&gt;mmap_write_lock
+2.svm_range_restore_work
+      -&gt;svm_range_validate_and_map
+      -&gt;amdgpu_vm_update_range
+      -&gt;amdgpu_vm_ptes_update
+      -&gt;amdgpu_vm_pt_alloc
+      -&gt;svm_range_evict_svm_bo_worker</pre>
+      </blockquote>
+    </blockquote>
+    <p><span style="white-space: pre-wrap">svm_range_evict_svm_bo_worker is a function running by a kernel task from default system_wq. It is not the task that runs </span><span style="white-space: pre-wrap">svm_range_restore_work which is from system_freezable_wq. The second task may need wait the first task to release </span><span style="white-space: pre-wrap">mmap_write_lock, but there is no cycle lock dependency.</span></p>
+    <p><span style="white-space: pre-wrap">Can you explain more how deadlock happened? If a deadlock exists between two tasks there are should be at least two locks used by both tasks.</span></p>
+    <p><span style="white-space: pre-wrap">Regards</span></p>
+    <p><span style="white-space: pre-wrap">Xiaogang
+</span></p>
+    <blockquote type="cite" cite="mid:PH0PR12MB541778A52306F3BF717609018FF02@PH0PR12MB5417.namprd12.prod.outlook.com">
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">
+      -&gt;mmap_read_lock(deadlock here, because already get mmap_write_lock)
+
+How to fix?
+Downgrade the write lock to read lock.
+
+Signed-off-by: Emily Deng <a class="moz-txt-link-rfc2396E" href="mailto:Emily.Deng@amd.com">&lt;Emily.Deng@amd.com&gt;</a>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 2 ++
- 1 file changed, 2 insertions(+)
+drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 3 ++-
+1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-index 8b67aae6c2fe..aedc0c8ee469 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-@@ -973,6 +973,8 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
- 						     args->vm_timeline_point,
- 						     fence, timeline_syncobj,
- 						     timeline_chain);
-+		
-+		dma_fence_put(fence);
- 	}
- 
- error:
--- 
-2.25.1
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index bd3e20d981e0..c907e2de3dde 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -1841,6 +1841,7 @@ static void svm_range_restore_work(struct work_struct
+*work)
+      mutex_lock(&amp;process_info-&gt;lock);
+      svm_range_list_lock_and_flush_work(svms, mm);
+      mutex_lock(&amp;svms-&gt;lock);
++      mmap_write_downgrade(mm);
 
+      evicted_ranges = atomic_read(&amp;svms-&gt;evicted_ranges);
+
+@@ -1890,7 +1891,7 @@ static void svm_range_restore_work(struct work_struct
+*work)
+
+out_reschedule:
+      mutex_unlock(&amp;svms-&gt;lock);
+-      mmap_write_unlock(mm);
++      mmap_read_unlock(mm);
+      mutex_unlock(&amp;process_info-&gt;lock);
+
+      /* If validation failed, reschedule another attempt */
+--
+2.34.1
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------30pdn0hywDVEPpHHAU3i7pDe--
