@@ -4,150 +4,160 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95070C021A0
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Feb 2025 02:17:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92C45C02198
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Feb 2025 04:49:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA4C910E023;
-	Mon, 10 Feb 2025 02:17:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19DFD10E12C;
+	Mon, 10 Feb 2025 04:49:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="hQQm/Cvk";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="vWhaZ5cZ";
 	dkim-atps=neutral
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on2069.outbound.protection.outlook.com [40.107.101.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CDDEF10E023
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Feb 2025 02:17:35 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on2044.outbound.protection.outlook.com [40.107.212.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 86ED410E12C
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 Feb 2025 04:49:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UtmFUTvhth/noC1hxjt1C9LXyDimFOjC+z+iuaR1ZySR9XzwhYewo3Ea3xpKLkREv+7vTtmfa0efct5WFHPD3NAxTOnsZOBIM2FWaodpEjITiv84TDBMWqoYpUGxvXhVZa6jQ95eiEPpXAZY/4THNZQcRBvm9U7AlQPczgsyiKoNHNTJ3fOFOiHcyPOqnJZgoXmIvylBWJ4RDIDfWNu1Cmu/9Ml0ort+mMZmOFPkp0ICwL4YTBM1DlUl7PktsZmAE2xVIj35PTOHFFHtKv9rKHwMrLKYm3Ko92QzX+uKTQ36Jq+T/YAIQ3Yy71h3T7El0qGD4YQ42c9aS3uzkAz8pQ==
+ b=IJm/XmnEjhkrJKtrFc5904V72WSt4IjfeSw6iuw2sQRdkf9vEQ5diuBlnfvtkW+Ctsxs4LnonW4kl6bWh9TvI98pYJxZjxa6e9o+2KruaG1/f2MOoyQn0+TVjIm1O4nLe/2z0yr35m+ukW6hDo8YBPA75YU09jSiFDJaUn80eQ5HppNUzsfNiGWq19nlC+KaUSEBS/T8R8JahZgTuvuxt3BICquVztn/uBeuZ6dPnYlxwPk8hzkRG2NoI6sHkHxQnCUI8SbYsak+LOHMkGgpiZ/1UaA0GKsXFlhm1NvfNF4B3/Hp5UA6y5BDvXqTuMx9SpIbuInvsRQ553EbspzmLw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jSfGc1zq7wChHHNWKa2ROTwJ4b5OJJed6oz6FclZIXc=;
- b=dUZvhVtnkhY57qdDMOfgTlizx5YuPxZiS+q94D0EmCHQqYEKmzX5P/koxHgHpuN0/yikibk7bmeqea0+a04jJHm4oh5jmglG+BwJ74napkxwlSBXxQSi0EGkvdpe4l3Zhyo2pmrQp5MyBexeg5fVcyIWIP9VUBxQULFBJxxVynSIxfdB2FsZlHO+FHCHtMDEk2i5t2L4qaM9pFr0BrZ1UPESQdLqKvmKGimmhoQms5fIuHKVH8bhO03RnVb6gb7pyB7UwGQJATWvLFIWXz7bxGqkFwwdWQ/AiDj4fP9EgjrlZwVjSOFJPpNE/NRlQAzA0obek1TgCh0fyRkW3CTDng==
+ bh=/tMLsDWtEmTAiPuawJ7a6VO9WVPG4ChqWL4WJB+5ESc=;
+ b=sHWmlj9cFDVZj6MVU45/4yuxJmme+9k1LRjTUK/GXsRYPPP6bYQkKm79E1Wm5l1W6aSk9lD/9JEynjlNNQ26ET1C3OZaCy9xv7wgcO2B+hfVW5g6SEEt8fdgS21tN+xIi4Q4IUu5nG2RdydCIeb9yWTXuVxlJsUQFSEcy7mWpu0soPP5KMLJht39GPZYCir0WxPtM15QKC7gH9IsgFjRGfmC4kFYcVguCz2c6CSuyNs6vNIp8YmcVcRzYumkkfAVsv+cWoGUyeXJPwcQy8ZisCPKbJMRjo7cvhEBH0gvIydIzMx32vnGN/AjXsIBegWkdgieYltBdHtJmtandgg/kg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jSfGc1zq7wChHHNWKa2ROTwJ4b5OJJed6oz6FclZIXc=;
- b=hQQm/Cvks4N7S+/OlmD3NBsmJRL5/VgdpF/lvuRG7mWqsTlljnKClbOlIHzZDyq/KPOqvHIyzC3pRUvoaDzBBTPSh49CeE6hlsyiU8yxa9GByCY8NgPo1yxkAlsz0moe1jRKFmEGByLNTidUPr+C6Lhgmz6zvPdpxU8g7ovg814=
+ bh=/tMLsDWtEmTAiPuawJ7a6VO9WVPG4ChqWL4WJB+5ESc=;
+ b=vWhaZ5cZDZLbXEffS7odIsv/k16M7X9a295LvnqH/gbsedjapLV506bU6EC2FSfgIfRZaV6xZ1g7JBkzClGhPPWBKrg9onfJMUgi0mxhBsSpok8QTXFJ28zaQPanLivsrfNc5xQhhp5MoX7PzCAU4g5dq6+VV99JQz1cwY9JVbc=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB6566.namprd12.prod.outlook.com (2603:10b6:8:8d::16) by
- SA3PR12MB9225.namprd12.prod.outlook.com (2603:10b6:806:39e::13) with
+Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
+ SA1PR12MB5637.namprd12.prod.outlook.com (2603:10b6:806:228::13) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8422.12; Mon, 10 Feb
- 2025 02:17:32 +0000
-Received: from DM4PR12MB6566.namprd12.prod.outlook.com
- ([fe80::31b:5d31:8ba6:abd7]) by DM4PR12MB6566.namprd12.prod.outlook.com
- ([fe80::31b:5d31:8ba6:abd7%4]) with mapi id 15.20.8422.015; Mon, 10 Feb 2025
- 02:17:32 +0000
-Content-Type: multipart/alternative;
- boundary="------------30pdn0hywDVEPpHHAU3i7pDe"
-Message-ID: <841a21b8-b0b6-48a9-af2d-62b51d5d6a1b@amd.com>
-Date: Sun, 9 Feb 2025 20:17:30 -0600
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8422.11; Mon, 10 Feb
+ 2025 04:49:24 +0000
+Received: from DS0PR12MB7804.namprd12.prod.outlook.com
+ ([fe80::8327:d71a:ce21:a290]) by DS0PR12MB7804.namprd12.prod.outlook.com
+ ([fe80::8327:d71a:ce21:a290%5]) with mapi id 15.20.8422.015; Mon, 10 Feb 2025
+ 04:49:24 +0000
+Message-ID: <444b6f3f-7993-4445-ad7a-9ad6c4cd6c16@amd.com>
+Date: Mon, 10 Feb 2025 10:19:17 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdkfd: Fix the deadlock in svm_range_restore_work
-To: "Deng, Emily" <Emily.Deng@amd.com>,
+Subject: Re: [PATCH 3/4] drm/amdgpu: Initialize xgmi info during discovery
+To: "Kim, Jonathan" <Jonathan.Kim@amd.com>,
  "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20250207102823.1565467-1-Emily.Deng@amd.com>
- <PH0PR12MB541778A52306F3BF717609018FF02@PH0PR12MB5417.namprd12.prod.outlook.com>
+Cc: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+References: <20250206131258.1970391-1-lijo.lazar@amd.com>
+ <20250206131258.1970391-3-lijo.lazar@amd.com>
+ <CY8PR12MB743505FC4310A69D4B2C372685F62@CY8PR12MB7435.namprd12.prod.outlook.com>
+ <22d2c3e8-98f9-4ea3-9737-08e9812d312a@amd.com>
+ <CY8PR12MB7435B4D359268091F915407F85F12@CY8PR12MB7435.namprd12.prod.outlook.com>
+ <a5bc0dcc-3aba-404f-aee4-f664a71b7a1b@amd.com>
+ <CY8PR12MB7435100E613BA33C8CD4B2DD85F12@CY8PR12MB7435.namprd12.prod.outlook.com>
+ <1f9441b1-46af-496d-9711-a71242d03b46@amd.com>
+ <CY8PR12MB74358CBFB54C385E564B247785F12@CY8PR12MB7435.namprd12.prod.outlook.com>
+ <DS0PR12MB7804043F80CCE669305F984097F12@DS0PR12MB7804.namprd12.prod.outlook.com>
+ <CY8PR12MB7435933A1D8983F4661D762285F12@CY8PR12MB7435.namprd12.prod.outlook.com>
+ <DS0PR12MB7804A35C24B56EDA46BCB73097F12@DS0PR12MB7804.namprd12.prod.outlook.com>
+ <CY8PR12MB743582FDD84CAE8D43B2154F85F12@CY8PR12MB7435.namprd12.prod.outlook.com>
 Content-Language: en-US
-From: "Chen, Xiaogang" <xiaogang.chen@amd.com>
-In-Reply-To: <PH0PR12MB541778A52306F3BF717609018FF02@PH0PR12MB5417.namprd12.prod.outlook.com>
-X-ClientProxiedBy: SN6PR05CA0032.namprd05.prod.outlook.com
- (2603:10b6:805:de::45) To DM4PR12MB6566.namprd12.prod.outlook.com
- (2603:10b6:8:8d::16)
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <CY8PR12MB743582FDD84CAE8D43B2154F85F12@CY8PR12MB7435.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PN3PR01CA0103.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:9b::15) To DS0PR12MB7804.namprd12.prod.outlook.com
+ (2603:10b6:8:142::5)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB6566:EE_|SA3PR12MB9225:EE_
-X-MS-Office365-Filtering-Correlation-Id: 995c9d22-ace1-4326-a51a-08dd4979132e
+X-MS-TrafficTypeDiagnostic: DS0PR12MB7804:EE_|SA1PR12MB5637:EE_
+X-MS-Office365-Filtering-Correlation-Id: f6f29b14-1116-4c20-3e89-08dd498e4a35
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|8096899003|7053199007; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?WCtzUHoxa1NtdlU0c0tuY25GYnhEK2RodUJxem90bzgzVjc0dEgzbG1vM2FO?=
- =?utf-8?B?Z1E0eTRDUHRPNVp6bmRwZGgvWGFORUZqVTFYbWZBS1d1VHU2NWcyUlZrdFpo?=
- =?utf-8?B?cFgwSVh1Vk9jQzMyS01PMmVSNnBBckdBaUF0VkgrRDFmeU5za0NsUTRTblpB?=
- =?utf-8?B?SDd0RThWZjhINDdrblJuWFJUemE0b212S1dmRzNMK2ZSWDF2dnlMc3cwZ2gz?=
- =?utf-8?B?TnA1cmREdGduYitMSUxkOEdLVFRBNGxxSEltbzhUU3dqaXBSWjRlQmQ2amRj?=
- =?utf-8?B?VFVINEtuRFJtUXFPd2ZjODF2SUxJVFptQWExY3p1SGRrVXQ2aXNrazRkVUxs?=
- =?utf-8?B?bHY2RXFtYVZIMk9MVlRZYzlNV3RDeDFDZW9nWnlONHVyMFJmWFdmTkN3VEYw?=
- =?utf-8?B?RkJzRjl5QmxWdStnTTVTK1ErQmlDUStXcjNXK21LbXJ1aUZKUUdsZ285ZDlm?=
- =?utf-8?B?REhUcWhIaVpUTjA4czdCZjBVb0piMjA1OUxBNFh3U3N3UFVRcDlzR1JqNjhU?=
- =?utf-8?B?Z3FyN2NTM2ZSUkZudVFPdXAzc3pLZmdycXJTbkhIam1RclM2QUJpSnF0d0RZ?=
- =?utf-8?B?TUNpbitrd09xYVUzaTQrdUYvV0Q1VHh1MklsUkpGcmFFQkJlVWEreU5BUnR0?=
- =?utf-8?B?eUU0MlVXSTlvK2NXRllkL2huYkNiOGxVUU4rUi9vN25uTjk0eXIxWUhEdWJB?=
- =?utf-8?B?eGFFcXdxZ2J5R3FtUXVPWUFZZHh6Njh2cmRqamlaSVNZeWhvL1I3NFlHZlI2?=
- =?utf-8?B?LzRCRFl6cTdjNlBvSkp2ZmZPcGM0eFI0Ty9oUW9Memd5WXp1R294MDVRWXFL?=
- =?utf-8?B?Qm9SOWY1TmsvNHBXd0s3Wnh2eEdPa1haMTRiOGQ1ZlczeGhSaHRENTJGMTI3?=
- =?utf-8?B?RmdZeDh2aU5tWndhTlhCbCs5Sk9FTEJjVmNkaGdDbnRyNDZEalBDQXpZSFQr?=
- =?utf-8?B?NDVEejZ5Y3ExN3h6bkpwNUI0UTZncDBmcHRVcVJNN29NalFKSlRsSFJnL1BI?=
- =?utf-8?B?VnR1b09XZlZqVC9QMHJldXM4MU5vTEZ2cCtPaHkvaVhINTEzdEZXakVITHh0?=
- =?utf-8?B?dm5rcE8vaDUvT0NPQkplamlBZXdrdXVZU2JTOE40RGVZdXFOa1lpTU1UKzBT?=
- =?utf-8?B?SjY0Uzl3bnF5blZKbTAwY29wVWRzVkJXYTdEZHZoajVGS3RIOE5JYXptT2J5?=
- =?utf-8?B?bklrOUpYTVloK0V4cFh5VEhIVGhzK0hrN0tWQVB5NkFET2pGLzNXaEtrK0hy?=
- =?utf-8?B?b3J5Um52QUlzNGRFMkkyWFVzeUEyVG1zaWUzSUJOU3FJbE9GMjV4TXFOOFRT?=
- =?utf-8?B?clUwQnk3ejUrYldERWJ2YnBPb0FGbDRnMnVpaTF3Z3VmNVdUbmZjNzh0c2hQ?=
- =?utf-8?B?cWJST2FQOEdZNUpKdkFwME1JWlQwRkk4d0NJSTg1ZUxpRCszeGFxaDNYckRP?=
- =?utf-8?B?QXpsdVVuVERiZEpEYUNaSmVsYitIUng4SFFDaEppQzhIY0RaMU5wampjRlo0?=
- =?utf-8?B?L3A2MXNOa1J0NCtvYzc4WThKdFZuY0JUVUlOc0E2MXRNbEpaTDhnR3Z3aE5w?=
- =?utf-8?B?VEd5dGxXR2hWMVBrOFhkVWNlOUh3NkpJSDBoL3FhK1o4b3pFRDFNSHIvR1Bs?=
- =?utf-8?B?dnMrck5tdVZDZ21mNi9UbjByNVBvRUpoU3RleUpxRnV3Q1pqZGxCTTBuWlBW?=
- =?utf-8?B?N1lEUmxBVjF2ZGdiK1oxQlY5em9tUlFsWUN0TUNIS3hVWEYxSkZ4TnUvdURG?=
- =?utf-8?B?S202d3B1Y0dWU3hvMllJWFM4MWpiS0x1c2lRM3JaTGsreEhmdFdxT3lVSk95?=
- =?utf-8?B?Y3ZnMGIremNrUWNEZURCc3g3cGcvYVgzUUhqL0g0SHJDYnhCMlJJWU1Bb1Y0?=
- =?utf-8?Q?6SwvDg3IC8Bwf?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016|7053199007;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?T2l0bzhVNW44K2RuOVlaVDcwelgyNkhTS1Y2TnBTV2M0N1o4UWZ0Nnl6WjdH?=
+ =?utf-8?B?S0E5V213SHF1WDg2M0UrTmZ6Vy84bzRxWUJLeHVjWDNqNTliRU9qN205Rm1a?=
+ =?utf-8?B?bC8xU1VhSE8xVmRLbVpwZTYra0VwL0E5eDB4Zk1BZUk1bjg4Skpwc0tDTDJw?=
+ =?utf-8?B?RHFGd3JJRlJLUGRXMWpyZHBYMWQzRE9QV0FPSjZvcnZoV1ZsTHJjV0hVSWs4?=
+ =?utf-8?B?RUtYSUtOd3pnc1hEZ3BXWDJNRUhncUZiMEltKzhNeUNrK1V6My9JbU5ybVNI?=
+ =?utf-8?B?UUpWODRzNHhRenkvN3B3QzE4Rk9rRnEyeDd1QUlRWkJIQlpQcElUdVp1U2pZ?=
+ =?utf-8?B?c2VkMnhUSDV0RXE3TmZ4eGlVeXJ1aWtCTUJZa1dHZW1FQkF1VnZWcUcxR0ZE?=
+ =?utf-8?B?Z3BiY1NqdDJ3Y3hRMlFRU3oyb015NmVWanVCdkU1K3JpVVRtcFVqVzI1UzhC?=
+ =?utf-8?B?N0lqRGlBN2hFdnNQYWNEUUtXb3FXZ0N4N0wyeklVRUxpNHFTWEtodVMrZkZM?=
+ =?utf-8?B?VjRBcW5zYzNnQlA5Sjc1VHlRWGZLTDVkTC9QeHRlNExtYnB4WmNjaWxMbU5y?=
+ =?utf-8?B?Q1hpYVNEaUwwdEcrb1UvT2dsZVgvNVRpM1oyMmRyM2ZTTHR2TXJsTkxZUXl1?=
+ =?utf-8?B?SVdjNnlJaTVMWDFQcFU4ZHRzazRrMWRFQ21jZGdZdEtFV0xCRnU1VjdibGFI?=
+ =?utf-8?B?eXFRaE9hUUxMeFVnSVJsRWJhT3BiTm9tZVJLTUJabU54aHByb2cxdHh6YlA2?=
+ =?utf-8?B?NzNMNnBLODBFNTcxOXNXMUJLOTRZMzlCc012MDQzeVRCL2tRWk00NEVPWnlH?=
+ =?utf-8?B?UkFlaTV5L0MzSWtIZUJLU3d6VlBlbkswbDRmeW14akhrOXo5ZmIxUTdLbi9Z?=
+ =?utf-8?B?ME5EbkFUTGRTaWlMcWNSblg3c3hmQjNBbHJQaFFCbHVoNWF5OEdJNE9ZamNY?=
+ =?utf-8?B?WFdTRFo5ak1PcTgxeStxUVQyVWcyNi9YWnVqRTlXVGlNYTVnaGh3Smxyc0xE?=
+ =?utf-8?B?aXByb3lPQi96eHdKK25TS2xOVkJaQkVqRi8yaWVNbm9RR0R5K2xrVUk2NytK?=
+ =?utf-8?B?RXhYdGZzRVR2anFUZVhPbzI0ci9XRGd4V2hDN3VSYk9UZFA4d2dSYWRkblRv?=
+ =?utf-8?B?a0NrMWtRNjdhd2dyVUJGck5SMVdKTU5rVmtLUmRXeERONUN3QjAxSEpSQTdR?=
+ =?utf-8?B?dDJOWTd6QjZwRW9xblNnVnArc2Y5VkhIWVFkdy9RVGdaVE9wbWxyaWV6aGIv?=
+ =?utf-8?B?K0p5ckVwNGhCNnBXV2RQbnh3YXd5Z1hFMWR0VUFDak8wRVFmeWtSK0NJTmdS?=
+ =?utf-8?B?WTdibjVLc3BiRXkvcnBYRGlLaUd1Y3E2UU9yVDk2VWUwdXVzbXNMbXcvY1cw?=
+ =?utf-8?B?dXNOR3V4K2dnTUZCRXBqVGdpN0EwYmNXYW1SN1BWQVViNlJBVWVhTi84aisz?=
+ =?utf-8?B?OXM4Y0kyeEpZcG9mL1p4R1Znc0N5bk0za3laVnJyaUpGZjA3aWw3elVaVlZh?=
+ =?utf-8?B?dzlZMW9leGhxaEtBWFN3d0JwcmNLSnBCbXZsM0ViTnpHUEFFTlY4Yzl0WWx3?=
+ =?utf-8?B?WGNpNUplNkxZdmpzZzc4QmpCT0RHK1FKT3c4eGVQM3JKejIydlpiT29WZnNU?=
+ =?utf-8?B?YmVjT3lkRmVHL1JGU3pLclB5TnQrd2FGOTgxaHRsclIyVkJidXo1UWMzdU9Z?=
+ =?utf-8?B?cENibjdjbEo2K0RsckhSWThXN0JwYW9KRjQ3RkdNY2JnYjJNVjhjL1JDSTNT?=
+ =?utf-8?B?L3dJalEvdWtHZDhTanE5cGxZT040MllwTjN1eVBDbHo3MU14akNtdFp5bm1r?=
+ =?utf-8?B?Z1FYMnN5OCtWVDBDWkNFMVlTd3pSSFdoV0xqN21BY3JhelhhR0FwTkpUZVM1?=
+ =?utf-8?Q?219iQP/Wx7JxP?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB6566.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(8096899003)(7053199007); DIR:OUT;
- SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(7053199007); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QjYvamtrU3BWM1BUVEFJWExwMDNhb1VYMW5DdzM0aU50cTE1R0J5ejhtYUds?=
- =?utf-8?B?WnhReTRmaENSeVIvaitPYjRvdXZEVWdpVFk3MVdMalFIQWliUXBYUkQ3eWlH?=
- =?utf-8?B?UE5waXFwdnlQQ01UekZyZ1g0bCtMKzRyRFZBZnV4aEFFRDJwcGlRWk9QS2x2?=
- =?utf-8?B?VFhpNzdMTmFhOHRKc0FxWmwvTW02SDJYbzF2cHJsZTkyWFE2Q2Jkd01kWVhY?=
- =?utf-8?B?RjFSZGxWSVFUK0dVU1hRaXIyZW9DQkp1MUJST2EwWmZoMU04RVdlSG5NcTl2?=
- =?utf-8?B?dS9FMzA5Nnc4VTJpQ0FGSG9CUWJUcFlFdEdNeGFIVTZiNmVLS0NXejRGa0Yv?=
- =?utf-8?B?c1N4YTNjNkZURWR0OVdOTCtqMW9YUUh6dWdCTmc4bXJSYnNmd3Z3SzJYeVpE?=
- =?utf-8?B?TUVWcmwvY2R2dFZ5T3ljNXVsZUJGNHBYRVBxU2o0ajZVWDhGSENkVWJyZHNB?=
- =?utf-8?B?MC9NVUd6VXgwbXdOSVVrN0kreHdvUFZWV1M0SVZBZFoxWUEzdERUYTlTRHQ3?=
- =?utf-8?B?WndpcjJpOStTbnB4REx5SXJpcXZIOENEeEpQYXk0Q1NRazMxazh0aWR4eGYv?=
- =?utf-8?B?elBZWDBUSzBUb0IvMWdaVGovNVhPNW1HYWZnclFlRTYzNVZNRzF4WEJTSWNx?=
- =?utf-8?B?bThZdVRBL3d6YmN5NmQvelJMeWtEVUtvSzlraXc5bWlLSDV1TEwzSXE4bTcz?=
- =?utf-8?B?KzY4KytMbk1uaXRVVzd5azB3NG1KMmNZUkI3aVUvbDM3c0VOelZnWm9ROC9W?=
- =?utf-8?B?UHoxSnArWDBaWDVwemkrTy9sUlNEdGFUeEhUR1NzdE1TZjZ2V0w3eGM1TU4x?=
- =?utf-8?B?OTQ1WjVSUTBURFI1VXd4OEh1L29sRThLV1I0czZ0enB6dTdXNnR1b2tQeGtm?=
- =?utf-8?B?WkpVNkJ4V2JDWTArM1YyRXhOWkYrVStHVWNJd1VzZWpjV254RWlXaktwcUQ0?=
- =?utf-8?B?aHhhbU5SS2QzZm13RldxYmFTOUJ0LzBJZFMybVBpUUZLQ0hqS1Z5YUhtaHQ3?=
- =?utf-8?B?QzRxZklrZldMOTNIQ0lBR1h5MklEMkpYdHpuU2xNckJWK243RmJnakp3a25u?=
- =?utf-8?B?b1VSZG1oWUpkOUZSd2tTWkwxVmVyZTl6eHJ2MGVtYXg5QzZ0cllXcHRpdUw5?=
- =?utf-8?B?b0tVTlVxbFgrZWVoT1ZJcVNzVDFUUUtyVFY0Rm4vcHE2dzFiRVZMblR5a0JV?=
- =?utf-8?B?UmNDTy9ueHZGMzRmQnh6RTh0Yi84S2s4eVZBZ05VMExJRFRaVlAybm44ZG5P?=
- =?utf-8?B?cTlSckRHWFU2YjFwS2h1NHFiTWVLQnRZYlNUUDRNb3NJTCtqYmNrTjNLOEVP?=
- =?utf-8?B?VlNjbFZncVVxVUNWUXZNbUdTWHBMUUV0aWhJcjR0em9GZ2d2ZjByMnBGQ21w?=
- =?utf-8?B?aVRYdFdFL003UGo3Q2JnWU9tTE9ObmFqbjZxZWE1RmI0TGg5M3NoeTRIcGdT?=
- =?utf-8?B?clowM0NiNGUxSkVuS3k0eXp4RHZ6K1Rudnp3angrRU5Yc21oVGdvTFFJdkVV?=
- =?utf-8?B?TDBhZ295dVhZYUovYnRpc0hlSkFEZlRyejlHUWtxY2oyUDFXMm1QM2x4bEUx?=
- =?utf-8?B?Njcxa0FkekF2aVA5Skd5clp4ekNnaGRSM1VYRC9GZUlOenM1bDNRL0VtZzJz?=
- =?utf-8?B?T2kvMmlOODR5cFA4OFczRk9VNk5Tc2hDaEJ1bVYvY0FIVXVmZ0VQdmZsTFhM?=
- =?utf-8?B?Q2pWSEw5M09PTmxNU1VUK3FldlgxTW9sTis3T1gzRVhQTEp3QmduckJxeE5X?=
- =?utf-8?B?cTRVK2N3VnpIKzlUamlzT21rVmpWdTFOSXJITk5lNDVIcDNvanI4V3RiRVJu?=
- =?utf-8?B?aXkycTVQbjIwSDBUaThBT2d2UWE0QmJBMmVaYnBGeVBoUkptQ3U1RDNidkJR?=
- =?utf-8?B?MkplZHFmclJzRUQ2REhMcVhreXdkZG1kUW5xM01DdmhvenI3U0FYUStpbzBw?=
- =?utf-8?B?T1owMFRudkZ1OEZEMWQvTTJIaEJudDFYYTNxWVo1WitZdm5CNHAvbmNXdmN6?=
- =?utf-8?B?TEROL1FnS0VjMkVpVWoxakR4eVVSNm9oZWh5QzBZbG5kK2lWK09EMDFUTkV1?=
- =?utf-8?B?eUtCZmxYRXFsTVE5SzNncGM0UE9xb1JOMm92OUhVYUpsYU5EdUtqNzcwU1Nh?=
- =?utf-8?Q?dlXQ=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dS9GZVBsZWRFdGM2M0UxNE5FeFBSUnJJVkphNUVlOHp6MGdTaXJad0JhQ2dN?=
+ =?utf-8?B?L01jL2JVTFEvSkdCMkk0aVJ3UWJBTExUTUdJQTQ3TTFnKzM5WFVmRDRZVFov?=
+ =?utf-8?B?dEFNcitlOXVTNGFWSkZqYmdKMFFWSkFWei9zSWpYUUR3UHkyNTZ1R0JSMHB1?=
+ =?utf-8?B?VW9qNU1OaHA4Q1drV282SEtKNlZWdkNWai9JRXRjdXBGSkNrbjNpUDIyYnVE?=
+ =?utf-8?B?SWc2MlV4L1NGSXVCZUNNL2I4dWVENkRVNFJJQmRpa0lHajk5bERjT2ZwMUdT?=
+ =?utf-8?B?bFhHSGs0THdqUkJUZHFxNjF2TnoxQVN5dTlvQVhCRmpQYmhQK3c2RjgxWTNv?=
+ =?utf-8?B?REdYamMzQmVkdDRGTWZMQytmTEw1bStRQWFBMit4ZDhTb1EwYmRLN3Y5Q0I3?=
+ =?utf-8?B?OGVTT3kwMCtiaU9XZzQwUkgrdVZwZm5FbCsxQTFuRG54QlZFQUVXUlpLQzdH?=
+ =?utf-8?B?TCtNcklVNHFoZW8zVmhPV2RSSURVRC8zakptcjZBWWZ0S2lXeEFZNmtTa0F5?=
+ =?utf-8?B?RWJvY3FFUGcrRWNmWjNlbXh4ZUVXUjNnRjZtdE1GaitwTnVJY2VmN1FsY1lx?=
+ =?utf-8?B?RHFFZis5T09iQmJSZTdzeXRkNFI1cXdIOTBIeHRvQWlGQXZrWkZrRDE1VWx4?=
+ =?utf-8?B?SXJvTkVLb2VRUGlQK3lVVTVnQjVwcWhoNEdSamIyTXMvT011Wi80L01NWDRI?=
+ =?utf-8?B?eTU1NzZSM0pQSzg3MkhNTEZLT0VhSWQwNHhJVXlZL3pmVzRuZlZRZFRZUXZu?=
+ =?utf-8?B?VXJMS21LakM4aXVMaC9WaGZSMlZiN1ZNNmd1S2tKTEY0QmlnN2hHMmJwY3dG?=
+ =?utf-8?B?bm9kVzFYOGNqYzZWYm9zTkZtL3Q5cjFVaEkvRjhadlNYN2k3Umg3c250NS9I?=
+ =?utf-8?B?dTZ0eUZiUDk1MXJ4Qng5NkZNWE1XVjI2Y0tzb2dVRHlhQmRxa2JZV2UxWCtr?=
+ =?utf-8?B?ZWFBVHhmUm9JQWhTUVd2bVJ5VFdubFRtR2U2WjJONDVPYWpuWjQ1R0hMWS9q?=
+ =?utf-8?B?TW9nTEwwYWVRenhudGhVMU1JRVFGOEg4OWJHSHR1SkJZa0gzVEw1U1BWWnBR?=
+ =?utf-8?B?VUxGU1d1QlpJZi9HUU50d3F0RFR1RHNPaTJFOHFHQ0pRTzFTbWRDN1JrRW5P?=
+ =?utf-8?B?SmZ5UHZRalArbVVxQi9YUFRzV01KME9VVzdXSTdLK3ZiVVhaVXNJOXphbkdv?=
+ =?utf-8?B?Q1NaajhFYkxGYzFtMEhoelpDRi96NmxGZXQ0YUFlT3U1dDF4ei9PNXRzTEgx?=
+ =?utf-8?B?OENxbU1QVExnUDZVTHIxY2FCNThhcUNMQjZqRU9POGZLQWM2U2R2R1V0OHlx?=
+ =?utf-8?B?R1dlOXRDbTR4UUlaTzI2cmI1WHBvNlhWb042ZlNuNVdVSmNRL2RBT1Vtdjls?=
+ =?utf-8?B?aEI2SmZ2QnNwekhYR0U3OG1NNWhHQXhlOWhxSDJxd0ROL0U5WjRVaGdDUHR2?=
+ =?utf-8?B?enQxNmhNQTQ4WStNRnZTSGZqU0o3WTdsS245eWVBY0s4L3hmU05oU00vZVh1?=
+ =?utf-8?B?QThZY0JJakdPdExoZTI3enc4NTRGRXVoYTB2bUNSZUU3U3BxaXVpbkxkQ1I1?=
+ =?utf-8?B?S2g4Z01KdGc2QU5PRk11WTRSdVdsT1c5QUFjY3FFWHRUcmZib2dqTFR3dzRS?=
+ =?utf-8?B?V2xISkFXVUdjN2k3cjJkMlpKcW9zSm9MSCtCOWhNTDVrRVpYNmdaY2tLUkZR?=
+ =?utf-8?B?QVljeXdFU0RYazZVUG1zMWNaUExhY0Z5TWxoaVQ4eUZFVTY5dzB5QTY1VGpN?=
+ =?utf-8?B?cFR6RFl3WTVmVmdQTWlRVTVPUDlwTnEwOGNuN3RJTTlHWVhTOVczTTlrWlh1?=
+ =?utf-8?B?N2M3VjFRZDFtZEMzbDd4QkRHSW90OEVBaGFrWmpTWTEyR2NEQkNhTXVpZWgr?=
+ =?utf-8?B?cTRpU1lCc3ZXU09ydkhtU2R4a3JMZ0FSc0xSdng2WDlZSlBqWnd3S2N5NXU3?=
+ =?utf-8?B?UDh5YUV3NmNpL3B4eTRzNG9GTFMzRnBiUWszdURmSnhJbjF6ak1Pd1dOK3c0?=
+ =?utf-8?B?WVVKekFhdlUrQ0dlNG9WZWYxNVV1TDMvVENGMDFLbmF6ekFCN0xxM2wvSU1R?=
+ =?utf-8?B?WXdOUU9LRkNNMjRjaDg0c1FZbzVTVnRPbFZiY0V1SUp4WHJwdEd6VSswSDJM?=
+ =?utf-8?Q?7vvgmi1ti4sy2pWOgUayptHFZ?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 995c9d22-ace1-4326-a51a-08dd4979132e
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6566.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f6f29b14-1116-4c20-3e89-08dd498e4a35
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7804.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Feb 2025 02:17:31.9648 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Feb 2025 04:49:23.9929 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FMmh1iWIniKcFWeA+zloXFJftZr+sUcC3IJulnQOkCWVGsWzcj9hfM69gJfuD1Bg
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9225
+X-MS-Exchange-CrossTenant-UserPrincipalName: vUEssKUxVsA3EYidVw/Tlis1U/5LaoYM9tGFM+EDTprRwlroA0oeF68g6O3YScot
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB5637
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,187 +172,351 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------30pdn0hywDVEPpHHAU3i7pDe
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
 
-On 2/7/2025 9:02 PM, Deng, Emily wrote:
-> [AMD Official Use Only - AMD Internal Distribution Only]
->
-> [AMD Official Use Only - AMD Internal Distribution Only]
->
-> Ping.......
->
-> Emily Deng
-> Best Wishes
->
->
->
+On 2/8/2025 3:15 AM, Kim, Jonathan wrote:
+> [Public]
+> 
+> 
+> I think part of the problem is that gmc.xgmi.supported has weird usage
+> and definition.
+> 
+> It’s partly says that it has potential to be supported by IP version,
+> but doesn’t actually say anything about real support but assumed say it
+> has real support in amdgpu_xgmi.c usage.
+> 
+> Real support is determined by gfxhub_...get_xgmi_info which has comments
+> ->         /* PF_MAX_REGION=0 means xgmi is disabled */ and error
+> returns on failure to read.
+> 
+> On top of that, the gmc.xgmi.supported field gets set by both
+> amdgpu_discovery.c based on XGMI HW IP but is also set by gmc_v9_0.c
+> early init base on GC version.
+> 
+> I think you’re locked into doing a wrapper on a wrapper because the way
+> gmc.xgmi.supported is set has become spaghetti code.
+> 
+> If that gets clean up, and we do your suggestion of pulling xgmi related
+> info into early init i.e. get info based on actual verification that
+> gfxhub says xgmi is ok,  I think the series would start to make much
+> more sense.
+> 
+
+There are more inputs from Hawking as well. I think that till solve xgmi
+supported being set at different places. Will send a v2.
+
+Thanks,
+Lijo
+>  
+> 
+> Jon
+> 
+>  
+> 
+> *From:*Lazar, Lijo <Lijo.Lazar@amd.com>
+> *Sent:* Friday, February 7, 2025 12:35 PM
+> *To:* Kim, Jonathan <Jonathan.Kim@amd.com>; amd-gfx@lists.freedesktop.org
+> *Cc:* Zhang, Hawking <Hawking.Zhang@amd.com>
+> *Subject:* Re: [PATCH 3/4] drm/amdgpu: Initialize xgmi info during discovery
+> 
+>  
+> 
+> [Public]
+> 
+>  
+> 
+> Another try.. if it helps (you or someone else)
+> 
+>  
+> 
+> This series introduces two functions for maintenance.
+> 
+>  
+> 
+> amdgpu_xgmi_init_info - This is to initialize any XGM related static
+> information. Now it's called as soon as XGMI version is discovered. Now,
+> if that is causing some confusion, then I could rename to
+> xgmi_early_init and call from device early init. The intent of the
+> function is to initialise any static info related to XGMI.
+> 
+>  
+> 
+> amdgpu_xgmi_get_max_bandwidth - Assumes all links are uniform and
+> provides the max theoretical bandwidth. Currently, the calculation is
+> simple as width * speed. In future, this may change based on IP version
+> like speed * width * x_factor or get the bandwidth from FW etc. Caller
+> is expected to get this uniform interface for any XGMI IP version.
+> 
+>  
+> 
+> And lastly, both functions are maintained in amdgpu_xgmi.c
+> 
+>  
+> 
+> Thanks,
+> 
+> Lijo
+> 
+> ------------------------------------------------------------------------
+> 
+> *From:*Kim, Jonathan <Jonathan.Kim@amd.com <mailto:Jonathan.Kim@amd.com>>
+> *Sent:* Friday, February 7, 2025 9:58:30 PM
+> *To:* Lazar, Lijo <Lijo.Lazar@amd.com <mailto:Lijo.Lazar@amd.com>>; amd-
+> gfx@lists.freedesktop.org <mailto:amd-gfx@lists.freedesktop.org> <amd-
+> gfx@lists.freedesktop.org <mailto:amd-gfx@lists.freedesktop.org>>
+> *Cc:* Zhang, Hawking <Hawking.Zhang@amd.com <mailto:Hawking.Zhang@amd.com>>
+> *Subject:* RE: [PATCH 3/4] drm/amdgpu: Initialize xgmi info during
+> discovery
+> 
+>  
+> 
+> [Public]
+> 
+>  
+> 
+> Well … I don’t know what other feedback I can give here then.
+> 
+> We’re bouncing back and forth talking about language/function/logical
+> structure or whatever.
+> 
+> I’m of the opinion that there are too many unnecessary wrappers here and
+> am biased to unbroken steps that make it easier to debug/dev later on
+> (at least for me).
+> 
+> Maybe someone else has a different opinion.
+> 
+>  
+> 
+> Jon
+> 
+>  
+> 
+> *From:*Lazar, Lijo <Lijo.Lazar@amd.com <mailto:Lijo.Lazar@amd.com>>
+> *Sent:* Friday, February 7, 2025 11:06 AM
+> *To:* Kim, Jonathan <Jonathan.Kim@amd.com
+> <mailto:Jonathan.Kim@amd.com>>; amd-gfx@lists.freedesktop.org
+> <mailto:amd-gfx@lists.freedesktop.org>
+> *Cc:* Zhang, Hawking <Hawking.Zhang@amd.com <mailto:Hawking.Zhang@amd.com>>
+> *Subject:* Re: [PATCH 3/4] drm/amdgpu: Initialize xgmi info during discovery
+> 
+>  
+> 
+> [Public]
+> 
+>  
+> 
+> It so happens that driver gets part of the XGMI information through
+> registers in GMC. The intent of those registers is to help GMC to
+> figure out memory access when device part of XGMI hive. Driver using
+> those regs doesn't mean XGMI is like a sub ip of GMC, it remains separate.
+> 
+>  
+> 
+> Thanks,
+> 
+> Lijo
+> 
+> ------------------------------------------------------------------------
+> 
+> *From:*Kim, Jonathan <Jonathan.Kim@amd.com <mailto:Jonathan.Kim@amd.com>>
+> *Sent:* Friday, February 7, 2025 9:26:28 PM
+> *To:* Lazar, Lijo <Lijo.Lazar@amd.com <mailto:Lijo.Lazar@amd.com>>; amd-
+> gfx@lists.freedesktop.org <mailto:amd-gfx@lists.freedesktop.org> <amd-
+> gfx@lists.freedesktop.org <mailto:amd-gfx@lists.freedesktop.org>>
+> *Cc:* Zhang, Hawking <Hawking.Zhang@amd.com <mailto:Hawking.Zhang@amd.com>>
+> *Subject:* RE: [PATCH 3/4] drm/amdgpu: Initialize xgmi info during
+> discovery
+> 
+>  
+> 
+> [Public]
+> 
 >> -----Original Message-----
->> From: Emily Deng<Emily.Deng@amd.com>
->> Sent: Friday, February 7, 2025 6:28 PM
->> To:amd-gfx@lists.freedesktop.org
->> Cc: Deng, Emily<Emily.Deng@amd.com>
->> Subject: [PATCH] drm/amdkfd: Fix the deadlock in svm_range_restore_work
+>> From: Lazar, Lijo <Lijo.Lazar@amd.com <mailto:Lijo.Lazar@amd.com>>
+>> Sent: Friday, February 7, 2025 10:18 AM
+>> To: Kim, Jonathan <Jonathan.Kim@amd.com <mailto:Jonathan.Kim@amd.com>>; amd-
+> gfx@lists.freedesktop.org <mailto:amd-gfx@lists.freedesktop.org>
+>> Cc: Zhang, Hawking <Hawking.Zhang@amd.com <mailto:Hawking.Zhang@amd.com>>
+>> Subject: Re: [PATCH 3/4] drm/amdgpu: Initialize xgmi info during discovery
 >>
->> It will hit deadlock in svm_range_restore_work ramdonly.
->> Detail as below:
->> 1.svm_range_restore_work
->>        ->svm_range_list_lock_and_flush_work
->>        ->mmap_write_lock
->> 2.svm_range_restore_work
->>        ->svm_range_validate_and_map
->>        ->amdgpu_vm_update_range
->>        ->amdgpu_vm_ptes_update
->>        ->amdgpu_vm_pt_alloc
->>        ->svm_range_evict_svm_bo_worker
-
-svm_range_evict_svm_bo_worker is a function running by a kernel task 
-from default system_wq. It is not the task that runs 
-svm_range_restore_work which is from system_freezable_wq. The second 
-task may need wait the first task to release mmap_write_lock, but there 
-is no cycle lock dependency.
-
-Can you explain more how deadlock happened? If a deadlock exists between 
-two tasks there are should be at least two locks used by both tasks.
-
-Regards
-
-Xiaogang
-
->>        ->mmap_read_lock(deadlock here, because already get mmap_write_lock)
 >>
->> How to fix?
->> Downgrade the write lock to read lock.
 >>
->> Signed-off-by: Emily Deng<Emily.Deng@amd.com>
->> ---
->> drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 3 ++-
->> 1 file changed, 2 insertions(+), 1 deletion(-)
+>> On 2/7/2025 8:06 PM, Kim, Jonathan wrote:
+>> > [Public]
+>> >
+>> >> -----Original Message-----
+>> >> From: Lazar, Lijo <Lijo.Lazar@amd.com <mailto:Lijo.Lazar@amd.com>>
+>> >> Sent: Friday, February 7, 2025 9:20 AM
+>> >> To: Kim, Jonathan <Jonathan.Kim@amd.com <mailto:Jonathan.Kim@amd.com>>; amd-
+> gfx@lists.freedesktop.org <mailto:amd-gfx@lists.freedesktop.org>
+>> >> Cc: Zhang, Hawking <Hawking.Zhang@amd.com <mailto:Hawking.Zhang@amd.com>>
+>> >> Subject: Re: [PATCH 3/4] drm/amdgpu: Initialize xgmi info during discovery
+>> >>
+>> >>
+>> >>
+>> >> On 2/7/2025 7:29 PM, Kim, Jonathan wrote:
+>> >>> [Public]
+>> >>>
+>> >>>> -----Original Message-----
+>> >>>> From: Lazar, Lijo <Lijo.Lazar@amd.com <mailto:Lijo.Lazar@amd.com>>
+>> >>>> Sent: Thursday, February 6, 2025 10:56 PM
+>> >>>> To: Kim, Jonathan <Jonathan.Kim@amd.com <mailto:Jonathan.Kim@amd.com>>; amd-
+> gfx@lists.freedesktop.org <mailto:amd-gfx@lists.freedesktop.org>
+>> >>>> Cc: Zhang, Hawking <Hawking.Zhang@amd.com <mailto:Hawking.Zhang@amd.com>>
+>> >>>> Subject: Re: [PATCH 3/4] drm/amdgpu: Initialize xgmi info during discovery
+>> >>>>
+>> >>>>
+>> >>>>
+>> >>>> On 2/7/2025 5:03 AM, Kim, Jonathan wrote:
+>> >>>>> [Public]
+>> >>>>>
+>> >>>>>> -----Original Message-----
+>> >>>>>> From: Lazar, Lijo <Lijo.Lazar@amd.com <mailto:Lijo.Lazar@amd.com>>
+>> >>>>>> Sent: Thursday, February 6, 2025 8:13 AM
+>> >>>>>> To: amd-gfx@lists.freedesktop.org <mailto:amd-gfx@lists.freedesktop.org>;
+> Lazar, Lijo <Lijo.Lazar@amd.com <mailto:Lijo.Lazar@amd.com>>
+>> >>>>>> Cc: Zhang, Hawking <Hawking.Zhang@amd.com <mailto:Hawking.Zhang@amd.com>>; Kim, Jonathan
+>> >>>>>> <Jonathan.Kim@amd.com <mailto:Jonathan.Kim@amd.com>>
+>> >>>>>> Subject: [PATCH 3/4] drm/amdgpu: Initialize xgmi info during discovery
+>> >>>>>>
+>> >>>>>> Initialize xgmi related static information during discovery.
+>> >>>>>>
+>> >>>>>> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com <mailto:lijo.lazar@amd.com>>
+>> >>>>>> ---
+>> >>>>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 20 +++++++++++++--
+>> ----
+>> >>>>>>  1 file changed, 14 insertions(+), 6 deletions(-)
+>> >>>>>>
+>> >>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+>> >>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+>> >>>>>> index eca431e52038..d4eade2bd4d3 100644
+>> >>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+>> >>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+>> >>>>>> @@ -2502,6 +2502,19 @@ static int
+>> >>>> amdgpu_discovery_set_isp_ip_blocks(struct
+>> >>>>>> amdgpu_device *adev)
+>> >>>>>>       return 0;
+>> >>>>>>  }
+>> >>>>>>
+>> >>>>>> +static void amdgpu_discovery_set_xgmi_info(struct amdgpu_device *adev)
+>> >>>>>> +{
+>> >>>>>> +     if (amdgpu_ip_version(adev, XGMI_HWIP, 0) == IP_VERSION(4, 8, 0))
+>> >>>>>> +             adev->gmc.xgmi.supported = true;
+>> >>>>>> +
+>> >>>>>> +     if (amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 3) ||
+>> >>>>>> +         amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 4))
+>> >>>>>> +             adev->ip_versions[XGMI_HWIP][0] = IP_VERSION(6, 4, 0);
+>> >>>>>
+>> >>>>> Can this stuff get rolled into xgm_init_info and called directly into
+>> >>>> amdgpu_discovery_set_ip_blocks?
+>> >>>>> Breaking up discovery_set_xgmi_info and xgmi_init_info as 2 separate things
+>> >>>> seems a little confusing.
+>> >>>>>
+>> >>>>
+>> >>>> Intent is like this -
+>> >>>>       Set IP version info. This is the job of discovery and kept inside
+>> >>>> amdgpu_discovery.
+>> >>>>       Set any static information derived out of IP versions and not available
+>> >>>> in discovery tables. This is kept outside of discovery file.
+>> >>>
+>> >>>
+>> >>> Then why are you proposing to set up static information in the discovery file in
+>> the
+>> >> first place?
+>> >>
+>> >> I didn't understand that statement. The function - amdgpu_xgmi_init_info
+>> >> - called from discovery sets up the derived information. Only IP version
+>> >> info is set inside discovery.
+>> >
+>> > Snip from you're last response:
+>> >>>>       Set any static information derived out of IP versions and not available
+>> >>>> in discovery tables. This is kept outside of discovery file.
+>> > You're calling amdgpu_discovery_set_xgmi_info which calls
+>> amdgpu_xgmi_init_info which is setting static derived information in the discovery
+>> file.
+>> > A wrapper called in a wrapper is still doing the opposite of what you're saying int
+>> the snip above.
+>> > If you're trying to avoid this and keep discovery clean, call xgmi_init_info in
+>> amdgpu_device.c somewhere after the IP blocks are set.
+>> > And put xgmi_supported definitions in xgmi_init_info since that doesn't count as IP
+>> version setting.
+>> >
 >>
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
->> b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
->> index bd3e20d981e0..c907e2de3dde 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
->> @@ -1841,6 +1841,7 @@ static void svm_range_restore_work(struct work_struct
->> *work)
->>        mutex_lock(&process_info->lock);
->>        svm_range_list_lock_and_flush_work(svms, mm);
->>        mutex_lock(&svms->lock);
->> +      mmap_write_downgrade(mm);
+>> This is only about structural segregation - like the place where we want
+>> to maintain xgmi related data. Functions setting IP versions and
+>> information from discovery table is kept inside discovery. Any function
+>> which adds further static data out of the IP version is kept in the IP
+>> related file.
 >>
->>        evicted_ranges = atomic_read(&svms->evicted_ranges);
+>> This is not about a logical separation like xgmi related information
+>> derived from an IP version shouldn't be set at discovery phase.
+> 
+> Yeah I get it, there's function in language structure but I could also
+> argue that language structures should point to function.
+> Otherwise, we could end up with a bunch of word salad.
+> I wonder if it makes more sense to roll up speed and width info
+> somewhere in GFXHUB initialization.
+> The xGMI information is GMC based and xgmi_supported doesn't rely on IP
+> versioning IIRC but rather the number of physical nodes determined by
+> the memory controller.
+> e.g. gfxhub_v2_1_get_xgmi_info.
+> Then that would take the pressure off all this file reference jumping
+> and version checking.
+> 
+> Jon
+> 
 >>
->> @@ -1890,7 +1891,7 @@ static void svm_range_restore_work(struct work_struct
->> *work)
+>> Thanks,
+>> Lijo
 >>
->> out_reschedule:
->>        mutex_unlock(&svms->lock);
->> -      mmap_write_unlock(mm);
->> +      mmap_read_unlock(mm);
->>        mutex_unlock(&process_info->lock);
->>
->>        /* If validation failed, reschedule another attempt */
->> --
->> 2.34.1
---------------30pdn0hywDVEPpHHAU3i7pDe
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+>> > Jon
+>> >
+>> >>
+>> >> Thanks,
+>> >> Lijo
+>> >>
+>> >>>
+>> >>> Jon
+>> >>>
+>> >>>>
+>> >>>> Thanks,
+>> >>>> Lijo
+>> >>>>
+>> >>>>>> +
+>> >>>>>> +     if (amdgpu_ip_version(adev, XGMI_HWIP, 0))
+>> >>>>>
+>> >>>>> Maybe roll this check into xgmi_init_info i.e. void early return if null.
+>> >>>>>
+>> >>>>>> +             amdgpu_xgmi_init_info(adev);
+>> >>>>>> +}
+>> >>>>>> +
+>> >>>>>>  int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
+>> >>>>>>  {
+>> >>>>>>       int r;
+>> >>>>>> @@ -2769,12 +2782,7 @@ int amdgpu_discovery_set_ip_blocks(struct
+>> >>>>>> amdgpu_device *adev)
+>> >>>>>>               break;
+>> >>>>>>       }
+>> >>>>>>
+>> >>>>>> -     if (amdgpu_ip_version(adev, XGMI_HWIP, 0) == IP_VERSION(4, 8, 0))
+>> >>>>>> -             adev->gmc.xgmi.supported = true;
+>> >>>>>> -
+>> >>>>>> -     if (amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 3) ||
+>> >>>>>> -         amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 4))
+>> >>>>>> -             adev->ip_versions[XGMI_HWIP][0] = IP_VERSION(6, 4, 0);
+>> >>>>>> +     amdgpu_discovery_set_xgmi_info(adev);
+>> >>>>>
+>> >>>>> If you do the suggestions above, you can just call amdgpu_xgmi_init_info
+>> >>>> unconditionally.
+>> >>>>>
+>> >>>>> Jon
+>> >>>>>>
+>> >>>>>>       /* set NBIO version */
+>> >>>>>>       switch (amdgpu_ip_version(adev, NBIO_HWIP, 0)) {
+>> >>>>>> --
+>> >>>>>> 2.25.1
+>> >>>>>
+>> >>>
+>> >
+> 
 
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 2/7/2025 9:02 PM, Deng, Emily wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:PH0PR12MB541778A52306F3BF717609018FF02@PH0PR12MB5417.namprd12.prod.outlook.com">
-      <pre wrap="" class="moz-quote-pre">[AMD Official Use Only - AMD Internal Distribution Only]
-
-[AMD Official Use Only - AMD Internal Distribution Only]
-
-Ping.......
-
-Emily Deng
-Best Wishes
-
-
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">-----Original Message-----
-From: Emily Deng <a class="moz-txt-link-rfc2396E" href="mailto:Emily.Deng@amd.com">&lt;Emily.Deng@amd.com&gt;</a>
-Sent: Friday, February 7, 2025 6:28 PM
-To: <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>
-Cc: Deng, Emily <a class="moz-txt-link-rfc2396E" href="mailto:Emily.Deng@amd.com">&lt;Emily.Deng@amd.com&gt;</a>
-Subject: [PATCH] drm/amdkfd: Fix the deadlock in svm_range_restore_work
-
-It will hit deadlock in svm_range_restore_work ramdonly.
-Detail as below:
-1.svm_range_restore_work
-      -&gt;svm_range_list_lock_and_flush_work
-      -&gt;mmap_write_lock
-2.svm_range_restore_work
-      -&gt;svm_range_validate_and_map
-      -&gt;amdgpu_vm_update_range
-      -&gt;amdgpu_vm_ptes_update
-      -&gt;amdgpu_vm_pt_alloc
-      -&gt;svm_range_evict_svm_bo_worker</pre>
-      </blockquote>
-    </blockquote>
-    <p><span style="white-space: pre-wrap">svm_range_evict_svm_bo_worker is a function running by a kernel task from default system_wq. It is not the task that runs </span><span style="white-space: pre-wrap">svm_range_restore_work which is from system_freezable_wq. The second task may need wait the first task to release </span><span style="white-space: pre-wrap">mmap_write_lock, but there is no cycle lock dependency.</span></p>
-    <p><span style="white-space: pre-wrap">Can you explain more how deadlock happened? If a deadlock exists between two tasks there are should be at least two locks used by both tasks.</span></p>
-    <p><span style="white-space: pre-wrap">Regards</span></p>
-    <p><span style="white-space: pre-wrap">Xiaogang
-</span></p>
-    <blockquote type="cite" cite="mid:PH0PR12MB541778A52306F3BF717609018FF02@PH0PR12MB5417.namprd12.prod.outlook.com">
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">
-      -&gt;mmap_read_lock(deadlock here, because already get mmap_write_lock)
-
-How to fix?
-Downgrade the write lock to read lock.
-
-Signed-off-by: Emily Deng <a class="moz-txt-link-rfc2396E" href="mailto:Emily.Deng@amd.com">&lt;Emily.Deng@amd.com&gt;</a>
----
-drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 3 ++-
-1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index bd3e20d981e0..c907e2de3dde 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -1841,6 +1841,7 @@ static void svm_range_restore_work(struct work_struct
-*work)
-      mutex_lock(&amp;process_info-&gt;lock);
-      svm_range_list_lock_and_flush_work(svms, mm);
-      mutex_lock(&amp;svms-&gt;lock);
-+      mmap_write_downgrade(mm);
-
-      evicted_ranges = atomic_read(&amp;svms-&gt;evicted_ranges);
-
-@@ -1890,7 +1891,7 @@ static void svm_range_restore_work(struct work_struct
-*work)
-
-out_reschedule:
-      mutex_unlock(&amp;svms-&gt;lock);
--      mmap_write_unlock(mm);
-+      mmap_read_unlock(mm);
-      mutex_unlock(&amp;process_info-&gt;lock);
-
-      /* If validation failed, reschedule another attempt */
---
-2.34.1
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-</pre>
-    </blockquote>
-  </body>
-</html>
-
---------------30pdn0hywDVEPpHHAU3i7pDe--
