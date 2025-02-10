@@ -4,74 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52ED7C02198
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Feb 2025 20:10:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5C0CC02198
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Feb 2025 21:01:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0399E10E3BA;
-	Mon, 10 Feb 2025 20:10:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F9BA10E3C3;
+	Mon, 10 Feb 2025 21:01:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FLGtgdxb";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HsIRGYZQ";
 	dkim-atps=neutral
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com
- [209.85.214.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC52F10E1AC
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Feb 2025 20:10:29 +0000 (UTC)
-Received: by mail-pl1-f175.google.com with SMTP id
- d9443c01a7336-218c8ac69faso9925525ad.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Feb 2025 12:10:29 -0800 (PST)
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
+ [209.85.216.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DBB9B10E3C3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 Feb 2025 21:01:43 +0000 (UTC)
+Received: by mail-pj1-f46.google.com with SMTP id
+ 98e67ed59e1d1-2fa0f70bfecso1098475a91.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 Feb 2025 13:01:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1739218229; x=1739823029; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1739221303; x=1739826103; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=qlhoaRVvycqeoj62Snc4UST4qrD0SrE4CSo3O+Gk3Wg=;
- b=FLGtgdxbROKxuzEvqZVhrLEDqbcOzeXrsV+/9a+SabDvLSh+4YhiMnp4O6SPHi6EPT
- G9LHfjgeAZ3tqIr5hkktjBSmvTU5QUT0q/Ao8u4ar+swwXdSJnB7gSaXH225zAUpO0W1
- b+1gbnczvLWiNnWKX7UN0IrPhkhW1iBk/fBWZZSxZXlwb8FGO2NwsyLSI39M29Wyv2DM
- jKlkoE+RcI04UWtA30l4jC2BrJS3UI4SXW/n2+f/NIURMCobmCt1JrsB2xW+eFF5loIk
- qQRSBBL8LGhmAgtd8k2mMwgA3Nea04nq5lexmofQDfxDZF57nyTlGPQDToZeNH5j2e8z
- K1jA==
+ bh=DrxDhaMmD5KHDNiCU5os6ZvT3z8GUbjaXdloQGTdyqI=;
+ b=HsIRGYZQcNUuTMyj7djICZC8omkH7ULhCncXKaq7toqrR1H+bQ0ku6HOh2mPGBf3QY
+ fk4F4VsoOU7SuZcVYbkRzokhF2YWEYFFjRUC0sjo/HVNHO2KHlqu3AvlSNU+/seFbB9e
+ YVLj23cM7Xjq7X/a1yIcmE88quWIRyPzGvb3FfKvQ5msSjn+Xl1qW7aDXkp31+nzLPRN
+ BEtXjAew+NUk0oFqk5KVDscl3JTGLsml5jGR5sgo/KU2fRh0fs29f9yvZ0JRpSG4ktIL
+ zBjQK6PEE2z2RzVXySqHarAtXmKfSmS90jODXWxmcF/iGwrkBZrLPdEApmSAuzcmub4g
+ iIPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739218229; x=1739823029;
+ d=1e100.net; s=20230601; t=1739221303; x=1739826103;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=qlhoaRVvycqeoj62Snc4UST4qrD0SrE4CSo3O+Gk3Wg=;
- b=xCN9Bl7ugyAb63TJNOX19GWse/5EUg/MVN3+9O5pwgd+Or/L7UqVRicprvrdsN38R+
- bX31n8tnzK/gE+qd6kIBkiR6KkKbpsa39MIyhWsABMRdwY8rMeoGbgoNanjrDMenYpUb
- KcQh7lHgW9JtMn9Neah+qnwfpefuhzx66p0MmTYERQJux7kVz/5dVgBJEehV4HVUSqHw
- HEK728i43dVi6JpLM5r35+ohh9yEhw8agLjQ9JxKD9LqDptajLpF4l25IfpM+GAYobft
- KbgW/NLzQDxjLt4kuYhda238sCETFKdtH++iGcY9Pgl9bWG+RA071WHDjbz/tatCZSIx
- devg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCV7zO58R2Wa1a7mmEhKTR3yu4z2aWrt/59WY47WqWbKoul96cX1yCqcY7REw0gcWh5xmEX6HG4a@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzwKt3iUXh3i/GbkpA0lWAxaYWyReq6iCnFUNRGc9TgOEMzEi42
- DnusnSNuc/nGsdzJBtpJTdGuISV6pcRU2YvetpOptodRohihRZQXPUkdAdgJMG6BOUa7APO+F3F
- p/eVS2ySvDFpJ9bfJsRA1X+eteW8=
-X-Gm-Gg: ASbGncsgA/8OWvTokIyzieEOUkx2e6whEBYE+uRQmXhHIsr8PDWr4yyECOQ8c8v1R0v
- D4uLYE5jl3nOnZFAVLL0sgKJirPp7y4CZ319Z+g4RpR20OhYekiNFOK3Nx8AujxYyKI6BzoK+
-X-Google-Smtp-Source: AGHT+IEcWPumhdTWo2BlTCBBDsnqnMc2heqKwQjbio/c3BeEZhObuRHnd0IL3jvccEuPK8dVBsTUyGwFkebMUN8Gk2o=
-X-Received: by 2002:a17:903:32c7:b0:21f:444:b2c9 with SMTP id
- d9443c01a7336-21f4e10e17dmr87881605ad.0.1739218229188; Mon, 10 Feb 2025
- 12:10:29 -0800 (PST)
+ bh=DrxDhaMmD5KHDNiCU5os6ZvT3z8GUbjaXdloQGTdyqI=;
+ b=uYY8QM3KHntsevpN+i7idNe/WFYACBWwBM5+Aj9zKZLeJl/4BmlulBEkQZEiW5zlzl
+ 1lZ9lCZv6DJ1kW3yEuSf+RCycF5555Uf1GbWNEf3S0ei7IIUhx59JyPnE3GPWuE77ewX
+ CW37yXzoaiAQPL0oqLNSLzEEigqG2kgk6wotda6SbetRIiilv35e/Ip4cZtp4UA4EhjV
+ CwbfuCL5y1chd4RhNva3/UtPGAzrU8hxRoQm15aACzlS07hJSIvvuW7Yw4YbE8uCqUts
+ NALmbg27EcK7eoc+RpLB7yUIyruY5e3hXbRnlyW1aYU+Nz5kAbaiEFQYO75OiPnV6Yzb
+ wkwg==
+X-Gm-Message-State: AOJu0Yyl+6opGXLXRraDqDK49OVYena2va+U5a4xlwCG1DXennw6/eCP
+ qD0QEQTjQn8hKbT7MJj6fYhn33WDE6F6NGiAVmPPz5mIzMlbfDg0eBA5lgYF9HN2ndM3fgsrPsL
+ HYPrmkZrwXI2UIzTz/fjZ+YBywqo=
+X-Gm-Gg: ASbGnctBRh4kq3PBTvRuqFhKPF0ybWjFnjiblZK+NCog5uhehKO81PdYgNX2LgGpnYh
+ VGMEvuaHNHpNii0iw1zoW/ZguMPE+yurjCARtLsU7lRbHfjG+NdXo+/6MIysgtxBV42um5BEb
+X-Google-Smtp-Source: AGHT+IEmHKmLOm/ZzFDSLVrQC+HaPk4mh2W1XEfQK9ABXJNSA9II5XhYsC+3zeq57JqEF7PbdAiTFeRkWXv0wB7jWQ8=
+X-Received: by 2002:a17:90b:38c3:b0:2f4:f7f8:f70b with SMTP id
+ 98e67ed59e1d1-2fa24544c36mr9647554a91.5.1739221303161; Mon, 10 Feb 2025
+ 13:01:43 -0800 (PST)
 MIME-Version: 1.0
-References: <20250210162755.2488728-1-alexander.deucher@amd.com>
- <20250210162755.2488728-2-alexander.deucher@amd.com>
- <CH0PR12MB53728FDD4853143254B78D77F4F22@CH0PR12MB5372.namprd12.prod.outlook.com>
-In-Reply-To: <CH0PR12MB53728FDD4853143254B78D77F4F22@CH0PR12MB5372.namprd12.prod.outlook.com>
+References: <20250205184055.104040-1-shaoyun.liu@amd.com>
+In-Reply-To: <20250205184055.104040-1-shaoyun.liu@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 10 Feb 2025 15:10:17 -0500
-X-Gm-Features: AWEUYZmi0G93npNBQDBhAS92CI1_h5dTSjJIN3MAtwQHbvIXyBIlUwA2uu8HnKo
-Message-ID: <CADnq5_NF=0f1Pr3w==ivxmYipJHSqYVWk4qBZdS4SPn5RjwvAQ@mail.gmail.com>
-Subject: Re: [PATCH V4 2/2] drm/amdgpu/mes: Add cleaner shader fence address
- handling in MES for GFX11
-To: "Liu, Shaoyun" <Shaoyun.Liu@amd.com>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
- "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>, "cao,
- lin" <lin.cao@amd.com>, 
- "Chen, JingWen (Wayne)" <JingWen.Chen2@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>
+Date: Mon, 10 Feb 2025 16:01:30 -0500
+X-Gm-Features: AWEUYZleBAFzch61xLUIdBsMD7NVK6B6X6qGn_UHd_UGiSncAz1N3pTqW0R8tQU
+Message-ID: <CADnq5_Nrr=6LENgWUD8i5Q9fe=cNP34LNxsZUXSF4ZuM56v5Cw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/include : Update MES v12 API for fence update
+To: Shaoyun Liu <shaoyun.liu@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -88,124 +78,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Feb 10, 2025 at 2:07=E2=80=AFPM Liu, Shaoyun <Shaoyun.Liu@amd.com> =
-wrote:
+On Wed, Feb 5, 2025 at 1:52=E2=80=AFPM Shaoyun Liu <shaoyun.liu@amd.com> wr=
+ote:
 >
-> [AMD Official Use Only - AMD Internal Distribution Only]
+> MES fence_value will be updated in fence_addr if API success,
+> otherwise upper 32 bit will be used to indicate error code.
+> In any case, MES will trigger an EOP interrupt with 0xb1 as
+> context id in the interrupt cookie
 >
-> Might need to update the  commit message since this change don't use the =
-write-back memory and  the  package is set_hw_res_1.
+> Signed-off-by: Shaoyun Liu <shaoyun.liu@amd.com>
 
-Fixed locally.  Thanks.
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-Alex
-
->
-> Other than that , it looks good to me . And I think we need a similar cha=
-nge for gfx12
->
-> Regards
-> Shaoyun.liu
->
-> -----Original Message-----
-> From: Deucher, Alexander <Alexander.Deucher@amd.com>
-> Sent: Monday, February 10, 2025 11:28 AM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: SHANMUGAM, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>; cao, lin <lin.c=
-ao@amd.com>; Chen, JingWen (Wayne) <JingWen.Chen2@amd.com>; Koenig, Christi=
-an <Christian.Koenig@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.co=
-m>; Liu, Shaoyun <Shaoyun.Liu@amd.com>
-> Subject: [PATCH V4 2/2] drm/amdgpu/mes: Add cleaner shader fence address =
-handling in MES for GFX11
->
-> From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
->
-> This commit introduces enhancements to the handling of the cleaner shader=
- fence in the AMDGPU MES driver:
->
-> - The MES (Microcode Execution Scheduler) now sends a PM4 packet to the
->   KIQ (Kernel Interface Queue) to request the cleaner shader, ensuring
->   that requests are handled in a controlled manner and avoiding the
->   race conditions.
-> - The CP (Compute Processor) firmware has been updated to use a private
->   bus for accessing specific registers, avoiding unnecessary operations
->   that could lead to issues in VF (Virtual Function) mode.
-> - The cleaner shader fence memory address is now set correctly in the
->   `mes_set_hw_res_pkt` structure, allowing for proper synchronization of
->   the cleaner shader execution. This is done by calculating the address
->   using the write-back memory base address and the cleaner fence offset.
->
-> Cc: lin cao <lin.cao@amd.com>
-> Cc: Jingwen Chen <Jingwen.Chen2@amd.com>
-> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Suggested-by: Shaoyun Liu <shaoyun.liu@amd.com>
-> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/mes_v11_0.c | 17 ++++++++++++-----
->  1 file changed, 12 insertions(+), 5 deletions(-)
+>  drivers/gpu/drm/amd/include/mes_v12_api_def.h | 40 ++++++++++++++++++-
+>  1 file changed, 39 insertions(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd=
-/amdgpu/mes_v11_0.c
-> index e862a3febe2b2..661268172dcf6 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> @@ -754,7 +754,7 @@ static int mes_v11_0_set_hw_resources_1(struct amdgpu=
-_mes *mes)
->         mes_set_hw_res_pkt.header.dwsize =3D API_FRAME_SIZE_IN_DWORDS;
->         mes_set_hw_res_pkt.enable_mes_info_ctx =3D 1;
+> diff --git a/drivers/gpu/drm/amd/include/mes_v12_api_def.h b/drivers/gpu/=
+drm/amd/include/mes_v12_api_def.h
+> index 1938150a1943..fb918668ddae 100644
+> --- a/drivers/gpu/drm/amd/include/mes_v12_api_def.h
+> +++ b/drivers/gpu/drm/amd/include/mes_v12_api_def.h
+> @@ -105,6 +105,43 @@ struct MES_API_STATUS {
+>         uint64_t api_completion_fence_value;
+>  };
 >
-> -       ret =3D amdgpu_bo_create_kernel(adev, size, PAGE_SIZE,
-> +       ret =3D amdgpu_bo_create_kernel(adev, size + AMDGPU_GPU_PAGE_SIZE=
-,
-> +PAGE_SIZE,
->                                 AMDGPU_GEM_DOMAIN_VRAM,
->                                 &mes->resource_1,
->                                 &mes->resource_1_gpu_addr,
-> @@ -765,7 +765,10 @@ static int mes_v11_0_set_hw_resources_1(struct amdgp=
-u_mes *mes)
->         }
->
->         mes_set_hw_res_pkt.mes_info_ctx_mc_addr =3D mes->resource_1_gpu_a=
-ddr;
-> -       mes_set_hw_res_pkt.mes_info_ctx_size =3D mes->resource_1->tbo.bas=
-e.size;
-> +       mes_set_hw_res_pkt.mes_info_ctx_size =3D size;
-> +       mes_set_hw_res_pkt.cleaner_shader_fence_mc_addr =3D
-> +               mes->resource_1_gpu_addr + size;
+> +/*
+> + * MES will set api_completion_fence_value in api_completion_fence_addr
+> + * when it can successflly process the API. MES will also trigger
+> + * following interrupt when it finish process the API no matter success
+> + * or failed.
+> + *     Interrupt source id 181 (EOP) with context ID (DW 6 in the int
+> + *     cookie) set to 0xb1 and context type set to 8. Driver side need
+> + *     to enable TIME_STAMP_INT_ENABLE in CPC_INT_CNTL for MES pipe to
+> + *     catch this interrupt.
+> + *     Driver side also need to set enable_mes_fence_int =3D 1 in
+> + *     set_HW_resource package to enable this fence interrupt.
+> + * when the API process failed.
+> + *     lowre 32 bits set to 0.
+> + *     higher 32 bits set as follows (bit shift within high 32)
+> + *         bit 0  -  7    API specific error code.
+> + *         bit 8  - 15    API OPCODE.
+> + *         bit 16 - 23    MISC OPCODE if any
+> + *         bit 24 - 30    ERROR category (API_ERROR_XXX)
+> + *         bit 31         Set to 1 to indicate error status
+> + *
+> + */
+> +enum { MES_SCH_ERROR_CODE_HEADER_SHIFT_12 =3D 8 };
+> +enum { MES_SCH_ERROR_CODE_MISC_OP_SHIFT_12 =3D 16 };
+> +enum { MES_ERROR_CATEGORY_SHIFT_12 =3D 24 };
+> +enum { MES_API_STATUS_ERROR_SHIFT_12 =3D 31 };
 > +
->         return mes_v11_0_submit_pkt_and_poll_completion(mes,
->                         &mes_set_hw_res_pkt, sizeof(mes_set_hw_res_pkt),
->                         offsetof(union MESAPI_SET_HW_RESOURCES_1, api_sta=
-tus)); @@ -1632,7 +1635,8 @@ static int mes_v11_0_hw_init(struct amdgpu_ip_=
-block *ip_block)
->         if (r)
->                 goto failure;
->
-> -       if (amdgpu_sriov_is_mes_info_enable(adev)) {
-> +       if (amdgpu_sriov_is_mes_info_enable(adev) ||
-> +           adev->gfx.enable_cleaner_shader) {
->                 r =3D mes_v11_0_set_hw_resources_1(&adev->mes);
->                 if (r) {
->                         DRM_ERROR("failed mes_v11_0_set_hw_resources_1, r=
-=3D%d\n", r); @@ -1665,10 +1669,13 @@ static int mes_v11_0_hw_init(struct a=
-mdgpu_ip_block *ip_block)  static int mes_v11_0_hw_fini(struct amdgpu_ip_bl=
-ock *ip_block)  {
->         struct amdgpu_device *adev =3D ip_block->adev;
-> -       if (amdgpu_sriov_is_mes_info_enable(adev)) {
+> +enum MES_ERROR_CATEGORY_CODE_12 {
+> +       MES_ERROR_API                =3D 1,
+> +       MES_ERROR_SCHEDULING         =3D 2,
+> +       MES_ERROR_UNKNOWN            =3D 3,
+> +};
 > +
-> +       if (amdgpu_sriov_is_mes_info_enable(adev) ||
-> +           adev->gfx.enable_cleaner_shader) {
->                 amdgpu_bo_free_kernel(&adev->mes.resource_1, &adev->mes.r=
-esource_1_gpu_addr,
-> -                                       &adev->mes.resource_1_addr);
-> +                                     &adev->mes.resource_1_addr);
->         }
-> +
->         return 0;
->  }
+> +#define MES_ERR_CODE(api_err, opcode, misc_op, category) \
+> +                       ((uint64) (api_err | opcode << MES_SCH_ERROR_CODE=
+_HEADER_SHIFT_12 | \
+> +                       misc_op << MES_SCH_ERROR_CODE_MISC_OP_SHIFT_12 | =
+\
+> +                       category << MES_ERROR_CATEGORY_SHIFT_12 | \
+> +                       1 << MES_API_STATUS_ERROR_SHIFT_12) << 32)
 >
+>  enum { MAX_COMPUTE_PIPES =3D 8 };
+>  enum { MAX_GFX_PIPES    =3D 2 };
+> @@ -248,7 +285,8 @@ union MESAPI_SET_HW_RESOURCES {
+>                                 uint32_t enable_mes_sch_stb_log : 1;
+>                                 uint32_t limit_single_process : 1;
+>                                 uint32_t unmapped_doorbell_handling: 2;
+> -                               uint32_t reserved : 11;
+> +                               uint32_t enable_mes_fence_int: 1;
+> +                               uint32_t reserved : 10;
+>                         };
+>                         uint32_t uint32_all;
+>                 };
 > --
-> 2.48.1
+> 2.34.1
 >
