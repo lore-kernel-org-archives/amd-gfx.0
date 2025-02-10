@@ -4,154 +4,154 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38867C02198
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Feb 2025 22:53:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BE48C02198
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Feb 2025 22:54:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA65710E02B;
-	Mon, 10 Feb 2025 22:53:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E2EF510E207;
+	Mon, 10 Feb 2025 22:54:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="MOYoy/g9";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="C05/9zBS";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2065.outbound.protection.outlook.com [40.107.92.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 819ED10E02B
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Feb 2025 22:53:50 +0000 (UTC)
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on2053.outbound.protection.outlook.com [40.107.212.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7136A10E207;
+ Mon, 10 Feb 2025 22:54:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xhoVPANsE87ppnhjGtj17ZL0rPTZ/Hao2twxKub6K3HEU5sj4JjfyLWQ+uzI7om/VHToDMCNmwneKpW7+wouCNqQ5dcW5bUODbhBHoQb4w03DkEmMJ4oiey0yKFdIdG9PJAwj/mMZlotwzg20JxvNfCsEwzIOIeLuCRqTZNK0fQZkhS4Ua0H3yjkrMhYJCmYSfHsVIgqjyer60fWAL6OnnmEs4ODP1+4qj3q0ywlNXupJFNy2yvrsuHTCqoVRaYGD7D6QRjGoPQXbhtbYYgzdz9EI7pKPgCUum2qbF1xuVrA6lbXVCRlw7T5jZyFXcBrY72S13Tg5kRrNhF2cAPz4w==
+ b=gPOWnp7wXDN49p5uDjZyVYOTQxggBx30a3xGWv2azxmxxIAXrHsO1LlRQEN2iAtvQ4XhQJGDp3Fbm4f4t8QnFjz2nVzAwOWzl8Nja1/taKImDivWvD5LHwUCJnx0aRnHKEGjdIwlVaSt7zJ8gcJUHfmckVGOO22+0ZHivSD3k2UKKw//6wHfNDn2GG4TVM9iE7aFOoA6YXpRhAVgkqwi1R1xb8aQURsgSq9ifVE1+GHlauiF9upRpL3H6QejUFmTj3eC1/iCtrPxn1ipJljEUWsoP09sOPV2k6d8fSSRqvmJAVlVbcJtaXuwqiMQydXFG/tVakqUA6fMG1Ts47jgIg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=14ynlzL0G8uehvOaamjKvt/EWeC3GBQe8PocWmU1BjI=;
- b=GdKi4Fv78w996PQE495+GTQb0S1KVTRHj7o8Ow7nWsDTkVN4TGrGdqaIAiY1eJ3I+yQGOv28MzE1YcxwN/KbPoZv4+n+2b/D+5oWyPm4+bKY2qbFw0Yv+yviV0WnV6xjzsDMP2cTP1U4ElhnMI6sOfLsupNStGKUArjZuLvJT+gjIRsz956r46uRBQzglac0MKAiFBRCDaZQd7irKKuneSeWAukbV32mO47+E+z5xAvTObNvwySkehld6vhFd96WnFYWQijwN3cbm+0M1lgUB7l8vXy5xBKnhcs4LgyS04nnS17gd/m3X2C2sUUh1EMKd9uaK10BiKsbGK+Mk1t/BQ==
+ bh=M3+Er/XIvnNnWyEACzEqUwfJA/qg+wX2JLCvldJQSsU=;
+ b=LjFFuilPcFBQD2LPwxmCQjZp8yiuq/eAx2MBl33LIlQyRSbyRbtUEIK4joBPewDVoDK48rOVbXCuVUzbY1/Yk3ffkAzyq/dWDLz1PNu9Y1CZUaKJR9D72chAZFKA6E35QU7yfzwoVi7QNGUGIJvyQbxa9F7/w2/5lJEfBHm3bCikDUdLgOT/tqDOIa0z+R+9olkFMPcA7PWuJufH79N5Q+Dp/5PPQMyg5/Po/3VjpJkvAjfh338pj2ssmQwH0vtS2NosmmHPDH0gzgTGbe+fLUd6R0NHvhKvsqQI47ZYiB/e9WmanMLUcDlUkqNSyC+71Y0CCkX6Bm3ACJe3Ka1NSA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=14ynlzL0G8uehvOaamjKvt/EWeC3GBQe8PocWmU1BjI=;
- b=MOYoy/g9/kZcXM8oAvwErfrlHmeIDTCYKLz3xgFjDVMRRfUY1+PIdVsP/r9fG/EEqff+JHfb+1tF6wF1sxcRiSiwvYbGXVgZsegjy6Mlh6bUi/HWaA2SPYx31wRXNeFA+jSRgTgEvH4rwpAgHwQL6Gzq+6yRX7LgjR3QXbTS0mI=
+ bh=M3+Er/XIvnNnWyEACzEqUwfJA/qg+wX2JLCvldJQSsU=;
+ b=C05/9zBSs7LCPd+Q/YVjfWMZIutCj3XXspmh/6HhQqNftkYQ+81c63Mj3xJTkOz8BDzp7TXiD/sMrdmAY1R1y3MPDfbcPrfpgrs1pT3t+jkO0K+HQmrxH3EiKhKBpV4P6T9Nk+SriMNaEuhoMSIwe3xmoZNlbbsz6YneipxAIHk=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5149.namprd12.prod.outlook.com (2603:10b6:5:390::14)
- by SA1PR12MB7343.namprd12.prod.outlook.com (2603:10b6:806:2b5::22) with
+Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
+ by IA1PR12MB7736.namprd12.prod.outlook.com (2603:10b6:208:420::15) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8422.18; Mon, 10 Feb
- 2025 22:53:47 +0000
-Received: from DM4PR12MB5149.namprd12.prod.outlook.com
- ([fe80::36fa:deca:aaeb:75da]) by DM4PR12MB5149.namprd12.prod.outlook.com
- ([fe80::36fa:deca:aaeb:75da%6]) with mapi id 15.20.8422.015; Mon, 10 Feb 2025
- 22:53:46 +0000
-Message-ID: <6c888bc6-a942-b608-3302-4c37374f76f8@amd.com>
-Date: Mon, 10 Feb 2025 17:53:44 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH] drm/amdkfd: Fix the deadlock in svm_range_restore_work
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8422.15; Mon, 10 Feb
+ 2025 22:53:59 +0000
+Received: from DM4PR12MB8476.namprd12.prod.outlook.com
+ ([fe80::2ed6:28e6:241e:7fc1]) by DM4PR12MB8476.namprd12.prod.outlook.com
+ ([fe80::2ed6:28e6:241e:7fc1%4]) with mapi id 15.20.8422.015; Mon, 10 Feb 2025
+ 22:53:59 +0000
+Message-ID: <dc32b78a-d44a-462c-9879-628fb2f01cb9@amd.com>
+Date: Mon, 10 Feb 2025 15:53:55 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display: restore edid reading from a given i2c
+ adapter
+To: Mario Limonciello <mario.limonciello@amd.com>,
+ "Wang, Yu (Charlie)" <Yu.Wang4@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ kernel-dev@igalia.com, Melissa Wen <mwen@igalia.com>,
+ harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, Roman Li <roman.li@amd.com>
+References: <20250209225843.7412-1-mwen@igalia.com>
+ <e5dcbd91-bf16-4227-be85-6668d08120f9@amd.com>
 Content-Language: en-US
-To: "Deng, Emily" <Emily.Deng@amd.com>, "Chen, Xiaogang"
- <Xiaogang.Chen@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20250207102823.1565467-1-Emily.Deng@amd.com>
- <PH0PR12MB541778A52306F3BF717609018FF02@PH0PR12MB5417.namprd12.prod.outlook.com>
- <841a21b8-b0b6-48a9-af2d-62b51d5d6a1b@amd.com>
- <PH0PR12MB54174DCAA0C2AF44C320C1098FF22@PH0PR12MB5417.namprd12.prod.outlook.com>
-From: Philip Yang <yangp@amd.com>
-In-Reply-To: <PH0PR12MB54174DCAA0C2AF44C320C1098FF22@PH0PR12MB5417.namprd12.prod.outlook.com>
-Content-Type: text/html; charset=UTF-8
+From: Alex Hung <alex.hung@amd.com>
+In-Reply-To: <e5dcbd91-bf16-4227-be85-6668d08120f9@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQBP288CA0018.CANP288.PROD.OUTLOOK.COM
- (2603:10b6:c01:6a::21) To DM4PR12MB5149.namprd12.prod.outlook.com
- (2603:10b6:5:390::14)
+X-ClientProxiedBy: YQXPR0101CA0056.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c00:14::33) To DM4PR12MB8476.namprd12.prod.outlook.com
+ (2603:10b6:8:17e::15)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5149:EE_|SA1PR12MB7343:EE_
-X-MS-Office365-Filtering-Correlation-Id: 97f67625-4cfd-4f87-0294-08dd4a25c6e1
+X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|IA1PR12MB7736:EE_
+X-MS-Office365-Filtering-Correlation-Id: 20778cc3-4dab-47fd-7bf5-08dd4a25ce45
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|8096899003|7053199007; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?VjNHOEdjRnJJL0RjUDg2S1Z5NVVtYU9sU0ZBbCtUQkI5ampwZ1h3MEs4dFZE?=
- =?utf-8?B?Mll0SzZZSTE4cXZDMTIzNmdjQmoyaWRzMnc4UEpwMGdkd1Z1eGM1SkNUMFRt?=
- =?utf-8?B?TERlTGlEMllvTzJhaEtjaTRCbU5BT29RQU5xUGlLWmVrNUNLeE8zeERGVlpY?=
- =?utf-8?B?SDl1TzJDVXdkNGs2MUNlZ0tsR3Q1QThxRFA3UFBGbkVudWQrd1AwZ3JEbk1n?=
- =?utf-8?B?QVhRQUdwVkYwS2dLL2ZCUUd5TE9ycHhzdnI4ZFRSZnlvcUpNS295Rk8rR2xQ?=
- =?utf-8?B?UnE2S1A4aWlDMjRndk1HNlRuY3IrSnQwbFlnNVY3WEsyNU5yU3NucXovNGYy?=
- =?utf-8?B?QjRvZWlPTTFvaHcreUhNMXV4ejhpQTVIQ3hmSWJkMktFOVFGR2hkaXJ5ZFpU?=
- =?utf-8?B?MGNxUW9EUGVkQnQxM1plK2R1UmVuWDhtei9rZTRsaE9hK3NuUVlqSWJlUUQw?=
- =?utf-8?B?TkNWdXhyUnkvN05OYmxRMUVuUUNKb1JlT0VkYjFTQldOSVRGeVp3RlVqUmk5?=
- =?utf-8?B?Tm9kUFNIM2xVVExjR3FjVmQ0cVFIMTJlMWRabVdjck9weHE5eUxQeVFFSE5x?=
- =?utf-8?B?RVB5bjJESGpkUjJCVGViYU16Z1RhUUFpcjFnYVhlQW9idTY0VlRaNnJvUGtT?=
- =?utf-8?B?S29LODFVTmNoVlBPVExwVG8yLzBkRnBZdjZGYWZON1FFcDVlVFVoOWx3cU9n?=
- =?utf-8?B?Ly9aeFJDVUJ5S0xLQ2VmMzUydzZwaElKRjFWNkVsYnUrcVU2Sk5DRlI2THVJ?=
- =?utf-8?B?QXpRdzhJSmRZVFpMNWsyb0F6N3hzbVFISTJNc1paWlBtejYrYWc4cDF4aWUr?=
- =?utf-8?B?dWVFbGJiVUNlYlFOU0VwYTVpeHl5bVZWYkx3YlIxTklzaGc4d04zMFN4aUJP?=
- =?utf-8?B?azE1MTNvZEtRTi82cDJreS9IbnR5NmN3bUwyQjZpckdLcTdkV0RVemlNV0FM?=
- =?utf-8?B?VEhQUit2NjgxcFBaU2FuVkFUWkFJVjVGdk5ITGxHTVp3T2RzZ282L1BVa0kv?=
- =?utf-8?B?UTJwOStvZkUyeVlWV29PMEtrTG5HOE1zbXlmK0dVa0QwYytHczBmbkxiSTYv?=
- =?utf-8?B?SjdtUkFLOG1Rcm80WlVtaXBIbGRJTTZ2QkJFYThvb2RBLy9JZjlmOHA1ZFpY?=
- =?utf-8?B?S2QwbW45bW5oeWhBNDZUdEhlUWEvOEN3RlNqOXF5YnNRYWw3WEVUczhMUmxF?=
- =?utf-8?B?ZGVRWC82bDdJUDBoanN5WHhlZXBCZFV4QytKTFptcW40NzQ1aFZybmxNSkw0?=
- =?utf-8?B?WXgvYkNLcklBK0UzdUdQZjArRGYrN09XOHNLdElqVVF4dmNzSTF4RnpweXFV?=
- =?utf-8?B?NmpGNVVaTkJhb3RabXhsRGxlcDBpRVFwdHdYVUVxYmVzcGVJWHVzNE5BQmVQ?=
- =?utf-8?B?ais3YnA4ZjNFWFBiTEU5TTBBVkpndVpselJLMWZlbnBudTVZcWQ4SnRDL29F?=
- =?utf-8?B?OWxsam9YUC9xVFhOd3M5SGpTQVpqYjBKaXhhMXprRkxYSU9PSTRlMVhZMHd1?=
- =?utf-8?B?dmxVWkh4Qy9SZEEzYXdobEhrOUFsMVk0OE1RTEs1QytxSnA3WFMvTjNJNjdR?=
- =?utf-8?B?blVuOHJTT0RudVp2Y1lSaVB0R0hvc3B5UkdLVWUrdDJRNktqdE42NkVZYmhm?=
- =?utf-8?B?NUlQaENtZDZUWGtSeUg3QUFjQ2tLV3ZRaW94RHlkYkJOT3c5RUpUNEdjejdp?=
- =?utf-8?B?RnFlTUpOdTQwQUc1TnQrZy9uQm9QczN2TG1Mb1R4WVR0UmdtQUxZOHYvUlBs?=
- =?utf-8?B?UFB2bllGNGpncnJvNkZYLy9xOWZMTWhZS28wNFF5emdzVW55OXNJYXVranNp?=
- =?utf-8?B?Tk9VNDNDWldBcERnWklUQ1E3bU5IalpMUWliU3pJcDFlMUo0TXJydlM0OWdZ?=
- =?utf-8?Q?KC7Xtxafn+qJs?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?U0FyenNTRDZxR090djJqT2l3Q1ZaQjUxYmVEM21Pc2FpRW45UDFRajY0ckZH?=
+ =?utf-8?B?UEZacFVlbkZLZXVtUFk3TUR4VWpQMmJhbnRWd1V2V1BoRHJNTFhDejVEUG92?=
+ =?utf-8?B?TGZCS24wWmxJSlMxdnBFMXdTZnBlQzRnQTcxTHBNNDBQUU9kMXo1a2w2a2dr?=
+ =?utf-8?B?VTV4Ni9OZ2pxNzM5L2dKTkFnbkxqQUtQblArdVhoU3kwb0hjOHN4Y0ZRM3Rx?=
+ =?utf-8?B?WWFZS2lUQnNmZ0tIbzlDVzJCRE5wODBxM3dJYTJTSG5ISnF5ZVlRZXN3NWFp?=
+ =?utf-8?B?aVA4K0tFeVRwUUltSXdLYVlyclM5U3FDclVtZjFvOHhKQW1xQkZUTGNrSngv?=
+ =?utf-8?B?SGRudDRzQkxBZHZsQnl4eEV1ZlJZV3RJa2UrbmtPVXlweGhPNUdMc2NuT2hK?=
+ =?utf-8?B?Z2ZvcjlXT2E4WVR3TlFsTmNSeWFTa0hWZEkzUGdvMjU1dnBObkRKTG9ncTV6?=
+ =?utf-8?B?NjJEQmwvTGRQTW5RWHFKcStSMjJja0hWSCtSMFZtRE44K0NEQi9FSDZnVjda?=
+ =?utf-8?B?SFJ4SmZabW5uREJGQlpNS29ndmFTTVlzOWpQa2k5TC9HRGF3b3FqUUNnekxZ?=
+ =?utf-8?B?UmxnamxTSCt5aHNDc2pnajZISjN3Yy9uZy9OYlY1cXlJam8rODV5Y2plSmsr?=
+ =?utf-8?B?LzlkZ2lhRmZQZHNYUkpHNisvcEhzVUhBbFNDaktaZmszTE1WbVJ6N0ZsTFpx?=
+ =?utf-8?B?WE9TUURCWnhZSmZONTBrTUpVL20rOGFHdFM4U3RaWFgzVU1PV0VqWENvVjQ0?=
+ =?utf-8?B?TzJNZEJPNE56bDE0VUN3OFlXb045dy9Fd2duTTVsdHJkTEVSU1NrQ05wZWxl?=
+ =?utf-8?B?UUl3MlppQ21VaHlnR0NpalBwWWh1MndpbmI3RDdETzltbzJrbGo4Wm5oOFgv?=
+ =?utf-8?B?RkNyK1hoVHNaNGgyQ3VycVZRdzNhdENDZi9RUTJXbE4ydDZUT0JBdDlrck9K?=
+ =?utf-8?B?TThUM1hUK01lVk1VVWt0Y25Rb3NTaHhNemlEOFU0WkJSdFRQM0d3bVp5MDdq?=
+ =?utf-8?B?WFRiV2YzdFRCMVUrZ2ZMV1FQaUc0QzFCREVSbUphRHB0YkpsY2RIU0hGSjcx?=
+ =?utf-8?B?c2w5Y3NocGNDSWFHSWlSWUJteGFuem5RZnBvOU4zNFhjcEtJNHI2bEhTOCtY?=
+ =?utf-8?B?cjhSbm9Yald2dEo2UHhWSm0yRVB5aVhHbkRKWmxMbC9hZm5kSWF3OGdZS3dU?=
+ =?utf-8?B?dHVSWVdJMnAwSjhjNU1DOGgva2JZSVI0dStONmR1c3p4Y3l4T0NZVG91dUVI?=
+ =?utf-8?B?dnRaRDJIc2FCemdOOWtGbzJ4YTFSZEtLL2dSV1lPVG9MR0pNb3hlYllFeU5q?=
+ =?utf-8?B?cU44QkloUWpzMlVIQnVCSTZrWEdhRUtzT3FZcDRZaHBmdDdqakpMZERZSDRI?=
+ =?utf-8?B?SUg5L0gwLzJWamZBOGhob2RjanVXbFU4VnFvcFR6M3BGMysxUHlyWkRGS1Ar?=
+ =?utf-8?B?UTRXdWdPbzFGWTJxR2FjcE1INytienZEYzExWUxPQThTemdvREdHUFp1aWNJ?=
+ =?utf-8?B?ZFNhODlreGYyUlpqaUdFMS9oTUltU0xDcjk4Y2VYRFlsOTVlak5PZGRYQ0c4?=
+ =?utf-8?B?dGloUmx5UmhmYnNLWWhnYVl2clp0UUY3OFQzMXNnUm4zeWFRV21hTE1La3F2?=
+ =?utf-8?B?c3hzOGFiUFJrSXo5T3lLTEZrMUNzbHp0eGs0b21CWDFQZkJ2NnNpbGJTM0JQ?=
+ =?utf-8?B?YTRYQTYwZzl1bmIzd1UwbkJwb3F2d2VUQUg4M3pTWkJSaXh5MVdVZmlXSmVl?=
+ =?utf-8?B?MmVzV2RHMk1tTS9zZGQ5cG1SMWxwOXJVZjY1TTd6S21BcjJ4U09yMS84TjlQ?=
+ =?utf-8?B?ZWg5cFFhRGNXaFo0TmNXaFBpd3d6dVZwR2NNM2NYWC9peFBTUzJxZ29jUkNs?=
+ =?utf-8?Q?EaplqcjX2sr1x?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5149.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(8096899003)(7053199007); DIR:OUT;
- SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TC9obnVmblRtMnhkZnk5dGhrU3ZrSTVyMkpScGVaMGZRT0JrOU54ZEpzQzFj?=
- =?utf-8?B?NlNmaXlYQ1FiSTlXRVVCa3g0T0JxVzlNRnpka2lYYTVBc3JKcmdqZm44bFlr?=
- =?utf-8?B?R09VcGhkR1hEeS8zRmI0eU9TL0cyVmZZTUxBRittZGxjV3BKS0IzcVFVSU5t?=
- =?utf-8?B?ZVVwZlBtSmdtdzM5NjEzWnVwNmVZWEtqNzU0ckEzWUI2ckkwQWJNR2Mrcnd2?=
- =?utf-8?B?dTkwUTI5dU51NnBaR0hjKys0YkZMY0FKTGx6Y1FxZjRjSUYxbCs4ekVWUU5n?=
- =?utf-8?B?QTQvS0xmZEE1ZEwzNW1nTVNUUks4bDhVOGJ2QnBYRmVQTXI1Q2JSOGhiUDhH?=
- =?utf-8?B?S1gyRE5ENWRpelFOV1Yzd3A4U3ZBZ2tob0NPa3BsVUxVWkUvR1lLRmhRMmVm?=
- =?utf-8?B?U09CUE9aMmdRYjZ5K2ZHMU9JMHBIc2VLdXdNOFdRZ3J4QXpjOXhKcGc2b05C?=
- =?utf-8?B?b1lmdlRaaFRXZEdZbzNWY0hhRlZJVEFjUWI0bWpJUU1qaEFVVFB2RnhubzRS?=
- =?utf-8?B?VFBINFc2MXF4aDc0THBUcEs4Qkpld2IyS1N1eUo4azFYbnphVGdqSXZNL1dW?=
- =?utf-8?B?SjFvaG5LNnR3S0o3MmlvOGFEaEVhc05RalZ1bThEYXRUbnFBekl5M2JjWXZ4?=
- =?utf-8?B?Tk9zM2JHcDlIa3Z6NlVmbmczeUJXLzlRM1JPeXEwTm5hZkRPU08zelNGOUR2?=
- =?utf-8?B?MllDMlZHV2lxMHF5T0dpMmRjODVaWUtGRi9VQUd0bUNDdnAyZnVqQXg0YXM4?=
- =?utf-8?B?bFVaRnZUYmExdk1kLys5NUhtUm1QeUFXWXdMdWg4Y1k2SFhtZzlnblFJT0NL?=
- =?utf-8?B?QjZaTUkxcUtCYXk3bS81RG83c0tTZ2p5MkNjcUxqQm9KbnhqT2lhUnZEb1NK?=
- =?utf-8?B?MU9jNHU1OUNoTlJzRFk0dFhHM0xuWWZ1N3JUV0Rya2JNMFNlNG90VEY1UmU0?=
- =?utf-8?B?eFNoeVR2VDVnL2NzOGVtbitiTzV3QVZTUW1FNER6a3RYQkFrL2VtMHZxQm81?=
- =?utf-8?B?dTd4RVZzcXpDZW84VWJ1WHpZbisrTWxBb0pKVzk0ZmprdE1GM05aUlBXZEFx?=
- =?utf-8?B?UVp3bGhIMVVtbEFNQXYvdzFmYUo2SjdMQ3FsTXFWRnZNeWVqUmxzaWJyMjlt?=
- =?utf-8?B?RVJ0M1NvSWd3Q2YwNjJ2OGxGb016WE4wMUZYSUFrNkZwU3F4TElYK0dtd2VK?=
- =?utf-8?B?YjMzTVRncFZ2WEpsQWlHZ2RiOWRJb3IvbGU2TDVUT1BuYlIxU0Rod2RwU2V2?=
- =?utf-8?B?LzV3NmRac2ViUk4wM1pSeEFyMEY1WHgwMDRDOHFPWjRPVHpGanBhL2M2SWo0?=
- =?utf-8?B?bGluOXZidEp0MEg1cER1Q0VpanMwZk1qZXhpbUVUeERjSW1WTEZtY1l0TGNo?=
- =?utf-8?B?ajV5QS9rUVo4WjZFTWJDejFPUTVEZzRzSzlzNTA5Q2ppdW1kYlJsa2VLYlZJ?=
- =?utf-8?B?dUw1WnBMODl5NmZjQTBCazE3emVvekZNSm5CRHd1d290WHNTOEZwOVFaQ0V6?=
- =?utf-8?B?ekFEU2VibzV6aUJEZTM4cU4ya0x3bTF0dFo3SXRXTTZMazVYUkpIL2FVTXRF?=
- =?utf-8?B?cEJBdTdudk1sYjdHOFBzeWpLTkxsRUJUeTBqbkJBZkU5WEIwMi9hSXdpVDRC?=
- =?utf-8?B?Wmg5SXlESEk5WlU0RkRKUmlCb0s0cS9xV2NlUjhpOTBUUjRnMWdHa0tKOHZR?=
- =?utf-8?B?NEd5Vks5M2Y1MFdjN2lwaHJ2WEx1SkE0TUlKTDlEWVdlNkJ1YTNCOE1hZmly?=
- =?utf-8?B?ZGIyZjhBaHp2Vmtrd0RyQSsvT2tTajRyaXhZdEN0Q29rY3A0RG9kR0lNTHJY?=
- =?utf-8?B?R0dxVjM0YWhnQk9NdkEzTHJJR0pVSFFaRFovNmNydm1Gdkp5WE9heXRVZW9q?=
- =?utf-8?B?a2RTOWVLR3BqNHBoMUx6WFljOGdGZSs3NGxhWVpIK1oyN0wxMlhPMmloNEN2?=
- =?utf-8?B?WmtkVm9FdDVjVUxUMnR4YjRwK3ZpbUEvMEJmRTU4QTBnUWNkLzZ5Y05ITzMz?=
- =?utf-8?B?VTZ1Y1lWN3ErOWx4OWRTekdNZHJNSDF2VmRtSlVyY2JvWVFKYzZFbG1uaS93?=
- =?utf-8?B?Y1lFL3E2QnNVS2FGSnJ5WlF4Rkw5R280WE9NSEVYMEFESytRWHVuNUZTYjcr?=
- =?utf-8?Q?lLbFm/EmReQIlpLQcs+ZqrFxe?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZjE5MHdrRitRSGZ1V05UZENYMTQvNHJJVjYxV0R0VWRWVTlVVGFqQjMxaGx5?=
+ =?utf-8?B?aUVzb3ZuZmhyaFZaSDdHM3JnM0d5ZUNJS3R2ZWloMmU1MEUvUEk4M1UrTng5?=
+ =?utf-8?B?dEZ2N1hnLzZvNkVKb25DRERDTFg5T0R2d01tdlVhTTluK25vVitLaGFDejdN?=
+ =?utf-8?B?MW4yR2hQRFJ2NlRZRXRWUUpCaG5GQ3dLeWFubTRTUnJZbVdPWWliRkpZcVkw?=
+ =?utf-8?B?UWFTQkcwc0x0WUc1SkU5Y1dXbDlYbnk2a0dQZUJiUWV3UnhOZE5KQk5oQ2ph?=
+ =?utf-8?B?WXBndThpWC82ZWREK0p2aTlUK3ljdHdDZDA2L00xS2xtNkxHSGJoSVhUTmhL?=
+ =?utf-8?B?R2dwUm9oanRSaXlxb0ZxZzA1Z2xxTTErQ0Y2V0VIeGordHRHT01weUIxNHRI?=
+ =?utf-8?B?T1RCMm9Oa3BUY0RXZ3RBRjIwekkyam85WkpqdW1wV2RrVytGaDRyOTNHQzVa?=
+ =?utf-8?B?d3ZCMEE1bkpoRFFQZWVwUFNuY3NmbDZGbFl0TDBhZlp5cDlRSmcra3VxSk1F?=
+ =?utf-8?B?VDE2V21VZ29YVHprQmE0OG5ZK1dlVUlwVVdIZU9iNnBDQnN2Y2FBRFhRaFFk?=
+ =?utf-8?B?KzFneWp5cTduRERmSnk3NFpKa0dlclg5TVpOSWcrTlhNY1BRWngxazBCZ2VJ?=
+ =?utf-8?B?N3ltZTNzRkJxY0o3VlFUc3ZPQmI3NjdadHF3aGNtbEFCRDFWZE0rYkdiamFh?=
+ =?utf-8?B?bmtKOXdCZ1RPM0ZOTWppeXNLQjdRcXJoS3dZQ0hpWmNZakZGdjVyUExaS1dt?=
+ =?utf-8?B?U0c3Y0gvVmcza0xCRno4cUdibVFybDMrMW05cmF0ZkE4K1k0MEwxeU9LQ29u?=
+ =?utf-8?B?RUdVY3Q0YVVKdWo0V1VjM3R4VWorT241MDVZZzgzTjlsRXhPUlVxRXpzUjhv?=
+ =?utf-8?B?L3ZUVTRkdHBqU2ovbEliN3JwRUpnSW9HTnNEMzNjRUsxd0p1d2pzcUZhZFlG?=
+ =?utf-8?B?MzJQQnB4NERYczZMait4dGFiaUR0MitCUlZTSDRQV0tvTVRBUHVCT1NQaUNa?=
+ =?utf-8?B?aGdmWXJ6eVBRakRxbEd1anZmSXRKcUZuY2FqNFo4K240eldsbXRTQUU5dGNF?=
+ =?utf-8?B?T0xnai80MVdXUjdmNGtQdG1aa3FGYWxmVmxMWHZPSmdLOXlLSUZSeEpzRTNn?=
+ =?utf-8?B?WFVidDlzL3AyWXJLMW5YeCtlRXNpbmpGelcwcVdydkRCNnpiUzM5QkwxN3FY?=
+ =?utf-8?B?cU1pQ3dqalo1NWd6bzBPdkZCbHpyekhka2ZvTnhEL3k2eTB2Q3hLcXRZaklN?=
+ =?utf-8?B?a244NGR0Z3JlWTdhU09BTi85bWM0TEZjaVNpRGZOY0JqK1dMb0tSWVlaNTUz?=
+ =?utf-8?B?YUVaUHZ3SS9FMFVmN2VMdXl2TCtUZWJSeVJFS2ZOQW02ai81UUNYZS8xbVFO?=
+ =?utf-8?B?U0FYdnRZNk1PdmtPSCtYNUVWeU9ZV01iRXNJeXJJVHBGYXAyd1BKK2VrQkkx?=
+ =?utf-8?B?OW1oNGh0K3RhZ1Z1b0V6ektvTkIxRFlMcExYbzJQekc5Z1RkZjJ0U1Jyd1hq?=
+ =?utf-8?B?UUhlUW14MkpFVjA0R2hqTnRITXdQWHEwbTZ6b0d2TmZnV1g3cWpHVWxPZE5J?=
+ =?utf-8?B?R25jYngzV05ZcUxoSk4zT295K1NoaTVxR2hUV3dEcG1jS3d5d1F2d3FqcndO?=
+ =?utf-8?B?NFFHMVZPN3FiTy9qVDV3Z2FXL09scUZsZ3I4ZUpHQ2lzSWtra1NoMFVmMU15?=
+ =?utf-8?B?cFh0RFNQeXFGaVB1alRpQ2dsZzkxb0Q0eURtYW83NjVrTzdDN2p4TWRWOHJt?=
+ =?utf-8?B?WGdxeVVtSHNqVUJ2WTlWK1hSUVQxNjVySTlyTkR4ZVoxTktCMS92bjlRTXBD?=
+ =?utf-8?B?bHB4NTB4Q3J5Q1YzVjRIbUhtVmx5MXBQSFp0RmFYWXBhMW45V1luOHJRdFpR?=
+ =?utf-8?B?bGg3eE1TYkovSXplQWp3cWtmRlhlcm00QmVuWWZmeW9zWFA4THhSS0dQT292?=
+ =?utf-8?B?bmRmYWNFTDQ4WXZRNzkwaTR1MG1KY0hqa0x0cUZ4VjhZZ0NTeFBoR3ExWlZT?=
+ =?utf-8?B?TFUrQzBNM1FOUEh4QktOOSs3Qm1WbEgrZC8wTmlGRXRQTjFVWmY4dE1VVFJj?=
+ =?utf-8?B?TndUTlB1UzNxV2dtM21scWZBMTFVOEZDK2lwMHZzbGNlZHFyK0ROaXVxdUtM?=
+ =?utf-8?Q?8/PJPSVRz7rTQwSNZlgGdshEC?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 97f67625-4cfd-4f87-0294-08dd4a25c6e1
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5149.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 20778cc3-4dab-47fd-7bf5-08dd4a25ce45
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Feb 2025 22:53:46.9155 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Feb 2025 22:53:59.3952 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rNxOplVM1UQBbUbmMXzOvXAxMoDs0rW9pUCSruis0aned6uetrOgoRI4uByfvesL
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7343
+X-MS-Exchange-CrossTenant-UserPrincipalName: V866Buh5h3L9UDKmuKTkUnzksgnq1yRsQp7kjzPNI9qrSWEsy0oqRklDHc6Wuge4o9PnpPKHbRC8+19XONgqXQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7736
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -166,226 +166,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-<html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 2025-02-10 02:51, Deng, Emily wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:PH0PR12MB54174DCAA0C2AF44C320C1098FF22@PH0PR12MB5417.namprd12.prod.outlook.com">
-      
-      <meta name="Generator" content="Microsoft Word 15 (filtered
-        medium)">
-      <style>@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}@font-face
-	{font-family:DengXian;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}@font-face
-	{font-family:Aptos;}@font-face
-	{font-family:Consolas;
-	panose-1:2 11 6 9 2 2 4 3 2 4;}@font-face
-	{font-family:"\@DengXian";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	font-size:12.0pt;
-	font-family:"Aptos",sans-serif;}a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:blue;
-	text-decoration:underline;}pre
-	{mso-style-priority:99;
-	mso-style-link:"HTML Preformatted Char";
-	margin:0in;
-	font-size:10.0pt;
-	font-family:"Courier New";}span.HTMLPreformattedChar
-	{mso-style-name:"HTML Preformatted Char";
-	mso-style-priority:99;
-	mso-style-link:"HTML Preformatted";
-	font-family:Consolas;}span.EmailStyle21
-	{mso-style-type:personal-reply;
-	font-family:"Arial",sans-serif;
-	color:windowtext;}.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;
-	mso-ligatures:none;}div.WordSection1
-	{page:WordSection1;}</style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext="edit" spidmax="1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext="edit">
-<o:idmap v:ext="edit" data="1" />
-</o:shapelayout></xml><![endif]-->
-      <p style="font-family:Calibri;font-size:10pt;color:#0000FF;margin:5pt;font-style:normal;font-weight:normal;text-decoration:none;" align="Left">
-        [AMD Official Use Only - AMD Internal Distribution Only]<br>
-      </p>
-      <br>
-      <div>
-        <p style="font-family:Calibri;font-size:10pt;color:#0000FF;margin:5pt;font-style:normal;font-weight:normal;text-decoration:none;" align="Left">
-          [AMD Official Use Only - AMD Internal Distribution Only]<br>
-        </p>
-        <br>
-        <div>
-          <div class="WordSection1">
-            <p class="MsoNormal"><span style="font-size:11.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
-            <p class="MsoNormal"><span style="font-size:11.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
-            <div style="border:none;border-left:solid blue
-              1.5pt;padding:0in 0in 0in 4.0pt">
-              <div>
-                <div style="border:none;border-top:solid #E1E1E1
-                  1.0pt;padding:3.0pt 0in 0in 0in">
-                  <p class="MsoNormal"><b><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif">From:</span></b><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif">
-                      Chen, Xiaogang <a class="moz-txt-link-rfc2396E" href="mailto:Xiaogang.Chen@amd.com">&lt;Xiaogang.Chen@amd.com&gt;</a>
-                      <br>
-                      <b>Sent:</b> Monday, February 10, 2025 10:18 AM<br>
-                      <b>To:</b> Deng, Emily <a class="moz-txt-link-rfc2396E" href="mailto:Emily.Deng@amd.com">&lt;Emily.Deng@amd.com&gt;</a>;
-                      <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a><br>
-                      <b>Subject:</b> Re: [PATCH] drm/amdkfd: Fix the
-                      deadlock in svm_range_restore_work<o:p></o:p></span></p>
-                </div>
-              </div>
-              <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
-              <p><o:p>&nbsp;</o:p></p>
-              <div>
-                <p class="MsoNormal">On 2/7/2025 9:02 PM, Deng, Emily
-                  wrote:<o:p></o:p></p>
-              </div>
-              <blockquote style="margin-top:5.0pt;margin-bottom:5.0pt">
-                <pre>[AMD Official Use Only - AMD Internal Distribution Only]<o:p></o:p></pre>
-                <pre><o:p>&nbsp;</o:p></pre>
-                <pre>[AMD Official Use Only - AMD Internal Distribution Only]<o:p></o:p></pre>
-                <pre><o:p>&nbsp;</o:p></pre>
-                <pre>Ping.......<o:p></o:p></pre>
-                <pre><o:p>&nbsp;</o:p></pre>
-                <pre>Emily Deng<o:p></o:p></pre>
-                <pre>Best Wishes<o:p></o:p></pre>
-                <pre><o:p>&nbsp;</o:p></pre>
-                <pre><o:p>&nbsp;</o:p></pre>
-                <pre><o:p>&nbsp;</o:p></pre>
-                <blockquote style="margin-top:5.0pt;margin-bottom:5.0pt">
-                  <pre>-----Original Message-----<o:p></o:p></pre>
-                  <pre>From: Emily Deng <a href="mailto:Emily.Deng@amd.com" moz-do-not-send="true">&lt;Emily.Deng@amd.com&gt;</a><o:p></o:p></pre>
-                  <pre>Sent: Friday, February 7, 2025 6:28 PM<o:p></o:p></pre>
-                  <pre>To: <a href="mailto:amd-gfx@lists.freedesktop.org" moz-do-not-send="true" class="moz-txt-link-freetext">amd-gfx@lists.freedesktop.org</a><o:p></o:p></pre>
-                  <pre>Cc: Deng, Emily <a href="mailto:Emily.Deng@amd.com" moz-do-not-send="true">&lt;Emily.Deng@amd.com&gt;</a><o:p></o:p></pre>
-                  <pre>Subject: [PATCH] drm/amdkfd: Fix the deadlock in svm_range_restore_work<o:p></o:p></pre>
-                  <pre><o:p>&nbsp;</o:p></pre>
-                  <pre>It will hit deadlock in svm_range_restore_work ramdonly.<o:p></o:p></pre>
-                  <pre>Detail as below:<o:p></o:p></pre>
-                  <pre>1.svm_range_restore_work<o:p></o:p></pre>
-                  <pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&gt;svm_range_list_lock_and_flush_work<o:p></o:p></pre>
-                  <pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&gt;mmap_write_lock<o:p></o:p></pre>
-                  <pre>2.svm_range_restore_work<o:p></o:p></pre>
-                  <pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&gt;svm_range_validate_and_map<o:p></o:p></pre>
-                  <pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&gt;amdgpu_vm_update_range<o:p></o:p></pre>
-                  <pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&gt;amdgpu_vm_ptes_update<o:p></o:p></pre>
-                  <pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&gt;amdgpu_vm_pt_alloc<o:p></o:p></pre>
-                  <pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&gt;svm_range_evict_svm_bo_worker<o:p></o:p></pre>
-                </blockquote>
-              </blockquote>
-              <p>svm_range_evict_svm_bo_worker is a function running by
-                a kernel task from default system_wq. It is not the task
-                that runs svm_range_restore_work which is from
-                system_freezable_wq. The second task may need wait the
-                first task to release mmap_write_lock, but there is no
-                cycle lock dependency.<o:p></o:p></p>
-              <p>Can you explain more how deadlock happened? If a
-                deadlock exists between two tasks there are should be at
-                least two locks used by both tasks.<o:p></o:p></p>
-              <p>Regards<o:p></o:p></p>
-              <p style="margin-left:11.0pt">Xiaogang <o:p></o:p></p>
-              <p style="margin-left:5.5pt">In Step 2, during
-                the&nbsp;amdgpu_vm_pt_alloc&nbsp;process, the system encounters
-                insufficient memory and triggers an eviction. This
-                initiates the&nbsp;svm_range_evict_svm_bo_worker&nbsp;task, and
-                waits for the&nbsp;eviction_fence&nbsp;to be signaled. However,
-                the&nbsp;svm_range_evict_svm_bo_worker&nbsp;cannot acquire
-                the&nbsp;mmap_read_lock(mm), preventing it from signaling
-                the&nbsp;eviction_fence. As a
-                result,&nbsp;amdgpu_vm_pt_alloc&nbsp;remains incomplete and cannot
-                release the&nbsp;mmap_write_lock(mm).
-                <o:p></o:p></p>
-              <p style="margin-left:5.5pt">Which means
-                the&nbsp;svm_range_restore_work&nbsp;task holds
-                the&nbsp;mmap_write_lock(mm)&nbsp;and is stuck waiting for
-                the&nbsp;eviction_fence&nbsp;to be signaled
-                by&nbsp;svm_range_evict_svm_bo_worker.
-                However,&nbsp;svm_range_evict_svm_bo_worker&nbsp;is itself
-                blocked, unable to acquire the&nbsp;mmap_read_lock(mm). This
-                creates a deadlock.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </blockquote>
-    <p>The deadlock situation should not happen as
-      svm_range_restore_work is only used for xnack off case, there is
-      no VRAM over commitment with KFD amdgpu_amdkfd_reserve_mem_limit.
-      We reserved VRAM ESTIMATE_PT_SIZE for page table allocation to
-      prevent this situation.</p>
-    <p>Regards,</p>
-    <p>Philip<br>
-    </p>
-    <blockquote type="cite" cite="mid:PH0PR12MB54174DCAA0C2AF44C320C1098FF22@PH0PR12MB5417.namprd12.prod.outlook.com">
-      <div>
-        <div>
-          <div class="WordSection1">
-            <div style="border:none;border-left:solid blue
-              1.5pt;padding:0in 0in 0in 4.0pt">
-              <p style="margin-left:5.5pt"><o:p></o:p></p>
-              <p class="MsoNormal"><span style="font-size:11.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
-              <p class="MsoNormal"><span style="font-size:11.0pt;mso-ligatures:standardcontextual">Emily
-                  Deng<o:p></o:p></span></p>
-              <p class="MsoNormal"><span style="font-size:11.0pt;mso-ligatures:standardcontextual">Best
-                  Wishes<o:p></o:p></span></p>
-            </div>
-            <p class="MsoNormal"><span style="font-size:11.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
-            <p><span style="font-size:11.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
-            <blockquote style="margin-top:5.0pt;margin-bottom:5.0pt">
-              <blockquote style="margin-top:5.0pt;margin-bottom:5.0pt">
-                <pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&gt;mmap_read_lock(deadlock here, because already get mmap_write_lock)<o:p></o:p></pre>
-                <pre><o:p>&nbsp;</o:p></pre>
-                <pre>How to fix?<o:p></o:p></pre>
-                <pre>Downgrade the write lock to read lock.<o:p></o:p></pre>
-                <pre><o:p>&nbsp;</o:p></pre>
-                <pre>Signed-off-by: Emily Deng <a href="mailto:Emily.Deng@amd.com" moz-do-not-send="true">&lt;Emily.Deng@amd.com&gt;</a><o:p></o:p></pre>
-                <pre>---<o:p></o:p></pre>
-                <pre>drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 3 ++-<o:p></o:p></pre>
-                <pre>1 file changed, 2 insertions(+), 1 deletion(-)<o:p></o:p></pre>
-                <pre><o:p>&nbsp;</o:p></pre>
-                <pre>diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c<o:p></o:p></pre>
-                <pre>b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c<o:p></o:p></pre>
-                <pre>index bd3e20d981e0..c907e2de3dde 100644<o:p></o:p></pre>
-                <pre>--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c<o:p></o:p></pre>
-                <pre>+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c<o:p></o:p></pre>
-                <pre>@@ -1841,6 +1841,7 @@ static void svm_range_restore_work(struct work_struct<o:p></o:p></pre>
-                <pre>*work)<o:p></o:p></pre>
-                <pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;process_info-&gt;lock);<o:p></o:p></pre>
-                <pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; svm_range_list_lock_and_flush_work(svms, mm);<o:p></o:p></pre>
-                <pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;svms-&gt;lock);<o:p></o:p></pre>
-                <pre>+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mmap_write_downgrade(mm);<o:p></o:p></pre>
-                <pre><o:p>&nbsp;</o:p></pre>
-                <pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; evicted_ranges = atomic_read(&amp;svms-&gt;evicted_ranges);<o:p></o:p></pre>
-                <pre><o:p>&nbsp;</o:p></pre>
-                <pre>@@ -1890,7 +1891,7 @@ static void svm_range_restore_work(struct work_struct<o:p></o:p></pre>
-                <pre>*work)<o:p></o:p></pre>
-                <pre><o:p>&nbsp;</o:p></pre>
-                <pre>out_reschedule:<o:p></o:p></pre>
-                <pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;svms-&gt;lock);<o:p></o:p></pre>
-                <pre>-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mmap_write_unlock(mm);<o:p></o:p></pre>
-                <pre>+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mmap_read_unlock(mm);<o:p></o:p></pre>
-                <pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;process_info-&gt;lock);<o:p></o:p></pre>
-                <pre><o:p>&nbsp;</o:p></pre>
-                <pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* If validation failed, reschedule another attempt */<o:p></o:p></pre>
-                <pre>--<o:p></o:p></pre>
-                <pre>2.34.1<o:p></o:p></pre>
-              </blockquote>
-              <pre><o:p>&nbsp;</o:p></pre>
-            </blockquote>
-          </div>
-        </div>
-      </div>
-    </blockquote>
-  </body>
-</html>
+
+On 2/10/25 15:18, Mario Limonciello wrote:
+> On 2/9/2025 16:50, Melissa Wen wrote:
+>> When switching to drm_edid, we slightly changed how to get edid by
+>> removing the possibility of getting them from dc_link when in aux
+>> transaction mode. As MST doesn't initialize the connector with
+>> `drm_connector_init_with_ddc()`, restore the original behavior to avoid
+>> functional changes.
+>>
+>> Fixes: 48edb2a4256e ("drm/amd/display: switch amdgpu_dm_connector to 
+>> use struct drm_edid")
+>> Signed-off-by: Melissa Wen <mwen@igalia.com>
+>> ---
+>>
+>>
+>> Hi,
+>>
+>> So far, there is no reports about an issue related to this but I noticed
+>> this potential functional change when investigating the previous
+>> freesync problem. I'm not 100% clear if MST takes this path without
+>> initializating connector->ddc, but I propose here to restore the
+>> original behavior to avoid regressions.
+>>
+>> Melissa
+> 
+> I think this looks reasonable.
+> 
+> Charlie,
+> 
+> Can this get included in this week's promotion tests?
+
+I just shared this patch to this week's promoter, Roman, and this patch 
+will be included in promotion test.
+
+> 
+> Thanks,
+> 
+>>
+>>
+>>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c   | 17 +++++++++++++++--
+>>   1 file changed, 15 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/ 
+>> drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> index a8421c07b160..0cd22a6686a3 100644
+>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+>> @@ -7269,8 +7269,14 @@ static void 
+>> amdgpu_dm_connector_funcs_force(struct drm_connector *connector)
+>>       struct dc_link *dc_link = aconnector->dc_link;
+>>       struct dc_sink *dc_em_sink = aconnector->dc_em_sink;
+>>       const struct drm_edid *drm_edid;
+>> +    struct i2c_adapter *ddc;
+>> -    drm_edid = drm_edid_read(connector);
+>> +    if (dc_link->aux_mode)
+>> +        ddc = &aconnector->dm_dp_aux.aux.ddc;
+>> +    else
+>> +        ddc = &aconnector->i2c->base;
+>> +
+>> +    drm_edid = drm_edid_read_ddc(connector, ddc);
+>>       drm_edid_connector_update(connector, drm_edid);
+>>       if (!drm_edid) {
+>>           DRM_ERROR("No EDID found on connector: %s.\n", connector- 
+>> >name);
+>> @@ -7315,14 +7321,21 @@ static int get_modes(struct drm_connector 
+>> *connector)
+>>   static void create_eml_sink(struct amdgpu_dm_connector *aconnector)
+>>   {
+>>       struct drm_connector *connector = &aconnector->base;
+>> +    struct dc_link *dc_link = aconnector->dc_link;
+>>       struct dc_sink_init_data init_params = {
+>>               .link = aconnector->dc_link,
+>>               .sink_signal = SIGNAL_TYPE_VIRTUAL
+>>       };
+>>       const struct drm_edid *drm_edid;
+>>       const struct edid *edid;
+>> +    struct i2c_adapter *ddc;
+>> -    drm_edid = drm_edid_read(connector);
+>> +    if (dc_link->aux_mode)
+>> +        ddc = &aconnector->dm_dp_aux.aux.ddc;
+>> +    else
+>> +        ddc = &aconnector->i2c->base;
+>> +
+>> +    drm_edid = drm_edid_read_ddc(connector, ddc);
+>>       drm_edid_connector_update(connector, drm_edid);
+>>       if (!drm_edid) {
+>>           DRM_ERROR("No EDID found on connector: %s.\n", connector- 
+>> >name);
+> 
+
