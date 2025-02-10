@@ -4,66 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5C0CC02198
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Feb 2025 21:01:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2EE4C0219D
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Feb 2025 21:17:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F9BA10E3C3;
-	Mon, 10 Feb 2025 21:01:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 618FF10E3C6;
+	Mon, 10 Feb 2025 21:17:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HsIRGYZQ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FdEw46KN";
 	dkim-atps=neutral
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
- [209.85.216.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DBB9B10E3C3
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Feb 2025 21:01:43 +0000 (UTC)
-Received: by mail-pj1-f46.google.com with SMTP id
- 98e67ed59e1d1-2fa0f70bfecso1098475a91.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Feb 2025 13:01:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1739221303; x=1739826103; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=DrxDhaMmD5KHDNiCU5os6ZvT3z8GUbjaXdloQGTdyqI=;
- b=HsIRGYZQcNUuTMyj7djICZC8omkH7ULhCncXKaq7toqrR1H+bQ0ku6HOh2mPGBf3QY
- fk4F4VsoOU7SuZcVYbkRzokhF2YWEYFFjRUC0sjo/HVNHO2KHlqu3AvlSNU+/seFbB9e
- YVLj23cM7Xjq7X/a1yIcmE88quWIRyPzGvb3FfKvQ5msSjn+Xl1qW7aDXkp31+nzLPRN
- BEtXjAew+NUk0oFqk5KVDscl3JTGLsml5jGR5sgo/KU2fRh0fs29f9yvZ0JRpSG4ktIL
- zBjQK6PEE2z2RzVXySqHarAtXmKfSmS90jODXWxmcF/iGwrkBZrLPdEApmSAuzcmub4g
- iIPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739221303; x=1739826103;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=DrxDhaMmD5KHDNiCU5os6ZvT3z8GUbjaXdloQGTdyqI=;
- b=uYY8QM3KHntsevpN+i7idNe/WFYACBWwBM5+Aj9zKZLeJl/4BmlulBEkQZEiW5zlzl
- 1lZ9lCZv6DJ1kW3yEuSf+RCycF5555Uf1GbWNEf3S0ei7IIUhx59JyPnE3GPWuE77ewX
- CW37yXzoaiAQPL0oqLNSLzEEigqG2kgk6wotda6SbetRIiilv35e/Ip4cZtp4UA4EhjV
- CwbfuCL5y1chd4RhNva3/UtPGAzrU8hxRoQm15aACzlS07hJSIvvuW7Yw4YbE8uCqUts
- NALmbg27EcK7eoc+RpLB7yUIyruY5e3hXbRnlyW1aYU+Nz5kAbaiEFQYO75OiPnV6Yzb
- wkwg==
-X-Gm-Message-State: AOJu0Yyl+6opGXLXRraDqDK49OVYena2va+U5a4xlwCG1DXennw6/eCP
- qD0QEQTjQn8hKbT7MJj6fYhn33WDE6F6NGiAVmPPz5mIzMlbfDg0eBA5lgYF9HN2ndM3fgsrPsL
- HYPrmkZrwXI2UIzTz/fjZ+YBywqo=
-X-Gm-Gg: ASbGnctBRh4kq3PBTvRuqFhKPF0ybWjFnjiblZK+NCog5uhehKO81PdYgNX2LgGpnYh
- VGMEvuaHNHpNii0iw1zoW/ZguMPE+yurjCARtLsU7lRbHfjG+NdXo+/6MIysgtxBV42um5BEb
-X-Google-Smtp-Source: AGHT+IEmHKmLOm/ZzFDSLVrQC+HaPk4mh2W1XEfQK9ABXJNSA9II5XhYsC+3zeq57JqEF7PbdAiTFeRkWXv0wB7jWQ8=
-X-Received: by 2002:a17:90b:38c3:b0:2f4:f7f8:f70b with SMTP id
- 98e67ed59e1d1-2fa24544c36mr9647554a91.5.1739221303161; Mon, 10 Feb 2025
- 13:01:43 -0800 (PST)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5EE2B10E3C6
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 Feb 2025 21:17:45 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id BFBD4A41962;
+ Mon, 10 Feb 2025 21:15:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66829C4CED1;
+ Mon, 10 Feb 2025 21:17:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1739222264;
+ bh=0WiS2iJ8X0tprDHWqPr2+SnJmVW5FmHuLVuuvUyOo68=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=FdEw46KNjBNPxP4WKIGIlv1VwUhixUaJWyNSb0OiBDv0hRuJG8YtB3ARqv1QpYV2V
+ 8fiD5ycbF5PolY3kCsGKd1Q6ozdyBIIYZEFYc0KuY7h6MOJt+VyXRemZM/tLmUSi+V
+ dzL3fMSJwr69ncsS/dopdB2SCRhX62W186B0CL2dgjGhljNcGhQGi6NP7/VoV0GhAW
+ dvA2DonWUlJP1GtcrEg3w4qvVVMj9Mk+fWasw2mHKA4qFn3R+gIFiMijhQpt63e0SS
+ 3xaBIlQgBi3dLBnPFda9I7wFoAfFoj3RQy6zUGi7TFLbbboYoeOJUOp/4cRF6+l7D8
+ p2gmyq4MwdfGA==
+Date: Mon, 10 Feb 2025 13:17:41 -0800
+From: Josh Poimboeuf <jpoimboe@kernel.org>
+To: Tiezhu Yang <yangtiezhu@loongson.cn>
+Cc: Huacai Chen <chenhuacai@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>, loongarch@lists.linux.dev,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 4/9] objtool: Handle unreachable entry of rodata
+Message-ID: <20250210211741.pfxmdj4ssudk3346@jpoimboe>
+References: <20241217010905.13054-1-yangtiezhu@loongson.cn>
+ <20241217010905.13054-5-yangtiezhu@loongson.cn>
 MIME-Version: 1.0
-References: <20250205184055.104040-1-shaoyun.liu@amd.com>
-In-Reply-To: <20250205184055.104040-1-shaoyun.liu@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 10 Feb 2025 16:01:30 -0500
-X-Gm-Features: AWEUYZleBAFzch61xLUIdBsMD7NVK6B6X6qGn_UHd_UGiSncAz1N3pTqW0R8tQU
-Message-ID: <CADnq5_Nrr=6LENgWUD8i5Q9fe=cNP34LNxsZUXSF4ZuM56v5Cw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/include : Update MES v12 API for fence update
-To: Shaoyun Liu <shaoyun.liu@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20241217010905.13054-5-yangtiezhu@loongson.cn>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,83 +58,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Feb 5, 2025 at 1:52=E2=80=AFPM Shaoyun Liu <shaoyun.liu@amd.com> wr=
-ote:
->
-> MES fence_value will be updated in fence_addr if API success,
-> otherwise upper 32 bit will be used to indicate error code.
-> In any case, MES will trigger an EOP interrupt with 0xb1 as
-> context id in the interrupt cookie
->
-> Signed-off-by: Shaoyun Liu <shaoyun.liu@amd.com>
-
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-
+On Tue, Dec 17, 2024 at 09:09:00AM +0800, Tiezhu Yang wrote:
+> When compiling with Clang on LoongArch, there exists unreachable entry of
+> rodata which points to a position after the function return instruction,
+> this is generated by compiler to fill the non-existent switch case, just
+> skip the entry when parsing the relocation section of rodata.
+> 
+> Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
 > ---
->  drivers/gpu/drm/amd/include/mes_v12_api_def.h | 40 ++++++++++++++++++-
->  1 file changed, 39 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/include/mes_v12_api_def.h b/drivers/gpu/=
-drm/amd/include/mes_v12_api_def.h
-> index 1938150a1943..fb918668ddae 100644
-> --- a/drivers/gpu/drm/amd/include/mes_v12_api_def.h
-> +++ b/drivers/gpu/drm/amd/include/mes_v12_api_def.h
-> @@ -105,6 +105,43 @@ struct MES_API_STATUS {
->         uint64_t api_completion_fence_value;
->  };
->
-> +/*
-> + * MES will set api_completion_fence_value in api_completion_fence_addr
-> + * when it can successflly process the API. MES will also trigger
-> + * following interrupt when it finish process the API no matter success
-> + * or failed.
-> + *     Interrupt source id 181 (EOP) with context ID (DW 6 in the int
-> + *     cookie) set to 0xb1 and context type set to 8. Driver side need
-> + *     to enable TIME_STAMP_INT_ENABLE in CPC_INT_CNTL for MES pipe to
-> + *     catch this interrupt.
-> + *     Driver side also need to set enable_mes_fence_int =3D 1 in
-> + *     set_HW_resource package to enable this fence interrupt.
-> + * when the API process failed.
-> + *     lowre 32 bits set to 0.
-> + *     higher 32 bits set as follows (bit shift within high 32)
-> + *         bit 0  -  7    API specific error code.
-> + *         bit 8  - 15    API OPCODE.
-> + *         bit 16 - 23    MISC OPCODE if any
-> + *         bit 24 - 30    ERROR category (API_ERROR_XXX)
-> + *         bit 31         Set to 1 to indicate error status
-> + *
-> + */
-> +enum { MES_SCH_ERROR_CODE_HEADER_SHIFT_12 =3D 8 };
-> +enum { MES_SCH_ERROR_CODE_MISC_OP_SHIFT_12 =3D 16 };
-> +enum { MES_ERROR_CATEGORY_SHIFT_12 =3D 24 };
-> +enum { MES_API_STATUS_ERROR_SHIFT_12 =3D 31 };
-> +
-> +enum MES_ERROR_CATEGORY_CODE_12 {
-> +       MES_ERROR_API                =3D 1,
-> +       MES_ERROR_SCHEDULING         =3D 2,
-> +       MES_ERROR_UNKNOWN            =3D 3,
-> +};
-> +
-> +#define MES_ERR_CODE(api_err, opcode, misc_op, category) \
-> +                       ((uint64) (api_err | opcode << MES_SCH_ERROR_CODE=
-_HEADER_SHIFT_12 | \
-> +                       misc_op << MES_SCH_ERROR_CODE_MISC_OP_SHIFT_12 | =
-\
-> +                       category << MES_ERROR_CATEGORY_SHIFT_12 | \
-> +                       1 << MES_API_STATUS_ERROR_SHIFT_12) << 32)
->
->  enum { MAX_COMPUTE_PIPES =3D 8 };
->  enum { MAX_GFX_PIPES    =3D 2 };
-> @@ -248,7 +285,8 @@ union MESAPI_SET_HW_RESOURCES {
->                                 uint32_t enable_mes_sch_stb_log : 1;
->                                 uint32_t limit_single_process : 1;
->                                 uint32_t unmapped_doorbell_handling: 2;
-> -                               uint32_t reserved : 11;
-> +                               uint32_t enable_mes_fence_int: 1;
-> +                               uint32_t reserved : 10;
->                         };
->                         uint32_t uint32_all;
->                 };
-> --
-> 2.34.1
->
+>  tools/objtool/check.c | 7 ++++---
+>  1 file changed, 4 insertions(+), 3 deletions(-)
+> 
+> diff --git a/tools/objtool/check.c b/tools/objtool/check.c
+> index cff7416b207e..654cffcf9512 100644
+> --- a/tools/objtool/check.c
+> +++ b/tools/objtool/check.c
+> @@ -1986,9 +1986,10 @@ static int add_jump_table(struct objtool_file *file, struct instruction *insn,
+>  		if (!dest_insn)
+>  			break;
+>  
+> -		/* Make sure the destination is in the same function: */
+> -		if (!insn_func(dest_insn) || insn_func(dest_insn)->pfunc != pfunc)
+> -			break;
+> +		if (!insn_func(dest_insn) || insn_func(dest_insn)->pfunc != pfunc) {
+> +			prev_offset = reloc_offset(reloc);
+> +			continue;
+> +		}
+
+This patch can be dropped, this is already fixed in the -tip tree:
+
+  3724062ca2b1 ("objtool: Ignore dangling jump table entries")
+
+-- 
+Josh
