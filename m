@@ -4,153 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C95FC0219D
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Feb 2025 10:21:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54BFFC0219B
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Feb 2025 10:34:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9CB910E46C;
-	Tue, 11 Feb 2025 10:21:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 83E4810E1DE;
+	Tue, 11 Feb 2025 10:34:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="m8Toefk1";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="M7lGWmfj";
 	dkim-atps=neutral
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2081.outbound.protection.outlook.com [40.107.96.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 614A210E46C
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Feb 2025 10:21:38 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=b6gGf0s1qd9I5CKCnEKOqBBxI13gvhMK57X1uT88di7/Fz1XEspUZYkmU5ovtAuikcxOnh2R5B7Y/CNJ0zFHaFMfSP/Ww6Z1vUFkmuJ/CxngtLg/qfaUG+QC1sElXYUYNyVnkdAYyS0phhoKmhFSmSRdh3wjVQxmdNmquW/i54McPaJHx9/2J+sNnurAW/dwdJTxsE7XoEOjW3+CQQ032gjXwWtjaETi57HHpMuF7KxrfZmHscud8TX9+uM847CBvGbHelOCzr12ltt7xUVNmcpqUo/QFrz+GBNM626gQgz+IrFMFcToYRN/NQ32Hl6b70T/DuCiHolR7+Lgy/dIzw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tAETWf169L4s6SQBp/3L9k9N7GYmc6Utk6zqplvGZLg=;
- b=MC4tVJwgDaUeOGcTMsFGCRHkWfezZ4JF/5o0R6MNxLY+KwXH2S/ieXUDtzEF6YAeSY9pGydsfc8OlGsXS4Nypbk4BFChdf5ArcghuEUPwNJa3S6+5JkEXYJzfUT4Am8LlsqKCl6ede5HXWRcvEeVRttOMoUBaQgB8jD1XUb16uxl3nljWLQ9ud4/ikv4s9AVzj4YCqkgu7enbdVGfgghWCBgGAltXTYfeNCRbtWTkHj5vZVvxWmAbLhgCrVcDQ2ESAi6rgMS0+X4xX0mXp+sCgufoh1cEp7yYNEOa2s93OI7inOn7PwI7UJb3M4In9vo+jOw9TrgdSybaZlkoHD+Tg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tAETWf169L4s6SQBp/3L9k9N7GYmc6Utk6zqplvGZLg=;
- b=m8Toefk1KkIFmYbynEoEP/iPXAKC2+U2kQZtx4ggH9aQDWieG/lraHEui7gos/TkD4mf8isJ2+eS/F9BZlNOBM2Cwv1eETd1M61VcFUQ54xs07+jUD3PIGwpaPJvJTeB0+iVuzCcssU1Yw0BgxMloHXj7iR81GMurGJUi4+aKDw=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by MW3PR12MB4380.namprd12.prod.outlook.com (2603:10b6:303:5a::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8445.12; Tue, 11 Feb
- 2025 10:21:33 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%7]) with mapi id 15.20.8422.015; Tue, 11 Feb 2025
- 10:21:33 +0000
-Message-ID: <e0a3e8de-2e90-420d-86c1-844f86ebe319@amd.com>
-Date: Tue, 11 Feb 2025 11:21:28 +0100
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
+ [209.85.221.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A947010E1DE
+ for <amd-gfx@lists.freedesktop.org>; Tue, 11 Feb 2025 10:34:28 +0000 (UTC)
+Received: by mail-wr1-f51.google.com with SMTP id
+ ffacd0b85a97d-38dd93a6f0aso1803003f8f.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 11 Feb 2025 02:34:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1739270067; x=1739874867; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=VpS/8GoxuwAjy2wNgNMA0gu6AGScB9o2k/S+RfSazME=;
+ b=M7lGWmfj/uvzy6g3O26424kPAps8iZfkT+Zi4kiXTjqCiuXA42rhMXqPdXISz/j8OC
+ P6vyITPm3xq/cR5nZ6G619j2rAuR9tVgiF+VIFhyLLT0jxkYksTdcWJPDFHAS8Ui/JvG
+ r+yQeqm5RYYTd5z+oNJMROHH2CCmB+bySXP9D8AIM5miER8NuSCKp1g5SsNpp+QKYDf/
+ bmKmFEeE/2chP35ag1m9zonKyfl6i7q9cZFiQnzfolswdQPrfjtZc/T8ZZyJOgoCqnJ6
+ REpUg46/2bVtL0fTye/Bnymp3up3m0hsaeump5or7Bt5dItrnjBbuDwkE7jDQ22vlz2O
+ HRYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1739270067; x=1739874867;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=VpS/8GoxuwAjy2wNgNMA0gu6AGScB9o2k/S+RfSazME=;
+ b=W75zV7Jyt9/UH0WyzAa6sTa1EKXYn89sBbeN6gbJJZKiSDFfECl0epBqczODdkIiHL
+ asQga0mhfCifQ0D6uw67EM695xduAQJ6hSj8wqzyOSFZjwo6zdKVntBRpo24RqwWKid0
+ XBVb3TKvfFTfk1Uef4kJrB0yDzT8QTh2FC2Z4Pk/xaQOXwwpUalNUYq0ZN2peWKQNOp4
+ xtVoroFqiggE3BhlmSYK9JaNyKiIfuqHHlttTjpj3dfkbQeIYcdMmj6gb1ZY3QbHvXGT
+ lOpfH0VYRJeYuFZ44KA+UhjBnom4XemwqOJ9/sKaDfbJybJGT/MKnWrnQi4f3vdzQXoe
+ 0DNA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWZsEr1TBuZFwhZrlLkakWYvZnonGdvfg3ip0Y848s8dJYypeLnF1KcL6wPo/jx1gLvElICOC18@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzhcFdoqNOPL5jYV1IGclz5c18je41ZmWS5amf2cHFfa+CLuA6i
+ Ob1c/Rwt/4Xs96XEepg1Mwk4venrDJCE8fsd6qZbdInKuDO7vM8E
+X-Gm-Gg: ASbGncsoac2PPTKXEmy8GTFphV1jjZov9kjbuONhb5m8ErD5fNtcZCWBgu4neM5l132
+ vwleMpV8U2DlwE63GH8oRjRaOVmu7C+6R+5ftpbIeKjhPcMKwUMfHssuPRhsGKqngj9NdAPXRPh
+ p60nmB7GXHJDgIuIiqW1FtpYrIWA19Swgn36LdBoxMxSHaRDaZVjUW7U3ukPbVirD5Sku796j5n
+ zzwbs868oZ4dukje4AJlSNubvgLtCNa4hzjBVP7sSjjtwg35ml2sxfeL51ePPFDW1osUhfMgMz7
+ GOPI8SCl1je3Ly+QHZDL9PLnH/EhOISyBzUizm3279Tm
+X-Google-Smtp-Source: AGHT+IFysNj6qT9w6ncCn6R1G8vBcHfBfW0sNtTKyx4qsGyVzl7LXSOViT4Nl90n2ioqh7NIP8wlJg==
+X-Received: by 2002:a05:6000:2c1:b0:38d:d666:5448 with SMTP id
+ ffacd0b85a97d-38dd66656aemr11768517f8f.40.1739270066710; 
+ Tue, 11 Feb 2025 02:34:26 -0800 (PST)
+Received: from [10.254.108.83] (munvpn.amd.com. [165.204.72.6])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4394679a3a1sm49128565e9.5.2025.02.11.02.34.25
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 11 Feb 2025 02:34:26 -0800 (PST)
+Message-ID: <1d6c89dc-f032-4796-a038-c9e897e7bf1c@gmail.com>
+Date: Tue, 11 Feb 2025 11:34:22 +0100
+MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] drm/amdgpu: Pop jobs from the queue more robustly
-To: phasta@kernel.org, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+Subject: Re: [PATCH] drm/amdgpu: Unlocked unmap only clear page table leaves
+To: Philip Yang <yangp@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, Philip Yang <Philip.Yang@amd.com>,
  amd-gfx@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Danilo Krummrich <dakr@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>,
- "Zhang, Hawking" <Hawking.Zhang@amd.com>
-References: <20250206164031.43413-1-tvrtko.ursulin@igalia.com>
- <20250206164031.43413-3-tvrtko.ursulin@igalia.com>
- <949a5a2f-dbf3-497e-a50a-92adb48aa31f@amd.com>
- <3f6de080ac75fc0988d371e71072cba5d60e269e.camel@mailbox.org>
+Cc: Felix.Kuehling@amd.com, emily.deng@amd.com
+References: <20250114145314.4633-1-Philip.Yang@amd.com>
+ <f5f41f09-b62d-495f-9339-0c9dc6535bf8@amd.com>
+ <35670d39-0f91-29ab-e369-6e45b000d486@amd.com>
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <3f6de080ac75fc0988d371e71072cba5d60e269e.camel@mailbox.org>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <35670d39-0f91-29ab-e369-6e45b000d486@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0029.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:1c::22) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MW3PR12MB4380:EE_
-X-MS-Office365-Filtering-Correlation-Id: 36eed8cf-b926-4b7c-29bc-08dd4a85db8b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016|7053199007;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?YlpzbDBtQklYT2ZXQnlVY3dyUzN4ZUh6ZHhUSDl3aVZvOXFDRkgxdVhLNUtN?=
- =?utf-8?B?UWs2NHNCQmk5RTN2cVlCOW13K3RSOE9ZN29YWlZDK1Rqa3VEOVBWUTRqQncr?=
- =?utf-8?B?MVVpNy9kRVVxYlZJc2htaExxU3dKVjdrY2J1eWUvOVVtWFVETWpvYnorM2l4?=
- =?utf-8?B?VWtheSt4NnlSVHE0RWI1bUZRZmtkeTl6djdDOFVFT2pyMnZUeFcwTjREandB?=
- =?utf-8?B?RHJYM014Uk82Qm82SE42cktlc3dORG1RamdVUTluV0VoTEZYQ1ZpOUlnSDkx?=
- =?utf-8?B?WHF4NWlackpXUndaLzRyRjBNeHpLTE50ZUlkUUNPUXJhTXhZOFZvR3lZZU1m?=
- =?utf-8?B?MFRybXdoUkoranVoK1JGbU5MSU0zVmYxM24yaFp3Y3ZRMEtwQmkrSDBtNmht?=
- =?utf-8?B?MEdNRjFSbVRQMkJUdUZwWDE1ZDBYelFKdEdDME5ySjhzMnVXSVQxY0l2b29H?=
- =?utf-8?B?ck1LcHZCOGpoWTZrZGZiY09HVCtnaVJWRFd1SHpmZGs5cTBLaDJ2UEI2RGZM?=
- =?utf-8?B?c2NvUFRWZ1VGYXR1TDdmNWRxU2YxdFNSeldHbEtrZnVFS2hyZk51YmJ1Si83?=
- =?utf-8?B?Q3Uzd0hjc2Y4cm5DbFdjaVkreWNMcVMzaXVPUEN2YWtRcXlUdC9pVUlsZlM1?=
- =?utf-8?B?MlJZVHozWFZwWk9jUXFFeDYyZkpEQzNrVEtaVzZxamtXRzVIQ1lIR2lrbTV6?=
- =?utf-8?B?elNqellCVThUbG51UmFQd3hpKzNORzF1OHFHZStpRE16bHgvVG1FbkE5WWQy?=
- =?utf-8?B?UjQwd3h3NDZFYmczVSt5N1RTVjRQWEZZMlVYUnU3WTFrNytKc1kxTG1USGEr?=
- =?utf-8?B?T01sVkg3N3IzQnVIa0luUXF2Wk9WRHZ1SXFFTTdOcFRpWGJyRXJrcU0ydit4?=
- =?utf-8?B?dUc2YjVTeG9SMlNNblNVWmlxcU1hWGl5NjJTdEdVOXNxcmluRVIzRElzVXh0?=
- =?utf-8?B?R2c5ODBYeFNFcEtBdU55dzVTRGE5MmtGdWk3VnZOK2xDU1dWNTRRajNDTS9L?=
- =?utf-8?B?b2JSUGNDa2ZhTWxOYVdQbHM0SU5WSzRINnhiMTdNYjRjUGY3UjF6S1J3NnRQ?=
- =?utf-8?B?T0VEa1NTREMxVy9OSzZsd2VOOVdnNytIUGtVMDF4SjY0aFZPUHBoUDBDaUhK?=
- =?utf-8?B?TXk1eWEreThiM05uRldHdllPR0FVU2hUTVdFMHBpWnNtaUhKNnlyM0c2aEF1?=
- =?utf-8?B?RXhQTUkxK3krVWhacDFaWmQ4a2x0SmlBOHdPWUFIRnFiZTFMZjhvRFJtUGF5?=
- =?utf-8?B?aldXRUNrODFrUVpWRk5jUTdwWFZoaEpkVWJ0bWU4MytadHZQbU1UQ1NsWWdN?=
- =?utf-8?B?QmJHMHFvQ0VEOFQwWHRpckNuTXcwbWhjZFVyQlV1cDF2UGtLU2ptSXpNaVI4?=
- =?utf-8?B?YjRRMklrK3ZRQTdnbW4zajU3bk1WMnFLbWhyd2dubUJndjNQTE1wVEF1THRy?=
- =?utf-8?B?RVBLZEVjeFBKR2ZhOTFFS3R1cVBsbkQwekR6ZnkvSFU5dzd5YnFZcW5yODdh?=
- =?utf-8?B?dUZYQmkrZVBpL1pWTXhKNi9PcU5BQXNuU1hUbjNDektmNlVxQzhJTWlsSU83?=
- =?utf-8?B?ZVpJM2VMVC9GSmxPM1hCK0Q2VER2TUlnS3ZsbWp1V042YW93SUFSQjFzQzlX?=
- =?utf-8?B?NWJ1bUQ1T2FQWXNJbHhiQStmTXQ2N05MUzlCeEpxeFdCWjcwK1NNZUtmd2I4?=
- =?utf-8?B?Z3JUbzk3RUcxc3g5MWVqTjlJR2MwYm1CQ29aaU9Icll5dWFsem1SZEVzQVZa?=
- =?utf-8?B?NXducHlxaTY5TkZtbVBLcHJwd1JsdGt6azJVbUFnVlNaSm5sZDVoNkZnYmQx?=
- =?utf-8?B?eGt1UW03M2ZFcE95ZFZWV3NjSktCM3JGWlpBSVl6VldQaXJVZ0NYU0tUNjNl?=
- =?utf-8?Q?0EtY+MG6lQk7p?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(7053199007); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?czhqcnZHVWZDeURJLzI3OXQ1U0tTQU9KNk1Renp5NktJTEpuQzNFSTAwbzRS?=
- =?utf-8?B?eCsxUHFyNFJNR3lHeWdPVU4vdFJMV2JNSnZBM2hHOFFhMnVXb0Z1Vk1rbVZB?=
- =?utf-8?B?VEc4NXJaUEI1WUhqdDdHU2M5LzVQNEx3K2tDWDFEQ3JZdm5mS0FPOEJyUEMw?=
- =?utf-8?B?ams3QUlYcE9mN245dnNsL21NdUVYZFlkZk1qeVltdDBTWHlENkRYREpNVUJs?=
- =?utf-8?B?Vm9RaUVBOXlCTmxrc0hVRHlMTTlZKzQvdUk4cmQzSGJtV1ZXUWRwZEEyTHhu?=
- =?utf-8?B?dCtGTElsdVJ2Qi9mYmxVYVJPYTB6ZkxyMDZkRXBwNU1qaDV0WStGeTNzR2t5?=
- =?utf-8?B?TkNLVVYvdHUweFZxMWUrSVNqc1VvWGhxamNXZUptbm95RnJlSTVNMmI4N1Iy?=
- =?utf-8?B?OGVmUUJJd1kzT1NTSHFaWHU0MWJWY1EvVmRiWERZT3FLdmZBelFTN3ZuTXBt?=
- =?utf-8?B?WUpoekYyVlZUYXJEbytlWS95RVhlOUd2OEk2L3g1WGcyemlCbzZURTUzOTIv?=
- =?utf-8?B?emFmLzVjTDVnTG05RU4rekgrRVYzNjZ1MFpRTkZTK2lmYndXbGdkODYrdFlh?=
- =?utf-8?B?R2paZnNrWWdtdG1FNjljY0FSR3hXd2pFSWlVZHJvMzdLRUYzMHoxbkpuQ1NW?=
- =?utf-8?B?bGVaQmZCT0EzV2NJSEQwWGovci9oOG5jejRPU0pkdHkxL0N2WE92aUU2OStO?=
- =?utf-8?B?d2NqbElWdmR4SFZDZUxsVlpjN3A0dUpyeXRHT2ZJL3B0dzdQOE1VRGNHVzR0?=
- =?utf-8?B?eFFkN2ZURGNCRDUvMnRHdWpiZFEyK0VSYlUxSTBPRk9wb0xIVlIyQUttdG9Z?=
- =?utf-8?B?QVE2SkVzcVBUUlpsdWkrVmhua1drOXNUdFd0cklSNjJkcUhNWnBEa3dHNEp4?=
- =?utf-8?B?Y3hXdklrcWZpTStuNm83NXZPOXdsejE2ZGZicGJBeFRDQzRmRHpvdGxzR0tT?=
- =?utf-8?B?L1lZRG1xa1lpYld3WHlwVmo2WjVZc1d1L3B1WGRXbFZoMmszMEtrdFRON2Ev?=
- =?utf-8?B?N1FwUUMrbzdhR0cwS0Uzb0hhSVV4QkFEZGRHcE9RMnpWUkZjbmVoTXYybU4y?=
- =?utf-8?B?OFZwcHExR3NOUDFhRjkwOENMODNZRkp6WkY5cCtIZ3BMNTUzTFFEOE9nOGto?=
- =?utf-8?B?blJ3QmE5RUkrUzYwQVJsQ0k4ejlScmFRS2RjZGVvdU01bEMyZ1hBMkx6Sndw?=
- =?utf-8?B?dDc2TXZDdnVZTm5XVzRiV2N5VjYrZDlPcHNmMU5IWS9IbitUUWZsQ01DNStG?=
- =?utf-8?B?NUxORUhCZklJcU0zRXJmRDZpU1NXM0VEZVdXYlJGekdLeFZFclhVdWhZUlNs?=
- =?utf-8?B?VGZFdVBRSklJWEkzNmgycHpVYjJNeXFPRmw0aGxuZ29vRG44QXBmb2hjYzZL?=
- =?utf-8?B?NFdaQ2dyR3MxMitKMFZaZ2luZTZmVkZyd0c0bTdGR0h2TnlldlhFRTNvMVBX?=
- =?utf-8?B?MW5TU2ZUeHFmY0FsNWYrQjZ3NisrTER1UnJSYXZVU0pDSklwQ0MzcStuT1dL?=
- =?utf-8?B?MFUyK1o2K3l5VFFXaXhCSXdhMFpuSVZnQk1BRTFzUXBIbUY5bFZ6WkEwK041?=
- =?utf-8?B?ekdoWllZV3RPeDNLSmdSRzBkYWNEVWljQk9SUkRURUpwZXVBRWxRaTVsWjhM?=
- =?utf-8?B?VzhaTDEvOGI1NzBjVG1kL29BUlFmU1dTZ2E2YWRTUzNFRDI2L2xaNytCVzdm?=
- =?utf-8?B?alJOZnMrSFFEYkpFVy9PRStSNXhYaTB4L2FkM1duOUZtblJBYmVjcjBxbWRP?=
- =?utf-8?B?Wi9JUW5teEszZGZhZVNPYXFXY3A1K3U1eVd2UUZYM0s0M3BOZTRFMkJVbEVK?=
- =?utf-8?B?cGZ6eDBVRzd4MEhRZVQyTUdQY3ZUQ2o5NVZDU1NqdVFLb2M4Tit6OVpZdGpu?=
- =?utf-8?B?T1dwQ1JpNVJGelhXL290d1l6MThYU1pIc0pDeDJ5U3o5UzUwdENzRm1VRFpX?=
- =?utf-8?B?T1cyV29acndtaHh6M09EOFNVV1JiUEZlT0NaRC9kY0JKcml4MDZYNC8vcjVn?=
- =?utf-8?B?MTQ3eWYzdDQyenhvdVNJK0tzTDZtT21KK0FiVXFvb2V3K3BmeGtzdFJKeitW?=
- =?utf-8?B?Y3pPUU9FbFFuYkdsVzVtZ1JIWnVDNTd0Z2JZTytESDQveHZ1QS95Z1ZMMk1w?=
- =?utf-8?Q?7Gl53Fg0ws/8Df3UXau6zyorb?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 36eed8cf-b926-4b7c-29bc-08dd4a85db8b
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Feb 2025 10:21:33.2469 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IvIa+Nu/Le7+1XTIjW4jy01Bqig0bS06gY/K/CbTnvn6E3j7feHDZ0XRgatfmdDZ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4380
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -165,103 +92,229 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 11.02.25 um 11:08 schrieb Philipp Stanner:
-> On Tue, 2025-02-11 at 09:22 +0100, Christian König wrote:
->> Am 06.02.25 um 17:40 schrieb Tvrtko Ursulin:
->>> Replace a copy of DRM scheduler's to_drm_sched_job with a copy of a
->>> newly
->>> added __drm_sched_entity_queue_pop.
->>>
->>> This allows breaking the hidden dependency that queue_node has to
->>> be the
->>> first element in struct drm_sched_job.
->>>
->>> A comment is also added with a reference to the mailing list
->>> discussion
->>> explaining the copied helper will be removed when the whole broken
->>> amdgpu_job_stop_all_jobs_on_sched is removed.
->>>
->>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->>> Cc: Christian König <christian.koenig@amd.com>
->>> Cc: Danilo Krummrich <dakr@kernel.org>
->>> Cc: Matthew Brost <matthew.brost@intel.com>
->>> Cc: Philipp Stanner <phasta@kernel.org>
->>> Cc: "Zhang, Hawking" <Hawking.Zhang@amd.com>
->> Reviewed-by: Christian König <christian.koenig@amd.com>
-> I think this v3 has been supplanted by a v4 by now.
 
-I've seen the larger v4 series as well, but at least that patch here 
-looks identical on first glance. So my rb still counts.
 
+Am 20.01.25 um 16:59 schrieb Philip Yang:
+>
+>
+> On 2025-01-15 06:01, Christian König wrote:
+>> Am 14.01.25 um 15:53 schrieb Philip Yang:
+>>> SVM migration unmap pages from GPU and then update mapping to GPU to
+>>> recover page fault. Currently unmap clears the PDE entry for range
+>>> length >= huge page and free PTB bo, update mapping to alloc new PT bo.
+>>> There is race bug that the freed entry bo maybe still on the pt_free
+>>> list, reused when updating mapping and then freed, leave invalid PDE
+>>> entry and cause GPU page fault.
+>>>
+>>> By setting the update to clear only one PDE entry or clear PTB, to
+>>> avoid unmap to free PTE bo. This fixes the race bug and improve the
+>>> unmap and map to GPU performance. Update mapping to huge page will
+>>> still free the PTB bo.
+>>>
+>>> With this change, the vm->pt_freed list and work is not needed. Add
+>>> WARN_ON(unlocked) in amdgpu_vm_pt_free_dfs to catch if unmap to free 
+>>> the
+>>> PTB.
+>>>
+>>> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+>>> ---
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    |  4 ---
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h    |  4 ---
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c | 43 
+>>> +++++++----------------
+>>>   3 files changed, 13 insertions(+), 38 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c 
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>> index c9c48b782ec1..48b2c0b3b315 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>> @@ -2440,8 +2440,6 @@ int amdgpu_vm_init(struct amdgpu_device *adev, 
+>>> struct amdgpu_vm *vm,
+>>>       spin_lock_init(&vm->status_lock);
+>>>       INIT_LIST_HEAD(&vm->freed);
+>>>       INIT_LIST_HEAD(&vm->done);
+>>> -    INIT_LIST_HEAD(&vm->pt_freed);
+>>> -    INIT_WORK(&vm->pt_free_work, amdgpu_vm_pt_free_work);
+>>>       INIT_KFIFO(vm->faults);
+>>>         r = amdgpu_vm_init_entities(adev, vm);
+>>> @@ -2613,8 +2611,6 @@ void amdgpu_vm_fini(struct amdgpu_device 
+>>> *adev, struct amdgpu_vm *vm)
+>>>         amdgpu_amdkfd_gpuvm_destroy_cb(adev, vm);
+>>>   -    flush_work(&vm->pt_free_work);
+>>> -
+>>>       root = amdgpu_bo_ref(vm->root.bo);
+>>>       amdgpu_bo_reserve(root, true);
+>>>       amdgpu_vm_put_task_info(vm->task_info);
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h 
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+>>> index 5d119ac26c4f..160889e5e64d 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+>>> @@ -369,10 +369,6 @@ struct amdgpu_vm {
+>>>       /* BOs which are invalidated, has been updated in the PTs */
+>>>       struct list_head        done;
+>>>   -    /* PT BOs scheduled to free and fill with zero if vm_resv is 
+>>> not hold */
+>>> -    struct list_head    pt_freed;
+>>> -    struct work_struct    pt_free_work;
+>>> -
+>>>       /* contains the page directory */
+>>>       struct amdgpu_vm_bo_base     root;
+>>>       struct dma_fence    *last_update;
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c 
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+>>> index f78a0434a48f..54ae0e9bc6d7 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+>>> @@ -546,27 +546,6 @@ static void amdgpu_vm_pt_free(struct 
+>>> amdgpu_vm_bo_base *entry)
+>>>       amdgpu_bo_unref(&entry->bo);
+>>>   }
+>>>   -void amdgpu_vm_pt_free_work(struct work_struct *work)
+>>> -{
+>>> -    struct amdgpu_vm_bo_base *entry, *next;
+>>> -    struct amdgpu_vm *vm;
+>>> -    LIST_HEAD(pt_freed);
+>>> -
+>>> -    vm = container_of(work, struct amdgpu_vm, pt_free_work);
+>>> -
+>>> -    spin_lock(&vm->status_lock);
+>>> -    list_splice_init(&vm->pt_freed, &pt_freed);
+>>> -    spin_unlock(&vm->status_lock);
+>>> -
+>>> -    /* flush_work in amdgpu_vm_fini ensure vm->root.bo is valid. */
+>>> -    amdgpu_bo_reserve(vm->root.bo, true);
+>>> -
+>>> -    list_for_each_entry_safe(entry, next, &pt_freed, vm_status)
+>>> -        amdgpu_vm_pt_free(entry);
+>>> -
+>>> -    amdgpu_bo_unreserve(vm->root.bo);
+>>> -}
+>>> -
+>>>   /**
+>>>    * amdgpu_vm_pt_free_list - free PD/PT levels
+>>>    *
+>>> @@ -579,19 +558,15 @@ void amdgpu_vm_pt_free_list(struct 
+>>> amdgpu_device *adev,
+>>>                   struct amdgpu_vm_update_params *params)
+>>>   {
+>>>       struct amdgpu_vm_bo_base *entry, *next;
+>>> -    struct amdgpu_vm *vm = params->vm;
+>>>       bool unlocked = params->unlocked;
+>>>         if (list_empty(&params->tlb_flush_waitlist))
+>>>           return;
+>>>   -    if (unlocked) {
+>>> -        spin_lock(&vm->status_lock);
+>>> -        list_splice_init(&params->tlb_flush_waitlist, &vm->pt_freed);
+>>> -        spin_unlock(&vm->status_lock);
+>>> -        schedule_work(&vm->pt_free_work);
+>>> -        return;
+>>> -    }
+>>> +    /*
+>>> +     * unlocked unmap clear page table leaves, warning to free the 
+>>> page entry.
+>>> +     */
+>>> +    WARN_ON(unlocked);
+>>>         list_for_each_entry_safe(entry, next, 
+>>> &params->tlb_flush_waitlist, vm_status)
+>>>           amdgpu_vm_pt_free(entry);
+>>> @@ -899,7 +874,15 @@ int amdgpu_vm_ptes_update(struct 
+>>> amdgpu_vm_update_params *params,
+>>>           incr = (uint64_t)AMDGPU_GPU_PAGE_SIZE << shift;
+>>>           mask = amdgpu_vm_pt_entries_mask(adev, cursor.level);
+>>>           pe_start = ((cursor.pfn >> shift) & mask) * 8;
+>>> -        entry_end = ((uint64_t)mask + 1) << shift;
+>>> +
+>>> +        if (cursor.level < AMDGPU_VM_PTB && params->unlocked)
+>>> +            /*
+>>> +             * MMU notifier callback unlocked unmap huge page, 
+>>> leave is PDE entry,
+>>> +             * only clear one entry. Next entry search again for 
+>>> PDE or PTE leave.
+>>> +             */
+>>> +            entry_end = 1ULL << shift;
+>>> +        else
+>>> +            entry_end = ((uint64_t)mask + 1) << shift;
+>>
+>> That here looks to much like a hack for my taste. entry_end basically 
+>> denotes the end of the pages tables and not the updated region.
+> yes, agree.
+
+After going back and forth over the different solution we found that we 
+do need this hack for now.
+
+There is basically no other solution than to update one entry at a time 
+without introducing a new function to do this.
+
+So feel free to add Reviewed-by: Christian König 
+<christian.koenig@amd.com> to this patch here, but please look into 
+cleaning that up as soon as possible.
+
+Thanks,
 Christian.
 
+>>
+>> We already set frag_end to this here:
+>>
+>> frag_end = max(frag_end, ALIGN(frag_start + 1, 1ULL << shift));
 >
-> @Tvrtko: btw, do you create patches with
-> git format-patch -v4 ?
+> Here seems the root cause, for example, unmapping frag_start is 8MB 
+> aligned address, frag_end is frag_start + 8MB, but for unlocked update 
+> we want to do page walk again after unmapping 2MB.
 >
-> That way the v4 label will be included in all patch titles, too, not
-> just the cover letter. That makes searching etc. easier in large
-> inboxes
+> Also the max(....) seems meaningless, as frag_end is always >= 
+> frag_start + 1, this can be changed to
 >
-> P.
+> if (params->unlocked)
 >
->>> ---
->>>    drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 22 +++++++++++++++++++-
->>> --
->>>    1 file changed, 19 insertions(+), 3 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
->>> index 100f04475943..22cb48bab24d 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
->>> @@ -411,8 +411,24 @@ static struct dma_fence *amdgpu_job_run(struct
->>> drm_sched_job *sched_job)
->>>    	return fence;
->>>    }
->>>    
->>> -#define to_drm_sched_job(sched_job)		\
->>> -		container_of((sched_job), struct drm_sched_job,
->>> queue_node)
->>> +/*
->>> + * This is a duplicate function from DRM scheduler
->>> sched_internal.h.
->>> + * Plan is to remove it when amdgpu_job_stop_all_jobs_on_sched is
->>> removed, due
->>> + * latter being incorrect and racy.
->>> + *
->>> + * See
->>> https://lore.kernel.org/amd-gfx/44edde63-7181-44fb-a4f7-94e50514f539@amd.com/
->>> + */
->>> +static struct drm_sched_job *
->>> +__drm_sched_entity_queue_pop(struct drm_sched_entity *entity)
->>> +{
->>> +	struct spsc_node *node;
->>> +
->>> +	node = spsc_queue_pop(&entity->job_queue);
->>> +	if (!node)
->>> +		return NULL;
->>> +
->>> +	return container_of(node, struct drm_sched_job,
->>> queue_node);
->>> +}
->>>    
->>>    void amdgpu_job_stop_all_jobs_on_sched(struct drm_gpu_scheduler
->>> *sched)
->>>    {
->>> @@ -425,7 +441,7 @@ void amdgpu_job_stop_all_jobs_on_sched(struct
->>> drm_gpu_scheduler *sched)
->>>    		struct drm_sched_rq *rq = sched->sched_rq[i];
->>>    		spin_lock(&rq->lock);
->>>    		list_for_each_entry(s_entity, &rq->entities, list)
->>> {
->>> -			while ((s_job =
->>> to_drm_sched_job(spsc_queue_pop(&s_entity->job_queue)))) {
->>> +			while ((s_job =
->>> __drm_sched_entity_queue_pop(s_entity))) {
->>>    				struct drm_sched_fence *s_fence =
->>> s_job->s_fence;
->>>    
->>>    				dma_fence_signal(&s_fence-
->>>> scheduled);
+>    frag_end = frag_start + 1;
+>
+>
+>>
+>> Which basically means that we should update just one entry at the 
+>> time and then walk the page tables again.
+>>
+>> The issue is just that we immediately calculate a new fragment after 
+>> each update:
+>>
+>>                         if (frag_start >= frag_end) {
+>>                                 /* figure out the next fragment */
+>>                                 amdgpu_vm_pte_fragment(params, 
+>> frag_start, end,
+>>                                                        flags, &frag, 
+>> &frag_end);
+>>                                 if (frag < shift)
+>>                                         break;
+>>                         }
+>> And that looks like the place we need to adjust something to allow 
+>> updates of the leave nodes.
+>
+> yes, also we should always break here to restart page walk for 
+> unlocked unmapping
+>
+> if (frag < shift || params->unlocked)
+>
+>      break;
+>
+>>
+>> Alternatively I wouldn't mind having a complete separate function for 
+>> unlocked invalidations.
+>
+> A complete separate function will duplicate lots of page walker code. 
+> Alternatively we could change amdgpu_vm_pte_fragment, for unlocked 
+> unmapping, always return frag_end to 2MB (or 1GB), not 4MB, 8MB....
+>
+> Regards,
+>
+> Philip
+>
+>>
+>> Regards,
+>> Christian.
+>>
+>>
+>>>           entry_end += cursor.pfn & ~(entry_end - 1);
+>>>           entry_end = min(entry_end, end);
+>>
 
