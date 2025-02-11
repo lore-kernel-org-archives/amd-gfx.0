@@ -4,149 +4,144 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D3C7C02198
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Feb 2025 01:48:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB7F6C02198
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Feb 2025 01:54:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C807410E630;
-	Tue, 11 Feb 2025 01:48:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5467110E62A;
+	Tue, 11 Feb 2025 01:54:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="RdR9cLKH";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="vOmE1G4f";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F68B10E630
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Feb 2025 01:48:54 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2063.outbound.protection.outlook.com [40.107.223.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3712210E634
+ for <amd-gfx@lists.freedesktop.org>; Tue, 11 Feb 2025 01:54:45 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=D8Csy/iV95c8D1eIgdtM1nTqrNPvd8IR72YSdqfH79uufIBc5o+CmAE1E4NNhgvBwn5fLx9iLNmmuG7wlhrRJTeOd3LNLTIlmP6X+D1igWYI3hAlb4fPLGjUeZqi6NdFjtHEPQGUmqsTjBkLKngm756Tjzcs/2AJ2NJNuCOOLkppkchnzgk/oF7DMLf31zXHxnoE4bJKCe9y2v3WaGQD/UtYBv2uKCrJ3KS1Av8NEEMEJTVMev5J8EskhLSM6OO6bQUsxzHZ8QkfAGiMXk+yphqC7ivKWv1EtdHXrCJnHk1HV3PfkYnOJrNK9pd95cB7qX9W7CunToNMc6CHYNu3ng==
+ b=SaL51hakzcOuEJxT/6ApbJzxsJg2Jclg96VY62kzk3zdzIspZu0AQO1Cy6rI73azw2n0Zro8Zuq+Sau8liLXpgH6YSgMk/CFDTh63ws2IatmRULYYKDwKQKmj8o8TWF/7xTHD7A5txC6V2R+blGAH2hBUjJr8jLjsWdMz5ZS+8KEf1gdvsX4VUw8pG1p4rYH67znY15U5ZB72JkNsYR36+mvgIKzJmZiLi4DGuhov1sqSj6KustdZjAHizqAnTh10mvSGrK90PpshmbGm4ujimQuE6bYI8xSL51a1Yo4/0ReThsC2GaX5UAGppDTp8j5CO3Ae0Lfvoxrm4VdIerSOw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BcvoPfjjWEYflnASPbq0TlZ7Uxt0yoGzl6aVTuqBghU=;
- b=XR50KLB1Qc9TMCnD4vFuExCpQlVq2seVlrPslI7+xK2LTh7RMzTg4O/653RR+XhSOpoXyqeqKKRcVr/L7bkSnxJoIlHYqqm12NqHH/dI8ASsjL98LOE3XDDgRQxCc5FVZfxLAWsohN8+qNAw0v7daUhTGS3AkIG97uqqCQ26mB3kvUqZgobwyEld83JzHgqqRPuEwSaS7mPAEienf1BCzXnI0D5mdQQ8DyEksJcnz07ayH0kdQS869GYHJ9oRrHypo0g05WdoZX8jMVtdseYKCd/ifXZ/acrLveirMVu3bjexqpmwA5bHuSy26I2Tz9mHWvKW3YlSvobTqOGE31Ijw==
+ bh=32w8m/bbJWOcvjpBnnDv39Pn7TjM1+5x9iAlmDqqpsM=;
+ b=HEI1KDLHLWHIsoa7tHi0niuP14JMkYdJ8IRYVvSvZw7FEQt0B9OqLcFu3YLaIXKMgoIribLYzekdLSV00QKEtvm9EzpHWCLNcbgM4su+TqKhRVPAXeGSwUgwqZqNWrK3oscuvzAAqqzENhn/XdXa1brOD2pHc8WL/t/Xw1hJ9ui2OKpdI9D8z/cNCYTFbryfnwEDxqyJoNn6QvBkB3UBSfqRygb4SbGeYDDXDg5F25pkOHTJjMtNkO9TTtIzQw25kiH0g4aEtrzjzq48BxG1wN3pbiDMd/VPGKZTzqF7QU5Qzin+8KqCFMNsFVOQ5AnZy8NAMBlVsvYDFQYRiv9Ykg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BcvoPfjjWEYflnASPbq0TlZ7Uxt0yoGzl6aVTuqBghU=;
- b=RdR9cLKHJuzxAjvLr0IEFb36//zXY9eUBtj40XJu4Buc/81Gf7AGnN2FDCqMQxWlUMDK4xF8jmjPgKVi5uY36KMijPxiu5FH5YUI+v1wbS33QS7DRWoPh776t1Zx1NnOC1PJ2dV5e9yfNCOfsqDgMrKyJI9Cqf/03GEjAY4cIuo=
-Received: from CH0PR12MB5372.namprd12.prod.outlook.com (2603:10b6:610:d7::10)
- by DS0PR12MB8043.namprd12.prod.outlook.com (2603:10b6:8:14d::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8422.17; Tue, 11 Feb
- 2025 01:48:51 +0000
-Received: from CH0PR12MB5372.namprd12.prod.outlook.com
- ([fe80::fec0:2b36:85c1:fc9b]) by CH0PR12MB5372.namprd12.prod.outlook.com
- ([fe80::fec0:2b36:85c1:fc9b%4]) with mapi id 15.20.8422.015; Tue, 11 Feb 2025
- 01:48:51 +0000
-From: "Liu, Shaoyun" <Shaoyun.Liu@amd.com>
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: "Koenig, Christian" <Christian.Koenig@amd.com>, "SHANMUGAM, SRINIVASAN"
- <SRINIVASAN.SHANMUGAM@amd.com>
-Subject: RE: [PATCH 2/2] drm/amdgpu/mes: Add cleaner shader fence address
- handling in MES for GFX12
-Thread-Topic: [PATCH 2/2] drm/amdgpu/mes: Add cleaner shader fence address
- handling in MES for GFX12
-Thread-Index: AQHbfAF26N9VO/kRTECg7936LeDhZrNBTw4w
-Date: Tue, 11 Feb 2025 01:48:51 +0000
-Message-ID: <CH0PR12MB53726043385289BEA92AFA2FF4FD2@CH0PR12MB5372.namprd12.prod.outlook.com>
-References: <20250210211904.281317-1-alexander.deucher@amd.com>
- <20250210211904.281317-2-alexander.deucher@amd.com>
-In-Reply-To: <20250210211904.281317-2-alexander.deucher@amd.com>
-Accept-Language: en-CA, en-US
+ bh=32w8m/bbJWOcvjpBnnDv39Pn7TjM1+5x9iAlmDqqpsM=;
+ b=vOmE1G4fbnIxd+ElrsEt+hjSjxKHHqJGVcQMB1rAHLFAxAGnoRo+DHVSweH0sUDon2GHFoC8Y1tDdmFmL+VytMh9nzDCBfy6Rg9OMPoy3SbCvyu9jCuAJzxxXo4rJgA9tgVqed6gMyq0Y80JmbJS8qMTvWqXLLdUvPjb/cUONcA=
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
+ by MW6PR12MB8757.namprd12.prod.outlook.com (2603:10b6:303:239::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8422.19; Tue, 11 Feb
+ 2025 01:54:42 +0000
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::c593:f43d:c798:e009]) by BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::c593:f43d:c798:e009%7]) with mapi id 15.20.8422.015; Tue, 11 Feb 2025
+ 01:54:42 +0000
+From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Kim, Jonathan"
+ <Jonathan.Kim@amd.com>
+Subject: RE: [PATCH v2 1/4] drm/amdgpu: Move xgmi definitions to xgmi header
+Thread-Topic: [PATCH v2 1/4] drm/amdgpu: Move xgmi definitions to xgmi header
+Thread-Index: AQHbe4mIZBYrYbQUf0G3dPp0PpXYlLNBWKxw
+Date: Tue, 11 Feb 2025 01:54:42 +0000
+Message-ID: <BN9PR12MB52577E165A1BA07DA498CA58FCFD2@BN9PR12MB5257.namprd12.prod.outlook.com>
+References: <20250210070034.1998011-1-lijo.lazar@amd.com>
+In-Reply-To: <20250210070034.1998011-1-lijo.lazar@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=2b3a11d5-fbfe-4805-8ff7-b2000f40ebec;
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=32b8cc8c-f4d6-42a7-884e-ae219bd17cf5;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
  Internal Distribution Only;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-02-11T01:23:19Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-02-11T01:54:23Z;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CH0PR12MB5372:EE_|DS0PR12MB8043:EE_
-x-ms-office365-filtering-correlation-id: 9ad873c8-af7b-4a9b-3be3-08dd4a3e3c0c
+x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|MW6PR12MB8757:EE_
+x-ms-office365-filtering-correlation-id: 541b0e77-5f07-44ef-f617-08dd4a3f0d88
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|38070700018|7053199007; 
-x-microsoft-antispam-message-info: =?iso-8859-1?Q?De1i4j7tp0RlfCZN0vAP1qiRigMhWZnkkIdNeHDoVh2grp8ZH8XkpqaRhi?=
- =?iso-8859-1?Q?9Ope0wBKnu5VowXljzAAuwT5D9fvsJqnrPsdoJMoWmSFfyoLP6U2b4lETc?=
- =?iso-8859-1?Q?V97iaATXRCVNmVvebrZDM+1zpHxCIKiIz4xjh755L2BuHfRkMZ+MCdIwdk?=
- =?iso-8859-1?Q?PfYfc7se5mBPJ0cSBG49wxwiYxZniO7HGhwmm3sMXw9U0Vn2muNPAoNz0R?=
- =?iso-8859-1?Q?DLDxhpLPyduTGBFpw5WfATznZt0DH4YDlGvMlJEx79sjOjx3u5+i5ku9Lc?=
- =?iso-8859-1?Q?x7z0BzgZtsA9kY7kxl1M4PgKN7AzlV4WNElmh1p58gb8nIIYrJivuVYeR9?=
- =?iso-8859-1?Q?IOFA/kH4O7GwIQ8KGRrekgLu5455+tSJpMXhI9wzHQWYqjz7M1Zd5l+pg1?=
- =?iso-8859-1?Q?Im0Ztx5lY3FmwBaJTXFg+YI7mBcZvAFVWryUSAlPP7H/pb/qZRfyjwVtJj?=
- =?iso-8859-1?Q?oHti5//Sz+pQ7VP0OiDM0z64h9LMmGu/I2yALRl9xepDohvOXf+fNTI7Ks?=
- =?iso-8859-1?Q?4hDdTQX0RcvxrIhz6/pEt4jiQ/C6gCUxziJalSZLOdkliUQB3DwJ/M3EJD?=
- =?iso-8859-1?Q?Voc4aJnkyQelzDyUGd/m9OYCgN8rPDlN902dLf0uHxX5XJIqtewD4a5dem?=
- =?iso-8859-1?Q?jXTfQXTT3voNAip9aFB4vhyV/n+jveLieT20MTlDKx98CKCIrWqoh8PF6e?=
- =?iso-8859-1?Q?I1zUPM5zry8/APjcG8pcnySgAwb0EmWgE/16SSa7nX67img43kedvZBJag?=
- =?iso-8859-1?Q?VKPc4i0aHOlrhvm5Z/r0gCsR+75ZFMx1eZZ1wAwyEzg0xhhIKTc3JRVIPv?=
- =?iso-8859-1?Q?qVFVwQuuxtDQlcOqag18UwDx1s3SvReKYsVw6IDrniDdEYml8TX2wkPHTJ?=
- =?iso-8859-1?Q?ury7AoPsNB/TbeA98fpZ1xjQrEpUArz0nCGlyhv7ZOW0LJfMd6Xc3W+eMe?=
- =?iso-8859-1?Q?Tzx8IoQW3u3jyjQhMFuODlu4ZZybpYBnJVFoNeADBAFXQX2eBPl2aD46wG?=
- =?iso-8859-1?Q?zSHe7HrTk1qChr3n40+gouh/7MV8FS8YOJ4yvi2JpDqFnrDQHJN9qtCPCg?=
- =?iso-8859-1?Q?b+2UZY/BsWqQli3EvzgO+Ks0cn4dyVAaH1TTpKtoSfHxjCxMw02GycibFJ?=
- =?iso-8859-1?Q?ZK8W8e52pwFHuZDVQir83rJcEjUGabHnI6JKnuc11SK73eO+JtbZ6X7u+L?=
- =?iso-8859-1?Q?idxRkWMT/hpry4uhaIHQA4ZAyVEgNQ79aNmbMLh9ICx3aNN4j7B41vaqmt?=
- =?iso-8859-1?Q?iypMndzjwsZRq9pp1H8eIdkmCFigxZbOlqQm8t7rXTVNoG6mGU078/UtT2?=
- =?iso-8859-1?Q?vp5a6dCbOLsNc4orr85Ew6eO8I/wq57HE5Xkgn5XRvj3iyNqfNYZeRVMbl?=
- =?iso-8859-1?Q?3cEfD7Wd280poKnBNUFpQGstAwPWuyG/PmUr6LEY74dosORFoiIHHDR8Xt?=
- =?iso-8859-1?Q?q49JBNCt/jePUZgrR8jGVeSGvazDQMZE8++PTiBxmK8N6xGDl3heRuu5lZ?=
- =?iso-8859-1?Q?/aTEOnjWe+mKT2Bx4aK1Sz?=
+ ARA:13230040|376014|1800799024|366016|7053199007|38070700018; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?y9jqTwJHG9BAGlc7BazqFeFPr4j730Qid2V3BX9ILvlsdzeeM9zcnUL35jyZ?=
+ =?us-ascii?Q?ip9IN+/6NhOljZ+DD3w6WnaWthAML/gdAWb79QSVlJl05uWNJwPy6MBLL0P7?=
+ =?us-ascii?Q?+2jFz20eFojL2B6CxjCOXbjkaVr8XIjm/PQ1DxP0u+NC+/YeGCgdkdMOjsbX?=
+ =?us-ascii?Q?69Kl82PoSCsPHlCwkm2mhpIGnHQXHmOtTSGTOn8z7Xsi7fc5o+tUG/V7FMJx?=
+ =?us-ascii?Q?xcaMVOTGQxGuUTUrsi3kFRGds8f1am8w1fPNEQrmrffY7Nq4F0gz0QS7M5oD?=
+ =?us-ascii?Q?MMPadN87RMbJ3/oIoqg1eZKvPXBVCh6lTY0CisCwyeWYnSam9sevZiL8JhIi?=
+ =?us-ascii?Q?7TGXps/QKwcqDhJIiP8JpaU7W4tx0ASchA9ybtOGzQ05HZGenVKLBvVM4gbC?=
+ =?us-ascii?Q?BjMDmiujswXQYmsT2DV2h1tdeGE6PdhbIXkKw400Ifxpl7ARKK+TJIxQfZr9?=
+ =?us-ascii?Q?8N1zDfbY6KrwQnAAo0/7ypvA8KLOX94DxGFYDxPELLXpMG5nLWgSq3mO3D2K?=
+ =?us-ascii?Q?f82PhqU5zm+Dz0dcHFbD3eywL4x2K1jWoyqtDXBZRaWTvN8fBeGZl0zJv91A?=
+ =?us-ascii?Q?lFozQ5QwwIqQDah9CtSQAhzf5k11zfCB3WEWoznGRWOoHPw3cXfnTECG7ryy?=
+ =?us-ascii?Q?Rj/AE/pm7Fn9XQ2MCYHdiYMjl3QRIWqObIgx9WZEdrD8X7RekEJDuO+A9qZv?=
+ =?us-ascii?Q?aAxUMg1tjVX94ZEyfHSuZdyilccg67QR60sjgfvg8K9CB1InAMqvab7dtV+1?=
+ =?us-ascii?Q?WHJgkxSTEY5X46LKk+zDwwwptXcRSx3BdOw2Lr3Gfs0gc9R1UwSN8yUO/nkg?=
+ =?us-ascii?Q?MjAhjFkbhBdbpr4x4vj92kSp6tcmYM9wng3ZCnsDSqpNGzZvjfxGzKBe38Gl?=
+ =?us-ascii?Q?Arbmq31PpmIIvaSiKamrcbk5ImzQRaB7HrTD6l4AHDKKcQgcC8+pF714tU+l?=
+ =?us-ascii?Q?jTOCEDj64A3mSb8BN9usHYvEg7knPZFc4D3KGnnK/eHhOCWcxU2waRj0h19E?=
+ =?us-ascii?Q?/oscvSxsQsvLg98N4GJDF3RsGaM60Q1gKbX5DPFh91UM6hheYsBSiw10ajBK?=
+ =?us-ascii?Q?bLB3NfFH7vj9/8aBXYKvQKa1baR2L9JXi6C7mrDIOgdI/ngJbQKINb6q2WcV?=
+ =?us-ascii?Q?S2+41jCh7VoCmeHb3ExcZwArvDyFp5vss85vfGdgL1/xKGx/9Ie2OEGbNyhZ?=
+ =?us-ascii?Q?K2k3R1DBkd0UsYejPntstulJL6sZXjnJ2LQZ90SgZ8ZXyEbPmZnl18NTYc4H?=
+ =?us-ascii?Q?XCOXxuuAHPS0keJxBxCR2KPIPh4hRfJk+aNoXSG+T20GL5LdfPq8M+V5p7o5?=
+ =?us-ascii?Q?meC8kgw+iJuuqh8lCFc3aDkz9mSfHFPRNCiKEh9z/RvwmBbXJ1b93+47t/+D?=
+ =?us-ascii?Q?TDbTR7rZ9pZU1r+i3p6YZgAbu5tp9/f2POgUBioGJVzTtNDtfx80GlK14apP?=
+ =?us-ascii?Q?pusRfz6J5aE+Q+KUQ/u5j+pOX55G8dMU?=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH0PR12MB5372.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(38070700018)(7053199007); DIR:OUT;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(7053199007)(38070700018); DIR:OUT;
  SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?ii2N5sWBJBdmulG9DkRPqVMGUsupQeA+6N49gexmUTYfU6bE8qDmzcnk1h?=
- =?iso-8859-1?Q?2Y7axxPFxrUaG5w4VNQE36DDF1v07KC1xDSs8GPUjznKAHUZxam+SNMABG?=
- =?iso-8859-1?Q?QHnGkPJjkxli9aVuwywnn8mGt9341WTvJKXjl7jV6T40e4PRytaRxMxLaj?=
- =?iso-8859-1?Q?yXfPMCFlIEgrfxPDVAlZ5KwvpODR4Hb027j5bTTVzOAhgEPbZ6ACW29DFw?=
- =?iso-8859-1?Q?7a0LlPgVc1le9gXqw90jpXx8ykFqsS1Sb67hMvmTVEfRKcg19KiYxPi406?=
- =?iso-8859-1?Q?UvseNKHIth2IuwWqB0cONdS/dhaNmN8ggbMEyHKCOiAbPej/mVyBfAqJWl?=
- =?iso-8859-1?Q?aN4B++kQNgLJANugdh3PaRWB1NHZ8mHnOubM4u0I8xPkIwv9YTn/UKXBSK?=
- =?iso-8859-1?Q?6HAhBwiC86Da/9dUqzM8qeyrXYCgjOpFLGeqt3e0ZY4QZKZoSPg5Py2ugg?=
- =?iso-8859-1?Q?gFJY/+HgPql1NwashTFbrKTpC7ibHZ3nmXdx/8B8rT9WM8BCPlHES/ktEW?=
- =?iso-8859-1?Q?hYXX4uhF6uJ5z6tmf1LsJfEtFdUR1HpQvQVlLLoJG1Y3qA8nUubjZxXlTW?=
- =?iso-8859-1?Q?ZY0daiGtmbKoQr+ACo5bfOGSH2lnlCbpaxdC44F6k+PRLr0Da/wkmTWcKZ?=
- =?iso-8859-1?Q?QZ2XWeiyKdil0rosp7FQiiXS6y640WQ40IO4wSC0xP9WQ06GxbSpE4zCNO?=
- =?iso-8859-1?Q?X9HBTbZm5GEW1BRvzxSkq6GyQ5nZ5O8pvCN+221iKuixFP9fZbP1txGQcD?=
- =?iso-8859-1?Q?hm9T23al5m4R5YnOddNC6iVT6UeGNJPi/pH49+dWfN7giP3bPYwKSkEICH?=
- =?iso-8859-1?Q?3ExEqtbVoAWClXppJuxu8HKtFWz4LXw+V0y1jSgfi5sHbMxVjWSSxpUkKW?=
- =?iso-8859-1?Q?JiVDl/FgHegq5JdOTmHY7uj3+YwWYetI51149MklTbbks+SMmAt+km6jWu?=
- =?iso-8859-1?Q?cAcMtq7m5LgxSrUPce53vXNAGyzFf0eWmdlaVyBoQAYU7OQ8s9MUD/dbuC?=
- =?iso-8859-1?Q?lfOnroz+8gteHwIoBUwdqzIqGVhygwqE5D4vNu1DQSxS9FrATJa0iAiPWo?=
- =?iso-8859-1?Q?MbJgtVLEkUp1j6LRx9QZ5evDqjK76oVP9u7398EwClXWBI+fyeARsLBXka?=
- =?iso-8859-1?Q?KPT2LZIRrwsEcyFKj9vbVuVspYailrJ67WT7wvJ90O6C8EqSInkXZchqtT?=
- =?iso-8859-1?Q?cBqL2yVbTgHKIUAqPezDGRjVIpTjC2vrDVMog6PviVXaCSCUh60WjUHH3O?=
- =?iso-8859-1?Q?msL7DCf76oUzE4PcxUwTUX+in6fF2jxwNw29ojTasVG7TbFk9FGgqHPSk/?=
- =?iso-8859-1?Q?Vw9sitiS+h1hFYRghnp0A1640y5lMRscegNT6SlhmtQOfaEuEdvwE1vUyz?=
- =?iso-8859-1?Q?PKmZ2N4muc5Q6nMZkYtYTXkyn50qpmHeqx3Y53IlQ42b40BImMDQzHD+U2?=
- =?iso-8859-1?Q?a4iZvYiI8KwKtP5W1GZ3Txrw5Fwb52iSUnSxjHbpcOHD+Lz/+R8HJKFAia?=
- =?iso-8859-1?Q?PEP1uhGVUr34pJ9k9oDQ7rICYI9dEB8rPwvXCIja8ahzGyRnj4at7tgRyd?=
- =?iso-8859-1?Q?FgbTMpR7LvtcGSBbFiNjtlA4NTmt3fF1WcxHzosP/Ug8Db67/G3mDpiz5x?=
- =?iso-8859-1?Q?3ehBDdnr99/Bg=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?1a+h4lnDW3SKRFILOje4EZS6wEyTILU3o0VQjIUB3/ofgEvCyj5us/fhjiRn?=
+ =?us-ascii?Q?wR99WX/hwbipgXa2Z9Up3EX/9dz/uy+xbZJJIxawM1CoocW/lfxCgAchFL4C?=
+ =?us-ascii?Q?ryOwVz1b8lPNYJQltWtHqZe3TUZxU4H7s39DDD+4Tj0s+UGQIDN5P6Fk+rk3?=
+ =?us-ascii?Q?SE6Wa+yPq/DAh6skSVT2Nxxf3TUJ6wrILD5649zxQT9PSj4jULaULfN/s64Z?=
+ =?us-ascii?Q?fR7AuwfAYoHL20ZKC1wppfcbHmo3GJsfpO69A6jpvnRJJg7knev6xKlwYuS9?=
+ =?us-ascii?Q?mJRYJivnO4mHPgp063o1kT8yL8IM89EfEiCorklU4XiHRqHksBVkpoBDJnYl?=
+ =?us-ascii?Q?KEicrCWspSZG2rOEd1WpuJU/8svOKg9/qtz2e9gcaTP5rzZSiePnOypn/C4q?=
+ =?us-ascii?Q?k0eL/wDuUGSA2l8yuFgj6AhzCGb6g0vo34vdP7B9VU6NrSP57vnQqR0Jmjfm?=
+ =?us-ascii?Q?509GVwsVzycukeSeTo535UWI6dfDUWVGliXCpYLeaYNXnn8ctc7s3qzQtipn?=
+ =?us-ascii?Q?7HEt8yox1iwG3KZX7pf4K7Mfc9P5FgK3eUijm3p9spwU4YmNGYy0WbD/Kkdq?=
+ =?us-ascii?Q?IZdvJTpfxxp/XRUJZh3fdP3X+23wPTIHQjDACxI8HGA/aE/9wD94DPMB5S2X?=
+ =?us-ascii?Q?VRvHE9YvqqSCqYYVTjelQQOjdaGydcYwHPvsEjcmpCFeXyHN7tGC/to9WbFa?=
+ =?us-ascii?Q?l/ls9GxZMlrlrMm7t3g+BuCEmrYn0tNTxiGv+eL2Rjhi18WXp3lPFr1cs3fa?=
+ =?us-ascii?Q?TcScrYxigRF4vb3yz34TWQyarW5FWqH9mTCojlivWJZEbC9gemZSo4GeAmS9?=
+ =?us-ascii?Q?GGduYKs/2jH55PZ7xHTNXAS/T6oi6xtCk62bF5pZtI5/P3oJ43joIPN0SkwK?=
+ =?us-ascii?Q?OfxAN6Swx3rT5D8i63vVu2dexvY5E4UPVHSx/IBNkC35qs7pBknjFYlhuy6V?=
+ =?us-ascii?Q?KuFOrkaiezPVYV9G06SCXImPH93uWclBNxPWOCBtouBHVoyRBgQ34uW1YyHG?=
+ =?us-ascii?Q?u87VZgG4VXBv75DRU/Zxb//XslJBeXJoJBJSnacxqT7Rtsq1q6X6FOeY92Rr?=
+ =?us-ascii?Q?QUl/cKBpO2okQ48lIun4X5mY7u5Z/bbrRZy0L1mU8WpzpWD9G2Atl4WkK5if?=
+ =?us-ascii?Q?eFsYk6Z7xnxn5mfuXKbxAN2MYpehlnBdq8bcAg0DbLc3Mwa4IPK08UamApmT?=
+ =?us-ascii?Q?JjXDT+d+MVIfinC80hTlzfWUInTRxG/LvTxmYFS/o5KRTyo/ZCiSeJ2ebHYY?=
+ =?us-ascii?Q?pU5Bhf9ENamyGZ0P3OS+MmfTCx9EyKxTOkFW0SZWXOJA8Wa3GYLchPeWRW4g?=
+ =?us-ascii?Q?jiEXeKbwjl98S5C00FtQf3U7MDLd1Fd0zVlOZ+Vm/a1w1tpkA8DRoywGfjp7?=
+ =?us-ascii?Q?igFC5XcGlwdBfA0CjoFES1oTdgW292IyLHYWn/aXaoWiFqKtV6+EX96btihr?=
+ =?us-ascii?Q?lPsQlojXQb3qQ0631wDJiND1VrRkN6sp8uNC3yPPiRDR6ClhE9VyjG9a2djz?=
+ =?us-ascii?Q?yIBBS+fcAv7OTBElMISXH78jL5NhkaG8cAJOFHx8mKn3UTo7kBeTeyO/fGUq?=
+ =?us-ascii?Q?t6ajqibxcX5aP8Wv2CE=3D?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5372.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9ad873c8-af7b-4a9b-3be3-08dd4a3e3c0c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Feb 2025 01:48:51.2178 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 541b0e77-5f07-44ef-f617-08dd4a3f0d88
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Feb 2025 01:54:42.6449 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: zEsQAhH2HSlYR/TBGo355qtdeaQ8N2Q8mBUm3SwXyv1TOx7kABVlVqIrbF8mCpxyS/ActNVdRRwkVKHL4yXe5A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8043
+X-MS-Exchange-CrossTenant-userprincipalname: HXmaMMUcvuIx8FxHraP1E5mwRYNqwEi4hMy/Q6SmfcpvpkFeYphKjpETICzApyVjcSIGkpNHwEbrpnJBqEYJLQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8757
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -163,101 +158,148 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 [AMD Official Use Only - AMD Internal Distribution Only]
 
-Why only free the mem when  unified mes is enabled , I remembered that set_=
-hw_resource_1 will also be called in none-unified mes mode .
+Series is
 
-Another thing is eventually we probably should allocate total 129 pages the=
- same as GFX11  (128  for hw_resource_1 and  one  extra page for MES intern=
-al usage) .  But seems SRIOV still not use that 128 pages, It can  be  upda=
-ted later when  I update the API for gfx12 to enable that .
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 
-Regards
-Shaoyun.liu
-
+Regards,
+Hawking
 -----Original Message-----
-From: Deucher, Alexander <Alexander.Deucher@amd.com>
-Sent: Monday, February 10, 2025 4:19 PM
+From: Lazar, Lijo <Lijo.Lazar@amd.com>
+Sent: Monday, February 10, 2025 15:01
 To: amd-gfx@lists.freedesktop.org
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Chri=
-stian.Koenig@amd.com>; SHANMUGAM, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>=
-; Liu, Shaoyun <Shaoyun.Liu@amd.com>
-Subject: [PATCH 2/2] drm/amdgpu/mes: Add cleaner shader fence address handl=
-ing in MES for GFX12
+Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander <Alexander.D=
+eucher@amd.com>; Kim, Jonathan <Jonathan.Kim@amd.com>
+Subject: [PATCH v2 1/4] drm/amdgpu: Move xgmi definitions to xgmi header
 
-This commit introduces enhancements to the handling of the cleaner shader f=
-ence in the AMDGPU MES driver:
+Move definitions related to xgmi to amdgpu_xgmi header
 
-- The MES (Microcode Execution Scheduler) now sends a PM4 packet to the
-  KIQ (Kernel Interface Queue) to request the cleaner shader, ensuring
-  that requests are handled in a controlled manner and avoiding the
-  race conditions.
-- The CP (Compute Processor) firmware has been updated to use a private
-  bus for accessing specific registers, avoiding unnecessary operations
-  that could lead to issues in VF (Virtual Function) mode.
-- The cleaner shader fence memory address is now set correctly in the
-  `mes_set_hw_res_pkt` structure, allowing for proper synchronization of
-  the cleaner shader execution.
-
-Cc: Christian K=F6nig <christian.koenig@amd.com>
-Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Suggested-by: Shaoyun Liu <shaoyun.liu@amd.com>
-
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/mes_v12_0.c | 22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h  | 23 +---------------  drivers/gp=
+u/drm/amd/amdgpu/amdgpu_xgmi.c |  8 ++++++  drivers/gpu/drm/amd/amdgpu/amdg=
+pu_xgmi.h | 35 +++++++++++++++++-------
+ 3 files changed, 34 insertions(+), 32 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/mes_v12_0.c
-index dcbc31279f29b..8dbab3834d82d 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-@@ -678,6 +678,9 @@ static int mes_v12_0_misc_op(struct amdgpu_mes *mes,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_gmc.h
+index 459a30fe239f..bd7fc123b8f9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
+@@ -29,6 +29,7 @@
+ #include <linux/types.h>
 
- static int mes_v12_0_set_hw_resources_1(struct amdgpu_mes *mes, int pipe) =
- {
-+       unsigned int alloc_size =3D AMDGPU_GPU_PAGE_SIZE;
-+       int ret =3D 0;
-+       struct amdgpu_device *adev =3D mes->adev;
-        union MESAPI_SET_HW_RESOURCES_1 mes_set_hw_res_1_pkt;
+ #include "amdgpu_irq.h"
++#include "amdgpu_xgmi.h"
+ #include "amdgpu_ras.h"
 
-        memset(&mes_set_hw_res_1_pkt, 0, sizeof(mes_set_hw_res_1_pkt)); @@ =
--687,6 +690,19 @@ static int mes_v12_0_set_hw_resources_1(struct amdgpu_mes=
- *mes, int pipe)
-        mes_set_hw_res_1_pkt.header.dwsize =3D API_FRAME_SIZE_IN_DWORDS;
-        mes_set_hw_res_1_pkt.mes_kiq_unmap_timeout =3D 0xa;
+ /* VA hole for 48bit addresses on Vega10 */ @@ -174,28 +175,6 @@ struct am=
+dgpu_gmc_funcs {
+        bool (*need_reset_on_init)(struct amdgpu_device *adev);  };
 
-+       ret =3D amdgpu_bo_create_kernel(adev, alloc_size, PAGE_SIZE,
-+                               AMDGPU_GEM_DOMAIN_VRAM,
-+                               &mes->resource_1,
-+                               &mes->resource_1_gpu_addr,
-+                               &mes->resource_1_addr);
-+       if (ret) {
-+               dev_err(adev->dev, "(%d) failed to create mes resource_1 bo=
-\n", ret);
-+               return ret;
-+       }
-+
-+       mes_set_hw_res_1_pkt.cleaner_shader_fence_mc_addr =3D
-+               mes->resource_1_gpu_addr;
-+
-        return mes_v12_0_submit_pkt_and_poll_completion(mes, pipe,
-                        &mes_set_hw_res_1_pkt, sizeof(mes_set_hw_res_1_pkt)=
-,
-                        offsetof(union MESAPI_SET_HW_RESOURCES_1, api_statu=
-s)); @@ -1770,6 +1786,12 @@ static int mes_v12_0_hw_init(struct amdgpu_ip_b=
-lock *ip_block)
+-struct amdgpu_xgmi_ras {
+-       struct amdgpu_ras_block_object ras_block;
+-};
+-
+-struct amdgpu_xgmi {
+-       /* from psp */
+-       u64 node_id;
+-       u64 hive_id;
+-       /* fixed per family */
+-       u64 node_segment_size;
+-       /* physical node (0-3) */
+-       unsigned physical_node_id;
+-       /* number of nodes (0-4) */
+-       unsigned num_physical_nodes;
+-       /* gpu list in the same hive */
+-       struct list_head head;
+-       bool supported;
+-       struct ras_common_if *ras_if;
+-       bool connected_to_cpu;
+-       struct amdgpu_xgmi_ras *ras;
+-};
+-
+ struct amdgpu_mem_partition_info {
+        union {
+                struct {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_xgmi.c
+index 74b4349e345a..03d909c7b14b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+@@ -1671,3 +1671,11 @@ int amdgpu_xgmi_request_nps_change(struct amdgpu_dev=
+ice *adev,
 
- static int mes_v12_0_hw_fini(struct amdgpu_ip_block *ip_block)  {
-+       struct amdgpu_device *adev =3D ip_block->adev;
-+
-+       if (adev->enable_uni_mes)
-+               amdgpu_bo_free_kernel(&adev->mes.resource_1,
-+                                     &adev->mes.resource_1_gpu_addr,
-+                                     &adev->mes.resource_1_addr);
-        return 0;
+        return r;
  }
++
++bool amdgpu_xgmi_same_hive(struct amdgpu_device *adev,
++                          struct amdgpu_device *bo_adev)
++{
++       return (amdgpu_use_xgmi_p2p && adev !=3D bo_adev &&
++               adev->gmc.xgmi.hive_id &&
++               adev->gmc.xgmi.hive_id =3D=3D bo_adev->gmc.xgmi.hive_id); }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_xgmi.h
+index d1282b4c6348..044c4f6be44a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.h
+@@ -23,7 +23,6 @@
+ #define __AMDGPU_XGMI_H__
+
+ #include <drm/task_barrier.h>
+-#include "amdgpu_psp.h"
+ #include "amdgpu_ras.h"
+
+ struct amdgpu_hive_info {
+@@ -55,7 +54,29 @@ struct amdgpu_pcs_ras_field {
+        uint32_t pcs_err_shift;
+ };
+
+-extern struct amdgpu_xgmi_ras  xgmi_ras;
++struct amdgpu_xgmi_ras {
++       struct amdgpu_ras_block_object ras_block; }; extern struct
++amdgpu_xgmi_ras xgmi_ras;
++
++struct amdgpu_xgmi {
++       /* from psp */
++       u64 node_id;
++       u64 hive_id;
++       /* fixed per family */
++       u64 node_segment_size;
++       /* physical node (0-3) */
++       unsigned physical_node_id;
++       /* number of nodes (0-4) */
++       unsigned num_physical_nodes;
++       /* gpu list in the same hive */
++       struct list_head head;
++       bool supported;
++       struct ras_common_if *ras_if;
++       bool connected_to_cpu;
++       struct amdgpu_xgmi_ras *ras;
++};
++
+ struct amdgpu_hive_info *amdgpu_get_xgmi_hive(struct amdgpu_device *adev);=
+  void amdgpu_put_xgmi_hive(struct amdgpu_hive_info *hive);  int amdgpu_xgm=
+i_update_topology(struct amdgpu_hive_info *hive, struct amdgpu_device *adev=
+); @@ -70,14 +91,8 @@ bool amdgpu_xgmi_get_is_sharing_enabled(struct amdgpu=
+_device *adev,
+                                        struct amdgpu_device *peer_adev);
+ uint64_t amdgpu_xgmi_get_relative_phy_addr(struct amdgpu_device *adev,
+                                           uint64_t addr);
+-static inline bool amdgpu_xgmi_same_hive(struct amdgpu_device *adev,
+-               struct amdgpu_device *bo_adev)
+-{
+-       return (amdgpu_use_xgmi_p2p &&
+-               adev !=3D bo_adev &&
+-               adev->gmc.xgmi.hive_id &&
+-               adev->gmc.xgmi.hive_id =3D=3D bo_adev->gmc.xgmi.hive_id);
+-}
++bool amdgpu_xgmi_same_hive(struct amdgpu_device *adev,
++                          struct amdgpu_device *bo_adev);
+ int amdgpu_xgmi_ras_sw_init(struct amdgpu_device *adev);  int amdgpu_xgmi_=
+reset_on_init(struct amdgpu_device *adev);
 
 --
-2.48.1
+2.25.1
 
