@@ -4,51 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE12EC021A0
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Feb 2025 23:31:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 025F1C021A0
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Feb 2025 23:34:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E40210E1A8;
-	Tue, 11 Feb 2025 23:31:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A10FC10E763;
+	Tue, 11 Feb 2025 23:34:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UFcAL+yN";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="pKLL61fw";
 	dkim-atps=neutral
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5169E10E1A8
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Feb 2025 23:30:59 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 35A6810E763
+ for <amd-gfx@lists.freedesktop.org>; Tue, 11 Feb 2025 23:34:47 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id C0695A40812;
- Tue, 11 Feb 2025 23:29:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC51AC4CEDD;
- Tue, 11 Feb 2025 23:30:57 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id AC4925C49F4;
+ Tue, 11 Feb 2025 23:34:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B85CC4CEDD;
+ Tue, 11 Feb 2025 23:34:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1739316657;
- bh=NClWj+hoesfa5XuCbBYDAKUXJXVXFF21o0ZpYn2FjQ0=;
+ s=k20201202; t=1739316886;
+ bh=PXjOkztQtS20D6Nh1IncoMXQ5YlWhRlg8ZJHVtBRdtM=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=UFcAL+yNXznuxsj7iLlv0H1VTSeqTvbKk5iFryb9sKY5pB/PuVnp6b3jmd8soRAYe
- GRj9G62yEpaDWWtSjdOP/NXlmMZ8M45PoqkoqupSvjRWyp5QgFKZPYM4yNAiEB0M/A
- T5y4o1T++Kk+L04A5Mzyb0KEHw3M9UJ5m/YrJT0YD7QKlWbjTWw1/fIbEWnvoxPdWE
- B3vWQGHu9r9c5PSEvwOmz+53pfd/bz1ahN3Stwf8fSRQjpKLk3GM2O4Nns8Hx2m3D6
- FObZgpQQQBPlF+v5dh5/e64KEVVEe0kG1wP4WOvgEu3JkUNUom4B9q7x07nJAZRmTV
- rbYWrebC38+HA==
-Date: Tue, 11 Feb 2025 15:30:56 -0800
+ b=pKLL61fwRbfWBU4Fm1uWF3wSUkGkVyN4BcEy6w45cicRmzuTkyvVP6B8ws+bi6srS
+ twx1aTHOjA9SrFr1dE6qi2MByeLocSUuAwW1QbkJKy7GscJBE/2yYWG3HC1wjRoWHq
+ 2WAk+GT26ywwzvsYqAQrMx2AIzVVgIEEDKnbfkriUJ8lQ5KP98awdQ5IcdnyacKXqv
+ 3PnOMmQ3+WLO2Iw5URjBwIECbOyMK5jcLQsA9qBgUJru+RlkQrFGjSuaD1WZgaWp4Q
+ gbJkI+UslNwsJGrh8aJZnguj2CiAfFjfQw5MoF1F6WDXfZoIeOT+YCh8tAslHtvdCk
+ FQb+MzoKqwzbQ==
+Date: Tue, 11 Feb 2025 15:34:44 -0800
 From: Josh Poimboeuf <jpoimboe@kernel.org>
-To: Huacai Chen <chenhuacai@kernel.org>
-Cc: Tiezhu Yang <yangtiezhu@loongson.cn>,
- Peter Zijlstra <peterz@infradead.org>, loongarch@lists.linux.dev,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 0/9] Add jump table support for objtool on LoongArch
-Message-ID: <20250211233056.q47mp5askk7qrxcp@jpoimboe>
-References: <20241217010905.13054-1-yangtiezhu@loongson.cn>
- <ef1e3e7c-0117-175c-5a85-091382696748@loongson.cn>
- <20250115013444.anzoct6gvs56m225@jpoimboe>
- <4612bfd8-442e-fecb-240f-46e735b48540@loongson.cn>
- <20250210212653.oidcl4aqyrcu3yzi@jpoimboe>
- <CAAhV-H7MVDj0CbXfwveb7GDn+D=O4N6oUT6rpGrbGmYPLPpRPg@mail.gmail.com>
+To: Kexy Biscuit <kexybiscuit@aosc.io>
+Cc: yangtiezhu@loongson.cn, amd-gfx@lists.freedesktop.org,
+ chenhuacai@kernel.org, linux-kernel@vger.kernel.org,
+ loongarch@lists.linux.dev, peterz@infradead.org
+Subject: Re: [PATCH] objtool: remove duplicate case value R_PPC64_REL32
+Message-ID: <20250211233444.nt6nvks4jim753bk@jpoimboe>
+References: <20241217010905.13054-3-yangtiezhu@loongson.cn>
+ <20250211141956.553850-2-kexybiscuit@aosc.io>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAAhV-H7MVDj0CbXfwveb7GDn+D=O4N6oUT6rpGrbGmYPLPpRPg@mail.gmail.com>
+In-Reply-To: <20250211141956.553850-2-kexybiscuit@aosc.io>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,69 +59,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Feb 11, 2025 at 07:59:57PM +0800, Huacai Chen wrote:
-> Hi, Josh,
+On Tue, Feb 11, 2025 at 10:19:57PM +0800, Kexy Biscuit wrote:
+> In arch/powerpc/include/uapi/asm/elf.h, R_PPC64_REL32 is defined as a
+> macro to R_PPC_REL32, makes the case value here being duplicate and
+> creates the following error...
 > 
-> On Tue, Feb 11, 2025 at 5:26 AM Josh Poimboeuf <jpoimboe@kernel.org> wrote:
-> >
-> > On Mon, Feb 10, 2025 at 02:07:43PM +0800, Tiezhu Yang wrote:
-> > > On 01/15/2025 09:34 AM, Josh Poimboeuf wrote:
-> > > > On Sat, Jan 11, 2025 at 02:57:42PM +0800, Tiezhu Yang wrote:
-> > > > > Hi Josh and Peter,
-> > > > >
-> > > > > On 12/17/2024 09:08 AM, Tiezhu Yang wrote:
-> > > > > > This version is based on tip/tip.git objtool/core branch [1], add some weak
-> > > > > > and arch-specific functions to make the generic code more readable, tested
-> > > > > > with the latest upstream mainline Binutils, GCC and Clang.
-> > > > >
-> > > > > ...
-> > > > >
-> > > > > > [1] https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git/log/?h=objtool/core
-> > > > > >
-> > > > > > Tiezhu Yang (9):
-> > > > > >   objtool: Handle various symbol types of rodata
-> > > > > >   objtool: Handle different entry size of rodata
-> > > > > >   objtool: Handle PC relative relocation type
-> > > > > >   objtool: Handle unreachable entry of rodata
-> > > > > >   objtool/LoongArch: Add support for switch table
-> > > > > >   objtool/LoongArch: Add support for goto table
-> > > > > >   LoongArch: Enable jump table for objtool
-> > > > > >   LoongArch: Convert unreachable() to BUG()
-> > > > > >   drm/amd/display: Mark dc_fixpt_from_fraction() noinline
-> > > > >
-> > > > > Are you OK with the first 8 patches?
-> > > > > What's the merge plan for this series?
-> > > >
-> > > > Sorry, my inbox is still reeling from the holidays.  I will review this
-> > > > soon.
-> > >
-> > > What are the status of the first 8 patches?
-> > > What is the next step? Is there anything else to be done here?
-> > > I would really appreciate any advice on how to get this merged.
-> >
-> > Please post a new revision rebased on tip/master, with patch 4 dropped,
-> > and I'll queue them up for -tip.  Thanks for your patience.
-> You will queue the whole series, or the first 5 patches, or the first 3 patches?
+> arch/powerpc/decode.c: In function ‘arch_reloc_size’:
+> arch/powerpc/decode.c:114:9: error: duplicate case value
+>   114 |         case R_PPC64_REL32:
+>       |         ^~~~
+> arch/powerpc/decode.c:113:9: note: previously used here
+>   113 |         case R_PPC_REL32:
+>       |         ^~~~
+> 
+> Remove the duplicate case value to fix the error.
+> 
+> Fixes: "FROMLIST: objtool: Handle different entry size of rodata"
+> Signed-off-by: Kexy Biscuit <kexybiscuit@aosc.io>
+> ---
+> This patch is required for this series to build on powerpc, however I'm
+> not sure if it's the preferred way... Please advise.
 
-The new series now has 7 patches:
-
-Tiezhu Yang (7):
-  objtool: Handle various symbol types of rodata
-  objtool: Handle different entry size of rodata
-  objtool: Handle PC relative relocation type
-  objtool/LoongArch: Add support for switch table
-  objtool/LoongArch: Add support for goto table
-  LoongArch: Enable jump table for objtool
-  LoongArch: Convert unreachable() to BUG()
-
-I was planning on queueing all 7.
-
-In particular, patch 6 should stay with the objtool patches since
-they're directly related.
-
-But I was also just going to grab 7 as well.
-
-Please let me know if you disagree.
+If there are no objections, I'll squash this into the original patch to
+avoid breaking bisection.
 
 -- 
 Josh
