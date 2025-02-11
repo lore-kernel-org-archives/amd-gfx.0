@@ -4,165 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9F7BC0219E
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Feb 2025 17:02:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 701D1C0219B
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Feb 2025 19:50:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7178B10E300;
-	Tue, 11 Feb 2025 17:02:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 157A210E74E;
+	Tue, 11 Feb 2025 19:50:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="DbU6fjM6";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RNZNAer/";
 	dkim-atps=neutral
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2066.outbound.protection.outlook.com [40.107.96.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D9A410E300
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Feb 2025 17:02:17 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Gap+Mt+xlhjjEdOTf9jNJD2td8aaZM3nVkMdUna8sTTdFP9ZR1VcE+8AfvjmCS6M7WbMOlAu6efmeV1q3zI3VAyXpiEvbxZQaoj+986BJ73tcDKx1aybY1q6zTlOs24n1IvSxmdKFd7rtEP0VcHfjwjDvMrV1ZpdtJxhbtNd4jJ8GuCRduIJS+ysQ6Hzi/kzUQKnLDPUuwb1SM+OkvkbW4USih644YDKZY2roHD/M20ESAglWzHaQJ4pchBARphlX61VnxzSodtBpjA18D03CiSHUqgcz/yxh9RDSXJ2strMaudnmm5BV2e9y68qy8gdjGYuhF+f8MO3UWi+Tsysmw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qbWP1gDdiYTV19CZeJWlznMed0NpD9QBTh+ZUmkY3bA=;
- b=xCDAcxOmg8/+tfUsSXfTcT433QGfvK1rHprz7H7uGXQG8polgxakLPqTE/fjNGsJsaD0RDnrgvKmJCAYus8oghUASZ23KLDGSYYyPNoCcpnRFaID4ZjAYcEYJDVtHGnFnlycktyq7m+w3oAkjIqH7NJvRE54BP0ax4lYBCaIkyX6AlOzoUSM3/+Lmih+GETGEqOIidRxPDmV8zPnRDBIV9560BCz0DrGyxifloUJdmsTsqp3HlmcYdYeb1q0ZoFAvGfwGD9kzT9tFsYiHHDh+s5gKEfd2SSIg97A38DXy1z/lGWYTVH1bkB4OXm2m4khxjp3VIEDkGY6c5CugULAYA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qbWP1gDdiYTV19CZeJWlznMed0NpD9QBTh+ZUmkY3bA=;
- b=DbU6fjM6f4sSOT1kIKozE7WzHmbnDrYP87TlYjYTcvuOxrajQcu8wqTAOjLLR5oHXAwOqjekq0hEtzGZzpuKYITRteTNgDZZTX2S5YWUKkv9HP23G8WetAhzMjv+fM3VMA2dirO7aaRuoqmhXiGsHuNFb6kYQliU9E30m87mD+I=
-Received: from CH0PR12MB5372.namprd12.prod.outlook.com (2603:10b6:610:d7::10)
- by CH2PR12MB4165.namprd12.prod.outlook.com (2603:10b6:610:a4::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8422.12; Tue, 11 Feb
- 2025 17:02:12 +0000
-Received: from CH0PR12MB5372.namprd12.prod.outlook.com
- ([fe80::fec0:2b36:85c1:fc9b]) by CH0PR12MB5372.namprd12.prod.outlook.com
- ([fe80::fec0:2b36:85c1:fc9b%4]) with mapi id 15.20.8422.015; Tue, 11 Feb 2025
- 17:02:12 +0000
-From: "Liu, Shaoyun" <Shaoyun.Liu@amd.com>
-To: Alex Deucher <alexdeucher@gmail.com>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Koenig,
- Christian" <Christian.Koenig@amd.com>, "SHANMUGAM, SRINIVASAN"
- <SRINIVASAN.SHANMUGAM@amd.com>
-Subject: RE: [PATCH 2/2] drm/amdgpu/mes: Add cleaner shader fence address
- handling in MES for GFX12
-Thread-Topic: [PATCH 2/2] drm/amdgpu/mes: Add cleaner shader fence address
- handling in MES for GFX12
-Thread-Index: AQHbfAF26N9VO/kRTECg7936LeDhZrNBTw4wgADqwYCAABrK0A==
-Date: Tue, 11 Feb 2025 17:02:12 +0000
-Message-ID: <CH0PR12MB537272B6E67A5A283D895EF7F4FD2@CH0PR12MB5372.namprd12.prod.outlook.com>
-References: <20250210211904.281317-1-alexander.deucher@amd.com>
- <20250210211904.281317-2-alexander.deucher@amd.com>
- <CH0PR12MB53726043385289BEA92AFA2FF4FD2@CH0PR12MB5372.namprd12.prod.outlook.com>
- <CADnq5_MUCe80BCtLmiVoNW+hK55HTr1uzRnWx+XUzgY=gkjaNg@mail.gmail.com>
-In-Reply-To: <CADnq5_MUCe80BCtLmiVoNW+hK55HTr1uzRnWx+XUzgY=gkjaNg@mail.gmail.com>
-Accept-Language: en-CA, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=14080591-0908-4c21-9e3d-ca6032a11735;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution Only;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-02-11T16:59:25Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CH0PR12MB5372:EE_|CH2PR12MB4165:EE_
-x-ms-office365-filtering-correlation-id: 1f192af6-ce0b-4049-0084-08dd4abdd44a
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0; ARA:13230040|1800799024|366016|376014|38070700018;
-x-microsoft-antispam-message-info: =?utf-8?B?YkFTU3c2WE0ra25ORU5JcEM3dm1wR0dPaTM1ZDhTc3MvZGxPeDZMUS9kTkVR?=
- =?utf-8?B?eWVzaWpmQ1FMOEt0L3VrZkEwUk1vQnlxcTRvdGZsSnByU2E3TTRMZFR1OGZr?=
- =?utf-8?B?cG5FVHRzVVpvTzVoeGRva0k0VHp1SGZPR2FtdjU2U3NYbDVyU2Y2dEV3UGY5?=
- =?utf-8?B?WitqRUVBdFRrV1poT051a1ZaSUZxd3I1S1BYR2JvbXAyYXUzUVJCeCtWbXNJ?=
- =?utf-8?B?VGNzSS9YamlQOFJwSXpwS3Erb0kwR0Zjc2lLZ3V4ZHpjZEpDa1VHL0ptMEdh?=
- =?utf-8?B?K2pkUkRxRGNNQWdCY0xVK3pCMkQyRTVVVG9LUStMcTM1UjExOGhpalkzSHFT?=
- =?utf-8?B?b2VvTzJkc0lBTXVGWWlMOWpDS3VaOTVVa0VJcWcwTi9WUGRBNXlobVVpR2I1?=
- =?utf-8?B?UWtNZEFEcDZHYkRRTFpyNUFkY2dOeVpKa25KYVdLMGZRSTZXYmg1QTFCekU5?=
- =?utf-8?B?TEZWUit2RzJOekV4ZnRpZTYvUW9mYndXVWZXbkhHN3M1RC9zMHArajNMUWo3?=
- =?utf-8?B?bVNrRVBNWXR2aWYxbFRYeTNyVGZUMGNDd01pMFhIWWtJd1BhTGt5cWI1V3Ez?=
- =?utf-8?B?eHova004UWlFclY1K2dTREU5cmRTaTVJWnlqY0hHMGRpKzc0RVlKWHZMUUJl?=
- =?utf-8?B?VEpYc2pzbWVnZ2tyZFp5T2gvV1J2ZHl0aVdML0h4aFJwbEh1SURBaHZpNkJ5?=
- =?utf-8?B?VlBaWlpoUzZJVk9wNWI4WWl3WjFkb1NrMlVyb1NzWmRJSkxvRU1zZ3BKTmx1?=
- =?utf-8?B?RmtRRFRnQVBWeUJlOFdaR2lHY2pkSzd2d3NMWkVUYnNnbE9lVDR0VGxaQzNq?=
- =?utf-8?B?aTE3d1N3YWo0VzJmdWlCNG8zaDEvUlh1UHlwVnhvV3doVWNTQ1p0eUdic1Bw?=
- =?utf-8?B?V3VscitndXcyVDB2OGRLUGs2alk3K3MvOWRTQ2djYnpjSWgvOFJtMUNXUFlL?=
- =?utf-8?B?eHMwMVF3ajg3NkRzRWgzQkdBaS9LNWZHeHhVdWFJckdQYUV5NWFGN21aSDVG?=
- =?utf-8?B?dFRibmdXSGxKb3VIV2pqT0xlL0szZ3FoVTJpN0tYREhJdy84MXBCMlFsTHpn?=
- =?utf-8?B?dkxzai9JeFZVY1NrbU9zOWltVDNvTVgvWCtmM2VaVUdJaXZ5RUNlM3hSNWVk?=
- =?utf-8?B?bjUxbEJVd25nSzZ2b2Q5cEFpMStFQ0lwZWpoZ1o5Tkx4dms0bHRKbmVONTJC?=
- =?utf-8?B?alVSaWVQMHZiSWc3NEtNNVlJM0hvNEJZblpMQ0hRR2VNZG9COGI5czdJdUVL?=
- =?utf-8?B?TjUyUitpL2pWNENBQ3d0NjdQSFlhaldCZEhVampaMmtxSmsvSHlaZ2lwdDZa?=
- =?utf-8?B?dDV6TXBjM1dsZHMxVHduQVhqVkdjM1FlT2s2VnY4YkMwa2QwT0YvbTFNcEQ2?=
- =?utf-8?B?Y0l1ZVYrdmh2NUlycTlBVmxPZ3A0d1NHd1Fvd2xTeDhjWTIzUHZCNVRwTEpJ?=
- =?utf-8?B?cXdNRU1SVWhESlN4VTBCM3RKckcyZFB6UzNqRFJXaEhwUjM1ajdvejBYa1dG?=
- =?utf-8?B?MStsaDR5NVFkUnNUaDU1a2JpeFRMeldEUzBVeGVHcXIyRWZYak1nU0lYN2tk?=
- =?utf-8?B?Y2IrTEhSS3IrOFBHWVVmcWlJdFNmdTA3VFUrNjdZTWswNnFKRndnV2hLZG0y?=
- =?utf-8?B?c1lVTFZGZ2lqbEphWWlkZDBrdVFJMVg1ZkV5dVcwTi91QmJrdFc5Zm1rMEVm?=
- =?utf-8?B?UnA1MUExYTVVTGUzQzZHcEJ0TUh3R0tleXdnSENSYW1FampaeVRxc3lQK0xt?=
- =?utf-8?B?MjhURDNnL09wSS8xNUdyQ0pmdG9MbnR3NjZmTEc2ZE1ZajRhZEs1QjF1cGFp?=
- =?utf-8?B?TkZKNlV0Q0RQRm83bm0xUDFzQ0VjdE1RM2VibEZ3NlZacERMV1pEbXhhaXpu?=
- =?utf-8?B?K2xVeVNPbEczV3huS250My9JYmhwZVczWDRFalhHTThHTnBtdy9qWHNnZUZj?=
- =?utf-8?Q?CLHbx3XHtDjoNEsNUcFnqIzwRDyZy+Ha?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH0PR12MB5372.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(38070700018); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?N05HREVCd2VlVnFSbUQ0Y1REQ3oyUzhtTWRWc0QxNmRVc1hXSXFuYjNLYnRp?=
- =?utf-8?B?VW13TE1NMXcxVTNBU3JwK0IyV3N2QWxCMGtPdnhnM01JZGhRM08vZ24xMTVS?=
- =?utf-8?B?M0xBU1VMSEpGeUhTcU52TkVXZXJsK1V5YlExdjZRYjBXaDJSa2JUTldwQzZQ?=
- =?utf-8?B?Ui9aaHBqN1FpU3RnOVJ5eUM3TXc4WGNvc3ZHS0xZbkFYMndBNDlaRlJYT21t?=
- =?utf-8?B?ZndxYVRyc3A2Rm1pTy84b0tsbGc5YzJvQ3JWTC9Zb0NKR2pWcWF5dTF2cTdv?=
- =?utf-8?B?TDJDUWNDNzN1d2s2L0VKVFo0NXZ6ZUpkOW9Jc05TNWp1cjBWMnhyL0U1K2Zl?=
- =?utf-8?B?TE9mbG4zeUplWXhIVnNORG5pMnc4VW0zSk1LZEVScUFSeHdiRGdOQnBRZDVu?=
- =?utf-8?B?cUpVKzdiS1VTVWlIOHV0SDNIazVCWlZ1YjdnL0JsbXA1NGJSQU9EbW55S3Za?=
- =?utf-8?B?eHdHdkxQN25vUDBCVDFUaStHeERicXJHRjI4OUhzOFlzbmRjN1M4QSs5bU9M?=
- =?utf-8?B?WHhpTE54b2N1QnQ5cDRpSGFGTmNmd2cyYS9EUW9RcWJpd0dtRkpKL0d6VE9X?=
- =?utf-8?B?RW93ZitXaVF3dVdzUHIyMXVRYThkL0NZMkw3MDJ2VGxHakd3ZXovaGZtclRr?=
- =?utf-8?B?M3FORzY3dzhWU1ZCSy9yVWhnOW5zVlJOYy9xZHUrOEVlM3JaU3lIdDZDdUUw?=
- =?utf-8?B?a3JtS2Nzb21rSjgxNzExc1gzbktIa3d0V2JSdGdVNDNBckxURkI5Tjh1cmdL?=
- =?utf-8?B?UXRYSkUzZ2l0cmpOS1UvQUw4Z2ZGcklNSGE2NGlsQWdOSU9mWmpIMXhyTlp6?=
- =?utf-8?B?TFRFeFFtb0V0VThIbUp2aFNYU0lXUkJZWWlJaUQvMk9yQ3hZQUlBalhUT1k3?=
- =?utf-8?B?MHpMMm9uaG4zT3pyeUZockJ6ZUJEYmNLM0F2YmVGamRkcEpUMk1XMStoTUdS?=
- =?utf-8?B?SXhMRTNFZ243c0tUUEVqdjF4T1FnUUdhZldVSWs0b056TTJuakltL0VOUFpp?=
- =?utf-8?B?VjgwTlgzc3JNRm5LV1RDUHN3RG1qNUdJYXQ2bWhxSDc1UzErY0hjdFFCVDJI?=
- =?utf-8?B?Wk01L0xKOW1kUERHR25xY2NNT3BFdGxuejZCcEFRdWppZnRoNkZYWUVGSVJy?=
- =?utf-8?B?M3EzTGVEdWRwN25wQ2JyYklwM1FwSFp3M0gvRU4zdU9nQk9TTWhGSTF2Ujkz?=
- =?utf-8?B?aE1tVENOZmZCVzhwdUVnb0R6N1BTVjRwamVKbFZSRmcxanZxeWtXbXN3QTkw?=
- =?utf-8?B?MHBob0gzZmdPZDJETDIzZlZJblZKSmRQZDVxOW9mM0F4SmMvSi9HYXBGOEdC?=
- =?utf-8?B?RGc2SXhWcFV5WW5EY1dWOENRWHM0Rno3MFczRDZxNFZjU0FaOEZ0cE0zUVVh?=
- =?utf-8?B?em5GUHVRMWZyTURRRi9nWWEvR2g3YjBid2Q0eVFZbXJYNWhLZDhDTDl3L28v?=
- =?utf-8?B?SUZyWUtPK004MGYvZHNRdDZyOW5tb1lKYmdxRDRiUlpMUlRSRjZpQk8rTHg3?=
- =?utf-8?B?bFpWdjl3dklTK29jckRSYjZYMlBGTWxvbHhycnlid1FUb0pyZmloYTY4dEM5?=
- =?utf-8?B?OENHUnpDSGxsNDVTbzErZjkvZ05scU02NnlnMU0yL2E4Y2V6RFV1eFBXdGtv?=
- =?utf-8?B?aUVDVk1KWEdyZXVTcnJ2MWdSOTBFS3JPVmRRY2RxVk9kK2ljOG51enVnSUFx?=
- =?utf-8?B?TjZXMldMVVJpeDNMQ2IvRXpWem81dmNYNVZ2Z1c1bTIxZ3dXWDZJSkJBOTFu?=
- =?utf-8?B?VG9YWWZUcVBKOUFwR0s3dDlqRjdkd0RRTEkvVkpKSE90c3FPZTM2MHhLV2pB?=
- =?utf-8?B?TUJlWTE3czlFR3pTbUlPRHBXRjdHbEZsUWppT3hNL0FIdlJTM0JnTmRRU2Jl?=
- =?utf-8?B?Q1M0RUJ0bkFySSttZE94bEtyTjZ1eWNnSXFUdnZ6ZnNJZ2hoUGNQRkM2TXVs?=
- =?utf-8?B?QWhKc0ExTTA1QlJvQXBzL3VYZnpRREpTTDRhY2lnY3JjVzRNU3FTVlNoRmVN?=
- =?utf-8?B?VjNNVWExbjQ4eTA0QzZPNjJYcnJxS2M5WkxUN3RaVk8yMk1xeXpQM2txYTRs?=
- =?utf-8?B?QlBvV1plcHk5d2Q5MTZCSlNydHFnUElGblpJREV2YURFU3MzNmdKWUtNNEY4?=
- =?utf-8?Q?3sqc=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
+ [209.85.216.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72B7410E74B;
+ Tue, 11 Feb 2025 19:50:29 +0000 (UTC)
+Received: by mail-pj1-f48.google.com with SMTP id
+ 98e67ed59e1d1-2fa102a6106so1329585a91.0; 
+ Tue, 11 Feb 2025 11:50:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1739303429; x=1739908229; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=/syMYk1I/eVV0UELLsqxL3p3z7uv/sPdVpSm0ICMLaI=;
+ b=RNZNAer/F5gyYH+AJa3Y6wf4VafSbwZt7838geJuqBY5YBm9SPS64bg6BXXcv+D/cQ
+ NaCzj8BRZL0ooMvxCvrj2lj5LWIDl/V86Gh04FvAyuyQuxjjbZ0VHEWlibJM69hBmoQk
+ 3dsVpCcc7Iwhf9T5iUMpuhKYwbIfaId9vcHU9XkxMREJq2uBVI5KTghWE2Jm8+TWPNFR
+ j5nzEpupYZ4Eg5mBs6LVfPxAIv3HM+egWFfhprBiBBAmctgJ/wehZbjP36RRZrU7GrTT
+ pb+DCSEk6tncKmbgzZxzZUhlcZ457w//73d8gbiwQP97XGUFHmQZu130ik/Qh1mEVkgC
+ /fKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1739303429; x=1739908229;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=/syMYk1I/eVV0UELLsqxL3p3z7uv/sPdVpSm0ICMLaI=;
+ b=pP+UdNmHpBfKyQktTbVb3Wy6h5XTUCXqVDWyzfegfSLXyvVKfSoPtHlsm/MyMWZJi2
+ 7YRLQx6J2oALkBm8EKNKzzgVxWvxu8Kzqrr42EAjIDdbR+dkSiv/07nr74c8fM6GCnCz
+ OFhpITphEKp9O7QDJ9EfIgyx1cWBPKEs4ioHsjLI+y7xNZhHcEyWB6nzs3GLHReiqUYc
+ LS0g/m+98G4QLDk8qXLSE+widcRhKraVkbKG16jZ7aPQ+kU0odDn9WpuhO52yz4rqcIe
+ q7YMa202LDqzJLqKMjDnfGNSXneYa0X3kZusGzwI1ktGVSwba2QR0WPjaSuDhY0WIBLD
+ tSAw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUoz0Gov8WqO5P/Y1501kN+riyEzPYvwCNrc0tP2gIgnU34Rr55kXyVNu3gpZHgAsVJx8/yFF18YZZ3@lists.freedesktop.org,
+ AJvYcCWPRz7FazVIFHvissm6yFsFA194ghh4HSm6fJbdcisIJzhDLTE5UT5ECRbcvNvJlGBlHIWEuxCS@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxF2SS71UdPPLGtNbeZGQF30cJtEtkP/NwLgOMGeMFLnFK2E6rA
+ vgnjHK+/7UnD/Gl3EtZI+lM3V/k8SBpGI/kRDlxoSPgKmlmh1WmciCvtzHcnhelWyF3PiIt79f9
+ vZLfojAL/HfZPaAra8e1dCuJb3N8=
+X-Gm-Gg: ASbGncuwTGmerwyfY64wpS0wLMUgYDiDcdi7GywKxTQqE7Cc/8xLUJUqj/Zh6tf91C2
+ FlQ4l9kCnOeMUVeFEKDjenY/NSAnbd8M35PvMGpGpFnSSOUpeUVEElPi2+/gc5FUsXE54wt0L
+X-Google-Smtp-Source: AGHT+IFdynawvtQRArVltPh1D0vHpp1Q4ArsQhbDq7sEuIaKNt1vkv5BVj3T07haCpcwdB0GK4C61ATWAvQvy8y0SkM=
+X-Received: by 2002:a17:90b:2243:b0:2f4:f7f8:f70b with SMTP id
+ 98e67ed59e1d1-2fbf5c69f4dmr200547a91.5.1739303428766; Tue, 11 Feb 2025
+ 11:50:28 -0800 (PST)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5372.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1f192af6-ce0b-4049-0084-08dd4abdd44a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Feb 2025 17:02:12.6972 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: lEUFHGV6RkdCDJVqQOWLQxcqk3fngI0RPhYoLN3sFoThA2vFvHzVNJwWWx3itPTM+cq3BFt9waQbWBO4kBbvfQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4165
+References: <20250207231219.10807-1-luanicaro@usp.br>
+In-Reply-To: <20250207231219.10807-1-luanicaro@usp.br>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 11 Feb 2025 14:50:17 -0500
+X-Gm-Features: AWEUYZny-w0-DEfuGbN1qpN90w7A0sl2FswJ7X9rB3Ft_ISSbPKY0zH8tzpAA0I
+Message-ID: <CADnq5_PQ-WiZt2qnbeSnxXWkj1Cf=OLq0pjWcnzm2PE8be34Mg@mail.gmail.com>
+Subject: Re: [PATCH v3] drm/amd/display/dc: Refactor remove duplications on
+ command_table files
+To: Luan Icaro Pinto Arcanjo <luanicaro@usp.br>, "Wentland,
+ Harry" <Harry.Wentland@amd.com>, "Leo (Sunpeng) Li" <Sunpeng.Li@amd.com>
+Cc: Rodrigo.Siqueira@amd.com, alexander.deucher@amd.com, 
+ christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com, 
+ daniel@ffwll.ch, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -177,98 +86,928 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEFNRCBJbnRlcm5hbCBEaXN0cmlidXRpb24gT25seV0N
-Cg0KSSBiZWxpZXZlIHRoaXMgY291bGQgYmUgYSBtaXN0YWtlICwgZnJvbSBNRVMgc2lkZSAsIHRo
-ZSBzZXRfaHdfcmVzb3VyY2VfMSAgc2hvdWxkIGFsd2F5cyBiZSBjYWxsZWQgIG5vIG1hdHRlciBp
-dCdzIHVuaWZpZWQgb3Igbm9uZS11bmlmaWVkIC4gSSB0aGluayB3ZSBzaG91bGQgcmVtb3ZlIGl0
-IGZvciB0aGUgdW5pZmllZCBjaGVjayBhdCBmaXJzdCBwbGFjZSAuDQoNClJlZ2FyZHMNClNoYW95
-dW4ubGl1DQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBBbGV4IERldWNoZXIg
-PGFsZXhkZXVjaGVyQGdtYWlsLmNvbT4NClNlbnQ6IFR1ZXNkYXksIEZlYnJ1YXJ5IDExLCAyMDI1
-IDEwOjI0IEFNDQpUbzogTGl1LCBTaGFveXVuIDxTaGFveXVuLkxpdUBhbWQuY29tPg0KQ2M6IERl
-dWNoZXIsIEFsZXhhbmRlciA8QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbT47IGFtZC1nZnhAbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnOyBLb2VuaWcsIENocmlzdGlhbiA8Q2hyaXN0aWFuLktvZW5pZ0Bh
-bWQuY29tPjsgU0hBTk1VR0FNLCBTUklOSVZBU0FOIDxTUklOSVZBU0FOLlNIQU5NVUdBTUBhbWQu
-Y29tPg0KU3ViamVjdDogUmU6IFtQQVRDSCAyLzJdIGRybS9hbWRncHUvbWVzOiBBZGQgY2xlYW5l
-ciBzaGFkZXIgZmVuY2UgYWRkcmVzcyBoYW5kbGluZyBpbiBNRVMgZm9yIEdGWDEyDQoNCk9uIE1v
-biwgRmViIDEwLCAyMDI1IGF0IDg6NDjigK9QTSBMaXUsIFNoYW95dW4gPFNoYW95dW4uTGl1QGFt
-ZC5jb20+IHdyb3RlOg0KPg0KPiBbQU1EIE9mZmljaWFsIFVzZSBPbmx5IC0gQU1EIEludGVybmFs
-IERpc3RyaWJ1dGlvbiBPbmx5XQ0KPg0KPiBXaHkgb25seSBmcmVlIHRoZSBtZW0gd2hlbiAgdW5p
-ZmllZCBtZXMgaXMgZW5hYmxlZCAsIEkgcmVtZW1iZXJlZCB0aGF0IHNldF9od19yZXNvdXJjZV8x
-IHdpbGwgYWxzbyBiZSBjYWxsZWQgaW4gbm9uZS11bmlmaWVkIG1lcyBtb2RlIC4NCg0KbWVzX3Yx
-Ml8wX3NldF9od19yZXNvdXJjZXNfMSgpIGlzIGN1cnJlbnRseSBvbmx5IGNhbGxlZCB3aGVuIHVu
-aWZpZWQgbWVzIG1vZGUgaXMgZW5hYmxlZCBzbyBpdCBtYWtlcyBzZW5zZSB0byBhbGlnbiB0aGUg
-ZnJlZSBzaWRlIGFzIHdlbGwuDQoNCj4NCj4gQW5vdGhlciB0aGluZyBpcyBldmVudHVhbGx5IHdl
-IHByb2JhYmx5IHNob3VsZCBhbGxvY2F0ZSB0b3RhbCAxMjkgcGFnZXMgdGhlIHNhbWUgYXMgR0ZY
-MTEgICgxMjggIGZvciBod19yZXNvdXJjZV8xIGFuZCAgb25lICBleHRyYSBwYWdlIGZvciBNRVMg
-aW50ZXJuYWwgdXNhZ2UpIC4gIEJ1dCBzZWVtcyBTUklPViBzdGlsbCBub3QgdXNlIHRoYXQgMTI4
-IHBhZ2VzLCBJdCBjYW4gIGJlICB1cGRhdGVkIGxhdGVyIHdoZW4gIEkgdXBkYXRlIHRoZSBBUEkg
-Zm9yIGdmeDEyIHRvIGVuYWJsZSB0aGF0IC4NCj4NCg0KeWVhaCwgd2UgY2FuIGFkZCB0aGF0IGxh
-dGVyIGlmIHdlIG5lZWQgaXQuICBUaGUgY3VycmVudCBtZXMgMTIgcGFja2V0IGRvZXNuJ3Qgc2Vl
-bSB0byBzdXBwb3J0IHRoYXQgZmVhdHVyZSB5ZXQuDQoNCkFsZXgNCg0KPiBSZWdhcmRzDQo+IFNo
-YW95dW4ubGl1DQo+DQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IERldWNo
-ZXIsIEFsZXhhbmRlciA8QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbT4NCj4gU2VudDogTW9uZGF5
-LCBGZWJydWFyeSAxMCwgMjAyNSA0OjE5IFBNDQo+IFRvOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
-dG9wLm9yZw0KPiBDYzogRGV1Y2hlciwgQWxleGFuZGVyIDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQu
-Y29tPjsgS29lbmlnLCBDaHJpc3RpYW4NCj4gPENocmlzdGlhbi5Lb2VuaWdAYW1kLmNvbT47IFNI
-QU5NVUdBTSwgU1JJTklWQVNBTg0KPiA8U1JJTklWQVNBTi5TSEFOTVVHQU1AYW1kLmNvbT47IExp
-dSwgU2hhb3l1biA8U2hhb3l1bi5MaXVAYW1kLmNvbT4NCj4gU3ViamVjdDogW1BBVENIIDIvMl0g
-ZHJtL2FtZGdwdS9tZXM6IEFkZCBjbGVhbmVyIHNoYWRlciBmZW5jZSBhZGRyZXNzDQo+IGhhbmRs
-aW5nIGluIE1FUyBmb3IgR0ZYMTINCj4NCj4gVGhpcyBjb21taXQgaW50cm9kdWNlcyBlbmhhbmNl
-bWVudHMgdG8gdGhlIGhhbmRsaW5nIG9mIHRoZSBjbGVhbmVyIHNoYWRlciBmZW5jZSBpbiB0aGUg
-QU1ER1BVIE1FUyBkcml2ZXI6DQo+DQo+IC0gVGhlIE1FUyAoTWljcm9jb2RlIEV4ZWN1dGlvbiBT
-Y2hlZHVsZXIpIG5vdyBzZW5kcyBhIFBNNCBwYWNrZXQgdG8gdGhlDQo+ICAgS0lRIChLZXJuZWwg
-SW50ZXJmYWNlIFF1ZXVlKSB0byByZXF1ZXN0IHRoZSBjbGVhbmVyIHNoYWRlciwgZW5zdXJpbmcN
-Cj4gICB0aGF0IHJlcXVlc3RzIGFyZSBoYW5kbGVkIGluIGEgY29udHJvbGxlZCBtYW5uZXIgYW5k
-IGF2b2lkaW5nIHRoZQ0KPiAgIHJhY2UgY29uZGl0aW9ucy4NCj4gLSBUaGUgQ1AgKENvbXB1dGUg
-UHJvY2Vzc29yKSBmaXJtd2FyZSBoYXMgYmVlbiB1cGRhdGVkIHRvIHVzZSBhIHByaXZhdGUNCj4g
-ICBidXMgZm9yIGFjY2Vzc2luZyBzcGVjaWZpYyByZWdpc3RlcnMsIGF2b2lkaW5nIHVubmVjZXNz
-YXJ5IG9wZXJhdGlvbnMNCj4gICB0aGF0IGNvdWxkIGxlYWQgdG8gaXNzdWVzIGluIFZGIChWaXJ0
-dWFsIEZ1bmN0aW9uKSBtb2RlLg0KPiAtIFRoZSBjbGVhbmVyIHNoYWRlciBmZW5jZSBtZW1vcnkg
-YWRkcmVzcyBpcyBub3cgc2V0IGNvcnJlY3RseSBpbiB0aGUNCj4gICBgbWVzX3NldF9od19yZXNf
-cGt0YCBzdHJ1Y3R1cmUsIGFsbG93aW5nIGZvciBwcm9wZXIgc3luY2hyb25pemF0aW9uIG9mDQo+
-ICAgdGhlIGNsZWFuZXIgc2hhZGVyIGV4ZWN1dGlvbi4NCj4NCj4gQ2M6IENocmlzdGlhbiBLw7Zu
-aWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4NCj4gQ2M6IFNyaW5pdmFzYW4gU2hhbm11Z2Ft
-IDxzcmluaXZhc2FuLnNoYW5tdWdhbUBhbWQuY29tPg0KPiBTdWdnZXN0ZWQtYnk6IFNoYW95dW4g
-TGl1IDxzaGFveXVuLmxpdUBhbWQuY29tPg0KPg0KPiBTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNo
-ZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+DQo+IC0tLQ0KPiAgZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvbWVzX3YxMl8wLmMgfCAyMiArKysrKysrKysrKysrKysrKysrKysrDQo+ICAx
-IGZpbGUgY2hhbmdlZCwgMjIgaW5zZXJ0aW9ucygrKQ0KPg0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvbWVzX3YxMl8wLmMNCj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9tZXNfdjEyXzAuYw0KPiBpbmRleCBkY2JjMzEyNzlmMjliLi44ZGJhYjM4MzRkODJk
-IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9tZXNfdjEyXzAuYw0K
-PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9tZXNfdjEyXzAuYw0KPiBAQCAtNjc4
-LDYgKzY3OCw5IEBAIHN0YXRpYyBpbnQgbWVzX3YxMl8wX21pc2Nfb3Aoc3RydWN0IGFtZGdwdV9t
-ZXMNCj4gKm1lcywNCj4NCj4gIHN0YXRpYyBpbnQgbWVzX3YxMl8wX3NldF9od19yZXNvdXJjZXNf
-MShzdHJ1Y3QgYW1kZ3B1X21lcyAqbWVzLCBpbnQNCj4gcGlwZSkgIHsNCj4gKyAgICAgICB1bnNp
-Z25lZCBpbnQgYWxsb2Nfc2l6ZSA9IEFNREdQVV9HUFVfUEFHRV9TSVpFOw0KPiArICAgICAgIGlu
-dCByZXQgPSAwOw0KPiArICAgICAgIHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gbWVzLT5h
-ZGV2Ow0KPiAgICAgICAgIHVuaW9uIE1FU0FQSV9TRVRfSFdfUkVTT1VSQ0VTXzEgbWVzX3NldF9o
-d19yZXNfMV9wa3Q7DQo+DQo+ICAgICAgICAgbWVtc2V0KCZtZXNfc2V0X2h3X3Jlc18xX3BrdCwg
-MCwgc2l6ZW9mKG1lc19zZXRfaHdfcmVzXzFfcGt0KSk7IEBAIC02ODcsNiArNjkwLDE5IEBAIHN0
-YXRpYyBpbnQgbWVzX3YxMl8wX3NldF9od19yZXNvdXJjZXNfMShzdHJ1Y3QgYW1kZ3B1X21lcyAq
-bWVzLCBpbnQgcGlwZSkNCj4gICAgICAgICBtZXNfc2V0X2h3X3Jlc18xX3BrdC5oZWFkZXIuZHdz
-aXplID0gQVBJX0ZSQU1FX1NJWkVfSU5fRFdPUkRTOw0KPiAgICAgICAgIG1lc19zZXRfaHdfcmVz
-XzFfcGt0Lm1lc19raXFfdW5tYXBfdGltZW91dCA9IDB4YTsNCj4NCj4gKyAgICAgICByZXQgPSBh
-bWRncHVfYm9fY3JlYXRlX2tlcm5lbChhZGV2LCBhbGxvY19zaXplLCBQQUdFX1NJWkUsDQo+ICsg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQU1ER1BVX0dFTV9ET01BSU5fVlJBTSwNCj4g
-KyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAmbWVzLT5yZXNvdXJjZV8xLA0KPiArICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICZtZXMtPnJlc291cmNlXzFfZ3B1X2FkZHIsDQo+
-ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgJm1lcy0+cmVzb3VyY2VfMV9hZGRyKTsN
-Cj4gKyAgICAgICBpZiAocmV0KSB7DQo+ICsgICAgICAgICAgICAgICBkZXZfZXJyKGFkZXYtPmRl
-diwgIiglZCkgZmFpbGVkIHRvIGNyZWF0ZSBtZXMgcmVzb3VyY2VfMSBib1xuIiwgcmV0KTsNCj4g
-KyAgICAgICAgICAgICAgIHJldHVybiByZXQ7DQo+ICsgICAgICAgfQ0KPiArDQo+ICsgICAgICAg
-bWVzX3NldF9od19yZXNfMV9wa3QuY2xlYW5lcl9zaGFkZXJfZmVuY2VfbWNfYWRkciA9DQo+ICsg
-ICAgICAgICAgICAgICBtZXMtPnJlc291cmNlXzFfZ3B1X2FkZHI7DQo+ICsNCj4gICAgICAgICBy
-ZXR1cm4gbWVzX3YxMl8wX3N1Ym1pdF9wa3RfYW5kX3BvbGxfY29tcGxldGlvbihtZXMsIHBpcGUs
-DQo+ICAgICAgICAgICAgICAgICAgICAgICAgICZtZXNfc2V0X2h3X3Jlc18xX3BrdCwgc2l6ZW9m
-KG1lc19zZXRfaHdfcmVzXzFfcGt0KSwNCj4gICAgICAgICAgICAgICAgICAgICAgICAgb2Zmc2V0
-b2YodW5pb24gTUVTQVBJX1NFVF9IV19SRVNPVVJDRVNfMSwNCj4gYXBpX3N0YXR1cykpOyBAQCAt
-MTc3MCw2ICsxNzg2LDEyIEBAIHN0YXRpYyBpbnQNCj4gbWVzX3YxMl8wX2h3X2luaXQoc3RydWN0
-IGFtZGdwdV9pcF9ibG9jayAqaXBfYmxvY2spDQo+DQo+ICBzdGF0aWMgaW50IG1lc192MTJfMF9o
-d19maW5pKHN0cnVjdCBhbWRncHVfaXBfYmxvY2sgKmlwX2Jsb2NrKSAgew0KPiArICAgICAgIHN0
-cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gaXBfYmxvY2stPmFkZXY7DQo+ICsNCj4gKyAgICAg
-ICBpZiAoYWRldi0+ZW5hYmxlX3VuaV9tZXMpDQo+ICsgICAgICAgICAgICAgICBhbWRncHVfYm9f
-ZnJlZV9rZXJuZWwoJmFkZXYtPm1lcy5yZXNvdXJjZV8xLA0KPiArICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICZhZGV2LT5tZXMucmVzb3VyY2VfMV9ncHVfYWRkciwNCj4gKyAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAmYWRldi0+bWVzLnJlc291cmNlXzFf
-YWRkcik7DQo+ICAgICAgICAgcmV0dXJuIDA7DQo+ICB9DQo+DQo+IC0tDQo+IDIuNDguMQ0KPg0K
+On Fri, Feb 7, 2025 at 6:13=E2=80=AFPM Luan Icaro Pinto Arcanjo
+<luanicaro@usp.br> wrote:
+>
+> From: Luan Arcanjo <luanicaro@usp.br>
+>
+> All dce command_table_helper's shares a copy-pasted collection
+> of copy-pasted functions, which are: phy_id_to_atom,
+> clock_source_id_to_atom_phy_clk_src_id, and engine_bp_to_atom.
+>
+> This patch removes the multiple copy-pasted by creating a
+> common command table and make the command_table_helper's calls
+> the functions implemented by the common instead.
+>
+> The changes were not tested on actual hardware. I am only able
+> to verify that the changes keep the code compileable and do my
+> best to to look repeatedly if I am not actually changing any code.
+>
+> This is the version 2 of the PATCH, fixed comments about
+> licence in the new files and the matches From email to
+> Signed-off-by email.
+>
+> Signed-off-by: Luan Icaro Pinto Arcanjo <luanicaro@usp.br>
+> ---
+>  drivers/gpu/drm/amd/display/dc/bios/Makefile  |   6 +
+>  .../bios/dce110/command_table_helper_dce110.c | 104 +----------------
+>  .../dce112/command_table_helper2_dce112.c     | 104 +----------------
+>  .../bios/dce112/command_table_helper_dce112.c | 104 +----------------
+>  .../bios/dce60/command_table_helper_dce60.c   | 106 +----------------
+>  .../bios/dce80/command_table_helper_dce80.c   | 106 +----------------
+>  .../command_table_helper_dce_common.c         | 110 ++++++++++++++++++
+>  .../command_table_helper_dce_common.h         |  14 +++
+>  8 files changed, 137 insertions(+), 517 deletions(-)
+>  create mode 100644 drivers/gpu/drm/amd/display/dc/bios/dce_common/comman=
+d_table_helper_dce_common.c
+>  create mode 100644 drivers/gpu/drm/amd/display/dc/bios/dce_common/comman=
+d_table_helper_dce_common.h
+
+Might be easier to just put these into command_table_helper.c rather
+than adding a new set of files.  @Wentland, Harry, @Leo (Sunpeng) Li
+do you have a preference?  Other than that, looks like a nice clean up
+to me.
+
+Alex
+
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/bios/Makefile b/drivers/gpu/d=
+rm/amd/display/dc/bios/Makefile
+> index ed6b5e9763f6..0d2f7ca1d0c2 100644
+> --- a/drivers/gpu/drm/amd/display/dc/bios/Makefile
+> +++ b/drivers/gpu/drm/amd/display/dc/bios/Makefile
+> @@ -27,6 +27,7 @@ BIOS =3D bios_parser.o bios_parser_interface.o  bios_pa=
+rser_helper.o command_table
+>
+>  BIOS +=3D command_table2.o command_table_helper2.o bios_parser2.o
+>
+> +
+>  AMD_DAL_BIOS =3D $(addprefix $(AMDDALPATH)/dc/bios/,$(BIOS))
+>
+>  AMD_DISPLAY_FILES +=3D $(AMD_DAL_BIOS)
+> @@ -55,3 +56,8 @@ AMD_DISPLAY_FILES +=3D $(AMDDALPATH)/dc/bios/dce110/com=
+mand_table_helper_dce110.o
+>  AMD_DISPLAY_FILES +=3D $(AMDDALPATH)/dc/bios/dce112/command_table_helper=
+_dce112.o
+>
+>  AMD_DISPLAY_FILES +=3D $(AMDDALPATH)/dc/bios/dce112/command_table_helper=
+2_dce112.o
+> +
+> +########################################################################=
+#######
+> +# DCE COMMON
+> +########################################################################=
+#######
+> +AMD_DISPLAY_FILES +=3D $(AMDDALPATH)/dc/bios/dce_common/command_table_he=
+lper_dce_common.o
+> diff --git a/drivers/gpu/drm/amd/display/dc/bios/dce110/command_table_hel=
+per_dce110.c b/drivers/gpu/drm/amd/display/dc/bios/dce110/command_table_hel=
+per_dce110.c
+> index 11bf247bb180..6f8fec224b88 100644
+> --- a/drivers/gpu/drm/amd/display/dc/bios/dce110/command_table_helper_dce=
+110.c
+> +++ b/drivers/gpu/drm/amd/display/dc/bios/dce110/command_table_helper_dce=
+110.c
+> @@ -31,38 +31,7 @@
+>
+>  #include "../command_table_helper.h"
+>
+> -static uint8_t phy_id_to_atom(enum transmitter t)
+> -{
+> -       uint8_t atom_phy_id;
+> -
+> -       switch (t) {
+> -       case TRANSMITTER_UNIPHY_A:
+> -               atom_phy_id =3D ATOM_PHY_ID_UNIPHYA;
+> -               break;
+> -       case TRANSMITTER_UNIPHY_B:
+> -               atom_phy_id =3D ATOM_PHY_ID_UNIPHYB;
+> -               break;
+> -       case TRANSMITTER_UNIPHY_C:
+> -               atom_phy_id =3D ATOM_PHY_ID_UNIPHYC;
+> -               break;
+> -       case TRANSMITTER_UNIPHY_D:
+> -               atom_phy_id =3D ATOM_PHY_ID_UNIPHYD;
+> -               break;
+> -       case TRANSMITTER_UNIPHY_E:
+> -               atom_phy_id =3D ATOM_PHY_ID_UNIPHYE;
+> -               break;
+> -       case TRANSMITTER_UNIPHY_F:
+> -               atom_phy_id =3D ATOM_PHY_ID_UNIPHYF;
+> -               break;
+> -       case TRANSMITTER_UNIPHY_G:
+> -               atom_phy_id =3D ATOM_PHY_ID_UNIPHYG;
+> -               break;
+> -       default:
+> -               atom_phy_id =3D ATOM_PHY_ID_UNIPHYA;
+> -               break;
+> -       }
+> -       return atom_phy_id;
+> -}
+> +#include "../dce_common/command_table_helper_dce_common.h"
+>
+>  static uint8_t signal_type_to_atom_dig_mode(enum signal_type s)
+>  {
+> @@ -94,32 +63,6 @@ static uint8_t signal_type_to_atom_dig_mode(enum signa=
+l_type s)
+>         return atom_dig_mode;
+>  }
+>
+> -static uint8_t clock_source_id_to_atom_phy_clk_src_id(
+> -               enum clock_source_id id)
+> -{
+> -       uint8_t atom_phy_clk_src_id =3D 0;
+> -
+> -       switch (id) {
+> -       case CLOCK_SOURCE_ID_PLL0:
+> -               atom_phy_clk_src_id =3D ATOM_TRANSMITTER_CONFIG_V5_P0PLL;
+> -               break;
+> -       case CLOCK_SOURCE_ID_PLL1:
+> -               atom_phy_clk_src_id =3D ATOM_TRANSMITTER_CONFIG_V5_P1PLL;
+> -               break;
+> -       case CLOCK_SOURCE_ID_PLL2:
+> -               atom_phy_clk_src_id =3D ATOM_TRANSMITTER_CONFIG_V5_P2PLL;
+> -               break;
+> -       case CLOCK_SOURCE_ID_EXTERNAL:
+> -               atom_phy_clk_src_id =3D ATOM_TRANSMITTER_CONFIG_V5_REFCLK=
+_SRC_EXT;
+> -               break;
+> -       default:
+> -               atom_phy_clk_src_id =3D ATOM_TRANSMITTER_CONFIG_V5_P1PLL;
+> -               break;
+> -       }
+> -
+> -       return atom_phy_clk_src_id >> 2;
+> -}
+> -
+>  static uint8_t hpd_sel_to_atom(enum hpd_source_id id)
+>  {
+>         uint8_t atom_hpd_sel =3D 0;
+> @@ -207,51 +150,6 @@ static bool clock_source_id_to_atom(
+>         return result;
+>  }
+>
+> -static bool engine_bp_to_atom(enum engine_id id, uint32_t *atom_engine_i=
+d)
+> -{
+> -       bool result =3D false;
+> -
+> -       if (atom_engine_id !=3D NULL)
+> -               switch (id) {
+> -               case ENGINE_ID_DIGA:
+> -                       *atom_engine_id =3D ASIC_INT_DIG1_ENCODER_ID;
+> -                       result =3D true;
+> -                       break;
+> -               case ENGINE_ID_DIGB:
+> -                       *atom_engine_id =3D ASIC_INT_DIG2_ENCODER_ID;
+> -                       result =3D true;
+> -                       break;
+> -               case ENGINE_ID_DIGC:
+> -                       *atom_engine_id =3D ASIC_INT_DIG3_ENCODER_ID;
+> -                       result =3D true;
+> -                       break;
+> -               case ENGINE_ID_DIGD:
+> -                       *atom_engine_id =3D ASIC_INT_DIG4_ENCODER_ID;
+> -                       result =3D true;
+> -                       break;
+> -               case ENGINE_ID_DIGE:
+> -                       *atom_engine_id =3D ASIC_INT_DIG5_ENCODER_ID;
+> -                       result =3D true;
+> -                       break;
+> -               case ENGINE_ID_DIGF:
+> -                       *atom_engine_id =3D ASIC_INT_DIG6_ENCODER_ID;
+> -                       result =3D true;
+> -                       break;
+> -               case ENGINE_ID_DIGG:
+> -                       *atom_engine_id =3D ASIC_INT_DIG7_ENCODER_ID;
+> -                       result =3D true;
+> -                       break;
+> -               case ENGINE_ID_DACA:
+> -                       *atom_engine_id =3D ASIC_INT_DAC1_ENCODER_ID;
+> -                       result =3D true;
+> -                       break;
+> -               default:
+> -                       break;
+> -               }
+> -
+> -       return result;
+> -}
+> -
+>  static uint8_t encoder_action_to_atom(enum bp_encoder_control_action act=
+ion)
+>  {
+>         uint8_t atom_action =3D 0;
+> diff --git a/drivers/gpu/drm/amd/display/dc/bios/dce112/command_table_hel=
+per2_dce112.c b/drivers/gpu/drm/amd/display/dc/bios/dce112/command_table_he=
+lper2_dce112.c
+> index 755b6e33140a..3392277ac3b6 100644
+> --- a/drivers/gpu/drm/amd/display/dc/bios/dce112/command_table_helper2_dc=
+e112.c
+> +++ b/drivers/gpu/drm/amd/display/dc/bios/dce112/command_table_helper2_dc=
+e112.c
+> @@ -31,38 +31,7 @@
+>
+>  #include "../command_table_helper2.h"
+>
+> -static uint8_t phy_id_to_atom(enum transmitter t)
+> -{
+> -       uint8_t atom_phy_id;
+> -
+> -       switch (t) {
+> -       case TRANSMITTER_UNIPHY_A:
+> -               atom_phy_id =3D ATOM_PHY_ID_UNIPHYA;
+> -               break;
+> -       case TRANSMITTER_UNIPHY_B:
+> -               atom_phy_id =3D ATOM_PHY_ID_UNIPHYB;
+> -               break;
+> -       case TRANSMITTER_UNIPHY_C:
+> -               atom_phy_id =3D ATOM_PHY_ID_UNIPHYC;
+> -               break;
+> -       case TRANSMITTER_UNIPHY_D:
+> -               atom_phy_id =3D ATOM_PHY_ID_UNIPHYD;
+> -               break;
+> -       case TRANSMITTER_UNIPHY_E:
+> -               atom_phy_id =3D ATOM_PHY_ID_UNIPHYE;
+> -               break;
+> -       case TRANSMITTER_UNIPHY_F:
+> -               atom_phy_id =3D ATOM_PHY_ID_UNIPHYF;
+> -               break;
+> -       case TRANSMITTER_UNIPHY_G:
+> -               atom_phy_id =3D ATOM_PHY_ID_UNIPHYG;
+> -               break;
+> -       default:
+> -               atom_phy_id =3D ATOM_PHY_ID_UNIPHYA;
+> -               break;
+> -       }
+> -       return atom_phy_id;
+> -}
+> +#include "../dce_common/command_table_helper_dce_common.h"
+>
+>  static uint8_t signal_type_to_atom_dig_mode(enum signal_type s)
+>  {
+> @@ -91,32 +60,6 @@ static uint8_t signal_type_to_atom_dig_mode(enum signa=
+l_type s)
+>         return atom_dig_mode;
+>  }
+>
+> -static uint8_t clock_source_id_to_atom_phy_clk_src_id(
+> -               enum clock_source_id id)
+> -{
+> -       uint8_t atom_phy_clk_src_id =3D 0;
+> -
+> -       switch (id) {
+> -       case CLOCK_SOURCE_ID_PLL0:
+> -               atom_phy_clk_src_id =3D ATOM_TRANSMITTER_CONFIG_V5_P0PLL;
+> -               break;
+> -       case CLOCK_SOURCE_ID_PLL1:
+> -               atom_phy_clk_src_id =3D ATOM_TRANSMITTER_CONFIG_V5_P1PLL;
+> -               break;
+> -       case CLOCK_SOURCE_ID_PLL2:
+> -               atom_phy_clk_src_id =3D ATOM_TRANSMITTER_CONFIG_V5_P2PLL;
+> -               break;
+> -       case CLOCK_SOURCE_ID_EXTERNAL:
+> -               atom_phy_clk_src_id =3D ATOM_TRANSMITTER_CONFIG_V5_REFCLK=
+_SRC_EXT;
+> -               break;
+> -       default:
+> -               atom_phy_clk_src_id =3D ATOM_TRANSMITTER_CONFIG_V5_P1PLL;
+> -               break;
+> -       }
+> -
+> -       return atom_phy_clk_src_id >> 2;
+> -}
+> -
+>  static uint8_t hpd_sel_to_atom(enum hpd_source_id id)
+>  {
+>         uint8_t atom_hpd_sel =3D 0;
+> @@ -209,51 +152,6 @@ static bool clock_source_id_to_atom(
+>         return result;
+>  }
+>
+> -static bool engine_bp_to_atom(enum engine_id id, uint32_t *atom_engine_i=
+d)
+> -{
+> -       bool result =3D false;
+> -
+> -       if (atom_engine_id !=3D NULL)
+> -               switch (id) {
+> -               case ENGINE_ID_DIGA:
+> -                       *atom_engine_id =3D ASIC_INT_DIG1_ENCODER_ID;
+> -                       result =3D true;
+> -                       break;
+> -               case ENGINE_ID_DIGB:
+> -                       *atom_engine_id =3D ASIC_INT_DIG2_ENCODER_ID;
+> -                       result =3D true;
+> -                       break;
+> -               case ENGINE_ID_DIGC:
+> -                       *atom_engine_id =3D ASIC_INT_DIG3_ENCODER_ID;
+> -                       result =3D true;
+> -                       break;
+> -               case ENGINE_ID_DIGD:
+> -                       *atom_engine_id =3D ASIC_INT_DIG4_ENCODER_ID;
+> -                       result =3D true;
+> -                       break;
+> -               case ENGINE_ID_DIGE:
+> -                       *atom_engine_id =3D ASIC_INT_DIG5_ENCODER_ID;
+> -                       result =3D true;
+> -                       break;
+> -               case ENGINE_ID_DIGF:
+> -                       *atom_engine_id =3D ASIC_INT_DIG6_ENCODER_ID;
+> -                       result =3D true;
+> -                       break;
+> -               case ENGINE_ID_DIGG:
+> -                       *atom_engine_id =3D ASIC_INT_DIG7_ENCODER_ID;
+> -                       result =3D true;
+> -                       break;
+> -               case ENGINE_ID_DACA:
+> -                       *atom_engine_id =3D ASIC_INT_DAC1_ENCODER_ID;
+> -                       result =3D true;
+> -                       break;
+> -               default:
+> -                       break;
+> -               }
+> -
+> -       return result;
+> -}
+> -
+>  static uint8_t encoder_action_to_atom(enum bp_encoder_control_action act=
+ion)
+>  {
+>         uint8_t atom_action =3D 0;
+> diff --git a/drivers/gpu/drm/amd/display/dc/bios/dce112/command_table_hel=
+per_dce112.c b/drivers/gpu/drm/amd/display/dc/bios/dce112/command_table_hel=
+per_dce112.c
+> index 06b4f7fa4a50..39b199b388e4 100644
+> --- a/drivers/gpu/drm/amd/display/dc/bios/dce112/command_table_helper_dce=
+112.c
+> +++ b/drivers/gpu/drm/amd/display/dc/bios/dce112/command_table_helper_dce=
+112.c
+> @@ -31,38 +31,7 @@
+>
+>  #include "../command_table_helper.h"
+>
+> -static uint8_t phy_id_to_atom(enum transmitter t)
+> -{
+> -       uint8_t atom_phy_id;
+> -
+> -       switch (t) {
+> -       case TRANSMITTER_UNIPHY_A:
+> -               atom_phy_id =3D ATOM_PHY_ID_UNIPHYA;
+> -               break;
+> -       case TRANSMITTER_UNIPHY_B:
+> -               atom_phy_id =3D ATOM_PHY_ID_UNIPHYB;
+> -               break;
+> -       case TRANSMITTER_UNIPHY_C:
+> -               atom_phy_id =3D ATOM_PHY_ID_UNIPHYC;
+> -               break;
+> -       case TRANSMITTER_UNIPHY_D:
+> -               atom_phy_id =3D ATOM_PHY_ID_UNIPHYD;
+> -               break;
+> -       case TRANSMITTER_UNIPHY_E:
+> -               atom_phy_id =3D ATOM_PHY_ID_UNIPHYE;
+> -               break;
+> -       case TRANSMITTER_UNIPHY_F:
+> -               atom_phy_id =3D ATOM_PHY_ID_UNIPHYF;
+> -               break;
+> -       case TRANSMITTER_UNIPHY_G:
+> -               atom_phy_id =3D ATOM_PHY_ID_UNIPHYG;
+> -               break;
+> -       default:
+> -               atom_phy_id =3D ATOM_PHY_ID_UNIPHYA;
+> -               break;
+> -       }
+> -       return atom_phy_id;
+> -}
+> +#include "../dce_common/command_table_helper_dce_common.h"
+>
+>  static uint8_t signal_type_to_atom_dig_mode(enum signal_type s)
+>  {
+> @@ -91,32 +60,6 @@ static uint8_t signal_type_to_atom_dig_mode(enum signa=
+l_type s)
+>         return atom_dig_mode;
+>  }
+>
+> -static uint8_t clock_source_id_to_atom_phy_clk_src_id(
+> -               enum clock_source_id id)
+> -{
+> -       uint8_t atom_phy_clk_src_id =3D 0;
+> -
+> -       switch (id) {
+> -       case CLOCK_SOURCE_ID_PLL0:
+> -               atom_phy_clk_src_id =3D ATOM_TRANSMITTER_CONFIG_V5_P0PLL;
+> -               break;
+> -       case CLOCK_SOURCE_ID_PLL1:
+> -               atom_phy_clk_src_id =3D ATOM_TRANSMITTER_CONFIG_V5_P1PLL;
+> -               break;
+> -       case CLOCK_SOURCE_ID_PLL2:
+> -               atom_phy_clk_src_id =3D ATOM_TRANSMITTER_CONFIG_V5_P2PLL;
+> -               break;
+> -       case CLOCK_SOURCE_ID_EXTERNAL:
+> -               atom_phy_clk_src_id =3D ATOM_TRANSMITTER_CONFIG_V5_REFCLK=
+_SRC_EXT;
+> -               break;
+> -       default:
+> -               atom_phy_clk_src_id =3D ATOM_TRANSMITTER_CONFIG_V5_P1PLL;
+> -               break;
+> -       }
+> -
+> -       return atom_phy_clk_src_id >> 2;
+> -}
+> -
+>  static uint8_t hpd_sel_to_atom(enum hpd_source_id id)
+>  {
+>         uint8_t atom_hpd_sel =3D 0;
+> @@ -209,51 +152,6 @@ static bool clock_source_id_to_atom(
+>         return result;
+>  }
+>
+> -static bool engine_bp_to_atom(enum engine_id id, uint32_t *atom_engine_i=
+d)
+> -{
+> -       bool result =3D false;
+> -
+> -       if (atom_engine_id !=3D NULL)
+> -               switch (id) {
+> -               case ENGINE_ID_DIGA:
+> -                       *atom_engine_id =3D ASIC_INT_DIG1_ENCODER_ID;
+> -                       result =3D true;
+> -                       break;
+> -               case ENGINE_ID_DIGB:
+> -                       *atom_engine_id =3D ASIC_INT_DIG2_ENCODER_ID;
+> -                       result =3D true;
+> -                       break;
+> -               case ENGINE_ID_DIGC:
+> -                       *atom_engine_id =3D ASIC_INT_DIG3_ENCODER_ID;
+> -                       result =3D true;
+> -                       break;
+> -               case ENGINE_ID_DIGD:
+> -                       *atom_engine_id =3D ASIC_INT_DIG4_ENCODER_ID;
+> -                       result =3D true;
+> -                       break;
+> -               case ENGINE_ID_DIGE:
+> -                       *atom_engine_id =3D ASIC_INT_DIG5_ENCODER_ID;
+> -                       result =3D true;
+> -                       break;
+> -               case ENGINE_ID_DIGF:
+> -                       *atom_engine_id =3D ASIC_INT_DIG6_ENCODER_ID;
+> -                       result =3D true;
+> -                       break;
+> -               case ENGINE_ID_DIGG:
+> -                       *atom_engine_id =3D ASIC_INT_DIG7_ENCODER_ID;
+> -                       result =3D true;
+> -                       break;
+> -               case ENGINE_ID_DACA:
+> -                       *atom_engine_id =3D ASIC_INT_DAC1_ENCODER_ID;
+> -                       result =3D true;
+> -                       break;
+> -               default:
+> -                       break;
+> -               }
+> -
+> -       return result;
+> -}
+> -
+>  static uint8_t encoder_action_to_atom(enum bp_encoder_control_action act=
+ion)
+>  {
+>         uint8_t atom_action =3D 0;
+> diff --git a/drivers/gpu/drm/amd/display/dc/bios/dce60/command_table_help=
+er_dce60.c b/drivers/gpu/drm/amd/display/dc/bios/dce60/command_table_helper=
+_dce60.c
+> index 710221b4f5c5..49b3c6fd648d 100644
+> --- a/drivers/gpu/drm/amd/display/dc/bios/dce60/command_table_helper_dce6=
+0.c
+> +++ b/drivers/gpu/drm/amd/display/dc/bios/dce60/command_table_helper_dce6=
+0.c
+> @@ -33,6 +33,8 @@
+>
+>  #include "../command_table_helper.h"
+>
+> +#include "../dce_common/command_table_helper_dce_common.h"
+> +
+>  static uint8_t encoder_action_to_atom(enum bp_encoder_control_action act=
+ion)
+>  {
+>         uint8_t atom_action =3D 0;
+> @@ -58,51 +60,6 @@ static uint8_t encoder_action_to_atom(enum bp_encoder_=
+control_action action)
+>         return atom_action;
+>  }
+>
+> -static bool engine_bp_to_atom(enum engine_id id, uint32_t *atom_engine_i=
+d)
+> -{
+> -       bool result =3D false;
+> -
+> -       if (atom_engine_id !=3D NULL)
+> -               switch (id) {
+> -               case ENGINE_ID_DIGA:
+> -                       *atom_engine_id =3D ASIC_INT_DIG1_ENCODER_ID;
+> -                       result =3D true;
+> -                       break;
+> -               case ENGINE_ID_DIGB:
+> -                       *atom_engine_id =3D ASIC_INT_DIG2_ENCODER_ID;
+> -                       result =3D true;
+> -                       break;
+> -               case ENGINE_ID_DIGC:
+> -                       *atom_engine_id =3D ASIC_INT_DIG3_ENCODER_ID;
+> -                       result =3D true;
+> -                       break;
+> -               case ENGINE_ID_DIGD:
+> -                       *atom_engine_id =3D ASIC_INT_DIG4_ENCODER_ID;
+> -                       result =3D true;
+> -                       break;
+> -               case ENGINE_ID_DIGE:
+> -                       *atom_engine_id =3D ASIC_INT_DIG5_ENCODER_ID;
+> -                       result =3D true;
+> -                       break;
+> -               case ENGINE_ID_DIGF:
+> -                       *atom_engine_id =3D ASIC_INT_DIG6_ENCODER_ID;
+> -                       result =3D true;
+> -                       break;
+> -               case ENGINE_ID_DIGG:
+> -                       *atom_engine_id =3D ASIC_INT_DIG7_ENCODER_ID;
+> -                       result =3D true;
+> -                       break;
+> -               case ENGINE_ID_DACA:
+> -                       *atom_engine_id =3D ASIC_INT_DAC1_ENCODER_ID;
+> -                       result =3D true;
+> -                       break;
+> -               default:
+> -                       break;
+> -               }
+> -
+> -       return result;
+> -}
+> -
+>  static bool clock_source_id_to_atom(
+>         enum clock_source_id id,
+>         uint32_t *atom_pll_id)
+> @@ -149,32 +106,6 @@ static bool clock_source_id_to_atom(
+>         return result;
+>  }
+>
+> -static uint8_t clock_source_id_to_atom_phy_clk_src_id(
+> -               enum clock_source_id id)
+> -{
+> -       uint8_t atom_phy_clk_src_id =3D 0;
+> -
+> -       switch (id) {
+> -       case CLOCK_SOURCE_ID_PLL0:
+> -               atom_phy_clk_src_id =3D ATOM_TRANSMITTER_CONFIG_V5_P0PLL;
+> -               break;
+> -       case CLOCK_SOURCE_ID_PLL1:
+> -               atom_phy_clk_src_id =3D ATOM_TRANSMITTER_CONFIG_V5_P1PLL;
+> -               break;
+> -       case CLOCK_SOURCE_ID_PLL2:
+> -               atom_phy_clk_src_id =3D ATOM_TRANSMITTER_CONFIG_V5_P2PLL;
+> -               break;
+> -       case CLOCK_SOURCE_ID_EXTERNAL:
+> -               atom_phy_clk_src_id =3D ATOM_TRANSMITTER_CONFIG_V5_REFCLK=
+_SRC_EXT;
+> -               break;
+> -       default:
+> -               atom_phy_clk_src_id =3D ATOM_TRANSMITTER_CONFIG_V5_P1PLL;
+> -               break;
+> -       }
+> -
+> -       return atom_phy_clk_src_id >> 2;
+> -}
+> -
+>  static uint8_t signal_type_to_atom_dig_mode(enum signal_type s)
+>  {
+>         uint8_t atom_dig_mode =3D ATOM_TRANSMITTER_DIGMODE_V5_DP;
+> @@ -270,39 +201,6 @@ static uint8_t dig_encoder_sel_to_atom(enum engine_i=
+d id)
+>         return atom_dig_encoder_sel;
+>  }
+>
+> -static uint8_t phy_id_to_atom(enum transmitter t)
+> -{
+> -       uint8_t atom_phy_id;
+> -
+> -       switch (t) {
+> -       case TRANSMITTER_UNIPHY_A:
+> -               atom_phy_id =3D ATOM_PHY_ID_UNIPHYA;
+> -               break;
+> -       case TRANSMITTER_UNIPHY_B:
+> -               atom_phy_id =3D ATOM_PHY_ID_UNIPHYB;
+> -               break;
+> -       case TRANSMITTER_UNIPHY_C:
+> -               atom_phy_id =3D ATOM_PHY_ID_UNIPHYC;
+> -               break;
+> -       case TRANSMITTER_UNIPHY_D:
+> -               atom_phy_id =3D ATOM_PHY_ID_UNIPHYD;
+> -               break;
+> -       case TRANSMITTER_UNIPHY_E:
+> -               atom_phy_id =3D ATOM_PHY_ID_UNIPHYE;
+> -               break;
+> -       case TRANSMITTER_UNIPHY_F:
+> -               atom_phy_id =3D ATOM_PHY_ID_UNIPHYF;
+> -               break;
+> -       case TRANSMITTER_UNIPHY_G:
+> -               atom_phy_id =3D ATOM_PHY_ID_UNIPHYG;
+> -               break;
+> -       default:
+> -               atom_phy_id =3D ATOM_PHY_ID_UNIPHYA;
+> -               break;
+> -       }
+> -       return atom_phy_id;
+> -}
+> -
+>  static uint8_t disp_power_gating_action_to_atom(
+>         enum bp_pipe_control_action action)
+>  {
+> diff --git a/drivers/gpu/drm/amd/display/dc/bios/dce80/command_table_help=
+er_dce80.c b/drivers/gpu/drm/amd/display/dc/bios/dce80/command_table_helper=
+_dce80.c
+> index 8b30b558cf1f..f8c66e3a8f08 100644
+> --- a/drivers/gpu/drm/amd/display/dc/bios/dce80/command_table_helper_dce8=
+0.c
+> +++ b/drivers/gpu/drm/amd/display/dc/bios/dce80/command_table_helper_dce8=
+0.c
+> @@ -33,6 +33,8 @@
+>
+>  #include "../command_table_helper.h"
+>
+> +#include "../dce_common/command_table_helper_dce_common.h"
+> +
+>  static uint8_t encoder_action_to_atom(enum bp_encoder_control_action act=
+ion)
+>  {
+>         uint8_t atom_action =3D 0;
+> @@ -58,51 +60,6 @@ static uint8_t encoder_action_to_atom(enum bp_encoder_=
+control_action action)
+>         return atom_action;
+>  }
+>
+> -static bool engine_bp_to_atom(enum engine_id id, uint32_t *atom_engine_i=
+d)
+> -{
+> -       bool result =3D false;
+> -
+> -       if (atom_engine_id !=3D NULL)
+> -               switch (id) {
+> -               case ENGINE_ID_DIGA:
+> -                       *atom_engine_id =3D ASIC_INT_DIG1_ENCODER_ID;
+> -                       result =3D true;
+> -                       break;
+> -               case ENGINE_ID_DIGB:
+> -                       *atom_engine_id =3D ASIC_INT_DIG2_ENCODER_ID;
+> -                       result =3D true;
+> -                       break;
+> -               case ENGINE_ID_DIGC:
+> -                       *atom_engine_id =3D ASIC_INT_DIG3_ENCODER_ID;
+> -                       result =3D true;
+> -                       break;
+> -               case ENGINE_ID_DIGD:
+> -                       *atom_engine_id =3D ASIC_INT_DIG4_ENCODER_ID;
+> -                       result =3D true;
+> -                       break;
+> -               case ENGINE_ID_DIGE:
+> -                       *atom_engine_id =3D ASIC_INT_DIG5_ENCODER_ID;
+> -                       result =3D true;
+> -                       break;
+> -               case ENGINE_ID_DIGF:
+> -                       *atom_engine_id =3D ASIC_INT_DIG6_ENCODER_ID;
+> -                       result =3D true;
+> -                       break;
+> -               case ENGINE_ID_DIGG:
+> -                       *atom_engine_id =3D ASIC_INT_DIG7_ENCODER_ID;
+> -                       result =3D true;
+> -                       break;
+> -               case ENGINE_ID_DACA:
+> -                       *atom_engine_id =3D ASIC_INT_DAC1_ENCODER_ID;
+> -                       result =3D true;
+> -                       break;
+> -               default:
+> -                       break;
+> -               }
+> -
+> -       return result;
+> -}
+> -
+>  static bool clock_source_id_to_atom(
+>         enum clock_source_id id,
+>         uint32_t *atom_pll_id)
+> @@ -149,32 +106,6 @@ static bool clock_source_id_to_atom(
+>         return result;
+>  }
+>
+> -static uint8_t clock_source_id_to_atom_phy_clk_src_id(
+> -               enum clock_source_id id)
+> -{
+> -       uint8_t atom_phy_clk_src_id =3D 0;
+> -
+> -       switch (id) {
+> -       case CLOCK_SOURCE_ID_PLL0:
+> -               atom_phy_clk_src_id =3D ATOM_TRANSMITTER_CONFIG_V5_P0PLL;
+> -               break;
+> -       case CLOCK_SOURCE_ID_PLL1:
+> -               atom_phy_clk_src_id =3D ATOM_TRANSMITTER_CONFIG_V5_P1PLL;
+> -               break;
+> -       case CLOCK_SOURCE_ID_PLL2:
+> -               atom_phy_clk_src_id =3D ATOM_TRANSMITTER_CONFIG_V5_P2PLL;
+> -               break;
+> -       case CLOCK_SOURCE_ID_EXTERNAL:
+> -               atom_phy_clk_src_id =3D ATOM_TRANSMITTER_CONFIG_V5_REFCLK=
+_SRC_EXT;
+> -               break;
+> -       default:
+> -               atom_phy_clk_src_id =3D ATOM_TRANSMITTER_CONFIG_V5_P1PLL;
+> -               break;
+> -       }
+> -
+> -       return atom_phy_clk_src_id >> 2;
+> -}
+> -
+>  static uint8_t signal_type_to_atom_dig_mode(enum signal_type s)
+>  {
+>         uint8_t atom_dig_mode =3D ATOM_TRANSMITTER_DIGMODE_V5_DP;
+> @@ -270,39 +201,6 @@ static uint8_t dig_encoder_sel_to_atom(enum engine_i=
+d id)
+>         return atom_dig_encoder_sel;
+>  }
+>
+> -static uint8_t phy_id_to_atom(enum transmitter t)
+> -{
+> -       uint8_t atom_phy_id;
+> -
+> -       switch (t) {
+> -       case TRANSMITTER_UNIPHY_A:
+> -               atom_phy_id =3D ATOM_PHY_ID_UNIPHYA;
+> -               break;
+> -       case TRANSMITTER_UNIPHY_B:
+> -               atom_phy_id =3D ATOM_PHY_ID_UNIPHYB;
+> -               break;
+> -       case TRANSMITTER_UNIPHY_C:
+> -               atom_phy_id =3D ATOM_PHY_ID_UNIPHYC;
+> -               break;
+> -       case TRANSMITTER_UNIPHY_D:
+> -               atom_phy_id =3D ATOM_PHY_ID_UNIPHYD;
+> -               break;
+> -       case TRANSMITTER_UNIPHY_E:
+> -               atom_phy_id =3D ATOM_PHY_ID_UNIPHYE;
+> -               break;
+> -       case TRANSMITTER_UNIPHY_F:
+> -               atom_phy_id =3D ATOM_PHY_ID_UNIPHYF;
+> -               break;
+> -       case TRANSMITTER_UNIPHY_G:
+> -               atom_phy_id =3D ATOM_PHY_ID_UNIPHYG;
+> -               break;
+> -       default:
+> -               atom_phy_id =3D ATOM_PHY_ID_UNIPHYA;
+> -               break;
+> -       }
+> -       return atom_phy_id;
+> -}
+> -
+>  static uint8_t disp_power_gating_action_to_atom(
+>         enum bp_pipe_control_action action)
+>  {
+> diff --git a/drivers/gpu/drm/amd/display/dc/bios/dce_common/command_table=
+_helper_dce_common.c b/drivers/gpu/drm/amd/display/dc/bios/dce_common/comma=
+nd_table_helper_dce_common.c
+> new file mode 100644
+> index 000000000000..d715a2bb7710
+> --- /dev/null
+> +++ b/drivers/gpu/drm/amd/display/dc/bios/dce_common/command_table_helper=
+_dce_common.c
+> @@ -0,0 +1,110 @@
+> +// SPDX-License-Identifier: MIT
+> +
+> +#include "dm_services.h"
+> +#include "atom.h"
+> +
+> +#include "command_table_helper_dce_common.h"
+> +
+> +uint8_t phy_id_to_atom(enum transmitter t)
+> +{
+> +       uint8_t atom_phy_id;
+> +
+> +       switch (t) {
+> +       case TRANSMITTER_UNIPHY_A:
+> +               atom_phy_id =3D ATOM_PHY_ID_UNIPHYA;
+> +               break;
+> +       case TRANSMITTER_UNIPHY_B:
+> +               atom_phy_id =3D ATOM_PHY_ID_UNIPHYB;
+> +               break;
+> +       case TRANSMITTER_UNIPHY_C:
+> +               atom_phy_id =3D ATOM_PHY_ID_UNIPHYC;
+> +               break;
+> +       case TRANSMITTER_UNIPHY_D:
+> +               atom_phy_id =3D ATOM_PHY_ID_UNIPHYD;
+> +               break;
+> +       case TRANSMITTER_UNIPHY_E:
+> +               atom_phy_id =3D ATOM_PHY_ID_UNIPHYE;
+> +               break;
+> +       case TRANSMITTER_UNIPHY_F:
+> +               atom_phy_id =3D ATOM_PHY_ID_UNIPHYF;
+> +               break;
+> +       case TRANSMITTER_UNIPHY_G:
+> +               atom_phy_id =3D ATOM_PHY_ID_UNIPHYG;
+> +               break;
+> +       default:
+> +               atom_phy_id =3D ATOM_PHY_ID_UNIPHYA;
+> +               break;
+> +       }
+> +       return atom_phy_id;
+> +}
+> +
+> +uint8_t clock_source_id_to_atom_phy_clk_src_id(
+> +               enum clock_source_id id)
+> +{
+> +       uint8_t atom_phy_clk_src_id =3D 0;
+> +
+> +       switch (id) {
+> +       case CLOCK_SOURCE_ID_PLL0:
+> +               atom_phy_clk_src_id =3D ATOM_TRANSMITTER_CONFIG_V5_P0PLL;
+> +               break;
+> +       case CLOCK_SOURCE_ID_PLL1:
+> +               atom_phy_clk_src_id =3D ATOM_TRANSMITTER_CONFIG_V5_P1PLL;
+> +               break;
+> +       case CLOCK_SOURCE_ID_PLL2:
+> +               atom_phy_clk_src_id =3D ATOM_TRANSMITTER_CONFIG_V5_P2PLL;
+> +               break;
+> +       case CLOCK_SOURCE_ID_EXTERNAL:
+> +               atom_phy_clk_src_id =3D ATOM_TRANSMITTER_CONFIG_V5_REFCLK=
+_SRC_EXT;
+> +               break;
+> +       default:
+> +               atom_phy_clk_src_id =3D ATOM_TRANSMITTER_CONFIG_V5_P1PLL;
+> +               break;
+> +       }
+> +
+> +       return atom_phy_clk_src_id >> 2;
+> +}
+> +
+> +bool engine_bp_to_atom(enum engine_id id, uint32_t *atom_engine_id)
+> +{
+> +       bool result =3D false;
+> +
+> +       if (atom_engine_id !=3D NULL)
+> +               switch (id) {
+> +               case ENGINE_ID_DIGA:
+> +                       *atom_engine_id =3D ASIC_INT_DIG1_ENCODER_ID;
+> +                       result =3D true;
+> +                       break;
+> +               case ENGINE_ID_DIGB:
+> +                       *atom_engine_id =3D ASIC_INT_DIG2_ENCODER_ID;
+> +                       result =3D true;
+> +                       break;
+> +               case ENGINE_ID_DIGC:
+> +                       *atom_engine_id =3D ASIC_INT_DIG3_ENCODER_ID;
+> +                       result =3D true;
+> +                       break;
+> +               case ENGINE_ID_DIGD:
+> +                       *atom_engine_id =3D ASIC_INT_DIG4_ENCODER_ID;
+> +                       result =3D true;
+> +                       break;
+> +               case ENGINE_ID_DIGE:
+> +                       *atom_engine_id =3D ASIC_INT_DIG5_ENCODER_ID;
+> +                       result =3D true;
+> +                       break;
+> +               case ENGINE_ID_DIGF:
+> +                       *atom_engine_id =3D ASIC_INT_DIG6_ENCODER_ID;
+> +                       result =3D true;
+> +                       break;
+> +               case ENGINE_ID_DIGG:
+> +                       *atom_engine_id =3D ASIC_INT_DIG7_ENCODER_ID;
+> +                       result =3D true;
+> +                       break;
+> +               case ENGINE_ID_DACA:
+> +                       *atom_engine_id =3D ASIC_INT_DAC1_ENCODER_ID;
+> +                       result =3D true;
+> +                       break;
+> +               default:
+> +                       break;
+> +               }
+> +
+> +       return result;
+> +}
+> diff --git a/drivers/gpu/drm/amd/display/dc/bios/dce_common/command_table=
+_helper_dce_common.h b/drivers/gpu/drm/amd/display/dc/bios/dce_common/comma=
+nd_table_helper_dce_common.h
+> new file mode 100644
+> index 000000000000..4e0ceb39b95f
+> --- /dev/null
+> +++ b/drivers/gpu/drm/amd/display/dc/bios/dce_common/command_table_helper=
+_dce_common.h
+> @@ -0,0 +1,14 @@
+> +/* SPDX-License-Identifier: MIT */
+> +
+> +#ifndef __DAL_COMMAND_TABLE_HELPER_DCE_COMMON_H__
+> +#define __DAL_COMMAND_TABLE_HELPER_DCE_COMMON_H__
+> +
+> +
+> +uint8_t phy_id_to_atom(enum transmitter t);
+> +
+> +uint8_t clock_source_id_to_atom_phy_clk_src_id(
+> +               enum clock_source_id id);
+> +
+> +bool engine_bp_to_atom(enum engine_id id, uint32_t *atom_engine_id);
+> +
+> +#endif
+> --
+> 2.43.0
+>
