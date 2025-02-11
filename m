@@ -4,117 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04945C021A2
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF0DEC021A4
 	for <amd-gfx@archiver.kernel.org>; Tue, 11 Feb 2025 16:58:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 384A210E71B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1BFD810E71A;
 	Tue, 11 Feb 2025 16:58:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="QYNMhX/S";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="hLS8st5j";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2005110E6DC
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Feb 2025 15:03:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1739286223;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=6K127Xqp01kwOLTDIHQix5w2cmmFKXaOgArwWedRCAs=;
- b=QYNMhX/SGo9VVoDv/govd2o2dEtP+jTZQYjbsWRi6I0izLcwQHQco2L1vV54FNO8+OhN5H
- EJbGacLgg+lluC+ps/I+r7XEnd2+sViGA2iVQ1M61ghBfM3nclTzfzod+u7WQV5lm4JLCM
- gbcBGs5eZSdjOxyvRXXRxXivFovmuqc=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-473-xwlZJz7POyW-FmEvA3jDnQ-1; Tue, 11 Feb 2025 10:03:41 -0500
-X-MC-Unique: xwlZJz7POyW-FmEvA3jDnQ-1
-X-Mimecast-MFC-AGG-ID: xwlZJz7POyW-FmEvA3jDnQ
-Received: by mail-wm1-f70.google.com with SMTP id
- 5b1f17b1804b1-43935bcec74so16084915e9.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Feb 2025 07:03:41 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739286220; x=1739891020;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=6K127Xqp01kwOLTDIHQix5w2cmmFKXaOgArwWedRCAs=;
- b=YXUJdFqZMI19Wl7u8QE4aDtfsPXXq46qdLP+wkkv96e0WlU6HTFxtpKgtAw7VbDxtB
- qGIy/6RhgOPuM1qazN/Ic9QIXPQY+j6+8YsnTPsT3MAm6TeTz+wKN4fLNqp16gB9Ttae
- SFLAx1fMf1qjm9lhu82W5CFk2qN8gNAyGijmZhMtISH70xhNwCywK7MUkpBGhDsMgEE7
- wUwriAZ8dwSWCeW4lzZVHSbL5G/FXkmGweBMCEwla3LnJkizyy1gi5B+GSVR/y9p5dOC
- i1d6LKkw2LmKi9o6pjwaCcMBCqxv6RgLsAucdYOqxKkV5gEx/isSfdDeoIc6CdF6Ct07
- SSdg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVn/vOYZYkOqO6rSOX3etD6vp+W3HwLcwKFXLRPWFt9/vEPwV5JnQ9T1SCgZdXh1gFXj/ueNMdC@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YynqkQr3JrbnegzVznzOhNrpOXAfayO8ubIIQjIwrMCVjxLfN7A
- Vr3oR2zAP7D7ph5ZZWgb1SzYg1JX3z6LehYPN/8oCgWJXfd/4qVoxXEwxDsDcwCRi3IcO0b+ScF
- aEkH9njIIhEoD/1QyJ4KiTOR2enRgvi992F1X+9JT5leXjggaOok4V54GALKGG8Y=
-X-Gm-Gg: ASbGncsxQPML+hgi4bXx5Aphg/s5r0+SgHTDBGc+VjpurmPZ96Dq8/chfcgy2dbWb7h
- iUJsDPvKJQAx+sExJekoG94VqRfJYL1gn7VEhKERD/yfczo/+NqFGzbRN94odT7zdcfy407pKY9
- hOUXyNMm17Vd+zgKYn283PlR3zOzjlVFRVbsMbnQxE3weux7XVUzVzlscaJkg8CpWNVn9910JmX
- oi2zTKQwWs7q/jV527gMuQcEthlu3guhtukv1b4UNRgKtxt+zGHIsWvGdYojQeGqfYnFA==
-X-Received: by 2002:a05:600c:4448:b0:439:4740:20a2 with SMTP id
- 5b1f17b1804b1-4394c853a2dmr42857815e9.29.1739286220029; 
- Tue, 11 Feb 2025 07:03:40 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEN7+RaFI8Q1DlET/AqPOd5Q7ETC0Cm6eLK5eh5/vnngjAmjHCWD7Z20lqQzfUQw3dEBz+m0g==
-X-Received: by 2002:a05:600c:4448:b0:439:4740:20a2 with SMTP id
- 5b1f17b1804b1-4394c853a2dmr42856745e9.29.1739286219388; 
- Tue, 11 Feb 2025 07:03:39 -0800 (PST)
-Received: from pollux ([2a00:79c0:65c:c300:abf:b8ff:feee:998b])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-38dc5c8c37esm13267156f8f.2.2025.02.11.07.03.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 11 Feb 2025 07:03:38 -0800 (PST)
-Date: Tue, 11 Feb 2025 16:03:36 +0100
-From: Danilo Krummrich <dakr@redhat.com>
-To: Philipp Stanner <phasta@kernel.org>
-Cc: Min Ma <min.ma@amd.com>, Lizhi Hou <lizhi.hou@amd.com>,
- Oded Gabbay <ogabbay@kernel.org>, Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Lucas Stach <l.stach@pengutronix.de>,
- Russell King <linux+etnaviv@armlinux.org.uk>,
- Christian Gmeiner <christian.gmeiner@gmail.com>,
- Frank Binns <frank.binns@imgtec.com>, Matt Coster <matt.coster@imgtec.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Qiang Yu <yuq825@gmail.com>, Rob Clark <robdclark@gmail.com>,
- Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Karol Herbst <kherbst@redhat.com>, Lyude Paul <lyude@redhat.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
- Liviu Dudau <liviu.dudau@arm.com>, Matthew Brost <matthew.brost@intel.com>,
- Melissa Wen <mwen@igalia.com>,
- =?iso-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Sunil Khatri <sunil.khatri@amd.com>,
- Lijo Lazar <lijo.lazar@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Ma Jun <Jun.Ma2@amd.com>, Yunxiang Li <Yunxiang.Li@amd.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, etnaviv@lists.freedesktop.org,
- lima@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, Christian Gmeiner <cgmeiner@igalia.com>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Subject: Re: [PATCH v4] drm/sched: Use struct for drm_sched_init() params
-Message-ID: <Z6tmyHpqnpkP2gKq@pollux>
-References: <20250211111422.21235-2-phasta@kernel.org>
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C595510E21D
+ for <amd-gfx@lists.freedesktop.org>; Tue, 11 Feb 2025 10:36:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=UtV379SyHBLioD2I4aaOOfWgfvE7CJqQun8AZHLNibY=; b=hLS8st5jGFZfxCjpGEpPaQ0QD5
+ 1DXsji9kNF0K/dsmYNJYHGqKGoeh+k4dD6ank7DvbUQhSAYX2bND6u7D8z7HKN3IoeBzsIGQiukGS
+ SqdZqlIK1HMDUja/j+JLmoXhw8xkP7SkHWoBPcv5As3gNzOA+9UhHlGXXNnzh5zAxbcScdRpeC3IT
+ HJhO9z8K4Fcm85uC4teLwt2F41ywKhcqO6TO3rXzuyjGzuq1MbtTfXvoDlpzC1IUQfyQCDfdERsWv
+ DshlzLc917FyvUewut4ExfSKnTY+4QjFCZEJJwNtdixE2yPXvA7dJ0yL9BNGnKVcBzh4hY08VI6ck
+ /otQdRWQ==;
+Received: from [90.241.98.187] (helo=[192.168.0.101])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1thncR-007gQx-2s; Tue, 11 Feb 2025 11:36:00 +0100
+Message-ID: <fbdb3020-8270-405e-a2ca-71e7687dfba1@igalia.com>
+Date: Tue, 11 Feb 2025 10:35:59 +0000
 MIME-Version: 1.0
-In-Reply-To: <20250211111422.21235-2-phasta@kernel.org>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: XBvOslQ05-7y6GKnFlym9S3aWQJETKwFBnsqmhq_4bQ_1739286220
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] drm/amdgpu: Pop jobs from the queue more robustly
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ phasta@kernel.org, amd-gfx@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Danilo Krummrich <dakr@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ "Zhang, Hawking" <Hawking.Zhang@amd.com>
+References: <20250206164031.43413-1-tvrtko.ursulin@igalia.com>
+ <20250206164031.43413-3-tvrtko.ursulin@igalia.com>
+ <949a5a2f-dbf3-497e-a50a-92adb48aa31f@amd.com>
+ <3f6de080ac75fc0988d371e71072cba5d60e269e.camel@mailbox.org>
+ <e0a3e8de-2e90-420d-86c1-844f86ebe319@amd.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <e0a3e8de-2e90-420d-86c1-844f86ebe319@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 11 Feb 2025 16:57:59 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -131,26 +67,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Feb 11, 2025 at 12:14:23PM +0100, Philipp Stanner wrote:
-> drm_sched_init() has a great many parameters and upcoming new
-> functionality for the scheduler might add even more. Generally, the
-> great number of parameters reduces readability and has already caused
-> one missnaming, addressed in:
-> 
-> commit 6f1cacf4eba7 ("drm/nouveau: Improve variable name in
-> nouveau_sched_init()").
-> 
-> Introduce a new struct for the scheduler init parameters and port all
-> users.
-> 
-> Signed-off-by: Philipp Stanner <phasta@kernel.org>
-> Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
-> Acked-by: Matthew Brost <matthew.brost@intel.com> # for Xe
-> Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com> # for Panfrost and Panthor
-> Reviewed-by: Christian Gmeiner <cgmeiner@igalia.com> # for Etnaviv
-> Reviewed-by: Frank Binns <frank.binns@imgtec.com> # for Imagination
-> Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com> # for Sched
-> Reviewed-by: Ma�ra Canal <mcanal@igalia.com> # for v3d
 
-Reviewed-by: Danilo Krummrich <dakr@kernel.org>
+On 11/02/2025 10:21, Christian König wrote:
+> Am 11.02.25 um 11:08 schrieb Philipp Stanner:
+>> On Tue, 2025-02-11 at 09:22 +0100, Christian König wrote:
+>>> Am 06.02.25 um 17:40 schrieb Tvrtko Ursulin:
+>>>> Replace a copy of DRM scheduler's to_drm_sched_job with a copy of a
+>>>> newly
+>>>> added __drm_sched_entity_queue_pop.
+>>>>
+>>>> This allows breaking the hidden dependency that queue_node has to
+>>>> be the
+>>>> first element in struct drm_sched_job.
+>>>>
+>>>> A comment is also added with a reference to the mailing list
+>>>> discussion
+>>>> explaining the copied helper will be removed when the whole broken
+>>>> amdgpu_job_stop_all_jobs_on_sched is removed.
+>>>>
+>>>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>>>> Cc: Christian König <christian.koenig@amd.com>
+>>>> Cc: Danilo Krummrich <dakr@kernel.org>
+>>>> Cc: Matthew Brost <matthew.brost@intel.com>
+>>>> Cc: Philipp Stanner <phasta@kernel.org>
+>>>> Cc: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+>>> Reviewed-by: Christian König <christian.koenig@amd.com>
+>> I think this v3 has been supplanted by a v4 by now.
+> 
+> I've seen the larger v4 series as well, but at least that patch here 
+> looks identical on first glance. So my rb still counts.
+
+Effectively identical - I only removed the double underscore in v4 on a 
+(good) suggestion from Danilo.
+
+>> @Tvrtko: btw, do you create patches with
+>> git format-patch -v4 ?
+>>
+>> That way the v4 label will be included in all patch titles, too, not
+>> just the cover letter. That makes searching etc. easier in large
+>> inboxes
+
+I don't typically use -vN for the whole series since not all patches in 
+the series change equally and I assume people use threaded views so vN 
+in the root is sufficient.
+
+Regards,
+
+Tvrtko
+
+>>>> ---
+>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 22 +++++++++++++++++++-
+>>>> -- 
+>>>>    1 file changed, 19 insertions(+), 3 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+>>>> index 100f04475943..22cb48bab24d 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+>>>> @@ -411,8 +411,24 @@ static struct dma_fence *amdgpu_job_run(struct
+>>>> drm_sched_job *sched_job)
+>>>>        return fence;
+>>>>    }
+>>>> -#define to_drm_sched_job(sched_job)        \
+>>>> -        container_of((sched_job), struct drm_sched_job,
+>>>> queue_node)
+>>>> +/*
+>>>> + * This is a duplicate function from DRM scheduler
+>>>> sched_internal.h.
+>>>> + * Plan is to remove it when amdgpu_job_stop_all_jobs_on_sched is
+>>>> removed, due
+>>>> + * latter being incorrect and racy.
+>>>> + *
+>>>> + * See
+>>>> https://lore.kernel.org/amd-gfx/44edde63-7181-44fb- 
+>>>> a4f7-94e50514f539@amd.com/
+>>>> + */
+>>>> +static struct drm_sched_job *
+>>>> +__drm_sched_entity_queue_pop(struct drm_sched_entity *entity)
+>>>> +{
+>>>> +    struct spsc_node *node;
+>>>> +
+>>>> +    node = spsc_queue_pop(&entity->job_queue);
+>>>> +    if (!node)
+>>>> +        return NULL;
+>>>> +
+>>>> +    return container_of(node, struct drm_sched_job,
+>>>> queue_node);
+>>>> +}
+>>>>    void amdgpu_job_stop_all_jobs_on_sched(struct drm_gpu_scheduler
+>>>> *sched)
+>>>>    {
+>>>> @@ -425,7 +441,7 @@ void amdgpu_job_stop_all_jobs_on_sched(struct
+>>>> drm_gpu_scheduler *sched)
+>>>>            struct drm_sched_rq *rq = sched->sched_rq[i];
+>>>>            spin_lock(&rq->lock);
+>>>>            list_for_each_entry(s_entity, &rq->entities, list)
+>>>> {
+>>>> -            while ((s_job =
+>>>> to_drm_sched_job(spsc_queue_pop(&s_entity->job_queue)))) {
+>>>> +            while ((s_job =
+>>>> __drm_sched_entity_queue_pop(s_entity))) {
+>>>>                    struct drm_sched_fence *s_fence =
+>>>> s_job->s_fence;
+>>>>                    dma_fence_signal(&s_fence-
+>>>>> scheduled);
+> 
 
