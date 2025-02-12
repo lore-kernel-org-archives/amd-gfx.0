@@ -4,70 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C41A4C021A0
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 Feb 2025 19:58:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93357C02198
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 Feb 2025 21:48:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7209D10E97B;
-	Wed, 12 Feb 2025 19:58:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 48C8310E99F;
+	Wed, 12 Feb 2025 21:48:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NqVph9Xk";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Am3agEFJ";
 	dkim-atps=neutral
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
- [209.85.216.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5AE5210E97B
- for <amd-gfx@lists.freedesktop.org>; Wed, 12 Feb 2025 19:58:11 +0000 (UTC)
-Received: by mail-pj1-f53.google.com with SMTP id
- 98e67ed59e1d1-2f45526dea0so34877a91.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 12 Feb 2025 11:58:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1739390291; x=1739995091; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=NC6Oxa8gE2b2A7wsIrnpNog5pq0tpYdv14R7m6detcs=;
- b=NqVph9XkP3EsfTVg1RJC7ZbS0/z7H2j1uguhoPjTA4IPAjtd2QUASgEnELGtj+/QK1
- 6RA9ZJq46hREZfbLDSgdlwbDQYqjemvmCtBc/fSYfdg4e/5+zncryV/skDgZr/pCwpGA
- fX6B9+gD8Br3etIIMTq78wloCAlE6R23fGXbWDGMGufZhnrW6GRZ8S5n0YV9qOJIrtRj
- PH05h60JvSpbQIGg5O5qZ/Nr2la6uox6qDBN7Cl7fuin/ralt0L/+1QKy5kaHN2HYQkZ
- JXf1LdGEWqFXsH6jGKemMsdgrUPmhYYZRfTejej9UhRFRjo2lABk4NPco3EDiZCErQMF
- iUVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739390291; x=1739995091;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=NC6Oxa8gE2b2A7wsIrnpNog5pq0tpYdv14R7m6detcs=;
- b=WdaqYMlwOndPfgw1bq0OVox8B5FJotLEeZWvp37Pew0eL7xbhZfPqrYZsqcBXv+ZJw
- mz2RrIUJTkS1FlaDR3m99YI12fDoHNeA0kyXsHHDdf3ssZUI0DdtwZCVihtBqWUXgpgW
- 6SnR/jnqUiAouiAThKdNi3bq0LuqGBQ9wjdRZl8rN/EX5KKdYhmUiIK8WNPbbNc+SbCC
- obFZe+sU/onLnuiWOShfTtuUXQSBYiMb5E5Hd5rDIksn1iA2s53UytJQw0bhWrZJbrC1
- jbmdfilhrGPk8fTG+vKiqUyTNt0vD4uvKdZaDNH9dPXht0fAujohWbWNcTi8shGP80JO
- sbIw==
-X-Gm-Message-State: AOJu0YyQUMQi2HQTnc/NNsAKdAGgTQzzipRsO7ldcjnTKnhXuXhpPOg7
- t040E2mEpPivNYS/YBRcazDXNmpKz1ZFB1yVT0/dmdzO5uoEwsa8F/nGZV43ShcBkRiwAVG+xnk
- 6YRMuj1YphMIW+YWrvM9mIO9mZa4ibw==
-X-Gm-Gg: ASbGncvFryC4xkUFQuUwvBwK06ABZVkgN5v6aYXIpe6z0o9jHLSwkjaEbvwG6sc7dvB
- Y+c+j29YXEJZPFu448AaI3FhqrKywdpOk1oLUWCyhy47HbA+dFtazp2MsGdgwCRBwcRKuGv9E
-X-Google-Smtp-Source: AGHT+IEFB+dQ9mWjN+fe8vQ56wlR0SuuvNiCNyDIP+uBn3Fal9Ab8zZZaH3rQumH46cyReWwDBk9k1i5oeUK67VedBo=
-X-Received: by 2002:a17:90b:3b48:b0:2ee:b665:12ce with SMTP id
- 98e67ed59e1d1-2fbf5bb8f30mr2736128a91.1.1739390290606; Wed, 12 Feb 2025
- 11:58:10 -0800 (PST)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2046.outbound.protection.outlook.com [40.107.93.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED32310E99F
+ for <amd-gfx@lists.freedesktop.org>; Wed, 12 Feb 2025 21:48:41 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=aEAME8nc6HvQp/he/+Yj5RMeWiwYJQ6Q/KP8oPdn6xOj3jbfUQw2PLZkDP7eCh1PzN7ExPMOC6srwA1pxGMrjuCQjr9bzqSQHnr4NRaAFCl3HqRKVLXiX5OenE3eJhUOypgvK4YcRMPIyhLgLiXcdYHrwHZFvD/2R85RdfJrxbfKwz5dXGOqdaPVcOdOXWF2q6oIGJrnBh2K/b27DVjzgIeSkEirITh0oyo8NPxSlmN53QiRH1Ugg+y+Inu5X7PMNk+wcPzviWZf7EFPAgsO3KxBrbn6dd49CQS53GwLs3EmWU87KK/5JsvMzQ/uil42HYbp2B8OnZ+P5g6WXVxp7g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CjUD4+sMJe5dRPAJg8kX4pj2FJht49lYt/FZ5uVB8KI=;
+ b=S7xj90bHMLPQDu+PCs45doFae5yfra9dsj3FEoC+KYVG+0H07s2SwTqjrdu1hUs3TNBIiWJsFeVFh5lL130qSDO7J4p5GR6BQ0JjGoLuLruQ+U2G9b/trnrxBpdl/dkYyNogTtJvDKYFFwt8MkNufrxDQtTAh4P7chQ8VT0VcpcbTWn/tpCPhNBpLGvEhQXh4ri7eppOgmCBi/pZx7XJw7eVEb51y3ZaWE11MXIPLML6DpnrnxYhhrfCxXsz0d9/rtNP4i8q+iiDWzhWrATlqxZFIPR7eBv1B9tvybC0LimjWKcZDhtMbdxJN6wJf/5aDlxaphPos0HmB/0eO/UmJw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CjUD4+sMJe5dRPAJg8kX4pj2FJht49lYt/FZ5uVB8KI=;
+ b=Am3agEFJofKj465GjHUR/g1jzaZxUUeO8CkyBR6f9sBZNzgE1AleSCUHco/c68uyIhqavcjxRvDPfYgu9WzA3EBMoPJSD7qTic072U6wOZAKSpTpEwLgcTjsbfZ/KMNgxRSCYkjwS3eiNRv02rTj8L8ZtjOqpCvtgdSHOe88cn0=
+Received: from PH7P221CA0003.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:32a::33)
+ by SJ2PR12MB8941.namprd12.prod.outlook.com (2603:10b6:a03:542::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8422.18; Wed, 12 Feb
+ 2025 21:48:38 +0000
+Received: from BY1PEPF0001AE18.namprd04.prod.outlook.com
+ (2603:10b6:510:32a:cafe::ad) by PH7P221CA0003.outlook.office365.com
+ (2603:10b6:510:32a::33) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8445.14 via Frontend Transport; Wed,
+ 12 Feb 2025 21:48:38 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BY1PEPF0001AE18.mail.protection.outlook.com (10.167.242.100) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8445.10 via Frontend Transport; Wed, 12 Feb 2025 21:48:38 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 12 Feb
+ 2025 15:48:36 -0600
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Alex Deucher <alexander.deucher@amd.com>, kernel test robot
+ <lkp@intel.com>, Arnd Bergmann <arnd@arndb.de>, Lang Yu <Lang.Yu@amd.com>
+Subject: [PATCH 2/3] drm/amdgpu/umsch: fix ucode check
+Date: Wed, 12 Feb 2025 16:48:20 -0500
+Message-ID: <20250212214821.2871419-2-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20250212214821.2871419-1-alexander.deucher@amd.com>
+References: <20250212214821.2871419-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
-References: <20250211051454.2811943-1-jesse.zhang@amd.com>
- <20250211051454.2811943-4-jesse.zhang@amd.com>
-In-Reply-To: <20250211051454.2811943-4-jesse.zhang@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 12 Feb 2025 14:57:58 -0500
-X-Gm-Features: AWEUYZlgPj5RiLg-LlBzcOYQotteTB9y4Cm-0-2kHUE2UxLumPYQFOSVAzczc9c
-Message-ID: <CADnq5_PLx1KTZmUs5eUmxob7Md9o+jZ5Re+f9w+FUndH7WWcAA@mail.gmail.com>
-Subject: Re: [PATCH 4/4 V6] drm/amdgpu: Improve SDMA reset logic with guilty
- queue tracking
-To: "Jesse.zhang@amd.com" <jesse.zhang@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
- felix.kuehling@amd.com, Jonathan Kim <Jonathan.Kim@amd.com>, 
- Jiadong Zhu <Jiadong.Zhu@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE18:EE_|SJ2PR12MB8941:EE_
+X-MS-Office365-Filtering-Correlation-Id: a3768506-3ef1-4eba-0b0a-08dd4baf024f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|82310400026|376014|36860700013|13003099007; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?GA6UMGsf077N8DDlWMCA18yeZQ64MiXrkfWasLk/l2rEnQ2rU3g2fILxgSn2?=
+ =?us-ascii?Q?R1Lm1iYbDThkNTFEwFjKhsoV5Uk5yucxVfShI7GHVa9xFx3bN/Bk16AKhbZe?=
+ =?us-ascii?Q?h4yJbe/6mJj0ltMk7WOUwuJiZjT6HKdCRtT04cxaURJIHGn+vvt52Y4W7br7?=
+ =?us-ascii?Q?FndzDusee3itDLKWiDCNBHU2YbDEL+1UNHcKDf3ZDsryIWbJ/MWeIR2rES1I?=
+ =?us-ascii?Q?2Z/vq0rIH5V0EPcX5y6jjstCb4oucrzYTD90CQXPNTOSL2VZcYDq7AuWonvs?=
+ =?us-ascii?Q?mRHTrsmAcnxAfJ4IxXHrLE3nUcg6fTsXSBwNekxfAWZcahREdnbW6RreoeVC?=
+ =?us-ascii?Q?ImmNvWcRcnMMvcXAwVSv6RqezdB1lJ3XKkHU+Wn8KlbdbndrHGzQHKXb7M2B?=
+ =?us-ascii?Q?cowuVhYkkzUPaqZ5esXISdA86bgFqEP/xJG7CWdQLmusjcu37C/TzNyuOIiN?=
+ =?us-ascii?Q?TxFB4p21g30lQObpZErD1123KK4mlCfndESazBRrYYSdouQTVxK5sLIFKEfd?=
+ =?us-ascii?Q?6F4AO7J/cFRH6gsZ2xu9qUqY0Q9fS7VmcACOB7tuLzOmY4CE4RjMeday6kZJ?=
+ =?us-ascii?Q?7FAOwsZ/+CCtGkbAbKlGjM8g3P1s0+2O8MWZy46dtGKj0aKVN0y32frptZBP?=
+ =?us-ascii?Q?rakaxI6zV89b7mhvN4F7qUobVKs5/EA8edo8q0aX2AesIjXvgEzXMpnNfoBH?=
+ =?us-ascii?Q?iSTQw2kRDw1ZxyI/Y7bsr6fTT3SAdenwOIty5uQJg2d9RMzK4lz5KIxNngvo?=
+ =?us-ascii?Q?ksXBCGhVd4Yp4Rx1+Oi6y9XOzMRJo3q3ZYR8AA9PeyYHFxezvmwrZP7GvNWB?=
+ =?us-ascii?Q?NA3cQRzXrjXNHy5gcrx3OQOO6vDPrnQZunyjaa0u+kzijv/KdcfLEmhST/oi?=
+ =?us-ascii?Q?z4141piEKzXhzhcGZHTEG3tGRaGHxw3yIsM/Z/THwPX0+iwrYwpikhezgO8+?=
+ =?us-ascii?Q?7dsG4iU0c6/Mc5bCcUqwIM+K9/qL05svYutFIx6hGU6PCm4fpdL5//gMzePu?=
+ =?us-ascii?Q?s8iShdvUYXR4tFLH95qhecHkDXJQHeDPnl1HFt88O5XCS5lMUeUurroBogqT?=
+ =?us-ascii?Q?ZUtGVMZY8lQtAiP1kvDP/PNLlkxYiugTzpUwtHKalkxvv1QNrDI/jy9gd+SQ?=
+ =?us-ascii?Q?h63eWDh8T7U1aAG3Nabvr72RXQlxDphJBE6SN4zHd7ib6enBfnsyA0LqcXuc?=
+ =?us-ascii?Q?4/JKXy1fgjuZ+7R240Y9CitboZoBjdTu7Ydi6yGBXtsQtwYcle6nCL2IubgG?=
+ =?us-ascii?Q?cJc04dq7jabwiUAUhUP3EQD+DfS6Tg+LL03pRtwfO7T+iHeiMEceTuRdD/gn?=
+ =?us-ascii?Q?XhIqQSzCxLoJFzz8XyOxLo5dC3fA4PAdMRLYhgZ1nRG8KA3Z0nn6xpcRw5Hf?=
+ =?us-ascii?Q?lkusrE7ex3huNvlRt3ZalAufOfPcX00yIzqwy80YkAo4CiNMHCka1+ker0+F?=
+ =?us-ascii?Q?O/QLYuZ35w+B2YFGHrSL49lTj+C/+mB7+lxYlqBZQ9S/0h9K/IHOo/ewAF+a?=
+ =?us-ascii?Q?eHCQOgqars8298c=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(82310400026)(376014)(36860700013)(13003099007);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Feb 2025 21:48:38.5009 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a3768506-3ef1-4eba-0b0a-08dd4baf024f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BY1PEPF0001AE18.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8941
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,439 +133,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Feb 11, 2025 at 9:42=E2=80=AFAM Jesse.zhang@amd.com <jesse.zhang@am=
-d.com> wrote:
->
-> From: "Jesse.zhang@amd.com" <Jesse.zhang@amd.com>
->
-> This commit introduces several improvements to the SDMA reset logic:
->
-> 1. Added `cached_rptr` to the `amdgpu_ring` structure to store the read p=
-ointer
->    before a reset, ensuring proper state restoration after reset.
->
-> 2. Introduced `gfx_guilty` and `page_guilty` flags in the `amdgpu_sdma` s=
-tructure
->    to track which queue (GFX or PAGE) caused a timeout or error.
->
-> 3. Replaced the `caller` parameter with a `guilty` boolean in the reset a=
-nd resume
->    functions to simplify the logic and handle resets based on the guilty =
-state.
->
-> 4. Added a helper function `sdma_v4_4_2_is_queue_selected` to check the
->    `SDMA*_*_CONTEXT_STATUS.SELECTED` register and determine if a queue is=
- guilty.
->
-> v2:
->    1.replace the caller with a guilty bool.
->    If the queue is the guilty one, set the rptr and wptr  to the saved wp=
-tr value,
->    else, set the rptr and wptr to the saved rptr value. (Alex)
->    2. cache the rptr before the reset. (Alex)
->
-> v3: add a new ring callback, is_guilty(), which will get called to check =
-if
->     the ring in amdgpu_job_timedout() is actually the guilty ring. If it'=
-s not,
->     we can return goto exit(Alex)
->
-> v4: cache the rptr for page ring
->
-> v5: update the register addresses to correctly use the page ring register=
-s
->       (regSDMA_PAGE_RB_RPTR) in page resume.
->
-> v6: Keeping intermediate variables like u64 rwptr simplifies resotre rptr=
-/wptr.(Lijo)
->
-> Suggested-by: Alex Deucher <alexander.deucher@amd.com>
-> Suggested-by: Jiadong Zhu <Jiadong.Zhu@amd.com>
-> Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_job.c  | 10 +++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c |  2 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |  3 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c |  6 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h |  3 +
->  drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c | 96 ++++++++++++++++++++----
->  6 files changed, 106 insertions(+), 14 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_job.c
-> index 100f04475943..ce3e7a9d6688 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> @@ -102,6 +102,16 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(s=
-truct drm_sched_job *s_job)
->                 return DRM_GPU_SCHED_STAT_ENODEV;
->         }
->
-> +       /* Check if the ring is actually guilty of causing the timeout.
-> +        * If not, skip error handling and fence completion.
-> +        */
-> +       if (amdgpu_gpu_recovery && ring->funcs->is_guilty) {
-> +               if (!ring->funcs->is_guilty(ring)) {
-> +                       dev_err(adev->dev, "ring %s timeout, but not guil=
-ty\n",
-> +                               s_job->sched->name);
-> +                       goto exit;
-> +               }
-> +       }
+Return an error if the IP version doesn't match otherwise
+we end up passing a NULL string to amdgpu_ucode_request.
+We should never hit this in practice today since we only
+enable the umsch code on the supported IP versions, but
+add a check to be safe.
 
-I'd suggest breaking this change and the amdgpu_ring.h change out into
-its own patch.
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202502130406.iWQ0eBug-lkp@intel.com/
+Fixes: 020620424b27 ("drm/amd: Use a constant format string for amdgpu_ucode_request")
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Cc: Arnd Bergmann <arnd@arndb.de>
+Cc: Lang Yu <Lang.Yu@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
->         /*
->          * Do the coredump immediately after a job timeout to get a very
->          * close dump/snapshot/representation of GPU's current error stat=
-us
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_ring.c
-> index a6e28fe3f8d6..20cd21df38ba 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> @@ -342,6 +342,8 @@ int amdgpu_ring_init(struct amdgpu_device *adev, stru=
-ct amdgpu_ring *ring,
->         ring->buf_mask =3D (ring->ring_size / 4) - 1;
->         ring->ptr_mask =3D ring->funcs->support_64bit_ptrs ?
->                 0xffffffffffffffff : ring->buf_mask;
-> +       /*  Initialize cached_rptr to 0 */
-> +       ring->cached_rptr =3D 0;
->
->         /* Allocate ring buffer */
->         if (ring->is_mes_queue) {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_ring.h
-> index 04af26536f97..182aa535d395 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> @@ -237,6 +237,7 @@ struct amdgpu_ring_funcs {
->         void (*patch_de)(struct amdgpu_ring *ring, unsigned offset);
->         int (*reset)(struct amdgpu_ring *ring, unsigned int vmid);
->         void (*emit_cleaner_shader)(struct amdgpu_ring *ring);
-> +       bool (*is_guilty)(struct amdgpu_ring *ring);
->  };
->
->  struct amdgpu_ring {
-> @@ -306,6 +307,8 @@ struct amdgpu_ring {
->
->         bool            is_sw_ring;
->         unsigned int    entry_index;
-> +       /* store the cached rptr to restore after reset */
-> +       uint64_t cached_rptr;
->
->  };
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_sdma.c
-> index 32eebf9d4408..6ba785798a4a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-> @@ -474,6 +474,10 @@ void amdgpu_sdma_register_on_reset_callbacks(struct =
-amdgpu_device *adev, struct
->         if (!funcs)
->                 return;
->
-> +       /* Ensure the reset_callback_list is initialized */
-> +       if (!adev->sdma.reset_callback_list.next) {
-> +               INIT_LIST_HEAD(&adev->sdma.reset_callback_list);
-> +       }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c
+index bbf16e7b5ab9c..e0e27f7ada395 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm.c
+@@ -586,7 +586,7 @@ int amdgpu_umsch_mm_init_microcode(struct amdgpu_umsch_mm *umsch)
+ 		fw_name = "amdgpu/umsch_mm_4_0_0.bin";
+ 		break;
+ 	default:
+-		break;
++		return -EINVAL;
+ 	}
+ 
+ 	r = amdgpu_ucode_request(adev, &adev->umsch_mm.fw, AMDGPU_UCODE_REQUIRED,
+-- 
+2.48.1
 
-I'd squash this change into the patch which adds the callback list.
-
->         /* Initialize the list node in the callback structure */
->         INIT_LIST_HEAD(&funcs->list);
->
-> @@ -520,7 +524,7 @@ int amdgpu_sdma_reset_instance(struct amdgpu_device *=
-adev, uint32_t instance_id,
->         */
->         if (!amdgpu_ring_sched_ready(gfx_ring)) {
->                 drm_sched_wqueue_stop(&gfx_ring->sched);
-> -               gfx_sched_stopped =3D true;;
-> +               gfx_sched_stopped =3D true;
->         }
->
->         if (adev->sdma.has_page_queue && !amdgpu_ring_sched_ready(page_ri=
-ng)) {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_sdma.h
-> index df5c9f7a4374..d84c3eccc510 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
-> @@ -126,6 +126,9 @@ struct amdgpu_sdma {
->         uint32_t                *ip_dump;
->         uint32_t                supported_reset;
->         struct list_head        reset_callback_list;
-> +       /* track guilty state of GFX and PAGE queues */
-> +       bool gfx_guilty;
-> +       bool page_guilty;
->  };
->
->  /*
-> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c b/drivers/gpu/drm/a=
-md/amdgpu/sdma_v4_4_2.c
-> index c297b4a13680..2c66382011d3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-> @@ -671,11 +671,12 @@ static uint32_t sdma_v4_4_2_rb_cntl(struct amdgpu_r=
-ing *ring, uint32_t rb_cntl)
->   * @adev: amdgpu_device pointer
->   * @i: instance to resume
->   * @restore: used to restore wptr when restart
-> + * @guilty: boolean indicating whether this queue is the guilty one (cau=
-sed the timeout/error)
->   *
->   * Set up the gfx DMA ring buffers and enable them.
->   * Returns 0 for success, error for failure.
->   */
-> -static void sdma_v4_4_2_gfx_resume(struct amdgpu_device *adev, unsigned =
-int i, bool restore)
-> +static void sdma_v4_4_2_gfx_resume(struct amdgpu_device *adev, unsigned =
-int i, bool restore, bool guilty)
->  {
->         struct amdgpu_ring *ring =3D &adev->sdma.instance[i].ring;
->         u32 rb_cntl, ib_cntl, wptr_poll_cntl;
-> @@ -683,6 +684,7 @@ static void sdma_v4_4_2_gfx_resume(struct amdgpu_devi=
-ce *adev, unsigned int i, b
->         u32 doorbell;
->         u32 doorbell_offset;
->         u64 wptr_gpu_addr;
-> +       u64 rwptr;
->
->         wb_offset =3D (ring->rptr_offs * 4);
->
-> @@ -708,12 +710,20 @@ static void sdma_v4_4_2_gfx_resume(struct amdgpu_de=
-vice *adev, unsigned int i, b
->         /* before programing wptr to a less value, need set minor_ptr_upd=
-ate first */
->         WREG32_SDMA(i, regSDMA_GFX_MINOR_PTR_UPDATE, 1);
->
-> +       /* For the guilty queue, set RPTR to the current wptr to skip bad=
- commands,
-> +        * It is not a guilty queue, restore cache_rptr and continue exec=
-ution.
-> +         */
-> +       if (guilty)
-> +               rwptr =3D ring->wptr;
-> +       else
-> +               rwptr =3D ring->cached_rptr;
-> +
->         /* Initialize the ring buffer's read and write pointers */
->         if (restore) {
-> -               WREG32_SDMA(i, regSDMA_GFX_RB_RPTR, lower_32_bits(ring->w=
-ptr << 2));
-> -               WREG32_SDMA(i, regSDMA_GFX_RB_RPTR_HI, upper_32_bits(ring=
-->wptr << 2));
-> -               WREG32_SDMA(i, regSDMA_GFX_RB_WPTR, lower_32_bits(ring->w=
-ptr << 2));
-> -               WREG32_SDMA(i, regSDMA_GFX_RB_WPTR_HI, upper_32_bits(ring=
-->wptr << 2));
-> +               WREG32_SDMA(i, regSDMA_GFX_RB_RPTR, lower_32_bits(rwptr <=
-< 2));
-> +               WREG32_SDMA(i, regSDMA_GFX_RB_RPTR_HI, upper_32_bits(rwpt=
-r << 2));
-> +               WREG32_SDMA(i, regSDMA_GFX_RB_WPTR, lower_32_bits(rwptr <=
-< 2));
-> +               WREG32_SDMA(i, regSDMA_GFX_RB_WPTR_HI, upper_32_bits(rwpt=
-r << 2));
->         } else {
->                 WREG32_SDMA(i, regSDMA_GFX_RB_RPTR, 0);
->                 WREG32_SDMA(i, regSDMA_GFX_RB_RPTR_HI, 0);
-> @@ -768,11 +778,12 @@ static void sdma_v4_4_2_gfx_resume(struct amdgpu_de=
-vice *adev, unsigned int i, b
->   * @adev: amdgpu_device pointer
->   * @i: instance to resume
->   * @restore: boolean to say restore needed or not
-> + * @guilty: boolean indicating whether this queue is the guilty one (cau=
-sed the timeout/error)
->   *
->   * Set up the page DMA ring buffers and enable them.
->   * Returns 0 for success, error for failure.
->   */
-> -static void sdma_v4_4_2_page_resume(struct amdgpu_device *adev, unsigned=
- int i, bool restore)
-> +static void sdma_v4_4_2_page_resume(struct amdgpu_device *adev, unsigned=
- int i, bool restore, bool guilty)
->  {
->         struct amdgpu_ring *ring =3D &adev->sdma.instance[i].page;
->         u32 rb_cntl, ib_cntl, wptr_poll_cntl;
-> @@ -780,6 +791,7 @@ static void sdma_v4_4_2_page_resume(struct amdgpu_dev=
-ice *adev, unsigned int i,
->         u32 doorbell;
->         u32 doorbell_offset;
->         u64 wptr_gpu_addr;
-> +       u64 rwptr;
->
->         wb_offset =3D (ring->rptr_offs * 4);
->
-> @@ -787,12 +799,20 @@ static void sdma_v4_4_2_page_resume(struct amdgpu_d=
-evice *adev, unsigned int i,
->         rb_cntl =3D sdma_v4_4_2_rb_cntl(ring, rb_cntl);
->         WREG32_SDMA(i, regSDMA_PAGE_RB_CNTL, rb_cntl);
->
-> +       /* For the guilty queue, set RPTR to the current wptr to skip bad=
- commands,
-> +        * It is not a guilty queue, restore cache_rptr and continue exec=
-ution.
-> +         */
-> +       if (guilty)
-> +               rwptr =3D ring->wptr;
-> +       else
-> +               rwptr =3D ring->cached_rptr;
-> +
->         /* Initialize the ring buffer's read and write pointers */
->         if (restore) {
-> -               WREG32_SDMA(i, regSDMA_GFX_RB_RPTR, lower_32_bits(ring->w=
-ptr << 2));
-> -               WREG32_SDMA(i, regSDMA_GFX_RB_RPTR_HI, upper_32_bits(ring=
-->wptr << 2));
-> -               WREG32_SDMA(i, regSDMA_GFX_RB_WPTR, lower_32_bits(ring->w=
-ptr << 2));
-> -               WREG32_SDMA(i, regSDMA_GFX_RB_WPTR_HI, upper_32_bits(ring=
-->wptr << 2));
-> +               WREG32_SDMA(i, regSDMA_PAGE_RB_RPTR, lower_32_bits(rwptr =
-<< 2));
-> +               WREG32_SDMA(i, regSDMA_PAGE_RB_RPTR_HI, upper_32_bits(rwp=
-tr << 2));
-> +               WREG32_SDMA(i, regSDMA_PAGE_RB_WPTR, lower_32_bits(rwptr =
-<< 2));
-> +               WREG32_SDMA(i, regSDMA_PAGE_RB_WPTR_HI, upper_32_bits(rwp=
-tr << 2));
->         } else {
->                 WREG32_SDMA(i, regSDMA_PAGE_RB_RPTR, 0);
->                 WREG32_SDMA(i, regSDMA_PAGE_RB_RPTR_HI, 0);
-> @@ -968,9 +988,9 @@ static int sdma_v4_4_2_inst_start(struct amdgpu_devic=
-e *adev,
->                 uint32_t temp;
->
->                 WREG32_SDMA(i, regSDMA_SEM_WAIT_FAIL_TIMER_CNTL, 0);
-> -               sdma_v4_4_2_gfx_resume(adev, i, restore);
-> +               sdma_v4_4_2_gfx_resume(adev, i, restore, adev->sdma.gfx_g=
-uilty);
->                 if (adev->sdma.has_page_queue)
-> -                       sdma_v4_4_2_page_resume(adev, i, restore);
-> +                       sdma_v4_4_2_page_resume(adev, i, restore, adev->s=
-dma.page_guilty);
->
->                 /* set utc l1 enable flag always to 1 */
->                 temp =3D RREG32_SDMA(i, regSDMA_CNTL);
-> @@ -1480,7 +1500,9 @@ static int sdma_v4_4_2_sw_init(struct amdgpu_ip_blo=
-ck *ip_block)
->         r =3D amdgpu_sdma_sysfs_reset_mask_init(adev);
->         if (r)
->                 return r;
-> -       INIT_LIST_HEAD(&adev->sdma.reset_callback_list);
-> +       /* Initialize guilty flags for GFX and PAGE queues */
-> +       adev->sdma.gfx_guilty =3D false;
-> +       adev->sdma.page_guilty =3D false;
->
->         return r;
->  }
-> @@ -1606,6 +1628,34 @@ static int sdma_v4_4_2_soft_reset(struct amdgpu_ip=
-_block *ip_block)
->         return 0;
->  }
->
-> +static bool sdma_v4_4_2_is_queue_selected(struct amdgpu_device *adev, ui=
-nt32_t instance_id, bool is_page_queue)
-> +{
-> +       uint32_t reg_offset =3D is_page_queue ? regSDMA_PAGE_CONTEXT_STAT=
-US : regSDMA_GFX_CONTEXT_STATUS;
-> +       uint32_t context_status =3D RREG32(sdma_v4_4_2_get_reg_offset(ade=
-v, instance_id, reg_offset));
-> +
-> +       /* Check if the SELECTED bit is set */
-> +       return (context_status & SDMA_GFX_CONTEXT_STATUS__SELECTED_MASK) =
-!=3D 0;
-> +}
-> +
-> +static bool sdma_v4_4_2_gfx_ring_is_guilty(struct amdgpu_ring *ring)
-> +{
-> +       struct amdgpu_device *adev =3D ring->adev;
-> +       uint32_t instance_id =3D ring->me;
-> +
-> +       return sdma_v4_4_2_is_queue_selected(adev, instance_id, false);
-> +}
-> +
-> +static bool sdma_v4_4_2_page_ring_is_guilty(struct amdgpu_ring *ring)
-> +{
-> +       struct amdgpu_device *adev =3D ring->adev;
-> +       uint32_t instance_id =3D ring->me;
-> +
-> +       if (adev->sdma.has_page_queue)
-> +               return false;
-> +
-> +       return sdma_v4_4_2_is_queue_selected(adev, instance_id, true);
-> +}
-
-Could also split this and the is_guilty callbacks out into a separate patch=
-.
-
-Alex
-
-
-> +
->  static int sdma_v4_4_2_reset_queue(struct amdgpu_ring *ring, unsigned in=
-t vmid)
->  {
->         struct amdgpu_device *adev =3D ring->adev;
-> @@ -1616,11 +1666,29 @@ static int sdma_v4_4_2_reset_queue(struct amdgpu_=
-ring *ring, unsigned int vmid)
->  static int sdma_v4_4_2_stop_queue(struct amdgpu_device *adev, uint32_t i=
-nstance_id, int src)
->  {
->         u32 inst_mask;
-> +       uint64_t rptr;
->         struct amdgpu_ring *ring =3D &adev->sdma.instance[instance_id].ri=
-ng;
->
->         if (amdgpu_sriov_vf(adev))
->                 return -EINVAL;
->
-> +       /* Check if this queue is the guilty one */
-> +       adev->sdma.gfx_guilty =3D sdma_v4_4_2_is_queue_selected(adev, ins=
-tance_id, false);
-> +       if (adev->sdma.has_page_queue)
-> +               adev->sdma.page_guilty =3D sdma_v4_4_2_is_queue_selected(=
-adev, instance_id, true);
-> +
-> +       /* Cache the rptr before reset, after the reset,
-> +       * all of the registers will be reset to 0
-> +       */
-> +       rptr =3D amdgpu_ring_get_rptr(ring);
-> +       ring->cached_rptr =3D rptr;
-> +       /* Cache the rptr for the page queue if it exists */
-> +       if (adev->sdma.has_page_queue) {
-> +               struct amdgpu_ring *page_ring =3D &adev->sdma.instance[in=
-stance_id].page;
-> +               rptr =3D amdgpu_ring_get_rptr(page_ring);
-> +               page_ring->cached_rptr =3D rptr;
-> +       }
-> +
->         /* stop queue */
->         inst_mask =3D 1 << ring->me;
->         sdma_v4_4_2_inst_gfx_stop(adev, inst_mask);
-> @@ -2055,6 +2123,7 @@ static const struct amdgpu_ring_funcs sdma_v4_4_2_r=
-ing_funcs =3D {
->         .emit_reg_wait =3D sdma_v4_4_2_ring_emit_reg_wait,
->         .emit_reg_write_reg_wait =3D amdgpu_ring_emit_reg_write_reg_wait_=
-helper,
->         .reset =3D sdma_v4_4_2_reset_queue,
-> +       .is_guilty =3D sdma_v4_4_2_gfx_ring_is_guilty,
->  };
->
->  static const struct amdgpu_ring_funcs sdma_v4_4_2_page_ring_funcs =3D {
-> @@ -2086,6 +2155,7 @@ static const struct amdgpu_ring_funcs sdma_v4_4_2_p=
-age_ring_funcs =3D {
->         .emit_wreg =3D sdma_v4_4_2_ring_emit_wreg,
->         .emit_reg_wait =3D sdma_v4_4_2_ring_emit_reg_wait,
->         .emit_reg_write_reg_wait =3D amdgpu_ring_emit_reg_write_reg_wait_=
-helper,
-> +       .is_guilty =3D sdma_v4_4_2_page_ring_is_guilty,
->  };
->
->  static void sdma_v4_4_2_set_ring_funcs(struct amdgpu_device *adev)
-> --
-> 2.25.1
->
