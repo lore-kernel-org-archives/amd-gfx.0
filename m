@@ -4,64 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1968C02198
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 Feb 2025 19:10:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34387C02198
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 Feb 2025 19:33:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 42AA910E96C;
-	Wed, 12 Feb 2025 19:10:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D24F910E12E;
+	Wed, 12 Feb 2025 19:33:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hrZTn7G3";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mCUl2vcS";
 	dkim-atps=neutral
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
- [209.85.216.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B526F10E96C
- for <amd-gfx@lists.freedesktop.org>; Wed, 12 Feb 2025 19:10:29 +0000 (UTC)
-Received: by mail-pj1-f48.google.com with SMTP id
- 98e67ed59e1d1-2fa18088594so24327a91.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 12 Feb 2025 11:10:29 -0800 (PST)
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
+ [209.85.214.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 802E110E12E
+ for <amd-gfx@lists.freedesktop.org>; Wed, 12 Feb 2025 19:33:15 +0000 (UTC)
+Received: by mail-pl1-f178.google.com with SMTP id
+ d9443c01a7336-220cd9959f6so86815ad.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 12 Feb 2025 11:33:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1739387429; x=1739992229; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1739388795; x=1739993595; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=gTdJW6GgHtWVhH3eGixDH48CqccwWzgyOH/QGxX/OZs=;
- b=hrZTn7G3J6S3ZJmu1tPy1P4Tyc1npytd0KW3GGPUM1+xsi3YHWqqMMegwRwXRBdIYL
- +RW4UIMvk6I0UvoTfzj2mYpiP6ZAmLyKnY44/lqALsp0sFQhWOsW4Ac1mCKVVQ1DAlhJ
- eYZlKI3GMUxgqeD/b/9Ez2ZDl9KfIVOUEf+lKFpRSqPqL8+eOBSZP6xngvDhdnKwIL7k
- fhxDqJMdhWSKg+klz2tKnCV9VzoWvN1FB5ke56a9IgyJPbqR/4YNIy8jRBfYHg5uScqH
- lE6IGXzRruXTvegUxdfs08L0x3GQGusGtgyHRS9/ok6CKmzixNSLPlFfLsJLBdUqrEac
- iv4Q==
+ bh=LBIVuH+ppmJeihsO04eNi6ipyNZeTFfcv3lF0UfHlSs=;
+ b=mCUl2vcSHSftvICiM+kmPenDhh4tX97hIQaN3KMH4gb7ehtCvuIf7s7nHVBxxw5Nh2
+ ojWGjhiOKUz433ABKEHcLck9nZUwY9hK+6azNrW4teVNkbp5YO6qD9d2vPW66s1Jn9eq
+ hYy9zW287v5zG2F7NJ4R9IO2bTcyMp4b1EhCNfEYXC3ZVGE57RY5ncdIPW5tfhJvXuHq
+ 6M6OFIVH3m+RFSQNCuXWJdJWbif0h+UONy4zbiq36UiLu1+gubLdfMD+JJuKVxsv2DkM
+ 85HxoeLZxpqzMN9fYFrGTiAZYi2XPRQPbXp+O3sAdPy6JDyUpTefyE02wO4CrKPk4d0V
+ fhPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739387429; x=1739992229;
+ d=1e100.net; s=20230601; t=1739388795; x=1739993595;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=gTdJW6GgHtWVhH3eGixDH48CqccwWzgyOH/QGxX/OZs=;
- b=h8hb1yXIzTVR0tFUPbxMeVIhDTvONdBd8oPr5H+R6Wg+TiRpyJVoppyqVIr5EthysH
- surfhMNeqVTQvMd+x++TPStMYgz6SQ5BEOKzZqlpVMII4+N0t+3tfT0D+dqDKaOffFxF
- 7JiAnKRH6xmSh35+RxzWjl+6jGMfC/K97VhZpLSqbIAg2xPVN9DN5efOBngIWRwRedJz
- 0EJbybV7evrqNCiy1k5ICH+paDwd+ZZXvtmkpjW7GBtnVokRILdLScroEbFACEu0/5NG
- v4xwgfnv77nxU51BnqSjMuH4QxgM7T9SVy+ckjtRn2oRS/t7Xa3JK842IelUrhhCc3Fg
- 9anA==
-X-Gm-Message-State: AOJu0YzloYiyumGYJ8D/NpHmFUEy501bhu9uIj4laJuE/hD5nz6ZwIQs
- 7TwA9zAqXuZkFY46CCdg6cJBerFzXelv5pDFwXNExCB/4vU4gdErA7eGKVA/Q/Mp6QGylzdnfsT
- 1uFGmDpjhcI+o7X4ZhJ6gem2NpIYPsg==
-X-Gm-Gg: ASbGncslxt/DIflC3DFUmjKX08f2MzXsOL6dyS7V6ebJ0/4T/zWm2Dqh+xmevQbshEW
- rd5PxwapDmYQnT5uVwPIWcoKayc4nD5UC33djGw7QDEfheT/5Yz9NR5RmS6XR6xhz7nvNfezW
-X-Google-Smtp-Source: AGHT+IFVsHGeaocHnTbxrJiX/jLELgfeWZ/M9LxDcCCJj7OHzBYupVaX9e7kIrZPygYM8gWP/RIUeskizGMjRvrqwFc=
-X-Received: by 2002:a17:90b:4f8b:b0:2ee:6a70:c5d1 with SMTP id
- 98e67ed59e1d1-2fbf5c64c71mr2523764a91.3.1739387429109; Wed, 12 Feb 2025
- 11:10:29 -0800 (PST)
+ bh=LBIVuH+ppmJeihsO04eNi6ipyNZeTFfcv3lF0UfHlSs=;
+ b=W/kUUNAs+aCZ8VL3GxyVTjyv61+GM/mdj5KZ0Wr5n7AmFPf36ocE/m8rCR8ddJZBrA
+ 8U69G3QBGV0tzJ778Lck2BRfrY9tMTCLn8mNgh0w3dWOOo5TM2yqB+mPuKiw/Wvm/GAd
+ Kqgv83Z8t/kiSHLTgx+zoNY1SnF4cfIAi5pu3AmSDPjciryrWrmmkXcXlVkMNFmVBcc0
+ X+cJQp+nCAadk3v2JojDYRglWaZV9jQFtppj02aBaqmiUQXX7OCnTCPDjyoOCrGStasB
+ ms/IFAcmfnWp78RbUZjYfnsc1lo0L9vpLt3vFmHAxANfb4wruvt4vswZuj8U1i6+yTXv
+ pFxQ==
+X-Gm-Message-State: AOJu0YyJyESBmRDuNhNFI80RYiXNrCuZ2qfOVPQfgilGN8U4YdTnMHbL
+ hMAu1TQlNwNuLvyWgU1wuFrDmQ5DtvoSnVWZhrgG+enr1DEvD2ZUMJxo1xPNaUCV8p0+aNbLQfv
+ HzsbkpVFh79cnriHbHYZGAZE8ETFZbw==
+X-Gm-Gg: ASbGncuyJTY7dZuDT/rpQidhYbvdXFBKNuUpQJ3mjrRBC8RcbbdB1Ych2h9tTx+Fqn8
+ f6OrMjfCsciKw8PLhpmaEISKmYieoOLpZbXRmWrVNzUKBHyHNiOqtuSoiTDpI07/K2CBlYdLY
+X-Google-Smtp-Source: AGHT+IHnvYAH76hJ0lZctUO0rv+Q4tHTf3fw+mzLrOzICKj9FNhNj2ASC4jSVbuZCM/GiAdfdlciuiT3/6wFC7C9G58=
+X-Received: by 2002:a17:903:19c7:b0:20b:9b07:777a with SMTP id
+ d9443c01a7336-220bbfe1149mr28486935ad.10.1739388794870; Wed, 12 Feb 2025
+ 11:33:14 -0800 (PST)
 MIME-Version: 1.0
-References: <20250212042321.1612148-1-candice.li@amd.com>
-In-Reply-To: <20250212042321.1612148-1-candice.li@amd.com>
+References: <20250211090203.2866457-1-jesse.zhang@amd.com>
+In-Reply-To: <20250211090203.2866457-1-jesse.zhang@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 12 Feb 2025 14:10:17 -0500
-X-Gm-Features: AWEUYZnSpmtEBUnZHFl_k-YEImtL3DP749NOU2eNlHyS09PExX8qT7YF79sHGUo
-Message-ID: <CADnq5_O34zqgkTbU-U8x8n58kgVy7Zs2fmoL-vbRnEjPyU0HQw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Optimize the enablement of GECC
-To: Candice Li <candice.li@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
+Date: Wed, 12 Feb 2025 14:33:02 -0500
+X-Gm-Features: AWEUYZmK2XfcDXqED5smmggPPGEXiOTUCWLyoEwf-GMnx65BcvALKGv9rmST5PI
+Message-ID: <CADnq5_OdfQYiJoUCE_J1=Sac2vZizEYj1m35qjyC5Xxex3+zsA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Add support for page queue scheduling
+To: "Jesse.zhang@amd.com" <jesse.zhang@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
+ felix.kuehling@amd.com, Jonathan Kim <Jonathan.Kim@amd.com>, 
+ Jiadong Zhu <Jiadong.Zhu@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -78,186 +80,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Feb 11, 2025 at 11:42=E2=80=AFPM Candice Li <candice.li@amd.com> wr=
-ote:
+On Tue, Feb 11, 2025 at 4:02=E2=80=AFAM Jesse.zhang@amd.com <jesse.zhang@am=
+d.com> wrote:
 >
-> Enable GECC only when the default memory ECC mode or
-> the module parameter amdgpu_ras_enable is activated.
+> This patch updates the sdma engine to support scheduling for
+> the page queue. The main changes include:
 >
-> Signed-off-by: Candice Li <candice.li@amd.com>
-
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-
+> - Introduce a new variable `page` to handle the page queue if it exists.
+> - Update the scheduling logic to conditionally set the `sched.ready` flag=
+ for
+>   both the sdma gfx queue and the page queue based on the provided mask.
+> - Ensure that the scheduling flags are updated correctly for both queues =
+when
+>   the mask is applied.
+>
+> The patch ensures that the SDMA engine can handle scheduling for both the=
+ sdma gfx
+> queue and the page queue,
+>
+> Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  1 +
->  .../gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c  | 18 +++++++----
->  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c       | 31 ++++++++++---------
->  3 files changed, 29 insertions(+), 21 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c | 14 +++++++++++---
+>  1 file changed, 11 insertions(+), 3 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/am=
-dgpu/amdgpu.h
-> index c03a586eb5a26f..7f84cc66a19b34 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -1167,6 +1167,7 @@ struct amdgpu_device {
->         struct ratelimit_state          throttling_logging_rs;
->         uint32_t                        ras_hw_enabled;
->         uint32_t                        ras_enabled;
-> +       bool                            ras_default_ecc_enabled;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_sdma.c
+> index 6ba785798a4a..e82ded95540c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+> @@ -358,7 +358,7 @@ static int amdgpu_debugfs_sdma_sched_mask_set(void *d=
+ata, u64 val)
+>         struct amdgpu_device *adev =3D (struct amdgpu_device *)data;
+>         u32 i;
+>         u64 mask =3D 0;
+> -       struct amdgpu_ring *ring;
+> +       struct amdgpu_ring *ring, *page;
 >
->         bool                            no_hw_access;
->         struct pci_saved_state          *pci_state;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c b/drivers/g=
-pu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-> index f873dd3cae1606..eb015bdda8a749 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-> @@ -549,9 +549,10 @@ bool amdgpu_atomfirmware_mem_ecc_supported(struct am=
-dgpu_device *adev)
->         u16 data_offset, size;
->         union umc_info *umc_info;
->         u8 frev, crev;
-> -       bool ecc_default_enabled =3D false;
-> +       bool mem_ecc_enabled =3D false;
->         u8 umc_config;
->         u32 umc_config1;
-> +       adev->ras_default_ecc_enabled =3D false;
+>         if (!adev)
+>                 return -ENODEV;
+> @@ -369,10 +369,18 @@ static int amdgpu_debugfs_sdma_sched_mask_set(void =
+*data, u64 val)
 >
->         index =3D get_index_into_master_table(atom_master_list_of_data_ta=
-bles_v2_1,
->                         umc_info);
-> @@ -563,20 +564,22 @@ bool amdgpu_atomfirmware_mem_ecc_supported(struct a=
-mdgpu_device *adev)
->                         switch (crev) {
->                         case 1:
->                                 umc_config =3D le32_to_cpu(umc_info->v31.=
-umc_config);
-> -                               ecc_default_enabled =3D
-> +                               mem_ecc_enabled =3D
->                                         (umc_config & UMC_CONFIG__DEFAULT=
-_MEM_ECC_ENABLE) ? true : false;
->                                 break;
->                         case 2:
->                                 umc_config =3D le32_to_cpu(umc_info->v32.=
-umc_config);
-> -                               ecc_default_enabled =3D
-> +                               mem_ecc_enabled =3D
->                                         (umc_config & UMC_CONFIG__DEFAULT=
-_MEM_ECC_ENABLE) ? true : false;
->                                 break;
->                         case 3:
->                                 umc_config =3D le32_to_cpu(umc_info->v33.=
-umc_config);
->                                 umc_config1 =3D le32_to_cpu(umc_info->v33=
-.umc_config1);
-> -                               ecc_default_enabled =3D
-> +                               mem_ecc_enabled =3D
->                                         ((umc_config & UMC_CONFIG__DEFAUL=
-T_MEM_ECC_ENABLE) ||
->                                          (umc_config1 & UMC_CONFIG1__ENAB=
-LE_ECC_CAPABLE)) ? true : false;
-> +                               adev->ras_default_ecc_enabled =3D
-> +                                       (umc_config & UMC_CONFIG__DEFAULT=
-_MEM_ECC_ENABLE) ? true : false;
->                                 break;
->                         default:
->                                 /* unsupported crev */
-> @@ -585,9 +588,12 @@ bool amdgpu_atomfirmware_mem_ecc_supported(struct am=
-dgpu_device *adev)
->                 } else if (frev =3D=3D 4) {
->                         switch (crev) {
->                         case 0:
-> +                               umc_config =3D le32_to_cpu(umc_info->v40.=
-umc_config);
->                                 umc_config1 =3D le32_to_cpu(umc_info->v40=
-.umc_config1);
-> -                               ecc_default_enabled =3D
-> +                               mem_ecc_enabled =3D
->                                         (umc_config1 & UMC_CONFIG1__ENABL=
-E_ECC_CAPABLE) ? true : false;
-> +                               adev->ras_default_ecc_enabled =3D
-> +                                       (umc_config & UMC_CONFIG__DEFAULT=
-_MEM_ECC_ENABLE) ? true : false;
->                                 break;
->                         default:
->                                 /* unsupported crev */
-> @@ -599,7 +605,7 @@ bool amdgpu_atomfirmware_mem_ecc_supported(struct amd=
-gpu_device *adev)
->                 }
->         }
->
-> -       return ecc_default_enabled;
-> +       return mem_ecc_enabled;
->  }
->
->  /*
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_psp.c
-> index 196b8dbffc2e28..06f6bbdc7f5e9a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> @@ -1794,7 +1794,22 @@ int psp_ras_initialize(struct psp_context *psp)
->                 if (ret)
->                         dev_warn(adev->dev, "PSP get boot config failed\n=
-");
->
-> -               if (!amdgpu_ras_is_supported(psp->adev, AMDGPU_RAS_BLOCK_=
-_UMC)) {
-> +               if ((adev->ras_default_ecc_enabled || amdgpu_ras_enable =
-=3D=3D 1) &&
-> +                   amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__UMC))=
- {
-> +                       if (boot_cfg =3D=3D 1) {
-> +                               dev_info(adev->dev, "GECC is enabled\n");
-> +                       } else {
-> +                               /* enable GECC in next boot cycle if it i=
-s disabled
-> +                                * in boot config, or force enable GECC i=
-f failed to
-> +                                * get boot configuration
-> +                                */
-> +                               ret =3D psp_boot_config_set(adev, BOOT_CO=
-NFIG_GECC);
-> +                               if (ret)
-> +                                       dev_warn(adev->dev, "PSP set boot=
- config failed\n");
-> +                               else
-> +                                       dev_warn(adev->dev, "GECC will be=
- enabled in next boot cycle\n");
-> +                       }
+>         for (i =3D 0; i < adev->sdma.num_instances; ++i) {
+>                 ring =3D &adev->sdma.instance[i].ring;
+> -               if (val & BIT_ULL(i))
+> +               if (adev->sdma.has_page_queue)
+> +                       page =3D &adev->sdma.instance[i].page;
+> +               if (val & BIT_ULL(i)) {
+>                         ring->sched.ready =3D true;
+> -               else
+> +                       if (adev->sdma.has_page_queue)
+> +                               page->sched.ready =3D true;
 > +               } else {
->                         if (!boot_cfg) {
->                                 dev_info(adev->dev, "GECC is disabled\n")=
-;
->                         } else {
-> @@ -1809,20 +1824,6 @@ int psp_ras_initialize(struct psp_context *psp)
->                                 else
->                                         dev_warn(adev->dev, "GECC will be=
- disabled in next boot cycle if set amdgpu_ras_enable and/or amdgpu_ras_mas=
-k to 0x0\n");
->                         }
-> -               } else {
-> -                       if (boot_cfg =3D=3D 1) {
-> -                               dev_info(adev->dev, "GECC is enabled\n");
-> -                       } else {
-> -                               /* enable GECC in next boot cycle if it i=
-s disabled
-> -                                * in boot config, or force enable GECC i=
-f failed to
-> -                                * get boot configuration
-> -                                */
-> -                               ret =3D psp_boot_config_set(adev, BOOT_CO=
-NFIG_GECC);
-> -                               if (ret)
-> -                                       dev_warn(adev->dev, "PSP set boot=
- config failed\n");
-> -                               else
-> -                                       dev_warn(adev->dev, "GECC will be=
- enabled in next boot cycle\n");
-> -                       }
->                 }
+>                         ring->sched.ready =3D false;
+> +                       if (adev->sdma.has_page_queue)
+> +                               page->sched.ready =3D false;
+> +               }
+> +
+
+Not really specific to this patch, but if we disable schedulers here,
+we may disable the buffer_funcs scheduler used by the driver for
+memory management.
+
+Alex
+
 >         }
->
+>         /* publish sched.ready flag update effective immediately across s=
+mp */
+>         smp_rmb();
 > --
 > 2.25.1
 >
