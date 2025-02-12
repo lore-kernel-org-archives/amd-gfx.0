@@ -4,82 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F908C021AB
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 Feb 2025 14:08:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4244AC021AA
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 Feb 2025 14:08:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 110AF10E8AC;
-	Wed, 12 Feb 2025 14:08:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1729410E8AA;
+	Wed, 12 Feb 2025 14:08:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=web.de header.i=markus.elfring@web.de header.b="B2CafJ+1";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="e+fUR9w/";
 	dkim-atps=neutral
-X-Greylist: delayed 316 seconds by postgrey-1.36 at gabe;
- Wed, 12 Feb 2025 13:40:11 UTC
-Received: from mout.web.de (mout.web.de [212.227.15.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C6C7C10E276
- for <amd-gfx@lists.freedesktop.org>; Wed, 12 Feb 2025 13:40:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
- s=s29768273; t=1739367610; x=1739972410; i=markus.elfring@web.de;
- bh=IJpXWBH0NGGKrYEeXnn9LivG+hfjpqHbcrFfOBiO3zs=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
- Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
- cc:content-transfer-encoding:content-type:date:from:message-id:
- mime-version:reply-to:subject:to;
- b=B2CafJ+1luU11w3HZ2HH23wX92ULWfxxPd55w4dfFRGaCera/yRosZDMFbIti7KD
- l/v+TW53ILwN6DUbPGJNM2E7yXiIhxBbFOKNWNjRBfWwolGk/mo5f4Bdh89NtAOCK
- +Mj3mZakwGtEqvJQcaGnzPVOqjkYr9SxkjfU8MO4GjCbpHeQMYenH8rClDSy9ibqg
- f89Z/gbXBoH9L/2kcLzZfuVsRnp7eOxNiHBcnMhRzVJawxpiVZ4tPk/em4tG+UXoE
- 5XyJNgzDrYLra5flkRIW1cN02hiLY2OhxrNzBzh5fYQMGnzTVOIEpLMuGOl5Y03Xs
- JTc71BgaHokdIksX7A==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from [192.168.178.29] ([94.31.93.11]) by smtp.web.de (mrweb005
- [213.165.67.108]) with ESMTPSA (Nemesis) id 1N79NA-1tIprg0n9A-012ZCp; Wed, 12
- Feb 2025 14:34:40 +0100
-Message-ID: <82e2c0f3-6cb7-425e-bc68-923f6d0d5b35@web.de>
-Date: Wed, 12 Feb 2025 14:34:38 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: vulab@iscas.ac.cn, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: stable@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Tao Zhou <tao.zhou1@amd.com>, Xinhui Pan <Xinhui.Pan@amd.com>,
- YiPeng Chai <YiPeng.Chai@amd.com>
-References: <20250212070302.806-1-vulab@iscas.ac.cn>
-Subject: Re: [PATCH] drm/amdgpu: Remove redundant return value checks for
- amdgpu_ras_error_data_init()
-Content-Language: en-GB
-From: Markus Elfring <Markus.Elfring@web.de>
-In-Reply-To: <20250212070302.806-1-vulab@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D49AB10E83E;
+ Wed, 12 Feb 2025 10:41:01 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4YtFGL4njFz9srN;
+ Wed, 12 Feb 2025 11:40:58 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1739356858; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=FX2x21E77vnKWXkjcR7Na+FFQADz4rim9zbEWQ8di5c=;
+ b=e+fUR9w/KFwMk5pdqpbVQ+DlusM9LJUJommu4r2VabII0CLtrTWBBEuwlPM6XHsBqnBwz9
+ t+HodYCGQOXF0iHgFZlyz3IBcq9A8+1JAipO0fR+6n2r8YEZWDwKgTiChA7MUWtOku0T1D
+ SRhArar6skzgi3hmQAWHVSHZCevtgnc7KiX9FuN1lBwz8HpfRaH2LjzAZFqjI9uoCi5/Pq
+ wINz2JB55GzI6kQme/7hEVKwk3LttzURyqZ3M5VdZI+ULyAR0EVp+sqjTzV8xg961rOoK6
+ NvREZm67zR2otS5fbsDxYpTngTl58T4mmv+BmqrNAavsr9xOBWQIA4yhabiqXg==
+Message-ID: <30be58cb90e95af0d9404082ea5c63eb8f7e9dad.camel@mailbox.org>
+Subject: Re: [PATCH 1/6] drm/sched: Add internal job peek/pop API
+From: Philipp Stanner <phasta@mailbox.org>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, phasta@kernel.org, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Christian =?ISO-8859-1?Q?K=F6nig?=
+ <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>, Matthew
+ Brost <matthew.brost@intel.com>
+Date: Wed, 12 Feb 2025 11:40:53 +0100
+In-Reply-To: <8ce06914-f8ec-4b28-9cc2-6ff9d9fe47db@igalia.com>
+References: <20250207145104.60455-1-tvrtko.ursulin@igalia.com>
+ <20250207145104.60455-2-tvrtko.ursulin@igalia.com>
+ <73ffd26bdd66ec25c01f820366a63f9ceedad2c8.camel@mailbox.org>
+ <8ce06914-f8ec-4b28-9cc2-6ff9d9fe47db@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:cWJedd82uv0Epg92CPpPp3225yjZ//OUtDWkiqg6LCifP3RO6n1
- pDnGZyjNHVPzcH/A88Rv3MTYzodPxsoqf9/vmfxrHdJxe+uR6w0wCfDgV4X9HXkiBzRG+am
- Ujo0JA2ERuQ3e58QjEtuGWmY/DQFDVgWS6ipBod3AS5VIXWJFDtu7VMyoAC9Y/WdyLse4ta
- rv6wTzLJSggGYUSuzVg1w==
-UI-OutboundReport: notjunk:1;M01:P0:Kfvatd2RIoA=;kCADDR+mlLHzCixM98sVyy7c2/C
- WhWB8GRcp2Q34pSAcfQ9EyDT22LsYqRlUHBfNBKSuWFjU0CWDhr1atMuwr9tEnW1Gqt325msQ
- CBTXY7WlVzPof2RPtFLiykmGtvA9QE/Kj/B0C9f4KgZZmC8yYB1m0Sjp5i69SyAh3S+2LwGEb
- nVYtm3Zo0Ui1R/fs9CxGJzqO/xMVhNeGHTCMvUxsqAL3pEzPXWpxWFCsWU2MsgslsCyPt7+Ax
- jGP6SEaAGVuBkSzu1wZg/NgoPM7XhTcjU7IKYwx83UOoJr7+Nhot2WCsdPql+aT4SI1j86PsF
- UogSgy9hwpSaqo2AU1Ia1K0eVhvsMsEZV7jYZynVKGpHJ/Qw6M5+pbds7I4TuOmh9t61hNmye
- fr3eYmCnD3InPdOucrq70QwtpqutK1Iysk+dfpxbuHQeRnn69t9Zp8v6uEt5HVp6nZ+gz7MPD
- CADHuaZnmI8jWSgMk19GUw1RYZV3GPxi9tANO5jHMhb9gUiTSxnwSTKFwSoECCsWw60tDsgxw
- w/lkYvkByRDWsM9GMIbmGotgO4QQThVf8Nh/fBf+BHsgwbzzt7hXNW4oHQne/8svpIluTf38K
- Ff6D5umYwE6x4jFzF2pRBFVCAmKQJjoeacoO9iSFtcPOkUPDLjYSrsCjIkTFv5oI6RNGSUelS
- in5gMlAiOBp0KmE62JyI/u5Yx1/BNVJbMlJDkWAgViD/bFhxxn6Njv/nGhGFHmo2JMd92rfJZ
- xXhnQVcfD1BY2UFcuk1r9VuGHHdni8CTltPe6EhzmSvBVDGYeZ8KxkV/fysume0GKSd0JEvix
- 8JLwRwMUMdzVRhkaipM1ymcA2NTy4UlU8O7sFB7FgjlRiQVDw9ENt0J2r3ag3Z/tj8WKO3kX/
- Ur0x/IfRV5CsFhaGjGl8g3aoFXJXVuhEdPgi18Wn2WkAXqQ3GrY4QJQvp8p1WT1CTeUtEpCfc
- XofUe2H+Hgl6l6aYC/2UMkTqFwFtfN4Ydk5KIvfDTgYbD9BWzO+/DdZ/12bb/yt3Ke5Dakp1z
- hbHG6Du3mNv5Igm2b80PyS3LEcb0t9rfZso4VNiGTHQwW46jZo2S1JQH3vm1X5U1YYQFearyx
- j3JQ5CyDHLV2B0fSWVo8+rn6e6XTB+4oJWwsHWXmDnhhHPDy67lXDO0Q9o2t8rsibdRTbtx0G
- AcxugwljmYj/oGrHqljVOiuLA7bzVwHQZ9eMnK5sfNeXBfE4WGHpftY02j8Kmgn1uPMTARXMV
- bRR/sNIzGO2UNs3ipaU6H8PdYhj/PtPGe82t9BHsQXhWf8eB9ZdqWY2f6HjqiIDRbog/cJdL5
- /ch/bO5rvduUY35ZuNg6kVcEo+cmntS47bGRE17MXk2DwEbZAnghC/V+jQRC1R38I+pLE+nP7
- AG/h3Tz3xpxL3JdsJ42HFNM7+aZGPI8+hHFdZc2V1N+7nCyOi1bqYn6fD2SI7gEqN25MQw6d5
- P8q3JBIQtJGvCyJY5BZCf4qZe4kQ=
+MIME-Version: 1.0
+X-MBO-RS-META: g4usbx6gf9zjtfash66gt4x6jup8fsz9
+X-MBO-RS-ID: cfa1db6c4b6fe89a80f
 X-Mailman-Approved-At: Wed, 12 Feb 2025 14:08:23 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,22 +66,234 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-> =E2=80=A6 This patch changes its return type =E2=80=A6
+On Wed, 2025-02-12 at 09:32 +0000, Tvrtko Ursulin wrote:
+>=20
+> On 12/02/2025 09:02, Philipp Stanner wrote:
+> > On Fri, 2025-02-07 at 14:50 +0000, Tvrtko Ursulin wrote:
+> > > Idea is to add helpers for peeking and popping jobs from entities
+> > > with
+> > > the goal of decoupling the hidden assumption in the code that
+> > > queue_node
+> > > is the first element in struct drm_sched_job.
+> > >=20
+> > > That assumption usually comes in the form of:
+> > >=20
+> > > =C2=A0=C2=A0 while ((job =3D to_drm_sched_job(spsc_queue_pop(&entity-
+> > > > job_queue))))
+> > >=20
+> > > Which breaks if the queue_node is re-positioned due
+> > > to_drm_sched_job
+> > > being implemented with a container_of.
+> > >=20
+> > > This also allows us to remove duplicate definitions of
+> > > to_drm_sched_job.
+> > >=20
+> > > Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> > > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > > Cc: Danilo Krummrich <dakr@kernel.org>
+> > > Cc: Matthew Brost <matthew.brost@intel.com>
+> > > Cc: Philipp Stanner <phasta@kernel.org>
+> > > ---
+> > > =C2=A0=C2=A0drivers/gpu/drm/scheduler/sched_entity.c=C2=A0=C2=A0 | 11=
+ +++---
+> > > =C2=A0=C2=A0drivers/gpu/drm/scheduler/sched_internal.h | 46
+> > > ++++++++++++++++++++++
+> > > =C2=A0=C2=A0drivers/gpu/drm/scheduler/sched_main.c=C2=A0=C2=A0=C2=A0=
+=C2=A0 |=C2=A0 7 ++--
+> > > =C2=A0=C2=A03 files changed, 54 insertions(+), 10 deletions(-)
+> > > =C2=A0=C2=A0create mode 100644 drivers/gpu/drm/scheduler/sched_intern=
+al.h
+> > >=20
+> > > diff --git a/drivers/gpu/drm/scheduler/sched_entity.c
+> > > b/drivers/gpu/drm/scheduler/sched_entity.c
+> > > index 69bcf0e99d57..a171f05ad761 100644
+> > > --- a/drivers/gpu/drm/scheduler/sched_entity.c
+> > > +++ b/drivers/gpu/drm/scheduler/sched_entity.c
+> > > @@ -28,11 +28,10 @@
+> > > =C2=A0=C2=A0#include <drm/drm_print.h>
+> > > =C2=A0=C2=A0#include <drm/gpu_scheduler.h>
+> > > =C2=A0=20
+> > > +#include "sched_internal.h"
+> > > +
+> > > =C2=A0=C2=A0#include "gpu_scheduler_trace.h"
+> > > =C2=A0=20
+> > > -#define to_drm_sched_job(sched_job)		\
+> > > -		container_of((sched_job), struct drm_sched_job,
+> > > queue_node)
+> > > -
+> > > =C2=A0=C2=A0/**
+> > > =C2=A0=C2=A0 * drm_sched_entity_init - Init a context entity used by
+> > > scheduler
+> > > when
+> > > =C2=A0=C2=A0 * submit to HW ring.
+> > > @@ -255,7 +254,7 @@ static void drm_sched_entity_kill(struct
+> > > drm_sched_entity *entity)
+> > > =C2=A0=C2=A0	/* The entity is guaranteed to not be used by the
+> > > scheduler
+> > > */
+> > > =C2=A0=C2=A0	prev =3D rcu_dereference_check(entity->last_scheduled,
+> > > true);
+> > > =C2=A0=C2=A0	dma_fence_get(prev);
+> > > -	while ((job =3D to_drm_sched_job(spsc_queue_pop(&entity-
+> > > > job_queue)))) {
+> > > +	while ((job =3D drm_sched_entity_queue_pop(entity))) {
+> > > =C2=A0=C2=A0		struct drm_sched_fence *s_fence =3D job->s_fence;
+> > > =C2=A0=20
+> > > =C2=A0=C2=A0		dma_fence_get(&s_fence->finished);
+> > > @@ -477,7 +476,7 @@ struct drm_sched_job
+> > > *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
+> > > =C2=A0=C2=A0{
+> > > =C2=A0=C2=A0	struct drm_sched_job *sched_job;
+> > > =C2=A0=20
+> > > -	sched_job =3D to_drm_sched_job(spsc_queue_peek(&entity-
+> > > > job_queue));
+> > > +	sched_job =3D drm_sched_entity_queue_peek(entity);
+> > > =C2=A0=C2=A0	if (!sched_job)
+> > > =C2=A0=C2=A0		return NULL;
+> > > =C2=A0=20
+> > > @@ -513,7 +512,7 @@ struct drm_sched_job
+> > > *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
+> > > =C2=A0=C2=A0	if (drm_sched_policy =3D=3D DRM_SCHED_POLICY_FIFO) {
+> > > =C2=A0=C2=A0		struct drm_sched_job *next;
+> > > =C2=A0=20
+> > > -		next =3D to_drm_sched_job(spsc_queue_peek(&entity-
+> > > > job_queue));
+> > > +		next =3D drm_sched_entity_queue_peek(entity);
+> > > =C2=A0=C2=A0		if (next) {
+> > > =C2=A0=C2=A0			struct drm_sched_rq *rq;
+> > > =C2=A0=20
+> > > diff --git a/drivers/gpu/drm/scheduler/sched_internal.h
+> > > b/drivers/gpu/drm/scheduler/sched_internal.h
+> > > new file mode 100644
+> > > index 000000000000..25ac62ac2bf3
+> > > --- /dev/null
+> > > +++ b/drivers/gpu/drm/scheduler/sched_internal.h
+> > > @@ -0,0 +1,46 @@
+> > > +#ifndef _DRM_GPU_SCHEDULER_INTERNAL_H_
+> > > +#define _DRM_GPU_SCHEDULER_INTERNAL_H_
+> > > +
+> > > +/**
+> > > + * drm_sched_entity_queue_pop - Low level helper for popping
+> > > queued
+> > > jobs
+> > > + *
+> > > + * @entity: scheduler entity
+> > > + *
+> > > + * Low level helper for popping queued jobs.
+> > > + *
+> > > + * Returns the job dequeued or NULL.
+> > > + */
+> > > +static inline struct drm_sched_job *
+> > > +drm_sched_entity_queue_pop(struct drm_sched_entity *entity)
+> > > +{
+> > > +	struct spsc_node *node;
+> > > +
+> > > +	node =3D spsc_queue_pop(&entity->job_queue);
+> > > +	if (!node)
+> > > +		return NULL;
+> > > +
+> > > +	return container_of(node, struct drm_sched_job,
+> > > queue_node);
+> > > +}
+> > > +
+> > > +/**
+> > > + * drm_sched_entity_queue_peek - Low level helper for peeking at
+> > > the
+> > > job queue
+> > > + *
+> > > + * @entity: scheduler entity
+> > > + *
+> > > + * Low level helper for peeking at the job queue
+> > > + *
+> > > + * Returns the job at the head of the queue or NULL.
+> >=20
+> > I would like to (slowly) work towards a unified style regarding the
+> > docstrings. They're currently relatively inconsistent in drm/sched.
+> >=20
+> > I think we should do it that way:
+> >=20
+> > ""
+> > @entity: scheduler entity
+> >=20
+> > Returns: the job at the head of the queue or NULL.
+> >=20
+> > Low level helper for peeking at the the job queue.
+> > ""
+>=20
+> Returns before the description would be yet another new style, no?
+> I's=20
+> say that if we are churning lets follow=20
+> Documentation/doc-guide/kernel-doc.rst.
 
-See also:
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Do=
-cumentation/process/submitting-patches.rst?h=3Dv6.14-rc2#n94
+Oh yes, you are right =E2=80=93 official guideline demands "Return:" at the
+end. So let's go for that for contributions.
+
+P.
 
 
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+>  Or even consider sending a patch=20
+> which churns everything at once.
+>=20
+> Regards,
+>=20
+> Tvrtko
+>=20
+> > > + */
+> > > +static inline struct drm_sched_job *
+> > > +drm_sched_entity_queue_peek(struct drm_sched_entity *entity)
+> > > +{
+> > > +	struct spsc_node *node;
+> > > +
+> > > +	node =3D spsc_queue_peek(&entity->job_queue);
+> > > +	if (!node)
+> > > +		return NULL;
+> > > +
+> > > +	return container_of(node, struct drm_sched_job,
+> > > queue_node);
+> > > +}
+> > > +
+> > > +#endif
+> > > diff --git a/drivers/gpu/drm/scheduler/sched_main.c
+> > > b/drivers/gpu/drm/scheduler/sched_main.c
+> > > index a48be16ab84f..9f614a775c49 100644
+> > > --- a/drivers/gpu/drm/scheduler/sched_main.c
+> > > +++ b/drivers/gpu/drm/scheduler/sched_main.c
+> > > @@ -78,6 +78,8 @@
+> > > =C2=A0=C2=A0#include <drm/gpu_scheduler.h>
+> > > =C2=A0=C2=A0#include <drm/spsc_queue.h>
+> > > =C2=A0=20
+> > > +#include "sched_internal.h"
+> > > +
+> > > =C2=A0=C2=A0#define CREATE_TRACE_POINTS
+> > > =C2=A0=C2=A0#include "gpu_scheduler_trace.h"
+> > > =C2=A0=20
+> > > @@ -87,9 +89,6 @@ static struct lockdep_map drm_sched_lockdep_map
+> > > =3D {
+> > > =C2=A0=C2=A0};
+> > > =C2=A0=C2=A0#endif
+> > > =C2=A0=20
+> > > -#define to_drm_sched_job(sched_job)		\
+> > > -		container_of((sched_job), struct drm_sched_job,
+> > > queue_node)
+> > > -
+> > > =C2=A0=C2=A0int drm_sched_policy =3D DRM_SCHED_POLICY_FIFO;
+> > > =C2=A0=20
+> > > =C2=A0=C2=A0/**
+> > > @@ -123,7 +122,7 @@ static bool drm_sched_can_queue(struct
+> > > drm_gpu_scheduler *sched,
+> > > =C2=A0=C2=A0{
+> > > =C2=A0=C2=A0	struct drm_sched_job *s_job;
+> > > =C2=A0=20
+> > > -	s_job =3D to_drm_sched_job(spsc_queue_peek(&entity-
+> > > > job_queue));
+> > > +	s_job =3D drm_sched_entity_queue_peek(entity);
+> > > =C2=A0=C2=A0	if (!s_job)
+> > > =C2=A0=C2=A0		return false;
+> > > =C2=A0=20
+> >=20
+>=20
 
-How good does such an email address fit to the Developer's Certificate of =
-Origin?
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Do=
-cumentation/process/submitting-patches.rst?h=3Dv6.14-rc2#n440
-
-Regards,
-Markus
