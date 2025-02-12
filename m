@@ -4,125 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA6C0C02198
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 Feb 2025 14:45:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F242C021A1
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 Feb 2025 14:54:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6916810E046;
-	Wed, 12 Feb 2025 14:45:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6594810E8DC;
+	Wed, 12 Feb 2025 14:54:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="MUNRgSbT";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EAOQW0w4";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2057.outbound.protection.outlook.com [40.107.93.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3184310E046
- for <amd-gfx@lists.freedesktop.org>; Wed, 12 Feb 2025 14:45:18 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jA/Fmm35gyE2H+FTfdXve41fY12k1iUQUR3izW9HzFbUCZUL0eFsyQCG9WB6dds/dgQTO3u4aCuuDTURG5qsf0BWtynL+vhwVF+b2z8xjQBh68sGOInLP6FwsKa45tWYYkxzEdnTPui0/oYZMGCAnn78hVuYEDUSUBabFPm5I6eR8UHuuNn/XTTe0jQiMQ0I5fsLnDEKou9u+pUeXoXuwdImGFsRjyPObQP1u9dnEDJ2XInHueuk7EuCYSvVA8uhTPqkfSY0jVBFtXnGu4HAGiMpZLeWHXwJzNlQqjfhWE7YUzHPbDU+/R3LQ2/MsIhf/jG0gvU/dla8W3ImlcN6YQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bNGD9CqdG2XEcViBN7TTriGIfcjaf6cMHcO4zafSVUk=;
- b=EUogBkzN1IqdrckCn6N8D6WdL3mKd+qFc9LmoqlOXlui5SnmSv+2b1hLOW/PclDnxMkiE3BvJ6Yjcne8n7cyWKVBrWU1rxot5jpowBQyl3+mp0005Z6n54UiAy/R0Y30W3+qOLINQes6vTEba5U7Um6YkpqzVA6spfwsy6ZW1ZtdeHxRMZvL0Bo74FefwmocYanKWoV8IdfV8DQJXMxjNnNqVURZdkMiGxxAWBYeIgDioBzug/50wn5hwGnNBK7IB4X/tF4TUhwfFXtOJW9A0IxISIFd4WJfm91znhgjZutmSIeIH4nQEb0xCgW56kjiDNZ0ndZXpbjtPyma01bW1w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bNGD9CqdG2XEcViBN7TTriGIfcjaf6cMHcO4zafSVUk=;
- b=MUNRgSbTE/khrUVi+qLRURfm/+A1Sb4nJ965lhlverf8I1aQImrRm77DLb+NkHGZyqxRa9UQ4e1bNt6YEOOw02uLVZ1AXdxxGlp9EzQ8lb8h20+mNK9+Di9dJLarGmsihhCceC8bDhnBl1pqw6DUE1iPB/omUwJPqET2WE5Qxw0=
-Received: from SJ0PR13CA0191.namprd13.prod.outlook.com (2603:10b6:a03:2c3::16)
- by CYXPR12MB9388.namprd12.prod.outlook.com (2603:10b6:930:e8::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8422.18; Wed, 12 Feb
- 2025 14:45:12 +0000
-Received: from MWH0EPF000989E7.namprd02.prod.outlook.com
- (2603:10b6:a03:2c3:cafe::af) by SJ0PR13CA0191.outlook.office365.com
- (2603:10b6:a03:2c3::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8445.11 via Frontend Transport; Wed,
- 12 Feb 2025 14:45:12 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MWH0EPF000989E7.mail.protection.outlook.com (10.167.241.134) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8445.10 via Frontend Transport; Wed, 12 Feb 2025 14:45:11 +0000
-Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 12 Feb
- 2025 08:45:10 -0600
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH] MAINTAINERS: update amdgpu maintainers list
-Date: Wed, 12 Feb 2025 09:44:53 -0500
-Message-ID: <20250212144454.2438143-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.48.1
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com
+ [209.85.216.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 07B0E10E8DB;
+ Wed, 12 Feb 2025 14:54:41 +0000 (UTC)
+Received: by mail-pj1-f47.google.com with SMTP id
+ 98e67ed59e1d1-2fa227edb68so1387383a91.0; 
+ Wed, 12 Feb 2025 06:54:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1739372080; x=1739976880; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=WAkQk0vCtyjUEvQeMQjvpik2mcmrdn/YbyfEFLALom4=;
+ b=EAOQW0w4nw12su1GJf+X1U7m5D0+aFb9Z4nnMj+UXKCZt86ossYYqy6eslMwsgwotG
+ rdu//J/I5qhj4BcEz2jshHzatYw5gTZdwnaSGwmKfftE8zJEm8BYO8kVz4RCaBRZd1n5
+ ebfjYnruHLq5MVE+/N8crY7UhzoA5WPUeQEnHEmPXqfNmUf3qxqL6XhiHwOlujBcnn9M
+ jO7AB015dO9oGhIZfwFNi2g8ywi6dT3VFXq+KIiHzZwKe+lFFYDEzQo1q8SMhqXApRcu
+ XupN1aIRnIQDZpTZXs7+jSl1H6487bq3dlN2YxRo2YPz/+NykICG63gHRRs/ZN7csCKq
+ TrTw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1739372080; x=1739976880;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=WAkQk0vCtyjUEvQeMQjvpik2mcmrdn/YbyfEFLALom4=;
+ b=cL6RTBP5zTcQs3QDj3NVH/WlsWqYbDlrGOKSi+e0j4/VuY1Al6RnzEn35wbg05pRXR
+ 45GfUJxza9/FMDCdJ5hxfgj5J3X9fEaAmeGlbBzU9Y0MXmvkUlqvmLafVeihprDsMu56
+ Rm2uSlb5IkS5vk5hf7JvEwEW08nFMY2/pZXmpv4IiQM7OeMukN0h/FWIXA6DqMUDY7g/
+ NnjLw9uk2J1JVj0j8XZVm7Tg+rTw5WNz8OVNQmVSVC9hTriTgWwuULfyD92IK2bCSBQ6
+ 3/Ww4y049VDKuV6qoWgEjVYt1elwGukfItWdu2JDX4decETN9/6R/Romq3xUg2RIAKNw
+ OXKA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX7vw1o/lIJ5Ub42Gp5CbZJxLn8AZB45Son/rRD9W8Ukr0UEcp1XSbzOYO9TpamKBUAulfyZyjs@lists.freedesktop.org,
+ AJvYcCXdGHf60tyXnMF7WflbzLvJ8eykKEuSDBTrn5Bk9aBwVOSmwETbQ1lUSi1PLMPXpuUKaU/4DxpGL2WD@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyhyy36VZDSLknyDZRqG7cKirub/znm6QZnvAaabzAHFTPziIwG
+ ZpGVrLyKNxm8KH45pGTw3uXSfzksKX9GbprNzXAwmyH48Aq7+x1rxbMHyQYb4R5Ozka2PjpjlxU
+ ak5R5vcldofI+eld3+in/0Jihe8A=
+X-Gm-Gg: ASbGncsk7qnIerHcZL1kbfOFcCMicGB0eFTQNoQ67CRJsQMNZoqIaWc5+16MdkKikkN
+ elPdKPTABKbR8jFZaS0jeIYE1atoNMfOqxpBzS5QF8oZfAILqi2rvDZ1OOukHfplsIXxwkMni
+X-Google-Smtp-Source: AGHT+IFo2yCN2xd13k7pkRlQ8E0+as8C6qrcJ2fIeXpquYmq/wvPsy3OR22XEyVWdi28mKIGajdVEmPqauE7rW3eqb4=
+X-Received: by 2002:a17:90b:1b50:b0:2fa:2011:c85d with SMTP id
+ 98e67ed59e1d1-2fbf5ca1356mr1899558a91.7.1739372080381; Wed, 12 Feb 2025
+ 06:54:40 -0800 (PST)
 MIME-Version: 1.0
+References: <20250127-tonyk-async_flip-v12-0-0f7f8a8610d3@igalia.com>
+ <20250127-tonyk-async_flip-v12-2-0f7f8a8610d3@igalia.com>
+ <3e6f5e44-403b-41bb-b819-c4479948731c@amd.com>
+In-Reply-To: <3e6f5e44-403b-41bb-b819-c4479948731c@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 12 Feb 2025 09:54:27 -0500
+X-Gm-Features: AWEUYZmBHahplTG5qlcLVLsio8I4kY1VcqYEW5X_o2UrI_3pX2OADkQg-56WzMU
+Message-ID: <CADnq5_N_SQHbx5zZGyWFJo8FcGbR+mT3aJr1C-uPRJ5Z9m27Vw@mail.gmail.com>
+Subject: Re: [PATCH v12 2/2] drm/amdgpu: Enable async flip on overlay planes
+To: Harry Wentland <harry.wentland@amd.com>
+Cc: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Xinhui Pan <Xinhui.Pan@amd.com>, dmitry.baryshkov@linaro.org, 
+ Simon Ser <contact@emersion.fr>, joshua@froggi.es,
+ Xaver Hugl <xaver.hugl@gmail.com>, 
+ Daniel Stone <daniel@fooishbar.org>, ville.syrjala@linux.intel.com,
+ kernel-dev@igalia.com, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000989E7:EE_|CYXPR12MB9388:EE_
-X-MS-Office365-Filtering-Correlation-Id: 06674d45-dfc8-4aba-7eb7-08dd4b73da6a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|36860700013|376014|82310400026|7053199007; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?M2xXQ1dSb1N0cHViQ1lHMnFsOUIzb0R3dDBLWmZLZ0hrN3IxRVVJa1AzSVND?=
- =?utf-8?B?SlBnWjJNdytQU3JCaEkyZEtGNHNCN20xMWZzSHBMSy9YOTFGc0laZ1VUU3Uy?=
- =?utf-8?B?RUhjd0p6M29KYVhYN2txNDRmeTFyZ1NLV1NhRnlNTTZvWTV5ZE5WWU1pdHR4?=
- =?utf-8?B?LzdlNld1TFVNNUw0VWdxM1kzK3lNalVXMHpYWWFzWjh3VkQrTVF0SXNDQkZy?=
- =?utf-8?B?ejVndjZTT1FFS0dJMEpjM2NqeWtRU3hTa1h0WEMwSHl5d3pUcFFjT2xCWHZv?=
- =?utf-8?B?N3pWUlJnYWF1clJDdHlFV1BtbkxTeFpZc3NQMlB2MXhQMlBlVjFxWDJEOTlM?=
- =?utf-8?B?T0NyNDlqcndneE5kcVV0NU83YkM4aWxuRm1mQWlXcmVrYlgvbEJQTkoyWEow?=
- =?utf-8?B?OHJTSWVFZXdkREMxZGlIQmFiQTI4NTBsREp6dHBPTklFSFNnTVk5SUF4MGFO?=
- =?utf-8?B?ZGQ0QTA3RjU2OEVHSHBwbEpKTk5Sa3dCK3RDeGVlcUNpcERwU0NDbFlMdThG?=
- =?utf-8?B?NGkySHlIbjRyR01FVityMHVoRENjQUFFUzJYdFhOT3IramFSL25TQzdjZ2ZV?=
- =?utf-8?B?eERGSzRtWXE0N29UOXhzS1VCM3pZT2tXREZoUjJIT1pkZjNzdTh2VHFlSlpZ?=
- =?utf-8?B?OFNHbjJWUFhVVHYrL01UcHFLMHNhWmRsK1FhWVMraEpnMDlzS3RHci8rRlky?=
- =?utf-8?B?ZkRsL09GY0preEUxMlFiZzdiODY3YUZJNzk2ZGxpT2pUQ1pTNFBBeUNXem1P?=
- =?utf-8?B?bDJndk5QNTlPMTEyN1A1bWQyaVE4dVBtVTZ2WmZuSU9UREVldk84UEpkdlZj?=
- =?utf-8?B?ZTNreWFIRVY1SnFuYmIxNTE1RFlvekRpZWNuQmQyL3FqVmkxdzQ0N1RBWGlq?=
- =?utf-8?B?VS9vc2Urd0lTZTVYaTUyaHhYTmZqcE9HdkduSitZK0hPcTFGeUZ1T240aGFS?=
- =?utf-8?B?ZVg1RGhDRmxYTXYzVXVMc3Z6eVV5eE9wMUZhNXlVL3h3WUN5aDNXM2lvLzgw?=
- =?utf-8?B?ZDc0elhUVjhyVytNYjlaN1BaVUwweHBzRkFZOFJQcnVBNTNZSmErdC9sOUNL?=
- =?utf-8?B?bGVVSjRSbVpRbTg4Z0FKVkZhdWlyZ2MzUzFKcHdpU2VpVy9WcllMTGNhdUtU?=
- =?utf-8?B?TDRkYkFzYVVqS2NvWWw2T25vZlJhUmNpZTM1VE9qelVqcVBzSnowL01LMnIw?=
- =?utf-8?B?emdGUjIrY0FkOWE2cWFBQnhLQ1dpNVI1YkNhRHN5MVFndEpReVhJZ2FHU3Bx?=
- =?utf-8?B?OFhWQnlYVk1BTUVhRzBrdTNYeXVoZXBDZWVVdzh6ZVB2NjVrMUdmdTdpVUNi?=
- =?utf-8?B?aTNhREVIK2RoL0gvOU1RMTlJUytHTnNMV0tsNEZ6MFpvN2d1dnZBUkhjYm4x?=
- =?utf-8?B?TStQY2g1Q25kZHhuYXc1RUxPNWtya0pnRm94Q2VSUE9RK3lrM2ROUFVuSDlj?=
- =?utf-8?B?ODZHMFZTWXhKVk5ybmI0WE5ZVU1FdW96Z0xFRWZyditoZmJQL1JCSU5iOUQw?=
- =?utf-8?B?WnE3Q1UzaDBZNzEydVlacjk2R1BBK0gzaGhWbE4vTHNMdmthVUZZU3YvRVFz?=
- =?utf-8?B?bGFtdEt0SkpCV3FZTXRMeCtoNExZQm9kdVJlNmFkZDdDZzVXTTJWK2NjclpG?=
- =?utf-8?B?UVZSano3SFp2RnBZaUU4TndUQXhVVGtidWRndzl1S09vdlpBTjRPMEFRcUZO?=
- =?utf-8?B?MWM1UytOMkhmZmpWa0lYVnNEd2IvQlBDZFJDY1ZtYTU0b0Jjc01ZVmFxWGsx?=
- =?utf-8?B?b1AxVjIxU2xqVXgxZWFmZEpOZzZ5VXJHS0NBWTduQ2RKSmYrd3o2TjJqUzdj?=
- =?utf-8?B?dEZna2toNkFHaStPbytyUGlPemtrNit2dGFxMW5DS2srSkVMeXBZcDREZXdM?=
- =?utf-8?B?Zmh3endSZnJEQXFjcGN4V1RlNy9ydGZKUm1oSjRJbVVXS25JTkJ5ZzRvT3RJ?=
- =?utf-8?Q?ksqY/Csb1Jg=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(36860700013)(376014)(82310400026)(7053199007);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Feb 2025 14:45:11.2494 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 06674d45-dfc8-4aba-7eb7-08dd4b73da6a
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000989E7.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYXPR12MB9388
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,25 +97,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Xinhui's email is no longer valid.
+Acked-by: Alex Deucher <alexander.deucher@amd.com> for the series.
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- MAINTAINERS | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index c8b35ca294a02..d39b272a6a751 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -19213,7 +19213,6 @@ F:	drivers/net/wireless/quantenna
- RADEON and AMDGPU DRM DRIVERS
- M:	Alex Deucher <alexander.deucher@amd.com>
- M:	Christian König <christian.koenig@amd.com>
--M:	Xinhui Pan <Xinhui.Pan@amd.com>
- L:	amd-gfx@lists.freedesktop.org
- S:	Supported
- B:	https://gitlab.freedesktop.org/drm/amd/-/issues
--- 
-2.48.1
-
+On Thu, Feb 6, 2025 at 5:37=E2=80=AFPM Harry Wentland <harry.wentland@amd.c=
+om> wrote:
+>
+>
+>
+> On 2025-01-27 14:59, Andr=C3=A9 Almeida wrote:
+> > amdgpu can handle async flips on overlay planes, so allow it for atomic
+> > async checks.
+> >
+> > Signed-off-by: Andr=C3=A9 Almeida <andrealmeid@igalia.com>
+>
+> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+>
+> Harry
+>
+> > ---
+> >  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 10 ++++++---=
+-
+> >  1 file changed, 6 insertions(+), 4 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/=
+drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> > index 774cc3f4f3fd9a964fe48c66eb596d2f6dfee602..6bfed3d1530e6610eea025b=
+477f409ee505870da 100644
+> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> > @@ -1258,21 +1258,23 @@ static int amdgpu_dm_plane_atomic_check(struct =
+drm_plane *plane,
+> >  }
+> >
+> >  static int amdgpu_dm_plane_atomic_async_check(struct drm_plane *plane,
+> > -                                           struct drm_atomic_state *st=
+ate)
+> > +                                           struct drm_atomic_state *st=
+ate, bool flip)
+> >  {
+> >       struct drm_crtc_state *new_crtc_state;
+> >       struct drm_plane_state *new_plane_state;
+> >       struct dm_crtc_state *dm_new_crtc_state;
+> >
+> > -     /* Only support async updates on cursor planes. */
+> > -     if (plane->type !=3D DRM_PLANE_TYPE_CURSOR)
+> > +     if (flip) {
+> > +             if (plane->type !=3D DRM_PLANE_TYPE_OVERLAY)
+> > +                     return -EINVAL;
+> > +     } else if (plane->type !=3D DRM_PLANE_TYPE_CURSOR)
+> >               return -EINVAL;
+> >
+> >       new_plane_state =3D drm_atomic_get_new_plane_state(state, plane);
+> >       new_crtc_state =3D drm_atomic_get_new_crtc_state(state, new_plane=
+_state->crtc);
+> >       dm_new_crtc_state =3D to_dm_crtc_state(new_crtc_state);
+> >       /* Reject overlay cursors for now*/
+> > -     if (dm_new_crtc_state->cursor_mode =3D=3D DM_CURSOR_OVERLAY_MODE)
+> > +     if (!flip && dm_new_crtc_state->cursor_mode =3D=3D DM_CURSOR_OVER=
+LAY_MODE)
+> >               return -EINVAL;
+> >
+> >       return 0;
+> >
+>
