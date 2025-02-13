@@ -4,80 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D17FAC0219D
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Feb 2025 10:34:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6D2BC021A4
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Feb 2025 10:34:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7C3010E2B9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFF8010E3AB;
 	Thu, 13 Feb 2025 10:34:10 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=baylibre-com.20230601.gappssmtp.com header.i=@baylibre-com.20230601.gappssmtp.com header.b="rKfjJO0W";
-	dkim-atps=neutral
-Received: from mail-ej1-f65.google.com (mail-ej1-f65.google.com
- [209.85.218.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D753110EA21
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Feb 2025 08:43:24 +0000 (UTC)
-Received: by mail-ej1-f65.google.com with SMTP id
- a640c23a62f3a-aaeec07b705so91505766b.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Feb 2025 00:43:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1739436203; x=1740041003;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=E7GuVlbsAtqSiVuG5Xfjh7yj9/bwGZqjpH5YRkLKt9M=;
- b=rKfjJO0WXwKjIy4njsm7QW5O0OrBiqqVnvcNfBe2JugwsKp+lO6teLkm4L6I12zG39
- TRYLwMMb12zEZNGA9fTfCunnID8kFrEyLXxUnDMCb2Rnzp3VO3EKf+o6yGxoUBZrT/VE
- 3B7EWc3mwu248ZlhJHv9scH3l9pY2BlajktQcqbnEHkcqeY1a4ltbihe5dQ9PBv8pR1Q
- WveEEZqalxiLMVXDGxRtovZ/ENrN16efLBz1jest4KXy1Lh/6HqH2YbvxUG8k52a1DtH
- AOnoKaOd0fg5Tinx9UK863qm+nc3Ik3oJeWdhpaFALMcL1dBGME3IEZmk5Uy/pzFs92I
- 9tvA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739436203; x=1740041003;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=E7GuVlbsAtqSiVuG5Xfjh7yj9/bwGZqjpH5YRkLKt9M=;
- b=G4if6y2h6TtM10zu3eHNNnXuraIORfN/D3hw+JZoPJp9hlKLN27plvqTrAPhaSXuE+
- BSQNoj+bw70rD+JMIItqLIq9hsqK9SBGkX+vzJaygs9lDVI29sJh5zM+0+Km+XY/gJIo
- EQOYKkmc1/uf1afehqEFkvrLBvc0gWXL6JpAicCqdUQMYTiYc3VBwnT4jo9w/GsEFbmv
- rTq6fysKYsXdHrGFG+H07PuUBWQ1OgrI/rFIxvcr/ICMPXsbhJQpi6bck0baLoAzmtQx
- JaJeRTiDutDe87JKPS8KfXaw9WjObTdujo2DpIbdsGSxPPagn5AUVg6LPwdtEGzv5Dtu
- Rk0g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXUgtAgLOfS34Rhl1MF0vHtM/fKdRDlYygHILgGl44f+3K5rQXmxTdDkBsdCrXmakQkavTUuTTI@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxEQpcLg3TP3XvxyGUB7Ni7wS9SSFAucydy0AqIuZfvfAvFcid8
- tbmxV4PrcJi13PXFsl1UpVUAd/A0hqTSsvJLhD5ONtASsIjKVpIUhrC/yyJMl/U=
-X-Gm-Gg: ASbGncsrZm+B0wo15Qo0Jzx2E0Cl4z91ANQ9j9R9nYUEHsHMlJH78JQPhxA6mEXvma+
- BpbGTeAMDuzN0wZNnNLz+4ylQnrRoOzj2wV/4w7t2yWtE6Zh99nOFXLGlbYitRX9PDe9pMA1/V8
- iGqcwnrTxt2pAlXvehnmy/bfpMqn1JNEmL5IZV3GarrhYi0E8RcdSN8aHTw+z9wXQ2DS2QMhPAt
- B4xE04Lqhe5Kbqe/Em1Dc0jDZ5PnehyaCScqhWnnkZo3bW2hquBaR7I1dvMuobWl691gi5YLspV
- z195EFYs4Zuf/4Z6cU9E
-X-Google-Smtp-Source: AGHT+IFC4ljA8wwltB0xasz6EULC7geM5Zzr5NP5AJCPgvbCO/ID+phFeBvn+sF9xJWIxqJ2VVxENQ==
-X-Received: by 2002:a17:907:94c5:b0:aac:619:e914 with SMTP id
- a640c23a62f3a-ab7f33b480amr740579066b.16.1739436202934; 
- Thu, 13 Feb 2025 00:43:22 -0800 (PST)
-Received: from localhost ([2a02:8071:b783:6940:36f3:9aff:fec2:7e46])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aba569dd835sm54108966b.57.2025.02.13.00.43.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Feb 2025 00:43:22 -0800 (PST)
-Date: Thu, 13 Feb 2025 09:43:19 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Philip Yang <yangp@amd.com>
-Cc: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org, 
- Felix.Kuehling@amd.com, Alexander.Deucher@amd.com, christian.koenig@amd.com, 
- regressions@lists.linux.dev, Dieter Faulbaum <mail@faulbaum.in-berlin.de>
-Subject: Re: [PATCH v2 4/9] drm/amdkfd: Validate user queue buffers
-Message-ID: <qyjwmvbvhb2jcxwu5ubf4asghcovkfc2rfnrhdbbxa6dos5q23@k6b5ftwcefgs>
-References: <20240718210558.26340-1-Philip.Yang@amd.com>
- <20240718210558.26340-5-Philip.Yang@amd.com>
- <zpzehsckjz2bee6w5bsnfpmkvtlxf6jywijz7iroausghoh43i@nxr644rwjsb3>
- <315e27ab-f1d1-a681-a32f-1fc28cd81193@amd.com>
+X-Greylist: delayed 887 seconds by postgrey-1.36 at gabe;
+ Thu, 13 Feb 2025 07:29:11 UTC
+Received: from mail-vip.corpemail.net (mail-vip.corpemail.net
+ [162.243.126.186])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D98410E3A4
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Feb 2025 07:29:11 +0000 (UTC)
+Received: from ssh248.corpemail.net
+ by ssh248.corpemail.net ((D)) with ASMTP (SSL) id KZV00139;
+ Thu, 13 Feb 2025 15:08:39 +0800
+Received: from jtjnmail201607.home.langchao.com (10.100.2.7) by
+ jtjnmail201622.home.langchao.com (10.100.2.22) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39; Thu, 13 Feb 2025 15:08:40 +0800
+Received: from locahost.localdomain (10.94.13.56) by
+ jtjnmail201607.home.langchao.com (10.100.2.7) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39; Thu, 13 Feb 2025 15:08:39 +0800
+From: Charles Han <hanchunchao@inspur.com>
+To: <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
+ <Xinhui.Pan@amd.com>, <airlied@gmail.co>, <simona@ffwll.ch>,
+ <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
+ <tzimmermann@suse.de>, <corbet@lwn.net>, <Rodrigo.Siqueira@amd.com>,
+ <mario.limonciello@amd.com>
+CC: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>, Charles Han
+ <hanchunchao@inspur.com>
+Subject: [PATCH] Documentation: Remove repeated word in docs
+Date: Thu, 13 Feb 2025 15:08:37 +0800
+Message-ID: <20250213070837.2976-1-hanchunchao@inspur.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="76qq4sekzudox6xn"
-Content-Disposition: inline
-In-Reply-To: <315e27ab-f1d1-a681-a32f-1fc28cd81193@amd.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.94.13.56]
+X-ClientProxiedBy: Jtjnmail201614.home.langchao.com (10.100.2.14) To
+ jtjnmail201607.home.langchao.com (10.100.2.7)
+tUid: 202521315083964d9b138c6aa985701335c0a1431e4b0
+X-Abuse-Reports-To: service@corp-email.com
+Abuse-Reports-To: service@corp-email.com
+X-Complaints-To: service@corp-email.com
+X-Report-Abuse-To: service@corp-email.com
 X-Mailman-Approved-At: Thu, 13 Feb 2025 10:34:09 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,44 +65,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Remove the repeated word "the" in docs.
 
---76qq4sekzudox6xn
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH v2 4/9] drm/amdkfd: Validate user queue buffers
-MIME-Version: 1.0
+Signed-off-by: Charles Han <hanchunchao@inspur.com>
+---
+ Documentation/gpu/amdgpu/display/dc-debug.rst | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-On Wed, Feb 12, 2025 at 06:02:15PM -0500, Philip Yang wrote:
-> [html-content]
+diff --git a/Documentation/gpu/amdgpu/display/dc-debug.rst b/Documentation/gpu/amdgpu/display/dc-debug.rst
+index 013f63b271f3..605dca21f4ae 100644
+--- a/Documentation/gpu/amdgpu/display/dc-debug.rst
++++ b/Documentation/gpu/amdgpu/display/dc-debug.rst
+@@ -154,7 +154,7 @@ of the display parameters, but the userspace might also cause this issue. One
+ way to identify the source of the problem is to take a screenshot or make a
+ desktop video capture when the problem happens; after checking the
+ screenshot/video recording, if you don't see any of the artifacts, it means
+-that the issue is likely on the the driver side. If you can still see the
++that the issue is likely on the driver side. If you can still see the
+ problem in the data collected, it is an issue that probably happened during
+ rendering, and the display code just got the framebuffer already corrupted.
+ 
+-- 
+2.43.0
 
-Are you aware that your mail is hard for some people (e.g. those like me
-who read their mail in a terminal, but also consider people who have to
-rely on braille readers) to read and also isn't properly archived on
-lore.kernel.org[1]?
-
-Would be great if you could tune the settings of your thunderbird
-profile to send text replies. The in-kernel documentation[2] might help
-here.
-
-Best regards
-Uwe
-
-[1] https://lore.kernel.org/all/315e27ab-f1d1-a681-a32f-1fc28cd81193@amd.com/
-[2] https://www.kernel.org/doc/html/v4.11/process/email-clients.html#thunderbird-gui
-
---76qq4sekzudox6xn
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmetsKQACgkQj4D7WH0S
-/k6Rsgf7BXpuAXhdwSjIKCfK4LG/paS+Dc554ox30FWJASPPEW3Z6nYd+onK5aRm
-fjfL2BYUyFQ838cxeUV6RuRDHUp8pi04o7ljfUchJbxLOxNp2RO2klKgN4JtebBP
-qW5bTzZpi+Y6rV6yyieEm4CuMwR5L1o+lMxVPf/mh3mUX9aEI8XYX02ewDu7pQNb
-921o9tmJnTznQ5r65bEazwPf06jKj/73KKGYUhKXOAyw7COTxnH6MDvDglsjEabh
-XKt4ChTLA0PnFhnHecvgX9TyV8gzrqoWIZ+4LBE6zaInVw7MrkTUSApD6F9koAJZ
-PjqHqcwSUYNcMDYra01MKTzOfHOcfQ==
-=2y3A
------END PGP SIGNATURE-----
-
---76qq4sekzudox6xn--
