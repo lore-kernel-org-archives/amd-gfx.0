@@ -4,128 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 081F4C021A0
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Feb 2025 18:15:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5575BC021A0
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Feb 2025 18:19:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80BAE10E0C1;
-	Thu, 13 Feb 2025 18:15:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D82FD10E080;
+	Thu, 13 Feb 2025 18:19:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3z2fQJhx";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ExK12AhM";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2081.outbound.protection.outlook.com [40.107.92.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA9D210E0C1
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Feb 2025 18:15:31 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=whQtrgOK2d0Yu2Yh3JDhohJ2a8oysKvwEKM7EbUPq3Uq1WQlgTJ7qYP7uukIZqTwWTiIl3Cdii4ESKsILrl/GBzUyxZDcmm0RkxbIC9G7f6Be9E+JCMJT6Y5kHC4Rf8kWRfyF9+Q29p6VYqxDFh1g0RPVX2vFJ5TcqyWtek+e+Lc9KPU+EB23EiYDxgD1PRIkacms5J8gDpS0Y9VMC306ABFypr5+w9p05OhwVSD7xqSZIR8HyJUTQIVwIRm6+xXtM5tcVX1a+I/tvHPfwX3zS+pgxWw6EsXnvxGY7rB0ro2OF+XtjQxtY8WCr8KlQ647v6Jxsti0GmVP3LxMeTtxA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fXdFARYkjMSOcuiBVxJ7U/ddjDYY7S1XuxyjrUEbeUo=;
- b=E9H+W9kE6jAAxOi0dxr8+lqTsclcjdexKLHP+X3JHeXldfj5L2Nt6J5jzk1xmnpkiFc6XlrVhhgOcCJXoCY2oPTKOZKQRYhkXTxlaGWww8T6tbPa4uDq+AA/w8Fw04glxej72RZPE+/6IgwwRflsoVSczZU6aylDwtlNAf7so1m+JWPAISs+S1p5runtIKO2JhyYS84kzinNFoyRvdvFjx/UoQcNElC+bTh9EOuMSRa0qkWRKo2YaFH5q9Pb7tS1qgbsiX6le8LZ/KhVHCvn4zd4O6bCMOHG6F1w5+VXF+lBxuWtFLG9OBn/vHo+p1unXrMK66jOwed9euPXisZ5KA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fXdFARYkjMSOcuiBVxJ7U/ddjDYY7S1XuxyjrUEbeUo=;
- b=3z2fQJhxDL0lm4Yx+0yXLTbUFUfg18im5Gn09fU+O9csHEs0XsO2ScG/8eNYayxKc6XKP8kygnBBFhOgc8xqEJ46QlXiQQr09qInJz7974PiyH7uErgvL7PU7LLWTeE0od1/ttgZSC/lTnaY4C8EQmu9xKv4bR5j/KzXZpnQyZg=
-Received: from CYXPR03CA0050.namprd03.prod.outlook.com (2603:10b6:930:d1::15)
- by SN7PR12MB7980.namprd12.prod.outlook.com (2603:10b6:806:341::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8422.19; Thu, 13 Feb
- 2025 18:15:27 +0000
-Received: from CY4PEPF0000EE33.namprd05.prod.outlook.com
- (2603:10b6:930:d1:cafe::8f) by CYXPR03CA0050.outlook.office365.com
- (2603:10b6:930:d1::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8445.16 via Frontend Transport; Thu,
- 13 Feb 2025 18:15:26 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000EE33.mail.protection.outlook.com (10.167.242.39) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8445.10 via Frontend Transport; Thu, 13 Feb 2025 18:15:26 +0000
-Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Thu, 13 Feb 2025 12:15:23 -0600
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
- Deucher" <alexander.deucher@amd.com>
-CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
- <srinivasan.shanmugam@amd.com>, Leo Liu <leo.liu@amd.com>
-Subject: [PATCH] drm/amdgpu: Rename VCN clock gating function for consistency
-Date: Thu, 13 Feb 2025 23:45:09 +0530
-Message-ID: <20250213181509.619164-1-srinivasan.shanmugam@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com
+ [209.85.216.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D74510E080
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Feb 2025 18:19:24 +0000 (UTC)
+Received: by mail-pj1-f41.google.com with SMTP id
+ 98e67ed59e1d1-2fc0ab102e2so264993a91.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Feb 2025 10:19:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1739470764; x=1740075564; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=9sJisWDE+3uJxdfXSALpmo3QJWaZ7S64wkeGYqgQAM4=;
+ b=ExK12AhMX/gy2NI0kCJhyzDeTKXwDDZ+BWHnM1IsFkzuYdOdnjOqYcVCPGgQtiJFkC
+ cKu0TEdhCKDT/IblrCbnExQAEisF5uuP1VbdRTc32837FG8F8qHPobqmT+ry8kjZd0bF
+ RCpijjuwvEyjwGHs82VJjUGBXyc+JLsAKRqoCmIyB5/w/jKcJl4U2jh/q8KOkoiCa3na
+ sE+azde5sKe9IixYZ25eVZoJLxz2+E0EEFuu57Z9/LWJTnjdWfm5NUi/ceP3agh0y/9k
+ lhaZofD+dxnIVvrVL8A/3P4iI9WX1GwPFy7z5QvDD/sRtkdJUaslAnBA4kpiNMskm6gH
+ rleA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1739470764; x=1740075564;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=9sJisWDE+3uJxdfXSALpmo3QJWaZ7S64wkeGYqgQAM4=;
+ b=glD2buGBDaN4Mc/vGmQ0kPp5EXHuB0hrr63ZyOoa8cSTQOCZ9gsZyDAaLAql5H7NlK
+ U+aiacMK+GkeTuqqCrzaxEIdBLFdOdYvRYtg4OjeTrm1eHsnBu2+vS3zkG+ZcsrEOCEk
+ EJ9WvZM/STGTzoC8kEon9tP4tMq+wJ6VeEO0lf/ESIBfF7k94ls0RxiAmeKbf6hcNtQS
+ /uHH5wiCo7fynf5h9gnbhqFFl5VseToBVYtmbCxic0qTIBcWU+RC5P8GI4HmGHRD7cvR
+ L39+P3w40UdTkUSDthk81QjYGwq1OZ0F77eLv9mjJR2jLqBRbNjsWKdLR0JFm3Ptz8g1
+ eZWQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUhhQtx8i1cxbKMwWwX4AaN2na8zF+UJr4bmDtceInFaWkClLAYbQUI4EElkD/kCHbWd4kIrHNY@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwXUwVcJqMfdfb29SsGcywyl4k0/dyoGtjxrmYqEI1EFWpvie4J
+ ET74u5KoE8FmfqPrHoUbMj9ZhvzQGQnD+mIwfVwMtQoAbE9RrpH0Qqza78B6oHSQSd9HbVar/VT
+ Vmoezi+RNZarS/NYgzcPuwKh+mHGsnQ==
+X-Gm-Gg: ASbGncu835wWxzarBQoLS0oQWQwnBXO5ve08/oUAy1L6zbErZMg47lJ1BPtrcRGMHVX
+ 0LjrabvFnXd07g89Z01zdldFYAsO0UqHo6xjYsNFqgBrkzbC2yoNNnpbf3VgrLuxn78S3U5uG
+X-Google-Smtp-Source: AGHT+IH9R3wEJQS3ptklgR0vCnoTy45/+1L3AbBBV7eNWVV13iTKVVlJI8Mz9+/yHB1ZvGEXGs2/KGSPyFDTZ3QOYtg=
+X-Received: by 2002:a17:90b:4a10:b0:2f2:f6e5:d28e with SMTP id
+ 98e67ed59e1d1-2fbf5c57a6cmr4605251a91.3.1739470763973; Thu, 13 Feb 2025
+ 10:19:23 -0800 (PST)
 MIME-Version: 1.0
+References: <20250213175012.588986-1-srinivasan.shanmugam@amd.com>
+In-Reply-To: <20250213175012.588986-1-srinivasan.shanmugam@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 13 Feb 2025 13:19:12 -0500
+X-Gm-Features: AWEUYZkz8vxloXBRBT8kYTqjBhFZXI1y77Z8OdS9JfF0hGFIig0z1OWt9m9uHAQ
+Message-ID: <CADnq5_NGZOE_UMf6idOh2NcoJ-osojDxrW0fzRfiMGspenEPDQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Fix crashes in enforce_isolation sysfs
+ handling on non-supported systems
+To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE33:EE_|SN7PR12MB7980:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9f49c321-a454-4ec0-be6c-08dd4c5a6409
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|82310400026|376014|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?c0JPV0hQN2tYN0hPeW93Vk16Tkh1Z1VyVlVlY2VTRzFYRzEva3h1eGhXajBl?=
- =?utf-8?B?NUFoZG1zQnJMWnRzdGdzQkppNm5OTzBrVFJEcEFEbHYyYk9zb3lkN2hHcmp5?=
- =?utf-8?B?RHB6aGVLemt6UURSNjVOZm54NjVzL3EyUEJFQ3pJZ0liSThvVDNFb21qNHJS?=
- =?utf-8?B?YW01eW02dE5BakhoY2ZqOTdRQ08xWnV3OFRiSGs4aDlwcG9oYXZEMDZLcjUz?=
- =?utf-8?B?NFNKSXBNZHBDWUVzZFdTSm1TNUE3SjRWM1NrY2VQczRzSlZ1MEMxWTJZQjlM?=
- =?utf-8?B?a05TZkhDM2dmSVdORDFWVVdRQjhYV1VqQTY5bkI4Q3VJQmV3MHlVOU5rUm9P?=
- =?utf-8?B?M0grellNVlBPK2FLQkdLNHRxdXlYaUszdWtnZVl0OWtOV05rUkNxSFBuZEJu?=
- =?utf-8?B?K0FjbS9SQ3k4MXgwaUtmYXpmdnhOcGJUUC9KZjBZRU9PNlQ0WUR3N3dOeGJU?=
- =?utf-8?B?VGpmTk1EY09aR00wS0s2b1JpcTRjRWJWRC92R3hrTkUzeldFTmRUdm83ckVB?=
- =?utf-8?B?SFRPL3d5VWxXdlluM3NNdlkwck1zNFRsdnAxQ0JYVDdNMElqc2E0Sm9EamlZ?=
- =?utf-8?B?MFY1Q2FOaGpIZU8xdUkzeDNqRVhCaVFqM3ltMmhnNnpZdmN6RFNiR1VHd2tv?=
- =?utf-8?B?ejcxVWFyK2YyY0dWb1kzT3pCZ1NSNHM0UTM5S0ZSQ0M0SWJPVTFuRERuZlhD?=
- =?utf-8?B?Q1hUdTlTbWxUTjVjU21FeXROYnNraDdPNTAzb01JR1l0dXdWYTFLaVRnT04z?=
- =?utf-8?B?N2FMaEk3UkhZWW9kVDJWZ0F2cldoUy82bjBzS2pEdjF2Z1h6cHdmUWMyUEcx?=
- =?utf-8?B?WEpobmd1dGFXZzNzdEZ3QllOKzlFR2RFSWVrWEtVRk9KRmErd3FmMEU1V2xO?=
- =?utf-8?B?dmdqSElkRmtMQXFOdXg0QmxIcHpyK3lBTFdsbkZSREZ1VzJqek85ZjU4OHB0?=
- =?utf-8?B?OE1kaUtXbXJ0UjNRMmsxSlF1UnY1bmp6dStDRFdEL0FFcVJ0eUxOOUhEMUtJ?=
- =?utf-8?B?akkwTkxncWI5UlJvdGJPbGpQZ01wZDBISHpsRGh5UU1RWG5EY1l1N0dobWFk?=
- =?utf-8?B?NHJVQ2xkdzN0bHBISnVzSEV4Q1BQR1ZzK1ltajJpRWMwVlFBOGZvOFcvUS9u?=
- =?utf-8?B?citCMFFPSlBhREV1NE1EL2VLanJ4RzVWelRTL25PWDBaWHg5alU5TEVPRGNY?=
- =?utf-8?B?QXZpRW4zM1A5WS9PN1hEc1NmUjh1ZVFHWVNmdWxJZXR3U2c3K2pNVTZTUFFD?=
- =?utf-8?B?ODk4YWpsUUs5bmpmTTRLYkJ6d2pIR0VuaUFXV05wckVCYTRJSmEzRUVwMnpF?=
- =?utf-8?B?d3l5S3FDYzJOVVdiUmVHdytlcW5TeDlUSS8yRlhZTjBnRTdlMGt0OXBMSGZB?=
- =?utf-8?B?MytncVIwRENKbHl2NUdSb0FIWm5HbndrSTJHWkhVbkRyVC94ajU0cS9VaUI5?=
- =?utf-8?B?MmZheVQ4bFdxcHFuS3lnaVZKUW42emY5dFRUVU1LTEMzUlFHS1hZQlBCUjI2?=
- =?utf-8?B?SEs1OVRkcUIyR2o2ZjNnS2FaOGxRSkFsVGNHdUJJM0dYMUY1Y3AxSlVXVWVm?=
- =?utf-8?B?TGxIS1BhQTlVbk90eVZmdzJ3WG1YektycU9YelQwd3BiZXRidGhlTUxzNlVC?=
- =?utf-8?B?OHk1cGxualZNRzREZXVMUFhoQ25lVXRDMjBENUl1K3d2L0E3bG55eUdGL2ZF?=
- =?utf-8?B?aUFxTi9yWHNqMmxGcXJPOUtGVE9SNzNNR0MrNnBIVWxrQUhxSGJncklYS2JL?=
- =?utf-8?B?b2ZvZWVJQyt0eTBoQnMwSDR5dlAzMDkrNWJSMzd0QzVuYTVvOXdTQjBnWUFJ?=
- =?utf-8?B?b1VTT1Nnd1BFcWVhL1NMaVZoMnlyL3lMUlVScjUwQXYzZmZMV1Nydjhha0xC?=
- =?utf-8?B?dlo5aEtZMUhCLzNjMjlHNXNTZHNyZmRBbHh0aWExSlA2THN1eVliK1E2UmNT?=
- =?utf-8?B?TkE5b2xxMmlLcmZxY0VzK3lHZW0wRFBxSWF2ekFJSG51ZmZQNXZmbkRZQTB0?=
- =?utf-8?Q?bNR0Vft0Vq0a3OVnF6JIlSMkIuydXc=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(82310400026)(376014)(1800799024); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Feb 2025 18:15:26.3106 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9f49c321-a454-4ec0-be6c-08dd4c5a6409
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE33.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7980
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,33 +82,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Change the function name from vcn_v2_5_enable_clock_gating_inst
-to vcn_v2_5_enable_clock_gating to ensure consistency in naming.
+On Thu, Feb 13, 2025 at 12:57=E2=80=AFPM Srinivasan Shanmugam
+<srinivasan.shanmugam@amd.com> wrote:
+>
+> By adding these NULL pointer checks and improving error handling, we can
+> prevent crashes when the enforce_isolation sysfs file is accessed on
+> non-supported systems.
 
-Fixes the below with gcc W=1:
-drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c:781: warning: expecting prototype for vcn_v2_5_enable_clock_gating_inst(). Prototype was for vcn_v2_5_enable_clock_gating() instead
+Can you clarify what the issue is?  The code seems correct as is.
+With this change the driver will start logging errors for all parts
+that don't support enforce isolation yet which is misleading.
 
-Cc: Leo Liu <leo.liu@amd.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Alex
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-index b9be304aa294..105e59f6132b 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-@@ -770,7 +770,7 @@ static void vcn_v2_5_clock_gating_dpg_mode(struct amdgpu_device *adev,
- }
- 
- /**
-- * vcn_v2_5_enable_clock_gating_inst - enable VCN clock gating
-+ * vcn_v2_5_enable_clock_gating - enable VCN clock gating
-  *
-  * @adev: amdgpu_device pointer
-  * @i: instance to enable clockgating on
--- 
-2.34.1
-
+>
+> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 17 ++++++++++++-----
+>  1 file changed, 12 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_gfx.c
+> index 27f5318c3a26..bf0bf6382b65 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> @@ -1777,20 +1777,27 @@ static int amdgpu_gfx_sysfs_isolation_shader_init=
+(struct amdgpu_device *adev)
+>  {
+>         int r;
+>
+> +       if (!adev->gfx.enable_cleaner_shader)
+> +               return -EINVAL;
+> +
+>         r =3D device_create_file(adev->dev, &dev_attr_enforce_isolation);
+>         if (r)
+>                 return r;
+> -       if (adev->gfx.enable_cleaner_shader)
+> -               r =3D device_create_file(adev->dev, &dev_attr_run_cleaner=
+_shader);
+>
+> -       return r;
+> +       r =3D device_create_file(adev->dev, &dev_attr_run_cleaner_shader)=
+;
+> +       if (r)
+> +               return r;
+> +
+> +       return 0;
+>  }
+>
+>  static void amdgpu_gfx_sysfs_isolation_shader_fini(struct amdgpu_device =
+*adev)
+>  {
+> +       if (!adev->gfx.enable_cleaner_shader)
+> +               return;
+> +
+>         device_remove_file(adev->dev, &dev_attr_enforce_isolation);
+> -       if (adev->gfx.enable_cleaner_shader)
+> -               device_remove_file(adev->dev, &dev_attr_run_cleaner_shade=
+r);
+> +       device_remove_file(adev->dev, &dev_attr_run_cleaner_shader);
+>  }
+>
+>  static int amdgpu_gfx_sysfs_reset_mask_init(struct amdgpu_device *adev)
+> --
+> 2.34.1
+>
