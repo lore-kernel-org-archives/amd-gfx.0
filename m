@@ -4,53 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 644EAC021AC
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2025 14:06:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C46F4C021A7
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2025 14:06:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 851C710EC9E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E69D10EC9B;
 	Fri, 14 Feb 2025 14:06:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="CYqOea7S";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="q73TiLxj";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B12C10EC36
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Feb 2025 10:21:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2809010EC39;
+ Fri, 14 Feb 2025 11:28:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=0+Vnj26Mjrr1EmBvCiFzH6/SReegIATHZWbPXD6LNGw=; b=CYqOea7S1LmvtoMz4G5QDEHk9m
- ZjyrJ4JQueof97Nz56inOXI5/Xv44pK5Fhz44sTDcliL5A6APn95g6201pstvsRUJSr3PdV7n2tSq
- Bomswh6AqNF+/JS1S+9olioASytdV6XOJ6qy+2wG0EmNwf0aqHYsjJWz3H6Dq/Lmn8CjxsceHe69W
- Y8vgoKwvs+ACZ4779t0rnVqcXurtkftrYytVFVKXyaYfNfeOU6ASEIZsNitXxeGMC3Buz8qEqYjgk
- LXbD9vrOILEp1nqVLYHOlAbaiw9lFsCfs6HCwZ9H6tcy+9w0mez3ag9/nBPfgFqu/DgH2RkSQv3Sz
- jcbJt3aw==;
-Received: from [90.241.98.187] (helo=[192.168.0.101])
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=8xsJuc9EjpMhgVti4IsNIlAz2tp9kkTGHQLrKu6s7fs=; b=q73TiLxjfR/eQMem1lSnerZ1Mf
+ rfeCb2/Bltkxzv7jhNLgWHTO9YX7QkUVjmJwYkB+9CA6g5UJuWv4Exew7H4T6MvL3I7i9mq19YOXe
+ xDa2H58Sbf4OeP6uYmlCcCpJS+iefS7o8gEdBiSit63q+aHAHpAtTwWQIhyQnX2aMpeKW3ebBEMlq
+ ujDuSuqeS8dNRMWBMNByDswXsrmSyyDpgVZbYUp8ag8+wpq0LxdaCejeO42Gz++ZBxzRHO3F0mkiH
+ 5CzU8VD8ZJytC30deVkuJOydffpb/0kVa+uykdW3cxwvIzKKGhQilig0VoR2IwPDhi7y6XBEiMyr5
+ Ebzk6cAQ==;
+Received: from [90.241.98.187] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1tispO-00HZkw-4K; Fri, 14 Feb 2025 11:21:52 +0100
-Message-ID: <19b8713f-8563-4a5b-bd05-e3d507538acd@igalia.com>
-Date: Fri, 14 Feb 2025 10:21:51 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] drm/amdgpu: Pop jobs from the queue more robustly
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- phasta@kernel.org, amd-gfx@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Danilo Krummrich <dakr@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>,
- "Zhang, Hawking" <Hawking.Zhang@amd.com>
-References: <20250206164031.43413-1-tvrtko.ursulin@igalia.com>
- <20250206164031.43413-3-tvrtko.ursulin@igalia.com>
- <949a5a2f-dbf3-497e-a50a-92adb48aa31f@amd.com>
- <3f6de080ac75fc0988d371e71072cba5d60e269e.camel@mailbox.org>
- <e0a3e8de-2e90-420d-86c1-844f86ebe319@amd.com>
-Content-Language: en-GB
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1titrY-000VFA-QB; Fri, 14 Feb 2025 12:28:10 +0100
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <e0a3e8de-2e90-420d-86c1-844f86ebe319@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org, kernel-dev@igalia.com,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Philipp Stanner <phasta@kernel.org>
+Subject: [PATCH 0/5] DRM scheduler kunit tests
+Date: Fri, 14 Feb 2025 11:27:59 +0000
+Message-ID: <20250214112805.20008-1-tvrtko.ursulin@igalia.com>
+X-Mailer: git-send-email 2.48.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 14 Feb 2025 14:06:00 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -67,110 +63,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+There has repeatedly been quite a bit of apprehension when any change to the DRM
+scheduler is proposed, with two main reasons being code base is considered
+fragile, not well understood and not very well documented, and secondly the lack
+of systematic testing outside the vendor specific tests suites and/or test
+farms.
 
-Hi Christian,
+This series is an attempt to dislodge this status quo by adding some unit tests
+using the kunit framework.
 
-On 11/02/2025 10:21, Christian König wrote:
-> Am 11.02.25 um 11:08 schrieb Philipp Stanner:
->> On Tue, 2025-02-11 at 09:22 +0100, Christian König wrote:
->>> Am 06.02.25 um 17:40 schrieb Tvrtko Ursulin:
->>>> Replace a copy of DRM scheduler's to_drm_sched_job with a copy of a
->>>> newly
->>>> added __drm_sched_entity_queue_pop.
->>>>
->>>> This allows breaking the hidden dependency that queue_node has to
->>>> be the
->>>> first element in struct drm_sched_job.
->>>>
->>>> A comment is also added with a reference to the mailing list
->>>> discussion
->>>> explaining the copied helper will be removed when the whole broken
->>>> amdgpu_job_stop_all_jobs_on_sched is removed.
->>>>
->>>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->>>> Cc: Christian König <christian.koenig@amd.com>
->>>> Cc: Danilo Krummrich <dakr@kernel.org>
->>>> Cc: Matthew Brost <matthew.brost@intel.com>
->>>> Cc: Philipp Stanner <phasta@kernel.org>
->>>> Cc: "Zhang, Hawking" <Hawking.Zhang@amd.com>
->>> Reviewed-by: Christian König <christian.koenig@amd.com>
->> I think this v3 has been supplanted by a v4 by now.
-> 
-> I've seen the larger v4 series as well, but at least that patch here 
-> looks identical on first glance. So my rb still counts.
+General approach is that there is a mock "hardware" backend which can be
+controlled from tests, which in turn allows exercising various scheduler code
+paths.
 
-Is it okay for you to merge the whole series (including this single 
-amdgpu patch) via drm-misc?
+Only some simple basic tests get added in the series and hopefully it is easy to
+understand what tests are doing.
 
-Regards,
+An obligatory "screenshot" for reference:
 
-Tvrtko
+[14:29:37] ============ drm_sched_basic_tests (3 subtests) ============
+[14:29:38] [PASSED] drm_sched_basic_submit
+[14:29:38] ================== drm_sched_basic_test  ===================
+[14:29:38] [PASSED] A queue of jobs in a single entity
+[14:29:38] [PASSED] A chain of dependent jobs across multiple entities
+[14:29:38] [PASSED] Multiple independent job queues
+[14:29:38] [PASSED] Multiple inter-dependent job queues
+[14:29:38] ============== [PASSED] drm_sched_basic_test ===============
+[14:29:38] [PASSED] drm_sched_basic_entity_cleanup
+[14:29:38] ============== [PASSED] drm_sched_basic_tests ==============
+[14:29:38] ======== drm_sched_basic_timeout_tests (1 subtest) =========
+[14:29:40] [PASSED] drm_sched_basic_timeout
+[14:29:40] ========== [PASSED] drm_sched_basic_timeout_tests ==========
+[14:29:40] ======= drm_sched_basic_priority_tests (2 subtests) ========
+[14:29:42] [PASSED] drm_sched_priorities
+[14:29:42] [PASSED] drm_sched_change_priority
+[14:29:42] ========= [PASSED] drm_sched_basic_priority_tests ==========
+[14:29:42] ====== drm_sched_basic_modify_sched_tests (1 subtest) ======
+[14:29:43] [PASSED] drm_sched_test_modify_sched
+[14:29:43] ======= [PASSED] drm_sched_basic_modify_sched_tests ========
+[14:29:43] ============================================================
+[14:29:43] Testing complete. Ran 10 tests: passed: 10
+[14:29:43] Elapsed time: 13.330s total, 0.001s configuring, 4.005s building, 9.276s running
 
->> @Tvrtko: btw, do you create patches with
->> git format-patch -v4 ?
->>
->> That way the v4 label will be included in all patch titles, too, not
->> just the cover letter. That makes searching etc. easier in large
->> inboxes
->>
->> P.
->>
->>>> ---
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 22 +++++++++++++++++++-
->>>> -- 
->>>>    1 file changed, 19 insertions(+), 3 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
->>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
->>>> index 100f04475943..22cb48bab24d 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
->>>> @@ -411,8 +411,24 @@ static struct dma_fence *amdgpu_job_run(struct
->>>> drm_sched_job *sched_job)
->>>>        return fence;
->>>>    }
->>>> -#define to_drm_sched_job(sched_job)        \
->>>> -        container_of((sched_job), struct drm_sched_job,
->>>> queue_node)
->>>> +/*
->>>> + * This is a duplicate function from DRM scheduler
->>>> sched_internal.h.
->>>> + * Plan is to remove it when amdgpu_job_stop_all_jobs_on_sched is
->>>> removed, due
->>>> + * latter being incorrect and racy.
->>>> + *
->>>> + * See
->>>> https://lore.kernel.org/amd-gfx/44edde63-7181-44fb- 
->>>> a4f7-94e50514f539@amd.com/
->>>> + */
->>>> +static struct drm_sched_job *
->>>> +__drm_sched_entity_queue_pop(struct drm_sched_entity *entity)
->>>> +{
->>>> +    struct spsc_node *node;
->>>> +
->>>> +    node = spsc_queue_pop(&entity->job_queue);
->>>> +    if (!node)
->>>> +        return NULL;
->>>> +
->>>> +    return container_of(node, struct drm_sched_job,
->>>> queue_node);
->>>> +}
->>>>    void amdgpu_job_stop_all_jobs_on_sched(struct drm_gpu_scheduler
->>>> *sched)
->>>>    {
->>>> @@ -425,7 +441,7 @@ void amdgpu_job_stop_all_jobs_on_sched(struct
->>>> drm_gpu_scheduler *sched)
->>>>            struct drm_sched_rq *rq = sched->sched_rq[i];
->>>>            spin_lock(&rq->lock);
->>>>            list_for_each_entry(s_entity, &rq->entities, list)
->>>> {
->>>> -            while ((s_job =
->>>> to_drm_sched_job(spsc_queue_pop(&s_entity->job_queue)))) {
->>>> +            while ((s_job =
->>>> __drm_sched_entity_queue_pop(s_entity))) {
->>>>                    struct drm_sched_fence *s_fence =
->>>> s_job->s_fence;
->>>>                    dma_fence_signal(&s_fence-
->>>>> scheduled);
-> 
+v2:
+ * Parameterize a bunch of similar tests.
+ * Improve test commentary.
+ * Rename TDR test to timeout. (Christian)
+ * Improve quality and consistency of naming. (Philipp)
+
+RFC v2 -> series v1:
+ * Rebased for drm_sched_init changes.
+ * Fixed modular build.
+ * Added some comments.
+ * Filename renames. (Philipp)
+
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Danilo Krummrich <dakr@kernel.org>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Philipp Stanner <phasta@kernel.org>
+
+Tvrtko Ursulin (5):
+  drm: Move some options to separate new Kconfig.debug
+  drm/scheduler: Add scheduler unit testing infrastructure and some
+    basic tests
+  drm/scheduler: Add a simple timeout test
+  drm/scheduler: Add basic priority tests
+  drm/scheduler: Add a basic test for modifying entities scheduler list
+
+ drivers/gpu/drm/Kconfig                       | 109 +----
+ drivers/gpu/drm/Kconfig.debug                 | 115 +++++
+ drivers/gpu/drm/scheduler/.kunitconfig        |  12 +
+ drivers/gpu/drm/scheduler/Makefile            |   2 +
+ drivers/gpu/drm/scheduler/tests/Makefile      |   6 +
+ .../gpu/drm/scheduler/tests/mock_scheduler.c  | 323 +++++++++++++
+ drivers/gpu/drm/scheduler/tests/sched_tests.h | 222 +++++++++
+ drivers/gpu/drm/scheduler/tests/tests_basic.c | 424 ++++++++++++++++++
+ 8 files changed, 1109 insertions(+), 104 deletions(-)
+ create mode 100644 drivers/gpu/drm/Kconfig.debug
+ create mode 100644 drivers/gpu/drm/scheduler/.kunitconfig
+ create mode 100644 drivers/gpu/drm/scheduler/tests/Makefile
+ create mode 100644 drivers/gpu/drm/scheduler/tests/mock_scheduler.c
+ create mode 100644 drivers/gpu/drm/scheduler/tests/sched_tests.h
+ create mode 100644 drivers/gpu/drm/scheduler/tests/tests_basic.c
+
+-- 
+2.48.0
 
