@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F287C021A4
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2025 08:08:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 419E1C021A9
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2025 08:08:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 835B310EBEB;
-	Fri, 14 Feb 2025 08:08:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DBF6110EBEE;
+	Fri, 14 Feb 2025 08:08:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Du2OyUu5";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZNAePWmp";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2050.outbound.protection.outlook.com [40.107.237.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2078E10EBE8
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Feb 2025 08:08:01 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2067.outbound.protection.outlook.com [40.107.94.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EEAF310EBEE
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Feb 2025 08:08:03 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Qxg36i7rA8pCOEFQbq6txwzyGLORu2fbxmStDxabynmbVrt72cMfIDR+5zG9kPHq/ZAaql8Dwt25+C3nURe8rzVqDMIaLOtKxg9DLHnD9Dr12V8VABG3jpbPc7sX0t81x2EysP1qhvJbETelqvmIlBPCXL4G5Lt1TLiBmvY3nDTGBljg2JtGw2LnBVJxXsqh7/AHtCghkRh68KeewRDAbEn75aESrXq2smBUN/XHtS0AxZUXSIBipYvhqgRQRiCu2n/Femyl7X5kTpbnz30OQjXQr06EnEUnwbuEIxFUvKSFmMN7wQTyl4L3KC2IL62XrA2L9mo3SXt5XZQdNYpy9A==
+ b=DlCNhzeq2e2T8GZiqW2QIUbtxAbycDvqF+8mV8Y9ET04R+Yg2WpKs8UTyBFmSKX8eN/Z/BwcxOAsaIzwWM/5JbGbVDcNXXTBu3eU+d/LLtyewvXXI0Y+S8p0vMMFQ/lqIBnJCZMUGHf1B3zY8zAj126nJf4qQhK4zb6gCO82DOafVK7FE2cINZquAHNba+n+4gr+oyYHlZq5NhqhlMVBsb+hYtdF39IIPBRc3BHLx6LfBYiohrbfzeeDKHlyO2Mvs39pSNjwFR0Zbl3YpXxgVmvA3XcTyzSLH9e/ldJ5oOr8BnnZbSB9kUDoVm7XAJUS989+uwD4XFYiuMqD54ae5A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=W2UDlvTDr/MIGRYpOV7aEd2WkBITABHZq+7siqlPFp8=;
- b=hTzggNHDaMJJswdrqyV5MBWJSFKFatZrrC+dv7LwJDaxtiUK2xy9LLHRtv17JwsxH4zdW2OAW4VdUaPEHpBKJC6dMfJ7lDk9gUHdYIA2o1POYnkgWdCghR/DWUqutyS0KD2zn5fXIRwV5VFrqYeQqgNTWy90X0yfB/Ij5Z4DUUvjdgYWAgDPMz7pIUnR0NmgO/BKBXyICbtomM5xVthBo1nXEUo0eEpp+Bce+8lDaFb0A3ezz2I15N+ly8cGVpiDFX0ILKXEVVhWSxRnUm1AdiivBYfNBnfWgF3Y+hVQXACkKZ0VwwHHLtqNLJApU72Z14HawqkmHc1H3jDHyIM9dw==
+ bh=oj0nLchErpMTAtzYMJbG/shtR8hgmWRWBbguEEdbqK8=;
+ b=C9sTnnw2D5CEjYl8dfPEQ1C/jMXJgxLTXNuQ3VAjEtll78CWn6Of9Ujiy5lCxseKPa3kaia3cpI4lmdJv0tEWc8F+wYMRbZnEj7x5FkPcWPjNsfejZaOCpHRHQZGGV5sw7JEaVmiHGx2uVqZ3tGtnbCEM+Wzizf0rnMVrvDGZsEDTotpjRaNb0Aw3mnbZmnSeEpmmFZeRw1WxzZWj94FJlUjax68oRLGZJogUNGpjfrP0z04KxowkkY5lOyYc8Dr1EeGXJeo7LWuV6AcrYbtGuk5zQIzUOW7rstWAQPZDvJNFklpaX8hyLvvtoZdAokA4Z7iVOCdCDFAjZErOpzSVw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=W2UDlvTDr/MIGRYpOV7aEd2WkBITABHZq+7siqlPFp8=;
- b=Du2OyUu5L+dCbqsF1ShztNiGIq0OgJVDWlSsitSWyXM/15nAouYCJ4QLGdHFo5+s4UNwttvbCuFu7tcd+y31nWlAfpH7KYGPnww97ivymFUmxuFcKFvuLcYpEgu2AbnGoQuGXXlil255bGhCNnz69nTq30ANMa3NUBor2hddL98=
-Received: from BN1PR14CA0002.namprd14.prod.outlook.com (2603:10b6:408:e3::7)
- by IA0PR12MB9009.namprd12.prod.outlook.com (2603:10b6:208:48f::15) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=oj0nLchErpMTAtzYMJbG/shtR8hgmWRWBbguEEdbqK8=;
+ b=ZNAePWmpHVDJjSvFn5ucRT3rY4MLrk1n478GnT/2JeRKE7sCkx3WMbJEXltv307xhgBNhFfQmZKvZH4Wqv2tJuwoZL34vEq28ZUCyLA8fp1zVuGyj8W51P7IXtsRsWLrakPtWtTZB8UCE8HeG6SotvRRmq7C7ACEWlIpwWmAscs=
+Received: from BN1PR14CA0007.namprd14.prod.outlook.com (2603:10b6:408:e3::12)
+ by SJ2PR12MB8979.namprd12.prod.outlook.com (2603:10b6:a03:548::18)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8445.13; Fri, 14 Feb
- 2025 08:07:55 +0000
+ 2025 08:08:00 +0000
 Received: from BN2PEPF000055DE.namprd21.prod.outlook.com
- (2603:10b6:408:e3:cafe::7d) by BN1PR14CA0002.outlook.office365.com
- (2603:10b6:408:e3::7) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:408:e3:cafe::ec) by BN1PR14CA0007.outlook.office365.com
+ (2603:10b6:408:e3::12) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.8445.13 via Frontend Transport; Fri,
- 14 Feb 2025 08:07:55 +0000
+ 14 Feb 2025 08:07:48 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,21 +50,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BN2PEPF000055DE.mail.protection.outlook.com (10.167.245.8) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8466.0 via Frontend Transport; Fri, 14 Feb 2025 08:07:55 +0000
+ 15.20.8466.0 via Frontend Transport; Fri, 14 Feb 2025 08:07:48 +0000
 Received: from liuxiang-mlse-vm.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 14 Feb
- 2025 02:07:51 -0600
+ 2025 02:07:46 -0600
 From: Xiang Liu <xiang.liu@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: <Hawking.Zhang@amd.com>, <tao.zhou1@amd.com>, Yang Wang
- <keivnyang.wang@amd.com>
-Subject: [PATCH v2 03/12] drm/amdgpu: Include ACA error type in aca bank
-Date: Fri, 14 Feb 2025 16:07:10 +0800
-Message-ID: <db8c6bc1f53d35d2a54d18d38c3854054686ffcc.1739519672.git.xiang.liu@amd.com>
+CC: <Hawking.Zhang@amd.com>, <tao.zhou1@amd.com>, Xiang Liu <xiang.liu@amd.com>
+Subject: [PATCH v2 00/12] Generate CPER records for RAS and commit to CPER ring
+Date: Fri, 14 Feb 2025 16:07:07 +0800
+Message-ID: <cover.1739519672.git.xiang.liu@amd.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1739519672.git.xiang.liu@amd.com>
-References: <cover.1739519672.git.xiang.liu@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -73,52 +70,51 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000055DE:EE_|IA0PR12MB9009:EE_
-X-MS-Office365-Filtering-Correlation-Id: f320e6c2-ef3f-4e03-04c4-08dd4cceb01f
+X-MS-TrafficTypeDiagnostic: BN2PEPF000055DE:EE_|SJ2PR12MB8979:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9dbcf0de-43f2-495b-98d7-08dd4cceabc5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|36860700013|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?CYy+maOPvfnOYo6zo4HjQkPneNBSHmZj7v2cPv909L91MuHF4I7pecwqotPs?=
- =?us-ascii?Q?elwPqOzaaeHBNF6ilkUFGdwZt65Pajkeich9n3GEqKGv8yEsmmrWZjuJii28?=
- =?us-ascii?Q?aSCR6yFL95TN01DqRIhAG0br1lMVFzEbWaoC8CEPBI0ttbEN+63ZJfk5FGf1?=
- =?us-ascii?Q?C6z6UWbhkgEPPmTAcJ40x3EB12GVY5emUq7bi0aHRYuQkE0Hau6+YAbwWzNV?=
- =?us-ascii?Q?UCN3e66SCER8MVvHR3Xq2v+35Uk5Xx5TfPvn1SUeGUGYNTXY4M3CBgPe+FzA?=
- =?us-ascii?Q?oWUE98s4GG8KgvgKcbD/G6kHVzdaCvT9kwyXxPbLRIt5k6/uNHR1c0dpOjrt?=
- =?us-ascii?Q?Lrqe9/+F1otKUYTyOZwVdRtaIKmR8UQDSiJIT99fAbkdnYvf8McTeWV2utSf?=
- =?us-ascii?Q?EJvki5i1TpmXPTIa/MwcUlNmIf7vfZTp2peGLXSRR5TdHzIxnQz/3TPom6b+?=
- =?us-ascii?Q?lk27VgWHwKVVybbdJIdMKxZhTJTzbTIo/i0FSDrsEX/yLbRByLJESdhGiv5f?=
- =?us-ascii?Q?v/wxW9WuL6FcC+FJsoy2GGIEGbmgcdhjpNUz4Xmvhb/ONQT8lZkbX6qISsFv?=
- =?us-ascii?Q?BOCGksgVVk6FEqFDtW39zaVsaIocXcO+b87CV2oXTb88whYEtC+7sBtFyltB?=
- =?us-ascii?Q?5O3cCdR8maQWKOVaNuzKAHEI7H6K0V+7B1yt0AVEB2Zh0RuKuu1No7FUEPJq?=
- =?us-ascii?Q?rZk8NKWpSZQ/ya8EAQ3VzCSyHMLqamZWP4mLdDkp2D439/a2xk+bquFXVexL?=
- =?us-ascii?Q?2cuW3Veo/cofumquyUbrQ7AbeD8L0gbrf1Jv7MvzUmoVuJgBZB3naKi8GHEJ?=
- =?us-ascii?Q?N2AXD6tEhIZ4HMsYgYMSTtrqxx/IF0qHx6GAAsKKqGdW7IMk3xVDp18a2Nc1?=
- =?us-ascii?Q?TulufRPdLWbF7gcnaVWtftLXDfIOlZ4K/rm2+ujuL7xqKXvI8790owtxYsPH?=
- =?us-ascii?Q?8ailtabTybF0lXZVOv7hkSjjoolaMDn8Ic0J/WYmqyvReyoe5VlORRKucDFg?=
- =?us-ascii?Q?M3sODhvUR/eVn4CRn+cT61UjmNoiph0fRM0F5TLwtsSE5wtBklZCfFQt4wBa?=
- =?us-ascii?Q?t+75hxuv7YcI0nwynfImhnAjTdo+eC09blpjpenj+NypoBEXXWMuCn9Xjg4J?=
- =?us-ascii?Q?aGPcozqBjrok5zY4B1I5bH7uoiPGmL46V8NIRrCDtbozPcqdgG804DuVWOeH?=
- =?us-ascii?Q?VmEZlhshSoV2hR3zEhr226BDzeyOeHfh9LUlav4uzu4uBoMYwyW0vLDlMqcG?=
- =?us-ascii?Q?FHsAKpCYWIt3RV9WEqGNY0TeRU6BvwpUd5NS/vuQLpP4wk9p2ReHdM8jHqmM?=
- =?us-ascii?Q?XRHHSooVGlPzA5peORJhX0eo6bifuX/gANiubX1ZYcWnslaRCWQsaTUqXI8K?=
- =?us-ascii?Q?IJuH7zq5Rp7yw2rPxiW3KO8ROD5aGTC431KOFMuPzJJLsUT3EKVRk07orjog?=
- =?us-ascii?Q?UWA70oxWDXfcLCnN7s2zrWZTtHX9h+x/GffLYmb1GfKsUTHhLUY5b4KHMb1/?=
- =?us-ascii?Q?oVHVrIxQKW7KNa8=3D?=
+ ARA:13230040|82310400026|36860700013|376014|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?dGC0xihqxsNqK6ltlyqw5S8Jc2L4cmocCMY6hJWXN9+a5mMuAlqy+tOj3Lsc?=
+ =?us-ascii?Q?sVBnvPidL/mDU0qNs2UeSKG3Ofi9iy/bzQZdfQM8vYhgRYcnb94APRTQdQkv?=
+ =?us-ascii?Q?n8k7PyJ+RsJ/FCMuuAiRNBaXaw88p5fcmfEdbaQxMOmvIkJUQ90pTZn7lFr7?=
+ =?us-ascii?Q?aw4rAEfVruFW2w911Sd2psbQTsE19kI65J7+9z1DmSsY/VJeQehXIqhw5COf?=
+ =?us-ascii?Q?dmY5nV6MnoLm6aqbo5w3J5OWx54r8fyTFnvqKXWO5W2QTEKcO0eR5RiSsUKp?=
+ =?us-ascii?Q?98tW/qYEhD3FIvbBjBqPjsmDZ5AbzQBvfaTwBQbKaVwDdfPgeU5cicBh1VyT?=
+ =?us-ascii?Q?xMgmzPLhJyxYj0+LJDx28IM/reg8k7CpctLpsvuZXWBOxSGIfDmu1heJRzEW?=
+ =?us-ascii?Q?8A1n3vFvwOtSo1+yRLg+m6PHXRLUZvKxcw9stK0SR09BO726hU1m5DWL11wh?=
+ =?us-ascii?Q?JKZE8jN3Iy92+WWYqWyq/OzinwW/zSmVh9/LDNCid68A6lOkSHLjDB+LLNdW?=
+ =?us-ascii?Q?3HXuiMKvb1c7msB5uN93Ui2BqOX3rjzO9Tt4lJhi57EOS1GbX05/MByd4YrU?=
+ =?us-ascii?Q?hXWWWzIq3zwJI+8SdHwVS0g7T9h0bWjTCz4qZxt+bipNeGwgGcCyfVj+NhdD?=
+ =?us-ascii?Q?KD0twhHqgwwsPQcOG/Nz6RgLJi/hx6kU2Bo+5srlDrHedpcVOG7CI5oUagLU?=
+ =?us-ascii?Q?Q5pboCT5+f3An4xwrYoP41v13LMd/TFaqng8mcyNae9+PWkMBBXdTx26OSkj?=
+ =?us-ascii?Q?wE3J9ffApZI6s7ai6dAjqUUJ/wSmeFG/1CmJ88Z89tbWUkkmP1cUES7RNlH5?=
+ =?us-ascii?Q?VybNJCpKrHHLDh/hjaFs3uOMWGNdvGiR6G358xxTEFe6fiBLbkztIgAOn0rh?=
+ =?us-ascii?Q?P2ay4pxA0lcnTGdsVp3T2xK0OQ+T8CJNUkMLXwv0CNxHgo9PR7v5VN8ngufB?=
+ =?us-ascii?Q?adpi3rAVfqrOCIuJIfWmamSXcPksSWixw775UymprdMQqr/Qqg1K5Ht9i3f0?=
+ =?us-ascii?Q?IxkRaXSVmo4Mh5NPlke/h2rTlYOEhysiCxYmAJTwNwa74o1x2zyJ4LmR5FBK?=
+ =?us-ascii?Q?8dsN0UewCTa/mdzA5Hc9/GvAfIgVdZUVQS3lBB6yxtIiS9AC97OhMhfTf8I9?=
+ =?us-ascii?Q?pxS8x6u1o1ILBb7Tnwtf7JtHczCsBF4kveG/wLmS2kmrihH15UrNjR137h6I?=
+ =?us-ascii?Q?cl8sLOSHmvaPIBRoLdHHlQ2yPyl/hMwSDy+BgF1ILSUJIy7PvW1ZHMsFmmHV?=
+ =?us-ascii?Q?E/GVWCfjcIooo2mlBrqBCSHLDBdF9UdrkImlal2KF1k2DCfnoEr0oncH4TVG?=
+ =?us-ascii?Q?tiALgNRoclREp4zuwyDzobzflavMFHgndS22FYNuyjxHedZjn1Yekg4pTgiS?=
+ =?us-ascii?Q?KeMAFIU9x1qHfVEo+8xLPz6S0Kjat6HPVMeqHMHg/uAtB/obg0+czH8jaVo9?=
+ =?us-ascii?Q?oKevQndnmW2+82bphaFN7lCfYaiaOwXJILUB8N8a+y/KcxA+abi6oQ=3D=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(36860700013)(376014); DIR:OUT;
+ SFS:(13230040)(82310400026)(36860700013)(376014)(1800799024); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Feb 2025 08:07:55.7650 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f320e6c2-ef3f-4e03-04c4-08dd4cceb01f
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Feb 2025 08:07:48.4681 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9dbcf0de-43f2-495b-98d7-08dd4cceabc5
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000055DE.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB9009
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8979
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,179 +129,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Hawking Zhang <Hawking.Zhang@amd.com>
+This patch series generate RAS CPER records for UE/DE/CE/BP threshold exceed
+event. SMU_TYPE_CE banks are combined into 1 CPER entry, they could be CEs or
+DEs or both. UEs and BPs are encoded into separate CPER entries.
 
-ACA error types managed by driver a direct 1:1
-correspondence with those managed by firmware.
+RAS CPER records for CEs will be generated only after CEs count been queried.
 
-To address this, for each ACA bank, include
-both the ACA error type and the ACA SMU type.
+All records are committed to a pure software ring with a limit size, new records
+will flush older records when overflow happened. User can access the records by
+reading debugfs node, which is read-only.
 
-This addition is useful for creating CPER records.
+Hawking Zhang (5):
+  drm/amd/include: Add amd cper header
+  drm/amdgpu: Introduce funcs for populating CPER
+  drm/amdgpu: Include ACA error type in aca bank
+  drm/amdgpu: Introduce funcs for generating cper record
+  drm/amdgpu: Generate cper records
 
-Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
-Reviewed-by: Yang Wang <keivnyang.wang@amd.com>
-Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c  | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_aca.h  | 4 +++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c | 2 ++
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c  | 2 ++
- drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c | 2 ++
- drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c  | 2 ++
- drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c | 2 ++
- drivers/gpu/drm/amd/amdgpu/umc_v12_0.c   | 1 +
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c  | 2 ++
- 9 files changed, 17 insertions(+), 2 deletions(-)
+Tao Zhou (4):
+  drm/amdgpu: add RAS CPER ring buffer
+  drm/amdgpu: read CPER ring via debugfs
+  drm/amdgpu: add data write function for CPER ring
+  drm/amdgpu: add mutex lock for cper ring
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-index 9d6345146495..1a26b8ad14cb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-@@ -168,7 +168,7 @@ static int aca_smu_get_valid_aca_banks(struct amdgpu_device *adev, enum aca_smu_
- 		if (ret)
- 			return ret;
- 
--		bank.type = type;
-+		bank.smu_err_type = type;
- 
- 		aca_smu_bank_dump(adev, i, count, &bank, qctx);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.h
-index f3289d289913..3cd0115b0244 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.h
-@@ -108,13 +108,15 @@ enum aca_error_type {
- };
- 
- enum aca_smu_type {
-+	ACA_SMU_TYPE_INVALID = -1,
- 	ACA_SMU_TYPE_UE = 0,
- 	ACA_SMU_TYPE_CE,
- 	ACA_SMU_TYPE_COUNT,
- };
- 
- struct aca_bank {
--	enum aca_smu_type type;
-+	enum aca_error_type aca_err_type;
-+	enum aca_smu_type smu_err_type;
- 	u64 regs[ACA_MAX_REGS_COUNT];
- };
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-index aecbe52a4f5c..94f306c0b706 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-@@ -1129,10 +1129,12 @@ static int xgmi_v6_4_0_aca_bank_parser(struct aca_handle *handle, struct aca_ban
- 		if (ext_error_code != 0 && ext_error_code != 9)
- 			count = 0ULL;
- 
-+		bank->aca_err_type = ACA_ERROR_TYPE_UE;
- 		ret = aca_error_cache_log_bank_error(handle, &info, ACA_ERROR_TYPE_UE, count);
- 		break;
- 	case ACA_SMU_TYPE_CE:
- 		count = ext_error_code == 6 ? count : 0ULL;
-+		bank->aca_err_type = ACA_SMU_TYPE_CE;
- 		ret = aca_error_cache_log_bank_error(handle, &info, ACA_ERROR_TYPE_CE, count);
- 		break;
- 	default:
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-index aed05f3daeeb..d54b2261305b 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-@@ -893,10 +893,12 @@ static int gfx_v9_4_3_aca_bank_parser(struct aca_handle *handle,
- 
- 	switch (type) {
- 	case ACA_SMU_TYPE_UE:
-+		bank->aca_err_type = ACA_ERROR_TYPE_UE;
- 		ret = aca_error_cache_log_bank_error(handle, &info,
- 						     ACA_ERROR_TYPE_UE, 1ULL);
- 		break;
- 	case ACA_SMU_TYPE_CE:
-+		bank->aca_err_type = ACA_SMU_TYPE_CE;
- 		ret = aca_error_cache_log_bank_error(handle, &info,
- 						     ACA_ERROR_TYPE_CE, ACA_REG__MISC0__ERRCNT(misc0));
- 		break;
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
-index 9459e8cc7413..99bd68f705b0 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
-@@ -1249,10 +1249,12 @@ static int jpeg_v4_0_3_aca_bank_parser(struct aca_handle *handle, struct aca_ban
- 	misc0 = bank->regs[ACA_REG_IDX_MISC0];
- 	switch (type) {
- 	case ACA_SMU_TYPE_UE:
-+		bank->aca_err_type = ACA_ERROR_TYPE_UE;
- 		ret = aca_error_cache_log_bank_error(handle, &info, ACA_ERROR_TYPE_UE,
- 						     1ULL);
- 		break;
- 	case ACA_SMU_TYPE_CE:
-+		bank->aca_err_type = ACA_ERROR_TYPE_CE;
- 		ret = aca_error_cache_log_bank_error(handle, &info, ACA_ERROR_TYPE_CE,
- 						     ACA_REG__MISC0__ERRCNT(misc0));
- 		break;
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c
-index e646e5cef0a2..17d27b12ccce 100644
---- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c
-@@ -719,10 +719,12 @@ static int mmhub_v1_8_aca_bank_parser(struct aca_handle *handle, struct aca_bank
- 	misc0 = bank->regs[ACA_REG_IDX_MISC0];
- 	switch (type) {
- 	case ACA_SMU_TYPE_UE:
-+		bank->aca_err_type = ACA_ERROR_TYPE_UE;
- 		ret = aca_error_cache_log_bank_error(handle, &info, ACA_ERROR_TYPE_UE,
- 						     1ULL);
- 		break;
- 	case ACA_SMU_TYPE_CE:
-+		bank->aca_err_type = ACA_ERROR_TYPE_CE;
- 		ret = aca_error_cache_log_bank_error(handle, &info, ACA_ERROR_TYPE_CE,
- 						     ACA_REG__MISC0__ERRCNT(misc0));
- 		break;
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-index 5e0066cd6c51..3dc0ffa81484 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-@@ -2392,10 +2392,12 @@ static int sdma_v4_4_2_aca_bank_parser(struct aca_handle *handle, struct aca_ban
- 	misc0 = bank->regs[ACA_REG_IDX_MISC0];
- 	switch (type) {
- 	case ACA_SMU_TYPE_UE:
-+		bank->aca_err_type = ACA_ERROR_TYPE_UE;
- 		ret = aca_error_cache_log_bank_error(handle, &info, ACA_ERROR_TYPE_UE,
- 						     1ULL);
- 		break;
- 	case ACA_SMU_TYPE_CE:
-+		bank->aca_err_type = ACA_ERROR_TYPE_CE;
- 		ret = aca_error_cache_log_bank_error(handle, &info, ACA_ERROR_TYPE_CE,
- 						     ACA_REG__MISC0__ERRCNT(misc0));
- 		break;
-diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
-index a7b9c358a2d4..74f57b2d30a5 100644
---- a/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/umc_v12_0.c
-@@ -415,6 +415,7 @@ static int umc_v12_0_aca_bank_parser(struct aca_handle *handle, struct aca_bank
- 		err_type = ACA_ERROR_TYPE_CE;
- 	else
- 		return 0;
-+	bank->aca_err_type = err_type;
- 
- 	ret = aca_bank_info_decode(bank, &info);
- 	if (ret)
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-index f0716c10f23e..980e610c2451 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-@@ -1935,10 +1935,12 @@ static int vcn_v4_0_3_aca_bank_parser(struct aca_handle *handle, struct aca_bank
- 	misc0 = bank->regs[ACA_REG_IDX_MISC0];
- 	switch (type) {
- 	case ACA_SMU_TYPE_UE:
-+		bank->aca_err_type = ACA_ERROR_TYPE_UE;
- 		ret = aca_error_cache_log_bank_error(handle, &info, ACA_ERROR_TYPE_UE,
- 						     1ULL);
- 		break;
- 	case ACA_SMU_TYPE_CE:
-+		bank->aca_err_type = ACA_ERROR_TYPE_CE;
- 		ret = aca_error_cache_log_bank_error(handle, &info, ACA_ERROR_TYPE_CE,
- 						     ACA_REG__MISC0__ERRCNT(misc0));
- 		break;
+Xiang Liu (3):
+  drm/amdgpu: Get timestamp from system time
+  drm/amdgpu: Commit CPER entry
+  drm/amdgpu: Generate bad page threshold cper records
+
+ drivers/gpu/drm/amd/amdgpu/Makefile        |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h        |   4 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c    |  46 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_aca.h    |  16 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c   | 559 +++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cper.h   | 104 ++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |   4 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c   |  91 +++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h   |   1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c   |   2 +
+ drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c |   3 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c    |   2 +
+ drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c   |   2 +
+ drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c    |   2 +
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c   |   2 +
+ drivers/gpu/drm/amd/amdgpu/umc_v12_0.c     |   1 +
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c    |   2 +
+ drivers/gpu/drm/amd/include/amd_cper.h     | 269 ++++++++++
+ drivers/gpu/drm/amd/pm/amdgpu_dpm.c        |   3 +
+ 19 files changed, 1075 insertions(+), 40 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_cper.h
+ create mode 100644 drivers/gpu/drm/amd/include/amd_cper.h
+
 -- 
 2.34.1
 
