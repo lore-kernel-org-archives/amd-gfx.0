@@ -4,144 +4,145 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4C65C02198
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2025 17:36:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59627C021A4
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2025 17:41:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 52A7010E4AC;
-	Fri, 14 Feb 2025 17:36:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0960910ED27;
+	Fri, 14 Feb 2025 17:41:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="d3lzJnoO";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="lqeoIbr6";
 	dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2059.outbound.protection.outlook.com [40.107.244.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 479E010E4AC
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Feb 2025 17:36:40 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2044.outbound.protection.outlook.com [40.107.94.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7184610ED26
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Feb 2025 17:41:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JgTL142NhNvK74NInS1p1TFwbArsQJ67B2Ky7iX5TqGG+Ztc4/de+kAp9kDkbQ4o1uF3nxTALq2s2L/lMquHWWk2pgFpqrKMiBYkIdc77SNaa7OM88gZrybTeURg5Eum/3YCfLW12tN+RRzgvu2vIU1JWIks3hLiOQcOU3mdVQdXtBjGIzxe4JSk/8COz3WvbceGmQjfyq+hxHbzhTUC7yavgovROgXNIE+5V/LMHmpNm57i27GvYolA0CV4TPKrQk+2L0pHvmbjUidilpJthXydoBA55ohaUL+CGR2KcEAdGyNjW/0Ko7GVYQCmD3Y0Hid61/tE8pzkl/3C3uH8lw==
+ b=lXyozw4JGKdqU749WiJRGrWueLPC0nmCN9QbtLwBGyrObJfG7bj4Rz3hINWMjwbIVkUWcmlAac159VHFpQdAM/pSnMRDZNZabrMr+nsbeSSKJfnRmCY9QGDaB6LzKF2lHKjpgzvehP7vK6bJtI8iWeiAXPoWcFcLB4b2gGK7LDV97q8Vq3gCZGHunt4W+vqVHXzWs+F8OhitXguUcZuhFIrk1aEWMxEVThoDlSKswGgmcddf7rHCEbpTO2C+QAQGZ+LcjKNzcobvH4LjessJbrrygamXrNhMMR22hmtyC2qu6sZFRDFTzEY/aWt+TWNf2MkdIAc2/mVgjVr9r9KljA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kJ1V0lUZGT5wenv3pSebyRKee7ackacTMizZBDbKbks=;
- b=rXb3m6SD7YSkLF//c7Y549244CMkPuXzmXTbdEsM2XO2mKfjP1lljVIdWii/HIfbdTFFASYIEGHvz6cht/MYROUWVilp+Arb5rC8Kh7jdZbN2MSNRQ0pq+Vnf0JPtI17Kk671ntrNCdTQ1BO5qMtUVzYEXsDZi0V8+2IqFgaYlwVN73gwPr3O1cnFGjBC44zXI+ZNDncnE2LekVUxe8StAHU/LmhlCoSx8SItOk/muvVNtI6vw9Dcw1f93NJNLEZxDNWbM4OMM0Zcojk+9Vxc3ol/Sb8loqN1eRdFoUwUlY7sgNPoa2xV1nRQT2cW80hjipnAfNMmj9Q/bFUOA7Nmw==
+ bh=loXP9+uyccs0E68jrvARoaDBD6WA7VadhCUvFfn/YCw=;
+ b=V33eHFV4zyWH7p6vWN0X45750+FRqzLeeMalOIF620z2THgtrNHWThveUrmk22oghnWySCkQu/740NFmOeOWTnYyT91N+/Ghn7eSQQsG9atzrtyf+ICJgEBF/a/Hp+TDGw/uxuvKXtYu0NYEdJW3bAeqb7UYCYIfPKJHreJoWPg/7/2D2VfPymYLA0qHsqLINJRsryjiP6appnKWyYDq1NW3CJr4onvYSQf9/ffep0bKRezUbE54rI1QhQLT2B9rXH0b1cGtBd8Z4lh3njfGzQOhgtuLTg1XYn0ywjOW2Nh98b1Y6VRfpkrYssXtQeVIedkpWDn+SNDJajSWv/RSEw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kJ1V0lUZGT5wenv3pSebyRKee7ackacTMizZBDbKbks=;
- b=d3lzJnoOetE5OSEQV8VUwA9DOGoutmaRb9EZv6aR56WNBXm0h4WA0Vyw/IITdsoGvY7p7+SOu5DoBjzPG8H96QSXnwzpnIqa8lMeoowZL5MxyPC7UqstaCEv3keJA8WOOyRmYeA87dfI1Gpl5trCE9l23yg1GVRPB0EzOjOpaQY=
-Received: from CH0PR12MB5372.namprd12.prod.outlook.com (2603:10b6:610:d7::10)
- by MN0PR12MB5788.namprd12.prod.outlook.com (2603:10b6:208:377::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8445.13; Fri, 14 Feb
- 2025 17:36:38 +0000
-Received: from CH0PR12MB5372.namprd12.prod.outlook.com
- ([fe80::fec0:2b36:85c1:fc9b]) by CH0PR12MB5372.namprd12.prod.outlook.com
- ([fe80::fec0:2b36:85c1:fc9b%4]) with mapi id 15.20.8445.017; Fri, 14 Feb 2025
- 17:36:38 +0000
-From: "Liu, Shaoyun" <Shaoyun.Liu@amd.com>
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH 2/2] drm/amdgpu/mes12: allocate hw_resource_1 buffer once
+ bh=loXP9+uyccs0E68jrvARoaDBD6WA7VadhCUvFfn/YCw=;
+ b=lqeoIbr60hv7dtCSnOCHAvBMGaP40FNUSMPnhBdsyYE7/WOvhmimhauSkJF49w1NTKLDyYhViQRdA2ljCsY8URpPkTbzenNvneov6PEp2Ts5h1vffgjtlU7YY8mtS3ipXuAgqLv4LWq68DvSujJ86TyMBxmI0qAqdnZE4+j/aFc=
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
+ by DM6PR12MB4042.namprd12.prod.outlook.com (2603:10b6:5:215::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8422.19; Fri, 14 Feb
+ 2025 17:41:35 +0000
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::491a:cce3:e531:3c42]) by BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::491a:cce3:e531:3c42%4]) with mapi id 15.20.8445.016; Fri, 14 Feb 2025
+ 17:41:35 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: "Liu, Shaoyun" <Shaoyun.Liu@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH 2/2] drm/amdgpu/mes12: allocate hw_resource_1 buffer once
 Thread-Topic: [PATCH 2/2] drm/amdgpu/mes12: allocate hw_resource_1 buffer once
-Thread-Index: AQHbfvPVkRimjnZ/jEuMrl0aS+yjm7NHARBAgAAC8QCAAAuhkA==
-Date: Fri, 14 Feb 2025 17:36:38 +0000
-Message-ID: <CH0PR12MB53727651D93D9CE233CB86CFF4FE2@CH0PR12MB5372.namprd12.prod.outlook.com>
+Thread-Index: AQHbfvPRnxLqKvOK+02RJB3+fiwCRbNHAcaAgAAB77uAAAxjAIAAAU5Z
+Date: Fri, 14 Feb 2025 17:41:35 +0000
+Message-ID: <BL1PR12MB5144F2DD16616390864C9B72F7FE2@BL1PR12MB5144.namprd12.prod.outlook.com>
 References: <20250214151901.2071738-1-alexander.deucher@amd.com>
  <20250214151901.2071738-2-alexander.deucher@amd.com>
  <CH0PR12MB5372425560C5BE3E4FED28B8F4FE2@CH0PR12MB5372.namprd12.prod.outlook.com>
  <BL1PR12MB5144F31AC0DD465DD9D63EB6F7FE2@BL1PR12MB5144.namprd12.prod.outlook.com>
-In-Reply-To: <BL1PR12MB5144F31AC0DD465DD9D63EB6F7FE2@BL1PR12MB5144.namprd12.prod.outlook.com>
-Accept-Language: en-CA, en-US
+ <CH0PR12MB53727651D93D9CE233CB86CFF4FE2@CH0PR12MB5372.namprd12.prod.outlook.com>
+In-Reply-To: <CH0PR12MB53727651D93D9CE233CB86CFF4FE2@CH0PR12MB5372.namprd12.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution Only;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-02-14T16:53:22.015Z;
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
  MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-02-14T17:41:34.850Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution
+ Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard; 
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CH0PR12MB5372:EE_|MN0PR12MB5788:EE_
-x-ms-office365-filtering-correlation-id: fa242749-598d-4e03-8ee9-08dd4d1e22ad
+x-ms-traffictypediagnostic: BL1PR12MB5144:EE_|DM6PR12MB4042:EE_
+x-ms-office365-filtering-correlation-id: 50d7886a-4274-48a3-8a8e-08dd4d1ed3b8
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|38070700018|7053199007|8096899003; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?GVtUuadwuKxajeehVNJ+6A5DblZXRyWP0+AO8JaQrYb7J7USMKnQDbMo+RbW?=
- =?us-ascii?Q?4XhfV8ZLfBPbZmHH9B1e4WsvA38bjnOQOYMLFEDvxZInwp7ibRVr2hYBzZdn?=
- =?us-ascii?Q?6KSSIswODR7DiFs1HaAlicxbwGRT5CaWFlQK6L22AXXWNruvHdJ2GYIQmJ9U?=
- =?us-ascii?Q?9m53UVf+bO8Q9WfMw+aZmc1V5muszzh4ysTRJ5zxzwLT4LeTDgFtjtRp1/xj?=
- =?us-ascii?Q?8tiSjnc1PyBGdqs/UMKLRK5i8rtjClXc84PJkYVagxn6ZLBbqgW4bujwwt+9?=
- =?us-ascii?Q?xmruBIQbfd07JoQaR33b/HyZP4RboCW9sw7IL6ctThxOZeJe1Z/eOBPXgNGD?=
- =?us-ascii?Q?OtqfRFvkkeJ+XtpEuAum6lhg1wxT2mvywXamJPBW92/sLiLB4B2j7vCMlSTb?=
- =?us-ascii?Q?gqRasUX41nwRZt/i95lsj+Oaxks0ETyC0v/VTqmUrhIL7b7DxofcEyoHMkw3?=
- =?us-ascii?Q?jOcWjCqQdoBEcdPpm0qCplwpqDs23hJ7+wvjNUsQgioFWJ0qNxSXGc/trzne?=
- =?us-ascii?Q?3ZUbXmrleyeS9wq1WdE+zb//Pzprf0AintKDysz5/gGE+pi7EawBz5hslDHw?=
- =?us-ascii?Q?dh7NPsKCwKC9/3NgH0xWuwlb9Tp9TTypLmTOY6ta0RAPK5R1dY9+8gZqJvjt?=
- =?us-ascii?Q?oSHCce5eTp1+u7dLYczNfUG6Y6pHVuGukmd4TvURHVYEutjc9XOhRTd6Fogs?=
- =?us-ascii?Q?ir0u7cfc3S2Rdh6wYXEFfQJOfO9ZNyTtcWbuGJDBtWsYbrPYhQHpZxR0WWzb?=
- =?us-ascii?Q?zJyarxZWnXXJrMnajs7Om8d7CQlfg8DK5VOyIU7Bobf40zE1WRyFXHtJPlaz?=
- =?us-ascii?Q?xqmh6soj1GKW8sStSKOZkdpWGT0CDzJDMKd/Y9C5VC7X5G9hRtN+Yb3QJVL8?=
- =?us-ascii?Q?iMagvKnUXVLyKBfZeag4I+l74YCG9amr5d4dQQ8btGGhD/eBcrUhbmYyAnPC?=
- =?us-ascii?Q?CH/MNMcSUYcGIvBbVrIxoquDnnPasCDrdPpkeqHXKkyIL2E95/lgAeXAL4Uh?=
- =?us-ascii?Q?iend89c/9QVtaURX8MGSLDxri7yXQ6/86ea3F57eBeOPSLfIV7+Abyick2Wd?=
- =?us-ascii?Q?wqfQa+rzhrxACy1Eo1xmWolvJo3rERBzlKoLwEN1QESgJ52OVfswpmYWJKH+?=
- =?us-ascii?Q?dMzOVnd8unbaRs+cW7NFdnEBW36F4bco6FetEZbMgMEjJXH04hFkO7ouKwS5?=
- =?us-ascii?Q?tpDltJRM54Xa7SCf/Ht+hTK3+ehlJ5JaFzjtRnI+A3KE8a3AdaS3jn0sECLu?=
- =?us-ascii?Q?Jnl2Zt7Qj3pTg5rndYzol8Ja0QoiAEIuj10BgOowoUUg07dS6ET/Nu2dtYd8?=
- =?us-ascii?Q?mu8SJH+KMect7+r5CqthSTGnQb6YmVGc6pQS+zpTJeNeb8yOovl+iRWxitUx?=
- =?us-ascii?Q?LeVKOSDBM2hHmEgU2jlLGEIbc4hPdpcZqPfZb1vCzpG7JPgG82FwPzKN5971?=
- =?us-ascii?Q?SsvjkXLm9Beq6zTrEPld+8oTGDLSWTco?=
+ ARA:13230040|366016|1800799024|376014|38070700018|7053199007|8096899003; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?RhVpufA9o6aQvWYAbTFEhVmeBQbQOi1WF4ED7cB3Ghs99UwZ8QPHFKP6JyL9?=
+ =?us-ascii?Q?EjJNKgBec1yyL78DviN49pMftLdaBpdCCIbEYhpCUmy8bOpVk7Lfx6EBfB/z?=
+ =?us-ascii?Q?2ZpkiodqYo4Cu7GJXTrMtukVpcbu4OE7hUtVdi6Ku3A7UKxsWsM6gm79iM0g?=
+ =?us-ascii?Q?dZziDB4nURhPINFpfSfIKYEiVRH7upqq9LN3Znskopa6ZzM9cusAHEq19zg0?=
+ =?us-ascii?Q?sHyPmFf9frRy6/eshf9HTKD9ipEQM7BeP3hewhRUUzZgTJgYRiQMfU3amVF4?=
+ =?us-ascii?Q?fjuagh6ZhFLvbKDWbZsXzn11lgzcIzGgVJHiTr+cs2vC738dUnx0yQv/G7Yc?=
+ =?us-ascii?Q?eWNA46zVpdYQBqL3dL1Q+u2003AlYCKhHcOpLe6v3msKMIVSyV4YwHIx2mKQ?=
+ =?us-ascii?Q?ngmKKSa4XYXK2YME5q6LJNT7cv9gvRqAqOdiT693lFHvu90IPGcfw3+bi9nw?=
+ =?us-ascii?Q?24W7smCrMaD/+K4CBRQshmYwHbp3MKrId1xEe95vtcvmroiZIVlCir27yn5m?=
+ =?us-ascii?Q?bXupyCPMKCaljyvUatsoRDfiYXiLD1TdWr06XFzU/7ane8q7SrUS7q7Kv4oM?=
+ =?us-ascii?Q?vsCcqlaNb7RPYBa9L1tqaYlTQPTLJUa6qCE10mnqRr2rkNABHScyZrQKc73f?=
+ =?us-ascii?Q?1juZvAd9vQiePVeGZw2SR0hFUCzQ4Z9U8i0Ov9SEAJ825lqd+Nj7tQ1TBo6v?=
+ =?us-ascii?Q?/UXVFyG5DuSQFXbR7wD+WtrbqaqSV9d8oftP87to4eh5M1RNnS16DTnhNikE?=
+ =?us-ascii?Q?Gxt4npLXAorjuG9V/8MAwcqNLrchlFppMxkpLhf6N7Jndds1bqEnnDlVRfU2?=
+ =?us-ascii?Q?vwwUpux24vWV9EDE2W0FuhSfslwQyOw9A990uz/21WhJfG3j3jiHWaX4TE22?=
+ =?us-ascii?Q?X27xsmO4bbI/zW1yOc4lTq8J+nl/Jd8sqAvJ8ovh5P2Z7aDZlZMTVv1Foxem?=
+ =?us-ascii?Q?0kbll+JtPuN7NL/AObD/26SI28p/Lt+BjOeIp30lgKwceXbv6W9GYMP8sM68?=
+ =?us-ascii?Q?AscnSbZtdxwujdAfT3fGd+diuQxlpnHdVXrr/+i2RusXQkUoNdbTjC3/z9tv?=
+ =?us-ascii?Q?CmoBwgPDNa6En355rRS0Puvfa4J9v6MBW64pNJ0fr2vh+5EtovsLlXXuyNGL?=
+ =?us-ascii?Q?hF/XXFzSCT2gmJKoUYVOpCBa5tyzR5QT1FHqAuHgnHnIKUs6DJo474v6Bp9E?=
+ =?us-ascii?Q?QNZRvufM9FgJZ+iF2Kxt1kX/4vg/IEFkZtpCYf/5kaDdixxgMvr0+LLz8a4i?=
+ =?us-ascii?Q?MmV6tULbsZexzlEzeYGSwAy0A5GVsCZ1A+auceKoURH9Oo6PrOXeO/wHJTiC?=
+ =?us-ascii?Q?Wd+1EDphmYkrHeTMN6m/ExRYPNBvxP1eu4J8XB5nAJRML2R+Wo1Un+txfsg1?=
+ =?us-ascii?Q?S1a9tas+2diETbWbRE2qbPbYkI8FPFpoo/IFChILTL9eU/tL6VSJ4Y9mHLxA?=
+ =?us-ascii?Q?WYnEgkUzORLbBI811lE8o0vn8+6U1jyB?=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH0PR12MB5372.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(38070700018)(7053199007)(8096899003);
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(38070700018)(7053199007)(8096899003);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?M5jEN3Z0JlBm2BD2+6stDZvOUzI3adX/aKhb9tl6uIvSNsAG7mGEWmKGTORN?=
- =?us-ascii?Q?sDHOfXCY4LrpbKLOSnLcd6uEGPwkb8YyAsQ2dCmkBixCFmjtHI+19G4PFy3z?=
- =?us-ascii?Q?y8XVfCcRhKbNGzUooDPgXIYD6f7KH+qJVYPeb93RRvDW6mewPhfREBf44aFK?=
- =?us-ascii?Q?qJ30JKOxwQz4Cj86Cqx0cjpRqUZZMZJUW/+czkU5k97iHdgVnpWMy4f96Iml?=
- =?us-ascii?Q?B2eDSKa025xQtAESy/kjEzGM4HzJbOyxKZMNT2ik+8QCp+0Mk4Nc8Jno723Q?=
- =?us-ascii?Q?kPG4kD2aTWcfMKm6+YcVsqstr7SGMuRqRnHL2gzeO/YpcbiArQEpaZQ08K0s?=
- =?us-ascii?Q?40bAK+6+5FDqo4wXzjXBCBM56cZNBWq1nhpDFAKBUMXU8+WRZCvI+a9qNlIO?=
- =?us-ascii?Q?y8WOp0q2Fho3d/PyGvThUaSX98iQphLfIjJtr+20BayRfwUJnb7ML2kMLzjF?=
- =?us-ascii?Q?XThn+iC20wHrYKKPqUnzpguWTC+IS3eKqFOp0SqheZVeXGW7U5wMWxgkVg0C?=
- =?us-ascii?Q?ipA0+G6dwFNmbuWzoChchYVtarAm/eugORxI+V1bFSbfzI/zq7FH64yjtMQF?=
- =?us-ascii?Q?CTjUUrv+PnqlXnRAyWHXP/7Qk3M88mUmjEikr469ddXFy4ZvtTyJPCnkVFug?=
- =?us-ascii?Q?o35H0ML/IuZf7ucwqE6idmeeJel82v51icNvVbupkD4Rzz/ygXj+zDzZayDz?=
- =?us-ascii?Q?N+qp2UqN8EODLXiARyS4ZCYb/DrQT/FeJfZjN2NmWmhT0TCDEyo8gO0XBtGE?=
- =?us-ascii?Q?xUCPX6luL9PdvEr/gLvCxHCplKvQeM4BMqNrDECPdUBDEry+SJi4bQYcTFDV?=
- =?us-ascii?Q?kA9fHDrjkUcjkb9VILpec5hcTydbug2YjBSCvCoAX8CB8tBp+1HkY4c9e6YU?=
- =?us-ascii?Q?MhFd2KtUQUAkEk+me8Uj/aRee1y4RM3PE9ohJ7rw95UlkmGvCjkgdC4vsASD?=
- =?us-ascii?Q?/k4A8hnKSMQoOrwyMip+73/GPHwVzMZJwjovyL5F5QHBCIL5i8qnenRwriQp?=
- =?us-ascii?Q?ZNamJsP477GZrdowSDcao1jiOtyXrwrIR/g0GOuyu+PXBaJ8tylHBD6QMVmB?=
- =?us-ascii?Q?AL7mpxAwMWYi5osiDh4ODUhClm/gXxitWgDw9pTHqy7qcj6ZUj5z3JO6XYeB?=
- =?us-ascii?Q?stKYHM1BWQVOF5NZd0o0sJpwHOfKCNBu6FX3c6Rn7zh48cwfnGwXKGU5LNYd?=
- =?us-ascii?Q?X21BL38FNhPSd+5Lu+lRBeBQzs0xfK+xrXuQqrQ862uzBJEGGH40DE0qYo1f?=
- =?us-ascii?Q?9c9f9/YmFrBIOHYgdmyWKBKhQKb9FVT4yinx+r1go27Ke6BD1VMQFOGQdq34?=
- =?us-ascii?Q?lhmNHL1fLT37CgSUlZ1D7GARr7k7D646Em7wV/FQd4CsapcFWwR0X9y9GXNZ?=
- =?us-ascii?Q?RL5wSuzV0Dt9hB3IIroR+y8u2HbgZtv3mgDyUIbpSHfS7DZqoYzaQm76Qtyu?=
- =?us-ascii?Q?NZd+316Wrqc0OGOAH/W4GZjPnaT5ZvAwFyX1bCVEWG+voAUSSFHH6Bljrtcs?=
- =?us-ascii?Q?ma/mIx1qWO34bT7TagszWSWljxnpvMNjmhTWwhK0aU4zgNrf/ecbzORYfjgV?=
- =?us-ascii?Q?+kM6CaarU+ZY+jpWszc=3D?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Gq76oStuK0hnORRScB9BYPg129Yww8M8oSUmk9L308a+8jOinSxshCVvGCyg?=
+ =?us-ascii?Q?V10D7xVod+t/bOiakaW8WZEUkq6lUg7jf2uGMmNie0HZD6zvxlA7ZwsHyNi6?=
+ =?us-ascii?Q?ouygmZNeHgFaKGo/aatHE9BsMMrrHcZoGcdx+uRZtkCOLW6qJy0iImSN1Lxr?=
+ =?us-ascii?Q?7m9BIjZJHGqM/nOfZnIyjAuDf/OzgdS5VGqmsYSmH8rCRMGdV2JixTkDOiVI?=
+ =?us-ascii?Q?AZhQQR/N5krF4/N4gQbi+A9F0M5yGYnqw12jytT1jJEb+jdP1RHTqcdBi7Sp?=
+ =?us-ascii?Q?p5oEM94gRARqNZwAdC5L7cOzK4MWbz+Z97IllBnKtSXGcU6RUgSe5muG0V1O?=
+ =?us-ascii?Q?6ajcNpIRCMCmx8jUJt4V3aaHDtmAICcRUsErFwWTMxiwBJHca4HPg1MWJujV?=
+ =?us-ascii?Q?KOECWy6mHTkpkYOPS2mN93UeDvF7kdUSz5uuFggOG+sHUSxbelffoCpiYUjs?=
+ =?us-ascii?Q?sWwxjxyLt6OmECQMLgZ3pRAuIHPTpBVK6KSRdQgBlXVZtl9r5PvGZdaZ/MGM?=
+ =?us-ascii?Q?MF1Dfpb1HgbSS3kugKLFgCt2ecNWwK7Wc9tYS030SmtgnUWyyPBbuJQfxl4I?=
+ =?us-ascii?Q?DpaUL5WF3y3lZ9MuZXsGqa6Jc9IRWJ1h2utXCphOZ6KuEkSqfVC6mlx8FKRK?=
+ =?us-ascii?Q?WPgC7UOEhTdHV4rbB4yYkpKW4Q/IAgcNvLxNIs5cdR9Ag1ZcZQQZFO56Cfci?=
+ =?us-ascii?Q?shzVLSAn1oDTp9ffhPvpWiNyrxu1bqD9qK1OaW+bWyYHF64VsuHuOe/s+bHE?=
+ =?us-ascii?Q?9GAhlfHt93ErhltBbxUEBnpOCGG4/CPzsDLxHkgAccQsgND5k+TuLMB8eM1N?=
+ =?us-ascii?Q?fSZs0idZd5VGWJDG+pBdwhK7lIjMR7guQqFPeD1bJfxR3HHVwk7xbc+OMnEb?=
+ =?us-ascii?Q?i+QhqtB7m+fx33NjzZL8GkBYH0FwqVbiLrvlF6fMUWoyn52TGdzx/JbzJbDo?=
+ =?us-ascii?Q?NDvBY6IqEVap8I5B64j26RdgP/N0KBFbfkry0UhOW1a4f094DSAuC0TsXSTg?=
+ =?us-ascii?Q?KWLKoy3NIoawsz2GF+WSN5+w0/Ng+4SaWI82CZTkSqSRjYNG7U5IYwdFq82T?=
+ =?us-ascii?Q?RdQ8TupSgVqfRVubKiabyHP8nP0/w3pi/g0GFBAxmpcnRQ8l1Qkww/NlZHcy?=
+ =?us-ascii?Q?eqNBmnMXfOtjWuVJKRhShYXEJPNfqFF4til8lr4Rk7eRk5n2aimiTEf7RvVL?=
+ =?us-ascii?Q?55Zusti8icMmVGSQIN+MR39YBDlQ8Yx/qk7IQNWF2L5uE13ZLvQMmK900Q4q?=
+ =?us-ascii?Q?g0LK/uuJHL4LgmoluAkstjUM3LmjPe3kRheV3SCMmfxdJx2+TWmQgnTrxANA?=
+ =?us-ascii?Q?x1Hz7TAkuMeqnBQDRmOfIX37lmiqGBdUTEGsZAv2tYnI5PXAIvyDgvStk78t?=
+ =?us-ascii?Q?Hp6ROVzA2QuOd2TkaL1uaPdKN2Higz9GxcICafLmALYYjEMGkexxOvdH9Ift?=
+ =?us-ascii?Q?TETOO7IamKAIZYzco64EpNFdxLT01SZuD4guWneygMsr/FReDywi9hMxfUcz?=
+ =?us-ascii?Q?WLgQxTPLtNZmOeuO7AysxodSYQeHdGE7jfAcCr0f0cnbZYOK4CMEQ22YsSIf?=
+ =?us-ascii?Q?d7GVMhipRLG49bTMDPY=3D?=
 Content-Type: multipart/alternative;
- boundary="_000_CH0PR12MB53727651D93D9CE233CB86CFF4FE2CH0PR12MB5372namp_"
+ boundary="_000_BL1PR12MB5144F2DD16616390864C9B72F7FE2BL1PR12MB5144namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5372.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fa242749-598d-4e03-8ee9-08dd4d1e22ad
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Feb 2025 17:36:38.2020 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 50d7886a-4274-48a3-8a8e-08dd4d1ed3b8
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Feb 2025 17:41:35.2333 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Dk8iLDW8XTjkLxxG4oiIlAk/q4E4MJNAVz2JmYtbmGqYXm4aVZqwCtbZxmhWiEDnwGpFOuXgR8NBlqOY+3KRZg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5788
+X-MS-Exchange-CrossTenant-userprincipalname: X3alU3GdVe2CKO2V2ZN/IgioEAPmi20UmkfKf+VLAG1tniqfFH7NLqKqoxaqvWGqNH04KF4BMtm+BrOaBgLfUQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4042
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,16 +157,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_CH0PR12MB53727651D93D9CE233CB86CFF4FE2CH0PR12MB5372namp_
+--_000_BL1PR12MB5144F2DD16616390864C9B72F7FE2BL1PR12MB5144namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
 [AMD Official Use Only - AMD Internal Distribution Only]
 
+Does it matter which pipe we use for these packets?
+
+Alex
+
+________________________________
+From: Liu, Shaoyun <Shaoyun.Liu@amd.com>
+Sent: Friday, February 14, 2025 12:36 PM
+To: Deucher, Alexander <Alexander.Deucher@amd.com>; amd-gfx@lists.freedeskt=
+op.org <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH 2/2] drm/amdgpu/mes12: allocate hw_resource_1 buffer on=
+ce
+
+
+[AMD Official Use Only - AMD Internal Distribution Only]
+
+
 Ok .  From MES point of view , we expecting  both set_hw_resource and set_h=
 w_resource_1 been called all the time.
 
+
+
 Reviewed-by: Shaoyun.liu <Shaoyun.liu@amd.com>
+
+
 
 From: Deucher, Alexander <Alexander.Deucher@amd.com>
 Sent: Friday, February 14, 2025 11:53 AM
@@ -174,17 +195,27 @@ Subject: Re: [PATCH 2/2] drm/amdgpu/mes12: allocate hw_resource_1 buffer on=
 ce
 
 
+
 [AMD Official Use Only - AMD Internal Distribution Only]
+
+
 
 I can add that as a follow up patch as I don't want to change the current b=
 ehavior to avoid a potential regression.  Should we submit both the resourc=
 e and resource_1 packets all the time?
 
+
+
 Thanks,
+
+
 
 Alex
 
+
+
 ________________________________
+
 From: Liu, Shaoyun <Shaoyun.Liu@amd.com<mailto:Shaoyun.Liu@amd.com>>
 Sent: Friday, February 14, 2025 11:45 AM
 To: Deucher, Alexander <Alexander.Deucher@amd.com<mailto:Alexander.Deucher@=
@@ -194,6 +225,8 @@ Cc: Deucher, Alexander <Alexander.Deucher@amd.com<mailto:Alexander.Deucher@=
 amd.com>>
 Subject: RE: [PATCH 2/2] drm/amdgpu/mes12: allocate hw_resource_1 buffer on=
 ce
+
+
 
 [AMD Official Use Only - AMD Internal Distribution Only]
 
@@ -311,143 +344,156 @@ rce_1 bo\n", ret);
 --
 2.48.1
 
---_000_CH0PR12MB53727651D93D9CE233CB86CFF4FE2CH0PR12MB5372namp_
+--_000_BL1PR12MB5144F2DD16616390864C9B72F7FE2BL1PR12MB5144namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
+<html>
 <head>
 <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
-o\:* {behavior:url(#default#VML);}
-w\:* {behavior:url(#default#VML);}
-.shape {behavior:url(#default#VML);}
-</style><![endif]--><style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:DengXian;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:Aptos;}
-@font-face
-	{font-family:"\@DengXian";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	font-size:12.0pt;
-	font-family:"Aptos",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#467886;
-	text-decoration:underline;}
-span.EmailStyle20
-	{mso-style-type:personal-reply;
-	font-family:"Arial",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;
-	mso-ligatures:none;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
 </head>
-<body lang=3D"EN-US" link=3D"#467886" vlink=3D"#96607D" style=3D"word-wrap:=
-break-word">
+<body dir=3D"ltr">
 <p style=3D"font-family:Calibri;font-size:10pt;color:#0000FF;margin:5pt;fon=
 t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
 [AMD Official Use Only - AMD Internal Distribution Only]<br>
 </p>
 <br>
 <div>
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
-ial&quot;,sans-serif">Ok .&nbsp; From MES point of view , we expecting &nbs=
-p;both set_hw_resource and set_hw_resource_1 been called all the time.
-<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
-ial&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
-ial&quot;,sans-serif">Reviewed-by: Shaoyun.liu &lt;Shaoyun.liu@amd.com&gt;<=
-o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
-ial&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+Does it matter which pipe we use for these packets?</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+Alex</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Liu, Shaoyun &lt;Shao=
+yun.Liu@amd.com&gt;<br>
+<b>Sent:</b> Friday, February 14, 2025 12:36 PM<br>
+<b>To:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; amd-gfx@li=
+sts.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
+<b>Subject:</b> RE: [PATCH 2/2] drm/amdgpu/mes12: allocate hw_resource_1 bu=
+ffer once</font>
+<div>&nbsp;</div>
+</div>
+<style>
+<!--
+@font-face
+	{font-family:"Cambria Math"}
+@font-face
+	{font-family:DengXian}
+@font-face
+	{font-family:Calibri}
+@font-face
+	{font-family:Aptos}
+@font-face
+	{}
+p.x_MsoNormal, li.x_MsoNormal, div.x_MsoNormal
+	{margin:0in;
+	font-size:12.0pt;
+	font-family:"Aptos",sans-serif}
+a:link, span.x_MsoHyperlink
+	{color:#467886;
+	text-decoration:underline}
+span.x_EmailStyle20
+	{font-family:"Arial",sans-serif;
+	color:windowtext}
+.x_MsoChpDefault
+	{font-size:10.0pt}
+@page WordSection1
+	{margin:1.0in 1.0in 1.0in 1.0in}
+div.x_WordSection1
+	{}
+-->
+</style>
+<div lang=3D"EN-US" link=3D"#467886" vlink=3D"#96607D" style=3D"word-wrap:b=
+reak-word">
+<p align=3D"Left" style=3D"font-family:Calibri; font-size:10pt; color:#0000=
+FF; margin:5pt; font-style:normal; font-weight:normal; text-decoration:none=
+">
+[AMD Official Use Only - AMD Internal Distribution Only]<br>
+</p>
+<br>
 <div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal"><b><span style=3D"font-size:11.0pt;font-family:&quot=
-;Calibri&quot;,sans-serif">From:</span></b><span style=3D"font-size:11.0pt;=
-font-family:&quot;Calibri&quot;,sans-serif"> Deucher, Alexander &lt;Alexand=
-er.Deucher@amd.com&gt;
+<div class=3D"x_WordSection1">
+<p class=3D"x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot=
+;Arial&quot;,sans-serif">Ok .&nbsp; From MES point of view , we expecting &=
+nbsp;both set_hw_resource and set_hw_resource_1 been called all the time.
+</span></p>
+<p class=3D"x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot=
+;Arial&quot;,sans-serif">&nbsp;</span></p>
+<p class=3D"x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot=
+;Arial&quot;,sans-serif">Reviewed-by: Shaoyun.liu &lt;Shaoyun.liu@amd.com&g=
+t;</span></p>
+<p class=3D"x_MsoNormal"><span style=3D"font-size:11.0pt; font-family:&quot=
+;Arial&quot;,sans-serif">&nbsp;</span></p>
+<div>
+<div style=3D"border:none; border-top:solid #E1E1E1 1.0pt; padding:3.0pt 0i=
+n 0in 0in">
+<p class=3D"x_MsoNormal"><b><span style=3D"font-size:11.0pt; font-family:&q=
+uot;Calibri&quot;,sans-serif">From:</span></b><span style=3D"font-size:11.0=
+pt; font-family:&quot;Calibri&quot;,sans-serif"> Deucher, Alexander &lt;Ale=
+xander.Deucher@amd.com&gt;
 <br>
 <b>Sent:</b> Friday, February 14, 2025 11:53 AM<br>
 <b>To:</b> Liu, Shaoyun &lt;Shaoyun.Liu@amd.com&gt;; amd-gfx@lists.freedesk=
 top.org<br>
 <b>Subject:</b> Re: [PATCH 2/2] drm/amdgpu/mes12: allocate hw_resource_1 bu=
-ffer once<o:p></o:p></span></p>
+ffer once</span></p>
 </div>
 </div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p style=3D"margin:5.0pt"><span style=3D"font-size:10.0pt;font-family:&quot=
-;Calibri&quot;,sans-serif;color:blue">[AMD Official Use Only - AMD Internal=
- Distribution Only]<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+<p style=3D"margin:5.0pt"><span style=3D"font-size:10.0pt; font-family:&quo=
+t;Calibri&quot;,sans-serif; color:blue">[AMD Official Use Only - AMD Intern=
+al Distribution Only]</span></p>
+<p class=3D"x_MsoNormal">&nbsp;</p>
 <div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"color:black">I can add that as a foll=
-ow up patch as I don't want to change the current behavior to avoid a poten=
-tial regression.&nbsp; Should we submit both the resource and resource_1 pa=
-ckets all the time?<o:p></o:p></span></p>
+<p class=3D"x_MsoNormal"><span style=3D"color:black">I can add that as a fo=
+llow up patch as I don't want to change the current behavior to avoid a pot=
+ential regression.&nbsp; Should we submit both the resource and resource_1 =
+packets all the time?</span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"color:black"><o:p>&nbsp;</o:p></span>=
-</p>
+<p class=3D"x_MsoNormal"><span style=3D"color:black">&nbsp;</span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"color:black">Thanks,<o:p></o:p></span=
-></p>
+<p class=3D"x_MsoNormal"><span style=3D"color:black">Thanks,</span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"color:black"><o:p>&nbsp;</o:p></span>=
-</p>
+<p class=3D"x_MsoNormal"><span style=3D"color:black">&nbsp;</span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"color:black">Alex<o:p></o:p></span></=
-p>
+<p class=3D"x_MsoNormal"><span style=3D"color:black">Alex</span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"color:black"><o:p>&nbsp;</o:p></span>=
-</p>
+<p class=3D"x_MsoNormal"><span style=3D"color:black">&nbsp;</span></p>
 </div>
-<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<div class=3D"x_MsoNormal" align=3D"center" style=3D"text-align:center">
 <hr size=3D"2" width=3D"98%" align=3D"center">
 </div>
-<div id=3D"divRplyFwdMsg">
-<p class=3D"MsoNormal"><b><span style=3D"font-size:11.0pt;font-family:&quot=
-;Calibri&quot;,sans-serif;color:black">From:</span></b><span style=3D"font-=
-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:black"> Liu, S=
-haoyun &lt;<a href=3D"mailto:Shaoyun.Liu@amd.com">Shaoyun.Liu@amd.com</a>&g=
-t;<br>
+<div id=3D"x_divRplyFwdMsg">
+<p class=3D"x_MsoNormal"><b><span style=3D"font-size:11.0pt; font-family:&q=
+uot;Calibri&quot;,sans-serif; color:black">From:</span></b><span style=3D"f=
+ont-size:11.0pt; font-family:&quot;Calibri&quot;,sans-serif; color:black"> =
+Liu, Shaoyun &lt;<a href=3D"mailto:Shaoyun.Liu@amd.com">Shaoyun.Liu@amd.com=
+</a>&gt;<br>
 <b>Sent:</b> Friday, February 14, 2025 11:45 AM<br>
 <b>To:</b> Deucher, Alexander &lt;<a href=3D"mailto:Alexander.Deucher@amd.c=
 om">Alexander.Deucher@amd.com</a>&gt;;
@@ -458,16 +504,16 @@ freedesktop.org</a>&gt;<br>
 om">Alexander.Deucher@amd.com</a>&gt;<br>
 <b>Subject:</b> RE: [PATCH 2/2] drm/amdgpu/mes12: allocate hw_resource_1 bu=
 ffer once</span>
-<o:p></o:p></p>
+</p>
 <div>
-<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"x_MsoNormal">&nbsp;</p>
 </div>
 </div>
 <div>
 <div>
-<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><a name=3D"BM_BEGIN">=
-</a><span style=3D"font-size:11.0pt;font-family:&quot;Times New Roman&quot;=
-,serif">[AMD Official Use Only - AMD Internal Distribution Only]<br>
+<p class=3D"x_MsoNormal" style=3D"margin-bottom:12.0pt"><a name=3D"x_BM_BEG=
+IN"></a><span style=3D"font-size:11.0pt; font-family:&quot;Times New Roman&=
+quot;,serif">[AMD Official Use Only - AMD Internal Distribution Only]<br>
 <br>
 I'd suggest remove the&nbsp; enable_uni_mes check, set_hw_resource_1 is alw=
 ays required for gfx12 and&nbsp; up. Especially after add the&nbsp; cleaner=
@@ -645,7 +691,9 @@ ev-&gt;mes.resource_1_addr);<br>
 <br>
 --<br>
 2.48.1</span><span style=3D"font-family:&quot;Times New Roman&quot;,serif">=
-<o:p></o:p></span></p>
+</span></p>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -654,4 +702,4 @@ ev-&gt;mes.resource_1_addr);<br>
 </body>
 </html>
 
---_000_CH0PR12MB53727651D93D9CE233CB86CFF4FE2CH0PR12MB5372namp_--
+--_000_BL1PR12MB5144F2DD16616390864C9B72F7FE2BL1PR12MB5144namp_--
