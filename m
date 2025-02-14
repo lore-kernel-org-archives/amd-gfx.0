@@ -4,145 +4,145 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64550C02198
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2025 15:38:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 362FAC021A6
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2025 16:24:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 12B5610E49B;
-	Fri, 14 Feb 2025 15:38:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2A6310ED04;
+	Fri, 14 Feb 2025 16:24:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="CP/khFXl";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="wdj1Qdce";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2059.outbound.protection.outlook.com [40.107.93.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EBF6610E49B
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Feb 2025 15:38:46 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2066.outbound.protection.outlook.com [40.107.220.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF49410ED05
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Feb 2025 16:24:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PimVvP0TXALqgQFIKfHHKfTRlq1EHcSqaxzwO3L8ZLnOGblHwJ6jhoGTLhxnAa3fjoOet96IojJqffWse1C07+AP8/7O6OxUZ1UQUGjSnLp6I8JLqrWU1DqKwzO+0bPCLfiJn1ge0wCT8XOgfFgHC37IqAH3U2I5Rt/jCwQeAAA3GcAMbhimdXAKa9OTwf2WVOcoztL7hS0QuiC5mhXEEsZf7UUGe2m35feSq/swWda05na5PFtSSuEcpzvEqn56QGUNbQ6waO4wEOUDseB6FP7L6lxn6rgtJQyzSJ3VtB8ITIyma63b+dzqY9vbo6pXR8SEGDofu+ToGZlAVmBhdg==
+ b=Viv50kFm72uN1K1Q3+o2Dywtf/FEdD0nEmPwL4DIuKrmdMOzZ/RY7J4DW0DUk9q6G/JqHhjLpZUqkV1bYcPK2HHmZUcU3BRv8QVjTta/iz8amBkDa7PGmRI/RfjO+4pWjAnlLpcG4IR+7vJ3NS8MeCYm3T/34zrKSHzzStB6jTpl1mRj6stPuDb/8ePcHvow7kmcSmyxCaiJkOZtqCD8pVDE+68JP6Zo2AUJ6zpEJULUxtR4rrF3y3sBiMHrJ06WTHZhexetYzK8rR/EJdtGCVyV87IcwId6yBa9RRbECKOqLIfHb9xZkS/cX5ykOTjJr0WnYKtHO+V1mRTJQfKwjg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=smjtEsS2E/8S8upj8PWfDxDlgi2wUocq17YAvw3rwYc=;
- b=mWtNN35S28Bf1ysHIBK8wLMNsPGRsiBKRbAoIkZpPK/W5gBjve5iT2NlNdUtqmfmRD48m0M7Ad2EVmyjIfaUeuLrR2zIlDHXcwZ8DIJhB01bVUT2JRwe1ysrX2z9laro9NtqZMFaL5+tDLHTAa8j8ll9jjong+Q3vqTBmtpyZzKOLQK4TjYjQYe87CQ/J1Sbb5amk8Mfx6ypsruj0leu8yd5SDqaotg1PV4ZX1Lngunrt6YHmH/OsbjmSeREP3ghob/YDSCJBTqZ2afjIgTC3ZK1+29sE9mlOaTvAfVTG4gtpuSXwY5pCR4OwXUYfjW0+3UZST2sVy9FIR4IL55iWQ==
+ bh=C9Glnn2QIyIwftCSKRHaWibYKlgT8ZagDw8K8vUBirE=;
+ b=L61CEJz+skVm/jlyNwgXyVLCBNXLjVAb6PWVUUNC9QvMKOFHodFyJsxRFHTpnDzAJ1MAkXF+TwtgY/6skP0ElwYY6aRtoB6aH/2p5rQbqcUW/vhoJm9J/9aTAMwISh2gaKzetkd2l1vtp9nWt0lUaMgfrr9wpN49CZS2pcVj3pFBb7+6+LOG9u0By075zMbffKu3vyo0kfwO6bAH+v1cva202j78NcNHJiSLGH6uRgsG12WleGmVUNpBESmFe/McVnSOJ5038/rVC8IK+eAIPqNLMCmt6KDDbnlIBI1txwAq0wq9OswMMrXBbkDlbmugHMFaiu3ahnY9qLiQVGpzrw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=smjtEsS2E/8S8upj8PWfDxDlgi2wUocq17YAvw3rwYc=;
- b=CP/khFXlZtM7J+o9Qn/XXP/DGCBtqSFf4+pU2voOINcsUPp0L0dQIAzhEijaYneTkba4d3Qqu6ayVmGX/sYBd5vVjZ4NLXvBgrdBZme3X+InzCwqq3/fgsczQSNjmsy/JWfQFytlQY03K45xTKLyaVKIaLMWIezoZh7/sPM0BXw=
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
- IA1PR12MB8285.namprd12.prod.outlook.com (2603:10b6:208:3f6::19) with
+ bh=C9Glnn2QIyIwftCSKRHaWibYKlgT8ZagDw8K8vUBirE=;
+ b=wdj1Qdce2+QdPGR+P+Q7I2jvLX4XMbv6WqDaLuO97LMfgfICK2MCoJioAOqaFlhJWi20B6Yep58QPwSiNQx0MTLwKUlObS/4Pd1Pql16QR1i95t/GOqIGCvjJrQT5ZhSx5El1Q0xjFiWbfNLhaOpIDW3DLqb3igd5Qu4ev5zKf4=
+Received: from CY8PR12MB7435.namprd12.prod.outlook.com (2603:10b6:930:51::6)
+ by BY5PR12MB4226.namprd12.prod.outlook.com (2603:10b6:a03:203::24) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8445.16; Fri, 14 Feb
- 2025 15:38:44 +0000
-Received: from DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::8327:d71a:ce21:a290]) by DS0PR12MB7804.namprd12.prod.outlook.com
- ([fe80::8327:d71a:ce21:a290%5]) with mapi id 15.20.8445.013; Fri, 14 Feb 2025
- 15:38:44 +0000
-From: "Lazar, Lijo" <Lijo.Lazar@amd.com>
-To: "Kim, Jonathan" <Jonathan.Kim@amd.com>, "amd-gfx@lists.freedesktop.org"
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8445.17; Fri, 14 Feb
+ 2025 16:24:10 +0000
+Received: from CY8PR12MB7435.namprd12.prod.outlook.com
+ ([fe80::817c:781e:25f1:8210]) by CY8PR12MB7435.namprd12.prod.outlook.com
+ ([fe80::817c:781e:25f1:8210%6]) with mapi id 15.20.8445.013; Fri, 14 Feb 2025
+ 16:24:10 +0000
+From: "Kim, Jonathan" <Jonathan.Kim@amd.com>
+To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amdgpu: simplify xgmi peer info calls
+Subject: RE: [PATCH] drm/amdgpu: simplify xgmi peer info calls
 Thread-Topic: [PATCH] drm/amdgpu: simplify xgmi peer info calls
-Thread-Index: AQHbfWbb/R1taonYI0C84RGAf+2gZLNEx+4AgACbMACAAOz1AIAAlqYAgAAKkhM=
-Date: Fri, 14 Feb 2025 15:38:44 +0000
-Message-ID: <DS0PR12MB780445C81DE6CB10E083174397FE2@DS0PR12MB7804.namprd12.prod.outlook.com>
+Thread-Index: AQHbfWbbvWYvcF/9t0azUDCJxJBaHrNEx+4AgACQE4CAAPgSAIAAjD9QgAAV7wCAAAXBMA==
+Date: Fri, 14 Feb 2025 16:24:09 +0000
+Message-ID: <CY8PR12MB743532330A07911F2FA60DEA85FE2@CY8PR12MB7435.namprd12.prod.outlook.com>
 References: <20250212155734.2213096-1-jonathan.kim@amd.com>
  <63230f85-c3de-43aa-b23a-d7cec00d23ab@amd.com>
  <CY8PR12MB743521D96B986FABB06327D285FF2@CY8PR12MB7435.namprd12.prod.outlook.com>
  <3536548b-9e4f-4223-92a3-d616c4843f90@amd.com>
  <CY8PR12MB74355B8D95866E74CE18ADE685FE2@CY8PR12MB7435.namprd12.prod.outlook.com>
-In-Reply-To: <CY8PR12MB74355B8D95866E74CE18ADE685FE2@CY8PR12MB7435.namprd12.prod.outlook.com>
+ <DS0PR12MB780445C81DE6CB10E083174397FE2@DS0PR12MB7804.namprd12.prod.outlook.com>
+In-Reply-To: <DS0PR12MB780445C81DE6CB10E083174397FE2@DS0PR12MB7804.namprd12.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=0;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open Source;
  MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2025-02-14T14:57:08.0000000Z;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
- Source; MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=0;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged
-x-ms-reactions: allow
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS0PR12MB7804:EE_|IA1PR12MB8285:EE_
-x-ms-office365-filtering-correlation-id: 8a71bdd9-12d0-4de4-ba64-08dd4d0daa57
+x-ms-traffictypediagnostic: CY8PR12MB7435:EE_|BY5PR12MB4226:EE_
+x-ms-office365-filtering-correlation-id: 091d8386-4a49-47f6-5818-08dd4d1402e6
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|8096899003|7053199007|38070700018; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?H0aw8jVIRztp4Wg8HTyiVWdbfpt6vq4859iTL3wEHA8aBnNEjXWEkKWHslKJ?=
- =?us-ascii?Q?SZXt93Mcvrcw7kV8MgbKUiGvEzJrsLJq8uoGmXvQHwdenGClf+UgYM07v4im?=
- =?us-ascii?Q?jCKcmObtNRDP7Xx9sVABw3zPW5BhKV9ROxOs+etDuprnn4uV7nMbDN6ggbp4?=
- =?us-ascii?Q?A7S1IOZZON+LZQ+SdfEjhmbFM+vKcRW6MSV/OLM+Govzi9F1UXPUGsHawvp2?=
- =?us-ascii?Q?Y17p5eCUntcIrsMmpdAIUlKecRAqlGM055mEmuqQp6NoOHsrf2huti1/JZL5?=
- =?us-ascii?Q?nLPH5HKaF5C3+SJRiarEGPgz94SCvSg4fQs+BS87qdLX8y2zdir3zZWVcNPO?=
- =?us-ascii?Q?HCuN9vsH7fa5PZ3HnspiHc2bD0q2QFblcq1J2dN+MIrbozpwUowGCuC097JY?=
- =?us-ascii?Q?hJYPCohZsn9ceMHqFMUypwFZTGUs+5EwmxkhYxjO4OQk/w7l0frQ8eN4jBgB?=
- =?us-ascii?Q?ZR43zSSaFbH6cWQMl+FhtwKVk7KVtqqeqp4O1SXEqr/wW3P2pN5AHG0cNxQP?=
- =?us-ascii?Q?ql5KGCFR3nnkpBN3NbNPCDvygNgJ8tHwyyd+SOLLD2UKS2eE9xRORPFDLh45?=
- =?us-ascii?Q?Wiw63MsrATbAIY+kZWab2TRylC6k7sPUU6iiIuq9FLzNc//HSZB47fuMSWEY?=
- =?us-ascii?Q?F9bZHdkkyX7/MgxVEmWiJeo22hzErEJOUWfu2xq2WbkvYD9lhGPn2u76ntZN?=
- =?us-ascii?Q?eD/kW/6yx+iBu89qM5oJ4jrvla7O6bDmgrH75k+Fh/V5iWTviWvLQrfhQ28i?=
- =?us-ascii?Q?7Why4hREgbTTovEhFJPeOjXdEt8ID+XpB9+dRYjPnKDsz8aEixEgJvikk5vh?=
- =?us-ascii?Q?AudGFgy1833Bz/juhRsAqfy3L6iRmwwX/XTMzTCx/IcHNwmLkB3CUy/JyTbQ?=
- =?us-ascii?Q?rmkMg8nB071g9W4/fvSchQk3AAVK/omGY3TOgmvESffKgoETWhAOgUyM4oXf?=
- =?us-ascii?Q?hwnevsgnlSaqIUz6q+xLg6P0lglfqVDRtw650SfW4N0klGV1XdUReadNTBEB?=
- =?us-ascii?Q?s70dwW9YlPr3N5o8qHQqo9Q/Iz5k/5lwTWyE9xGdDyUNHFYJBvLYv3kgBHwo?=
- =?us-ascii?Q?1sRDZjB0K3PPmmt+62wzPIqoSCgc/Nly2yQnDfnVsAq9TJgguHjZHhtukcHP?=
- =?us-ascii?Q?QRuWfPXJ8hlJ8DJ5gxmZrBGJrX8K1OpYFFuHY8EAhtsKpt+uaIKFsIkNkqMv?=
- =?us-ascii?Q?Wu8OExymMdwarITvD/4zjcWt5ET6tcOL6a8Wzj5/RcmJJNpPJRhSe4Nkei4K?=
- =?us-ascii?Q?PSwAr+UoVUdUHAauHYiB3Kw4RujG3fMgsIZXAbi6oQw6azqVCvZ86MMgEn2n?=
- =?us-ascii?Q?I2cnhqj9uwpcsZyApqYL05kM9zgYtdeWRfmKkr18AZr5P2W6jaczXEfFGff+?=
- =?us-ascii?Q?qP7C7Xz5JGgQeIzQQKQomekMZR4B2D/AvineaGu+mjJ2EplQfVKWCFM8EsXZ?=
- =?us-ascii?Q?J8kGaUWHXeSI+IABIzGztFsH86ejdet8?=
+ ARA:13230040|376014|1800799024|366016|38070700018|7053199007|8096899003; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?buGx1/29VLCnzkhehf+VG519g1N28gkVYtX5QxWgxMoIiD7wwZ1d5og7G6TK?=
+ =?us-ascii?Q?eErEHRCkrDH8D6tazsABzjMb6yyD7Omu3PoB9HFccOB0zJqGYvd/RN1WxiNO?=
+ =?us-ascii?Q?/JbFLkfdg/iuns3lJhTNoRzjUWnOyk14wPLLeqHchs4VpbWw/+bNfqQE8B19?=
+ =?us-ascii?Q?NeF2msJMbRoDTlxyeLy0gYrZoA/Rf0n5URABbHnP8Y3jOXn6guoKgKNwRIX3?=
+ =?us-ascii?Q?5YKk3GIQsSBQDvXadHllhyBPEPyIULQt8ttmQlXaotKpgCOb7Ctu8KAlf5IV?=
+ =?us-ascii?Q?pef+WUjwHPELIP0efdPmG5WrmSpk6ZpMAK/qJJKCdxHVU20auBLhS3nL9iq9?=
+ =?us-ascii?Q?Xa2Rfc3WYuJLb+E+jZu8qpHJJDUWFfwVrqkdRo+lCljJUHvLkTminEmLYLtf?=
+ =?us-ascii?Q?pjsnDznAJIOxYXiAo6KnMC29RS1lKs26ra0j6fWCOu9UW88zLTejXhB25FC9?=
+ =?us-ascii?Q?z1rjNtMtBmYfz2QFq4GICew5K9Ui7/gGIUpBIcqyUYwDHuCkuV4YV40aNfTB?=
+ =?us-ascii?Q?/Aj2sCAJ7NK/KiASGBszvDfc+exnx6g8V8N90mFMa3D3vOY7BYhYBwH1gHRw?=
+ =?us-ascii?Q?gxrxpoqQtyZ8AMeS9Esmv4V+MZ1wEbBMJcnThpWULK2MIrLVtMy75QhWx05g?=
+ =?us-ascii?Q?wpCe8QWGI6fGi4wpBX/kozLI3040ZnflVMZtcwxZyiMZU3Pw4F4wllkaq4iP?=
+ =?us-ascii?Q?T5I6v3KkNsYSUAMQWjxBBMD9nVrytHtucb1P05480Q+65/wmWAOyOqsGuULH?=
+ =?us-ascii?Q?TnLBL/38rG1doehW58Qbj5dYyYtnDT7vYnZRmJhb+TG04hGUEMzhMFX4wvIX?=
+ =?us-ascii?Q?n9OXgS2FdbdsgTFc0fMn3CspX0echQMfLUZJIhUpt6e4riq2DVJbRZC1pmqi?=
+ =?us-ascii?Q?RkP2Yy6tUtscOpWpTUYlxeSr3jBLBAlOkj/Q7sWCi2iTj9uK4FV5blWUlat6?=
+ =?us-ascii?Q?0GnIEN+c9aV/5OJcF/frNuf2r1GqIXwVk7VgOb4XyNtuB0pqyqWaSkzmuZDU?=
+ =?us-ascii?Q?e6Q3juTbOx4SJE4oG7M/VQ2O7t/IMu9tuzesvgD4z2H5H8shw5Yp7cAXED8h?=
+ =?us-ascii?Q?eOtA+Kh4MFl0bt1oeXzHTVFq+U8LfzA3LAUpduFTJgXRF6Vk4Ho48qA/R8Q2?=
+ =?us-ascii?Q?p73ewtPedVeu7wefKwjoiTT2zP5CCc0Wh3tsOiwNVPn9TRh1/XN46YjRbc5T?=
+ =?us-ascii?Q?68yjWxspebHacQ2W0ay40q1wjmu8SKfS+JuJYb+/xKmunLP7yQkuNtZVbNH5?=
+ =?us-ascii?Q?ScU1LLAbeRY1AAQjaMynoMKW3A6aMZcJPJr4F3gtpEbtNgoJfF7uUG5f99T0?=
+ =?us-ascii?Q?k6h2aw71DfEYSWiw45DqW81L71YZsJKeDuzyjlWo8WC/04+q4W7Z6Bnsiti3?=
+ =?us-ascii?Q?v4ak/RtPij7WsVDQN9WQPndhOjDTnBGvGh/xnVc/6JVsKgBkHmjRDpkgG+zD?=
+ =?us-ascii?Q?b8m7kXLLBrvy+/mT6Yk/j79KeWlhtygW?=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(8096899003)(7053199007)(38070700018);
+ IPV:NLI; SFV:NSPM; H:CY8PR12MB7435.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(38070700018)(7053199007)(8096899003);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?eVZE36rYZUzt20NnS7WIoT8YITlFPyN9pSWvEk6ctxmJParbIuAcZ4nHpJGe?=
- =?us-ascii?Q?8E6T/9gDu1mW+9+4FWQzev0JpSIo7CYeAMVN9mE+8NxVT+bbLkdMM6Q8hoLh?=
- =?us-ascii?Q?PNduIymih3ORHX70Gor/bMkMC51brDmi6Zrnb8LStDKdmsSXVoyiUBUjUznO?=
- =?us-ascii?Q?Be5A6AiXK/0PrN5WDJEwmC3bwDuEfVVGiH2WccKj7GWs2W/ABln5B6Gy3VB5?=
- =?us-ascii?Q?FMZ0BnWTJjzTVjLmux6IulHhS73gX+fNCAo9pdozwlrCW2m3yU6zKxut4p1U?=
- =?us-ascii?Q?xFbJO6x9sIWixJrPNk0Bni18RrNnbS70nipLgm5UJuRxKglWUWdpJjNoSeJ1?=
- =?us-ascii?Q?gDQeQs/LRb0aIxqZkOGVw8g7W1rAwwkwncK6JjTDC0jNGKbrMgl43zR5CQUr?=
- =?us-ascii?Q?kmPmurt5rD7V2Q/wRojgXG5YKWzHNSoeYX8QVxCwmrTNbezQ+kH8yvrNuNhG?=
- =?us-ascii?Q?wuZBIEpRg2ZkpAAHhMIY+1Us2rr3n4jGRyYg+lVRT4Edt39w7kiXRJ9nwqXm?=
- =?us-ascii?Q?3AVe0G7jemxQelw5PrX+drF30kKAzmcIlt9hEVDAmTjvt94uSMuO48wNxSNW?=
- =?us-ascii?Q?4DyKxvUAa9KfCPblwmKRxN+nbKpXMoVwwF332uML2xO5ZE6ipBL36vyk1i9d?=
- =?us-ascii?Q?x1wp1y+xEi4D0BSYGRwJrD3vQyxEUU2waW9ioU/2sg8dEZ5DUKrsxsNQp2GN?=
- =?us-ascii?Q?QZI6tjugvkwRA9HxY2MaCYwyn3X/sk9hrE/0PJdv0LUk0uGk/WnedU0sh5y5?=
- =?us-ascii?Q?tXsttjqNHK9vrNK3lu16mCSLFOB+Bw/B3UugHcAf/BdorZvwaYv5S3pLwIlQ?=
- =?us-ascii?Q?pvcagT8JuGfOHjuKLqlUcPR6CVa/lzjkyVQZJi2fczwgESHDaH3HsW3YP89b?=
- =?us-ascii?Q?J64aVBmMiqMqAA2lFmUJz43K3kCjKzrS4d5c7akdjnzRM1tzR/gNQ/t8DXfj?=
- =?us-ascii?Q?5ZXlX/R4Zl9MLq8DoD6moFnDwcT5ApXzdHT499mp2oNJfVEFs7jOiZr8Iuld?=
- =?us-ascii?Q?sc/YWRij+VnrN1oIaZLF0zpCQosoUO4PMNIMKbLWEoFDC59p+7y2eEL+YQBL?=
- =?us-ascii?Q?3htO4+lXTg4hxZmE78uK4efbEEoeaKrIziUJfQpW95KFVC7gSWpkMPtwFDWe?=
- =?us-ascii?Q?kORwkskpNil7qnIi67T1IzHPsA6ayGuI3bhcIJrWAsZoLeqCnG7ZnIVREDsM?=
- =?us-ascii?Q?pKH/dh2x0g3AxnqWVWsXsjMaCWjtrpJqg+6aMcpnCko7jalohClXJ7vuUStb?=
- =?us-ascii?Q?xpu2nabxF6Nou//jzCsJa8p4mjg5Iw8sH58I29rdXZK9ioj0k/30BBEFr8yn?=
- =?us-ascii?Q?idqqxBTpH9dZwjBzok7he+jkx0gNg5qZocCg9GSLY4aU6w5r1MakQl08SdUy?=
- =?us-ascii?Q?1RF9PrtRlZKtRuQnvXg6bacq1BG9dMQgbqTl/f352qdzAyA3r5nO3Q4ZbMtY?=
- =?us-ascii?Q?bCwgE/X2VJJ2yzGpJdEM6yqj1PxBuW9Lv6jwQjqakW9zoGuZtK35TJ1k/UlZ?=
- =?us-ascii?Q?UsffmPctXyrNND6yFSXxOy59bJX9/FhlLOqIP77MDjs2obQUURsLfWwJ4iTc?=
- =?us-ascii?Q?4ib/zNMKR8YBN379drCf1exKYUhDL6xJh2mzX28e?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?if7NIvnvYKBC7te30UNQpHHyYvAY6tQu3VbhH1Jq0CeUlRCrpvp5jCc2oagI?=
+ =?us-ascii?Q?61AVV5n1z/hy56E3FjeJetjTPxRHB2IIanl9uqFGNFCW8MqJ0Dzxe1lNMxox?=
+ =?us-ascii?Q?Vb/h3e8TvhO1pAP7pvlmNWaUdKPvMyvTp+36WstULHb0t+WZ/SCydFEkYkfS?=
+ =?us-ascii?Q?byQqJ1oxvjLs3oaiYWcdJUHaAXVnNq7IabZ2xkAl2b8WOOftI/Qo1xS/nXX0?=
+ =?us-ascii?Q?A9c3Mb6OxUkf1NwcOBVCi5U7/EGvOCeL1HWEWGvRqp0xc2kZa9JAC39Y4FYa?=
+ =?us-ascii?Q?T3aY3fEZRL8zl1BHVZ9okgGt7xtH8QmjeBgAG1NUOpIU6yxuubBLtrYmXVqK?=
+ =?us-ascii?Q?ok1WvlaBtyJMN8i628KSQr6F7F2WSdPfHXggRlkxe/ayAenMsg9MNO5hS9zQ?=
+ =?us-ascii?Q?cpTocqEZ1nE8DOrIoJm6YFPS4pyAyeHIACSOVUysvs7N1o5EA/pHzYPSyjaA?=
+ =?us-ascii?Q?RBEeo3eND6Siu1dW+v+NbFMmSNdR4/y2ckAHb39rHYT+9VLtKx4f7nLmtskq?=
+ =?us-ascii?Q?qn5LO7SXR0Ao1okcRhX+vaQpzMActVT6BRr8qiA0PX9dKXr2UeDnKtTD0LxG?=
+ =?us-ascii?Q?bTu2mL4BsXD9+U5sr8Hpb8XeGGiT8f4UyyXVj/16OBPA/alJJ/F7q2e999dP?=
+ =?us-ascii?Q?LxQRWL9ORXlRCyWUw+GGEbPmOTvrxcGDqqjkkrjdCU13g2xdWbFx5PiIL9Mv?=
+ =?us-ascii?Q?BFBugc9tTT6uvK5/1Iu3U630Ljp5iOuxvXcOQKqLRUFUc37jfHvDfa4z1B9o?=
+ =?us-ascii?Q?fuLAWRGco5dkAJy7ctVxLqN9xNtYZjCfp/iJQWbaFrpN4qwLPfIekicwhpi4?=
+ =?us-ascii?Q?BPuzSi4uIH9fKFiYsmpMrZvgU78/0eFK7z/ZePytmbIGsCdIoPNKXBx0bqEc?=
+ =?us-ascii?Q?lZbrQqpRmf9VY/rCIb3vhQGtGO7ATPrk6XR7rHn1wBLUyw7mvR9KptdsSAfh?=
+ =?us-ascii?Q?4YNmRHN0/UXfPvKgwojVndNRNrk0Frm6WG0NhxNrs4tYR/U+wUMC/Z3qIFvO?=
+ =?us-ascii?Q?65YfZC99gGbBCkMB/Jw+N/EuaH1oX7w1IFdYgyZnpI7HojlRSSRclm8WGdDd?=
+ =?us-ascii?Q?WVMql1lX+uHEcdDFOdbxyenfK71ZNkxrrEBGTyqwvJjQO80YI6qOQHuMSweF?=
+ =?us-ascii?Q?W/0j7BXKjb9ONT48xCxe1KK02A4P+OoQoHDLzmQI+UrfKmRm12CS+Q3x4kGJ?=
+ =?us-ascii?Q?dF+BnToPPurR4ybO5Yy5daeJTZTwNUpjefkfQt07nbRYX3VPobVqoLs010Nm?=
+ =?us-ascii?Q?7bNCYwwOODkRVlFxbgMlsxe1mMYDwKLrzPPOK2NhJDpOO6+HUxgWrvC6aWOp?=
+ =?us-ascii?Q?ER2Z2WOz8gVS7nCrHB78IYEgWWG7jCi/mK3F4j+hV/+HrJnECkXHSC+l3MBL?=
+ =?us-ascii?Q?mawAFWRtrIaDOx1q8a0QKF2SuT6BghN7ZuuxGfllMX4sD/hT6Gfn+p25Cuh7?=
+ =?us-ascii?Q?9Q8fTnMCJXVjgVd8FYL96bDjKR8FOZAY27xBAB/F2+/Rem7oHL27/467etWk?=
+ =?us-ascii?Q?7dXnO8ERKJbm2Mef5pPHOlGvE9hf9aeXTkxEjqEGeJYJvnhesaDgVSzmFcGP?=
+ =?us-ascii?Q?Zefqpfs0RaDpi3bwoM0=3D?=
 Content-Type: multipart/alternative;
- boundary="_000_DS0PR12MB780445C81DE6CB10E083174397FE2DS0PR12MB7804namp_"
+ boundary="_000_CY8PR12MB743532330A07911F2FA60DEA85FE2CY8PR12MB7435namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7804.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8a71bdd9-12d0-4de4-ba64-08dd4d0daa57
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Feb 2025 15:38:44.4152 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7435.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 091d8386-4a49-47f6-5818-08dd4d1402e6
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Feb 2025 16:24:09.9739 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: NxDCp1i+mhI8CqGG4lum9xSi+A2Arj+Ib6lwAbd267krsydVVh+MsXUtGj2oPEzV
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8285
+X-MS-Exchange-CrossTenant-userprincipalname: pOZE115GJBzv39Jr0ECoFNBKlwSQTlcjlhvup1o8AJMrnuFfmo9voL+RN/phkakP
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4226
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,9 +157,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_DS0PR12MB780445C81DE6CB10E083174397FE2DS0PR12MB7804namp_
+--_000_CY8PR12MB743532330A07911F2FA60DEA85FE2CY8PR12MB7435namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+
+[Public]
+
+We could be talking about 2 types of bandwidth here.
+
+  1.  Bandwidth per link
+  2.  Bandwidth per peer i.e. multiple xgmi links that are used for SDMA ga=
+ng submissions for effective max bandwidth * num_link copy speed.  The is c=
+urrently used by runtime i.e. max divide by min.  The number of links per p=
+eer can be variable.
+
+The peerless request is requesting for #1 because there should be no speed =
+variability of links based on peer i.e. requesting max bandwidth per link f=
+or 1 link.
+
+The interface could look like amdgpu_xgmi_get_bandwidth(adev, peer, enum un=
+it_type, int *min, int *max) then.
+Unit_type could be defined for illustration:
+#define AMDGPU_XGMI_BW_MBYTES_MIN_MAX_PER_LINK 0
+#define AMDGPU_XGMI_BW_MBYTES_MIN_MAX_PER_PEER 1
+
+Where if unit_type =3D=3D AMDGPU_XGMI_BW_*_MIN_MAX_PER_LINK, call would ign=
+ore peer and populate *min/max with per link min/max (keeps it open for pow=
+erplay range per link)
+While unit_type  =3D=3D AMDGPU_XGMI_BW_*_MIN_MAX_PER_PEER, call would popul=
+ate *min/max with per peer, where min/max is max_bw * num_link range.
+
+Jon
+
+From: Lazar, Lijo <Lijo.Lazar@amd.com>
+Sent: Friday, February 14, 2025 10:39 AM
+To: Kim, Jonathan <Jonathan.Kim@amd.com>; amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH] drm/amdgpu: simplify xgmi peer info calls
+
 
 [Public]
 
@@ -173,18 +207,20 @@ BTW, what is the real requirement of bandwidth data without any peer device=
 Thanks,
 Lijo
 ________________________________
-From: Kim, Jonathan <Jonathan.Kim@amd.com>
+From: Kim, Jonathan <Jonathan.Kim@amd.com<mailto:Jonathan.Kim@amd.com>>
 Sent: Friday, February 14, 2025 8:27:28 PM
-To: Lazar, Lijo <Lijo.Lazar@amd.com>; amd-gfx@lists.freedesktop.org <amd-gf=
-x@lists.freedesktop.org>
+To: Lazar, Lijo <Lijo.Lazar@amd.com<mailto:Lijo.Lazar@amd.com>>; amd-gfx@li=
+sts.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org> <amd-gfx@lists.fr=
+eedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>
 Subject: RE: [PATCH] drm/amdgpu: simplify xgmi peer info calls
 
 [Public]
 
 > -----Original Message-----
-> From: Lazar, Lijo <Lijo.Lazar@amd.com>
+> From: Lazar, Lijo <Lijo.Lazar@amd.com<mailto:Lijo.Lazar@amd.com>>
 > Sent: Friday, February 14, 2025 12:58 AM
-> To: Kim, Jonathan <Jonathan.Kim@amd.com>; amd-gfx@lists.freedesktop.org
+> To: Kim, Jonathan <Jonathan.Kim@amd.com<mailto:Jonathan.Kim@amd.com>>; am=
+d-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
 > Subject: Re: [PATCH] drm/amdgpu: simplify xgmi peer info calls
 >
 >
@@ -193,10 +229,10 @@ Subject: RE: [PATCH] drm/amdgpu: simplify xgmi peer info calls
 > > [Public]
 > >
 > >> -----Original Message-----
-> >> From: Lazar, Lijo <Lijo.Lazar@amd.com>
+> >> From: Lazar, Lijo <Lijo.Lazar@amd.com<mailto:Lijo.Lazar@amd.com>>
 > >> Sent: Thursday, February 13, 2025 1:35 AM
-> >> To: Kim, Jonathan <Jonathan.Kim@amd.com>; amd-gfx@lists.freedesktop.or=
-g
+> >> To: Kim, Jonathan <Jonathan.Kim@amd.com<mailto:Jonathan.Kim@amd.com>>;=
+ amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
 > >> Subject: Re: [PATCH] drm/amdgpu: simplify xgmi peer info calls
 > >>
 > >>
@@ -205,7 +241,8 @@ g
 > >>> Deprecate KFD XGMI peer info calls in favour of calling directly from
 > >>> simplified XGMI peer info functions.
 > >>>
-> >>> Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
+> >>> Signed-off-by: Jonathan Kim <jonathan.kim@amd.com<mailto:jonathan.kim=
+@amd.com>>
 > >>> ---
 > >>>  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 42 ------------------
 > >>>  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h |  5 ---
@@ -588,57 +625,414 @@ v,
 > >> KFD_CRAT_INTRA_SOCKET_WEIGHT :
 > >
 
-
---_000_DS0PR12MB780445C81DE6CB10E083174397FE2DS0PR12MB7804namp_
+--_000_CY8PR12MB743532330A07911F2FA60DEA85FE2CY8PR12MB7435namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-<html>
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
 <head>
 <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"Malgun Gothic";
+	panose-1:2 11 5 3 2 0 0 2 0 4;}
+@font-face
+	{font-family:Aptos;}
+@font-face
+	{font-family:"\@Malgun Gothic";}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	font-size:12.0pt;
+	font-family:"Aptos",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#467886;
+	text-decoration:underline;}
+p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
+	{mso-style-priority:34;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	font-size:12.0pt;
+	font-family:"Aptos",sans-serif;}
+span.EmailStyle20
+	{mso-style-type:personal-reply;
+	font-family:"Arial",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;
+	mso-ligatures:none;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+/* List Definitions */
+@list l0
+	{mso-list-id:479419671;
+	mso-list-type:hybrid;
+	mso-list-template-ids:427562342 -207470956 67698713 67698715 67698703 6769=
+8713 67698715 67698703 67698713 67698715;}
+@list l0:level1
+	{mso-level-start-at:2;
+	mso-level-text:%1;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level2
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level3
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	text-indent:-9.0pt;}
+@list l0:level4
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level5
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level6
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	text-indent:-9.0pt;}
+@list l0:level7
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level8
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level9
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	text-indent:-9.0pt;}
+@list l1
+	{mso-list-id:1029405602;
+	mso-list-type:hybrid;
+	mso-list-template-ids:1139709536 67698705 67698713 67698715 67698703 67698=
+713 67698715 67698703 67698713 67698715;}
+@list l1:level1
+	{mso-level-text:"%1\)";
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level2
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level3
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	text-indent:-9.0pt;}
+@list l1:level4
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level5
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level6
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	text-indent:-9.0pt;}
+@list l1:level7
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level8
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level9
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	text-indent:-9.0pt;}
+@list l2
+	{mso-list-id:1173764432;
+	mso-list-type:hybrid;
+	mso-list-template-ids:1575398882 67698705 67698713 67698715 67698703 67698=
+713 67698715 67698703 67698713 67698715;}
+@list l2:level1
+	{mso-level-text:"%1\)";
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level2
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level3
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	text-indent:-9.0pt;}
+@list l2:level4
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level5
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level6
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	text-indent:-9.0pt;}
+@list l2:level7
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level8
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level9
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	text-indent:-9.0pt;}
+@list l3
+	{mso-list-id:1483810930;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-318627572 67698705 67698713 67698715 67698703 67698=
+713 67698715 67698703 67698713 67698715;}
+@list l3:level1
+	{mso-level-text:"%1\)";
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3:level2
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3:level3
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	text-indent:-9.0pt;}
+@list l3:level4
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3:level5
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3:level6
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	text-indent:-9.0pt;}
+@list l3:level7
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3:level8
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3:level9
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	text-indent:-9.0pt;}
+ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
 </head>
-<body>
+<body lang=3D"EN-US" link=3D"#467886" vlink=3D"#96607D" style=3D"word-wrap:=
+break-word">
 <p style=3D"font-family:Calibri;font-size:10pt;color:#008000;margin:5pt;fon=
 t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
 [Public]<br>
 </p>
 <br>
 <div>
-<div dir=3D"auto">For minimum bandwidth, we should keep the possibility of =
-going&nbsp;to FW to get the data when XGMI DPM is in place. So it is all wr=
-apped inside the API when the devices passed are connected. The caller does=
-n't need to know.</div>
-<div dir=3D"auto"><br>
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
+ial&quot;,sans-serif">We could be talking about 2 types of bandwidth here.<=
+o:p></o:p></span></p>
+<ol style=3D"margin-top:0in" start=3D"1" type=3D"1">
+<li class=3D"MsoListParagraph" style=3D"margin-left:0in;mso-list:l2 level1 =
+lfo4"><span style=3D"font-size:11.0pt;font-family:&quot;Arial&quot;,sans-se=
+rif">Bandwidth per link<o:p></o:p></span></li><li class=3D"MsoListParagraph=
+" style=3D"margin-left:0in;mso-list:l2 level1 lfo4"><span style=3D"font-siz=
+e:11.0pt;font-family:&quot;Arial&quot;,sans-serif">Bandwidth per peer i.e. =
+multiple xgmi links that are used for SDMA gang submissions for effective m=
+ax bandwidth * num_link
+ copy speed.&nbsp; The is currently used by runtime i.e. max divide by min.=
+&nbsp; The number of links per peer can be variable.<o:p></o:p></span></li>=
+</ol>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
+ial&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
+ial&quot;,sans-serif">The peerless request is requesting for #1 because the=
+re should be no speed variability of links based on peer i.e. requesting ma=
+x bandwidth per link for 1 link.<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
+ial&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
+ial&quot;,sans-serif">The interface could look like amdgpu_xgmi_get_bandwid=
+th(adev, peer, enum unit_type, int *min, int *max) then.<o:p></o:p></span><=
+/p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
+ial&quot;,sans-serif">Unit_type could be defined for illustration:<o:p></o:=
+p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
+ial&quot;,sans-serif">#define AMDGPU_XGMI_BW_MBYTES_MIN_MAX_PER_LINK 0<o:p>=
+</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
+ial&quot;,sans-serif">#define AMDGPU_XGMI_BW_MBYTES_MIN_MAX_PER_PEER 1<o:p>=
+</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
+ial&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
+ial&quot;,sans-serif">Where if unit_type =3D=3D AMDGPU_XGMI_BW_*_MIN_MAX_PE=
+R_LINK, call would ignore peer and populate *min/max with per link min/max =
+(keeps it open for powerplay range per link)<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
+ial&quot;,sans-serif">While unit_type &nbsp;=3D=3D AMDGPU_XGMI_BW_*_MIN_MAX=
+_PER_PEER, call would populate *min/max with per peer, where min/max is max=
+_bw * num_link range.<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
+ial&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
+ial&quot;,sans-serif">Jon<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
+ial&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b><span style=3D"font-size:11.0pt;font-family:&quot=
+;Calibri&quot;,sans-serif">From:</span></b><span style=3D"font-size:11.0pt;=
+font-family:&quot;Calibri&quot;,sans-serif"> Lazar, Lijo &lt;Lijo.Lazar@amd=
+.com&gt;
+<br>
+<b>Sent:</b> Friday, February 14, 2025 10:39 AM<br>
+<b>To:</b> Kim, Jonathan &lt;Jonathan.Kim@amd.com&gt;; amd-gfx@lists.freede=
+sktop.org<br>
+<b>Subject:</b> Re: [PATCH] drm/amdgpu: simplify xgmi peer info calls<o:p><=
+/o:p></span></p>
 </div>
-<div dir=3D"auto">BTW, what is the real requirement of bandwidth data witho=
-ut any peer device? In what way that is useful?</div>
-<div id=3D"ms-outlook-mobile-signature" dir=3D"auto">
-<div><br>
 </div>
-<div dir=3D"auto">Thanks,</div>
-<div dir=3D"auto">Lijo</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p style=3D"margin:5.0pt"><span style=3D"font-size:10.0pt;font-family:&quot=
+;Calibri&quot;,sans-serif;color:green">[Public]<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div>
+<p class=3D"MsoNormal">For minimum bandwidth, we should keep the possibilit=
+y of going&nbsp;to FW to get the data when XGMI DPM is in place. So it is a=
+ll wrapped inside the API when the devices passed are connected. The caller=
+ doesn't need to know.<o:p></o:p></p>
 </div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Kim, Jonathan &lt;Jon=
-athan.Kim@amd.com&gt;<br>
+<div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+<div>
+<p class=3D"MsoNormal">BTW, what is the real requirement of bandwidth data =
+without any peer device? In what way that is useful?<o:p></o:p></p>
+</div>
+<div id=3D"ms-outlook-mobile-signature">
+<div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+<div>
+<p class=3D"MsoNormal">Thanks,<o:p></o:p></p>
+</div>
+<div>
+<p class=3D"MsoNormal">Lijo<o:p></o:p></p>
+</div>
+</div>
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"2" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"divRplyFwdMsg">
+<p class=3D"MsoNormal"><b><span style=3D"font-size:11.0pt;font-family:&quot=
+;Calibri&quot;,sans-serif;color:black">From:</span></b><span style=3D"font-=
+size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:black"> Kim, J=
+onathan &lt;<a href=3D"mailto:Jonathan.Kim@amd.com">Jonathan.Kim@amd.com</a=
+>&gt;<br>
 <b>Sent:</b> Friday, February 14, 2025 8:27:28 PM<br>
-<b>To:</b> Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt;; amd-gfx@lists.freedeskto=
-p.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
-<b>Subject:</b> RE: [PATCH] drm/amdgpu: simplify xgmi peer info calls</font=
->
-<div>&nbsp;</div>
+<b>To:</b> Lazar, Lijo &lt;<a href=3D"mailto:Lijo.Lazar@amd.com">Lijo.Lazar=
+@amd.com</a>&gt;;
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
+org</a> &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.=
+freedesktop.org</a>&gt;<br>
+<b>Subject:</b> RE: [PATCH] drm/amdgpu: simplify xgmi peer info calls</span=
+> <o:p>
+</o:p></p>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
 </div>
-<div class=3D"BodyFragment"><font face=3D"Times New Roman" size=3D"3"><span=
- style=3D"font-size:12pt;"><a name=3D"BM_BEGIN"></a>
-<div><font size=3D"2"><span style=3D"font-size:11pt;">[Public]<br>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><a name=3D"BM_BEGIN">=
+</a><span style=3D"font-size:11.0pt;font-family:&quot;Times New Roman&quot;=
+,serif">[Public]<br>
 <br>
 &gt; -----Original Message-----<br>
-&gt; From: Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt;<br>
+&gt; From: Lazar, Lijo &lt;<a href=3D"mailto:Lijo.Lazar@amd.com">Lijo.Lazar=
+@amd.com</a>&gt;<br>
 &gt; Sent: Friday, February 14, 2025 12:58 AM<br>
-&gt; To: Kim, Jonathan &lt;Jonathan.Kim@amd.com&gt;; amd-gfx@lists.freedesk=
-top.org<br>
+&gt; To: Kim, Jonathan &lt;<a href=3D"mailto:Jonathan.Kim@amd.com">Jonathan=
+.Kim@amd.com</a>&gt;;
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
+org</a><br>
 &gt; Subject: Re: [PATCH] drm/amdgpu: simplify xgmi peer info calls<br>
 &gt;<br>
 &gt;<br>
@@ -647,10 +1041,13 @@ top.org<br>
 &gt; &gt; [Public]<br>
 &gt; &gt;<br>
 &gt; &gt;&gt; -----Original Message-----<br>
-&gt; &gt;&gt; From: Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt;<br>
+&gt; &gt;&gt; From: Lazar, Lijo &lt;<a href=3D"mailto:Lijo.Lazar@amd.com">L=
+ijo.Lazar@amd.com</a>&gt;<br>
 &gt; &gt;&gt; Sent: Thursday, February 13, 2025 1:35 AM<br>
-&gt; &gt;&gt; To: Kim, Jonathan &lt;Jonathan.Kim@amd.com&gt;; amd-gfx@lists=
-.freedesktop.org<br>
+&gt; &gt;&gt; To: Kim, Jonathan &lt;<a href=3D"mailto:Jonathan.Kim@amd.com"=
+>Jonathan.Kim@amd.com</a>&gt;;
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
+org</a><br>
 &gt; &gt;&gt; Subject: Re: [PATCH] drm/amdgpu: simplify xgmi peer info call=
 s<br>
 &gt; &gt;&gt;<br>
@@ -661,8 +1058,8 @@ s<br>
 irectly from<br>
 &gt; &gt;&gt;&gt; simplified XGMI peer info functions.<br>
 &gt; &gt;&gt;&gt;<br>
-&gt; &gt;&gt;&gt; Signed-off-by: Jonathan Kim &lt;jonathan.kim@amd.com&gt;<=
-br>
+&gt; &gt;&gt;&gt; Signed-off-by: Jonathan Kim &lt;<a href=3D"mailto:jonatha=
+n.kim@amd.com">jonathan.kim@amd.com</a>&gt;<br>
 &gt; &gt;&gt;&gt; ---<br>
 &gt; &gt;&gt;&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 42 ---=
 ---------------<br>
@@ -1204,12 +1601,15 @@ p;&nbsp;&nbsp; bool is_single_hop =3D kdev-&gt;kfd =3D=3D peer_kdev-&gt;kfd=
 &gt; &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
 p;&nbsp;&nbsp; int weight =3D is_single_hop ?<br>
 &gt; &gt;&gt; KFD_CRAT_INTRA_SOCKET_WEIGHT :<br>
-&gt; &gt;<br>
-<br>
-</span></font></div>
-</span></font></div>
+&gt; &gt;</span><span style=3D"font-family:&quot;Times New Roman&quot;,seri=
+f"><o:p></o:p></span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 </body>
 </html>
 
---_000_DS0PR12MB780445C81DE6CB10E083174397FE2DS0PR12MB7804namp_--
+--_000_CY8PR12MB743532330A07911F2FA60DEA85FE2CY8PR12MB7435namp_--
