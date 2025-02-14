@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42231C021A4
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE829C021AB
 	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2025 14:06:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EBFEC10EC92;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F1C4B10EC97;
 	Fri, 14 Feb 2025 14:06:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="EC4NLsUZ";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Vp/YnHEp";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C917D10EC36;
- Fri, 14 Feb 2025 10:19:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6070210EC4C;
+ Fri, 14 Feb 2025 11:28:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
@@ -22,16 +22,16 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=Wth6RLPrR49KejScMxkeEnirGpMWgHF4Gi2HS+qt7GY=; b=EC4NLsUZkV0l058OWK5xGcrNhn
- INyUqN1swyuOfbVKItSs0YuZAoVQpF+uRmPQGJBbMm54lOOTEYyr3hvYAuHX0KNKJx9bUVNQBvhBq
- cVdDJT2AdC/NvdrVIaxDe4CFTklsRW+Vk/qb3PIR9yGzgBoB9maKMV8UBsswr6WIq/rnTZs7wc4/k
- 6AMGQXtWOuzQV9hp0VjVLFKxVPaHDOCR4ntTAW9Hb4nXRniGjuvKnCHoQV3SdmiIV6mAQ/sR5pqCn
- lZ+jRM/kEH+q4lunAxv4BPnN13CgcyoBVIzLbK6fboKZ/MzzetHtx8QDC9o+i7Ysl8HHE9l6VjCkF
- iqyLQETA==;
+ bh=xwAuTP/cA36dpz9ulrpzEMqoNZCvmgXuVsVSYinsulc=; b=Vp/YnHEpNxphz5IoFulkxHt2Di
+ hgTbzqWlbTtz4teFo9roER9x+0Y1rlZ4lFJWJEHtNBAv23G3hXvKFmLFlFWWsQ0EqvXHKgmSLfegQ
+ 0dm5kFjziYOY8irh3HEabUQgIqipH4MwCxTPariJYNINEnV953U7mcI7GZ67eU53pd6Bys2Zcd6Jv
+ i7mswa4S3BozmmOm32Nzrt5MXI5Xq1qFJSMMRBssQ/oBmypFfuOUk1CQE6vMX2/kizg+AK6XOijE+
+ vTXfLuyvwXdw0OmeZM7Ji8XaxxbBIdbIzLjY2cZjkBoSz/9m1js6rufBkXBWYvfc1iM3U+BVeu/Jn
+ 3GpyGK7w==;
 Received: from [90.241.98.187] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1tisnT-00HYm1-6n; Fri, 14 Feb 2025 11:19:53 +0100
+ id 1titrb-000VH2-OZ; Fri, 14 Feb 2025 12:28:13 +0100
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
@@ -41,12 +41,12 @@ Cc: intel-xe@lists.freedesktop.org, kernel-dev@igalia.com,
  Danilo Krummrich <dakr@kernel.org>,
  Matthew Brost <matthew.brost@intel.com>,
  Philipp Stanner <phasta@kernel.org>
-Subject: [PATCH v5 3/6] drm/sched: Remove a hole from struct drm_sched_job
-Date: Fri, 14 Feb 2025 10:19:41 +0000
-Message-ID: <20250214101944.19390-4-tvrtko.ursulin@igalia.com>
+Subject: [PATCH 4/5] drm/scheduler: Add basic priority tests
+Date: Fri, 14 Feb 2025 11:28:03 +0000
+Message-ID: <20250214112805.20008-5-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.48.0
-In-Reply-To: <20250214101944.19390-1-tvrtko.ursulin@igalia.com>
-References: <20250214101944.19390-1-tvrtko.ursulin@igalia.com>
+In-Reply-To: <20250214112805.20008-1-tvrtko.ursulin@igalia.com>
+References: <20250214112805.20008-1-tvrtko.ursulin@igalia.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -65,105 +65,131 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-We can re-order some struct members and take u32 credits outside of the
-pointer sandwich and also for the last_dependency member we can get away
-with an unsigned int since for dependency we use xa_limit_32b.
-
-Pahole report before:
-        /* size: 160, cachelines: 3, members: 14 */
-        /* sum members: 156, holes: 1, sum holes: 4 */
-        /* last cacheline: 32 bytes */
-
-And after:
-        /* size: 152, cachelines: 3, members: 14 */
-        /* last cacheline: 24 bytes */
+Add some basic tests for exercising entity priority handling.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 Cc: Christian König <christian.koenig@amd.com>
 Cc: Danilo Krummrich <dakr@kernel.org>
 Cc: Matthew Brost <matthew.brost@intel.com>
 Cc: Philipp Stanner <phasta@kernel.org>
-Acked-by: Danilo Krummrich <dakr@kernel.org>
-Acked-by: Christian König <christian.koenig@amd.com>
 ---
- include/drm/gpu_scheduler.h | 38 +++++++++++++++++++------------------
- 1 file changed, 20 insertions(+), 18 deletions(-)
+ drivers/gpu/drm/scheduler/tests/tests_basic.c | 99 ++++++++++++++++++-
+ 1 file changed, 98 insertions(+), 1 deletion(-)
 
-diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
-index 6bf458dbce84..1c1138308e66 100644
---- a/include/drm/gpu_scheduler.h
-+++ b/include/drm/gpu_scheduler.h
-@@ -338,8 +338,14 @@ struct drm_sched_fence *to_drm_sched_fence(struct dma_fence *f);
-  * to schedule the job.
-  */
- struct drm_sched_job {
--	struct spsc_node		queue_node;
--	struct list_head		list;
-+	u64				id;
-+
-+	/**
-+	 * @submit_ts:
-+	 *
-+	 * When the job was pushed into the entity queue.
-+	 */
-+	ktime_t                         submit_ts;
+diff --git a/drivers/gpu/drm/scheduler/tests/tests_basic.c b/drivers/gpu/drm/scheduler/tests/tests_basic.c
+index 93b3043fbcb7..25dba633a14a 100644
+--- a/drivers/gpu/drm/scheduler/tests/tests_basic.c
++++ b/drivers/gpu/drm/scheduler/tests/tests_basic.c
+@@ -1,5 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0
  
- 	/**
- 	 * @sched:
-@@ -349,24 +355,30 @@ struct drm_sched_job {
- 	 * has finished.
- 	 */
- 	struct drm_gpu_scheduler	*sched;
++#include <linux/delay.h>
 +
- 	struct drm_sched_fence		*s_fence;
-+	struct drm_sched_entity         *entity;
+ #include "sched_tests.h"
  
-+	enum drm_sched_priority		s_priority;
- 	u32				credits;
-+	/** @last_dependency: tracks @dependencies as they signal */
-+	unsigned int			last_dependency;
-+	atomic_t			karma;
-+
-+	struct spsc_node		queue_node;
-+	struct list_head		list;
- 
- 	/*
- 	 * work is used only after finish_cb has been used and will not be
- 	 * accessed anymore.
- 	 */
- 	union {
--		struct dma_fence_cb		finish_cb;
--		struct work_struct		work;
-+		struct dma_fence_cb	finish_cb;
-+		struct work_struct	work;
- 	};
- 
--	uint64_t			id;
--	atomic_t			karma;
--	enum drm_sched_priority		s_priority;
--	struct drm_sched_entity         *entity;
- 	struct dma_fence_cb		cb;
-+
- 	/**
- 	 * @dependencies:
- 	 *
-@@ -375,16 +387,6 @@ struct drm_sched_job {
- 	 * drm_sched_job_add_implicit_dependencies().
- 	 */
- 	struct xarray			dependencies;
--
--	/** @last_dependency: tracks @dependencies as they signal */
--	unsigned long			last_dependency;
--
--	/**
--	 * @submit_ts:
--	 *
--	 * When the job was pushed into the entity queue.
--	 */
--	ktime_t                         submit_ts;
+ /*
+@@ -252,5 +254,100 @@ static struct kunit_suite drm_sched_timeout = {
+ 	.test_cases = drm_sched_timeout_tests,
  };
  
- static inline bool drm_sched_invalidate_job(struct drm_sched_job *s_job,
++static void drm_sched_priorities(struct kunit *test)
++{
++	struct drm_mock_sched_entity *entity[DRM_SCHED_PRIORITY_COUNT];
++	struct drm_mock_scheduler *sched = test->priv;
++	struct drm_mock_sched_job *job;
++	const unsigned int qd = 100;
++	unsigned int i, cur_ent = 0;
++	enum drm_sched_priority p;
++	bool done;
++
++	/*
++	 * Submit a bunch of jobs against entities configured with different
++	 * priorities.
++	 */
++
++	BUILD_BUG_ON(DRM_SCHED_PRIORITY_KERNEL > DRM_SCHED_PRIORITY_LOW);
++	BUILD_BUG_ON(DRM_SCHED_PRIORITY_COUNT != ARRAY_SIZE(entity));
++
++	for (p = DRM_SCHED_PRIORITY_KERNEL; p <= DRM_SCHED_PRIORITY_LOW; p++)
++		entity[p] = drm_mock_new_sched_entity(test, p, sched);
++
++	for (i = 0; i < qd; i++) {
++		job = drm_mock_new_sched_job(test, entity[cur_ent++]);
++		cur_ent %= ARRAY_SIZE(entity);
++		drm_mock_sched_job_set_duration_us(job, 1000);
++		drm_mock_sched_job_submit(job);
++	}
++
++	done = drm_mock_sched_job_wait_finished(job, HZ);
++	KUNIT_ASSERT_EQ(test, done, true);
++
++	for (i = 0; i < ARRAY_SIZE(entity); i++)
++		drm_mock_sched_entity_free(entity[i]);
++}
++
++static void drm_sched_change_priority(struct kunit *test)
++{
++	struct drm_mock_sched_entity *entity[DRM_SCHED_PRIORITY_COUNT];
++	struct drm_mock_scheduler *sched = test->priv;
++	struct drm_mock_sched_job *job;
++	const unsigned int qd = 1000;
++	unsigned int i, cur_ent = 0;
++	enum drm_sched_priority p;
++	bool done;
++
++	/*
++	 * Submit a bunch of jobs against entities configured with different
++	 * priorities and while waiting for them to complete, periodically keep
++	 * changing their priorities.
++	 *
++	 * We set up the queue-depth (qd) and job duration so the priority
++	 * changing loop has some time to interact with submissions to the
++	 * backend and job completions as they progress.
++	 */
++
++	for (p = DRM_SCHED_PRIORITY_KERNEL; p <= DRM_SCHED_PRIORITY_LOW; p++)
++		entity[p] = drm_mock_new_sched_entity(test, p, sched);
++
++	for (i = 0; i < qd; i++) {
++		job = drm_mock_new_sched_job(test, entity[cur_ent++]);
++		cur_ent %= ARRAY_SIZE(entity);
++		drm_mock_sched_job_set_duration_us(job, 1000);
++		drm_mock_sched_job_submit(job);
++	}
++
++	do {
++		drm_sched_entity_set_priority(&entity[cur_ent]->base,
++					      (entity[cur_ent]->base.priority + 1) %
++					      DRM_SCHED_PRIORITY_COUNT);
++		cur_ent++;
++		cur_ent %= ARRAY_SIZE(entity);
++		usleep_range(200, 500);
++	} while (!drm_mock_sched_job_is_finished(job));
++
++	done = drm_mock_sched_job_wait_finished(job, HZ);
++	KUNIT_ASSERT_EQ(test, done, true);
++
++	for (i = 0; i < ARRAY_SIZE(entity); i++)
++		drm_mock_sched_entity_free(entity[i]);
++}
++
++static struct kunit_case drm_sched_priority_tests[] = {
++	KUNIT_CASE(drm_sched_priorities),
++	KUNIT_CASE(drm_sched_change_priority),
++	{}
++};
++
++static struct kunit_suite drm_sched_priority = {
++	.name = "drm_sched_basic_priority_tests",
++	.init = drm_sched_basic_init,
++	.exit = drm_sched_basic_exit,
++	.test_cases = drm_sched_priority_tests,
++};
++
+ kunit_test_suites(&drm_sched_basic,
+-		  &drm_sched_timeout);
++		  &drm_sched_timeout,
++		  &drm_sched_priority);
 -- 
 2.48.0
 
