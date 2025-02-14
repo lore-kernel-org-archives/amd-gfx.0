@@ -4,66 +4,144 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9197C02198
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2025 14:30:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1571C02198
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2025 14:45:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5286510E34B;
-	Fri, 14 Feb 2025 14:30:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44C4210ECA8;
+	Fri, 14 Feb 2025 14:45:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DGc5k+GR";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Leo1MW5l";
 	dkim-atps=neutral
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com
- [209.85.216.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 744E310E34B
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Feb 2025 14:30:01 +0000 (UTC)
-Received: by mail-pj1-f52.google.com with SMTP id
- 98e67ed59e1d1-2fbfe16cbf5so464599a91.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Feb 2025 06:30:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1739543401; x=1740148201; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=5l/EK9KcoG15U4Wpw2LtbOKVuSPEW8YSQRLQfby1vb8=;
- b=DGc5k+GRXePRw0iPT/XBzC8HqciVL8Zdj1llp/TkBMnWyNupLAt1rWx/TrINmlX5rt
- i2+qAH4dsYe5pc00RjsqPpcCjN15+w6OATLviGUj2Dz/Zn1qYM5sziPuKThz+XwTgd7t
- IGZdWSWUvds4Yy+eaqfbLD6GRe/7LFVrj0+/MGaIAlODsEXdJ2R86ybPq7EWzTzLTnoM
- ZYCnqf8TirZFTnPqYp7ZtAMaIDS2Z5BEVgCfQ+odpd67294CaXtuRaLbf9gpVxvCe5KF
- f9XmWz6STwx1ZvJha3QkJ/A6GTihKyJ7B2gwvB65JU4tEbVMqygyio/sAt7UYWAKGtf2
- uq3w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739543401; x=1740148201;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=5l/EK9KcoG15U4Wpw2LtbOKVuSPEW8YSQRLQfby1vb8=;
- b=mI6ytawCLccaz/dEV9taYpGu+gtLVmMT3TxuzMfeaLQuYmfs7CjwzsEQY0H0FjJ73K
- bAwgHEqi74pcpYrK4GsVQHCs3slCDAULaFp+hUov9rUQJD0b7lNg/S6AB03eV+FWUslP
- gRIPpEAEH1qMEd8cOA14LU/CnmLDXpd9nrrYsHL3vC485XzrTkgKyBW3cKU0K2329UFu
- d+8WNLhwlo1ZDjdBm8majeVg1qjhgDeVRx709KSmrFbF5G6x6bEJ9z5AkHRd1JSDEYUC
- ONg3C0vpRqzp4RKq8h0dkHoYmdV1K1sYBGfYXpBkRRvZBMGmBqg/lvYULm/gxk//PXnH
- /e1A==
-X-Gm-Message-State: AOJu0YxxxRLX/mdpVuo8xaytI2ZscHEqbDFJq8Dg4SPxV7kgFFF3pO2k
- iCFPLRr3nia3ECYX8X9Agm93zqKjACc74UpbRQabUHSLoixJli8ootjXdKkdGfnAih1h2skqXLT
- K9jIMSfWxpFTRM1smrWZPRxLYsZ2LwsgL
-X-Gm-Gg: ASbGnctEK6e+kiE55aPdzuBAv0OPkJS4ycUKSEUYKT+ERVQrW/vDSTBQ80VvxsWa7cz
- xfBSdE873yUcUpNJAfO4mmPA/UdCBdfIu9aOkFNYXzxAiBpWFNkyc3ICaUJP0tFWkJ5H6p2Oy
-X-Google-Smtp-Source: AGHT+IGEkqGJ1jEQzc31FTAMAY5l3YDclZYVh1e6V+OuJxhzeSxFvWTM0PDgYZjc2AJXvUmqo2k5r4biwQlFeqD16j8=
-X-Received: by 2002:a17:90b:4c41:b0:2ee:948b:72d3 with SMTP id
- 98e67ed59e1d1-2fc2ceb5215mr2051852a91.1.1739543400791; Fri, 14 Feb 2025
- 06:30:00 -0800 (PST)
-MIME-Version: 1.0
-References: <20250214111528.361280-1-kenneth.feng@amd.com>
-In-Reply-To: <20250214111528.361280-1-kenneth.feng@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 14 Feb 2025 09:29:49 -0500
-X-Gm-Features: AWEUYZnHIq1LpbNvNatkxB5-oCwPew_JFs37pCjOPoKmE7-jyIZyJYRZ6nwZ7nU
-Message-ID: <CADnq5_N5YpnnUG9U_2TOYmMsMHT4MB4nQee1YiB3F0UQiifSpQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/pm: extend the gfxoff delay for compute workload
-To: Kenneth Feng <kenneth.feng@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, kevinyang.wang@amd.com
-Content-Type: text/plain; charset="UTF-8"
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2084.outbound.protection.outlook.com [40.107.220.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5FF4E10ECB0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Feb 2025 14:45:05 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=A33Q3lZ5+U2ORFaEm3mzCSp/OaIeHYqMz0dOd4LiH6zqoUnFzDpM/zzJdwG9TR9c/lhdXQ69skSuj7mF2SM9DaGykZMobI+Efbm/QPypu10PAZ4OiYF2xHn2G3Zn8kvSCicaOX9/nWnXNUWdC5vayqaO64y2tb7Ckh/V+iVUC1DnWomSjS7SyC4G/vMQYh6eLo1Hfngq1ewhdpw1hFiIj5FyDbv1RTjKjH0p7kkZ8mywmumbGTLEOTRMpXRem9If3eA4yadZvEfCcJfUXZDlZTJnsbWO8dXTKtFKD5A11dwyi05JxLCO6x+pFQf0RmNVCPvFQlKaFMc/RLoF4wvrDA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=J00VVJvO4sVsi+30gssqjgB+PhRkF5W1FQVkEcueYIU=;
+ b=DEIuD5apJVs7kxmZynWZZkPXjBK7sEc/Zw2aWXmSZN557+8rxKDtEG95slLcykdTaHXdINcAmlh7Qw7XN+vu16vLkOEKv9NqU2xppBTT+m4mAt3a2PSBJxS/W5bJWeRMaFkpT5/N/qQTrMKLBKX5lCktOZf6ZYdUS9UQPLGUGC+eV+dOehs9fgVcB6iPNZYEbam/VMXf/NDDJhljBRCHnQPtvnxGHMtQBhdPS5x+3fCMHPXNmilPCRoodQAW3ml51GinMIDjtuG+2GTZlVfL+FwYg+8MJt4mHMFKhO2/9Tkoyk7FtXoa5mdY4rtp00vKUZ6oOvp2fjh1IwHE+ZNUTg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=J00VVJvO4sVsi+30gssqjgB+PhRkF5W1FQVkEcueYIU=;
+ b=Leo1MW5lD/EYjsyWxnk9h0jiRpoJ3Pzvzwbj0yG5M7bO5h47yn8T/1S89S/nNgGWTxVPCykC3eSG1Ty10ELohrL/e+h0sO8kC44xp3/G3mzzDJHEyRTlJfBImVQ/v3XXxdLDxfI9eFupsoCSPinhcoNRB4pQdVyICbjkNKkI984=
+Received: from SJ1PR12MB6194.namprd12.prod.outlook.com (2603:10b6:a03:458::12)
+ by MW4PR12MB7438.namprd12.prod.outlook.com (2603:10b6:303:219::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8445.13; Fri, 14 Feb
+ 2025 14:45:02 +0000
+Received: from SJ1PR12MB6194.namprd12.prod.outlook.com
+ ([fe80::df0b:3ee0:7884:c6a9]) by SJ1PR12MB6194.namprd12.prod.outlook.com
+ ([fe80::df0b:3ee0:7884:c6a9%6]) with mapi id 15.20.8445.013; Fri, 14 Feb 2025
+ 14:45:02 +0000
+From: "Dong, Ruijing" <Ruijing.Dong@amd.com>
+To: "Rosca, David" <David.Rosca@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Rosca, David" <David.Rosca@amd.com>
+Subject: RE: [PATCH] drm/amdgpu/display: Allow DCC for video formats on GFX12
+Thread-Topic: [PATCH] drm/amdgpu/display: Allow DCC for video formats on GFX12
+Thread-Index: AQHbfjnoxOpt+n+PN02+v6SRMurFU7NG4WSA
+Date: Fri, 14 Feb 2025 14:45:02 +0000
+Message-ID: <SJ1PR12MB6194CB48C690414DD9CDE2E795FE2@SJ1PR12MB6194.namprd12.prod.outlook.com>
+References: <20250213170639.30490-2-david.rosca@amd.com>
+In-Reply-To: <20250213170639.30490-2-david.rosca@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=f151db24-fbe2-42ed-85ad-39df0e01d75b;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution Only;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-02-14T14:44:16Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Tag=10, 3, 0, 1;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SJ1PR12MB6194:EE_|MW4PR12MB7438:EE_
+x-ms-office365-filtering-correlation-id: 1aa182c5-3721-4f21-f9cb-08dd4d0629b9
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|1800799024|376014|38070700018|7053199007; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?9EBX5LkdP4hf0db1am27EIge3gmLgr5IoNt7jy3gXoRTzQUOAE3cjwX++cN7?=
+ =?us-ascii?Q?sTFF1n1H6hFrDP6O1od1LptcEgbiertuzhP56BrgRuqURj8N2M7QrW4Ofo73?=
+ =?us-ascii?Q?fq/5dgVxaNOBA4vY8vkQEanhUqgHqKWV3BLXCYu5LR9OH55AcecOy9nHuMLb?=
+ =?us-ascii?Q?3+wGXbDy5i2/Sli2DhulpKlwNGDsWsoA60ZurZfe7xYZ0SoiALb+AHUTGDQr?=
+ =?us-ascii?Q?LFzi7XBtYTHPeRtf4k/5u8wDsZ9RdneeIschqYVidyOfLiVAIwY7Z9pEfH1f?=
+ =?us-ascii?Q?hKcNLSwnOxhaD/1cVIz+QOpWe4FcuEsmq20q2eC46OdZG2vDcf2ImTAHBwbe?=
+ =?us-ascii?Q?8urWlI92n5rwOjr1/0Dkd1JsJ3vcCzWjPihhDWK3HPdzUZ9in8h2qlUGG5r8?=
+ =?us-ascii?Q?/uK+dGI7if6VdukxxXHQG9z9kh5dqPZ0zdb48b3+ec+sC0aR9u5O2RRlILLN?=
+ =?us-ascii?Q?rROl16irSLVwz4qFMVEcAGGVvD93YB7q930G7ykyECCbHjejpevOa97lMIoZ?=
+ =?us-ascii?Q?D2+wmSzRnBzLJLiwcWbCqS+jO3DRw0HmJZIL+6oQkX20t7cp2phml/gAZTHT?=
+ =?us-ascii?Q?VYMJdszUSCSrBkH/K1/EiRnRJ2HGf5HZcXr2B2GcHpES24LaJlvNyu/ATj2+?=
+ =?us-ascii?Q?W3nn2CFu1XzMKhWSJtOERDvuMclktShRrYIeVPDkW5PIhEqYvou1tVqKvqgq?=
+ =?us-ascii?Q?cUiTw6DAlPAREawLSTO3Cij8MjqkqhvxChHoWOdSOLuzqjWimOF6Cbad64fg?=
+ =?us-ascii?Q?oFzBgJvOFtD+px3wmu6RmYxluJCpIA5Pr+AoAHamEdUNogGIx8sx8EaGsfFh?=
+ =?us-ascii?Q?BlBQPLqsQwmfyAN7WnYJsmLckMQetVR3HF7KZDvjiEd0IMgKe03bLRKPkDPg?=
+ =?us-ascii?Q?BDnP4PdJZrLBbSllDtVQQPX5FJx/a0fLmqrnNI/9pQzRZHJEv68nkLiexke6?=
+ =?us-ascii?Q?/BfVrkM/SHrKCkHjsC++jXgnKWfBy+SWqF8nYS4QplpyBG0/AEsI20CYtqPp?=
+ =?us-ascii?Q?XJNjSqEgmY/YobM2qOVDmpa42Pvwa5YCRGli9hH86oUTskYs7cvEEtV0SlQJ?=
+ =?us-ascii?Q?NiAt1hsMNVbh2fT5VRnMRpu4D4ua+3Gh4OIdvAHAfEn+f5mc7ifqy5YiQyRL?=
+ =?us-ascii?Q?GgLclyWTHSEXOHibRusIkFGlF5Ve21+E92Alopm3H0Y61m3YJlE3WPl9G9rM?=
+ =?us-ascii?Q?giKXeUxClCfE8uiIpKCOt3FIdfeYWMHoc0r+bmGUO954l8ZPZUuAZ1gPxijU?=
+ =?us-ascii?Q?cxVHRRcapL8g8kkAe9uz7RXmcRKDFFT0fjRVnZY7y3aPmfdeOmz2ITRnnBOw?=
+ =?us-ascii?Q?KZOuQFeDwalKOmvpXwE9wLEcOevDV4TYgawb0MEECFIJp6tyoVfm7Wo9Q7Ji?=
+ =?us-ascii?Q?mCn99G+lPmpdk9Y3ho8nhuw1hrfwunWdKEU8TzmWhiwWqwH1ILeyT4zfyXpY?=
+ =?us-ascii?Q?ZsnHHndFbdm2SWjSbFhQumFMLNR6F71F?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ1PR12MB6194.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(38070700018)(7053199007); DIR:OUT;
+ SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?zwH2BkGSTZa2nNlc7m9CAF9mlrYVh3yA76WS1WT/f1cRd17O7z2lNx9mLELj?=
+ =?us-ascii?Q?jnDohItNCo4gnuuXHrcUZSWYrLslIb/V1g7ZGsf7kJPjvPEYezqulz+176c9?=
+ =?us-ascii?Q?90WcCKi4r2Hbx/TgBCshg0FCJb5wS9xxkG2lPHd81X5ngrv3eERzboLRYWXx?=
+ =?us-ascii?Q?pVFypAEoaFDgzJKNk59gvxEHTyXCH8r+P9o31GcuXEC0q3XQWy2GkKiLtnBG?=
+ =?us-ascii?Q?1126qBgmPttlzXXeqz0IAHq597JU1KlQMIkwd+qcUt2RLeaZQYvyhsVA9IqG?=
+ =?us-ascii?Q?8rcz/00Tt4y1MQ/s4P3Gd8SP9BaY25pHoPsrhbp8qRV5XgkIpX2n01d1ms3r?=
+ =?us-ascii?Q?emf5Tq/4ZFnzTG9TSfRbIykZM94miQ3DemMjYu2x8TvemfMhslw4mSg2pZDx?=
+ =?us-ascii?Q?Gi8z5sYeJYchRZPJTlmj6+vZnVtbvoExABMeJ/vE8b90G5sghX1mYerVN2XK?=
+ =?us-ascii?Q?rHZUglTzoiFkbUcx0HN7hPsVRCckwRhHR0ShLez5neJjh8E7R79aAzPHEjy8?=
+ =?us-ascii?Q?Xch5FZv2dYzsCoEPlcVFH1B4G8GrJU5/jIRn4dxGY5+KvWu0NVDyLm6vrssW?=
+ =?us-ascii?Q?0YiPIo+B6RohxtT9ihzlecMbvhlZb3V8GTHWGAqYePqCFvJyluKi1VH7lt46?=
+ =?us-ascii?Q?8fAA91VN1vjFE3lSCaI9xbbgBjWB0HLjyrgyYXCgrFAip2D5VyOSUR6+ri9c?=
+ =?us-ascii?Q?Hiyt7cjJ2+i4LXlZ61QZZpKZxZR0UrW2GiEWsNOlV8yVt1YgqVqeBCo8Kdh6?=
+ =?us-ascii?Q?gTeMuUrpzAf8Rp8u9GwndQ5gAsP7oCaYHSirGvGqBiN0TcPowjRGUdwgWgzh?=
+ =?us-ascii?Q?+vlc8dn5bjwjSRrSKgPC/FqKbIy9+O+GiFEyxViJ4dFFXTcwIVM/7REnMorm?=
+ =?us-ascii?Q?wmuPV4OCcHjzFvZ7WVbvQjt8jYuAaH00XWKkHKuKkkUXncPM338dkZx9brZh?=
+ =?us-ascii?Q?neyOyKufIouvihIZONhISc3IE77R4A7ZexIaeNtW0NNJ4S3wSvi+lZRbVgCE?=
+ =?us-ascii?Q?u9j6NcuqjP/vnUxyh4038zEnzFAwogohJ05zzx8DAHr8Ei0v1kVeTITkIFhg?=
+ =?us-ascii?Q?IiGZqrGqP+gpwJKPRoN0Fn1BcRdl0ibyPcUcauf6B8WVWE4Vjy/D3JRtWa1M?=
+ =?us-ascii?Q?LsOhDOoGoEuRKs7xorFwZSZlWkYIeBsfU1jW2cfI8UH289v1nEPmEQDY12P0?=
+ =?us-ascii?Q?UFeR4JxDmM1dLZRT8GEDeMfndFaM4l5Fs+q1PYYLP1ucY7kB+/tSQAUwx/1K?=
+ =?us-ascii?Q?cCL14H/QerGGWkEfKEQ1pJ/ab+K/MHJxha0Z5yS5lGUWsd3/GppBchYEsRss?=
+ =?us-ascii?Q?JQEHsUDizoyh6WcDzvodhdF5XpFLeWjgHmXoRK0Ajs2/WCEsGI4Trorv68rb?=
+ =?us-ascii?Q?BZS6pd2+K1thzdOgMgyNnHerYZGKUoKXozPlnwpEJsfiaV8Msk7FZzoMUnLu?=
+ =?us-ascii?Q?4czdct5nusmQz+E2p1NEsu5QTOZVTyVUsRcZfsq45dbCgVUNwSjuwLON9zTF?=
+ =?us-ascii?Q?v56C2q4M5Z3LAzJWYth8n6adlnRHD8XZW38VSnOSnO33cOmeX2mQfhF7bC9E?=
+ =?us-ascii?Q?H6vKxz+90brzVkwbajY=3D?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PR12MB6194.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1aa182c5-3721-4f21-f9cb-08dd4d0629b9
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Feb 2025 14:45:02.1491 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: GVztqv4zAWsKOhniszZ9tcc4ft3ufQ08k3Rt6BPLeByGyniLhbfuzutC+FGdi56a
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7438
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,138 +156,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Feb 14, 2025 at 7:32=E2=80=AFAM Kenneth Feng <kenneth.feng@amd.com>=
- wrote:
->
-> extend the gfxoff delay for compute workload on smu 14.0.2/3
-> to fix the kfd test issue.
+[AMD Official Use Only - AMD Internal Distribution Only]
 
-This doesn't make sense.  We explicitly disallow gfxoff in
-amdgpu_amdkfd_set_compute_idle() already so it should already be
-disallowed.
+Reviewed-by: Ruijing Dong <ruijing.dong@amd.com>
 
-Alex
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of David Ro=
+sca
+Sent: Thursday, February 13, 2025 12:07 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Rosca, David <David.Rosca@amd.com>
+Subject: [PATCH] drm/amdgpu/display: Allow DCC for video formats on GFX12
 
+We advertise DCC as supported for NV12/P010 formats on GFX12, but it would =
+fail on this check on commit.
 
->
-> Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c       |  3 +++
->  drivers/gpu/drm/amd/pm/amdgpu_dpm.c           | 14 ++++++++++++++
->  drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h       |  1 +
->  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 15 +++++++++++++++
->  drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |  2 ++
->  5 files changed, 35 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_gfx.c
-> index b9bd6654f317..4ae6fde6c69c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> @@ -776,6 +776,9 @@ static void amdgpu_gfx_do_off_ctrl(struct amdgpu_devi=
-ce *adev, bool enable,
->  {
->         unsigned long delay =3D GFX_OFF_DELAY_ENABLE;
->
-> +       if (amdgpu_dpm_need_extra_gfxoff_delay(adev))
-> +               delay *=3D 5;
-> +
->         if (!(adev->pm.pp_feature & PP_GFXOFF_MASK))
->                 return;
->
-> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c b/drivers/gpu/drm/amd/pm=
-/amdgpu_dpm.c
-> index 7a22aef6e59c..87de50b73a0e 100644
-> --- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-> +++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-> @@ -873,6 +873,20 @@ int amdgpu_dpm_get_status_gfxoff(struct amdgpu_devic=
-e *adev, uint32_t *value)
->         return ret;
->  }
->
-> +bool amdgpu_dpm_need_extra_gfxoff_delay(struct amdgpu_device *adev)
-> +{
-> +       struct smu_context *smu =3D adev->powerplay.pp_handle;
-> +       bool ret =3D false;
-> +
-> +       if (is_support_sw_smu(adev)) {
-> +               mutex_lock(&adev->pm.mutex);
-> +               ret =3D smu_need_extra_gfxoff_delay(smu);
-> +               mutex_unlock(&adev->pm.mutex);
-> +       }
-> +
-> +       return ret;
-> +}
-> +
->  uint64_t amdgpu_dpm_get_thermal_throttling_counter(struct amdgpu_device =
-*adev)
->  {
->         struct smu_context *smu =3D adev->powerplay.pp_handle;
-> diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h b/drivers/gpu/drm/am=
-d/pm/inc/amdgpu_dpm.h
-> index 1f5ac7e0230d..312ad348ce82 100644
-> --- a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-> +++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-> @@ -470,6 +470,7 @@ int amdgpu_dpm_get_residency_gfxoff(struct amdgpu_dev=
-ice *adev, u32 *value);
->  int amdgpu_dpm_set_residency_gfxoff(struct amdgpu_device *adev, bool val=
-ue);
->  int amdgpu_dpm_get_entrycount_gfxoff(struct amdgpu_device *adev, u64 *va=
-lue);
->  int amdgpu_dpm_get_status_gfxoff(struct amdgpu_device *adev, uint32_t *v=
-alue);
-> +bool amdgpu_dpm_need_extra_gfxoff_delay(struct amdgpu_device *adev);
->  uint64_t amdgpu_dpm_get_thermal_throttling_counter(struct amdgpu_device =
-*adev);
->  void amdgpu_dpm_gfx_state_change(struct amdgpu_device *adev,
->                                  enum gfx_change_state state);
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/=
-amd/pm/swsmu/amdgpu_smu.c
-> index a1164912f674..61cd170ec30a 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> @@ -133,6 +133,21 @@ int smu_get_status_gfxoff(struct smu_context *smu, u=
-int32_t *value)
->         return 0;
->  }
->
-> +bool smu_need_extra_gfxoff_delay(struct smu_context *smu)
-> +{
-> +       bool ret =3D false;
-> +
-> +       if (!smu->pm_enabled)
-> +               return false;
-> +
-> +       if (((amdgpu_ip_version(smu->adev, MP1_HWIP, 0) =3D=3D IP_VERSION=
-(14, 0, 2)) ||
-> +           (amdgpu_ip_version(smu->adev, MP1_HWIP, 0) =3D=3D IP_VERSION(=
-14, 0, 3))) &&
-> +                smu->workload_mask & (1 << PP_SMC_POWER_PROFILE_COMPUTE)=
-)
-> +               return true;
-> +
-> +       return ret;
-> +}
-> +
->  int smu_set_soft_freq_range(struct smu_context *smu,
->                             enum smu_clk_type clk_type,
->                             uint32_t min,
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/=
-drm/amd/pm/swsmu/inc/amdgpu_smu.h
-> index 3630593bce61..82f06c2a752d 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-> @@ -1626,6 +1626,8 @@ int smu_set_residency_gfxoff(struct smu_context *sm=
-u, bool value);
->
->  int smu_get_status_gfxoff(struct smu_context *smu, uint32_t *value);
->
-> +bool smu_need_extra_gfxoff_delay(struct smu_context *smu);
-> +
->  int smu_handle_passthrough_sbr(struct smu_context *smu, bool enable);
->
->  int smu_wait_for_event(struct smu_context *smu, enum smu_event_type even=
-t,
-> --
-> 2.34.1
->
+Signed-off-by: David Rosca <david.rosca@amd.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/driv=
+ers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+index 774cc3f4f3fd..92472109f84a 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+@@ -277,8 +277,11 @@ static int amdgpu_dm_plane_validate_dcc(struct amdgpu_=
+device *adev,
+        if (!dcc->enable)
+                return 0;
+
+-       if (format >=3D SURFACE_PIXEL_FORMAT_VIDEO_BEGIN ||
+-           !dc->cap_funcs.get_dcc_compression_cap)
++       if (adev->family < AMDGPU_FAMILY_GC_12_0_0 &&
++           format >=3D SURFACE_PIXEL_FORMAT_VIDEO_BEGIN)
++               return -EINVAL;
++
++       if (!dc->cap_funcs.get_dcc_compression_cap)
+                return -EINVAL;
+
+        input.format =3D format;
+--
+2.43.0
+
