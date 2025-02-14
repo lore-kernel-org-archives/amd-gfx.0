@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE829C021AB
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2025 14:06:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79F3CC021AD
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2025 14:06:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1C4B10EC97;
-	Fri, 14 Feb 2025 14:06:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0711810EC98;
+	Fri, 14 Feb 2025 14:06:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Vp/YnHEp";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="HQuM5Wmi";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6070210EC4C;
- Fri, 14 Feb 2025 11:28:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 79FB710E2BF;
+ Fri, 14 Feb 2025 10:19:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
- In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=xwAuTP/cA36dpz9ulrpzEMqoNZCvmgXuVsVSYinsulc=; b=Vp/YnHEpNxphz5IoFulkxHt2Di
- hgTbzqWlbTtz4teFo9roER9x+0Y1rlZ4lFJWJEHtNBAv23G3hXvKFmLFlFWWsQ0EqvXHKgmSLfegQ
- 0dm5kFjziYOY8irh3HEabUQgIqipH4MwCxTPariJYNINEnV953U7mcI7GZ67eU53pd6Bys2Zcd6Jv
- i7mswa4S3BozmmOm32Nzrt5MXI5Xq1qFJSMMRBssQ/oBmypFfuOUk1CQE6vMX2/kizg+AK6XOijE+
- vTXfLuyvwXdw0OmeZM7Ji8XaxxbBIdbIzLjY2cZjkBoSz/9m1js6rufBkXBWYvfc1iM3U+BVeu/Jn
- 3GpyGK7w==;
+ bh=JBldiGdzPBREG8VY6lWkuKno3FYS8N6A+ouC38dlaF8=; b=HQuM5Wmiw2RPmxlHclDOAnsNfI
+ b1Ri85LSSKDhp01V9yoVJJbc7Tycw1HYkILgbghUpW+pP43a2XZyV52QS0rjTu60lGFoG8erzhq0s
+ it0TC1TJ6VnX7ZmFA6gq58tWwTqzLM5y3zuP2DcJEe02mnhpMF+LwlxPqldPHnAkRoS7M4m13CdFF
+ 5rFIF5YYW9XkugNykUY9y9RWB0Kbj8IcEfhKJ2XQj6GwNUe9c+TUrz1hMda+3SMMxjR5IzuVxAJle
+ b4PyFTZqPnV6F5HOxpy1Fq3ldS28s6fQOPsE5teltwBI1SLgeDbZ0tbPapiRIzsCwL3UjJxNmZ36R
+ 030uhKcA==;
 Received: from [90.241.98.187] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1titrb-000VH2-OZ; Fri, 14 Feb 2025 12:28:13 +0100
+ id 1tisnQ-00HYkW-W9; Fri, 14 Feb 2025 11:19:50 +0100
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
@@ -41,12 +41,11 @@ Cc: intel-xe@lists.freedesktop.org, kernel-dev@igalia.com,
  Danilo Krummrich <dakr@kernel.org>,
  Matthew Brost <matthew.brost@intel.com>,
  Philipp Stanner <phasta@kernel.org>
-Subject: [PATCH 4/5] drm/scheduler: Add basic priority tests
-Date: Fri, 14 Feb 2025 11:28:03 +0000
-Message-ID: <20250214112805.20008-5-tvrtko.ursulin@igalia.com>
+Subject: [PATCH v5 0/6] drm/sched: Job queue peek/pop helpers and struct job
+ re-order
+Date: Fri, 14 Feb 2025 10:19:38 +0000
+Message-ID: <20250214101944.19390-1-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.48.0
-In-Reply-To: <20250214112805.20008-1-tvrtko.ursulin@igalia.com>
-References: <20250214112805.20008-1-tvrtko.ursulin@igalia.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -65,131 +64,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add some basic tests for exercising entity priority handling.
+Lets add some helpers for peeking and popping from the job queue which allows us
+to re-order the fields in struct drm_sched_job and remove one hole.
 
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+As in the process we have added a header file for scheduler internal prototypes,
+lets also use it more and cleanup the "exported" header a bit.
+
+v2:
+ * Add header file for internal scheduler API.
+ * Add helper for peeking too. (Danilo)
+ * Add (temporary?) drm_sched_cancel_all_jobs() helper to replace amdgpu
+   amdgpu_job_stop_all_jobs_on_sched().
+
+v3:
+ * Settle for a copy of __drm_sched_entity_queue_pop in amdgpu for now.
+
+v4:
+ * Expand the series with some more header file cleanup.
+
+v5:
+ * Rebase for drm_sched_init changes.
+ * Tweak kerneldoc format.
+
 Cc: Christian König <christian.koenig@amd.com>
 Cc: Danilo Krummrich <dakr@kernel.org>
 Cc: Matthew Brost <matthew.brost@intel.com>
 Cc: Philipp Stanner <phasta@kernel.org>
----
- drivers/gpu/drm/scheduler/tests/tests_basic.c | 99 ++++++++++++++++++-
- 1 file changed, 98 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/scheduler/tests/tests_basic.c b/drivers/gpu/drm/scheduler/tests/tests_basic.c
-index 93b3043fbcb7..25dba633a14a 100644
---- a/drivers/gpu/drm/scheduler/tests/tests_basic.c
-+++ b/drivers/gpu/drm/scheduler/tests/tests_basic.c
-@@ -1,5 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0
- 
-+#include <linux/delay.h>
-+
- #include "sched_tests.h"
- 
- /*
-@@ -252,5 +254,100 @@ static struct kunit_suite drm_sched_timeout = {
- 	.test_cases = drm_sched_timeout_tests,
- };
- 
-+static void drm_sched_priorities(struct kunit *test)
-+{
-+	struct drm_mock_sched_entity *entity[DRM_SCHED_PRIORITY_COUNT];
-+	struct drm_mock_scheduler *sched = test->priv;
-+	struct drm_mock_sched_job *job;
-+	const unsigned int qd = 100;
-+	unsigned int i, cur_ent = 0;
-+	enum drm_sched_priority p;
-+	bool done;
-+
-+	/*
-+	 * Submit a bunch of jobs against entities configured with different
-+	 * priorities.
-+	 */
-+
-+	BUILD_BUG_ON(DRM_SCHED_PRIORITY_KERNEL > DRM_SCHED_PRIORITY_LOW);
-+	BUILD_BUG_ON(DRM_SCHED_PRIORITY_COUNT != ARRAY_SIZE(entity));
-+
-+	for (p = DRM_SCHED_PRIORITY_KERNEL; p <= DRM_SCHED_PRIORITY_LOW; p++)
-+		entity[p] = drm_mock_new_sched_entity(test, p, sched);
-+
-+	for (i = 0; i < qd; i++) {
-+		job = drm_mock_new_sched_job(test, entity[cur_ent++]);
-+		cur_ent %= ARRAY_SIZE(entity);
-+		drm_mock_sched_job_set_duration_us(job, 1000);
-+		drm_mock_sched_job_submit(job);
-+	}
-+
-+	done = drm_mock_sched_job_wait_finished(job, HZ);
-+	KUNIT_ASSERT_EQ(test, done, true);
-+
-+	for (i = 0; i < ARRAY_SIZE(entity); i++)
-+		drm_mock_sched_entity_free(entity[i]);
-+}
-+
-+static void drm_sched_change_priority(struct kunit *test)
-+{
-+	struct drm_mock_sched_entity *entity[DRM_SCHED_PRIORITY_COUNT];
-+	struct drm_mock_scheduler *sched = test->priv;
-+	struct drm_mock_sched_job *job;
-+	const unsigned int qd = 1000;
-+	unsigned int i, cur_ent = 0;
-+	enum drm_sched_priority p;
-+	bool done;
-+
-+	/*
-+	 * Submit a bunch of jobs against entities configured with different
-+	 * priorities and while waiting for them to complete, periodically keep
-+	 * changing their priorities.
-+	 *
-+	 * We set up the queue-depth (qd) and job duration so the priority
-+	 * changing loop has some time to interact with submissions to the
-+	 * backend and job completions as they progress.
-+	 */
-+
-+	for (p = DRM_SCHED_PRIORITY_KERNEL; p <= DRM_SCHED_PRIORITY_LOW; p++)
-+		entity[p] = drm_mock_new_sched_entity(test, p, sched);
-+
-+	for (i = 0; i < qd; i++) {
-+		job = drm_mock_new_sched_job(test, entity[cur_ent++]);
-+		cur_ent %= ARRAY_SIZE(entity);
-+		drm_mock_sched_job_set_duration_us(job, 1000);
-+		drm_mock_sched_job_submit(job);
-+	}
-+
-+	do {
-+		drm_sched_entity_set_priority(&entity[cur_ent]->base,
-+					      (entity[cur_ent]->base.priority + 1) %
-+					      DRM_SCHED_PRIORITY_COUNT);
-+		cur_ent++;
-+		cur_ent %= ARRAY_SIZE(entity);
-+		usleep_range(200, 500);
-+	} while (!drm_mock_sched_job_is_finished(job));
-+
-+	done = drm_mock_sched_job_wait_finished(job, HZ);
-+	KUNIT_ASSERT_EQ(test, done, true);
-+
-+	for (i = 0; i < ARRAY_SIZE(entity); i++)
-+		drm_mock_sched_entity_free(entity[i]);
-+}
-+
-+static struct kunit_case drm_sched_priority_tests[] = {
-+	KUNIT_CASE(drm_sched_priorities),
-+	KUNIT_CASE(drm_sched_change_priority),
-+	{}
-+};
-+
-+static struct kunit_suite drm_sched_priority = {
-+	.name = "drm_sched_basic_priority_tests",
-+	.init = drm_sched_basic_init,
-+	.exit = drm_sched_basic_exit,
-+	.test_cases = drm_sched_priority_tests,
-+};
-+
- kunit_test_suites(&drm_sched_basic,
--		  &drm_sched_timeout);
-+		  &drm_sched_timeout,
-+		  &drm_sched_priority);
+Tvrtko Ursulin (6):
+  drm/sched: Add internal job peek/pop API
+  drm/amdgpu: Pop jobs from the queue more robustly
+  drm/sched: Remove a hole from struct drm_sched_job
+  drm/sched: Move drm_sched_entity_is_ready to internal header
+  drm/sched: Move internal prototypes to internal header
+  drm/sched: Group exported prototypes by object type
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c    |  22 +++-
+ drivers/gpu/drm/scheduler/sched_entity.c   |  23 +---
+ drivers/gpu/drm/scheduler/sched_fence.c    |   2 +
+ drivers/gpu/drm/scheduler/sched_internal.h |  89 +++++++++++++++
+ drivers/gpu/drm/scheduler/sched_main.c     |   7 +-
+ include/drm/gpu_scheduler.h                | 122 +++++++++------------
+ 6 files changed, 169 insertions(+), 96 deletions(-)
+ create mode 100644 drivers/gpu/drm/scheduler/sched_internal.h
+
 -- 
 2.48.0
 
