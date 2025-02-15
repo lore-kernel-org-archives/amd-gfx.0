@@ -4,46 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65813C021A6
-	for <amd-gfx@archiver.kernel.org>; Sat, 15 Feb 2025 14:40:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF727C021A0
+	for <amd-gfx@archiver.kernel.org>; Sat, 15 Feb 2025 21:16:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D6DF210E0FF;
-	Sat, 15 Feb 2025 14:40:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7FFA910E082;
+	Sat, 15 Feb 2025 21:16:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=emersion.fr header.i=@emersion.fr header.b="lhgelI9b";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="n2obapHj";
 	dkim-atps=neutral
-Received: from mail-4317.protonmail.ch (mail-4317.protonmail.ch [185.70.43.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4DC3410E086;
- Sat, 15 Feb 2025 14:40:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
- s=protonmail2; t=1739630421; x=1739889621;
- bh=NQ9/7r73hOxVp/ZD120Jn5La0MPtPWunQ/mAmKJx/uM=;
- h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
- Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
- b=lhgelI9bruPA2rYFf0VfTeg3DqGlVbtOKAkzDJf3TJhim3z85uN1LoBsgGAKI3Wc4
- BbpdHBY6IVcjHfl6kRko8CQfEVU2t04VDpE9bSro/NRJhNLKrGVkLqjY8eR555s7Cn
- /u7IJdIuRB8Wx7hE8q4D6SAtdv7i6Bk7+sb/aMxpoGG/sVpfsjJxK+bpgsNNvE3pSJ
- +qJkZ2unzU+RSlRxF45atlAvQ2hq/3qjXPgn0qhO/n5Bx3QZRaIC6QTSmRnJ05EhS6
- xjKF1wIuztNWJ6ZcXOLYflAn3I/dWytQodu5IWmISxJpiAp95hVlOKriNVoDY9eVfh
- 0KRWmGfRPOQeA==
-Date: Sat, 15 Feb 2025 14:40:17 +0000
-To: Harry Wentland <harry.wentland@amd.com>
-From: Simon Ser <contact@emersion.fr>
-Cc: Alex Hung <alex.hung@amd.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, wayland-devel@lists.freedesktop.org
-Subject: Re: [V7 08/45] Documentation/gpu: document drm_colorop
-Message-ID: <TFAFx0Fj4cqaba_HYCGoFyvpZVhmaa2KEHRsejqoqEr64CBhJRzpaBs4ZuQWQIJDSQovx0NwwYKhb0GrbhyBWxNGxJbmxckHlyCDtJBbSYs=@emersion.fr>
-In-Reply-To: <5eb5fecd-caa8-4e40-8fe9-23599dc59bbf@amd.com>
-References: <20241220043410.416867-1-alex.hung@amd.com>
- <20241220043410.416867-9-alex.hung@amd.com>
- <eDrRzjuU_q4z4Jvq-DYxUnw2a-VUts65NbWMZbhrvqYoKbcW_jUawJ_ZirFIFQzrtMG4asLn6f9WP24o-k4DnP_oYf5R94PYoMIejFqdTZM=@emersion.fr>
- <5eb5fecd-caa8-4e40-8fe9-23599dc59bbf@amd.com>
-Feedback-ID: 1358184:user:proton
-X-Pm-Message-ID: 9c7d09ea2ba0156794c6677e10ed088451e6293d
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADC9D10E082;
+ Sat, 15 Feb 2025 21:16:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
+ Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=OGoxbw747kg+W6DVFHglu0F2FQope24h/If46kCZl8o=; b=n2obapHjaRq+K3RolAn+3mCKwn
+ LRBrbodcXJeEAFLt8feBozbMS2ZRHkpEcYnSAIEb4Wj6Otp0LVdaG33pXXe9fqE2xwUNmoNSC44+E
+ Imx6OBfuBui3DilR5vTQIlND4f0lBHk1ZJbuX882kNBORnSosW3PZn2u020/Hje+kLmvnX0N/3mtv
+ LExP6OZTDNB+OYLBZk+VBe5Xy6rvmrzXI5PQnzK/QcG0uLaIxcwPC3dnqbxrLqbg+yVd+CH9Q3Lb9
+ jwLe1Hf3281q6ho7b6juaKwAUlAUpiRdH4Zti4lIRsS6OnN85te4L7Kz4P10W0GaGu9gQcKBw3Dex
+ IQX3H5fA==;
+Received: from [179.214.71.67] (helo=killbill.home)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1tjPVy-004QNJ-0f; Sat, 15 Feb 2025 22:16:00 +0100
+From: Melissa Wen <mwen@igalia.com>
+To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
+ airlied@gmail.com, simona@ffwll.ch, mario.limonciello@amd.com,
+ mwen@igalia.com, alex.hung@amd.com
+Cc: Roman Li <Roman.Li@amd.com>, Aurabindo Pillai <Aurabindo.Pillai@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ kernel-dev@igalia.com
+Subject: [PATCH v2] drm/amd/display: restore edid reading from a given i2c
+ adapter
+Date: Sat, 15 Feb 2025 18:15:47 -0300
+Message-ID: <20250215211549.79832-1-mwen@igalia.com>
+X-Mailer: git-send-email 2.47.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,46 +61,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Monday, February 10th, 2025 at 23:03, Harry Wentland <harry.wentland@amd=
-.com> wrote:
+When switching to drm_edid, we slightly changed how to get edid by
+removing the possibility of getting them from dc_link when in aux
+transaction mode. As MST doesn't initialize the connector with
+`drm_connector_init_with_ddc()`, restore the original behavior to avoid
+functional changes.
 
-> > > + * DOC: overview
-> > > + *
-> > > + * A colorop represents a single color operation. Colorops are chain=
-ed
-> > > + * via the NEXT property and make up color pipelines. Color pipeline=
-s
-> > > + * are advertised and selected via the COLOR_PIPELINE &drm_plane
-> > > + * property.
-> > > + *
-> > > + * A colorop will be of a certain type, advertised by the read-only =
-TYPE
-> > > + * property. Each type of colorop will advertise a different set of
-> > > + * properties and is programmed in a different manner. Types can be
-> > > + * enumerated 1D curves, 1D LUTs, 3D LUTs, matrices, etc. See the
-> > > + * &drm_colorop_type documentation for information on each type.
-> >=20
-> > It's not super nice to refer to internal kernel docs here, because AFAI=
-U
-> > this section is mostly written towards user-space developers. User-spac=
-e
-> > developers have no idea how internal kernel structs work.
-> >=20
-> > It would be nicer to have a list of colorop types here, without referri=
-ng
-> > to kernel internals. For instance, we have a list of
->=20
-> I'm not sure I follow. This is linking to the drm_colorop_type
-> (from drm_mode.h) enum documentation in drm-uapi.html.
->=20
-> Duplicating it here would mean that sooner or later the two
-> docs will get out of sync.
+v2:
+- Fix build warning of unchecked dereference (kernel test bot)
 
-Oh, I thought this was an internal kernel enum. I guess the only missing
-thing is the string exposed to user-space for each enum entry then?
+CC: Alex Hung <alex.hung@amd.com>
+CC: Mario Limonciello <mario.limonciello@amd.com>
+CC: Roman Li <Roman.Li@amd.com>
+CC: Aurabindo Pillai <Aurabindo.Pillai@amd.com>
+Fixes: 48edb2a4256e ("drm/amd/display: switch amdgpu_dm_connector to use struct drm_edid")
+Signed-off-by: Melissa Wen <mwen@igalia.com>
+---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c   | 17 +++++++++++++++--
+ 1 file changed, 15 insertions(+), 2 deletions(-)
 
-In any case, sounds good to me.
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index a8421c07b160..142d366e3347 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -7269,8 +7269,14 @@ static void amdgpu_dm_connector_funcs_force(struct drm_connector *connector)
+ 	struct dc_link *dc_link = aconnector->dc_link;
+ 	struct dc_sink *dc_em_sink = aconnector->dc_em_sink;
+ 	const struct drm_edid *drm_edid;
++	struct i2c_adapter *ddc;
+ 
+-	drm_edid = drm_edid_read(connector);
++	if (dc_link && dc_link->aux_mode)
++		ddc = &aconnector->dm_dp_aux.aux.ddc;
++	else
++		ddc = &aconnector->i2c->base;
++
++	drm_edid = drm_edid_read_ddc(connector, ddc);
+ 	drm_edid_connector_update(connector, drm_edid);
+ 	if (!drm_edid) {
+ 		DRM_ERROR("No EDID found on connector: %s.\n", connector->name);
+@@ -7315,14 +7321,21 @@ static int get_modes(struct drm_connector *connector)
+ static void create_eml_sink(struct amdgpu_dm_connector *aconnector)
+ {
+ 	struct drm_connector *connector = &aconnector->base;
++	struct dc_link *dc_link = aconnector->dc_link;
+ 	struct dc_sink_init_data init_params = {
+ 			.link = aconnector->dc_link,
+ 			.sink_signal = SIGNAL_TYPE_VIRTUAL
+ 	};
+ 	const struct drm_edid *drm_edid;
+ 	const struct edid *edid;
++	struct i2c_adapter *ddc;
+ 
+-	drm_edid = drm_edid_read(connector);
++	if (dc_link && dc_link->aux_mode)
++		ddc = &aconnector->dm_dp_aux.aux.ddc;
++	else
++		ddc = &aconnector->i2c->base;
++
++	drm_edid = drm_edid_read_ddc(connector, ddc);
+ 	drm_edid_connector_update(connector, drm_edid);
+ 	if (!drm_edid) {
+ 		DRM_ERROR("No EDID found on connector: %s.\n", connector->name);
+-- 
+2.47.2
 
-> I agree with the rest and we'll reflect that in v8.
-
-Sweet!
