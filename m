@@ -4,147 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EB07C021A9
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Feb 2025 15:31:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03928C021AB
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Feb 2025 15:46:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 07DC210E25F;
-	Mon, 17 Feb 2025 15:31:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A5F2A10E4FE;
+	Mon, 17 Feb 2025 15:46:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="knBkF2Lh";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IziUE/Tu";
 	dkim-atps=neutral
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2044.outbound.protection.outlook.com [40.107.220.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5896C10E25F
- for <amd-gfx@lists.freedesktop.org>; Mon, 17 Feb 2025 15:31:03 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=n9uSa9K6mY7Tfg7wk1zBn0Mgy5z1NHF+1hr5caEdgsXWbWIs53ZOoEhs4g1+JvqgJ6EjvBc4vVy/eRWYvMFzbbCDvXPSQhtoQel8YYGYYPie4rdulf5iW3HaTx1Ryq+81qrAVVWKdU1Bml8z5yYqrh4Zm0vi6OSstmMQs6HJkWhebSUr7ExOCCp8/Mw4KaJbGGVPyuMjHlxzoXXIFwS1zlSXPh9lvdm8foSw51qicuNv/6KkOS05pQUijm2b+r+hLS1KMlXfXrbq71ro879Abi4n9igi4U5AUcxDExmm+FK7QT6ZoZDO+WCcCIBiP/7YlLQHnVzqMYTjRxbJVN6hww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=X9SCtKwARQa49qMk1e3Cb+5zCmkBg0vTkTv4VPYfHHI=;
- b=gkv2BXtE2IBwl/QtFGivKjqDBaiE4TzIoOmOcSakMhoLYSC33mNjW2Da8KjwKMXn7FjbSe1ysjrPjFyB6IiwOtUn28A3gv33hf6Io816EaZo+kacvgSUnXpIcFA83MagyNvaO1Wk3zLbj1K78YligTxBsG7i+5lbj7Obal3FPK/TuXw2GVcThvuGMk1IdCiFXXwYZSkKqc5jPENKK8hTCuKryyOpHzg8jd7J9UkhvWiKTNy9Yguwx8i/h/jtZYM8SrcwDRq3C+8yak9a1mtOQebGf5V2B27Hp4nfq30XO6TMKp9Pqd5KnmabzGQkKL9HggkD/ySxSOlrOXCzGzJGZA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=X9SCtKwARQa49qMk1e3Cb+5zCmkBg0vTkTv4VPYfHHI=;
- b=knBkF2LhZspjoP9fjoB19Bo9Zoan1sR3CXn5BHnFX3+qKRoVxLrZ8OG+9vV+idTkg3WI5uV1/PuvutBHGxOD8JJSrQ04miJ2PskQPLV/DPBSfzhz3DtMW+Rfv4DrRKNOTtyOZyVm55O6Ryk6gQHnYb+35qhgcIs7p3nniK0D9hQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by PH8PR12MB6673.namprd12.prod.outlook.com (2603:10b6:510:1c0::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8445.19; Mon, 17 Feb
- 2025 15:31:01 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%5]) with mapi id 15.20.8445.017; Mon, 17 Feb 2025
- 15:31:00 +0000
-Message-ID: <1654fb6c-e0e8-4dde-8554-7058cf73503d@amd.com>
-Date: Mon, 17 Feb 2025 16:30:56 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] PCI: fix Sapphire PCI rebar quirk
-To: Alex Deucher <alexander.deucher@amd.com>, bhelgaas@google.com,
- linux-pci@vger.kernel.org, amd-gfx@lists.freedesktop.org
-Cc: Mario.Limonciello@amd.com, Nirmoy Das <nirmoy.aiemd@gmail.com>
-References: <20250217151053.420882-1-alexander.deucher@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20250217151053.420882-1-alexander.deucher@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR0P281CA0218.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:ac::14) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
+ [209.85.216.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A454910E4FE
+ for <amd-gfx@lists.freedesktop.org>; Mon, 17 Feb 2025 15:46:02 +0000 (UTC)
+Received: by mail-pj1-f49.google.com with SMTP id
+ 98e67ed59e1d1-2fc288da33eso696385a91.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 17 Feb 2025 07:46:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1739807162; x=1740411962; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=3dPtYYNth/a64LIJH7c4OEDw+dSC4UYyJPpFlvHQ3Bo=;
+ b=IziUE/TuFyT0HRRGp+tqDDfaNDH8fQjnwOW3UWFZOKJF2tCIbVCWNOUFAlRRdBUC2F
+ ezxvl9fnbgHVs2CjsLrXGwbMEwVys61zKtyykux0zexNmvkZW3xTc+87Kg7/dkqPMyG/
+ JHGbKqtr83yX87wl2BXupjge2bqdLUUaIA1PxuWZ0UtDFMcA3bIXK6ugAQs2AqfTdBt+
+ oJPIWrvQ3tNMmOlvPm6f547w479xmo8Ur9Z3j8vzkh6lezqTdtH67ZacjIYY22Upv62z
+ VGyQqrSHYYFFhikxSrOCo03NWO6Cc+K5KovydXip0RAjkWH674PGrr3tcnJ6lr7wkWey
+ ny/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1739807162; x=1740411962;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=3dPtYYNth/a64LIJH7c4OEDw+dSC4UYyJPpFlvHQ3Bo=;
+ b=Xod6KHnWOreDc/rr1SGTwFkkLXEF/K7x3VpJpcFCGiKxXgog04pgX1jxscp5iD76V/
+ yK7TO7Pu6WUf8/2sgQR4R0ypydo8ZEAZsMZQ8i0acb269h4U6riynIW0da7DYrJch9QX
+ bq/m2JaVVJwD6W9yTzeu0GOabs3iIEsk2ozpPeNXy5kyCwqtA0oQUzxEHHCMEqakNFyt
+ usnGpOxE6gxAGi1l/2Eg1/CPhFnUxt7qKx4imuQq0tex9sBlz3RdemCxsaqUWMllK1QY
+ GfSvB1AGxCicdI4zaYSFuHwA16n3Hfo/Fbr7g/d0WEwGdNJ+WK9kw2IoLPEQSOuD0R6e
+ tv+g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUDfV9WXM7enhQbYYMMEZ7muglbgjdxsL2ob8ohy0UelvRtduFtE/raFmMLzp9zMDtNTtebol0q@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyvAyilcJ6kBRj2938ir1LhyEqozAUZRKD0TB5f44Wh2HVA3SzQ
+ +kH8lPWjvjVPn6LBIECGsj7HNjOz+HZct6TK/LpNrn2RZbrktmoAMuaJeISy42g9aaLeFOuy44T
+ mwmh57nfPHCPUuy3/Z4Jrgt7IHVE=
+X-Gm-Gg: ASbGnctkWoCbbhAy51ulgpYF8aVB5e+MKf1SQ+wiMsn6rautZG49C9bwaF48miSi/Qm
+ Cfe8rGS1ExUxpmPhtlefckwgDiO8QoOSrNAeF68YZ0of4s+4LAhKY4ds9spnNXuEih/8+XwCK
+X-Google-Smtp-Source: AGHT+IFFWHytK57mGA99ICNsVDnMJMRw/i0z7QQunG4a6xJoh5vLQDs+r8+l/cO4cW4JhlRyc/yF+ZydD/oy4NjVr/o=
+X-Received: by 2002:a17:90b:2fc3:b0:2fa:2011:c85d with SMTP id
+ 98e67ed59e1d1-2fc41173deemr5813946a91.7.1739807162134; Mon, 17 Feb 2025
+ 07:46:02 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH8PR12MB6673:EE_
-X-MS-Office365-Filtering-Correlation-Id: 141565c6-d0a6-4928-d099-08dd4f68151c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014|7053199007;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?TmxMSHBsaVJLMDQ5QVFUY2VseXFiYi8wUnZOa1AreHc4czVhcFo4VXpwL082?=
- =?utf-8?B?Q3R1aThEYlAvMzl6amJmWDJIVHVEdWV5bDQ0SGJQOGpvTWErSmIyVmoreDB2?=
- =?utf-8?B?VnQvZkpYWUlsMXlrYXVlWnhJZFNTOThOWXAreGdoK3BFTzFxd3VZSDZaa2Nk?=
- =?utf-8?B?T001SUpUSDRzVGdpbmRYbEEvS0ZVOWI3ZFJ4M1piOTZJSlRXUEp5NTdmemNZ?=
- =?utf-8?B?SVEzd1JwQzdiTi92NXFpSXduQ05NbnJ2a1RSTm9ySTRkTUU2cEViYkRmVDN2?=
- =?utf-8?B?QlkvY0luay9zUWRlNU9FbDNtbjJ1RXF2bU5OdjFOQVhaeUlUOE5GZ0tqN05w?=
- =?utf-8?B?dEtuVUljUGRGSjNwVmFLWDVPRGtEOVZzVWR3Yy9wMTF5ajVMdTRsdUs0dUJN?=
- =?utf-8?B?ZTBueU9lOWNoMmowWTY2STFnbUlZa3pkbm1KUEFkVlRFSjBNTmkrSm8wMktS?=
- =?utf-8?B?K2xwazhOQ0hDbkcwOTNiWk00SG0zdS8yMlBiUlQzaDF4RnMyWGMvUXNaZjVy?=
- =?utf-8?B?bHZGT25nKzFiYXBRYkpXTk11Ui81L3lpNXdtYm8zZ0plZ25NbTZ4Q3NPWXFo?=
- =?utf-8?B?ZG1wYWYwYjd5NXZuYjU0UlcwZkd2TzlVTzBaaFFibnFxSzZmeThaSFNOZ1M3?=
- =?utf-8?B?WUo5cjFuSEpXQVJ3SnQwSTZERHBkMzRFMHFNaFltTGptVUNRajJYYklMUzRL?=
- =?utf-8?B?TUk5RTV3QXJqVkE3KzFoN3g1VFpJaVpkL2FTTlM2d1lCZmtRckNEbzNJK01N?=
- =?utf-8?B?ZjVnK1pmWUI4a0FieUlYVFZzV0FnYUlMVDZVOHZRbnhSamxtYWp6SDBZU2Nv?=
- =?utf-8?B?dC9CdWF3cU03bzltbzhyWVpjNlRNa2F6OEtzSVVEb0ZGT0VIb3ZBU1MwbjFG?=
- =?utf-8?B?S3ovV3dodDk1c2hsVlkxeDZZeHJVTjZzdWRGVVlNMmlVTnMwbTNrSmlwMTVE?=
- =?utf-8?B?OGppRTFHU1plVXhpOW1EUUlFZitJS3ZscERIZGt0WmFsbVZkVDFGQ1YwL1hD?=
- =?utf-8?B?dnlSY3Qrc0t0R2o3MFhPbDRtRnM2Z2VKbEN4R09BaFpRNnhkWjRxWW1DNFNB?=
- =?utf-8?B?dzFFZFB4aUhhN2pIRTBDdHZvZDZITUFHdkw4N0dkbzlrcFI2ZnUrdklIdmJm?=
- =?utf-8?B?YkovY05MdEV3dllRWS82OGJNMEYwY0NzT3JaTXc0K3VWdThiMkN2Qi85VXlZ?=
- =?utf-8?B?RVJoU2xiTWZPRVFLc0h2QWpha3pvNHJ0d1RGYWJORUxKbnVuTUpZY24wMktF?=
- =?utf-8?B?b1J1cGNJZGhxY3lmczVkR281QVI2N2txdEZxd0pXYnhjdVR6eWxlYXJnczNk?=
- =?utf-8?B?QjdIUmI5TXBmbWZxR29HUG5nbzB0Q2xqZ29YOEo3Um41WHpycktIUWJGTkFL?=
- =?utf-8?B?R1ZjeS95aVdGbjdQd0hNTFJHMFFSYU1nWW1KUmhuNFBZQU9rdHprbEdkcHp5?=
- =?utf-8?B?bVBXa25WTUdyMGVxRERONE5YRmNmenZDZjIvWmdkeS9ZUDh0UzlrOWtCSHdS?=
- =?utf-8?B?QmU0bGZDTTBrY0FkRlltdHdvQWRJMWlRWG9Da0JkbkRuN1h4RlFBMmNTYVl2?=
- =?utf-8?B?VDBkdkNlenhobjJDdlhuNXJyVjJTRzd1NFhGRUl6L0ZFdzhKbG53bFBQZFVH?=
- =?utf-8?B?UVo5cVF2U2VZMWxLaXBJbm4yNUhmSzFaVHpDZGQrTEw4RTV0UG1aZElQbGxK?=
- =?utf-8?B?bWhFbU1PR2k1NWkyMDlDYWVPWWMvUzJvSFJpVC9qcXZHSTUzb3F1cWJRNTNh?=
- =?utf-8?B?WEFJdC9LRnJjMFY3TWlYS1Z2bUhYdmpjTnQvYmEyU0Y2NlV5RER1czgwODVv?=
- =?utf-8?B?VFV5dDBKZVhnNFYvZzk3Zz09?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(7053199007); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?a3ZBekQ2OHNrM0hjb3pSdlRoRUt3bFV3VExvL0tjM05MNTZTSHNUYWkvanBM?=
- =?utf-8?B?cW93MG1HVXhiYnJUcUUyNXBtaDl6NTRLZHNsOW9UVUxzZElESE81WGR3TDFl?=
- =?utf-8?B?UFdTd3BvcjZLZUIwd1RDbXVGS3docy9OeHNBRDVaVlcyQ0Z3cC9YdWRCY1kx?=
- =?utf-8?B?eGZ2WkZVSXN2eTJNaGFQdVB5RkM4MWtuMGxYY3F2ckxDTnNqQmZocVN4M2R4?=
- =?utf-8?B?RXRGSU9iZnhYdU5vak1CZ1EyQnB4bnU1cThsNTZhUHVJeXl3ek83QSsrWHgr?=
- =?utf-8?B?QmplMGNOQm9qNGQyc1hCbytFdHZwWmg4QUhtZUJ4dGRLWjRVM1c0ZjdHNDlu?=
- =?utf-8?B?UmJ5NzBaenFTaHJQcmZGN3ZLdUxUcFRoMjNuc0pRVm92YnMyS1h3Q3k2dDBQ?=
- =?utf-8?B?d0Z5bEJTY2c1dE1raVVDSDNjOWVjYXZYVUo4aGpCdk8rYzB1cXl2c1IvWjhG?=
- =?utf-8?B?TnVseERzQ3dEVFlKOUVLZmlGekZ4OHhKay9Malh6M2F6eSt1eG1yb1hUWnU0?=
- =?utf-8?B?YVVPcnpFSnFmK1VFWkc0VlpWcExSdnlBY0hkVFkxSkZpTlJpWm1HZ1ZnTFVx?=
- =?utf-8?B?bnVLVHZnajZMVC9vYzdSaG1yVXIyVDJPR3dvelR4eVZGMk5ycnRsOFdmb29I?=
- =?utf-8?B?MzFNbytIUEh5Tis0bDlWeTUva3BuU04wdlZKT0ZHSERXY25SZll1NVZldjFI?=
- =?utf-8?B?YUVVbm5XVFZFSmNOMTdRLzZRMGJZSk9rcFVZWUVZS1RycXMycko3QmxycHNt?=
- =?utf-8?B?SHVaZExZWWdnV1NycTdZbG1xZSs2UytrQVRkNHlyR3l1WG9GL3h2Qjc2azlG?=
- =?utf-8?B?bG5qUWRFYWZ4NXVYckM5SVZrdEpaWFZOSVdwWlo4b3Z4ZmczeWRydDNVMmZ5?=
- =?utf-8?B?V1BwVGl2OFNnSFNrNWdUYUxZaVVYYllZZzA2NU9EMzh5S0VDWGhDT0ZTdjdG?=
- =?utf-8?B?Q09PN2tGTWZxY3krQ0h2djFvbkh6VmtYUWttVUFudTdvaTdGYXgzTXZUcTVC?=
- =?utf-8?B?eW4zc1F5SlJvcWFMYm95MlBWUEZaZTNnT0RETVZ3S3BCa0FtQmFib1VxYVhi?=
- =?utf-8?B?UE94ZG1yeGRjcWZrbHBydGNBSS83UFl6MkdhVjM1d1VkUXd5a082QUlwZ3JV?=
- =?utf-8?B?R2FhMjJJL0ZUYzhMWTFXOVk2MDVTYjRXT3AxSzZlWHhOd0Q3WVNNa0NMeWFS?=
- =?utf-8?B?NTZQaUNlMCtTdzhmU25HMmVnNEtwMnhMZW4wTnExU05NMGZRSXVZRUdrVTFo?=
- =?utf-8?B?T0hBYXUxN2tlMHVXKzgyZHFXZ2RaT2J2UHE2WjNOMVB4bDBDMDhQOTNKbE8w?=
- =?utf-8?B?Z3pZU3FUVUcrY0xOelRqNXRKTVpDcFBtUWRhcDAwQmlPZkJ3bVMzVlpLQjcw?=
- =?utf-8?B?TGRxbzhkN0tjVlhSVGxHbmFPVlFpV2swSGNZSlErY0QxVk0wSTAwejFtekx3?=
- =?utf-8?B?NW9vN3M3UmtNSGNsSHcwcUxrOTF5aXIvTVYzS2Q0bkNEQSt3cHAyWWJaTUMz?=
- =?utf-8?B?NlFUaWFXanIrekJRQitOVzFPWGxMUVphRUMyNTFMODNJOWlSRG5LaDhrM2dK?=
- =?utf-8?B?TzFpdStqRFBVcXlZVUpuU1c2aDhnb0s1QUhoVEZHNE5sNFlVeS9zQUNGMVIx?=
- =?utf-8?B?V0lxVitGL1VhNjVjRis2YkhVcit2TGJDdTVzc0xnSE42VWZCYWF5d1lZNGxY?=
- =?utf-8?B?TXo0KzgyVWxkWHpkTFFXZGw5TXo0cklLYS9xVjladkNOZjB2djRmeW1VV3Bk?=
- =?utf-8?B?SzgyODVLYzdoT1B2OUlKSlptbmJiSXlZRVU2K1MvWjgzKzdiNFpzL3NkVlFS?=
- =?utf-8?B?RDE2QWhkZkcyZmZrUU1zTytYT2NvL2dNU2g0cjFocmJIZ0VadVJVTzM4S1Jq?=
- =?utf-8?B?VE1rTWkwL0VxQzVWakd1OWcrWnMwOFoyZjNtQkNlL05oOHlicEE3eCt0dFZm?=
- =?utf-8?B?OFV0bFhTaHcxLzJUQmpZMVpzMHNIU2JQdWdiR2h4VTRDaFFLMW5WZ200WnVy?=
- =?utf-8?B?aHJRQUpnVmRQTHB5emd2MUFFQkF3c2tIWWM1WThJMm5qMUNma1BuTm1laER6?=
- =?utf-8?B?aWg4K2Zyc0FjVkNHN1UrMzIvay9jNmlMUXhEMlppck42a3F0NVk0eWNvNE5G?=
- =?utf-8?Q?JxL3m6g3OEpYtDIk9ZcVcpIl6?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 141565c6-d0a6-4928-d099-08dd4f68151c
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Feb 2025 15:31:00.8516 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: uMoieAtwX5vfrUSBZ5uD2oo/pLh4zkTHzXLUgKpn2UCr2Gh/hfoTMJbNCiTD+xgN
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6673
+References: <20250217151053.420882-1-alexander.deucher@amd.com>
+ <1654fb6c-e0e8-4dde-8554-7058cf73503d@amd.com>
+In-Reply-To: <1654fb6c-e0e8-4dde-8554-7058cf73503d@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 17 Feb 2025 10:45:49 -0500
+X-Gm-Features: AWEUYZmMaHIRFPjSC-GAve1xDgr6WT1YWCE5e7Iw0EX36gqQYc6WVYOgu2sZMdU
+Message-ID: <CADnq5_NUEuMFsd__w1eGBWALxcQwtX7sa2Sn53vDjaxrqNuhPQ@mail.gmail.com>
+Subject: Re: [PATCH] PCI: fix Sapphire PCI rebar quirk
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, bhelgaas@google.com, 
+ linux-pci@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
+ Mario.Limonciello@amd.com, Nirmoy Das <nirmoy.aiemd@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,49 +83,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 17.02.25 um 16:10 schrieb Alex Deucher:
-> There was a quirk added to add a workaround for a Sapphire
-> RX 5600 XT Pulse.  However, the quirk only checks the vendor
-> ids and not the subsystem ids.  The quirk really should
-> have checked the subsystem vendor and device ids as now
-> this quirk gets applied to all RX 5600 and it seems to
-> cause problems on some Dell laptops.  Add a subsystem vendor
-> id check to limit the quirk to Sapphire boards.
+On Mon, Feb 17, 2025 at 10:38=E2=80=AFAM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
+>
+> Am 17.02.25 um 16:10 schrieb Alex Deucher:
+> > There was a quirk added to add a workaround for a Sapphire
+> > RX 5600 XT Pulse.  However, the quirk only checks the vendor
+> > ids and not the subsystem ids.  The quirk really should
+> > have checked the subsystem vendor and device ids as now
+> > this quirk gets applied to all RX 5600 and it seems to
+> > cause problems on some Dell laptops.  Add a subsystem vendor
+> > id check to limit the quirk to Sapphire boards.
+>
+> That's not correct. The issue is present on all RX 5600 boards, not just =
+the Sapphire ones.
 
-That's not correct. The issue is present on all RX 5600 boards, not just the Sapphire ones.
-
-The problems with the Dell laptops are most likely the general instability of the RX 5600 again which this quirk just make more obvious because of the performance improvement.
-
-Do you have a specific bug report for the Dell laptops?
-
-Regards,
-Christian.
+I suppose the alternative would be to disable resizing on the
+problematic DELL systems only.
 
 >
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/1707
-> Fixes: 907830b0fc9e ("PCI: Add a REBAR size quirk for Sapphire RX 5600 XT Pulse")
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Christian König <christian.koenig@amd.com>
-> Cc: Bjorn Helgaas <bhelgaas@google.com>
-> Cc: Nirmoy Das <nirmoy.aiemd@gmail.com>
-> ---
->  drivers/pci/pci.c | 1 +
->  1 file changed, 1 insertion(+)
+> The problems with the Dell laptops are most likely the general instabilit=
+y of the RX 5600 again which this quirk just make more obvious because of t=
+he performance improvement.
 >
-> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-> index 225a6cd2e9ca3..dec917636974e 100644
-> --- a/drivers/pci/pci.c
-> +++ b/drivers/pci/pci.c
-> @@ -3766,6 +3766,7 @@ u32 pci_rebar_get_possible_sizes(struct pci_dev *pdev, int bar)
->  
->  	/* Sapphire RX 5600 XT Pulse has an invalid cap dword for BAR 0 */
->  	if (pdev->vendor == PCI_VENDOR_ID_ATI && pdev->device == 0x731f &&
-> +	    pdev->subsystem_vendor == 0x1da2 &&
+> Do you have a specific bug report for the Dell laptops?
+>
+> Regards,
+> Christian.
+>
+> >
+> > Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/1707
+
+^^^ this bug report
+
+Alex
 
 
-
-
->  	    bar == 0 && cap == 0x700)
->  		return 0x3f00;
->  
-
+> > Fixes: 907830b0fc9e ("PCI: Add a REBAR size quirk for Sapphire RX 5600 =
+XT Pulse")
+> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > Cc: Bjorn Helgaas <bhelgaas@google.com>
+> > Cc: Nirmoy Das <nirmoy.aiemd@gmail.com>
+> > ---
+> >  drivers/pci/pci.c | 1 +
+> >  1 file changed, 1 insertion(+)
+> >
+> > diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+> > index 225a6cd2e9ca3..dec917636974e 100644
+> > --- a/drivers/pci/pci.c
+> > +++ b/drivers/pci/pci.c
+> > @@ -3766,6 +3766,7 @@ u32 pci_rebar_get_possible_sizes(struct pci_dev *=
+pdev, int bar)
+> >
+> >       /* Sapphire RX 5600 XT Pulse has an invalid cap dword for BAR 0 *=
+/
+> >       if (pdev->vendor =3D=3D PCI_VENDOR_ID_ATI && pdev->device =3D=3D =
+0x731f &&
+> > +         pdev->subsystem_vendor =3D=3D 0x1da2 &&
+>
+>
+>
+>
+> >           bar =3D=3D 0 && cap =3D=3D 0x700)
+> >               return 0x3f00;
+> >
+>
