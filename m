@@ -4,72 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E61C2C021AA
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Feb 2025 14:35:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 457EFC021A9
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Feb 2025 15:11:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8BF8210E2DE;
-	Mon, 17 Feb 2025 14:35:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB13110E137;
+	Mon, 17 Feb 2025 15:11:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BdedzJL4";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="wsB+Qdjd";
 	dkim-atps=neutral
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com
- [209.85.216.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF9CD10E2DE
- for <amd-gfx@lists.freedesktop.org>; Mon, 17 Feb 2025 14:35:43 +0000 (UTC)
-Received: by mail-pj1-f45.google.com with SMTP id
- 98e67ed59e1d1-2f74e6c6cbcso978141a91.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 17 Feb 2025 06:35:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1739802943; x=1740407743; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=PrkaniyPRDU3o24rcQDtgWYJicGEaYLAqAqhaf+eVBY=;
- b=BdedzJL4rzes6q2ow8QR8R0Qk2TDGBDXTw+9XNGJHt0fiSqNl1NXgCHrN7Uxmj/NT7
- NgiILE8EpbCA8O3wmYCiWlrflpfDXDpeEgB8doj+13UE539i4uipt2wAGOG4+wXxIihS
- mzO34nUppttGboQzDqrm04Zc/PXJEBQQ+EWBOvvG1wYcoTpxMzTPVBitB76ACvofD9OL
- BQ4oYNNy9ed9ylR2hipPwEOsbPMnMATgb/74ovY4KI5LvDQQC6FA3OADxYcgTfUGgKZX
- Tz33HIbBjlMwi30EZTpERXbHsSZyMXGoOdg5iuzzvt5taDqH8xW1NhKHW+VUq7DIIENN
- dxew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739802943; x=1740407743;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=PrkaniyPRDU3o24rcQDtgWYJicGEaYLAqAqhaf+eVBY=;
- b=tYGCzkMkXiojdSWQxFZxjm5nHtV3le9N72BCSa5GAhDC5UPxZn4Hw0X5i8n6fAVphF
- CeVy0HtZMBkDog72yxagvNsFJ4iVTruzP5poSNJBs+1ETVEPiIoPK28t1QruoVnKvSjh
- yBkDi3HZiTZ0tegrbt4NdC4MN/LWM2caSsWPoUVCaCMtwLwRoexgf7xD68I12GweduWe
- lY09DBQZQEdwD2l4ClGFJ2e4fHxdjOe/x4X9+FEL+uzpCN7/sQlCMP2bg+RANW4LLKHa
- Ve1ESsdV4ltv4IvuVwwciQk8AyjroIZvRD4chX7V7fmJNJDMd53CmqyiPltLYR98n1er
- WzIA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWftaNGAbXXMZOnzUnuTw1mSEjBZcFTXLXaT2TgElrgOU+Hv9s0nqsDkc+YX885xiwr25AAJQ67@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx7Y1wZRepSY/+fOAIC1TU8SRl/rLejiFZ+FKrktgy4KG9tTrob
- De8oXbyeZ51rI9nmH0cP7k0XLAk8jFYxLYvnR6bbPsWH+Mumxg7NKBcrIpusyfJ7+rsAIB2HIfE
- N5X022pyNH1/xcyvMn5sFhf1HB+U=
-X-Gm-Gg: ASbGncv4jGXvncwuJu0X2iQFZeJYUlqiOztdoe/nx4tRFUBe9QBrcejEs+u4E1gFqze
- EQ9PLLQY5Afws9tMLQKTpajbvM6UTFu19a7DKXKqHEmoAXHa8MOqd7fwq7WSj8Wszx9qGGaDk
-X-Google-Smtp-Source: AGHT+IHRtHZFI8OZWuTlxUMmIu6CYctE60rKDHBsP/JzNsIguLT/dxw2/qjN6KdXOhwPLqJVBEud0Ivy7vc4Yudikac=
-X-Received: by 2002:a17:90b:4c07:b0:2ee:6db1:21dc with SMTP id
- 98e67ed59e1d1-2fc40c1d80dmr6265886a91.1.1739802943081; Mon, 17 Feb 2025
- 06:35:43 -0800 (PST)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2056.outbound.protection.outlook.com [40.107.236.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F1B710E137
+ for <amd-gfx@lists.freedesktop.org>; Mon, 17 Feb 2025 15:11:12 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Nxgb1jCHyBJ/Ce+l0zD7ss0xsf7mCmNyABqNZXBsDRh2TCh9D6C8s9Najjt5TYcwBM8zeegSMGz0aQLgChXvhvOMadV2oWx6UVJivoRKCGWV4pYt9gBqs/05VsqSFk+6+UISyxglfXoULmeb2ixuV4td5C4qsEhoKM1CNKXP6Smfjz71VBiFdyQDOsABGAHzVgHj0hZPISTipIAV3q6Zq3c7qCYZ5+l4evu3xS6/YQKJH044pN9b3S1NjFmeCKuG+17I7E2+9x4IsO7m0B1sJfBWcgzVsP1IzR+RYg+T1sbqq/z0bvCGhJSoECsgftZffVHnDb4ZW7nymmLsLmvPoA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+/WTDP1nQFkXTO8dWL4YaGEZDNj1/hMpb9krahR3rDA=;
+ b=yFy0Sj7bXkHDJQsDuwMXgAikGeo2Z46MV0vAVxlAVynRm+SR6M5HceNVsz6w6Ht2E2TTGyiQGgVx4kduUWX+E/lUMYzplS8fvvINt567x+ZowO8YCCrx+OppzhMIPxyXmZMaT45EHjj72rFXJZ0KChFr23R5pzlWY8FcmrxUzNKeQxFEo+zFUeYxUJkNsOY0rows9NT1Yn/N9eH40vLLTIkYna0DHgwgtxyXccwCLgdlYleQ6oJhWoYdR36AYEw6T3OiiDvHIVuOAkqh+Tb9E5Nb4BQj1ToEZckRxOV38uXrKXgRTbI7haAZ/pdlWIWHTdCTygzKTfmVnN0EhhrzAw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=google.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+/WTDP1nQFkXTO8dWL4YaGEZDNj1/hMpb9krahR3rDA=;
+ b=wsB+QdjdzMW848KwFvHickfFx6I6Vt+REFTcDo/G8eEAwqBITTuiI1gyriXCNp/NzXPc8oXP5//xZrzyxkGtWGEwq1XpTb8U1VJ25uRdFtvP3sjB8D4GvaBn0Abw4f8+yoKepxZvYSgTcjmszAIiTcXjoisUTyZVQQMCKql/c8w=
+Received: from SJ0PR05CA0112.namprd05.prod.outlook.com (2603:10b6:a03:334::27)
+ by MW4PR12MB7484.namprd12.prod.outlook.com (2603:10b6:303:212::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8445.19; Mon, 17 Feb
+ 2025 15:11:08 +0000
+Received: from SJ5PEPF00000206.namprd05.prod.outlook.com
+ (2603:10b6:a03:334:cafe::e9) by SJ0PR05CA0112.outlook.office365.com
+ (2603:10b6:a03:334::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8466.8 via Frontend Transport; Mon,
+ 17 Feb 2025 15:11:08 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SJ5PEPF00000206.mail.protection.outlook.com (10.167.244.39) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8466.11 via Frontend Transport; Mon, 17 Feb 2025 15:11:07 +0000
+Received: from tr4.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 17 Feb
+ 2025 09:11:06 -0600
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <bhelgaas@google.com>, <linux-pci@vger.kernel.org>,
+ <amd-gfx@lists.freedesktop.org>
+CC: <Mario.Limonciello@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Nirmoy Das
+ <nirmoy.aiemd@gmail.com>
+Subject: [PATCH] PCI: fix Sapphire PCI rebar quirk
+Date: Mon, 17 Feb 2025 10:10:53 -0500
+Message-ID: <20250217151053.420882-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.48.1
 MIME-Version: 1.0
-References: <20250214173522.2373211-1-alexander.deucher@amd.com>
- <363007c1-064a-4017-abaf-a2b69bbc4679@amd.com>
- <CADnq5_OmnYXoc94h0LjG52wqwkOCAaB6eefYoqiJZY3k-hVm2Q@mail.gmail.com>
- <789dee33-a962-4824-b82a-375a36168420@amd.com>
-In-Reply-To: <789dee33-a962-4824-b82a-375a36168420@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 17 Feb 2025 09:35:31 -0500
-X-Gm-Features: AWEUYZl1WvgtsEenipBbsMcA9fb56Xco2dVmxluidpCKeQdmxb3gy2Yqeg_4ErI
-Message-ID: <CADnq5_Pm=epLrLRd842rsVriOo0ttTtB81_PK+BWHXkLwPPJfQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/mes: keep enforce isolation up to date
-To: SRINIVASAN SHANMUGAM <srinivasan.shanmugam@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, 
- Shaoyun Liu <shaoyun.liu@amd.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF00000206:EE_|MW4PR12MB7484:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1a5c7985-5bc1-4bac-9bd0-08dd4f654e41
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|82310400026|1800799024|36860700013|13003099007|7053199007;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?N0lmakw4b1ljTUZadytBUi96SWhNNEYzT0lvRU5aNE5xNkR1TWEvL2h6YU1Z?=
+ =?utf-8?B?UkQ1bXh3TmU4a1FOdkJ3SFNKb1pER3d3dHVIN3Nmc2JabGJCcUNYR1laNnc2?=
+ =?utf-8?B?alBzWDBVQWZHeGt3T05wQkJ2OVFhUkJ3dkNEeXRuaEJqdkg0QTJWN09zTm5o?=
+ =?utf-8?B?MzYvTnJZcmNVOUVCdTVOTG9lRmQ1clN1UktHeUs2R2IxU1JyK3F6Um1CelVX?=
+ =?utf-8?B?ajlvd3RwaUZmZlEzZ0ZkN25YZUJoMWV5VGg3S0V1ZzVxRElraWpySGpjNSt0?=
+ =?utf-8?B?RWowRWkvQXN1YVNJd1lmM0lKaXV1UjVXNG5XOXFIQlYrWm9CaXNtWm1obGht?=
+ =?utf-8?B?Y2pNYmdmWEkvZkxMRmRIZVVIOEJWNE53czVjekNaQllHVFhuekdYSktkQzJ0?=
+ =?utf-8?B?N0hRZEQyMnBmQlZscm42RFpJQmhaVHlTN0FOa1c4aHVyQjVpSUpZWmM5aThH?=
+ =?utf-8?B?WHhsR2VrQmpFTlIyLzA1bExlUjlvNm5BQkpIcGFhSEp3YXNOQk9PMElMaHl5?=
+ =?utf-8?B?TnpzdjBQenROQ1ZnV2FWcXorSXhDUlI5U1lOeGY3S2JjM1pGSzVCS094ajVR?=
+ =?utf-8?B?eFJoZ0pzSFZZcXlHb2orQ3pyU1BuZ0Vzb0liTnV3V0h1TU5nbkNWYmFsaU1D?=
+ =?utf-8?B?a3FCTVZHT25JZ25FUmFnd0JqWlBLb1RYVmVDYU0ybVZ6NkxQc2Z5b2JFSENp?=
+ =?utf-8?B?SUdpZDhFZVI2Sm9IYlJ3QnNuckdBUVlpWXFhVlJUbmlPQ2lFMWZFKzNROVNx?=
+ =?utf-8?B?U0ZvUTVYK3h0UDd5RlIvc0VIaVdkVHNYRUhvd01LdWoxVkRLWG9UVkdpbjZs?=
+ =?utf-8?B?WThwcWM3anJId3RZWDF5NndKOUZHYWE0SkF2MDRtTWFhUjZWK3BETGVIVE5s?=
+ =?utf-8?B?WVdJZmhBaktzbEcxS20yOS9kbU1vQVhTT2h3SFFZcnBaQ2xVZjlac2NOM3JJ?=
+ =?utf-8?B?TVFsQ0VaTE5oQkluWDJER2Vtd0FDZTF5TGtuWTV6SE0vYVdZZUtEeHFLMEdQ?=
+ =?utf-8?B?WnBYV1lrdWlEcGZGOG1talJRM2ZjaUd6dzAwWUx2OGhGKzhCTlBJRy83US9q?=
+ =?utf-8?B?VWo3ZU1LWEYzMWdKcnBIYy9ieENLejdvWVpNa3JsZTI4TStLVmNnMlVISXNB?=
+ =?utf-8?B?SkpsMUlVS3Fydm93Sjd5Ny9ISTNUNWVYTUFXbGw4U21paFhWbEtmR0R4dVNs?=
+ =?utf-8?B?QktydlQzeFgyN2NMRDVpdEFDOUNzeENjRGFTekt0QjZrUThVUE16KzJPS2xJ?=
+ =?utf-8?B?YkNJL2NYM2lYVmdmRU1TTkhaOTErQVhyOEJUNVN3UXplSDFjNkIzT0JoTnFC?=
+ =?utf-8?B?OUl6cnd3RWRWb0p2RkhrdzZjZzVNdng1UUFla0tJRzRMNEFHd2ZhM2dmaElu?=
+ =?utf-8?B?YlpaMUw3bnVwWGFYaXhFVUVTcHV3bm94YVBKdUltYkZvYVpoS0RHUC9jVDZD?=
+ =?utf-8?B?SnUrbjNGcGhpVkl5TGNJODZENlZVUGNhY3IzQStzbHhmdnBDd25LVHhtM1Fu?=
+ =?utf-8?B?SWFOTDJ5azFEN01xR2FIK1IwMkNnbVppb0FodnFLNmZrZG1yaVZQUnZNK21F?=
+ =?utf-8?B?bU05S1J0SmxybFI2NTFiUlprdmZvNVFDRWNQVmxmNXFPcmdCVVVyZkZhRTZx?=
+ =?utf-8?B?NmJwNUNnQm8wUnplK1Y4R0U3azdxcUdnL09tUVN6eFZINlpwa2hWTGVOZUk2?=
+ =?utf-8?B?VTlqN1VjdXJWRmpNdjZXL2JWeFN4UHQxaitKdElUWG8vbUhyTjlGSGlqdUtW?=
+ =?utf-8?B?QmJVNHNJbGJnUEN6c0NNTU1ac0VEbzhKbjFRRUtIRVBhUHhGangxQ0hMcEhq?=
+ =?utf-8?B?U3V0ckFucWRQekFOSmRiUkNTdUJtWHdaRVVRUVp0K2I0NmVhaURrZE1Kd3hl?=
+ =?utf-8?B?TlNpbFdJMktjMmZzUG5hcFIyeUdaMjNyeTEySmdKNkFGRVlZL2tjVFdiUmdv?=
+ =?utf-8?Q?LkKYVH95jFo=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(82310400026)(1800799024)(36860700013)(13003099007)(7053199007);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Feb 2025 15:11:07.8129 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1a5c7985-5bc1-4bac-9bd0-08dd4f654e41
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF00000206.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7484
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,190 +140,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Feb 17, 2025 at 9:18=E2=80=AFAM SRINIVASAN SHANMUGAM
-<srinivasan.shanmugam@amd.com> wrote:
->
->
-> On 2/17/2025 7:44 PM, Alex Deucher wrote:
-> > On Sat, Feb 15, 2025 at 3:02=E2=80=AFAM SRINIVASAN SHANMUGAM
-> > <srinivasan.shanmugam@amd.com> wrote:
-> >>
-> >> On 2/14/2025 11:05 PM, Alex Deucher wrote:
-> >>
-> >> Re-send the mes message on resume to make sure the
-> >> mes state is up to date.
-> >>
-> >> Fixes: 8521e3c5f058 ("drm/amd/amdgpu: limit single process inside MES"=
-)
-> >> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> >> Cc: Shaoyun Liu <shaoyun.liu@amd.com>
-> >> Cc: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-> >> ---
-> >>   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 13 ++++---------
-> >>   drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 20 +++++++++++++++++++-
-> >>   drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h |  2 +-
-> >>   drivers/gpu/drm/amd/amdgpu/mes_v11_0.c  |  4 ++++
-> >>   drivers/gpu/drm/amd/amdgpu/mes_v12_0.c  |  4 ++++
-> >>   5 files changed, 32 insertions(+), 11 deletions(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_gfx.c
-> >> index b9bd6654f3172..a194bf3347cbc 100644
-> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> >> @@ -1665,24 +1665,19 @@ static ssize_t amdgpu_gfx_set_enforce_isolatio=
-n(struct device *dev,
-> >>    }
-> >>
-> >>    mutex_lock(&adev->enforce_isolation_mutex);
-> >> -
-> >>    for (i =3D 0; i < num_partitions; i++) {
-> >> - if (adev->enforce_isolation[i] && !partition_values[i]) {
-> >> + if (adev->enforce_isolation[i] && !partition_values[i])
-> >>    /* Going from enabled to disabled */
-> >>    amdgpu_vmid_free_reserved(adev, AMDGPU_GFXHUB(i));
-> >> - if (adev->enable_mes && adev->gfx.enable_cleaner_shader)
-> >> - amdgpu_mes_set_enforce_isolation(adev, i, false);
-> >> - } else if (!adev->enforce_isolation[i] && partition_values[i]) {
-> >> + else if (!adev->enforce_isolation[i] && partition_values[i])
-> >>    /* Going from disabled to enabled */
-> >>    amdgpu_vmid_alloc_reserved(adev, AMDGPU_GFXHUB(i));
-> >> - if (adev->enable_mes && adev->gfx.enable_cleaner_shader)
-> >> - amdgpu_mes_set_enforce_isolation(adev, i, true);
-> >> - }
-> >>    adev->enforce_isolation[i] =3D partition_values[i];
-> >>    }
-> >> -
-> >>    mutex_unlock(&adev->enforce_isolation_mutex);
-> >>
-> >> + amdgpu_mes_update_enforce_isolation(adev);
-> >> +
-> >>    return count;
-> >>   }
-> >>
-> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_mes.c
-> >> index cee38bb6cfaf2..ca076306adba4 100644
-> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> >> @@ -1508,7 +1508,8 @@ bool amdgpu_mes_suspend_resume_all_supported(str=
-uct amdgpu_device *adev)
-> >>   }
-> >>
-> >>   /* Fix me -- node_id is used to identify the correct MES instances i=
-n the future */
-> >> -int amdgpu_mes_set_enforce_isolation(struct amdgpu_device *adev, uint=
-32_t node_id, bool enable)
-> >> +static int amdgpu_mes_set_enforce_isolation(struct amdgpu_device *ade=
-v,
-> >> +    uint32_t node_id, bool enable)
-> >>   {
-> >>    struct mes_misc_op_input op_input =3D {0};
-> >>    int r;
-> >> @@ -1530,6 +1531,23 @@ int amdgpu_mes_set_enforce_isolation(struct amd=
-gpu_device *adev, uint32_t node_i
-> >>    return r;
-> >>   }
-> >>
-> >> +int amdgpu_mes_update_enforce_isolation(struct amdgpu_device *adev)
-> >> +{
-> >> + int i, r =3D 0;
-> >> +
-> >> + if (adev->enable_mes && adev->gfx.enable_cleaner_shader) {
-> >> + mutex_lock(&adev->enforce_isolation_mutex);
-> >> + for (i =3D 0; i < (adev->xcp_mgr ? adev->xcp_mgr->num_xcps : 1); i++=
-) {
-> >> + if (adev->enforce_isolation[i])
-> >> + r |=3D amdgpu_mes_set_enforce_isolation(adev, i, true);
-> >> + else
-> >> + r |=3D amdgpu_mes_set_enforce_isolation(adev, i, false);
-> >> + }
-> >> + mutex_unlock(&adev->enforce_isolation_mutex);
-> >> + }
-> >> + return r;
-> >> +}
-> >> +
-> >>   #if defined(CONFIG_DEBUG_FS)
-> >>
-> >>   static int amdgpu_debugfs_mes_event_log_show(struct seq_file *m, voi=
-d *unused)
-> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_mes.h
-> >> index 6a792ffc81e33..3a65c3788956d 100644
-> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-> >> @@ -532,6 +532,6 @@ static inline void amdgpu_mes_unlock(struct amdgpu=
-_mes *mes)
-> >>
-> >>   bool amdgpu_mes_suspend_resume_all_supported(struct amdgpu_device *a=
-dev);
-> >>
-> >> -int amdgpu_mes_set_enforce_isolation(struct amdgpu_device *adev, uint=
-32_t node_id, bool enable);
-> >> +int amdgpu_mes_update_enforce_isolation(struct amdgpu_device *adev);
-> >>
-> >>   #endif /* __AMDGPU_MES_H__ */
-> >> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/=
-amd/amdgpu/mes_v11_0.c
-> >> index 530371e6a7aee..fc7b17463cb4d 100644
-> >> --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> >> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> >> @@ -1660,6 +1660,10 @@ static int mes_v11_0_hw_init(struct amdgpu_ip_b=
-lock *ip_block)
-> >>    goto failure;
-> >>    }
-> >>
-> >> + r =3D amdgpu_mes_update_enforce_isolation(adev);
-> >> + if (r)
-> >> + goto failure;
-> >> +
-> >>
-> >> Hi Alex,
-> >>
-> >> Should this also be moved to mes_v11_0_hw_init. Please let me know you=
-r thoughts?
-> > I'm not sure I follow.  This is in hw_init.
-> >
-> > Alex
->
-> Sorry, my mistake mes_v11_0_sw_init pls?
+There was a quirk added to add a workaround for a Sapphire
+RX 5600 XT Pulse.  However, the quirk only checks the vendor
+ids and not the subsystem ids.  The quirk really should
+have checked the subsystem vendor and device ids as now
+this quirk gets applied to all RX 5600 and it seems to
+cause problems on some Dell laptops.  Add a subsystem vendor
+id check to limit the quirk to Sapphire boards.
 
-There's no need to call it in sw_init, plus the hw is not set up in
-sw_init so you can't call it there anyway.  The whole point of this is
-to update the firmware with the current sw state after a suspend or
-reset.
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/1707
+Fixes: 907830b0fc9e ("PCI: Add a REBAR size quirk for Sapphire RX 5600 XT Pulse")
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>
+Cc: Nirmoy Das <nirmoy.aiemd@gmail.com>
+---
+ drivers/pci/pci.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Alex
+diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+index 225a6cd2e9ca3..dec917636974e 100644
+--- a/drivers/pci/pci.c
++++ b/drivers/pci/pci.c
+@@ -3766,6 +3766,7 @@ u32 pci_rebar_get_possible_sizes(struct pci_dev *pdev, int bar)
+ 
+ 	/* Sapphire RX 5600 XT Pulse has an invalid cap dword for BAR 0 */
+ 	if (pdev->vendor == PCI_VENDOR_ID_ATI && pdev->device == 0x731f &&
++	    pdev->subsystem_vendor == 0x1da2 &&
+ 	    bar == 0 && cap == 0x700)
+ 		return 0x3f00;
+ 
+-- 
+2.48.1
 
->
-> Thanks!
->
-> Srini
->
-> >>   out:
-> >>    /*
-> >>    * Disable KIQ ring usage from the driver once MES is enabled.
-> >> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c b/drivers/gpu/drm/=
-amd/amdgpu/mes_v12_0.c
-> >> index 6db88584dd529..ec91c78468f30 100644
-> >> --- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-> >> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-> >> @@ -1773,6 +1773,10 @@ static int mes_v12_0_hw_init(struct amdgpu_ip_b=
-lock *ip_block)
-> >>    goto failure;
-> >>    }
-> >>
-> >> + r =3D amdgpu_mes_update_enforce_isolation(adev);
-> >> + if (r)
-> >> + goto failure;
-> >> +
-> >>
-> >> And Similarly here also?
-> >>
-> >> Thanks!
-> >>
-> >> Srini
-> >>
-> >>   out:
-> >>    /*
-> >>    * Disable KIQ ring usage from the driver once MES is enabled.
