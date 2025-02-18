@@ -4,70 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C747C021AA
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Feb 2025 16:14:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30A19C021B1
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Feb 2025 16:14:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E47510E71A;
-	Tue, 18 Feb 2025 16:14:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C10AB10E72C;
+	Tue, 18 Feb 2025 16:14:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QzJN2mBY";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="i9d5qGed";
 	dkim-atps=neutral
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com
- [209.85.218.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4DC3410E3F1
- for <amd-gfx@lists.freedesktop.org>; Tue, 18 Feb 2025 16:14:06 +0000 (UTC)
-Received: by mail-ej1-f42.google.com with SMTP id
- a640c23a62f3a-abb705e7662so603860066b.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 18 Feb 2025 08:14:06 -0800 (PST)
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com
+ [209.85.218.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93A9010E71A
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Feb 2025 16:14:08 +0000 (UTC)
+Received: by mail-ej1-f51.google.com with SMTP id
+ a640c23a62f3a-abb86beea8cso527764266b.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Feb 2025 08:14:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1739895245; x=1740500045; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1739895247; x=1740500047; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=O+C29FQAAsqcq/eSCAC8m1g/I0pkefooPYlJKiIkZ6k=;
- b=QzJN2mBYVQRRUYefXs1aeAKBL/xjocZLPluef3xTNJpNFCGA23tFmbSdMGj9sHepn0
- qh4jRZMpVze1AksN0Ve/ybUppotyK1szFvwtGEIYs/mR2phHroO+uia3ld7k9140wGzV
- U5gDS0ZOiWRpJ7XNiLy8KoCqXvDhu/IewTCHXJrWgnAi9WZAgW4Ch2QUz3YOZfbowaak
- s7HWW4S88v8sYkgfkh0z6LJA7a3xv6ZZbsyqCvT5gpUpcvNBsimNU7/bmKztfXCiU94f
- yfT+FJTS28HoNpHvY8daJWtqdimph91X1M45uKoegJsP/Ge7X0Ct4txoqA+8d0ODyufy
- RrnA==
+ :reply-to; bh=nBAG5oUEFX166qTyB90hWPLYYfHebcCnYQtV4T8ALB4=;
+ b=i9d5qGedC1F1wSLfOy/4UhvmhMm2QyfeDLJ6RhqnNvmJVG0pRwM3fAwjfML1ouLPjN
+ Uu9trHxL6YIR5B9cGETETwUdrxZV1+rS4oCRdldO5XuKR9D3XZ2vL9QPc2lHq8ws33Vy
+ UrP7gmvNhJDp2s38W6odMI8wlOKCUFh1qYB1Kol9B9e0r8Mb5T0/HSMS8LUMx334TFFi
+ P1H8SonhxnmkdR+y//p20+1Qks4c7R2GRcsPbXg8omH/FqSGqvXUQ+6eOJNTyps/nskU
+ eT9RZAu6If7QtE22aDOBBcZVlebSKU7UEehzYSTAI80MGer7miUbbzjFhCh3AgVCR8n6
+ h3/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739895245; x=1740500045;
+ d=1e100.net; s=20230601; t=1739895247; x=1740500047;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=O+C29FQAAsqcq/eSCAC8m1g/I0pkefooPYlJKiIkZ6k=;
- b=WTOhape03YNC/sxLbSGsXymdUGUgfwmrh5Ssf8WuaYYTA1GzSuIzANjcNa3Uke2IcX
- ar8kHhV8Vf8Lnc58kl0VHmcyYUMCedz8ggHnxyMwDNTCngbuJ9M56Pt/ChK3nDh9oBE2
- xFNlspzzBH0RgAICSsZQnXg2eCQXt+1Cvsr9ERSC4j3w+xSsD06stGt2jklkaWU1CnD5
- 4h2zuv/X1cjLwT1V3f58bkaeHjU2ns5Ml0wvJRkex4CKGp0UW7xbuzqr9dvbQhPtwuqc
- fjpLHi1OvB/jZAW7seOjqmIc2pLTuLujNpsO2AopHc7h4LSMiLfh+1EmpDmY65GqmfZF
- /Hhg==
+ bh=nBAG5oUEFX166qTyB90hWPLYYfHebcCnYQtV4T8ALB4=;
+ b=NfhU+6PCGWu3NoQW4as9AM0VkJBDpFPeqk3X9Qafa6EURGcwa1acRzb777xztShVzx
+ tHsZw4wh6PEhdl3yCo/3bPdlNf7SvZR6/p6b4E7GkKwXcI1Cg/q6EA6Fw8wvI7AoSuti
+ ptlKtmk2RJp2Bs9OiUABWOsy4IqDar+2V+jx1QrSmaSmf7MwV1mqeJxn+EfTHguiuBKM
+ toH4mOtsCtdphgqJbkGrgvM68fvD3pRyEwwz2BjJF945XVBWQFyjrAN1DJQ6GQX2HLUZ
+ GasM2sfjU7K8mHSuVhzyJKr5Y6Sji0R1Y7uDAod9WJLpwB5vffrE2Bl7k7tP//JROac5
+ sFeA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWJkdSnOE00BZ+4Uu7jruau9LLDIve5uMxisxlUOzXqcfzQ+WXNWXp2Ecxkpvxu7N6OFfwokqyX@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YykuBO8w7+4yudLBeC+qoMleDwvzDgrNGMW4ybVwbLZjx4lsFtz
- vF+EEx4ZL2Fd+ToyVNE3ECNN2WrJM+xujWpHuuLSPfy1T/yb6/DFLp7OJw==
-X-Gm-Gg: ASbGnctpDZZzuRJwgUE46iYwg8qrYobkM/7fiSAuwS0hc64FVzHeIcuBB28N+IfVKqP
- jiHkfbnmbX9zsapEHelGGwcru4du4m3YPZEgbfcg47ECzb+PMHtkErKBZFw7a2nAY73++uyn4Q+
- nr/RMFiog6VDG1skuMn6fuSQf+ggjCy1JWj6VmFrwDVR6BW1IOYTbeDL4MJjhG21/jZSARk2PUJ
- gksrZMkPCkZWcmQ78XbfR7hnC8rpUMvXpddnebFQ5/UrcO+LznfUNPS+AKWYv7r4kinTlc9F7Sk
- btkgtK1+9aZWRjkLkAOziPdDUgeJ
-X-Google-Smtp-Source: AGHT+IH7TzYLwUxz6xVQm60VXD67ejssmObVQTbrlLnQZce/Y5Do3q5f24D4iItH7TBp6VyQLARQ3Q==
-X-Received: by 2002:a17:906:9c92:b0:aba:6385:576e with SMTP id
- a640c23a62f3a-abbcc5ba657mr46992566b.3.1739895244457; 
- Tue, 18 Feb 2025 08:14:04 -0800 (PST)
+ AJvYcCWM+dIS+Tz+pV/xqkrip6rnlbhduzHuNnaYc7qDv2p4ter9fi5FWkttvM2sHEIvxsFu0bEFHSEP@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyat13K5wOPlHLg2FSegAG+k+qduqBHFnMih6VWT3ybtHO+Vaw9
+ oFmapgd/VxEfNBSmJGq/hM77dmGc2nGURsmyiil44nYzfzMLUvB8
+X-Gm-Gg: ASbGnctX+LrXGruTQBRMtcg8ROiBrZGc5Ks1tOn1x0XEH5jpTIBOwqwCA6NaTkRtOv+
+ kXdNOW/s6qzhBSYNU/ZvpXk48htkIINqcYpG40RgVxIAO/3kAEJBQqQRwzUZJLDv2vB55IWdPBE
+ PdnZ/26bN9oogg1yT/xrNMqrAzXQasa0shDtj62JkVBcS+AE4JD0Fjxs8ty1h3luEq/njXxysSS
+ iiFVe+gubu5BOhC/c9nlmw6lEST+SpX8aIdl/p7KY/K2ZnJ/mXOigl8D9BIyAqDaldm8WV3Koc3
+ ACQzA+7nz25JoAZWF63OnEizl7S/
+X-Google-Smtp-Source: AGHT+IFnse/jh/97XT1xIU7lWU1MmnFNfSO85G+vYTuO4ZNRyD2y/WhGcGOuGNx9b2d40sjyhuXJug==
+X-Received: by 2002:a17:906:3281:b0:aaf:ada2:181e with SMTP id
+ a640c23a62f3a-abbccf09153mr21466966b.26.1739895247001; 
+ Tue, 18 Feb 2025 08:14:07 -0800 (PST)
 Received: from able.fritz.box ([2a00:e180:15cb:ef00:7a4e:6292:55ba:b835])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-abba7848676sm306762466b.144.2025.02.18.08.14.03
+ a640c23a62f3a-abba7848676sm306762466b.144.2025.02.18.08.14.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 18 Feb 2025 08:14:04 -0800 (PST)
+ Tue, 18 Feb 2025 08:14:06 -0800 (PST)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
 To: srinivasan.shanmugam@amd.com,
 	amd-gfx@lists.freedesktop.org
-Subject: [PATCH 3/8] drm/amdgpu: overwrite signaled fence in amdgpu_sync
-Date: Tue, 18 Feb 2025 17:13:56 +0100
-Message-Id: <20250218161401.2155-3-christian.koenig@amd.com>
+Subject: [PATCH 7/8] drm/amdgpu: add isolation trace point
+Date: Tue, 18 Feb 2025 17:14:00 +0100
+Message-Id: <20250218161401.2155-7-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250218161401.2155-1-christian.koenig@amd.com>
 References: <20250218161401.2155-1-christian.koenig@amd.com>
@@ -88,39 +88,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This allows using amdgpu_sync even without peeking into the fences for a
-long time.
+Note when we switch from one isolation owner to another.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h  | 17 +++++++++++++++++
+ 2 files changed, 18 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
-index 86c17a8946f5..bfe12164d27d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
-@@ -135,11 +135,16 @@ static bool amdgpu_sync_add_later(struct amdgpu_sync *sync, struct dma_fence *f)
- 	struct amdgpu_sync_entry *e;
- 
- 	hash_for_each_possible(sync->fences, e, node, f->context) {
--		if (unlikely(e->fence->context != f->context))
--			continue;
-+		if (dma_fence_is_signaled(e->fence)) {
-+			dma_fence_put(e->fence);
-+			e->fence = dma_fence_get(f);
-+			return true;
-+		}
- 
--		amdgpu_sync_keep_later(&e->fence, f);
--		return true;
-+		if (likely(e->fence->context == f->context)) {
-+			amdgpu_sync_keep_later(&e->fence, f);
-+			return true;
-+		}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index f1369c60565c..a3abe36a59b0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -6846,6 +6846,7 @@ struct dma_fence *amdgpu_device_enforce_isolation(struct amdgpu_device *adev,
+ 		dma_fence_put(isolation->spearhead);
+ 		isolation->spearhead = dma_fence_get(&f->scheduled);
+ 		amdgpu_sync_move(&isolation->active, &isolation->prev);
++		trace_amdgpu_isolation(isolation->owner, owner);
+ 		isolation->owner = owner;
  	}
- 	return false;
- }
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
+index 383fce40d4dd..e8147d9a54fc 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
+@@ -457,6 +457,23 @@ DEFINE_EVENT(amdgpu_pasid, amdgpu_pasid_freed,
+ 	    TP_ARGS(pasid)
+ );
+ 
++TRACE_EVENT(amdgpu_isolation,
++	    TP_PROTO(void *prev, void *next),
++	    TP_ARGS(prev, next),
++	    TP_STRUCT__entry(
++			     __field(void *, prev)
++			     __field(void *, next)
++			     ),
++
++	    TP_fast_assign(
++			   __entry->prev = prev;
++			   __entry->next = next;
++			   ),
++	    TP_printk("prev=%p, next=%p",
++		      __entry->prev,
++		      __entry->next)
++);
++
+ TRACE_EVENT(amdgpu_bo_list_set,
+ 	    TP_PROTO(struct amdgpu_bo_list *list, struct amdgpu_bo *bo),
+ 	    TP_ARGS(list, bo),
 -- 
 2.34.1
 
