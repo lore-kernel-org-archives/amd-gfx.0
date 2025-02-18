@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14A67C02198
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57744C021AA
 	for <amd-gfx@archiver.kernel.org>; Tue, 18 Feb 2025 04:59:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B04F910E60E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9A1F10E60C;
 	Tue, 18 Feb 2025 04:59:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="q0oS+W2p";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BE4CJSSu";
 	dkim-atps=neutral
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5AAFF10E605
- for <amd-gfx@lists.freedesktop.org>; Tue, 18 Feb 2025 04:59:01 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C8E2E10E60C
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Feb 2025 04:59:03 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 7BF475C5AAC;
- Tue, 18 Feb 2025 04:58:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18D32C4CEE2;
- Tue, 18 Feb 2025 04:59:00 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id F404A5C5AAC;
+ Tue, 18 Feb 2025 04:58:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 954B4C4CEE6;
+ Tue, 18 Feb 2025 04:59:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1739854740;
- bh=PrWwiDUHS73NCV5kW7RzneUjnY5FxhY8SB4LnH9eOgk=;
+ s=k20201202; t=1739854743;
+ bh=Ry8imehsB62tExGRXNbN1GCa4QqXRXKZCz3w+rB4dkA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=q0oS+W2pVefOdUaM2wXG91lNUPmgqCLiJh6qpEg2Jc5MQuAMu2DAxWrkNlt5bCUJ6
- kMYlYoV3HWT7VJQOKTrrgUT9R9h+hDi5Fipgte0HKWxiDvOYlG2OcZb4+Q5EQuQ8Z6
- g6x2Fd77OJCReN+WTfbe63ETscy+CRk1aKmDq4G23EbH6M4eXIOmqcohohHhy5pMLm
- kSRNVc3qZTatHuL/V6Xmholr5qte5Vlw0MYyBBltmWSygoq8+5o0tALfAPsTQLMb+w
- M1lMuRAUaFChZeklgezbN0UCfCHJDXGnTyn2rcSJjw7k74ACIdrLRZJ4MxGn471Tr2
- 6WZf9K01hl2ug==
+ b=BE4CJSSucOT2EKOzLyyc3BsnVxHcsLb/MBigEBba6EXU1jvm62y14LzmcCPPmVajS
+ Bo1eufRcDKg/6JJPIvP3PmmTC1RfmgPq+LTE34BgFWMIHgLkIRj7djI0ktlRlzKxMR
+ UcSMAKuOU2uPYsWGjyZxywtNCBePiV9aDuKoi21TvR31gl0yhAwTY12UwxYG4iw5j6
+ TJorM6IRaQKGdxaqdIwqcUNcuYXE+KOqlZr0ncYIUVAdWKv6iCxWDk9aC7iVmYvk8N
+ AdfOAVUuYX0D8Ke0Nz92YvMjvDMX4GQUlpCzu8WMBR7nvIUYrycNy4PgFVUonD4kmk
+ eRF7IJ1TdYYaw==
 From: Mario Limonciello <superm1@kernel.org>
 To: amd-gfx@lists.freedesktop.org
 Cc: harry.wentland@amd.com,
 	Mario Limonciello <mario.limonciello@amd.com>
-Subject: [PATCH 07/13] drm/amd/display: Change amdgpu_dm_irq_resume_*() to use
- drm_dbg()
-Date: Mon, 17 Feb 2025 22:58:34 -0600
-Message-ID: <20250218045840.2469890-8-superm1@kernel.org>
+Subject: [PATCH 11/13] drm/amd/display: Use _free() macro fro releasing sink
+ in amdgpu_dm_update_connector_after_detect()
+Date: Mon, 17 Feb 2025 22:58:38 -0600
+Message-ID: <20250218045840.2469890-12-superm1@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20250218045840.2469890-1-superm1@kernel.org>
 References: <20250218045840.2469890-1-superm1@kernel.org>
@@ -59,36 +59,74 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Mario Limonciello <mario.limonciello@amd.com>
 
-drm_dbg() is helpful to show which device had the debug statement.
-Adjust to using this instead for debug messages.
+By using a _free() macro multiple duplicated snippets of code to free
+the sink can be dropped. The sink will be released when leaving scope.
 
 Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 15 ++++-----------
+ 1 file changed, 4 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-index 058a94345245f..3224eae295eb4 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-@@ -521,7 +521,7 @@ int amdgpu_dm_irq_resume_early(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 08b05fd1cdb91..fa5be13f8dd75 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -3591,12 +3591,14 @@ static void update_connector_ext_caps(struct amdgpu_dm_connector *aconnector)
+ 	}
+ }
  
- 	DM_IRQ_TABLE_LOCK(adev, irq_table_flags);
++DEFINE_FREE(sink_release, struct dc_sink *, if (_T) dc_sink_release(_T))
++
+ void amdgpu_dm_update_connector_after_detect(
+ 		struct amdgpu_dm_connector *aconnector)
+ {
+ 	struct drm_connector *connector = &aconnector->base;
++	struct dc_sink *sink __free(sink_release) = NULL;
+ 	struct drm_device *dev = connector->dev;
+-	struct dc_sink *sink;
  
--	DRM_DEBUG_KMS("DM_IRQ: early resume\n");
-+	drm_dbg(adev_to_drm(adev), "DM_IRQ: early resume\n");
+ 	/* MST handled by drm_mst framework */
+ 	if (aconnector->mst_mgr.mst_state == true)
+@@ -3643,8 +3645,6 @@ void amdgpu_dm_update_connector_after_detect(
+ 			}
+ 		}
  
- 	/* re-enable short pulse interrupts HW interrupt */
- 	for (src = DC_IRQ_SOURCE_HPD1RX; src <= DC_IRQ_SOURCE_HPD6RX; src++) {
-@@ -544,7 +544,7 @@ int amdgpu_dm_irq_resume_late(struct amdgpu_device *adev)
+-		if (sink)
+-			dc_sink_release(sink);
+ 		return;
+ 	}
  
- 	DM_IRQ_TABLE_LOCK(adev, irq_table_flags);
+@@ -3652,10 +3652,8 @@ void amdgpu_dm_update_connector_after_detect(
+ 	 * TODO: temporary guard to look for proper fix
+ 	 * if this sink is MST sink, we should not do anything
+ 	 */
+-	if (sink && sink->sink_signal == SIGNAL_TYPE_DISPLAY_PORT_MST) {
+-		dc_sink_release(sink);
++	if (sink && sink->sink_signal == SIGNAL_TYPE_DISPLAY_PORT_MST)
+ 		return;
+-	}
  
--	DRM_DEBUG_KMS("DM_IRQ: resume\n");
-+	drm_dbg(adev_to_drm(adev), "DM_IRQ: resume\n");
+ 	if (aconnector->dc_sink == sink) {
+ 		/*
+@@ -3664,8 +3662,6 @@ void amdgpu_dm_update_connector_after_detect(
+ 		 */
+ 		drm_dbg_kms(dev, "DCHPD: connector_id=%d: dc_sink didn't change.\n",
+ 				 aconnector->connector_id);
+-		if (sink)
+-			dc_sink_release(sink);
+ 		return;
+ 	}
  
- 	/**
- 	 * Renable HW interrupt  for HPD and only since FLIP and VBLANK
+@@ -3735,9 +3731,6 @@ void amdgpu_dm_update_connector_after_detect(
+ 	}
+ 
+ 	update_subconnector_property(aconnector);
+-
+-	if (sink)
+-		dc_sink_release(sink);
+ }
+ 
+ static void handle_hpd_irq_helper(struct amdgpu_dm_connector *aconnector)
 -- 
 2.43.0
 
