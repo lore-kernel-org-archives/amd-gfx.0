@@ -4,40 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90DA0C02198
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Feb 2025 04:58:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0682C021A9
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Feb 2025 04:58:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1252E10E08D;
-	Tue, 18 Feb 2025 04:58:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A5AC10E1B2;
+	Tue, 18 Feb 2025 04:58:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="H9sFLGUs";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Oo/137yW";
 	dkim-atps=neutral
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 16D9B10E08D
- for <amd-gfx@lists.freedesktop.org>; Tue, 18 Feb 2025 04:58:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 46E9310E1B2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Feb 2025 04:58:58 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 31EA95C4C3D;
- Tue, 18 Feb 2025 04:58:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C048FC4CEE2;
- Tue, 18 Feb 2025 04:58:55 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 6DEE15C4C3D;
+ Tue, 18 Feb 2025 04:58:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01CACC4CEE8;
+ Tue, 18 Feb 2025 04:58:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1739854736;
- bh=mtzY8RI9U9lcDytEfGqFJNSYea06NxAEtZ9r925NCWc=;
- h=From:To:Cc:Subject:Date:From;
- b=H9sFLGUsBZymUKQehz2QR9wItawJGya4mBq60fUpLsJnnrBIdbBP6VUb+vUzElSZr
- mH8VerNIafuSA4CRyjcDdraGV8MC35J2aP7d9iZQ2A0bmI51Qu9iufLrDZf6lOqBe2
- 4kRooON3+b2JBvf0Prsg6GypurO8rXlI7mbm3sodpsxdigmFFjF6D0+/LNA8PUCvgW
- mcZjgC+l/j89sOZ98m37b2Kdw1g0V1PW8lbfE113Lfnyd3BCMkHkKzYEtNuljYdZF2
- E+QSHGEV2dTkroSgNV+tZdGt9qNEdwoLNrL5jByGj/RcQMA7i5janSBsAGML4k7baU
- /L45TuMHuctCg==
+ s=k20201202; t=1739854737;
+ bh=YEQuIabpH2RrdzWGDeDe7cJYul7Ir9UDk5LhQxZDffI=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=Oo/137yWyX68ssIbBFiMACL0bZaoDoDgxjXXD0IVgeLrnwupY09OCHyMOMmPsgo7G
+ S4auoUPaRj3Hx5kb9fWvDJID4RcoB7OxhhGs/Crh61sTQPXgY73FJTF2bGLV119eMl
+ vkAvJSqZnVUP7VtStRi2AlyGaqT8stZQ61KqBp4NXYAplcg/fnQmCfwiNW+LSdUtG0
+ g7oYXI/4Sb/hNxcl8KcnQqZqjSyHotLZiTiiOXo4abb4fqEMxDrZchN+oUrcMGV4wQ
+ md1cDc0kJ25Xw3qyASebo4Ia7ewgnkl0sMOJ5pAOWITuHuKcB3Y003vdHA7gWh7H3r
+ bdPk1CVAHSI4g==
 From: Mario Limonciello <superm1@kernel.org>
 To: amd-gfx@lists.freedesktop.org
 Cc: harry.wentland@amd.com,
 	Mario Limonciello <mario.limonciello@amd.com>
-Subject: [PATCH 00/13] drm/amd/display: Various cleanups to amdgpu_dm
-Date: Mon, 17 Feb 2025 22:58:27 -0600
-Message-ID: <20250218045840.2469890-1-superm1@kernel.org>
+Subject: [PATCH 02/13] drm/amd/display: Drop `ret` variable from dm_suspend()
+Date: Mon, 17 Feb 2025 22:58:29 -0600
+Message-ID: <20250218045840.2469890-3-superm1@kernel.org>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20250218045840.2469890-1-superm1@kernel.org>
+References: <20250218045840.2469890-1-superm1@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -56,32 +58,35 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Mario Limonciello <mario.limonciello@amd.com>
 
-I was looking at amdgpu_dm for some issues and just noticed some cases
-that could use cleanups for scoped cleanups and error messaging.
+The `ret` variable in dm_suspend() doesn't get set and is just used
+to return 0.  Drop the needless declaration.
 
-Mario Limonciello (13):
-  drm/amd/display: Change amdgpu_dm_irq_suspend() to void
-  drm/amd/display: Drop `ret` variable from dm_suspend()
-  drm/amd/display: Catch failures for amdgpu_dm_commit_zero_streams()
-  drm/amd/display: Use a _free() macro for
-    amdgpu_dm_commit_zero_streams()
-  drm/amd/display: Use drm_err() instead of DRM_ERROR in dm_resume()
-  drm/amd/display: Use scoped guard for dm_resume()
-  drm/amd/display: Change amdgpu_dm_irq_resume_*() to use drm_dbg()
-  drm/amd/display: Change amdgpu_dm_irq_resume_*() to void
-  drm/amd/display: Use _free(kfree) for dm_gpureset_commit_state()
-  drm/amd/display: Use scoped guard for
-    amdgpu_dm_update_connector_after_detect()
-  drm/amd/display: Use _free() macro fro releasing sink in
-    amdgpu_dm_update_connector_after_detect()
-  drm/amd/display: Use scoped guards for handle_hpd_irq_helper()
-  drm/amd/display: Use drm_err() for handle_hpd_irq_helper()
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 89 ++++++++-----------
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c | 14 ++-
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_irq.h |  6 +-
- 3 files changed, 44 insertions(+), 65 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index b26ae1dd1fd78..0d78cabeece70 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -3087,7 +3087,6 @@ static int dm_suspend(struct amdgpu_ip_block *ip_block)
+ {
+ 	struct amdgpu_device *adev = ip_block->adev;
+ 	struct amdgpu_display_manager *dm = &adev->dm;
+-	int ret = 0;
+ 
+ 	if (amdgpu_in_reset(adev)) {
+ 		mutex_lock(&dm->dc_lock);
+@@ -3105,7 +3104,7 @@ static int dm_suspend(struct amdgpu_ip_block *ip_block)
+ 
+ 		hpd_rx_irq_work_suspend(dm);
+ 
+-		return ret;
++		return 0;
+ 	}
+ 
+ 	WARN_ON(adev->dm.cached_state);
 -- 
 2.43.0
 
