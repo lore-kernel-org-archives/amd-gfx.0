@@ -4,58 +4,156 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 141B0C021AA
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Feb 2025 09:53:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32057C02198
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Feb 2025 09:58:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF1A110E64D;
-	Tue, 18 Feb 2025 09:53:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CEE4310E64E;
+	Tue, 18 Feb 2025 09:58:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="aGJ4IE7F";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="fXW8iZBP";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E83510E636;
- Tue, 18 Feb 2025 08:35:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=qj0rqu3An1xSiskoLSsjkohlEYVqM7wNVunL/PZzBl4=; b=aGJ4IE7FbrNyz81sHzO0CsBEp3
- awTEXB1IikGk93wtpPx2jaKkgI23g6t4UQnC0ByFN6YHco6pBf9KKj5QlcPjsJMMtWtDV3n3NdTZq
- DZ+vnCdM7C+aJP/no6ud3SNwYoL4pKTTshF65lOOOcdTcHLoiChfC0GNw5Mzr8fqcCVdddilgfxMX
- MLs19f41EBVCskV7VuAjbmOlldMlF4gewz4SloGgByLtubpSR/rBgQK1uHFgcET2QzjtGUFi0Y0pR
- sxm8B4AnhXDssw+Y0kAeIg0dVrH3Ikgz68cpTZWIgPwIQT1DV65FM2ykkg78AxkzRvXsDqlM3ihUH
- lIiMyKyw==;
-Received: from [90.241.98.187] (helo=[192.168.0.101])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1tkJ4Y-009J2A-QG; Tue, 18 Feb 2025 09:35:24 +0100
-Message-ID: <e8850df1-d901-40ab-b821-d521d415ad82@igalia.com>
-Date: Tue, 18 Feb 2025 08:35:21 +0000
-MIME-Version: 1.0
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2081.outbound.protection.outlook.com [40.107.100.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A70F10E644
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Feb 2025 09:58:26 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=d0xIOaLJfERqYThSbn9/stj1SomQzduuLHbRMrL7mnUSkCykcDoKlX3hf+i0mJppDLpA8CJmSlCZHDbdcDGJ2PNtc79N/0Qu/dV87mliV8Y37YeQEyNbtNSdf8uAQJBOhrtzGTYK/2/ezfLKMrOsYsoa2N+4i6tkwi9bNC+OpLq0x0/WysJL8O3t28Dsac32A6GItpnoyTZYK2IQxtqs/1uaDUKIOYO/ZiWegQp6BEJw2Mhak6N/yEbM0/Q9JIZGEGH3Iv2PWiy290eNLaSP+MVQdh6jS4W8IthAKZBQkzgWaAmfjzhlHsmjIIVTzW6zTZnXguvSbzfVKSvS8tXvWw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WLMY3R1ADOjqwQrIZZcdCRxxBxxvk2a7r8XOdQQKOvs=;
+ b=ai2RRGJYMYegc3YP+4VM/+diomW3VNd9NQtm+SNBsIOUM0e4aJBZFQmvVvp4Zi4TrR3Rkgl490olqERGT12UbIM9inAZKjMsqD3P2/qWh+nqq/On2m+tYibTcEM0RWp1GhWSZTnQTaOdBzXao1jNgCZjU0BFyffJvWOYprU3Vx6bWVbO4JoH0Ak7krHsbQFKqbd+MOH0Qj4UOo8qER1L8u2C9jgq3n2lwHigCvDFz6s3Xy9PPJak4d3o/u52dgLvJbY5XXil35Zo7g32cZpxaK+btxgFWy78WJLIpx8GdPAF+nPZkQ4JkLwmat8xPmi2HjHY7iN7P4tUChHfBdzehg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WLMY3R1ADOjqwQrIZZcdCRxxBxxvk2a7r8XOdQQKOvs=;
+ b=fXW8iZBPFJ1Osd8wcYJSMI/g6VJwOrDMBJnSbvvTQQDPgGdFEqKlyoDDow9zmcEghXbhlnYUvRSpFQYUpOgkPLGbf9dmF3NrYR0y4DZLQw1p/2TzO0kOj88ZMi3d/ocs9POnUlN7AeuwePOxe5PhoHcFoTqx9ufzqXgdoVDCWuI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) by
+ DM4PR12MB6208.namprd12.prod.outlook.com (2603:10b6:8:a5::10) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.8445.18; Tue, 18 Feb 2025 09:58:23 +0000
+Received: from DS0PR12MB7804.namprd12.prod.outlook.com
+ ([fe80::8327:d71a:ce21:a290]) by DS0PR12MB7804.namprd12.prod.outlook.com
+ ([fe80::8327:d71a:ce21:a290%5]) with mapi id 15.20.8445.017; Tue, 18 Feb 2025
+ 09:58:23 +0000
+Message-ID: <e098c309-e89b-4135-b5f1-dc8629445bc7@amd.com>
+Date: Tue, 18 Feb 2025 15:28:14 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/6] drm/sched: Add internal job peek/pop API
-To: phasta@kernel.org, Matthew Brost <matthew.brost@intel.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- kernel-dev@igalia.com, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>
-References: <20250207145104.60455-1-tvrtko.ursulin@igalia.com>
- <20250207145104.60455-2-tvrtko.ursulin@igalia.com>
- <73ffd26bdd66ec25c01f820366a63f9ceedad2c8.camel@mailbox.org>
- <8ce06914-f8ec-4b28-9cc2-6ff9d9fe47db@igalia.com>
- <30be58cb90e95af0d9404082ea5c63eb8f7e9dad.camel@mailbox.org>
- <54da7c5c-a66c-4410-880c-2efebbb66214@igalia.com>
- <504eb5a31ae600b9c95dad015e7090cf0736f0a7.camel@mailbox.org>
- <Z65swe1XPG016e0V@lstrano-desk.jf.intel.com>
- <6801ab8b629efd519449827a0d609c407e59f655.camel@mailbox.org>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <6801ab8b629efd519449827a0d609c407e59f655.camel@mailbox.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH] PCI: fix Sapphire PCI rebar quirk
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Alex Deucher <alexdeucher@gmail.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, bhelgaas@google.com,
+ linux-pci@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Nirmoy Das <nirmoy.aiemd@gmail.com>
+References: <20250217151053.420882-1-alexander.deucher@amd.com>
+ <1654fb6c-e0e8-4dde-8554-7058cf73503d@amd.com>
+ <CADnq5_NUEuMFsd__w1eGBWALxcQwtX7sa2Sn53vDjaxrqNuhPQ@mail.gmail.com>
+ <CADnq5_NEhv-E9ZxHvxhBtFb_cBkPqMfu-nsQfEknO30tNBjA2Q@mail.gmail.com>
+ <a2645312-0903-4fa9-9735-7f2a77986cb8@amd.com>
+ <97e803f4-f00e-4fb0-8ed8-714ea9960e5a@gmail.com>
+Content-Language: en-US
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <97e803f4-f00e-4fb0-8ed8-714ea9960e5a@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 18 Feb 2025 09:53:37 +0000
+X-ClientProxiedBy: PN3PR01CA0020.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:97::16) To DS0PR12MB7804.namprd12.prod.outlook.com
+ (2603:10b6:8:142::5)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB7804:EE_|DM4PR12MB6208:EE_
+X-MS-Office365-Filtering-Correlation-Id: e4f8a40b-cb59-4cb6-962f-08dd5002c7da
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?MUgweStZNjhqT0k0dHhiZkVHQisrNUhPNHFsSEFXNnpEaWJXR3RCNkhkUlY2?=
+ =?utf-8?B?OC93MklZcVZ3SW9iNlpZZ1BVQ0Yxd3lORE1Hbm10Q1d6dFNGU1hXZ0RhZ3l2?=
+ =?utf-8?B?bTVyZEx4L1FSNzd5T3A4TUs2MXhFZWdaMUJ1K05iQWloQWZUZGJiMzkvNnd5?=
+ =?utf-8?B?S1F5MzYzUjRUMTI1RGRic3NCeFdKSGUvV0VGcTJkM1lMM1oxUnkrYk9vTi9H?=
+ =?utf-8?B?djRIbnFMbTdNV0k2ZlNWMFVhaVFVQjg0UE9vTk14VndMTGgzYjhnN2IwL2Vl?=
+ =?utf-8?B?dkxZS0o4WUl6RXhHRWpmOUNGTjhOZU1RU3JsdTVDN1pvTDRIZ1hmVW1TQjNO?=
+ =?utf-8?B?NzJZS2Jjbk56V0V4eEorTlNweWJyWG0xQldCQ0tPTGJFQVFtMVl2UGJMT3hY?=
+ =?utf-8?B?bFdnTzkvNHhCeE1xV2IyaWxCaGd4M1lhb0pHRlNmV2d1MG11M1Z2VEsrc2tZ?=
+ =?utf-8?B?c1k2WUVaODJQdFhDMjBFQlBPZHk5WERNZCt1RWJjMEVVUXJvQVNDOTZlT3pa?=
+ =?utf-8?B?MmVMUk8vSWVURUZqcWx1ODVMcGF2S2pjZ1ExeWtsaHZVMFBvaHVzMDNFVys2?=
+ =?utf-8?B?ZnhOcEpxeTJFRlpEZmV5cUFJMXlET0gzNzBpNE9DMVdHNnZnUUxYWjhqV2NL?=
+ =?utf-8?B?SkF0UHkxTkp6Ym9ONUFwOTFwTFF5WHhSZmlLSDdUYVhmS25WR2N4VW45WXlZ?=
+ =?utf-8?B?STB4YlBCbEhXWFJxcnVGdy85TG1KUXc0bU1PbGMvZ0JYV2htYnQyd1pjZ1kz?=
+ =?utf-8?B?NkdXY29EV2hMQnd4NWtiZUpibGxmcEd3c2hjTFl4elhOc3NiUmN0blFQOUNP?=
+ =?utf-8?B?N1Y3TFR4YllZY2NwZmRWem42T296QXdzVitlSVozbWY5RHJXMEFDVVo1MEtq?=
+ =?utf-8?B?QnovZ3pudGlCc0VMNFZOM2V5N0lqbW94U25lbk9FS0NraVJuV01sczhseVVQ?=
+ =?utf-8?B?SHZoS3ZSbVNCTVI1dGcyMFRHUnBLZlNZd2RjSGpJV2ZZQUU3dEk4YmgzVW9U?=
+ =?utf-8?B?UFJWVDhueklLRWFQM2ovZnpuaHR1SDJHak5yelI5dGsrSE81ekxZY0RtY2Vx?=
+ =?utf-8?B?VTRZNzhNVmxNampsU2FyeEx2VlFtdS9JSGU3NHlwZUI0emdiS2JJV2NKazFa?=
+ =?utf-8?B?dSsrZ2xMcnNJOGR2RFJKSERIUUNPSGZndVlwMnp6SXlKVGJKVFFZOStpMXE2?=
+ =?utf-8?B?eStGWDFsRi84MTZ6K0xmR0Y3NkpLVWtNR2pEa1lweDRZVnExYlU0M3NZd2hG?=
+ =?utf-8?B?UVl6NzdZN3FWQUYzMk9vU0hmL09VcWZBMkhoWmZ5SjRLM3JoVTVjMU1vdnBF?=
+ =?utf-8?B?OWFsbFA1SnJiQWloUmhSK1N2dTRqd0o5ZXdpL0VkZGpNRVU4eVYyNmNoSFVE?=
+ =?utf-8?B?VzE5VmZLdCtqdzNpejExeHpyODl2amlOMjdVRWlyTGdRS1lzak5hOXBIeG5r?=
+ =?utf-8?B?NnQ0TENyTUJCYjExZS80T2R6VzZ5cUVxZlVROVpNd05sUFRGTVJlSmtabE1t?=
+ =?utf-8?B?T0g1a1I2blR2am5URk9xSjRKZ2ZKNSswUkhtRStneFc0Q2lzR01XWm1BMTl5?=
+ =?utf-8?B?MjJHWlBMcUg2SmpKMEQxcEdiRFBZbW9yd3FZcHN0c0RDdlg0RDNLTWVsN0d3?=
+ =?utf-8?B?UE9IQlFrUHhUTzFwcGFvQW9lM2FWQVE5OUt3Z2NKazBZbjhOTGZhREJNTGsw?=
+ =?utf-8?B?ajFPZzJnOVE0WHNONTVuL3hRUUtMai9qZlJZNWtScld5djlqTnFZTko4K0pN?=
+ =?utf-8?B?MzQyZjhJb21HOUgvMXR0VzJDbE8vTzVETk1mckRvcmJKTmJQM0hKUVFFL0ly?=
+ =?utf-8?B?d0VGVml5TEVTVkJPNks3UT09?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB7804.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WHFQd2tTZnVNaEJLQml0LzRNK3lGd0dEQm1kS0wxbkd1UGt5ODZhNmRSSkYz?=
+ =?utf-8?B?VExsTWg2MHRJckVKTmk4b1FiSkdiZkVTSkNGdFZRTTNEVWVzU2tBajdtbUpy?=
+ =?utf-8?B?bFVwYjBLYm1CUTl1djAwR3htUWR2Y0kvSTJQQ1VvYnZVY1NIMXI1a0VNZHRO?=
+ =?utf-8?B?ZnppVkI5cWozLzBWSlJuNis3aThmNHJWbnluWU1LcXplQ2xjcFpTUnU1MThk?=
+ =?utf-8?B?NTQya3RTK2Z6TlNMMjJPV3NhS3ZuN3NKOGVEdHZBTk5VM01RWks2T0dnZjRE?=
+ =?utf-8?B?dmxHY3p0eDk1ZDlxWlM5Y2twOGE3bkdhV1VOaW9ld1BDMWE1R0ZXTjIwLzhw?=
+ =?utf-8?B?NmlrSm45N1FDN093b2c4a3BJRHN1VkhzeG5YTWdwSTlVSmxxMjMrend4Mkt5?=
+ =?utf-8?B?Z29CZjdEWmNHN2xCRnZKNDV2bGdtb2FmNW05OVZ1Ny94RnVTd2k1aUVPQmRP?=
+ =?utf-8?B?aTRIaUQ0SEtFVVZoS3RmUTBNSzlpak4vTEtFUTREN24xZGRTWlhnRWlUVlZl?=
+ =?utf-8?B?eXNSdnA2aHBTODBnQkJqb0Eyd2hOZGd0ZjR1YnMvOC9jRHhpM1o4aWo5Z2V0?=
+ =?utf-8?B?OHllTjY0eXZNSWNNN2lhMkg2NEhFK1dKcjJQNmtzZzRNWUdVcENocDJrZUdn?=
+ =?utf-8?B?ejNkdHZlMHFpMFZLUHlQY3Z1WmhmVXkrbUZ6eCtpN0s0cUZHNDV1Y21wMExm?=
+ =?utf-8?B?Z1hOQjdkQkVvNVhJRldYczNRT0lwYzREVmR5WWxSeGN3QVpkZS9jSUllVVIy?=
+ =?utf-8?B?Zjdab0Yyb2tNZGhZdEdCSnpjL3NFY2RwZ0kwMzdJM1MrN0E4QUNvVG8vWXVw?=
+ =?utf-8?B?aGUvZVNuQ3g2cSttNm4rQ0IyNlBoblEzc29tR01XRCtNQ3I5bUtXOUNaYnJZ?=
+ =?utf-8?B?aC9nVDFVNmRDdkR2ekdERFFmM3F3RTBTU25SWjI3TTROdlR4TXg0MXlRNlV0?=
+ =?utf-8?B?WjhYNEdUZXE1L05EdXVtdlR3ODlBQ0JGNXg3UWZ2TFFaQ1ZVUE1yYzI5ZUNH?=
+ =?utf-8?B?ZDhyS2V3ckd3SDROdEJjZkVmd29SazY5ei9XWERzSUY2UjczVU5waXluQ3hs?=
+ =?utf-8?B?dTFJUnkrRFFyV3dTTVlJVmFDMEExR25FVmFnSUNGeEtBWkFFdHdUTHg0dmNS?=
+ =?utf-8?B?YitLNWZyYXlnazhZUU1wdlJ2bUN0NVpmVUZkc0NBT1FQWjc1NzNXWGV5M2RW?=
+ =?utf-8?B?UElPS2ZLTG9UMW1YZFdUVHMvWVduREphNFk0clRhTGREYzl0VDFsdGpmMEpR?=
+ =?utf-8?B?SWh1L2thdkprTlovZEszZE5paXRiN0ZUQTlpTk1kYzZ4bTNQK1ZIMFFsK01v?=
+ =?utf-8?B?QVhTQk8yQ1JaV0p1UDhYZnFyQURDY25xTXBtVkNIdXRsUlFNNzFjTXdsM25F?=
+ =?utf-8?B?Q1AyTHl4WmRMS1RCNVY4c2h3M2diMkdzalRpbGE5NnB0cWF1TmdOUkpRR0Fl?=
+ =?utf-8?B?NVhOSEVTUXNqWTBaa0I5eE5Ec01UbnNId2t6QXZpNW5vTzFtZHY2R3FmNmta?=
+ =?utf-8?B?MUM1ejNzYnEweVhvenArZFhDUjc3VnZBL3VpUWg2UEwySXpBWmlmclhHQjhF?=
+ =?utf-8?B?b1ZKU0o0SUNlVGJRNlBYZGt4aFRKYXc4dWEyeEhCTGdSSWpKY0hmdkhwbjI5?=
+ =?utf-8?B?NXlzWjlnbWRPYTRxcTNZWkNFeStRTzYwNEdmT1U3UE5iQjlPNzlrd01GMzhl?=
+ =?utf-8?B?QXRhbW1iS1dzTC9QcUx3U0o2OFJyaHZWc1VIbGhoWmZMOXc3dkRabjhJQlZB?=
+ =?utf-8?B?OHM0Ly9kZklWNkdJaklPUTRnMnFWYnEwalhRUUJqQkcrOUR0VkFCU09ScHRz?=
+ =?utf-8?B?VW05bkhteVhpTHBTUWlCNDZjVXpRSVczcDlmcnQrS3ZMWTVmQk1kODJiM0xu?=
+ =?utf-8?B?OFlnWDRCVlRXR3YrclA5WXBpMnJPelRhMlprL1E4VEhyUE8xWG94UjZaZEsy?=
+ =?utf-8?B?aEs0aUJtNW5kK1JjZmY0NE5UbGlINVl3NE05azQzOS9GZ1B0UUw1NDZuWGx6?=
+ =?utf-8?B?aG5sbGE2ZmpVelZsY1pQV1J6T3ptY0tyajllSHJvNVZteDhWMXNWT2tCRlFG?=
+ =?utf-8?B?V0tpRWtLRDR2cWltc0R1NnZoTGpSOHdoOXJBV3FrMk80SFBKUDdtR0d2Um41?=
+ =?utf-8?Q?wCALzIRirU2NNpbmNY8MFImBs?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e4f8a40b-cb59-4cb6-962f-08dd5002c7da
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7804.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Feb 2025 09:58:23.4810 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: LskDqxnfLWpkB8sMMFXnMr90PgQTyV0X5YZ2Q1pJXw6z+YE50jwFBaAQ5pWk3wSg
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6208
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,301 +169,96 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-On 18/02/2025 08:12, Philipp Stanner wrote:
-> On Thu, 2025-02-13 at 14:05 -0800, Matthew Brost wrote:
->> On Wed, Feb 12, 2025 at 01:36:58PM +0100, Philipp Stanner wrote:
->>> On Wed, 2025-02-12 at 12:30 +0000, Tvrtko Ursulin wrote:
+
+On 2/18/2025 1:33 PM, Christian König wrote:
+> Am 17.02.25 um 17:04 schrieb Mario Limonciello:
+>> On 2/17/2025 10:00, Alex Deucher wrote:
+>>> On Mon, Feb 17, 2025 at 10:45 AM Alex Deucher <alexdeucher@gmail.com> wrote:
 >>>>
->>>> On 12/02/2025 10:40, Philipp Stanner wrote:
->>>>> On Wed, 2025-02-12 at 09:32 +0000, Tvrtko Ursulin wrote:
->>>>>>
->>>>>> On 12/02/2025 09:02, Philipp Stanner wrote:
->>>>>>> On Fri, 2025-02-07 at 14:50 +0000, Tvrtko Ursulin wrote:
->>>>>>>> Idea is to add helpers for peeking and popping jobs from
->>>>>>>> entities
->>>>>>>> with
->>>>>>>> the goal of decoupling the hidden assumption in the code
->>>>>>>> that
->>>>>>>> queue_node
->>>>>>>> is the first element in struct drm_sched_job.
->>>>>>>>
->>>>>>>> That assumption usually comes in the form of:
->>>>>>>>
->>>>>>>>      while ((job =
->>>>>>>> to_drm_sched_job(spsc_queue_pop(&entity-
->>>>>>>>> job_queue))))
->>>>>>>>
->>>>>>>> Which breaks if the queue_node is re-positioned due
->>>>>>>> to_drm_sched_job
->>>>>>>> being implemented with a container_of.
->>>>>>>>
->>>>>>>> This also allows us to remove duplicate definitions of
->>>>>>>> to_drm_sched_job.
->>>>>>>>
->>>>>>>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->>>>>>>> Cc: Christian König <christian.koenig@amd.com>
->>>>>>>> Cc: Danilo Krummrich <dakr@kernel.org>
->>>>>>>> Cc: Matthew Brost <matthew.brost@intel.com>
->>>>>>>> Cc: Philipp Stanner <phasta@kernel.org>
->>>>>>>> ---
->>>>>>>>     drivers/gpu/drm/scheduler/sched_entity.c   | 11 +++---
->>>>>>>>     drivers/gpu/drm/scheduler/sched_internal.h | 46
->>>>>>>> ++++++++++++++++++++++
->>>>>>>>     drivers/gpu/drm/scheduler/sched_main.c     |  7 ++--
->>>>>>>>     3 files changed, 54 insertions(+), 10 deletions(-)
->>>>>>>>     create mode 100644
->>>>>>>> drivers/gpu/drm/scheduler/sched_internal.h
->>>>>>>>
->>>>>>>> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c
->>>>>>>> b/drivers/gpu/drm/scheduler/sched_entity.c
->>>>>>>> index 69bcf0e99d57..a171f05ad761 100644
->>>>>>>> --- a/drivers/gpu/drm/scheduler/sched_entity.c
->>>>>>>> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
->>>>>>>> @@ -28,11 +28,10 @@
->>>>>>>>     #include <drm/drm_print.h>
->>>>>>>>     #include <drm/gpu_scheduler.h>
->>>>>>>>     
->>>>>>>> +#include "sched_internal.h"
->>>>>>>> +
->>>>>>>>     #include "gpu_scheduler_trace.h"
->>>>>>>>     
->>>>>>>> -#define to_drm_sched_job(sched_job)		\
->>>>>>>> -		container_of((sched_job), struct
->>>>>>>> drm_sched_job,
->>>>>>>> queue_node)
->>>>>>>> -
->>>>>>>>     /**
->>>>>>>>      * drm_sched_entity_init - Init a context entity used
->>>>>>>> by
->>>>>>>> scheduler
->>>>>>>> when
->>>>>>>>      * submit to HW ring.
->>>>>>>> @@ -255,7 +254,7 @@ static void
->>>>>>>> drm_sched_entity_kill(struct
->>>>>>>> drm_sched_entity *entity)
->>>>>>>>     	/* The entity is guaranteed to not be used by
->>>>>>>> the
->>>>>>>> scheduler
->>>>>>>> */
->>>>>>>>     	prev = rcu_dereference_check(entity-
->>>>>>>>> last_scheduled,
->>>>>>>> true);
->>>>>>>>     	dma_fence_get(prev);
->>>>>>>> -	while ((job =
->>>>>>>> to_drm_sched_job(spsc_queue_pop(&entity-
->>>>>>>>> job_queue)))) {
->>>>>>>> +	while ((job =
->>>>>>>> drm_sched_entity_queue_pop(entity))) {
->>>>>>>>     		struct drm_sched_fence *s_fence = job-
->>>>>>>>> s_fence;
->>>>>>>>     
->>>>>>>>     		dma_fence_get(&s_fence->finished);
->>>>>>>> @@ -477,7 +476,7 @@ struct drm_sched_job
->>>>>>>> *drm_sched_entity_pop_job(struct drm_sched_entity
->>>>>>>> *entity)
->>>>>>>>     {
->>>>>>>>     	struct drm_sched_job *sched_job;
->>>>>>>>     
->>>>>>>> -	sched_job =
->>>>>>>> to_drm_sched_job(spsc_queue_peek(&entity-
->>>>>>>>> job_queue));
->>>>>>>> +	sched_job = drm_sched_entity_queue_peek(entity);
->>>>>>>>     	if (!sched_job)
->>>>>>>>     		return NULL;
->>>>>>>>     
->>>>>>>> @@ -513,7 +512,7 @@ struct drm_sched_job
->>>>>>>> *drm_sched_entity_pop_job(struct drm_sched_entity
->>>>>>>> *entity)
->>>>>>>>     	if (drm_sched_policy == DRM_SCHED_POLICY_FIFO) {
->>>>>>>>     		struct drm_sched_job *next;
->>>>>>>>     
->>>>>>>> -		next =
->>>>>>>> to_drm_sched_job(spsc_queue_peek(&entity-
->>>>>>>>> job_queue));
->>>>>>>> +		next =
->>>>>>>> drm_sched_entity_queue_peek(entity);
->>>>>>>>     		if (next) {
->>>>>>>>     			struct drm_sched_rq *rq;
->>>>>>>>     
->>>>>>>> diff --git a/drivers/gpu/drm/scheduler/sched_internal.h
->>>>>>>> b/drivers/gpu/drm/scheduler/sched_internal.h
->>>>>>>> new file mode 100644
->>>>>>>> index 000000000000..25ac62ac2bf3
->>>>>>>> --- /dev/null
->>>>>>>> +++ b/drivers/gpu/drm/scheduler/sched_internal.h
->>>>>>>> @@ -0,0 +1,46 @@
->>>>>>>> +#ifndef _DRM_GPU_SCHEDULER_INTERNAL_H_
->>>>>>>> +#define _DRM_GPU_SCHEDULER_INTERNAL_H_
->>>>>>>> +
->>>>>>>> +/**
->>>>>>>> + * drm_sched_entity_queue_pop - Low level helper for
->>>>>>>> popping
->>>>>>>> queued
->>>>>>>> jobs
->>>>>>>> + *
->>>>>>>> + * @entity: scheduler entity
->>>>>>>> + *
->>>>>>>> + * Low level helper for popping queued jobs.
->>>>>>>> + *
->>>>>>>> + * Returns the job dequeued or NULL.
->>>>>>>> + */
->>>>>>>> +static inline struct drm_sched_job *
->>>>>>>> +drm_sched_entity_queue_pop(struct drm_sched_entity
->>>>>>>> *entity)
->>>>>>>> +{
->>>>>>>> +	struct spsc_node *node;
->>>>>>>> +
->>>>>>>> +	node = spsc_queue_pop(&entity->job_queue);
->>>>>>>> +	if (!node)
->>>>>>>> +		return NULL;
->>>>>>>> +
->>>>>>>> +	return container_of(node, struct drm_sched_job,
->>>>>>>> queue_node);
->>>>>>>> +}
->>>>>>>> +
->>>>>>>> +/**
->>>>>>>> + * drm_sched_entity_queue_peek - Low level helper for
->>>>>>>> peeking at
->>>>>>>> the
->>>>>>>> job queue
->>>>>>>> + *
->>>>>>>> + * @entity: scheduler entity
->>>>>>>> + *
->>>>>>>> + * Low level helper for peeking at the job queue
->>>>>>>> + *
->>>>>>>> + * Returns the job at the head of the queue or NULL.
->>>>>>>
->>>>>>> I would like to (slowly) work towards a unified style
->>>>>>> regarding
->>>>>>> the
->>>>>>> docstrings. They're currently relatively inconsistent in
->>>>>>> drm/sched.
->>>>>>>
->>>>>>> I think we should do it that way:
->>>>>>>
->>>>>>> ""
->>>>>>> @entity: scheduler entity
->>>>>>>
->>>>>>> Returns: the job at the head of the queue or NULL.
->>>>>>>
->>>>>>> Low level helper for peeking at the the job queue.
->>>>>>> ""
->>>>>>
->>>>>> Returns before the description would be yet another new
->>>>>> style,
->>>>>> no?
->>>>>> I's
->>>>>> say that if we are churning lets follow
->>>>>> Documentation/doc-guide/kernel-doc.rst.
+>>>> On Mon, Feb 17, 2025 at 10:38 AM Christian König
+>>>> <christian.koenig@amd.com> wrote:
 >>>>>
->>>>> Oh yes, you are right – official guideline demands "Return:" at
->>>>> the
->>>>> end. So let's go for that for contributions.
+>>>>> Am 17.02.25 um 16:10 schrieb Alex Deucher:
+>>>>>> There was a quirk added to add a workaround for a Sapphire
+>>>>>> RX 5600 XT Pulse.  However, the quirk only checks the vendor
+>>>>>> ids and not the subsystem ids.  The quirk really should
+>>>>>> have checked the subsystem vendor and device ids as now
+>>>>>> this quirk gets applied to all RX 5600 and it seems to
+>>>>>> cause problems on some Dell laptops.  Add a subsystem vendor
+>>>>>> id check to limit the quirk to Sapphire boards.
+>>>>>
+>>>>> That's not correct. The issue is present on all RX 5600 boards, not just the Sapphire ones.
 >>>>
->>>> So you want me to respin or are you okay with doing all scheduler
->>>> kernel
->>>> doc in one patch afterwards?
+>>>> I suppose the alternative would be to disable resizing on the
+>>>> problematic DELL systems only.
 >>>
->>> Both's OK I guess. It's not a big deal, it's just one letter being
->>> replaced. If you find some other nits you'd like to address you
->>> could
->>> give a v5 with that change?
->>>
->>> Rest of the series looks good to me. Having an ACK by AMD pro forma
->>> for
->>> merging everything together would be nice, though
->>>
+>>> How about this attached patch instead?
 >>
->> +1. Series looks good to me and all for moving some public DRM
->> scheduler
->> functions to internal headers. Good from Xe's end too.
+>> JFYI Typo in the commit message:
 >>
->> I would send this to the Xe list to get a CI run though ahead of
->> merging.
+>> s,casused,caused,
 > 
-> With "I would" you mean me and/or Tvrtko? :)
+> With that fixed feel free to add my rb. It's just that the Dell systems are unstable even without the resizing.
 > 
-> @Tvrtko, if you provide a v5, can you +Cc Xe?
+> The resizing just makes it more likely to hit the issue because ti massively improves performance on the RX 5600 boards.
+> 
 
-It's there since four days ago:
+As a workaround, from the thread, the most reliable one seems to be to
+disable runpm on the device.
 
-https://lore.kernel.org/intel-xe/20250214101944.19390-1-tvrtko.ursulin@igalia.com/T/#t
+Thanks,
+Lijo
 
-BAT was a pass and full run looks good to me too, although some failures 
-were logged they do not seem logged or related to me.
-
-Regards,
-
-Tvrtko
-
->>>>>>    Or even consider sending a patch
->>>>>> which churns everything at once.
+> Regards,
+> Christian.
+> 
+>>
+>>>
+>>> Alex
+>>>
+>>>>
+>>>>>
+>>>>> The problems with the Dell laptops are most likely the general instability of the RX 5600 again which this quirk just make more obvious because of the performance improvement.
+>>>>>
+>>>>> Do you have a specific bug report for the Dell laptops?
+>>>>>
+>>>>> Regards,
+>>>>> Christian.
+>>>>>
 >>>>>>
->>>>>> Regards,
+>>>>>> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/1707
+>>>>
+>>>> ^^^ this bug report
+>>>>
+>>>> Alex
+>>>>
+>>>>
+>>>>>> Fixes: 907830b0fc9e ("PCI: Add a REBAR size quirk for Sapphire RX 5600 XT Pulse")
+>>>>>> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+>>>>>> Cc: Christian König <christian.koenig@amd.com>
+>>>>>> Cc: Bjorn Helgaas <bhelgaas@google.com>
+>>>>>> Cc: Nirmoy Das <nirmoy.aiemd@gmail.com>
+>>>>>> ---
+>>>>>>   drivers/pci/pci.c | 1 +
+>>>>>>   1 file changed, 1 insertion(+)
 >>>>>>
->>>>>> Tvrtko
+>>>>>> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+>>>>>> index 225a6cd2e9ca3..dec917636974e 100644
+>>>>>> --- a/drivers/pci/pci.c
+>>>>>> +++ b/drivers/pci/pci.c
+>>>>>> @@ -3766,6 +3766,7 @@ u32 pci_rebar_get_possible_sizes(struct pci_dev *pdev, int bar)
 >>>>>>
->>>>>>>> + */
->>>>>>>> +static inline struct drm_sched_job *
->>>>>>>> +drm_sched_entity_queue_peek(struct drm_sched_entity
->>>>>>>> *entity)
->>>>>>>> +{
->>>>>>>> +	struct spsc_node *node;
->>>>>>>> +
->>>>>>>> +	node = spsc_queue_peek(&entity->job_queue);
->>>>>>>> +	if (!node)
->>>>>>>> +		return NULL;
->>>>>>>> +
->>>>>>>> +	return container_of(node, struct drm_sched_job,
->>>>>>>> queue_node);
->>>>>>>> +}
->>>>>>>> +
->>>>>>>> +#endif
->>>>>>>> diff --git a/drivers/gpu/drm/scheduler/sched_main.c
->>>>>>>> b/drivers/gpu/drm/scheduler/sched_main.c
->>>>>>>> index a48be16ab84f..9f614a775c49 100644
->>>>>>>> --- a/drivers/gpu/drm/scheduler/sched_main.c
->>>>>>>> +++ b/drivers/gpu/drm/scheduler/sched_main.c
->>>>>>>> @@ -78,6 +78,8 @@
->>>>>>>>     #include <drm/gpu_scheduler.h>
->>>>>>>>     #include <drm/spsc_queue.h>
->>>>>>>>     
->>>>>>>> +#include "sched_internal.h"
->>>>>>>> +
->>>>>>>>     #define CREATE_TRACE_POINTS
->>>>>>>>     #include "gpu_scheduler_trace.h"
->>>>>>>>     
->>>>>>>> @@ -87,9 +89,6 @@ static struct lockdep_map
->>>>>>>> drm_sched_lockdep_map
->>>>>>>> = {
->>>>>>>>     };
->>>>>>>>     #endif
->>>>>>>>     
->>>>>>>> -#define to_drm_sched_job(sched_job)		\
->>>>>>>> -		container_of((sched_job), struct
->>>>>>>> drm_sched_job,
->>>>>>>> queue_node)
->>>>>>>> -
->>>>>>>>     int drm_sched_policy = DRM_SCHED_POLICY_FIFO;
->>>>>>>>     
->>>>>>>>     /**
->>>>>>>> @@ -123,7 +122,7 @@ static bool
->>>>>>>> drm_sched_can_queue(struct
->>>>>>>> drm_gpu_scheduler *sched,
->>>>>>>>     {
->>>>>>>>     	struct drm_sched_job *s_job;
->>>>>>>>     
->>>>>>>> -	s_job =
->>>>>>>> to_drm_sched_job(spsc_queue_peek(&entity-
->>>>>>>>> job_queue));
->>>>>>>> +	s_job = drm_sched_entity_queue_peek(entity);
->>>>>>>>     	if (!s_job)
->>>>>>>>     		return false;
->>>>>>>>     
->>>>>>>
+>>>>>>        /* Sapphire RX 5600 XT Pulse has an invalid cap dword for BAR 0 */
+>>>>>>        if (pdev->vendor == PCI_VENDOR_ID_ATI && pdev->device == 0x731f &&
+>>>>>> +         pdev->subsystem_vendor == 0x1da2 &&
+>>>>>
+>>>>>
+>>>>>
+>>>>>
+>>>>>>            bar == 0 && cap == 0x700)
+>>>>>>                return 0x3f00;
 >>>>>>
 >>>>>
->>>>
->>>
+>>
 > 
 
