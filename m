@@ -4,46 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9788C021AA
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Feb 2025 22:37:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E295C021AA
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Feb 2025 23:13:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C06210E131;
-	Tue, 18 Feb 2025 22:37:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5013810E156;
+	Tue, 18 Feb 2025 23:13:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="WfBirGDW";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="g78+UAI1";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8FADA10E131;
- Tue, 18 Feb 2025 22:36:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=PZJN69dTbzUpr9g2692pepdc2Y56+VhBGXt64maR1Kc=; b=WfBirGDW+Ngw1BulF82h+Oi9s1
- kh8WeokoIhRE6qsnxIciBIcgTz/Bq2ySkBKZrgQmbUMgslLtVCzDGCShm3HaZKv7qoiiLZJPZmbCc
- xO1m+1Glr+rb/0lP5QjjwArnz0jDncOfUmPh7ZkJrpv2L0R1cAq/TtdUuyquXlgjTVW95wJqej9Tk
- UFAU3Gxvh3iAElTXxz6hdwgWgwiTTagc4Hw9pWnO1zSyP/HlPznIE9EVHYBKkGexawGK4pcGXf/bf
- sAOLWJTCFAi8Otg7FRXyiSgnHKlJj1hQ6Sx2866MGeLPTHxgb5rXTdsVAij175d/lSMqpTFV0/vCh
- rDKiuPKw==;
-Received: from [179.214.71.67] (helo=killbill.home)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1tkWCr-00C9Fy-Kd; Tue, 18 Feb 2025 23:36:52 +0100
-From: Melissa Wen <mwen@igalia.com>
-To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, simona@ffwll.ch
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- kernel-dev@igalia.com
-Subject: [RFC PATCH] drm/amd/display: fix page fault on dpms off with MST
-Date: Tue, 18 Feb 2025 19:28:58 -0300
-Message-ID: <20250218223643.214942-1-mwen@igalia.com>
-X-Mailer: git-send-email 2.47.2
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2077.outbound.protection.outlook.com [40.107.236.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6C5E10E156
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Feb 2025 23:13:37 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=SJTwIrkhHUIN8eG659FrA7ms7gcaPRzM2p2fuVm+CXll6Sxcrr11EjiP9ONQJw1N1Ait7Xon1p4UfvX6vHsGfP32DwbcaldbY+crnE2IvtkFHlSl5+C8xo9HKcnfBbytjxa9dvjYELkmB+t337NO8iwR4AxwNa+VB+G4Cm+o2fK+z/vmeRGsWEk1RfeFgNcwOqiw2w2u4HMzSOKEF/h+q4jxR68uJNA6/yeOqAoMyBFrKyH2ML68Np2EeVfT0lWt4Pq/zK0x1gWd+SKji2Yj03v2YvjW9BWq1XrqgcfAdeY9OJgtWV8X+d1bFA1E4GJA6qebbrtUjD0PbzUlMxJ7dQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9g1QtY5GNu5ASbXZJfzB8YQHlfrZEZ+vyNsJvv6nJbQ=;
+ b=XGDIMrEbEQMp1Ib6RrIwiLrOElN6CtZT9T9p+qWjZqEGEGnqb5eKjyPPPtI3ywCaxAWaX+AD4dmyn76pj071VmE7HuhiT/8q0QeU7ciDoVDxwL/7AKFDIGWqPqF3verr06p//YK6MUl1omColAqt3bc3gWyR325hfgu90FY+e42kpGTEe9n6kiCUMa/L/poozJyCrKUQzfpUC8A904nOGwWFSuIv5X6XUwnGJRjGtNoSsJo2DjLYtfW/OoS2ggfDR0sNQhXDiI0L2VoeHftvZ35FBeCJM4r9vOUuklQzEToqBdh45A8Ok9orSRGmhaFX+xF2cUeDtj37CSeY52chiQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9g1QtY5GNu5ASbXZJfzB8YQHlfrZEZ+vyNsJvv6nJbQ=;
+ b=g78+UAI1ECymdcy+MnasPvkKNGxDVCFu79MvxjKFGPFgAnrO+qoim+gR+rGFcEpqnBJUkyN1Q/sMhr5a8qvTfi5WsKGPd3mgi9d63PpR61saeyjYDW6TlE/RTrHYvl+UCQ+y43OMUgd0tzLvNup3rH49QaOT0lNZSu9YhmEAljE=
+Received: from MN0P221CA0003.NAMP221.PROD.OUTLOOK.COM (2603:10b6:208:52a::6)
+ by MN0PR12MB6343.namprd12.prod.outlook.com (2603:10b6:208:3c0::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8466.14; Tue, 18 Feb
+ 2025 23:13:35 +0000
+Received: from BN3PEPF0000B36E.namprd21.prod.outlook.com
+ (2603:10b6:208:52a:cafe::fd) by MN0P221CA0003.outlook.office365.com
+ (2603:10b6:208:52a::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8445.19 via Frontend Transport; Tue,
+ 18 Feb 2025 23:13:35 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN3PEPF0000B36E.mail.protection.outlook.com (10.167.243.165) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8489.2 via Frontend Transport; Tue, 18 Feb 2025 23:13:34 +0000
+Received: from dayatsin-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 18 Feb
+ 2025 17:13:34 -0600
+From: David Yat Sin <David.YatSin@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <harish.kasiviswanathan@amd.com>, <jay.cornwall@amd.com>,
+ <philip.yang@amd.com>, David Yat Sin <David.YatSin@amd.com>
+Subject: [PATCH v2] drm/amdkfd: Preserve cp_hqd_pq_control on update_mqd
+Date: Tue, 18 Feb 2025 23:13:22 +0000
+Message-ID: <20250218231322.420275-1-David.YatSin@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B36E:EE_|MN0PR12MB6343:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6bb89571-58ea-4324-1b81-08dd5071de4d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700013|82310400026|376014|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?6PqPEWem3Igfw1Vk0IpHJhkl7ZHknylnsopkt5JEdICiZ9534QBloDPwj7wk?=
+ =?us-ascii?Q?t3kDNiUy72NN4bCEHZcjDlueg+hCOKmRCI6tV5O6n2Q3Z/Ux7DqGFchQnFDE?=
+ =?us-ascii?Q?yVaNoZ8uf3PI/AeEawYDW+2Xb16FWeyXpna02UpZind0qmB0HQqDnLAogt0m?=
+ =?us-ascii?Q?/ntQpiNRgRasN7PoTjh/5PTaD76tjH7SeIqOThUmISibEVC3cmNDoV+GtLlv?=
+ =?us-ascii?Q?R/P+xpd9u6i5+ss+ke9E5B3kchFbLyfMyL9Y37uCrG5aN4sI/T6Aho0emh3O?=
+ =?us-ascii?Q?mRL5POpWdu/M02L+9nEawqUyEL8dskFjcbpOXpeN6cTugNNj5pHFXfbTFNj2?=
+ =?us-ascii?Q?tqR4GF6EjcrvOcCyIZBdDM3RK9uzl75xNDlTI7GkPB396LfJwvIOXCfM3nui?=
+ =?us-ascii?Q?g2t9NK9NbLDQb+a6xHmLOm2bWqcpYNlDNlvkfEWHtJQ1pvBWAfAVIRpM23f1?=
+ =?us-ascii?Q?iD5ix5v7vKviTGsTLlLD1hUOX/KGZhANppw18Niujg8VcHwLezuNrukzjLab?=
+ =?us-ascii?Q?AfxyJnthIZ6EPlMP8YHNN+CTc3J8UyoCDcP3OUGTbFQGPmfOdStU7O001ssr?=
+ =?us-ascii?Q?zgk7pFnjwUk4aCHktlv1Onjmq2damuCyzgiT7sdyJ+Nlc00G8nXDanq8L8MJ?=
+ =?us-ascii?Q?XXIUkQg/5Ns0ymOn/+XhL2ZHmKJfRhUsgSC2fNxqMq8m6bCis9BA76GZLMEx?=
+ =?us-ascii?Q?0GyZbq0DT6CZxKDt8x6ub+26I3uttIpmv3UpSGWIo9L0eTyw1L+wpLfhSfXy?=
+ =?us-ascii?Q?20SAA6Xhnfjw8ohhkd0/Ub2kr4ycK4ER4neDcio4T4lnDoGszxl6OobguuaW?=
+ =?us-ascii?Q?CSfqsOoKCU6OTDJ1JjJFWJv2Z7HcUGSQIwzU2bcaMIiIA/6ZPGotBBdq2Dnj?=
+ =?us-ascii?Q?1K+fA6qGufDf20PVDKOyJBzqyXdbfHK7MauAiXJF7q5S4x0lBuSdwtjT3Xet?=
+ =?us-ascii?Q?STwP3X0pWJ/zKxYLhw9DNBGWsa+6rhuy15RB4uAAK/iBcAlH4T5O9vyq4S9o?=
+ =?us-ascii?Q?slmu9lzFTiLmWc1Nfuun91pnWlzUE7KqmwejF/Wnw2GNdibWT9n4jpQCTLlV?=
+ =?us-ascii?Q?vf+mJrJf3XkWIy42mhl4KbwTgKQg279Kswq2henQSX+PClolN2zjZROrug7b?=
+ =?us-ascii?Q?1XAnD569dcT1cZWq+Vs9jDQmop9ueA7CT9jkjgi42YjTPi9ruPMFuskOPAYx?=
+ =?us-ascii?Q?NfDVPIsKCLsYgeN2rBSRouJAYJLWDNHtq6ntrsKJsuBCk2WTpRlDu+KfXJON?=
+ =?us-ascii?Q?p8crxCwc3yHf8bN5qQgFW2qUoSiOg9M0lvcOy2KKhUlQpkmRjnuWIKAMYC8a?=
+ =?us-ascii?Q?8dpq5MXFjXBFFeuaD8XK1UhHEOmTzDKlTy/StBga0tpdtR/KjO4Cv3Tavy8O?=
+ =?us-ascii?Q?cx25doFxWZ47j9SvhzwNZxkw/hfRpgHwA1u1q6Uq93NuS31OVDXORyyGzBYQ?=
+ =?us-ascii?Q?NeGe7h7u0tgtaRYjmp2Ycw2I+C/k1C2G4MXJbLB1Ygi9wwE1HFmatHNdcYKf?=
+ =?us-ascii?Q?kzoM3ihGvOeBir8=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(82310400026)(376014)(1800799024); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Feb 2025 23:13:34.7131 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6bb89571-58ea-4324-1b81-08dd5071de4d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B36E.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6343
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,93 +130,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-A page fault occurs when running the IGT test:
-amdgpu@amd_vrr_range@freesync-parsing-suspend with MST. Fix that by
-skipping handling a stream state when stream is NULL when setting DPMS
-off.
+When userspace applications call AMDKFD_IOC_UPDATE_QUEUE. Preserve
+bitfields that do not need to be modified as they contain flags to
+track queue states that are used by CP FW.
 
-[  +7.435304] [drm] DM_MST: stopping TM on aconnector: 00000000951db0f4 [id: 101]
-[  +0.535828] BUG: unable to handle page fault for address: 0000000000006458
-[  +0.000017] #PF: supervisor read access in kernel mode
-[  +0.000007] #PF: error_code(0x0000) - not-present page
-[  +0.000007] PGD 0 P4D 0 
-[  +0.000011] Oops: Oops: 0000 [#1] PREEMPT SMP NOPTI
-[  +0.000011] CPU: 6 UID: 0 PID: 365 Comm: kworker/6:1H Not tainted 6.12.12-amd64 #1  Debian 6.12.12-1
-[  +0.000010] Hardware name: HP HP ENVY x360 Convertible 13-ay1xxx/8929, BIOS F.01 07/14/2021
-[  +0.000006] Workqueue: events_highpri dm_irq_work_func [amdgpu]
-[  +0.000379] RIP: 0010:dc_stream_get_status+0x9/0x30 [amdgpu]
-[  +0.000258] Code: 00 00 01 00 00 00 48 89 d8 5b e9 2d 5a ac ca 66 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 66 0f 1f 00 0f 1f 44 00 00 <48> 8b 87 58 64 00 00 48 89 fe 48 8b 00 48 8b b8 78 05 00 00 e9 0e
-[  +0.000003] RSP: 0018:ffffbb7f40853a68 EFLAGS: 00010246
-[  +0.000005] RAX: 0000000000000000 RBX: ffff91c08e9c0000 RCX: 0000000000000000
-[  +0.000002] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
-[  +0.000003] RBP: 0000000000000000 R08: ffffbb7f40853c28 R09: ffff91c08e9c0000
-[  +0.000002] R10: 0000000000000004 R11: 0000000000000000 R12: 0000000000000000
-[  +0.000003] R13: 0000000000000000 R14: ffff91c05cc00000 R15: ffffbb7f40853c28
-[  +0.000003] FS:  0000000000000000(0000) GS:ffff91c33e500000(0000) knlGS:0000000000000000
-[  +0.000003] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[  +0.000002] CR2: 0000000000006458 CR3: 000000012e622000 CR4: 0000000000f50ef0
-[  +0.000003] PKRU: 55555554
-[  +0.000003] Call Trace:
-[  +0.000005]  <TASK>
-[  +0.000006]  ? __die_body.cold+0x19/0x27
-[  +0.000007]  ? page_fault_oops+0x15a/0x2d0
-[  +0.000009]  ? exc_page_fault+0x7e/0x180
-[  +0.000006]  ? asm_exc_page_fault+0x26/0x30
-[  +0.000010]  ? dc_stream_get_status+0x9/0x30 [amdgpu]
-[  +0.000243]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  +0.000004]  update_planes_and_stream_v1+0x9f/0x4c0 [amdgpu]
-[  +0.000254]  dc_commit_updates_for_stream+0x7a/0x100 [amdgpu]
-[  +0.000242]  ? link_get_master_pipes_with_dpms_on+0x38/0x80 [amdgpu]
-[  +0.000297]  link_set_all_streams_dpms_off_for_link+0xc5/0x110 [amdgpu]
-[  +0.000304]  link_detect+0x3f9/0x4e0 [amdgpu]
-[  +0.000296]  handle_hpd_rx_irq+0x1c0/0x2e0 [amdgpu]
-[  +0.000292]  process_one_work+0x177/0x330
-[  +0.000007]  worker_thread+0x252/0x390
-[  +0.000005]  ? __pfx_worker_thread+0x10/0x10
-[  +0.000004]  kthread+0xd2/0x100
-[  +0.000004]  ? __pfx_kthread+0x10/0x10
-[  +0.000004]  ret_from_fork+0x34/0x50
-[  +0.000006]  ? __pfx_kthread+0x10/0x10
-[  +0.000003]  ret_from_fork_asm+0x1a/0x30
-[  +0.000009]  </TASK>
-
-Signed-off-by: Melissa Wen <mwen@igalia.com>
+Signed-off-by: David Yat Sin <David.YatSin@amd.com>
 ---
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c | 3 ++-
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c | 3 ++-
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c | 4 +++-
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c  | 3 ++-
+ 4 files changed, 9 insertions(+), 4 deletions(-)
 
-Hi,
-
-I found this issue by accident when testing some changes to improve
-`drm_edid` usage in the driver. It's not related to any `drm_edid` code
-because it happens in kernel 6.12.12 that doesn't have any `drm_edid`
-code, and current asdn. I'm running the
-amdgpu@amd_vrr_range@freesync-parsing-suspend in a Cezanne laptop with a
-dock station where HDMI and DP cables are plugged and active. I'm not
-sure if it's expected that stream is NULL at this point or something is
-missing in the MST code. The page fault doesn't happen when MST isn't
-enabled.
-
-Any thoughts?
-
-Melissa
-
-
- drivers/gpu/drm/amd/display/dc/link/link_dpms.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-index ec7de9c01fab..98644e86275c 100644
---- a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-@@ -161,6 +161,9 @@ void link_set_all_streams_dpms_off_for_link(struct dc_link *link)
- 	link_get_master_pipes_with_dpms_on(link, state, &count, pipes);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
+index 2eff37aaf827..f28358ba1703 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
+@@ -107,6 +107,7 @@ static void init_mqd(struct mqd_manager *mm, void **mqd,
+ 	m->cp_hqd_persistent_state = CP_HQD_PERSISTENT_STATE__PRELOAD_REQ_MASK |
+ 			0x53 << CP_HQD_PERSISTENT_STATE__PRELOAD_SIZE__SHIFT;
  
- 	for (i = 0; i < count; i++) {
-+		if (!pipes[i]->stream)
-+			continue;
++	m->cp_hqd_pq_control = 5 << CP_HQD_PQ_CONTROL__RPTR_BLOCK_SIZE__SHIFT;
+ 	m->cp_mqd_control = 1 << CP_MQD_CONTROL__PRIV_STATE__SHIFT;
+ 
+ 	m->cp_mqd_base_addr_lo        = lower_32_bits(addr);
+@@ -167,7 +168,7 @@ static void update_mqd(struct mqd_manager *mm, void *mqd,
+ 
+ 	m = get_mqd(mqd);
+ 
+-	m->cp_hqd_pq_control = 5 << CP_HQD_PQ_CONTROL__RPTR_BLOCK_SIZE__SHIFT;
++	m->cp_hqd_pq_control &= ~CP_HQD_PQ_CONTROL__QUEUE_SIZE_MASK;
+ 	m->cp_hqd_pq_control |=
+ 			ffs(q->queue_size / sizeof(unsigned int)) - 1 - 1;
+ 	m->cp_hqd_pq_control |= CP_HQD_PQ_CONTROL__UNORD_DISPATCH_MASK;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
+index 68dbc0399c87..13511bf4db02 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
+@@ -154,6 +154,7 @@ static void init_mqd(struct mqd_manager *mm, void **mqd,
+ 	m->cp_hqd_persistent_state = CP_HQD_PERSISTENT_STATE__PRELOAD_REQ_MASK |
+ 			0x55 << CP_HQD_PERSISTENT_STATE__PRELOAD_SIZE__SHIFT;
+ 
++	m->cp_hqd_pq_control = 5 << CP_HQD_PQ_CONTROL__RPTR_BLOCK_SIZE__SHIFT;
+ 	m->cp_mqd_control = 1 << CP_MQD_CONTROL__PRIV_STATE__SHIFT;
+ 
+ 	m->cp_mqd_base_addr_lo        = lower_32_bits(addr);
+@@ -221,7 +222,7 @@ static void update_mqd(struct mqd_manager *mm, void *mqd,
+ 
+ 	m = get_mqd(mqd);
+ 
+-	m->cp_hqd_pq_control = 5 << CP_HQD_PQ_CONTROL__RPTR_BLOCK_SIZE__SHIFT;
++	m->cp_hqd_pq_control &= ~CP_HQD_PQ_CONTROL__QUEUE_SIZE_MASK;
+ 	m->cp_hqd_pq_control |=
+ 			ffs(q->queue_size / sizeof(unsigned int)) - 1 - 1;
+ 	m->cp_hqd_pq_control |= CP_HQD_PQ_CONTROL__UNORD_DISPATCH_MASK;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c
+index 2b72d5b4949b..eb63fafead80 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c
+@@ -121,8 +121,10 @@ static void init_mqd(struct mqd_manager *mm, void **mqd,
+ 	m->cp_hqd_persistent_state = CP_HQD_PERSISTENT_STATE__PRELOAD_REQ_MASK |
+ 			0x55 << CP_HQD_PERSISTENT_STATE__PRELOAD_SIZE__SHIFT;
+ 
++	m->cp_hqd_pq_control = 5 << CP_HQD_PQ_CONTROL__RPTR_BLOCK_SIZE__SHIFT;
+ 	m->cp_mqd_control = 1 << CP_MQD_CONTROL__PRIV_STATE__SHIFT;
+ 
 +
- 		stream_update.stream = pipes[i]->stream;
- 		dc_commit_updates_for_stream(link->ctx->dc, NULL, 0,
- 				pipes[i]->stream, &stream_update,
+ 	m->cp_mqd_base_addr_lo        = lower_32_bits(addr);
+ 	m->cp_mqd_base_addr_hi        = upper_32_bits(addr);
+ 
+@@ -184,7 +186,7 @@ static void update_mqd(struct mqd_manager *mm, void *mqd,
+ 
+ 	m = get_mqd(mqd);
+ 
+-	m->cp_hqd_pq_control = 5 << CP_HQD_PQ_CONTROL__RPTR_BLOCK_SIZE__SHIFT;
++	m->cp_hqd_pq_control &= ~CP_HQD_PQ_CONTROL__QUEUE_SIZE_MASK;
+ 	m->cp_hqd_pq_control |=
+ 			ffs(q->queue_size / sizeof(unsigned int)) - 1 - 1;
+ 	m->cp_hqd_pq_control |= CP_HQD_PQ_CONTROL__UNORD_DISPATCH_MASK;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+index ff417d5361c4..33de399f2f7e 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+@@ -183,6 +183,7 @@ static void init_mqd(struct mqd_manager *mm, void **mqd,
+ 	m->cp_hqd_persistent_state = CP_HQD_PERSISTENT_STATE__PRELOAD_REQ_MASK |
+ 			0x53 << CP_HQD_PERSISTENT_STATE__PRELOAD_SIZE__SHIFT;
+ 
++	m->cp_hqd_pq_control = 5 << CP_HQD_PQ_CONTROL__RPTR_BLOCK_SIZE__SHIFT;
+ 	m->cp_mqd_control = 1 << CP_MQD_CONTROL__PRIV_STATE__SHIFT;
+ 
+ 	m->cp_mqd_base_addr_lo        = lower_32_bits(addr);
+@@ -245,7 +246,7 @@ static void update_mqd(struct mqd_manager *mm, void *mqd,
+ 
+ 	m = get_mqd(mqd);
+ 
+-	m->cp_hqd_pq_control = 5 << CP_HQD_PQ_CONTROL__RPTR_BLOCK_SIZE__SHIFT;
++	m->cp_hqd_pq_control &= ~CP_HQD_PQ_CONTROL__QUEUE_SIZE_MASK;
+ 	m->cp_hqd_pq_control |= order_base_2(q->queue_size / 4) - 1;
+ 	pr_debug("cp_hqd_pq_control 0x%x\n", m->cp_hqd_pq_control);
+ 
 -- 
-2.47.2
+2.17.1
 
