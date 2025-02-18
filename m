@@ -4,145 +4,145 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02DC4C021AD
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Feb 2025 20:27:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BF62C021AF
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Feb 2025 20:28:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A18010E75E;
-	Tue, 18 Feb 2025 20:27:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9AF2F10E773;
+	Tue, 18 Feb 2025 20:28:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qZSHwu/G";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="VWcSUm11";
 	dkim-atps=neutral
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2058.outbound.protection.outlook.com [40.107.212.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA78B10E75D
- for <amd-gfx@lists.freedesktop.org>; Tue, 18 Feb 2025 20:27:34 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on2064.outbound.protection.outlook.com [40.107.96.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A29710E774
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Feb 2025 20:28:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Zw25gB0s15ekMeIYP7pgc2mZuDY8LQRNNOtDn31QTpRNvk29sWY5yCsyacIz7DcFPaqTwgf9edORClm4kp/VAo5V9ahiV2tTKGQ/RxoZwwJAww1uk8KmjIg7sEEe+oYAMCKrB1cSK34eYg/vuy0v47QSQWUCMsipZRP7PU//1Awsxvx8YY5SbeZgYgz57OaRQhFVOmK90WNB6NvzNtBsW+q/NyuEIt6CHlUF59fPwbjLwYMopbsQyAzYa760tEi+lpF/WKNNJkcLFT6VSnCRX0SqiddAZOyZDYIhXnTW34W/Jnqm3UeGUpXAIhqViUER1TSwmlLNrIsef+xLSLI3lA==
+ b=uEGMVtgCOhyGYNbh5woycOI4moJIFgMNADdSrDSXs+pF3HZU3zzrfL61coswRIzWLCfm8hXCzDpAONO+9bYVguxvOSCtojcYawSliGJVY8IdkuQErvYg0Y5J/mwfZkDEEY/sRPC6zPWxny7dByn7VfdwL8CrlOyrIVJ7kHV3zYsJ2NSct1UIVmd0rbDgh8CXgojXtu03waruf+lw5yEt1NhhKed3vKQ3sUFm5WQZVS58IFIc8S0slTQWOVL184fmqFHpfIRTOPkF3sgUbAI1F78ctxsn2YeZB+Idnww454v1UEMxbCm09FDTPrHmYkWuh9gAaOmgHCXQgHiGI3qixA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5kEezVo5MkV/9IA9N86eo4JHSlY2G10YKgs2HTBPdyU=;
- b=UPYuSri8p1j8g/gBHn42Y3N29yBF4OVwCKnZjvJzTnXVNM/wIGoo+pD57oGHuNF6K7ewrgSahvKK7LZu3gh9GfI8NzsO6RAT2gTwTA6ZLjnhrZ/Tnovf6olBD0i+gJyfi9g4Mm7C5j2uQejbAzBBw32ybOVekWTgsobFYz7dsgwDJTmpJeHyRP+r/ZW8lZ2OipoRrEoMVUpQXTM4BfEoQTQn5EM/eNO2Dy4ZAN+axWBkvLEdzSDu6TGpcvNol7Zt/CMLML/ejJfVaTyXekkDc9JEB+GnncxM7STa+sw5iiXJsmH78BN1EoOHXWajT5P8Pu1L7yWVqzCvqPeUu763Hw==
+ bh=N4bjAMtAb5DV4CAIfETJdl890qsiw4e5VGiKJgJd8F4=;
+ b=fzjTHtyYR9LkiUGWvOGF2I4Zo7+oNTlHL7d/aV5NzlwXkNKJPWpIueYiQzO2NX3ONFMm7BujUQJYNjumYWnszjATQgMS/x2R1oGz/gb3hf7B4uypCYMllUDGOpz1wltikK9wagRZPCfcae9kKaEb0hmHXz9yerpcuLr9+4zQL8ny/TIlehEp4d1ezohDkLkfVGw8mJ9yq36Sz3P17GxeI3KFdtSZDlYI9XvO5f5ehJqhwolPw5kbKewK2psibK39e5F0HPf4lCudTl0bnTz1jT2bS9QsFgK6RRvSqdoZhYDJLeui0yWRdfGvdwNBf1RVlWPhPFNM+MmBrsPoWO2aKA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5kEezVo5MkV/9IA9N86eo4JHSlY2G10YKgs2HTBPdyU=;
- b=qZSHwu/GxZUGmuM8YxXhTyeoCDFwU8C5z2WcEUauqTJ49Gaooj8BoThCBF2seI/ATH1IncUq79F5XbSqvB4nY8OkTLrXu3tE2pqymfze1IvKjSoz7Sl7kJpdJXvawo0XqJdYwR0KDvj8NvvIm2OU1lFJUYLG3Pi+PNxoqD6iHVo=
+ bh=N4bjAMtAb5DV4CAIfETJdl890qsiw4e5VGiKJgJd8F4=;
+ b=VWcSUm11irgBgJ0RiRTVBIraj5z6bX6HdB1EUAnPLqqXsvGSp9edEXMbdX7vF0bojkosk42rlWJiB54275hx1uONfZ/uAoE9yh0tkLbVvY4RhXt/xKpbEwiDSGmmqCOe1MiGPrH820UrHg/191GO8Qncp6VRmc173ofDicwBMyo=
 Received: from CY8PR12MB7435.namprd12.prod.outlook.com (2603:10b6:930:51::6)
  by BN5PR12MB9485.namprd12.prod.outlook.com (2603:10b6:408:2a8::11) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8445.19; Tue, 18 Feb
- 2025 20:27:31 +0000
+ 2025 20:28:18 +0000
 Received: from CY8PR12MB7435.namprd12.prod.outlook.com
  ([fe80::817c:781e:25f1:8210]) by CY8PR12MB7435.namprd12.prod.outlook.com
  ([fe80::817c:781e:25f1:8210%6]) with mapi id 15.20.8466.013; Tue, 18 Feb 2025
- 20:27:30 +0000
+ 20:28:18 +0000
 From: "Kim, Jonathan" <Jonathan.Kim@amd.com>
 To: "Kasiviswanathan, Harish" <Harish.Kasiviswanathan@amd.com>,
  "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 CC: "Kasiviswanathan, Harish" <Harish.Kasiviswanathan@amd.com>
-Subject: RE: [PATCH 3/4] drm/amdgpu: Don't modify grace_period in helper
- function
-Thread-Topic: [PATCH 3/4] drm/amdgpu: Don't modify grace_period in helper
- function
-Thread-Index: AQHbfZoU6Ej45NBTG06fO4iabs2QdbNNfLvQ
-Date: Tue, 18 Feb 2025 20:27:30 +0000
-Message-ID: <CY8PR12MB7435040E5C09ED83C461923385FA2@CY8PR12MB7435.namprd12.prod.outlook.com>
+Subject: RE: [PATCH 4/4] drm/amdgpu: Set lower queue retry timeout for gfx9
+ family
+Thread-Topic: [PATCH 4/4] drm/amdgpu: Set lower queue retry timeout for gfx9
+ family
+Thread-Index: AQHbfZoUg318NYskoEmTNcXXe3UpQrNNgd7Q
+Date: Tue, 18 Feb 2025 20:28:18 +0000
+Message-ID: <CY8PR12MB7435B2179E69F761749FF11685FA2@CY8PR12MB7435.namprd12.prod.outlook.com>
 References: <20250212220341.373072-1-Harish.Kasiviswanathan@amd.com>
- <20250212220341.373072-3-Harish.Kasiviswanathan@amd.com>
-In-Reply-To: <20250212220341.373072-3-Harish.Kasiviswanathan@amd.com>
+ <20250212220341.373072-4-Harish.Kasiviswanathan@amd.com>
+In-Reply-To: <20250212220341.373072-4-Harish.Kasiviswanathan@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ActionId=571f011b-e712-4714-9986-eea264c5ac06;
+msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ActionId=a40cbe43-e244-409f-9ae3-1cf21a434296;
  MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=0;
  MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=true;
  MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged;
  MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open Source;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2025-02-18T20:10:08Z;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2025-02-18T20:10:19Z;
  MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
  MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Tag=10, 0, 1, 1;
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: CY8PR12MB7435:EE_|BN5PR12MB9485:EE_
-x-ms-office365-filtering-correlation-id: 2b0a891e-8a49-418a-c083-08dd505aaaf7
+x-ms-office365-filtering-correlation-id: 4e23cf43-19fe-4dbf-8869-08dd505ac7e7
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
  ARA:13230040|366016|376014|1800799024|38070700018|7053199007; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?EJ5EY0x98TcvU3wvW5GnyrZKmvvjzCq4BpGAuUrRPkG9g9uGd6Ugb3GURgF/?=
- =?us-ascii?Q?f99oE8j2fHZbuXcKIBCNabr9Ej/FnQ9Mr1U6NpnPNwBRdf02tpwkqm68lImp?=
- =?us-ascii?Q?KJ+R8DgcDblHAR9aQuYatoqprGchojN0z7IOuF9c0TfrGCTHGSReILg8uxOB?=
- =?us-ascii?Q?akLgsSP1360LyQSuT9qEfJShck1teIlk1Oa0OGuWlD8T/agccqmq6QazI9Dc?=
- =?us-ascii?Q?ovkN3FeOEklLVSu2+zVpimHXAXGIyBcicQ9Nf0zxwBCRgIF3akK3bnXvxwat?=
- =?us-ascii?Q?3zqlfmVXzzDN7Twb47VjSuyHNv3LRZbLy2xOFcW/wI9BRFtOo7Adc22n8Gp6?=
- =?us-ascii?Q?4flCujDSwI3I+Ibo+6zWAdY5WODM6KPs0xvtfs3Nm/wbjpzUViF30YBMni1b?=
- =?us-ascii?Q?BuD7mt1tI0KmJK7Eh6ghfWYgUofDNL+vnyI4KGokOiArnHdIOLveFvY7fW6a?=
- =?us-ascii?Q?ESNNFJe7MBZSzIboliS5YbfX2B8Ahd7i0aauYs5tCteJRDdUcaf7WaCeQ5mG?=
- =?us-ascii?Q?NWyYu97bBrQAkhzGmfb0KTNNQdSUNLwIrLufubNXUotzDu8rHVUQmQaazz+0?=
- =?us-ascii?Q?4mFa2EukrjkRB/j90G4TvnpZ8dlKfKBbt3lx90pDEnbo09rw2H5UE05JBDot?=
- =?us-ascii?Q?gBUfpuysvznj4HdcerB480ybZFHqCFqtKX1C5Xbbn97AuE0AG60F/2jdRYgz?=
- =?us-ascii?Q?IhwpKMuaeM5w/iSkMM/v2qlZsqjbcLe3OxGEzHLfW3v9FEhVchxB8L8KqZIR?=
- =?us-ascii?Q?Se4kjlimBJV7rU7IRAtGA3Lew1l7LJZ8UZEX5YPjbuqPm7HMXXXFRpDvAOaG?=
- =?us-ascii?Q?UvfL/Z4EzK583ItJtyiqpPV+jwoynzlH52l8WnNITAjLPCBGYAEtNGAzdHM+?=
- =?us-ascii?Q?n33nzqr8yhTglCWP+DQ0joCAKAVtcwLj+6WSyR3vQMCnh3aXwUe4AosMxRRG?=
- =?us-ascii?Q?Sj6yxLuLXPUqYUP+hdZtJWa6Z2LGl23dsgnyfRnO6r7tUDEWvVKW0EUGVCSh?=
- =?us-ascii?Q?Lvd+JX50BL480QOarABzIqRM01Z5YgDC1lpaQmFRcWrGOfmQwzBTIOls15Co?=
- =?us-ascii?Q?m+3+CjQe4TXTjlgwizq4JXU1mF8t4rFZ8M0Ln+cuEJzMnGXLjd4kEJK7i7ef?=
- =?us-ascii?Q?Xr1NDJ39RlPSFzqkV2JY8wHbeJCZd5Wt5bzZ/qMeCPqdR8x9axCPR5GNH+T1?=
- =?us-ascii?Q?hPIPprugg+mGvl95ZNTnfls3iilbK7qVeAcK/Hw8rRUc2i+e+G3R7Owu+xfz?=
- =?us-ascii?Q?sqKUj0jjWq0uvMwnASVB+z3X1jCEl/L+s30ksqQ2krgwo4svK8sfjcE6XU/i?=
- =?us-ascii?Q?GEzzjl7LpNJpHHGDBJO0JXR2XoN5fXJY723Gn2Vandkpr8BwiIRhj003UzT5?=
- =?us-ascii?Q?QYLoRozZkodhQBH2BrG/49OYB4gqV6HlcEbx3I5DhshOduGwySfuNIYpI8e8?=
- =?us-ascii?Q?oIAsa7bImzuwRkzDCVa3XBDQmndzZeVV?=
+x-microsoft-antispam-message-info: =?us-ascii?Q?YqN6/ElsrhDKR48dUQkCHcguyT70JdQbXnDZ6KKoF97tLYVs14sBhEEQEGqp?=
+ =?us-ascii?Q?pV7VBb0YpmmsvybK71qTF4jUixlomhV71C4tyWv1K/gid/DHfo4TQQ7qK1QT?=
+ =?us-ascii?Q?CF1HTxoQP7AAyRdN4FFId0l0D3AJVSimhwKbdXvLhcIHPxREYvNos9pBxzkq?=
+ =?us-ascii?Q?pzFxS3+payoFNXQiZAg8CmOHMoVeqARMBPCmD860Gn3A/f0c2YVw5hcJnCIe?=
+ =?us-ascii?Q?BfwmtHEI75DSciUaAy8YFL5wVT4a3/rd91TIm3ZvNwOplb+56OpWt4khIzyY?=
+ =?us-ascii?Q?CjJHl/GcLuqC2sY1KdYnaZ0ZUkch9Tay6E4v1uq4TVNRaIx7CZOgFYcucjtJ?=
+ =?us-ascii?Q?HIfntXfK4qFKUGklZjz7l6ZMyL2vfQToD5ojTg2YhgHewqWM50g3WrdMnyVw?=
+ =?us-ascii?Q?5l+IcE9wcqYLc8u2Z/fG64ECfRlQCZJzJ68GRA2RI3M5lcV+MCLaz8H9bFml?=
+ =?us-ascii?Q?GUyQ5uD1/eLruioRjM/ZVHtTnjfzrU1Mva/6BS+n5TeI34elkJ7Q8t5J6qSb?=
+ =?us-ascii?Q?EJzqHZGhNkTx50DYllS289OpkGX+c81jBY70FGjcBDCtEw9I3f5yACG9ZSxK?=
+ =?us-ascii?Q?uavjf7sBj4A1tAdYXBzzDw7mWkCH9CAARyPWLFfqCnZYO3g/YlRFd+5NtOvI?=
+ =?us-ascii?Q?SWFdCHTHv/+uEoD8xcB4XsH6FYKNxudbCdhLV5LiFwxpOmwp/NVxfask3bbm?=
+ =?us-ascii?Q?aHhHx8VZoIWwTSdYAXziBAruymjDO6FF1efZSnkfSAenBNsPFCZVr/dEJm9G?=
+ =?us-ascii?Q?9ORr4gME1/mHy7gkk0Npwra/r9piOlSHcBIX0xpqteSHogDm1ijYUVVKOMLl?=
+ =?us-ascii?Q?psOhIIVPPRFdAW4x7qVKVwV4XvYSs7UHEjmywbdYyJnogBU+XO0JrNmhgp1Z?=
+ =?us-ascii?Q?8sVvpkmulFcOUKdjYb2sbZwlhCfHu+Kj/tXUX5pZ89Kx52Lt94wDeI+XZvBb?=
+ =?us-ascii?Q?ej2rerPzzVak/W7P65lZcQnck7lOWa1/sx4Hd8v0LEnZZ/HWfMLwHNqN+mMu?=
+ =?us-ascii?Q?2UYAUX4Xh8NytMD3UEpO1HL9kmx/rtOcgy13pQ05r24ZRXp3GZe/M7PJuSpT?=
+ =?us-ascii?Q?yHZLk7mP1DhD2aixxzvvZdmxy3aVaTDl/XR1gKXkeBITVEllosxODpL9qsY7?=
+ =?us-ascii?Q?Jkh1sdEGDk8hxK1FiCQh9e6oWeJ2PMEd6okFBxAKc4qB06H8tWPO+gT7yfQF?=
+ =?us-ascii?Q?oMZaUPX2vma4y6ItyCTqnVZIGh9oE3I8eNMqPmonLPN4WQyFg6gwHxiaVv+2?=
+ =?us-ascii?Q?lKV8xF53ir7+KHRrEgtSRMDhURBsZGP/l11fotdAP/QFJAjSDYqvRamKiJnf?=
+ =?us-ascii?Q?nmQ1neN+cC9si8WJay/Yghs/9GnoT2iGYePJeTyNnypz0ecJcemG0JyJiuCM?=
+ =?us-ascii?Q?tnhb4p61HFLlbNZLMCaKOTrFv+YsZneK+KijAlfzlOg10k37d9EenjxuoVjB?=
+ =?us-ascii?Q?N0orBUjyEUn3PbKiJB4u4aO3kkrH7NVA?=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CY8PR12MB7435.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(366016)(376014)(1800799024)(38070700018)(7053199007); DIR:OUT;
  SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?1w4aWiklz+4wih6FTpyZf4q7SFovfJm7f8tK0GgayYBTntQCsyh17Nr1nLoc?=
- =?us-ascii?Q?wEpQuLWuUJKt2QpE2VQn/vxh61VXAjEJbNgVzMmw9CmJzrvxXbRZzoDnuTaS?=
- =?us-ascii?Q?ujF8VTYn5k+H62NC7mgl/gSKFOZLg6wLY9bggwtvxwbgeTo8OAQEZ1P9eQFH?=
- =?us-ascii?Q?9ExSp+KDoAFb2uxZrP49hvfIiH4JEGD4TncHdfC8wdsOGPYU9z9QxCbl4046?=
- =?us-ascii?Q?Aw9OOiBSZDgqoLnF4VnVyCqpfzPFYDUZgWaPuG2B6toawYJUNPyNRW8Bkfzu?=
- =?us-ascii?Q?q/gd/zEbh8iO7W+WhkHUx17OZQlfxsKgdHlMzcDgD81vpoaD4RH2ApR+MdGc?=
- =?us-ascii?Q?rUoIl+bEq+dJ6BVhiz+2foNHuz3aU8aCX1i8VNKdWpCh+0brY3gLQhYPsIRg?=
- =?us-ascii?Q?+vj+vt2XkEqHrXHR/6RYaLxHUbn9iequHhYKqCG2ORC3BtIR50q8X7VqXjTC?=
- =?us-ascii?Q?cJDLBZSW5dt4pobpWFYKoYPFDQktYzfns83W826o8xChoDUCPN2FfW6F0UT0?=
- =?us-ascii?Q?OKx5owwglA+Qu4XBiVtKQqTtM2H/PHrmB2sTcZUQWcqnZyOvi7HVlIqLJ+F4?=
- =?us-ascii?Q?P8mQMLmQmifyO+EnIn5GdmhPz6bFDUEwt4z3INNTXfKtzXMFclpNVdUdA4CB?=
- =?us-ascii?Q?Jgmd03R8l6kNrq65b38vr0+IlwpDYPo6YwfUxyCvtARlRueZM+HMIAhUkh5m?=
- =?us-ascii?Q?pdHa5yNJMI5inToLFauMMU0Iy4KsF40P1tB0NKdr+BoR8ll7ZIXdSCC4apco?=
- =?us-ascii?Q?sDPotP2NgRbZQtXnAyyEjCEV1YjKsQXWOMiHlS5R92ppnroCx3MzNf/uaGxE?=
- =?us-ascii?Q?qpWZBvTntApBO7NYkElbwfNbxjNgLTMKdaaVDtIeR/wClvGlaUHof4u47PVq?=
- =?us-ascii?Q?XGEM9ZsRpNGG95QVp4x5h4T9QCprqZLp0cNRGQ/UEsVLlS328u3h2M/ZBp+u?=
- =?us-ascii?Q?ZL5Ql9P1D/qC9IBzL/H9qEhjpNAyCOoFr+x9kSH1m7uV12jvn4+tL/GDyXSC?=
- =?us-ascii?Q?bc3X+tyn+lDbBgFiqesRz2XMuxkBHGwd0b/UqdW2x5LAoPbrU1GpGpaTbYIA?=
- =?us-ascii?Q?PlBnO/YkVG/+NmcdJ95G9xi2EBeaHVgT1HsKgPw99NDtLgoxnOTPgJmcOskp?=
- =?us-ascii?Q?OQ+7s+ysONgHm2Z7EkU0EGAMEtzk4mH6v226Ecvr4LXJtkwVL9tQGV0z8+DP?=
- =?us-ascii?Q?32pLohrb1N3SMxTAl9BZ6ZEmR+7YmFGLtUpyc/ei1SyUdDe9IoIoRcdIM4QD?=
- =?us-ascii?Q?gmlSpfKBIvw7b53BZOJbQeRfmkHY8tjsShmh42j8s+l0DxXo66KQSotrUGah?=
- =?us-ascii?Q?rzAGR68ZYnbdAU+jDy03ixna0zXgwyKTZxPfL9yhN+lXQ+DpzGeD0wyaNKsi?=
- =?us-ascii?Q?TOJ/jT7KG+5cnmtZF+T9Rjpdc1+XV/xZpIw6TQLrJf9ZfPMgNZccVHKDNpxo?=
- =?us-ascii?Q?uXntnQ3GTa+RoCQfTaju9r+o2edRvCwd6jOkcMsTcic/+B+EeVVoDCA4zBkA?=
- =?us-ascii?Q?Y5LvF/+SO+iyqvjHrdyooTjYe/d1/RZ+p+GRINoyQicq2ngCm9vIocHdZpPW?=
- =?us-ascii?Q?OUHkncoiazEVpPGHYnM=3D?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?yw2OVVLSYi/XY9evS4Ihwc/MGsVoWdhEfuHDmvwWamm8oCOaAtOX1hSghXKg?=
+ =?us-ascii?Q?MsuEBQDmiE7sxJ6WJVuBeQdcQdt8vDMNM5/j+8diJ9TxTg+D7jG8Tv1bgfWb?=
+ =?us-ascii?Q?e621T6uu+dQSW1+Oop62jE2nlOtLqpDQYr/7QFp8GRCEfPRh+jTFSj2KlBcQ?=
+ =?us-ascii?Q?WZfVNTGd63E/WbtL3APrpqFD5p7rICfcXEjx1Ml103Ty6kQgF/lCcmSaq9PY?=
+ =?us-ascii?Q?CmFUn85hKy9DPIFWl1V4g4vymGLxzHtbWzWRrKEbDVXe76TR2J19CwWgjG3G?=
+ =?us-ascii?Q?i8FTWY2nUaZJ1y40sRbmt7eIj+8X5eMCxH+brSZz/fwjKRsu1wiCB2aUwuDS?=
+ =?us-ascii?Q?ID4XBU9V3LGvkXaSU0JDaO0H6pYNHcl3dn7pVNNui5GUGdatNFUgWpJVxCKX?=
+ =?us-ascii?Q?vIdK8wJn5Cvue0ZPqpO2TsDUeD7SULigYPRVaTREXE198hghBRW4wUnNQ8n6?=
+ =?us-ascii?Q?3cXxLDIoaz7IzOL/JiBo9S71jWNxEnG/hPSBgOWXulnp6nePoK6qpV2Mu76N?=
+ =?us-ascii?Q?x9uX9kyQONnJFTyPiid/RuTzu8JghKumHS7evKzDfXTxDSUsIeZmH9Z6R0+v?=
+ =?us-ascii?Q?v40VyyU/dRRDHlBAPMhf/fhs3wsMqZM7aLHdLkjJBe4HklklFejFQIvdE8Zw?=
+ =?us-ascii?Q?CcRbmSFgLn0s4atkne6jZHmzdHJmJFCgozkccG3sxvOfoWuTXERU6L3IL6sA?=
+ =?us-ascii?Q?oaxfEzKQVLQgWI81G03vCata6v17xoyZdzInMgRYiKeVi5/Z5yo0u19GKfMe?=
+ =?us-ascii?Q?h09C2/F/fgSi19DId5gbvUk67eVn03pLZqgm3PSpIdvX76pkk3zMfR+vfsr3?=
+ =?us-ascii?Q?Ug3idlCwA0AdCdch/JBYGA89n4WgMffLAgn8/kWH+x3lH1/EsuT8hUENmddr?=
+ =?us-ascii?Q?nyu4FbDHWd7IO0WCudYTE+ebjkDThucGzq1kRCXFtPaElqM+nUEGEOW7FTcT?=
+ =?us-ascii?Q?7HvqL/DTnF6+w/fOJ0rWmDTZmzvjf5QdD4Iq4OfLit5DxcsIYjqafow+W4j7?=
+ =?us-ascii?Q?HBZvMWj+8FHAKTrf5/TseJtr0bDlv3scqE7/S2q5v7sU0eif1J4HVJe44bB3?=
+ =?us-ascii?Q?TG4Yj6Sns+uJrtAjQQ/usVVIKfICGqpMeLkbgD+dfcRGG4vRgi/xgALGzP2X?=
+ =?us-ascii?Q?oG7++Co98WVPLCIqJjZyVSieOHyiH3iyLYKEoPzGv6T+/O7G7xOvrVViJwlV?=
+ =?us-ascii?Q?bKR2lyTDOliLQaXJ8U89G3QImCUGsHvInr5t4ps7Zou45zScXICsAtp1/VMf?=
+ =?us-ascii?Q?xIFbgS1UD6/X+7Nn9kSMTTJv7zxp9emjd4Zi//ZGWYTeKNLcF/kpn4a/3zpQ?=
+ =?us-ascii?Q?5vrrzlN2F/PDpnc88oUGTacTIZt3ADGjvLpzA7Izn4KISvihiJgbx6Laf4YF?=
+ =?us-ascii?Q?xj2WRmNPAU3OBNeoZZbXprgZmNxdGU4Qg/RDH/E9bQX3roSl/gWPuz8s6WKI?=
+ =?us-ascii?Q?Huz6V5aJ9ssiVGP/+h9wACmzAT9A1QAMenfRUdAfXD0Ioh2XfR5hM6dL+mGm?=
+ =?us-ascii?Q?CPMMSeIwQQhcNozsWQRgu5JY2g2uskHHG/EPovQrlJJEh2MJMIJGj2DD3RQC?=
+ =?us-ascii?Q?QoVXo7936NIspKRZr3A=3D?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7435.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2b0a891e-8a49-418a-c083-08dd505aaaf7
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Feb 2025 20:27:30.1723 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4e23cf43-19fe-4dbf-8869-08dd505ac7e7
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Feb 2025 20:28:18.7243 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: MMu+0aq/T49jlafFKRghFgfr0K8qvZPtQswYSFhoQClFDcXxNiC/Tj9l/+yC54nX
+X-MS-Exchange-CrossTenant-userprincipalname: Er7ohy6DVTQAqF7/0Alq2NsxbuaOx/tq6Nh/5DYrNb+SP5j2GRhesmpf8RZ6q7Fg
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN5PR12MB9485
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -166,138 +166,196 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 > Sent: Wednesday, February 12, 2025 5:04 PM
 > To: amd-gfx@lists.freedesktop.org
 > Cc: Kasiviswanathan, Harish <Harish.Kasiviswanathan@amd.com>
-> Subject: [PATCH 3/4] drm/amdgpu: Don't modify grace_period in helper func=
-tion
+> Subject: [PATCH 4/4] drm/amdgpu: Set lower queue retry timeout for gfx9 f=
+amily
 >
-> build_grace_period_packet_info is asic helper function that fetches the
-> correct format. It is the responsibility of the caller to validate the
-> value.
+> Set more optimized queue retry timeout for gfx9 family starting with
+> arcturus.
 >
 > Signed-off-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
 > ---
->  .../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c    | 18 +++++----------
->  .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c | 17 +++++---------
->  .../drm/amd/amdkfd/kfd_packet_manager_v9.c    | 23 +++++++++++++------
->  3 files changed, 28 insertions(+), 30 deletions(-)
+>  .../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c    |  7 ++++++
+>  .../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h    |  1 +
+>  .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c |  8 +++++-
+>  .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h |  1 +
+>  .../drm/amd/amdkfd/kfd_packet_manager_v9.c    | 25 +++++++++++++++----
+>  .../gpu/drm/amd/include/kgd_kfd_interface.h   |  1 +
+>  6 files changed, 37 insertions(+), 6 deletions(-)
 >
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
 > b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
-> index 62176d607bef..8e72dcff8867 100644
+> index 8e72dcff8867..e62f5dc2529d 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
-> @@ -1029,18 +1029,12 @@ void
-> kgd_gfx_v10_build_grace_period_packet_info(struct amdgpu_device *adev,
+> @@ -1024,6 +1024,7 @@ void kgd_gfx_v10_get_iq_wait_times(struct
+> amdgpu_device *adev,
+>  void kgd_gfx_v10_build_grace_period_packet_info(struct amdgpu_device *ad=
+ev,
+>                                               uint32_t wait_times,
+>                                               uint32_t grace_period,
+> +                                             uint32_t que_sleep,
+>                                               uint32_t *reg_offset,
+>                                               uint32_t *reg_data)
 >  {
->       *reg_data =3D wait_times;
->
-> -     /*
-> -      * The CP cannont handle a 0 grace period input and will result in
-> -      * an infinite grace period being set so set to 1 to prevent this.
-> -      */
-> -     if (grace_period =3D=3D 0)
-> -             grace_period =3D 1;
-> -
-> -     *reg_data =3D REG_SET_FIELD(*reg_data,
-> -                     CP_IQ_WAIT_TIME2,
-> -                     SCH_WAVE,
-> -                     grace_period);
-> -
-> +     if (grace_period) {
-
-Should we get rid of the notion of grace_period in the function name as wel=
-l as the param since you're doing it for the rest of the patch?
-
+> @@ -1035,6 +1036,12 @@ void
+> kgd_gfx_v10_build_grace_period_packet_info(struct amdgpu_device *adev,
+>                               SCH_WAVE,
+>                               grace_period);
+>       }
+> +     if (que_sleep) {
 > +             *reg_data =3D REG_SET_FIELD(*reg_data,
 > +                             CP_IQ_WAIT_TIME2,
-> +                             SCH_WAVE,
-> +                             grace_period);
+> +                             QUE_SLEEP,
+> +                             que_sleep);
 > +     }
 >       *reg_offset =3D SOC15_REG_OFFSET(GC, 0, mmCP_IQ_WAIT_TIME2);
 >  }
 >
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h
+> index 9efd2dd4fdd7..11aedaa8a0b9 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h
+> @@ -54,6 +54,7 @@ void kgd_gfx_v10_get_iq_wait_times(struct amdgpu_device
+> *adev,
+>  void kgd_gfx_v10_build_grace_period_packet_info(struct amdgpu_device *ad=
+ev,
+>                                              uint32_t wait_times,
+>                                              uint32_t grace_period,
+> +                                            uint32_t que_sleep,
+>                                              uint32_t *reg_offset,
+>                                              uint32_t *reg_data);
+>  uint64_t kgd_gfx_v10_hqd_get_pq_addr(struct amdgpu_device *adev,
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
 > b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-> index 441568163e20..04c86a229a23 100644
+> index 04c86a229a23..3f74307d466d 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-> @@ -1085,17 +1085,12 @@ void
-> kgd_gfx_v9_build_grace_period_packet_info(struct amdgpu_device *adev,
+> @@ -1080,6 +1080,7 @@ void kgd_gfx_v9_get_cu_occupancy(struct
+> amdgpu_device *adev,
+>  void kgd_gfx_v9_build_grace_period_packet_info(struct amdgpu_device *ade=
+v,
+>               uint32_t wait_times,
+>               uint32_t grace_period,
+> +             uint32_t que_sleep,
+>               uint32_t *reg_offset,
+>               uint32_t *reg_data)
 >  {
->       *reg_data =3D wait_times;
->
-> -     /*
-> -      * The CP cannot handle a 0 grace period input and will result in
-> -      * an infinite grace period being set so set to 1 to prevent this.
-> -      */
-> -     if (grace_period =3D=3D 0)
-> -             grace_period =3D 1;
+> @@ -1091,7 +1092,12 @@ void kgd_gfx_v9_build_grace_period_packet_info(str=
+uct
+> amdgpu_device *adev,
+>                               SCH_WAVE,
+>                               grace_period);
+>       }
 > -
-> -     *reg_data =3D REG_SET_FIELD(*reg_data,
-> -                     CP_IQ_WAIT_TIME2,
-> -                     SCH_WAVE,
-> -                     grace_period);
-> +     if (grace_period) {
+> +     if (que_sleep) {
 > +             *reg_data =3D REG_SET_FIELD(*reg_data,
 > +                             CP_IQ_WAIT_TIME2,
-> +                             SCH_WAVE,
-> +                             grace_period);
+> +                             QUE_SLEEP,
+> +                             que_sleep);
 > +     }
->
 >       *reg_offset =3D SOC15_REG_OFFSET(GC, 0, mmCP_IQ_WAIT_TIME2);
 >  }
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h
+> index b6a91a552aa4..3f159d477f5b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h
+> @@ -100,6 +100,7 @@ void kgd_gfx_v9_get_iq_wait_times(struct amdgpu_devic=
+e
+> *adev,
+>  void kgd_gfx_v9_build_grace_period_packet_info(struct amdgpu_device *ade=
+v,
+>                                              uint32_t wait_times,
+>                                              uint32_t grace_period,
+> +                                            uint32_t que_sleep,
+>                                              uint32_t *reg_offset,
+>                                              uint32_t *reg_data);
+>  uint64_t kgd_gfx_v9_hqd_get_pq_addr(struct amdgpu_device *adev,
 > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
 > b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
-> index 6a5ddadec936..ecabf95d972f 100644
+> index ecabf95d972f..a1b615dc9a19 100644
 > --- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
 > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
-> @@ -307,13 +307,22 @@ static int pm_set_compute_queue_wait_counts_v9(stru=
+> @@ -305,13 +305,27 @@ static int pm_set_compute_queue_wait_counts_v9(stru=
 ct
 > packet_manager *pm,
+>       struct device_queue_manager *dqm =3D pm->dqm;
+>       uint32_t reg_offset =3D 0;
 >       uint32_t reg_data =3D 0;
+> +     uint32_t que_sleep =3D 0;
 >
 >       if (wait_counts_config =3D=3D KFD_INIT_CP_QUEUE_WAIT_TIMES) {
-> -                /* Set CWSR grace period to 1x1000 cycle for GFX9.4.3 AP=
-U */
-> -                if (amdgpu_emu_mode =3D=3D 0 && dqm->dev->adev->gmc.is_a=
-pp_apu &&
-> -                    KFD_GC_VERSION(dqm->dev) =3D=3D IP_VERSION(9, 4, 3))
-> -                        wait_counts_config =3D 1;
-> -                else
-> -                        return 0;
-> -        }
-> +             /* Set CWSR grace period to 1x1000 cycle for GFX9.4.3 APU *=
+> -             /* Set CWSR grace period to 1x1000 cycle for GFX9.4.3 APU *=
 /
-> +             if (amdgpu_emu_mode =3D=3D 0 && dqm->dev->adev->gmc.is_app_=
+> -             if (amdgpu_emu_mode =3D=3D 0 && dqm->dev->adev->gmc.is_app_=
 apu
 > &&
-> +                 KFD_GC_VERSION(dqm->dev) =3D=3D IP_VERSION(9, 4, 3))
-> +                     wait_counts_config =3D 1;
-> +             else
-> +                     return 0;
-> +     } else if (!wait_counts_config)
+> -                 KFD_GC_VERSION(dqm->dev) =3D=3D IP_VERSION(9, 4, 3))
+> -                     wait_counts_config =3D 1;
+> -             else
 > +             /*
-> +              * NOTE: The CP cannot handle a 0 grace period input and wi=
-ll result
-> in
-> +              * an infinite grace period being. This is not an issue her=
-e since 0
-> +              * would just set it to default value.
-> +              * However, grace_period needs to be explicitly set to 1 fo=
-r avoiding
-> +              * any breakage for existing debugger user interface. Curre=
-ntly,
-> +              * debugger interface expects value 1 when set to 0.
+> +              * For all GFX9 ASICs -
+> +              * Reduce CP_IQ_WAIT_TIME2.QUE_SLEEP to 0x1 from default
+> 0x40.
+> +              * On a 1GHz machine this is roughly 1 microsecond, which i=
+s
+> +              * about how long it takes to load data out of memory durin=
+g
+> +              * queue connect
+> +              * QUE_SLEEP: Wait Count for Dequeue Retry.
 > +              */
-> +             wait_counts_config =3D 1;
+> +             if (KFD_GC_VERSION(dqm->dev) >=3D IP_VERSION(9, 4, 1) &&
+> +                 KFD_GC_VERSION(dqm->dev) < IP_VERSION(10, 0, 0)) {
+> +                     que_sleep =3D 1;
 
-If you decide to follow my suggestions for patch 2, then you would only nee=
-d the else-if condition.
+Why not do the IP check directly in the KGD v9 callbacks if this is only fo=
+r select GFX 9 devices and you're tethering this to setting the default wai=
+t count override?
+The only time anything wait related is ever updated is when the KFD starts =
+the DQM or the debugger requests it to be something different.
+This way, you don't have to update the definitions of the KGD call.
 
 Jon
 
->
->       pm->dqm->dev->kfd2kgd->build_grace_period_packet_info(
+> +                     wait_counts_config =3D 0; /* use default dqm->wait_=
+times */
+> +
+> +                     /* Set CWSR grace period to 1x1000 cycle for GFX9.4=
+.3 APU
+> */
+> +                     if (amdgpu_emu_mode =3D=3D 0 && dqm->dev->adev-
+> >gmc.is_app_apu &&
+> +                         KFD_GC_VERSION(dqm->dev) =3D=3D IP_VERSION(9, 4=
+, 3))
+> +                             wait_counts_config =3D 1;
+> +             } else
+>                       return 0;
+>       } else if (!wait_counts_config)
+>               /*
+> @@ -328,6 +342,7 @@ static int pm_set_compute_queue_wait_counts_v9(struct
+> packet_manager *pm,
 >                       pm->dqm->dev->adev,
+>                       pm->dqm->wait_times,
+>                       wait_counts_config,
+> +                     que_sleep,
+>                       &reg_offset,
+>                       &reg_data);
+>
+> diff --git a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
+> b/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
+> index e3e635a31b8a..1ed3fbedf50b 100644
+> --- a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
+> +++ b/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
+> @@ -316,6 +316,7 @@ struct kfd2kgd_calls {
+>       void (*build_grace_period_packet_info)(struct amdgpu_device *adev,
+>                       uint32_t wait_times,
+>                       uint32_t grace_period,
+> +                     uint32_t que_sleep,
+>                       uint32_t *reg_offset,
+>                       uint32_t *reg_data);
+>       void (*get_cu_occupancy)(struct amdgpu_device *adev,
 > --
 > 2.34.1
 
