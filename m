@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A07DBC021AE
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 855C5C021AA
 	for <amd-gfx@archiver.kernel.org>; Tue, 18 Feb 2025 04:59:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A31410E612;
-	Tue, 18 Feb 2025 04:59:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED7A710E611;
+	Tue, 18 Feb 2025 04:59:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UEHjSIp+";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="uJg0WQPh";
 	dkim-atps=neutral
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A5C8110E60C
- for <amd-gfx@lists.freedesktop.org>; Tue, 18 Feb 2025 04:59:04 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 98D0C10E60C
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Feb 2025 04:59:02 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 02BA3A41D03;
- Tue, 18 Feb 2025 04:57:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34B9AC4CEE2;
- Tue, 18 Feb 2025 04:59:03 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id BED265C4C3D;
+ Tue, 18 Feb 2025 04:58:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 587BEC4CEE2;
+ Tue, 18 Feb 2025 04:59:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1739854743;
- bh=5pLxyiY1ZySGawFdXBMP4ixBcuNQElaLR8is3CxnG7k=;
+ s=k20201202; t=1739854741;
+ bh=zk8H4/bbYYI7JxAtzD01dM2ULQw1tUAqmMPNz7jNToc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=UEHjSIp+GwxutSMbjfmGpXgUUofDLI5Y3cumBsHrIx3SLNHTQQYHuN1MONi02rjr6
- hh+9FwExrkQNimelrvFn95/hyPYXTetvJo6zbFSI+XefUv7v6uZ7Rn+RHw1sqEYi9O
- LfmxXiKM0YM5jJY91sAMD1v+doGw/DLINWMHhNAPzGN+8WL1TJh00SzMByRbw2Xj6+
- 1S+mY60wtqm2Qfgz4ioEWYC7W+t7XHTyhTqzFM9qYjxRjMWS+dNWLzOARhUuLhPiTb
- DrB6XWLoSRV5gZ2DhtigZphokkLcx1Fbipb0MsPtvriQ14Ed8AaTvndIDL15T3G0xp
- 2mWjom/n2+aQg==
+ b=uJg0WQPh43DheThmWgMGT78Q0CbaVpNfZcNElt67XIbHxhSNaCKYvvR09CD3GdWjn
+ XiaE6l7xq8uE7As/pjbxJDuL7rC6n6llEVLRjPd/cT0ZfYr77CF/JZhTHwQr0FKJYS
+ y3vkGB0LBS/IZxlgIPaeSyf/rMYGIGiAoplzvbGeXjd0fjitcVAu2wGtTn4Z9H9Q+d
+ TSoa7d5ltYl2huqjzezY01vM+G3QRIPlLQ+ZKQ0CwfUJjQUzQrduOMxxUv3ObM6KmU
+ F/Lt000foeIRynqWwqo/9mwumzU4l1QWptFXoWDlRW+kh5C1a2bLlTRxytWDLHOm4G
+ WvD2U2zkdl3bA==
 From: Mario Limonciello <superm1@kernel.org>
 To: amd-gfx@lists.freedesktop.org
 Cc: harry.wentland@amd.com,
 	Mario Limonciello <mario.limonciello@amd.com>
-Subject: [PATCH 12/13] drm/amd/display: Use scoped guards for
- handle_hpd_irq_helper()
-Date: Mon, 17 Feb 2025 22:58:39 -0600
-Message-ID: <20250218045840.2469890-13-superm1@kernel.org>
+Subject: [PATCH 09/13] drm/amd/display: Use _free(kfree) for
+ dm_gpureset_commit_state()
+Date: Mon, 17 Feb 2025 22:58:36 -0600
+Message-ID: <20250218045840.2469890-10-superm1@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20250218045840.2469890-1-superm1@kernel.org>
 References: <20250218045840.2469890-1-superm1@kernel.org>
@@ -59,50 +59,45 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Mario Limonciello <mario.limonciello@amd.com>
 
-Scoped guards will release the mutex when they go out of scope.
+Using a _free(kfree) macro drops the need for a goto statement
+as it will be freed when it goes out of scope.
 
 Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 12 +++++-------
- 1 file changed, 5 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 7 ++-----
+ 1 file changed, 2 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index fa5be13f8dd75..a469b5fd43a7a 100644
+index e7a9e60a6405c..33bed74c5b4c0 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -3750,7 +3750,7 @@ static void handle_hpd_irq_helper(struct amdgpu_dm_connector *aconnector)
- 	 * In case of failure or MST no need to update connector status or notify the OS
- 	 * since (for MST case) MST does this in its own context.
- 	 */
--	mutex_lock(&aconnector->hpd_lock);
-+	guard(mutex)(&aconnector->hpd_lock);
+@@ -3243,14 +3243,14 @@ static void dm_gpureset_commit_state(struct dc_state *dc_state,
+ 		struct dc_scaling_info scaling_infos[MAX_SURFACES];
+ 		struct dc_flip_addrs flip_addrs[MAX_SURFACES];
+ 		struct dc_stream_update stream_update;
+-	} *bundle;
++	} *bundle __free(kfree);
+ 	int k, m;
  
- 	if (adev->dm.hdcp_workqueue) {
- 		hdcp_reset_display(adev->dm.hdcp_workqueue, aconnector->dc_link->link_index);
-@@ -3774,10 +3774,10 @@ static void handle_hpd_irq_helper(struct amdgpu_dm_connector *aconnector)
- 		if (aconnector->base.force == DRM_FORCE_UNSPECIFIED)
- 			drm_kms_helper_connector_hotplug_event(connector);
- 	} else {
--		mutex_lock(&adev->dm.dc_lock);
--		dc_exit_ips_for_hw_access(dc);
--		ret = dc_link_detect(aconnector->dc_link, DETECT_REASON_HPD);
--		mutex_unlock(&adev->dm.dc_lock);
-+		scoped_guard(mutex, &adev->dm.dc_lock) {
-+			dc_exit_ips_for_hw_access(dc);
-+			ret = dc_link_detect(aconnector->dc_link, DETECT_REASON_HPD);	
-+		}
- 		if (ret) {
- 			amdgpu_dm_update_connector_after_detect(aconnector);
+ 	bundle = kzalloc(sizeof(*bundle), GFP_KERNEL);
  
-@@ -3789,8 +3789,6 @@ static void handle_hpd_irq_helper(struct amdgpu_dm_connector *aconnector)
- 				drm_kms_helper_connector_hotplug_event(connector);
- 		}
+ 	if (!bundle) {
+ 		drm_err(dm->ddev, "Failed to allocate update bundle\n");
+-		goto cleanup;
++		return;
  	}
--	mutex_unlock(&aconnector->hpd_lock);
+ 
+ 	for (k = 0; k < dc_state->stream_count; k++) {
+@@ -3270,9 +3270,6 @@ static void dm_gpureset_commit_state(struct dc_state *dc_state,
+ 					 &bundle->stream_update,
+ 					 bundle->surface_updates);
+ 	}
 -
+-cleanup:
+-	kfree(bundle);
  }
  
- static void handle_hpd_irq(void *param)
+ static int dm_resume(struct amdgpu_ip_block *ip_block)
 -- 
 2.43.0
 
