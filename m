@@ -4,76 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 686E5C021AA
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Feb 2025 16:14:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DDFAC021AA
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Feb 2025 17:24:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 183C910E3F1;
-	Tue, 18 Feb 2025 16:14:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4709510E45E;
+	Tue, 18 Feb 2025 17:24:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Fij00q3J";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="HkVJZBwN";
 	dkim-atps=neutral
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com
- [209.85.208.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C63A10E71A
- for <amd-gfx@lists.freedesktop.org>; Tue, 18 Feb 2025 16:14:09 +0000 (UTC)
-Received: by mail-ed1-f43.google.com with SMTP id
- 4fb4d7f45d1cf-5e04064af07so5866464a12.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 18 Feb 2025 08:14:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1739895248; x=1740500048; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=eROlXzVaNbmB7tdQFQMdzP6QtGskM157qfeMp31iCXc=;
- b=Fij00q3Jcyv1BK84NoktetXhAGPPQF8Qwm+O+QICu/FTnW9M2HusrYznbVpbqXLdIM
- NeXjMIjdFZh2uJfXJSQg/Mf/7Bhu70iCP55eX891gJwoV3+O+/S/ZotcgfZa2Q/R0qYG
- cTacyJDOD7ZfcUYyzeE7zh/t1gXaKKNbIQ1AqbA8/7+fOQZPoJatSLPGZsgYSSIGhKzK
- olb59d45VioLie7nSVKh+M30UfDvQyi+NOlTAhRBaUxLV+yGdZ8aRV6nXf3NBY6eEEyP
- RVbC9CEW7jAW9mzHdR6F90nOrAtQwLWSc7snrEAEscJbA3xdtbj/KC5TPELKfYGS9NG/
- 1A4A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739895248; x=1740500048;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=eROlXzVaNbmB7tdQFQMdzP6QtGskM157qfeMp31iCXc=;
- b=LqUK6hm2Pw/gnqRiWaWqUzu5zxVzrwuEu7lo02W1T7B9AsWIhrZkUrOYSrSg0CTmV3
- K/f9cJOmw0aVhdCkP6AXD/o2DKYJhudt7JiSv+XjRu/4J2rZAeMxoKrpx2YnlcDwGHKM
- xmLv1vG5XRbAVUCIg/WqP1r6TyFfR65GeOFNSWveazZC752AiobH0B7Ulw8uiVH5xRGS
- FFfcvN0GRpjZbxE/bg9YhcD35TpF4cBRHzzh6dw4OF48VvUjUiXi2nHy0GChbmGaSKBR
- 0grTTsq2MfQmc7Ac0UVHhTnz+NJ0IPts1PAHJwo2jTlsZfI9VfcheaK5yY90ETkDO6Ol
- PHRQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVqdFY5TYZFKB9rj588tC7kt57YUygWEZsXzEuy9BHxM+2E69WXQsoDUGYq2YMM6s/jS2MPVi5C@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzwoyNnLKhsyxQktizzDJ8JdDCPcQRBGFRryGblT/09a0+cjhu4
- +uxwWDrWZKXyKFylPKNXNjYFKDdcZs7ZtEYApmFgHJFgzhq5wMSpLzqWwxuczac=
-X-Gm-Gg: ASbGncvQkmTJYZRGpTbzxYmCT2ZFcvUBGGMJ1cPYS9cmkl16ucNygf6kTg9CYn6gokB
- 7Gh7PRkjzZEpg+BMpSFAz5DPD8GSoLvg0Lle8v2yfmW0tLXBkl4r+YrcAGthnFi7P8y8E5SMzTL
- zduYZQjoUbUAqAsa2xO6TgZd3QusZHtxOhGpvCG3tix/OqnyVJuz9LgB/hcOyhotTDmB65m/4dn
- q6DCJoNXYtMzb9YOu7409wHEfZgcIlSD6sfuPt2G7m9iq2+UKrpybvEnV3e16QLOu2IIUS6msiY
- HVAyfL2S/4rUf/92mBoUlEWhYPD4
-X-Google-Smtp-Source: AGHT+IF8SrpQMv6sIloRUge1hbgukVVhyZOaQmtZ3U8sdKsQD0zHKF9bPM93ukjEbz6q/oKc0MVyTQ==
-X-Received: by 2002:a17:907:360a:b0:ab7:e8d6:3b21 with SMTP id
- a640c23a62f3a-abb70da4172mr1395735766b.28.1739895247557; 
- Tue, 18 Feb 2025 08:14:07 -0800 (PST)
-Received: from able.fritz.box ([2a00:e180:15cb:ef00:7a4e:6292:55ba:b835])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-abba7848676sm306762466b.144.2025.02.18.08.14.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 18 Feb 2025 08:14:07 -0800 (PST)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: srinivasan.shanmugam@amd.com,
-	amd-gfx@lists.freedesktop.org
-Subject: [PATCH 8/8] drm/amdgpu: add cleaner shader trace point
-Date: Tue, 18 Feb 2025 17:14:01 +0100
-Message-Id: <20250218161401.2155-8-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250218161401.2155-1-christian.koenig@amd.com>
-References: <20250218161401.2155-1-christian.koenig@amd.com>
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2071.outbound.protection.outlook.com [40.107.220.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 010C310E73D
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Feb 2025 17:24:55 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=oy6W/c4tZPnPZxVLExko9eVuuvNNfjYrmiLISWbuxSxNp686bEVb8WaErg/YwY49rqAdqIU70LvZBHzzuh0/VaxsmgZ1tR1MWnj0EOvrxNXCEw4RhiVEp1651WZ+7ldZCpVAPe936LApFqfDKN1ivSVl1Zs2KR86s4bP7V1lp+Ku9PaZgy0iq61Dzs0BW4aQIOCThID5RtIqfhIzxDRtSWQag89c51BYictWIzwKIF1vIp4lwBD+pOCWUboDHCG/CqW2AcYDqaAEfH9LbUJvft15RBx+cZoG/8s5/++EJRP9ACDXJCy8RMeSVKO1w1weFdqLEEm5HtwQtaZ7t2YRqg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pGjzMyPUQ+DbtneS3mV4t1Wo+ffPOErO9EDNhFMsiBU=;
+ b=WbsBd2NQuudETkR/kGYuMjG9EcBo6q/RjW8yuoD38619bpOA7JepeRcFK32yjpTjyqZM3O/2IV4rfrtwZtJWVyeZUQWFzE0Mrnyl5qzcf4MQEPprXtVIQbBltvCF8ywblWnOBi2GvUVyyAMJebCF7cEkZ1i+t5D7imZCy0EwYPVNduvnQ6hNj+RmV/RiVCX6DzyOrfHhncc00ONzsOn4b/nf243ZFf86KQXSViV//ixFwW36zZZF3jxXcHhYvV3UX9geHBIXGdIK/9ssZCBMVPwL4g0TnxQybQZrblSJoOVp3Qv6E8xDILQ5NzmJxSe0bW6IaJewf0xq1qBlZjhP0Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pGjzMyPUQ+DbtneS3mV4t1Wo+ffPOErO9EDNhFMsiBU=;
+ b=HkVJZBwNA2fcR647KltHPJCkzHFI5gwf6GG+cnsNZ6yMBU8V1ZV4t1AoPW3XmJNhDgB2+rVEL9kbbLFU43tz+oaTbQZo4A4aFMdwZxXP1Kln9WVaktw5CmSFwn+3LtMgYzt30ZnPc7RX35NkTjqC/MFmTTNK7pP9zNsejTv4jlc=
+Received: from SJ0PR03CA0051.namprd03.prod.outlook.com (2603:10b6:a03:33e::26)
+ by PH7PR12MB8593.namprd12.prod.outlook.com (2603:10b6:510:1b1::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8445.16; Tue, 18 Feb
+ 2025 17:24:53 +0000
+Received: from SJ1PEPF00002317.namprd03.prod.outlook.com
+ (2603:10b6:a03:33e:cafe::66) by SJ0PR03CA0051.outlook.office365.com
+ (2603:10b6:a03:33e::26) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8466.14 via Frontend Transport; Tue,
+ 18 Feb 2025 17:24:53 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SJ1PEPF00002317.mail.protection.outlook.com (10.167.242.171) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8466.11 via Frontend Transport; Tue, 18 Feb 2025 17:24:53 +0000
+Received: from dayatsin-dev.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 18 Feb
+ 2025 11:24:51 -0600
+From: David Yat Sin <David.YatSin@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <harish.kasiviswanathan@amd.com>, <jay.cornwall@amd.com>, David Yat Sin
+ <David.YatSin@amd.com>
+Subject: [PATCH] drm/amdkfd: Preserve cp_hqd_pq_control on update_mqd
+Date: Tue, 18 Feb 2025 17:24:40 +0000
+Message-ID: <20250218172440.127224-1-David.YatSin@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00002317:EE_|PH7PR12MB8593:EE_
+X-MS-Office365-Filtering-Correlation-Id: 90d87f49-295b-4130-73c2-08dd50412818
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|82310400026|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?ReZGIibjZMN6/CnU23gs9qFrQq3uM2ck96ZxeAgbW7luB/SFkJaUdl3pXoOu?=
+ =?us-ascii?Q?egF03PPPXFqTeYYl911CliLX6EnxkH39Oyaxa0O16Ksgn5l8Z96Of0PAdnUX?=
+ =?us-ascii?Q?D7mqssIaN0eXp1c25DDIhE9IqNbtqzoj+7wwZKthOcaXzFuA+VU1w9y/Ty60?=
+ =?us-ascii?Q?Ov9JtmO7gqfzOIt3sj3x+1eP+zT5KOEpkFBliAk6m6zqqJTDU1YtLARBVljZ?=
+ =?us-ascii?Q?3c/hnisrq5oa/FpInGancWpGFvpHcaYMlKl9oOQ6mDb4xK8OIJmdO+OQklvj?=
+ =?us-ascii?Q?+FdseHXBwB5AB8J8j/81WJS7AFYRf9rNW5x+tEtJbo6cFyqK8C4MPnZ50DcA?=
+ =?us-ascii?Q?qi+QoMZL9xEtAIStri5ho5buudKf6dyz676j+PWm2mcborXIzkgtawu0udHw?=
+ =?us-ascii?Q?xxIEyNyVfN53NaOKzoyAhSs17NMqj1Sykrs1WcgEibXCR3ZE4VQN1ZNDVonm?=
+ =?us-ascii?Q?q52rTUxs6eC1QSCjWt5lEt8ZkU6Hi0o5Mg7eICJUWMRVCi34wI578aD2Kluw?=
+ =?us-ascii?Q?7RPgHezf9wcDHIT6Ga4KPFDyGQhBjTN8B/KmGFFX3U+vlcFNB/2Y6vZ7dZiN?=
+ =?us-ascii?Q?nJlZmHzH2Vo9a8h+bUJyw/9Fy4i8wkL6we52uP7UqfLAWbqkOii3SKICOCOm?=
+ =?us-ascii?Q?2Pe0wN6D/fH7XRBAhewOdAZwG3hfSeOmwtCLjNAVaB7VgoRTvcMMd3PAzFi4?=
+ =?us-ascii?Q?mFojH4WQoevuFQln98Jgi7tvLv8BHphAV8DAcBKLbuKajsqvBorbnFreenf5?=
+ =?us-ascii?Q?hxN/XzHbLwOTWBM/tzC2LdjrSPFt3WrNfYt4da+InRrsF3AKzWOu5qqLfmuH?=
+ =?us-ascii?Q?X7cn0KJQi5RbkXuej4N7bUjNahZAek1vUrtX4krFmzYqAeBl6WHYe6YUrBMI?=
+ =?us-ascii?Q?qo0WlylPvT8UBNVRR/vtMVFjBx0AIPznE5w6GU2SM2LSgBQvIpWnjVO0PLko?=
+ =?us-ascii?Q?xIY/+eWnWcxMP0Xx6vVG8EmK45x/5g7iN8BgttvOCsi2hqYOhkaVhzRckKAM?=
+ =?us-ascii?Q?3j7I3oWqJ0tqm3ojVPVk6Yu1C17wuvgJQyi7ermCpfootf/GTdBOVNijiar9?=
+ =?us-ascii?Q?WvpG6pdtpdnofGQG6Zk4dAbnOlsOnf4voPaBAo9ebcUnW4C/RIMeuzl6V3BY?=
+ =?us-ascii?Q?ubsG6TNVLVYXoPcbzIZp9WufSjq1D2YXnbEPSUgPmzu5Wl62wmZ9mQSnvwWh?=
+ =?us-ascii?Q?7xDHvZIA0psSpEG8XWxuV73XVoYV7sASmVmV2eot0xcYBLfg/KQAK1XzgbqD?=
+ =?us-ascii?Q?TbvCc88qS0aX2JUMTPL9MBS+RnWbuv0A+rvLV1P82zPCOMDIcQDsGMRu9D5c?=
+ =?us-ascii?Q?MdmkloMH2VRiytNwciVsD7uKJNpNSNJH8HshiyHAdPy06pPeE++F0iW0WZa9?=
+ =?us-ascii?Q?u/WxIwAyddmQFYNV3y2eBL+gvoEjfrBoV7cTrylH2XGDcjb+WmHcvwF5QTVH?=
+ =?us-ascii?Q?mLcZ8z+8jx4prZnFSz3SRYb0S3Be8LoMoixIPxnFnUfjSkTIHSQ6z2+khrfy?=
+ =?us-ascii?Q?bhNOUeVUx6jN8uM=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(82310400026)(36860700013); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Feb 2025 17:24:53.0547 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 90d87f49-295b-4130-73c2-08dd50412818
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00002317.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8593
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,52 +130,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Note when the cleaner shader is executed.
+When userspace applications call AMDKFD_IOC_UPDATE_QUEUE. Preserve
+bitfields that do not need to be modified as they contain flags to track
+queue states that are used by CP FW.
 
-Signed-off-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: David Yat Sin <David.YatSin@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h | 15 +++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    |  1 +
- 2 files changed, 16 insertions(+)
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c | 4 +++-
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c | 4 +++-
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c | 4 +++-
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c  | 4 +++-
+ 4 files changed, 12 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
-index e8147d9a54fc..11dd2e0f7979 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
-@@ -474,6 +474,21 @@ TRACE_EVENT(amdgpu_isolation,
- 		      __entry->next)
- );
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
+index 2eff37aaf827..9aec222251f7 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
+@@ -167,7 +167,9 @@ static void update_mqd(struct mqd_manager *mm, void *mqd,
  
-+TRACE_EVENT(amdgpu_cleaner_shader,
-+	    TP_PROTO(struct amdgpu_ring *ring, struct dma_fence *fence),
-+	    TP_ARGS(ring, fence),
-+	    TP_STRUCT__entry(
-+			     __string(ring, ring->name)
-+			     __field(u64, seqno)
-+			     ),
+ 	m = get_mqd(mqd);
+ 
+-	m->cp_hqd_pq_control = 5 << CP_HQD_PQ_CONTROL__RPTR_BLOCK_SIZE__SHIFT;
++	m->cp_hqd_pq_control |= (5 << CP_HQD_PQ_CONTROL__RPTR_BLOCK_SIZE__SHIFT) &
++			~CP_HQD_PQ_CONTROL__RPTR_BLOCK_SIZE_MASK;
 +
-+	    TP_fast_assign(
-+			   __assign_str(ring);
-+			   __entry->seqno = fence->seqno;
-+			   ),
-+	    TP_printk("ring=%s, seqno=%Lu", __get_str(ring), __entry->seqno)
-+);
+ 	m->cp_hqd_pq_control |=
+ 			ffs(q->queue_size / sizeof(unsigned int)) - 1 - 1;
+ 	m->cp_hqd_pq_control |= CP_HQD_PQ_CONTROL__UNORD_DISPATCH_MASK;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
+index 68dbc0399c87..c000dd50a4b5 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
+@@ -221,7 +221,9 @@ static void update_mqd(struct mqd_manager *mm, void *mqd,
+ 
+ 	m = get_mqd(mqd);
+ 
+-	m->cp_hqd_pq_control = 5 << CP_HQD_PQ_CONTROL__RPTR_BLOCK_SIZE__SHIFT;
++	m->cp_hqd_pq_control |= (5 << CP_HQD_PQ_CONTROL__RPTR_BLOCK_SIZE__SHIFT) &
++			~CP_HQD_PQ_CONTROL__RPTR_BLOCK_SIZE_MASK;
 +
- TRACE_EVENT(amdgpu_bo_list_set,
- 	    TP_PROTO(struct amdgpu_bo_list *list, struct amdgpu_bo *bo),
- 	    TP_ARGS(list, bo),
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index 5323dba2d688..0a75d8d1a0f8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -742,6 +742,7 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
- 	 * finish before we push them to the HW.
- 	 */
- 	if (cleaner_shader_needed) {
-+		trace_amdgpu_cleaner_shader(ring, fence);
- 		mutex_lock(&adev->enforce_isolation_mutex);
- 		dma_fence_put(isolation->spearhead);
- 		isolation->spearhead = dma_fence_get(fence);
+ 	m->cp_hqd_pq_control |=
+ 			ffs(q->queue_size / sizeof(unsigned int)) - 1 - 1;
+ 	m->cp_hqd_pq_control |= CP_HQD_PQ_CONTROL__UNORD_DISPATCH_MASK;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c
+index 2b72d5b4949b..337dd3fe130d 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c
+@@ -184,7 +184,9 @@ static void update_mqd(struct mqd_manager *mm, void *mqd,
+ 
+ 	m = get_mqd(mqd);
+ 
+-	m->cp_hqd_pq_control = 5 << CP_HQD_PQ_CONTROL__RPTR_BLOCK_SIZE__SHIFT;
++	m->cp_hqd_pq_control |= (5 << CP_HQD_PQ_CONTROL__RPTR_BLOCK_SIZE__SHIFT) &
++			~CP_HQD_PQ_CONTROL__RPTR_BLOCK_SIZE_MASK;
++
+ 	m->cp_hqd_pq_control |=
+ 			ffs(q->queue_size / sizeof(unsigned int)) - 1 - 1;
+ 	m->cp_hqd_pq_control |= CP_HQD_PQ_CONTROL__UNORD_DISPATCH_MASK;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+index ff417d5361c4..7d01ad6a686d 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+@@ -245,7 +245,9 @@ static void update_mqd(struct mqd_manager *mm, void *mqd,
+ 
+ 	m = get_mqd(mqd);
+ 
+-	m->cp_hqd_pq_control = 5 << CP_HQD_PQ_CONTROL__RPTR_BLOCK_SIZE__SHIFT;
++	m->cp_hqd_pq_control |= (5 << CP_HQD_PQ_CONTROL__RPTR_BLOCK_SIZE__SHIFT) &
++			~CP_HQD_PQ_CONTROL__RPTR_BLOCK_SIZE_MASK;
++
+ 	m->cp_hqd_pq_control |= order_base_2(q->queue_size / 4) - 1;
+ 	pr_debug("cp_hqd_pq_control 0x%x\n", m->cp_hqd_pq_control);
+ 
 -- 
-2.34.1
+2.17.1
 
