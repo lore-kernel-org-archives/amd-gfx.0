@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D0A0C021A9
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A07DBC021AE
 	for <amd-gfx@archiver.kernel.org>; Tue, 18 Feb 2025 04:59:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0B9910E60F;
-	Tue, 18 Feb 2025 04:59:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A31410E612;
+	Tue, 18 Feb 2025 04:59:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="smlhSLj8";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UEHjSIp+";
 	dkim-atps=neutral
 Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 357FF10E608
- for <amd-gfx@lists.freedesktop.org>; Tue, 18 Feb 2025 04:59:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A5C8110E60C
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Feb 2025 04:59:04 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 7F575A41D03;
- Tue, 18 Feb 2025 04:57:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B28A1C4CEE8;
- Tue, 18 Feb 2025 04:59:00 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id 02BA3A41D03;
+ Tue, 18 Feb 2025 04:57:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34B9AC4CEE2;
+ Tue, 18 Feb 2025 04:59:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1739854741;
- bh=7qWYM1wNznh6IJeNqQ7uOKi6LbSRXiAAL1rgnqtxpBs=;
+ s=k20201202; t=1739854743;
+ bh=5pLxyiY1ZySGawFdXBMP4ixBcuNQElaLR8is3CxnG7k=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=smlhSLj81Ia6btthwpbO8LjIx92CjUFmEIrRnz8NggrBMWeDA8HBxiYvwtpSlb53q
- BaXrJ5Tt4Mk3IIBUO+ccI9FpZ2RgjcHag2dMVfejDEcSyX+mk7dJO4FRRBgiVqznWl
- iumtmQ2i5iwibgKlZxCuOsir9tWQZPpihfC7Tk764IYi8Go2vLUVDCmDpa5Ey2o2Fo
- GDjohu6K1DjeYdnXi2VQMNDfEM0mtD3qcNsqiRmXRi5rlbPQLtRbrd4irvSyqEv3Sx
- Rr7CfSXi4Yn16ElZMhwbqDCnPCJPsJ6Cg0r253Ce0tSOBSmY5/vY7YQwdAVi5B+tbr
- 3kOBAUoYciWTA==
+ b=UEHjSIp+GwxutSMbjfmGpXgUUofDLI5Y3cumBsHrIx3SLNHTQQYHuN1MONi02rjr6
+ hh+9FwExrkQNimelrvFn95/hyPYXTetvJo6zbFSI+XefUv7v6uZ7Rn+RHw1sqEYi9O
+ LfmxXiKM0YM5jJY91sAMD1v+doGw/DLINWMHhNAPzGN+8WL1TJh00SzMByRbw2Xj6+
+ 1S+mY60wtqm2Qfgz4ioEWYC7W+t7XHTyhTqzFM9qYjxRjMWS+dNWLzOARhUuLhPiTb
+ DrB6XWLoSRV5gZ2DhtigZphokkLcx1Fbipb0MsPtvriQ14Ed8AaTvndIDL15T3G0xp
+ 2mWjom/n2+aQg==
 From: Mario Limonciello <superm1@kernel.org>
 To: amd-gfx@lists.freedesktop.org
 Cc: harry.wentland@amd.com,
 	Mario Limonciello <mario.limonciello@amd.com>
-Subject: [PATCH 08/13] drm/amd/display: Change amdgpu_dm_irq_resume_*() to void
-Date: Mon, 17 Feb 2025 22:58:35 -0600
-Message-ID: <20250218045840.2469890-9-superm1@kernel.org>
+Subject: [PATCH 12/13] drm/amd/display: Use scoped guards for
+ handle_hpd_irq_helper()
+Date: Mon, 17 Feb 2025 22:58:39 -0600
+Message-ID: <20250218045840.2469890-13-superm1@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20250218045840.2469890-1-superm1@kernel.org>
 References: <20250218045840.2469890-1-superm1@kernel.org>
@@ -58,63 +59,50 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Mario Limonciello <mario.limonciello@amd.com>
 
-amdgpu_dm_irq_resume_early() and amdgpu_dm_irq_resume_late() don't
-have any error flows. Change the return type from integer to void.
+Scoped guards will release the mutex when they go out of scope.
 
 Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c | 7 ++-----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.h | 4 ++--
- 2 files changed, 4 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 12 +++++-------
+ 1 file changed, 5 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-index 3224eae295eb4..2fec00e5d7491 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-@@ -513,7 +513,7 @@ void amdgpu_dm_irq_suspend(struct amdgpu_device *adev)
- 	DM_IRQ_TABLE_UNLOCK(adev, irq_table_flags);
- }
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index fa5be13f8dd75..a469b5fd43a7a 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -3750,7 +3750,7 @@ static void handle_hpd_irq_helper(struct amdgpu_dm_connector *aconnector)
+ 	 * In case of failure or MST no need to update connector status or notify the OS
+ 	 * since (for MST case) MST does this in its own context.
+ 	 */
+-	mutex_lock(&aconnector->hpd_lock);
++	guard(mutex)(&aconnector->hpd_lock);
  
--int amdgpu_dm_irq_resume_early(struct amdgpu_device *adev)
-+void amdgpu_dm_irq_resume_early(struct amdgpu_device *adev)
- {
- 	int src;
- 	struct list_head *hnd_list_h, *hnd_list_l;
-@@ -532,11 +532,9 @@ int amdgpu_dm_irq_resume_early(struct amdgpu_device *adev)
+ 	if (adev->dm.hdcp_workqueue) {
+ 		hdcp_reset_display(adev->dm.hdcp_workqueue, aconnector->dc_link->link_index);
+@@ -3774,10 +3774,10 @@ static void handle_hpd_irq_helper(struct amdgpu_dm_connector *aconnector)
+ 		if (aconnector->base.force == DRM_FORCE_UNSPECIFIED)
+ 			drm_kms_helper_connector_hotplug_event(connector);
+ 	} else {
+-		mutex_lock(&adev->dm.dc_lock);
+-		dc_exit_ips_for_hw_access(dc);
+-		ret = dc_link_detect(aconnector->dc_link, DETECT_REASON_HPD);
+-		mutex_unlock(&adev->dm.dc_lock);
++		scoped_guard(mutex, &adev->dm.dc_lock) {
++			dc_exit_ips_for_hw_access(dc);
++			ret = dc_link_detect(aconnector->dc_link, DETECT_REASON_HPD);	
++		}
+ 		if (ret) {
+ 			amdgpu_dm_update_connector_after_detect(aconnector);
+ 
+@@ -3789,8 +3789,6 @@ static void handle_hpd_irq_helper(struct amdgpu_dm_connector *aconnector)
+ 				drm_kms_helper_connector_hotplug_event(connector);
+ 		}
  	}
- 
- 	DM_IRQ_TABLE_UNLOCK(adev, irq_table_flags);
+-	mutex_unlock(&aconnector->hpd_lock);
 -
--	return 0;
  }
  
--int amdgpu_dm_irq_resume_late(struct amdgpu_device *adev)
-+void amdgpu_dm_irq_resume_late(struct amdgpu_device *adev)
- {
- 	int src;
- 	struct list_head *hnd_list_h, *hnd_list_l;
-@@ -558,7 +556,6 @@ int amdgpu_dm_irq_resume_late(struct amdgpu_device *adev)
- 	}
- 
- 	DM_IRQ_TABLE_UNLOCK(adev, irq_table_flags);
--	return 0;
- }
- 
- /*
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.h
-index c37bcd631e104..ba17c23b27064 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.h
-@@ -97,7 +97,7 @@ void amdgpu_dm_irq_suspend(struct amdgpu_device *adev);
-  * amdgpu_dm_irq_resume - enable ASIC interrupt during resume.
-  *
-  */
--int amdgpu_dm_irq_resume_early(struct amdgpu_device *adev);
--int amdgpu_dm_irq_resume_late(struct amdgpu_device *adev);
-+void amdgpu_dm_irq_resume_early(struct amdgpu_device *adev);
-+void amdgpu_dm_irq_resume_late(struct amdgpu_device *adev);
- 
- #endif /* __AMDGPU_DM_IRQ_H__ */
+ static void handle_hpd_irq(void *param)
 -- 
 2.43.0
 
