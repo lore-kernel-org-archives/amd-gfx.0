@@ -4,60 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30A19C021B1
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FF96C021AD
 	for <amd-gfx@archiver.kernel.org>; Tue, 18 Feb 2025 16:14:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C10AB10E72C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C43FB10E730;
 	Tue, 18 Feb 2025 16:14:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="i9d5qGed";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YppdH+rc";
 	dkim-atps=neutral
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com
- [209.85.218.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 93A9010E71A
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com
+ [209.85.208.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57DDD10E715
  for <amd-gfx@lists.freedesktop.org>; Tue, 18 Feb 2025 16:14:08 +0000 (UTC)
-Received: by mail-ej1-f51.google.com with SMTP id
- a640c23a62f3a-abb86beea8cso527764266b.1
+Received: by mail-ed1-f46.google.com with SMTP id
+ 4fb4d7f45d1cf-5deb1266031so10073412a12.2
  for <amd-gfx@lists.freedesktop.org>; Tue, 18 Feb 2025 08:14:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=gmail.com; s=20230601; t=1739895247; x=1740500047; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=nBAG5oUEFX166qTyB90hWPLYYfHebcCnYQtV4T8ALB4=;
- b=i9d5qGedC1F1wSLfOy/4UhvmhMm2QyfeDLJ6RhqnNvmJVG0pRwM3fAwjfML1ouLPjN
- Uu9trHxL6YIR5B9cGETETwUdrxZV1+rS4oCRdldO5XuKR9D3XZ2vL9QPc2lHq8ws33Vy
- UrP7gmvNhJDp2s38W6odMI8wlOKCUFh1qYB1Kol9B9e0r8Mb5T0/HSMS8LUMx334TFFi
- P1H8SonhxnmkdR+y//p20+1Qks4c7R2GRcsPbXg8omH/FqSGqvXUQ+6eOJNTyps/nskU
- eT9RZAu6If7QtE22aDOBBcZVlebSKU7UEehzYSTAI80MGer7miUbbzjFhCh3AgVCR8n6
- h3/A==
+ :reply-to; bh=wqv1uKCT7H0MD7JwQdaxscBB1T4Q3l6RVj+SexVT8QY=;
+ b=YppdH+rcOoHO000BfvcOC4Zq9peahDB2VaGAgfKs84r+YcAdBR8kw41OxrKFF8Xzhn
+ 1WDfOIYoJHB380rwH+io8b+qBTyp1ENmDqx2eQzBeztt/ZyRWZb2fAQvnGd1r/NjNmx8
+ GrVS5LfI7VWOivTC3u9DS7BkQ2L12Iej6BQtV3h9l3f3bsNzzDanR7AhIpjyDzTLqiJf
+ LMeS7W60RkU0JEOUrQQAjAOA+ZeeAbgvGUYEGtQEe1DyTZAqfftZMYVDO9/mUMnqTJ8Q
+ iBCND1LoyxiG3JgV8l1kc5nSN2YA5PmX7MjMTA6HOumgqguq5qURFDHVs4p56ToVIYxc
+ 96jg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20230601; t=1739895247; x=1740500047;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=nBAG5oUEFX166qTyB90hWPLYYfHebcCnYQtV4T8ALB4=;
- b=NfhU+6PCGWu3NoQW4as9AM0VkJBDpFPeqk3X9Qafa6EURGcwa1acRzb777xztShVzx
- tHsZw4wh6PEhdl3yCo/3bPdlNf7SvZR6/p6b4E7GkKwXcI1Cg/q6EA6Fw8wvI7AoSuti
- ptlKtmk2RJp2Bs9OiUABWOsy4IqDar+2V+jx1QrSmaSmf7MwV1mqeJxn+EfTHguiuBKM
- toH4mOtsCtdphgqJbkGrgvM68fvD3pRyEwwz2BjJF945XVBWQFyjrAN1DJQ6GQX2HLUZ
- GasM2sfjU7K8mHSuVhzyJKr5Y6Sji0R1Y7uDAod9WJLpwB5vffrE2Bl7k7tP//JROac5
- sFeA==
+ bh=wqv1uKCT7H0MD7JwQdaxscBB1T4Q3l6RVj+SexVT8QY=;
+ b=CD6ZGDSE+7dggwIbdFhbISPkhzmFZ90SzIyTnf+/gP9vsznuMr09rcxekCUI7m/tWe
+ Pc43XTuvcBM98nGlNwgBVsY9db/J58VdP0HnW3Qk8qK6sv4hKpgrrUweu8tWJ1iBF9cV
+ Bja0FGc5Bkme0/GNuj4Jd6jIJg1BirU4hRR927hHGkU9tmWNVT65H6mC5RlIzVnOJs8Y
+ oGRYim/QHoll0BKkqjwP5jBQFcsbr8lkrdMaJ+pHKDrqwyzXqjJn375B90M43c3KfNgM
+ 7Ni0dWf0vtPOM9LcOFPvaul8VX4H0Jv1FCj6nw7WBr9mQMV2h6jlPf0MnfnZDehQUpjG
+ uzaw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWM+dIS+Tz+pV/xqkrip6rnlbhduzHuNnaYc7qDv2p4ter9fi5FWkttvM2sHEIvxsFu0bEFHSEP@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yyat13K5wOPlHLg2FSegAG+k+qduqBHFnMih6VWT3ybtHO+Vaw9
- oFmapgd/VxEfNBSmJGq/hM77dmGc2nGURsmyiil44nYzfzMLUvB8
-X-Gm-Gg: ASbGnctX+LrXGruTQBRMtcg8ROiBrZGc5Ks1tOn1x0XEH5jpTIBOwqwCA6NaTkRtOv+
- kXdNOW/s6qzhBSYNU/ZvpXk48htkIINqcYpG40RgVxIAO/3kAEJBQqQRwzUZJLDv2vB55IWdPBE
- PdnZ/26bN9oogg1yT/xrNMqrAzXQasa0shDtj62JkVBcS+AE4JD0Fjxs8ty1h3luEq/njXxysSS
- iiFVe+gubu5BOhC/c9nlmw6lEST+SpX8aIdl/p7KY/K2ZnJ/mXOigl8D9BIyAqDaldm8WV3Koc3
- ACQzA+7nz25JoAZWF63OnEizl7S/
-X-Google-Smtp-Source: AGHT+IFnse/jh/97XT1xIU7lWU1MmnFNfSO85G+vYTuO4ZNRyD2y/WhGcGOuGNx9b2d40sjyhuXJug==
-X-Received: by 2002:a17:906:3281:b0:aaf:ada2:181e with SMTP id
- a640c23a62f3a-abbccf09153mr21466966b.26.1739895247001; 
- Tue, 18 Feb 2025 08:14:07 -0800 (PST)
+ AJvYcCVpUCHwkbA92TEqZfy1062qI9Y+p0dTdbPTntEYI4asrkScEg+AehGtOrGLrxK0C4cuqzgTaOhr@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzO4VsbiJCcO/wXRBvZcyekZMX5I4pGtQ7X+l/0RbSPDTKHfD8I
+ aj7bG97IHwGXAselVIrC9s0hH6qkHdTlmg+oBwWzSASPIdq3uCrpr1Y0pgUs0ww=
+X-Gm-Gg: ASbGnctJTvgPu5VbbjRr+abXcP2jEbzoofPJIMQUsoxkf3SHHd3vB+A0X+WNLm4e/W+
+ Q9/AJgOY33XMZRmhrgkTA/BrPvtMJl/mixedsqFrjZUrtk5sdmDr/NoRkNrt3/udHWLXgYJguQf
+ 44zKsB8Dl51AbUziwav+2Woz2lDgVSr8VN3am2KVGL/HWObyvCKGZOBCGTCvry76doE0QFinrcv
+ bR3JH1LC2+LnRtK6P4pJF60s79BvuPHFK+V6VZcMAVev9JeVTeqtdnHmYlA71orj+3bVoHO6ZBz
+ OnYlUXdG5zEqSkd0q6tw7ccb9k07
+X-Google-Smtp-Source: AGHT+IG1zsGyYEubM4sI5MaiYIM6yARWFrDWvKkRBmxPIcH0vPsPtR95QqUe8KWiqRWhXm11se7QHQ==
+X-Received: by 2002:a17:907:7244:b0:ab7:d6c:5781 with SMTP id
+ a640c23a62f3a-abb70b35452mr1307875166b.24.1739895246434; 
+ Tue, 18 Feb 2025 08:14:06 -0800 (PST)
 Received: from able.fritz.box ([2a00:e180:15cb:ef00:7a4e:6292:55ba:b835])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-abba7848676sm306762466b.144.2025.02.18.08.14.06
+ a640c23a62f3a-abba7848676sm306762466b.144.2025.02.18.08.14.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Tue, 18 Feb 2025 08:14:06 -0800 (PST)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
@@ -65,9 +65,9 @@ X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
 To: srinivasan.shanmugam@amd.com,
 	amd-gfx@lists.freedesktop.org
-Subject: [PATCH 7/8] drm/amdgpu: add isolation trace point
-Date: Tue, 18 Feb 2025 17:14:00 +0100
-Message-Id: <20250218161401.2155-7-christian.koenig@amd.com>
+Subject: [PATCH 6/8] drm/amdgpu: stop reserving VMIDs to enforce isolation
+Date: Tue, 18 Feb 2025 17:13:59 +0100
+Message-Id: <20250218161401.2155-6-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250218161401.2155-1-christian.koenig@amd.com>
 References: <20250218161401.2155-1-christian.koenig@amd.com>
@@ -88,54 +88,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Note when we switch from one isolation owner to another.
+That was quite troublesome for gang submit. Completely drop this
+approach and enforce the isolation separately.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h  | 17 +++++++++++++++++
- 2 files changed, 18 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c  |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c |  9 ++-------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c | 11 +++--------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h |  3 +--
+ 4 files changed, 7 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index f1369c60565c..a3abe36a59b0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -6846,6 +6846,7 @@ struct dma_fence *amdgpu_device_enforce_isolation(struct amdgpu_device *adev,
- 		dma_fence_put(isolation->spearhead);
- 		isolation->spearhead = dma_fence_get(&f->scheduled);
- 		amdgpu_sync_move(&isolation->active, &isolation->prev);
-+		trace_amdgpu_isolation(isolation->owner, owner);
- 		isolation->owner = owner;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index 2ce0c6a152a6..4375e5019418 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -1111,7 +1111,7 @@ static int amdgpu_cs_vm_handling(struct amdgpu_cs_parser *p)
+ 			struct drm_gpu_scheduler *sched = entity->rq->sched;
+ 			struct amdgpu_ring *ring = to_amdgpu_ring(sched);
+ 
+-			if (amdgpu_vmid_uses_reserved(adev, vm, ring->vm_hub))
++			if (amdgpu_vmid_uses_reserved(vm, ring->vm_hub))
+ 				return -EINVAL;
+ 		}
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+index 645efe002d06..8acee6e5e320 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+@@ -1640,15 +1640,10 @@ static ssize_t amdgpu_gfx_set_enforce_isolation(struct device *dev,
+ 	mutex_lock(&adev->enforce_isolation_mutex);
+ 
+ 	for (i = 0; i < num_partitions; i++) {
+-		if (adev->enforce_isolation[i] && !partition_values[i]) {
+-			/* Going from enabled to disabled */
+-			amdgpu_vmid_free_reserved(adev, AMDGPU_GFXHUB(i));
++		if (adev->enforce_isolation[i] && !partition_values[i])
+ 			amdgpu_mes_set_enforce_isolation(adev, i, false);
+-		} else if (!adev->enforce_isolation[i] && partition_values[i]) {
+-			/* Going from disabled to enabled */
+-			amdgpu_vmid_alloc_reserved(adev, AMDGPU_GFXHUB(i));
++		else if (!adev->enforce_isolation[i] && partition_values[i])
+ 			amdgpu_mes_set_enforce_isolation(adev, i, true);
+-		}
+ 		adev->enforce_isolation[i] = partition_values[i];
  	}
  
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
-index 383fce40d4dd..e8147d9a54fc 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
-@@ -457,6 +457,23 @@ DEFINE_EVENT(amdgpu_pasid, amdgpu_pasid_freed,
- 	    TP_ARGS(pasid)
- );
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+index 92ab821afc06..4c4e087230ac 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+@@ -411,7 +411,7 @@ int amdgpu_vmid_grab(struct amdgpu_vm *vm, struct amdgpu_ring *ring,
+ 	if (r || !idle)
+ 		goto error;
  
-+TRACE_EVENT(amdgpu_isolation,
-+	    TP_PROTO(void *prev, void *next),
-+	    TP_ARGS(prev, next),
-+	    TP_STRUCT__entry(
-+			     __field(void *, prev)
-+			     __field(void *, next)
-+			     ),
-+
-+	    TP_fast_assign(
-+			   __entry->prev = prev;
-+			   __entry->next = next;
-+			   ),
-+	    TP_printk("prev=%p, next=%p",
-+		      __entry->prev,
-+		      __entry->next)
-+);
-+
- TRACE_EVENT(amdgpu_bo_list_set,
- 	    TP_PROTO(struct amdgpu_bo_list *list, struct amdgpu_bo *bo),
- 	    TP_ARGS(list, bo),
+-	if (amdgpu_vmid_uses_reserved(adev, vm, vmhub)) {
++	if (amdgpu_vmid_uses_reserved(vm, vmhub)) {
+ 		r = amdgpu_vmid_grab_reserved(vm, ring, job, &id, fence);
+ 		if (r || !id)
+ 			goto error;
+@@ -464,19 +464,14 @@ int amdgpu_vmid_grab(struct amdgpu_vm *vm, struct amdgpu_ring *ring,
+ 
+ /*
+  * amdgpu_vmid_uses_reserved - check if a VM will use a reserved VMID
+- * @adev: amdgpu_device pointer
+  * @vm: the VM to check
+  * @vmhub: the VMHUB which will be used
+  *
+  * Returns: True if the VM will use a reserved VMID.
+  */
+-bool amdgpu_vmid_uses_reserved(struct amdgpu_device *adev,
+-			       struct amdgpu_vm *vm, unsigned int vmhub)
++bool amdgpu_vmid_uses_reserved(struct amdgpu_vm *vm, unsigned int vmhub)
+ {
+-	return vm->reserved_vmid[vmhub] ||
+-		(adev->enforce_isolation[(vm->root.bo->xcp_id != AMDGPU_XCP_NO_PARTITION) ?
+-					 vm->root.bo->xcp_id : 0] &&
+-		 AMDGPU_IS_GFXHUB(vmhub));
++	return vm->reserved_vmid[vmhub];
+ }
+ 
+ int amdgpu_vmid_alloc_reserved(struct amdgpu_device *adev,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h
+index 4012fb2dd08a..240fa6751260 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h
+@@ -78,8 +78,7 @@ void amdgpu_pasid_free_delayed(struct dma_resv *resv,
+ 
+ bool amdgpu_vmid_had_gpu_reset(struct amdgpu_device *adev,
+ 			       struct amdgpu_vmid *id);
+-bool amdgpu_vmid_uses_reserved(struct amdgpu_device *adev,
+-			       struct amdgpu_vm *vm, unsigned int vmhub);
++bool amdgpu_vmid_uses_reserved(struct amdgpu_vm *vm, unsigned int vmhub);
+ int amdgpu_vmid_alloc_reserved(struct amdgpu_device *adev,
+ 				unsigned vmhub);
+ void amdgpu_vmid_free_reserved(struct amdgpu_device *adev,
 -- 
 2.34.1
 
