@@ -4,49 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD33BC021B1
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Feb 2025 09:04:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F798C021B3
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Feb 2025 09:04:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E27A10E8ED;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6696610E8EC;
 	Thu, 20 Feb 2025 09:04:43 +0000 (UTC)
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37EB110E8D5;
- Thu, 20 Feb 2025 06:41:15 +0000 (UTC)
-Received: from localhost.localdomain (unknown [124.16.141.245])
- by APP-03 (Coremail) with SMTP id rQCowABXPTCCzrZnmmLTDg--.47725S2;
- Thu, 20 Feb 2025 14:41:10 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, simona@ffwll.ch
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Wentao Liang <vulab@iscas.ac.cn>,
- stable@vger.kernel.org
-Subject: [PATCH] drm/radeon: Add error handlings for r420 cp errata initiation
-Date: Thu, 20 Feb 2025 14:40:49 +0800
-Message-ID: <20250220064050.686-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.42.0.windows.2
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=treblig.org header.i=@treblig.org header.b="rM6V8mIh";
+	dkim-atps=neutral
+Received: from mx.treblig.org (mx.treblig.org [46.235.229.95])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 77D8B10E875;
+ Wed, 19 Feb 2025 18:53:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=treblig.org
+ ; s=bytemarkmx;
+ h=Content-Type:MIME-Version:Message-ID:Subject:From:Date:From
+ :Subject; bh=L5WGFmXWxv8pA5EOewvbdQPbbCGMk3EWAoJOp6XJsCg=; b=rM6V8mIhLRachUtQ
+ g3uMPjIv/QIaj+i1PkN+eBmdhbBOOrfwgGLepdbjGekpQ3Q1XdVrACDr+hysrnHw7DlaEsURTM1aL
+ 6kAcCx5Ta79sL+AQ4XsYZKGRD81ZoiFlfgDS12mr6O2JL3Y9M7hzynq1WE9BUFXsDL2iRDXqqWRBF
+ XmzKdJq7rQKPUciQQ3jmgB1wkQKhMo1I6nJSfi23tmILvAhY2iEIXM/OZARWIJX5q59y4MWisJV9j
+ VXMbG9EKQojTz18WiE298l5jY1U8lck5FQhF0gheeypsjB+43jFAmt5n8NWFzmdbMWUGOXaX506Lq
+ nk1I9eHwHNAi3xmvIg==;
+Received: from dg by mx.treblig.org with local (Exim 4.96)
+ (envelope-from <dg@treblig.org>) id 1tkpC4-00GyQj-0S;
+ Wed, 19 Feb 2025 18:53:12 +0000
+Date: Wed, 19 Feb 2025 18:53:12 +0000
+From: "Dr. David Alan Gilbert" <linux@treblig.org>
+To: alexander.deucher@amd.com, Hawking.Zhang@amd.com, Likun.Gao@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: missing wire up of nbif_v6_3_1_sriov_funcs ?
+Message-ID: <Z7YomFgEdOZzIyun@gallifrey>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: rQCowABXPTCCzrZnmmLTDg--.47725S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxJrW3KrWUKFyktryUWFW5Awb_yoW5Jr45pa
- 1kKa90yrZrKayIyr9rGay7J3W5Cw48Ka17Wry7Gw1Fkw1rJFs8JFyfGryUGrykGrZ2k3Wj
- yryvk3ykuw4vv3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUP214x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
- 6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
- CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
- 2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ec7CjxVAajcxG14v26r1j6r4UMcIj6I8E87Iv67AKxV
- WUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS
- 5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxkIec
- xEwVAFwVW8AwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02
- F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GF
- ylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7Cj
- xVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r
- 1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7VUjOJ
- 57UUUUU==
-X-Originating-IP: [124.16.141.245]
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRATA2e2jPzMJgAAsC
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+X-Chocolate: 70 percent or better cocoa solids preferably
+X-Operating-System: Linux/6.1.0-21-amd64 (x86_64)
+X-Uptime: 18:43:08 up 287 days,  5:57,  1 user,  load average: 0.00, 0.02, 0.00
+User-Agent: Mutt/2.2.12 (2023-09-09)
 X-Mailman-Approved-At: Thu, 20 Feb 2025 09:04:42 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -62,65 +55,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In r420_cp_errata_init(), the RESYNC information is stored even
-when the Scratch register is not correctly allocated.
+Hi All,
+  I think you may be misisng some wiring of nbif_v6_3_1_sriov_funcs.
 
-Change the return type of r420_cp_errata_init() from void to int
-to propagate errors to the caller. Add error checking after
-radeon_scratch_get() to ensure RESYNC information is stored
-to an allocated address. Log an error message and return the
-error code immediately when radeon_scratch_get() fails.
-Additionally, handle the return value of r420_cp_errata_init() in
-r420_startup() to log an appropriate error message and propagate
-the error if initialization fails.
+  My scripts noticed 'nbif_v6_3_1_sriov_funcs' was unused;
+It was added in:
+  Commit: 894c6d3522d1 ("drm/amdgpu: Add nbif v6_3_1 ip block support")
 
-Fixes: 62cdc0c20663 ("drm/radeon/kms: Workaround RV410/R420 CP errata (V3)")
-Cc: stable@vger.kernel.org # 2.6.33+
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/gpu/drm/radeon/r420.c | 15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/r420.c b/drivers/gpu/drm/radeon/r420.c
-index 9a31cdec6415..67c55153cba8 100644
---- a/drivers/gpu/drm/radeon/r420.c
-+++ b/drivers/gpu/drm/radeon/r420.c
-@@ -204,7 +204,7 @@ static void r420_clock_resume(struct radeon_device *rdev)
- 	WREG32_PLL(R_00000D_SCLK_CNTL, sclk_cntl);
- }
- 
--static void r420_cp_errata_init(struct radeon_device *rdev)
-+static int r420_cp_errata_init(struct radeon_device *rdev)
- {
- 	int r;
- 	struct radeon_ring *ring = &rdev->ring[RADEON_RING_TYPE_GFX_INDEX];
-@@ -215,7 +215,11 @@ static void r420_cp_errata_init(struct radeon_device *rdev)
- 	 * The proper workaround is to queue a RESYNC at the beginning
- 	 * of the CP init, apparently.
- 	 */
--	radeon_scratch_get(rdev, &rdev->config.r300.resync_scratch);
-+	r = radeon_scratch_get(rdev, &rdev->config.r300.resync_scratch);
-+	if (r) {
-+		DRM_ERROR("failed to get scratch reg (%d).\n", r);
-+		return r;
-+	}
- 	r = radeon_ring_lock(rdev, ring, 8);
- 	WARN_ON(r);
- 	radeon_ring_write(ring, PACKET0(R300_CP_RESYNC_ADDR, 1));
-@@ -290,8 +294,11 @@ static int r420_startup(struct radeon_device *rdev)
- 		dev_err(rdev->dev, "failed initializing CP (%d).\n", r);
- 		return r;
- 	}
--	r420_cp_errata_init(rdev);
--
-+	r = r420_cp_errata_init(rdev);
-+	if (r) {
-+		dev_err(rdev->dev, "failed initializing CP errata workaround (%d).\n", r);
-+		return r;
-+	}
- 	r = radeon_ib_pool_init(rdev);
- 	if (r) {
- 		dev_err(rdev->dev, "IB initialization failed (%d).\n", r);
+and is:
+drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.c:
+  const struct amdgpu_nbio_funcs nbif_v6_3_1_sriov_funcs = {
+
+but, it's not referenced, which makes me think it perhaps
+should be in:
+drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+
+I see for 4.3.x there is:
+  case IP_VERSION(4, 3, 0):
+  case IP_VERSION(4, 3, 1):
+    if (amdgpu_sriov_vf(adev))
+      adev->nbio.funcs = &nbio_v4_3_sriov_funcs;
+    else
+      adev->nbio.funcs = &nbio_v4_3_funcs;
+    adev->nbio.hdp_flush_reg = &nbio_v4_3_hdp_flush_reg;
+    break;
+
+but for 6.3.1 we have:
+
+  case IP_VERSION(6, 3, 1):
+    adev->nbio.funcs = &nbif_v6_3_1_funcs;
+    adev->nbio.hdp_flush_reg = &nbif_v6_3_1_hdp_flush_reg;
+    break;
+
+
+so is that supposed to have something similar?
+
+Dave
+
 -- 
-2.42.0.windows.2
-
+ -----Open up your eyes, open up your mind, open up your code -------   
+/ Dr. David Alan Gilbert    |       Running GNU/Linux       | Happy  \ 
+\        dave @ treblig.org |                               | In Hex /
+ \ _________________________|_____ http://www.treblig.org   |_______/
