@@ -4,67 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E853C021AA
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 Feb 2025 09:49:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78652C021B0
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 Feb 2025 14:32:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 08462892AA;
-	Wed, 19 Feb 2025 09:49:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E5A710E820;
+	Wed, 19 Feb 2025 14:32:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="s4QJu6OX";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cr+kS2tC";
 	dkim-atps=neutral
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 76C5E892AA
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 Feb 2025 09:49:12 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 8D4B1A41EF9
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 Feb 2025 09:47:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A5D2C4CED1
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 Feb 2025 09:49:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1739958551;
- bh=WiJtGyijnTolZiQAprxhjQpCNTmmPeAe/13v/bUoM0E=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=s4QJu6OXnngrW9SavgZHOErIX8TbgDtfYiIkY3BVY9a0/VsGFXNRJr3zTN4ziVgx0
- n2UKkyr1w18onYbQkaQvct/ZjJhYv9lXyWQzMLuuzlQXuCQWAFzA6bIcc6Elcs0AaH
- 5YR8PpDroGOCSjtgF9QQfO+85O1mjrpitfAGYs9g08VxKRmhfDx3RQ0OUgL+1KLqDE
- zFuBPw93R/Tyfp8lYT7FzAE1OyeQkH7XZ6Q+3vybfKe1ZazV0hG1fVINvk4oL8ybTX
- 1dP+DOXynjAP/31nAFFz+KifLQy/zuFXYO5Z1OqYr1ivU+TjmLMu/7T9GntjQ5uL1Z
- qPfbeyHp893Hw==
-Received: by mail-ej1-f41.google.com with SMTP id
- a640c23a62f3a-ab744d5e567so125763366b.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 Feb 2025 01:49:10 -0800 (PST)
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
+ [209.85.216.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30F1B10E493
+ for <amd-gfx@lists.freedesktop.org>; Wed, 19 Feb 2025 14:32:26 +0000 (UTC)
+Received: by mail-pj1-f51.google.com with SMTP id
+ 98e67ed59e1d1-2fc317ea4b3so1099559a91.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 19 Feb 2025 06:32:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1739975545; x=1740580345; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=fRHFtDCP37LH+n6nWKAbDq8mgdnBrOyAGYqEJuuyfZU=;
+ b=cr+kS2tC5Uaj8H7Jkei8j9RtgGZH04zENizjJVGzds55IxFNTthBZsfmA6hIt4DIKw
+ 8zPsFbDxyMkqFquSCoQbbdeJ2wHs+ny70vL68aqGRsPSrLMsplozEK2tqKVc0/fYktw1
+ C8E41tKtj/+yypUd1ftxna7o/YkDkEGSSn3x6LfrupCa9V97O+6zsGGJzfP8G2xxResd
+ 3CSxvfz3qgdy0tQliLacvS9F8OWzH70o2Eo66b+17/A1P/Tq64nDICOdeNMbg/IyZGxb
+ K5K6mxJwkkfKS/MLfe0njf47ySZH0z1IyEchGl8QB1vaO/VehHZOcg+WTc3xY3PWBq/S
+ pxDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1739975545; x=1740580345;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=fRHFtDCP37LH+n6nWKAbDq8mgdnBrOyAGYqEJuuyfZU=;
+ b=DgiOXC2m8Z1cXQUCjMmms6teqINAGAXYxpR44XK2e1nNJ1s4i7OqKx0CfwgVAD8Wmq
+ dGV9RGoBHdhYqLRY8rHlJucJME6xQlw/5+KroEbwWIZC9GL4+EgSl0TJ25eIqC3LLjKL
+ qiqxvJRtVGeNIVi+vRIJDnM2B6tppfwTr+pW/u46i1ygsZe2VSpS1IVYR6Yd+m3jNm9J
+ rwemFK5OYHCiu0C7XTJEgfJvG/Icay0prcweih26oiKASkh7umamS7LkDu4VM6lY5GKZ
+ 1qFSG/VVZwLPybqTDBHHBV02+gT+uyrXDVSb2RPOjrzyZimgXZsq3iqXvYjUb82lL6te
+ QBEA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXOc36DCXiCovXLNFKb66wE6EySyqdj1FIKINrLBO2huf8QA0EKEnAlGZrSvW5zrVRawCUK7/8q@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yza710RuFBx4PekGi+3mVp65xKaECVLKrU7lZql32DWWfnGSbRq
- 8GFFqNIAbX1NnLlPPvlHPnWZxvXJQB44uEUfQtovu1eygUMP6Ww+a0fG6CJBaZGpiMfJmPVuyHY
- 0knrbIpOHZWfS+tBlP32GhPVd8JM=
-X-Google-Smtp-Source: AGHT+IHyn/QXaRB+dV33EFQe1SjGf1/yaS8648vX9OqMNYv+/PAWR6w/r4Lb7gWybn6Q0yovB9Qry8TtLZ74MONVR44=
-X-Received: by 2002:a17:907:d48f:b0:abb:dbc2:bfb6 with SMTP id
- a640c23a62f3a-abbdbc2c5d4mr108949766b.10.1739958549626; Wed, 19 Feb 2025
- 01:49:09 -0800 (PST)
+ AJvYcCUW6sUxDwg4mIh4cPMuBmhXTeP2O4PJkLW+uunApM0HD4DroDawTpi8peIcRqxuuJjH2/DcLmBO@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxhY8MQSHDicd6dXctJEgx86++2AjKLKtn2EkZe9WF93ICbkXTy
+ KZU2WQ64zzY2YjHsvLlSo+i8GbcrfBCJ8vmVVCeu97JXhiaAF5dWLm5/sCmtYfgGyGcvEjjGlEJ
+ Qm0zqeliBF08VrSKninmjuHA2flc=
+X-Gm-Gg: ASbGnct1GxHrWbXsDCRoXVjN0zUUtFV+WvuooG+GWln+wV9PQb5IJS5PxehGgxrp16y
+ WV+tcxeyQEOPDSuw73wj67W7q65Jg/5adUB0VMpngqbuROS+hKRXam6TXMNn2EKXZbggiAwzZ
+X-Google-Smtp-Source: AGHT+IHEHIu1RxvMXg3u77F1XBxEXuAZOBGjPVMlSMHQclhdjoEGhvSZS6YOlzDOhdUy7IqN6/mi6hyEdyjAeniqQ9E=
+X-Received: by 2002:a17:90b:33c6:b0:2f4:465d:5c91 with SMTP id
+ 98e67ed59e1d1-2fc41174806mr10886881a91.8.1739975545389; Wed, 19 Feb 2025
+ 06:32:25 -0800 (PST)
 MIME-Version: 1.0
-References: <20241217010905.13054-1-yangtiezhu@loongson.cn>
- <ef1e3e7c-0117-175c-5a85-091382696748@loongson.cn>
- <20250115013444.anzoct6gvs56m225@jpoimboe>
- <4612bfd8-442e-fecb-240f-46e735b48540@loongson.cn>
- <20250210212653.oidcl4aqyrcu3yzi@jpoimboe>
- <CAAhV-H7MVDj0CbXfwveb7GDn+D=O4N6oUT6rpGrbGmYPLPpRPg@mail.gmail.com>
- <20250211233056.q47mp5askk7qrxcp@jpoimboe>
- <CAAhV-H563HcK2bck2k+VLTvrf0C7=cEMr8BJpQhFdJNc+dFOUw@mail.gmail.com>
- <20250213025108.svqgj5nzseqs6qox@jpoimboe>
- <CAAhV-H5mYGnxHPxAeXkHo2XBvi-RtPjDQRBnDiDyKVtFv-ZBBQ@mail.gmail.com>
- <20250218174632.gwseuvgezj7eni2j@jpoimboe>
-In-Reply-To: <20250218174632.gwseuvgezj7eni2j@jpoimboe>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Wed, 19 Feb 2025 17:49:01 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H4Vwhsrp-y=pLa6xh=nVEOZy4wu2mPj00ES=OjsM7vruA@mail.gmail.com>
-X-Gm-Features: AWEUYZkJg7i0Hi0dLJ-jmeSaIFLF4cxfJR3uG1xj_DycnwEjbfACIhG8y_rl1dY
-Message-ID: <CAAhV-H4Vwhsrp-y=pLa6xh=nVEOZy4wu2mPj00ES=OjsM7vruA@mail.gmail.com>
-Subject: Re: [PATCH v6 0/9] Add jump table support for objtool on LoongArch
-To: Josh Poimboeuf <jpoimboe@kernel.org>
-Cc: Tiezhu Yang <yangtiezhu@loongson.cn>, Peter Zijlstra <peterz@infradead.org>,
- loongarch@lists.linux.dev, amd-gfx@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
+References: <20250218150829.2710795-1-alexander.deucher@amd.com>
+ <c3626b4c-ce7e-494d-8c56-6d55869524b2@amd.com>
+In-Reply-To: <c3626b4c-ce7e-494d-8c56-6d55869524b2@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 19 Feb 2025 09:32:13 -0500
+X-Gm-Features: AWEUYZlW0fpsGdXCUuFt5WKUIaaLS5-i50fv5EwSEmBjtdG-PucVhZFTYiYytC4
+Message-ID: <CADnq5_MZAuwCOBSfmLL5tddM0U-CmVN7Ca+nRSdKzAaZkC=dWA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: disable BAR resize on Dell G5 SE
+To: "Lazar, Lijo" <lijo.lazar@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -81,77 +81,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Feb 19, 2025 at 1:46=E2=80=AFAM Josh Poimboeuf <jpoimboe@kernel.org=
-> wrote:
+On Tue, Feb 18, 2025 at 11:05=E2=80=AFAM Lazar, Lijo <lijo.lazar@amd.com> w=
+rote:
 >
-> On Mon, Feb 17, 2025 at 11:13:43AM +0800, Huacai Chen wrote:
-> > On Thu, Feb 13, 2025 at 10:51=E2=80=AFAM Josh Poimboeuf <jpoimboe@kerne=
-l.org> wrote:
-> > >
-> > > On Wed, Feb 12, 2025 at 03:22:45PM +0800, Huacai Chen wrote:
-> > > > > The new series now has 7 patches:
-> > > > >
-> > > > > Tiezhu Yang (7):
-> > > > >   objtool: Handle various symbol types of rodata
-> > > > >   objtool: Handle different entry size of rodata
-> > > > >   objtool: Handle PC relative relocation type
-> > > > >   objtool/LoongArch: Add support for switch table
-> > > > >   objtool/LoongArch: Add support for goto table
-> > > > >   LoongArch: Enable jump table for objtool
-> > > > >   LoongArch: Convert unreachable() to BUG()
-> > > > >
-> > > > > I was planning on queueing all 7.
-> > > > >
-> > > > > In particular, patch 6 should stay with the objtool patches since
-> > > > > they're directly related.
-> > > > >
-> > > > > But I was also just going to grab 7 as well.
-> > > > >
-> > > > > Please let me know if you disagree.
-> > > > What about you merge the first 5 patches, and then I merge the last=
- 2
-> > > > to the loongarch tree? (I prefer to merge the whole series to the
-> > > > loongarch tree with your acked-by, but that may be inconvenient to
-> > > > you).
-> > >
-> > > I want the first 5 patches to go through the -tip tree because we'll
-> > > have other patches depending on them.
-> > >
-> > > I'll go ahead and take the first 5.
-> > >
-> > > If you take in patches 6 & 7 separately, that might introduce a lot o=
-f
-> > > warnings.  But it's up to you.
-> > >
-> > > For patches 6 & 7:
-> > >
-> > > Acked-by: Josh Poimboeuf <jpoimboe@kernel.org>
-> > OK, please take the first 5 patches, I will merge your objtool/core to
-> > the loongarch tree and then apply the last 2 to avoid build warnings.
 >
-> Looks like that's not going to work.  Without patch 7 I'm getting a
-> warning (upgraded to a build error with a pending change to upgrade
-> objtool warnings to errors):
 >
-> arch/loongarch/kernel/machine_kexec.o: error: objtool: kexec_reboot() fal=
-ls through to next function crash_shutdown_secondary()
-> arch/loongarch/kernel/machine_kexec.o: error: objtool:   kexec_reboot+0x1=
-c: (branch)
-> arch/loongarch/kernel/machine_kexec.o: error: objtool:   kexec_reboot+0x0=
-: <=3D=3D=3D (sym)
-> arch/loongarch/kernel/machine_kexec.o: error: objtool: 1 warning(s) upgra=
-ded to errors
+> On 2/18/2025 8:38 PM, Alex Deucher wrote:
+> > There was a quirk added to add a workaround for a Sapphire
+> > RX 5600 XT Pulse that didn't allow BAR resizing.  However,
+> > the quirk casused a regression on Dell laptops using those
+> > chips, rather than narrowing the scope of the resizing
+> > quirk, add a quirk to prevent amdgpu from resizing the BAR
+> > on those Dell platforms.
+> >
+> > Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/1707
+> > Fixes: 907830b0fc9e ("PCI: Add a REBAR size quirk for Sapphire RX 5600 =
+XT Pulse")
+> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 >
-> And that would break bisection anyway, so that really needs to come
-> before the others.
-OK, then please take the whole series of V7, but please exchange the
-order of Patch-6 and Patch-7 (I think the enablement should be the
-last for bisection).
-For V7: Acked-by: Huacai Chen <chenhuacai@loongson.cn>
+> As per the issue thread, issue happens when dGPU resumes from runpm. If
+> so, can't we disable runpm as the workaround (IMO, the current patch
+> also is a workaround)?
 
+This seems like a better workaround than disabling runtime pm.
+Leaving the dGPU powered up all the time seems worse than limiting the
+BAR size on this platform.
 
-Huacai
+Alex
 
 >
-> --
-> Josh
+> Thanks,
+> Lijo
+>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 6 ++++++
+> >  1 file changed, 6 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/d=
+rm/amd/amdgpu/amdgpu_device.c
+> > index 512e642477a7e..56fd874a22de8 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > @@ -1662,6 +1662,12 @@ int amdgpu_device_resize_fb_bar(struct amdgpu_de=
+vice *adev)
+> >       if (amdgpu_sriov_vf(adev))
+> >               return 0;
+> >
+> > +     /* skip resizing on Dell G5 SE platforms */
+> > +     if (adev->pdev->vendor =3D=3D PCI_VENDOR_ID_ATI &&
+> > +         adev->pdev->device =3D=3D 0x731f &&
+> > +         adev->pdev->subsystem_vendor =3D=3D PCI_VENDOR_ID_DELL)
+> > +             return 0;
+> > +
+> >       /* PCI_EXT_CAP_ID_VNDR extended capability is located at 0x100 */
+> >       if (!pci_find_ext_capability(adev->pdev, PCI_EXT_CAP_ID_VNDR))
+> >               DRM_WARN("System can't access extended configuration spac=
+e, please check!!\n");
+>
