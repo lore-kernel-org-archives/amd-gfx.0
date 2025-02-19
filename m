@@ -4,48 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E922FC021B1
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Feb 2025 09:04:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5B47C021B3
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Feb 2025 09:04:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8078410E150;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B16F110E8E7;
 	Thu, 20 Feb 2025 09:04:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Ur312CK6";
+	dkim=pass (2048-bit key; unprotected) header.d=treblig.org header.i=@treblig.org header.b="hQ1gWCZI";
 	dkim-atps=neutral
-X-Greylist: delayed 467 seconds by postgrey-1.36 at gabe;
- Thu, 20 Feb 2025 08:39:32 UTC
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9BD4E89C5E;
- Thu, 20 Feb 2025 08:39:32 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id F250261319;
- Thu, 20 Feb 2025 08:31:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA79CC4CED1;
- Thu, 20 Feb 2025 08:31:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1740040304;
- bh=18G7Hj9q8cncfV3hH9722v8zJ7usf7Q8Ng96aoe59RU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Ur312CK6OZntPrD/B/vpgyRBV0khNbq4RMObqL3AFcWJcZwgHMzR8fC01L9WuPOBA
- QH7NCc8dpW0Dwo8Ea3vNgGXx7m5lVpAffwyRxxZf6jBNn0+O8o528POtH7Wxe/XphW
- SgoVvAIMPjhmazLOAomPqJTTdUl/hqDpt7ezOIM4=
-Date: Thu, 20 Feb 2025 09:31:41 +0100
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Jim Cromie <jim.cromie@gmail.com>
-Cc: linux-kernel@vger.kernel.org, jbaron@akamai.com, ukaszb@chromium.org,
- intel-gfx-trybot@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-gvt-dev@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, daniel.vetter@ffwll.ch,
- tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
- ville.syrjala@linux.intel.com
-Subject: Re: [PATCH 00/63] Fix CONFIG_DRM_USE_DYNAMIC_DEBUG=y
-Message-ID: <2025022012-viscous-cringing-bf88@gregkh>
-References: <20250125064619.8305-1-jim.cromie@gmail.com>
+Received: from mx.treblig.org (mx.treblig.org [46.235.229.95])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E199710E037;
+ Wed, 19 Feb 2025 21:23:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=treblig.org
+ ; s=bytemarkmx;
+ h=MIME-Version:Message-ID:Date:Subject:From:Content-Type:From
+ :Subject; bh=1JGf/Y/oyw4zN0SBBADTkP28paEMPAF1wrU205emGFQ=; b=hQ1gWCZIBEFKpjVP
+ JIDpOaUEX2Pe+tyZ7oYxEWfSytBv6CE3fBHcmt6zKFA9spJDAgjwRhK3B/BmEhaGhhNUTOUc9CZLn
+ C5uoXMUCLuXBakHzWd8g52id4t+rZuW/JlkoClStPahsYgCCmqs+mGEk1hTLeCd4EXRFZKcrSNk+E
+ kQkGU09+edqLM72A5Q5De+WffMar8MMX3k090UxFdf5IBIpyuSb+lfNBkn3RTEHeLOgoAq1svPtew
+ ++NL3DG8MQxP6n5wIl3wnXpq9yzO+UN3NUzYDAiiKUga1T4CIXyX2+eD/MCE+t9wDo6gpx6lRkrxG
+ z9RmkZj+CGnSe9CbeQ==;
+Received: from localhost ([127.0.0.1] helo=dalek.home.treblig.org)
+ by mx.treblig.org with esmtp (Exim 4.96)
+ (envelope-from <linux@treblig.org>) id 1tkrXL-00H0cS-1n;
+ Wed, 19 Feb 2025 21:23:19 +0000
+From: linux@treblig.org
+To: alexander.deucher@amd.com,
+	christian.koenig@amd.com,
+	Xinhui.Pan@amd.com
+Cc: airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ "Dr. David Alan Gilbert" <linux@treblig.org>
+Subject: [PATCH] drm/amdgpu: Remove unused nbif_v6_3_1_sriov_funcs
+Date: Wed, 19 Feb 2025 21:23:18 +0000
+Message-ID: <20250219212318.46036-1-linux@treblig.org>
+X-Mailer: git-send-email 2.48.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250125064619.8305-1-jim.cromie@gmail.com>
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 20 Feb 2025 09:04:42 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -61,103 +56,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jan 24, 2025 at 11:45:14PM -0700, Jim Cromie wrote:
-> This series fixes dynamic-debug's support for DRM debug-categories.
-> Classmaps-v1 evaded full review, and got committed in 2 chunks:
-> 
->   b7b4eebdba7b..6ea3bf466ac6	# core dyndbg changes
->   0406faf25fb1..ee7d633f2dfb	# drm adoption
-> 
-> DRM-CI found a regression during init with drm.debug=<initval>; the
-> static-keys under the drm-dbgs in drm.ko got enabled, but those in
-> drivers & helpers did not.
-> 
-> Root Problem:
-> 
-> DECLARE_DYNDBG_CLASSMAP violated a K&R rule "define once, refer
-> afterwards".  Replace it with DYNDBG_CLASSMAP_DEFINE (invoked once in
-> drm-core) and DYNDBG_CLASSMAP_USE (invoked repeatedly, in drivers &
-> helpers).
-> 
-> _DEFINE exports the classmap it creates (in drm.ko), other modules
-> _USE the classmap.  The _USE adds a record ref'g the _DEFINEd (&
-> exported) classmap, in a 2nd __dyndbg_class_users section.
-> 
-> So now at modprobe, dyndbg scans the new section after the 1st
-> __dyndbg_class_maps section, follows the linkage to the _DEFINEr
-> module, finds the (optional) kernel-param controlling the classmap,
-> examines its drm.debug=<initval>, and applies it to the module being
-> initialized.
-> 
-> To recapitulate the multi-module problem wo DRM involvement, Add:
-> 
-> A. tools/testing/selftests/dynamic_debug/*
-> 
-> This alters pr_debugs in the test-modules, counts the results and
-> checks them against expectations.  It uses this formula to test most
-> of the control grammar, including the new class keyword.
-> 
-> B. test_dynamic_debug_submod.ko
-> 
-> This alters the test-module to build both parent & _submod ko's, with
-> _DEFINE and _USE inside #if/#else blocks.  This recap's DRM's 2 module
-> failure scenario, allowing A to exersize several cases.
-> 
-> The #if/#else puts the 2 macro uses together for clarity, and gives
-> the 2 modules identical sets of debugs.
-> 
-> Recent DRM-CI tests are here:
->   https://patchwork.freedesktop.org/series/139147/
-> 
-> Previous rev:
->   https://lore.kernel.org/lkml/20240716185806.1572048-1-jim.cromie@gmail.com/
-> 
-> Noteworthy Additions:
-> 
-> 1- drop class "protection" special case, per JBaron's preference.
->    only current use is marked BROKEN so nobody to affect.
->    now framed as policy-choice:
->    #define ddebug_client_module_protects_classes() false
->    subsystems wanting protection can change this.
-> 
-> 2- compile-time arg-tests in DYNDBG_CLASSMAP_DEFINE
->    implement several required constraints, and fail obviously.
-> 
-> 3- modprobe time check of conflicting class-id reservations
->    only affects 2+classmaps users.
->    compile-time solution not apparent.
-> 
-> 4- dyndbg can now cause modprobe to fail.
->    needed to catch 3.
->    maybe some loose ends here on failure.
-> 
-> 5- refactor & rename ddebug_attach_*module_classes
->    reduce repetetive boilerplate on 2 types: maps, users.
->    rework mostly brought forward in patchset to reduce churn
->    TBD: maybe squash more.
-> 
-> Several recent trybot submissions (against drm-tip) have been passing
-> CI.BAT, and failing one or few CI.IGT tests randomly; re-tests do not
-> reliably repeat the failures.
-> 
-> its also at github.com:jimc/linux.git
->   dd-fix-9[st]-ontip  &  dd-fix-9-13
-> 
-> Ive been running it on my desktop w/o issues.
-> 
-> The drivers/gpu/drm patches are RFC, I think there might be a single
-> place to call DRM_CLASSMAP_USE(drm_dedbug_classes) to replace the
-> sprinkling of _USEs in drivers and helpers.  IIRC, I tried adding a
-> _DEFINE into drm_drv.c, that didn't do it, so I punted for now.
-> 
-> I think the dyndbg core additions are ready for review and merging
-> into a (next-next) test/integration tree.
+From: "Dr. David Alan Gilbert" <linux@treblig.org>
 
-So whose tree should this go through?
+The nbif_v6_3_1_sriov_funcs instance of amdgpu_nbio_funcs was added in
+commit 894c6d3522d1 ("drm/amdgpu: Add nbif v6_3_1 ip block support")
+but has remained unused.
 
-And I think the last patch in this series isn't correct, it looks like a
-000 email somehow.
+Alex has confirmed it wasn't needed.
 
-thanks,
+Remove it, together with the four unused stub functions:
+  nbif_v6_3_1_sriov_ih_doorbell_range
+  nbif_v6_3_1_sriov_gc_doorbell_init
+  nbif_v6_3_1_sriov_vcn_doorbell_range
+  nbif_v6_3_1_sriov_sdma_doorbell_range
 
-greg k-h
+Signed-off-by: Dr. David Alan Gilbert <linux@treblig.org>
+---
+ drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.c | 46 ------------------------
+ drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.h |  1 -
+ 2 files changed, 47 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.c b/drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.c
+index c92875ceb31f..9efe74148867 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.c
+@@ -474,52 +474,6 @@ const struct amdgpu_nbio_funcs nbif_v6_3_1_funcs = {
+ };
+ 
+ 
+-static void nbif_v6_3_1_sriov_ih_doorbell_range(struct amdgpu_device *adev,
+-						bool use_doorbell, int doorbell_index)
+-{
+-}
+-
+-static void nbif_v6_3_1_sriov_sdma_doorbell_range(struct amdgpu_device *adev,
+-						  int instance, bool use_doorbell,
+-						  int doorbell_index,
+-						  int doorbell_size)
+-{
+-}
+-
+-static void nbif_v6_3_1_sriov_vcn_doorbell_range(struct amdgpu_device *adev,
+-						 bool use_doorbell,
+-						 int doorbell_index, int instance)
+-{
+-}
+-
+-static void nbif_v6_3_1_sriov_gc_doorbell_init(struct amdgpu_device *adev)
+-{
+-}
+-
+-const struct amdgpu_nbio_funcs nbif_v6_3_1_sriov_funcs = {
+-	.get_hdp_flush_req_offset = nbif_v6_3_1_get_hdp_flush_req_offset,
+-	.get_hdp_flush_done_offset = nbif_v6_3_1_get_hdp_flush_done_offset,
+-	.get_pcie_index_offset = nbif_v6_3_1_get_pcie_index_offset,
+-	.get_pcie_data_offset = nbif_v6_3_1_get_pcie_data_offset,
+-	.get_rev_id = nbif_v6_3_1_get_rev_id,
+-	.mc_access_enable = nbif_v6_3_1_mc_access_enable,
+-	.get_memsize = nbif_v6_3_1_get_memsize,
+-	.sdma_doorbell_range = nbif_v6_3_1_sriov_sdma_doorbell_range,
+-	.vcn_doorbell_range = nbif_v6_3_1_sriov_vcn_doorbell_range,
+-	.gc_doorbell_init = nbif_v6_3_1_sriov_gc_doorbell_init,
+-	.enable_doorbell_aperture = nbif_v6_3_1_enable_doorbell_aperture,
+-	.enable_doorbell_selfring_aperture = nbif_v6_3_1_enable_doorbell_selfring_aperture,
+-	.ih_doorbell_range = nbif_v6_3_1_sriov_ih_doorbell_range,
+-	.update_medium_grain_clock_gating = nbif_v6_3_1_update_medium_grain_clock_gating,
+-	.update_medium_grain_light_sleep = nbif_v6_3_1_update_medium_grain_light_sleep,
+-	.get_clockgating_state = nbif_v6_3_1_get_clockgating_state,
+-	.ih_control = nbif_v6_3_1_ih_control,
+-	.init_registers = nbif_v6_3_1_init_registers,
+-	.remap_hdp_registers = nbif_v6_3_1_remap_hdp_registers,
+-	.get_rom_offset = nbif_v6_3_1_get_rom_offset,
+-	.set_reg_remap = nbif_v6_3_1_set_reg_remap,
+-};
+-
+ static int nbif_v6_3_1_set_ras_err_event_athub_irq_state(struct amdgpu_device *adev,
+ 						       struct amdgpu_irq_src *src,
+ 						       unsigned type,
+diff --git a/drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.h b/drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.h
+index 9ac4831d39e1..3afec715a9fe 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.h
++++ b/drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.h
+@@ -28,7 +28,6 @@
+ 
+ extern const struct nbio_hdp_flush_reg nbif_v6_3_1_hdp_flush_reg;
+ extern const struct amdgpu_nbio_funcs nbif_v6_3_1_funcs;
+-extern const struct amdgpu_nbio_funcs nbif_v6_3_1_sriov_funcs;
+ extern struct amdgpu_nbio_ras nbif_v6_3_1_ras;
+ 
+ #endif
+-- 
+2.48.1
+
