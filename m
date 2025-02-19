@@ -4,66 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC0C6C021B0
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 Feb 2025 19:57:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C146EC021AA
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 Feb 2025 20:01:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 735C210E880;
-	Wed, 19 Feb 2025 19:57:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6DD6810E364;
+	Wed, 19 Feb 2025 20:01:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Yf1+kJ82";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TUzWJdvY";
 	dkim-atps=neutral
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com
- [209.85.216.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0333B10E880
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 Feb 2025 19:57:09 +0000 (UTC)
-Received: by mail-pj1-f52.google.com with SMTP id
- 98e67ed59e1d1-2fc317ea4b3so40645a91.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 Feb 2025 11:57:09 -0800 (PST)
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
+ [209.85.214.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 90D6A10E364;
+ Wed, 19 Feb 2025 20:01:02 +0000 (UTC)
+Received: by mail-pl1-f182.google.com with SMTP id
+ d9443c01a7336-220c895af63so367655ad.0; 
+ Wed, 19 Feb 2025 12:01:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1739995028; x=1740599828; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1739995262; x=1740600062; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=JE6QnxKevNpOqFY7ULKSq35Oiy0oJ+6o9BM6KTDk5Mc=;
- b=Yf1+kJ82VYlytvwKAE7a2Gv4IkE1LbXPinOG4RoLTIFQp3+okEwg7wM8y4zqnlV/8P
- 7rs+FuHv65vWCR0wPQsBtxC/5LcMpJbS44nQenslQICrgWxKh/LxPqOt4H0z0aFRQKiz
- xj1v4S9RhW/DyOTujChhWjtjL6gYieQ4/9QWtSL77AzR6CbyaU7k0bGtpvl2YiIF7IVo
- r9nBaGQjKIKhdACFJUeGoTzF4akKrq4pY5fMN50wXtuqRkQd4Bp4ie4hxutM2EyA9zXL
- CnxLRSrTkMD6MQ27X0sZesRkrm1ZorFuOKN2sKwm6R5KGtBebLws+dL45TMbX84l7tVG
- ObPg==
+ bh=cimPSTnT0VmPRvCmAm8mGE9gXb+RFptDwWRoJAVxdew=;
+ b=TUzWJdvYj0N044J3XEkLw3TOK4a3LfSTVRRhLB1cd//onvBHsphDiRaJ4potMQszQ6
+ 8jG/ZtgLg10OdpsBD9rK4sWkWNgSg+axijy69s1TbYfeHxjkgnZgWAA4mX8uWSDbXN1i
+ DwHPhY/GKASj1O+0BoSUWt6vEUSBlCM1YBXmC+bbsUl+GZEdPB8a6jcXzWGwyWrl9tub
+ to9WW/I5OCI3jJIrzN6QktQGbUFENO0Ltl1Jb63FWFJcceGqjEpEB1yB/9aSG8vqsgup
+ lq6YE18wWX2/SHC51qaBro4RY9CcIQxhgG2eebTwScRQL/efitHC1ESeFRg39VJN6we+
+ ouQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1739995028; x=1740599828;
+ d=1e100.net; s=20230601; t=1739995262; x=1740600062;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=JE6QnxKevNpOqFY7ULKSq35Oiy0oJ+6o9BM6KTDk5Mc=;
- b=RCOhpMjhPQd/aUqRuT1TLhQ+ek4XYXcJ/Vo2ywgKM9/etbPlTdTmkwXhZCGbMFAFAM
- OJW7JpTJlACRQeIE9qcW+kZFcAfgd0iiYOwp86VaxTzuV0GAVNJRKTu0t/Dg9K5s27+H
- C9MEenfJ7G4v5TN57JsK/Zx8/HQ6N4bz1XsRwtBOaR5D+BhgxY2Cd7kq5GSid2R8Vhre
- ispxEFOLVCv+0bczwStNv1cshT3Mmv2XMnBLT5G6XBSVoTSn+ou9Xfz8KS0aUVXVFTfw
- be++VF2TR86Hphmh/hH0HB01R4SXN3DSGd+UfWzRSEeO7BClBN6qTnCN84Q1/CuhLCMU
- OEGg==
-X-Gm-Message-State: AOJu0YxoXEnVdrZHNqTGK87AJxWT0EQH+v3/YK76ulVRbEP0jPnMUPx7
- b/JJao4+7mf8HfNCO8QWn+fpywiwEi3BA2ALDiDhOuzc1HVPGPZYgmC5jeVHmzIdPwz+3zUh1dG
- NjH4PMSJFodH6t/P8qMcNfaM6HN+V/w==
-X-Gm-Gg: ASbGnct6jpGahWes4wRdESUL9cEuC9jMCLZBKgI12uE4rqqCKwK0yAkO8E6XkVREcpS
- i8enRcSw/Ys85ST/bKG9PNtsR90YzuI+7Pzq+K8i4pPpXAETr0YLarRL8LfSSyybgcV47gTtr
-X-Google-Smtp-Source: AGHT+IHrLUXpSnfU4V4LJ/D+ueksjZjaS/H0aho3AsfxF+44GN+1ke8KMQ1NzCBD1F+3OdPrCUIV42F50lqk1r+aT3c=
-X-Received: by 2002:a17:90b:3a8f:b0:2ee:b665:12ce with SMTP id
- 98e67ed59e1d1-2fc40d126a3mr11857423a91.1.1739995028334; Wed, 19 Feb 2025
- 11:57:08 -0800 (PST)
+ bh=cimPSTnT0VmPRvCmAm8mGE9gXb+RFptDwWRoJAVxdew=;
+ b=YnZ9O8+uPaargRdj35RFUtIOB3wIqgiMv0xhFzf/4WKXxxBYqialo78374ojlykm3J
+ 7DB4XbK+K74vlIT0twtdLaEg5XmrfxUn5+HRygU19kf2k6JV/ofXu2gWpdnxIOEZ41R6
+ 9ZhJiQwkPk1m6rIvdpk+jhZY8WEajSVSZKHCQjOEj+5zFghaHZEDAvXWg6KDbedv56LD
+ 0Mu+PSSZSDy1TfkCImNVLizPhq6lY05N08wjQhLHq41rdSx84gkZgpOBBoRSWmMiaedJ
+ B9cFjB1eXxrb17DmmIZwYm2a4GLriib5bKAVCwQ4/3lxZXiGlNMZfUg68W2MsLs7UIFk
+ /9Lg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWLZO8IV8/wQKP2xLqJrzoLZegmxrZfMqAS7yLz3xz/XgjB0xxRa0BbDT6sCZ2M2IFxRBXmea3V@lists.freedesktop.org,
+ AJvYcCXhC27bcZPwCu17C1QsgrCSe7IYBd8HSXMCDRJmTLfvGOMuR9cMVi8UUBQLKhGHVhaJnYkc7cP1zI1d@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzMVhCHmqEtQnud9OGaQgoBUquuyvWK/PL/7oEnE0+Gyem63L+S
+ peSdXHsGljxiMjGJB8D8WMdRs1Jt6LTchTt66CWXZW+0qEO+SihGJzDw6jTcb/qp/XmKRJMVmK9
+ wHUM7jhKqfyDulf7vPerlmQSRtQy8Jw==
+X-Gm-Gg: ASbGncvVUwWXuOywmGybXN2w4gZ8k07GbWev4JBgSBovKrc5P0hihcy7aL9b19srl22
+ HywDdXkFBBQfvApiRIgMn4f+q3zAqQj0KTYTQHcTLVUeUauWGGTL7lC2bt2OFxmInvE1wfgE8
+X-Google-Smtp-Source: AGHT+IFC6teEJadKt/7mVTkHVTNcGzuBc7KoC4wNEFP8G2DN7ZgoMPG7VycpsxwtDvNXC/QtcekI1GsOZvBrYwp+4og=
+X-Received: by 2002:a17:903:2cd:b0:220:bf1c:35da with SMTP id
+ d9443c01a7336-2210402b73amr111871965ad.7.1739995261993; Wed, 19 Feb 2025
+ 12:01:01 -0800 (PST)
 MIME-Version: 1.0
-References: <20250126083733.3331474-1-Prike.Liang@amd.com>
- <20250126083733.3331474-2-Prike.Liang@amd.com>
-In-Reply-To: <20250126083733.3331474-2-Prike.Liang@amd.com>
+References: <Z7YomFgEdOZzIyun@gallifrey>
+ <CADnq5_NpxZLJxvP0dWwT_9MbyLUvuTSWHTt7j=cgqeQUsPiDwA@mail.gmail.com>
+ <Z7Y4P4hEltSuHLEy@gallifrey>
+In-Reply-To: <Z7Y4P4hEltSuHLEy@gallifrey>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 19 Feb 2025 14:56:56 -0500
-X-Gm-Features: AWEUYZnZ_01wzd0-hb6zzOrJZT4ItnnSHPBA-kwo8tlAP2J3sYFaFbVUYrRtLfI
-Message-ID: <CADnq5_NDOpgA434kk-t5O8MD3Oc+oU6yJLfMAtZDfVfpzC8KhQ@mail.gmail.com>
-Subject: Re: [PATCH 2/4] drm/amdgpu/gfx11: Implement the GFX11 KCQ pipe reset
-To: Prike Liang <Prike.Liang@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
- Christian.Koenig@amd.com, Lijo.Lazar@amd.com
+Date: Wed, 19 Feb 2025 15:00:50 -0500
+X-Gm-Features: AWEUYZlnyw3zTugQskNb8nar3nio8bM4meGLeDgueaPCyRDubPuGWsybVtAA5js
+Message-ID: <CADnq5_NXQANfWsCky4kvBL2VBWXCRPJkEg27taeBDkZHkexR1A@mail.gmail.com>
+Subject: Re: missing wire up of nbif_v6_3_1_sriov_funcs ?
+To: "Dr. David Alan Gilbert" <dave@treblig.org>
+Cc: alexander.deucher@amd.com, Hawking.Zhang@amd.com, Likun.Gao@amd.com, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -80,259 +84,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sun, Jan 26, 2025 at 3:38=E2=80=AFAM Prike Liang <Prike.Liang@amd.com> w=
-rote:
+On Wed, Feb 19, 2025 at 3:00=E2=80=AFPM Dr. David Alan Gilbert <dave@trebli=
+g.org> wrote:
 >
-> Implement the GFX11 compute pipe reset. As the GFX11 CPFW
-> still hasn't fully supported pipe reset yet, therefore
-> disable the KCQ pipe reset temporarily.
+> * Alex Deucher (alexdeucher@gmail.com) wrote:
+> > On Wed, Feb 19, 2025 at 2:04=E2=80=AFPM Dr. David Alan Gilbert
+> > <linux@treblig.org> wrote:
+> > >
+> > > Hi All,
+> > >   I think you may be misisng some wiring of nbif_v6_3_1_sriov_funcs.
+> > >
+> > >   My scripts noticed 'nbif_v6_3_1_sriov_funcs' was unused;
+> > > It was added in:
+> > >   Commit: 894c6d3522d1 ("drm/amdgpu: Add nbif v6_3_1 ip block support=
+")
+> > >
+> > >
+> > > and is:
+> > > drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.c:
+> > >   const struct amdgpu_nbio_funcs nbif_v6_3_1_sriov_funcs =3D {
+> > >
+> > > but, it's not referenced, which makes me think it perhaps
+> > > should be in:
+> > > drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> > >
+> > > I see for 4.3.x there is:
+> > >   case IP_VERSION(4, 3, 0):
+> > >   case IP_VERSION(4, 3, 1):
+> > >     if (amdgpu_sriov_vf(adev))
+> > >       adev->nbio.funcs =3D &nbio_v4_3_sriov_funcs;
+> > >     else
+> > >       adev->nbio.funcs =3D &nbio_v4_3_funcs;
+> > >     adev->nbio.hdp_flush_reg =3D &nbio_v4_3_hdp_flush_reg;
+> > >     break;
+> > >
+> > > but for 6.3.1 we have:
+> > >
+> > >   case IP_VERSION(6, 3, 1):
+> > >     adev->nbio.funcs =3D &nbif_v6_3_1_funcs;
+> > >     adev->nbio.hdp_flush_reg =3D &nbif_v6_3_1_hdp_flush_reg;
+> > >     break;
+> > >
+> > >
+> > > so is that supposed to have something similar?
+> >
+> > They can be dropped.  I think they were just copy and paste leftovers.
 >
-> Signed-off-by: Prike Liang <Prike.Liang@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 139 ++++++++++++++++++++++++-
->  1 file changed, 136 insertions(+), 3 deletions(-)
+> Thanks for the reply.
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd=
-/amdgpu/gfx_v11_0.c
-> index 395872bb1401..39fd3ce67ec9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> @@ -66,6 +66,7 @@
->  #define regPC_CONFIG_CNTL_1_BASE_IDX   1
->
->  static uint32_t me_fw_start_pc;
-> +static uint32_t mec_fw_start_pc;
+> OK, I'll send a patch then to remove nbif_v6_3_1_sriov_funcs.
 
-Same comment here as on patch 1.
+Thanks!
 
 Alex
 
 >
->  MODULE_FIRMWARE("amdgpu/gc_11_0_0_pfp.bin");
->  MODULE_FIRMWARE("amdgpu/gc_11_0_0_me.bin");
-> @@ -2937,6 +2938,7 @@ static void gfx_v11_0_config_gfx_rs64(struct amdgpu=
-_device *adev)
+> Dave
 >
->         /* cache the firmware start PC */
->         me_fw_start_pc =3D RREG32(SOC15_REG_OFFSET(GC, 0, regCP_GFX_RS64_=
-INSTR_PNTR1));
-> +       mec_fw_start_pc =3D RREG32(SOC15_REG_OFFSET(GC, 0, regCP_MEC_RS64=
-_INSTR_PNTR));
->  }
->
->  static int gfx_v11_0_wait_for_rlc_autoload_complete(struct amdgpu_device=
- *adev)
-> @@ -3812,7 +3814,7 @@ static int gfx_v11_0_cp_compute_load_microcode(stru=
-ct amdgpu_device *adev)
->                              le32_to_cpup(fw_data + mec_hdr->jt_offset + =
-i));
->
->         WREG32_SOC15(GC, 0, regCP_MEC_ME1_UCODE_ADDR, adev->gfx.mec_fw_ve=
-rsion);
-> -
-> +       mec_fw_start_pc =3D RREG32(SOC15_REG_OFFSET(GC, 0, regCP_MEC1_INS=
-TR_PNTR));
->         return 0;
->  }
->
-> @@ -6764,6 +6766,135 @@ static int gfx_v11_0_reset_kgq(struct amdgpu_ring=
- *ring, unsigned int vmid)
->         return amdgpu_ring_test_ring(ring);
->  }
->
-> +static int gfx_v11_0_reset_compute_pipe(struct amdgpu_ring *ring)
-> +{
-> +
-> +       struct amdgpu_device *adev =3D ring->adev;
-> +       uint32_t reset_pipe =3D 0, clean_pipe =3D 0;
-> +       int r;
-> +
-> +       if (!gfx_v11_pipe_reset_support(adev))
-> +               return -EOPNOTSUPP;
-> +
-> +       gfx_v11_0_set_safe_mode(adev, 0);
-> +       mutex_lock(&adev->srbm_mutex);
-> +       soc21_grbm_select(adev, ring->me, ring->pipe, ring->queue, 0);
-> +
-> +       reset_pipe =3D RREG32_SOC15(GC, 0, regCP_MEC_RS64_CNTL);
-> +       clean_pipe =3D reset_pipe;
-> +
-> +       if (adev->gfx.rs64_enable) {
-> +
-> +               switch (ring->pipe) {
-> +               case 0:
-> +                       reset_pipe =3D REG_SET_FIELD(reset_pipe, CP_MEC_R=
-S64_CNTL,
-> +                                                  MEC_PIPE0_RESET, 1);
-> +                       clean_pipe =3D REG_SET_FIELD(clean_pipe, CP_MEC_R=
-S64_CNTL,
-> +                                                  MEC_PIPE0_RESET, 0);
-> +                       break;
-> +               case 1:
-> +                       reset_pipe =3D REG_SET_FIELD(reset_pipe, CP_MEC_R=
-S64_CNTL,
-> +                                                  MEC_PIPE1_RESET, 1);
-> +                       clean_pipe =3D REG_SET_FIELD(clean_pipe, CP_MEC_R=
-S64_CNTL,
-> +                                                  MEC_PIPE1_RESET, 0);
-> +                       break;
-> +               case 2:
-> +                       reset_pipe =3D REG_SET_FIELD(reset_pipe, CP_MEC_R=
-S64_CNTL,
-> +                                                  MEC_PIPE2_RESET, 1);
-> +                       clean_pipe =3D REG_SET_FIELD(clean_pipe, CP_MEC_R=
-S64_CNTL,
-> +                                                  MEC_PIPE2_RESET, 0);
-> +                       break;
-> +               case 3:
-> +                       reset_pipe =3D REG_SET_FIELD(reset_pipe, CP_MEC_R=
-S64_CNTL,
-> +                                                  MEC_PIPE3_RESET, 1);
-> +                       clean_pipe =3D REG_SET_FIELD(clean_pipe, CP_MEC_R=
-S64_CNTL,
-> +                                                  MEC_PIPE3_RESET, 0);
-> +                       break;
-> +               default:
-> +                       break;
-> +               }
-> +               WREG32_SOC15(GC, 0, regCP_MEC_RS64_CNTL, reset_pipe);
-> +               WREG32_SOC15(GC, 0, regCP_MEC_RS64_CNTL, clean_pipe);
-> +               r =3D RREG32_SOC15(GC, 0, regCP_MEC_RS64_INSTR_PNTR) - me=
-c_fw_start_pc;
-> +       } else {
-> +               if (ring->me =3D=3D 1) {
-> +                       switch (ring->pipe) {
-> +                       case 0:
-> +                               reset_pipe =3D REG_SET_FIELD(reset_pipe, =
-CP_MEC_CNTL,
-> +                                                          MEC_ME1_PIPE0_=
-RESET, 1);
-> +                               clean_pipe =3D REG_SET_FIELD(clean_pipe, =
-CP_MEC_CNTL,
-> +                                                          MEC_ME1_PIPE0_=
-RESET, 0);
-> +                               break;
-> +                       case 1:
-> +                               reset_pipe =3D REG_SET_FIELD(reset_pipe, =
-CP_MEC_CNTL,
-> +                                                          MEC_ME1_PIPE1_=
-RESET, 1);
-> +                               clean_pipe =3D REG_SET_FIELD(clean_pipe, =
-CP_MEC_CNTL,
-> +                                                          MEC_ME1_PIPE1_=
-RESET, 0);
-> +                               break;
-> +                       case 2:
-> +                               reset_pipe =3D REG_SET_FIELD(reset_pipe, =
-CP_MEC_CNTL,
-> +                                                          MEC_ME1_PIPE2_=
-RESET, 1);
-> +                               clean_pipe =3D REG_SET_FIELD(clean_pipe, =
-CP_MEC_CNTL,
-> +                                                          MEC_ME1_PIPE2_=
-RESET, 0);
-> +                               break;
-> +                       case 3:
-> +                               reset_pipe =3D REG_SET_FIELD(reset_pipe, =
-CP_MEC_CNTL,
-> +                                                          MEC_ME1_PIPE3_=
-RESET, 1);
-> +                               clean_pipe =3D REG_SET_FIELD(clean_pipe, =
-CP_MEC_CNTL,
-> +                                                          MEC_ME1_PIPE3_=
-RESET, 0);
-> +                               break;
-> +                       default:
-> +                               break;
-> +                       }
-> +                       /* mec1 fw pc: CP_MEC1_INSTR_PNTR */
-> +               } else {
-> +                       switch (ring->pipe) {
-> +                       case 0:
-> +                               reset_pipe =3D REG_SET_FIELD(reset_pipe, =
-CP_MEC_CNTL,
-> +                                                          MEC_ME2_PIPE0_=
-RESET, 1);
-> +                               clean_pipe =3D REG_SET_FIELD(clean_pipe, =
-CP_MEC_CNTL,
-> +                                                          MEC_ME2_PIPE0_=
-RESET, 0);
-> +                               break;
-> +                       case 1:
-> +                               reset_pipe =3D REG_SET_FIELD(reset_pipe, =
-CP_MEC_CNTL,
-> +                                                          MEC_ME2_PIPE1_=
-RESET, 1);
-> +                               clean_pipe =3D REG_SET_FIELD(clean_pipe, =
-CP_MEC_CNTL,
-> +                                                          MEC_ME2_PIPE1_=
-RESET, 0);
-> +                               break;
-> +                       case 2:
-> +                               reset_pipe =3D REG_SET_FIELD(reset_pipe, =
-CP_MEC_CNTL,
-> +                                                          MEC_ME2_PIPE2_=
-RESET, 1);
-> +                               clean_pipe =3D REG_SET_FIELD(clean_pipe, =
-CP_MEC_CNTL,
-> +                                                          MEC_ME2_PIPE2_=
-RESET, 0);
-> +                               break;
-> +                       case 3:
-> +                               reset_pipe =3D REG_SET_FIELD(reset_pipe, =
-CP_MEC_CNTL,
-> +                                                          MEC_ME2_PIPE3_=
-RESET, 1);
-> +                               clean_pipe =3D REG_SET_FIELD(clean_pipe, =
-CP_MEC_CNTL,
-> +                                                          MEC_ME2_PIPE3_=
-RESET, 0);
-> +                               break;
-> +                       default:
-> +                               break;
-> +                       }
-> +                       /* mec2 fw pc: CP:CP_MEC2_INSTR_PNTR */
-> +               }
-> +               WREG32_SOC15(GC, 0, regCP_MEC_CNTL, reset_pipe);
-> +               WREG32_SOC15(GC, 0, regCP_MEC_CNTL, clean_pipe);
-> +               r =3D RREG32(SOC15_REG_OFFSET(GC, 0, regCP_MEC1_INSTR_PNT=
-R)) - mec_fw_start_pc;
-> +       }
-> +
-> +       soc21_grbm_select(adev, 0, 0, 0, 0);
-> +       mutex_unlock(&adev->srbm_mutex);
-> +       gfx_v11_0_unset_safe_mode(adev, 0);
-> +
-> +       dev_info(adev->dev,"The ring %s pipe resets to MEC FW start PC: %=
-s\n", ring->name,
-> +                       r =3D=3D 0 ? "successfully" : "failed");
-> +       /*FIXME:Sometimes driver can't cache the MEC firmware start PC co=
-rrectly, so the pipe
-> +        * reset status relies on the compute ring test result.
-> +        */
-> +       return 0;
-> +}
-> +
->  static int gfx_v11_0_reset_kcq(struct amdgpu_ring *ring, unsigned int vm=
-id)
->  {
->         struct amdgpu_device *adev =3D ring->adev;
-> @@ -6774,8 +6905,10 @@ static int gfx_v11_0_reset_kcq(struct amdgpu_ring =
-*ring, unsigned int vmid)
->
->         r =3D amdgpu_mes_reset_legacy_queue(ring->adev, ring, vmid, true)=
-;
->         if (r) {
-> -               dev_err(adev->dev, "reset via MMIO failed %d\n", r);
-> -               return r;
-> +               dev_warn(adev->dev,"fail(%d) to reset kcq and try pipe re=
-set\n", r);
-> +               r =3D gfx_v11_0_reset_compute_pipe(ring);
-> +               if (r)
-> +                       return r;
->         }
->
->         r =3D amdgpu_bo_reserve(ring->mqd_obj, false);
+> > Alex
+> >
+> > >
+> > > Dave
+> > >
+> > > --
+> > >  -----Open up your eyes, open up your mind, open up your code -------
+> > > / Dr. David Alan Gilbert    |       Running GNU/Linux       | Happy  =
+\
+> > > \        dave @ treblig.org |                               | In Hex =
+/
+> > >  \ _________________________|_____ http://www.treblig.org   |_______/
 > --
-> 2.34.1
->
+>  -----Open up your eyes, open up your mind, open up your code -------
+> / Dr. David Alan Gilbert    |       Running GNU/Linux       | Happy  \
+> \        dave @ treblig.org |                               | In Hex /
+>  \ _________________________|_____ http://www.treblig.org   |_______/
