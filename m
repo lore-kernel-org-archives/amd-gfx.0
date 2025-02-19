@@ -4,150 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 630A5C021AA
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 Feb 2025 22:05:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A9E3C021B0
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 Feb 2025 23:08:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1384410E8A8;
-	Wed, 19 Feb 2025 22:05:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D016A10E032;
+	Wed, 19 Feb 2025 23:08:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="W7gDmTOc";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YIBMP/py";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2043.outbound.protection.outlook.com [40.107.223.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 415B910E8AE
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 Feb 2025 22:05:31 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sPmQwLOJBFVVZzAVNFBwN2NJ9vh2xnCGTR2dl35sRtcojxXFcCPVvEOHuqB2xaFYDPq3ydj39s7G79FQOLxjmplervu+bVPRyIPhu+SPdRI9ibCrQXzp3Mpps2QB5ekgLEFQi4wL7keijAeKyFlADa0ofNpId/lX0/qm3BBqR/b+GZgKWnJWDXTXVOpCHUgH2pvpsm6rSMipOVOPkY3mYZgdFqOujme/FC94IxIFa+ySCF9yb3vAwZhgDo7DGzi4CtNznzkvHPmLlfO9VCCLEPTup/uvaa++8A1T7GKLUR6IlHDkuhHGTPOVHlf4gmsEtIlwGI+GEzhiYZxCVoSYOA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bt7edGA28TnkZAAp1g/DrrgK6YbdgS149aLgJgM6PZc=;
- b=c1vtlsCXeaHiY5P4eo0Mf61FdNSG8iJv/gYvk3XbZYRc7NUro/4KV86FcKCe8fHKolfn/DhhzXkG2tfP9WrXgY3BgcxA0nweuRJGDfdvL4rkHmvCJC6VfUoQK2Ta7u6fG+DS6NBN3IJ5FuALbKd4ImssKIUkpGotUUglo6EXdikAb1bulBSNkvNO79XTijN7Jm6+NOZGexVYM+nvWTe3qoF9xWbMiPLAV64UXnVvTclwadb5ByEH3bEqoIxJ354SxvUA7OXAPXV2gzbPyJbrJp477nMz3by7tMO9sqdBnaeAwfLZPVmLuwbXyULGwS3D1Ca1xHyXjxZGdggv/aI8ew==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bt7edGA28TnkZAAp1g/DrrgK6YbdgS149aLgJgM6PZc=;
- b=W7gDmTOc1800vkG+sd1bsa4EzBCpMQl2nvSw73dDHytvKy6ns7r9o7ASPntGqx4ZYZjlO6uRzP7nr5gf4zf1cJR3RQ7Ec2HrhEsFL4gRHP8v+viCj9sX21yIvxVPRQ7/UOuONpA7hMedSH4uiQH3bqubVnblW2zurtI75dpgeIU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CY8PR12MB7099.namprd12.prod.outlook.com (2603:10b6:930:61::17)
- by IA1PR12MB6091.namprd12.prod.outlook.com (2603:10b6:208:3ed::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8466.16; Wed, 19 Feb
- 2025 22:05:28 +0000
-Received: from CY8PR12MB7099.namprd12.prod.outlook.com
- ([fe80::314f:877c:8b6f:52d6]) by CY8PR12MB7099.namprd12.prod.outlook.com
- ([fe80::314f:877c:8b6f:52d6%4]) with mapi id 15.20.8445.017; Wed, 19 Feb 2025
- 22:05:28 +0000
-Message-ID: <3dd01842-cdc9-48c5-a26c-988042e1f89b@amd.com>
-Date: Wed, 19 Feb 2025 17:05:25 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] drm/amdkfd: Use asic specifc function to set CP wait
- time
-To: "Kim, Jonathan" <Jonathan.Kim@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20250212220341.373072-1-Harish.Kasiviswanathan@amd.com>
- <20250212220341.373072-2-Harish.Kasiviswanathan@amd.com>
- <CY8PR12MB7435DC6F726EBC3E771EC69885FA2@CY8PR12MB7435.namprd12.prod.outlook.com>
-Content-Language: en-US
-From: Harish Kasiviswanathan <harish.kasiviswanathan@amd.com>
-In-Reply-To: <CY8PR12MB7435DC6F726EBC3E771EC69885FA2@CY8PR12MB7435.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQBP288CA0034.CANP288.PROD.OUTLOOK.COM
- (2603:10b6:c01:9d::21) To CY8PR12MB7099.namprd12.prod.outlook.com
- (2603:10b6:930:61::17)
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
+ [209.85.216.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0DCC38825B
+ for <amd-gfx@lists.freedesktop.org>; Wed, 19 Feb 2025 23:08:55 +0000 (UTC)
+Received: by mail-pj1-f44.google.com with SMTP id
+ 98e67ed59e1d1-2fc0ab102e2so72662a91.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 19 Feb 2025 15:08:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1740006534; x=1740611334; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=rISeevuXiLZlvWMmNK7EIDPEVhC1JkFuz4iOw7EqTXg=;
+ b=YIBMP/pyz34V48nbLK6nZVe8c/DnWzVWMiVDBM4CgGSlzomA2iFyyRkPJVWKYPlOg2
+ 1Hjn9ceQYu2E+XMJEIl3bTaVXfCmrXQ4dDm8dC0OTuviOcYlu2FoKMiOIGX37FDo5Wry
+ 5sGIQAP+G8XsVvbHfOqYpRwIwdG9Q3CreEGT8GkX+gpFULk/pql9xdzuobmNeq5v0Fd1
+ JcxFhm0qcNRAReunJ3D+VUW1aOE+pstMPr0csHKrIvQ3l7HW0RBxDFTqzZD+hHq54l1B
+ Kl/dSXIt553dcYGRbdyUKxRbzoaFP8urAgw+bouOhMrwjcD6eLg6FIdj5RcDG9FrZmnR
+ OgCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1740006534; x=1740611334;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=rISeevuXiLZlvWMmNK7EIDPEVhC1JkFuz4iOw7EqTXg=;
+ b=b8/BXAajMP0rspWqooZnbH5E/7f9/qBFNT9CODlovzUqp32TZdSh/TRi2Exe1Y7qqr
+ 921TA1/Pfz7PRbuxIsBkDO8oewYWIdJPvTP+Uvx15UJjtj64gt4Y7gXoltNHEuOdPVyu
+ Lugp+WFDy90jPLr+Jq6Z+x3yJbqNHOKFA3TMz3k8PvatEuws+0lscVhwzjZ1WBJuD0dk
+ kPEUY9+jRTe2NJIwbWBmFmWBz15POWsdtfevC5rsW26qUZIwPlfvJN2jm3gLWVM9dN4p
+ MqliCdiZ28aSezmxVWEBJccZJiZMDigEFXTstH1sN5uMYy1pEoTzkmIas82/xdB3j5PS
+ N/pQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX3ZR1xoEmxr3MB7vxhWwP8vV70zB0Wy8N+3fH2inFtf2DStAjcgQ+voLm8nCJadYI68NCmnqze@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy3agueedgzaBAOJVs0EMjDBCXCZt247zUCl7/gba2IAzE1RMDE
+ 4lgbiVVCTgCKoqFkBa3B/XYb5Y5Tok+RHCBJyf2ao8kqnytw9th1oYiKt+uYL9NKL+Umb8KViFz
+ tY+Wowgj3lvY/Ol2cxjN0x9ULKROtMrmb
+X-Gm-Gg: ASbGnctpLveso4rZhKcDntV/6DMvCCUNHFidnuGaoa3WXX2xEwZIqU6qWcHZUbMLp/I
+ JOSvyoH7ctGbJYy4EfY1VbXzlsdmbP/EnF5UybJof02S0iAch+CLbZBEDkDTzen0glsijIXM6
+X-Google-Smtp-Source: AGHT+IEN64B4HpIAE6zNNajGi0qxBgpNzO9gkiijqQw0lD8ENbeRzJL//5DunlTau3V5WHaqSC2/SlErXE+KtV1LYv8=
+X-Received: by 2002:a17:90b:4ac4:b0:2f2:f6e5:d28e with SMTP id
+ 98e67ed59e1d1-2fc4103cc26mr11320453a91.3.1740006534336; Wed, 19 Feb 2025
+ 15:08:54 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY8PR12MB7099:EE_|IA1PR12MB6091:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6f54d12f-6b6b-4cc5-6dd3-08dd513184b1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014|7053199007;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?UG9SbFUraEt2UlhyZldKTy9paVd4TTh6dGtrNFNERmsvczBpWnNNSVFmZEpw?=
- =?utf-8?B?WElKNHBYaEdCMkNJZDBOSmFoUmFkRWJmQndEVy8xL0N4eHdYeEpPNU9LYmEr?=
- =?utf-8?B?U0h3SitDM0Z6eW9rR3BSSDBqc3pJVCtSS1hLTTdKdFdOYmVhMVlkZUFoei82?=
- =?utf-8?B?aEFta0RVaDZ3bGFOQ3lQb3VPVjJSc2YzLzB5c1BYY1lXcjhDTWNOdWdzeEV5?=
- =?utf-8?B?SWtheXFiTTJHWDhyRDBBMGsxNkJDQUdwZ2VCcnQ1bjlkVGNWU0duZ3J6S1VX?=
- =?utf-8?B?TzBoYytYMVhxMmNBSGlzRSsrcDU4S3crUGswN01JNWt6MGxhZjJOYXlYYUhl?=
- =?utf-8?B?bEVmcHRPSXV6eXp6ZjFRbXp3Riswc2FaK2E2QUhFaUd4NmR6UnZaaXlWMEJs?=
- =?utf-8?B?TTNTSVpHc2pOTGRwZU5EMS9LWUxIUjhuQWc1RnE0aXZhbTlWbTMrVDNTNFVx?=
- =?utf-8?B?eG5YQVlsZUdKbmwyMEhCZ0tHcmxWVEF2WEU5dmlWR2pwZm1MdUJrY1dRRy9S?=
- =?utf-8?B?UnNBc0dWb2pmV1FTWTFHaEIydjJ5dzBTaVArSUFiVXd4WHBSYXRXTVNXdnZK?=
- =?utf-8?B?K1JOWHd4SC9KSWl3aWlTSGV5TmdhMUl1NkpuN2puT2l6azN3UXMwSTJFUjNm?=
- =?utf-8?B?MTZTdVJwbXRlYzZDTUNkNWo3M05zS3hNeE95Njg1NzdHRXJnY2NGNEozRk12?=
- =?utf-8?B?NEptbnJwcHk3cHJxTnM5WVFra1N1cG1xdUJHSTdDaFNCaEI1eTNVV0RDWUM1?=
- =?utf-8?B?MUtocDF1Vndwb3VGQnJrZjE4NFNJa3RXZUR2NzN5cnUxV1NlcHJBNUI0MUxU?=
- =?utf-8?B?WlNlSWR3VmxSMHkvb3FGK1BuazFDRVY2bTZvMys5QXNqRkdyY0lYeGk5S1dO?=
- =?utf-8?B?dzRTSHRtbEF1Y0RVVlFoZXZicjdWbFdIRTNEd04xbHRBb0ozV2s1M1BWdkVh?=
- =?utf-8?B?dE5DVWx0MExJT3RvZHZNTHlMc1REUk5BMnJPblNVMHlnUFBOcTNhK0FaN3V5?=
- =?utf-8?B?T1ptVlJnNGlqOW8ySzBhVFV1U1lQT1l3ZkF4S2ZKNzY2TDliV1dZbExtM1Nl?=
- =?utf-8?B?eUFPYWZIOGN3WFhDNC9YenFTMm1XZW42MXZjeG5pVHgzb0dHd3JTNkRxNCtD?=
- =?utf-8?B?eEt2aEg3ajRIbTFBNUpHTS9JTUx3M045Ulp3RC8vZE8vbThJSVJ4ZmovamRF?=
- =?utf-8?B?M3JrVGRYQmpVQVpGWHUwNGx2V1JCa1Y2dHhLdXlhNm12SXUvRGNtTjBEanQ0?=
- =?utf-8?B?MWw5OFlHTk9LTWJUWmhTRDFlclBIdGhwdFBXZFdhdEZnQ0FKajVRZ3c3djh0?=
- =?utf-8?B?anVybXVYZWtEaThGSDdvOFhuVmNZQit3TmJuZGh3M2c5TlQyNC9qUCsrN3p0?=
- =?utf-8?B?Q2xaK1VIRk4vUzJISW5LdDZ1STdYbGxOUzJGMXdUY3Fmck5ISTdnVVVmbFZL?=
- =?utf-8?B?UlVNT0hrK3JaZk5ocFNDSUc4R1g1eVhscUhtdlN4ckVLY0F6bUZ6N2ZjRnRD?=
- =?utf-8?B?UnZOd09nUkF4aUtZdko4RmJqL1VpNUpPbkhXTUZ3SytNMmk0cUZsWmdTMVJj?=
- =?utf-8?B?NFJXTkVyMlVidzNzbk5vdXduVFl0Wm1mY3QvUUFxUDQ5L3VmMlhSb01XWEsv?=
- =?utf-8?B?dGc4Z0g3ZG42S3JTZ1A0RnBUcWUvVXpBeUtucEd4bG1xcUJPeUU4bWFrZnNR?=
- =?utf-8?B?L3JGTUxBdEFxKzVkcWU4WXMxbGViRmdqa2U3UEk0UlBNbm9ZOEhjc2NXZXhY?=
- =?utf-8?B?RERneUIwOFRSN3RXdzNLMFR0amVtaEs2dERCSzY4RklFTGFzeXpGRmY4YWRF?=
- =?utf-8?B?dTJ6cUt6ZytjeUdqQlJSRnNwUGpwdUFGZlFsZmQ1aXNkZ1B5YmpqOGlrTDhs?=
- =?utf-8?Q?KomwP4EDwYYDz?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY8PR12MB7099.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(7053199007); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?M3hRRURWZzVXTVJoVVpPWmVDN0llUHRmU1FsTGVKTnpYOVRaU0s0aUF6OER0?=
- =?utf-8?B?TFdSRXNYNHoxTytVRXk5dG1jZkdrWHV1TU9YN1A0WlIxRWQ3b2VSUHNQRHc0?=
- =?utf-8?B?SVdHT0ZrS24rbms5MTNZMWtkUzR5UkcxdFhpWkxTeCs4OWtOd0htUHZQRDB4?=
- =?utf-8?B?dFovbkdDc1cxVFRJSUZJakF2TTgvTlVFYUZrbWdmK1ExSjM2RU5uV1Q2bktJ?=
- =?utf-8?B?RHNqZmVnM1ZUMUgyRGJIVFdjdGpNS2hKYkJhSEFzOVlnWk0wczlwQUw1VVFP?=
- =?utf-8?B?RlNZc3ovc2V6WSt3MFN0SUgrRWRsMnZIcElYS3MrcmlZaWRXT1JzRkk3M0Mz?=
- =?utf-8?B?SmhFZjNYNklUeFFYWTJmRVhFd2YxelFON0MrRElGL0R0N1BqNTlVcUh3TlFG?=
- =?utf-8?B?SGJyVHRmRlhpeHpKL3hPV2dub2c4YXNzK0VpOWUyV0h5cVFWVDJVM2xpMzV2?=
- =?utf-8?B?dkdLbTRESkJHb0lHcHdOcUlqa0Irc0ZYd1kwem0rTTV0a3lTR1hrM0xsaFI1?=
- =?utf-8?B?Y1hKZ2dhNTBzR2lnMEltQVI3Y3RPb3N4ZXRrUmt1blI5U0VIUisrUjFiM2c5?=
- =?utf-8?B?eldmWk8wS0lOYmlheWVzWjI1U3IxeXlWUGxtZjVQS3B3NnNXYm01Sy9WYXJB?=
- =?utf-8?B?SjZhL1pmQTMrSDI5ckFYSFZRSmhHMXhNM3VkM3lYd2FPOFBqTGhSUGR5Zlg2?=
- =?utf-8?B?SFBzSkcwY2VzYUJkNWRjMVVsTnZobkNGcDBTYWtQNXozRmdNTmtJZ2pWdy81?=
- =?utf-8?B?KzF1RnhLMkdyUWtxNEJ6cnhCdHFQY0xVR3lPbThmMG5QSlEzVUdOelAvZzUx?=
- =?utf-8?B?RGh4dGsxRjNYcTdPVUJPWGZqM2E0WVZGT0RmQ1Q4eEY0NktSbGgzbzRCV3hn?=
- =?utf-8?B?cURqODNnd3IzdU5Zd2p1RGMyRVVTNDZpNXoyYW9kRUZSNjB4RkswV3loNDUw?=
- =?utf-8?B?UGFCZGVicGRCOWdaWWdZTWdYZGs2VTVQTnl5SDNqVGl5TU1zQUhCSTVuZGgy?=
- =?utf-8?B?Vk1INHFHdks2TW05cUtDK2RVU1dVekNnekhHVnJnN1RqV3BuWjJMNWdNdnhB?=
- =?utf-8?B?b3ZiTzRFYVg4ZjRUak56Qks1WUFFNG13ZkZ0RVFldmRabzFxWndVUlJvRm5I?=
- =?utf-8?B?dllpd0lPYWgzUXQ2eVg1T0pCZDlVVUFSNDZvcGM2OFBTTkt0KzFuM2pHVU9C?=
- =?utf-8?B?NFNFVklrZnd3a0lMSnMxaWtjYlF2ZUE5bVNEZHhJQkpYZWY5Y2IwTHlhMU1F?=
- =?utf-8?B?ZEdBSFJ6cElGODdkVTE0bGFiK1J0Z3BFVFI1RUJoM3c5QlF6bEJLemxsRUlC?=
- =?utf-8?B?OXFnc3BiaHlxVktPZDRuVVhacmJUL3lFbERLUVpCc25Pd2JPcVBqZUFpMUVa?=
- =?utf-8?B?blFnY090NU1BTzFqNXFTb2NmNnpLZ2xrRHVYeWRnSXRybzVLT1hDTXVPZUNv?=
- =?utf-8?B?dWJRVjNIa25LZk54bDFMNjNCU3VVNVRST0crK0NhMFhmQ2FuNTk1YWJGOGRr?=
- =?utf-8?B?SVJHK1haVFFUUEFyRUtJKzJUdG9lejB1R2VSSUR0ckIrR25zU1BqVVg5Nmwz?=
- =?utf-8?B?YXZESlBUZkVMT2dhK24xV1RnNjZiR3Fka0dXZW9GcWpHTkZtcDdhM0hUUXQ2?=
- =?utf-8?B?OCs3Z2oxb3NUcHc4c080d0oxUFhrcFdJU0ZXcDJPNFltc3NzUEpSc3hjcEdT?=
- =?utf-8?B?dnJmRElxYUVMeElaY2dTM1hvVEpBbnRUVGRhUmkyazgvcWZLSU5KMmZwaGFM?=
- =?utf-8?B?aTg5a0VCdi9MeHhSR0g3U1A3Vjk0OWV6QUdrcjV5N0JHc1E4N0lDOVpFUEZq?=
- =?utf-8?B?eTU4L3UyaVZQMWdGbXVXdDFpUXAyUEducEF4V2dPdTNxdlRlc3RCRmVTZjls?=
- =?utf-8?B?U0M0WHJpYlJLejlpSHFuc25YZ2dtc3lST3VZUCs3bEdpTUZweHpaMUZEVjFY?=
- =?utf-8?B?U081anRBWHlKR1NhQWh6b0pqOG5HWkYvQXRhdURFQVowUVB0cTd0d1U5ZHNl?=
- =?utf-8?B?Yjd2VmI1d1NrTXdRdmpNYXRFSDJVV1QwYVI3UXlVRTlRQm1yMkt4QXNnREg5?=
- =?utf-8?B?WVN4UHlndGFiUld5azJmdFZTUGplNXBwb1hoVDRFUGZOT2lUWXl3VHRpMlg5?=
- =?utf-8?Q?XQ7Qri1UmjnHPdhslca3KGMF8?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6f54d12f-6b6b-4cc5-6dd3-08dd513184b1
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7099.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Feb 2025 22:05:27.9972 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9EPCeh2eYWYaEiEx6PV4h97B6Z5CcdX04u0bpxDxkYqGW2UNPBh4CbiEhfSUo5omCUymgfyTrkxM42Lhx2AqFA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6091
+References: <20250213054715.3121445-1-jesse.zhang@amd.com>
+ <20250213054715.3121445-3-jesse.zhang@amd.com>
+ <f61682b9-59cf-487f-9d83-a79d4555ffd8@amd.com>
+ <CY8PR12MB74359FDE16AF97D324B7EFB285FA2@CY8PR12MB7435.namprd12.prod.outlook.com>
+ <BL1PR12MB51449A0FA22045FA57CB3162F7C52@BL1PR12MB5144.namprd12.prod.outlook.com>
+ <CY8PR12MB7435A90C377278B3CDF1174B85C52@CY8PR12MB7435.namprd12.prod.outlook.com>
+In-Reply-To: <CY8PR12MB7435A90C377278B3CDF1174B85C52@CY8PR12MB7435.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 19 Feb 2025 18:08:42 -0500
+X-Gm-Features: AWEUYZkwvbn9e-_gHpCXSmiNUR0QWLE3pUJR_ZLMnp1duiMbYUdO2XwOgDTzS00
+Message-ID: <CADnq5_M1V6JOB8vfWSUPz2CoCB7VcGWrUZcbV3-P8NAY=9Uq7A@mail.gmail.com>
+Subject: Re: [PATCH V7 3/9] drm/amdgpu: Add common lock and reset caller
+ parameter for SDMA reset synchronization
+To: "Kim, Jonathan" <Jonathan.Kim@amd.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Lazar,
+ Lijo" <Lijo.Lazar@amd.com>, "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Kuehling,
+ Felix" <Felix.Kuehling@amd.com>, "Zhu, Jiadong" <Jiadong.Zhu@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,205 +89,471 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-
-On 2025-02-18 15:27, Kim, Jonathan wrote:
+On Wed, Feb 19, 2025 at 3:29=E2=80=AFPM Kim, Jonathan <Jonathan.Kim@amd.com=
+> wrote:
+>
 > [Public]
-> 
->> -----Original Message-----
->> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Harish
->> Kasiviswanathan
->> Sent: Wednesday, February 12, 2025 5:04 PM
->> To: amd-gfx@lists.freedesktop.org
->> Cc: Kasiviswanathan, Harish <Harish.Kasiviswanathan@amd.com>
->> Subject: [PATCH 2/4] drm/amdkfd: Use asic specifc function to set CP wait time
->>
->> Currently, grace period (SCH_WAVE) is set only for gfx943 APU. This
->> could change as other wait times also needs to be set. Move ASIC
->> specific settings to ASIC specific function.
->>
->> Signed-off-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
->> ---
->>  .../drm/amd/amdkfd/kfd_device_queue_manager.c | 28 ++++---------------
->>  .../drm/amd/amdkfd/kfd_device_queue_manager.h |  9 ++++++
->>  .../gpu/drm/amd/amdkfd/kfd_packet_manager.c   |  8 ++++++
->>  .../drm/amd/amdkfd/kfd_packet_manager_v9.c    | 10 +++++++
->>  4 files changed, 32 insertions(+), 23 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
->> b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
->> index b88a95b5ae0d..3eaa44d0410d 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
->> @@ -1760,10 +1760,7 @@ static int initialize_cpsch(struct device_queue_manager
->> *dqm)
->>
->>       init_sdma_bitmaps(dqm);
->>
->> -     if (dqm->dev->kfd2kgd->get_iq_wait_times)
->> -             dqm->dev->kfd2kgd->get_iq_wait_times(dqm->dev->adev,
->> -                                     &dqm->wait_times,
->> -                                     ffs(dqm->dev->xcc_mask) - 1);
->> +     update_dqm_wait_times(dqm);
->>       return 0;
->>  }
->>
->> @@ -1859,27 +1856,12 @@ static int start_cpsch(struct device_queue_manager
->> *dqm)
->>       /* clear hang status when driver try to start the hw scheduler */
->>       dqm->sched_running = true;
->>
->> -     if (!dqm->dev->kfd->shared_resources.enable_mes)
->> +     if (!dqm->dev->kfd->shared_resources.enable_mes) {
->> +             if(pm_set_compute_queue_wait_counts(&dqm->packet_mgr,
->> +                                         KFD_INIT_CP_QUEUE_WAIT_TIMES))
->> +                     dev_err(dev, "Failed to configure CP wait times\n");
->>               execute_queues_cpsch(dqm,
->> KFD_UNMAP_QUEUES_FILTER_DYNAMIC_QUEUES, 0,
->> KFD_SET_DEFAULT_CP_QUEUE_WAIT_TIMES);
->> -
->> -     /* Set CWSR grace period to 1x1000 cycle for GFX9.4.3 APU */
->> -     if (amdgpu_emu_mode == 0 && dqm->dev->adev->gmc.is_app_apu &&
->> -         (KFD_GC_VERSION(dqm->dev) == IP_VERSION(9, 4, 3))) {
->> -             uint32_t reg_offset = 0;
->> -             uint32_t grace_period = 1;
->> -
->> -             retval = pm_set_compute_queue_wait_counts(&dqm->packet_mgr,
->> -                                             grace_period);
->> -             if (retval)
->> -                     dev_err(dev, "Setting grace timeout failed\n");
->> -             else if (dqm->dev->kfd2kgd->build_grace_period_packet_info)
->> -                     /* Update dqm->wait_times maintained in software */
->> -                     dqm->dev->kfd2kgd->build_grace_period_packet_info(
->> -                                     dqm->dev->adev, dqm->wait_times,
->> -                                     grace_period, &reg_offset,
->> -                                     &dqm->wait_times);
->>       }
->> -
-> 
-> Btw, is_app_apu is also tied to GFX 9.4.4.  Just double checking, we only need to shorten the dequeue wait for GFX 9.4.3 right?
-> Also, I'm not sure if I like the idea of another macro to define a new grace period.  It looks like we could front load this somehow.
-> How about this?
-> - in kfd_device_queue_manager.h, under  struct device_queue_manger, declare member uint32_t dequeue_wait_override.
-> - in kfd_device_queue_manager.c under device_queue_manager_init, do the IP check there and set dequeue_wait_override either to 1 or the default macro based on check value.  This way, the override is set during KFD node init.
-> - then in start_cpsh, you can do -> if (dqm->dequeue_wait_override != DEFAULT_MACRO) pm_set_etc_etc...
-> That seems clearer that the default "override" is HW IP-device based rather than something packet based.
-> 
+>
+> > -----Original Message-----
+> > From: Deucher, Alexander <Alexander.Deucher@amd.com>
+> > Sent: Wednesday, February 19, 2025 12:39 PM
+> > To: Kim, Jonathan <Jonathan.Kim@amd.com>; Lazar, Lijo <Lijo.Lazar@amd.c=
+om>;
+> > Zhang, Jesse(Jie) <Jesse.Zhang@amd.com>; amd-gfx@lists.freedesktop.org
+> > Cc: Kuehling, Felix <Felix.Kuehling@amd.com>; Zhu, Jiadong
+> > <Jiadong.Zhu@amd.com>
+> > Subject: RE: [PATCH V7 3/9] drm/amdgpu: Add common lock and reset calle=
+r
+> > parameter for SDMA reset synchronization
+> >
+> > [Public]
+> >
+> > > -----Original Message-----
+> > > From: Kim, Jonathan <Jonathan.Kim@amd.com>
+> > > Sent: Tuesday, February 18, 2025 12:42 PM
+> > > To: Lazar, Lijo <Lijo.Lazar@amd.com>; Zhang, Jesse(Jie)
+> > > <Jesse.Zhang@amd.com>; amd-gfx@lists.freedesktop.org
+> > > Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Kuehling, Felix
+> > > <Felix.Kuehling@amd.com>; Zhu, Jiadong <Jiadong.Zhu@amd.com>
+> > > Subject: RE: [PATCH V7 3/9] drm/amdgpu: Add common lock and reset cal=
+ler
+> > > parameter for SDMA reset synchronization
+> > >
+> > > [Public]
+> > >
+> > > > -----Original Message-----
+> > > > From: Lazar, Lijo <Lijo.Lazar@amd.com>
+> > > > Sent: Monday, February 17, 2025 10:36 PM
+> > > > To: Zhang, Jesse(Jie) <Jesse.Zhang@amd.com>;
+> > > > amd-gfx@lists.freedesktop.org
+> > > > Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Kuehling, Felix
+> > > > <Felix.Kuehling@amd.com>; Kim, Jonathan <Jonathan.Kim@amd.com>; Zhu=
+,
+> > > > Jiadong <Jiadong.Zhu@amd.com>
+> > > > Subject: Re: [PATCH V7 3/9] drm/amdgpu: Add common lock and reset
+> > > > caller parameter for SDMA reset synchronization
+> > > >
+> > > >
+> > > >
+> > > > On 2/13/2025 11:17 AM, jesse.zhang@amd.com wrote:
+> > > > > From: "Jesse.zhang@amd.com" <Jesse.zhang@amd.com>
+> > > > >
+> > > > > This commit introduces a caller parameter to the
+> > > > > amdgpu_sdma_reset_instance
+> > > > function to differentiate
+> > > > > between reset requests originating from the KGD and KFD.
+> > > > > This change ensures proper synchronization between KGD and KFD
+> > > > > during SDMA
+> > > > resets.
+> > > > >
+> > > > > If the caller is KFD, the function now acquires and releases the
+> > > > > scheduler lock
+> > > > (ring->sched.job_list_lock)
+> > > > > to protect the SDMA queue during the reset.
+> > > > >
+> > > > > These changes prevent race conditions and ensure safe SDMA reset
+> > > > > operations when initiated by KFD, improving system stability and =
+reliability.
+> > > > >
+> > > > > V2: replace the ring_lock with the existed the scheduler
+> > > > >     locks for the queues (ring->sched) on the sdma engine.(Alex)
+> > > > >
+> > > > > v3: call drm_sched_wqueue_stop() rather than job_list_lock.
+> > > > >     If a GPU ring reset was already initiated for one ring at
+> > amdgpu_job_timedout,
+> > > > >     skip resetting that ring and call drm_sched_wqueue_stop()
+> > > > >     for the other rings (Alex)
+> > > > >
+> > > > >    replace  the common lock (sdma_reset_lock) with DQM lock to
+> > > > >    to resolve reset races between the two driver sections during =
+KFD
+> > > > > eviction.(Jon)
+> > > > >
+> > > > >    Rename the caller to Reset_src and
+> > > > >    Change AMDGPU_RESET_SRC_SDMA_KGD/KFD to
+> > > > AMDGPU_RESET_SRC_SDMA_HWS/RING (Jon)
+> > > > > v4: restart the wqueue if the reset was successful,
+> > > > >     or fall back to a full adapter reset. (Alex)
+> > > > >
+> > > > >    move definition of reset source to enumeration AMDGPU_RESET_SR=
+CS,
+> > > and
+> > > > >    check reset src in amdgpu_sdma_reset_instance (Jon)
+> > > > >
+> > > > > v5: Call amdgpu_amdkfd_suspend/resume at the start/end of reset
+> > > > > function
+> > > > respectively under !SRC_HWS
+> > > > >     conditions only (Jon)
+> > > > >
+> > > > > Suggested-by: Alex Deucher <alexander.deucher@amd.com>
+> > > > > Suggested-by: Jiadong Zhu <Jiadong.Zhu@amd.com>
+> > > > > Suggested-by: Jonathan Kim <Jonathan.Kim@amd.com>
+> > > > > Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
+> > > > > Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+> > > > > ---
+> > > > >  drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h |  2 +
+> > > > > drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c  | 65
+> > > > > ++++++++++++++++++++---  drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
+> > |
+> > > > > 6 +--  drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c  |  8 +--
+> > > > >  4 files changed, 67 insertions(+), 14 deletions(-)
+> > > > >
+> > > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
+> > > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
+> > > > > index 4d9b9701139b..5b86e12ff9fe 100644
+> > > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
+> > > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
+> > > > > @@ -43,6 +43,8 @@ enum AMDGPU_RESET_SRCS {
+> > > > >     AMDGPU_RESET_SRC_MES,
+> > > > >     AMDGPU_RESET_SRC_HWS,
+> > > > >     AMDGPU_RESET_SRC_USER,
+> > > > > +   AMDGPU_RESET_SRC_SDMA_RING,
+> > > > > +   AMDGPU_RESET_SRC_SDMA_HWS,
+> > > > >  };
+> > > > >
+> > > > >  struct amdgpu_reset_context {
+> > > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+> > > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+> > > > > index fe39198307ec..808c7112ef10 100644
+> > > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+> > > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+> > > > > @@ -25,6 +25,7 @@
+> > > > >  #include "amdgpu.h"
+> > > > >  #include "amdgpu_sdma.h"
+> > > > >  #include "amdgpu_ras.h"
+> > > > > +#include "amdgpu_reset.h"
+> > > > >
+> > > > >  #define AMDGPU_CSA_SDMA_SIZE 64
+> > > > >  /* SDMA CSA reside in the 3rd page of CSA */ @@ -485,6 +486,7 @@
+> > > > > void amdgpu_sdma_register_on_reset_callbacks(struct
+> > > > amdgpu_device *adev, struct
+> > > > >   * amdgpu_sdma_reset_engine - Reset a specific SDMA engine
+> > > > >   * @adev: Pointer to the AMDGPU device
+> > > > >   * @instance_id: ID of the SDMA engine instance to reset
+> > > > > + * @src: The source of reset function (KGD or KFD)
+> > > > >   *
+> > > > >   * This function performs the following steps:
+> > > > >   * 1. Calls all registered pre_reset callbacks to allow KFD and
+> > > > > AMDGPU to save
+> > > > their state.
+> > > > > @@ -493,20 +495,49 @@ void
+> > > > > amdgpu_sdma_register_on_reset_callbacks(struct
+> > > > amdgpu_device *adev, struct
+> > > > >   *
+> > > > >   * Returns: 0 on success, or a negative error code on failure.
+> > > > >   */
+> > > > > -int amdgpu_sdma_reset_engine(struct amdgpu_device *adev, uint32_=
+t
+> > > > instance_id)
+> > > > > +int amdgpu_sdma_reset_engine(struct amdgpu_device *adev, uint32_=
+t
+> > > > instance_id, int src)
+> > > > >  {
+> > > > >     struct sdma_on_reset_funcs *funcs;
+> > > > > -   int ret;
+> > > > > +   int ret =3D 0;
+> > > > > +   struct amdgpu_sdma_instance *sdma_instance =3D &adev-
+> > > > >sdma.instance[instance_id];;
+> > > > > +   struct amdgpu_ring *gfx_ring =3D &sdma_instance->ring;
+> > > > > +   struct amdgpu_ring *page_ring =3D &sdma_instance->page;
+> > > > > +   bool gfx_sched_stopped =3D false, page_sched_stopped =3D fals=
+e;
+> > > > > +
+> > > > > +   /* Check if the reset source is valid for SDMA ring reset */
+> > > > > +   if (src !=3D AMDGPU_RESET_SRC_SDMA_RING && src !=3D
+> > > > AMDGPU_RESET_SRC_HWS)
+> > > > > +           return -EINVAL;
+> > > > > +
+> > > > > +   /* Suspend KFD if the reset source is not SDMA_HWS.
+> > > > > +    * prevent the destruction of in-flight healthy user queue pa=
+ckets and
+> > > > > +    * avoid race conditions between KFD and KGD during the reset=
+ process.
+> > > > > +    */
+> > > > > +   if (src !=3D AMDGPU_RESET_SRC_SDMA_HWS)
+> > > > > +           amdgpu_amdkfd_suspend(adev, false);
+> > > >
+> > > > It this has to be done here, what's the idea behind registering a
+> > > > separate pre/post callback for KFD initiated resets?
+> > >
+> > > The problem is that for SDMA v5.x and below, a single soft reset call=
+ will reset all
+> > > queues on the target SDMA engine.
+> > > If the KGD calls the reset, a transient KFD suspend/resume around the=
+ reset will
+> > > guarantee that healthy user queues survive the reset.
+> > > If the KFD calls the reset, it will only do so during preemption fail=
+ure, and we don't
+> > > want to suspend and resume the KFD again when the KFD calls this func=
+tion.
+> > > The KFD needs to call this common function to not disturb GFX and pag=
+ing queues
+> > > for the same reason KGD resets need to be wary of KFD queues.
+> > > In the case of preemption failure and a KFD initiated reset, the KFD =
+is holding the
+> > > device wide preemption lock, so if the KGD is trying to reset as well=
+, it will have to
+> > > wait on its own KFD suspend call until the KFD is done its own reset.
+> > >
+> > > I think SDMA6+ can target specific queues via MMIO reg writes, but I =
+see in the
+> > > KGD code that soft_reset for SDMA 6+ does a sweep of all engines so w=
+e would
+> > > still need to keep KFD queues safe (I'm not familiar with this chunk =
+of the code or
+> > > the need for sweeping all engines on the KGD side).
+> > > So I'm not sure if Jesse had concerns about potential multiple calls =
+being made in
+> > > other parts of the code and maybe this was some way to simplify thing=
+s.
+> > > Either way, not sure if it's simpler to drop the reset source param a=
+nd have the
+> > KGD
+> > > remember to unconditionally KFD suspend/resume around the soft reset =
+call for
+> > > each IP version, or keep the reset source param here so that we only =
+have to
+> > > remember to do this once.
+> >
+> > Could KFD keep track of whether the hang was detected by KFD or KGD?  E=
+.g., if
+> > KFD detects the hang when suspending queues, it could set a flag and th=
+en KFD
+> > could include a call to amdgpu_amdkfd_suspend() in its pre_reset callba=
+ck that
+> > would depend on the value of that flag.  At that point I don't think we=
+'d need the src
+> > parameter any more.
+>
+> Hmmm.  Something similar to GPU resets?
+> The thing about GPU resets is that the KFD could just detect the flag, sc=
+hedule an event then carry on knowing the driver is going to die and re-ini=
+t at some point.
+> SDMA resets are different because the KFD would call back into the common=
+ KGD call immediately because it wants to fix things right away, and the KG=
+D has to ensure the KFD is quiesced in any case.
+> So any flag would have to be locked as well in the KFD pre/post calls.   =
+Which means we'd probably have to conditionally lock it based on a new rese=
+t context that the KGD would have to supply anyways.
+> This was the main reason why I wanted to simplify things by leveraging a =
+conditional suspend/resume call in the common interface.
+> Maybe I'm not looking at things clearly atm, but if feels like we're push=
+ing the complication from one part of the driver into another.
+>
+> If we really don't like the idea of adding flags, maybe we can just add a=
+ param "bool suspend_user_queues" to the common interface?
+> Then maybe it's clearer that the KGD, as a reset requester, wants to be c=
+areful of destroying in-flight user queues while the KFD doesn't care about=
+ this for its own needs (since it's already in post-preemption recovery).
+>
+
+Having the src for a parameter is fine with me.  It just seemed
+logical to keep it in KFD since presumably KFD would have detected
+this condition after calling amdgpu_amdkfd_suspend() itself so it
+would know whether it would need to be called based on its own state
+so it would know what to do in its pre and post reset hooks already.
+I guess we also stop the kernel queues explicitly in the same function
+so it makes sense to do the same for KFD.
+
+Alex
+
 > Jon
-
-Thanks Jon. I too agree that these macros and even over-loading variable as value & macro is ugly.
-I will send a new set of patches as following. Please let me know your suggestions.
-
-- modify pm_update_grace_period() to new name but add additional parameter. Somthing like, pm_config_dequeue_wait(pm, enum dequeue_wait_command cmd, uint value)
-  -- This way this API is independent unlike before where USE_DEFAULT_GRACE_PERIOD was used in multiple places.
-  -- enum dequeue_wait_command will have three options now: 
-   --- DEQUEUE_WAIT_INIT  , value (unused) : Initialize which will be called once. Compute asic optimized value. Set it and it will be stored in dqm->wait_times for future use.
-   --- DEQUEUE_SET_SCH_WAVE, value: The value will be used to set sch_wave
-   --- DEQUEUE_RESET, value (unused): Sets the value back to default dqm->wait_times
-
-start_cpsch() --> will call with  DEQUEUE_WAIT_INIT
-unmap_cpsch() --> will call with either (DEQUEUE_SET_SCH_WAVE, value) or (DEQUEUE_RESET)
-
-
-For comments on other patches. grace_period will be changed to sch_wave to be consistent. 
-
-
-
-> 
->>       /* setup per-queue reset detection buffer  */
->>       num_hw_queue_slots =  dqm->dev->kfd-
->>> shared_resources.num_queue_per_pipe *
->>                             dqm->dev->kfd->shared_resources.num_pipe_per_mec *
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
->> b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
->> index 273c04a95568..8a7d9b2a135c 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
->> @@ -38,6 +38,7 @@
->>  #define KFD_MES_PROCESS_QUANTUM              100000
->>  #define KFD_MES_GANG_QUANTUM         10000
->>  #define KFD_SET_DEFAULT_CP_QUEUE_WAIT_TIMES 0xffffffff
->> +#define KFD_INIT_CP_QUEUE_WAIT_TIMES     0xfffffffe
->>
->>  struct device_process_node {
->>       struct qcm_process_device *qpd;
->> @@ -359,4 +360,12 @@ static inline int read_sdma_queue_counter(uint64_t __user
->> *q_rptr, uint64_t *val
->>       /* SDMA activity counter is stored at queue's RPTR + 0x8 location. */
->>       return get_user(*val, q_rptr + 1);
->>  }
->> +
->> +static inline void update_dqm_wait_times(struct device_queue_manager *dqm)
->> +{
->> +     if (dqm->dev->kfd2kgd->get_iq_wait_times)
->> +             dqm->dev->kfd2kgd->get_iq_wait_times(dqm->dev->adev,
->> +                                     &dqm->wait_times,
->> +                                     ffs(dqm->dev->xcc_mask) - 1);
->> +}
->>  #endif /* KFD_DEVICE_QUEUE_MANAGER_H_ */
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
->> b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
->> index 8d2f63a38724..e94ed478bf5e 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
->> @@ -402,6 +402,8 @@ int pm_send_query_status(struct packet_manager *pm,
->> uint64_t fence_address,
->>   *  @wait_counts_config: Parameter overridden. Could be flag or grace_period
->>   *   Possible flag values:
->>   *     KFD_SET_DEFAULT_CP_QUEUE_WAIT_TIMES then reset to default value
->> + *     KFD_INIT_CP_QUEUE_WAIT_TIMES Initialize compute queue wait times with
->> + *      best values for each ASIC.
->>   *
->>   *   If not an above flag, Wait Count for Scheduling Wave Message (SCH_WAVE)
->>   *      is set to wait_counts_config value.
->> @@ -415,6 +417,10 @@ int pm_set_compute_queue_wait_counts(struct
->> packet_manager *pm, uint32_t wait_co
->>       int retval = 0;
->>       uint32_t *buffer, size;
->>
->> +     if (!pm->pmf->set_compute_queue_wait_counts ||
->> +         !pm->pmf->set_compute_queue_wait_counts_size)
->> +             return 0;
->> +
->>       size = pm->pmf->set_compute_queue_wait_counts_size;
->>
->>       mutex_lock(&pm->lock);
->> @@ -440,6 +446,8 @@ int pm_set_compute_queue_wait_counts(struct
->> packet_manager *pm, uint32_t wait_co
->>
->>  out:
->>       mutex_unlock(&pm->lock);
->> +     /* Update dqm->wait_times maintained in software */
->> +     update_dqm_wait_times(pm->dqm);
->>       return retval;
->>  }
->>
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
->> b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
->> index 8b693a9446e8..6a5ddadec936 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
->> @@ -302,9 +302,19 @@ static int pm_set_compute_queue_wait_counts_v9(struct
->> packet_manager *pm,
->>               uint32_t wait_counts_config)
->>  {
->>       struct pm4_mec_write_data_mmio *packet;
->> +     struct device_queue_manager *dqm = pm->dqm;
->>       uint32_t reg_offset = 0;
->>       uint32_t reg_data = 0;
->>
->> +     if (wait_counts_config == KFD_INIT_CP_QUEUE_WAIT_TIMES) {
->> +                /* Set CWSR grace period to 1x1000 cycle for GFX9.4.3 APU */
->> +                if (amdgpu_emu_mode == 0 && dqm->dev->adev->gmc.is_app_apu &&
->> +                    KFD_GC_VERSION(dqm->dev) == IP_VERSION(9, 4, 3))
->> +                        wait_counts_config = 1;
->> +                else
->> +                        return 0;
->> +        }
->> +
->>       pm->dqm->dev->kfd2kgd->build_grace_period_packet_info(
->>                       pm->dqm->dev->adev,
->>                       pm->dqm->wait_times,
->> --
->> 2.34.1
-> 
+>
+> >
+> > Alex
+> >
+> >
+> > >
+> > > Jon
+> > >
+> > > >
+> > > > Thanks,
+> > > > Lijo
+> > > >
+> > > > > +
+> > > > > +   /* Stop the scheduler's work queue for the GFX and page rings=
+ if
+> > > > > + they are
+> > > > running.
+> > > > > +   * This ensures that no new tasks are submitted to the queues =
+while
+> > > > > +   * the reset is in progress.
+> > > > > +   */
+> > > > > +   if (!amdgpu_ring_sched_ready(gfx_ring)) {
+> > > > > +           drm_sched_wqueue_stop(&gfx_ring->sched);
+> > > > > +           gfx_sched_stopped =3D true;;
+> > > > > +   }
+> > > > > +
+> > > > > +   if (adev->sdma.has_page_queue
+> > > > && !amdgpu_ring_sched_ready(page_ring)) {
+> > > > > +           drm_sched_wqueue_stop(&page_ring->sched);
+> > > > > +           page_sched_stopped =3D true;
+> > > > > +   }
+> > > > >
+> > > > >     /* Invoke all registered pre_reset callbacks */
+> > > > >     list_for_each_entry(funcs, &adev->sdma.reset_callback_list, l=
+ist) {
+> > > > >             if (funcs->pre_reset) {
+> > > > > -                   ret =3D funcs->pre_reset(adev, instance_id);
+> > > > > +                   ret =3D funcs->pre_reset(adev, instance_id, s=
+rc);
+> > > > >                     if (ret) {
+> > > > >                             dev_err(adev->dev,
+> > > > >                             "beforeReset callback failed for inst=
+ance %u: %d\n",
+> > > > >                                     instance_id, ret);
+> > > > > -                           return ret;
+> > > > > +                           goto exit;
+> > > > >                     }
+> > > > >             }
+> > > > >     }
+> > > > > @@ -515,21 +546,39 @@ int amdgpu_sdma_reset_engine(struct
+> > > > > amdgpu_device
+> > > > *adev, uint32_t instance_id)
+> > > > >     ret =3D amdgpu_dpm_reset_sdma(adev, 1 << instance_id);
+> > > > >     if (ret) {
+> > > > >             dev_err(adev->dev, "Failed to reset SDMA instance %u\=
+n",
+> > > > instance_id);
+> > > > > -           return ret;
+> > > > > +           goto exit;
+> > > > >     }
+> > > > >
+> > > > >     /* Invoke all registered post_reset callbacks */
+> > > > >     list_for_each_entry(funcs, &adev->sdma.reset_callback_list, l=
+ist) {
+> > > > >             if (funcs->post_reset) {
+> > > > > -                   ret =3D funcs->post_reset(adev, instance_id);
+> > > > > +                   ret =3D funcs->post_reset(adev, instance_id, =
+src);
+> > > > >                     if (ret) {
+> > > > >                             dev_err(adev->dev,
+> > > > >                             "afterReset callback failed for insta=
+nce %u: %d\n",
+> > > > >                                     instance_id, ret);
+> > > > > -                           return ret;
+> > > > > +                           goto exit;
+> > > > >                     }
+> > > > >             }
+> > > > >     }
+> > > > >
+> > > > > -   return 0;
+> > > > > +exit:
+> > > > > +   /* Restart the scheduler's work queue for the GFX and page ri=
+ngs
+> > > > > +    * if they were stopped by this function. This allows new tas=
+ks
+> > > > > +    * to be submitted to the queues after the reset is complete.
+> > > > > +    */
+> > > > > +   if (ret) {
+> > > > > +           if (gfx_sched_stopped && amdgpu_ring_sched_ready(gfx_=
+ring)) {
+> > > > > +                   drm_sched_wqueue_start(&gfx_ring->sched);
+> > > > > +           }
+> > > > > +           if (page_sched_stopped && amdgpu_ring_sched_ready(pag=
+e_ring)) {
+> > > > > +                   drm_sched_wqueue_start(&page_ring->sched);
+> > > > > +           }
+> > > > > +   }
+> > > > > +
+> > > > > +   /* Resume KFD if the reset source is not SDMA_HWS */
+> > > > > +   if (src !=3D AMDGPU_RESET_SRC_SDMA_HWS)
+> > > > > +           amdgpu_amdkfd_resume(adev, false);
+> > > > > +
+> > > > > +       return ret;
+> > > > >  }
+> > > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
+> > > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
+> > > > > index f91d75848557..2ef2da772254 100644
+> > > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
+> > > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
+> > > > > @@ -99,8 +99,8 @@ struct amdgpu_sdma_ras {  };
+> > > > >
+> > > > >  struct sdma_on_reset_funcs {
+> > > > > -   int (*pre_reset)(struct amdgpu_device *adev, uint32_t instanc=
+e_id);
+> > > > > -   int (*post_reset)(struct amdgpu_device *adev, uint32_t instan=
+ce_id);
+> > > > > +   int (*pre_reset)(struct amdgpu_device *adev, uint32_t instanc=
+e_id, int src);
+> > > > > +   int (*post_reset)(struct amdgpu_device *adev, uint32_t
+> > > > > + instance_id, int src);
+> > > > >     /* Linked list node to store this structure in a list; */
+> > > > >     struct list_head list;
+> > > > >  };
+> > > > > @@ -166,7 +166,7 @@ struct amdgpu_buffer_funcs {  };
+> > > > >
+> > > > >  void amdgpu_sdma_register_on_reset_callbacks(struct amdgpu_devic=
+e
+> > > > > *adev,
+> > > > struct sdma_on_reset_funcs *funcs);
+> > > > > -int amdgpu_sdma_reset_engine(struct amdgpu_device *adev, uint32_=
+t
+> > > > instance_id);
+> > > > > +int amdgpu_sdma_reset_engine(struct amdgpu_device *adev, uint32_=
+t
+> > > > instance_id, int src);
+> > > > >
+> > > > >  #define amdgpu_emit_copy_buffer(adev, ib, s, d, b, t) (adev)-
+> > > > >mman.buffer_funcs->emit_copy_buffer((ib),  (s), (d), (b), (t))
+> > > > >  #define amdgpu_emit_fill_buffer(adev, ib, s, d, b)
+> > > > >(adev)->mman.buffer_funcs- emit_fill_buffer((ib), (s), (d), (b))
+> > > > >diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
+> > > > b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
+> > > > > index 29a123be90b7..50a086264792 100644
+> > > > > --- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
+> > > > > +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
+> > > > > @@ -30,6 +30,7 @@
+> > > > >  #include "amdgpu_xcp.h"
+> > > > >  #include "amdgpu_ucode.h"
+> > > > >  #include "amdgpu_trace.h"
+> > > > > +#include "amdgpu_reset.h"
+> > > > >
+> > > > >  #include "sdma/sdma_4_4_2_offset.h"
+> > > > >  #include "sdma/sdma_4_4_2_sh_mask.h"
+> > > > > @@ -1480,6 +1481,7 @@ static int sdma_v4_4_2_sw_init(struct
+> > > > amdgpu_ip_block *ip_block)
+> > > > >     if (r)
+> > > > >             return r;
+> > > > >     INIT_LIST_HEAD(&adev->sdma.reset_callback_list);
+> > > > > +
+> > > > >     return r;
+> > > > >  }
+> > > > >
+> > > > > @@ -1608,10 +1610,10 @@ static int sdma_v4_4_2_reset_queue(struct
+> > > > amdgpu_ring *ring, unsigned int vmid)
+> > > > >  {
+> > > > >     struct amdgpu_device *adev =3D ring->adev;
+> > > > >     u32 id =3D GET_INST(SDMA0, ring->me);
+> > > > > -   return amdgpu_sdma_reset_engine(adev, id);
+> > > > > +   return amdgpu_sdma_reset_engine(adev, id,
+> > > > AMDGPU_RESET_SRC_SDMA_RING);
+> > > > >  }
+> > > > >
+> > > > > -static int sdma_v4_4_2_stop_queue(struct amdgpu_device *adev,
+> > > > > uint32_t
+> > > > instance_id)
+> > > > > +static int sdma_v4_4_2_stop_queue(struct amdgpu_device *adev,
+> > > > > +uint32_t
+> > > > instance_id, int src)
+> > > > >  {
+> > > > >     u32 inst_mask;
+> > > > >     struct amdgpu_ring *ring =3D
+> > > > > &adev->sdma.instance[instance_id].ring;
+> > > > > @@ -1628,7 +1630,7 @@ static int sdma_v4_4_2_stop_queue(struct
+> > > > amdgpu_device *adev, uint32_t instance_
+> > > > >     return 0;
+> > > > >  }
+> > > > >
+> > > > > -static int sdma_v4_4_2_restore_queue(struct amdgpu_device *adev,
+> > > > > uint32_t
+> > > > instance_id)
+> > > > > +static int sdma_v4_4_2_restore_queue(struct amdgpu_device *adev,
+> > > > > +uint32_t
+> > > > instance_id, int src)
+> > > > >  {
+> > > > >     int i;
+> > > > >     u32 inst_mask;
+> > >
+> >
+>
