@@ -4,43 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5B47C021B3
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Feb 2025 09:04:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E64BAC021B2
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Feb 2025 09:04:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B16F110E8E7;
-	Thu, 20 Feb 2025 09:04:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DC5510E8EA;
+	Thu, 20 Feb 2025 09:04:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=treblig.org header.i=@treblig.org header.b="hQ1gWCZI";
+	dkim=pass (2048-bit key; unprotected) header.d=treblig.org header.i=@treblig.org header.b="cXARaUQW";
 	dkim-atps=neutral
 Received: from mx.treblig.org (mx.treblig.org [46.235.229.95])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E199710E037;
- Wed, 19 Feb 2025 21:23:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F38CC10E885;
+ Wed, 19 Feb 2025 20:00:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=treblig.org
  ; s=bytemarkmx;
- h=MIME-Version:Message-ID:Date:Subject:From:Content-Type:From
- :Subject; bh=1JGf/Y/oyw4zN0SBBADTkP28paEMPAF1wrU205emGFQ=; b=hQ1gWCZIBEFKpjVP
- JIDpOaUEX2Pe+tyZ7oYxEWfSytBv6CE3fBHcmt6zKFA9spJDAgjwRhK3B/BmEhaGhhNUTOUc9CZLn
- C5uoXMUCLuXBakHzWd8g52id4t+rZuW/JlkoClStPahsYgCCmqs+mGEk1hTLeCd4EXRFZKcrSNk+E
- kQkGU09+edqLM72A5Q5De+WffMar8MMX3k090UxFdf5IBIpyuSb+lfNBkn3RTEHeLOgoAq1svPtew
- ++NL3DG8MQxP6n5wIl3wnXpq9yzO+UN3NUzYDAiiKUga1T4CIXyX2+eD/MCE+t9wDo6gpx6lRkrxG
- z9RmkZj+CGnSe9CbeQ==;
-Received: from localhost ([127.0.0.1] helo=dalek.home.treblig.org)
- by mx.treblig.org with esmtp (Exim 4.96)
- (envelope-from <linux@treblig.org>) id 1tkrXL-00H0cS-1n;
- Wed, 19 Feb 2025 21:23:19 +0000
-From: linux@treblig.org
-To: alexander.deucher@amd.com,
-	christian.koenig@amd.com,
-	Xinhui.Pan@amd.com
-Cc: airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- "Dr. David Alan Gilbert" <linux@treblig.org>
-Subject: [PATCH] drm/amdgpu: Remove unused nbif_v6_3_1_sriov_funcs
-Date: Wed, 19 Feb 2025 21:23:18 +0000
-Message-ID: <20250219212318.46036-1-linux@treblig.org>
-X-Mailer: git-send-email 2.48.1
+ h=Content-Type:MIME-Version:Message-ID:Subject:From:Date:From
+ :Subject; bh=oarx2htQhbiEQaRIQ4Up+yKSdMWBsn+7UK21V4YdlnU=; b=cXARaUQW2aHXVgWd
+ 5AYAllghPG7J7CbtqFQEDgaQyCW4r529khKxoiaqpVktYlR1dGP+bbvzsuAIflvRFE4we2fJ5ExCi
+ FpchPS1gFVQA/MaJ24pdijHIPrzJGPFDQ6Ctw5k98FxC8+ffkAfHFie90/cCnw/SDlVfN3F76X1G7
+ zHqeuLJQITYU/VxBdk/zDY6ZBNaB9yn4f/tCRgnJ+og/Gikb71GX+4gbiK/4ZasXORLjfbBmnk9q8
+ BdzUwoFRoqbKsw0yqzWyOwdzEAFUOznSZ/261dcSR/Hz/9SKhVNmsPooHrGCDrsnsPTf62gxiACZH
+ ty2AZ95D0mdPK0Q1HQ==;
+Received: from dg by mx.treblig.org with local (Exim 4.96)
+ (envelope-from <dg@treblig.org>) id 1tkqEh-00GzPF-2D;
+ Wed, 19 Feb 2025 19:59:59 +0000
+Date: Wed, 19 Feb 2025 19:59:59 +0000
+From: "Dr. David Alan Gilbert" <dave@treblig.org>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: alexander.deucher@amd.com, Hawking.Zhang@amd.com, Likun.Gao@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: Re: missing wire up of nbif_v6_3_1_sriov_funcs ?
+Message-ID: <Z7Y4P4hEltSuHLEy@gallifrey>
+References: <Z7YomFgEdOZzIyun@gallifrey>
+ <CADnq5_NpxZLJxvP0dWwT_9MbyLUvuTSWHTt7j=cgqeQUsPiDwA@mail.gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CADnq5_NpxZLJxvP0dWwT_9MbyLUvuTSWHTt7j=cgqeQUsPiDwA@mail.gmail.com>
+X-Chocolate: 70 percent or better cocoa solids preferably
+X-Operating-System: Linux/6.1.0-21-amd64 (x86_64)
+X-Uptime: 19:59:32 up 287 days,  7:13,  1 user,  load average: 0.00, 0.00, 0.00
+User-Agent: Mutt/2.2.12 (2023-09-09)
 X-Mailman-Approved-At: Thu, 20 Feb 2025 09:04:42 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -56,95 +60,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: "Dr. David Alan Gilbert" <linux@treblig.org>
+* Alex Deucher (alexdeucher@gmail.com) wrote:
+> On Wed, Feb 19, 2025 at 2:04 PM Dr. David Alan Gilbert
+> <linux@treblig.org> wrote:
+> >
+> > Hi All,
+> >   I think you may be misisng some wiring of nbif_v6_3_1_sriov_funcs.
+> >
+> >   My scripts noticed 'nbif_v6_3_1_sriov_funcs' was unused;
+> > It was added in:
+> >   Commit: 894c6d3522d1 ("drm/amdgpu: Add nbif v6_3_1 ip block support")
+> >
+> >
+> > and is:
+> > drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.c:
+> >   const struct amdgpu_nbio_funcs nbif_v6_3_1_sriov_funcs = {
+> >
+> > but, it's not referenced, which makes me think it perhaps
+> > should be in:
+> > drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> >
+> > I see for 4.3.x there is:
+> >   case IP_VERSION(4, 3, 0):
+> >   case IP_VERSION(4, 3, 1):
+> >     if (amdgpu_sriov_vf(adev))
+> >       adev->nbio.funcs = &nbio_v4_3_sriov_funcs;
+> >     else
+> >       adev->nbio.funcs = &nbio_v4_3_funcs;
+> >     adev->nbio.hdp_flush_reg = &nbio_v4_3_hdp_flush_reg;
+> >     break;
+> >
+> > but for 6.3.1 we have:
+> >
+> >   case IP_VERSION(6, 3, 1):
+> >     adev->nbio.funcs = &nbif_v6_3_1_funcs;
+> >     adev->nbio.hdp_flush_reg = &nbif_v6_3_1_hdp_flush_reg;
+> >     break;
+> >
+> >
+> > so is that supposed to have something similar?
+> 
+> They can be dropped.  I think they were just copy and paste leftovers.
 
-The nbif_v6_3_1_sriov_funcs instance of amdgpu_nbio_funcs was added in
-commit 894c6d3522d1 ("drm/amdgpu: Add nbif v6_3_1 ip block support")
-but has remained unused.
+Thanks for the reply.
 
-Alex has confirmed it wasn't needed.
+OK, I'll send a patch then to remove nbif_v6_3_1_sriov_funcs.
 
-Remove it, together with the four unused stub functions:
-  nbif_v6_3_1_sriov_ih_doorbell_range
-  nbif_v6_3_1_sriov_gc_doorbell_init
-  nbif_v6_3_1_sriov_vcn_doorbell_range
-  nbif_v6_3_1_sriov_sdma_doorbell_range
+Dave
 
-Signed-off-by: Dr. David Alan Gilbert <linux@treblig.org>
----
- drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.c | 46 ------------------------
- drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.h |  1 -
- 2 files changed, 47 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.c b/drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.c
-index c92875ceb31f..9efe74148867 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.c
-@@ -474,52 +474,6 @@ const struct amdgpu_nbio_funcs nbif_v6_3_1_funcs = {
- };
- 
- 
--static void nbif_v6_3_1_sriov_ih_doorbell_range(struct amdgpu_device *adev,
--						bool use_doorbell, int doorbell_index)
--{
--}
--
--static void nbif_v6_3_1_sriov_sdma_doorbell_range(struct amdgpu_device *adev,
--						  int instance, bool use_doorbell,
--						  int doorbell_index,
--						  int doorbell_size)
--{
--}
--
--static void nbif_v6_3_1_sriov_vcn_doorbell_range(struct amdgpu_device *adev,
--						 bool use_doorbell,
--						 int doorbell_index, int instance)
--{
--}
--
--static void nbif_v6_3_1_sriov_gc_doorbell_init(struct amdgpu_device *adev)
--{
--}
--
--const struct amdgpu_nbio_funcs nbif_v6_3_1_sriov_funcs = {
--	.get_hdp_flush_req_offset = nbif_v6_3_1_get_hdp_flush_req_offset,
--	.get_hdp_flush_done_offset = nbif_v6_3_1_get_hdp_flush_done_offset,
--	.get_pcie_index_offset = nbif_v6_3_1_get_pcie_index_offset,
--	.get_pcie_data_offset = nbif_v6_3_1_get_pcie_data_offset,
--	.get_rev_id = nbif_v6_3_1_get_rev_id,
--	.mc_access_enable = nbif_v6_3_1_mc_access_enable,
--	.get_memsize = nbif_v6_3_1_get_memsize,
--	.sdma_doorbell_range = nbif_v6_3_1_sriov_sdma_doorbell_range,
--	.vcn_doorbell_range = nbif_v6_3_1_sriov_vcn_doorbell_range,
--	.gc_doorbell_init = nbif_v6_3_1_sriov_gc_doorbell_init,
--	.enable_doorbell_aperture = nbif_v6_3_1_enable_doorbell_aperture,
--	.enable_doorbell_selfring_aperture = nbif_v6_3_1_enable_doorbell_selfring_aperture,
--	.ih_doorbell_range = nbif_v6_3_1_sriov_ih_doorbell_range,
--	.update_medium_grain_clock_gating = nbif_v6_3_1_update_medium_grain_clock_gating,
--	.update_medium_grain_light_sleep = nbif_v6_3_1_update_medium_grain_light_sleep,
--	.get_clockgating_state = nbif_v6_3_1_get_clockgating_state,
--	.ih_control = nbif_v6_3_1_ih_control,
--	.init_registers = nbif_v6_3_1_init_registers,
--	.remap_hdp_registers = nbif_v6_3_1_remap_hdp_registers,
--	.get_rom_offset = nbif_v6_3_1_get_rom_offset,
--	.set_reg_remap = nbif_v6_3_1_set_reg_remap,
--};
--
- static int nbif_v6_3_1_set_ras_err_event_athub_irq_state(struct amdgpu_device *adev,
- 						       struct amdgpu_irq_src *src,
- 						       unsigned type,
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.h b/drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.h
-index 9ac4831d39e1..3afec715a9fe 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.h
-+++ b/drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.h
-@@ -28,7 +28,6 @@
- 
- extern const struct nbio_hdp_flush_reg nbif_v6_3_1_hdp_flush_reg;
- extern const struct amdgpu_nbio_funcs nbif_v6_3_1_funcs;
--extern const struct amdgpu_nbio_funcs nbif_v6_3_1_sriov_funcs;
- extern struct amdgpu_nbio_ras nbif_v6_3_1_ras;
- 
- #endif
+> Alex
+> 
+> >
+> > Dave
+> >
+> > --
+> >  -----Open up your eyes, open up your mind, open up your code -------
+> > / Dr. David Alan Gilbert    |       Running GNU/Linux       | Happy  \
+> > \        dave @ treblig.org |                               | In Hex /
+> >  \ _________________________|_____ http://www.treblig.org   |_______/
 -- 
-2.48.1
-
+ -----Open up your eyes, open up your mind, open up your code -------   
+/ Dr. David Alan Gilbert    |       Running GNU/Linux       | Happy  \ 
+\        dave @ treblig.org |                               | In Hex /
+ \ _________________________|_____ http://www.treblig.org   |_______/
