@@ -4,69 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB2B5C021B1
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Feb 2025 14:08:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E4EEC021B1
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Feb 2025 14:18:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 76E8310E965;
-	Thu, 20 Feb 2025 14:08:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC45310E971;
+	Thu, 20 Feb 2025 14:18:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bLkn6APa";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IBb5KM2D";
 	dkim-atps=neutral
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
- [209.85.214.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FF2F10E965
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Feb 2025 14:08:36 +0000 (UTC)
-Received: by mail-pl1-f174.google.com with SMTP id
- d9443c01a7336-2166db59927so2202855ad.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Feb 2025 06:08:36 -0800 (PST)
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
+ [209.85.216.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFF2910E971
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Feb 2025 14:18:09 +0000 (UTC)
+Received: by mail-pj1-f53.google.com with SMTP id
+ 98e67ed59e1d1-2fc288da33eso248083a91.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Feb 2025 06:18:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1740060515; x=1740665315; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1740061089; x=1740665889; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=OjmM5gbTC9mvcMhJU+L68piC1eRyu7CQvSJe9PX9cWs=;
- b=bLkn6APaxX1zKlArmGp7hc7hS9vrGnqphzs1jw5ikAunuzTLxje+3DO4iyXwlnWz4x
- Z0iiqIOvN/ftFHklHUSqN8sYjLx/COVZrfAwJs4E+s1WQom9xqm91tRfbpstIKjZae2D
- 2+0wYue3x5r0fWT3bmhWvS1Sc5yPPO5j1waX1Coj5bFd5mDJV1dFIFYmTTsJQQwJH5du
- i6ZmbhYj9JbvnrP9knI4D+XdiskcoU/8AjXmVF/TE3M5TDWaRR4ZUlMuwU4LXJGKGGsq
- Grc0MwQlO4Q1fmovbB6a00HmYZ503EH+OhZE3iqfLlqlhq1AgxHQNEQaob65uwcxoVW7
- kZAg==
+ bh=gqAmCWUXdok3O1IdqJYJ+RHrQNC4smm0AifxVuukkbg=;
+ b=IBb5KM2Dqkl847XN6+9Nd/4kl6XHwxN6CzRR6FgbzyUe9+1Vlar9xfRP807gAS3gYN
+ T9qbSqc7Hm6vRs+RIvsWQW3YFAMVvi9OoX5v9Fjun3s8cf0Hs4315ja1ysZKzPwtzHIT
+ mtKlcDFagxY454XCnnqZ4Ze05+M72zbHmHhpE081jGAjO3xEE387ZkZ1BbRBLDekmhvK
+ Vqei/kXxtoqsRyyuR2jGVmg9nca/RRpJhK1MxVosOPiLwez1JTDnnB4EYD0TBQIz4F9u
+ xtCApk3JyLtHLi1FLy9OEQiEqD8cCESJ9C8oL2or5RC3yRRZo4P3ospmykrYnbxTAyCa
+ SulA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1740060515; x=1740665315;
+ d=1e100.net; s=20230601; t=1740061089; x=1740665889;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=OjmM5gbTC9mvcMhJU+L68piC1eRyu7CQvSJe9PX9cWs=;
- b=fRgCOE2mtpbwksZWa0iiyNSOYaeaukEIytqSYa0BetOSAIGSD8+ra/sgVUgJR8pSSy
- rVoiUo+plFIc0LoDADDwX2gR5NUSoLH+l+U1g9EWvzF18+MhOOIcZt12Spo/5xcrifGH
- OZR5PjhbmXG8pY/qxZCVUOZKV8rtRFgr+PBY9rsxvctdj7+Tknh6s62phUmgcey0UYUd
- snzqjebG3R7O0QgCJ3U6BL6oc2BC9J7gfE6cYdhHY3AiO+bYLiCru+ohngJ/+iJQh6Y5
- /bWxC1vr5L+QIBAYPWpLwwp272YRKtTm2/Vjc+dta3LHfYd4kEazkSiqKQhMa0N8rgYb
- WiNg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWaXbnzVq5mHTFZygqiKBeAhwVDthmVspe0hENh409sRTjAlvojqdFLlLAoR+rsTTuI7qDc28o2@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyPExOho9B01s+aNFNqAGPq6Tc7L10R7pRSKirUJa97922b98CF
- XzhKEHTUBs0vLKZ/zml/nff9vXhg+Z32yjv1hdIZc8Y+a+TxULhST9EEVkQs4cmVyzxjcF5yz3J
- MAoFbGImHUtM69/Rx7jRE5Ko0eHk=
-X-Gm-Gg: ASbGncv8WhCnHsGbkVXS5fnm8k++gLVT1DV8w/VePdhOwPkjSpTp2/Xj7CnG7VHxU6o
- zD2ras+SixWqlBoqE3VOb8qOiXOmxLvatGdMpVVRtg7LGbup0xaU3akWzeVTU1OQ6PxB9bIT3
-X-Google-Smtp-Source: AGHT+IGkQAqVX+MDRMILw0YtR9i6iMI9KuYyxccf6C9LXlRgIPcyWd9dbDjU2gBO1tA4wBcbe8Rl1yWltmTLHYcUx4A=
-X-Received: by 2002:a17:903:32c7:b0:21f:3e2d:7d43 with SMTP id
- d9443c01a7336-221040b48d5mr130525715ad.13.1740060514034; Thu, 20 Feb 2025
- 06:08:34 -0800 (PST)
+ bh=gqAmCWUXdok3O1IdqJYJ+RHrQNC4smm0AifxVuukkbg=;
+ b=BBDpky1jXEnjUQql5O7GijDzGWrjdEefMJZaG60sw+H4aevPscKbto6Itdxf6WSrIy
+ 7Ui7/x3Q+fW9SVBzUpP9f+fvylIFrYhu1pS0mlRRYRJqE5A+zXvQFQQOxF/AgpGca1OA
+ X+dNR74UW1EMSfZS5ibB+vFOYtfefrAC7mw7m4tSqV4MCI/fkNmLv5IyG25wJSjjke9d
+ yXcyGooW1xe3NyZHhU1Ag2Ddg5rdGQ2OM/bLenI8QV85ljlnKcnraOOCbtYeIVRfxO7s
+ Q5iYXJrepOL6fGfeSsWn5OOImoTde32Zc62dOmb2Yluy+JJLnCvJ6nzn0BtVXwfcteIe
+ PFYQ==
+X-Gm-Message-State: AOJu0YwRgSyxpMdi7Qje7XplzF6+1kaiBQl9biCqAzqmlHLH4nVEkvtk
+ TX3W7EpfaWcI/klRQNjUu8eKvh0ZJFcirFoZk/1KjVIkCEBUZPxxXqKshf0G6Zh42cIBDqLMyun
+ FIZovmiIsXN4nz5kkjXAwIgROa60=
+X-Gm-Gg: ASbGncuodWbnDOwMGGpfPutBXJhIcqQRlFNheUHbADdS8rYKrYxTiCejbTtBwUhKREJ
+ dKsnSiv37UwJrFmrUirUICQ1k2f+Qz+5ox79TVcQnSrP+7y2Gjx3/ATszQvdNeGY93P3HgtFT
+X-Google-Smtp-Source: AGHT+IEZ9RCU1vCYLS4GMcOIOAwWRG4Bv5AnOO0mXuNYgOUgWuS82OxuJfjxnyJrdYD8OlQUjYiYHFe/DbNs/c5YUSU=
+X-Received: by 2002:a17:90b:3504:b0:2fc:f63:4b6a with SMTP id
+ 98e67ed59e1d1-2fc4078f0a1mr13657059a91.0.1740061089233; Thu, 20 Feb 2025
+ 06:18:09 -0800 (PST)
 MIME-Version: 1.0
-References: <20250217151053.420882-1-alexander.deucher@amd.com>
-In-Reply-To: <20250217151053.420882-1-alexander.deucher@amd.com>
+References: <20250126083733.3331474-1-Prike.Liang@amd.com>
+ <CADnq5_PEMn-K9APP6dtRXz-xVcU_Zx21b27J0Z0m+TJKVBTmbw@mail.gmail.com>
+ <DS7PR12MB6005DDEF2B0D2DB8854BA048FBC42@DS7PR12MB6005.namprd12.prod.outlook.com>
+In-Reply-To: <DS7PR12MB6005DDEF2B0D2DB8854BA048FBC42@DS7PR12MB6005.namprd12.prod.outlook.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 20 Feb 2025 09:08:22 -0500
-X-Gm-Features: AWEUYZmH7n-J4pdID-Gbt_Ubv5ZtjOVDv1UbvJ66j9xAALjB-6p7CCfjQGwrQc4
-Message-ID: <CADnq5_P_oZ808SbHf3Vpga8x+c=WopRpBWUuL2=KpuXwh6cUPg@mail.gmail.com>
-Subject: Re: [PATCH] PCI: fix Sapphire PCI rebar quirk
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: bhelgaas@google.com, linux-pci@vger.kernel.org, 
- amd-gfx@lists.freedesktop.org, Mario.Limonciello@amd.com, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Nirmoy Das <nirmoy.aiemd@gmail.com>
+Date: Thu, 20 Feb 2025 09:17:56 -0500
+X-Gm-Features: AWEUYZmkWoNSDeKc1azxuLl6FkC6Lh0OQ3NkslVLyJM1bdodGYkwhjvcIQ8mu1U
+Message-ID: <CADnq5_OcueKfUP_ot0vh31c7pheUR3HFMGdL-=HkfQXUY75RSQ@mail.gmail.com>
+Subject: Re: [PATCH 1/4] drm/amdgpu/gfx11: Implement the GFX11 KGQ pipe reset
+To: "Liang, Prike" <Prike.Liang@amd.com>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>, "Lazar, Lijo" <Lijo.Lazar@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -83,47 +82,180 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Dropping this patch.  Will work around this in the driver.
+On Thu, Feb 20, 2025 at 4:39=E2=80=AFAM Liang, Prike <Prike.Liang@amd.com> =
+wrote:
+>
+> [Public]
+>
+> The various gfx11/gfx12 systems share the same start PC value, but it see=
+ms better to use the specific register CP_ME_PRGRM_CNTR_START to get the st=
+art PC value.
+
+Why not store the value per device?  Or if it's always the same, just
+use a macro.
 
 Alex
 
-On Mon, Feb 17, 2025 at 10:48=E2=80=AFAM Alex Deucher <alexander.deucher@am=
-d.com> wrote:
+
 >
-> There was a quirk added to add a workaround for a Sapphire
-> RX 5600 XT Pulse.  However, the quirk only checks the vendor
-> ids and not the subsystem ids.  The quirk really should
-> have checked the subsystem vendor and device ids as now
-> this quirk gets applied to all RX 5600 and it seems to
-> cause problems on some Dell laptops.  Add a subsystem vendor
-> id check to limit the quirk to Sapphire boards.
+> Regards,
+>       Prike
 >
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/1707
-> Fixes: 907830b0fc9e ("PCI: Add a REBAR size quirk for Sapphire RX 5600 XT=
- Pulse")
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Cc: Bjorn Helgaas <bhelgaas@google.com>
-> Cc: Nirmoy Das <nirmoy.aiemd@gmail.com>
-> ---
->  drivers/pci/pci.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-> index 225a6cd2e9ca3..dec917636974e 100644
-> --- a/drivers/pci/pci.c
-> +++ b/drivers/pci/pci.c
-> @@ -3766,6 +3766,7 @@ u32 pci_rebar_get_possible_sizes(struct pci_dev *pd=
-ev, int bar)
->
->         /* Sapphire RX 5600 XT Pulse has an invalid cap dword for BAR 0 *=
-/
->         if (pdev->vendor =3D=3D PCI_VENDOR_ID_ATI && pdev->device =3D=3D =
-0x731f &&
-> +           pdev->subsystem_vendor =3D=3D 0x1da2 &&
->             bar =3D=3D 0 && cap =3D=3D 0x700)
->                 return 0x3f00;
->
-> --
-> 2.48.1
->
+> > -----Original Message-----
+> > From: Alex Deucher <alexdeucher@gmail.com>
+> > Sent: Thursday, February 20, 2025 3:56 AM
+> > To: Liang, Prike <Prike.Liang@amd.com>
+> > Cc: amd-gfx@lists.freedesktop.org; Deucher, Alexander
+> > <Alexander.Deucher@amd.com>; Koenig, Christian
+> > <Christian.Koenig@amd.com>; Lazar, Lijo <Lijo.Lazar@amd.com>
+> > Subject: Re: [PATCH 1/4] drm/amdgpu/gfx11: Implement the GFX11 KGQ pipe
+> > reset
+> >
+> > On Sun, Jan 26, 2025 at 3:38=E2=80=AFAM Prike Liang <Prike.Liang@amd.co=
+m> wrote:
+> > >
+> > > Implement the kernel graphics queue pipe reset,and the driver will
+> > > fallback to pipe reset when the queue reset fails. However, the ME FW
+> > > hasn't fully supported pipe reset yet so disable the KGQ pipe reset
+> > > temporarily.
+> > >
+> > > Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+> > > ---
+> > >  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 76
+> > > +++++++++++++++++++++++++-
+> > >  1 file changed, 74 insertions(+), 2 deletions(-)
+> > >
+> > > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> > > b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> > > index 89d17750af04..395872bb1401 100644
+> > > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> > > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> > > @@ -65,6 +65,8 @@
+> > >  #define regPC_CONFIG_CNTL_1            0x194d
+> > >  #define regPC_CONFIG_CNTL_1_BASE_IDX   1
+> > >
+> > > +static uint32_t me_fw_start_pc;
+> > > +
+> > >  MODULE_FIRMWARE("amdgpu/gc_11_0_0_pfp.bin");
+> > >  MODULE_FIRMWARE("amdgpu/gc_11_0_0_me.bin");
+> > >  MODULE_FIRMWARE("amdgpu/gc_11_0_0_mec.bin");
+> > > @@ -2932,6 +2934,9 @@ static void gfx_v11_0_config_gfx_rs64(struct
+> > amdgpu_device *adev)
+> > >         tmp =3D REG_SET_FIELD(tmp, CP_MEC_RS64_CNTL,
+> > MEC_PIPE2_RESET, 0);
+> > >         tmp =3D REG_SET_FIELD(tmp, CP_MEC_RS64_CNTL,
+> > MEC_PIPE3_RESET, 0);
+> > >         WREG32_SOC15(GC, 0, regCP_MEC_RS64_CNTL, tmp);
+> > > +
+> > > +       /* cache the firmware start PC */
+> > > +       me_fw_start_pc =3D RREG32(SOC15_REG_OFFSET(GC, 0,
+> > > + regCP_GFX_RS64_INSTR_PNTR1));
+> >
+> > You can't use a global variable.  It won't work if you have multiple GP=
+Us in the
+> > system.
+> >
+> > Alex
+> >
+> > >  }
+> > >
+> > >  static int gfx_v11_0_wait_for_rlc_autoload_complete(struct
+> > > amdgpu_device *adev) @@ -6654,6 +6659,68 @@ static void
+> > gfx_v11_0_emit_mem_sync(struct amdgpu_ring *ring)
+> > >         amdgpu_ring_write(ring, gcr_cntl); /* GCR_CNTL */  }
+> > >
+> > > +static bool gfx_v11_pipe_reset_support(struct amdgpu_device *adev) {
+> > > +       /* Disable the pipe reset until the CPFW fully support it.*/
+> > > +       dev_warn_once(adev->dev, "The CPFW hasn't support pipe reset =
+yet.\n");
+> > > +       return false;
+> > > +}
+> > > +
+> > > +
+> > > +static int gfx_v11_reset_gfx_pipe(struct amdgpu_ring *ring) {
+> > > +       struct amdgpu_device *adev =3D ring->adev;
+> > > +       uint32_t reset_pipe =3D 0, clean_pipe =3D 0;
+> > > +       int r;
+> > > +
+> > > +       if (!gfx_v11_pipe_reset_support(adev))
+> > > +               return -EOPNOTSUPP;
+> > > +
+> > > +       gfx_v11_0_set_safe_mode(adev, 0);
+> > > +       mutex_lock(&adev->srbm_mutex);
+> > > +       soc21_grbm_select(adev, ring->me, ring->pipe, ring->queue, 0)=
+;
+> > > +
+> > > +       switch (ring->pipe) {
+> > > +       case 0:
+> > > +               reset_pipe =3D REG_SET_FIELD(reset_pipe, CP_ME_CNTL,
+> > > +                                          PFP_PIPE0_RESET, 1);
+> > > +               reset_pipe =3D REG_SET_FIELD(reset_pipe, CP_ME_CNTL,
+> > > +                                          ME_PIPE0_RESET, 1);
+> > > +               clean_pipe =3D REG_SET_FIELD(clean_pipe, CP_ME_CNTL,
+> > > +                                          PFP_PIPE0_RESET, 0);
+> > > +               clean_pipe =3D REG_SET_FIELD(clean_pipe, CP_ME_CNTL,
+> > > +                                          ME_PIPE0_RESET, 0);
+> > > +               break;
+> > > +       case 1:
+> > > +               reset_pipe =3D REG_SET_FIELD(reset_pipe, CP_ME_CNTL,
+> > > +                                          PFP_PIPE1_RESET, 1);
+> > > +               reset_pipe =3D REG_SET_FIELD(reset_pipe, CP_ME_CNTL,
+> > > +                                          ME_PIPE1_RESET, 1);
+> > > +               clean_pipe =3D REG_SET_FIELD(clean_pipe, CP_ME_CNTL,
+> > > +                                          PFP_PIPE1_RESET, 0);
+> > > +               clean_pipe =3D REG_SET_FIELD(clean_pipe, CP_ME_CNTL,
+> > > +                                          ME_PIPE1_RESET, 0);
+> > > +               break;
+> > > +       default:
+> > > +               break;
+> > > +       }
+> > > +
+> > > +       WREG32_SOC15(GC, 0, regCP_ME_CNTL, reset_pipe);
+> > > +       WREG32_SOC15(GC, 0, regCP_ME_CNTL, clean_pipe);
+> > > +
+> > > +       r =3D RREG32(SOC15_REG_OFFSET(GC, 0,
+> > regCP_GFX_RS64_INSTR_PNTR1)) - me_fw_start_pc;
+> > > +       soc21_grbm_select(adev, 0, 0, 0, 0);
+> > > +       mutex_unlock(&adev->srbm_mutex);
+> > > +       gfx_v11_0_unset_safe_mode(adev, 0);
+> > > +
+> > > +       dev_info(adev->dev,"The ring %s pipe reset to the ME firmware=
+ start
+> > PC: %s\n", ring->name,
+> > > +                       r =3D=3D 0 ? "successfuly" : "failed");
+> > > +       /* FIXME: Sometimes driver can't cache the ME firmware start =
+PC
+> > correctly, so the pipe reset status
+> > > +        * relies on the later gfx ring test result.
+> > > +        */
+> > > +       return 0;
+> > > +}
+> > > +
+> > >  static int gfx_v11_0_reset_kgq(struct amdgpu_ring *ring, unsigned in=
+t
+> > > vmid)  {
+> > >         struct amdgpu_device *adev =3D ring->adev; @@ -6663,8 +6730,1=
+3
+> > > @@ static int gfx_v11_0_reset_kgq(struct amdgpu_ring *ring, unsigned =
+int vmid)
+> > >                 return -EINVAL;
+> > >
+> > >         r =3D amdgpu_mes_reset_legacy_queue(ring->adev, ring, vmid, f=
+alse);
+> > > -       if (r)
+> > > -               return r;
+> > > +       if (r) {
+> > > +
+> > > +               dev_warn(adev->dev,"reset via MES failed and try pipe=
+ reset %d\n",
+> > r);
+> > > +               r =3D gfx_v11_reset_gfx_pipe(ring);
+> > > +               if (r)
+> > > +                       return r;
+> > > +       }
+> > >
+> > >         r =3D amdgpu_bo_reserve(ring->mqd_obj, false);
+> > >         if (unlikely(r !=3D 0)) {
+> > > --
+> > > 2.34.1
+> > >
