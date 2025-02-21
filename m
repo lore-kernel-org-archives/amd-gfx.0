@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E0B0C021B6
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BB1EC021B5
 	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2025 16:02:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DFEFE10EAE2;
-	Fri, 21 Feb 2025 16:02:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 23FBB10EAED;
+	Fri, 21 Feb 2025 16:02:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="RPKTfJ7I";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="e4Mt2d/Q";
 	dkim-atps=neutral
 Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 830D510EAEB
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Feb 2025 16:02:41 +0000 (UTC)
+ (mail-bn8nam11on2079.outbound.protection.outlook.com [40.107.236.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F321510EAED
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 Feb 2025 16:02:42 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=u9M3rcyoKrD6oi9Y4p20BAcGsJ+73rqNb4MtjZAdlzd0ftPQn+H/Ybv3PD7/Ztx2Vvd36pmm7JkiBWrmeGRSyidsGxzOA4XTR/BczXccKTcJTSwhTopeJ8Ah0A6ihyPEEuXytbSoDSaERlhMMaCExJK5tc+0/Pa1urrOPl8zvZrT9pmqU91eKL5oiY+VL+K4QaEhZG8ltJsduPWq6vDUMrO/hNoP5fukliaibfrOvhQLlhsWh0do7TiUP82d3KDOxiH+X8zijtd4Xf4aHnZvMC1CA4FHG92Gl3nO2AiY5/lROj7Du6JeW1yakakYvSXVCOnbpIMtegBxkqcrPDnCPg==
+ b=msxsKELx3F9dKNAq0bdJ5hmUf8XuClxB66Zw2lFJrnqDb6CfefhNFOrIRVOJhejrlZvaRRxZhXIhWsNw5FKc9BVPUdEAa6TSjCCdgMScGeIAXaVhbc7rBUIlTDmiI0xHL1RTNTUmu8S4nsxRsmLOMz6PVM+3lUbpTQEormzJd5HLV/xlV5ZtArtxbDVP1PpP9GWXcPYJvyAPvXgel84dunczNhyCt/sDs1JKNRq/2Zb+a9jr1mYZt01gq6woWmqQdrtA30lA2PpsziY4CPBy/6yVjJT2uvrP/PD4ksSV9UUN6jOgagSTxOS+wvB/M2TP2oSoeV0qfm6wMkV+tS/WIQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+wzn+GUmhjvAbWy9bv4ZBIwJEay5MVwgRVJ+c2rcVKI=;
- b=sUa8YIFBvcykZI0JMWvzB26oXcXyNUc8ZL0bIzYnujGL8/sFVyK99vDVekuD/DS/0Vte4/Z0MGlC9dVYsPpz3NWpOh6x7+WGZ/zbs1B41h1252ng6g/YaGwy4OFW5z0SR29JwL43f9wLAkcIIvX6a+n1BAC2ttVlLVJ8b2Vd3fwNl3GTq38WmNhy4egH2p4W94JHraeowE7XSk9VkDfVyxYB8gcFhnHLKf5cw0HOC5GOw9nCPlpFzd8mmsfSSR2aho5VqCYJLD9dkv51oUZV070JKd+Hildhr6iOansN3tNLOcM551igkNyqxx8b01zbcb45ROwO3B/7xqotzJgS/g==
+ bh=KnMSXEUVMa1V8A9rcWO0O4vNJFyzvSu/LzC3TmfG47c=;
+ b=wRLXKH+SCU8N5AMEESyHkAhB6mEaUHdxR7VX5QZakzDSQoZrkm/b63ank0IYlmdk2naBg7dfHGKr9q2j0fYVO8stEOeuTCk50FPPgvPvchYECcw6Mqfc/nEfENN4ZhReY/uINJAJUH3IPCFHlITFydDLIU4CjJdv2mkYu97hb7DKjkTAudAUiEubvYTxVNvQ4ItMNIDceu+ynnJc1W3UDQzidhq0HYsmiG0z6XtWUl3unwPCD/fFur8azfAIH+1D3wUb1zcCnc8a9vZ4yCNvCCbwvQB1E42zMoJwf/k3ua1PEVuy2VPnExoDWdUjyw+OqEfi1+9YosB6yX2sG4ltsQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+wzn+GUmhjvAbWy9bv4ZBIwJEay5MVwgRVJ+c2rcVKI=;
- b=RPKTfJ7IGRplkSi1KTJ93Nq4zxWbuZM8yfyLG65ej9nDruEZ55UsVuDsLZf2m8ty+LrNVPFL14H0M+1KpQCdl/x85WjC/UOYhW+z4RmrKQ+m/EbCF7BZ71L83XetLE0B4GWBhoY9J5ktrWU3Ff1iC5eKKOicCOrtMkN1trbkfU8=
-Received: from PH7PR17CA0058.namprd17.prod.outlook.com (2603:10b6:510:325::7)
- by SA1PR12MB7442.namprd12.prod.outlook.com (2603:10b6:806:2b5::15)
+ bh=KnMSXEUVMa1V8A9rcWO0O4vNJFyzvSu/LzC3TmfG47c=;
+ b=e4Mt2d/QiEIYC+Pbtvye+oxAYIJWmWif9mzh9v/vHyhxv3a1Ilsr6/RMh7Bn/IG+AGCRHTkm9A+bxyzQIY9hmrnLRVfQnWjCbwGN6W8VKeGY1zwvhGzsNB+e2n0x+PWIeCWXTdVWzReaQpzjcfSLIK5IUfVAL45MlgAmH4NK7WA=
+Received: from PH7PR17CA0054.namprd17.prod.outlook.com (2603:10b6:510:325::18)
+ by MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8466.15; Fri, 21 Feb
- 2025 16:02:34 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8466.16; Fri, 21 Feb
+ 2025 16:02:37 +0000
 Received: from CY4PEPF0000FCC3.namprd03.prod.outlook.com
- (2603:10b6:510:325:cafe::23) by PH7PR17CA0058.outlook.office365.com
- (2603:10b6:510:325::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8466.17 via Frontend Transport; Fri,
- 21 Feb 2025 16:02:34 +0000
+ (2603:10b6:510:325:cafe::77) by PH7PR17CA0054.outlook.office365.com
+ (2603:10b6:510:325::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8466.16 via Frontend Transport; Fri,
+ 21 Feb 2025 16:02:37 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,11 +50,11 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CY4PEPF0000FCC3.mail.protection.outlook.com (10.167.242.105) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8466.11 via Frontend Transport; Fri, 21 Feb 2025 16:02:34 +0000
+ 15.20.8466.11 via Frontend Transport; Fri, 21 Feb 2025 16:02:36 +0000
 Received: from mkmmarleung05.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 21 Feb
- 2025 10:02:25 -0600
+ 2025 10:02:27 -0600
 From: Zaeem Mohamed <zaeem.mohamed@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -62,12 +62,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
  Zuo" <jerry.zuo@amd.com>, Zaeem Mohamed <zaeem.mohamed@amd.com>, Solomon Chiu
  <solomon.chiu@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>, Alex Hung
- <alex.hung@amd.com>, Yihan Zhu <Yihan.Zhu@amd.com>, Samson Tam
- <samson.tam@amd.com>
-Subject: [PATCH 18/24] drm/amd/display: handle max_downscale_src_width fail
- check
-Date: Fri, 21 Feb 2025 11:01:39 -0500
-Message-ID: <20250221160145.1730752-19-zaeem.mohamed@amd.com>
+ <alex.hung@amd.com>, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ Dillon Varone <dillon.varone@amd.com>
+Subject: [PATCH 20/24] drm/amd/display: Increase halt timeout for DMCUB to 1s
+Date: Fri, 21 Feb 2025 11:01:41 -0500
+Message-ID: <20250221160145.1730752-21-zaeem.mohamed@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250221160145.1730752-1-zaeem.mohamed@amd.com>
 References: <20250221160145.1730752-1-zaeem.mohamed@amd.com>
@@ -79,52 +78,52 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000FCC3:EE_|SA1PR12MB7442:EE_
-X-MS-Office365-Filtering-Correlation-Id: e0827592-b52c-40a6-ee4e-08dd52912794
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000FCC3:EE_|MN0PR12MB6101:EE_
+X-MS-Office365-Filtering-Correlation-Id: 75008818-fc34-4460-2974-08dd52912936
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|36860700013|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?P6UvqLQZQQoOpvqMUHmHQEhr4w0weEJ49Tzc1f9NqmR5OY9TtBpdd5Hithg6?=
- =?us-ascii?Q?yNGXPNexlLq+MKzc5EVZnj3PznATGaaglfrUJDOkGIzioVOdkdD2s4kpZSZ6?=
- =?us-ascii?Q?L9qZkwkC7KQzr7O6YoWf6kwMeWrwqU1TzQXY+S9SEOAIqnn6DdZGJM9vFDmz?=
- =?us-ascii?Q?mjDqsVqIvIS5zXrlwKao3v29PYKYYSs2Xxg5vquIqHkfylRnbvywInsW+xqu?=
- =?us-ascii?Q?s8O7U/M4FZstcQut+qNMh6jVzgwwBDgX6ZbT64gMSl5zKWiwHUha1zRCeDVh?=
- =?us-ascii?Q?8wCTykhpj1marUnJKmfrfJc3Qmdr10aQ58ZYTMgO2EiYlzMz4kvcVoIjtZw8?=
- =?us-ascii?Q?NbuxFn5Gm29q9tE5VQ0xmZf8hnWLAlrTBBGSzHz2DOsNpXMQhPktcq4xdwou?=
- =?us-ascii?Q?tBbp075MIQjMlJckDV5oDZAYHbiR5rLepTgAzKXfyhDJWw8oHuH6ElAzvgEP?=
- =?us-ascii?Q?jXC24NvsQDz/JvpJoWv5Stnck0Y13VWi7Xy0l3zC2xRLBSvLI/kcAgcF/ifx?=
- =?us-ascii?Q?orMG1p5meL2NcwoMyiezS1Aw8J7pjOIyWuKgKoybIGG/44CsYOAJTC1uh/rL?=
- =?us-ascii?Q?+IT4+Mqv5PUix7hUBaACK7Y9+KxnXczc8SXR+4yyhm3WS04Z3E3pCadgsml4?=
- =?us-ascii?Q?DbP32+i2H/Ko3YjjxddT5VsrlGjAAzmzDSVTIOVrH0WGRcXNZaAnr37gAy4F?=
- =?us-ascii?Q?LmWHqj523g3bl3uvXMo9orGEG4tf6IJdQdcoQqFTsnOWdSiSB6t5AL1h0Jz7?=
- =?us-ascii?Q?4T9utBTDuqaRLFqGl8IyAR9Rh33ZJcqg/vDh33588vxOXRJgcHThdB+szxLq?=
- =?us-ascii?Q?3E/JH18Zwi8+G82DTuLz9+h1yfUT32K+x/tPNaZ36Cka0eG3e+lUv6J3U/6x?=
- =?us-ascii?Q?aPQDGyzhG1rayljBAdgVLL3YQ8qBca5CJ35bNU/8Yx5FFYzkhAFYLlAizk20?=
- =?us-ascii?Q?22ouZ2iqnNrwwPv2JuJzCRfbnCaxDxHELy2gSZVLYw4+myRJQmcND+GOv9T3?=
- =?us-ascii?Q?mTJusqDuP9QdN8jxrPmxLFCDu1gGZv4e8PpA2I0ndm5ZNbVxJPZsQBYRqAZY?=
- =?us-ascii?Q?NSiSQFQ2z4ZpQG3/a53cfFBGQyCEtu07JZKGU+iKPlRTLrmQKMjtQV1Q/CCe?=
- =?us-ascii?Q?RUn3Go5UkjbJWaNu9tNHPsRHIPGk51M0/RNlw1yydxqV4AGrYWLogc7tmzMx?=
- =?us-ascii?Q?89pJn2/lX0zHZ0+nqUcqIZilU4Xug19pE9xJ+KZpZdC4YneOVze+KGJGbt/T?=
- =?us-ascii?Q?6rDo//kL33QIETXfyPRiXOYd1dcm7HQ0hVn9AxYF5r57drPvWMaGF/nENWmf?=
- =?us-ascii?Q?J6QPE8gArz/3QRfZo7XJv7AzfPCxKEvx0u8rFEIim5BX/S17A93ylQu/PaBn?=
- =?us-ascii?Q?2aYwB3Q4gEgNhMxJApk7wdbTE/xjhJhZ3IreIW9QKADaWjAWJPb3pwbo4/NQ?=
- =?us-ascii?Q?Hk1J8gfePyYAdP/efASON83peEqqbZ7xExIO9rYmQapV3vDnSR73Ype6VUDR?=
- =?us-ascii?Q?/jrAm+HJzboFn7U=3D?=
+ ARA:13230040|36860700013|376014|82310400026|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?wzxWTWSMsQjHw8rvN4f0c/B4qR+Hc7y6v9yTa+1fXVum9Z3sc7apt5XMVn8r?=
+ =?us-ascii?Q?HemU7zvVi9KrcNdQyuURtd++49wX5O/ahABsNXBHHUzJI2ZJHsysRDXAgRe8?=
+ =?us-ascii?Q?796KLbwUK1WiDQP6qegQNRytDk/ex2rjRd60S4BBuyMWycCkkyzwcPpROGj3?=
+ =?us-ascii?Q?sS1qGEdd3v7xS2aLZ+3+BY/nkHQetoNMj8QgodY1tIE6SqhVezc1c600GlIw?=
+ =?us-ascii?Q?dk9zKWkq97/6+XbAKlQ5oMpDtkmJMJzhdRrMO49O3WzYrHeyknvfXp8UFIEh?=
+ =?us-ascii?Q?DyeeVcX5GxPcvlMUuH96keAogoqXntcooQ510lkYJu1UjrccLfx0ss1Qu3bb?=
+ =?us-ascii?Q?Iacy1AW/xfzWN5aGfVSlYHWEgDTf23HlhMGsOrGe2FkzGAxR+fdu65nsrx/z?=
+ =?us-ascii?Q?DS9XDfsD3y/RRWY+ZSJwj6ssjQKgmTOz3p1URHCOLR5HvbXv2O+J+m4jVCDW?=
+ =?us-ascii?Q?h5BOPCQcNDIi+LOr5oBwqDtCB2iM3N3zc/Ykp/0wlYZPBRt/PkKfWu4RfBCb?=
+ =?us-ascii?Q?Y96lLJvbeXjVZpVkAkoVWGwvle3ZEEf5O6iUOmPIvzH71PzOog3jAZqTMX+j?=
+ =?us-ascii?Q?h8re/6x1zB0+tZ0vDK2LtVS67EBX2INAOS2avcy6/Cd5CQ3b+xmpLL1PQmVT?=
+ =?us-ascii?Q?m2gD5UhxdCumZqaEjdTgs4chHK0NC8b/IyqK0UZx0whWdrt6gxJIv66aAlAC?=
+ =?us-ascii?Q?b/PZYMq6CBKglskrzttJQuM8vacN+QnkosIZkHUGF4pAG2HDMwurMKDd1XAO?=
+ =?us-ascii?Q?S8CGW3yFKd7C9rcj0ScPJZ3CC0aPJw+BO8q+ptY74cfe4wKg7oOeJ0/IaIRF?=
+ =?us-ascii?Q?RqKzBhaU3S6EHseEjcldRfq9CWl3pd7pK6Mh4Ww7z80xnen1DWv8lop2YJr+?=
+ =?us-ascii?Q?DrdVLfvea1Cg/9pEKtdoKXfJgMJe7uHYc2ch8CMeixLgMnC+TLhVMPY+kKRb?=
+ =?us-ascii?Q?o7jAzvXOjYv0iL0pVhBJl1CZdVF56BGZAcVMnObVR9KEAppLNXr6FR8fb9yi?=
+ =?us-ascii?Q?0u9peaSrvYCPju3mByA8swtNDMIttW7yTVKmDu7yuKfISaYKllQ18y6Vee1C?=
+ =?us-ascii?Q?x89M3j48LDrrRqcu9c1w9kgwZUM/g/M/brXvhukTaBz7Xx2HwfgFFQpk8nIU?=
+ =?us-ascii?Q?efAjPuBOpJ/wcM363cg01RoDO34uCjfQPs9rMeJBne4Cjaf6T6e1jkUkdWmJ?=
+ =?us-ascii?Q?ziAu9BI3m9rjJ1z2YjSiD7krHfuMAOJP6SoUSYlvHHMg7O0T2Is7+e41UkBP?=
+ =?us-ascii?Q?zrogHmwK9xl5FDbsX/tN3S1NtFEC+o9+CGINeE0Yfq6M0Fb2iSNRuuh/97ao?=
+ =?us-ascii?Q?eU18z279sYFGGn1qzX7j+1ZBvV5kr2jG9YW8VlS4YjDHj+VhgzO/26Rd/pna?=
+ =?us-ascii?Q?xDXgXDkTo69gSSq2vqSI7lV6gjM+CL7c4T9aFyCfrK49w/1zMrQKhZpAy6Vh?=
+ =?us-ascii?Q?pPKKO9r7nmyom4NBt13aWKFof2boNuDLGU8Ab5vb5S+WvWyGnrTt+2RT23Qx?=
+ =?us-ascii?Q?hiv7snHVhl5uUdg=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026); DIR:OUT;
+ SFS:(13230040)(36860700013)(376014)(82310400026)(1800799024); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Feb 2025 16:02:34.2723 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e0827592-b52c-40a6-ee4e-08dd52912794
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Feb 2025 16:02:36.9910 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 75008818-fc34-4460-2974-08dd52912936
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000FCC3.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7442
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6101
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,52 +138,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Yihan Zhu <Yihan.Zhu@amd.com>
+From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 
-[WHY]
-If max_downscale_src_width check fails, we exit early from TAP calculation and left a NULL
-value to the scaling data structure to cause the zero divide in the DML validation.
+[Why]
+If we soft reset before halt finishes and there are outstanding
+memory transactions then the memory interface may produce unexpected
+results, such as out of order transactions when the firmware next runs.
 
-[HOW]
-Call set default TAP calculation before early exit in get_optimal_number_of_taps due to
-max downscale limit exceed.
+These can manifest as random or unexpected load/store violations.
 
-Reviewed-by: Samson Tam <samson.tam@amd.com>
-Signed-off-by: Yihan Zhu <Yihan.Zhu@amd.com>
+[How]
+Increase the timeout before soft reset to ensure the DMCUB has quiesced.
+
+Reviewed-by: Dillon Varone <dillon.varone@amd.com>
+Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Signed-off-by: Zaeem Mohamed <zaeem.mohamed@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dpp/dcn30/dcn30_dpp.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c | 15 ++++++++++-----
+ drivers/gpu/drm/amd/display/dmub/src/dmub_dcn35.c |  2 +-
+ 2 files changed, 11 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dpp/dcn30/dcn30_dpp.c b/drivers/gpu/drm/amd/display/dc/dpp/dcn30/dcn30_dpp.c
-index 40acebd13e46..abf439e743f2 100644
---- a/drivers/gpu/drm/amd/display/dc/dpp/dcn30/dcn30_dpp.c
-+++ b/drivers/gpu/drm/amd/display/dc/dpp/dcn30/dcn30_dpp.c
-@@ -425,11 +425,6 @@ bool dpp3_get_optimal_number_of_taps(
- 	int min_taps_y, min_taps_c;
- 	enum lb_memory_config lb_config;
+diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c
+index 3d0bba602b53..1fac75dfc650 100644
+--- a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c
++++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c
+@@ -83,8 +83,8 @@ static inline void dmub_dcn31_translate_addr(const union dmub_addr *addr_in,
+ void dmub_dcn31_reset(struct dmub_srv *dmub)
+ {
+ 	union dmub_gpint_data_register cmd;
+-	const uint32_t timeout = 100;
+-	uint32_t in_reset, scratch, i, pwait_mode;
++	const uint32_t timeout = 1000000;
++	uint32_t in_reset, is_enabled, scratch, i, pwait_mode;
  
--	if (scl_data->viewport.width > scl_data->h_active &&
--		dpp->ctx->dc->debug.max_downscale_src_width != 0 &&
--		scl_data->viewport.width > dpp->ctx->dc->debug.max_downscale_src_width)
--		return false;
--
- 	/*
- 	 * Set default taps if none are provided
- 	 * From programming guide: taps = min{ ceil(2*H_RATIO,1), 8} for downscaling
-@@ -467,6 +462,12 @@ bool dpp3_get_optimal_number_of_taps(
- 	else
- 		scl_data->taps.h_taps_c = in_taps->h_taps_c;
+ 	REG_GET(DMCUB_CNTL2, DMCUB_SOFT_RESET, &in_reset);
  
-+	// Avoid null data in the scl data with this early return, proceed non-adaptive calcualtion first
-+	if (scl_data->viewport.width > scl_data->h_active &&
-+		dpp->ctx->dc->debug.max_downscale_src_width != 0 &&
-+		scl_data->viewport.width > dpp->ctx->dc->debug.max_downscale_src_width)
-+		return false;
+@@ -125,9 +125,14 @@ void dmub_dcn31_reset(struct dmub_srv *dmub)
+ 		/* Force reset in case we timed out, DMCUB is likely hung. */
+ 	}
+ 
+-	REG_UPDATE(DMCUB_CNTL2, DMCUB_SOFT_RESET, 1);
+-	REG_UPDATE(DMCUB_CNTL, DMCUB_ENABLE, 0);
+-	REG_UPDATE(MMHUBBUB_SOFT_RESET, DMUIF_SOFT_RESET, 1);
++	REG_GET(DMCUB_CNTL, DMCUB_ENABLE, &is_enabled);
 +
- 	/*Ensure we can support the requested number of vtaps*/
- 	min_taps_y = dc_fixpt_ceil(scl_data->ratios.vert);
- 	min_taps_c = dc_fixpt_ceil(scl_data->ratios.vert_c);
++	if (is_enabled) {
++		REG_UPDATE(DMCUB_CNTL2, DMCUB_SOFT_RESET, 1);
++		REG_UPDATE(MMHUBBUB_SOFT_RESET, DMUIF_SOFT_RESET, 1);
++		REG_UPDATE(DMCUB_CNTL, DMCUB_ENABLE, 0);
++	}
++
+ 	REG_WRITE(DMCUB_INBOX1_RPTR, 0);
+ 	REG_WRITE(DMCUB_INBOX1_WPTR, 0);
+ 	REG_WRITE(DMCUB_OUTBOX1_RPTR, 0);
+diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn35.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn35.c
+index e5e77bd3c31e..652173b10401 100644
+--- a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn35.c
++++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn35.c
+@@ -88,7 +88,7 @@ static inline void dmub_dcn35_translate_addr(const union dmub_addr *addr_in,
+ void dmub_dcn35_reset(struct dmub_srv *dmub)
+ {
+ 	union dmub_gpint_data_register cmd;
+-	const uint32_t timeout = 100;
++	const uint32_t timeout = 1000000;
+ 	uint32_t in_reset, is_enabled, scratch, i, pwait_mode;
+ 
+ 	REG_GET(DMCUB_CNTL2, DMCUB_SOFT_RESET, &in_reset);
 -- 
 2.34.1
 
