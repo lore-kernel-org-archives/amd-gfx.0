@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D2A3C021B7
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9383C021B5
 	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2025 15:58:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A6A010EAD0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5183D10EAD1;
 	Fri, 21 Feb 2025 15:58:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3x0SFH49";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="id3qkp2K";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2061.outbound.protection.outlook.com [40.107.223.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1205110EAD0
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Feb 2025 15:58:00 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2080.outbound.protection.outlook.com [40.107.237.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A7A210EACD
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 Feb 2025 15:57:58 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Z2KnPKXSxza4h0LKyuL0SkxuXNvJLyPmyvEtsNHZjbG2sKqiE9KBoUIuy0A4ptPA8XtRP62AVVlCb5nYyWvypRP3GUrAgNeoa3kOxIQCOcAxBnfEWUbTiHdIZIrs5HyT4WFOhtbgLnVcNgl7IudsJI3s+jlg+6xGIi6ezU8HvFAfsOcVXpG1SktdxRhq8O/jF9f4CufnQNXJEQix1q1zNuJuf0phbvcwQ+L15xb5+b7BL2rrv2QHC/5EwdCaRnIb96S6IXlHJV68NK3uK2lg1gIyuaFJMYQfQqJdbi6TW5iInMnT7zljrIcHynPPanl4GM0YaEpzx8fL84rzKK+22Q==
+ b=AONsi6i22ZWW5y3bUmrVo6pzPJPaB48GkAJTqaLaR8bq8fpaSqRYnRDx1AjQOwtbRrfAuo/RI3AS8eQmbHpXe2s6Qxu+FBA3h6OjX/7fnXiLHPfKJSfD1U7yr5yiU5z+XYC24okYFdFGC2iOyGE1goP87p459rHA8qlZU2enUgt5H9ioDAbqr9iTZZb0ljrhXsuZRWDURg9tKFKllmAj+J6Sw5ec8iQ9sSRSGzb4Lx8th9RPzkAH3oxFUVLhd1bIfAS8ciliFOqrHNQkGVz3j5Tvyzl/coI4HRqT9lJb1ft5aMUOK285nm8zo1Citsz6tsxIvFc58a+FJBXKr4C5eg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GjB9yZVEv7VcvpAIR7uRIINFsKrr9P+sYKLwuV8tkEY=;
- b=vE1fiHKk8wKTflUCSBEbjQjxwGgC6kgq5XLzsPb56NsyQXikljqQHSA6FMp80IEHytYNcHDjXaBSPDo5CBu+pGf/3p/wcEeBzo/FDkwkvVL/Gv2wEPaZMis0KdEwb/pmFCtIBwK+NrwAy680Yj0/GcI2yESHJwVIuD3uG1msNs+w8uWjQP/LWQlkc7i95kUYTS/qDGpCcdttK1osvs8HjGbVl6SQ0j5yh4jiULbNxtoB+/cdEwJiDlfQDgGHo8w3NEb3id/RIAmmx7cW6FdUhSc60nxfTehp+BfUJWihVQsrU1bDIxHBRHwTBH+AtjVsIm1LsvcavPMrVhMq91lc5g==
+ bh=d6fYoYWjHT8qHOpxP24OGqdDXxwZV6FMJOuT1zJipXE=;
+ b=x9nLN3POdUQMaSp0EA+Kgd9G9bm7IhOFEksArfEqlouI2x+sIjbWFHR6UM577GwRGHVyLeLQG9ZseSsbJspLaw62+IpFkI+ntvsSkhgbU9yKnuAAcX6qt8O5d5vgJlp6PzXlnHNHuQxoZ6QI+iDAxs3kABFfWZwCSio2a4UwTWTbhzUEKiVMq6kxNnSCdpFBb+ij9iNlZQ0YHDy2xCE8LwGBBG0wVWnl2V/wO33A2kN8hXAgcDmBupf0UKdfEykTxS4lhZRs+bnqwgkYgY+klEsN5WMcCurHn/GyJIXEMUhGlLlnr7ZWCEhQIJamL+31alY6aFSrYuKwefaTvn7klw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GjB9yZVEv7VcvpAIR7uRIINFsKrr9P+sYKLwuV8tkEY=;
- b=3x0SFH49TSCY1ej2dNk8OTcqrqTXpaZmtzEbzn7RiZLuFfqLvABPUMbrTBUOkPBQlRf2bWC2e45PT8I1vnpHlfBsuq+9uNlFvl9S5SmhsY3txvX4BXJk8KF4x0ruVXJYbeLw9/7EJVZLcihNjEe8YqmHUSCcif7K++wNHVvUEqA=
-Received: from MN2PR03CA0024.namprd03.prod.outlook.com (2603:10b6:208:23a::29)
- by DM6PR12MB4073.namprd12.prod.outlook.com (2603:10b6:5:217::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8466.15; Fri, 21 Feb
- 2025 15:57:57 +0000
-Received: from BN3PEPF0000B077.namprd04.prod.outlook.com
- (2603:10b6:208:23a:cafe::c3) by MN2PR03CA0024.outlook.office365.com
- (2603:10b6:208:23a::29) with Microsoft SMTP Server (version=TLS1_3,
+ bh=d6fYoYWjHT8qHOpxP24OGqdDXxwZV6FMJOuT1zJipXE=;
+ b=id3qkp2KcjFkrhL86SpSbDzEXg/a5v28sUx1QU3TmOAsYda/QMZUmmif/d7g5lxlybghD+rJRW5AydiB6SobFIyLUL/r25PisXo5kJLMLAKuWVDHYRi+RkKqGMLitgCVcmKrXzszmjfwrjVgGrksDdt3lowzOalR9cmip2LMpWQ=
+Received: from BN8PR15CA0062.namprd15.prod.outlook.com (2603:10b6:408:80::39)
+ by CY8PR12MB9035.namprd12.prod.outlook.com (2603:10b6:930:77::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8466.18; Fri, 21 Feb
+ 2025 15:57:54 +0000
+Received: from BN3PEPF0000B073.namprd04.prod.outlook.com
+ (2603:10b6:408:80:cafe::67) by BN8PR15CA0062.outlook.office365.com
+ (2603:10b6:408:80::39) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.8466.16 via Frontend Transport; Fri,
- 21 Feb 2025 15:57:56 +0000
+ 21 Feb 2025 15:57:54 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,13 +48,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN3PEPF0000B077.mail.protection.outlook.com (10.167.243.122) with Microsoft
+ BN3PEPF0000B073.mail.protection.outlook.com (10.167.243.118) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8466.11 via Frontend Transport; Fri, 21 Feb 2025 15:57:56 +0000
+ 15.20.8466.11 via Frontend Transport; Fri, 21 Feb 2025 15:57:53 +0000
 Received: from mkmmarleung05.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 21 Feb
- 2025 09:57:54 -0600
+ 2025 09:57:51 -0600
 From: Zaeem Mohamed <zaeem.mohamed@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -62,11 +62,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
  Zuo" <jerry.zuo@amd.com>, Zaeem Mohamed <zaeem.mohamed@amd.com>, Solomon Chiu
  <solomon.chiu@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>, Alex Hung
- <alex.hung@amd.com>, Samson Tam <Samson.Tam@amd.com>, Jun Lei
- <jun.lei@amd.com>
-Subject: [PATCH 08/24] drm/amd/display: fix check for identity ratio
-Date: Fri, 21 Feb 2025 10:57:05 -0500
-Message-ID: <20250221155721.1727682-9-zaeem.mohamed@amd.com>
+ <alex.hung@amd.com>, Navid Assadian <Navid.Assadian@amd.com>, Samson Tam
+ <Samson.Tam@amd.com>
+Subject: [PATCH 06/24] drm/amd/display: Add opp recout adjustment
+Date: Fri, 21 Feb 2025 10:57:03 -0500
+Message-ID: <20250221155721.1727682-7-zaeem.mohamed@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250221155721.1727682-1-zaeem.mohamed@amd.com>
 References: <20250221155721.1727682-1-zaeem.mohamed@amd.com>
@@ -78,52 +78,52 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B077:EE_|DM6PR12MB4073:EE_
-X-MS-Office365-Filtering-Correlation-Id: a000e4d3-25f7-43cc-e22b-08dd529081f2
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B073:EE_|CY8PR12MB9035:EE_
+X-MS-Office365-Filtering-Correlation-Id: 85661596-9530-42ff-c698-08dd52908029
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|376014|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?i0ymxNXy5bnSmavrdbgKIVofoicADjBDpx6QdRMtN5S8+BoAcYI5iB+MYWcd?=
- =?us-ascii?Q?hoGrp0pBM/Ex+ccU7uXrXBI7AtShtGc9Ak6TN+yPobgw4ZfCfWqY1ZMXBNeH?=
- =?us-ascii?Q?3+oBEEeTrcuyq74X5wYmgCXllvaDpAR4PT7O4ZC2F7Wm0eIoQP/KJipzLbjT?=
- =?us-ascii?Q?nUFFfFlpwhcj3m/nCdUD62z+rWEPaHZQXWkrPpGCYZzYR+6AkCxurregaRvj?=
- =?us-ascii?Q?KqlKEkaEo3n/OFwFD/dE68L1N7URJJyXgVpJn9QY8+jaSPQmfOaregPTzfGI?=
- =?us-ascii?Q?SE7xA5OZmNQB7k3pLqiDHmkhNXUJ2WHYJkmVmAvcLUKi0nR0hpfUFFgJ3crZ?=
- =?us-ascii?Q?NgF+f5jdbeBjyyPPKw3GTGIizgLiB8wutSpjNafb7//PD/5SZAYC3hQFQPqs?=
- =?us-ascii?Q?fBww39zVjByR6acNM0lF/JRyEzC3Ee8sJXQTU8VsJadBGoTNnl1wbmhuEPPF?=
- =?us-ascii?Q?3QBY1jMhRv/EHu+kBIP/DwxQzZdiadOqm75h8IQwIi32fc1J5jD5kyR5hI+L?=
- =?us-ascii?Q?5zNzJ3oeJEBH4TOLhVeWxJPVTNNjoFkpVOhwHQi7dTtww0zUsYtk8hAmdFy+?=
- =?us-ascii?Q?Yi+n3pVuOOJMUpHB4ptMoxsjMT9bLdU+2qt3f8rKF2A+I6gWkF20tN7bjnMa?=
- =?us-ascii?Q?sQ3MAcYiwop1pTlPJfkEPIK2bfC7jxsk1UVWm0SLcJvThzCB/VXbDOvnuCjo?=
- =?us-ascii?Q?Eutbx9e9llhCeb0SvEZsC2hrlHbtXynLMT9BkL27eATsdc/viSZMEut7oTEC?=
- =?us-ascii?Q?tm1GgIeWvFLddTmDewIlizcAThsHawAsAPlUscMd48pqs0xc3oCTfBV6Kx47?=
- =?us-ascii?Q?OIqnhjrGM2wB65Ru1rHAYDX5wv+Xkcy4tXpnNdblQYym2AXW6tbvojDrrLl/?=
- =?us-ascii?Q?hzi/eaO5pMG8iJOeBv4mh2xRogE2HHc8wXa10qGe2retMLZTNytnCVuBE4Oz?=
- =?us-ascii?Q?58HnzJiBT/EeRIS8h8t5yaiyoWQ+lccMMdizAVASk2UK/hfDsixxhAApeNUu?=
- =?us-ascii?Q?xsucesQCrtAla2uKBnEYVGOlC4d0J/sYn98+nwrLROMNZU1SsoAHC0Cv1rgA?=
- =?us-ascii?Q?7ahux+aAR5XlGOnJPeh0uq1I/In9r2ml+qtn0j1h5xkuUW11urkOjUi9zrED?=
- =?us-ascii?Q?F4S8ISUNxkUUdHo6xJBpopTj2vElE9hPa07DWsql4UcfYdnVwdndRs2c9s6/?=
- =?us-ascii?Q?QTm9q0TtCrIwtPIdXhp4YsbwzGwIBkuM2FEGN8jlIbXH4FBnzeLAeq/bR0TL?=
- =?us-ascii?Q?pEjzqU4ULCXGWZyY6QJAgDfRB09fzicOdGWk5gaPiQThIv4jU382F+jDMt17?=
- =?us-ascii?Q?7S67XPO9juIT1BbTr6C8tXXEq9cGlpKhBT2HHXtf+RQ/80lJDZ8ywQCkkoAA?=
- =?us-ascii?Q?Xuy4IKSDO+3lZ4g/bVd1QSiDGxXoxnI5/53TbrgJQQd7EuysgibXLv1istqJ?=
- =?us-ascii?Q?Ze6ATl6YskTuHt1lt46jYKlPGu2CYjqAYUk0ukd0WHp4s1uG5FHT6O7aBrHd?=
- =?us-ascii?Q?RKEfz7suWULNCkk=3D?=
+ ARA:13230040|376014|36860700013|1800799024|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?Sc0Vhwp+coPSgajWGXWLfT8F3u2o6ltqDP90Yf6cYaUgSxDGnQ6oRifuGSd0?=
+ =?us-ascii?Q?zFrYqpL/WLvX2lwaepozlzNfb+wbCQ0IHdzo4kqEYdFdbB6KFzfnZQWrE4aj?=
+ =?us-ascii?Q?7VdwpVfZPwag5P1Xh/iK89AtSoBUGwzhK4+D1ymle4VNZ0ruJHpJM2ooW6Wt?=
+ =?us-ascii?Q?WZShPacMfEYi2B3PFCdwJgHsVgF5xoagcNOvDtuV6R1nJhdQFu+u2++rwjW0?=
+ =?us-ascii?Q?G/0IHgHCdtc0kBOayU7zbtoTRU1B8dMDPWQuZ3OAMAs1Pp03vzPnU2Sdy85N?=
+ =?us-ascii?Q?nnErpW+DKprTSU+8SWNr2RnVAUjHFV0zFUDC6ndwzMKP84d4RpTnT2S1Vqq6?=
+ =?us-ascii?Q?FuuX97AebVrULdKK5ADXupZbCTT+dhKxG/Y0XQt47+PbmiAgGSiLxtFrn4K3?=
+ =?us-ascii?Q?Qnma1WbLS7As96rRTmoXlucvWMEnEvstE8oLhhgyHX4nf/RZQKesYgCuRXBB?=
+ =?us-ascii?Q?6q6aoxB6L1MdRsC07Re1G7LB2Zx9aG2HPWv6b8Ca4MZtgFMF2Eko++UFB51S?=
+ =?us-ascii?Q?YwfiY3O0Foct1IHN3l9WedzYG8dO6HRuYtbN/kvpGpku8fqDkYA5mYapT/ZV?=
+ =?us-ascii?Q?QUkFqc7sb1yNDlKM5s1lmSQgE88geluZdq2lbmB3yCb+oKxHf/eig8134tgv?=
+ =?us-ascii?Q?XG8Mmqz03bVfKBtt+ny3MgbxoHFfYtB66rQArGg6mqYqMV6AelkjpZT0Ko67?=
+ =?us-ascii?Q?C7V32tzTFyYsnhOmKLacg7DwKjMN3i58P/R69JMGaFJ0aOujKTlhgx2CYyTY?=
+ =?us-ascii?Q?Gp59N/OpVCzrsXP9HZ784CuCSvwt3swHZkfDZsBbbnA9RhWkthgfcp3ayOmz?=
+ =?us-ascii?Q?qa9rknQefHfVPrBxFM/1C7YSXeT1mFKlDCHzTftbTs5tyh/T/+UzrMeWRw+D?=
+ =?us-ascii?Q?z4Px+YqIA9FhRrZfvrpUYJCqYjXs1FhkUd8wX0OpgQ386eCyT6y1vcP/3QOk?=
+ =?us-ascii?Q?bWO7DSw00/21UDDFl5G3sKQ1QRWnK5oXPdFsCuVXHRmHX1NBm7Q0Cb/uAbpQ?=
+ =?us-ascii?Q?rCNJvTzEsZsAfl32sHTnhu1iHtWVDeN2sxpY2vwo/veWPZI+3D/RaFvOCIcW?=
+ =?us-ascii?Q?PerldxmG7m9k+uyNkp8kZECNVwurK28zkdTwKCbx+zEMRH0t6HovlZ+Rr0vs?=
+ =?us-ascii?Q?9uHKaQESOBUYhiOdAZnr9aH1XiCnPbVu7Vx0YZAvLS/UmK2gIQzkzvv9pB6X?=
+ =?us-ascii?Q?XgqsnYWgWSjFocH02DM4YjjK3IYNzL1aYTmZeevqXDAhiXbwq9I/rfAIB5xz?=
+ =?us-ascii?Q?gr0dQGJVsS32XkHBSrJXKPA5EsEKJiurhnkUQ1ib82zBIkbHSxVpxacRdz20?=
+ =?us-ascii?Q?CC0cOtespgD9bCWfP5f4oN8Vv0vfJGTG414vyBzDFGanzAWJ780SXS+wLihx?=
+ =?us-ascii?Q?P0cNHWqsFin3bKNEZR4y3/8bdM2D9ReEFZPxxHYYLUbW9srS6+IVqkCY0aNq?=
+ =?us-ascii?Q?BjU32igZ+RMGLxMRW5uJWX1xqyu5AasgRdwSJw0d9OVIcHB2mTXewLlD65I5?=
+ =?us-ascii?Q?fxvwZoSWUjQLhKQ=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(376014)(36860700013); DIR:OUT;
+ SFS:(13230040)(376014)(36860700013)(1800799024)(82310400026); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Feb 2025 15:57:56.4643 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a000e4d3-25f7-43cc-e22b-08dd529081f2
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Feb 2025 15:57:53.4686 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 85661596-9530-42ff-c698-08dd52908029
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B077.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B073.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4073
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB9035
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,69 +138,123 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Samson Tam <Samson.Tam@amd.com>
+From: Navid Assadian <Navid.Assadian@amd.com>
 
 [Why]
-IDENTITY_RATIO check uses 2 bits for integer, which only allows
- checking downscale ratios up to 3.  But we support up to 6x
- downscale
+For subsampled YUV output formats, more pixels can get fetched and be
+used for scaling.
 
 [How]
-Update IDENTITY_RATIO to check 3 bits for integer
-Add ASSERT to catch if we downscale more than 6x
+Add the adjustment to the calculated recout, so the viewport covers the
+corresponding pixels on the source plane.
 
-Signed-off-by: Samson Tam <Samson.Tam@amd.com>
-Reviewed-by: Jun Lei <jun.lei@amd.com>
+Signed-off-by: Navid Assadian <Navid.Assadian@amd.com>
+Reviewed-by: Samson Tam <Samson.Tam@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/sspl/dc_spl.c | 21 +++++++++++++++++++-
- 1 file changed, 20 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/sspl/dc_spl.c  | 31 +++++++++++++++----
+ .../drm/amd/display/dc/sspl/dc_spl_types.h    | 10 ++++++
+ 2 files changed, 35 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/dc/sspl/dc_spl.c b/drivers/gpu/drm/amd/display/dc/sspl/dc_spl.c
-index 3d85732cc0f5..047f05ab0181 100644
+index 31495c9978b0..72a79288ab79 100644
 --- a/drivers/gpu/drm/amd/display/dc/sspl/dc_spl.c
 +++ b/drivers/gpu/drm/amd/display/dc/sspl/dc_spl.c
-@@ -8,7 +8,7 @@
- #include "dc_spl_isharp_filters.h"
- #include "spl_debug.h"
+@@ -76,6 +76,21 @@ static struct spl_rect shift_rec(const struct spl_rect *rec_in, int x, int y)
+ 	return rec_out;
+ }
  
--#define IDENTITY_RATIO(ratio) (spl_fixpt_u2d19(ratio) == (1 << 19))
-+#define IDENTITY_RATIO(ratio) (spl_fixpt_u3d19(ratio) == (1 << 19))
- #define MIN_VIEWPORT_SIZE 12
++static void spl_opp_adjust_rect(struct spl_rect *rec, const struct spl_opp_adjust *adjust)
++{
++	if ((rec->x + adjust->x) >= 0)
++		rec->x += adjust->x;
++
++	if ((rec->y + adjust->y) >= 0)
++		rec->y += adjust->y;
++
++	if ((rec->width + adjust->width) >= 1)
++		rec->width += adjust->width;
++
++	if ((rec->height + adjust->height) >= 1)
++		rec->height += adjust->height;
++}
++
+ static struct spl_rect calculate_plane_rec_in_timing_active(
+ 		struct spl_in *spl_in,
+ 		const struct spl_rect *rec_in)
+@@ -723,13 +738,15 @@ static void spl_handle_3d_recout(struct spl_in *spl_in, struct spl_rect *recout)
+ 	}
+ }
  
- static bool spl_is_yuv420(enum spl_pixel_format format)
-@@ -887,6 +887,8 @@ static bool spl_get_isharp_en(struct spl_in *spl_in,
- static void spl_get_taps_non_adaptive_scaler(
- 	  struct spl_scratch *spl_scratch, const struct spl_taps *in_taps)
+-static void spl_clamp_viewport(struct spl_rect *viewport)
++static void spl_clamp_viewport(struct spl_rect *viewport, int min_viewport_size)
  {
-+	bool check_max_downscale = false;
-+
- 	if (in_taps->h_taps == 0) {
- 		if (spl_fixpt_ceil(spl_scratch->scl_data.ratios.horz) > 1)
- 			spl_scratch->scl_data.taps.h_taps = spl_min(2 * spl_fixpt_ceil(
-@@ -926,6 +928,23 @@ static void spl_get_taps_non_adaptive_scaler(
- 	else
- 		spl_scratch->scl_data.taps.h_taps_c = in_taps->h_taps_c;
++	if (min_viewport_size == 0)
++		min_viewport_size = MIN_VIEWPORT_SIZE;
+ 	/* Clamp minimum viewport size */
+-	if (viewport->height < MIN_VIEWPORT_SIZE)
+-		viewport->height = MIN_VIEWPORT_SIZE;
+-	if (viewport->width < MIN_VIEWPORT_SIZE)
+-		viewport->width = MIN_VIEWPORT_SIZE;
++	if (viewport->height < min_viewport_size)
++		viewport->height = min_viewport_size;
++	if (viewport->width < min_viewport_size)
++		viewport->width = min_viewport_size;
+ }
  
+ static enum scl_mode spl_get_dscl_mode(const struct spl_in *spl_in,
+@@ -1764,6 +1781,8 @@ static bool spl_calculate_number_of_taps(struct spl_in *spl_in, struct spl_scrat
+ 	spl_calculate_recout(spl_in, spl_scratch, spl_out);
+ 	/* depends on pixel format */
+ 	spl_calculate_scaling_ratios(spl_in, spl_scratch, spl_out);
++	/* Adjust recout for opp if needed */
++	spl_opp_adjust_rect(&spl_scratch->scl_data.recout, &spl_in->basic_in.opp_recout_adjust);
+ 	/* depends on scaling ratios and recout, does not calculate offset yet */
+ 	spl_calculate_viewport_size(spl_in, spl_scratch);
+ 
+@@ -1800,7 +1819,7 @@ bool spl_calculate_scaler_params(struct spl_in *spl_in, struct spl_out *spl_out)
+ 	// Handle 3d recout
+ 	spl_handle_3d_recout(spl_in, &spl_scratch.scl_data.recout);
+ 	// Clamp
+-	spl_clamp_viewport(&spl_scratch.scl_data.viewport);
++	spl_clamp_viewport(&spl_scratch.scl_data.viewport, spl_in->min_viewport_size);
+ 
+ 	// Save all calculated parameters in dscl_prog_data structure to program hw registers
+ 	spl_set_dscl_prog_data(spl_in, &spl_scratch, spl_out, enable_easf_v, enable_easf_h, enable_isharp);
+diff --git a/drivers/gpu/drm/amd/display/dc/sspl/dc_spl_types.h b/drivers/gpu/drm/amd/display/dc/sspl/dc_spl_types.h
+index 467af9dd90de..0130673ceee6 100644
+--- a/drivers/gpu/drm/amd/display/dc/sspl/dc_spl_types.h
++++ b/drivers/gpu/drm/amd/display/dc/sspl/dc_spl_types.h
+@@ -427,6 +427,14 @@ struct spl_out	{
+ 
+ // SPL inputs
+ 
++// opp extra adjustment for rect
++struct spl_opp_adjust {
++	int x;
++	int y;
++	int width;
++	int height;
++};
 +
-+	/*
-+	 * Max downscale supported is 6.0x.  Add ASSERT to catch if go beyond that
-+	 */
-+	check_max_downscale = spl_fixpt_le(spl_scratch->scl_data.ratios.horz,
-+		spl_fixpt_from_fraction(6, 1));
-+	SPL_ASSERT(check_max_downscale);
-+	check_max_downscale = spl_fixpt_le(spl_scratch->scl_data.ratios.vert,
-+		spl_fixpt_from_fraction(6, 1));
-+	SPL_ASSERT(check_max_downscale);
-+	check_max_downscale = spl_fixpt_le(spl_scratch->scl_data.ratios.horz_c,
-+		spl_fixpt_from_fraction(6, 1));
-+	SPL_ASSERT(check_max_downscale);
-+	check_max_downscale = spl_fixpt_le(spl_scratch->scl_data.ratios.vert_c,
-+		spl_fixpt_from_fraction(6, 1));
-+	SPL_ASSERT(check_max_downscale);
-+
- 	if (IDENTITY_RATIO(spl_scratch->scl_data.ratios.horz))
- 		spl_scratch->scl_data.taps.h_taps = 1;
- 	if (IDENTITY_RATIO(spl_scratch->scl_data.ratios.vert))
+ // Basic input information
+ struct basic_in	{
+ 	enum spl_pixel_format format; // Pixel Format
+@@ -444,6 +452,7 @@ struct basic_in	{
+ 		} num_slices_recout_width;
+ 	} num_h_slices_recout_width_align;
+ 	int mpc_h_slice_index; // previous mpc_combine_v - split_idx
++	struct spl_opp_adjust opp_recout_adjust;
+ 	// Inputs for adaptive scaler - TODO
+ 	enum spl_transfer_func_type tf_type; /* Transfer function type */
+ 	enum spl_transfer_func_predefined tf_predefined_type; /* Transfer function predefined type */
+@@ -535,6 +544,7 @@ struct spl_in	{
+ 	bool is_hdr_on;
+ 	int h_active;
+ 	int v_active;
++	int min_viewport_size;
+ 	int sdr_white_level_nits;
+ 	enum sharpen_policy sharpen_policy;
+ };
 -- 
 2.34.1
 
