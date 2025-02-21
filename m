@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0B21C021B3
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2025 16:02:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D478C021B5
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2025 16:02:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 624F110EAE3;
-	Fri, 21 Feb 2025 16:02:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D013510EAE4;
+	Fri, 21 Feb 2025 16:02:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="tZRdwkTi";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="cAALY/mE";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2064.outbound.protection.outlook.com [40.107.93.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C817F10EAE4
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on2088.outbound.protection.outlook.com [40.107.102.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89EE010EADC
  for <amd-gfx@lists.freedesktop.org>; Fri, 21 Feb 2025 16:02:33 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MGYqKXyBd/TIt8MuamiRDB0SMhBq80aGVKYsPjeQ9hhaHMHr7eg80D3ipMeTzBZlbHYEWdjYfyy5FSghX0wcE5WwzKnxpwM2KK4XErME7V7rUknR92iXXiDtyaMrJTepRRrzj/nsxS4rtlnNSZn5t+Kg6rMMd86+2TwHK8rPOFwDZv8jH/ZXyGBiVMMUM/92lzTrLeT56fg6eHTF7hZTI8P9Pf4hQQO6N6sjgvNjbeJQRbIXHdMASK2guYXkO8eW5nlkOHY2kizDiZI6dgFfF9Ac8mq5IrKJKhi+qSJaehya9bc+Eh+aI0Xdu2mNFHX67rZmZC5BdMGwmphi85b1mA==
+ b=XtAh9MYj5YdzikxcgAhRtcvKgn5E10y1TKcVKQ2W0bR1Eo//zYf6LU0ADi0rNkwwvz3E+JUrVVuO0M13hE7qr3Rl/JSk/kDqKA0sywPyEAUtgweQnORuQXwOnCVBNchMi3vbZTe+0Ay3mrb7l95QL0FTU31mgOO9tw+FUGAXXE5iTn2fki/UbiG8MLH7ln/oRbIoPxYX+Ucz/GmHkcNaD5c79VcpdWGdaUPTtC/pYFip2zviDSp+skeKi/yax9Nm8J2YG/fCQumIUSIba9ngOnvB2DANCt5k5TSYEAFIhHO4SGPSRveMsD+yd0hoaZSZzilhG4Y0r3y5H31k52bLfA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XpsymxPNJZ50/O42y6ThgUb3weSVePoJWV9pQg/Zi30=;
- b=k8PFVeNXDi+EgRgTkC/oeO2/mZBjG61QMhg3Gd32NWNc2QqNVt21cbmNlv3cK4F0QrQJhNSCFGZ8rW/2wGc+nSZEEpr/vHH3LM/57GYKTQPkdWXlr4XvPjrM4cJbvsGJpvnhMd1yiYX+8Md2hg50V2gif4kHixf6WTSOXLwvxl4bfzlLDbNQ5ZlQq2LQmnlkMQZcoVeh2OMLEiSqkWgcwH0S2ll3vqiiLEDpk14ea5OENPvzvIBekard1Fd+XtrYNM4MrapHAENiAfVQLJKCtblPDwbHsyXeAYxqvP6baB+bg1GofjgNxdePy771+2iBVLUnQrkzZGoIMVd6h6g7xw==
+ bh=gLAFUd6DXgARALC7omnO2dd+gm/EUE3BwVOS4Jwkvew=;
+ b=o8SSCvvydsrDp05fBw57lFddEf81s2y7lAh1sDi0HF1BP1adyENIK4Fv01DAW2uQ2OWxf7z90ucil5nBKkazyoiv7ZQK1ET/Ia9fxtZ3rTfm95oo60pNGfPXZFW0KNBT3u9DOgmSAVMm0b6/0OrbZHMgCoaflJoVQh8ohPkC1nKbBa9woUChfBjJvNb7rpl9RWWB8S4sgDML03GOsqAYXOL9z/7xwnppoPJGc6HVOqQSD9bpmLGctUhJskTfVXGeh78Gd7RhGAE9vaaWo8wrQHR2JpbG7rkgDqVg8TYKXhuIEFI7MSLKdcKP0U3Q0gB+BDACdB2ELhHv8gzj9AvsuA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XpsymxPNJZ50/O42y6ThgUb3weSVePoJWV9pQg/Zi30=;
- b=tZRdwkTigcHdWVRUd1viKGPotE+hhc7iuDItY28epkHVMk6gcMQw0CTcF9FsoyjMSSYvDgKUdRZUVkae7L8IjhaDPFT3tMrmUNuOioAyTkEOmlS8FKBcGZgWzJqYDtZLntLtpYgO8PwF1Bjd4Xgbr+JyRENZsWmDO5uaTHnSys4=
-Received: from PH7P220CA0042.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:32b::25)
- by DM4PR12MB5772.namprd12.prod.outlook.com (2603:10b6:8:63::10) with
+ bh=gLAFUd6DXgARALC7omnO2dd+gm/EUE3BwVOS4Jwkvew=;
+ b=cAALY/mEPWfV9T4ww6cA1hQPzaPwjqb33HgQ77rb+eyOAy9ZyjalXjvbNfd8XdoVBp/F1HCvVpuwY3XYYRoR7zSr7d3Jv0S/lHliHDUU1/yv7molSCNTSBNEaQSQudSlXEJf0MRqyPRwkVn1I/ExIopAusDq5NxCHGK2Xy0sdTk=
+Received: from PH7P220CA0034.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:32b::7)
+ by SJ2PR12MB8953.namprd12.prod.outlook.com (2603:10b6:a03:544::14) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8466.16; Fri, 21 Feb
- 2025 16:02:26 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8466.17; Fri, 21 Feb
+ 2025 16:02:23 +0000
 Received: from CY4PEPF0000FCBF.namprd03.prod.outlook.com
- (2603:10b6:510:32b:cafe::4d) by PH7P220CA0042.outlook.office365.com
- (2603:10b6:510:32b::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8466.17 via Frontend Transport; Fri,
- 21 Feb 2025 16:02:26 +0000
+ (2603:10b6:510:32b:cafe::fe) by PH7P220CA0034.outlook.office365.com
+ (2603:10b6:510:32b::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8466.16 via Frontend Transport; Fri,
+ 21 Feb 2025 16:02:23 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,11 +50,11 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CY4PEPF0000FCBF.mail.protection.outlook.com (10.167.242.101) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8466.11 via Frontend Transport; Fri, 21 Feb 2025 16:02:26 +0000
+ 15.20.8466.11 via Frontend Transport; Fri, 21 Feb 2025 16:02:23 +0000
 Received: from mkmmarleung05.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 21 Feb
- 2025 10:02:18 -0600
+ 2025 10:02:15 -0600
 From: Zaeem Mohamed <zaeem.mohamed@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -62,11 +62,12 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
  Zuo" <jerry.zuo@amd.com>, Zaeem Mohamed <zaeem.mohamed@amd.com>, Solomon Chiu
  <solomon.chiu@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>, Alex Hung
- <alex.hung@amd.com>, "Patel, Swapnil" <Swapnil.Patel@amd.com>, Charlene Liu
- <charlene.liu@amd.com>
-Subject: [PATCH 13/24] drm/amd/display: Refactor DCN4x and related code
-Date: Fri, 21 Feb 2025 11:01:34 -0500
-Message-ID: <20250221160145.1730752-14-zaeem.mohamed@amd.com>
+ <alex.hung@amd.com>, Peichen Huang <PeiChen.Huang@amd.com>, Wenjing Liu
+ <wenjing.liu@amd.com>, Meenakshikumar Somasundaram
+ <meenakshikumar.somasundaram@amd.com>
+Subject: [PATCH 11/24] drm/amd/display: replace dio encoder access
+Date: Fri, 21 Feb 2025 11:01:32 -0500
+Message-ID: <20250221160145.1730752-12-zaeem.mohamed@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250221160145.1730752-1-zaeem.mohamed@amd.com>
 References: <20250221160145.1730752-1-zaeem.mohamed@amd.com>
@@ -78,52 +79,52 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000FCBF:EE_|DM4PR12MB5772:EE_
-X-MS-Office365-Filtering-Correlation-Id: e0da63a4-ced8-4e1d-ff9c-08dd529122cf
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000FCBF:EE_|SJ2PR12MB8953:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1d27e38a-d6ec-48bf-ff7c-08dd52912129
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|82310400026|1800799024|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?14UuTyjspvqE3NPlGukXKsqUA/6wsQ99oam0WNzLVqF3+HJjH3PTfrCS0zzd?=
- =?us-ascii?Q?9Kstm+L93C4iHhPnU/Fn2LW6giYBuz89gUgJ42PSOeQ9L51elWCbUoyklEut?=
- =?us-ascii?Q?wTH6vzwihCOPfnzNjZXcRZXcFq5AZ2ES1OmczvczDhsr2cZpj3KJn8uAW0PM?=
- =?us-ascii?Q?wnJny/MW3l/7RSxLur6pARdguzDIUt9bwvrJIF0J1LkOKe7bwX5WXMGog8jh?=
- =?us-ascii?Q?hrFowcyKqVBRDKvjS+BZThm7MkOtF2IIQbqiB/AfsNitLyAkSSAS8RFGcYSo?=
- =?us-ascii?Q?21DmcjN60CNE5AU5Faib/YyCaYwIClCSIw0/3IAoqdiw7X3MFuPzRvszV2nJ?=
- =?us-ascii?Q?dAnLi/t/Hg0VCAxdgmPLJ2UNmreMK8UtOvz9uR6M8Fi/q6pFMNou0qjvu5Hs?=
- =?us-ascii?Q?I9+bJ2PN1EjCvMyDd5iciD4Lcl2WZE5+Oa1dB0GdQM022CF3ri8hC7KE82C5?=
- =?us-ascii?Q?xraTzLanqdDp28V9O0g68LLOPIy4woC0xefd7qd4kaeVDDbRq7Bc6FDCDjPj?=
- =?us-ascii?Q?+SfIg8qi4rqwv+gSqP/6CNqx+p6cCg/Ik62yV3zEUtR+MeMbzvB16EXHCyvC?=
- =?us-ascii?Q?BtZRcMJigs0lv6wI+eYFLSe4Q+tOhwUsv4TlKg3zfITC6egwFsZdjE/Db7hq?=
- =?us-ascii?Q?t20QUleyfvCm+FMgzFTiQawElHASXAqLuX5cf0mMpV9SwjFDKG66R43w59dJ?=
- =?us-ascii?Q?YoDr3m2kQv1wBltR1BoBWm90bCi8YEpO3HHsT7/Src9nvka9cmgdGA8+NbRF?=
- =?us-ascii?Q?thL4gbv7/ekZ9oEUrFO6IYbJFDO0psq9ASwXW51eEXTNwO/IayfWwRBa9Ak8?=
- =?us-ascii?Q?O9lZDnPWEtkfTeoq6Nnc/LSL2rPJC2zP6v/TjJtNIRUAnGzZq60We3ZW2SU9?=
- =?us-ascii?Q?3hIAEQY8aaE3+RnBuBNZKEa46iqEe5qJ2EGod4D0DKMLU0UcPOpYlwUceOWQ?=
- =?us-ascii?Q?l1aB3kkjh11DIigPJzzYC7ADUrVA2C7rhsOkfmtLHlD8eAM/YQ1y3RBT4hTW?=
- =?us-ascii?Q?L8WKsM8dfjfg5L7xAnQp33+RvzIuQv8hLYlc3z+Re1pEK4q+K8mJAQXNgPBu?=
- =?us-ascii?Q?4OGSQY2I+bCN91uWNycni4yEhqSgTOnBMmzF2sotuY86UL0RasP5kmoPuGP6?=
- =?us-ascii?Q?10QxjHbKsyIuSvADdxg3BM6Qlqwli3QorIyyZyZ+rG12t76oYMJEcDsbxmQD?=
- =?us-ascii?Q?z9MsKXCcvLF9f/VM7RIGSjn7q9u7Au/RurV/il/e3Zow4Lje/5O2u5L4h4Lb?=
- =?us-ascii?Q?L39Lo3zo+j9gLbqVt+/hDS6a8RTYhDVYq2s0hjQPYtlNXwAqaAMFYUqZZvsm?=
- =?us-ascii?Q?v8VSJ5NfYVUjAOCdgJ8ODlfYuduxXoDemLBcDRizYBTlFM1EXR5aVfuRifPs?=
- =?us-ascii?Q?ABGgdrzA7epzZ5Qpk+YIr3V9jxwfPf2g1Bo0LfYVoTYvqFqbnvvxZOVjw6gL?=
- =?us-ascii?Q?CEthNh460h37S7ZyKrrhHo71VeplwAYjtH66vhrLFA6Rm5NfO4dJ9FPnVqOU?=
- =?us-ascii?Q?vuTZ2WcFKzEONHc=3D?=
+ ARA:13230040|376014|82310400026|1800799024|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?n8DpLFZZY8t2HuFm77F9MT6UDapAf0HJExBulIVkfB8eIAZiH3mMFIpwxQOS?=
+ =?us-ascii?Q?SHmBE4jf05+TMeUKWf9VjiAgX1MVj4t93wOJ59bgH7HLWTi9wh+A+AOvJv1u?=
+ =?us-ascii?Q?vFCq+z3xk9rdka0twXjEx1ltJwC/82bn9B1U0eA+RLgcpWFpTsWWqvNwkiPa?=
+ =?us-ascii?Q?WuO2VWHlB0SBu2ucm9QkxTfZ2Jysn2Tx/rMW7u5LPUeSBY04+9FZ5fZPloYC?=
+ =?us-ascii?Q?mqNBZVqZj1XvKDqlkRZy182d7+L3lqqHIDs4gIpERolzbjemGUjYub4N6xZa?=
+ =?us-ascii?Q?iROEFfkwtgx4ra7xjh1akSvhs4nAwiUlLXUV8w4sOHaK3gxzQuH2e4r4JC8S?=
+ =?us-ascii?Q?FG/c18eN34Lx7bWHB3GUFBR4c0MPq0O/hdYdX2OPZDTArCEdw9SLtPJ6nk/m?=
+ =?us-ascii?Q?UD1JtwZQ76lsm2sFWXfGovyXNbh4nlO0VceyToaG3/wqZJNzlSVt6xaG4b83?=
+ =?us-ascii?Q?VfHjjSyXHd/PnR+qGfOHWmd3YQqDrgBMhphwb9hZKdmBNjSV/ISDJEyPNvGL?=
+ =?us-ascii?Q?wDvGGydnRwi7Xa/Rn7B8fZHfE2bcKzforz3zr+cBiIOtCnZNw+lpsJlXDhhZ?=
+ =?us-ascii?Q?yPgoa6CsJ2jr14NFsCLdvqqnFClMSY+LiwmXTkd2dT/T6dzNIEuU/dOS9X7V?=
+ =?us-ascii?Q?t49i4mWlWZ4FrRFW1XnyiiGKrAn199AE1aU5t/5mZbVDGJMPqmTM2pJHuD3I?=
+ =?us-ascii?Q?lXVRXCEkx9fgeVfCCcdtVT/wcHVQ8agzCr4Iv83M4ipx/5mcf0h2GrMs+Gg/?=
+ =?us-ascii?Q?E+L9GP8G9y7IbsYdWUDoGP4bI71lj5pmBvsbEQaDO0MltJttj0guMwQSaOTN?=
+ =?us-ascii?Q?u4GakLmRUGEQ3ZZh0ZgtEKa+UmvJ/5SQyuwPPkfhNCKZWHNREbE+RVp+ucnV?=
+ =?us-ascii?Q?WiHpo3RkZED4VSLIuiCya/w0zVMvghFEEIrl13rLEAUPjtAXNxQz9JUaxiB+?=
+ =?us-ascii?Q?taWHufNxujbFvsgq0D9ZS7A1IEHw7+hzm8qC72V/uk2RSx/MltPK3Bt/L3G6?=
+ =?us-ascii?Q?LhW/KzLTgbTt1OArj2iCdnoKlA52D8ojUtHxs+YGUIgoVnNbDxK03vki7jhu?=
+ =?us-ascii?Q?NzoccH7RfT5pmdfp5wq7/Tbxh/gFMJWibF9TILBBCQIdBjjfGbwkuwYzkhOF?=
+ =?us-ascii?Q?fc+0FVPtB7BhNdzkdRJwlFU170jiacPb+IhG0CQ+mMu/mS+/ilwaTa5E8+wh?=
+ =?us-ascii?Q?g/X4B/93ET7+ZVcuZ5vmWUZNaQ52ous6ZWeBea7+8b4LJV0UK91jvl835tls?=
+ =?us-ascii?Q?94/bb4UpWhufbql/ldBnQdJSsTLhFyJL9FYazyJWT7KwdKoKOh2/UQy0tKoC?=
+ =?us-ascii?Q?BhcCkG8PxzESJQTkiH/4ReqCPQVCNG9Nd55JdKHazrRLmUB9m0aiRaDZS556?=
+ =?us-ascii?Q?Ym6/tCNaqWpxtI3Sp4NMnJE8auxxu2R4r2RpSCOHuGqp8DpQpnFVP/jWn4LM?=
+ =?us-ascii?Q?ngFfOgP1gpMkP48f/0bcfetAH3//iEds42JslEGTNfCZnEpV2xS9F3dDviwS?=
+ =?us-ascii?Q?k35ADkahwP0YaJc=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(82310400026)(1800799024)(376014); DIR:OUT;
+ SFS:(13230040)(376014)(82310400026)(1800799024)(36860700013); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Feb 2025 16:02:26.2708 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e0da63a4-ced8-4e1d-ff9c-08dd529122cf
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Feb 2025 16:02:23.4895 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1d27e38a-d6ec-48bf-ff7c-08dd52912129
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000FCBF.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5772
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8953
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,762 +139,729 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: "Patel, Swapnil" <Swapnil.Patel@amd.com>
+From: Peichen Huang <PeiChen.Huang@amd.com>
 
-[why & how]
-Refactor existing code related to DCN4x for better code sharing with
-other modules
+[WHY]
+replace dio encoder access to work with new dio encoder
+assignment.
 
-Reviewed-by: Charlene Liu <charlene.liu@amd.com>
-Signed-off-by: Swapnil Patel <Swapnil.Patel@amd.com>
+[HOW}
+1. before validation, access dio encoder by get_temp_dio_link_enc()
+2. after validation, access dio encoder through pipe_ctx->link_res
+
+Reviewed-by: Wenjing Liu <wenjing.liu@amd.com>
+Reviewed-by: Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>
+Signed-off-by: Peichen Huang <PeiChen.Huang@amd.com>
 Signed-off-by: Zaeem Mohamed <zaeem.mohamed@amd.com>
 ---
- .../amd/display/dc/dccg/dcn20/dcn20_dccg.h    |  94 ++++----
- .../amd/display/dc/dccg/dcn401/dcn401_dccg.c  |   2 +-
- .../amd/display/dc/dccg/dcn401/dcn401_dccg.h  |   5 +-
- .../dc/dio/dcn401/dcn401_dio_stream_encoder.c |   2 +-
- .../dc/dio/dcn401/dcn401_dio_stream_encoder.h |   5 +
- .../drm/amd/display/dc/dml2/dml2_wrapper.c    |   3 +-
- .../amd/display/dc/dpp/dcn401/dcn401_dpp.h    | 148 ++++++------
- .../dc/hpo/dcn31/dcn31_hpo_dp_link_encoder.c  |  10 +-
- .../dc/hpo/dcn31/dcn31_hpo_dp_link_encoder.h  |   6 +
- .../dc/hpo/dcn32/dcn32_hpo_dp_link_encoder.h  |   3 +
- .../drm/amd/display/dc/hwss/dce/dce_hwseq.h   |   1 +
- .../amd/display/dc/mpc/dcn401/dcn401_mpc.h    |  31 ++-
- .../amd/display/dc/optc/dcn10/dcn10_optc.h    | 221 +++++++++---------
- 13 files changed, 282 insertions(+), 249 deletions(-)
+ .../gpu/drm/amd/display/dc/core/dc_resource.c |  2 +-
+ .../amd/display/dc/hwss/dce110/dce110_hwseq.c |  5 +-
+ .../amd/display/dc/hwss/dcn20/dcn20_hwseq.c   |  5 +-
+ .../amd/display/dc/hwss/dcn401/dcn401_hwseq.c |  5 +-
+ drivers/gpu/drm/amd/display/dc/inc/resource.h |  5 ++
+ .../amd/display/dc/link/hwss/link_hwss_dio.c  | 66 ++++++++++++++++---
+ .../hwss/link_hwss_dio_fixed_vs_pe_retimer.c  |  5 +-
+ .../amd/display/dc/link/hwss/link_hwss_dpia.c | 20 ++++--
+ .../gpu/drm/amd/display/dc/link/link_dpms.c   | 15 +++--
+ .../dc/link/protocols/link_dp_capability.c    | 21 ++++--
+ .../dc/link/protocols/link_dp_capability.h    |  1 +
+ .../display/dc/link/protocols/link_dp_phy.c   | 16 +++--
+ .../display/dc/link/protocols/link_dp_phy.h   |  3 +-
+ .../dc/link/protocols/link_dp_training.c      | 20 ++++--
+ .../dc/link/protocols/link_dp_training.h      |  2 +
+ .../protocols/link_dp_training_128b_132b.c    |  4 +-
+ .../protocols/link_dp_training_128b_132b.h    |  1 +
+ .../link/protocols/link_dp_training_8b_10b.c  |  5 +-
+ .../link/protocols/link_dp_training_8b_10b.h  |  3 +-
+ .../link/protocols/link_dp_training_auxless.c |  1 +
+ .../dc/link/protocols/link_dp_training_dpia.c |  1 +
+ .../dc/resource/dcn20/dcn20_resource.c        |  5 +-
+ .../dc/resource/dcn401/dcn401_resource.c      |  5 +-
+ 23 files changed, 161 insertions(+), 55 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dccg/dcn20/dcn20_dccg.h b/drivers/gpu/drm/amd/display/dc/dccg/dcn20/dcn20_dccg.h
-index 160c299419b7..a9b88f5e0c04 100644
---- a/drivers/gpu/drm/amd/display/dc/dccg/dcn20/dcn20_dccg.h
-+++ b/drivers/gpu/drm/amd/display/dc/dccg/dcn20/dcn20_dccg.h
-@@ -379,53 +379,55 @@ struct dccg_mask {
- 	DCCG401_REG_FIELD_LIST(uint32_t)
- };
- 
-+#define DCCG_REG_VARIABLE_LIST \
-+	uint32_t DPPCLK_DTO_CTRL; \
-+	uint32_t DPPCLK_DTO_PARAM[6]; \
-+	uint32_t REFCLK_CNTL; \
-+	uint32_t DISPCLK_FREQ_CHANGE_CNTL; \
-+	uint32_t OTG_PIXEL_RATE_CNTL[MAX_PIPES]; \
-+	uint32_t HDMICHARCLK_CLOCK_CNTL[6]; \
-+	uint32_t PHYASYMCLK_CLOCK_CNTL; \
-+	uint32_t PHYBSYMCLK_CLOCK_CNTL; \
-+	uint32_t PHYCSYMCLK_CLOCK_CNTL; \
-+	uint32_t PHYDSYMCLK_CLOCK_CNTL; \
-+	uint32_t PHYESYMCLK_CLOCK_CNTL; \
-+	uint32_t DTBCLK_DTO_MODULO[MAX_PIPES]; \
-+	uint32_t DTBCLK_DTO_PHASE[MAX_PIPES]; \
-+	uint32_t DCCG_AUDIO_DTBCLK_DTO_MODULO; \
-+	uint32_t DCCG_AUDIO_DTBCLK_DTO_PHASE; \
-+	uint32_t DCCG_AUDIO_DTO_SOURCE; \
-+	uint32_t DPSTREAMCLK_CNTL; \
-+	uint32_t HDMISTREAMCLK_CNTL; \
-+	uint32_t SYMCLK32_SE_CNTL; \
-+	uint32_t SYMCLK32_LE_CNTL; \
-+	uint32_t DENTIST_DISPCLK_CNTL; \
-+	uint32_t DSCCLK_DTO_CTRL; \
-+	uint32_t DSCCLK0_DTO_PARAM; \
-+	uint32_t DSCCLK1_DTO_PARAM; \
-+	uint32_t DSCCLK2_DTO_PARAM; \
-+	uint32_t DSCCLK3_DTO_PARAM; \
-+	uint32_t DPSTREAMCLK_ROOT_GATE_DISABLE; \
-+	uint32_t DPSTREAMCLK_GATE_DISABLE; \
-+	uint32_t DCCG_GATE_DISABLE_CNTL; \
-+	uint32_t DCCG_GATE_DISABLE_CNTL2; \
-+	uint32_t DCCG_GATE_DISABLE_CNTL3; \
-+	uint32_t HDMISTREAMCLK0_DTO_PARAM; \
-+	uint32_t DCCG_GATE_DISABLE_CNTL4; \
-+	uint32_t OTG_PIXEL_RATE_DIV; \
-+	uint32_t DTBCLK_P_CNTL; \
-+	uint32_t DPPCLK_CTRL; \
-+	uint32_t DCCG_GATE_DISABLE_CNTL5; \
-+	uint32_t DCCG_GATE_DISABLE_CNTL6; \
-+	uint32_t DCCG_GLOBAL_FGCG_REP_CNTL; \
-+	uint32_t SYMCLKA_CLOCK_ENABLE; \
-+	uint32_t SYMCLKB_CLOCK_ENABLE; \
-+	uint32_t SYMCLKC_CLOCK_ENABLE; \
-+	uint32_t SYMCLKD_CLOCK_ENABLE; \
-+	uint32_t SYMCLKE_CLOCK_ENABLE; \
-+	uint32_t DP_DTO_MODULO[MAX_PIPES]; \
-+	uint32_t DP_DTO_PHASE[MAX_PIPES]
- struct dccg_registers {
--	uint32_t DPPCLK_DTO_CTRL;
--	uint32_t DPPCLK_DTO_PARAM[6];
--	uint32_t REFCLK_CNTL;
--	uint32_t DISPCLK_FREQ_CHANGE_CNTL;
--	uint32_t OTG_PIXEL_RATE_CNTL[MAX_PIPES];
--	uint32_t HDMICHARCLK_CLOCK_CNTL[6];
--	uint32_t PHYASYMCLK_CLOCK_CNTL;
--	uint32_t PHYBSYMCLK_CLOCK_CNTL;
--	uint32_t PHYCSYMCLK_CLOCK_CNTL;
--	uint32_t PHYDSYMCLK_CLOCK_CNTL;
--	uint32_t PHYESYMCLK_CLOCK_CNTL;
--	uint32_t DTBCLK_DTO_MODULO[MAX_PIPES];
--	uint32_t DTBCLK_DTO_PHASE[MAX_PIPES];
--	uint32_t DCCG_AUDIO_DTBCLK_DTO_MODULO;
--	uint32_t DCCG_AUDIO_DTBCLK_DTO_PHASE;
--	uint32_t DCCG_AUDIO_DTO_SOURCE;
--	uint32_t DPSTREAMCLK_CNTL;
--	uint32_t HDMISTREAMCLK_CNTL;
--	uint32_t SYMCLK32_SE_CNTL;
--	uint32_t SYMCLK32_LE_CNTL;
--	uint32_t DENTIST_DISPCLK_CNTL;
--	uint32_t DSCCLK_DTO_CTRL;
--	uint32_t DSCCLK0_DTO_PARAM;
--	uint32_t DSCCLK1_DTO_PARAM;
--	uint32_t DSCCLK2_DTO_PARAM;
--	uint32_t DSCCLK3_DTO_PARAM;
--	uint32_t DPSTREAMCLK_ROOT_GATE_DISABLE;
--	uint32_t DPSTREAMCLK_GATE_DISABLE;
--	uint32_t DCCG_GATE_DISABLE_CNTL;
--	uint32_t DCCG_GATE_DISABLE_CNTL2;
--	uint32_t DCCG_GATE_DISABLE_CNTL3;
--	uint32_t HDMISTREAMCLK0_DTO_PARAM;
--	uint32_t DCCG_GATE_DISABLE_CNTL4;
--	uint32_t OTG_PIXEL_RATE_DIV;
--	uint32_t DTBCLK_P_CNTL;
--	uint32_t DPPCLK_CTRL;
--	uint32_t DCCG_GATE_DISABLE_CNTL5;
--	uint32_t DCCG_GATE_DISABLE_CNTL6;
--	uint32_t DCCG_GLOBAL_FGCG_REP_CNTL;
--	uint32_t SYMCLKA_CLOCK_ENABLE;
--	uint32_t SYMCLKB_CLOCK_ENABLE;
--	uint32_t SYMCLKC_CLOCK_ENABLE;
--	uint32_t SYMCLKD_CLOCK_ENABLE;
--	uint32_t SYMCLKE_CLOCK_ENABLE;
--	uint32_t DP_DTO_MODULO[MAX_PIPES];
--	uint32_t DP_DTO_PHASE[MAX_PIPES];
-+	DCCG_REG_VARIABLE_LIST;
- };
- 
- struct dcn_dccg {
-diff --git a/drivers/gpu/drm/amd/display/dc/dccg/dcn401/dcn401_dccg.c b/drivers/gpu/drm/amd/display/dc/dccg/dcn401/dcn401_dccg.c
-index 332094ad2b05..ffd172231fdf 100644
---- a/drivers/gpu/drm/amd/display/dc/dccg/dcn401/dcn401_dccg.c
-+++ b/drivers/gpu/drm/amd/display/dc/dccg/dcn401/dcn401_dccg.c
-@@ -531,7 +531,7 @@ static void dccg401_enable_dpstreamclk(struct dccg *dccg, int otg_inst, int dp_h
- 			DPSTREAMCLK_ROOT_GATE_DISABLE, 1);
- }
- 
--static void dccg401_disable_dpstreamclk(struct dccg *dccg, int dp_hpo_inst)
-+void dccg401_disable_dpstreamclk(struct dccg *dccg, int dp_hpo_inst)
- {
- 	struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/dccg/dcn401/dcn401_dccg.h b/drivers/gpu/drm/amd/display/dc/dccg/dcn401/dcn401_dccg.h
-index b9905c73e754..55e8718aad22 100644
---- a/drivers/gpu/drm/amd/display/dc/dccg/dcn401/dcn401_dccg.h
-+++ b/drivers/gpu/drm/amd/display/dc/dccg/dcn401/dcn401_dccg.h
-@@ -208,6 +208,8 @@ void dccg401_enable_symclk32_le(
- void dccg401_disable_symclk32_le(
- 		struct dccg *dccg,
- 		int hpo_le_inst);
-+void dccg401_disable_dpstreamclk(struct dccg *dccg, int dp_hpo_inst);
-+void dccg401_set_dto_dscclk(struct dccg *dccg, uint32_t inst);
- void dccg401_set_ref_dscclk(struct dccg *dccg,
- 				uint32_t dsc_inst);
- void dccg401_set_src_sel(
-@@ -228,14 +230,11 @@ void dccg401_set_dp_dto(
- 		const struct dp_dto_params *params);
- void dccg401_enable_symclk_se(struct dccg *dccg, uint32_t stream_enc_inst, uint32_t link_enc_inst);
- void dccg401_disable_symclk_se(struct dccg *dccg, uint32_t stream_enc_inst, uint32_t link_enc_inst);
--
- void dccg401_set_dto_dscclk(struct dccg *dccg, uint32_t inst);
- void dccg401_set_dtbclk_p_src(
- 		struct dccg *dccg,
- 		enum streamclk_source src,
- 		uint32_t otg_inst);
--
--
- struct dccg *dccg401_create(
- 	struct dc_context *ctx,
- 	const struct dccg_registers *regs,
-diff --git a/drivers/gpu/drm/amd/display/dc/dio/dcn401/dcn401_dio_stream_encoder.c b/drivers/gpu/drm/amd/display/dc/dio/dcn401/dcn401_dio_stream_encoder.c
-index 4bab180e1938..d5fa551dd3c9 100644
---- a/drivers/gpu/drm/amd/display/dc/dio/dcn401/dcn401_dio_stream_encoder.c
-+++ b/drivers/gpu/drm/amd/display/dc/dio/dcn401/dcn401_dio_stream_encoder.c
-@@ -100,7 +100,7 @@ void enc401_stream_encoder_dvi_set_stream_attribute(
- }
- 
- /* setup stream encoder in hdmi mode */
--static void enc401_stream_encoder_hdmi_set_stream_attribute(
-+void enc401_stream_encoder_hdmi_set_stream_attribute(
- 	struct stream_encoder *enc,
- 	struct dc_crtc_timing *crtc_timing,
- 	int actual_pix_clk_khz,
-diff --git a/drivers/gpu/drm/amd/display/dc/dio/dcn401/dcn401_dio_stream_encoder.h b/drivers/gpu/drm/amd/display/dc/dio/dcn401/dcn401_dio_stream_encoder.h
-index 25cc8f72d8d3..d6b00cd246b1 100644
---- a/drivers/gpu/drm/amd/display/dc/dio/dcn401/dcn401_dio_stream_encoder.h
-+++ b/drivers/gpu/drm/amd/display/dc/dio/dcn401/dcn401_dio_stream_encoder.h
-@@ -232,4 +232,9 @@ void enc401_stream_encoder_map_to_link(
- 		uint32_t stream_enc_inst,
- 		uint32_t link_enc_inst);
- void enc401_read_state(struct stream_encoder *enc, struct enc_state *s);
-+void enc401_stream_encoder_hdmi_set_stream_attribute(
-+	struct stream_encoder *enc,
-+	struct dc_crtc_timing *crtc_timing,
-+	int actual_pix_clk_khz,
-+	bool enable_audio);
- #endif /* __DC_DIO_STREAM_ENCODER_DCN401_H__ */
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c b/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c
-index 45584e2f5dfe..939ee0708bd2 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2/dml2_wrapper.c
-@@ -33,7 +33,6 @@
- #include "dml2_dc_resource_mgmt.h"
- #include "dml21_wrapper.h"
- 
--
- static void initialize_dml2_ip_params(struct dml2_context *dml2, const struct dc *in_dc, struct ip_params_st *out)
- {
- 	if (dml2->config.use_native_soc_bb_construction)
-@@ -792,7 +791,7 @@ bool dml2_create(const struct dc *in_dc, const struct dml2_configuration_options
- 	// TODO : Temporarily add DCN_VERSION_3_2 for N-1 validation. Remove DCN_VERSION_3_2 after N-1 validation phase is complete.
- 	if ((in_dc->debug.using_dml21)
- 			&& (in_dc->ctx->dce_version == DCN_VERSION_4_01
--				))
-+		))
- 		return dml21_create(in_dc, dml2, config);
- 
- 	// Allocate Mode Lib Ctx
-diff --git a/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp.h b/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp.h
-index 4bc85aaf17da..ecaa976e1f52 100644
---- a/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp.h
-+++ b/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp.h
-@@ -567,80 +567,82 @@
- 	type ISHARP_NLDELTA_SCLIP_PIVOT_N;	\
- 	type ISHARP_NLDELTA_SCLIP_SLOPE_N
- 
-+#define DPP_REG_VARIABLE_LIST_DCN401 \
-+	DPP_DCN3_REG_VARIABLE_LIST_COMMON; \
-+	uint32_t CURSOR0_FP_SCALE_BIAS_G_Y; \
-+	uint32_t CURSOR0_FP_SCALE_BIAS_RB_CRCB; \
-+	uint32_t CUR0_MATRIX_MODE; \
-+	uint32_t CUR0_MATRIX_C11_C12_A; \
-+	uint32_t CUR0_MATRIX_C13_C14_A; \
-+	uint32_t CUR0_MATRIX_C21_C22_A; \
-+	uint32_t CUR0_MATRIX_C23_C24_A; \
-+	uint32_t CUR0_MATRIX_C31_C32_A; \
-+	uint32_t CUR0_MATRIX_C33_C34_A; \
-+	uint32_t CUR0_MATRIX_C11_C12_B; \
-+	uint32_t CUR0_MATRIX_C13_C14_B; \
-+	uint32_t CUR0_MATRIX_C21_C22_B; \
-+	uint32_t CUR0_MATRIX_C23_C24_B; \
-+	uint32_t CUR0_MATRIX_C31_C32_B; \
-+	uint32_t CUR0_MATRIX_C33_C34_B; \
-+	uint32_t DSCL_SC_MODE; \
-+	uint32_t DSCL_EASF_H_MODE; \
-+	uint32_t DSCL_EASF_H_BF_CNTL; \
-+	uint32_t DSCL_EASF_H_RINGEST_EVENTAP_REDUCE; \
-+	uint32_t DSCL_EASF_H_RINGEST_EVENTAP_GAIN; \
-+	uint32_t DSCL_EASF_H_BF_FINAL_MAX_MIN; \
-+	uint32_t DSCL_EASF_H_BF1_PWL_SEG0; \
-+	uint32_t DSCL_EASF_H_BF1_PWL_SEG1; \
-+	uint32_t DSCL_EASF_H_BF1_PWL_SEG2; \
-+	uint32_t DSCL_EASF_H_BF1_PWL_SEG3; \
-+	uint32_t DSCL_EASF_H_BF1_PWL_SEG4; \
-+	uint32_t DSCL_EASF_H_BF1_PWL_SEG5; \
-+	uint32_t DSCL_EASF_H_BF1_PWL_SEG6; \
-+	uint32_t DSCL_EASF_H_BF1_PWL_SEG7; \
-+	uint32_t DSCL_EASF_H_BF3_PWL_SEG0; \
-+	uint32_t DSCL_EASF_H_BF3_PWL_SEG1; \
-+	uint32_t DSCL_EASF_H_BF3_PWL_SEG2; \
-+	uint32_t DSCL_EASF_H_BF3_PWL_SEG3; \
-+	uint32_t DSCL_EASF_H_BF3_PWL_SEG4; \
-+	uint32_t DSCL_EASF_H_BF3_PWL_SEG5; \
-+	uint32_t DSCL_EASF_V_MODE; \
-+	uint32_t DSCL_EASF_V_BF_CNTL; \
-+	uint32_t DSCL_EASF_V_RINGEST_3TAP_CNTL1; \
-+	uint32_t DSCL_EASF_V_RINGEST_3TAP_CNTL2; \
-+	uint32_t DSCL_EASF_V_RINGEST_3TAP_CNTL3; \
-+	uint32_t DSCL_EASF_V_RINGEST_EVENTAP_REDUCE; \
-+	uint32_t DSCL_EASF_V_RINGEST_EVENTAP_GAIN; \
-+	uint32_t DSCL_EASF_V_BF_FINAL_MAX_MIN; \
-+	uint32_t DSCL_EASF_V_BF1_PWL_SEG0; \
-+	uint32_t DSCL_EASF_V_BF1_PWL_SEG1; \
-+	uint32_t DSCL_EASF_V_BF1_PWL_SEG2; \
-+	uint32_t DSCL_EASF_V_BF1_PWL_SEG3; \
-+	uint32_t DSCL_EASF_V_BF1_PWL_SEG4; \
-+	uint32_t DSCL_EASF_V_BF1_PWL_SEG5; \
-+	uint32_t DSCL_EASF_V_BF1_PWL_SEG6; \
-+	uint32_t DSCL_EASF_V_BF1_PWL_SEG7; \
-+	uint32_t DSCL_EASF_V_BF3_PWL_SEG0; \
-+	uint32_t DSCL_EASF_V_BF3_PWL_SEG1; \
-+	uint32_t DSCL_EASF_V_BF3_PWL_SEG2; \
-+	uint32_t DSCL_EASF_V_BF3_PWL_SEG3; \
-+	uint32_t DSCL_EASF_V_BF3_PWL_SEG4; \
-+	uint32_t DSCL_EASF_V_BF3_PWL_SEG5; \
-+	uint32_t DSCL_SC_MATRIX_C0C1; \
-+	uint32_t DSCL_SC_MATRIX_C2C3; \
-+	uint32_t ISHARP_MODE; \
-+	uint32_t ISHARP_NOISEDET_THRESHOLD; \
-+	uint32_t ISHARP_NOISE_GAIN_PWL; \
-+	uint32_t ISHARP_LBA_PWL_SEG0; \
-+	uint32_t ISHARP_LBA_PWL_SEG1; \
-+	uint32_t ISHARP_LBA_PWL_SEG2; \
-+	uint32_t ISHARP_LBA_PWL_SEG3; \
-+	uint32_t ISHARP_LBA_PWL_SEG4; \
-+	uint32_t ISHARP_LBA_PWL_SEG5; \
-+	uint32_t ISHARP_DELTA_CTRL; \
-+	uint32_t ISHARP_DELTA_DATA; \
-+	uint32_t ISHARP_DELTA_INDEX; \
-+	uint32_t ISHARP_NLDELTA_SOFT_CLIP
- struct dcn401_dpp_registers {
--	DPP_DCN3_REG_VARIABLE_LIST_COMMON;
--	uint32_t CURSOR0_FP_SCALE_BIAS_G_Y;
--	uint32_t CURSOR0_FP_SCALE_BIAS_RB_CRCB;
--	uint32_t CUR0_MATRIX_MODE;
--	uint32_t CUR0_MATRIX_C11_C12_A;
--	uint32_t CUR0_MATRIX_C13_C14_A;
--	uint32_t CUR0_MATRIX_C21_C22_A;
--	uint32_t CUR0_MATRIX_C23_C24_A;
--	uint32_t CUR0_MATRIX_C31_C32_A;
--	uint32_t CUR0_MATRIX_C33_C34_A;
--	uint32_t CUR0_MATRIX_C11_C12_B;
--	uint32_t CUR0_MATRIX_C13_C14_B;
--	uint32_t CUR0_MATRIX_C21_C22_B;
--	uint32_t CUR0_MATRIX_C23_C24_B;
--	uint32_t CUR0_MATRIX_C31_C32_B;
--	uint32_t CUR0_MATRIX_C33_C34_B;
--	uint32_t DSCL_SC_MODE;
--	uint32_t DSCL_EASF_H_MODE;
--	uint32_t DSCL_EASF_H_BF_CNTL;
--	uint32_t DSCL_EASF_H_RINGEST_EVENTAP_REDUCE;
--	uint32_t DSCL_EASF_H_RINGEST_EVENTAP_GAIN;
--	uint32_t DSCL_EASF_H_BF_FINAL_MAX_MIN;
--	uint32_t DSCL_EASF_H_BF1_PWL_SEG0;
--	uint32_t DSCL_EASF_H_BF1_PWL_SEG1;
--	uint32_t DSCL_EASF_H_BF1_PWL_SEG2;
--	uint32_t DSCL_EASF_H_BF1_PWL_SEG3;
--	uint32_t DSCL_EASF_H_BF1_PWL_SEG4;
--	uint32_t DSCL_EASF_H_BF1_PWL_SEG5;
--	uint32_t DSCL_EASF_H_BF1_PWL_SEG6;
--	uint32_t DSCL_EASF_H_BF1_PWL_SEG7;
--	uint32_t DSCL_EASF_H_BF3_PWL_SEG0;
--	uint32_t DSCL_EASF_H_BF3_PWL_SEG1;
--	uint32_t DSCL_EASF_H_BF3_PWL_SEG2;
--	uint32_t DSCL_EASF_H_BF3_PWL_SEG3;
--	uint32_t DSCL_EASF_H_BF3_PWL_SEG4;
--	uint32_t DSCL_EASF_H_BF3_PWL_SEG5;
--	uint32_t DSCL_EASF_V_MODE;
--	uint32_t DSCL_EASF_V_BF_CNTL;
--	uint32_t DSCL_EASF_V_RINGEST_3TAP_CNTL1;
--	uint32_t DSCL_EASF_V_RINGEST_3TAP_CNTL2;
--	uint32_t DSCL_EASF_V_RINGEST_3TAP_CNTL3;
--	uint32_t DSCL_EASF_V_RINGEST_EVENTAP_REDUCE;
--	uint32_t DSCL_EASF_V_RINGEST_EVENTAP_GAIN;
--	uint32_t DSCL_EASF_V_BF_FINAL_MAX_MIN;
--	uint32_t DSCL_EASF_V_BF1_PWL_SEG0;
--	uint32_t DSCL_EASF_V_BF1_PWL_SEG1;
--	uint32_t DSCL_EASF_V_BF1_PWL_SEG2;
--	uint32_t DSCL_EASF_V_BF1_PWL_SEG3;
--	uint32_t DSCL_EASF_V_BF1_PWL_SEG4;
--	uint32_t DSCL_EASF_V_BF1_PWL_SEG5;
--	uint32_t DSCL_EASF_V_BF1_PWL_SEG6;
--	uint32_t DSCL_EASF_V_BF1_PWL_SEG7;
--	uint32_t DSCL_EASF_V_BF3_PWL_SEG0;
--	uint32_t DSCL_EASF_V_BF3_PWL_SEG1;
--	uint32_t DSCL_EASF_V_BF3_PWL_SEG2;
--	uint32_t DSCL_EASF_V_BF3_PWL_SEG3;
--	uint32_t DSCL_EASF_V_BF3_PWL_SEG4;
--	uint32_t DSCL_EASF_V_BF3_PWL_SEG5;
--	uint32_t DSCL_SC_MATRIX_C0C1;
--	uint32_t DSCL_SC_MATRIX_C2C3;
--	uint32_t ISHARP_MODE;
--	uint32_t ISHARP_NOISEDET_THRESHOLD;
--	uint32_t ISHARP_NOISE_GAIN_PWL;
--	uint32_t ISHARP_LBA_PWL_SEG0;
--	uint32_t ISHARP_LBA_PWL_SEG1;
--	uint32_t ISHARP_LBA_PWL_SEG2;
--	uint32_t ISHARP_LBA_PWL_SEG3;
--	uint32_t ISHARP_LBA_PWL_SEG4;
--	uint32_t ISHARP_LBA_PWL_SEG5;
--	uint32_t ISHARP_DELTA_CTRL;
--	uint32_t ISHARP_DELTA_DATA;
--	uint32_t ISHARP_DELTA_INDEX;
--	uint32_t ISHARP_NLDELTA_SOFT_CLIP;
-+	DPP_REG_VARIABLE_LIST_DCN401;
- };
- 
- struct dcn401_dpp_shift {
-diff --git a/drivers/gpu/drm/amd/display/dc/hpo/dcn31/dcn31_hpo_dp_link_encoder.c b/drivers/gpu/drm/amd/display/dc/hpo/dcn31/dcn31_hpo_dp_link_encoder.c
-index 03b4ac2f1991..0d2ae21abbdd 100644
---- a/drivers/gpu/drm/amd/display/dc/hpo/dcn31/dcn31_hpo_dp_link_encoder.c
-+++ b/drivers/gpu/drm/amd/display/dc/hpo/dcn31/dcn31_hpo_dp_link_encoder.c
-@@ -262,7 +262,7 @@ void dcn31_hpo_dp_link_enc_set_link_test_pattern(
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+index 7eb91612b60d..0bd3e7c072a1 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+@@ -5191,7 +5191,7 @@ void get_audio_check(struct audio_info *aud_modes,
  	}
  }
  
--static void fill_stream_allocation_row_info(
-+void dcn31_fill_stream_allocation_row_info(
- 		const struct link_mst_stream_allocation *stream_allocation,
- 		uint32_t *src,
- 		uint32_t *slots)
-@@ -296,7 +296,7 @@ void dcn31_hpo_dp_link_enc_update_stream_allocation_table(
- 	/* we should clean-up table each time */
+-static struct link_encoder *get_temp_dio_link_enc(
++struct link_encoder *get_temp_dio_link_enc(
+ 		const struct resource_context *res_ctx,
+ 		const struct resource_pool *const pool,
+ 		const struct dc_link *link)
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
+index 8280e3652171..9c9947fc5d44 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
+@@ -1153,9 +1153,12 @@ void dce110_disable_stream(struct pipe_ctx *pipe_ctx)
+ 	struct timing_generator *tg = pipe_ctx->stream_res.tg;
+ 	struct dtbclk_dto_params dto_params = {0};
+ 	int dp_hpo_inst;
+-	struct link_encoder *link_enc = link_enc_cfg_get_link_enc(pipe_ctx->stream->link);
++	struct link_encoder *link_enc = pipe_ctx->link_res.dio_link_enc;
+ 	struct stream_encoder *stream_enc = pipe_ctx->stream_res.stream_enc;
  
- 	if (table->stream_count >= 1) {
--		fill_stream_allocation_row_info(
-+		dcn31_fill_stream_allocation_row_info(
- 			&table->stream_allocations[0],
- 			&src,
- 			&slots);
-@@ -310,7 +310,7 @@ void dcn31_hpo_dp_link_enc_update_stream_allocation_table(
- 			SAT_SLOT_COUNT, slots);
- 
- 	if (table->stream_count >= 2) {
--		fill_stream_allocation_row_info(
-+		dcn31_fill_stream_allocation_row_info(
- 			&table->stream_allocations[1],
- 			&src,
- 			&slots);
-@@ -324,7 +324,7 @@ void dcn31_hpo_dp_link_enc_update_stream_allocation_table(
- 			SAT_SLOT_COUNT, slots);
- 
- 	if (table->stream_count >= 3) {
--		fill_stream_allocation_row_info(
-+		dcn31_fill_stream_allocation_row_info(
- 			&table->stream_allocations[2],
- 			&src,
- 			&slots);
-@@ -338,7 +338,7 @@ void dcn31_hpo_dp_link_enc_update_stream_allocation_table(
- 			SAT_SLOT_COUNT, slots);
- 
- 	if (table->stream_count >= 4) {
--		fill_stream_allocation_row_info(
-+		dcn31_fill_stream_allocation_row_info(
- 			&table->stream_allocations[3],
- 			&src,
- 			&slots);
-diff --git a/drivers/gpu/drm/amd/display/dc/hpo/dcn31/dcn31_hpo_dp_link_encoder.h b/drivers/gpu/drm/amd/display/dc/hpo/dcn31/dcn31_hpo_dp_link_encoder.h
-index 51f5781325e8..40859660e4dc 100644
---- a/drivers/gpu/drm/amd/display/dc/hpo/dcn31/dcn31_hpo_dp_link_encoder.h
-+++ b/drivers/gpu/drm/amd/display/dc/hpo/dcn31/dcn31_hpo_dp_link_encoder.h
-@@ -226,4 +226,10 @@ void dcn31_hpo_dp_link_enc_set_ffe(
- 	const struct dc_link_settings *link_settings,
- 	uint8_t ffe_preset);
- 
++	if (!dc->config.unify_link_enc_assignment)
++		link_enc = link_enc_cfg_get_link_enc(link);
 +
-+void dcn31_fill_stream_allocation_row_info(
-+		const struct link_mst_stream_allocation *stream_allocation,
-+		uint32_t *src,
-+		uint32_t *slots);
-+
- #endif   // __DAL_DCN31_HPO_LINK_ENCODER_H__
-diff --git a/drivers/gpu/drm/amd/display/dc/hpo/dcn32/dcn32_hpo_dp_link_encoder.h b/drivers/gpu/drm/amd/display/dc/hpo/dcn32/dcn32_hpo_dp_link_encoder.h
-index 48ef3d29b370..bea4e1a8ff90 100644
---- a/drivers/gpu/drm/amd/display/dc/hpo/dcn32/dcn32_hpo_dp_link_encoder.h
-+++ b/drivers/gpu/drm/amd/display/dc/hpo/dcn32/dcn32_hpo_dp_link_encoder.h
-@@ -62,4 +62,7 @@ void hpo_dp_link_encoder32_construct(struct dcn31_hpo_dp_link_encoder *enc31,
- 	const struct dcn31_hpo_dp_link_encoder_shift *hpo_le_shift,
- 	const struct dcn31_hpo_dp_link_encoder_mask *hpo_le_mask);
+ 	if (dc_is_hdmi_tmds_signal(pipe_ctx->stream->signal)) {
+ 		pipe_ctx->stream_res.stream_enc->funcs->stop_hdmi_info_packets(
+ 			pipe_ctx->stream_res.stream_enc);
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
+index b158eb1045a1..a5a3e0823e21 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
+@@ -3020,9 +3020,12 @@ void dcn20_enable_stream(struct pipe_ctx *pipe_ctx)
+ 	enum phyd32clk_clock_source phyd32clk;
+ 	int dp_hpo_inst;
  
-+bool dcn32_hpo_dp_link_enc_is_in_alt_mode(
-+		struct hpo_dp_link_encoder *enc);
-+
- #endif   // __DAL_DCN32_HPO_DP_LINK_ENCODER_H__
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dce/dce_hwseq.h b/drivers/gpu/drm/amd/display/dc/hwss/dce/dce_hwseq.h
-index 09049aa3c4f3..f66a38f43a09 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dce/dce_hwseq.h
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dce/dce_hwseq.h
-@@ -1244,6 +1244,7 @@ struct dce_hwseq_registers {
- 	type DOMAIN24_PGFSM_PWR_STATUS; \
- 	type DOMAIN25_PGFSM_PWR_STATUS; \
- 	type DOMAIN_DESIRED_PWR_STATE;
-+
- struct dce_hwseq_shift {
- 	HWSEQ_REG_FIELD_LIST(uint8_t)
- 	HWSEQ_DCN_REG_FIELD_LIST(uint8_t)
-diff --git a/drivers/gpu/drm/amd/display/dc/mpc/dcn401/dcn401_mpc.h b/drivers/gpu/drm/amd/display/dc/mpc/dcn401/dcn401_mpc.h
-index 9267cdf88e9a..ce6fbcf14d7a 100644
---- a/drivers/gpu/drm/amd/display/dc/mpc/dcn401/dcn401_mpc.h
-+++ b/drivers/gpu/drm/amd/display/dc/mpc/dcn401/dcn401_mpc.h
-@@ -63,8 +63,7 @@
- 	uint32_t MPC_MCM_SECOND_GAMUT_REMAP_C31_C32_B[MAX_MPCC]; \
- 	uint32_t MPC_MCM_SECOND_GAMUT_REMAP_C33_C34_B[MAX_MPCC]; \
- 	uint32_t MPCC_MCM_3DLUT_FAST_LOAD_SELECT[MAX_MPCC]; \
--	uint32_t MPCC_MCM_3DLUT_FAST_LOAD_STATUS[MAX_MPCC]; \
--	uint32_t MPCC_CONTROL2[MAX_MPCC]
-+	uint32_t MPCC_MCM_3DLUT_FAST_LOAD_STATUS[MAX_MPCC];
+-	struct link_encoder *link_enc = link_enc_cfg_get_link_enc(pipe_ctx->stream->link);
++	struct link_encoder *link_enc = pipe_ctx->link_res.dio_link_enc;
+ 	struct stream_encoder *stream_enc = pipe_ctx->stream_res.stream_enc;
  
- #define MPC_COMMON_MASK_SH_LIST_DCN4_01(mask_sh) \
- 	MPC_COMMON_MASK_SH_LIST_DCN32(mask_sh), \
-@@ -184,7 +183,7 @@ struct dcn401_mpc_mask {
- };
- 
- struct dcn401_mpc_registers {
--	MPC_REG_VARIABLE_LIST_DCN4_01;
-+	MPC_REG_VARIABLE_LIST_DCN4_01
- };
- 
- struct dcn401_mpc {
-@@ -236,7 +235,29 @@ void mpc401_get_gamut_remap(
- 	struct mpc *mpc,
- 	int mpcc_id,
- 	struct mpc_grph_gamut_adjustment *adjust);
--void mpc401_update_3dlut_fast_load_select(struct mpc *mpc, int mpcc_id, int hubp_idx);
--void mpc401_get_3dlut_fast_load_status(struct mpc *mpc, int mpcc_id, uint32_t *done, uint32_t *soft_underflow, uint32_t *hard_underflow);
++	if (!dc->config.unify_link_enc_assignment)
++		link_enc = link_enc_cfg_get_link_enc(link);
 +
-+void mpc401_update_3dlut_fast_load_select(
-+	struct mpc *mpc,
-+	int mpcc_id,
-+	int hubp_idx);
-+
-+void mpc401_get_3dlut_fast_load_status(
-+	struct mpc *mpc,
-+	int mpcc_id,
-+	uint32_t *done,
-+	uint32_t *soft_underflow,
-+	uint32_t *hard_underflow);
-+
-+void mpc401_update_3dlut_fast_load_select(
-+	struct mpc *mpc,
-+	int mpcc_id,
-+	int hubp_idx);
-+
-+void mpc401_get_3dlut_fast_load_status(
-+	struct mpc *mpc,
-+	int mpcc_id,
-+	uint32_t *done,
-+	uint32_t *soft_underflow,
-+	uint32_t *hard_underflow);
+ 	if (dc->link_srv->dp_is_128b_132b_signal(pipe_ctx)) {
+ 		dto_params.otg_inst = tg->inst;
+ 		dto_params.pixclk_khz = pipe_ctx->stream->timing.pix_clk_100hz / 10;
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
+index c4a37a95e812..39668d8cc13a 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
+@@ -927,9 +927,12 @@ void dcn401_enable_stream(struct pipe_ctx *pipe_ctx)
+ 	int dp_hpo_inst = 0;
+ 	unsigned int tmds_div = PIXEL_RATE_DIV_NA;
+ 	unsigned int unused_div = PIXEL_RATE_DIV_NA;
+-	struct link_encoder *link_enc = link_enc_cfg_get_link_enc(pipe_ctx->stream->link);
++	struct link_encoder *link_enc = pipe_ctx->link_res.dio_link_enc;
+ 	struct stream_encoder *stream_enc = pipe_ctx->stream_res.stream_enc;
  
- #endif
-diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn10/dcn10_optc.h b/drivers/gpu/drm/amd/display/dc/optc/dcn10/dcn10_optc.h
-index a6d4dbe82c13..8b2a8455eb56 100644
---- a/drivers/gpu/drm/amd/display/dc/optc/dcn10/dcn10_optc.h
-+++ b/drivers/gpu/drm/amd/display/dc/optc/dcn10/dcn10_optc.h
-@@ -104,120 +104,115 @@
- 	SRI(OTG_MANUAL_FLOW_CONTROL, OTG, inst)
- 
- 
-+#define OPTC_REG_VARIABLE_LIST_DCN \
-+	uint32_t OTG_GLOBAL_CONTROL1; \
-+	uint32_t OTG_GLOBAL_CONTROL2; \
-+	uint32_t OTG_VERT_SYNC_CONTROL; \
-+	uint32_t OTG_MASTER_UPDATE_MODE; \
-+	uint32_t OTG_GSL_CONTROL; \
-+	uint32_t OTG_VSTARTUP_PARAM; \
-+	uint32_t OTG_VUPDATE_PARAM; \
-+	uint32_t OTG_VREADY_PARAM; \
-+	uint32_t OTG_BLANK_CONTROL; \
-+	uint32_t OTG_MASTER_UPDATE_LOCK; \
-+	uint32_t OTG_GLOBAL_CONTROL0; \
-+	uint32_t OTG_DOUBLE_BUFFER_CONTROL; \
-+	uint32_t OTG_H_TOTAL; \
-+	uint32_t OTG_H_BLANK_START_END; \
-+	uint32_t OTG_H_SYNC_A; \
-+	uint32_t OTG_H_SYNC_A_CNTL; \
-+	uint32_t OTG_H_TIMING_CNTL; \
-+	uint32_t OTG_V_TOTAL; \
-+	uint32_t OTG_V_BLANK_START_END; \
-+	uint32_t OTG_V_SYNC_A; \
-+	uint32_t OTG_V_SYNC_A_CNTL; \
-+	uint32_t OTG_INTERLACE_CONTROL; \
-+	uint32_t OTG_CONTROL; \
-+	uint32_t OTG_STEREO_CONTROL; \
-+	uint32_t OTG_3D_STRUCTURE_CONTROL; \
-+	uint32_t OTG_STEREO_STATUS; \
-+	uint32_t OTG_V_TOTAL_MAX; \
-+	uint32_t OTG_V_TOTAL_MID; \
-+	uint32_t OTG_V_TOTAL_MIN; \
-+	uint32_t OTG_V_TOTAL_CONTROL; \
-+	uint32_t OTG_V_COUNT_STOP_CONTROL; \
-+	uint32_t OTG_V_COUNT_STOP_CONTROL2; \
-+	uint32_t OTG_TRIGA_CNTL; \
-+	uint32_t OTG_TRIGA_MANUAL_TRIG; \
-+	uint32_t OTG_MANUAL_FLOW_CONTROL; \
-+	uint32_t OTG_FORCE_COUNT_NOW_CNTL; \
-+	uint32_t OTG_STATIC_SCREEN_CONTROL; \
-+	uint32_t OTG_STATUS_FRAME_COUNT; \
-+	uint32_t OTG_STATUS; \
-+	uint32_t OTG_STATUS_POSITION; \
-+	uint32_t OTG_NOM_VERT_POSITION; \
-+	uint32_t OTG_BLACK_COLOR; \
-+	uint32_t OTG_TEST_PATTERN_PARAMETERS; \
-+	uint32_t OTG_TEST_PATTERN_CONTROL; \
-+	uint32_t OTG_TEST_PATTERN_COLOR; \
-+	uint32_t OTG_CLOCK_CONTROL; \
-+	uint32_t OTG_VERTICAL_INTERRUPT0_CONTROL; \
-+	uint32_t OTG_VERTICAL_INTERRUPT0_POSITION; \
-+	uint32_t OTG_VERTICAL_INTERRUPT1_CONTROL; \
-+	uint32_t OTG_VERTICAL_INTERRUPT1_POSITION; \
-+	uint32_t OTG_VERTICAL_INTERRUPT2_CONTROL; \
-+	uint32_t OTG_VERTICAL_INTERRUPT2_POSITION; \
-+	uint32_t OPTC_INPUT_CLOCK_CONTROL; \
-+	uint32_t OPTC_DATA_SOURCE_SELECT; \
-+	uint32_t OPTC_MEMORY_CONFIG; \
-+	uint32_t OPTC_INPUT_GLOBAL_CONTROL; \
-+	uint32_t CONTROL; \
-+	uint32_t OTG_GSL_WINDOW_X; \
-+	uint32_t OTG_GSL_WINDOW_Y; \
-+	uint32_t OTG_VUPDATE_KEEPOUT; \
-+	uint32_t OTG_CRC_CNTL; \
-+	uint32_t OTG_CRC_CNTL2; \
-+	uint32_t OTG_CRC0_DATA_RG; \
-+	uint32_t OTG_CRC0_DATA_B; \
-+	uint32_t OTG_CRC1_DATA_B; \
-+	uint32_t OTG_CRC2_DATA_B; \
-+	uint32_t OTG_CRC3_DATA_B; \
-+	uint32_t OTG_CRC1_DATA_RG; \
-+	uint32_t OTG_CRC2_DATA_RG; \
-+	uint32_t OTG_CRC3_DATA_RG; \
-+	uint32_t OTG_CRC0_WINDOWA_X_CONTROL; \
-+	uint32_t OTG_CRC0_WINDOWA_Y_CONTROL; \
-+	uint32_t OTG_CRC0_WINDOWB_X_CONTROL; \
-+	uint32_t OTG_CRC0_WINDOWB_Y_CONTROL; \
-+	uint32_t OTG_CRC1_WINDOWA_X_CONTROL; \
-+	uint32_t OTG_CRC1_WINDOWA_Y_CONTROL; \
-+	uint32_t OTG_CRC1_WINDOWB_X_CONTROL; \
-+	uint32_t OTG_CRC1_WINDOWB_Y_CONTROL; \
-+	uint32_t GSL_SOURCE_SELECT; \
-+	uint32_t DWB_SOURCE_SELECT; \
-+	uint32_t OTG_DSC_START_POSITION; \
-+	uint32_t OPTC_DATA_FORMAT_CONTROL; \
-+	uint32_t OPTC_BYTES_PER_PIXEL; \
-+	uint32_t OPTC_WIDTH_CONTROL; \
-+	uint32_t OTG_DRR_CONTROL; \
-+	uint32_t OTG_BLANK_DATA_COLOR; \
-+	uint32_t OTG_BLANK_DATA_COLOR_EXT; \
-+	uint32_t OTG_DRR_TRIGGER_WINDOW; \
-+	uint32_t OTG_M_CONST_DTO0; \
-+	uint32_t OTG_M_CONST_DTO1; \
-+	uint32_t OTG_DRR_V_TOTAL_CHANGE; \
-+	uint32_t OTG_GLOBAL_CONTROL4; \
-+	uint32_t OTG_CRC0_WINDOWA_X_CONTROL_READBACK; \
-+	uint32_t OTG_CRC0_WINDOWA_Y_CONTROL_READBACK; \
-+	uint32_t OTG_CRC0_WINDOWB_X_CONTROL_READBACK; \
-+	uint32_t OTG_CRC0_WINDOWB_Y_CONTROL_READBACK; \
-+	uint32_t OTG_CRC1_WINDOWA_X_CONTROL_READBACK; \
-+	uint32_t OTG_CRC1_WINDOWA_Y_CONTROL_READBACK; \
-+	uint32_t OTG_CRC1_WINDOWB_X_CONTROL_READBACK; \
-+	uint32_t OTG_CRC1_WINDOWB_Y_CONTROL_READBACK; \
-+	uint32_t OPTC_CLOCK_CONTROL; \
-+	uint32_t OPTC_WIDTH_CONTROL2; \
-+	uint32_t OTG_PSTATE_REGISTER; \
-+	uint32_t OTG_PIPE_UPDATE_STATUS; \
-+	uint32_t INTERRUPT_DEST
++	if (!dc->config.unify_link_enc_assignment)
++		link_enc = link_enc_cfg_get_link_enc(link);
 +
- struct dcn_optc_registers {
--	uint32_t OTG_GLOBAL_CONTROL1;
--	uint32_t OTG_GLOBAL_CONTROL2;
--	uint32_t OTG_VERT_SYNC_CONTROL;
--	uint32_t OTG_MASTER_UPDATE_MODE;
--	uint32_t OTG_GSL_CONTROL;
--	uint32_t OTG_VSTARTUP_PARAM;
--	uint32_t OTG_VUPDATE_PARAM;
--	uint32_t OTG_VREADY_PARAM;
--	uint32_t OTG_BLANK_CONTROL;
--	uint32_t OTG_MASTER_UPDATE_LOCK;
--	uint32_t OTG_GLOBAL_CONTROL0;
--	uint32_t OTG_DOUBLE_BUFFER_CONTROL;
--	uint32_t OTG_H_TOTAL;
--	uint32_t OTG_H_BLANK_START_END;
--	uint32_t OTG_H_SYNC_A;
--	uint32_t OTG_H_SYNC_A_CNTL;
--	uint32_t OTG_H_TIMING_CNTL;
--	uint32_t OTG_V_TOTAL;
--	uint32_t OTG_V_BLANK_START_END;
--	uint32_t OTG_V_SYNC_A;
--	uint32_t OTG_V_SYNC_A_CNTL;
--	uint32_t OTG_INTERLACE_CONTROL;
--	uint32_t OTG_CONTROL;
--	uint32_t OTG_STEREO_CONTROL;
--	uint32_t OTG_3D_STRUCTURE_CONTROL;
--	uint32_t OTG_STEREO_STATUS;
--	uint32_t OTG_V_TOTAL_MAX;
--	uint32_t OTG_V_TOTAL_MID;
--	uint32_t OTG_V_TOTAL_MIN;
--	uint32_t OTG_V_TOTAL_CONTROL;
--	uint32_t OTG_V_COUNT_STOP_CONTROL;
--	uint32_t OTG_V_COUNT_STOP_CONTROL2;
--	uint32_t OTG_TRIGA_CNTL;
--	uint32_t OTG_TRIGA_MANUAL_TRIG;
--	uint32_t OTG_MANUAL_FLOW_CONTROL;
--	uint32_t OTG_FORCE_COUNT_NOW_CNTL;
--	uint32_t OTG_STATIC_SCREEN_CONTROL;
--	uint32_t OTG_STATUS_FRAME_COUNT;
--	uint32_t OTG_STATUS;
--	uint32_t OTG_STATUS_POSITION;
--	uint32_t OTG_NOM_VERT_POSITION;
--	uint32_t OTG_BLACK_COLOR;
--	uint32_t OTG_TEST_PATTERN_PARAMETERS;
--	uint32_t OTG_TEST_PATTERN_CONTROL;
--	uint32_t OTG_TEST_PATTERN_COLOR;
--	uint32_t OTG_CLOCK_CONTROL;
--	uint32_t OTG_VERTICAL_INTERRUPT0_CONTROL;
--	uint32_t OTG_VERTICAL_INTERRUPT0_POSITION;
--	uint32_t OTG_VERTICAL_INTERRUPT1_CONTROL;
--	uint32_t OTG_VERTICAL_INTERRUPT1_POSITION;
--	uint32_t OTG_VERTICAL_INTERRUPT2_CONTROL;
--	uint32_t OTG_VERTICAL_INTERRUPT2_POSITION;
--	uint32_t OPTC_INPUT_CLOCK_CONTROL;
--	uint32_t OPTC_DATA_SOURCE_SELECT;
--	uint32_t OPTC_MEMORY_CONFIG;
--	uint32_t OPTC_INPUT_GLOBAL_CONTROL;
--	uint32_t CONTROL;
--	uint32_t OTG_GSL_WINDOW_X;
--	uint32_t OTG_GSL_WINDOW_Y;
--	uint32_t OTG_VUPDATE_KEEPOUT;
--	uint32_t OTG_CRC_CNTL;
--	uint32_t OTG_CRC_CNTL2;
--	uint32_t OTG_CRC0_DATA_RG;
--	uint32_t OTG_CRC1_DATA_RG;
--	uint32_t OTG_CRC2_DATA_RG;
--	uint32_t OTG_CRC3_DATA_RG;
--	uint32_t OTG_CRC0_DATA_B;
--	uint32_t OTG_CRC1_DATA_B;
--	uint32_t OTG_CRC2_DATA_B;
--	uint32_t OTG_CRC3_DATA_B;
--	uint32_t OTG_CRC0_DATA_R;
--	uint32_t OTG_CRC1_DATA_R;
--	uint32_t OTG_CRC2_DATA_R;
--	uint32_t OTG_CRC3_DATA_R;
--	uint32_t OTG_CRC0_DATA_G;
--	uint32_t OTG_CRC1_DATA_G;
--	uint32_t OTG_CRC2_DATA_G;
--	uint32_t OTG_CRC3_DATA_G;
--	uint32_t OTG_CRC0_WINDOWA_X_CONTROL;
--	uint32_t OTG_CRC0_WINDOWA_Y_CONTROL;
--	uint32_t OTG_CRC0_WINDOWB_X_CONTROL;
--	uint32_t OTG_CRC0_WINDOWB_Y_CONTROL;
--	uint32_t OTG_CRC1_WINDOWA_X_CONTROL;
--	uint32_t OTG_CRC1_WINDOWA_Y_CONTROL;
--	uint32_t OTG_CRC1_WINDOWB_X_CONTROL;
--	uint32_t OTG_CRC1_WINDOWB_Y_CONTROL;
--	uint32_t GSL_SOURCE_SELECT;
--	uint32_t DWB_SOURCE_SELECT;
--	uint32_t OTG_DSC_START_POSITION;
--	uint32_t OPTC_DATA_FORMAT_CONTROL;
--	uint32_t OPTC_BYTES_PER_PIXEL;
--	uint32_t OPTC_WIDTH_CONTROL;
--	uint32_t OTG_DRR_CONTROL;
--	uint32_t OTG_BLANK_DATA_COLOR;
--	uint32_t OTG_BLANK_DATA_COLOR_EXT;
--	uint32_t OTG_DRR_TRIGGER_WINDOW;
--	uint32_t OTG_M_CONST_DTO0;
--	uint32_t OTG_M_CONST_DTO1;
--	uint32_t OTG_DRR_V_TOTAL_CHANGE;
--	uint32_t OTG_GLOBAL_CONTROL4;
--	uint32_t OTG_CRC0_WINDOWA_X_CONTROL_READBACK;
--	uint32_t OTG_CRC0_WINDOWA_Y_CONTROL_READBACK;
--	uint32_t OTG_CRC0_WINDOWB_X_CONTROL_READBACK;
--	uint32_t OTG_CRC0_WINDOWB_Y_CONTROL_READBACK;
--	uint32_t OTG_CRC1_WINDOWA_X_CONTROL_READBACK;
--	uint32_t OTG_CRC1_WINDOWA_Y_CONTROL_READBACK;
--	uint32_t OTG_CRC1_WINDOWB_X_CONTROL_READBACK;
--	uint32_t OTG_CRC1_WINDOWB_Y_CONTROL_READBACK;
--	uint32_t OPTC_CLOCK_CONTROL;
--	uint32_t OPTC_WIDTH_CONTROL2;
--	uint32_t OTG_PSTATE_REGISTER;
--	uint32_t OTG_PIPE_UPDATE_STATUS;
--	uint32_t INTERRUPT_DEST;
-+	OPTC_REG_VARIABLE_LIST_DCN;
- };
+ 	dcn401_enable_stream_calc(pipe_ctx, &dp_hpo_inst, &phyd32clk,
+ 				&tmds_div, &early_control);
  
- #define TG_COMMON_MASK_SH_LIST_DCN(mask_sh)\
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/resource.h b/drivers/gpu/drm/amd/display/dc/inc/resource.h
+index 042e04f924a2..9458187b834d 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/resource.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/resource.h
+@@ -647,4 +647,9 @@ void resource_init_common_dml2_callbacks(struct dc *dc, struct dml2_configuratio
+ int resource_calculate_det_for_stream(struct dc_state *state, struct pipe_ctx *otg_master);
+ 
+ bool resource_is_hpo_acquired(struct dc_state *context);
++
++struct link_encoder *get_temp_dio_link_enc(
++		const struct resource_context *res_ctx,
++		const struct resource_pool *const pool,
++		const struct dc_link *link);
+ #endif /* DRIVERS_GPU_DRM_AMD_DC_DEV_DC_INC_RESOURCE_H_ */
+diff --git a/drivers/gpu/drm/amd/display/dc/link/hwss/link_hwss_dio.c b/drivers/gpu/drm/amd/display/dc/link/hwss/link_hwss_dio.c
+index 06faa461067b..4a3578a9586e 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/hwss/link_hwss_dio.c
++++ b/drivers/gpu/drm/amd/display/dc/link/hwss/link_hwss_dio.c
+@@ -48,9 +48,16 @@ void set_dio_throttled_vcp_size(struct pipe_ctx *pipe_ctx,
+ 
+ void setup_dio_stream_encoder(struct pipe_ctx *pipe_ctx)
+ {
+-	struct link_encoder *link_enc = link_enc_cfg_get_link_enc(pipe_ctx->stream->link);
++	struct link_encoder *link_enc = pipe_ctx->link_res.dio_link_enc;
+ 	struct stream_encoder *stream_enc = pipe_ctx->stream_res.stream_enc;
+ 
++	if (!pipe_ctx->stream->ctx->dc->config.unify_link_enc_assignment)
++		link_enc = link_enc_cfg_get_link_enc(pipe_ctx->stream->link);
++	if (!link_enc) {
++		ASSERT(link_enc);
++		return;
++	}
++
+ 	link_enc->funcs->connect_dig_be_to_fe(link_enc,
+ 			pipe_ctx->stream_res.stream_enc->id, true);
+ 	if (dc_is_dp_signal(pipe_ctx->stream->signal))
+@@ -71,9 +78,16 @@ void setup_dio_stream_encoder(struct pipe_ctx *pipe_ctx)
+ 
+ void reset_dio_stream_encoder(struct pipe_ctx *pipe_ctx)
+ {
+-	struct link_encoder *link_enc = link_enc_cfg_get_link_enc(pipe_ctx->stream->link);
++	struct link_encoder *link_enc = pipe_ctx->link_res.dio_link_enc;
+ 	struct stream_encoder *stream_enc = pipe_ctx->stream_res.stream_enc;
+ 
++	if (!pipe_ctx->stream->ctx->dc->config.unify_link_enc_assignment)
++		link_enc = link_enc_cfg_get_link_enc(pipe_ctx->stream->link);
++	if (!link_enc) {
++		ASSERT(link_enc);
++		return;
++	}
++
+ 	if (!stream_enc)
+ 		return;
+ 
+@@ -142,7 +156,14 @@ void enable_dio_dp_link_output(struct dc_link *link,
+ 		enum clock_source_id clock_source,
+ 		const struct dc_link_settings *link_settings)
+ {
+-	struct link_encoder *link_enc = link_enc_cfg_get_link_enc(link);
++	struct link_encoder *link_enc = link_res->dio_link_enc;
++
++	if (!link->dc->config.unify_link_enc_assignment)
++		link_enc = link_enc_cfg_get_link_enc(link);
++	if (!link_enc) {
++		ASSERT(link_enc);
++		return;
++	}
+ 
+ 	if (dc_is_dp_sst_signal(signal))
+ 		link_enc->funcs->enable_dp_output(
+@@ -162,11 +183,16 @@ void disable_dio_link_output(struct dc_link *link,
+ 		const struct link_resource *link_res,
+ 		enum signal_type signal)
+ {
+-	struct link_encoder *link_enc = link_enc_cfg_get_link_enc(link);
++	struct link_encoder *link_enc = link_res->dio_link_enc;
+ 
+-	if (link_enc != NULL)
+-		link_enc->funcs->disable_output(link_enc, signal);
++	if (!link->dc->config.unify_link_enc_assignment)
++		link_enc = link_enc_cfg_get_link_enc(link);
++	if (!link_enc) {
++		ASSERT(link_enc);
++		return;
++	}
+ 
++	link_enc->funcs->disable_output(link_enc, signal);
+ 	link->dc->link_srv->dp_trace_source_sequence(link,
+ 			DPCD_SOURCE_SEQ_AFTER_DISABLE_LINK_PHY);
+ }
+@@ -175,7 +201,14 @@ void set_dio_dp_link_test_pattern(struct dc_link *link,
+ 		const struct link_resource *link_res,
+ 		struct encoder_set_dp_phy_pattern_param *tp_params)
+ {
+-	struct link_encoder *link_enc = link_enc_cfg_get_link_enc(link);
++	struct link_encoder *link_enc = link_res->dio_link_enc;
++
++	if (!link->dc->config.unify_link_enc_assignment)
++		link_enc = link_enc_cfg_get_link_enc(link);
++	if (!link_enc) {
++		ASSERT(link_enc);
++		return;
++	}
+ 
+ 	link_enc->funcs->dp_set_phy_pattern(link_enc, tp_params);
+ 	link->dc->link_srv->dp_trace_source_sequence(link, DPCD_SOURCE_SEQ_AFTER_SET_SOURCE_PATTERN);
+@@ -186,7 +219,14 @@ void set_dio_dp_lane_settings(struct dc_link *link,
+ 		const struct dc_link_settings *link_settings,
+ 		const struct dc_lane_settings lane_settings[LANE_COUNT_DP_MAX])
+ {
+-	struct link_encoder *link_enc = link_enc_cfg_get_link_enc(link);
++	struct link_encoder *link_enc = link_res->dio_link_enc;
++
++	if (!link->dc->config.unify_link_enc_assignment)
++		link_enc = link_enc_cfg_get_link_enc(link);
++	if (!link_enc) {
++		ASSERT(link_enc);
++		return;
++	}
+ 
+ 	link_enc->funcs->dp_set_lane_settings(link_enc, link_settings, lane_settings);
+ }
+@@ -195,9 +235,15 @@ void update_dio_stream_allocation_table(struct dc_link *link,
+ 		const struct link_resource *link_res,
+ 		const struct link_mst_stream_allocation_table *table)
+ {
+-	struct link_encoder *link_enc = link_enc_cfg_get_link_enc(link);
++	struct link_encoder *link_enc = link_res->dio_link_enc;
++
++	if (!link->dc->config.unify_link_enc_assignment)
++		link_enc = link_enc_cfg_get_link_enc(link);
++	if (!link_enc) {
++		ASSERT(link_enc);
++		return;
++	}
+ 
+-	ASSERT(link_enc);
+ 	link_enc->funcs->update_mst_stream_allocation_table(link_enc, table);
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/link/hwss/link_hwss_dio_fixed_vs_pe_retimer.c b/drivers/gpu/drm/amd/display/dc/link/hwss/link_hwss_dio_fixed_vs_pe_retimer.c
+index a6d1d7641ab4..e1dff4e3f446 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/hwss/link_hwss_dio_fixed_vs_pe_retimer.c
++++ b/drivers/gpu/drm/amd/display/dc/link/hwss/link_hwss_dio_fixed_vs_pe_retimer.c
+@@ -127,7 +127,10 @@ static void set_dio_fixed_vs_pe_retimer_dp_link_test_pattern(struct dc_link *lin
+ 		const struct link_resource *link_res,
+ 		struct encoder_set_dp_phy_pattern_param *tp_params)
+ {
+-	struct link_encoder *link_enc = link_enc_cfg_get_link_enc(link);
++	struct link_encoder *link_enc = link_res->dio_link_enc;
++
++	if (!link->dc->config.unify_link_enc_assignment)
++		link_enc = link_enc_cfg_get_link_enc(link);
+ 
+ 	if (!set_dio_fixed_vs_pe_retimer_dp_link_test_pattern_override(
+ 			link, link_res, tp_params, get_dio_link_hwss())) {
+diff --git a/drivers/gpu/drm/amd/display/dc/link/hwss/link_hwss_dpia.c b/drivers/gpu/drm/amd/display/dc/link/hwss/link_hwss_dpia.c
+index 36adf95744fe..81d5085e322f 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/hwss/link_hwss_dpia.c
++++ b/drivers/gpu/drm/amd/display/dc/link/hwss/link_hwss_dpia.c
+@@ -35,12 +35,15 @@ static void update_dpia_stream_allocation_table(struct dc_link *link,
+ 		const struct link_resource *link_res,
+ 		const struct link_mst_stream_allocation_table *table)
+ {
+-	struct link_encoder *link_enc = link_enc_cfg_get_link_enc(link);
++	struct link_encoder *link_enc = link_res->dio_link_enc;
+ 	static enum dc_status status;
+ 	uint8_t mst_alloc_slots = 0, prev_mst_slots_in_use = 0xFF;
+ 	int i;
+ 	DC_LOGGER_INIT(link->ctx->logger);
+ 
++	if (!link->dc->config.unify_link_enc_assignment)
++		link_enc = link_enc_cfg_get_link_enc(link);
++
+ 	for (i = 0; i < table->stream_count; i++)
+ 		mst_alloc_slots += table->stream_allocations[i].slot_count;
+ 
+@@ -61,7 +64,10 @@ static void set_dio_dpia_link_test_pattern(struct dc_link *link,
+ 	if (tp_params->dp_phy_pattern != DP_TEST_PATTERN_VIDEO_MODE)
+ 		return;
+ 
+-	struct link_encoder *link_enc = link_enc_cfg_get_link_enc(link);
++	struct link_encoder *link_enc = link_res->dio_link_enc;
++
++	if (!link->dc->config.unify_link_enc_assignment)
++		link_enc = link_enc_cfg_get_link_enc(link);
+ 
+ 	if (!link_enc)
+ 		return;
+@@ -83,7 +89,10 @@ static void enable_dpia_link_output(struct dc_link *link,
+ 		enum clock_source_id clock_source,
+ 		const struct dc_link_settings *link_settings)
+ {
+-	struct link_encoder *link_enc = link_enc_cfg_get_link_enc(link);
++	struct link_encoder *link_enc = link_res->dio_link_enc;
++
++	if (!link->dc->config.unify_link_enc_assignment)
++		link_enc = link_enc_cfg_get_link_enc(link);
+ 
+ 	if (link_enc != NULL) {
+ 		if (link->dc->config.enable_dpia_pre_training && link_enc->funcs->enable_dpia_output) {
+@@ -119,7 +128,10 @@ static void disable_dpia_link_output(struct dc_link *link,
+ 		const struct link_resource *link_res,
+ 		enum signal_type signal)
+ {
+-	struct link_encoder *link_enc = link_enc_cfg_get_link_enc(link);
++	struct link_encoder *link_enc = link_res->dio_link_enc;
++
++	if (!link->dc->config.unify_link_enc_assignment)
++		link_enc = link_enc_cfg_get_link_enc(link);
+ 
+ 	if (link_enc != NULL) {
+ 		if (link->dc->config.enable_dpia_pre_training && link_enc->funcs->disable_dpia_output) {
+diff --git a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
+index ec7de9c01fab..321fd1785370 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
++++ b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
+@@ -652,15 +652,15 @@ static void write_i2c_redriver_setting(
+ static void update_psp_stream_config(struct pipe_ctx *pipe_ctx, bool dpms_off)
+ {
+ 	struct cp_psp *cp_psp = &pipe_ctx->stream->ctx->cp_psp;
+-	struct link_encoder *link_enc = NULL;
++	struct link_encoder *link_enc = pipe_ctx->link_res.dio_link_enc;
+ 	struct cp_psp_stream_config config = {0};
+ 	enum dp_panel_mode panel_mode =
+ 			dp_get_panel_mode(pipe_ctx->stream->link);
+ 
+ 	if (cp_psp == NULL || cp_psp->funcs.update_stream_config == NULL)
+ 		return;
+-
+-	link_enc = link_enc_cfg_get_link_enc(pipe_ctx->stream->link);
++	if (!pipe_ctx->stream->ctx->dc->config.unify_link_enc_assignment)
++		link_enc = link_enc_cfg_get_link_enc(pipe_ctx->stream->link);
+ 	ASSERT(link_enc);
+ 	if (link_enc == NULL)
+ 		return;
+@@ -1924,7 +1924,7 @@ static void disable_link_dp(struct dc_link *link,
+ 
+ 	if (link_dp_get_encoding_format(&link_settings) ==
+ 			DP_8b_10b_ENCODING) {
+-		dp_set_fec_enable(link, false);
++		dp_set_fec_enable(link, link_res, false);
+ 		dp_set_fec_ready(link, link_res, false);
+ 	}
+ }
+@@ -2122,7 +2122,7 @@ static enum dc_status enable_link_dp(struct dc_state *state,
+ 		fec_enable = true;
+ 
+ 	if (link_dp_get_encoding_format(link_settings) == DP_8b_10b_ENCODING)
+-		dp_set_fec_enable(link, fec_enable);
++		dp_set_fec_enable(link, &pipe_ctx->link_res, fec_enable);
+ 
+ 	// during mode set we do DP_SET_POWER off then on, aux writes are lost
+ 	if (link->dpcd_sink_ext_caps.bits.oled == 1 ||
+@@ -2461,7 +2461,7 @@ void link_set_dpms_on(
+ 	struct dc_stream_state *stream = pipe_ctx->stream;
+ 	struct dc_link *link = stream->sink->link;
+ 	enum dc_status status;
+-	struct link_encoder *link_enc;
++	struct link_encoder *link_enc = pipe_ctx->link_res.dio_link_enc;
+ 	enum otg_out_mux_dest otg_out_dest = OUT_MUX_DIO;
+ 	struct vpg *vpg = pipe_ctx->stream_res.stream_enc->vpg;
+ 	const struct link_hwss *link_hwss = get_link_hwss(link, &pipe_ctx->link_res);
+@@ -2486,7 +2486,8 @@ void link_set_dpms_on(
+ 		}
+ 	}
+ 
+-	link_enc = link_enc_cfg_get_link_enc(link);
++	if (!dc->config.unify_link_enc_assignment)
++		link_enc = link_enc_cfg_get_link_enc(link);
+ 	ASSERT(link_enc);
+ 
+ 	if (!dc_is_virtual_signal(pipe_ctx->stream->signal)
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
+index e3e7fcb07f19..f6e0868507f7 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
+@@ -330,9 +330,12 @@ bool dp_is_fec_supported(const struct dc_link *link)
+ 	/* TODO - use asic cap instead of link_enc->features
+ 	 * we no longer know which link enc to use for this link before commit
+ 	 */
+-	struct link_encoder *link_enc = NULL;
++	struct resource_context *res_ctx = &link->dc->current_state->res_ctx;
++	struct resource_pool *res_pool = link->dc->res_pool;
++	struct link_encoder *link_enc = get_temp_dio_link_enc(res_ctx, res_pool, link);
+ 
+-	link_enc = link_enc_cfg_get_link_enc(link);
++	if (!link->dc->config.unify_link_enc_assignment)
++		link_enc = link_enc_cfg_get_link_enc(link);
+ 	ASSERT(link_enc);
+ 
+ 	return (dc_is_dp_signal(link->connector_signal) && link_enc &&
+@@ -2093,14 +2096,17 @@ void detect_edp_sink_caps(struct dc_link *link)
+ 
+ bool dp_get_max_link_enc_cap(const struct dc_link *link, struct dc_link_settings *max_link_enc_cap)
+ {
+-	struct link_encoder *link_enc = NULL;
++	struct resource_context *res_ctx = &link->dc->current_state->res_ctx;
++	struct resource_pool *res_pool = link->dc->res_pool;
++	struct link_encoder *link_enc = get_temp_dio_link_enc(res_ctx, res_pool, link);
+ 
+ 	if (!max_link_enc_cap) {
+ 		DC_LOG_ERROR("%s: Could not return max link encoder caps", __func__);
+ 		return false;
+ 	}
+ 
+-	link_enc = link_enc_cfg_get_link_enc(link);
++	if (!link->dc->config.unify_link_enc_assignment)
++		link_enc = link_enc_cfg_get_link_enc(link);
+ 	ASSERT(link_enc);
+ 
+ 	if (link_enc && link_enc->funcs->get_max_link_cap) {
+@@ -2128,10 +2134,13 @@ struct dc_link_settings dp_get_max_link_cap(struct dc_link *link)
+ 	struct dc_link_settings max_link_cap = {0};
+ 	enum dc_link_rate lttpr_max_link_rate;
+ 	enum dc_link_rate cable_max_link_rate;
+-	struct link_encoder *link_enc = NULL;
++	struct resource_context *res_ctx = &link->dc->current_state->res_ctx;
++	struct resource_pool *res_pool = link->dc->res_pool;
++	struct link_encoder *link_enc = get_temp_dio_link_enc(res_ctx, res_pool, link);
+ 	bool is_uhbr13_5_supported = true;
+ 
+-	link_enc = link_enc_cfg_get_link_enc(link);
++	if (!link->dc->config.unify_link_enc_assignment)
++		link_enc = link_enc_cfg_get_link_enc(link);
+ 	ASSERT(link_enc);
+ 
+ 	/* get max link encoder capability */
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.h b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.h
+index 8f0ce97f2362..0ce0af3ddbeb 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.h
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.h
+@@ -67,6 +67,7 @@ bool dp_is_128b_132b_signal(struct pipe_ctx *pipe_ctx);
+ /* Initialize output parameter lt_settings. */
+ void dp_decide_training_settings(
+ 	struct dc_link *link,
++	const struct link_resource *link_res,
+ 	const struct dc_link_settings *link_setting,
+ 	struct link_training_settings *lt_settings);
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
+index c27ffec5d84f..49521ac4b0e8 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
+@@ -142,11 +142,12 @@ enum dc_status dp_set_fec_ready(struct dc_link *link, const struct link_resource
+ 	 * if the sink supports it and leave it enabled on link.
+ 	 * If FEC is not supported, disable it.
+ 	 */
+-	struct link_encoder *link_enc = NULL;
++	struct link_encoder *link_enc = link_res->dio_link_enc;
+ 	enum dc_status status = DC_OK;
+ 	uint8_t fec_config = 0;
+ 
+-	link_enc = link_enc_cfg_get_link_enc(link);
++	if (!link->dc->config.unify_link_enc_assignment)
++		link_enc = link_enc_cfg_get_link_enc(link);
+ 	ASSERT(link_enc);
+ 	if (link_enc->funcs->fec_set_ready == NULL)
+ 		return DC_NOT_SUPPORTED;
+@@ -176,13 +177,14 @@ enum dc_status dp_set_fec_ready(struct dc_link *link, const struct link_resource
+ 	return status;
+ }
+ 
+-void dp_set_fec_enable(struct dc_link *link, bool enable)
++void dp_set_fec_enable(struct dc_link *link, const struct link_resource *link_res, bool enable)
+ {
+-	struct link_encoder *link_enc = NULL;
++	struct link_encoder *link_enc = link_res->dio_link_enc;
+ 
+-	link_enc = link_enc_cfg_get_link_enc(link);
+-	ASSERT(link_enc);
+-	if (link_enc->funcs->fec_set_enable == NULL)
++	if (!link->dc->config.unify_link_enc_assignment)
++		link_enc = link_enc_cfg_get_link_enc(link);
++
++	if (link_enc == NULL || link_enc->funcs == NULL || link_enc->funcs->fec_set_enable == NULL)
+ 		return;
+ 
+ 	if (enable && dp_should_enable_fec(link)) {
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.h b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.h
+index 1eb0619d6710..ab1c1f8f1f8b 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.h
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.h
+@@ -52,7 +52,8 @@ void dp_set_drive_settings(
+ enum dc_status dp_set_fec_ready(struct dc_link *link,
+ 		const struct link_resource *link_res, bool ready);
+ 
+-void dp_set_fec_enable(struct dc_link *link, bool enable);
++void dp_set_fec_enable(struct dc_link *link,
++		const struct link_resource *link_res, bool enable);
+ 
+ void dpcd_write_rx_power_ctrl(struct dc_link *link, bool on);
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.c
+index 751c18e592ea..40ac17ba9479 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.c
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.c
+@@ -801,19 +801,23 @@ enum dc_dp_training_pattern decide_cr_training_pattern(
+ }
+ 
+ enum dc_dp_training_pattern decide_eq_training_pattern(struct dc_link *link,
++		const struct link_resource *link_res,
+ 		const struct dc_link_settings *link_settings)
+ {
+-	struct link_encoder *link_enc;
++	struct link_encoder *link_enc = link_res->dio_link_enc;
+ 	struct encoder_feature_support *enc_caps;
+ 	struct dpcd_caps *rx_caps = &link->dpcd_caps;
+ 	enum dc_dp_training_pattern pattern = DP_TRAINING_PATTERN_SEQUENCE_2;
+ 
+-	link_enc = link_enc_cfg_get_link_enc(link);
+-	ASSERT(link_enc);
+-	enc_caps = &link_enc->features;
+-
+ 	switch (link_dp_get_encoding_format(link_settings)) {
+ 	case DP_8b_10b_ENCODING:
++		if (!link->dc->config.unify_link_enc_assignment)
++			link_enc = link_enc_cfg_get_link_enc(link);
++
++		if (!link_enc)
++			break;
++
++		enc_caps = &link_enc->features;
+ 		if (enc_caps->flags.bits.IS_TPS4_CAPABLE &&
+ 				rx_caps->max_down_spread.bits.TPS4_SUPPORTED)
+ 			pattern = DP_TRAINING_PATTERN_SEQUENCE_4;
+@@ -886,13 +890,14 @@ void dp_decide_lane_settings(
+ 
+ void dp_decide_training_settings(
+ 		struct dc_link *link,
++		const struct link_resource *link_res,
+ 		const struct dc_link_settings *link_settings,
+ 		struct link_training_settings *lt_settings)
+ {
+ 	if (link_dp_get_encoding_format(link_settings) == DP_8b_10b_ENCODING)
+-		decide_8b_10b_training_settings(link, link_settings, lt_settings);
++		decide_8b_10b_training_settings(link, link_res, link_settings, lt_settings);
+ 	else if (link_dp_get_encoding_format(link_settings) == DP_128b_132b_ENCODING)
+-		decide_128b_132b_training_settings(link, link_settings, lt_settings);
++		decide_128b_132b_training_settings(link, link_res, link_settings, lt_settings);
+ }
+ 
+ 
+@@ -1556,6 +1561,7 @@ enum link_training_result dp_perform_link_training(
+ 	/* decide training settings */
+ 	dp_decide_training_settings(
+ 			link,
++			link_res,
+ 			link_settings,
+ 			&lt_settings);
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.h b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.h
+index 0b18aa35c33c..574b083e0936 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.h
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.h
+@@ -104,6 +104,7 @@ void start_clock_recovery_pattern_early(struct dc_link *link,
+ 
+ void dp_decide_training_settings(
+ 		struct dc_link *link,
++		const struct link_resource *link_res,
+ 		const struct dc_link_settings *link_settings,
+ 		struct link_training_settings *lt_settings);
+ 
+@@ -117,6 +118,7 @@ enum dc_dp_training_pattern decide_cr_training_pattern(
+ 		const struct dc_link_settings *link_settings);
+ 
+ enum dc_dp_training_pattern decide_eq_training_pattern(struct dc_link *link,
++		const struct link_resource *link_res,
+ 		const struct dc_link_settings *link_settings);
+ 
+ enum lttpr_mode dp_decide_lttpr_mode(struct dc_link *link,
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_128b_132b.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_128b_132b.c
+index db87cfe37b5c..11565f187ac7 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_128b_132b.c
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_128b_132b.c
+@@ -204,6 +204,7 @@ enum link_training_result dp_perform_128b_132b_link_training(
+ 		struct link_training_settings legacy_settings;
+ 
+ 		decide_8b_10b_training_settings(link,
++				link_res,
+ 				&lt_settings->link_settings,
+ 				&legacy_settings);
+ 		return dp_perform_8b_10b_link_training(link, link_res, &legacy_settings);
+@@ -227,6 +228,7 @@ enum link_training_result dp_perform_128b_132b_link_training(
+ }
+ 
+ void decide_128b_132b_training_settings(struct dc_link *link,
++		const struct link_resource *link_res,
+ 		const struct dc_link_settings *link_settings,
+ 		struct link_training_settings *lt_settings)
+ {
+@@ -238,7 +240,7 @@ void decide_128b_132b_training_settings(struct dc_link *link,
+ 			LINK_SPREAD_05_DOWNSPREAD_30KHZ;
+ 
+ 	lt_settings->pattern_for_cr = decide_cr_training_pattern(link_settings);
+-	lt_settings->pattern_for_eq = decide_eq_training_pattern(link, link_settings);
++	lt_settings->pattern_for_eq = decide_eq_training_pattern(link, link_res, link_settings);
+ 	lt_settings->eq_pattern_time = 2500;
+ 	lt_settings->eq_wait_time_limit = 400000;
+ 	lt_settings->eq_loop_count_limit = 20;
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_128b_132b.h b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_128b_132b.h
+index 2147f24efc8b..901a42edafa1 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_128b_132b.h
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_128b_132b.h
+@@ -34,6 +34,7 @@ enum link_training_result dp_perform_128b_132b_link_training(
+ 		struct link_training_settings *lt_settings);
+ 
+ void decide_128b_132b_training_settings(struct dc_link *link,
++		const struct link_resource *link_res,
+ 		const struct dc_link_settings *link_settings,
+ 		struct link_training_settings *lt_settings);
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_8b_10b.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_8b_10b.c
+index ae95ec48e572..34d2e097ca2e 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_8b_10b.c
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_8b_10b.c
+@@ -93,7 +93,8 @@ static uint32_t get_eq_training_aux_rd_interval(
+ }
+ 
+ void decide_8b_10b_training_settings(
+-	 struct dc_link *link,
++	struct dc_link *link,
++	const struct link_resource *link_res,
+ 	const struct dc_link_settings *link_setting,
+ 	struct link_training_settings *lt_settings)
+ {
+@@ -115,7 +116,7 @@ void decide_8b_10b_training_settings(
+ 			LINK_SPREAD_DISABLED : LINK_SPREAD_05_DOWNSPREAD_30KHZ;
+ 	lt_settings->eq_pattern_time = get_eq_training_aux_rd_interval(link, link_setting);
+ 	lt_settings->pattern_for_cr = decide_cr_training_pattern(link_setting);
+-	lt_settings->pattern_for_eq = decide_eq_training_pattern(link, link_setting);
++	lt_settings->pattern_for_eq = decide_eq_training_pattern(link, link_res, link_setting);
+ 	lt_settings->enhanced_framing = 1;
+ 	lt_settings->should_set_fec_ready = true;
+ 	lt_settings->disallow_per_lane_settings = true;
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_8b_10b.h b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_8b_10b.h
+index d26de15ce954..ea0de701d83f 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_8b_10b.h
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_8b_10b.h
+@@ -54,7 +54,8 @@ enum link_training_result perform_8b_10b_channel_equalization_sequence(
+ enum lttpr_mode dp_decide_8b_10b_lttpr_mode(struct dc_link *link);
+ 
+ void decide_8b_10b_training_settings(
+-	 struct dc_link *link,
++	struct dc_link *link,
++	const struct link_resource *link_res,
+ 	const struct dc_link_settings *link_setting,
+ 	struct link_training_settings *lt_settings);
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_auxless.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_auxless.c
+index 4c6b886a9da8..f99d26290bc0 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_auxless.c
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_auxless.c
+@@ -39,6 +39,7 @@ bool dp_perform_link_training_skip_aux(
+ 
+ 	dp_decide_training_settings(
+ 			link,
++			link_res,
+ 			link_setting,
+ 			&lt_settings);
+ 	override_training_settings(
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_dpia.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_dpia.c
+index 39e4b7dc9588..6e2d08cfc546 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_dpia.c
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_dpia.c
+@@ -110,6 +110,7 @@ static enum link_training_result dpia_configure_link(
+ 
+ 	dp_decide_training_settings(
+ 		link,
++		link_res,
+ 		link_setting,
+ 		lt_settings);
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn20/dcn20_resource.c
+index 5c6dc710e96c..e4eca3e32c1b 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn20/dcn20_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn20/dcn20_resource.c
+@@ -1220,7 +1220,7 @@ static void get_pixel_clock_parameters(
+ 	struct pipe_ctx *odm_pipe;
+ 	int opp_cnt = 1;
+ 	struct dc_link *link = stream->link;
+-	struct link_encoder *link_enc = NULL;
++	struct link_encoder *link_enc = pipe_ctx->link_res.dio_link_enc;
+ 	struct dc *dc = pipe_ctx->stream->ctx->dc;
+ 	struct dce_hwseq *hws = dc->hwseq;
+ 
+@@ -1229,7 +1229,8 @@ static void get_pixel_clock_parameters(
+ 
+ 	pixel_clk_params->requested_pix_clk_100hz = stream->timing.pix_clk_100hz;
+ 
+-	link_enc = link_enc_cfg_get_link_enc(link);
++	if (!dc->config.unify_link_enc_assignment)
++		link_enc = link_enc_cfg_get_link_enc(link);
+ 	if (link_enc)
+ 		pixel_clk_params->encoder_object_id = link_enc->id;
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
+index 4e842f29d4c4..7436dfbdf927 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
+@@ -1666,12 +1666,13 @@ static void dcn401_build_pipe_pix_clk_params(struct pipe_ctx *pipe_ctx)
+ {
+ 	const struct dc_stream_state *stream = pipe_ctx->stream;
+ 	struct dc_link *link = stream->link;
+-	struct link_encoder *link_enc = NULL;
++	struct link_encoder *link_enc = pipe_ctx->link_res.dio_link_enc;
+ 	struct pixel_clk_params *pixel_clk_params = &pipe_ctx->stream_res.pix_clk_params;
+ 
+ 	pixel_clk_params->requested_pix_clk_100hz = stream->timing.pix_clk_100hz;
+ 
+-	link_enc = link_enc_cfg_get_link_enc(link);
++	if (!pipe_ctx->stream->ctx->dc->config.unify_link_enc_assignment)
++		link_enc = link_enc_cfg_get_link_enc(link);
+ 	if (link_enc)
+ 		pixel_clk_params->encoder_object_id = link_enc->id;
+ 
 -- 
 2.34.1
 
