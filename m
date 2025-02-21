@@ -4,119 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94453C021AA
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2025 09:24:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF0E1C021B5
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2025 09:50:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F99610E22D;
-	Fri, 21 Feb 2025 09:24:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB95910E22F;
+	Fri, 21 Feb 2025 09:50:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2KO9R9IP";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QceuWUWz";
 	dkim-atps=neutral
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on2068.outbound.protection.outlook.com [40.107.101.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B828810E22D
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Feb 2025 09:24:14 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gKy+tk89qfFPLh7G4tmPtYPcd1lguRoNVY6NE0A47zpcCmTzODZxm10wTRf2qANKZdFuzUyHw6uBDCW8fSjrc7rLnr5RNqPrI4ZMrwzCWwJxWxippdtjJIF+OAolmMJRd1b1DItFeM8LnZWCijYhiRjc+UnL3vxPWViO3SHwXUdUBPwoNxzfKTyafnHDF708xqYyvppIBwBfUIwWBvIB2Gm74VTh2B8+1iYDE0kLQo6JzDUl1qDGomKD6k5v0Y/YoOWrYL1uUirVgZ7av3J2g7PxBH18Cq59+KOnYYo3NerRN6AUlV2DVD9lY6fSKltaE+35N63zd2SOKpE49akMlg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=U9qBTP2KRhklO07qEpoMLfTbYxcv+O0cMe2vjv46kZ4=;
- b=P6wATpycJTVjAA1GVZxd1Y4FfQmrBnIFQH25TakRdE9JF6K3vdFT85Bsr+ugJnbOkw0cthdNPDOGBe+Q5GGrE/0FuYfOIGNDuOxHtdVNW+MZa1RNXun6YPBBL0LQfrgc18i3fyLm8VIWWFv+nFyHcxuinh/Vjhx1Q88wIWoTM1r8AyTPnE/Jk0ljKhpFyOqAeSa7pAwfYROppwgL1IsuVmp9tnUt8Lj/wv0fF7enP8wIMelQe/FRixbEweUXoJcanMzTQA0NawC3w/ORTpnMwaUkl1SRyY2gWvrBePo/hSXOASFoirikc8OKJwnKWs0+QGswM1ZUcsqRKdTJ2zdu2Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=U9qBTP2KRhklO07qEpoMLfTbYxcv+O0cMe2vjv46kZ4=;
- b=2KO9R9IPIKJdkrXrwaeOsXGw2/ntErBiSl1Cf8pUDxHaFdG/ERRlfiCQIJorwCYf6If3dxcXMBvEaYoigZJMR6WHa083I605HB4jaY3l1O09mEz/ktp7zTDTMFaxoTm59i6GHdZo8q8GGFK7WikT8YmFb6vkrPJHl9qqvzb5Umc=
-Received: from MW4PR03CA0328.namprd03.prod.outlook.com (2603:10b6:303:dd::33)
- by PH7PR12MB9223.namprd12.prod.outlook.com (2603:10b6:510:2f2::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8466.15; Fri, 21 Feb
- 2025 09:24:11 +0000
-Received: from SJ5PEPF000001EA.namprd05.prod.outlook.com
- (2603:10b6:303:dd:cafe::91) by MW4PR03CA0328.outlook.office365.com
- (2603:10b6:303:dd::33) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8445.20 via Frontend Transport; Fri,
- 21 Feb 2025 09:24:10 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ5PEPF000001EA.mail.protection.outlook.com (10.167.242.198) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8466.11 via Frontend Transport; Fri, 21 Feb 2025 09:24:10 +0000
-Received: from localhost.localdomain.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Fri, 21 Feb 2025 03:24:08 -0600
-From: Zhu Lingshan <lingshan.zhu@amd.com>
-To: <Felix.Kuehling@amd.com>, <alexander.deucher@amd.com>
-CC: <ray.huang@amd.com>, <amd-gfx@lists.freedesktop.org>, Zhu Lingshan
- <lingshan.zhu@amd.com>
-Subject: [PATCH] amdkfd: initialize svm lists at where they are defined
-Date: Fri, 21 Feb 2025 17:23:55 +0800
-Message-ID: <20250221092355.336312-1-lingshan.zhu@amd.com>
-X-Mailer: git-send-email 2.47.1
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4110410E22C;
+ Fri, 21 Feb 2025 09:50:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1740131416; x=1771667416;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=14wihrgxDAMUcm++Tqe/xZOkIahAfsAi/hjuQ1z8YnA=;
+ b=QceuWUWzQLwrKunv/LbSRjHVVlsXk7kPyiEjVYbcSkqNOJ/ZcPgexaMA
+ tgXqnxZDrsNr0yGRf0llo6m8729Sy+JR2TZvzpofogkOsKUf2FK7F+VnA
+ XTJPb7eErtpnhjk6qyzkQaxcsGUH/e73bRfAKOCFN07wcyytZWG4J90nV
+ bXHNx8ULu2ZDUfniRXaPmQSNhv4ht21w285YKMJoX+b/lbHAoGjxDssyc
+ ka4WG27Rv6HDXY61pAFcSOBPG3rsKPF7hCYpo6WfiYrhgpfM3P+p1Vsd8
+ LVO9W1ab7rrP7N41XQM6zW2tdtMxdBlqt7OzcmcHNyCM0ASj8Lrlcq//t Q==;
+X-CSE-ConnectionGUID: 1GxB3Np+SFWTDUn1ElclJQ==
+X-CSE-MsgGUID: P2WTb3UeQK+GBVWTkR3YOA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11351"; a="44731166"
+X-IronPort-AV: E=Sophos;i="6.13,304,1732608000"; d="scan'208";a="44731166"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Feb 2025 01:50:15 -0800
+X-CSE-ConnectionGUID: nvscHLlGQeKJjK5VYLNqCg==
+X-CSE-MsgGUID: b029fyUDTOWE658I96WXXA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.12,224,1728975600"; d="scan'208";a="146216348"
+Received: from lkp-server02.sh.intel.com (HELO 76cde6cc1f07) ([10.239.97.151])
+ by fmviesa001.fm.intel.com with ESMTP; 21 Feb 2025 01:50:12 -0800
+Received: from kbuild by 76cde6cc1f07 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1tlPfb-0005MV-1X;
+ Fri, 21 Feb 2025 09:50:08 +0000
+Date: Fri, 21 Feb 2025 17:49:12 +0800
+From: kernel test robot <lkp@intel.com>
+To: Wentao Liang <vulab@iscas.ac.cn>, alexander.deucher@amd.com,
+ christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Wentao Liang <vulab@iscas.ac.cn>,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] drm/radeon: Add error handlings for r420 cp errata
+ initiation
+Message-ID: <202502211718.EFZaW3pW-lkp@intel.com>
+References: <20250220064050.686-1-vulab@iscas.ac.cn>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001EA:EE_|PH7PR12MB9223:EE_
-X-MS-Office365-Filtering-Correlation-Id: b9dfba35-5be0-4ccc-00a4-08dd52597fc0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700013|1800799024|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?zhvgeBO+31pPTDHDAFRr5B6r2mlIpi8Fs3D48dOm20pQ/od27F9hoZhgeW7q?=
- =?us-ascii?Q?nysMvc+iuwXepwKkyswhAAQSp3BMKejHDZussLichupqLvy/h1WLg36gUkLT?=
- =?us-ascii?Q?vtgTv27mzmEg3JpFJdNk2PI49hyBYedwJJD18xeAeGuRwf2SChx1+teXsb3q?=
- =?us-ascii?Q?fdlAForF+6/iDMNy3dZbtLupGg137Ik/QksGyCtLWDmwL7mOhv2+IBjWgVc9?=
- =?us-ascii?Q?O3MMv9BE7WlU4gDAntw5btNcKdDBzG6CJqTndAKYDIskPuWUz63whGHpUsO2?=
- =?us-ascii?Q?H3NlX8UWuwYkb2n6oDsU9Yr/9v3wbUUjYQ4WnTjtjEpWBLdRjRfhd2929vQT?=
- =?us-ascii?Q?LVJYE35y46ECik3xghoFb+RE2Jazm4yXAXqN/mr7Vyo68o7KnNuM4+yCpTHK?=
- =?us-ascii?Q?FIJhekqsB2AYfjyTEkai5p7Q1dcDFeZmzXGjO7CWSFtmD8AQCIlNErrYwLvX?=
- =?us-ascii?Q?KvQ931Ub9PRWcGw+72nj0nHFTEXTJJvlMm9JdEKb8v1vHH1eRrY4YADKJH71?=
- =?us-ascii?Q?wR/l/N7/HEL0vxv5L8rdZk8rmU5okJgB6cngRMKMpIYcNqGcOyVpqF6NJ17x?=
- =?us-ascii?Q?+/Pp3cLouQpJEehEjsFA+982ogATbHlWXT1bh4idOHIx2iD1TslY6Hj/OHCI?=
- =?us-ascii?Q?5dEbdFatQXHmJF8dgcEakyQvei3lWEGOIrXZTI09kez8MlXGpa0w9OVNGRFz?=
- =?us-ascii?Q?8HVnwZrB2B0CsPmjbGVrYdb9Yo9cDCAoTXnuOASNfdRoo9dmPT/9n2ToMFhh?=
- =?us-ascii?Q?FvtYvZ3fzCyPahZyWyNkZ3m0EylSlKMJW9snwKgNSG1iASf21am/bUZuF5IJ?=
- =?us-ascii?Q?5kngL0JjTAhOqBS12p7HRilIBDPbCVgN3FJ3W8FkWKs36QuTVtEdSYU8cx9l?=
- =?us-ascii?Q?mNRZAaEc09p5jXCGbrI0fsK84Z82eOktt3eo5bcBnBvzKY1EJ8hxwzcRU55c?=
- =?us-ascii?Q?BKb4U4AdFbNC2xiY/pYZZBf9hSg3/PeQwRYfowHvMXBRx/JCo1JBGbKvDk3J?=
- =?us-ascii?Q?Hv7i2JFvYIB8/oztqNt5NEEEbI9M305O6zlnbo6Cc+sTZmmROhtpk3Dv/de2?=
- =?us-ascii?Q?s9YpwD6tMYs4Oy6sKOvVX+iqUzmFrErfuEm+WjditEMKAOrA7xdqiuI7R9Db?=
- =?us-ascii?Q?5Z0OKWsPXhiBfiCdCNFh6ozy44B59yPP/Dk+myxCSbQt3nOuT7BpdUtG+ZGm?=
- =?us-ascii?Q?l2XhDmDaezynOT2fiw5ULs9HefxkUO8ePqZGF43HSusk+jjI65g0ZB0cyzm9?=
- =?us-ascii?Q?Dzi4sjMghCKZUhpY2hYjBN3HlIfGuvHtusvrDuLv/+pI18kD3Yc7FL0qtCE+?=
- =?us-ascii?Q?lkdnsNXLCU+768g5vlZDXNhgNTelf5Oq640uXQPBr+DvDuVv3MkJ2AvxCtcZ?=
- =?us-ascii?Q?4PmYS0RmDYSW0gvB3lq9IrQpK+Gx77lrRmOuRpp+PwMtZM+KFxKY3Aiv4GqJ?=
- =?us-ascii?Q?zacYWzsJS3Rqu4xiSNq520KV+oYdJcM0TFHQ2Src/cYiGkjMCtJogq9JJTIH?=
- =?us-ascii?Q?6nKNLvWs3tjvJh0=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700013)(1800799024)(82310400026); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Feb 2025 09:24:10.3616 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b9dfba35-5be0-4ccc-00a4-08dd52597fc0
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001EA.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB9223
+In-Reply-To: <20250220064050.686-1-vulab@iscas.ac.cn>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,51 +75,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This commit initialized svm lists at where they are
-defined. This is defensive programing for security
-and consistency.
+Hi Wentao,
 
-Initalizing variables ensures that their states are
-always valid, avoiding issues caused by
-uninitialized variables that could lead to
-unpredictable behaviros.
+kernel test robot noticed the following build warnings:
 
-And we should not assume the callee would always
-initialize them
+[auto build test WARNING on drm-exynos/exynos-drm-next]
+[also build test WARNING on linus/master v6.14-rc3 next-20250220]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+url:    https://github.com/intel-lab-lkp/linux/commits/Wentao-Liang/drm-radeon-Add-error-handlings-for-r420-cp-errata-initiation/20250220-144327
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/daeinki/drm-exynos.git exynos-drm-next
+patch link:    https://lore.kernel.org/r/20250220064050.686-1-vulab%40iscas.ac.cn
+patch subject: [PATCH] drm/radeon: Add error handlings for r420 cp errata initiation
+config: i386-buildonly-randconfig-005-20250221 (https://download.01.org/0day-ci/archive/20250221/202502211718.EFZaW3pW-lkp@intel.com/config)
+compiler: clang version 19.1.3 (https://github.com/llvm/llvm-project ab51eccf88f5321e7c60591c5546b254b6afab99)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20250221/202502211718.EFZaW3pW-lkp@intel.com/reproduce)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index bd3e20d981e0..cbc997449379 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -2130,11 +2130,7 @@ svm_range_add(struct kfd_process *p, uint64_t start, uint64_t size,
- 
- 	pr_debug("svms 0x%p [0x%llx 0x%lx]\n", &p->svms, start, last);
- 
--	INIT_LIST_HEAD(update_list);
--	INIT_LIST_HEAD(insert_list);
--	INIT_LIST_HEAD(remove_list);
- 	INIT_LIST_HEAD(&new_list);
--	INIT_LIST_HEAD(remap_list);
- 
- 	node = interval_tree_iter_first(&svms->objects, start, last);
- 	while (node) {
-@@ -3635,6 +3631,11 @@ svm_range_set_attr(struct kfd_process *p, struct mm_struct *mm,
- 	if (r)
- 		return r;
- 
-+	INIT_LIST_HEAD(&update_list);
-+	INIT_LIST_HEAD(&insert_list);
-+	INIT_LIST_HEAD(&remove_list);
-+	INIT_LIST_HEAD(&remap_list);
-+
- 	svms = &p->svms;
- 
- 	mutex_lock(&process_info->lock);
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202502211718.EFZaW3pW-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+>> drivers/gpu/drm/radeon/r420.c:229:1: warning: non-void function does not return a value in all control paths [-Wreturn-type]
+     229 | }
+         | ^
+   1 warning generated.
+
+
+vim +229 drivers/gpu/drm/radeon/r420.c
+
+9f022ddfb23793 Jerome Glisse   2009-09-11  206  
+fe881d3e554a1f Wentao Liang    2025-02-20  207  static int r420_cp_errata_init(struct radeon_device *rdev)
+62cdc0c20663ef Corbin Simpson  2010-01-06  208  {
+c346fb74fb6463 Pan Bian        2017-04-24  209  	int r;
+e32eb50dbe4386 Christian König 2011-10-23  210  	struct radeon_ring *ring = &rdev->ring[RADEON_RING_TYPE_GFX_INDEX];
+7b1f2485db253a Christian König 2011-09-23  211  
+62cdc0c20663ef Corbin Simpson  2010-01-06  212  	/* RV410 and R420 can lock up if CP DMA to host memory happens
+62cdc0c20663ef Corbin Simpson  2010-01-06  213  	 * while the 2D engine is busy.
+62cdc0c20663ef Corbin Simpson  2010-01-06  214  	 *
+62cdc0c20663ef Corbin Simpson  2010-01-06  215  	 * The proper workaround is to queue a RESYNC at the beginning
+62cdc0c20663ef Corbin Simpson  2010-01-06  216  	 * of the CP init, apparently.
+62cdc0c20663ef Corbin Simpson  2010-01-06  217  	 */
+fe881d3e554a1f Wentao Liang    2025-02-20  218  	r = radeon_scratch_get(rdev, &rdev->config.r300.resync_scratch);
+fe881d3e554a1f Wentao Liang    2025-02-20  219  	if (r) {
+fe881d3e554a1f Wentao Liang    2025-02-20  220  		DRM_ERROR("failed to get scratch reg (%d).\n", r);
+fe881d3e554a1f Wentao Liang    2025-02-20  221  		return r;
+fe881d3e554a1f Wentao Liang    2025-02-20  222  	}
+c346fb74fb6463 Pan Bian        2017-04-24  223  	r = radeon_ring_lock(rdev, ring, 8);
+c346fb74fb6463 Pan Bian        2017-04-24  224  	WARN_ON(r);
+e32eb50dbe4386 Christian König 2011-10-23  225  	radeon_ring_write(ring, PACKET0(R300_CP_RESYNC_ADDR, 1));
+e32eb50dbe4386 Christian König 2011-10-23  226  	radeon_ring_write(ring, rdev->config.r300.resync_scratch);
+e32eb50dbe4386 Christian König 2011-10-23  227  	radeon_ring_write(ring, 0xDEADBEEF);
+1538a9e0e04f6a Michel Dänzer   2014-08-18  228  	radeon_ring_unlock_commit(rdev, ring, false);
+62cdc0c20663ef Corbin Simpson  2010-01-06 @229  }
+62cdc0c20663ef Corbin Simpson  2010-01-06  230  
+
 -- 
-2.47.1
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
