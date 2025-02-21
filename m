@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BB1EC021B5
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2025 16:02:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 256D9C021B3
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2025 16:02:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 23FBB10EAED;
-	Fri, 21 Feb 2025 16:02:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C7FBB10EAEE;
+	Fri, 21 Feb 2025 16:02:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="e4Mt2d/Q";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Iof8RI2M";
 	dkim-atps=neutral
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2079.outbound.protection.outlook.com [40.107.236.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F321510EAED
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Feb 2025 16:02:42 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2065.outbound.protection.outlook.com [40.107.244.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0433B10EAEE
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 Feb 2025 16:02:45 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=msxsKELx3F9dKNAq0bdJ5hmUf8XuClxB66Zw2lFJrnqDb6CfefhNFOrIRVOJhejrlZvaRRxZhXIhWsNw5FKc9BVPUdEAa6TSjCCdgMScGeIAXaVhbc7rBUIlTDmiI0xHL1RTNTUmu8S4nsxRsmLOMz6PVM+3lUbpTQEormzJd5HLV/xlV5ZtArtxbDVP1PpP9GWXcPYJvyAPvXgel84dunczNhyCt/sDs1JKNRq/2Zb+a9jr1mYZt01gq6woWmqQdrtA30lA2PpsziY4CPBy/6yVjJT2uvrP/PD4ksSV9UUN6jOgagSTxOS+wvB/M2TP2oSoeV0qfm6wMkV+tS/WIQ==
+ b=WQIMYED6i1q38ZB+LqvIvl9nstNetGdKu7a1DBSZfO2Ad8D3cUXF4trXQn06UxZBwAU+Zh3rl61+xYJNk1e1ye1vV75Jigpq6wVR4ZaJD+Qgeg2tEc5KDvsjSIpDWqBepJav7HNHkmHZH/d8IcHDcAy6YUwXSt4Ih4w/EDB7aJfvFszwthDD6Lb1uSxNynHfhiZV4up6yzjqS3vxCqjuwgOmrC/WbvVpUQ/pA2D5k7FQlIH2pdjCvxv1DgUBb8O8NGCLCDjCzjDgZSVyAUKQZYEz33EaLG7RmQeqC7fWyp6RlOQTw7L+MR2A0FHdMizWuO1fsPSK0i9osTU97vBeDw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KnMSXEUVMa1V8A9rcWO0O4vNJFyzvSu/LzC3TmfG47c=;
- b=wRLXKH+SCU8N5AMEESyHkAhB6mEaUHdxR7VX5QZakzDSQoZrkm/b63ank0IYlmdk2naBg7dfHGKr9q2j0fYVO8stEOeuTCk50FPPgvPvchYECcw6Mqfc/nEfENN4ZhReY/uINJAJUH3IPCFHlITFydDLIU4CjJdv2mkYu97hb7DKjkTAudAUiEubvYTxVNvQ4ItMNIDceu+ynnJc1W3UDQzidhq0HYsmiG0z6XtWUl3unwPCD/fFur8azfAIH+1D3wUb1zcCnc8a9vZ4yCNvCCbwvQB1E42zMoJwf/k3ua1PEVuy2VPnExoDWdUjyw+OqEfi1+9YosB6yX2sG4ltsQ==
+ bh=5kU+17LMwKGsAwaG6z+C14sBCnRNmeUaxTrl2Be0c7I=;
+ b=BWYDW2SLmDa9LJqKz8LTn9KBNuL8F6dquIu05LJgE3v6QEEf4B06i4tSaq0/gvcWequx6p5q7H4wUw7hWPFwI8c1FIi6//a+uXVz2zgbMAGZyKh4yIvkzCHt8VCbxD1n/KlZ7EpYBIHlCkE3hPzXRH5HwZY1CgFqFNfsM64hZw2nUXirpnF8IMeM+d9Rv+i/qkVnUv/SjcKb+Agf2xoulKWFlfKwCT3hKiJjNj/IqCMMxa3+CCmSH2++pccV6jYfnsQByJ/9k7r4jk+3LIY11MhXcEY+cjyX+pqJuwDpF1uOX6h5B/zKSsHAvWxyIbGadT8I19hgrFO3XuoOIKf/3Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KnMSXEUVMa1V8A9rcWO0O4vNJFyzvSu/LzC3TmfG47c=;
- b=e4Mt2d/QiEIYC+Pbtvye+oxAYIJWmWif9mzh9v/vHyhxv3a1Ilsr6/RMh7Bn/IG+AGCRHTkm9A+bxyzQIY9hmrnLRVfQnWjCbwGN6W8VKeGY1zwvhGzsNB+e2n0x+PWIeCWXTdVWzReaQpzjcfSLIK5IUfVAL45MlgAmH4NK7WA=
-Received: from PH7PR17CA0054.namprd17.prod.outlook.com (2603:10b6:510:325::18)
- by MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
+ bh=5kU+17LMwKGsAwaG6z+C14sBCnRNmeUaxTrl2Be0c7I=;
+ b=Iof8RI2MoPT9J0CjMsTsYUEXcu+FsD8eZhLKr1//Cg3o3gQuA430fkt20a0fG/WKECplJb7Q7i5Hz1/s0HJt9frWNbtK6zhEc49JH1iJWkG7c9C5qteOJ+Wpysav4fCnUdyJbfYeTTxs8ZgWDgucY5h4LmsP1ijs9JUV7hY2vA4=
+Received: from PH7PR17CA0071.namprd17.prod.outlook.com (2603:10b6:510:325::28)
+ by IA0PR12MB8351.namprd12.prod.outlook.com (2603:10b6:208:40e::5)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8466.16; Fri, 21 Feb
- 2025 16:02:37 +0000
+ 2025 16:02:39 +0000
 Received: from CY4PEPF0000FCC3.namprd03.prod.outlook.com
- (2603:10b6:510:325:cafe::77) by PH7PR17CA0054.outlook.office365.com
- (2603:10b6:510:325::18) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:510:325:cafe::72) by PH7PR17CA0071.outlook.office365.com
+ (2603:10b6:510:325::28) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.8466.16 via Frontend Transport; Fri,
- 21 Feb 2025 16:02:37 +0000
+ 21 Feb 2025 16:02:38 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,11 +50,11 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CY4PEPF0000FCC3.mail.protection.outlook.com (10.167.242.105) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8466.11 via Frontend Transport; Fri, 21 Feb 2025 16:02:36 +0000
+ 15.20.8466.11 via Frontend Transport; Fri, 21 Feb 2025 16:02:38 +0000
 Received: from mkmmarleung05.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 21 Feb
- 2025 10:02:27 -0600
+ 2025 10:02:28 -0600
 From: Zaeem Mohamed <zaeem.mohamed@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -62,11 +62,12 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
  Zuo" <jerry.zuo@amd.com>, Zaeem Mohamed <zaeem.mohamed@amd.com>, Solomon Chiu
  <solomon.chiu@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>, Alex Hung
- <alex.hung@amd.com>, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Dillon Varone <dillon.varone@amd.com>
-Subject: [PATCH 20/24] drm/amd/display: Increase halt timeout for DMCUB to 1s
-Date: Fri, 21 Feb 2025 11:01:41 -0500
-Message-ID: <20250221160145.1730752-21-zaeem.mohamed@amd.com>
+ <alex.hung@amd.com>, Mike Katsnelson <mike.katsnelson@amd.com>, Ovidiu Bunea
+ <ovidiu.bunea@amd.com>
+Subject: [PATCH 21/24] drm/amd/display: stop DML2 from removing pipes based on
+ planes
+Date: Fri, 21 Feb 2025 11:01:42 -0500
+Message-ID: <20250221160145.1730752-22-zaeem.mohamed@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250221160145.1730752-1-zaeem.mohamed@amd.com>
 References: <20250221160145.1730752-1-zaeem.mohamed@amd.com>
@@ -78,52 +79,52 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000FCC3:EE_|MN0PR12MB6101:EE_
-X-MS-Office365-Filtering-Correlation-Id: 75008818-fc34-4460-2974-08dd52912936
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000FCC3:EE_|IA0PR12MB8351:EE_
+X-MS-Office365-Filtering-Correlation-Id: d4fa4832-efbe-4d13-ce94-08dd52912a3e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|376014|82310400026|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?wzxWTWSMsQjHw8rvN4f0c/B4qR+Hc7y6v9yTa+1fXVum9Z3sc7apt5XMVn8r?=
- =?us-ascii?Q?HemU7zvVi9KrcNdQyuURtd++49wX5O/ahABsNXBHHUzJI2ZJHsysRDXAgRe8?=
- =?us-ascii?Q?796KLbwUK1WiDQP6qegQNRytDk/ex2rjRd60S4BBuyMWycCkkyzwcPpROGj3?=
- =?us-ascii?Q?sS1qGEdd3v7xS2aLZ+3+BY/nkHQetoNMj8QgodY1tIE6SqhVezc1c600GlIw?=
- =?us-ascii?Q?dk9zKWkq97/6+XbAKlQ5oMpDtkmJMJzhdRrMO49O3WzYrHeyknvfXp8UFIEh?=
- =?us-ascii?Q?DyeeVcX5GxPcvlMUuH96keAogoqXntcooQ510lkYJu1UjrccLfx0ss1Qu3bb?=
- =?us-ascii?Q?Iacy1AW/xfzWN5aGfVSlYHWEgDTf23HlhMGsOrGe2FkzGAxR+fdu65nsrx/z?=
- =?us-ascii?Q?DS9XDfsD3y/RRWY+ZSJwj6ssjQKgmTOz3p1URHCOLR5HvbXv2O+J+m4jVCDW?=
- =?us-ascii?Q?h5BOPCQcNDIi+LOr5oBwqDtCB2iM3N3zc/Ykp/0wlYZPBRt/PkKfWu4RfBCb?=
- =?us-ascii?Q?Y96lLJvbeXjVZpVkAkoVWGwvle3ZEEf5O6iUOmPIvzH71PzOog3jAZqTMX+j?=
- =?us-ascii?Q?h8re/6x1zB0+tZ0vDK2LtVS67EBX2INAOS2avcy6/Cd5CQ3b+xmpLL1PQmVT?=
- =?us-ascii?Q?m2gD5UhxdCumZqaEjdTgs4chHK0NC8b/IyqK0UZx0whWdrt6gxJIv66aAlAC?=
- =?us-ascii?Q?b/PZYMq6CBKglskrzttJQuM8vacN+QnkosIZkHUGF4pAG2HDMwurMKDd1XAO?=
- =?us-ascii?Q?S8CGW3yFKd7C9rcj0ScPJZ3CC0aPJw+BO8q+ptY74cfe4wKg7oOeJ0/IaIRF?=
- =?us-ascii?Q?RqKzBhaU3S6EHseEjcldRfq9CWl3pd7pK6Mh4Ww7z80xnen1DWv8lop2YJr+?=
- =?us-ascii?Q?DrdVLfvea1Cg/9pEKtdoKXfJgMJe7uHYc2ch8CMeixLgMnC+TLhVMPY+kKRb?=
- =?us-ascii?Q?o7jAzvXOjYv0iL0pVhBJl1CZdVF56BGZAcVMnObVR9KEAppLNXr6FR8fb9yi?=
- =?us-ascii?Q?0u9peaSrvYCPju3mByA8swtNDMIttW7yTVKmDu7yuKfISaYKllQ18y6Vee1C?=
- =?us-ascii?Q?x89M3j48LDrrRqcu9c1w9kgwZUM/g/M/brXvhukTaBz7Xx2HwfgFFQpk8nIU?=
- =?us-ascii?Q?efAjPuBOpJ/wcM363cg01RoDO34uCjfQPs9rMeJBne4Cjaf6T6e1jkUkdWmJ?=
- =?us-ascii?Q?ziAu9BI3m9rjJ1z2YjSiD7krHfuMAOJP6SoUSYlvHHMg7O0T2Is7+e41UkBP?=
- =?us-ascii?Q?zrogHmwK9xl5FDbsX/tN3S1NtFEC+o9+CGINeE0Yfq6M0Fb2iSNRuuh/97ao?=
- =?us-ascii?Q?eU18z279sYFGGn1qzX7j+1ZBvV5kr2jG9YW8VlS4YjDHj+VhgzO/26Rd/pna?=
- =?us-ascii?Q?xDXgXDkTo69gSSq2vqSI7lV6gjM+CL7c4T9aFyCfrK49w/1zMrQKhZpAy6Vh?=
- =?us-ascii?Q?pPKKO9r7nmyom4NBt13aWKFof2boNuDLGU8Ab5vb5S+WvWyGnrTt+2RT23Qx?=
- =?us-ascii?Q?hiv7snHVhl5uUdg=3D?=
+ ARA:13230040|36860700013|82310400026|376014|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?TKoJM8O95nEY3A8vMQteJjCzfN+G1tW5bpjh07/2p0icXCvdF+vn6zV/5xnR?=
+ =?us-ascii?Q?bVOpyTcOG9GBIJIhtbmUIRccjY+ejKa4gvL1Yrz06NQp3TpX1o9bfNXVXuIB?=
+ =?us-ascii?Q?AGtz4VbQ5fUNLIPx8F7IAVmDw7KezPbfzUood2zO2N7nl9xMBCB64UgqFUn7?=
+ =?us-ascii?Q?myKLyHDmfQJtu3K/BjWdTdsJWi+kThZ+CFGj3QKMZdHwvkshSkh+airdXy7T?=
+ =?us-ascii?Q?1+KMUByqXZihLvEYqsMEj705x+Wq4YfkoiN+XbDFtbVEGIPCnkz88MO29acZ?=
+ =?us-ascii?Q?1uqVFRGPrBQ6Cg2p4xrBDb7EDdrGP9+rJEAPhqrWBFNypUayObWBa2K224P7?=
+ =?us-ascii?Q?BElcB/ELkthmYEZCsZIKKuIOyKDAFSr6hBbv+7KjOYxO+ZwYIxirUJdFU4FL?=
+ =?us-ascii?Q?1SrFhrm2jvSxRYE6PFuS8+xTgEOkpROOhuAHViNRdP99b8v2bgvTy4FB6SwC?=
+ =?us-ascii?Q?KPXp8XpajBPERu1gSSVY/h8nl2omwv8L6PWX7ZJmJOxxK1AugdPcexWyO8Nz?=
+ =?us-ascii?Q?gdZyZDjQMUY5hua+2zuK48VxEQzQAGa2O1IlNRmOTyoWOfrA8AhoEWqOU9an?=
+ =?us-ascii?Q?FHPRcE4Xrmpbz7jZIXCL2OrdZdxFBcF4Dm2QkuG8MwT0Wf7ZVnOVyXuprQEF?=
+ =?us-ascii?Q?IDftzqf3q0DjZPhlCkDybuTQj7TVuP/XNvh+EnEhKIKAZRMvE6rwk0f9/yV0?=
+ =?us-ascii?Q?OcSAT9lueb+L0//Bc1QufLZfdMlIBaJK6TBbq6y7Ev5vQd+ceT0cSE0LSnJa?=
+ =?us-ascii?Q?ed4rGs88sfLMu1/xv7wRdD/5gnarQJFDrz5IvFTq3xN6cKbgc6+FJqOnaU+L?=
+ =?us-ascii?Q?J8sbZdknL8X1HdIGylF7RphKAc2mWQW5rnjXvI9qu/h9d82F2DjV5mFAvT2P?=
+ =?us-ascii?Q?9j5XlZ3QkZ02vl8stGyqtSSQ8Ox+QGWz/DNGBwTp0HSHOeAWUMjg44N41kst?=
+ =?us-ascii?Q?bz2lPiLYx2IfXmyjnZKGACL/QjPbZpgFtJBYZRtKb1UCp1E/ON/plhmnL/BL?=
+ =?us-ascii?Q?QnT1kdWG9KM2D+dqMFBsnFqKqNz5RJFxlAkz4Yrtfi5qtpUL/yn/UYf5HI5M?=
+ =?us-ascii?Q?8vOSwjGQZQt8TE9gJpwSHP0mKyIj0aFJnltcDkT0f8p3e1ipfKo3D+8Clzmy?=
+ =?us-ascii?Q?vbtxzTbB0+Iz2Tw6cLs2gKLmZrDufZC9NoWqTrG3b1arvHioiQ5cwfUCN+He?=
+ =?us-ascii?Q?lVxIonmTHsF/DRltB6K0RFgjaoLcHD2e40yhdLDApZRyYct+3h+x5q8l0RFM?=
+ =?us-ascii?Q?WwhQDG+USDfuw++5JM848tt2SrYy4+RdRUO37b5SnN5iEdoDHw0b8QMyJZfZ?=
+ =?us-ascii?Q?0iUFsWuWAGoIgHp6PTKJzTh+kjmePvY3140cd2rl+kFOrZrlTVb0iaV3BM8I?=
+ =?us-ascii?Q?XO23MLFUDlBZovpU9FdeYCSc5fm0LowXxBZfi8uvB2WF5NTDqcBCnXyvgh0f?=
+ =?us-ascii?Q?QAkcsm+W9/vLEvPAEmnqw5COfTBIVB+qrnQVadSpU0isSsSUz5oq/kKLAdXX?=
+ =?us-ascii?Q?kIr7keG/jKhLWLg=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(376014)(82310400026)(1800799024); DIR:OUT;
+ SFS:(13230040)(36860700013)(82310400026)(376014)(1800799024); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Feb 2025 16:02:36.9910 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 75008818-fc34-4460-2974-08dd52912936
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Feb 2025 16:02:38.7410 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d4fa4832-efbe-4d13-ce94-08dd52912a3e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000FCC3.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6101
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8351
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,72 +139,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+From: Mike Katsnelson <mike.katsnelson@amd.com>
 
 [Why]
-If we soft reset before halt finishes and there are outstanding
-memory transactions then the memory interface may produce unexpected
-results, such as out of order transactions when the firmware next runs.
-
-These can manifest as random or unexpected load/store violations.
+Transitioning from low to high resolutions at high refresh rates caused grey corruption.
+During the transition state, there is a period where plane size is based on low resultion
+state and ODM slices are based on high resoultion state, causing the entire plane to be
+contained in one ODM slice. DML2 would turn off the pipe for the ODM slice with no plane,
+causing an underflow since the pixel rate for the higher resolution cannot be supported on
+one pipe. This change stops DML2 from turning off pipes that are mapped to an ODM slice
+with no plane. This is possible to do without negative consequences because pipes can now
+take the minimum viewport and draw with zero recout size, removing the need to have the
+pipe turned off.
 
 [How]
-Increase the timeout before soft reset to ensure the DMCUB has quiesced.
+In map_pipes_from_plane(), remove "check" that skips ODM slices that are not covered by
+the plane. This prevents the pipes for those ODM slices from being freed.
 
-Reviewed-by: Dillon Varone <dillon.varone@amd.com>
-Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Reviewed-by: Ovidiu Bunea <ovidiu.bunea@amd.com>
+Signed-off-by: Mike Katsnelson <mike.katsnelson@amd.com>
 Signed-off-by: Zaeem Mohamed <zaeem.mohamed@amd.com>
 ---
- drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c | 15 ++++++++++-----
- drivers/gpu/drm/amd/display/dmub/src/dmub_dcn35.c |  2 +-
- 2 files changed, 11 insertions(+), 6 deletions(-)
+ .../display/dc/dml2/dml2_dc_resource_mgmt.c   | 26 -------------------
+ 1 file changed, 26 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c
-index 3d0bba602b53..1fac75dfc650 100644
---- a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c
-+++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn31.c
-@@ -83,8 +83,8 @@ static inline void dmub_dcn31_translate_addr(const union dmub_addr *addr_in,
- void dmub_dcn31_reset(struct dmub_srv *dmub)
- {
- 	union dmub_gpint_data_register cmd;
--	const uint32_t timeout = 100;
--	uint32_t in_reset, scratch, i, pwait_mode;
-+	const uint32_t timeout = 1000000;
-+	uint32_t in_reset, is_enabled, scratch, i, pwait_mode;
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2/dml2_dc_resource_mgmt.c b/drivers/gpu/drm/amd/display/dc/dml2/dml2_dc_resource_mgmt.c
+index 1ed21c1b86a5..a966abd40788 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2/dml2_dc_resource_mgmt.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2/dml2_dc_resource_mgmt.c
+@@ -532,26 +532,6 @@ static void calculate_odm_slices(const struct dc_stream_state *stream, unsigned
+ 	odm_slice_end_x[odm_factor - 1] = stream->src.width - 1;
+ }
  
- 	REG_GET(DMCUB_CNTL2, DMCUB_SOFT_RESET, &in_reset);
+-static bool is_plane_in_odm_slice(const struct dc_plane_state *plane, unsigned int slice_index, unsigned int *odm_slice_end_x, unsigned int num_slices)
+-{
+-	unsigned int slice_start_x, slice_end_x;
+-
+-	if (slice_index == 0)
+-		slice_start_x = 0;
+-	else
+-		slice_start_x = odm_slice_end_x[slice_index - 1] + 1;
+-
+-	slice_end_x = odm_slice_end_x[slice_index];
+-
+-	if (plane->clip_rect.x + plane->clip_rect.width < slice_start_x)
+-		return false;
+-
+-	if (plane->clip_rect.x > slice_end_x)
+-		return false;
+-
+-	return true;
+-}
+-
+ static void add_odm_slice_to_odm_tree(struct dml2_context *ctx,
+ 		struct dc_state *state,
+ 		struct dc_pipe_mapping_scratch *scratch,
+@@ -791,12 +771,6 @@ static void map_pipes_for_plane(struct dml2_context *ctx, struct dc_state *state
+ 	sort_pipes_for_splitting(&scratch->pipe_pool);
  
-@@ -125,9 +125,14 @@ void dmub_dcn31_reset(struct dmub_srv *dmub)
- 		/* Force reset in case we timed out, DMCUB is likely hung. */
- 	}
- 
--	REG_UPDATE(DMCUB_CNTL2, DMCUB_SOFT_RESET, 1);
--	REG_UPDATE(DMCUB_CNTL, DMCUB_ENABLE, 0);
--	REG_UPDATE(MMHUBBUB_SOFT_RESET, DMUIF_SOFT_RESET, 1);
-+	REG_GET(DMCUB_CNTL, DMCUB_ENABLE, &is_enabled);
-+
-+	if (is_enabled) {
-+		REG_UPDATE(DMCUB_CNTL2, DMCUB_SOFT_RESET, 1);
-+		REG_UPDATE(MMHUBBUB_SOFT_RESET, DMUIF_SOFT_RESET, 1);
-+		REG_UPDATE(DMCUB_CNTL, DMCUB_ENABLE, 0);
-+	}
-+
- 	REG_WRITE(DMCUB_INBOX1_RPTR, 0);
- 	REG_WRITE(DMCUB_INBOX1_WPTR, 0);
- 	REG_WRITE(DMCUB_OUTBOX1_RPTR, 0);
-diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn35.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn35.c
-index e5e77bd3c31e..652173b10401 100644
---- a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn35.c
-+++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn35.c
-@@ -88,7 +88,7 @@ static inline void dmub_dcn35_translate_addr(const union dmub_addr *addr_in,
- void dmub_dcn35_reset(struct dmub_srv *dmub)
- {
- 	union dmub_gpint_data_register cmd;
--	const uint32_t timeout = 100;
-+	const uint32_t timeout = 1000000;
- 	uint32_t in_reset, is_enabled, scratch, i, pwait_mode;
- 
- 	REG_GET(DMCUB_CNTL2, DMCUB_SOFT_RESET, &in_reset);
+ 	for (odm_slice_index = 0; odm_slice_index < scratch->odm_info.odm_factor; odm_slice_index++) {
+-		// We build the tree for one ODM slice at a time.
+-		// Each ODM slice shares a common OPP
+-		if (!is_plane_in_odm_slice(plane, odm_slice_index, scratch->odm_info.odm_slice_end_x, scratch->odm_info.odm_factor)) {
+-			continue;
+-		}
+-
+ 		// Now we have a list of all pipes to be used for this plane/stream, now setup the tree.
+ 		scratch->odm_info.next_higher_pipe_for_odm_slice[odm_slice_index] = add_plane_to_blend_tree(ctx, state,
+ 				plane,
 -- 
 2.34.1
 
