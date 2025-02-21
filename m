@@ -4,72 +4,140 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12B3BC021B3
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2025 16:20:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60545C021B3
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2025 16:25:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0C0410EAAD;
-	Fri, 21 Feb 2025 16:20:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E928510EAE6;
+	Fri, 21 Feb 2025 16:25:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ms8BL8EW";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="dTYLQ0OW";
 	dkim-atps=neutral
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
- [209.85.214.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFF9E10EAAD;
- Fri, 21 Feb 2025 16:20:45 +0000 (UTC)
-Received: by mail-pl1-f176.google.com with SMTP id
- d9443c01a7336-2217875d103so5163865ad.3; 
- Fri, 21 Feb 2025 08:20:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1740154845; x=1740759645; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ok1PcUQEwo9Z4uPO0boiFAABo1z9iTXkCf8Ww7aDcN4=;
- b=Ms8BL8EWwoMn6bRK4Hu9SrtkBLcr1QcZA9TFljg7HAvoTGPWcX9ukZLvW/XMZzHnSt
- TAUB1OGarSgAfXot1v9iX8RepN1L0difIb6AhmtjOVTtC3TFEep+7VwhWYTF+BtZ515k
- Gse3bhFhBlrjS1xGYujCg5/4kP7UB1nCmFa2UEElWJDVME0tA9RMnmmhMDUlKFZ5Avj5
- EqX6BwzvkGY61wQTXkY25WXfNQg4PGqGhzPW705QdK5E/FDuQhUe1GtpQt7xUl6/Uq9O
- OuLrN7BjIxC4ID+IT6ZFLXepfb4qh7246pnOWFMjrih44Ce5b+0mxzFtmZaQFrZIyHBE
- CuMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1740154845; x=1740759645;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=ok1PcUQEwo9Z4uPO0boiFAABo1z9iTXkCf8Ww7aDcN4=;
- b=Je8bvpq47Um1rxMLmEKFWJ3my7z3S/4Y5RzYprV2QaAgA6DVnQjlZXdbSp1A5izLjC
- JRgdtSXGZKQ65LpeH2UR6pGGZw0mXQuhvTNyGdoVFTlnOl8Y25caYVrL0R4Vpl8G7Df7
- vGkG9wyBX1fa8AgSYDq98npYhUj7+epcp3jfnwvrSg8iQ2J2NRv1MObNult4KTaeoObL
- 6JEsqElvvqY/fiyFl6twqwOejWaV/w43G/4QzL4Q3CtqsAGW2XtOHfrbeRlQ3loM9nYR
- Hy+lK3z66r5+iE/7SeR0X33Rl/71Cia1yygny+LA8ZPsVsEZVHIwklBa9vxq86kF4788
- 2X/w==
-X-Forwarded-Encrypted: i=1;
- AJvYcCV/Jnw0hOypm7ytPGYono82H9UDcEJ6hXo3QRrUjH2nouTYrO98HPReIi1787PDtkR5bSJ4w0hMweQ/@lists.freedesktop.org,
- AJvYcCV0O5XOm9tgIDPOzp285Kfqb3/3aFXJE0ZYUOUeFmanjrVVyejlzJPnjUmSiVekWXrTmee1HA/4@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz+/a0eTkJjbJB7CLrnCZ11gScJpK5nszAkK3SWtjtvee8AxSVZ
- QajhYEC60VqBQxA4vZaZ7gbB/kwtJ3OTujT8dcCTIl6B+jElEGJyxAZHQnLhhEJyGqTRs4ezJ46
- AM5yoUw489H/uReDRlLLAMFfqaHd06g==
-X-Gm-Gg: ASbGncsigVaA7Aphz9nVVYsCEwlAZSwXHEN4LN5n5rvBRjLS4+Z6moBlXrdSjHBgGp7
- OtsRWifhF5lb7KgMatA2gcd8xgCGyagwugDsxZAAkcchArYIf6mMV4b0veRI/nF7B36fP2Xggk1
- yWAldBTgY=
-X-Google-Smtp-Source: AGHT+IEeQ2lAvqEeFfxRn4Nrirkv4XDLaiyqdZeo/kvpEaOxNKZdbOVPP1dGbhLcch78JwD2YY3l/amCLt49Tu9LiQU=
-X-Received: by 2002:a17:902:cec6:b0:220:d71d:4666 with SMTP id
- d9443c01a7336-2219fff855emr22594785ad.13.1740154845453; Fri, 21 Feb 2025
- 08:20:45 -0800 (PST)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2049.outbound.protection.outlook.com [40.107.237.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 468CE10EAE6
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 Feb 2025 16:25:07 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GrEsaRMTwneKzIIkyVjjkyTlA1xaH08JcGN/b9jHPrEGk2P6QoYWGkGMUUlAtxMaBj9HXL0hxZp04GVBlV7x9tk6wT+ngjjeHFKi3EnM4vATSNJ1dlkK5cFYQrou1TD+3S7j8Bqd03Zk/as0qM8HfY4xJGWMDNmF9XPiKWvSF9OOtY/1hQctj4oEleNZAur6ELDDma3B4JaZ6lQt5eJqaixHuEIO4htWL/kYqL2iRpTfq5iCfKl7BKoYHEB1XFdZG1ndHxWL88af/UQB66FTGyKumhj8DKkLvY3qScPif+336EiW1mJ24Y3hwFwB1EgYML9aWyiIuhnCruhkPr3avA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vdvenKOWPFqT+gDWyUK5q657jiif4pS9RlluXH5LEFU=;
+ b=lUAPd2H8EXJCc6i546Gdp64M/W+H4Sy+Vgc/UPU5A2WhXvKgw2CIsSiQCZVX/VL3lSSaLLzGfZbaUbCesdd/0iVP9A8BxczjAodUy2aRftn5Zy1arIJAdhjJQdgcAvnUHJf6qTgypESk39TGCFZZQkqm4PbJiKwNdW7jAFW32KYszBsVksBXNPatUeuhLY3aJmd8r3hr1QKpotO13ada1vUBg/yG+ngBgE2Sxp2qol4eZUpOWmbqlI7JRNG8LRm75e3Uf8Pu9xCnhwH+BB+2Nl+tr8ZPpNZLeQ8g4uoXwZPEVbTV0J5Bu/ry4+pvAtN0jwuK5b36z5npjPZs6UMYAQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vdvenKOWPFqT+gDWyUK5q657jiif4pS9RlluXH5LEFU=;
+ b=dTYLQ0OW9vkpt0/pvNzDDXfWox/L3DH/KSyxWww06ZWyE02c444TVGrYTO0XeDxCYP8C2jJhdDpUsnh04Xs+umom3Wg0Kyu5jkjLeGrqzOlX50g8OVkny6NI0eQ0aXvV6j/rq3kTUbTkK0VzCbSr5WPzkeRCAr7HpYQsWVNsWlI=
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
+ by SA1PR12MB8118.namprd12.prod.outlook.com (2603:10b6:806:333::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8445.19; Fri, 21 Feb
+ 2025 16:25:04 +0000
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::491a:cce3:e531:3c42]) by BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::491a:cce3:e531:3c42%4]) with mapi id 15.20.8466.016; Fri, 21 Feb 2025
+ 16:25:04 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>
+Subject: Re: [PATCH] drm/amdgpu/job: move fix is_guilty logic change
+Thread-Topic: [PATCH] drm/amdgpu/job: move fix is_guilty logic change
+Thread-Index: AQHbhHXwbG/nrRGCckWtkwign9/vh7NR8VDp
+Date: Fri, 21 Feb 2025 16:25:04 +0000
+Message-ID: <BL1PR12MB5144DA3C9C119C71F13D8F91F7C72@BL1PR12MB5144.namprd12.prod.outlook.com>
+References: <20250221153247.3499295-1-alexander.deucher@amd.com>
+In-Reply-To: <20250221153247.3499295-1-alexander.deucher@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2025-02-21T16:25:03.805Z;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
+ Source; MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=0;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged; 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BL1PR12MB5144:EE_|SA1PR12MB8118:EE_
+x-ms-office365-filtering-correlation-id: 0a7b776b-1685-49b1-d038-08dd52944c10
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|38070700018|7053199007|8096899003; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?v7sThoOXTboTBjsf1bGMD+dV4iMsMBuwr52fh+T5NTT0NYht4DWV+Ivzakf1?=
+ =?us-ascii?Q?26i6RFHDF5F2wxnqt3oeenr+mVZtvil52X1RcPtlB1LNgiuWFdPqbbHxdpN9?=
+ =?us-ascii?Q?BvVu0pTvWWtBHOjvtLLv0q14nykAVS4vnXyEopfRKVjrpGW+Tdr9vsi1FwNo?=
+ =?us-ascii?Q?MNWPxH+m319E2pi7jrNe4xVko/QdeiH38FoEI7d4t/gftL1PTZImyIJaGiSj?=
+ =?us-ascii?Q?IcaAEqST76yPCKeuV7ukAfgDKgyrhTLcZbEHAN9O508EY5397JG+18jg2L3+?=
+ =?us-ascii?Q?r0vDpxRYGoake/05JjueCxOorD46eMdU8D02ij2pEnZB1ZKqW4XgJnnLugN+?=
+ =?us-ascii?Q?uxZGYkSKwpb1HawWki8UBYcAKpuJ4gBE0qNnD+zZh2r0rtVBg+HhVl9Zlccl?=
+ =?us-ascii?Q?PuWYnxVX1UhpX8woJh8ZdhPAhtABDzAMN8rLfxU5kyqadykP8DCOR5zyDSVD?=
+ =?us-ascii?Q?VY3nI1A1ZhSBKk8Tr3EbxWRhwsoemJfNMobE64sPR+yMVtBCE/H0MCzYvsyu?=
+ =?us-ascii?Q?FvwVKD5hy1fQJyu8B9mirXQG3vhHkTvT8fgcovgCcCTLoe0rR6tt8Zb5NWCy?=
+ =?us-ascii?Q?Gyoe+LxkyiE7QSoHSOqNsbpT24ho5nd/lP9H9cMs77voXpbx/W+3jYLO04uH?=
+ =?us-ascii?Q?KuJyGE1TCQx2gX1uo5GotTeBufCQoOpL8JZDQwSMG5+Kq71sbJjbVZPFbLWG?=
+ =?us-ascii?Q?zgXD/g5GJ1TNd6TzMjx0diuhCvNiyxPwca0y//z1uIJUc4Hr1eCQlz5UJICI?=
+ =?us-ascii?Q?ABxRIpSAL9nV3JdkP8McNQymMeaeipOVHzX5O8r+YDtoGKcgLNbgGZYjXe2x?=
+ =?us-ascii?Q?JFc3hGED4q2DoZ/HGSQNbvOOKtzM3BOyNbYP1ACULwRb3xWJfy46mr3ejhLq?=
+ =?us-ascii?Q?TKLBiKoTQkGFolJ+rpAhk63w3ylZMhwoGvbzu5ekJG+bXemBVXZnktq1IEgP?=
+ =?us-ascii?Q?OParaW8s0o1fwCxV/Fos3n0zFPKw8LaSV1dLD6lmwmO6tzv/e4HYnKAWeZXk?=
+ =?us-ascii?Q?VP/ti30mYq7bbvN3wH68cnQVtut6MUkeOFoOtKsRbbQwBW3t+2m94r5h0RIn?=
+ =?us-ascii?Q?fqrpwJq+3rzR/VK/uOt9SVrLCfqMlpaultO1jU4pe9VSNk0CAAyd1Z0dk2Nw?=
+ =?us-ascii?Q?TJP7o3IlOEPOteP3n1c1Om42gSWfckFow4oXcAuRd+MCBjALCe3wRzADGwmC?=
+ =?us-ascii?Q?ke44Ylbs9S1iQCryTZZcaRz2nzeTPCyxHjxXN/zSKSNQORUBLtT4oOKGFNT9?=
+ =?us-ascii?Q?YnuO2f2bMfydeTT5mbW6h+AuuHAlSqlDJ5LuiDaSRqkUMFKYXoZM3hKO/gyX?=
+ =?us-ascii?Q?+I5fMO7ehbnVEvgZUomnDtWqLHzMv04r8pWNQxKHRqm3XlZwePSXUa8ZDvuU?=
+ =?us-ascii?Q?mli8hBxWtLJ8ukrOzG38WI5CmvzroYPhvOM4YJIueHFp3chd6qr8CVGS2v/c?=
+ =?us-ascii?Q?msoaeYdm6pS0WpxspVqjHezADZ6yldvg?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(38070700018)(7053199007)(8096899003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?NtS7SRn3AJRPRUDCx+fhlEB8R/31qI9aVM1eS8Jbwbz4maJF6B1rNW9O2bO5?=
+ =?us-ascii?Q?XXTPqyp0+l+20UnYSy4ZjV+RVVuiMkJiqXJC6iTRRAgrcWMoasXcjFzFGDCQ?=
+ =?us-ascii?Q?+Kkiq21P7YH0gFeczwI5ECV9mKgZJJS/HJOH8T+FbqNs3v390hd8X4O5WxP8?=
+ =?us-ascii?Q?YHSsS098G7PHQ3knW+Y08J3HuiD8TmMGqYjnvmlVWD8vxbLk1orJEsK1ODUG?=
+ =?us-ascii?Q?dFafkcTyVOeLIYpIkXZW9MUaT++QjRj/7HTmc104UQj0kr2HLn6ovX9fGGRz?=
+ =?us-ascii?Q?vfph6sDgT3YoTyHz8CYhUN19oOUtxWiI5dNwW8+MFmOYZ6HeZee0pPpSGW6W?=
+ =?us-ascii?Q?0UDT7gcJsaUaEC05dZ1ggZ7F0hq3jnCYuHL+Hv0dpJc1xySdEjrXbmlWQaK6?=
+ =?us-ascii?Q?gPBF7pG9F2IaUHpDxTIz9TLR2iZKsH7REd0BuPCUzX+yLRQHatJr1iX6yI1G?=
+ =?us-ascii?Q?6swRBECwYHJFd7RXU5gSIL/MBchQyNYt48ndLHPMT6amCiC+vZGUbrV1LuAA?=
+ =?us-ascii?Q?wEPO4UIMn3XsDz9fBm4Rv8LvKEQJtiBb9DtWSKR0E6aoOoHSaau/fCD3F2k7?=
+ =?us-ascii?Q?dVhfhBwKJN6uL7AzoGxnh31XyRJfl8GIoP3WddvAQof9nGr5qTxAEIyCwmMY?=
+ =?us-ascii?Q?SMRjVULD27K1KJKasH8S7LQmn/om7ewzVkdJjRW33g+tZf41lu7YjPoEod8T?=
+ =?us-ascii?Q?lMXotaopM73JUMiQuftJrUIte7swLdNaxmNpkP1YOfJF1Tnt0hmg9czIj94w?=
+ =?us-ascii?Q?tToJv7RyZjCTG9qlkfzUH9MTbQzTxLYpaV2HzdyUYsuKB7aZAcfiSAHXsZUS?=
+ =?us-ascii?Q?9GOYRWvLREuJT+jM294fHAuPsDpnqjFtW6G5eb2wFiZCh6dhMKi56TsgiujT?=
+ =?us-ascii?Q?fGi6EFg1FG7Ud0V/11Hoy5IXEoTCIGYKQUHLfDwvMn49P/amoRp2La2u/Umb?=
+ =?us-ascii?Q?v5USxJVUzb1xROnGZx5xcwVdWyn0Ps6GkKy7/07XdX4mL8xGz/UBudEr1vIb?=
+ =?us-ascii?Q?lKYdc3gnCl9hdp5L90lSljkxRAZ8brjov09KoDIdpdq24lHTFMV8JJ6+Z6HV?=
+ =?us-ascii?Q?NZoXySssCdkq/PraNmixj+EAUuQ5yr0GOXSE++/2pIHYtCvTbM+O7YDEkty1?=
+ =?us-ascii?Q?MYw18zWbcPIJJ8A/mImEoBBeWFoAcpMDmuSa+d5HpIhWFZ7YxeEsn1OTzoN4?=
+ =?us-ascii?Q?2ZWJqecI5ErRyxFCT2YXwT9HI4KXNoQraSxwNWzbdUSZNQebyWWvdoKDCp0N?=
+ =?us-ascii?Q?4JFazyG8pTBSVW2q65s94kanQStzKiZHth/F4i+JAbFS/IMY7cX2uX2VF9pu?=
+ =?us-ascii?Q?3hBDutBrXwfLK1EcaDacuIudWpK6ZIpY8DbgcRc+QkT5Fzw6BANETfSRqcbG?=
+ =?us-ascii?Q?HtSioOPkStqL2zbvFJel9W7OIvHTNtlqGTECaJ7gQkuYTrKkk3BfqRLK2Hg3?=
+ =?us-ascii?Q?sOYTWDcwsUYqS4Df0XnB+dgQU8qYKbG7gZnUTeS8miBf5d0kxVjMrydwTdaR?=
+ =?us-ascii?Q?oQO2XzvFwNzuhkvSY0tZyO3gZ0UWWnsmdTG6rgL8Pdmy9r4klp6XfLns25O2?=
+ =?us-ascii?Q?NIr1XIEje85C341c+qY=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_BL1PR12MB5144DA3C9C119C71F13D8F91F7C72BL1PR12MB5144namp_"
 MIME-Version: 1.0
-References: <20250219212318.46036-1-linux@treblig.org>
-In-Reply-To: <20250219212318.46036-1-linux@treblig.org>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 21 Feb 2025 11:20:33 -0500
-X-Gm-Features: AWEUYZmGC373SSC5vhbJhkIHShbThxRTzyZwtw8XnFZE5muKA-ZzJdtCPl_7X2w
-Message-ID: <CADnq5_PmPkzHrh9MjQF_tx-6ntEem0VKr=pbdWCgKaCKPz0NsA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Remove unused nbif_v6_3_1_sriov_funcs
-To: linux@treblig.org
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com, 
- airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0a7b776b-1685-49b1-d038-08dd52944c10
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Feb 2025 16:25:04.1067 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 0QGkcM/anT1nVRPFa9oXP3GwO4vcbECOJnr/75BXIixOMjznJh0Id6+bl5DWIw18JCiBrbgmXMYsp/+IAAp/mw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8118
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,117 +152,163 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+--_000_BL1PR12MB5144DA3C9C119C71F13D8F91F7C72BL1PR12MB5144namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Feb 19, 2025 at 4:48=E2=80=AFPM <linux@treblig.org> wrote:
+[Public]
+
+Ignore this.  Newer version sent.
+
+Alex
+
+________________________________
+From: Deucher, Alexander <Alexander.Deucher@amd.com>
+Sent: Friday, February 21, 2025 10:32 AM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Jesse(Jie) <Jess=
+e.Zhang@amd.com>
+Subject: [PATCH] drm/amdgpu/job: move fix is_guilty logic change
+
+Incrementing the gpu_reset counter needs to be
+in the is_guilty block.
+
+Fixes: f447ba2bbd48 ("drm/amdgpu: Update amdgpu_job_timedout to check if th=
+e ring is guilty")
+Cc: Jesse Zhang <jesse.zhang@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_job.c
+index efba509e2b5d1..a82119b551dc3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+@@ -155,8 +155,8 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(stru=
+ct drm_sched_job *s_job)
+                 if (!r) {
+                         if (amdgpu_ring_sched_ready(ring))
+                                 drm_sched_stop(&ring->sched, s_job);
+-                       atomic_inc(&ring->adev->gpu_reset_counter);
+                         if (is_guilty) {
++                               atomic_inc(&ring->adev->gpu_reset_counter);
+                                 amdgpu_fence_driver_force_completion(ring)=
+;
+                                 dma_fence_set_error(&s_job->s_fence->finis=
+hed, -ETIME);
+                         }
+--
+2.48.1
+
+
+--_000_BL1PR12MB5144DA3C9C119C71F13D8F91F7C72BL1PR12MB5144namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
-> From: "Dr. David Alan Gilbert" <linux@treblig.org>
->
-> The nbif_v6_3_1_sriov_funcs instance of amdgpu_nbio_funcs was added in
-> commit 894c6d3522d1 ("drm/amdgpu: Add nbif v6_3_1 ip block support")
-> but has remained unused.
->
-> Alex has confirmed it wasn't needed.
->
-> Remove it, together with the four unused stub functions:
->   nbif_v6_3_1_sriov_ih_doorbell_range
->   nbif_v6_3_1_sriov_gc_doorbell_init
->   nbif_v6_3_1_sriov_vcn_doorbell_range
->   nbif_v6_3_1_sriov_sdma_doorbell_range
->
-> Signed-off-by: Dr. David Alan Gilbert <linux@treblig.org>
-> ---
->  drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.c | 46 ------------------------
->  drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.h |  1 -
->  2 files changed, 47 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.c b/drivers/gpu/drm/a=
-md/amdgpu/nbif_v6_3_1.c
-> index c92875ceb31f..9efe74148867 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.c
-> @@ -474,52 +474,6 @@ const struct amdgpu_nbio_funcs nbif_v6_3_1_funcs =3D=
- {
->  };
->
->
-> -static void nbif_v6_3_1_sriov_ih_doorbell_range(struct amdgpu_device *ad=
-ev,
-> -                                               bool use_doorbell, int do=
-orbell_index)
-> -{
-> -}
-> -
-> -static void nbif_v6_3_1_sriov_sdma_doorbell_range(struct amdgpu_device *=
-adev,
-> -                                                 int instance, bool use_=
-doorbell,
-> -                                                 int doorbell_index,
-> -                                                 int doorbell_size)
-> -{
-> -}
-> -
-> -static void nbif_v6_3_1_sriov_vcn_doorbell_range(struct amdgpu_device *a=
-dev,
-> -                                                bool use_doorbell,
-> -                                                int doorbell_index, int =
-instance)
-> -{
-> -}
-> -
-> -static void nbif_v6_3_1_sriov_gc_doorbell_init(struct amdgpu_device *ade=
-v)
-> -{
-> -}
-> -
-> -const struct amdgpu_nbio_funcs nbif_v6_3_1_sriov_funcs =3D {
-> -       .get_hdp_flush_req_offset =3D nbif_v6_3_1_get_hdp_flush_req_offse=
-t,
-> -       .get_hdp_flush_done_offset =3D nbif_v6_3_1_get_hdp_flush_done_off=
-set,
-> -       .get_pcie_index_offset =3D nbif_v6_3_1_get_pcie_index_offset,
-> -       .get_pcie_data_offset =3D nbif_v6_3_1_get_pcie_data_offset,
-> -       .get_rev_id =3D nbif_v6_3_1_get_rev_id,
-> -       .mc_access_enable =3D nbif_v6_3_1_mc_access_enable,
-> -       .get_memsize =3D nbif_v6_3_1_get_memsize,
-> -       .sdma_doorbell_range =3D nbif_v6_3_1_sriov_sdma_doorbell_range,
-> -       .vcn_doorbell_range =3D nbif_v6_3_1_sriov_vcn_doorbell_range,
-> -       .gc_doorbell_init =3D nbif_v6_3_1_sriov_gc_doorbell_init,
-> -       .enable_doorbell_aperture =3D nbif_v6_3_1_enable_doorbell_apertur=
-e,
-> -       .enable_doorbell_selfring_aperture =3D nbif_v6_3_1_enable_doorbel=
-l_selfring_aperture,
-> -       .ih_doorbell_range =3D nbif_v6_3_1_sriov_ih_doorbell_range,
-> -       .update_medium_grain_clock_gating =3D nbif_v6_3_1_update_medium_g=
-rain_clock_gating,
-> -       .update_medium_grain_light_sleep =3D nbif_v6_3_1_update_medium_gr=
-ain_light_sleep,
-> -       .get_clockgating_state =3D nbif_v6_3_1_get_clockgating_state,
-> -       .ih_control =3D nbif_v6_3_1_ih_control,
-> -       .init_registers =3D nbif_v6_3_1_init_registers,
-> -       .remap_hdp_registers =3D nbif_v6_3_1_remap_hdp_registers,
-> -       .get_rom_offset =3D nbif_v6_3_1_get_rom_offset,
-> -       .set_reg_remap =3D nbif_v6_3_1_set_reg_remap,
-> -};
-> -
->  static int nbif_v6_3_1_set_ras_err_event_athub_irq_state(struct amdgpu_d=
-evice *adev,
->                                                        struct amdgpu_irq_=
-src *src,
->                                                        unsigned type,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.h b/drivers/gpu/drm/a=
-md/amdgpu/nbif_v6_3_1.h
-> index 9ac4831d39e1..3afec715a9fe 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.h
-> @@ -28,7 +28,6 @@
->
->  extern const struct nbio_hdp_flush_reg nbif_v6_3_1_hdp_flush_reg;
->  extern const struct amdgpu_nbio_funcs nbif_v6_3_1_funcs;
-> -extern const struct amdgpu_nbio_funcs nbif_v6_3_1_sriov_funcs;
->  extern struct amdgpu_nbio_ras nbif_v6_3_1_ras;
->
->  #endif
-> --
-> 2.48.1
->
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Calibri;font-size:10pt;color:#008000;margin:5pt;fon=
+t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
+[Public]<br>
+</p>
+<br>
+<div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+Ignore this.&nbsp; Newer version sent.</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+Alex</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Deucher, Alexander &l=
+t;Alexander.Deucher@amd.com&gt;<br>
+<b>Sent:</b> Friday, February 21, 2025 10:32 AM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;<br>
+<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Zhang, Jes=
+se(Jie) &lt;Jesse.Zhang@amd.com&gt;<br>
+<b>Subject:</b> [PATCH] drm/amdgpu/job: move fix is_guilty logic change</fo=
+nt>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Incrementing the gpu_reset counter needs to be<br>
+in the is_guilty block.<br>
+<br>
+Fixes: f447ba2bbd48 (&quot;drm/amdgpu: Update amdgpu_job_timedout to check =
+if the ring is guilty&quot;)<br>
+Cc: Jesse Zhang &lt;jesse.zhang@amd.com&gt;<br>
+Signed-off-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 2 +-<br>
+&nbsp;1 file changed, 1 insertion(+), 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_job.c<br>
+index efba509e2b5d1..a82119b551dc3 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c<br>
+@@ -155,8 +155,8 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(stru=
+ct drm_sched_job *s_job)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; if (!r) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (a=
+mdgpu_ring_sched_ready(ring))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drm_sched_stop(&amp;ring-&gt;sch=
+ed, s_job);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; atomic_inc(&amp;=
+ring-&gt;adev-&gt;gpu_reset_counter);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (i=
+s_guilty) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; atomic_inc(&amp;ring-&gt;adev-&gt;gpu_reset=
+_counter);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_fence_driver_force_comple=
+tion(ring);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dma_fence_set_error(&amp;s_job-&=
+gt;s_fence-&gt;finished, -ETIME);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+-- <br>
+2.48.1<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_BL1PR12MB5144DA3C9C119C71F13D8F91F7C72BL1PR12MB5144namp_--
