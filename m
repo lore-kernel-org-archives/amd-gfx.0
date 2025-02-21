@@ -4,52 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BEF2C021B7
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2025 08:56:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94453C021AA
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2025 09:24:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0668210EA3E;
-	Fri, 21 Feb 2025 08:56:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F99610E22D;
+	Fri, 21 Feb 2025 09:24:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="DKV5Chvh";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2KO9R9IP";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3651C10E9BC;
- Thu, 20 Feb 2025 16:28:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
- In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=Le8WVOEy30QeG3s/aHaLL2Z+h6Ona2+zkOtS7UkAOtQ=; b=DKV5Chvh9NBQCKNssE6KXWYZ5C
- gfzVuHk11YYrXCu5hJOppqfZEr7kR7XVtXpFdnyr3s1WYKgaYYwaDnIoE8P2xXNX/jYxcOWeGRDzn
- 8xSHZUqBqHuqJc/RMSa5OtNTrTrof12cPo1y03QDYmWQ2SGQzsvY/w7VyoDZBe72GGXnR+/E3+IiL
- fXlujtsYZ4PxMcNJvososVlYAKYXVigWPlE1Bsdp6YrhP7uBLZtrvBiouhLytKpLh4N6XS0SB2HQi
- xEmsH9bDLUqMm49xlqlgZknOUgtTyaWZigF7iqqEtzCJ4LtAYmlGmleqJD8rA1Vb/w3JOJJHEoVGE
- JmIYuSzg==;
-Received: from [191.204.194.148] (helo=localhost.localdomain)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1tl9P5-00FS04-7u; Thu, 20 Feb 2025 17:28:05 +0100
-From: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?=27Christian=20K=C3=B6nig=27?= <christian.koenig@amd.com>,
- Xinhui Pan <Xinhui.Pan@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- kernel-dev@igalia.com, siqueira@igalia.com
-Cc: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
-Subject: [PATCH v2 3/3] drm/amdgpu: Trigger a wedged event for every type of
- reset
-Date: Thu, 20 Feb 2025 13:27:50 -0300
-Message-ID: <20250220162750.343139-4-andrealmeid@igalia.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20250220162750.343139-1-andrealmeid@igalia.com>
-References: <20250220162750.343139-1-andrealmeid@igalia.com>
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2068.outbound.protection.outlook.com [40.107.101.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B828810E22D
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 Feb 2025 09:24:14 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gKy+tk89qfFPLh7G4tmPtYPcd1lguRoNVY6NE0A47zpcCmTzODZxm10wTRf2qANKZdFuzUyHw6uBDCW8fSjrc7rLnr5RNqPrI4ZMrwzCWwJxWxippdtjJIF+OAolmMJRd1b1DItFeM8LnZWCijYhiRjc+UnL3vxPWViO3SHwXUdUBPwoNxzfKTyafnHDF708xqYyvppIBwBfUIwWBvIB2Gm74VTh2B8+1iYDE0kLQo6JzDUl1qDGomKD6k5v0Y/YoOWrYL1uUirVgZ7av3J2g7PxBH18Cq59+KOnYYo3NerRN6AUlV2DVD9lY6fSKltaE+35N63zd2SOKpE49akMlg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=U9qBTP2KRhklO07qEpoMLfTbYxcv+O0cMe2vjv46kZ4=;
+ b=P6wATpycJTVjAA1GVZxd1Y4FfQmrBnIFQH25TakRdE9JF6K3vdFT85Bsr+ugJnbOkw0cthdNPDOGBe+Q5GGrE/0FuYfOIGNDuOxHtdVNW+MZa1RNXun6YPBBL0LQfrgc18i3fyLm8VIWWFv+nFyHcxuinh/Vjhx1Q88wIWoTM1r8AyTPnE/Jk0ljKhpFyOqAeSa7pAwfYROppwgL1IsuVmp9tnUt8Lj/wv0fF7enP8wIMelQe/FRixbEweUXoJcanMzTQA0NawC3w/ORTpnMwaUkl1SRyY2gWvrBePo/hSXOASFoirikc8OKJwnKWs0+QGswM1ZUcsqRKdTJ2zdu2Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=U9qBTP2KRhklO07qEpoMLfTbYxcv+O0cMe2vjv46kZ4=;
+ b=2KO9R9IPIKJdkrXrwaeOsXGw2/ntErBiSl1Cf8pUDxHaFdG/ERRlfiCQIJorwCYf6If3dxcXMBvEaYoigZJMR6WHa083I605HB4jaY3l1O09mEz/ktp7zTDTMFaxoTm59i6GHdZo8q8GGFK7WikT8YmFb6vkrPJHl9qqvzb5Umc=
+Received: from MW4PR03CA0328.namprd03.prod.outlook.com (2603:10b6:303:dd::33)
+ by PH7PR12MB9223.namprd12.prod.outlook.com (2603:10b6:510:2f2::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8466.15; Fri, 21 Feb
+ 2025 09:24:11 +0000
+Received: from SJ5PEPF000001EA.namprd05.prod.outlook.com
+ (2603:10b6:303:dd:cafe::91) by MW4PR03CA0328.outlook.office365.com
+ (2603:10b6:303:dd::33) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8445.20 via Frontend Transport; Fri,
+ 21 Feb 2025 09:24:10 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SJ5PEPF000001EA.mail.protection.outlook.com (10.167.242.198) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8466.11 via Frontend Transport; Fri, 21 Feb 2025 09:24:10 +0000
+Received: from localhost.localdomain.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39; Fri, 21 Feb 2025 03:24:08 -0600
+From: Zhu Lingshan <lingshan.zhu@amd.com>
+To: <Felix.Kuehling@amd.com>, <alexander.deucher@amd.com>
+CC: <ray.huang@amd.com>, <amd-gfx@lists.freedesktop.org>, Zhu Lingshan
+ <lingshan.zhu@amd.com>
+Subject: [PATCH] amdkfd: initialize svm lists at where they are defined
+Date: Fri, 21 Feb 2025 17:23:55 +0800
+Message-ID: <20250221092355.336312-1-lingshan.zhu@amd.com>
+X-Mailer: git-send-email 2.47.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 21 Feb 2025 08:56:32 +0000
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001EA:EE_|PH7PR12MB9223:EE_
+X-MS-Office365-Filtering-Correlation-Id: b9dfba35-5be0-4ccc-00a4-08dd52597fc0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|36860700013|1800799024|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?zhvgeBO+31pPTDHDAFRr5B6r2mlIpi8Fs3D48dOm20pQ/od27F9hoZhgeW7q?=
+ =?us-ascii?Q?nysMvc+iuwXepwKkyswhAAQSp3BMKejHDZussLichupqLvy/h1WLg36gUkLT?=
+ =?us-ascii?Q?vtgTv27mzmEg3JpFJdNk2PI49hyBYedwJJD18xeAeGuRwf2SChx1+teXsb3q?=
+ =?us-ascii?Q?fdlAForF+6/iDMNy3dZbtLupGg137Ik/QksGyCtLWDmwL7mOhv2+IBjWgVc9?=
+ =?us-ascii?Q?O3MMv9BE7WlU4gDAntw5btNcKdDBzG6CJqTndAKYDIskPuWUz63whGHpUsO2?=
+ =?us-ascii?Q?H3NlX8UWuwYkb2n6oDsU9Yr/9v3wbUUjYQ4WnTjtjEpWBLdRjRfhd2929vQT?=
+ =?us-ascii?Q?LVJYE35y46ECik3xghoFb+RE2Jazm4yXAXqN/mr7Vyo68o7KnNuM4+yCpTHK?=
+ =?us-ascii?Q?FIJhekqsB2AYfjyTEkai5p7Q1dcDFeZmzXGjO7CWSFtmD8AQCIlNErrYwLvX?=
+ =?us-ascii?Q?KvQ931Ub9PRWcGw+72nj0nHFTEXTJJvlMm9JdEKb8v1vHH1eRrY4YADKJH71?=
+ =?us-ascii?Q?wR/l/N7/HEL0vxv5L8rdZk8rmU5okJgB6cngRMKMpIYcNqGcOyVpqF6NJ17x?=
+ =?us-ascii?Q?+/Pp3cLouQpJEehEjsFA+982ogATbHlWXT1bh4idOHIx2iD1TslY6Hj/OHCI?=
+ =?us-ascii?Q?5dEbdFatQXHmJF8dgcEakyQvei3lWEGOIrXZTI09kez8MlXGpa0w9OVNGRFz?=
+ =?us-ascii?Q?8HVnwZrB2B0CsPmjbGVrYdb9Yo9cDCAoTXnuOASNfdRoo9dmPT/9n2ToMFhh?=
+ =?us-ascii?Q?FvtYvZ3fzCyPahZyWyNkZ3m0EylSlKMJW9snwKgNSG1iASf21am/bUZuF5IJ?=
+ =?us-ascii?Q?5kngL0JjTAhOqBS12p7HRilIBDPbCVgN3FJ3W8FkWKs36QuTVtEdSYU8cx9l?=
+ =?us-ascii?Q?mNRZAaEc09p5jXCGbrI0fsK84Z82eOktt3eo5bcBnBvzKY1EJ8hxwzcRU55c?=
+ =?us-ascii?Q?BKb4U4AdFbNC2xiY/pYZZBf9hSg3/PeQwRYfowHvMXBRx/JCo1JBGbKvDk3J?=
+ =?us-ascii?Q?Hv7i2JFvYIB8/oztqNt5NEEEbI9M305O6zlnbo6Cc+sTZmmROhtpk3Dv/de2?=
+ =?us-ascii?Q?s9YpwD6tMYs4Oy6sKOvVX+iqUzmFrErfuEm+WjditEMKAOrA7xdqiuI7R9Db?=
+ =?us-ascii?Q?5Z0OKWsPXhiBfiCdCNFh6ozy44B59yPP/Dk+myxCSbQt3nOuT7BpdUtG+ZGm?=
+ =?us-ascii?Q?l2XhDmDaezynOT2fiw5ULs9HefxkUO8ePqZGF43HSusk+jjI65g0ZB0cyzm9?=
+ =?us-ascii?Q?Dzi4sjMghCKZUhpY2hYjBN3HlIfGuvHtusvrDuLv/+pI18kD3Yc7FL0qtCE+?=
+ =?us-ascii?Q?lkdnsNXLCU+768g5vlZDXNhgNTelf5Oq640uXQPBr+DvDuVv3MkJ2AvxCtcZ?=
+ =?us-ascii?Q?4PmYS0RmDYSW0gvB3lq9IrQpK+Gx77lrRmOuRpp+PwMtZM+KFxKY3Aiv4GqJ?=
+ =?us-ascii?Q?zacYWzsJS3Rqu4xiSNq520KV+oYdJcM0TFHQ2Src/cYiGkjMCtJogq9JJTIH?=
+ =?us-ascii?Q?6nKNLvWs3tjvJh0=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(36860700013)(1800799024)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Feb 2025 09:24:10.3616 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b9dfba35-5be0-4ccc-00a4-08dd52597fc0
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001EA.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB9223
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,71 +131,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Instead of only triggering a wedged event for complete GPU resets,
-trigger for all types, like soft resets and ring resets. Regardless of
-the reset, it's useful for userspace to know that it happened because
-the kernel will reject further submissions from that app.
+This commit initialized svm lists at where they are
+defined. This is defensive programing for security
+and consistency.
 
-Signed-off-by: André Almeida <andrealmeid@igalia.com>
----
-v2: Keep the wedge event in amdgpu_device_gpu_recover() and add and
-    extra check to avoid triggering two events.
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 20 +++++++++++++-------
- 1 file changed, 13 insertions(+), 7 deletions(-)
+Initalizing variables ensures that their states are
+always valid, avoiding issues caused by
+uninitialized variables that could lead to
+unpredictable behaviros.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-index 698e5799e542..9948ea33d2c6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-@@ -91,8 +91,8 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
- 	struct amdgpu_job *job = to_amdgpu_job(s_job);
- 	struct amdgpu_task_info *ti;
- 	struct amdgpu_device *adev = ring->adev;
--	int idx;
--	int r;
-+	bool gpu_recover = false;
-+	int idx, ret = 0;
+And we should not assume the callee would always
+initialize them
+
+Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index bd3e20d981e0..cbc997449379 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -2130,11 +2130,7 @@ svm_range_add(struct kfd_process *p, uint64_t start, uint64_t size,
  
- 	if (!drm_dev_enter(adev_to_drm(adev), &idx)) {
- 		dev_info(adev->dev, "%s - device unplugged skipping recovery on scheduler:%s",
-@@ -141,8 +141,8 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
- 		 * we'll fall back to full GPU reset.
- 		 */
- 		drm_sched_wqueue_stop(&ring->sched);
--		r = amdgpu_ring_reset(ring, job->vmid);
--		if (!r) {
-+		ret = amdgpu_ring_reset(ring, job->vmid);
-+		if (!ret) {
- 			if (amdgpu_ring_sched_ready(ring))
- 				drm_sched_stop(&ring->sched, s_job);
- 			atomic_inc(&ring->adev->gpu_reset_counter);
-@@ -170,9 +170,11 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
- 		 */
- 		set_bit(AMDGPU_SKIP_COREDUMP, &reset_context.flags);
+ 	pr_debug("svms 0x%p [0x%llx 0x%lx]\n", &p->svms, start, last);
  
--		r = amdgpu_device_gpu_recover(ring->adev, job, &reset_context);
--		if (r)
--			dev_err(adev->dev, "GPU Recovery Failed: %d\n", r);
-+		ret = amdgpu_device_gpu_recover(ring->adev, job, &reset_context);
-+		if (ret)
-+			dev_err(adev->dev, "GPU Recovery Failed: %d\n", ret);
-+		else
-+			gpu_recover = true;
- 	} else {
- 		drm_sched_suspend_timeout(&ring->sched);
- 		if (amdgpu_sriov_vf(adev))
-@@ -180,6 +182,10 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
- 	}
+-	INIT_LIST_HEAD(update_list);
+-	INIT_LIST_HEAD(insert_list);
+-	INIT_LIST_HEAD(remove_list);
+ 	INIT_LIST_HEAD(&new_list);
+-	INIT_LIST_HEAD(remap_list);
  
- exit:
-+	/* Avoid sending two wedge events for the same reset */
-+	if (!ret && !gpu_recover)
-+		drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE);
+ 	node = interval_tree_iter_first(&svms->objects, start, last);
+ 	while (node) {
+@@ -3635,6 +3631,11 @@ svm_range_set_attr(struct kfd_process *p, struct mm_struct *mm,
+ 	if (r)
+ 		return r;
+ 
++	INIT_LIST_HEAD(&update_list);
++	INIT_LIST_HEAD(&insert_list);
++	INIT_LIST_HEAD(&remove_list);
++	INIT_LIST_HEAD(&remap_list);
 +
- 	drm_dev_exit(idx);
- 	return DRM_GPU_SCHED_STAT_NOMINAL;
- }
+ 	svms = &p->svms;
+ 
+ 	mutex_lock(&process_info->lock);
 -- 
-2.48.1
+2.47.1
 
