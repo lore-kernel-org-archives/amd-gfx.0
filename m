@@ -4,87 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAA03C021BB
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Feb 2025 13:35:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9A85C021A4
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Feb 2025 13:35:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D6BB10E31B;
-	Mon, 24 Feb 2025 13:35:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8423210E37E;
+	Mon, 24 Feb 2025 13:35:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=mt-integration.ru header.i=@mt-integration.ru header.b="O2JFj+xk";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="e9IgMNPr";
 	dkim-atps=neutral
-X-Greylist: delayed 328 seconds by postgrey-1.36 at gabe;
- Sun, 23 Feb 2025 00:05:02 UTC
-Received: from ksmg01.maxima.ru (ksmg01.maxima.ru [81.200.124.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6421D10E03F;
- Sun, 23 Feb 2025 00:05:02 +0000 (UTC)
-Received: from ksmg01.maxima.ru (localhost [127.0.0.1])
- by ksmg01.maxima.ru (Postfix) with ESMTP id 93A90C0010;
- Sun, 23 Feb 2025 02:59:23 +0300 (MSK)
-DKIM-Filter: OpenDKIM Filter v2.11.0 ksmg01.maxima.ru 93A90C0010
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mt-integration.ru;
- s=sl; t=1740268763; bh=5MgY5RqIvIZhdOAndrhlIhNOxars4SRgjV828wmNqdk=;
- h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type:From;
- b=O2JFj+xkSNjMfp/9QMUMVJqFWU8xlje2xDAdp4spqnNVbnHHhO1rH9kzh+JJtZr4n
- 9FwVC9+y52ixjqm3B3Ubfgp3499ZhPyF0ostpaTfaNP8cftaQCzBtNMRKL1ELeY0Dd
- tZg3l8qET6Smk07C6xgRiT2sDYgH4KihWSH5QukDmbyluy5IsMTpLW7F1YzSvco0nj
- 1Oryz+i0EukW6byUrzEzlDy07FpH0FGWfGaASNuq/MQ2X2S468LnlTMIiVw1nZWCpy
- CBc8R8VdynzBacli0U+ol3XgD77ogng/5bIAWEIjrMETNXRSVNIDAwYCYgNOQojsgU
- D4wsDff7n+dfA==
-Received: from ksmg01.maxima.ru (mail.maxima.ru [81.200.124.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (Client CN "*.maxima.ru",
- Issuer "GlobalSign GCC R3 DV TLS CA 2020" (verified OK))
- by ksmg01.maxima.ru (Postfix) with ESMTPS;
- Sun, 23 Feb 2025 02:59:23 +0300 (MSK)
-Received: from localhost.maximatelecom.ru (178.236.220.144) by
- mmail-p-exch01.mt.ru (81.200.124.61) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.1544.4; Sun, 23 Feb 2025 02:59:20 +0300
-From: Vitaliy Shevtsov <v.shevtsov@mt-integration.ru>
-To: Chaitanya Dhere <chaitanya.dhere@amd.com>
-CC: Vitaliy Shevtsov <v.shevtsov@mt-integration.ru>, Jun Lei
- <jun.lei@amd.com>, Harry Wentland <harry.wentland@amd.com>, Leo Li
- <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Alex
- Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>, Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Alex Hung
- <alex.hung@amd.com>, Fangzhi Zuo <jerry.zuo@amd.com>, Aric Cyr
- <aric.cyr@amd.com>, <amd-gfx@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <lvc-project@linuxtesting.org>
-Subject: [PATCH] drm/amd/display: fix type mismatch in
- CalculateDynamicMetadataParameters()
-Date: Sun, 23 Feb 2025 04:58:16 +0500
-Message-ID: <20250222235818.1990-1-v.shevtsov@mt-integration.ru>
-X-Mailer: git-send-email 2.48.1
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com
+ [209.85.208.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 608CF10E0D5
+ for <amd-gfx@lists.freedesktop.org>; Sat, 22 Feb 2025 21:18:20 +0000 (UTC)
+Received: by mail-ed1-f51.google.com with SMTP id
+ 4fb4d7f45d1cf-5dedd4782c6so6078616a12.3
+ for <amd-gfx@lists.freedesktop.org>; Sat, 22 Feb 2025 13:18:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1740259098; x=1740863898; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:subject:from:content-language:to
+ :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=wl//xXq/3oQzyubtwetpCXZ61uSz2VW3BDC46+HYJKE=;
+ b=e9IgMNPr9sCtKQnOPwUTwmmnFRtWIZW2o+68kaEv4r7Y1Pw9KMRHRBiHPPvAD9VmNb
+ 6bFTSGfSpB5zGVqFO8fulqMI1M3Cz498cF0xkppCNgMVlLwJQRgLYeabsaSLIHmCJiGK
+ nN/P/yGU4bcN1ssiJhLUpE4FXPXywKo4CFZQkbS0m/ljh+MoTX6kFWmzpQMIASgXvojg
+ Ahka7Z79lGCLVJJeiah0pL2j5po4pivZ9cH41rAoicNQKtjc1rNh5I7lyMUItu9JS0SF
+ nkXxXD5TqWiiB3FMP7tMV+Lw5zsGX8zduAp/+w6YR2DYiVA9l5KH9tuKD6MA3lfxaHr0
+ WTbA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1740259098; x=1740863898;
+ h=content-transfer-encoding:subject:from:content-language:to
+ :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=wl//xXq/3oQzyubtwetpCXZ61uSz2VW3BDC46+HYJKE=;
+ b=hItJdVR5565GfFsf6cotHu2fDxnFyde4+HRM+GChYlVFyUVPGqPFZy5gSMbIynmtYR
+ kCztZXy1eX/4DrXt9AbVj8eUgFyhqgYZBI1gEIGX/HxBPK1wPUbVu8mo21rdvXobMW6D
+ 0XsyjEPLq0NEM3dmRe/dfAq1iqHHmD4RBLPUZEx5IWLPbQJOOW1tjaOJwMiQwf2WA8Vf
+ WiwE9ZMAP/Z80Fa8wirzCWCUGPh8U8AdRt29NZeLj4VMIKDheTjnk5wMSNG3FIR1J1Rd
+ SykTKqt1ZTZX/1CqpCffUGmBzPkCshYiWu8Qitv5OtH1E/Px7FnTF3i/LuGL43/vMlOP
+ IVCA==
+X-Gm-Message-State: AOJu0Yxdu22dnFzf8wTsx8rNo3TlszA7Y1qWv1LwRVk8qnUD9lmHWPGR
+ I00eIWrmTfO2tutZ1p48eU2TPYPrRZz0aHu7eC2T9IF/e5TlsUIxSZ344g==
+X-Gm-Gg: ASbGnctjlVA6WadYvwtZW4Uy+7Je/KdDF96XA/yegQzqce/whVr6s++RWeowtD91viK
+ 6GK7b2Txan4fLbsS+NINMo15umqzzTXE5rilh9Q5eqo6+HqfPQfosn21T8Ry+3TpD96sskcT2X5
+ VE2nYetb7Ev5ZpW5UvGLcwHXst+J6aSc/roR4p2OWDFY4bO9hOw3iKCsT7PkeSjziPH/8uTHeKc
+ Iu7Xhhh5jFH4rZl5Svg0Xm+aR+Mq/IzqctSdUw3zj1UCcB08i1xWkhk4o7G3J34acaY/6Q6jXGf
+ bbbfDaYVmLtaMZMpnvIXT5mf9yixBISfEQ==
+X-Google-Smtp-Source: AGHT+IEDkjU57HWitrIeUTKu3Ua7oKrYbzMrBgToo/Yj0cqICg1A0XlHlogYlqNc3rCdoE1JK4ApQg==
+X-Received: by 2002:a05:6402:43c8:b0:5e0:8b68:ffae with SMTP id
+ 4fb4d7f45d1cf-5e0b70f9ac6mr7177992a12.17.1740259098366; 
+ Sat, 22 Feb 2025 13:18:18 -0800 (PST)
+Received: from [192.168.2.222] ([185.95.176.207])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5dece288e2dsm15855907a12.80.2025.02.22.13.18.16
+ for <amd-gfx@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 22 Feb 2025 13:18:17 -0800 (PST)
+Message-ID: <9b208693-0836-4818-b2f9-6d6eceaaa357@gmail.com>
+Date: Sat, 22 Feb 2025 22:18:15 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [178.236.220.144]
-X-ClientProxiedBy: mt-exch-01.mt.ru (91.220.120.210) To mmail-p-exch01.mt.ru
- (81.200.124.61)
-X-KSMG-AntiPhishing: NotDetected
-X-KSMG-AntiSpam-Auth: dmarc=none header.from=mt-integration.ru;
- spf=none smtp.mailfrom=mt-integration.ru; dkim=none
-X-KSMG-AntiSpam-Envelope-From: v.shevtsov@mt-integration.ru
-X-KSMG-AntiSpam-Info: LuaCore: 51 0.3.51
- 68896fb0083a027476849bf400a331a2d5d94398, {rep_avail},
- {Tracking_from_domain_doesnt_match_to}, ksmg01.maxima.ru:7.1.1;
- d41d8cd98f00b204e9800998ecf8427e.com:7.1.1; mt-integration.ru:7.1.1;
- 127.0.0.199:7.1.2;
- 81.200.124.61:7.1.2, FromAlignment: s, ApMailHostAddress: 81.200.124.61
-X-KSMG-AntiSpam-Interceptor-Info: scan successful
-X-KSMG-AntiSpam-Lua-Profiles: 191202 [Feb 22 2025]
-X-KSMG-AntiSpam-Method: none
-X-KSMG-AntiSpam-Rate: 0
-X-KSMG-AntiSpam-Status: not_detected
-X-KSMG-AntiSpam-Version: 6.1.1.11
-X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.1.8310,
- bases: 2025/02/22 16:52:00 #27403738
-X-KSMG-AntiVirus-Status: NotDetected, skipped
-X-KSMG-LinksScanning: NotDetected
-X-KSMG-Message-Action: skipped
-X-KSMG-Rule-ID: 7
+User-Agent: Mozilla Thunderbird
+To: amd-gfx@lists.freedesktop.org
+Content-Language: en-US
+From: Jaap Aart <jaap.aarts1@gmail.com>
+Subject: [amdgpu] Kernel OOPS
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Mon, 24 Feb 2025 13:35:11 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -100,53 +85,12 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-There is a type mismatch between what CalculateDynamicMetadataParameters()
-takes and what is passed to it. Currently this function accepts several
-args as signed long but it's called with unsigned integers. On some systems
-where long is 32 bits and one of these input params is greater than INT_MAX
-it may cause passing input params as negative values.
+Hello all!
 
-Fix this by changing these argument types from long to unsigned int. Also
-this will align the function's definition with similar functions in other
-dcn* drivers.
+Before I spam this list with an unrelated bug report, would this be the 
+best place to report linux amdgpu kernel bugs/page faults?
+I found this list on a very old reddit thread, don't want to end up 
+mailing the wrong place.
 
-Found by Linux Verification Center (linuxtesting.org) with Svace.
-
-Signed-off-by: Vitaliy Shevtsov <v.shevtsov@mt-integration.ru>
----
- .../amd/display/dc/dml/dcn30/display_mode_vba_30.c   | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
-index cee1b351e105..c6c7ce84e260 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
-@@ -281,10 +281,10 @@ static void CalculateDynamicMetadataParameters(
- 		double DISPCLK,
- 		double DCFClkDeepSleep,
- 		double PixelClock,
--		long HTotal,
--		long VBlank,
--		long DynamicMetadataTransmittedBytes,
--		long DynamicMetadataLinesBeforeActiveRequired,
-+		unsigned int HTotal,
-+		unsigned int VBlank,
-+		unsigned int DynamicMetadataTransmittedBytes,
-+		unsigned int DynamicMetadataLinesBeforeActiveRequired,
- 		int InterlaceEnable,
- 		bool ProgressiveToInterlaceUnitInOPP,
- 		double *Tsetup,
-@@ -3265,8 +3265,8 @@ static double CalculateWriteBackDelay(
- 
- 
- static void CalculateDynamicMetadataParameters(int MaxInterDCNTileRepeaters, double DPPCLK, double DISPCLK,
--		double DCFClkDeepSleep, double PixelClock, long HTotal, long VBlank, long DynamicMetadataTransmittedBytes,
--		long DynamicMetadataLinesBeforeActiveRequired, int InterlaceEnable, bool ProgressiveToInterlaceUnitInOPP,
-+		double DCFClkDeepSleep, double PixelClock, unsigned int HTotal, unsigned int VBlank, unsigned int DynamicMetadataTransmittedBytes,
-+		unsigned int DynamicMetadataLinesBeforeActiveRequired, int InterlaceEnable, bool ProgressiveToInterlaceUnitInOPP,
- 		double *Tsetup, double *Tdmbf, double *Tdmec, double *Tdmsks)
- {
- 	double TotalRepeaterDelayTime = 0;
--- 
-2.48.1
+- Jaap
 
