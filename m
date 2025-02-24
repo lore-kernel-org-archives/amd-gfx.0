@@ -4,56 +4,144 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A420C021BC
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Feb 2025 13:51:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8216FC021A4
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Feb 2025 13:52:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C22B10E3A9;
-	Mon, 24 Feb 2025 13:51:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 208CE10E3B1;
+	Mon, 24 Feb 2025 13:52:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=tteles.dev header.i=@tteles.dev header.b="KWhUHEwM";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="FnPvYj6c";
 	dkim-atps=neutral
-X-Greylist: delayed 614 seconds by postgrey-1.36 at gabe;
- Mon, 24 Feb 2025 03:07:10 UTC
-Received: from mail.w14.tutanota.de (mail.w14.tutanota.de [185.205.69.214])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD96D10E122;
- Mon, 24 Feb 2025 03:07:10 +0000 (UTC)
-Received: from tutadb.w10.tutanota.de (w10.api.tuta.com [IPv6:fd:ac::d:10])
- by mail.w14.tutanota.de (Postfix) with ESMTP id 3A18463FF342;
- Mon, 24 Feb 2025 03:56:54 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1740365814; 
- s=s1; d=tteles.dev;
- h=From:From:To:To:Subject:Subject:Content-Description:Content-ID:Content-Type:Content-Type:Content-Transfer-Encoding:Content-Transfer-Encoding:Cc:Cc:Date:Date:In-Reply-To:In-Reply-To:MIME-Version:MIME-Version:Message-ID:Message-ID:Reply-To:References:References:Sender;
- bh=wzUKVUkOHIzDyVJlm1rH9UeIF+LuRtjapviN0QSZFyQ=;
- b=KWhUHEwM44VEvhrE6vB+ZBqV8Hp4DmWyDnc0qz0SVgYD5QktLpqIgE46C5T8dEvz
- c+EDs/necnTdztpB08PC9q64v1HvLDPW+ht+ykZVKozNLzqjxY80uQGKIhuupAijNjM
- Xo9ertfiW46x+M7gGU0sGLGs16pSrBt2R9ynbZaeJs2i/LB1OgdyLvcxsrU3SxmPxDv
- voPsnZ1YobRaPSKsa5J6u4eHxt+Hr6RasaylG1aXJwrdU6HpDhjUT493FR7RwdM4ZG/
- nzO7d8UjZWzF7DcMuq/vQ6JSFzWZfEm+Wy4BG9b14ldWFlAEJXsMXdUjTWagvBITZwX
- zraggt+WSw==
-Date: Mon, 24 Feb 2025 03:56:54 +0100 (CET)
-From: mail@tteles.dev
-To: Mario Limonciello <mario.limonciello@amd.com>
-Cc: "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>,
- Alexander Deucher <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>,
- Xinhui Pan <xinhui.pan@amd.com>, Airlied <airlied@gmail.com>,
- Simona <simona@ffwll.ch>, Lijo Lazar <lijo.lazar@amd.com>,
- Tzimmermann <tzimmermann@suse.de>,
- Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>,
- Ahmad Rehman <ahmad.rehman@amd.com>, Shaoyun Liu <shaoyun.liu@amd.com>,
- Ramesh Errabolu <ramesh.errabolu@amd.com>, Jun Ma2 <jun.ma2@amd.com>,
- Daniel <daniel@makrotopia.org>, Linux Firmware <linux-firmware@kernel.org>,
- Dri Devel <dri-devel@lists.freedesktop.org>,
- Amd Gfx <amd-gfx@lists.freedesktop.org>, Stable <stable@vger.kernel.org>
-Message-ID: <OJpqNWx--F-9@tteles.dev>
-In-Reply-To: <eabde17b-b5e5-456f-a499-cff132f1bf8a@amd.com>
-References: <OJnZDtd----9@tteles.dev>
- <eabde17b-b5e5-456f-a499-cff132f1bf8a@amd.com>
-Subject: Re: REGRESSION amdgpu 20241108 firmware breaks screen updating
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2070.outbound.protection.outlook.com [40.107.93.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A2F710E3B1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Feb 2025 13:52:53 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=w4kpwfkJZdCwi5+ZMSQ12UOWiYpRBibipqXmhZ/iCr4Tb7zqdIiw2f4MU+bWRPJKUdMsLsbTZ9Q6iYfBfQ+On0KO/hwmd3Yw7/Dn183U2Q6EK1MUjS9RSrsqwMr/r1J0v9rwcHmbOQl4fcPGdDNGVev/rRriMiP1RK2EBP8nB7+rIWuGThsjXThbkvLATjSY2APw9jI9eLuUcD588EmR+ymTaoHqPQgt96OOt/pcwnmq549sGnvl7aoK02/p3QFe79Sl7tqPOOcF5CfAtRE4boD1/OTy29jPWmc8YGP0O1R8xW332h7xesxBpxS+srOA3V3wsfOA7IV4XuPcVYRkhg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3df2Wv3DzwNyu9JY6r8YLBtIQmuF3Gb06HwpysCCQ5Y=;
+ b=xfCWI8WgcpFrbwt/ivFv4o9NxGW5oyq60epTjlE9Y/Tr+vUG78IqYzY38wvq49n2YdLLIE+QETavQS8xypgh9v7s4zVwsYmavnkhdsIX7kQIHhSBKAIe44jqZ4sAbI5kF1W62llqTnKE0lcM49vCGvreMEWnSM+DB0Al9eg8Dl9rJyMGFIyq7ypxD5nkk2STwlunJ5SwOkaBoqYQRH51cAwqPyyUPw9GPgbzHAKMUcgoqcIPVhidBHAFzE5U5bm52kWWa6rUdxT847EdmYQVCMhHo7L7pNhTFgHppiT1sv4aqZEe7NEG+NXWz4vxdGYosU/g0do3sRGl28MYATcVNA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3df2Wv3DzwNyu9JY6r8YLBtIQmuF3Gb06HwpysCCQ5Y=;
+ b=FnPvYj6c4ZtnKNsLuX6dcVuSVpEUICpe3sUV42MJaZCMcbFpDDlZ4zv9tsuL37/hnbRSlcYFbtwCT7zvkcfhVkWdaBis6Dwg0R8jppTmD6TEBUySsLab2Wr1RhAF+q+WusF+ltDqx6hxrzdM1P7QORr9Lg95YefTZkdlrlqVBdM=
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com (2603:10b6:408:11e::16)
+ by MN0PR12MB5787.namprd12.prod.outlook.com (2603:10b6:208:376::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8466.16; Mon, 24 Feb
+ 2025 13:52:43 +0000
+Received: from BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::c593:f43d:c798:e009]) by BN9PR12MB5257.namprd12.prod.outlook.com
+ ([fe80::c593:f43d:c798:e009%7]) with mapi id 15.20.8466.020; Mon, 24 Feb 2025
+ 13:52:42 +0000
+From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+To: "Liu, Xiang(Dean)" <Xiang.Liu@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Zhou1, Tao" <Tao.Zhou1@amd.com>, "Dong, Andy" <Andy.Dong@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: Check if CPER enabled when generating CPER
+Thread-Topic: [PATCH] drm/amdgpu: Check if CPER enabled when generating CPER
+Thread-Index: AQHbhr4iD5OX+txT90mRUt8ut4GIY7NWd4FA
+Date: Mon, 24 Feb 2025 13:52:42 +0000
+Message-ID: <BN9PR12MB52578BA4C6AB19F9D4B2291DFCC02@BN9PR12MB5257.namprd12.prod.outlook.com>
+References: <20250224131409.26433-1-xiang.liu@amd.com>
+In-Reply-To: <20250224131409.26433-1-xiang.liu@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=7b29dc77-e0f4-45f6-a0d0-2ad16d475320;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution Only;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-02-24T13:46:25Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Tag=10, 3, 0, 1;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BN9PR12MB5257:EE_|MN0PR12MB5787:EE_
+x-ms-office365-filtering-correlation-id: 684707d5-cacf-4d85-74f6-08dd54da8275
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|1800799024|366016|7053199007|38070700018; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?giUhwElSy1eHrvrUB8dSGfl9FO1SUVpgIPSd0DKdkEzlNwAaUN/1OP3nIkgK?=
+ =?us-ascii?Q?GATreLoauIVyf6TANHySmGDJDR1RuxX7OfQzauodTdVyJpu5BkwsvbMiphwQ?=
+ =?us-ascii?Q?fKYcFJbKfTlEZmDvluAf3MY8GkoGjOu15vx1OyLuACkq5xdlfj91C2IEJz7h?=
+ =?us-ascii?Q?Dl1+rjb6mKL5QlmLybgkjt90/VuVpvAmtKpPj7j1sbaZD0o6gDBbkSmMpeB4?=
+ =?us-ascii?Q?ejMuylhC3q66pVpHDLa6jihBeUWlF+cy+Ay9NOdazUZNQc/m9ZIKZz7lEC/3?=
+ =?us-ascii?Q?dJc2b8nLfzd/8tUC8afluiuEhTvVnTV0MsSq7TZj6QIPAfvnRV7SdfZXsMH2?=
+ =?us-ascii?Q?kgEUEk2H4IIlvrT5MxFl/w8R3gitZMIkXrOrYSoFgSW2ghAW78lIQQCVROeP?=
+ =?us-ascii?Q?hEQCEo37WZPspW9n+w32IadNjF9o7T5z2iBcCOjSlPdflQJhrF0xhgpxnz5z?=
+ =?us-ascii?Q?ZNbAUgDw+d8i+F41mRtIuhVqw1o2+lWqLb5XLRG1VmlIw4CJa34KnfAk6GxB?=
+ =?us-ascii?Q?j1O2BqW+tDk15niXrp18abWQr5nFFdPvUco0rKG5Blr6ZKXlcrKdcRx3HXIQ?=
+ =?us-ascii?Q?/1XSTTqMBCdO+Z0a9x6D8PDEzDlBaP6X0XF+MNIIRWOJ5eE6CSw6LHU0ySPV?=
+ =?us-ascii?Q?4p5knsP2atL+wkkuw3He/wSh4imJGObyxZxkPDurj95a0ha9+QFW6lRS7nwh?=
+ =?us-ascii?Q?bILoDTZQMTsxZ8FfHeEE6MR8CxzhxYjU/cv0Cr5+r+8YALK981n8A6/GImPZ?=
+ =?us-ascii?Q?Wh6RbNP4ZpYzSM8v/f41AeOaQLxnuLk4Nf359mxkS5udLoVsCxmJkmhwuizU?=
+ =?us-ascii?Q?Kz3iYn7eXymCM5lAXk9hBrjf1DEgSJKw5rXghrnj+Xtl8U0huAghNbyTvm31?=
+ =?us-ascii?Q?6mm1+WQqjJnRpmZgWbmeo3LbuJBVBqFiI/86UZPLbEr0WNTYpbxbSz8Qydft?=
+ =?us-ascii?Q?Jgz+pVWmVQoBBw8itB7Sib7M2PQLr7ttSJ6qMM0DlqzWexLIbbAEMneEKSJj?=
+ =?us-ascii?Q?6hkg8eJ7WV4pFCyWhEH+0lzlhMv3hGGS5Q+BqGZQSy7QM2PnCoS14FZQlXK/?=
+ =?us-ascii?Q?+5zRSerlGoKpQ/hYXm5bwDWxl7izPcbSiP3p/qMKD0/A8TykVu13pjG4Rdhc?=
+ =?us-ascii?Q?eWORr2MIjF1J+JcyElaZjFfaL6IoQ+ex61D1+pHqz+5HyNtFfEi1p5lJRUEQ?=
+ =?us-ascii?Q?5lAs48hq8vHOjc2tN+MeW1JdbDX4l349IsXIe1vgQfx564stYN15+uhzXz1v?=
+ =?us-ascii?Q?MXG6Dcfu1xCThNObdxjyxYVvNWAAmLMHx/ZWYjZ0ISNfv8lwanBTqFTSl4GH?=
+ =?us-ascii?Q?rENpVfl7CPKoeZs73Fxs3yC32L3oVfrEVTVDlMcXDV9dSyhdFISz/gU2rreu?=
+ =?us-ascii?Q?+9OruLEXRkfbWmeSflPn5oejoAdCAEY78qMeeNfM6W3XqkkieQDa1MgM4jk3?=
+ =?us-ascii?Q?ytE81wfa02Gc0AKSh9fpzucuN9TzQWQs?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5257.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(7053199007)(38070700018); DIR:OUT;
+ SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?moYcZRkNV3wuYB40w9O+ZvluV+v43Gh7qWaYe2gk379moFMVAovUtz+2lgPV?=
+ =?us-ascii?Q?CYb+EEMQyO400UxQIswvtU8gI2EWyO5Q7TARVRqV5nXdpuTEb5SxlE6pJWFK?=
+ =?us-ascii?Q?zrk4rL0AKnGI2/VHm+qZR/G9lo3tf4Lv3HxgUh3thR4KQNMEUUBA3SqOLV5Y?=
+ =?us-ascii?Q?Qsr6P3ym7x8PPL7l5LuKL4XFz6QKZvOTHhCrqFbBM6YbyGMVCnP4PvH+omMY?=
+ =?us-ascii?Q?ut26t6Wd7P2LVK7K34yOJDHc5RiLq1Y6bRbl59VfqSxExpKCxI6zHupCwkuf?=
+ =?us-ascii?Q?bJHGXbRpYhkWaMzfCdOa4AwDkMkdzBRAk2bu8t5zt/hkan+fRJrMyzInO/qS?=
+ =?us-ascii?Q?QNn1gD16jbDkofNz+5P5WvRWN+v6GAkh0lAOi6TJNcJKdYkcCZqxu0wbWVFA?=
+ =?us-ascii?Q?xUOQhX+z41kVBPAe4o3eU1A9WePFiSsGJPZ56bA3z8SCnmNLE/dD5HkxQR/x?=
+ =?us-ascii?Q?IInnlnVcPMAxJt+OcP8B/tN94FO75oqTusNEqAv8BSKyR8NX1LiBvQz4xa91?=
+ =?us-ascii?Q?HaxrTDa3uG8wb7U+Ypn9/s26QShq36HDMVLrNIYC1+7MpkqxyWbS7goO4Ely?=
+ =?us-ascii?Q?6jEyafyW+r7Mq+WYJ5CeuZHsBverZOuNRoYU8illkU3RNmB3cOGGDTvMTrtb?=
+ =?us-ascii?Q?thvkXC4XXk+QFjO7AZv70o+nqiH7TTTfIVhkoqqIs/aPAHLlBGF1pwt6sF9e?=
+ =?us-ascii?Q?+Nq/bbStX3dffVU9P1YuRu7RoHc0C6qdBFj96RfwKU1ejmWokPyS7T94xff2?=
+ =?us-ascii?Q?0Kcd9yEyeYZsymjDY/xkZmbdZY2vQyvJQHpO3IswtKxiPYOmgWSN/MvOKqql?=
+ =?us-ascii?Q?BRH6USxGOWkjeERxg1mQ59tkqO0Rt1Jku0wDY8Fgh8x3Ljk/kETKh9kl/tqf?=
+ =?us-ascii?Q?abcIiVjbMLkbzeNJOJPBHvURmr6jVKv5FqDcUu0ERDbNJ0b7/8Ja1oUSO1s/?=
+ =?us-ascii?Q?ZKv2xyjuuEoTLMXl5F3RQeiXIIE+2cfXys6ESORiFoT0YLxkPEJJspsoL3Er?=
+ =?us-ascii?Q?yLv1o7HzQmuKE9hioeQMKPpsEaDsQct8cCHhthyybP+hNFA3exxvrHkiKakY?=
+ =?us-ascii?Q?5JYIKWExiCeqZMrGlGzbMOpqkrh3QbRmK7cgBbLiudaPYAOegDoJP+5XdPAQ?=
+ =?us-ascii?Q?BVODIxh7fYwI+ITQXczf3yNhTs9wu/pWP0+XfL9q3tZaCZype8ynRjxW8hff?=
+ =?us-ascii?Q?RmDaPemoGvmu3DO+jdVJJ2Iu/FOnL2MsImKDEE3MrwX0ZcCFdw/S/3i3cdbq?=
+ =?us-ascii?Q?PEXo34ZC78Hl2GGHrAKrYyIW02tSJEc2CyVcYz5GdNJW9sHW9gpMaFY30Kxu?=
+ =?us-ascii?Q?yrdzcszNtMsCqxNDqGJxX/I2UeG/DZr2043B6vLs7P+AM7U3cySZB+o5Ws8Z?=
+ =?us-ascii?Q?z51GxC7yfxf0AEk7fF/Me33zcW7va5plqIp9JJhkXKCXJPJ6bCyAlV7LkLtu?=
+ =?us-ascii?Q?eW+XfL6oYrTJS76hzFW6nYPvL3/Zs3dbRbwPtRcys7zwHvL2g3ow34O4ucEA?=
+ =?us-ascii?Q?Vs4SJwn7drel050EztN8WExkg131JLVr+Z+6nl72WrFtRHRtCxSlzOfa1/R4?=
+ =?us-ascii?Q?rizn2uZ7R7kpAlnbFXU=3D?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Mon, 24 Feb 2025 13:51:38 +0000
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5257.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 684707d5-cacf-4d85-74f6-08dd54da8275
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Feb 2025 13:52:42.4371 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: H+OttiKVp43EmH/U9FRRNI7VUfdxxPBZ2mBT8dLtl0rq3oPai68mx8gZlaRktjzXke98yqtVrNUWvNcQW/BqGQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5787
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,172 +156,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+[AMD Official Use Only - AMD Internal Distribution Only]
 
-I can confirm=C2=A0amdgpu.dcdebugmask=3D0x200 fixes it, no more stutters.
+The patch is
 
-It would be very beneficial to include the patch making this behavior defau=
-lt (https://lore.kernel.org/amd-gfx/20250221160145.1730752-3-zaeem.mohamed@=
-amd.com/T/#u)=C2=A0in the relevant linux-stable trees, as this is a major i=
-ssue for affected systems.=C2=A0
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 
-I CC'd=C2=A0stable@vger.kernel.org=C2=A0and ask for the patch to be include=
-d in linux-stable, even though it does not have a "Fixes:" tag, if the main=
-tainers are okay with it.
+Please make another change to set cper.enabled to be true *only* after cper=
+ ring is successfully created.
 
-Thank you for the quick response!
-Tiago
+Regards,
+Hawking
 
-Feb 23, 2025, 17:26 by mario.limonciello@amd.com:
+-----Original Message-----
+From: Liu, Xiang(Dean) <Xiang.Liu@amd.com>
+Sent: Monday, February 24, 2025 21:14
+To: amd-gfx@lists.freedesktop.org
+Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>;=
+ Dong, Andy <Andy.Dong@amd.com>; Liu, Xiang(Dean) <Xiang.Liu@amd.com>
+Subject: [PATCH] drm/amdgpu: Check if CPER enabled when generating CPER
 
-> Hello,
->
-> This sounds like to me a problem with PSR-SU.  There have been a variety =
-of these being reported the past few months.  Enough so that the policy to =
-enable it by default is being rolled back for now.
->
-> https://lore.kernel.org/amd-gfx/20250221160145.1730752-3-zaeem.mohamed@am=
-d.com/T/#u
->
-> To confirm that's the root cause you can disable it with amdgpu.dcdebugma=
-sk=3D0x200.
->
-> Thanks,
->
-> On 2/23/2025 10:08, mail@tteles.dev wrote:
->
->> Greetings,
->>
->> I wish to report a regression in amdgpu firmware introduced in commit c9=
-9eeb4d0e13f5831ae77f7ec521162594385d5f, the problem persists until git HEAD=
-, and reverting to the previous commit fixes the issues with no further cha=
-nges to the environment.
->>
->> The issue appears on a Lenovo IdeaPad Pro 5, with a Ryzen 8845HS process=
-or, using the 780M iGPU (1002:1900 I believe). The screen on this laptop is=
- 120Hz 2800x1800, supporting HDR.
->> This was tested on Archlinux 6.13.3.arch1-1, with amdgpu drivers, on bot=
-h Wayland (Gnome and Hyprland) and Xorg (i3wm). I'm using amd-pstate-epp sc=
-aling driver, tested with both performance and powersave governers, to the =
-same effect.
->>
->> I will list the symptoms and attempt to guess at what the issue may be.
->>
->> - The screen stops updating if no mouse input is given while watching lo=
-w resolution video (wherever it is, Brave and mpv, regardless of software o=
-r hw decoding).
->> =C2=A0 Low resolution matters here, I can play 4k video fine, 1080p with=
- mild stutters, but lower becomes very bad.
->> =C2=A0 Here is an example using mpv with 360p sample video, recorded on =
-my phone as to not disturb the environment its running in. (https://youtu.b=
-e/kYHqBjPxM2s You can tell it is very choppy, the original video https://ww=
-w.youtube.com/watch?v=3D1HrXwe6s4W8 is not choppy)
->> =C2=A0 mpv did not report any dropped frames despite there obviously bei=
-ng a huge amount.
->>
->> - In some programs, text does not get displayed instantly from when typi=
-ng it, having to type 5 or 6 characters for the previous to finally show.
->> =C2=A0 All these new characters show up at the same time. This was extre=
-mely noticeable with gnome's default "Console", it also happened in Brave B=
-rowser's search bar, and Signal, it does not seem to happen with Ghostty.
->>
->> Constantly waving my cursor fixes all these issues. Connecting a seconda=
-ry display seems to fix the issue on all displays.
->>
->> From my limited knowledge this seems like a bug in damage detection for =
-eDP + power management, where low enough power levels don't trigger redraws=
-.
->>
->> I am confident the issue was introduced in that commit since I bisected =
-linux-firmware commits affecting amdgpu until the issue was no longer found=
-.
->>
->>
->> Extra info:
->> # dmesg | grep amd
->> [=C2=A0=C2=A0=C2=A0 0.414396] perf/amd_iommu: Detected AMD IOMMU #0 (2 b=
-anks, 4 counters/bank).
->> [=C2=A0=C2=A0=C2=A0 1.875492] [drm] amdgpu kernel modesetting enabled.
->> [=C2=A0=C2=A0=C2=A0 1.878563] amdgpu: Virtual CRAT table created for CPU
->> [=C2=A0=C2=A0=C2=A0 1.878573] amdgpu: Topology: Add CPU node
->> [=C2=A0=C2=A0=C2=A0 1.882607] amdgpu 0000:63:00.0: amdgpu: Fetched VBIOS=
- from VFCT
->> [=C2=A0=C2=A0=C2=A0 1.882610] amdgpu: ATOM BIOS: 113-PHXGENERIC-001
->> [=C2=A0=C2=A0=C2=A0 1.909536] amdgpu 0000:63:00.0: vgaarb: deactivate vg=
-a console
->> [=C2=A0=C2=A0=C2=A0 1.909542] amdgpu 0000:63:00.0: amdgpu: Trusted Memor=
-y Zone (TMZ) feature enabled
->> [=C2=A0=C2=A0=C2=A0 1.909612] amdgpu 0000:63:00.0: amdgpu: VRAM: 4096M 0=
-x0000008000000000 - 0x00000080FFFFFFFF (4096M used)
->> [=C2=A0=C2=A0=C2=A0 1.909614] amdgpu 0000:63:00.0: amdgpu: GART: 512M 0x=
-00007FFF00000000 - 0x00007FFF1FFFFFFF
->> [=C2=A0=C2=A0=C2=A0 1.909829] [drm] amdgpu: 4096M of VRAM memory ready
->> [=C2=A0=C2=A0=C2=A0 1.909832] [drm] amdgpu: 13932M of GTT memory ready.
->> [=C2=A0=C2=A0=C2=A0 1.935030] amdgpu 0000:63:00.0: amdgpu: reserve 0x400=
-0000 from 0x80f8000000 for PSP TMR
->> [=C2=A0=C2=A0=C2=A0 2.482626] amdgpu 0000:63:00.0: amdgpu: RAS: optional=
- ras ta ucode is not available
->> [=C2=A0=C2=A0=C2=A0 2.491068] amdgpu 0000:63:00.0: amdgpu: RAP: optional=
- rap ta ucode is not available
->> [=C2=A0=C2=A0=C2=A0 2.491071] amdgpu 0000:63:00.0: amdgpu: SECUREDISPLAY=
-: securedisplay ta ucode is not available
->> [=C2=A0=C2=A0=C2=A0 2.521960] amdgpu 0000:63:00.0: amdgpu: SMU is initia=
-lized successfully!
->> [=C2=A0=C2=A0=C2=A0 2.601611] kfd kfd: amdgpu: Allocated 3969056 bytes o=
-n gart
->> [=C2=A0=C2=A0=C2=A0 2.601628] kfd kfd: amdgpu: Total number of KFD nodes=
- to be created: 1
->> [=C2=A0=C2=A0=C2=A0 2.602048] amdgpu: Virtual CRAT table created for GPU
->> [=C2=A0=C2=A0=C2=A0 2.602191] amdgpu: Topology: Add dGPU node [0x1900:0x=
-1002]
->> [=C2=A0=C2=A0=C2=A0 2.602193] kfd kfd: amdgpu: added device 1002:1900
->> [=C2=A0=C2=A0=C2=A0 2.602206] amdgpu 0000:63:00.0: amdgpu: SE 1, SH per =
-SE 2, CU per SH 6, active_cu_number 12
->> [=C2=A0=C2=A0=C2=A0 2.602212] amdgpu 0000:63:00.0: amdgpu: ring gfx_0.0.=
-0 uses VM inv eng 0 on hub 0
->> [=C2=A0=C2=A0=C2=A0 2.602215] amdgpu 0000:63:00.0: amdgpu: ring comp_1.0=
-.0 uses VM inv eng 1 on hub 0
->> [=C2=A0=C2=A0=C2=A0 2.602216] amdgpu 0000:63:00.0: amdgpu: ring comp_1.1=
-.0 uses VM inv eng 4 on hub 0
->> [=C2=A0=C2=A0=C2=A0 2.602217] amdgpu 0000:63:00.0: amdgpu: ring comp_1.2=
-.0 uses VM inv eng 6 on hub 0
->> [=C2=A0=C2=A0=C2=A0 2.602219] amdgpu 0000:63:00.0: amdgpu: ring comp_1.3=
-.0 uses VM inv eng 7 on hub 0
->> [=C2=A0=C2=A0=C2=A0 2.602220] amdgpu 0000:63:00.0: amdgpu: ring comp_1.0=
-.1 uses VM inv eng 8 on hub 0
->> [=C2=A0=C2=A0=C2=A0 2.602221] amdgpu 0000:63:00.0: amdgpu: ring comp_1.1=
-.1 uses VM inv eng 9 on hub 0
->> [=C2=A0=C2=A0=C2=A0 2.602222] amdgpu 0000:63:00.0: amdgpu: ring comp_1.2=
-.1 uses VM inv eng 10 on hub 0
->> [=C2=A0=C2=A0=C2=A0 2.602223] amdgpu 0000:63:00.0: amdgpu: ring comp_1.3=
-.1 uses VM inv eng 11 on hub 0
->> [=C2=A0=C2=A0=C2=A0 2.602224] amdgpu 0000:63:00.0: amdgpu: ring sdma0 us=
-es VM inv eng 12 on hub 0
->> [=C2=A0=C2=A0=C2=A0 2.602225] amdgpu 0000:63:00.0: amdgpu: ring vcn_unif=
-ied_0 uses VM inv eng 0 on hub 8
->> [=C2=A0=C2=A0=C2=A0 2.602226] amdgpu 0000:63:00.0: amdgpu: ring jpeg_dec=
- uses VM inv eng 1 on hub 8
->> [=C2=A0=C2=A0=C2=A0 2.602227] amdgpu 0000:63:00.0: amdgpu: ring mes_kiq_=
-3.1.0 uses VM inv eng 13 on hub 0
->> [=C2=A0=C2=A0=C2=A0 2.609481] amdgpu 0000:63:00.0: amdgpu: Runtime PM no=
-t available
->> [=C2=A0=C2=A0=C2=A0 2.610787] [drm] Initialized amdgpu 3.60.0 for 0000:6=
-3:00.0 on minor 1
->> [=C2=A0=C2=A0=C2=A0 2.617618] fbcon: amdgpudrmfb (fb0) is primary device
->> [=C2=A0=C2=A0=C2=A0 3.788332] amdgpu 0000:63:00.0: [drm] fb0: amdgpudrmf=
-b frame buffer device
->> [=C2=A0=C2=A0=C2=A0 5.120419] kvm_amd: TSC scaling supported
->> [=C2=A0=C2=A0=C2=A0 5.120426] kvm_amd: Nested Virtualization enabled
->> [=C2=A0=C2=A0=C2=A0 5.120428] kvm_amd: Nested Paging enabled
->> [=C2=A0=C2=A0=C2=A0 5.120430] kvm_amd: LBR virtualization supported
->> [=C2=A0=C2=A0=C2=A0 5.120443] kvm_amd: Virtual GIF supported
->> [=C2=A0=C2=A0=C2=A0 5.120444] kvm_amd: Virtual NMI enabled
->> [=C2=A0=C2=A0=C2=A0 5.170720] snd_hda_intel 0000:63:00.1: bound 0000:63:=
-00.0 (ops amdgpu_dm_audio_component_bind_ops [amdgpu])
->> [=C2=A0=C2=A0=C2=A0 5.191443] amd_atl: AMD Address Translation Library i=
-nitialized
->>
->>
->> Thank you for your time,
->> Tiago Teles
->>
+In the case of CPER disabled, generating CPER will cause kernel NULL pointe=
+r dereference without checking.
+
+Signed-off-by: Xiang Liu <xiang.liu@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c | 3 +++
+ drivers/gpu/drm/amd/pm/amdgpu_dpm.c     | 5 +++--
+ 2 files changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_aca.c
+index d11593cd1922..ffd4c64e123c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
+@@ -392,6 +392,9 @@ static void aca_banks_generate_cper(struct amdgpu_devic=
+e *adev,
+        struct aca_bank_node *node;
+        struct aca_bank *bank;
+
++       if (!adev->cper.enabled)
++               return;
++
+        if (!banks || !count) {
+                dev_warn(adev->dev, "fail to generate cper records\n");
+                return;
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c b/drivers/gpu/drm/amd/pm/a=
+mdgpu_dpm.c
+index 7c4ff12269d9..81e9b443ca0a 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+@@ -716,8 +716,9 @@ int amdgpu_dpm_send_rma_reason(struct amdgpu_device *ad=
+ev)
+        ret =3D smu_send_rma_reason(smu);
+        mutex_unlock(&adev->pm.mutex);
+
+-       if (amdgpu_cper_generate_bp_threshold_record(adev))
+-               dev_warn(adev->dev, "fail to generate bad page threshold cp=
+er records\n");
++       if (adev->cper.enabled)
++               if (amdgpu_cper_generate_bp_threshold_record(adev))
++                       dev_warn(adev->dev, "fail to generate bad page thre=
+shold cper
++records\n");
+
+        return ret;
+ }
+--
+2.34.1
 
