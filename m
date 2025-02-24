@@ -4,47 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56AC3C021A4
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Feb 2025 16:35:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22348C021A4
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Feb 2025 16:35:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 18A2E10E46E;
-	Mon, 24 Feb 2025 16:35:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C78BA10E470;
+	Mon, 24 Feb 2025 16:35:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="PXlR+J4h";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="Ux8jOnXM";
 	dkim-atps=neutral
 Received: from mslow3.mail.gandi.net (mslow3.mail.gandi.net [217.70.178.249])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 442B510E477;
- Mon, 24 Feb 2025 16:35:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F13510E472;
+ Mon, 24 Feb 2025 16:35:24 +0000 (UTC)
 Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net
  [217.70.183.196])
- by mslow3.mail.gandi.net (Postfix) with ESMTP id 8D1435835D7;
- Mon, 24 Feb 2025 16:07:48 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 0973E4445B;
- Mon, 24 Feb 2025 16:07:45 +0000 (UTC)
+ by mslow3.mail.gandi.net (Postfix) with ESMTP id 9206F583181;
+ Mon, 24 Feb 2025 16:07:46 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 2E52C4444E;
+ Mon, 24 Feb 2025 16:07:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1740413266;
+ t=1740413264;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
  bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
- b=PXlR+J4hifbcYWzSbrKYOdVR71ZfGzRpEKKo7neK0i8tWztXC+lUdA6ZO97FO/JUh0ggzR
- Us0M/AFua7ktE6T7RUl+VFTEMNebnh/XU3onm6nvSHkSCRnbrZGKO9CERqRZGvL0xmjbzy
- tcD22kAS2th7JWwHmAHZaq20wYwmYsKsOwIy9BSckgDCbe3/rhwqpo4lqjQQLFtCCyC852
- M+Fzs2SlW0LaHU3QdPzNrLX0Ky3IZh1Z5DdAMBDh1C+CcsMFktUHpnPz9QGJMRUpBgnZf5
- m52oD84jGizPW+ZwaHLE5ByOPoUuyYEBBniOpO3lSGkKK8IHU7+C/nfFNjAfMA==
-Message-ID: <9afdc4e1-c82b-4f03-a425-90de983ad7c4@bootlin.com>
-Date: Mon, 24 Feb 2025 17:07:35 +0100
+ b=Ux8jOnXMk3FGjWJCJX3Yw2T5VzviR/2zvgGXzk4wxOSIqQ/IimHuSR7FXjd26t8t90OdXm
+ c3isJ85pgGHK3A+ElGLvvAjHp0yPjghqtkkGTDEZYAlU2YC+MBuh4ZREWSdIOnXtywAlrF
+ kpfaf26Y/IPO8tAz/B/l1X7zElIl7bqPJe7CZ0UainJaDdW5OCX3wTY3B2sPReR879AGyH
+ 2Ym9RJFr2zjvcFHx6ihtSv55v/6sjtAiB3nQEUOmpEmmjT5m9b0BguknDAr2s1x4tjwMfL
+ RD56kOzILCbagrndov8GDka+Sb6dkyDb165VO3Zwr5jSzH1welaG501XBQqz3g==
+Message-ID: <57c3be85-53e8-464b-8596-6358169d7714@bootlin.com>
+Date: Mon, 24 Feb 2025 17:07:33 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Louis Chauvet <louis.chauvet@bootlin.com>
-Subject: Re: [V7 03/45] drm/vkms: Add kunit tests for VKMS LUT handling
+Subject: Re: [V7 10/45] drm/colorop: Add NEXT property
 To: Alex Hung <alex.hung@amd.com>, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org
-Cc: wayland-devel@lists.freedesktop.org, harry.wentland@amd.com,
- Arthur Grillo <arthurgrillo@riseup.net>
+Cc: wayland-devel@lists.freedesktop.org, harry.wentland@amd.com
 References: <20241220043410.416867-1-alex.hung@amd.com>
- <20241220043410.416867-4-alex.hung@amd.com>
+ <20241220043410.416867-11-alex.hung@amd.com>
 Content-Language: en-US
 Autocrypt: addr=louis.chauvet@bootlin.com; keydata=
  xsFNBGCG5KEBEAD1yQ5C7eS4rxD0Wj7JRYZ07UhWTbBpbSjHjYJQWx/qupQdzzxe6sdrxYSY
@@ -100,13 +99,13 @@ Autocrypt: addr=louis.chauvet@bootlin.com; keydata=
  PdjUMWb5Ld21PSyCrtGc/hTKwxMoHsOZPy6UB8YJ5omZdsavcjKMrDpybguOfxUmGYs2H3MJ
  ghIUQMMOe0267uQcmMNDPRueGWTLXcuyz0Tpe62Whekc3gNMl0JrNz6Gty8OBb/ETijfSHPE
  qGHYuyAZJo9A/IazHuJ+4n+gm4kQl1WLfxoRMzYHCA==
-In-Reply-To: <20241220043410.416867-4-alex.hung@amd.com>
+In-Reply-To: <20241220043410.416867-11-alex.hung@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-GND-State: clean
 X-GND-Score: -50
-X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgdejledvvdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfitefpfffkpdcuggftfghnshhusghstghrihgsvgenuceurghilhhouhhtmecufedtudenucesvcftvggtihhpihgvnhhtshculddquddttddmnefgmhhpthihucgsohguhiculdehtddmnecujfgurhepkfffgggfhffuvfevfhgjtgfgsehtjeertddtvdejnecuhfhrohhmpefnohhuihhsucevhhgruhhvvghtuceolhhouhhishdrtghhrghuvhgvthessghoohhtlhhinhdrtghomheqnecuggftrfgrthhtvghrnhepkedvtdetvedtlefgveetgfegvefhueeludekgfegjefgueejhfdtgeegueeutedvnecukfhppedvtddtudemkeeiudemgedugedtmegtkeeitdemheguiedumeeifeefleemieeirgeimegvtdejheenucevlhhushhtvghrufhiiigvpeefnecurfgrrhgrmhepihhnvghtpedvtddtudemkeeiudemgedugedtmegtkeeitdemheguiedumeeifeefleemieeirgeimegvtdejhedphhgvlhhopeglkffrggeimedvtddtudemkeeiudemgedugedtmegtkeeitdemheguiedumeeifeefleemieeirgeimegvtdejhegnpdhmrghilhhfrhhomheplhhouhhishdrtghhrghuvhgvthessghoohhtlhhinhdrtghomhdpnhgspghrtghpthhtohepiedprhgtphhtthhopegrlhgvgidrhhhunhhgsegrmhgurdgtohhmpdhrtghpthhtohepughrihdquggvvhgvlheslhhishhtshdrf
- hhrvggvuggvshhkthhophdrohhrghdprhgtphhtthhopegrmhguqdhgfhigsehlihhsthhsrdhfrhgvvgguvghskhhtohhprdhorhhgpdhrtghpthhtohepfigrhihlrghnugdquggvvhgvlheslhhishhtshdrfhhrvggvuggvshhkthhophdrohhrghdprhgtphhtthhopehhrghrrhihrdifvghnthhlrghnugesrghmugdrtghomhdprhgtphhtthhopegrrhhthhhurhhgrhhilhhlohesrhhishgvuhhprdhnvght
+X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgdejledvvdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfitefpfffkpdcuggftfghnshhusghstghrihgsvgenuceurghilhhouhhtmecufedtudenucesvcftvggtihhpihgvnhhtshculddquddttddmnefgmhhpthihucgsohguhiculdehtddmnecujfgurhepkfffgggfhffuvfevfhgjtgfgsehtjeertddtvdejnecuhfhrohhmpefnohhuihhsucevhhgruhhvvghtuceolhhouhhishdrtghhrghuvhgvthessghoohhtlhhinhdrtghomheqnecuggftrfgrthhtvghrnhepkedvtdetvedtlefgveetgfegvefhueeludekgfegjefgueejhfdtgeegueeutedvnecukfhppedvtddtudemkeeiudemgedugedtmegtkeeitdemheguiedumeeifeefleemieeirgeimegvtdejheenucevlhhushhtvghrufhiiigvpeefnecurfgrrhgrmhepihhnvghtpedvtddtudemkeeiudemgedugedtmegtkeeitdemheguiedumeeifeefleemieeirgeimegvtdejhedphhgvlhhopeglkffrggeimedvtddtudemkeeiudemgedugedtmegtkeeitdemheguiedumeeifeefleemieeirgeimegvtdejhegnpdhmrghilhhfrhhomheplhhouhhishdrtghhrghuvhgvthessghoohhtlhhinhdrtghomhdpnhgspghrtghpthhtohephedprhgtphhtthhopegrlhgvgidrhhhunhhgsegrmhgurdgtohhmpdhrtghpthhtohepughrihdquggvvhgvlheslhhishhtshdrf
+ hhrvggvuggvshhkthhophdrohhrghdprhgtphhtthhopegrmhguqdhgfhigsehlihhsthhsrdhfrhgvvgguvghskhhtohhprdhorhhgpdhrtghpthhtohepfigrhihlrghnugdquggvvhgvlheslhhishhtshdrfhhrvggvuggvshhkthhophdrohhrghdprhgtphhtthhopehhrghrrhihrdifvghnthhlrghnugesrghmugdrtghomh
 X-GND-Sasl: louis.chauvet@bootlin.com
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
