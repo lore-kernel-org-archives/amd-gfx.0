@@ -4,55 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18E85C021B5
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59BFCC021A6
 	for <amd-gfx@archiver.kernel.org>; Mon, 24 Feb 2025 13:35:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ACBC310E383;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF74110E38B;
 	Mon, 24 Feb 2025 13:35:16 +0000 (UTC)
-X-Greylist: delayed 398 seconds by postgrey-1.36 at gabe;
- Mon, 24 Feb 2025 06:39:12 UTC
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0999110E14D;
- Mon, 24 Feb 2025 06:39:11 +0000 (UTC)
-Received: from icess-ProLiant-DL380-Gen10.. (unknown [183.174.60.14])
- by APP-01 (Coremail) with SMTP id qwCowAC3vVV0ErxnL6j0Dw--.49149S2;
- Mon, 24 Feb 2025 14:32:29 +0800 (CST)
-From: Ma Ke <make24@iscas.ac.cn>
-To: harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, simona@ffwll.ch, wenjing.liu@amd.com, alex.hung@amd.com,
- dillon.varone@amd.com, Samson.Tam@amd.com, yi-lchen@amd.com,
- chris.park@amd.com, aurabindo.pillai@amd.com, george.shen@amd.com,
- gabe.teeger@amd.com, Yihan.Zhu@amd.com, Tony.Cheng@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Ma Ke <make24@iscas.ac.cn>,
- stable@vger.kernel.org
-Subject: [PATCH] drm/amd/display: Fix null check for pipe_ctx->plane_state in
- resource_build_scaling_params
-Date: Mon, 24 Feb 2025 14:32:18 +0800
-Message-Id: <20250224063218.2953217-1-make24@iscas.ac.cn>
-X-Mailer: git-send-email 2.25.1
+Authentication-Results: gabe.freedesktop.org;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="W4aN5Zi6";
+	dkim-atps=neutral
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D781D10E363
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Feb 2025 12:07:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
+ Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=A756kZ2ToYPgqBzIF36klkoIMA6/Y4skU/xfX6i8lW8=; b=W4aN5Zi69V18GlH+x/n2sZ8V68
+ mmRxojvApv38QfvRI2EKwd8Mm7u73FI9lGqOjmbPX5n0HIWJzCfceQTIKFnl40B8ddx0WKG7ntwg0
+ jmwfrpurqHMW668tYIUyZF2rR5v8XmCJXAbDhy94VG55gusrSE4ussV8D4zGaCXNadn0PxP2jYrOt
+ qQhAOD0QlqgIvzXaHX4ydW3I69APF64HtLe1TfjxEwMiOPvooGVFikukDiTFLwv4oNUR4/u0xp0Ii
+ +EMZXYDfenZ6MRioRnfYIc7HyHLnC00fqYr08oRl8M20+SP37WedB0L2sYYVgmd2VhBhK1haPIBgY
+ SKGcZsfg==;
+Received: from [90.241.98.187] (helo=localhost)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1tmXEg-00HTAj-9E; Mon, 24 Feb 2025 13:07:04 +0100
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: kernel-dev@igalia.com,
+	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Subject: [PATCH 1/2] drm/amdgpu: Remove hole from struct amdgpu_ib
+Date: Mon, 24 Feb 2025 12:06:43 +0000
+Message-ID: <20250224120644.40148-2-tvrtko.ursulin@igalia.com>
+X-Mailer: git-send-email 2.48.0
+In-Reply-To: <20250224120644.40148-1-tvrtko.ursulin@igalia.com>
+References: <20250224120644.40148-1-tvrtko.ursulin@igalia.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: qwCowAC3vVV0ErxnL6j0Dw--.49149S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrZr45GrW5XF1rZr4UJr47urg_yoWDKrg_KF
- 48urn3tr1fAanF9F10vw4fuFyF9rZ5urZaqFW2yFWYyry7WrWkX34xXr1rWryxZFsrKF98
- A3Wqkr15ZwnFgjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUIcSsGvfJTRUUUbSxFF20E14v26ryj6rWUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
- 6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
- A2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j
- 6F4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
- CE3s1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xv
- F2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r
- 4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I
- 648v4I1lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_GFv_Wryl42xK82IYc2
- Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s02
- 6x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0x
- vE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE
- 42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6x
- kF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjTRKCJmDUUUU
-X-Originating-IP: [183.174.60.14]
-X-CM-SenderInfo: ppdnvj2u6l2u1dvotugofq/
 X-Mailman-Approved-At: Mon, 24 Feb 2025 13:35:11 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,33 +59,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Null pointer dereference issue could occur when pipe_ctx->plane_state
-is null. The fix adds a check to ensure 'pipe_ctx->plane_state' is not
-null before accessing. This prevents a null pointer dereference.
+Group the 32- vs 64- members together to remove hole from the struct.
 
-Found by code review.
+Before:
 
-Cc: stable@vger.kernel.org
-Fixes: 3be5262e353b ("drm/amd/display: Rename more dc_surface stuff to plane_state")
-Signed-off-by: Ma Ke <make24@iscas.ac.cn>
+        /* size: 40, cachelines: 1, members: 5 */
+        /* sum members: 32, holes: 1, sum holes: 4 */
+        /* padding: 4 */
+        /* last cacheline: 40 bytes */
+
+After:
+        /* size: 32, cachelines: 1, members: 5 */
+        /* last cacheline: 32 bytes */
+
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc_resource.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-index 520a34a42827..88e8ae63a07f 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-@@ -1452,6 +1452,9 @@ bool resource_build_scaling_params(struct pipe_ctx *pipe_ctx)
- 	struct scaling_taps temp = {0};
- 	bool res = false;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+index e13407cbb040..9a7ffbc53363 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+@@ -97,9 +97,9 @@ enum amdgpu_ib_pool_type {
  
-+	if (!plane_state)
-+		return false;
-+
- 	DC_LOGGER_INIT(pipe_ctx->stream->ctx->logger);
+ struct amdgpu_ib {
+ 	struct drm_suballoc		*sa_bo;
+-	uint32_t			length_dw;
+-	uint64_t			gpu_addr;
+ 	uint32_t			*ptr;
++	uint64_t			gpu_addr;
++	uint32_t			length_dw;
+ 	uint32_t			flags;
+ };
  
- 	/* Invalid input */
 -- 
-2.25.1
+2.48.0
 
