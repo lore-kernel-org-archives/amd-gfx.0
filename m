@@ -4,146 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 749F1C021BB
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Feb 2025 11:40:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDB02C021BB
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Feb 2025 12:08:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D20310E648;
-	Tue, 25 Feb 2025 11:40:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 866C010E654;
+	Tue, 25 Feb 2025 12:08:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="PCcKhicP";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="mrMk2RCW";
 	dkim-atps=neutral
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2060.outbound.protection.outlook.com [40.107.93.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E872F10E648
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Feb 2025 11:40:44 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QDw00kWbYCOrN92uN9VVNSu+ATFEyOpGZuLU18Vl6KUPfUMd6msfxh55lnrIwW0Z8xm2aHTlaNEIJ+4Lthx3fTLgi4viDG0uCSzVYz/rbCgWjLGNVqoExN/tc5OwhBKV58R8ymMl5TKSH3Nk06egCy8AE628y9HHdEeq27JI6VEFDAn/C+rPDfEm8nuj75Yw0F8hn3p+OWQCPZ4vIrnVMDK4UqaN2RhrgiLANK7DUipSngpPn9TVCEhaKa35L6fdiFXxBl8My5fMkyK/YZQCeGaPHda0qtusVfv6BtlNbeD8FQqnbeblFTCNumGIBLbW9Qe/+5aPjbYVIXBQPtaP2g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=llN4NQTUJ9a7DMGaQwKUvaqGKPVwPg4+o7ycXAGJH/U=;
- b=HswW3LtzoM0niF8O2SMThmbjurQU44gZ0Yb71JjaFp7KqoYnlyjFK9jmLJ+QCjoF5D/l1Xuk13c3vQENTDvyYR80XWLpMJc//w1e0umneDBQyK0WJgrvjcQHiZKAuS6u7w6/0dYvqTJEbbpzyHO1Hci4Vz7EHqqfKGzkAtO1M4/W0vEVLQ7QZu8PL/agLT2mB2n+ei4SD/47fyuroj8FgQXHoHYBfP4byASjd2FPVpuWnBWtBbZQRbnB8p/qBl0S16bu66gp7oI2T4MwkHB9pwV1nG1dwMlKG9KofszCZFYhB/sUo+ygTGdg30RAigSNoAAWIdQkJPGlDqgsoMSjvQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=llN4NQTUJ9a7DMGaQwKUvaqGKPVwPg4+o7ycXAGJH/U=;
- b=PCcKhicPT6MwU2eOVLGEcuQp15k+3VWhRJgB6yrv9C4vq4nJOyd1QguxrdQ/ROQd8dX2KGMwWUUAM6YqhlHS+o4q+EI/96j1z916sNI55oXLk/Zyx5EvhT1B9RDm/wR6XxsHUd50EvRjt4n4WOPnlS3TcS8NWE7MbTxOKzHhLTU=
-Received: from DS7PR12MB6071.namprd12.prod.outlook.com (2603:10b6:8:9d::11) by
- IA1PR12MB8586.namprd12.prod.outlook.com (2603:10b6:208:44e::9) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.8466.20; Tue, 25 Feb 2025 11:40:41 +0000
-Received: from DS7PR12MB6071.namprd12.prod.outlook.com
- ([fe80::be26:4c33:76bc:e1b]) by DS7PR12MB6071.namprd12.prod.outlook.com
- ([fe80::be26:4c33:76bc:e1b%3]) with mapi id 15.20.8466.020; Tue, 25 Feb 2025
- 11:40:41 +0000
-From: "Kamal, Asad" <Asad.Kamal@amd.com>
-To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>, "Ma, Le" <Le.Ma@amd.com>, "Zhang, Morris"
- <Shiwu.Zhang@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: Use wafl version for xgmi
-Thread-Topic: [PATCH] drm/amdgpu: Use wafl version for xgmi
-Thread-Index: AQHbh3giHrL1R9VWsE+mOsdPaZ15ibNX5Tew
-Date: Tue, 25 Feb 2025 11:40:41 +0000
-Message-ID: <DS7PR12MB6071C1DCF0DAA0E49B516A838EC32@DS7PR12MB6071.namprd12.prod.outlook.com>
-References: <20250225112617.120865-1-lijo.lazar@amd.com>
-In-Reply-To: <20250225112617.120865-1-lijo.lazar@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=c6d8c71c-4630-4129-a6a0-1f4e497b46e8;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution Only;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-02-25T11:40:32Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Tag=10, 3, 0, 1;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS7PR12MB6071:EE_|IA1PR12MB8586:EE_
-x-ms-office365-filtering-correlation-id: 2a569eef-1690-4e4e-b7c5-08dd55913b66
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|7053199007|38070700018; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?wVPH2Rg2xFpqAuse8PEhqUmyRZHAf2LZ9/P7k4sigIOTv0u/+37NtLLCVE4E?=
- =?us-ascii?Q?uMePXdI/HalXCmTSIhJVHiJqZMc5hgbv1am12DV50jM3H0NmHe3XGozCDwxv?=
- =?us-ascii?Q?D2guEOp2acLh4MRQFhyILqjExA0LSdEXOfu0cgCzMjDKR3PFXdOeptwb1t+6?=
- =?us-ascii?Q?BjrxXA8RABIXL2/UWRaNAkBbGwok/4jC5AwHbDmIW2JBQi27/WAzZo7eKh47?=
- =?us-ascii?Q?PvpeXbc5psHgUEy+qEfVOk+n+efVbdD+7IP35gl2snT+jQ5otAAJ29XzJmHI?=
- =?us-ascii?Q?t1229/VqjH3e+8EhybpRcO7fnVwfVKdFv0qBKta5g/sf25LMj7kQKaWM27oI?=
- =?us-ascii?Q?RgVkoMDbfPDEoAMquHzUOGZqg1TLBxg4BNNyMEPwobqFtY/UPW0oT3DUKiFO?=
- =?us-ascii?Q?jgkFqVIcxulbtf4eeIBchMaNYoDBxqOp/bbDdheIJAMgPI3yx8Ros6eKGcrt?=
- =?us-ascii?Q?UwTC2U0dAjkgOUJmWeaj5VptgbERbs9/BxTDh7XeOKYecy9hU5QDEgJML+tT?=
- =?us-ascii?Q?xUFtKIDZBx5S2d8jZyNMLtyzfrBanfTBVgoNN89rb4VaKKuFFy6F9CUSqbB/?=
- =?us-ascii?Q?KhnKK9wjsCIPzyrMzUQLxi71ikA4mXyAadzGysP3atICXNbr4o1C0xWDg3fz?=
- =?us-ascii?Q?BAiR0q0qH1j4/akwxLgXYz0TukACxtahuCZKlpFaISejYrBOeXIrRvVpmB3A?=
- =?us-ascii?Q?FrF0gCb5aydMrnm2cLk+A3qOv8YvNokygmr8vrFC4xjQgQQwH5M8wbv6pjJm?=
- =?us-ascii?Q?hmB8f7Mjx7JnjOc0n3Y7yWZ1/2+CrGB/l+N4Scxkjochhv4rbV8CssII0YSa?=
- =?us-ascii?Q?iM2cSzC35sZAyqW+0vc4u7nJhyrIuZLDArXj1H3nJWDfp9ItInBNZbJpWx9R?=
- =?us-ascii?Q?lA8uBTr116OP/b6r4LAvjRTeSKWUWpA2c3cgB6pCb5HL/QPqzNVP33pUJtIW?=
- =?us-ascii?Q?4Vj8aXESArOhxNJPdECbrVJRfe2ALT+HHwx0jtHnq9PS6WpFFQR/Gm/ZtwoR?=
- =?us-ascii?Q?bZC4nMyrntBGvGCMFAcqLNF+XqudyGNblluNi41+VZF+r8jHVYRBDatJvOYt?=
- =?us-ascii?Q?Z8R2XR2hEAAKpXg6cA69AJd5hRkWd6V6CyFrcqvVZBM7vsp/mtiBhYoKq1JJ?=
- =?us-ascii?Q?WewyZAXrPzr5MKQwjAUiWCQ40eVVuq0DsL4AZTvDgvNpXD/E/LV7Fz3URw/f?=
- =?us-ascii?Q?rrVeegZS+LCriuz+VglIr3RYc62pYTRoLz6gA/MRFNoeCC82jAedC6sQE3cb?=
- =?us-ascii?Q?a2c9FiEax6jMsC0jqF/HDLRg08T+gnycoMWWhwnI80oJZDgNNkaWBUt9bngU?=
- =?us-ascii?Q?JF4ls6hkwn4nzAPMUzMS/1Rk+sqgMdbS+4u/P+a7qILPAMX+0+zqVaYJ6WxT?=
- =?us-ascii?Q?i6Kho6HSb2aHHSsHna59YuSP8j4xGmVp89w0srG8pV5qevQqxyhffYjCDeZY?=
- =?us-ascii?Q?HkKSgaCZb6zz00azejxWGV5+d7wn5WiJ?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS7PR12MB6071.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(7053199007)(38070700018); DIR:OUT;
- SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?mqIYwRobi/UZFESXfEqq+7wEAY85XACmkTsUFsUd4kLOssr2ZITxfJcbBVRO?=
- =?us-ascii?Q?tgguZxA7YLd6jrzaunxwhYHahhMzioHKXjrUQBQISd0mN6mhTyDWuq9xtSH5?=
- =?us-ascii?Q?4FyFJKVMsUNiwiLCUKC78zMSab1EwBFVcn0dxwJ1lDetx7+atQHu/JEdo4LX?=
- =?us-ascii?Q?STA6qD8P2stnloGRP2Ro8Jejabyc1piizOtwgm1rrpg8OOxqTUa9UHmTAl+e?=
- =?us-ascii?Q?jQ8sQUxuqI1ZCa1BG6PW5zcVRnHt1OK2nq4TwyWE5cUMqq5o0sTgkcVshAGt?=
- =?us-ascii?Q?lqjtKN9QpuW0w1yWJ/AVdAtdCuUVQRXducP5urK8AfxIqjghMohqciqHADYF?=
- =?us-ascii?Q?dbnfLvsFn19JL//7QuTv8NVB2LY7biWjTpCaqDNGx4xU8f08ojJ8QcxuawLP?=
- =?us-ascii?Q?Macs/T1IdsfwAfb7PBrSOM4I4RqKSVMcImtE/mFZNMEVa2BAxk/JgFIBoRiw?=
- =?us-ascii?Q?TMxsPLm9kUQoaYVewr9f+jiSndMeUwXXx/S9RhSYqn74Qr9tGo1R8MArt85k?=
- =?us-ascii?Q?mqPCPmbVnhyXXL88XOtxP80YWX7GObAyCxJwkgcThCfI0nuscMnb5Tq2Jlpt?=
- =?us-ascii?Q?GWJO/1G2bDo5SF8WCDs1bmJErijKtepCRM70r65/pkPeCjfy+ACp+QgWFqiK?=
- =?us-ascii?Q?OcB4pcoPLxBN0UbezZBN8qBsSC1hXtNYLMrDzbPzT2pP6Djd01GxMjhMrbk1?=
- =?us-ascii?Q?TZxs0eefh3YXn9DP2QxF5fQnb2VfXRJQe/FuNmEgh+ZJLcurtmSIc4lpEjj7?=
- =?us-ascii?Q?6f1zNb5WhybgO/evddG6gaAkAXNME5wAystz4VDLZEXS68+3gTfeg546Lgxc?=
- =?us-ascii?Q?im0e/FXOmJvP2OLITuU+DxHdEBYbHpfzPfBW9bUa3jrv5YVhgX2CgRoFAI8D?=
- =?us-ascii?Q?QPUaJlAOMeSJ0OvKde/4kVVlUhiav8f5xLBjUkC0CNIvLpVt02OOGpuNXzbc?=
- =?us-ascii?Q?Z8L6mWCumBFJ2cAo+S3LKRtn54iGTcydUHZ8ycxqybnYVHCXmm04vYtnFkHu?=
- =?us-ascii?Q?EQW/3O7f1wsEBY2uQ7O8nmZZ346KZcFeA6d/bMRaP1m1WTz86qd8o74rmmmg?=
- =?us-ascii?Q?RI3KzDb6LUsXyr1rRjfe3bh39Pe4FKMbUD0aQNLqas4u+TaGLODhLQus4iak?=
- =?us-ascii?Q?f45JUfAQ5+QVZqAn5RA67xGRyDb1qeEo0CZOBj8PKdiSViolkGKU//FNzkkA?=
- =?us-ascii?Q?NQ4V+EciNS1eZHow8XhTfk/kRozQ6Wx1DGw5nhUrkc0I89/uFmHEc4Zm+/tm?=
- =?us-ascii?Q?yVh7LhMuFfGJarCRkpyCTOSTq0yPCG6df2ve53k2vqKBwyLpB+EaQNwKvQtp?=
- =?us-ascii?Q?KsmALI1tuVDY6CQTmqaLK1I0Jg6+A/X7FtW3C5+KT8rGc3FNsD95ekmJOTwc?=
- =?us-ascii?Q?7X+ms3XZzMvfHfD0n3DFjPsM9KCUesNMaoUYenMDyUd5QFBrXaOaKRVLeeeO?=
- =?us-ascii?Q?KIA4+IBfYfMt96xbLJ/RVnBA1yfHtkBZtMyFqY7Ol54xVfxfY99VuvcgdIYX?=
- =?us-ascii?Q?VH6xalCLZWVihk0L37kXPnOU4BymSgduVKZgmM0kBivSbb40zuDiNepcQJzu?=
- =?us-ascii?Q?tvqPBst17HhtGxPyY0o=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BB8210E654;
+ Tue, 25 Feb 2025 12:08:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=7dSSmAxXnOC8qxOChD5a0SbRyj/vGLn16q2XMiPY1zw=; b=mrMk2RCWRUPgNIDQdrEONNr8yg
+ aYIYjwUDxNsU4m4dgUsb+smJilc+go4z0S50yy1C8VloHqhdWfuniK8tdmamKsTykRWi2u+OzOMZ3
+ 4iby71AmH3Culhm+MoVVKbakRWlCPNUHowSs3mJDPjr5Nmlo1LK5r3p69fVPB/Eu3oPeFBu4zcr4T
+ PzsyCDQ39H6kgAx08NGgHbmjD+6v0VycoXY+t5E1bEggT0CweNS92pE9AQAddclzT0CePht8TKUHD
+ iY8SfBmDhPo4ZhjRsTpkWE570G10Nz/8FuIsO9XuNSRyOljRitg6TDxah1PaG1SydI/PUdQnCQvKk
+ SwN1pHFg==;
+Received: from [90.241.98.187] (helo=[192.168.0.101])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1tmtjv-000NBA-Md; Tue, 25 Feb 2025 13:08:49 +0100
+Message-ID: <2df3a84c-4a2c-43d9-9922-05273fd5df2b@igalia.com>
+Date: Tue, 25 Feb 2025 12:08:48 +0000
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB6071.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2a569eef-1690-4e4e-b7c5-08dd55913b66
-X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Feb 2025 11:40:41.1497 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: xjq4MsN1bpYDRTS3bw6B8T/Kg2nnjj5/+wpCXMVNxa0ELzOXInXzuzDOIkE1vdZL/PDTtG6J7VyiLTueHv7x6g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8586
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] Support dmabuf IPC with amdgpu CRIU
+To: David Francis <David.Francis@amd.com>, dri-devel@lists.freedesktop.org
+Cc: amd-gfx@lists.freedesktop.org, Christian.Koenig@amd.com,
+ Felix.Kuehling@amd.com, Weijun.Jiang@amd.com, dcostantino@meta.com,
+ sruffell@meta.com
+References: <20250131185829.827297-1-David.Francis@amd.com>
+ <20250131185829.827297-2-David.Francis@amd.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <20250131185829.827297-2-David.Francis@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -158,92 +62,996 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - AMD Internal Distribution Only]
 
-Reviewed-by: Asad Kamal <asad.kamal@amd.com>
+Hi,
 
-Thanks & Regards
-Asad
+On 31/01/2025 18:58, David Francis wrote:
+> This patch (in combination with the accompanying CRIU patch)
+> allows the amdgpu CRIU plugin to support dmabuf IPC.
+> 
+> It includes
+> - A new amdgpu ioctl (amdgpu_criu_op_ioctl), which has similar
+> 	options to kfd_ioctl_criu, and accompanying structs.
+> - New "is_retry" field in amdkfd CRIU ioctls, to indicate when.
+> 	a restore op is a retry and certain parts of the
+> 	restore should not be re-done.
+> - New "skip" field in amdkfd CRIU bo buckets, to indicate when
+> 	a bo cannot currently be restored and should be ignored.
+> - Two new drm functions, drm_prime_assign_handle and
+> 	drm_gem_handle_create_assigned. These are similar to
+> 	drm_gem_prime_fd_to_handle and drm_gem_handle_create
+> 	but allow the caller to specify a gem handle.
 
------Original Message-----
-From: Lazar, Lijo <Lijo.Lazar@amd.com>
-Sent: Tuesday, February 25, 2025 4:56 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander <Alexander.D=
-eucher@amd.com>; Kamal, Asad <Asad.Kamal@amd.com>; Ma, Le <Le.Ma@amd.com>; =
-Zhang, Morris <Shiwu.Zhang@amd.com>
-Subject: [PATCH] drm/amdgpu: Use wafl version for xgmi
+It would be best to organise the series in multiple patches. At least 
+the DRM code API additions should be one per patch.
 
-XGMI and WAFL share the same versions. Use WAFL version if XGMI version is =
-not present in discovery.
+I'll make a mix of comments throughout the patch, some will be low level 
+where I think code can just align with the kernel style more and so make 
+it a bit easier to read. So bear with that please and probably just make 
+a note for when doing a respin to perhaps consider that.
 
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+> Still TODO:
+> - Backwards compatibility between new kernel and old CRIU
+> 
+> Signed-off-by: David Francis <David.Francis@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/Makefile      |   2 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_criu.c | 401 +++++++++++++++++++++++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_criu.h |  24 ++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c  |   2 +
+>   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c |  37 ++-
+>   drivers/gpu/drm/amd/amdkfd/kfd_priv.h    |   2 +-
+>   drivers/gpu/drm/drm_prime.c              | 146 +++++++++
+>   include/drm/drm_prime.h                  |   7 +
+>   include/uapi/drm/amdgpu_drm.h            |  46 +++
+>   include/uapi/linux/kfd_ioctl.h           |   4 +-
+>   10 files changed, 653 insertions(+), 18 deletions(-)
+>   create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_criu.c
+>   create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_criu.h
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
+> index 6cb3a2b2725a..eac5a455e6de 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/Makefile
+> +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+> @@ -63,7 +63,7 @@ amdgpu-y += amdgpu_device.o amdgpu_doorbell_mgr.o amdgpu_kms.o \
+>   	amdgpu_xgmi.o amdgpu_csa.o amdgpu_ras.o amdgpu_vm_cpu.o \
+>   	amdgpu_vm_sdma.o amdgpu_discovery.o amdgpu_ras_eeprom.o amdgpu_nbio.o \
+>   	amdgpu_umc.o smu_v11_0_i2c.o amdgpu_fru_eeprom.o amdgpu_rap.o \
+> -	amdgpu_fw_attestation.o amdgpu_securedisplay.o \
+> +	amdgpu_fw_attestation.o amdgpu_securedisplay.o amdgpu_criu.o \
+>   	amdgpu_eeprom.o amdgpu_mca.o amdgpu_psp_ta.o amdgpu_lsdma.o \
+>   	amdgpu_ring_mux.o amdgpu_xcp.o amdgpu_seq64.o amdgpu_aca.o amdgpu_dev_coredump.o \
+>   	amdgpu_userq_fence.o amdgpu_eviction_fence.o
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_criu.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_criu.c
+> new file mode 100644
+> index 000000000000..4f3e5cb61323
+> --- /dev/null
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_criu.c
+> @@ -0,0 +1,401 @@
+> +
+> +
+> +#include <linux/dma-buf.h>
+> +#include <linux/hashtable.h>
+> +#include <linux/mutex.h>
+> +#include <linux/random.h>
+> +
+> +#include <drm/amdgpu_drm.h>
+> +#include <drm/drm_device.h>
+> +#include <drm/drm_file.h>
+> +
+> +#include "amdgpu_criu.h"
+> +
+> +#include <drm/amdgpu_drm.h>
+> +#include <drm/drm_drv.h>
+> +#include <drm/drm_exec.h>
+> +#include <drm/drm_gem_ttm_helper.h>
+> +#include <drm/ttm/ttm_tt.h>
+> +
+> +#include "amdgpu.h"
+> +#include "amdgpu_display.h"
+> +#include "amdgpu_dma_buf.h"
+> +#include "amdgpu_hmm.h"
+> +#include "amdgpu_xgmi.h"
+> +
+> +static bool is_import(struct amdgpu_bo *bo) {
+> +	if (bo->tbo.base.import_attach)
+> +		return &bo->tbo.base != (struct drm_gem_object *)bo->tbo.base.import_attach->dmabuf->priv;
+> +	return false;
+> +}
+> +
+> +static int reserve_bo_and_vm(struct amdgpu_bo *bo,
+> +			      struct amdgpu_vm *vm,
+> +			      struct drm_exec *exec)
+> +{
+> +	int ret;
+> +
+> +	WARN_ON(!vm);
+> +
+> +	drm_exec_init(exec, DRM_EXEC_INTERRUPTIBLE_WAIT, 0);
+> +	drm_exec_until_all_locked(exec) {
+> +		ret = amdgpu_vm_lock_pd(vm, exec, 2);
+> +		drm_exec_retry_on_contention(exec);
+> +		if (unlikely(ret))
+> +			goto error;
+> +
+> +		ret = drm_exec_prepare_obj(exec, &bo->tbo.base, 1);
+> +		drm_exec_retry_on_contention(exec);
+> +		if (unlikely(ret))
+> +			goto error;
+> +	}
+> +	return 0;
+> +
+> +error:
+> +	pr_err("Failed to reserve buffers in ttm.\n");
+> +	drm_exec_fini(exec);
+> +	return ret;
+> +}
+> +
+> +static void unreserve_bo_and_vm(struct drm_exec *exec)
+> +{
+> +	drm_exec_fini(exec);
+> +}
+> +
+> +static int amdgpu_criu_process_info(struct drm_device *dev, struct drm_file *data,
+> +			    struct drm_amdgpu_criu_args *args) {
+> +	struct drm_gem_object *gobj;
+> +	int id;
+> +	int num_bos = 0;
+> +	int num_vm_mappings = 0;
+> +	struct amdgpu_vm *avm = &((struct amdgpu_fpriv *)data->driver_priv)->vm;
+> +
+> +	spin_lock(&data->table_lock);
+> +	idr_for_each_entry(&data->object_idr, gobj, id) {
+> +		struct amdgpu_bo *bo = gem_to_amdgpu_bo(gobj);
+> +		struct amdgpu_vm_bo_base *vm_bo_base;
+> +
+> +		num_bos += 1;
+> +
+> +		vm_bo_base = bo->vm_bo;
+> +
+> +		while(vm_bo_base) {
+> +			struct amdgpu_bo_va *bo_va = container_of(vm_bo_base, struct amdgpu_bo_va, base);
+> +			struct amdgpu_bo_va_mapping *mapping;
+> +
+> +			if (vm_bo_base->vm == avm) {
+> +
+> +				list_for_each_entry(mapping, &bo_va->invalids, list) {
+> +					num_vm_mappings += 1;
+> +				}
+> +				list_for_each_entry(mapping, &bo_va->valids, list) {
+> +					num_vm_mappings += 1;
+> +				}
+> +			}
+> +
+> +			vm_bo_base = vm_bo_base->next;
+> +		}
+> +	}
+> +	spin_unlock(&data->table_lock);
+> +
+> +	args->num_bos = num_bos;
+> +	args->priv_data_size = sizeof(struct drm_amdgpu_criu_bo_priv_data) * num_bos + sizeof(struct drm_amdgpu_criu_vm_mapping_priv_data) * num_vm_mappings;
+> +	args->num_objs = num_vm_mappings;
+> +	args->pid = avm->task_info->pid;
+> +
+> +	return 0;
+> +}
+> +
+> +static int amdgpu_criu_checkpoint(struct drm_device *dev, struct drm_file *data,
+> +			    struct drm_amdgpu_criu_args *args) {
+> +	struct drm_gem_object *gobj;
+> +	struct amdgpu_vm *avm = &((struct amdgpu_fpriv *)data->driver_priv)->vm;
+> +	int id;
+> +	int num_bos = 0;
+> +	int ret;
+> +	struct drm_amdgpu_criu_bo_bucket *bo_buckets;
+> +	struct drm_amdgpu_criu_bo_priv_data *bo_privs;
+> +	struct drm_amdgpu_criu_vm_mapping_priv_data *vm_privs;
+> +	int vm_priv_index = 0;
+> +	int bo_index = 0;
+> +	int fd;
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/dr=
-m/amd/amdgpu/amdgpu_discovery.c
-index 967a992829bd..8425e5dbf80e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-@@ -1290,6 +1290,7 @@ static int amdgpu_discovery_reg_base_init(struct amdg=
-pu_device *adev)
-        uint16_t die_offset;
-        uint16_t ip_offset;
-        uint16_t num_dies;
-+       uint32_t wafl_ver;
-        uint16_t num_ips;
-        uint16_t hw_id;
-        uint8_t inst;
-@@ -1303,6 +1304,7 @@ static int amdgpu_discovery_reg_base_init(struct amdg=
-pu_device *adev)
-                return r;
-        }
+Generally it is nicer to order the declaration by width where practical.
 
-+       wafl_ver =3D 0;
-        adev->gfx.xcc_mask =3D 0;
-        adev->sdma.sdma_mask =3D 0;
-        adev->vcn.inst_mask =3D 0;
-@@ -1403,6 +1405,10 @@ static int amdgpu_discovery_reg_base_init(struct amd=
-gpu_device *adev)
-                                adev->gfx.xcc_mask |=3D
-                                        (1U << ip->instance_number);
+> +
+> +	spin_lock(&data->table_lock);
+> +	idr_for_each_entry(&data->object_idr, gobj, id) {
+> +		num_bos += 1;
+> +	}
 
-+                       if (!wafl_ver && le16_to_cpu(ip->hw_id) =3D=3D WAFL=
-C_HWID)
-+                               wafl_ver =3D IP_VERSION_FULL(ip->major, ip-=
->minor,
-+                                                          ip->revision, 0,=
- 0);
-+
-                        for (k =3D 0; k < num_base_address; k++) {
-                                /*
-                                 * convert the endianness of base addresses=
- in place, @@ -1468,6 +1474,9 @@ static int amdgpu_discovery_reg_base_init(=
-struct amdgpu_device *adev)
-                }
-        }
+And to avoid curlies for single line blocks.
 
-+       if (wafl_ver && !adev->ip_versions[XGMI_HWIP][0])
-+               adev->ip_versions[XGMI_HWIP][0] =3D wafl_ver;
-+
-        return 0;
- }
+> +	spin_unlock(&data->table_lock);
+> +
+> +	if (args->num_bos != num_bos) {
+> +		ret = -EINVAL;
+> +		goto exit;
+> +	}
 
-@@ -2772,10 +2781,6 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_dev=
-ice *adev)
-                break;
-        }
+Since the below loop does the unlocked walk it can potentially overwrite 
+the allocated buffers. Maybe it cannot happen but I think it is best to 
+write it defensively.
 
--       if (amdgpu_ip_version(adev, GC_HWIP, 0) =3D=3D IP_VERSION(9, 4, 3) =
-||
--           amdgpu_ip_version(adev, GC_HWIP, 0) =3D=3D IP_VERSION(9, 4, 4))
--               adev->ip_versions[XGMI_HWIP][0] =3D IP_VERSION(6, 4, 0);
--
-        /* set NBIO version */
-        switch (amdgpu_ip_version(adev, NBIO_HWIP, 0)) {
-        case IP_VERSION(6, 1, 0):
---
-2.25.1
+> +
+> +	bo_buckets = kvzalloc(num_bos * sizeof(*bo_buckets), GFP_KERNEL);
+> +	if (!bo_buckets)
+> +		return -ENOMEM;
+> +
+> +	bo_privs = kvzalloc(num_bos * sizeof(*bo_privs), GFP_KERNEL);
+> +	if (!bo_privs)
+> +		return -ENOMEM;
+> +
+> +	vm_privs = kvzalloc(args->num_objs * sizeof(*vm_privs), GFP_KERNEL);
+> +	if (!vm_privs)
+> +		return -ENOMEM;
+
+These obviously can leak memory so just need to extend the existing 
+onion unwind to handle it all.
+
+You could also use kvcalloc, or even forgo the temporary allocation and 
+copy blobs as it goes. (If using kvzalloc suggests these might be large 
+allocations so perhaps it makes sense to avoid them.)
+
+> +
+> +	idr_for_each_entry(&data->object_idr, gobj, id) {
+> +		struct amdgpu_bo *bo = gem_to_amdgpu_bo(gobj);
+> +		struct drm_amdgpu_criu_bo_bucket *bo_bucket;
+> +		struct drm_amdgpu_criu_bo_priv_data *bo_priv;
+> +		struct amdgpu_vm_bo_base *vm_bo_base;
+> +		struct amdgpu_bo *main_bo;
+> +
+> +		bo_bucket = &bo_buckets[bo_index];
+> +		bo_priv = &bo_privs[bo_index];
+> +
+> +		bo_bucket->size = amdgpu_bo_size(bo);
+> +		bo_bucket->offset = amdgpu_bo_mmap_offset(bo);
+> +		bo_bucket->alloc_flags = bo->flags;
+> +		bo_bucket->preferred_domains = bo->preferred_domains;
+> +
+> +		bo_priv->idr_handle = id;
+> +		bo_bucket->is_import = is_import(bo);
+> +
+> +		main_bo = bo;
+> +		if (is_import(main_bo)) {
+
+is_import() is called twice in sequence.
+
+> +			main_bo = gem_to_amdgpu_bo(bo->tbo.base.import_attach->dmabuf->priv);
+> +		}
+> +
+> +		drm_gem_prime_handle_to_fd(dev, data, id, 0, &fd);
+> +		if (fd) {
+> +			bo_bucket->dmabuf_fd = fd;
+> +		}
+> +
+> +		vm_bo_base = bo->vm_bo;
+> +
+> +		while(vm_bo_base) {
+> +			struct amdgpu_bo_va *bo_va = container_of(vm_bo_base, struct amdgpu_bo_va, base);
+> +			struct amdgpu_bo_va_mapping *mapping;
+> +
+> +			if (vm_bo_base->vm == avm) {
+> +				list_for_each_entry(mapping, &bo_va->invalids, list) {
+> +					vm_privs[vm_priv_index].start = mapping->start;
+> +					vm_privs[vm_priv_index].last = mapping->last;
+> +					vm_privs[vm_priv_index].offset = mapping->offset;
+> +					vm_privs[vm_priv_index].flags = mapping->flags;
+> +					vm_privs[vm_priv_index].idr_handle = id;
+> +					vm_priv_index += 1;
+> +
+> +					bo_bucket->addr = mapping->start * 0x1000;
+
+PAGE_SIZE? Or something else?
+
+> +				}
+> +				list_for_each_entry(mapping, &bo_va->valids, list) {
+> +					vm_privs[vm_priv_index].start = mapping->start;
+> +					vm_privs[vm_priv_index].last = mapping->last;
+> +					vm_privs[vm_priv_index].offset = mapping->offset;
+> +					vm_privs[vm_priv_index].flags = mapping->flags;
+> +					vm_privs[vm_priv_index].idr_handle = id;
+> +					vm_priv_index += 1;
+> +
+> +					bo_bucket->addr = mapping->start * 0x1000;
+> +				}
+> +			}
+
+Looks like some sort of a helper could consolidate the handling of two 
+lists. Either pass a list_head pointer, or keep the walks here and pass 
+in the mapping, something like that.
+
+> +
+> +			vm_bo_base = vm_bo_base->next;
+> +		}
+> +
+> +		bo_index += 1;
+> +	}
+> +
+> +	ret = copy_to_user((void *)args->bos, bo_buckets, num_bos * sizeof(*bo_buckets));
+
+Probably needs to be (void __user *) in the cast.
+
+> +	if (ret) {
+> +		pr_err("Failed to copy BO information to user\n");
+
+Probably make these debug level at most since userspace can trigger them 
+at will and it is not a kernel level error.
+
+> +		ret = -EFAULT;
+> +		goto exit;
+> +	}
+> +
+> +	ret = copy_to_user((void *)args->priv_data, bo_privs, num_bos * sizeof(*bo_privs));
+> +	if (ret) {
+> +		pr_err("Failed to copy BO PRIV information to user\n");
+> +		ret = -EFAULT;
+> +		goto exit;
+> +	}
+> +	ret = copy_to_user((void *)(args->priv_data + sizeof(struct drm_amdgpu_criu_bo_priv_data) * num_bos), vm_privs, args->num_objs * sizeof(*vm_privs));
+> +	if (ret) {
+> +		pr_err("Failed to copy VM PRIV information to user\n");
+> +		ret = -EFAULT;
+> +		goto exit;
+> +	}
+> +
+> +	exit:
+> +	kvfree(bo_buckets);
+> +	kvfree(bo_privs);
+> +	return ret;
+> +}
+> +
+> +static int amdgpu_criu_unpause(struct drm_device *dev, struct drm_file *data,
+> +			    struct drm_amdgpu_criu_args *args) {
+> +	return 0;
+> +}
+> +
+> +static int amdgpu_criu_restore(struct drm_device *dev, struct drm_file *data,
+> +			    struct drm_amdgpu_criu_args *args) {
+> +	int i;
+> +	struct drm_amdgpu_criu_bo_bucket *bo_buckets;
+> +	struct drm_amdgpu_criu_bo_priv_data *bo_privs;
+> +	struct drm_amdgpu_criu_vm_mapping_priv_data *vm_privs;
+> +	struct amdgpu_vm *avm = &((struct amdgpu_fpriv *)data->driver_priv)->vm;
+> +	struct amdgpu_fpriv *fpriv = (struct amdgpu_fpriv *)data->driver_priv;
+> +	struct amdgpu_device *adev = drm_to_adev(dev);
+> +	struct amdgpu_bo *restored_bo;
+> +	int ret;
+> +
+> +	bo_buckets = kvzalloc(args->num_bos * sizeof(*bo_buckets), GFP_KERNEL);
+> +	if (!bo_buckets)
+> +		return -ENOMEM;
+> +	ret = copy_from_user(bo_buckets, (void *)args->bos, args->num_bos * sizeof(*bo_buckets));
+> +	if (ret)
+> +		return -EINVAL;
+> +
+> +	bo_privs = kvzalloc(args->num_bos * sizeof(*bo_privs), GFP_KERNEL);
+> +	if (!bo_privs)
+> +		return -ENOMEM;
+> +	ret = copy_from_user(bo_privs, (void *)args->priv_data, args->num_bos * sizeof(*bo_privs));
+> +	if (ret)
+> +		return -EINVAL;
+> +
+> +	vm_privs = kvzalloc(args->num_objs * sizeof(*vm_privs), GFP_KERNEL);
+> +	if (!vm_privs)
+> +		return -ENOMEM;
+> +	ret = copy_from_user(vm_privs, (void *)(args->priv_data + sizeof(struct drm_amdgpu_criu_bo_priv_data) * args->num_bos), args->num_objs * sizeof(*vm_privs));
+> +	if (ret)
+> +		return -EINVAL;
+
+This could also be done without the kernel side allocation but your call 
+whether it would make sense or not. (Ie. depending on expected sizes.)
+
+> +
+> +	for (i = 0; i < args->num_bos; i++) {
+> +		struct drm_amdgpu_criu_bo_bucket *bo_bucket = &bo_buckets[i];
+> +		struct drm_amdgpu_criu_bo_priv_data *bo_priv = &bo_privs[i];
+> +		struct amdgpu_bo *bo;
+> +
+> +		if (bo_bucket->skip)
+> +			continue;
+
+Maybe drop some comments in the code so it is clear why and when the skip.
+
+> +
+> +		if (!bo_bucket->is_import) {
+> +			struct drm_gem_object *obj;
+> +			enum ttm_bo_type type = ttm_bo_type_device;
+> +			int xcp_id = -1;
+> +			int prime_fd;
+> +
+> +			if (bo_bucket->preferred_domains == AMDGPU_GEM_DOMAIN_VRAM) {
+> +				xcp_id = fpriv->xcp_id == AMDGPU_XCP_NO_PARTITION ?
+> +							0 : fpriv->xcp_id;
+> +			}
+
+It this right? How come amdgpu_gem_create_ioctl() simply passes 
+fpriv->xcp_id + 1 to amdgpu_gem_object_create()?
+
+> +			amdgpu_gem_object_create(adev, bo_bucket->size, 1, bo_bucket->preferred_domains,
+> +				bo_bucket->alloc_flags, type, NULL, &obj, xcp_id + 1);
+> +
+> +			bo = gem_to_amdgpu_bo(obj);
+> +
+> +			ret = drm_gem_handle_create_assigned(data, obj, bo_priv->idr_handle);
+
+Error checking should probably be done.
+
+> +
+> +			restored_bo = bo;
+
+Is setting bo on this branch needed or you could assign to restored_bo 
+directly with gem_to_amdgpu_bo(obj)?
+
+> +
+> +			bo_bucket->restored_offset = amdgpu_bo_mmap_offset(restored_bo);
+> +
+> +			ret = drm_gem_prime_handle_to_fd(dev,
+> +			       data, bo_priv->idr_handle,
+> +			       DRM_RDWR,
+> +			       &prime_fd);
+
+Treating all buffers as exported makes something easier, or? Perhaps add 
+a comment at minimum.
+
+> +
+> +			bo_bucket->dmabuf_fd = prime_fd;
+> +		}
+> +		else {
+
+} else {
+
+> +			struct drm_gem_object *obj;
+> +			int ret;
+> +
+> +			if (bo->kfd_bo) {
+
+Isn't bo unset on this branch?
+
+> +				ret = drm_prime_assign_handle(dev, data, bo_bucket->dmabuf_fd, bo_priv->idr_handle, &obj);
+> +				if (ret)
+> +					goto exit;
+
+Leaks memory.
+
+At this stage the exported buffer has already been created and exported, 
+right? So bo_bucket->dmabuf_fd is valid and will resolve to it. 
+bo_priv->idr_handle is a differend handle than when exported buffer was 
+created?
+
+> +
+> +				if (obj != &bo->tbo.base)
+> +					restored_bo = gem_to_amdgpu_bo(obj);
+> +				else
+> +					restored_bo = bo;
+> +
+> +				bo_bucket->restored_offset = amdgpu_bo_mmap_offset(restored_bo);
+> +			}
+> +		}
+> +
+> +
+> +		for (i = 0; i < args->num_objs; i++) {
+> +			struct drm_amdgpu_criu_vm_mapping_priv_data *vm_priv = &vm_privs[i];
+> +			struct amdgpu_bo_va *bo_va;
+> +			struct drm_exec exec;
+> +
+> +			if (vm_priv->idr_handle != bo_priv->idr_handle)
+> +				continue;
+
+Hmm will keying vm_priv with idr_handle prevent restoring buffers not 
+associated with userspace? Perhaps some internal key would be better to 
+tie the two.
+
+> +
+> +			reserve_bo_and_vm(restored_bo, avm, &exec);
+> +
+> +			bo_va = amdgpu_vm_bo_find(avm, restored_bo);
+
+In which cases can bo_va be present at this point?
+
+> +			if (!bo_va)
+> +				bo_va = amdgpu_vm_bo_add(adev, avm, restored_bo);
+> +
+> +			amdgpu_vm_bo_map(adev,
+> +			     bo_va,
+> +			     vm_priv->start * AMDGPU_GPU_PAGE_SIZE, vm_priv->offset,
+> +			     (vm_priv->last - vm_priv->start + 1) * AMDGPU_GPU_PAGE_SIZE, vm_priv->flags);
+> +
+> +			ret = amdgpu_vm_bo_update(adev, bo_va, false);
+> +
+> +			ret = amdgpu_vm_update_pdes(adev, avm, false);
+> +
+> +			unreserve_bo_and_vm(&exec);
+> +
+> +		}
+> +	}
+> +
+> +	ret = copy_to_user((void *)args->bos, bo_buckets, args->num_bos * sizeof(*bo_buckets));
+> +	if (ret) {
+> +		pr_err("Failed to copy BO information to user\n");
+> +		ret = -EFAULT;
+> +		goto exit;
+> +	}
+> +
+> +
+> +	exit:
+> +	return ret;
+> +}
+> +
+> +static int amdgpu_criu_resume(struct drm_device *dev, struct drm_file *data,
+> +			    struct drm_amdgpu_criu_args *args) {
+> +	return 0;
+> +}
+> +
+> +int amdgpu_criu_op_ioctl(struct drm_device *dev, void *data,
+> +			    struct drm_file *filp)
+> +{
+> +	struct drm_amdgpu_criu_args *args = data;
+> +	int ret;
+> +
+> +	switch (args->op) {
+> +	case AMDGPU_CRIU_OP_PROCESS_INFO:
+> +		ret = amdgpu_criu_process_info(dev, filp, args);
+> +		break;
+> +	case AMDGPU_CRIU_OP_CHECKPOINT:
+> +		ret = amdgpu_criu_checkpoint(dev, filp, args);
+> +		break;
+> +	case AMDGPU_CRIU_OP_UNPAUSE:
+> +		ret = amdgpu_criu_unpause(dev, filp, args);
+> +		break;
+> +	case AMDGPU_CRIU_OP_RESTORE:
+> +		ret = amdgpu_criu_restore(dev, filp, args);
+> +		break;
+> +	case AMDGPU_CRIU_OP_RESUME:
+> +		ret = amdgpu_criu_resume(dev, filp, args);
+> +		break;
+> +	default:
+> +		ret = -EINVAL;
+> +		break;
+> +	}
+> +
+> +	return ret;
+> +}
+> \ No newline at end of file
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_criu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_criu.h
+> new file mode 100644
+> index 000000000000..35fbb1ffdd71
+> --- /dev/null
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_criu.h
+> @@ -0,0 +1,24 @@
+> +#ifndef __AMDGPU_CRIU_H__
+> +#define __AMDGPU_CRIU_H__
+> +
+> +#include <drm/amdgpu_drm.h>
+> +
+> +int amdgpu_criu_op_ioctl(struct drm_device *dev, void *data,
+> +			    struct drm_file *filp);
+> +
+> +struct amdgpu_bo *bo_from_criu_global_handle(uint8_t *handle);
+> +int insert_bo_at_criu_global_handle(struct amdgpu_bo *bo, uint8_t *handle);
+> +
+> +struct drm_amdgpu_criu_bo_priv_data {
+> +	uint32_t idr_handle; // IDR for drm gem idr
+> +};
+> +
+> +struct drm_amdgpu_criu_vm_mapping_priv_data {
+> +	uint64_t start;
+> +    uint64_t last;
+> +    uint64_t offset;
+> +    uint64_t flags;
+> +    uint32_t idr_handle;
+> +};
+> +
+> +#endif
+> \ No newline at end of file
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index acb9dc3705ac..12d844598efc 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -53,6 +53,7 @@
+>   #include "amdgpu_xgmi.h"
+>   #include "amdgpu_userqueue.h"
+>   #include "amdgpu_userq_fence.h"
+> +#include "amdgpu_criu.h"
+>   #include "../amdxcp/amdgpu_xcp_drv.h"
+>   
+>   /*
+> @@ -2909,6 +2910,7 @@ const struct drm_ioctl_desc amdgpu_ioctls_kms[] = {
+>   	DRM_IOCTL_DEF_DRV(AMDGPU_USERQ, amdgpu_userq_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
+>   	DRM_IOCTL_DEF_DRV(AMDGPU_USERQ_SIGNAL, amdgpu_userq_signal_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
+>   	DRM_IOCTL_DEF_DRV(AMDGPU_USERQ_WAIT, amdgpu_userq_wait_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
+> +	DRM_IOCTL_DEF_DRV(AMDGPU_CRIU_OP, amdgpu_criu_op_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
+>   };
+>   
+>   static const struct drm_driver amdgpu_kms_driver = {
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> index 065d87841459..2a535a1870fa 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> @@ -45,6 +45,8 @@
+>   #include "amdgpu_dma_buf.h"
+>   #include "kfd_debug.h"
+>   
+> +#include "amdgpu_criu.h"
+> +
+>   static long kfd_ioctl(struct file *, unsigned int, unsigned long);
+>   static int kfd_open(struct inode *, struct file *);
+>   static int kfd_release(struct inode *, struct file *);
+> @@ -2469,7 +2471,8 @@ static int criu_restore_bos(struct kfd_process *p,
+>   
+>   	/* Create and map new BOs */
+>   	for (; i < args->num_bos; i++) {
+> -		ret = criu_restore_bo(p, &bo_buckets[i], &bo_privs[i], &files[i]);
+> +		if (!bo_buckets[i].skip)
+> +			ret = criu_restore_bo(p, &bo_buckets[i], &bo_privs[i], &files[i]);
+>   		if (ret) {
+>   			pr_debug("Failed to restore BO[%d] ret%d\n", i, ret);
+>   			goto exit;
+> @@ -2558,7 +2561,7 @@ static int criu_restore(struct file *filep,
+>   		 args->num_devices, args->num_bos, args->num_objects, args->priv_data_size);
+>   
+>   	if (!args->bos || !args->devices || !args->priv_data || !args->priv_data_size ||
+> -	    !args->num_devices || !args->num_bos)
+> +	    !args->num_devices)
+>   		return -EINVAL;
+>   
+>   	mutex_lock(&p->mutex);
+> @@ -2567,26 +2570,30 @@ static int criu_restore(struct file *filep,
+>   	 * Set the process to evicted state to avoid running any new queues before all the memory
+>   	 * mappings are ready.
+>   	 */
+> -	ret = kfd_process_evict_queues(p, KFD_QUEUE_EVICTION_CRIU_RESTORE);
+> -	if (ret)
+> -		goto exit_unlock;
+> +	if (!args->is_retry) {
+> +		ret = kfd_process_evict_queues(p, KFD_QUEUE_EVICTION_CRIU_RESTORE);
+> +		if (ret)
+> +			goto exit_unlock;
+>   
+> -	/* Each function will adjust priv_offset based on how many bytes they consumed */
+> -	ret = criu_restore_process(p, args, &priv_offset, args->priv_data_size);
+> -	if (ret)
+> -		goto exit_unlock;
+> +		/* Each function will adjust priv_offset based on how many bytes they consumed */
+> +		ret = criu_restore_process(p, args, &priv_offset, args->priv_data_size);
+> +		if (ret)
+> +			goto exit_unlock;
+>   
+> -	ret = criu_restore_devices(p, args, &priv_offset, args->priv_data_size);
+> -	if (ret)
+> -		goto exit_unlock;
+> +		ret = criu_restore_devices(p, args, &priv_offset, args->priv_data_size);
+> +		if (ret)
+> +			goto exit_unlock;
+> +	}
+>   
+>   	ret = criu_restore_bos(p, args, &priv_offset, args->priv_data_size);
+>   	if (ret)
+>   		goto exit_unlock;
+>   
+> -	ret = criu_restore_objects(filep, p, args, &priv_offset, args->priv_data_size);
+> -	if (ret)
+> -		goto exit_unlock;
+> +	if (!args->is_retry) {
+> +		ret = criu_restore_objects(filep, p, args, &priv_offset, args->priv_data_size);
+> +		if (ret)
+> +			goto exit_unlock;
+> +	}
+>   
+>   	if (priv_offset != args->priv_data_size) {
+>   		pr_err("Invalid private data size\n");
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> index c32b255c0eb2..fd81275b8724 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> @@ -1207,7 +1207,7 @@ int kfd_process_init_cwsr_apu(struct kfd_process *process, struct file *filep);
+>    * kfd_criu_svm_range_priv_data
+>    */
+>   
+> -#define KFD_CRIU_PRIV_VERSION 1
+> +#define KFD_CRIU_PRIV_VERSION 2
+>   
+>   struct kfd_criu_process_priv_data {
+>   	uint32_t version;
+> diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
+> index 0e3f8adf162f..8f6e7c064aaf 100644
+> --- a/drivers/gpu/drm/drm_prime.c
+> +++ b/drivers/gpu/drm/drm_prime.c
+> @@ -1084,3 +1084,149 @@ void drm_prime_gem_destroy(struct drm_gem_object *obj, struct sg_table *sg)
+>   	dma_buf_put(dma_buf);
+>   }
+>   EXPORT_SYMBOL(drm_prime_gem_destroy);
+> +
+> +int drm_prime_assign_handle(struct drm_device *dev,
+> +			       struct drm_file *file_priv, int prime_fd,
+> +			       uint32_t handle, struct drm_gem_object **gem_obj)
+> +{
+> +	struct drm_gem_object *obj;
+> +	int ret;
+> +	int existing_handle;
+> +	struct dma_buf *dma_buf;
+> +
+> +	dma_buf = dma_buf_get(prime_fd);
+> +	if (IS_ERR(dma_buf))
+> +		return PTR_ERR(dma_buf);
+> +
+> +	mutex_lock(&file_priv->prime.lock);
+> +
+> +	ret = drm_prime_lookup_buf_handle(&file_priv->prime,
+> +			dma_buf, &existing_handle);
+> +	if (ret == 0)
+> +		goto out_put;
+
+If this will signal success when passed in handle wasn't assigned that 
+sounds wrong for the "assign handle" implied semantics. I probably first 
+need to understand how this works from the callers (restore) perspective.
+
+> +
+> +	/* never seen this one, need to import */
+> +	mutex_lock(&dev->object_name_lock);
+> +	if (dev->driver->gem_prime_import)
+> +		obj = dev->driver->gem_prime_import(dev, dma_buf);
+> +	else
+> +		obj = drm_gem_prime_import(dev, dma_buf);
+> +	if (IS_ERR(obj)) {
+> +		ret = PTR_ERR(obj);
+> +		goto out_unlock;
+> +	}
+> +
+> +	*gem_obj = obj;
+> +
+> +	if (obj->dma_buf) {
+> +		WARN_ON(obj->dma_buf != dma_buf);
+> +	} else {
+> +		obj->dma_buf = dma_buf;
+> +		get_dma_buf(dma_buf);
+> +	}
+> +
+> +	obj->handle_count++;
+> +
+> +	drm_gem_object_get(obj);
+> +
+> +	/* _handle_create_tail unconditionally unlocks dev->object_name_lock. */
+> +	idr_preload(GFP_KERNEL);
+> +	spin_lock(&file_priv->table_lock);
+> +
+> +	ret = idr_alloc(&file_priv->object_idr, obj, handle, handle + 1, GFP_NOWAIT);
+> +
+> +	spin_unlock(&file_priv->table_lock);
+> +	idr_preload_end();
+> +	mutex_unlock(&dev->object_name_lock);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	ret = drm_vma_node_allow(&obj->vma_node, file_priv);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (obj->funcs->open) {
+> +		ret = obj->funcs->open(obj, file_priv);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	drm_gem_object_put(obj);
+> +
+> +	ret = drm_prime_add_buf_handle(&file_priv->prime,
+> +			dma_buf, handle);
+> +	mutex_unlock(&file_priv->prime.lock);
+> +	if (ret)
+> +		goto fail;
+> +
+> +	dma_buf_put(dma_buf);
+> +
+> +	return 0;
+> +
+> +fail:
+> +	/* hmm, if driver attached, we are relying on the free-object path
+> +	 * to detach.. which seems ok..
+> +	 */
+> +	drm_gem_handle_delete(file_priv, handle);
+> +	dma_buf_put(dma_buf);
+> +	return ret;
+> +
+> +out_unlock:
+> +	mutex_unlock(&dev->object_name_lock);
+> +out_put:
+> +	mutex_unlock(&file_priv->prime.lock);
+> +	dma_buf_put(dma_buf);
+> +	return ret;
+> +}
+> +EXPORT_SYMBOL(drm_prime_assign_handle);
+> +
+> +int drm_gem_handle_create_assigned(struct drm_file *file_priv,
+> +			   struct drm_gem_object *obj,
+> +			   uint32_t handle)
+> +{
+> +	struct drm_device *dev = obj->dev;
+> +	int ret;
+> +
+> +	mutex_lock(&dev->object_name_lock);
+> +
+> +	WARN_ON(!mutex_is_locked(&dev->object_name_lock));
+> +	if (obj->handle_count++ == 0)
+> +		drm_gem_object_get(obj);
+> +
+> +	/*
+> +	 * Get the user-visible handle using idr.  Preload and perform
+> +	 * allocation under our spinlock.
+> +	 */
+> +	idr_preload(GFP_KERNEL);
+> +	spin_lock(&file_priv->table_lock);
+> +
+> +	ret = idr_alloc(&file_priv->object_idr, obj, handle, handle + 1, GFP_NOWAIT);
+
+Helper looks justified to me. But AFAICT it is 99% a copy of 
+drm_gem_handle_create_tail with the only difference being start and end 
+parameters to idr_alloc. IMO it would be preferrable to avoid 
+duplicating. Add start and end parameters to 
+drm_gem_handle_create_assigned, rename it to maybe something like 
+drm_gem_handle_create_tail_range, and call that from both old 
+drm_gem_handle_create_tail and this new drm_gem_handle_create_assigned.
+
+> +
+> +	spin_unlock(&file_priv->table_lock);
+> +	idr_preload_end();
+> +
+> +	mutex_unlock(&dev->object_name_lock);
+> +	if (ret < 0)
+> +		goto err_unref;
+> +
+> +	ret = drm_vma_node_allow(&obj->vma_node, file_priv);
+> +	if (ret)
+> +		goto err_remove;
+> +
+> +	if (obj->funcs->open) {
+> +		ret = obj->funcs->open(obj, file_priv);
+> +		if (ret)
+> +			goto err_revoke;
+> +	}
+> +	return 0;
+> +
+> +err_revoke:
+> +	drm_vma_node_revoke(&obj->vma_node, file_priv);
+> +err_remove:
+> +	spin_lock(&file_priv->table_lock);
+> +	idr_remove(&file_priv->object_idr, handle);
+> +	spin_unlock(&file_priv->table_lock);
+> +err_unref:
+> +	return ret;
+> +}
+> +EXPORT_SYMBOL(drm_gem_handle_create_assigned);
+> \ No newline at end of file
+> diff --git a/include/drm/drm_prime.h b/include/drm/drm_prime.h
+> index fa085c44d4ca..591ed81acb84 100644
+> --- a/include/drm/drm_prime.h
+> +++ b/include/drm/drm_prime.h
+> @@ -112,5 +112,12 @@ int drm_prime_sg_to_page_array(struct sg_table *sgt, struct page **pages,
+>   			       int max_pages);
+>   int drm_prime_sg_to_dma_addr_array(struct sg_table *sgt, dma_addr_t *addrs,
+>   				   int max_pages);
+> +int drm_prime_assign_handle(struct drm_device *dev,
+> +			       struct drm_file *file_priv, int prime_fd,
+> +			       uint32_t handle, struct drm_gem_object **gem_obj);
+> +
+> +int drm_gem_handle_create_assigned(struct drm_file *file_priv,
+> +			   struct drm_gem_object *obj,
+> +			   uint32_t handle);
+>   
+>   #endif /* __DRM_PRIME_H__ */
+> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+> index 8191d0bd0c00..c6766fe5c1bc 100644
+> --- a/include/uapi/drm/amdgpu_drm.h
+> +++ b/include/uapi/drm/amdgpu_drm.h
+> @@ -57,6 +57,7 @@ extern "C" {
+>   #define DRM_AMDGPU_USERQ		0x16
+>   #define DRM_AMDGPU_USERQ_SIGNAL		0x17
+>   #define DRM_AMDGPU_USERQ_WAIT		0x18
+> +#define DRM_AMDGPU_CRIU_OP		0x19
+>   
+>   #define DRM_IOCTL_AMDGPU_GEM_CREATE	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_CREATE, union drm_amdgpu_gem_create)
+>   #define DRM_IOCTL_AMDGPU_GEM_MMAP	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_MMAP, union drm_amdgpu_gem_mmap)
+> @@ -77,6 +78,7 @@ extern "C" {
+>   #define DRM_IOCTL_AMDGPU_USERQ		DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_USERQ, union drm_amdgpu_userq)
+>   #define DRM_IOCTL_AMDGPU_USERQ_SIGNAL	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_USERQ_SIGNAL, struct drm_amdgpu_userq_signal)
+>   #define DRM_IOCTL_AMDGPU_USERQ_WAIT	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_USERQ_WAIT, struct drm_amdgpu_userq_wait)
+> +#define DRM_IOCTL_AMDGPU_CRIU_OP	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_CRIU_OP, struct drm_amdgpu_criu_args)
+>   
+>   /**
+>    * DOC: memory domains
+> @@ -1585,6 +1587,50 @@ struct drm_color_ctm_3x4 {
+>   	__u64 matrix[12];
+>   };
+>   
+> +/* CRIU ioctl
+> + *
+> + * When checkpointing a process, the CRIU amdgpu plugin will perform:
+> + * 1. INFO op to get information about state that needs to be saved. This
+> + *    pauses execution until the checkpoint is done.
+> + * 2. CHECKPOINT op to save state (BOs for now, TODO: CS contexts)
+> + * 3. UNPAUSE op to resume execution when the checkpoint is done.
+> + *
+> + * When restoring a process, the CRIU amdgpu plugin will perform:
+> + *
+> + * 1. RESTORE op to restore state
+> + * 2. RESUME op to restore userptr mappings (TODO)
+> + */
+> +enum drm_amdgpu_criu_op {
+> +    AMDGPU_CRIU_OP_PROCESS_INFO,
+> +    AMDGPU_CRIU_OP_CHECKPOINT,
+> +    AMDGPU_CRIU_OP_UNPAUSE,
+> +    AMDGPU_CRIU_OP_RESTORE,
+> +    AMDGPU_CRIU_OP_RESUME,
+> +};
+> +
+> +struct drm_amdgpu_criu_args {
+> +    __u64 bos; /* user pointer to bos array */
+> +    __u64 priv_data; /* user pointer to private data */
+> +    __u64 priv_data_size;
+> +    __u32 num_bos;
+> +    __u32 num_objs;
+
+"Objs" are not buffer objects but something else?
+
+> +    __u32 pid;
+> +    __u32 op;
+> +    __u8 is_retry: 1;
+
+Bitfields are best avoided in uapi since the packing order is compiler 
+implementation defined.
+
+Another best practice is to pad explicitly to u64 is you can envisage a 
+need for adding new elements in the future.
+
+In this case __u64 flags seems would work.
+
+Then, as the above talks about a TODO to handle CS contexts - would that 
+work be adding fields to this struct? With CS contexts you mean all the 
+state needed to enable job submission to continue from the render node?
+
+> +};
+> +
+> +struct drm_amdgpu_criu_bo_bucket {
+> +    __u64 addr;
+> +    __u64 size;
+> +    __u64 offset;
+> +    __u64 restored_offset;    /* During restore, updated offset for BO */
+> +    __u64 alloc_flags;
+> +    __u32 preferred_domains;
+> +    __u32 dmabuf_fd;
+> +	__u8 is_import: 1;
+> +	__u8 skip: 1;
+> +};
+> +
+>   #if defined(__cplusplus)
+>   }
+>   #endif
+> diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_ioctl.h
+> index fa9f9846b88e..8c3f3a51857f 100644
+> --- a/include/uapi/linux/kfd_ioctl.h
+> +++ b/include/uapi/linux/kfd_ioctl.h
+> @@ -698,6 +698,7 @@ struct kfd_ioctl_criu_args {
+>   	__u32 num_objects;	/* Used during ops: PROCESS_INFO, RESTORE */
+>   	__u32 pid;		/* Used during ops: PROCESS_INFO, RESUME */
+>   	__u32 op;
+> +	__u8 is_retry: 1;
+>   };
+>   
+>   struct kfd_criu_device_bucket {
+> @@ -715,7 +716,8 @@ struct kfd_criu_bo_bucket {
+>   	__u32 gpu_id;             /* This is the user_gpu_id */
+>   	__u32 alloc_flags;
+>   	__u32 dmabuf_fd;
+> -	__u32 pad;
+> +	__u8 is_import: 1;
+> +	__u8 skip: 1;
+
+Struct extensions from above two hunks are the backward compatibility 
+problem from the TODO item?
+
+Regards,
+
+Tvrtko
+
+>   };
+>   
+>   /* CRIU IOCTLs - END */
 
