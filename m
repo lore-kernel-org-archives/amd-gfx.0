@@ -4,49 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83511C021B2
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Feb 2025 08:56:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AAB9C021B8
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Feb 2025 09:10:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF74110E5CC;
-	Tue, 25 Feb 2025 08:56:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5420310E5D2;
+	Tue, 25 Feb 2025 09:10:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="IfjXErYg";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=aosc.io header.i=@aosc.io header.b="KDSdgppN";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D565D10E366;
- Tue, 25 Feb 2025 01:02:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=0+Y4hJZRDmSs2b1VJTCcj1/rup869Y150tqh1F9h3YY=; b=IfjXErYgZF2s8h42o9Jyyt5NKt
- GF/Loj8aTJZuz7jfhvaYqp9AttTkY5cAuHBsOsYyuP7QpK7sCE8uMi4hGuDz3R2yWa1ASZnRZP/Ub
- zvBIOh7q9VS+NQF/iTY6d72qoZgYZf+8yLHgZlP8E0nxL7saAXTgpgq+OClKuK7GSvcIbYzydh1h5
- rzGa+HUvaJMqNiGKh4QqVFejW875vCs8iEj03o2qO260JdDwDon7W6/ewkgZTx/WIVRH092TviQ9L
- VIaTgU6RO2zw++UDoVO9wEKzY4WTKyLBxg9xt8MJLZjhUxIlGaDe34loRwYhtEtGNz3cdyrAaFlQ+
- 3OBXAm+A==;
-Received: from [191.204.194.148] (helo=localhost.localdomain)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1tmjL5-000B7k-CR; Tue, 25 Feb 2025 02:02:29 +0100
-From: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?=27Christian=20K=C3=B6nig=27?= <christian.koenig@amd.com>,
- Xinhui Pan <Xinhui.Pan@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- kernel-dev@igalia.com, siqueira@igalia.com
-Cc: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
-Subject: [PATCH v3] drm/amdgpu: Trigger a wedged event for ring reset
-Date: Mon, 24 Feb 2025 22:02:21 -0300
-Message-ID: <20250225010221.537059-1-andrealmeid@igalia.com>
+Received: from relay-us1.mymailcheap.com (relay-us1.mymailcheap.com
+ [51.81.35.219])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 662A810E5D2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Feb 2025 09:10:53 +0000 (UTC)
+Received: from relay5.mymailcheap.com (relay5.mymailcheap.com [159.100.241.64])
+ by relay-us1.mymailcheap.com (Postfix) with ESMTPS id A15CE200C1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Feb 2025 09:10:52 +0000 (UTC)
+Received: from relay1.mymailcheap.com (relay1.mymailcheap.com [149.56.97.132])
+ by relay5.mymailcheap.com (Postfix) with ESMTPS id B7CF9200C0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Feb 2025 09:10:47 +0000 (UTC)
+Received: from nf1.mymailcheap.com (nf1.mymailcheap.com [51.75.14.91])
+ by relay1.mymailcheap.com (Postfix) with ESMTPS id 7F61B3E953;
+ Tue, 25 Feb 2025 09:10:31 +0000 (UTC)
+Received: from mail20.mymailcheap.com (mail20.mymailcheap.com [51.83.111.147])
+ by nf1.mymailcheap.com (Postfix) with ESMTPSA id C6CDE4023E;
+ Tue, 25 Feb 2025 09:10:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=aosc.io; s=default;
+ t=1740474629; bh=BlPAHvfr56Xzs9kzXIbb24Tm1e3gCNoKq24dLNBdikQ=;
+ h=From:To:Cc:Subject:Date:From;
+ b=KDSdgppNJPIVOGi+X/GxDP54gHTHeCy2vCN/vqoWGDjN8w9uZEtxQvUOiG+NQjT6b
+ d7Oi4vd6APdQ4di+yugiZlSf1rak+fpr8y7rfxs/vWi+YX7uwBGXdNdq0A2n5lErRZ
+ 7cKGckwc0yWQuo/ipRwXFFhMPm3N3HCeAZl3Cw9I=
+Received: from JellyNote.localdomain (unknown [203.175.14.48])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mail20.mymailcheap.com (Postfix) with ESMTPSA id 9656F438AF;
+ Tue, 25 Feb 2025 09:10:26 +0000 (UTC)
+From: Mingcong Bai <jeffbai@aosc.io>
+To: amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Kexy Biscuit <kexybiscuit@aosc.io>, Mingcong Bai <jeffbai@aosc.io>
+Subject: [PATCH] MAINTAINERS: remove undeliverable entries in RADEON and
+ AMDGPU DRM DRIVERS
+Date: Tue, 25 Feb 2025 17:10:03 +0800
+Message-ID: <20250225091003.890770-1-jeffbai@aosc.io>
 X-Mailer: git-send-email 2.48.1
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 25 Feb 2025 08:56:44 +0000
+X-Rspamd-Server: nf1.mymailcheap.com
+X-Rspamd-Queue-Id: C6CDE4023E
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [0.90 / 10.00]; MID_CONTAINS_FROM(1.00)[];
+ MIME_GOOD(-0.10)[text/plain]; RCVD_TLS_ALL(0.00)[];
+ ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ ASN(0.00)[asn:16276, ipnet:51.83.0.0/16, country:FR];
+ MIME_TRACE(0.00)[0:+]; RCVD_COUNT_ONE(0.00)[1];
+ FUZZY_RATELIMITED(0.00)[rspamd.com];
+ SPFBL_URIBL_EMAIL_FAIL(0.00)[kexybiscuit.aosc.io:server
+ fail,jeffbai.aosc.io:server fail,hch.lst.de:server
+ fail,ralf.linux-mips.org:server fail,postmaster.amd.com:server
+ fail,jeffrey.t.kirsher.intel.com:server
+ fail,amd-gfx.lists.freedesktop.org:server fail,xinhui.pan.amd.com:server
+ fail,christian.koenig.amd.com:server fail,hamza.mahfooz.amd.com:server
+ fail,alexander.deucher.amd.com:server fail]; 
+ SUBJ_BOUNCE_WORDS(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ TO_MATCH_ENVRCPT_SOME(0.00)[]; RCPT_COUNT_FIVE(0.00)[5]
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,32 +86,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Instead of only triggering a wedged event for complete GPU resets,
-trigger for ring resets. Regardless of the reset, it's useful for
-userspace to know that it happened because the kernel will reject
-further submissions from that app.
+While running:
 
-Signed-off-by: André Almeida <andrealmeid@igalia.com>
----
-v3: do only for ring resets, no soft recoveries
-v2: Keep the wedge event in amdgpu_device_gpu_recover() and add and
-    extra check to avoid triggering two events.
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 1 +
- 1 file changed, 1 insertion(+)
+./scripts/get_maintainer.pl \
+    drivers/gpu/drm/amd/display/amdgpu_dm \
+    --no-rolestats'
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-index 698e5799e542..760a720c842e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-@@ -150,6 +150,7 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
- 			if (amdgpu_ring_sched_ready(ring))
- 				drm_sched_start(&ring->sched, 0);
- 			dev_err(adev->dev, "Ring %s reset succeeded\n", ring->sched.name);
-+			drm_dev_wedged_event(adev_to_drm(adev), DRM_WEDGE_RECOVERY_NONE);
- 			goto exit;
- 		}
- 		dev_err(adev->dev, "Ring %s reset failure\n", ring->sched.name);
+For a list of Cc's, I got two undeliverable address errors from
+postmaster@amd.com:
+
+  Xinhui Pan <Xinhui.Pan@amd.com>
+  Hamza Mahfooz <hamza.mahfooz@amd.com>
+
+I tried to contact Alex Deucher and Christian König back in early
+Februrary, but received no reply.
+
+To avoid warning emails from the future, remove Xinhui Pan from
+MAINTAINERS and add Hamza Mahfooz to .get_maintainer.ignore.
+
+Suggested-by: Kexy Biscuit <kexybiscuit@aosc.io>
+Signed-off-by: Mingcong Bai <jeffbai@aosc.io>
+---
+ .get_maintainer.ignore | 1 +
+ MAINTAINERS            | 1 -
+ 2 files changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/.get_maintainer.ignore b/.get_maintainer.ignore
+index b458815f1d1bf..3343330fb11df 100644
+--- a/.get_maintainer.ignore
++++ b/.get_maintainer.ignore
+@@ -4,3 +4,4 @@ Christoph Hellwig <hch@lst.de>
+ Jeff Kirsher <jeffrey.t.kirsher@intel.com>
+ Marc Gonzalez <marc.w.gonzalez@free.fr>
+ Ralf Baechle <ralf@linux-mips.org>
++Hamza Mahfooz <hamza.mahfooz@amd.com>
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 4ff26fa94895d..d6ea828345fdb 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -19657,7 +19657,6 @@ F:	drivers/net/wireless/quantenna
+ RADEON and AMDGPU DRM DRIVERS
+ M:	Alex Deucher <alexander.deucher@amd.com>
+ M:	Christian König <christian.koenig@amd.com>
+-M:	Xinhui Pan <Xinhui.Pan@amd.com>
+ L:	amd-gfx@lists.freedesktop.org
+ S:	Supported
+ B:	https://gitlab.freedesktop.org/drm/amd/-/issues
 -- 
 2.48.1
 
