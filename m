@@ -4,108 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C96B4C021B2
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Feb 2025 14:05:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51CA1C021BB
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Feb 2025 14:08:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E34C710E6AA;
-	Tue, 25 Feb 2025 14:05:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19FC110E6B3;
+	Tue, 25 Feb 2025 14:08:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="Y1G/1tQl";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="GH0/jDdP";
 	dkim-atps=neutral
-Received: from relay2-d.mail.gandi.net (relay2-d.mail.gandi.net
- [217.70.183.194])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC3FC10E6A9;
- Tue, 25 Feb 2025 14:05:18 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 12B2444191;
- Tue, 25 Feb 2025 14:05:13 +0000 (UTC)
+X-Greylist: delayed 9990 seconds by postgrey-1.36 at gabe;
+ Tue, 25 Feb 2025 14:08:39 UTC
+Received: from relay1-d.mail.gandi.net (relay1-d.mail.gandi.net
+ [217.70.183.193])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 362FD10E6B3;
+ Tue, 25 Feb 2025 14:08:39 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 68AB3442CE;
+ Tue, 25 Feb 2025 14:08:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1740492316;
+ t=1740492517;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=IfcVyj/96/qTu+lffWJeLozIB9EJ014Qqr3HhC9F2TA=;
- b=Y1G/1tQlRPBQOnIpyxQsR7W+oPMT/MiylxLQ3doF7QKd0PeiLlJOMXoQ7plwHJ73cbbM7r
- faooeujgpasdZJ1iIlXqlBMn2dUZ1E8tGdHBCak6L6ASRTjn7xHYjPV+pKkkZ5KRDZa/JH
- cCO8DkYBZHw/AyUdxZ7/z8FG73o8WN2jiw7BSstxyCudRRawRuZRuSexBlqMZ4NX2IrrCB
- ouzoozpCspgoD9Vuon2bfp5Va7mwXnoOrX3z0EePwBKHt83AdeUGNbzPL9PFueY959KVzP
- hiO/v6js3HDF9R4uppKpk1ek6iwA6JjDfT5XWnBuE3OQRdaQXtiWToHKB5n0yw==
-Message-ID: <f307f2d3-44e4-45bf-ba94-57459043b7a6@bootlin.com>
-Date: Tue, 25 Feb 2025 15:05:13 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [V7 02/45] drm/vkms: Round fixp2int conversion in lerp_u16
-To: Simon Ser <contact@emersion.fr>
-Cc: Alex Hung <alex.hung@amd.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, wayland-devel@lists.freedesktop.org,
- harry.wentland@amd.com
-References: <20241220043410.416867-1-alex.hung@amd.com>
- <20241220043410.416867-3-alex.hung@amd.com>
- <99a8779c-bb1c-44fc-b8a3-56ea80425c15@bootlin.com>
- <sumH-jMWxEB0ReC-xhqT2YbATq4l_TMfU2_ogO2tyM7iYG5Fp0XM7guLPCcUOuxW6uLW1YOoTNegOUOJVGiWYDxGaaGcXNjA5eZ8axRgl8E=@emersion.fr>
-Content-Language: en-US
+ in-reply-to:in-reply-to:references:references;
+ bh=Czqb92Brl1EGX23HDpCKV1eCwuLVj6SrAdd+HBGJTxI=;
+ b=GH0/jDdPwO3/z7mmPPbHLfgzMTO7qwKlmAqypasxHd3uoCPqFmgHYADSRHcTKBXMQ8OAk/
+ RIdiB7u5FRXznON51dDomr0eVRO553NjsH+1nfvNLyN57TTLF1QRlxvvwv7f6qMOjiQJ9f
+ SM4ICWZVTvwmjS9/Wi6M8PB5oOhpxJ/kZm+Vmbdgwzpbv7rFpqg63tyVRTLy+e/AlcVtal
+ JMw7fmQg99V+YuW4+wSVZhSuHEQKfWjj6HpxHL4NwblzoOm8pbNTOMCPqIcAVPdJh/6BCZ
+ hrPbDPJQEUAHOFgZLXitgM5JXATh6wVrJd5UZCU/Ee4+2xBVxWALtXQ7fzFnHg==
+Date: Tue, 25 Feb 2025 15:08:35 +0100
 From: Louis Chauvet <louis.chauvet@bootlin.com>
-Autocrypt: addr=louis.chauvet@bootlin.com; keydata=
- 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
-In-Reply-To: <sumH-jMWxEB0ReC-xhqT2YbATq4l_TMfU2_ogO2tyM7iYG5Fp0XM7guLPCcUOuxW6uLW1YOoTNegOUOJVGiWYDxGaaGcXNjA5eZ8axRgl8E=@emersion.fr>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: Jim Cromie <jim.cromie@gmail.com>, linux-kernel@vger.kernel.org,
+ jbaron@akamai.com, gregkh@linuxfoundation.org, ukaszb@chromium.org
+Cc: intel-gfx-trybot@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, daniel.vetter@ffwll.ch,
+ tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
+ ville.syrjala@linux.intel.com
+Subject: Re: [PATCH 05/63] dyndbg: replace classmap list with a vector
+Message-ID: <22989ed1-90a4-4acd-9ca0-00f65677ad4f@bootlin.com>
+Mail-Followup-To: Jim Cromie <jim.cromie@gmail.com>,
+ linux-kernel@vger.kernel.org, jbaron@akamai.com,
+ gregkh@linuxfoundation.org, ukaszb@chromium.org,
+ intel-gfx-trybot@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-gvt-dev@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, daniel.vetter@ffwll.ch,
+ tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
+ ville.syrjala@linux.intel.com
+References: <20250125064619.8305-1-jim.cromie@gmail.com>
+ <20250125064619.8305-6-jim.cromie@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1; format=flowed
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20250125064619.8305-6-jim.cromie@gmail.com>
 X-GND-State: clean
 X-GND-Score: -100
-X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgdekudeltdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfitefpfffkpdcuggftfghnshhusghstghrihgsvgenuceurghilhhouhhtmecufedtudenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepkfffgggfuffvvehfhfgjtgfgsehtkeertddtvdejnecuhfhrohhmpefnohhuihhsucevhhgruhhvvghtuceolhhouhhishdrtghhrghuvhgvthessghoohhtlhhinhdrtghomheqnecuggftrfgrthhtvghrnhepjeegjeeguddtkefhfffggeduuedttefgueevgeetfedttdefveeufffgvefgveeknecuffhomhgrihhnpehkvghrnhgvlhdrohhrghdpsghoohhtlhhinhdrtghomhenucfkphepledtrdekledrudeifedruddvjeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepihhnvghtpeeltddrkeelrdduieefrdduvdejpdhhvghloheplgduledvrdduieekrddtrddvtdgnpdhmrghilhhfrhhomheplhhouhhishdrtghhrghuvhgvthessghoohhtlhhinhdrtghomhdpnhgspghrtghpthhtohepiedprhgtphhtthhopegtohhnthgrtghtsegvmhgvrhhsihhonhdrfhhrpdhrtghpthhtoheprghlvgigrdhhuhhnghesrghmugdrtghomhdprhgtphhtthhopegurhhiqdguvghvvghlsehlihhsthhsrdhfrhgvvgguvghskhhtohhprdhorhhgpdhrtghpthhtoheprghmugdqghhfgieslhhishhtshdrfhhrv
- ggvuggvshhkthhophdrohhrghdprhgtphhtthhopeifrgihlhgrnhguqdguvghvvghlsehlihhsthhsrdhfrhgvvgguvghskhhtohhprdhorhhgpdhrtghpthhtohephhgrrhhrhidrfigvnhhtlhgrnhgusegrmhgurdgtohhm
+X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgdekudeltdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfitefpfffkpdcuggftfghnshhusghstghrihgsvgenuceurghilhhouhhtmecufedtudenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepfffhvfevuffkfhggtggugfgjsehtkeertddttddunecuhfhrohhmpefnohhuihhsucevhhgruhhvvghtuceolhhouhhishdrtghhrghuvhgvthessghoohhtlhhinhdrtghomheqnecuggftrfgrthhtvghrnhepudeiffduffeivdejgfejheeuudekkedvjeeuffegfefghfffkeelgffgieevudejnecuffhomhgrihhnpegsohhothhlihhnrdgtohhmnecukfhppeeltddrkeelrdduieefrdduvdejnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepledtrdekledrudeifedruddvjedphhgvlhhopehlohhuihhsqdgthhgruhhvvghtqdhlrghpthhophdpmhgrihhlfhhrohhmpehlohhuihhsrdgthhgruhhvvghtsegsohhothhlihhnrdgtohhmpdhnsggprhgtphhtthhopedugedprhgtphhtthhopehjihhmrdgtrhhomhhivgesghhmrghilhdrtghomhdprhgtphhtthhopehlihhnuhigqdhkvghrnhgvlhesvhhgvghrrdhkvghrnhgvlhdrohhrghdprhgtphhtthhopehjsggrrhhonhesrghkrghmrghirdgtohhmpdhrtghpthhtohepghhrvghgkhhhsehlihhnuhigfhhouhhnuggrthhiohhnr
+ dhorhhgpdhrtghpthhtohepuhhkrghsiigssegthhhrohhmihhumhdrohhrghdprhgtphhtthhopehinhhtvghlqdhgfhigqdhtrhihsghotheslhhishhtshdrfhhrvggvuggvshhkthhophdrohhrghdprhgtphhtthhopegurhhiqdguvghvvghlsehlihhsthhsrdhfrhgvvgguvghskhhtohhprdhorhhgpdhrtghpthhtoheprghmugdqghhfgieslhhishhtshdrfhhrvggvuggvshhkthhophdrohhrgh
 X-GND-Sasl: louis.chauvet@bootlin.com
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -123,45 +80,204 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-Le 25/02/2025 Ã  12:28, Simon Ser a Ã©critÂ :
-> On Tuesday, February 25th, 2025 at 10:37, Louis Chauvet <louis.chauvet@bootlin.com> wrote:
+Le 25/01/2025 à 07:45, Jim Cromie a écrit :
+> Classmaps are stored in an elf section/array, but are individually
+> list-linked onto dyndbg's per-module ddebug_table for operation.
 > 
->> Can I extract this patch from the series and apply it on drm-misc-next?
+> This is unnecessary; even when ddebug_attach_classmap() is handling
+> the builtin section (with classmaps for multiple builtin modules), its
+> contents are ordered, so a module's possibly multiple classmaps will
+> be consecutive in the section, and could be treated as a vector/block,
+> since both start-address and subrange length are in the ddebug_info arg.
 > 
-> That sounds completely fine by me, and TBH it sounds like it could even
-> be drm-misc-fixes material?
-
-Probably yes, I can take it now.
-
-> We need to be a bit careful when merging patches from the same series
-> via multiple trees. Maybe we'll merge the colorop stuff via the amd
-> tree? I don't remember the rules around trees, and I don't know if it
-> would be fine to merge the vkms changes in that tree as well. (I only
-> remember Simona recommending against merging via multiple trees, because
-> it's painful.)
+> IOW, this treats classmaps similarly to _ddebugs, which are already
+> kept as vector-refs (address+len).
 > 
-> If we can't merge the vkms changes via the amd tree, they will likely
-> need to wait for the amd tree to be merged back in drm-next?
+> So this changes:
 > 
-> If we merge some changes via drm-misc-next, then we won't be able to
-> merge the rest via amd, if the rest depends on these changes.
+> struct ddebug_class_map drops list-head link.
+> 
+> struct ddebug_table drops the list-head maps, and gets: classes &
+> num_classes for the start-address and num_classes, placed to improve
+> struct packing.
+> 
+> The loading: in ddebug_attach_module_classes(), replace the
+> for-the-modname list-add loop, with a forloop that finds the module's
+> subrange (start,length) of matching classmaps within the possibly
+> builtin classmaps vector, and saves those to the ddebug_table.
+> 
+> The reading/using: change list-foreach loops in ddebug_class_name() &
+> ddebug_find_valid_class() to walk the array from start to length.
+> 
+> Also:
+> Move #define __outvar up, above an added use in a fn-prototype.
+> Simplify ddebug_attach_module_classes args, ref has both address & len.
+> 
+> no functional changes
+> 
+> Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+> ---
+>   include/linux/dynamic_debug.h |  1 -
+>   lib/dynamic_debug.c           | 61 ++++++++++++++++++-----------------
+>   2 files changed, 32 insertions(+), 30 deletions(-)
+> 
+> diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+> index b9afc7731b7c..2b0057058ecf 100644
+> --- a/include/linux/dynamic_debug.h
+> +++ b/include/linux/dynamic_debug.h
+> @@ -83,7 +83,6 @@ enum class_map_type {
+>   };
+>   
+>   struct ddebug_class_map {
+> -	struct list_head link;
+>   	struct module *mod;
+>   	const char *mod_name;	/* needed for builtins */
+>   	const char **class_names;
+> diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+> index 55df35df093b..41cbaa96f83d 100644
+> --- a/lib/dynamic_debug.c
+> +++ b/lib/dynamic_debug.c
+> @@ -45,10 +45,11 @@ extern struct ddebug_class_map __start___dyndbg_classes[];
+>   extern struct ddebug_class_map __stop___dyndbg_classes[];
+>   
+>   struct ddebug_table {
+> -	struct list_head link, maps;
+> +	struct list_head link;
+>   	const char *mod_name;
+> -	unsigned int num_ddebugs;
+>   	struct _ddebug *ddebugs;
+> +	struct ddebug_class_map *classes;
+> +	unsigned int num_ddebugs, num_classes;
+>   };
+>   
+>   struct ddebug_query {
+> @@ -147,13 +148,15 @@ static void vpr_info_dq(const struct ddebug_query *query, const char *msg)
+>   		  query->first_lineno, query->last_lineno, query->class_string);
+>   }
+>   
+> +#define __outvar /* filled by callee */
 
-If the drm-*-next branches are synchronized often, I propose to split 
-into 4 series:
-- 2/45, in drm-misc-fixes (it is a bug)
-- 3/45, in drm-misc-next (only the vkms part needs it, can be merged 
-just after [1] with minor conflict resolution, which I can do)
-- 1, 4..13, 21..45, in drm-amd-next
-- 14..20, in drm-misc-next, once drm-amd-next is merged in drm-misc-next 
-(I don't expect huge conflicts if this is merged "soon", afaik nobody is 
-currently working on the composition algorithm)
+Hi Jim,
 
-[1]:https://lore.kernel.org/all/20250218101214.5790-1-jose.exposito89@gmail.com/
+What is the goal of this __outvar define? I can't find any other #define 
+of it in the kernel.
+
+>   static struct ddebug_class_map *ddebug_find_valid_class(struct ddebug_table const *dt,
+> -							  const char *class_string, int *class_id)
+> +							const char *class_string,
+> +							__outvar int *class_id)
+
+The order between __outvar and int is not important? Here you have 
+__outvar before int, but later [1] the __outvar is after int.
+
+[1]:https://elixir.bootlin.com/linux/v6.14-rc3/source/lib/dynamic_debug.c#L183
 
 Thanks,
 Louis Chauvet
 
-> Simon
+>   {
+>   	struct ddebug_class_map *map;
+> -	int idx;
+> +	int i, idx;
+>   
+> -	list_for_each_entry(map, &dt->maps, link) {
+> +	for (map = dt->classes, i = 0; i < dt->num_classes; i++, map++) {
+>   		idx = match_string(map->class_names, map->length, class_string);
+>   		if (idx >= 0) {
+>   			*class_id = idx + map->base;
+> @@ -164,7 +167,6 @@ static struct ddebug_class_map *ddebug_find_valid_class(struct ddebug_table cons
+>   	return NULL;
+>   }
+>   
+> -#define __outvar /* filled by callee */
+>   /*
+>    * Search the tables for _ddebug's which match the given `query' and
+>    * apply the `flags' and `mask' to them.  Returns number of matching
+> @@ -1114,9 +1116,10 @@ static void *ddebug_proc_next(struct seq_file *m, void *p, loff_t *pos)
+>   
+>   static const char *ddebug_class_name(struct ddebug_iter *iter, struct _ddebug *dp)
+>   {
+> -	struct ddebug_class_map *map;
+> +	struct ddebug_class_map *map = iter->table->classes;
+> +	int i, nc = iter->table->num_classes;
+>   
+> -	list_for_each_entry(map, &iter->table->maps, link)
+> +	for (i = 0; i < nc; i++, map++)
+>   		if (class_in_range(dp->class_id, map))
+>   			return map->class_names[dp->class_id - map->base];
+>   
+> @@ -1200,30 +1203,31 @@ static const struct proc_ops proc_fops = {
+>   	.proc_write = ddebug_proc_write
+>   };
+>   
+> -static void ddebug_attach_module_classes(struct ddebug_table *dt,
+> -					 struct ddebug_class_map *classes,
+> -					 int num_classes)
+> +static void ddebug_attach_module_classes(struct ddebug_table *dt, struct _ddebug_info *di)
+>   {
+>   	struct ddebug_class_map *cm;
+> -	int i, j, ct = 0;
+> +	int i, nc = 0;
+>   
+> -	for (cm = classes, i = 0; i < num_classes; i++, cm++) {
+> +	/*
+> +	 * Find this module's classmaps in a subrange/wholerange of
+> +	 * the builtin/modular classmap vector/section.  Save the start
+> +	 * and length of the subrange at its edges.
+> +	 */
+> +	for (cm = di->classes, i = 0; i < di->num_classes; i++, cm++) {
+>   
+>   		if (!strcmp(cm->mod_name, dt->mod_name)) {
+> -
+> -			v2pr_info("class[%d]: module:%s base:%d len:%d ty:%d\n", i,
+> -				  cm->mod_name, cm->base, cm->length, cm->map_type);
+> -
+> -			for (j = 0; j < cm->length; j++)
+> -				v3pr_info(" %d: %d %s\n", j + cm->base, j,
+> -					  cm->class_names[j]);
+> -
+> -			list_add(&cm->link, &dt->maps);
+> -			ct++;
+> +			if (!nc) {
+> +				v2pr_info("start subrange, class[%d]: module:%s base:%d len:%d ty:%d\n",
+> +					  i, cm->mod_name, cm->base, cm->length, cm->map_type);
+> +				dt->classes = cm;
+> +			}
+> +			nc++;
+>   		}
+>   	}
+> -	if (ct)
+> -		vpr_info("module:%s attached %d classes\n", dt->mod_name, ct);
+> +	if (nc) {
+> +		dt->num_classes = nc;
+> +		vpr_info("module:%s attached %d classes\n", dt->mod_name, nc);
+> +	}
+>   }
+>   
+>   /*
+> @@ -1256,10 +1260,9 @@ static int ddebug_add_module(struct _ddebug_info *di, const char *modname)
+>   	dt->num_ddebugs = di->num_descs;
+>   
+>   	INIT_LIST_HEAD(&dt->link);
+> -	INIT_LIST_HEAD(&dt->maps);
+>   
+>   	if (di->classes && di->num_classes)
+> -		ddebug_attach_module_classes(dt, di->classes, di->num_classes);
+> +		ddebug_attach_module_classes(dt, di);
+>   
+>   	mutex_lock(&ddebug_lock);
+>   	list_add_tail(&dt->link, &ddebug_tables);
+> @@ -1372,8 +1375,8 @@ static void ddebug_remove_all_tables(void)
+>   	mutex_lock(&ddebug_lock);
+>   	while (!list_empty(&ddebug_tables)) {
+>   		struct ddebug_table *dt = list_entry(ddebug_tables.next,
+> -						      struct ddebug_table,
+> -						      link);
+> +						     struct ddebug_table,
+> +						     link);
+>   		ddebug_table_free(dt);
+>   	}
+>   	mutex_unlock(&ddebug_lock);
 
 -- 
 Louis Chauvet, Bootlin
