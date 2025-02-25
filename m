@@ -4,72 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 766D1C021B2
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Feb 2025 18:56:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F06EC021B8
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Feb 2025 19:25:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE0D110E7A8;
-	Tue, 25 Feb 2025 18:56:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E618610E7B0;
+	Tue, 25 Feb 2025 19:25:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ug8gdA5C";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ut4Bg+zg";
 	dkim-atps=neutral
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
- [209.85.216.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 051ED10E7A6;
- Tue, 25 Feb 2025 18:56:18 +0000 (UTC)
-Received: by mail-pj1-f44.google.com with SMTP id
- 98e67ed59e1d1-2fd02536660so994207a91.2; 
- Tue, 25 Feb 2025 10:56:18 -0800 (PST)
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com
+ [209.85.216.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 17DE010E7B0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Feb 2025 19:25:18 +0000 (UTC)
+Received: by mail-pj1-f54.google.com with SMTP id
+ 98e67ed59e1d1-2fc383a11cdso1500000a91.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Feb 2025 11:25:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1740509778; x=1741114578; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1740511517; x=1741116317; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=5LJYpUID6W4I5EJhScurw/AX4q422xg2nTEM2WBLhuA=;
- b=Ug8gdA5CzfAmTVTwdu7Jklz9K/kPYQdx5uv4YUVmj61r0LXM9z1nfiSwhuIuhoSYvl
- fEM2Cx5gy+wGMaM6hlqF1ghvl9VhS+QQUZwl4o4Xt7tIstFHAdmJmfCqIG+gAQAuqEUl
- 9FbIk4vgKtRiD5cH+gE1yQImeOIAYRG5TiXXyv92M4P8ACi+ycbdrFN41QK5Y97ND5ql
- Hc2Lsy3IitOrTwf2k5468RdtDr6R7erKFvIlk77nSktNSdwEqZWZlYK09LquezV+c/X9
- aTDhuADnozWGAUORgFoTyAXaaWYOeTPhraI6ivmVovUzVdts3jQIiK0Wd/iB+NJIhFFW
- ZjUw==
+ bh=lW0Xlv11qQf2BeqC57sxJYuS6e9OOJv4XLnCmYnHWmA=;
+ b=Ut4Bg+zgPR+Dpc4iFeGzu7VJpGajXUmfXRbtBoHgPqX+ZmRKIDii4vPGZQwngh1Kof
+ VkrEVKxQ3Gofb4Md+EL34WmIREmXAvwiohT3nSkX0l7NrjsAFo0OI4OhyUaRVpET/7ao
+ PixQ7upifTyypdcW2xKhKjhdhyQ9GF6Wr4WzumLrADTd3kPcaddhiCNoe56Rp2uqN1B4
+ 0zz4WTjK5e047xBwVWVgo05ahgRnjzd1c56FHBnN/dlXJ5S4GPVvhkNzNZLykMPflbfM
+ 5QDHKEOiyo+zJHCBRvkhxWtCh3X3AOJbyAYhZO3/GLssyUgNQeqnzWx3CfeOQoXDDutm
+ OGsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1740509778; x=1741114578;
+ d=1e100.net; s=20230601; t=1740511517; x=1741116317;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=5LJYpUID6W4I5EJhScurw/AX4q422xg2nTEM2WBLhuA=;
- b=H6uVFabIU0OYGh0zFPLHTuk31ruARwsGLRCv2yDP8GhR0ib2HjA+KnbuETVVPvKofa
- tg+rkibthAyRyYSD6xC9D5hDmSgD0k4snVD2dk10KjgxxFmZEQE1H6sd4vXAWbaMV0zT
- JeJR+OgX66CyxyMR3KKqMXPyDb/AJV37T9GCNq1CRBCSna95s3uG9gNxl4p3LbJ4W9Vc
- pn3zc2VlfV473tVd8q9AP1OJa7UmqHIkKV1aigYbxTUrhTAC9TgGLbt1IcqHI3ev7jAM
- zQSIdkvn73S0Svx2dXIJrPHM5WQ0bMKRcivDqETGTSsc8fun9Mwz82HXvyDXapQs+Xlw
- ++Ig==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXYlcNqveXWPIr2dJoG00b/2gHchab2/tW6dFpJwGjZGWQOEWkqEBywUThl+iW9+Zr4kJRJGQLJ@lists.freedesktop.org,
- AJvYcCXvMF9eI8fwZPrDsePhmPxOnd3GdKmET091252OXKHrmH7frnB8Po4BVwasaCzTfMu2DvJpURNPjmhv@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxvTazTX9/5w9DC6AmKl5dz881hKrPFsjd/t4dfunp1cFG8yg/2
- y9FzINOo4ZYhelheKllIMaL+BpYjbrKDZPaP7QY4q2+0lQBEnNR6HkIV9WiR8teQfjP5T7FsSxZ
- ZL/xzYHhWwjRxbfS01ev3pMcmy7o=
-X-Gm-Gg: ASbGncv61P1DloEDVCWujMZLI96x/+qviU2h83eguFl+l0MnZDbnp6B0QuUDn30A2Qd
- AwFAJYPKUPEG1bjCw8sLdfNPs2kM1U69YMgSSED0yRJeHAhlNDPDn3I4fv3fs/aEJmPAu2FyiLv
- 1tSUxf4iA=
-X-Google-Smtp-Source: AGHT+IGkDAct65mknFExr5qSoeMevF/bWfU3G2E8vI3pXH1PsZu7yjosujAuCh+2s6GdpE0tBa1Vyokcv8UkFO7+ROg=
-X-Received: by 2002:a17:90b:3e8d:b0:2fa:2011:c85d with SMTP id
- 98e67ed59e1d1-2fce7b4f29fmr10629837a91.7.1740509778436; Tue, 25 Feb 2025
- 10:56:18 -0800 (PST)
+ bh=lW0Xlv11qQf2BeqC57sxJYuS6e9OOJv4XLnCmYnHWmA=;
+ b=ms9zGjZqq0pTQTik8T+gUni+F0sZ3C/MPunkfscGCDijCXd5qxTpesyeKJYGHOKzRr
+ 0rQ9RJmRyn7tSdYUJkB8/qg2zaCmIHRQZkUyIs4qSFvAQ1z0suavQynPeMRtLRqjoXHS
+ tlGzmuRjU/cJjK8Z/0yXLJEg1WRWolz3epBgIiZSMHTNq/a8Scky4UQ3APlqAxJlM9/p
+ XsqDS4N2hGL/x09SPQRBQvq2SKCSEjVVKrAwjhTSJVHgHZXoK8HZpremFYkKoucxTgZT
+ Kb4VRAUIxyg1HQDPRbpT58cOgXe0Pw2JaBVAq01mWGkoA7AGGQ0SHSu5Du6MKUWBp5dN
+ 28tQ==
+X-Gm-Message-State: AOJu0Yy9pgqc6T7If0qSKzUUWBZJwAEyQrlRYfk/v20TPqUEkF2glMwg
+ 6ttT8HoHQsozAo8gdfZE78Ux4Ys9GMKzBsJFZNjNnkKd1M3epG0NMAyE54fNXjESOt/irJwFtsq
+ zHQNl1/E5ssfvNlfjc1nzI4lCeMA=
+X-Gm-Gg: ASbGncuEoD6lXrIvruwYi9HsPC3vtxJAs/713A0Nv14SQqjqlKPrNPXtZVgzYsNGDm2
+ wh4xjfHGB52WaNi/shkDs8r2AxFfnOUG9TIYVT/3cFrnYnRncNJnG0JL9aavOa28uxUXeyRslT2
+ XPdw4/WiU=
+X-Google-Smtp-Source: AGHT+IFp07c33GYOYmYHKyrt/hH+4ZIgfffQYIfZga6vS038xM0hYWSyy03TvPxilLtIFVCUp5VU7u9D1l7rvwuo4cs=
+X-Received: by 2002:a17:90b:1d84:b0:2fc:3262:9465 with SMTP id
+ 98e67ed59e1d1-2fce7b4f5dcmr12506152a91.5.1740511516855; Tue, 25 Feb 2025
+ 11:25:16 -0800 (PST)
 MIME-Version: 1.0
-References: <20250224014942.193407-1-linux@treblig.org>
-In-Reply-To: <20250224014942.193407-1-linux@treblig.org>
+References: <20250225091003.890770-1-jeffbai@aosc.io>
+In-Reply-To: <20250225091003.890770-1-jeffbai@aosc.io>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 25 Feb 2025 13:56:04 -0500
-X-Gm-Features: AWEUYZkV-VKShpz06myyPBFccE18IuxpHMzvBHAaolC_sSnG3Qgfe_3AzTFlGo4
-Message-ID: <CADnq5_MPXqCucYhh1kSCQVOm0QXT00+Bax9G=S9+vRJ2QLB6Sg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Remove unused optc3_fpu_set_vrr_m_const
-To: linux@treblig.org
-Cc: alexander.deucher@amd.com, chaitanya.dhere@amd.com, jun.lei@amd.com, 
- harry.wentland@amd.com, sunpeng.li@amd.com, Rodrigo.Siqueira@amd.com, 
- christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com, 
- simona@ffwll.ch, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Date: Tue, 25 Feb 2025 14:25:05 -0500
+X-Gm-Features: AWEUYZlmx5OU2PqU3qDlSpC5TCu0PonEe_n_KnZ5f1ZEO2ccPXptJrhzM-V6hSw
+Message-ID: <CADnq5_OndySoU7HTzQ=sGoKAru5pQenp79uvVCwH46be4imz2w@mail.gmail.com>
+Subject: Re: [PATCH] MAINTAINERS: remove undeliverable entries in RADEON and
+ AMDGPU DRM DRIVERS
+To: Mingcong Bai <jeffbai@aosc.io>
+Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Kexy Biscuit <kexybiscuit@aosc.io>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -86,139 +82,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+On Tue, Feb 25, 2025 at 4:10=E2=80=AFAM Mingcong Bai <jeffbai@aosc.io> wrot=
+e:
+>
+> While running:
+>
+> ./scripts/get_maintainer.pl \
+>     drivers/gpu/drm/amd/display/amdgpu_dm \
+>     --no-rolestats'
+>
+> For a list of Cc's, I got two undeliverable address errors from
+> postmaster@amd.com:
+>
+>   Xinhui Pan <Xinhui.Pan@amd.com>
+>   Hamza Mahfooz <hamza.mahfooz@amd.com>
+>
+> I tried to contact Alex Deucher and Christian K=C3=B6nig back in early
+> Februrary, but received no reply.
+>
+> To avoid warning emails from the future, remove Xinhui Pan from
+> MAINTAINERS and add Hamza Mahfooz to .get_maintainer.ignore.
+>
+> Suggested-by: Kexy Biscuit <kexybiscuit@aosc.io>
+> Signed-off-by: Mingcong Bai <jeffbai@aosc.io>
+
+These and a few others have already been fixed up.  Thanks!
 
 Alex
 
-On Mon, Feb 24, 2025 at 8:43=E2=80=AFAM <linux@treblig.org> wrote:
->
-> From: "Dr. David Alan Gilbert" <linux@treblig.org>
->
-> The last use of optc3_fpu_set_vrr_m_const() was removed in 2022's
-> commit 64f991590ff4 ("drm/amd/display: Fix a compilation failure on Power=
-PC
-> caused by FPU code")
-> which removed the only caller (with a similar) name.
->
-> Remove it.
->
-> Signed-off-by: Dr. David Alan Gilbert <linux@treblig.org>
 > ---
->  .../drm/amd/display/dc/dml/dcn30/dcn30_fpu.c  | 76 -------------------
->  .../drm/amd/display/dc/dml/dcn30/dcn30_fpu.h  |  3 -
->  2 files changed, 79 deletions(-)
+>  .get_maintainer.ignore | 1 +
+>  MAINTAINERS            | 1 -
+>  2 files changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn30/dcn30_fpu.c b/drive=
-rs/gpu/drm/amd/display/dc/dml/dcn30/dcn30_fpu.c
-> index aac0a0ae2966..88789987bdbc 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn30/dcn30_fpu.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn30/dcn30_fpu.c
-> @@ -178,82 +178,6 @@ struct _vcs_dpi_soc_bounding_box_st dcn3_0_soc =3D {
->  };
->
->
-> -void optc3_fpu_set_vrr_m_const(struct timing_generator *optc,
-> -               double vtotal_avg)
-> -{
-> -       struct optc *optc1 =3D DCN10TG_FROM_TG(optc);
-> -       double vtotal_min, vtotal_max;
-> -       double ratio, modulo, phase;
-> -       uint32_t vblank_start;
-> -       uint32_t v_total_mask_value =3D 0;
-> -
-> -       dc_assert_fp_enabled();
-> -
-> -       /* Compute VTOTAL_MIN and VTOTAL_MAX, so that
-> -        * VOTAL_MAX - VTOTAL_MIN =3D 1
-> -        */
-> -       v_total_mask_value =3D 16;
-> -       vtotal_min =3D dcn_bw_floor(vtotal_avg);
-> -       vtotal_max =3D dcn_bw_ceil(vtotal_avg);
-> -
-> -       /* Check that bottom VBLANK is at least 2 lines tall when running=
- with
-> -        * VTOTAL_MIN. Note that VTOTAL registers are defined as 'total n=
-umber
-> -        * of lines in a frame - 1'.
-> -        */
-> -       REG_GET(OTG_V_BLANK_START_END, OTG_V_BLANK_START,
-> -               &vblank_start);
-> -       ASSERT(vtotal_min >=3D vblank_start + 1);
-> -
-> -       /* Special case where the average frame rate can be achieved
-> -        * without using the DTO
-> -        */
-> -       if (vtotal_min =3D=3D vtotal_max) {
-> -               REG_SET(OTG_V_TOTAL, 0, OTG_V_TOTAL, (uint32_t)vtotal_min=
-);
-> -
-> -               optc->funcs->set_vtotal_min_max(optc, 0, 0);
-> -               REG_SET(OTG_M_CONST_DTO0, 0, OTG_M_CONST_DTO_PHASE, 0);
-> -               REG_SET(OTG_M_CONST_DTO1, 0, OTG_M_CONST_DTO_MODULO, 0);
-> -               REG_UPDATE_3(OTG_V_TOTAL_CONTROL,
-> -                       OTG_V_TOTAL_MIN_SEL, 0,
-> -                       OTG_V_TOTAL_MAX_SEL, 0,
-> -                       OTG_SET_V_TOTAL_MIN_MASK_EN, 0);
-> -               return;
-> -       }
-> -
-> -       ratio =3D vtotal_max - vtotal_avg;
-> -       modulo =3D 65536.0 * 65536.0 - 1.0; /* 2^32 - 1 */
-> -       phase =3D ratio * modulo;
-> -
-> -       /* Special cases where the DTO phase gets rounded to 0 or
-> -        * to DTO modulo
-> -        */
-> -       if (phase <=3D 0 || phase >=3D modulo) {
-> -               REG_SET(OTG_V_TOTAL, 0, OTG_V_TOTAL,
-> -                       phase <=3D 0 ?
-> -                               (uint32_t)vtotal_max : (uint32_t)vtotal_m=
-in);
-> -               REG_SET(OTG_V_TOTAL_MIN, 0, OTG_V_TOTAL_MIN, 0);
-> -               REG_SET(OTG_V_TOTAL_MAX, 0, OTG_V_TOTAL_MAX, 0);
-> -               REG_SET(OTG_M_CONST_DTO0, 0, OTG_M_CONST_DTO_PHASE, 0);
-> -               REG_SET(OTG_M_CONST_DTO1, 0, OTG_M_CONST_DTO_MODULO, 0);
-> -               REG_UPDATE_3(OTG_V_TOTAL_CONTROL,
-> -                       OTG_V_TOTAL_MIN_SEL, 0,
-> -                       OTG_V_TOTAL_MAX_SEL, 0,
-> -                       OTG_SET_V_TOTAL_MIN_MASK_EN, 0);
-> -               return;
-> -       }
-> -       REG_UPDATE_6(OTG_V_TOTAL_CONTROL,
-> -               OTG_V_TOTAL_MIN_SEL, 1,
-> -               OTG_V_TOTAL_MAX_SEL, 1,
-> -               OTG_SET_V_TOTAL_MIN_MASK_EN, 1,
-> -               OTG_SET_V_TOTAL_MIN_MASK, v_total_mask_value,
-> -               OTG_VTOTAL_MID_REPLACING_MIN_EN, 0,
-> -               OTG_VTOTAL_MID_REPLACING_MAX_EN, 0);
-> -       REG_SET(OTG_V_TOTAL, 0, OTG_V_TOTAL, (uint32_t)vtotal_min);
-> -       optc->funcs->set_vtotal_min_max(optc, vtotal_min, vtotal_max);
-> -       REG_SET(OTG_M_CONST_DTO0, 0, OTG_M_CONST_DTO_PHASE, (uint32_t)pha=
-se);
-> -       REG_SET(OTG_M_CONST_DTO1, 0, OTG_M_CONST_DTO_MODULO, (uint32_t)mo=
-dulo);
-> -}
-> -
->  void dcn30_fpu_populate_dml_writeback_from_context(
->                 struct dc *dc, struct resource_context *res_ctx, display_=
-e2e_pipe_params_st *pipes)
->  {
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn30/dcn30_fpu.h b/drive=
-rs/gpu/drm/amd/display/dc/dml/dcn30/dcn30_fpu.h
-> index cab864095ce7..e3b6ad6a8784 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml/dcn30/dcn30_fpu.h
-> +++ b/drivers/gpu/drm/amd/display/dc/dml/dcn30/dcn30_fpu.h
-> @@ -29,9 +29,6 @@
->  #include "core_types.h"
->  #include "dcn20/dcn20_optc.h"
->
-> -void optc3_fpu_set_vrr_m_const(struct timing_generator *optc,
-> -               double vtotal_avg);
-> -
->  void dcn30_fpu_populate_dml_writeback_from_context(
->                 struct dc *dc, struct resource_context *res_ctx, display_=
-e2e_pipe_params_st *pipes);
->
+> diff --git a/.get_maintainer.ignore b/.get_maintainer.ignore
+> index b458815f1d1bf..3343330fb11df 100644
+> --- a/.get_maintainer.ignore
+> +++ b/.get_maintainer.ignore
+> @@ -4,3 +4,4 @@ Christoph Hellwig <hch@lst.de>
+>  Jeff Kirsher <jeffrey.t.kirsher@intel.com>
+>  Marc Gonzalez <marc.w.gonzalez@free.fr>
+>  Ralf Baechle <ralf@linux-mips.org>
+> +Hamza Mahfooz <hamza.mahfooz@amd.com>
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 4ff26fa94895d..d6ea828345fdb 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -19657,7 +19657,6 @@ F:      drivers/net/wireless/quantenna
+>  RADEON and AMDGPU DRM DRIVERS
+>  M:     Alex Deucher <alexander.deucher@amd.com>
+>  M:     Christian K=C3=B6nig <christian.koenig@amd.com>
+> -M:     Xinhui Pan <Xinhui.Pan@amd.com>
+>  L:     amd-gfx@lists.freedesktop.org
+>  S:     Supported
+>  B:     https://gitlab.freedesktop.org/drm/amd/-/issues
 > --
 > 2.48.1
 >
