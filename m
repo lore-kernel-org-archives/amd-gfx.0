@@ -4,106 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2EB4CC021B6
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Feb 2025 10:21:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BEF46C021B2
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Feb 2025 11:03:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2CA0510E607;
-	Tue, 25 Feb 2025 10:21:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 68DD110E4B4;
+	Tue, 25 Feb 2025 11:03:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="ijOXGzVi";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="07uqXRkO";
 	dkim-atps=neutral
-Received: from relay8-d.mail.gandi.net (relay8-d.mail.gandi.net
- [217.70.183.201])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E68810E605;
- Tue, 25 Feb 2025 10:21:34 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 561384340B;
- Tue, 25 Feb 2025 10:21:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1740478892;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Z7UiYeHlnuXQlU/CIuhLBxt1x5/F3eBqiVla+INVZi0=;
- b=ijOXGzVidIZrzEBq7dj67n7P/JGef5/4ckx4urQT5oI/8f5P5VShNFYNLAB3Nn+UL9ozd9
- ouvZlR2QplskYzLRBRKk+cGYjsqcb01lXnyPN4w9lyIqo5D1Yi2TYLHHFZNxSk0HQE6imG
- 7bsQFba0tMXDlMmpwqUUj8eu6gAX34ppqyhPLhh61dvZHhz75/DbdXMXA5/k1GHzGnvSCI
- Y9SUOn+RP6JVTKv6shLOKuJ5ZjNNLA0enZN9izqK7hnQX1Uwjfks++YrIftptju4d5+NaT
- ZPw9SnPWL/TgrGh2pIEdNRnAY5T2kR6OLzz5jbfyG4E/QU/UjLYwSA/1Wgpw2g==
-Message-ID: <22fa00f7-a650-4087-8c6c-338a80896b95@bootlin.com>
-Date: Tue, 25 Feb 2025 11:21:32 +0100
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2059.outbound.protection.outlook.com [40.107.220.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9107210E4B4
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Feb 2025 11:03:25 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MAQXgz7MGJRBaInFX+7MeenZGzLCHhPdtgbJKHec1MdePEFBzJUJxy4eVqpz5/9BI9VGrXGXNIWcwIV48MybUcyOn5J0UZQ+mkR1sgcSF7jdb1T5ir2wcTSDEbBHskbuyqvyfbDM85cr2W+pQlF/YH+fmogfPZ6f74KMBPMBZQ0Hcpb/KMUjPu8YbXEa9EuEJVYRI1Ba9VmlVBKDkmb4hO6eEHHva87fl9sXEaqPmrXgOpByFkH/0bHBWguuZaZDc4oK9RdCzbPdbRIVvNswj3n7NUU/9En2+t+w4CHJtBGmBuSFJWsYkB1z57FcZ7RlcG7jmAyOb6wE3fvGwpyS4Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GUVvIZfKwcyo4afTGARMjNq5BhPuC1NEFNtuVxBuTLE=;
+ b=QFFY+p/Pkhl7nJ776KbY165qDfq6RevP22J0sa8pmSuOy04zfHs6RTYaoYPZ9he9TPrjr0agU5QTSzL9WDrb/a/5oBZq8gz1kpCWvhgZmcUtgx35OwY+vFYAd9WyHzyJGxJxIuOgAt2OVl3TXd7ckkBxNDPUye3lNreozEBOV4wdOaWHBhpnVKujvZazYFgbfRaDgabIhDizRwEIOZ+taC2z3uX21ZrSYaFFerBzi9TQHSkF+4zD/bqeebjoKfYIsNbws2WSGkL+09e9b0S8g31myBmGKa6qHJbKniGvxpXSzSI7AT8YInLB3C0P8OYvqZE1aYFzbvnxfFgEjNTOKw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GUVvIZfKwcyo4afTGARMjNq5BhPuC1NEFNtuVxBuTLE=;
+ b=07uqXRkOfHLM/f/Y9IMS5K/vNnv3U+hPR9AQ/omZiICNVxmy0AOx+N2Fs8J7qU+5RZN0CrdBjJnVhovqWhNqQXlpMuzZsdQUXK8wD2rXXq//KzvN0kEvVwqfhxkNsbUNy2jVhYlx0bGvU1z/kejWo+FNZj4xmD/2MTSyc6bEWrE=
+Received: from BN1PR13CA0007.namprd13.prod.outlook.com (2603:10b6:408:e2::12)
+ by CH2PR12MB4119.namprd12.prod.outlook.com (2603:10b6:610:aa::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8466.20; Tue, 25 Feb
+ 2025 11:03:18 +0000
+Received: from BN2PEPF00004FBE.namprd04.prod.outlook.com
+ (2603:10b6:408:e2:cafe::c6) by BN1PR13CA0007.outlook.office365.com
+ (2603:10b6:408:e2::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8489.16 via Frontend Transport; Tue,
+ 25 Feb 2025 11:03:17 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN2PEPF00004FBE.mail.protection.outlook.com (10.167.243.184) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8489.16 via Frontend Transport; Tue, 25 Feb 2025 11:03:17 +0000
+Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 25 Feb
+ 2025 05:03:15 -0600
+From: Lijo Lazar <lijo.lazar@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Hawking.Zhang@amd.com>, <Alexander.Deucher@amd.com>, <Amber.Lin@amd.com>, 
+ Ava Zhang <niandong.zhang@amd.com>
+Subject: [PATCH] drm/amdgpu: Fix logic to fetch supported NPS modes
+Date: Tue, 25 Feb 2025 16:33:00 +0530
+Message-ID: <20250225110300.120674-1-lijo.lazar@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [V7 10/45] drm/colorop: Add NEXT property
-To: Alex Hung <alex.hung@amd.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Cc: wayland-devel@lists.freedesktop.org, harry.wentland@amd.com
-References: <20241220043410.416867-1-alex.hung@amd.com>
- <20241220043410.416867-11-alex.hung@amd.com>
-Content-Language: en-US
-From: Louis Chauvet <louis.chauvet@bootlin.com>
-Autocrypt: addr=louis.chauvet@bootlin.com; keydata=
- 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
-In-Reply-To: <20241220043410.416867-11-alex.hung@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-GND-State: clean
-X-GND-Score: -100
-X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgdekudeggecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfitefpfffkpdcuggftfghnshhusghstghrihgsvgenuceurghilhhouhhtmecufedtudenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepkfffgggfuffvvehfhfgjtgfgsehtkeertddtvdejnecuhfhrohhmpefnohhuihhsucevhhgruhhvvghtuceolhhouhhishdrtghhrghuvhgvthessghoohhtlhhinhdrtghomheqnecuggftrfgrthhtvghrnhepkeeivedtfeegtdekheethedttddtfefhhfegjeeljeejleduvdfhudegvdekheevnecuffhomhgrihhnpegsohhothhlihhnrdgtohhmnecukfhppeeltddrkeelrdduieefrdduvdejnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepledtrdekledrudeifedruddvjedphhgvlhhopegludelvddrudeikedrtddrvddtngdpmhgrihhlfhhrohhmpehlohhuihhsrdgthhgruhhvvghtsegsohhothhlihhnrdgtohhmpdhnsggprhgtphhtthhopeehpdhrtghpthhtoheprghlvgigrdhhuhhnghesrghmugdrtghomhdprhgtphhtthhopegurhhiqdguvghvvghlsehlihhsthhsrdhfrhgvvgguvghskhhtohhprdhorhhgpdhrtghpthhtoheprghmugdqghhfgieslhhishhtshdrfhhrvggvuggvshhkthhophdrohhrghdprhgtphhtthhopeifrgihlhgrnhguqdguvghvvghlsehlihhst
- hhsrdhfrhgvvgguvghskhhtohhprdhorhhgpdhrtghpthhtohephhgrrhhrhidrfigvnhhtlhgrnhgusegrmhgurdgtohhm
-X-GND-Sasl: louis.chauvet@bootlin.com
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBE:EE_|CH2PR12MB4119:EE_
+X-MS-Office365-Filtering-Correlation-Id: 710f4f99-a387-4def-8db7-08dd558c01e6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|376014|36860700013|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?Y4SwkkPE2hbhXd0hhWFB1Cc7eGgCWkE/t96MIUqvnEDVebEdHDmSz6Gb90aT?=
+ =?us-ascii?Q?b6Oc0EmdCtXPj2ds+IKkGbDkEU3vlWAgy8yvmUWnO5qNTk7BpGXLFU2YVTpw?=
+ =?us-ascii?Q?4+f5wZYF6sJUjk8Kbm5/4dqIOLgFsYjHD2GalvIZxWSwyfsRKGOBiHKkT6Kw?=
+ =?us-ascii?Q?8uAqpCHC54BIBP0TUv9GVhSxwv92aVc83n7xeNe0wrHrAv0owxSi3dRwxpQX?=
+ =?us-ascii?Q?enrJ4n2I+XZibz0FaUgwMOyAQeeyeEYpaqPn9i5Ksgr8Ctt1YsSFHrBkCFOk?=
+ =?us-ascii?Q?v1k4h10Pl91BQwEIJtLlaCjfeMzykE/OjYybhVaGy61HSbg0Q1kTzYlVban3?=
+ =?us-ascii?Q?8KSlUDLu27tA6Gaaynci5fVK3lBCQv1wE7a3YzoNBu+dBWJ07UA5KMq2rXaX?=
+ =?us-ascii?Q?IlielLxAQJoyPMXFLEnOyQG7mOeIRMaCVNd9XQdfkDmsrcl0A789QGWylKT0?=
+ =?us-ascii?Q?YAj6vZ4F0MR+Uv6WWAGEtNALtWjabCDpBX/AyIZL3ZsTTpq6jkMx9uQK4JTe?=
+ =?us-ascii?Q?i7zku/jqRxAGmALnGrdrj8rXTFoOH7KzSOOZyUEVKe/BMaie+hjuRxZXZD9h?=
+ =?us-ascii?Q?pSzD7m/UqMlKpIvcJkmAmh6/lsm+BZZyeW3f+ezyyuroQFuy2s6aKhvy1qim?=
+ =?us-ascii?Q?GiaVaLN6CM70XgU9oG73Pg9Qe3m9ljMKV4hJQ8Aoj9C3eh4uWWm2AS00UReY?=
+ =?us-ascii?Q?/g22gtYPTeDMQfjYajeYX534A4gA+xZvF7Cur6lsWpdHXpisdVbfQyA4z8og?=
+ =?us-ascii?Q?dN6kHMuZexShdQIhmM/q+PiRSfQOuKGkIkOByBQzI0sYeRHJcuANRzOkMQ8i?=
+ =?us-ascii?Q?5+PxHId2i3h5IojAZe548tUFzpXIm+ApNDSun4pH4HqNJ81TkAdnum5ph+AT?=
+ =?us-ascii?Q?fr0XiRxdxgm+3KnPauBVsrYE7gOoXzdHdEbFaSaojrrZaew8LA6u6H8KwIFm?=
+ =?us-ascii?Q?e5EH2dSLoDMjJgHC6PGPJST4uRHTuyEDyF7W7PZEKPxbsUfXwls1vuv7z7FU?=
+ =?us-ascii?Q?/COHYA35RZAQtr+CWsjC7b7XRMdrFN7twFmNEupUYlCL21+fuOQ9orQD7gDI?=
+ =?us-ascii?Q?vjACSq5EOYwIZI/PlUvGUThdRRWU6IIAny0TAZT85w+8JxkCVGsAIa4qJrQQ?=
+ =?us-ascii?Q?AMTBNGVplUT90wKVpjtKSylGgcvVTS0bK7iUON6Q+K1YHfGWy/dtnOZdbU/1?=
+ =?us-ascii?Q?8ZLWj5BhtjA6Rvsx8I8vgw0XKBv8ulOcCXx4q6mJpBqg2HH4lbFEvY2/zsUY?=
+ =?us-ascii?Q?xHYBWuoMsR/FQmOotH0K7HvbHB+PFCSG8Ja6xVD6BzFogMAI0jpZ2JkdTBmz?=
+ =?us-ascii?Q?oUc14t6+H3KLJMHUmoJiKdtanjWGRy+7/NeEiBdrSy+Gh/24N+jIxYwii5Q4?=
+ =?us-ascii?Q?rIvVxxUp17dEPhRznzMlfnyA7HF1Jhw8JzHdntXcAz1meZhTSNyfY6ovgsXv?=
+ =?us-ascii?Q?nAFdF8kRd/zUlS7w/h0i296kfS5JLBumF/pvhtgWf8iK0Q4ZxDiwe6w0OE4l?=
+ =?us-ascii?Q?nROrUAhHGwXZeJc=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(376014)(36860700013)(1800799024); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Feb 2025 11:03:17.1678 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 710f4f99-a387-4def-8db7-08dd558c01e6
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF00004FBE.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4119
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,146 +131,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Correct the logic to find supported NPS modes from firmware.
 
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+Reported-by: Ava Zhang <niandong.zhang@amd.com>
 
-Le 20/12/2024 à 05:33, Alex Hung a écrit :
-> From: Harry Wentland <harry.wentland@amd.com>
-> 
-> We'll construct color pipelines out of drm_colorop by
-> chaining them via the NEXT pointer. NEXT will point to
-> the next drm_colorop in the pipeline, or by 0 if we're
-> at the end of the pipeline.
-> 
-> Signed-off-by: Alex Hung <alex.hung@amd.com>
-> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-> ---
-> v5:
->   - move next comment here from Add 3x4 CTM patch (Sebastian)
->   - Add kernel doc
-> 
-> v4:
->   - Allow setting of NEXT property to NULL (Chaitanya Kumar Borah)
-> 
-> v3:
->   - Add next pointer to colorop to be used by drivers
->     and in DRM core
-> 
->   drivers/gpu/drm/drm_colorop.c | 30 ++++++++++++++++++++++++++++++
->   include/drm/drm_colorop.h     | 20 ++++++++++++++++++++
->   2 files changed, 50 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_colorop.c
-> index 01cbe90635e8..954acd09673a 100644
-> --- a/drivers/gpu/drm/drm_colorop.c
-> +++ b/drivers/gpu/drm/drm_colorop.c
-> @@ -89,6 +89,7 @@ static int drm_colorop_init(struct drm_device *dev, struct drm_colorop *colorop,
->   	colorop->dev = dev;
->   	colorop->type = type;
->   	colorop->plane = plane;
-> +	colorop->next = NULL;
->   
->   	list_add_tail(&colorop->head, &config->colorop_list);
->   	colorop->index = config->num_colorop++;
-> @@ -121,6 +122,16 @@ static int drm_colorop_init(struct drm_device *dev, struct drm_colorop *colorop,
->   				   colorop->bypass_property,
->   				   1);
->   
-> +	/* next */
-> +	prop = drm_property_create_object(dev, DRM_MODE_PROP_IMMUTABLE | DRM_MODE_PROP_ATOMIC,
-> +					  "NEXT", DRM_MODE_OBJECT_COLOROP);
-> +	if (!prop)
-> +		return -ENOMEM;
-> +	colorop->next_property = prop;
-> +	drm_object_attach_property(&colorop->base,
-> +				   colorop->next_property,
-> +				   0);
-> +
->   	return ret;
->   }
->   
-> @@ -294,3 +305,22 @@ const char *drm_get_colorop_curve_1d_type_name(enum drm_colorop_curve_1d_type ty
->   
->   	return colorop_curve_1d_type_names[type];
->   }
-> +
-> +/**
-> + * drm_colorop_set_next_property - sets the next pointer
-> + * @colorop: drm colorop
-> + * @next: next colorop
-> + *
-> + * Should be used when constructing the color pipeline
-> + */
-> +void drm_colorop_set_next_property(struct drm_colorop *colorop, struct drm_colorop *next)
-> +{
-> +	if (!colorop->next_property)
-> +		return;
+Fixes: cdb41537812f ("drm/amdgpu: Use firmware supported NPS modes")
+---
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-I agree with Simon, a WARN_ON seems appropriate here, the 
-colorop->next_property should always exist, and if not, it is a bug.
-
-> +
-> +	drm_object_property_set_value(&colorop->base,
-> +				      colorop->next_property,
-> +				      next ? next->base.id : 0);
-> +	colorop->next = next;
-> +}
-> +EXPORT_SYMBOL(drm_colorop_set_next_property);
-> diff --git a/include/drm/drm_colorop.h b/include/drm/drm_colorop.h
-> index 5ed24d60a99e..2f0572be37bb 100644
-> --- a/include/drm/drm_colorop.h
-> +++ b/include/drm/drm_colorop.h
-> @@ -165,6 +165,14 @@ struct drm_colorop {
->   	 */
->   	enum drm_colorop_type type;
->   
-> +	/**
-> +	 * @next:
-> +	 *
-> +	 * Read-only
-> +	 * Pointer to next drm_colorop in pipeline
-> +	 */
-> +	struct drm_colorop *next;
-> +
->   	/**
->   	 * @type_property:
->   	 *
-> @@ -192,10 +200,20 @@ struct drm_colorop {
->   	 */
->   	struct drm_property *curve_1d_type_property;
->   
-> +	/**
-> +	 * @next_property:
-> +	 *
-> +	 * Read-only property to next colorop in the pipeline
-> +	 */
-> +	struct drm_property *next_property;
-> +
->   };
->   
->   #define obj_to_colorop(x) container_of(x, struct drm_colorop, base)
->   
-> +
-> +
-> +
-
-Strange useless lines
-
-Thanks,
-Louis Chauvet
-
->   /**
->    * drm_colorop_find - look up a Colorop object from its ID
->    * @dev: DRM device
-> @@ -268,4 +286,6 @@ const char *drm_get_colorop_type_name(enum drm_colorop_type type);
->    */
->   const char *drm_get_colorop_curve_1d_type_name(enum drm_colorop_curve_1d_type type);
->   
-> +void drm_colorop_set_next_property(struct drm_colorop *colorop, struct drm_colorop *next);
-> +
->   #endif /* __DRM_COLOROP_H__ */
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index ccb31e724b55..49630f838d45 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -1607,9 +1607,8 @@ static void gmc_v9_0_init_nps_details(struct amdgpu_device *adev)
+ 
+ 	/* Mode detected by hardware and supported modes available */
+ 	if ((mode != UNKNOWN_MEMORY_PARTITION_MODE) && supp_modes) {
+-		for (i = AMDGPU_NPS1_PARTITION_MODE;
+-		     supp_modes && i <= AMDGPU_NPS8_PARTITION_MODE; i++) {
+-			if (supp_modes & BIT(i - 1))
++		while (i = ffs(supp_modes)) {
++			if (AMDGPU_ALL_NPS_MASK & BIT(i))
+ 				adev->gmc.supported_nps_modes |= BIT(i);
+ 			supp_modes &= supp_modes - 1;
+ 		}
 -- 
-Louis Chauvet, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+2.25.1
 
