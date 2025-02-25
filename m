@@ -4,46 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE088C021B2
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Feb 2025 09:35:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB52DC021B2
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Feb 2025 09:37:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1967510E4A3;
-	Tue, 25 Feb 2025 09:35:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E01810E4A8;
+	Tue, 25 Feb 2025 09:37:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="NIDaHjzr";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="mTB67hp8";
 	dkim-atps=neutral
-X-Greylist: delayed 62859 seconds by postgrey-1.36 at gabe;
- Tue, 25 Feb 2025 09:35:10 UTC
-Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
- [217.70.183.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C62E710E068;
- Tue, 25 Feb 2025 09:35:10 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id BE3A7204DF;
- Tue, 25 Feb 2025 09:35:08 +0000 (UTC)
+Received: from relay6-d.mail.gandi.net (relay6-d.mail.gandi.net
+ [217.70.183.198])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 379F510E4A8;
+ Tue, 25 Feb 2025 09:37:07 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id AC288432A3;
+ Tue, 25 Feb 2025 09:37:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1740476109;
+ t=1740476224;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=iaxb9qKnjL6pjHq5JTmQR6hMJX+d7VRwe0A7TKy58lE=;
- b=NIDaHjzrtwXZCEdAkU2Bnov2KCvpY8HBXF6BpcI+oN1XiaD731FzG6iF2dRgkHlFLnVCL7
- fqFvJweOUCzzz07v8vPUevkFqHMZgZ6nun1P69dZGS+sMgcB5ltDC2YVwCrXbSuGVwL5+s
- RCE5AuUt6B07LJyca3FbpysZLlRF4um7fLTNumke8B4/y5b+djOfTn/e81xB+nTAnoTfHv
- IeEzMUV4EWvD52oM2rD0Ni6bWOSRqACttgmozGKh+0jyrOhlU/2kvUMJb67Jh4MVy3GxYk
- SlrG+g+LfGREgfJNQ7TX5P69IrA6JZRIRvOl361gs3y21THnf9aRzFnRv+wa3A==
-Message-ID: <5f910afe-bf1e-4745-b039-eb0b955a23d6@bootlin.com>
-Date: Tue, 25 Feb 2025 10:35:08 +0100
+ bh=3MqsdENDbDPf1agWcVaLjnru63lp8ikgs4NtaENH2yA=;
+ b=mTB67hp8qltdG0HO+F64QPKGabXmUe+LL8IZqoT1+lLlEyIXCfbbsomtBfwKjAdNkFRVU2
+ uaxZDbhVZeMyjcGW6uzHqxIhqBPh4kL1AL2lYAtHncul/8yZ0TB9vPiMzh94jZaETzZEmh
+ LjuethCWo02DvukWLdoIWw5shByGOeEzifQ0tJhuI5Xu5pvjXe+kT2zKL77On9neqEOWOo
+ t7gTNMH07sy5cfjHb/bAsfiFi1GEatRy96GKeynC38thS6bBoFDtMH6g6EFhjB3qpPITi5
+ 6OTbswrYeNc9m3442NrvuIcvlEKgOhNh5IKzEH6E1VsIAlcDSiWZ248lPaBFxg==
+Message-ID: <99a8779c-bb1c-44fc-b8a3-56ea80425c15@bootlin.com>
+Date: Tue, 25 Feb 2025 10:37:03 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [V7 01/45] drm: Add helper for conversion from signed-magnitude
+Subject: Re: [V7 02/45] drm/vkms: Round fixp2int conversion in lerp_u16
 To: Alex Hung <alex.hung@amd.com>, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org
 Cc: wayland-devel@lists.freedesktop.org, harry.wentland@amd.com
 References: <20241220043410.416867-1-alex.hung@amd.com>
- <20241220043410.416867-2-alex.hung@amd.com>
- <723796aa-df03-49c6-8810-62ddfd4bb2b0@bootlin.com>
- <45649556-ff91-4dec-8cf6-19d85bf655f3@amd.com>
+ <20241220043410.416867-3-alex.hung@amd.com>
 Content-Language: en-US
 From: Louis Chauvet <louis.chauvet@bootlin.com>
 Autocrypt: addr=louis.chauvet@bootlin.com; keydata=
@@ -100,13 +96,13 @@ Autocrypt: addr=louis.chauvet@bootlin.com; keydata=
  PdjUMWb5Ld21PSyCrtGc/hTKwxMoHsOZPy6UB8YJ5omZdsavcjKMrDpybguOfxUmGYs2H3MJ
  ghIUQMMOe0267uQcmMNDPRueGWTLXcuyz0Tpe62Whekc3gNMl0JrNz6Gty8OBb/ETijfSHPE
  qGHYuyAZJo9A/IazHuJ+4n+gm4kQl1WLfxoRMzYHCA==
-In-Reply-To: <45649556-ff91-4dec-8cf6-19d85bf655f3@amd.com>
+In-Reply-To: <20241220043410.416867-3-alex.hung@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-GND-State: clean
 X-GND-Score: -100
-X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgdekudefiecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfitefpfffkpdcuggftfghnshhusghstghrihgsvgenuceurghilhhouhhtmecufedtudenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepkfffgggfuffvvehfhfgjtgfgsehtkeertddtvdejnecuhfhrohhmpefnohhuihhsucevhhgruhhvvghtuceolhhouhhishdrtghhrghuvhgvthessghoohhtlhhinhdrtghomheqnecuggftrfgrthhtvghrnhepjeegjeeguddtkefhfffggeduuedttefgueevgeetfedttdefveeufffgvefgveeknecuffhomhgrihhnpehkvghrnhgvlhdrohhrghdpsghoohhtlhhinhdrtghomhenucfkphepledtrdekledrudeifedruddvjeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepihhnvghtpeeltddrkeelrdduieefrdduvdejpdhhvghloheplgduledvrdduieekrddtrddvtdgnpdhmrghilhhfrhhomheplhhouhhishdrtghhrghuvhgvthessghoohhtlhhinhdrtghomhdpnhgspghrtghpthhtohephedprhgtphhtthhopegrlhgvgidrhhhunhhgsegrmhgurdgtohhmpdhrtghpthhtohepughrihdquggvvhgvlheslhhishhtshdrfhhrvggvuggvshhkthhophdrohhrghdprhgtphhtthhopegrmhguqdhgfhigsehlihhsthhsrdhfrhgvvgguvghskhhtohhprdhorhhgpdhrtghpthhtohepfigrhihlrghnu
- gdquggvvhgvlheslhhishhtshdrfhhrvggvuggvshhkthhophdrohhrghdprhgtphhtthhopehhrghrrhihrdifvghnthhlrghnugesrghmugdrtghomh
+X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgdekudefiecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfitefpfffkpdcuggftfghnshhusghstghrihgsvgenuceurghilhhouhhtmecufedtudenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepkfffgggfuffvvehfhfgjtgfgsehtkeertddtvdejnecuhfhrohhmpefnohhuihhsucevhhgruhhvvghtuceolhhouhhishdrtghhrghuvhgvthessghoohhtlhhinhdrtghomheqnecuggftrfgrthhtvghrnhepkeeivedtfeegtdekheethedttddtfefhhfegjeeljeejleduvdfhudegvdekheevnecuffhomhgrihhnpegsohhothhlihhnrdgtohhmnecukfhppeeltddrkeelrdduieefrdduvdejnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepledtrdekledrudeifedruddvjedphhgvlhhopegludelvddrudeikedrtddrvddtngdpmhgrihhlfhhrohhmpehlohhuihhsrdgthhgruhhvvghtsegsohhothhlihhnrdgtohhmpdhnsggprhgtphhtthhopeehpdhrtghpthhtoheprghlvgigrdhhuhhnghesrghmugdrtghomhdprhgtphhtthhopegurhhiqdguvghvvghlsehlihhsthhsrdhfrhgvvgguvghskhhtohhprdhorhhgpdhrtghpthhtoheprghmugdqghhfgieslhhishhtshdrfhhrvggvuggvshhkthhophdrohhrghdprhgtphhtthhopeifrgihlhgrnhguqdguvghvvghlsehlihhst
+ hhsrdhfrhgvvgguvghskhhtohhprdhorhhgpdhrtghpthhtohephhgrrhhrhidrfigvnhhtlhgrnhgusegrmhgurdgtohhm
 X-GND-Sasl: louis.chauvet@bootlin.com
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -124,78 +120,40 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-Le 24/02/2025 à 19:50, Alex Hung a écrit :
+Le 20/12/2024 à 05:33, Alex Hung a écrit :
+> From: Harry Wentland <harry.wentland@amd.com>
 > 
+> fixp2int always rounds down, fixp2int_ceil rounds up. We need
+> the new fixp2int_round.
 > 
-> On 2/24/25 09:07, Louis Chauvet wrote:
->>
->>
->> Le 20/12/2024 à 05:33, Alex Hung a écrit :
->>> From: Harry Wentland <harry.wentland@amd.com>
->>>
->>> CTM values are defined as signed-magnitude values. Add
->>> a helper that converts from CTM signed-magnitude fixed
->>> point value to the twos-complement value used by
->>> drm_fixed.
->>>
->>> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
->>
->> Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
-> 
-> Hi Louis,
-> 
-> Thanks for reviewing.
-> 
-> The replies to other patches (2, 3, 5, 6, 7, 9, 10) seem to be empty (I
-> checked on my inbox and on
-> https://lore.kernel.org/all/44edbdfb-5e23-4c19-8c80-e7acb8b4930f@amd.com/T/#m2232bab7c543229a057123c5e762bf49c86a4148)
-> 
-> Did you try to send something which didn't go through?
+> Signed-off-by: Alex Hung <alex.hung@amd.com>
+> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+> Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 
-Hi!
+Hi,
 
-Sorry for this, I clearly don't know what happened, they are also empty 
-in my Sent folder...
+Can I extract this patch from the series and apply it on drm-misc-next?
 
-Sorry for this, I will resend them.
+Thanks,
 Louis Chauvet
 
->>
->>> ---
->>>    include/drm/drm_fixed.h | 18 ++++++++++++++++++
->>>    1 file changed, 18 insertions(+)
->>>
->>> diff --git a/include/drm/drm_fixed.h b/include/drm/drm_fixed.h
->>> index 1922188f00e8..0b44f2f294ce 100644
->>> --- a/include/drm/drm_fixed.h
->>> +++ b/include/drm/drm_fixed.h
->>> @@ -78,6 +78,24 @@ static inline u32 dfixed_div(fixed20_12 A,
->>> fixed20_12 B)
->>>    #define DRM_FIXED_EPSILON    1LL
->>>    #define DRM_FIXED_ALMOST_ONE    (DRM_FIXED_ONE - DRM_FIXED_EPSILON)
->>> +/**
->>> + * @drm_sm2fixp
->>> + *
->>> + * Convert a 1.31.32 signed-magnitude fixed point to 32.32
->>> + * 2s-complement fixed point
->>> + *
->>> + * @return s64 2s-complement fixed point
->>> + */
->>> +static inline s64 drm_sm2fixp(__u64 a)
->>> +{
->>> +    if ((a & (1LL << 63))) {
->>> +        return -(a & 0x7fffffffffffffffll);
->>> +    } else {
->>> +        return a;
->>> +    }
->>> +
->>> +}
->>> +
->>>    static inline s64 drm_int2fixp(int a)
->>>    {
->>>        return ((s64)a) << DRM_FIXED_POINT;
->>
+> ---
+>   drivers/gpu/drm/vkms/vkms_composer.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
+> diff --git a/drivers/gpu/drm/vkms/vkms_composer.c b/drivers/gpu/drm/vkms/vkms_composer.c
+> index e7441b227b3c..3d6785d081f2 100644
+> --- a/drivers/gpu/drm/vkms/vkms_composer.c
+> +++ b/drivers/gpu/drm/vkms/vkms_composer.c
+> @@ -98,7 +98,7 @@ static u16 lerp_u16(u16 a, u16 b, s64 t)
+>   
+>   	s64 delta = drm_fixp_mul(b_fp - a_fp,  t);
+>   
+> -	return drm_fixp2int(a_fp + delta);
+> +	return drm_fixp2int_round(a_fp + delta);
+>   }
+>   
+>   static s64 get_lut_index(const struct vkms_color_lut *lut, u16 channel_value)
 
 -- 
 Louis Chauvet, Bootlin
