@@ -4,122 +4,146 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93B7FC021A4
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Feb 2025 22:54:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20CDEC021A4
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Feb 2025 01:05:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1798510E069;
-	Mon, 24 Feb 2025 22:54:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C120D10E37C;
+	Tue, 25 Feb 2025 01:05:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="T2RB3zFq";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="tQTeJ0iE";
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2043.outbound.protection.outlook.com [40.107.223.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3213610E069
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Feb 2025 22:53:58 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2049.outbound.protection.outlook.com [40.107.220.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 533BA10E37C
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Feb 2025 01:05:28 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TT6ZdKuR4djwlOzEQoYS2fDSlfl+bC6wBtBsqZNW1eQOQPKBPdWPTu0Dg4bS2SlGnffKZiTrAF7eooDsf2akMDU8RhGtNfVU+AjXTUhmAyhMdhvdhkpYl9hSqEWBFBeHUNbgHLbWn+OP9nHG4utMWodOPO31zqhjIQEYQw9jS1EN43wytaD/N/T7vT0dtOb78zXXUT2dQfwbviQHt4zQd0lR48iuGop55m8yYneGrH7CUIlBy+bmDJA/eIK7fLJ0nNsW125k+qOmMsCIwEZf/Mk5hBtY/+r/jKxtrSJcQJeZ0rd1sg5iXxjWqq15k+BYSlsFUneyWcr6PIfIJXauYg==
+ b=AINCwAFjiM1+3oZtD/n8eclRBCt4FwbtZQmXNi8HKDYsLKi1W1Z+Gke/aftl+RxAw7wRXJqg3s3VBWB19WYpUmf8+FPcrUI/NMC0G0DlRqYdTGEokvjwl6mq9GpjUjnt/wIZEKKsFHbJHGc2fuK8p07KJ8QK3HhFllQsuXFUkKyh+yPIEY346OOBXXH7MCEDbYNJpRxADfspXlLKNyR+ymL4U/vLCLnVoOIf42ULHV3Na+KGFKGqMxE4emnk85DCSKBjzP6hV72Z9RLQTqiz08OWyTXcNcIFw9TDW/MiNSmRCYesRMod1OwsN9XlFuLDLJmmI/p6SI6eU/ZbvmLu4Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TyWflN35yqKO0VJ7PAWz1Q4YYe+i9vBfeOGhbGMnxOE=;
- b=qC3F/6QnUZV2Jszao/25AdnFDiV0Vu4NySranRlyF8qMuD9ETDybruoJsHsB51jJMlVIdGtZYMUdC1yncsUgHoCO2OWdQYU6k9nTjMevXsD/ClNSWf3jpzmskgj3tc4zxHo2LxTJVK2RYIJ6GaoLKyRT7MmArO9DVaAO6WThpm7vOmWHkn/Hax5SFYq/6/ZUtoklylXdHVZTK12ISX6J2LQFJywNz7uH4n1W2boSW26XbC+Nqojtnr4uZlGTOhG2M+0SY05PV42wAZajayT44XVmdz13D0tt0+xS6JKInBS9k+psPFgXLVhRSwWdgjoZ5hPkC4g/QsG4vmEy4oJJbw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=U2KWtfXRaB5oWPVoDmG1iK27RwOHPg6Nmu/Zb8QIuLk=;
+ b=XWTE1Dpc31UaM3UHGNcbZxMc2544z4xr6G5HWRDOOJVbbT/0zU1stFxvL2DsZNuVvP7BddzzsObbZbvSMzOAG0sUflLU5Y50tCsEp7RPKmWZJfScWDdlea7o2OpVvrBjN90a/fac5YAiTXBdRKSF3QPhFdad8/D9o+Wsrxnv5CSY+WpBJ7enC782bRGS15XuYBdkfqmCD12ZQ2VDDyPgomxvH0FBxIneTy2EApy3jj+g85SYq5afZR6EGPoKxP6ADKWozD8Q1Bjacjr3mnF1SqtL9QlhunQfsEV1yCJB/sRIiS2swKDNw8ARUp2pb10nr/e8knWWoNtAoeTMXL1udA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TyWflN35yqKO0VJ7PAWz1Q4YYe+i9vBfeOGhbGMnxOE=;
- b=T2RB3zFqpkDnFrdgp8XWPDe7Akb6FgOqJpD+np3wUGwU1gqNhecq/j291cM6Yb3fv/OSpVoKuv3UUBTXzCarsezP78bq/IEGgdTXiRhHpzfvt/8ze31GWrhZM/TX++LQt/Yllozur0SZRYhYG/I8Egw0NhSee14xiSuLoajnuFo=
-Received: from CH0PR13CA0001.namprd13.prod.outlook.com (2603:10b6:610:b1::6)
- by PH7PR12MB9065.namprd12.prod.outlook.com (2603:10b6:510:1f7::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8466.19; Mon, 24 Feb
- 2025 22:53:45 +0000
-Received: from CH3PEPF0000000A.namprd04.prod.outlook.com
- (2603:10b6:610:b1:cafe::a8) by CH0PR13CA0001.outlook.office365.com
- (2603:10b6:610:b1::6) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8466.16 via Frontend Transport; Mon,
- 24 Feb 2025 22:53:45 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CH3PEPF0000000A.mail.protection.outlook.com (10.167.244.37) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8489.16 via Frontend Transport; Mon, 24 Feb 2025 22:53:44 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 24 Feb
- 2025 16:53:44 -0600
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 24 Feb
- 2025 16:53:44 -0600
-Received: from smtp.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Mon, 24 Feb 2025 16:53:43 -0600
-From: Xiaogang.Chen <xiaogang.chen@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <felix.kuehling@amd.com>, Xiaogang Chen <xiaogang.chen@amd.com>
-Subject: [PATCH] drm/amdkfd: remove kfd_pasid.c from amdgpu driver build
-Date: Mon, 24 Feb 2025 16:59:42 -0600
-Message-ID: <20250224225942.278208-1-xiaogang.chen@amd.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF0000000A:EE_|PH7PR12MB9065:EE_
-X-MS-Office365-Filtering-Correlation-Id: 009a42ea-8a47-42e7-7350-08dd552617a7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|36860700013|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?Tj4AeNPEMwrh1hMbqh5T23Kym9SZ0zbWFNzVnjDXM1zeDMrWfX10Wk1xN/cz?=
- =?us-ascii?Q?OYcGFh9BtrTpRU3S8Pyj7KmTYQi75UetWq1yON2tCjdDeSA6KwHD7dBhcspa?=
- =?us-ascii?Q?nKQ51dwBGCoqIWHzlDvvm6AvjAU8NICEOXxO+CTDyT73ePCOONOTzV+HRYvZ?=
- =?us-ascii?Q?YDyrqgkfLQPyv62s8+LT8pnlyErcedF9dYkfh87un+OtgtumloU3VLhTo/Rz?=
- =?us-ascii?Q?/hZK8jpOa1yzO4ac/EtXNaLrg7BjJfJlxDeS7F1psM5acS9VCx3EixCGxwvT?=
- =?us-ascii?Q?o02QMpg+xG7ySX+ArNEVzVMRi1/FGRjyu/gZShY0F6uFeksMbHD2qL51TsRe?=
- =?us-ascii?Q?xJAbFz53of7QKT5EOepE2PFYO4blpBo/jqc58YqTyk725dPdwuntKyhhSSK+?=
- =?us-ascii?Q?qnEZmLliY4lkXWXS/0FM8yzazLZjuDV7NAru6MCkQoFqtp0tO3am00NX1mEY?=
- =?us-ascii?Q?zBp2snA3beXa0VHh9GaffbXPiXbre9t96NBUAmaKk1VIDX0dz040h8O4lzP4?=
- =?us-ascii?Q?/iTIt1TivgnC42giEMnBBTDLTIppw5/AUKedz5HvAAv/vODcq6hhJaSCPIxF?=
- =?us-ascii?Q?fOppnhu7wJW04tOpPa200Z4ur/kdQIi5GtL/McSG+eewKMMIea47hRiq2RJQ?=
- =?us-ascii?Q?AQH9FK7lktMOLBvjipM5XZtTzigUEg7ESei+814bm/4TBCFZZsBZeZUjZxtv?=
- =?us-ascii?Q?wmIqx1V9NgCYkiP8OH5wEcP98kv/Tu9Iay8umRNFxYCyzHWNJCM8ABOjtQzu?=
- =?us-ascii?Q?TG8Oc6MQKqAL8bANBhT4XaulOH1egtqBM4HCAUykVcmzPHPzW0zGESKPHY9F?=
- =?us-ascii?Q?/KqbDr5XvsornuFc8C2o/A2bD77FgeOMwJpzOFUz5CtFT6Cheu7pqB6W9guf?=
- =?us-ascii?Q?YumGsOIqpG/FSoC8sUtVaUBU2WKBqQskGbZOPGertRxRTxsRxHuljchsaWc+?=
- =?us-ascii?Q?CRiei3FyoMVH2imBQjpGLi9j6C9jPzSxFEJa/I7zh2iS13kf8R7AlajW6jQp?=
- =?us-ascii?Q?WWW4kuofaldef6G+q2kXJ1wN/FxoQCnH5iACaR8yFfRm6TGtNN/Vu2iE9ks0?=
- =?us-ascii?Q?TVQu9nNl73aHcAsen2TMI6Hzb4Xx37W1vS/s3zBrkN3Tercr7of2YlTtXqXK?=
- =?us-ascii?Q?MzIg1TwTMXh1Cyj4Kk5zKDrcrvO5E2K0BLU+4SSRPGEH2VM+O/Uw1YL/AP8Q?=
- =?us-ascii?Q?QuF9HXF7Ev4VT4RR4Eq+QisO2aACzf5sw3vf56vhMpstXv4s2OgutoKWnQIr?=
- =?us-ascii?Q?sYRuwPzPfdZPmXN1yYMhpJCVpZWjjV/PxfEuRMVQuAFGKXVDnY7eC7OZ/3WF?=
- =?us-ascii?Q?S+mUI+Rn1i3uPIPJDjMnpDL6g4qCCodV2Oe5RgpsSfk4zPp61ON/6A0FfUXf?=
- =?us-ascii?Q?SeG7AoXImzbzDPQYlhwjsWmXFmohUjjqLDzIP8HxYfioha+F7+w2X+6DF4sP?=
- =?us-ascii?Q?9jsS3Q1o44enT2mLP+W4kN2pQTCIMWMcLrwXEFO5O5QgBTRUFg956/g8qKpJ?=
- =?us-ascii?Q?/wkev31mnZ7Y6P0=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(36860700013)(1800799024); DIR:OUT;
+ bh=U2KWtfXRaB5oWPVoDmG1iK27RwOHPg6Nmu/Zb8QIuLk=;
+ b=tQTeJ0iEWEdUPrWfKgffSfnDz0Q+ew0XBVptWA0Bm387y1DI3sWvTEfGR9REhfBGB+lfIizEHauDCwj08vDsakT5bzXbxaquAPsx4URfuUWugT6oyBH52MDWvu6SjIhFHo0D01ScEuZr38fGIWRN696et+Xk2jDr8N6Vzi927iM=
+Received: from PH0PR12MB5417.namprd12.prod.outlook.com (2603:10b6:510:e1::10)
+ by PH7PR12MB7454.namprd12.prod.outlook.com (2603:10b6:510:20d::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8466.20; Tue, 25 Feb
+ 2025 01:05:23 +0000
+Received: from PH0PR12MB5417.namprd12.prod.outlook.com
+ ([fe80::de07:ec43:e847:2f50]) by PH0PR12MB5417.namprd12.prod.outlook.com
+ ([fe80::de07:ec43:e847:2f50%4]) with mapi id 15.20.8466.016; Tue, 25 Feb 2025
+ 01:05:23 +0000
+From: "Deng, Emily" <Emily.Deng@amd.com>
+To: "Deng, Emily" <Emily.Deng@amd.com>, "Kuehling, Felix"
+ <Felix.Kuehling@amd.com>
+CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH 3/3] drm/amdkfd: Skip update vmid in while update queue
+Thread-Topic: [PATCH 3/3] drm/amdkfd: Skip update vmid in while update queue
+Thread-Index: AQHbg2A83gtUpFkbEU2j4DQWnCY1sLNQ/U8QgAS5RlCAAYVP0A==
+Date: Tue, 25 Feb 2025 01:05:23 +0000
+Message-ID: <PH0PR12MB5417843C44D1FFBD8FC8DAD58FC32@PH0PR12MB5417.namprd12.prod.outlook.com>
+References: <20250220062515.2050499-1-Emily.Deng@amd.com>
+ <20250220062515.2050499-3-Emily.Deng@amd.com>
+ <PH0PR12MB5417321889D7A86F9EA6D6B18FC72@PH0PR12MB5417.namprd12.prod.outlook.com>
+ <PH0PR12MB54179719DAD3729506B19EC28FC02@PH0PR12MB5417.namprd12.prod.outlook.com>
+In-Reply-To: <PH0PR12MB54179719DAD3729506B19EC28FC02@PH0PR12MB5417.namprd12.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=20eea709-1c3c-4ab6-a31b-da2884a9d2e2;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution Only;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-02-21T01:43:39Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH0PR12MB5417:EE_|PH7PR12MB7454:EE_
+x-ms-office365-filtering-correlation-id: 0a6259a8-80a6-4767-8923-08dd55387ba5
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|1800799024|376014|38070700018|7053199007; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?/MBn4JbcqRh1SG8FC54mm0HC4QQNAqclhsAtNJjtrbwzThZIDtEoDKuiL6kx?=
+ =?us-ascii?Q?r2tbc+9j0Zp6xZXd9UzUto3IpME42xITDeRa8PNnx1CAK9xcWFA1wmd7TjuI?=
+ =?us-ascii?Q?DyB2Z3KiEJwnafbhoK/3RYeXxF+gY+ZbU5z/sOaImZENdEOzht3clo5t3RVK?=
+ =?us-ascii?Q?Bq/leDfV/SXhl6oZmpkiJMbyqPnUUvRAiRt+SHMVcgO3T6Z6sLsVq2UKFQvH?=
+ =?us-ascii?Q?EpWXSXugdrbrilA2PX3Crg3gFu/uXJkyRD0WXPiMf0DueomOZGAm62JsGE8h?=
+ =?us-ascii?Q?MnacBwJzYDs9Mll3QiQIxtMCKF3rk4WbqYUfIH1wpT83bZH6M5m4RDTwM4So?=
+ =?us-ascii?Q?1lpfgu16NTB/jNyMWajc/o9gBnhQ6GXgtxdhXRh3BFjx0URQXtubNP2rTkSR?=
+ =?us-ascii?Q?gZVibac237KP/nj4CsMjqPKi1NVv8ZkNYs+E4sMIAcCQ8YPIcN+VG8JO0Fmv?=
+ =?us-ascii?Q?ETVnFtd5fVTIfftnaFYXe/Vzvg3mwxIbDtjhumQuWoS5NyUqawl+EKw1iLoK?=
+ =?us-ascii?Q?KJm6GYaVbrCGq7EupQJy0lTEEggNliJLEcNP0oR6XyyfvUyA4Hv4h5Nv6YY5?=
+ =?us-ascii?Q?eiRlLYWApzOUQ99mAgoyLEamTCTrq0AMXRQC2gnJf5esLCd5NJERXL7sGOVK?=
+ =?us-ascii?Q?/hioWZ4PoacfhLAEih8N2GhYWOyj+yWXTATuJIXTheInCA19V9RhM6H6Ewh3?=
+ =?us-ascii?Q?da9a1iq1gOc7d5kCtprQh7/2Idy5KmsXyaMRBbhwNGVNa88KLZdCCXLElj9X?=
+ =?us-ascii?Q?DlTvgwv6rTKMoNAtM31syyxC8Zf2JCVB+CXh5iVXxyzFOO2sCrg8YuuGFLK8?=
+ =?us-ascii?Q?VXk4QeMkWtOQ2gOjck7Vs8UaYSzZYjefKqGvTIHu6Jgavuatj51k1xIygCfY?=
+ =?us-ascii?Q?cbAWOYqHZPtI9Qs22R2Z1Zno2oigjKS2nm2xPXU1TudhTf1z3Pw8P1E0HkeD?=
+ =?us-ascii?Q?Cxp+DDZfb9Bo4lYnquycy39gnT9B5gvWEG1H1cFzPYuuN2rMHMazEThzvED2?=
+ =?us-ascii?Q?obMUXbtS7g+Hd5wCLVzG97tFqCMFydk5HnIrjL1JYl1IRdPg2cTz/l36yYK1?=
+ =?us-ascii?Q?kHra1ZnMpRuqZa0U5ZQar8MM7tXmO6l4F9hgdEv93tYS9moFB+qv/YbqGCLy?=
+ =?us-ascii?Q?V3NkwMKUwJjVwxInY3P8QSy6mSjl87YI4tQt18VQsTvnEw+5qLjkJjeQe49l?=
+ =?us-ascii?Q?3ZIFNGlEoTPx9cZWPdi4wncdgZKomzdygcp9c0oNVp/7s0zwNR4BlM1upv8N?=
+ =?us-ascii?Q?KkH6pPAKvW15Q3yisVu0UANKxtVYfKV1HjQSwnbqI2jO58FO4XTg42/AyB7t?=
+ =?us-ascii?Q?urvjS7N7KnyhBg3QiCiAbCPBOj2r1WSAOqKj+kTwmjzBtfXDDuxd+ZL8js/n?=
+ =?us-ascii?Q?/jrzYAED74QJWu9L51xCbIwjhq/CM4XdtEqL8MNWrc4jHK80riPb8Ro/VDN6?=
+ =?us-ascii?Q?xg+CyHd8luz3johVhHETufJx8sjkbA3s?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH0PR12MB5417.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(38070700018)(7053199007); DIR:OUT;
  SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?+fJ+/soqJAOS+bsQ5lMfnHMIRvgveQDAFch8oD/Z+PD+jT/wmP/MCyeCvYqj?=
+ =?us-ascii?Q?qDr/ZwoBVDcG9k+jMyf5pOnHT8oZ2wioi0p98G+Pv7FFPNqtCmargGSsKQFT?=
+ =?us-ascii?Q?LNtEa9E7ielwCjivsWMxR4x8HQMM7iTs62DR3NULVxnnzwkJgENi0NJdoBBh?=
+ =?us-ascii?Q?uE/5sXP9oo/TpimbKyqpuHx0lSpwSV0m4YxglP9LGmOHNsGRjaI+mdcqpeSr?=
+ =?us-ascii?Q?ngr9K47TohhH79UMLv+bIDXX+2aqWmgRxz1T3ACRTnIjogEUn129fTcSX4/b?=
+ =?us-ascii?Q?eobBzIAi1B+jgFaELTCUeE90Dgx9qFc8OouDjOkDd6iXmrQhoLNWyzFhe03Q?=
+ =?us-ascii?Q?JlXwfgwVpy3m4BftTRGRd6bR4JxxxpF+FMxEcofs8WR9eddT1p2/Slp3m7Tw?=
+ =?us-ascii?Q?j0mFNyzjoJXuP0ej6iMJjJ57WN7vCDOMOZ56gwCZsSdRF9GDD9nXqiSEzEyc?=
+ =?us-ascii?Q?9/fXf19OOSv977QuqGS3LD8C9c7Nf/Lmj3rhFV/1tDfUv3KJcz5Uz0xMKCGS?=
+ =?us-ascii?Q?zQcoHIGxv7fPeS0RffNAhP8BZAW48NQwzj6Hfh2PpIxYc8SY0DHvJ/UaSVUN?=
+ =?us-ascii?Q?1VSULNGztrPE3IfV8+v8uuCdbVDL1t0T4bhwTAZyRd0RiJIeZjQ1fbMvpqtG?=
+ =?us-ascii?Q?VgkEIb7Vp9cqqL2rSjjFe87SIJV8rqAsViIQHUpnT3iU2Z1aPPZKYVJD96yw?=
+ =?us-ascii?Q?VGqpQSM3lQYqKRpLq9sBZqarFUhnsWg1a+Qhmlm4D1cPfIu683Z1Wd2EkTkM?=
+ =?us-ascii?Q?zFfEoKuT4t6w4C7n9DIIznjcIUCpnrtbFUUbPjui/9WwL/JMLHS84drr3l9v?=
+ =?us-ascii?Q?1fEbRQn2sPtAvoZx96ofkODavGRq0/dLKbLGOFi2qiFWRTG2IQKj5bYGxqo3?=
+ =?us-ascii?Q?6hbfkyP22a1Pda9DRp6Mu7yf03/ylxxwurvbUNkDJllFq5LgJ/jNE8kCRbY8?=
+ =?us-ascii?Q?xtX6bjX7C+JRFP2jKVom8WHuznGKuiXdXHEMPwJxTMPaMe/ibp95P+0tUbrN?=
+ =?us-ascii?Q?V4Erif32I0bvxZ+VgQWSXIul0j4LGKY5sZA2JPjBjmzHfOzLpbV8snTLDI79?=
+ =?us-ascii?Q?8chQRIDpY7gaX8t7mMgYs++5QZl2h7IBtQnQH3oT3OUO35z+v5LTqazCJnfg?=
+ =?us-ascii?Q?tJM0iFcZRZBKGNzyAHcNmdbKediJGryb1R38Wnri4FKSxSd3xPvtY1fNrqN4?=
+ =?us-ascii?Q?Nf8yJ6YffxmX80L/sIlMS/YdmfTTDn8BXCw/SUwkE+9D86u2yi2zygFIfOMl?=
+ =?us-ascii?Q?kYxMHRbmR6j9cfRwk2q3wipgSbyr2VQDqzvYOvi8DeaYMFsqzg0djRVJhd9k?=
+ =?us-ascii?Q?hJH4/XOKx4SsWHB/Nkb+PDh7WnAHak9Pc9+orpuLyGDuQ9E9pHN8lcnt0Gfu?=
+ =?us-ascii?Q?UKpTc5aHPw8TitxP3WeImzGJthOnaRpKg3wZVCnb5rx3JBpyXfKS67veSuBG?=
+ =?us-ascii?Q?ZW3N7mIlwP+Gns8hGPS2jceMxEz8K4GO4IpTL/e8y8WQh6daktfDqKHDLXRJ?=
+ =?us-ascii?Q?GMVSTr+s/gdh7IqPObSySnvS9bBFYFeulPfzKnPSDhcQGBSf6g/nDBNQ3tFK?=
+ =?us-ascii?Q?Gmr1z5Th51Lhos4bPVM=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Feb 2025 22:53:44.9821 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 009a42ea-8a47-42e7-7350-08dd552617a7
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF0000000A.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB9065
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5417.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0a6259a8-80a6-4767-8923-08dd55387ba5
+X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Feb 2025 01:05:23.7376 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: HxVNyPpcdlyLStJECFBhpNhxMIdBu6wyN6+hqNnNTGWOa0KDAjV5ndWMprRgqrcD
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7454
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,82 +158,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Xiaogang Chen <xiaogang.chen@amd.com>
+[AMD Official Use Only - AMD Internal Distribution Only]
 
-Since kfd uses pasid values from graphic driver now do not need use kfd pasid
-fucntions.
+Ping......
 
-Signed-off-by: Xiaogang Chen <xiaogang.chen@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/Makefile    |  1 -
- drivers/gpu/drm/amd/amdkfd/kfd_pasid.c | 46 --------------------------
- 2 files changed, 47 deletions(-)
- delete mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_pasid.c
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/Makefile b/drivers/gpu/drm/amd/amdkfd/Makefile
-index 0d3d8972240d..0ce08113c9f0 100644
---- a/drivers/gpu/drm/amd/amdkfd/Makefile
-+++ b/drivers/gpu/drm/amd/amdkfd/Makefile
-@@ -27,7 +27,6 @@ AMDKFD_FILES	:= $(AMDKFD_PATH)/kfd_module.o \
- 		$(AMDKFD_PATH)/kfd_device.o \
- 		$(AMDKFD_PATH)/kfd_chardev.o \
- 		$(AMDKFD_PATH)/kfd_topology.o \
--		$(AMDKFD_PATH)/kfd_pasid.o \
- 		$(AMDKFD_PATH)/kfd_doorbell.o \
- 		$(AMDKFD_PATH)/kfd_flat_memory.o \
- 		$(AMDKFD_PATH)/kfd_process.o \
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_pasid.c b/drivers/gpu/drm/amd/amdkfd/kfd_pasid.c
-deleted file mode 100644
-index 8896426e0556..000000000000
---- a/drivers/gpu/drm/amd/amdkfd/kfd_pasid.c
-+++ /dev/null
-@@ -1,46 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0 OR MIT
--/*
-- * Copyright 2014-2022 Advanced Micro Devices, Inc.
-- *
-- * Permission is hereby granted, free of charge, to any person obtaining a
-- * copy of this software and associated documentation files (the "Software"),
-- * to deal in the Software without restriction, including without limitation
-- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-- * and/or sell copies of the Software, and to permit persons to whom the
-- * Software is furnished to do so, subject to the following conditions:
-- *
-- * The above copyright notice and this permission notice shall be included in
-- * all copies or substantial portions of the Software.
-- *
-- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-- * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-- * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-- * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-- * OTHER DEALINGS IN THE SOFTWARE.
-- */
--
--#include <linux/types.h>
--#include "kfd_priv.h"
--#include "amdgpu_ids.h"
--
--static unsigned int pasid_bits = 16;
--static bool pasids_allocated; /* = false */
--
--u32 kfd_pasid_alloc(void)
--{
--	int r = amdgpu_pasid_alloc(pasid_bits);
--
--	if (r > 0) {
--		pasids_allocated = true;
--		return r;
--	}
--
--	return 0;
--}
--
--void kfd_pasid_free(u32 pasid)
--{
--	amdgpu_pasid_free(pasid);
--}
--- 
-2.25.1
+>-----Original Message-----
+>From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Deng, E=
+mily
+>Sent: Monday, February 24, 2025 9:53 AM
+>To: Kuehling, Felix <Felix.Kuehling@amd.com>
+>Cc: amd-gfx@lists.freedesktop.org
+>Subject: RE: [PATCH 3/3] drm/amdkfd: Skip update vmid in while update queu=
+e
+>
+>[AMD Official Use Only - AMD Internal Distribution Only]
+>
+>[AMD Official Use Only - AMD Internal Distribution Only]
+>
+>Hi Felix,
+>    Could you help review this? Thanks.
+>
+>Emily Deng
+>Best Wishes
+>
+>
+>
+>>-----Original Message-----
+>>From: Deng, Emily <Emily.Deng@amd.com>
+>>Sent: Friday, February 21, 2025 9:44 AM
+>>To: Deng, Emily <Emily.Deng@amd.com>; amd-gfx@lists.freedesktop.org
+>>Subject: RE: [PATCH 3/3] drm/amdkfd: Skip update vmid in while update
+>>queue
+>>
+>>[AMD Official Use Only - AMD Internal Distribution Only]
+>>
+>>Ping......
+>>
+>>Emily Deng
+>>Best Wishes
+>>
+>>
+>>
+>>>-----Original Message-----
+>>>From: Emily Deng <Emily.Deng@amd.com>
+>>>Sent: Thursday, February 20, 2025 2:25 PM
+>>>To: amd-gfx@lists.freedesktop.org
+>>>Cc: Deng, Emily <Emily.Deng@amd.com>
+>>>Subject: [PATCH 3/3] drm/amdkfd: Skip update vmid in while update
+>>>queue
+>>>
+>>>Avoid updating the vmid to 0 during the queue update process, as this
+>>>may trigger a wptr poll address page fault when a ring doorbell is
+>>>activated  in
+>>doorbell_mode=3D1.
+>>>
+>>>Signed-off-by: Emily Deng <Emily.Deng@amd.com>
+>>>---
+>>> drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c | 4 ++--
+>>> 1 file changed, 2 insertions(+), 2 deletions(-)
+>>>
+>>>diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+>>>b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+>>>index 6b38967d5631..3028c16264b2 100644
+>>>--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+>>>+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+>>>@@ -219,6 +219,8 @@ static void init_mqd(struct mqd_manager *mm, void
+>**mqd,
+>>>               m->cp_hqd_wg_state_offset =3D q->ctl_stack_size;
+>>>       }
+>>>
+>>>+      m->cp_hqd_vmid =3D q->vmid;
+>>>+
+>>>       *mqd =3D m;
+>>>       if (gart_addr)
+>>>               *gart_addr =3D addr;
+>>>@@ -288,8 +290,6 @@ static void update_mqd(struct mqd_manager *mm,
+>>>void *mqd,
+>>>
+>>>       m->cp_hqd_iq_timer =3D 0;
+>>>
+>>>-      m->cp_hqd_vmid =3D q->vmid;
+>>>-
+>>>       if (q->format =3D=3D KFD_QUEUE_FORMAT_AQL) {
+>>>               m->cp_hqd_pq_control |=3D
+>>>CP_HQD_PQ_CONTROL__NO_UPDATE_RPTR_MASK |
+>>>                               2 <<
+>>>CP_HQD_PQ_CONTROL__SLOT_BASED_WPTR__SHIFT |
+>>>--
+>>>2.36.1
+>>
 
