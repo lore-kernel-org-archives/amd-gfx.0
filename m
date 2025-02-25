@@ -4,63 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 291D2C021BC
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Feb 2025 15:09:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD813C021B2
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Feb 2025 15:10:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A731A10E70B;
-	Tue, 25 Feb 2025 15:09:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5766910E70D;
+	Tue, 25 Feb 2025 15:10:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jbWCjKin";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LAZd9KaY";
 	dkim-atps=neutral
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
- [209.85.216.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 82A9F10E70B
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Feb 2025 15:09:56 +0000 (UTC)
-Received: by mail-pj1-f43.google.com with SMTP id
- 98e67ed59e1d1-2fc288da33eso1571694a91.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Feb 2025 07:09:56 -0800 (PST)
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
+ [209.85.216.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 284FD10E70D
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Feb 2025 15:10:21 +0000 (UTC)
+Received: by mail-pj1-f46.google.com with SMTP id
+ 98e67ed59e1d1-2fc95e20e72so1524118a91.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Feb 2025 07:10:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1740496196; x=1741100996; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1740496221; x=1741101021; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=/iwXGTpMHlUZZBEImGZ7sBLi9DqwZqPwF3ZMTijSuf0=;
- b=jbWCjKinaq7URUsuhT08atDqQeDXTkcGXXp3pE9vqc9o3v/AWvSbJk1/IVaKobEVZC
- DaSj10GxGpSC4Rd3iz6E+GW1mKBxxfwbzGNAi6uNFwhuIxWRqPQ3sb+28lJ7bf6L5xod
- TC1hP5w9iKLXzl9GSCiOwuewb4IkP+6J51KQdUyCjEXz6MQoBvWeHQvNC4dWcTzLrJ7E
- NnwSrXfMolO+JThHroivWKoc/ojfbeZTSNrMISdTQYBHbhe0nJZHDPMm9jRdkYheyPCU
- QN0zGSg29ME8+mmjIL8vWUU2xux/qF9dEGVkzh3CjT5zodjLQ1G/SSJpbEnIefxM2wWH
- TjQQ==
+ bh=G2Go0IdV6QW1Ce+v2HJ6x0iNDkR70FRKFeAv3O/K2DU=;
+ b=LAZd9KaYJ1yZ1uQwVZa86ABJqJtjD3fcLQ9txKKXTQarH6vyACRhmH6vbi0ZOm9V+D
+ +Rw9Ytu1YNj7CDuQw85+ODvAlOboUpzrOQJLECVMK8B6VwPj741eU0f+FWWi7p7PYOzd
+ RKAZAI9raBb6w/IVtzdtPepNvnwLo9uKv4rrTStfLFE9r5JmgPUKP5PovUK/Vv8GO2db
+ WE3WT/miyPJrSfkweMWDKzd5p6pnzpbIT8q0lM4cJOkiJ8TpudgLbp3ujV0/IiAtO0SN
+ h8GCXQoqGImeOlGNAeDgbIMa7xaF6OU1vzGS4Nxr5tCr2uvOzC5A37zd2hWRTavJJh55
+ 8MKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1740496196; x=1741100996;
+ d=1e100.net; s=20230601; t=1740496221; x=1741101021;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=/iwXGTpMHlUZZBEImGZ7sBLi9DqwZqPwF3ZMTijSuf0=;
- b=w6hLLg4DfSbdx2rruCQ6CJgpKrnpDGq41PGUdYjQgkxH434g2tMPkDA1HT9LZlluzd
- OdcJu+Go/hZK4Fq+CzQ0tfp5bwwFbH3GF3qkIZ9QFCYomSHyG0XNvutJTvu2OCOGGPYG
- UuNUCirXwY583lUTUBBZPE9nzL6RsoMbC5g+8dX019M4+SV4zUACRQaZZzHDqejBKih/
- hp+mv/ToyBQ07riDpYDuYn8POg225ljdJ/STb+2nVzXPTLCJoaVkBNarRlZ9cUVD2aDx
- oNIYJ8noOeXSNNoadYMdTER8vhILjTd2vvK8GQG0vEhdomu3Ok15ne1lKFz+48IBB2hl
- NzvA==
-X-Gm-Message-State: AOJu0YwinV45qGN6Qt0MfBpKFjOcvayWesin/7QYiUG6oYIHDNs2JVac
- gsE8t+lVJLqSCwGlDj8DghQ8hK+3+Q29Yx4QN4c3C7hQae0/Pmuoh6pJOEN5w8PeCHNBWWfRfvO
- wNWsvfBxnuBUhVpF8Army2B+109v8dg==
-X-Gm-Gg: ASbGncvyYPrKvQKaXu25Quo0Y0eWhrI4e7BffkCqo6oqHeT2UkU3nLZjRVJZzSBoPdC
- LSjXST4ml6B78UMF00FjTdEsavBPggWtWuTd52hsvji+Vm0IQ0kGIBdPTiJzlo9FHKv4JRb/WM6
- 8dTwaG7T8=
-X-Google-Smtp-Source: AGHT+IGKX7UXJ1OzgPXnSaQMBbjk+wdmlJEIfc7lODugJqVrrOpRlh2nBNh7yBu7Y1qIKPzOmkcaWZ33H+bcjJbnY5k=
-X-Received: by 2002:a17:90b:4a07:b0:2f4:447b:f095 with SMTP id
- 98e67ed59e1d1-2fce7b14cc8mr11123141a91.4.1740496196077; Tue, 25 Feb 2025
- 07:09:56 -0800 (PST)
+ bh=G2Go0IdV6QW1Ce+v2HJ6x0iNDkR70FRKFeAv3O/K2DU=;
+ b=VCDUjVZsZs7rrVB4ZC5IzHilMq5nHe0TAxPpYeaYpww/1PV+hYGnwd74x2LAZUPw4C
+ Y0GT0J1KBAMcEmtrTzTI1YKBTsW5kKcA7fEq+bMwgJinq2KPOYmVyLTyHsjSebCOf2E0
+ LxmtTgEDJ7kJz9JBLQ4b1Dv8+GROx4bQSVEGHmPIVuOxUo7U1jwRKIJivdNlYr6FPcUg
+ F+QpyQyv+xZCB/HITMVF+t0HGheNNQC8oz9Etsh/5G7OKLOExGF4wSlVNoYFrtm3MLGp
+ HE3YwREHmPGUCB2B++VcAMwQWOSIpJy5a2KYdusUANgY72hIE+XdC2eXBeSQKR9uJ2do
+ 8FOw==
+X-Gm-Message-State: AOJu0YxotEKlqu0YVRdM8lsuH5NLifzd6IH6D+KJPY11sMYYlsut4JZC
+ XKSLxShuErueyv5aQ8keEpL+NGgPT3d8ZTmOJQRsaJIkXoG8H6e5etn2yrt18huDA9AtGDYSp9F
+ F3sluhlvpRHpdCvK+S8ojWH4XjPRsqg==
+X-Gm-Gg: ASbGncsRzoGwa1yT4sokcLbJvc409kYdMBk79Lgu8bUm60nIVRoi5C/BtokcgZDSQeF
+ sZ2apilNfV4wTL8EbJCDuqH7CdjtOc2d52gRjbNCG0NfxJHGhzXCRTFJ16StvfggCOSJUilPSDE
+ J33/oqUPw=
+X-Google-Smtp-Source: AGHT+IGM3Bj/6n39Egx+xmE4OzV/hatNsKD14rAWWcG0V21XBeZT16uORi/TyE76VcHWJy6DBFkT3rXL89s6SIXXcbU=
+X-Received: by 2002:a17:90b:3b4a:b0:2ee:ab27:f28b with SMTP id
+ 98e67ed59e1d1-2fce7b23dbbmr10564612a91.7.1740496220605; Tue, 25 Feb 2025
+ 07:10:20 -0800 (PST)
 MIME-Version: 1.0
-References: <20250221145032.3440904-1-alexander.deucher@amd.com>
-In-Reply-To: <20250221145032.3440904-1-alexander.deucher@amd.com>
+References: <20250221144933.3440420-1-alexander.deucher@amd.com>
+ <20250221144933.3440420-2-alexander.deucher@amd.com>
+In-Reply-To: <20250221144933.3440420-2-alexander.deucher@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 25 Feb 2025 10:09:44 -0500
-X-Gm-Features: AWEUYZkycmJrjc70yrtipHQ0_QBqmNlexyxYkiHD-e-iIs30QJEyZMPkuWlloE8
-Message-ID: <CADnq5_OnZWaCmNYQPAOGT_UVT0GyQxj8OwD07dr_giO8rSyB+Q@mail.gmail.com>
-Subject: Re: [PATCH 1/2] drm/amdgpu/userq: handle runtime pm
+Date: Tue, 25 Feb 2025 10:10:08 -0500
+X-Gm-Features: AWEUYZmK2Dcv9pRhA7gxktlqP8LFfsoKRdzIbj_Qzwy-HU3apAZmzByHIv0D-sM
+Message-ID: <CADnq5_OXuxHMXfFaex3MD8WF8kx-yGDZ9eGR6u3VjHBTmDO9vA@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amdgpu/mes11: drop
+ amdgpu_mes_suspend()/amdgpu_mes_resume() calls
 To: Alex Deucher <alexander.deucher@amd.com>
 Cc: amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
@@ -79,78 +81,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Ping?
+Ping on this series?
 
-On Fri, Feb 21, 2025 at 9:51=E2=80=AFAM Alex Deucher <alexander.deucher@amd=
+On Fri, Feb 21, 2025 at 9:59=E2=80=AFAM Alex Deucher <alexander.deucher@amd=
 .com> wrote:
 >
-> Take a reference when we create a queue and drop it
-> when we destroy the queue.  We need to keep the device
-> active while user queues are active.
+> They are noops on GFX11 for most firmware versions. KFD already
+> handles its own queues and they should already be unmapped at this
+> point so even if this runs, it's not doing anything.
 >
 > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/mes_userqueue.c | 14 +++++++++++++-
->  1 file changed, 13 insertions(+), 1 deletion(-)
+>  drivers/gpu/drm/amd/amdgpu/mes_v11_0.c | 14 +-------------
+>  1 file changed, 1 insertion(+), 13 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/gpu/drm=
-/amd/amdgpu/mes_userqueue.c
-> index 9a6a5553bbc3f..3a71d01b54c92 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> @@ -26,6 +26,7 @@
->  #include "mes_userqueue.h"
->  #include "amdgpu_userq_fence.h"
->  #include "v11_structs.h"
-> +#include <linux/pm_runtime.h>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd=
+/amdgpu/mes_v11_0.c
+> index e8aa28184bdd0..a569d09a1a748 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+> @@ -1685,24 +1685,12 @@ static int mes_v11_0_hw_fini(struct amdgpu_ip_blo=
+ck *ip_block)
 >
->  #define AMDGPU_USERQ_PROC_CTX_SZ PAGE_SIZE
->  #define AMDGPU_USERQ_GANG_CTX_SZ PAGE_SIZE
-> @@ -287,6 +288,10 @@ static int mes_userq_mqd_create(struct amdgpu_userq_=
-mgr *uq_mgr,
->
->         queue->userq_prop =3D userq_props;
->
-> +       r =3D pm_runtime_get_sync(adev_to_drm(adev)->dev);
-> +       if (r)
-> +               goto free_mqd;
-> +
->         r =3D mqd_hw_default->init_mqd(adev, (void *)queue->mqd.cpu_ptr, =
-userq_props);
->         if (r) {
->                 DRM_ERROR("Failed to initialize MQD for userqueue\n");
-> @@ -321,6 +326,8 @@ static int mes_userq_mqd_create(struct amdgpu_userq_m=
-gr *uq_mgr,
->
->  free_mqd:
->         amdgpu_userqueue_destroy_object(uq_mgr, &queue->mqd);
-> +       pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
-> +       pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
->
->  free_props:
->         kfree(userq_props);
-> @@ -330,14 +337,19 @@ static int mes_userq_mqd_create(struct amdgpu_userq=
-_mgr *uq_mgr,
->
->  static void
->  mes_userq_mqd_destroy(struct amdgpu_userq_mgr *uq_mgr,
-> -                           struct amdgpu_usermode_queue *queue)
-> +                     struct amdgpu_usermode_queue *queue)
+>  static int mes_v11_0_suspend(struct amdgpu_ip_block *ip_block)
 >  {
-> +       struct amdgpu_device *adev =3D uq_mgr->adev;
-> +
->         if (queue->queue_active)
->                 mes_userq_unmap(uq_mgr, queue);
->
->         amdgpu_userqueue_destroy_object(uq_mgr, &queue->fw_obj);
->         kfree(queue->userq_prop);
->         amdgpu_userqueue_destroy_object(uq_mgr, &queue->mqd);
-> +
-> +       pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
-> +       pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+> -       int r;
+> -
+> -       r =3D amdgpu_mes_suspend(ip_block->adev);
+> -       if (r)
+> -               return r;
+> -
+>         return mes_v11_0_hw_fini(ip_block);
 >  }
 >
->  static int mes_userq_suspend(struct amdgpu_userq_mgr *uq_mgr,
+>  static int mes_v11_0_resume(struct amdgpu_ip_block *ip_block)
+>  {
+> -       int r;
+> -
+> -       r =3D mes_v11_0_hw_init(ip_block);
+> -       if (r)
+> -               return r;
+> -
+> -       return amdgpu_mes_resume(ip_block->adev);
+> +       return mes_v11_0_hw_init(ip_block);
+>  }
+>
+>  static int mes_v11_0_early_init(struct amdgpu_ip_block *ip_block)
 > --
 > 2.48.1
 >
