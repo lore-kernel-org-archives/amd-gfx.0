@@ -4,165 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF6EAC021B8
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Feb 2025 09:12:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CE10C021B8
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Feb 2025 10:10:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F72710E88B;
-	Wed, 26 Feb 2025 09:12:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2C6210E160;
+	Wed, 26 Feb 2025 10:10:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="fgs1w33m";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="cRFlNNLJ";
 	dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2051.outbound.protection.outlook.com [40.107.244.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C63110E88B;
- Wed, 26 Feb 2025 09:12:38 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pJvRaTgOliZSPimtc9Lhrnev+nf7l2SpmRZXCsjxkQhGYNzcbgV6YTqObhsMGqehl/YAt+eYt8OGmBBrjQ55gimEFMSnXfzETLk11cRiouiNmSROjDAF3Fzw5A0XB4z04/kMtEUH9G8zQuk8Uk69vy4VSrHvhswhJBaCca/eeATzYkok+SFEcrp7MvG+/Hoa/mqrmUpoOtJvvpqp7N8MtozOMI+3WdyxCgGnXexi5wSmLaf/2tdn5M+s3R1RkoEeMi9ezPItYNULuQzb/OaNpuvis6nIHHogGvCZeEl3Y4M6DQrqUkDjmPVs5SreLpYFKHeDD032DjlRL9zhTfGJDQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IWMUMiJZDGHSPOeSrPadcedROlj8Aa8gmiUOMO8kKdc=;
- b=XDlcnTM8E4wGlYZHolxdiRlBpF4oSO6AD/zC7++94EmycR2697WJtdmPTq8lMqwDc1CapyJI8n/ZAZBRyXYC6Q45aPIzF19pX9XtriOcvGuV7v9xRXYYZ6wb2RaKDzsvqFuK4KJw9Q0usbH2f2dgwZZqpLT+mia6NF/x6KP9vc1tghsZwkVzI3n3yUIstmWdzgO0iq1HxcHM8bbSlS4RSVeKWbrLPXKKorNpJ+kR4MalSXbNyVrORMhkuRKSn5/tHjYv1xrJwbPrjdwnJe6c9oMcRa2f5Pp9xrzxKs2yjzHv059aJ1cwW3e9jf/XT2FaVTm5NWDHWtFwwZM+d7WOJw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IWMUMiJZDGHSPOeSrPadcedROlj8Aa8gmiUOMO8kKdc=;
- b=fgs1w33mGbZnHSbWToqADQjzIWgW4M3YSP++gxAioaeZnH1VLDEeyesvZKkL5N14TWDLTRrMItQAc80lRWRaAT1flH3ThJI0MCgkuo3PQawz756nWKbuAoBc+skSJnDJIiHIH0eIEorlqVpDaVbiNfnpgl18AXe/j6qgWMGFbDY=
-Received: from PH7PR12MB8796.namprd12.prod.outlook.com (2603:10b6:510:272::22)
- by IA1PR12MB8333.namprd12.prod.outlook.com (2603:10b6:208:3fe::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8489.18; Wed, 26 Feb
- 2025 09:12:34 +0000
-Received: from PH7PR12MB8796.namprd12.prod.outlook.com
- ([fe80::910f:c354:ea0d:1fd]) by PH7PR12MB8796.namprd12.prod.outlook.com
- ([fe80::910f:c354:ea0d:1fd%6]) with mapi id 15.20.8466.016; Wed, 26 Feb 2025
- 09:12:34 +0000
-From: "Zhou1, Tao" <Tao.Zhou1@amd.com>
-To: Colin Ian King <colin.i.king@gmail.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-CC: "kernel-janitors@vger.kernel.org" <kernel-janitors@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH][next] drm/amdgpu: Fix spelling mistake "initiailize" ->
- "initialize" and grammar
-Thread-Topic: [PATCH][next] drm/amdgpu: Fix spelling mistake "initiailize" ->
- "initialize" and grammar
-Thread-Index: AQHbiCyQ/BEG+Nl3W0asNGAixAM17bNZTMAw
-Date: Wed, 26 Feb 2025 09:12:34 +0000
-Message-ID: <PH7PR12MB87968F09CAC17487AD48AC0DB0C22@PH7PR12MB8796.namprd12.prod.outlook.com>
-References: <20250226085733.230185-1-colin.i.king@gmail.com>
-In-Reply-To: <20250226085733.230185-1-colin.i.king@gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ActionId=8185bcc0-359d-4304-a64a-b2aeaa565c80;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=0;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=true;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution Only;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2025-02-26T09:12:25Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Tag=10, 3, 0, 1;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH7PR12MB8796:EE_|IA1PR12MB8333:EE_
-x-ms-office365-filtering-correlation-id: aee71f55-2d3f-4b1f-f274-08dd5645b4f0
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0; ARA:13230040|376014|366016|1800799024|38070700018;
-x-microsoft-antispam-message-info: =?utf-8?B?VUo4Tk1ablNoOHF1SnZuWUZBbytpanZ0aWcrazkvMUF3WlR2QlpFRUphY1Ja?=
- =?utf-8?B?Q2tMWENCNTA3UGFWTkt4cjdsMGdkTjl4L2ozdmxmTDVyUXVzQWM1UGFWcENj?=
- =?utf-8?B?Q1lYZk9vUCt4S1h2bkwwblduVjdWeFNYSVRRTDk1dmpRYVZoOHl0YitKd3N0?=
- =?utf-8?B?RUkrL0NrT1BYdXNqQlFEa1hIM2h1SUpPT3Z4L3lDalNHOWxocGV5REFWelJ2?=
- =?utf-8?B?L3B0bjVnakYzZHpBMW5FV21SclBUUmRrY25oeCtUWW9yUVZkMmNNNG9hRnlW?=
- =?utf-8?B?VkdVZnpERVRHTHNnRHRLcXU5NkZ4TkdhL3lMK09KaGpOblBnb2Jkd05XMUsy?=
- =?utf-8?B?U1MvV1R3dHBQTU14cjl1Nml0WTk0OGVvamQ3Sk5HYjIxV1FZSmNBM1BrMzgv?=
- =?utf-8?B?bVphbGdYSkdTT0x3WkFGSXRXVEtrMG9aQlhHdmhnWW41eS9DTnB5eVZycWF1?=
- =?utf-8?B?c2FSVHdrRllvMTk4cjRucXVNWVlxRjhkd0F1QmxKU1ZxV2JtYUV2bjhScjJy?=
- =?utf-8?B?UEFHTEhzTXBValRSSjRoVUZRRDluNDVkbTlQMHR0L1pJSU5uWFNVQzc1RVJV?=
- =?utf-8?B?N0ltcUViREwyUFVFRTkzaU5odVRFVTM5Y29WTFdDZ1lwcmRzbEs1UGxGRUpL?=
- =?utf-8?B?eVlHUTYzM1pZWTZ4TU5YcTlhdW5RQjY0dVpqUThLNmlITEUxaTduMGtSR0dX?=
- =?utf-8?B?SG93c3VUK2ovODRjVmFpcEQ1TndKVlQ3MkpRNWlmelhtUnJxWms5ZlptZlE4?=
- =?utf-8?B?TFREalR0dnIyUi9SUzlkR3RKYTdGUHBOS2NFbzRvcHhXR3JBOTFaM2N3cVAy?=
- =?utf-8?B?QVh3R1p1YXUwNHl6SGNBNlM0YSt6UU4yWk01eWdYd3dJRSsxNDFNd2lMLzlq?=
- =?utf-8?B?eEhVekl0TEs1UEVZYkVQaFNlMTNlOFhoYjdLSFpHcXJLYjliREFNNWFEaFdv?=
- =?utf-8?B?N09YMlVSa29yMHQxWTZXRjB6bVNiZmRsN3lnb2xUcXVZSjhDTEhwQU1VckRS?=
- =?utf-8?B?SDJza2NIbytqMkNvaVZBRW1RcTdTZC9JaFdOYUJxZ00wQWVSMzNKb29CRStC?=
- =?utf-8?B?R1B4a0ZjTUlOMGd6eFBZZFdZSVkrc0Zzd0dQUWFqVU5VRCtDSTYxNmF5Z096?=
- =?utf-8?B?b0dKdmFhNHJndmM3bjd1YTYydWN3MjBjUk94L0tISnJMZk42bno1amFKWExY?=
- =?utf-8?B?VVptdzJWL2xoVFhDeUFyZk1tdGJLOHpsT2RxSTNPdjlhYU1PRnc3cUVyOHZi?=
- =?utf-8?B?dlUzRE4yVjJSQzhkWk8velEwalloKzhaSGkzaE54cFNHWEUzMzFzVHAxb0wz?=
- =?utf-8?B?blQ4NTFQR1F4bkQ3aHVmTGlEd01BTk96Q2lHTlFPR3NFaDErclUzSTc5RkZY?=
- =?utf-8?B?Q1F2Rnl1UHFzN1NjckN3SHFsVElKRGt4UG9wZEYvbndNMVc1Y2pibDBjQjR4?=
- =?utf-8?B?azJ0MDY2OG9QS0RvQmdtWDNJTWpZSFFtdUNtZDcrb2Z1aWlwcVc4b2tRa05U?=
- =?utf-8?B?bklaclk4a0YrZUREdHZtclQxQW9jK3k1WjdHeGlCTDR6YXVDdUxDK3liRllI?=
- =?utf-8?B?N21jaGhsZHhoM08yNkFIWkU1SGR0R2wvTi9HZk1Wa0g5ZTUxNy9pWUdZMXlL?=
- =?utf-8?B?eWxXL3ZyQmZNekZuUHdNZFBPTDh5c3BWMmtnUHh5eTRFRzcreWpTS2NkZU93?=
- =?utf-8?B?RmtObkFONUp0bk9OLytrSUhaNDV1a1JFTWpRZlAyM053RHBPY2ZQNXpJNGNk?=
- =?utf-8?B?bDhTbjhFeEh6Rkt0UU02WkM2V3J5aXpBRDZmZTY3aVRkWWFzcnpWdjloN09x?=
- =?utf-8?B?dHFFMnRmejNpR051S2V2MHJPNWxRWVhPMVBLenhnMHVLZEhpL2FGNE1QMm8w?=
- =?utf-8?B?TytYUVhHTURMRFJZakVXNnA0QmRBSUZ2RlFTQ05rZVluRGJQQkxYSjUrSHg4?=
- =?utf-8?Q?voZYqpjV3Ef5zcYxp5eYlRBoUwm6UsCR?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB8796.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(38070700018); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?SHNoVDBMOWRMQWdqZ1hlV3J0U0hBSW9lVE9tQ3dTUENkWjJnSm1nMTJzU1JC?=
- =?utf-8?B?WldQMFljcFpCMlFCcDBNMVFSNW5vK2tjdWhzRDhKMW02YzIzTURoS0JrY203?=
- =?utf-8?B?Qk8wcE8zRUpmdHMxSFU5KzBpeWJkMEQ1cWFFSWRzZTZUWjRMdkNkVnZDUTVo?=
- =?utf-8?B?YmQvN3VvMEdPSmovTnZkMnpvUHNhVUl0TE50aCtQRk40VEg0cDB3NnRsU0Nu?=
- =?utf-8?B?aktLZVN0RmtzSnJvdzRwMmNEaHFwMEJOSGw1bzVwRW00bE5CbFEvN1ZyeXQy?=
- =?utf-8?B?MGx3UkRnMmZpaGZkb3Z4VFdmWXFRMmZkeGFkQW9yOWlCWHI5anNhZnQ3cTV4?=
- =?utf-8?B?RHZmNXc2ckoya0JUTGJVKzZpMlFicWtYeDlFZVhCVDZIZEQxbnc1djJIODN4?=
- =?utf-8?B?c1ptdmVTZm1RVlVPTzB5K053ZHFqdkYxS1Z3NXVOVm8rK2lUK0lOZEVmNmwz?=
- =?utf-8?B?RzBMOE5BRFBGbSthbEhKRUtnTTVLWFlldkY5aENCU2hnOVg5M3RiazhWbnh4?=
- =?utf-8?B?RGp1dGd4VXJJZ0JEYjh4b2N5WnJtQ2tkWEJybGd0djkrTk9qQ0pKa0dOTzZr?=
- =?utf-8?B?cDBCSnYraVg3VW5HZGtmcFpCaFlSTGQxMVpHS2luZ2JJVjZXN21wcHo0M2I0?=
- =?utf-8?B?L0MvR0VRS3RTaGNWekFJV2Y2REt5YXVDNlYyZUtQdGlDS0REcUVVdmVVc083?=
- =?utf-8?B?VnFYVzFiU20zeE1qRUdCNWtYanVXUWFTOUxwZGlHRzVUL3Q3THBwVXFtMi9T?=
- =?utf-8?B?ZVVWb2tBcVI2RGJDSCs5Y1R4bE1Id0JCVHViVEduWWJnWktCR1JxQkNubVJz?=
- =?utf-8?B?L2Q2NHN1dEhLVkdNZVpzeDNnQUJ6cjNqdVZ4WVRPU2cwOVAvVXk4WjF6UzFm?=
- =?utf-8?B?VDd1d0VKOUN0TG5PU2VuVjVmT0JKOUNnOEZzZHVNMUFsYkZkSVl5OUtPTnlI?=
- =?utf-8?B?empjR0FlbEtTQ0pBZ3luOFJnSU81YkJLN2lTNW5JVVRCSHhaQy9GdURrWjh5?=
- =?utf-8?B?TDF5Tkh2S2drcC8rSCtKZUZndFpHR1pYMmhEL3JlUEFCK1FBVjd6cktzS1Jy?=
- =?utf-8?B?d0o3VXpyTU5GN0FUM2NnNExxTlBONzB2czFpdkdTV0hETTZXbWVaNUZRcHFW?=
- =?utf-8?B?bHJDTnJndXRYdFRESG55L2JnSk9tZ3JkSk8zM0RoY0VJbXA4Qy83NTFKU01Q?=
- =?utf-8?B?L3drT3BNNEgvZUc1cVZzeTBOZGR5bkxTWXZRakxPTnNFRXVCaGVMTFBhRDVH?=
- =?utf-8?B?VjdzbE9pZThMc3JtSDFvcXdEZmt6c3owV0syRW5LSXFxazRsejJvUEIrRGh1?=
- =?utf-8?B?QjlKeGJWSVd3UGVFem1xb2pYWGdhc2Z1TkNxOE1JbzFETDJwRS9VYnZaSlpT?=
- =?utf-8?B?eWJlK1hSaWsrblBEWjF3TzlVOG9wa3BTTXg1RUlmbmphSlI3SXJaQ2F1UlIr?=
- =?utf-8?B?MlkyclFOOGxaMGtZQ29PRVIvK2dyS3BFcmlzek1SM05JcThCM0h2QlpCbXlW?=
- =?utf-8?B?NFZVbkd2UEU5NEFmMCs2ZlQ1TXBUcmphNGwxb1luRlJUS205aktoODFPdzM5?=
- =?utf-8?B?c29LbTZ5VTR6L3NKMmlzYVdvbzh2SVZlbU8vbThzVFNBNDlja3RvSHA4a2NH?=
- =?utf-8?B?M0YxVlR3NjBjOUJ6NlhoM2ozRDRNM2pZbm1sWTJxOVM3eitsSWRWQjdUS0V0?=
- =?utf-8?B?T0NtQjJ5WGNNWGdFOUhGYTlyTUNBQ0o5dFJMNjBQNlNTU0R5ZU94SGZ0ZXlt?=
- =?utf-8?B?eUpBRmtCRmpHOVRSZ2psK01xS29PSlFvdEdGK1pBa0ZiaWVTZ1RZL3h1Zy9O?=
- =?utf-8?B?eHpRKzhrTXllUlp5MURubkdKaGFSVDROY0R6NXdPSmVYZ09kVmZONDdyWGoz?=
- =?utf-8?B?andIYXg3R3IxWkUxWmpjd0dTNHNBQ2RyK1RvOUpkbGw0UVhlSXY1dDVYejF4?=
- =?utf-8?B?WFNrQXpvODY5OE9uY3hUekpacGZ6WHkzNUo1MVNvZjRRa2dUQVdoemRGQWFL?=
- =?utf-8?B?aVdCd0NoZ3ZUYUUxL2RrcVE5eHdodm04aWZGQnBnVlkySnoxMGxOemk4RXlt?=
- =?utf-8?B?bHIrcGhZQzhTNk0xUTBLdUpGbHZiVDljWU9ORjBqLzFPWDJPUGtOb09WY2Z4?=
- =?utf-8?Q?1HXM=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E91B810E178
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Feb 2025 10:10:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
+ Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=LIxQnr84phuNswYXzs2ydATbVM4SsfnYeBVx04isBfI=; b=cRFlNNLJBhkrEU2Jlmlo51CdOV
+ H0Nqyq2QwRhaT4HAulJFcN3Cgvg7CU64mIv6H1xVdMjhkxUie+5eEi64/1vg+dvceNuH6IfFh7F93
+ aVgdVuUx6BoY/0NMxobtLJTeSAwrNdKqxsl8IelStVN5NPyBbar3szhDAw2wMpE21cMat0mce/bk+
+ RQZKz5nV4IDB3pZtZOeN2GH264ri+l91fcVYdgPwtYL+PRUPpDzLwo59iUOwzI3lFWyz5rRr9szoW
+ NhB6iK0BmeMUl6tA5TpO7WU4Nwf72oB1Fu3GbppVsm5K2PIE9v+dHj6hCUDTJKC1tqDHakdCB/0J2
+ cIfadsag==;
+Received: from [90.241.98.187] (helo=localhost)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1tnEMn-000tOS-B1; Wed, 26 Feb 2025 11:10:19 +0100
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: kernel-dev@igalia.com,
+	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Subject: [PATCH 3/3] drm/amdgpu: Shrink struct amdgpu_job further
+Date: Wed, 26 Feb 2025 10:10:15 +0000
+Message-ID: <20250226101015.27117-4-tvrtko.ursulin@igalia.com>
+X-Mailer: git-send-email 2.48.0
+In-Reply-To: <20250226101015.27117-1-tvrtko.ursulin@igalia.com>
+References: <20250226101015.27117-1-tvrtko.ursulin@igalia.com>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB8796.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: aee71f55-2d3f-4b1f-f274-08dd5645b4f0
-X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Feb 2025 09:12:34.4267 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: rAG3bxE6W/pXQf4wSpvcnOfSpH0ugQzRWbwvWwfUdQsC9kVCTY/drxME7iSCmjGa
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8333
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -177,31 +58,422 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEFNRCBJbnRlcm5hbCBEaXN0cmlidXRpb24gT25seV0N
-Cg0KUmV2aWV3ZWQtYnk6IFRhbyBaaG91IDx0YW8uemhvdTFAYW1kLmNvbT4NCg0KPiAtLS0tLU9y
-aWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBDb2xpbiBJYW4gS2luZyA8Y29saW4uaS5raW5n
-QGdtYWlsLmNvbT4NCj4gU2VudDogV2VkbmVzZGF5LCBGZWJydWFyeSAyNiwgMjAyNSA0OjU4IFBN
-DQo+IFRvOiBEZXVjaGVyLCBBbGV4YW5kZXIgPEFsZXhhbmRlci5EZXVjaGVyQGFtZC5jb20+OyBL
-b2VuaWcsIENocmlzdGlhbg0KPiA8Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tPjsgRGF2aWQgQWly
-bGllIDxhaXJsaWVkQGdtYWlsLmNvbT47IFNpbW9uYSBWZXR0ZXINCj4gPHNpbW9uYUBmZndsbC5j
-aD47IFpob3UxLCBUYW8gPFRhby5aaG91MUBhbWQuY29tPjsgYW1kLQ0KPiBnZnhAbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnOyBkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IENjOiBrZXJu
-ZWwtamFuaXRvcnNAdmdlci5rZXJuZWwub3JnOyBsaW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3Jn
-DQo+IFN1YmplY3Q6IFtQQVRDSF1bbmV4dF0gZHJtL2FtZGdwdTogRml4IHNwZWxsaW5nIG1pc3Rh
-a2UgImluaXRpYWlsaXplIiAtPiAiaW5pdGlhbGl6ZSINCj4gYW5kIGdyYW1tYXINCj4NCj4gVGhl
-cmUgaXMgYSBzcGVsbGluZyBtaXN0YWtlIGFuZCBhIGdyYW1tYXRpY2FsIGVycm9yIGluIGEgZGV2
-X2VyciBtZXNzYWdlLiBGaXggaXQuDQo+DQo+IFNpZ25lZC1vZmYtYnk6IENvbGluIElhbiBLaW5n
-IDxjb2xpbi5pLmtpbmdAZ21haWwuY29tPg0KPiAtLS0NCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9jcGVyLmMgfCAyICstDQo+ICAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRp
-b24oKyksIDEgZGVsZXRpb24oLSkNCj4NCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV9jcGVyLmMNCj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfY3Blci5jDQo+IGluZGV4IDViNmJkYWJiODAxMi4uN2I5Yzk4YmU1YjFhIDEwMDY0NA0K
-PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3Blci5jDQo+ICsrKyBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcGVyLmMNCj4gQEAgLTU0NSw3ICs1
-NDUsNyBAQCBpbnQgYW1kZ3B1X2NwZXJfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikN
-Cj4NCj4gICAgICAgciA9IGFtZGdwdV9jcGVyX3JpbmdfaW5pdChhZGV2KTsNCj4gICAgICAgaWYg
-KHIpIHsNCj4gLSAgICAgICAgICAgICBkZXZfZXJyKGFkZXYtPmRldiwgImZhaWwgdG8gaW5pdGlh
-aWxpemUgY3BlciByaW5nLCByID0gJWRcbiIsIHIpOw0KPiArICAgICAgICAgICAgIGRldl9lcnIo
-YWRldi0+ZGV2LCAiZmFpbGVkIHRvIGluaXRpYWxpemUgY3BlciByaW5nLCByID0gJWRcbiIsIHIp
-Ow0KPiAgICAgICAgICAgICAgIHJldHVybiByOw0KPiAgICAgICB9DQo+DQo+IC0tDQo+IDIuNDcu
-Mg0KDQo=
+By moving the booleans to flags and shrinking some fields we can stop
+spilling job allocation into the 1k SLAB even with two appended indirect
+buffers.
+
+End result for struct amdgpu_job:
+
+        /* size: 448, cachelines: 7, members: 24 */
+        /* forced alignments: 1 */
+
+So appending two IB buffers, which seems to be a typical case when
+running a game such as Cyberpunk 2077, makes every submission perfectly
+fit into the 512 byte SLAB with no wastage.
+
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c      | 19 ++++++-----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c     |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c     |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c      |  7 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c     | 29 +++++++++++------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c     |  6 +++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.h     | 36 +++++++++++----------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h   |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c     |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c      | 17 +++++-----
+ 11 files changed, 72 insertions(+), 52 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index 5cc5f59e3018..181296ea9df7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -108,13 +108,15 @@ static int amdgpu_cs_p1_ib(struct amdgpu_cs_parser *p,
+ 			   struct drm_amdgpu_cs_chunk_ib *chunk_ib,
+ 			   unsigned int *num_ibs)
+ {
++	struct amdgpu_job *job;
+ 	int r;
+ 
+ 	r = amdgpu_cs_job_idx(p, chunk_ib);
+ 	if (r < 0)
+ 		return r;
+ 
+-	if (num_ibs[r] >= amdgpu_ring_max_ibs(chunk_ib->ip_type))
++	if (num_ibs[r] >= amdgpu_ring_max_ibs(chunk_ib->ip_type) ||
++	    WARN_ON_ONCE(overflows_type(num_ibs[r], typeof(job->num_ibs))))
+ 		return -EINVAL;
+ 
+ 	++(num_ibs[r]);
+@@ -296,7 +298,8 @@ static int amdgpu_cs_pass1(struct amdgpu_cs_parser *p,
+ 				       num_ibs[i], &p->jobs[i]);
+ 		if (ret)
+ 			goto free_all_kdata;
+-		p->jobs[i]->enforce_isolation = p->adev->enforce_isolation[fpriv->xcp_id];
++		if (p->adev->enforce_isolation[fpriv->xcp_id])
++			p->jobs[i]->flags |= AMDGPU_ENFORCE_ISOLATION;
+ 	}
+ 	p->gang_leader = p->jobs[p->gang_leader_idx];
+ 
+@@ -367,7 +370,7 @@ static int amdgpu_cs_p2_ib(struct amdgpu_cs_parser *p,
+ 	}
+ 
+ 	if (chunk_ib->flags & AMDGPU_IB_FLAG_PREAMBLE)
+-		job->preamble_status |= AMDGPU_PREAMBLE_IB_PRESENT;
++		job->flags |= AMDGPU_PREAMBLE_IB_PRESENT;
+ 
+ 	r =  amdgpu_ib_get(p->adev, vm, ring->funcs->parse_cs ?
+ 			   chunk_ib->ib_bytes : 0,
+@@ -583,8 +586,8 @@ static int amdgpu_cs_p2_shadow(struct amdgpu_cs_parser *p,
+ 		p->jobs[i]->shadow_va = shadow->shadow_va;
+ 		p->jobs[i]->csa_va = shadow->csa_va;
+ 		p->jobs[i]->gds_va = shadow->gds_va;
+-		p->jobs[i]->init_shadow =
+-			shadow->flags & AMDGPU_CS_CHUNK_CP_GFX_SHADOW_FLAGS_INIT_SHADOW;
++		if (shadow->flags & AMDGPU_CS_CHUNK_CP_GFX_SHADOW_FLAGS_INIT_SHADOW)
++			p->jobs[i]->flags |= AMDGPU_INIT_SHADOW;
+ 	}
+ 
+ 	return 0;
+@@ -1004,7 +1007,7 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
+ 
+ static void trace_amdgpu_cs_ibs(struct amdgpu_cs_parser *p)
+ {
+-	int i, j;
++	unsigned int i, j;
+ 
+ 	if (!trace_amdgpu_cs_enabled())
+ 		return;
+@@ -1352,9 +1355,9 @@ static int amdgpu_cs_submit(struct amdgpu_cs_parser *p,
+ 				   p->fence);
+ 	amdgpu_cs_post_dependencies(p);
+ 
+-	if ((leader->preamble_status & AMDGPU_PREAMBLE_IB_PRESENT) &&
++	if ((leader->flags & AMDGPU_PREAMBLE_IB_PRESENT) &&
+ 	    !p->ctx->preamble_presented) {
+-		leader->preamble_status |= AMDGPU_PREAMBLE_IB_PRESENT_FIRST;
++		leader->flags |= AMDGPU_PREAMBLE_IB_PRESENT_FIRST;
+ 		p->ctx->preamble_presented = true;
+ 	}
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+index 49ca8c814455..447345cb94db 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+@@ -1904,7 +1904,7 @@ static void amdgpu_ib_preempt_mark_partial_job(struct amdgpu_ring *ring)
+ 		job = to_amdgpu_job(s_job);
+ 		if (preempted && (&job->hw_fence) == fence)
+ 			/* mark the job as preempted */
+-			job->preemption_status |= AMDGPU_IB_PREEMPTED;
++			job->flags |= AMDGPU_IB_PREEMPTED;
+ 	}
+ 	spin_unlock(&sched->job_list_lock);
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+index 784b03abb3a4..f224547b6863 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+@@ -1430,7 +1430,7 @@ static int amdgpu_gfx_run_cleaner_shader_job(struct amdgpu_ring *ring)
+ 	if (r)
+ 		goto err;
+ 
+-	job->enforce_isolation = true;
++	job->flags |= AMDGPU_ENFORCE_ISOLATION;
+ 
+ 	ib = &job->ibs[0];
+ 	for (i = 0; i <= ring->funcs->align_mask; ++i)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+index 1c19a65e6553..56058f18e0ab 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+@@ -658,7 +658,7 @@ void amdgpu_gmc_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+ 		goto error_alloc;
+ 
+ 	job->vm_pd_addr = amdgpu_gmc_pd_addr(adev->gart.bo);
+-	job->vm_needs_flush = true;
++	job->flags |= AMDGPU_VM_NEEDS_FLUSH;
+ 	job->ibs->ptr[job->ibs->length_dw++] = ring->funcs->nop;
+ 	amdgpu_ring_pad_ib(ring, &job->ibs[0]);
+ 	fence = amdgpu_job_submit(job);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+index 2ea98ec60220..c6d11311dcd4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+@@ -153,7 +153,7 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned int num_ibs,
+ 		shadow_va = job->shadow_va;
+ 		csa_va = job->csa_va;
+ 		gds_va = job->gds_va;
+-		init_shadow = job->init_shadow;
++		init_shadow = job->flags & AMDGPU_INIT_SHADOW;
+ 	} else {
+ 		vm = NULL;
+ 		fence_ctx = 0;
+@@ -235,8 +235,9 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned int num_ibs,
+ 		status |= AMDGPU_HAVE_CTX_SWITCH;
+ 
+ 	if (job && ring->funcs->emit_cntxcntl) {
+-		status |= job->preamble_status;
+-		status |= job->preemption_status;
++		status |= job->flags & (AMDGPU_PREAMBLE_IB_PRESENT |
++					AMDGPU_PREAMBLE_IB_PRESENT_FIRST |
++					AMDGPU_IB_PREEMPTED);
+ 		amdgpu_ring_emit_cntxcntl(ring, status);
+ 	}
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+index 8e712a11aba5..b9e18a806b5f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+@@ -276,8 +276,8 @@ static int amdgpu_vmid_grab_reserved(struct amdgpu_vm *vm,
+ 	struct amdgpu_device *adev = ring->adev;
+ 	unsigned vmhub = ring->vm_hub;
+ 	struct amdgpu_vmid_mgr *id_mgr = &adev->vm_manager.id_mgr[vmhub];
++	uint32_t flags = vm->use_cpu_for_update ? AMDGPU_VM_NEEDS_FLUSH : 0;
+ 	uint64_t fence_context = adev->fence_context + ring->idx;
+-	bool needs_flush = vm->use_cpu_for_update;
+ 	uint64_t updates = amdgpu_vm_tlb_seq(vm);
+ 	int r;
+ 
+@@ -320,7 +320,7 @@ static int amdgpu_vmid_grab_reserved(struct amdgpu_vm *vm,
+ 				return 0;
+ 			}
+ 		}
+-		needs_flush = true;
++		flags = AMDGPU_VM_NEEDS_FLUSH;
+ 	}
+ 
+ 	/* Good we can use this VMID. Remember this submission as
+@@ -330,8 +330,7 @@ static int amdgpu_vmid_grab_reserved(struct amdgpu_vm *vm,
+ 	if (r)
+ 		return r;
+ 
+-	job->vm_needs_flush = needs_flush;
+-	job->spm_update_needed = true;
++	job->flags = AMDGPU_SPM_UPDATE_NEEDED | flags;
+ 	return 0;
+ }
+ 
+@@ -357,7 +356,8 @@ static int amdgpu_vmid_grab_used(struct amdgpu_vm *vm,
+ 	uint64_t updates = amdgpu_vm_tlb_seq(vm);
+ 	int r;
+ 
+-	job->vm_needs_flush = vm->use_cpu_for_update;
++	if (vm->use_cpu_for_update)
++		job->flags |= AMDGPU_VM_NEEDS_FLUSH;
+ 
+ 	/* Check if we can use a VMID already assigned to this VM */
+ 	list_for_each_entry_reverse((*id), &id_mgr->ids_lru, list) {
+@@ -389,7 +389,8 @@ static int amdgpu_vmid_grab_used(struct amdgpu_vm *vm,
+ 		if (r)
+ 			return r;
+ 
+-		job->vm_needs_flush |= needs_flush;
++		if (needs_flush)
++			job->flags |= AMDGPU_VM_NEEDS_FLUSH;
+ 		return 0;
+ 	}
+ 
+@@ -415,6 +416,7 @@ int amdgpu_vmid_grab(struct amdgpu_vm *vm, struct amdgpu_ring *ring,
+ 	struct amdgpu_vmid_mgr *id_mgr = &adev->vm_manager.id_mgr[vmhub];
+ 	struct amdgpu_vmid *idle = NULL;
+ 	struct amdgpu_vmid *id = NULL;
++	unsigned int vmid;
+ 	int r = 0;
+ 
+ 	mutex_lock(&id_mgr->lock);
+@@ -441,19 +443,26 @@ int amdgpu_vmid_grab(struct amdgpu_vm *vm, struct amdgpu_ring *ring,
+ 			if (r)
+ 				goto error;
+ 
+-			job->vm_needs_flush = true;
++			job->flags |= AMDGPU_VM_NEEDS_FLUSH;
+ 		}
+ 
+ 		list_move_tail(&id->list, &id_mgr->ids_lru);
+ 	}
+ 
+-	job->gds_switch_needed = amdgpu_vmid_gds_switch_needed(id, job);
+-	if (job->vm_needs_flush) {
++	if (amdgpu_vmid_gds_switch_needed(id, job))
++		job->flags |= AMDGPU_GDS_SWITCH_NEEDED;
++	if (job->flags & AMDGPU_VM_NEEDS_FLUSH) {
+ 		id->flushed_updates = amdgpu_vm_tlb_seq(vm);
+ 		dma_fence_put(id->last_flush);
+ 		id->last_flush = NULL;
+ 	}
+-	job->vmid = id - id_mgr->ids;
++
++	vmid = id - id_mgr->ids;
++	if (WARN_ON_ONCE(overflows_type(vmid, typeof(job->vmid)))) {
++		r = -ERANGE;
++		goto error;
++	}
++	job->vmid = vmid;
+ 	job->pasid = vm->pasid;
+ 
+ 	id->gds_base = job->gds_base;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+index 1899c601c95c..dca54a47dfff 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+@@ -231,13 +231,17 @@ int amdgpu_job_alloc_with_ib(struct amdgpu_device *adev,
+ void amdgpu_job_set_resources(struct amdgpu_job *job, struct amdgpu_bo *gds,
+ 			      struct amdgpu_bo *gws, struct amdgpu_bo *oa)
+ {
++	uint32_t size;
++
+ 	if (gds) {
+ 		job->gds_base = amdgpu_bo_gpu_offset(gds) >> PAGE_SHIFT;
+ 		job->gds_size = amdgpu_bo_size(gds) >> PAGE_SHIFT;
+ 	}
+ 	if (gws) {
+ 		job->gws_base = amdgpu_bo_gpu_offset(gws) >> PAGE_SHIFT;
+-		job->gws_size = amdgpu_bo_size(gws) >> PAGE_SHIFT;
++		size = amdgpu_bo_size(gws) >> PAGE_SHIFT;
++		WARN_ON_ONCE(overflows_type(size, job->gws_size));
++		job->gws_size = size;
+ 	}
+ 	if (oa) {
+ 		job->oa_base = amdgpu_bo_gpu_offset(oa) >> PAGE_SHIFT;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+index 7e5fe3d73a06..edb18df42816 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+@@ -28,13 +28,18 @@
+ #include "amdgpu_ring.h"
+ 
+ /* bit set means command submit involves a preamble IB */
+-#define AMDGPU_PREAMBLE_IB_PRESENT          (1 << 0)
++#define AMDGPU_PREAMBLE_IB_PRESENT		(1 << 0)
+ /* bit set means preamble IB is first presented in belonging context */
+-#define AMDGPU_PREAMBLE_IB_PRESENT_FIRST    (1 << 1)
++#define AMDGPU_PREAMBLE_IB_PRESENT_FIRST	(1 << 1)
+ /* bit set means context switch occured */
+-#define AMDGPU_HAVE_CTX_SWITCH              (1 << 2)
++#define AMDGPU_HAVE_CTX_SWITCH			(1 << 2)
+ /* bit set means IB is preempted */
+-#define AMDGPU_IB_PREEMPTED                 (1 << 3)
++#define AMDGPU_IB_PREEMPTED			(1 << 3)
++#define AMDGPU_VM_NEEDS_FLUSH			(1 << 4)
++#define AMDGPU_GDS_SWITCH_NEEDED		(1 << 5)
++#define AMDGPU_SPM_UPDATE_NEEDED		(1 << 6)
++#define AMDGPU_ENFORCE_ISOLATION		(1 << 7)
++#define AMDGPU_INIT_SHADOW			(1 << 8)
+ 
+ #define to_amdgpu_job(sched_job)		\
+ 		container_of((sched_job), struct amdgpu_job, base)
+@@ -50,21 +55,18 @@ struct amdgpu_job {
+ 	struct amdgpu_sync	explicit_sync;
+ 	struct dma_fence	hw_fence;
+ 	struct dma_fence	*gang_submit;
+-	bool                    vm_needs_flush;
+-	bool			gds_switch_needed;
+-	bool			spm_update_needed;
+-	bool			enforce_isolation;
+-	bool			init_shadow;
+-	unsigned		vmid;
+-	unsigned		pasid;
+-	uint32_t		num_ibs;
+-	uint32_t		preamble_status;
+-	uint32_t                preemption_status;
++
++	uint32_t		pasid;
++	uint16_t		flags;
++	uint16_t		job_run_counter; /* >= 1 means a resubmit job */
++	uint8_t			vmid;
++	uint8_t			num_ibs;
++
++	uint16_t		gws_size; /* in pages so enough and prevents holes */
++	uint32_t		gws_base;
++
+ 	uint32_t		gds_base, gds_size;
+-	uint32_t		gws_base, gws_size;
+ 	uint32_t		oa_base, oa_size;
+-	/* job_run_counter >= 1 means a resubmit job */
+-	uint32_t		job_run_counter;
+ 	uint64_t		vm_pd_addr;
+ 	uint64_t		generation;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
+index 383fce40d4dd..913e142564bd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
+@@ -235,7 +235,7 @@ TRACE_EVENT(amdgpu_vm_grab_id,
+ 			   __entry->vmid = job->vmid;
+ 			   __entry->vm_hub = ring->vm_hub,
+ 			   __entry->pd_addr = job->vm_pd_addr;
+-			   __entry->needs_flush = job->vm_needs_flush;
++			   __entry->needs_flush = job->flags & AMDGPU_VM_NEEDS_FLUSH;
+ 			   ),
+ 	    TP_printk("pasid=%d, ring=%s, id=%u, hub=%u, pd_addr=%010Lx needs_flush=%u",
+ 		      __entry->pasid, __get_str(ring), __entry->vmid,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 01ae2f88dec8..1f2d252802a7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -2163,7 +2163,7 @@ static int amdgpu_ttm_prepare_job(struct amdgpu_device *adev,
+ 		(*job)->vm_pd_addr = amdgpu_gmc_pd_addr(adev->gmc.pdb0_bo ?
+ 							adev->gmc.pdb0_bo :
+ 							adev->gart.bo);
+-		(*job)->vm_needs_flush = true;
++		(*job)->flags |= AMDGPU_VM_NEEDS_FLUSH;
+ 	}
+ 	if (!resv)
+ 		return 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 5c07777d3239..04aa1c75cbc5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -726,10 +726,11 @@ bool amdgpu_vm_need_pipeline_sync(struct amdgpu_ring *ring,
+ 	if (job->vmid == 0)
+ 		return false;
+ 
+-	if (job->vm_needs_flush || ring->has_compute_vm_bug)
++	if ((job->flags & AMDGPU_VM_NEEDS_FLUSH) || ring->has_compute_vm_bug)
+ 		return true;
+ 
+-	if (ring->funcs->emit_gds_switch && job->gds_switch_needed)
++	if (ring->funcs->emit_gds_switch &&
++	    (job->flags & AMDGPU_GDS_SWITCH_NEEDED))
+ 		return true;
+ 
+ 	if (amdgpu_vmid_had_gpu_reset(adev, &id_mgr->ids[job->vmid]))
+@@ -756,11 +757,11 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
+ 	struct amdgpu_device *adev = ring->adev;
+ 	unsigned vmhub = ring->vm_hub;
+ 	struct amdgpu_vmid_mgr *id_mgr = &adev->vm_manager.id_mgr[vmhub];
+-	struct amdgpu_vmid *id = &id_mgr->ids[job->vmid];
+-	bool spm_update_needed = job->spm_update_needed;
+ 	bool gds_switch_needed = ring->funcs->emit_gds_switch &&
+-		job->gds_switch_needed;
+-	bool vm_flush_needed = job->vm_needs_flush;
++				 (job->flags & AMDGPU_GDS_SWITCH_NEEDED);
++	bool spm_update_needed = job->flags & AMDGPU_SPM_UPDATE_NEEDED;
++	bool vm_flush_needed = job->flags & AMDGPU_VM_NEEDS_FLUSH;
++	struct amdgpu_vmid *id = &id_mgr->ids[job->vmid];
+ 	struct dma_fence *fence = NULL;
+ 	bool pasid_mapping_needed = false;
+ 	unsigned int patch;
+@@ -786,7 +787,7 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
+ 		ring->funcs->emit_wreg;
+ 
+ 	if (!vm_flush_needed && !gds_switch_needed && !need_pipe_sync &&
+-	    !(job->enforce_isolation && !job->vmid))
++	    !((job->flags & AMDGPU_ENFORCE_ISOLATION) && !job->vmid))
+ 		return 0;
+ 
+ 	amdgpu_ring_ib_begin(ring);
+@@ -799,7 +800,7 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
+ 
+ 	if (adev->gfx.enable_cleaner_shader &&
+ 	    ring->funcs->emit_cleaner_shader &&
+-	    job->enforce_isolation)
++	    (job->flags & AMDGPU_ENFORCE_ISOLATION))
+ 		ring->funcs->emit_cleaner_shader(ring);
+ 
+ 	if (vm_flush_needed) {
+-- 
+2.48.0
+
