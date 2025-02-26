@@ -4,78 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF0D2C18E7C
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Feb 2025 13:55:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2652FC021B8
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Feb 2025 13:55:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C78D10E2E5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E984410E33D;
 	Wed, 26 Feb 2025 13:55:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Wt0Njbp9";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="SLaeXKrr";
 	dkim-atps=neutral
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2DE1010E106;
- Wed, 26 Feb 2025 08:58:09 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-4394a0c65fcso65471495e9.1; 
- Wed, 26 Feb 2025 00:58:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1740560287; x=1741165087; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=suF/teP+DWSFsSfArZYg1iXgnKXCO2rOI3avcmOnDss=;
- b=Wt0Njbp9i4BRtZIkVJMJ/T0iNGL7Mf537905GefSOb1DJau00oNOiAy6J6Uj129lYZ
- pzawPHh9GXWK+TrFrxZotD7IQQi+QanapFmCllAZ7LbfQ1GIa8aeKMgCT3W8ETuBkB+h
- 1HgtRQnIbPFdLgbK0wi+XLxnJ/JY72+yFmC04BEXukY84PeDXf+/R8Wf1Pmj9j6R/2iZ
- EAoeB4L2q3WFquERKxIfWbBKpK6ordeEoyx90kvwAImWPgZK4+Af+mo+Q6abD08TYh2C
- pJYyUw2ZxbCxOpm5x8Q75Bcaj0MOUQ6T/R8Em1UJ5az7yeidFtPaClvumdryYxJTDWow
- d3iA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1740560287; x=1741165087;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=suF/teP+DWSFsSfArZYg1iXgnKXCO2rOI3avcmOnDss=;
- b=uMVjkHrjTu2WGtrHRAsAxHIQByCPG8IjqNCBWvqIrHy5jhLARER8xc1UQi/oMjltof
- xzqyNI7hqQL1qgcQqu+lX1ODRsEoVm6/egCXVe93jt1idNplTPxBfPFrfL4372LEv0fB
- OdUHRaQdqvmGil+PDnbaY9r3b7GOf6B4okt08KmcDfLMs2Q8wEXHxPx8PonfRXLvpBgz
- 47mpGsOtqJH37ougR8nllLHAot+chKTHu4hk1OUs0xsejX71SaKMgapbEuZj3JNQLrv7
- JT8tieTizklizzdtVrIlNO25AVfyIck+zeyEvCzI0i7geHYJvCbMkezUIkX4ZtbHvHX3
- /mEw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUQ6jvt67ZE9vlMmi3JsaoXsB5LBtZ9vQJBthhEzQE5VaEc6Vl+FFKDSoOGHsrsr7JJkFxQ3mgj@lists.freedesktop.org,
- AJvYcCX93PbsVCmM8XWRe1r+NjklbjiT5wmgDUjiHhhhAnjNWfT9ilRKjkfsO/0SIRNvFIz3capM6GPfFpMq@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyxGulmKqBcEn4PA8AaaeeW7BwjTl7AWsr6pY8NNm3LYo1R28wP
- N1MoO0owijWIzOoURiZ4kTyUuMcvVpdVUSkIAHDKu9+z8OmSZmEL
-X-Gm-Gg: ASbGnctezTqwaMhJeYCJEzKiq2Fs2ieECIPlI4m4RlJyiNwDSLiPkMokmIJOC68yACT
- 6/wsWJNL8O+ow8oAVM8/niNqclzzLiIcCCZi7AQDD8rFXDJKr5ecKkMENtwSCnCzyhVuFFsDH0e
- QZRSQJ2nu4zxF0PRS+1Je2sy2unRSPzk3N5SUpt+eEbPNfT659TUEhLDVwQzji6HNv6bBi1vr7H
- cxQUY0iO07q1Pac5xJ3m3T8nK7XUw9OLBg6dW2kd5RwIuaZqsY6NR3Fu+meDMNEfyqWGR7g5IYU
- ff46WFaEd4MCRfMhkEec3FfMEhU=
-X-Google-Smtp-Source: AGHT+IGJvO/TujG4cMElAMuyj6EXh6AHZPvNU3l8WJpviyiwkZC1zPbmDpzi6DzGvrVuk5qBkteAPw==
-X-Received: by 2002:a05:600c:190c:b0:439:3d5c:8c19 with SMTP id
- 5b1f17b1804b1-43ab0f6440emr51946695e9.24.1740560287453; 
- Wed, 26 Feb 2025 00:58:07 -0800 (PST)
-Received: from localhost ([194.120.133.72])
- by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-43aba532ba6sm13636695e9.12.2025.02.26.00.58.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 26 Feb 2025 00:58:07 -0800 (PST)
-From: Colin Ian King <colin.i.king@gmail.com>
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 528E010E90C;
+ Wed, 26 Feb 2025 13:11:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=VWcU7yMm2YN0QLOsb6yyKZ0nl0TCOlQKOQKYheBKv+M=; b=SLaeXKrrmUNKF6OXzyS6A8UFzR
+ 57i5ricWO1V10tV7/8HRnQaAV9XbXno14qYY7MOBPn9Dp5+EPXGHhMdEppwUuCxjOyv/SE+IPCIoW
+ Amj1KwDWNZKgc6VmmR/pZ6Yt3uvH4RSZ3FKXR4T6/scGWLVJoyChg05zD/iqyO9K8NQbuvC86mCtt
+ ciwoKfXdbuF6KggNd3y8YuQ2mTIkmUztMcdBEH8kWfgpjbNE4UuZnb4Aah4bx2u5alJMn3gmRPee6
+ i7pvDbZYKPK7LJ161YGwLKX9Jidwxr6bkEiQ89wyHyZt+iTzrgqClRLmjVCZEGk3/EHRWui8WzbPb
+ 6WNZKmtQ==;
+Received: from [191.204.194.148] (helo=localhost.localdomain)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1tnHC1-000yOs-3B; Wed, 26 Feb 2025 14:11:23 +0100
+From: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Tao Zhou <tao.zhou1@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: kernel-janitors@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH][next] drm/amdgpu: Fix spelling mistake "initiailize" ->
- "initialize" and grammar
-Date: Wed, 26 Feb 2025 08:57:33 +0000
-Message-ID: <20250226085733.230185-1-colin.i.king@gmail.com>
-X-Mailer: git-send-email 2.47.2
+ =?UTF-8?q?=27Christian=20K=C3=B6nig=27?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, kernel-dev@igalia.com, siqueira@igalia.com
+Cc: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>
+Subject: [PATCH] drm/amdgpu: Create a debug option to disable ring reset
+Date: Wed, 26 Feb 2025 10:11:18 -0300
+Message-ID: <20250226131118.1012223-1-andrealmeid@igalia.com>
+X-Mailer: git-send-email 2.48.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 26 Feb 2025 13:55:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -92,27 +60,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-There is a spelling mistake and a grammatical error in a dev_err
-message. Fix it.
+Prior to the addition of ring reset, the debug option
+`debug_disable_soft_recovery` could be used to force a full device
+reset. Now that we have ring reset, create a debug option to disable
+them in amdgpu, forcing the driver to go with the full device
+reset path again when both options are combined.
 
-Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
+This option is useful for testing and debugging purposes when one wants
+to test the full reset from userspace.
+
+Signed-off-by: André Almeida <andrealmeid@igalia.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h     | 1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 6 ++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 5 +++--
+ 3 files changed, 10 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c
-index 5b6bdabb8012..7b9c98be5b1a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c
-@@ -545,7 +545,7 @@ int amdgpu_cper_init(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index 69895fccb474..75dc4b962d64 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -1186,6 +1186,7 @@ struct amdgpu_device {
+ 	bool                            debug_use_vram_fw_buf;
+ 	bool                            debug_enable_ras_aca;
+ 	bool                            debug_exp_resets;
++	bool                            debug_disable_gpu_ring_reset;
  
- 	r = amdgpu_cper_ring_init(adev);
- 	if (r) {
--		dev_err(adev->dev, "fail to initiailize cper ring, r = %d\n", r);
-+		dev_err(adev->dev, "failed to initialize cper ring, r = %d\n", r);
- 		return r;
+ 	bool				enforce_isolation[MAX_XCP];
+ 	/* Added this mutex for cleaner shader isolation between GFX and compute processes */
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 95a05b03f799..edeb12c816e8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -136,6 +136,7 @@ enum AMDGPU_DEBUG_MASK {
+ 	AMDGPU_DEBUG_USE_VRAM_FW_BUF = BIT(3),
+ 	AMDGPU_DEBUG_ENABLE_RAS_ACA = BIT(4),
+ 	AMDGPU_DEBUG_ENABLE_EXP_RESETS = BIT(5),
++	AMDGPU_DEBUG_DISABLE_GPU_RING_RESET = BIT(6),
+ };
+ 
+ unsigned int amdgpu_vram_limit = UINT_MAX;
+@@ -2221,6 +2222,11 @@ static void amdgpu_init_debug_options(struct amdgpu_device *adev)
+ 		pr_info("debug: enable experimental reset features\n");
+ 		adev->debug_exp_resets = true;
  	}
++
++	if (amdgpu_debug_mask & AMDGPU_DEBUG_DISABLE_GPU_RING_RESET) {
++		pr_info("debug: ring reset disabled\n");
++		adev->debug_disable_gpu_ring_reset = true;
++	}
+ }
  
+ static unsigned long amdgpu_fix_asic_type(struct pci_dev *pdev, unsigned long flags)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+index 7b79b0f39ba1..8ab23182127e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+@@ -137,8 +137,9 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
+ 	dma_fence_set_error(&s_job->s_fence->finished, -ETIME);
+ 
+ 	/* attempt a per ring reset */
+-	if (amdgpu_gpu_recovery &&
+-	    ring->funcs->reset) {
++	if (unlikely(adev->debug_disable_gpu_ring_reset)) {
++		dev_err(adev->dev, "Ring reset disabled by debug mask\n");
++	} else if (amdgpu_gpu_recovery && ring->funcs->reset) {
+ 		dev_err(adev->dev, "Starting %s ring reset\n", s_job->sched->name);
+ 		/* stop the scheduler, but don't mess with the
+ 		 * bad job yet because if ring reset fails
 -- 
-2.47.2
+2.48.1
 
