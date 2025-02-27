@@ -4,71 +4,144 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84510C19F32
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Feb 2025 05:23:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A2A4C19F2E
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Feb 2025 10:15:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D0C110EA43;
-	Thu, 27 Feb 2025 05:23:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDC7310EA8F;
+	Thu, 27 Feb 2025 10:15:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FuM2qvud";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="J/i5Az+d";
 	dkim-atps=neutral
-Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com
- [209.85.222.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 686BE10EA32
- for <amd-gfx@lists.freedesktop.org>; Thu, 27 Feb 2025 05:23:01 +0000 (UTC)
-Received: by mail-qk1-f171.google.com with SMTP id
- af79cd13be357-7c0b24cc566so47073385a.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Feb 2025 21:23:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1740633780; x=1741238580; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=qGOHr5ULhOBPV9Alz2A4RAFeCam54LXS5UMalk5Xx88=;
- b=FuM2qvudN45MoCGUaGJ4Wgy1bCggOBpEIUGVxYGDO9LsgE1zdvsVRx2A9fAZ7xgU9d
- oWtTrVsbXm/fpwu/EmRvkc9ErDQgDdQdybyKleqXA/tsNc8hl3obL6H5F6b2H4aOLfAv
- d5xCRlkQn9nA1Uw58BznwZJkR6KhAtpT9kxE39c1ls2Lup9myc3y5IBdzN/b2HGfG61Z
- chowlYDT+/k3/XhVzxPHBqQKaaraYLVNsU0A4fuyTBhRk0kcRYZPZE9rc33z5m9gJ+1g
- T15ENydt7dDVWnR2MDReKYwwGZT8fuBQnikgBvRz6l+7HvWNHtaYbCGKWfDcrfdsXwIL
- BYjg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1740633780; x=1741238580;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=qGOHr5ULhOBPV9Alz2A4RAFeCam54LXS5UMalk5Xx88=;
- b=Dc/P8fGqN/AgUF0oEPECw2RbodM4ix+SWU1fk92wZkC1ZqVi6RtwPX44wZTBJNgdcj
- wrxgHPVVKioQTWMsxACHgyDN7koZJvlGG347FqC/Wv2rSY1uHJtCEzZfkekLmOjtCLoI
- E8RkXl4Ldik0Yyuw9rAJwnHQXfZfcuN9igSIeXPCDQ280IJlBUzkA3artvUWnm8SD8a3
- Sk6khsWNwM9qoRwlafvweFOzOv0jZr1eBq9Qg6NtHNReDYDWsf/M9DQeX6Lnn/9QqrNV
- 6j4VPyqw7QtbOcwwKNnI/IqEp+KSSOHpl/vD6+qKAdCQz/eS0VsEy5DCyioRlIU2o3se
- jwaQ==
-X-Gm-Message-State: AOJu0Yxl8e3HIE89+Vp1Rk5DsIRY4aAIRC7fhqneVKRT9qQayWAvJ5wg
- QXpRa8FEVktGZo+GIThFoqdVNdEY09wDCnEORtZfJr21AiNWue5txdDRcg==
-X-Gm-Gg: ASbGncu1VFH1IN77KMhKASorV2v+dFLOmltKnV7Gpf9cQ5kkU14m/Vt5x5L9OZtwq98
- hDsvfn2A3pe7SGWVluAnTqY5c/EV8nUbMa0ylUDj82ulwrXuN3xgYRu+MBn0FCH1kLIehbH74+t
- LCzYV0UBqP0LCRyg/tHJMTOpTV9n+PvAPXqx5OrPxZdIq6vDEr7e0PTok1MYMlo/rJrWa3EcjBj
- 5ARMNFqUI75Qo206aEEALFyJu3r0z8HU/+Gm6lElptuHA6nLomPC7Lpe/uv+tx7Fj6F+p3mHTYF
- XWGN5dysE13eYxdksuk6Sluv/0LwzXCeM31s0orTYQWOf2km
-X-Google-Smtp-Source: AGHT+IHJGpzmPO9nYJo8wIiEKLcqZHgxlwY9itDDU2KOcbUBkt+ycgXfRBTVnt3+2ldpow3xoJ45XA==
-X-Received: by 2002:a05:620a:4247:b0:7c0:a075:3d93 with SMTP id
- af79cd13be357-7c247e0ac60mr826076585a.0.1740633780258; 
- Wed, 26 Feb 2025 21:23:00 -0800 (PST)
-Received: from localhost.localdomain ([38.74.25.248])
- by smtp.gmail.com with ESMTPSA id
- af79cd13be357-7c378dab64asm65670085a.100.2025.02.26.21.22.59
- for <amd-gfx@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 26 Feb 2025 21:22:59 -0800 (PST)
-From: Alexandre Demers <alexandre.f.demers@gmail.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 4/6] drm/amdgpu: add some comments in DCE6
-Date: Thu, 27 Feb 2025 00:22:39 -0500
-Message-ID: <20250227052241.171102-5-alexandre.f.demers@gmail.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20250227052241.171102-1-alexandre.f.demers@gmail.com>
-References: <20250227052241.171102-1-alexandre.f.demers@gmail.com>
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2040.outbound.protection.outlook.com [40.107.100.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E836310EA8F
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Feb 2025 10:15:32 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=H2cs/Gnd4y3M0BHOxTdbaTjYzvEz4AZIonPre//s+wcqNM+9eXbzFQY0Qgfj46hFI1EmSlOx/U0I2T8cmEKI74Ou8YTqR9wcRAZe4N9DvBXN7QwK42g+dX5/hQaPmNXQkRIojmKzbvrxRksA9UUDo0My72tv1V1/IbeqWs4i9UoxwHBh7PUUVVpPIWMU6cJTZX7I96idY1jNdsg22F02lM/2Pa6bGnX8elrgOVgXjVdfSqn1iTYXkYqW1OPbXwYhJMbhLE7vtUhq2N6cqPJ1JD6b8TkzWnIU1lKJ5XUafavqyV4lP/3a96ltg5Ed8o8SF6DAImoSQDdOQ8MohhLEXw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nHNCy0s/tD/dnQ2kcHhAwxsAVZUIU7QSYgcLsu/7vWI=;
+ b=pjzwCAiva9P7xso/HSLl7UmLjXc52mWlBytwAjbWBhyQGd+slua7ulTZlP6wTC/titiEI2ZSXldcV9vK23DHFkPfIHPzaRIIlnRswnkZ1152du4vuqPTWUXV9sKB/QnR0+TUpmCForlU8BwIkOWRT4Nbw/94j7Lq50ra1Uzf5eJkCUe/DU7/Az3yVF7CbHYfs0FBq1ofjZPCqi0D+0/4Z0FgRBLcFwl5/J1FLRYwKG+pMljfbwp1WFSjbIbfmDB2PNGzKRFw2J4BEDtoT05tooSdE3BaOKRKPs5gIff/cVzFkBXgm00Ot0rJf1cSwNOfpJA7ovmW1fWpxugIegyGpg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=nHNCy0s/tD/dnQ2kcHhAwxsAVZUIU7QSYgcLsu/7vWI=;
+ b=J/i5Az+dslkYL58pcmbjGbx9P9Paoo4rcyCwlDCPzA7fYGjHD+/a69A4c1tclWP2XYuurq2KAR3tE+AfDHXE/TdvKVrM94WcrgV/6sic9kC5vqYYWLLoDCYwnev2B32U0tQqbW5PgfsdszuzcfCnLfCjaN289OT/7/INos95FUk=
+Received: from DS7PR12MB6005.namprd12.prod.outlook.com (2603:10b6:8:7c::17) by
+ SJ2PR12MB7991.namprd12.prod.outlook.com (2603:10b6:a03:4d1::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8466.19; Thu, 27 Feb
+ 2025 10:15:28 +0000
+Received: from DS7PR12MB6005.namprd12.prod.outlook.com
+ ([fe80::4dc0:f34c:9e7e:ccb]) by DS7PR12MB6005.namprd12.prod.outlook.com
+ ([fe80::4dc0:f34c:9e7e:ccb%5]) with mapi id 15.20.8489.019; Thu, 27 Feb 2025
+ 10:15:28 +0000
+From: "Liang, Prike" <Prike.Liang@amd.com>
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Subject: RE: [PATCH 2/2] drm/amdgpu: validate user queue parameters
+Thread-Topic: [PATCH 2/2] drm/amdgpu: validate user queue parameters
+Thread-Index: AQHbiMyDA0LzpyBtBUa1MQrBF3i39rNa62GA
+Date: Thu, 27 Feb 2025 10:15:28 +0000
+Message-ID: <DS7PR12MB60055EF89017822A8C6106F6FBCD2@DS7PR12MB6005.namprd12.prod.outlook.com>
+References: <20250227040234.235004-1-alexander.deucher@amd.com>
+ <20250227040234.235004-2-alexander.deucher@amd.com>
+In-Reply-To: <20250227040234.235004-2-alexander.deucher@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ActionId=f71860be-8d61-4394-a5db-409cab489d0e;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=0;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=true;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open Source;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2025-02-27T10:15:21Z;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Tag=10, 0, 1, 1;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DS7PR12MB6005:EE_|SJ2PR12MB7991:EE_
+x-ms-office365-filtering-correlation-id: d28a1c39-8d82-449f-18b8-08dd5717a8e1
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|1800799024|366016|7053199007|38070700018; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?f0h73Ff8+CwLmfLGdvaAAF4P7Z4vlROnuDp8lNvPzc94IXIqGyS/WK+zBkh+?=
+ =?us-ascii?Q?21SPMJO/crW+3khIlg2eFG41jtALK/AMLDagigr6Eidinaa+/XcQKyOri7CD?=
+ =?us-ascii?Q?dzKcNlyTcw2DxwTpSZ9fwYiHbE8pqQYgeOp5p+3kEMYjIFMz0QA1b2aBhB8r?=
+ =?us-ascii?Q?Y/ghGPt/W9MezhDkX6Z62oqQExzujtCeOk4+/4YVN3txktFSRQIvdaDUujL1?=
+ =?us-ascii?Q?xX+yGFveaa2m0RbCZAtE+ijcWxOESOji1B3NIej74NP5OHBqlANGpa+iXSpC?=
+ =?us-ascii?Q?78PvHuBtcGLR1iozEDNmpFq7gS7S1CEV8NNuugStJIfOBD/La9s/oK+8nzHh?=
+ =?us-ascii?Q?xCIl72p1IwMGaD5H+bK+HIHHiBb97HrUL8S1iVhVW9Xg+IqnmkHowDDob/tn?=
+ =?us-ascii?Q?LDR8fS7v7zZ64EjGLZuz/DsN1siRF++C/XRIll7+uu+ZrgLpMaMqXBMbY/mW?=
+ =?us-ascii?Q?HaLcYg54TCDh/l3X202dvYYKrGxzLe6blZ6+PwloJYilF2husENTZSDh+aYJ?=
+ =?us-ascii?Q?EYjIT1sy/ODGjy7GlMa08KRaWBmQv/t7nu6n61oHlCuRrbNcyAS5QmIm7oM7?=
+ =?us-ascii?Q?BnBgeTY4rVmnDBIoGwC65WJGf7jKw+S/wtY5kvL3baNMpvIKTc2M6P+b7rMt?=
+ =?us-ascii?Q?h25gfJoluU1q+tcnGs81f1KPhfMhXhv4moetWfCtrJPfxMUVcv/G6QOqwHF9?=
+ =?us-ascii?Q?Pu7+W24DUxSNja0X1OAFG4kcVAawO+8mFZ3bbn+NhEVl3nZzwcj7s0ALcwfn?=
+ =?us-ascii?Q?I/Q92tMPUliDSJ3OlI4ziwTn3uwW/ih0Ql9QD1VoLM/4O8qXnS2sg6geI0FB?=
+ =?us-ascii?Q?QFF8dKqTzEi7JXbT9Oj8SweydBKwVFSDkRoLZzYWTk6jr6ZT1q4ycPMYg/l7?=
+ =?us-ascii?Q?GEwGm/loOEIl/MsXAhGMmqr4KNLq2OUyOyOIfEWGiHA5iTvaobhvOBtJ84EW?=
+ =?us-ascii?Q?ifhnbYpTwKlhh262EF/QXR9UFXTeuzs2H5/nECJGl9AmFyXIQNx9wglw53TB?=
+ =?us-ascii?Q?eJzLJsNLQbrg5+QT5KwtuFkKguMhRVThyhrbZK+iNwZ9ZLf9XZEMnMXkWCRw?=
+ =?us-ascii?Q?Bkz56QBlDrPd1PeTRrURa7Y1epJVyTeGeUrNeCT04GVG1jrs3ap8G/Q1sFop?=
+ =?us-ascii?Q?nDl5JR1rmNT7JKrnuny7KWV4KTLoA9iktqX90jq+vyKRvqE8DY7DfrmpRYDH?=
+ =?us-ascii?Q?lrRejLFGq9/UUpmSEWehXQDBeW8+Awt1H6p/8faNrXGhyJebV8HDb0g4VDfb?=
+ =?us-ascii?Q?3GPxS+f8NOBAtXtGlxllZe9U5fuw3JQ/2sNjnGuyEVW8zYMP3D4IOqyc0aIE?=
+ =?us-ascii?Q?Qo8ST56CzlvHx2PtD41GhlAjrXqCnKLbgsgjnMOXmkttMq+H/1yJ0qB59tD4?=
+ =?us-ascii?Q?+uQocZpEosrwM3kzBiWeSqYv4gurbZ+1ygd74BCkesgnrfM53TVNGVWa+E7+?=
+ =?us-ascii?Q?w1olOg34ObcnXRhAoLF6M7l1EPSNUjyh?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS7PR12MB6005.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(7053199007)(38070700018); DIR:OUT;
+ SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?q7eOaJO+t2kB2eCBJP14zHWuZOHylJY5lPR/qqIVJfN4puMsIWO8u3hKMEJc?=
+ =?us-ascii?Q?74fIMJ/frG5S6ag7Mg68qk6hGeNMWg7JknK4/s+k7TX+FdXoFGmxUf3Miuw5?=
+ =?us-ascii?Q?uWHA7njvhNAazHetzdiGs+qV6BT+bQSs+SittBU+ewaEIJCjB/NFP5VyPUig?=
+ =?us-ascii?Q?EwGDGJKQS1PsNXRIMZLZ0U3tkwRa2Ja7MhtV2sbKaFHKdxi4M0qu+lMug3PU?=
+ =?us-ascii?Q?pPqMWoYZWFUvdU9DcLksygA6jhja4dg45QvDVAsZy8bHe/6QIGUKgh+k8+4Z?=
+ =?us-ascii?Q?VLDJcE6SpNvQBQPbcF9nY2Oo77V2+KnRlWZ/l1gPjg8dTa6UA/L0DJl7evN7?=
+ =?us-ascii?Q?zfF40+HIse7ccTyTHkpdpb8SAhOOTxxXQ4v46NJn3PrcqfWKXU3taZNX9CoJ?=
+ =?us-ascii?Q?PDFeba6mNt4iTaa0cyBfqAZhjolou74xldLyREglI7+eWV45SqJQcUeOUHtQ?=
+ =?us-ascii?Q?6pLtaN86ufoUjvAUXg7sxoOgVnVHT3bpELK1CWDxr+LUk6Camte3F0aVvaFr?=
+ =?us-ascii?Q?dXgcYsUtLFh+TjciHxZJ9DHOCE9b5IWi2QCti4KtGXwiNTheH+Ors51NtdMp?=
+ =?us-ascii?Q?wyWb5aT309uwn4XAYuqzvfuNw5hb/55R+pZXKKeRMKeSrnNwfuayEZQJ2enN?=
+ =?us-ascii?Q?VAq+6vCzLYmBhhAjfeigjCLY3s8fyG+E/WJPctBRZDnxhC5spTVXJR9xFp3c?=
+ =?us-ascii?Q?OutPSH7KQLS5kxoDjdrASVIt1dN329a23NbJbK5srQHTE8ai45/7nslULdoh?=
+ =?us-ascii?Q?owJT/38f6Qg+IHPuud4yudaFccvsTe6/N55ibG6U3FIJH2DJV8sYjnthVaAY?=
+ =?us-ascii?Q?ySlgGhDkEP0kfr+lHRADm15bWTwPsZT1nFOEcDA1Sq/EY55ubVQ7C2sRpPj0?=
+ =?us-ascii?Q?TWJnX7w2xyU3XujvZmqd2m0nQEqXElhyHIlVtVfAgmf54KC4fGadvtlIYC4h?=
+ =?us-ascii?Q?A7++BaVey3wCF7M31CJd+nTPxmJMQJrQWsZ78QtsmIUcJ+I6KOL4Z+fgVsay?=
+ =?us-ascii?Q?J5z9A6akAtcMtM0LaT62hSh/HMwCsHERc8D3A06qR6cqSjZW0a+Ym2SeeB3X?=
+ =?us-ascii?Q?vE/RItnpKLtj6D/cA4HqTnSt/Sp1BXBM8wH+pBWRQvaBqpwX7EK+j3HjdVVf?=
+ =?us-ascii?Q?EUel1LjzDcf/XzsDkI4MoEw2RV4cc3D3i0G6gNNEmrDCnntaSQyhl27J0XJ0?=
+ =?us-ascii?Q?kraUlg+Ap4qE9KKGh4NMEcZC++mz83pehqJF1/COk+1u9zRQ/CvmfpwXhydH?=
+ =?us-ascii?Q?Y6UZ/9vEbOPl4SYEja76ZExEvzw7twqN/skzXiu2F6Dwx86NLRIAUKVrsAur?=
+ =?us-ascii?Q?xMb+yjvdTdbiYlLlSmZKGZMWCR4wDswslKgCMB3nY24MnlTZLuQWpExI1xmi?=
+ =?us-ascii?Q?aSzPk982hB7o2fuiSm7nvbheZEifZrcPzSzBvCE3uo5M9/JTikYiUsUYyuIx?=
+ =?us-ascii?Q?yrMcqBBO21Cva5s2Y8iv/Il09k6A0BVuz615Hp9yuvrRlewWmzPDkcM9pF1O?=
+ =?us-ascii?Q?EvKw/ST66+yBuIgAW27+9EEQHMFMHHCaoDDyDPN4hqQrkWF9RnVPQjDviN65?=
+ =?us-ascii?Q?GPX28rMc9MEp50uNmCI=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB6005.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d28a1c39-8d82-449f-18b8-08dd5717a8e1
+X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Feb 2025 10:15:28.5347 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: YyA5SzUWfM6HDpBtv59ScRLm6Z/XTE65biWiCFY7HYJ898XvFlSJuOqfwBKzwqdP
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7991
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,67 +156,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Signed-off-by: Alexandre Demers <alexandre.f.demers@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/dce_v6_0.c | 18 ++++++++++++++++--
- 1 file changed, 16 insertions(+), 2 deletions(-)
+[Public]
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-index e805c4f9222c..fd2eb454a5d8 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-@@ -207,9 +207,9 @@ static void dce_v6_0_page_flip(struct amdgpu_device *adev,
- 	/* update the scanout addresses */
- 	WREG32(mmGRPH_PRIMARY_SURFACE_ADDRESS_HIGH + amdgpu_crtc->crtc_offset,
- 	       upper_32_bits(crtc_base));
-+	/* writing to the low address triggers the update */
- 	WREG32(mmGRPH_PRIMARY_SURFACE_ADDRESS + amdgpu_crtc->crtc_offset,
- 	       (u32)crtc_base);
--
- 	/* post the write */
- 	RREG32(mmGRPH_PRIMARY_SURFACE_ADDRESS + amdgpu_crtc->crtc_offset);
- }
-@@ -219,11 +219,11 @@ static int dce_v6_0_crtc_get_scanoutpos(struct amdgpu_device *adev, int crtc,
- {
- 	if ((crtc < 0) || (crtc >= adev->mode_info.num_crtc))
- 		return -EINVAL;
-+
- 	*vbl = RREG32(mmCRTC_V_BLANK_START_END + crtc_offsets[crtc]);
- 	*position = RREG32(mmCRTC_STATUS_POSITION + crtc_offsets[crtc]);
- 
- 	return 0;
--
- }
- 
- /**
-@@ -1038,6 +1038,18 @@ static void dce_v6_0_program_watermarks(struct amdgpu_device *adev,
- }
- 
- /* watermark setup */
-+/**
-+ * dce_v6_0_line_buffer_adjust - Set up the line buffer
-+ *
-+ * @adev: amdgpu_device pointer
-+ * @amdgpu_crtc: the selected display controller
-+ * @mode: the current display mode on the selected display
-+ * controller
-+ *
-+ * Setup up the line buffer allocation for
-+ * the selected display controller (CIK).
-+ * Returns the line buffer size in pixels.
-+ */
- static u32 dce_v6_0_line_buffer_adjust(struct amdgpu_device *adev,
- 				   struct amdgpu_crtc *amdgpu_crtc,
- 				   struct drm_display_mode *mode,
-@@ -1418,6 +1430,8 @@ static int dce_v6_0_audio_init(struct amdgpu_device *adev)
- 		adev->mode_info.audio.pin[i].connected = false;
- 		adev->mode_info.audio.pin[i].offset = pin_offsets[i];
- 		adev->mode_info.audio.pin[i].id = i;
-+		/* disable audio.  it will be set up later */
-+		/* XXX remove once we switch to ip funcs */
- 		dce_v6_0_audio_enable(adev, &adev->mode_info.audio.pin[i], false);
- 	}
- 
--- 
-2.48.1
+It seems that invalid input parameters happen rarely. Using the `unlikely()=
+` function in the validation condition can optimize the code execution path=
+.
+
+Anyway, the patch series is Reviewed-by: Prike Liang <Prike.Liang@amd.com>
+
+Regards,
+      Prike
+
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex
+> Deucher
+> Sent: Thursday, February 27, 2025 12:03 PM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
+> Subject: [PATCH 2/2] drm/amdgpu: validate user queue parameters
+>
+> Make sure these are set properly to ensure compatibility if we ever updat=
+e the
+> IOCTL interface.
+>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c | 14 ++++++++++++++
+>  1 file changed, 14 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
+> index 0664e04828c07..39279920a757c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userqueue.c
+> @@ -380,12 +380,26 @@ int amdgpu_userq_ioctl(struct drm_device *dev, void
+> *data,
+>
+>       switch (args->in.op) {
+>       case AMDGPU_USERQ_OP_CREATE:
+> +             if (args->in._pad)
+> +                     return -EINVAL;
+>               r =3D amdgpu_userqueue_create(filp, args);
+>               if (r)
+>                       DRM_ERROR("Failed to create usermode queue\n");
+>               break;
+>
+>       case AMDGPU_USERQ_OP_FREE:
+> +             if (args->in.ip_type ||
+> +                 args->in.doorbell_handle ||
+> +                 args->in.doorbell_offset ||
+> +                 args->in._pad ||
+> +                 args->in.queue_va ||
+> +                 args->in.queue_size ||
+> +                 args->in.rptr_va ||
+> +                 args->in.wptr_va ||
+> +                 args->in.wptr_va ||
+> +                 args->in.mqd ||
+> +                 args->in.mqd_size)
+> +                     return -EINVAL;
+>               r =3D amdgpu_userqueue_destroy(filp, args->in.queue_id);
+>               if (r)
+>                       DRM_ERROR("Failed to destroy usermode queue\n");
+> --
+> 2.48.1
 
