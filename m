@@ -4,118 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFBEEC282C1
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Feb 2025 17:32:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35D9EC197BF
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Feb 2025 18:52:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8639110EB56;
-	Thu, 27 Feb 2025 17:32:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D29A510EB57;
+	Thu, 27 Feb 2025 18:52:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Wwly4x98";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FV1eq3s2";
 	dkim-atps=neutral
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2070.outbound.protection.outlook.com [40.107.237.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 516FD10EB56
- for <amd-gfx@lists.freedesktop.org>; Thu, 27 Feb 2025 17:32:33 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=R0Qy/aF4rl55S7Gt9UnhKPg3gB/UP7lhO3ZLxvfbOZwV+GwJW64M9XgfzTBZ8VMSsISnr3GUIdf+fdlou5lmJCo3R6tKvbGnoYiRiY1zzq+wHyKuM0f0nrVXEKHW/2EbPLF78MbBdKX+C8ATO0WxNpgF3F1wcGT3UsMtdKZHpelmVVQnYG3g2vcFisXycCDnKnQwIeF9pTlS+xgW70bRha92/d4+BUjwAlJd1ZD2ZNoLp5aMlNJ6Q+W6pJ66sE4j+gwwuQuBEUoF1T5oPHFHQJ/h0s/JDQWViM0Tvr0UJWjWvCtDJ+5O/p9NyNIbuygV0DS1WCDVvVEcs3ZyI+wXIA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/WiI2QXPb/GeU5PpE4uLhUp0CA4YL9VHPcPBy8trfRc=;
- b=EF6I2jWOTRTqcyAnTLgXPKkUVAgIfiMu2V7g1CAkXGOo0nNX4GRlPZNEu3RAL9X4QZM+NkpvUgrg7OZbHF5eNu6MhcnaI3ednR6B0acIdNlQGJE+qBkaf8gHPp935RsJthqQvY2BxfnDpNRinLeb/klnT/MEbPa13FHXZDKAXGoV44E4t+zxqqZOvLxZNmiAi5u/0tpsyBlrGJkKHpcqOnKiPqix5mY1A7a1n/be9Ja+n1jjrTyqHPrlBT8eA6ATE0NWPfRdbBT774gaJyEt2jxx/CreRztDmyHX1nyS4EnkM0qXiBgc8BzQmp06BIIdGnV9TgZyF2fnsyn/QcFx7w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/WiI2QXPb/GeU5PpE4uLhUp0CA4YL9VHPcPBy8trfRc=;
- b=Wwly4x9856LR9WTRXRmmfVOiGrKi7yWs4qhNOQYiOJeJZRfNwJT5YvwIZy1E/4x8WmpB4ApqMQpxw+PTJTgxBMCKDlF09I6s9tSjQXo7hh+Vp7V86B5GEM8Wl21Pz6IvnFPqOhSxXpmHfhryxLYpfdzFl2h0BlPak/MCe3KhRII=
-Received: from SJ0PR13CA0099.namprd13.prod.outlook.com (2603:10b6:a03:2c5::14)
- by MW6PR12MB8997.namprd12.prod.outlook.com (2603:10b6:303:23e::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8466.20; Thu, 27 Feb
- 2025 17:32:25 +0000
-Received: from SJ5PEPF00000205.namprd05.prod.outlook.com
- (2603:10b6:a03:2c5:cafe::56) by SJ0PR13CA0099.outlook.office365.com
- (2603:10b6:a03:2c5::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8489.18 via Frontend Transport; Thu,
- 27 Feb 2025 17:32:25 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ5PEPF00000205.mail.protection.outlook.com (10.167.244.38) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8489.16 via Frontend Transport; Thu, 27 Feb 2025 17:32:24 +0000
-Received: from jonathan-KFD.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 27 Feb
- 2025 11:31:30 -0600
-From: Jonathan Kim <jonathan.kim@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Jonathan Kim <jonathan.kim@amd.com>
-Subject: [PATCH] drm/amdkfd: remove unused debug gws support status variable
-Date: Thu, 27 Feb 2025 12:31:00 -0500
-Message-ID: <20250227173100.3160647-1-jonathan.kim@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mail-ua1-f41.google.com (mail-ua1-f41.google.com
+ [209.85.222.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F6CA10EB71
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Feb 2025 18:52:12 +0000 (UTC)
+Received: by mail-ua1-f41.google.com with SMTP id
+ a1e0cc1a2514c-86b2aaf84daso492895241.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Feb 2025 10:52:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1740682331; x=1741287131; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=QyI61OCRkdOANPTOpIF9RJPDyAwfK3Xl88NZsBOJpdI=;
+ b=FV1eq3s2vOq5E/jGIxDNtqKF/ZW24u2a+GfVD9Y8cEoKRZBkzDsOUgpUcXIV2zRH4Z
+ 9CMnbaiMjP54Cq6kKVRCpc2C/sOd8RKXWeMGIpDE6XvgstzRvF0MTs/53rU1AGyJo39z
+ h5cMYfAhW6GgRADs5hY0WMfAW4lxGyOlpkNERM8iMK060sxO6g45fRPhUhdkB74cUQAd
+ IUuSCs0stTu5+ihJzXFsdiMuAPbVUHz43cSvHgl653XjazdiTkPzGbnvYR4uCH3JRySq
+ kDX00wFX++JdzJfe83FZorCJv5LnBNMpSk9RjGyIIJN0CEbyRUdIXHouXJD4Kg91uBk9
+ Diag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1740682331; x=1741287131;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=QyI61OCRkdOANPTOpIF9RJPDyAwfK3Xl88NZsBOJpdI=;
+ b=thvbtW7qDxpUVwaQ81ICYFgEiFvmaqO+4H7ZNuW8Olxm31HrWFSK1kGXEEcZHNBbRw
+ 2ew1tiYKh1+BxvhodDZ5FZ6HfVUqHYxNH/SPaBQVggaUmRc6IlOVuVKUazbh0BxBe6oK
+ tDgUn7ZNDpdaFiMm7FrWXsND+/ZWVdzGVgqbsu0hIUa3o7Kx3au4Og0DGhCqkNiJvauj
+ MUxB6rz9ht3/yFMuspi7K/Ypk+noFYgx7fqYn42otNzmU/iYlAV+EvYB34/o0olBhQcy
+ 4WfZUu3zfe5tGC40C2h6GFORwueSkHYRKBqfxTItGs3XN2RyXuhFEGUm4N34AteTLoys
+ nmBg==
+X-Gm-Message-State: AOJu0YxwuWzo9WnrCGWRswGR1V+xdvIwZSHSG2xy1P5xQVZ0SAJx8FNQ
+ 55VCUZszEzrC2G0T/pJDNWC4JQlW570p3q5Grst6i+wa6eXMV336ogYnPkPec/60tdWbZNeJM0f
+ qIa1RI1GA5FZh9UqdG9VbZ/icEgs=
+X-Gm-Gg: ASbGncsJsnW2dOUgL9X6GXV2o8x9z4avkAFGWxWNeB9/iAXyo9HtzUXSX1oDyHeKO09
+ GFTqCP2d4D45NElKWdJYycDh/ZLzPjAsOkzmvZPcQdGsn0mW+T+b7v+wRQcyeDWxXbvhHsU8th/
+ WANlse5Q==
+X-Google-Smtp-Source: AGHT+IFzdsAQPKdRqj8VtCe4e3K5IBbTJ6oKB+pHNPJ5QZiaxI4QR6CghMQHZCA/tNn4qUKahrG8yNH0aRnapyXi8Yk=
+X-Received: by 2002:a05:6102:32c8:b0:4bb:dc3c:1b43 with SMTP id
+ ada2fe7eead31-4c044aff68dmr597645137.8.1740682330999; Thu, 27 Feb 2025
+ 10:52:10 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF00000205:EE_|MW6PR12MB8997:EE_
-X-MS-Office365-Filtering-Correlation-Id: c46f8c1a-a813-449f-f621-08dd5754b317
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|82310400026|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?TEjYxp7C4ErcYYUY5eE1+xTnvN37fkoqA+6IBHYcoPF2+UcUVtAhByuz4apB?=
- =?us-ascii?Q?a0bkqci9thxhJsDxlOynylcN24oAwuRxtSCTZf2Zuo9kb5ZzS3xp4ptXercB?=
- =?us-ascii?Q?ymP8CmvIHMwd2QT2EC4qrmFr9aZf50iakIbUAeSKOvTuIVMUa8pqX6QuObEc?=
- =?us-ascii?Q?2OUMQjRMxoJbJUmfyfeEzHTwrBEe+2LqCjIJJRM0wjEsPpVWIa5ZBXd1rtnx?=
- =?us-ascii?Q?wFKL7Dqj+os0bayYZBdvulC/Lfr9sle2QOHpHm6j38tDlpCj8Kbt7Xl1hdua?=
- =?us-ascii?Q?qAju4t5ehnLUm5PKJFzODb8LdLCd2WNFKTsRBKhAMp/xLErvuXIRl3g27gKk?=
- =?us-ascii?Q?PtjlSZcz5M4IKH4ThmxKFgFmKX/K+wiumS2umQpxF5YXSYxaTwlfZKG1tK5R?=
- =?us-ascii?Q?3Z+dST6VS5aCb3l5dRiWlI/D5ctlzj/elst7pKkdp2WjI+S92XQ3DffbPj5d?=
- =?us-ascii?Q?4jr/RgaZYfKgCLw/4hQ6nzW+dupxiVO32uHl18JABf3B4zuGZk6m5Ok6aObn?=
- =?us-ascii?Q?Ii04BNdK5j0UuxmWNtZySPmt6F3mAnSIzd3RmzHegMScz9kVy76Gd55IFxSL?=
- =?us-ascii?Q?gsbAc9IpwpQEhhutnNYGseRiankjRjSdNqk2zNTtoxDa+0poxnhYQVSp10uz?=
- =?us-ascii?Q?wDg2Hn4FDBv6LVaPFMa6fbyfNg83rIlUe5ul9L76Bl7/2axJQZz26bwLEYZ1?=
- =?us-ascii?Q?FUk3ZFJTF05iY8jRnTCT1DWE78nD5KEDyAfh1rOa6eW5jrdrvrRNcOSS2aHy?=
- =?us-ascii?Q?Dm2kRk6MVe6miSYwvDkzaMqIC3NSxqDqwRWGPROrDogfqXQN082u7y5n+eOW?=
- =?us-ascii?Q?OfrurVAwe0AgZu26tTee7692a9EF0OA+EL6p1XgalGc7ISwFQ4vzq16b1q7t?=
- =?us-ascii?Q?uSq9SC51BcYfoE/yr7R+FIgCig3YS+8JyPoYN+RrnVCBTvxHr+Vn3ovYQa9A?=
- =?us-ascii?Q?hu01IouB9fpJuUB8P6/L33jBUwNXf5r3qluPN8PGZMidgyLymsMYB/Bu1O+u?=
- =?us-ascii?Q?3FKGUbGt7pzoslU8QTmoo6KUou5+o2Xym0sbkmaM2GEi+2J2GKhtUQGEpAV5?=
- =?us-ascii?Q?5Lbduk+zeMPXJDLawEmGwMUkE3fOhdkyfFoJpvKjVXqHUCMmBF3S/nCGcbWk?=
- =?us-ascii?Q?NgMPEpdyYFKsUaYniJRReV5RjAaoSLvV6jO14dp+kU5Hi+DMvAtcSkg1hUR9?=
- =?us-ascii?Q?l4FV+iv3mdXzlmr3lbDTB0ZelhgrZSouKbrPjc1kLeHfJdxIoXIfLHfYJ7uh?=
- =?us-ascii?Q?5rUzUJlB/I5r2VzKvACEirlzChMPv8OSFseINOX2EKJ0mRvSKqBFO+xLZPY2?=
- =?us-ascii?Q?cbtONCr/r0Ol53fGj5Yez8HYNPOyeJz0ojfDVqOAe+rbiBVCOMhHeWbn+KlL?=
- =?us-ascii?Q?zYVI0Od3GUk7tE1nqZOjlb88o8DXAsrOG0eRzEa1UM4CVV+LTA1tnI/8w8Oz?=
- =?us-ascii?Q?gxhrU2CrQSrsKNqkFnP3JXWqTsCZ8RgpqipQH0RTQ7MYZbG6dnDaIQgeQjW5?=
- =?us-ascii?Q?rWiaOj3geALGGLs=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(82310400026)(36860700013); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Feb 2025 17:32:24.8321 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c46f8c1a-a813-449f-f621-08dd5754b317
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF00000205.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8997
+References: <20250227052241.171102-1-alexandre.f.demers@gmail.com>
+ <20250227052241.171102-3-alexandre.f.demers@gmail.com>
+ <CADnq5_NkXjnE9ymMxNyoQObB3=PHw5Ed+pYihu_ssCH8d8M6yw@mail.gmail.com>
+In-Reply-To: <CADnq5_NkXjnE9ymMxNyoQObB3=PHw5Ed+pYihu_ssCH8d8M6yw@mail.gmail.com>
+From: Alexandre Demers <alexandre.f.demers@gmail.com>
+Date: Thu, 27 Feb 2025 13:51:59 -0500
+X-Gm-Features: AQ5f1JraWSch1kBl2Kp5B2T6WrlEbuYT1w4w-lp_CAKiUnQIkGk-jHgZaK4QmCM
+Message-ID: <CAPEhTTFDMQwoWjk18LE98MkdMd9skzykf3QTQeF=E6JrPf17eg@mail.gmail.com>
+Subject: Re: [PATCH 2/6] drm/amdgpu: add dce_v6_0_soft_reset() to DCE6
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,25 +81,137 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Remove unused declaration of gws_debug_workaround.
+On Thu, Feb 27, 2025 at 9:23=E2=80=AFAM Alex Deucher <alexdeucher@gmail.com=
+> wrote:
+>
+> On Thu, Feb 27, 2025 at 12:49=E2=80=AFAM Alexandre Demers
+> <alexandre.f.demers@gmail.com> wrote:
+> >
+> > DCE6 was missing soft reset, but it was easily identifiable under radeo=
+n.
+> > This should be it, pretty much as it is done under DCE8 and DCE10.
+> >
+> > Signed-off-by: Alexandre Demers <alexandre.f.demers@gmail.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c | 62 ++++++++++++++++++++++++---
+> >  1 file changed, 57 insertions(+), 5 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/am=
+d/amdgpu/dce_v6_0.c
+> > index bd763fde1c50..254cb73324c6 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+> > @@ -371,27 +371,58 @@ static u32 dce_v6_0_hpd_get_gpio_reg(struct amdgp=
+u_device *adev)
+> >         return mmDC_GPIO_HPD_A;
+> >  }
+> >
+> > +static bool dce_v6_0_is_display_hung(struct amdgpu_device *adev)
+> > +{
+> > +       u32 crtc_hung =3D 0;
+> > +       u32 crtc_status[6];
+> > +       u32 i, j, tmp;
+> > +
+> > +       for (i =3D 0; i < adev->mode_info.num_crtc; i++) {
+> > +               if (RREG32(mmCRTC_CONTROL + crtc_offsets[i]) & CRTC_CON=
+TROL__CRTC_MASTER_EN_MASK) {
+> > +                       crtc_status[i] =3D RREG32(mmCRTC_STATUS_HV_COUN=
+T + crtc_offsets[i]);
+> > +                       crtc_hung |=3D (1 << i);
+> > +               }
+> > +       }
+> > +
+> > +       for (j =3D 0; j < 10; j++) {
+> > +               for (i =3D 0; i < adev->mode_info.num_crtc; i++) {
+> > +                       if (crtc_hung & (1 << i)) {
+> > +                               tmp =3D RREG32(mmCRTC_STATUS_HV_COUNT +=
+ crtc_offsets[i]);
+> > +                               if (tmp !=3D crtc_status[i])
+> > +                                       crtc_hung &=3D ~(1 << i);
+> > +                       }
+> > +               }
+> > +               if (crtc_hung =3D=3D 0)
+> > +                       return false;
+> > +               udelay(100);
+> > +       }
+> > +
+> > +       return true;
+> > +}
+> > +
+> >  static void dce_v6_0_set_vga_render_state(struct amdgpu_device *adev,
+> >                                           bool render)
+> >  {
+> >         if (!render)
+> >                 WREG32(mmVGA_RENDER_CONTROL,
+> >                         RREG32(mmVGA_RENDER_CONTROL) & VGA_VSTATUS_CNTL=
+);
+> > -
+> >  }
+> >
+> >  static int dce_v6_0_get_num_crtc(struct amdgpu_device *adev)
+> >  {
+> > +       int num_crtc =3D 0;
+> > +
+> >         switch (adev->asic_type) {
+> >         case CHIP_TAHITI:
+> >         case CHIP_PITCAIRN:
+> >         case CHIP_VERDE:
+> > -               return 6;
+> > +               num_crtc =3D 6;
+> >         case CHIP_OLAND:
+> > -               return 2;
+> > +               num_crtc =3D 2;
+> >         default:
+> > -               return 0;
+> > +               num_crtc =3D 0;
+> >         }
+> > +       return num_crtc;
+>
+> Any particular reason for this change?  It just adds an extra variable.
+>
+> Alex
 
-Signed-off-by: Jonathan Kim <jonathan.kim@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h | 1 -
- 1 file changed, 1 deletion(-)
+Just for uniformisation with DCE8 and DCE10. We could also remove the
+variable and use returns everywhere.
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index 59619f794b6b..43950f3e6672 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -289,7 +289,6 @@ struct kfd_node {
- 
- 	/* Global GWS resource shared between processes */
- 	void *gws;
--	bool gws_debug_workaround;
- 
- 	/* Clients watching SMI events */
- 	struct list_head smi_clients;
--- 
-2.34.1
+Any preferences?
+Alexandre
 
+>
+> >  }
+> >
+> >  void dce_v6_0_disable_dce(struct amdgpu_device *adev)
+> > @@ -2846,7 +2877,28 @@ static bool dce_v6_0_is_idle(void *handle)
+> >
+> >  static int dce_v6_0_soft_reset(struct amdgpu_ip_block *ip_block)
+> >  {
+> > -       DRM_INFO("xxxx: dce_v6_0_soft_reset --- no impl!!\n");
+> > +       u32 srbm_soft_reset =3D 0, tmp;
+> > +       struct amdgpu_device *adev =3D ip_block->adev;
+> > +
+> > +       if (dce_v6_0_is_display_hung(adev))
+> > +               srbm_soft_reset |=3D SRBM_SOFT_RESET__SOFT_RESET_DC_MAS=
+K;
+> > +
+> > +       if (srbm_soft_reset) {
+> > +               tmp =3D RREG32(mmSRBM_SOFT_RESET);
+> > +               tmp |=3D srbm_soft_reset;
+> > +               dev_info(adev->dev, "SRBM_SOFT_RESET=3D0x%08X\n", tmp);
+> > +               WREG32(mmSRBM_SOFT_RESET, tmp);
+> > +               tmp =3D RREG32(mmSRBM_SOFT_RESET);
+> > +
+> > +               udelay(50);
+> > +
+> > +               tmp &=3D ~srbm_soft_reset;
+> > +               WREG32(mmSRBM_SOFT_RESET, tmp);
+> > +               tmp =3D RREG32(mmSRBM_SOFT_RESET);
+> > +
+> > +               /* Wait a little for things to settle down */
+> > +               udelay(50);
+> > +       }
+> >         return 0;
+> >  }
+> >
+> > --
+> > 2.48.1
+> >
