@@ -4,65 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05049C19F2E
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Feb 2025 14:22:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E87FDC19F2E
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Feb 2025 14:23:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F380610EB05;
-	Thu, 27 Feb 2025 14:22:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9168210EB06;
+	Thu, 27 Feb 2025 14:23:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="frOS4L/e";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RK4b8cwJ";
 	dkim-atps=neutral
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
- [209.85.214.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BEB9A10EB0B
- for <amd-gfx@lists.freedesktop.org>; Thu, 27 Feb 2025 14:22:23 +0000 (UTC)
-Received: by mail-pl1-f169.google.com with SMTP id
- d9443c01a7336-2217ea6d8daso2290085ad.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 27 Feb 2025 06:22:23 -0800 (PST)
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
+ [209.85.214.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6096C10EB06
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Feb 2025 14:23:43 +0000 (UTC)
+Received: by mail-pl1-f177.google.com with SMTP id
+ d9443c01a7336-2234f57b892so2087375ad.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Feb 2025 06:23:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1740666143; x=1741270943; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1740666223; x=1741271023; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=HdhnDh/eSaAmw0UrdStUJIKsIu+OKL9GWwc2uK+wZ9o=;
- b=frOS4L/eyQF0iRCggzB050/bSoCkI7pnHoFIkq9zQzZbyQLfKbQU726PT5id/M2rbQ
- CC/nBSiEz9Bbon4NSBjGVdj4NxEfpwgssA5Tl+pk40q9ze8kaWdzyGGRP0QVhaBqAc2z
- IQ9WOSplz6Frx7N5Cx8YI5qT/VkMl61cJJiiJTQPAh8gb0TiWVm1UP6iD3GwL2Rl6k42
- WNSZGscnJmCF2rgAHxmLlNt0lEhtivi0w0741YBVe4BYL43PxX4yRK7R72CtTiuUmlzc
- 6p8pH4Ru4v1Mr8xgvFBjUlfyXgTLbERwdpTA5nkM+vIg2l0cBotZ49HeCjfrDVWj+1DM
- psIw==
+ bh=v2WcCYEIoa98PZPva6pM8kgqQWYyaz3pTFEMIcEhMPc=;
+ b=RK4b8cwJ8bt5j7IYVaZjvMWvmLOsfV2EEX194tTkrAa1O2kNwmCH+WaeC625I54EkA
+ 4zuPSXcqFccQgTVt3grziw3TWP7hiEIF/4ZkXu6ONVUdTPFqE/EwbrjJBK5mp2g0/EPO
+ +j4CIuCbVGOYolaZnrjjiP7q/yV/yAAH2kK4Uy7vNJOue2/FESEZsvvv+YIRDCsmmVCH
+ MEZj9Yt6mw0kbINHYOmLPX9t4iOOGhfgHlF0N67TtklrrnmcMgDJYotPgPSjeh8hfJe4
+ fsetMG7zYY4DH+5NHwjybEe3DjBhOYgqLkuuWd12CJBN6X97FG3NnTVVF6tYoE3xUPd3
+ R+gQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1740666143; x=1741270943;
+ d=1e100.net; s=20230601; t=1740666223; x=1741271023;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=HdhnDh/eSaAmw0UrdStUJIKsIu+OKL9GWwc2uK+wZ9o=;
- b=oNTKhGn4xlsQTO8LCmZSQFkWeif/e3WPexRIpGkyRf3EoEmPIXzc5SVwpeUlC0OaLQ
- 7TPRMb0hJ/Cjie8Xskr7ueyS6kANLEklE/lECoECBrzzLWsD3YhcnnpFllETxYNSNAZc
- 3SlLgbbM0rqo7a+aL71uh/DQnBl/14tDhFcZabexenHtSdCuiqu5kwFPEo3bT6pH+mv3
- +eB4vHDCHxTgdBftaLrfyf4cjT9A7+At03GEObMTEwIJXEyQUnPLJga0SazoOLK0Hu6G
- UNbxtAwZW7CWesxMTgY6EE9AqJnked/6vhQGiCwnyzrk237EMV5O7CX+BXMeVrWFi/Wm
- qWBg==
-X-Gm-Message-State: AOJu0YwOMlxEKdx8Co2pQJBqanMI6yIonDXexMXPzkbitfthwMtnWjnz
- S5dZbv06n9bn1LYfg+SVpr5mwbtlYORi3piG6wpd99eReQZtcgbn+iHY/VXmmt/2JD2ceuf19uF
- 8tfH/29MuUrHwLGpoO0nX6Z69988fNg==
-X-Gm-Gg: ASbGncshK32gIsGPt6kQY1VbGLDBgATAE5jQp0QkxDi5Ufahj3pfekp1fqo4Vvf1+y4
- OmGXF6LA5Mste4lyGMQKvGYEvZmU53ab3k1SmXvzOn/8aCj+QwsRy4evI5kfqwEZiLucXS3nKX1
- CZb/YyXfo=
-X-Google-Smtp-Source: AGHT+IEE0adjHAD8ilUX0NJomjHxB3S+IxsCAOSUsESWKeyMi0IpClHIL9hKmpv7MizQdw0fdOZJEtb0HJQgZ6PD6Kc=
-X-Received: by 2002:a17:903:40c9:b0:215:b8b6:d2c4 with SMTP id
- d9443c01a7336-2219ff4f24fmr156929365ad.4.1740666143071; Thu, 27 Feb 2025
- 06:22:23 -0800 (PST)
+ bh=v2WcCYEIoa98PZPva6pM8kgqQWYyaz3pTFEMIcEhMPc=;
+ b=PgR7dpZMzVyisnuFDnAT0eZZztjzBpYs37zPppWNIxkJ2yV4qqL/oRVVcsso2b7urc
+ u1235O2+Zldf9nPlRv80fSi3Umifaz65xKqN4yemWTm79cD1UQKB/EwztmtdhArbKk9G
+ N/NGMoPONPK9F6ri57qw8nZk0Ggs9Es2zTpdL5t3v/sMLXQu0E29ytKUDItiJ+1cfVNe
+ rzGg8fxHRJpljcsMtB43s6behhwG1aLAgVNL1v4GdHNDFKVCZvrhwJqtt6CNFUQcUgwo
+ vPc7R8ZYPuu5ElcA2QK8nxdTKLyGjQjC4fO/5T6aHjLmRIJAVjPd774G41BkNQJbGPYP
+ TT1g==
+X-Gm-Message-State: AOJu0Yx0mq4zOTxOiCrOOiYcYToIkj2f298xfmzor+oxZdaXoiVvOrXt
+ YIEY0w8vIxrO+pRYn+sQFmSAMjKs2KOoNGG+EO7vhjHfPxscvmaFYTRwclS6aLhgAxgRfduGSXz
+ jewoHxapM8PtjnWJ6I2Ox5tKOzAo=
+X-Gm-Gg: ASbGncuPB4AZJkEwz/AdLpCZy2AOuSu0RHmwQUxTk2qiOwI9H8/pnZixB9hdoh0HoXD
+ E/MB9KxylPEBoc086k9h2Xe08MrwD4IiifRUhKUKk0pMbjumPsMC3cuo6KR9ntdNyx65ifuGSA+
+ jrAf8vaHw=
+X-Google-Smtp-Source: AGHT+IGRU8XkrLEJVA8/wjJmU3JC484SXDShwXyEi7e8BDb0XiQqHxRHsTKPQgCThcYV2UL2Qzu8uKkSYlJ34nBzeR4=
+X-Received: by 2002:a17:902:ecd2:b0:223:5e57:44f0 with SMTP id
+ d9443c01a7336-2235e57456fmr7337485ad.14.1740666222797; Thu, 27 Feb 2025
+ 06:23:42 -0800 (PST)
 MIME-Version: 1.0
 References: <20250227052241.171102-1-alexandre.f.demers@gmail.com>
- <20250227052241.171102-4-alexandre.f.demers@gmail.com>
-In-Reply-To: <20250227052241.171102-4-alexandre.f.demers@gmail.com>
+ <20250227052241.171102-3-alexandre.f.demers@gmail.com>
+In-Reply-To: <20250227052241.171102-3-alexandre.f.demers@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 27 Feb 2025 09:22:11 -0500
-X-Gm-Features: AQ5f1JrX2el5COGfd95nXLMV62RPtL2BSEWetY4HEDi_oVU4jS0JBdic1R3b9Xc
-Message-ID: <CADnq5_MQWOLSm_9=syBagpoQSA6i+D7A=RGtvrbuzCTjn9y2OQ@mail.gmail.com>
-Subject: Re: [PATCH 3/6] drm/amdgpu: complete
- dce_v6_0_set_crtc_vline_interrupt_state() in DCE6
+Date: Thu, 27 Feb 2025 09:23:31 -0500
+X-Gm-Features: AQ5f1JoBALURxvES5QUn8lua4BnNKmqAO_VNblGKG3OYx6Uspd8xnbTKbUI2ZXg
+Message-ID: <CADnq5_NkXjnE9ymMxNyoQObB3=PHw5Ed+pYihu_ssCH8d8M6yw@mail.gmail.com>
+Subject: Re: [PATCH 2/6] drm/amdgpu: add dce_v6_0_soft_reset() to DCE6
 To: Alexandre Demers <alexandre.f.demers@gmail.com>
 Cc: amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
@@ -81,86 +80,124 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Feb 27, 2025 at 12:23=E2=80=AFAM Alexandre Demers
+On Thu, Feb 27, 2025 at 12:49=E2=80=AFAM Alexandre Demers
 <alexandre.f.demers@gmail.com> wrote:
 >
-> dce_v6_0_set_crtc_vline_interrupt_state() was empty without any info to
-> inform the user.
-
-Doesn't hurt to fill it in, but nothing uses the vline interrupt at
-the moment.  Might be better to just remove it from all of the non-DC
-display code.
-
-Alex
-
-
->
-> Based on DCE8 and DCE10 code.
+> DCE6 was missing soft reset, but it was easily identifiable under radeon.
+> This should be it, pretty much as it is done under DCE8 and DCE10.
 >
 > Signed-off-by: Alexandre Demers <alexandre.f.demers@gmail.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c | 44 +++++++++++++++++++++++++++
->  1 file changed, 44 insertions(+)
+>  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c | 62 ++++++++++++++++++++++++---
+>  1 file changed, 57 insertions(+), 5 deletions(-)
 >
 > diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/=
 amdgpu/dce_v6_0.c
-> index 254cb73324c6..e805c4f9222c 100644
+> index bd763fde1c50..254cb73324c6 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> @@ -2957,7 +2957,51 @@ static void dce_v6_0_set_crtc_vline_interrupt_stat=
-e(struct amdgpu_device *adev,
->                                                     int crtc,
->                                                     enum amdgpu_interrupt=
-_state state)
->  {
-> +       u32 reg_block, lb_interrupt_mask;
->
-> +       if (crtc >=3D adev->mode_info.num_crtc) {
-> +               DRM_DEBUG("invalid crtc %d\n", crtc);
-> +               return;
-> +       }
-> +
-> +       switch (crtc) {
-> +       case 0:
-> +               reg_block =3D CRTC0_REGISTER_OFFSET;
-> +               break;
-> +       case 1:
-> +               reg_block =3D CRTC1_REGISTER_OFFSET;
-> +               break;
-> +       case 2:
-> +               reg_block =3D CRTC2_REGISTER_OFFSET;
-> +               break;
-> +       case 3:
-> +               reg_block =3D CRTC3_REGISTER_OFFSET;
-> +               break;
-> +       case 4:
-> +               reg_block =3D CRTC4_REGISTER_OFFSET;
-> +               break;
-> +       case 5:
-> +               reg_block =3D CRTC5_REGISTER_OFFSET;
-> +               break;
-> +       default:
-> +               DRM_DEBUG("invalid crtc %d\n", crtc);
-> +               return;
-> +       }
-> +
-> +       switch (state) {
-> +       case AMDGPU_IRQ_STATE_DISABLE:
-> +               lb_interrupt_mask =3D RREG32(mmINT_MASK + reg_block);
-> +               lb_interrupt_mask &=3D ~VLINE_INT_MASK;
-> +               WREG32(mmINT_MASK + reg_block, lb_interrupt_mask);
-> +               break;
-> +       case AMDGPU_IRQ_STATE_ENABLE:
-> +               lb_interrupt_mask =3D RREG32(mmINT_MASK + reg_block);
-> +               lb_interrupt_mask |=3D VLINE_INT_MASK;
-> +               WREG32(mmINT_MASK + reg_block, lb_interrupt_mask);
-> +               break;
-> +       default:
-> +               break;
-> +       }
+> @@ -371,27 +371,58 @@ static u32 dce_v6_0_hpd_get_gpio_reg(struct amdgpu_=
+device *adev)
+>         return mmDC_GPIO_HPD_A;
 >  }
 >
->  static int dce_v6_0_set_hpd_interrupt_state(struct amdgpu_device *adev,
+> +static bool dce_v6_0_is_display_hung(struct amdgpu_device *adev)
+> +{
+> +       u32 crtc_hung =3D 0;
+> +       u32 crtc_status[6];
+> +       u32 i, j, tmp;
+> +
+> +       for (i =3D 0; i < adev->mode_info.num_crtc; i++) {
+> +               if (RREG32(mmCRTC_CONTROL + crtc_offsets[i]) & CRTC_CONTR=
+OL__CRTC_MASTER_EN_MASK) {
+> +                       crtc_status[i] =3D RREG32(mmCRTC_STATUS_HV_COUNT =
++ crtc_offsets[i]);
+> +                       crtc_hung |=3D (1 << i);
+> +               }
+> +       }
+> +
+> +       for (j =3D 0; j < 10; j++) {
+> +               for (i =3D 0; i < adev->mode_info.num_crtc; i++) {
+> +                       if (crtc_hung & (1 << i)) {
+> +                               tmp =3D RREG32(mmCRTC_STATUS_HV_COUNT + c=
+rtc_offsets[i]);
+> +                               if (tmp !=3D crtc_status[i])
+> +                                       crtc_hung &=3D ~(1 << i);
+> +                       }
+> +               }
+> +               if (crtc_hung =3D=3D 0)
+> +                       return false;
+> +               udelay(100);
+> +       }
+> +
+> +       return true;
+> +}
+> +
+>  static void dce_v6_0_set_vga_render_state(struct amdgpu_device *adev,
+>                                           bool render)
+>  {
+>         if (!render)
+>                 WREG32(mmVGA_RENDER_CONTROL,
+>                         RREG32(mmVGA_RENDER_CONTROL) & VGA_VSTATUS_CNTL);
+> -
+>  }
+>
+>  static int dce_v6_0_get_num_crtc(struct amdgpu_device *adev)
+>  {
+> +       int num_crtc =3D 0;
+> +
+>         switch (adev->asic_type) {
+>         case CHIP_TAHITI:
+>         case CHIP_PITCAIRN:
+>         case CHIP_VERDE:
+> -               return 6;
+> +               num_crtc =3D 6;
+>         case CHIP_OLAND:
+> -               return 2;
+> +               num_crtc =3D 2;
+>         default:
+> -               return 0;
+> +               num_crtc =3D 0;
+>         }
+> +       return num_crtc;
+
+Any particular reason for this change?  It just adds an extra variable.
+
+Alex
+
+>  }
+>
+>  void dce_v6_0_disable_dce(struct amdgpu_device *adev)
+> @@ -2846,7 +2877,28 @@ static bool dce_v6_0_is_idle(void *handle)
+>
+>  static int dce_v6_0_soft_reset(struct amdgpu_ip_block *ip_block)
+>  {
+> -       DRM_INFO("xxxx: dce_v6_0_soft_reset --- no impl!!\n");
+> +       u32 srbm_soft_reset =3D 0, tmp;
+> +       struct amdgpu_device *adev =3D ip_block->adev;
+> +
+> +       if (dce_v6_0_is_display_hung(adev))
+> +               srbm_soft_reset |=3D SRBM_SOFT_RESET__SOFT_RESET_DC_MASK;
+> +
+> +       if (srbm_soft_reset) {
+> +               tmp =3D RREG32(mmSRBM_SOFT_RESET);
+> +               tmp |=3D srbm_soft_reset;
+> +               dev_info(adev->dev, "SRBM_SOFT_RESET=3D0x%08X\n", tmp);
+> +               WREG32(mmSRBM_SOFT_RESET, tmp);
+> +               tmp =3D RREG32(mmSRBM_SOFT_RESET);
+> +
+> +               udelay(50);
+> +
+> +               tmp &=3D ~srbm_soft_reset;
+> +               WREG32(mmSRBM_SOFT_RESET, tmp);
+> +               tmp =3D RREG32(mmSRBM_SOFT_RESET);
+> +
+> +               /* Wait a little for things to settle down */
+> +               udelay(50);
+> +       }
+>         return 0;
+>  }
+>
 > --
 > 2.48.1
 >
