@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 291DFC021BE
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42BC5C1B087
 	for <amd-gfx@archiver.kernel.org>; Thu, 27 Feb 2025 05:23:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2238510EA31;
-	Thu, 27 Feb 2025 05:23:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FAD810EA32;
+	Thu, 27 Feb 2025 05:23:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Bhaf62zQ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="c6dGk6F5";
 	dkim-atps=neutral
-Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com
- [209.85.222.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D1E1110EA31
+Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com
+ [209.85.222.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C7C5C10EA2B
  for <amd-gfx@lists.freedesktop.org>; Thu, 27 Feb 2025 05:22:59 +0000 (UTC)
-Received: by mail-qk1-f178.google.com with SMTP id
- af79cd13be357-7be8f28172dso51938085a.3
+Received: by mail-qk1-f172.google.com with SMTP id
+ af79cd13be357-7c0ade6036aso155004785a.0
  for <amd-gfx@lists.freedesktop.org>; Wed, 26 Feb 2025 21:22:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1740633778; x=1741238578; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1740633779; x=1741238579; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=30j1wt+iEzxRQHVP4jVLL77cr1U4h/jLENqy/Umazd8=;
- b=Bhaf62zQ+N+nXp/U0PTAo8858PKeGga/+YSHZGmV1CxR1x+d50/R75BTNwipo8VoMN
- YBAGt1Ne8u3ul7y99wcNG1mB3ayEBDW20bFejQsBNfnCqdcFJB1tXw81OzUflJa+DZHW
- hW4mbW196iB1FUFXoDp02ylww4Z2/gZNLCe43MTxP3zzXDj9I5VM6qYRNKPvmVNa16P/
- KC8hESkVWvFB8B6y1g6yeqsKOXBMZB+hexP9ps1btaCmyslLgnHTpnjuW8J4K3qGWP1l
- qr/665nXcMZDCampRb0MwbMRxMJ/Msvh8Ofnzk9j3BS7zpOphBRfT5SmuEW+AHch6eLB
- qzaQ==
+ :reply-to; bh=uH/FFT8bRxjJa6U6nUaga+bWpw6A0WqIfrFpwf1SXww=;
+ b=c6dGk6F58rGOOcRQ3XoOQu3Bnr73SM2RmuzyZKlcvgVl+U1t3qx+/JhoYFKbop0STX
+ bGVHza13glUhbs8suu4c6xWg5++wMN8MWHTtDi0IcZfpi4gLxkN/M1smOwfH+U7/WLg5
+ cGgdYDjWkWCBPXsv1cssaiiCKjwhy/Ok5pSVhBPfksWQ8iJqT/x4s9HacvsvdP70ZF+y
+ ji8S5M0W7kkTY1Hcze5+5xgktb8nilIQB8tmwAy1QtNWr+7eWHDvi545MbQViWeQpsIi
+ h3QYGpbMDWaqlmbakYkfNDoysgj2uee+98Nu5ney6ZwVStaeYsBfzil4j/Lm7rTUU897
+ cYUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1740633778; x=1741238578;
+ d=1e100.net; s=20230601; t=1740633779; x=1741238579;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=30j1wt+iEzxRQHVP4jVLL77cr1U4h/jLENqy/Umazd8=;
- b=AZryoBRjDxySzfxDzEIVVUoRIn17HnBUEOlsBZEU9ODAl5pV2gKBg7KwXHBa0s11Me
- sgnqRbAm5EVL0OYj2dESM2os0ldpYfbHahOHPfR3VzdwEp9ZIkzpDv2/wrRZ+A8IvPqI
- niqO3DCaQVxTdJ2gmbRH5EzOMN01IfQFezzOii+B/bxCNvqOClO/GX6FZKgyoiNaJIhL
- iuql2o+fCbiKcbV0v4aeNySqttc7qZeH38wtZ8dm/KLh4IffJV8exTW+DbD6f0Cr/rF8
- d1dEBv9J2M/r4g90HbeZXPZ0KawoLKmbbVo0iJTCmMeo8S9beYpZ919OEE4ld53KCuco
- Pnug==
-X-Gm-Message-State: AOJu0YzrQhpM1vPWqh6g7p21/arzQduR8MxtwAzEfcHj3OgBdWSpL3m4
- e/t6fDZbSaW/BnWk5mOnzWtLMgPKuFqn+qdQHJAVhHiX9kQLmqPRX8oKvg==
-X-Gm-Gg: ASbGncscGXnjAIzWL9daVuej3xJlfOzxvWN7GwtVl6rcvCGcTZ6Y1mYxabUQrsoiSIt
- 7gTN7Q/tYE7Ca/2d1rb7sSFhDJBquqD7MZs2BulZdqs4zkUvXWIWX47chMCPleH7Kz3YihGa33g
- gCuO9WclNAHk8qNMh4grANouGtQ5kMFw5D0c6WRMu3+N4cv52GUQHcs0dfQ18GdIQROsLsGV0w8
- hv3+ls24Q+zTfoltq7islQQodLuBf6+BWGe1jzBLl73QUHHhzpVNWYXHTbFzqvlhEJerIT1S5AU
- CIpzh4srWo5YbhPGfH6be/ZaounfEoY4RjZoLuMZRVlnDD/9
-X-Google-Smtp-Source: AGHT+IHFFAIejrWSDoEViHMO5kMugk73rCwIHNsi9igIiAe0bPTrkGxnC1u66spNib32a7HnE89u5g==
-X-Received: by 2002:a05:620a:2454:b0:7c0:71bc:dbc0 with SMTP id
- af79cd13be357-7c247f261a2mr794536285a.24.1740633778014; 
+ bh=uH/FFT8bRxjJa6U6nUaga+bWpw6A0WqIfrFpwf1SXww=;
+ b=hglBjykzcR0zV2tMMEMMm/WoHyrTNAovV/sYZXHyd387rNWv1jcTEl3PlxyDpCdp1B
+ Q/ROdyX7+MQ6tVA5kpir3XahLexv2PvKsn+aybQQPXYkV3hNGq5wa0Oqjlt0CwouCLXE
+ YLUvwBUTizQX3A5PZbxTdbD+J9Z9FSpdsMCT3+pZk7U9+advxSN7+hgQ23p1DNHbwWZ2
+ 4g0E+Dfq2pIhWiagngTaJGP9BWZ0s//i03s5QmssgJ/TzJxZwlRE0XRzdf8F6NS7O9ku
+ sjDObfDBw5JQMCm4a4zaYyHuXMt0v5zxptJ5DtM7Lb8CoDDfPQM3bjIuKp7+PLevsPER
+ CEyA==
+X-Gm-Message-State: AOJu0Yxf+Fqugw0Lja6gY645ptluQNIGu/5Xkq9ieetBCl2Mz6xxJyp7
+ a38k9UjrERxpQyDjbGiUmNtouxEqMQyDGOpv37xcuHSWG2WH3QQjo0Jrmw==
+X-Gm-Gg: ASbGncuOie9vJJUEtXwaQhTWDCFGjm6TXWYrhP0Oua6ZSNKZdAuB6GOm2daUKAtWaNX
+ lJnEvnRM5NBJAhhMhcbx7x2wtqA+V6ijQN8j3tDUmhp+9FL5z8DplDcy0wfvvI4/LfHZD85JDJz
+ 4/6AHMYgnM2h+a+QKLAbaEkF4HFo5NWLcVtglLQ7amd5l0Zh4nseelDBUeKMcvYumYv6FidLDc8
+ xNL+wzW5Q0yz58Whb92Zq3YexE3vK877G64Ifhl16cqUNs5IPviASARQA93PZ7p1UeN/aLmtCGu
+ N3ETYKh7NPIGLJ147QTMIHNIuaFHq30UBJSbgBbjwiq0HP5b
+X-Google-Smtp-Source: AGHT+IG0l/0yBpofokt37iUegsYVo/MHaWcHYl+zF+1DWLi8ZpCe2B2Q2WtTOpsk/DY7Lgz5qJWqRA==
+X-Received: by 2002:a05:620a:1a98:b0:7c0:770a:d19 with SMTP id
+ af79cd13be357-7c29f427cf2mr327141185a.8.1740633778797; 
  Wed, 26 Feb 2025 21:22:58 -0800 (PST)
 Received: from localhost.localdomain ([38.74.25.248])
  by smtp.gmail.com with ESMTPSA id
- af79cd13be357-7c378dab64asm65670085a.100.2025.02.26.21.22.57
+ af79cd13be357-7c378dab64asm65670085a.100.2025.02.26.21.22.58
  for <amd-gfx@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 26 Feb 2025 21:22:57 -0800 (PST)
+ Wed, 26 Feb 2025 21:22:58 -0800 (PST)
 From: Alexandre Demers <alexandre.f.demers@gmail.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 1/6] drm/amdgpu: add or move defines for DCE6 in sid.h
-Date: Thu, 27 Feb 2025 00:22:36 -0500
-Message-ID: <20250227052241.171102-2-alexandre.f.demers@gmail.com>
+Subject: [PATCH 2/6] drm/amdgpu: add dce_v6_0_soft_reset() to DCE6
+Date: Thu, 27 Feb 2025 00:22:37 -0500
+Message-ID: <20250227052241.171102-3-alexandre.f.demers@gmail.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20250227052241.171102-1-alexandre.f.demers@gmail.com>
 References: <20250227052241.171102-1-alexandre.f.demers@gmail.com>
@@ -83,185 +83,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-For coherence with DCE8 et DCE10, add or move some values under sid.h.
+DCE6 was missing soft reset, but it was easily identifiable under radeon.
+This should be it, pretty much as it is done under DCE8 and DCE10.
 
 Signed-off-by: Alexandre Demers <alexandre.f.demers@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/dce_v6_0.c | 63 ++++++++++++++-------------
- drivers/gpu/drm/amd/amdgpu/si_enums.h |  7 ---
- drivers/gpu/drm/amd/amdgpu/sid.h      | 29 +++++++++---
- 3 files changed, 55 insertions(+), 44 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/dce_v6_0.c | 62 ++++++++++++++++++++++++---
+ 1 file changed, 57 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-index eb7de9122d99..bd763fde1c50 100644
+index bd763fde1c50..254cb73324c6 100644
 --- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-@@ -32,6 +32,7 @@
- #include "amdgpu.h"
- #include "amdgpu_pm.h"
- #include "amdgpu_i2c.h"
-+#include "sid.h"
- #include "atom.h"
- #include "amdgpu_atombios.h"
- #include "atombios_crtc.h"
-@@ -59,31 +60,31 @@ static void dce_v6_0_set_irq_funcs(struct amdgpu_device *adev);
+@@ -371,27 +371,58 @@ static u32 dce_v6_0_hpd_get_gpio_reg(struct amdgpu_device *adev)
+ 	return mmDC_GPIO_HPD_A;
+ }
  
- static const u32 crtc_offsets[6] =
++static bool dce_v6_0_is_display_hung(struct amdgpu_device *adev)
++{
++	u32 crtc_hung = 0;
++	u32 crtc_status[6];
++	u32 i, j, tmp;
++
++	for (i = 0; i < adev->mode_info.num_crtc; i++) {
++		if (RREG32(mmCRTC_CONTROL + crtc_offsets[i]) & CRTC_CONTROL__CRTC_MASTER_EN_MASK) {
++			crtc_status[i] = RREG32(mmCRTC_STATUS_HV_COUNT + crtc_offsets[i]);
++			crtc_hung |= (1 << i);
++		}
++	}
++
++	for (j = 0; j < 10; j++) {
++		for (i = 0; i < adev->mode_info.num_crtc; i++) {
++			if (crtc_hung & (1 << i)) {
++				tmp = RREG32(mmCRTC_STATUS_HV_COUNT + crtc_offsets[i]);
++				if (tmp != crtc_status[i])
++					crtc_hung &= ~(1 << i);
++			}
++		}
++		if (crtc_hung == 0)
++			return false;
++		udelay(100);
++	}
++
++	return true;
++}
++
+ static void dce_v6_0_set_vga_render_state(struct amdgpu_device *adev,
+ 					  bool render)
  {
--	SI_CRTC0_REGISTER_OFFSET,
--	SI_CRTC1_REGISTER_OFFSET,
--	SI_CRTC2_REGISTER_OFFSET,
--	SI_CRTC3_REGISTER_OFFSET,
--	SI_CRTC4_REGISTER_OFFSET,
--	SI_CRTC5_REGISTER_OFFSET
-+	CRTC0_REGISTER_OFFSET,
-+	CRTC1_REGISTER_OFFSET,
-+	CRTC2_REGISTER_OFFSET,
-+	CRTC3_REGISTER_OFFSET,
-+	CRTC4_REGISTER_OFFSET,
-+	CRTC5_REGISTER_OFFSET
- };
- 
- static const u32 hpd_offsets[] =
- {
--	mmDC_HPD1_INT_STATUS - mmDC_HPD1_INT_STATUS,
--	mmDC_HPD2_INT_STATUS - mmDC_HPD1_INT_STATUS,
--	mmDC_HPD3_INT_STATUS - mmDC_HPD1_INT_STATUS,
--	mmDC_HPD4_INT_STATUS - mmDC_HPD1_INT_STATUS,
--	mmDC_HPD5_INT_STATUS - mmDC_HPD1_INT_STATUS,
--	mmDC_HPD6_INT_STATUS - mmDC_HPD1_INT_STATUS,
-+	HPD0_REGISTER_OFFSET,
-+	HPD1_REGISTER_OFFSET,
-+	HPD2_REGISTER_OFFSET,
-+	HPD3_REGISTER_OFFSET,
-+	HPD4_REGISTER_OFFSET,
-+	HPD5_REGISTER_OFFSET
- };
- 
- static const uint32_t dig_offsets[] = {
--	SI_CRTC0_REGISTER_OFFSET,
--	SI_CRTC1_REGISTER_OFFSET,
--	SI_CRTC2_REGISTER_OFFSET,
--	SI_CRTC3_REGISTER_OFFSET,
--	SI_CRTC4_REGISTER_OFFSET,
--	SI_CRTC5_REGISTER_OFFSET,
-+	CRTC0_REGISTER_OFFSET,
-+	CRTC1_REGISTER_OFFSET,
-+	CRTC2_REGISTER_OFFSET,
-+	CRTC3_REGISTER_OFFSET,
-+	CRTC4_REGISTER_OFFSET,
-+	CRTC5_REGISTER_OFFSET,
- 	(0x13830 - 0x7030) >> 2,
- };
- 
-@@ -1347,13 +1348,13 @@ static void dce_v6_0_audio_enable(struct amdgpu_device *adev,
- 
- static const u32 pin_offsets[7] =
- {
--	(0x1780 - 0x1780),
--	(0x1786 - 0x1780),
--	(0x178c - 0x1780),
--	(0x1792 - 0x1780),
--	(0x1798 - 0x1780),
--	(0x179d - 0x1780),
--	(0x17a4 - 0x1780),
-+	AUD0_REGISTER_OFFSET,
-+	AUD1_REGISTER_OFFSET,
-+	AUD2_REGISTER_OFFSET,
-+	AUD3_REGISTER_OFFSET,
-+	AUD4_REGISTER_OFFSET,
-+	AUD5_REGISTER_OFFSET,
-+	AUD6_REGISTER_OFFSET,
- };
- 
- static int dce_v6_0_audio_init(struct amdgpu_device *adev)
-@@ -2862,22 +2863,22 @@ static void dce_v6_0_set_crtc_vblank_interrupt_state(struct amdgpu_device *adev,
- 
- 	switch (crtc) {
- 	case 0:
--		reg_block = SI_CRTC0_REGISTER_OFFSET;
-+		reg_block = CRTC0_REGISTER_OFFSET;
- 		break;
- 	case 1:
--		reg_block = SI_CRTC1_REGISTER_OFFSET;
-+		reg_block = CRTC1_REGISTER_OFFSET;
- 		break;
- 	case 2:
--		reg_block = SI_CRTC2_REGISTER_OFFSET;
-+		reg_block = CRTC2_REGISTER_OFFSET;
- 		break;
- 	case 3:
--		reg_block = SI_CRTC3_REGISTER_OFFSET;
-+		reg_block = CRTC3_REGISTER_OFFSET;
- 		break;
- 	case 4:
--		reg_block = SI_CRTC4_REGISTER_OFFSET;
-+		reg_block = CRTC4_REGISTER_OFFSET;
- 		break;
- 	case 5:
--		reg_block = SI_CRTC5_REGISTER_OFFSET;
-+		reg_block = CRTC5_REGISTER_OFFSET;
- 		break;
- 	default:
- 		DRM_DEBUG("invalid crtc %d\n", crtc);
-diff --git a/drivers/gpu/drm/amd/amdgpu/si_enums.h b/drivers/gpu/drm/amd/amdgpu/si_enums.h
-index 4e935baa7b91..cdf8eebaa392 100644
---- a/drivers/gpu/drm/amd/amdgpu/si_enums.h
-+++ b/drivers/gpu/drm/amd/amdgpu/si_enums.h
-@@ -121,13 +121,6 @@
- #define CURSOR_UPDATE_LOCK             (1 << 16)
- #define CURSOR_DISABLE_MULTIPLE_UPDATE (1 << 24)
- 
--#define SI_CRTC0_REGISTER_OFFSET                0
--#define SI_CRTC1_REGISTER_OFFSET                0x300
--#define SI_CRTC2_REGISTER_OFFSET                0x2600
--#define SI_CRTC3_REGISTER_OFFSET                0x2900
--#define SI_CRTC4_REGISTER_OFFSET                0x2c00
--#define SI_CRTC5_REGISTER_OFFSET                0x2f00
+ 	if (!render)
+ 		WREG32(mmVGA_RENDER_CONTROL,
+ 			RREG32(mmVGA_RENDER_CONTROL) & VGA_VSTATUS_CNTL);
 -
- #define DMA0_REGISTER_OFFSET 0x000
- #define DMA1_REGISTER_OFFSET 0x200
- #define ES_AND_GS_AUTO       3
-diff --git a/drivers/gpu/drm/amd/amdgpu/sid.h b/drivers/gpu/drm/amd/amdgpu/sid.h
-index 9a39cbfe6db9..32a4e7d450c6 100644
---- a/drivers/gpu/drm/amd/amdgpu/sid.h
-+++ b/drivers/gpu/drm/amd/amdgpu/sid.h
-@@ -1991,12 +1991,29 @@
+ }
  
- //#dce stupp
- /* display controller offsets used for crtc/cur/lut/grph/viewport/etc. */
--#define SI_CRTC0_REGISTER_OFFSET                0 //(0x6df0 - 0x6df0)/4
--#define SI_CRTC1_REGISTER_OFFSET                0x300 //(0x79f0 - 0x6df0)/4
--#define SI_CRTC2_REGISTER_OFFSET                0x2600 //(0x105f0 - 0x6df0)/4
--#define SI_CRTC3_REGISTER_OFFSET                0x2900 //(0x111f0 - 0x6df0)/4
--#define SI_CRTC4_REGISTER_OFFSET                0x2c00 //(0x11df0 - 0x6df0)/4
--#define SI_CRTC5_REGISTER_OFFSET                0x2f00 //(0x129f0 - 0x6df0)/4
-+#define CRTC0_REGISTER_OFFSET                 (0x1b7c - 0x1b7c) //(0x6df0 - 0x6df0)/4
-+#define CRTC1_REGISTER_OFFSET                 (0x1e7c - 0x1b7c) //(0x79f0 - 0x6df0)/4
-+#define CRTC2_REGISTER_OFFSET                 (0x417c - 0x1b7c) //(0x105f0 - 0x6df0)/4
-+#define CRTC3_REGISTER_OFFSET                 (0x447c - 0x1b7c) //(0x111f0 - 0x6df0)/4
-+#define CRTC4_REGISTER_OFFSET                 (0x477c - 0x1b7c) //(0x11df0 - 0x6df0)/4
-+#define CRTC5_REGISTER_OFFSET                 (0x4a7c - 0x1b7c) //(0x129f0 - 0x6df0)/4
+ static int dce_v6_0_get_num_crtc(struct amdgpu_device *adev)
+ {
++	int num_crtc = 0;
 +
-+/* hpd instance offsets */
-+#define HPD0_REGISTER_OFFSET                 (0x1807 - 0x1807)
-+#define HPD1_REGISTER_OFFSET                 (0x180a - 0x1807)
-+#define HPD2_REGISTER_OFFSET                 (0x180d - 0x1807)
-+#define HPD3_REGISTER_OFFSET                 (0x1810 - 0x1807)
-+#define HPD4_REGISTER_OFFSET                 (0x1813 - 0x1807)
-+#define HPD5_REGISTER_OFFSET                 (0x1816 - 0x1807)
-+
-+/* audio endpt instance offsets */
-+#define AUD0_REGISTER_OFFSET                 (0x1780 - 0x1780)
-+#define AUD1_REGISTER_OFFSET                 (0x1786 - 0x1780)
-+#define AUD2_REGISTER_OFFSET                 (0x178c - 0x1780)
-+#define AUD3_REGISTER_OFFSET                 (0x1792 - 0x1780)
-+#define AUD4_REGISTER_OFFSET                 (0x1798 - 0x1780)
-+#define AUD5_REGISTER_OFFSET                 (0x179d - 0x1780)
-+#define AUD6_REGISTER_OFFSET                 (0x17a4 - 0x1780)
+ 	switch (adev->asic_type) {
+ 	case CHIP_TAHITI:
+ 	case CHIP_PITCAIRN:
+ 	case CHIP_VERDE:
+-		return 6;
++		num_crtc = 6;
+ 	case CHIP_OLAND:
+-		return 2;
++		num_crtc = 2;
+ 	default:
+-		return 0;
++		num_crtc = 0;
+ 	}
++	return num_crtc;
+ }
  
- #define CURSOR_WIDTH 64
- #define CURSOR_HEIGHT 64
+ void dce_v6_0_disable_dce(struct amdgpu_device *adev)
+@@ -2846,7 +2877,28 @@ static bool dce_v6_0_is_idle(void *handle)
+ 
+ static int dce_v6_0_soft_reset(struct amdgpu_ip_block *ip_block)
+ {
+-	DRM_INFO("xxxx: dce_v6_0_soft_reset --- no impl!!\n");
++	u32 srbm_soft_reset = 0, tmp;
++	struct amdgpu_device *adev = ip_block->adev;
++
++	if (dce_v6_0_is_display_hung(adev))
++		srbm_soft_reset |= SRBM_SOFT_RESET__SOFT_RESET_DC_MASK;
++
++	if (srbm_soft_reset) {
++		tmp = RREG32(mmSRBM_SOFT_RESET);
++		tmp |= srbm_soft_reset;
++		dev_info(adev->dev, "SRBM_SOFT_RESET=0x%08X\n", tmp);
++		WREG32(mmSRBM_SOFT_RESET, tmp);
++		tmp = RREG32(mmSRBM_SOFT_RESET);
++
++		udelay(50);
++
++		tmp &= ~srbm_soft_reset;
++		WREG32(mmSRBM_SOFT_RESET, tmp);
++		tmp = RREG32(mmSRBM_SOFT_RESET);
++
++		/* Wait a little for things to settle down */
++		udelay(50);
++	}
+ 	return 0;
+ }
+ 
 -- 
 2.48.1
 
