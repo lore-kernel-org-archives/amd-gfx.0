@@ -4,70 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1AE9C19F2E
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Feb 2025 10:27:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 444F1C021BE
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Feb 2025 11:48:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E8FE10EA73;
-	Thu, 27 Feb 2025 10:27:15 +0000 (UTC)
-X-Greylist: delayed 2344 seconds by postgrey-1.36 at gabe;
- Thu, 27 Feb 2025 04:05:54 UTC
-Received: from mx0a-0064b401.pphosted.com (mx0a-0064b401.pphosted.com
- [205.220.166.238])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F65410EA23;
- Thu, 27 Feb 2025 04:05:54 +0000 (UTC)
-Received: from pps.filterd (m0250810.ppops.net [127.0.0.1])
- by mx0a-0064b401.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 51R3L8oi015977;
- Wed, 26 Feb 2025 19:26:40 -0800
-Received: from ala-exchng01.corp.ad.wrs.com (ala-exchng01.wrs.com
- [147.11.82.252])
- by mx0a-0064b401.pphosted.com (PPS) with ESMTPS id 451ptmhmej-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Wed, 26 Feb 2025 19:26:40 -0800 (PST)
-Received: from ALA-EXCHNG02.corp.ad.wrs.com (147.11.82.254) by
- ala-exchng01.corp.ad.wrs.com (147.11.82.252) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.43; Wed, 26 Feb 2025 19:26:39 -0800
-Received: from pek-lpg-core1.wrs.com (147.11.136.210) by
- ALA-EXCHNG02.corp.ad.wrs.com (147.11.82.254) with Microsoft SMTP Server id
- 15.1.2507.43 via Frontend Transport; Wed, 26 Feb 2025 19:26:34 -0800
-From: <jianqi.ren.cn@windriver.com>
-To: <stable@vger.kernel.org>
-CC: <patches@lists.linux.dev>, <alexander.deucher@amd.com>,
- <daniel.wheeler@amd.com>, <mario.limonciello@amd.com>,
- <josip.pavic@amd.com>, <aurabindo.pillai@amd.com>,
- <sohaib.nadeem@amd.com>, <gregkh@linuxfoundation.org>,
- <harry.wentland@amd.com>, <sunpeng.li@amd.com>,
- <Rodrigo.Siqueira@amd.com>, <christian.koenig@amd.com>,
- <Xinhui.Pan@amd.com>, <airlied@gmail.com>, <daniel@ffwll.ch>,
- <wayne.lin@amd.com>, <sashal@kernel.org>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <charlene.liu@amd.com>, <gabe.teeger@amd.com>,
- <amd-gfx@lists.freedesktop.org>, <Nicholas.Kazlauskas@amd.com>
-Subject: [PATCH 6.1.y] drm/amd/display: fixed integer types and null check
- locations
-Date: Thu, 27 Feb 2025 11:26:33 +0800
-Message-ID: <20250227032633.4176866-1-jianqi.ren.cn@windriver.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD4BF10E171;
+	Thu, 27 Feb 2025 11:48:49 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Jy0tYjdg";
+	dkim-atps=neutral
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2057.outbound.protection.outlook.com [40.107.94.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6142910E171
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Feb 2025 11:48:41 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=JYtLuTJ+O5cG6t36f4zYI2AjGBnVnEfpnoa2gtIWAkOkbOja1XXJ7TyNnME+vmENm8d9ulOM2RbED/hSpADRBd8HSqKBgStvYtFdQhce87v/VadVp8D3xccQ3cjrouZU2tcsyVfy/ZDBM0eQ0QLq8yzo5UuvV7lNDEU0QF1bzDVTKYT0qlMiwzoPW6NJzdHUlGqwYdAi/pL3zddITgikzKJ6CcxMCyMqx5oxaQ/akgwhqm7cxcipcSVXImcHv9cFswFOTPJ6lcv/2g9zL7L/7m1uBMd3VeNJ/pVhrB+8MQ5V2k+XgT0XtAzpkAyrj9J/QCAcZXmeIpsEka4vbhN3Ag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fY91cJsiZje1ShTuLqgKCWSWgKs3bXPujc2kRm3Hi34=;
+ b=hZ4kabllaDXRazJlOQE9MuSAW40mWDffMUeDGhedHDh+d+oTVmnZMRGI4WW6PtIR2+Dff/qTDXhDnr4AnwkvYxZBed6pqovPQOJOs0SR+29NN808jSBnGJW98oYcVC1faa0xzR/eeToksIAtSXLkWzHAIaxerQZss3SVEO19XkRId0towEXD7aQoS+SijGKQJDG+nFF1QAJp5Lrx6/xtXhuGxYR95+OzU1JBte3e60uGyDCKlVDYhgF08S6g9Kg3cmRpqiAYwkWny5bv3UjoAt6XrsCy3uzATdhRJssMBEnEqvKbBtODus2S+UbhnqSb4BUYGVzCq1UhwQg8+Ye+hA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fY91cJsiZje1ShTuLqgKCWSWgKs3bXPujc2kRm3Hi34=;
+ b=Jy0tYjdgLr1tSZ/UwHHpWucaeIx8IswiRfkacv1656i1Ocv+qM5c976On2J/KaAwyz/wlgwD3wx6NGR29NJdFIyq5r0ABGzfraVrl7wAkg1ZmVWJVlo87iHu3zD5/xCImtCRIo1LlZh4GEtYSwJ5ISBSw8kyIzAAQTvTxAjJrII=
+Received: from MW2PR2101CA0036.namprd21.prod.outlook.com (2603:10b6:302:1::49)
+ by DS7PR12MB8345.namprd12.prod.outlook.com (2603:10b6:8:d8::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8489.22; Thu, 27 Feb
+ 2025 11:48:34 +0000
+Received: from SJ1PEPF000023DA.namprd21.prod.outlook.com
+ (2603:10b6:302:1:cafe::af) by MW2PR2101CA0036.outlook.office365.com
+ (2603:10b6:302:1::49) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8511.3 via Frontend Transport; Thu,
+ 27 Feb 2025 11:48:34 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ SJ1PEPF000023DA.mail.protection.outlook.com (10.167.244.75) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8511.0 via Frontend Transport; Thu, 27 Feb 2025 11:48:34 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 27 Feb
+ 2025 05:48:02 -0600
+Received: from JesseDEV.guestwireless.amd.com (10.180.168.240) by
+ SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39
+ via Frontend Transport; Thu, 27 Feb 2025 05:47:55 -0600
+From: "Jesse.zhang@amd.com" <jesse.zhang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
+ Lijo Lazar <lijo.lazar@amd.com>, Jiadong Zhu <Jiadong.Zhu@amd.com>,
+ "Jesse.zhang@amd.com" <Jesse.zhang@amd.com>, Jesse Zhang
+ <jesse.zhang@amd.com>
+Subject: [PATCH 1/3 v5] drm/amd/amdgpu: Increase max rings to enable SDMA page
+ ring
+Date: Thu, 27 Feb 2025 19:47:53 +0800
+Message-ID: <20250227114755.444535-1-jesse.zhang@amd.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Proofpoint-GUID: aMIR4xxGOCX5NeqdwxXpYEWFVpqL_Trx
-X-Authority-Analysis: v=2.4 cv=TuEchCXh c=1 sm=1 tr=0 ts=67bfdb70 cx=c_pps
- a=/ZJR302f846pc/tyiSlYyQ==:117 a=/ZJR302f846pc/tyiSlYyQ==:17
- a=T2h4t0Lz3GQA:10 a=zd2uoN0lAAAA:8 a=VwQbUJbxAAAA:8 a=t7CeM3EgAAAA:8
- a=fmNT8XcYnNex_eyvA98A:9 a=FdTzh2GWekK77mhwV6Dw:22
-X-Proofpoint-ORIG-GUID: aMIR4xxGOCX5NeqdwxXpYEWFVpqL_Trx
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1057,Hydra:6.0.680,FMLib:17.12.68.34
- definitions=2025-02-27_01,2025-02-26_01,2024-11-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 bulkscore=0
- adultscore=0 phishscore=0 spamscore=0 mlxlogscore=999 priorityscore=1501
- clxscore=1011 impostorscore=0 malwarescore=0 mlxscore=0 lowpriorityscore=0
- classifier=spam authscore=0 authtc=n/a authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.21.0-2502100000
- definitions=main-2502270025
-X-Mailman-Approved-At: Thu, 27 Feb 2025 10:27:13 +0000
+Received-SPF: None (SATLEXMB03.amd.com: jesse.zhang@amd.com does not designate
+ permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000023DA:EE_|DS7PR12MB8345:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5fe4531d-c395-4851-4595-08dd5724aa3b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700013|82310400026|1800799024|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?OWW9BF9dILarQYBkJaClZX8Mw5sJ4uQdS9f9ft/k6ZWJkAHlV57oJ05Z1G5G?=
+ =?us-ascii?Q?zqEG5GunyDwZz3DTU94sLUlbqdlMV2YCpYPuAUad13lptSrKCr4RtE47Tun5?=
+ =?us-ascii?Q?tjp6sIaxTq+2Eg/yVIdNVnF6/imaIOwkhQp4iDwnQQ9OXzbRIiJBLCa8FoB7?=
+ =?us-ascii?Q?sYIBrvFLwFXmuXbyE26Y9QXaYlC5rUrvv+4HPv+hLFBrCKiEtgvozqyPTsSx?=
+ =?us-ascii?Q?UADuVmtC6u9xCj0FyJBsaS8b62bEuSr6KKgpVAv6A2Wn28SgKyLTdh27ZW5k?=
+ =?us-ascii?Q?eEi9YlmCyIA3xJsuVrprcoEWwLflkI+XvMvIhqtHSywGaMKfZzfRfAVSoa2D?=
+ =?us-ascii?Q?EoOiB3G5oBL8NhBFOhBWzzVEAtWi9IPfq9WSvTGYQmwBB/9DYwKHJk3lGiFt?=
+ =?us-ascii?Q?H8jEdrjVEQ7A5o5S+24GrQDIbwH6VorozOX3h7bndhPBUtn4wjf7zRpMag8b?=
+ =?us-ascii?Q?ugl+eTTetnipu8qRlZlK95gVEkxPYmr5cMw2m7p/A+/ki8z/iyGUpb4zRGj9?=
+ =?us-ascii?Q?3RJPeF2858DIkUE8L6smSDR7eWD1d9ZjaUE/S1CB2cgeAkO3R4W//njViqkO?=
+ =?us-ascii?Q?9Yf3Rf/QKzxm1rAYgzi80m+KpixC0Nsm3X5bWz5nDAFLhQ1eDYmONv2WzmEh?=
+ =?us-ascii?Q?eMTcO1KXUmoc0tIKlI2LI7urSJ8lKxJkKEpaVYgslEYCf09eJDjSAH3PFK1b?=
+ =?us-ascii?Q?tWbfwUbo/fhGEPfZzWlrqsVvABxJ/x5Z/U+ibmQXKJGfBjqjuf9pdQuX8Lxw?=
+ =?us-ascii?Q?4cci2IuFP5J3Sp3D49jptmgnhhq2YRJCcg521wvpU3Y8YRI9+a+shA3pNJrp?=
+ =?us-ascii?Q?9LXtPIzw4n7zdgEfNokZvyr+k3Nqphv+YDQ9cOEwruHZRDk0KtXT6f/0sfWY?=
+ =?us-ascii?Q?2KqC8ugY7v9rLKvx1bTtRtDfC9GaBQmm14kZ6wQCl99GX95uNybQizsZJN36?=
+ =?us-ascii?Q?a8lunSU6rCOzJeF65mBFCTiWFdi843IWj/QzGmvSWC5Io3258CHvvB95+8j4?=
+ =?us-ascii?Q?tYiKxTHBhEjLNy7h0eIljZkvxPv5bexOZsuAnCpKJveabiXPPg4Hj02whPH+?=
+ =?us-ascii?Q?pUxSCIWGXxqUSDS7dnlchWDm/3KwaU6xNrcDvPll1DRp5ufq+0OYMHA0xzcQ?=
+ =?us-ascii?Q?2ELqkSN06qrlHp5WPjWGMnuL1YW8OaLmekcolKVwBPfzJEdoSdCeugml3N4n?=
+ =?us-ascii?Q?Cu9xXrPA7sp+dB3v+rAjIsV7mTfFAOIq66g9/eGCsDMTqLFO5hrefinkqvjB?=
+ =?us-ascii?Q?ddo/zGeEAUcyFPkt3iiVqd4q1ZhSXjAJGzrLm4wMjObINeZtRJKP3QnTA9Wk?=
+ =?us-ascii?Q?by+6qnBbm7uQVlPhTFlLzbnC5/o7ZQfUP3ha+mZSxHg9/9u8n3k+5ECSV9ie?=
+ =?us-ascii?Q?6+Hz43Mb/YHzKi59RSg5u2RoCiVaBwFvRXIl1KN2rvEI3g2ppPMqh5ODdEIe?=
+ =?us-ascii?Q?w0Rgv0lXNo9ySO8J1duhHT8K764y0XPDwJDPag0M6o/ctnkqa8OCMfvri+LX?=
+ =?us-ascii?Q?WNlblG3TMCUoCBo=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:SATLEXMB03.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(82310400026)(1800799024)(376014); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Feb 2025 11:48:34.1366 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5fe4531d-c395-4851-4595-08dd5724aa3b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000023DA.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8345
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,103 +136,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Sohaib Nadeem <sohaib.nadeem@amd.com>
+From: "Jesse.zhang@amd.com" <Jesse.zhang@amd.com>
 
-[ Upstream commit 0484e05d048b66d01d1f3c1d2306010bb57d8738 ]
+Increase the maximum number of rings supported by the AMDGPU driver from 132 to 148.
+This change is necessary to enable support for the SDMA page ring.
 
-[why]:
-issues fixed:
-- comparison with wider integer type in loop condition which can cause
-infinite loops
-- pointer dereference before null check
-
-Cc: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: stable@vger.kernel.org
-Reviewed-by: Josip Pavic <josip.pavic@amd.com>
-Acked-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Signed-off-by: Sohaib Nadeem <sohaib.nadeem@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-[ To fix CVE-2024-26767, delete changes made in drivers/gpu/drm/amd/display/dc/link/link_validation.c
- for this file is deleted in linux-6.1 ]
-Signed-off-by: Jianqi Ren <jianqi.ren.cn@windriver.com>
-Signed-off-by: He Zhe <zhe.he@windriver.com>
+Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
 ---
-Verified the build test.
----
- .../gpu/drm/amd/display/dc/bios/bios_parser2.c   | 16 ++++++++++------
- 1 file changed, 10 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
-index 4d2590964a20..75e44d8a7b40 100644
---- a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
-+++ b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
-@@ -1862,19 +1862,21 @@ static enum bp_result get_firmware_info_v3_2(
- 		/* Vega12 */
- 		smu_info_v3_2 = GET_IMAGE(struct atom_smu_info_v3_2,
- 							DATA_TABLES(smu_info));
--		DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", smu_info_v3_2->gpuclk_ss_percentage);
- 		if (!smu_info_v3_2)
- 			return BP_RESULT_BADBIOSTABLE;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+index 52f7a9a79e7b..4224f8fa1614 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+@@ -37,7 +37,7 @@ struct amdgpu_job;
+ struct amdgpu_vm;
  
-+		DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", smu_info_v3_2->gpuclk_ss_percentage);
-+
- 		info->default_engine_clk = smu_info_v3_2->bootup_dcefclk_10khz * 10;
- 	} else if (revision.minor == 3) {
- 		/* Vega20 */
- 		smu_info_v3_3 = GET_IMAGE(struct atom_smu_info_v3_3,
- 							DATA_TABLES(smu_info));
--		DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", smu_info_v3_3->gpuclk_ss_percentage);
- 		if (!smu_info_v3_3)
- 			return BP_RESULT_BADBIOSTABLE;
- 
-+		DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", smu_info_v3_3->gpuclk_ss_percentage);
-+
- 		info->default_engine_clk = smu_info_v3_3->bootup_dcefclk_10khz * 10;
- 	}
- 
-@@ -2439,10 +2441,11 @@ static enum bp_result get_integrated_info_v11(
- 	info_v11 = GET_IMAGE(struct atom_integrated_system_info_v1_11,
- 					DATA_TABLES(integratedsysteminfo));
- 
--	DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", info_v11->gpuclk_ss_percentage);
- 	if (info_v11 == NULL)
- 		return BP_RESULT_BADBIOSTABLE;
- 
-+	DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", info_v11->gpuclk_ss_percentage);
-+
- 	info->gpu_cap_info =
- 	le32_to_cpu(info_v11->gpucapinfo);
- 	/*
-@@ -2654,11 +2657,12 @@ static enum bp_result get_integrated_info_v2_1(
- 
- 	info_v2_1 = GET_IMAGE(struct atom_integrated_system_info_v2_1,
- 					DATA_TABLES(integratedsysteminfo));
--	DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", info_v2_1->gpuclk_ss_percentage);
- 
- 	if (info_v2_1 == NULL)
- 		return BP_RESULT_BADBIOSTABLE;
- 
-+	DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", info_v2_1->gpuclk_ss_percentage);
-+
- 	info->gpu_cap_info =
- 	le32_to_cpu(info_v2_1->gpucapinfo);
- 	/*
-@@ -2816,11 +2820,11 @@ static enum bp_result get_integrated_info_v2_2(
- 	info_v2_2 = GET_IMAGE(struct atom_integrated_system_info_v2_2,
- 					DATA_TABLES(integratedsysteminfo));
- 
--	DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", info_v2_2->gpuclk_ss_percentage);
--
- 	if (info_v2_2 == NULL)
- 		return BP_RESULT_BADBIOSTABLE;
- 
-+	DC_LOG_BIOS("gpuclk_ss_percentage (unit of 0.001 percent): %d\n", info_v2_2->gpuclk_ss_percentage);
-+
- 	info->gpu_cap_info =
- 	le32_to_cpu(info_v2_2->gpucapinfo);
- 	/*
+ /* max number of rings */
+-#define AMDGPU_MAX_RINGS		132
++#define AMDGPU_MAX_RINGS		148
+ #define AMDGPU_MAX_HWIP_RINGS		64
+ #define AMDGPU_MAX_GFX_RINGS		2
+ #define AMDGPU_MAX_SW_GFX_RINGS         2
 -- 
 2.25.1
 
